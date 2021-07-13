@@ -31,7 +31,7 @@ In privacy compliance scenarios, the federated learning modeling mode based on d
 
 ### Environment
 
-For details, see [Server Environment Configuration](./deploy_federated_cluster.md) and [Client Environment Configuration](./deploy_federated_client.md).
+For details, see [Server Environment Configuration](https://www.mindspore.cn/federated/docs/en/r1.3/deploy_federated_server.html) and [Client Environment Configuration](https://www.mindspore.cn/federated/docs/en/r1.3/deploy_federated_client.html).
 
 ### Data
 
@@ -113,7 +113,7 @@ For details about how to generate a model file on the device, see [Implementing 
 
 ## Starting the Federated Learning Process
 
-Start the script on the server. For details, see [Cloud-based Deployment](./deploy_federated_cluster.md)
+Start the script on the server. For details, see [Cloud-based Deployment](https://www.mindspore.cn/federated/docs/en/r1.3/deploy_federated_server.html)
 
 Based on the training and inference tasks of the ALBERT model, the overall process is as follows:
 

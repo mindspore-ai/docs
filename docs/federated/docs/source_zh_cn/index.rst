@@ -11,7 +11,7 @@ MindSpore Federated 文档
    :caption: 安装部署
 
    federated_install
-   deploy_federated_server_cluster
+   deploy_federated_server
    deploy_federated_client
 
 .. toctree::

@@ -33,7 +33,7 @@ MindSpore Federated将联邦语言模型应用到了输入法的表情图片预�
 
 ### 环境
 
-参考[服务端环境配置](https://www.mindspore.cn/federated/docs/zh-CN/r1.3/deploy_federated_server_cluster.html)和[客户端环境配置](https://www.mindspore.cn/federated/docs/zh-CN/r1.3/deploy_federated_client.html)。
+参考[服务端环境配置](https://www.mindspore.cn/federated/docs/zh-CN/r1.3/deploy_federated_server.html)和[客户端环境配置](https://www.mindspore.cn/federated/docs/zh-CN/r1.3/deploy_federated_client.html)。
 
 ### 数据
 
@@ -218,7 +218,7 @@ if __name__ == '__main__':
 
 ## 启动联邦学习流程
 
-首先在服务端启动脚本，参考[云端部署方式](https://www.mindspore.cn/federated/docs/zh-CN/r1.3/deploy_federated_server_cluster.html)。
+首先在服务端启动脚本，参考[云端部署方式](https://www.mindspore.cn/federated/docs/zh-CN/r1.3/deploy_federated_server.html)。
 
 以ALBERT模型的训练与推理任务为基础，整体流程为：
 
