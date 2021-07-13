@@ -69,7 +69,7 @@ mindspore-lite-{version}-linux-aarch32
         └── libmslite_proposal.so  # 集成proposal的样例动态库
 ```
 
-上述是NNIE的集成目录结构，推理工具runtime的其余目录结构详情，见[目录结构](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)。
+上述是NNIE的集成目录结构，推理工具runtime的其余目录结构详情，见[目录结构](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#id4)。
 
 ## 工具使用
 
@@ -294,10 +294,6 @@ ${model_path}为转换后ms模型文件路径
 ## 集成使用
 
 有关集成使用详情，见[集成c++接口](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/runtime_cpp.html)。
-
-> 用户设置Context[创建配置上下文](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/runtime_cpp.html#id3)时，需对provider_、provider_device_进行如下设置：
-> provider_ = "NNIE"
-> provider_device_ = "NNIE"
 
 ## SVP工具链相关功能支持及注意事项（高级选项）
 
