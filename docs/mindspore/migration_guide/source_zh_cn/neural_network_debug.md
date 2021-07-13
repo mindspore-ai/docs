@@ -72,7 +72,7 @@
 
   网络流程调试过程中，常出现shape不匹配、dtype不支持等算子执行报错，此时应根据报错信息检查是否正确使用算子，以及算子输入数据的shape是否与预期相符，并进行相应修改。
 
-  相关算子支持和API介绍可参考[算子支持列表](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/operator_list.html)和[算子Python API](https://www.mindspore.cn/docs/api/zh-CN/r1.3/index.html)。
+  相关算子支持和API介绍可参考[算子支持列表](https://www.mindspore.cn/docs/note/zh-CN/r1.3/operator_list.html)和[算子Python API](https://www.mindspore.cn/docs/api/zh-CN/r1.3/index.html)。
 
 - 相同脚本，在PyNative模式下能跑通，但Graph模式下报错
 
@@ -80,7 +80,7 @@
 
 - 分布式并行训练脚本配置错误
 
-  分布式并行训练脚本及环境配置可参考[分布式并行训练教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/distributed_training_tutorials.html)。
+  分布式并行训练脚本及环境配置可参考[分布式并行训练教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/distributed_training.html)。
 
 ### loss值对比检查
 

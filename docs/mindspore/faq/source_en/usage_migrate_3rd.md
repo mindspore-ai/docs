@@ -7,7 +7,27 @@
 <font size=3>**Q: How do I load a pre-trained PyTorch model for fine-tuning on MindSpore?**</font>
 
 A: Map parameters of PyTorch and MindSpore one by one. No unified conversion script is provided due to flexible network definitions.
-Customize scripts based on scenarios. For details, see [Advanced Usage of Checkpoint](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/advanced_usage_of_checkpoint.html).
+
+In general, the parameters names and parameters values are saved in the CheckPoint file. After invoking the loading interface of the corresponding framework and obtaining the parameter names and values, construct the object according to the MindSpore format, and then you can directly invoke the MindSpore interface to save as CheckPoint files in the MindSpore format.
+
+The main work is to compare the parameter names between different frameworks, so that all parameter names in the network of the two frameworks correspond to each other (a map can be used for mapping). The logic of the following code is transforming the parameter format, excluding the corresponding parameter name.
+
+```python
+import torch
+from mindspore import Tensor, save_checkpoint
+
+def pytorch2mindspore(default_file = 'torch_resnet.pth'):
+    """read pth file"""
+    par_dict = torch.load(default_file)['state_dict']
+    params_list = []
+    for name in par_dict:
+        param_dict = {}
+        parameter = par_dict[name]
+        param_dict['name'] = name
+        param_dict['data'] = Tensor(parameter.numpy())
+        params_list.append(param_dict)
+    save_checkpoint(params_list,  'ms_resnet.ckpt')
+```
 
 <br/>
 
@@ -39,7 +59,7 @@ dataset = dataset.batch(batch_size, drop_remainder=True)
 
 <font size=3>**Q: How do I migrate scripts or models of other frameworks to MindSpore?**</font>
 
-A: For details about script or model migration, please visit the [MindSpore official website](https://www.mindspore.cn/docs/programming_guide/en/r1.3/migrate_3rd_scripts.html).
+A: For details about script or model migration, please visit the [MindSpore official website](https://www.mindspore.cn/docs/migration_guide/en/r1.3/migration_script.html).
 
 <br/>
 

@@ -170,8 +170,6 @@ class LeNet5(nn.Cell):
 net = LeNet5()
 ```
 
-> For more information about building a neural network in MindSpore, see [Defining the Network](https://www.mindspore.cn/docs/programming_guide/en/r1.3/defining_the_network.html).
-
 ## Optimizing Model Parameters
 
 To train a neural network model, a loss function and an optimizer need to be defined.

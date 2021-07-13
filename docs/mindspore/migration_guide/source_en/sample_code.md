@@ -7,25 +7,34 @@ Translator: [AQUA](https://gitee.com/Liu-HongYe)
 - [Network Migration Debugging Example](#network-migration-debugging-example)
     - [Analysis and Reproduce of the Network](#analysis-and-reproduce-of-the-network)
         - [Determine the Migration Target](#determine-the-migration-target)
+            - [ResNet50 Migration Example](#resnet50-migration-example)
         - [Reproduce the Migration Target](#reproduce-the-migration-target)
         - [Reproduce the Single Step Results](#reproduce-the-single-step-results)
     - [Script Development](#script-development)
         - [Pre-script Development Analysis](#pre-script-development-analysis)
+            - [ResNet50 Migration Example](#resnet50-migration-example-1)
         - [Data Preprocessing](#data-preprocessing)
+            - [ResNet50 Migration Example](#resnet50-migration-example-2)
         - [Subnet Development](#subnet-development)
+            - [ResNet50 Migration Example](#resnet50-migration-example-3)
         - [Other Modules](#other-modules)
+            - [ResNet50 migration example](#resnet50-migration-example)
         - [Hyperparameters Comparison](#hyperparameters-comparison)
+            - [ResNet50 Migration Example](#resnet50-migration-example-4)
     - [Process Hitting](#process-hitting)
         - [Stand-alone Training](#stand-alone-training)
-        - [Distributed Training](#distributed-training)
+            - [ResNet50 Migration Example](#resnet50-migration-example-5)
+        - [Distributed training](#distributed-training)
+            - [ResNet50 Migration Example](#resnet50-migration-example-6)
         - [Inference](#inference)
+            - [ResNet50 Migration Example](#resnet50-migration-example-7)
         - [Problem Location](#problem-location)
-    - [Precision Tuning](#precision-tuning)
+    - [Precision tuning](#precision-tuning)
     - [Performance Tuning](#performance-tuning)
         - [Analyzing Profiling Data](#analyzing-profiling-data)
         - [Common Problems and Corresponding Optimization Methods](#common-problems-and-corresponding-optimization-methods)
             - [MindData Performance](#minddata-performance)
-            - [Multi-machine Synchronization performance](#multi-machine-synchronization-performance)
+            - [Multi-machine Synchronization Performance](#multi-machine-synchronization-performance)
             - [Operator Performance](#operator-performance)
             - [Framework Performance](#framework-performance)
             - [Other General Optimization Methods](#other-general-optimization-methods)
@@ -73,7 +82,7 @@ The main purpose of reproducing the single Step results is for the next script d
 
 Before starting the actual script development, a benchmark script analysis is performed. The purpose of the script analysis is to identify missing operators or features in MindSpore compared to the benchmark framework. The methodology can be found in the [Script Evaluation Tutorial](https://www.mindspore.cn/docs/migration_guide/en/r1.3/script_analysis.html).
 
-MindSpore already supports most of the common [functions](https://www.mindspore.cn/docs/programming_guide/en/r1.3/index.html) and [operators](https://www.mindspore.cn/docs/programming_guide/en/r1.3/operator_list.html). MindSpore supports both dynamic graph (PyNative) mode and static graph (Graph) mode, dynamic graph mode is flexible and easy to debug, so dynamic graph mode is mainly used for network debugging. Static graph mode has good performance and is mainly used for whole network training. When analyzing missing operators and functions, these two modes should be analyzed separately.
+MindSpore already supports most of the common [functions](https://www.mindspore.cn/docs/programming_guide/en/r1.3/index.html) and [operators](https://www.mindspore.cn/docs/note/en/r1.3/operator_list.html). MindSpore supports both dynamic graph (PyNative) mode and static graph (Graph) mode, dynamic graph mode is flexible and easy to debug, so dynamic graph mode is mainly used for network debugging. Static graph mode has good performance and is mainly used for whole network training. When analyzing missing operators and functions, these two modes should be analyzed separately.
 
 If missing operators and functions are found, we can first consider combining the missing operators and functions based on the current operators or functions, and for mainstream CV and NLP networks, new missing operators can generally be solved by combining existing operators.
 
@@ -757,7 +766,7 @@ Note: For codes in other files in the directory, refer to MindSpore model_zoo's 
 
 ### Distributed training
 
-Distributed training has no impact on the network structure compared to stand-alone training, and can be done by modifying the stand-alone script by calling the distributed training interface provided by MindSpore, as described in [Distributed Training Tutorial](https://www.mindspore.cn/docs/programming_guide/en/r1.3/distributed_training_tutorials.html).
+Distributed training has no impact on the network structure compared to stand-alone training, and can be done by modifying the stand-alone script by calling the distributed training interface provided by MindSpore, as described in [Distributed Training Tutorial](https://www.mindspore.cn/docs/programming_guide/en/r1.3/distributed_training.html).
 
 #### ResNet50 Migration Example
 

@@ -15,7 +15,7 @@
             - [反向算子信息注册](#反向算子信息注册)
         - [GPU/CPU算子信息注册](#gpucpu算子信息注册)
             - [正向算子信息注册](#正向算子信息注册)
-            - [反向算子信息注册](#反向算子信息注册)
+            - [反向算子信息注册](#反向算子信息注册-1)
 
 <!-- /TOC -->
 
@@ -23,7 +23,7 @@
 
 ## 自定义算子开发
 
-MindSpore支持多种类型的算子，用户可根据[算子支持](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/operator_list.html)列表查询。若已有算子不满足实际需求，用户也可以开发自定义算子。
+MindSpore支持多种类型的算子，用户可根据[算子支持](https://www.mindspore.cn/docs/note/zh-CN/r1.3/operator_list.html)列表查询。若已有算子不满足实际需求，用户也可以开发自定义算子。
 
 当前，MindSpore支持如下自定义算子，开发方法可通过链接获取：
 

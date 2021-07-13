@@ -100,7 +100,7 @@ context.get_auto_parallel_context("gradients_mean")
 - `semi_auto_parallel`: semi-automatic parallel mode. In this mode, you can use the `shard` method to configure a segmentation policy for an operator. If no policy is configured, the data parallel policy is used by default.
 - `auto_parallel`: automatic parallel mode. In this mode, the framework automatically creates a cost model and selects the optimal segmentation policy for users.
 
-The complete examples of `auto_parallel` and `data_parallel` are provided in [Distributed Training](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/distributed_training_tutorials.html).
+The complete examples of `auto_parallel` and `data_parallel` are provided in [Distributed Training](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/distributed_training.html).
 
 The following is a code example:
 

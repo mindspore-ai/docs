@@ -74,7 +74,7 @@ During network process debugging, the common errors are as follows:
 
   During the network process debugging, errors are often reported in the execution of arithmetic such as shape mismatch and unsupported dtype. Then, according to the error message, you should check whether the arithmetic is used correctly and whether the shape of the input data is consistent with the expectation and make corresponding modifications.
 
-  Supports for related operators and API introductions can be found in [Operator Support List](https://www.mindspore.cn/docs/programming_guide/en/r1.3/operator_list.html) and [Operators Python API](https://www.mindspore.cn/docs/api/en/r1.3/index.html).
+  Supports for related operators and API introductions can be found in [Operator Support List](https://www.mindspore.cn/docs/note/en/r1.3/operator_list.html) and [Operators Python API](https://www.mindspore.cn/docs/api/en/r1.3/index.html).
 
 - The same script works in PyNative mode, but reports bugs in Graph mode.
 
@@ -82,7 +82,7 @@ During network process debugging, the common errors are as follows:
 
 - Distributed parallel training script is misconfigured.
 
-  Distributed parallel training scripts and environment configuration can be found in [Distributed Parallel Training Tutorial](https://www.mindspore.cn/docs/programming_guide/en/r1.3/distributed_training_tutorials.html).
+  Distributed parallel training scripts and environment configuration can be found in [Distributed Parallel Training Tutorial](https://www.mindspore.cn/docs/programming_guide/en/r1.3/distributed_training.html).
 
 ### Loss Value Comparison
 

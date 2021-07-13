@@ -5,22 +5,33 @@
 - [网络迁移调试实例](#网络迁移调试实例)
     - [对标网络分析与复现](#对标网络分析与复现)
         - [确定迁移目标](#确定迁移目标)
+            - [ResNet50 迁移示例](#resnet50-迁移示例)
         - [复现迁移目标](#复现迁移目标)
         - [复现单Step结果](#复现单step结果)
     - [脚本开发](#脚本开发)
         - [脚本开发前分析](#脚本开发前分析)
+            - [ResNet50 迁移示例](#resnet50-迁移示例-1)
         - [数据预处理](#数据预处理)
+            - [ResNet50 迁移示例](#resnet50-迁移示例-2)
         - [子网开发](#子网开发)
+            - [ResNet50 迁移示例](#resnet50-迁移示例-3)
         - [其他模块](#其他模块)
+            - [ResNet50 迁移示例](#resnet50-迁移示例-4)
         - [超参对比](#超参对比)
-    - [精度调试](#精度调试)
-        - [训练](#训练)
+            - [ResNet50 迁移示例](#resnet50-迁移示例-5)
+    - [流程打通](#流程打通)
         - [单机训练](#单机训练)
-        - [多机训练精度调优](#多机训练精度调优)
+            - [ResNet50 迁移示例](#resnet50-迁移示例-6)
+        - [分布式训练](#分布式训练)
+            - [ResNet50 迁移示例](#resnet50-迁移示例-7)
+        - [推理](#推理)
+            - [ResNet50 迁移示例](#resnet50-迁移示例-8)
+        - [问题定位](#问题定位)
+    - [精度调优](#精度调优)
     - [性能调优](#性能调优)
         - [分析Profiling数据](#分析profiling数据)
         - [常见问题及相应优化方法](#常见问题及相应优化方法)
-            - [MindData性能问题](#minddata性能问题)
+            - [MindData 性能问题](#minddata-性能问题)
             - [多机同步性能问题](#多机同步性能问题)
             - [算子性能问题](#算子性能问题)
             - [框架性能问题](#框架性能问题)
@@ -69,7 +80,7 @@ PyTorch 官方实现脚本可参考 [torchvision model](https://github.com/pytor
 
 在开始真正的开发脚本前，需要进行对标脚本分析。脚本分析的目的是识别出 MindSpore 与对标框架相比缺失的算子或功能。具体方法可以参考[脚本评估教程](https://www.mindspore.cn/docs/migration_guide/zh-CN/r1.3/script_analysis.html)。
 
-MindSpore 已支持绝大多数常用 [功能](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/index.html) 和 [算子](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/operator_list.html)。MindSpore 既支持动态图（PyNative）模式，又支持静态图（Graph）模式，动态图模式灵活、易于调试，因此动态图模式主要用于网络调试，静态图模式性能好，主要用于整网训练，在分析缺失算子和功能时，要分别分析这两种模式。
+MindSpore 已支持绝大多数常用 [功能](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/index.html) 和 [算子](https://www.mindspore.cn/docs/note/zh-CN/r1.3/operator_list.html)。MindSpore 既支持动态图（PyNative）模式，又支持静态图（Graph）模式，动态图模式灵活、易于调试，因此动态图模式主要用于网络调试，静态图模式性能好，主要用于整网训练，在分析缺失算子和功能时，要分别分析这两种模式。
 
 如果发现有缺失的算子和功能，首先可考虑基于当前算子或功能来组合出缺失的算子和功能，对于主流的 CV 和 NLP 类网络，新的缺失算子一般都可以通过组合已有算子的方式来解决。
 
@@ -754,7 +765,7 @@ if __name__ == '__main__':
 
 ### 分布式训练
 
-分布式训练相比单机训练对网络结构没有影响，可以通过调用 MindSpore 提供的分布式训练接口改造单机脚本即可完成分布式训练，具体可参考 [分布式训练教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/distributed_training_tutorials.html)。
+分布式训练相比单机训练对网络结构没有影响，可以通过调用 MindSpore 提供的分布式训练接口改造单机脚本即可完成分布式训练，具体可参考 [分布式训练教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/distributed_training.html)。
 
 #### ResNet50 迁移示例
 
