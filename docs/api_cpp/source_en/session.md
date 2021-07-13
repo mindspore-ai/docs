@@ -366,6 +366,32 @@ Static method to create a LiteSession pointer. The returned LiteSession pointer 
 
     Pointer that points to MindSpore Lite LiteSession.
 
+## TrainSession
+
+\#include &lt;[train_session.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/train/train_session.h)&gt;
+
+TrainSession defines sessions in MindSpore Lite for compiling Model and training.
+
+### Constructors & Destructors
+
+#### TrainSession
+
+```cpp
+TrainSession()
+```
+
+Constructor of MindSpore Lite TrainSession using default value for parameters.
+
+#### ~TrainSession
+
+```cpp
+~TrainSession()
+```
+
+Destructor of MindSpore Lite TrainSession.
+
+### Public Member Functions
+
 #### CreateTransferSession
 
 ```cpp
