@@ -915,7 +915,7 @@ If you want the generated sample to be better and clearer, you can define a more
 
 The following uses the APIs in `nn.probability.bnn_layers` of MindSpore to implement the BNN image classification model. The APIs in `nn.probability.bnn_layers` of MindSpore include `NormalPrior`, `NormalPosterior`, `ConvReparam`, `DenseReparam`, `DenseLocalReparam` and `WithBNNLossCell`. The biggest difference between BNN and DNN is that the weight and bias of the BNN layer are not fixed values, but follow a distribution. `NormalPrior` and `NormalPosterior` are respectively used to generate a prior distribution and a posterior distribution that follow a normal distribution. `ConvReparam` and `DenseReparam` are the Bayesian convolutional layer and fully connected layers implemented by using the reparameterization method, respectively. `DenseLocalReparam` is the Bayesian fully connected layers implemented by using the local reparameterization method. `WithBNNLossCell` is used to encapsulate the BNN and loss function.
 
-For details about how to use the APIs in `nn.probability.bnn_layers` to build a Bayesian neural network and classify images, see [Applying the Bayesian Network](https://www.mindspore.cn/probability/docs/zh-CN/r1.3/apply_deep_probability_programming.html#id3).
+For details about how to use the APIs in `nn.probability.bnn_layers` to build a Bayesian neural network and classify images, see [Applying the Bayesian Network](https://www.mindspore.cn/probability/docs/zh-CN/r1.3/using_bnn.html).
 
 ## Bayesian Conversion
 
@@ -997,7 +997,7 @@ The `trainable_bnn` parameter is a trainable DNN model packaged by `TrainOneStep
 
   `Dnn_layer` specifies a DNN layer to be converted into a BNN layer, and `bnn_layer` specifies a BNN layer to be converted into a DNN layer, and `get_args` and `add_args` specify the parameters obtained from the DNN layer and the parameters to be re-assigned to the BNN layer, respectively.
 
-For details about how to use `TransformToBNN` in MindSpore, see [DNN-to-BNN Conversion with One Click](https://www.mindspore.cn/probability/docs/zh-CN/r1.3/apply_deep_probability_programming.html#dnnbnn).
+For details about how to use `TransformToBNN` in MindSpore, see [DNN-to-BNN Conversion with One Click](https://www.mindspore.cn/probability/docs/zh-CN/r1.3/one_click_conversion_from_dnn_to_bnn.html).
 
 ## Bayesian Toolbox
 
