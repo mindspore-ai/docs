@@ -1,46 +1,35 @@
-﻿# Operators
+﻿# Operators Classification
 
 <!-- TOC -->
 
-- [Operators](#operators)
+- [Operators Classification](#operators-classification)
     - [Overview](#overview)
-    - [Operator Usage](#operator-usage)
-        - [mindspore.ops.operations](#mindsporeopsoperations)
-        - [mindspore.ops.functional](#mindsporeopsfunctional)
-        - [mindspore.ops.composite](#mindsporeopscomposite)
-        - [Combination usage of operations/functional/composite three types of operators](#combination-usage-of-operationsfunctionalcomposite-three-types-of-operators)
-        - [Custom Operators](#custom-operators)
-    - [Operator Functions](#operator-functions)
-        - [Tensor Operations](#tensor-operations)
-        - [Scalar Operations](#scalar-operations)
-            - [Addition](#addition)
-            - [Element-wise Multiplication](#element-wise-multiplication)
-            - [Trigonometric Function](#trigonometric-function)
-        - [Vector Operations](#vector-operations)
-            - [Squeeze](#squeeze)
-        - [Matrix Operations](#matrix-operations)
-            - [Matrix Multiplication](#matrix-multiplication)
-            - [Broadcast Mechanism](#broadcast-mechanism)
-        - [Network Operations](#network-operations)
-            - [Feature Extraction](#feature-extraction)
-            - [Activation Function](#activation-function)
-            - [Loss Function](#loss-function)
-            - [Optimization Algorithm](#optimization-algorithm)
-        - [Array Operations](#array-operations)
-            - [DType](#dtype)
-            - [Cast](#cast)
-            - [Shape](#shape)
-        - [Image Operations](#image-operations)
-        - [Encoding Operations](#encoding-operations)
-            - [BoundingBoxEncode](#boundingboxencode)
-            - [BoundingBoxDecode](#boundingboxdecode)
-            - [IOU Computing](#iou-computing)
-        - [Debugging Operations](#debugging-operations)
-            - [HookBackward](#hookbackward)
-        - [Operator Combinations Related to Graph Transformation](#operator-combinations-related-to-graph-transformation)
-            - [MultitypeFuncGraph](#multitypefuncgraph)
-            - [HyperMap](#hypermap)
-            - [GradOperation](#gradoperation)
+    - [Tensor Operations](#tensor-operations)
+    - [Scalar Operations](#scalar-operations)
+        - [Addition](#addition)
+        - [Element-wise Multiplication](#element-wise-multiplication)
+        - [Trigonometric Function](#trigonometric-function)
+    - [Vector Operations](#vector-operations)
+        - [Squeeze](#squeeze)
+    - [Matrix Operations](#matrix-operations)
+        - [Matrix Multiplication](#matrix-multiplication)
+        - [Broadcast Mechanism](#broadcast-mechanism)
+    - [Network Operations](#network-operations)
+        - [Feature Extraction](#feature-extraction)
+        - [Activation Function](#activation-function)
+        - [Loss Function](#loss-function)
+        - [Optimization Algorithm](#optimization-algorithm)
+    - [Array Operations](#array-operations)
+        - [DType](#dtype)
+        - [Cast](#cast)
+        - [Shape](#shape)
+    - [Image Operations](#image-operations)
+    - [Encoding Operations](#encoding-operations)
+        - [BoundingBoxEncode](#boundingboxencode)
+        - [BoundingBoxDecode](#boundingboxdecode)
+        - [IOU Computing](#iou-computing)
+    - [Debugging Operations](#debugging-operations)
+        - [HookBackward](#hookbackward)
 
 <!-- /TOC -->
 
@@ -48,124 +37,9 @@
 
 ## Overview
 
-Operators of MindSpore can be classified based on the operator usage and operator functions. The following example code runs in PyNative mode.
-
-## Operator Usage
-
-APIs related to operators include operations, functional, and composite. Operators related to these three APIs can be directly obtained using ops.
-
-- The operations API provides a single primitive operator. An operator corresponds to a primitive and is the smallest execution object. An operator can be used only after being instantiated.
-- The composite API provides some predefined composite operators and complex operators involving graph transformation, such as `GradOperation`.
-- The functional API provides objects instantiated by the operations and composite to simplify the operator calling process.
-
-### mindspore.ops.operations
-
-The operations API provides all primitive operator APIs, which are the lowest-order operator APIs open to users. For details about the supported operators, see [Operator List](https://www.mindspore.cn/docs/note/en/r1.3/operator_list.html).
-
-Primitive operators directly encapsulate the implementation of operators at bottom layers such as Ascend, GPU, AICPU, and CPU, providing basic operator capabilities for users.
-
-Primitive operator APIs are the basis for building high-order APIs, automatic differentiation, and network models.
-
-A code example is as follows:
-
-```python
-import numpy as np
-import mindspore
-from mindspore import Tensor
-import mindspore.ops.operations as P
-
-input_x = mindspore.Tensor(np.array([1.0, 2.0, 4.0]), mindspore.float32)
-input_y = 3.0
-pow = P.Pow()
-output = pow(input_x, input_y)
-print("output =", output)
-```
-
-The following information is displayed:
-
-```text
-output = [ 1.  8. 64.]
-```
-
-### mindspore.ops.functional
-
-To simplify the calling process of operators without attributes, MindSpore provides the functional version of some operators. For details about the input parameter requirements, see the input and output requirements of the original operator. For details about the supported operators, see [Operator List](https://www.mindspore.cn/docs/note/en/r1.3/operator_list_ms.html#mindspore-ops-functional).
-
-For example, the functional version of the `P.Pow` operator is `F.tensor_pow`.
-
-A code example is as follows:
-
-```python
-import numpy as np
-import mindspore
-from mindspore import Tensor
-from mindspore.ops import functional as F
-
-input_x = mindspore.Tensor(np.array([1.0, 2.0, 4.0]), mindspore.float32)
-input_y = 3.0
-output = F.tensor_pow(input_x, input_y)
-print("output =", output)
-```
-
-The following information is displayed:
-
-```text
-output = [ 1.  8. 64.]
-```
-
-### mindspore.ops.composite
-
-The composite API provides some operator combinations, including some operators related to clip_by_value and random, and functions (such as `GradOperation`, `HyperMap`, and `Map`) related to graph transformation.
-
-The operator combination can be directly used as a common function. For example, use `normal` to generate a random distribution:
-
-```python
-from mindspore import dtype as mstype
-from mindspore.ops import composite as C
-from mindspore import Tensor
-
-mean = Tensor(1.0, mstype.float32)
-stddev = Tensor(1.0, mstype.float32)
-output = C.normal((2, 3), mean, stddev, seed=5)
-print("output =", output)
-```
-
-The following information is displayed:
-
-```text
-output = [[2.4911082  0.7941146  1.3117087]
- [0.30582333  1.772938  1.525996]]
-```
-
-> The preceding code runs on the GPU version of MindSpore.
-
-### Combination usage of operations/functional/composite three types of operators
-
-In order to make it easier to use, in addition to the several usages introduced above, we have encapsulated the three operators of operations/functional/composite into mindspore.ops. It is recommended to directly call the interface in mindspore.ops.
-
-The code sample is as follows:
-
-```python
-import mindspore.ops.operations as P
-pow = P.Pow()
-```
-
-```python
-import mindspore.ops as ops
-pow = ops.Pow()
-```
-
-> The above two methods have the same effect.
-
-### Custom Operators
-
-When built-in operators cannot meet requirements during network development, you can call the Python API of MindSpore to quickly extend custom operators of the [Ascend AI processor](https://www.mindspore.cn/docs/programming_guide/en/r1.3/custom_operator_ascend.html), [GPU](https://www.mindspore.cn/docs/programming_guide/en/r1.3/custom_operator_gpu.html) and [CPU](https://www.mindspore.cn/docs/programming_guide/en/r1.3/custom_operator_cpu.html).
-
-## Operator Functions
-
 Operators can be classified into some functional modules: tensor operations, network operations, array operations, image operations, encoding operations, debugging operations, and quantization operations. And they also involve some operator combinations related to graph transformation. For details about the supported operators on the Ascend AI processors, GPU, and CPU, see [Operator List](https://www.mindspore.cn/docs/note/en/r1.3/operator_list.html).
 
-### Tensor Operations
+## Tensor Operations
 
 The tensor operations include the tensor structure operation and the tensor mathematical operation.
 
@@ -175,7 +49,7 @@ Tensor mathematical operations include scalar operations, vector operations, and
 
 The following describes how to use the tensor mathematical operation and operation broadcast mechanism.
 
-### Scalar Operations
+## Scalar Operations
 
 Tensor mathematical operators can be classified into scalar operator, vector operator, and matrix operator.
 
@@ -203,7 +77,7 @@ print(input_x**input_y)
 [ 1.  8. 64.]
 ```
 
-#### Addition
+### Addition
 
 The following code implements the addition of `input_x` and `input_y`:
 
@@ -217,7 +91,7 @@ print(input_x + input_y)
 [4. 5. 7.]
 ```
 
-#### Element-wise Multiplication
+### Element-wise Multiplication
 
 The following code implements the element-wise multiplication:
 
@@ -241,7 +115,7 @@ print(res)
 [4. 10. 18.]
 ```
 
-#### Trigonometric Function
+### Trigonometric Function
 
 The following code implements Acos:
 
@@ -263,11 +137,11 @@ print(output)
 [0.7377037 1.5307858 1.2661037 0.97641146]
 ```
 
-### Vector Operations
+## Vector Operations
 
 Vector operators perform operations on only one particular axis, mapping a vector to a scalar or another vector.
 
-#### Squeeze
+### Squeeze
 
 The following code implements the compression of a channel whose dimension of the third channel is 1:
 
@@ -292,11 +166,11 @@ print(output)
  [1. 1.]]
 ```
 
-### Matrix Operations
+## Matrix Operations
 
 Matrix operations include matrix multiplication, matrix norm, matrix determinant, matrix eigenvalue calculation, and matrix decomposition.
 
-#### Matrix Multiplication
+### Matrix Multiplication
 
  The following code implements the matrix multiplication of input_x and input_y:
 
@@ -320,7 +194,7 @@ The following information is displayed:
 [[3. 3. 3. 3.]]
 ```
 
-#### Broadcast Mechanism
+### Broadcast Mechanism
 
 Broadcast indicates that when the number of channels of each input variable is inconsistent, change the number of channels to obtain the result.
 
@@ -346,11 +220,11 @@ The following information is displayed:
  [1. 2. 3.]]
 ```
 
-### Network Operations
+## Network Operations
 
 Network operations include feature extraction, activation function, loss function, and optimization algorithm.
 
-#### Feature Extraction
+### Feature Extraction
 
 Feature extraction is a common operation in machine learning. The core of feature extraction is to extract more representative tensors than the original input.
 
@@ -447,7 +321,7 @@ The following information is displayed:
    [ 32.  64.  96. ...  96.  64.  32.]]]]
 ```
 
-#### Activation Function
+### Activation Function
 
 The following code implements the computation of the Softmax activation function:
 
@@ -470,7 +344,7 @@ The following information is displayed:
 [0.01165623 0.03168492 0.08612853 0.23412164 0.63640857]
 ```
 
-#### Loss Function
+### Loss Function
 
  L1Loss
 
@@ -495,7 +369,7 @@ print(res)
 [0.  0.  0.5]
 ```
 
-#### Optimization Algorithm
+### Optimization Algorithm
 
  The following code implements the stochastic gradient descent (SGD) algorithm. The output is stored in result.
 
@@ -523,11 +397,11 @@ print(result)
 (Tensor(shape=[4], dtype=Float32, value= [ 1.99000001e+00, -4.90300000e-01,  1.69500005e+00,  3.98009992e+00]),)
 ```
 
-### Array Operations
+## Array Operations
 
 Array operations refer to operations on arrays.
 
-#### DType
+### DType
 
 Returns a Tensor variable that has the same data type as the input and adapts to MindSpore. It is usually used in a MindSpore project.
 
@@ -551,7 +425,7 @@ print(typea)
 Float32
 ```
 
-#### Cast
+### Cast
 
 Converts the input data type and outputs variables of the same type as the target data type.
 
@@ -577,7 +451,7 @@ print(result.dtype)
 Float16
 ```
 
-#### Shape
+### Shape
 
 Returns the shape of the input data.
 
@@ -601,7 +475,7 @@ print(output)
 (3, 2, 1)
 ```
 
-### Image Operations
+## Image Operations
 
 The image operations include image preprocessing operations, for example, image cropping (for obtaining a large quantity of training samples) and resizing (for constructing an image pyramid).
 
@@ -653,11 +527,11 @@ The following information is displayed:
 
 > The preceding code runs on MindSpore of the Ascend version.
 
-### Encoding Operations
+## Encoding Operations
 
 The encoding operations include BoundingBox Encoding, BoundingBox Decoding, and IOU computing.
 
-#### BoundingBoxEncode
+### BoundingBoxEncode
 
 The box of the area where the object is located is encoded to obtain more concise information similar to PCA, facilitating subsequent tasks such as feature extraction, object detection, and image restoration.
 
@@ -682,7 +556,7 @@ print(res)
  [-1.          0.25        0.          0.40546513]]
 ```
 
-#### BoundingBoxDecode
+### BoundingBoxDecode
 
 After decoding the area location information, the encoder uses this operator to decode the information.
 
@@ -707,7 +581,7 @@ print(res)
  [ 2.1408591  0.         3.8591409 60.59815  ]]
 ```
 
-#### IOU Computing
+### IOU Computing
 
 Computes the proportion of the intersection area and union area of the box where the predicted object is located and the box where the real object is located. It is often used as a loss function to optimize the model.
 
@@ -734,11 +608,11 @@ print(out)
  [ 0.  0.  0.]]
 ```
 
-### Debugging Operations
+## Debugging Operations
 
 The debugging operations refer to some common operators and operations used to debug a network, for example, HookBackward. These operations are very convenient and important for entry-level deep learning, greatly improving learning experience.
 
-#### HookBackward
+### HookBackward
 
 Displays the gradient of intermediate variables. It is a common operator. Currently, only the PyNative mode is supported.
 
@@ -774,123 +648,3 @@ The following information is displayed:
 (Tensor(shape=[], dtype=Float32, value= 2),)
 (Tensor(shape=[], dtype=Float32, value= 4), Tensor(shape=[], dtype=Float32, value= 4))
 ```
-
-### Operator Combinations Related to Graph Transformation
-
-`mindspore.ops.composite` provide some operator combinations related to graph transformation such as `MultitypeFuncGraph`, `HyperMap` and `GradOperation`.
-
-#### MultitypeFuncGraph
-
-Users can use `MultitypeFuncGraph` to define a group of overloaded functions. The implementation varies according to the function type.
-
-A code example is as follows:
-
-```python
-import numpy as np
-from mindspore.ops import MultitypeFuncGraph
-from mindspore import Tensor
-import mindspore.ops as ops
-
-add = MultitypeFuncGraph('add')
-@add.register("Number", "Number")
-def add_scalar(x, y):
-    return ops.scalar_add(x, y)
-
-@add.register("Tensor", "Tensor")
-def add_tensor(x, y):
-    return ops.add(x, y)
-
-tensor1 = Tensor(np.array([[1.2, 2.1], [2.2, 3.2]]).astype('float32'))
-tensor2 = Tensor(np.array([[1.2, 2.1], [2.2, 3.2]]).astype('float32'))
-print('tensor', add(tensor1, tensor2))
-print('scalar', add(1, 2))
-```
-
-The following information is displayed:
-
-```text
-tensor [[2.4 4.2]
- [4.4 6.4]]
-scalar 3
-```
-
-#### HyperMap
-
-`HyperMap` can apply an specified operation to one or more input sequences, which can be used with `MultitypeFuncGraph`. For example, after defining a group of overloaded `add` functions, we can apply `add` operation to multiple input groups of different types.
-
-A code example is as follows:
-
-```python
-from mindspore import dtype as mstype
-from mindspore import Tensor
-from mindspore.ops import MultitypeFuncGraph, HyperMap
-import mindspore.ops as ops
-
-add = MultitypeFuncGraph('add')
-@add.register("Number", "Number")
-def add_scalar(x, y):
-    return ops.scalar_add(x, y)
-
-@add.register("Tensor", "Tensor")
-def add_tensor(x, y):
-    return ops.tensor_add(x, y)
-
-add_map = HyperMap(add)
-output = add_map((Tensor(1, mstype.float32), Tensor(2, mstype.float32), 1), (Tensor(3, mstype.float32), Tensor(4, mstype.float32), 2))
-print("output =", output)
-```
-
-The following information is displayed:
-
-```text
-output = (Tensor(shape=[], dtype=Float32, value= 4), Tensor(shape=[], dtype=Float32, value= 6), 3)
-```
-
-In this example, the input of `add_map` contains two sequences. `HyperMap` will get the corresponding elements from the two sequences as `x` and `y` for the inputs of `add` in the form of `operation(args[0][i], args[1][i])`. For example, `add(Tensor(1, mstype.float32), Tensor(3, mstype.float32))`.
-
-#### GradOperation
-
-`GradOperation` provides the ability of computing the gradient function corresponding to the input function.
-
-A code example is as follows:
-
-```python
-import numpy as np
-import mindspore.nn as nn
-from mindspore import Tensor, Parameter
-from mindspore import dtype as mstype
-import mindspore.ops as ops
-
-
-class Net(nn.Cell):
-    def __init__(self):
-        super(Net, self).__init__()
-        self.matmul = ops.MatMul()
-        self.z = Parameter(Tensor(np.array([1.0], np.float32)), name='z')
-    def construct(self, x, y):
-        x = x * self.z
-        out = self.matmul(x, y)
-        return out
-
-class GradNetWrtX(nn.Cell):
-    def __init__(self, net):
-        super(GradNetWrtX, self).__init__()
-        self.net = net
-        self.grad_op = ops.GradOperation()
-    def construct(self, x, y):
-        gradient_function = self.grad_op(self.net)
-        return gradient_function(x, y)
-
-x = Tensor([[0.5, 0.6, 0.4], [1.2, 1.3, 1.1]], dtype=mstype.float32)
-y = Tensor([[0.01, 0.3, 1.1], [0.1, 0.2, 1.3], [2.1, 1.2, 3.3]], dtype=mstype.float32)
-print("output =", GradNetWrtX(Net())(x, y))
-```
-
-The following information is displayed:
-
-```text
-output = [[1.4100001 1.5999999 6.6      ]
- [1.4100001 1.5999999 6.6      ]]
-```
-
-The preceding example is used to calculate the gradient value of `Net` to x. You need to define the network `Net` as the input of `GradOperation`. The instance creates `GradNetWrtX` that contains the gradient operation. Calling `GradNetWrtX` transfers the network to `GradOperation` to generate a gradient function, and transfers the input data to the gradient function to return the final result.For details, see [mindspore.ops](https://www.mindspore.cn/docs/api/en/r1.3/api_python/ops/mindspore.ops.GradOperation.html) or [advanced_use](https://www.mindspore.cn/docs/programming_guide/en/r1.3/gradoperation.html).
