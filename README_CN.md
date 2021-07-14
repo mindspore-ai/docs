@@ -34,7 +34,7 @@ docs
 |    |
 |    ├───mindquantum // MindQuantum（API工程和相关文档）
 |    |
-|    ├───mindspore // MindSpore（API工程、常见问题、迁移至南、说明和编程指南）
+|    ├───mindspore // MindSpore（API工程、常见问题、迁移指南、说明和编程指南）
 |    |
 |    ├───notebook // 体验式文档
 |    |
