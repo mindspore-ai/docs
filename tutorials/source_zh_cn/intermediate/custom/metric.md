@@ -11,7 +11,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/middleclass/custom/metric.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/intermediate/custom/metric.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 评价指标（Metrics）可以用来评估模型结果的可信度。
 

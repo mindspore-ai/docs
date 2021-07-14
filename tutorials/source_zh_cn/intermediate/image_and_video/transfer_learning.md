@@ -1,6 +1,6 @@
 # 图像分类迁移学习
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/middleclass/image_and_video/transfer_learning.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/intermediate/image_and_video/transfer_learning.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 在实际场景中，为了减少从头开始训练所带来的时间成本，大多数情况下会基于已有的模型来进行迁移学习。本章将会以狗和狼的图像分类为例，讲解如何在MindSpore中加载预训练模型，并通过固定权重来实现迁移学习的目的。
 
@@ -37,7 +37,7 @@ context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
 
 - 下载数据集
 
-    下载案例所用到的[狗与狼分类数据集](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/middleclass/Canidae_data.zip)，数据集中的图像来自于ImageNet，每个分类有大约120张训练图像与30张验证图像。将下载后的数据集解压到当前目录下。
+    下载案例所用到的[狗与狼分类数据集](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/intermediate/Canidae_data.zip)，数据集中的图像来自于ImageNet，每个分类有大约120张训练图像与30张验证图像。将下载后的数据集解压到当前目录下。
 
 - 下载预训练模型
 
