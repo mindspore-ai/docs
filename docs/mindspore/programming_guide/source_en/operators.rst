@@ -7,4 +7,4 @@ Operators
   operators_usage
   operators_classification
   frame_operators
-  custom_operators
+  custom_operator
