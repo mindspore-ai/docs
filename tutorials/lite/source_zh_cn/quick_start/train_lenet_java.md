@@ -46,7 +46,7 @@
 ```bash
 git clone https://gitee.com/mindspore/mindspore.git
 cd mindspore
-bash build.sh -A java -ecpu -Ton -j8
+bash build.sh -A on -j8
 ```
 
 更详细的编译说明，请参考[编译MindSpore Lite](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)章节。
@@ -82,23 +82,17 @@ MNIST_Data/
 cd /codes/mindspore/output
 tar xzf mindspore-lite-${version}-linux-x64-jar.tar.gz
 mkdir ../mindspore/lite/examples/train_lenet_java/lib
-cp mindspore-lite-${version}-train-linux-x64-jar/jar/* ../mindspore/lite/examples/train_lenet_java/lib/
+cp mindspore-lite-${version}-linux-x64/runtime/lib/* ../mindspore/lite/examples/train_lenet_java/lib/
+cp mindspore-lite-${version}-linux-x64/runtime/third_party/libjpeg/turbo/lib/* ../mindspore/lite/examples/train_lenet_java/lib/
 ```
 
 ### 构建与运行
 
-1. 首先进入示例工程所在目录，使用maven构建本示例。命令如下：
+1. 首先进入示例工程所在目录，运行示例程序，命令如下：
 
     ```bash
     cd /codes/mindspore/mindspore/lite/examples/train_lenet_java
-    mvn package
-    ```
-
-2. 运行示例程序，命令如下：
-
-    ```bash
-    cd /codes/mindspore/mindspore/lite/examples/train_lenet_java/target
-    java -Djava.library.path=../lib/ -classpath .:./train_lenet_java.jar:../lib/mindspore-lite-java.jar com.mindspore.lite.train_lenet.Main ../resources/model/lenet_tod.ms /PATH/MNIST_Data/
+    ./prepare_and_run.sh -D /PATH/MNIST_Data/ -r ../../../../output/mindspore-lite-${version}-linux-x86.tar.gz
     ```
 
     > ../resources/model/lenet_tod.ms是示例工程中预置的LeNet训练模型，您也可以参考[训练模型转换](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_train.html)，自行转换出LeNet模型。
@@ -108,9 +102,11 @@ cp mindspore-lite-${version}-train-linux-x64-jar/jar/* ../mindspore/lite/example
     示例运行结果如下：
 
     ```text
-    MindSpore Lite 1.2.0
+    MindSpore Lite 1.3.0
     ==========Loading Model, Create Train Session=============
-    batch_size: 32
+    Model path is ../model/lenet_tod.ms
+    batch_size: 4
+    virtual batch multiplier: 16
     ==========Initing DataSet================
     train data cnt: 60000
     test data cnt: 10000
@@ -124,7 +120,7 @@ cp mindspore-lite-${version}-train-linux-x64-jar/jar/* ../mindspore/lite/example
     step_3500: Loss is 0.034442786 [min=4.3545474E-4] max_accc=0.97686297
     ==========Evaluating The Trained Model============
     accuracy = 0.9770633
-    Trained model successfully saved: ../resources/model/lenet_tod_trained.ms
+    Trained model successfully saved: ../model/lenet_tod_trained.ms
     ```
 
 ## 示例程序详细说明  
@@ -134,7 +130,13 @@ cp mindspore-lite-${version}-train-linux-x64-jar/jar/* ../mindspore/lite/example
 ```text
 train_lenet_java
 ├── lib
+├── build.sh
+├── model
+│   ├── lenet_export.py
+│   ├── prepare_model.sh
+│   └── train_utils.sh
 ├── pom.xml
+├── prepare_and_run.sh
 ├── resources
 │   └── model
 │       └── lenet_tod.ms   # LeNet训练模型
@@ -158,14 +160,15 @@ train_lenet_java
 1. 加载MindSpore Lite模型文件，构建会话。
 
     ```java
-    MSConfig msConfig = new MSConfig();
     // arg 0: DeviceType:DT_CPU -> 0
     // arg 1: ThreadNum -> 2
     // arg 2: cpuBindMode:NO_BIND ->  0
     // arg 3: enable_fp16 -> false
     msConfig.init(0, 2, 0, false);
-    session = new TrainSession();
-    session.init(modelPath, msConfig);
+    session = new LiteSession();
+    System.out.println("Model path is " + modelPath);
+    session = session.createTrainSession(modelPath, msConfig, false);
+    session.setupVirtualBatch(virtualBatch, 0.01f, 1.00f);
     ```
 
 2. 切换为训练模式，循环迭代，训练模型。
@@ -175,18 +178,20 @@ train_lenet_java
     float min_loss = 1000;
     float max_acc = 0;
     for (int i = 0; i < cycles; i++) {
-        fillInputData(ds.getTrainData(), false);
-        session.runGraph();
-        float loss = getLoss();
-        if (min_loss > loss) {
-            min_loss = loss;
-        }
-        if ((i + 1) % 500 == 0) {
-            float acc = calculateAccuracy(10); // only test 10 batch size
-            if (max_acc < acc) {
-                max_acc = acc;
+        for (int b = 0; b < virtualBatch; b++) {
+            fillInputData(ds.getTrainData(), false);
+            session.runGraph();
+            float loss = getLoss();
+            if (min_loss > loss) {
+                min_loss = loss;
             }
-            System.out.println("step_" + (i + 1) + ": \tLoss is " + loss + " [min=" + min_loss + "]" + " max_accc=" + max_acc);
+            if ((b == 0) && ((i + 1) % 500 == 0)) {
+                float acc = calculateAccuracy(10); // only test 10 batch size
+                if (max_acc < acc) {
+                    max_acc = acc;
+                }
+                System.out.println("step_" + (i + 1) + ": \tLoss is " + loss + " [min=" + min_loss + "]" + " max_accc=" + max_acc);
+            }
         }
     }
     ```
@@ -229,7 +234,10 @@ train_lenet_java
 4. 保存训练模型。
 
     ```java
-    session.saveToFile(trainedFilePath)
+    // arg 0: FileName
+    // arg 1: model type MT_TRAIN -> 0
+    // arg 2: quantization type QT_DEFAULT -> 0
+    session.export(trainedFilePath, 0, 0)
     ```
 
     模型训练完成后，保存到指定路径，后续可以继续加载运行。
