@@ -40,7 +40,7 @@
 目录结构如下：
 
 ```text
-└─tutorial_code
+└─sample_code
     ├─distributed_training
     │      rank_table_16pcs.json
     │      rank_table_8pcs.json
@@ -659,7 +659,7 @@ done
 上面列出的参考脚本，所要求的代码组织结构如下，脚本中会获取脚本所在路径以及命令执行的路径，并且将所有任务都置于后台执行，完整的代码链接请于本教程置顶处获取。
 
 ```text
-└─tutorial_code
+└─sample_code
     ├─distributed_training
     │      resnet50_distributed_training.py
     │      run_cluster.sh

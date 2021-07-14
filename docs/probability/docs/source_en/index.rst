@@ -12,5 +12,8 @@ MindSpore Probability Documents
    :maxdepth: 1
    :caption: Guide
 
-   apply_deep_probability_programming
+   using_bnn
+   using_the_vae
+   one_click_conversion_from_dnn_to_bnn
+   using_the_uncertainty_toolbox
    probability

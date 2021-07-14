@@ -137,7 +137,6 @@
 										<button class="doc-filter-btn doc-btn" id="stage-Benchmark-Testing">基准测试</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Static-Library-Cropping">静态库裁剪</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Visualization">可视化</button>
-										<button class="doc-filter-btn doc-btn" id="stage-Custom-Operator">自定义算子</button>
 									</div>
 								</div>
 							</div>
@@ -150,6 +149,7 @@
 								<div class="col-sm-10 col-sm-pull-1">
 									<button class="doc-filter-btn doc-btn" id="hardware-NPU">NPU</button>
 									<button class="doc-filter-btn doc-btn" id="hardware-NNIE">NNIE</button>
+									<button class="doc-filter-btn doc-btn" id="hardware-TensorRT">TensorRT</button>
 								</div>
 							</div>
 							</div>
@@ -373,6 +373,18 @@
 										</div>
 										<div class="doc-article-desc">
 											该教程介绍了集成NNIE的使用说明。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all hardware-TensorRT os-Linux stage-Environment-Preparation user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/tensorrt_info.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">集成TensorRT使用说明</span>
+										</div>
+										<div class="doc-article-desc">
+											该教程介绍了集成TensorRT的使用说明。
 										</div>
 									</div>
 								</a>

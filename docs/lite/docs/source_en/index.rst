@@ -142,6 +142,7 @@ Using MindSpore on Mobile and IoT
 								</div>
 								<div class="col-sm-10 col-sm-pull-1">
 									<button class="doc-filter-btn doc-btn" id="hardware-NPU">NPU</button>
+									<button class="doc-filter-btn doc-btn" id="hardware-TensorRT">TensorRT</button>
 								</div>
 							</div>
 							</div>
@@ -230,6 +231,19 @@ Using MindSpore on Mobile and IoT
 							
 										<div class="doc-article-desc">
 											This tutorial explains the code that trains a LeNet model using Training-on-Device infrastructure.
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Android language-java stage-Whole-Process stage-Model-Loading stage-Model-Training stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/lite/docs/en/r1.3/quick_start/train_lenet_java.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Implement Device Training Based On Java Interface</span>
+										</div>
+							
+										<div class="doc-article-desc">
+											This tutorial demonstrates how to use the Java API on MindSpore Lite by building and deploying LeNet of the Java version. 
 										</div>
 									</div>
 								</a>
@@ -329,6 +343,18 @@ Using MindSpore on Mobile and IoT
 										</div>
 										<div class="doc-article-desc">
 										This tutorial introduces the instructions for using the integrated NPU, including steps to use, supported chips, and supported operators.
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all hardware-TensorRT os-Linux stage-Environment-Preparation user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/lite/docs/en/r1.3/use/tensorrt_info.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">TensorRT Integration Information</span>
+										</div>
+										<div class="doc-article-desc">
+											This tutorial introduces the instructions for using the integrated TensorRT.
 										</div>
 									</div>
 								</a>

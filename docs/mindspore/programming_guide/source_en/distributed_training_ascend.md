@@ -38,7 +38,7 @@ This tutorial describes how to train the ResNet-50 network in data parallel and 
 The directory structure is as follow:
 
 ```text
-└─tutorial_code
+└─sample_code
     ├─distributed_training
     │      rank_table_16pcs.json
     │      rank_table_8pcs.json
@@ -657,7 +657,7 @@ done
 For the reference scripts listed above, the required code organization structure is as follows. The script will get the path of the script and the path of the command execution, and put all tasks in the background for execution, the code link can be obtained at the top of this tutorial.
 
 ```text
-└─tutorial_code
+└─sample_code
     ├─distributed_training
     │      resnet50_distributed_training.py
     │      run_cluster.sh
