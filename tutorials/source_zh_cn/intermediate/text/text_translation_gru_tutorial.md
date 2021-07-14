@@ -745,7 +745,7 @@ size is 3617
 
 接下来的部分以 `MindDatasets` 转换的数据集构建了数据集并定义了迭代器，本教程的其余部分仅将模型定义为 `nn. Cell` 以及 `Optimizer` ，然后对其进行训练。
 
-如果需要了解关于该模型的更多细节，可以通过官网[GRU模型](https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo/official/nlp/gru) 查看。
+如果需要了解关于该模型的更多细节，可以通过官网[GRU模型](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/nlp/gru) 查看。
 
 ### 定义gru网络和全链接层的权重
 
