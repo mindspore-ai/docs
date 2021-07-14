@@ -288,7 +288,7 @@ int NetRunner::Main() {
   if (epochs_ > 0) {
     auto trained_fn = ms_file_.substr(0, ms_file_.find_last_of('.')) + "_trained.ms";
     // Save the trained model to file
-    session_->SaveToFile(trained_fn);
+    session_->Export(trained_fn);
   }
   return 0;
 }
@@ -309,7 +309,9 @@ int NetRunner::Main() {
       session_ = mindspore::session::TrainSession::CreateTrainSession(ms_file_, &context, true);
       MS_ASSERT(nullptr != session_);
       loop_ = mindspore::session::TrainLoop::CreateTrainLoop(session_);
-
+      if (verbose_) {
+        loop_->SetKernelCallBack(nullptr, after_callback);
+      }
       acc_metrics_ = std::shared_ptr<AccuracyMetrics>(new AccuracyMetrics);
 
       loop_->Init({acc_metrics_.get()});
@@ -339,7 +341,6 @@ int NetRunner::Main() {
       TypeCast typecast("int32");
       train_ds_ = train_ds_->Map({&typecast}, {"label"});
 
-      train_ds_ = train_ds_->Shuffle(2);
       train_ds_ = train_ds_->Batch(batch_size_, true);
 
       if (verbose_) {
@@ -359,15 +360,20 @@ int NetRunner::Main() {
 
     ```cpp
     int NetRunner::TrainLoop() {
-      struct mindspore::lite::StepLRLambda step_lr_lambda(1, 0.7);
-      mindspore::lite::LRScheduler step_lr_sched(mindspore::lite::StepLRLambda, static_cast<void *>(&step_lr_lambda), 1);
-
       mindspore::lite::LossMonitor lm(100);
       mindspore::lite::ClassificationTrainAccuracyMonitor am(1);
       mindspore::lite::CkptSaver cs(1000, std::string("lenet"));
       Rescaler rescale(255.0);
 
-      loop_->Train(epochs_, train_ds_.get(), std::vector<TrainLoopCallBack *>{&rescale, &lm, &cs, &am, &step_lr_sched});
+      Measurement measure(epochs_);
+
+      if (virtual_batch_ > 0) {
+        loop_->Train(epochs_, train_ds_.get(), std::vector<TrainLoopCallBack *>{&rescale, &lm, &cs, &am, &measure});
+      } else {
+        struct mindspore::lite::StepLRLambda step_lr_lambda(1, kGammaFactor);
+        mindspore::lite::LRScheduler step_lr_sched(mindspore::lite::StepLRLambda, static_cast<void *>(&step_lr_lambda), 1);
+        loop_->Train(epochs_, train_ds_.get(), std::vector<TrainLoopCallBack *>{&rescale, &lm, &cs, &am, &step_lr_sched, &measure});
+      }
       return 0;
     }
     ```
@@ -390,7 +396,7 @@ int NetRunner::Main() {
       Rescaler rescale(255.0);
 
       loop_->Eval(test_ds_.get(), std::vector<TrainLoopCallBack *>{&rescale});
-      std::cout << "Eval Accuracy is " << acc_metrics_->Eval() << std::endl;
+      std::cout << "Accuracy is " << acc_metrics_->Eval() << std::endl;
 
       return 0.0;
     }
