@@ -4,7 +4,7 @@
 .. toctree::
    :maxdepth: 1
 
-   middleclass/distributed_training/distributed_training_ascend
-   middleclass/distributed_training/distributed_training_gpu
-   middleclass/distributed_training/distributed_training_model_parameters_saving_and_loading
-   middleclass/distributed_training/apply_parameter_server_training
+   intermediate/distributed_training/distributed_training_ascend
+   intermediate/distributed_training/distributed_training_gpu
+   intermediate/distributed_training/distributed_training_model_parameters_saving_and_loading
+   intermediate/distributed_training/apply_parameter_sever_training

@@ -4,7 +4,7 @@
 .. toctree::
    :maxdepth: 1
 
-   middleclass/inference/ascend910_inference
-   middleclass/inference/ascend310_inference
-   middleclass/inference/mindspore_serving_inference
-   middleclass/inference/mindspore_lite_inference
+   intermediate/inference/ascend910_and_gpu_inference
+   intermediate/inference/ascend310_inference
+   intermediate/inference/mindspore_serving_inference
+   intermediate/inference/mindspore_lite_inference

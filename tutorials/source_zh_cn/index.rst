@@ -27,6 +27,8 @@ MindSpore教程
    :caption: 进阶教程
 
    custom
-   middleclass/pynative_mode_and_graph_mode/pynative_mode_and_graph_mode
+   image_and_video
+   text
+   intermediate/pynative_mode_and_graph_mode
    distributed_training
    inference_and_deploy

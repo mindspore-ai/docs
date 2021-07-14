@@ -13,7 +13,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/middleclass/distributed_training/distributed_training_gpu.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/intermediate/distributed_training/distributed_training_gpu.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 本篇教程我们主要讲解，如何在GPU硬件平台上，利用MindSpore的数据并行及自动并行模式训练ResNet-50网络。
 
@@ -147,4 +147,4 @@ echo "start training"
 mpirun -n 16 --hostfile $HOSTFILE -x DATA_PATH=$DATA_PATH -x PATH -mca pml ob1 pytest -s -v ./resnet50_distributed_training.py > train.log 2>&1 &
 ```
 
-在GPU上进行分布式训练时，模型参数的保存和加载可参考[分布式训练模型参数保存和加载](https://www.mindspore.cn/tutorial/zh-CN/master/middleclass/distributed_training/distributed_training_model_parameters_saving_and_loading.html)
+在GPU上进行分布式训练时，模型参数的保存和加载可参考[分布式训练模型参数保存和加载](https://www.mindspore.cn/tutorial/zh-CN/master/intermediate/distributed_training/distributed_training_model_parameters_saving_and_loading.html)

@@ -4,8 +4,8 @@
 .. toctree::
    :maxdepth: 1
 
-   middleclass/custom/operator
-   middleclass/custom/data
-   middleclass/custom/loss
-   middleclass/custom/metric
-   middleclass/custom/train
+   intermediate/custom/operator
+   intermediate/custom/data
+   intermediate/custom/loss
+   intermediate/custom/metric
+   intermediate/custom/train
