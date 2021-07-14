@@ -35,7 +35,7 @@ For details, see [Server Environment Configuration](https://www.mindspore.cn/fed
 
 ### Data
 
-The [training data](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/train.tar.gz) contains 100 user chat files. The directory structure is as follows:
+The [training data](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/supervise/client.tar.gz) contains 100 user chat files. The directory structure is as follows:
 
 ```text
 mobile/datasets/train/
@@ -47,7 +47,7 @@ mobile/datasets/train/
 └── 99.tsv  # Training data of user 99
 ```
 
-The [validation data](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/eval.tar.gz) contains one chat file. The directory structure is as follows:
+The [validation data](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/supervise/eval.tar.gz) contains one chat file. The directory structure is as follows:
 
 ```text
 mobile/datasets/eval/
