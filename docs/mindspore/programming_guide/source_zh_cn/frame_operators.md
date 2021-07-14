@@ -1,35 +1,112 @@
-﻿# 自动微分
-
-`CPU` `GPU` `Ascend` `全流程` `初级` `中级` `高级`
+﻿# 框架算子
 
 <!-- TOC -->
 
-- [自动微分](#自动微分)
-    - [一阶求导](#一阶求导)
-        - [输入求导](#输入求导)
-        - [权重求导](#权重求导)
-        - [梯度值缩放](#梯度值缩放)
-    - [停止计算梯度](#停止计算梯度)
-    - [高阶求导](#高阶求导)
-        - [单输入单输出高阶导数](#单输入单输出高阶导数)
-        - [单输入多输出高阶导数](#单输入多输出高阶导数)
-        - [多输入多输出高阶导数](#多输入多输出高阶导数)
-    - [二阶微分算子支持情况](#二阶微分算子支持情况)
+- [框架算子](#框架算子)
+    - [概述](#概述)
+    - [MultitypeFuncGraph](#multitypefuncgraph)
+    - [HyperMap](#hypermap)
+    - [GradOperation](#gradoperation)
+        - [一阶求导](#一阶求导)
+            - [输入求导](#输入求导)
+            - [权重求导](#权重求导)
+            - [梯度值缩放](#梯度值缩放)
+        - [停止计算梯度](#停止计算梯度)
+        - [高阶求导](#高阶求导)
+            - [单输入单输出高阶导数](#单输入单输出高阶导数)
+            - [单输入多输出高阶导数](#单输入多输出高阶导数)
+            - [多输入多输出高阶导数](#多输入多输出高阶导数)
+        - [二阶微分算子支持情况](#二阶微分算子支持情况)
     - [引用](#引用)
 
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_zh_cn/gradoperation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
-## 一阶求导
+## 概述
+
+`mindspore.ops.composite`中提供了一些涉及图变换的组合类算子，例如`MultitypeFuncGraph`、`HyperMap`和`GradOperation`等。
+
+## MultitypeFuncGraph
+
+用户可以使用`MultitypeFuncGraph`定义一组重载的函数，根据不同类型，采用不同实现。
+
+代码样例如下：
+
+```python
+import numpy as np
+from mindspore.ops import MultitypeFuncGraph
+from mindspore import Tensor
+import mindspore.ops as ops
+
+add = MultitypeFuncGraph('add')
+@add.register("Number", "Number")
+def add_scalar(x, y):
+    return ops.scalar_add(x, y)
+
+@add.register("Tensor", "Tensor")
+def add_tensor(x, y):
+    return ops.tensor_add(x, y)
+
+tensor1 = Tensor(np.array([[1.2, 2.1], [2.2, 3.2]]).astype('float32'))
+tensor2 = Tensor(np.array([[1.2, 2.1], [2.2, 3.2]]).astype('float32'))
+print('tensor', add(tensor1, tensor2))
+print('scalar', add(1, 2))
+```
+
+运行结果如下：
+
+```text
+tensor [[2.4 4.2]
+ [4.4 6.4]]
+scalar 3
+```
+
+## HyperMap
+
+`HyperMap`可以对一组或多组输入做指定的运算，可以配合`MultitypeFuncGraph`一起使用。例如定义一组重载的`add`函数后，对多组不同类型的输入进行`add`运算。
+
+代码样例如下：
+
+```python
+from mindspore import dtype as mstype
+from mindspore import Tensor
+from mindspore.ops import MultitypeFuncGraph, HyperMap
+import mindspore.ops as ops
+
+add = MultitypeFuncGraph('add')
+@add.register("Number", "Number")
+def add_scalar(x, y):
+    return ops.scalar_add(x, y)
+
+@add.register("Tensor", "Tensor")
+def add_tensor(x, y):
+    return ops.tensor_add(x, y)
+
+add_map = HyperMap(add)
+output = add_map((Tensor(1, mstype.float32), Tensor(2, mstype.float32), 1), (Tensor(3, mstype.float32), Tensor(4, mstype.float32), 2))
+print("output =", output)
+```
+
+运行结果如下：
+
+```text
+output = (Tensor(shape=[], dtype=Float32, value= 4), Tensor(shape=[], dtype=Float32, value= 6), 3)
+```
+
+此例子中传入`add_map`的输入包含了两个序列，`HyperMap`会以`operation(args[0][i], args[1][i])`的形式分别从两个序列中取相应的元素作为`add`函数的输入`x`和`y`，例如`add(Tensor(1, mstype.float32), Tensor(3, mstype.float32))`。
+
+## GradOperation
 
 GradOperation组件用于生成输入函数的梯度，利用get_all、get_by_list和sens_param参数控制梯度的计算方式，细节内容详见API文档。
 
-首先回顾下MindSpore计算一阶导数方法`mindspore.ops.GradOperation (get_all=False, get_by_list=False, sens_param=False)`，其中`get_all`为`False`时，只会对第一个输入求导，为`True`时，会对所有输入求导；`get_by_list`为`False`时，不会对权重求导，为`True`时，会对权重求导；`sens_param`对网络的输出值做缩放以改变最终梯度，故其维度与输出维度保持一致。下面用MatMul算子的一阶求导做深入分析。
+### 一阶求导
+
+MindSpore计算一阶导数方法`mindspore.ops.GradOperation (get_all=False, get_by_list=False, sens_param=False)`，其中`get_all`为`False`时，只会对第一个输入求导，为`True`时，会对所有输入求导；`get_by_list`为`False`时，不会对权重求导，为`True`时，会对权重求导；`sens_param`对网络的输出值做缩放以改变最终梯度，故其维度与输出维度保持一致。下面用MatMul算子的一阶求导做深入分析。
 
 完整样例代码见：[一阶求导样例代码](https://gitee.com/mindspore/docs/tree/r1.3/docs/sample_code/high_order_differentiation/first_order)
 
-### 输入求导
+#### 输入求导
 
 对输入求导代码如下：
 
@@ -106,7 +183,7 @@ $\frac{\mathrm{d}(\sum{output})}{\mathrm{d}x} = [[4.5099998 \quad 2.7 \quad 3.60
 
 若考虑对`x`、`y`输入求导，只需在`GradNetWrtX`中设置`self.grad_op = GradOperation(get_all=True)`。
 
-### 权重求导
+#### 权重求导
 
 若考虑对权重的求导，将`GradNetWrtX`修改成：
 
@@ -143,7 +220,7 @@ $(x4 \cdot y1 + x5 \cdot y4 + x6 \cdot y7) + (x4 \cdot y2 + x5 \cdot y5 + x6 \cd
 
 $\frac{\mathrm{d}(\sum{output})}{\mathrm{d}z} = [2.15359993e+01]$
 
-### 梯度值缩放
+#### 梯度值缩放
 
 可以通过`sens_param`参数控制梯度值的缩放：
 
@@ -215,7 +292,7 @@ print(output)
  [0.   0.  0. ]]
 ```
 
-## 停止计算梯度
+### 停止计算梯度
 
 我们可以使用`stop_gradient`来禁止网络内的算子对梯度的影响，例如：
 
@@ -270,7 +347,7 @@ print(output)
 
 在我们不对`out2`设置`stop_gradient`后， `out2`和`out1`会对梯度产生相同的贡献。 所以我们可以看到，结果中每一项的值都变为了原来的两倍。
 
-## 高阶求导
+### 高阶求导
 
 高阶微分在AI支持科学计算、二阶优化等领域均有应用。如分子动力学模拟中，利用神经网络训练势能时[1]，损失函数中需计算神经网络输出对输入的导数，则反向传播便存在损失函数对输入、权重的二阶交叉导数；此外，AI求解微分方程（如PINNs[2]方法）还会存在输出对输入的二阶导数。又如二阶优化中，为了能够让神经网络快速收敛，牛顿法等需计算损失函数对权重的二阶导数。以下将主要介绍MindSpore图模式下的高阶导数。
 
@@ -278,7 +355,7 @@ MindSpore可通过多次求导的方式支持高阶导数，下面通过几类�
 
 完整样例代码见：[高阶求导样例代码](https://gitee.com/mindspore/docs/tree/r1.3/docs/sample_code/high_order_differentiation/second_order)
 
-### 单输入单输出高阶导数
+#### 单输入单输出高阶导数
 
 例如Sin算子，其二阶导数（-Sin）实现如下：
 
@@ -329,7 +406,7 @@ print(output)
 [-0.841471]
 ```
 
-### 单输入多输出高阶导数
+#### 单输入多输出高阶导数
 
 例如多输出的乘法运算，其高阶导数如下：
 
@@ -380,7 +457,7 @@ print(output)
 [2. 2. 2.]
 ```
 
-### 多输入多输出高阶导数
+#### 多输入多输出高阶导数
 
 例如神经网络有多个输入`x`、`y`，可以通过梯度缩放机制获得二阶导数`dxdx`，`dydy`，`dxdy`，`dydx`如下：
 
@@ -440,7 +517,7 @@ print(dxdx, dxdy, dydx, dydy)
 
 具体地，一阶导数计算的结果是`dx`、`dy`：如果计算`dxdx`，则一阶导数只需保留`dx`，对应`x`、`y`的缩放值分别设置成1和0，即`self.grad(self.network)(x, y, (self.sens1,self.sens2))`；同理计算`dydy`，则一阶导数只保留`dy`，对应`x`、`y`的`sens_param`分别设置成0和1，即`self.grad(self.network)(x, y, (self.sens2,self.sens1))`。
 
-## 二阶微分算子支持情况
+### 二阶微分算子支持情况
 
 CPU支持算子：[Square](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/ops/mindspore.ops.Square.html#mindspore.ops.Square)、
 [Exp](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/ops/mindspore.ops.Exp.html#mindspore.ops.Exp)、[Neg](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/ops/mindspore.ops.Neg.html#mindspore.ops.Neg)、[Mul](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/ops/mindspore.ops.Mul.html#mindspore.ops.Mul)、[MatMul](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/ops/mindspore.ops.MatMul.html#mindspore.ops.MatMul)；

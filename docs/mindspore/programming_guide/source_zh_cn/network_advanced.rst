@@ -6,5 +6,3 @@
 
   withlosscell
   trainonestepcell
-  numpy
-  custom_operator

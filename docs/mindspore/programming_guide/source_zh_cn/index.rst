@@ -17,8 +17,8 @@ MindSpore编程指南
    :maxdepth: 1
    :caption: 快速入门
 
-   quick_start/quick_start
    quick_start/linear_regression
+   quick_start/quick_start
    quick_start/quick_video
 
 .. toctree::
@@ -29,7 +29,12 @@ MindSpore编程指南
    tensor
    operators
    cell
-   gradoperation
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Numpy
+
+   numpy
 
 .. toctree::
    :maxdepth: 1
@@ -39,7 +44,7 @@ MindSpore编程指南
 
 .. toctree::
    :maxdepth: 1
-   :caption: 加载和处理数据
+   :caption: 数据加载和处理
 
    dataset_sample
    dataset
@@ -48,7 +53,7 @@ MindSpore编程指南
    
 .. toctree::
    :maxdepth: 1
-   :caption: 构建网络
+   :caption: 网络构建
    
    initializer
    parameter
@@ -60,7 +65,7 @@ MindSpore编程指南
 
 .. toctree::
    :maxdepth: 1
-   :caption: 训练模型
+   :caption: 模型训练
 
    run
    callback

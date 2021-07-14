@@ -17,8 +17,8 @@ MindSpore Programming Guide
    :maxdepth: 1
    :caption: Quickstart
 
-   quick_start/quick_start
    quick_start/linear_regression
+   quick_start/quick_start
    quick_start/quick_video
 
 .. toctree::
@@ -29,7 +29,12 @@ MindSpore Programming Guide
    tensor
    operators
    cell
-   gradoperation
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Numpy
+
+   numpy
 
 .. toctree::
    :maxdepth: 1

@@ -6,5 +6,3 @@ Advanced of Building the Network
 
   withlosscell
   trainonestepcell
-  numpy
-  custom_operator
