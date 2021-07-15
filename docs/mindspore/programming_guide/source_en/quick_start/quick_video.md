@@ -708,7 +708,7 @@ Provides video tutorials from installation to try-on, helping you quickly use Mi
      <div style="display: flex;flex-wrap: wrap;flex-direction: row;justify-content: flex-start;">
           <div
                class="video-item-wraper" style="width: 33.3%;display: flex;justify-content: center;align-items: center;padding: 10px;box-sizing: border-box;">
-               <a href="https://www.mindspore.cn/docs/programming/en/r1.3/quick_start/quick_video/network_migration_process.html" target="_blank"
+               <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.3/quick_start/quick_video/network_migration_process.html" target="_blank"
                     style="position: relative;">
                     <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/cover/%E6%89%8B%E6%8A%8A%E6%89%8B%E7%B3%BB%E5%88%97/%E7%BD%91%E7%BB%9C%E8%BF%81%E7%A7%BB%E6%B5%81%E7%A8%8B%E6%B1%87%E6%80%BB%E9%A1%B5EN.png"
                          style="max-width: 100%;width: 400px;">

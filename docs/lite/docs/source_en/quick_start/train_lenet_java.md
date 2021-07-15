@@ -95,7 +95,7 @@ cp mindspore-lite-${version}-linux-x64/runtime/third_party/libjpeg/turbo/lib/* .
     ./prepare_and_run.sh -D /PATH/MNIST_Data/ -r ../../../../output/mindspore-lite-${version}-linux-x86.tar.gz
     ```
 
-    > ../resources/model/lenet_tod.ms is a LeNet training model preconfigured in the sample project. You can also convert it into a LeNet model by referring to [Creating MindSpore Lite Models](https://www.mindspore.cn/docs/lite/docs/en/r1.3/use/converter_train.html).
+    > ../resources/model/lenet_tod.ms is a LeNet training model preconfigured in the sample project. You can also convert it into a LeNet model by referring to [Creating MindSpore Lite Models](https://www.mindspore.cn/lite/docs/en/r1.3/use/converter_train.html).
     >
     > /PATH/MNIST_Data/ is the path of MNIST dataset.
 
