@@ -641,7 +641,7 @@ You can write a Python script to call the JAR package of the federated learning 
     parser.add_argument("--ssl", type=str, default="false")
     parser.add_argument("--port", type=int, default=6668)
     parser.add_argument("--server_num", type=int, default=0)
-    parser.add_argument("--worker_num", type=int, default=0)
+    parser.add_argument("--client_num", type=int, default=0)
     parser.add_argument("--time_window", type=int, default=6000)
     parser.add_argument("--use_elb", type=str, default="false")
     parser.add_argument("--use_https", type=str, default="false")
@@ -661,7 +661,7 @@ You can write a Python script to call the JAR package of the federated learning 
     ssl = args.ssl
     port = args.port
     server_num = args.server_num
-    worker_num = args.worker_num
+    client_num = args.client_num
     time_window = str(args.time_window)
     use_elb = args.use_elb
     use_https = args.use_https
@@ -698,7 +698,7 @@ You can write a Python script to call the JAR package of the federated learning 
         test_path = test_data_path + "," + test_label_path
         return train_path, test_path, train_batch_num, test_batch_num
 
-    for i in range(worker_num):
+    for i in range(client_num):
         clientID = "f"+str(i)
         user = users[i]
         train_path, test_path = "", ""
@@ -794,7 +794,7 @@ You can write a Python script to call the JAR package of the federated learning 
 
         Specifies the number of servers. The value must be the same as the value of `server_num` when the server is started. This parameter is used to simulate the scenario where the client randomly selects different servers to send messages. This parameter is not required in actual scenarios.
 
-    - **`--worker_num`**
+    - **`--client_num`**
 
         Specifies the number of clients. The value must be the same as that of `start_fl_job_cnt` when the server is started. This parameter is not required in actual scenarios.
 
@@ -812,7 +812,7 @@ You can write a Python script to call the JAR package of the federated learning 
 
     - **`--task`**
 
-        Specifies the type of the task to be started. `train` indicates that a training task is started. `inference` indicates that multiple data inference tasks are started. `getModel` indicates that the task for obtaining the cloud model is started. Other character strings indicate that the inference task of a single data record is started. The default value is `train`. The initial model file (.ms file) is not trained. Therefore, you are advised to start the training task first. After the training is complete, start the inference task. (Note that the values of worker_num in the two startups must be the same to ensure that the model file used by `inference` is the same as that used by `train`.)
+        Specifies the type of the task to be started. `train` indicates that a training task is started. `inference` indicates that multiple data inference tasks are started. `getModel` indicates that the task for obtaining the cloud model is started. Other character strings indicate that the inference task of a single data record is started. The default value is `train`. The initial model file (.ms file) is not trained. Therefore, you are advised to start the training task first. After the training is complete, start the inference task. (Note that the values of client_num in the two startups must be the same to ensure that the model file used by `inference` is the same as that used by `train`.)
 
 2. **Prepare a model file for the client.**
 
@@ -855,10 +855,12 @@ You can write a Python script to call the JAR package of the federated learning 
 
 3. **Start the client.**
 
+    Before starting the client, please refer to the section [x86](https://www.mindspore.cn/federated/docs/en/r1.3/deploy_federated_client.html) in the Federated-Client deployment tutorial for deployment of device environment .
+
     Run `run.py` as follows:
 
     ```sh
-    python run.py --ip=10.113.216.106 --port=6668 --server_num=8  --worker_num=5 --task=train
+    python run.py --ip=10.113.216.106 --port=6668 --server_num=8  --client_num=5 --task=train
     ```
 
     This command indicates that five clients are started to participate in federated learning. If the startup is successful, log files corresponding to the five clients are generated in the current folder. You can view the log files to learn the running status of each client.

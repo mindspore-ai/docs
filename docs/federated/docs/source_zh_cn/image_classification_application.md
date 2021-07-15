@@ -636,7 +636,7 @@ if __name__ == "__main__":
     parser.add_argument("--ssl", type=str, default="false")
     parser.add_argument("--port", type=int, default=6668)
     parser.add_argument("--server_num", type=int, default=0)
-    parser.add_argument("--worker_num", type=int, default=0)
+    parser.add_argument("--client_num", type=int, default=0)
     parser.add_argument("--time_window", type=int, default=6000)
     parser.add_argument("--use_elb", type=str, default="false")
     parser.add_argument("--use_https", type=str, default="false")
@@ -656,7 +656,7 @@ if __name__ == "__main__":
     ssl = args.ssl
     port = args.port
     server_num = args.server_num
-    worker_num = args.worker_num
+    client_num = args.client_num
     time_window = str(args.time_window)
     use_elb = args.use_elb
     use_https = args.use_https
@@ -693,7 +693,7 @@ if __name__ == "__main__":
         test_path = test_data_path + "," + test_label_path
         return train_path, test_path, train_batch_num, test_batch_num
 
-    for i in range(worker_num):
+    for i in range(client_num):
         clientID = "f"+str(i)
         user = users[i]
         train_path, test_path = "", ""
@@ -787,7 +787,7 @@ if __name__ == "__main__":
 
         设置server数量，与启动server端时的`server_num`参数保持一致，用于模拟客户端随机选择不同的server发送信息，真实场景不需要此参数。
 
-    - `--worker_num`
+    - `--client_num`
 
         设置client数量， 与启动server端时的`start_fl_job_cnt`保持一致，真实场景不需要此参数。
 
@@ -805,7 +805,7 @@ if __name__ == "__main__":
 
     - `--task`
 
-        用于设置本此启动的任务类型，为`train`代表启动训练任务，为`inference`代表启动多条数据推理任务，为`getModel`代表启动获取云侧模型的任务，设置其他字符串代表启动单条数据推理任务。默认为`train`。由于初始的模型文件(.ms文件)是未训练过的，建议先启动训练任务，待训练完成之后，再启动推理任务（注意两次启动的`worker_num`保持一致，以保证`inference`使用的模型文件与`train`保持一致）。
+        用于设置本此启动的任务类型，为`train`代表启动训练任务，为`inference`代表启动多条数据推理任务，为`getModel`代表启动获取云侧模型的任务，设置其他字符串代表启动单条数据推理任务。默认为`train`。由于初始的模型文件(.ms文件)是未训练过的，建议先启动训练任务，待训练完成之后，再启动推理任务（注意两次启动的`client_num`保持一致，以保证`inference`使用的模型文件与`train`保持一致）。
 
 2. 为客户端准备好模型文件。
 
@@ -848,10 +848,12 @@ if __name__ == "__main__":
 
 3. 启动客户端。
 
+    启动客户端之前请先参照端侧部署教程中[x86环境部分](https://www.mindspore.cn/federated/docs/zh-CN/r1.3/deploy_federated_client.html)进行端侧环境部署。
+
     运行`run.py`，指令如下：
 
     ```sh
-    python run.py --ip=10.113.216.106 --port=6668 --server_num=8  --worker_num=5 --task=train
+    python run.py --ip=10.113.216.106 --port=6668 --server_num=8  --client_num=5 --task=train
     ```
 
     该指令代表启动5个客户端参与联邦学习，若启动成功，会在当前文件夹生成5个客户端对应的日志文件，查看日志文件内容可了解每个客户端的运行情况：
