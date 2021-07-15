@@ -40,7 +40,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindQu
 
 ```bash
 cd ~
-git clone https://gitee.com/mindspore/mindquantum.git -b r1.3
+git clone https://gitee.com/mindspore/mindquantum.git -b r0.2
 ```
 
 2.Compiling MindQuantum
