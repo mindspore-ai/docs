@@ -310,6 +310,8 @@ void NetRunner::InitAndFigureInputs() {
 
   session_ = mindspore::session::TrainSession::CreateTrainSession(ms_file_, &context, true);
   MS_ASSERT(nullptr != session_);
+
+  session_->SetupVirtualBatch(virtual_batch_);
   loop_ = mindspore::session::TrainLoop::CreateTrainLoop(session_);
 
   if (verbose_) {
