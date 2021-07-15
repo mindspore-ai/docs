@@ -9,7 +9,7 @@
 | 环境变量 | 所属模块 | 功能 | 类型 | 取值范围 | 配置关系 | 是否必选 | 默认值 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 |MS_BUILD_PROCESS_NUM|MindSpore|Ascend后端编译时，指定并行编译进程数|Integer|1~24：允许设置并行进程数取值范围|无|可选（仅Ascend AI处理器环境使用）|无|
-|MS_GRAPH_KERNEL_FLAGS|MindSpore|图算融合功能的控制选项，可用来开启或关闭图算融合功能、支持对图算融合功能中若干优化的精细控制、支持dump图算融合时的过程数据，用于问题定位和性能调优|String|格式和功能同mindspore/context.py中"graph_kernel_flags"。<br>注：环境变量优先级高于context，即，若同时设置环境变量和context，则只有环境变量中的设置生效|无|可选|无|
+|MS_GRAPH_KERNEL_FLAGS|MindSpore|图算融合功能的控制选项，可用来开启或关闭图算融合功能、支持对图算融合功能中若干优化的精细控制、支持dump图算融合时的过程数据，用于问题定位和性能调优|String|格式和功能同mindspore/context.py中[graph_kernel_flags](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/mindspore.context.html#mindspore.context.set_context)。<br>注：环境变量优先级高于context，即，若同时设置环境变量和context，则只有环境变量中的设置生效|无|可选|无|
 |RANK_TABLE_FILE|MindSpore|路径指向文件，包含指定多Ascend AI处理器环境中Ascend AI处理器的"device_id"对应的"device_ip"。|String|文件路径，支持相对路径与绝对路径|与RANK_SIZE配合使用|可选（Ascend AI处理器，使用多卡执行分布式用例时，由用户指定）|无|
 |RANK_SIZE|MindSpore|指定深度学习时调用Ascend AI处理器的数量|Integer|1~8，调用Ascend AI处理器的数量|与RANK_TABLE_FILE配合使用|可选（Ascend AI处理器，使用多卡执行分布式用例时，由用户指定）|无|
 |RANK_ID|MindSpore|指定深度学习时调用Ascend AI处理器的逻辑ID|Integer|0~7，多机并行时不同server中DEVICE_ID会有重复，使用RANK_ID可以避免这个问题（多机并行时 RANK_ID = SERVER_ID * DEVICE_NUM + DEVICE_ID|无|可选|无|
