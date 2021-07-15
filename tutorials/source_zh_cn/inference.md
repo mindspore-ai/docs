@@ -10,7 +10,7 @@
 
 ### 推理代码介绍
 
-首先创建目录放置推理代码工程，例如`/home/HwHiAiUser/mindspore_sample/ascend910_resnet50_preprocess_sample`，可以从官网示例下载[样例代码](https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/ascend910_resnet50_preprocess_sample)，`model`目录用于存放上述导出的`MindIR`模型文件，`test_data`目录用于存放待分类的图片，推理代码工程目录结构如下：
+首先创建目录放置推理代码工程，例如`/home/HwHiAiUser/mindspore_sample/ascend910_resnet50_preprocess_sample`，可以从官网示例下载[样例代码](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/ascend910_resnet50_preprocess_sample)，`model`目录用于存放上述导出的`MindIR`模型文件，`test_data`目录用于存放待分类的图片，推理代码工程目录结构如下：
 
 ```text
 └─ascend910_resnet50_preprocess_sample
@@ -137,7 +137,7 @@ target_link_libraries(resnet50_sample ${MS_LIB} ${MD_LIB})
 ```
 
 >详细样例请参考：
-><https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/ascend910_resnet50_preprocess_sample/CMakeLists.txt>
+><https://gitee.com/mindspore/docs/blob/master/docs/sample_code/ascend910_resnet50_preprocess_sample/CMakeLists.txt>
 
 ### 编译推理代码
 
@@ -204,7 +204,7 @@ MindSpore Lite是端边云全场景AI框架MindSpore的端侧部分，可以在�
 
 在本环节中，提供了运行在Windows和Linux操作系统下，基于C++ API编写的Demo，帮助用户熟悉端侧推理流程。Demo通过随机生成的数据作为输入数据，执行MobileNetV2模型的推理，直接在电脑中打印获得输出数据。
 
-> 运行在手机中的完整实例可以参考官网示例：[基于JNI接口的Android应用开发]( https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/quick_start.html)。
+> 运行在手机中的完整实例可以参考官网示例：[基于JNI接口的Android应用开发]( https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/quick_start.html)。
 
 ### 模型转换
 
@@ -214,11 +214,11 @@ MindSpore Lite是端边云全场景AI框架MindSpore的端侧部分，可以在�
 
 > 本小节展开说明了转换的操作过程，仅实现Demo运行可跳过本小节。
 >
-> 本小节仅针对Demo所用模型，详细的转换工具使用说明请参考官网[推理模型转换](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_tool.html#)章节。
+> 本小节仅针对Demo所用模型，详细的转换工具使用说明请参考官网[推理模型转换](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html#)章节。
 
 - 转换工具下载
 
-  根据所使用的操作系统，下载转换工具的[压缩包](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)并解压至本地目录，获得`converter`工具，并配置环境变量。
+  根据所使用的操作系统，下载转换工具的[压缩包](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)并解压至本地目录，获得`converter`工具，并配置环境变量。
 
 - 转换工具使用
 
@@ -273,7 +273,7 @@ MindSpore Lite是端边云全场景AI框架MindSpore的端侧部分，可以在�
 
 - 编译构建
 
-    - 库下载：请手动下载硬件平台为CPU、操作系统为Windows-x64的MindSpore Lite模型推理框架[mindspore-lite-{version}-win-x64.zip](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)，将解压后`inference/lib`目录下的`libmindspore-lite.a`拷贝到`mindspore/lite/examples/quick_start_cpp/lib`目录、`inference/include`目录拷贝到`mindspore/lite/examples/quick_start_cpp/include`目录。
+    - 库下载：请手动下载硬件平台为CPU、操作系统为Windows-x64的MindSpore Lite模型推理框架[mindspore-lite-{version}-win-x64.zip](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，将解压后`inference/lib`目录下的`libmindspore-lite.a`拷贝到`mindspore/lite/examples/quick_start_cpp/lib`目录、`inference/include`目录拷贝到`mindspore/lite/examples/quick_start_cpp/include`目录。
 
     - 模型下载：请手动下载相关模型文件[mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_imagenet/mobilenetv2.ms)，并将其拷贝到`mindspore/lite/examples/quick_start_cpp/model`目录。
 

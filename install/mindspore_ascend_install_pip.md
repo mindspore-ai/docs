@@ -8,10 +8,6 @@
     - [配置环境变量](#配置环境变量)
     - [验证是否成功安装](#验证是否成功安装)
     - [升级MindSpore版本](#升级mindspore版本)
-    - [安装MindInsight](#安装mindinsight)
-    - [安装MindArmour](#安装mindarmour)
-    - [安装MindSpore Hub](#安装mindspore-hub)
-    - [安装MindSpore Serving](#安装mindspore-serving)
 
 <!-- /TOC -->
 
@@ -54,7 +50,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindSp
 
 其中：
 
-- 在联网状态下，安装whl包时会自动下载MindSpore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装。运行模型时，需要根据[ModelZoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo)中不同模型指定的requirements.txt安装额外依赖，常见依赖可以参考[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)。
+- 在联网状态下，安装whl包时会自动下载mindspore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装。运行模型时，需要根据[ModelZoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo)中不同模型指定的requirements.txt安装额外依赖，常见依赖可以参考[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)。  
 - `{version}`表示MindSpore版本号，例如安装1.1.0版本MindSpore时，`{version}`应写为1.1.0。  
 - `{arch}`表示系统架构，例如使用的Linux系统是x86架构64位时，`{arch}`应写为`x86_64`。如果系统是ARM架构64位，则写为`aarch64`。
 
@@ -136,26 +132,3 @@ print(ops.add(x, y))
 pip install --upgrade mindspore-ascend
 ```
 
-## 安装MindInsight
-
-当您需要查看训练过程中的标量、图像、计算图以及模型超参等信息时，可以选装MindInsight。
-
-具体安装步骤参见[MindInsight](https://gitee.com/mindspore/mindinsight/blob/master/README_CN.md)。
-
-## 安装MindArmour
-
-当您进行AI模型安全研究或想要增强AI应用模型的防护能力时，可以选装MindArmour。
-
-具体安装步骤参见[MindArmour](https://gitee.com/mindspore/mindarmour/blob/master/README_CN.md)。
-
-## 安装MindSpore Hub
-
-当您想要快速体验MindSpore预训练模型时，可以选装MindSpore Hub。
-
-具体安装步骤参见[MindSpore Hub](https://gitee.com/mindspore/hub/blob/master/README_CN.md)。
-
-## 安装MindSpore Serving
-
-当您想要快速体验MindSpore在线推理服务时，可以选装MindSpore Serving。
-
-具体安装步骤参见[MindSpore Serving](https://gitee.com/mindspore/serving/blob/master/README_CN.md)。

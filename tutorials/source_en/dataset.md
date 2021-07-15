@@ -191,4 +191,4 @@ plt.show()
 
 ![png](./images/output_17_0.PNG)
 
-For more information, see [Data augmentation](https://www.mindspore.cn/doc/programming_guide/en/master/augmentation.html).
+For more information, see [Data augmentation](https://www.mindspore.cn/docs/programming_guide/en/master/augmentation.html).

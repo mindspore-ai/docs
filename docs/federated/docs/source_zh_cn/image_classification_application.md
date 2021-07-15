@@ -456,7 +456,7 @@
 
 网络定义流程可参考[model.py文件](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py)。
 
-具体网络定义流程可参考[MindSpore官方图片分类任务文档]( https://www.mindspore.cn/tutorial/training/zh-CN/master/quick_start/quick_start.html#%E5%AE%9A%E4%B9%89%E7%BD%91%E7%BB%9C )。
+具体网络定义流程可参考[图片分类应用](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/quick_start/quick_start.html#%E5%AE%9A%E4%B9%89%E7%BD%91%E7%BB%9C)。
 
 ## 定义训练过程
 
@@ -559,9 +559,9 @@ if __name__ == "__main__":
 
 其中字典`ctx`中参数`enable_fl`用于设置是否启动联邦学习训练流程，为`true`代表启动联邦学习流程，为`false`代表启动普通训练流程，其他参数可以根据实际情况进行设置。由于只需要生成可用的模型文件即可，上面脚本中`data`和`label`均采用了模拟数据。
 
-其中`src.model`为模型定义文件[可参考model.py文件]( https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py)，`src.adam`为优化器定义文件[可参考adam.py文件](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/adam.py)。
+其中`src.model`为模型定义文件可参考[model.py文件](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py)，`src.adam`为优化器定义文件可参考[adam.py文件](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/adam.py)。
 
-具体优化器损失函数定义可参考[MindSpore官方文档](https://www.mindspore.cn/tutorial/training/zh-CN/master/quick_start/quick_start.html#%E5%AE%9A%E4%B9%89%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E5%8F%8A%E4%BC%98%E5%8C%96%E5%99%A8)。
+具体优化器损失函数定义可参考[图片分类应用](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/quick_start/quick_start.html#%E5%AE%9A%E4%B9%89%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E5%8F%8A%E4%BC%98%E5%8C%96%E5%99%A8)。
 
 ## 生成端侧模型文件
 
@@ -583,11 +583,11 @@ if __name__ == "__main__":
         print(losses)
     ```
 
-   具体可参考[这里](https://www.mindspore.cn/tutorial/training/zh-CN/master/use/save_model.html?highlight=mindir#mindir )。
+    具体可参考[导出MindIR格式文件](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/save_model.html#mindir)。
 
 2. 将MindIR文件转化为联邦学习端侧框架可用的ms文件。
 
-    具体模型转换教程可参考[训练模型转换教程](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_train.html )。
+    模型转换可参考[训练模型转换教程](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_train.html )。
 
     模型转换示例如下：
 
@@ -613,7 +613,7 @@ if __name__ == "__main__":
 
 ## 模拟启动多客户端参与联邦学习
 
-之后可编写一个Python脚本，调用联邦学习框架jar包 (x86环境联邦学习jar包获取可参考[Federated-Client部署教程中编译出包流程](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/deploy_federated_client.md)) 来模拟启动多客户端联邦学习任务。
+可编写一个Python脚本，调用联邦学习框架jar包（x86环境联邦学习jar包获取可参考[端侧部署中编译出包流程](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)）来模拟启动多客户端联邦学习任务。
 
 1. 以Lenet网络为例，参考脚本`run.py`如下。
 
@@ -636,7 +636,7 @@ if __name__ == "__main__":
     parser.add_argument("--ssl", type=str, default="false")
     parser.add_argument("--port", type=int, default=6668)
     parser.add_argument("--server_num", type=int, default=0)
-    parser.add_argument("--worker_num", type=int, default=0)
+    parser.add_argument("--client_num", type=int, default=0)
     parser.add_argument("--time_window", type=int, default=6000)
     parser.add_argument("--use_elb", type=str, default="false")
     parser.add_argument("--use_https", type=str, default="false")
@@ -656,7 +656,7 @@ if __name__ == "__main__":
     ssl = args.ssl
     port = args.port
     server_num = args.server_num
-    worker_num = args.worker_num
+    client_num = args.client_num
     time_window = str(args.time_window)
     use_elb = args.use_elb
     use_https = args.use_https
@@ -693,7 +693,7 @@ if __name__ == "__main__":
         test_path = test_data_path + "," + test_label_path
         return train_path, test_path, train_batch_num, test_batch_num
 
-    for i in range(worker_num):
+    for i in range(client_num):
         clientID = "f"+str(i)
         user = users[i]
         train_path, test_path = "", ""
@@ -737,7 +737,7 @@ if __name__ == "__main__":
 
     - `--jarPath`
 
-        设置联邦学习jar包路径，x86环境联邦学习jar包获取可参考[Federated-Client部署教程中编译出包流程](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/deploy_federated_client.md)。
+        设置联邦学习jar包路径，x86环境联邦学习jar包获取可参考[端侧部署中编译出包流程](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)。
 
     - `--train_dataset`
 
@@ -787,7 +787,7 @@ if __name__ == "__main__":
 
         设置server数量，与启动server端时的`server_num`参数保持一致，用于模拟客户端随机选择不同的server发送信息，真实场景不需要此参数。
 
-    - `--worker_num`
+    - `--client_num`
 
         设置client数量， 与启动server端时的`start_fl_job_cnt`保持一致，真实场景不需要此参数。
 
@@ -805,7 +805,7 @@ if __name__ == "__main__":
 
     - `--task`
 
-        用于设置本此启动的任务类型，为`train`代表启动训练任务，为`inference`代表启动多条数据推理任务，为`getModel`代表启动获取云侧模型的任务，设置其他字符串代表启动单条数据推理任务。默认为`train`。由于初始的模型文件(.ms文件)是未训练过的，建议先启动训练任务，待训练完成之后，再启动推理任务（注意两次启动的`worker_num`保持一致，以保证`inference`使用的模型文件与`train`保持一致）。
+        用于设置本此启动的任务类型，为`train`代表启动训练任务，为`inference`代表启动多条数据推理任务，为`getModel`代表启动获取云侧模型的任务，设置其他字符串代表启动单条数据推理任务。默认为`train`。由于初始的模型文件(.ms文件)是未训练过的，建议先启动训练任务，待训练完成之后，再启动推理任务（注意两次启动的`client_num`保持一致，以保证`inference`使用的模型文件与`train`保持一致）。
 
 2. 为客户端准备好模型文件。
 
@@ -848,10 +848,12 @@ if __name__ == "__main__":
 
 3. 启动客户端。
 
+    启动客户端之前请先参照端侧部署教程中[x86环境部分](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)进行端侧环境部署。
+
     运行`run.py`，指令如下：
 
     ```sh
-    python run.py --ip=10.113.216.106 --port=6668 --server_num=8  --worker_num=5 --task=train
+    python run.py --ip=10.113.216.106 --port=6668 --server_num=8  --client_num=5 --task=train
     ```
 
     该指令代表启动5个客户端参与联邦学习，若启动成功，会在当前文件夹生成5个客户端对应的日志文件，查看日志文件内容可了解每个客户端的运行情况：

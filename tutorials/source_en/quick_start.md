@@ -36,7 +36,7 @@ args = parser.parse_known_args()[0]
 context.set_context(mode=context.GRAPH_MODE, device_target=args.device_target)
 ```
 
-This example runs in graph mode. You can configure hardware information as required. For example, if the code runs on the Ascend AI processor, set `--device_target` to `Ascend`. This rule also applies to the code running on the CPU and GPU. For details about the parameters, see [context.set_context](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.context.html).
+This example runs in graph mode. You can configure hardware information as required. For example, if the code runs on the Ascend AI processor, set `--device_target` to `Ascend`. This rule also applies to the code running on the CPU and GPU. For details about the parameters, see [context.set_context](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.context.html).
 
 ## Downloading the Dataset
 
@@ -122,7 +122,7 @@ def create_dataset(data_path, batch_size=32, repeat_size=1,
 
 In the preceding information, `batch_size` indicates the number of data records in each group. Assume that each group contains 32 data records.
 
-> MindSpore supports multiple data processing and argumentation operations. For details, see [Processing Data](https://www.mindspore.cn/doc/programming_guide/en/master/pipeline.html) and [Data Augmentation](https://www.mindspore.cn/doc/programming_guide/en/master/augmentation.html).
+> MindSpore supports multiple data processing and argumentation operations. For details, see [Processing Data](https://www.mindspore.cn/docs/programming_guide/en/master/pipeline.html) and [Data Augmentation](https://www.mindspore.cn/docs/programming_guide/en/master/augmentation.html).
 
 ## Creating a Model
 
@@ -170,8 +170,6 @@ class LeNet5(nn.Cell):
 net = LeNet5()
 ```
 
-> For more information about building a neural network in MindSpore, see [Defining the Network](https://www.mindspore.cn/tutorial/training/en/master/use/defining_the_network.html).
-
 ## Optimizing Model Parameters
 
 To train a neural network model, a loss function and an optimizer need to be defined.
@@ -183,7 +181,7 @@ Loss functions supported by MindSpore include `SoftmaxCrossEntropyWithLogits`, `
 net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
 ```
 
-> For more information about using loss functions in MindSpore, see [Loss Functions](https://www.mindspore.cn/tutorial/en/master/optimization.html#loss-functions).
+> For more information about using loss functions in mindspore, see [Loss Functions](https://www.mindspore.cn/tutorials/en/master/optimization.html#loss-functions).
 
 MindSpore supports the `Adam`, `AdamWeightDecay`, and `Momentum` optimizers. The following uses the `Momentum` optimizer as an example.
 
@@ -192,7 +190,7 @@ MindSpore supports the `Adam`, `AdamWeightDecay`, and `Momentum` optimizers. The
 net_opt = nn.Momentum(net.trainable_params(), learning_rate=0.01, momentum=0.9)
 ```
 
-> For more information about using an optimizer in MindSpore, see [Optimizer](https://www.mindspore.cn/tutorial/en/master/optimization.html#optimizer).
+> For more information about using an optimizer in mindspore, see [Optimizer](https://www.mindspore.cn/tutorials/en/master/optimization.html#optimizer).
 
 ## Training and Saving the Model
 
@@ -288,7 +286,7 @@ param_dict = load_checkpoint("checkpoint_lenet-1_1875.ckpt")
 load_param_into_net(net, param_dict)
 ```
 
-> For more information about loading a model in MindSpore, see [Loading the Model](https://www.mindspore.cn/tutorial/en/master/save_load_model.html#loading-the-model).
+> For more information about loading a model in mindspore, see [Loading the Model](https://www.mindspore.cn/tutorials/en/master/save_load_model.html#loading-the-model).
 
 ## Validating the Model
 

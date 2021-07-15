@@ -7,7 +7,6 @@
     - [安装MindSpore](#安装mindspore)
     - [配置环境变量](#配置环境变量)
     - [验证是否成功安装](#验证是否成功安装)
-    - [安装MindSpore Serving](#安装mindspore-serving)
 
 <!-- /TOC -->
 
@@ -45,7 +44,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindSp
 
 其中：
 
-- 在联网状态下，安装whl包时会自动下载MindSpore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装。运行模型时，需要根据[ModelZoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo)中不同模型指定的requirements.txt安装额外依赖，常见依赖可以参考[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)。
+- 在联网状态下，安装whl包时会自动下载mindspore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装。运行模型时，需要根据[ModelZoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo)中不同模型指定的requirements.txt安装额外依赖，常见依赖可以参考[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)。
 - `{version}`表示MindSpore版本号，例如安装1.1.0版本MindSpore时，`{version}`应写为1.1.0。
 - `{arch}`表示系统架构，例如使用的Linux系统是x86架构64位时，`{arch}`应写为`x86_64`。如果系统是ARM架构64位，则写为`aarch64`。
 
@@ -116,8 +115,3 @@ make
 
 说明MindSpore安装成功了。
 
-## 安装MindSpore Serving
-
-当您想要快速体验MindSpore在线推理服务时，可以选装MindSpore Serving。
-
-具体安装步骤参见[MindSpore Serving](https://gitee.com/mindspore/serving/blob/master/README_CN.md)。

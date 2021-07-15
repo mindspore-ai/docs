@@ -114,7 +114,7 @@ if __name__ == "__main__":
 
 ## 执行推理
 
-客户端提供两种方式访问推理服务，一种是通过[gRPC方式](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_grpc.html)，一种是通过[RESTful方式](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_restful.html)。本文以gRPC方式为例，通过`client.py`执行推理。
+客户端提供两种方式访问推理服务，一种是通过[gRPC方式](https://www.mindspore.cn/serving/docs/en/master/serving_grpc.html)，一种是通过[RESTful方式](https://www.mindspore.cn/serving/docs/zh-CN/master/serving_restful.html)。本文以gRPC方式为例，通过`client.py`执行推理。
 
 ```python
 import numpy as np

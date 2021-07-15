@@ -21,8 +21,8 @@ MindSpore Federated框架代码分别集成在云侧MindSpore和端侧Lite框架
 
 ## 获取MindSpore Lite java包
 
-包括源码和下载发布版两种方式。目前只支持x86和android平台，只支持CPU硬件架构。安装流程可参考MindSpore Lite教程[下载章节](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)和[编译章节](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)。详见下文部署Federated-Client章节。
+包括源码和下载发布版两种方式。目前只支持x86和Android平台，只支持CPU硬件架构。MindSpore Lite从1.3.0版本开始支持联邦学习。安装步骤可参考[下载MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)和[编译MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)。
 
 ## Linux环境编译要求
 
-目前源码编译只支持linux环境，环境要求可参考，[MindSpore源码编译](https://www.mindspore.cn/install) 和[MindSpore Lite源码编译](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)。
+目前源码编译只支持Linux环境，环境要求可参考[MindSpore源码编译](https://www.mindspore.cn/install)和[MindSpore Lite源码编译](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)。
