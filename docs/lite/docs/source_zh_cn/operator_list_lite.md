@@ -11,17 +11,17 @@
 | Abs                   | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | | Abs                             |                          | Abs                                             | Abs                                             |
 | Add                   | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ |  ✅ | Add                             |                          | Add, Int8Add                                    | Add, AddV2                                      |
 | AddGrad |  | ✅ |  |  |  |  |  | | | |  |  |
-| AddN                  |              | ✅    |              |               |              |              |          | | AddN                            |                          |                                                 |                                                 |
+| AddN                  |   ✅         | ✅    |              |               |              |              |          | | AddN                            |                          |                                                 |                                                 |
 | Assert                |              | ✅    |              |               |              |              |           |                           |      |                          |                                                 | Assert                                          |
 | Argmax                |  ✅   | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | | Argmax                          | ArgMax                   | ArgMax                                          | Argmax                                          |
 | Argmin                |  ✅   | ✅    | ✅    | ✅     | ✅    | ✅    |           | | Argmin                          |                          |                                                 | ArgMin                                          |
 | AvgPool               | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | | MeanPooling                     | Pooling                  | AveragePool,<br/>GlobalAveragePool,<br/>Int8AveragePool | AvgPool                                         |
-| AvgPoolGrad |  | ✅ |  |  |  |  |  | |  |  |  |  |
+| AvgPoolGrad | ✅ | ✅ |  |  |  |  |  | |  |  |  |  |
 | BatchNorm             | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    |           |                               |  | BatchNorm                | BatchNormalization                              |                                                 |
-| BatchNormGrad |  | ✅ |  |  |  |  | | | |  |  | |
+| BatchNormGrad | ✅ | ✅ |  |  |  |  | | | |  |  | |
 | BatchToSpace          |              | ✅    | ✅    | ✅     | ✅    | ✅    |          | | BatchToSpace,<br/>BatchToSpaceND    |                          |                                                 | BatchToSpace,<br/>BatchToSpaceND                    |
 | BiasAdd               | ✅ | ✅    | ✅    | ✅     | ✅    | ✅    |           |                                 |                      |    | BiasAdd                                         | BiasAdd                                         |
-| BiasAddGrad | | ✅ |  |  |  |  | | | | |  |  |
+| BiasAddGrad | ✅ | ✅ |  |  |  |  | | | | |  |  |
 | Broadcast             |              | ✅    |              |               |              |              |          | | BroadcastTo                     |                          | Expand                                          |                                                 |
 | Cast                  | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | | Cast,<br/>QUANTIZE,<br/>DEQUANTIZE      |                          | Cast                                            | Cast                                            |
 | Ceil                  | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | | Ceil                            |                          | Ceil                                            | Ceil                                            |
@@ -50,7 +50,7 @@
 | Equal                 | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | | Equal                           |                          | Equal                                           | Equal                                           |
 | Exp                   |              | ✅    |              |               | ✅    | ✅    |        |   | Exp                             | Exp                      | Exp                                             | Exp                                             |
 | ExpandDims            |   ✅   | ✅    | ✅    | ✅     |              |              | ✅       |  | ExpandDims                      |                          |                                                 | ExpandDims                                      |
-| Fill                  |              | ✅    |              |               |              |              |        |   | Fill                            |                          |                                                 | Fill                                            |
+| Fill                  |   ✅   | ✅    |              |               |              |              |        |   | Fill                            |                          |                                                 | Fill                                            |
 | Flatten               |  ✅    | ✅    |              |               |              |              |           |                              |   | Flatten                  |                                                 |                                                 |
 | Floor                 | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | | flOOR                           |                          | Floor                                           | Floor                                           |
 | FloorDiv              | ✅    | ✅    |              |               | ✅    | ✅    | ✅ | | FloorDiv                        |                          |                                                 | FloorDiv                                        |
@@ -70,7 +70,7 @@
 | InstanceNorm          | ✅ | ✅    |              |               |              |              |         |  | InstanceNorm                    |                          |                                                 |                                                 |
 | InvertPermutation     |              | ✅    |              |               |              |              |           |                |                 |                          |                                                 | InvertPermutation                               |
 | L2Norm                |              | ✅    |   ✅  |               |              |              |       |    | L2_NORMALIZATION                |                          |                                                 |                                                 |
-| LayerNorm             |              | ✅    | ✅    |               |              |              |           |                   |              |                          |                                                 |                                                 |
+| LayerNorm             | ✅    | ✅    | ✅    |               |              |              |           |                   |              |                          |                                                 |                                                 |
 | LeakyReLU             | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | | LeakyRelu                       |                          | LeakyRelu                                       | LeakyRelu                                       |
 | LeakyReLUGrad |  | ✅ |  |  |  |  | |  |  | |  |  |
 | Less                  | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | | Less                            |                          | Less                                            | Less                                            |
@@ -81,26 +81,26 @@
 | LogicalAnd            | ✅    | ✅    |              |               | ✅    | ✅    | ✅ | | LogicalAnd                      |                          | And                                             | LogicalAnd                                      |
 | LogicalNot            | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | | LogicalNot                      |                          | Not                                             | LogicalNot                                      |
 | LogicalOr             | ✅    | ✅    |              |               | ✅    | ✅    | ✅ | |  LogicalOr                       |                          | Or                                              | LogicalOr                                       |
-| LogSoftmax             |    | ✅    |              |               | ✅    | ✅    | ✅ | |  LogSoftmax        |                          | LogSoftmax                |                                        |
+| LogSoftmax            | ✅    | ✅    |              |               | ✅    | ✅    | ✅ | |  LogSoftmax        |                          | LogSoftmax                |                                        |
 | LshProjection         |              | ✅    |              |               |              |              |       |    | LshProjection                   |                          |                                                 |                                                 |
 | LSTM                  |    ✅   | ✅    |              |               |              |              |           |                                 |               |           | LSTM                                            |                                                 |
 | MatMul                | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ |  ✅ | BatchMatMul                     |                          | MatMul,<br/>Gemm                         | MatMul,<br/>BatchMatMul                             |
 | MatMulGrad |  | ✅ |  |  |  | |  |  | | |  |  |
 | Maximum               | ✅    | ✅    |              |               | ✅    | ✅    | ✅ | | Maximum                         |                          |                                                 | Maximum                                         |
-| MaximumGrad |  | ✅ | | |  |  |  |  | | | | |
+| MaximumGrad | ✅ | ✅ | | |  |  |  |  | | | | |
 | MaxPool               | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | | MaxPooling                      | Pooling                  | MaxPool,<br/>GlobalMaxPool                          | MaxPool                                         |
-| MaxPoolGrad |  | ✅ |  |  |  |  | | |  |  |  |  |
+| MaxPoolGrad | ✅ | ✅ |  |  |  |  | | |  |  |  |  |
 | Merge                 | ✅ | ✅    |              |               |              |              |           |                                 |                          |                                          |       | Merge                                           |
 | Minimum               | ✅    | ✅    |              |               | ✅    | ✅    | ✅ | | Minimum                         |                          | Min                                             | Minimum                                         |
-| MinimumGrad |  | ✅ | | |  |  |  | |  | |  |  |
+| MinimumGrad | ✅ | ✅ | | |  |  |  | |  | |  |  |
 | Mul                   | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | | Mul                             |                          | Mul                                             | Mul                                             |
 | MulGrad |  | ✅ |  |  |  |  | |  |  | |  |  |
 | Neg                   | ✅    | ✅    |              |               | ✅    | ✅    | ✅ | | Neg                             |                          | Neg                                             |                                                 |
-| NegGrad |  | ✅ | | |  |  | |  |  | |  | |
+| NegGrad | ✅ | ✅ | | |  |  | |  |  | |  | |
 | NotEqual              | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | | NotEqual                        |                          |                                                 | NotEqual                                        |
 | OneHot                |              | ✅    |              |               | ✅    | ✅    |       |    | OneHot                          |                          | OneHot                                          | OneHot                                          |
 | Pad                   | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | | Pad, MirrorPad, PadV2                  |                          | Pad                                             | MirrorPad, Pad, PadV2                                  |
-| Pow                   |              | ✅    | ✅    | ✅     | ✅    | ✅    |           |  ✅ | Pow                             | Power                    | Pow<sup>[2]</sup>                               | Pow                                             |
+| Pow                   | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    |           |  ✅ | Pow                             | Power                    | Pow<sup>[2]</sup>                               | Pow                                             |
 | PowGrad | | ✅ |  |  |  |  | |  |  | |  |  |
 | PReLU                 |              | ✅    |              |               | ✅    | ✅    |           | | PRELU                           | PReLU                    | PRelu                                           |                                                 |
 | RandomStandardNormal  |              | ✅    |              |               |              |              |       |    |                                 |                          |                                                 | RandomStandardNormal                            |
@@ -122,7 +122,7 @@
 | ReLU6Grad | ✅ | ✅ |  |  |  |  |  |  | | |  |  |
 | Reshape               | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ |  ✅ | Reshape                         | Reshape                  | Reshape,<br/>Flatten                                 | Reshape                                         |
 | Resize                |              | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | | ResizeBilinear,<br/>NearestNeighbor | Interp                   |                                                 | ResizeBilinear,<br/>ResizeBicubic,<br/>ResizeNearestNeighbor |
-| ResizeGrad | | ✅ |  |  |  |  | | |  |  | |  |
+| ResizeGrad | ✅ | ✅ |  |  |  |  | | |  |  | |  |
 | Reverse               |              | ✅    |              |               |              |              |       |    | reverse                         |                          |                                                 | ReverseV2                                       |
 | ReverseSequence       |              | ✅    |              |               |              |              |       |    | ReverseSequence                 |                          |                                                 | ReverseSequence                                 |
 | Round                 | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | | Round                           |                          | Round                                           | Round                                           |
