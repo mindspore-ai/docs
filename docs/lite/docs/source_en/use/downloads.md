@@ -25,8 +25,8 @@ Welcome to MindSpore Lite. We provide functions such as model conversion, model 
 | Inference runtime (cpp) and benchmark/codegen/converter tools. | CPU     |  Windows-x64    | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.3.0/MindSpore/lite/release/windows/mindspore-lite-1.3.0-win-x64.zip> | be41749860d43e1098a437c587cd61db3a8d2bdeafd44036d6b3e916c2a9c184 |
 | Inference runtime (cpp). | CPU | IOS-aarch32 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.3.0/MindSpore/lite/release/ios/mindspore-lite-1.3.0-ios-aarch32.tar.gz> | 7975495014040ff2256c4633a834ce7de57f623ebffa45767924c6b7a99cce24 |
 | Inference runtime (cpp). | CPU |  IOS-aarch64  | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.3.0/MindSpore/lite/release/ios/mindspore-lite-1.3.0-ios-aarch64.tar.gz> | b73b83f5c02aa5841c9c2ace0ee98ed83895c2fe0118f8cf775372ecfc8531bb |
-| Converter tools. | CPU     |  Ubuntu-x64    | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.3.0/MindSpore/lite/release/linux/nnie/mindspore-lite-1.3.0-linux-x64.tar.gz> | 49131872345c8c0f71f991a65a70043009fcc11089364e36c88e89f685f70f4e |
-| Inference runtime (cpp) and benchmark tools. | Hi3516D     |  Linux-aarch32    | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.3.0/MindSpore/lite/release/linux/mindspore-lite-1.3.0-linux-aarch32.tar.gz> | 2a02a24b259ddcc2b4f672bc90954df9be15834c38c1b89dc07ba1abcfc91d47 |
+| NNIE Converter tools. | CPU     |  Ubuntu-x64    | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.3.0/MindSpore/lite/release/linux/nnie/mindspore-lite-1.3.0-linux-x64.tar.gz> | 49131872345c8c0f71f991a65a70043009fcc11089364e36c88e89f685f70f4e |
+| NNIE Inference runtime (cpp) and benchmark tools. | Hi3516D     |  Linux-aarch32    | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.3.0/MindSpore/lite/release/linux/mindspore-lite-1.3.0-linux-aarch32.tar.gz> | 2a02a24b259ddcc2b4f672bc90954df9be15834c38c1b89dc07ba1abcfc91d47 |
 
 ## 1.2.0
 

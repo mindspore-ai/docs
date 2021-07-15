@@ -84,7 +84,7 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
 
 使用MindSpore Lite模型转换工具，需要进行如下环境准备工作。
 
-1. [下载](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/downloads.html)NNIE专用集成发布件（内含模型转换及推理工具），当前仅支持Linux。
+1. [下载](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/downloads.html)NNIE专用converter工具，当前仅支持Linux
 
 2. 解压下载的包
 
@@ -152,6 +152,8 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
     export NNIE_CONFIG_PATH=./nnie.cfg
     ```
 
+   如果用户实际的配置文件就叫nnie.cfg，且与converter_lite在同级路径上，则可不用配置。
+
 3. 执行converter，生成NNIE`ms`模型
 
     ```bash
@@ -177,7 +179,17 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
 
 以下为示例用法，用户可根据实际情况进行等价操作。
 
-1. Hi3516D板目录创建
+1. [下载](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/downloads.html)NNIE专用模型推理工具，当前仅支持Hi3516D
+
+2. 解压下载的包
+
+     ```bash
+     tar -zxvf mindspore-lite-{version}-linux-aarch32.tar.gz
+     ```
+
+     {version}是发布包的版本号。
+
+3. 在Hi3516D板上创建存放目录
 
    登陆板端，创建工作目录
 
@@ -186,9 +198,9 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
    mkdir /user/mindspore/lib      # 存放依赖库文件
    ```
 
-2. 传输文件
+4. 传输文件
 
-   向板端传输benchmark工具、模型、so库。其中libmslite_proposal.so为MindSpore Lite提供的proposal算子实现样例so，若用户模型里含有自定义的proposal算子，用户需参考[proposal算子使用说明](#proposal算子使用说明)生成libnnie_proposal.so替换该so文件，以进行正确推理。
+   向Hi3516D板端传输benchmark工具、模型、so库。其中libmslite_proposal.so为MindSpore Lite提供的proposal算子实现样例so，若用户模型里含有自定义的proposal算子，用户需参考[proposal算子使用说明](#proposal算子使用说明)生成libnnie_proposal.so替换该so文件，以进行正确推理。
 
    ```bash
    scp libmindspore-lite.so libmslite_nnie.so libmslite_proposal.so root@${device_ip}:/user/mindspore/lib
@@ -197,7 +209,7 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
 
    ${model_path}为转换后ms模型文件路径
 
-3. 设置动态库路径
+5. 设置动态库路径
 
    NNIE模型的推理，还依赖海思提供NNIE相关板端动态库，包括：libnnie.so、libmpi.so、libVoiceEngine.so、libupvqe.so、libdnvqe.so。
 
@@ -208,7 +220,7 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
    export LD_LIBRARY_PATH=/user/mindspore/lib:/usr/lib:${LD_LIBRARY_PATH}
    ```
 
-4. 设置配置项（可选）
+6. 设置配置项（可选）
 
    若用户模型含有proposal算子，需根据proposal算子实现情况，配置MAX_ROI_NUM环境变量：
 
@@ -229,7 +241,7 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
    export CORE_IDS=0         # NNIE运行内核id，支持模型分段独立配置，使用逗号分隔(如export CORE_IDS=1,1)，默认值：0
    ```
 
-5. 构建图片输入（可选）
+7. 构建图片输入（可选）
 
    若converter导出模型时喂给mapper的校正集用的是图片，则传递给benchmark的输入需是int8的输入数据，即需要把图片转成int8传递给benchmark。
    这里采用python给出转换示范样例：
@@ -321,7 +333,7 @@ ${model_path}为转换后ms模型文件路径
 
 ### prototxt中Custom算子支持
 
-  SVP工具链中，通过在prototxt中声明custom层，实现推理时分段，并由用户实现cpu代码。在mindspore Lite中，用户需在Custom层中增加type属性，并通过自定义算子的方式进行在线推理代码的注册。
+  SVP工具链中，通过在prototxt中声明custom层，实现推理时分段，并由用户实现cpu代码。在mindspore Lite中，用户需在Custom层中增加op_type属性，并通过自定义算子的方式进行在线推理代码的注册。
 
   Custom层的修改样例如下：
 
