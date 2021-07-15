@@ -26,9 +26,9 @@ The following describes how to quickly install MindSpore by compiling the source
     - After installation, add the path of CMake to the system environment variables.
 - Ensure that [patch 2.5 or later](http://ftp.gnu.org/gnu/patch/) is installed.
     - After installation, add the patch path to the system environment variables.
-- Ensure that the Ascend 310 AI Processor software packages ([Ascend Data Center Solution]) are installed.
+- Ensure that the Ascend 310 AI Processor software packages ([Ascend Data Center Solution 21.0.2]) are installed.
     - For the installation of software package,  please refer to the [Product Document].
-    - The software packages include [Driver and Firmware A300-3000] and [CANN].
+    - The software packages include [Driver and Firmware A300-3000] and [CANN 5.0.2].
     - Ensure that you have permissions to access the installation path `/usr/local/Ascend` of the Ascend 310 AI Processor software package. If not, ask the user root to add you to a user group to which `/usr/local/Ascend` belongs. For details about the configuration, see the description document in the software package.
     - Install the .whl package provided with the Ascend 310 AI Processor software package. The .whl package is released with the software package. After the software package is upgraded, you need to reinstall the .whl package.
 
