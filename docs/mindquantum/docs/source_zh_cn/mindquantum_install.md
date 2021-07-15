@@ -40,7 +40,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindQu
 
     ```bash
     cd ~
-    git clone https://gitee.com/mindspore/mindquantum.git -b r1.3
+    git clone https://gitee.com/mindspore/mindquantum.git -b r0.2
     ```
 
 2. 编译安装MindQuantum
@@ -71,5 +71,3 @@ export OMP_NUM_THREADS=4
 ```
 
 对于大型服务器，请根据模型规模合理设置并行内核数以达到最优效果。
-
-
