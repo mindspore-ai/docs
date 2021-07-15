@@ -186,8 +186,8 @@
 
         <table>
            <tr>
-            <td><center><img src="https://gitee.com/mindspore/docs/tree/r1.3/docs/lite/docs/source_zh_cn/images/segmentation6.png"><br>图1  推理前</br></center></td>
-            <td><center><img src="https://gitee.com/mindspore/docs/tree/r1.3/docs/lite/docs/source_zh_cn/images/segmentation7.png"><br>图2  推理后</br></center></td>
+            <td><center><img src="https://gitee.com/mindspore/docs/raw/r1.3/docs/lite/docs/source_zh_cn/images/segmentation6.png"><br>图1  推理前</br></center></td>
+            <td><center><img src="https://gitee.com/mindspore/docs/raw/r1.3/docs/lite/docs/source_zh_cn/images/segmentation7.png"><br>图2  推理后</br></center></td>
           </tr>
         </table>
 
@@ -220,8 +220,8 @@
 
 <table>
   <tr>
-    <td><center><img src="https://gitee.com/mindspore/docs/tree/r1.3/docs/lite/docs/source_zh_cn/images/segmentation3.png"><br>图1  白色背景</br> </center></td>
-    <td><center><img src="https://gitee.com/mindspore/docs/tree/r1.3/docs/lite/docs/source_zh_cn/images/segmentation4.png"><br>图2  蓝色背景</br> </center></td>
-    <td><center><img src="https://gitee.com/mindspore/docs/tree/r1.3/docs/lite/docs/source_zh_cn/images/segmentation5.png"><br>图3  油画背景</br> </center></td>
+    <td><center><img src="https://gitee.com/mindspore/docs/raw/r1.3/docs/lite/docs/source_zh_cn/images/segmentation3.png"><br>图1  白色背景</br> </center></td>
+    <td><center><img src="https://gitee.com/mindspore/docs/raw/r1.3/docs/lite/docs/source_zh_cn/images/segmentation4.png"><br>图2  蓝色背景</br> </center></td>
+    <td><center><img src="https://gitee.com/mindspore/docs/raw/r1.3/docs/lite/docs/source_zh_cn/images/segmentation5.png"><br>图3  油画背景</br> </center></td>
   </tr>
 </table>
