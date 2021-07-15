@@ -16,7 +16,7 @@
 
 运行本教程所需的[脚本](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/source-codes/intermediate/train.py)及[数据集](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/intermediate/translation.rar)，在教程的同级目录下新建 `nltk_predata` 文件夹，将下载好的数据集按照文件结构放到相应目录下。
 
-```python
+```text
 project
 │ text_translation_gru_tutorial.md
 | text_translation_gru_tutorial.py
