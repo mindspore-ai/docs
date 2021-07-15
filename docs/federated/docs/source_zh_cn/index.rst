@@ -3,15 +3,15 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-MindSpore Federated Document
-==============================
+MindSpore Federated 文档
+=========================
 
 .. toctree::
    :maxdepth: 1
    :caption: 安装部署
 
    federated_install
-   deploy_federated_server_cluster
+   deploy_federated_server
    deploy_federated_client
 
 .. toctree::
@@ -23,6 +23,6 @@ MindSpore Federated Document
 
 .. toctree::
    :maxdepth: 1
-   :caption: 模型安全和隐私
+   :caption: 安全和隐私
 
    security_and_privacy_protection

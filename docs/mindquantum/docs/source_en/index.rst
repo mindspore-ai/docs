@@ -1,0 +1,18 @@
+Mindquantum Documents
+======================
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: Installation
+
+   mindquantum_install
+
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: Guide
+
+   parameterized_quantum_circuit
+   qnn_for_nlp
