@@ -46,7 +46,7 @@ Clone the source code and build the Java package for MindSpore Lite training. Th
 ```bash
 git clone https://gitee.com/mindspore/mindspore.git
 cd mindspore
-bash build.sh -A on -j8
+bash build.sh -I x86_64 -j8
 ```
 
 For details about the build, see [Building MindSpore Lite](https://www.mindspore.cn/lite/docs/en/r1.3/use/build.html).
@@ -73,18 +73,6 @@ MNIST_Data/
 ```
 
 ## Deploying an Application
-
-### Running Dependencies
-
-In the preparation phase, the Java package for MindSpore Lite training has been successfully built. Assume that the MindSpore source code path is `/codes/mindspore`, and the built Java package is stored in the `/codes/mindspore/output` directory. Decompress the Java package and copy related files to the demo directory. The commands are as follows:
-
-```shell
-cd /codes/mindspore/output
-tar xzf mindspore-lite-${version}-train-linux-x64-jar.tar.gz
-mkdir ../mindspore/lite/examples/train_lenet_java/lib
-cp mindspore-lite-${version}-linux-x64/runtime/lib/* ../mindspore/lite/examples/train_lenet_java/lib/
-cp mindspore-lite-${version}-linux-x64/runtime/third_party/libjpeg/turbo/lib/* ../mindspore/lite/examples/train_lenet_java/lib/
-```
 
 ### Building and Running
 
