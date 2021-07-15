@@ -55,7 +55,7 @@ If you need to add a document, create a markdown or reStructuredText file in a p
 
     After the writing is complete, add the new document to the web page directory.
 
-   Take a training tutorial as an example. Find the [`index.rst`](https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/index.rst) file in the `source_en` directory. This file corresponds to the organization structure of the training tutorial web page.
+   Take a training tutorial as an example. Find the [`index.rst`](https://gitee.com/mindspore/docs/blob/r1.3/tutorials/source_en/index.rst) file in the `source_en` directory. This file corresponds to the organization structure of the training tutorial web page.
 
     Add the new document to the corresponding category. You can also create a category before adding the document. Take **Implementing an Image Classification Application** as an example. Save the document in the `quick_start` directory and name it as `quick_start.md`. Add `quick_start/quick_start` to the Quick Start category, as shown below.
 
@@ -127,16 +127,16 @@ If you want to add an API, check whether the API has been added to an existing m
 
     If the API belongs to the following modules, the API list of the MindSpore docs repository needs to be updated. Please add APIs in alphabetical order.
 
-    - `mindspore.dataset`: [中文](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_zh_cn/mindspore/mindspore.dataset.rst) | [English](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_en/mindspore/mindspore.dataset.rst)
-    - `mindspore.dataset.text`: [中文](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_zh_cn/mindspore/mindspore.dataset.text.rst) | [English](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_en/mindspore/mindspore.dataset.text.rst)
-    - `mindspore.dataset.transforms`: [中文](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_zh_cn/mindspore/mindspore.dataset.transforms.rst) | [English](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_en/mindspore/mindspore.dataset.transforms.rst)
-    - `mindspore.dataset.vision`: [中文](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_zh_cn/mindspore/mindspore.dataset.vision.rst) | [English](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_en/mindspore/mindspore.dataset.vision.rst)
-    - `mindspore.nn`: [中文](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_zh_cn/mindspore/mindspore.nn.rst) | [English](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_en/mindspore/mindspore.nn.rst)
-    - `mindspore.nn.probability`: [中文](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_zh_cn/mindspore/mindspore.nn.probability.rst) | [English](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_en/mindspore/mindspore.nn.probability.rst)
-    - `mindspore.ops`: [中文](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_zh_cn/mindspore/mindspore.ops.rst) | [English](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_en/mindspore/mindspore.ops.rst)
-    - `mindspore.ops.operations`: [中文](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_zh_cn/mindspore/operations.rst) | [English](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_en/mindspore/operations.rst)
+    - `mindspore.dataset`: [中文](https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/api/source_zh_cn/api_python/mindspore.dataset.rst) | [English](https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/api/source_en/api_python/mindspore.dataset.rst)
+    - `mindspore.dataset.text`: [中文](https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/api/source_zh_cn/api_python/mindspore.dataset.text.rst) | [English](https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/api/source_en/api_python/mindspore.dataset.text.rst)
+    - `mindspore.dataset.transforms`: [中文](https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/api/source_zh_cn/api_python/mindspore.dataset.transforms.rst) | [English](https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/api/source_en/api_python/mindspore.dataset.transforms.rst)
+    - `mindspore.dataset.vision`: [中文](https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/api/source_zh_cn/api_python/mindspore.dataset.vision.rst) | [English](https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/api/source_en/api_python/mindspore.dataset.vision.rst)
+    - `mindspore.nn`: [中文](https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/api/source_zh_cn/api_python/mindspore.nn.rst) | [English](https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/api/source_en/api_python/mindspore.nn.rst)
+    - `mindspore.nn.probability`: [中文](https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/api/source_zh_cn/api_python/mindspore.nn.probability.rst) | [English](https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/api/source_en/api_python/mindspore.nn.probability.rst)
+    - `mindspore.ops`: [中文](https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/api/source_zh_cn/api_python/mindspore.ops.rst) | [English](https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/api/source_en/api_python/mindspore.ops.rst)
+    - `mindspore.ops.operations`: [中文](https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/api/source_zh_cn/api_python/operations.rst) | [English](https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/api/source_en/api_python/operations.rst)
 
-- If the API does not belong to the existing module, add an API project file of the MindSpore docs repository. Please add modules to the [directory structure](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_en/index.rst) in alphabetical order. To add the API of the `mindspore.context` module, you need to create the [`mindspore.context.rst`](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_en/mindspore/mindspore.context.rst) file in the `docs/docs/api_python/source_en/mindspore` directory and add the file to the directory structure.
+- If the API does not belong to the existing module, add an API project file of the MindSpore docs repository. Please add modules to the [directory structure](https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/api/source_en/index.rst) in alphabetical order. To add the API of the `mindspore.context` module, you need to create the [`mindspore.context.rst`](https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/api/source_en/api_python/mindspore.context.rst) file in the `docs/docs/api_python/source_en/mindspore` directory and add the file to the directory structure.
 
     ```rst
     .. toctree::
