@@ -28,9 +28,9 @@
 - 确认安装[patch 2.5及以上版本](http://ftp.gnu.org/gnu/patch/)。
     - 安装完成后将patch所在路径添加到系统环境变量中。
 - 确认安装[wheel 0.32.0及以上版本](https://pypi.org/project/wheel/)。
-- 确认安装Ascend 910 AI处理器配套软件包（[Ascend Data Center Solution]）。
+- 确认安装Ascend 910 AI处理器配套软件包（[Ascend Data Center Solution 21.0.2]）。
     - 软件包安装方式请参考[产品文档]。
-    - 配套软件包包括[驱动和固件A800-9000]和[CANN]。
+    - 配套软件包包括[驱动和固件A800-9000]和[CANN 5.0.2]。
     - 确认当前用户有权限访问Ascend 910 AI处理器配套软件包的安装路径`/usr/local/Ascend`，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
     - 安装Ascend 910 AI处理器配套软件包提供的whl包，whl包随配套软件包发布，参考如下命令完成安装。
 
