@@ -23,7 +23,7 @@ The following uses LeNet as an example to describe how to use MindSpore to deplo
 
 The following figure shows the physical architecture of the MindSpore Federated Learning Server cluster:
 
-<img src='./images/mindspore_federated_networking.png' align='middle'/>
+![mindspore-federated-networking](./images/mindspore_federated_networking.png)
 
 As shown in the preceding figure, in the federated learning cloud cluster, there are two MindSpore process roles: `Federated Learning Scheduler` and `Federated Learning Server`:
 
