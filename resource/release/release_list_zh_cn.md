@@ -36,7 +36,7 @@
 |    ---   |    ---      |
 | 版本说明和接口变更 | [1.3.0](https://gitee.com/mindspore/mindspore/blob/r1.3/RELEASE.md) |
 | 安装 | [1.3.0](https://gitee.com/mindspore/docs/tree/r1.3/install) |
-| 教程 | [1.3.0](https://www.mindspore.cn/tutorial/zh-CN/r1.3/index.html) |
+| 教程 | [1.3.0](https://www.mindspore.cn/tutorials/zh-CN/r1.3/index.html) |
 | 文档 |[MindSpore](https://www.mindspore.cn/mindspore) &nbsp;&nbsp; [MindSpore Lite](https://www.mindspore.cn/lite) &nbsp;&nbsp; [MindInsight](https://www.mindspore.cn/mindinsight) &nbsp;&nbsp; [MindSpore Hub](https://www.mindspore.cn/hub) &nbsp;&nbsp; [MindArmour](https://www.mindspore.cn/mindarmour) &nbsp;&nbsp; [MindSpore Federated](https://www.mindspore.cn/federated) &nbsp;&nbsp; [MindSpore Serving](https://www.mindspore.cn/serving) &nbsp;&nbsp; [MindSpore Probability](https://www.mindspore.cn/probability) &nbsp;&nbsp; [MindQuantum](https://www.mindspore.cn/mindquantum) |
 
 ### 1.2版本前

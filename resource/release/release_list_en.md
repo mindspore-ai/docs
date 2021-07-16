@@ -36,7 +36,7 @@
 |    ---   |    ---      |
 | Releasenotes and API Updates | [1.3.0](https://gitee.com/mindspore/mindspore/blob/r1.3/RELEASE.md) |
 | Installation | [1.3.0](https://gitee.com/mindspore/docs/tree/r1.3/install) |
-| Tutorials | [1.3.0](https://www.mindspore.cn/tutorial/en/r1.3/index.html) |
+| Tutorials | [1.3.0](https://www.mindspore.cn/tutorials/en/r1.3/index.html) |
 | Docs | [MindSpore](https://www.mindspore.cn/mindspore/en) &nbsp;&nbsp; [MindSpore Lite](https://www.mindspore.cn/lite/en) &nbsp;&nbsp; [MindInsight](https://www.mindspore.cn/mindinsight/en) &nbsp;&nbsp; [MindSpore Hub](https://www.mindspore.cn/hub/en) &nbsp;&nbsp; [MindArmour](https://www.mindspore.cn/mindarmour/en) &nbsp;&nbsp; [MindSpore Federated](https://www.mindspore.cn/federated/en) &nbsp;&nbsp; [MindSpore Serving](https://www.mindspore.cn/serving/en) &nbsp;&nbsp; [MindSpore Probability](https://www.mindspore.cn/probability/en) &nbsp;&nbsp; [MindQuantum](https://www.mindspore.cn/mindquantum/en) |
 
 ### Before Version 1.2
