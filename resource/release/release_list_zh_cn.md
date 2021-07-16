@@ -4,6 +4,8 @@
 
 - [发布版本列表](#发布版本列表)
     - [配套资料](#配套资料)
+        - [1.3版本后](#13版本后)
+        - [1.2版本前](#12版本前)
     - [Ascend配套软件包](#ascend配套软件包)
     - [下载地址](#下载地址)
         - [1.3.0](#130)
@@ -27,6 +29,17 @@
 <a href="https://gitee.com/mindspore/docs/blob/master/resource/release/release_list_zh_cn.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 配套资料
+
+### 1.3版本后
+
+|   类别   |    版本      |
+|    ---   |    ---      |
+| 版本说明和接口变更 | [1.3.0](https://gitee.com/mindspore/mindspore/blob/r1.3/RELEASE.md) |
+| 安装 | [1.3.0](https://gitee.com/mindspore/docs/tree/r1.3/install) |
+| 教程 | [1.3.0](https://www.mindspore.cn/tutorial/zh-CN/r1.3/index.html) |
+| 文档 |[MindSpore](https://www.mindspore.cn/mindspore) &nbsp;&nbsp; [MindSpore Lite](https://www.mindspore.cn/lite) &nbsp;&nbsp; [MindInsight](https://www.mindspore.cn/mindinsight) &nbsp;&nbsp; [MindSpore Hub](https://www.mindspore.cn/hub) &nbsp;&nbsp; [MindArmour](https://www.mindspore.cn/mindarmour) &nbsp;&nbsp; [MindSpore Federated](https://www.mindspore.cn/federated) &nbsp;&nbsp; [MindSpore Serving](https://www.mindspore.cn/serving) &nbsp;&nbsp; [MindSpore Probability](https://www.mindspore.cn/probability) &nbsp;&nbsp; [MindQuantum](https://www.mindspore.cn/mindquantum) |
+
+### 1.2版本前
 
 |   类别   |   子类别   |      版本      |
 |    ---   |    ---   |       ---      |
