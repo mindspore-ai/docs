@@ -79,7 +79,7 @@ MNIST_Data/
 1. 首先进入示例工程所在目录，运行示例程序，命令如下：
 
     ```bash
-    cd /codes/mindspore/mindspore/lite/examples/train_lenet_java/target
+    cd /codes/mindspore/mindspore/lite/examples/train_lenet_java
     ./prepare_and_run.sh -D /PATH/MNIST_Data/ -r ../../../../output/mindspore-lite-${version}-linux-x86.tar.gz
     ```
 
