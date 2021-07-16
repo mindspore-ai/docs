@@ -747,7 +747,7 @@ size is 3617
 
 如果需要了解关于该模型的更多细节，可以通过官网[GRU模型](https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo/official/nlp/gru) 查看。
 
-### 定义gru网络和全链接层的权重
+### 定义GRU网络和全链接层的权重
 
 在定义网络前我们需要对全链接层和GRU网络中的权重进行定义。
 
@@ -861,7 +861,7 @@ class GRU(nn.Cell):
         return y1, h1
 ```
 
-### 定义attention机制
+### 定义Attention机制
 
 引入Attention注意力机制是为了解决由长序列到定长向量转化而造成的信息损失瓶颈。Attention机制跟人类翻译文章的时候思路有些相似：将注意力关注于翻译部分相对应的上下文。当翻译当前词语时，会寻找源语句中相对应的几个词语，并结合之前的已经翻译的部分做出相应的翻译。
 
@@ -903,7 +903,7 @@ class Attention(nn.Cell):
         return attention
 ```
 
-### 定义encoder架构部分
+### 定义Encoder架构部分
 
 模型构建主要包括Encoder层与Decoder层。在Encoder层，首先需要定义输入的 `tensor` ，同时要对词句进行 `Embedding` ，再输入到RNN层。
 
@@ -943,7 +943,7 @@ class Encoder(nn.Cell):
         return output, hidden
 ```
 
-### 定义decoder架构部分
+### 定义Decoder架构部分
 
 在Decoder端，我们主要要完成以下几件事情：
 
