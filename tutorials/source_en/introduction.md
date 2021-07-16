@@ -33,12 +33,13 @@ For details, click [Huawei Ascend official website](https://e.huawei.com/en/prod
 
 MindSpore is a deep learning framework in all scenarios, aiming to achieve easy development, efficient execution, and all-scenario coverage. Easy development features friendly APIs and easy debugging. Efficient execution is reflected in computing, data preprocessing, and distributed training. All-scenario coverage means that the framework supports cloud, edge, and device scenarios.
 
-The following figure shows the overall MindSpore architecture, which mainly consists of four parts: MindSpore Extend, MindExpress (ME), MindCompiler, and MindRE.
+The following figure shows the overall MindSpore architecture, which mainly consists of four parts: MindSpore Extend, MindExpress (ME), MindCompiler, MindRE and MindSpore Lite.
 
 - **MindSpore Extend**: MindSpore extension package to be contributed and built by more developers.
 - **MindExpress**: Python-based frontend expression. In the future, more frontends based on C/C++ and Java will be provided. Cangjie, Huawei's self-developed programming language frontend, is now in the pre-research phase. In addition, Huawei is working on interconnection with third-party frontends such as Julia to introduce more third-party ecosystems.
 - **MindCompiler**: core compiler of the layer, which implements three major functions based on the unified device-cloud MindIR, including hardware-independent optimization (type derivation, automatic differentiation, and expression simplification), hardware-related optimization (automatic parallelism, memory optimization, graph kernel fusion, and pipeline execution) and optimization related to deployment and inference (quantification and pruning). MindAKG is the automatic operator generation compiler of MindSpore and is being improved.
 - **MindRE**: all-scenario runtime, which covers the cloud, device, and smaller IoT scenarios.
+- **MindSpore Lite**：MindSpore Lite is an ultra-fast, intelligent, and simplified device AI engine that enables intelligent applications in all scenarios, provides E2E solutions for users, and helps users enable AI capabilities.
 
 ![MindSpore](images/introduction2.png)
 
