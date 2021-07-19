@@ -158,7 +158,7 @@ context->device_list_.push_back(gpu_device_ctx);
 >
 > CL_HPP_MINIMUM_OPENCL_VERSION=120
 >
-> On `x86_64`, the backend of GPU is based on TensorRT. The TensorRT version is 6.0.1.5. Attribute `enable_float16_` is not supported currently.
+> On `x86_64`, the backend of GPU is based on TensorRT. The TensorRT version is 6.0.1.5. Whether the attribute `enable_float16_` can be set successfully depends on the [CUDA computer capability](https://docs.nvidia.com/deeplearning/tensorrt/support-matrix/index.html#hardware-precision-matrix) of the current device.
 
 ### Configuring the NPU Backend
 
