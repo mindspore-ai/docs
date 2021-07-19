@@ -61,7 +61,7 @@ MindSpore Programming Guide
    loss
    optim
    custom_net
-   network_advanced
+   network_component
 
 .. toctree::
    :maxdepth: 1
