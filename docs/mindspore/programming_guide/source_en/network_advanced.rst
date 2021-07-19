@@ -1,4 +1,4 @@
-Advanced of Building the Network
+Common Network Components
 ================================
 
 .. toctree::
