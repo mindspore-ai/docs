@@ -158,7 +158,7 @@ context->device_list_.push_back(gpu_device_ctx);
 >
 > CL_HPP_MINIMUM_OPENCL_VERSION=120
 >
-> 在`x86_64`上是基于TensorRT的GPU，TensorRT版本为6.0.1.5。当前版本`enable_float16_`属性暂不支持。
+> 在`x86_64`上是基于TensorRT的GPU，TensorRT版本为6.0.1.5。`enable_float16_`属性是否设置成功取决于当前设备的[CUDA计算能力](https://docs.nvidia.com/deeplearning/tensorrt/support-matrix/index.html#hardware-precision-matrix)。
 
 ### 配置使用NPU后端
 

@@ -29,7 +29,7 @@
 | ConstantOfShape       |              | ✅    |              |               |              |              |           |                                 |                      |    | ConstantOfShape                                 |                                                 |
 | Conv2d                | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | ✅ |  Conv2D                          | Convolution              | Conv, Int8Conv,<br/>ConvRelu,<br/>Int8ConvRelu          | Conv2D                                          |
 | Conv2dGrad |  | ✅ |  |  |  |  |  |  | | |  |  |
-| Conv2dTranspose       | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | | DeConv2D                        | Deconvolution            | ConvTranspose                                   | Conv2DBackpropInput                             |
+| Conv2dTranspose       | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | ✅ | DeConv2D                        | Deconvolution            | ConvTranspose                                   | Conv2DBackpropInput                             |
 | Conv2dTransposeGrad |  | ✅ |  |  |  |  |  | | |  |  |  |
 | Cos                   | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | |Cos                             |                          | Cos                                             | Cos                                             |
 | Crop                  | ✅    | ✅    | ✅    | ✅     |              |              |           |                              |   | Crop                     |                                                 |                                                 |
