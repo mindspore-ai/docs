@@ -13,12 +13,14 @@
             - [性能测试](#性能测试)
             - [精度测试](#精度测试)
             - [CPU性能测试](#CPU性能测试)
+        - [Dump功能](#Dump功能)
     - [Windows环境使用说明](#Windows环境使用说明)
         - [环境准备](#环境准备-1)
         - [参数说明](#参数说明-1)
         - [使用示例](#使用示例-1)
             - [性能测试](#性能测试-1)
             - [精度测试](#精度测试-1)
+        - [Dump功能](#Dump功能-1)
 
 <!-- /TOC -->
 
@@ -214,6 +216,74 @@ Model = model.ms, NumThreads = 1, MinRunTime = 0.104000 ms, MaxRunTime = 0.17900
 ./benchmark --modelFile=/path/to/model.ms --perfProfiling=true --perfEvent="STALL"
 ```
 
+### Dump功能
+
+Benchmark工具提供Dump功能（目前仅支持`CPU`算子），将模型中的算子的输入输出数据保存到磁盘文件中，可用于定位模型推理过程中精度异常的问题。
+
+#### Dump操作步骤
+
+1. 创建json格式的配置文件，JSON文件的名称和位置可以自定义设置。
+
+    ```json
+    {
+        "common_dump_settings": {
+            "dump_mode": 0,
+            "path": "/absolute_path",
+            "net_name": "ResNet50",
+            "input_output": 0,
+            "kernels": ["Default/Conv-op12", "Default/Conv-op13"],
+        }
+    }
+    ```
+
+    - `dump_mode`：设置成0，表示Dump出该网络中的所有算子；设置成1，表示Dump`"kernels"`里面指定的算子。
+    - `path`：Dump保存数据的绝对路径。
+    - `net_name`：自定义的网络名称，例如："ResNet50"，未指定该字段的话，默认值为"Default"。
+    - `input_output`：设置成0，表示Dump出算子的输入和算子的输出；设置成1，表示Dump出算子的输入；设置成2，表示Dump出算子的输出。
+    - `kernels`：算子的名称列表。未指定该字段或者该值设置为[ ]，会Dump模型中的所有算子的数据。
+
+2. 设置Dump环境变量，指定Dump的json配置文件。
+
+   ```bash
+   export MINDSPORE_DUMP_CONFIG=${xxx}
+   ```
+
+   其中"xxx"为配置文件的绝对路径，如：
+
+   ```bash
+   export MINDSPORE_DUMP_CONFIG=/path/to/data_dump.json
+   ```
+
+    注意：
+
+    - 需要在执行benchmark之前，设置好环境变量，benchmark执行过程中设置将会不生效。
+
+#### Dump数据目录结构
+
+```text
+{path}/
+    - {net_name}/
+        - {folder_id}/
+            {op_name}_{input_output_index}_{shape}_{data_type}_{format}.bin
+        ...
+```
+
+- `path`：`data_dump.json`配置文件中设置的绝对路径。
+- `net_name`：`data_dump.json`配置文件中设置的网络名称。
+- `folder_id`：默认创建编号为1的文件夹，每执行一次benchmark程序，该文件夹编号加1，以此类推，最多支持的文件夹数量为1000。
+- `op_name`：算子名称。
+- `input_output_index`：输入或输出标号，例如`output_0`表示该文件是该算子的第1个输出Tensor的数据。
+- `data_type`：数据类型。
+- `shape`：形状信息。
+- `format`: 数据格式。
+
+Dump生成的数据文件是后缀名为`.bin`的二进制文件，可以用Numpy的`np.fromfile()`接口读取数据，以数据类型为float32的bin文件为例：
+
+```python
+import numpy as np
+np.fromfile("/path/to/dump.bin", np.float32)
+```
+
 ## Windows环境使用说明
 
 ### 环境准备
@@ -282,3 +352,9 @@ call benchmark.exe --modelFile=/path/to/model.ms --inDataFile=/path/to/input.bin
 ```bat
 call benchmark.exe --modelFile=/path/to/model.ms --inDataFile=/path/to/input.bin --benchmarkDataFile=/path/to/output.out --inputShapes=1,32,32,1
 ```
+
+### Dump功能
+
+Windows环境下Dump功能使用方法与[Linux环境](https://www.mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html#id5)基本一致，此处不再赘述。
+
+需注意的一点是，在Windows环境下，`data_dump.json`配置文件中设置绝对路径`Path`时，需指定为`\\`的形式。
