@@ -329,11 +329,11 @@ ${model_path}为转换后ms模型文件路径
 
 ### prototxt中节点名_cpu后缀支持
 
-  SVP工具链中，可通过在prototxt文件的节点名后使用_cpu后缀来，声明cpu自定义算子。mindspore Lite中忽略_cpu后缀，不做支持。用户若想重定义MindSpore Lite已有的算子实现或新增新的算子，可通过自定义算子的方式进行注册。
+  SVP工具链中，可通过在prototxt文件的节点名后使用_cpu后缀来，声明cpu自定义算子。MindSpore Lite中忽略_cpu后缀，不做支持。用户若想重定义MindSpore Lite已有的算子实现或新增新的算子，可通过[自定义算子注册](https://www.mindspore.cn/tutorial/lite/zh-CN/mast    er/use/register_kernel.html)的方式进行注册。
 
 ### prototxt中Custom算子支持
 
-  SVP工具链中，通过在prototxt中声明custom层，实现推理时分段，并由用户实现cpu代码。在mindspore Lite中，用户需在Custom层中增加op_type属性，并通过自定义算子的方式进行在线推理代码的注册。
+  SVP工具链中，通过在prototxt中声明custom层，实现推理时分段，并由用户实现cpu代码。在MindSpore Lite中，用户需在Custom层中增加op_type属性，并通过[自定义算子注册](https://www.mindspore.cn/lite/docs/zh-CN/master/use/register_kernel.html)的方式进行在线推理代码的注册。
 
   Custom层的修改样例如下：
 
@@ -390,7 +390,7 @@ ${model_path}为转换后ms模型文件路径
 
 ### proposal算子使用说明
 
-  mindspore Lite提供Proposal算子的样例代码，在该样例中，以自定义算子注册的方式实现了proposal算子及该算子infer shape的注册。用户可将其修改为自身模型匹配的实现后，进行[集成使用]（#集成使用）。
+  MindSpore Lite提供Proposal算子的样例代码，在该样例中，以[自定义算子注册](https://www.mindspore.cn/lite/docs/zh-CN/master/use/register_kernel.html)的方式实现proposal算子及该算子infer shape的注册。用户可将其修改为自身模型匹配的实现后，进行集成使用。
   > 你可以在这里下载完整的样例代码：
   >
   > <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/nnie_proposal>

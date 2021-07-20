@@ -52,10 +52,12 @@ mindspore-lite-{version}-linux-x64
 └── tools
     └── converter
         ├── include
+        │   └── registry             # Header files of customized op, parser and pass registration
         ├── converter                # Model conversion tool
         │   └── converter_lite       # Executable program
         └── lib                      # The dynamic link library that converter depends
-            └── libglog.so.0         # Dynamic library of Glog
+            ├── libglog.so.0         # Dynamic library of Glog
+            └── libmslite_converter_plugin.so  # Dynamic library of plugin registry
 ```
 
 ### Parameter Description
@@ -177,11 +179,14 @@ mindspore-lite-{version}-win-x64
 └── tools
     └── converter # Model conversion tool
         ├── include
+        │   └── registry             # Header files of customized op, parser and pass registration
         ├── converter
         │   └── converter_lite.exe    # Executable program
         └── lib
             ├── libgcc_s_seh-1.dll    # Dynamic library of MinGW
             ├── libglog.dll           # Dynamic library of Glog
+            ├── libmslite_converter_plugin.dll   # Dynamic library of plugin registry
+            ├── libmslite_converter_plugin.dll.a # Link file of Dynamic library of plugin registry
             ├── libssp-0.dll          # Dynamic library of MinGW
             ├── libstdc++-6.dll       # Dynamic library of MinGW
             └── libwinpthread-1.dll   # Dynamic library of MinGW
