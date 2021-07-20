@@ -22,17 +22,21 @@ SyncFLJob defines the API flJobRun() for starting federated learning on the devi
 
 | **Function**                     |
 | -------------------------------- |
-| public void flJobRun()           |
+| public FLClientStatus flJobRun() |
 | public int[] modelInference()    |
 | public FLClientStatus getModel() |
 
 ## flJobRun
 
 ```java
-public void flJobRun()
+public FLClientStatus flJobRun()
 ```
 
 Starts a federated learning task on the device, for specific usage, please refer to the [interface introduction document](https://www.mindspore.cn/federated/api/en/master/interface_description_federated_client.html).
+
+- Return value
+
+    The status code of the flJobRun request.
 
 ## modelInference
 
