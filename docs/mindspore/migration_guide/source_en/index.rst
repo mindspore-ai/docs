@@ -16,3 +16,4 @@ MindSpore Migration Guide
    performance_optimization
    inference
    sample_code
+   faq
