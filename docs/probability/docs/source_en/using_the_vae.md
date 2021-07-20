@@ -33,7 +33,7 @@ The following describes how to use the variational and dpn modules in MDP to imp
 
 In this example, using the MNIST_Data dataset, execute the following command to download and unzip it to the corresponding location:
 
-```python
+```bash
 mkdir -p ./datasets/MNIST_Data/train ./datasets/MNIST_Data/test
 wget -NP ./datasets/MNIST_Data/train https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-labels-idx1-ubyte --no-check-certificate
 wget -NP ./datasets/MNIST_Data/train https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-images-idx3-ubyte --no-check-certificate
