@@ -31,6 +31,8 @@
 
 <!-- /TOC -->
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/register_kernel.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+
 ## 概述
 
 MindSpore Lite当前提供了一套南向算子的注册机制，南向算子可以理解为用户自己的算子实现，如果用户想通过MindSpore Lite框架调度到自己的算子实现上，可参考本文。

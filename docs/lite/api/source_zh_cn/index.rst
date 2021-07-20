@@ -13,8 +13,10 @@ MindSpore Lite API
    api_cpp/class_list
    api_cpp/mindspore
    api_cpp/dataset
+   api_cpp/kernel
    api_cpp/vision
    api_cpp/lite
+   api_cpp/registry
    api_cpp/session
    api_cpp/tensor
    api_cpp/errorcode_and_metatype
