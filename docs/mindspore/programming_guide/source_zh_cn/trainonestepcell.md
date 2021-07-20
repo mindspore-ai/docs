@@ -7,21 +7,54 @@
 下面构造一个使用`TrainOneStepCell`接口进行网络训练的实例，其中`LeNet`和包名的导入代码和上个用例共用。
 
 ```python
-data = Tensor(np.ones([32, 1, 32, 32]).astype(np.float32) * 0.01)
-label = Tensor(np.ones([32]).astype(np.int32))
-net = LeNet()
-learning_rate = 0.01
-momentum = 0.9
+import numpy as np
+from mindspore import Tensor
+import mindspore.nn as nn
+from mindpsore.nn import Momentum, WithLossCell, TrainOneStepCell
+from mindspore.common.initializer import Normal
 
-optimizer = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), learning_rate, momentum)
-criterion = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
-net_with_criterion = WithLossCell(net, criterion)
-train_network = TrainOneStepCell(net_with_criterion, optimizer)  # optimizer
-for i in range(5):
-    train_network.set_train()
-    res = train_network(data, label)
-    print(f"+++++++++result:{i}++++++++++++")
-    print(res)
+class LeNet5(nn.Cell):
+    """
+    Lenet网络结构
+    """
+    def __init__(self, num_class=10, num_channel=1):
+        super(LeNet5, self).__init__()
+        # 定义所需要的运算
+        self.conv1 = nn.Conv2d(num_channel, 6, 5, pad_mode='valid')
+        self.conv2 = nn.Conv2d(6, 16, 5, pad_mode='valid')
+        self.fc1 = nn.Dense(16 * 5 * 5, 120, weight_init=Normal(0.02))
+        self.fc2 = nn.Dense(120, 84, weight_init=Normal(0.02))
+        self.fc3 = nn.Dense(84, num_class, weight_init=Normal(0.02))
+        self.relu = nn.ReLU()
+        self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
+        self.flatten = nn.Flatten()
+
+    def construct(self, x):
+        # 使用定义好的运算构建前向网络
+        x = self.max_pool2d(self.relu(self.conv1(x)))
+        x = self.max_pool2d(self.relu(self.conv2(x)))
+        x = self.flatten(x)
+        x = self.relu(self.fc1(x))
+        x = self.relu(self.fc2(x))
+        x = self.fc3(x)
+        return x
+
+if __name__=="__main__":
+    data = Tensor(np.ones([32, 1, 32, 32]).astype(np.float32) * 0.01)
+    label = Tensor(np.ones([32]).astype(np.int32))
+    net = LeNet()
+    learning_rate = 0.01
+    momentum = 0.9
+
+    optimizer = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), learning_rate, momentum)
+    criterion = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
+    net_with_criterion = WithLossCell(net, criterion)
+    train_network = TrainOneStepCell(net_with_criterion, optimizer)
+    for i in range(5):
+        train_network.set_train()
+        res = train_network(data, label)
+        print(f"+++++++++result:{i}++++++++++++")
+        print(res)
 ```
 
 ```text
