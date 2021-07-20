@@ -92,7 +92,6 @@
     - 编译：在`mindspore/lite/examples/quick_start_cpp`目录下执行[build脚本](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_cpp/build.bat)，将能够自动下载相关文件并编译Demo。
 
   ```bash
-  set PATH=../libs;%PATH%
   call build.bat
   ```
 
@@ -101,6 +100,7 @@
   编译构建后，进入`mindspore/lite/examples/quick_start_cpp/build`目录，并执行以下命令，体验MindSpore Lite推理MobileNetV2模型。
 
   ```bash
+  set PATH=../lib;%PATH%
   call mindspore_quick_start_cpp.exe ../model/mobilenetv2.ms
   ```
 
