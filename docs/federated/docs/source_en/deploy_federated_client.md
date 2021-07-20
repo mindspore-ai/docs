@@ -73,6 +73,7 @@ mindspore-lite-{version}
 │   │   ├── libmindspore-lite.so  # Dynamic library on which the MindSpore Lite training framework depends
 │   │   ├── libmindspore-lite-jni.so  # Dynamic library on which the MindSpore Lite training framework depends
 │   │   ├── libmindspore-lite-train.so  # Dynamic library on which the MindSpore Lite training framework depends
+│   │   ├── libmindspore-lite-train-jni.so  # Dynamic library on which the MindSpore Lite training framework depends
 │   │   └── libturbojpeg.so  # Dynamic library file for image processing
 │   └── armeabi-v7a
  │       ├── libjpeg.so   # Dynamic library file for image processing
@@ -80,6 +81,7 @@ mindspore-lite-{version}
 │       ├── libmindspore-lite.so  # Dynamic library on which the MindSpore Lite training framework depends
 │       ├── libmindspore-lite-jni.so  # Dynamic library on which the MindSpore Lite training framework depends
 │       ├── libmindspore-lite-train.so  # Dynamic library on which the MindSpore Lite training framework depends
+│       ├── libmindspore-lite-train-jni.so  # Dynamic library on which the MindSpore Lite training framework depends
 │       └── libturbojpeg.so  # Dynamic library file for image processing
 ├── libs
 │   ├── mindspore-lite-java-common.jar  # MindSpore Lite training framework JAR package
@@ -135,6 +137,7 @@ mindspore-lite-{version}-linux-x64
     │   ├── libmindspore-lite-jni.so   # JNI dynamic library of the MindSpore Lite training framework
     │   ├── libmindspore-lite-train.a  # Static library of the MindSpore Lite training framework
     │   ├── libmindspore-lite-train.so # Dynamic library of the MindSpore Lite training framework
+    │   ├── libmindspore-lite-train-jni.so # Dynamic library of the MindSpore Lite training framework
     │   ├── libmindspore-lite.a  # Static library on which the MindSpore Lite training framework depends
     │   ├── libmindspore-lite.so  # Dynamic library on which the MindSpore Lite training framework depends
     │   ├── mindspore-lite-java.jar    # MindSpore Lite training framework JAR package
@@ -154,11 +157,12 @@ libminddata-lite.so  # Dynamic library file for image processing
 libmindspore-lite.so  # Dynamic library on which the MindSpore Lite training framework depends
 libmindspore-lite-jni.so  # Dynamic library on which the MindSpore Lite training framework depends
 libmindspore-lite-train.so  # Dynamic library on which the MindSpore Lite training framework depends
+libmindspore-lite-train-jni.so # Dynamic library of the MindSpore Lite training framework
 libturbojpeg.so.0  # Dynamic library file for image processing
 mindspore-lite-java-flclient.jar  # Federated learning framework JAR package
 ```
 
-Find the six .so files on which federated learning depends in the directories `mindspore/output/mindspore-lite-{version}-linux-x64/runtime/lib/` and `mindspore/output/mindspore-lite-{version}-linux-x64/runtime/third_party/libjpeg-turbo/lib`. Then, place these .so files in a folder, for example, `/resource/x86libs/`.
+Find the seven  .so files on which federated learning depends in the directories `mindspore/output/mindspore-lite-{version}-linux-x64/runtime/lib/` and `mindspore/output/mindspore-lite-{version}-linux-x64/runtime/third_party/libjpeg-turbo/lib`. Then, place these .so files in a folder, for example, `/resource/x86libs/`.
 
 Set environment variables in the x86 system (an absolute path must be provided):
 
