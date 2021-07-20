@@ -215,7 +215,7 @@
 | torchvision.transforms.CenterCrop                    | mindspore.dataset.vision.c_transforms.CenterCrop               | 功能一致 |
 | torchvision.transforms.ColorJitter                   | mindspore.dataset.vision.c_transforms.RandomColorAdjust        | 功能一致 |
 | torchvision.transforms.Compose                       | mindspore.dataset.transforms.c_transforms.Compose              | 功能一致 |
-| torchvision.transforms.ConvertImageDtype             | mindspore.dataset.transforms.py_transforms.ToType              | 差异对比 |
+| torchvision.transforms.ConvertImageDtype             | mindspore.dataset.vision.py_transforms.ToType                  | 差异对比 |
 | torchvision.transforms.FiveCrop                      | mindspore.dataset.vision.py_transforms.FiveCrop                | 功能一致 |
 | torchvision.transforms.GaussianBlur                  | mindspore.dataset.vision.c_transforms.GaussianBlur             | 功能一致 |
 | torchvision.transforms.Grayscale                     | mindspore.dataset.vision.py_transforms.Grayscale               | 功能一致 |

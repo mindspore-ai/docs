@@ -215,7 +215,7 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torchvision.transforms.CenterCrop                    | mindspore.dataset.vision.c_transforms.CenterCrop               | same |
 | torchvision.transforms.ColorJitter                   | mindspore.dataset.vision.c_transforms.RandomColorAdjust        | same |
 | torchvision.transforms.Compose                       | mindspore.dataset.transforms.c_transforms.Compose              | same |
-| torchvision.transforms.ConvertImageDtype             | mindspore.dataset.transforms.py_transforms.ToType              | diff |
+| torchvision.transforms.ConvertImageDtype             | mindspore.dataset.vision.py_transforms.ToType                  | diff |
 | torchvision.transforms.FiveCrop                      | mindspore.dataset.vision.py_transforms.FiveCrop                | same |
 | torchvision.transforms.GaussianBlur                  | mindspore.dataset.vision.c_transforms.GaussianBlur             | same |
 | torchvision.transforms.Grayscale                     | mindspore.dataset.vision.py_transforms.Grayscale               | same |
