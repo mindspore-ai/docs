@@ -272,7 +272,7 @@ def vgg16(num_classes=1000, args=None, phase="train"):
     If the number of samples is large enough and all the preceding metric values are greater than 0.6, the target model has privacy leakage risks.
 
     ```python
-        metrics = ["precision", "accuracy", "recall"]
+    metrics = ["precision", "accuracy", "recall"]
     ```
 
 4. Train the membership inference model.
