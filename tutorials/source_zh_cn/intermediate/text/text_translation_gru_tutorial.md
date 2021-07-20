@@ -35,10 +35,15 @@ project
 
 ），所以对于需要多种语言的翻译情景，nltk是您的最佳选择之一。
 
-要运行本教程，请先使用 `pip` 或 `conda` 安装 `nltk` 。接下来，下载英语和德语nltk分词器的原始数据：
+要运行本教程，请先使用 `pip` 或 `conda` 安装 `nltk` 。
+
+```bash
+pip install nltk
+```
+
+接下来，下载英语和德语nltk分词器的原始数据：
 
 ```python
-pip install nltk
 import nltk
 nltk.download()
 ```
@@ -555,7 +560,7 @@ for input_file in input_files:
 
 输出：
 
-```python
+```text
 INFO: root: ** *Write
 to
 output
@@ -736,7 +741,7 @@ print("dataset size is {}".format(dataset_size))
 
 输出：
 
-```python
+```text
 dataset
 size is 3617
 ```
@@ -1453,7 +1458,7 @@ model.train(9, dataset, callbacks=cb, dataset_sink_mode=True)
 
 结果如下：
 
-```py
+```text
 time: 295568, epoch: 1, step: 3617, loss: 44.72535, overflow: False, loss_scale: 2048.0
 time: 433144, epoch: 2, step: 7234, loss: 9.692089, overflow: False, loss_scale: 8192.0
 time: 570487, epoch: 3, step: 10851, loss: 7.9861655, overflow: False, loss_scale: 32768.0
