@@ -33,7 +33,7 @@ For details, click [Huawei Ascend official website](https://e.huawei.com/en/prod
 
 MindSpore is a deep learning framework in all scenarios, aiming to achieve easy development, efficient execution, and all-scenario coverage. Easy development features friendly APIs and easy debugging. Efficient execution is reflected in computing, data preprocessing, and distributed training. All-scenario coverage means that the framework supports cloud, edge, and device scenarios.
 
-The following figure shows the overall MindSpore architecture, which mainly consists of four parts: MindSpore Extend, MindExpress (ME), MindCompiler, MindRE and MindSpore Lite.
+The following figure shows the overall MindSpore architecture, which mainly consists of four parts: MindSpore Extend, MindExpress (ME), MindCompiler, MindRT and MindSpore Lite.
 
 - **MindSpore Extend**: MindSpore extension package to be contributed and built by more developers.
 - **MindExpress**: Python-based frontend expression. In the future, more frontends based on C/C++ and Java will be provided. Cangjie, Huawei's self-developed programming language frontend, is now in the pre-research phase. In addition, Huawei is working on interconnection with third-party frontends such as Julia to introduce more third-party ecosystems.
