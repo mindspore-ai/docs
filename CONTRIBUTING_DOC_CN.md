@@ -99,7 +99,7 @@ PR合入后次日，即可在MindSpore官网中查看到新增内容，新增文
 
 ![master_doc](./resource/_static/master_doc.png)
 
-以《实现一个图片分类应用》文档为例，该文档的链接为<https://www.mindspore.cn/tutorial/training/zh-CN/master/quick_start/quick_start.html>。
+以《实现一个图片分类应用》文档为例，该文档的链接为<https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/quick_start/quick_start.html>。
 
 ## API
 
@@ -113,7 +113,7 @@ MindSpore docs仓提供了[API注释写作要求](https://gitee.com/mindspore/do
 
 如果不清楚所在文件，可点击“source”，并参考跳转的链接地址中`_modules`后的内容，找到该文件。
 
-以Tensor为例，点击“source”后得到地址<https://www.mindspore.cn/doc/api_python/zh-CN/master/_modules/mindspore/common/tensor.html#Tensor>，源文件地址即为<https://gitee.com/mindspore/mindspore/blob/master/mindspore/common/tensor.py>。
+以Tensor为例，点击“source”后得到地址<https://www.mindspore.cn/docs/api/zh-CN/r1.3/_modules/mindspore/common/tensor.html#Tensor>，源文件地址即为<https://gitee.com/mindspore/mindspore/blob/master/mindspore/common/tensor.py>。
 
 ![API Source](./resource/_static/api_source.png)
 
@@ -121,7 +121,7 @@ MindSpore docs仓提供了[API注释写作要求](https://gitee.com/mindspore/do
 
 #### 新增Python API
 
-如果您需要新增API，请先确认是否在已有模块中添加，已有模块列表请查看<https://www.mindspore.cn/doc/api_python/zh-CN/master/index.html>。
+如果您需要新增API，请先确认是否在已有模块中添加，已有模块列表请查看<https://www.mindspore.cn/docs/api/zh-CN/r1.3/index.html>。
 
 - 如果属于已有模块，在MindSpore代码仓按注释要求完成注释内容，并将该API添加至对应模块的\_\_all\_\_中，确保能通过导入“mindspore.模块名.API名”使用该API。
 
@@ -160,7 +160,7 @@ MindSpore CI采用了Pylint检查工具。
 
 ### 确认内容
 
-PR合入后次日，即可在MindSpore官网[Python API页面](https://www.mindspore.cn/doc/api_python/zh-CN/master/index.html)中查看到新增内容。
+PR合入后次日，即可在MindSpore官网[Python API页面](https://www.mindspore.cn/docs/api/zh-CN/r1.3/index.html)中查看到新增内容。
 
 官网API默认展示最新发布版本，如需查看新合入的内容，如下图所示切换至master分支版本。
 
