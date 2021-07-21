@@ -99,7 +99,7 @@ By default, tutorials and documents of the latest version are displayed on the o
 
 ![master_doc_en](./resource/_static/master_doc_en.png)
 
-Take **Implementing an Image Classification Application** as an example. The document link is <https://www.mindspore.cn/tutorial/training/en/master/quick_start/quick_start.html>.
+Take **Implementing an Image Classification Application** as an example. The document link is <https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_start.html>.
 
 ## API
 
@@ -113,7 +113,7 @@ If you want to update an existing API, find the source file of the A
 
 If you do not know the file link, click **source** and find the file link by referring to the content following `_modules` in the link.
 
-Take Tensor as an example. After clicking **source**, you can obtain the link <https://www.mindspore.cn/doc/api_python/en/master/_modules/mindspore/common/tensor.html#Tensor>. Then, the source file link is <https://gitee.com/mindspore/mindspore/blob/master/mindspore/common/tensor.py>.
+Take Tensor as an example. After clicking **source**, you can obtain the link <https://www.mindspore.cn/docs/api/en/master/_modules/mindspore/common/tensor.html#Tensor>. Then, the source file link is <https://gitee.com/mindspore/mindspore/blob/master/mindspore/common/tensor.py>.
 
 ![API Source](./resource/_static/api_source.png)
 
@@ -121,7 +121,7 @@ Modify the comments in the source file and commit changes to a PR to make the co
 
 #### Adding a Python API
 
-If you want to add an API, check whether the API has been added to an existing module. For details about the existing modules, see <https://www.mindspore.cn/doc/api_python/en/master/index.html>.
+If you want to add an API, check whether the API has been added to an existing module. For details about the existing modules, see <https://www.mindspore.cn/docs/api/en/master/index.html>.
 
 - If the API belongs to an existing module, comment out the API in the MindSpore code repository based on the requirements and add the API to \_\_all\_\_ of the corresponding module. Ensure that the API can be used in importing **mindspore.*Module name*.*API name*** format.
 
@@ -160,7 +160,7 @@ MindSpore CI uses the Pylint check tool.
 
 ### Confirming the Content
 
-On the next day after the PR is merged, you can view the new content on the [MindSpore Python API](https://www.mindspore.cn/doc/api_python/en/master/index.html) page.
+On the next day after the PR is merged, you can view the new content on the [MindSpore Python API](https://www.mindspore.cn/docs/api/en/master/index.html) page.
 
 By default, APIs of the latest version are displayed. To view the newly merged content, switch to the master version.
 
