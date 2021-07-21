@@ -4,6 +4,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_zh_cn/implement_problem.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
+<font size=3>**Q: 如何使用SGD里的`param_group`来实现学习率的衰减？**</font>
+
+A: 如果需要按照`epoch`来变化，可以使用[Dynamic LR](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.nn.html#dynamic-lr),把其中的`step_per_epoch`设置成`step_size`，如果需要按照`step`来变化，可以把其中的`step_per_epoch`设置成1，也可以用[LearningRateSchedule](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.nn.html#dynamic-learning-rate)。
+
+<br/>
+
 <font size=3>**Q: MindSpore如何进行参数（如dropout值）修改？**</font>
 
 A: 在构造网络的时候可以通过 `if self.training: x = dropput(x)`，推理时，执行前设置`network.set_train(mode_false)`，就可以不使用dropout，训练时设置为True就可以使用dropout。
@@ -523,4 +529,4 @@ A: 安装MindSpore所依赖的Ascend 310 AI处理器配套软件包时，`CANN`�
 
 <font size=3>**Q: MindSpore代码里面的model_zoo/official/cv/resnet/train.py中context.set_ps_context(enable_ps=True)为什么一定要在init之前设置**</font>
 
-A: MindSpore Ascend模式下，如果先调用init，那么会为所有的进程都分配卡，但是parameter server训练模式下server是不需要分配卡的，那么worker和server就会去使用同一块卡，导致会报错: Hccl dependent tsd is not open。
+A: MindSpore Ascend模式下，如果先调用init，那么会为所有的进程都分配卡，但是parameter server训练模式下server是不需要分配卡的，那么worker和server就会去使用同一块卡，导致会报错: HCCL dependent tsd is not open。

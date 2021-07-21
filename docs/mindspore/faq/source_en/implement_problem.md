@@ -460,4 +460,4 @@ A: While installing Ascend 310 AI Processor software packages，the `CANN` packa
 
 <font size=3>**Q: Why does context.set_ps_context(enable_ps=True) in model_zoo/official/cv/resnet/train.py in the MindSpore code have to be set before init?**</font>
 
-A: In MindSpore Ascend mode, if init is called first, then all processes will be allocated cards, but in parameter server training mode, the server does not need to allocate cards, then the worker and server will use the same card, resulting in an error: Hccl dependent tsd is not open.
+A: In MindSpore Ascend mode, if init is called first, then all processes will be allocated cards, but in parameter server training mode, the server does not need to allocate cards, then the worker and server will use the same card, resulting in an error: HCCL dependent tsd is not open.
