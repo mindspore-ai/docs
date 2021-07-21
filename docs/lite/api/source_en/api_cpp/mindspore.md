@@ -220,7 +220,8 @@ The Serialization class is used to summarize methods for reading and writing mod
 Loads a model file from path, is not supported on MindSpore Lite.
 
 ```cpp
-Status Load(const std::string &file, ModelType model_type, Graph *graph);
+Status Load(const std::string &file, ModelType model_type, Graph *graph, const Key &dec_key = {},
+            const std::string &dec_mode = kDecModeAesGcm);
 ```
 
 - Parameters
@@ -228,6 +229,29 @@ Status Load(const std::string &file, ModelType model_type, Graph *graph);
     - `file`: the path of model file.
     - `model_type`：the Type of model file, options are `ModelType::kMindIR`, `ModelType::kOM`.
     - `graph`：the output parameter, a object saves graph data.
+    - `dec_key`: the decryption key, key length is 16, 24, or 32.
+    - `dec_mode`: the decryption mode, optional `AES-GCM`, `AES-CBC`.
+
+- Returns
+
+  Status code.
+
+#### Load
+
+Load multiple models from multiple files, is not supported on MindSpore Lite.
+
+```cpp
+Status Load(const std::vector<std::string> &files, ModelType model_type, std::vector<Graph> *graphs,
+            const Key &dec_key = {}, const std::string &dec_mode = kDecModeAesGcm);
+```
+
+- Parameters
+
+    - `file`: the path of model file.
+    - `model_type`：the Type of model file, options are `ModelType::kMindIR`, `ModelType::kOM`.
+    - `graph`：the output parameter, a object saves graph data.
+    - `dec_key`: the decryption key, key length is 16, 24, or 32.
+    - `dec_mode`: the decryption mode, optional `AES-GCM`, `AES-CBC`.
 
 - Returns
 
@@ -238,7 +262,8 @@ Status Load(const std::string &file, ModelType model_type, Graph *graph);
 Loads a model file from memory buffer.
 
 ```cpp
-Status Load(const void *model_data, size_t data_size, ModelType model_type, Graph *graph);
+Status Load(const void *model_data, size_t data_size, ModelType model_type, Graph *graph,
+            const Key &dec_key = {}, const std::string &dec_mode = kDecModeAesGcm);
 ```
 
 - Parameters
@@ -247,6 +272,8 @@ Status Load(const void *model_data, size_t data_size, ModelType model_type, Grap
     - `data_size`：the size of the buffer.
     - `model_type`：the Type of model file, options are `ModelType::kMindIR`, `ModelType::kOM`.
     - `graph`：the output parameter, a object saves graph data.
+    - `dec_key`: the decryption key, key length is 16, 24, or 32.
+    - `dec_mode`: the decryption mode, optional `AES-GCM`, `AES-CBC`.
 
 - Returns
 

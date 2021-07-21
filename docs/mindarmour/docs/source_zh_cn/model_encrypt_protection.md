@@ -78,18 +78,34 @@ MindSpore提供的`export`接口可导出MindIR、AIR、ONNX等格式的模型�
 ```python
 from mindspore import export
 input_arr = Tensor(np.zeros([32, 3, 32, 32], np.float32))
-export(network, input_arr, file_name='lenet_enc', file_format='MINDIR' enc_key=b'0123456789ABCDEF', enc_mode='AES-GCM')
+export(network, input_arr, file_name='lenet_enc', file_format='MINDIR', enc_key=b'0123456789ABCDEF', enc_mode='AES-GCM')
 ```
 
 > AIR和ONNX格式暂不支持加密保护。
 
 ## 加载密文MindIR文件
 
-在云侧可以调用`load`接口加载MindIR模型，在加载密文MindIR时，通过指定`dec_key`和`dec_mode`对模型进行解密。
+云侧使用Python编写脚本，可以用`load`接口加载MindIR模型，在加载密文MindIR时，通过指定`dec_key`和`dec_mode`对模型进行解密。
 
 ```python
 from mindspore import load
 graph = load('lenet_enc.mindir', dec_key=b'0123456789ABCDEF', dec_mode='AES-GCM')
+```
+
+对于C++脚本，MindSpore也提供了`Load`接口以加载MindIR模型，接口定义可参考[api文档](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html?highlight=load)：
+
+在加载密文模型时，通过指定`dec_key`和`dec_mode`对模型进行解密。
+
+```C++
+#include "include/api/serialization.h"
+
+namespace mindspore{
+  Graph graph;
+  const unsigned char[] key = "0123456789ABCDEF";
+  const size_t key_len = 16;
+  Key dec_key(key, key_len);
+  Serialization::Load("./lenet_enc.mindir", ModelType::kMindIR, &graph, dec_key, "AES-GCM");
+} // namespace mindspore
 ```
 
 ## 端侧模型保护

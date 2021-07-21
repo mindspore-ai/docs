@@ -220,14 +220,38 @@ Serialization类汇总了模型文件读写的方法。
 从文件加载模型，MindSpore Lite未提供此功能。
 
 ```cpp
-Status Load(const std::string &file, ModelType model_type, Graph *graph);
+Status Load(const std::string &file, ModelType model_type, Graph *graph, const Key &dec_key = {},
+            const std::string &dec_mode = kDecModeAesGcm);
 ```
 
 - 参数
 
     - `file`: 模型文件路径。
-    - `model_type`：模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kOM`。
-    - `graph`：输出参数，保存图数据的对象。
+    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kOM`。
+    - `graph`: 输出参数，保存图数据的对象。
+    - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16、24或32。
+    - `dec_mode`: 解密模式，可选有`AES-GCM`、`AES-CBC`。
+
+- 返回值
+
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
+#### Load
+
+从多个文件加载多个模型，MindSpore Lite未提供此功能。
+
+```cpp
+Status Load(const std::vector<std::string> &files, ModelType model_type, std::vector<Graph> *graphs,
+            const Key &dec_key = {}, const std::string &dec_mode = kDecModeAesGcm);
+```
+
+- 参数
+
+    - `files`: 多个模型文件路径，用vector存储。
+    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kOM`。
+    - `graphs`: 输出参数，依次保存图数据的对象。
+    - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16、24或32。
+    - `dec_mode`: 解密模式，可选有`AES-GCM`、`AES-CBC`。
 
 - 返回值
 
@@ -238,7 +262,8 @@ Status Load(const std::string &file, ModelType model_type, Graph *graph);
 从内存缓冲区加载模型。
 
 ```cpp
-Status Load(const void *model_data, size_t data_size, ModelType model_type, Graph *graph);
+Status Load(const void *model_data, size_t data_size, ModelType model_type, Graph *graph,
+            const Key &dec_key = {}, const std::string &dec_mode = kDecModeAesGcm);
 ```
 
 - 参数
@@ -247,6 +272,8 @@ Status Load(const void *model_data, size_t data_size, ModelType model_type, Grap
     - `data_size`：模型数据字节数。
     - `model_type`：模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kOM`。
     - `graph`：输出参数，保存图数据的对象。
+    - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16、24或32。
+    - `dec_mode`: 解密模式，可选有`AES-GCM`、`AES-CBC`。
 
 - 返回值
 
