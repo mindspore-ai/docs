@@ -29,6 +29,8 @@
 - 确认安装[gmp 6.1.2版本](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz)。
 - 确认安装Python 3.7.5版本。
     - 如果未安装或者已安装其他版本的Python，可从[官网](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz)或者[华为云](https://mirrors.huaweicloud.com/python/3.7.5/Python-3.7.5.tgz)下载Python 3.7.5版本64位，进行安装。
+- 确认安装[OpenSSL 1.1.1及以上版本](https://github.com/openssl/openssl.git)。
+    - 安装完成后设置环境变量`export OPENSSL_ROOT_DIR=“OpenSSL安装目录”`。
 
 ## 安装MindSpore
 

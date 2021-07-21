@@ -29,6 +29,8 @@ This document describes how to quickly install MindSpore by pip in a Linux syste
 - Confirm that [gmp 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
 - Confirm that Python 3.7.5 is installed.
     - If you didn't install Python or you have installed other versions, please download the Python 3.7.5 64-bit from [Python](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) or [Huaweicloud](https://mirrors.huaweicloud.com/python/3.7.5/Python-3.7.5.tgz) to install.
+- Confirm that [OpenSSL 1.1.1 or later](https://github.com/openssl/openssl.git) is installed.
+    - Ensure that [OpenSSL](https://github.com/openssl/openssl) is installed and set system variable `export OPENSSL_ROOT_DIR="OpenSSL installation directory"`.
 
 ## Installing MindSpore
 
