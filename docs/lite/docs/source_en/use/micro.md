@@ -1,17 +1,17 @@
-﻿# Perform Inference on the Microcontroller
+﻿# Perform Inference on Mini and Small Systems
 
- `Linux` `IoT` `C++` `CodeGen` `Beginner` `Intermediate`
+ `Linux` `IoT` `C++` `codegen` `Beginner` `Intermediate`
 
 <!-- TOC -->
 
 - [Perform Inference on the Microcontroller](#perform-inference-on-the-microcontroller)
     - [Overview](#overview)
-    - [Obtaining CodeGen](#obtaining-codeGen)
+    - [Obtaining codegen](#obtaining-codegen)
     - [Directory Structure](#directory-structure)
     - [Parameter Description](#parameter-description)
-    - [Instructions](#instructions)
-    - [Using CodeGen to Perform inference on STM Boards](#using-codegen-to-perform-inference-on-stm-boards)
-    - [Using CodeGen to Perform inference on Open HarmonyOS](#using-codegen-to-perform-inference-on-open-harmonyos)
+    - [Run codegen](#run-codegen)
+    - [Perform inference on STM Boards](#perform-inference-on-stm-boards)
+    - [Perform inference on HarmonyOS Lite](#perform-inference-on-harmonyos-lite)
     - [More Details](#more-details)
 
 <!-- /TOC -->
@@ -20,19 +20,19 @@
 
 ## Overview
 
-MindSpore Lite provides a code generator tool, namely CodeGen, which could have runtime compiling and computational graphs building done offline. Only necessary codes and information are kept in the generated program, thereby minimizing the size of the generated inference program. CodeGen supports operators in NNACL and CMSIS, and generates inference programs running on x86/ARM64/ARM32A/ARM32M platforms.
+MindSpore Lite provides a code generator tool, namely codegen, which could have runtime compiling and computational graphs building done offline. Only necessary codes and information are kept in the generated program, thereby minimizing the size of the generated inference program. codegen supports operators in NNACL and CMSIS, and generates inference programs running on x86/ARM64/ARM32A/ARM32M platforms.
 
-Here is the process of using CodeGen:
+Here is the process of using codegen:
 
 1. Use the [MindSpore Lite Converter](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html) to convert the pre-trained model into a `*.ms` file.
 
-2. Use CodeGen and input the `*.ms` file to automatically generate the inference code.
+2. Use codegen and input the `*.ms` file to automatically generate the inference code.
 
 ![img](../images/lite_codegen.png)
 
-## Obtaining CodeGen
+## Obtaining codegen
 
-You can obtain CodeGen by any of the following ways:
+You can obtain codegen by any of the following ways:
 
 1. Download pre-compiled [Release Package](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) from MindSpore.
 2. [Build](https://www.mindspore.cn/lite/docs/en/master/use/build.html) from the source.
@@ -50,7 +50,7 @@ mindspore-lite-{version}-linux-x64
         │   ├── nnacl        # nnacl operator header file
         │   └── wrapper
         ├── lib
-        │   └── libwrapper.a # MindSpore Lite CodeGen generates code dependent operator static library
+        │   └── libwrapper.a # MindSpore Lite codegen generates code dependent operator static library
         └── third_party
             ├── include
             │   └── CMSIS    # ARM CMSIS NN operator header files
@@ -78,11 +78,12 @@ Here is the detailed description of parameters:
 > Please check the [API Document](https://www.mindspore.cn/lite/api/en/master/index.html) to get the detailed API description.
 >
 > The following 3 interfaces are currently not supported：
+>
 > 1. `virtual std::unordered_map<String, mindspore::tensor::MSTensor *> GetOutputs() const = 0;`
 > 2. `virtual Vector<tensor::MSTensor *> GetOutputsByNodeName(const String &node_name) const = 0;`
 > 3. `virtual int Resize(const Vector<tensor::MSTensor *> &inputs, const Vector<Vector<int>> &dims) = 0;`
 
-## Instructions
+## Running codegen
 
 The example starts with a pre-trained classification model for the MNIST dataset.
 
@@ -90,7 +91,7 @@ The example starts with a pre-trained classification model for the MNIST dataset
 ./codegen --modelPath=./mnist.ms --codePath=./
 ```
 
-After successful execution, CodeGen would generate a folder named mnist at the specified path. The structure of the project file is shown as follows:
+After successful execution, codegen would generate a folder named mnist at the specified path. The structure of the project file is shown as follows:
 
 ```text
 mnist
@@ -116,7 +117,7 @@ mnist
     └── weight.h
 ```
 
-## Using CodeGen to Perform inference on STM Boards
+## Performing Inference on STM Boards
 
 This guide takes the deployment on STM32F746 as an example to show how the pre-complied model is built and deployed on Cortex-M platform. More information about Arm Cortex-M could be found in their [Official Web Site](https://developer.arm.com/ip-products/processors/cortex-m).
 
@@ -137,7 +138,7 @@ The generated program compilation and deployment need to install the following t
 - The structure of the project files that needs to be managed as follows:
 
     ```text
-    ├── mnist              # generated inference code by CodeGen
+    ├── mnist              # generated inference code by codegen
     ├── include            # API header files (needs to be managed)
     └── operator_library   # operator source code (needs to be managed)
     ```
@@ -146,7 +147,7 @@ The generated program compilation and deployment need to install the following t
 >
 > You need to obtain the source code corresponding to the target platform because the pre-compiled static library is not provided since the Cross compilation on Cortex-M platform is complicated. The corresponding project file structure is provided in the example and you could follow the instructions shown below to copy the source code and finish the compilation.
 
-- Use Codegen to compile [MNIST handwriting number identification model](https://download.mindspore.cn/model_zoo/official/lite/mnist_lite/mnist.ms), generate corresponding inference codes for STM32F46. The command is as follows:
+- Use codegen to compile [MNIST handwriting number identification model](https://download.mindspore.cn/model_zoo/official/lite/mnist_lite/mnist.ms), generate corresponding inference codes for STM32F46. The command is as follows:
 
     ```bash
     ./codegen --codePath=. --modelPath=mnist.ms --target=ARM32M
@@ -206,14 +207,14 @@ The generated program compilation and deployment need to install the following t
 
 1. Copy operator library source code and header files provided by MindSpore team to the project folder generated by STM32CubeMX.
 
-2. Copy model inference code generated by CodeGen to the project folder generated by STM32CubeMX.
+2. Copy model inference code generated by codegen to the project folder generated by STM32CubeMX.
 
     ```text
     ├── .mxproject
     ├── build             # compile output folder
     ├── Core
     ├── Drivers
-    ├── mnist             # cortex-m7 model inference code generated by CodeGen
+    ├── mnist             # cortex-m7 model inference code generated by codegen
     ├── Makefile          # modify makefile to organize mnist && operator_library source code
     ├── startup_stm32f746xx.s
     ├── STM32F746IGKx_FLASH.ld
@@ -301,96 +302,152 @@ load                     # load executable to board
 c                        # perform model inference
 ```
 
-## Using CodeGen to Perform Inference on Open HarmonyOS
+## Performing Inference on HarmonyOS Lite
 
-1. For the environment preparation, please refer to [harmonyos quick start](https://device.harmonyos.com/en/docs/start/introduce/oem_minitinier_environment_lin-0000001105407498), including gn/ninja/llvm.
+### Installing build environment
 
-2. For Hardware environment preparation, please refer to the harmonyos quick start [How to Develop](https://device.harmonyos.com/en/docs/start/introduce/oem_development_eq_3516-0000001105829366) of board Hi3516 as example.
+For the environment preparation, please refer to [HarmonyOS quick start](https://device.harmonyos.com/en/docs/start/introduce/quickstart-lite-env-setup-lin-0000001105407498), including gn/ninja/llvm.
 
-3. The project file structure needed to be organized is shown below:
+### Connecting to the board
 
-    ```text
-    ├── benchmark
-    ├── CMakeLists.txt
-    ├── BUILD.gn        # project management file
-    └── src  
-    ```
+For Hardware environment preparation, please refer to the HarmonyOS quick start [How to Develop](https://device.harmonyos.com/en/docs/start/introduce/quickstart-lite-steps-board3516-setting-0000001105829366) of board Hi3516 as example.
 
-4. Use CodeGen and input the `*.ms` file of [mobilebetv3 model](https://download.mindspore.cn/model_zoo/official/lite/mnist_lite/mnist.ms) to automatically generate the inference code on harmonyos.
+### Compiling the model
+
+Compile mnist.ms model for HarmonyOS lite using codegen:
 
    ```bash
-   ./codegen --modelPath=./mobilenetv3.ms --codePath=./ --target=ARM32A
+   ./codegen --modelPath=./mnist.ms --codePath=./ --target=ARM32A
    ```
 
-4. Edit gn file:
+### Writing build scripts
+
+For the HarmonyOS application development, please refer to [demo](https://device.harmonyos.com/en/docs/start/introduce/quickstart-lite-steps-board3516-running-0000001151888681). Copy the mnist directory generated in the previous step to any HarmonyOS source code path, assuming it is applications/sample/, and then create a new BUILD.gn file
+
+   ```text
+    <harmony-source-path>/applications/sample/mnist
+    ├── benchmark
+    ├── CMakeLists.txt
+    ├── BUILD.gn
+    └── src
+   ```
+
+Download the precompile runtime component for openharmony in [Download page](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html). This is a BUILD.gn example:
 
    ```text
    import("//build/lite/config/component/lite_component.gni")
-   import("//build/lite/ndk/ndk.gni")
+      import("//build/lite/ndk/ndk.gni")
 
-   lite_component("mobilenetV3_benchmark") {
-       target_type = "executable"
-       sources = [
-            "benchmark/benchmark.cc",
-            "benchmark/load_input.c",
-            "benchmark/calib_output.cc",
-            "src/net.c",
-            "src/weight.c",
-            "src/session.cc",
-            "src/tensor.cc",
-       ]
+      lite_component("mnist_benchmark") {
+          target_type = "executable"
+          sources = [
+               "benchmark/benchmark.cc",
+               "benchmark/calib_output.cc",
+               "benchmark/load_input.c",
+               "src/net.c",
+               "src/weight.c",
+               "src/session.cc",
+               "src/tensor.cc",
+          ]
+          features = []
+          include_dirs = [
+               "<YOUR MINDSPORE LITE RUNTIME PATH>/runtime",
+               "<YOUR MINDSPORE LITE RUNTIME PATH>/tools/codegen/include",
+               "//applications/sample/mnist/benchmark",
+               "//applications/sample/mnist/src",
+          ]
+          ldflags = [
+               "-fno-strict-aliasing",
+               "-Wall",
+               "-pedantic",
+               "-std=gnu99",
+          ]
+          libs = [
+               "<YOUR MINDSPORE LITE RUNTIME PATH>/runtime/lib/libmindspore-lite.a",
+               "<YOUR MINDSPORE LITE RUNTIME PATH>/tools/codegen/lib/libwrapper.a",
+          ]
+          defines = [
+              "NOT_USE_STL",
+              "ENABLE_NEON",
+              "ENABLE_ARM",
+              "ENABLE_ARM32"
+          ]
+          cflags = [
+               "-fno-strict-aliasing",
+               "-Wall",
+               "-pedantic",
+               "-std=gnu99",
+          ]
+          cflags_cc = [
+              "-fno-strict-aliasing",
+              "-Wall",
+              "-pedantic",
+              "-std=c++17",
+          ]
+      }
+   ```
 
-       features = []
+<YOUR MINDSPORE LITE RUNTIME PATH> is the path where the runtime was unzipped, e.g. "//applications/sample/mnist/mindspore-lite-1.3.0-ohos-aarch32".
+Add the configuration of the mnist_benchmark component to the build/lite/components/applications.json file.
 
-       include_dirs = [
-            "//foundation/ai/engine/test/mindspore_benchmark",
-            "//foundation/ai/engine/test/mindspore_benchmark/include",
-            "//foundation/ai/engine/test/mindspore_benchmark/mobilenetV3/benchmark",
-            "//foundation/ai/engine/test/mindspore_benchmark/mobilenetV3/src",
-       ]
+   ```text
+   {
+      "component": "mnist_benchmark",
+      "description": "Communication related samples.",
+      "optional": "true",
+      "dirs": [
+        "applications/sample/mnist"
+      ],
+      "targets": [
+        "//applications/sample/mnist:mnist_benchmark"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_kernel": [ "liteos_a" ],
+      "features": [],
+      "deps": {
+        "components": [],
+        "third_party": []
+      }
+    },
+   ```
 
-       ldflags = [
-            "-fno-strict-aliasing",
-            "-Wall",
-            "-pedantic",
-            "-std=gnu99",
-       ]
+Add the configuration of the mnist_benchmark component to the vendor/hisilicon/hispark_taurus/config.json.
 
-       libs = [
-            "../lib/libmindspore-lite.a",
-            "../lib/libwrapper.a",
-       ]
+   ```text
+   { "component": "mnist_benchmark", "features":[] }
+   ```
 
-       defines = [ "NOT_USE_STL" ]
-       defines += [ "ENABLE_NEON" ]
-       defines += [ "ENABLE_ARM" ]
-       defines += [ "ENABLE_ARM32" ]
+### Building benchmark
 
-       cflags = [
-            "-fno-strict-aliasing",
-            "-Wall",
-            "-pedantic",
-            "-std=gnu99",
-       ]
-    }
-    ```
+   ```text
+   cd <OPENHARMONY SOURCE PATH>
+   hb set
+   .
+   (select ipcamera_hispark_taurus@hisilicon)
+   hb build mnist_benchmark
+   ```
 
-5. Compile and execute the benchmark, the result is as follows:
+The result file is generated in out/hispark_taurus/ipcamera_hispark_taurus directory.
 
-    ```text
-    ReadWeightData time: 0.00000ms
-    input 0: mobilenetV3_input.bin
-    ReadInputData time: 0.00000ms
+### Running benchmark
 
-    loop count:3
-    total time: 756.13397ms, per time: 252.04466ms
+Copy mnist_benchmark, net.bin and [mnist_input.bin](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/micro/example/mnist_x86/mnist_input.bin) to the board, and run:
+
+   ```text
+    OHOS # ./mnist_benchmark mnist_input.bin net.bin 1
+    OHOS # =======run benchmark======
+    input 0: mnist_input.bin
+
+    loop count: 1
+    total time: 10.11800ms, per time: 10.11800ms
 
     outputs:
-    name: Reshape-110, DataType: 43, Elements: 1001, Shape: [1 1001 ], Data:
-    -0.583575, -0.359817, 0.536744, -1.843612, -0.849360, 0.147853, 0.402617, -1.016975, 0.737295, 1.312937
-    ===========run success========
-    total end to end time: 2124.91895ms
-    ```
+    name: int8toft32_Softmax-7_post0/output-0, DataType: 43, Elements: 10, Shape: [1 10 ], Data:
+    0.000000, 0.000000, 0.003906, 0.000000, 0.000000, 0.992188, 0.000000, 0.000000, 0.000000, 0.000000,
+    ========run success=======
+   ```
 
 ## More Details
 
