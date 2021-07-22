@@ -22,7 +22,7 @@
 
 Besides basic [Environment Preparation](https://www.mindspore.cn/lite/docs/en/master/use/build.html), HUAWEI HiAI DDK, which contains
 APIs (including building, loading models and calculation processes) and interfaces implemented to encapsulate dynamic libraries (namely libhiai*.so),
-is required for the use of NPU. Download [DDK](https://developer.huawei.com/consumer/en/doc/development/hiai-Library/ddk-download-0000001053590180)
+is required for the use of NPU. Download [DDK 100.510.010.010](https://developer.huawei.com/consumer/en/doc/development/hiai-Library/ddk-download-0000001053590180),
 and set the directory of extracted files as `${HWHIAI_DDK}`. Our build script uses this environment viriable to seek DDK.
 
 ### Build
@@ -48,7 +48,7 @@ For more information about compilation, see [Linux Environment Compilation](http
     - [Configure the NPU backend](https://www.mindspore.cn/lite/docs/en/master/use/runtime_cpp.html#configuring-the-npu-backend).
      For more information about using Runtime to perform inference, see [Using Runtime to Perform Inference (C++)](https://www.mindspore.cn/lite/docs/en/master/use/runtime_cpp.html).
 
-    - Compile and execute the binary. If you use dynamic linking, please set environment variables to dynamically link libhiai.so, libhiai_ir.so, and libhiai_ir_build.so.
+    - Compile and execute the binary. If you use dynamic linking, please set environment variables to dynamically link libhiai.so, libhiai_ir.so, libhiai_ir_build.so, and libhiai_hcl_model_runtime.so.
     For example,
 
         ```bash
