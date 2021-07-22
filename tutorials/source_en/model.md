@@ -148,12 +148,12 @@ for m in model.parameters_and_names():
 ```
 
 ```text
-    ('conv1.weight', Parameter (name=conv1.weight))
-    ('conv2.weight', Parameter (name=conv2.weight))
-    ('fc1.weight', Parameter (name=fc1.weight))
-    ('fc1.bias', Parameter (name=fc1.bias))
-    ('fc2.weight', Parameter (name=fc2.weight))
-    ('fc2.bias', Parameter (name=fc2.bias))
-    ('fc3.weight', Parameter (name=fc3.weight))
-    ('fc3.bias', Parameter (name=fc3.bias))
+('conv1.weight', Parameter (name=conv1.weight, shape=(6, 1, 5, 5), dtype=Float32, requires_grad=True)),
+('conv2.weight', Parameter (name=conv2.weight, shape=(16, 6, 5, 5), dtype=Float32, requires_grad=True)),
+('fc1.weight', Parameter (name=fc1.weight, shape=(120, 400), dtype=Float32, requires_grad=True)),
+('fc1.bias', Parameter (name=fc1.bias, shape=(120,), dtype=Float32, requires_grad=True)),
+('fc2.weight', Parameter (name=fc2.weight, shape=(84, 120), dtype=Float32, requires_grad=True)),
+('fc2.bias', Parameter (name=fc2.bias, shape=(84,), dtype=Float32, requires_grad=True)),
+('fc3.weight', Parameter (name=fc3.weight, shape=(10, 84), dtype=Float32, requires_grad=True)),
+('fc3.bias', Parameter (name=fc3.bias, shape=(10,), dtype=Float32, requires_grad=True))
 ```
