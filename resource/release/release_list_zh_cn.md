@@ -47,7 +47,7 @@
 | |MindSpore Probability  | [1.3.0](https://www.mindspore.cn/probability/docs/zh-CN/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/probability/docs/zh-CN/master/index.html) |
 | |MindQuantum | [0.2.0](https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.2/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/mindquantum/docs/zh-CN/master/index.html) |
 | API |MindSpore  | [1.3.0](https://www.mindspore.cn/docs/api/zh-CN/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/docs/api/zh-CN/master/index.html) |
-| |MindSpore Lite  | [1.3.0](https://www.mindspore.cn/lite/api/zh-CN/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/lite/api/zh-CN/master/index.htmll) |
+| |MindSpore Lite  | [1.3.0](https://www.mindspore.cn/lite/api/zh-CN/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/lite/api/zh-CN/master/index.html) |
 | |MindSpore Hub  | [1.3.0](https://www.mindspore.cn/hub/api/zh-CN/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/hub/api/zh-CN/master/index.html) |
 | |MindArmour  | [1.3.0](https://www.mindspore.cn/mindarmour/api/zh-CN/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/mindarmour/api/zh-CN/master/index.html) |
 | |MindSpore Federated  | [1.3.0](https://www.mindspore.cn/federated/api/zh-CN/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/federated/api/zh-CN/master/index.html) |

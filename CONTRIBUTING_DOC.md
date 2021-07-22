@@ -55,7 +55,7 @@ If you need to add a document, create a markdown or reStructuredText file in a p
 
     After the writing is complete, add the new document to the web page directory.
 
-   Take a training tutorial as an example. Find the [`index.rst`](https://gitee.com/mindspore/docs/tree/master/tutorials/source_en/index.rst) file in the `source_en` directory. This file corresponds to the organization structure of the training tutorial web page.
+   Take a training tutorial as an example. Find the [`index.rst`](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/index.rst) file in the `source_en` directory. This file corresponds to the organization structure of the training tutorial web page.
 
     Add the new document to the corresponding category. You can also create a category before adding the document. Take **Implementing an Image Classification Application** as an example. Save the document in the `quick_start` directory and name it as `quick_start.md`. Add `quick_start/quick_start` to the Quick Start category, as shown below.
 
