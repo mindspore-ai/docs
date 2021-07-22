@@ -100,7 +100,9 @@ python_code_source = """function splitQuery(query, dict, all_dict) {
           tmp.push(dict[i])
         }
     }
-    tmp.push(query)
+    if (!tmp.length){
+      return [query]
+    }
     min_freq = all_dict[tmp[0]].length
     var min_freq_word = tmp[0]
     for (var i = 0; i < tmp.length-1; i++) {
