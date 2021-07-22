@@ -14,7 +14,7 @@
 
 MindSpore tensors support different data types, including `int8`, `int16`, `int32`, `int64`, `uint8`, `uint16`, `uint32`, `uint64`, `float16`, `float32`, `float64` and `bool_`, which correspond to the data types of NumPy.
 
-In the computation process of MindSpore, the `int` data type in Python is converted into the defined `int64` type, and the `float` data type is converted into the defined `float64` type.
+In the computation process of MindSpore, the `int` data type in Python is converted into the defined `int64` type, and the `float` data type is converted into the defined `float32` type.
 
 For details about the supported types, see <https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.html#mindspore.dtype>.
 
