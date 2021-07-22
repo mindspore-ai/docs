@@ -36,9 +36,9 @@ A: 通过下面四个方面进行对比：
 
 <br/>
 
-<font size=3>**Q: 使用MindSpore在GPU上训练的网络脚本可以不做修改直接在Ascned上进行训练么？**</font>
+<font size=3>**Q: 使用MindSpore在GPU上训练的网络脚本可以不做修改直接在Ascend上进行训练么？**</font>
 
-A: 可以的，MindSpore面向Ascned/GPU/CPU提供统一的API，在算子支持的前提下，网络脚本可以不做修改直接跨平台运行。
+A: 可以的，MindSpore面向Ascend/GPU/CPU提供统一的API，在算子支持的前提下，网络脚本可以不做修改直接跨平台运行。
 
 <br/>
 

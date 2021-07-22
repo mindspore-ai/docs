@@ -129,7 +129,7 @@ A: `libdatatransfer.so`动态库是`fwkacllib/lib64`目录下的，请先在`/us
 
 <font size=3>**Q: 源码编译MindSpore过程时间过长，或时常中断该怎么办？**</font>
 
-A: MindSpore通过submodule机制引入第三方依赖包，其中`Protobuf`依赖包（v3.8.0）下载速度不稳定，建议您提前进行包缓存。
+A: MindSpore通过submodule机制引入第三方依赖包，其中`Protobuf`依赖包（v3.13.0）下载速度不稳定，建议您提前进行包缓存。
 
 <br/>
 
