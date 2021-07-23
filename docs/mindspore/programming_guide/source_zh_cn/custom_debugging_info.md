@@ -50,6 +50,8 @@ MindSpore提供`Callback`能力，支持用户在训练/推理的特定阶段，
 使用方法：在`model.train`方法中传入`Callback`对象，它可以是一个`Callback`列表，例：
 
 ```python
+from mindspore.train.callback import ModelCheckpoint, LossMonitor, SummaryCollector
+
 ckpt_cb = ModelCheckpoint()
 loss_cb = LossMonitor()
 summary_cb = SummaryCollector(summary_dir='./summary_dir')
@@ -119,6 +121,8 @@ class Callback():
 - 在规定时间内终止训练。
 
     ```python
+    from mindspore.train.callback import Callback
+
     class StopAtTime(Callback):
         def __init__(self, run_time):
             super(StopAtTime, self).__init__()
@@ -146,6 +150,8 @@ class Callback():
 - 保存训练过程中精度最高的checkpoint文件。
 
     ```python
+    from mindspore.train.callback import Callback
+
     class SaveCallback(Callback):
         def __init__(self, eval_model, ds_eval):
             super(SaveCallback, self).__init__()
@@ -178,6 +184,9 @@ MindSpore提供了多种metrics评估指标，如：`accuracy`、`loss`、`preci
 > <https://gitee.com/mindspore/docs/blob/r1.3/docs/sample_code/debugging_info/custom_metrics.py>
 
 ```python
+from mindspore import Model
+import mindspore.nn as nn
+
 metrics = {
     'accuracy': nn.Accuracy(),
     'loss': nn.Loss(),
@@ -208,6 +217,10 @@ result = model.eval(ds_eval)
 通过如下代码可以更清楚了解到`Accuracy`是如何运行的：
 
 ```python
+from mindspore.nn import Accuracy
+from mindspore import Tensor
+from numpy as np
+
 x = Tensor(np.array([[0.2, 0.5], [0.3, 0.1], [0.9, 0.6]]))
 y = Tensor(np.array([1, 0, 1]))
 metric = Accuracy()

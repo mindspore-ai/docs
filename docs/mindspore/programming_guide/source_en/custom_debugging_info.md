@@ -41,6 +41,8 @@ MindSpore provides the callback capabilities to allow users to insert customized
 Usage: Transfer the callback object in the `model.train` method. The callback object can be a list, for example:
 
 ```python
+from mindspore.train.callback import ModelCheckpoint, LossMonitor, SummaryCollector
+
 ckpt_cb = ModelCheckpoint()
 loss_cb = LossMonitor()
 summary_cb = SummaryCollector(summary_dir='./summary_dir')
@@ -110,6 +112,8 @@ Here are two examples to further explain the usage of custom Callback.
 - Terminate training within the specified time.
 
     ```python
+    from mindspore.train.callback import Callback
+
     class StopAtTime(Callback):
         def __init__(self, run_time):
             super(StopAtTime, self).__init__()
@@ -143,6 +147,8 @@ Here are two examples to further explain the usage of custom Callback.
 - Save the checkpoint file with the highest accuracy during training.
 
     ```python
+    from mindspore.train.callback import Callback
+
     class SaveCallback(Callback):
         def __init__(self, eval_model, ds_eval):
             super(SaveCallback, self).__init__()
@@ -175,6 +181,9 @@ You can define a metrics dictionary object that contains multiple metrics and tr
 > <https://gitee.com/mindspore/docs/blob/r1.3/docs/sample_code/debugging_info/custom_metrics.py>
 
 ```python
+from mindspore import Model
+import mindspore.nn as nn
+
 metrics = {
     'accuracy': nn.Accuracy(),
     'loss': nn.Loss(),
@@ -205,6 +214,10 @@ By invoking the `eval` method of `Accuracy`, you will obtain the calculation res
 You can understand how `Accuracy` runs by using the following code:
 
 ```python
+from mindspore.nn import Accuracy
+from mindspore import Tensor
+from numpy as np
+
 x = Tensor(np.array([[0.2, 0.5], [0.3, 0.1], [0.9, 0.6]]))
 y = Tensor(np.array([1, 0, 1]))
 metric = Accuracy()
