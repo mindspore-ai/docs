@@ -4,6 +4,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/faq/source_en/data_processing.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
+<font size=3>**Q: How does MindSpore load the existing pre-trained word vector?**</font>
+
+A: When defining EmbedingLookup or Embedding, you only need to transfer the pre-trained word vector and encapsulate the pre-trained word vector into a tensor as the initial value of EmbeddingLookup.
+
+<br/>
+
 <font size=3>**Q: What is the difference between `c_transforms` and `py_transforms`? Which one is recommended?**</font>
 
 A: `c_transforms` is recommended. Its performance is better because it is executed only at the C layer.
