@@ -4,6 +4,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/faq/source_en/distributed_configure.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
+<font size=3>**Q: What do I do if the error `Init plugin so failed, ret = 1343225860` occurs during the HCCL distributed training?**</font>
+
+A: HCCL fails to be initialized. The possible cause is that `rank json` is incorrect. You can use the tool in `mindspore/model_zoo/utils/hccl_tools` to generate one. Alternatively, import the environment variable `export ASCEND_SLOG_PRINT_TO_STDOUT=1` to enable the log printing function of HCCL and check the log information.
+
+<br/>
+
 <font size=3>**Q: How to fix the error below when running MindSpore distributed training with GPU:**</font>
 
 ```text
