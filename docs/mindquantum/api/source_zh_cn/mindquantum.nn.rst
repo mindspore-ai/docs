@@ -1,6 +1,9 @@
 mindquantum.nn
 --------------
 
+Functions
+^^^^^^^^^
+
 .. automodule:: mindquantum.nn
     :exclude-members:  PQC, MindQuantumLayer, MindQuantumAnsatzOnlyLayer, MindQuantumAnsatzOnlyOperator, Evolution
     :members:
