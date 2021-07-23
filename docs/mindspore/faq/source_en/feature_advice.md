@@ -68,7 +68,7 @@ A: An AIR model cannot be exported from the Ascend 310. You need to load a train
 
 <font size=3>**Q: Does MindSpore need a GPU computing unit? What hardware support is needed?**</font>
 
-A: MindSpore currently supports CPU, GPU, and Ascend. Currently, you can try out MindSpore through Docker images on laptops or in environments with GPUs. Some models in MindSpore Model Zoo support GPU-based training and inference, and other models are being improved. For distributed parallel training, MindSpore supports multi-GPU training. You can obtain the latest information from [Road Map](https://www.mindspore.cn/docs/note/en/r1.3/roadmap.html) and [project release notes](https://gitee.com/mindspore/mindspore/blob/master/RELEASE.md#).
+A: MindSpore currently supports CPU, GPU, and Ascend. Currently, you can try out MindSpore through Docker images on laptops or in environments with GPUs. Some models in MindSpore Model Zoo support GPU-based training and inference, and other models are being improved. For distributed parallel training, MindSpore supports multi-GPU training. You can obtain the latest information from [Road Map](https://www.mindspore.cn/docs/note/en/r1.3/roadmap.html) and [project release notes](https://gitee.com/mindspore/mindspore/blob/r1.3/RELEASE.md#).
 
 <br/>
 
