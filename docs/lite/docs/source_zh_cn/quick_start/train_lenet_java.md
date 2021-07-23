@@ -80,7 +80,7 @@ MNIST_Data/
 
     ```bash
     cd /codes/mindspore/mindspore/lite/examples/train_lenet_java
-    ./prepare_and_run.sh -D /PATH/MNIST_Data/ -r ../../../../output/mindspore-lite-${version}-linux-x86.tar.gz
+    ./prepare_and_run.sh -D /PATH/MNIST_Data/ -r ../../../../output/mindspore-lite-${version}-linux-x64.tar.gz
     ```
 
     > ../resources/model/lenet_tod.ms是示例工程中预置的LeNet训练模型，您也可以参考[训练模型转换](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_train.html)，自行转换出LeNet模型。
