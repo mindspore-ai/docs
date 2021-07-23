@@ -387,7 +387,7 @@ Download the precompile runtime component for openharmony in [Download page](htt
       }
    ```
 
-<YOUR MINDSPORE LITE RUNTIME PATH> is the path where the runtime was unzipped, e.g. "//applications/sample/mnist/mindspore-lite-1.3.0-ohos-aarch32".
+`<YOUR MINDSPORE LITE RUNTIME PATH>` is the path where the runtime was unzipped, e.g. "//applications/sample/mnist/mindspore-lite-1.3.0-ohos-aarch32".
 Add the configuration of the mnist_benchmark component to the build/lite/components/applications.json file.
 
    ```text
