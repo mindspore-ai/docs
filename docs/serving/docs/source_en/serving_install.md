@@ -15,7 +15,7 @@
 
 ## Installation
 
-MindSpore Serving depends on the MindSpore training and inference framework. Therefore, install [MindSpore](https://gitee.com/mindspore/mindspore/blob/master/README.md#installation) and then MindSpore Serving. You can install MindInsight either by pip or by source code.
+MindSpore Serving depends on the MindSpore training and inference framework. Therefore, install [MindSpore](https://gitee.com/mindspore/mindspore/blob/r1.3/README.md#installation) and then MindSpore Serving. You can install MindInsight either by pip or by source code.
 
 ### Installation by pip
 
@@ -76,4 +76,4 @@ from mindspore_serving import worker
 
 To run MindSpore Serving, configure the following environment variables:
 
-- MindSpore Serving depends on MindSpore. You need to configure [environment variables](https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend_install_source_en.md#configuring-environment-variables) to run MindSpore.
+- MindSpore Serving depends on MindSpore. You need to configure [environment variables](https://gitee.com/mindspore/docs/blob/r1.3/install/mindspore_ascend_install_source_en.md#configuring-environment-variables) to run MindSpore.
