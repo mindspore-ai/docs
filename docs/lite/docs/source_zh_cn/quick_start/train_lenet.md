@@ -73,7 +73,7 @@ cd ./mindspore
 
 源码路径下的`mindspore/lite/examples/train_lenet`目录包含了本示例程序的源码。
 
-请到[MindSpore Lite下载页面](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/downloads.html)下载mindspore-lite-{version}-linux-x64.tar.gz以及mindspore-lite-{version}-android-aarch64.tar.gz。其中，mindspore-lite-{version}-linux-x64.tar.gz是MindSpore Lite在x86平台的安装包，里面包含模型转换工具converter_lite，本示例用它来将MINDIR模型转换成MindSpore Lite支持的`.ms`格式；mindspore-lite-{version}-android-aarch64.tar.gz是MindSpore Lite在Android平台的安装包，里面包含训练运行时库libmindspore-lite.so，本示例用它所提供的接口在Android上训练模型。下载完成后，需要将mindspore-lite-{version}-linux-x64.tar.gz重命名为mindspore-lite-{version}-linux-x64.tar.gz，将mindspore-lite-{version}-android-aarch64.tar.gz重命名为mindspore-lite-{version}-android-aarch64.tar.gz，最后将重命名后的文件放到MindSpore源码下的`output`目录（如果没有`output`目录，请创建它）。
+请到[MindSpore Lite下载页面](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/downloads.html)下载mindspore-lite-{version}-linux-x64.tar.gz以及mindspore-lite-{version}-android-aarch64.tar.gz。其中，mindspore-lite-{version}-linux-x64.tar.gz是MindSpore Lite在x86平台的安装包，里面包含模型转换工具converter_lite，本示例用它来将MINDIR模型转换成MindSpore Lite支持的`.ms`格式；mindspore-lite-{version}-android-aarch64.tar.gz是MindSpore Lite在Android平台的安装包，里面包含训练运行时库libmindspore-lite.so，本示例用它所提供的接口在Android上训练模型。最后将文件放到MindSpore源码下的`output`目录（如果没有`output`目录，请创建它）。
 
 假设下载的安装包存放在`/Downloads`目录，上述操作对应的`Linux`指令如下：
 
