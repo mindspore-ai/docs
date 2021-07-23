@@ -27,6 +27,7 @@
 | iOS 推理runtime | CPU | iOS-aarch64 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.3.0-lite/MindSpore/lite/release/ios/mindspore-lite-1.3.0-ios-aarch64.tar.gz> | a28111c2bcc542a70ef98edfe007892855dcfcd9d40586fa98be962caefc26d3 |
 | NNIE converter工具 | CPU     | Ubuntu-x64 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.3.0-lite/MindSpore/lite/release/linux/nnie/mindspore-lite-1.3.0-linux-x64.tar.gz> | 73f4dffde69d24a8d0574e771bc6131a45a8fc5ebd18b34fc7afd30a0d149cb1 |
 | NNIE 推理runtime及benchmark工具 | Hi3516D | Linux-aarch32 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.3.0-lite/MindSpore/lite/release/linux/mindspore-lite-1.3.0-linux-aarch32.tar.gz> | 07a0d0a8a8f257c01d06fa33f57969eb68385b430f2f5a3a4b09dba463c361d9 |
+| 轻鸿蒙推理runtime | Hi3516D | OpenHarmony | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.3.0-lite/MindSpore/lite/release/openharmony/mindspore-lite-1.3.0-ohos-aarch32.tar.gz> | 1bd481e93b6f3b2467a6d8f0bcc2da0221e4d023d74c584174dedb8854704748 |
 
 ## 1.2.0
 
