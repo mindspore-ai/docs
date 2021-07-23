@@ -1,17 +1,17 @@
-# 在微控制器上执行推理
+# 在轻量和小型系统上执行推理
 
  `Linux` `IoT` `C++` `模型代码生成` `推理应用` `初级` `中级`
 
 <!-- TOC -->
 
-- [在微控制器上执行推理](#在微控制器上执行推理)
+- [在轻量和小型系统上执行推理](#在轻量和小型系统上执行推理)
     - [概述](#概述)
-    - [获取codegen](#获取codegen)
-    - [目录结构](#目录结构)
-    - [参数说明](#参数说明)
-    - [使用步骤](#使用步骤)
-    - [使用CodeGen在STM开发板上执行推理](#使用CodeGen在STM开发板上执行推理)
-    - [使用CodeGen在轻鸿蒙上执行推理](#在轻鸿蒙上部署MobileNetV3)
+    - [获取codegen工具](#获取codegen工具)
+    - [codegen目录结构](#codegen目录结构)
+    - [codegen运行参数说明](#codegen运行参数说明)
+    - [如何使用codegen](#如何使用codegen)
+    - [在STM开发板上执行推理](#在STM开发板上执行推理)
+    - [在轻鸿蒙设备上执行推理](#在轻鸿蒙设备上执行推理)
     - [更多详情](#更多详情)
 
 <!-- /TOC -->
@@ -30,16 +30,16 @@
 
 ![img](../images/lite_codegen.png)
 
-## 获取codegen
+## 获取codegen工具
 
-自动代码生成工具，可以通过两种方式获取：
+codegen是一个自动代码生成的工具，可以通过两种方式获取：
 
 1. MindSpore官网下载[Release版本](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/downloads.html)。
 2. 从源码开始[编译构建](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/build.html)。
 
-> 目前模型生成工具仅支持在Linux x86_64架构下运行。
+> 目前codegen工具仅支持在Linux x86_64下运行。
 
-## 目录结构
+## codegen目录结构
 
 ```text
 mindspore-lite-{version}-linux-x64
@@ -50,7 +50,7 @@ mindspore-lite-{version}-linux-x64
         │   ├── nnacl        # nnacl 算子头文件
         │   └── wrapper
         ├── lib
-        │   └── libwrapper.a # MindSpore Lite CodeGen生成代码依赖的部分算子静态库
+        │   └── libwrapper.a # MindSpore Lite codegen生成代码依赖的部分算子静态库
         └── third_party
             ├── include
             │   └── CMSIS    # ARM CMSIS NN 算子头文件
@@ -58,9 +58,7 @@ mindspore-lite-{version}-linux-x64
                 └── libcmsis_nn.a # ARM CMSIS NN 算子静态库
 ```
 
-## 参数说明
-
-详细参数说明如下：
+## codegen运行参数说明
 
 | 参数            | 是否必选 | 参数说明                         | 取值范围                   | 默认值    |
 | --------------- | -------- | -------------------------------| -------------------------- | --------- |
@@ -83,7 +81,7 @@ mindspore-lite-{version}-linux-x64
 > 2. `virtual Vector<tensor::MSTensor *> GetOutputsByNodeName(const String &node_name) const = 0;`
 > 3. `virtual int Resize(const Vector<tensor::MSTensor *> &inputs, const Vector<Vector<int>> &dims) = 0;`
 
-## 使用说明
+## 如何使用codegen
 
 以MNIST分类网络为例：
 
@@ -91,7 +89,7 @@ mindspore-lite-{version}-linux-x64
 ./codegen --modelPath=./mnist.ms --codePath=./
 ```
 
-执行成功后，会在codePath指定的目录下，生成名为mnist的文件夹，内容如下：
+如果没有指定target参数，默认目标平台为x86。执行成功后，会在codePath指定的目录下生成名为mnist的文件夹，内容如下：
 
 ```text
 mnist
@@ -117,7 +115,7 @@ mnist
     └── weight.h
 ```
 
-## 使用CodeGen在STM开发板上执行推理
+## 在STM开发板上执行推理
 
 本教程以在STM32F746单板上编译部署生成模型代码为例，演示了codegen编译模型在Cortex-M平台的使用。更多关于Arm Cortex-M的详情可参见其[官网](https://developer.arm.com/ip-products/processors/cortex-m)。
 
@@ -302,96 +300,152 @@ load                     # 加载可执行文件到单板
 c                        # 执行模型推理
 ```
 
-## 在轻鸿蒙上部署MobileNetV3
+## 在轻鸿蒙设备上执行推理
 
-1. 轻鸿蒙编译环境准备，需要安装gn/ninja/llvm等编译工具链，详细请参考[轻鸿蒙快速入门](https://device.harmonyos.com/cn/docs/start/introduce/oem_minitinier_environment_lin-0000001105407498)。
+### 安装轻鸿蒙编译环境
 
-2. 开发板环境配置请参考，以Hi3516开发板为例，请参考轻鸿蒙快速入门，[开发步骤章节](https://device.harmonyos.com/cn/docs/start/introduce/oem_development_eq_3516-0000001105829366)。
+详细请参考[Ubuntu编译环境准备](https://device.harmonyos.com/cn/docs/start/introduce/quickstart-lite-env-setup-lin-0000001105407498)。
 
-3. 需要组织的工程目录如下：
+### 开发板环境配置
 
-    ```text
-    ├── benchmark
-    ├── CMakeLists.txt
-    ├── BUILD.gn        # 编译工程组织文件
-    └── src  
-    ```
+以Hi3516开发板为例，请参考[安装开发板环境](https://device.harmonyos.com/cn/docs/start/introduce/quickstart-lite-steps-board3516-setting-0000001105829366)。
 
-4. 使用codegen编译[mobilebetv3模型](https://download.mindspore.cn/model_zoo/official/lite/mnist_lite/mnist.ms)，生成对应轻鸿蒙平台的推理代码，命令为:
+### 编译模型
+
+使用codegen编译[lenet模型](https://download.mindspore.cn/model_zoo/official/lite/mnist_lite/mnist.ms)，生成对应轻鸿蒙平台的推理代码，命令如下:
 
    ```bash
-   ./codegen --modelPath=./mobilenetv3.ms --codePath=./ --target=ARM32A
+   ./codegen --modelPath=./mnist.ms --codePath=./ --target=ARM32A
    ```
 
-4. 编写gn文件
+### 编写构建脚本
+
+轻鸿蒙应用程序开发请先参考[运行Hello OHOS](https://device.harmonyos.com/cn/docs/start/introduce/quickstart-lite-steps-board3516-running-0000001151888681)。将上一步生成的mnist目录拷贝到任意鸿蒙源码路径下，假设为applications/sample/，然后新建BUILD.gn文件：
+
+   ```text
+   <harmony-source-path>/applications/sample/mnist
+   ├── benchmark
+   ├── CMakeLists.txt
+   ├── BUILD.gn
+   └── src  
+   ```
+
+下载适用于OpenHarmony的[预编译推理runtime包](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/downloads.html)，然后将其解压至任意鸿蒙源码路径下。编写BUILD.gn文件：
 
    ```text
    import("//build/lite/config/component/lite_component.gni")
    import("//build/lite/ndk/ndk.gni")
 
-   lite_component("mobilenetV3_benchmark") {
+   lite_component("mnist_benchmark") {
        target_type = "executable"
        sources = [
             "benchmark/benchmark.cc",
-            "benchmark/load_input.c",
             "benchmark/calib_output.cc",
+            "benchmark/load_input.c",
             "src/net.c",
             "src/weight.c",
             "src/session.cc",
             "src/tensor.cc",
        ]
-
        features = []
-
        include_dirs = [
-            "//foundation/ai/engine/test/mindspore_benchmark",
-            "//foundation/ai/engine/test/mindspore_benchmark/include",
-            "//foundation/ai/engine/test/mindspore_benchmark/mobilenetV3/benchmark",
-            "//foundation/ai/engine/test/mindspore_benchmark/mobilenetV3/src",
+            "<YOUR MINDSPORE LITE RUNTIME PATH>/runtime",
+            "<YOUR MINDSPORE LITE RUNTIME PATH>/tools/codegen/include",
+            "//applications/sample/mnist/benchmark",
+            "//applications/sample/mnist/src",
        ]
-
        ldflags = [
             "-fno-strict-aliasing",
             "-Wall",
             "-pedantic",
             "-std=gnu99",
        ]
-
        libs = [
-            "../lib/libmindspore-lite.a",
-            "../lib/libwrapper.a",
+            "<YOUR MINDSPORE LITE RUNTIME PATH>/runtime/lib/libmindspore-lite.a",
+            "<YOUR MINDSPORE LITE RUNTIME PATH>/tools/codegen/lib/libwrapper.a",
        ]
-
-       defines = [ "NOT_USE_STL" ]
-       defines += [ "ENABLE_NEON" ]
-       defines += [ "ENABLE_ARM" ]
-       defines += [ "ENABLE_ARM32" ]
-
+       defines = [
+           "NOT_USE_STL",
+           "ENABLE_NEON",
+           "ENABLE_ARM",
+           "ENABLE_ARM32"
+       ]
        cflags = [
             "-fno-strict-aliasing",
             "-Wall",
             "-pedantic",
             "-std=gnu99",
        ]
-    }
-    ```
+       cflags_cc = [
+           "-fno-strict-aliasing",
+           "-Wall",
+           "-pedantic",
+           "-std=c++17",
+       ]
+   }
+   ```
 
-5. 编译benchmark，并执行，结果为：
+  <YOUR MINDSPORE LITE RUNTIME PATH>是解压出来的推理runtime包路径，比如//applications/sample/mnist/mindspore-lite-1.3.0-ohos-aarch32。
+   修改文件build/lite/components/applications.json，添加组件mnist_benchmark的配置：
 
-    ```text
-    ReadWeightData time: 0.00000ms
-    input 0: mobilenetV3_input.bin
-    ReadInputData time: 0.00000ms
+   ```text
+   {
+      "component": "mnist_benchmark",
+      "description": "Communication related samples.",
+      "optional": "true",
+      "dirs": [
+        "applications/sample/mnist"
+      ],
+      "targets": [
+        "//applications/sample/mnist:mnist_benchmark"
+      ],
+      "rom": "",
+      "ram": "",
+      "output": [],
+      "adapted_kernel": [ "liteos_a" ],
+      "features": [],
+      "deps": {
+        "components": [],
+        "third_party": []
+      }
+    },
+   ```
 
-    loop count:3
-    total time: 756.13397ms, per time: 252.04466ms
+修改文件vendor/hisilicon/hispark_taurus/config.json，新增mnist_benchmark组件的条目:
+
+   ```text
+    { "component": "mnist_benchmark", "features":[] }
+   ```
+
+### 编译benchmark
+
+   ```text
+   cd <openharmony-source-path>
+   hb set(设置编译路径)
+   .（选择当前路径）
+   选择ipcamera_hispark_taurus@hisilicon并回车
+   hb build mnist_benchmark（执行编译）
+   ```
+
+   生成结果文件out/hispark_taurus/ipcamera_hispark_taurus/bin/mnist_benchmark。
+
+### 执行benchmark
+
+将mnist_benchmark、权重文件（mnist/src/net.bin）以及[输入文件](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/micro/example/mnist_x86/mnist_input.bin)拷贝到开发板上，然后执行：
+
+   ```text
+    OHOS # ./mnist_benchmark mnist_input.bin net.bin 1
+    OHOS # =======run benchmark======
+    input 0: mnist_input.bin
+
+    loop count: 1
+    total time: 10.11800ms, per time: 10.11800ms
 
     outputs:
-    name: Reshape-110, DataType: 43, Elements: 1001, Shape: [1 1001 ], Data:
-    -0.583575, -0.359817, 0.536744, -1.843612, -0.849360, 0.147853, 0.402617, -1.016975, 0.737295, 1.312937
-    ===========run success========
-    total end to end time: 2124.91895ms
-    ```
+    name: int8toft32_Softmax-7_post0/output-0, DataType: 43, Elements: 10, Shape: [1 10 ], Data:
+    0.000000, 0.000000, 0.003906, 0.000000, 0.000000, 0.992188, 0.000000, 0.000000, 0.000000, 0.000000,
+    ========run success=======
+   ```
 
 ## 更多详情
 
