@@ -4,6 +4,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_en/implement_problem.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
+<font size=3>**Q: How do I use `param_group` in SGD to reduce the learning rate?**</font>
+
+A: To change the value according to `epoch`, use [Dynamic LR](https://mindspore.cn/docs/api/en/master/api_python/mindspore.nn.html#dynamic-lr) and set `step_per_epoch` to `step_size`. To change the value according to `step`, set `step_per_epoch` to 1. You can also use [LearningRateSchedule](https://mindspore.cn/docs/api/en/master/api_python/mindspore.nn.html#dynamic-learning-rate).
+
+<br/>
+
 <font size=3>**Q: How do I modify parameters (such as the dropout value) on MindSpore?**</font>
 
 A: When building a network, use `if self.training: x = dropput(x)`. When reasoning, set `network.set_train(mode_false)` before execution to disable the dropout function. During training, set `network.set_train(mode_false)` to True to enable the dropout function.
