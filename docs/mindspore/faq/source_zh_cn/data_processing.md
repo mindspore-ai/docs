@@ -4,6 +4,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/faq/source_zh_cn/data_processing.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
+<font size=3>**Q: MindSpore如何加载已有的预训练词向量？**</font>
+
+A: 可以在定义EmbedingLookup或者Embedding时候，把预训练的词向量传进来就可以了，把预训练的词向量封装成一个Tensor作为EmbeddingLookup初始值。
+
+<br/>
+
 <font size=3>**Q: 请问`c_transforms`和`py_transforms`有什么区别，比较推荐使用哪个？**</font>
 
 A: 推荐使用`c_transforms`，因为纯C层执行，所以性能会更好。

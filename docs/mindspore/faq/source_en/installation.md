@@ -110,7 +110,7 @@ A: The `libdatatransfer.so` dynamic library is in the `fwkacllib/lib64` director
 
 <font size=3>**Q: What should I do if the compilation time of MindSpore source code takes too long or the process is constantly interrupted by errors?**</font>
 
-A: MindSpore imports third party dependencies through submodule mechanism, among which `Protobuf` v3.8.0 might not have the optimal or steady download speed, it is recommended that you perform package cache in advance.
+A: MindSpore imports third party dependencies through submodule mechanism, among which `Protobuf` v3.13.0 might not have the optimal or steady download speed, it is recommended that you perform package cache in advance.
 
 <br/>
 
@@ -270,7 +270,7 @@ A: Above question is relatively common, and there are two feasible solutions, yo
 - Exchange the order of import, first `import mindspore` and then import other third party libraries.
 - Before executing the program, we can add environment variables first (`export LD_PRELOAD=/{your_path}/libgomp.so.1`), where `{your_path}` is the path mentioned in above error.
 
-<font size=3>**Q: When the third-party component gensim is used to train the NLP network, the error "ValueError" may be reported. What can I do? **</font>
+<font size=3>**Q: When the third-party component gensim is used to train the NLP network, the error "ValueError" may be reported. What can I do?**</font>
 
 A: The following error information is displayed:
 
@@ -303,7 +303,7 @@ Method 2: If the problem persists, delete the cache file of the wheel installati
 <br/>
 
 <font size=3>**Q: What should I do if an error message `ImportError: libgmpxx.so: cannot open shared object file: No such file or directory` is displayed
-when running `import mindspore` in a script after the source code of mindspore and gmp are compiled and installed?
+when running `import mindspore` in a script after the source code of mindspore and gmp are compiled and installed?**</font>
 
 A: The reason is that we didn't set `--enable-cxx` when installing gmp. The correct steps for installing gmp is (suppose that
 we have download gmp installation repository):
