@@ -385,7 +385,7 @@ c                        # 执行模型推理
    }
    ```
 
-  <YOUR MINDSPORE LITE RUNTIME PATH>是解压出来的推理runtime包路径，比如//applications/sample/mnist/mindspore-lite-1.3.0-ohos-aarch32。
+  `<YOUR MINDSPORE LITE RUNTIME PATH>`是解压出来的推理runtime包路径，比如//applications/sample/mnist/mindspore-lite-1.3.0-ohos-aarch32。
    修改文件build/lite/components/applications.json，添加组件mnist_benchmark的配置：
 
    ```text
