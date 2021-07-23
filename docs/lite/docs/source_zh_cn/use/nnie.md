@@ -329,7 +329,7 @@ ${model_path}为转换后ms模型文件路径
 
 ### prototxt中节点名_cpu后缀支持
 
-  SVP工具链中，可通过在prototxt文件的节点名后使用_cpu后缀来，声明cpu自定义算子。MindSpore Lite中忽略_cpu后缀，不做支持。用户若想重定义MindSpore Lite已有的算子实现或新增新的算子，可通过[自定义算子注册](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/register_kernel.html)的方式进行注册。
+  SVP工具链中，可通过在prototxt文件的节点名后使用_cpu后缀来，声明cpu自定义算子。MindSpore Lite中忽略_cpu后缀，不做支持。用户若想重定义MindSpore Lite已有的算子实现或新增新的算子，可通过[自定义算子注册](https://www.mindspore.cn/lite/docs/zh-CN/master/use/register_kernel.html)的方式进行注册。
 
 ### prototxt中Custom算子支持
 
