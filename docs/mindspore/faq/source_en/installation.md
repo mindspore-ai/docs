@@ -1,4 +1,4 @@
-﻿# Installation
+# Installation
 
 `Linux` `Windows` `Ascend` `GPU` `CPU` `Environment Preparation` `Basic` `Intermediate`
 
@@ -81,6 +81,12 @@ A: You can download whl package from the official [MindSpore Website download pa
 <font size=3>**Q: For Ascend users, what should I do when `RuntimeError: json.exception.parse_error.101 parse error at line 1, column 1: syntax error while parsing value - invalid literal; last read: 'T'` appears in personal Conda environment?**</font>
 
 A: When you encounter the error, you should update the `te/topi/hccl` python toolkits, unload them firstly and then using command `pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/{te/topi/hccl}-{version}-py3-none-any.whl` to reinstall.
+
+<br/>
+
+<font size=3>**Q: What should I do when I install both CPU and GPU versions of MindSpore, an error occurs while importing mindspore, saying `cannot import name 'context' from 'mindspore'`?**</font>
+
+A: All versions of MindSpore are installed in directory named `mindspore`, installing them in one Python environment may overwrite each other and cause failures. If you wish to use alternate versions of MindSpore for difference platforms (e.g. CPU and GPU versions), please uninstall the unused version and install the new version afterwards.
 
 <br/>
 

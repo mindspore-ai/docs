@@ -103,6 +103,12 @@ A: 出现这种类型的报错，大概率是run包更新后个人的Conda环境
 
 <br/>
 
+<font size=3>**Q: pip同时安装MindSpore CPU和GPU版本，import时报错 `cannot import name 'context' from 'mindspore'`，应该怎么办？**</font>
+
+A: MindSpore不同版本的安装目录名同为`mindspore`，安装在同一个Python环境可能产生目录相互覆盖问题，导致无法使用，如果需要使用多平台版本的MindSpore时（例如同时使用CPU和GPU版本），请先卸载其他版本再安装新版本。
+
+<br/>
+
 ## 源码编译安装
 
 <font size=3>**Q: 编译时`bash -p`方式和 `bash -e`方式的区别？**</font>
