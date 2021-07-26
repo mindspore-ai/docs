@@ -335,3 +335,9 @@ $make
 $make check
 $sudo make install
 ```
+
+或者也可以通过安装libgmpxx4ldl软件包的方式解决问题：
+
+```bash
+sudo apt install libgmpxx4ldbl
+```
