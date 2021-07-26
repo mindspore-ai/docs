@@ -206,8 +206,8 @@ Eval Accuracy is 0.965244
 ```python
 import numpy as np
 from mindspore import context, Tensor
-import mindspore.common.dtype as mstype
-from mindspore.train.serialization import export
+import mindspore.dtype as mstype
+from mindspore import export
 from lenet import LeNet5
 from train_utils import TrainWrap
 
@@ -229,7 +229,7 @@ net = TrainWrap(n)
 
 ```python
 import mindspore.nn as nn
-from mindspore.common.parameter import ParameterTuple
+from mindspore import ParameterTuple
 
 def TrainWrap(net, loss_fn=None, optimizer=None, weights=None):
     """
