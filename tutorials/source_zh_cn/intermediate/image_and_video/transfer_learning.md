@@ -13,6 +13,7 @@ import os
 import math
 import stat
 import numpy as np
+import matplotlib.pyplot as plt
 
 import mindspore.ops as ops
 import mindspore.nn as nn
@@ -21,8 +22,9 @@ import mindspore.dataset.vision.c_transforms as CV
 import mindspore.dataset.transforms.c_transforms as C
 from mindspore.dataset.vision import Inter
 from mindspore.common.initializer import Normal
-from mindspore import Model, Tensor, context
-from  mindspore import dtype as mstype
+from mindspore import dtype as mstype
+from mindspore.train.callback import TimeMonitor, Callback
+from mindspore import Model, Tensor, context, save_checkpoint, load_checkpoint, load_param_into_net
 ```
 
 ### 环境配置
@@ -114,8 +116,6 @@ context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
 通过`matplotlib`可视化部分增强后的训练数据。
 
 ```python
-import matplotlib.pyplot as plt
-
 data = next(train_ds.create_dict_iterator())
 images = data["image"]
 labels = data["label"]
@@ -154,9 +154,6 @@ Labels: [0 0 1 0 0 1 0 1 1 1 0 0 1 0 1 0 0 0 1 0 0 1 0 1]
 定义`apply_eval`函数，用来验证模型的精度。
 
 ```python
-from mindspore import save_checkpoint
-from mindspore.train.callback import TimeMonitor, Callback, LossMonitor
-
 # 模型验证
 def apply_eval(eval_param):
     eval_model = eval_param['model']
@@ -178,7 +175,7 @@ class EvalCallBack(Callback):
     """
 
     def __init__(self, eval_function, eval_param_dict, interval=1, eval_start_epoch=1, save_best_ckpt=True,
-                 ckpt_directory="./", besk_ckpt_name="best.ckpt", metrics_name="acc", num_epochs=20):
+                 ckpt_directory="./", besk_ckpt_name="best.ckpt", metrics_name="acc"):
         super(EvalCallBack, self).__init__()
         self.eval_param_dict = eval_param_dict
         self.eval_function = eval_function
@@ -231,8 +228,6 @@ class EvalCallBack(Callback):
 - 定义`visualize_mode`函数，可视化模型预测。
 
     ```python
-    from mindspore import load_checkpoint, load_param_into_net
-
     def visualize_model(best_ckpt_path,val_ds):
         # 定义网络并加载参数，对验证集进行预测
         net = resnet50(2)
@@ -246,8 +241,6 @@ class EvalCallBack(Callback):
         class_name = {0:"dogs",1:"wolves"}
         output = model.predict(Tensor(data['image']))
         pred = np.argmax(output.asnumpy(),axis=1)
-        err_num = []
-        index = 1
 
         # 可视化模型预测
         for i in range(len(labels)):
