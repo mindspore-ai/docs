@@ -210,8 +210,8 @@ Import and instantiate a LeNet5 model and set the model to train mode:
 ```python
 import numpy as np
 from mindspore import context, Tensor
-import mindspore.common.dtype as mstype
-from mindspore.train.serialization import export
+import mindspore.dtype as mstype
+from mindspore import export
 from lenet import LeNet5
 from train_utils import TrainWrap
 
@@ -235,7 +235,7 @@ Wrapping the network with a loss layer and an optimizer and `export` it to a `Mi
 
 ```python
 import mindspore.nn as nn
-from mindspore.common.parameter import ParameterTuple
+from mindspore import ParameterTuple
 
 def TrainWrap(net, loss_fn=None, optimizer=None, weights=None):
     """
