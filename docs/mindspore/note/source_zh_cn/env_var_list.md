@@ -18,6 +18,7 @@
 |MS_SUBMODULE_LOG_v|MindSpore|[MS_SUBMODULE_LOG_v功能与用法](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#id9)|Dict{String:Integer...}|LogLevel: 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR<br>SubModual: COMMON, MD, DEBUG, DEVICE, COMMON, IR...|无|可选|无
 |OPTION_PROTO_LIB_PATH|MindSpore|RPOTO依赖库库路径|String|目录路径，支持相对路径与绝对路径|无|可选|无|
 |MS_OM_PATH|MindSpore|配置图编译出错时dump的analyze_fail.dat文件的保存目录|String|文件路径，支持相对路径与绝对路径|无|可选|无|
+|MINDSPORE_DUMP_CONFIG|MindSpore|指定[云侧Dump功能](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dump_in_graph_mode.html#id6)或[端侧Dump功能](https://www.mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html#id5)所依赖的配置文件的路径|String|文件路径，支持相对路径与绝对路径|无|可选|无|
 |MS_ENABLE_CACHE|MindData|是否开启dataset数据处理cache功能，可以实现数据处理过程中数据的cache能力，加速数据集读取及增强处理|String|TRUE：开启数据处理cache功能 <br>FALSE：关闭数据处理cache功能|与MS_CACHE_HOST、MS_CACHE_PORT一起使用|可选|无|
 |MS_CACHE_HOST|MindData|开启cache时，cache服务所在的IP|String|Cache Server所在机器的IP|与MS_ENABLE_CACHE=TRUE、MS_CACHE_PORT一起使用|可选|无|
 |MS_CACHE_PORT|MindData|开启cache时，cache服务所在的端口|String|Cache Server所在机器的端口|与MS_ENABLE_CACHE=TRUE、MS_CACHE_HOST一起使用|可选|无|
