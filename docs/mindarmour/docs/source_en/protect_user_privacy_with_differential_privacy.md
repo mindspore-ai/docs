@@ -62,7 +62,7 @@ from mindspore import context, load_checkpoint, load_param_into_net
 from mindspore.train.callback import ModelCheckpoint
 from mindspore.train.callback import CheckpointConfig
 from mindspore.train.callback import LossMonitor
-from mindspore.nn.metrics import Accuracy
+from mindspore.nn import Accuracy
 import mindspore.dataset as ds
 import mindspore.dataset.vision.c_transforms as CV
 import mindspore.dataset.transforms.c_transforms as C
