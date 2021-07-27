@@ -470,6 +470,6 @@ A: In MindSpore Ascend mode, if init is called first, then all processes will be
 
 <br/>
 
-<font size=3>**Q: What should I do when training resnet50 on CPU the memory keeps increasing？**</font>
+<font size=3>**Q: What should I do if the memory continues to increase when resnet50 training is performed on the CPU?**</font>
 
-A: Could try to set the number of parallel threads to control memory increase. `export OMP_NUM_THREADS=32`。
+A: You can try to set the number of parallel threads to control memory increasing, `export OMP_NUM_THREADS=32`.
