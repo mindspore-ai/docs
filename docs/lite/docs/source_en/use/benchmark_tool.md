@@ -355,6 +355,6 @@ call benchmark.exe --modelFile=/path/to/model.ms --inDataFile=/path/to/input.bin
 
 ### Dump
 
-The usage of Dump function in the Windows environment is basically the same as that of in the [Linux environment](https://www.mindspore.cn/lite/docs/en/master/use/benchmark_tool.html#Dump), and will not be repeated here.
+The usage of Dump function in the Windows environment is basically the same as that of in the [Linux environment](https://www.mindspore.cn/lite/docs/en/master/use/benchmark_tool.html#dump), and will not be repeated here.
 
 Note that in the Windows environment, when setting the absolute path `Path` in the `data_dump.json` configuration file, it must be specified in the form of `\\`.
