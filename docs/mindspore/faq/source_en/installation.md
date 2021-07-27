@@ -86,7 +86,7 @@ A: When you encounter the error, you should update the `te/topi/hccl` python too
 
 <font size=3>**Q: What should I do when I install both CPU and GPU versions of MindSpore, an error occurs while importing mindspore, saying `cannot import name 'context' from 'mindspore'`?**</font>
 
-A: All versions of MindSpore are installed in directory named `mindspore`, installing them in one Python environment may overwrite each other and cause failures. If you wish to use alternate versions of MindSpore for difference platforms (e.g. CPU and GPU versions), please uninstall the unused version and install the new version afterwards.
+A: All versions of MindSpore are installed in the directory named `mindspore`, installing them in one Python environment may overwrite each other and cause failures. If you wish to use alternate versions of MindSpore for different platforms (e.g. CPU and GPU versions), please uninstall the unused version and install the new version afterwards.
 
 <br/>
 
