@@ -137,7 +137,7 @@ MindSpore提供了同步Dump与异步Dump两种模式：
     注意：
 
     - 在网络脚本执行前，设置好环境变量；网络脚本执行过程中设置将会不生效。
-    - 在分布式场景下，Dump环境变量需要在调用`mindspore.communication.management.init`之前配置。
+    - 在分布式场景下，Dump环境变量需要在调用`mindspore.communication.init`之前配置。
 
 3. 启动网络训练脚本。
 
@@ -394,7 +394,7 @@ numpy.load("Conv2D.Conv2D-op107.2.2.1623124369613540.output.0.DefaultFormat.npy"
     ```
 
     - 在网络脚本执行前，设置好环境变量；网络脚本执行过程中设置将会不生效。
-    - 在分布式场景下，Dump环境变量需要在调用`mindspore.communication.management.init`之前配置。
+    - 在分布式场景下，Dump环境变量需要在调用`mindspore.communication.init`之前配置。
 
 3. 执行用例Dump数据。
 

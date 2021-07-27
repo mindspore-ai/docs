@@ -277,7 +277,7 @@ context.get_auto_parallel_context("grad_accumulation_step")
 
 ## Distributed Communication Interface
 
-`mindspore.communication.management` encapsulates a collection of communication interfaces used by parallel distributed training, facilitating users to configure distributed information.
+`mindspore.communication` encapsulates a collection of communication interfaces used by parallel distributed training, facilitating users to configure distributed information.
 
 ### init
 
@@ -292,7 +292,7 @@ The following is a code example:
 
 ```python
 from mindspore import context
-from mindspore.communication.management import init
+from mindspore.communication import init
 
 context.set_context(device_target='GPU')
 init()
@@ -306,7 +306,7 @@ The following is a code example:
 
 ```python
 from mindspore import context
-from mindspore.communication.management import init, get_group_size
+from mindspore.communication import init, get_group_size
 
 context.set_context(device_target='GPU')
 init()
@@ -321,7 +321,7 @@ The following is a code example:
 
 ```python
 from mindspore import context
-from mindspore.communication.management import init, get_rank
+from mindspore.communication import init, get_rank
 
 context.set_context(device_target='GPU')
 init()

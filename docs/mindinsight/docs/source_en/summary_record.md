@@ -373,14 +373,14 @@ if __name__ == '__main__':
 The `SummaryCollector` and the `SummaryRecord` are not multi-process safe when writing data, so in a single-machine multi-card scenario, you need to make sure that each card stores data in a different directory. In a distributed scenario, we set the summary directory with the 'get_rank' function.
 
 ```python
-from mindspore.communication.management import get_rank
+from mindspore.communication import get_rank
 summary_dir = "summary_dir" + str(get_rank())
 ```
 
 The sample code is as follows:
 
 ```python
-from mindspore.communication.management import get_rank
+from mindspore.communication import get_rank
 
 ...
 

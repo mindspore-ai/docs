@@ -17,7 +17,7 @@ The sample can be run on Ascend 910 AI processor.
 '''
 import numpy as np
 from mindspore import Tensor
-from mindspore.communication.management import init, get_rank, get_group_size
+from mindspore.communication import init, get_rank, get_group_size
 
 
 class FakeData:

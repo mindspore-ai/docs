@@ -458,12 +458,12 @@ User process:
    import os
    import mindspore.nn as nn
    from mindspore import context
-   from mindspore.communication.management import init
+   from mindspore.communication import init
    from mindspore import Tensor, Parameter
    import mindspore.ops as ops
    from mindspore import load_checkpoint, load_param_into_net
 
-   from mindspore.communication.management import init
+   from mindspore.communication import init
    devid = int(os.getenv('DEVICE_ID'))
    context.set_context(mode=context.GRAPH_MODE,device_target='Ascend',save_graphs=True, device_id=devid)
    init()

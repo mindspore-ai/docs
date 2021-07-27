@@ -383,7 +383,7 @@ summary_dir = "summary_dir" + str(get_rank())
 示例代码如下：
 
 ```python
-from mindspore.communication.management import get_rank
+from mindspore.communication import get_rank
 
 ...
 
