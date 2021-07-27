@@ -14,7 +14,7 @@
 >
 > 可通过运行代码文件夹中的`requirements.txt`完成。
 
-图像分割的实际效果大致如下图所示：
+图像分割功能可以定位图片中的物体，识别物体的边界轮廓。实际效果大致如下图所示：
 
 ![bookmask](./images/maskrcnn_seg1.png)
 
@@ -24,24 +24,24 @@
 
 ### COCO数据集说明
 
-[COCO数据集](https://cocodataset.org/#home)可以用于图片分类、目标检测、图像分割等场景，是一个评估视觉类模型的业界标准数据集。教程中会使用COCO2017版本对模型进行训练，在此之前先介绍COCO2017的一些基本信息。
+[COCO数据集](https://cocodataset.org/#home)可以用于图片分类、目标检测、图像分割等场景，是一个评估视觉类模型的业界标准数据集。教程中会使用COCO2017版本对模型进行训练，在正式开始执行代码之前先介绍COCO2017的一些基本信息，以便于用户理解整个数据处理的过程。
 
-COCO2017数据集的结构如下：
+COCO2017数据集的结构如下，其中`annotations`文件夹为标注信息json文件，`train2017`等文件夹存储了大量图片：
 
 ```text
 ├── annotations # 储存图片标注信息，分为三种类型
-│   ├── captions_train2017.json             # 看图说话
+│   ├── captions_train2017.json             # 看图说话，描述图片的内容
 │   ├── captions_val2017.json
-│   ├── instances_train2017.json            # 目标实例
+│   ├── instances_train2017.json            # 目标实例，为本例中使用的类型
 │   ├── instances_val2017.json
-│   ├── person_keypoints_train2017.json     # 关键点检测
+│   ├── person_keypoints_train2017.json     # 人体关键点检测
 │   └── person_keypoints_val2017.json
 ├── train2017                               # 用于训练的图片
 ├── test2017                                # 用于测试的图片
 ├── val2017                                 # 用于验证的图片
 ```
 
-现在进一步说明实验中用到的`instance`类型标注。总体上，一张图片的标注结构如下所示：
+现在进一步说明实验中用到的`instance`类型标注。COCO数据集标注信息内容较多，下面一步步从大类拆解到细节。总体上，一张图片的标注结构如下所示：
 
 ```text
 {
@@ -73,7 +73,7 @@ annotation{
 
 数据集由180张包含书籍的图片组成，图像与标注均来自于COCO。案例中采用自定义数据集的方式加载，完整数据处理代码可参考`src/dataset.py`。
 
-案例中，构造的自定义数据集类为`COCOSubDataset`，继承自`mindspore.dataset`，在训练过程中会通过`GeneratorDataset`接口加载并访问数据集。
+案例中，构造的自定义数据集类为`COCOSubDataset`，在训练过程中会通过`GeneratorDataset`接口加载并访问数据集。
 
 `COCOSubDataset`包含三部分。首先，在类函数`__init__`中完成数据初始化，并且一步步解析出COCO数据集的图像，以及json中储存的bbox、mask、iscrowd等信息。
 
@@ -209,35 +209,35 @@ def create_new_dataset(image_dir, batch_size=config.batch_size, is_training=True
 
 ## 定义模型
 
-教程中使用的Mask R-CNN网络可以完成图片中实例的分类、定位和分割，下面我们先介绍一些网络的基本信息。
+Mask R-CNN网络可以完成图片中实例的分类、定位和分割，教程中的网络实现部分位于`MaskRCNNFineTune/FineTune/src/maskrcnn`文件夹下，用户可以打开代码查看。下面我们先介绍一些Mask R-CNN的基本信息。
 
 Mask R-CNN包括三个主要的子网络：
 
+![model](./images/maskrcnn_model.png)
+
+> 图片及模型解析来源于[Mask R-CNN模型解析](https://bbs.huaweicloud.com/blogs/114705)。
+
 - backbone网络:
 
-  Mask R-CNN的骨干网，主要实现图像的特征提取，这里包括ResNet与FPN(Feature Pyramid Network，图像特征金字塔)。
+  Mask R-CNN的骨干网，主要实现图像的特征提取，这里包括ResNet与FPN(Feature Pyramid Network，图像特征金字塔)。ResNet通过加入残差模块来避免网络层数太多时带来的退化问题，FPN保留卷积过程中的阶段性结果，解决小物体识别困难的问题。ResNet结合FPN生成的特征图可用作后续两个模型的输入。
 
 - RPN网络：
 
-  RPN(region proposal network)主要用于生成Proposal，即带有前景、背景、包围框信息的区域。在backbone生成特征图之后，由RPN实现初步的分类，并生成head网络所需的数据。Mask R-CNN创新性地使用了RoI Align，将Proposal和特征图池化为固定的尺寸，以便于后续head网络的训练。
+  RPN(region proposal network)主要用于生成Proposal，即带有前景、背景、包围框信息的区域。在backbone生成特征图之后，PRN会对特征图上的像素生成Anchor，由Anchor与Ground Truth Box的重叠程度可以判断区域内的图像是前景还是背景。训练之后，也可以由多个Anchor组合得到与Ground Truth box最相配的区域，即RoI(Region of Interest)。由RoI生成head网络所需要的数据：RoI中物体的分类，RoI与Ground Truth box的偏移量，RoI的mask信息。我们将带有这些信息的RoI称为Proposal，并将其输入到RoI Align层，经过池化操作之后，就得到了head网络的训练数据。
+
+  ![Anchor](./images/maskrcnn_anchor.png)
 
 - head网络：
 
-  head网络中又包含两个分支：分类与回归分支实现物体分类与检测；mask分支完成图像分割。
+  head网络输出物体的分类信息、定位信息和遮罩mask，实现图像分类、图像定位和图像分割。
 
-网络结构如下图所示：
-
-![bookmask](./images/maskrcnn_model.png)
-
-> 图片来源于[Mask R-CNN模型解析](https://bbs.huaweicloud.com/blogs/114705)。
-
-教程中的网络实现位于`MaskRCNNFineTune/FineTune/src/maskrcnn`文件夹下。
+整体上，Mask R-CNN通过backbone网络、RPN网络、head网络依次实现特征提取、Proposal生成、mask生成，最终完成图像分割的目的。
 
 ### 将预训练模型用于微调
 
 在实现过程中，我们下载已经预训练好的[ResNet50模型](https://download.mindspore.cn/model_zoo/r1.2/resnet50_ascend_v120_imagenet2012_official_cv_bs256_acc76/resnet50_ascend_v120_imagenet2012_official_cv_bs256_acc76.ckpt)，针对书籍分类对Mask R-CNN进行微调。
 
-首先需要将下载好的模型放置在`MaskRCnnFineTune/`文件夹路径下，并重命名为`resnet50.ckpt`，然后运行`convert_checkpoint.py`。在该脚本中提取了ResNet50的主干作为backbone用于后面的训练：
+首先需要将下载好的模型放置在`MaskRCnnFineTune/`文件夹路径下，并重命名为`resnet50.ckpt`，然后运行`MaskRCnnFineTune/convert_checkpoint.py`。在该脚本中提取了ResNet50的主干作为backbone用于后面的训练：
 
 ```python
 
