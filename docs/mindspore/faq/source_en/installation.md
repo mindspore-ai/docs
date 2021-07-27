@@ -321,3 +321,10 @@ $make
 $make check
 $sudo make install
 ```
+
+Otherwise we can install libgmpxx4ldl to solve the problem：
+
+```bash
+sudo apt install libgmpxx4ldbl
+```
+
