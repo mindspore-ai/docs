@@ -279,7 +279,7 @@ The model accuracy data is displayed in the output content. In the example, the 
 ## Loading the Model
 
 ```python
-from mindspore.train.serialization import load_checkpoint, load_param_into_net
+from mindspore import load_checkpoint, load_param_into_net
 # Load the saved model for testing.
 param_dict = load_checkpoint("checkpoint_lenet-1_1875.ckpt")
 # Load parameters to the network.
