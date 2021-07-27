@@ -56,7 +56,7 @@ print(output)
 `shape` is the size tuple of a tensor, which determines the dimension of the output tensor.
 
 ```python
-from mindspore.ops import operations as ops
+import mindspore.ops as ops
 
 shape = (2, 2)
 ones = ops.Ones()
