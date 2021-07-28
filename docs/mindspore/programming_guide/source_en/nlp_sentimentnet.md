@@ -122,7 +122,7 @@ from mindspore import Tensor, nn, Model, context
 from mindspore.nn import Accuracy
 from mindspore.train.callback import LossMonitor, CheckpointConfig, ModelCheckpoint, TimeMonitor
 from mindspore.train.serialization import load_param_into_net, load_checkpoint
-from mindspore.communication.management import init, get_rank
+from mindspore.communication import init, get_rank
 from mindspore.context import ParallelMode
 ```
 

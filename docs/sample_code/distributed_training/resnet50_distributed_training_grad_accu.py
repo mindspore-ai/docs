@@ -22,7 +22,7 @@ import mindspore.ops as ops
 import mindspore.dataset as ds
 import mindspore.dataset.vision.c_transforms as vision
 import mindspore.dataset.transforms.c_transforms as C
-from mindspore.communication.management import init, get_rank, get_group_size
+from mindspore.communication import init, get_rank, get_group_size
 from mindspore import Tensor, context
 from mindspore.nn import Momentum
 from mindspore.context import ParallelMode

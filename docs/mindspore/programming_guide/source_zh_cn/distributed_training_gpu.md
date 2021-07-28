@@ -63,7 +63,7 @@
 
 ```python
 from mindspore import context
-from mindspore.communication.management import init
+from mindspore.communication import init
 
 if __name__ == "__main__":
     context.set_context(mode=context.GRAPH_MODE, device_target="GPU")

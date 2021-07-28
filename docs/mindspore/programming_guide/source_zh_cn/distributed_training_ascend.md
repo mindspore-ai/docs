@@ -123,7 +123,7 @@ MindSpore分布式并行训练的通信使用了华为集合通信库`Huawei Col
 ```python
 import os
 from mindspore import context
-from mindspore.communication.management import init
+from mindspore.communication import init
 
 if __name__ == "__main__":
     context.set_context(mode=context.GRAPH_MODE, device_target="Ascend", device_id=int(os.environ["DEVICE_ID"]))
@@ -146,7 +146,7 @@ from mindspore import dtype as mstype
 import mindspore.dataset as ds
 import mindspore.dataset.transforms.c_transforms as C
 import mindspore.dataset.vision.c_transforms as vision
-from mindspore.communication.management import get_rank, get_group_size
+from mindspore.communication import get_rank, get_group_size
 
 def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=1):
     resize_height = 224

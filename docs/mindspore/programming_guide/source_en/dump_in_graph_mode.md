@@ -135,7 +135,7 @@ The configuration files required for different modes and the data format of dump
    ```
 
     - Set the environment variables before executing the training script. Setting environment variables during training will not take effect.
-    - Dump environment variables need to be configured before calling `mindspore.communication.management.init`.
+    - Dump environment variables need to be configured before calling `mindspore.communication.init`.
 
 3. Execute the training script to dump data.
 
@@ -394,7 +394,7 @@ Large networks (such as Bert Large) will cause memory overflow when using synchr
     ```
 
     - Set the environment variables before executing the training script. Setting environment variables during training will not take effect.
-    - Dump environment variables need to be configured before calling `mindspore.communication.management.init`.
+    - Dump environment variables need to be configured before calling `mindspore.communication.init`.
 
 3. Execute the training script to dump data.
 

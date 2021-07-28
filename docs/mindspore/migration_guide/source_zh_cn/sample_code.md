@@ -597,7 +597,7 @@ opt = Momentum(group_params, lr, momentum)
 ```python
 import mindspore.nn as nn
 from mindspore import Tensor
-from mindspore.common import dtype as mstype
+from mindspore import dtype as mstype
 from mindspore.nn import LossBase
 import mindspore.ops as ops
 
@@ -689,7 +689,7 @@ from mindspore.train.model import Model
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
 from mindspore.train.loss_scale_manager import FixedLossScaleManager
 from mindspore.train.serialization import load_checkpoint, load_param_into_net
-from mindspore.communication.management import init, get_rank, get_group_size
+from mindspore.communication import init, get_rank, get_group_size
 from mindspore.common import set_seed
 import mindspore.nn as nn
 import mindspore.common.initializer as weight_init
@@ -776,7 +776,7 @@ import os
 import argparse
 import ast
 from mindspore import context
-from mindspore.communication.management import init, get_rank, get_group_size
+from mindspore.communication import init, get_rank, get_group_size
 from resnet50_imagenet2012_config.yaml import config
 
 # ...
@@ -793,7 +793,7 @@ init()
 
 ```python
 import mindspore.dataset as ds
-from mindspore.communication.management import init, get_rank, get_group_size
+from mindspore.communication import init, get_rank, get_group_size
 # ....
 device_num, rank_id = _get_rank_info()
 if device_num == 1:

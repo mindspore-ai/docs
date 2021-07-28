@@ -440,7 +440,7 @@ from mindspore.train.callback import RunContext
 from mindspore import context
 from mindspore.context import ParallelMode
 from mindspore import Model, connect_network_with_dataset
-from mindspore.common.dtype import pytype_to_dtype
+from mindspore import pytype_to_dtype
 from mindspore._c_expression import init_exec_dataset
 from mindspore.train.train_thor.dataset_helper import DatasetHelper
 
