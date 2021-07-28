@@ -623,6 +623,9 @@ from mindspore import Tensor
 import mindspore.ops as ops
 import numpy as np
 from mindspore import dtype as mstype
+from mindspore import context
+
+context.set_context(mode=context.PYNATIVE_MODE)
 
 def hook_fn(grad_out):
     print(grad_out)
