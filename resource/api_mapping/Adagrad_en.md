@@ -40,7 +40,7 @@ import numpy as np
 import torch
 import mindspore.nn as nn
 from mindspore import Tensor, Parameter
-from mindspore.train import Model
+from mindspore import Model
 from mindspore import dtype as mstype
 
 net = Net()

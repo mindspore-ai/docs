@@ -1449,7 +1449,7 @@ cb += [ckpt_cb]
 至此，我们实现了一个基本的序列到序列模型，Encoder通过对输入序列的学习，将学习到的信息转化为一个状态向量传递给Decoder，Decoder再基于这个输入得到输出。 最后，我们可以训练和评估该模型：
 
 ```python
-from mindspore.train import Model
+from mindspore import Model
 
 netwithgrads.set_train(True)
 model = Model(netwithgrads)
