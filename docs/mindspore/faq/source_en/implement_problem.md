@@ -470,6 +470,6 @@ A: In MindSpore Ascend mode, if init is called first, then all processes will be
 
 <br/>
 
-<font size=3>**Q: What should I do if the memory continues to increase when resnet50 training is performed on the CPU?**</font>
+<font size=3>**Q: What should I do if the memory continues to increase when resnet50 training is being performed on the CPU ARM platform?**</font>
 
-A: You can try to set the number of parallel threads to control memory increasing, `export OMP_NUM_THREADS=32`.
+A: When performing resnet50 training on the CPU ARM, some operators are implemented based on the oneDNN library, and the oneDNN library is based on the libgomp library to achieve multi-threaded parallelism. Currently, libgomp has multiple parallel domain configurations. The number of threads is different and the memory usage continues to increase. The continuous growth of memory can be controlled by configuring a uniform number of threads globally. For comprehensive performance considerations, it is recommended to configure a unified configuration to 1/4 of the number of physical cores, such as export `OMP_NUM_THREADS=32`.

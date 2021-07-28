@@ -533,6 +533,6 @@ A: MindSpore Ascend模式下，如果先调用init，那么会为所有的进程
 
 <br/>
 
-<font size=3>**Q: 在CPU上进行resnet50训练，内存持续增长怎么办？**</font>
+<font size=3>**Q: 在CPU ARM平台上进行resnet50训练，内存持续增长怎么办？**</font>
 
-A: 可尝试设置并行线程数来控制内存增长，`export OMP_NUM_THREADS=32`。
+A: 在CPU ARM上进行resnet50训练时，部分算子的实现是基于oneDNN库，oneDNN库中是基于libgomp库实现多线程并行，当前libgomp存在多个并行域配置的线程数不同时有内存占用持续增长的问题。可通过全局配置统一的线程数来控制内存的持续增长。再综合性能上的考虑，建议统一配置为物理核数的1/4，比如`export OMP_NUM_THREADS=32`。
