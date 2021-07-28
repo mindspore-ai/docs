@@ -54,7 +54,7 @@ import mindspore
 import mindspore.nn as nn
 from mindspore import ops
 from mindspore import context, Tensor, Model
-from mindspore.nn.metrics import Accuracy
+from mindspore.nn import Accuracy
 from mindspore.train.callback import SummaryCollector
 
 
