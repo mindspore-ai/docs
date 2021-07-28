@@ -68,8 +68,7 @@ pip install mindspore_serving-{version}-cp37-cp37m-linux_{arch}.whl
 Run the following commands to verify the installation. Import the Python module. If no error is reported, the installation is successful.
 
 ```python
-from mindspore_serving import master
-from mindspore_serving import worker
+from mindspore_serving import server
 ```
 
 ### Configuring Environment Variables

@@ -116,7 +116,7 @@ profiler.analyse()
 
 使用算子性能分析组件可以对MindSpore运行过程中的各个算子的执行时间进行统计展示(包括AICORE、AICPU、HOSTCPU算子)。其中AICORE算子包含计算量相关信息。
 
-- AICORE算子：AI Core 算子是昇腾 AI 处理器计算核心的主要构成，负责执行向量和张量相关的计算密集型算子。TBE（Tensor Virtual Machine）是一种在TVM（Tensor Virtual Machine）框架基础上扩展的算子开发工具，用户可使用 TBE 进行 AI Core 算子信息注册。
+- AICORE算子：AI Core 算子是昇腾 AI 处理器计算核心的主要构成，负责执行向量和张量相关的计算密集型算子。TBE（Tensor Boost Engine）是一种在TVM（Tensor Virtual Machine）框架基础上扩展的算子开发工具，用户可使用 TBE 进行 AI Core 算子信息注册。
 - AICPU算子：AI CPU算子是AI CPU负责执行昇腾处理器中海思 SoC 的CPU类算子（包括控制算子、标量和向量等通用计算）。MindSpore中同一个算子可能会同时拥有 AI Core 算子和AI CPU算子，框架会优先选择 AI Core 算子，没有 AI Core 算子或者不满足选择的场景下，会调用AI CPU算子。
 - HOSTCPU算子：Host侧CPU主要负责将图或者算子下发到昇腾芯片，根据实际需求也可以在Host侧CPU上开发算子。HOSTCPU算子特指运行在Host侧CPU上的算子。
 
