@@ -42,9 +42,9 @@ print(loss(output_data, target_data))
 
 ## Optimizer
 
-An optimizer is used to compute and update the gradient. The selection of the model optimization algorithm directly affects the performance of the final model. A poor effect may be caused by the optimization algorithm instead of the feature or model design. All optimization logic of MindSpore is encapsulated in the `Optimizer` object. Here, the SGD optimizer is used. `mindspore.nn.optim` provides many common optimizers, such as `ADAM` and `Momentum`.
+An optimizer is used to compute and update the gradient. The selection of the model optimization algorithm directly affects the performance of the final model. A poor effect may be caused by the optimization algorithm instead of the feature or model design. All optimization logic of MindSpore is encapsulated in the `Optimizer` object. Here, the SGD optimizer is used. `mindspore.nn` provides many common optimizers, such as `ADAM` and `Momentum`.
 
-To use `mindspore.nn.optim`, you need to build an `Optimizer` object. This object can retain the current parameter status and update parameters based on the computed gradient.
+You need to build an `Optimizer` object. This object can retain the current parameter status and update parameters based on the computed gradient.
 
 To build an `Optimizer`, we need to provide an iterator that contains parameters (must be variable objects) to be optimized. For example, set `params` to `net.trainable_params()` for all `parameter` that can be trained on the network. Then, you can set the `Optimizer` parameter options, such as the learning rate and weight attenuation.
 

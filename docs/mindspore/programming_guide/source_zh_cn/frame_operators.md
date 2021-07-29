@@ -303,7 +303,7 @@ import mindspore.ops as ops
 from mindspore import Tensor
 from mindspore import ParameterTuple, Parameter
 from mindspore import dtype as mstype
-from mindspore.ops.functional import stop_gradient
+from mindspore.ops import stop_gradient
 
 class Net(nn.Cell):
     def __init__(self):

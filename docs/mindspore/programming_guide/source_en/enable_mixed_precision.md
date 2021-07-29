@@ -109,7 +109,7 @@ A code example is as follows:
 ```python
 import numpy as np
 import mindspore.nn as nn
-from mindspore.nn.metrics import Accuracy
+from mindspore.nn import Accuracy
 from mindspore import context, Model
 from mindspore.common.initializer import Normal
 from src.dataset import create_dataset

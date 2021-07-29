@@ -23,7 +23,7 @@ import numpy as np
 import moxing as mox
 
 from mindspore import context, Tensor, Model
-from mindspore.nn.optim.momentum import Momentum
+from mindspore.nn import Momentum
 from mindspore.nn.loss import SoftmaxCrossEntropyWithLogits
 from mindspore.context import ParallelMode
 from mindspore.train.callback import Callback, LossMonitor

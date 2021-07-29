@@ -187,14 +187,14 @@ from mindspore import Tensor
 from mindspore import dtype as mstype
 from mindspore.common import set_seed
 from mindspore.common.initializer import initializer
-from mindspore.ops.operations import nn_ops as nps
+import mindspore.ops as ops
 
 set_seed(1)
 
 input_data = Tensor(np.ones([16, 3, 10, 32, 32]), dtype=mstype.float32)
 weight_init = Tensor(np.ones([32, 3, 4, 3, 3]), dtype=mstype.float32)
 weight = initializer(weight_init, shape=[32, 3, 4, 3, 3])
-conv3d = nps.Conv3D(out_channel=32, kernel_size=(4, 3, 3))
+conv3d = ops.Conv3D(out_channel=32, kernel_size=(4, 3, 3))
 output = conv3d(input_data, weight)
 print(output)
 ```
@@ -228,13 +228,13 @@ from mindspore import Tensor
 from mindspore import dtype as mstype
 from mindspore.common import set_seed
 from mindspore.common.initializer import initializer
-from mindspore.ops.operations import nn_ops as nps
+import mindspore.ops as ops
 
 set_seed(1)
 
 input_data = Tensor(np.ones([16, 3, 10, 32, 32]), dtype=mstype.float32)
 weight = initializer('Normal', shape=[32, 3, 4, 3, 3], dtype=mstype.float32)
-conv3d = nps.Conv3D(out_channel=32, kernel_size=(4, 3, 3))
+conv3d = ops.Conv3D(out_channel=32, kernel_size=(4, 3, 3))
 output = conv3d(input_data, weight)
 print(output)
 ```
@@ -267,14 +267,14 @@ import numpy as np
 from mindspore import Tensor
 from mindspore import dtype as mstype
 from mindspore.common import set_seed
-from mindspore.ops.operations import nn_ops as nps
+import mindspore.ops as ops
 from mindspore.common.initializer import Normal, initializer
 
 set_seed(1)
 
 input_data = Tensor(np.ones([16, 3, 10, 32, 32]), dtype=mstype.float32)
 weight = initializer(Normal(0.2), shape=[32, 3, 4, 3, 3], dtype=mstype.float32)
-conv3d = nps.Conv3D(out_channel=32, kernel_size=(4, 3, 3))
+conv3d = ops.Conv3D(out_channel=32, kernel_size=(4, 3, 3))
 output = conv3d(input_data, weight)
 print(output)
 ```
@@ -305,7 +305,7 @@ The code sample is as follows:
 import numpy as np
 from mindspore import dtype as mstype
 from mindspore.common import set_seed
-from mindspore.ops import operations as ops
+import mindspore.ops as ops
 from mindspore import Tensor, Parameter, context
 from mindspore.common.initializer import Normal, initializer
 

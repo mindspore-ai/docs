@@ -327,7 +327,7 @@ In the following sample code, the automatic parallel mode is specified. To switc
 
 ```python
 from mindspore import context, Model
-from mindspore.nn.optim.momentum import Momentum
+from mindspore.nn import Momentum
 from mindspore.train.callback import LossMonitor
 from mindspore.context import ParallelMode
 from resnet import resnet50

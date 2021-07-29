@@ -573,7 +573,7 @@ def _generate_cosine_lr(lr_init, lr_end, lr_max, total_steps, warmup_steps):
 Implemented SGD optimizer with Momentum, and applied WeightDecay to all weights except gamma and bias of BN.
 
 ```python
-from mindspore.nn.optim import Momentum
+from mindspore.nn import Momentum
 
 net = resnet50(class_num=1000)
 lr = _generate_cosine_lr()
@@ -685,7 +685,7 @@ import argparse
 import ast
 from mindspore import context
 from mindspore import Tensor
-from mindspore.nn.optim import Momentum
+from mindspore.nn import Momentum
 from mindspore.train.model import Model
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
 from mindspore.train.loss_scale_manager import FixedLossScaleManager
