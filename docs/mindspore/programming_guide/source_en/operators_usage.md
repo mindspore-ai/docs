@@ -7,7 +7,7 @@
     - [mindspore.ops.operations](#mindsporeopsoperations)
     - [mindspore.ops.functional](#mindsporeopsfunctional)
     - [mindspore.ops.composite](#mindsporeopscomposite)
-    - [Combination usage of operations/functional/composite three types of operators](#combination-usage-of-operationsfunctionalcomposite-three-types-of-operators)
+    - [Combination usage of operations, functional and composite three types of operators](#combination-usage-of-operations-functional-and-composite-three-types-of-operators)
 
 <!-- /TOC -->
 
@@ -102,7 +102,7 @@ output = [[2.4911082  0.7941146  1.3117087]
 
 > The preceding code runs on the GPU version of MindSpore.
 
-## Combination usage of operations/functional/composite three types of operators
+## Combination usage of operations, functional and composite three types of operators
 
 In order to make it easier to use, in addition to the several usages introduced above, we have encapsulated the three operators of operations/functional/composite into mindspore.ops. It is recommended to directly call the interface in mindspore.ops.
 
