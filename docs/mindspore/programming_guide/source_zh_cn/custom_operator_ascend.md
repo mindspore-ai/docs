@@ -112,7 +112,7 @@ from te import tvm
 from topi import generic
 import te.lang.cce
 from topi.cce import util
-from mindspore.ops.op_info_register import op_info_register, TBERegOp, DataType
+from mindspore.ops import op_info_register, TBERegOp, DataType
 
 def square_compute(input_x):
     """

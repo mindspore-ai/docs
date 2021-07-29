@@ -84,7 +84,7 @@ The parameters are described as follows:
 ```python
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor
 from mindspore import context, Model
-from mindspore.nn.metrics import Accuracy
+from mindspore.nn import Accuracy
 
 if __name__ == "__main__":
     context.set_context(mode=context.GRAPH_MODE, device_target="GPU")

@@ -13,7 +13,7 @@ import mindspore.context as context
 import mindspore.nn as nn
 from mindspore import Tensor
 from mindspore.nn import TrainOneStepCell, WithLossCell
-from mindspore.nn.optim import Momentum
+from mindspore.nn import Momentum
 import mindspore.ops as ops
 
 context.set_context(mode=context.GRAPH_MODE, device_target="GPU")

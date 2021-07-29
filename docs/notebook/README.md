@@ -83,7 +83,6 @@
 | 编程指南        | 算子     | [mindspore_operators_usage.ipynb](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/operators_usage.ipynb)       | - 学习算子的使用方式<br/> - 介绍算子的功能
 | 编程指南        | Parameter     | [mindspore_parameter.ipynb](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/parameter.ipynb)       | - 介绍Parameter的初始化<br/> - 介绍Parameter的属性<br/> - 介绍Parameter的方法
 | 编程指南        | Cell构建及其子类     | [mindspore_cell.ipynb](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/cell.ipynb)       | - 介绍Cell的关键成员函数<br/> - 介绍nn模块与ops模块的关系<br/> - 了解模型层<br/> - 了解MindSpore的损失函数<br/> - 学习MindSpore优化算法<br/> - 学习构建自定义网络
-| 编程指南        | 优化算法     | [mindspore_optim.ipynb](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/optim.ipynb)       | - 介绍各种类型学习率的类<br/> - 介绍Optimizer的构建及使用方式
 | 编程指南        | 数据集加载     | [mindspore_dataset_loading.ipynb](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/dataset_loading.ipynb)       | - 了解常用数据集加载<br/> - 学习特定格式数据集加载<br/> - 学习自定义数据集加载
 | 编程指南        | 采样器     | [mindspore_sampler.ipynb](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/sampler.ipynb)       | - 介绍MindSpore采样器<br/> - 学习如何自定义采样器
 | 编程指南        | 数据处理     | [mindspore_pipeline_common.ipynb](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/pipeline_common.ipynb)       | - 学习MindSpore数据处理算子的使用方法

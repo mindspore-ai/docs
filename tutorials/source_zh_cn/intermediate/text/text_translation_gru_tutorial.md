@@ -1072,7 +1072,7 @@ network = Seq2Seq()
 
 ```python
 from mindspore import nn
-from mindspore.ops import functional as F
+import mindspore.ops as ops
 
 class NLLLoss(nn.Loss):
     def __init__(self, reduction='mean'):

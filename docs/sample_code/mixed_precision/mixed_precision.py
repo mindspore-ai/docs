@@ -19,7 +19,7 @@ This sample code is applicable to GPU and Ascend.
 import mindspore.nn as nn
 from mindspore import context, Model
 from mindspore.train.callback import LossMonitor
-from mindspore.nn.metrics import Accuracy
+from mindspore.nn import Accuracy
 from src.lenet import LeNet5
 from src.datasets import create_dataset
 
