@@ -1023,7 +1023,7 @@ Before using the model, you need to train the model. The following uses LeNet5 a
 
 ```python
 from mindspore.nn.probability.toolbox.uncertainty_evaluation import UncertaintyEvaluation
-from mindspore.train.serialization import load_checkpoint, load_param_into_net
+from mindspore import load_checkpoint, load_param_into_net
 
 if __name__ == '__main__':
     # get trained model

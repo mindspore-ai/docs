@@ -114,7 +114,7 @@ This example uses the LeNet5 deep neural network, which is implemented in MindSp
 
 ```python
 import mindspore.nn as nn
-from mindspore.train.serialization import load_checkpoint, load_param_into_net
+from mindspore import load_checkpoint, load_param_into_net
 from mindspore.common.initializer import Normal
 
 class LeNet5(nn.Cell):

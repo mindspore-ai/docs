@@ -688,9 +688,9 @@ from mindspore.nn import Momentum
 from mindspore.train.model import Model
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
 from mindspore.train.loss_scale_manager import FixedLossScaleManager
-from mindspore.train.serialization import load_checkpoint, load_param_into_net
+from mindspore import load_checkpoint, load_param_into_net
 from mindspore.communication import init, get_rank, get_group_size
-from mindspore.common import set_seed
+from mindspore import set_seed
 import mindspore.nn as nn
 import mindspore.common.initializer as weight_init
 from src.lr_generator import get_lr
@@ -823,9 +823,9 @@ else:
 import os
 import argparse
 from mindspore import context
-from mindspore.common import set_seed
+from mindspore import set_seed
 from mindspore.train.model import Model
-from mindspore.train.serialization import load_checkpoint, load_param_into_net
+from mindspore import load_checkpoint, load_param_into_net
 
 set_seed(1)
 
