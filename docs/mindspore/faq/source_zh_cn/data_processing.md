@@ -175,3 +175,80 @@ A: 首先上述报错指的是通过训练数据下发通道（TDT，train data 
   4. 如果**在训练结束后**打印这条日志（大抵是强制释放资源导致），可忽略这个报错。
 
   5. 如果仍不能定位具体原因，请通过提issue或论坛提问等方式找模块开发人员协助定位。
+
+<br/>
+
+<font size=3>**Q: py_transforms 和 c_transforms 算子能否混合使用，如果混合使用具体需要怎么使用？**</font>
+
+A: 出于高性能考虑，通常不建议将py_transforms 与 c_transforms算子混合使用，[文档](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/augmentation.html#%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9)也对此进行了说明。但若不追求极致的性能，主要考虑打通流程，在无法全部使用c_transforms算子（缺少对应的c_transforms算子）的情况下，可使用py_transforms算子替代，此时即存在混合使用。
+对此我们需要注意c_transforms 算子的输出通常是numpy array，py_transforms算子的输出是PIL Image，具体可查看算子说明，为此通常的混合使用方法为：
+
+- c_transforms 算子 + ToPIL 算子 + py_transforms 算子 + ToTensor算子
+- py_transforms 算子 + ToTensor 算子 + c_transforms 算子
+
+```python
+# example that using c_transforms and py_transforms operators together
+# in following case: c_vision refers to c_transforms, py_vision refer to py_transforms
+
+decode_op = c_vision.Decode()
+
+# If input type is not PIL, then add ToPIL operator.
+transforms = [
+    py_vision.ToPIL(),
+    py_vision.CenterCrop(375),
+    py_vision.ToTensor()
+]
+transform = mindspore.dataset.transforms.py_transforms.Compose(transforms)
+data1 = data1.map(operations=decode_op, input_columns=["image"])
+data1 = data1.map(operations=transform, input_columns=["image"])
+```
+
+<br/>
+
+<font size=3>**Q: 当错误提示 "The data pipeline is not a tree (i.e., one node has 2 consumers)" 应该怎么检查？**</font>
+
+A: 上述错误通常是脚本书写错误导致，具体发生在下面这种场景；正常情况下数据处理pipeline中的操作是依次串联的，下面的异常场景中dataset1有两个消费节点 dataset2和dataset3，就会出现上述错误。
+
+```python
+ dataset2 = dataset1.map(***)
+ dataset3 = dataset1.map(***)
+```
+
+正确的写法如下所示，dataset3是由dataset2进性数据增强得到的，而不是在dataset1基础上进行数据增强操作得到。
+
+```python
+ dataset2 = dataset1.map(***)
+ dataset3 = dataset2.map(***)
+```
+
+<br/>
+
+<font size=3>**Q: MindSpore中和Dataloader对应的算子是什么？**</font>
+
+A：如果将Dataloader考虑为接收自定义Dataset的API接口，MindSpore数据处理API中和Dataloader较为相似的是GeneratorDataset，可接收用户自定义的Dataset，具体使用方式参考[GeneratorDataset 文档](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dataset_loading.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86%E5%8A%A0%E8%BD%BD)，差异对比也可查看[API算子映射表](https://www.mindspore.cn/docs/note/zh-CN/master/index.html#operator_api)。
+
+<br/>
+
+<font size=3>**Q: 自定义的Dataset出现错误时，应该如何调试？**</font>
+
+A：自定义的Dataset通常会传入到GeneratorDataset，在使用过程中错误指向了自定义的Dataset时，可通过一些方式进行调试（如增加打印信息，打印返回值的shape、dtype等），自定义Dataset通常要保持中间处理结果为numpy array，且不建议与MindSpore网络计算的算子混合使用。此外针对自定义的Dataset如下面的MyDataset，初始化后也可直接进行如下遍历（主要为简化调试，分析原始Dataset中的问题，可不传入GeneratorDataset)，调试遵循常规的Python语法规则。
+
+```python
+Dataset = MyDataset()
+for item in Dataset:
+   print("item:", item)
+```
+
+<br/>
+
+<font size=3>**Q: 数据处理算子与网络计算算子能否混合使用？**</font>
+
+A：通常数据处理算子与网络计算算子混合使用会导致性能有所降低，在缺少对应的数据处理算子且自定义py_transforms算子不合适时可进行尝试。需要注意的是，因为二者需要的输入不一致，数据处理算子通常输入为numpy array 或 PIL Image，但网络计算算子输入需要是MindSpore.Tensor;
+将二者混合使用需要使上一个算子的输出格式和下一个算子所需的输入格式一致。数据处理算子指的是官网API文档中mindspore.dataset开头的算子，如 mindspore.dataset.vision.c_transforms.CenterCrop，网络计算算子包含 mindspore.nn、 mindspore.ops等目录下的算子。
+
+<br/>
+
+<font size=3>**Q: MindRecord为何会生成.db文件？ 缺少.db文件时加载数据集会有什么报错？**</font>
+
+A：.db文件为MindRecord文件对应的索引文件，缺少.db文件通常会在获取数据集总的数据量时报错，错误提示如：`MindRecordOp Count total rows failed`。
+
