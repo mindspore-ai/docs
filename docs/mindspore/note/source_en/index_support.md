@@ -250,7 +250,7 @@ Index value assignment can be understood as assigning values to indexed position
     tensor_z = np.arange(2* 3).reshape((2, 3)).astype(np.float32)
     tensor_x[1] = 88.0
     tensor_y[1]= np.array([66, 88, 99]).astype(np.float32)
-    tensor_z[1] = (66, np.array(88), 99)
+    tensor_z[1] = (66, np.array(88).astype(np.int64), 99)
     ```
 
     The result is as follows:
