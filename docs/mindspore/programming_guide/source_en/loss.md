@@ -232,6 +232,8 @@ Taking the simple linear function fitting as an example. The dataset and network
 
 The complete code is as follows:
 
+> In the following example, the parameter initialization uses random values, and the output results in specific execution may be different from the results of local execution; if you need to stabilize the output of a fixed value, you can set a fixed random seed. For the setting method, please refer to [mindspore.set_seed()](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.html#mindspore.set_seed).
+
 ```python
 import numpy as np
 
@@ -421,6 +423,8 @@ It should be noted that the default `nn.WithLossCell` of normal `Model` only has
     ```
 
 The complete code is as follows:
+
+> In the following example, the parameter initialization uses random values, and the output results in specific execution may be different from the results of local execution; if you need to stabilize the output of a fixed value, you can set a fixed random seed. For the setting method, please refer to [mindspore.set_seed()](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.html#mindspore.set_seed).
 
 ```python
 import numpy as np
