@@ -27,7 +27,7 @@ import mindspore.dataset.transforms.c_transforms as C
 from mindspore.dataset.vision import Inter
 from mindspore.nn import Accuracy
 from mindspore import dtype as mstype
-from mindspore.nn.loss import SoftmaxCrossEntropyWithLogits
+from mindspore.nn import SoftmaxCrossEntropyWithLogits
 from utils.dataset import download_dataset
 
 def create_dataset(data_path, batch_size=32, repeat_size=1,

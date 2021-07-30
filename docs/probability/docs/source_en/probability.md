@@ -1022,7 +1022,7 @@ The APIs of the uncertainty estimation toolbox are as follows:
 Before using the model, you need to train the model. The following uses LeNet5 as an example:
 
 ```python
-from mindspore.nn.probability.toolbox.uncertainty_evaluation import UncertaintyEvaluation
+from mindspore.nn.probability.toolbox import UncertaintyEvaluation
 from mindspore import load_checkpoint, load_param_into_net
 
 if __name__ == '__main__':

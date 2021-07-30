@@ -15,7 +15,7 @@
 """Create train or eval dataset."""
 import os
 from mindspore import dtype as mstype
-import mindspore.dataset.engine as de
+import mindspore.dataset as ds
 import mindspore.dataset.vision.c_transforms as C
 import mindspore.dataset.transforms.c_transforms as C2
 
@@ -45,10 +45,10 @@ def create_dataset(dataset_path, do_train, repeat_num=1, batch_size=32):
         do_shuffle = False
 
     if device_num == 1 or not do_train:
-        ds = de.Cifar10Dataset(dataset_path, num_parallel_workers=8, shuffle=do_shuffle)
+        dataset = ds.Cifar10Dataset(dataset_path, num_parallel_workers=8, shuffle=do_shuffle)
     else:
-        ds = de.Cifar10Dataset(dataset_path, num_parallel_workers=8, shuffle=do_shuffle,
-                               num_shards=device_num, shard_id=device_id)
+        dataset = ds.Cifar10Dataset(dataset_path, num_parallel_workers=8, shuffle=do_shuffle,
+                                    num_shards=device_num, shard_id=device_id)
 
     resize_height = 224
     resize_width = 224
@@ -73,13 +73,13 @@ def create_dataset(dataset_path, do_train, repeat_num=1, batch_size=32):
 
     type_cast_op = C2.TypeCast(mstype.int32)
 
-    ds = ds.map(operations=type_cast_op, input_columns="label", num_parallel_workers=8)
-    ds = ds.map(operations=trans, input_columns="image", num_parallel_workers=8)
+    dataset = dataset.map(operations=type_cast_op, input_columns="label", num_parallel_workers=8)
+    dataset = dataset.map(operations=trans, input_columns="image", num_parallel_workers=8)
 
     # apply batch operations
-    ds = ds.batch(batch_size, drop_remainder=True)
+    dataset = dataset.batch(batch_size, drop_remainder=True)
 
     # apply dataset repeat operation
-    ds = ds.repeat(repeat_num)
+    dataset = dataset.repeat(repeat_num)
 
-    return ds
+    return dataset

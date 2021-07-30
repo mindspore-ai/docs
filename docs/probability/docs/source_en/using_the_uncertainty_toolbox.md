@@ -167,7 +167,7 @@ Load the DNN network and the training dataset that need uncertainty measurement.
 
 ```python
 from mindspore import context, Tensor
-from mindspore.nn.probability.toolbox.uncertainty_evaluation import UncertaintyEvaluation
+from mindspore.nn.probability.toolbox import UncertaintyEvaluation
 from mindspore import dtype as mstype
 
 context.set_context(mode=context.GRAPH_MODE, device_target="GPU")

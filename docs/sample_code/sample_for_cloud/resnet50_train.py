@@ -24,19 +24,19 @@ import moxing as mox
 
 from mindspore import context, Tensor, Model
 from mindspore.nn import Momentum
-from mindspore.nn.loss import SoftmaxCrossEntropyWithLogits
+from mindspore.nn import SoftmaxCrossEntropyWithLogits
 from mindspore.context import ParallelMode
 from mindspore.train.callback import Callback, LossMonitor
 from mindspore import FixedLossScaleManager
 from mindspore.communication import init
-import mindspore.dataset.engine as de
+import mindspore.dataset as ds
 
 from dataset import create_dataset, device_id, device_num
 from resnet import resnet50
 
 random.seed(1)
 np.random.seed(1)
-de.config.set_seed(1)
+ds.config.set_seed(1)
 
 
 class PerformanceCallback(Callback):

@@ -27,7 +27,7 @@ from mindspore.nn import DistributedGradReducer
 from mindspore.context import ParallelMode
 from mindspore.communication import get_group_size
 from mindspore import context
-from mindspore.nn.learning_rate_schedule import LearningRateSchedule
+from mindspore.nn import LearningRateSchedule
 from mindspore.nn import PolynomialDecayLR, WarmUpLR
 from .bert_model import BertModel
 from .bert_for_pre_training import clip_grad

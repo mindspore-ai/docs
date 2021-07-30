@@ -150,17 +150,17 @@ MindSpore暂时没有提供直接访问OBS数据的接口，需要通过MoXing�
 
     ```python
     import os
-    import mindspore.dataset.engine as de
+    import mindspore.dataset as ds
 
     device_id = int(os.getenv('DEVICE_ID'))
     device_num = int(os.getenv('RANK_SIZE'))
     if device_num == 1:
         # create train data for 1 Ascend situation
-        ds = de.Cifar10Dataset(dataset_path, num_parallel_workers=8, shuffle=True)
+        dataset = ds.Cifar10Dataset(dataset_path, num_parallel_workers=8, shuffle=True)
     else:
         # create train data for 1 Ascend situation, split train data for 8 Ascend situation
-        ds = de.Cifar10Dataset(dataset_path, num_parallel_workers=8, shuffle=True,
-                               num_shards=device_num, shard_id=device_id)
+        dataset = ds.Cifar10Dataset(dataset_path, num_parallel_workers=8, shuffle=True,
+                                    num_shards=device_num, shard_id=device_id)
     ```
 
 3. 配置分布式策略。
@@ -188,18 +188,18 @@ import os
 import argparse
 from mindspore import context
 from mindspore.context import ParallelMode
-import mindspore.dataset.engine as de
+import mindspore.dataset as ds
 
 device_id = int(os.getenv('DEVICE_ID'))
 device_num = int(os.getenv('RANK_SIZE'))
 
 def create_dataset(dataset_path):
     if device_num == 1:
-        ds = de.Cifar10Dataset(dataset_path, num_parallel_workers=8, shuffle=True)
+        dataset = ds.Cifar10Dataset(dataset_path, num_parallel_workers=8, shuffle=True)
     else:
-        ds = de.Cifar10Dataset(dataset_path, num_parallel_workers=8, shuffle=True,
-                               num_shards=device_num, shard_id=device_id)
-    return ds
+        dataset = ds.Cifar10Dataset(dataset_path, num_parallel_workers=8, shuffle=True,
+                                    num_shards=device_num, shard_id=device_id)
+    return dataset
 
 def resnet50_train(args):
     if device_num > 1:
@@ -225,7 +225,7 @@ import os
 import argparse
 from mindspore import context
 from mindspore.context import ParallelMode
-import mindspore.dataset.engine as de
+import mindspore.dataset as ds
 
 # adapt to cloud: used for downloading data
 import moxing as mox
@@ -235,11 +235,11 @@ device_num = int(os.getenv('RANK_SIZE'))
 
 def create_dataset(dataset_path):
     if device_num == 1:
-        ds = de.Cifar10Dataset(dataset_path, num_parallel_workers=8, shuffle=True)
+        dataset = ds.Cifar10Dataset(dataset_path, num_parallel_workers=8, shuffle=True)
     else:
-        ds = de.Cifar10Dataset(dataset_path, num_parallel_workers=8, shuffle=True,
-                               num_shards=device_num, shard_id=device_id)
-    return ds
+        dataset = ds.Cifar10Dataset(dataset_path, num_parallel_workers=8, shuffle=True,
+                                    num_shards=device_num, shard_id=device_id)
+    return dataset
 
 def resnet50_train(args):
     # adapt to cloud: define local data path

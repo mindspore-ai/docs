@@ -685,7 +685,7 @@ import ast
 from mindspore import context
 from mindspore import Tensor
 from mindspore.nn import Momentum
-from mindspore.train.model import Model
+from mindspore import Model
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
 from mindspore.train.loss_scale_manager import FixedLossScaleManager
 from mindspore import load_checkpoint, load_param_into_net
@@ -824,7 +824,7 @@ import os
 import argparse
 from mindspore import context
 from mindspore import set_seed
-from mindspore.train.model import Model
+from mindspore import Model
 from mindspore import load_checkpoint, load_param_into_net
 
 set_seed(1)
