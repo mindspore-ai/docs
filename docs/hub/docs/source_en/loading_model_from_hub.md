@@ -60,7 +60,7 @@ We use [MobileNetV2](https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo/o
    import mindspore
    from mindspore import context, Tensor, nn
    from mindspore.nn import Momentum
-   from mindspore.train.serialization import save_checkpoint, load_checkpoint,load_param_into_net
+   from mindspore import save_checkpoint, load_checkpoint,load_param_into_net
    from mindspore import ops
    import mindspore.dataset as ds
    import mindspore.dataset.transforms.c_transforms as C2

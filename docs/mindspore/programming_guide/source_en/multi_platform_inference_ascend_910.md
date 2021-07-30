@@ -23,7 +23,7 @@
 
    1.1 Local Storage
 
-     When the pre-trained models are saved in local, the steps of performing inference on validation dataset are as follows: firstly creating a model, then loading the model and parameters using `load_checkpoint` and `load_param_into_net` in `mindspore.train.serialization` module, and finally performing inference on the validation dataset once being created. The method of processing the validation dataset is the same as that of the training dataset.
+     When the pre-trained models are saved in local, the steps of performing inference on validation dataset are as follows: firstly creating a model, then loading the model and parameters using `load_checkpoint` and `load_param_into_net` in `mindspore` module, and finally performing inference on the validation dataset once being created. The method of processing the validation dataset is the same as that of the training dataset.
 
     ```python
     network = LeNet5(cfg.num_classes)

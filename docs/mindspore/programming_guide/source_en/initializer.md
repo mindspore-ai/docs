@@ -36,7 +36,7 @@ Network parameters are initialized using a string. The contents of the string ne
 import numpy as np
 import mindspore.nn as nn
 from mindspore import Tensor
-from mindspore.common import set_seed
+from mindspore import set_seed
 
 set_seed(1)
 
@@ -86,7 +86,7 @@ print(output)
 import numpy as np
 import mindspore.nn as nn
 from mindspore import Tensor
-from mindspore.common import set_seed
+from mindspore import set_seed
 from mindspore.common.initializer import Normal
 
 set_seed(1)
@@ -185,7 +185,7 @@ The code sample is shown below:
 import numpy as np
 from mindspore import Tensor
 from mindspore import dtype as mstype
-from mindspore.common import set_seed
+from mindspore import set_seed
 from mindspore.common.initializer import initializer
 import mindspore.ops as ops
 
@@ -226,7 +226,7 @@ The code sample is as follows:
 import numpy as np
 from mindspore import Tensor
 from mindspore import dtype as mstype
-from mindspore.common import set_seed
+from mindspore import set_seed
 from mindspore.common.initializer import initializer
 import mindspore.ops as ops
 
@@ -266,7 +266,7 @@ The code sample is as follows:
 import numpy as np
 from mindspore import Tensor
 from mindspore import dtype as mstype
-from mindspore.common import set_seed
+from mindspore import set_seed
 import mindspore.ops as ops
 from mindspore.common.initializer import Normal, initializer
 
@@ -304,7 +304,7 @@ The code sample is as follows:
 ```python
 import numpy as np
 from mindspore import dtype as mstype
-from mindspore.common import set_seed
+from mindspore import set_seed
 import mindspore.ops as ops
 from mindspore import Tensor, Parameter, context
 from mindspore.common.initializer import Normal, initializer
