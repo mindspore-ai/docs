@@ -50,6 +50,7 @@ mindspore.dataset.vision.c_transforms
     mindspore.dataset.vision.c_transforms.Resize
     mindspore.dataset.vision.c_transforms.ResizeWithBBox
     mindspore.dataset.vision.c_transforms.Rotate
+    mindspore.dataset.vision.c_transforms.SlicePatches
     mindspore.dataset.vision.c_transforms.SoftDvppDecodeRandomCropResizeJpeg
     mindspore.dataset.vision.c_transforms.SoftDvppDecodeResizeJpeg
     mindspore.dataset.vision.c_transforms.UniformAugment
