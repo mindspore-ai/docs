@@ -122,7 +122,9 @@ The configuration files required for different modes and the data format of dump
     - `enable`: Enable Asynchronous Dump.
     - `trans_flag`: Enable trans flag. Transform the device data format into NCHW. If it is `True`, the data will be saved in the 4D format (NCHW) format on the Host side; if it is `False`, the data format on the Device side will be retained. This configuration parameter is invalid on the CPU, because there is no format conversion on the CPU.
 
-2. Specify the json configuration file of Dump.
+2. Set Dump environment.
+
+   Specify the json configuration file of Dump.
 
    ```bash
    export MINDSPORE_DUMP_CONFIG=${xxx}
@@ -133,6 +135,14 @@ The configuration files required for different modes and the data format of dump
    ```bash
    export MINDSPORE_DUMP_CONFIG=/path/to/data_dump.json
    ```
+
+   If the `path` field is not set or set to an empty string in the Dump configuration file, you also need to configure the environment variable `MS_DIAGNOSTIC_DATA_PATH`.
+
+   ```bash
+   export MS_DIAGNOSTIC_DATA_PATH=${yyy}
+   ```
+
+   Then "$MS_DIAGNOSTIC_DATA_PATH/debug_dump" is regarded as `path`. If the `path` field in configuration file is not empty, it is still used as the path to save Dump data.
 
     - Set the environment variables before executing the training script. Setting environment variables during training will not take effect.
     - Dump environment variables need to be configured before calling `mindspore.communication.init`.
@@ -378,7 +388,7 @@ Large networks (such as Bert Large) will cause memory overflow when using synchr
     ```
 
     - `dump_mode`: 0: dump all kernels in graph, 1: dump kernels in kernels list.
-    - `path`: The absolute path to save dump data.
+    - `path`: The absolute path to save dump data. It is not a mandatory option and can be left unset or set to an empty string.
     - `net_name`: The net name eg:ResNet50.
     - `iteration`: Specify the iterations to dump, type is string. Use "|" to separate the step data of different intervals to be saved. For example, "0 | 5-8 | 100-120" represents the initial value of the dump parameter, the data of the 1st, 6th to 9th, and 101st to 121st steps. If iteration set to "all", data of every iteration will be dumped.
     - `input_output`: When set to 0, it means to Dump the operator's input and output; setting it to 1 means to Dump the operator's input; setting it to 2 means to Dump the output of the operator.
@@ -387,11 +397,21 @@ Large networks (such as Bert Large) will cause memory overflow when using synchr
     - `enable`: Enable Asynchronous Dump. If synchronous dump and asynchronous dump are enabled at the same time, only synchronous dump will take effect.
     - `op_debug_mode`: 0: disable overflow check function; 1: enable AiCore overflow check; 2: enable Atomic overflow check; 3: enable all overflow check function. If it is not set to 0, only the data of the overflow operator will be dumped.
 
-2. Specify the json configuration file of Dump.
+2. Set Dump environment.
+
+   Specify the json configuration file of Dump.
 
     ```bash
     export MINDSPORE_DUMP_CONFIG={Absolute path of data_dump.json}
     ```
+
+   If the `path` field is not set or set to an empty string in the Dump configuration file, you also need to configure the environment variable `MS_DIAGNOSTIC_DATA_PATH`.
+
+   ```bash
+   export MS_DIAGNOSTIC_DATA_PATH=${yyy}
+   ```
+
+   Then "$MS_DIAGNOSTIC_DATA_PATH/debug_dump" is regarded as `path`. If the `path` field in configuration file is not empty, it is still used as the path to save Dump data.
 
     - Set the environment variables before executing the training script. Setting environment variables during training will not take effect.
     - Dump environment variables need to be configured before calling `mindspore.communication.init`.
