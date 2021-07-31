@@ -86,6 +86,7 @@ The UI of the offline debugger is the same as that of the online debugger. For d
     - The offline debugger supports the single-node multi-device scenario. To analyze the multi-node multi-device scenario, you need to summarize the data of multiple nodes.
     - The offline debugger does not support checking the initial weight and operator overflow currently.
     - The offline debugger does not support checking watchpoints in multi-graph scenario.
+    - The offline debugger does not support PyNative mode.
 
 - GPU scenario:
     - Different from the online debugger, the offline debugger does not support node-by-node execution.

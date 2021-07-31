@@ -248,8 +248,9 @@ Tensors can be downloaded in tensor check view. Users can download the desired t
     - The debugger does not support distributed training scenarios.
     - The debugger does not support inference scenarios.
     - The debugger does not support the single-node multi-device or cluster scenario.
-    - The Debugger does not support connected to multiple training process.
+    - The debugger does not support connected to multiple training process.
     - The debugger does not support CPU scenarios.
+    - The debugger does not support PyNative mode.
 
 - Impact on Performance:
     - Debugger will slow down the training performance.
