@@ -175,3 +175,79 @@ A: Firstly, above error refers failed sending data to the device through the tra
   4. **when error raised after training**（this is probably caused by forced release of resources), this error can be ignored.
 
   5. If the specific cause cannot be located, please create issue or raise question in huawei clound forum for help.
+
+<br/>
+
+<font size=3>**Q: Can the py_transforms and c_transforms operators be used together? If yes, how should I use them?**</font>
+
+A: To ensure high performance, you are not advised to use the py_transforms and c_transforms operators together. For details, see [Image Data Processing and Enhancement](https://www.mindspore.cn/docs/programming_guide/en/master/augmentation.html#usage-instructions). However, if the main consideration is to streamline the process, the performance can be compromised more or less. If you cannot use all the c_transforms operators, that is, certain c_transforms operators are not available, the py_transforms operators can be used instead. In this case, the two operators are used together.
+Note that the c_transforms operator usually outputs numpy array, and the py_transforms operator outputs PIL Image. For details, check the operator description. The common method to use them together is as follows:
+
+- c_transforms operator + ToPIL operator + py_transforms operator + ToTensor operator
+- py_transforms operator + ToTensor operator + c_transforms operator
+
+```python
+# example that using c_transforms and py_transforms operators together
+# in following case: c_vision refers to c_transforms, py_vision refer to py_transforms
+
+decode_op = c_vision.Decode()
+
+# If input type is not PIL, then add ToPIL operator.
+transforms = [
+    py_vision.ToPIL(),
+    py_vision.CenterCrop(375),
+    py_vision.ToTensor()
+]
+transform = mindspore.dataset.transforms.py_transforms.Compose(transforms)
+data1 = data1.map(operations=decode_op, input_columns=["image"])
+data1 = data1.map(operations=transform, input_columns=["image"])
+```
+
+<br/>
+
+<font size=3>**Q: Why is the error message "The data pipeline is not a tree (i.e., one node has 2 consumers)" displayed?**</font>
+
+A: The preceding error is usually caused by incorrect script writing. In normal cases, operations in the data processing pipeline are connected in sequence. In the following exception scenario, `dataset1` has two consumption nodes `dataset2` and `dataset3`. As a result, the preceding error occurs.
+
+```python
+ dataset2 = dataset1.map(***)
+ dataset3 = dataset1.map(***)
+```
+
+`dataset3` is obtained by performing data enhancement on `dataset2` rather than `dataset1`. The correct format is as follows:
+
+```python
+ dataset2 = dataset1.map(***)
+ dataset3 = dataset2.map(***)
+```
+
+<br/>
+
+<font size=3>**Q: What is the operator corresponding to dataloader in MindSpore?**</font>
+
+A: If the dataloader is considered as an API for receiving user-defined datasets, the GeneratorDataset in the MindSpore data processing API is similar to that in the dataloader and can receive user-defined datasets. For details about how to use the GeneratorDataset, see the [Loading Dataset Overview](https://www.mindspore.cn/docs/programming_guide/en/master/dataset_loading.html#loading-user-defined-dataset), and for details about the differences, see the [API Mapping](https://www.mindspore.cn/docs/note/en/master/index.html#operator_api).
+
+<br/>
+
+<font size=3>**Q: How do I debug a user-defined dataset when an error occurs?**</font>
+
+A: Generally, a user-defined dataset is imported to GeneratorDataset. If the user-defined dataset is incorrectly pointed to, you can use some methods for debugging (for example, adding printing information and printing the shape and dtype of the return value). The intermediate processing result of a user-defined dataset is numpy array. You are not advised to use this operator together with the MindSpore network computing operator. In addition, you can directly traverse the user-defined dataset, such as MyDataset shown below, after initialization (to simplify debugging and analyze problems in the original dataset, you do not need to import GeneratorDataset). The debugging complies with common Python syntax rules.
+
+```python
+Dataset = MyDataset()
+for item in Dataset:
+   print("item:", item)
+```
+
+<br/>
+
+<font size=3>**Q: Can the data processing operator and network computing operator be used together?**</font>
+
+A: Generally, if the data processing operator and network computing operator are used together, the performance deteriorates. If the corresponding data processing operator is unavailable and the user-defined py_transforms operator is inappropriate, you can try to use the data processing operator and network computing operator together. Note that the input of the data processing operator is Numpy array or PIL Image, but the input of the network computing operator must be MindSpore.Tensor.
+To use the two operators together, ensure that the output format of the previous operator is the same as the input format required by the next operator. Data processing operators refer to operators starting with mindspore.dataset in the API document on the official website, for example, mindspore.dataset.vision.c_transforms.CenterCrop. Network computing operators include operators in the mindspore.nn and mindspore.ops directories.
+
+<br/>
+
+<font size=3>**Q: Why is a .db file generated in MindRecord? What is the error reported when I load a dataset without a .db file?**</font>
+
+A: The .db file is the index file corresponding to the MindRecord file. If the .db file is missing, an error is reported when the total data volume of the dataset is obtained. The error message `MindRecordOp Count total rows failed` is displayed.
