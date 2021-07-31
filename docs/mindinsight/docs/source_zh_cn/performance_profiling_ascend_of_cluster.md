@@ -265,26 +265,7 @@ done
 
 图6：全网链路信息
 
-默认不收集通信性能数据，需要通过`profile_communication`参数打开通信性能数据开关，使用示例如下：
-
-```python
-from mindspore.profiler import Profiler
-from mindspore import Model, nn, context
-
-# Init context env
-context.set_context(mode=context.GRAPH_MODE, device_target='Ascend', device_id=int(os.environ["DEVICE_ID"]))
-
-# Init Profiler
-# Note that 'data' directory is created in current path by default. To visualize the profiling data by MindInsight,
-# 'data' directory should be placed under summary-base-dir.
-profiler = Profiler(profile_communication=True)
-
-# Train Model
-Model.train()
-
-# Profiler end
-profiler.analyse()
-```
+默认不收集通信性能数据，需要通过`mindspore.profiler.Profiler`中的`profile_communication`参数像`Profiler(profile_communication=True)`一样打开通信性能数据开关。只有多卡训练才能产生通信算子性能数据，在单卡训练场景中设置该参数是无效的。
 
 使用MindInsight可视化通信性能数据需要安装Ascend 910 AI处理器配套软件包提供的通信性能数据解析whl包，whl包随配套软件包发布，参考如下命令完成安装。
 
