@@ -122,7 +122,9 @@ MindSpore提供了同步Dump与异步Dump两种模式：
     - `enable`：开启E2E Dump。
     - `trans_flag`：开启格式转换。将设备上的数据格式转换成NCHW格式。若为`True`，则数据会以Host侧的4D格式（NCHW）格式保存；若为`False`，则保留Device侧的数据格式。该配置参数在CPU上无效，因为CPU上没有format转换。
 
-2. 设置Dump环境变量，指定Dump的json配置文件。
+2. 设置Dump环境变量。
+
+   指定Dump的json配置文件。
 
    ```bash
    export MINDSPORE_DUMP_CONFIG=${xxx}
@@ -133,6 +135,14 @@ MindSpore提供了同步Dump与异步Dump两种模式：
    ```bash
    export MINDSPORE_DUMP_CONFIG=/path/to/data_dump.json
    ```
+
+   如果Dump配置文件没有设置`path`字段或者设置为空字符串，还需要配置环境变量`MS_DIAGNOSTIC_DATA_PATH`。
+
+   ```bash
+   export MS_DIAGNOSTIC_DATA_PATH=${yyy}
+   ```
+
+   则"$MS_DIAGNOSTIC_DATA_PATH/debug_dump"就会被当做`path`的值。若Dump配置文件中设置了`path`字段，则仍以该字段的实际取值为准。
 
     注意：
 
@@ -393,12 +403,20 @@ numpy.load("Conv2D.Conv2D-op107.2.2.1623124369613540.output.0.DefaultFormat.npy"
     export MINDSPORE_DUMP_CONFIG={Absolute path of data_dump.json}
     ```
 
+   如果Dump配置文件没有设置`path`字段或者设置为空字符串，还需要配置环境变量`MS_DIAGNOSTIC_DATA_PATH`。
+
+   ```bash
+   export MS_DIAGNOSTIC_DATA_PATH=${yyy}
+   ```
+
+   则"$MS_DIAGNOSTIC_DATA_PATH/debug_dump"就会被当做'path'的值。若Dump配置文件中设置了'path'字段，则仍以该字段的实际取值为准。
+
     - 在网络脚本执行前，设置好环境变量；网络脚本执行过程中设置将会不生效。
     - 在分布式场景下，Dump环境变量需要在调用`mindspore.communication.init`之前配置。
 
 3. 执行用例Dump数据。
 
-    可以在训练脚本中设置`context.set_context(reserve_class_name_in_scope=False)`，避免Dump文件名称过长导致Dump数据文件生成失败。
+   可以在训练脚本中设置`context.set_context(reserve_class_name_in_scope=False)`，避免Dump文件名称过长导致Dump数据文件生成失败。
 
 4. 参考[异步Dump数据分析样例](#id15)解析Dump数据文件。
 
