@@ -49,22 +49,50 @@
 样例代码如下：
 
 ```python
+import numpy as np
+from mindspore import nn, context
+from mindspore.train import Model
+import mindspore.dataset as ds
 from mindspore.profiler import Profiler
-from mindspore import Model, nn, context
 
-# Init context env
-context.set_context(mode=context.GRAPH_MODE, device_target='Ascend', device_id=int(os.environ["DEVICE_ID"]))
 
-# Init Profiler
-# Note that 'data' directory is created in current path by default. To visualize the profiling data by MindInsight,
-# 'data' directory should be placed under summary-base-dir.
-profiler = Profiler()
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.fc = nn.Dense(2, 2)
 
-# Train Model
-Model.train()
+    def construct(self, x):
+        return self.fc(x)
 
-# Profiler end
-profiler.analyse()
+
+def generator():
+    for i in range(2):
+        yield (np.ones([2, 2]).astype(np.float32), np.ones([2]).astype(np.int32))
+
+
+def train(net):
+    optimizer = nn.Momentum(net.trainable_params(), 1, 0.9)
+    loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True)
+    data = ds.GeneratorDataset(generator, ["data", "label"])
+    model = Model(net, loss, optimizer)
+    model.train(1, data)
+
+
+if __name__ == '__main__':
+
+    context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
+
+    # Init Profiler
+    # Note that the Profiler should be initialized after context.set_context and before model.train
+    # If you are running in parallel mode on Ascend, the Profiler should be initialized before HCCL
+    # initialized.
+
+    profiler = Profiler(output_path = './profiler_data')
+    # Train Model
+    net = Net()
+    train(net)
+    # Profiler end
+    profiler.analyse()
 ```
 
 ## 启动MindInsight

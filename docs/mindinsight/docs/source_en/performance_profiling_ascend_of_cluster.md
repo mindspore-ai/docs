@@ -262,26 +262,7 @@ The whole network link information tab page displays the link information of all
 
 Figure 6: link information of the whole network
 
-By default, communication performance data is not collected. You need to use the `profile_communication` parameter to turn on the communication performance data switch. The example is as follows:
-
-```python
-from mindspore.profiler import Profiler
-from mindspore import Model, nn, context
-
-# Init context env
-context.set_context(mode=context.GRAPH_MODE, device_target='Ascend', device_id=int(os.environ["DEVICE_ID"]))
-
-# Init Profiler
-# Note that 'data' directory is created in current path by default. To visualize the profiling data by MindInsight,
-# 'data' directory should be placed under summary-base-dir.
-profiler = Profiler(profile_communication=True)
-
-# Train Model
-Model.train()
-
-# Profiler end
-profiler.analyse()
-```
+By default, communication performance data is not collected. You need to use the `profile_communication` parameter in `mindspore.profiler.Profiler` like `Profiler(profile_communication=True)` to turn on the communication performance data switch. It should be noted that only multi devices training can generate communication operator performance data. Setting this parameter in single device training scenario does not work.
 
 To use MindInsight to visualize communication performance data, you need to install the communication performance data parsing WHL package provided by the supporting software package of Ascend 910 AI processor. The WHL package is released with the supporting software package. Refer to the following command to complete the installation.
 
