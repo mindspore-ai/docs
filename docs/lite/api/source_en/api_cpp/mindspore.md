@@ -2,6 +2,22 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/api/source_en/api_cpp/mindspore.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
+## Summary
+
+| Classes | Description |
+| --- | --- |
+| [Context](#context) | The Context class is used to store environment variables during execution. |
+| [DeviceInfoContext](#deviceinfocontext) | DeviceInfoContext defines different device contexts. |
+| [CPUDeviceInfo](#cpudeviceinfo) | The configuration of the model running on the CPU. This class is only valid for MindSpore Lite. |
+| [MaliGPUDeviceInfo](#maligpudeviceinfo) | The configuration of the model running on the GPU. This class is only valid for MindSpore Lite. |
+| [KirinNPUDeviceInfo](#kirinnpudeviceinfo) | The configuration of the model running on the NPU. This class is only valid for MindSpore Lite. |
+| [NvidiaGPUDeviceInfo](#nvidiagpudeviceinfo) | The configuration of the model running on the Nvidia GPU. This class is invalid for MindSpore Lite. |
+| [Ascend910DeviceInfo](#ascend910deviceinfo) | The configuration of the model running on the Ascend910. This class is invalid for MindSpore Lite. |
+| [Ascend310DeviceInfo](#ascend310deviceinfo) | The configuration of the model running on the Ascend310. This class is invalid for MindSpore Lite. |
+| [Serialization](serialization) | The Serialization class is used to summarize methods for reading and writing model files. |
+| [Model](#model) | The Model class is used to define a MindSpore model, facilitating computational graph management. |
+| [MSTensor](#mstensor) | The MSTensor class defines a tensor in MindSpore. |
+
 ## Context
 
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
@@ -119,7 +135,7 @@ A similar function to RTTI is provided when the `-fno-rtti` compilation option i
 
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
 
-Derived from [DeviceInfoContext](#deviceinfocontext), The configuration of the model running on the CPU. This option is only valid for MindSpore Lite.
+Derived from [DeviceInfoContext](#deviceinfocontext), the configuration of the model running on the CPU. This class is only valid for MindSpore Lite.
 
 ### Public Member Functions
 
@@ -134,7 +150,7 @@ Derived from [DeviceInfoContext](#deviceinfocontext), The configuration of the m
 
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
 
-Derived from [DeviceInfoContext](#deviceinfocontext), The configuration of the model running on the GPU. This option is only valid for MindSpore Lite.
+Derived from [DeviceInfoContext](#deviceinfocontext), the configuration of the model running on the GPU. This class is only valid for MindSpore Lite.
 
 ### Public Member Functions
 
@@ -147,7 +163,7 @@ Derived from [DeviceInfoContext](#deviceinfocontext), The configuration of the m
 
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
 
-Derived from [DeviceInfoContext](#deviceinfocontext), The configuration of the model running on the NPU. This option is only valid for MindSpore Lite.
+Derived from [DeviceInfoContext](#deviceinfocontext), the configuration of the model running on the NPU. This class is only valid for MindSpore Lite.
 
 ### Public Member Functions
 
@@ -160,7 +176,7 @@ Derived from [DeviceInfoContext](#deviceinfocontext), The configuration of the m
 
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
 
-Derived from [DeviceInfoContext](#deviceinfocontext), The configuration of the model running on the GPU. This option is invalid for MindSpore Lite.
+Derived from [DeviceInfoContext](#deviceinfocontext), the configuration of the model running on the GPU. This class is invalid for MindSpore Lite.
 
 ### Public Member Functions
 
@@ -173,7 +189,7 @@ Derived from [DeviceInfoContext](#deviceinfocontext), The configuration of the m
 
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
 
-Derived from [DeviceInfoContext](#deviceinfocontext), The configuration of the model running on the Ascend910. This option is invalid for MindSpore Lite.
+Derived from [DeviceInfoContext](#deviceinfocontext), the configuration of the model running on the Ascend910. This class is invalid for MindSpore Lite.
 
 ### Public Member Functions
 
@@ -186,7 +202,7 @@ Derived from [DeviceInfoContext](#deviceinfocontext), The configuration of the m
 
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
 
-Derived from [DeviceInfoContext](#deviceinfocontext), The configuration of the model running on the Ascend310. This option is invalid for MindSpore Lite.
+Derived from [DeviceInfoContext](#deviceinfocontext), the configuration of the model running on the Ascend310. This class is invalid for MindSpore Lite.
 
 ### Public Member Functions
 
