@@ -57,7 +57,7 @@ from mindspore import Model, Tensor, context
 from mindspore.train.callback import LossMonitor
 
 from mindarmour.adv_robustness.attacks import FastGradientSignMethod
-from mindarmour.utils.logger import LogUtil
+from mindarmour.utils import LogUtil
 from mindarmour.adv_robustness.evaluations import AttackEvaluate
 
 context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")

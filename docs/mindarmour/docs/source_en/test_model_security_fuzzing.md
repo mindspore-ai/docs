@@ -38,7 +38,7 @@ from mindspore import load_checkpoint, load_param_into_net
 
 from mindarmour.fuzz_testing import Fuzzer
 from mindarmour.fuzz_testing import ModelCoverageMetrics
-from mindarmour.utils.logger import LogUtil
+from mindarmour.utils import LogUtil
 
 from examples.common.dataset.data_processing import generate_mnist_dataset
 from examples.common.networks.lenet5.lenet5_net import LeNet5

@@ -168,7 +168,7 @@ Quantum circuit is a structure used to effectively organize various quantum logi
 By continuously adding quantum gates acting on different bits to the quantum circuit, the construction of the quantum circuit can be completed quickly.
 
 ```python
-from mindquantum import Circuit
+from mindquantum.circuit import Circuit
 
 encoder = Circuit()
 encoder += H.on(0)

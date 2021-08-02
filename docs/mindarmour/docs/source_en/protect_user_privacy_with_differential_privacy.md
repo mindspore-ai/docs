@@ -73,7 +73,7 @@ from mindarmour.privacy.diff_privacy import DPModel
 from mindarmour.privacy.diff_privacy import PrivacyMonitorFactory
 from mindarmour.privacy.diff_privacy import NoiseMechanismsFactory
 from mindarmour.privacy.diff_privacy import ClipMechanismsFactory
-from mindarmour.utils.logger import LogUtil
+from mindarmour.utils import LogUtil
 
 LOGGER = LogUtil.get_instance()
 LOGGER.set_level('INFO')
