@@ -2,6 +2,22 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/api/source_zh_cn/api_cpp/mindspore.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
+## 接口汇总
+
+| 类名 | 描述 |
+| --- | --- |
+| [Context](#context) | 保存执行中的环境变量。 |
+| [DeviceInfoContext](#deviceinfocontext) | 不同硬件设备的环境信息。 |
+| [CPUDeviceInfo](#cpudeviceinfo) | 模型运行在CPU上的配置，仅Mindspore Lite支持。 |
+| [MaliGPUDeviceInfo](#maligpudeviceinfo) | 模型运行在GPU上的配置，仅Mindspore Lite支持。 |
+| [KirinNPUDeviceInfo](#kirinnpudeviceinfo) | 模型运行在NPU上的配置，仅Mindspore Lite支持。 |
+| [NvidiaGPUDeviceInfo](#nvidiagpudeviceinfo) | 模型运行在Nvidia GPU上的配置，MindSpore Lite不支持。 |
+| [Ascend910DeviceInfo](#ascend910deviceinfo) | 模型运行在Ascend910上的配置，MindSpore Lite不支持。 |
+| [Ascend310DeviceInfo](#ascend310deviceinfo) | 模型运行在Ascend310上的配置，MindSpore Lite不支持。 |
+| [Serialization](serialization) | 汇总了模型文件读写的方法。 |
+| [Model](#model) | MindSpore中的模型，便于计算图管理。 |
+| [MSTensor](#mstensor) | MindSpore中的张量。 |
+
 ## Context
 
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
@@ -64,7 +80,7 @@ std::shared_ptr<Allocator> GetAllocator() const;
 std::vector<std::shared_ptr<DeviceInfoContext>> &MutableDeviceInfo();
 ```
 
-修改该context下的[DeviceInfoContext](#deviceinfocontext)数组，仅mindspore lite支持数组中有多个成员是异构场景。
+修改该context下的[DeviceInfoContext](#deviceinfocontext)数组，仅MindSpore Lite支持数组中有多个成员是异构场景。
 
 - 返回值
 
@@ -119,7 +135,7 @@ template <class T> std::shared_ptr<T> Cast();
 
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
 
-派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在CPU上的配置，仅mindspore lite支持该选项。
+派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在CPU上的配置，仅MindSpore Lite支持该选项。
 
 ### 公有成员函数
 
@@ -134,7 +150,7 @@ template <class T> std::shared_ptr<T> Cast();
 
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
 
-派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在GPU上的配置，仅mindspore lite支持该选项。
+派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在GPU上的配置，仅MindSpore Lite支持该选项。
 
 ### 公有成员函数
 
@@ -147,7 +163,7 @@ template <class T> std::shared_ptr<T> Cast();
 
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
 
-派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在NPU上的配置，仅mindspore lite支持该选项。
+派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在NPU上的配置，仅MindSpore Lite支持该选项。
 
 ### 公有成员函数
 
@@ -160,7 +176,7 @@ template <class T> std::shared_ptr<T> Cast();
 
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
 
-派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在GPU上的配置，mindspore lite不支持该选项。
+派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在Nvidia GPU上的配置，MindSpore Lite不支持该选项。
 
 ### 公有成员函数
 
@@ -173,7 +189,7 @@ template <class T> std::shared_ptr<T> Cast();
 
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
 
-派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在Ascend910上的配置，mindspore lite不支持该选项。
+派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在Ascend910上的配置，MindSpore Lite不支持该选项。
 
 ### 公有成员函数
 
@@ -186,7 +202,7 @@ template <class T> std::shared_ptr<T> Cast();
 
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
 
-派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在Ascend310上的配置，mindspore lite不支持该选项。
+派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在Ascend310上的配置，MindSpore Lite不支持该选项。
 
 ### 公有成员函数
 
