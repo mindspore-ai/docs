@@ -63,7 +63,7 @@ from mindarmour.privacy.sup_privacy import SuppressMasker
 from mindarmour.privacy.sup_privacy import SuppressPrivacyFactory
 from mindarmour.privacy.sup_privacy import MaskLayerDes
 
-from mindarmour.utils.logger import LogUtil
+from mindarmour.utils import LogUtil
 
 LOGGER = LogUtil.get_instance()
 LOGGER.set_level('INFO')
@@ -339,7 +339,7 @@ The principle of this attack method can be found in <https://arxiv.org/pdf/1412.
     from mindspore import Tensor, context
     from mindspore import nn
     from mindarmour.privacy.evaluation import ImageInversionAttack
-    from mindarmour.utils.logger import LogUtil
+    from mindarmour.utils import LogUtil
     from examples.common.networks.lenet5.lenet5_net import LeNet5, conv, fc_with_initialize
     from examples.common.dataset.data_processing import generate_mnist_dataset
     LOGGER = LogUtil.get_instance()
