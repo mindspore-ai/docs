@@ -15,7 +15,7 @@
 | Assert                |              | ✅    |              |               |              |              |           |                           |      |                          |                                                 | Assert                                          |
 | Argmax                |  ✅   | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | | Argmax                          | ArgMax                   | ArgMax                                          | Argmax                                          |
 | Argmin                |  ✅   | ✅    | ✅    | ✅     | ✅    | ✅    |           | | Argmin                          |                          |                                                 | ArgMin                                          |
-| AvgPool               | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | | MeanPooling                     | Pooling                  | AveragePool,<br/>GlobalAveragePool,<br/>Int8AveragePool | AvgPool                                         |
+| AvgPool               | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | ✅ | MeanPooling                     | Pooling                  | AveragePool,<br/>GlobalAveragePool,<br/>Int8AveragePool | AvgPool                                         |
 | AvgPoolGrad | ✅ | ✅ |  |  |  |  |  | |  |  |  |  |
 | BatchNorm             | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    |           |                               |  | BatchNorm                | BatchNormalization                              |                                                 |
 | BatchNormGrad | ✅ | ✅ |  |  |  |  | | | |  |  | |
@@ -44,14 +44,14 @@
 | DetectionPostProcess  |              | ✅    | ✅    | ✅     |              |              |          | | Custom                          |                          |                                                 |                                                 |
 | Div                   | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ |  ✅ | Div, RealDiv                    |                          | Div                                             | Div, RealDiv                                    |
 | DivGrad |  | ✅ |  |  |  |  |  | | | |  |  |
-| Eltwise               | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ |                  ✅ |               |   Eltwise                  | Sum, Max<sup>[3]</sup>                          |                                                 |
+| Eltwise               | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ |                  ✅ |             |   Eltwise                  | Sum, Max<sup>[3]</sup>                          |                                                 |
 | Elu                   |              | ✅    |              |               |              |              |           |                            |     | Elu                      | Elu,<br/>NonMaxSuppression                          | NonMaxSuppressionV3                             |
 | EluGrad | | ✅ | | | | | | | | |  |  |
 | Equal                 | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | | Equal                           |                          | Equal                                           | Equal                                           |
 | Exp                   |              | ✅    |              |               | ✅    | ✅    |        |   | Exp                             | Exp                      | Exp                                             | Exp                                             |
 | ExpandDims            |   ✅   | ✅    | ✅    | ✅     |              |              | ✅       |  | ExpandDims                      |                          |                                                 | ExpandDims                                      |
 | Fill                  |   ✅   | ✅    |              |               |              |              |        |   | Fill                            |                          |                                                 | Fill                                            |
-| Flatten               |  ✅    | ✅    |              |               |              |              |           |                              |   | Flatten                  |                                                 |                                                 |
+| Flatten               |  ✅    | ✅    |              |               |              |              |           |            ✅                     |    | Flatten                  |                                                 |                                                 |
 | Floor                 | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | | flOOR                           |                          | Floor                                           | Floor                                           |
 | FloorDiv              | ✅    | ✅    |              |               | ✅    | ✅    | ✅ | | FloorDiv                        |                          |                                                 | FloorDiv                                        |
 | FloorMod              | ✅    | ✅    |              |               | ✅    | ✅    | ✅ | | FloorMod                        |                          |                                                 | FloorMod                                        |
@@ -93,13 +93,13 @@
 | Merge                 | ✅ | ✅    |              |               |              |              |           |                                 |                          |                                          |       | Merge                                           |
 | Minimum               | ✅    | ✅    |              |               | ✅    | ✅    | ✅ | | Minimum                         |                          | Min                                             | Minimum                                         |
 | MinimumGrad | ✅ | ✅ | | |  |  |  | |  | |  |  |
-| Mul                   | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | | Mul                             |                          | Mul                                             | Mul                                             |
+| Mul                   | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | ✅ | Mul                             |                          | Mul                                             | Mul                                             |
 | MulGrad |  | ✅ |  |  |  |  | |  |  | |  |  |
 | Neg                   | ✅    | ✅    |              |               | ✅    | ✅    | ✅ | | Neg                             |                          | Neg                                             |                                                 |
 | NegGrad | ✅ | ✅ | | |  |  | |  |  | |  | |
 | NotEqual              | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | | NotEqual                        |                          |                                                 | NotEqual                                        |
 | OneHot                |              | ✅    |              |               | ✅    | ✅    |       |    | OneHot                          |                          | OneHot                                          | OneHot                                          |
-| Pad                   | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | | Pad, MirrorPad, PadV2                  |                          | Pad                                             | MirrorPad, Pad, PadV2                                  |
+| Pad                   | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | ✅ | Pad, MirrorPad, PadV2                  |                          | Pad                                             | MirrorPad, Pad, PadV2                                  |
 | Pow                   | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    |           |  ✅ | Pow                             | Power                    | Pow<sup>[2]</sup>                               | Pow                                             |
 | PowGrad | | ✅ |  |  |  |  | |  |  | |  |  |
 | PReLU                 |              | ✅    |              |               | ✅    | ✅    |           | | PRELU                           | PReLU                    | PRelu                                           |                                                 |
@@ -150,7 +150,7 @@
 | Square                | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | | Square                          |                          |                                                 | Square                                          |
 | SquaredDifference     | ✅    | ✅    |              |               | ✅    | ✅    | ✅ | | SquaredDifference               |                          |                                                 | SquaredDifference                               |
 | Squeeze               |  ✅  | ✅    | ✅    | ✅     | ✅    | ✅    |           |  ✅ | Squeeze                         |                          | Squeeze                                         | Squeeze                                         |
-| StridedSlice          |  ✅  | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | | StridedSlice                    |                          | Slice,<br/>DynamicSlice                              | StridedSlice                                    |
+| StridedSlice          |  ✅  | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ |  ✅ | StridedSlice                    |                          | Slice,<br/>DynamicSlice                              | StridedSlice                                    |
 | Stack                 | ✅    | ✅    |              |               | ✅    | ✅    |           | | Stack                           |                          |                                                 | Pack                                            |
 | Sub                   | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ |  ✅ | Sub                             |                          | Sub                                             | Sub                                             |
 | SubGrad |  | ✅ |  |  |  |  |  | | | |  |  |
