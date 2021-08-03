@@ -8,15 +8,17 @@
 | --- | --- |
 | [Context](#context) | 保存执行中的环境变量。 |
 | [DeviceInfoContext](#deviceinfocontext) | 不同硬件设备的环境信息。 |
-| [CPUDeviceInfo](#cpudeviceinfo) | 模型运行在CPU上的配置，仅Mindspore Lite支持。 |
-| [MaliGPUDeviceInfo](#maligpudeviceinfo) | 模型运行在GPU上的配置，仅Mindspore Lite支持。 |
-| [KirinNPUDeviceInfo](#kirinnpudeviceinfo) | 模型运行在NPU上的配置，仅Mindspore Lite支持。 |
-| [NvidiaGPUDeviceInfo](#nvidiagpudeviceinfo) | 模型运行在Nvidia GPU上的配置，MindSpore Lite不支持。 |
+| [CPUDeviceInfo](#cpudeviceinfo) | 模型运行在CPU上的配置，仅MindSpore Lite支持。 |
+| [GPUDeviceInfo](#gpudeviceinfo) | 模型运行在GPU上的配置。 |
+| [KirinNPUDeviceInfo](#kirinnpudeviceinfo) | 模型运行在NPU上的配置，仅MindSpore Lite支持。 |
 | [Ascend910DeviceInfo](#ascend910deviceinfo) | 模型运行在Ascend910上的配置，MindSpore Lite不支持。 |
 | [Ascend310DeviceInfo](#ascend310deviceinfo) | 模型运行在Ascend310上的配置，MindSpore Lite不支持。 |
 | [Serialization](serialization) | 汇总了模型文件读写的方法。 |
 | [Model](#model) | MindSpore中的模型，便于计算图管理。 |
 | [MSTensor](#mstensor) | MindSpore中的张量。 |
+| [MSKernelCallBack](#mskernelcallback) | MindSpore回调函数包装器，仅MindSpore Lite支持。 |
+| [MSCallBackParam](#mscallbackparam) | MindSpore回调函数的参数，仅MindSpore Lite支持。 |
+| [Delegate](#delegate) | MindSpore Lite接入第三方推理执行器的代理。 |
 
 ## Context
 
@@ -50,29 +52,101 @@ int32_t GetThreadNum() const;
 
   当前线程数设置。
 
-#### SetAllocator
+#### SetThreadAffinity
 
 ```cpp
-void SetAllocator(const std::shared_ptr<Allocator> &allocator);
+void SetThreadAffinity(int mode);
 ```
 
-设置Allocator，Allocator定义了用于动态内存分配和释放的内存池，该选项仅MindSpore lite有效。
+设置运行时的CPU绑核策略，该选项仅MindSpore Lite有效。
 
 - 参数
 
-    - `allocator`: Allocator指针。
+    - `mode`: 绑核的模式，有效值为0-2，0为默认不绑核，1为绑大核，2为绑小核。
 
-#### GetAllocator
+#### GetThreadAffinityMode
 
 ```cpp
-std::shared_ptr<Allocator> GetAllocator() const;
+int GetThreadAffinityMode() const;
 ```
 
-获取当前Allocator设置。
+获取当前CPU绑核策略，该选项仅MindSpore Lite有效。
 
 - 返回值
 
-  当前Allocator的指针。
+  当前CPU绑核策略，有效值为0-2，0为默认不绑核，1为绑大核，2为绑小核。
+
+#### SetThreadAffinity
+
+```cpp
+void SetThreadAffinity(const std::vector<int> &core_list);
+```
+
+设置运行时的CPU绑核列表，该选项仅MindSpore Lite有效。如果SetThreadAffinity和SetThreadAffinity同时设置，core_list生效，mode不生效。
+
+- 参数
+
+    - `core_list`: CPU绑核的列表。
+
+#### GetThreadAffinityCoreList
+
+```cpp
+std::vector<int32_t> GetThreadAffinityCoreList() const;
+```
+
+获取当前CPU绑核列表，该选项仅MindSpore Lite有效。
+
+- 返回值
+
+  当前CPU绑核列表。
+
+#### SetEnableParallel
+
+```cpp
+void SetEnableParallel(bool is_parallel);
+```
+
+设置运行时是否支持并行，该选项仅MindSpore Lite有效。
+
+- 参数
+
+    - `is_parallel`: bool量，为true则支持并行。
+
+#### GetEnableParallel
+
+```cpp
+bool GetEnableParallel() const;
+```
+
+获取当前是否支持并行，该选项仅MindSpore Lite有效。
+
+- 返回值
+
+  返回值为为true，代表支持并行。
+
+#### SetDelegate
+
+```cpp
+void SetDelegate(const std::shared_ptr<Delegate> &delegate);
+```
+
+设置Delegate，Delegate定义了用于支持第三方推理执行器接入的代理，该选项仅MindSpore Lite有效。
+
+- 参数
+
+    - `delegate`: Delegate指针。
+
+#### GetDelegate
+
+```cpp
+std::shared_ptr<Delegate> GetDelegate() const;
+```
+
+获取当前Delegate，该选项仅MindSpore Lite有效。
+
+- 返回值
+
+  当前Delegate的指针。
 
 #### MutableDeviceInfo
 
@@ -97,7 +171,7 @@ DeviceInfoContext类定义不同硬件设备的环境信息。
 #### GetDeviceType
 
 ```cpp
-virtual enum DeviceType GetDeviceType() const = 0
+virtual enum DeviceType GetDeviceType() const = 0;
 ```
 
 获取该DeviceInfoContext的类型。
@@ -109,8 +183,7 @@ virtual enum DeviceType GetDeviceType() const = 0
   ```cpp
   enum DeviceType {
     kCPU = 0,
-    kMaliGPU,
-    kNvidiaGPU,
+    kGPU,
     kKirinNPU,
     kAscend910,
     kAscend310,
@@ -141,12 +214,10 @@ template <class T> std::shared_ptr<T> Cast();
 
 | 函数                                                                                                        | 说明                                                                                                                                                                                                                                                   |
 | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `void SetThreadAffinity(int mode)`          | 设置线程亲和性模式<br><br> - `mode`: 0：无亲和性， 1：大核优先， 2：小核优先。 |
-| `int GetThreadAffinity() const`                                | - 返回值: 已配置的线程亲和性模式                                                                                                                                                    |
 | `void SetEnableFP16(bool is_fp16)`                   | 用于指定是否以FP16精度进行推理<br><br> - `is_fp16`: 是否以FP16精度进行推理                                                                                                                                                            |
 | `bool GetEnableFP16() const`                                       | - 返回值: 已配置的精度模式                                                                                                                                                                                                                               |
 
-## MaliGPUDeviceInfo
+## GPUDeviceInfo
 
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
 
@@ -156,6 +227,8 @@ template <class T> std::shared_ptr<T> Cast();
 
 | 函数                                                                                                        | 说明                                                                                                                                                                                                                                                   |
 | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `void SetDeviceID(uint32_t device_id)`                   | 用于指定设备ID<br><br> - `device_id`: 设备ID                                                                                                                                                            |
+| `uint32_t GetDeviceID() const`                                       | - 返回值: 已配置的设备ID                                                                                                                                                                                                                               |
 | `void SetEnableFP16(bool is_fp16)`                   | 用于指定是否以FP16精度进行推理<br><br> - `is_fp16`: 是否以FP16精度进行推理                                                                                                                                                            |
 | `bool GetEnableFP16() const`                                       | - 返回值: 已配置的精度模式                                                                                                                                                                                                                               |
 
@@ -327,12 +400,53 @@ Status Build(GraphCell graph, const std::shared_ptr<Context> &model_context);
 
   状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
 
+```cpp
+Status Build(const void *model_data, size_t data_size, ModelType model_type,
+             const std::shared_ptr<Context> &model_context = nullptr, const Key &dec_key = {},
+             const std::string &dec_mode = kDecModeAesGcm);
+```
+
+将模型编译至可在Device上运行的状态。
+
+- 参数
+
+    - `model_data`: 指向存储读入模型文件缓冲区的指针。
+    - `data_size`: 缓冲区大小。
+    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kOM`。
+    - `model_context`: 模型[Context](#context)。
+    - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16、24或32。
+    - `dec_mode`: 解密模式，可选有`AES-GCM`、`AES-CBC`。
+
+- 返回值
+
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
+```cpp
+Status Build(const std::string &model_path, ModelType model_type,
+             const std::shared_ptr<Context> &model_context = nullptr, const Key &dec_key = {},
+             const std::string &dec_mode = kDecModeAesGcm);
+```
+
+将模型编译至可在Device上运行的状态。
+
+- 参数
+
+    - `model_path`: 模型文件路径。
+    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kOM`。
+    - `model_context`: 模型[Context](#context)。
+    - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16、24或32。
+    - `dec_mode`: 解密模式，可选有`AES-GCM`、`AES-CBC`。
+
+- 返回值
+
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
 > `Build`之后对`model_context`的其他修改不再生效。
 
 #### Predict
 
 ```cpp
-Status Predict(const std::vector<MSTensor> &inputs, std::vector<MSTensor> *outputs);
+Status Predict(const std::vector<MSTensor> &inputs, std::vector<MSTensor> *outputs, const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr)
 ```
 
 推理模型。
@@ -341,6 +455,8 @@ Status Predict(const std::vector<MSTensor> &inputs, std::vector<MSTensor> *outpu
 
     - `inputs`: 模型输入按顺序排列的`vector`。
     - `outputs`: 输出参数，按顺序排列的`vector`的指针，模型输出会按顺序填入该容器。
+    - `before`: 一个[**MSKernelCallBack**](#mskernelcallback) 结构体。定义了运行每个节点之前调用的回调函数。
+    - `after`: 一个[**MSKernelCallBack**](#mskernelcallback) 结构体。定义了运行每个节点之后调用的回调函数。
 
 - 返回值
 
@@ -442,7 +558,7 @@ static bool CheckModelSupport(enum DeviceType device_type, ModelType model_type)
 
 ## MSTensor
 
-\#include &lt;[types.h](https://gitee.com/mindspore/mindspore/blob/r1.1/include/api/types.h)&gt;
+\#include &lt;[types.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/types.h)&gt;
 
 `MSTensor`定义了MindSpore中的张量。
 
@@ -666,21 +782,153 @@ bool operator==(std::nullptr_t) const;
 
   `MSTensor`是否合法。
 
-## KernelCallBack
-
-\#include &lt;[ms_tensor.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/ms_tensor.h)&gt;
+#### operator==(const MSTensor &tensor)
 
 ```cpp
-using KernelCallBack = std::function<bool(std::vector<tensor::MSTensor *> inputs, std::vector<tensor::MSTensor *> outputs, const CallBackParam &opInfo)>
+bool operator==(const MSTensor &tensor) const;
 ```
 
-一个函数包装器。KernelCallBack 定义了指向回调函数的指针。
+判断`MSTensor`是否与另一个MSTensor相等。
 
-## CallBackParam
+- 返回值
 
-\#include &lt;[ms_tensor.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/ms_tensor.h)&gt;
+  `MSTensor`是否与另一个MSTensor相等。
 
-一个结构体。CallBackParam定义了回调函数的输入参数。
+#### SetShape
+
+```cpp
+void SetShape(const std::vector<int64_t> &shape);
+```
+
+设置`MSTensor`的Shape。
+
+#### SetDataType
+
+```cpp
+void SetDataType(enum DataType data_type);
+```
+
+设置`MSTensor`的DataType。
+
+#### SetTensorName
+
+```cpp
+void SetTensorName(const std::string &name);
+```
+
+设置`MSTensor`的名字。
+
+#### SetAllocator
+
+```cpp
+void SetAllocator(std::shared_ptr<Allocator> allocator);
+```
+
+设置`MSTensor`数据所属的内存池。
+
+- 参数
+
+    - `model`: 指向Allocator的指针。
+
+#### allocator
+
+```cpp
+std::shared_ptr<Allocator> allocator() const;
+```
+
+获取`MSTensor`数据所属的内存池。
+
+- 返回值
+
+    - 指向Allocator的指针。
+
+#### SetFormat
+
+```cpp
+void SetFormat(mindspore::Format format);
+```
+
+设置`MSTensor`数据的format。
+
+#### format
+
+```cpp
+mindspore::Format format() const;
+```
+
+获取`MSTensor`数据的format。
+
+#### SetData
+
+```cpp
+void SetData(void *data);
+```
+
+设置指向`MSTensor`数据的指针。
+
+#### QuantParams
+
+```cpp
+std::vector<QuantParam> QuantParams() const;
+```
+
+获取`MSTensor`的量化参数。
+
+#### SetQuantParams
+
+```cpp
+void SetQuantParams(std::vector<QuantParam> quant_params);
+```
+
+设置`MSTensor`的量化参数。
+
+## QuantParam
+
+\#include &lt;[types.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/types.h)&gt;
+
+一个结构体。QuantParam定义了MSTensor的一组量化参数。
+
+### 公有属性
+
+#### bit_num
+
+```cpp
+bit_num
+```
+
+**int** 类型变量。量化的bit数。
+
+#### scale
+
+```cpp
+scale
+```
+
+**double** 类型变量。
+
+#### zero_point
+
+```cpp
+zero_point
+```
+
+**int32_t** 类型变量。
+
+## MSKernelCallBack
+
+\#include &lt;[types.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/types.h)&gt;
+
+```cpp
+using MSKernelCallBack = std::function<bool(const std::vector<MSTensor> &inputs, const std::vector<MSTensor> &outputs, const MSCallBackParam &opInfo)>
+```
+
+一个函数包装器。MSKernelCallBack 定义了指向回调函数的指针。
+
+## MSCallBackParam
+
+\#include &lt;[types.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/types.h)&gt;
+
+一个结构体。MSCallBackParam定义了回调函数的输入参数。
 
 ### 公有属性
 
@@ -699,3 +947,46 @@ node_type
 ```
 
 **string** 类型变量。节点类型参数。
+
+## Delegate
+
+\#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/delegate.h)&gt;
+
+`Delegate`定义了第三方推理执行器接入MindSpore Lite的代理接口。
+
+### 构造函数和析构函数
+
+```cpp
+Delegate() = default;
+virtual ~Delegate() = default;
+```
+
+### 公有成员函数
+
+#### Init
+
+```cpp
+virtual int Init() = 0;
+```
+
+初始化Delegate资源。
+
+- 返回值
+
+  STATUS，STATUS在errorcode.h中定义。
+
+#### Build
+
+```cpp
+virtual int Build(DelegateModel *model) = 0;
+```
+
+Delegate在线构图。
+
+- 参数
+
+    - `model`: 指向存储DelegateModel实例的指针。
+
+- 返回值
+
+  STATUS，STATUS在errorcode.h中定义。
