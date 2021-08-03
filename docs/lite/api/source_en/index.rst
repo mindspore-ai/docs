@@ -10,8 +10,8 @@ MindSpore Lite API
   :maxdepth: 1
   :caption: C++ API
 
-  api_cpp/class_list
-  api_cpp/mindspore
+  api_cpp/namespace/namespace_mindspore
+  api_cpp/namespace/namespace_mindspore_kernel
   api_cpp/namespace/mindspore_dataset
   api_cpp/namespace/mindspore_dataset_config
   api_cpp/namespace/mindspore_dataset_text
