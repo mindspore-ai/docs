@@ -141,7 +141,7 @@ def postprocess_top5(score):
 
 预处理和后处理定义格式相同，入参为每个实例的输入数据。输入数据为文本时，入参为str对象；输入数据为其他数据类型，包括Tensor、Scalar number、Bool、Bytes时，入参为**numpy对象**。通过`return`返回实例的处理结果，`return`返回的数据可为**numpy、Python的bool、int、float、str、或bytes**单个数据对象或者由它们组成的tuple。
 
-预处理和后处理输入的来源和输出的使用由[方法定义](https://www.mindspore.cn/serving/docs/zh-CN/master/serving_model.html#id9)决定。
+预处理和后处理输入的来源和输出的使用由[方法定义](#id9)决定。
 
 ### 模型声明
 
