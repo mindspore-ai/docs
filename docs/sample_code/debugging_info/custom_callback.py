@@ -17,6 +17,7 @@ This sample code is applicable to Ascend, CPU and GPU.
 """
 import os
 import time
+import json
 import mindspore.nn as nn
 from mindspore.nn import Momentum, SoftmaxCrossEntropyWithLogits
 from mindspore import Model, context, save_checkpoint
