@@ -25,9 +25,11 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/quick_start/train_lenet.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
+> MindSpore has unified the end-to-side cloud inference API. If you want to continue to use the MindSpore Lite independent API for inference, you can refer to [here](https://www.mindspore.cn/lite/docs/en/r1.3/quick_start/train_lenet.html).
+
 ## Overview
 
-Here we will demonstrate the code that trains a LeNet model using MindSpore Training-on-Device infrastructure. The code segments that are given below are provided fully in [train_lenet](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/train_lenet/).
+Here we will demonstrate the code that trains a LeNet model using MindSpore Training-on-Device infrastructure. The code segments that are given below are provided fully in [unified_api](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/unified_api/).
 
 The completed training procedure is as follows:
 
@@ -75,7 +77,7 @@ git clone https://gitee.com/mindspore/mindspore.git
 cd ./mindspore
 ```
 
-The `mindspore/lite/examples/train_lenet` directory relative to the MindSpore Lite source code contains this demo's source code.
+The `mindspore/lite/examples/unified_api` directory relative to the MindSpore Lite source code contains this demo's source code.
 
 Go to the [MindSpore Lite Download Page](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html) to download the mindspore-lite-{version}-linux-x64.tar.gz and mindspore-lite-{version}-android-aarch64.tar.gz. The mindspore-lite-{version}-linux-x64.tar.gz is the MindSpore Lite install package for x86 platform, it contains the converter tool `converter_lite`, this demo uses it to converte `MIDIR` model to `.ms` which is supported by MindSpore Lite; The mindspore-lite-{version}-android-aarch64.tar.gz is the MindSpore Lite install package for Android, it contains training runtime library `libmindspore-lite.so`, this demo uses it to train model. Then put the files to the `output` directory relative to MindSpore Lite source code（if there is no `output` directory，you should create it).
 
@@ -98,7 +100,7 @@ Turning on the 'USB debugging' mode of your Android device and connect it with y
 Enter the target directory and run the training bash script. The `Linux` command is as follows:
 
 ```bash
-cd /mindspore/lite/examples/train_lenet
+cd /mindspore/lite/examples/unified_api
 bash prepare_and_run.sh -D /PATH/MNIST_Data -t arm64
 ```
 
@@ -181,7 +183,7 @@ Eval Accuracy is 0.965244
 The demo project folder structure:
 
 ```text
-train_lenet/
+unified_api/
   ├── model
   │   ├── lenet_export.py
   │   ├── prepare_model.sh
@@ -237,9 +239,9 @@ Wrapping the network with a loss layer and an optimizer and `export` it to a `Mi
 import mindspore.nn as nn
 from mindspore import ParameterTuple
 
-def TrainWrap(net, loss_fn=None, optimizer=None, weights=None):
+def train_wrap(net, loss_fn=None, optimizer=None, weights=None):
     """
-    TrainWrap
+    train_wrap
     """
     if loss_fn is None:
         loss_fn = nn.SoftmaxCrossEntropyWithLogits(reduction='mean', sparse=True)
@@ -268,11 +270,11 @@ To convert the model simply use the converter as explained in the [Convert Secti
 ./converter_lite --fmk=MINDIR --trainModel=true --modelFile=lenet_tod.mindir --outputFile=lenet_tod
 ```
 
-The exported file `lenet_tod.ms` is under the folder `./train_lenet/model`.
+The exported file `lenet_tod.ms` is under the folder `./unified_api/model`.
 
 ### Model Training
 
-The model training progress is in [net_runner.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet/src/net_runner.cc).
+The model training progress is in [net_runner.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/unified_api/src/net_runner.cc).
 
 The main code continues as follows:
 
@@ -289,8 +291,9 @@ int NetRunner::Main() {
 
   if (epochs_ > 0) {
     auto trained_fn = ms_file_.substr(0, ms_file_.find_last_of('.')) + "_trained.ms";
-    // Save the trained model to file
-    session_->Export(trained_fn);
+    mindspore::Serialization::ExportModel(*model_, mindspore::kFlatBuffer, trained_fn, mindspore::kNoQuant, false);
+    trained_fn = ms_file_.substr(0, ms_file_.find_last_of('.')) + "_infer.ms";
+    mindspore::Serialization::ExportModel(*model_, mindspore::kFlatBuffer, trained_fn, mindspore::kNoQuant, true);
   }
   return 0;
 }
@@ -302,29 +305,37 @@ int NetRunner::Main() {
 
 ```cpp
 void NetRunner::InitAndFigureInputs() {
-  mindspore::lite::Context context;
-  context.device_list_[0].device_info_.cpu_device_info_.cpu_bind_mode_ = mindspore::lite::NO_BIND;
-  context.device_list_[0].device_info_.cpu_device_info_.enable_float16_ = false;
-  context.device_list_[0].device_type_ = mindspore::lite::DT_CPU;
-  context.thread_num_ = 2;
+  auto context = std::make_shared<mindspore::Context>();
+  auto cpu_context = std::make_shared<mindspore::CPUDeviceInfo>();
+  cpu_context->SetEnableFP16(enable_fp16_);
+  context->MutableDeviceInfo().push_back(cpu_context);
 
-  session_ = mindspore::session::TrainSession::CreateTrainSession(ms_file_, &context, true);
-  MS_ASSERT(nullptr != session_);
-
-  session_->SetupVirtualBatch(virtual_batch_);
-  loop_ = mindspore::session::TrainLoop::CreateTrainLoop(session_);
-
-  if (verbose_) {
-    loop_->SetKernelCallBack(nullptr, after_callback);
+  graph_ = new mindspore::Graph();
+  auto status = mindspore::Serialization::Load(ms_file_, mindspore::kFlatBuffer, graph_);
+  if (status != mindspore::kSuccess) {
+    std::cout << "Error " << status << " during serialization of graph " << ms_file_;
+    MS_ASSERT(status != mindspore::kSuccess);
   }
+
+  auto cfg = std::make_shared<mindspore::TrainCfg>();
+  if (enable_fp16_) {
+    cfg.get()->optimization_level_ = mindspore::kO2;
+  }
+
+  model_ = new mindspore::Model();
+  status = model_->Build(mindspore::GraphCell(*graph_), context, cfg);
+  if (status != mindspore::kSuccess) {
+    std::cout << "Error " << status << " during build of model " << ms_file_;
+    MS_ASSERT(status != mindspore::kSuccess);
+  }
+
   acc_metrics_ = std::shared_ptr<AccuracyMetrics>(new AccuracyMetrics);
+  model_->InitMetrics({acc_metrics_.get()});
 
-  loop_->Init({acc_metrics_.get()});
+  auto inputs = model_->GetInputs();
+  MS_ASSERT(inputs.size() >= 1);
+  auto nhwc_input_dims = inputs.at(0).Shape();
 
-  auto inputs = session_->GetInputs();
-  MS_ASSERT(inputs.size() > 1);
-  auto nhwc_input_dims = inputs.at(0)->shape();
-  MS_ASSERT(nhwc_input_dims.size() == 4);
   batch_size_ = nhwc_input_dims.at(0);
   h_ = nhwc_input_dims.at(1);
   w_ = nhwc_input_dims.at(2);
@@ -337,13 +348,13 @@ void NetRunner::InitAndFigureInputs() {
 
 ```cpp
 int NetRunner::InitDB() {
-  train_ds_ = Mnist(data_dir_ + "/train", "all");
+  train_ds_ = Mnist(data_dir_ + "/train", "all", std::make_shared<SequentialSampler>(0, 0));
 
-  TypeCast typecast_f("float32");
+  TypeCast typecast_f(mindspore::DataType::kNumberTypeFloat32);
   Resize resize({h_, w_});
   train_ds_ = train_ds_->Map({&resize, &typecast_f}, {"image"});
 
-  TypeCast typecast("int32");
+  TypeCast typecast(mindspore::DataType::kNumberTypeInt32);
   train_ds_ = train_ds_->Map({&typecast}, {"label"});
 
   train_ds_ = train_ds_->Batch(batch_size_, true);
@@ -365,19 +376,21 @@ The `TrainLoop` method is the core of the training procedure. We first display i
 
 ```cpp
 int NetRunner::TrainLoop() {
-  mindspore::lite::LossMonitor lm(100);
-  mindspore::lite::ClassificationTrainAccuracyMonitor am(1);
-  mindspore::lite::CkptSaver cs(1000, std::string("lenet"));
-  Rescaler rescale(255.0);
+  mindspore::LossMonitor lm(100);
+  mindspore::TrainAccuracy am(1);
+
+  mindspore::CkptSaver cs(kSaveEpochs, std::string("lenet"));
+  Rescaler rescale(kScalePoint);
   Measurement measure(epochs_);
 
   if (virtual_batch_ > 0) {
-    loop_->Train(epochs_, train_ds_.get(), std::vector<TrainLoopCallBack *>{&rescale, &lm, &cs, &am, &measure});
+    model_->Train(epochs_, train_ds_, {&rescale, &lm, &cs, &measure});
   } else {
-    struct mindspore::lite::StepLRLambda step_lr_lambda(1, kGammaFactor);
-    mindspore::lite::LRScheduler step_lr_sched(mindspore::lite::StepLRLambda, static_cast<void *>(&step_lr_lambda), 1);
-    loop_->Train(epochs_, train_ds_.get(), std::vector<TrainLoopCallBack *>{&rescale, &lm, &cs, &am, &step_lr_sched, &measure});
+    struct mindspore::StepLRLambda step_lr_lambda(1, kGammaFactor);
+    mindspore::LRScheduler step_lr_sched(mindspore::StepLRLambda, static_cast<void *>(&step_lr_lambda), 1);
+    model_->Train(epochs_, train_ds_, {&rescale, &lm, &cs, &am, &step_lr_sched, &measure});
   }
+
   return 0;
 }
 ```
@@ -389,17 +402,15 @@ To eval the model accuracy, the `CalculateAccuracy` method is being called. With
 ```cpp
 float NetRunner::CalculateAccuracy(int max_tests) {
   test_ds_ = Mnist(data_dir_ + "/test", "all");
-  TypeCast typecast_f("float32");
+  TypeCast typecast_f(mindspore::DataType::kNumberTypeFloat32);
   Resize resize({h_, w_});
   test_ds_ = test_ds_->Map({&resize, &typecast_f}, {"image"});
 
-  TypeCast typecast("int32");
+  TypeCast typecast(mindspore::DataType::kNumberTypeInt32);
   test_ds_ = test_ds_->Map({&typecast}, {"label"});
   test_ds_ = test_ds_->Batch(batch_size_, true);
 
-  Rescaler rescale(255.0);
-
-  loop_->Eval(test_ds_.get(), std::vector<TrainLoopCallBack *>{&rescale});
+  model_->Evaluate(test_ds_, {});
   std::cout << "Accuracy is " << acc_metrics_->Eval() << std::endl;
 
   return 0.0;

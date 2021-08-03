@@ -22,9 +22,11 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/quick_start/train_lenet.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
+> 注意：MindSpore已经统一端边云推理API，如您想继续使用MindSpore Lite独立API进行端侧推理，可以参考[此文档](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/quick_start/train_lenet.html)。
+
 ## 概述
 
-本教程基于[LeNet训练示例代码](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/train_lenet)，演示在Android设备上训练一个LeNet。
+本教程基于[LeNet训练示例代码](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/unified_api)，演示在Android设备上训练一个LeNet。
 
 端侧训练流程如下：
 
@@ -71,7 +73,7 @@ git clone https://gitee.com/mindspore/mindspore.git
 cd ./mindspore
 ```
 
-源码路径下的`mindspore/lite/examples/train_lenet`目录包含了本示例程序的源码。
+源码路径下的`mindspore/lite/examples/unified_api`目录包含了本示例程序的源码。
 
 请到[MindSpore Lite下载页面](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)下载mindspore-lite-{version}-linux-x64.tar.gz以及mindspore-lite-{version}-android-aarch64.tar.gz。其中，mindspore-lite-{version}-linux-x64.tar.gz是MindSpore Lite在x86平台的安装包，里面包含模型转换工具converter_lite，本示例用它来将MINDIR模型转换成MindSpore Lite支持的`.ms`格式；mindspore-lite-{version}-android-aarch64.tar.gz是MindSpore Lite在Android平台的安装包，里面包含训练运行时库libmindspore-lite.so，本示例用它所提供的接口在Android上训练模型。最后将文件放到MindSpore源码下的`output`目录（如果没有`output`目录，请创建它）。
 
@@ -96,7 +98,7 @@ cp /Downloads/mindspore-lite-{version}-android-aarch64.tar.gz output/mindspore-l
 进入示例代码目录并执行训练脚本，`Linux`指令如下：
 
 ```bash
-cd mindspore/lite/examples/train_lenet
+cd mindspore/lite/examples/unified_api
 bash prepare_and_run.sh -D /PATH/MNIST_Data -t arm64
 ```
 
@@ -177,7 +179,7 @@ Eval Accuracy is 0.965244
 ### 示例程序结构
 
 ```text
-  train_lenet/
+  unified_api/
   ├── model
   │   ├── lenet_export.py
   │   ├── prepare_model.sh
@@ -231,9 +233,9 @@ net = TrainWrap(n)
 import mindspore.nn as nn
 from mindspore import ParameterTuple
 
-def TrainWrap(net, loss_fn=None, optimizer=None, weights=None):
+def train_wrap(net, loss_fn=None, optimizer=None, weights=None):
     """
-    TrainWrap
+    train_wrap
     """
     if loss_fn is None:
         loss_fn = nn.SoftmaxCrossEntropyWithLogits(reduction='mean', sparse=True)
@@ -254,7 +256,7 @@ export(net, x, label, file_name="lenet_tod", file_format='MINDIR')
 print("finished exporting")
 ```
 
-如果输出`finished exporting`表示导出成功，生成的`lenet_tod.mindir`文件在`../train_lenet/model`目录下。完整代码参见`lenet_export.py`和`train_utils.py`。
+如果输出`finished exporting`表示导出成功，生成的`lenet_tod.mindir`文件在`../unified_api/model`目录下。完整代码参见`lenet_export.py`和`train_utils.py`。
 
 ### 转换模型
 
@@ -270,7 +272,7 @@ print("finished exporting")
 
 ### 训练模型
 
-模型训练的处理详细流程请参考[net_runner.cc源码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet/src/net_runner.cc)。
+模型训练的处理详细流程请参考[net_runner.cc源码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/unified_api/src/net_runner.cc)。
 
 模型训练的主函数为：
 
@@ -287,8 +289,9 @@ int NetRunner::Main() {
 
   if (epochs_ > 0) {
     auto trained_fn = ms_file_.substr(0, ms_file_.find_last_of('.')) + "_trained.ms";
-    // Save the trained model to file
-    session_->Export(trained_fn);
+    mindspore::Serialization::ExportModel(*model_, mindspore::kFlatBuffer, trained_fn, mindspore::kNoQuant, false);
+    trained_fn = ms_file_.substr(0, ms_file_.find_last_of('.')) + "_infer.ms";
+    mindspore::Serialization::ExportModel(*model_, mindspore::kFlatBuffer, trained_fn, mindspore::kNoQuant, true);
   }
   return 0;
 }
@@ -296,33 +299,41 @@ int NetRunner::Main() {
 
 1. 加载模型
 
-    `InitAndFigureInputs`函数加载转换后的`MS`模型文件，调用`CreateTrainSession`接口创建`TrainSession`实例(下述代码中的`ms_file_`就是转换模型阶段生成的`lenet_tod.ms`模型)。
+    `InitAndFigureInputs`函数加载转换后的`MS`模型文件，调用`Graph`接口创建`graph_`实例(下述代码中的`ms_file_`就是转换模型阶段生成的`lenet_tod.ms`模型)。
 
     ```cpp
     void NetRunner::InitAndFigureInputs() {
-      mindspore::lite::Context context;
-      context.device_list_[0].device_info_.cpu_device_info_.cpu_bind_mode_ = mindspore::lite::NO_BIND;
-      context.device_list_[0].device_info_.cpu_device_info_.enable_float16_ = false;
-      context.device_list_[0].device_type_ = mindspore::lite::DT_CPU;
-      context.thread_num_ = 2;
+      auto context = std::make_shared<mindspore::Context>();
+      auto cpu_context = std::make_shared<mindspore::CPUDeviceInfo>();
+      cpu_context->SetEnableFP16(enable_fp16_);
+      context->MutableDeviceInfo().push_back(cpu_context);
 
-      session_ = mindspore::session::TrainSession::CreateTrainSession(ms_file_, &context, true);
-      MS_ASSERT(nullptr != session_);
-
-      session_->SetupVirtualBatch(virtual_batch_);
-      loop_ = mindspore::session::TrainLoop::CreateTrainLoop(session_);
-
-      if (verbose_) {
-        loop_->SetKernelCallBack(nullptr, after_callback);
+      graph_ = new mindspore::Graph();
+      auto status = mindspore::Serialization::Load(ms_file_, mindspore::kFlatBuffer, graph_);
+      if (status != mindspore::kSuccess) {
+        std::cout << "Error " << status << " during serialization of graph " << ms_file_;
+        MS_ASSERT(status != mindspore::kSuccess);
       }
+
+      auto cfg = std::make_shared<mindspore::TrainCfg>();
+      if (enable_fp16_) {
+        cfg.get()->optimization_level_ = mindspore::kO2;
+      }
+
+      model_ = new mindspore::Model();
+      status = model_->Build(mindspore::GraphCell(*graph_), context, cfg);
+      if (status != mindspore::kSuccess) {
+        std::cout << "Error " << status << " during build of model " << ms_file_;
+        MS_ASSERT(status != mindspore::kSuccess);
+      }
+
       acc_metrics_ = std::shared_ptr<AccuracyMetrics>(new AccuracyMetrics);
+      model_->InitMetrics({acc_metrics_.get()});
 
-      loop_->Init({acc_metrics_.get()});
+      auto inputs = model_->GetInputs();
+      MS_ASSERT(inputs.size() >= 1);
+      auto nhwc_input_dims = inputs.at(0).Shape();
 
-      auto inputs = session_->GetInputs();
-      MS_ASSERT(inputs.size() > 1);
-      auto nhwc_input_dims = inputs.at(0)->shape();
-      MS_ASSERT(nhwc_input_dims.size() == 4);
       batch_size_ = nhwc_input_dims.at(0);
       h_ = nhwc_input_dims.at(1);
       w_ = nhwc_input_dims.at(2);
@@ -335,13 +346,13 @@ int NetRunner::Main() {
 
     ```cpp
     int NetRunner::InitDB() {
-      train_ds_ = Mnist(data_dir_ + "/train", "all");
+      train_ds_ = Mnist(data_dir_ + "/train", "all", std::make_shared<SequentialSampler>(0, 0));
 
-      TypeCast typecast_f("float32");
+      TypeCast typecast_f(mindspore::DataType::kNumberTypeFloat32);
       Resize resize({h_, w_});
       train_ds_ = train_ds_->Map({&resize, &typecast_f}, {"image"});
 
-      TypeCast typecast("int32");
+      TypeCast typecast(mindspore::DataType::kNumberTypeInt32);
       train_ds_ = train_ds_->Map({&typecast}, {"label"});
 
       train_ds_ = train_ds_->Batch(batch_size_, true);
@@ -363,20 +374,21 @@ int NetRunner::Main() {
 
     ```cpp
     int NetRunner::TrainLoop() {
-      mindspore::lite::LossMonitor lm(100);
-      mindspore::lite::ClassificationTrainAccuracyMonitor am(1);
-      mindspore::lite::CkptSaver cs(1000, std::string("lenet"));
-      Rescaler rescale(255.0);
+      mindspore::LossMonitor lm(100);
+      mindspore::TrainAccuracy am(1);
 
+      mindspore::CkptSaver cs(kSaveEpochs, std::string("lenet"));
+      Rescaler rescale(kScalePoint);
       Measurement measure(epochs_);
 
       if (virtual_batch_ > 0) {
-        loop_->Train(epochs_, train_ds_.get(), std::vector<TrainLoopCallBack *>{&rescale, &lm, &cs, &am, &measure});
+        model_->Train(epochs_, train_ds_, {&rescale, &lm, &cs, &measure});
       } else {
-        struct mindspore::lite::StepLRLambda step_lr_lambda(1, kGammaFactor);
-        mindspore::lite::LRScheduler step_lr_sched(mindspore::lite::StepLRLambda, static_cast<void *>(&step_lr_lambda), 1);
-        loop_->Train(epochs_, train_ds_.get(), std::vector<TrainLoopCallBack *>{&rescale, &lm, &cs, &am, &step_lr_sched, &measure});
+        struct mindspore::StepLRLambda step_lr_lambda(1, kGammaFactor);
+        mindspore::LRScheduler step_lr_sched(mindspore::StepLRLambda, static_cast<void *>(&step_lr_lambda), 1);
+        model_->Train(epochs_, train_ds_, {&rescale, &lm, &cs, &am, &step_lr_sched, &measure});
       }
+
       return 0;
     }
     ```
@@ -388,17 +400,15 @@ int NetRunner::Main() {
     ```cpp
     float NetRunner::CalculateAccuracy(int max_tests) {
       test_ds_ = Mnist(data_dir_ + "/test", "all");
-      TypeCast typecast_f("float32");
+      TypeCast typecast_f(mindspore::DataType::kNumberTypeFloat32);
       Resize resize({h_, w_});
       test_ds_ = test_ds_->Map({&resize, &typecast_f}, {"image"});
 
-      TypeCast typecast("int32");
+      TypeCast typecast(mindspore::DataType::kNumberTypeInt32);
       test_ds_ = test_ds_->Map({&typecast}, {"label"});
       test_ds_ = test_ds_->Batch(batch_size_, true);
 
-      Rescaler rescale(255.0);
-
-      loop_->Eval(test_ds_.get(), std::vector<TrainLoopCallBack *>{&rescale});
+      model_->Evaluate(test_ds_, {});
       std::cout << "Accuracy is " << acc_metrics_->Eval() << std::endl;
 
       return 0.0;
