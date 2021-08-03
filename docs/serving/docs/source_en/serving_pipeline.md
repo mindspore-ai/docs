@@ -127,7 +127,7 @@ Each `device` directory contains two files `group_config.pb` (the model group co
 
 ### Deploying the Distributed Inference Service
 
-Start the distributed inference service. For details, see [matmul_distributed](https://gitee.com/mindspore/serving/tree/r1.3/example/pipeline_distributed). The following files are required:
+Start the distributed inference service. For details, see [pipeline_distributed](https://gitee.com/mindspore/serving/tree/r1.3/example/pipeline_distributed). The following files are required:
 
 ```text
 matmul_distributed

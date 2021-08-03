@@ -127,7 +127,7 @@ model
 
 ### 部署分布式推理服务
 
-启动分布式推理服务，可以参考[matmul_distributed](https://gitee.com/mindspore/serving/tree/r1.3/example/pipeline_distributed)，需要如下文件列表：
+启动分布式推理服务，可以参考[pipeline_distributed](https://gitee.com/mindspore/serving/tree/r1.3/example/pipeline_distributed)，需要如下文件列表：
 
 ```text
 matmul_distributed
