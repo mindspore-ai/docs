@@ -42,11 +42,11 @@ The following uses a simple distributed network MatMul as an example to demonstr
 
 ### Environment Preparation
 
-Before running the example, ensure that MindSpore Serving has been correctly installed. If not, install MindSpore Serving by referring to the [MindSpore Serving installation page](https://gitee.com/mindspore/serving/blob/r1.3/README.md#installation), and configure environment variables by referring to the [MindSpore Serving environment configuration page](https://gitee.com/mindspore/serving/blob/r1.3/README.md#configuring-environment-variables).
+Before running the example, ensure that MindSpore Serving has been correctly installed. If not, install MindSpore Serving by referring to the [MindSpore Serving installation page](https://gitee.com/mindspore/serving/blob/r1.3/README.md#installation), and configure environment variables by referring to the [MindSpore Serving environment configuration page](https://gitee.com/mindspore/docs/blob/r1.3/install/mindspore_ascend_install_source_en.md#configuring-environment-variables).
 
 ### Exporting a Distributed Model
 
-For details about the files required for exporting distributed models, see the [export_model directory](https://www.mindspore.cn/docs/programming_guide/en/r1.3/distributed_training_ascend.html#id4), the following files are required:
+For details about the files required for exporting distributed models, see the [export_model directory](https://gitee.com/mindspore/serving/tree/r1.3/example/matmul_distributed/export_model), the following files are required:
 
 ```text
 export_model
@@ -59,7 +59,7 @@ export_model
 - `net.py` contains the definition of MatMul network.
 - `distributed_inference.py` is used to configure distributed parameters.
 - `export_model.sh` creates `device` directory on the current host and exports model files corresponding to `device`.
-- `rank_table_8pcs.json` is a json file for configuring the multi-cards network. For details, see [rank_table](https://www.mindspore.cn/docs/programming_guide/en/r1.3/distributed_training_ascend.html#id4).
+- `rank_table_8pcs.json` is a json file for configuring the multi-cards network. For details, see [rank_table](https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo/utils/hccl_tools).
 
 Use [net.py](https://gitee.com/mindspore/serving/blob/r1.3/example/matmul_distributed/export_model/net.py) to construct a network that contains the MatMul and Neg operators.
 
@@ -85,7 +85,7 @@ class Net(Cell):
         return x
 ```
 
-Use [distributed_inference.py](https://gitee.com/mindspore/serving/blob/r1.3/example/matmul_distributed/export_model/distributed_inference.py) to configure the distributed model. Refer to [Distributed inference](https://www.mindspore.cn/docs/programming_guide/en/r1.3/multi_platform_inference_ascend_910.html#id1)。
+Use [distributed_inference.py](https://gitee.com/mindspore/serving/blob/r1.3/example/matmul_distributed/export_model/distributed_inference.py) to configure the distributed model. Refer to [Distributed inference](https://www.mindspore.cn/docs/programming_guide/en/r1.3/distributed_inference.html)。
 
 ```python
 import numpy as np

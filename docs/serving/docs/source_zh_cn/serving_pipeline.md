@@ -30,7 +30,7 @@ MindSpore支持一个模型可以生成多张子图，通过调度多张子图�
 
 ### 环境准备
 
-运行示例前，需确保已经正确安装了MindSpore Serving。如果没有，可以参考[MindSpore Serving安装页面](https://gitee.com/mindspore/serving/blob/r1.3/README_CN.md#%E5%AE%89%E8%A3%85)，将MindSpore Serving正确地安装到你的电脑当中，同时参考[MindSpore Serving环境配置页面](https://gitee.com/mindspore/serving/blob/r1.3/README_CN.md#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)完成环境变量配置。
+运行示例前，需确保已经正确安装了MindSpore Serving。如果没有，可以参考[MindSpore Serving安装页面](https://gitee.com/mindspore/serving/blob/r1.3/README_CN.md#%E5%AE%89%E8%A3%85)，将MindSpore Serving正确地安装到你的电脑当中，同时参考[MindSpore Serving环境配置页面](https://gitee.com/mindspore/docs/blob/r1.3/install/mindspore_ascend_install_source.md#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)完成环境变量配置。
 
 ### 导出多图模型
 
@@ -47,7 +47,7 @@ export_model
 - `net.py`为MatMul网络定义。
 - `distributed_inference.py`配置分布式相关的参数。
 - `export_model.sh`在当前机器上创建`device`目录并且导出每个`device`对应的模型文件。
-- `rank_table_8pcs.json`为配置当前多卡环境的组网信息的json文件，可以参考[rank_table](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/distributed_training_ascend.html#id4)。
+- `rank_table_8pcs.json`为配置当前多卡环境的组网信息的json文件，可以参考[rank_table](https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo/utils/hccl_tools)。
 
 使用[net.py](https://gitee.com/mindspore/serving/blob/r1.3/example/matmul_distributed/export_model/net.py)，构造一个包含MatMul、Neg算子的网络。
 
@@ -73,7 +73,7 @@ class Net(Cell):
         return x
 ```
 
-使用[distributed_inference.py](https://gitee.com/mindspore/serving/blob/r1.3/example/pipeline_distributed/export_model/distributed_inference.py)，生成多图模型。可以参考[分布式推理](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/multi_platform_inference_ascend_910.html#id1)。
+使用[distributed_inference.py](https://gitee.com/mindspore/serving/blob/r1.3/example/pipeline_distributed/export_model/distributed_inference.py)，生成多图模型。可以参考[分布式推理](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/distributed_inference.html)。
 
 ```python
 import numpy as np
