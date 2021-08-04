@@ -10,7 +10,6 @@ MindSpore Lite API
    :maxdepth: 1
    :caption: C++ API
 
-   api_cpp/class_list
    api_cpp/mindspore
    api_cpp/dataset
    api_cpp/kernel
