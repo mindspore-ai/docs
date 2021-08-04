@@ -27,7 +27,7 @@ The inference is the same as that on the Ascend 910 AI processor.
 
 ### Inference Directory Structure
 
-Create a directory to store the inference code project, for example, `/home/mindspore_sample/gpu_resnet50_preprocess_sample`. You can download the [sample code](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/gpu_resnet50_preprocess_sample) from the official website. The `model` directory is used to store the exported `MindIR` [model file](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet.mindir). The directory structure of the inference code project is as follows:
+Create a directory to store the inference code project, for example, `/home/mindspore_sample/gpu_resnet50_inference_sample`. You can download the [sample code](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/gpu_resnet50_inference_sample) from the official website. The `model` directory is used to store the exported `MindIR` [model file](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet.mindir). The directory structure of the inference code project is as follows:
 
 ```text
 └─gpu_resnet50_preprocess_sample
@@ -120,7 +120,7 @@ target_link_libraries(main ${MS_LIB})
 ```
 
 >For details, see
-><https://gitee.com/mindspore/docs/blob/master/docs/sample_code/gpu_resnet50_preprocess_sample/CMakeLists.txt>
+><https://gitee.com/mindspore/docs/blob/master/docs/sample_code/gpu_resnet50_inference_sample/CMakeLists.txt>
 
 ### Building Inference Code
 
@@ -136,7 +136,7 @@ After building, the executable `main` file is generated in `gpu_resnet50_preproc
 
 After completing the preceding operations, you can learn how to perform inference.
 
-Log in to the GPU environment, and create the `model` directory to store the `resnet50_imagenet.mindir` file, for example, `/home/mindspore_sample/gpu_resnet50_preprocess_sample/model`.
+Log in to the GPU environment, and create the `model` directory to store the `resnet50_imagenet.mindir` file, for example, `/home/mindspore_sample/gpu_resnet50_inference_sample/model`.
 
 Set the environment variable base on the actual situation.
 

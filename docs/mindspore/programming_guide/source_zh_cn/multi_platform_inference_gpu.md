@@ -29,7 +29,7 @@
 
 ### 推理目录结构介绍
 
-首先创建目录放置推理代码工程，例如`/home/mindspore_sample/gpu_resnet50_preprocess_sample`，可以从官网示例下载[样例代码](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/gpu_resnet50_preprocess_sample)，`model`目录用于存放`MindIR`[模型文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet.mindir)，推理代码工程目录结构如下：
+首先创建目录放置推理代码工程，例如`/home/mindspore_sample/gpu_resnet50_inference_sample`，可以从官网示例下载[样例代码](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/gpu_resnet50_inference_sample)，`model`目录用于存放`MindIR`[模型文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet.mindir)，推理代码工程目录结构如下：
 
 ```text
 └─gpu_resnet50_preprocess_sample
@@ -44,7 +44,7 @@
 
 ### 推理代码介绍
 
-推理代码样例：<https://gitee.com/mindspore/docs/blob/master/docs/sample_code/gpu_resnet50_preprocess_sample/main.cc> 。
+推理代码样例：<https://gitee.com/mindspore/docs/blob/master/docs/sample_code/gpu_resnet50_inference_sample/src/main.cc> 。
 
 引用`mindspore`名字空间：
 
@@ -133,7 +133,7 @@ target_link_libraries(main ${MS_LIB})
 ```
 
 >详细样例请参考：
-><https://gitee.com/mindspore/docs/blob/master/docs/sample_code/gpu_resnet50_preprocess_sample/CMakeLists.txt>
+><https://gitee.com/mindspore/docs/blob/master/docs/sample_code/gpu_resnet50_inference_sample/CMakeLists.txt>
 
 ### 编译推理代码
 
@@ -151,7 +151,7 @@ bash build.sh
 
 以上操作完成之后，我们可以开始学习如何执行推理。
 
-首先，登录GPU环境，创建`model`目录放置MindIR文件`resnet50_imagenet.mindir`，例如`/home/mindspore_sample/gpu_resnet50_preprocess_sample/model`。
+首先，登录GPU环境，创建`model`目录放置MindIR文件`resnet50_imagenet.mindir`，例如`/home/mindspore_sample/gpu_resnet50_inference_sample/model`。
 
 在执行推理之前，首先需要设置环境变量，环境变量需要根据实际情况修改，例如：
 
