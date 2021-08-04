@@ -227,11 +227,11 @@ Benchmark tool provides Dump function (currently only supports `CPU` operator), 
     ```json
     {
         "common_dump_settings": {
-            "dump_mode": 0,
+            "dump_mode": 1,
             "path": "/absolute_path",
             "net_name": "ResNet50",
             "input_output": 0,
-            "kernels": ["Default/Conv-op12", "Default/Conv-op13"],
+            "kernels": ["Default/Conv-op12", "Default/Conv-op13"]
         }
     }
     ```
@@ -240,7 +240,7 @@ Benchmark tool provides Dump function (currently only supports `CPU` operator), 
     - `path`: The absolute path to save dump data.
     - `net_name`: The net name, e.g.: ResNet50. If this field is not specified, the default value is "Default".
     - `input_output`: 0: dump input and output of kernel, 1: dump input of kernel, 2: dump output of kernel.
-    - `kernels`: List of operator names. If this field is not specified or the value is set to [], the data of all operators in the model will be dumped.
+    - `kernels`: List of operator names. If this field is not specified or the value is set to [], `"dump_mode"` must be set to 0; otherwise, the value of `"dump_mode"` must be set to 1.
 
 2. Specify the json configuration file of Dump.
 
