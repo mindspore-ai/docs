@@ -105,7 +105,7 @@ A: [build_seg_data.py](https://gitee.com/mindspore/mindspore/blob/r1.3/model_zoo
 
 <font size=3>**Q: How do I perform training without processing data in MindRecord format?**</font>
 
-A: You can use the customized data loading method `GeneratorDataset`. For details, click [here](https://www.mindspore.cn/tutorial/en/r0.7/use/data_preparation/loading_the_datasets.html#id5).
+A: You can use the customized data loading method `GeneratorDataset`. For details, click [here](https://www.mindspore.cn/docs/programming_guide/en/master/dataset_loading.html#loading-user-defined-dataset).
 
 <br/>
 

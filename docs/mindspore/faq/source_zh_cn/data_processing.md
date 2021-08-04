@@ -105,7 +105,7 @@ A: [build_seg_data.py](https://gitee.com/mindspore/mindspore/blob/r1.3/model_zoo
 
 <font size=3>**Q: 如何不将数据处理为MindRecord格式，直接进行训练呢？**</font>
 
-A: 可以使用自定义的数据加载方式 `GeneratorDataset`，具体可以参考[数据集加载](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/dataset_loading.html)文档中的自定义数据集加载。
+A: 可以使用自定义的数据加载方式 `GeneratorDataset`，具体可以参考[数据集加载](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/dataset_loading.html#id5)文档中的自定义数据集加载。
 
 <br/>
 
