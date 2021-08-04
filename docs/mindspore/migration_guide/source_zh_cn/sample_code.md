@@ -687,7 +687,7 @@ from mindspore import Tensor
 from mindspore.nn import Momentum
 from mindspore import Model
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
-from mindspore.train.loss_scale_manager import FixedLossScaleManager
+from mindspore import FixedLossScaleManager
 from mindspore import load_checkpoint, load_param_into_net
 from mindspore.communication import init, get_rank, get_group_size
 from mindspore import set_seed
