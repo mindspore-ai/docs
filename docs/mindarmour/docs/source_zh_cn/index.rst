@@ -32,6 +32,7 @@ MindArmour 文档
    :caption: AI可靠性
 
    concept_drift_time_series
+   concept_drift_images
 
 .. toctree::
    :glob:
