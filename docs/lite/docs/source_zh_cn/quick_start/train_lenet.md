@@ -370,7 +370,7 @@ int NetRunner::Main() {
 
 3. 执行训练
 
-    首先创建训练回调类对象（例如`LRScheduler`、`LossMonitor`、`ClassificationTrainAccuracyMonitor`和`CkptSaver`）数组指针；然后调用`TrainLoop`类的`Train`函数，将模型设置为训练模式；最后在训练过程中遍历执行回调类对象对应的函数并输出训练日志。`CkptSaver`会根据设定训练步长数值为当前会话保存`CheckPoint`模型，`CheckPoint`模型包含已更新的权重，在应用崩溃或设备出现故障时可以直接加载`CheckPoint`模型，继续开始训练。
+    首先创建训练回调类对象（例如`LRScheduler`、`LossMonitor`、`TrainAccuracy`和`CkptSaver`）数组指针；然后调用`TrainLoop`类的`Train`函数，将模型设置为训练模式；最后在训练过程中遍历执行回调类对象对应的函数并输出训练日志。`CkptSaver`会根据设定训练步长数值为当前会话保存`CheckPoint`模型，`CheckPoint`模型包含已更新的权重，在应用崩溃或设备出现故障时可以直接加载`CheckPoint`模型，继续开始训练。
 
     ```cpp
     int NetRunner::TrainLoop() {
@@ -395,7 +395,7 @@ int NetRunner::Main() {
 
 4. 验证精度
 
-    训练结束后调用`CalculateAccuracy`评估模型精度。该函数调用`TrainSession`的`Eval`方法，将模型设置为推理模式。
+    训练结束后调用`CalculateAccuracy`评估模型精度。该函数调用`AccuracyMetrics`的`Eval`方法，将模型设置为推理模式。
 
     ```cpp
     float NetRunner::CalculateAccuracy(int max_tests) {

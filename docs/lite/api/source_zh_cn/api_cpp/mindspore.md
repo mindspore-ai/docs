@@ -13,12 +13,21 @@
 | [KirinNPUDeviceInfo](#kirinnpudeviceinfo) | 模型运行在NPU上的配置，仅MindSpore Lite支持。 |
 | [Ascend910DeviceInfo](#ascend910deviceinfo) | 模型运行在Ascend910上的配置，MindSpore Lite不支持。 |
 | [Ascend310DeviceInfo](#ascend310deviceinfo) | 模型运行在Ascend310上的配置，MindSpore Lite不支持。 |
-| [Serialization](serialization) | 汇总了模型文件读写的方法。 |
+| [Serialization](#serialization) | 汇总了模型文件读写的方法。 |
 | [Model](#model) | MindSpore中的模型，便于计算图管理。 |
 | [MSTensor](#mstensor) | MindSpore中的张量。 |
 | [MSKernelCallBack](#mskernelcallback) | MindSpore回调函数包装器，仅MindSpore Lite支持。 |
 | [MSCallBackParam](#mscallbackparam) | MindSpore回调函数的参数，仅MindSpore Lite支持。 |
 | [Delegate](#delegate) | MindSpore Lite接入第三方推理执行器的代理。 |
+| [TrainCfg](#trainCfg) | MindSpore Lite训练配置类，仅MindSpore Lite支持。 |
+| [AccuracyMetrics](#accuracymetrics) | MindSpore Lite训练精度类，仅MindSpore Lite支持。 |
+| [Metrics](#metrics) | MindSpore Lite训练指标类，仅MindSpore Lite支持。 |
+| [TrainCallBack](#traincallback) | MindSpore Lite训练回调类，仅MindSpore Lite支持。 |
+| [CkptSaver](#ckptsaver) | MindSpore Lite训练模型文件保存类，仅MindSpore Lite支持。 |
+| [LossMonitor](#lossmonitor) | MindSpore Lite训练学习率调度类，仅MindSpore Lite支持。 |
+| [LRScheduler](#lrscheduler) | MindSpore Lite训练配置类，仅MindSpore Lite支持。 |
+| [TimeMonitor](#timemonitor) | MindSpore Lite训练时间监测类，仅MindSpore Lite支持。 |
+| [TrainAccuracy](#trainaccuracy) | MindSpore Lite训练学习率调度类，仅MindSpore Lite支持。 |
 
 ## Context
 
@@ -368,6 +377,48 @@ Status Load(const void *model_data, size_t data_size, ModelType model_type, Grap
 
   状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
 
+#### Load
+
+从文件加载模型，MindSpore Lite训练使用。
+
+```cpp
+inline static Status Load(const std::string &file, ModelType model_type, Graph *graph, const Key &dec_key = {},
+                            const std::string &dec_mode = kDecModeAesGcm);
+```
+
+- 参数
+
+    - `file`：模型数据指针。
+    - `model_type`：模型文件类型。
+    - `graph`：输出参数，保存图数据的对象。
+    - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16、24或32。
+    - `dec_mode`: 解密模式，可选有`AES-GCM`、`AES-CBC`。
+
+- 返回值
+
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
+#### ExportModel
+
+导出训练模型，MindSpore Lite训练使用。
+
+```cpp
+static Status ExportModel(const Model &model, ModelType model_type, const std::string &model_file,
+                        QuantizationType quantization_type = kNoQuant, bool export_inference_only = true);
+```
+
+- 参数
+
+    - `model`：模型数据。
+    - `model_type`：模型文件类型。
+    - `model_file`：保存的模型文件。
+    - `quantization_type`: 量化类型。
+    - `export_inference_only`: 是否导出只做推理的模型。
+
+- 返回值
+
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
 ## Model
 
 \#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/model.h)&gt;
@@ -436,6 +487,23 @@ Status Build(const std::string &model_path, ModelType model_type,
     - `model_context`: 模型[Context](#context)。
     - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16、24或32。
     - `dec_mode`: 解密模式，可选有`AES-GCM`、`AES-CBC`。
+
+- 返回值
+
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
+```cpp
+Status Build(GraphCell graph, const std::shared_ptr<Context> &model_context = nullptr,
+           const std::shared_ptr<TrainCfg> &train_cfg = nullptr);
+```
+
+将模型编译至可在Device上运行的状态。
+
+- 参数
+
+    - `graph`: 模型文件路径。
+    - `model_context`: 模型[Context](#context)。
+    - `train_cfg`: train配置文件[TrainCfg](#trainCfg)。
 
 - 返回值
 
@@ -521,6 +589,97 @@ MSTensor GetOutputByTensorName(const std::string &tensor_name);
 - 返回值
 
   指定名字的输出张量，如果该名字不存在则返回非法张量。
+
+#### InitMetrics
+
+```cpp
+Status InitMetrics(std::vector<Metrics *> metrics);
+```
+
+训练指标参数初始化。
+
+- 参数
+
+    - `metrics`: 训练指标参数。
+
+- 返回值
+
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
+#### GetMetrics
+
+```cpp
+std::vector<Metrics *> GetMetrics();
+```
+
+获取训练指标参数。
+
+- 返回值
+
+  训练指标参数。
+
+#### SetTrainMode
+
+```cpp
+Status SetTrainMode(bool train);
+```
+
+session设置训练模式。
+
+- 参数
+
+    - `train`: 是否为训练模式。
+
+- 返回值
+
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
+#### GetTrainMode
+
+```cpp
+bool GetTrainMode() const;
+```
+
+获取session是否是训练模式。
+
+- 返回值
+
+  bool类型，表示是否是训练模式。
+
+#### Train
+
+```cpp
+Status Train(int epochs, std::shared_ptr<dataset::Dataset> ds, std::vector<TrainCallBack *> cbs);
+```
+
+模型训练。
+
+- 参数
+
+    - `epochs`: 迭代轮数。
+    - `ds`: 训练数据。
+    - `cbs`: 包含训练回调类对象的`vector`。
+
+- 返回值
+
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
+#### Evaluate
+
+```cpp
+Status Evaluate(std::shared_ptr<dataset::Dataset> ds, std::vector<TrainCallBack *> cbs);
+```
+
+模型验证。
+
+- 参数
+
+    - `ds`: 训练数据。
+    - `cbs`: 包含训练回调类对象的`vector`。
+
+- 返回值
+
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
 
 #### Resize
 
@@ -990,3 +1149,375 @@ Delegate在线构图。
 - 返回值
 
   STATUS，STATUS在errorcode.h中定义。
+
+## TrainCfg
+
+\#include &lt;[cfg.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/cfg.h)&gt;
+
+`TrainCfg`MindSpore Lite训练的相关配置参数。
+
+### 构造函数
+
+```cpp
+TrainCfg() { this->loss_name_ = "_loss_fn"; }
+```
+
+## AccuracyMetrics
+
+\#include &lt;[accuracy.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/metrics/accuracy.h)&gt;
+
+`AccuracyMetrics`MindSpore Lite训练精度类。
+
+### 构造函数和析构函数
+
+```cpp
+explicit AccuracyMetrics(int accuracy_metrics = METRICS_CLASSIFICATION, const std::vector<int> &input_indexes = {1}, const std::vector<int> &output_indexes = {0});
+virtual ~AccuracyMetrics();
+```
+
+### 公有成员函数
+
+#### Clear
+
+```cpp
+void Clear() override;
+```
+
+精度清零。
+
+#### Eval
+
+```cpp
+float Eval() override;
+```
+
+模型验证。
+
+- 返回值
+
+  float，模型验证精度。
+
+## Metrics
+
+\#include &lt;[metrics.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/metrics/metrics.h)&gt;
+
+`Metrics`MindSpore Lite训练指标类。
+
+### 析构函数
+
+```cpp
+virtual ~Metrics() = default;
+```
+
+### 公有成员函数
+
+#### Clear
+
+```cpp
+virtual void Clear() {}
+```
+
+训练指标清零。
+
+#### Eval
+
+```cpp
+virtual float Eval() { return 0.0; }
+```
+
+模型验证。
+
+- 返回值
+
+  float，模型验证精度。
+
+#### Update
+
+```cpp
+virtual void Update(std::vector<MSTensor *> inputs, std::vector<MSTensor *> outputs) {}
+```
+
+模型输入输出数据更新。
+
+- 参数
+
+    - `inputs`: 模型输入MSTensor的`vector`。
+    - `outputs`: 模型输输出MSTensor的`vector`。
+
+## TrainCallBack
+
+\#include &lt;[callback.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/callback/callback.h)&gt;
+
+`Metrics`MindSpore Lite训练回调类。
+
+### 析构函数
+
+```cpp
+virtual ~TrainCallBack() = default;
+```
+
+### 公有成员函数
+
+#### Begin
+
+```cpp
+virtual void Begin(const TrainCallBackData &cb_data) {}
+```
+
+网络执行前调用。
+
+- 参数
+
+    - `cb_data`: 回调参数。
+
+#### End
+
+```cpp
+  virtual void End(const TrainCallBackData &cb_data) {}
+```
+
+网络执行后调用。
+
+- 参数
+
+    - `cb_data`: 回调参数。
+
+#### EpochBegin
+
+```cpp
+  virtual void EpochBegin(const TrainCallBackData &cb_data) {}
+```
+
+每轮迭代前回调。
+
+- 参数
+
+    - `cb_data`: 回调参数。
+
+#### EpochEnd
+
+```cpp
+  virtual CallbackRetValue EpochEnd(const TrainCallBackData &cb_data) { return kContinue; }
+```
+
+每轮迭代后回调。
+
+- 参数
+
+    - `cb_data`: 回调参数。
+
+- 返回值
+
+  `CallbackRetValue`，表示是否在训练中继续循环。
+
+#### StepBegin
+
+```cpp
+  virtual void StepBegin(const TrainCallBackData &cb_data) {}
+```
+
+每步迭代前回调。
+
+- 参数
+
+    - `cb_data`: 回调参数。
+
+#### StepEnd
+
+```cpp
+  virtual void StepEnd(const TrainCallBackData &cb_data) {}
+```
+
+每步迭代后回调。
+
+- 参数
+
+    - `cb_data`: 回调参数。
+
+## TrainCallBackData
+
+\#include &lt;[callback.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/callback/callback.h)&gt;
+
+一个结构体。TrainCallBackData定义了训练回调的一组参数。
+
+### 公有属性
+
+#### train_mode_
+
+```cpp
+train_mode_
+```
+
+**bool** 类型变量。训练模式。
+
+#### epoch_
+
+```cpp
+epoch_
+```
+
+**unsigned int** 类型变量。训练迭代的epoch次数。
+
+#### step_
+
+```cpp
+step_
+```
+
+**unsigned int** 类型变量。训练迭代的step次数。
+
+#### model_
+
+```cpp
+model_
+```
+
+**Model** 类型指针。训练模型对象。
+
+## CkptSaver
+
+\#include &lt;[ckpt_saver.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/callback/ckpt_saver.h)&gt;
+
+`Metrics`MindSpore Lite训练模型文件保存类。
+
+### 构造函数和析构函数
+
+```cpp
+  explicit CkptSaver(int save_every_n, const std::string &filename_prefix);
+  virtual ~CkptSaver();
+```
+
+## LossMonitor
+
+\#include &lt;[loss_monitor.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/callback/loss_monitor.h)&gt;
+
+`Metrics`MindSpore Lite训练损失函数类。
+
+### 构造函数和析构函数
+
+```cpp
+  explicit LossMonitor(int print_every_n_steps = INT_MAX);
+  virtual ~LossMonitor();
+```
+
+### 公有成员函数
+
+#### GetLossPoints
+
+```cpp
+  const std::vector<GraphPoint> &GetLossPoints();
+```
+
+获取训练损失数据。
+
+- 返回值
+
+  包含`GraphPoint`数据的`vector`，训练的损失数据。
+
+## LRScheduler
+
+\#include &lt;[lr_scheduler.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/callback/lr_scheduler.h)&gt;
+
+`Metrics`MindSpore Lite训练学习率调度类。
+
+### 构造函数和析构函数
+
+```cpp
+  explicit LRScheduler(LR_Lambda lambda_func, void *lr_cb_data = nullptr, int step = 1);
+  virtual ~LRScheduler();
+```
+
+## StepLRLambda
+
+\#include &lt;[lr_scheduler.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/callback/lr_scheduler.h)&gt;
+
+一个结构体。StepLRLambda定义了训练学习率的一组参数。
+
+### 公有属性
+
+#### step_size
+
+```cpp
+step_size
+```
+
+**int** 类型变量。学习率衰减步长。
+
+#### gamma
+
+```cpp
+gamma
+```
+
+**float** 类型变量。学习率衰减因子。
+
+## TimeMonitor
+
+\#include &lt;[time_monitor.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/callback/time_monitor.h)&gt;
+
+`Metrics`MindSpore Lite训练时间监测类。
+
+### 析构函数
+
+```cpp
+  virtual ~TimeMonitor() = default;
+```
+
+### 公有成员函数
+
+#### EpochBegin
+
+```cpp
+  void EpochBegin(const TrainCallBackData &cb_data) override;
+```
+
+每轮迭代前调用。
+
+- 参数
+
+    - `cb_data`: 回调参数。
+
+- 返回值
+
+  `CallbackRetValue`，表示是否在训练中继续循环。
+
+#### EpochEnd
+
+```cpp
+  CallbackRetValue EpochEnd(const TrainCallBackData &cb_data) override;
+```
+
+每轮迭代后调用。
+
+- 参数
+
+    - `cb_data`: 回调参数。
+
+- 返回值
+
+  `CallbackRetValue`，表示是否在训练中继续循环。
+
+## TrainAccuracy
+
+\#include &lt;[cfg.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/callback/lr_scheduler.h)&gt;
+
+`Metrics`MindSpore Lite训练学习率调度类。
+
+### 构造函数和析构函数
+
+```cpp
+explicit TrainAccuracy(int print_every_n = INT_MAX, int accuracy_metrics = METRICS_CLASSIFICATION, const std::vector<int> &input_indexes = {1}, const std::vector<int> &output_indexes = {0});
+virtual ~TrainAccuracy();
+```
+
+#### GetAccuracyPoints
+
+```cpp
+  const std::vector<GraphPoint> &GetAccuracyPoints();
+```
+
+获取训练精度。
+
+- 返回值
+
+  包含`GraphPoint`的`vector`，训练精度数据。
