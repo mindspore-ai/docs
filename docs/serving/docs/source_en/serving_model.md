@@ -141,7 +141,7 @@ def postprocess_top5(score):
 
 The preprocessing and post-processing are defined in the same format. The input parameters are the input data of each instance. If the input data is a text, the input parameter is a str object. If the input data is of other types, such as Tensor, Scalar number, Boolean, and Bytes, the input parameter is a **numpy object**. The instance processing result is returned through `return`, which can be **numpy**, or a single data object or a tuple consisting of **bool, int, float, str, or bytes of Python**.
 
-The input sources and output usage of preprocessing and post-processing are determined by the [Method Definition](https://www.mindspore.cn/serving/docs/en/master/serving_model.html#id9).
+The input sources and output usage of preprocessing and post-processing are determined by the [Method Definition](#method-definition).
 
 ### Model Declaration
 

@@ -19,4 +19,5 @@ MindSpore Serving Documents
    serving_grpc
    serving_restful
    serving_model
+   serving_pipeline
 
