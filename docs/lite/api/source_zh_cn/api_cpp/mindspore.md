@@ -1499,7 +1499,7 @@ gamma
 
 ## TrainAccuracy
 
-\#include &lt;[cfg.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/callback/lr_scheduler.h)&gt;
+\#include &lt;[lr_scheduler.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/callback/lr_scheduler.h)&gt;
 
 `Metrics`MindSpore Lite训练学习率调度类。
 
