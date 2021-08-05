@@ -142,6 +142,8 @@ print(ops.add(x, y))
     pip install --upgrade mindspore-gpu
     ```
 
+    注意：1.3.0及以上版本升级时，默认选择CUDA11版本，若仍希望使用CUDA10版本，请选择相应的完整wheel安装包。
+
 - 本地源码编译升级
 
     在源码根目录下执行编译脚本`build.sh`成功后，在`output`目录下找到编译生成的whl安装包，然后执行命令进行升级。
