@@ -10,13 +10,13 @@ MindSpore Lite API
   :maxdepth: 1
   :caption: C++ API
 
-  api_cpp/namespace/mindspore
-  api_cpp/namespace/mindspore_kernel
-  api_cpp/namespace/mindspore_dataset
-  api_cpp/namespace/mindspore_dataset_config
-  api_cpp/namespace/mindspore_dataset_text
-  api_cpp/namespace/mindspore_dataset_transforms
-  api_cpp/namespace/mindspore_dataset_vision
+  api_cpp/mindspore
+  api_cpp/mindspore_kernel
+  api_cpp/mindspore_dataset
+  api_cpp/mindspore_dataset_config
+  api_cpp/mindspore_dataset_text
+  api_cpp/mindspore_dataset_transforms
+  api_cpp/mindspore_dataset_vision
   api_cpp/lite
   api_cpp/session
   api_cpp/tensor

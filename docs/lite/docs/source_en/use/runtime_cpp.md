@@ -537,7 +537,7 @@ if (ret != mindspore::lite::RET_OK) {
 
 ### Calling Back a Model During the Running Process
 
-MindSpore Lite can pass two [KernelCallBack](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#kernelcallback) function pointers to [RunGraph](https://www.mindspore.cn/lite/api/en/master/api_cpp/session.html#rungraph) to call back a model for inference. Compared with common graph execution, callback execution can obtain additional information during the running process to help developers analyze performance and debug bugs. Additional information includes:
+MindSpore Lite can pass two KernelCallBack function pointers to [RunGraph](https://www.mindspore.cn/lite/api/en/master/api_cpp/session.html#rungraph) to call back a model for inference. Compared with common graph execution, callback execution can obtain additional information during the running process to help developers analyze performance and debug bugs. Additional information includes:
 
 - Name of the running node
 - Input and output tensors before the current node is inferred

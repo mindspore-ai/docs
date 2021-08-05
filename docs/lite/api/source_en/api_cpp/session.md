@@ -97,9 +97,9 @@ Run session with callback.
 
 - Parameters
 
-    - `before`: A [**KernelCallBack**](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#kernelcallback) function. Define a callback function to be called before running each node.
+    - `before`: A **KernelCallBack** function. Define a callback function to be called before running each node.
 
-    - `after`: A [**KernelCallBack**](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#kernelcallback) function. Define a callback function to be called after running each node.
+    - `after`: A **KernelCallBack** function. Define a callback function to be called after running each node.
 
 - Returns
 

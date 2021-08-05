@@ -11,4 +11,4 @@ Classes
 -------
 
 
-- :doc:`../../generate/classmindspore_kernel_Kernel`
+- :doc:`../generate/classmindspore_kernel_Kernel`
