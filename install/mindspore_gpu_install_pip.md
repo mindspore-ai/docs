@@ -108,3 +108,5 @@ print(ops.add(x, y))
 ```bash
 pip install --upgrade mindspore-gpu
 ```
+
+注意：1.3.0及以上版本升级时，默认选择CUDA11版本，若仍希望使用CUDA10版本，请选择相应的完整wheel安装包。

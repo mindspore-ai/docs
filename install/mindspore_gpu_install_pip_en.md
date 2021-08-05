@@ -106,3 +106,5 @@ Using the following command if you need to update the MindSpore version:
 ```bash
 pip install --upgrade mindspore-gpu
 ```
+
+Note: MindSpore with CUDA11 is selected by default when upgrading version 1.3.0 and above. If you still want to use MindSpore with CUDA10, please select the corresponding wheel installation package.
