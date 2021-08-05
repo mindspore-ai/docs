@@ -23,8 +23,9 @@
 |MS_CACHE_PORT|MindData|开启cache时，cache服务所在的端口|String|Cache Server所在机器的端口|与MS_ENABLE_CACHE=TRUE、MS_CACHE_HOST一起使用|可选|无|
 |DATASET_ENABLE_NUMA|MindData|是否开启numa绑核功能，在大多数分布式场景下numa绑核都能提升数据处理效率和端到端性能|String|True: 开启numa绑核功能|与libnuma.so配合使用|可选|无|
 |OPTIMIZE|MindData|是否执行dataset数据处理 pipeline 树优化，在适合数据处理算子融合的场景下，可以提升数据处理效率|String|true: 开启pipeline树优化<br>false: 关闭pipeline树优化|无|可选|无|
-|ENABLE_MS_DEBUGGER|Debugger|是否在训练中启动Debugger|Boolean|1：开启Debugger<br>0：关闭Debugger|无|可选|无|
-|MS_DEBUGGER_PORT|Debugger|连接MindInsight Debugger Server的端口|Integer|1~65536，连接MindInsight Debugger Server的端口|无|可选|无
+|ENABLE_MS_DEBUGGER|Debugger|是否在训练中启动Debugger|Boolean|1：开启Debugger<br>0：关闭Debugger|与MS_DEBUGGER_HOST、MS_DEBUGGER_PORT一起使用|可选|无|
+|MS_DEBUGGER_HOST|Debugger|MindInsight Debugger服务的IP|String|启动MindInsight调试器的机器的IP|与ENABLE_MS_DEBUGGER=1、MS_DEBUGGER_PORT一起使用|可选|无|
+|MS_DEBUGGER_PORT|Debugger|连接MindInsight Debugger Server的端口|Integer|1~65536，连接MindInsight Debugger Server的端口|与ENABLE_MS_DEBUGGER=1、MS_DEBUGGER_HOST一起使用|可选|无|
 |MS_DEBUGGER_PARTIAL_MEM|Debugger|是否开启部分内存复用（只有在Debugger选中的节点才会关闭这些节点的内存复用）|Boolean|1：开启Debugger选中节点的内存复用<br>0：关闭Debugger选中节点的内存复用|无|可选|无|
 |GE_USE_STATIC_MEMORY|GraphEngine|当网络模型层数过大时，特征图中间计算数据可能超过25G，例如BERT24网络。多卡场景下为保证通信内存高效协同，需要配置为1，表示使用内存静态分配方式，其他网络暂时无需配置，默认使用内存动态分配方式。<br>静态内存默认配置为31G，如需要调整可以通过网络运行参数graph_memory_max_size和variable_memory_max_size的总和指定；动态内存是动态申请，最大不会超过graph_memory_max_size和variable_memory_max_size的总和。|Integer|1：使用内存静态分配方式<br>0：使用内存动态分配方式|无|可选|无|
 |DUMP_GE_GRAPH|GraphEngine|把整个流程中各个阶段的图描述信息打印到文件中，此环境变量控制dump图的内容多少|Integer|1：全量dump<br>2：不含有权重等数据的基本版dump<br>3：只显示节点关系的精简版dump|无|可选|无|
