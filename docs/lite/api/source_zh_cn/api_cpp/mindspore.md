@@ -28,6 +28,7 @@
 | [LRScheduler](#lrscheduler) | MindSpore Lite训练配置类，仅MindSpore Lite支持。 |
 | [TimeMonitor](#timemonitor) | MindSpore Lite训练时间监测类，仅MindSpore Lite支持。 |
 | [TrainAccuracy](#trainaccuracy) | MindSpore Lite训练学习率调度类，仅MindSpore Lite支持。 |
+| [Version](#version) | 获取当前版本号，仅MindSpore Lite支持。 |
 
 ## Context
 
@@ -589,6 +590,22 @@ MSTensor GetOutputByTensorName(const std::string &tensor_name);
 - 返回值
 
   指定名字的输出张量，如果该名字不存在则返回非法张量。
+
+#### GetOutputsByNodeName
+
+```cpp
+std::vector<MSTensor> GetOutputsByNodeName(const std::string &node_name);
+```
+
+通过节点名获取模型的MSTensors输出张量。
+
+- 参数
+
+    - `node_name`: 节点名称。
+
+- 返回值
+
+    包含在模型输出Tensor中的该节点输出Tensor的vector。
 
 #### InitMetrics
 
@@ -1521,3 +1538,17 @@ virtual ~TrainAccuracy();
 - 返回值
 
   包含`GraphPoint`的`vector`，训练精度数据。
+
+## Version
+
+\#include &lt;[types.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/type.h)&gt;
+
+```cpp
+std::string Version()
+```
+
+全局方法，用于获取版本的字符串。
+
+- 返回值
+
+    MindSpore Lite版本的字符串。
