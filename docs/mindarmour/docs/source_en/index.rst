@@ -29,6 +29,13 @@ MindArmour Documents
 .. toctree::
    :glob:
    :maxdepth: 1
+   :caption: AI Reliability
+
+   concept_drift_time_series
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
    :caption: References
 
    differential_privacy_design
