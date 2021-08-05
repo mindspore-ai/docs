@@ -30,7 +30,7 @@ MindSpore已经统一了端边云推理API，如您想继续使用MindSpore Lite
 
 1. 模型读取：从文件系统中读取由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)转换得到的`.ms`模型。
 2. 创建配置上下文：创建配置上下文[Context](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)，保存需要的一些基本配置参数，用于指导模型编译和模型执行。
-3. 模型创建、加载与编译：执行推理之前，需要调用[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)的[Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build)接口进行模型加载和模型编译。模型加载阶段将文件缓存解析成运行时的模型。模型编译阶段主要进行算子选型调度、子图切分等过程，该阶段会耗费较多时间所以建议Model创建一次，编译一次，多次推理。
+3. 模型创建、加载与编译：执行推理之前，需要调用[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)的[Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build)接口进行模型加载和模型编译，并将上一步得到的Context配置到Model中。模型加载阶段将文件缓存解析成运行时的模型。模型编译阶段主要进行算子选型调度、子图切分等过程，该阶段会耗费较多时间，所以建议Model创建一次，编译一次，多次推理。
 4. 输入数据：模型执行之前需要向`输入Tensor`中填充数据。
 5. 执行推理：使用[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)的[Predict](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#predict)接口进行模型推理。
 6. 获得输出：模型执行结束之后，可以通过`输出Tensor`得到推理结果。
@@ -105,6 +105,7 @@ MindSpore已经统一了端边云推理API，如您想继续使用MindSpore Lite
   编译构建后，进入`mindspore/lite/examples/quick_start_cpp/build`目录，并执行以下命令，体验MindSpore Lite推理MobileNetV2模型。
 
   ```bash
+  set PATH=../lib;%PATH%
   call mindspore_quick_start_cpp.exe ../model/mobilenetv2.ms
   ```
 
@@ -215,7 +216,7 @@ if (build_ret != mindspore::kSuccess) {
 }
 ```
 
-模型加载与编译也可以分别调用[Serialization](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#serialization)的[Load](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#load)接口和[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)的[Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build)实现。
+也可以分别调用[Serialization](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#serialization)的[Load](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#load)接口去加载模型得到[Graph](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#graph)，调用[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)的[Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build)去构建模型。
 
 ```c++
 // Load graph.

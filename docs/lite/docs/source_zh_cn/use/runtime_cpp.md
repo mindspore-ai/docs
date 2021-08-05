@@ -69,7 +69,7 @@ if (model_buf == nullptr) {
 
 ## 创建配置上下文
 
-上下文会保存会话所需的一些基本配置参数，用于指导模型编译和模型执行，如果用户通过`new`创建[Context](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)，不再需要时，需要用户通过`delete`释放。一般在创建完[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)后，[Context](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)即可释放。
+上下文会保存一些所需的基本配置参数，用于指导模型编译和模型执行，如果用户通过`new`创建[Context](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)，不再需要时，需要用户通过`delete`释放。一般在创建编译完[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)后，[Context](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)即可释放。
 
 MindSpore Lite默认执行的后端是CPU，Context创建后调用[MutableDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mutabledeviceinfo)返回后端信息列表的引用，向列表中添加默认的[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#cpudeviceinfo)。
 
@@ -201,7 +201,7 @@ device_list.push_back(npu_device_info);
 
 ### 配置使用NNIE后端
 
-当需要执行的后端为CPU和NNIE的异构推理时，只需要按照[配置使用CPU后端](#配置使用cpu后端)的配置方法创建好Context即可，无需指定provider。
+当需要执行的后端为CPU和NNIE的异构推理时，只需要按照[配置使用CPU后端](#创建配置上下文)的方法创建好Context即可，无需指定provider。
 
 ## 模型创建加载与编译
 
@@ -233,7 +233,7 @@ if (build_ret != mindspore::kSuccess) {
 
 MindSpore Lite提供两种方法来获取模型的输入Tensor。
 
-1. 使用[GetInputByTensorName](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getinputbytensorname)方法，根据模型输入Tensor的名称来获取模型输入Tensor中连接到该节点的Tensor，下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L154)演示如何调用`GetInputByTensorName`获得输入Tensor并填充数据。
+1. 使用[GetInputByTensorName](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getinputbytensorname)方法，根据Tensor的名称来获取模型输入Tensor，下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L154)演示如何调用`GetInputByTensorName`获得输入Tensor并填充数据。
 
    ```cpp
    // Pre-processing of input data, convert input data format to NHWC.
@@ -243,7 +243,7 @@ MindSpore Lite提供两种方法来获取模型的输入Tensor。
    if (in_tensor == nullptr) {
        std::cerr << "Input tensor is nullptr" << std::endl;
    }
-   auto input_data = in_tensor->MutableData();
+   auto input_data = in_tensor.MutableData();
    if (input_data == nullptr) {
        std::cerr << "MallocData for inTensor failed." << std::endl;
    }
@@ -263,7 +263,7 @@ MindSpore Lite提供两种方法来获取模型的输入Tensor。
    if (in_tensor == nullptr) {
        std::cerr << "Input tensor is nullptr" << std::endl;
    }
-   auto *in_data = in_tensor->MutableData();
+   auto *in_data = in_tensor.MutableData();
    if (in_data == nullptr) {
        std::cerr << "Data of in_tensor is nullptr" << std::endl;
    }
