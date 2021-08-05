@@ -14,7 +14,10 @@ import os
 import sys
 from sphinx.search import jssplitter as sphinx_split
 from sphinx import errors as searchtools_path
-
+import textwrap
+import shutil
+sys.path.append(os.path.abspath("../_custom"))
+from exhale import graph as exh_graph
 
 # -- Project information -----------------------------------------------------
 
@@ -34,6 +37,9 @@ release = 'master'
 extensions = [
     'myst_parser',
     'sphinx_markdown_tables',
+    'breathe',
+    'exhale',
+    'sphinx.ext.mathjax',
 ]
 
 source_suffix = {
@@ -161,3 +167,120 @@ with open(sphinx_search_prepare, "r+", encoding="utf8") as f:
         f.seek(0)
         f.truncate()
         f.write(code_str)
+
+
+# Add configrator for c++ api output.
+# Setup the breathe extension
+breathe_projects = {
+    "My Project": "./doxyoutput/xml"
+}
+
+breathe_default_project = "My Project"
+
+
+def specificationsForKind(kind):
+    '''
+    For a given input ``kind``, return the list of reStructuredText specifications
+    for the associated Breathe directive.
+    '''
+    # Change the defaults for .. doxygenclass:: and .. doxygenstruct::
+    if kind == "class":
+        return [
+            ":members:",
+            # ":protected-members:",
+            # ":private-members:"
+        ]
+    else:
+        return []
+
+
+# Use exhale's utility function to transform `specificationsForKind`
+# defined above into something Exhale can use
+
+from exhale import utils
+
+exhale_args = {
+    ############################################################################
+    # These arguments are required.                                            #
+    ############################################################################
+    "containmentFolder": "./generate",
+    "rootFileName": "library_root.rst",
+    "rootFileTitle": "Library API",
+    "doxygenStripFromPath": "..",
+    ############################################################################
+    # Suggested optional arguments.                                            #
+    ############################################################################
+    "createTreeView": True,
+    "exhaleExecutesDoxygen": True,
+    "exhaleUseDoxyfile": False,
+    "verboseBuild": True,
+    "exhaleDoxygenStdin": textwrap.dedent("""
+        INPUT = ../include
+        EXTRACT_ALL = NO
+        HIDE_UNDOC_MEMBERS = YES
+        HIDE_UNDOC_CLASSES = YES
+    """),
+    'contentsDirectives': False,
+
+    ############################################################################
+    # HTML Theme specific configurations.                                      #
+    ############################################################################
+    # Fix broken Sphinx RTD Theme 'Edit on GitHub' links
+    # Search for 'Edit on GitHub' on the FAQ:
+    #     http://exhale.readthedocs.io/en/latest/faq.html
+    "pageLevelConfigMeta": ":gitee_url: https://gitee.com/mindspore/docs",
+    ############################################################################
+    # Individual page layout example configuration.                            #
+    ############################################################################
+    # Example of adding contents directives on custom kinds with custom title
+    "contentsTitle": "Page Contents",
+    "kindsWithContentsDirectives": ["class", "file", "namespace", "struct"],
+    # Exclude PIMPL files from class hierarchy tree and namespace pages.
+    # "listingExclude": [r".*Impl$"],
+    ############################################################################
+    # Main library page layout example configuration.                          #
+    ############################################################################
+    "afterTitleDescription": textwrap.dedent(u'''
+        Welcome to the developer reference for the MindSpore C++ API.
+    '''),
+    # ... required arguments / other configs ...
+    "customSpecificationsMapping": utils.makeCustomSpecificationsMapping(
+        specificationsForKind
+    )
+}
+
+# modify source code of exhale.
+exh_file = os.path.abspath(exh_graph.__file__)
+
+with open("../_custom/graph", "r", encoding="utf8") as f:
+    source_code = f.read()
+
+exec(source_code, exh_graph.__dict__)
+
+# fix error of extra space for C++ API.
+from sphinx.writers import html5 as sphinx_writer_html5
+
+with open("../_custom/sphinx_writer_html5", "r", encoding="utf8") as f:
+    source_code = f.read()
+
+exec(source_code, sphinx_writer_html5.__dict__)
+
+# fix position of "Return" for C++ API.
+from sphinx.builders import html as sphinx_builder_html
+
+with open("../_custom/sphinx_builder_html", "r", encoding="utf8") as f:
+    source_code = f.read()
+
+exec(source_code, sphinx_builder_html.__dict__)
+
+# Copy sourcefiles from mindspore repository.
+ms_path = os.getenv("MS_PATH")
+if os.path.exists("../include"):
+    shutil.rmtree("../include")
+os.mkdir("../include")
+with open("../_custom/SourceFileNames.txt") as f:
+    contents = f.readlines()
+    for i in contents:
+        if i == "\n":
+            continue
+        shutil.copy(os.path.join(ms_path, i.strip().strip("\n")), "../include/")
