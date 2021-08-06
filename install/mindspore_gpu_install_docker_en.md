@@ -24,15 +24,15 @@ The current support for containerized build is as follows:
 | Hardware   | Docker Image Hub                | Label                       | Note                                       |
 | :----- | :------------------------ | :----------------------- | :--------------------------------------- |
 | GPU    | `mindspore/mindspore-gpu` | `x.y.z`                  | A production environment with the MindSpore `x.y.z` GPU version pre-installed.       |
-|        |                           | `devel`                  | Provide a development environment to build MindSpore from the source (`GPU CUDA10.1` backend). For installation details, please refer to <https://www.mindspore.cn/install/en>. |
-|        |                           | `runtime`                | Provide runtime environment, MindSpore binary package (`GPU CUDA10.1` backend) is not installed. |
+|        |                           | `devel`                  | Provide a development environment to build MindSpore from the source (`GPU CUDA11.1` backend). For installation details, please refer to <https://www.mindspore.cn/install/en>. |
+|        |                           | `runtime`                | Provide runtime environment, MindSpore binary package (`GPU CUDA11.1` backend) is not installed. |
 
 > **Note:** It is not recommended to install the whl package directly after building the GPU `devel` Docker image from the source. We strongly recommend that you transfer and install the `whl` package in the GPU `runtime` Docker image.
 > `x.y.z` corresponds to the MindSpore version number. For example, when installing MindSpore version 1.1.0, `x.y.z` should be written as 1.1.0.
 
 ## System Environment Information Confirmation
 
-- Confirm that Ubuntu 18.04 is installed with the 64-bit operating system.
+- Confirm that a 64-bit Linux operating system is installed, where Ubuntu 18.04 is verified.
 - Confirm that [Docker 18.03 or later versioin](https://docs.docker.com/get-docker/) is installed.
 
 ## nvidia-container-toolkit Installation
@@ -163,10 +163,10 @@ It means MindSpore has been installed by docker successfully.
 
 - If you install a container with the label of `runtime`, you need to install MindSpore yourself.
 
-    Go to [MindSpore Installation Guide Page](https://www.mindspore.cn/install/en), choose the GPU hardware platform, Ubuntu-x86 operating system and pip installation method to get the installation guide. Refer to the installation guide after running the container and install the MindSpore GPU version by pip, and verify it.
+    Go to [MindSpore Installation Guide Page](https://www.mindspore.cn/install/en), choose the GPU hardware platform, Linux-x86_64 operating system and pip installation method to get the installation guide. Refer to the installation guide after running the container and install the MindSpore GPU version by pip, and verify it.
 
 - If you install a container with the label of `devel`, you need to compile and install MindSpore yourself.
 
-    Go to [MindSpore Installation Guide Page](https://www.mindspore.cn/install/en), choose the GPU hardware platform, Ubuntu-x86 operating system and pip installation method to get the installation guide. After running the container, download the MindSpore code repository and refer to the installation guide, install the MindSpore GPU version through source code compilation, and verify it.
+    Go to [MindSpore Installation Guide Page](https://www.mindspore.cn/install/en), choose the GPU hardware platform, Linux-x86_64 operating system and pip installation method to get the installation guide. After running the container, download the MindSpore code repository and refer to the installation guide, install the MindSpore GPU version through source code compilation, and verify it.
 
 If you want to know more about the mindspore Docker image building process, please check [docker repo](https://gitee.com/mindspore/mindspore/blob/master/docker/README.md) for details.

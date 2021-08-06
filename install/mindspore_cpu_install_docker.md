@@ -30,7 +30,7 @@ MindSpore的Docker镜像托管在[Huawei SWR](https://support.huaweicloud.com/sw
 
 ## 确认系统环境信息
 
-- 确认安装Ubuntu 18.04是基于x86架构的64位操作系统。
+- 确认安装基于x86架构的64位Linux操作系统，其中Ubuntu 18.04是经过验证的。
 - 确认安装[Docker 18.03或者更高版本](https://docs.docker.com/get-docker/)。
 
 ## 获取MindSpore镜像
@@ -113,10 +113,10 @@ print(ops.add(x, y))
 
 - 如果你安装的是`runtime`标签的容器，需要自行安装MindSpore。
 
-    进入[MindSpore安装指南页面](https://www.mindspore.cn/install)，选择CPU硬件平台、Ubuntu-x86操作系统和pip的安装方式，获得安装指南。运行容器后参考安装指南，通过pip方式安装MindSpore CPU版本，并进行验证。
+    进入[MindSpore安装指南页面](https://www.mindspore.cn/install)，选择CPU硬件平台、Linux-x86_64操作系统和pip的安装方式，获得安装指南。运行容器后参考安装指南，通过pip方式安装MindSpore CPU版本，并进行验证。
 
 - 如果你安装的是`devel`标签的容器，需要自行编译并安装MindSpore。
 
-    进入[MindSpore安装指南页面](https://www.mindspore.cn/install)，选择CPU硬件平台、Ubuntu-x86操作系统和Source的安装方式，获得安装指南。运行容器后，下载MindSpore代码仓并参考安装指南，通过源码编译方式安装MindSpore CPU版本，并进行验证。
+    进入[MindSpore安装指南页面](https://www.mindspore.cn/install)，选择CPU硬件平台、Linux-x86_64操作系统和Source的安装方式，获得安装指南。运行容器后，下载MindSpore代码仓并参考安装指南，通过源码编译方式安装MindSpore CPU版本，并进行验证。
 
 如果您想了解更多关于mindspore Docker镜像的构建过程，请查看[docker repo](https://gitee.com/mindspore/mindspore/blob/master/docker/README.md)了解详细信息。
