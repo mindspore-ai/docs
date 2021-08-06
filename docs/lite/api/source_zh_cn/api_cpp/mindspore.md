@@ -29,6 +29,7 @@
 | [TimeMonitor](#timemonitor) | MindSpore Lite训练时间监测类，仅MindSpore Lite支持。 |
 | [TrainAccuracy](#trainaccuracy) | MindSpore Lite训练学习率调度类，仅MindSpore Lite支持。 |
 | [Version](#version) | 获取当前版本号，仅MindSpore Lite支持。 |
+| [Allocator](#Allocator) | 内存管理基类。 |
 
 ## Context
 
@@ -213,6 +214,66 @@ template <class T> std::shared_ptr<T> Cast();
 - 返回值
 
   转换后`T`类型的指针，若转换失败则为`nullptr`。
+
+#### GetProvider
+
+```cpp
+std::string GetProvider() const;
+```
+
+获取设备的产商名。
+
+#### SetProvider
+
+```cpp
+void SetProvider(const std::string &provider);
+```
+
+设置设备产商名。
+
+- 参数
+
+    - `provider`: 产商名。
+
+#### GetProviderDevice
+
+```cpp
+std::string GetProviderDevice() const;
+```
+
+获取产商设备名。
+
+#### SetProviderDevice
+
+```cpp
+void SetProviderDevice(const std::string &device);
+```
+
+设备产商设备名。
+
+- 参数
+
+    - `device`: 设备名。
+
+#### SetAllocator
+
+```cpp
+void SetAllocator(const std::shared_ptr<Allocator> &allocator);
+```
+
+设置内存管理器。
+
+- 参数
+
+    - `allocator`: 内存管理器。
+
+#### GetAllocator
+
+```cpp
+std::shared_ptr<Allocator> GetAllocator() const;
+```
+
+获取内存管理器。
 
 ## CPUDeviceInfo
 
@@ -1539,3 +1600,123 @@ std::string Version()
 - 返回值
 
     MindSpore Lite版本的字符串。
+
+## Allocator
+
+\#include &lt;[allocator.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/allocator.h)&gt;
+
+内存管理基类。
+
+### ~Allocator
+
+```cpp
+virtual ~Allocator()
+```
+
+析构函数。
+
+### 公有成员函数
+
+#### Malloc
+
+```cpp
+virtual void *Malloc(size_t size)
+```
+
+内存分配。
+
+- 参数
+
+    - `size`: 要分配的内存大小，单位为Byte。
+
+#### Free
+
+```cpp
+virtual void *Free(void *ptr)
+```
+
+内存释放。
+
+- 参数
+
+    - `ptr`: 要释放的内存地址，该值由[Malloc](#Malloc)分配。
+
+#### RefCount
+
+```cpp
+virtual int RefCount(void *ptr)
+```
+
+返回分配内存的引用计数。
+
+- 参数
+
+    - `ptr`: 要操作的内存地址，该值由[Malloc](#Malloc)分配。
+
+#### SetRefCount
+
+```cpp
+virtual int SetRefCount(void *ptr, int ref_count)
+```
+
+设置分配内存的引用计数。
+
+- 参数
+
+    - `ptr`: 要操作的内存地址，该值由[Malloc](#Malloc)分配。
+
+    - `ref_count`: 引用计数值。
+
+#### DecRefCount
+
+```cpp
+virtual int DecRefCount(void *ptr, int ref_count)
+```
+
+分配的内存引用计数减一。
+
+- 参数
+
+    - `ptr`: 要操作的内存地址，该值由[Malloc](#Malloc)分配。
+
+    - `ref_count`: 引用计数值。
+
+#### IncRefCount
+
+```cpp
+virtual int IncRefCount(void *ptr, int ref_count)
+```
+
+分配的内存引用计数加一。
+
+- 参数
+
+    - `ptr`: 要操作的内存地址，该值由[Malloc](#Malloc)分配。
+
+    - `ref_count`: 引用计数值。
+
+#### Create
+
+```cpp
+static std::shared_ptr<Allocator> Create()
+```
+
+创建默认的内存分配器。
+
+#### Prepare
+
+```cpp
+virtual void *Prepare(void *ptr)
+```
+
+对分配的内存进行预处理。
+
+- 参数
+
+    - `ptr`: 要操作的内存地址，该值由[Malloc](#Malloc)分配。
+
+### 保护的数据成员
+
+#### aligned_size_
+
+内存对齐的字节数。
