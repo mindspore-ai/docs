@@ -4,7 +4,9 @@
 
 在本教程中，我们将使用COCO数据集当中book分类下的部分图片，对Mask R-CNN模型进行微调，最终实现图像分割的效果。教程通过终端运行，点击下载[代码与数据集](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/source-codes/FineTune.zip)。
 
-> 运行本案例需要在MindSpore1.2及以上版本的基础上安装以下依赖项：
+> 本篇基于MindSpore v1.3.0，Ascend环境运行。
+>
+> 运行本案例需要安装以下依赖项：
 >
 > Cython
 >
@@ -209,7 +211,7 @@ def create_new_dataset(image_dir, batch_size=config.batch_size, is_training=True
 
 ## 定义模型
 
-Mask R-CNN网络可以完成图片中实例的分类、定位和分割，教程中的网络实现部分位于`MaskRCNNFineTune/FineTune/src/maskrcnn`文件夹下，用户可以打开代码查看。下面我们先介绍一些Mask R-CNN的基本信息。
+Mask R-CNN网络可以完成图片中实例的分类、定位和分割，教程中的网络实现部分位于`FineTune/src/maskrcnn`文件夹下，用户可以打开代码查看。下面我们先介绍一些Mask R-CNN的基本信息。
 
 Mask R-CNN包括三个主要的子网络：
 
@@ -237,7 +239,7 @@ Mask R-CNN包括三个主要的子网络：
 
 在实现过程中，我们下载已经预训练好的[ResNet50模型](https://download.mindspore.cn/model_zoo/r1.2/resnet50_ascend_v120_imagenet2012_official_cv_bs256_acc76/resnet50_ascend_v120_imagenet2012_official_cv_bs256_acc76.ckpt)，针对书籍分类对Mask R-CNN进行微调。
 
-首先需要将下载好的模型放置在`MaskRCnnFineTune/`文件夹路径下，并重命名为`resnet50.ckpt`，然后运行`MaskRCnnFineTune/convert_checkpoint.py`。在该脚本中提取了ResNet50的主干作为backbone用于后面的训练：
+首先需要将下载好的模型放置在`FineTune/`文件夹路径下，并重命名为`resnet50.ckpt`，然后运行`FineTune/convert_checkpoint.py`。在该脚本中提取了ResNet50的主干作为backbone用于后面的训练：
 
 ```python
 
@@ -280,7 +282,7 @@ if __name__ == "__main__":
 
 ## 执行训练
 
-现在，我们执行`MaskRCnnFineTune/train.py`文件，利用之前获取的backbone和数据集，完成训练过程。
+现在，我们执行`FineTune/train.py`文件，利用之前获取的backbone和数据集，完成训练过程。
 
 ```python
 if __name__ == '__main__':
