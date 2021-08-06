@@ -59,7 +59,8 @@ For more launch parameters, please refer to [MindInsight Commands](https://www.m
 
 ### Run the Training Script in Debug Mode
 
-Run the training script in debug mode, you need to set `export ENABLE_MS_DEBUGGER=1` or `export ENABLE_MS_DEBUGGER=True` to specify the training is in the debugger mode, and set the debugger port to which the training is connected:
+Run the training script in debug mode, you need to set `export ENABLE_MS_DEBUGGER=1` or `export ENABLE_MS_DEBUGGER=True` to specify the training is in the debugger mode, and set the debugger host and port to which the training is connected:
+`export MS_DEBUGGER_HOST=127.0.0.1` (the service address must be consistent with MindInsight host address);
 `export MS_DEBUGGER_PORT=50051` (the port must be consistent with MindInsight debugger-port).
 
 If the memory space of your equipment is limited, you can use the partial memory reuse mode before starting the training to reduce the running space: `export MS_DEBUGGER_PARTIAL_MEM=1`。
@@ -251,6 +252,7 @@ Tensors can be downloaded in tensor check view. Users can download the desired t
     - The debugger does not support connected to multiple training process.
     - The debugger does not support CPU scenarios.
     - The debugger does not support PyNative mode.
+    - The debugger does not support multi networks scenarios.
 
 - Impact on Performance:
     - Debugger will slow down the training performance.
