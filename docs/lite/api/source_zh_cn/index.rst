@@ -17,11 +17,9 @@ MindSpore Lite API
    api_cpp/mindspore_dataset_transforms
    api_cpp/mindspore_dataset_vision
    api_cpp/mindspore_kernel
-   api_cpp/lite
+   api_cpp/mindspore_datatype
+   api_cpp/mindspore_format
    api_cpp/registry
-   api_cpp/session
-   api_cpp/tensor
-   api_cpp/errorcode_and_metatype
    api_cpp/lite_cpp_example
 
 
