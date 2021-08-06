@@ -59,7 +59,8 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 
 ### 以调试模式运行训练脚本
 
-以调试模式运行训练脚本，需要设置环境变量`export ENABLE_MS_DEBUGGER=1`或`export ENABLE_MS_DEBUGGER=True`，将训练指定为调试模式，并设置训练要连接的调试端口：
+以调试模式运行训练脚本，需要设置环境变量`export ENABLE_MS_DEBUGGER=1`或`export ENABLE_MS_DEBUGGER=True`，将训练指定为调试模式，并设置训练要连接的调试服务和端口：
+`export MS_DEBUGGER_HOST=127.0.0.1`(该服务地址需与MindInsight host一致)；
 `export MS_DEBUGGER_PORT=50051`(该端口需与MindInsight debugger-port一致)。
 
 如果用户设备的内存空间有限，可在运行训练前开启部分内存复用模式，以降低运行内存占用：`export MS_DEBUGGER_PARTIAL_MEM=1`。
@@ -244,6 +245,7 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
     - 调试器暂不支持连接多个训练进程。
     - 调试器暂不支持CPU场景。
     - 调试器暂不支持PyNative模式。
+    - 调试器暂不支持多网络场景。
 
 - 性能影响：
     - 使用调试器时，会对训练性能产生一定影响。
