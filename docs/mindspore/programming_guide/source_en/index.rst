@@ -114,6 +114,7 @@ MindSpore Programming Guide
    optimize_data_processing
    enable_mixed_precision
    enable_graph_kernel_fusion
+   enable_auto_tune
    apply_gradient_accumulation
    apply_quantization_aware_training
    apply_post_training_quantization
