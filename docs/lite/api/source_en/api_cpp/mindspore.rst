@@ -29,6 +29,8 @@ Classes
 
 - :doc:`../generate/classmindspore_Ascend910DeviceInfo`
 
+- :doc:`../generate/classmindspore_Buffer`
+
 - :doc:`../generate/classmindspore_Cell`
 
 - :doc:`../generate/classmindspore_CellBase`
@@ -64,6 +66,8 @@ Classes
 - :doc:`../generate/classmindspore_MixPrecisionCfg`
 
 - :doc:`../generate/classmindspore_Model`
+
+- :doc:`../generate/classmindspore_MSTensor`
 
 - :doc:`../generate/classmindspore_OpCell`
 
@@ -111,9 +115,6 @@ Enums
 
 Functions
 ---------
-
-
-- :doc:`../generate/function_mindspore__attribute_-1`
 
 - :doc:`../generate/function_mindspore_CharToString-1`
 
