@@ -18,7 +18,7 @@
 | [MSTensor](#mstensor) | MindSpore中的张量。 |
 | [MSKernelCallBack](#mskernelcallback) | MindSpore回调函数包装器，仅MindSpore Lite支持。 |
 | [MSCallBackParam](#mscallbackparam) | MindSpore回调函数的参数，仅MindSpore Lite支持。 |
-| [Delegate](#delegate) | MindSpore Lite接入第三方推理执行器的代理。 |
+| [Delegate](#delegate) | MindSpore Lite接入第三方AI框架的代理。 |
 | [TrainCfg](#trainCfg) | MindSpore Lite训练配置类，仅MindSpore Lite支持。 |
 | [AccuracyMetrics](#accuracymetrics) | MindSpore Lite训练精度类，仅MindSpore Lite支持。 |
 | [Metrics](#metrics) | MindSpore Lite训练指标类，仅MindSpore Lite支持。 |
@@ -140,7 +140,7 @@ bool GetEnableParallel() const;
 void SetDelegate(const std::shared_ptr<Delegate> &delegate);
 ```
 
-设置Delegate，Delegate定义了用于支持第三方推理执行器接入的代理，该选项仅MindSpore Lite有效。
+设置Delegate，Delegate定义了用于支持第三方AI框架接入的代理，该选项仅MindSpore Lite有效。
 
 - 参数
 
@@ -1128,7 +1128,7 @@ node_type
 
 \#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/delegate.h)&gt;
 
-`Delegate`定义了第三方推理执行器接入MindSpore Lite的代理接口。
+`Delegate`定义了第三方AI框架接入MindSpore Lite的代理接口。
 
 ### 构造函数和析构函数
 
