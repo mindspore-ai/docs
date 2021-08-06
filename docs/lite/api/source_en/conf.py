@@ -118,8 +118,6 @@ exhale_args = {
     "exhaleDoxygenStdin": textwrap.dedent("""
         INPUT = ../include
         EXTRACT_ALL = NO
-        HIDE_UNDOC_MEMBERS = YES
-        HIDE_UNDOC_CLASSES = YES
     """),
     'contentsDirectives': False,
 
@@ -184,5 +182,12 @@ with open("../_custom/SourceFileNames.txt") as f:
     for i in contents:
         if i == "\n":
             continue
-        shutil.copy(os.path.join(ms_path, i.strip().strip("\n")), "../include/")
-
+        name = i.strip().strip("\n")
+        shutil.copy(os.path.join(ms_path, name), "../include/")
+        with open(os.path.join("../include", os.path.basename(name)), "r+", encoding="utf8") as f:
+            content = f.read()
+            if "class MS_API " in content:
+                content_new = content.replace("class MS_API", "class")
+                f.seek(0)
+                f.truncate()
+                f.write(content_new)

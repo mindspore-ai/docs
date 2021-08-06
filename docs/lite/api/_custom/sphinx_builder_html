@@ -1019,6 +1019,12 @@ class StandaloneHTMLBuilder(Builder):
         if newtmpl:
             templatename = newtmpl
 
+        def propertyrepl(matchobj):
+            if matchobj.group(1) in ['class', "public"]:
+                return '<em class=\"property\">{}</em>'.format(matchobj.group(1))
+            else:
+                return '<em class=\"property_exhale\">{}</em>'.format(matchobj.group(1))
+
         try:
             output = self.templates.render(templatename, ctx)
 
@@ -1037,6 +1043,11 @@ class StandaloneHTMLBuilder(Builder):
             # Remove extra comma in sig-paren for c++ api.
             if ', <span class="sig-paren">)</span>' in output:
                 output = output.replace(', <span class="sig-paren">)</span>', '<span class="sig-paren">)</span>')
+
+            # Modify proterty from "property" to "property_exhale" for using, const, enum, etc.
+            property_re = re.compile(r"<em class=\"property\">(\w+)</em>")
+            if "C++ API" in output and property_re.search(output):
+                output = property_re.sub(propertyrepl, output)
 
         except UnicodeError:
             logger.warning(__("a Unicode error occurred when rendering the page %s. "
