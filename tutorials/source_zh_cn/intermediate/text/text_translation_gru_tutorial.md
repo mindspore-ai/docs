@@ -10,6 +10,8 @@
 
 通过该教程将学会MindSpore搭建nlp模型所需要的全部流程，下面将逐步解释实现过程。
 
+> 本篇基于MindSpore v1.2.0，Ascend环境运行。
+
 ## 数据处理
 
 本教程采用Multi30k数据集，该数据集由大约30000个对应的英语、德语和法语句子组成，每个句子包含约12个单词。详细内容可参考[WMT16官网](http://www.statmt.org/wmt16/multimodal-task.html)。实验过程中用其来生成.tok文件和两个vocab文件，并将其分别命名为vocab.de和vocab.en方便辨识。
