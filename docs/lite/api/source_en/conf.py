@@ -177,7 +177,7 @@ ms_path = os.getenv("MS_PATH")
 if os.path.exists("../include"):
     shutil.rmtree("../include")
 os.mkdir("../include")
-with open("../_custom/SourceFileNames.txt") as f:
+with open("./SourceFileNames.txt") as f:
     contents = f.readlines()
     for i in contents:
         if i == "\n":
