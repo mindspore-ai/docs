@@ -152,8 +152,6 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
    CONVERTER RESULT SUCCESS:0
    ```
 
-- 如果转换命令执行失败，程序会返回一个[错误码](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/errorcode_and_metatype.html)。
-
 > 训练后量化示例请参考<https://www.mindspore.cn/lite/docs/zh-CN/master/use/post_training_quantization.html>。
 
 ## Windows环境使用说明
@@ -256,5 +254,3 @@ set GLOG_v=1
    ```text
    CONVERTER RESULT SUCCESS:0
    ```
-
-- 如果转换命令执行失败，程序会返回一个[错误码](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/errorcode_and_metatype.html)。

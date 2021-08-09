@@ -1528,7 +1528,7 @@ virtual ~TrainAccuracy();
 
 ## Version
 
-\#include &lt;[types.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/type.h)&gt;
+\#include &lt;[types.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/types.h)&gt;
 
 ```cpp
 std::string Version()
