@@ -146,7 +146,7 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
 
     ${PACKAGE_ROOT_PATH}是下载得到的包解压后的路径。
 
-2. 将nnie.cfg拷贝到转换目录并设置如下环境变量
+3. 将nnie.cfg拷贝到转换目录并设置如下环境变量
 
     ```bash
     export NNIE_CONFIG_PATH=./nnie.cfg
@@ -154,7 +154,7 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
 
    如果用户实际的配置文件就叫nnie.cfg，且与converter_lite在同级路径上，则可不用配置。
 
-3. 执行converter，生成NNIE`ms`模型
+4. 执行converter，生成NNIE`ms`模型
 
     ```bash
     ./converter_lite --fmk=CAFFE --modelFile=${model_name}.prototxt --weightFile=${model_name}.caffemodel --configFile=./converter.cfg --outputFile=${model_name}
