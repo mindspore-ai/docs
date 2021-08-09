@@ -154,8 +154,6 @@ The following describes how to use the conversion command by using several commo
    CONVERTER RESULT SUCCESS:0
    ```
 
-- If running the conversion command is failed, an [errorcode](https://www.mindspore.cn/lite/api/en/master/api_cpp/errorcode_and_metatype.html) will be output.
-
 ## Windows Environment Instructions
 
 ### Environment Preparation  
@@ -257,5 +255,3 @@ Several common examples are selected below to illustrate the use of conversion c
    ```text
    CONVERTER RESULT SUCCESS:0
    ```
-
-- If running the conversion command is failed, an [errorcode](https://www.mindspore.cn/lite/api/en/master/api_cpp/errorcode_and_metatype.html) will be output.
