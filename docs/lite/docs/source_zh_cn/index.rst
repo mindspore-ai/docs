@@ -41,6 +41,7 @@
    use/micro
    use/asic
    use/register_kernel
+   use/delegate
 
 .. toctree::
    :glob:
