@@ -1083,7 +1083,7 @@ y: Tensor(shape=[], dtype=Int64, value=3))
 
 ### Instance Types on the Entire Network
 
-- Common Python function with the [@ms_function](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.html#mindspore.ms_function) decorator.
+- Common Python function with the [@ms_function](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore/mindspore.ms_function.html) decorator.
 
 - Cell subclass inherited from [nn.Cell](https://www.mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Cell.html).
 

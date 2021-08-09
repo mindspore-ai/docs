@@ -103,7 +103,7 @@ The output is as follows:
 
 ## Executing a Network Model
 
-The [Model API](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.html#mindspore.Model) of MindSpore is an advanced API used for training and validation. Layers with the training or inference function can be combined into an object. The training, inference, and prediction functions can be implemented by calling the train, eval, and predict APIs, respectively.
+The [Model API](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore/mindspore.Model.html) of MindSpore is an advanced API used for training and validation. Layers with the training or inference function can be combined into an object. The training, inference, and prediction functions can be implemented by calling the train, eval, and predict APIs, respectively.
 
 > MindSpore does not support the use of multiple threads for training, inference, and prediction functions.
 
