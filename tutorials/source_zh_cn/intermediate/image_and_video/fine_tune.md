@@ -211,7 +211,7 @@ def create_new_dataset(image_dir, batch_size=config.batch_size, is_training=True
 
 ## 定义模型
 
-Mask R-CNN网络可以完成图片中实例的分类、定位和分割，教程中的网络实现部分位于`FineTune/src/maskrcnn`文件夹下，用户可以打开代码查看。下面我们先介绍一些Mask R-CNN的基本信息。
+Mask R-CNN网络可以完成图片中实例的分类、定位和分割，教程中的网络实现部分位于`/FineTune/src/maskrcnn`文件夹下，用户可以打开代码查看。下面我们先介绍一些Mask R-CNN的基本信息。
 
 Mask R-CNN包括三个主要的子网络：
 
@@ -221,17 +221,31 @@ Mask R-CNN包括三个主要的子网络：
 
 - backbone网络:
 
-  Mask R-CNN的骨干网，主要实现图像的特征提取，这里包括ResNet与FPN(Feature Pyramid Network，图像特征金字塔)。ResNet通过加入残差模块来避免网络层数太多时带来的退化问题，FPN保留卷积过程中的阶段性结果，解决小物体识别困难的问题。ResNet结合FPN生成的特征图可用作后续两个模型的输入。
+  Mask R-CNN的骨干网，主要实现图像的特征提取，这里包括ResNet与FPN(Feature Pyramid Network，图像特征金字塔)。ResNet通过加入残差模块来避免网络层数太多时带来的退化问题，FPN保留卷积过程中的阶段性结果，解决小物体识别困难的问题。FPN的思想是，保留卷积过程中不同阶段的输出结果，同时进行训练，这样，既能在较为抽象的特征中识别较大物体，也能够在细节较多的特征中对小物体进行有效的识别，对不同层次的语义特征都能够进行有效的利用。
+
+ResNet在卷积处理的过程中，定义了不同的stage，每个stage输出不同尺寸的特征图，而这种结构恰好可以用来生成FPN，这两种模型的组合如下图所示：
+
+![FPN](./images/maskrcnn_fpn.png)
 
 - RPN网络：
 
-  RPN(region proposal network)主要用于生成Proposal，即带有前景、背景、包围框信息的区域。在backbone生成特征图之后，PRN会对特征图上的像素生成Anchor，由Anchor与Ground Truth Box的重叠程度可以判断区域内的图像是前景还是背景。训练之后，也可以由多个Anchor组合得到与Ground Truth box最相配的区域，即RoI(Region of Interest)。由RoI生成head网络所需要的数据：RoI中物体的分类，RoI与Ground Truth box的偏移量，RoI的mask信息。我们将带有这些信息的RoI称为Proposal，并将其输入到RoI Align层，经过池化操作之后，就得到了head网络的训练数据。
+  RPN(region proposal network)主要用于生成Proposal，即带有前景、背景、包围框信息的区域。在backbone生成特征图之后，PRN会对特征图上的像素生成Anchor，然后我们需要对Anchor进行处理，生成可以训练的数据，包括两个部分：Anchor是前景还是背景、Anchor的包围框修正信息。
 
   ![Anchor](./images/maskrcnn_anchor.png)
 
+  由Anchor与Ground Truth Box的重叠程度可以判断区域内的图像是前景（正样本）还是背景（负样本）。针对正样本，我们需要对其进行包围框的回归，得到Anchor的修正信息。训练过程如图所示，其中分类问题使用交叉熵损失函数训练，回归问题使用SmoothL1损失函数进行训练。这样，通过对Anchor的训练，我们就得到了初步的Anchor分类和回归模型。
+
+  ![Anchor](./images/maskrcnn_anchor_train.png)
+
+  训练之后，也可以由多个Anchor组合得到与Ground Truth box最相配的区域，即RoI(Region of Interest)。由RoI生成head网络所需要的数据：RoI中物体的分类，RoI与Ground Truth box的偏移量，RoI的mask信息。我们将带有这些信息的RoI称为Proposal，并将其输入到RoI Align层。Mask R-CNN中，RoI Align使用双线性差值算法减缓精度损失，将Proposal和特征图池化为固定的尺寸。经过池化操作之后，就得到了head网络的训练数据。
+
 - head网络：
 
-  head网络输出物体的分类信息、定位信息和遮罩mask，实现图像分类、图像定位和图像分割。
+  在分类与回归分支中，head的输入数据首先经过两层卷积网络，然后输入到两个全连接层，再分别输入到softmax和线性回归激活层。其中softmax层使用交叉熵损失函数训练，线性回归使用SmoothL1损失函数训练。这与RPN中Anchor的训练是一致的。
+
+  在mask分支中，mask信息经历conv、BatchNorm、ReLU、反卷积操作，再通过sigmoid激活函数判断像素位置是否属于遮罩，完成输出。
+
+  head网络最终输出物体的分类信息、定位信息和遮罩mask，实现图像分类、图像定位和图像分割。
 
 整体上，Mask R-CNN通过backbone网络、RPN网络、head网络依次实现特征提取、Proposal生成、mask生成，最终完成图像分割的目的。
 
