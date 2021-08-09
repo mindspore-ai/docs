@@ -1129,7 +1129,7 @@ ret = grad_net(input_x, input_y, input_z)
 
 ### 网络实例类型
 
-- 带[@ms_function](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.html#mindspore.ms_function)装饰器的普通Python函数。
+- 带[@ms_function](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.ms_function.html)装饰器的普通Python函数。
 
 - 继承自[nn.Cell](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Cell.html)的Cell子类。
 

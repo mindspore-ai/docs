@@ -1,13 +1,16 @@
 mindspore
 =========
 
+DataType
+--------
+
 .. class:: mindspore.dtype
   
   Create a data type object of MindSpore.
   
   The actual path of ``dtype`` is ``/mindspore/common/dtype.py``.
   Run the following command to import the package:
-
+  
   .. code-block::
   
       from mindspore import dtype as mstype
@@ -95,6 +98,137 @@ mindspore
             ├─── type_none
             ├─── symbolic_key
             └─── env_type
-  
-.. automodule:: mindspore
-    :members:
+
+
+.. autosummary::
+    :toctree: mindspore
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.dtype_to_nptype
+    mindspore.issubclass_
+    mindspore.dtype_to_pytype
+    mindspore.pytype_to_dtype
+    mindspore.get_py_obj_dtype
+
+Tensor
+------
+
+.. autosummary::
+    :toctree: mindspore
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.Tensor
+    mindspore.RowTensor
+    mindspore.SparseTensor
+
+Parameter
+---------
+
+.. autosummary::
+    :toctree: mindspore
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.Parameter
+    mindspore.ParameterTuple
+
+Seed
+----
+
+.. autosummary::
+    :toctree: mindspore
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.set_seed
+    mindspore.get_seed
+
+
+Monad
+-----
+
+.. list-table::
+   :widths: 50 50
+   :header-rows: 0
+
+   * - :class:`mindspore.U`
+     - Universe monad default value.
+   * - :class:`mindspore.IO`
+     - IO monad default value.
+
+Model
+-----
+
+.. autosummary::
+    :toctree: mindspore
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.Model
+
+DatasetHelper
+-------------
+
+.. autosummary::
+    :toctree: mindspore
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.DatasetHelper
+    mindspore.connect_network_with_dataset
+
+LossScaleManager
+-------------------
+
+.. autosummary::
+    :toctree: mindspore
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.LossScaleManager
+    mindspore.FixedLossScaleManager
+    mindspore.DynamicLossScaleManager
+
+Serialization
+-------------
+
+.. autosummary::
+    :toctree: mindspore
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.save_checkpoint
+    mindspore.load_checkpoint
+    mindspore.load_param_into_net
+    mindspore.export
+    mindspore.load
+    mindspore.parse_print
+    mindspore.build_searched_strategy
+    mindspore.merge_sliced_parameter
+    mindspore.load_distributed_checkpoint
+    mindspore.async_ckpt_thread_status
+
+Log
+---
+
+.. autosummary::
+    :toctree: mindspore
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.get_level
+    mindspore.get_log_config
+
+Others
+------
+
+.. autosummary::
+    :toctree: mindspore
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.build_train_network
+    mindspore.ms_function
+    mindspore.run_check

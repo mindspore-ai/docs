@@ -189,7 +189,7 @@ x_strides: (8, 4)
 
 ### Methods
 
-Tensor methods include `len`, `str`, `repr`, `hash`, `all`, `any`, `asnumpy` and many other functions. Numpy-like ndarray methods are also provided. For a full description of all tensor methods, please see [API: mindspore.Tensor](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.html#mindspore.Tensor). The following is a brief introduction to some of the tensor methods.
+Tensor methods include `len`, `str`, `repr`, `hash`, `all`, `any`, `asnumpy` and many other functions. Numpy-like ndarray methods are also provided. For a full description of all tensor methods, please see [API: mindspore.Tensor](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore/mindspore.Tensor.html). The following is a brief introduction to some of the tensor methods.
 
 - `len()`: returns the length of the tensor.
 - `str()`: returns the string representation of the tensor.
