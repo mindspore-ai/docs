@@ -145,19 +145,6 @@ Seed
     mindspore.set_seed
     mindspore.get_seed
 
-
-Monad
------
-
-.. list-table::
-   :widths: 10 90
-   :header-rows: 0
-
-   * - :class:`mindspore.U`
-     - Universe monad default value.
-   * - :class:`mindspore.IO`
-     - IO monad default value.
-
 Model
 -----
 
