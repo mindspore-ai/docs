@@ -22,7 +22,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/quick_start/train_lenet.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-> 注意：MindSpore已经统一端边云推理API，如您想继续使用MindSpore Lite独立API进行端侧推理，可以参考[此文档](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/quick_start/train_lenet.html)。
+> 注意：MindSpore已经统一端边云推理API，如您想继续使用MindSpore Lite独立API进行端侧训练，可以参考[此文档](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/quick_start/train_lenet.html)。
 
 ## 概述
 
