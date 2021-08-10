@@ -1,13 +1,15 @@
 .. MindSpore documentation master file, created by
-   sphinx-quickstart on Thu Mar 24 11:00:00 2020.
+   sphinx-quickstart on Thu Mar 24 11:00:00 2021.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-快速入门MindSpore
-===================
+MindSpore教程
+=====================
 
 .. toctree::
+   :glob:
    :maxdepth: 1
+   :caption: 入门教程
 
    introduction
    quick_start
@@ -18,3 +20,15 @@
    optimization
    save_load_model
    inference
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 进阶教程
+
+   custom
+   image_and_video
+   text
+   intermediate/pynative_mode_and_graph_mode
+   distributed_training
+   inference_and_deploy
