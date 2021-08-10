@@ -6,10 +6,9 @@
 
 - [Using C++ Interface to Perform Training](#using-c-interface-to-perform-training)
     - [Overview](#overview)
-    - [Session Creation](#session-creation)
+    - [Model Creating Loading and Building](#model-creating-loading-and-building)
         - [Reading Models](#reading-models)
         - [Creating Contexts](#creating-contexts)
-        - [Creating Sessions](#creating-sessions)
         - [Creating TrainLoop](#creating-trainloop)
         - [Example](#example-1)
     - [Data Processing](#data-processing)
@@ -60,94 +59,94 @@ In this diagram the drawn objects represents:
 - `Train`: The member function of the class `TrainLoop`, which receives the vector of off-the-shelf  or user self-defined callbacks objects.
 - `Callbacks`: Execute the off-the-shelf or user self-defined callback functions.
 
-## Session Creation
+## Model Creating Loading and Building
 
-[TrainSession](https://www.mindspore.cn/lite/api/en/master/api_cpp/session.html#trainsession) is the main entrance of the MindSpore Lite framework. We can compile and execute graph models through `TrainSession` class.
+[Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#model) is the main entrance of the MindSpore Lite framework. We can compile and execute graph models through `Model` class.
 
 ### Reading Models
 
-A Model file is flatbuffer-serialized file which was converted using the [MindSpore Model Converter Tool](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html). These files have a `.ms` extension. Before model training and/or inference, the model needs to be loaded from the file system and parsed. Related operations are mainly implemented in the [`TrainModel`](https://www.mindspore.cn/lite/api/en/master/api_cpp/lite.html#trainmodel) class which holds the model data such as the network structure, tensors sizes, weights data and operators attributes.
+A Model file is flatbuffer-serialized file which was converted using the [MindSpore Model Converter Tool](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Serialization.html). These files have a `.ms` extension. Before model training and/or inference, the model needs to be loaded from the file system and parsed. Related operations are mainly implemented in the [`Serialization`](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html) class which holds the model data such as the network structure, weights data and operators attributes.
 
-> In MindSpore Lite the user is not allowed to access the training model object, since it is being used by `TrainSession` during training. All interactions with training model object including instantiation, compilation and deletion are handled within `TrainSession`.
+> In MindSpore Lite the user is not allowed to access the training model object, since it is being used by `Model` during training. All interactions with training model object including instantiation, compilation and deletion are handled within `Model`.
 
 ### Creating Contexts
 
-[`Context`](https://www.mindspore.cn/lite/api/en/master/api_cpp/lite.html#context) is a MindSpore Lite Object which contains basic configuration parameters required by the sessions to guide graph compilation and execution. It allows to define the device to run the model, e.g., CPU or GPU, the number of threads used for training and inference and the memory allocation scheme.
+[`Context`](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html) is a MindSpore Lite Object which contains basic configuration parameters required by the sessions to guide graph compilation and execution. It allows to define the device to run the model, e.g., CPU or GPU, the number of threads used for training and inference and the memory allocation scheme.
 Currently, only single threaded CPU device is supported by `TrainSession`.
 
-Once the `TrainSession` is created with the `Context` object, it is no longer needed and can be deleted.
-
-### Creating Sessions
-
-There are two methods to create a session:
-
-- The first API allows MindSpore Lite to access the filesystem and read the model from a file, parse it, compile it and produce a valid TrainSession object. The `Context` described above is passed to the TrainSession as a basic configuration. The static function has the following signature `TrainSession *TrainSession::CreateSession(const string& filename, const Context *context, bool mode)`, where `filename` is the model's file name, context is the `Context` and mode is the initial training mode of the session (Train/Eval). On Success, a fully compiled and ready to use `TrainSession` instance is returned by the function, this instance must be freed using `delete` on the termination of the process.
-
-- The second API is similar to the first but uses an in-memory copy of the flatbuffer in order to create the `TrainSession`. The static function has the following signature `TrainSession *TrainSession::CreateSession(const char* model_buf, size_t size, const Context *context, bool train_mode = false)`, where `model_buf` is a pointer to the in-memory buffer and `size` is its length. On Success, a fully compiled and ready-to-use `TrainSession` instance is returned by the function. If needed, the buf pointer can be freed immediately. The returned `TrainSession` instance must be freed using `delete` when no longer needed.
+Once the `Model` is created with the `Context` object, it is no longer needed and can be deleted.
 
 ### Creating TrainLoop
 
-User can create the object of the class `TrainLoop` by using the function `CreateTrainLoop` to call MindData APIs. We recommend the function `CreateTrainLoop`. The member function `CreateTrainLoop` of the class `TrainLoop` whose prototype is as follows:
+User can create the object of the class `Model` by using the function `Build` to call MindData APIs. The member function `Build` of the class `Model` whose prototype is as follows:
 
-  `TrainLoop *CreateTrainLoop(session::TrainSession *train_session, lite::Context *context, int batch_size = -1)`
+  `Status Build(GraphCell graph, const std::shared_ptr<Context> &model_context = nullptr, const std::shared_ptr<TrainCfg> &train_cfg = nullptr);`
 
-The following codes show ho to create a training session based on the multi-threads CPU by using the class `TrainLoop`.
+The following codes show ho to create a training session based on the multi-threads CPU by using the class `Model`.
 
 ```cpp
-#include "include/train_session.h"
-#include "include/context.h"
-
 int CreateSession() {
-    mindspore::lite::Context context;
-    context.device_list_[0].device_info_.cpu_device_info_.cpu_bind_mode_ = mindspore::lite::NO_BIND;
-    context.device_list_[0].device_info_.cpu_device_info_.enable_float16_ = false;
-    context.device_list_[0].device_type_ = mindspore::lite::DT_CPU;
-    context.thread_num_ = 2;
-    // Create Session
-    session_ = mindspore::session::TrainSession::CreateSession(ms_file_, &context);
-    MS_ASSERT(nullptr != session_);
-    loop_ = mindspore::session::TrainLoop::CreateTrainLoop(session_, &context);
-    acc_metrics_ = std::shared_ptr<AccuracyMetrics>(new AccuracyMetrics);
-    loop_->Init({acc_metrics_.get()});
-    return 0;
+  auto context = std::make_shared<mindspore::Context>();
+  auto cpu_context = std::make_shared<mindspore::CPUDeviceInfo>();
+  cpu_context->SetEnableFP16(enable_fp16_);
+  context->MutableDeviceInfo().push_back(cpu_context);
+
+  graph_ = new mindspore::Graph();
+  auto status = mindspore::Serialization::Load(ms_file_, mindspore::kFlatBuffer, graph_);
+  if (status != mindspore::kSuccess) {
+    std::cout << "Error " << status << " during serialization of graph " << ms_file_;
+    MS_ASSERT(status != mindspore::kSuccess);
+  }
+
+  auto cfg = std::make_shared<mindspore::TrainCfg>();
+  if (enable_fp16_) {
+    cfg.get()->optimization_level_ = mindspore::kO2;
+  }
+
+  model_ = new mindspore::Model();
+  status = model_->Build(mindspore::GraphCell(*graph_), context, cfg);
+  if (status != mindspore::kSuccess) {
+    std::cout << "Error " << status << " during build of model " << ms_file_;
+    MS_ASSERT(status != mindspore::kSuccess);
+  }
+  return;
 }
 ```
 
-> Refer [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet/src/net_runner.cc) for more details.
+> Refer [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/unified_api/src/net_runner.cc) for more details.
 
 ## Data Processing
 
 ### Data Reading Pipeline
 
-The class `Dataset` and its extension class (e.g., `MnistDataset` and `AlbumDataset`) have provided abundant data procssing API. Users only need to specify the dataset path and set the data processing operations for the model training by using the shared pointers from the related API. Reading pipeline will decode and load dataset during model training. Refer [Dataset](https://www.mindspore.cn/lite/api/en/master/api_cpp/namespace/mindspore_dataset.html) for more detials.
+The class `Dataset` and its extension class (e.g., `MnistDataset` and `AlbumDataset`) have provided abundant data procssing API. Users only need to specify the dataset path and set the data processing operations for the model training by using the shared pointers from the related API. Reading pipeline will decode and load dataset during model training. Refer [Dataset](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore_dataset.html) for more detials.
 
 ### Data Preprocessing Pipeline
 
-The class `TensorTransform` has provided abundant data preprocssing API and has the same function as the cloud side, (e.g., Dimension reshaping, data type casting and one-hot coding). The users only need to create the objects of the extension classes of `TensorTransform` and transfer them to the function `Map`. Refer [Vision](https://www.mindspore.cn/lite/api/en/master/api_cpp/namespace/mindspore_dataset_vision.html) for more detials.
+The class `TensorTransform` has provided abundant data preprocssing API and has the same function as the cloud side, (e.g., Dimension reshaping, data type casting and one-hot coding). The users only need to create the objects of the extension classes of `TensorTransform` and transfer them to the function `Map`. Refer [Vision](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore_dataset_vision.html) for more detials.
 
 ### Example
 
 The following codes show how to read and process dataset by using the class `Dataset` and `TensorTransform`:
 
 ```cpp
-#include "include/datasets.h"
-#include "include/context.h"
-
 int DataSetPipeline() {
-    train_ds_ = Mnist(data_dir_ + "/train", "all");
-    TypeCast typecast_f("float32");
+    train_ds_ = Mnist(data_dir_ + "/train", "all", std::make_shared<SequentialSampler>(0, 0));
+
+    TypeCast typecast_f(mindspore::DataType::kNumberTypeFloat32);
     Resize resize({h_, w_});
     train_ds_ = train_ds_->Map({&resize, &typecast_f}, {"image"});
-    TypeCast typecast("int32");
+
+    TypeCast typecast(mindspore::DataType::kNumberTypeInt32);
     train_ds_ = train_ds_->Map({&typecast}, {"label"});
-    train_ds_ = train_ds_->Shuffle(2);
+
     train_ds_ = train_ds_->Batch(batch_size_, true);
     if (verbose_) {
-      std::cout << "DatasetSize is " << train_ds_->GetDatasetSize() << std::endl;
+    std::cout << "DatasetSize is " << train_ds_->GetDatasetSize() << std::endl;
     }
     if (train_ds_->GetDatasetSize() == 0) {
-      std::cout << "No relevant data was found in " << data_dir_ << std::endl;
-      MS_ASSERT(train_ds_->GetDatasetSize() != 0);
+    std::cout << "No relevant data was found in " << data_dir_ << std::endl;
+    MS_ASSERT(train_ds_->GetDatasetSize() != 0);
     }
     return 0;
 }
@@ -155,42 +154,52 @@ int DataSetPipeline() {
 
 ## Execute Training
 
-MindSpore has provided some off-the-shelf callback classes for users (e.g., `accuracy_metrics`, `accuracy_monitor`, `ckpt_saver`, `classification_train_accuracy`, `loss_monitor` and `metrics`). The function `Train` and `Eval` of the class `TrainLoop` can set the model to the training or evaluation mode separately, specify the methods of the data processing and monitor the session status.
+MindSpore has provided some off-the-shelf callback classes for users (e.g., `AccuracyMetrics`, `CkptSaver`, `TrainAccuracy`, `LossMonitor` and `Metrics`). The function `Train` and `Evaluate` of the class `Model` can set the model to the training or evaluation mode separately, specify the methods of the data processing and monitor the session status.
 
 ### Training
 
-Create the objects of the off-the-shelf functions and call the Train function of the class TrainLoop to training:
+Create the objects of the off-the-shelf functions and call the Train function of the class Model to training:
 
 ```cpp
 int Train() {
-  struct mindspore::lite::StepLRLambda step_lr_lambda(1, 0.8);
-  mindspore::lite::LRScheduler step_lr_sched(mindspore::lite::StepLRLambda, static_cast<void *>(&step_lr_lambda), 1);
-  mindspore::lite::LossMonitor lm(100);
-  mindspore::lite::ClassificationTrainAccuracyMonitor am(1);
-  mindspore::lite::CkptSaver cs(1000, std::string("lenet"));
-  Rescaler rescale(255.0);
-  loop_->Train(epochs_, train_ds_.get(), std::vector<TrainLoopCallBack *>{&rescale, &lm, &cs, &am, &step_lr_sched});
+  mindspore::LossMonitor lm(kPrintTimes);
+  mindspore::TrainAccuracy am(1);
+
+  mindspore::CkptSaver cs(kSaveEpochs, std::string("lenet"));
+  Rescaler rescale(kScalePoint);
+  Measurement measure(epochs_);
+
+  if (virtual_batch_ > 0) {
+    model_->Train(epochs_, train_ds_, {&rescale, &lm, &cs, &measure});
+  } else {
+    struct mindspore::StepLRLambda step_lr_lambda(1, kGammaFactor);
+    mindspore::LRScheduler step_lr_sched(mindspore::StepLRLambda, static_cast<void *>(&step_lr_lambda), 1);
+    model_->Train(epochs_, train_ds_, {&rescale, &lm, &cs, &am, &step_lr_sched, &measure});
+  }
+
   return 0;
 }
 ```
 
 ### Evaluating
 
-Also  call the `Eval` function of the class `TrainLoop` to evaluate model.
+Also  call the `Evaluate` function of the class `Model` to evaluate model.
 
 ```cpp
-float Eval() {
-    test_ds_ = Mnist(data_dir_ + "/test", "all");
-    TypeCast typecast_f("float32");
-    Resize resize({h_, w_});
-    test_ds_ = test_ds_->Map({&resize, &typecast_f}, {"image"});
-    TypeCast typecast("int32");
-    test_ds_ = test_ds_->Map({&typecast}, {"label"});
-    test_ds_ = test_ds_->Batch(batch_size_, true);
-    Rescaler rescale(255.0);
-    loop_->Eval(test_ds_.get(), std::vector<TrainLoopCallBack *>{&rescale});
-    std::cout << "Eval Accuracy is " << acc_metrics_->Eval() << std::endl;
-    return 0.0;
+float Evaluate() {
+  test_ds_ = Mnist(data_dir_ + "/test", "all");
+  TypeCast typecast_f(mindspore::DataType::kNumberTypeFloat32);
+  Resize resize({h_, w_});
+  test_ds_ = test_ds_->Map({&resize, &typecast_f}, {"image"});
+
+  TypeCast typecast(mindspore::DataType::kNumberTypeInt32);
+  test_ds_ = test_ds_->Map({&typecast}, {"label"});
+  test_ds_ = test_ds_->Batch(batch_size_, true);
+
+  model_->Evaluate(test_ds_, {});
+  std::cout << "Accuracy is " << acc_metrics_->Eval() << std::endl;
+
+  return 0.0;
 }
 ```
 
@@ -205,30 +214,30 @@ float Eval() {
 
 ### Session Mode Switching
 
-The functions `Train` and `Eval`  in the class `TrainSession` are called by the functions `Train` and `Eval` in the class `TrainLoop` . User can switch session mode by calling the two functions directly, the prototypes are as follows:
+The functions `Train` and `Evaluate`  in the class `Model` are called by the functions `Train` and `Evaluate` in the class `Model` . User can switch session mode by calling the two functions directly, the prototypes are as follows:
 
 ```cpp
 /// \brief Set model to train mode
 /// \return STATUS as an error code of compiling graph, STATUS is defined in errorcode.h
-virtual int Train() = 0;
+Status Train(int epochs, std::shared_ptr<dataset::Dataset> ds, std::vector<TrainCallBack *> cbs);
 
-/// \brief Set model to eval mode
+/// \brief Set model to Evaluate mode
 /// \return STATUS as an error code of compiling graph, STATUS is defined in errorcode.h
-virtual int Eval() = 0;
+Status Evaluate(std::shared_ptr<dataset::Dataset> ds, std::vector<TrainCallBack *> cbs);
 ```
 
-The following sample code shows how to set a `TrainSession` object to train mode.
+The following sample code shows how to set a `Model` object to train mode.
 
 ```cpp
-// Assuming session is a valid instance of TrainSession
-auto ret = session->Train();
+auto ret = model->Train();
 if (ret != RET_OK) {
-    std::cerr << "Could not set session to train mode" << std::endl;
+    std::cerr << "Could not set to train mode" << std::endl;
     return -1;
 }
-auto ret = session->Eval();
+
+auto ret = model->Evaluate();
 if (ret != RET_OK) {
-    std::cerr << "Could not set session to eval mode" << std::endl;
+    std::cerr << "Could not set to evaluate mode" << std::endl;
     return -1;
 }
 ```
@@ -472,7 +481,7 @@ Note that the vectors or map returned by the `GetOutputsByNodeName`, `GetOutputB
 
 #### Execute Session
 
-Whether a `TrainSession` object is in the training mode or in eval mode, the way to make it execute, i.e., to run the data through the graph, is to call the `RunGraph` method.
+Whether a `Model` object is in the training mode or in eval mode, the way to make it execute, i.e., to run the data through the graph, is to call the `RunGraph` method.
 
 ```cpp
 /// \brief Run session with callbacks.
@@ -541,7 +550,7 @@ if (ret != RET_OK) {
 
 ### Saving Model
 
-The function `CkptSaver` calls the function `Export` actually. The user can also call `Export` directly to save the trained model.
+The function `Serialization` calls the function `ExportModel` actually. The user can also call `ExportModel` directly to save the trained model.
 
 ```cpp
   /// \brief Save the trained model into a flatbuffer file

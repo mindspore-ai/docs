@@ -6,10 +6,9 @@
 
 - [使用C++接口执行训练](#使用c接口执行训练)
     - [概述](#概述)
-    - [创建会话](#创建会话)
+    - [模型创建加载与编译](#模型创建加载与编译)
         - [读取模型](#读取模型)
         - [创建上下文](#创建上下文)
-        - [创建会话](#创建会话)
         - [创建迭代训练](#创建迭代训练)
         - [使用示例](#使用示例-1)
     - [数据处理](#数据处理)
@@ -62,106 +61,95 @@
 
 MindSpore Lite架构引入了`MindData`数据处理接口。首先，`MindData`简化了训练流程，创建会话、加载数据、预处理、训练和保存模型一个函数搞定；其次，它可在训练中加载并处理数据，这极大地降低了移动端的资源消耗。
 
-用户依次执行上图中`User`列的函数即可启动模型训练。首先调用`CreateSession`函数创建训练会话对象，并创建`TrainLoop`类对象；然后依次执行`InitDataset`、`Train`、`Eval`即可完成训练。`ToD`和`MindData`列为模型训练中调用MindSpore Lite底层函数。
+用户依次执行上图中`User`列的函数即可启动模型训练。首先调用`Model`实现模型创建、加载与编译，并创建`TrainLoop`类对象；然后依次执行`InitDataset`、`Train`、`Eval`即可完成训练。`ToD`和`MindData`列为模型训练中调用MindSpore Lite底层函数。
 
 > 更多C++API说明，请参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/master/index.html)。
 
-## 创建会话
+## 模型创建加载与编译
 
-MindSpore Lite训练框架中的[TrainSession](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/session.html#trainsession)是训练的主入口，通过`TrainSession`我们可以进行编译和运行图模型。
+MindSpore Lite训练框架中的[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)是训练的主入口，通过`Model`我们可以实现模型加载、模型编译和模型执行。
 
 ### 读取模型
 
-模型文件是一个flatbuffer序列化文件，它通过MindSpore模型转换工具得到，其文件扩展名为`.ms`。在模型训练或推理之前，模型需要从文件系统中加载并解析。相关操作主要在[`TrainModel`](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/lite.html#trainmodel)类中实现，该类具有例如网络结构、张量大小、权重数据和操作属性等模型数据。
-
-> 在MindSpore Lite中训练模型将被`TrainSession`占用，所以你不能直接改变它。所有与训练模型的交互操作，包括实例化、编译和删除操作将在`TrainSession`中处理。
+模型文件是一个flatbuffer序列化文件，它通过MindSpore模型转换工具得到，其文件扩展名为`.ms`。在模型训练或推理之前，模型需要从文件系统中加载。相关操作主要在[`Serialization`](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#serialization)类中实现，该类实现了模型文件读写的方法。
 
 ### 创建上下文
 
-[`Context`](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/lite.html#context)是一个MindSpore Lite对象，它包含了`TrainSession`用来加载模型文件、引导图编译和执行的基础配置参数。它能够让你指定模型运行的设备类型（例如CPU或GPU），模型训练和推理时使用的线程数量，以及内存分配策略。目前`TrainSession`只支持单线程的CPU设备。
+[`Context`](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_Context.html)是一个MindSpore Lite对象，它包含了`Model`用来加载模型文件、引导图编译和执行的基础配置参数。它能够让你指定模型运行的设备类型（例如CPU或GPU），模型训练和推理时使用的线程数量，以及内存分配策略。目前`Model`只支持单线程的CPU设备。
 
-如果用户通过`new`创建`Context`，不再需要时，需要用户通过`delete`释放。一般在`TrainSession`对象创建完成后，`Context`对象即可释放。
-
-### 创建会话
-
-有两种方式可以创建会话：
-
-- 第一种直接读取文件系统上的训练模型文件，然后反序列化，编译并生成有效的`TrainSession`对象。上述`Context`将作为一个基本配置传递给`TrainSession`。该静态函数原型如下：
-
-  `TrainSession *TrainSession::CreateSession(const string &filename, const Context *context, bool mode)`
-
-  其中`filename`是模型文件名，`context`是指向Context的对象指针，`mode`表示当前会话是否为训练模式。成功创建后，函数返回一个已全部编译并可使用的`TrainSession`，该实例必须在当前会话结束前使用`delete`释放。
-
-- 第二种使用flatbuffer的内存拷贝创建`TrainSession`。静态方法如下：
-
-  `TrainSession *TrainSession::CreateSession(const char *model_buf, size_t size, lite::Context *context, bool train_mode = false)`
-
-  其中`model_buf`是一个指向内存缓冲区的常量指针，`size`是缓冲区长度。成功创建后，函数返回一个完整编译并且可以使用的`TrainSession`实例。`model_buf`指针在函数调用完成后，可以被立即释放以节省资源。`train_mode`为是否将模型设置为训练模式。一旦`TrainSession`实例不再被使用，它必须使用`delete`释放。
+如果用户通过`new`创建`Context`，不再需要时，需要用户通过`delete`释放。一般在`Model`对象创建完成后，`Context`对象即可释放。
 
 ### 创建迭代训练
 
-用户可通过`CreateTrainLoop`函数创建的`TrainLoop`类对象来调用`MindData`接口函数，所以我们更推荐`CreateTrainLoop`函数。`CreateTrainLoop`原型如下：
+用户可通过`Model`的`Build`方法将模型编译至可运行状态。`Build`原型如下：
 
-  `TrainLoop *CreateTrainLoop(session::TrainSession *train_session, lite::Context *context, int batch_size = -1)`
+  `Status Build(GraphCell graph, const std::shared_ptr<Context> &model_context = nullptr, const std::shared_ptr<TrainCfg> &train_cfg = nullptr);`
 
-下面示例代码演示了如何使用`TrainLoop`类在CPU多线程上创建训练会话：
+下面示例代码演示了如何使用`Model`类在CPU多线程上创建训练会话：
 
 ```cpp
-#include "include/train_session.h"
-#include "include/context.h"
-
 int CreateSession() {
-    mindspore::lite::Context context;
-    context.device_list_[0].device_info_.cpu_device_info_.cpu_bind_mode_ = mindspore::lite::NO_BIND;
-    context.device_list_[0].device_info_.cpu_device_info_.enable_float16_ = false;
-    context.device_list_[0].device_type_ = mindspore::lite::DT_CPU;
-    context.thread_num_ = 2;
-    // Create Session
-    session_ = mindspore::session::TrainSession::CreateSession(ms_file_, &context);
-    MS_ASSERT(nullptr != session_);
-    loop_ = mindspore::session::TrainLoop::CreateTrainLoop(session_, &context);
-    acc_metrics_ = std::shared_ptr<AccuracyMetrics>(new AccuracyMetrics);
-    loop_->Init({acc_metrics_.get()});
-    return 0;
+  auto context = std::make_shared<mindspore::Context>();
+  auto cpu_context = std::make_shared<mindspore::CPUDeviceInfo>();
+  cpu_context->SetEnableFP16(enable_fp16_);
+  context->MutableDeviceInfo().push_back(cpu_context);
+
+  graph_ = new mindspore::Graph();
+  auto status = mindspore::Serialization::Load(ms_file_, mindspore::kFlatBuffer, graph_);
+  if (status != mindspore::kSuccess) {
+    std::cout << "Error " << status << " during serialization of graph " << ms_file_;
+    MS_ASSERT(status != mindspore::kSuccess);
+  }
+
+  auto cfg = std::make_shared<mindspore::TrainCfg>();
+  if (enable_fp16_) {
+    cfg.get()->optimization_level_ = mindspore::kO2;
+  }
+
+  model_ = new mindspore::Model();
+  status = model_->Build(mindspore::GraphCell(*graph_), context, cfg);
+  if (status != mindspore::kSuccess) {
+    std::cout << "Error " << status << " during build of model " << ms_file_;
+    MS_ASSERT(status != mindspore::kSuccess);
+  }
+  return;
 }
 ```
 
-> 参见[训练一个LeNet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet/src/net_runner.cc)获取完整代码。
+> 参见[训练一个LeNet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/unified_api/src/net_runner.cc)获取完整代码。
 
 ## 数据处理
 
 ### 数据输入流
 
-`Dataset`类及其扩展类（例如`MnistDataset`和`AlbumDataset`）为用户提供了丰富的数据处理API，用户只需要指定数据集的路径，通过接口函数返回对应类型的共享指针来设定训练中执行的数据处理操作，输入流会在训练过程中加载并解析数据。API说明详见[Dataset](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/dataset.html)。
+`Dataset`类及其扩展类（例如`MnistDataset`和`AlbumDataset`）为用户提供了丰富的数据处理API，用户只需要指定数据集的路径，通过接口函数返回对应类型的共享指针来设定训练中执行的数据处理操作，输入流会在训练过程中加载并解析数据。API说明详见[Dataset](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_dataset_Dataset.html)。
 
 ### 数据预处理流
 
-`TensorTransform`类其扩展类（例如`TypeCast`和`OneHot`）为用户提供了丰富的数据预处理API，其功能与云侧Python接口相同，例如维度重塑、数据类型转换和独热编码等，用户只需要创建`TensorTransform`扩展类的对象并传递给Map函数， Map会在训练过程中顺序调用预处理函数处理已加载的数据。API说明详见[Vision](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/vision.html)。
+`TensorTransform`类其扩展类（例如`TypeCast`和`OneHot`）为用户提供了丰富的数据预处理API，其功能与云侧Python接口相同，例如维度重塑、数据类型转换和独热编码等，用户只需要创建`TensorTransform`扩展类的对象并传递给Map函数， Map会在训练过程中顺序调用预处理函数处理已加载的数据。API说明详见[Vision](https://www.mindspore.cn/lite/api/zh-CN/master/generate/namespace_mindspore__dataset__vision.html)。
 
 ### 使用示例
 
 下述代码展示了如何使用`Dataset`类和`TensorTransform`类读取和处理数据：
 
 ```cpp
-#include "include/datasets.h"
-#include "include/context.h"
-#include "include/transforms.h"
-
 int DataSetPipeline() {
-    train_ds_ = Mnist(data_dir_ + "/train", "all");
-    TypeCast typecast_f("float32");
+    train_ds_ = Mnist(data_dir_ + "/train", "all", std::make_shared<SequentialSampler>(0, 0));
+
+    TypeCast typecast_f(mindspore::DataType::kNumberTypeFloat32);
     Resize resize({h_, w_});
     train_ds_ = train_ds_->Map({&resize, &typecast_f}, {"image"});
-    TypeCast typecast("int32");
+
+    TypeCast typecast(mindspore::DataType::kNumberTypeInt32);
     train_ds_ = train_ds_->Map({&typecast}, {"label"});
-    train_ds_ = train_ds_->Shuffle(2);
+
     train_ds_ = train_ds_->Batch(batch_size_, true);
     if (verbose_) {
-      std::cout << "DatasetSize is " << train_ds_->GetDatasetSize() << std::endl;
+    std::cout << "DatasetSize is " << train_ds_->GetDatasetSize() << std::endl;
     }
     if (train_ds_->GetDatasetSize() == 0) {
-      std::cout << "No relevant data was found in " << data_dir_ << std::endl;
-      MS_ASSERT(train_ds_->GetDatasetSize() != 0);
+    std::cout << "No relevant data was found in " << data_dir_ << std::endl;
+    MS_ASSERT(train_ds_->GetDatasetSize() != 0);
     }
     return 0;
 }
@@ -171,42 +159,52 @@ int DataSetPipeline() {
 
 ## 执行训练
 
-MindSpore为用户提供了现有的回调类：`accuracy_metrics`、`accuracy_monitor`、`ckpt_saver`、`classification_train_accuracy`、`loss_monitor`和`metrics`。`TrainLoop`类的`Train`和`Eval`函数分别将模型设置为训练和验证模式，指定数据预处理方法并监测会话状态。
+MindSpore为用户提供了现有的回调类：`AccuracyMetrics`、`CkptSaver`、`TrainAccuracy`、`LossMonitor`和`Metrics`。`Model`类的`Train`和`Evaluate`函数分别将模型设置为训练和验证模式，指定数据预处理方法并监测会话状态。
 
 ### 训练
 
-创建现有回调类对象并调用`TrainLoop`类的`Train`函数进行训练：
+创建现有回调类对象并调用`Model`类的`Train`函数进行训练：
 
 ```cpp
 int Train() {
-  struct mindspore::lite::StepLRLambda step_lr_lambda(1, 0.8);
-  mindspore::lite::LRScheduler step_lr_sched(mindspore::lite::StepLRLambda, static_cast<void *>(&step_lr_lambda), 1);
-  mindspore::lite::LossMonitor lm(100);
-  mindspore::lite::ClassificationTrainAccuracyMonitor am(1);
-  mindspore::lite::CkptSaver cs(1000, std::string("lenet"));
-  Rescaler rescale(255.0);
-  loop_->Train(epochs_, train_ds_.get(), std::vector<TrainLoopCallBack *>{&rescale, &lm, &cs, &am, &step_lr_sched});
+  mindspore::LossMonitor lm(kPrintTimes);
+  mindspore::TrainAccuracy am(1);
+
+  mindspore::CkptSaver cs(kSaveEpochs, std::string("lenet"));
+  Rescaler rescale(kScalePoint);
+  Measurement measure(epochs_);
+
+  if (virtual_batch_ > 0) {
+    model_->Train(epochs_, train_ds_, {&rescale, &lm, &cs, &measure});
+  } else {
+    struct mindspore::StepLRLambda step_lr_lambda(1, kGammaFactor);
+    mindspore::LRScheduler step_lr_sched(mindspore::StepLRLambda, static_cast<void *>(&step_lr_lambda), 1);
+    model_->Train(epochs_, train_ds_, {&rescale, &lm, &cs, &am, &step_lr_sched, &measure});
+  }
+
   return 0;
 }
 ```
 
 ### 推理
 
-同样，我们调用`TrainLoop`类的`Eval`函数进行推理：
+同样，我们调用`Model`类的`Evaluate`函数进行推理：
 
 ```cpp
-float Eval() {
-    test_ds_ = Mnist(data_dir_ + "/test", "all");
-    TypeCast typecast_f("float32");
-    Resize resize({h_, w_});
-    test_ds_ = test_ds_->Map({&resize, &typecast_f}, {"image"});
-    TypeCast typecast("int32");
-    test_ds_ = test_ds_->Map({&typecast}, {"label"});
-    test_ds_ = test_ds_->Batch(batch_size_, true);
-    Rescaler rescale(255.0);
-    loop_->Eval(test_ds_.get(), std::vector<TrainLoopCallBack *>{&rescale});
-    std::cout << "Eval Accuracy is " << acc_metrics_->Eval() << std::endl;
-    return 0.0;
+float Evaluate() {
+  test_ds_ = Mnist(data_dir_ + "/test", "all");
+  TypeCast typecast_f(mindspore::DataType::kNumberTypeFloat32);
+  Resize resize({h_, w_});
+  test_ds_ = test_ds_->Map({&resize, &typecast_f}, {"image"});
+
+  TypeCast typecast(mindspore::DataType::kNumberTypeInt32);
+  test_ds_ = test_ds_->Map({&typecast}, {"label"});
+  test_ds_ = test_ds_->Batch(batch_size_, true);
+
+  model_->Evaluate(test_ds_, {});
+  std::cout << "Accuracy is " << acc_metrics_->Eval() << std::endl;
+
+  return 0.0;
 }
 ```
 
@@ -221,31 +219,30 @@ float Eval() {
 
 ### 会话模式切换
 
-`TrainLoop`类中的`Train`和`Eval`函数实际上调用的是`TrainSession`类中的`Train`和`Eval`函数，用户也可以直接调用`TrainSession`的方法来切换模型训练和验证模式，函数原型如下：
+`Model`类中的`Train`和`Evaluate`的函数原型如下：
 
 ```cpp
 /// \brief Set model to train mode
 /// \return STATUS as an error code of compiling graph, STATUS is defined in errorcode.h
-virtual int Train() = 0;
+Status Train(int epochs, std::shared_ptr<dataset::Dataset> ds, std::vector<TrainCallBack *> cbs);
 
-/// \brief Set model to eval mode
+/// \brief Set model to Evaluate mode
 /// \return STATUS as an error code of compiling graph, STATUS is defined in errorcode.h
-virtual int Eval() = 0;
+Status Evaluate(std::shared_ptr<dataset::Dataset> ds, std::vector<TrainCallBack *> cbs);
 ```
 
 下述代码展示了如何将一个当前训练会话设置为训练或验证模式：
 
 ```cpp
-// Assuming session is a valid instance of TrainSession
-auto ret = session->Train();
+auto ret = model->Train();
 if (ret != RET_OK) {
-    std::cerr << "Could not set session to train mode" << std::endl;
+    std::cerr << "Could not set to train mode" << std::endl;
     return -1;
 }
 
-auto ret = session->Eval();
+auto ret = model->Evaluate();
 if (ret != RET_OK) {
-    std::cerr << "Could not set session to eval mode" << std::endl;
+    std::cerr << "Could not set to evaluate mode" << std::endl;
     return -1;
 }
 ```
@@ -254,7 +251,7 @@ if (ret != RET_OK) {
 
 在图执行之前，无论执行训练或推理，输入数据必须载入模型的输入张量。MindSpore Lite提供了以下函数来获取模型的输入张量：
 
-1. 使用[`GetInputsByTensorName`](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/session.html#getinputsbytensorname)方法，获取连接到基于张量名称的模型输入节点模型输入张量。
+1. 使用[`GetInputByTensorName`](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getinputbytensorname)方法，获取连接到基于张量名称的模型输入节点模型输入张量。
 
     ```cpp
     /// \brief  Get input MindSpore Lite MSTensors of model by tensor    name.
@@ -265,7 +262,7 @@ if (ret != RET_OK) {
     virtual mindspore::tensor::MSTensor *GetInputsByTensorName(const std::string &tensor_name) const = 0;
     ```
 
-2. 使用[`GetInputs`](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/session.html#getinputs)方法，直接获取所有模型输入张量的向量。
+2. 使用[`GetInputs`](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getinputs)方法，直接获取所有模型输入张量的向量。
 
     ```cpp
     /// \brief  Get input MindSpore Lite MSTensors of model.
@@ -278,7 +275,7 @@ if (ret != RET_OK) {
 
 3. 拷贝数据
 
-    一旦获取到了模型的输入张量，数据需要拷贝到张量中。下列方法可以获取数据字节大小、数据维度、元素个数、数据类型和写指针。详见 [MSTensor](https://www.mindspore.cn/lite/api/en/master/api_cpp/tensor.html#mstensor) API 文档。
+    一旦获取到了模型的输入张量，数据需要拷贝到张量中。下列方法可以获取数据字节大小、数据维度、元素个数、数据类型和写指针。详见 [MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor) API 文档。
 
     ```cpp
     /// \brief  Get byte size of data in MSTensor.
@@ -357,7 +354,7 @@ if (ret != RET_OK) {
 
 MindSpore Lite提供下列方法来获取模型的输出张量：
 
-1. 使用[`GetOutputByNodeName`](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/session.html#getoutputbynodename)方法获取一个确定节点的输出张量。
+1. 使用[`GetOutputsByNodeName`](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getoutputsbynodename)方法获取一个确定节点的输出张量。
 
     ```cpp
     /// \brief  Get output MindSpore Lite MSTensors of model by node name.
@@ -382,7 +379,7 @@ MindSpore Lite提供下列方法来获取模型的输出张量：
     }
     ```
 
-2. 使用[`GetOutputByTensorName`](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/session.html#getoutputbytensorname)方法，依据张量名称获取输出张量。
+2. 使用[`GetOutputByTensorName`](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getoutputbytensorname)方法，依据张量名称获取输出张量。
 
     ```cpp
     /// \brief  Get output MindSpore Lite MSTensors of model by tensor name.
@@ -409,7 +406,7 @@ MindSpore Lite提供下列方法来获取模型的输出张量：
     }
     ```
 
-3. 使用[`GetOutputs`](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/session.html#getoutputs)方法，根据张量名称排序的所有输出张量。
+3. 使用[`GetOutputs`](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getoutputs)方法，根据张量名称排序的所有输出张量。
 
     ```cpp
     /// \brief  Get output MindSpore Lite MSTensors of model mapped by tensor name.
@@ -481,7 +478,7 @@ MindSpore Lite提供下列方法来获取模型的输出张量：
 
 #### 执行会话
 
-无论`TrainSession`对象是训练或推理模式，图计算都是调用`RunGraph`方法。
+无论`Model`对象是训练或推理模式，图计算都是调用`RunGraph`方法。
 
 ```cpp
 /// \brief Run session with callbacks.
@@ -550,7 +547,7 @@ if (ret != RET_OK) {
 
 ### 保存模型
 
-MindSpore的`CkptSaver`类实际调用的是`Export`函数，当然你也可以直接调用`SaveToFile`来保存模型，`Export`原型如下：
+MindSpore的`Serialization`类实际调用的是`ExportModel`函数，`ExportModel`原型如下：
 
 ```cpp
   /// \brief Save the trained model into a flatbuffer file
