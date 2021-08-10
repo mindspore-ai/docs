@@ -5,14 +5,10 @@
 - [Operators Classification](#operators-classification)
     - [Overview](#overview)
     - [Tensor Operations](#tensor-operations)
-    - [Scalar Operations](#scalar-operations)
-        - [Addition](#addition)
-        - [Element-wise Multiplication](#element-wise-multiplication)
-        - [Trigonometric Function](#trigonometric-function)
-    - [Vector Operations](#vector-operations)
-        - [Squeeze](#squeeze)
-    - [Matrix Operations](#matrix-operations)
-        - [Matrix Multiplication](#matrix-multiplication)
+        - [Mathematical Operators](#mathematical-operators)
+            - [Scalar Operations](#scalar-operations)
+            - [Vector Operations](#vector-operations)
+            - [Matrix Operations](#matrix-operations)
         - [Broadcast Mechanism](#broadcast-mechanism)
     - [Network Operations](#network-operations)
         - [Feature Extraction](#feature-extraction)
@@ -49,11 +45,13 @@ Tensor mathematical operations include scalar operations, vector operations, and
 
 The following describes how to use the tensor mathematical operation and operation broadcast mechanism.
 
-## Scalar Operations
+### Mathematical Operators
 
 Tensor mathematical operators can be classified into scalar operator, vector operator, and matrix operator.
 
 Scalar operators include addition, subtraction, multiplication, division, exponentiation, common functions such as trigonometric function, exponential function, and logarithmic function, and logical comparison operators.
+
+#### Scalar Operations
 
 Scalar operators are characterized by performing element-by-element operations on tensors.
 
@@ -77,7 +75,7 @@ print(input_x**input_y)
 [ 1.  8. 64.]
 ```
 
-### Addition
+##### Addition
 
 The following code implements the addition of `input_x` and `input_y`:
 
@@ -91,7 +89,7 @@ print(input_x + input_y)
 [4. 5. 7.]
 ```
 
-### Element-wise Multiplication
+##### Element-wise Multiplication
 
 The following code implements the element-wise multiplication:
 
@@ -115,7 +113,7 @@ print(res)
 [4. 10. 18.]
 ```
 
-### Trigonometric Function
+##### Trigonometric Function
 
 The following code implements Acos:
 
@@ -137,11 +135,11 @@ print(output)
 [0.7377037 1.5307858 1.2661037 0.97641146]
 ```
 
-## Vector Operations
+#### Vector Operations
 
 Vector operators perform operations on only one particular axis, mapping a vector to a scalar or another vector.
 
-### Squeeze
+##### Squeeze
 
 The following code implements the compression of a channel whose dimension of the third channel is 1:
 
@@ -166,11 +164,11 @@ print(output)
  [1. 1.]]
 ```
 
-## Matrix Operations
+#### Matrix Operations
 
 Matrix operations include matrix multiplication, matrix norm, matrix determinant, matrix eigenvalue calculation, and matrix decomposition.
 
-### Matrix Multiplication
+##### Matrix Multiplication
 
  The following code implements the matrix multiplication of input_x and input_y:
 
