@@ -35,7 +35,7 @@ This document describes how to quickly install MindSpore by source code in a Lin
 - Confirm that [OpenMPI 4.0.3](https://www.open-mpi.org/faq/?category=building#easy-build) is installed. (optional, required for single-node/multi-GPU and multi-node/multi-GPU training)
 - Confirm that [OpenSSL 1.1.1 or later](https://github.com/openssl/openssl.git) is installed.
     - Ensure that [OpenSSL](https://github.com/openssl/openssl) is installed and set system variable `export OPENSSL_ROOT_DIR="OpenSSL installation directory"`.
-- Confirm that [NCCL 2.7.6-1](https://docs.nvidia.com/deeplearning/sdk/nccl-install-guide/index.html#debian) is installed. (optional, required for single-node/multi-GPU and multi-node/multi-GPU training)
+- Confirm that [NCCL 2.7.6](https://docs.nvidia.com/deeplearning/sdk/nccl-install-guide/index.html#debian) for CUDA 10.1 or [NCCL 2.7.8](https://docs.nvidia.com/deeplearning/sdk/nccl-install-guide/index.html#debian) for CUDA 11.1 is installed. (optional, required for single-node/multi-GPU and multi-node/multi-GPU training)
 - Confirm that [TensorRT-7.2.2.3](https://developer.nvidia.com/nvidia-tensorrt-download) is installed. (optional，required for Serving inference).
 - Confirm that [NUMA 2.0.11 or later](https://github.com/numactl/numactl) is installed.
      If not, use the following command to install it:
