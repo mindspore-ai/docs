@@ -369,7 +369,7 @@ python train.py
 
 训练后会获得文件：
 
-```python
+```text
 └─ output         # 存储ckpt文件夹
 │   │   ckpt_0
 │   loss_0.log
