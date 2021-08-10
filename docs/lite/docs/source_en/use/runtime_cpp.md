@@ -2,7 +2,7 @@
 
 `Windows` `macOS` `Linux` `iOS` `Android` `C++` `Inference Application` `Model Loading` `Data Preparation` `Intermediate` `Expert`
 
-MindSpore has unified the inference API. If you want to continue to use the MindSpore Lite independent API for inference, you can refer to the [document](https://www.mindspore.cn/lite/docs/en/r1.3/use/runtime_cpp.html).
+> MindSpore has unified the inference API. If you want to continue to use the MindSpore Lite independent API for inference, you can refer to the [document](https://www.mindspore.cn/lite/docs/en/r1.3/use/runtime_cpp.html).
 
 <!-- TOC -->
 

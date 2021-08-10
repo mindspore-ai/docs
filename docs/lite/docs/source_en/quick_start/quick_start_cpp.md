@@ -2,7 +2,7 @@
 
 `Linux` `Windows` `x86` `C++` `Whole Process` `Inference Application` `Data Preparation` `Beginner`
 
-MindSpore has unified the inference API. If you want to continue to use the MindSpore Lite independent API for inference, you can refer to the [document](https://www.mindspore.cn/lite/docs/en/r1.3/quick_start/quick_start_cpp.html).
+> MindSpore has unified the inference API. If you want to continue to use the MindSpore Lite independent API for inference, you can refer to the [document](https://www.mindspore.cn/lite/docs/en/r1.3/quick_start/quick_start_cpp.html).
 
 <!-- TOC -->
 

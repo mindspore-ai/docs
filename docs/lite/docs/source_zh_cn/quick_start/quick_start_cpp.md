@@ -2,7 +2,7 @@
 
 `Linux` `Windows` `X86` `C++` `全流程` `推理应用` `数据准备` `初级`
 
-MindSpore已经统一了端边云推理API，如您想继续使用MindSpore Lite独立API进行端侧推理，可以参考[此文档](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/quick_start/quick_start_cpp.html)。
+> MindSpore已经统一了端边云推理API，如您想继续使用MindSpore Lite独立API进行端侧推理，可以参考[此文档](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/quick_start/quick_start_cpp.html)。
 
 <!-- TOC -->
 
