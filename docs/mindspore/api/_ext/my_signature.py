@@ -30,7 +30,7 @@ def get_default_params(func):
     all_params = re.findall(r"def [\w_\d\-]+\(([\S\s]*?)\):", source_code)[0].replace("\n", "").replace("'", "\"")
 
     # sub null spaces from matched all param str.
-    re_space_sub = re.compile(r",\s+")
+    re_space_sub = re.compile(r",\s{2,}")
     all_params = re_space_sub.sub(",", all_params)
 
     all_param_names = _sort_param(all_param_names, all_params)

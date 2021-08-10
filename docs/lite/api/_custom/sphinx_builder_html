@@ -1049,6 +1049,10 @@ class StandaloneHTMLBuilder(Builder):
             if "C++ API" in output and property_re.search(output):
                 output = property_re.sub(propertyrepl, output)
 
+            # Fix extra label for "datasets.h" in c++ api.
+            if '<h2>Definition' in output:
+                output = output.replace(' (<a class="reference internal" href="#file-include-datasets-h"><span class="std std-ref">File datasets.h</span></a>)', "")
+
         except UnicodeError:
             logger.warning(__("a Unicode error occurred when rendering the page %s. "
                               "Please make sure all config values that contain "
