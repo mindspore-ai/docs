@@ -15,7 +15,7 @@
 
 评价指标（Metrics）可以用来评估模型结果的可信度。
 
-MindSpore提供了多种Metrics评估指标，如：`accuracy`、`loss`、`precision`、`recall`、`F1`等，完整的`Metrics`功能可参考[API](https://www.mindspore.cn/docs/api/zh-CN/r1.2/api_python/mindspore.nn.html#metrics)。
+MindSpore提供了多种Metrics评估指标，如：`accuracy`、`loss`、`precision`、`recall`、`F1`等，完整的`Metrics`功能可参考[API](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/mindspore.nn.html#metrics)。
 
 用户也可根据需求，自行开发并使用Metrics。
 

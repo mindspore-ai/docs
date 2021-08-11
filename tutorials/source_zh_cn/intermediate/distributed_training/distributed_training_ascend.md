@@ -37,7 +37,7 @@
 
 > 你可以在这里下载完整的样例代码：
 >
-> <https://gitee.com/mindspore/docs/tree/r1.2/docs/sample_code/distributed_training>
+> <https://gitee.com/mindspore/docs/tree/r1.2/tutorials/tutorial_code/distributed_training>
 
 目录结构如下：
 
@@ -192,7 +192,7 @@ def create_dataset(data_path, repeat_num=1, batch_size=32):
 
 ## 定义网络
 
-数据并行及自动并行模式下，网络定义方式与单机写法一致，可以参考[ResNet网络样例脚本](https://gitee.com/mindspore/docs/blob/r1.2/docs/sample_code/resnet/resnet.py)。
+数据并行及自动并行模式下，网络定义方式与单机写法一致，可以参考[ResNet网络样例脚本](https://gitee.com/mindspore/docs/blob/r1.2/tutorials/tutorial_code/resnet/resnet.py)。
 
 ## 定义损失函数及优化器
 

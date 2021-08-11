@@ -23,15 +23,15 @@
 
 ## 自定义算子开发
 
-MindSpore支持多种类型的算子，用户可根据[算子支持](https://www.mindspore.cn/docs/note/zh-CN/r1.2/operator_list.html)列表查询。若已有算子不满足实际需求，用户也可以开发自定义算子。
+MindSpore支持多种类型的算子，用户可根据[算子支持](https://www.mindspore.cn/doc/note/zh-CN/r1.2/operator_list.html)列表查询。若已有算子不满足实际需求，用户也可以开发自定义算子。
 
 当前，MindSpore支持如下自定义算子，开发方法可通过链接获取：
 
-- [自定义Ascend（昇腾）算子](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.2/custom_operator_ascend.html)
+- [自定义Ascend（昇腾）算子](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.2/custom_operator_ascend.html)
     - [AI Core算子](https://support.huaweicloud.com/tbedevg-cann330alpha2training/atlaste_10_0001.html)
     - [AI CPU算子](https://support.huaweicloud.com/aicpudevg-cann330alpha2training/atlasaicpu_10_0001.html)
-- [自定义GPU算子](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.2/custom_operator_gpu.html)
-- [自定义CPU算子](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.2/custom_operator_cpu.html)
+- [自定义GPU算子](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.2/custom_operator_gpu.html)
+- [自定义CPU算子](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.2/custom_operator_cpu.html)
 
 在Ascend（昇腾）的两类算子中：
 
@@ -49,7 +49,7 @@ Elu是一类激活函数，数学公式表达如下：
 
 $$ ELU(x)=\begin{cases} \alpha(e^x-1) \qquad if \quad x \leq 0 \\\\ x \qquad\qquad\quad\ \  if \quad x > 0 \end{cases} $$
 
-Elu 算子的输入为 Tensor，数据类型为 float16 或 float32 ，输出为同种数据类型、同种 shape 的 Tensor。当前系数$\alpha$仅支持设定为 float 类型的“1.0”。详细说明可查看[API](https://www.mindspore.cn/docs/api/zh-CN/r1.2/api_python/ops/mindspore.ops.Elu.html)。
+Elu 算子的输入为 Tensor，数据类型为 float16 或 float32 ，输出为同种数据类型、同种 shape 的 Tensor。当前系数$\alpha$仅支持设定为 float 类型的“1.0”。详细说明可查看[API](https://www.mindspore.cn/doc/api/zh-CN/r1.2/api_python/ops/mindspore.ops.Elu.html)。
 
 ### 算子前端定义
 
