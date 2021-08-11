@@ -55,7 +55,7 @@ MindSpore Lite当前提供了一套南向算子的注册机制，南向算子可
 
 ### 通用算子实现
 
-继承[mindspore::kernel::Kernel](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/kernel.html)，重载实现必要的接口。
+继承[mindspore::kernel::Kernel](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html)，重载实现必要的接口。
 
 #### 样例代码与说明
 
@@ -262,7 +262,7 @@ REG_PASS(POSITION_BEGIN, TestPass)         // 注册Pass，置于内置融合之
 
 ### Custom算子实现
 
-Custom算子的实现整体流程与通用算子的实现是一致的，因为都是[Kernel](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/kernel.html#Kernel)的具体子类。
+Custom算子的实现整体流程与通用算子的实现是一致的，因为都是[Kernel](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html)的具体子类。
 如果自定义算子不是运行在CPU平台上，那样需要在运行结束时把结果重新拷回output tensor。
 
 #### 样例代码与说明
