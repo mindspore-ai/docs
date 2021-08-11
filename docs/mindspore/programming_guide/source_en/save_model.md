@@ -113,7 +113,7 @@ export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='MINDIR')
 ```
 
 > - `input` is the input parameter of the `export` method, representing the input of the network. If the network has multiple inputs, they need to be passed into the `export` method together. eg: `export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='MINDIR')`.
-> - The suffix ".mindir" is automatically added to the exported file name.
+> - If `file_name` does not contain the ".mindir" suffix, the system will automatically add the ".mindir" suffix to it.
 
 In order to avoid the hardware limitation of protobuf, when the exported model parameter size exceeds 1G, the framework will save the network structure and parameters separately by default.
 
@@ -148,7 +148,7 @@ export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='AIR')
 The `input` parameter is used to specify the input shape and the data type of the exported model.
 
 > - `input` is the input parameter of the `export` method, representing the input of the network. If the network has multiple inputs, they need to be passed into the `export` method together. eg: `export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='AIR')`.
-> - The suffix ".air" is automatically added to the exported file name.
+> - If `file_name` does not contain the ".air" suffix, the system will automatically add the ".air" suffix to it.
 
 ## Export ONNX Model
 
@@ -166,5 +166,5 @@ export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='ONNX')
 ```
 
 > - `input` is the input parameter of the `export` method, representing the input of the network. If the network has multiple inputs, they need to be passed into the `export` method together. eg: `export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='ONNX')`.
-> - The suffix ".onnx" is automatically added to the exported file name.
-> - Currently, only the ONNX format export of ResNet series networks is supported.
+> - If `file_name` does not contain the ".onnx" suffix, the system will automatically add the ".onnx" suffix to it.
+> - Currently, only the ONNX format export of ResNet series networks and BERT are supported.
