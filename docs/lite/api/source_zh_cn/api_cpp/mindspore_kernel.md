@@ -379,15 +379,14 @@ using KernelInterfaceCreator = std::function<std::shared_ptr<KernelInterface>()>
 算子的InferShape能力，用于根据输入推导出输出的shape、数据类型以及format。
 
 ``` c++
-virtual int Infer(const std::vector<tensor::MSTensor *> &inputs, const std::vector<tensor::MSTensor *> &outputs,
-                    const schema::Primitive *primitive)
+virtual int Infer(std::vector<mindspore::MSTensor> *inputs, std::vector<mindspore::MSTensor> *outputs, const schema::Primitive *primitive)
 ```
 
 - 参数
 
-    - `inputs`: 算子输入[tensor::MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/tensor.html)。
+    - `inputs`: 算子输入[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)。
 
-    - `outputs`: 算子输出[tensor::MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/tensor.html)。
+    - `outputs`: 算子输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)。
 
     - `primitive`: 算子经过flatbuffers反序化后的结果，存储算子属性。
 
