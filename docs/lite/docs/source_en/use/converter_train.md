@@ -56,7 +56,7 @@ The table below shows the parameters used in the MindSpore Lite model training t
 
 > The parameter name and parameter value are separated by an equal sign (=) and no space is allowed between them.
 
-If running the conversion command is failed, an [errorcode](https://www.mindspore.cn/lite/api/en/master/api_cpp/errorcode_and_metatype.html) will be output.
+If running the conversion command is failed, an errorcode will be output.
 
 ### Example
 
@@ -72,4 +72,4 @@ If the command executes successfully, the `model.ms` target file will be obtaine
 CONVERTER RESULT SUCCESS:0
 ```
 
-If running the conversion command is failed, an [errorcode](https://www.mindspore.cn/lite/api/en/master/api_cpp/errorcode_and_metatype.html) will be output.
+If running the conversion command is failed, an errorcode will be output.

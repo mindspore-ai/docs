@@ -342,7 +342,7 @@ int NetRunner::Main() {
 
 2. 数据集处理
 
-    `InitDB`函数预处理`MNIST`数据集并加载至内存。MindData提供了数据预处理API，用户可参见[C++ API 说明文档](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/session.html) 获取更多详细信息。
+    `InitDB`函数预处理`MNIST`数据集并加载至内存。MindData提供了数据预处理API，用户可参见[C++ API 说明文档](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_dataset.html) 获取更多详细信息。
 
     ```cpp
     int NetRunner::InitDB() {

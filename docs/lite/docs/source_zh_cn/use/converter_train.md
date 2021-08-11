@@ -75,4 +75,4 @@ CONVERTER RESULT SUCCESS:0
 CONVERT RESULT FAILED:
 ```
 
-程序会返回的[错误码](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/errorcode_and_metatype.html)和错误信息。
+程序会返回错误码和错误信息。
