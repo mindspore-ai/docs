@@ -87,7 +87,7 @@ def _my_signature_from_function(cls, func):
         if not isinstance(kwdefaults, type(None)):
             for key, value in kwdefaults.items():
                 if isinstance(value, str):
-                    kwdefaults[key] = '"' + value + '"'
+                    kwdefaults[key] = '\'' + value + '\''
     pos_defaults = func.__defaults__
 
     if pos_defaults:
