@@ -75,7 +75,7 @@ MindSpore Lite训练框架中的[Model](https://www.mindspore.cn/lite/api/zh-CN/
 
 ### 创建上下文
 
-[`Context`](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_Context.html)是一个MindSpore Lite对象，它包含了`Model`用来加载模型文件、引导图编译和执行的基础配置参数。它能够让你指定模型运行的设备类型（例如CPU或GPU），模型训练和推理时使用的线程数量，以及内存分配策略。目前`Model`只支持单线程的CPU设备。
+[`Context`](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)是一个MindSpore Lite对象，它包含了`Model`用来加载模型文件、引导图编译和执行的基础配置参数。它能够让你指定模型运行的设备类型（例如CPU或GPU），模型训练和推理时使用的线程数量，以及内存分配策略。目前`Model`只支持单线程的CPU设备。
 
 如果用户通过`new`创建`Context`，不再需要时，需要用户通过`delete`释放。一般在`Model`对象创建完成后，`Context`对象即可释放。
 

@@ -344,7 +344,7 @@ void NetRunner::InitAndFigureInputs() {
 
 #### Dataset Processing
 
-`InitDB` initializes the MNIST dataset and loads it into the memory. MindData has provided the data preprocessing API, the user could refer to the [C++ API Docs](https://www.mindspore.cn/lite/api/en/master/api_cpp/session.html) for more details.
+`InitDB` initializes the MNIST dataset and loads it into the memory. MindData has provided the data preprocessing API, the user could refer to the [C++ API Docs](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore_dataset.html) for more details.
 
 ```cpp
 int NetRunner::InitDB() {
