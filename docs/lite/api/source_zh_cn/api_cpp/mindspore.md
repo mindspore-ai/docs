@@ -31,7 +31,7 @@
 | [TimeMonitor](#timemonitor) | MindSpore Lite训练时间监测类，仅MindSpore Lite支持。 |
 | [TrainAccuracy](#trainaccuracy) | MindSpore Lite训练学习率调度类，仅MindSpore Lite支持。 |
 | [Version](#version) | 获取当前版本号，仅MindSpore Lite支持。 |
-| [Allocator](#Allocator) | 内存管理基类。 |
+| [Allocator](#allocator) | 内存管理基类。 |
 
 ## Context
 
@@ -366,7 +366,7 @@ Serialization类汇总了模型文件读写的方法。
 
 #### Load
 
-从文件加载模型，MindSpore Lite未提供此功能。
+从文件加载模型。
 
 ```cpp
 Status Load(const std::string &file, ModelType model_type, Graph *graph, const Key &dec_key = {},
@@ -376,7 +376,7 @@ Status Load(const std::string &file, ModelType model_type, Graph *graph, const K
 - 参数
 
     - `file`: 模型文件路径。
-    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kOM`。
+    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kOM`。MindSpore Lite仅支持`ModelType::kMindIR`类型。
     - `graph`: 输出参数，保存图数据的对象。
     - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16、24或32。
     - `dec_mode`: 解密模式，可选有`AES-GCM`、`AES-CBC`。
@@ -419,7 +419,7 @@ Status Load(const void *model_data, size_t data_size, ModelType model_type, Grap
 
     - `model_data`：模型数据指针。
     - `data_size`：模型数据字节数。
-    - `model_type`：模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kOM`。
+    - `model_type`：模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kOM`。MindSpore Lite仅支持`ModelType::kMindIR`类型。
     - `graph`：输出参数，保存图数据的对象。
     - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16、24或32。
     - `dec_mode`: 解密模式，可选有`AES-GCM`、`AES-CBC`。
@@ -467,19 +467,23 @@ Model();
 #### Build
 
 ```cpp
-Status Build(GraphCell graph, const std::shared_ptr<Context> &model_context);
+Status Build(GraphCell graph, const std::shared_ptr<Context> &model_context = nullptr,
+             const std::shared_ptr<TrainCfg> &train_cfg = nullptr);
 ```
 
-将模型编译至可在Device上运行的状态。
+将GraphCell存储的模型编译至可在Device上运行的状态。
 
 - 参数
 
     - `graph`: `GraphCell`是`Cell`的一个派生，`Cell`目前没有开放使用。`GraphCell`可以由`Graph`构造，如`model.Build(GraphCell(graph), context)`。
     - `model_context`: 模型[Context](#context)。
+    - `train_cfg`: train配置文件[TrainCfg](#traincfg)。
 
 - 返回值
 
   状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
+#### Build
 
 ```cpp
 Status Build(const void *model_data, size_t data_size, ModelType model_type,
@@ -487,13 +491,13 @@ Status Build(const void *model_data, size_t data_size, ModelType model_type,
              const std::string &dec_mode = kDecModeAesGcm);
 ```
 
-将模型编译至可在Device上运行的状态。
+从内存缓冲区加载模型，并将模型编译至可在Device上运行的状态。
 
 - 参数
 
     - `model_data`: 指向存储读入模型文件缓冲区的指针。
     - `data_size`: 缓冲区大小。
-    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kOM`。
+    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kOM`。MindSpore Lite仅支持`ModelType::kMindIR`类型。
     - `model_context`: 模型[Context](#context)。
     - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16、24或32。
     - `dec_mode`: 解密模式，可选有`AES-GCM`、`AES-CBC`。
@@ -501,6 +505,8 @@ Status Build(const void *model_data, size_t data_size, ModelType model_type,
 - 返回值
 
   状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
+#### Build
 
 ```cpp
 Status Build(const std::string &model_path, ModelType model_type,
@@ -508,32 +514,15 @@ Status Build(const std::string &model_path, ModelType model_type,
              const std::string &dec_mode = kDecModeAesGcm);
 ```
 
-将模型编译至可在Device上运行的状态。
+根据路径读取加载模型，并将模型编译至可在Device上运行的状态。
 
 - 参数
 
     - `model_path`: 模型文件路径。
-    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kOM`。
+    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kOM`。MindSpore Lite仅支持`ModelType::kMindIR`类型。
     - `model_context`: 模型[Context](#context)。
     - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16、24或32。
     - `dec_mode`: 解密模式，可选有`AES-GCM`、`AES-CBC`。
-
-- 返回值
-
-  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
-
-```cpp
-Status Build(GraphCell graph, const std::shared_ptr<Context> &model_context = nullptr,
-           const std::shared_ptr<TrainCfg> &train_cfg = nullptr);
-```
-
-将模型编译至可在Device上运行的状态。
-
-- 参数
-
-    - `graph`: 模型文件路径。
-    - `model_context`: 模型[Context](#context)。
-    - `train_cfg`: train配置文件[TrainCfg](#traincfg)。
 
 - 返回值
 
@@ -626,7 +615,7 @@ MSTensor GetOutputByTensorName(const std::string &tensor_name);
 std::vector<MSTensor> GetOutputsByNodeName(const std::string &node_name);
 ```
 
-通过节点名获取模型的MSTensors输出张量。
+通过节点名获取模型的MSTensors输出张量。不建议使用，将在2.0版本废弃。
 
 - 参数
 
@@ -933,7 +922,7 @@ std::shared_ptr<const void> Data() const;
 void *MutableData();
 ```
 
-获取`MSTensor`中的数据的指针。
+获取`MSTensor`中的数据的指针。如果为空指针，为`MSTensor`的数据申请内存，并返回申请内存的地址，如果不为空，返回数据的指针。
 
 - 返回值
 
@@ -957,7 +946,7 @@ size_t DataSize() const;
 bool IsDevice() const;
 ```
 
-判断`MSTensor`中是否在设备上。
+判断`MSTensor`中是否在设备上。仅MindSpore云侧支持。
 
 - 返回值
 
@@ -993,7 +982,7 @@ bool operator==(std::nullptr_t) const;
 bool operator==(const MSTensor &tensor) const;
 ```
 
-判断`MSTensor`是否与另一个MSTensor相等。
+判断`MSTensor`是否与另一个MSTensor相等，仅MindSpore Lite支持。
 
 - 返回值
 
@@ -1005,7 +994,7 @@ bool operator==(const MSTensor &tensor) const;
 void SetShape(const std::vector<int64_t> &shape);
 ```
 
-设置`MSTensor`的Shape。
+设置`MSTensor`的Shape，仅MindSpore Lite支持，目前在[Delegate](#delegate)机制使用。
 
 #### SetDataType
 
@@ -1013,7 +1002,7 @@ void SetShape(const std::vector<int64_t> &shape);
 void SetDataType(enum DataType data_type);
 ```
 
-设置`MSTensor`的DataType。
+设置`MSTensor`的DataType，仅MindSpore Lite支持，目前在[Delegate](#delegate)机制使用。
 
 #### SetTensorName
 
@@ -1021,7 +1010,7 @@ void SetDataType(enum DataType data_type);
 void SetTensorName(const std::string &name);
 ```
 
-设置`MSTensor`的名字。
+设置`MSTensor`的名字，仅MindSpore Lite支持，目前在[Delegate](#delegate)机制使用。
 
 #### SetAllocator
 
@@ -1029,7 +1018,7 @@ void SetTensorName(const std::string &name);
 void SetAllocator(std::shared_ptr<Allocator> allocator);
 ```
 
-设置`MSTensor`数据所属的内存池。
+设置`MSTensor`数据所属的内存池，仅MindSpore Lite支持。
 
 - 参数
 
@@ -1041,7 +1030,7 @@ void SetAllocator(std::shared_ptr<Allocator> allocator);
 std::shared_ptr<Allocator> allocator() const;
 ```
 
-获取`MSTensor`数据所属的内存池。
+获取`MSTensor`数据所属的内存池，仅MindSpore Lite支持。
 
 - 返回值
 
@@ -1053,7 +1042,7 @@ std::shared_ptr<Allocator> allocator() const;
 void SetFormat(mindspore::Format format);
 ```
 
-设置`MSTensor`数据的format。
+设置`MSTensor`数据的format，仅MindSpore Lite支持，目前在[Delegate](#delegate)机制使用。
 
 #### format
 
@@ -1061,7 +1050,7 @@ void SetFormat(mindspore::Format format);
 mindspore::Format format() const;
 ```
 
-获取`MSTensor`数据的format。
+获取`MSTensor`数据的format，仅MindSpore Lite支持，目前在[Delegate](#delegate)机制使用。
 
 #### SetData
 
@@ -1077,7 +1066,7 @@ void SetData(void *data);
 std::vector<QuantParam> QuantParams() const;
 ```
 
-获取`MSTensor`的量化参数。
+获取`MSTensor`的量化参数，仅MindSpore Lite支持，目前在[Delegate](#delegate)机制使用。
 
 #### SetQuantParams
 
@@ -1085,7 +1074,7 @@ std::vector<QuantParam> QuantParams() const;
 void SetQuantParams(std::vector<QuantParam> quant_params);
 ```
 
-设置`MSTensor`的量化参数。
+设置`MSTensor`的量化参数，仅MindSpore Lite支持，目前在[Delegate](#delegate)机制使用。
 
 ## QuantParam
 
@@ -1812,7 +1801,7 @@ std::string Version()
 
 内存管理基类。
 
-### ~Allocator
+### 析构函数
 
 ```cpp
 virtual ~Allocator()
