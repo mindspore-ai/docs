@@ -41,6 +41,7 @@ Using MindSpore on Mobile and IoT
    use/micro
    use/asic
    use/register_kernel
+   use/delegate
 
 .. toctree::
    :glob:
