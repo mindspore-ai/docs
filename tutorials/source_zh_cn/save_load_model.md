@@ -123,7 +123,7 @@ export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='MINDIR')
 ```
 
 > - `input`用来指定导出模型的输入shape以及数据类型，如果网络有多个输入，需要一同传进`export`方法。 例如：`export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='MINDIR')`
-> - 导出的文件名称会自动添加".mindir"后缀。
+> - 如果`file_name`没有包含".mindir"后缀，系统会为其自动添加".mindir"后缀。
 
 ### 其他格式导出
 
@@ -136,7 +136,7 @@ export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='AIR')
 ```
 
 > - `input`用来指定导出模型的输入shape以及数据类型，如果网络有多个输入，需要一同传进`export`方法。 例如：`export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='AIR')`
-> - 导出的文件名称会自动添加".air"后缀。
+> - 如果`file_name`没有包含".air"后缀，系统会为其自动添加".air"后缀。
 
 #### 导出ONNX格式文件
 
@@ -147,4 +147,5 @@ export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='ONNX')
 ```
 
 > - `input`用来指定导出模型的输入shape以及数据类型，如果网络有多个输入，需要一同传进`export`方法。 例如：`export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='ONNX')`
-> - 导出的文件名称会自动添加".onnx"后缀。
+> - 如果`file_name`没有包含".onnx"后缀，系统会为其自动添加".onnx"后缀。
+> - 目前ONNX格式导出仅支持ResNet系列、BERT网络。

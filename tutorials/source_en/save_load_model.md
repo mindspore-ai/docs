@@ -138,7 +138,7 @@ export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='MINDIR')
 ```
 
 > - `input` specifies the input shape and data type of the exported model. If the network has multiple inputs, you need to pass them to the `export` method.  Example: `export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='MINDIR')`
-> - The suffix ".mindir" is automatically added to the name of the exported file.
+> - If `file_name` does not contain the ".mindir" suffix, the system will automatically add the ".mindir" suffix to it.
 
 ### Exporting in Other Formats
 
@@ -151,7 +151,7 @@ export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='AIR')
 ```
 
 > - `input` specifies the input shape and data type of the exported model. If the network has multiple inputs, you need to pass them to the `export` method. Example: `export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='AIR')`
-> - The suffix ".air" is automatically added to the name of the exported file.
+> - If `file_name` does not contain the ".air" suffix, the system will automatically add the ".air" suffix to it.
 
 #### Exporting an ONNX File
 
@@ -162,4 +162,5 @@ export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='ONNX')
 ```
 
 > - `input` specifies the input shape and data type of the exported model. If the network has multiple inputs, you need to pass them to the `export` method. Example: `export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='ONNX')`
-> - The suffix ".onnx" is automatically added to the name of the exported file.
+> - If `file_name` does not contain the ".onnx" suffix, the system will automatically add the ".onnx" suffix to it.
+> - Currently, only the ONNX format export of ResNet series networks and BERT are supported.
