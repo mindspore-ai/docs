@@ -29,7 +29,7 @@ This document describes how to quickly install MindSpore in a Linux system with 
 - Confirm that [Python 3.7.5](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) is installed.
 - Confirm that [OpenSSL 1.1.1 or later](https://github.com/openssl/openssl.git) is installed.
     - Set system variable `export OPENSSL_ROOT_DIR="OpenSSL installation directory"` after installation.
-- Confirm that [CMake 3.18.3 or later](https://cmake.org/download/) is installed.
+- Confirm that [CMake 3.18.3](https://cmake.org/download/) is installed.
     - Add the path where the executable file `cmake` stores to the environment variable PATH.
 - Confirm that [patch 2.5 or later](http://ftp.gnu.org/gnu/patch/) is installed.
     - Add the path where the executable file `patch` stores to the environment variable PATH.

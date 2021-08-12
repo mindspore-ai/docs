@@ -25,7 +25,7 @@
 - 确认安装[Python 3.7.5版本](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz)。
 - 确认安装[OpenSSL 1.1.1及以上版本](https://github.com/openssl/openssl.git)。
     - 安装完成后设置环境变量`export OPENSSL_ROOT_DIR=“OpenSSL安装目录”`。
-- 确认安装[CMake 3.18.3及以上版本](https://cmake.org/download/)。
+- 确认安装[CMake 3.18.3版本](https://cmake.org/download/)。
     - 安装完成后将CMake所在路径添加到系统环境变量。
 - 确认安装[patch 2.5及以上版本](http://ftp.gnu.org/gnu/patch/)。
     - 安装完成后将patch所在路径添加到系统环境变量中。

@@ -26,7 +26,7 @@ This document describes how to quickly install MindSpore by source code in a Lin
 - Confirm that [Python 3.7.5](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) is installed.
 - Confirm that [OpenSSL 1.1.1 or later](https://github.com/openssl/openssl.git) is installed.
     - Set system variable `export OPENSSL_ROOT_DIR="OpenSSL installation directory"` after installation.
-- Confirm that [CMake 3.18.3 or later](https://cmake.org/download/) is installed.
+- Confirm that [CMake 3.18.3](https://cmake.org/download/) is installed.
     - Add the path where the executable file `cmake` stores to the environment variable PATH.
 - Confirm that [wheel 0.32.0 or later](https://pypi.org/project/wheel/) is installed.
 - Confirm that [patch 2.5 or later](http://ftp.gnu.org/gnu/patch/) is installed.
