@@ -43,7 +43,7 @@ parser.add_argument('--epoch_size', type=int, default=1, help='Epoch size.')
 parser.add_argument('--batch_size', type=int, default=32, help='Batch size.')
 parser.add_argument('--num_classes', type=int, default=10, help='Num classes.')
 parser.add_argument('--checkpoint_path', type=str, default=None, help='CheckPoint file path.')
-parser.add_argument('--dataset_path', type=str, default=None, help='Dataset path.')
+parser.add_argument('--dataset_path', type=str, default=None, required=True, help='Dataset path.')
 args_opt = parser.parse_args()
 
 data_home = args_opt.dataset_path
@@ -51,13 +51,14 @@ data_home = args_opt.dataset_path
 context.set_context(mode=context.GRAPH_MODE, device_target=args_opt.device_target)
 
 if args_opt.device_target == "Ascend":
-    device_id = int(os.getenv('DEVICE_ID'))
+    device_id = int(os.getenv('DEVICE_ID', '0'))
     context.set_context(device_id=device_id)
 
 def create_dataset(repeat_num=1, training=True):
     """
     create data for next use such as training or inferring
     """
+    assert os.path.exists(data_home), "the dataset path is invalid!"
     cifar_ds = ds.Cifar10Dataset(data_home)
 
     if args_opt.run_distribute:
