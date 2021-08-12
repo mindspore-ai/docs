@@ -360,7 +360,7 @@ KernelReg(const std::string &arch, const std::string &provider, TypeId data_type
 
 ``` c++
 virtual ~KernelInterface()
-``` c
+```
 
 析构函数。
 
@@ -515,4 +515,3 @@ KernelInterfaceReg(const std::string &provider, const std::string &op_type, Kern
     - `op_type`: 算子类型，由用户自定义，确保唯一同时要与REGISTER_CUSTOM_KERNEL时注册的op_type保持一致。
 
     - `creator`: 创建算子的函数指针，具体见[KernelInterfaceCreator](#KernelInterfaceCreator)的说明。
-
