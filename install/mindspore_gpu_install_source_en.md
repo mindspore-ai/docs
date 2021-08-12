@@ -24,7 +24,7 @@ This document describes how to quickly install MindSpore by source code in a Lin
 - Confirm that [GCC 7.3.0](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) is installed.
 - Confirm that [gmp 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
 - Confirm that [Python 3.7.5](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) is installed.
-- Confirm that [CMake 3.18.3 or later](https://cmake.org/download/) is installed.
+- Confirm that [CMake 3.18.3](https://cmake.org/download/) is installed.
     - After installing, add the path of `cmake` to the environment variable PATH.
 - Confirm that [patch 2.5 or later](http://ftp.gnu.org/gnu/patch/) is installed.
     - After installing, add the path of `patch` to the environment variable PATH.

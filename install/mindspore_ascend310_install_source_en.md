@@ -25,7 +25,7 @@ The following describes how to quickly install MindSpore by compiling the source
 - Ensure that [Python 3.7.5](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) is installed.
 - Ensure that [OpenSSL 1.1.1 or later](https://github.com/openssl/openssl.git) is installed.
     - After installation, set the environment variable `export OPENSSL_ROOT_DIR= "OpenSSL installation directory"`.
-- Ensure that [CMake 3.18.3 or later](https://cmake.org/download/) is installed.
+- Ensure that [CMake 3.18.3](https://cmake.org/download/) is installed.
     - After installation, add the path of CMake to the system environment variables.
 - Ensure that [patch 2.5 or later](http://ftp.gnu.org/gnu/patch/) is installed.
     - After installation, add the patch path to the system environment variables.
