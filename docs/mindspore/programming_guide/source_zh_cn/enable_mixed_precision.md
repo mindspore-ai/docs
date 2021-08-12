@@ -113,10 +113,9 @@ import mindspore.nn as nn
 from mindspore.nn import Accuracy
 from mindspore import context, Model
 from mindspore.common.initializer import Normal
-from src.dataset import create_dataset
 
 context.set_context(mode=context.GRAPH_MODE)
-context.set_context(device_target="Ascend")
+context.set_context(device_target="CPU")
 
 # Define network
 class LeNet5(nn.Cell):
@@ -154,7 +153,24 @@ class LeNet5(nn.Cell):
         return x
 
 # create dataset
-ds_train = create_dataset("/dataset/MNIST/train", 32)
+def get_data(num, img_size=(1, 32, 32), num_classes=10, is_onehot=True):
+    for _ in range(num):
+        img = np.random.randn(*img_size)
+        target = np.random.randint(0, num_classes)
+        target_ret = np.array([target]).astype(np.float32)
+        if is_onehot:
+            target_onehot = np.zeros(shape=(num_classes,))
+            target_onehot[target] = 1
+            target_ret = target_onehot.astype(np.float32)
+        yield img.astype(np.float32), target_ret
+
+def create_dataset(num_data=2048, batch_size=32, repeat_size=1):
+    input_data = ds.GeneratorDataset(list(get_data(num_data)), column_names=['data', 'label'])
+    input_data = input_data.batch(batch_size)
+    input_data = input_data.repeat(repeat_size)
+    return input_data
+
+ds_train = create_dataset()
 
 # Initialize network
 network = LeNet5(10)
@@ -162,7 +178,7 @@ network = LeNet5(10)
 # Define Loss and Optimizer
 net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
 net_opt = nn.Momentum(network.trainable_params(),learning_rate=0.01, momentum=0.9)
-model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O3")
+model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O2", loss_scale_manager=None)
 
 # Run training
 model.train(epoch=10, train_dataset=ds_train)
