@@ -20,7 +20,8 @@
 | [MSCallBackParam](#mscallbackparam) | MindSpore回调函数的参数，仅MindSpore Lite支持。 |
 | [Delegate](#delegate) | MindSpore Lite接入第三方AI框架的代理。 |
 | [DelegateModel](#delegatemodel) | MindSpore Lite Delegate机制封装的模型。 |
-| [TrainCfg](#trainCfg) | MindSpore Lite训练配置类，仅MindSpore Lite支持。 |
+| [TrainCfg](#traincfg) | MindSpore Lite训练配置类，仅MindSpore Lite支持。 |
+| [MixPrecisionCfg](#mixprecisioncfg) | MindSpore Lite训练混合精度配置类，仅MindSpore Lite支持。 |
 | [AccuracyMetrics](#accuracymetrics) | MindSpore Lite训练精度类，仅MindSpore Lite支持。 |
 | [Metrics](#metrics) | MindSpore Lite训练指标类，仅MindSpore Lite支持。 |
 | [TrainCallBack](#traincallback) | MindSpore Lite训练回调类，仅MindSpore Lite支持。 |
@@ -427,27 +428,6 @@ Status Load(const void *model_data, size_t data_size, ModelType model_type, Grap
 
   状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
 
-#### Load
-
-从文件加载模型，MindSpore Lite训练使用。
-
-```cpp
-inline static Status Load(const std::string &file, ModelType model_type, Graph *graph, const Key &dec_key = {},
-                            const std::string &dec_mode = kDecModeAesGcm);
-```
-
-- 参数
-
-    - `file`：模型数据指针。
-    - `model_type`：模型文件类型。
-    - `graph`：输出参数，保存图数据的对象。
-    - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16、24或32。
-    - `dec_mode`: 解密模式，可选有`AES-GCM`、`AES-CBC`。
-
-- 返回值
-
-  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
-
 #### ExportModel
 
 导出训练模型，MindSpore Lite训练使用。
@@ -553,7 +533,7 @@ Status Build(GraphCell graph, const std::shared_ptr<Context> &model_context = nu
 
     - `graph`: 模型文件路径。
     - `model_context`: 模型[Context](#context)。
-    - `train_cfg`: train配置文件[TrainCfg](#trainCfg)。
+    - `train_cfg`: train配置文件[TrainCfg](#traincfg)。
 
 - 返回值
 
@@ -1385,6 +1365,72 @@ const SchemaVersion GetVersion() { return version_; }
 ```cpp
 TrainCfg() { this->loss_name_ = "_loss_fn"; }
 ```
+
+### 公有成员变量
+
+```cpp
+OptimizationLevel optimization_level_ = kO0;
+```
+
+优化的数据类型。
+
+```cpp
+enum OptimizationLevel : uint32_t {
+  kO0 = 0,
+  kO2 = 2,
+  kO3 = 3,
+  kAuto = 4,
+  kOptimizationType = 0xFFFFFFFF
+};
+```
+
+```cpp
+std::string loss_name_;
+```
+
+损失节点的名称。
+
+```cpp
+MixPrecisionCfg mix_precision_cfg_;
+```
+
+混合精度配置。
+
+## MixPrecisionCfg
+
+\#include &lt;[cfg.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/cfg.h)&gt;
+
+`MixPrecisionCfg`MindSpore Lite训练混合精度配置类。
+
+### 构造函数
+
+```cpp
+  MixPrecisionCfg() {
+    dynamic_loss_scale_ = false;
+    loss_scale_ = 128.0f;
+    num_of_not_nan_iter_th_ = 1000;
+  }
+```
+
+### 共有成员变量
+
+```cpp
+bool dynamic_loss_scale_ = false;
+```
+
+混合精度训练中是否启用动态损失比例。
+
+```cpp
+float loss_scale_;
+```
+
+初始损失比例。
+
+```cpp
+uint32_t num_of_not_nan_iter_th_;
+```
+
+动态损失阈值。
 
 ## AccuracyMetrics
 
