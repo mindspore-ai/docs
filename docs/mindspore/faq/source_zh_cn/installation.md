@@ -261,6 +261,12 @@ A: 常见原因有两种: Ascend AI处理器配套软件包或固件/驱动包�
 
 ## 安装验证
 
+<font size=3>**Q: MindSpore的GPU版本对设备的计算能力有限制吗？**</font>
+
+A: 目前MindSpore仅支持计算能力大于5.3的设备。
+
+<br/>
+
 <font size=3>**Q: 个人电脑CPU环境安装MindSpore后验证代码时报错: `the pointer[session] is null`，具体代码如下，该如何验证是否安装成功呢？**</font>
 
 ```python
