@@ -4,6 +4,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/faq/source_zh_cn/data_processing.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
+<font size=3>**Q: 请问`GeneratorDataset`支持`ds.PKSampler`采样吗？**</font>
+
+A: 自定义数据集`GeneratorDataset`不支持`PKSampler`采样逻辑。主要原因是自定义数据操作灵活度太大了，内置的`PKSampler`难以做到通用性，所以选择在接口层面直接提示不支持。但是对于`GeneratorDataset`，可以方便的定义自己需要的`Sampler`逻辑，即在`ImageDataset`类的`__getitem__`函数中定义具体的`sampler`规则，返回自己需要的数据即可。
+
+<br/>
+
 <font size=3>**Q: MindSpore如何加载已有的预训练词向量？**</font>
 
 A: 可以在定义EmbedingLookup或者Embedding时候，把预训练的词向量传进来就可以了，把预训练的词向量封装成一个Tensor作为EmbeddingLookup初始值。

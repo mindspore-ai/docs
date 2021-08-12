@@ -4,6 +4,49 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/faq/source_zh_cn/implement_problem.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
+<font size=3>**Q: 使用MindSpore在模型保存后生成的`.meta`文件作用是什么，可以用`.meta`文件导入图结构吗？**</font>
+
+A: 这里的`.meta`文件是编译好的图结构，但是目前并不支持直接导入这种结构。如果不知道图结构的情况下想要导入网络，还是需要用MindIR格式的文件。
+
+<br/>
+
+<font size=3>**Q: 请问`yolov4-tiny-3l.weights`模型文件可以直接转换成MindSpore模型吗？**</font>
+
+A: 不能的，需要把其他框架训练好的参数转换成MindSpore的格式，才能转成MindSpore的模型。
+
+<br/>
+
+<font size=3>**Q: 使用MindSpore进行`model.train`的时候进行了如下设置，为什么会报错呢？**</font>
+
+```python
+model.train(1, dataset, callbacks=LossMonitor(1), dataset_sink_mode=True)
+model.train(1, dataset, callbacks=LossMonitor(1), dataset_sink_mode=False)
+```
+
+A: 因为在已经设置为下沉模式的情况下，就不能再设置为非下沉了，是运行机制上的限制。
+
+<br/>
+
+<font size=3>**Q: 使用MindSpore训练模型在`eval`阶段，需要注意什么？能够直接加载网络和参数吗？需要在Model中使用优化器吗？**</font>
+
+A: 在`eval`阶段主要看需要什么，比如图像分类任务`eval`网络的输出是各个类的概率值，与对应标签计算`acc`。
+大多数情况是可以直接复用训练的网络和参数的，需要注意的是需要设置推理模式。
+
+```python
+net.set_train(False)
+```
+
+在eval阶段不需要优化器，但是需要使用MindSpore的`model.eval`接口的话需要配置一下`loss function`，如：
+
+```python
+# 定义模型
+model = Model(net, loss_fn=loss, metrics={'top_1_accuracy', 'top_5_accuracy'})
+# 评估模型
+res = model.eval(dataset)
+```
+
+<br/>
+
 <font size=3>**Q: 如何使用SGD里的`param_group`来实现学习率的衰减？**</font>
 
 A: 如果需要按照`epoch`来变化，可以使用[Dynamic LR](https://mindspore.cn/docs/api/zh-CN/r1.3/api_python/mindspore.nn.html#dynamic-lr),把其中的`step_per_epoch`设置成`step_size`，如果需要按照`step`来变化，可以把其中的`step_per_epoch`设置成1，也可以用[LearningRateSchedule](https://mindspore.cn/docs/api/zh-CN/r1.3/api_python/mindspore.nn.html#dynamic-learning-rate)。
