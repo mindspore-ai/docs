@@ -13,8 +13,8 @@
 # limitations under the License.
 # ============================================================================
 
-'''
-Bert finetune script.
+'''Bert finetune script
+This sample code is applicable to Ascend.
 '''
 import os
 import re
