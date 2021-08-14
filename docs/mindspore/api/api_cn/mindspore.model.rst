@@ -7,13 +7,13 @@ mindspore.Model
 
    **参数** ：
 
-      - **network** (Cell) – 一个训练或测试的神经网络模型。
-      - **loss_fn** (Cell) - 损失函数，如果损失函数是None，该模型需要包含损失函数逻辑以及梯度计算，如果有并行计算逻辑也需加入。默认：None。
-      - **optimizer** (Cell) - 更新网络权重的优化器。默认：None。
-      - **metrics** (Union[dict, set]) - 在模型训练和测试期间的一组评价指标。eg: {‘accuracy’, ‘recall’}。默认：None。
-      - **eval_network** (Cell) -  指定用于评估的模型。如果没有定义， *network* 和 *loss_fn* 将被当作 *eval_network* 使用。默认：None。
-      - **eval_indexes** (list) -  在定义 *eval_network* 时，如果 *eval_indexes* 为None， *eval_network* 的所有输出将输入到 *metrics* 中，否则 *eval_indexes* 必须包含三个元素，包括损失值、预测值和标签。损失值将输入到损失评价函数，而预测值和标签输入到其他评价函数中。默认：None。
-      - **amp_level** (str) - 在 *mindspore.amp.build_train_network* 中的可选参数 *level* ， *level* 为混合精度的等级，该参数支持 [“O0”, “O2”, “O3”, “auto”]。默认：“O0”。
+      - **network** (`Cell`) – 一个训练或测试的神经网络模型。
+      - **loss_fn** (`Cell`) - 损失函数，如果损失函数是None，该模型需要包含损失函数逻辑以及梯度计算，如果有并行计算逻辑也需加入。默认：None。
+      - **optimizer** (`Cell`) - 更新网络权重的优化器。默认：None。
+      - **metrics** (`Union[dict, set]`) - 在模型训练和测试期间的一组评价指标。eg: {‘accuracy’, ‘recall’}。默认：None。
+      - **eval_network** (`Cell`) -  指定用于评估的模型。如果没有定义， *network* 和 *loss_fn* 将被当作 *eval_network* 使用。默认：None。
+      - **eval_indexes** (`list`) -  在定义 *eval_network* 时，如果 *eval_indexes* 为None， *eval_network* 的所有输出将输入到 *metrics* 中，否则 *eval_indexes* 必须包含三个元素，包括损失值、预测值和标签。损失值将输入到损失评价函数，而预测值和标签输入到其他评价函数中。默认：None。
+      - **amp_level** (`str`) - 在 *mindspore.amp.build_train_network* 中的可选参数 *level* ， *level* 为混合精度的等级，该参数支持 [“O0”, “O2”, “O3”, “auto”]。默认：“O0”。
          
          - O0: 无变化。
          - O2: 将网络训练精度保持在float16，batchnorm保持在float32精度进行，同时使用动态loss scale策略。
@@ -65,9 +65,9 @@ mindspore.Model
 
       **参数** ：
 
-         - **train_dataset** (Dataset) – 一个训练集迭代器。如果定义了 *train_dataset* ，将会初始化训练集的计算图。默认：None。 
-         - **valid_dataset** (Dataset) - 一个验证集迭代器。如果定义了 *valid_dataset* ，将会初始化验证集的计算图，并且 *Model* 中的 *metrics* 不可设置为None。默认：None。
-         - **sink_size** (int) - 控制每次数据下沉的数据量，默认：-1。
+         - **train_dataset** (`Dataset`) – 一个训练集迭代器。如果定义了 *train_dataset* ，将会初始化训练集的计算图。默认：None。
+         - **valid_dataset** (`Dataset`) - 一个验证集迭代器。如果定义了 *valid_dataset* ，将会初始化验证集的计算图，并且 *Model* 中的 *metrics* 不可设置为None。默认：None。
+         - **sink_size** (`int`) - 控制每次数据下沉的数据量，默认：-1。
 
 
       **样例** :
@@ -96,9 +96,9 @@ mindspore.Model
 
       **参数** ：
 
-         - **valid_dataset** (Dataset) – 评估模型的数据集。 
-         - **callbacks** (Optional[list(Callback)]) - 训练过程中应该被执行的回调对象或者包含回调对象的列表。默认：None。
-         - **dataset_sink_mode** (bool) - 决定是否以数据集下沉模式进行。默认：True。
+         - **valid_dataset** (`Dataset`) – 评估模型的数据集。
+         - **callbacks** (`Optional[list(Callback)]`) - 训练过程中应该被执行的回调对象或者包含回调对象的列表。默认：None。
+         - **dataset_sink_mode** (`bool`) - 决定是否以数据集下沉模式进行。默认：True。
    
       **返回** ：
 
@@ -129,7 +129,7 @@ mindspore.Model
 
       **参数** ：
 
-         - **predict_data** (Tensor) – 单个或多个张量的预测数据
+         - **predict_data** (`Tensor`) – 单个或多个张量的预测数据
    
       **返回** ：
 
@@ -167,9 +167,9 @@ mindspore.Model
 
       **参数** ：
 
-         - **train_dataset** (Dataset) – 一个训练数据集迭代器。如果没有损失函数（ *loss_fn* ），应该返回一个包含多个数据的元组（data1, data2, data3, ...）并传递给网络。否则，应该返回一个元组（data, label），数据和标签将被分别传递给网络和损失函数。
-         - **dataset_sink_mode** (bool) – 决定是否以数据集下沉模式进行。默认：True。配置项是pynative模式或CPU时，训练模型流程使用的是数据不下沉（non-sink）模式。默认：True。
-         - **sink_size** (int) – 控制每次数据下沉的数据量，如果sink_size=-1，则每一次epoch下沉完整数据集。如果sink_size>0，则每一次epoch下沉数据量为sink_size的数据集。如果dataset_sink_mode为False，则设置sink_size为无效。默认值：-1。
+         - **train_dataset** (`Dataset`) – 一个训练数据集迭代器。如果没有损失函数（ *loss_fn* ），应该返回一个包含多个数据的元组（data1, data2, data3, ...）并传递给网络。否则，应该返回一个元组（data, label），数据和标签将被分别传递给网络和损失函数。
+         - **dataset_sink_mode** (`bool`) – 决定是否以数据集下沉模式进行。默认：True。配置项是pynative模式或CPU时，训练模型流程使用的是数据不下沉（non-sink）模式。默认：True。
+         - **sink_size** (`int`) – 控制每次数据下沉的数据量，如果sink_size=-1，则每一次epoch下沉完整数据集。如果sink_size>0，则每一次epoch下沉数据量为sink_size的数据集。如果dataset_sink_mode为False，则设置sink_size为无效。默认值：-1。
    
 
       **返回** ：
@@ -208,7 +208,7 @@ mindspore.Model
 
       **参数** ：
 
-         - **predict_data** (Tensor) – 预测样本，可以是布尔值、数值型、浮点型、字符串、None、张量，或者存储这些类型的元组、列表和字典。
+         - **predict_data** (`Tensor`) – 预测样本，可以是布尔值、数值型、浮点型、字符串、None、张量，或者存储这些类型的元组、列表和字典。
 
 
       **返回** ：
@@ -240,11 +240,11 @@ mindspore.Model
 
       **参数** ：
 
-         - **epoch** (int) – 一般来说，一次epoch是完整数据集进行迭代训练的总次数。当dataset_sink_mode设置为true且sink_size>0时，则被一次epoch中数据集在sink_size遍历所需的步数所替代。
-         - **train_dataset** (Dataset) – 一个训练数据集迭代器。如果没有损失函数，应该返回一个包含多个数据的元组（data1, data2, data3, ...）并传递给网络。否则，应该返回一个元组（data, label），数据和标签将被分别传递给网络和损失函数。
-         - **callbacks** (Optional[list[Callback], Callback]) – 训练过程中应该被执行的回调对象或者包含回调对象的列表。默认：None。
-         - **dataset_sink_mode** (bool) – 决定是否以数据集下沉模式进行。默认：True。配置项是pynative模式或CPU时，训练模型流程使用的是数据不下沉（non-sink）模式。默认：True。
-         - **sink_size** (int) – 控制每次数据下沉的数据量，如果sink_size=-1，则每一次epoch下沉完整数据集。如果sink_size>0，则每一次epoch下沉数据量为sink_size的数据集。如果dataset_sink_mode为False，则设置sink_size为无效。默认值：-1。
+         - **epoch** (`int`) – 一般来说，一次epoch是完整数据集进行迭代训练的总次数。当dataset_sink_mode设置为true且sink_size>0时，则被一次epoch中数据集在sink_size遍历所需的步数所替代。
+         - **train_dataset** (`Dataset`) – 一个训练数据集迭代器。如果没有损失函数，应该返回一个包含多个数据的元组（data1, data2, data3, ...）并传递给网络。否则，应该返回一个元组（data, label），数据和标签将被分别传递给网络和损失函数。
+         - **callbacks** (`Optional[list[Callback], Callback]`) – 训练过程中应该被执行的回调对象或者包含回调对象的列表。默认：None。
+         - **dataset_sink_mode** (`bool`) – 决定是否以数据集下沉模式进行。默认：True。配置项是pynative模式或CPU时，训练模型流程使用的是数据不下沉（non-sink）模式。默认：True。
+         - **sink_size** (`int`) – 控制每次数据下沉的数据量，如果sink_size=-1，则每一次epoch下沉完整数据集。如果sink_size>0，则每一次epoch下沉数据量为sink_size的数据集。如果dataset_sink_mode为False，则设置sink_size为无效。默认值：-1。
 
       **样例** :
 
