@@ -55,7 +55,7 @@ Figure 1: Offline debugger entry
 
 ## UI Introduction
 
-The UI of the offline debugger is the same as that of the online debugger. For details about the online debugger UI, see [Debugger UI Introduction](https://www.mindspore.cn/mindinsight/docs/en/r1.3/debugger.html#debugger-ui-introduction).
+The UI of the offline debugger is the same as that of the online debugger. For details about the online debugger UI, see [Debugger UI Introduction](https://www.mindspore.cn/mindinsight/docs/en/r1.3/debugger_online.html#debugger-ui-introduction).
 
 ## Usage Example
 
