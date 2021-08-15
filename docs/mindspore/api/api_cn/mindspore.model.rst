@@ -97,7 +97,7 @@ mindspore.Model
       **参数** ：
 
          - **valid_dataset** (`Dataset`) – 评估模型的数据集。
-         - **callbacks** (`Optional[list(Callback)]`) - 训练过程中应该被执行的回调对象或者包含回调对象的列表。默认：None。
+         - **callbacks** (`Optional[list(Callback)]`) - 训练过程中必须被执行的回调对象或者包含回调对象的列表。默认：None。
          - **dataset_sink_mode** (`bool`) - 决定是否以数据集下沉模式进行。默认：True。
    
       **返回** ：
@@ -163,11 +163,11 @@ mindspore.Model
 
       .. warning:: 这是一个实验性的原型，可能会被改变和/或删除。
 
-      .. note:: 这是一个预编译函数。参数应该与model.train()函数相同。
+      .. note:: 这是一个预编译函数。参数必须与model.train()函数相同。
 
       **参数** ：
 
-         - **train_dataset** (`Dataset`) – 一个训练数据集迭代器。如果没有损失函数（ *loss_fn* ），应该返回一个包含多个数据的元组（data1, data2, data3, ...）并传递给网络。否则，应该返回一个元组（data, label），数据和标签将被分别传递给网络和损失函数。
+         - **train_dataset** (`Dataset`) – 一个训练数据集迭代器。如果没有损失函数（ *loss_fn* ），返回一个包含多个数据的元组（data1, data2, data3, ...）并传递给网络。否则，返回一个元组（data, label），数据和标签将被分别传递给网络和损失函数。
          - **dataset_sink_mode** (`bool`) – 决定是否以数据集下沉模式进行。默认：True。配置项是pynative模式或CPU时，训练模型流程使用的是数据不下沉（non-sink）模式。默认：True。
          - **sink_size** (`int`) – 控制每次数据下沉的数据量，如果sink_size=-1，则每一次epoch下沉完整数据集。如果sink_size>0，则每一次epoch下沉数据量为sink_size的数据集。如果dataset_sink_mode为False，则设置sink_size为无效。默认值：-1。
    
@@ -241,8 +241,8 @@ mindspore.Model
       **参数** ：
 
          - **epoch** (`int`) – 一般来说，一次epoch是完整数据集进行迭代训练的总次数。当dataset_sink_mode设置为true且sink_size>0时，则被一次epoch中数据集在sink_size遍历所需的步数所替代。
-         - **train_dataset** (`Dataset`) – 一个训练数据集迭代器。如果没有损失函数，应该返回一个包含多个数据的元组（data1, data2, data3, ...）并传递给网络。否则，应该返回一个元组（data, label），数据和标签将被分别传递给网络和损失函数。
-         - **callbacks** (`Optional[list[Callback], Callback]`) – 训练过程中应该被执行的回调对象或者包含回调对象的列表。默认：None。
+         - **train_dataset** (`Dataset`) – 一个训练数据集迭代器。如果没有损失函数，返回一个包含多个数据的元组（data1, data2, data3, ...）并传递给网络。否则，返回一个元组（data, label），数据和标签将被分别传递给网络和损失函数。
+         - **callbacks** (`Optional[list[Callback], Callback]`) – 训练过程中必须被执行的回调对象或者包含回调对象的列表。默认：None。
          - **dataset_sink_mode** (`bool`) – 决定是否以数据集下沉模式进行。默认：True。配置项是pynative模式或CPU时，训练模型流程使用的是数据不下沉（non-sink）模式。默认：True。
          - **sink_size** (`int`) – 控制每次数据下沉的数据量，如果sink_size=-1，则每一次epoch下沉完整数据集。如果sink_size>0，则每一次epoch下沉数据量为sink_size的数据集。如果dataset_sink_mode为False，则设置sink_size为无效。默认值：-1。
 
