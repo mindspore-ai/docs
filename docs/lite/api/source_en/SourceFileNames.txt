@@ -11,11 +11,7 @@ mindspore/ccsrc/minddata/dataset/include/dataset/vision_ascend.h
 mindspore/ccsrc/minddata/dataset/include/dataset/vision_lite.h
 mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h
 mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h
-mindspore/lite/include/registry/framework.h
-mindspore/lite/include/registry/register_kernel_interface.h
-mindspore/lite/include/registry/model_parser_registry.h
-mindspore/lite/include/registry/pass_registry.h
-mindspore/lite/include/registry/register_kernel.h
+mindspore/lite/include/registry/*.h
 include/api/allocator.h
 include/api/callback/callback.h
 include/api/callback/ckpt_saver.h
