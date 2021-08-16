@@ -55,7 +55,7 @@ mindinsight start --port {PORT} --summary-base-dir {SUMMARY_BASE_DIR}
 
 ## 离线调试器页面介绍
 
-离线调试器界面与在线调试器相同。在线调试器的页面介绍详见[调试器页面介绍](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.3/debugger.html#id7) 。
+离线调试器界面与在线调试器相同。在线调试器的页面介绍详见[调试器页面介绍](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.3/debugger_online.html#id6) 。
 
 ## 使用离线调试器进行调试
 
