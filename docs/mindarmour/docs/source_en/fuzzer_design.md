@@ -39,11 +39,11 @@ Fuzz testting architecture consists of three modules:
 
 2. Fuzzer Moduler:
 
-   Perform fuzz testing on the mutated data to observe the change of the neuron coverage rate. If the generated data increases the neuron coverage rate, add the data to the mutated seed queue for the next round of data mutation. Currently, the following neuron coverage metrics are supported: KMNC, NBC, and SNAC [2].
+   Perform fuzz testing on the mutated data to observe the change of the neuron coverage rate. If the generated data increases the neuron coverage rate, add the data to the mutated seed queue for the next round of data mutation. Currently, the following neuron coverage metrics are supported: KMNC, NBC, SNAC, NC and TKNC.[2].
 
 3. Evaluation:
 
-   Evaluate the fuzz testing effect, quality of generated data, and strength of mutation methods. Five metrics of three types are supported, including the general evaluation metric (accuracy), neuron coverage rate metrics (kmnc, nbc, and snac), and adversarial attack evaluation metric (attack_success_rate).
+   Evaluate the fuzz testing effect, quality of generated data, and strength of mutation methods. Five metrics of three types are supported, including the general evaluation metric (accuracy), neuron coverage rate metrics (kmnc, nbc, snac, nc and tknc), and adversarial attack evaluation metric (attack_success_rate).
 
 ## Fuzz Testing Process
 
