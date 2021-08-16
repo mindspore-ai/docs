@@ -29,6 +29,10 @@
         - [模型加载与编译独立调用流程](#模型加载与编译独立调用流程)
         - [查看日志](#查看日志)
         - [获取版本号](#获取版本号)
+        - [扩展使用](#扩展使用)
+            - [算子InferShape扩展](#算子infershape扩展)
+            - [算子扩展](#算子扩展)
+            - [示例演示](#示例演示)
 
 <!-- /TOC -->
 
@@ -585,3 +589,137 @@ MindSpore Lite提供了[Version](https://www.mindspore.cn/lite/api/zh-CN/master/
 #include "include/api/types.h"
 std::string version = mindspore::Version();
 ```
+
+### 扩展使用
+
+本教程提供了扩展MindSpore Lite推理框架的示例程序，通过演示自定义算子的构建、注册的全流程，用户能够快速了解推理框架的扩展API的使用，能够在推理框架中集成自定义算子。本教程以一个具有简易Add计算能力的Custom单算子为模型。相关代码放置在[mindspore/lite/examples/runtime_extend](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/runtime_extend)目录。
+
+本教程仅提供了在Linux环境下的使用说明,并且仅在1.3及以上版本支持。
+
+#### 算子InferShape扩展
+
+用户需继承[KernelInterface](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/registry.html#kernelinterface)类，重载[Infer](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/registry.html#infer)接口函数。
+
+```cpp
+int CheckInputs(const std::vector<mindspore::MSTensor> &inputs) {         // 输入校验函数，校验输入张量的shape是否合规
+  for (auto &input : inputs) {
+    auto input_shape = input.Shape();
+    if (std::find(input_shape.begin(), input_shape.end(), -1) != input_shape.end()) {
+      return lite::RET_INFER_INVALID;
+    }
+  }
+  return lite::RET_OK;
+}
+
+class CustomAddInfer : public kernel::KernelInterface {
+ public:
+  CustomAddInfer() = default;
+  ~CustomAddInfer() = default;
+
+  int Infer(std::vector<mindspore::MSTensor> *inputs, std::vector<mindspore::MSTensor> *outputs,
+            const schema::Primitive *primitive) override {        // 重载Infer公有函数
+    (*outputs)[0].SetFormat((*inputs)[0].format());
+    (*outputs)[0].SetDataType((*inputs)[0].DataType());
+    auto ret = CheckInputs(inputs);
+    if (ret != lite::RET_OK) {
+      (*outputs)[0].SetShape({-1});        // 输出张量的shape设为{-1}，表示在运行时需要再次推断
+      return ret;
+    }
+    (*outputs)[0].SetShape((*inputs)[0].Shape());
+    return lite::RET_OK;
+  }
+};
+std::shared_ptr<kernel::KernelInterface> CustomAddInferCreator() { return std::make_shared<CustomAddInfer>(); }
+REGISTER_CUSTOM_KERNEL_INTERFACE(CustomOpTutorial, Custom_Add, CustomAddInferCreator)       // 调用注册接口
+```
+
+> shape推断分为两个时期，一是图编译时的静态推断，二是图运行时的动态推断。
+>
+> 静态推断：
+>
+> 1. `CheckInputs`失败或者当前节点需要动态推断的情形下，需将输出张量的shape设为{-1}，以便在图运行时的识别标识,且返回码需设置为RET_INFER_INVALID。
+> 2. 其他情形下，返回其他错误码，程序将会停止，请进行必要的检查。
+>
+> 动态推断：
+>
+> 在算子运行时，动态推断是否需要，依据对输出张量的shape校验。请参考下面的算子扩展说明。
+
+#### 算子扩展
+
+1. 用户需继承[Kernel](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/kernel.html#kernel)类，重载必要的接口。
+
+    - Prepare：此接口将在图编译期间调用，用户可对算子做运行前的准备或者必要的校验。
+
+    - Execute：此接口是算子的运行接口，用户可将**动态推断**逻辑[PreProcess](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/runtime_extend/src/custom_add_kernel.cc)放置于此接口内调用。
+
+      ```cpp
+      int CheckOutputs(const std::vector<mindspore::MSTensor> &outputs) {           // 算子运行时校验，以确定是否调用InferShape过程
+        for (auto &output : outputs) {
+          auto output_shape = output.Shape();
+          if (std::find(output_shape.begin(), output_shape.end(), -1) != output_shape.end()) {
+            return lite::RET_INFER_INVALID;
+          }
+        }
+        return lite::RET_OK;
+      }
+      ```
+
+    - ReSize：此接口用于在图输入shape变化的情形下，当前算子所需的相应变动。
+
+    - 属性解析： 用户需自行提供对算子属性的解析，可参考[ParseAttrData](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/runtime_extend/src/custom_add_kernel.cc)。
+
+2. 算子注册，API接口可参考[REGISTER_CUSTOM_KERNEL](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/registry.html#register-kernel)。
+
+   ```cpp
+   const auto kFloat32 = DataType::kNumberTypeFloat32;
+   std::shared_ptr<Kernel> CustomAddCreator(const std::vector<mindspore::MSTensor> &inputs,
+                                            const std::vector<mindspore::MSTensor> &outputs,
+                                            const schema::Primitive *primitive, const mindspore::Context *ctx) {
+     return std::make_shared<CustomAddKernel>(inputs, outputs, primitive, ctx);
+   }
+   REGISTER_CUSTOM_KERNEL(CPU, CustomOpTutorial, kFloat32, Custom_Add, CustomAddCreator)
+   ```
+
+#### 示例演示
+
+1. 编译
+
+   - 环境要求
+
+       - 系统环境：Linux x86_64，推荐使用Ubuntu 18.04.02LTS
+       - 编译依赖：
+           - [CMake](https://cmake.org/download/) >= 3.18.3
+           - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
+
+   - 编译构建
+
+     在`mindspore/lite/examples/runtime_extend`目录下执行[build脚本](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_extend/build.sh)，将自动下载MindSpore Lite发布件并编译Demo。
+
+     ```bash
+     bash build.sh
+     ```
+
+     > 若使用该build脚本下载MindSpore Lite发布件失败，请手动下载硬件平台为CPU、操作系统为Ubuntu-x64的MindSpore Lite发布件[mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)，将解压后`runtime/lib`目录下的`libmindspore-lite.so`文件拷贝到`mindspore/lite/examples/runtime_extend/lib`目录、`runtime/include`目录拷贝到`mindspore/lite/examples/runtime_extend`目录下。
+     >
+     > 若add_extend.ms模型下载失败，请手动下载相关模型文件[add_extend.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/add_extend.ms)，并将其拷贝到`mindspore/lite/examples/runtime_extend/model`目录。
+     >
+     > 通过手动下载并且将该文件放到指定位置后，需要再次执行build.sh脚本才能完成编译构建。
+
+   - 编译输出
+
+     在`mindspore/lite/examples/runtime_extend/build`目录下生成了runtime_extend_tutorial的可执行程序。
+
+2. 执行程序
+
+   编译构建后，进入`mindspore/lite/examples/runtime_extend/build`目录，并执行以下命令，体验扩展的MindSpore Lite推理add_extend.ms模型。
+
+   ```bash
+   ./runtime_extend_tutorial ../model/add_extend.ms
+   ```
+
+   执行完成后将能得到如下结果，打印输出Tensor的名称、输出Tensor的大小，输出Tensor的数量以及前20个数据：
+
+   ```text
+   tensor name is:add-0 tensor size is:400 tensor elements num is:100
+   output data is:2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+   ```

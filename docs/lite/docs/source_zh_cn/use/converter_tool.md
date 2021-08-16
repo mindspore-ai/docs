@@ -16,6 +16,10 @@
         - [目录结构](#目录结构-1)
         - [参数说明](#参数说明-1)
         - [使用示例](#使用示例-1)
+    - [高级用法](#高级用法)
+        - [Pass扩展](#pass扩展)
+        - [算子InferShape扩展](#算子infershape扩展)
+        - [示例演示](#示例演示)
 
 <!-- /TOC -->
 
@@ -254,3 +258,82 @@ set GLOG_v=1
    ```text
    CONVERTER RESULT SUCCESS:0
    ```
+
+## 高级用法
+
+本章节提供了扩展MindSpore Lite转换工具的示例程序，涵盖了Pass的创建全流程以及编译链接全流程，用户能够快速了解转换工具的扩展API的使用。
+
+本章节以一个tflite为[原始模型](https://download.mindspore.cn/model_zoo/official/lite/quick_start/add.tflite)为例，该模型仅包含一个简单的Add算子，通过扩展的Pass类，将Add算子转化为[Custom算子](https://www.mindspore.cn/lite/docs/zh-CN/master/use/register_kernel.html#custom)，最终输出Custom单算子模型。
+
+相关代码放置在[mindspore/lite/examples/converter_extend](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/converter_extend)目录。
+
+本章节仅提供了在Linux环境下的使用说明,并且仅在1.3及以上版本支持。
+
+### Pass扩展
+
+1. 自定义Pass：用户需继承Pass基类，重载Run接口函数[Run](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/converter_extend/src/pass_registry_tutorial.h)。
+
+2. Pass注册：调用Pass的注册接口[REG_PASS](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/registry.html#reg-pass)，把用户自己实现的Pass类注册进MindSpore Lite里。
+
+### 算子InferShape扩展
+
+在离线转换阶段，我们会对模型的每一个节点的输出张量进行推断，包括输出张量的Format、DataType以及Shape，因此，离线转换阶段，用户需提供自己实现的算子的推断过程，这里用户可以参考[算子Infershape扩展](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html#id19)说明。
+
+### 示例演示
+
+#### 编译
+
+- 环境要求
+
+    - 系统环境：Linux x86_64，推荐使用Ubuntu 18.04.02LTS
+    - 编译依赖：
+        - [CMake](https://cmake.org/download/) >= 3.18.3
+        - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
+
+- 编译构建
+
+  在`mindspore/lite/examples/converter_extend`目录下执行[build脚本](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/converter_extend/build.sh)，将自动下载MindSpore Lite发布件并编译Demo。
+
+  ```bash
+  bash build.sh
+  ```
+
+  > 若使用该build脚本下载MindSpore Lite发布件失败，请手动下载硬件平台为CPU、操作系统为Ubuntu-x64的MindSpore Lite发布件[mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，将解压后`tools/converter/lib`目录、`tools/converter/include`目录拷贝到`mindspore/lite/examples/converter_extend`目录下。
+  >
+  > 通过手动下载并且将文件放到指定位置后，需要再次执行build.sh脚本才能完成编译构建。
+
+- 编译输出
+
+  在`mindspore/lite/examples/converter_extend/build`目录下生成了libconverter_extend_tutorial.so的动态库。
+
+#### 执行程序
+
+1. 拷贝动态库
+
+   将生成的libconverter_extend_tutorial.so动态库文件拷贝到发布件的tools/converter/lib下。
+
+2. 进入发布件的转换目录
+
+   ```bash
+   cd ${PACKAGE_ROOT_PATH}/tools/converter/converter
+   ```
+
+3. 创建converter的配置文件（converter.cfg)，文件内容如下：
+
+   ```text
+   plugin_path=libconverter_extend_tutorial.so      # 用户请配置动态库的绝对路径
+   ```
+
+4. 将转换工具需要的动态链接库加入环境变量LD_LIBRARY_PATH
+
+   ```bash
+   export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/tools/converter/lib
+   ```
+
+5. 执行converter
+
+   ```bash
+   ./converter_lite --fmk=TFLITE --modelFile=add.tflite --configFile=converter.cfg --outputFile=add_extend
+   ```
+
+执行完后，将生成名为add_extend.ms的模型文件,文件路径由参数outputFile决定。
