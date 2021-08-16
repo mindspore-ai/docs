@@ -16,6 +16,7 @@ from sphinx.search import jssplitter as sphinx_split
 from sphinx import errors as searchtools_path
 import textwrap
 import shutil
+import glob
 sys.path.append(os.path.abspath("../_custom"))
 from exhale import graph as exh_graph
 
@@ -271,7 +272,7 @@ with open("../_custom/sphinx_builder_html", "r", encoding="utf8") as f:
 
 exec(source_code, sphinx_builder_html.__dict__)
 
-# Copy sourcefiles from mindspore repository.
+# Copy sourcefiles from mindspore repository to "../include/".
 ms_path = os.getenv("MS_PATH")
 if os.path.exists("../include"):
     shutil.rmtree("../include")
@@ -282,11 +283,20 @@ with open("./SourceFileNames.txt") as f:
         if i == "\n":
             continue
         name = i.strip().strip("\n")
-        shutil.copy(os.path.join(ms_path, name), "../include/")
-        with open(os.path.join("../include", os.path.basename(name)), "r+", encoding="utf8") as f:
-            content = f.read()
-            if "class MS_API " in content:
-                content_new = content.replace("class MS_API", "class")
-                f.seek(0)
-                f.truncate()
-                f.write(content_new)
+        if "*" in name:
+            files = glob.glob(os.path.join(ms_path, name))
+            for file in files:
+                shutil.copy(file, "../include/")
+        else:
+            shutil.copy(os.path.join(ms_path, name), "../include/")
+
+# Remove "MS_API" in classes. 
+files_copyed = glob.glob("../include/*.h")
+for file in files_copyed:
+    with open(file, "r+", encoding="utf8") as f:
+        content = f.read()
+        if "class MS_API " in content:
+            content_new = content.replace("class MS_API", "class")
+            f.seek(0)
+            f.truncate()
+            f.write(content_new)
