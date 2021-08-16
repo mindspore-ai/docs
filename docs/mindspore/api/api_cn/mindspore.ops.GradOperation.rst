@@ -55,9 +55,9 @@ mindspore.ops.GradOperation
 
    **参数** ：
 
-      - **get_all** (`bool`) –  如果等于True，获得所有输入的梯度。默认：False。
-      - **get_by_list** (`bool`) -  如果等于True，获得所有参数变量的梯度。如果 *get_all* 和 *get_by_list* 都等于False，则第一次输入的梯度。如果 *get_all* 和 *get_by_list* 都等于True，则同时得到关于输入和参数变量的梯度，输出形式为((关于输入的梯度)，(关于参数变量的梯度))。默认：False。
-      - **sens_param** (`bool`) -  是否在输入中配置灵敏度（与输出梯度相关）。如果sens_param等于False，自动添加一个 `ones_like(output)` 灵敏度。默认：False。如果sensor_param等于True，灵敏度（与输出梯度相关），必须通过location参数或key-value pair参数来传递，如果是通过key-value pair参数传递value，那么key必须为sens。
+      - **get_all** (`bool`) –  如果等于True，获得所有输入的梯度。默认值：False。
+      - **get_by_list** (`bool`) -  如果等于True，获得所有参数变量的梯度。如果 *get_all* 和 *get_by_list* 都等于False，则第一次输入的梯度。如果 *get_all* 和 *get_by_list* 都等于True，则同时得到关于输入和参数变量的梯度，输出形式为((关于输入的梯度)，(关于参数变量的梯度))。默认值：False。
+      - **sens_param** (`bool`) -  是否在输入中配置灵敏度（与输出梯度相关）。如果sens_param等于False，自动添加一个 `ones_like(output)` 灵敏度。默认值：False。如果sensor_param等于True，灵敏度（与输出梯度相关），必须通过location参数或key-value pair参数来传递，如果是通过key-value pair参数传递value，那么key必须为sens。
 
    **返回** ：
 
