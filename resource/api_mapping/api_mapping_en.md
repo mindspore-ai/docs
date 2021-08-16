@@ -131,7 +131,10 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torch.optim.Adamax                                   | mindspore.ops.ApplyAdaMax                                      | same |
 | torch.optim.AdamW                                    | mindspore.nn.AdamWeightDecay                                   | same |
 | torch.optim.lr_scheduler.CosineAnnealingWarmRestarts | mindspore.nn.cosine_decay_lr                                   | same |
+| torch.optim.lr_scheduler.ExponentialLR        | mindspore.nn.exponential_decay_lr                                    |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/ExponentialDecayLR_en.md)|
+| torch.optim.lr_scheduler.MultiStepLR        | mindspore.nn.piecewise_constant_lr                                  |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/PiecewiseConstantLR_en.md)|
 | torch.optim.lr_scheduler.StepLR                      | mindspore.nn.piecewise_constant_lr                             | same |
+| torch.optim.Optimizer  | mindspore.nn.Optimizer                                    |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/Optimizer_en.md)|
 | torch.optim.Optimizer.step                           | mindspore.nn.TrainOneStepCell                                  |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/TrainOneStepCell_en.md)|
 | torch.optim.RMSprop                                  | mindspore.nn.RMSProp                                           | same |
 | torch.optim.SGD                                      | mindspore.nn.SGD                                               | same |
