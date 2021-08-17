@@ -598,7 +598,7 @@ std::string version = mindspore::Version();
 
 #### 算子InferShape扩展
 
-用户需继承[KernelInterface](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/registry.html#kernelinterface)类，重载[Infer](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/registry.html#infer)接口函数。
+用户需继承[KernelInterface](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html#kernelinterface)类，重载[Infer](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html#infer)接口函数。
 
 ```cpp
 int CheckInputs(const std::vector<mindspore::MSTensor> &inputs) {         // 输入校验函数，校验输入张量的shape是否合规
@@ -616,14 +616,16 @@ class CustomAddInfer : public kernel::KernelInterface {
   CustomAddInfer() = default;
   ~CustomAddInfer() = default;
 
-  int Infer(std::vector<mindspore::MSTensor> *inputs, std::vector<mindspore::MSTensor> *outputs,
-            const schema::Primitive *primitive) override {        // 重载Infer公有函数
+  Status Infer(std::vector<mindspore::MSTensor> *inputs, std::vector<mindspore::MSTensor> *outputs,
+               const schema::Primitive *primitive) override {        // 重载Infer公有函数
     (*outputs)[0].SetFormat((*inputs)[0].format());
     (*outputs)[0].SetDataType((*inputs)[0].DataType());
     auto ret = CheckInputs(inputs);
-    if (ret != lite::RET_OK) {
+    if (ret == lite::RET_INFER_INVALID) {
       (*outputs)[0].SetShape({-1});        // 输出张量的shape设为{-1}，表示在运行时需要再次推断
-      return ret;
+      return kLiteInferInvalid;
+    } else if (ret != lite::RET_OK) {
+      return kLiteError;
     }
     (*outputs)[0].SetShape((*inputs)[0].Shape());
     return lite::RET_OK;
@@ -646,7 +648,7 @@ REGISTER_CUSTOM_KERNEL_INTERFACE(CustomOpTutorial, Custom_Add, CustomAddInferCre
 
 #### 算子扩展
 
-1. 用户需继承[Kernel](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/kernel.html#kernel)类，重载必要的接口。
+1. 用户需继承[Kernel](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html#kernel)类，重载必要的接口。
 
     - Prepare：此接口将在图编译期间调用，用户可对算子做运行前的准备或者必要的校验。
 
@@ -668,7 +670,7 @@ REGISTER_CUSTOM_KERNEL_INTERFACE(CustomOpTutorial, Custom_Add, CustomAddInferCre
 
     - 属性解析： 用户需自行提供对算子属性的解析，可参考[ParseAttrData](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/runtime_extend/src/custom_add_kernel.cc)。
 
-2. 算子注册，API接口可参考[REGISTER_CUSTOM_KERNEL](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/registry.html#register-kernel)。
+2. 算子注册，API接口可参考[REGISTER_CUSTOM_KERNEL](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#register-custom-kernel)。
 
    ```cpp
    const auto kFloat32 = DataType::kNumberTypeFloat32;
@@ -699,7 +701,7 @@ REGISTER_CUSTOM_KERNEL_INTERFACE(CustomOpTutorial, Custom_Add, CustomAddInferCre
      bash build.sh
      ```
 
-     > 若使用该build脚本下载MindSpore Lite发布件失败，请手动下载硬件平台为CPU、操作系统为Ubuntu-x64的MindSpore Lite发布件[mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)，将解压后`runtime/lib`目录下的`libmindspore-lite.so`文件拷贝到`mindspore/lite/examples/runtime_extend/lib`目录、`runtime/include`目录拷贝到`mindspore/lite/examples/runtime_extend`目录下。
+     > 若使用该build脚本下载MindSpore Lite发布件失败，请手动下载硬件平台为CPU、操作系统为Ubuntu-x64的MindSpore Lite发布件[mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，将解压后`runtime/lib`目录下的`libmindspore-lite.so`文件拷贝到`mindspore/lite/examples/runtime_extend/lib`目录、`runtime/include`目录拷贝到`mindspore/lite/examples/runtime_extend`目录下。
      >
      > 若add_extend.ms模型下载失败，请手动下载相关模型文件[add_extend.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/add_extend.ms)，并将其拷贝到`mindspore/lite/examples/runtime_extend/model`目录。
      >

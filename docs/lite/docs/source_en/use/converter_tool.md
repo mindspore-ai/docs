@@ -81,6 +81,7 @@ The following describes the parameters in detail.
 | `--configFile=<CONFIGFILE>` | No | 1) Profile path of calibration dataset when quantType is set as PostTraining; 2) Profile path of converter. | - | - |
 | `--fp16=<FP16>` | No | Serialize const tensor in Float16 data type, only effective for const tensor in Float32 data type. | on or off | off |
 | `--inputShape=<INPUTSHAPE>` | No | Set the dimension of the model input, the default is the same as the input of the original model. The model can be further optimized in some scenarios, such as models with shape operator, but the output model will lose the feature of dymatic shape. e.g. inTensorName: 1,32,32,4 | - | - |
+| `--inputFormat=<INPUTFORMAT>` | No | Set the format of model inputs. Only valid for 4-dimensional inputs. | NHWC, NCHW | NHWC |
 
 > - The parameter name and parameter value are separated by an equal sign (=) and no space is allowed between them.
 > - The Caffe model is divided into two files: model structure `*.prototxt`, corresponding to the `--modelFile` parameter; model weight `*.caffemodel`, corresponding to the `--weightFile` parameter.

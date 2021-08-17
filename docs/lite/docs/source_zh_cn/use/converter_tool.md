@@ -83,6 +83,7 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 | `--configFile=<CONFIGFILE>` | 否 | 1）可作为训练后量化（全量化）校准数据集配置文件路径；2）可作为转换器的配置文件路径。  |  - | -  |
 | `--fp16=<FP16>` | 否 | 设定在模型序列化时是否需要将Float32数据格式的权重存储为Float16数据格式. | on、off | off |
 | `--inputShape=<INPUTSHAPE>` | 否 | 设定模型输入的维度，默认与原始模型的输入一致。对某些特定的模型可以进一步常量折叠，比如存在shape算子的模型，但是转化后的模型将失去动态shape的特性。e.g.  inTensorName: 1,32,32,4 | -| - |
+| `--inputFormat=<INPUTFORMAT>` | 否 | 设定模型输入的format，只对4维输入有效。 | NHWC、NCHW | NHWC |
 
 > - 参数名和参数值之间用等号连接，中间不能有空格。
 > - Caffe模型一般分为两个文件：`*.prototxt`模型结构，对应`--modelFile`参数；`*.caffemodel`模型权值，对应`--weightFile`参数。
@@ -273,7 +274,7 @@ set GLOG_v=1
 
 1. 自定义Pass：用户需继承Pass基类，重载Run接口函数[Run](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/converter_extend/src/pass_registry_tutorial.h)。
 
-2. Pass注册：调用Pass的注册接口[REG_PASS](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/registry.html#reg-pass)，把用户自己实现的Pass类注册进MindSpore Lite里。
+2. Pass注册：调用Pass的注册接口[REG_PASS](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#reg-pass)，把用户自己实现的Pass类注册进MindSpore Lite里。
 
 ### 算子InferShape扩展
 
