@@ -14,6 +14,7 @@
 import os
 import re
 import sys
+import sphinx
 sys.path.append(os.path.abspath('../_ext'))
 import sphinx.ext.autosummary.generate as g
 from sphinx.ext import autodoc as sphinx_autodoc
@@ -21,7 +22,6 @@ from sphinx.util import inspect as sphinx_inspect
 from sphinx.domains import python as sphinx_domain_python
 from textwrap import dedent
 
-import mindspore
 
 # -- Project information -----------------------------------------------------
 
@@ -140,3 +140,29 @@ with open(sphinx_domain_python_source_path, "r+", encoding="utf8") as f:
     if python_code_target not in code_str:
         code_str = code_str.replace(python_code_source, python_code_target)
         exec(code_str, sphinx_domain_python.__dict__)
+
+# Repair error decorators defined in mindspore.
+try:
+    decorator_list = [("mindspore/common/_decorator.py", "deprecated",
+                       "    def decorate(func):",
+                       "    def decorate(func):\n\n        import functools\n\n        @functools.wraps(func)"),
+                      ("mindspore/nn/optim/optimizer.py", "opt_init_args_register",
+                       "    def deco(self, *args, **kwargs):",
+                       "\n\n    import functools\n\n    @functools.wraps(fn)\n    def deco(self, *args, **kwargs):"),
+                      ("mindspore/ops/primitive.py", "prim_attr_register",
+                       "    def deco(self, *args, **kwargs)",
+                       "\n\n    import functools\n\n    @functools.wraps(fn)\n    def deco(self, *args, **kwargs)")]
+
+    base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
+    for i in decorator_list:
+        with open(os.path.join(base_path, os.path.normpath(i[0])), "r+", encoding="utf8") as f:
+            content = f.read()
+            if i[3] not in content:
+                content = content.replace(i[2], i[3])
+                f.seek(0)
+                f.truncate()
+                f.write(content)
+except:
+    pass
+
+import mindspore
