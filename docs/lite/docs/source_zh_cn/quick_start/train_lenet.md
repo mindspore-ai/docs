@@ -7,6 +7,7 @@
 - [基于C++接口实现端侧训练](#基于c接口实现端侧训练)
     - [概述](#概述)
     - [准备](#准备)
+        - [环境要求](#环境要求)
         - [下载数据集](#下载数据集)
         - [安装MindSpore](#安装MindSpore)
         - [下载并安装MindSpore Lite](#下载并安装MindSpore-Lite)
@@ -39,6 +40,21 @@
 ## 准备
 
 推荐使用Ubuntu 18.04 64位操作系统。
+
+### 环境要求
+
+- 系统环境：Linux x86_64，推荐使用Ubuntu 18.04.02LTS
+
+- 软件依赖
+
+    - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
+
+    - [CMake](https://cmake.org/download/) >= 3.18.3
+
+    - [Git](https://git-scm.com/downloads) >= 2.28.0
+
+    - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
+        - 配置环境变量：`export ANDROID_NDK=NDK路径`
 
 ### 下载数据集
 
