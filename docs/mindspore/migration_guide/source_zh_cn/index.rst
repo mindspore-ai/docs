@@ -18,4 +18,5 @@ MindSpore迁移指南
    performance_optimization
    inference
    sample_code
+   api_mapping
    faq
