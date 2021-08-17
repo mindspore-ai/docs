@@ -44,7 +44,7 @@ The current support for containerized build options is as follows:
 
     ```bash
     docker login -u {username} -p {password} {url}
-    docker pull swr.cn-south-1.myhuaweicloud.com/public-ascendhub/ascend-mindspore-{arch}:{tag}
+    docker pull ascendhub.huawei.com/public-ascendhub/ascend-mindspore-{arch}:{tag}
     ```
 
     of which,
@@ -72,7 +72,7 @@ docker run -it -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
                --device=/dev/davinci_manager \
                --device=/dev/devmm_svm \
                --device=/dev/hisi_hdc \
-               swr.cn-south-1.myhuaweicloud.com/public-ascendhub/ascend-mindspore-{arch}:{tag} \
+               ascendhub.huawei.com/public-ascendhub/ascend-mindspore-{arch}:{tag} \
                /bin/bash
 ```
 
@@ -99,7 +99,7 @@ docker run -it -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
                --device=/dev/davinci_manager \
                --device=/dev/devmm_svm \
                --device=/dev/hisi_hdc \
-               swr.cn-south-1.myhuaweicloud.com/public-ascendhub/ascend-mindspore-{arch}:{tag} \
+               ascendhub.huawei.com/public-ascendhub/ascend-mindspore-{arch}:{tag} \
                /bin/bash
 ```
 
@@ -151,7 +151,7 @@ When you need to update the MindSpore version:
 - log in to [Ascend Hub Image Center](https://ascend.huawei.com/ascendhub/#/home) again to obtain the download command of the latest docker version and execute:
 
     ```bash
-    docker pull swr.cn-south-1.myhuaweicloud.com/public-ascendhub/ascend-mindspore-{arch}:{tag}
+    docker pull ascendhub.huawei.com/public-ascendhub/ascend-mindspore-{arch}:{tag}
     ```
 
     of which,

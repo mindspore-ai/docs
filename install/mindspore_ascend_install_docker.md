@@ -44,7 +44,7 @@ MindSpore的Ascend 910镜像托管在[Ascend Hub](https://ascend.huawei.com/asce
 
     ```bash
     docker login -u {username} -p {password} {url}
-    docker pull swr.cn-south-1.myhuaweicloud.com/public-ascendhub/ascend-mindspore-{arch}:{tag}
+    docker pull ascendhub.huawei.com/public-ascendhub/ascend-mindspore-{arch}:{tag}
     ```
 
     其中：
@@ -72,7 +72,7 @@ docker run -it -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
                --device=/dev/davinci_manager \
                --device=/dev/devmm_svm \
                --device=/dev/hisi_hdc \
-               swr.cn-south-1.myhuaweicloud.com/public-ascendhub/ascend-mindspore-{arch}:{tag} \
+               ascendhub.huawei.com/public-ascendhub/ascend-mindspore-{arch}:{tag} \
                /bin/bash
 ```
 
@@ -99,7 +99,7 @@ docker run -it -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
                --device=/dev/davinci_manager \
                --device=/dev/devmm_svm \
                --device=/dev/hisi_hdc \
-               swr.cn-south-1.myhuaweicloud.com/public-ascendhub/ascend-mindspore-{arch}:{tag} \
+               ascendhub.huawei.com/public-ascendhub/ascend-mindspore-{arch}:{tag} \
                /bin/bash
 ```
 
@@ -151,7 +151,7 @@ print(ops.add(x, y))
 - 再次登录[Ascend Hub镜像中心](https://ascend.huawei.com/ascendhub/#/home)获取最新docker版本的下载命令，并执行：
 
     ```bash
-    docker pull swr.cn-south-1.myhuaweicloud.com/public-ascendhub/ascend-mindspore-{arch}:{tag}
+    docker pull ascendhub.huawei.com/public-ascendhub/ascend-mindspore-{arch}:{tag}
     ```
 
     其中：
