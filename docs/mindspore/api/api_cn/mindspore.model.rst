@@ -3,23 +3,23 @@ mindspore.Model
 
 .. py:class:: mindspore.Model(network, loss_fn=None, optimizer=None, metrics=None, eval_network=None, eval_indexes=None, amp_level="O0", acc_level="O0", **kwargs)
 
-   训练模型及测试的高阶API接口，将训练和推理特征的各个模型层放入一个对象中。
+   训练模型及测试的高阶API接口， `Model` 会根据用户传入的参数封装可训练或推理的实例。
 
    **参数** ：
 
       - **network** (`Cell`) – 一个训练或测试的神经网络模型。
-      - **loss_fn** (`Cell`) - 损失函数，如果损失函数是None，该模型需要包含损失函数逻辑以及梯度计算，如果有并行计算逻辑也需加入。默认值：None。
+      - **loss_fn** (`Cell`) - 损失函数，如果损失函数是None， `network` 需要包含损失函数逻辑以及梯度计算，如果有并行计算逻辑也需加入。默认值：None。
       - **optimizer** (`Cell`) - 更新网络权重的优化器。默认值：None。
-      - **metrics** (`Union[dict, set]`) - 在模型训练和测试期间的一组评价指标。例如: {‘accuracy’, ‘recall’}。默认值：None。
-      - **eval_network** (`Cell`) -  指定用于评估的模型。如果没有定义， *network* 和 *loss_fn* 将被当作 *eval_network* 使用。默认值：None。
-      - **eval_indexes** (`list`) -  在定义 *eval_network* 时，如果 *eval_indexes* 为None， *eval_network* 的所有输出将输入到 *metrics* 中，否则 *eval_indexes* 必须包含三个元素，包括损失值、预测值和标签。损失值将输入到损失评价函数，而预测值和标签输入到其他评价函数中。默认值：None。
+      - **metrics** (`Union[dict, set]`) - 在训练和测试时的模型评价指标。例如: {‘accuracy’, ‘recall’}。默认值：None。
+      - **eval_network** (`Cell`) -  指定用于评估的模型。如果没有定义， *network* 和 *loss_fn* 将会被封装成 *eval_network* 。默认值：None。
+      - **eval_indexes** (`list`) -  在定义 *eval_network* 时，如果 *eval_indexes* 为None， *eval_network* 的所有输出将传给 *metrics* 中，否则 *eval_indexes* 必须包含三个元素，为损失值、预测值和标签在输出中的位置。损失值将传给损失评价函数，而预测值和标签在输出中的位置传给其他评价函数。默认值：None。
       - **amp_level** (`str`) - 在 *mindspore.amp.build_train_network* 中的可选参数 *level* ， *level* 为混合精度的等级，该参数支持 [“O0”, “O2”, “O3”, “auto”]。默认值：“O0”。
          
          - O0: 无变化。
-         - O2: 将网络训练精度保持在float16，batchnorm保持在float32精度进行，同时使用动态loss scale策略。
-         - O3: 将网络训练精度保持在float16，同时设置属性keep_batchnorm_fp32等于False。
+         - O2: 将网络训练精度转为float16，batchnorm保持在float32精度进行，同时使用动态loss scale策略。
+         - O3: 将网络训练精度转为float16，同时设置属性keep_batchnorm_fp32等于False。
          - auto: 在不同处理器上会将 *amp_level* 设置为专家推荐的 *level* ，如在GPU上设为02，在Ascend上设为03。但这并不总是符合实际要求，建议在不同网络模型上用户要根据情况自定义设置 *amp_level* 。
-      在GPU上建议使用O2，在Ascend上建议使用O3。关于 *amp_level* 设置的更详细解释可以在 *mindpore.amp.build_train_network* 找到。
+      在GPU上建议使用O2，在Ascend上建议使用O3。关于 *amp_level* 详见 *mindpore.amp.build_train_network* 。
 
 
    **样例** :
@@ -88,11 +88,11 @@ mindspore.Model
 
    .. py:function:: eval(valid_dataset, callbacks=None, dataset_sink_mode=True)
 
-      当迭代过程由Python前端控制时，可使用该模型评价API接口。
+      模型评估接口，其迭代过程由Python前端控制。
 
       配置项是PYNATIVE_MODE或CPU时，模型评价流程使用的是数据不下沉（non-sink）模式。
 
-      .. note:: 如果dataset_sink_mode等于True，数据将被送到处理器中。如果处理器是Ascend，数据特征将被逐一传输，每次数据传输的限制是256M。
+      .. note:: 如果dataset_sink_mode配置为True，数据将被送到处理器中。如果处理器是Ascend，数据特征将被逐一传输，每次数据传输的限制是256M。
 
       **参数** ：
 
@@ -232,11 +232,11 @@ mindspore.Model
 
    .. py:function:: train(epoch, train_dataset, callbacks=None, dataset_sink_mode=True, sink_size=-1)
 
-      当迭代过程由Python前端控制时，可使用该模型训练API接口。
+      模型训练接口，其迭代过程由Python前端控制。
 
       配置项是PYNATIVE_MODE或CPU时，模型训练流程使用的是数据不下沉（non-sink）模式。
 
-      .. note:: 如果dataset_sink_mode等于True，数据将被送到处理器中。如果处理器是Ascend，数据特征将被逐一传输，每次数据传输的限制是256M。如果sink_size > 0，每次epoch可以无限次遍历数据集，直到遍历数据量等于sink_size为止。然后下次epoch是从上一次遍历的最后位置继续开始遍历。该接口会构建并执行计算图，如果'model.build'已经执行过，那么它会直接执行计算图而不构建。
+      .. note:: 如果dataset_sink_mode配置为True，数据将被送到处理器中。如果处理器是Ascend，数据特征将被逐一传输，每次数据传输的限制是256M。如果sink_size > 0，每次epoch可以无限次遍历数据集，直到遍历数据量等于sink_size为止。然后下次epoch是从上一次遍历的最后位置继续开始遍历。该接口会构建并执行计算图，如果'model.build'已经执行过，那么它会直接执行计算图而不构建。
 
       **参数** ：
 
