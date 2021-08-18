@@ -1,5 +1,5 @@
 mindspore.Model
-=========
+================
 
 .. py:class:: mindspore.Model(network, loss_fn=None, optimizer=None, metrics=None, eval_network=None, eval_indexes=None, amp_level="O0", acc_level="O0", **kwargs)
 
@@ -55,7 +55,7 @@ mindspore.Model
               >>> dataset = create_custom_dataset()
               >>> model.train(2, dataset)
 
-   .. py:function:: build(train_dataset=None, valid_dataset=None, sink_size=-1)
+   .. py:method:: build(train_dataset=None, valid_dataset=None, sink_size=-1)
 
       用数据下沉模式建立计算图和数据图。
 
@@ -86,7 +86,7 @@ mindspore.Model
                >>> model.build(dataset)
                >>> model.train(2, dataset)
 
-   .. py:function:: eval(valid_dataset, callbacks=None, dataset_sink_mode=True)
+   .. py:method:: eval(valid_dataset, callbacks=None, dataset_sink_mode=True)
 
       模型评估接口，其迭代过程由Python前端控制。
 
@@ -121,7 +121,7 @@ mindspore.Model
 
       获得该模型的评价网络。
 
-   .. py:function:: infer_predict_layout(*predict_data)
+   .. py:method:: infer_predict_layout(*predict_data)
 
       在自动或半自动并行模式下为预测网络生成参数布局，数据可以是单个或多个张量。
 
@@ -157,7 +157,7 @@ mindspore.Model
                   >>> model = Model(Net())
                   >>> model.infer_predict_layout(input_data)
 
-   .. py:function:: infer_train_layout(train_dataset, dataset_sink_mode=True, sink_size=-1)
+   .. py:method:: infer_train_layout(train_dataset, dataset_sink_mode=True, sink_size=-1)
 
       在自动或半自动并行模式下为训练网络生成参数布局，当前只有数据下沉模式可支持使用。
 
@@ -200,7 +200,7 @@ mindspore.Model
                   >>> model = Model(net, loss_fn=loss, optimizer=optim, metrics=None, loss_scale_manager=loss_scale_manager)
                   >>> layout_dict = model.infer_train_layout(dataset)
 
-   .. py:function:: predict(*predict_data)
+   .. py:method:: predict(*predict_data)
 
       输入样本得到预测结果。数据可以是单个张量，包含张量的列表，或者是包含张量的元组。
 
@@ -230,7 +230,7 @@ mindspore.Model
 
       获得该模型的预测网络。
 
-   .. py:function:: train(epoch, train_dataset, callbacks=None, dataset_sink_mode=True, sink_size=-1)
+   .. py:method:: train(epoch, train_dataset, callbacks=None, dataset_sink_mode=True, sink_size=-1)
 
       模型训练接口，其迭代过程由Python前端控制。
 
