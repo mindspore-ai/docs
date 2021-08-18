@@ -79,6 +79,7 @@ Non-linear Activations
     mindspore.nn.FastGelu
     mindspore.nn.GELU
     mindspore.nn.get_activation
+    mindspore.nn.HShrink
     mindspore.nn.HSigmoid
     mindspore.nn.HSwish
     mindspore.nn.LeakyReLU
@@ -89,6 +90,7 @@ Non-linear Activations
     mindspore.nn.ReLU6
     mindspore.nn.Sigmoid
     mindspore.nn.Softmax
+    mindspore.nn.SoftShrink
     mindspore.nn.Tanh
 
 Utilities
@@ -213,6 +215,7 @@ Loss Functions
     mindspore.nn.RMSELoss
     mindspore.nn.SampledSoftmaxLoss
     mindspore.nn.SmoothL1Loss
+    mindspore.nn.SoftMarginLoss
     mindspore.nn.SoftmaxCrossEntropyWithLogits
 
 Optimizer Functions
