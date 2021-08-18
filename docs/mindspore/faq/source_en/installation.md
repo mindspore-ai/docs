@@ -242,6 +242,12 @@ A: There are 2 common reasons: an incorrect version of Ascend AI processor softw
 
 ## Verifying the Installation
 
+<font size=3>**Q: Does MindSpore of the GPU version have requirements on the computing capability of devices?**</font>
+
+A: Currently, MindSpore supports only devices with the computing capability version greater than 5.3.
+
+<br/>
+
 <font size=3>**Q: After MindSpore is installed on a CPU of a PC, an error message `the pointer[session] is null` is displayed during code verification. The specific code is as follows. How do I verify whether MindSpore is successfully installed?**</font>
 
 ```python

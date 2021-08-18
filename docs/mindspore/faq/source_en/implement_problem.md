@@ -4,6 +4,49 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_en/implement_problem.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
+<font size=3>**Q: What is the function of the `.meta` file generated after the model is saved using MindSpore? Can the `.meta` file be used to import the graph structure?**</font>
+
+A: The `.meta` file is a built graph structure. However, this structure cannot be directly imported currently. If you do not know the graph structure, you still need to use the MindIR file to import the network.
+
+<br/>
+
+<font size=3>**Q: Can the `yolov4-tiny-3l.weights` model file be directly converted into a MindSpore model?**</font>
+
+A: No. You need to convert the parameters trained by other frameworks into the MindSpore format, and then convert the model file into a MindSpore model.
+
+<br/>
+
+<font size=3>**Q: Why an error is reported when MindSpore is used to set `model.train`?**</font>
+
+```python
+model.train(1, dataset, callbacks=LossMonitor(1), dataset_sink_mode=True)
+model.train(1, dataset, callbacks=LossMonitor(1), dataset_sink_mode=False)
+```
+
+A: If the offloading mode has been set, it cannot be set to non-offloading mode. This is a restriction on the running mechanism.
+
+<br/>
+
+<font size=3>**Q: What should I pay attention to when using MindSpore to train a model in the `eval` phase? Can the network and parameters be loaded directly? Does the optimizer need to be used in the model?**</font>
+
+A: It mainly depends on what is required in the `eval` phase. For example, the output of the `eval` network of the image classification task is the probability value of each class, and the `acc` is computed with the corresponding label.
+In most cases, the training network and parameters can be directly reused. Note that the inference mode needs to be set.
+
+```python
+net.set_train(False)
+```
+
+The optimizer is not required in the `eval` phase. However, if the `model.eval` API of MindSpore needs to be used, the `loss function` needs to be configured. For example:
+
+```python
+# Define a model.
+model = Model(net, loss_fn=loss, metrics={'top_1_accuracy', 'top_5_accuracy'})
+# Evaluate the model.
+res = model.eval(dataset)
+```
+
+<br/>
+
 <font size=3>**Q: How do I use `param_group` in SGD to reduce the learning rate?**</font>
 
 A: To change the value according to `epoch`, use [Dynamic LR](https://mindspore.cn/docs/api/en/master/api_python/mindspore.nn.html#dynamic-lr) and set `step_per_epoch` to `step_size`. To change the value according to `step`, set `step_per_epoch` to 1. You can also use [LearningRateSchedule](https://mindspore.cn/docs/api/en/master/api_python/mindspore.nn.html#dynamic-learning-rate).
