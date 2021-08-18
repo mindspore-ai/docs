@@ -15,7 +15,7 @@ mindspore.nn.ELU
          \end{cases}
 
 
-   关于ELU图像可参考这个 `ELU <https://en.wikipedia.org/wiki/Activation_function#/media/File:Activation_elu.svg>`_  。
+   关于ELU图像可参考 `ELU <https://en.wikipedia.org/wiki/Activation_function#/media/File:Activation_elu.svg>`_  。
 
    **参数** ：
 
@@ -27,7 +27,7 @@ mindspore.nn.ELU
 
    **输出** ：
 
-      张量，跟x相同数据类型和形状。
+      张量，跟x保持相同的数据类型和形状。
 
    **抛出异常** ：
 

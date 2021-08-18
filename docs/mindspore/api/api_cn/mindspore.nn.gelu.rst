@@ -5,7 +5,7 @@ mindspore.nn.GELU
 
    高斯误差线性单元激活函数。
 
-   GELU函数应用于输入的每个元素。输入是一个具有任何有效形状的张量。
+   GELU函数应用于输入的每个元素。输入可以是一个具有任意有效形状的张量。
 
    GELU的定义如下：
    
@@ -15,7 +15,7 @@ mindspore.nn.GELU
 
    其中 :math:`P` 是标准高斯分布的累积分布函数， :math:`x_i` 是输入的元素。
 
-   关于GELU图像可参考这个 `GELU <https://en.wikipedia.org/wiki/Activation_function#/media/File:Activation_gelu.png>`_  。
+   关于GELU图像可参考 `GELU <https://en.wikipedia.org/wiki/Activation_function#/media/File:Activation_gelu.png>`_  。
 
    **输入** ：
 
@@ -23,7 +23,7 @@ mindspore.nn.GELU
 
    **输出** ：
 
-      张量，跟x相同数据类型和形状。
+      张量，跟x保持相同的数据类型和形状。
 
    **抛出异常** ：
 

@@ -32,7 +32,7 @@ mindspore.nn.Embedding
 
       - TypeError – 如果 `use_one_hot` 不是布尔型值。
 
-      - ValueError – 如果 `padding_idx` 是一个整型值但不在[0, `vocab_size` ]范围。
+      - ValueError – 如果 `padding_idx` 是一个整型值但不在[0, `vocab_size` ]范围之内。
 
    **支持平台** ：
 
