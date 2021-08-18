@@ -22,48 +22,6 @@
 | [REGISTER_KERNEL_INTERFACE](#REGISTER_KERNEL_INTERFACE) | 注册算子扩展能力。|
 | [REGISTER_CUSTOM_KERNEL_INTERFACE](#REGISTER_CUSTOM_KERNEL_INTERFACE) | 注册Custom算子扩展能力。|
 
-## FmkType
-
-\#include <[parser_context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/parser_context.h)>
-
-**enum**类型变量，定义MindSpore Lite转换支持的框架类型。
-
-```c++
-enum MS_API FmkType : int {
-  kFmkTypeTf = 0,                // 表示tensorflow框架
-  kFmkTypeCaffe = 1,             // 表示caffe框架
-  kFmkTypeOnnx = 2,              // 表示onnx框架
-  kFmkTypeMs = 3,                // 表示mindspore框架
-  kFmkTypeTflite = 4,            // 表示tflite框架
-};
-```
-
-## ConverterParameters
-
-\#include <[parser_context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/model_parser_registry.h)>
-
-**struct**类型结构体，定义模型解析时的转换参数，用于模型解析时的只读参数。
-
-```c++
-struct ConverterParameters {
-  FmkType fmk_;                                   // 框架类型
-  schema::QuantType quant_type_;                  // 模型量化类型
-  std::string model_file_;                        // 原始模型文件路径
-  std::string weight_file_;                       // 原始模型权重文件路径，仅在Caffe框架下有效
-  std::map<std::string, std::string> attrs_;      // 预留参数接口，暂未启用
-};
-```
-
-## ModelParser
-
-\#include <[parser_context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/parser_context.h)>
-
-ModelParser类的前置声明，定义了解析原始模型的基类。
-
-```c++
-class ModelParser;
-```
-
 ## ModelParserCreator
 
 \#include <[model_parser_registry.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/model_parser_registry.h)>
@@ -72,7 +30,7 @@ class ModelParser;
 typedef converter::ModelParser *(*ModelParserCreator)()
 ```
 
-创建Model解析的函数原型声明。
+创建[ModelParser](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_converter.html#modelparser)的函数原型声明。
 
 ## ModelParserRegistry
 
@@ -90,7 +48,7 @@ ModelParserRegistry(FmkType fmk, ModelParserCreator creator)
 
 - 参数
 
-    - `fmk`: 框架类型，具体见[FmkType](#FmkType)说明。
+    - `fmk`: 框架类型，具体见[FmkType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_converter.html#fmktype)说明。
 
     - `creator`: ModelParserCreator类型的函数指针, 具体见[ModelParserCreator](#ModelParserCreator)说明。
 
@@ -114,7 +72,7 @@ static ModelParser *GetModelParser(FmkType fmk)
 
 - 参数
 
-    - `fmk`: 框架类型，具体见[FmkType](#FmkType)说明。
+    - `fmk`: 框架类型，具体见[FmkType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_converter.html#fmktype)说明。
 
 ## REG_MODEL_PARSER
 
@@ -128,11 +86,11 @@ static ModelParser *GetModelParser(FmkType fmk)
 
 - 参数
 
-    - `fmk`: 框架类型，具体见[FmkType](#FmkType)说明。
+    - `fmk`: 框架类型，具体见[FmkType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_converter.html#fmktype)说明。
 
     - `creator`: ModelParserCreator类型的函数指针, 具体见[ModelParserCreator](#ModelParserCreator)说明。
 
-> 用户自定义的ModelParser，框架类型必须满足设定支持的框架类型[FmkType](#FmkType)。
+> 用户自定义的ModelParser，框架类型必须满足设定支持的框架类型[FmkType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_converter.html#fmktype)。
 
 ## Pass
 
@@ -188,16 +146,16 @@ PassRegistry(const std::string &pass_name, const opt::PassPtr &pass)
     - `pass`: Pass类实例。
 
 ```c++
-PassRegistry(PassPosition position, const std::vector<std::string> &assigned)
+PassRegistry(PassPosition position, const std::vector<std::string> &names)
 ```
 
 构造函数，构造PassRegistry对象，指定扩展Pass的运行位置及其运行顺序。
 
 - 参数
 
-    - `position`: 扩展Pass的运行位置，具体见[PassPosition](#PassPositon)说明。
+    - `position`: 扩展Pass的运行位置，具体见[PassPosition](#PassPosition)说明。
 
-    - `assigned`: 用户指定在该运行位置处，调用Pass的命名标识，命名标识的顺序即为指定Pass的调用顺序。
+    - `names`: 用户指定在该运行位置处，调用Pass的命名标识，命名标识的顺序即为指定Pass的调用顺序。
 
 ### ~PassRegistry
 
@@ -219,7 +177,7 @@ static std::vector<std::string> GetOuterScheduleTask(PassPosition position)
 
 - 参数
 
-    - `position`: 扩展Pass的运行位置，具体见[PassPosition](#PassPositon)说明。
+    - `position`: 扩展Pass的运行位置，具体见[PassPosition](#PassPosition)说明。
 
 #### GetPassFromStoreRoom
 
@@ -254,16 +212,16 @@ static std::vector<opt::PassPtr> GetPassFromStoreRoom(const std::vector<std::str
 \#include <[pass_registry.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/pass_registry.h)>
 
 ```c++
-#define REG_SCHEDULED_PASS(position, assigned)
+#define REG_SCHEDULED_PASS(position, names)
 ```
 
 指定扩展Pass的运行位置及其运行顺序。
 
 - 参数
 
-    - `position`: 扩展Pass的运行位置，具体见[PassPosition](#PassPositon)说明。
+    - `position`: 扩展Pass的运行位置，具体见[PassPosition](#PassPosition)说明。
 
-    - `assigned`: 用户指定在该运行位置处，调用Pass的命名标识，命名标识的顺序即为指定Pass的调用顺序。
+    - `names`: 用户指定在该运行位置处，调用Pass的命名标识，命名标识的顺序即为指定Pass的调用顺序。
 
 ## KernelDesc
 
@@ -309,7 +267,7 @@ using CreateKernel = std::function<std::shared_ptr<kernel::Kernel>(
 #### RegKernel
 
 ``` c++
-static int RegKernel(const std::string &arch, const std::string &provider, DataType data_type, int type, CreateKernel creator)
+static Status RegKernel(const std::string &arch, const std::string &provider, DataType data_type, int type, CreateKernel creator)
 ```
 
 算子注册。
@@ -329,7 +287,7 @@ static int RegKernel(const std::string &arch, const std::string &provider, DataT
 #### RegCustomKernel
 
 ``` c++
-static int RegCustomKernel(const std::string &arch, const std::string &provider, DataType data_type, const std::string &op_type, CreateKernel creator)
+static Status RegCustomKernel(const std::string &arch, const std::string &provider, DataType data_type, const std::string &op_type, CreateKernel creator)
 ```
 
 Custom算子注册。
@@ -450,6 +408,16 @@ KernelReg(const std::string &arch, const std::string &provider, DataType data_ty
 
     - `creator`: 创建算子的函数指针，具体见[CreateKernel](#CreateKernel)的说明。
 
+## KernelInterfaceCreator
+
+\#include <[registry/register_kernel_interface.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/register_kernel_interface.h)>
+
+定义创建算子的函数指针类型。
+
+```c++
+using KernelInterfaceCreator = std::function<std::shared_ptr<kernel::KernelInterface>()>;
+```
+
 ## RegisterKernelInterface
 
 \#include <[registry/register_kernel_interface.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/register_kernel_interface.h)>
@@ -461,7 +429,7 @@ KernelReg(const std::string &arch, const std::string &provider, DataType data_ty
 #### CustomReg
 
 ``` c++
-static int CustomReg(const std::string &provider, const std::string &op_type, KernelInterfaceCreator creator)
+static Status CustomReg(const std::string &provider, const std::string &op_type, KernelInterfaceCreator creator)
 ```
 
 Custom算子的扩展能力注册。
@@ -477,7 +445,7 @@ Custom算子的扩展能力注册。
 #### Reg
 
 ``` c++
-static int Reg(const std::string &provider, int op_type, KernelInterfaceCreator creator)
+static Status Reg(const std::string &provider, int op_type, KernelInterfaceCreator creator)
 ```
 
 算子的扩展能力注册。

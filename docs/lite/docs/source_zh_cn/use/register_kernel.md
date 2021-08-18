@@ -101,10 +101,10 @@ int TestCustomAdd::Execute() {
     return RET_PARAM_INVALID;
   }
   PreProcess();
-  float *in0 = static_cast<float *>(inputs_[0]->data());
-  float *in1 = static_cast<float *>(inputs_[1]->data());
-  float *out = static_cast<float *>(outputs_[0]->data());
-  auto num = outputs_[0]->ElementsNum();
+  auto *in0 = static_cast<const float *>(inputs_[0].Data().get());
+  auto *in1 = static_cast<const float *>(inputs_[1].Data().get());
+  float *out = static_cast<float *>(outputs_[0].MutableData());
+  auto num = outputs_[0].ElementNum();
   for (int i = 0; i < num; ++i) {
     out[i] = in0[i] + in1[i];
   }
@@ -114,7 +114,7 @@ int TestCustomAdd::Execute() {
 
 ### 通用算子注册
 
-当前有提供现成的宏[REGISTER_KERNEL](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/registry.html#REGISTER_KERNEL)可以进行算子注册，用户也可以仿照宏内对应的代码去调用具体的接口。
+当前有提供现成的宏[REGISTER_KERNEL](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#register-kernel)可以进行算子注册，用户也可以仿照宏内对应的代码去调用具体的接口。
 
 #### 样例代码与说明
 
@@ -129,13 +129,14 @@ std::shared_ptr<Kernel> TestCustomAddCreator(const std::vector<tensor::MSTensor 
                                              const schema::Primitive *primitive, const lite::Context *ctx) {
   return std::make_shared<TestCustomAdd>(inputs, outputs, primitive, ctx);
 }
+const auto kFloat32 = DataType::kNumberTypeFloat32;
 
-REGISTER_KERNEL(CPU, BuiltInTest, kNumberTypeFloat32, PrimitiveType_AddFusion, TestCustomAddCreator)
+REGISTER_KERNEL(CPU, BuiltInTest, kFloat32, PrimitiveType_AddFusion, TestCustomAddCreator)
 ```
 
 ### 通用算子InferShape
 
-1. 继承[KernelInterface](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/registry.html#KernelInterface)。
+1. 继承[KernelInterface](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html#kernelinterface)。
 2. 重载实现Infer函数，推导出output tensor的shape，format，data_type。
 
 #### 样例代码与说明
@@ -151,19 +152,19 @@ class TestCustomAddInfer : public KernelInterface {
  public:
   TestCustomAddInfer() = default;
   ~TestCustomAddInfer() = default;
-  int Infer(const std::vector<tensor::MSTensor *> &inputs, const std::vector<tensor::MSTensor *> &outputs,
-            const schema::Primitive *primitive) override {
-    outputs[0]->set_format(inputs[0]->format());
-    outputs[0]->set_data_type(inputs[0]->data_type());
-    outputs[0]->set_shape(inputs[0]->shape());
-    return RET_OK;
+  Status Infer(std::vector<mindspore::MSTensor *> *inputs, std::vector<mindspore::MSTensor *> *outputs,
+               const schema::Primitive *primitive) override {
+    (*outputs)[0].SetFormat((*inputs)[0].format());
+    (*outputs)[0].SetDataType((*inputs)[0].DataType());
+    (*outputs)[0].SetShape((*inputs)[0].Shape());
+    return kSuccess;
   }
 };
 ```
 
 ### 通用算子InferShape注册
 
-当前有提供现成的宏[REGISTER_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/registry.html#REGISTER_KERNEL_INTERFACE)可以进行算子InferShape注册，用户也可以仿照宏内对应的代码去调用具体的接口。
+当前有提供现成的宏[REGISTER_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#register-kernel-interface)可以进行算子InferShape注册，用户也可以仿照宏内对应的代码去调用具体的接口。
 
 #### 样例代码与说明
 
@@ -199,38 +200,41 @@ type：Custom算子的类型。
 
 #### Custom算子创建
 
-这里以Add算子转为一个Custom算子为例：
+这里以AddN算子转为一个Custom算子为例：
 
-1. 设Custom算子存在“input_num”、“is_custom”属性。
+1. 设Custom算子存在“input_num”、“op_kind”属性。
 2. 通过自定义Pass子类，实现Custom算子的转换与创建。
 3. 注册自定义Pass类。
 
 ```cpp
 namespace mindspore::opt {
-AnfNodePtr CreateCustomOp(const FuncGraphPtr func_graph, const CNodePtr cnode) {
-  auto custom_prim = std::make_shared<ops::Custom>();    // 创建Primitive，存储算子属性
-  if (custom_prim == nullptr) {
-    return nullptr;
-  }
-  custom_prim->set_type("Add");          // 设置Custom算子类型
-  std::map<std::string, std::vector<uint8_t>> attrs;
-  std::string input_num = std::to_string(2);
-  std::vector<uint8_t> input_num_attr(input_num.begin(), input_num.end());
-  attrs["input_num"] = input_num_attr;
-  std::string is_custom = std::to_string(true);
-  std::vector<uint8_t> is_custom_attr(is_custom.begin(), is_custom.end());
-  attrs["is_custom"] = is_custom_attr;
-  custom_prim->set_attr(attrs);          // 设置Custom算子属性
-  auto inputs = cnode->inputs();
-  inputs.erase(inputs.begin());
-  auto custom_node = func_graph->NewCNode(custom_prim, inputs);    // 创建CNode节点
-  custom_node->set_fullname_with_scope(cnode->fullname_with_scope());     // 设置节点名
-  custom_noe->set_abstract(cnode->abstract()->Clone());           // 设置算子输出的基本属性，存储于abstract中
-  return custom_node;
-}
-
-class TestPass : public Pass {
+class Test2Fusion : public Pass {
  public:
+  AnfNodePtr CreateCustomOp(const FuncGraphPtr func_graph, const CNodePtr cnode) {
+    if (func_graph == nullptr || cnode == nullptr) {
+      return nullptr;
+    }
+    auto primc = std::make_shared<ops::Custom>();      // 创建Primitive，存储算子属性
+    if (primc == nullptr) {
+      return nullptr;
+    }
+    primc->set_type("Custom_AddN");        // 设置Custom算子类型
+    std::map<std::string, std::vector<uint8_t>> custom_attrs;
+    std::string input_num = std::to_string(cnode->size() - 1);
+    std::vector<uint8_t> input_num_attr(input_num.begin(), input_num.end());
+    custom_attrs["input_num"] = input_num_attr;
+    std::string op_kind = "custom op";
+    std::vector<uint8_t> op_kind_attr(op_kind.begin(), op_kind.end());
+    custom_attrs["op_kind"] = op_kind_attr;
+    primc->set_attr(custom_attrs);         // 设置Custom算子属性
+    auto inputs = cnode->inputs();
+    inputs.erase(inputs.begin());
+    auto custom_cnode = func_graph->NewCNode(primc, inputs);         // 创建CNode节点
+    custom_cnode->set_fullname_with_scope(cnode->fullname_with_scope());     // 设置节点名
+    custom_cnode->set_abstract(cnode->abstract()->Clone());          // 设置算子输出的基本属性，存储于abstract中
+    return custom_cnode;
+  }
+
   bool Run(const FuncGraphPtr &func_graph) override {
     auto manager = Manage(func_graph, true);       // 创建FuncGrap管理器
     if (manager == nullptr) {
@@ -241,7 +245,7 @@ class TestPass : public Pass {
       if (!utils::isa<CNode>(node)) {
         continue;
       }
-      if (!opt::CheckPrimitiveType(node, prim::kPrimAddFusion)) {     // 判断当前节点是否为Add算子
+      if (!opt::CheckPrimitiveType(node, prim::kPrimAddN)) {     // 判断当前节点是否为AddN算子
         continue;
       }
       auto cnode = node->cast<CNodePtr>();
@@ -253,8 +257,12 @@ class TestPass : public Pass {
     }
     return true;
   }
-}
-REG_PASS(POSITION_BEGIN, TestPass)         // 注册Pass，置于内置融合之前
+};
+
+REG_PASS(Test1Fusion, Test1Fusion)    // 注册Test1Fusion
+REG_PASS(Test2Fusion, Test2Fusion)    // 注册Test2Fusion
+std::vector<std::string> schedule = {"Test1Fusion", "Test2Fusion"};
+REG_SCHEDULED_PASS(POSITION_BEGIN, schedule)       // 设置外部Pass调度逻辑，在内置融合前运行外部Pass
 }  // namespace mindspore::opt
 ```
 
@@ -307,10 +315,11 @@ int TestCustomOp::Execute() {
     return RET_PARAM_INVALID;
   }
   PreProcess();
-  float *in0 = static_cast<float *>(inputs_[0]->data());
-  float *in1 = static_cast<float *>(inputs_[1]->data());
-  float *out = static_cast<float *>(outputs_[0]->data());
-  auto num = outputs_[0]->ElementsNum();
+  GetAttrData();
+  const float *in0 = static_cast<const float *>(inputs_[0].Data().get());
+  const float *in1 = static_cast<const float *>(inputs_[1].Data().get());
+  float *out = static_cast<float *>(outputs_[0].MutableData());
+  auto num = outputs_[0].ElementNum();
   for (int i = 0; i < num; ++i) {
     out[i] = in0[i] + in1[i];
   }
@@ -338,7 +347,7 @@ int TestCustomOp::Execute() {
 
 ### Custom算子注册
 
-当前有提供的现成的宏[REGISTER_CUSTOM_KERNEL](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/registry.html#REGISTER_CUSTOM_KERNEL)可以进行算子注册。
+当前有提供的现成的宏[REGISTER_CUSTOM_KERNEL](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#register-custom-kernel)可以进行算子注册。
 
 #### 样例代码与说明
 
@@ -353,8 +362,8 @@ std::shared_ptr<Kernel> TestCustomAddCreator(const std::vector<tensor::MSTensor 
                                              const schema::Primitive *primitive, const lite::Context *ctx) {
   return std::make_shared<TestCustomOp>(inputs, outputs, primitive, ctx);
 }
-
-REGISTER_CUSTOM_KERNEL(CPU, BuiltInTest, kNumberTypeFloat32, Add, TestCustomAddCreator)
+constexpr auto kFloat32 = DataType::kNumberTypeFloat32;
+REGISTER_CUSTOM_KERNEL(CPU, BuiltInTest, kFloat32, Add, TestCustomAddCreator)
 ```
 
 ### Custom算子InferShape
@@ -363,7 +372,7 @@ REGISTER_CUSTOM_KERNEL(CPU, BuiltInTest, kNumberTypeFloat32, Add, TestCustomAddC
 
 #### 样例代码与说明
 
-1. 继承[KernelInterface](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/registry.html#KernelInterface)。
+1. 继承[KernelInterface](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html#kernelinterface)。
 2. 重载实现Infer函数，推导出output tensor的shape、format、data_type。
 
 ```cpp
@@ -371,24 +380,24 @@ class TestCustomOpInfer : public KernelInterface {
  public:
   TestCustomOpInfer() = default;
   ~TestCustomOpInfer() = default;
-  int Infer(const std::vector<tensor::MSTensor *> &inputs, const std::vector<tensor::MSTensor *> &outputs,
-            const schema::Primitive *primitive) override {
-    outputs[0]->set_format(inputs[0]->format());
-    outputs[0]->set_data_type(inputs[0]->data_type());
-    outputs[0]->set_shape(inputs[0]->shape());
-    return RET_OK;
+  Status Infer(std::vector<mindspore::MSTensor> *inputs, std::vector<mindspore::MSTensor> *outputs,
+             const schema::Primitive *primitive) override {
+    (*outputs)[0].SetFormat((*inputs)[0].format());
+    (*outputs)[0].SetDataType((*inputs)[0].DataType());
+    (*outputs)[0].SetShape((*inputs)[0].Shape());
+    return kSuccess;
   }
 };
 ```
 
 ### Custom算子InferShape注册
 
-当前有提供的现成的宏[REGISTER_CUSTOM_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/registry.html#REGISTER_CUSTOM_KERNEL_INTERFACE)可以进行Custom算子InferShape的注册。
+当前有提供的现成的宏[REGISTER_CUSTOM_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#register-custom-kernel-interface)可以进行Custom算子InferShape的注册。
 
 #### 样例代码与说明
 
 1. CustomAddInferCreator函数用于创建自定义的KernelInterface。
-2. 通过宏[REGISTER_CUSTOM_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/registry.html#REGISTER_CUSTOM_KERNEL_INTERFACE)注册InferShape能力，这里的算子类型Add必须与REGISTER_CUSTOM_KERNEL时的算子类型一致。
+2. 通过宏[REGISTER_CUSTOM_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#register-custom-kernel-interface)注册InferShape能力，这里的算子类型Add必须与REGISTER_CUSTOM_KERNEL时的算子类型一致。
 
 ```cpp
 std::shared_ptr<KernelInterface> CustomAddInferCreator() { return std::make_shared<TestCustomOpInfer>(); }
