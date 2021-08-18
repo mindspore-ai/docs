@@ -1,5 +1,5 @@
 mindspore.ops.GradOperation
-=========
+============================
 
 .. py:class:: mindspore.ops.GradOperation(get_all=False, get_by_list=False, sens_param=False)
 
