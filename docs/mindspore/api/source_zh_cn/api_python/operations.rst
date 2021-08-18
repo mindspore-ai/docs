@@ -61,6 +61,7 @@ Neural Network Operators
     mindspore.ops.FusedSparseProximalAdagrad
     mindspore.ops.GeLU
     mindspore.ops.GetNext
+    mindspore.ops.HShrink
     mindspore.ops.HSigmoid
     mindspore.ops.HSwish
     mindspore.ops.KLDivLoss
@@ -91,9 +92,11 @@ Neural Network Operators
     mindspore.ops.Sigmoid
     mindspore.ops.SigmoidCrossEntropyWithLogits
     mindspore.ops.SmoothL1Loss
+    mindspore.ops.SoftMarginLoss
     mindspore.ops.Softmax
     mindspore.ops.SoftmaxCrossEntropyWithLogits
     mindspore.ops.Softplus
+    mindspore.ops.SoftShrink
     mindspore.ops.Softsign
     mindspore.ops.SparseApplyAdagrad
     mindspore.ops.SparseApplyAdagradV2
