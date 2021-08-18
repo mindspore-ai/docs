@@ -1,5 +1,5 @@
 mindspore.nn.GELU
-=========
+==================
 
 .. py:class:: mindspore.nn.GELU
 

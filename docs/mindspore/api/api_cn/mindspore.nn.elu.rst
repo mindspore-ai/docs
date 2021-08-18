@@ -1,5 +1,5 @@
 mindspore.nn.ELU
-=========
+=================
 
 .. py:class:: mindspore.nn.ELU(alpha=1.0)
 

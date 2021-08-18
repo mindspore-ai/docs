@@ -1,5 +1,5 @@
 mindspore.nn.Embedding
-=========
+=======================
 
 .. py:class:: mindspore.nn.Embedding(vocab_size, embedding_size, use_one_hot=False, embedding_table="normal", dtype=mstype.float32, padding_idx=None)
 

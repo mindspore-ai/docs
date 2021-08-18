@@ -1,5 +1,5 @@
 mindspore.nn.LeakyReLU
-=========
+=======================
 
 .. py:class:: mindspore.nn.LeakyReLU(alpha=0.2)
 
