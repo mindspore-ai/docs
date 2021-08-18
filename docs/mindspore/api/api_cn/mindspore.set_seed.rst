@@ -1,5 +1,5 @@
 mindspore.set_seed
-=========
+===================
 
 .. py:class:: mindspore.set_seed(seed)
 

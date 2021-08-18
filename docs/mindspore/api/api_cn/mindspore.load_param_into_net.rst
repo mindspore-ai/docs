@@ -1,5 +1,5 @@
 mindspore.load_param_into_net
-=========
+=============================
 
 .. py:class:: mindspore.load_param_into_net(net, parameter_dict, strict_load=False)
 
