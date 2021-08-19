@@ -20,7 +20,7 @@ mindspore.nn.LeakyReLU
 
    **输入** ：
 
-      - **x** （Tensor） - LeakyReLU的输入。形状是 `(N,*)` ，*表示可以是任意数量的附加维度。
+      - **x** （Tensor） - LeakyReLU的输入。形状是 `(N,*)` ，*表示任意数量的附加维度。
 
    **输出** ：
 

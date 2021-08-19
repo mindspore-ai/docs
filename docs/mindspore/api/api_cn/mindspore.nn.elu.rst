@@ -23,7 +23,7 @@ mindspore.nn.ELU
 
    **输入** ：
 
-      - **x** （Tensor） - ELU的输入数据类型为float16或float32。形状是 :math:`(N,*)` ，:math:`*` 表示可以是任意数量的附加维度。
+      - **x** （Tensor） - ELU的输入数据类型为float16或float32。形状是 :math:`(N,*)` ，:math:`*` 表示任意数量的附加维度。
 
    **输出** ：
 
