@@ -4,6 +4,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/faq/source_en/data_processing.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
+<font size=3>**Q: Does `GeneratorDataset` support `ds.PKSampler` sampling?**</font>
+
+A: `GeneratorDataset` does not support `PKSampler` sampling logic. The main reason is that the custom data operation is too flexible. The built-in `PKSampler` cannot be universal. Therefore, a message is displayed at the API layer, indicating that the operation is not supported. However, for `GeneratorDataset`, you can easily define the required `Sampler` logic. That is, you can define specific `sampler` rules in the `__getitem__` function of the `ImageDataset` class and return the required data.
+
+<br/>
+
 <font size=3>**Q: How does MindSpore load the existing pre-trained word vector?**</font>
 
 A: When defining EmbedingLookup or Embedding, you only need to transfer the pre-trained word vector and encapsulate the pre-trained word vector into a tensor as the initial value of EmbeddingLookup.
