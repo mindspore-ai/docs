@@ -9,6 +9,7 @@
         - [Installation by Source Code](#installation-by-source-code)
             - [Downloading Source Code from Gitee](#downloading-source-code-from-gitee)
             - [Compiling MindInsight](#compiling-mindInsight)
+        - [Installation by Docker](#installation-by-docker)
     - [Installation Verification](#installation-verification)
 
 <!-- /TOC -->
@@ -27,7 +28,7 @@
 
 ## Installation Methods
 
-You can install MindInsight either by pip or by source code.
+You can install MindInsight either by pip or by source code or by Docker.
 
 ### Installation by pip
 
@@ -76,6 +77,10 @@ You can choose any of the following installation methods:
     bash build/build.sh
     pip install output/mindinsight-{version}-py3-none-any.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
     ```
+
+### Installation by Docker
+
+The MindSpore image contains the MindInsight function. For details, see the [Installation Guide](https://www.mindspore.cn/install/en) on the official website.
 
 ## Installation Verification
 
