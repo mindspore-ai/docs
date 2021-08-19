@@ -8,7 +8,7 @@ from mindspore.context import ParallelMode
 from mindspore import Model, connect_network_with_dataset
 from mindspore import pytype_to_dtype
 from mindspore._c_expression import init_exec_dataset
-from mindspore.train.train_thor.dataset_helper import DatasetHelper
+from mindspore import DatasetHelper
 from mindspore.parallel._utils import _need_to_full, _to_full_tensor
 
 
