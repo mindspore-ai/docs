@@ -155,8 +155,8 @@ Model
 
     mindspore.Model
 
-DatasetHelper
--------------
+Dataset Helper
+---------------
 
 .. autosummary::
     :toctree: mindspore
@@ -166,7 +166,7 @@ DatasetHelper
     mindspore.DatasetHelper
     mindspore.connect_network_with_dataset
 
-LossScaleManager
+Loss Scale Manager
 -------------------
 
 .. autosummary::
@@ -197,6 +197,26 @@ Serialization
     mindspore.load_distributed_checkpoint
     mindspore.async_ckpt_thread_status
 
+JIT
+---
+
+.. autosummary::
+    :toctree: mindspore
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.ms_function
+
+Automatic Mixed Precision
+-------------------------
+
+.. autosummary::
+    :toctree: mindspore
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.build_train_network
+
 Log
 ---
 
@@ -208,14 +228,12 @@ Log
     mindspore.get_level
     mindspore.get_log_config
 
-Others
-------
+Installation Verification
+--------------------------
 
 .. autosummary::
     :toctree: mindspore
     :nosignatures:
     :template: classtemplate.rst
 
-    mindspore.build_train_network
-    mindspore.ms_function
     mindspore.run_check
