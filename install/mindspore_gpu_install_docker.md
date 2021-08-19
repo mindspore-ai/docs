@@ -97,7 +97,7 @@ docker run -it -v /dev/shm:/dev/shm --runtime=nvidia --privileged=true swr.cn-so
 - `--privileged=true` 赋予容器扩展的能力;
 - `{tag}`对应上述表格中的标签。
 
-如需使用MindInsight，需设置--network参数为”host”模式, 例如:
+如需使用MindInsight，需设置`--network`参数为”host”模式, 例如:
 
 ```bash
 docker run -it -v /dev/shm:/dev/shm --network host --runtime=nvidia --privileged=true swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu:{tag} /bin/bash
