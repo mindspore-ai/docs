@@ -1,4 +1,4 @@
-# Installing MindSpore in Ascend 910 by pip
+﻿# Installing MindSpore in Ascend 910 by pip
 
 <!-- TOC -->
 
@@ -20,6 +20,7 @@ This document describes how to quickly install MindSpore in a Linux system with 
 - Confirm that the 64-bit operating system is installed and the [glibc](https://www.gnu.org/software/libc/)>=2.17, where Ubuntu 18.04/CentOS 7.6/EulerOS 2.8/OpenEuler 20.03/KylinV10 SP1 are verified.
 - Ensure that right version [GCC 7.3.0](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) is installed.
 - Confirm that [gmp 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
+- Confirm that [OpenMPI 4.0.3](https://www.open-mpi.org/faq/?category=building#easy-build) is installed. (optional, required for single-node/multi-Ascend and multi-node/multi-Ascend training)
 - Confirm that Python 3.7.5 is installed.
     - If you didn't install Python or you have installed other versions, please download the Python 3.7.5 64-bit from [Python](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) or [Huaweicloud](https://mirrors.huaweicloud.com/python/3.7.5/Python-3.7.5.tgz) to install.
 - Confirm that the Ascend 910 AI processor software package ([Ascend Data Center Solution 21.0.2]) are installed.
