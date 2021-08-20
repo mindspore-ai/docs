@@ -27,7 +27,7 @@
 
 ## 安装方式
 
-可以采用pip安装或者源码编译安装两种方式。
+可以采用pip安装，源码编译安装和Docker安装三种方式。
 
 ### pip安装
 
@@ -76,6 +76,10 @@ git clone https://gitee.com/mindspore/mindinsight.git
     bash build/build.sh
     pip install output/mindinsight-{version}-py3-none-any.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
     ```
+
+### Docker安装
+
+MindSpore的镜像包含MindInsight功能，请参考官网[安装指导](https://www.mindspore.cn/install)。
 
 ## 验证是否成功安装
 

@@ -97,7 +97,7 @@ of which,
 - `--privileged=true` enables the container to expand;
 - `{tag}` corresponds to the label in the above table.
 
-If you want to use MindInsight, you need to set the --network parameter to "host" mode, for example:
+If you want to use MindInsight, you need to set the `--network` parameter to "host" mode, for example:
 
 ```bash
 docker run -it -v /dev/shm:/dev/shm --network host --runtime=nvidia --privileged=true swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu:{tag} /bin/bash

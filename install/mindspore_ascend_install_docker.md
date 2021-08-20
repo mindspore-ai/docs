@@ -81,7 +81,7 @@ docker run -it -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
 - `{arch}` 表示系统架构，例如使用的Linux系统是x86架构64位时，`{arch}`应写为x86。如果系统是ARM架构64位，则写为arm。
 - `{tag}`对应Atlas Data Center Solution版本号，在MindSpore镜像下载页面自动获取。
 
-如需使用MindInsight，需设置--network参数为”host”模式, 例如:
+如需使用MindInsight，需设置`--network`参数为”host”模式, 例如:
 
 ```bash
 docker run -it -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
