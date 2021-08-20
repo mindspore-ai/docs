@@ -34,8 +34,7 @@ MindSpore提供了多种Metrics评估指标，如：`accuracy`、`loss`、`preci
 
 ```python
 import numpy as np
-from mindspore._checkparam import Validator as validator
-from .metric import Metric, rearrange_inputs
+from mindspore.nn.metrics.metric import Metric, rearrange_inputs
 ```
 
 ### 定义Metrics
@@ -54,8 +53,7 @@ class Dice(Metric):
     def __init__(self, smooth=1e-5):
         """调用super进行初始化"""
         super(Dice, self).__init__()
-        # 校验smooth的数据类型
-        self.smooth = validator.check_positive_float(smooth, "smooth")
+        self.smooth = smooth
         # 调用clear清空变量
         self.clear()
 
