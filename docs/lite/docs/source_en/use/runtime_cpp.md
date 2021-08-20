@@ -90,7 +90,7 @@ cpu_device_info->SetEnableFP16(true);
 device_list.push_back(cpu_device_info);
 ```
 
-> The first element of `MutableDeviceInfo` list must be [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html#class-cpudeviceinfo). The second element is [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_GPUDeviceInfo.html#class-gpudeviceinfo) or [KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_KirinNPUDeviceInfo.html#class-kirinnpudeviceinfo). Currently, the CPU, GPU and NPU can not be  supported at the same time.
+> `MutableDeviceInfo` supports multiple DeviceInfos, including [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html#class-cpudeviceinfo), [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_GPUDeviceInfo.html#class-gpudeviceinfo), [KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_KirinNPUDeviceInfo.html#class-kirinnpudeviceinfo). The device number limit is 3. During the inference, the operator will choose device in order.
 >
 > Float16 takes effect only when the CPU is under the ARM v8.2 architecture. Other models and x86 platforms that do not supported Float16 will be automatically rolled back to Float32.
 >
@@ -128,7 +128,7 @@ context->SetEnableParallel(true);
 
 ### Configuring the GPU Backend
 
-If the backend to be executed is heterogeneous inference based on CPUs and GPUs, you need to set [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html#class-cpudeviceinfo) and [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_GPUDeviceInfo.html#class-gpudeviceinfo) at the same time. After the configuration is set, GPU-based inference is preferentially used. Use `SetEnableFP16` to enable GPU Float16 inference.
+If the backend to be executed is GPUs, you need to set [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_GPUDeviceInfo.html#class-gpudeviceinfo) as the first choice. It is suggested to set [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html#class-cpudeviceinfo) as the second choice, to ensure model inference. Use `SetEnableFP16` to enable GPU Float16 inference.
 
 The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L114) demonstrates how to create the CPU and GPU heterogeneous inference backend and how to enable Float16 inference for the GPU.
 
@@ -138,13 +138,6 @@ if (context == nullptr) {
     std::cerr << "New context failed." << std::endl;
 }
 auto &device_list = context->MutableDeviceInfo();
-auto cpu_device_info = std::make_shared<mindspore::CPUDeviceInfo>();
-if (cpu_device_info == nullptr) {
-  std::cerr << "New CPUDeviceInfo failed." << std::endl;
-}
-// CPU use float16 operator as priority.
-cpu_device_info->SetEnableFP16(true);
-device_list.push_back(cpu_device_info);
 
 auto gpu_device_info = std::make_shared<mindspore::GPUDeviceInfo>();
 if (gpu_device_info == nullptr) {
@@ -155,6 +148,14 @@ if (gpu_device_info == nullptr) {
 gpu_device_info->SetEnableFP16(true);
 // The GPU device context needs to be push_back into device_list to work.
 device_list.push_back(gpu_device_info);
+
+auto cpu_device_info = std::make_shared<mindspore::CPUDeviceInfo>();
+if (cpu_device_info == nullptr) {
+  std::cerr << "New CPUDeviceInfo failed." << std::endl;
+}
+// CPU use float16 operator as priority.
+cpu_device_info->SetEnableFP16(true);
+device_list.push_back(cpu_device_info);
 ```
 
 > Currently, on `arm64` the backend of GPU is based on OpenCL. GPUs of Mali and Adreno are supported. The OpenCL version is 2.0.
@@ -171,7 +172,7 @@ device_list.push_back(gpu_device_info);
 
 ### Configuring the NPU Backend
 
-When the backend to be executed is heterogeneous inference based on CPUs and GPUs, you need to set [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html#class-cpudeviceinfo) and [KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_KirinNPUDeviceInfo.html#class-kirinnpudeviceinfo) at the same time. After the configuration is set, the NPU's inference is preferentially used. Use `SetFrequency` to set npu frequency.
+If the backend to be executed is NPUs, you need to set [KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_KirinNPUDeviceInfo.html#class-kirinnpudeviceinfo) as the first choice. It is suggested to set [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_CPUDeviceInfo.html#class-cpudeviceinfo) as the second choice, to ensure model inference. Use `SetFrequency` to set npu frequency.
 
 The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L127) shows how to create the CPU and NPU heterogeneous inference backend and set the NPU frequency to 3. It can be set to 1 (low power consumption), 2 (balanced), 3 (high performance), 4 (extreme performance).
 
@@ -181,13 +182,6 @@ if (context == nullptr) {
     std::cerr << "New context failed." << std::endl;
 }
 auto &device_list = context->MutableDeviceInfo();
-auto cpu_device_info = std::make_shared<mindspore::CPUDeviceInfo>();
-if (cpu_device_info == nullptr) {
-  std::cerr << "New CPUDeviceInfo failed." << std::endl;
-}
-// CPU use float16 operator as priority.
-cpu_device_info->SetEnableFP16(true);
-device_list.push_back(cpu_device_info);
 
 auto npu_device_info = std::make_shared<mindspore::KirinNPUDeviceInfo>();
 if (npu_device_info == nullptr) {
@@ -197,6 +191,14 @@ if (npu_device_info == nullptr) {
 npu_device_info->SetFrequency(3);
 // The NPU device context needs to be push_back into device_list to work.
 device_list.push_back(npu_device_info);
+
+auto cpu_device_info = std::make_shared<mindspore::CPUDeviceInfo>();
+if (cpu_device_info == nullptr) {
+  std::cerr << "New CPUDeviceInfo failed." << std::endl;
+}
+// CPU use float16 operator as priority.
+cpu_device_info->SetEnableFP16(true);
+device_list.push_back(cpu_device_info);
 ```
 
 ### Configuring the NNIE Backend
