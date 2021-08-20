@@ -81,7 +81,7 @@ of which,
 - `{arch}` denotes the system architecture. For example, the Linux system you are using is x86 architecture 64-bit, `{arch}` should be x86. If the system is ARM architecture 64-bit, then it should be arm.
 - `{tag}` corresponds to the version number of Atlas Data Center Solution, which can be automatically obtained on the MindSpore image download page.
 
-If you want to use MindInsight, you need to set the --network parameter to "host" mode, for example:
+If you want to use MindInsight, you need to set the `--network` parameter to "host" mode, for example:
 
 ```bash
 docker run -it -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
