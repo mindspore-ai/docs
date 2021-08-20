@@ -19,21 +19,21 @@ This document describes how to quickly install MindSpore in a Linux system with 
 
 ## System Environment Information Confirmation
 
-- Confirm that the 64-bit operating system is installed, where Ubuntu 18.04/CentOS 7.6/EulerOS 2.8/OpenEuler 20.03/KylinV10 SP1 are verified.
+- Ensure that the 64-bit operating system is installed, where Ubuntu 18.04/CentOS 7.6/EulerOS 2.8/OpenEuler 20.03/KylinV10 SP1 are verified.
 - Ensure that right version [GCC 7.3.0](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) is installed.
-- Confirm that [gmp 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
-- Confirm that [Flex 2.5.35 or later](https://github.com/westes/flex/) is installed.
-- Confirm that [OpenMPI 4.0.3](https://www.open-mpi.org/faq/?category=building#easy-build) is installed. (optional, required for single-node/multi-Ascend and multi-node/multi-Ascend training)
-- Confirm that [Python 3.7.5](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) is installed.
-- Confirm that [CMake 3.18.3 or later](https://cmake.org/download/) is installed.
+- Ensure that [gmp 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
+- Ensure that [Flex 2.5.35 or later](https://github.com/westes/flex/) is installed.
+- Ensure that [OpenMPI 4.0.3](https://www.open-mpi.org/faq/?category=building#easy-build) is installed. (optional, required for single-node/multi-Ascend and multi-node/multi-Ascend training)
+- Ensure that [Python 3.7.5](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) is installed.
+- Ensure that [CMake 3.18.3 or later](https://cmake.org/download/) is installed.
     - Add the path where the executable file `cmake` stores to the environment variable PATH.
-- Confirm that [patch 2.5 or later](http://ftp.gnu.org/gnu/patch/) is installed.
+- Ensure that [patch 2.5 or later](http://ftp.gnu.org/gnu/patch/) is installed.
     - Add the path where the executable file `patch` stores to the environment variable PATH.
-- Confirm that [wheel 0.32.0 or later](https://pypi.org/project/wheel/) is installed.
-- Confirm that the Ascend 910 AI processor software package ([Ascend Data Center Solution 21.0.2]) are installed.
+- Ensure that [wheel 0.32.0 or later](https://pypi.org/project/wheel/) is installed.
+- Ensure that the Ascend 910 AI processor software package ([Ascend Data Center Solution 21.0.2]) are installed.
     - For the installation of software package,  please refer to the [Product Document].
     - The software packages include [Driver and Firmware A800-9000] and [CANN 5.0.2].
-    - Confirm that the current user has the right to access the installation path `/usr/local/Ascend`of Ascend 910 AI processor software package, If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located. For the specific configuration, please refer to the software package instruction document.
+    - Ensure that the current user has the right to access the installation path `/usr/local/Ascend`of Ascend 910 AI processor software package, If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located. For the specific configuration, please refer to the software package instruction document.
     - Install the .whl package provided in Ascend 910 AI processor software package. The .whl package is released with the software package. After software package is upgraded, reinstall the .whl package.
 
         ```bash
@@ -48,7 +48,7 @@ This document describes how to quickly install MindSpore in a Linux system with 
         pip uninstall te topi hccl -y
         ```
 
-- Confirm that [NUMA 2.0.11 or later](https://github.com/numactl/numactl) is installed.
+- Ensure that [NUMA 2.0.11 or later](https://github.com/numactl/numactl) is installed.
 
     If not, for Ubuntu users, use the following command to install it:
 
@@ -62,7 +62,7 @@ This document describes how to quickly install MindSpore in a Linux system with 
     yum install numactl-devel
     ```
 
-- Confirm that the git tool is installed.
+- Ensure that the git tool is installed.
 
     If not, for Ubuntu users, use the following command to install it:
 
@@ -76,7 +76,7 @@ This document describes how to quickly install MindSpore in a Linux system with 
     yum install git
     ```
 
-- Confirm that the [git-lfs tool](https://github.com/git-lfs/git-lfs/wiki/installation) is installed.
+- Ensure that the [git-lfs tool](https://github.com/git-lfs/git-lfs/wiki/installation) is installed.
 
 ## Downloading Source Code from Code Repository
 

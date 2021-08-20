@@ -18,23 +18,23 @@ This document describes how to quickly install MindSpore by source code in a Lin
 
 ## System Environment Information Confirmation
 
-- Confirm that the 64-bit operating system is installed, where Ubuntu 18.04 are verified.
-- Confirm that [GCC 7.3.0](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) is installed.
-- Confirm that [gmp 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
-- Confirm that [Python 3.7.5](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) is installed.
-- Confirm that [CMake 3.18.3 or later](https://cmake.org/download/) is installed.
+- Ensure that the 64-bit operating system is installed, where Ubuntu 18.04 are verified.
+- Ensure that [GCC 7.3.0](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) is installed.
+- Ensure that [gmp 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
+- Ensure that [Python 3.7.5](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) is installed.
+- Ensure that [CMake 3.18.3 or later](https://cmake.org/download/) is installed.
     - Add the path where the executable file `cmake` stores to the environment variable PATH.
-- Confirm that [wheel 0.32.0 or later](https://pypi.org/project/wheel/) is installed.
-- Confirm that [patch 2.5 or later](http://ftp.gnu.org/gnu/patch/) is installed.
+- Ensure that [wheel 0.32.0 or later](https://pypi.org/project/wheel/) is installed.
+- Ensure that [patch 2.5 or later](http://ftp.gnu.org/gnu/patch/) is installed.
     - Add the path where the executable file `patch` stores to the environment variable PATH.
-- Confirm that [NUMA 2.0.11 or later](https://github.com/numactl/numactl) is installed.
+- Ensure that [NUMA 2.0.11 or later](https://github.com/numactl/numactl) is installed.
      If not, use the following command to install it:
 
     ```bash
     apt-get install libnuma-dev
     ```
 
-- Confirm that the git tool is installed.  
+- Ensure that the git tool is installed.  
     If not, use the following command to install it:
 
     ```bash

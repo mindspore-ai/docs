@@ -32,8 +32,8 @@ The current support for containerized build is as follows:
 
 ## System Environment Information Confirmation
 
-- Confirm that a 64-bit Linux operating system is installed, where Ubuntu 18.04 is verified.
-- Confirm that [Docker 18.03 or later versioin](https://docs.docker.com/get-docker/) is installed.
+- Ensure that a 64-bit Linux operating system is installed, where Ubuntu 18.04 is verified.
+- Ensure that [Docker 18.03 or later versioin](https://docs.docker.com/get-docker/) is installed.
 
 ## nvidia-container-toolkit Installation
 
