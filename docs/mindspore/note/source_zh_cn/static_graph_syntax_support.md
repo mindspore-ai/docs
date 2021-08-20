@@ -740,6 +740,66 @@ ret = number_add(2, 3)
 ret: 5
 ```
 
+### 列表生成式和生成器表达式
+
+支持列表生成式（List Comprehension）和生成器表达式（Generator Expression）。
+
+#### 列表生成式
+
+用于生成列表。由于编译器会自动把List类型转换成Tuple类型，经过编译后最终输出类型为Tuple。
+
+使用方式：参考Python语法说明。
+
+示例如下：
+
+```python
+l = [x * x for x in range(1, 11) if x % 2 == 0]
+print(l)
+```
+
+结果如下：
+
+```text
+(4, 16, 36, 64, 100)
+```
+
+限制：
+
+不支持多层嵌套迭代器的使用方式。
+
+限制用法示例如下（使用了两层迭代器）：
+
+```python
+l = [y for x in ((1, 2), (3, 4), (5, 6)) for y in x]
+```
+
+会提示错误：
+
+```text
+TypeError:  The `generators` supports one `comprehension` in ListComp/GeneratorExp, but got 2 comprehensions.
+```
+
+#### 生成器表达式
+
+用于生成列表，与列表生成式动作完全一致，最终的输出类型同样是Tuple。此表达式即刻产生List值，与Python解释器中列表生成式的动作有所差异。
+
+使用方式：同列表生成式。
+
+示例如下：
+
+```python
+l = (x * x for x in range(1, 11) if x % 2 == 0)
+print(l)
+```
+
+结果如下：
+
+```text
+(4, 16, 36, 64, 100)
+```
+
+使用限制同列表生成式。
+
 ## 函数
 
 ### Python内置函数
@@ -776,7 +836,7 @@ x_len: 3
 y_len: 3
 d_len: 2
 z_len: 6
-  ```
+```
 
 #### isinstance
 
@@ -809,7 +869,7 @@ z_is_tensor = isinstance(z, Tensor)
 x_is_tuple: True
 y_is_list: True
 z_is_tensor: True
-  ```
+```
 
 #### partial
 
@@ -1175,6 +1235,6 @@ ret = grad_net(input_x, input_y, input_z)
 
        def construct(self, x):
            return x + self.y
-    ```
+   ```
 
    上面所定义的网络里，`construct`里使用了并未定义的类成员`self.y`，此时会将`self.y`作为`None`处理。
