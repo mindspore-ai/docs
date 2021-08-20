@@ -6,5 +6,5 @@
 
    intermediate/text/rnn_classification
    intermediate/text/rnn_generation
-   intermediate/text/text_sentiment_ngrams_tutorial
-   intermediate/text/text_translation_gru_tutorial
+   intermediate/text/sentimentnet
+   intermediate/text/bert_poetry
