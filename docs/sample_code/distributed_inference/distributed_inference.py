@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ============================================================================
-"""distributed inference
-This sample code is applicable to Ascend.
+"""
+Distributed inference
 """
 import numpy as np
 from net import Net

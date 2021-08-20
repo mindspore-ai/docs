@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ============================================================================
-"""distributed training
-This sample code is applicable to Ascend.
+"""
+Dsistributed training
 """
 import os
 from dataset import FakeData

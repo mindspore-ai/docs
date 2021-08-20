@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ============================================================================
-"""resnet50_distributed_training_grad_accu
-The sample can be run on Ascend 910 AI processor.
+"""
+Resnet50_distributed_training_grad_accu
 """
 import os
 import mindspore.nn as nn
