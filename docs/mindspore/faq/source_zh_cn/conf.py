@@ -11,8 +11,6 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import os
-from sphinx.search import jssplitter as sphinx_split
-from sphinx import errors as searchtools_path
 
 
 # -- Project information -----------------------------------------------------
@@ -58,6 +56,9 @@ html_search_language = 'zh'
 
 html_search_options = {'dict': '../../../resource/jieba.txt'}
 
+
+from sphinx.search import jssplitter as sphinx_split
+from sphinx import errors as searchtools_path
 
 # Update the word segmentation method, let the input term be segmented according to the index
 sphinx_split_python = os.path.abspath(sphinx_split.__file__) # Read the location of the word segmentation file

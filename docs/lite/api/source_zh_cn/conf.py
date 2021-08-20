@@ -12,8 +12,6 @@
 #
 import os
 import sys
-from sphinx.search import jssplitter as sphinx_split
-from sphinx import errors as searchtools_path
 import textwrap
 import shutil
 import glob
@@ -65,6 +63,9 @@ pygments_style = 'sphinx'
 #
 html_theme = 'sphinx_rtd_theme'
 
+
+from sphinx.search import jssplitter as sphinx_split
+from sphinx import errors as searchtools_path
 
 # Update the word segmentation method, let the input term be segmented according to the index
 sphinx_split_python = os.path.abspath(sphinx_split.__file__) # Read the location of the word segmentation file
@@ -172,6 +173,7 @@ with open(sphinx_search_prepare, "r+", encoding="utf8") as f:
         f.seek(0)
         f.truncate()
         f.write(code_str)
+
 
 
 # Add configrator for c++ api output.
