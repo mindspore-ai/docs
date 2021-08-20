@@ -739,6 +739,66 @@ The result is as follows:
 ret: 5
 ```
 
+### List Comprehension and Generator Expression
+
+Support List Comprehension and Generator Expression.
+
+#### List Comprehension
+
+Generates a list. Own to the implicit converting during compiling, the result of expression is a tuple.
+
+Usage：Referencing Python official syntax description.
+
+For example:
+
+```python
+l = [x * x for x in range(1, 11) if x % 2 == 0]
+print(l)
+```
+
+The result is as follows:
+
+```text
+(4, 16, 36, 64, 100)
+```
+
+Restrictions:
+
+Use multiple nested iterations comprehension in the generator.
+
+For example (Use two nested iterations):
+
+```python
+l = [y for x in ((1, 2), (3, 4), (5, 6)) for y in x]
+```
+
+The result would be:
+
+```text
+TypeError:  The `generators` supports one `comprehension` in ListComp/GeneratorExp, but got 2 comprehensions.
+```
+
+#### Generator Expression
+
+Generates a list. The same as List Comprehension. The expression would generate a list immediately, not like the behaviour running in Python.
+
+Usage: Referencing List Comprehension.
+
+For example:
+
+```python
+l = (x * x for x in range(1, 11) if x % 2 == 0)
+print(l)
+```
+
+The result is as follows:
+
+```text
+(4, 16, 36, 64, 100)
+```
+
+Restrictions: The same as List Comprehension.
+
 ## Functions
 
 ### Python Built-in Functions
@@ -775,7 +835,7 @@ x_len: 3
 y_len: 3
 d_len: 2
 z_len: 6
-  ```
+```
 
 #### isinstance
 
@@ -808,7 +868,7 @@ The result is as follows:
 x_is_tuple: True
 y_is_list: True
 z_is_tensor: True
-  ```
+```
 
 #### partial
 
@@ -1149,6 +1209,6 @@ y: Tensor(shape=[], dtype=Int64, value=3))
 
        def construct(self, x):
            return x + self.y
-    ```
+   ```
 
    In the preceding defined network, `construct` uses the undefined class member `self.y`. In this case, `self.y` is processed as `None`.
