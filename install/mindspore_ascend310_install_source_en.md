@@ -26,9 +26,11 @@ The following describes how to quickly install MindSpore by compiling the source
     - After installation, add the path of CMake to the system environment variables.
 - Ensure that [patch 2.5 or later](http://ftp.gnu.org/gnu/patch/) is installed.
     - After installation, add the patch path to the system environment variables.
-- Ensure that the Ascend 310 AI Processor software packages ([Ascend Data Center Solution 21.0.2]) are installed.
-    - For the installation of software package,  please refer to the [Product Document].
-    - The software packages include [Driver and Firmware A300-3000] and [CANN 5.0.2].
+- Ensure that the Ascend 310 AI Processor software packages ([Ascend Data Center Solution 21.0.2](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910/software/252504581?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C252309113%7C251167910)) are installed.
+    - For the installation of software package,  please refer to the [Product Document](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910).
+    - The software packages include Driver and Firmware and CANN 5.0.2.
+        - [Driver and Firmware A300-3000 1.0.11 ARM platform](https://support.huawei.com/enterprise/zh/ascend-computing/a300-3000-pid-250702915/software/253276345?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702915)and[Driver and Firmware A300-3010 1.0.11.SCP001 x86 platform](https://support.huawei.com/enterprise/zh/ascend-computing/a300-3010-pid-251560253/software/253276357?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251560253)
+        - [CANN 5.0.2.1](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/253944991?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251168373)
     - Ensure that you have permissions to access the installation path `/usr/local/Ascend` of the Ascend 310 AI Processor software package. If not, ask the user root to add you to a user group to which `/usr/local/Ascend` belongs. For details about the configuration, see the description document in the software package.
     - Install the .whl package provided with the Ascend 310 AI Processor software package. The .whl package is released with the software package. After the software package is upgraded, you need to reinstall the .whl package.
 
