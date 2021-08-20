@@ -231,7 +231,7 @@ A: 上述错误通常是脚本书写错误导致，具体发生在下面这种�
 
 <font size=3>**Q: MindSpore中和Dataloader对应的算子是什么？**</font>
 
-A：如果将Dataloader考虑为接收自定义Dataset的API接口，MindSpore数据处理API中和Dataloader较为相似的是GeneratorDataset，可接收用户自定义的Dataset，具体使用方式参考[GeneratorDataset 文档](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dataset_loading.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86%E5%8A%A0%E8%BD%BD)，差异对比也可查看[API算子映射表](https://www.mindspore.cn/docs/note/zh-CN/master/index.html#operator_api)。
+A：如果将Dataloader考虑为接收自定义Dataset的API接口，MindSpore数据处理API中和Dataloader较为相似的是GeneratorDataset，可接收用户自定义的Dataset，具体使用方式参考[GeneratorDataset 文档](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dataset_loading.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86%E5%8A%A0%E8%BD%BD)，差异对比也可查看[API算子映射表](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html)。
 
 <br/>
 
@@ -257,4 +257,3 @@ A：通常数据处理算子与网络计算算子混合使用会导致性能有�
 <font size=3>**Q: MindRecord为何会生成.db文件？ 缺少.db文件时加载数据集会有什么报错？**</font>
 
 A：.db文件为MindRecord文件对应的索引文件，缺少.db文件通常会在获取数据集总的数据量时报错，错误提示如：`MindRecordOp Count total rows failed`。
-

@@ -1,6 +1,29 @@
 mindspore
 =========
 
+Tensor
+------
+
+.. autosummary::
+    :toctree: mindspore
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.Tensor
+    mindspore.RowTensor
+    mindspore.SparseTensor
+
+Parameter
+---------
+
+.. autosummary::
+    :toctree: mindspore
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.Parameter
+    mindspore.ParameterTuple
+
 DataType
 --------
 
@@ -111,29 +134,6 @@ DataType
     mindspore.pytype_to_dtype
     mindspore.get_py_obj_dtype
 
-Tensor
-------
-
-.. autosummary::
-    :toctree: mindspore
-    :nosignatures:
-    :template: classtemplate.rst
-
-    mindspore.Tensor
-    mindspore.RowTensor
-    mindspore.SparseTensor
-
-Parameter
----------
-
-.. autosummary::
-    :toctree: mindspore
-    :nosignatures:
-    :template: classtemplate.rst
-
-    mindspore.Parameter
-    mindspore.ParameterTuple
-
 Seed
 ----
 
@@ -207,16 +207,6 @@ JIT
 
     mindspore.ms_function
 
-Automatic Mixed Precision
--------------------------
-
-.. autosummary::
-    :toctree: mindspore
-    :nosignatures:
-    :template: classtemplate.rst
-
-    mindspore.build_train_network
-
 Log
 ---
 
@@ -227,6 +217,16 @@ Log
 
     mindspore.get_level
     mindspore.get_log_config
+
+Automatic Mixed Precision
+-------------------------
+
+.. autosummary::
+    :toctree: mindspore
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.build_train_network
 
 Installation Verification
 --------------------------
