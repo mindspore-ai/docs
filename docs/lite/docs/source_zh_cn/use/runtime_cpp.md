@@ -94,7 +94,7 @@ cpu_device_info->SetEnableFP16(true);
 device_list.push_back(cpu_device_info);
 ```
 
-> `MutableDeviceInfo`中第一个必须是CPU的[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#cpudeviceinfo), 第二个是GPU的[GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#gpudeviceinfo)或者NPU的[KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#kirinnpudeviceinfo)。暂时不支持同时设置CPU，GPU和NPU三个后端。
+> `MutableDeviceInfo`中支持用户设置设备信息，包括[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#cpudeviceinfo)、[GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#gpudeviceinfo)、[KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#kirinnpudeviceinfo)。设置的设备个数不能超过3个，推理过程按照用户设置的先后顺序选择后端设备进行部署推理。
 >
 > Float16需要CPU为ARM v8.2架构的机型才能生效，其他不支持的机型和x86平台会自动回退到Float32执行。
 >
@@ -132,7 +132,7 @@ context->SetEnableParallel(true);
 
 ### 配置使用GPU后端
 
-当需要执行的后端为CPU和GPU的异构推理时，需要同时设置[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#cpudeviceinfo)和[GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#gpudeviceinfo)，配置后将会优先使用GPU推理。其中GpuDeviceInfo通过`SetEnableFP16`使能Float16推理。
+当需要执行的后端为GPU时，需要设置[GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#gpudeviceinfo)为首选推理后端。建议设置[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#cpudeviceinfo)为次选后端，排在GPU后，以保证泛化模型的推理。其中GPUDeviceInfo通过`SetEnableFP16`使能Float16推理。
 
 下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L114)演示如何创建CPU与GPU异构推理后端，同时GPU也设定使能Float16推理：
 
@@ -142,13 +142,6 @@ if (context == nullptr) {
     std::cerr << "New context failed." << std::endl;
 }
 auto &device_list = context->MutableDeviceInfo();
-auto cpu_device_info = std::make_shared<mindspore::CPUDeviceInfo>();
-if (cpu_device_info == nullptr) {
-  std::cerr << "New CPUDeviceInfo failed." << std::endl;
-}
-// CPU use float16 operator as priority.
-cpu_device_info->SetEnableFP16(true);
-device_list.push_back(cpu_device_info);
 
 auto gpu_device_info = std::make_shared<mindspore::GPUDeviceInfo>();
 if (gpu_device_info == nullptr) {
@@ -159,6 +152,14 @@ if (gpu_device_info == nullptr) {
 gpu_device_info->SetEnableFP16(true);
 // The GPU device context needs to be push_back into device_list to work.
 device_list.push_back(gpu_device_info);
+
+auto cpu_device_info = std::make_shared<mindspore::CPUDeviceInfo>();
+if (cpu_device_info == nullptr) {
+  std::cerr << "New CPUDeviceInfo failed." << std::endl;
+}
+// CPU use float16 operator as priority.
+cpu_device_info->SetEnableFP16(true);
+device_list.push_back(cpu_device_info);
 ```
 
 > 目前GPU的后端，在`arm64`上是基于OpenCL，支持Mali、Adreno的GPU，OpenCL版本为2.0。
@@ -175,7 +176,7 @@ device_list.push_back(gpu_device_info);
 
 ### 配置使用NPU后端
 
-当需要执行的后端为CPU和NPU的异构推理时，需要同时设置[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#cpudeviceinfo)和[KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#kirinnpudeviceinfo)，配置后将会优先使用NPU推理，其中KirinNPUDeviceInfo通过`SetFrequency`来设置NPU频率。
+当需要执行的后端为NPU时，需要设置[KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#kirinnpudeviceinfo)为首选推理后端。建议设置[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#cpudeviceinfo)为次选后端，排在NPU后，以保证泛化模型的推理。其中KirinNPUDeviceInfo通过`SetFrequency`来设置NPU频率。
 
 下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L127)如何创建CPU与NPU异构推理后端，同时NPU频率设置为3。频率值默认为3，可设置为1（低功耗）、2（均衡）、3（高性能）、4（极致性能）：
 
@@ -184,14 +185,6 @@ auto context = std::make_shared<mindspore::Context>();
 if (context == nullptr) {
     std::cerr << "New context failed." << std::endl;
 }
-auto &device_list = context->MutableDeviceInfo();
-auto cpu_device_info = std::make_shared<mindspore::CPUDeviceInfo>();
-if (cpu_device_info == nullptr) {
-  std::cerr << "New CPUDeviceInfo failed." << std::endl;
-}
-// CPU use float16 operator as priority.
-cpu_device_info->SetEnableFP16(true);
-device_list.push_back(cpu_device_info);
 
 auto npu_device_info = std::make_shared<mindspore::KirinNPUDeviceInfo>();
 if (npu_device_info == nullptr) {
@@ -201,6 +194,15 @@ if (npu_device_info == nullptr) {
 npu_device_info->SetFrequency(3);
 // The NPU device context needs to be push_back into device_list to work.
 device_list.push_back(npu_device_info);
+
+auto &device_list = context->MutableDeviceInfo();
+auto cpu_device_info = std::make_shared<mindspore::CPUDeviceInfo>();
+if (cpu_device_info == nullptr) {
+  std::cerr << "New CPUDeviceInfo failed." << std::endl;
+}
+// CPU use float16 operator as priority.
+cpu_device_info->SetEnableFP16(true);
+device_list.push_back(cpu_device_info);
 ```
 
 ### 配置使用NNIE后端
