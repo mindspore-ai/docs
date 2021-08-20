@@ -1,4 +1,4 @@
-# Installing MindSpore in Ascend 910 by Source Code
+﻿# Installing MindSpore in Ascend 910 by Source Code
 
 <!-- TOC -->
 
@@ -22,6 +22,8 @@ This document describes how to quickly install MindSpore in a Linux system with 
 - Confirm that the 64-bit operating system is installed, where Ubuntu 18.04/CentOS 7.6/EulerOS 2.8/OpenEuler 20.03/KylinV10 SP1 are verified.
 - Ensure that right version [GCC 7.3.0](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) is installed.
 - Confirm that [gmp 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
+- Confirm that [Flex 2.5.35 or later](https://github.com/westes/flex/) is installed.
+- Confirm that [OpenMPI 4.0.3](https://www.open-mpi.org/faq/?category=building#easy-build) is installed. (optional, required for single-node/multi-Ascend and multi-node/multi-Ascend training)
 - Confirm that [Python 3.7.5](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) is installed.
 - Confirm that [CMake 3.18.3 or later](https://cmake.org/download/) is installed.
     - Add the path where the executable file `cmake` stores to the environment variable PATH.

@@ -33,3 +33,4 @@
 |GE_USE_STATIC_MEMORY|GraphEngine|当网络模型层数过大时，特征图中间计算数据可能超过25G，例如BERT24网络。多卡场景下为保证通信内存高效协同，需要配置为1，表示使用内存静态分配方式，其他网络暂时无需配置，默认使用内存动态分配方式。<br>静态内存默认配置为31G，如需要调整可以通过网络运行参数graph_memory_max_size和variable_memory_max_size的总和指定；动态内存是动态申请，最大不会超过graph_memory_max_size和variable_memory_max_size的总和。|Integer|1：使用内存静态分配方式<br>0：使用内存动态分配方式|无|可选|无|
 |DUMP_GE_GRAPH|GraphEngine|把整个流程中各个阶段的图描述信息打印到文件中，此环境变量控制dump图的内容多少|Integer|1：全量dump<br>2：不含有权重等数据的基本版dump<br>3：只显示节点关系的精简版dump|无|可选|无|
 |DUMP_GRAPH_LEVEL|GraphEngine|把整个流程中各个阶段的图描述信息打印到文件中，此环境变量可以控制dump图的个数|Integer|1：dump所有图<br>2：dump除子图外的所有图<br>3：dump最后的生成图|无|可选|无|
+|GRAPH_OP_RUN|MindSpore|图模式下以任务下沉方式运行pipeline大网络模型时，可能会由于流资源限制而无法正常启动，此环境变量可以指定图模式的执行方式，配置为0表示任务下沉，是默认执行方式；1则表示非任务下沉方式，该方式没有流的限制，但性能有所下降。|Integer|0：执行任务下沉<br>1：执行非任务下沉|无|可选|无|
