@@ -9,5 +9,5 @@ Network Script Development
 .. toctree::
    :maxdepth: 1
 
-   migration_case_of_mindconverter
+   Using Mindcoverter to Perform Migration <https://www.mindspore.cn/mindinsight/docs/en/master/migrate_3rd_scripts_mindconverter.html>
    migration_script

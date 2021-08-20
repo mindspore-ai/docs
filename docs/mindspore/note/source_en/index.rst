@@ -27,6 +27,8 @@ MindSpore Design And Specification
    syntax_list
    env_var_list
 
+The API mapping has been migrated to https://www.mindspore.cn/docs/migration_guide/en/master/api_mapping.html.
+
 .. toctree::
    :glob:
    :maxdepth: 1
