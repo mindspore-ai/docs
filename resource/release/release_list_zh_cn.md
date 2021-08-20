@@ -8,6 +8,7 @@
         - [1.2版本前](#12版本前)
     - [Ascend配套软件包](#ascend配套软件包)
     - [下载地址](#下载地址)
+        - [1.4.1](#141)
         - [1.4.0](#140)
         - [1.3.0](#130)
         - [1.2.1](#121)
@@ -87,6 +88,20 @@
 || Ascend 310 | [Ascend Data Center Solution 21.0.1](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910/software/252504563?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C252309113%7C251167910) | [A300-3000 1.0.10](https://support.huawei.com/enterprise/zh/ascend-computing/a300-3000-pid-250702915/software/252496291?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702915) | [5.0.1](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252504455?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251168373) | [Ascend Data Center Solution 21.0.1](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910) |
 
 ## 下载地址
+
+### 1.4.1
+
+|   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
+|    ---   |    ---   |    ---   |       ---      |    ---      |
+|   MindSpore   |   Ascend 910<br>Ascend310 |   Linux-aarch64   |   [mindspore_ascend-1.4.1-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.4.1/MindSpore/ascend/aarch64/mindspore_ascend-1.4.1-cp37-cp37m-linux_aarch64.whl)   | 3874d59f68c964b7bb0b33a7b431d0d1c0dbc745b67ca5d0f7d52f97d5ed6e1a |
+|      |      |   Linux-x86_64   |   [mindspore_ascend-1.4.1-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.4.1/MindSpore/ascend/x86_64/mindspore_ascend-1.4.1-cp37-cp37m-linux_x86_64.whl)   | a5f042b7f4e17c109d9b5f9abcf856d4a4fae7ca2835efe27137f4ff10040264 |
+| | Ascend 310-Binary | Linux-aarch64 | [mindspore_ascend-1.4.1-linux_aarch64.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.4.1/MindSpore/ascend/aarch64/mindspore_ascend-1.4.1-linux_aarch64.tar.gz) | 4f71bef597b13bc559220955ddaa980f9b3d8efba4461cf5615061345a7c9f8f |
+|      |      |   Linux-x86_64   |   [mindspore_ascend-1.4.1-linux_x86_64.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.4.1/MindSpore/ascend/x86_64/mindspore_ascend-1.4.1-linux_x86_64.tar.gz)   | b7f6a15498ba13efd1d51639dd5934f670e39670608c1d7982d9b398763b1db4 |
+|      |   GPU CUDA 10.1   |   Linux-x86_64   |   [mindspore_gpu-1.4.1-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.4.1/MindSpore/gpu/x86_64/cuda-10.1/mindspore_gpu-1.4.1-cp37-cp37m-linux_x86_64.whl)   | 972c3b3c9c038809ccf5181f1b0a9b5eefb72ce6e202e948a3f03f4f370572e0 |
+|      |   GPU CUDA 11.1   |   Linux-x86_64   |   [mindspore_gpu-1.4.1-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.4.1/MindSpore/gpu/x86_64/cuda-11.1/mindspore_gpu-1.4.1-cp37-cp37m-linux_x86_64.whl)   | a84ded7e294fe3a47eeceaeb90c4f246fa847e36defba536f44977f72a9a49f7 |
+|      |   CPU   |   Linux-aarch64   |   [mindspore-1.4.1-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.4.1/MindSpore/cpu/aarch64/mindspore-1.4.1-cp37-cp37m-linux_aarch64.whl)   | 9cbaba4072563ad65afa75f59c12d38729fa7516c3dcdd3e9d4e4803d9c91d4c |
+|      |      |   Linux-x86_64   |   [mindspore-1.4.1-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.4.1/MindSpore/cpu/x86_64/mindspore-1.4.1-cp37-cp37m-linux_x86_64.whl)   | 44ada49089225b9f5866585ab5fa29ceabf0b5ac15c0ec400b6d314115616665 |
+|      |         |   Windows-x64   |   [mindspore-1.4.1-cp37-cp37m-win_amd64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.4.1/MindSpore/cpu/x86_64/mindspore-1.4.1-cp37-cp37m-win_amd64.whl)   | 81c633959e7fba28a57c2cd3ac67a9d1e032d5fb41cc3e0b284a335f74585ca7 |
 
 ### 1.4.0
 
