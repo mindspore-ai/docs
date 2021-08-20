@@ -11,7 +11,7 @@ mindspore.nn.Conv2dTranspose
 
    .. math:: \begin{align}\begin{aligned}H_{out} = (H_{in} - 1) \times \text{stride[0]} - \left (\text{padding[0]} + \text{padding[1]}\right ) + \text{dilation[0]} \times (\text{kernel_size[0]} - 1) + 1\\W_{out} = (W_{in} - 1) \times \text{stride[1]} - \left (\text{padding[2]} + \text{padding[3]}\right ) + \text{dilation[1]} \times (\text{kernel_size[1]} - 1) + 1\end{aligned}\end{align}
 
-   其中 :math:`kernel_size[0]` 是卷积核的高度， :math:`kernel_size[1]` 是卷积核的宽度。
+   其中 :math:`\text{kernel_size[0]}` 是卷积核的高度， :math:`\text{kernel_size[1]}` 是卷积核的宽度。
 
    **参数** ：
 
