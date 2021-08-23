@@ -13,11 +13,11 @@ class MnistDataset(MappableDataset):
         num_parallel_workers (int, optional): 读取数据的线程数(默认值None, 在配置文件中进行配置）。
         shuffle (bool, optional): 是否对数据集进行shuffle操作(默认值None, 详情见下表参数及预期行为所示)。
         sampler (Sampler, optional): 用于从数据集中选择样本(默认值None, 详情见下表参数及预期行为所示)。
-        num_shards (int, optional): 数据集将被划分的份数(默认值None). 指定此参数后, `num_samples` 表示每份样本中的最大样本数。
-        shard_id (int, optional): num_shards参数中每份的id (默认值None). 只有当指定了num_shards才能指定此参数。
+        num_shards (int, optional): 数据集将被划分的份数(默认值None)。 指定此参数后, `num_samples` 表示每份样本中的最大样本数。
+        shard_id (int, optional): num_shards参数中每份的id (默认值None)。只有当指定了num_shards才能指定此参数。
         cache (DatasetCache, optional): 使用张量缓存来加快数据处理速度。(默认值None, 即不使用缓存加速)。
 
-    Raises:
+    报错信息:
         RuntimeError: 如果dataset_dir参数中不包含数据文件。
         RuntimeError: 如果num_parallel_workers超过最大线程数。
         RuntimeError: 如果同时设定sampler和shuffle参数。
@@ -26,7 +26,7 @@ class MnistDataset(MappableDataset):
         RuntimeError: 如果指定了shard_id参数， 但是未指定num_shards参数。
         ValueError: 如果shard_id 参数错误(< 0 或者 >= num_shards)。
 
-    Note:
+    提示:
         - 此数据集可以采用sampler参数，`sampler`和`shuffle`是互斥的。
         下表展示了几种合法的输入参数及预期的行为。
 
