@@ -66,7 +66,7 @@
 
     In the preceding information:
 
-    `mindpsore_hub.load` is an API for loading model parameters. Please check the details in <https://www.mindspore.cn/hub/api/en/r1.3/index.html#module-mindspore_hub>.
+    `mindspore_hub.load` is an API for loading model parameters. Please check the details in <https://www.mindspore.cn/hub/api/en/r1.3/index.html#module-mindspore_hub>.
 
 2. Use the `model.predict` API to perform inference.
 
