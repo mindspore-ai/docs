@@ -88,18 +88,36 @@ MindSpore根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
 > - 在`-I`参数变动时，如`-I x86_64`变为`-I arm64`，添加`-i`参数进行增量编译不生效。
 > - 编译AAR包时，必须添加`-A on`参数，且无需添加`-I`参数。
 
-#### `mindspore/lite/CMakeLists.txt`的选项
+#### `mindspore/lite/CMakeLists.txt`的编译选项
+
+- 通用模块编译选项
 
 | 选项  |  参数说明  | 取值范围 | 默认值 |
 | -------- | ----- | ---- | ---- |
 | MSLITE_GPU_BACKEND | 设置GPU后端，在`-I arm64`时仅opencl有效，在`-I x86_64`时仅tensorrt有效 | opencl、tensorrt、off | 在`-I arm64`时为opencl， 在`-I x86_64`时为off |
 | MSLITE_ENABLE_NPU | 是否编译NPU算子，仅在`-I arm64`或`-I arm32`时有效 | on、off | off |
+| MSLITE_ENABLE_INT8 | 是否编译Int8算子 | on、off | on |
+| MSLITE_ENABLE_FP16 | 是否编译Fp16算子 | on、off | on |
+| MSLITE_ENABLE_FP32 | 是否编译Fp32算子 | on、off | on |
 | MSLITE_ENABLE_TRAIN | 是否编译训练版本 | on、off | on |
 | MSLITE_ENABLE_SSE | 是否启用SSE指令集，仅在`-I x86_64`时有效 | on、off | off |
 | MSLITE_ENABLE_AVX | 是否启用AVX指令集，仅在`-I x86_64`时有效 | on、off | off |
 | MSLITE_ENABLE_CONVERTER | 是否编译模型转换工具，仅在`-I x86_64`时有效 | on、off | on |
 | MSLITE_ENABLE_TOOLS | 是否编译配套工具 | on、off | on |
 | MSLITE_ENABLE_TESTCASES | 是否编译测试用例 | on、off | off |
+
+- 基础框架功能裁减编译选项
+
+若用户对框架包大小敏感，可通过配置以下选项，对runtime模型推理框架进行功能裁减，以减少包大小，之后，用户可再通过[裁减工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cropper_tool.html)进行算子裁减以进一步减少包大小。
+
+| 选项  |  参数说明  | 取值范围 | 默认值 |
+| -------- | ----- | ---- | ---- |
+| MSLITE_STRING_KERNEL | 是否支持string数据推理模型，如smart_reply.tflite模型 | on、off | on |
+| MSLITE_CONTROLFLOW_TENSORLIST | 是否支持控制流模型 | on、off | on |
+| MSLITE_WEIGHT_DECODE | 是否支持量化模型推理 | on、off | on |
+| MSLITE_CUSTOM_KERNEL_REGISTRY | 是否支持南向算子注册 | on、off | on |
+| MSLITE_DELEGATE_USE | 是否支持Delegate机制 | on、off | on |
+| MSLITE_ENABLE_V0 | 是否兼容1.1.0之前版本导出的模型 | on、off | on |
 
 > - 以上选项可通过设置同名环境变量或者`mindspore/lite/CMakeLists.txt`文件修改。
 > - 修改选项后，添加`-i`参数进行增量编译不生效。

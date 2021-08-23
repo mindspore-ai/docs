@@ -88,18 +88,36 @@ The script `build.sh` in the root directory of MindSpore can be used to compile 
 > - When the `-I` parameter changes, such as `-I x86_64` is converted to `-I arm64`, adding `-i` for parameter compilation does not take effect.
 > - When compiling the AAR package, the `-A on` parameter must be added, and there is no need to add the `-I` parameter.
 
-#### The options of `mindspore/lite/CMakeLists.txt`
+#### The compilation options of `mindspore/lite/CMakeLists.txt`
+
+- General module compilation options
 
 | Option  |  Parameter Description  | Value Range | Defaults |
 | -------- | ----- | ---- | ---- |
 | MSLITE_GPU_BACKEND | Set the GPU backend, only opencl is valid when `-I arm64`, and only tensorrt is valid when `-I x86_64` | opencl, tensorrt, off | opencl when `-I arm64`, off when `-I x86_64` |
 | MSLITE_ENABLE_NPU | Whether to compile NPU operator, only valid when `-I arm64` or `-I arm32` | on, off | off |
+| MSLITE_ENABLE_INT8 | Whether to compile Int8 operator | on,off | on |
+| MSLITE_ENABLE_FP16 | Whether to compile Fp16 operator | on,off | on |
+| MSLITE_ENABLE_FP32 | Whether to compile Fp32 operator | on,off | on |
 | MSLITE_ENABLE_TRAIN | Whether to compile the training version | on, off | on |
 | MSLITE_ENABLE_SSE | Whether to enable SSE instruction set, only valid when `-I x86_64` | on, off | off |
 | MSLITE_ENABLE_AVX | Whether to enable AVX instruction set, only valid when `-I x86_64` | on, off | off |
 | MSLITE_ENABLE_CONVERTER | Whether to compile the model conversion tool, only valid when `-I x86_64` | on, off | on |
 | MSLITE_ENABLE_TOOLS | Whether to compile supporting tools | on, off | on |
 | MSLITE_ENABLE_TESTCASES | Whether to compile test cases | on, off | off |
+
+- Basic framework function reduction compilation options
+
+If the user is sensitive to the package size of the framework, the following options can be configured to reduce the package size by reducing the function of the runtime model reasoning framework. Then, the user can further reduce the package size by operator reduction through the [reduction tool](https://www.mindspore.cn/lite/docs/en/master/use/build.html) or [download](https://www.mindspore.cn/lite/docs/en/master/use/cropper_tool.html).
+
+| Option  |  Parameter Description  | Value Range | Defaults |
+| -------- | ----- | ---- | ---- |
+| MSLITE_STRING_KERNEL | Whether to support string data reasoning model, such as smart_reply.tflite | on,off | on |
+| MSLITE_CONTROLFLOW_TENSORLIST | Whether to support control flow model | on,off | on |
+| MSLITE_WEIGHT_DECODE | Whether to support quantitative model | on,off | on |
+| MSLITE_CUSTOM_KERNEL_REGISTRY | Whether to support southbound operator registration | on,off | on |
+| MSLITE_DELEGATE_USE | Whether to  support delegate mechanism | on,off | on |
+| MSLITE_ENABLE_V0 | Whether to compatible with models exported before 1.1.0 | on,off | on |
 
 > - The above options can be modified by setting the environment variable with the same name or the file `mindspore/lite/CMakeLists.txt`.
 > - After modifying the Option, adding the `-i` parameter for incremental compilation will not take effect.
