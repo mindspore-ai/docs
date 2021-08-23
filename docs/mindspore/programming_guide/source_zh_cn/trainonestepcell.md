@@ -10,7 +10,7 @@
 import numpy as np
 from mindspore import Tensor
 import mindspore.nn as nn
-from mindpsore.nn import Momentum, WithLossCell, TrainOneStepCell
+from mindspore.nn import Momentum, WithLossCell, TrainOneStepCell
 from mindspore.common.initializer import Normal
 
 class LeNet5(nn.Cell):
