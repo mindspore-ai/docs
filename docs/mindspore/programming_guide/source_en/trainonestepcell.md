@@ -4,12 +4,12 @@
 
 `TrainOneStepCell` is used to perform single-step training of the network and return the loss result after each training result.
 
-The following describes how to build an instance for using the `TrainOneStepCell` API to perform network training. The import code of the `LeNet` and package name is the same as that in the previous case.
+The following describes how to build an instance for using the `TrainOneStepCell` API to perform network training. The import code of the `LeNet5` and package name is the same as that in the previous case.
 
 ```python
 data = Tensor(np.ones([32, 1, 32, 32]).astype(np.float32) * 0.01)
 label = Tensor(np.ones([32]).astype(np.int32))
-net = LeNet()
+net = LeNet5()
 learning_rate = 0.01
 momentum = 0.9
 

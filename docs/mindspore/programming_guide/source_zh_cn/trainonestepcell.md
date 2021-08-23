@@ -4,7 +4,7 @@
 
 `TrainOneStepCell`功能是执行网络的单步训练，返回每次训练结果后的loss结果。
 
-下面构造一个使用`TrainOneStepCell`接口进行网络训练的实例，其中`LeNet`和包名的导入代码和上个用例共用。
+下面构造一个使用`TrainOneStepCell`接口进行网络训练的实例，其中`LeNet5`和包名的导入代码和上个用例共用。
 
 ```python
 import numpy as np
@@ -15,24 +15,40 @@ from mindspore.common.initializer import Normal
 
 class LeNet5(nn.Cell):
     """
-    Lenet网络结构
+    Lenet network
+
+    Args:
+        num_class (int): Number of classes. Default: 10.
+        num_channel (int): Number of channels. Default: 1.
+
+    Returns:
+        Tensor, output tensor
+    Examples:
+        >>> LeNet(num_class=10)
+
     """
-    def __init__(self, num_class=10, num_channel=1):
+    def __init__(self, num_class=10, num_channel=1, include_top=True):
         super(LeNet5, self).__init__()
-        # 定义所需要的运算
         self.conv1 = nn.Conv2d(num_channel, 6, 5, pad_mode='valid')
         self.conv2 = nn.Conv2d(6, 16, 5, pad_mode='valid')
-        self.fc1 = nn.Dense(16 * 5 * 5, 120, weight_init=Normal(0.02))
-        self.fc2 = nn.Dense(120, 84, weight_init=Normal(0.02))
-        self.fc3 = nn.Dense(84, num_class, weight_init=Normal(0.02))
         self.relu = nn.ReLU()
         self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
-        self.flatten = nn.Flatten()
+        self.include_top = include_top
+        if self.include_top:
+            self.flatten = nn.Flatten()
+            self.fc1 = nn.Dense(16 * 5 * 5, 120, weight_init=Normal(0.02))
+            self.fc2 = nn.Dense(120, 84, weight_init=Normal(0.02))
+            self.fc3 = nn.Dense(84, num_class, weight_init=Normal(0.02))
 
     def construct(self, x):
-        # 使用定义好的运算构建前向网络
-        x = self.max_pool2d(self.relu(self.conv1(x)))
-        x = self.max_pool2d(self.relu(self.conv2(x)))
+        x = self.conv1(x)
+        x = self.relu(x)
+        x = self.max_pool2d(x)
+        x = self.conv2(x)
+        x = self.relu(x)
+        x = self.max_pool2d(x)
+        if not self.include_top:
+            return x
         x = self.flatten(x)
         x = self.relu(self.fc1(x))
         x = self.relu(self.fc2(x))
@@ -42,7 +58,7 @@ class LeNet5(nn.Cell):
 if __name__=="__main__":
     data = Tensor(np.ones([32, 1, 32, 32]).astype(np.float32) * 0.01)
     label = Tensor(np.ones([32]).astype(np.int32))
-    net = LeNet()
+    net = LeNet5()
     learning_rate = 0.01
     momentum = 0.9
 
