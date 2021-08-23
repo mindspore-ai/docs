@@ -96,6 +96,7 @@
 | Computer Vision (CV) | Image Classification  | [FaceQualityAssessment](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/research/cv/FaceQualityAssessment)     |  ✅ |  ✅ |    |    |   |   |
 | Computer Vision (CV) | Image Classification  | [FaceRecognition](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/research/cv/FaceRecognition)     |  ✅ |    |    |    |   |   |
 | Computer Vision (CV) | Image Classification  | [FaceRecognitionForTracking](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/research/cv/FaceRecognitionForTracking)     |  ✅ |    |    |    |   |   |
+| Computer Vision (CV) | Object Detection  | [Spnas](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/research/cv/Spnas)     |  ✅ |    |    |    |   |   |
 | Computer Vision (CV) | Object Detection  | [SSD-GhostNet](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/research/cv/ssd_ghostnet)               |  ✅ |    |    |    |   |   |
 | Computer Vision (CV)  | Key Point Detection  | [CenterNet](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/research/cv/centernet)               |  ✅ |    |   |    | ✅ |   |
 | Computer Vision (CV)  | Image Style Transfer  | [CycleGAN](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/research/cv/CycleGAN)             |        |    |   |  ✅ | ✅ |   |
