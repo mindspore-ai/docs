@@ -98,7 +98,7 @@ output = (Tensor(shape=[], dtype=Float32, value= 4), Tensor(shape=[], dtype=Floa
 
 ## GradOperation
 
-GradOperation组件用于生成输入函数的梯度，利用get_all、get_by_list和sens_param参数控制梯度的计算方式，细节内容详见API文档。
+GradOperation组件用于生成输入函数的梯度，利用get_all、get_by_list和sens_param参数控制梯度的计算方式，细节内容详见[API文档](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.GradOperation.html) 。
 
 ### 一阶求导
 
