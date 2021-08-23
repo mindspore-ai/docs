@@ -71,6 +71,9 @@ def setup(app):
 
 
 
+from sphinx.search import jssplitter as sphinx_split
+from sphinx import errors as searchtools_path
+
 # Update the word segmentation method, let the input term be segmented according to the index
 sphinx_split_python = os.path.abspath(sphinx_split.__file__) # Read the location of the word segmentation file
 python_code_source = """function splitQuery(query, dict, all_dict) {

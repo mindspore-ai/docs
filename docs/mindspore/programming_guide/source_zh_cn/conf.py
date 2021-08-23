@@ -14,8 +14,6 @@ import os
 import IPython
 import re
 import nbsphinx as nbs
-from sphinx.search import jssplitter as sphinx_split
-from sphinx import errors as searchtools_path
 
 # -- Project information -----------------------------------------------------
 
@@ -84,6 +82,9 @@ with open(mod_path, "r+", encoding="utf8") as f:
     exec("".join(contents), nbs.__dict__)
 
 
+
+from sphinx.search import jssplitter as sphinx_split
+from sphinx import errors as searchtools_path
 
 # Update the word segmentation method, let the input term be segmented according to the index
 sphinx_split_python = os.path.abspath(sphinx_split.__file__) # Read the location of the word segmentation file
