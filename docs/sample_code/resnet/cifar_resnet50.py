@@ -29,7 +29,6 @@ from mindspore import Model, context
 from mindspore.context import ParallelMode
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor
 from mindspore import load_checkpoint, load_param_into_net
-from mindspore.parallel._auto_parallel_context import auto_parallel_context
 from resnet import resnet50
 
 random.seed(1)
@@ -104,8 +103,8 @@ def create_dataset(repeat_num=1, training=True):
 if __name__ == '__main__':
     # in this way by judging the mark of args, users will decide which function to use
     if not args_opt.do_eval and args_opt.run_distribute:
-        context.set_auto_parallel_context(device_num=args_opt.device_num, parallel_mode=ParallelMode.DATA_PARALLEL)
-        auto_parallel_context().set_all_reduce_fusion_split_indices([140])
+        context.set_auto_parallel_context(device_num=args_opt.device_num, parallel_mode=ParallelMode.DATA_PARALLEL,
+                                          all_reduce_fusion_config=[140])
         init()
 
     epoch_size = args_opt.epoch_size
