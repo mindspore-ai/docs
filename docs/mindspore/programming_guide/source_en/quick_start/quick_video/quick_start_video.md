@@ -8,4 +8,4 @@
 https://gitee.com/mindspore/docs/blob/master/docs/sample_code/lenet/lenet.py
 **View code**: <>
 
-**View the full tutorial**: <https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_start.html>
+**View the full tutorial**: <https://www.mindspore.cn/tutorials/en/master/quick_start.html>

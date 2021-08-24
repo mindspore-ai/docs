@@ -22,8 +22,8 @@
     - [Distributed Training Model Parameters Saving and Loading](#distributed-training-model-parameters-saving-and-loading)
         - [Auto Parallel Mode](#auto-parallel-mode)
         - [Data Parallel Mode](#data-parallel-mode)
-        - [Semi Auto Parallel Mode](#semi-auto-parallel-mode)
-        - [Hybrid Parallel Mode](#hybrid-parallel-mode)
+        - [Semi Auto Parallel Mode](#semi-auto-parallel-mode-1)
+        - [Hybrid Parallel Mode](#hybrid-parallel-mode-1)
     - [Multi-machine Training](#multi-machine-training)
 
 <!-- /TOC -->
@@ -202,7 +202,7 @@ In this section we focus on how to define a network in hybrid parallel or semi-a
 
 Hybrid parallel mode adds the setting `layerwise_parallel` for `parameter` based on the data parallel mode. The `parameter` with the settig would be saved and computed in slice tensor and would not apply gradients aggregation. In this mode, MindSpore would not infer computation and communication for parallel operators automatically. To ensure the consistency of calculation logic, users are required to manually infer extra operations and insert them to networks. Therefore, this parallel mode is suitable for the users with deep understanding of parallel theory.
 
-In the following example, specify the `self.weight` as the `layerwise_parallel`, that is, the `self.weight` and the output of `MatMul` are sliced on the second dimension. At this time, perform ReduceSum on the second dimension would only get one sliced result. `AllReduce.Sum` is required here to accumulate the results among all devices. More information about the parallel theory please refer to the [design document](https://www.mindspore.cn/docs/note/en/master/design/distributed_training_design.html).
+In the following example, specify the `self.weight` as the `layerwise_parallel`, that is, the `self.weight` and the output of `MatMul` are sliced on the second dimension. At this time, perform ReduceSum on the second dimension would only get one sliced result. `AllReduce.Sum` is required here to accumulate the results among all devices. More information about the parallel theory please refer to the [design document](https://www.mindspore.cn/docs/programming_guide/en/master/design/distributed_training_design.html).
 
 ```python
 from mindspore import Tensor
@@ -229,7 +229,7 @@ class HybridParallelNet(nn.Cell):
 
 ### Semi Auto Parallel Mode
 
-Compared with the auto parallel mode, semi auto parallel mode supports manual configuration on shard strategies for network tuning. The definition of shard strategies could be referred by this [design document](https://www.mindspore.cn/docs/note/en/master/design/distributed_training_design.html).
+Compared with the auto parallel mode, semi auto parallel mode supports manual configuration on shard strategies for network tuning. The definition of shard strategies could be referred by this [design document](https://www.mindspore.cn/docs/programming_guide/en/master/design/distributed_training_design.html).
 
 In the above example `HybridParallelNet`, the script in semi auto parallel mode is as follows. The shard stratege of `MatMul` is `{(1, 1), (1, 2)}`, which means `self.weight` is sliced at the second dimension.
 

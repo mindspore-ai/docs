@@ -456,7 +456,7 @@
 
 网络定义流程可参考[model.py文件](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py)。
 
-具体网络定义流程可参考[图片分类应用](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/quick_start/quick_start.html#%E5%AE%9A%E4%B9%89%E7%BD%91%E7%BB%9C)。
+具体网络定义流程可参考[初学入门](https://www.mindspore.cn/tutorials/zh-CN/master/quick_start.html#%E5%88%9B%E5%BB%BA%E6%A8%A1%E5%9E%8B)。
 
 ## 定义训练过程
 
@@ -561,7 +561,7 @@ if __name__ == "__main__":
 
 其中`src.model`为模型定义文件可参考[model.py文件](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py)，`src.adam`为优化器定义文件可参考[adam.py文件](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/adam.py)。
 
-具体优化器损失函数定义可参考[图片分类应用](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/quick_start/quick_start.html#%E5%AE%9A%E4%B9%89%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E5%8F%8A%E4%BC%98%E5%8C%96%E5%99%A8)。
+具体优化器损失函数定义可参考[初学入门](https://www.mindspore.cn/tutorials/zh-CN/master/quick_start.html#%E4%BC%98%E5%8C%96%E6%A8%A1%E5%9E%8B%E5%8F%82%E6%95%B0)。
 
 ## 生成端侧模型文件
 

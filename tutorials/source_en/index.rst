@@ -19,3 +19,4 @@ MindSpore Tutorial
    optimization
    save_load_model
    inference
+   linear_regression

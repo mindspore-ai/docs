@@ -15,10 +15,19 @@ MindSpore编程指南
 
 .. toctree::
    :maxdepth: 1
+   :caption: 设计介绍
+
+   design/technical_white_paper
+   design/distributed_training_design
+   design/mindir
+   design/glossary
+
+.. toctree::
+   :maxdepth: 1
    :caption: 快速入门
 
-   quick_start/linear_regression
-   quick_start/quick_start
+   实现简单线性函数拟合↗ <https://www.mindspore.cn/tutorials/zh-CN/master/linear_regression.html> 
+   实现一个图片分类应用↗ <https://www.mindspore.cn/tutorials/zh-CN/master/quick_start.html>
    quick_start/quick_video
 
 .. toctree::

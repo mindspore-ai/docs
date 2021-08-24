@@ -3,17 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-MindSpore设计和规格
+MindSpore规格和约束
 =====================
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: 设计说明
-   
-   design/technical_white_paper
-   design/mindir
-   design/distributed_training_design
 
 .. toctree::
    :glob:
@@ -33,7 +24,6 @@ API映射已迁移至 https://www.mindspore.cn/docs/migration_guide/zh-CN/master
    :maxdepth: 1
    :caption: 其他说明
 
-   glossary
    roadmap
    help_seeking_path
    community

@@ -74,7 +74,7 @@ tree ./datasets/MNIST_Data
 
 ### Defining the Dataset Enhancement Method
 
-The original training dataset of the MNIST dataset is 60,000 single-channel digital images with $28\times28$ pixels. The LeNet5 network containing the Bayesian layer used in this training received the training data tensor as `(32,1 ,32,32)`, through the custom create_dataset function to enhance the original dataset to meet the training requirements of the data, the specific enhancement operation explanation can refer to the official website quick start [Implement an image classification application](https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_start.html).
+The original training dataset of the MNIST dataset is 60,000 single-channel digital images with $28\times28$ pixels. The LeNet5 network containing the Bayesian layer used in this training received the training data tensor as `(32,1 ,32,32)`, through the custom create_dataset function to enhance the original dataset to meet the training requirements of the data, the specific enhancement operation explanation can refer to [Quick Start for Beginners](https://www.mindspore.cn/tutorials/en/master/quick_start.html).
 
 ```python
 import mindspore.dataset.vision.c_transforms as CV

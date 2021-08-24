@@ -460,7 +460,7 @@ The LeNet network is relatively simple. In addition to the input layer, the LeNe
 
 For the network defining process, see the [model.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py).
 
-For more details, see the [MindSpore Image Classification Task](https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_start.html#%E5%AE%9A%E4%B9%89%E7%BD%91%E7%BB%9C).
+For more details, see the [Quick Start for Beginners](https://www.mindspore.cn/tutorials/en/master/quick_start.html#creating-a-model).
 
 ## Defining the Training Process
 
@@ -565,7 +565,7 @@ In the dictionary `ctx`, the `enable_fl` parameter is used to set whether to sta
 
 In the preceding information, `src.model` is the model definition file. For details, see the [model.py file](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py). `src.adam` is the optimizer definition file. For details, see the [adam.py file](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/adam.py).
 
-For details about the definition of the optimizer loss function, see the [MindSpore official document](https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_start.html#%E5%AE%9A%E4%B9%89%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E5%8F%8A%E4%BC%98%E5%8C%96%E5%99%A8).
+For details about the definition of the optimizer loss function, see the [Quick Start for Beginners](https://www.mindspore.cn/tutorials/en/master/quick_start.html#optimizing-model-parameters).
 
 ## Generating a Device Model File
 

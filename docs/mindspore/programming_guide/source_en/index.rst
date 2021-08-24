@@ -15,10 +15,19 @@ MindSpore Programming Guide
 
 .. toctree::
    :maxdepth: 1
+   :caption: Design
+
+   design/technical_white_paper
+   design/distributed_training_design
+   design/mindir
+   design/glossary
+
+.. toctree::
+   :maxdepth: 1
    :caption: Quickstart
 
-   quick_start/linear_regression
-   quick_start/quick_start
+   Implementing Simple Linear Function Fitting↗ <https://www.mindspore.cn/tutorials/en/master/linear_regression.html> 
+   Implementing an Image Classification Application↗ <https://www.mindspore.cn/tutorials/en/master/quick_start.html>
    quick_start/quick_video
 
 .. toctree::
