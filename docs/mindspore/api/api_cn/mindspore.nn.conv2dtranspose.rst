@@ -7,7 +7,7 @@ mindspore.nn.Conv2dTranspose
 
    计算一个二维转置卷积，这也被称为反卷积（实际不是真正的反卷积）。
 
-   `x` 通常是 :math:`(N, C, H, W)` 的 `shape` ，其中 :math:`N` 是batch大小，:math:`C` 是通道数。如果'pad_mode'设为 "pad"，输出的高度和宽度分别为：
+   `x` 通常是 :math:`(N, C, H, W)` 的shape，其中 :math:`N` 是batch大小，:math:`C` 是通道数。如果'pad_mode'设为 "pad"，输出的高度和宽度分别为：
 
    .. math:: \begin{align}\begin{aligned}H_{out} = (H_{in} - 1) \times \text{stride[0]} - \left (\text{padding[0]} + \text{padding[1]}\right ) + \text{dilation[0]} \times (\text{kernel_size[0]} - 1) + 1\\W_{out} = (W_{in} - 1) \times \text{stride[1]} - \left (\text{padding[2]} + \text{padding[3]}\right ) + \text{dilation[1]} \times (\text{kernel_size[1]} - 1) + 1\end{aligned}\end{align}
 
@@ -17,8 +17,8 @@ mindspore.nn.Conv2dTranspose
 
       - **in_channels** (`int`) – 输入空间的通道数。
       - **out_channels** (`dict`) - 输出空间的通道数。
-      - **kernel_size** (`Union[int, tuple[int]]`) – 该参数指定二维卷积核的高度和宽度。数据类型为整型值或2个整型值的元组。一个整型值表示卷积核的高度和宽度均为该值。2个整型值的元组分别表示卷积核高度和宽度。
-      - **stride** (`Union[int, tuple[int]]`) – 步长大小。数据类型为整型值或2个整型值的元组。一个整型值表示在高度和宽度方向的滑动步长均为该值。2个整型值的元组分别表示在高度和宽度方向的滑动步长。默认值：1。
+      - **kernel_size** (`Union[int, tuple[int]]`) – 该参数指定二维卷积核的高度和宽度。数据类型为整型值或2个整型值的元组。一个整数表示卷积核的高度和宽度均为该值。2个整数的元组分别表示卷积核高度和宽度。
+      - **stride** (`Union[int, tuple[int]]`) – 步长大小。数据类型为整型值或2个整型值的元组。一个整数表示在高度和宽度方向的滑动步长均为该值。2个整数的元组分别表示在高度和宽度方向的滑动步长。默认值：1。
 
       - **pad_mode** (`str`) –
 
@@ -37,11 +37,11 @@ mindspore.nn.Conv2dTranspose
 
    **输入** ：
 
-      - **x** (Tensor) - `Shape` 为 :math:`(N, C_{in}, H_{in}, W_{in})` 的张量。
+      - **x** (Tensor) - Shape 为 :math:`(N, C_{in}, H_{in}, W_{in})` 的张量。
 
    **输出** ：
 
-      `Shape` 为 :math:`(N, C_{out}, H_{out}, W_{out})` 的张量。
+      Shape为 :math:`(N, C_{out}, H_{out}, W_{out})` 的张量。
 
    **抛出异常** ：
 
