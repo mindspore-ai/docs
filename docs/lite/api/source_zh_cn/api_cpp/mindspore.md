@@ -1160,19 +1160,19 @@ virtual ~Delegate() = default;
 #### Init
 
 ```cpp
-virtual int Init() = 0;
+virtual Status Init() = 0;
 ```
 
 初始化Delegate资源。
 
 - 返回值
 
-  STATUS，STATUS在errorcode.h中定义。
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
 
 #### Build
 
 ```cpp
-virtual int Build(DelegateModel *model) = 0;
+virtual Status Build(DelegateModel *model) = 0;
 ```
 
 Delegate在线构图。
@@ -1183,7 +1183,7 @@ Delegate在线构图。
 
 - 返回值
 
-  STATUS，STATUS在errorcode.h中定义。
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
 
 ## DelegateModel
 

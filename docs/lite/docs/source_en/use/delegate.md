@@ -47,9 +47,9 @@ class XXXDelegate : public Delegate {
 
   ~XXXDelegate() = default;
 
-  int Init() = 0;
+  Status Init() = 0;
 
-  int Build(DelegateModel *model) = 0;
+  Status Build(DelegateModel *model) = 0;
 };
 ```
 
@@ -58,7 +58,7 @@ class XXXDelegate : public Delegate {
 [Init](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Delegate.html#_CPPv4N9mindspore8Delegate4InitEv) will be called during the [Build](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#_CPPv4N9mindspore5Model5BuildE9GraphCellRKNSt10shared_ptrI7ContextEERKNSt10shared_ptrI8TrainCfgEE) process of [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model). The specific location is in the [LiteSession::Init](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/lite_session.cc#L696) function of MindSpore Lite internal process.
 
 ```cpp
-int XXXDelegate::Init() {
+Status XXXDelegate::Init() {
   // 1. Check whether the inference device matches the delegate framework.
   // 2. Initialize delegate related resources.
 }
@@ -78,7 +78,7 @@ The input parameter of the [Build(DelegateModel *model)](https://www.mindspore.c
 2. For a continuous supported kernel list, construct a delegate sub-graph kernel and [Replace](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_DelegateModel.html#_CPPv4N9mindspore13DelegateModel7ReplaceE10KernelIter10KernelIterPN6kernel6KernelE) the continuous supported kernels with it.
 
 ```cpp
-int XXXDelegate::Build(DelegateModel *model) {
+Status XXXDelegate::Build(DelegateModel *model) {
   KernelIter from = model->BeginKernelIterator();                   // Record the start operator position supported by the Delegate
   KernelIter end = model->BeginKernelIterator();                    // Record the end operator position supported by the Delegate
   for (KernelIter iter = model->BeginKernelIterator(); iter != model->EndKernelIterator(); iter++) {
@@ -188,9 +188,9 @@ class NPUDelegate : public Delegate {
 
   ~NPUDelegate() override;
 
-  int Init() override;
+  Status Init() override;
 
-  int Build(DelegateModel *model) override;
+  Status Build(DelegateModel *model) override;
 
  protected:
   // Analyze a kernel and its attribute.
@@ -214,7 +214,7 @@ class NPUDelegate : public Delegate {
 [Init](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/src/delegate/npu/npu_delegate.cc#L75) function is used to apply resource for NPU and determine whether the hardware supports NPU.
 
 ```cpp
-int NPUDelegate::Init() {
+Status NPUDelegate::Init() {
   npu_manager_ = new (std::nothrow) NPUManager();       // NPU manager of model buffer and client.
   if (npu_manager_ == nullptr) {
     MS_LOG(ERROR) << "New npu manager failed.";
@@ -241,7 +241,7 @@ int NPUDelegate::Init() {
 The [Build](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/src/delegate/npu/npu_delegate.cc#L163) interface parses the DelegateModel and mainly implements the kernel support judgment, the sub-graph construction, and the online graph building.
 
 ```cpp
-int NPUDelegate::Build(DelegateModel *model) {
+Status NPUDelegate::Build(DelegateModel *model) {
   KernelIter from, end;                     // Record the start and end positions of kernel supported by the NPU sub-graph.
   std::vector<NPUOp *> npu_ops;             // Save all NPUOp used to construct an NPU sub-graph.
   int graph_index = 0;

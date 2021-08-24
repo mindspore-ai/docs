@@ -47,9 +47,9 @@ class XXXDelegate : public Delegate {
 
   ~XXXDelegate() = default;
 
-  int Init() = 0;
+  Status Init() = 0;
 
-  int Build(DelegateModel *model) = 0;
+  Status Build(DelegateModel *model) = 0;
 }
 ```
 
@@ -58,7 +58,7 @@ class XXXDelegate : public Delegate {
 [Init](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#init)接口会在[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)的[Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build)流程中被调用。具体的调用位置在MindSpore Lite内部代码[LiteSession::Init](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/lite_session.cc#L696)函数中。
 
 ```cpp
-int XXXDelegate::Init() {
+Status XXXDelegate::Init() {
   // 1. Check whether the inference device matches the delegate framework.
   // 2. Initialize delegate related resources.
 }
@@ -78,7 +78,7 @@ Build会在[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindsp
 2. 对连续可支持的一段算子列表，构建一张Delegate子图，调用[Replace](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#replace)用子图Kernel去替换这段连续的算子。
 
 ```cpp
-int XXXDelegate::Build(DelegateModel *model) {
+Status XXXDelegate::Build(DelegateModel *model) {
   KernelIter from = model->BeginKernelIterator();                   // Record the start operator position supported by the Delegate
   KernelIter end = model->BeginKernelIterator();                    // Record the end operator position supported by the Delegate
   for (KernelIter iter = model->BeginKernelIterator(); iter != model->EndKernelIterator(); iter++) {
@@ -188,9 +188,9 @@ class NPUDelegate : public Delegate {
 
   ~NPUDelegate() override;
 
-  int Init() override;
+  Status Init() override;
 
-  int Build(DelegateModel *model) override;
+  Status Build(DelegateModel *model) override;
 
  protected:
   // Analyze a kernel and its attribute.
@@ -214,7 +214,7 @@ class NPUDelegate : public Delegate {
 [Init](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/src/delegate/npu/npu_delegate.cc#L75)接口实现和NPU有关的资源申请。
 
 ```cpp
-int NPUDelegate::Init() {
+Status NPUDelegate::Init() {
   npu_manager_ = new (std::nothrow) NPUManager();       // NPU manager of model buffer and client.
   if (npu_manager_ == nullptr) {
     MS_LOG(ERROR) << "New npu manager failed.";
@@ -241,7 +241,7 @@ int NPUDelegate::Init() {
 Build接口解析DelegateModel实例，主要实现算子支持判断、子图构建、在线构图等功能。下面[示例代码](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/src/delegate/npu/npu_delegate.cc#L163)是NPUDelegate Build接口的实现。
 
 ```cpp
-int NPUDelegate::Build(DelegateModel *model) {
+Status NPUDelegate::Build(DelegateModel *model) {
   KernelIter from, end;                     // Record the start and end positions of kernel supported by the NPU sub-graph.
   std::vector<NPUOp *> npu_ops;             // Save all NPUOp used to construct an NPU sub-graph.
   int graph_index = 0;
