@@ -41,59 +41,7 @@ MindSpore混合精度典型的计算流程如下图所示：
 
 ## 自动混合精度
 
-使用自动混合精度，需要调用相应的接口，将待训练网络和优化器作为输入传进去；该接口会将整张网络的算子转换成FP16算子(除`BatchNorm`算子和Loss涉及到的算子外)。可以使用`amp`接口和`Model`接口两种方式实现混合精度。
-
-使用`amp`接口具体的实现步骤为：
-
-1. 引入MindSpore的混合精度的接口`amp`；
-
-2. 定义网络：该步骤和普通的网络定义没有区别(无需手动配置某个算子的精度)；
-
-3. 使用`amp.build_train_network`接口封装网络模型、优化器和损失函数，设置level参数，参考<https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.html#mindspore.build_train_network>。在该步骤中，MindSpore会将有需要的算子自动进行类型转换。
-
-代码样例如下：
-
-```python
-import numpy as np
-
-import mindspore.nn as nn
-from mindspore import Tensor, context
-import mindspore.ops as ops
-from mindspore.nn import Momentum
-# The interface of Auto_mixed precision
-from mindspore import amp
-
-context.set_context(mode=context.GRAPH_MODE)
-context.set_context(device_target="Ascend")
-
-# Define network
-class Net(nn.Cell):
-    def __init__(self, input_channel, out_channel):
-        super(Net, self).__init__()
-        self.dense = nn.Dense(input_channel, out_channel)
-        self.relu = ops.ReLU()
-
-    def construct(self, x):
-        x = self.dense(x)
-        x = self.relu(x)
-        return x
-
-
-# Initialize network
-net = Net(512, 128)
-
-# Define training data, label
-predict = Tensor(np.ones([64, 512]).astype(np.float32) * 0.01)
-label = Tensor(np.zeros([64, 128]).astype(np.float32))
-
-# Define Loss and Optimizer
-loss = nn.SoftmaxCrossEntropyWithLogits()
-optimizer = Momentum(params=net.trainable_params(), learning_rate=0.1, momentum=0.9)
-train_network = amp.build_train_network(net, optimizer, loss, level="O3", loss_scale_manager=None)
-
-# Run training
-output = train_network(predict, label)
-```
+使用自动混合精度，需要调用`Model`接口，将待训练网络和优化器作为输入传进去，该接口会将整张网络的算子转换成FP16算子(除`BatchNorm`算子和Loss涉及到的算子外)。
 
 使用`Model`接口具体的实现步骤为：
 
