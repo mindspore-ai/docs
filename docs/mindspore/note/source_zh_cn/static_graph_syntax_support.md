@@ -17,13 +17,18 @@
             - [Tensor](#tensor)
             - [Primitive](#primitive)
             - [Cell](#cell)
+            - [Parameter](#parameter)
+    - [原型](#原型)
+        - [属性引用](#属性引用)
+        - [索引取值](#索引取值)
+        - [调用](#调用)
     - [运算符](#运算符)
-        - [算术运算符](#算术运算符)
+        - [单目算术运算符](#单目算术运算符)
+        - [二元算术运算符](#二元算术运算符)
         - [赋值运算符](#赋值运算符)
         - [逻辑运算符](#逻辑运算符)
-        - [成员运算符](#成员运算符)
-        - [身份运算符](#身份运算符)
-    - [表达式](#表达式)
+        - [比较运算符](#比较运算符)
+    - [复合语句](#复合语句)
         - [条件控制语句](#条件控制语句)
             - [单if](#单if)
             - [并列if](#并列if)
@@ -39,6 +44,9 @@
         - [函数定义语句](#函数定义语句)
             - [def关键字](#def关键字)
             - [lambda表达式](#lambda表达式)
+        - [列表生成式和生成器表达式](#列表生成式和生成器表达式)
+            - [列表生成式](#列表生成式)
+            - [生成器表达式](#生成器表达式)
     - [函数](#函数)
         - [Python内置函数](#python内置函数)
             - [len](#len)
@@ -79,7 +87,6 @@
 
 > 以下所有示例都运行在Graph模式下的网络中，为了简洁，并未将网络的定义都写出来。
 >
->`Tensor`不支持在静态图里直接构造，可通过参数传入网络`construct`方法，或者作为网络属性在`__init__`方法构造，然后在`construct`方法使用。
 
 ## 数据类型
 
@@ -257,7 +264,7 @@
 
 ### MindSpore自定义数据类型
 
-当前MindSpore自定义数据类型包括：`Tensor`、`Primitive`和`Cell`。
+当前MindSpore自定义数据类型包括：`Tensor`、`Primitive`、`Cell`和`Parameter`。
 
 #### Tensor
 
@@ -318,7 +325,6 @@ def generate_tensor():
   x_all: Tensor(shape=[], dtype=Bool, value=False)
   x_any: Tensor(shape=[], dtype=Bool, value=True)
   x_view: Tensor(shape=[1, 6], dtype=Bool, value=[[True, False, True, False, True, False]])
-
   y_as_z: Tensor(shape=[2, 2, 3], dtype=Float32, value=[[[1.0, 1.0, 1.0], [1.0, 1.0, 1.0]], [[1.0, 1.0, 1.0], [1.0, 1.0, 1.0]]])
   ```
 
@@ -346,6 +352,77 @@ def generate_tensor():
 
 当前已定义的`Cell`可参考文档：<https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.nn.html>
 
+#### Parameter
+
+`Parameter`是变量张量，代表在训练网络时，需要被更新的参数。
+
+`Parameter`的定义和使用参考：<https://www.mindspore.cn/docs/programming_guide/zh-CN/master/parameter.html>
+
+## 原型
+
+原型代表编程语言中最紧密绑定的操作。
+
+### 属性引用
+
+属性引用是后面带有一个句点加一个名称的原型。
+
+在MindSpore的Cell 实例中使用属性引用作为左值需满足如下要求：
+
+- 被修改的属性属于本`cell`对象，即必须为`self.xxx`。
+- 该属性在Cell的`__init__`函数中完成初始化且其为Parameter类型。
+
+示例如下：
+
+```python
+class Net(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.weight = Parameter(Tensor(3, mindspore.float32), name="w")
+        self.m = 2
+
+    def construct(self, x, y):
+        self.weight = x     # 满足条件可以修改
+        self.m = 3               # self.m 非Parameter类型禁止修改
+        y.weight = x          # y不是self，禁止修改
+        return x
+```
+
+### 索引取值
+
+对序列`Tuple`、`List`、`Dictionary`、`Tensor`的索引取值操作(Python称为抽取)。
+
+`Tuple`的索引取值请参考本文的[Tuple](#tuple)章节。
+
+`List`的索引取值请参考本文的[List](#list)章节。
+
+`Dictionary`的索引取值请参考本文的[Dictionary](#dictionary)章节。
+
+`Tensor`的索引取请参考:<https://www.mindspore.cn/docs/note/zh-CN/master/index_support.html>
+
+### 调用
+
+所谓调用就是附带可能为空的一系列参数来执行一个可调用对象(例如：`Cell`、`Primitive`)。
+
+示例如下：
+
+```python
+class Net(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.matmul = P.MatMul()
+
+    def construct(self, x, y):
+        out = self.matmul(x, y)  # Primitive调用
+        return out
+
+def test_call():
+    x = Tensor(np.ones(shape=[1, 3]), mindspore.float32)
+    y = Tensor(np.ones(shape=[3, 4]), mindspore.float32)
+    net = Net()
+    ret = net(x, y)
+    print(ret)
+```
+
 ## 运算符
 
 算术运算符和赋值运算符支持`Number`和`Tensor`运算，也支持不同`dtype`的`Tensor`运算。
@@ -354,55 +431,99 @@ def generate_tensor():
 
 规则可参考文档：<https://www.mindspore.cn/docs/note/zh-CN/master/operator_list_implicit.html>
 
-### 算术运算符
+### 单目算术运算符
 
-| 算术运算符 | 支持类型                                                                                                |
-| :--------- | :------------------------------------------------------------------------------------------------------ |
-| `+`        | `Number` + `Number`、`Tensor` + `Tensor`、`Tensor` + `Number`、`Tuple` + `Tuple`、`String` + `String`、`List` + `List`。 |
-| `-`        | `Number` - `Number`、`Tensor` - `Tensor`、`Tensor` - `Number`。                                         |
-| `*`        | `Number` \* `Number`、`Tensor` \* `Tensor`、`Tensor` \* `Number`。                                      |
-| `/`        | `Number` / `Number`、`Tensor` / `Tensor`、`Tensor` / `Number`。                                         |
-| `%`        | `Number` % `Number`、`Tensor` % `Tensor`、`Tensor` % `Number`。                                         |
-| `**`       | `Number` \*\* `Number`、`Tensor` \*\* `Tensor`、`Tensor` \*\* `Number`。                                |
-| `//`       | `Number` // `Number`、`Tensor` // `Tensor`、`Tensor` // `Number`。                                      |
-| `~`        | `~Tensor[Bool]`。                                                                                       |
+| 单目算术运算符 | 支持类型                                        |
+| :------------- | :---------------------------------------------- |
+| `+`            | `Number`、`Tensor`，取正值。                    |
+| `-`            | `Number`、`Tensor`，取负值。                    |
+| ~              | `Tensor`， 且其数据类型为`Bool`。成员逐个取反。 |
+
+说明：
+
+- 在Python中`~`操作符对输入的整数安位取反; MindSpore对`~`的功能重新定义为对`Tensor(Bool)`的逻辑取反。
+
+### 二元算术运算符
+
+| 二元算术运算符 | 支持类型                                                     |
+| :------------- | :----------------------------------------------------------- |
+| `+`            | `Number` + `Number`、`String` + `String`、`Number` + `Tensor`、`Tensor` + `Number`、`Tuple` + `Tensor`、`Tensor` + `Tuple`、<br>`List` + `Tensor`、`Tensor`+`List`、`List`+`List`、`Tensor` + `Tensor`、`RowTensor` + `Tensor`、`Tuple` + `Tuple`。 |
+| `-`            | `Number` - `Number`、`Tensor` - `Tensor`、`Number` - `Tensor`、`Tensor` - `Number`、`Tuple` - `Tensor`、`Tensor` - `Tuple`、<br>`List` - `Tensor`、`Tensor` - `List`。 |
+| `*`            | `Number` * `Number`、`Tensor` * `Tensor`、`Number` * `Tensor`、`Tensor` * `Number`、`List` * `Number`、`Number` * `List`、<br>`Tuple` * `Number`、`Number` * `Tuple`、`Tuple` * `Tensor`、`Tensor` * `Tuple`、 `List` * `Tensor`、`Tensor` * `List`。 |
+| `/`            | `Number` / `Number`、`Tensor` / `Tensor`、`Number` / `Tensor`、`Tensor` / `Number`、`Tuple` / `Tensor`、`Tensor` / `Tuple`、<br> `List` / `Tensor`、`Tensor` / `List`。 |
+| `%`            | `Number` % `Number`、`Tensor` % `Tensor`、`Number` % `Tensor`、`Tensor` % `Number`、`Tuple` % `Tensor`、`Tensor` % `Tuple`、<br> `List` % `Tensor`、`Tensor` % `List`。 |
+| `**`           | `Number` ** `Number`、`Tensor` ** `Tensor`、`Number` ** `Tensor`、`Tensor` ** `Number`、`Tuple` ** `Tensor`、<br>`Tensor` ** `Tuple`、 `List` ** `Tensor`、`Tensor` ** `List`。 |
+| `//`           | `Number` // `Number`、`Tensor` // `Tensor`、`Number` // `Tensor`、`Tensor` // `Number`、`Tuple` // `Tensor`、`Tensor` // `Tuple`、<br> `List` // `Tensor`、`Tensor` // `List`。 |
+
+限制：
+
+- 当左右操作数都为`Number`类型时，`Number`的值不可为`Bool` 类型。
+- 当左右操作数都为`Number`类型时，不支持`Float64` 和 `Int32`间的运算。
+- 当任一操作数为`Tensor`类型时，左右操作数的值不可同时为`Bool`。
 
 ### 赋值运算符
 
-| 赋值运算符 | 支持类型                                                                                                     |
-| :--------- | :----------------------------------------------------------------------------------------------------------- |
-| `=`        | 标量、`Tensor`                                                                                               |
-| `+=`       | `Number` += `Number`、`Tensor` += `Tensor`、`Tensor` += `Number`、`Tuple` += `Tuple`、`String` += `String`。 |
-| `-=`       | `Number` -= `Number`、`Tensor` -= `Tensor`、`Tensor` -= `Number`。                                           |
-| `*=`       | `Number` \*= `Number`、`Tensor` \*= `Tensor`、`Tensor` \*= `Number`。                                        |
-| `/=`       | `Number` /= `Number`、`Tensor` /= `Tensor`、`Tensor` /= `Number`。                                           |
-| `%=`       | `Number` %= `Number`、`Tensor` %= `Tensor`、`Tensor` %= `Number`。                                           |
-| `**=`      | `Number` \*\*= `Number`、`Tensor` \*\*= `Tensor`、`Tensor` \*\*= `Number`。                                  |
-| `//=`      | `Number` //= `Number`、`Tensor` //= `Tensor`、`Tensor` //= `Number`。                                        |
+| 赋值运算符 | 支持类型                                                     |
+| :--------- | :----------------------------------------------------------- |
+| `=`        | Mindspore支持的Python内置数据类型和MindSpore自定义数据类型   |
+| `+=`       | `Number` += `Number`、`String` += `String`、`Number` += `Tensor`、`Tensor` += `Number`、`Tuple` += `Tensor`、`Tensor` += `Tuple`、<br>`List` += `Tensor`、`Tensor` += `List`、`List` += `List`、`Tensor` += `Tensor`、`RowTensor` += `Tensor`、`Tuple` += `Tuple`。 |
+| `-=`       | `Number` -= `Number`、`Tensor` -= `Tensor`、`Number` -= `Tensor`、`Tensor` -= `Number`、`Tuple` -= `Tensor`、`Tensor` -= `Tuple`、<br>`List` -= `Tensor`、`Tensor` -= `List`。 |
+| `*=`       | `Number` *= `Number`、`Tensor` *= `Tensor`、`Number` *= `Tensor`、`Tensor` *= `Number`、`List` *= `Number`、`Number` *= `List`、<br/>`Tuple` *= `Number`、`Number` *= `Tuple`、`Tuple` *= `Tensor`、`Tensor` *= `Tuple`、 `List` *= `Tensor`、`Tensor` *= `List`。 |
+| `/=`       | `Number` /= `Number`、`Tensor` /= `Tensor`、`Number` /= `Tensor`、`Tensor` /= `Number`、`Tuple` /= `Tensor`、`Tensor` /= `Tuple`、<br/> `List` /= `Tensor`、`Tensor` /= `List`。 |
+| `%=`       | `Number` %= `Number`、`Tensor` %= `Tensor`、`Number` %= `Tensor`、`Tensor` %= `Number`、`Tuple` %= `Tensor`、`Tensor` %= `Tuple`、<br/> `List` %= `Tensor`、`Tensor` %= `List`。 |
+| `**=`      | `Number` \*\*= `Number`、`Tensor` \*\*= `Tensor`、`Number` \*\*= `Tensor`、`Tensor` \*\*= `Number`、`Tuple` \*\*= `Tensor`、<br/>`Tensor` \*\*= `Tuple`、 `List` \*\*= `Tensor`、`Tensor` \*\*= `List`。 |
+| `//=`      | `Number` //= `Number`、`Tensor` //= `Tensor`、`Number` //= `Tensor`、`Tensor` //= `Number`、`Tuple` //= `Tensor`、`Tensor` //= `Tuple`、<br/> `List` //= `Tensor`、`Tensor` //= `List`。 |
+
+限制：
+
+- 对于 `=`来说，不支持下列场景:
+
+  在`construct`函数中仅支持创建`Cell`和`Primitive`类型对象，使用`xx = Tensor(...)`的方式创建`Tensor`会失败。
+
+  在`construct`函数中仅支持为self 的`Parameter`类型的属性赋值, 详情参考：[属性引用](#属性引用)。
+- 当`AugAssign`的左右操作数都为`Number`类型时，`Number`的值不可为`Bool` 类型。
+- 当`AugAssign`的左右操作数都为`Number`类型时，不支持`Float64` 和 `Int32`间的运算。
+- 当`AugAssign`的任一操作数为`Tensor`类型时，左右操作数的值不可同时为`Bool`。
 
 ### 逻辑运算符
 
-| 逻辑运算符 | 支持类型                                       |
-| :--------- | :--------------------------------------------- |
-| `and`      | `Number` and `Number`、`Tensor` and `Tensor`。 |
-| `or`       | `Number` or `Number`、`Tensor` or`Tensor`。    |
-| `not`      | not `Number`、not `Tensor`、not `tuple`。      |
+| 逻辑运算符 | 支持类型                                                     |
+| :--------- | :----------------------------------------------------------- |
+| `and`      | `String`、 `Number`、 `Tuple`、`List` 、`Dict`、`None`、标量、Tensor。 |
+| `or`       | `String`、 `Number`、 `Tuple`、`List` 、`Dict`、`None`、标量、Tensor。 |
+| `not`      | `Number`、`Tuple`、`List`、只有一个成员的Tensor。            |
 
-### 成员运算符
+限制：
 
-| 成员运算符 | 支持类型                                                                                                                                              |
-| :--------- | :---------------------------------------------------------------------------------------------------------------------------------------------------- |
+- 当and/or的左操作数是Tensor类型时，左右操作数类型必须保持一致且Tensor成员个数只能有一个。
+
+- 当and/or的左操作数不是Tensor类型时，右操作数可以为支持的任意类型。
+
+### 比较运算符
+
+| 比较运算符 | 支持类型                                                     |
+| :--------- | :----------------------------------------------------------- |
 | `in`       | `Number` in `tuple`、`String` in `tuple`、`Tensor` in `Tuple`、`Number` in `List`、`String` in `List`、`Tensor` in `List`、`String` in `Dictionary`。 |
-| `not in`   | 与`in`相同。                                                                                                                                          |
+| `not in`   | 与`in`相同。                                                 |
+| `is`       | 仅支持判断是`None`、 `True`或者`False`。                     |
+| `is not`   | 仅支持判断不是`None`、 `True`或者`False`。                   |
+| <          | `Number` < `Number`、`Number` < `Tensor`、`Tensor` < `Tensor`、`Tensor` < `Number`。 |
+| <=         | `Number` <= `Number`、`Number` <= `Tensor`、`Tensor` <= `Tensor`、`Tensor` <= `Number`。 |
+| >          | `Number` > `Number`、`Number` > `Tensor`、`Tensor` > `Tensor`、`Tensor` > `Number`。 |
+| >=         | `Number` >= `Number`、`Number` >= `Tensor`、`Tensor` >= `Tensor`、`Tensor` >= `Number`。 |
+| !=         | `Number` != `Number`、`Number` != `Tensor`、`Tensor` != `Tensor`、`Tensor` != `Number`、<br>`mstype` != `mstype`、`String` != `String`、`Tuple !` = `Tuple`、`List` != `List`。 |
+| ==         | `Number` == `Number`、`Number` == `Tensor`、`Tensor` == `Tensor`、`Tensor` == `Number`、<br/>`mstype` == `mstype`、`String` == `String`、`Tuple` == `Tuple`、`List` == `List`。 |
 
-### 身份运算符
+限制：
 
-| 身份运算符 | 支持类型                                   |
-| :--------- | :----------------------------------------- |
-| `is`       | 仅支持判断是`None`、 `True`或者`False`。   |
-| `is not`   | 仅支持判断不是`None`、 `True`或者`False`。 |
+- 对于`<`、`<=`、`>`、`>=`、`!=`来说，当左右操作数都为`Number`类型时，`Number`的值不可为`Bool` 类型。
+- 对于`<`、`<=`、`>`、`>=`、`!=`、`==`来说，当左右操作数都为`Number`类型时，不支持`Float64` 和 `Int32`间的运算。
+- 对于`<`、`<=`、`>`、`>=`、`!=`、`==`来说，当左右任一操作数为`Tensor`类型时，左右操作数的值不可同时为`Bool`。
+- 对于`==`来说，当左右操作数都为`Number`类型时，支持左右操作数同时为`Bool`，不支持只有一个操作数为`Bool`。
+- 对于`!=`、`==`来说除`mstype`外，其他取值均可和`None`进行比较来判空。
+- 不支持链式比较，如: `a>b>c`。
 
-## 表达式
+## 复合语句
 
 ### 条件控制语句
 
@@ -720,6 +841,12 @@ ret = number_add(1, 2)
 ```text
 ret: 3
 ```
+
+限制：
+
+- 函数必须有返回语句。
+- 最外层网络模型的`construct`函数不支持kwargs，即不支持 `def  construct(**kwargs):`。
+- 不支持变参和非变参的混合使用，即不支持 `def function(x, y, *args):`和 `def function(x = 1, y = 1, **kwargs):`。
 
 #### lambda表达式
 
@@ -1133,20 +1260,17 @@ y Tensor(shape=[], dtype=Int64, value=3))
 ### 函数参数
 
 - 参数默认值：目前不支持默认值设为`Tensor`类型数据，支持`int`、`float`、`bool`、`None`、`str`、`tuple`、`list`、`dict`类型数据。
-
 - 可变参数：支持带可变参数网络的推理和训练。
-
 - 键值对参数：目前不支持带键值对参数的函数求反向。
-
 - 可变键值对参数：目前不支持带可变键值对的函数求反向。
 
 ## 网络定义
 
 ### 网络入参
 
-整网（最外层网络）入参支持`bool`、`int`、`float`、`Tensor`、`mstype.number(mstype.bool_、mstype.int、mstype.float、mstype.uint)`，以及只包含这些类型对象的`list`或者`tuple`，和`value`值是这些类型的`dict`。
+整网（最外层网络）入参仅支持`bool`、`int`、`float`、`Tensor`、`mstype.number(mstype.bool_、mstype.int、mstype.float、mstype.uint)`，以及只包含这些类型对象的`list`或者`tuple`，和`value`值是这些类型的`Dictionary`。同时需要注意整网（最外层网络）入参不支持显示传入None，需要使用None时可通过默认值来实现。
 
-在对整网入参求梯度的时候，会忽略非`Tensor`的入参，只计算`Tensor`入参的梯度，例如整网入参`(x, y, z)`中，`x`和`z`是`Tensor`，`y`是非`Tensor`时，在对整网入参求梯度的时候，只会计算`x`和`z`的梯度，返回`(grad_x, grad_z)`。
+在对整网入参求梯度的时候，会忽略非`Tensor`的入参，只计算`Tensor`入参的梯度。例如整网入参`(x, y, z)`中，`x`和`z`是`Tensor`，`y`是非`Tensor`时，在对整网入参求梯度的时候，只会计算`x`和`z`的梯度，返回`(grad_x, grad_z)`。
 
 如果网络里要使用其他类型，可在初始化网络的时候，传入该类型对象，作为网络属性保存起来，然后在`construct`里使用。
 内层调用的网络入参无此限制。
@@ -1183,7 +1307,7 @@ grad_net = GradNet(net)
 ret = grad_net(input_x, input_y, input_z)
 ```
 
-上面定义的Net网络里，在初始化时传入一个`str`，作为网络的属性保存起来，然后在`construct`里使用`self.flag`这个属性。
+上面定义的Net网络里，在初始化时传入一个`string` flag，作为网络的属性保存起来，然后在`construct`里使用`self.flag`这个属性。
 
 整网入参`x`和`z`是`Tensor`，`y`是`int`数，`grad_net`在对整网入参`(x, y, z)`求梯度时，会自动忽略`y`的梯度，只计算`x`和`z`的梯度，`ret = (grad_x, grad_z)`。
 

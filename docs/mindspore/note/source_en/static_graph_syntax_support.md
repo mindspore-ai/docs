@@ -17,13 +17,18 @@
             - [Tensor](#tensor)
             - [Primitive](#primitive)
             - [Cell](#cell)
+            - [Parameter](#parameter)
+    - [Primaries](#primaries)
+        - [Attribute References](#attribute-references)
+        - [Index Value](#index-value)
+        - [Calls](calls)
     - [Operators](#operators)
-        - [Arithmetic Operators](#arithmetic-operators)
+        - [Unary Arithmetic Operators](#unary-arithmetic-operators)
+        - [Binary Arithmetic Operators](#binary-arithmetic-operators)
         - [Assignment Operators](#assignment-operators)
         - [Logical Operators](#logical-operators)
-        - [Member Operators](#member-operators)
-        - [Identity Operators](#identity-operators)
-    - [Expressions](#expressions)
+        - [Compare Operators](#compare-operators)
+    - [Compound Statements](#compound-statements)
         - [Conditional Control Statements](#conditional-control-statements)
             - [single if](#single-if)
             - [side-by-side if](#side-by-side-if)
@@ -39,6 +44,9 @@
         - [Function Definition Statements](#function-definition-statements)
             - [def Keyword](#def-keyword)
             - [lambda Expression](#lambda-expression)
+        - [List Comprehension and Generator Expression](#list-comprehension-and-generator-expression)
+            - [List Comprehension](#list-comprehension)
+            - [Generator Expression](#generator-expression)
     - [Functions](#functions)
         - [Python Built-in Functions](#python-built-in-functions)
             - [len](#len)
@@ -78,7 +86,6 @@ The following describes the data types, syntax, and related operations supported
 
 > All the following examples run on the network in graph mode. For brevity, the network definition is not described.
 >
-> The `Tensor` cannot be directly constructed in static graphs. It can be transferred to the network through parameters or constructed in the `__init__` method as a network attribute and then used in the `construct` method of the network.
 
 ## Data Types
 
@@ -198,7 +205,7 @@ Forcible conversion to `Tuple` is not supported on the network. That is, the syn
   ```python
   class Net(nn.Cell):
       def __init__(self):
-          super(Net, self).__init__()
+          super(Net, self).__init__()  
           self.relu = nn.ReLU()
           self.softmax = nn.Softmax()
           self.layers = (self.relu, self.softmax)
@@ -345,6 +352,78 @@ For details about the definition of `Cell`, click <https://www.mindspore.cn/docs
 
 For details about the defined `Cell`, click <https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.nn.html>.
 
+#### Parameter
+
+`Parameter` is a variable tensor, indicating the parameters that need to be updated during network training.
+
+For details about the definition of `Parameter`：<https://www.mindspore.cn/docs/programming_guide/en/master/parameter.html>
+
+## Primaries
+
+Primaries represent the most tightly bound operations of the language Which contains `Attribute references`, `Subscriptions`, `Calls`.
+
+### Attribute References
+
+An attribute reference is a primary followed by a period and a name.
+
+In `Cell` instance of MindSpore, using attribute reference as left operands must meet the restrictions below:
+
+- The attribute must belong to self, such as self.xxx. It is not supported to change attribute of other instance.
+
+- The attribute type must be `Parameter` and be initialized in `__init__` funcntion.
+
+For example:
+
+```python
+class Net(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.weight = Parameter(Tensor(3, mindspore.float32), name="w")
+        self.m = 2
+
+    def construct(self, x, y):
+        self.weight = x     # restictions matched,  success
+        self.m = 3               # self.m not Parameter type, failure
+        y.weight = x          # not attribute of self, failure
+        return x
+```
+
+### Index Value
+
+Index value of  a sequence `Tuple`, `List`, `Dictionary`, `Tensor` which called subscription in Python.
+
+Index value of `Tuple` refers to chapter [Tuple](#tuple) of this page.
+
+Index value of `List` refers to chapter [List](#list) of this page.
+
+Index value of `Dictionary` refers to chapter [Dictionary](#dictionary) of this page.
+
+Index value of `Tensor` refers to  <https://www.mindspore.cn/docs/note/en/master/index_support.html>
+
+### Calls
+
+A call calls a callable object (e.g., `Cell` or `Primitive`) with a possibly empty series of arguments.
+
+For example:
+
+```python
+class Net(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.matmul = P.MatMul()
+
+    def construct(self, x, y):
+        out = self.matmul(x, y)  # A call of Primitive
+        return out
+
+def test_call():
+    x = Tensor(np.ones(shape=[1, 3]), mindspore.float32)
+    y = Tensor(np.ones(shape=[3, 4]), mindspore.float32)
+    net = Net()
+    ret = net(x, y)
+    print(ret)
+```
+
 ## Operators
 
 Arithmetic operators and assignment operators support the `Number` and `Tensor` operations, as well as the `Tensor` operations of different `dtype`.
@@ -353,55 +432,98 @@ This is because these operators are converted to operators with the same name fo
 
 For details about the rules, click <https://www.mindspore.cn/docs/note/en/master/operator_list_implicit.html>.
 
-### Arithmetic Operators
+### Unary  Arithmetic Operators
 
-| Arithmetic Operator | Supported Type
-| :----------- |:--------
-| `+` |`Number` + `Number`, `Tensor` + `Tensor`, `Tensor` + `Number`, `Tuple` + `Tuple`, `String` + `String`, and `List` + `List`
-| `-` |`Number` - `Number`, `Tensor` - `Tensor`, and `Tensor` - `Number`
-| `*` |`Number` \* `Number`, `Tensor` \* `Tensor`, and `Tensor` \* `Number`
-| `/` |`Number` / `Number`, `Tensor` / `Tensor`, and `Tensor` / `Number`
-| `%` |`Number` % `Number`, `Tensor` % `Tensor`, and `Tensor`% `Number`
-| `**` |`Number` \*\* `Number`, `Tensor` \*\* `Tensor`, and `Tensor` \*\* `Number`
-| `//` |`Number` // `Number`, `Tensor` // `Tensor`, and `Tensor` // `Number`
-| `~`  | `~Tensor[Bool]`
+| Unary Arithmetic Operator | Supported Type                 |
+| :------------------------ | :----------------------------- |
+| `+`                       | `Number`, `Tensor`             |
+| `-`                       | `Number`, `Tensor`             |
+| `~`                       | `Tensor` with `Bool` data type |
+
+notes:
+
+- In native python the `~` operator get the bitwise inversion of its integer argument; in Mindspore the `~` redefined to get logic not for `Tensor(Bool)`.
+
+### Binary Arithmetic Operators
+
+| Binary Arithmetic Operator | Supported Type|
+| :----------- |:--------|
+| `+` |`Number` + `Number`, `String` + `String`, `Number` + `Tensor`, `Tensor` + `Number`, `Tuple` + `Tensor`, `Tensor` + `Tuple`, <br/>`List` + `Tensor`, `Tensor`+`List`, `List`+`List`, `Tensor` + `Tensor`, `RowTensor`+`Tensor`, `Tuple` + `Tuple`.|
+| `-` |`Number` - `Number`, `Tensor` - `Tensor`, `Number` -`Tensor`, `Tensor` - `Number`, `Tuple` -`Tensor`, `Tensor` -`Tuple`, <br/>`List` -`Tensor`, `Tensor` -`List`.|
+| `*` |`Number` * `Number`, `Tensor` * `Tensor`, `Number` * `Tensor`, `Tensor` * `Number`, `List` * `Number`, <br>`Number` * `List`, `Tuple` * `Number`, `Number` * `Tuple`, `Tuple` * `Tensor`, `Tensor` * `Tuple`,  `List` * `Tensor`, <br>`Tensor` * `List`.|
+| `/` |`Number` / `Number`, `Tensor` / `Tensor`, `Number` / `Tensor`, `Tensor` / `Number`, `Tuple` / `Tensor`, `Tensor` / `Tuple`, <br/> `List` / `Tensor`, `Tensor` / `List`.|
+| `%` |`Number` % `Number`, `Tensor` % `Tensor`, `Number` % `Tensor`, `Tensor` % `Number`, `Tuple` % `Tensor`, <br>`Tensor` % `Tuple`, `List` % `Tensor`, `Tensor` % `List`.|
+| `**` |`Number` ** `Number`, `Tensor` ** `Tensor`, `Number` ** `Tensor`, `Tensor` ** `Number`, `Tuple` ** `Tensor`, <br/>`Tensor` ** `Tuple`,  `List` ** `Tensor`, `Tensor` ** `List`.|
+| `//` |`Number` // `Number`, `Tensor` // `Tensor`, `Number` // `Tensor`, `Tensor` // `Number`, `Tuple` // `Tensor`, <br>`Tensor` // `Tuple`,  `List` // `Tensor`, `Tensor` // `List`.|
+
+Restrictions:
+
+- If all operands are `Number` type, value of Number can't be `Bool`.
+- If all operands are `Number` type, operations between  `Float64` and `Int32` are not supported.
+- If either operand is `Tensor` type, left and right operands can't both be `Bool` value.
 
 ### Assignment Operators
 
-| Assignment Operator | Supported Type
-| :----------- |:--------
-| `=`          |Scalar and `Tensor`
-| `+=` |`Number` += `Number`, `Tensor` += `Tensor`, `Tensor` += `Number`, `Tuple` += `Tuple`, and `String` += `String`
-| `-=` |`Number` -= `Number`, `Tensor` -= `Tensor`, and `Tensor` -= `Number`
-| `*=` |`Number` \*= `Number`, `Tensor` \*= `Tensor`, and `Tensor` \*= `Number`
-| `/=` |`Number` /= `Number`, `Tensor` /= `Tensor`, and `Tensor` /= `Number`
-| `%=` |`Number` %= `Number`, `Tensor` %= `Tensor`, and `Tensor` %= `Number`
-| `**=` |`Number` \*\*= `Number`, `Tensor` \*\*= `Tensor`, and `Tensor` \*\*= `Number`
-| `//=` |`Number` //= `Number`, `Tensor` //= `Tensor`, and `Tensor` //= `Number`
+| Assignment Operator | Supported Type|
+| :----------- |:--------|
+| `=`          |All Built-in Python Types that MindSpore supported and MindSpore User-defined Data Types.|
+| `+=` |`Number` += `Number`, `String` += `String`, `Number` += `Tensor`, `Tensor` += `Number`, `Tuple` += `Tensor`, <br>`Tensor` += `Tuple`, `List` += `Tensor`, `Tensor` += `List`, `List` += `List`, `Tensor` += `Tensor`, `RowTensor` += `Tensor`, <br>`Tuple` += `Tuple`.|
+| `-=` |`Number` -= `Number`, `Tensor` -= `Tensor`, `Number` -= `Tensor`, `Tensor` -= `Number`, `Tuple` -= `Tensor`, <br>`Tensor` -= `Tuple`, `List` -= `Tensor`, `Tensor` -= `List`.|
+| `*=` |`Number` *= `Number`, `Tensor` *= `Tensor`, `Number` *= `Tensor`, `Tensor` *= `Number`, `List` *= `Number`, <br/>`Number` *= `List`, `Tuple` *= `Number`, `Number` *= `Tuple`, `Tuple` *= `Tensor`, `Tensor` *= `Tuple`,  `List` *= `Tensor`, <br/>`Tensor` *= `List`.|
+| `/=` |`Number` /= `Number`, `Tensor` /= `Tensor`, `Number` /= `Tensor`, `Tensor` /= `Number`, `Tuple` /= `Tensor`, <br>`Tensor` /= `Tuple`, `List` /= `Tensor`, `Tensor` /= `List`.|
+| `%=` |`Number` %= `Number`, `Tensor` %= `Tensor`, `Number` %= `Tensor`, `Tensor` %= `Number`, `Tuple` %= `Tensor`, <br>`Tensor` %= `Tuple`,  `List` %= `Tensor`、`Tensor` %= `List`.|
+| `**=` |`Number` \*\*= `Number`, `Tensor` \*\*= `Tensor`, `Number` \*\*= `Tensor`, `Tensor` \*\*= `Number`, `Tuple` \*\*= `Tensor`, <br/>`Tensor` \*\*= `Tuple`,  `List` \*\*= `Tensor`, `Tensor` \*\*= `List`.|
+| `//=` |`Number` //= `Number`, `Tensor` //= `Tensor`, `Number` //= `Tensor`, `Tensor` //= `Number`, `Tuple` //= `Tensor`, <br>`Tensor` //= `Tuple`, `List` //= `Tensor`, `Tensor` //= `List`.|
+
+Notes:
+
+- For `=` the scenarios below are not allowed:
+
+  Only instance of `Cell` and `Primitve` can be created in function construct, the statement like `xx = Tensor(...)` is forbidden.
+
+  Only `Parameter` attribute of self can be assign, for more detail refer to [`Attribute Reference`](#attribute-references).
+- If all operands of  `AugAssign` are `Number` type, value of Number can't be `Bool`.
+- If all operands of  `AugAssign` are `Number` type, operations between  `Float64` and `Int32` are not supported.
+- If either operand of  `AugAssign` is `Tensor` type, left and right operands can't both be `Bool` value.
 
 ### Logical Operators
 
-| Logical Operator | Supported Type
-| :----------- |:--------
-| `and` |`Number` and `Number`, `Tensor`, and `Tensor`
-| `or` |`Number` or `Number`, and `Tensor` or `Tensor`
-| `not` |not `Number`, not `Tensor`, and not `tuple`
+| Logical Operator | Supported Type|
+| :----------- |:--------|
+| `and` |`String`,  `Number`,  `Tuple`, `List` , `Dict`, `None`, `Scalar`, `Tensor`.|
+| `or` |`String`,  `Number`,  `Tuple`, `List` , `Dict`, `None`, `Scalar`, `Tensor`.|
+| `not` |`Number`, `tuple`, `List` and `Tensor`  with only one element.|
 
-### Member Operators
+Restrictions:
 
-| Member Operator | Supported Type
-| :----------- |:--------
-| `in` |`Number` in `tuple`, `String` in `tuple`, `Tensor` in `Tuple`, `Number` in `List`, `String` in `List`, `Tensor` in `List`, and `String` in `Dictionary`
-| `not in` | Same as `in`
+- For operator `and`, `or`,  if left operand is a `Tensor`,  right operand should be `Tensor` which has same data type with left operand, and both`Tensor` must have only one element.
+- For operator `and`, `or`,  if left operand not `Tensor`, right operand can be any supported type.
 
-### Identity Operators
+### Compare Operators
 
-| Identity Operator | Supported Type
-| :----------- |:--------
-| `is` | The value can only be `None`, `True`, or `False`.
-| `is not` | The value can only be `None`, `True`, or `False`.
+| Compare Operator | Supported Type|
+| :----------- |:--------|
+| `in` |`Number` in `tuple`, `String` in `tuple`, `Tensor` in `Tuple`, `Number` in `List`, `String` in `List`, `Tensor` in `List`, and `String` in `Dictionary`.|
+| `not in` | Same as `in`. |
+| `is` | The value can only be `None`, `True`, or `False`. |
+| `is not` | The value can only be `None`, `True`, or `False`. |
+| < | `Number` < `Number`, `Number` < `Tensor`, `Tensor` < `Tensor`, `Tensor` < `Number`. |
+| <= | `Number` <= `Number`, `Number` <= `Tensor`, `Tensor` <= `Tensor`, `Tensor` <= `Number`. |
+| > | `Number` > `Number`, `Number` > `Tensor`, `Tensor` > `Tensor`, `Tensor` > `Number`. |
+| >= | `Number` >= `Number`, `Number` >= `Tensor`, `Tensor` >= `Tensor`, `Tensor` >= `Number`. |
+| != | `Number` != `Number` , `Number` != `Tensor`, `Tensor` != `Tensor`, `Tensor` != `Number`, <br>`mstype` != `mstype`, `String` != `String`, `Tuple !` = `Tuple`, `List` != `List`. |
+| == | `Number` == `Number`, `Number` == `Tensor`, `Tensor` == `Tensor`, `Tensor` == `Number`, <br/>`mstype` == `mstype`, `String` == `String`, `Tuple` == `Tuple`, `List` == `List`. |
 
-## Expressions
+Restrictions:
+
+- For operators `<`, `<=`, `>`, `>=`, `!=`, if all operators are `Number` type, value of Number can't be `Bool`.
+- For operators `<`, `<=`, `>`, `>=`, `!=`, `==`, if all operands are `Number` type, operations between  `Float64` and `Int32` are not supported.
+- For operators `<`, `<=`, `>`, `>=`, `!=`, `==`, if either operand is `Tensor` type, left and right operands can't both be `Bool` value.
+- For operator `==`, if all operands are `Number` type,  support both `Number` have `Bool` value, not support only one `Number` has `Bool` value.
+- For operators `!=`, `==`, all supported types but `mstype` can compare with `None`.
+- The chain comparison like: `a>b>c` is not supported.
+
+## Compound Statements
 
 ### Conditional Control Statements
 
@@ -719,6 +841,12 @@ The result is as follows:
 ```text
 ret: 3
 ```
+
+Restrictions:
+
+- The defined function must has `return` statement.
+- `Construct` function of the outermost network is not support  kwargs, like:`def construct(**kwargs):`.
+- Mixed use of variable argument and non-variable argument is not supported, like:`def function(x, y, *args)` and `def function(x = 1, y = 1, **kwargs)`.
 
 #### lambda Expression
 
@@ -1141,6 +1269,49 @@ y: Tensor(shape=[], dtype=Int64, value=3))
 
 ## Network Definition
 
+### Network Input parameters
+
+The input parameters of the outermost network only can be `lool`, `int`, `float`, `Tensor`, `mstype.number(mstype.bool, mstype.int, mstype.float, mstype.uint)`, `List` or `Tuple` that contains these types, and `Dictionary` whose values are these types. Note that the input of the outermost network can't be `None`, if `None` is required, use default input value `None` instead.
+
+While calculating gradient for outermost network, only `Tensor` input could be calculated, input of other type will be ignored. For example, input parameter `(x, y,  z)` of outermost network, `x` and `z` are `Tensor` type, `y` is other type. While calculating gradient for the network, only gradients of `x` and `z` are calculated, and `(grad_x, grad_y)` is returned.
+If you want to use other types of input for the network, please transfer them to the network while initializing network in the `__init__` function, and save them as network attributes, then use  in the `construct`.
+
+The input parameters of inner network do not have this restriction.
+
+For example:
+
+```python
+class Net(nn.Cell):
+    def __init__(self, flag):
+        super(Net, self).__init__()
+        self.flag = flag
+
+    def construct(self, x, y, z):
+        if self.flag == "ok":
+            return x + y + z
+        return x - y - z
+
+class GradNet(nn.Cell):
+    def __init__(self, net):
+        super(GradNet, self).__init__()
+        self.grad_all = C.GradOperation(get_all=True)
+        self.forward_net = net
+
+    def construct(self, x, y, z):
+        return self.grad_all(self.forward_net)(x, y, z)
+
+flag = "ok"
+input_x = Tensor(np.ones((2, 3)).astype(np.float32))
+input_y = 2
+input_z = Tensor(np.ones((2, 3)).astype(np.float32) * 2)
+
+net = Net(flag)
+grad_net = GradNet(net)
+ret = grad_net(input_x, input_y, input_z)
+```
+
+In the `Net` defined above,  string `flag` is transferred during initialization and saved as attribute `self.flag`, then used in the construct. The input parameter `x` and `z` are `Tensor`, `y` is `int`. While `grad_net` calculates gradient of the input parameters for the outermost network, gradient of `y` is automatically ignored, only the gradient of x and z is calculated, ret = (grad_x, grad_z).
+
 ### Instance Types on the Entire Network
 
 - Common Python function with the [@ms_function](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore/mindspore.ms_function.html) decorator.
@@ -1161,27 +1332,7 @@ y: Tensor(shape=[], dtype=Int64, value=3))
 
 ### Network Constraints
 
-1. By default, the input parameters of the entire network (that is, the outermost network input parameters) support only `Tensor`. To support non-`Tensor`, you can set the `support_non_tensor_inputs` attribute of the network to `True`.
-
-   During network initialization, `self.support_non_tensor_inputs = True` is set. Currently, this configuration supports only the forward network and does not support the backward network. That is, the backward operation cannot be performed on the network whose input parameters are not `Tensor`.
-
-   The following is an example of supporting the outermost layer to transfer scalars:
-
-   ```python
-   class ExpandDimsNet(nn.Cell):
-       def __init__(self):
-           super(ExpandDimsNet, self).__init__()
-           self.support_non_tensor_inputs = True
-           self.expandDims = ops.ExpandDims()
-
-       def construct(self, input_x, input_axis):
-           return self.expandDims(input_x, input_axis)
-   expand_dim_net = ExpandDimsNet()
-   input_x = Tensor(np.random.randn(2,2,2,2).astype(np.float32))
-   expand_dim_net(input_x, 0)
-   ```
-
-2. You are not allowed to modify non-`Parameter` data members of the network.
+1. You are not allowed to modify non-`Parameter` data members of the network.
 
    For example:
 
@@ -1198,7 +1349,7 @@ y: Tensor(shape=[], dtype=Int64, value=3))
 
    In the preceding defined network, `self.num` is not a `Parameter` and cannot be modified. `self.par` is a `Parameter` and can be modified.
 
-3. When an undefined class member is used in the `construct` function, `AttributeError` is not thrown like the Python interpreter. Instead, it is processed as `None`.
+2. When an undefined class member is used in the `construct` function, `AttributeError` is not thrown like the Python interpreter. Instead, it is processed as `None`.
 
    For example:
 
