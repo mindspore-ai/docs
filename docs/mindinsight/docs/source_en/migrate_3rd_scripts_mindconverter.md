@@ -10,11 +10,11 @@
     - [Install Dependencies](#install-dependencies)
     - [Migration Solution](#migration-solution)
     - [Practice Guidance](#practice-guidance)
-        - [Step 0：Export the model file](#step-0export-the-model-file)
-        - [Step 1:Migrate the model definition](#step-1migrate-the-model-definition)
-        - [Step 2：Migrate the data processing](#step-2migrate-the-data-processing)
-        - [Step 3：Migrate the model training](#step-3migrate-the-model-training)
-        - [Step 4：Migrate the model evaluation](#step-4migrate-the-model-evaluation)
+        - [Step 0：Export the model file](#step-0-export-the-model-file)
+        - [Step 1:Migrate the model definition](#step-1-migrate-the-model-definition)
+        - [Step 2：Migrate the data processing](#step-2-migrate-the-data-processing)
+        - [Step 3：Migrate the model training](#step-3-migrate-the-model-training)
+        - [Step 4：Migrate the model evaluation](#step-4-migrate-the-model-evaluation)
     - [MindConverter CLI Usage](#mindconverter-cli-usage)
     - [Model List Supported by MindConverter](#model-list-supported-by-mindconverter)
     - [MindConverter Error Code Definition](#mindconverter-error-code-definition)
@@ -77,14 +77,14 @@ A typical model project contains 4 main components. Tips for migrating each comp
   3. Mix the generated model with the original project to validate equivalence of the migration. Refer to [FAQ](#mix-the-mindspore-model-into-the-original-training-script).
 - Data processing（`dataset.py`）
   1. For a built-in dataset, please query [API mapping](https://mindspore.cn/docs/migration_guide/en/master/api_mapping/pytorch_api_mapping.html) for migration.
-  2. For a customized dataset and data augmentation, please refer to [the migration template](#step-2migrate-the-data-processing).
+  2. For a customized dataset and data augmentation, please refer to [the migration template](#step-2-migrate-the-data-processing).
 - Model training（`train.py`）
   1. The loss function(`loss_fn`) can be migrated by querying [API mapping](https://mindspore.cn/docs/migration_guide/en/master/api_mapping/pytorch_api_mapping.html) or user's implementation.
   2. The optimizer(`optimizer`) can be migrated by querying [API mapping](https://mindspore.cn/docs/migration_guide/en/master/api_mapping/pytorch_api_mapping.html) or user's implementation.
-  3. As the training codes could be flexible and significantly different from MindSpore, implementation by the users is recommended. Please refer to [FAQ](#step-3migrate-the-model-training).
+  3. As the training codes could be flexible and significantly different from MindSpore, implementation by the users is recommended. Please refer to [FAQ](#step-3-migrate-the-model-training).
 - Model evaluation（`eval.py`）
   1. The metric(`metric`) can be migrated by querying [API mapping](https://mindspore.cn/docs/migration_guide/en/master/api_mapping/pytorch_api_mapping.html) or user's implementation.
-  2. As the evaluation codes could be flexible and significantly different from MindSpore, implementation by the users is recommended. Please refer to [FAQ](#step-4migrate-the-model-evaluation).
+  2. As the evaluation codes could be flexible and significantly different from MindSpore, implementation by the users is recommended. Please refer to [FAQ](#step-4-migrate-the-model-evaluation).
 
 ## Practice Guidance
 

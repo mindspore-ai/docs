@@ -38,7 +38,7 @@ MindConverter是一款模型迁移工具，可将PyTorch(ONNX)或Tensorflow(PB)�
 
 ## 快速开始
 
-MindConverter属于MindInsight的子模块，安装MindInsight后，即可使用MindConverter，MindInsight安装请参考[安装文档](https://mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_install.html)。MindConverter命令行如下，更多CLI参数请参考[命令行参数说明](#命令行参数说明)。
+MindConverter属于MindInsight的子模块，安装MindInsight后，即可使用MindConverter，MindInsight安装请参考[安装文档](https://mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_install.html)。MindConverter命令行如下，更多CLI参数请参考[命令行参数说明](#id11)。
 
 ```shell
 mindconverter --model_file /path/to/model_file --shape SHAPE --input_nodes INPUTS --output_nodes OUTPUTS
@@ -52,7 +52,7 @@ mindconverter --model_file /path/to/model_file --shape SHAPE --input_nodes INPUT
 
 ## 环境依赖
 
-使用MindConverter前需要安装以下依赖包，建议在x86环境下安装。ARM环境请参考[常见问题](#ARM环境安装依赖组件)。
+使用MindConverter前需要安装以下依赖包，建议在x86环境下安装。ARM环境请参考[常见问题](#arm)。
 
 ```shell
 # 安装配套版本的MindSpore（以r1.2版本为例）
@@ -74,27 +74,27 @@ pip install tf2onnx~=1.7.1
 - 模型定义（`model.py`）
   1. 使用MindConverter工具转换模型结构。
   2. 手工调整可读性（可选）。
-  3. 转换后的模型内嵌到原框架工程，验证转换等价性，参考[常见问题](#MindSpore模型内嵌到原框架)。
+  3. 转换后的模型内嵌到原框架工程，验证转换等价性，参考[常见问题](#mindSpore)。
 - 数据处理（`dataset.py`）
   1. 内置数据集可查询[接口映射](https://mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html)辅助转换。
-  2. 自定义数据集与相关数据处理，可参考[转换模板](#第2步：转换数据处理)。
+  2. 自定义数据集与相关数据处理，可参考[转换模板](#id8)。
 - 模型训练（`train.py`）
   1. 损失函数（`loss_fn`），可查询[接口映射](https://mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html)或自定义实现。
   2. 优化器（`optimizer`），可查询[接口映射](https://mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html)或自定义实现。
-  3. 模型训练的代码比较灵活，代码组织风格与MindSpore图模式差异较大，建议自行实现，参考[转换模板](#第3步：转换模型训练)。
+  3. 模型训练的代码比较灵活，代码组织风格与MindSpore图模式差异较大，建议自行实现，参考[转换模板](#id9)。
 - 模型推理（`eval.py`）
   1. 度量指标（`metric`），可查询[接口映射](https://mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html)或自定义实现。
-  2. 模型推理的代码比较灵活，代码组织风格与MindSpore图模式差异较大，建议自行实现，参考[转换模板](#第4步：转换模型推理)。
+  2. 模型推理的代码比较灵活，代码组织风格与MindSpore图模式差异较大，建议自行实现，参考[转换模板](#id10)。
 
 ## 实践步骤
 
 ### 第0步：导出模型文件
 
-以PyTorch框架为例导出ONNX模型文件（Tensorflow框架请参考[常见问题](#TensorFlow模型导出)），需要Pytorch算子支持相应的ONNX算子，详情参考[Pytorch](https://pytorch.org/docs/stable/onnx.html#supported-operators)与[ONNX](https://github.com/onnx/onnx/blob/master/docs/Operators.md#)的算子列表，操作步骤如下：
+以PyTorch框架为例导出ONNX模型文件（Tensorflow框架请参考[常见问题](#tensorflow)），需要Pytorch算子支持相应的ONNX算子，详情参考[Pytorch](https://pytorch.org/docs/stable/onnx.html#supported-operators)与[ONNX](https://github.com/onnx/onnx/blob/master/docs/Operators.md#)的算子列表，操作步骤如下：
 
 1. 下载网络模型工程的源码、权重文件、数据集。
 
-2. 分析模型定义代码，整改`forward`函数的入参列表，确保入参均为Tensor类型，参考[常见问题](#整改forward参数列表)。
+2. 分析模型定义代码，整改`forward`函数的入参列表，确保入参均为Tensor类型，参考[常见问题](#forward)。
 
 3. 从模型推理的代码中，识别模型对象（`model`）与输入的`shape`信息，导出ONNX文件。
 
@@ -122,7 +122,7 @@ pip install tf2onnx~=1.7.1
 
 ### 第1步：转换模型定义
 
-执行MindConverter CLI命令，生成MindSpore模型文件（`model.py`）、权重信息（`ckpt`）、[转换报告与权重映射表](#转换报告与权重映射表)。
+执行MindConverter CLI命令，生成MindSpore模型文件（`model.py`）、权重信息（`ckpt`）、[转换报告与权重映射表](#id15)。
 
 ```shell
 mindconverter --model_file /path/to/model.onnx \
