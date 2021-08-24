@@ -27,7 +27,7 @@ MindSpore框架提供通过加密对模型文件进行保护的功能，使用�
 
 ## 安全导出CheckPoint文件
 
-目前MindSpore支持使用Callback机制传入回调函数`ModelCheckpoint`对象以保存模型参数，用户可以通过配置`CheckpointConfig`对象来启用参数文件的加密保护。具体配置方法如下：
+目前MindSpore支持用Callback机制在训练过程中保存模型参数，用户可以在`CheckpointConfig`对象中配置加密密钥和加密模式，并将其传入`ModelCheckpoint`来启用参数文件的加密保护。具体配置方法如下：
 
 ```python
 from mindspore.train.callback import CheckpointConfig, ModelCheckpoint
