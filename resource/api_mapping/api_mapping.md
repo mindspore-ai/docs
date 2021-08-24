@@ -104,7 +104,15 @@
 | torch.nn.LSTMCell                                    | mindspore.nn.LSTMCell                                          | 功能一致 |
 | torch.nn.MaxPool2d                                   | mindspore.nn.MaxPool2d                                         | 功能一致 |
 | torch.nn.Module                                      | mindspore.nn.Cell                                              | 功能一致 |
+| torch.nn.Module.add_module                                      | mindspore.nn.Cell.insert_child_to_cell                          | 功能一致 |
+| torch.nn.Module.buffers                     | mindspore.nn.Cell.untrainable_params                              |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/UnTrainableParams.md)|
+| torch.nn.Module.children                                      | mindspore.nn.Cell.cells                          |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/Cells.md)|
 | torch.nn.Module.load_state_dict                      | mindspore.load_param_into_net                                  | 功能一致 |
+| torch.nn.Module.named_children                     | mindspore.nn.Cell.name_cells                              [差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/NameCells.md)|
+| torch.nn.Module.named_modules                      | mindspore.nn.Cell.cells_and_names                              | 功能一致 |
+| torch.nn.Module.parameters                     | mindspore.nn.Cell.trainable_params                              |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/trainableParams.md)|
+| torch.nn.Module.state_dict                      | mindspore.nn.Cell.parameters_dict                              | 功能一致 |
+| torch.nn.Module.train                      | mindspore.nn.Cell.set_train                              | 功能一致 |
 | torch.nn.ModuleList                                  | mindspore.nn.CellList                                          | 功能一致 |
 | torch.nn.MSELoss                                     | mindspore.nn.MSELoss                                           | 功能一致 |
 | torch.nn.Parameter                                   | mindspore.Parameter                                            | 功能一致 |
