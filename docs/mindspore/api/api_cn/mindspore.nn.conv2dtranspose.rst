@@ -7,7 +7,7 @@ mindspore.nn.Conv2dTranspose
 
    计算一个二维转置卷积，这也被称为反卷积（实际不是真正的反卷积）。
 
-   `x` 通常是 :math:`(N, C, H, W)` 的形状，其中 :math:`N` 是batch大小，:math:`C` 是通道数。如果'pad_mode'设为 "pad"，输出的高度和宽度分别为：
+   `x` 通常是 :math:`(N, C, H, W)` 的 `shape` ，其中 :math:`N` 是batch大小，:math:`C` 是通道数。如果'pad_mode'设为 "pad"，输出的高度和宽度分别为：
 
    .. math:: \begin{align}\begin{aligned}H_{out} = (H_{in} - 1) \times \text{stride[0]} - \left (\text{padding[0]} + \text{padding[1]}\right ) + \text{dilation[0]} \times (\text{kernel_size[0]} - 1) + 1\\W_{out} = (W_{in} - 1) \times \text{stride[1]} - \left (\text{padding[2]} + \text{padding[3]}\right ) + \text{dilation[1]} \times (\text{kernel_size[1]} - 1) + 1\end{aligned}\end{align}
 
@@ -37,11 +37,11 @@ mindspore.nn.Conv2dTranspose
 
    **输入** ：
 
-      - **x** (Tensor) - 形状为 :math:`(N, C_{in}, H_{in}, W_{in})` 的张量。
+      - **x** (Tensor) - `Shape` 为 :math:`(N, C_{in}, H_{in}, W_{in})` 的张量。
 
    **输出** ：
 
-      形状为 :math:`(N, C_{out}, H_{out}, W_{out})` 的张量。
+      `Shape` 为 :math:`(N, C_{out}, H_{out}, W_{out})` 的张量。
 
    **抛出异常** ：
 

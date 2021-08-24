@@ -5,11 +5,11 @@ mindspore.nn.Conv2d
 
    二维卷积层。
 
-   对输入张量进行二维卷积，该张量的常见形状是 :math:`(N, C_{in}, H_{in}, W_{in})`，其中 :math:`N` 为batch大小，:math:`C_{in}` 为通道数，:math:`H_{in},W_{in}` 为高度和宽度。对于每个batch形状为 :math:`(C_{in}, H_{in}, W_{in})` 的张量输入，公式定义如下：
+   对输入张量进行二维卷积，该张量的常见 `shape` 是 :math:`(N, C_{in}, H_{in}, W_{in})`，其中 :math:`N` 为batch大小，:math:`C_{in}` 为通道数，:math:`H_{in},W_{in}` 为高度和宽度。对于每个batch中 `shape` 为 :math:`(C_{in}, H_{in}, W_{in})` 的张量输入，公式定义如下：
 
    .. math:: out_j = \sum_{i=0}^{C_{in} - 1} ccor(W_{ij}, X_i) + b_j,
 
-   其中 :math:`corr` 是互关联算子，:math:`C_{in}` 是输入通道数目，:math:`j` 的范围在 :math:`[0，Cout-1]` 内，:math:`W_{ij}`对应第 :math:`j`个的过滤器的第 :math:`i` 个通道，:math:`out_j`对应于输出的第 :math:`j` 个通道。:math:`W_{ij}` 是形状为 :math:`(\text{kernel_size[0]}, \text{kernel_size[1]})` 的kernel切片。其中 :math:`\text{kernel_size[0]}` 和 :math:`\text{kernel_size[1]}` 是卷积kernel的高度和宽度。完整kernel的形状是 :math:`(C_{out}, C_{in} // \text{group}, \text{kernel_size[0]}, \text{kernel_size[1]})`，其中group是在通道维度上分割输入 `x` 的组数。
+   其中 :math:`corr` 是互关联算子，:math:`C_{in}` 是输入通道数目，:math:`j` 的范围在 :math:`[0，Cout-1]` 内，:math:`W_{ij}`对应第 :math:`j`个的过滤器的第 :math:`i` 个通道，:math:`out_j`对应于输出的第 :math:`j` 个通道。:math:`W_{ij}` 是 `shape` 为 :math:`(\text{kernel_size[0]}, \text{kernel_size[1]})` 的kernel切片。其中 :math:`\text{kernel_size[0]}` 和 :math:`\text{kernel_size[1]}` 是卷积kernel的高度和宽度。完整kernel的 `shape` 是 :math:`(C_{out}, C_{in} // \text{group}, \text{kernel_size[0]}, \text{kernel_size[1]})`，其中group是在通道维度上分割输入 `x` 的组数。
    如果'pad_mode'被设置为 "valid"，输出高度和宽度分别为 :math:`\left \lfloor{1 + \frac{H_{in} + \text{padding[0]} + \text{padding[1]} - \text{kernel_size[0]} -
    (\text{kernel_size[0]} - 1) \times (\text{dilation[0]} - 1) }{\text{stride[0]}}} \right \rfloor` 和 :math:`\left \lfloor{1 + \frac{W_{in} + \text{padding[2]} + \text{padding[3]} - \text{kernel_size[1]} -
    (\text{kernel_size[1]} - 1) \times (\text{dilation[1]} - 1) }{\text{stride[1]}}} \right \rfloor`。
@@ -41,11 +41,11 @@ mindspore.nn.Conv2d
 
    **输入** ：
 
-      - **x** (Tensor) - 形状为 :math:`(N, C_{in}, H_{in}, W_{in})` 或者 :math:`(N, H_{in}, W_{in}, C_{in})` 的张量。
+      - **x** (Tensor) - `Shape` 为 :math:`(N, C_{in}, H_{in}, W_{in})` 或者 :math:`(N, H_{in}, W_{in}, C_{in})` 的张量。
 
    **输出** ：
 
-      形状为 :math:`(N, C_{out}, H_{out}, W_{out})` 或者 :math:`(N, H_{out}, W_{out}, C_{out})` 的张量。
+      `Shape` 为 :math:`(N, C_{out}, H_{out}, W_{out})` 或者 :math:`(N, H_{out}, W_{out}, C_{out})` 的张量。
 
    **抛出异常** ：
 
