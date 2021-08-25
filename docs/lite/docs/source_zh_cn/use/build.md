@@ -96,9 +96,6 @@ MindSpore根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
 | -------- | ----- | ---- | ---- |
 | MSLITE_GPU_BACKEND | 设置GPU后端，在`-I arm64`时仅opencl有效，在`-I x86_64`时仅tensorrt有效 | opencl、tensorrt、off | 在`-I arm64`时为opencl， 在`-I x86_64`时为off |
 | MSLITE_ENABLE_NPU | 是否编译NPU算子，仅在`-I arm64`或`-I arm32`时有效 | on、off | off |
-| MSLITE_ENABLE_INT8 | 是否编译Int8算子 | on、off | on |
-| MSLITE_ENABLE_FP16 | 是否编译Fp16算子 | on、off | on |
-| MSLITE_ENABLE_FP32 | 是否编译Fp32算子 | on、off | on |
 | MSLITE_ENABLE_TRAIN | 是否编译训练版本 | on、off | on |
 | MSLITE_ENABLE_SSE | 是否启用SSE指令集，仅在`-I x86_64`时有效 | on、off | off |
 | MSLITE_ENABLE_AVX | 是否启用AVX指令集，仅在`-I x86_64`时有效 | on、off | off |
