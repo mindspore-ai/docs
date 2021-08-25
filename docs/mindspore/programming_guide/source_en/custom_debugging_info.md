@@ -347,11 +347,14 @@ MindSpore uses glog to output logs. The following environment variables are comm
 
 - `GLOG_log_dir`
 
-    The environment variable specifies the log output path.  
+    The environment variable specifies the log output path. Log files will be saved to the path of `the_specified_directory/rank_${rank_id}/logs/`. During the distributed training, `rank_id` is the ID of the current device in the cluster. Otherwise, `rank_id` is `0`.  
     If `GLOG_logtostderr` is set to 0, value of this variable must be specified.  
     If `GLOG_log_dir` is specified and the value of `GLOG_logtostderr` is 1, logs are output to the screen but not to a file.  
     Logs of C++ and Python will be output to different files. The file name of C++ log complies with the naming rule of `GLOG` log file. Here, the name is `mindspore.MachineName.UserName.log.LogLevel.Timestamp`. The file name of Python log is `mindspore.log`.  
     `GLOG_log_dir` can only contains characters such as uppercase letters, lowercase letters, digits, "-", "_" and "/".
+
+- `GLOG_log_max`
+    Each log file's max size is 50 MB by default. But we can change it by set this environment variable. When the log file reaches the max size, the next logs will be written to the new log file.
 
 - `MS_SUBMODULE_LOG_v`
 

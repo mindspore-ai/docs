@@ -118,14 +118,7 @@ if __name__ == "__main__":
     context.set_context(save_graphs=True, save_graphs_path="path/to/ir/files")
 ```
 
-Here, we run the training script on stand-alone computing device. When running on multiple computing devices, MindSpore will generate separate processes for each computing device. So, in multiple computing devices scenario, you are advised to read the ID of the current computing device from the training script and set an independent `save_graphs_path` for each decive to save the IR files to a different path. For example:
-
-```python
-device_id = os.getenv("DEVICE_ID")
-context.set_context(save_graphs=True, save_graphs_path="path/to/ir/files"+device_id)
-```
-
-After the training command is executed, the following files are generated in the specified directory: the IR files starting with digits and underscores are generated during the ME diagram compilation. The calculation diagram is saved in each phase of the `pipeline`. Let's see the important phases, For examples, the `parse` phase parses the `construct` function of the entrance. The `symbol_resolve` phase recursively parses other functions and objects directly or indirectly referenced by the entry function. The `abstract_specialize` phase, type derivation and `shape` derivation are performed. The `optimize` phase, hardware-independent optimization is performed, The automatic differential and automatic parallel functions are also performed. The `validate` phase, the compiled compute graph is verified. The `task_emit` phase, the computing graph is transferred to the backend for further processing. The calculation graph is executed in the `execute` phase.
+After the training command is executed, the following files are generated in the path of `save_graphs_path/rank_0/ir_dump/`: the IR files starting with digits and underscores are generated during the ME diagram compilation. The calculation diagram is saved in each phase of the `pipeline`. Let's see the important phases. For examples, the `parse` phase parses the `construct` function of the entrance. The `symbol_resolve` phase recursively parses other functions and objects directly or indirectly referenced by the entry function. The `abstract_specialize` phase, type derivation and `shape` derivation are performed. The `optimize` phase, hardware-independent optimization is performed, the automatic differential and automatic parallel functions are also performed. The `validate` phase, the compiled compute graph is verified. The `task_emit` phase, the computing graph is transferred to the backend for further processing. The calculation graph is executed in the `execute` phase.
 
 ```text
 .

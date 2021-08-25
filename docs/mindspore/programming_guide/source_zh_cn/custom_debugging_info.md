@@ -376,11 +376,15 @@ MindSpore采用glog来输出日志，常用的几个环境变量如下：
 
 - `GLOG_log_dir`
 
-    该环境变量指定日志输出的路径。  
+    该环境变量指定日志输出的路径，日志保存路径为：`指定的路径/rank_${rank_id}/logs/`。非分布式训练场景下，`rank_id`为0；分布式训练场景下，`rank_id`为当前设备在集群中的ID。  
     若`GLOG_logtostderr`的值为0，则必须设置此变量。  
     若指定了`GLOG_log_dir`且`GLOG_logtostderr`的值为1时，则日志输出到屏幕，不输出到文件。  
     C++和Python的日志会被输出到不同的文件中，C++日志的文件名遵从`GLOG`日志文件的命名规则，这里是`mindspore.机器名.用户名.log.日志级别.时间戳.进程ID`，Python日志的文件名为`mindspore.log.进程ID`。  
     `GLOG_log_dir`只能包含大小写字母、数字、"-"、"_"、"/"等字符。
+
+- `GLOG_log_max`
+
+    单个日志文件的默认最大为50MB，可以通过该环境变量更改日志文件默认的最大值。如果当前写入的日志文件超过最大值，则新输出的日志内容会写入到新的日志文件中。
 
 - `MS_SUBMODULE_LOG_v`
 
