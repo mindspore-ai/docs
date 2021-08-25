@@ -549,6 +549,30 @@ Status Predict(const std::vector<MSTensor> &inputs, std::vector<MSTensor> *outpu
 
   状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
 
+#### LoadConfig
+
+```cpp
+Status LoadConfig(const std::string &config_path);
+```
+
+根据路径读取配置文件。
+
+- 参数
+
+    - `config_path`: 配置文件路径。
+
+- 返回值
+
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
+> 用户可以调用`LoadConfig`接口进行混合精度推理的设置，配置文件举例如下：
+>
+> [execution_plan]
+>
+> op_name1=data_type:float16
+>
+> op_name2=data_type:float32
+
 #### GetInputs
 
 ```cpp

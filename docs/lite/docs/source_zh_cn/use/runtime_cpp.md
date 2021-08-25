@@ -448,6 +448,42 @@ int RunModelParallel(const char *model_path) {
 }
 ```
 
+### 混合精度运行
+
+MindSpore Lite 支持混合精度推理。
+用户可以在完成创建[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)之后，在模型编译[Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build)之前，调用Model的[LoadConfig](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#loadconfig)接口，配置混合精度信息。
+配置文件举例，内容如下:
+
+```text
+[execution_plan]
+op_name1=data_type:float16
+op_name2=data_type:float32
+```
+
+下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L321)演示如何进行混合精度推理：
+
+```cpp
+Status load_config_ret = model->LoadConfig(config_file_path);
+if (load_config_ret != mindspore::kSuccess) {
+  std::cerr << "Model load config error " << load_config_ret << std::endl;
+  return -1;
+}
+
+Status build_ret = model->Build(graph_cell, context);
+if (build_ret != mindspore::kSuccess) {
+  std::cerr << "Model build error " << build_ret << std::endl;
+  return -1;
+}
+
+auto inputs = model->GetInputs();
+auto outputs = model->GetOutputs();
+Status predict_ret = model->Predict(inputs, &outputs);
+if (predict_ret != mindspore::kSuccess) {
+  std::cerr << "Model predict error " << predict_ret << std::endl;
+  return -1;
+}
+```
+
 ### 共享内存池
 
 如果存在多个[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)的情况，可以通过在[DeviceInfoContext](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#deviceinfocontext)中配置同一个[Allocator](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#allocator)，实现共享内存池来减少运行时内存大小。其中，内存池的内存总大小限制为`3G`，单次分配的内存限制为`2G`。
