@@ -34,4 +34,4 @@ MindSpore API
    :maxdepth: 1
    :caption: MindSpore C++ API
 
-   Lite <https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html>
+   MindSpore Lite↗ <https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html>

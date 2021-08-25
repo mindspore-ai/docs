@@ -126,7 +126,7 @@ def train():
     model = Model(network, loss, opt, metrics={"Accuracy": Accuracy()})
 
     # How to create a valid dataset instance,
-    # for detail, see the https://www.mindspore.cn/docs/programming_guide/zh-CN/master/quick_start/quick_start.html document.
+    # for detail, see the https://www.mindspore.cn/tutorials/zh-CN/master/quick_start.html document.
     ds_train = create_dataset('./dataset_path')
 
     # Init a SummaryCollector callback instance, and use it in model.train or model.eval

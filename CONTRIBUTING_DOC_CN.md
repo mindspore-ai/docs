@@ -21,7 +21,7 @@
         - [确认内容](#确认内容-1)
     - [作图](#作图)
         - [更新/新增图片](#更新新增图片)
-        - [引用图片](#引用图片)
+        - [图片引用](#图片引用)
         - [确认内容](#确认内容-2)
 
 <!-- /TOC -->
@@ -99,7 +99,7 @@ PR合入后次日，即可在MindSpore官网中查看到新增内容，新增文
 
 ![master_doc](./resource/_static/master_doc.png)
 
-以《实现一个图片分类应用》文档为例，该文档的链接为<https://www.mindspore.cn/docs/programming_guide/zh-CN/master/quick_start/quick_start.html>。
+以《初学入门》文档为例，该文档的链接为<https://www.mindspore.cn/tutorials/zh-CN/master/quick_start.html>。
 
 ## API
 

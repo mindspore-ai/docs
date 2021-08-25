@@ -293,7 +293,7 @@ epoch: 10/10, losses: 0.026364721357822418
 epoch: 10/10, losses: 0.0003102901973761618
 ```
 
-> For details about how to obtain the MNIST dataset used in the example, see [Downloading the Dataset](https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_start.html#downloading-the-dataset).
+> For details about how to obtain the MNIST dataset used in the example, see [Downloading the Dataset](https://www.mindspore.cn/tutorials/en/master/quick_start.html#downloading-the-dataset).
 > The typical application scenario is gradient accumulation. For details, see [Applying Gradient Accumulation Algorithm](https://www.mindspore.cn/docs/programming_guide/en/master/apply_gradient_accumulation.html).
 
 ## Conducting Inference While Training

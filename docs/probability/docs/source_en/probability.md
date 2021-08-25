@@ -851,7 +851,7 @@ decoder = Decoder()
 cvae = ConditionalVAE(encoder, decoder, hidden_size=400, latent_size=20, num_classes=10)
 ```
 
-Load a dataset, for example, Mnist. For details about the data loading and preprocessing process, see [Implementing an Image Classification Application](https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_start.html). The create_dataset function is used to create a data iterator.
+Load a dataset, for example, Mnist. For details about the data loading and preprocessing process, see [Quick Start for Beginners](https://www.mindspore.cn/tutorials/en/master/quick_start.html). The create_dataset function is used to create a data iterator.
 
 ```python
 ds_train = create_dataset(image_path, 128, 1)

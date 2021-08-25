@@ -20,6 +20,7 @@ MindSpore教程
    optimization
    save_load_model
    inference
+   linear_regression
 
 .. toctree::
    :glob:

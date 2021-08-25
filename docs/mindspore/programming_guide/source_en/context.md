@@ -162,7 +162,7 @@ from mindspore import context
 context.set_context(save_graphs=True)
 ```
 
-> For a detailed introduction of MindIR, please refer to [MindSpore IR(MindIR)](https://www.mindspore.cn/docs/note/en/master/design/mindir.html).
+> For a detailed introduction of MindIR, please refer to [MindSpore IR(MindIR)](https://www.mindspore.cn/docs/programming_guide/en/master/design/mindir.html).
 
 ### Print Operator Disk Flushing
 
