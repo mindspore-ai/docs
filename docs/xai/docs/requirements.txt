@@ -1,0 +1,9 @@
+sphinx >= 2.2.1, <= 2.4.4
+myst_parser == 0.14.0
+sphinx-markdown-tables
+sphinx_rtd_theme
+numpy
+nbsphinx
+IPython
+ipykernel
+jieba

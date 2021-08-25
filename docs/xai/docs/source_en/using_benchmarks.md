@@ -1,0 +1,113 @@
+# Using Benchmarks
+
+`Linux` `Ascend` `GPU` `Model Optimization` `Beginner` `Intermediate` `Expert`
+
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_en/using_benchmarks.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+
+<!-- TOC -->
+
+- [Using Benchmarks](#using-benchmarks)
+    - [What are Benchmarks](#what-are-benchmarks)
+    - [Preparations](#preparations)
+    - [Using Robustness](#using-robustness)
+        - [Batch Evaluation](#batch-evaluation)
+    - [Using Faithfulness and ClassSensitivity](#using-faithfulness-and-classsensitivity)
+    - [Using Localization](#using-localization)
+
+<!-- /TOC -->
+
+## What are Benchmarks
+
+Benchmarks are algorithms evaluating the goodness of saliency maps from explainers. MindSpore XAI currently provides 4 benchmarks for image classification scenario: `Robustness`, `Faithfulness`, `ClassSensitivity` and `Localization`.
+
+## Preparations
+
+Please follow the [Downloading Tutorial Package](https://www.mindspore.cn/xai/docs/en/master/using_explainers.html#id4) instructions to download the necessary files for the tutorial.
+
+With the tutorial package, we have to get the sample image, trained classifier, explainer and optionally the saliency map ready:
+
+```python
+# have to change the current directory to xai_tutorial/ first
+from mindspore import context, load_checkpoint, load_param_into_net
+from mindspore_xai.explanation import GradCAM
+from resnet import resnet50
+from dataset import load_image_tensor
+
+# only PYNATIVE_MODE is supported
+context.set_context(mode=context.PYNATIVE_MODE)
+
+# 20 classes
+num_classes = 20
+
+# load the trained classifier
+net = resnet50(num_classes)
+param_dict = load_checkpoint("resnet50.ckpt")
+load_param_into_net(net, param_dict)
+
+# [1, 3, 224, 224] Tensor
+boat_image = load_image_tensor('data/test/boat.jpg')
+
+# explainer
+grad_cam = GradCAM(net, layer='layer4')
+
+# 5 is the class id of 'boat'
+saliency = grad_cam(boat_image, targets=5)
+```
+
+## Using Robustness
+
+`Robustness` is the simplest benchmark, it perturbs the inputs by adding random noise and outputs the maximum sensitivity as evaluation score from the perturbations:
+
+```python
+from mindspore.nn import Softmax
+from mindspore_xai.explanation import Robustness
+
+# the classifier use Softmax as activation function
+robustness = Robustness(num_classes, activation_fn=Softmax())
+# the 'saliency' argument is optional
+score = robustness.evaluate(grad_cam, boat_image, targets=5, saliency=saliency)
+```
+
+The returned `score` is a 1D tensor with only one float value for an 1xCx224x224 image tensor.
+
+### Batch Evaluation
+
+Batch evaluation is usually more efficient:
+
+```python
+from dataset import load_dataset
+
+test_ds = load_dataset('data/test').batch(4)
+
+for images, labels in test_ds:
+    # the 'saliency' argument is omitted
+    scores = robustness.evaluate(grad_cam, images, targets=5)
+    # other custom operations ...
+```
+
+The returned `scores` is a 1D tensor with length of 4 for a 4xCx224x224 batched image tensor.
+
+## Using Faithfulness and ClassSensitivity
+
+The ways of using `Faithfulness` and `ClassSensitivity` are very similar to `Robustness`. However, `ClassSensitivity` is class agnostic, `targets` can not be specified.
+
+## Using Localization
+
+If the object region or bounding box is provided, `Localization` can be used. It evaluates base on how many saliency pixels fall inside the object region:
+
+```python
+import numpy as np
+import mindspore as ms
+from mindspore import Tensor
+from mindspore_xai.explanation import Localization
+
+# top-left:100,100 bottom-right:150,150 is the bounding box of a boat
+mask = np.zeros([1, 1, 224, 224])
+mask[:, :, 100:151, 100:151] = 1
+
+mask = Tensor(mask, dtype=ms.float32)
+
+localization = Localization(num_classes)
+
+score = localization.evaluate(grad_cam, boat_image, targets=5, mask=mask)
+```
