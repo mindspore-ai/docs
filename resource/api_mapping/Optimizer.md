@@ -33,7 +33,7 @@ net = Net()
 optim_sgd = nn.SGD(params=net.trainable_params())
 ```
 
-PyTorch：optimizer的入参`params`直接使用`parameters`方法配置
+PyTorch：optimizer的入参`params`直接使用`parameters`方法配置。
 
 ```python
 from torch import optim
