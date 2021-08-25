@@ -139,16 +139,17 @@ if (context == nullptr) {
 }
 auto &device_list = context->MutableDeviceInfo();
 
+// Set GPU device first, make GPU preferred backend.
 auto gpu_device_info = std::make_shared<mindspore::GPUDeviceInfo>();
 if (gpu_device_info == nullptr) {
   std::cerr << "New GPUDeviceInfo failed." << std::endl;
 }
-// If GPU device info is set. The preferred backend is GPU, which means, if there is a GPU operator, it will run on the GPU first, otherwise it will run on the CPU.
 // GPU use float16 operator as priority.
 gpu_device_info->SetEnableFP16(true);
 // The GPU device context needs to be push_back into device_list to work.
 device_list.push_back(gpu_device_info);
 
+// Set CPU device after GPU as second choice.
 auto cpu_device_info = std::make_shared<mindspore::CPUDeviceInfo>();
 if (cpu_device_info == nullptr) {
   std::cerr << "New CPUDeviceInfo failed." << std::endl;
@@ -183,6 +184,7 @@ if (context == nullptr) {
 }
 auto &device_list = context->MutableDeviceInfo();
 
+// Set NPU device first, make NPU preferred backend.
 auto npu_device_info = std::make_shared<mindspore::KirinNPUDeviceInfo>();
 if (npu_device_info == nullptr) {
   std::cerr << "New KirinNPUDeviceInfo failed." << std::endl;
@@ -192,6 +194,7 @@ npu_device_info->SetFrequency(3);
 // The NPU device context needs to be push_back into device_list to work.
 device_list.push_back(npu_device_info);
 
+// Set CPU device after NPU as second choice.
 auto cpu_device_info = std::make_shared<mindspore::CPUDeviceInfo>();
 if (cpu_device_info == nullptr) {
   std::cerr << "New CPUDeviceInfo failed." << std::endl;
