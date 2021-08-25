@@ -5,7 +5,6 @@
 <!-- TOC -->
 
 - [Inference on a GPU](#inference-on-a-gpu)
-    - [Inference Using a Checkpoint File](#inference-using-a-checkpoint-file)
     - [Use C++ Interface to Load a MindIR File for Inferencing](#use-c-interface-to-load-a-mindir-file-for-inferencing)
         - [Inference Directory Structure](#inference-directory-structure)
         - [Inference Code](#inference-code)
@@ -18,10 +17,6 @@
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/multi_platform_inference_gpu.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
-
-## Inference Using a Checkpoint File
-
-The inference is the same as that on the Ascend 910 AI processor.
 
 ## Use C++ Interface to Load a MindIR File for Inferencing
 
