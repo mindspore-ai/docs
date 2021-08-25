@@ -64,7 +64,7 @@
 | torch.minimum                                        | mindspore.ops.Minimum                                          | 功能一致 |
 | torch.mm                                             | mindspore.ops.MatMul                                           | 功能一致 |
 | torch.mul                                            | mindspore.ops.Mul                                              | 功能一致 |
-| torch.nn.AdaptiveAvgPool2d                           | mindspore.ops.AdaptiveAvgPool2d                                | 功能一致 |
+| torch.nn.AdaptiveAvgPool2d                           | mindspore.ops.AdaptiveAvgPool2D                                | 功能一致 |
 | torch.nn.AvgPool1d                                   | mindspore.nn.AvgPool1d                                         | 功能一致 |
 | torch.nn.AvgPool2d                                   | mindspore.nn.AvgPool2d                                         | 功能一致 |
 | torch.nn.BatchNorm1d                                 | mindspore.nn.BatchNorm1d                                       | 功能一致 |
@@ -76,7 +76,7 @@
 | torch.nn.Dropout                                     | mindspore.nn.Dropout                                           | 功能一致 |
 | torch.nn.Embedding                                   | mindspore.nn.Embedding                                         | 功能一致 |
 | torch.nn.Flatten                                     | mindspore.nn.Flatten                                           |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/nn_Flatten.md)|
-| torch.nn.functional.adaptive_avg_pool2d              | mindspore.ops.AdaptiveAvgPool2d                                | 功能一致 |
+| torch.nn.functional.adaptive_avg_pool2d              | mindspore.ops.AdaptiveAvgPool2D                                | 功能一致 |
 | torch.nn.functional.avg_pool2d                       | mindspore.ops.AvgPool                                          | 功能一致 |
 | torch.nn.functional.binary_cross_entropy             | mindspore.ops.BinaryCrossEntropy                               | 功能一致 |
 | torch.nn.functional.conv2d                           | mindspore.ops.Conv2D                                           | 功能一致 |
