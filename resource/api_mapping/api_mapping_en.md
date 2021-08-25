@@ -48,6 +48,7 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torch.floor_divide                                   | mindspore.ops.FloorDiv                                         |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/FloorDiv_en.md)|
 | torch.fmod                                           | mindspore.ops.Mod                                              | same |
 | torch.gather                                         | mindspore.ops.GatherD                                          | same |
+| torch.gt                                             | mindspore.ops.Greater                                          | same |
 | torch.histc                                          | mindspore.ops.HistogramFixedWidth                              | same |
 | torch.inverse                                        | mindspore.nn.MatInverse                                        | same |
 | torch.lgamma                                         | mindspore.nn.LGamma                                            | same |
@@ -180,6 +181,7 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torch.Tensor.unsqueeze                               | mindspore.ops.ExpandDims                                       | same |
 | torch.Tensor.view                                    | mindspore.ops.Reshape                                          | same |
 | torch.Tensor.zero_                                   | mindspore.ops.ZerosLike                                        | same |
+| torch.topk                                           | mindspore.ops.TopK                                             |[diff]|(https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/TopK_en.md)|
 | torch.transpose                                      | mindspore.ops.Transpose                                        | same |
 | torch.tril                                           | mindspore.nn.Tril                                              | same |
 | torch.triu                                           | mindspore.nn.Triu                                              | same |

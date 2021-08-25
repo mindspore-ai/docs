@@ -48,6 +48,7 @@
 | torch.floor_divide                                   | mindspore.ops.FloorDiv                                         |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/FloorDiv.md)|
 | torch.fmod                                           | mindspore.ops.Mod                                              | 功能一致 |
 | torch.gather                                         | mindspore.ops.GatherD                                          | 功能一致 |
+| torch.gt                                             | mindspore.ops.Greater                                          | 功能一致 |
 | torch.histc                                          | mindspore.ops.HistogramFixedWidth                              | 功能一致 |
 | torch.inverse                                        | mindspore.nn.MatInverse                                        | 功能一致 |
 | torch.lgamma                                         | mindspore.nn.LGamma                                            | 功能一致 |
@@ -180,6 +181,7 @@
 | torch.Tensor.unsqueeze                               | mindspore.ops.ExpandDims                                       | 功能一致 |
 | torch.Tensor.view                                    | mindspore.ops.Reshape                                          | 功能一致 |
 | torch.Tensor.zero_                                   | mindspore.ops.ZerosLike                                        | 功能一致 |
+| torch.topk                                           | mindspore.ops.TopK                                             |[差异对比]|(https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/TopK.md)|
 | torch.transpose                                      | mindspore.ops.Transpose                                        | 功能一致 |
 | torch.tril                                           | mindspore.nn.Tril                                              | 功能一致 |
 | torch.triu                                           | mindspore.nn.Triu                                              | 功能一致 |
