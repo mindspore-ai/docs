@@ -5,11 +5,10 @@
 <!-- TOC -->
 
 - [GPU上推理](#gpu上推理)
-    - [使用checkpoint格式文件推理](#使用checkpoint格式文件推理)
     - [使用C++接口推理MindIR格式文件](#使用c接口推理mindir格式文件)
         - [推理目录结构介绍](#推理目录结构介绍)
         - [推理代码介绍](#推理代码介绍)
-        - [构建脚本介绍](#构建脚本介绍)
+        - [构建脚本](#构建脚本)
         - [编译推理代码](#编译推理代码)
         - [执行推理并查看结果](#执行推理并查看结果)
         - [备注](#备注)
@@ -18,10 +17,6 @@
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/multi_platform_inference_gpu.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
-
-## 使用checkpoint格式文件推理
-
-与在Ascend 910 AI处理器上推理一样。
 
 ## 使用C++接口推理MindIR格式文件
 

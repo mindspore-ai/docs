@@ -20,6 +20,7 @@ MindSpore Programming Guide
    design/technical_white_paper
    design/distributed_training_design
    design/mindir
+   Design of Visualization↗ <https://www.mindspore.cn/mindinsight/docs/en/master/training_visual_design.html>
    design/glossary
 
 .. toctree::
@@ -78,10 +79,8 @@ MindSpore Programming Guide
    :caption: Inference
 
    multi_platform_inference
-   multi_platform_inference_ascend_910
-   multi_platform_inference_ascend_310
-   multi_platform_inference_gpu
-   multi_platform_inference_cpu
+   online_inference
+   offline_inference
 
 .. toctree::
    :maxdepth: 1
@@ -128,8 +127,7 @@ MindSpore Programming Guide
    enable_graph_kernel_fusion
    enable_auto_tune
    apply_gradient_accumulation
-   apply_quantization_aware_training
-   apply_post_training_quantization
+   Debugging performance with Profiler↗ <https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling.html>
 
 .. toctree::
    :glob:

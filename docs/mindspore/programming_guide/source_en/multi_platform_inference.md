@@ -44,7 +44,7 @@ Inference can be classified into the following two modes based on the applicatio
 
 1. Local inference
 
-    Load a checkpoint file generated during network training and call the `model.predict` API for inference and validation. For details, see [Inference Using a Checkpoint File with Single Device](https://www.mindspore.cn/docs/programming_guide/en/master/multi_platform_inference_ascend_910.html#checkpoint).
+    Load a checkpoint file generated during network training and call the `model.predict` API for inference and validation. For details, see [Online Inference with CheckPoint](https://www.mindspore.cn/docs/programming_guide/en/master/online_inference.html).
 
 2. Cross-platform inference
 

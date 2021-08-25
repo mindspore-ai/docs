@@ -20,6 +20,7 @@ MindSpore编程指南
    design/technical_white_paper
    design/distributed_training_design
    design/mindir
+   可视化调试调优设计↗ <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/training_visual_design.html>
    design/glossary
 
 .. toctree::
@@ -79,10 +80,8 @@ MindSpore编程指南
    :caption: 推理
 
    multi_platform_inference
-   multi_platform_inference_ascend_910
-   multi_platform_inference_ascend_310
-   multi_platform_inference_gpu
-   multi_platform_inference_cpu
+   online_inference
+   offline_inference
 
 .. toctree::
    :maxdepth: 1
@@ -135,8 +134,7 @@ MindSpore编程指南
    enable_graph_kernel_fusion
    enable_auto_tune
    apply_gradient_accumulation
-   apply_quantization_aware_training
-   apply_post_training_quantization
+   使用Profiler调试性能↗ <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling.html>
 
 .. toctree::
    :glob:
