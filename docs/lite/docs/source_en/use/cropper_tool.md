@@ -98,7 +98,7 @@ Refer to the example steps below.
 
 1. Add the following command to `lite/Cmakelist.txt` to enable the compilation process to print.
 
-    ```txt
+    ```text
     set(CMAKE_VERBOSE_MAKEFILE on)
     ```
 

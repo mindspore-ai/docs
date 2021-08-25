@@ -94,7 +94,7 @@ MindSpore Lite提供对Runtime的`libmindspore-lite.a`静态库裁剪工具，�
 
 1. 在`lite/Cmakelist.txt`中添加如下命令，以开启编译过程命令打印。
 
-    ```txt
+    ```text
     set(CMAKE_VERBOSE_MAKEFILE on)
     ```
 
