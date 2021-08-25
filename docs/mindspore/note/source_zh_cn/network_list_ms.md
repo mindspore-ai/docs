@@ -96,6 +96,7 @@
 | 计算机视觉（CV） | 图像分类（Image Classification）  |[FaceQualityAssessment](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/research/cv/FaceQualityAssessment)     |  ✅ |  ✅ |   |   |  |  |
 | 计算机视觉（CV） | 图像分类（Image Classification）  |[FaceRecognition](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/research/cv/FaceRecognition)     |  ✅ |   |   |   |  |  |
 | 计算机视觉（CV） | 图像分类（Image Classification）  |[FaceRecognitionForTracking](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/research/cv/FaceRecognitionForTracking)     |  ✅ |   |   |   |  |  |
+| 计算机视觉（CV）  | 目标检测（Object Detection）  | [Spnas](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/research/cv/Spnas)           |  ✅ |   |   |   |  |  |
 | 计算机视觉（CV）  | 目标检测（Object Detection）  | [SSD-GhostNet](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/research/cv/ssd_ghostnet)           |  ✅ |   |   |   |  |  |
 | 计算机视觉（CV）  | 关键点检测（Key Point Detection）  | [CenterNet](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/research/cv/centernet)          |  ✅ |   |  |   | ✅ |  |
 | 计算机视觉（CV）  | 图像风格迁移（Image Style Transfer）  | [CycleGAN](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/research/cv/CycleGAN)       |       |   |  |  ✅ | ✅ |  |
