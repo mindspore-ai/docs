@@ -44,6 +44,11 @@ Using dump to help debugging is divided into two steps: 1. Data preparation; 2. 
 
 The data preparation phase uses synchronous dump or asynchronous dump to generate dump data. See [Synchronous Dump Step](#synchronous-dump-step) and [Asynchronous Dump Step](#asynchronous-dump-step) for details.
 
+When preparing data, you can refer to the following best practices:
+
+1. Set the `iteration` parameter to save only the data of the iteration with the problem and the previous iteration. For example, if the problem to be analyzed will appear in the 10th iteration (counting from 1), you can set it as follows: `"iteration": "8 | 9"`. Note that the `iteration` parameter evaluates iterations from 0. Saving the data of the above two iterations can help problem analysis under most scenarios.
+2. After the iteration with problems is completed, it is recommended that you use [`run_context.request_stop()`](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.train.html#mindspore.train.callback.RunContext.request_stop) or other methods to stop the training.
+
 #### Data analysis
 
 If you have installed MindInsight, you can use offline debugger of MindInsight to analyze it. See [Using the Offline Debugger](https://www.mindspore.cn/mindinsight/docs/en/master/debugger_offline.html) for the usage of offline debugger.
