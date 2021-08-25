@@ -64,7 +64,7 @@ x: [1. 4. 9.]
 output: [1. 16. 81.]
 ```
 
-The `kernel_meta` folder is generated in the directory where the execution is performed, which contains the `.o`, `.json`, and `.info` files of the Square operator. The current directory structure is as follows:
+The `rank_0/kernel_meta` folder is generated in the directory where the execution is performed, which contains the `.o`, `.json`, and `.info` files of the Square operator. The current directory structure is as follows:
 
 ```text
 └─src

@@ -64,7 +64,7 @@ x: [1. 4. 9.]
 output: [1. 16. 81.]
 ```
 
-在执行目录下，生成了`kernel_meta`文件夹，其中包含Square算子的`.o`文件，`.json`文件以及`.info`文件，当前目录结构为：
+在执行目录下，生成了`rank_0/kernel_meta`文件夹，其中包含Square算子的`.o`文件，`.json`文件以及`.info`文件，当前目录结构为：
 
 ```text
 └─src
