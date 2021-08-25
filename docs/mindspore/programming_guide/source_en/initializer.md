@@ -1,10 +1,10 @@
-# Initialization of Network Parameters
+# Using weights to store values
 
 Translator: [Karlos Ma](https://gitee.com/Mavendetta985)
 
 <!-- TOC -->
 
-- [Initialization of Network Parameters](#initialization-of-network-parameters)
+- [Using weights to store values](#using-weights-to-store-values)
     - [Overview](#overview)
     - [Using Encapsulation Operator to Initialize Parameters](#using-encapsulation-operator-to-initialize-parameters)
         - [Character String](#character-string)

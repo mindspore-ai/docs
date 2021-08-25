@@ -1,8 +1,8 @@
-# Updating Network Parameters
+# Weight update and Dependency Control
 
 <!-- TOC -->
 
-- [Updating Network Parameters](#updating-network-parameters)
+- [Weight update and Dependency Control](#weight-update-and-dependency-control)
     - [Overview](#overview)
     - [Initialization](#initialization)
     - [Attributes](#attributes)

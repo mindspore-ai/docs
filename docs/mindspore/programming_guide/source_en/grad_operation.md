@@ -1,114 +1,38 @@
-﻿# Frame Operators
+﻿# Gradient Operation
 
 <!-- TOC -->
 
-- [Frame Operators](#frame-operators)
+- [Gradient Operation](#gradient-operation)
     - [Overview](#overview)
-    - [MultitypeFuncGraph](#multitypefuncgraph)
-    - [HyperMap](#hypermap)
-    - [GradOperation](#gradoperation)
-        - [First-order Derivation](#first-order-derivation)
-            - [Input Derivation](#input-derivation)
-            - [Weight Derivation](#weight-derivation)
-            - [Gradient Value Scaling](#gradient-value-scaling)
-        - [Stop Gradient](#stop-gradient)
-        - [High-order Derivation](#high-order-derivation)
-            - [Single-input Single-output High-order Derivative](#single-input-single-output-high-order-derivative)
-            - [Single-input Multi-output High-order Derivative](#single-input-multi-output-high-order-derivative)
-            - [Multiple-Input Multiple-Output High-Order Derivative](#multiple-input-multiple-output-high-order-derivative)
-        - [Support for Second-order Differential Operators](#support-for-second-order-differential-operators)
+    - [First-order Derivation](#first-order-derivation)
+        - [Input Derivation](#input-derivation)
+        - [Weight Derivation](#weight-derivation)
+        - [Gradient Value Scaling](#gradient-value-scaling)
+    - [Stop Gradient](#stop-gradient)
+    - [High-order Derivation](#high-order-derivation)
+        - [Single-input Single-output High-order Derivative](#single-input-single-output-high-order-derivative)
+        - [Single-input Multi-output High-order Derivative](#single-input-multi-output-high-order-derivative)
+        - [Multiple-Input Multiple-Output High-Order Derivative](#multiple-input-multiple-output-high-order-derivative)
+    - [Support for Second-order Differential Operators](#support-for-second-order-differential-operators)
     - [References](#references)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/frame_operators.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/grad_operation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## Overview
 
-`mindspore.ops.composite` provide some operator combinations related to graph transformation such as `MultitypeFuncGraph`, `HyperMap` and `GradOperation`.
-
-## MultitypeFuncGraph
-
-Users can use `MultitypeFuncGraph` to define a group of overloaded functions. The implementation varies according to the function type.
-
-A code example is as follows:
-
-```python
-import numpy as np
-from mindspore.ops import MultitypeFuncGraph
-from mindspore import Tensor
-import mindspore.ops as ops
-
-add = MultitypeFuncGraph('add')
-@add.register("Number", "Number")
-def add_scalar(x, y):
-    return ops.scalar_add(x, y)
-
-@add.register("Tensor", "Tensor")
-def add_tensor(x, y):
-    return ops.add(x, y)
-
-tensor1 = Tensor(np.array([[1.2, 2.1], [2.2, 3.2]]).astype('float32'))
-tensor2 = Tensor(np.array([[1.2, 2.1], [2.2, 3.2]]).astype('float32'))
-print('tensor', add(tensor1, tensor2))
-print('scalar', add(1, 2))
-```
-
-The following information is displayed:
-
-```text
-tensor [[2.4 4.2]
- [4.4 6.4]]
-scalar 3
-```
-
-## HyperMap
-
-`HyperMap` can apply an specified operation to one or more input sequences, which can be used with `MultitypeFuncGraph`. For example, after defining a group of overloaded `add` functions, we can apply `add` operation to multiple input groups of different types.
-
-A code example is as follows:
-
-```python
-from mindspore import dtype as mstype
-from mindspore import Tensor
-from mindspore.ops import MultitypeFuncGraph, HyperMap
-import mindspore.ops as ops
-
-add = MultitypeFuncGraph('add')
-@add.register("Number", "Number")
-def add_scalar(x, y):
-    return ops.scalar_add(x, y)
-
-@add.register("Tensor", "Tensor")
-def add_tensor(x, y):
-    return ops.tensor_add(x, y)
-
-add_map = HyperMap(add)
-output = add_map((Tensor(1, mstype.float32), Tensor(2, mstype.float32), 1), (Tensor(3, mstype.float32), Tensor(4, mstype.float32), 2))
-print("output =", output)
-```
-
-The following information is displayed:
-
-```text
-output = (Tensor(shape=[], dtype=Float32, value= 4), Tensor(shape=[], dtype=Float32, value= 6), 3)
-```
-
-In this example, the input of `add_map` contains two sequences. `HyperMap` will get the corresponding elements from the two sequences as `x` and `y` for the inputs of `add` in the form of `operation(args[0][i], args[1][i])`. For example, `add(Tensor(1, mstype.float32), Tensor(3, mstype.float32))`.
-
-## GradOperation
-
-GradOperation is used to generate the gradient of the input function. The `get_all`, `get_by_list`, and `sens_param` parameters are used to control the gradient calculation method. For details, see [mindspore API](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.GradOperation.html)
+GradOperation is used to generate the gradient of the input function. The `get_all`, `get_by_list`, and `sens_param` parameters are used to control the gradient calculation method. For details, see [mindspore API](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.GradOperation.html).
 
 The following is an example of using GradOperation.
 
-### First-order Derivation
+## First-order Derivation
 
 The first-order derivative method of MindSpore is `mindspore.ops.GradOperation (get_all=False, get_by_list=False, sens_param=False)`. When `get_all` is set to `False`, the first input derivative is computed. When `get_all` is set to `True`, all input derivatives are computed. When `get_by_list` is set to `False`, weight derivation is not performed. When `get_by_list` is set to `True`, weight derivation is performed. `sens_param` scales the output value of the network to change the final gradient. Therefore, its dimension is consistent with the output dimension. The following uses the first-order derivation of the MatMul operator for in-depth analysis.
 
 For details about the complete sample code, see [First-order Derivation Sample Code](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/high_order_differentiation/first_order).
 
-#### Input Derivation
+### Input Derivation
 
 The input derivation code is as follows:
 
@@ -185,7 +109,7 @@ $\frac{\mathrm{d}(\sum{output})}{\mathrm{d}x} = [[4.5099998 \quad 2.7 \quad 3.60
 
 If the derivatives of the `x` and `y` inputs are considered, you only need to set `self.grad_op = GradOperation(get_all=True)` in `GradNetWrtX`.
 
-#### Weight Derivation
+### Weight Derivation
 
 If the derivation of weights is considered, change `GradNetWrtX` to the following:
 
@@ -222,7 +146,7 @@ Computation result
 
 $\frac{\mathrm{d}(\sum{output})}{\mathrm{d}z} = [2.15359993e+01]$
 
-#### Gradient Value Scaling
+### Gradient Value Scaling
 
 You can use the `sens_param` parameter to control the scaling of the gradient value.
 
@@ -294,7 +218,7 @@ The output is as follows:
  [0.   0.  0. ]]
 ```
 
-### Stop Gradient
+## Stop Gradient
 
 We can use `stop_gradient` to disable calculation of gradient for certain operators. For example:
 
@@ -349,7 +273,7 @@ Here, we set `stop_gradient` to `out2`, so this operator does not have any contr
 
 After we do not set `stop_gradient` to `out2`, it will make the same contribution to gradient as `out1`. So we can see that each result has doubled.
 
-### High-order Derivation
+## High-order Derivation
 
 High-order differentiation is used in domains such as AI-supported scientific computing and second-order optimization. For example, in the molecular dynamics simulation, when the potential energy is trained using the neural network[1], the derivative of the neural network output to the input needs to be computed in the loss function, and then the second-order cross derivative of the loss function to the input and the weight exists in backward propagation. In addition, the second-order derivatives of the output to the input exist in differential equations solved by AI (such as PINNs[2]). Another example is that in order to enable the neural network to converge quickly in the second-order optimization, the second-order derivative of the loss function to the weight needs to be computed using the Newton method.
 
@@ -357,7 +281,7 @@ MindSpore can support high-order derivatives by computing derivatives for multip
 
 For details about the complete sample code, see [High-order Derivation Sample Code](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/high_order_differentiation/second_order).
 
-#### Single-input Single-output High-order Derivative
+### Single-input Single-output High-order Derivative
 
 For example, the second-order derivative (-Sin) of the Sin operator is implemented as follows:
 
@@ -408,7 +332,7 @@ The output is as follows:
 [-0.841471]
 ```
 
-#### Single-input Multi-output High-order Derivative
+### Single-input Multi-output High-order Derivative
 
 For example, for a multiplication operation with multiple outputs, a high-order derivative of the multiplication operation is as follows:
 
@@ -459,7 +383,7 @@ The output is as follows:
 [2. 2. 2.]
 ```
 
-#### Multiple-Input Multiple-Output High-Order Derivative
+### Multiple-Input Multiple-Output High-Order Derivative
 
 For example, if a neural network has multiple inputs `x` and `y`, second-order derivatives `dxdx`, `dydy`, `dxdy`, and `dydx` may be obtained by using a gradient scaling mechanism as follows:
 
@@ -519,7 +443,7 @@ The output is as follows:
 
 Specifically, results of computing the first-order derivatives are `dx` and `dy`. If `dxdx` is computed, only the first-order derivative `dx` needs to be retained, and scaling values corresponding to `x` and `y` are set to 1 and 0 respectively, that is, `self.grad(self.network)(x, y, (self.sens1,self.sens2))`. Similarly, if `dydy` is computed, only the first-order derivative `dy` is retained, and `sens_param` corresponding to `x` and `y` is set to 0 and 1, respectively, that is, `self.grad(self.network)(x, y, (self.sens2,self.sens1))`.
 
-### Support for Second-order Differential Operators
+## Support for Second-order Differential Operators
 
 CPU supports the following operators: [Square](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Square.html#mindspore.ops.Square),
 [Exp](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Exp.html#mindspore.ops.Exp), [Neg](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Neg.html#mindspore.ops.Neg), [Mul](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Mul.html#mindspore.ops.Mul), and [MatMul](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.MatMul.html#mindspore.ops.MatMul).
