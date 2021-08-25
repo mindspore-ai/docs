@@ -70,10 +70,8 @@ MindSpore Programming Guide
    :caption: Model Running
 
    run
-   callback
-   save_model
-   load_model_for_inference_and_transfer
-   train
+   save_and_load_model
+   model
 
 .. toctree::
    :maxdepth: 1
