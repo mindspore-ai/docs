@@ -108,6 +108,8 @@
 | torch.nn.ModuleList                                  | mindspore.nn.CellList                                          | 功能一致 |
 | torch.nn.MSELoss                                     | mindspore.nn.MSELoss                                           | 功能一致 |
 | torch.nn.Parameter                                   | mindspore.Parameter                                            | 功能一致 |
+| torch.nn.Parameter.clone                                  | mindspore.Parameter.clone                                            | 功能一致 |
+| torch.nn.Parameter.data                                  | mindspore.Parameter.data                                            |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/ParamsData.md)|
 | torch.nn.ParameterList                               | mindspore.ParameterTuple                                       |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/ParameterTuple.md)|
 | torch.nn.PixelShuffle                                | mindspore.ops.DepthToSpace                                     | 功能一致 |
 | torch.nn.PReLU                                       | mindspore.nn.PReLU                                             | 功能一致 |
