@@ -41,18 +41,6 @@ MindSpore Programming Guide
 
 .. toctree::
    :maxdepth: 1
-   :caption: Numpy
-
-   numpy
-
-.. toctree::
-   :maxdepth: 1
-   :caption: Execution Management
-
-   context
-
-.. toctree::
-   :maxdepth: 1
    :caption: Data Pipeline
 
    dataset_sample
@@ -66,15 +54,20 @@ MindSpore Programming Guide
 
    initializer
    parameter
-   layer
    loss
+   grad_operation
+   hypermap
    optim
-   custom_net
-   network_component
 
 .. toctree::
    :maxdepth: 1
-   :caption: Train Models
+   :caption: Execution Management
+
+   context
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Model Running
 
    run
    callback
@@ -108,6 +101,19 @@ MindSpore Programming Guide
 
 .. toctree::
    :maxdepth: 1
+   :caption: Numpy
+
+   numpy
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Advanced Features
+
+   second_order_optimizer
+   apply_quantization_aware_training
+
+.. toctree::
+   :maxdepth: 1
    :caption: Function Debugging
 
    debug_in_pynative_mode
@@ -120,7 +126,6 @@ MindSpore Programming Guide
    :maxdepth: 1
    :caption: Performance Optimization
 
-   optimize_data_processing
    enable_mixed_precision
    enable_graph_kernel_fusion
    enable_auto_tune

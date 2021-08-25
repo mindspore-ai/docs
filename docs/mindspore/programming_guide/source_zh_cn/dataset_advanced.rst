@@ -6,3 +6,4 @@
 
   auto_augmentation
   cache
+  optimize_data_processing

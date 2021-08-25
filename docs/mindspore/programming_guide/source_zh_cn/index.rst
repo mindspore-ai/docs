@@ -41,18 +41,6 @@ MindSpore编程指南
 
 .. toctree::
    :maxdepth: 1
-   :caption: Numpy
-
-   numpy
-
-.. toctree::
-   :maxdepth: 1
-   :caption: 运行管理
-
-   context
-
-.. toctree::
-   :maxdepth: 1
    :caption: 数据加载和处理
 
    dataset_sample
@@ -64,17 +52,23 @@ MindSpore编程指南
    :maxdepth: 1
    :caption: 网络构建
    
+   build_net
    initializer
    parameter
-   layer
    loss
+   grad_operation
+   hypermap
    optim
-   custom_net
-   network_component
 
 .. toctree::
    :maxdepth: 1
-   :caption: 模型训练
+   :caption: 运行管理
+
+   context
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 模型运行
 
    run
    callback
@@ -108,6 +102,19 @@ MindSpore编程指南
 
 .. toctree::
    :maxdepth: 1
+   :caption: Numpy
+
+   numpy
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 高级特性
+
+   second_order_optimizer
+   apply_quantization_aware_training
+
+.. toctree::
+   :maxdepth: 1
    :caption: 功能调试
 
    debug_in_pynative_mode
@@ -126,7 +133,6 @@ MindSpore编程指南
    :maxdepth: 1
    :caption: 性能优化
 
-   optimize_data_processing
    enable_mixed_precision
    enable_graph_kernel_fusion
    enable_auto_tune
