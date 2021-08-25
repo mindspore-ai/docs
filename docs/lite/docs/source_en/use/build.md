@@ -96,9 +96,6 @@ The script `build.sh` in the root directory of MindSpore can be used to compile 
 | -------- | ----- | ---- | ---- |
 | MSLITE_GPU_BACKEND | Set the GPU backend, only opencl is valid when `-I arm64`, and only tensorrt is valid when `-I x86_64` | opencl, tensorrt, off | opencl when `-I arm64`, off when `-I x86_64` |
 | MSLITE_ENABLE_NPU | Whether to compile NPU operator, only valid when `-I arm64` or `-I arm32` | on, off | off |
-| MSLITE_ENABLE_INT8 | Whether to compile Int8 operator | on,off | on |
-| MSLITE_ENABLE_FP16 | Whether to compile Fp16 operator | on,off | on |
-| MSLITE_ENABLE_FP32 | Whether to compile Fp32 operator | on,off | on |
 | MSLITE_ENABLE_TRAIN | Whether to compile the training version | on, off | on |
 | MSLITE_ENABLE_SSE | Whether to enable SSE instruction set, only valid when `-I x86_64` | on, off | off |
 | MSLITE_ENABLE_AVX | Whether to enable AVX instruction set, only valid when `-I x86_64` | on, off | off |
