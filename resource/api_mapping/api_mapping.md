@@ -131,7 +131,10 @@
 | torch.optim.Adamax                                   | mindspore.ops.ApplyAdaMax                                      | 功能一致 |
 | torch.optim.AdamW                                    | mindspore.nn.AdamWeightDecay                                   | 功能一致 |
 | torch.optim.lr_scheduler.CosineAnnealingWarmRestarts | mindspore.nn.cosine_decay_lr                                   | 功能一致 |
+| torch.optim.lr_scheduler.ExponentialLR        | mindspore.nn.exponential_decay_lr                                    |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/ExponentialDecayLR.md)|
+| torch.optim.lr_scheduler.MultiStepLR        | mindspore.nn.piecewise_constant_lr                                  |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/PiecewiseConstantLR.md)|
 | torch.optim.lr_scheduler.StepLR                      | mindspore.nn.piecewise_constant_lr                             | 功能一致 |
+| torch.optim.Optimizer  | mindspore.nn.Optimizer                                    |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/Optimizer.md)|
 | torch.optim.Optimizer.step                           | mindspore.nn.TrainOneStepCell                                  |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/TrainOneStepCell.md)|
 | torch.optim.RMSprop                                  | mindspore.nn.RMSProp                                           | 功能一致 |
 | torch.optim.SGD                                      | mindspore.nn.SGD                                               | 功能一致 |
