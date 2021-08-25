@@ -14,6 +14,7 @@ Cell
     :template: classtemplate.rst
 
     mindspore.nn.Cell
+    mindspore.nn.GraphCell
     mindspore.nn.GraphKernel
 
 Containers
