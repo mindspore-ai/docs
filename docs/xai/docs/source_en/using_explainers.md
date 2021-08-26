@@ -2,7 +2,7 @@
 
 `Linux` `Ascend` `GPU` `Model Optimization` `Beginner` `Intermediate` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_en/using_expainers.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_en/using_explainers.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 <!-- TOC -->
 
@@ -13,8 +13,8 @@
         - [Preparing Python Environment](#preparing-python-environment)
     - [Using GradCAM](#using-gradcam)
         - [Batch Explanation](#batch-explanation)
-    - [Using Other Explainers](#using-other-explainers)
-    - [Using RISEPlus](#using-riseplus)
+        - [Using Other Explainers](#using-other-explainers)
+        - [Using RISEPlus](#using-riseplus)
 
 <!-- /TOC -->
 
