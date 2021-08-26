@@ -12,7 +12,8 @@
         - [调用集合通信库](#调用集合通信库)
     - [定义网络](#定义网络)
     - [运行脚本](#运行脚本)
-    - [运行多机脚本](#运行多机脚本)
+        - [单机多卡训练](#单机多卡训练)
+        - [多机多卡训练](#多机多卡训练)
 
 <!-- /TOC -->
 
@@ -84,7 +85,11 @@ if __name__ == "__main__":
 
 ## 运行脚本
 
-在GPU硬件平台上，MindSpore采用OpenMPI的`mpirun`进行分布式训练。下面以使用8张卡的分布式训练脚本为例，演示如何运行脚本：
+在GPU硬件平台上，MindSpore采用OpenMPI的`mpirun`进行分布式训练。
+
+### 单机多卡训练
+
+下面以使用8张卡的分布式训练脚本为例，演示如何运行脚本：
 
 > 你可以在这里找到样例的运行脚本：
 >
@@ -125,7 +130,7 @@ epoch: 1 step: 1, loss is 2.3025854
 epoch: 1 step: 1, loss is 2.3025854
 ```
 
-## 运行多机脚本
+### 多机多卡训练
 
 若训练涉及多机，则需要额外在`mpirun`命令中设置多机配置。你可以直接在`mpirun`命令中用`-H`选项进行设置，比如`mpirun -n 16 -H DEVICE1_IP:8,DEVICE2_IP:8 python hello.py`，表示在ip为DEVICE1_IP和DEVICE2_IP的机器上分别起8个进程运行程序；或者也可以构造一个如下这样的hostfile文件，并将其路径传给`mpirun`的`--hostfile`的选项。hostfile文件每一行格式为`[hostname] slots=[slotnum]`，hostname可以是ip或者主机名。
 
