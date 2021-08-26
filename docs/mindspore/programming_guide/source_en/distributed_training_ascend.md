@@ -19,12 +19,13 @@
         - [Defining the Optimizer](#defining-the-optimizer)
     - [Training the Network](#training-the-network)
     - [Running the Script](#running-the-script)
+        - [Single-host Training](#single-host-training)
+        - [Multi-host Training](#multi-host-training)
     - [Distributed Training Model Parameters Saving and Loading](#distributed-training-model-parameters-saving-and-loading)
         - [Auto Parallel Mode](#auto-parallel-mode)
         - [Data Parallel Mode](#data-parallel-mode)
         - [Semi Auto Parallel Mode](#semi-auto-parallel-mode-1)
         - [Hybrid Parallel Mode](#hybrid-parallel-mode-1)
-    - [Multi-machine Training](#multi-machine-training)
 
 <!-- /TOC -->
 
@@ -356,6 +357,8 @@ In the preceding code:
 
 ## Running the Script
 
+### Single-host Training
+
 After the script required for training is edited, run the corresponding command to call the script.
 
 Currently, MindSpore distributed execution uses the single-device single-process running mode. That is, one process runs on each device, and the number of total processes is the same as the number of devices that are being used. For device 0, the corresponding process is executed in the foreground. For other devices, the corresponding processes are executed in the background. You need to create a directory for each process to store log information and operator compilation information. The following takes the distributed training script for eight devices as an example to describe how to run the script:
@@ -445,6 +448,101 @@ epoch: 7 step: 156, loss is 1.3515002
 epoch: 8 step: 156, loss is 1.2943741
 epoch: 9 step: 156, loss is 1.2316195
 epoch: 10 step: 156, loss is 1.1533381
+```
+
+### Multi-host Training
+
+The previous chapters introduced the distributed training of MindSpore, which is based on the Ascend environment of a single host with multiple cards. Using multiple hosts for distributed training can greatly improve the training speed.
+In the Ascend environment, the communication between NPU units across hosts is the same as the communication between each NPU unit in a single host. It is still communicated through HCCL. The difference is that the NPU units in a single host are naturally interoperable, while cross-host communication needs to be guaranteed that the networks of the two hosts are interoperable.
+After confirming that the network of the NPU unit between the hosts is smooth, configure the json configuration file of multiple hosts. This tutorial takes the configuration file of 16 cards as an example. The detailed configuration file description can refer to the introduction of the single-host multi-card part of this tutorial. It should be noted that in the json file configuration of multiple hosts, the order of rank_id is required to be consistent with the lexicographic order of server_id.
+
+```json
+{
+    "version": "1.0",
+    "server_count": "2",
+    "server_list": [
+        {
+            "server_id": "10.155.111.140",
+            "device": [
+                {"device_id": "0","device_ip": "192.1.27.6","rank_id": "0"},
+                {"device_id": "1","device_ip": "192.2.27.6","rank_id": "1"},
+                {"device_id": "2","device_ip": "192.3.27.6","rank_id": "2"},
+                {"device_id": "3","device_ip": "192.4.27.6","rank_id": "3"},
+                {"device_id": "4","device_ip": "192.1.27.7","rank_id": "4"},
+                {"device_id": "5","device_ip": "192.2.27.7","rank_id": "5"},
+                {"device_id": "6","device_ip": "192.3.27.7","rank_id": "6"},
+                {"device_id": "7","device_ip": "192.4.27.7","rank_id": "7"}],
+             "host_nic_ip": "reserve"
+        },
+        {
+            "server_id": "10.155.111.141",
+            "device": [
+                {"device_id": "0","device_ip": "192.1.27.8","rank_id": "8"},
+                {"device_id": "1","device_ip": "192.2.27.8","rank_id": "9"},
+                {"device_id": "2","device_ip": "192.3.27.8","rank_id": "10"},
+                {"device_id": "3","device_ip": "192.4.27.8","rank_id": "11"},
+                {"device_id": "4","device_ip": "192.1.27.9","rank_id": "12"},
+                {"device_id": "5","device_ip": "192.2.27.9","rank_id": "13"},
+                {"device_id": "6","device_ip": "192.3.27.9","rank_id": "14"},
+                {"device_id": "7","device_ip": "192.4.27.9","rank_id": "15"}],
+            "host_nic_ip": "reserve"
+        }
+    ],
+    "status": "completed"
+}
+```
+
+After preparing the configuration file, you can organize distributed multi-host training scripts. Taking 2 hosts with 16 cards as an example, the scripts written on the two hosts are similar to the running scripts of a single host with multiple cards. The difference is that different rank_id variables are specified.
+
+```bash
+#!/bin/bash
+
+echo "=============================================================================================================="
+echo "Please run the script as: "
+echo "bash run_cluster.sh DATA_PATH RANK_TABLE_FILE RANK_SIZE RANK_START"
+echo "For example: bash run_cluster.sh /path/dataset /path/rank_table.json 16 0"
+echo "It is better to use the absolute path."
+echo "The time interval between multiple hosts to execute the script should not exceed 120s"
+echo "=============================================================================================================="
+
+execute_path=$(pwd)
+echo ${execute_path}
+script_self=$(readlink -f "$0")
+self_path=$(dirname "${script_self}")
+echo ${self_path}
+
+export DATA_PATH=$1
+export RANK_TABLE_FILE=$2
+export RANK_SIZE=$3
+RANK_START=$4
+DEVICE_START=0
+for((i=0;i<=7;i++));
+do
+  export RANK_ID=$[i+RANK_START]
+  export DEVICE_ID=$[i+DEVICE_START]
+  rm -rf ${execute_path}/device_$RANK_ID
+  mkdir ${execute_path}/device_$RANK_ID
+  cd ${execute_path}/device_$RANK_ID || exit
+  pytest -s ${self_path}/resnet50_distributed_training.py >train$RANK_ID.log 2>&1 &
+done
+```
+
+For the reference scripts listed above, the required code organization structure is as follows. The script will get the path of the script and the path of the command execution, and put all tasks in the background for execution, the code link can be obtained at the top of this tutorial.
+
+```text
+└─sample_code
+    ├─distributed_training
+    │      resnet50_distributed_training.py
+    │      run_cluster.sh
+```
+
+When executing, the two hosts execute the following commands respectively, among which rank_table.json is configured according to the 16-card distributed json file reference configuration shown in this chapter.
+
+```bash
+# server0
+bash run.sh /path/dataset /path/rank_table.json 16 0
+# server1
+bash run.sh /path/dataset /path/rank_table.json 16 8
 ```
 
 ## Distributed Training Model Parameters Saving and Loading
@@ -576,98 +674,3 @@ It should be noted that if users choose this checkpoint saving policy, users nee
 ### Hybrid Parallel Mode
 
 For model parameter saving and loading in Hybrid Parallel Mode, please refer to [Saving and Loading Model Parameters in the Hybrid Parallel Scenario](https://www.mindspore.cn/docs/programming_guide/en/master/save_load_model_hybrid_parallel.html).
-
-## Multi-machine Training
-
-The previous chapters introduced the distributed training of MindSpore, which is based on the Ascend environment of a single machine with multiple cards. Using multiple machines for distributed training can greatly improve the training speed.
-In the Ascend environment, the communication between NPU units across machines is the same as the communication between each NPU unit in a single machine. It is still communicated through HCCL. The difference is that the NPU units in a single machine are naturally interoperable, while cross-machine communication needs to be guaranteed that the networks of the two machines are interoperable.
-After confirming that the network of the NPU unit between the machines is smooth, configure the json configuration file of multiple machines. This tutorial takes the configuration file of 16 cards as an example. The detailed configuration file description can refer to the introduction of the single-machine multi-card part of this tutorial. It should be noted that in the json file configuration of multiple machines, the order of rank_id is required to be consistent with the lexicographic order of server_id.
-
-```json
-{
-    "version": "1.0",
-    "server_count": "2",
-    "server_list": [
-        {
-            "server_id": "10.155.111.140",
-            "device": [
-                {"device_id": "0","device_ip": "192.1.27.6","rank_id": "0"},
-                {"device_id": "1","device_ip": "192.2.27.6","rank_id": "1"},
-                {"device_id": "2","device_ip": "192.3.27.6","rank_id": "2"},
-                {"device_id": "3","device_ip": "192.4.27.6","rank_id": "3"},
-                {"device_id": "4","device_ip": "192.1.27.7","rank_id": "4"},
-                {"device_id": "5","device_ip": "192.2.27.7","rank_id": "5"},
-                {"device_id": "6","device_ip": "192.3.27.7","rank_id": "6"},
-                {"device_id": "7","device_ip": "192.4.27.7","rank_id": "7"}],
-             "host_nic_ip": "reserve"
-        },
-        {
-            "server_id": "10.155.111.141",
-            "device": [
-                {"device_id": "0","device_ip": "192.1.27.8","rank_id": "8"},
-                {"device_id": "1","device_ip": "192.2.27.8","rank_id": "9"},
-                {"device_id": "2","device_ip": "192.3.27.8","rank_id": "10"},
-                {"device_id": "3","device_ip": "192.4.27.8","rank_id": "11"},
-                {"device_id": "4","device_ip": "192.1.27.9","rank_id": "12"},
-                {"device_id": "5","device_ip": "192.2.27.9","rank_id": "13"},
-                {"device_id": "6","device_ip": "192.3.27.9","rank_id": "14"},
-                {"device_id": "7","device_ip": "192.4.27.9","rank_id": "15"}],
-            "host_nic_ip": "reserve"
-        }
-    ],
-    "status": "completed"
-}
-```
-
-After preparing the configuration file, you can organize distributed multi-machine training scripts. Taking 2 machines with 16 cards as an example, the scripts written on the two machines are similar to the running scripts of a single machine with multiple cards. The difference is that different rank_id variables are specified.
-
-```bash
-#!/bin/bash
-
-echo "=============================================================================================================="
-echo "Please run the script as: "
-echo "bash run_cluster.sh DATA_PATH RANK_TABLE_FILE RANK_SIZE RANK_START"
-echo "For example: bash run_cluster.sh /path/dataset /path/rank_table.json 16 0"
-echo "It is better to use the absolute path."
-echo "The time interval between multiple machines to execute the script should not exceed 120s"
-echo "=============================================================================================================="
-
-execute_path=$(pwd)
-echo ${execute_path}
-script_self=$(readlink -f "$0")
-self_path=$(dirname "${script_self}")
-echo ${self_path}
-
-export DATA_PATH=$1
-export RANK_TABLE_FILE=$2
-export RANK_SIZE=$3
-RANK_START=$4
-DEVICE_START=0
-for((i=0;i<=7;i++));
-do
-  export RANK_ID=$[i+RANK_START]
-  export DEVICE_ID=$[i+DEVICE_START]
-  rm -rf ${execute_path}/device_$RANK_ID
-  mkdir ${execute_path}/device_$RANK_ID
-  cd ${execute_path}/device_$RANK_ID || exit
-  pytest -s ${self_path}/resnet50_distributed_training.py >train$RANK_ID.log 2>&1 &
-done
-```
-
-For the reference scripts listed above, the required code organization structure is as follows. The script will get the path of the script and the path of the command execution, and put all tasks in the background for execution, the code link can be obtained at the top of this tutorial.
-
-```text
-└─sample_code
-    ├─distributed_training
-    │      resnet50_distributed_training.py
-    │      run_cluster.sh
-```
-
-When executing, the two machines execute the following commands respectively, among which rank_table.json is configured according to the 16-card distributed json file reference configuration shown in this chapter.
-
-```bash
-# server0
-bash run.sh /path/dataset /path/rank_table.json 16 0
-# server1
-bash run.sh /path/dataset /path/rank_table.json 16 8
-```

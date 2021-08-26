@@ -19,12 +19,13 @@
         - [定义优化器](#定义优化器)
     - [训练网络](#训练网络)
     - [运行脚本](#运行脚本)
+        - [单机多卡训练](#单机多卡训练)
+        - [多机多卡训练](#多机多卡训练)
     - [分布式训练模型参数保存和加载](#分布式训练模型参数保存和加载)
         - [自动并行模式](#自动并行模式)
         - [数据并行模式](#数据并行模式)
         - [半自动并行模式](#半自动并行模式-1)
         - [手动混合并行模式](#手动混合并行模式-1)
-    - [多机多卡训练](#多机多卡训练)
 
 <!-- /TOC -->
 
@@ -358,6 +359,8 @@ def test_train_cifar(epoch_size=10):
 
 ## 运行脚本
 
+### 单机多卡训练
+
 上述已将训练所需的脚本编辑好了，接下来通过命令调用对应的脚本。
 
 目前MindSpore分布式执行采用单卡单进程运行方式，即每张卡上运行1个进程，进程数量与使用的卡的数量一致。其中，0卡在前台执行，其他卡放在后台执行。每个进程创建1个目录，用来保存日志信息以及算子编译信息。下面以使用8张卡的分布式训练脚本为例，演示如何运行脚本：
@@ -447,6 +450,101 @@ epoch: 7 step: 156, loss is 1.3515002
 epoch: 8 step: 156, loss is 1.2943741
 epoch: 9 step: 156, loss is 1.2316195
 epoch: 10 step: 156, loss is 1.1533381
+```
+
+### 多机多卡训练
+
+前面的章节，对MindSpore的分布式训练进行了介绍，都是基于单机多卡的Ascend环境，使用多机进行分布式训练，可以更大地提升训练速度。
+在Ascend环境下，跨机器的NPU单元的通信与单机内各个NPU单元的通信一样，依旧是通过HCCL进行通信，区别在于，单机内的NPU单元天然的是互通的，而跨机器的则需要保证两台机器的网络是互通的。
+在确认了机器之间的NPU单元的网络是通畅后，配置多机的json配置文件，本教程以16卡的配置文件为例，详细的配置文件说明可以参照本教程单机多卡部分的介绍。需要注意的是，在多机的json文件配置中，要求rank_id的排序，与server_id的字典序一致。
+
+```json
+{
+    "version": "1.0",
+    "server_count": "2",
+    "server_list": [
+        {
+            "server_id": "10.155.111.140",
+            "device": [
+                {"device_id": "0","device_ip": "192.1.27.6","rank_id": "0"},
+                {"device_id": "1","device_ip": "192.2.27.6","rank_id": "1"},
+                {"device_id": "2","device_ip": "192.3.27.6","rank_id": "2"},
+                {"device_id": "3","device_ip": "192.4.27.6","rank_id": "3"},
+                {"device_id": "4","device_ip": "192.1.27.7","rank_id": "4"},
+                {"device_id": "5","device_ip": "192.2.27.7","rank_id": "5"},
+                {"device_id": "6","device_ip": "192.3.27.7","rank_id": "6"},
+                {"device_id": "7","device_ip": "192.4.27.7","rank_id": "7"}],
+             "host_nic_ip": "reserve"
+        },
+        {
+            "server_id": "10.155.111.141",
+            "device": [
+                {"device_id": "0","device_ip": "192.1.27.8","rank_id": "8"},
+                {"device_id": "1","device_ip": "192.2.27.8","rank_id": "9"},
+                {"device_id": "2","device_ip": "192.3.27.8","rank_id": "10"},
+                {"device_id": "3","device_ip": "192.4.27.8","rank_id": "11"},
+                {"device_id": "4","device_ip": "192.1.27.9","rank_id": "12"},
+                {"device_id": "5","device_ip": "192.2.27.9","rank_id": "13"},
+                {"device_id": "6","device_ip": "192.3.27.9","rank_id": "14"},
+                {"device_id": "7","device_ip": "192.4.27.9","rank_id": "15"}],
+            "host_nic_ip": "reserve"
+        }
+    ],
+    "status": "completed"
+}
+```
+
+准备好配置文件后，可以进行分布式多机训练脚本的组织，在以2机16卡为例，两台机器上编写的脚本与单机多卡的运行脚本类似，区别在于指定不同的rank_id变量。
+
+```bash
+#!/bin/bash
+
+echo "=============================================================================================================="
+echo "Please run the script as: "
+echo "bash run_cluster.sh DATA_PATH RANK_TABLE_FILE RANK_SIZE RANK_START"
+echo "For example: bash run_cluster.sh /path/dataset /path/rank_table.json 16 0"
+echo "It is better to use the absolute path."
+echo "The time interval between multiple machines to execute the script should not exceed 120s"
+echo "=============================================================================================================="
+
+execute_path=$(pwd)
+echo ${execute_path}
+script_self=$(readlink -f "$0")
+self_path=$(dirname "${script_self}")
+echo ${self_path}
+
+export DATA_PATH=$1
+export RANK_TABLE_FILE=$2
+export RANK_SIZE=$3
+RANK_START=$4
+DEVICE_START=0
+for((i=0;i<=7;i++));
+do
+  export RANK_ID=$[i+RANK_START]
+  export DEVICE_ID=$[i+DEVICE_START]
+  rm -rf ${execute_path}/device_$RANK_ID
+  mkdir ${execute_path}/device_$RANK_ID
+  cd ${execute_path}/device_$RANK_ID || exit
+  pytest -s ${self_path}/resnet50_distributed_training.py >train$RANK_ID.log 2>&1 &
+done
+```
+
+上面列出的参考脚本，所要求的代码组织结构如下，脚本中会获取脚本所在路径以及命令执行的路径，并且将所有任务都置于后台执行，完整的代码链接请于本教程置顶处获取。
+
+```text
+└─sample_code
+    ├─distributed_training
+    │      resnet50_distributed_training.py
+    │      run_cluster.sh
+```
+
+执行时，两台机器分别执行如下命令，其中rank_table.json按照本章节展示的16卡的分布式json文件参考配置。
+
+```bash
+# server0
+bash run_cluster.sh /path/dataset /path/rank_table.json 16 0
+# server1
+bash run_cluster.sh /path/dataset /path/rank_table.json 16 8
 ```
 
 ## 分布式训练模型参数保存和加载
@@ -578,98 +676,3 @@ ckpt_config = CheckpointConfig(keep_checkpoint_max=1, integrated_save=False)
 ### 手动混合并行模式
 
 手动混合并行模式（Hybrid Parallel）的模型参数保存和加载请参考[手动设置并行场景模型参数的保存和加载](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/save_load_model_hybrid_parallel.html)。
-
-## 多机多卡训练
-
-前面的章节，对MindSpore的分布式训练进行了介绍，都是基于单机多卡的Ascend环境，使用多机进行分布式训练，可以更大地提升训练速度。
-在Ascend环境下，跨机器的NPU单元的通信与单机内各个NPU单元的通信一样，依旧是通过HCCL进行通信，区别在于，单机内的NPU单元天然的是互通的，而跨机器的则需要保证两台机器的网络是互通的。
-在确认了机器之间的NPU单元的网络是通畅后，配置多机的json配置文件，本教程以16卡的配置文件为例，详细的配置文件说明可以参照本教程单机多卡部分的介绍。需要注意的是，在多机的json文件配置中，要求rank_id的排序，与server_id的字典序一致。
-
-```json
-{
-    "version": "1.0",
-    "server_count": "2",
-    "server_list": [
-        {
-            "server_id": "10.155.111.140",
-            "device": [
-                {"device_id": "0","device_ip": "192.1.27.6","rank_id": "0"},
-                {"device_id": "1","device_ip": "192.2.27.6","rank_id": "1"},
-                {"device_id": "2","device_ip": "192.3.27.6","rank_id": "2"},
-                {"device_id": "3","device_ip": "192.4.27.6","rank_id": "3"},
-                {"device_id": "4","device_ip": "192.1.27.7","rank_id": "4"},
-                {"device_id": "5","device_ip": "192.2.27.7","rank_id": "5"},
-                {"device_id": "6","device_ip": "192.3.27.7","rank_id": "6"},
-                {"device_id": "7","device_ip": "192.4.27.7","rank_id": "7"}],
-             "host_nic_ip": "reserve"
-        },
-        {
-            "server_id": "10.155.111.141",
-            "device": [
-                {"device_id": "0","device_ip": "192.1.27.8","rank_id": "8"},
-                {"device_id": "1","device_ip": "192.2.27.8","rank_id": "9"},
-                {"device_id": "2","device_ip": "192.3.27.8","rank_id": "10"},
-                {"device_id": "3","device_ip": "192.4.27.8","rank_id": "11"},
-                {"device_id": "4","device_ip": "192.1.27.9","rank_id": "12"},
-                {"device_id": "5","device_ip": "192.2.27.9","rank_id": "13"},
-                {"device_id": "6","device_ip": "192.3.27.9","rank_id": "14"},
-                {"device_id": "7","device_ip": "192.4.27.9","rank_id": "15"}],
-            "host_nic_ip": "reserve"
-        }
-    ],
-    "status": "completed"
-}
-```
-
-准备好配置文件后，可以进行分布式多机训练脚本的组织，在以2机16卡为例，两台机器上编写的脚本与单机多卡的运行脚本类似，区别在于指定不同的rank_id变量。
-
-```bash
-#!/bin/bash
-
-echo "=============================================================================================================="
-echo "Please run the script as: "
-echo "bash run_cluster.sh DATA_PATH RANK_TABLE_FILE RANK_SIZE RANK_START"
-echo "For example: bash run_cluster.sh /path/dataset /path/rank_table.json 16 0"
-echo "It is better to use the absolute path."
-echo "The time interval between multiple machines to execute the script should not exceed 120s"
-echo "=============================================================================================================="
-
-execute_path=$(pwd)
-echo ${execute_path}
-script_self=$(readlink -f "$0")
-self_path=$(dirname "${script_self}")
-echo ${self_path}
-
-export DATA_PATH=$1
-export RANK_TABLE_FILE=$2
-export RANK_SIZE=$3
-RANK_START=$4
-DEVICE_START=0
-for((i=0;i<=7;i++));
-do
-  export RANK_ID=$[i+RANK_START]
-  export DEVICE_ID=$[i+DEVICE_START]
-  rm -rf ${execute_path}/device_$RANK_ID
-  mkdir ${execute_path}/device_$RANK_ID
-  cd ${execute_path}/device_$RANK_ID || exit
-  pytest -s ${self_path}/resnet50_distributed_training.py >train$RANK_ID.log 2>&1 &
-done
-```
-
-上面列出的参考脚本，所要求的代码组织结构如下，脚本中会获取脚本所在路径以及命令执行的路径，并且将所有任务都置于后台执行，完整的代码链接请于本教程置顶处获取。
-
-```text
-└─sample_code
-    ├─distributed_training
-    │      resnet50_distributed_training.py
-    │      run_cluster.sh
-```
-
-执行时，两台机器分别执行如下命令，其中rank_table.json按照本章节展示的16卡的分布式json文件参考配置。
-
-```bash
-# server0
-bash run_cluster.sh /path/dataset /path/rank_table.json 16 0
-# server1
-bash run_cluster.sh /path/dataset /path/rank_table.json 16 8
-```
