@@ -98,3 +98,17 @@ mindspore.dataset.vision.py_transforms
     mindspore.dataset.vision.py_transforms.ToTensor
     mindspore.dataset.vision.py_transforms.ToType
     mindspore.dataset.vision.py_transforms.UniformAugment
+
+
+mindspore.dataset.vision.utils
+----------------------------
+
+.. autosummary::
+    :toctree: dataset_vision
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.dataset.vision.utils.Border
+    mindspore.dataset.vision.utils.ImageBatchFormat
+    mindspore.dataset.vision.utils.Inter
+    mindspore.dataset.vision.utils.SliceMode
