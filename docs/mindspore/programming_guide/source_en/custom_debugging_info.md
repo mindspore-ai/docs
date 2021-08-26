@@ -304,7 +304,7 @@ Running Data Recorder(RDR) is the feature MindSpore provides to record data whil
     {
         "rdr": {
             "enable": true,
-            "path": "/home/mindspore/rdr"
+            "path": "/path/to/rdr/dir"
         }
     }
     ```
@@ -321,7 +321,7 @@ Running Data Recorder(RDR) is the feature MindSpore provides to record data whil
 
 #### Set RDR By Environment Variables
 
-Set `export MS_RDR_ENABLE=1` to enable RDR, and set the absolute path for recording data: `export MS_RDR_PATH=/absolute/path`.
+Set `export MS_RDR_ENABLE=1` to enable RDR, and set the root directory by `export MS_RDR_PATH=/path/to/root/dir` for recording data. The final directory for recoding data is `/path/to/root/dir/rank_{RANK_ID}/rdr/`. `{RANK_ID}` is the unique ID for multi-cards training, the single card scenario defaults to `RANK_ID=0`.
 
 > The configuration file set by the user takes precedence over the environment variables.
 
@@ -329,7 +329,7 @@ Set `export MS_RDR_ENABLE=1` to enable RDR, and set the absolute path for record
 
 If MindSpore is used for training on Ascend 910, there is an exception `Run task error` in training.
 
-When we go to the directory `/home/mindspore-rdr`, we can see several files appear in this directory, each file represents a kind of data. For example, `hwopt_d_before_graph_0.ir` is a computational graph file. You can use a text tool to open this file to view the calculational graph and analyze whether the calculational graph meets your expectations.
+When we go to the directory for recording data, we can see several files appear in this directory, each file represents a kind of data. For example, `hwopt_d_before_graph_0.ir` is a computational graph file. You can use a text tool to open this file to view the calculational graph and analyze whether the calculational graph meets your expectations.
 
 ## Log-related Environment Variables and Configurations
 

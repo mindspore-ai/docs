@@ -308,7 +308,7 @@ Running Data Recorder(RDR)是MindSpore提供训练程序运行时记录数据的
     {
         "rdr": {
             "enable": true,
-            "path": "/home/mindspore/rdr"
+            "path": "/path/to/rdr/dir"
         }
     }
     ```
@@ -325,7 +325,7 @@ Running Data Recorder(RDR)是MindSpore提供训练程序运行时记录数据的
 
 #### 通过环境变量配置RDR
 
-通过`export MS_RDR_ENABLE=1`来开启RDR, 然后设置RDR文件导出路径: `export MS_RDR_PATH=/absolute/path`.
+通过`export MS_RDR_ENABLE=1`来开启RDR，然后通过`export MS_RDR_PATH=/path/to/root/dir`设置RDR文件导出的根目录路径，最终RDR文件将保存在`/path/to/root/dir/rank_{RANK_ID}/rdr/`目录下。其中`RANK_ID`为多卡训练场景中的卡号，单卡场景默认`RANK_ID=0`。
 
 > 用户设置的配置文件优先级高于环境变量。
 
@@ -333,7 +333,7 @@ Running Data Recorder(RDR)是MindSpore提供训练程序运行时记录数据的
 
 假如在Ascend 910上使用MindSpore进行训练，训练出现了`Run task error`异常。
 
-这时我们到`/home/mindspore/rdr`目录中，可以看到有几个文件出现在该目录中，每一个文件都代表着一种数据。比如 `hwopt_d_before_graph_0.ir` 该文件为计算图文件。可以使用文本工具打开该文件，用以查看计算图，分析计算图是否符合预期。
+这时我们到RDR文件的导出目录中，可以看到有几个文件，每一个文件都代表着一种数据。比如 `hwopt_d_before_graph_0.ir` 该文件为计算图文件。可以使用文本工具打开该文件，用以查看计算图，分析计算图是否符合预期。
 
 ## 内存复用
 
