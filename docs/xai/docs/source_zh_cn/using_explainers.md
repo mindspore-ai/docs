@@ -2,7 +2,7 @@
 
 `Linux` `Ascend` `GPU` `模型调优` `初级` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_zh_cn/using_expainers.md" target="_blank"><img src="https：//gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_zh_cn/using_explainers.md" target="_blank"><img src="https：//gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 <!-- TOC -->
 
@@ -13,8 +13,8 @@
         - [准备 Python 环境](#准备-python-环境)
     - [使用 GradCAM](#使用-gradcam)
         - [批次解释](#批次解释)
-    - [使用其他解释器](#使用其他解释器)
-    - [使用 RISEPlus](#使用-riseplus)
+        - [使用其他解释器](#使用其他解释器)
+        - [使用 RISEPlus](#使用-riseplus)
 
 <!-- /TOC -->
 
