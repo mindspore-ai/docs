@@ -1,10 +1,10 @@
 class Cifar100Dataset(MappableDataset):
     """
-    用于读取和解析Cifar100数据集的源数据集。
+    用于读取和解析Cifar100数据集,生成新的数据集文件。
 
     生成的数据集有三列 :py:obj:`[image, coarse_label, fine_label]`。
-    :py:obj:`image` 是uint8类型。
-    :py:obj:`coarse_label` 和 :py:obj:`fine_labels` 都是uint32类型的标量。
+    :py:obj:`image` 列的数据类型是uint8。
+    :py:obj:`coarse_label` 和 :py:obj:`fine_labels` 列的数据是uint32类型的标量。
 
     参数:
         dataset_dir (str): 包含数据集的根目录。

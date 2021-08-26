@@ -1,14 +1,14 @@
 class MnistDataset(MappableDataset):
     """
-    用于读取和解析MNIST数据集的源数据集。
+    用于读取和解析MNIST数据集,，生成新的数据集文件。
 
     生成的数据集有两列: :py:obj:`[image, label]`.
-    :py:obj:`image` 是uint8类型。
-    :py:obj:`label` 是uint32类型的标量。
+    :py:obj:`image` 列的数据类型为uint8。
+    :py:obj:`label` 列的数据为uint32的标量。
 
     参数:
         dataset_dir (str): 包含数据集的根目录。
-        usage (str, optional): 加载的数据集分片，可以是 `train`, `test` 或 `all` . 使用`train`参数将会读取50,000训练样本, `test` 将会读取10,000测试样本, `all` 将会读取全部60,000样本(默认值为None, 即全部样本图片)。
+        usage (str, optional): 加载的数据集分片，可以是 `train`, `test` 或 `all` . 使用`train`参数将会读取60,000训练样本, `test` 将会读取10,000测试样本, `all` 将会读取全部70,000样本(默认值为None, 即全部样本图片)。
         num_samples (int, optional): 数据集包含的图片数量(默认值为None, 即全部样本图片)。
         num_parallel_workers (int, optional): 用于读取数据的线程数(默认值None, 使用配置文件中的配置）
         shuffle (bool, optional):是否打乱数据集样本顺序(默认值None, 详情见下表参数及预期行为所示)。

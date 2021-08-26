@@ -1,15 +1,15 @@
 class Cifar10Dataset(MappableDataset):
     """
-    用于读取和解析Cifar10数据集的源数据集。该api目前仅支持解析二进制版本的 Cifar10 文件。
+    用于读取和解析Cifar10数据集，生成新的数据集文件。该API目前仅支持解析二进制版本的 Cifar10 文件。
 
     生成的数据集有两列:py:obj:`[image, label]`。
-    :py:obj:`image` 是uint8类型。
-    :py:obj:`label` 是uint32类型的标量。
+    :py:obj:`image` 列的数据类型是uint8。
+    :py:obj:`label` 列的数据是uint32类型的标量。
 
     参数:
         dataset_dir (str): 包含数据集的根目录。
         usage (str, optional): 加载的数据集分片，可以是 `train`, `test` 或 `all` . 使用`train`参数将会读取50,000训练样本, `test` 将会读取10,000测试样本, `all` 将会读取全部60,000样本(默认值为None, 即全部样本图片)。
-        num_samples (int, optional): 数据集包含的图片数量(默认值为None, 即全部样本图片)。
+        num_samples (int, optional): 指定从原始数据集读取的图片数量（可以小于数据集总数，默认值为None, 即全部样本图片)。
         num_parallel_workers (int, optional): 用于读取数据的线程数(默认值None, 使用配置文件中的配置）
         shuffle (bool, optional):是否打乱数据集样本顺序(默认值None, 详情见下表参数及预期行为所示)。
         sampler (Sampler, optional): 用于加载数据集的采样器(默认值None, 详情见下表参数及预期行为所示)。
@@ -76,12 +76,12 @@ class Cifar10Dataset(MappableDataset):
         | 以下为原始CIFAR-10 数据集结构。
         | 您可以将数据集解压成如下的文件结构，并通过Mindspore的API进行读取。
         | .
-         ������ cifar-10-batches-bin
-              ������ data_batch_1.bin
-              ������ data_batch_2.bin
-              ������ data_batch_3.bin
-              ������ data_batch_4.bin
-              ������ data_batch_5.bin
-              ������ test_batch.bin
-              ������ readme.html
-              ������ batches.meta.txt
+        | ������ cifar-10-batches-bin
+        |      ������ data_batch_1.bin
+        |      ������ data_batch_2.bin
+        |      ������ data_batch_3.bin
+        |      ������ data_batch_4.bin
+        |      ������ data_batch_5.bin
+        |      ������ test_batch.bin
+        |      ������ readme.html
+        |      ������ batches.meta.txt
