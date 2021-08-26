@@ -105,7 +105,15 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torch.nn.LSTMCell                                    | mindspore.nn.LSTMCell                                          | same |
 | torch.nn.MaxPool2d                                   | mindspore.nn.MaxPool2d                                         | same |
 | torch.nn.Module                                      | mindspore.nn.Cell                                              | same |
+| torch.nn.Module.add_module                                      | mindspore.nn.Cell.insert_child_to_cell                          | same |
+| torch.nn.Module.buffers                     | mindspore.nn.Cell.untrainable_params                              |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/UnTrainableParams.md)|
+| torch.nn.Module.children                                      | mindspore.nn.Cell.cells                          |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/Cells.md)|
 | torch.nn.Module.load_state_dict                      | mindspore.load_param_into_net                                  | same |
+| torch.nn.Module.named_children                     | mindspore.nn.Cell.name_cells                              |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/NameCells.md)|
+| torch.nn.Module.named_modules                      | mindspore.nn.Cell.cells_and_names                              | same |
+| torch.nn.Module.parameters                     | mindspore.nn.Cell.trainable_params                              |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/trainableParams.md)|
+| torch.nn.Module.state_dict                      | mindspore.nn.Cell.parameters_dict                              | same |
+| torch.nn.Module.train                      | mindspore.nn.Cell.set_train                              | same |
 | torch.nn.ModuleList                                  | mindspore.nn.CellList                                          | same |
 | torch.nn.MSELoss                                     | mindspore.nn.MSELoss                                           | same |
 | torch.nn.Parameter                                   | mindspore.Parameter                                            | same |
