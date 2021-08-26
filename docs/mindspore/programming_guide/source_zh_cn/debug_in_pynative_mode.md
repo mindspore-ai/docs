@@ -10,6 +10,7 @@
     - [执行普通函数](#执行普通函数)
         - [提升PyNative性能](#提升pynative性能)
     - [调试网络训练模型](#调试网络训练模型)
+    - [PyNative下同步执行](#PyNative下同步执行)
 
 <!-- /TOC -->
 
@@ -30,7 +31,7 @@ MindSpore支持两种运行模式，在调试或者运行方面做了不同的�
 
 PyNative模式下，支持执行单算子、普通函数和网络，以及单独求梯度的操作。下面将详细介绍使用方法和注意事项。
 
-> PyNative模式下为了提升性能，算子在device上使用了异步执行方式，因此在算子执行错误的时候，错误信息可能会在程序执行到最后才显示。
+> PyNative模式下为了提升性能，算子在device上使用了异步执行方式，因此在算子执行错误的时候，错误信息可能会在程序执行到最后才显示。因此在PyNative模式下，增加了一个pynative_synchronize的设置来控制算子device上是否使用异步执行。
 >
 > 下述例子中，参数初始化使用了随机值，在具体执行中输出的结果可能与本地执行输出的结果不同；如果需要稳定输出固定的值，可以设置固定的随机种子，设置方法请参考[mindspore.set_seed()](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.set_seed.html)。
 
@@ -390,3 +391,63 @@ print(loss)
 ```
 
 上述执行方式中，可以在`construct`函数任意需要的地方设置断点，获取网络执行的中间结果，通过pdb的方式对网络进行调试。
+
+## PyNative下同步执行
+
+PyNative模式下算子默认为异步执行，可以通过设置context来控制是否异步执行，当算子执行失败时，可以方便地通过调用栈看到出错的代码位置。
+
+设置为同步执行：
+
+```python
+context.set_context(pynative_synchronize=True)
+```
+
+示例代码:
+
+```python
+import numpy as np
+import mindspore.context as context
+import mindspore.nn as nn
+from mindspore import Tensor
+from mindspore import dtype as mstype
+import mindspore.ops as ops
+
+context.set_context(mode=context.PYNATIVE_MODE, device_target="Ascend", pynative_synchronize=True)
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.get_next = ops.GetNext([mstype.float32], [(1, 1)], 1, "test")
+
+    def construct(self, x1,):
+        x = self.get_next()
+        x = x + x1
+        return x
+
+context.set_context()
+x1 = np.random.randn(1, 1).astype(np.float32)
+net = Net()
+output = net(Tensor(x1))
+print(output.asnumpy())
+```
+
+输出：此时算子为同步执行，当算子执行错误时，可以看到完整的调用栈，找到出错的代码行。
+
+```text
+Traceback (most recent call last):
+  File "test_pynative_sync_control.py", line 41, in <module>
+    output = net(Tensor(x1))
+  File "mindspore/mindspore/nn/cell.py", line 406, in <module>
+    output = self.run_construct(cast_inputs, kwargs)
+  File "mindspore/mindspore/nn/cell.py", line 348, in <module>
+    output = self.construct(*cast_inputs, **kwargs)
+  File "test_pynative_sync_control.py", line 33, in <module>
+    x = self.get_next()
+  File "mindspore/mindspore/ops/primitive.py", line 247, in <module>
+    return _run_op(self, self.name, args)
+  File "mindspore/mindspore/common/api.py", line 77, in <module>
+    results = fn(*arg, **kwargs)
+  File "mindspore/mindspore/ops/primitive.py", line 677, in _run_op
+    output = real_run_op(obj, op_name, args)
+RuntimeError: mindspore/ccsrc/runtime/device/kernel_runtime.cc:1006 DebugStreamSync] Op Default/GetNext-op0 run failed!
+```
