@@ -146,6 +146,7 @@ Math Operators
     mindspore.ops.EqualCount
     mindspore.ops.Erf
     mindspore.ops.Erfc
+    mindspore.ops.Erfinv
     mindspore.ops.Exp
     mindspore.ops.Expm1
     mindspore.ops.FloatStatus
@@ -161,6 +162,7 @@ Math Operators
     mindspore.ops.Invert
     mindspore.ops.IsInf
     mindspore.ops.IsNan
+    mindspore.ops.Lerp
     mindspore.ops.Less
     mindspore.ops.LessEqual
     mindspore.ops.LinSpace
