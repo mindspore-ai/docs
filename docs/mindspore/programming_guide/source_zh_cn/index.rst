@@ -72,7 +72,7 @@ MindSpore编程指南
    :caption: 模型运行
 
    run
-   save_and_load_model
+   save_and_load_models
    model
 
 .. toctree::

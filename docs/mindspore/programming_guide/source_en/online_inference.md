@@ -1,10 +1,10 @@
-# Online Inference with CheckPoint
+# Online Inference with Checkpoint
 
 `Linux` `Ascend` `Inference Application` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Online Inference with CheckPoint](#online-inference-with-checkpoint)
+- [Online Inference with Checkpoint](#online-inference-with-checkpoint)
     - [Use the `model.eval` interface for model validation](#use-the-modeleval-interface-for-model-validation)
         - [Local Storage](#local-storage)
         - [Remote Storage](#remote-storage)

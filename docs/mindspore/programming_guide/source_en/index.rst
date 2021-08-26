@@ -71,7 +71,7 @@ MindSpore Programming Guide
    :caption: Model Running
 
    run
-   save_and_load_model
+   save_and_load_models
    model
 
 .. toctree::

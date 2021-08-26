@@ -1,10 +1,10 @@
-# 加载CheckPoint在线推理
+# 加载Checkpoint在线推理
 
 `Linux` `Ascend` `推理应用` `初级` `中级` `高级`
 
 <!-- TOC -->
 
-- [加载CheckPoint在线推理](#加载checkpoint在线推理)
+- [加载Checkpoint在线推理](#加载checkpoint在线推理)
     - [使用`model.eval`接口进行模型验证](#使用modeleval接口进行模型验证)
         - [模型已保存在本地](#模型已保存在本地)
         - [使用MindSpore Hub从华为云加载模型](#使用mindspore-hub从华为云加载模型)
