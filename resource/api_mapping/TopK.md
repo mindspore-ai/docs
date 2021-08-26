@@ -35,9 +35,8 @@ import mindspore
 from mindspore import Tensor
 import mindspore.ops as ops
 import torch
-import numpy as np
 
-# In MindSpore, only obtain the k largest entries along the last dimension.
+# In MindSpore, obtain the first k largest entries of the last dimension.
 topk = ops.TopK()
 k = 3
 input_x = Tensor([[1, 2, 3, 4], [2, 4, 6, 8]], mindspore.float16)
@@ -51,7 +50,7 @@ print(indices)
 # [[3 2 1]]
 # [[3 2 1]]
 
-# In torch, you can set parameter dim to obtain the k largest or smallest entries along the specific dimension.
+# In torch, obtain the first k largest or smallest entries of a specific dimension.
 # largest=True
 input_x = torch.tensor([[1, 2, 3, 4], [2, 4, 6, 8]], dtype=torch.float)
 dim = 1
