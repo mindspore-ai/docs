@@ -108,7 +108,7 @@ mindspore.dataset.vision.utils
     :nosignatures:
     :template: classtemplate.rst
 
-    mindspore.dataset.vision.utils.Border
-    mindspore.dataset.vision.utils.ImageBatchFormat
-    mindspore.dataset.vision.utils.Inter
-    mindspore.dataset.vision.utils.SliceMode
+    mindspore.dataset.vision.Border
+    mindspore.dataset.vision.ImageBatchFormat
+    mindspore.dataset.vision.Inter
+    mindspore.dataset.vision.SliceMode
