@@ -39,12 +39,12 @@ mindspore.dataset.text.utils
     :nosignatures:
     :template: classtemplate.rst
 
-    mindspore.dataset.text.utils.JiebaMode
-    mindspore.dataset.text.utils.NormalizeForm
-    mindspore.dataset.text.utils.SentencePieceModel
-    mindspore.dataset.text.utils.SentencePieceVocab
-    mindspore.dataset.text.utils.SPieceTokenizerLoadType
-    mindspore.dataset.text.utils.SPieceTokenizerOutType
-    mindspore.dataset.text.utils.to_str
-    mindspore.dataset.text.utils.to_bytes
-    mindspore.dataset.text.utils.Vocab
+    mindspore.dataset.text.JiebaMode
+    mindspore.dataset.text.NormalizeForm
+    mindspore.dataset.text.SentencePieceModel
+    mindspore.dataset.text.SentencePieceVocab
+    mindspore.dataset.text.SPieceTokenizerLoadType
+    mindspore.dataset.text.SPieceTokenizerOutType
+    mindspore.dataset.text.to_str
+    mindspore.dataset.text.to_bytes
+    mindspore.dataset.text.Vocab
