@@ -299,31 +299,47 @@ print(output)
 
 ### Application in Parameter
 
+```python
+mindspore.Parameter(default_input, name=None, requires_grad=True, layerwise_parallel=False)
+```
+
+Initialize a `Parameter` object. The input data supports the `Tensor`, `Initializer`, `int`, and `float` types.
+
+The `initializer` API can be called to generate the `Initializer` object.
+
+When `init` is used to initialize `Tensor`, the `Tensor` only stores the shape and type of the tensor, not the actual data. Therefore, `Tensor` does not occupy any memory, you can call the `init_data` API to convert `Tensor` saved in `Parameter` to the actual data.
+
+You can specify a name for each `Parameter` to facilitate subsequent operations and updates. It is recommended to use the default value of `name` when initialize a parameter as one attribute of a cell, otherwise, the parameter name may be different than expected.
+
+To update a parameter, set `requires_grad` to `True`.
+
+When `layerwise_parallel` is set to True, this parameter will be filtered out during parameter broadcast and parameter gradient aggregation.
+
+For details about the configuration of distributed parallelism, see <https://www.mindspore.cn/docs/programming_guide/en/master/auto_parallel.html>.
+
+In the following example, `Parameter` objects are built using three different data types. All the three `Parameter` objects need to be updated, and layerwise parallelism is not used.  
+
 The code sample is as follows:
 
 ```python
 import numpy as np
+from mindspore import Tensor, Parameter
 from mindspore import dtype as mstype
-from mindspore import set_seed
-import mindspore.ops as ops
-from mindspore import Tensor, Parameter, context
-from mindspore.common.initializer import Normal, initializer
+from mindspore.common.initializer import initializer
 
-set_seed(1)
+x = Parameter(default_input=Tensor(np.arange(2*3).reshape((2, 3))), name='x')
+y = Parameter(default_input=initializer('ones', [1, 2, 3], mstype.float32), name='y')
+z = Parameter(default_input=2.0, name='z')
 
-weight1 = Parameter(initializer('Normal', [5, 4], mstype.float32), name="w1")
-weight2 = Parameter(initializer(Normal(0.2), [5, 4], mstype.float32), name="w2")
-input_data = Tensor(np.arange(20).reshape(5, 4), dtype=mstype.float32)
-net = ops.Add()
-output = net(input_data, weight1)
-output = net(output, weight2)
-print(output)
+print(x, "\n\n", y, "\n\n", z)
 ```
 
+The following information is displayed:
+
 ```text
-[[-0.3305102  1.0412874  2.0412874  3.0412874]
- [ 4.0412874  4.9479127  5.9479127  6.9479127]
- [ 7.947912   9.063009  10.063009  11.063009 ]
- [12.063009  13.536987  14.536987  14.857441 ]
- [15.751231  17.073082  17.808317  19.364822 ]]
+Parameter (name=x, shape=(2, 3), dtype=Int32, requires_grad=True)
+
+ Parameter (name=y, shape=(1, 2, 3), dtype=Float32, requires_grad=True)
+
+ Parameter (name=z, shape=(), dtype=Float32, requires_grad=True)
 ```
