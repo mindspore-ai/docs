@@ -434,7 +434,8 @@ Status Load(const void *model_data, size_t data_size, ModelType model_type, Grap
 
 ```cpp
 static Status ExportModel(const Model &model, ModelType model_type, const std::string &model_file,
-                        QuantizationType quantization_type = kNoQuant, bool export_inference_only = true);
+                        QuantizationType quantization_type = kNoQuant, bool export_inference_only = true,
+                        std::vector<std::string> output_tensor_name = {});
 ```
 
 - 参数
@@ -444,6 +445,7 @@ static Status ExportModel(const Model &model, ModelType model_type, const std::s
     - `model_file`：保存的模型文件。
     - `quantization_type`: 量化类型。
     - `export_inference_only`: 是否导出只做推理的模型。
+    - `output_tensor_name`: 设置导出的推理模型的输出张量的名称，默认为空，导出完整的推理模型。
 
 - 返回值
 
