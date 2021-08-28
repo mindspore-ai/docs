@@ -35,7 +35,7 @@ pip install mindspore_xai-{version}-py3-none-any.whl
 1. Download source code from gitee.com:
 
     ```bash
-    git clone https://giee.com/mindspore/xai.git
+    git clone https://gitee.com/mindspore/xai.git
     ```
 
 2. Install the dependency python modules:
