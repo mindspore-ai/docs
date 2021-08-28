@@ -74,30 +74,19 @@ The following describes the parameters in detail.
 | `--modelFile=<MODELFILE>` | Yes | Path of the input model. | - | - |
 | `--outputFile=<OUTPUTFILE>` | Yes | Path of the output model. The suffix `.ms` can be automatically generated. | - | - |
 | `--weightFile=<WEIGHTFILE>` | Yes (for Caffe models only) | Path of the weight file of the input model. | - | - |
-| `--quantType=<QUANTTYPE>` | No | Sets the quantization type of the model. | PostTraining: quantization after training <br>WeightQuant: only do weight quantization after training | - |
-| `--bitNum=<BITNUM>` | No | Sets the quantization bitNum when quantType is set as WeightQuant, now supports 1 bit to 16 bit quantization. | \[1, 16] | 8 |
-| `--quantWeightSize=<QUANTWEIGHTSIZE>` | No | Sets a size threshold of convolution filter when quantType is set as WeightQuant. If the size is bigger than this value, it will trigger weight quantization. | \[0, +∞) | 0 |
-| `--quantWeightChannel=<QUANTWEIGHTCHANNEL>` | No | Sets a channel number threshold of convolution filter when quantType is set as WeightQuant. If the number is bigger than this, it will trigger weight quantization. | \[0, +∞) | 16 |
-| `--configFile=<CONFIGFILE>` | No | 1) Profile path of calibration dataset when quantType is set as PostTraining; 2) Profile path of converter. | - | - |
+| `--configFile=<CONFIGFILE>` | No | 1) Configure quantization parameter; 2) Profile path of converter. | - | - |
 | `--fp16=<FP16>` | No | Serialize const tensor in Float16 data type, only effective for const tensor in Float32 data type. | on or off | off |
 | `--inputShape=<INPUTSHAPE>` | No | Set the dimension of the model input, the default is the same as the input of the original model. The model can be further optimized in some scenarios, such as models with shape operator, but the output model will lose the feature of dymatic shape. e.g. inTensorName: 1,32,32,4 | - | - |
 | `--inputFormat=<INPUTFORMAT>` | No | Set the format of model inputs. Only valid for 4-dimensional inputs. | NHWC, NCHW | NHWC |
 
 > - The parameter name and parameter value are separated by an equal sign (=) and no space is allowed between them.
 > - The Caffe model is divided into two files: model structure `*.prototxt`, corresponding to the `--modelFile` parameter; model weight `*.caffemodel`, corresponding to the `--weightFile` parameter.
-> - In order to ensure the accuracy of weight quantization, the "--bitNum" parameter should better be set to a range from 8bit to 16bit.
-> - PostTraining method currently only supports activation quantization and weight quantization in 8 bit.
 > - The priority of `--fp16` option is very low. For example, if quantization is enabled, `--fp16` will no longer take effect on const tensors that have been quantized. All in all, this option only takes effect on const tensors of Float32 when serializing model.
 
-The calibration dataset configuration file uses the `key=value` mode to define related parameters. The `key` to be configured is as follows:
+The calibration dataset configuration file uses the `key=value` mode to define related parameters. For the configuration parameters related to quantization, please refer to [post training quantization](https://www.mindspore.cn/lite/docs/en/master/use/post_training_quantization.html), and others `key` to be configured is as follows:
 
 | Parameter Name | Attribute | Function Description | Parameter Type | Default Value | Value Range |
 | -------- | ------- | -----          | -----    | -----     |  ----- |
-| image_path | Mandatory for full quantization | Directory for storing a calibration dataset. If a model has multiple inputs, enter directories where the corresponding data is stored in sequence. Use commas (,) to separate them. | String | - | The directory stores the input data that can be directly used for inference. Since the current framework does not support data preprocessing, all data must be converted in advance to meet the input requirements of inference. |
-| batch_count | Optional | Number of used inputs | Integer | 100 | (0, +∞) |
-| method_x | Optional | Input and output data quantization algorithms at the network layer | String  |  KL  | KL, MAX_MIN, or RemovalOutlier.  <br> KL: quantizes and calibrates the data range based on [KL divergence](http://on-demand.gputechconf.com/gtc/2017/presentation/s7310-8-bit-inference-with-tensorrt.pdf).  <br> MAX_MIN: data quantization parameter computed based on the maximum and minimum values.  <br> RemovalOutlier: removes the maximum and minimum values of data based on a certain proportion and then calculates the quantization parameters.  <br> If the calibration dataset is consistent with the input data during actual inference, MAX_MIN is recommended. If the noise of the calibration dataset is large, KL or RemovalOutlier is recommended.
-| thread_num | Optional | Number of threads used when the calibration dataset is used to execute the inference process | Integer | 1 | (0, +∞) |
-| bias_correction | Optional | Indicate whether to correct the quantization error. | Boolean | false | True or false. After this parameter is enabled, the accuracy of the converted model can be improved. You are advised to set this parameter to true. |
 | plugin_path | Optional | Third-party library path | String | - | If there are more than one, please use `;` to separate. |
 | disable_fusion | Optional | Indicate whether to correct the quantization error | String | off | off or on. |
 
