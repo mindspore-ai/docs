@@ -100,7 +100,7 @@ mindspore.dataset.vision.py_transforms
     mindspore.dataset.vision.py_transforms.UniformAugment
 
 mindspore.dataset.vision.utils
-----------------------------
+-------------------------------
 
 .. autosummary::
     :toctree: dataset_vision
