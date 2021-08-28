@@ -37,6 +37,7 @@ MindSpore Programming Guide
 
    dtype
    tensor
+   parameter_introduction
    operators
    cell
 
