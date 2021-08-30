@@ -43,6 +43,17 @@ Convolution Layers
     mindspore.nn.Conv3d
     mindspore.nn.Conv3dTranspose
 
+Gradient
+------------------
+
+.. msplatformautosummary::
+    :toctree: nn
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.nn.Jvp
+    mindspore.nn.Vjp
+
 Recurrent Layers
 ----------------
 
