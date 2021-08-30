@@ -380,6 +380,8 @@ Sponge Operators
     mindspore.ops.Dihedral14LJEnergy
     mindspore.ops.Dihedral14LJForce
     mindspore.ops.Dihedral14LJForceWithDirectCF
+    mindspore.ops.FFT3D
+    mindspore.ops.IFFT3D
     mindspore.ops.LJEnergy
     mindspore.ops.LJForce
     mindspore.ops.LJForceWithPMEDirectForce
