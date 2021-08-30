@@ -62,7 +62,7 @@ pip install mindspore_xai-{version}-py3-none-any.whl
 
 Upon successful installation, importing 'mindspore_xai' module in Python will cause no error:
 
-```pythonf
+```python
 import mindspore_xai
 print(mindspore_xai.__version__)
 ```

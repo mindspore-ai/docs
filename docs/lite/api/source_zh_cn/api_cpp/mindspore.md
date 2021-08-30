@@ -4,6 +4,8 @@
 
 ## 接口汇总
 
+### 类
+
 | 类名 | 描述 |
 | --- | --- |
 | [Context](#context) | 保存执行中的环境变量。 |
@@ -32,6 +34,13 @@
 | [TrainAccuracy](#trainaccuracy) | MindSpore Lite训练学习率调度类，仅MindSpore Lite支持。 |
 | [Version](#version) | 获取当前版本号，仅MindSpore Lite支持。 |
 | [Allocator](#allocator) | 内存管理基类。 |
+
+### 枚举
+
+| 接口名 | 描述 |
+| --- | --- |
+| [mindspore::DataType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_datatype.html) | MindSpore MSTensor保存的数据支持的类型。 |
+| [mindspore::Format](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_format.html) | MindSpore MSTensor保存的数据支持的排列格式。 |
 
 ## Context
 
