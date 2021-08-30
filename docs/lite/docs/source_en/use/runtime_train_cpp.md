@@ -22,9 +22,7 @@
         - [Session Mode Switching](#session-mode-switching)
         - [Obtaining Input Tensors](#obtaining-input-tensors)
         - [Obtaining Output Tensors](#obtaining-output-tensors)
-        - [Execute Training or Evaluating](#execute-training-or-evaluating)
-            - [Execute Session](#execute-session)
-            - [Execute Callback](#execute-callback)
+        - [Execute Callback](#execute-callback)
         - [Saving Model](#saving-model)
 
 <!-- /TOC -->
@@ -41,23 +39,9 @@ The principal procedures of lite training is as follows:
 
 > The model structure is saved in the transferred `ms` model file which will be load to the device platform for training.
 
-A sequence diagram explaining the train sequence is shown in the image below:
+The following figure shows the detailed training process:
 
-![img](../images/side_train_sequence.png)
-
-In this diagram the drawn objects represents:
-
-- `OS`: The operator system of user.
-- `User`: The operations of the user.
-- `MindData`: Load data from the storage and perform pre-processing (e.g., reading an image, rescaling it to a given size and converting it to bitmap) during the model training.
-- `ToD`: The training mechanism of MindSpore Lite.
-- `MS Lite`: A software module provided by MindSpore Lite, that provides flatbuffer DeSerialization into a network of nodes and interconnecting tensors. It performs graph compilation and calls the graph executor for train and inference.
-- `CreateTrainSession`: Create the object of the class `TrainSession`.
-- `CreateTrainLoop`: Create the object of the class `TrainLoop`.
-- `InitDataset`: The user self-defined functions which can load and process dataset.
-- `train_loop`: The object of the class `TrainLoop`.
-- `Train`: The member function of the class `TrainLoop`, which receives the vector of off-the-shelf  or user self-defined callbacks objects.
-- `Callbacks`: Execute the off-the-shelf or user self-defined callback functions.
+![img](../images/side_train_sequence_unify_api.png)
 
 ## Model Creating Loading and Building
 
@@ -247,7 +231,7 @@ if (ret != RET_OK) {
 Before graph execution, whether it is during training or inference, the input data must be filled-in into the model input tensors.
 MindSpore Lite provides the following methods to obtain model input tensors:
 
-1. Use the `GetInputsByTensorName` method to obtain model input tensors that are connected to the model input node based on the tensor name.
+1. Use the `GetInputByTensorName` method to obtain model input tensors that are connected to the model input node based on the tensor name.
 
     ```cpp
     /// \brief  Get MindSpore input Tensors of model by the tensor name.
@@ -255,7 +239,7 @@ MindSpore Lite provides the following methods to obtain model input tensors:
     /// \param[in] tensor_name  Define tensor name.
     ///
     /// \return  MindSpore Lite MSTensor.
-    virtual mindspore::tensor::MSTensor *GetInputsByTensorName(const std::string &tensor_name) const = 0;
+    inline MSTensor GetInputByTensorName(const std::string &tensor_name);
     ```
 
 2. Use the `GetInputs` method to directly obtain the vectors of all model input tensors.
@@ -264,7 +248,7 @@ MindSpore Lite provides the following methods to obtain model input tensors:
     /// \brief  Get input MindSpore Lite MSTensors of model.
     ///
     /// \return  The vector of MindSpore Lite MSTensor.
-    virtual std::vector<tensor::MSTensor *> GetInputs() const = 0;
+    std::vector<MSTensor> GetInputs();
     ```
 
     If the model requires more than one input tensor (this is certainly the case during training, where both data and labels serve as inputs of the network) it is the user's responsibility to know the inputs order or their tensorName. This can be obtained from the Python model.
@@ -272,47 +256,38 @@ MindSpore Lite provides the following methods to obtain model input tensors:
 
 3. Copying Data
 
-    After model input tensors are obtained, the data must be copied into the tensors. The following methods allows to access the size of the data, it's shape, the number of elements, the data type and the writable pointer. See also detailed description in the [MSTensor](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_MSTensor.html) API documentation.
+    After model input tensors are obtained, the data must be copied into the tensors. The following methods allows to access the size of the data, the number of elements, the data type and the writable pointer. See also detailed description in the [MSTensor](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_MSTensor.html) API documentation.
 
     ```cpp
-    /// \brief  Get byte size of data in MSTensor.
+    /// \brief Obtains the length of the data of the MSTensor, in bytes.
     ///
-    /// \return  Byte size of data in MSTensor.
-    virtual size_t Size() const = 0;
+    /// \return The length of the data of the MSTensor, in bytes.
+    size_t DataSize() const;
 
-    /// \brief Get shape of the MindSpore Lite MSTensor.
+    /// \brief Obtains the number of elements of the MSTensor.
     ///
-    /// \return A vector of int as the shape of the MindSpore Lite MSTensor.
-    virtual std::vector<int> shape() const = 0;
+    /// \return The number of elements of the MSTensor.
+    int64_t ElementNum() const;
 
-    /// \brief Get number of element in MSTensor.
+    /// \brief Obtains the data type of the MSTensor.
     ///
-    /// \return Number of element in MSTensor.
-    virtual int ElementsNum() const = 0;
+    /// \return The data type of the MSTensor.
+    enum DataType DataType() const;
 
-    /// \brief Get data type of the MindSpore Lite MSTensor.
+    /// \brief Obtains the pointer to the data of the MSTensor. If the MSTensor is a device tensor, the data cannot be
+    /// accessed directly on host.
     ///
-    /// \note TypeId is defined in mindspore/mindspore/core/ir/dtype/type_id.h. Only number types in TypeId enum are
-    /// suitable for MSTensor.
-    ///
-    /// \return MindSpore Lite TypeId of the MindSpore Lite MSTensor.
-    virtual TypeId data_type() const = 0;
-
-    /// \brief  Get the pointer of data in MSTensor.
-    ///
-    /// \note  The data pointer can be used to both write and read data in MSTensor.
-    ///
-    /// \return  The pointer points to data in MSTensor.
-    virtual void *MutableData() const = 0;
+    /// \return A pointer to the data of the MSTensor.
+    void *MutableData();
     ```
 
 4. Example
 
-    The following sample code shows how to obtain the entire graph input `MSTensor` from `LiteSession` and enter the model input data to `MSTensor`.
+    The following sample code shows how to obtain the entire graph input `MSTensor` from `Model` and enter the model input data to `MSTensor`.
 
     ```cpp
-    // Assuming session is a valid instance of TrainSession
-    auto inputs = session->GetInputs();
+    // Assuming model is a valid instance of Model
+    auto inputs = model->GetInputs();
 
     // Assuming the model has two input tensors, the first is for data and the second for labels
     int data_index = 0;
@@ -360,20 +335,22 @@ MindSpore Lite provides the following methods to obtain the model's output `MSTe
 1. Use the `GetOutputsByNodeName` method to obtain the output tensors that belong to a certain node:
 
     ```cpp
-    /// \brief  Get output MindSpore Lite MSTensors of model by node name.
+    /// \brief Get output MSTensors of model by node name.
     ///
     /// \param[in] node_name Define node name.
     ///
-    /// \return  The vector of MindSpore Lite MSTensor.
-    virtual std::vector<tensor::MSTensor *> GetOutputsByNodeName(const std::string &node_name) const = 0;
+    /// \note Deprecated, replace with GetOutputByTensorName
+    ///
+    /// \return The vector of output MSTensor.
+    inline std::vector<MSTensor> GetOutputsByNodeName(const std::string &node_name);
     ```
 
-    The following sample code shows how to obtain the output `MSTensor` from `LiteSession` using the `GetOutputsByNodeName` method.
+    The following sample code shows how to obtain the output `MSTensor` from `Model` using the `GetOutputsByNodeName` method.
 
     ```cpp
-    // Assume that session is a vlaid TrainSession instance
+    // Assume that model is a vlaid model instance
     // Assume that model has a output node named output_node_name_0.
-    auto output_vec = session->GetOutputsByNodeName("output_node_name_0");
+    auto output_vec = model->GetOutputsByNodeName("output_node_name_0");
     // Assume that output node named output_node_name_0 has only one output tensor.
     auto out_tensor = output_vec.front();
     if (out_tensor == nullptr) {
@@ -385,23 +362,21 @@ MindSpore Lite provides the following methods to obtain the model's output `MSTe
 2. Use the `GetOutputByTensorName` method to obtain an output tensor, based on the tensor name.
 
     ```cpp
-    /// \brief  Get output MindSpore Lite MSTensors of model by tensor name.
+    /// \brief Obtains the output tensor of the model by name.
     ///
-    /// \param[in] tensor_name  Define tensor name.
-    ///
-    /// \return  Pointer of MindSpore Lite MSTensor.
-    virtual mindspore::tensor::MSTensor *GetOutputByTensorName(const std::string &tensor_name) const = 0;
+    /// \return The output tensor with the given name, if the name is not found, an invalid tensor is returned.
+    inline MSTensor GetOutputByTensorName(const std::string &tensor_name);
     ```
 
-    The following sample code shows how to obtain the output `MSTensor` from `LiteSession` using the `GetOutputByTensorName` method.
+    The following sample code shows how to obtain the output `MSTensor` from `Model` using the `GetOutputByTensorName` method.
 
     ```cpp
-    // Assume that session is a vlaid TrainSession instance
-    // We can use GetOutputTensorNames method to get the names of all the output tensors of the model
-    auto tensor_names = session->GetOutputTensorNames();
+    // Assume that model is a vlaid model instance
+    // We can use GetOutputByTensorName method to get the names of all the output tensors of the model
+    auto tensor_names = model->GetOutputTensorNames();
     // Use output tensor name returned by GetOutputTensorNames as key
     for (auto tensor_name : tensor_names) {
-        auto out_tensor = session->GetOutputByTensorName(tensor_name);
+        auto out_tensor = model->GetOutputByTensorName(tensor_name);
         if (out_tensor == nullptr) {
             std::cerr << "Output tensor is nullptr" << std::endl;
             return -1;
@@ -412,76 +387,58 @@ MindSpore Lite provides the following methods to obtain the model's output `MSTe
 3. Use the `GetOutputs` method to obtain all the output tensors, ordered by their tensor name:
 
     ```cpp
-    /// \brief  Get output MindSpore Lite MSTensors of model mapped by the tensor name.
+    /// \brief Obtains all output tensors of the model.
     ///
-    /// \return  The map of output tensor name and MindSpore Lite MSTensor.
-    virtual std::unordered_map<std::string, mindspore::tensor::MSTensor *> GetOutputs() const = 0;
+    /// \return The vector that includes all output tensors.
+    std::vector<MSTensor> GetOutputs();
+
+    /// \brief Obtains the number of elements of the MSTensor.
+    ///
+    /// \return The number of elements of the MSTensor.
+    int64_t ElementNum() const;
+
+    /// \brief Obtains the data type of the MSTensor.
+    ///
+    /// \return The data type of the MSTensor.
+    enum DataType DataType() const;
+
+    /// \brief Obtains the pointer to the data of the MSTensor. If the MSTensor is a device tensor, the data cannot be
+    /// accessed directly on host.
+    ///
+    /// \return A pointer to the data of the MSTensor.
+    void *MutableData();
     ```
 
-    After model output tensors are obtained, you need to enter data into the tensors. Use the `Size` method of `MSTensor` to obtain the size of the data to be entered into tensors, use the `data_type` method to obtain the data type of `MSTensor`, and use the `MutableData` method of `MSTensor` to obtain the writable pointer.
+    The following sample code shows how to obtain the output `MSTensor` from `Model` using the `GetOutputs` method and print the first ten data or all data records of each output `MSTensor`.
 
-    ```cpp
-    /// \brief  Get byte size of data in MSTensor.
-    ///
-    /// \return  Byte size of data in MSTensor.
-    virtual size_t Size() const = 0;
-
-    /// \brief  Get data type of the MindSpore Lite MSTensor.
-    ///
-    /// \note  TypeId is defined in mindspore/mindspore/core/ir/dtype/type_id.h. Only number types in TypeId enum are
-    /// suitable for MSTensor.
-    ///
-    /// \return  MindSpore Lite TypeId of the MindSpore Lite MSTensor.
-    virtual TypeId data_type() const = 0;
-
-    /// \brief  Get the pointer of data in MSTensor.
-    ///
-    /// \note The data pointer can be used to both write and read data in MSTensor.
-    ///
-    /// \return  The pointer points to data in MSTensor.
-    virtual void *MutableData() const = 0;
-    ```
-
-    The following sample code shows how to obtain the output `MSTensor` from `LiteSession` using the `GetOutputs` method and print the first ten data or all data records of each output `MSTensor`.
-
-    ```cpp
-    // Assume that session is a vlaid TrainSession object
-    auto output_map = session->GetOutputs();
-    // Assume that the model has only one output node.
-    auto out_node_iter = output_map.begin();
-    std::string name = out_node_iter->first;
-    // Assume that the unique output node has only one output tensor.
-    auto out_tensor = out_node_iter->second;
-    if (out_tensor == nullptr) {
-        std::cerr << "Output tensor is nullptr" << std::endl;
-        return -1;
-    }
-    // Assume that the data format of output data is float 32.
-    if (out_tensor->data_type() != mindspore::TypeId::kNumberTypeFloat32) {
-        std::cerr << "Output of lenet should in float32" << std::endl;
-        return -1;
-    }
-    auto *out_data = reinterpret_cast<float *>(out_tensor->MutableData());
-    if (out_data == nullptr) {
+   ```cpp
+    auto out_tensors = model->GetOutputs();
+    for (auto out_tensor : out_tensors) {
+      std::cout << "tensor name is:" << out_tensor.Name() << " tensor size is:" << out_tensor.DataSize()
+                << " tensor elements num is:" << out_tensor.ElementNum() << std::endl;
+      // The model output data is float 32.
+      if (out_tensor.DataType() != mindspore::DataType::kNumberTypeFloat32) {
+        std::cerr << "Output should in float32" << std::endl;
+        return;
+      }
+      auto out_data = reinterpret_cast<float *>(out_tensor.MutableData());
+      if (out_data == nullptr) {
         std::cerr << "Data of out_tensor is nullptr" << std::endl;
         return -1;
+      }
+      std::cout << "output data is:";
+      for (int i = 0; i < out_tensor.ElementNum() && i < 10; i++) {
+        std::cout << out_data[i] << " ";
+      }
+      std::cout << std::endl;
     }
-    // Print the first 10 float data or all output data of the output tensor.
-    std::cout << "Output data: ";
-    for (size_t i = 0; i < 10 && i < out_tensor->ElementsNum(); i++) {
-        std::cout << " " << out_data[i];
-    }
-    std::cout << std::endl;
-    // The elements in outputs do not need to be free by users, because outputs are managed by the MindSpore Lite.
     ```
 
 Note that the vectors or map returned by the `GetOutputsByNodeName`, `GetOutputByTensorName` and `GetOutputs` methods do not need to be released by users.
 
-### Execute Training or Evaluating
+### Execute Session
 
-#### Execute Session
-
-Whether a `Model` object is in the training mode or in eval mode, the way to make it execute, i.e., to run the data through the graph, is to call the `RunGraph` method.
+Whether a `Model` object is in the training mode or in eval mode, the way to make it execute, i.e., to run the data through the graph, is to call the `Train` method.
 
 ```cpp
 /// \brief Run session with callbacks.
@@ -523,11 +480,11 @@ using KernelCallBack = std::function<bool(std::vector<tensor::MSTensor *> inputs
 The following sample code demonstrates how to define two callback functions, the first will be called before running each layer, and the second after running it.
 
 ```cpp
-// Assuming session is a valid instance of TrainSession and that data was assigned to the input tensors
+// Assuming model is a valid instance of Model and that data was assigned to the input tensors
 
 // Definition of a callback function that will be called before forwarding operator
 bool before_callback(const std::vector<mindspore::tensor::MSTensor *> &inputs, const std::vector<mindspore::tensor::MSTensor *> &outputs,
- const mindspore::CallBackParam &call_param) {
+ const mindspore::MSCallBackParam &call_param) {
     std::cout << call_param.node_name << std::endl;
     std::cout << "Before forwarding: input size is " << inputs.size() << std::endl;
     return true;
@@ -535,13 +492,13 @@ bool before_callback(const std::vector<mindspore::tensor::MSTensor *> &inputs, c
 
 // Definition of callback function that will be called after forwarding operator
 bool after_callback(const std::vector<mindspore::tensor::MSTensor *> &inputs, const std::vector<mindspore::tensor::MSTensor *> &outputs,
- const mindspore::CallBackParam &call_param) {
+ const mindspore::MSCallBackParam &call_param) {
     std::cout << "After forwarding: output size is " << outputs.size() << std::endl;
     return true;
 };
 
 // Hand over the callback functions to RunGraph when performing the training or inference
-ret = session_->RunGraph(before_callback, after_callback);
+ret = model_->Train(epochs_, train_ds_, {&before_callback, &after_callback});
 if (ret != RET_OK) {
     MS_LOG(ERROR) << "Run graph failed.";
     return RET_ERROR;
@@ -553,18 +510,9 @@ if (ret != RET_OK) {
 The function `Serialization` calls the function `ExportModel` actually. The user can also call `ExportModel` directly to save the trained model.
 
 ```cpp
-  /// \brief Save the trained model into a flatbuffer file
-  ///
-  /// \param[in] file_name Filename to save flatbuffer to
-  ///
-  /// \param[in] model_type ModelType to save train or inference
-  ///
-  /// \param[in] quant_type QuantizationType to save
-  ///
-  /// \param[in] format FormatType to save
-  ///
-  /// \return 0 on success or -1 in case of error
-  virtual int Export(const std::string &file_name, lite::ModelType model_type = lite::MT_TRAIN, lite::QuantizationType quant_type = lite::QT_DEFAULT,lite::FormatType format= lite::FT_FLATBUFFERS) const = 0;
+  static Status ExportModel(const Model &model, ModelType model_type, const std::string &model_file,
+                            QuantizationType quantization_type = kNoQuant, bool export_inference_only = true,
+                            std::vector<std::string> output_tensor_name = {});
 ```
 
 You can load the saved model to do re-training or inference.

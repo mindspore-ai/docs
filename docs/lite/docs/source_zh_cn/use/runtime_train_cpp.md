@@ -22,9 +22,7 @@
         - [会话模式切换](#会话模式切换)
         - [获取输入张量](#获取输入张量)
         - [获取输出张量](#获取输出张量)
-        - [执行训练或推理](#执行训练或推理)
-            - [执行会话](#执行会话)
-            - [执行回调](#执行回调)
+        - [执行回调](#执行回调)
         - [保存模型](#保存模型)
 
 <!-- /TOC -->
@@ -41,27 +39,9 @@
 
 > 转换得到的 *.ms 模型文件包含模型结构，.ms模型文件将被载入设备端进行训练。
 
-下面的时序图展示了训练详细流程：
+下图展示了训练详细流程：
 
-![训练流程图](../images/train_sequence.png)
-
-图中的名词说明：
-
-- `OS`：程序运行的操作系统。
-- `User`：用户调用`TrainLoop`类的函数。
-- `MindData`：在训练中加载数据并预处输入理数据的系列接口（例如读取图像，缩放至指定大小，转换为bitmap格式）。
-- `ToD`：MindSpore Lite在设备端的训练机制。
-- `MS Lite`：MindSpore Lite架构，它能为模型节点和内联张量提供flatbuffer反序列化的功能、执行图编译并调用图执行器进行训练。
-- `CreateTrainSession`：创建`TrainSession`类的对象。
-- `CreateTrainLoop`：创建`TrainLoop`类的对象。
-- `InitDataset`：用户自定义函数，加载并预处理数据。
-- `train_loop`：迭代训练`TrainLoop`类的对象。
-- `Train`：`TrainLoop`类的成员函数，接受现有的或用户自定义的回调对象。
-- `Callbacks`：执行现有的或用户自定义的回调函数。
-
-MindSpore Lite架构引入了`MindData`数据处理接口。首先，`MindData`简化了训练流程，创建会话、加载数据、预处理、训练和保存模型一个函数搞定；其次，它可在训练中加载并处理数据，这极大地降低了移动端的资源消耗。
-
-用户依次执行上图中`User`列的函数即可启动模型训练。首先调用`Model`实现模型创建、加载与编译，并创建`TrainLoop`类对象；然后依次执行`InitDataset`、`Train`、`Eval`即可完成训练。`ToD`和`MindData`列为模型训练中调用MindSpore Lite底层函数。
+![训练流程图](../images/train_sequence_unify_api.png)
 
 > 更多C++API说明，请参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/master/index.html)。
 
@@ -259,7 +239,7 @@ if (ret != RET_OK) {
     /// \param[in] tensor_name  Define tensor name.
     ///
     /// \return  MindSpore Lite MSTensor.
-    virtual mindspore::tensor::MSTensor *GetInputsByTensorName(const std::string &tensor_name) const = 0;
+    inline MSTensor GetInputByTensorName(const std::string &tensor_name);
     ```
 
 2. 使用[`GetInputs`](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getinputs)方法，直接获取所有模型输入张量的向量。
@@ -268,7 +248,7 @@ if (ret != RET_OK) {
     /// \brief  Get input MindSpore Lite MSTensors of model.
     ///
     /// \return  The vector of MindSpore Lite MSTensor.
-    virtual std::vector<tensor::MSTensor *> GetInputs() const = 0;
+    std::vector<MSTensor> GetInputs();
     ```
 
     如果模型需要1个以上的输入张量（例如训练过程中，数据和标签都作为网络的输入），用户有必要知道输入顺序和张量名称，这些信息可以从Python对应的模型中获取。此外，用户也根据输入张量的大小推导出这些信息。
@@ -278,42 +258,33 @@ if (ret != RET_OK) {
     一旦获取到了模型的输入张量，数据需要拷贝到张量中。下列方法可以获取数据字节大小、数据维度、元素个数、数据类型和写指针。详见 [MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor) API 文档。
 
     ```cpp
-    /// \brief  Get byte size of data in MSTensor.
+    /// \brief Obtains the length of the data of the MSTensor, in bytes.
     ///
-    /// \return  Byte size of data in MSTensor.
-    virtual size_t Size() const = 0;
+    /// \return The length of the data of the MSTensor, in bytes.
+    size_t DataSize() const;
 
-    /// \brief Get shape of the MindSpore Lite MSTensor.
+    /// \brief Obtains the number of elements of the MSTensor.
     ///
-    /// \return A vector of int as the shape of the MindSpore Lite MSTensor.
-    virtual std::vector<int> shape() const = 0;
+    /// \return The number of elements of the MSTensor.
+    int64_t ElementNum() const;
 
-    /// \brief Get number of element in MSTensor.
+    /// \brief Obtains the data type of the MSTensor.
     ///
-    /// \return Number of element in MSTensor.
-    virtual int ElementsNum() const = 0;
+    /// \return The data type of the MSTensor.
+    enum DataType DataType() const;
 
-    /// \brief Get data type of the MindSpore Lite MSTensor.
+    /// \brief Obtains the pointer to the data of the MSTensor. If the MSTensor is a device tensor, the data cannot be
+    /// accessed directly on host.
     ///
-    /// \note TypeId is defined in mindspore/mindspore/core/ir/dtype/type_id.h. Only number types in TypeId enum are
-    /// suitable for MSTensor.
-    ///
-    /// \return MindSpore Lite TypeId of the MindSpore Lite MSTensor.
-    virtual TypeId data_type() const = 0;
-
-    /// \brief  Get the pointer of data in MSTensor.
-    ///
-    /// \note  The data pointer can be used to both write and read data in MSTensor.
-    ///
-    /// \return  The pointer points to data in MSTensor.
-    virtual void *MutableData() const = 0;
+    /// \return A pointer to the data of the MSTensor.
+    void *MutableData();
     ```
 
-    以下示例代码展示了如何从`LiteSession`中获取完整的图输入张量和如何将模型输入数据转换为`MSTensor`类型。
+    以下示例代码展示了如何从`Model`中获取完整的图输入张量和如何将模型输入数据转换为`MSTensor`类型。
 
     ```cpp
-    // Assuming session is a valid instance of TrainSession
-    auto inputs = session->GetInputs();
+    // Assuming model is a valid instance of Model
+    auto inputs = model->GetInputs();
 
     // Assuming the model has two input tensors, the first is for data and the second for labels
     int data_index = 0;
@@ -357,20 +328,22 @@ MindSpore Lite提供下列方法来获取模型的输出张量：
 1. 使用[`GetOutputsByNodeName`](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getoutputsbynodename)方法获取一个确定节点的输出张量。
 
     ```cpp
-    /// \brief  Get output MindSpore Lite MSTensors of model by node name.
+    /// \brief Get output MSTensors of model by node name.
     ///
     /// \param[in] node_name Define node name.
     ///
-    /// \return  The vector of MindSpore Lite MSTensor.
-    virtual std::vector<tensor::MSTensor *> GetOutputsByNodeName(const std::string &node_name) const = 0;
+    /// \note Deprecated, replace with GetOutputByTensorName
+    ///
+    /// \return The vector of output MSTensor.
+    inline std::vector<MSTensor> GetOutputsByNodeName(const std::string &node_name);
     ```
 
     下列代码为使用`GetOutputsByNodeName`方法从当前会话中获取输出张量：
 
     ```cpp
-    // Assume that session is a vlaid TrainSession instance
+    // Assume that model is a vlaid model instance
     // Assume that model has a output node named output_node_name_0.
-    auto output_vec = session->GetOutputsByNodeName("output_node_name_0");
+    auto output_vec = model->GetOutputsByNodeName("output_node_name_0");
     // Assume that output node named output_node_name_0 has only one output tensor.
     auto out_tensor = output_vec.front();
     if (out_tensor == nullptr) {
@@ -382,23 +355,21 @@ MindSpore Lite提供下列方法来获取模型的输出张量：
 2. 使用[`GetOutputByTensorName`](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getoutputbytensorname)方法，依据张量名称获取输出张量。
 
     ```cpp
-    /// \brief  Get output MindSpore Lite MSTensors of model by tensor name.
+    /// \brief Obtains the output tensor of the model by name.
     ///
-    /// \param[in] tensor_name  Define tensor name.
-    ///
-    /// \return  Pointer of MindSpore Lite MSTensor.
-    virtual mindspore::tensor::MSTensor *GetOutputByTensorName(const std::string &tensor_name) const = 0;
+    /// \return The output tensor with the given name, if the name is not found, an invalid tensor is returned.
+    inline MSTensor GetOutputByTensorName(const std::string &tensor_name);
     ```
 
-    下列代码为使用`GetOutputsByTensorName`方法从当前会话中获取输出张量：
+    下列代码为使用`GetOutputByTensorName`方法从当前会话中获取输出张量：
 
     ```cpp
-    // Assume that session is a vlaid TrainSession instance
-    // We can use GetOutputTensorNames method to get the names of all the output tensors of the model
-    auto tensor_names = session->GetOutputTensorNames();
+    // Assume that model is a vlaid model instance
+    // We can use GetOutputByTensorName method to get the names of all the output tensors of the model
+    auto tensor_names = model->GetOutputTensorNames();
     // Use output tensor name returned by GetOutputTensorNames as key
     for (auto tensor_name : tensor_names) {
-        auto out_tensor = session->GetOutputByTensorName(tensor_name);
+        auto out_tensor = model->GetOutputByTensorName(tensor_name);
         if (out_tensor == nullptr) {
             std::cerr << "Output tensor is nullptr" << std::endl;
             return -1;
@@ -409,92 +380,56 @@ MindSpore Lite提供下列方法来获取模型的输出张量：
 3. 使用[`GetOutputs`](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getoutputs)方法，根据张量名称排序的所有输出张量。
 
     ```cpp
-    /// \brief  Get output MindSpore Lite MSTensors of model mapped by tensor name.
+    /// \brief Obtains all output tensors of the model.
     ///
-    /// \return  The map of output tensor name and MindSpore Lite MSTensor.
-    virtual std::unordered_map<std::string, mindspore::tensor::MSTensor *> GetOutputs() const = 0;
-    ```
+    /// \return The vector that includes all output tensors.
+    std::vector<MSTensor> GetOutputs();
 
-    获取模型输出张量后，用户需要将数据导入张量中。使用`MSTensor`的`Size`方法获取将要导入张量中的数据大小，使用`data_type`方法获取 `MSTensor`的数据类型，并且使用`MutableData`方法写指针。
+    /// \brief Obtains the number of elements of the MSTensor.
+    ///
+    /// \return The number of elements of the MSTensor.
+    int64_t ElementNum() const;
 
-    ```cpp
-    /// \brief  Get byte size of data in MSTensor.
+    /// \brief Obtains the data type of the MSTensor.
     ///
-    /// \return  Byte size of data in MSTensor.
-    virtual size_t Size() const = 0;
+    /// \return The data type of the MSTensor.
+    enum DataType DataType() const;
 
-    /// \brief  Get data type of the MindSpore Lite MSTensor.
+    /// \brief Obtains the pointer to the data of the MSTensor. If the MSTensor is a device tensor, the data cannot be
+    /// accessed directly on host.
     ///
-    /// \note  TypeId is defined in mindspore/mindspore/core/ir/dtype/type_id.h. Only number types in TypeId enum are
-    /// suitable for MSTensor.
-    ///
-    /// \return  MindSpore Lite TypeId of the MindSpore Lite MSTensor.
-    virtual TypeId data_type() const = 0;
-
-    /// \brief  Get the pointer of data in MSTensor.
-    ///
-    /// \note The data pointer can be used to both write and read data in MSTensor.
-    ///
-    /// \return  The pointer points to data in MSTensor.
-    virtual void *MutableData() const = 0;
+    /// \return A pointer to the data of the MSTensor.
+    void *MutableData();
     ```
 
     下列代码展示了如何使用`GetOutputs`方法从会话中获取输出张量，并打印前10个数据或每个输出张量的数据记录。
 
     ```cpp
-    // Assume that session is a vlaid TrainSession object
-    auto output_map = session->GetOutputs();
-    // Assume that the model has only one output node.
-    auto out_node_iter = output_map.begin();
-    std::string name = out_node_iter->first;
-    // Assume that the unique output node has only one output tensor.
-    auto out_tensor = out_node_iter->second;
-    if (out_tensor == nullptr) {
-        std::cerr << "Output tensor is nullptr" << std::endl;
-        return -1;
-    }
-    // Assume that the data format of output data is float 32.
-    if (out_tensor->data_type() != mindspore::TypeId::kNumberTypeFloat32) {
-        std::cerr << "Output of lenet should in float32" << std::endl;
-        return -1;
-    }
-    auto *out_data = reinterpret_cast<float *>(out_tensor->MutableData());
-    if (out_data == nullptr) {
+    auto out_tensors = model->GetOutputs();
+    for (auto out_tensor : out_tensors) {
+      std::cout << "tensor name is:" << out_tensor.Name() << " tensor size is:" << out_tensor.DataSize()
+                << " tensor elements num is:" << out_tensor.ElementNum() << std::endl;
+      // The model output data is float 32.
+      if (out_tensor.DataType() != mindspore::DataType::kNumberTypeFloat32) {
+        std::cerr << "Output should in float32" << std::endl;
+        return;
+      }
+      auto out_data = reinterpret_cast<float *>(out_tensor.MutableData());
+      if (out_data == nullptr) {
         std::cerr << "Data of out_tensor is nullptr" << std::endl;
         return -1;
+      }
+      std::cout << "output data is:";
+      for (int i = 0; i < out_tensor.ElementNum() && i < 10; i++) {
+        std::cout << out_data[i] << " ";
+      }
+      std::cout << std::endl;
     }
-    // Print the first 10 float data or all output data of the output tensor.
-    std::cout << "Output data: ";
-    for (size_t i = 0; i < 10 && i < out_tensor->ElementsNum(); i++) {
-        std::cout << " " << out_data[i];
-    }
-    std::cout << std::endl;
-    // The elements in outputs do not need to be free by users, because outputs are managed by the MindSpore Lite.
     ```
 
     > 用户无需手动释放 `GetOutputsByNodeName`、`GetOutputByTensorName`和`GetOutputs`函数返回的数组或是哈希表。
 
-### 执行训练或推理
-
-#### 执行会话
-
-无论`Model`对象是训练或推理模式，图计算都是调用`RunGraph`方法。
-
-```cpp
-/// \brief Run session with callbacks.
-///
-/// \param[in] before Define a call_back_function to be called before running each node.
-/// \param[in] after Define a call_back_function called after running each node.
-///
-/// \note RunGraph should be called after CompileGraph.
-///
-/// \return STATUS as an error code of running graph, STATUS is defined in errorcode.h.
-virtual int RunGraph(const KernelCallBack &before = nullptr, const KernelCallBack &after = nullptr) = 0;
-```
-
-在执行图计算前，用户需要确保数据被正确地导入了输入张量中。
-
-#### 执行回调
+### 执行回调
 
 MindSpore Lite框架允许用户设置两个在每个节点计算前后调用的回调函数。这两个函数能够帮助用户跟踪、调试网络，并测量各节点的计算时间。回调参数如下：
 
@@ -519,12 +454,12 @@ using KernelCallBack = std::function<bool(std::vector<tensor::MSTensor *> inputs
 以下代码为如何在执行训练前后使用回调函数：
 
 ```cpp
-// Assuming session is a valid instance of TrainSession and that data was assigned to the input tensors
+// Assuming model is a valid instance of Model and that data was assigned to the input tensors
 
 // Definition of a callback function that will be called before forwarding operator
 bool before_callback(const std::vector<mindspore::tensor::MSTensor *> &inputs,
  const std::vector<mindspore::tensor::MSTensor *> &outputs,
- const mindspore::CallBackParam &call_param) {
+ const mindspore::MSCallBackParam &call_param) {
     std::cout << call_param.node_name << std::endl;
     std::cout << "Before forwarding: input size is " << inputs.size() << std::endl;
     return true;
@@ -532,13 +467,13 @@ bool before_callback(const std::vector<mindspore::tensor::MSTensor *> &inputs,
 // Definition of callback function that will be called after forwarding operator
 bool after_callback(const std::vector<mindspore::tensor::MSTensor *> &inputs,
  const std::vector<mindspore::tensor::MSTensor *> &outputs,
- const mindspore::CallBackParam &call_param) {
+ const mindspore::MSCallBackParam &call_param) {
     std::cout << "After forwarding: output size is " << outputs.size() << std::endl;
     return true;
 };
 
 // Hand over the callback functions to RunGraph when performing the training or inference
-ret = session_->RunGraph(before_callback, after_callback);
+ret = model_->Train(epochs_, train_ds_, {&before_callback, &after_callback});
 if (ret != RET_OK) {
   MS_LOG(ERROR) << "Run graph failed.";
   return RET_ERROR;
@@ -550,18 +485,9 @@ if (ret != RET_OK) {
 MindSpore的`Serialization`类实际调用的是`ExportModel`函数，`ExportModel`原型如下：
 
 ```cpp
-  /// \brief Save the trained model into a flatbuffer file
-  ///
-  /// \param[in] file_name Filename to save flatbuffer to
-  ///
-  /// \param[in] model_type ModelType to save train or inference
-  ///
-  /// \param[in] quant_type QuantizationType to save
-  ///
-  /// \param[in] format FormatType to save
-  ///
-  /// \return 0 on success or -1 in case of error
-  virtual int Export(const std::string &file_name, lite::ModelType model_type = lite::MT_TRAIN, lite::QuantizationType quant_type = lite::QT_DEFAULT,lite::FormatType format= lite::FT_FLATBUFFERS) const = 0;
+  static Status ExportModel(const Model &model, ModelType model_type, const std::string &model_file,
+                            QuantizationType quantization_type = kNoQuant, bool export_inference_only = true,
+                            std::vector<std::string> output_tensor_name = {});
 ```
 
 保存的模型可继续用于训练或推理。
