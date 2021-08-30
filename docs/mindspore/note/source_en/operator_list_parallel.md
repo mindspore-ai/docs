@@ -112,7 +112,7 @@
 | [mindspore.ops.SoftmaxCrossEntropyWithLogits](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.SoftmaxCrossEntropyWithLogits.html) | The last dimension of logits and labels can't be splited; Only supports using output[0]. |
 | [mindspore.ops.Softplus](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Softplus.html) | None                                                         |
 | [mindspore.ops.Softsign](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Softsign.html) | None                                                         |
-| [mindspore.ops.SparseGatherV2](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.SparseGatherV2.html) | The same as GatherV2.                                        |
+| [mindspore.ops.SparseGatherV2](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.SparseGatherV2.html) | The same as Gather.                                          |
 | [mindspore.ops.Split](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Split.html) | The input_x can't be split into the dimension of axis, otherwise it's inconsistent with the single machine in the mathematical logic. |
 | [mindspore.ops.Sqrt](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Sqrt.html) | None                                                         |
 | [mindspore.ops.Square](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Square.html) | None                                                         |
