@@ -1,4 +1,7 @@
-class Cifar10Dataset(MappableDataset):
+mindspore.dataset.Cifar10Dataset
+================================
+
+class Cifar10Dataset(dataset_dir, usage=None, num_samples=None, num_parallel_workers=None, shuffle=None, sampler=None, num_shards=None, shard_id=None, cache=None):
     """
     用于读取和解析Cifar10数据集，生成新的数据集文件。该API目前仅支持解析二进制版本的Cifar10文件。
 
@@ -7,24 +10,24 @@ class Cifar10Dataset(MappableDataset):
     :py:obj:`label` 列的数据是uint32类型的标量。
 
     参数:
-        dataset_dir (str):包含数据集的根目录。
-        usage (str, optional):加载的数据集分片，可以是`train`,`test`或`all`。使用`train`参数将会读取50,000训练样本,`test`将会读取10,000测试样本,`all`将会读取全部60,000样本(默认值为None, 即全部样本图片)。
-        num_samples (int, optional):指定从原始数据集读取的图片数量（可以小于数据集总数，默认值为None,即全部样本图片)。
-        num_parallel_workers (int, optional):用于读取数据的线程数(默认值None,使用配置文件中的配置）
-        shuffle (bool, optional):是否打乱数据集样本顺序(默认值None,详情见下表参数及预期行为所示)。
-        sampler (Sampler, optional):用于加载数据集的采样器(默认值None,详情见下表参数及预期行为所示)。
-        num_shards (int, optional):分布式训练时的数据集分片数(默认值None)。指定此参数后,`num_samples`表示每份样本中的最大样本数。
-        shard_id (int, optional):分布式训练时当前加载的分片ID(默认值None)。只有当指定了num_shards才能指定此参数。
-        cache (DatasetCache, optional):单节点数据缓存，能够加快数据加载和处理的速度(默认值None, 即不使用缓存加速)。
+        dataset_dir (str): 包含数据集的根目录。
+        usage (str, optional): 加载的数据集分片，可以是`train`,`test`或`all`。使用`train`参数将会读取50,000训练样本,`test`将会读取10,000测试样本,`all`将会读取全部60,000样本(默认值为None, 即全部样本图片)。
+        num_samples (int, optional): 指定从原始数据集读取的图片数量（可以小于数据集总数，默认值为None,即全部样本图片)。
+        num_parallel_workers (int, optional): 用于读取数据的线程数(默认值None,使用配置文件中的配置）
+        shuffle (bool, optional): 是否打乱数据集样本顺序(默认值None,详情见下表参数及预期行为所示)。
+        sampler (Sampler, optional): 用于加载数据集的采样器(默认值None,详情见下表参数及预期行为所示)。
+        num_shards (int, optional): 分布式训练时的数据集分片数(默认值None)。指定此参数后,`num_samples`表示每份样本中的最大样本数。
+        shard_id (int, optional): 分布式训练时当前加载的分片ID(默认值None)。只有当指定了num_shards才能指定此参数。
+        cache (DatasetCache, optional): 单节点数据缓存，能够加快数据加载和处理的速度(默认值None, 即不使用缓存加速)。
 
     报错信息:
-        RuntimeError:如果dataset_dir路径下不包含数据文件。
-        RuntimeError:如果num_parallel_workers超过系统最大线程数
-        RuntimeError:如果同时设定sampler和shuffle参数。
-        RuntimeError:如果同时设定sampler和sharding参数。
-        RuntimeError:如果指定了num_shards参数，但是未指定shard_id参数。
-        RuntimeError:如果指定了shard_id参数，但是未指定num_shards参数。
-        ValueError:如果shard_id 参数错误(小于0或者大于等于num_shards)。
+        RuntimeError: 如果dataset_dir路径下不包含数据文件。
+        RuntimeError: 如果num_parallel_workers超过系统最大线程数。
+        RuntimeError: 如果同时设定sampler和shuffle参数。
+        RuntimeError: 如果同时设定sampler和sharding参数。
+        RuntimeError: 如果指定了num_shards参数，但是未指定shard_id参数。
+        RuntimeError: 如果指定了shard_id参数，但是未指定num_shards参数。
+        ValueError: 如果shard_id 参数错误(小于0或者大于等于num_shards)。
 
     提示:
         - 此数据集可以指定sampler参数，`sampler`和`shuffle`是互斥的。
@@ -75,13 +78,16 @@ class Cifar10Dataset(MappableDataset):
 
         | 以下为原始CIFAR-10 数据集结构。
         | 您可以将数据集解压成如下的文件结构，并通过Mindspore的API进行读取。
-        | .
-        | ������ cifar-10-batches-bin
-        |      ������ data_batch_1.bin
-        |      ������ data_batch_2.bin
-        |      ������ data_batch_3.bin
-        |      ������ data_batch_4.bin
-        |      ������ data_batch_5.bin
-        |      ������ test_batch.bin
-        |      ������ readme.html
-        |      ������ batches.meta.txt
+
+```text
+        .
+        └── cifar-10-batches-bin
+            ├── data_batch_1.bin
+            ├── data_batch_2.bin
+            ├── data_batch_3.bin
+            ├── data_batch_4.bin
+            ├── data_batch_5.bin
+            ├── test_batch.bin
+            ├── readme.html
+            └── batches.meta.text
+```
