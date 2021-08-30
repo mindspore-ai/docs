@@ -9,7 +9,7 @@ class Cifar100Dataset(MappableDataset):
     参数:
         dataset_dir (str): 包含数据集的根目录。
         usage (str, optional): 加载的数据集分片，可以是 `train`, `test` 或 `all` . 使用`train`参数将会读取50,000训练样本, `test` 将会读取10,000测试样本, `all` 将会读取全部60,000样本(默认值为None, 即全部样本图片)。
-        num_samples (int, optional): 数据集包含的图片数量(默认值为None, 即全部样本图片)。
+        num_samples (int, optional): 指定从原始数据集读取的图片数量（可以小于数据集总数，默认值为None, 即全部样本图片)。
         num_parallel_workers (int, optional): 用于读取数据的线程数(默认值None, 使用配置文件中的配置）
         shuffle (bool, optional):是否打乱数据集样本顺序(默认值None, 详情见下表参数及预期行为所示)。
         sampler (Sampler, optional): 用于加载数据集的采样器(默认值None, 详情见下表参数及预期行为所示)。
@@ -22,12 +22,12 @@ class Cifar100Dataset(MappableDataset):
         RuntimeError: 如果num_parallel_workers超过系统最大线程数
         RuntimeError: 如果同时设定sampler和shuffle参数。
         RuntimeError: 如果同时设定sampler和sharding参数。
-        RuntimeError: 如果指定了num_shards 参数，但是未指定shard_id参数。
+        RuntimeError: 如果指定了num_shards参数，但是未指定shard_id参数。
         RuntimeError: 如果指定了shard_id参数，但是未指定num_shards参数。
         ValueError: 如果shard_id 参数错误(小于0或者大于等于num_shards)。
 
     提示:
-        -  此数据集可以采用sampler参数，`sampler`和`shuffle`是互斥的。
+        -  此数据集可以指定sampler参数，`sampler`和`shuffle`是互斥的。
         下表展示了几种合法的输入参数及预期的行为。
 
     .. list-table:: 使用`sampler` 和`shuffle`参数样例及预期的行为
@@ -48,7 +48,7 @@ class Cifar100Dataset(MappableDataset):
          - 原始顺序
        * - Sampler object
          - None
-         - 由sampler采样器定义的顺序
+         - 由sampler定义的顺序
        * - Sampler object
          - True
          - 不合法
@@ -72,8 +72,8 @@ class Cifar100Dataset(MappableDataset):
         | 以下为原始CIFAR-100数据集结构。
         | 您可以将数据集解压成如下的文件结构，并通过MindSpore的API进行读取。
         | . 
-         ������ cifar-100-binary
-              ������ train.bin
-              ������ test.bin
-              ������ fine_label_names.txt
-              ������ coarse_label_names.txt
+        | ������ cifar-100-binary
+        |      ������ train.bin
+        |      ������ test.bin
+        |      ������ fine_label_names.txt
+        |      ������ coarse_label_names.txt
