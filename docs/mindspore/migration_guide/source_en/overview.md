@@ -21,7 +21,7 @@ This migration guide describes the complete steps for migrating neural networks 
 
 To prepare for the migration process, configure the necessary environment and then analyze the operators contained in the network script. MindSpore script development starts from data processing code, uses MindConverter to build a network to obtain the migrated network script, and finally migrates the inference execution script. After the build is complete, the optimization process includes development and debugging of missing operators and optimization of network performance and accuracy. The migration guide provides solutions to common problems in the migration process and complete network migration examples. Examples are provided in each chapter for reference. The following figure shows the migration process.
 
-![flowchart](images/flowchart.PNG)
+![flowchart](./images/flowchart.PNG)
 
 ## Preparations
 
