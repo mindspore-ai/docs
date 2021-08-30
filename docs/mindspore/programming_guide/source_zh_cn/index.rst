@@ -94,6 +94,8 @@ MindSpore编程指南
    apply_pipeline_parallel
    apply_host_device_training
    apply_parameter_server_training
+   distributed_training_transformer
+   pangu_alpha
    save_load_model_hybrid_parallel
    distributed_inference
    auto_parallel
