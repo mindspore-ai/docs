@@ -17,8 +17,6 @@ MindSpore Lite API
    api_cpp/mindspore_dataset_transforms
    api_cpp/mindspore_dataset_vision
    api_cpp/mindspore_kernel
-   api_cpp/mindspore_datatype
-   api_cpp/mindspore_format
    api_cpp/mindspore_registry
    api_cpp/mindspore_converter
    api_cpp/lite_cpp_example
