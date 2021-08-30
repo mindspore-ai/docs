@@ -7,7 +7,9 @@
 - [Saving Models](#saving-models)
     - [Overview](#overview)
     - [Saving CheckPoint files](#saving-checkpoint-files)
-        - [CheckPoint Configuration Policies](#checkpoint-configuration-policies)
+        - [Using Callback Mechanism](#use-callback-mechanism)
+            - [CheckPoint Configuration Strategy](#checkpoint-configuration-policies)
+        - [Using Save Checkpoint Method](#use-save-checkpoint-method)
     - [Export MindIR Model](#export-mindir-model)
     - [Export AIR Model](#export-air-model)
     - [Export ONNX Model](#export-onnx-model)
@@ -28,6 +30,10 @@ During model training, you can add CheckPoints to save model parameters for infe
 The following uses examples to describe how to save MindSpore CheckPoint files, and how to export MindIR, AIR and ONNX files.
 
 ## Saving CheckPoint files
+
+Here are two ways to save checkpoint files
+
+### Using Callback Mechanism
 
 During model training, use the callback mechanism to transfer the object of the callback function `ModelCheckpoint` to save model parameters and generate CheckPoint files.
 
@@ -75,7 +81,7 @@ For example, `resnet50_3-2_32.ckpt` indicates the CheckPoint file generated duri
 
 > - When performing distributed parallel training tasks, each process needs to set different `directory` parameters to save the CheckPoint file to a different directory to prevent files from being read or written incorrectly.
 
-### CheckPoint Configuration Policies
+#### CheckPoint Configuration Policies
 
 MindSpore provides two types of CheckPoint saving policies: iteration policy and time policy. You can create the `CheckpointConfig` object to set the corresponding policies.
 CheckpointConfig contains the following four parameters:
@@ -91,6 +97,78 @@ CheckpointConfig contains the following four parameters:
 The two types of policies cannot be used together. Iteration policies have a higher priority than time policies. When the two types of policies are configured at the same time, only iteration policies take effect.
 If a parameter is set to None, the related policy is cancelled.
 After the training script is normally executed, the CheckPoint file generated during the last step is saved by default.
+
+### Using Save_checkpoint Method
+
+You can use the `save_checkpoint` function to save the custom information as a checkpoint file. The function declaration is as follows:
+
+```python
+def save_checkpoint(save_obj, ckpt_file_name, integrated_save=True,
+                    async_save=False, append_dict=None, enc_key=None, enc_mode="AES-GCM")
+```
+
+The required parameters are: `save_obj`, `ckpt_file_name`.
+
+The following uses specific examples to illustrate how to use each parameter.
+
+#### `save_obj` and `ckpt_file_name` parameters
+
+**`save_obj`**: You can pass in a Cell class object or a list.
+**`ckpt_file_name`**: string type, representing the name of the saved checkpoint file.
+
+```python
+from mindspore import save_checkpoint, Tensor
+from mindspore import dtype as mstype
+```
+
+1. Pass in the Cell object
+
+    ```python
+    ​Net = LeNet()
+    ​Save_checkpoint(net, "lenet.ckpt")
+    ```
+
+    ​After execution, you can save the parameters in net as a `lenet.ckpt` file.
+
+2. Pass in the list object
+
+    The format of the list is as follows: [{"name": param_name, "data": param_data}], which consists of a set of dict objects.
+
+    `param_name` is the name of the object that needs to be saved, and `param_data` is the data that needs to be saved, and it is of type Tensor.
+
+    ```python
+    save_list = [{"name": "lr", "data": Tensor(0.01, mstype.float32)}, {"name": "train_epoch", "data": Tensor(20, mstype.int32)}]
+    save_checkpoint(save_list, "hyper_param.ckpt")
+    ```
+
+    After execution, you can save `save_list` as a `hyper_param.ckpt` file.
+
+#### `integrated_save` parameter
+
+**`integrated_save`**: bool type, indicating whether the parameters are merged and saved, the default value is True. In the model parallel scenario, Tensor will be split into programs running on different cards. If `integrated_save` is set to True, these split Tensors will be merged and saved to each checkpoint file, so that the checkpoint file saves the complete training parameters.
+
+```python
+save_checkpoint(net, "lenet.ckpt", integrated_save=True)
+```
+
+#### `async_save` parameter
+
+**`async_save`**: bool type, indicating whether to enable the asynchronous save function, the default value is False. If set to True, multi-threaded execution of checkpoint file writing operations will be enabled, so that training and saving tasks can be executed in parallel, which will save the total time of script running when training large-scale networks.
+
+```python
+save_checkpoint(net, "lenet.ckpt", async_save=True)
+```
+
+#### `append_dict` parameter
+
+**`append_dict`**: dict type, indicating additional information that needs to be saved, for example:
+
+```python
+save_dict = {"epoch_num": 2, "lr": 0.01}
+save_checkpoint(net, "lenet.ckpt",append_dict=save_dict)
+```
+
+After execution, in addition to the parameters in net, the information of `save_dict` will also be saved in `lenet.ckpt`.
 
 ## Export MindIR Model
 

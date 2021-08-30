@@ -9,6 +9,7 @@
     - [本地加载模型](#本地加载模型)
         - [用于推理验证](#用于推理验证)
         - [用于迁移学习](#用于迁移学习)
+    - [修改checkpoint文件并重新保存](#修改checkpoint文件并重新保存)
     - [从Hub加载模型](#从hub加载模型)
         - [用于推理验证](#用于推理验证-1)
         - [用于迁移学习](#用于迁移学习-1)
@@ -69,3 +70,37 @@ model.train(epoch, dataset)
 
 - `load_checkpoint`方法会返回一个参数字典。
 - `load_param_into_net`会把参数字典中相应的参数加载到网络或优化器中。
+
+## 修改checkpoint文件并重新保存
+
+如果想要对checkpoint进行修改，可以使用`load_checkpoint`接口，该接口会返回一个dict。
+
+可以对这个dict进行修改，以便进行后续的操作。
+
+```python
+from mindspore import Parameter, Tensor, load_checkpoint, save_checkpoint
+# 加载checkpoint文件
+param_dict = load_checkpoint("lenet.ckpt")
+# 可以通过遍历这个dict，查看key和value
+for key, value in param_dict.items():
+  # key 为string类型
+  print(key)
+  # value为parameter类型，使用data.asnumpy()方法可以查看其数值
+  print(value.data.asnumpy())
+
+# 拿到param_dict后，就可以对其进行基本的增删操作，以便后续使用
+
+# 1.删除名称为"conv1.weight"的元素
+del param_dict["conv1.weight"]
+# 2.添加名称为"conv2.weight"的元素，设置它的值为0
+param_dict["conv2.weight"] = Parameter(Tensor([0]))
+# 3.修改名称为"conv1.bias"的值为1
+param_dict["conv2.bias"] = Parameter(Tensor([1]))
+
+# 把修改后的param_dict重新存储成checkpoint文件
+save_list = []
+# 遍历修改后的dict，把它转化成MindSpore支持的存储格式，存储成checkpoint文件
+for key, value in param_dict.items():
+  save_list.append({"name": key, "value": value.data})
+save_checkpoint(save_list, "new.ckpt")
+```
