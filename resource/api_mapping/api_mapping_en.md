@@ -117,6 +117,8 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torch.nn.ModuleList                                  | mindspore.nn.CellList                                          | same |
 | torch.nn.MSELoss                                     | mindspore.nn.MSELoss                                           | same |
 | torch.nn.Parameter                                   | mindspore.Parameter                                            | same |
+| torch.nn.Parameter.clone                                  | mindspore.Parameter.clone                                            | same |
+| torch.nn.Parameter.data                                  | mindspore.Parameter.data                                            |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/ParamsData_en.md)|
 | torch.nn.ParameterList                               | mindspore.ParameterTuple                                       |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/ParameterTuple_en.md)|
 | torch.nn.PixelShuffle                                | mindspore.ops.DepthToSpace                                     | same |
 | torch.nn.PReLU                                       | mindspore.nn.PReLU                                             | same |
