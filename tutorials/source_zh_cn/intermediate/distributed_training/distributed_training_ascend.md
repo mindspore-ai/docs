@@ -39,21 +39,7 @@
 
 实现以上三种并行模式，依赖于各个计算单元之间进行通信，主要有以下四种集合通信算子:
 
-- Broadcast
-
-![png](images/broadcast.png)
-
-- AllGather
-
-![png](images/all_gather.png)
-
-- AllReduce
-
-![png](images/all_reduce.png)
-
-- ReduceScatter
-
-![png](images/reduce_scatter.png)
+![png](images/communication.png)
 
 以MatMul为例，简单说明一下对算子进行切分后，如何应用上述的并行逻辑。
 
