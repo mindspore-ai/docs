@@ -115,6 +115,7 @@ MindSpore编程指南
    :maxdepth: 1
    :caption: 功能调试
 
+   read_ir_files
    debug_in_pynative_mode
    dump_in_graph_mode
    custom_debugging_info
