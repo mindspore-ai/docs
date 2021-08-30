@@ -99,6 +99,12 @@ The main attributes of `cb_params` are as follows:
 - cur_epoch_num: Number of current epochs
 - cur_step_num: Number of current steps
 - batch_num: Number of batches in an epoch
+- epoch_num: Number of training epochs
+- batch_num: Number of training batch
+- train_network: Training network
+- parallel_mode: Parallel mode
+- list_callback: All callback functions
+- net_outputs: Network output results
 - ...
 
 You can inherit the callback base class to customize a callback object.

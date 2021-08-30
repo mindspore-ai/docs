@@ -105,9 +105,14 @@ class Callback():
 - `loss_fn`：损失函数
 - `optimizer`：优化器
 - `train_dataset`：训练的数据集
+- `epoch_num`：训练的epoch的数量
+- `batch_num`：一个epoch中step的数量
+- `train_network`：训练的网络
 - `cur_epoch_num`：当前的epoch数
 - `cur_step_num`：当前的step数
-- `batch_num`：一个epoch中step的数量
+- `parallel_mode`：并行模式
+- `list_callback`：所有的callback函数
+- `net_outputs`：网络的输出结果
 - ...
 
 用户可以继承`Callback`基类自定义`Callback`对象。
