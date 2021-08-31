@@ -19,3 +19,17 @@ A: First confirm whether the system environment is installed correctly and wheth
 <font size=3>**Q: What should I do when error `error while loading shared libraries: libge_compiler.so: cannot open shared object file: No such file or directory` prompts during application running?**</font>
 
 A: While installing Ascend 310 AI Processor software packages，the `CANN` package should install the full-featured `toolkit` version instead of the `nnrt` version.
+
+<font size=3>**Q: How to set high-precision or high-performance mode when referring with Ascend 310 AI Processor？**</font>
+
+A: Set in the inference code through the SetPrecisionMode interface of Ascend310DeviceInfo. Optional: force_ fp16，allow_fp32_to_fp16，must_keep_origin_dtype，allow_mix_precision。 The default value is force_ Fp16 refers to the high-performance mode. High precision mode can be set to allow_fp32_to_fp16 or must_keep_origin_dtype。
+<br/>
+
+<font size=3>**Q: How to configure AIPP files？**</font>
+
+A: AIPP (artistic intelligence pre-processing) AI preprocessing is used to complete image preprocessing on AI core, including changing image size, color gamut conversion (converting image format), subtracting mean / multiplication coefficient (changing image pixels), and real-time inference after data processing. The related configuration introduction is complex. Please refer to [AIPP enable chapter of ATC tool](https://support.huaweicloud.com/atctool-cann502alpha3infer/atlasatc_16_0015.html)
+<br/>
+
+<font size=3>**Q: How to set the log level in the inferenct process of Ascend 310 AI Processor？**</font>
+
+A: Use ASCEND_GLOBAL_LOG_LEVEL to set log level, 0: debug level; 1: Info level; 2: Warning level; 3: Error level; 4: Null level, no log output; Other values are illegal. Configuration example: export ASCEND_GLOBAL_LOG_LEVEL=1. If there are errors in the inference process, you can modify the log level to obtain more detailed log information.
