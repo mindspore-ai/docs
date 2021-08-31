@@ -230,22 +230,17 @@ class LeNet5(nn.Cell):
 
 
 class TrainOneStepCell(nn.Cell):
-    def __init__(self, network, optimizer, sens=1.0):
+    def __init__(self, network, optimizer):
         super(TrainOneStepCell, self).__init__(auto_prefix=False)
         self.network = network
         self.weights = ParameterTuple(network.trainable_params())
         self.optimizer = optimizer
-        self.grad = ops.GradOperation(get_by_list=True, sens_param=True)
-        self.sens = sens
-
-    def set_sens(self, value):
-        self.sens = value
+        self.grad = ops.GradOperation(get_by_list=True)
 
     def construct(self, data, label):
         weights = self.weights
         loss = self.network(data, label)
-        sens = ops.Fill()(ops.DType()(loss), ops.Shape()(loss), self.sens)
-        grads = self.grad(self.network, weights)(data, label, sens)
+        grads = self.grad(self.network, weights)(data, label)
         return ops.depend(loss, self.optimizer(grads))
 
 
@@ -262,11 +257,11 @@ if __name__ == "__main__":
     net = TrainOneStepCell(net, net_opt)
     network.set_train()
     print("============== Starting Training ==============")
-    epoch = 10
-    for step in range(epoch):
+    epochs = 10
+    for epoch in range(epochs):
         for inputs in ds_train:
             output = net(*inputs)
-            print("epoch: {0}/{1}, losses: {2}".format(step + 1, epoch, output.asnumpy(), flush=True))
+            print("epoch: {0}/{1}, losses: {2}".format(epoch + 1, epochs, output.asnumpy(), flush=True))
 ```
 
 The output is as follows:
