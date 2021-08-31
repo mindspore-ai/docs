@@ -9,6 +9,7 @@ MindSpore Migration Guide
 .. toctree::
    :maxdepth: 1
 
+   overview
    preparation
    script_analysis
    script_development
