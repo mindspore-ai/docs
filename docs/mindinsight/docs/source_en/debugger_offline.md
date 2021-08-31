@@ -35,7 +35,7 @@ Start MindInsight and set summary-base-dir to the upper one or two layers of a p
 MindInsight startup command:
 
 ```text
-mindinsight start --port {PORT} --summary-base-dir {SUMMARY_BASE_DIR}
+mindinsight start --port {PORT} --summary-base-dir {SUMMARY_BASE_DIR} --offline-debugger-mem-limit {OFFLINE_DEBUGGER_MEMORY_LIMIT} --max-offline-debugger-session-num {MAX_OFFLINE_DEBUGGER_SESSION_NUMBER}
 ```
 
 Parameters are described as follows:
@@ -44,6 +44,8 @@ Parameters are described as follows:
 |---|---|---|---|---|---|
 |`--port {PORT}`|Optional|Specifies the port number of the web visualization service.|Integer|8080|1–65535|
 |`--summary-base-dir {SUMMARY_BASE_DIR}`|Mandatory|Specifies the upper one or two layers of a path in the Dump configuration. For example, if the path in the dump configuration file is set to `/home/workspace/data/dump_dir`, summary-base-dir can be set to `/home/workspace/data` or `/home/workspace`.|String|./|-|
+|`--offline-debugger-mem-limit <OFFLINE_DEBUGGER_MEMORY_LIMIT>`|Optional|Specifies the maximum memory limit of a single offline debugger session. When the offline debugger cannot be executed due to insufficient memory, set it according to the device memory.|Integer|16*1024|6*1024~The upper limit of int32|
+|`--max-offline-debugger-session-num <MAX_OFFLINE_DEBUGGER_SESSION_NUMBER>`|Optional|Specifies the maximum session number of the offline debugger. The session number refers to the amount of training jobs that can be debugged at the same time.|Integer|2|1~2|
 
 For details about more startup parameters, see [MindInsight Commands](https://www.mindspore.cn/mindinsight/docs/en/master/mindinsight_commands.html).
 
