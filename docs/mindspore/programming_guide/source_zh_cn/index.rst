@@ -58,6 +58,7 @@ MindSpore编程指南
    initializer
    parameter
    loss
+   constexpr
    grad_operation
    hypermap
    optim

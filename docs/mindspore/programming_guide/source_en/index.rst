@@ -58,6 +58,7 @@ MindSpore Programming Guide
    parameter
    loss
    grad_operation
+   constexpr
    hypermap
    optim
 
