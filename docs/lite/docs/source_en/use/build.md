@@ -103,6 +103,8 @@ The script `build.sh` in the root directory of MindSpore can be used to compile 
 | MSLITE_ENABLE_TOOLS | Whether to compile supporting tools | on, off | on |
 | MSLITE_ENABLE_TESTCASES | Whether to compile test cases | on, off | off |
 
+> - For TensorRT and NPU compilation environment configuration, refer to [Application Specific Integrated Circuit Integration Instructions](https://www.mindspore.cn/lite/docs/en/master/use/asic.html).
+
 - Basic framework function reduction compilation options
 
 If the user is sensitive to the package size of the framework, the following options can be configured to reduce the package size by reducing the function of the runtime model reasoning framework. Then, the user can further reduce the package size by operator reduction through the [reduction tool](https://www.mindspore.cn/lite/docs/en/master/use/build.html) or [download](https://www.mindspore.cn/lite/docs/en/master/use/cropper_tool.html).
@@ -232,12 +234,15 @@ Finally, the following files will be generated in the `output/` directory:
 
 - System environment: Windows 7, Windows 10; 64-bit.
 
-- Compilation dependencies are:
+- MinGW compilation dependencies:
     - [CMake](https://cmake.org/download/) >= 3.18.3
-    - [MinGW GCC](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/7.3.0/threads-posix/seh/x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z/download) = 7.3.0
+    - Compile 64-bit: [MinGW-W64 x86_64](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/7.3.0/threads-posix/seh/x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z) = GCC-7.3.0
+    - Compile 32-bit: [MinGW-W64 i686](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/7.3.0/threads-posix/dwarf/i686-7.3.0-release-posix-dwarf-rt_v5-rev0.7z) = GCC-7.3.0
 
-> - The compilation script will execute `git clone` to obtain the code of the third-party dependent libraries.
-> - If you want to compile 32-bit Mindspore Lite, please use 32-bit [MinGW](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/7.3.0/threads-posix/dwarf/i686-7.3.0-release-posix-dwarf-rt_v5-rev0.7z) to compile.
+- Visual Studio compilation dependencies:
+    - [Visual Studio](https://visualstudio.microsoft.com/vs/older-downloads/) = 2017, cmake is included.
+    - Compile 64-bit: Enter the start menu, click "x64 Native Tools Command Prompt for VS 2017", or open the cmd window and execute `call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Profession\VC\Auxiliary\Build\vavars64.bat"`.
+    - Compile 32-bit: Enter the start menu, click "x64_x86 Cross Tools Command Prompt for VS 2017", or open the cmd window and execute `call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Profession\VC\Auxiliary\Build\vcvarsamd64_x86.bat"`.
 
 ### Compilation Options
 
@@ -292,24 +297,43 @@ Finally, the following files will be generated in the `output/` directory:
 
 ### Directory Structure
 
-```text
-mindspore-lite-{version}-win-x64
-├── runtime
-│   ├── include
-│   └── lib
-│       ├── libgcc_s_seh-1.dll      # Dynamic library of MinGW
-│       ├── libmindspore-lite.a     # Static library of inference framework in MindSpore Lite
-│       ├── libmindspore-lite.dll   # Dynamic library of inference framework in MindSpore Lite
-│       ├── libmindspore-lite.dll.a # Link file of dynamic library of inference framework in MindSpore Lite
-│       ├── libssp-0.dll            # Dynamic library of MinGW
-│       ├── libstdc++-6.dll         # Dynamic library of MinGW
-│       └── libwinpthread-1.dll     # Dynamic library of MinGW
-└── tools
-    ├── benchmark # Benchmarking tool
-    └── converter # Model conversion tool
-```
+- When the compiler is MinGW:
 
-> Currently, MindSpore Lite is not supported on Windows.
+    ```text
+    mindspore-lite-{version}-win-x64
+    ├── runtime
+    │   ├── include
+    │   └── lib
+    │       ├── libgcc_s_seh-1.dll      # Dynamic library of MinGW
+    │       ├── libmindspore-lite.a     # Static library of inference framework in MindSpore Lite
+    │       ├── libmindspore-lite.dll   # Dynamic library of inference framework in MindSpore Lite
+    │       ├── libmindspore-lite.dll.a # Link file of dynamic library of inference framework in MindSpore Lite
+    │       ├── libssp-0.dll            # Dynamic library of MinGW
+    │       ├── libstdc++-6.dll         # Dynamic library of MinGW
+    │       └── libwinpthread-1.dll     # Dynamic library of MinGW
+    └── tools
+        ├── benchmark # Benchmarking tool
+        └── converter # Model conversion tool
+    ```
+
+- When the compiler is Visual Studio:
+
+    ```text
+    mindspore-lite-{version}-win-x64
+    ├── runtime
+    │   ├── include
+    │   └── lib
+    │       ├── libmindspore-lite.dll     # Dynamic library of inference framework in MindSpore Lite
+    │       ├── libmindspore-lite.dll.lib # Import library of dynamic library of inference framework in MindSpore Lite
+    │       └── libmindspore-lite.lib     # Static library of inference framework in MindSpore Lite
+    └── tools
+        └── benchmark # Benchmarking tool
+    ```
+
+> - When linking the static library compiled by MinGW, you need to add `-Wl, --whole-archive mindspore-lite -Wl, --no-whole-archive` in the link options.
+> - When linking the static library compiled by Visual Studio, you need to add `/WHOLEARCHIVE:libmindspore-lite.lib` in "Property Pages -> Linker -> Command Line -> Additional Options".
+> - When using the Visual Studio compiler, std::ios::binary must be added to read the model stream, otherwise the problem of incomplete reading of the model file will occur.
+> - Currently, MindSpore Lite is not supported on Windows.
 
 ## macOS Environment Compilation
 
