@@ -116,6 +116,7 @@ The Huawei Collective Communication Library (HCCL) is used for the communication
 > - Each host has four devices numbered 0 to 3 and four devices numbered 4 to 7 deployed on two different networks. During training of 2 or 4 devices, the devices must be connected and clusters cannot be created across networks.
 > - When we create a multi-node system, all nodes should use one same switch.
 > - The server hardware architecture and operating system require the symmetrical multi-processing (SMP) mode.
+> - Currently only supports global single group communication in PyNative mode.
 
 The sample code for calling the HCCL is as follows:
 
