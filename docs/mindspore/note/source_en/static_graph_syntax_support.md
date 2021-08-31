@@ -21,7 +21,7 @@
     - [Primaries](#primaries)
         - [Attribute References](#attribute-references)
         - [Index Value](#index-value)
-        - [Calls](calls)
+        - [Calls](#calls)
     - [Operators](#operators)
         - [Unary Arithmetic Operators](#unary-arithmetic-operators)
         - [Binary Arithmetic Operators](#binary-arithmetic-operators)
