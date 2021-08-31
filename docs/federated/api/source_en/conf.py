@@ -222,6 +222,98 @@ search_prepare_source = """
     }
     var tmp = splitQuery(query, chinese_dic, distinct_dict);"""
 search_prepare_target = """var tmp = splitQuery(query);"""
+
+results_sort_target = """var resultCount = results.length;"""
+
+results_sort_source = """var resultCount = results.length;
+    function sortItem() {
+      if (results.length) {
+        for (i = 0; i < results.length; i++) {
+          if (DOCUMENTATION_OPTIONS.BUILDER === 'dirhtml') {
+            // dirhtml builder
+            var dirname = results[i][0] + '/';
+            if (dirname.match(/\/index\/$/)) {
+              dirname = dirname.substring(0, dirname.length-6);
+            } else if (dirname == 'index/') {
+              dirname = '';
+            }
+            requestUrl = DOCUMENTATION_OPTIONS.URL_ROOT + dirname;
+  
+          } else {
+            // normal html builders
+            requestUrl = DOCUMENTATION_OPTIONS.URL_ROOT + results[i][0] + DOCUMENTATION_OPTIONS.FILE_SUFFIX;
+          }
+          if (results[i][3]){
+            results[i].push(true);
+          } else if (DOCUMENTATION_OPTIONS.HAS_SOURCE) {
+            $.ajax({url: requestUrl,
+              dataType: "text",
+              async: false,
+              complete: function(jqxhr, textstatus) {
+                var data = jqxhr.responseText;
+                if (data !== '' && data !== undefined) {
+                  if (Search.makeSearchSummary(data, [query], hlterms).length) {
+                    results[i].push(true);
+                  } else {
+                    results[i].push(false);
+                  }
+                }
+              }});
+          }
+        }
+      }
+      beforList = [];
+      afterList = [];
+      for (i = 0; i < results.length; i++) {
+        if (results[i][6]) {
+          beforList.push(results[i]);
+        } else {
+          afterList.push(results[i]);
+        }
+      }
+      results = afterList.concat(beforList);
+    }
+    sortItem();"""
+
+results_function_target = """$.ajax({url: requestUrl,
+                  dataType: "text",
+                  complete: function(jqxhr, textstatus) {
+                    var data = jqxhr.responseText;
+                    if (data !== '' && data !== undefined) {
+                      listItem.append(Search.makeSearchSummary(data, searchterms, hlterms));
+                    }
+                    Search.output.append(listItem);
+                    listItem.slideDown(5, function() {
+                      displayNextItem();
+                    });
+                  }});"""
+
+results_function_source = """
+          $.ajax({url: requestUrl,
+                  dataType: "text",
+                  complete: function(jqxhr, textstatus) {
+                    var data = jqxhr.responseText;
+                    if (data !== '' && data !== undefined) {
+                      if (Search.makeSearchSummary(data, [query], hlterms).length) {
+                        listItem.append(Search.makeSearchSummary(data, [query], hlterms));
+                      } else {
+                        listItem.append(Search.makeSearchSummary(data, searchterms, hlterms));
+                      }
+                    }
+                    Search.output.append(listItem);
+                    listItem.slideDown(5, function() {
+                      displayNextItem();
+                    });
+                  }});
+        """
+
+highlight_words_target = """start = Math.max(start - 120, 0);"""
+
+highlight_words_source = """if (start === 0) {
+      return [];
+    }
+    start = Math.max(start - 120, 0);"""
+
 with open(sphinx_search_prepare, "r+", encoding="utf8") as f:
     code_str = f.read()
     if dict_target in code_str:
@@ -232,6 +324,24 @@ with open(sphinx_search_prepare, "r+", encoding="utf8") as f:
 
     if search_prepare_target in code_str:
         code_str = code_str.replace(search_prepare_target,search_prepare_source)
+        f.seek(0)
+        f.truncate()
+        f.write(code_str)
+
+    if results_sort_target in code_str:
+        code_str = code_str.replace(results_sort_target,results_sort_source)
+        f.seek(0)
+        f.truncate()
+        f.write(code_str)
+
+    if results_function_target in code_str:
+        code_str = code_str.replace(results_function_target,results_function_source)
+        f.seek(0)
+        f.truncate()
+        f.write(code_str)
+
+    if highlight_words_target in code_str:
+        code_str = code_str.replace(highlight_words_target,highlight_words_source)
         f.seek(0)
         f.truncate()
         f.write(code_str)
