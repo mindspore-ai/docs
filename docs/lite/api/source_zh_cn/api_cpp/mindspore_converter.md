@@ -4,6 +4,15 @@
 
 以下描述了Mindspore Lite转换支持的模型类型及用户扩展所需的必要信息。
 
+## 接口汇总
+
+| 类名 | 描述 |
+| --- | --- |
+| [FmkType](#FmkType) | Mindspore Lite支持的框架类型。|
+| [ConverterParameters](#ConverterParameters) | 模型解析时的只读参数。|
+| [NodeParser](#NodePaser) | op节点的解析基类。|
+| [ModelParser](#ModelPaser) | 模型解析的基类。|
+
 ## FmkType
 
 \#include <[parser_context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/parser_context.h)>
@@ -27,11 +36,123 @@
 ```c++
 struct ConverterParameters {
   FmkType fmk;                                   // 框架类型
-  schema::QuantType quant_type;                  // 模型量化类型
   std::string model_file;                        // 原始模型文件路径
   std::string weight_file;                       // 原始模型权重文件路径，仅在Caffe框架下有效
   std::map<std::string, std::string> attrs;      // 预留参数接口，暂未启用
 };
+```
+
+## NodeParser
+
+\#include <[node_parser.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/node_parser.h)>
+
+op节点的解析基类。
+
+### NodeParser
+
+```c++
+NodeParser() = default;
+```
+
+构造函数
+
+### ~NodeParser
+
+```c++
+virtual ~NodeParser() = default;
+```
+
+析构函数
+
+### 公有成员函数
+
+#### Parse
+
+```c++
+ops::PrimitiveC *Parse(const onnx::GraphProto &onnx_graph, const onnx::NodeProto &onnx_node);
+```
+
+onnx节点解析接口函数。
+
+- 参数
+
+    - `onnx_graph`: 模型结构，包含模型的所有信息。
+
+    - `onnx_node`: 待解析节点。
+
+- 返回值
+
+PrimitiveC类指针对象，存储节点属性。
+
+#### Parse
+
+```c++
+ops::PrimitiveC *Parse(const caffe::LayerParameter &proto, const caffe::LayerParameter &weight);
+```
+
+caffe节点解析接口函数。
+
+- 参数
+
+    - `proto`: 待解析节点，包含节点的属性信息。
+
+    - `weight`: 待解析节点的权重信息。
+
+- 返回值
+
+PrimitiveC类指针对象，存储节点属性。
+
+#### Parse
+
+```c++
+ops::PrimitiveC *Parse(const tensorflow::NodeDef &tf_op,
+                       const std::map<std::string, const tensorflow::NodeDef *> &tf_node_map,
+                       std::vector<std::string> *inputs, int *output_size);
+```
+
+tf节点解析接口函数。
+
+- 参数
+
+    - `tf_op`: 待解析节点。
+
+    - `tf_node_map`: 模型的所有节点信息。
+
+    - `inputs`: 用户指定当前节点需要哪些原始输入，及其解析后的输入顺序。
+
+    - `output_size`: 用户指定当前节点的输出个数。
+
+- 返回值
+
+PrimitiveC类指针对象，存储节点属性。
+
+#### Parse
+
+```c++
+ops::PrimitiveC *Parse(const std::unique_ptr<tflite::OperatorT> &tflite_op,
+                       const std::unique_ptr<tflite::ModelT> &tflite_model);
+```
+
+tflite节点解析接口函数。
+
+- 参数
+
+    - `tflite_op`: 待解析节点，包含节点的属性信息。
+
+    - `tflite_model`: 模型结构，包含模型的所有信息。
+
+- 返回值
+
+PrimitiveC类指针对象，存储节点属性。
+
+## NodeParserPtr
+
+\#include <[node_parser.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/node_parser.h)>
+
+NodeParser类的共享智能指针类型。
+
+```c++
+using NodeParserPtr = std::shared_ptr<NodeParser>;
 ```
 
 ## ModelParser
