@@ -7,7 +7,9 @@
 - [保存模型](#保存模型)
     - [概述](#概述)
     - [保存CheckPoint格式文件](#保存checkpoint格式文件)
-        - [CheckPoint配置策略](#checkpoint配置策略)
+        - [使用callback机制](#使用callback机制)
+            - [CheckPoint配置策略](#checkpoint配置策略)
+        - [使用save_checkpoint方法](#使用save_checkpoint方法)
     - [导出MindIR格式文件](#导出mindir格式文件)
     - [导出AIR格式文件](#导出air格式文件)
     - [导出ONNX格式文件](#导出onnx格式文件)
@@ -32,6 +34,10 @@
 以下通过示例来介绍保存CheckPoint格式文件和导出MindIR、AIR和ONNX格式文件的方法。
 
 ## 保存CheckPoint格式文件
+
+下面介绍两种保存checkpoint文件的方法
+
+### 使用callback机制
 
 在模型训练的过程中，使用Callback机制传入回调函数`ModelCheckpoint`对象，可以保存模型参数，生成CheckPoint文件。
 
@@ -79,7 +85,7 @@ resnet50-3_32.ckpt  # 表示保存的是第3个epoch的第32个step的模型参�
 
 > - 当执行分布式并行训练任务时，每个进程需要设置不同`directory`参数，用以保存CheckPoint文件到不同的目录，以防文件发生读写错乱。
 
-### CheckPoint配置策略
+#### CheckPoint配置策略
 
 MindSpore提供了两种保存CheckPoint策略：迭代策略和时间策略，可以通过创建`CheckpointConfig`对象设置相应策略。
 `CheckpointConfig`中共有四个参数可以设置：
@@ -93,6 +99,78 @@ MindSpore提供了两种保存CheckPoint策略：迭代策略和时间策略，�
 `save_checkpoint_seconds`和`keep_checkpoint_per_n_minutes`为时间策略，根据训练的时长进行配置。
 
 两种策略不能同时使用，迭代策略优先级高于时间策略，当同时设置时，只有迭代策略可以生效。当参数显示设置为`None`时，表示放弃该策略。在迭代策略脚本正常结束的情况下，会默认保存最后一个step的CheckPoint文件。
+
+### 使用save_checkpoint方法
+
+可以使用`save_checkpoint`函数把自定义信息保存成 checkpoint文件，函数声明如下：
+
+```python
+def save_checkpoint(save_obj, ckpt_file_name, integrated_save=True,
+                    async_save=False, append_dict=None, enc_key=None, enc_mode="AES-GCM")
+```
+
+其中必填的参数有：`save_obj`、`ckpt_file_name`。
+
+下面通过具体示例来说明如何使用每个参数。
+
+#### `save_obj`和`ckpt_file_name`参数
+
+**`save_obj`**：可以传入一个  Cell类对象或一个list。
+**`ckpt_file_name`**：string类型，表示保存checkpoint文件的名称。
+
+```python
+from mindspore import save_checkpoint, Tensor
+from mindspore import dtype as mstype
+```
+
+1. 传入Cell对象
+
+    ```python
+    ​net = LeNet()
+    ​save_checkpoint(net, "lenet.ckpt")
+    ```
+
+    ​执行后就可以把net中的参数保存成`lenet.ckpt`文件。
+
+2. 传入list对象
+
+    list格式如下：[{"name": param_name, "data": param_data}]，它由一组dict对象组成。
+
+    `param_name`为需要保存对象的名称，`param_data`为需要保存对象的数据，它为Tensor类型。
+
+    ```python
+    save_list = [{"name": "lr", "data": Tensor(0.01, mstype.float32)}, {"name": "train_epoch", "data": Tensor(20, mstype.int32)}]
+    save_checkpoint(save_list, "hyper_param.ckpt")
+    ```
+
+    执行后就可以把`save_list`保存成`hyper_param.ckpt`文件。
+
+#### `integrated_save`参数
+
+**`integrated_save`**：bool类型，表示参数是否合并保存，默认为True。在模型并行场景下，Tensor会被切分到不同卡所运行的程序中。如果`integrated_save`设置为True，则这些被切分的Tensor会被合并保存到每个checkpoint文件中，这样checkpoint文件保存的就是完整的训练参数。
+
+```python
+save_checkpoint(net, "lenet.ckpt", integrated_save=True)
+```
+
+#### `async_save`参数
+
+**`async_save`**：bool类型，表示是否开启异步保存功能，默认为False。如果设置为True，则会开启多线程执行写checkpoint文件操作，从而可以并行执行训练和保存任务，在训练大规模网络时会节省脚本运行的总时长。
+
+```python
+save_checkpoint(net, "lenet.ckpt", async_save=True)
+```
+
+#### `append_dict`参数
+
+**`append_dict`**：dict类型，表示需要额外保存的信息，例如：
+
+```python
+save_dict = {"epoch_num": 2, "lr": 0.01}
+save_checkpoint(net, "lenet.ckpt",append_dict=save_dict)
+```
+
+执行后，除了net中的参数，`save_dict`的信息也会保存在`lenet.ckpt`中。
 
 ## 导出MindIR格式文件
 

@@ -9,6 +9,7 @@
     - [Loading the local Model](#loading-the-local-model)
         - [For Inference Validation](#for-inference-validation)
         - [For Transfer Training](#for-transfer-training)
+    - [Modify and Saving the Checkpoint File](#modify-and-saving-the-checkpoint-file)
 
 <!-- /TOC -->
 
@@ -63,3 +64,37 @@ model.train(epoch, dataset)
 ```
 
 The `load_checkpoint` method returns a parameter dictionary and then the `load_param_into_net` method loads parameters in the parameter dictionary to the network or optimizer.
+
+## Modify and Saving the Checkpoint File
+
+If you want to modify the checkpoint file, you can use the `load_checkpoint` interface, which returns a dict.
+
+This dict can be modified for subsequent operations.
+
+```python
+from mindspore import Parameter, Tensor, load_checkpoint, save_checkpoint
+# Load the checkpoint file
+param_dict = load_checkpoint("lenet.ckpt")
+# You can view the key and value by traversing this dict
+for key, value in param_dict.items():
+  # key is string type
+  print(key)
+  # value is the parameter type, use the data.asnumpy() method to view its value
+  print(value.data.asnumpy())
+
+# After getting param_dict, you can perform basic additions and deletions to it for subsequent use
+
+# 1. Delete the element named "conv1.weight"
+del param_dict["conv1.weight"]
+# 2. Add an element named "conv2.weight" and set its value to 0
+param_dict["conv2.weight"] = Parameter(Tensor([0]))
+# 3. Modify the name "conv1.bias" to 1
+param_dict["conv2.bias"] = Parameter(Tensor([1]))
+
+# Restore the modified param_dict as a checkpoint file
+save_list = []
+# Traverse the modified dict, convert it into a storage format supported by MindSpore, and store it as a checkpoint file
+for key, value in param_dict.items():
+  save_list.append({"name": key, "value": value.data})
+save_checkpoint(save_list, "new.ckpt")
+```
