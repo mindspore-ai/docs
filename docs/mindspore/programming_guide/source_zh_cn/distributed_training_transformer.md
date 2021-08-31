@@ -59,14 +59,12 @@
 - recompute (bool): # 是否开启重计算，默认值为False。
 - vocab_emb_dp (bool): # 是否配置Embedding为数据并行，默认值为True。
 
-我们会在接下来讨论他们的区别。现在以单机八卡训练一个`Transformer`模型为例，我们根据目前的卡数8设置`Transformer`模型的并行配置。在模型参数规模较小的情况下，我们可以设置`data_parallel`=8，`model_parallel`=1作为并行的基本配置。注意并行配置的情况下，`data_parallel`\*`model_parallel`\*`pipeline_stages`<=总卡数。同时，为了尽量节省内存，我们可以使能优化器切分为`True`，优化器参数和权重切分到所有数据并行的设备上。同时开启重计算，丢掉前向计算的中间状态。所以，对应的代码中的**并行配置**如下。
+我们会在接下来讨论他们的区别。现在以单机八卡训练一个`Transformer`模型为例，我们根据目前的卡数8设置`Transformer`模型的并行配置。我们可以设置`data_parallel`=1，`model_parallel`=8作为并行的基本配置。注意并行配置的情况下，`data_parallel`\*`model_parallel`\*`pipeline_stages`<=总卡数。对应的代码中的**并行配置**如下。
 
 ```python
 context.set_auto_parallel_context(mode=ParallelMode.SEMI_PARALLEL)
-parallel_config = TransformerOpParalllelConfig(data_parallel=8,
-                                               model_parallel=1,
-                                               recompute=True,
-                                               optimizer_shard=True)
+parallel_config = TransformerOpParalllelConfig(data_parallel=1,
+                                               model_parallel=8)
 ```
 
 ## 模型定义
@@ -87,22 +85,20 @@ Tranformer中的Embeding层主要由词向量嵌入和位置向量嵌入两部�
 
 ```python
 class EmbeddingLayer(nn.Cell):
-    def __init__(self, config):
+    def __init__(self, vocab_size, position_size, embedding_size,
+                 parallel_config, dropout_rate=0.1):
         super(EmbeddingLayer, self).__init__()
-        self.word_embedding = VocabEmbedding(vocab_size=config.vocab_size,
-                                             embedding_size=config.hidden_size,
-                                             parallel_config=config.parallel_config)
-        self.position_embedding = VocabEmbedding(vocab_size=config.seq_length,
-                                                 embedding_size=config.hidden_size,
-                                                 parallel_config=config.parallel_config)
-        self.add = ops.Add().shard(((config.parallel_config.data_parallel, 1, 1), (config.parallel_config.data_parallel, 1, 1)))
-        self.dropout = nn.Dropout(1 - config.dropout_rate)
-        self.dropout.dropout.shard(((config.parallel_config.data_parallel, 1, 1),))
-        self.is_first_iteration = True
-        self.use_past = config.use_past
-        self.batch_size = config.batch_size
+        self.word_embedding = VocabEmbedding(vocab_size=vocab_size,
+                                             embedding_size=embedding_size,
+                                             parallel_config=parallel_config)
+        self.position_embedding = VocabEmbedding(vocab_size=position_size,
+                                                 embedding_size=embedding_size,
+                                                 parallel_config=parallel_config)
+        self.add = ops.Add().shard(((parallel_config.data_parallel, 1, 1), (parallel_config.data_parallel, 1, 1)))
+        self.dropout = nn.Dropout(1 - dropout_rate)
+        self.dropout.dropout.shard(((parallel_config.data_parallel, 1, 1),))
 
-    def construct(self, input_ids, input_position, init_reset, batch_valid_length):
+    def construct(self, input_ids, input_position):
         word_embedding, word_table = self.word_embedding(input_ids)
         position_embedding, _ = self.position_embedding(input_position)
         embed = self.add(word_embedding, position_embedding)
@@ -128,15 +124,16 @@ def pipeline_func(network, layer_id, offset, parallel_config, layers):
 在下面的代码中，我们实例化了上述定义的`EmbeddingLayer`，并且调用`set_comm_fusion`将其对应的反向梯度融合标记为第0组，调用`pipeline_stage`方法设置对应embedding的权重为第0个`stage`。将最后的`Head`类，一个简单的`Linear`层，放置于最后一个`stage`。在用户不设置Linear中的算子并行策略的情况下，默认是当前`stage`内的数据并行。
 
 ```python
-class Net(nn.Cell):
-    def __init__(self, batch, src_len, tgt_len, hidden_size, vocab_size,
+   def __init__(self, batch, src_len, tgt_len, hidden_size, vocab_size,
                  en_layer, de_layer, parallel_config, return_loss=False):
         super(Net, self).__init__()
-        self.src_embedding = VocabEmbedding(vocab_size=vocab_size, embedding_size=hidden_size,
+        self.src_embedding = EmbeddingLayer(vocab_size=vocab_size, embedding_size=hidden_size,
+                                            position_size=src_len,
                                             parallel_config=parallel_config.embedding_dp_mp_config)
-        self.tgt_embedding = VocabEmbedding(vocab_size=vocab_size, embedding_size=hidden_size,
+        self.tgt_embedding = EmbeddingLayer(vocab_size=vocab_size, embedding_size=hidden_size,
+                                            position_size=tgt_len,
                                             parallel_config=parallel_config.embedding_dp_mp_config)
-        total_layers = en_layer + de_layer
+        total_layers = en_layer + de_layer + 2
         layers_per_stage = total_layers // parallel_config.pipeline_stage
         self.src_embedding.pipeline_stage = 0
         self.tgt_embedding.pipeline_stage = 0
@@ -180,12 +177,27 @@ self.loss = CrossEntropyLoss(parallel_config=parallel_config.dp_mp_config)
 
 在定义并行配置、模型和损失函数之后，我们可以将他们放在一起完成整个训练过程，对应的代码如下。
 
-- 在设置`stage_num=1`的情况下，进行算子级别的并行。
+- 在设置`stage_num=1`的情况下，进行算子级别的并行。用户可以通过设置`TransformerOpParallelConfig`中的`model_parallel`和`data_parallel`属性进行配置并行训练。
 - 在设置`stage_num>1`的情况下，会进入流水线并行模式。流水线的配置就是设置每个`cell`对应的`pipeline_stage`属性，另外，在实例化网络中后，我们需要再调用`PipelineCell`来封装定义好的网络。这个`Cell`的作用是将输入切分成`mirco_batch_num`个数的小数据，以最大利用计算资源。值得注意的是，我们需要调用`net.infer_param_pipeline_stage()`而不是`net.trainable_params()`来获取当前`stage`对应的训练权重。注意，pipeline的stage内的卡数至少为8。pipeline的详细教程可以参考[这里](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/apply_pipeline_parallel.html)。
 
 ```python
-    parallel_config = TransformerOpParallelConfig(pipeline_stage=args_opt.stage_num,
+   if args_opt.distribute == 'true' :
+        D.init()
+        device_num = D.get_group_size()
+        rank_id = D.get_rank()
+        print("rank_id is {}, device_num is {}".format(rank_id, device_num))
+        context.reset_auto_parallel_context()
+        context.set_auto_parallel_context(
+            parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, gradients_mean=False,
+            full_batch=True, loss_repeated_mean=True,
+            device_num=device_num, enable_parallel_optimizer=False)
+        set_algo_parameters(elementwise_op_strategy_follow=True)
+        _set_multi_subgraphs()
+
+    parallel_config = TransformerOpParallelConfig(pipeline_stage=args_opt.pipeline_stage,
                                                   micro_batch_num=args_opt.micro_batch_num,
+                                                  model_parallel=args_opt.model_parallel,
+                                                  data_parallel=args_opt.data_parallel,
                                                   optimizer_shard=False)
 
     net = Net(batch=args_opt.batch_size // args_opt.micro_batch_num if args_opt.pipeline_stage else args_opt.batch_size,
@@ -196,20 +208,21 @@ self.loss = CrossEntropyLoss(parallel_config=parallel_config.dp_mp_config)
               de_layer=args_opt.decoder_layer,
               parallel_config=parallel_config, return_loss=args_opt.train)
 
-    generator = Iterator(batch_size=args_opt.batch_size, vocab_size=args_opt.vocab_size,
-                         src_len=args_opt.src_len, tgt_len=args_opt.tgt_len)
-    dataset = ds.GeneratorDataset(source=generator,
-                                  column_names=["encoder_inputs", "encoder_mask", "decoder_inputs", "decoder_mask",
-                                                "label"])
-    dataset = dataset.batch(args_opt.batch_size)
+    tokenizer = Tokenzier()
+    task = ToyDataset(file_path=args_opt.file_path,
+                      tokenizer=tokenizer,
+                      seq_length=(args_opt.src_len, args_opt.tgt_len))
+    dataset = task.get_dataset(batch_size=args_opt.batch_size)
 
     if args_opt.pipeline_stage > 1:
         net = PipelineCell(net, args_opt.micro_batch_num)
         param = net.infer_param_pipeline_stage()
         print(f"params is:{param}", flush=True)
-        opt = Momentum(param, args_opt.lr, 0.9)
+        group_params = set_weight_decay(param)
+        opt = AdamWeightDecay(group_params, learning_rate=args_opt.lr)
     else:
-        opt = Momentum(net.trainable_params(), args_opt.lr, 0.9)
+        group_params = set_weight_decay(net.trainable_params())
+        opt = AdamWeightDecay(group_params, learning_rate=args_opt.lr)
 
     if not args_opt.train:
         model = Model(net)
@@ -217,31 +230,29 @@ self.loss = CrossEntropyLoss(parallel_config=parallel_config.dp_mp_config)
         model = Model(net, optimizer=opt)
 
     callback_size = 1
-    # single vs pieplien (save a slice of the model)
+    # single vs pipeline (save a slice of the model)
     ckpt_config = CheckpointConfig(save_checkpoint_steps=callback_size, keep_checkpoint_max=4,
                                    integrated_save=False)
     ckpoint_cb = ModelCheckpoint(prefix="test",
                                  config=ckpt_config)
     callback = [TimeMonitor(callback_size), LossMonitor(callback_size), ckpoint_cb]
-    model.train(10, dataset, callbacks=callback, dataset_sink_mode=False)
+    model.train(1, dataset, callbacks=callback, dataset_sink_mode=False)
 ```
 
 ## 准备环节
 
 ### 下载数据集
 
-本样例采用随机产生的id序列作为输入，如下述所示:
+- [WMT14 En-Fr数据集下载](http://statmt.org/wmt14/test-full.tgz)  
+
+使用`newstest2014-fren-ref.en.sgm`作为该任务的训练集合，合并且清洗该数据集。将数据集解压至`docs/sample_code/distributed_training_transformer`目录下。
+
+### 预处理流程
+
+执行下述代码进行数据的预处理过程，将会在当前目录下产生`output`目录，目录下将会生成`wmt14.en_ft.txt`和`wmt14.fr_en.txt`两个文件，文件中每行是一个法语和英语的句子对。我们将采用`wmt14.fr_en.txt`作为训练数据。
 
 ```python
-np.random.seed(1)
-self.encoder_input_value = np.random.randint(low=0, high=vocab_size, size=(batch_size, src_len)).astype(np.int32)
-self.encoder_input_mask = np.ones((batch_size, src_len, src_len)).astype(np.float16)
-
-np.random.seed(1)
-ids = np.random.randint(low=0, high=vocab_size, size=(batch_size, tgt_len + 1))
-self.decoder_input_value = ids[:, :-1].astype(np.int32)
-self.memory_mask = np.ones((batch_size, tgt_len, src_len)).astype(np.float16)
-self.label = ids[:, 1:].astype(np.int32)
+python preprocess.py
 ```
 
 ### 配置分布式环境变量
@@ -318,6 +329,7 @@ if __name__ == "__main__":
 
 ```bash
 #!/bin/bash
+# applicable to Ascend
 
 echo "=============================================================================================================="
 echo "Please run the script as: "
@@ -325,6 +337,7 @@ echo "bash run.sh DATA_PATH RANK_SIZE"
 echo "For example: bash run.sh /path/dataset 8"
 echo "It is better to use the absolute path."
 echo "=============================================================================================================="
+set -e
 DATA_PATH=$1
 export DATA_PATH=${DATA_PATH}
 RANK_SIZE=$2
@@ -355,18 +368,18 @@ do
     export RANK_ID=$i
     echo "start training for device $i"
     env > env$i.log
-    pytest -s -v ./train.py > train.log$i 2>&1 &
+    python ./train.py --distribute=true --file_path=${DATA_PATH} --mp=${RANK_SIZE} > train.log$i 2>&1 &
     cd ../
 done
 rm -rf device0
 mkdir device0
-cp ./train.py ./model.py ./ dataset.py ./device0
+cp ./train.py ./model.py ./dataset.py ./device0
 cd ./device0
 export DEVICE_ID=0
 export RANK_ID=0
 echo "start training for device 0"
 env > env0.log
-pytest -s -v ./train.py > train.log0 2>&1
+python ./train.py --distribute=true --file_path=${DATA_PATH} --mp=${RANK_SIZE} > train.log0 2>&1 &
 if [ $? -eq 0 ];then
     echo "training success"
 else
@@ -376,7 +389,7 @@ fi
 cd ../
 ```
 
-脚本需要传入变量`DATA_PATH`和`RANK_SIZE`，分别表示数据集的绝对路径和卡的数量。
+脚本需要传入变量`DATA_PATH`和`RANK_SIZE`，分别表示`wmt14.fr_en.txt`数据集绝对路径和卡的数量。
 
 分布式相关的环境变量有，
 
@@ -386,19 +399,14 @@ cd ../
 
 其余环境变量请参考安装教程中的配置项。
 
-运行时间大约在5分钟内，主要时间是用于算子的编译，实际训练时间在20秒内。用户可以通过`ps -ef | grep pytest`来监控任务进程。
+运行时间大约在5分钟内，主要时间是用于算子的编译，实际训练时间在20秒内。用户可以通过`ps -ef | grep python`来监控任务进程。
 
 日志文件保存到`rank`所对应的`device0`、 `device1`......目录下，`env.log`中记录了环境变量的相关信息，关于Loss部分结果保存在`train.log`中，示例如下：
 
 ```text
-epoch: 1 step: 156, loss is 2.0084016
-epoch: 2 step: 156, loss is 1.6407638
-epoch: 3 step: 156, loss is 1.6164391
-epoch: 4 step: 156, loss is 1.6838071
-epoch: 5 step: 156, loss is 1.6320667
-epoch: 6 step: 156, loss is 1.3098773
-epoch: 7 step: 156, loss is 1.3515002
-epoch: 8 step: 156, loss is 1.2943741
-epoch: 9 step: 156, loss is 1.2316195
-epoch: 10 step: 156, loss is 1.1533381
+epoch: 1 step: 1, loss is 9.9034
+epoch: 1 step: 2, loss is 9.9033
+epoch: 1 step: 3, loss is 9.9031
+epoch: 1 step: 4, loss is 9.9025
+epoch: 1 step: 5, loss is 9.9022
 ```

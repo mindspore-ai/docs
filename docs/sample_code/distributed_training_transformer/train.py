@@ -17,7 +17,6 @@ Train file for training transformers
 """
 import argparse
 from mindspore.parallel.nn import TransformerOpParallelConfig
-import mindspore.dataset as ds
 from mindspore.train.model import Model
 import mindspore.communication.management as D
 from mindspore.context import ParallelMode
@@ -25,10 +24,29 @@ from mindspore.parallel import set_algo_parameters
 from mindspore.parallel._cost_model_context import _set_multi_subgraphs
 from mindspore.nn.wrap.cell_wrapper import PipelineCell
 from mindspore.train.callback import TimeMonitor, LossMonitor, CheckpointConfig, ModelCheckpoint
-from mindspore.nn.optim import Momentum
+from mindspore.nn import AdamWeightDecay
 from mindspore import context
-from dataset import Iterator
+from dataset import ToyDataset, Tokenzier
 from model import Net
+
+
+def set_weight_decay(params):
+    """
+    Set weight decay coefficient, zero for bias and layernorm, 1e-1 for rest
+    """
+    decay_filter = lambda x: 'layernorm' not in x.name.lower() and "bias" not in x.name.lower()
+    decay_params = list(filter(decay_filter, params))
+    other_params = list(filter(lambda x: not decay_filter(x), params))
+    group_params = [{
+        'params': decay_params,
+        'weight_decay': 1e-1
+    }, {
+        'params': other_params,
+        'weight_decay': 0.0
+    }, {
+        'order_params': params
+    }]
+    return group_params
 
 
 def main():
@@ -36,11 +54,15 @@ def main():
     parser = argparse.ArgumentParser(description="PanguAlpha training")
     parser.add_argument('--train',
                         type=int,
-                        default=0,
-                        help="Device id, default is 0.")
+                        default=1,
+                        help="Running training or prediction.")
     parser.add_argument("--device_num",
                         type=int,
                         default=128,
+                        help="Use device nums, default is 128.")
+    parser.add_argument("--file_path",
+                        type=str,
+                        default="./output/wmt14.fr_en.txt",
                         help="Use device nums, default is 128.")
     parser.add_argument("--distribute",
                         type=str,
@@ -54,22 +76,22 @@ def main():
     parser.add_argument('--src_len',
                         required=False,
                         type=int,
-                        default=1,
+                        default=10,
                         help='The source sequence length.')
     parser.add_argument('--tgt_len',
                         required=False,
                         type=int,
-                        default=1,
+                        default=10,
                         help='The target sequence length.')
     parser.add_argument('--vocab_size',
                         required=False,
                         type=int,
-                        default=100,
+                        default=20000,
                         help='The vocab size.')
     parser.add_argument('--d_model',
                         required=False,
                         type=int,
-                        default=40,
+                        default=128,
                         help='The hidden size of the model.')
     parser.add_argument('--encoder_layer',
                         required=False,
@@ -89,16 +111,26 @@ def main():
     parser.add_argument('--batch_size',
                         required=False,
                         type=int,
-                        default=1,
+                        default=32,
                         help='The batch size of the inputs.')
     parser.add_argument('--lr',
                         required=False,
                         type=float,
-                        default=0.01,
+                        default=0.0001,
                         help='The learnign rate of the training process.')
+    parser.add_argument('--dp',
+                        required=False,
+                        type=int,
+                        default=1,
+                        help='The data parallel way.')
+    parser.add_argument('--mp',
+                        required=False,
+                        type=int,
+                        default=1,
+                        help='The model parallel way.')
     args_opt = parser.parse_args()
 
-    if args_opt.pipeline_stage > 1:
+    if args_opt.distribute == 'true':
         D.init()
         device_num = D.get_group_size()
         rank_id = D.get_rank()
@@ -111,8 +143,10 @@ def main():
         set_algo_parameters(elementwise_op_strategy_follow=True)
         _set_multi_subgraphs()
 
-    parallel_config = TransformerOpParallelConfig(pipeline_stage=args_opt.pipeline_stage_num,
+    parallel_config = TransformerOpParallelConfig(pipeline_stage=args_opt.pipeline_stage,
                                                   micro_batch_num=args_opt.micro_batch_num,
+                                                  model_parallel=args_opt.mp,
+                                                  data_parallel=args_opt.dp,
                                                   optimizer_shard=False)
 
     net = Net(batch=args_opt.batch_size // args_opt.micro_batch_num if args_opt.pipeline_stage else args_opt.batch_size,
@@ -123,20 +157,21 @@ def main():
               de_layer=args_opt.decoder_layer,
               parallel_config=parallel_config, return_loss=args_opt.train)
 
-    generator = Iterator(batch_size=args_opt.batch_size, vocab_size=args_opt.vocab_size,
-                         src_len=args_opt.src_len, tgt_len=args_opt.tgt_len)
-    dataset = ds.GeneratorDataset(source=generator,
-                                  column_names=["encoder_inputs", "encoder_mask", "decoder_inputs", "decoder_mask",
-                                                "label"])
-    dataset = dataset.batch(args_opt.batch_size)
+    tokenizer = Tokenzier()
+    task = ToyDataset(file_path=args_opt.file_path,
+                      tokenizer=tokenizer,
+                      seq_length=(args_opt.src_len, args_opt.tgt_len))
+    dataset = task.get_dataset(batch_size=args_opt.batch_size)
 
     if args_opt.pipeline_stage > 1:
         net = PipelineCell(net, args_opt.micro_batch_num)
         param = net.infer_param_pipeline_stage()
         print(f"params is:{param}", flush=True)
-        opt = Momentum(param, args_opt.lr, 0.9)
+        group_params = set_weight_decay(param)
+        opt = AdamWeightDecay(group_params, learning_rate=args_opt.lr)
     else:
-        opt = Momentum(net.trainable_params(), args_opt.lr, 0.9)
+        group_params = set_weight_decay(net.trainable_params())
+        opt = AdamWeightDecay(group_params, learning_rate=args_opt.lr)
 
     if not args_opt.train:
         model = Model(net)
@@ -150,7 +185,7 @@ def main():
     ckpoint_cb = ModelCheckpoint(prefix="test",
                                  config=ckpt_config)
     callback = [TimeMonitor(callback_size), LossMonitor(callback_size), ckpoint_cb]
-    model.train(10, dataset, callbacks=callback, dataset_sink_mode=False)
+    model.train(1, dataset, callbacks=callback, dataset_sink_mode=False)
 
 
 if __name__ == "__main__":
