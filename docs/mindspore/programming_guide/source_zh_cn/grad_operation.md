@@ -14,6 +14,9 @@
         - [单输入多输出高阶导数](#单输入多输出高阶导数)
         - [多输入多输出高阶导数](#多输入多输出高阶导数)
     - [二阶微分算子支持情况](#二阶微分算子支持情况)
+    - [Jvp与Vjp接口](#Jvp与Vjp接口)
+        - [Jvp](#Jvp)
+        - [Vjp](#Vjp)
     - [引用](#引用)
 
 <!-- /TOC -->
@@ -451,6 +454,108 @@ CPU支持算子：[Square](https://www.mindspore.cn/docs/api/zh-CN/master/api_py
 GPU支持算子：[Pow](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Pow.html#mindspore.ops.Pow)、[Log](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Log.html#mindspore.ops.Log)、[Square](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Square.html#mindspore.ops.Square)、[Exp](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Exp.html#mindspore.ops.Exp)、[Neg](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Neg.html#mindspore.ops.Neg)、[Mul](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Mul.html#mindspore.ops.Mul)、[Div](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Div.html#mindspore.ops.Div)、[MatMul](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.MatMul.html#mindspore.ops.MatMul)、[Sin](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Sin.html#mindspore.ops.Sin)、[Cos](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Cos.html#mindspore.ops.Cos)、[Tan](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Tan.html#mindspore.ops.Tan)、[Atanh](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Atanh.html#mindspore.ops.Atanh)；
 
 Ascend支持算子：[Pow](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Pow.html#mindspore.ops.Pow)、[Log](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Log.html#mindspore.ops.Log)、[Square](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Square.html#mindspore.ops.Square)、[Exp](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Exp.html#mindspore.ops.Exp)、[Neg](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Neg.html#mindspore.ops.Neg)、[Mul](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Mul.html#mindspore.ops.Mul)、[Div](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Div.html#mindspore.ops.Div)、[MatMul](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.MatMul.html#mindspore.ops.MatMul)、[Sin](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Sin.html#mindspore.ops.Sin)、[Cos](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Cos.html#mindspore.ops.Cos)、[Tan](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Tan.html#mindspore.ops.Tan)、[Sinh](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Sinh.html#mindspore.ops.Sinh)、[Cosh](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Cosh.html#mindspore.ops.Cosh)、[Atanh](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Atanh.html#mindspore.ops.Atanh)。
+
+## Jvp与Vjp接口
+
+除了基于反向微分模式的GradOperation接口之外，MindSpore还提供了两个新的微分接口Vjp与Jvp，分别对应前向自动微分与反向自动微分。
+
+### Jvp
+
+Jvp(Jacobian-vector-product)对应的是前向模式的自动微分，适用在输出的维度小于输入的维度的网络中。Jvp会将输入网络的正向运行结果以及微分结果返回出来。不同于反向自动微分，前向自动微分可以在求取网络的原本输出的同时求取其梯度，不需要像反向微分一样保存太多的中间结果，因此前向自动微分相比于反向自动微分往往会节省一定的内存。反向微分与正向微分的区别可以详见[自动微分设计](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/gradient.html)。
+
+样例代码如下：
+
+```python
+import numpy as np
+import mindspore.context as context
+import mindspore.nn as nn
+import mindspore.ops as ops
+from mindspore import Tensor
+from mindspore import dtype as mstype
+context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.sin = ops.Sin()
+        self.cos = ops.Cos()
+
+    def construct(self, x, y):
+        a = self.sin(x)
+        b = self.cos(y)
+        out = a + b
+        return out
+
+class GradNet(nn.Cell):
+    def __init__(self, net):
+        super(GradNet, self).__init__()
+        self.net = net
+        self.grad_op = nn.Jvp(net)
+
+    def construct(self, x, y, v):
+        output = self.grad_op(x, y, (v, v))
+        return output
+
+x = Tensor([0.8, 0.6, 0.2], dtype=mstype.float32)
+y = Tensor([0.7, 0.4, 0.3], dtype=mstype.float32)
+v = Tensor([1, 1, 1], dtype=mstype.float32)
+output = GradNet(Net())(x, y, v)
+print(output)
+```
+
+输出结果为：
+
+```text
+([ 1.48, 1.49, 1.15]), [ 0.0525, 0.436, 0.685]))
+```
+
+### Vjp
+
+Vjp(Vector-jacobian-product), 运行的是反向模式的自动微分。Vjp会将输入网络的前向结果以及微分结果一并输出出来。 反向微分更加适用在输入的维度大于输出维度的网络中，具体内容详见[自动微分设计](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/gradient.html)。
+
+样例代码如下：
+
+```python
+import numpy as np
+import mindspore.context as context
+import mindspore.nn as nn
+import mindspore.ops as ops
+from mindspore import Tensor
+from mindspore import dtype as mstype
+context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.sin = ops.Sin()
+        self.cos = ops.Cos()
+
+    def construct(self, x, y):
+        a = self.sin(x)
+        b = self.cos(y)
+        out = a + b
+        return out
+
+class GradNet(nn.Cell):
+    def __init__(self, net):
+        super(GradNet, self).__init__()
+        self.net = net
+        self.grad_op = nn.Vjp(net)
+
+    def construct(self, x, y, v):
+        output = self.grad_op(x, y, v)
+        return output
+
+x = Tensor([0.8, 0.6, 0.2], dtype=mstype.float32)
+y = Tensor([0.7, 0.4, 0.3], dtype=mstype.float32)
+v = Tensor([1, 1, 1], dtype=mstype.float32)
+output = GradNet(Net())(x, y, v)
+print(output)
+```
+
+输出结果为：
+
+```text
+([ 1.48, 1.49, 1.15]), ([ 0.70, 0.83, 0.98]), [-0.64, -0.39, -0.30])))
+```
 
 ## 引用
 
