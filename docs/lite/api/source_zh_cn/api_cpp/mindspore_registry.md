@@ -6,9 +6,11 @@
 
 | 类名 | 描述 |
 | --- | --- |
+| [NodeParserRegistry](#NodeParserRegistry) | 扩展Node解析的注册类。|
+| [REG_NODE_PARSER](#REG_NODE_PARSER) | 注册扩展Node解析。|
 | [ModelParserRegistry](#ModelParserRegistry) | 扩展Model解析的注册类。|
-| [ModelRegistrar](#ModelRegistrar) | 扩展Model解析的注册构造类。|
 | [REG_MODEL_PARSER](#REG_MODEL_PARSER) | 注册扩展Model解析。|
+| [PassBase](#PassBase) | Pass的基类。|
 | [PassPosition](#PassPosition) | 扩展Pass的运行位置。|
 | [PassRegistry](#PassRegistry) | 扩展Pass注册构造类。|
 | [REG_PASS](#REG_PASS) | 注册扩展Pass。|
@@ -21,6 +23,71 @@
 | [KernelInterfaceReg](#KernelInterfaceReg) | 算子扩展能力注册构造类。|
 | [REGISTER_KERNEL_INTERFACE](#REGISTER_KERNEL_INTERFACE) | 注册算子扩展能力。|
 | [REGISTER_CUSTOM_KERNEL_INTERFACE](#REGISTER_CUSTOM_KERNEL_INTERFACE) | 注册Custom算子扩展能力。|
+
+## NodeParserRegistry
+
+\#include <[node_parser_registry.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/node_parser_registry.h)>
+
+NodeParserRegistry类用于注册及获取NodeParser类型的共享智能指针。
+
+### NodeParserRegistry
+
+```c++
+NodeParserRegistry(converter::FmkType fmk_type, const std::string &node_type,
+                   const converter::NodeParserPtr &node_parser);
+```
+
+构造函数
+
+- 参数
+
+    - `fmk_type`: 框架类型，具体见[FmkType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_converter.html#fmktype)说明。
+
+    - `node_type`: 节点的类型。
+
+    - `node_parser`: NodeParser类型的共享智能指针实例, 具体见[NodeParserPtr](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_converter.html#nodeparserptr)说明。
+
+### ~NodeParserRegistry
+
+```c++
+~NodeParserRegistry = default;
+```
+
+析构函数
+
+## 公有成员函数
+
+### GetNodeParser
+
+```c++
+static converter::NodeParserPtr GetNodeParser(converter::FmkType fmk_type, const std::string &node_type);
+```
+
+静态方法，获取NodeParser类型的共享智能指针实例。
+
+- 参数
+
+    - `fmk_type`: 框架类型，具体见[FmkType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_converter.html#fmktype)说明。
+
+    - `node_type`: 节点的类型。
+
+## REG_NODE_PARSER
+
+\#include <[node_parser_registry.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/node_parser_registry.h)>
+
+```c++
+#define REG_NODE_PARSER(fmk_type, node_type, node_parser)
+```
+
+注册NodeParser宏
+
+- 参数
+
+    - `fmk_type`: 框架类型，具体见[FmkType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_converter.html#fmktype)说明。
+
+    - `node_type`: 节点的类型。
+
+    - `node_parser`: NodeParser类型的共享智能指针实例, 具体见[NodeParserPtr](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_converter.html#nodeparserptr)说明。
 
 ## ModelParserCreator
 
@@ -92,24 +159,54 @@ static ModelParser *GetModelParser(FmkType fmk)
 
 > 用户自定义的ModelParser，框架类型必须满足设定支持的框架类型[FmkType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_converter.html#fmktype)。
 
-## Pass
+## PassBase
 
-\#include <[pass_registry.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/pass_registry.h)>
+\#include <[pass_base.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/pass_base.h)>
 
-Pass类的前置声明。Pass定义了图优化的基类，以供用户继承，自定义Pass。用户自定义Pass需重载以下虚函数：
+PassBase定义了图优化的基类，以供用户继承并自定义图优化算法。
+
+### PassBase
 
 ```c++
-virtual bool Run(const FuncGraphPtr &func_graph) = 0;
+PassBase(const std::string &name = "PassBase")
 ```
 
-## PassPtr
+构造函数，构造PassBase类对象。
 
-\#include <[pass_registry.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/pass_registry.h)>
+- 参数
 
-Pass类的共享智能指针类型。
+    - `name`: PassBase类对象的标识，需保证唯一性。
+
+### ~PassBase
 
 ```c++
-using PassPtr = std::shared_ptr<Pass>
+virtual ~PassBase() = default;
+```
+
+析构函数
+
+### 公有成员函数
+
+#### Run
+
+```c++
+virtual bool Run(const api::FuncGraphPtr &func_graph) = 0;
+```
+
+对图进行操作的接口函数。
+
+- 参数
+
+    - `func_graph`: FuncGraph的指针类对象。
+
+## PassBasePtr
+
+\#include <[pass_base.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/pass_base.h)>
+
+PassBase类的共享智能指针类型。
+
+```c++
+using PassBasePtr = std::shared_ptr<PassBase>
 ```
 
 ## PassPosition
@@ -134,7 +231,7 @@ PassRegistry类用于注册及获取Pass类实例。
 ### PassRegistry
 
 ```c++
-PassRegistry(const std::string &pass_name, const opt::PassPtr &pass)
+PassRegistry(const std::string &pass_name, const PassBasePtr &pass)
 ```
 
 构造函数，构造PassRegistry对象，进行注册Pass。
@@ -143,7 +240,7 @@ PassRegistry(const std::string &pass_name, const opt::PassPtr &pass)
 
     - `pass_name`: Pass的命名标识，保证唯一性。
 
-    - `pass`: Pass类实例。
+    - `pass`: PassBase类实例。
 
 ```c++
 PassRegistry(PassPosition position, const std::vector<std::string> &names)
@@ -182,14 +279,14 @@ static std::vector<std::string> GetOuterScheduleTask(PassPosition position)
 #### GetPassFromStoreRoom
 
 ```c++
-static std::vector<opt::PassPtr> GetPassFromStoreRoom(const std::vector<std::string> &pass_names)
+static PassBasePtr GetPassFromStoreRoom(const std::string &pass_name)
 ```
 
-获取Pass实例，根据指定的Pass命名标识。
+获取PassBase实例，根据指定的Pass命名标识。
 
 - 参数
 
-    - `pass_names`: Pass的命名标识。
+    - `pass_name`: Pass的命名标识。
 
 ## REG_PASS
 
@@ -205,7 +302,7 @@ static std::vector<opt::PassPtr> GetPassFromStoreRoom(const std::vector<std::str
 
     - `name`: Pass的命名标识，保证唯一性。
 
-    - `pass`: Pass类实例。
+    - `pass`: PassBase类实例。
 
 ## REG_SCHEDULED_PASS
 
