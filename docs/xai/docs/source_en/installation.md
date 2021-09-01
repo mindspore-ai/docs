@@ -69,4 +69,4 @@ print(mindspore_xai.__version__)
 
 ## Note
 
-[MindInsight](https://www.mindspore.cn/mindinsight/en) is an optional tool for visualizing the model explanation from XAI. Please refer to [Installation](https://mindspore.cn/mindinsight/docs/en/master/mindinsight_install.html) for more details.
+[MindInsight](https://www.mindspore.cn/mindinsight/en) is an optional tool for visualizing the model explanation from XAI. Please refer to [Installation](https://www.mindspore.cn/mindinsight/docs/en/master/mindinsight_install.html) for more details.

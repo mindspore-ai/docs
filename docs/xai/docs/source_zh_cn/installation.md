@@ -69,4 +69,4 @@ print(mindspore_xai.__version__)
 
 ## 注意事项
 
-[MindInsight](https://www.mindspore.cn/mindinsight) 是一个可选的XAI可视化工具，请参阅[安裝教程](https://mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_install.html) 。
+[MindInsight](https://www.mindspore.cn/mindinsight) 是一个可选的XAI可视化工具，请参阅[安裝教程](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_install.html) 。

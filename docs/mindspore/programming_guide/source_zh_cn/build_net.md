@@ -30,7 +30,7 @@ Cell本身具备模块管理能力，一个Cell可以由多个Cell组成，便�
 
 - nn_ops: 网络类算子
 
-> 更多算子使用方式参考文档[算子](https://mindspore.cn/docs/programming_guide/zh-CN/master/operators.html)。
+> 更多算子使用方式参考文档[算子](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/operators.html)。
 
 直接运行两个基础算子，`ops.Mul()`和`ops.Add()`：
 

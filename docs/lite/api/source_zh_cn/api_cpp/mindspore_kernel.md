@@ -6,8 +6,8 @@
 
 | 类名 | 描述 |
 | --- | --- |
-| [Kernel](#Kernel) | 算子基类。|
-| [KernelInterface](#KernelInterface) | 算子扩展能力基类。|
+| [Kernel](#kernel) | 算子基类。|
+| [KernelInterface](#kernelinterface) | 算子扩展能力基类。|
 
 ## Kernel
 
@@ -206,7 +206,7 @@ virtual ~KernelInterface()
 using KernelInterfaceCreator = std::function<std::shared_ptr<KernelInterface>()>
 ```
 
-创建[KernelInterface](#KernelInterface)的函数原型声明。
+创建[KernelInterface](#kernelinterface)的函数原型声明。
 
 ### 公有成员函数
 

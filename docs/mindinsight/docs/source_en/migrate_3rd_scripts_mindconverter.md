@@ -38,7 +38,7 @@ MindConverter is a migration tool to transform the model file of PyTorch(ONNX) o
 
 ## Quick Starts
 
-MindConverter is a sub-module in MindInsight. Please refer to the [installation guide](https://mindspore.cn/mindinsight/docs/en/master/mindinsight_install.html) of MindInsight. The basic usage of MindConverter CLI is as follows. For more CLI arguments, please refer to [MindConverter CLI Usage](#mindconverter-cli-usage).
+MindConverter is a sub-module in MindInsight. Please refer to the [installation guide](https://www.mindspore.cn/mindinsight/docs/en/master/mindinsight_install.html) of MindInsight. The basic usage of MindConverter CLI is as follows. For more CLI arguments, please refer to [MindConverter CLI Usage](#mindconverter-cli-usage).
 
 ```shell
 mindconverter --model_file /path/to/model_file --shape SHAPE --input_nodes INPUTS --output_nodes OUTPUTS
@@ -76,14 +76,14 @@ A typical model project contains 4 main components. Tips for migrating each comp
   2. Manually enhance the readability of the generated model scripts(Optional).
   3. Mix the generated model with the original project to validate equivalence of the migration. Refer to [FAQ](#mix-the-mindspore-model-into-the-original-training-script).
 - Data processing（`dataset.py`）
-  1. For a built-in dataset, please query [API mapping](https://mindspore.cn/docs/migration_guide/en/master/api_mapping/pytorch_api_mapping.html) for migration.
+  1. For a built-in dataset, please query [API mapping](https://www.mindspore.cn/docs/migration_guide/en/master/api_mapping/pytorch_api_mapping.html) for migration.
   2. For a customized dataset and data augmentation, please refer to [the migration template](#step-2-migrate-the-data-processing).
 - Model training（`train.py`）
-  1. The loss function(`loss_fn`) can be migrated by querying [API mapping](https://mindspore.cn/docs/migration_guide/en/master/api_mapping/pytorch_api_mapping.html) or user's implementation.
-  2. The optimizer(`optimizer`) can be migrated by querying [API mapping](https://mindspore.cn/docs/migration_guide/en/master/api_mapping/pytorch_api_mapping.html) or user's implementation.
+  1. The loss function(`loss_fn`) can be migrated by querying [API mapping](https://www.mindspore.cn/docs/migration_guide/en/master/api_mapping/pytorch_api_mapping.html) or user's implementation.
+  2. The optimizer(`optimizer`) can be migrated by querying [API mapping](https://www.mindspore.cn/docs/migration_guide/en/master/api_mapping/pytorch_api_mapping.html) or user's implementation.
   3. As the training codes could be flexible and significantly different from MindSpore, implementation by the users is recommended. Please refer to [FAQ](#step-3-migrate-the-model-training).
 - Model evaluation（`eval.py`）
-  1. The metric(`metric`) can be migrated by querying [API mapping](https://mindspore.cn/docs/migration_guide/en/master/api_mapping/pytorch_api_mapping.html) or user's implementation.
+  1. The metric(`metric`) can be migrated by querying [API mapping](https://www.mindspore.cn/docs/migration_guide/en/master/api_mapping/pytorch_api_mapping.html) or user's implementation.
   2. As the evaluation codes could be flexible and significantly different from MindSpore, implementation by the users is recommended. Please refer to [FAQ](#step-4-migrate-the-model-evaluation).
 
 ## Practice Guidance
@@ -165,7 +165,7 @@ Note
 
 ### Step 2：Migrate the data processing
 
-For a built-in dataset, please query [API mapping](https://mindspore.cn/docs/migration_guide/en/master/api_mapping/pytorch_api_mapping.html) for migration. For a customized dataset and data augmentation, self implementation is recommended. For more data processing migration, please refer to [the programming guidance](https://mindspore.cn/docs/programming_guide/en/master/dataset_sample.html).
+For a built-in dataset, please query [API mapping](https://www.mindspore.cn/docs/migration_guide/en/master/api_mapping/pytorch_api_mapping.html) for migration. For a customized dataset and data augmentation, self implementation is recommended. For more data processing migration, please refer to [the programming guidance](https://www.mindspore.cn/docs/programming_guide/en/master/dataset_sample.html).
 
 Source codes with PyTorch framework are as follows:
 
@@ -221,11 +221,11 @@ dataset = GeneratorDataset(generator, column_names=['data', 'label']).batch(BATC
 
 ### Step 3：Migrate the model training
 
-The loss function(`loss_fn`) can be migrated by querying [API mapping](https://mindspore.cn/docs/migration_guide/en/master/api_mapping/pytorch_api_mapping.html) or user's implementation. For more loss function migration, please refer to [the programming guidance](https://mindspore.cn/docs/programming_guide/en/master/loss.html).
+The loss function(`loss_fn`) can be migrated by querying [API mapping](https://www.mindspore.cn/docs/migration_guide/en/master/api_mapping/pytorch_api_mapping.html) or user's implementation. For more loss function migration, please refer to [the programming guidance](https://www.mindspore.cn/docs/programming_guide/en/master/loss.html).
 
-The optimizer(`optimizer`) can be migrated by querying [API mapping](https://mindspore.cn/docs/migration_guide/en/master/api_mapping/pytorch_api_mapping.html) or user's implementation. For more optimizer migration, please refer to [the programming guidance](https://mindspore.cn/docs/programming_guide/en/master/optim.html).
+The optimizer(`optimizer`) can be migrated by querying [API mapping](https://www.mindspore.cn/docs/migration_guide/en/master/api_mapping/pytorch_api_mapping.html) or user's implementation. For more optimizer migration, please refer to [the programming guidance](https://www.mindspore.cn/docs/programming_guide/en/master/optim.html).
 
-As the training codes could be flexible and significantly different from MindSpore, implementation by the users is recommended. For more model training migration, please refer to [the programming guidance](https://mindspore.cn/docs/programming_guide/en/master/train.html).
+As the training codes could be flexible and significantly different from MindSpore, implementation by the users is recommended. For more model training migration, please refer to [the programming guidance](https://www.mindspore.cn/docs/programming_guide/en/master/train.html).
 
 Source codes with PyTorch framework are as follows:
 
@@ -295,9 +295,9 @@ model.train(EPOCH_SIZE, dataset)
 
 ### Step 4：Migrate the model evaluation
 
-The metric(`metric`) can be migrated by querying [API mapping](https://mindspore.cn/docs/migration_guide/en/master/api_mapping/pytorch_api_mapping.html) or user's implementation.
+The metric(`metric`) can be migrated by querying [API mapping](https://www.mindspore.cn/docs/migration_guide/en/master/api_mapping/pytorch_api_mapping.html) or user's implementation.
 
-As the evaluation codes could be flexible and significantly different from MindSpore, implementation by the users is recommended. For more model evaluation migration, please refer to [the programming guidance](https://mindspore.cn/docs/programming_guide/en/master/multi_platform_inference_ascend_910.html).
+As the evaluation codes could be flexible and significantly different from MindSpore, implementation by the users is recommended. For more model evaluation migration, please refer to [the programming guidance](https://www.mindspore.cn/docs/programming_guide/en/master/multi_platform_inference_ascend_910.html).
 
 Source codes with PyTorch framework are as follows:
 
@@ -588,7 +588,7 @@ Assume the PyTorch script is located at `/path/to/model.py`, and outputs the tra
 mindconverter --in_file /path/to/model.py --output /path/to/output/dir
 ```
 
-In the conversion report, non-converted code is listed as follows. `x, y` indicates the line number and the column number of the original scripts. For non-converted operators, please refer to [MindSpore API mapping](https://mindspore.cn/docs/migration_guide/en/master/api_mapping/pytorch_api_mapping.html). For unsupported operators, the corresponding code lines will remain in the original way.
+In the conversion report, non-converted code is listed as follows. `x, y` indicates the line number and the column number of the original scripts. For non-converted operators, please refer to [MindSpore API mapping](https://www.mindspore.cn/docs/migration_guide/en/master/api_mapping/pytorch_api_mapping.html). For unsupported operators, the corresponding code lines will remain in the original way.
 
 ```text
 line x:y: [UnConvert] 'operator' didn't convert. ...
