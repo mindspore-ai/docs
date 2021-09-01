@@ -1,10 +1,10 @@
-# Pipeline Parallelism Application
+# Pipeline Parallelism
 
 `Linux` `Ascend` `Model Training` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Pipeline Parallelism Application](#pipeline-parallelism-application)
+- [Pipeline Parallelism](#pipeline-parallelism)
     - [Overview](#overview)
     - [Preparations](#preparations)
         - [Downloading the Dataset](#downloading-the-dataset)

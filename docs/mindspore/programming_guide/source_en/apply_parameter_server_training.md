@@ -1,10 +1,10 @@
-# Training with Parameter Server
+# Parameter Server Mode
 
 `Linux` `Ascend` `GPU` `Model Training` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Training with Parameter Server](#training-with-parameter-server)
+- [Parameter Server Mode](#parameter-server-mode)
     - [Overview](#overview)
     - [Preparations](#preparations)
         - [Training Script Preparation](#training-script-preparation)

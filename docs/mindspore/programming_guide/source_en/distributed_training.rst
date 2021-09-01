@@ -1,6 +1,5 @@
-# Distributed Training Overview
-
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/distributed_training.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+Distributed Parallel Overview
+==============================
 
 In deep learning, the increasing number of datasets and parameters prolongs the training time and requires more hardware resources, becoming a training bottleneck. Parallel distributed training is an important optimization method for training, which can reduce requirements on hardware, such as memory and computing performance. Based on different parallel principles and modes, parallelism is generally classified into the following types:
 
@@ -17,3 +16,9 @@ MindSpore also provides the parallel distributed training function. It supports 
     - `recursive_programming`: Double recursive programming search algorithm. The optimal strategy can be generated instantly even for a large network or for a large-scale multi-device partitioning need. Its symbolic cost model can flexibly adapt to different accelerator clusters.
 
 - `HYBRID_PARALLEL`: On MindSpore, users manually split parameters to implement intra-layer model parallelism.
+
+.. toctree::
+  :maxdepth: 1
+
+  auto_parallel
+  distributed_training_mode

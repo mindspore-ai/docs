@@ -1,10 +1,10 @@
-# 应用Host&Device混合训练
+# Host&Device异构
 
 `Linux` `Ascend` `CPU` `模型训练` `中级` `高级`
 
 <!-- TOC -->
 
-- [Host&Device混合训练](#hostdevice混合训练)
+- [Host&Device异构](#hostdevice异构)
     - [概述](#概述)
     - [准备工作](#准备工作)
     - [配置混合执行](#配置混合执行)

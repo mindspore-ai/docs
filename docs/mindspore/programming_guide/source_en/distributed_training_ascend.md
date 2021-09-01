@@ -1,10 +1,10 @@
-# Parallel Distributed Training (Ascend)
+# Parallel Distributed Training Example (Ascend)
 
 `Linux` `Ascend` `Model Training` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Parallel Distributed Training (Ascend)](#parallel-distributed-training-ascend)
+- [Parallel Distributed Training Example (Ascend)](#parallel-distributed-training-example-ascend)
     - [Overview](#overview)
     - [Preparations](#preparations)
         - [Downloading the Dataset](#downloading-the-dataset)
