@@ -14,6 +14,7 @@ Neural Network Operators
     mindspore.ops.Acosh
     mindspore.ops.Adam
     mindspore.ops.AdamNoUpdateParam
+    mindspore.ops.AdamWeightDecay
     mindspore.ops.AdaptiveAvgPool2D
     mindspore.ops.ApplyAdadelta
     mindspore.ops.ApplyAdagrad
