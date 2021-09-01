@@ -18,6 +18,7 @@ MindSpore编程指南
    :caption: 设计介绍
 
    design/technical_white_paper
+   design/all_scenarios_architecture
    design/distributed_training_design
    design/mindir
    可视化调试调优设计↗ <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/training_visual_design.html>
