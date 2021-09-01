@@ -16,12 +16,32 @@
 Model for training transformers
 """
 import mindspore.nn as nn
-from mindspore.ops import functional as F
-import mindspore.ops as P
-import mindspore.common.dtype as mstype
+import mindspore.ops as ops
+from mindspore import dtype as mstype
 from mindspore.parallel.nn import Transformer, VocabEmbedding, AttentionMask, CrossEntropyLoss
 from mindspore.nn import Dense as Linear
 
+class EmbeddingLayer(nn.Cell):
+    """Embedding layer including position embedding and word embedding"""
+    def __init__(self, vocab_size, position_size, embedding_size,
+                 parallel_config, dropout_rate=0.1):
+        super(EmbeddingLayer, self).__init__()
+        self.word_embedding = VocabEmbedding(vocab_size=vocab_size,
+                                             embedding_size=embedding_size,
+                                             parallel_config=parallel_config)
+        self.position_embedding = VocabEmbedding(vocab_size=position_size,
+                                                 embedding_size=embedding_size,
+                                                 parallel_config=parallel_config)
+        self.add = ops.Add().shard(((parallel_config.data_parallel, 1, 1), (parallel_config.data_parallel, 1, 1)))
+        self.dropout = nn.Dropout(1 - dropout_rate)
+        self.dropout.dropout.shard(((parallel_config.data_parallel, 1, 1),))
+
+    def construct(self, input_ids, input_position):
+        word_embedding, word_table = self.word_embedding(input_ids)
+        position_embedding, _ = self.position_embedding(input_position)
+        embed = self.add(word_embedding, position_embedding)
+        embed = self.dropout(embed)
+        return embed, word_table
 
 class Net(nn.Cell):
     """
@@ -30,9 +50,11 @@ class Net(nn.Cell):
     def __init__(self, batch, src_len, tgt_len, hidden_size, vocab_size,
                  en_layer, de_layer, parallel_config, return_loss=False):
         super(Net, self).__init__()
-        self.src_embedding = VocabEmbedding(vocab_size=vocab_size, embedding_size=hidden_size,
+        self.src_embedding = EmbeddingLayer(vocab_size=vocab_size, embedding_size=hidden_size,
+                                            position_size=src_len,
                                             parallel_config=parallel_config.embedding_dp_mp_config)
-        self.tgt_embedding = VocabEmbedding(vocab_size=vocab_size, embedding_size=hidden_size,
+        self.tgt_embedding = EmbeddingLayer(vocab_size=vocab_size, embedding_size=hidden_size,
+                                            position_size=tgt_len,
                                             parallel_config=parallel_config.embedding_dp_mp_config)
         total_layers = en_layer + de_layer + 2
         layers_per_stage = total_layers // parallel_config.pipeline_stage
@@ -63,15 +85,15 @@ class Net(nn.Cell):
         self.head.matmul.shard(((1, 1), (1, 1)))
         self.head.pipeline_stage = parallel_config.pipeline_stage - 1
         self.loss = CrossEntropyLoss(parallel_config=parallel_config.dp_mp_config)
-        self.no_equal = P.NotEqual().shard(((1, 1), ()))
+        self.no_equal = ops.NotEqual().shard(((1, 1), ()))
 
-    def construct(self, encoder_input, encoder_mask, decoder_input,
-                  memory_mask_input, y):
+    def construct(self, encoder_input, encoder_position, encoder_mask,
+                  decoder_input, decoder_position, memory_mask_input, y):
         """Construct function"""
-        encoder_embed, _ = self.src_embedding(encoder_input)
-        decoder_embed, _ = self.tgt_embedding(decoder_input)
+        encoder_embed, _ = self.src_embedding(encoder_input, encoder_position)
+        decoder_embed, _ = self.tgt_embedding(decoder_input, decoder_position)
         input_mask_value = self.no_equal(decoder_input, 1)
-        input_mask_value = P.Cast()(input_mask_value, mstype.float32)
+        input_mask_value = ops.Cast()(input_mask_value, mstype.float32)
         decoder_mask = self.attention_mask(input_mask_value)
         decoder_output, _, _ = self.base1(encoder_embed,
                                           encoder_mask,
@@ -79,10 +101,10 @@ class Net(nn.Cell):
                                           decoder_mask,
                                           memory_mask_input)
         predict = self.head(decoder_output)
-        predict = P.Reshape()(predict, (-1, F.shape(predict)[-1]))
+        predict = ops.Reshape()(predict, (-1, ops.shape(predict)[-1]))
         if self.return_loss:
-            input_mask_value = P.Reshape()(input_mask_value, (-1,))
-            y = P.Reshape()(y, (-1,))
+            input_mask_value = ops.Reshape()(input_mask_value, (-1,))
+            y = ops.Reshape()(y, (-1,))
             return self.loss(predict, y, input_mask_value)
 
         return predict

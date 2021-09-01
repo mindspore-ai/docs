@@ -38,18 +38,18 @@ do
     export RANK_ID=$i
     echo "start training for device $i"
     env > env$i.log
-    python ./train.py > train.log$i 2>&1 &
+    python ./train.py --distribute=true --file_path=${DATA_PATH} --mp=${RANK_SIZE} > train.log$i 2>&1 &
     cd ../
 done
 rm -rf device0
 mkdir device0
-cp ./train.py ./model.py ./ dataset.py ./device0
+cp ./train.py ./model.py ./dataset.py ./device0
 cd ./device0
 export DEVICE_ID=0
 export RANK_ID=0
 echo "start training for device 0"
 env > env0.log
-python ./train.py > train.log0 2>&1
+python ./train.py --distribute=true --file_path=${DATA_PATH} --mp=${RANK_SIZE} > train.log0 2>&1 &
 if [ $? -eq 0 ];then
     echo "training success"
 else
