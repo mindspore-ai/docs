@@ -1,8 +1,8 @@
-# Distributed Inference With Multi Devices
+# Distributed Inference
 
 <!-- TOC -->
 
-- [Distributed Inference With Multi Devices](#distributed-inference-with-multi-devices)
+- [Distributed Inference](#distributed-inference)
     - [Process of Distributed Inference](#process-of-distributed-inference)
     - [Distributed Export MindIR File With Multi Devices](#distributed-export-mindir-file-with-multi-devices)
 

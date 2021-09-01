@@ -1,10 +1,10 @@
-# Distributed Parallel Training (GPU)
+# Distributed Parallel Training Example (GPU)
 
 `Linux` `GPU` `Model Training` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Distributed Parallel Training (GPU)](#distributed-parallel-training-gpu)
+- [Distributed Parallel Training Example (GPU)](#distributed-parallel-training-example-gpu)
     - [Overview](#overview)
     - [Preparation](#preparation)
         - [Downloading the Dataset](#downloading-the-dataset)

@@ -1,6 +1,5 @@
-# 分布式并行训练总览
-
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/distributed_training.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+分布式并行总览
+=============
 
 在深度学习中，当数据集和参数量的规模越来越大，训练所需的时间和硬件资源会随之增加，最后会变成制约训练的瓶颈。分布式并行训练，可以降低对内存、计算性能等硬件的需求，是进行训练的重要优化手段。根据并行的原理及模式不同，业界主流的并行类型有以下几种：
 
@@ -18,3 +17,9 @@
 
 - `SEMI_AUTO_PARALLEL`：半自动并行模式，相较于自动并行，该模式需要用户对算子手动配置切分策略实现并行。
 - `HYBRID_PARALLEL`：在MindSpore中特指用户通过手动切分模型实现混合并行的场景。
+
+.. toctree::
+  :maxdepth: 1
+
+  auto_parallel
+  distributed_training_mode

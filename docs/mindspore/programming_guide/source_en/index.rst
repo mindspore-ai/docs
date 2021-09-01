@@ -88,14 +88,8 @@ MindSpore Programming Guide
    :caption: Distributed Training
 
    distributed_training
-   distributed_training_ascend
-   distributed_training_gpu
-   apply_pipeline_parallel
-   apply_host_device_training
-   apply_parameter_server_training
-   save_load_model_hybrid_parallel
-   distributed_inference
-   auto_parallel
+   distributed_advanced
+   distributed_example
 
 .. toctree::
    :maxdepth: 1

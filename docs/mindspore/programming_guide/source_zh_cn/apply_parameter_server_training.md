@@ -1,10 +1,10 @@
-# 使用Parameter Server训练
+# Parameter Server模式
 
 `Linux` `Ascend` `GPU` `模型训练` `中级` `高级`
 
 <!-- TOC -->
 
-- [Parameter Server训练](#parameter_server训练)
+- [Parameter Server模式](#parameter_server模式)
     - [概述](#概述)
     - [准备工作](#准备工作)
         - [训练脚本准备](#训练脚本准备)
