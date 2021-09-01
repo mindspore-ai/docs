@@ -588,7 +588,7 @@ For details about the definition of the optimizer loss function, see the [Quick 
         print(losses)
     ```
 
-    For details, see [here](https://www.mindspore.cn/docs/programming_guide/en/master/save_model.html?highlight=mindir#mindir).
+    For details, see [here](https://www.mindspore.cn/docs/programming_guide/en/master/save_model.html#mindir).
 
 2. **Convert the MindIR file into an .ms file that can be used by the federated learning framework on the device.**
 

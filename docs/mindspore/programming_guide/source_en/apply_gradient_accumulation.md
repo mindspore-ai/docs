@@ -428,7 +428,7 @@ class TrainAccuStepsWithLossScaleCell(TrainOneStepWithLossScaleCell):
 
 ### Defining the Parallel Training Model
 
-The network encapsulated by `cell_wrapper` contains the forward and backward operations and optimizer implementation. You need to connect the dataset to the network and execute the two graphs alternately. The preceding functions are implemented based on the [`Model`](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.html?highlight=model#mindspore.Model) API in the framework.
+The network encapsulated by `cell_wrapper` contains the forward and backward operations and optimizer implementation. You need to connect the dataset to the network and execute the two graphs alternately. The preceding functions are implemented based on the [`Model`](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore/mindspore.Model.html#mindspore.Model) API in the framework.
 
 ```python
 import math

@@ -35,7 +35,7 @@
 
 ## 保存CheckPoint格式文件
 
-下面介绍两种保存checkpoint文件的方法
+下面介绍两种保存checkpoint文件的方法。
 
 ### 使用callback机制
 

@@ -257,7 +257,7 @@ Analyzing the ResNet50 network code, it can be divided into the following main s
 
 Based on the above subnetwork division, we redevelop the above development in conjunction with MindSpore syntax.
 
-Redeveloping the weight initialization (also directly using [MindSpore's defined weight initialization methods](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.common.initializer.html?highlight=common%20initializer#)).
+Redeveloping the weight initialization (also directly using [MindSpore's defined weight initialization methods](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.common.initializer.html)).
 
 ```python
 def _conv_variance_scaling_initializer(in_channel, out_channel, kernel_size):

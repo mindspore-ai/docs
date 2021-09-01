@@ -38,7 +38,7 @@ MindConverter是一款模型迁移工具，可将PyTorch(ONNX)或Tensorflow(PB)�
 
 ## 快速开始
 
-MindConverter属于MindInsight的子模块，安装MindInsight后，即可使用MindConverter，MindInsight安装请参考[安装文档](https://mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_install.html)。MindConverter命令行如下，更多CLI参数请参考[命令行参数说明](#id11)。
+MindConverter属于MindInsight的子模块，安装MindInsight后，即可使用MindConverter，MindInsight安装请参考[安装文档](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_install.html)。MindConverter命令行如下，更多CLI参数请参考[命令行参数说明](#id11)。
 
 ```shell
 mindconverter --model_file /path/to/model_file --shape SHAPE --input_nodes INPUTS --output_nodes OUTPUTS
@@ -76,14 +76,14 @@ pip install tf2onnx~=1.7.1
   2. 手工调整可读性（可选）。
   3. 转换后的模型内嵌到原框架工程，验证转换等价性，参考[常见问题](#mindSpore)。
 - 数据处理（`dataset.py`）
-  1. 内置数据集可查询[接口映射](https://mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html)辅助转换。
+  1. 内置数据集可查询[接口映射](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html)辅助转换。
   2. 自定义数据集与相关数据处理，可参考[转换模板](#id8)。
 - 模型训练（`train.py`）
-  1. 损失函数（`loss_fn`），可查询[接口映射](https://mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html)或自定义实现。
-  2. 优化器（`optimizer`），可查询[接口映射](https://mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html)或自定义实现。
+  1. 损失函数（`loss_fn`），可查询[接口映射](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html)或自定义实现。
+  2. 优化器（`optimizer`），可查询[接口映射](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html)或自定义实现。
   3. 模型训练的代码比较灵活，代码组织风格与MindSpore图模式差异较大，建议自行实现，参考[转换模板](#id9)。
 - 模型推理（`eval.py`）
-  1. 度量指标（`metric`），可查询[接口映射](https://mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html)或自定义实现。
+  1. 度量指标（`metric`），可查询[接口映射](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html)或自定义实现。
   2. 模型推理的代码比较灵活，代码组织风格与MindSpore图模式差异较大，建议自行实现，参考[转换模板](#id10)。
 
 ## 实践步骤
@@ -165,7 +165,7 @@ mindspore.export(network, input_data, file_name='network_name', file_format='MIN
 
 ### 第2步：转换数据处理
 
-内置数据集可直接查询[接口映射](https://mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html)，自定义数据集需要自行实现，更多转换方案可参考[编程指南](https://mindspore.cn/docs/programming_guide/zh-CN/master/dataset_sample.html)。
+内置数据集可直接查询[接口映射](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html)，自定义数据集需要自行实现，更多转换方案可参考[编程指南](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dataset_sample.html)。
 
 PyTorch源码如下：
 
@@ -221,11 +221,11 @@ dataset = GeneratorDataset(generator, column_names=['data', 'label']).batch(BATC
 
 ### 第3步：转换模型训练
 
-损失函数（loss_fn）可查询[接口映射](https://mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html)或自定义实现，更多转换方案可参考[编程指南](https://mindspore.cn/docs/programming_guide/zh-CN/master/loss.html)。
+损失函数（loss_fn）可查询[接口映射](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html)或自定义实现，更多转换方案可参考[编程指南](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/loss.html)。
 
-优化器（optimizer）可查询[接口映射](https://mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html)或自定义实现，更多转换方案可参考[编程指南](https://mindspore.cn/docs/programming_guide/zh-CN/master/optim.html)。
+优化器（optimizer）可查询[接口映射](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html)或自定义实现，更多转换方案可参考[编程指南](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/optim.html)。
 
-模型训练的代码比较灵活，代码组织风格与MindSpore图模式差异较大，建议自行实现，更多转换方案可参考[编程指南](https://mindspore.cn/docs/programming_guide/zh-CN/master/train.html)。
+模型训练的代码比较灵活，代码组织风格与MindSpore图模式差异较大，建议自行实现，更多转换方案可参考[编程指南](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/train.html)。
 
 PyTorch源码如下：
 
@@ -295,9 +295,9 @@ model.train(EPOCH_SIZE, dataset)
 
 ### 第4步：转换模型推理
 
-度量指标（`metric`），可查询[接口映射](https://mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html)或自定义实现。
+度量指标（`metric`），可查询[接口映射](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html)或自定义实现。
 
-模型推理的代码比较灵活，代码组织风格与MindSpore图模式差异较大，建议自行实现，更多转换方案可参考[编程指南](https://mindspore.cn/docs/programming_guide/zh-CN/master/multi_platform_inference_ascend_910.html)。
+模型推理的代码比较灵活，代码组织风格与MindSpore图模式差异较大，建议自行实现，更多转换方案可参考[编程指南](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/multi_platform_inference_ascend_910.html)。
 
 PyTorch源码如下：
 
@@ -588,7 +588,7 @@ MindConverter支持基于AST的方案进行PyTorch脚本迁移，通过对原脚
 mindconverter --in_file /path/to/model.py --output /path/to/output/dir
 ```
 
-转换报告中，对于未转换的代码行形式为如下，其中x, y指明的是原PyTorch脚本中代码的行、列号。对于未成功转换的算子，可参考[MindSporeAPI映射查询功能](https://mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html)手动对代码进行迁移。对于工具无法迁移的算子，会保留原脚本中的代码。
+转换报告中，对于未转换的代码行形式为如下，其中x, y指明的是原PyTorch脚本中代码的行、列号。对于未成功转换的算子，可参考[MindSporeAPI映射查询功能](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html)手动对代码进行迁移。对于工具无法迁移的算子，会保留原脚本中的代码。
 
 ```text
 line x:y: [UnConvert] 'operator' didn't convert. ...

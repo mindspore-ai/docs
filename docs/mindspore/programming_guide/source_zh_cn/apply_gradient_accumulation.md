@@ -432,7 +432,7 @@ class TrainAccuStepsWithLossScaleCell(TrainOneStepWithLossScaleCell):
 
 ### 定义并行训练模型
 
-经过`cell_wrapper`封装的网络已经包含了正反向和优化器实现，我们还需要将数据集对接到网络并实现两张图交替执行。这里基于框架中的[`Model`](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.html?highlight=model#mindspore.Model)接口实现上述功能。
+经过`cell_wrapper`封装的网络已经包含了正反向和优化器实现，我们还需要将数据集对接到网络并实现两张图交替执行。这里基于框架中的[`Model`](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.Model.html#mindspore.Model)接口实现上述功能。
 
 ```python
 import math

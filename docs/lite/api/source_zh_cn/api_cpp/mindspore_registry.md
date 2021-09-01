@@ -6,23 +6,23 @@
 
 | 类名 | 描述 |
 | --- | --- |
-| [NodeParserRegistry](#NodeParserRegistry) | 扩展Node解析的注册类。|
-| [REG_NODE_PARSER](#REG_NODE_PARSER) | 注册扩展Node解析。|
-| [ModelParserRegistry](#ModelParserRegistry) | 扩展Model解析的注册类。|
-| [REG_MODEL_PARSER](#REG_MODEL_PARSER) | 注册扩展Model解析。|
-| [PassBase](#PassBase) | Pass的基类。|
-| [PassPosition](#PassPosition) | 扩展Pass的运行位置。|
-| [PassRegistry](#PassRegistry) | 扩展Pass注册构造类。|
-| [REG_PASS](#REG_PASS) | 注册扩展Pass。|
-| [REG_SCHEDULED_PASS](#REG_SCHEDULED_PASS) | 注册扩展Pass的调度顺序。|
-| [RegisterKernel](#RegisterKernel) | 算子注册实现类。|
-| [KernelReg](#KernelReg) | 算子注册构造类。|
-| [REGISTER_KERNEL](#REGISTER_KERNEL) | 注册算子。|
-| [REGISTER_CUSTOM_KERNEL](#REGISTER_CUSTOM_KERNEL) | 注册Custom算子注册。|
-| [RegisterKernelInterface](#RegisterKernelInterface) | 算子扩展能力注册实现类。|
-| [KernelInterfaceReg](#KernelInterfaceReg) | 算子扩展能力注册构造类。|
-| [REGISTER_KERNEL_INTERFACE](#REGISTER_KERNEL_INTERFACE) | 注册算子扩展能力。|
-| [REGISTER_CUSTOM_KERNEL_INTERFACE](#REGISTER_CUSTOM_KERNEL_INTERFACE) | 注册Custom算子扩展能力。|
+| [NodeParserRegistry](#nodeparserregistry) | 扩展Node解析的注册类。|
+| [REG_NODE_PARSER](#reg_node_parser) | 注册扩展Node解析。|
+| [ModelParserRegistry](#modelparserregistry) | 扩展Model解析的注册类。|
+| [REG_MODEL_PARSER](#reg_model_parser) | 注册扩展Model解析。|
+| [PassBase](#passbase) | Pass的基类。|
+| [PassPosition](#passposition) | 扩展Pass的运行位置。|
+| [PassRegistry](#passregistry) | 扩展Pass注册构造类。|
+| [REG_PASS](#reg_pass) | 注册扩展Pass。|
+| [REG_SCHEDULED_PASS](#reg_scheduled_pass) | 注册扩展Pass的调度顺序。|
+| [RegisterKernel](#registerkernel) | 算子注册实现类。|
+| [KernelReg](#kernelreg) | 算子注册构造类。|
+| [REGISTER_KERNEL](#register_kernel) | 注册算子。|
+| [REGISTER_CUSTOM_KERNEL](#register_custom_kernel) | 注册Custom算子注册。|
+| [RegisterKernelInterface](#registerkernelinterface) | 算子扩展能力注册实现类。|
+| [KernelInterfaceReg](#kernelinterfacereg) | 算子扩展能力注册构造类。|
+| [REGISTER_KERNEL_INTERFACE](#register_kernel_interface) | 注册算子扩展能力。|
+| [REGISTER_CUSTOM_KERNEL_INTERFACE](#register_custom_kernel_interface) | 注册Custom算子扩展能力。|
 
 ## NodeParserRegistry
 
@@ -117,7 +117,7 @@ ModelParserRegistry(FmkType fmk, ModelParserCreator creator)
 
     - `fmk`: 框架类型，具体见[FmkType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_converter.html#fmktype)说明。
 
-    - `creator`: ModelParserCreator类型的函数指针, 具体见[ModelParserCreator](#ModelParserCreator)说明。
+    - `creator`: ModelParserCreator类型的函数指针, 具体见[ModelParserCreator](#modelparsercreator)说明。
 
 ### ~ModelParserRegistry
 
@@ -155,7 +155,7 @@ static ModelParser *GetModelParser(FmkType fmk)
 
     - `fmk`: 框架类型，具体见[FmkType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_converter.html#fmktype)说明。
 
-    - `creator`: ModelParserCreator类型的函数指针, 具体见[ModelParserCreator](#ModelParserCreator)说明。
+    - `creator`: ModelParserCreator类型的函数指针, 具体见[ModelParserCreator](#modelparsercreator)说明。
 
 > 用户自定义的ModelParser，框架类型必须满足设定支持的框架类型[FmkType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_converter.html#fmktype)。
 
@@ -250,7 +250,7 @@ PassRegistry(PassPosition position, const std::vector<std::string> &names)
 
 - 参数
 
-    - `position`: 扩展Pass的运行位置，具体见[PassPosition](#PassPosition)说明。
+    - `position`: 扩展Pass的运行位置，具体见[PassPosition](#passposition)说明。
 
     - `names`: 用户指定在该运行位置处，调用Pass的命名标识，命名标识的顺序即为指定Pass的调用顺序。
 
@@ -274,7 +274,7 @@ static std::vector<std::string> GetOuterScheduleTask(PassPosition position)
 
 - 参数
 
-    - `position`: 扩展Pass的运行位置，具体见[PassPosition](#PassPosition)说明。
+    - `position`: 扩展Pass的运行位置，具体见[PassPosition](#passposition)说明。
 
 #### GetPassFromStoreRoom
 
@@ -316,7 +316,7 @@ static PassBasePtr GetPassFromStoreRoom(const std::string &pass_name)
 
 - 参数
 
-    - `position`: 扩展Pass的运行位置，具体见[PassPosition](#PassPosition)说明。
+    - `position`: 扩展Pass的运行位置，具体见[PassPosition](#passposition)说明。
 
     - `names`: 用户指定在该运行位置处，调用Pass的命名标识，命名标识的顺序即为指定Pass的调用顺序。
 
@@ -379,7 +379,7 @@ static Status RegKernel(const std::string &arch, const std::string &provider, Da
 
     - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/schema/ops.fbs)中，编绎时会生成到ops_generated.h，该文件可以在发布件中获取。
 
-    - `creator`: 创建算子的函数指针，具体见[CreateKernel](#CreateKernel)的说明。
+    - `creator`: 创建算子的函数指针，具体见[CreateKernel](#createkernel)的说明。
 
 #### RegCustomKernel
 
@@ -399,7 +399,7 @@ Custom算子注册。
 
     - `op_type`: 算子类型，由用户自定义，确保唯一即可。
 
-    - `creator`: 创建算子的函数指针，具体见[CreateKernel](#CreateKernel)的说明。
+    - `creator`: 创建算子的函数指针，具体见[CreateKernel](#createkernel)的说明。
 
 #### GetCreator
 
@@ -413,7 +413,7 @@ static CreateKernel GetCreator(const schema::Primitive *primitive, KernelDesc *d
 
     - `primitive`: 算子经由flatbuffers反序化为Primitive后的结果。
 
-    - `desc`: 算子的基本属性,具体见[KernelDesc](#KernelDesc)说明。
+    - `desc`: 算子的基本属性,具体见[KernelDesc](#kerneldesc)说明。
 
 ## KernelReg
 
@@ -445,7 +445,7 @@ KernelReg(const std::string &arch, const std::string &provider, DataType data_ty
 
     - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/schema/ops.fbs)中，编绎时会生成到ops_generated.h，该文件可以在发布件中获取。
 
-    - `creator`: 创建算子的函数指针，具体见[CreateKernel](#CreateKernel)的说明。
+    - `creator`: 创建算子的函数指针，具体见[CreateKernel](#createkernel)的说明。
 
 ``` c++
 KernelReg(const std::string &arch, const std::string &provider, DataType data_type, const std::string &op_type, CreateKernel creator)
@@ -463,7 +463,7 @@ KernelReg(const std::string &arch, const std::string &provider, DataType data_ty
 
     - `op_type`: 算子类型，由用户自定义，确保唯一即可。
 
-    - `creator`: 创建算子的函数指针，具体见[CreateKernel](#CreateKernel)的说明。
+    - `creator`: 创建算子的函数指针，具体见[CreateKernel](#createkernel)的说明。
 
 ## REGISTER_KERNEL
 
@@ -483,7 +483,7 @@ KernelReg(const std::string &arch, const std::string &provider, DataType data_ty
 
     - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/schema/ops.fbs)中，编绎时会生成到ops_generated.h，该文件可以在发布件中获取。
 
-    - `creator`: 创建算子的函数指针，具体见[CreateKernel](#CreateKernel)的说明。
+    - `creator`: 创建算子的函数指针，具体见[CreateKernel](#createkernel)的说明。
 
 ## REGISTER_CUSTOM_KERNEL
 
@@ -537,7 +537,7 @@ Custom算子的扩展能力注册。
 
     - `op_type`: 算子类型，由用户自定义。
 
-    - `creator`: KernelInterface的创建函数，详细见[KernelInterfaceCreator](#KernelInterfaceCreator)的说明。
+    - `creator`: KernelInterface的创建函数，详细见[KernelInterfaceCreator](#kernelinterfacecreator)的说明。
 
 #### Reg
 
@@ -553,7 +553,7 @@ static Status Reg(const std::string &provider, int op_type, KernelInterfaceCreat
 
     - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/schema/ops.fbs)中，编绎时会生成到ops_generated.h，该文件可以在发布件中获取。
 
-    - `creator`: KernelInterface的创建函数，详细见[KernelInterfaceCreator](#KernelInterfaceCreator)的说明。
+    - `creator`: KernelInterface的创建函数，详细见[KernelInterfaceCreator](#kernelinterfacecreator)的说明。
 
 #### GetKernelInterface
 
@@ -589,7 +589,7 @@ KernelInterfaceReg(const std::string &provider, int op_type, KernelInterfaceCrea
 
     - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/schema/ops.fbs)中，编绎时会生成到ops_generated.h，该文件可以在发布件中获取。
 
-    - `creator`: KernelInterface的创建函数，详细见[KernelInterfaceCreator](#KernelInterfaceCreator)的说明。
+    - `creator`: KernelInterface的创建函数，详细见[KernelInterfaceCreator](#kernelinterfacecreator)的说明。
 
 ``` c++
 KernelInterfaceReg(const std::string &provider, const std::string &op_type, KernelInterfaceCreator creator)
@@ -603,7 +603,7 @@ KernelInterfaceReg(const std::string &provider, const std::string &op_type, Kern
 
     - `op_type`: 算子类型，由用户自定义。
 
-    - `creator`: KernelInterface的创建函数，详细见[KernelInterfaceCreator](#KernelInterfaceCreator)的说明。
+    - `creator`: KernelInterface的创建函数，详细见[KernelInterfaceCreator](#kernelinterfacecreator)的说明。
 
 ## REGISTER_KERNEL_INTERFACE
 
@@ -621,7 +621,7 @@ KernelInterfaceReg(const std::string &provider, const std::string &op_type, Kern
 
     - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/schema/ops.fbs)中，编绎时会生成到ops_generated.h，该文件可以在发布件中获取。
 
-    - `creator`: 创建KernelInterface的函数指针，具体见[KernelInterfaceCreator](#KernelInterfaceCreator)的说明。
+    - `creator`: 创建KernelInterface的函数指针，具体见[KernelInterfaceCreator](#kernelinterfacecreator)的说明。
 
 ## REGISTER_CUSTOM_KERNEL_INTERFACE
 
@@ -639,5 +639,5 @@ KernelInterfaceReg(const std::string &provider, const std::string &op_type, Kern
 
     - `op_type`: 算子类型，由用户自定义，确保唯一同时要与REGISTER_CUSTOM_KERNEL时注册的op_type保持一致。
 
-    - `creator`: 创建算子的函数指针，具体见[KernelInterfaceCreator](#KernelInterfaceCreator)的说明。
+    - `creator`: 创建算子的函数指针，具体见[KernelInterfaceCreator](#kernelinterfacecreator)的说明。
 
