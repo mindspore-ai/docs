@@ -127,7 +127,7 @@ from mindspore import dtype as mstype
 
     ```python
     ​net = LeNet()
-    ​save_checkpoint(net, "lenet.ckpt")
+    save_checkpoint(net, "lenet.ckpt")
     ```
 
     ​执行后就可以把net中的参数保存成`lenet.ckpt`文件。
