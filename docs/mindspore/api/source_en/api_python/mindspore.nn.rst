@@ -123,6 +123,7 @@ Utilities
     mindspore.nn.Pad
     mindspore.nn.Range
     mindspore.nn.ResizeBilinear
+    mindspore.nn.Roll
     mindspore.nn.Tril
     mindspore.nn.Triu
     mindspore.nn.Unfold

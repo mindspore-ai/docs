@@ -18,6 +18,7 @@ Neural Network Operators
     mindspore.ops.AdaptiveAvgPool2D
     mindspore.ops.ApplyAdadelta
     mindspore.ops.ApplyAdagrad
+    mindspore.ops.ApplyAdagradDA
     mindspore.ops.ApplyAdagradV2
     mindspore.ops.ApplyAdaMax
     mindspore.ops.ApplyAddSign
@@ -247,6 +248,7 @@ Array Operators
     mindspore.ops.IsFinite
     mindspore.ops.IsInstance
     mindspore.ops.IsSubClass
+    mindspore.ops.MaskedFill
     mindspore.ops.MaskedSelect
     mindspore.ops.Meshgrid
     mindspore.ops.Ones
@@ -288,6 +290,7 @@ Array Operators
     mindspore.ops.SparseApplyFtrlV2
     mindspore.ops.SparseGatherV2
     mindspore.ops.Split
+    mindspore.ops.SplitV
     mindspore.ops.Squeeze
     mindspore.ops.StridedSlice
     mindspore.ops.TensorScatterAdd
