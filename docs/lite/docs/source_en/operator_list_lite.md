@@ -29,6 +29,8 @@ This article lists the operators supported by MindSpore Lite.
 | Concat                | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ |  ✅ | Concat                          | Concat                   | Concat                                          | ConcatV2                                        |
 | ConstantOfShape       |              | ✅    |              |               |              |              |           |                                 |                      |    | ConstantOfShape                                 |                                                 |
 | Conv2d                | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | ✅ |  Conv2D                          | Convolution              | Conv, Int8Conv,<br/>ConvRelu,<br/>Int8ConvRelu          | Conv2D                                          |
+| Conv2DBackpropFilterFusion | ✅ | ✅ |  |   |  |  |  |  |  |  |  |  |
+| Conv2DBackpropInputFusion | ✅ | ✅ |  |   |  |  |  |  |  |  |  |  |
 | Conv2dGrad |  | ✅ |  |  |  |  |  |  | | |  |  |
 | Conv2dTranspose       | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | ✅ | DeConv2D                        | Deconvolution            | ConvTranspose                                   | Conv2DBackpropInput                             |
 | Conv2dTransposeGrad |  | ✅ |  |  |  |  |  | | |  |  |  |
@@ -45,14 +47,16 @@ This article lists the operators supported by MindSpore Lite.
 | DetectionPostProcess  |              | ✅    | ✅    | ✅     |              |              |          | | Custom                          |                          |                                                 |                                                 |
 | Div                   | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ |  ✅ | Div, RealDiv                    |                          | Div                                             | Div, RealDiv                                    |
 | DivGrad |  | ✅ |  |  |  |  |  | | | |  |  |
+| DropoutGrad | ✅ | ✅ |  |  |  |  |  | | | |  |  |
 | Eltwise               | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ |                  ✅ |               |   Eltwise                  | Sum, Max<sup>[3]</sup>                          |                                                 |
 | Elu                   |              | ✅    |              |               |              |              |           |                            |     | ELU                      | Elu,<br/>NonMaxSuppression                          | NonMaxSuppressionV3                             |
 | EluGrad | | ✅ | | | | | | | | |  |  |
 | Equal                 | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | | Equal                           |                          | Equal                                           | Equal                                           |
-| Exp                   |              | ✅    |              |               | ✅    | ✅    |        |   | Exp                             | Exp                      | Exp                                             | Exp                                             |
+| ExpFusion             |   ✅   | ✅    |              |               | ✅    | ✅    |        |   | Exp                             | Exp                      | Exp                                             | Exp                                             |
 | ExpandDims            |   ✅   | ✅    | ✅    | ✅     |              |              | ✅       |  | ExpandDims                      |                          |                                                 | ExpandDims                                      |
 | Fill                  | ✅             | ✅    |              |               |              |              |        |   | Fill                            |                          |                                                 | Fill                                            |
 | Flatten               |  ✅    | ✅    |              |               |              |              |           |              ✅                 |   | Flatten                  |                                                 |                                                 |
+| FlattenGrad           |  ✅    | ✅    |    |    |   |   |  |   |   |   |    |    |
 | Floor                 | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | | flOOR                           |                          | Floor                                           | Floor                                           |
 | FloorDiv              | ✅    | ✅    |              |               | ✅    | ✅    | ✅ | | FloorDiv                        |                          |                                                 | FloorDiv                                        |
 | FloorMod              | ✅    | ✅    |              |               | ✅    | ✅    | ✅ | | FloorMod                        |                          |                                                 | FloorMod                                        |
@@ -72,6 +76,7 @@ This article lists the operators supported by MindSpore Lite.
 | InvertPermutation     |              | ✅    |              |               |              |              |           |                |                 |                          |                                                 | InvertPermutation                               |
 | L2Norm                |              | ✅    |   ✅  |               |              |              |       |    | L2_NORMALIZATION                |                          |                                                 |                                                 |
 | LayerNorm             | ✅ | ✅    | ✅    |               |              |              |           |                   |              |                          |                                                 |                                                 |
+| LayerNormGrad         | ✅    | ✅    |     |      |      |      |       |       |       |     |        |       |
 | LeakyReLU             | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | | LeakyRelu                       |                          | LeakyRelu                                       | LeakyRelu                                       |
 | LeakyReLUGrad |  | ✅ |  |  |  |  | |  |  | |  |  |
 | Less                  | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | | Less                            |                          | Less                                            | Less                                            |
@@ -104,10 +109,13 @@ This article lists the operators supported by MindSpore Lite.
 | Pow                   | ✅             | ✅    | ✅    | ✅     | ✅    | ✅    |           |  ✅ | Pow                             | Power                    | Pow<sup>[2]</sup>                               | Pow                                             |
 | PowGrad | | ✅ |  |  |  |  | |  |  | |  |  |
 | PReLU                 |              | ✅    |              |               | ✅    | ✅    |           | | PRELU                           | PReLU                    | PRelu                                           |                                                 |
+| QuantDTypeCast        | ✅ | ✅ | ✅ | ✅ |   |   |   |   |   |   |   |   |
+| RaggedRange        | ✅ | ✅ |   |   |   |   |   |   |   |   |   | RaggedRange |
 | RandomStandardNormal  |              | ✅    |              |               |              |              |       |    |                                 |                          |                                                 | RandomStandardNormal                            |
 | RandomUniform         |              | ✅    |              |               |              |              |        |   |                                 |                          |                                                 | RandomUniform                                   |
-| Range                 |              | ✅    |              |               |              |              |         |  | Range                           |                          | Range                                           | Range,<br/>RaggedRange                              |
+| Range                 |              | ✅    |              |               |              |              |         |  | Range                           |                          | Range                                           | Range |
 | Rank                  |              | ✅    |              |               |              |              |         |  | Rank                            |                          |                                                 | Rank                                            |
+| RealDiv               | ✅ | ✅ |   |   |   |   |   |   |   |   |   |   |
 | Reciprocal            | ✅    | ✅    | ✅    |               |              |              | ✅ |              |                   |                          | Reciprocal                                      |                                                 |
 | ReduceAll             |              | ✅    |              |               |              |              |           |              |                   |                          |                                                 | All                                             |
 | ReduceASum            |              | ✅    |              |               | ✅    | ✅    |           |                |                 | Reduction                |                                                 |                                                 |
@@ -148,11 +156,13 @@ This article lists the operators supported by MindSpore Lite.
 | SparseToDense         |              | ✅    |              |               | ✅    | ✅    |          | | SpareToDense                    |                          |                                                 |                                                 |
 | Splice                |       | ✅    |       |        |              |              |    | |                    |                          | Splice                                           |                                    |
 | Split                 | ✅    | ✅    | ✅    | ✅     |              |              | ✅ | | Split, SplitV                   |                          | Split                                           | Split, SplitV                                   |
+| SplitWithOverlap      | ✅    | ✅    |      |      |     |     |  |   |   |   |    |   |
 | Sqrt                  | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ |  ✅ | Sqrt                            |                          | Sqrt                                            | Sqrt                                            |
 | Square                | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | | Square                          |                          |                                                 | Square                                          |
 | SquaredDifference     | ✅    | ✅    |              |               | ✅    | ✅    |   | | SquaredDifference               |                          |                                                 | SquaredDifference                               |
 | Squeeze               |  ✅  | ✅    | ✅    | ✅     | ✅    | ✅    |           |  ✅ | Squeeze                         |                          | Squeeze                                         | Squeeze                                         |
 | StridedSlice          |  ✅  | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | ✅ | StridedSlice                    |                          | Slice,<br/>DynamicSlice                              | StridedSlice                                    |
+| StridedSliceGrad      |  ✅  | ✅    |       |       |       |      |    |   |         |        |        |         |
 | Stack                 | ✅    | ✅    |              |               | ✅    | ✅    |           | | Stack                           |                          |                                                 | Pack                                            |
 | Sub                   | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ |  ✅ | Sub                             |                          | Sub                                             | Sub                                             |
 | SubGrad |  | ✅ |  |  |  |  |  | | | |  |  |
@@ -170,6 +180,7 @@ This article lists the operators supported by MindSpore Lite.
 | Transpose             | ✅    | ✅    |   ✅    |               | ✅    | ✅    | ✅ | ✅ |  Transpose                       | Permute                  | Transpose,Int8Transpose                         | Transpose                                       |
 | UniformReal           |              | ✅    |              |               |              |              |           |                                 |                          |                   |                              |                                                 |
 | Unique                |              | ✅    |              |               |              |              |      |     | Unique                          |                          |                                                 |                                                 |
+| UnsortedSegmentSum    |  ✅  | ✅    |       |       |              |              |    |                          |               |                      |                                        |  UnsortedSegmentSum |
 | Unsqueeze             |  ✅  | ✅    | ✅    | ✅     |              |              | ✅ |          ✅               |               |                      | Unsqueeze                                       |                                                 |
 | Unstack               |              | ✅    |              |               |              |              |           | | Unstack                         |                          |                                                 |                                                 |
 | Where                 |              | ✅    |              |               |              |              |           | | Where                           |                          | NonZero,Where                | Where                           |
