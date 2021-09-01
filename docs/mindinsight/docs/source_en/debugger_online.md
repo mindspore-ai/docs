@@ -153,14 +153,19 @@ The following conditions are supported (abbreviations in parentheses):
 
 After a watchpoint is generated, you can select or deselect nodes to be monitored in the node list, as shown in Figure 3. In addition, you can click the `clear watchpoint` icon or `X` icon to delete watchpoints.
 
-During training, the debugger analyzes the outputs of these monitored nodes in real time. Once the watchpoint conditions are hit, the training is suspended. You can view the information about the hit watchpoints on the UI.
+During training, the debugger analyzes the outputs of these monitored nodes in real time. Once the watchpoint conditions are hit, the training is suspended. You can view the information about the hit nodes on the UI.
 
 ![debugger_watch_point_hit](images/debugger_watch_point_hit.png)
 
-Figure 5: Viewing hit watchpoints
+Figure 5: Viewing hit nodes
 
-The hit watchpoints are displayed on the left of the UI. The hit nodes and watchpoint conditions are sorted based on the node execution sequence. Each record displays the configured threshold and the actual value.
-In addition, after you click a record, the corresponding node is displayed in the computational graph. You can view the node information to analyze the possible cause. Click `View` to enter the tensor check view. You can view the hit watchpoint information and optimization guide, as shown in Figure 6.
+The hit nodes are displayed on the left of the UI. If more than one watchpoints are set, UI can show the result of the specified watchpoint by choosing the watchpoint id in the watchpoint pull list.
+If the training network consists of more than one sub graphs, you can choose the sub graph name in the graph file pull list to show the results of the specified sub graph.
+For multi-card training, you can choose the logic card id in the logic card pull list to show the hit nodes on the specified card
+(Only for offline debugger, online debugger does not support distributed training at present).
+
+In the same sub graph, the hit nodes are sorted based on the node execution sequence. On the left of the node name, click on the expand icon, the hit watchpoints and watchpoint condition will be displayed. Each record displays the configured threshold and the actual value.
+In addition, after you click a record, the corresponding node is displayed in the computational graph. You can view the node information to analyze the possible cause. Click `View` to enter the tensor check view. You can view the hit watchpoint information and optimization guide, as shown in Figure 8.
 
 ### Stack List
 
@@ -202,11 +207,11 @@ with four buttons: `CONTINUE`, `PAUSE`, `TERMINATE` and `OK`:
 
 ![debugger_tensor_view](images/debugger_tensor_view.png)
 
-Figure 6: Viewing tensors value
+Figure 8: Viewing tensors value
 
 Some `tensors` have too many dimensions and cannot be directly displayed on the home page. You can click the corresponding `View` button to view the detailed information about the `tensor` value on the displayed tensor check view.
 
-As shown in Figure 6, the tensor check view displays the `tensor` values in the upper part of the UI. You can set the `Dimension Selection` and click `Current Step`, `Previous step`, and `Comparison Result` to display and compare tensors. (Currently, the parameter node can be compared only with the previous one step.) In addition, you can set shards in `Dimension Selection` to display a `tensor` in the specified dimension.
+As shown in Figure 8, the tensor check view displays the `tensor` values in the upper part of the UI. You can set the `Dimension Selection` and click `Current Step`, `Previous step`, and `Comparison Result` to display and compare tensors. (Currently, the parameter node can be compared only with the previous one step.) In addition, you can set shards in `Dimension Selection` to display a `tensor` in the specified dimension.
 
 The `node information`, `current step`, and `statistics` are displayed on the top of the view. The optimization guide is displayed on the left of the view. When a watchpoint is hit, the hit information and optimization suggestions are displayed. The tensor relationship diagram and detailed `node information` are displayed on the lower part of the view.
 
@@ -220,7 +225,7 @@ Tensors can be downloaded in tensor check view. Users can download the desired t
 
     ![debugger_waiting](./images/debugger_waiting.png)
 
-    Figure 7: Debugger Start and Waiting for the Training
+    Figure 9: Debugger Start and Waiting for the Training
 
     The Debugger server is launched and waiting for the training to connect.
 
@@ -230,7 +235,7 @@ Tensors can be downloaded in tensor check view. Users can download the desired t
 
     ![debugger_ask_recommend](images/debugger_ask_recommend.png)
 
-    Figure 8: Debugger ask whether to use the recommended watchpoints
+    Figure 10: Debugger ask whether to use the recommended watchpoints
 
 4. Later, you can see that the computational graph is displayed on the Debugger UI, as shown in Figure 1.
 
