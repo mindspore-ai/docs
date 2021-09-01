@@ -239,15 +239,33 @@ done
 
 图3展示集群中单卡性能信息，单卡性能信息请参考[单卡性能信息](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html)。
 
+### 集群通信与计算重叠时间分析
+
+集群通信与计算重叠时间分析组件用于流水并行和模型并行场景，可以找出集群训练中的慢主机、慢卡。
+
+集群通信与计算重叠时间分析组件新增了五项指标：纯接收时间、阶段时间、纯通信时间、计算时间、纯集合通信时间。其中纯通信时间反映了通信导致的训练时间增加的数值，纯接收时间（点对点通信）反映了各阶段间通信导致的训练时间增加的数值，纯集合通信（区别于点对点通信）时间反映了集合通信导致的训练时间增加的数值。阶段时间用于定位慢的阶段，计算时间用于定位慢卡。
+
+![cluster_pipeline-parallel_analyse.png](./images/cluster_pipeline-parallel_analyse_zh.png)
+
+图4：流水并行模式分析
+
+图4展示了流水并行场景下页面展示的内容，默认展示所有step的平均数值。页面中展示了迭代间隙时间、纯接收时间、阶段时间、纯通信时间、计算时间、纯集合通信时间。由于整个网络的计算图被切分为多个阶段的子图，阶段时间可用于定位慢的阶段，通过选择阶段编号可以筛选出同一阶段的卡，在阶段内部可用模型并行场景的思路定位瓶颈。
+
+![cluster_model-parallel_analyse.png](./images/cluster_model-parallel_analyse_zh.png)
+
+图5：模型并行模式分析
+
+图5展示了模型并行场景（此处指层内模型并行）下页面展示的内容，默认展示所有step的平均数值。页面中展示了迭代间隙时间、纯通信时间、计算时间。计算时间可用于定位慢卡，如果没有慢卡，查看通信时间与计算时间占比，若通信时间占比较大，考虑是否有慢链路。
+
 ### 集群通信性能分析
 
 集群通信性能组件从两个维度来展示集群通信性能信息，以卡为粒度展示和全网链路展示。
 
 ![cluster_communication_info.png](./images/cluster_communication_info.png)
 
-图4：集群通信性能分析
+图6：集群通信性能分析
 
-图4展示了集群通信性能分析页面，包含逻辑卡通信性能以及全网链路信息（所有逻辑卡链路信息）。
+图6展示了集群通信性能分析页面，包含逻辑卡通信性能以及全网链路信息（所有逻辑卡链路信息）。
 
 逻辑卡通信性能TAB页主要用来展示逻辑卡的通信性能，包括通信时间、等待时间、逻辑卡链路信息。
 
@@ -257,13 +275,13 @@ done
 
 ![rank_id_link_info.png](./images/rank_id_link_info.png)
 
-图5:逻辑卡链路信息
+图7:逻辑卡链路信息
 
 全网链路信息TAB页面展示所有逻辑卡的链路信息，提供源卡、目的卡、链路类型的选择。
 
 ![rank_ids_link_info.png](./images/rank_ids_link_info.png)
 
-图6：全网链路信息
+图8：全网链路信息
 
 默认不收集通信性能数据，需要通过`mindspore.profiler.Profiler`中的`profile_communication`参数像`Profiler(profile_communication=True)`一样打开通信性能数据开关。只有多卡训练才能产生通信算子性能数据，在单卡训练场景中设置该参数是无效的。
 
@@ -285,7 +303,7 @@ pip install /usr/local/Ascend/tools/hccl_parser-{version}-py3-none-any.whl
 
 ![cluster_memory.png](./images/cluster_memory.png)
 
-图3：集群内存概览页面
+图9：集群内存概览页面
 
 > 内存使用情况分析暂不支持异构训练场景。
 
@@ -299,7 +317,7 @@ pip install /usr/local/Ascend/tools/hccl_parser-{version}-py3-none-any.whl
 
 ![cluster_flops.png](./images/cluster_flops.png)
 
-图4：集群FLOPs概览页面
+图10：集群FLOPs概览页面
 
 ## 规格
 
