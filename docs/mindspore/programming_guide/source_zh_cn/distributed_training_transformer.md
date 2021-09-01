@@ -4,7 +4,7 @@
 
 <!-- TOC -->
 
-- [分布式并行训练Transformer模型](#hostdevice混合训练)
+- [分布式并行训练Transformer模型](#分布式并行训练Transformer模型)
     - [概述](#概述)
     - [并行配置](#并行配置)
     - [模型定义](#模型定义)
