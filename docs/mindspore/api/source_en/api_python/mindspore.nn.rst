@@ -324,6 +324,7 @@ Metrics
     mindspore.nn.Recall
     mindspore.nn.ROC
     mindspore.nn.RootMeanSquareDistance
+    mindspore.nn.rearrange_inputs
     mindspore.nn.Top1CategoricalAccuracy
     mindspore.nn.Top5CategoricalAccuracy
     mindspore.nn.TopKCategoricalAccuracy
