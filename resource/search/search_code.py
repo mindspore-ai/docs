@@ -19,29 +19,46 @@ from sphinx import errors as searchtools_path
 sphinx_split_python = os.path.abspath(sphinx_split.__file__) # Read the location of the word segmentation file
 python_code_source = """function splitQuery(query, dict, all_dict) {
     var result = [];
-    var tmp = []
-    for (var i = 0; i < dict.length; i++) {
-        if (query.indexOf(dict[i])!=-1) {
-          tmp.push(dict[i])
-        }
+    if (query.includes(" ")) {
+      var start = -1;
+      for (var i = 0; i < query.length; i++) {
+        if (splitChars[query.charCodeAt(i)]) {
+            if (start !== -1) {
+                result.push(query.slice(start, i));
+                start = -1;
+            }
+        } else if (start === -1) {
+            start = i;
+          }
+      }
+    if (start !== -1) {
+      result.push(query.slice(start));
     }
-    if (escape(query).indexOf("%u")== -1 && query.indexOf(all_dict[i])==-1){
-      query = query.split('.').slice(-1)
-      return query
+    } else {
+      var tmp = []
+      for (var i = 0; i < dict.length; i++) {
+          if (query.indexOf(dict[i])!=-1) {
+            tmp.push(dict[i])
+          }
+      }
+      if (escape(query).indexOf("%u")== -1 && query.indexOf(all_dict[i])==-1){
+        query = query.split('.').slice(-1)
+        return query
+      }
+      if (!tmp.length){
+        return [query]
+      }
+      min_freq = all_dict[tmp[0]].length
+      var min_freq_word = tmp[0]
+      for (var i = 0; i < tmp.length-1; i++) {
+          var a = all_dict[tmp[i]].length
+          if (a<min_freq){
+            min_freq = a
+            min_freq_word = tmp[i]
+          }
+      }
+      result.push(min_freq_word)
     }
-    if (!tmp.length){
-      return [query]
-    }
-    min_freq = all_dict[tmp[0]].length
-    var min_freq_word = tmp[0]
-    for (var i = 0; i < tmp.length-1; i++) {
-        var a = all_dict[tmp[i]].length
-        if (a<min_freq){
-          min_freq = a
-          min_freq_word = tmp[i]
-        }
-    }
-    result.push(min_freq_word)
     return result;
 }"""
 python_code_target = """function splitQuery(query) {
@@ -117,6 +134,7 @@ sort_results_source = r"""
     function sortItem() {
       if (results.length) {
         for (i = 0; i < results.length; i++) {
+          var requestUrl = "";
           if (DOCUMENTATION_OPTIONS.BUILDER === 'dirhtml') {
             // dirhtml builder
             var dirname = results[i][0] + '/';
@@ -142,8 +160,10 @@ sort_results_source = r"""
                 if (data !== '' && data !== undefined) {
                   if (Search.makeSearchSummary(data, [query], hlterms).length) {
                     results[i].push(true);
+                    results[i].push(Search.makeSearchSummary(data, [query], hlterms));
                   } else {
                     results[i].push(false);
+                    results[i].push(Search.makeSearchSummary(data, searchterms, hlterms));
                   }
                 }
               }});
@@ -176,24 +196,11 @@ results_function_target = """$.ajax({url: requestUrl,
                     });
                   }});"""
 
-results_function_source = """
-          $.ajax({url: requestUrl,
-                  dataType: "text",
-                  complete: function(jqxhr, textstatus) {
-                    var data = jqxhr.responseText;
-                    if (data !== '' && data !== undefined) {
-                      if (Search.makeSearchSummary(data, [query], hlterms).length) {
-                        listItem.append(Search.makeSearchSummary(data, [query], hlterms));
-                      } else {
-                        listItem.append(Search.makeSearchSummary(data, searchterms, hlterms));
-                      }
-                    }
-                    Search.output.append(listItem);
-                    listItem.slideDown(5, function() {
-                      displayNextItem();
-                    });
-                  }});
-        """
+results_function_source = """listItem.append(item[7]);
+          Search.output.append(listItem);
+          listItem.slideDown(5, function() {
+            displayNextItem();
+          });"""
 
 highlight_words_target = """start = Math.max(start - 120, 0);"""
 
