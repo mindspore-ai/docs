@@ -260,8 +260,8 @@ MindSpore根目录下的`build.bat`脚本可用于MindSpore Lite的编译。
 | 选项  |  参数说明  | 取值范围 | 默认值 |
 | -------- | ----- | ---- | ---- |
 | MSLITE_ENABLE_SSE | 是否启用SSE指令集 | on、off | off |
-| MSLITE_ENABLE_AVX | 是否启用AVX指令集 | on、off | off |
-| MSLITE_ENABLE_CONVERTER | 是否编译模型转换工具 | on、off | on |
+| MSLITE_ENABLE_AVX | 是否启用AVX指令集（该选项暂不支持Visual Studio编译器） | on、off | off |
+| MSLITE_ENABLE_CONVERTER | 是否编译模型转换工具（该选项暂不支持Visual Studio编译器） | on、off | on |
 | MSLITE_ENABLE_TOOLS | 是否编译配套工具 | on、off | on |
 | MSLITE_ENABLE_TESTCASES | 是否编译测试用例 | on、off | off |
 
