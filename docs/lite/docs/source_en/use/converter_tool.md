@@ -58,6 +58,9 @@ mindspore-lite-{version}-linux-x64
         └── lib                      # The dynamic link library that converter depends
             ├── libglog.so.0         # Dynamic library of Glog
             └── libmslite_converter_plugin.so  # Dynamic library of plugin registry
+            └── libopencv_core.so.4.5          # Dynamic library of OpenCV
+            └── libopencv_imgcodecs.so.4.5     # Dynamic library of OpenCV
+            └── libopencv_imgproc.so.4.5       # Dynamic library of OpenCV
 ```
 
 ### Parameter Description
@@ -76,7 +79,7 @@ The following describes the parameters in detail.
 | `--weightFile=<WEIGHTFILE>` | Yes (for Caffe models only) | Path of the weight file of the input model. | - | - |
 | `--configFile=<CONFIGFILE>` | No | 1) Configure quantization parameter; 2) Profile path of converter. | - | - |
 | `--fp16=<FP16>` | No | Serialize const tensor in Float16 data type, only effective for const tensor in Float32 data type. | on or off | off |
-| `--inputShape=<INPUTSHAPE>` | No | Set the dimension of the model input, the default is the same as the input of the original model. The model can be further optimized in some scenarios, such as models with shape operator, but the output model will lose the feature of dymatic shape. e.g. inTensorName: 1,32,32,4 | - | - |
+| `--inputShape=<INPUTSHAPE>` | No | Set the dimension of the model input, the order of input dimensions is consistent with the original model. For some models, the model structure can be further optimized, but the transformed model may lose the characteristics of dynamic shape. Multiple inputs are separated by `;`, and surround with `""` | e.g.  "inTensorName_1: 1,32,32,4;inTensorName_2:1,64,64,4;" | - |
 | `--inputFormat=<INPUTFORMAT>` | No | Set the format of model inputs. Only valid for 4-dimensional inputs. | NHWC, NCHW | NHWC |
 
 > - The parameter name and parameter value are separated by an equal sign (=) and no space is allowed between them.
