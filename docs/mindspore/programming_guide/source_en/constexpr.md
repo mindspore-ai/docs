@@ -37,9 +37,11 @@ class Net(nn.Cell):
 net = Net()
 out = net()
 print(out)
+```
 
 The following information is displayed:
 
 ```text
 
 [1 2 0 4]
+```
