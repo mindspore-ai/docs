@@ -545,6 +545,10 @@ bash run.sh /path/dataset /path/rank_table.json 16 0
 bash run.sh /path/dataset /path/rank_table.json 16 8
 ```
 
+### Non-sink Mode Training
+
+In graph mode, you can specify to train the model in a non-sink mode by setting the environment variable [GRAPH_OP_RUN](https://www.mindspore.cn/docs/note/en/master/env_var_list.html)=1. In this case, you need to set environment variable `HCCL_WHITELIST_DISABLE=1` and train model with OpenMPI `mpirun`. The startup script is consistent with the [GPU's distributed training](https://www.mindspore.cn/docs/programming_guide/en/master/distributed_training_gpu.html#running-the-script) script.
+
 ## Distributed Training Model Parameters Saving and Loading
 
 The below content introduced how to save and load models under the four distributed parallel training modes respectively. Before saving model parameters for distributed training, it is necessary to configure distributed environment variables and collective communication library in accordance with this tutorial.
