@@ -548,6 +548,10 @@ bash run_cluster.sh /path/dataset /path/rank_table.json 16 0
 bash run_cluster.sh /path/dataset /path/rank_table.json 16 8
 ```
 
+### 非下沉场景训练方式
+
+图模式下，用户可以通过设置环境变量[GRAPH_OP_RUN](https://www.mindspore.cn/docs/note/zh-CN/master/env_var_list.html)=1来指定以非下沉方式训练模型。该方式需要采用OpenMPI的mpirun进行分布式训练，并且需要设置环境变量HCCL_WHITELIST_DISABLE=1。除此之外，训练启动脚本和[GPU分布式训练](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_gpu.html#id7)一致。
+
 ## 分布式训练模型参数保存和加载
 
 在MindSpore中，支持四种分布式并行训练模式，即自动并行模式（Auto Parallel）、数据并行模式（Data Parallel）、半自动并行模式（Semi Auto Parallel）、手动混合并行模式（Hybrid Parallel），下面分别介绍四种分布式并行训练模式下模型的保存和加载。分布式训练进行模型参数的保存之前，需要先按照本教程配置分布式环境变量和集合通信库。
