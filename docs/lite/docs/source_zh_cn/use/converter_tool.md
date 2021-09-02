@@ -61,6 +61,9 @@ mindspore-lite-{version}-linux-x64
         └── lib                      # 转换工具依赖的动态库
             ├── libglog.so.0         # Glog的动态库
             └── libmslite_converter_plugin.so  # 注册插件的动态库
+            └── libopencv_core.so.4.5          # OpenCV的动态库
+            └── libopencv_imgcodecs.so.4.5     # OpenCV的动态库
+            └── libopencv_imgproc.so.4.5       # OpenCV的动态库
 ```
 
 ### 参数说明
@@ -77,8 +80,8 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 | `--outputFile=<OUTPUTFILE>` | 是 | 输出模型的路径，不需加后缀，可自动生成`.ms`后缀。 | - | - |
 | `--weightFile=<WEIGHTFILE>` | 转换Caffe模型时必选 | 输入模型weight文件的路径。 | - | - |
 | `--configFile=<CONFIGFILE>` | 否 | 1）可作为训练后量化（全量化）校准数据集配置文件路径；2）可作为转换器的配置文件路径。  |  - | -  |
-| `--fp16=<FP16>` | 否 | 设定在模型序列化时是否需要将Float32数据格式的权重存储为Float16数据格式. | on、off | off |
-| `--inputShape=<INPUTSHAPE>` | 否 | 设定模型输入的维度，默认与原始模型的输入一致。对某些特定的模型可以进一步常量折叠，比如存在shape算子的模型，但是转化后的模型将失去动态shape的特性。e.g.  inTensorName: 1,32,32,4 | -| - |
+| `--fp16=<FP16>` | 否 | 设定在模型序列化时是否需要将Float32数据格式的权重存储为Float16数据格式。 | on、off | off |
+| `--inputShape=<INPUTSHAPE>` | 否 | 设定模型输入的维度，输入维度的顺序和原始模型保持一致。对某些特定的模型可以进一步优化模型结构，但是转化后的模型将可能失去动态shape的特性。多个输入用`;`分割，同时加上双引号`""`。 | e.g.  "inTensorName_1: 1,32,32,4;inTensorName_2:1,64,64,4;" | - |
 | `--inputFormat=<INPUTFORMAT>` | 否 | 设定模型输入的format，只对4维输入有效。 | NHWC、NCHW | NHWC |
 
 > - 参数名和参数值之间用等号连接，中间不能有空格。

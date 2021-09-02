@@ -276,7 +276,6 @@ center_crop_height=224
 activation_quant_method=MAX_MIN
 # Whether to correct the quantization error. Recommended to set to true.
 bias_correction=true
-
 ```
 
 ### 部分模型精度结果
