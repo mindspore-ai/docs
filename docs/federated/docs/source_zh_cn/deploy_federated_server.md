@@ -146,17 +146,12 @@ mobile/
 └── test_mobile_lenet.py
 ```
 
-> config.json：配置文件，用于安全能力配置，容灾等。
->
-> finish_mobile.py：由于Server集群为常驻进程，使用本文件手动退出集群。
->
-> run_mobile_sched.py：启动Scheduler。
->
-> run_mobile_server.py：启动Server。
->
-> model.py：网络模型。
->
-> test_mobile_lenet.py：训练脚本
+- config.json：配置文件，用于安全能力配置，容灾等。
+- finish_mobile.py：由于Server集群为常驻进程，使用本文件手动退出集群。
+- run_mobile_sched.py：启动Scheduler。
+- run_mobile_server.py：启动Server。
+- model.py：网络模型。
+- test_mobile_lenet.py：训练脚本
 
 1. 启动Scheduler
 
@@ -290,7 +285,7 @@ MindSpore联邦学习框架支持`Server`的弹性伸缩，对外通过`Schedule
     }
     ```
 
-    选择`Rank3`和`Rank2`进行缩容:
+    选择`Rank3`和`Rank2`进行缩容：
 
     ```sh
     curl -i -X POST \
@@ -323,11 +318,9 @@ MindSpore联邦学习框架支持`Server`的弹性伸缩，对外通过`Schedule
 }
 ```
 
-> recovery：有此字段则代表需要支持容灾。
->
-> storage_type：持久化存储类型，目前只支持值为`1`，代表文件存储。
->
-> storage_file_path：容灾恢复文件路径。
+- recovery：有此字段则代表需要支持容灾。
+- storage_type：持久化存储类型，目前只支持值为`1`，代表文件存储。
+- storage_file_path：容灾恢复文件路径。
 
 节点重新启动的指令类似扩容指令，在节点被手动下线之后，执行如下指令：
 
@@ -357,16 +350,11 @@ MindSpore联邦学习框架支持`Server`的SSL安全认证，要开启安全认
 }
 ```
 
-> server_cert_path:服务端包含了证书和秘钥的密文的p12文件。
->
-> crl_path:吊销列表的文件。
->
-> client_cert_path:客户端包含了证书和秘钥的密文的p12文件。
->
-> ca_cert_path:根证书。
->
-> cipher_list:密码套件。
->
-> cert_expire_warning_time_in_day: 证书过期的告警时间。
+- server_cert_path：服务端包含了证书和秘钥的密文的p12文件。
+- crl_path：吊销列表的文件。
+- client_cert_path：客户端包含了证书和秘钥的密文的p12文件。
+- ca_cert_path：根证书。
+- cipher_list：密码套件。
+- cert_expire_warning_time_in_day：证书过期的告警时间。
 
 p12文件中的秘钥为密文存储，在启动时需要传入密码，具体参数请参考Python API `mindspore.context.set_fl_context`中的`client_password`以及`server_password`字段。
