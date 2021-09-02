@@ -19,6 +19,9 @@ MindSpore编程指南
 
    design/technical_white_paper
    design/all_scenarios_architecture
+   design/gradient
+   heterogeneous_training
+   dynamic_graph_and_static_graph
    design/distributed_training_design
    design/mindir
    可视化调试调优设计↗ <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/training_visual_design.html>
@@ -75,6 +78,7 @@ MindSpore编程指南
    :caption: 模型运行
 
    run
+   ms_function
    save_and_load_models
    model
 
