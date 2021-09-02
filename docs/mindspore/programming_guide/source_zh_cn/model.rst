@@ -6,4 +6,5 @@ Model接口应用
 
   callback
   lossscale
+  self_define_metric
   train
