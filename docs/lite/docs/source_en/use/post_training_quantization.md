@@ -162,7 +162,7 @@ The mixed bit weight quantification configuration file is as follows:
 ```ini
 [common_quant_param]
 # Supports WEIGHT_QUANT or FULL_QUANT
-quant_type=FULL_QUANT
+quant_type=WEIGHT_QUANT
 # Weight quantization support the number of bits [0,16], Set to 0 is mixed bit quantization, otherwise it is fixed bit quantization
 # Full quantization support the number of bits [1,8]
 bit_num=0
@@ -198,7 +198,7 @@ The fixed bit weight quantization configuration file is as follows:
 ```ini
 [common_quant_param]
 # Supports WEIGHT_QUANT or FULL_QUANT
-quant_type=FULL_QUANT
+quant_type=WEIGHT_QUANT
 # Weight quantization support the number of bits [0,16], Set to 0 is mixed bit quantization, otherwise it is fixed bit quantization
 # Full quantization support the number of bits [1,8]
 bit_num=8
