@@ -121,6 +121,7 @@ MindSpore编程指南
    :maxdepth: 1
    :caption: 精度调优
 
+   accuracy_problem_preliminary_location
    accuracy_optimization
 
 .. toctree::
