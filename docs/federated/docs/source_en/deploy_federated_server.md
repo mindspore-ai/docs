@@ -145,19 +145,14 @@ mobile/
 └── test_mobile_lenet.py
 ```
 
-> Descriptions of the documents:
->
-> config.json: The config file, which is used to configure security, disaster recovery, etc.
->
-> finish_mobile.py: This script is used to stop the cluster.
->
-> run_mobile_sched.py: Launch scheduler.
->
-> run_mobile_server.py: Launch server.
->
-> model.py: The model.
->
-> test_mobile_lenet.py: Training script.
+Descriptions of the documents:
+
+- config.json: The config file, which is used to configure security, disaster recovery, etc.
+- finish_mobile.py: This script is used to stop the cluster.
+- run_mobile_sched.py: Launch scheduler.
+- run_mobile_server.py: Launch server.
+- model.py: The model.
+- test_mobile_lenet.py: Training script.
 
 1. Start the `Scheduler`.
 
@@ -325,11 +320,9 @@ To enable disaster recovery, the fields below should be added to the config.json
 }
 ```
 
-> recovery: If this field is set, the disaster recovery feature is enabled.
->
-> storage_type: Persistent storage type. Only `1` is supported currently which represents file storage.
->
-> storage_file_path: The recovery file path.
+- recovery: If this field is set, the disaster recovery feature is enabled.
+- storage_type: Persistent storage type. Only `1` is supported currently which represents file storage.
+- storage_file_path: The recovery file path.
 
 The node restart command is similar to the scale-out command. After the node is manually brought offline, run the following command:
 
