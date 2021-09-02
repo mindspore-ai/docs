@@ -5,4 +5,5 @@ Application of Model
   :maxdepth: 1
 
   callback
+  self_define_metric
   train
