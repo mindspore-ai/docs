@@ -284,11 +284,11 @@ model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_
 context.set_context(mode=context.PYNATIVE_MODE)
 ```
 
-由于在静态图下，对于Python语法有所限制，因此从动态图切换成静态图时，需要符合静态图的语法限制，才能正确使用静态图来进行执行。更多静态图的语法限制可以参考[静态图语法限制]（https://www.mindspore.cn/docs/note/zh-CN/master/static_graph_syntax_support.html）。
+由于在静态图下，对于Python语法有所限制，因此从动态图切换成静态图时，需要符合静态图的语法限制，才能正确使用静态图来进行执行。更多静态图的语法限制可以参考[静态图语法限制](https://www.mindspore.cn/docs/note/zh-CN/master/static_graph_syntax_support.html)。
 
 ### 动静结合
 
-MindSpore支持在动态图下使用静态编译的方式来进行混合执行，通过使用ms_function修饰需要用静态图来执行的函数对象，即可实现动态图和静态图的混合执行，更多ms_function的使用可参考[ms_function文档]()。
+MindSpore支持在动态图下使用静态编译的方式来进行混合执行，通过使用ms_function修饰需要用静态图来执行的函数对象，即可实现动态图和静态图的混合执行，更多ms_function的使用可参考[ms_function文档](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/ms_function.html)。
 
 例如：
 
