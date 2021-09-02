@@ -58,6 +58,7 @@ MindSpore编程指南
    build_net
    initializer
    parameter
+   indefinite_parameter
    loss
    constexpr
    grad_operation
