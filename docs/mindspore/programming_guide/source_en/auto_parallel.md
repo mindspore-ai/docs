@@ -259,8 +259,8 @@ The following is a code example:
 ```python
 from mindspore import context
 
-context.set_auto_parallel_context(parallel_stages=4)
-context.get_auto_parallel_context("parallel_stages")
+context.set_auto_parallel_context(pipeline_stages=4)
+context.get_auto_parallel_context("pipeline_stages")
 ```
 
 #### grad_accumulation_step

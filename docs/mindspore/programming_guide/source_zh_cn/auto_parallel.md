@@ -259,8 +259,8 @@ context.get_auto_parallel_context("full_batch")
 
 ```python
 from mindspore import context
-context.set_auto_parallel_context(pipeline_stage=4)
-context.get_auto_parallel_context("pipeline_stage")
+context.set_auto_parallel_context(pipeline_stages=4)
+context.get_auto_parallel_context("pipeline_stages")
 ```
 
 #### grad_accumulation_step
