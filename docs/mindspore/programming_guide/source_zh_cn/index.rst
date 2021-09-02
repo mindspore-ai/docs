@@ -125,8 +125,8 @@ MindSpore编程指南
    :maxdepth: 1
    :caption: 精度调优
 
-   accuracy_problem_preliminary_location
-   accuracy_optimization
+   精度问题初步定位指南↗ <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_problem_preliminary_location.html>
+   精度问题详细定位和调优指南↗ <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_optimization.html>
 
 .. toctree::
    :maxdepth: 1

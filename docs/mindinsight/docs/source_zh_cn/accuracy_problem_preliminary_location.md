@@ -41,9 +41,9 @@
     - [求助方式](#求助方式)
     - [参考文献](#参考文献)
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/accuracy_problem_preliminary_location.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/accuracy_problem_preliminary_location.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-本指南旨在为算法开发者提供一个简明扼要的精度问题初步定位指导。完整的精度问题定位和调优方法，请参考[精度问题详细定位及调优指南](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/accuracy_optimization.html)。
+本指南旨在为算法开发者提供一个简明扼要的精度问题初步定位指导。完整的精度问题定位和调优方法，请参考[精度问题详细定位及调优指南](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_optimization.html)。
 
 本指南适用于训练脚本能够运行到训练结束并输出每个迭代的loss值的情况。若训练中途出现中断训练的报错，则应该首先根据错误提示解决这些报错。本指南假设读者有能力独立完成深度学习训练脚本的编写，对深度学习、MindSpore有基础的了解。
 
@@ -51,7 +51,7 @@
 
 ## 基于问题checklist的精度问题初步定位
 
-当出现精度问题时，您可以参考以下checklist进行检查。若通过checklist发现了可疑的问题，则您应参考[精度问题详细定位及调优指南](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/accuracy_optimization.html)尝试修复这些可疑问题。若checklist使用完毕后，未发现可疑问题，则您应尝试其它精度问题定位和调优手段，或者参考“精度问题详细定位及调优指南”。如果您怀疑精度问题和MindSpore框架相关，请在向我们求助前确认不存在checklist上列出的问题，求助方法请见本文末尾。
+当出现精度问题时，您可以参考以下checklist进行检查。若通过checklist发现了可疑的问题，则您应参考[精度问题详细定位及调优指南](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_optimization.html)尝试修复这些可疑问题。若checklist使用完毕后，未发现可疑问题，则您应尝试其它精度问题定位和调优手段，或者参考“精度问题详细定位及调优指南”。如果您怀疑精度问题和MindSpore框架相关，请在向我们求助前确认不存在checklist上列出的问题，求助方法请见本文末尾。
 
 ### checklist使用说明
 
@@ -489,7 +489,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 ## 求助方式
 
-参考上面两种初步定位方法的任意一种进行操作。若未发现可疑点，一般说明脚本不存在明显的问题，此时请参考[精度调优建议](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/accuracy_optimization.html)进行调优。若使用基于现象对比的定位方法发现了疑点，请依据定位方法中的提示判断是需要自行定位的问题还是向MindSpore求助。若使用checklist发现了疑点或问题，请参考[精度问题详细定位指南](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/accuracy_optimization.html)进行详细定位。
+参考上面两种初步定位方法的任意一种进行操作。若未发现可疑点，一般说明脚本不存在明显的问题，此时请参考[精度调优建议](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_optimization.html)进行调优。若使用基于现象对比的定位方法发现了疑点，请依据定位方法中的提示判断是需要自行定位的问题还是向MindSpore求助。若使用checklist发现了疑点或问题，请参考[精度问题详细定位指南](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_optimization.html)进行详细定位。
 
 当您要向MindSpore求助时，提供相关材料将有助于我们更好地判断和解决您的问题，建议您提供的材料包括但不限于：
 

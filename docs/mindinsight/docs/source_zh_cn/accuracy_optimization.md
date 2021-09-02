@@ -44,7 +44,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/accuracy_optimization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/accuracy_optimization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 模型训练的最终结果是为了得到一个精度达标的模型，而在AI训练过程中有时会遇到loss（模型损失值）无法下降，或者发散，metrics（模型度量指标）达不到预期等，造成无法得到一个理想精度的模型，这时候需要去进行分析训练过程中出现了什么样的问题，针对性地采用包括调整数据、调整超参、重构模型结构等方法，去解决模型精度调优过程中遇到的各种问题。
 
@@ -198,7 +198,7 @@
 
     以loss不收敛为例（下图），任何可能导致激活值饱和、梯度消失、权重更新不正确的问题都可能导致loss不收敛。例如错误地冻结了部分权重，使用的激活函数和数据不匹配（使用relu激活函数，输入值全部小于0），学习率过小等原因都是loss不收敛的可能原因。
 
-    ![reson_for_accuracy_problem](./images/reson_for_accuracy_problem.png)
+    ![reason_for_accuracy_problem](./images/reason_for_accuracy_problem.png)
 
     图1：相同现象存在多个可能原因导致精度问题定位难
 
@@ -369,7 +369,7 @@ MindInsight可以辅助用户对输入数据、数据处理流水线进行检查
 
 大多数情况下，`SummaryCollector`会自动记录模型的loss曲线，可以通过MindInsight的标量可视模块查看。loss曲线能够反映网络训练的动态趋势，通过观察loss曲线，可以得到模型是否收敛、是否过拟合等信息。
 
-![histogram](./images/histogram.png)
+![histogram](./images/histogram_example.png)
 
 图9 通过MindInsight参数分布图可以查看训练过程中的权重变化情况
 
