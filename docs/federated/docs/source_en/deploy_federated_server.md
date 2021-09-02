@@ -75,6 +75,7 @@ scheduler_port = 6667
 fl_server_port = 6668
 fl_name = "LeNet"
 scheduler_manage_port = 11202
+config_file_path = "./config.json"
 
 fl_ctx = {
     "enable_fl": enable_fl,
@@ -85,7 +86,8 @@ fl_ctx = {
     "scheduler_port": scheduler_port,
     "fl_server_port": fl_server_port,
     "fl_name": fl_name,
-    "scheduler_manage_port": scheduler_manage_port
+    "scheduler_manage_port": scheduler_manage_port,
+    "config_file_path": config_file_path
 }
 context.set_fl_context(**fl_ctx)
 ...
@@ -110,6 +112,7 @@ parser.add_argument("--scheduler_port", type=int, default=6667)
 parser.add_argument("--fl_server_port", type=int, default=6668)
 parser.add_argument("--fl_name", type=str, default="LeNet")
 parser.add_argument("--scheduler_manage_port", type=int, default=11202)
+parser.add_argument("--config_file_path", type=str, default="")
 
 args, t = parser.parse_known_args()
 server_mode = args.server_mode
@@ -120,9 +123,12 @@ scheduler_port = args.scheduler_port
 fl_server_port = args.fl_server_port
 fl_name = args.fl_name
 scheduler_manage_port = args.scheduler_manage_port
+config_file_path = args.config_file_path
 ```
 
 > Each Python script corresponds to a process. If multiple `Server` roles need to be deployed on different hosts, you can use shell commands and Python to quickly start multiple `Server` processes. You can refer to the [examples](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile).
+>
+> Each `Server` process needs a unique identifier `MS_NODE_ID` which should be set by environment variable. In this tutorial, this environment variable has been set in the script [run_mobile_server.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/run_mobile_server.py).
 
 ## Starting a Cluster
 
@@ -130,6 +136,7 @@ Start the cluster by referring to the [examples](https://gitee.com/mindspore/min
 
 ```text
 mobile/
+├── config.json
 ├── finish_mobile.py
 ├── run_mobile_sched.py
 ├── run_mobile_server.py
@@ -137,6 +144,20 @@ mobile/
 │   └── model.py
 └── test_mobile_lenet.py
 ```
+
+> Descriptions of the documents:
+>
+> config.json: The config file, which is used to configure security, disaster recovery, etc.
+>
+> finish_mobile.py: This script is used to stop the cluster.
+>
+> run_mobile_sched.py: Launch scheduler.
+>
+> run_mobile_server.py: Launch server.
+>
+> model.py: The model.
+>
+> test_mobile_lenet.py: Training script.
 
 1. Start the `Scheduler`.
 
@@ -286,10 +307,29 @@ The following describes how to control cluster scale-in and scale-out using the 
 > - After the cluster scale-out or scale-in is successful, the training task is automatically restored. No manual intervention is required.
 >
 > - You can use a cluster management tool (such as Kubernetes) to create or release `Server` resources.
+>
+> - After scale-in, the process scaled in will not exit. You need to use the cluster management tool (such as Kubernetes) or command `kill -15 $PID` to control the process to exit.
 
 ## Disaster Recovery
 
 After a node in the MindSpore federated learning cluster goes offline, you can keep the cluster online without exiting the training task. After the node is restarted, you can resume the training task. Currently, MindSpore supports disaster recovery for `Server` nodes (except Server 0).
+
+To enable disaster recovery, the fields below should be added to the config.json set by config_file_path:
+
+```json
+{
+    "recovery": {
+        "storage_type": 1,
+        "storge_file_path": "config.json"
+    }
+}
+```
+
+> recovery: If this field is set, the disaster recovery feature is enabled.
+>
+> storage_type: Persistent storage type. Only `1` is supported currently which represents file storage.
+>
+> storage_file_path: The recovery file path.
 
 The node restart command is similar to the scale-out command. After the node is manually brought offline, run the following command:
 
@@ -300,3 +340,5 @@ python run_mobile_server.py --scheduler_ip=192.168.216.124 --scheduler_port=6667
 This command indicates that the `Server` is restarted. The federated learning service port number is `6673`.
 
 > MindSpore does not support disaster recovery after the auto scaling command is successfully delivered and before the scaling service is complete.
+>
+> After recovery, the restarted node's `MS_NODE_ID` variable should be the same as the one which exited in exception to ensure the networking recovery.
