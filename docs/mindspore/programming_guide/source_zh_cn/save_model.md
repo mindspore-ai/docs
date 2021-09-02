@@ -126,7 +126,7 @@ from mindspore import dtype as mstype
 1. 传入Cell对象
 
     ```python
-    ​net = LeNet()
+    net = LeNet()
     save_checkpoint(net, "lenet.ckpt")
     ```
 
