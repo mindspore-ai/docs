@@ -20,7 +20,6 @@ MindSpore API
    api_python/mindspore.dataset.text
    api_python/mindspore.dataset.transforms
    api_python/mindspore.dataset.vision
-   api_python/mindspore.explainer
    api_python/mindspore.mindrecord
    api_python/mindspore.nn
    api_python/mindspore.nn.probability
