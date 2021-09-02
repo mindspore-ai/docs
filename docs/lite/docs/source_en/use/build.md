@@ -260,8 +260,8 @@ The script `build.bat` in the root directory of MindSpore can be used to compile
 | Option  |  Parameter Description  | Value Range | Defaults |
 | -------- | ----- | ---- | ---- |
 | MSLITE_ENABLE_SSE | Whether to enable SSE instruction set | on, off | off |
-| MSLITE_ENABLE_AVX | Whether to enable AVX instruction set | on, off | off |
-| MSLITE_ENABLE_CONVERTER | Whether to compile the model conversion tool | on, off | on |
+| MSLITE_ENABLE_AVX | Whether to enable AVX instruction set (This option does not currently support the Visual Studio compiler) | on, off | off |
+| MSLITE_ENABLE_CONVERTER | Whether to compile the model conversion tool (This option does not currently support the Visual Studio compiler) | on, off | on |
 | MSLITE_ENABLE_TOOLS | Whether to compile supporting tools | on, off | on |
 | MSLITE_ENABLE_TESTCASES | Whether to compile test cases | on, off | off |
 
