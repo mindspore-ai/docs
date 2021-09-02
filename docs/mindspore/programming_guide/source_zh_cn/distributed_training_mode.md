@@ -4,10 +4,10 @@
 
 - [分布式并行训练模式](#hostdevice混合训练)
     - [并行模式](#并行模式)
-        - [DATA_PARALLEL](#DATA_PARALLEL)
-        - [SEMI_AUTO_PARALLEL](#SEMI_AUTO_PARALLEL)
-        - [AUTO_PARALLEL](#AUTO_PARALLEL)
-        - [HYBRID_PARALLEL](#HYBRID_PARALLEL)
+        - [数据并行](#数据并行)
+        - [半自动并行](#半自动并行)
+        - [全自动并行](#全自动并行)
+        - [混合并行](#混合并行)
     - [数据导入方式](#数据导入方式)
 
 <!-- /TOC -->
@@ -47,9 +47,16 @@ context.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL)
 # context.set_auto_parallel_context(parallel_mode=ParallelMode.HYBRID_PARALLEL)
 ```
 
-下述涉及的自动并行接口，例如`auto_parallel_context`中的接口配置，可以在[分布式并行接口](https://mindspore.cn/docs/programming_guide/zh-CN/master/auto_parallel.html)进行查看。
+下述涉及的自动并行接口，例如`auto_parallel_context`中的接口配置，可以在[分布式并行接口](https://mindspore.cn/docs/programming_guide/zh-CN/master/auto_parallel.html)进行查看。分布式并行训练在各场景的支持情况如下表。
 
-### `DATA_PARALLEL`
+| 并行模式 | 配置 | 动态图 | 静态图 | 支持设备 |
+| ---------- | ------ | ------ | ---------- | ---------- |
+| 数据并行   | DATA_PARALLEL | 支持   | 支持   | GPU、Ascend 910 |
+| 半自动并行 | SEMI_AUTO_PARALLEL | 不支持 | 支持   | GPU、Ascend 910 |
+| 全自动并行 | AUTO_PARALLEL | 不支持 | 支持   | GPU、Ascend 910 |
+| 混合并行   | HYBRID_PARALLEL | 不支持 | 支持   | GPU、Ascend 910 |
+
+### 数据并行
 
 在数据并行中，用户定义网络的方式和单机脚本一样，但是在网络定义之前调用`D.init()`去初始化设备通信状态。
 
@@ -82,10 +89,7 @@ model = Model(net)
 model.train(...)
 ```
 
-支持设备：`Ascend` `GPU`
-支持模式：`PYNATIVE` `GRAPH_MODE`
-
-### `SEMI_AUTO_PARALLEL`
+### 半自动并行
 
 相较于自动并行，半自动并行模式需要用户对算子手动配置切分**策略**实现并行。关于算子并行策略的定义可以参考这篇[设计文档](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/design/distributed_training_design.html#id10)。
 
@@ -135,7 +139,7 @@ model.train(...)
             return x
 
     D.init()
-    context.set_auto_parallel_context(mode=ParallelMode.SEMI_AUTO_PARALLEL_MODE)
+    context.set_auto_parallel_context(mode=ParallelMode.SEMI_AUTO_PARALLEL)
     net = SemiAutoParallelNet()
     model = Model(net)
     model.train(...)
@@ -173,10 +177,7 @@ model.train(...)
 
 自动和半自动模式中还可以通过对`Cell`配置`pipeline_stage`属性进行流水线并行，对应的流水线并行教程可以参考[应用流水线并行](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/apply_pipeline_parallel.html)。
 
-支持设备：`Ascend` `GPU`
-支持模式： `GRAPH_MODE`
-
-### `AUTO_PARALLEL`
+### `全自动并行`
 
 自动并行模式，融合了数据并行、模型并行及混合并行的分布式并行模式，可以自动建立代价模型，找到训练时间较短的并行策略，为用户选择1种并行模式。MindSpore提供了如下的两种不同的策略搜索算法：
 
@@ -194,10 +195,7 @@ context.set_auto_parallel_context(mode=ParallelMode.AUTO_PARALLEL, auto_parallel
 
 > 在自动并行模式下，用户设置的`shard`策略也会生效，不会被搜索出来的策略覆盖掉。
 
-支持设备：`Ascend` `GPU`
-支持模式： `GRAPH_MODE`
-
-### `HYBRID_PARALLEL`
+### 混合并行
 
 在MindSpore中特指用户通过手动切分模型实现混合并行的场景，用户可以在网络结构中定义通信算子原语`AllReduce`和`AllGather`等，手动的执行并行流程，例如下面的代码示例：
 
@@ -228,14 +226,11 @@ class HybridParallelNet(nn.Cell):
         return x
 
 D.init()
-context.set_auto_parallel_context(mode=ParallelMode.HYBRID_PARALLEL_MODE)
+context.set_auto_parallel_context(mode=ParallelMode.HYBRID_PARALLEL)
 net = HybridParallelNet()
 model = Model(net)
 model.train(...)
 ```
-
-支持设备：`Ascend` `GPU`
-支持模式：`GRAPH_MODE`
 
 ## 数据导入方式
 
@@ -257,4 +252,3 @@ model.train(...)
   ```
 
 因此，在用户设置上述的配置之后，需要**手动**设置dataset的获取顺序，确保每卡的数据是期望的。
-

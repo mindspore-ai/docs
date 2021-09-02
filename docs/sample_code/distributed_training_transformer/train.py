@@ -66,7 +66,7 @@ def main():
                         help="Use device nums, default is 128.")
     parser.add_argument("--distribute",
                         type=str,
-                        default="true",
+                        default="false",
                         choices=["true", "false"],
                         help="Run distribute, default is true.")
     parser.add_argument("--micro_batch_num",
