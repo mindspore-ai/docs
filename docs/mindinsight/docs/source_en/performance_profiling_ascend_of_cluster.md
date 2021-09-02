@@ -222,7 +222,7 @@ Figure 1 is the overview of cluster training performance, which is the overall p
 
 ### Cluster Iterative Trajectory Analysis
 
-Using the cluster iterative trajectory analysis component, we can find out the slow host and slow device in cluster training. Cluster iteration trajectory analysis component shows the iteration information of all devices, including iteration gap, forward and backward, iteration trailing, and supports sorting operation. The iteration gap reflects the speed of the data processing stage, and the iteration gap time of the device can reflect the speed of the corresponding host processing data. The forward and backward time of the device reflects the computing power of the device. Iterative tailing reflects all_reduce time and parallelism.
+Using the cluster iterative trajectory analysis component, we can find out the slow host and slow device in cluster training. Cluster iteration trajectory analysis component shows the iteration information of all devices, including step interval, forward and backward, iteration trailing, and supports sorting operation. The step interval reflects the speed of the data processing stage, and the step interval time of the device can reflect the speed of the corresponding host processing data. The forward and backward time of the device reflects the computing power of the device. Iterative tailing reflects all_reduce time and parallelism.
 
 ![cluster_iterative_trajectory.png](./images/cluster_iterative_trajectory.png)
 
@@ -236,15 +236,33 @@ Figure 3: single device details
 
 Figure 3 shows the performance information of a single device in the cluster. Please refer to [single device performance information](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html) for the performance information of a single device.
 
+### Cluster Communication and Computation Overlap Time Analysis
+
+Cluster communication and computational overlap time analysis components are used in pipeline parallel and model parallel mode to identify slow hosts and slow cards in cluster training.
+
+The cluster communication and computation overlap time analysis components add five new indicators: pure receive time, stage time, pure communication time, computation time, and pure collection communication time. The pure communication time reflects the value of the increase in training time caused by communication, the pure receiving time (point-to-point communication) reflects the value of the increase in training time caused by communication between stages, and the time of pure collection communication (different from point-to-point communication) reflects the value of the increase in training time caused by collective communication. Stage time is used to locate slow stages, and computation time is used to locate slow cards.
+
+![cluster_pipeline-parallel_analyse.png](./images/cluster_pipeline-parallel_analyse_en.png)
+
+Figure 4: pipeline parallel mode analysis
+
+Figure 4 shows the information in pipeline parallel scene, showing the average value of all step by default. The page shows step interval time, pure receive time, stage time, pure communication time, calculation time, pure collection communication time. Because the computation graph of the whole network is divided into subgraph of multiple stages, the stage time can be used to locate the slow stage, and the card of the same stage can be filtered out by selecting the stage number, and the idea of model parallel mode can be used to locate the bottleneck within the stage.
+
+![cluster_model-parallel_analyse.png](./images/cluster_model-parallel_analyse_en.png)
+
+Figure 5: model parallel mode analysis
+
+Figure 5 shows the information in model parallel scene(here refers to the in-layer model parallel), showing the average value of all step by default. The page shows step interval time, pure communication time, and calculation time. Computation time can be used to locate slow cards. If there is no slow card, observe the communication time and computation time ratio, if the communication time is relatively large, consider whether there is a slow link.
+
 ### Cluster Communication Performance Analysis
 
 The cluster communication performance component displays the cluster communication performance information from two dimensions: card granularity and whole network link.
 
 ![cluster_communication_info.png](./images/cluster_communication_info.png)
 
-Figure 4: cluster communication performance analysis
+Figure 6: cluster communication performance analysis
 
-Figure 4 shows the analysis page of cluster communication performance, including the communication performance of logic card and the link information of the whole network (all logic card link information).
+Figure 6 shows the analysis page of cluster communication performance, including the communication performance of logic card and the link information of the whole network (all logic card link information).
 
 Logic card communication performance tab page is mainly used to show the communication performance of logic card, including communication time, waiting time, logic card link information.
 
@@ -254,13 +272,13 @@ Logic card communication performance tab page is mainly used to show the communi
 
 ![rank_id_link_info.png](./images/rank_id_link_info.png)
 
-Figure 5: link information of logic card
+Figure 7: link information of logic card
 
 The whole network link information tab page displays the link information of all logic cards, and provides the selection of source card, destination card and link type.
 
 ![rank_ids_link_info.png](./images/rank_ids_link_info.png)
 
-Figure 6: link information of the whole network
+Figure 7: link information of the whole network
 
 By default, communication performance data is not collected. You need to use the `profile_communication` parameter in `mindspore.profiler.Profiler` like `Profiler(profile_communication=True)` to turn on the communication performance data switch. It should be noted that only multi devices training can generate communication operator performance data. Setting this parameter in single device training scenario does not work.
 
@@ -284,7 +302,7 @@ This page shows the memory usage of the model on the **device side** in the para
 
 ![cluster_memory.png](./images/cluster_memory.png)
 
-Figure 3: The page of cluster memory analysis
+Figure 8: The page of cluster memory analysis
 
 ### Cluster FLOPs Analysis
 
@@ -296,7 +314,7 @@ This page shows the FLOPs data for each device in the parallel mode. The content
 
 ![cluster_flops.png](./images/cluster_flops.png)
 
-Figure 4: The page of cluster FLOPs analysis
+Figure 9: The page of cluster FLOPs analysis
 
 ## Specifications
 
