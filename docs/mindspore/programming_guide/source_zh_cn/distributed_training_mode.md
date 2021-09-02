@@ -141,7 +141,7 @@ model.train(...)
     model.train(...)
     ```
 
-在前后算子的设备矩阵不一致时，会自动插入[重排布](https://mindspore.cn/docs/note/zh-CN/master/design/distributed_training_design.html?highlight=%E9%87%8D%E6%8E%92%E5%B8%83#id4), 确保`tensor`的切分状态符合下一个算子输入要求。例如在单机八卡的训练中，有下述的示例代码：
+在前后算子的设备矩阵不一致时，会自动插入[重排布](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/design/distributed_training_design.html?highlight=%E9%87%8D%E6%8E%92%E5%B8%83#id4), 确保`tensor`的切分状态符合下一个算子输入要求。例如在单机八卡的训练中，有下述的示例代码：
 
 ```python
     class SemiAutoParallelNet(nn.Cell):
@@ -165,7 +165,7 @@ model.train(...)
             return x
 ```
 
-因此，如果前后的算子对输入的切分要求不一样，插入的重排布算子可能会有`AllGather`、`Split`、`Concat`和`StridedSlice`等算子。因此会增加网络的计算和通信耗时。用户可以[保存ir图](https://mindspore.cn/docs/note/zh-CN/master/design/mindir.html)查看整张网络的算子状态。其中自动并行流程产生的`ir`图名为`step_parallel_begin_xxxx.ir`和`step_parallel_end_xxxx.ir`。前者表示在进入并行流程之前图状态，后者表示经过自动并行流程处理后的图状态，用户可以查看后者这个文件查找自动并行插入的算子。
+因此，如果前后的算子对输入的切分要求不一样，插入的重排布算子可能会有`AllGather`、`Split`、`Concat`和`StridedSlice`等算子。因此会增加网络的计算和通信耗时。用户可以[保存ir图](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/design/mindir.html)查看整张网络的算子状态。其中自动并行流程产生的`ir`图名为`step_parallel_begin_xxxx.ir`和`step_parallel_end_xxxx.ir`。前者表示在进入并行流程之前图状态，后者表示经过自动并行流程处理后的图状态，用户可以查看后者这个文件查找自动并行插入的算子。
 
 > - 半自动并行模式时，未配置策略的算子默认以数据并行方式执行，对应的数据并行度为所有卡。
 > - 自动并行模式支持通过策略搜索算法自动获取高效的算子并行策略，同时也支持用户对算子手动配置特定的并行策略。
