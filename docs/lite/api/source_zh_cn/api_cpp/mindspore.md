@@ -1595,6 +1595,15 @@ virtual void Begin(const TrainCallBackData &cb_data) {}
 
   `CallbackRetValue`，表示是否在训练中继续循环。
 
+    ```cpp
+    enum CallbackRetValue : uint32_t {
+      kContinue = 0,
+      kStopTraining = 1,
+      kExit = 2,
+      kUnknownRetValue = 0xFFFFFFFF
+    };
+    ```
+
 #### StepBegin
 
 ```cpp
@@ -1736,6 +1745,34 @@ gamma
 
 **float** 类型变量。学习率衰减因子。
 
+## MultiplicativeLRLambda
+
+\#include &lt;[lr_scheduler.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/callback/lr_scheduler.h)&gt;
+
+每个epoch将学习率乘以一个因子。
+
+```cpp
+using LR_Lambda = std::function<int(float *lr, int epoch, void *cb_data)>;
+int MultiplicativeLRLambda(float *lr, int epoch, void *multiplication);
+```
+
+学习率更新。
+
+- 参数
+
+    - `lr`: 学习率。
+    - `epoch`: 迭代轮数。
+    - `multiplication`: 更新方式。
+
+- 返回值
+
+  int类型返回值，表示是否更新，DONT_UPDATE_LR为0表示不更新，UPDATE_LR为1表示更新。
+
+  ```cpp
+  constexpr int DONT_UPDATE_LR = 0;
+  constexpr int UPDATE_LR = 1;
+  ```
+
 ## TimeMonitor
 
 \#include &lt;[time_monitor.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/callback/time_monitor.h)&gt;
@@ -1793,6 +1830,18 @@ gamma
 ```cpp
 explicit TrainAccuracy(int print_every_n = INT_MAX, int accuracy_metrics = METRICS_CLASSIFICATION, const std::vector<int> &input_indexes = {1}, const std::vector<int> &output_indexes = {0});
 virtual ~TrainAccuracy();
+```
+
+- 参数
+
+    - `print_every_n`: 间隔print_every_n步打印一次。
+    - `accuracy_metrics`: 精度指标，默认值为METRICS_CLASSIFICATION表示0，METRICS_MULTILABEL表示1。
+    - `input_indexes`: 输入索引。
+    - `output_indexes`: 输出索引。
+
+```cpp
+constexpr int METRICS_CLASSIFICATION = 0;
+constexpr int METRICS_MULTILABEL = 1;
 ```
 
 #### GetAccuracyPoints
