@@ -264,7 +264,7 @@ set GLOG_v=1
 
 ### Pass扩展
 
-1. 自定义Pass：用户需继承Pass基类，重载Run接口函数[Run](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/converter_extend/src/pass_registry_tutorial.h)。
+1. 自定义Pass：用户需继承[PassBase](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#passbase)，重载Execute接口函数[Execute](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#execute)。
 
 2. Pass注册：调用Pass的注册接口[REG_PASS](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#reg-pass)，把用户自己实现的Pass类注册进MindSpore Lite里。
 
