@@ -1,18 +1,19 @@
-# MindSpore 自动微分
+# 函数式可微分编程
 
 `Linux` `Windows` `Ascend` `GPU` `CPU` `框架开发` `中级` `模型开发` `高级` `贡献者`
 
 <!-- TOC -->
 
-- [MindSpore 自动微分](#MindSpore自动微分)
+- [函数式可微分编程](#函数式可微分编程)
     - [自动微分简介](#自动微分简介)
         - [前向自动微分](#前向自动微分)
         - [反向自动微分](#反向自动微分)
-    - [GradOperation实现](#GradOperation实现)
-        - [GradOperation算法设计](#GradOperation算法设计)
-        - [GradOperation算法实现](#GradOperation算法实现)
+    - [GradOperation实现](#gradoperation实现)
+        - [GradOperation算法设计](#gradoperation算法设计)
+        - [GradOperation算法实现](#gradoperation算法实现)
+            - [GradOperation示例](#gradoperation示例)
     - [前向自动微分实现](#前向自动微分实现)
-    - [参考文献](#参考文献)
+        - [参考文献](#参考文献)
 
 <!-- /TOC -->
 
@@ -29,17 +30,25 @@
 根据对分解后的基本操作求导和链式规则的组合不同，自动微分可以分为前向模式和反向模式。
 
 我们以下方函数为例介绍前向微分与反向微分的具体计算方式：
-$$y=f(x_{1},x_{2})=ln(x_{1})+x_{1}x_{2}$$当我们使用前向自动微分求取函数在$x_{1}=2,x_{2}=5$处的导数$\frac{\partial y}{\partial x_{1}}$时：
+
+$$y=f(x_{1},x_{2})=ln(x_{1})+x_{1}x_{2}$$
+
+当我们使用前向自动微分求取函数在$x_{1}=2,x_{2}=5$处的导数$\frac{\partial y}{\partial x_{1}}$时，前向自动微分的求导方向与原函数的求值方向一致，原函数结果与微分结果可以被同时获得。
+
 ![image](./images/forward_ad.png)
-前向自动微分的求导方向与原函数的求值方向一致，原函数结果与微分结果可以被同时获得。
-当使用反向自动微分时：
+
+当使用反向自动微分时，反向自动微分的求导方向与原函数的求值方向相反，微分结果需要依赖原函数的运行结果。
+
 ![image](./images/backward_ad.png)
-反向自动微分的求导方向与原函数的求值方向相反，微分结果需要依赖原函数的运行结果。
+
 MindSpore先构建的是基于反向自动微分的GradOperation方法，并在该方法的基础上实现了正向微分。
 
 为了进一步说明前向微分与反向微分的区别， 我们将被求导的原函数泛化为具有N输入与M输出的函数F：
+
 $$ (Y_{1},Y_{2},...,Y_{M})=F(X_{1},X_{2},...,X_{N})$$
+
 F函数的导数本身为一个雅可比矩阵(Jacobian matrix)。
+
 $$
  \left[
  \begin{matrix}
@@ -53,6 +62,7 @@ $$
 ### 前向自动微分
 
 在前向自动微分当中，我们是从输入开始向输出的方向计算的，因此每一次计算我们可以求得输出对某一输入的导数，即雅可比矩阵中的一列。
+
 $$
  \left[
  \begin{matrix}
@@ -62,9 +72,13 @@ $$
   \end{matrix}
   \right]
 $$
+
 为了求取该列的值， 自动微分将程序分解为一系列求导规则已知的基本操作，这些基本操作也可以被泛化表达为具有n输入和m输出的函数f：
+
 $$ (y_{1},y_{2},...,y_{m})=f(x_{1},x_{2},...,x_{n})$$
+
 由于我们的已知基础函数f的求导规则，即f的雅可比矩阵是已知的。 于是我们可以对$f$计算雅可比向量积（Jvp, Jacobian-vector-product），并应用链式求导法则从f的输入到输出传播求导的结果。
+
 $$
  \left[
  \begin{matrix}
@@ -100,7 +114,9 @@ $$
 $$
 
 为了求取该列的值， 自动微分将程序分解为一系列求导规则已知的基本操作，这些基本操作也可以被泛化表达为具有n输入和m输出的函数f：
+
 $$ (y_{1},y_{2},...,y_{m})=f(x_{1},x_{2},...,x_{n})$$
+
 由于我们的已知基础函数f的求导规则，即f的雅可比矩阵是已知的。 于是我们可以对f计算向量雅可比积(Vjp, Vector-jacobian-product)，并应用链式求导法则从f的输入到输出传播求导的结果。
 
 $$
@@ -202,9 +218,11 @@ class Net(nn.Cell):
 ```
 
 正向网络的结构为：
+
 ![image](./images/origin_net.png)
 
 对该网络进行反向微分后，所得微分网络结构为：
+
 ![image](./images/backward_net.png)
 
 ## 前向自动微分实现
@@ -217,5 +235,4 @@ class Net(nn.Cell):
 
 ### 参考文献
 
-[1] Baydin, A.G. et al., 2018. Automatic differentiation in machine learning: A survey. arXiv.org. Available at: https://arxiv.org/abs/1502.05767 [Accessed September 1, 2021].
-
+[1] Baydin, A.G. et al., 2018. Automatic differentiation in machine learning: A survey. arXiv.org. Available at: <https://arxiv.org/abs/1502.05767> [Accessed September 1, 2021].

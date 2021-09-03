@@ -9,7 +9,7 @@
     - [调优模式](#调优模式)
     - [环境变量](#环境变量)
     - [开启调优](#开启调优)
-    - [须知](#须知)
+    - [使用须知](#使用须知)
 
 <!-- /TOC -->
 
@@ -51,7 +51,7 @@ context.set_context(mode=context.GRAPH_MODE, device_target="Ascend", auto_tune_m
 ...
 ```
 
-## 须知
+## 使用须知
 
 AutoTune调优工具在使用时，请注意以下几点：
 
