@@ -34,7 +34,7 @@ MindSpore提供了多种Metrics评估指标，如：`accuracy`、`loss`、`preci
 
 ```python
 import numpy as np
-from mindspore.nn.metrics.metric import Metric, rearrange_inputs
+from mindspore.nn import Metric, rearrange_inputs
 ```
 
 ### 定义Metrics
@@ -70,8 +70,8 @@ class Dice(Metric):
         if len(inputs) != 2:
             raise ValueError('Dice need 2 inputs (y_pred, y), but got {}'.format(len(inputs)))
         # 将输入的数据格式变为numpy array
-        y_pred = self._convert_data(inputs[0])
-        y = self._convert_data(inputs[1])
+        y_pred = inputs[0].asnumpy()
+        y = inputs[1].asnumpy()
         # 参数计算
         self._samples_num += y.shape[0]
 
