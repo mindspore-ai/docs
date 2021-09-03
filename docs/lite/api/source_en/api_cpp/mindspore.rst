@@ -11,8 +11,6 @@ Classes
 -------
 
 
-- :doc:`../generate/structmindspore_Conv2D`
-
 - :doc:`../generate/structmindspore_MSCallBackParam`
 
 - :doc:`../generate/structmindspore_QuantParam`
@@ -31,10 +29,6 @@ Classes
 
 - :doc:`../generate/classmindspore_Buffer`
 
-- :doc:`../generate/classmindspore_Cell`
-
-- :doc:`../generate/classmindspore_CellBase`
-
 - :doc:`../generate/classmindspore_CkptSaver`
 
 - :doc:`../generate/classmindspore_Context`
@@ -51,10 +45,6 @@ Classes
 
 - :doc:`../generate/classmindspore_Graph`
 
-- :doc:`../generate/classmindspore_GraphCell`
-
-- :doc:`../generate/classmindspore_InputAndOutput`
-
 - :doc:`../generate/classmindspore_KirinNPUDeviceInfo`
 
 - :doc:`../generate/classmindspore_LossMonitor`
@@ -68,12 +58,6 @@ Classes
 - :doc:`../generate/classmindspore_Model`
 
 - :doc:`../generate/classmindspore_MSTensor`
-
-- :doc:`../generate/classmindspore_OpCell`
-
-- :doc:`../generate/classmindspore_OpCellBase`
-
-- :doc:`../generate/classmindspore_ParameterCell`
 
 - :doc:`../generate/classmindspore_Serialization`
 
@@ -116,49 +100,14 @@ Enums
 Functions
 ---------
 
-- :doc:`../generate/function_mindspore_CharToString-1`
 
 - :doc:`../generate/function_mindspore_CharVersion-1`
 
-- :doc:`../generate/function_mindspore_ClassIndexCharToString-1`
-
-- :doc:`../generate/function_mindspore_ClassIndexStringToChar-1`
-
 - :doc:`../generate/function_mindspore_Key-2`
-
-- :doc:`../generate/function_mindspore_MapCharToString-1`
-
-- :doc:`../generate/function_mindspore_MapStringToChar-1`
 
 - :doc:`../generate/function_mindspore_MultiplicativeLRLambda-1`
 
-- :doc:`../generate/function_mindspore_PadInfoCharToString-1`
-
-- :doc:`../generate/function_mindspore_PadInfoStringToChar-1`
-
-- :doc:`../generate/function_mindspore_PairCharToString-1`
-
-- :doc:`../generate/function_mindspore_PairStringInt64ToPairCharInt64-1`
-
-- :doc:`../generate/function_mindspore_PairStringToChar-1`
-
-- :doc:`../generate/function_mindspore_SetCharToString-1`
-
-- :doc:`../generate/function_mindspore_SetStringToChar-1`
-
 - :doc:`../generate/function_mindspore_StepLRLambda-1`
-
-- :doc:`../generate/function_mindspore_StringToChar-1`
-
-- :doc:`../generate/function_mindspore_TensorMapCharToString-1`
-
-- :doc:`../generate/function_mindspore_UnorderedMapCharToString-1`
-
-- :doc:`../generate/function_mindspore_UnorderedMapStringToChar-1`
-
-- :doc:`../generate/function_mindspore_VectorCharToString-1`
-
-- :doc:`../generate/function_mindspore_VectorStringToChar-1`
 
 - :doc:`../generate/function_mindspore_Version-1`
 
@@ -167,8 +116,6 @@ Typedefs
 --------
 
 
-- :doc:`../generate/typedef_mindspore_Input-1`
-
 - :doc:`../generate/typedef_mindspore_KernelIter-1`
 
 - :doc:`../generate/typedef_mindspore_Key-1`
@@ -176,8 +123,6 @@ Typedefs
 - :doc:`../generate/typedef_mindspore_LR_Lambda-1`
 
 - :doc:`../generate/typedef_mindspore_MSKernelCallBack-1`
-
-- :doc:`../generate/typedef_mindspore_Output-1`
 
 
 Variables
