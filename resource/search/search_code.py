@@ -130,7 +130,8 @@ search_prepare_target = """var tmp = splitQuery(query);"""
 sort_results_target = """var resultCount = results.length;"""
 
 sort_results_source = r"""
-    var resultCount = results.length;
+    var lists = results;
+    var resultCount = lists.length;
     function sortItem() {
       if (results.length) {
         for (i = 0; i < results.length; i++) {
@@ -207,7 +208,8 @@ highlight_words_target = """start = Math.max(start - 120, 0);"""
 highlight_words_source = """if (start === 0) {
       return [];
     }
-    start = Math.max(start - 120, 0);"""
+    var number = Math.max(start - 120, 0);
+    start = number;"""
 
 with open(sphinx_search_prepare, "r+", encoding="utf8") as f:
     code_str = f.read()
