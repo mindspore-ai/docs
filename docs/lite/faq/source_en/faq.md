@@ -45,6 +45,6 @@ A:The MindSpore lightweight inference framework MindSpore Lite has been official
 
 <font size=3>**Q: How to solve the problem of `sun.security.validator.ValidatorException: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target` when compiling JAVA library?**</font>
 
-A：Use the `keytool` tool to import the security certificate of the relevant website into the cacerts certificate library of java. E.g `keytool -import -file "XX.cer" -keystore ${JAVA_HOME}\lib\security\cacerts" -storepass changeit`.
+A：Use the `keytool` tool to import the security certificate of the relevant website into the cacerts certificate library of java. E.g `keytool -import -file "XX.cer" -keystore ${JAVA_HOME}/lib/security/cacerts" -storepass changeit`.
 
 <br/>
