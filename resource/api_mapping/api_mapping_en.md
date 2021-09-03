@@ -2,7 +2,7 @@
 
 Mapping between PyTorch APIs and MindSpore APIs, which is provided by the community.
 
-| PyTorch APIs                                         | MindSpore APIs                                                 | INFO |
+| PyTorch 1.5.0 / Torchvision 0.10.0 APIs                                         | MindSpore APIs                                                 | Description |
 |------------------------------------------------------|----------------------------------------------------------------|------|
 | torch.abs                                            | mindspore.ops.Abs                                              | same |
 | torch.acos                                           | mindspore.ops.ACos                                             | same |

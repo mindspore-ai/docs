@@ -2,7 +2,7 @@
 
 由社区提供的PyTorch APIs和MindSpore APIs之间的映射。
 
-| PyTorch APIs                                         | MindSpore APIs                                                 |  INFO  |
+| PyTorch 1.5.0 / Torchvision 0.10.0 APIs                                         | MindSpore APIs                                                 |  说明  |
 |------------------------------------------------------|----------------------------------------------------------------|--------|
 | torch.abs                                            | mindspore.ops.Abs                                              | 功能一致 |
 | torch.acos                                           | mindspore.ops.ACos                                             | 功能一致 |
