@@ -242,7 +242,7 @@ net_opt = nn.Momentum(network.trainable_params(), config.lr, config.momentum)
 
 模型参数保存，保存模型可以通过定义CheckpointConfig来指定模型保存的参数。
 
-save_checkpoint_steps：每多少个step保存一下参数；keep_checkpoint_max：最多保存多少份模型参数。详细使用方式请参考[保存模型](./save_mode.md)。
+save_checkpoint_steps：每多少个step保存一下参数；keep_checkpoint_max：最多保存多少份模型参数。详细使用方式请参考[保存模型](./save_model.md)。
 
 ```python
 config_ck = CheckpointConfig(save_checkpoint_steps=config.save_checkpoint_steps,
