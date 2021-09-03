@@ -277,15 +277,10 @@ git clone https://gitee.com/mindspore/mindspore.git
 
 Then, use the cmd tool to compile MindSpore Lite in the root directory of the source code and execute the following commands.
 
-- Compile the Windows version with the default number of threads (6 threads).
+- Turn on SSE instruction set optimization and compile with 8 threads.
 
 ```bat
-call build.bat lite
-```
-
-- Compile the Windows version with the specified number of 8 threads.
-
-```bat
+set MSLITE_ENABLE_SSE=on
 call build.bat lite 8
 ```
 
