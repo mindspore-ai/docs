@@ -89,12 +89,12 @@ del param_dict["conv1.weight"]
 # 2. Add an element named "conv2.weight" and set its value to 0
 param_dict["conv2.weight"] = Parameter(Tensor([0]))
 # 3. Modify the name "conv1.bias" to 1
-param_dict["conv2.bias"] = Parameter(Tensor([1]))
+param_dict["fc1.bias"] = Parameter(Tensor([1]))
 
 # Restore the modified param_dict as a checkpoint file
 save_list = []
 # Traverse the modified dict, convert it into a storage format supported by MindSpore, and store it as a checkpoint file
 for key, value in param_dict.items():
-  save_list.append({"name": key, "value": value.data})
+  save_list.append({"name": key, "data": value.data})
 save_checkpoint(save_list, "new.ckpt")
 ```
