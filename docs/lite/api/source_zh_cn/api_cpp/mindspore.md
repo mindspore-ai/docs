@@ -20,8 +20,10 @@
 | [MSTensor](#mstensor) | MindSpore中的张量。 |
 | [MSKernelCallBack](#mskernelcallback) | MindSpore回调函数包装器，仅MindSpore Lite支持。 |
 | [MSCallBackParam](#mscallbackparam) | MindSpore回调函数的参数，仅MindSpore Lite支持。 |
-| [Delegate](#delegate) | MindSpore Lite接入第三方AI框架的代理。 |
-| [DelegateModel](#delegatemodel) | MindSpore Lite Delegate机制封装的模型。 |
+| [Delegate](#delegate) | MindSpore Lite接入第三方AI框架的代理，仅MindSpore Lite支持。 |
+| [SchemaVersion](#schemaversion) | MindSpore Lite 执行推理时模型文件的版本，仅MindSpore Lite支持。 |
+| [KernelIter](#kerneliter) | MindSpore Lite 算子列表的迭代器，仅MindSpore Lite支持。 |
+| [DelegateModel](#delegatemodel) | MindSpore Lite Delegate机制封装的模型，仅MindSpore Lite支持。 |
 | [TrainCfg](#traincfg) | MindSpore Lite训练配置类，仅MindSpore Lite支持。 |
 | [MixPrecisionCfg](#mixprecisioncfg) | MindSpore Lite训练混合精度配置类，仅MindSpore Lite支持。 |
 | [AccuracyMetrics](#accuracymetrics) | MindSpore Lite训练精度类，仅MindSpore Lite支持。 |
@@ -1214,11 +1216,35 @@ Delegate在线构图。
 
 - 参数
 
-    - `model`: 指向存储DelegateModel实例的指针。
+    - `model`: 指向存储[DelegateModel](#delegatemodel)实例的指针。
 
 - 返回值
 
   状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
+## SchemaVersion
+
+\#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/delegate.h)&gt;
+
+定义了Lite执行在线推理时模型文件的版本。
+
+```cpp
+typedef enum {
+  SCHEMA_INVALID = -1, /**< invalid version */
+  SCHEMA_CUR,          /**< current version for ms model defined in model.fbs*/
+  SCHEMA_V0,           /**< previous version for ms model defined in model_v0.fbs*/
+} SchemaVersion;
+```
+
+## KernelIter
+
+\#include &lt;[delegate.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/delegate.h)&gt;
+
+定义了Lite [Kernel](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html#mindspore-kernel)列表的迭代器。
+
+```cpp
+using KernelIter = std::vector<kernel::Kernel *>::iterator;
+```
 
 ## DelegateModel
 
@@ -1280,7 +1306,7 @@ const std::map<kernel::Kernel *, const schema::Primitive *> &primitives_;
 SchemaVersion version_;
 ```
 
-**enum**值，当前执行推理的模型的版本。
+**enum**值，当前执行推理的模型的版本[SchemaVersion](#schemaversion)。
 
 ### 公有成员函数
 
@@ -1372,11 +1398,11 @@ const std::vector<mindspore::MSTensor> &outputs();
 const SchemaVersion GetVersion() { return version_; }
 ```
 
-返回当前执行推理的模型的版本。
+返回当前执行推理的模型文件的版本。
 
 - 返回值
 
-  **enum**值，0: 当前版本，１: r1.1以前的版本，-1: 无效版本。
+  **enum**值，0: r1.2及r1.2之后的版本，1: r1.1及r1.1之前的版本，-1: 无效版本。
 
 ## TrainCfg
 
