@@ -277,15 +277,10 @@ git clone https://gitee.com/mindspore/mindspore.git
 
 然后，使用cmd工具在源码根目录下，执行如下命令即可编译MindSpore Lite。
 
-- 以默认线程数（6线程）编译Windows版本。
+- 打开SSE指令集优化，以8线程编译。
 
 ```bat
-call build.bat lite
-```
-
-- 以指定线程数8编译Windows版本。
-
-```bat
+set MSLITE_ENABLE_SSE=on
 call build.bat lite 8
 ```
 
