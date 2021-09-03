@@ -44,6 +44,7 @@ MindSpore编程指南
    parameter_introduction
    operators
    cell
+   dataset
 
 .. toctree::
    :maxdepth: 1
