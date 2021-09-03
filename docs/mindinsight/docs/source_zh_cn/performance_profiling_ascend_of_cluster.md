@@ -32,7 +32,7 @@
 echo "=============================================================================================================="
 echo "Please run the script as: "
 echo "bash collect_cluster_profiler_data.sh"
-echo "for example: bash collect_cluster_profiler_data.sh cluster_hccl_config_path cluster_account_config_path cluster_train_id host_train_id device_regex output"s
+echo "for example: bash collect_cluster_profiler_data.sh cluster_hccl_config_path cluster_account_config_path cluster_train_id host_train_id is_absolute_path"
 echo "=============================================================================================================="
 
 SSH="ssh -o StrictHostKeyChecking=no"
@@ -73,17 +73,17 @@ rscp_pass()
 }
 
 cluster_hccl_config_path=$1
-cluster_account_config_path=$2s
+cluster_account_config_path=$2
 cluster_train_id=$3
 host_train_id=$4
-device_regex=$5
-output=$6
+is_absolute_path=$5
 
 node_list=$(get_cluster_list ${cluster_account_config_path})
 echo "-----begin----"
 
-if [ ! -d "${cluster_train_id}" ]; then
-mkdir -p ${cluster_train_id}
+target_dir=${cluster_train_id}/profiler/
+if [ ! -d "${target_dir}" ]; then
+mkdir -p ${target_dir}
 fi
 
 for node in ${node_list}
@@ -91,17 +91,27 @@ do
  user=$(get_node_user ${cluster_account_config_path} ${node})
  passwd=$(get_node_passwd ${cluster_account_config_path} ${node})
  echo "------------------${user}@${node}---------------------"
- target_dir=${cluster_train_id}/profiler/
- if [ ! -d "${target_dir}" ]; then
- mkdir -p ${target_dir}
- fi
 
  # Eight devices data
+ if [ $is_absolute_path = '0' ];then
+ device_regex=$(basename $(dirname $host_train_id))
+ output=$(basename $host_train_id)
+ grandfather_host_train_id=$(dirname $(dirname $host_train_id))
  for((i=0;i<8;i++));
  do
-   src_dir=${host_train_id}/${device_regex}${i}/${output}*/profiler/*.*
+   src_dir=${grandfather_host_train_id}/${device_regex}${i}/${output}*/profiler/*.*
    $(rscp_pass ${node} ${user} ${passwd} "${src_dir}" ${target_dir})
  done
+ elif [ $is_absolute_path = '1' ];then
+ src_dir=${host_train_id}/profiler/*.*
+ for((i=0;i<8;i++));
+ do
+   $(rscp_pass ${node} ${user} ${passwd} "${src_dir}" ${target_dir})
+ done
+ else
+ echo "The value of is_absolute_path can only be 0 or 1."
+ exit 1
+ fi
 done
 ```
 
@@ -150,10 +160,9 @@ done
     }
     ```
 
-- `cluster_train_id`  为集群profiler性能数据保存的路径，比如`/home/summary/run1`、`/home/data/run2`  其中`run1`和`run2`分别保存两次集群训练的作业。
-- `host_train_id`  为集群训练时，各个主机节点保存profiler的性能数据的路径。比如：`/home/summary/`。
-- `device_regex`  为各个主机节点中不同卡保存profiler的性能数据的文件夹名称。比如：`/home/summary/device0`和`/home/summary/device1`分别是0号卡和1号卡对应的文件夹，此时device_regex为device。
-- `output` 为训练脚本中用户设置的保存profiler性能文件的路径，默认为`./data`。
+- `cluster_train_id` 集群性能数据汇总保存的路径，比如`/home/summary/run1`、`/home/summary/run2` 其中`run1`和`run2`分别保存两次集群训练的所有性能数据。
+- `host_train_id` 集群训练中，用户设置的性能数据保存路径。当性能数据保存路径设置为绝对路径时，`host_train_id`的值即为用户设置的值。比如值为`/data/run`时，多卡性能数据均保存在`/data/run/profiler`中（`profliler`文件夹由程序自动创建），`host_train_id`值应该设置为`/data/run`。当性能数据保存路径设置为相对路径时，多卡性能数据可能保存在不同的文件夹中。比如`/data/run/device0/data/profiler`、`/data/run/device1/data/profiler`。它们的共性路径为`/data/run/device/data/profiler`，每张卡的性能数据保存路径为`/data/run/device{device_id}/data/profiler`。`host_train_id`值应该设置为`/data/run/device/data`。
+- `is_absolute_path` 在需要收集的集群性能数据中，单机多卡数据是否保存在同一个目录中。若是，设置为1；不是，设置为0。
 
 通过脚本收集到的集群性能目录结构为：
 

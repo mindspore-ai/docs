@@ -31,7 +31,7 @@ Script program description: the script program first creates the cluster job fol
 echo "=============================================================================================================="
 echo "Please run the script as: "
 echo "bash collect_cluster_profiler_data.sh"
-echo "for example: bash collect_cluster_profiler_data.sh cluster_hccl_config_path cluster_account_config_path cluster_train_id host_train_id device_regex output"s
+echo "for example: bash collect_cluster_profiler_data.sh cluster_hccl_config_path cluster_account_config_path cluster_train_id host_train_id is_absolute_path"
 echo "=============================================================================================================="
 
 SSH="ssh -o StrictHostKeyChecking=no"
@@ -72,17 +72,17 @@ rscp_pass()
 }
 
 cluster_hccl_config_path=$1
-cluster_account_config_path=$2s
+cluster_account_config_path=$2
 cluster_train_id=$3
 host_train_id=$4
-device_regex=$5
-output=$6
+is_absolute_path=$5
 
 node_list=$(get_cluster_list ${cluster_account_config_path})
 echo "-----begin----"
 
-if [ ! -d "${cluster_train_id}" ]; then
-mkdir -p ${cluster_train_id}
+target_dir=${cluster_train_id}/profiler/
+if [ ! -d "${target_dir}" ]; then
+mkdir -p ${target_dir}
 fi
 
 for node in ${node_list}
@@ -90,17 +90,27 @@ do
  user=$(get_node_user ${cluster_account_config_path} ${node})
  passwd=$(get_node_passwd ${cluster_account_config_path} ${node})
  echo "------------------${user}@${node}---------------------"
- target_dir=${cluster_train_id}/profiler/
- if [ ! -d "${target_dir}" ]; then
- mkdir -p ${target_dir}
- fi
 
  # Eight devices data
+ if [ $is_absolute_path = '0' ];then
+ device_regex=$(basename $(dirname $host_train_id))
+ output=$(basename $host_train_id)
+ grandfather_host_train_id=$(dirname $(dirname $host_train_id))
  for((i=0;i<8;i++));
  do
-   src_dir=${host_train_id}/${device_regex}${i}/${output}*/profiler/*.*
+   src_dir=${grandfather_host_train_id}/${device_regex}${i}/${output}*/profiler/*.*
    $(rscp_pass ${node} ${user} ${passwd} "${src_dir}" ${target_dir})
  done
+ elif [ $is_absolute_path = '1' ];then
+ src_dir=${host_train_id}/profiler/*.*
+ for((i=0;i<8;i++));
+ do
+   $(rscp_pass ${node} ${user} ${passwd} "${src_dir}" ${target_dir})
+ done
+ else
+ echo "The value of is_absolute_path can only be 0 or 1."
+ exit 1
+ fi
 done
 ```
 
@@ -149,10 +159,9 @@ Script Parameter Description:
     }
     ```
 
-- `cluster_train_id`  The path to save the performance data of the cluster profiler. For example, `/home/summary/run1` and `/home/data/Run2`, where `run1` and `run2` respectively save the jobs of two cluster training.
-- `host_train_id`  During cluster training, each host node stores the path of profiler performance data. For example：`/home/summary/`.
-- `device_regex`  The name of the folder where the performance data of the profiler is stored on different devices in each host node. For example：`/home/summary/device0` and `/home/summary/device1`, which are the folders corresponding to device 0 and device 1. At this time, device_regex is device.
-- `output`  The path to save the profiler performance file set by the user in the training script, the default is `./data`.
+- `cluster_train_id` Path to save cluster performance data summary. For example, `/home/summary/run1` and `/home/summary/run2`, where `run1` and `run2` respectively save the jobs of two cluster training.
+- `host_train_id` In cluster training, the performance data saving path is set by the user. When the performance data save path is set to an absolute path, `host_train_id` is the value set by the user. For example, when the value is `/data/run`, multi devices performance data are saved in `/data/run/profiler` (`profiler`folder is automatically created by the program), the value of `host_train_id` should be set to `/data/run`. When the performance data saving path is set as a relative path, multi card performance data may be saved in different folders, such as `/data/run/device0/data/profiler`, `/data/run/device1/data/profiler`. Their common path is `/data/run/device/data/profiler`, and the performance data storage path of each device is `/data/run/device{device_id}/data/profiler`. The value of `host_train_id` should be set to `/data/run/device/data`.
+- `is_absolute_path` In the cluster performance data to be collected, whether the single machine and multi devices data are saved in the same directory. If yes, set to 1; Not set to 0.
 
 > The collected cluster performance jobs need to conform to the directory structure, otherwise, they cannot be visualized with MindInsight. It must contain the networking information file (the file name is optional) and host_ips_mapping.txt File (file name and suffix are unique).
 
