@@ -1,15 +1,15 @@
-# ms_function动静结合功能
+# ms_function动静结合
 
 `Ascend` `GPU` `CPU` `PyNative` `动静结合`
 
 <!-- TOC -->
 
-- [ms_function](#动静结合装饰器)
+- [ms_function动静结合](#ms_function动静结合)
     - [概述](#概述)
     - [修饰独立函数](#修饰独立函数)
-    - [修饰Cell的成员函数](#修饰Cell的成员函数)
+    - [修饰Cell的成员函数](#修饰cell的成员函数)
     - [实现原理](#实现原理)
-    - [使用限制](#使用限制)
+    - [使用须知](#使用须知)
 
 <!-- /TOC -->
 

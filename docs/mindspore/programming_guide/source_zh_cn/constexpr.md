@@ -1,14 +1,11 @@
-# contexpr
+# contexpr网络内构造常量
 
 <!-- TOC -->
 
-- [constexpr](#constexpr)
-    - [概述](#概述)
+- [contexpr网络内构造常量](#contexpr网络内构造常量)
 
 <!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/constexpr.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
-
-## 概述
 
 `mindspore.ops.constexpr`中提供了一个@constexpr的Python 装饰器，该装饰器可以用于修饰一个函数，该函数在编译阶段将会通过Python解释器执行，最终在MindSpore的类型推导阶段被常量折叠成为ANF图的一个常量节点(ValueNode)。
 

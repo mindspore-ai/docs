@@ -1,14 +1,14 @@
-# 集合通信原语
+# 分布式集合通信原语
 
 `Linux` `Ascend` `推理应用` `初级` `中级` `高级`
 
 <!-- TOC -->
 
-- [集合通信原语](#集合通信原语)
-    - [AllReduce](#AllReduce)
-    - [AllGather](#AllGather)
-    - [ReduceScatter](#ReduceScatter)
-    - [BroadCast](#BroadCast)
+- [分布式集合通信原语](#分布式集合通信原语)
+    - [AllReduce](#allreduce)
+    - [AllGather](#allgather)
+    - [ReduceScatter](#reducescatter)
+    - [BroadCast](#broadcast)
 
 <!-- /TOC -->
 
