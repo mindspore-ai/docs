@@ -14,6 +14,8 @@
 
 <!-- TOC -->
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/build_net.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+
 ## 概述
 
 MindSpore的Cell类是构建所有网络的基类，也是网络的基本单元。定义网络时，可以继承Cell类，并重写`__init__`方法和`construct`方法。MindSpore的ops模块提供了基础算子的实现，nn模块实现了对基础算子的进一步封装，用户可以根据需要，灵活使用不同的算子。
