@@ -25,7 +25,7 @@ MindInsight文档
 
 .. toctree::
    :maxdepth: 1
-   :caption: 精度调优
+   :caption: 精度调优指南
 
    accuracy_problem_preliminary_location
    accuracy_optimization

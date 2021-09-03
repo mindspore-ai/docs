@@ -11,12 +11,12 @@
         - [常见数据处理算法问题](#常见数据处理算法问题)
             - [dp.01 未对数据进行归一化或标准化](#dp01-未对数据进行归一化或标准化)
             - [dp.02 推理时数据处理方式和训练集不一致](#dp02-推理时数据处理方式和训练集不一致)
-            - [dp.03 训练时没有对数据集进行shuffle](#dp03-训练时没有对数据集进行shuffle)
+            - [dp.03 训练时没有对数据集进行混洗](#dp03-训练时没有对数据集进行混洗)
             - [dp.04 涉及到数据补齐时，补齐方式错误](#dp04-涉及到数据补齐时补齐方式错误)
             - [dp.05 并行训练时多节点分片方式错误](#dp05-并行训练时多节点分片方式错误)
         - [常见超参问题](#常见超参问题)
             - [hp.01 学习率过大或过小](#hp01-学习率过大或过小)
-            - [hp.02 epoch过大或过小](#hp02-epoch过大或过小)
+            - [hp.02 epoch数目过大或过小](#hp02-epoch数目过大或过小)
             - [hp.03 batch size过大](#hp03-batch-size过大)
         - [常见API使用问题](#常见api使用问题)
             - [api.01 使用API时未注意到MindSpore API和其它框架API的差异](#api01-使用api时未注意到mindspore-api和其它框架api的差异)
@@ -32,7 +32,7 @@
         - [常见混合精度和溢出问题](#常见混合精度和溢出问题)
             - [mp.01 训练中存在溢出问题](#mp01-训练中存在溢出问题)
             - [mp.02 混合精度训练时，未正确设置loss scale](#mp02-混合精度训练时未正确设置loss-scale)
-            - [mp.03 loss scale和gradient clip的应用顺序不正确](#mp03-loss-scale和gradient-clip的应用顺序不正确)
+            - [mp.03 loss scale和梯度裁剪的应用顺序不正确](#mp03-loss-scale和梯度裁剪的应用顺序不正确)
             - [mp.04 计算梯度惩罚时，没有先将梯度恢复为无loss scale的梯度](#mp04-计算梯度惩罚时没有先将梯度恢复为无loss-scale的梯度)
     - [基于现象对比的精度问题初步定位](#基于现象对比的精度问题初步定位)
         - [固定MindSpore脚本随机性](#固定mindspore脚本随机性)
@@ -79,11 +79,13 @@
 
 检查方法：
 
+采用抽样的方法对数据标签是否正确进行检查。无标签的场景（例如无监督学习）无需进行本检查。
+
 若标签不多，建议基于所有的标签对训练数据进行无放回的层次抽样，确保每个标签至少有一个样本入选，然后对入选的样本进行检查。合理选择抽取概率，使得样本量在50个左右。
 
 若标签较多，建议先对标签进行抽样，随机选择20个标签。然后基于所选择的标签对训练数据进行无放回的层次抽样，确保每个标签至少有一个样本入选。合理选择抽取概率，使得样本量在50个左右。
 
-获取完样本后，应采用合适可视化方式进行检查。例如，图像数据可以使用matplotlib绘制出图片后检查，文本数据则可以直接打印到屏幕上进行检查。
+获取完样本后，应采用合适可视化方式检查数据标签是否正确。例如，图像数据可以使用matplotlib绘制出图片后检查，文本数据则可以直接打印到屏幕上进行检查。
 
 检查结论：
 
@@ -103,12 +105,10 @@
 
 检查方法：
 
-当使用标准数据集时，应确认训练环境中的数据集同标准数据集一致。
+建议确认训练环境中拷贝下来的数据集同源数据集一致，特别是在并行训练中，建议确认每台机器上都正确地存储了数据集。使用知名数据集时，应确认训练环境中使用的数据集同知名数据集一致。检查步骤如下：
 
-数据集往往较大，应进行校验以确定数据集完整性和正确性。
-
-1. 获取参考训练与实际环境训练的数据集文件列表，确保两个文件列表一致。
-2. 获取参考数据集文件与实际环境数据集文件的MD5校验码，确保两组校验码一致。
+1. 获取参考训练与实际环境训练的数据集文件列表，确保两个文件列表一致。训练环境中的文件列表应基于真实训练过程记录，例如在训练脚本中创建数据集时记录数据集文件列表。
+2. 基于文件列表获取参考数据集文件与实际环境数据集文件的MD5校验码，确保两组校验码一致。
 
 检查结论：
 
@@ -120,7 +120,7 @@
 
 检查方法：
 
-检查数据处理代码，确认数据处理代码中进行了必要的归一化或标准化调用。例如Resize、Rescale、Normalize等类似的操作。
+检查数据处理代码，确认数据处理代码中进行了必要的归一化或标准化调用。归一化或标准化是指将数据映射到同一尺度，常见的操作方法包括Resize、Rescale、Normalize等。
 
 例子：
 
@@ -161,11 +161,11 @@
 
 请填写
 
-#### dp.03 训练时没有对数据集进行shuffle
+#### dp.03 训练时没有对数据集进行混洗
 
 检查方法：
 
-检查训练脚本的数据处理代码中是否使能了shuffle功能。未进行shuffle，或者混洗不充分，会导致总是以相同的数据顺序更新模型，严重限制了梯度优化方向的可选择性，导致收敛点的选择空间变少，容易过拟合。shuffle功能的常见使能方式有如下几种，使用任意一种方式来使能shuffle均可：
+检查训练脚本的数据处理代码中是否使能了混洗（shuffle）功能。通过混洗，可以打乱数据顺序，有助于避免过拟合。如果未进行混洗，或者混洗不充分，会导致总是以相同的数据顺序更新模型，严重限制了梯度优化方向的可选择性，导致收敛点的选择空间变少，容易过拟合。混洗功能的常见使能方式有如下几种，使用任意一种方式来使能混洗功能均可：
 
 1. 创建数据集时，指定shuffle参数为True。例如  [`mindspore.dataset.Cifar10Dataset`](https://mindspore.cn/docs/api/zh-CN/master/api_python/dataset/mindspore.dataset.Cifar10Dataset.html#mindspore.dataset.Cifar10Dataset)中的shuffle参数。
 2. 在数据处理的过程中，使用shuffle方法，例如[`mindspore.dataset.Cifar10Dataset.shuffle`](https://mindspore.cn/docs/api/zh-CN/master/api_python/dataset/mindspore.dataset.Cifar10Dataset.html#mindspore.dataset.Cifar10Dataset.shuffle)。
@@ -190,7 +190,7 @@
 
 检查方法：
 
-检查Padding的位置，方式，Padding的值是否同设计一致。
+检查数据补齐（padding）的位置、方式、值是否同设计一致。数据补齐是指通过填充假数据，使得数据的大小、形状满足训练要求。
 
 检查结论：
 
@@ -222,15 +222,15 @@
 
 请填写
 
-#### hp.02 epoch过大或过小
+#### hp.02 epoch数目过大或过小
 
 检查方法：
 
-通过训练过程中的训练集loss曲线和测试集loss曲线可以帮助判断合理的epoch数目。一般来说，随着训练进行，训练集上的loss不断减小，而验证集上的loss先下降，后缓慢增加，应选择验证集loss最小时的epoch作为训练的最佳epoch数。
+一个epoch是指使用训练集的全部数据将模型训练一次的过程。epoch数目指上面的过程进行了几次。通过训练过程中的训练集loss曲线和测试集loss曲线可以帮助判断合理的epoch数目。一般来说，随着训练进行，训练集上的loss不断减小，而验证集上的loss先下降，后缓慢增加，应选择验证集loss最小时的epoch作为训练的最佳epoch数。
 
 ![检查epoch](images/check_epoch.png)
 
-图2 epoch和loss的关系
+图2 epoch和loss的关系。图中蓝色曲线为训练集上的loss曲线，绿色曲线为验证集上的loss曲线。
 
 检查结论：
 
@@ -369,7 +369,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 #### mp.01 训练中存在溢出问题
 
 检查方法：
-当使用混合精度训练，或者是使用Ascend AI处理器训练时，建议检查是否存在溢出问题。
+当使用[混合精度](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/enable_mixed_precision.html)训练，或者是使用Ascend AI处理器训练时，建议检查是否存在溢出问题。
 
 使用GPU时，通过[调试器](https://mindspore.cn/mindinsight/docs/zh-CN/master/debugger_online.html#id10)中的“检查张量溢出”监测点可以进行溢出检查。
 
@@ -390,17 +390,17 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 检查方法：
 
-在使用混合精度时，应检查是否正确设置了loss scale，推荐优先使用动态loss scale。对于Ascend AI处理器上的训练，其在大部分情况下为混合精度训练。由于Ascend AI处理器计算特性与GPU混合精度计算特性存在差异，LossScaleManager超参也往往需要进行适当的调整以保证精度。当用户模型基于默认Loss Scale参数训练产生溢出的迭代过多，影响最终精度时，需要对Loss Scale参数进行适当调整，减少发生浮点异常的次数。
+在使用[混合精度](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/enable_mixed_precision.html)时，应检查是否正确设置了[loss scale](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/lossscale.html)，推荐优先使用动态loss scale。对于Ascend AI处理器上的训练，其在大部分情况下为混合精度训练。由于Ascend AI处理器计算特性与GPU混合精度计算特性存在差异，LossScaleManager超参也往往需要进行适当的调整以保证精度。当用户模型基于默认Loss Scale参数训练产生溢出的迭代过多，影响最终精度时，需要对Loss Scale参数进行适当调整，减少发生浮点异常的次数。
 
 检查结论：
 
 请填写
 
-#### mp.03 loss scale和gradient clip的应用顺序不正确
+#### mp.03 loss scale和梯度裁剪的应用顺序不正确
 
 检查方法：
 
-如果同时使用了loss scale和gradient clip，需要进行此检查。请对照代码检查确认gradient clip的应用对象是除以loss scale后得到的原始梯度值。
+梯度裁剪（gradient clip）是指当梯度大于某个阈值时，强制调整梯度使其变小的技术。梯度裁剪对RNN网络中的梯度爆炸问题有较好的效果。如果同时使用了[loss scale](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/lossscale.html)和梯度裁剪，需要进行本检查。请对照代码检查确认梯度裁剪的应用对象是除以loss scale后得到的原始梯度值。
 
 检查结论：
 
@@ -410,7 +410,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 检查方法：
 
-如果同时使用了loss scale和梯度惩罚（gradient penalty），需要进行此检查。检查确认计算梯度惩罚项时，输入的梯度为无loss scale的梯度。例如，可以先将代用loss scale的梯度除以loss scale，再用来计算梯度惩罚项。
+梯度惩罚是指将梯度添加到代价函数中，约束梯度长度的技术。如果同时使用了[loss scale](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/lossscale.html)和梯度惩罚（gradient penalty），需要进行本检查。检查确认计算梯度惩罚项时，输入的梯度为无loss scale的梯度。例如，可以先将代用loss scale的梯度除以loss scale，再用来计算梯度惩罚项。
 
 检查结论：
 
@@ -489,9 +489,9 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 ## 求助方式
 
-参考上面两种初步定位方法的任意一种进行操作。若未发现可疑点，一般说明脚本不存在明显的问题，此时请参考[精度调优建议](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_optimization.html)进行调优。若使用基于现象对比的定位方法发现了疑点，请依据定位方法中的提示判断是需要自行定位的问题还是向MindSpore求助。若使用checklist发现了疑点或问题，请参考[精度问题详细定位指南](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_optimization.html)进行详细定位。
+参考上面两种初步定位方法的任意一种进行操作。若未发现可疑点，一般说明脚本不存在明显的问题，此时请参考[精度调优建议](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_optimization.html#id12)进行调优。若使用基于现象对比的定位方法发现了疑点，请依据定位方法中的提示判断是需要自行定位的问题还是向MindSpore求助。若使用checklist发现了疑点或问题，请参考[精度问题详细定位和调优指南](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_optimization.html)进行详细定位。
 
-当您要向MindSpore求助时，提供相关材料将有助于我们更好地判断和解决您的问题，建议您提供的材料包括但不限于：
+当您遇到精度问题，要向MindSpore求助时，提供相关材料将有助于我们更好地判断和解决您的问题。建议您提供的材料包括但不限于：
 
 1. 若您使用了checklist，则建议您将checklist的检查结果添加到附件中。
 2. 若您使用了基于现象对比的初步定位方法，则建议您将现象截图（包括MindSpore脚本和标杆脚本），固定完随机性后的MindSpore脚本和标杆脚本，以及复现问题所需的最小数据集和运行环境说明（例如MindSpore版本、在GPU还是Ascend上执行）等添加到附件中。

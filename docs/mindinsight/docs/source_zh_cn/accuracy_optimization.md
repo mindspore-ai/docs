@@ -461,7 +461,7 @@ MindInsight可以为用户记录每次训练的精度结果。在`model.train`�
 
     3. 尝试使用[MindInsight调参器](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/hyper_parameters_auto_tuning.html)优化超参。请注意，调参器通过执行多次完整训练的方式进行超参搜索，消耗的时间为网络一次训练用时的若干倍，如果网络一次训练耗时较长，则超参搜索将需要很长的时间。
     4. 尝试使用[MindInsight模型解释](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/model_explanation.html)功能优化模型和数据集。模型解释功能可以通过显著图可视化展示对分类结果最重要的区域，还可以通过评分体系提示应该对哪类标签进行优化。
-    5. 尝试下文介绍的[常用调优建议](#常用调优建议)。
+    5. 尝试下文介绍的常用调优建议。
 
 2. 检查验证集上的精度。
 
@@ -481,9 +481,9 @@ MindInsight可以为用户记录每次训练的精度结果。在`model.train`�
 
 ## 常用调优建议
 
-当精度距离标杆脚本差距较小（例如只差几个百分点时）时，根据场景的不同，您可以尝试不同的优化建议。
+本节提供了数据、算法、超参等领域的常用精度调优建议。当精度距离标杆脚本差距较小（例如只差几个百分点时）时，根据场景的不同，您可以尝试不同的优化建议。
 
-在有标杆脚本的场景，例如模型迁移或者论文复现场景，您应该参照[精度问题初步定位指南](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/accuracy_problem_preliminary_location.html)和本指南前面的章节排查MindSpore脚本中是否存在问题。若已参照上述指南排查完毕，未发现问题，则您应优先考虑[优化超参](#超参优化)。
+在有标杆脚本的场景，例如模型迁移或者论文复现场景，您应该参照本指南前面的章节排查MindSpore脚本中是否存在问题。若已参照上述指南排查完毕，未发现问题，则您应优先考虑优化超参。
 
 在没有标杆脚本的场景，例如新算法研发时，请逐条参考以下调优建议。
 
@@ -512,7 +512,7 @@ MindInsight可以为用户记录每次训练的精度结果。在`model.train`�
 
 #### 归一化数据
 
-按照激活函数的值域上下界来归一化数据通常可以取得不错的效果。例如，当使用sigmoid激活函数时，建议将输入归一化到0到1之间；当使用tanh激活函数时，推荐将输入数据归一化到-1到1之间。
+归一化数据是指将数据映射到同一尺度，常见的操作方法包括Resize、Rescale、Normalize等。按照激活函数的值域上下界来归一化数据通常可以取得不错的效果。例如，当使用sigmoid激活函数时，建议将输入归一化到0到1之间；当使用tanh激活函数时，推荐将输入数据归一化到-1到1之间。
 
 此外，可以系统性地尝试不同的数据归一化方法，包括把数据归一化到0-1、归一化到-1到1之间，或者是将数据标准化到均值为0，方差为1的分布上。然后针对每种数据归一化方法评估模型的表现。
 
@@ -528,7 +528,7 @@ MindInsight可以为用户记录每次训练的精度结果。在`model.train`�
 
 #### 优化模型中每一层的大小
 
-在设计模型时，可以在一开始将每一层中尺寸（size）设计为相同的。有研究证明，将所有层的尺寸设置为相同的，其模型表现一般不会差于正金字塔（层的尺寸逐层增大）或者倒金字塔（层的尺寸逐层减小）的模型结构。
+在设计模型时，可以在一开始将每一层的尺寸（例如卷积层的输入输出大小）设计为相同的。有研究证明，将所有层的尺寸设置为相同的，其模型表现一般不会差于正金字塔（层的尺寸逐层增大）或者倒金字塔（层的尺寸逐层减小）的模型结构。
 
 推荐将第一个隐层的大小大于输入尺寸。相较于第一个隐层的大小小于输入大小的情况，第一个隐层的大小大于输入大小时模型的表现更好。
 
@@ -559,7 +559,7 @@ ReLU激活函数通常是一个不错的选择。如果ReLU效果不是很好，
 
 #### 早停法
 
-一旦验证集上的表现下降时，就应该停止训练以免过拟合。
+一旦验证集上的表现下降时，就应该停止训练以免过拟合，也即早停法。
 
 ### 超参优化
 
@@ -569,7 +569,7 @@ ReLU激活函数通常是一个不错的选择。如果ReLU效果不是很好，
 
 #### 学习率的选择和优化
 
-相较于固定学习率，在训练过程中循环变化学习率总体来说是有益于模型收敛的。循环变化学习率的最大值和最小值可以这样确定(Smith, 2017)：选定一个足够大的学习率范围（例如从0到5），设置训练运行几个epoch（例如10个），在训练运行过程中，逐迭代地线性（或指数）增大学习率，就可以得到一个准确率和学习率的关系曲线，如下图。关注曲线中准确率开始上升和不再上升的的部分所对应的学习率，可以将准确率开始上升时的学习率当做学习率的下限，将准确率不再上升时的学习率当做学习率的上限，在上下限之间的学习率都可以认为是合理的。此外，在Neural Networks: Tricks of the Trade这本书中提供了一个经验法则：最优学习率一般为可以使网络收敛的最大学习率的二分之一。另一个经验法则是，0.01的学习率通常适用于大多数网络 。当然这些经验法则是否正确就需要各位读者自行判断了。
+学习率是控制如何使用损失函数的梯度调整网络权重的超参数。学习率的取值对模型能否收敛，模型收敛的速度有重要影响。相较于固定学习率，在训练过程中循环变化学习率总体来说是有益于模型收敛的。循环变化学习率的最大值和最小值可以这样确定(Smith, 2017)：选定一个足够大的学习率范围（例如从0到5），设置训练运行几个epoch（例如10个），在训练运行过程中，逐迭代地线性（或指数）增大学习率，就可以得到一个准确率和学习率的关系曲线，如下图。关注曲线中准确率开始上升和不再上升的的部分所对应的学习率，可以将准确率开始上升时的学习率当做学习率的下限，将准确率不再上升时的学习率当做学习率的上限，在上下限之间的学习率都可以认为是合理的。此外，在Neural Networks: Tricks of the Trade这本书中提供了一个经验法则：最优学习率一般为可以使网络收敛的最大学习率的二分之一。另一个经验法则是，0.01的学习率通常适用于大多数网络 。当然这些经验法则是否正确就需要各位读者自行判断了。
 
 ![learning rate](images/learning_rate_and_accuracy.png)
 
@@ -579,8 +579,7 @@ ReLU激活函数通常是一个不错的选择。如果ReLU效果不是很好，
 
 #### batch size的选择和优化
 
-batch size越大，就越有潜力达到快的训练速度，但是batch size不能无限增大。一方面，batch size越大，所需要的硬件内存就越多，硬件内存为可能的最大batch size设置了上界。另一方面，当batch size过大时，模型的泛化能力将下降(Keskar et al., 2016)。
-batch size较小时，可以起到正则化的效果，有助于减少过拟合(Masters & Luschi, 2018)，但是不能充分发挥硬件的运算能力。
+batch size是指一次训练，也即一次前向传播、反向传播、权重更新过程所使用的样本数目。batch size越大，就越有潜力达到快的训练速度，但是batch size不能无限增大。一方面，batch size越大，所需要的硬件内存就越多，硬件内存为可能的最大batch size设置了上界。另一方面，当batch size过大时，模型的泛化能力将下降(Keskar et al., 2016)。batch size较小时，可以起到正则化的效果，有助于减少过拟合(Masters & Luschi, 2018)，但是不能充分发挥硬件的运算能力。
 
 基于上面的描述，需要较快的训练速度和正则化效果之间进行权衡。一般来讲，32是一个比较好的默认值(Bengio, 2012)，64、128、256 也都值得尝试。batch size 学习率之间存在相互影响，将在下一节阐述。
 
@@ -590,7 +589,7 @@ batch size较小时，可以起到正则化的效果，有助于减少过拟合(
 
 #### 动量值的选择和优化
 
-当使用带有动量的优化器时，动量和学习率一般应朝相反的方向调整，不同动量下的最佳学习率不同。当使用循环学习率时，同样推荐按照相反的方向循环变化动量值 ，也即，当学习率从大到小变化时，动量应从小到大变化。当学习率固定时，动量值也应保持固定。
+当使用带有动量的优化器（例如[Momentum](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Momentum.html#mindspore.nn.Momentum)）时，动量和学习率一般应朝相反的方向调整，不同动量下的最佳学习率不同。当使用循环学习率时，同样推荐按照相反的方向循环变化动量值 ，也即，当学习率从大到小变化时，动量应从小到大变化。当学习率固定时，动量值也应保持固定。
 
 #### 权重衰减参数的选择和优化
 
@@ -604,7 +603,7 @@ Cao, K., Wei, C., Gaidon, A., Arechiga, N., & Ma, T. (2019). Learning Imbalanced
 
 Choi, D., Shallue, C. J., Nado, Z., Lee, J., Maddison, C. J., & Dahl, G. E. (2019). On Empirical Comparisons of Optimizers for Deep Learning. <https://www.tensorflow.org/>
 
-Glorot, X., & Bengio, Y. (2010). Understanding the difficulty of training deep feedforward neural networks. Journal of Machine Learning Research, 9, 249–256. <http://www.iro.umontreal>.
+Glorot, X., & Bengio, Y. (2010). Understanding the difficulty of training deep feedforward neural networks. Journal of Machine Learning Research, 9, 249–256.
 
 He, K., Zhang, X., Ren, S., & Sun, J. (2015). Delving deep into rectifiers: Surpassing human-level performance on imagenet classification. Proceedings of the IEEE International Conference on Computer Vision, 2015 Inter, 1026–1034. <https://doi.org/10.1109/ICCV.2015.123>
 
@@ -636,7 +635,7 @@ Xie, Z., Sato, I., & Sugiyama, M. (2020). A Diffusion Theory For Deep Learning D
 
 ### 超参问题处理
 
-AI训练中的超参包含全局学习率，epoch和batch等，如果需要在不同的超参下，训练过程进行可视化时，可参考资料：[可视化的超参调优](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/hyper_parameters_auto_tuning.html)；如果需要设置动态学习率超参时，可参考资料：[学习率的优化算法](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/optim.html?#id3)。
+AI训练中的超参包含全局学习率，epoch和batch等，如果需要在不同的超参下，训练过程进行可视化时，可参考资料：[可视化的超参调优](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/hyper_parameters_auto_tuning.html)；如果需要设置动态学习率超参时，可参考资料：[学习率的优化算法](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/optim.html#id5)。
 
 ### 模型结构问题处理
 
