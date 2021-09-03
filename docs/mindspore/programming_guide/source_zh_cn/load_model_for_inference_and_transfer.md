@@ -95,12 +95,12 @@ del param_dict["conv1.weight"]
 # 2.添加名称为"conv2.weight"的元素，设置它的值为0
 param_dict["conv2.weight"] = Parameter(Tensor([0]))
 # 3.修改名称为"conv1.bias"的值为1
-param_dict["conv2.bias"] = Parameter(Tensor([1]))
+param_dict["fc1.bias"] = Parameter(Tensor([1]))
 
 # 把修改后的param_dict重新存储成checkpoint文件
 save_list = []
 # 遍历修改后的dict，把它转化成MindSpore支持的存储格式，存储成checkpoint文件
 for key, value in param_dict.items():
-  save_list.append({"name": key, "value": value.data})
+  save_list.append({"name": key, "data": value.data})
 save_checkpoint(save_list, "new.ckpt")
 ```
