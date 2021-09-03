@@ -23,4 +23,3 @@
 
   auto_parallel
   distributed_training_mode
-  distributed_training_ops
