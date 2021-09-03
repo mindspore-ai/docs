@@ -20,11 +20,11 @@ MindSpore编程指南
    design/technical_white_paper
    design/all_scenarios_architecture
    design/gradient
-   heterogeneous_training
-   dynamic_graph_and_static_graph
+   design/dynamic_graph_and_static_graph
    design/distributed_training_design
+   design/heterogeneous_training
    design/mindir
-   可视化调试调优设计↗ <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/training_visual_design.html>
+   可视化调试调优↗ <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/training_visual_design.html>
    design/glossary
 
 .. toctree::
@@ -63,11 +63,12 @@ MindSpore编程指南
    initializer
    parameter
    indefinite_parameter
-   loss
    constexpr
+   loss
    grad_operation
    hypermap
    optim
+   distributed_training_ops
 
 .. toctree::
    :maxdepth: 1
@@ -99,6 +100,12 @@ MindSpore编程指南
    distributed_training
    distributed_advanced
    distributed_example
+
+.. toctree::
+   :maxdepth: 1
+   :caption: PyNative
+
+   pynative_mode
 
 .. toctree::
    :maxdepth: 1
