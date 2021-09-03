@@ -1,4 +1,4 @@
-# FAQ
+﻿# FAQ
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/faq/source_zh_cn/faq.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
@@ -48,6 +48,6 @@ A：MindSpore轻量化推理框架MindSpore Lite已于r0.7版本正式上线，�
 
 <font size=3>**Q：针对编译JAVA库时出现 `sun.security.validator.ValidatorException: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target` 问题时如何解决？**</font>
 
-A：需要使用keytool工具将相关网站的安全证书导入java的cacerts证书库 `keytool -import -file "XX.cer" -keystore ${JAVA_HOME}\lib\security\cacerts" -storepass changeit`。
+A：需要使用keytool工具将相关网站的安全证书导入java的cacerts证书库 `keytool -import -file "XX.cer" -keystore ${JAVA_HOME}/lib/security/cacerts" -storepass changeit`。
 
 <br/>
