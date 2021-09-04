@@ -14,6 +14,7 @@ mindspore.dataset.vision.c_transforms
     mindspore.dataset.vision.c_transforms.AutoContrast
     mindspore.dataset.vision.c_transforms.BoundingBoxAugment
     mindspore.dataset.vision.c_transforms.CenterCrop
+    mindspore.dataset.vision.c_transforms.ConvertColor
     mindspore.dataset.vision.c_transforms.Crop
     mindspore.dataset.vision.c_transforms.CutMixBatch
     mindspore.dataset.vision.c_transforms.CutOut
