@@ -393,7 +393,7 @@ ARM环境下使用模型迁移工具，需要源码编译安装`protobuf`/`onnx`
 2. 设置`protobuf`环境变量。
 
    ```shell
-   export PROTOBUF_PATH=/usr/local/profobuf
+   export PROTOBUF_PATH=/usr/local/protobuf
    export PATH=$PROTOBUF_PATH/bin:$PATH
    export PKG_CONFIG_PATH=$PROTOBUF_PATH/lib/pkgconfig
    export LD_LIBRARY_PATH=$PROTOBUF_PATH/lib:$LD_LIBRARY_PATH

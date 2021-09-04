@@ -393,7 +393,7 @@ MindConverter under the ARM environment requires compiling `protobuf`/`onnx`/`on
 2. Configure environment variables for `protobuf`.
 
    ```shell
-   export PROTOBUF_PATH=/usr/local/profobuf
+   export PROTOBUF_PATH=/usr/local/protobuf
    export PATH=$PROTOBUF_PATH/bin:$PATH
    export PKG_CONFIG_PATH=$PROTOBUF_PATH/lib/pkgconfig
    export LD_LIBRARY_PATH=$PROTOBUF_PATH/lib:$LD_LIBRARY_PATH
