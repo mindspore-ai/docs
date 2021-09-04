@@ -24,6 +24,7 @@ MindSpore编程指南
    design/distributed_training_design
    design/heterogeneous_training
    design/mindir
+   design/data_engine
    可视化调试调优↗ <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/training_visual_design.html>
    design/glossary
 
