@@ -109,6 +109,7 @@ MindSpore Programming Guide
    :maxdepth: 1
    :caption: Function Debugging
 
+   read_ir_files
    debug_in_pynative_mode
    dump_in_graph_mode
    custom_debugging_info
