@@ -8,10 +8,10 @@
     - [自动微分简介](#自动微分简介)
         - [前向自动微分](#前向自动微分)
         - [反向自动微分](#反向自动微分)
-    - [GradOperation实现](#gradoperation实现)
-        - [GradOperation算法设计](#gradoperation算法设计)
-        - [GradOperation算法实现](#gradoperation算法实现)
-            - [GradOperation示例](#gradoperation示例)
+    - [GradOperation实现](#GradOperation实现)
+        - [GradOperation算法设计](#GradOperation算法设计)
+        - [GradOperation算法实现](#GradOperation算法实现)
+        - [GradOperation示例](#GradOperation示例)
     - [前向自动微分实现](#前向自动微分实现)
         - [参考文献](#参考文献)
 
@@ -77,7 +77,7 @@ $$
 
 $$ (y_{1},y_{2},...,y_{m})=f(x_{1},x_{2},...,x_{n})$$
 
-由于我们的已知基础函数f的求导规则，即f的雅可比矩阵是已知的。 于是我们可以对$f$计算雅可比向量积（Jvp, Jacobian-vector-product），并应用链式求导法则从f的输入到输出传播求导的结果。
+由于我们的已知基础函数f的求导规则，即f的雅可比矩阵是已知的。 于是我们可以对$f$计算雅可比向量积（Jvp, Jacobian-vector-product），并应用链式求导法则获得导数结果。
 
 $$
  \left[
@@ -117,7 +117,7 @@ $$
 
 $$ (y_{1},y_{2},...,y_{m})=f(x_{1},x_{2},...,x_{n})$$
 
-由于我们的已知基础函数f的求导规则，即f的雅可比矩阵是已知的。 于是我们可以对f计算向量雅可比积(Vjp, Vector-jacobian-product)，并应用链式求导法则从f的输入到输出传播求导的结果。
+由于我们的已知基础函数f的求导规则，即f的雅可比矩阵是已知的。 于是我们可以对f计算向量雅可比积(Vjp, Vector-jacobian-product)，并应用链式求导法则获得导数结果。
 
 $$
  \left[
@@ -163,7 +163,7 @@ F(v): {
 
 ### GradOperation算法实现
 
-在自动微分流程中，需要进行自动微分的函数会被取出。并作为自动微分模块的输入, 并输出对应的梯度图。 自动微分模块实现了从原函数对象到梯度函数对象的转换。转换后的对象为`fprop`形式的梯度函数对象。`fprop = (forward_result, bprop)`, `fprop`是前向计算图的输出节点， `bprop`是以`fprop`的闭包对象形式生成的梯度函数，它只有`dout`一个入参， `inputs`和`outputs`是引用的`fprop`的输入和输出。
+在自动微分流程中，需要进行自动微分的函数会被取出。并作为自动微分模块的输入, 并输出对应的梯度图。 自动微分模块实现了从原函数对象到梯度函数对象的转换。转换后的对象为`fprop`形式的梯度函数对象。`fprop = (forward_result, bprop)`, `forward_result`是前向计算图的输出节点， `bprop`是以`fprop`的闭包对象形式生成的梯度函数，它只有`dout`一个入参， `inputs`和`outputs`是引用的`fprop`的输入和输出。
 
 ```c++
   MapObject(); // 实现ValueNode/Parameter/FuncGraph/Primitive对象的映射
@@ -200,7 +200,7 @@ def get_bprop_sin(self):
 
 当`MapObject`完成对以上节点的映射后，`MapMorphism`从原函数的输出节点开始以递归的方式实现对`CNode`的态射，建立起节点间的反向传播链接，实现梯度累加。
 
-#### GradOperation示例
+### GradOperation示例
 
 我们构建一个简单的网络，并对其输入`x`求导， 网络的结构为：
 
@@ -227,9 +227,9 @@ class Net(nn.Cell):
 
 ## 前向自动微分实现
 
-除了支持反向自动微分的GradOperation之外，MindSpore还扩展实现了前向自动微分JVP（Jacobian-Vector-Product）。相比于反向自动微分，前向自动微分更适合于求取输入维度小于输出维度的网络的梯度。MindSpore的前向自动微分是基于反向自动微分接口GradOperation开发的。
+除了支持反向自动微分的GradOperation之外，MindSpore还扩展实现了前向自动微分Jvp（Jacobian-Vector-Product）。相比于反向自动微分，前向自动微分更适合于求取输入维度小于输出维度的网络的梯度。MindSpore的前向自动微分是基于反向自动微分接口GradOperation开发的。
 
-![image](./images/jvp.png)
+![image](./images/Jvp.png)
 
 黑色为网络的正向流程，第一次求导为针对$x$的求导，得到的是蓝色的图。第二次的为蓝色图针对$v$的求导，得到的是黄色的图。黄色的图就是我们所需要的前向模式自动微分的结果图。由于蓝色图可以视为关于$v$的线性函数，蓝色节点与黄色节点之间不会存在连边。蓝色节点全部为悬空节点，会被消除，真正运行的就只有原函数节点以及前向微分的节点。因此，该方法不会有额外的运行开销。
 
