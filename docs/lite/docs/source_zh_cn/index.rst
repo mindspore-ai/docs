@@ -73,6 +73,7 @@
    operator_list_lite
    operator_list_codegen
    model_lite
+   troubleshooting_guide
 
 .. raw:: html
 
