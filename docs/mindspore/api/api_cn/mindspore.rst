@@ -29,6 +29,8 @@ mindspore
     ``mindspore.float16`` ,  ``mindspore.half``      16位浮点数
     ``mindspore.float32`` ,  ``mindspore.single``    32位浮点数
     ``mindspore.float64`` ,  ``mindspore.double``    64位浮点数
+    ``mindspore.complex64``                          64位复数
+    ``mindspore.complex128``                         128位复数
     ==============================================   =============================
   
   * **其他类型**
@@ -43,7 +45,8 @@ mindspore
     ``int_``                        整数标量。
     ``uint``                        无符号整数标量。
     ``float_``                      浮点标量。
-    ``number``                      数值型, 包括 ``int_`` , ``uint`` , ``float_`` 和 ``bool_``。
+    ``complex``                     复数标量。
+    ``number``                      数值型, 包括 ``int_`` , ``uint`` , ``float_`` , ``complex`` 和 ``bool_``。
     ``list_``                       由 ``tensor`` 构造的列表，例如 ``List[T0,T1,...,Tn]`` ，其中元素 ``Ti`` 可以是不同的类型。
     ``tuple_``                      由 ``tensor`` 构造的元组，例如 ``Tuple[T0,T1,...,Tn]`` ，其中元素 ``Ti`` 可以是不同的类型。
     ``function``                    函数类型。 两种返回方式，当function不是None时，直接返回Func，另一种当function为None时返回Func(参数: List[T0,T1,...,Tn], 返回值: T)。
@@ -72,10 +75,13 @@ mindspore
             │   │   ├─── uint16, ushort
             │   │   ├─── uint32, uintc
             │   │   └─── uint64, uintp
-            │   └─── float_
-            │       ├─── float16
-            │       ├─── float32
-            │       └─── float64
+            │   ├─── float_
+            │   │    ├─── float16
+            │   │    ├─── float32
+            │   │    └─── float64
+            │   └─── complex
+            │       ├─── complex64
+            │       └─── complex128
             ├─── tensor
             │   ├─── Array[Float32]
             │   └─── ...

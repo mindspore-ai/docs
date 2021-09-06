@@ -138,6 +138,7 @@ Math Operators
     mindspore.ops.BitwiseXor
     mindspore.ops.Ceil
     mindspore.ops.Cos
+    mindspore.ops.Conj
     mindspore.ops.Cosh
     mindspore.ops.CumProd
     mindspore.ops.CumSum
@@ -157,6 +158,7 @@ Math Operators
     mindspore.ops.Greater
     mindspore.ops.GreaterEqual
     mindspore.ops.HistogramFixedWidth
+    mindspore.ops.Imag
     mindspore.ops.IndexAdd
     mindspore.ops.InplaceAdd
     mindspore.ops.InplaceSub
@@ -187,6 +189,7 @@ Math Operators
     mindspore.ops.NPUClearFloatStatus
     mindspore.ops.NPUGetFloatStatus
     mindspore.ops.Pow
+    mindspore.ops.Real
     mindspore.ops.RealDiv
     mindspore.ops.Reciprocal
     mindspore.ops.ReduceAll
