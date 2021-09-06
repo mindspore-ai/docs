@@ -573,7 +573,7 @@ For details about the definition of the optimizer loss function, see the [Quick 
 
 1. **Export a model as a MindIR file.**
 
-    You can add the `export` statement to the training process code to obtain the MindIR model file. The sample code is as follows:
+    You can add the `export` statement to the training process code in [model.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py) to obtain the MindIR model file. The sample code is as follows:
 
     ```python
     from mindspore import export
@@ -589,6 +589,8 @@ For details about the definition of the optimizer loss function, see the [Quick 
             export(train_network, data, label, file_name= mindir_name, file_format='MINDIR')  # Add the export statement to obtain the model file in MindIR format.
         print(losses)
     ```
+
+    When generating a MindIR format model file, you need to comment the statement `context.set_fl_context(**ctx)` in the [model.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py)file, and set `epoch` to 1. Running `model.py` requires [MindSpore](https://www.mindspore.cn/install/en) to be installed in the environment . The file `lenet_train.mindir` will be generated in the current path after running the script `model.py`.
 
     For details, see [here](https://www.mindspore.cn/docs/programming_guide/en/master/save_model.html#mindir).
 
