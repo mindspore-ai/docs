@@ -34,7 +34,7 @@ MindSpore支持保存两种类型的数据：训练参数和网络模型（模�
 - ONNX
     - 全称Open Neural Network Exchange，是一种针对机器学习模型的通用表达。
     - 一般用于不同框架间的模型迁移或在推理引擎([TensorRT](https://docs.nvidia.com/deeplearning/tensorrt/api/python_api/index.html))上使用。
-    - 目前MindSpore仅支持ONNX模型的导出，暂不支持加载ONNX模型进行推理。目前支持导出的模型有：Resnet50，YOLOv3_darknet53，YOLOv4，BERT。可以在[ONNXRT](https://onnxruntime.ai/)上使用。
+    - 目前MindSpore仅支持ONNX模型的导出，暂不支持加载ONNX模型进行推理。目前支持导出的模型有：Resnet50、YOLOv3_darknet53、YOLOv4、BERT。可以在[ONNX Runtime](https://onnxruntime.ai/)上使用。
 - AIR
     - 全称Ascend Intermediate Representation，是华为定义的针对机器学习所设计的开放式文件格式。
     - 它能更好地适应华为AI处理器，一般用于Ascend 310上执行推理任务。
