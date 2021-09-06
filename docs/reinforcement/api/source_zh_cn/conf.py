@@ -15,7 +15,6 @@ import os
 import re
 import sys
 sys.path.append(os.path.abspath('../_ext'))
-import sphinx.ext.autosummary.generate as g
 from sphinx.ext import autodoc as sphinx_autodoc
 from sphinx.util import inspect as sphinx_inspect
 from sphinx.domains import python as sphinx_domain_python
@@ -40,7 +39,6 @@ release = 'master'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinx.ext.autosummary',
     'sphinx.ext.doctest',
     'sphinx.ext.intersphinx',
     'sphinx.ext.todo',
@@ -54,19 +52,12 @@ source_suffix = {
     '.md': 'markdown',
 }
 
-# Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
-
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = []
 
 pygments_style = 'sphinx'
-
-autodoc_inherit_docstrings = False
-
-autosummary_generate = True
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -75,8 +66,6 @@ autosummary_generate = True
 #
 html_theme = 'sphinx_rtd_theme'
 
-html_static_path = ['_static']
-
 # -- Options for Texinfo output -------------------------------------------
 
 # Example configuration for intersphinx: refer to the Python standard library.
@@ -84,21 +73,6 @@ intersphinx_mapping = {
     'python': ('https://docs.python.org/', '../python_objects.inv'),
     'numpy': ('https://docs.scipy.org/doc/numpy/', '../numpy_objects.inv'),
 }
-
-from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary
-
-def setup(app):
-    app.add_directive('msplatformautosummary', MsPlatformAutoSummary)
-    app.add_directive('msnoteautosummary', MsNoteAutoSummary)
-
-# Modify regex for sphinx.ext.autosummary.generate.find_autosummary_in_lines.
-gfile_abs_path = os.path.abspath(g.__file__)
-autosummary_re_line_old = r"autosummary_re = re.compile(r'^(\s*)\.\.\s+autosummary::\s*')"
-autosummary_re_line_new = r"autosummary_re = re.compile(r'^(\s*)\.\.\s+(ms[a-z]*)?autosummary::\s*')"
-with open(gfile_abs_path, "r+", encoding="utf8") as f:
-    data = f.read()
-    data = data.replace(autosummary_re_line_old, autosummary_re_line_new)
-    exec(data, g.__dict__)
 
 # Modify default signatures for autodoc.
 autodoc_source_path = os.path.abspath(sphinx_autodoc.__file__)

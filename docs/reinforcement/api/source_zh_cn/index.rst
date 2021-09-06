@@ -6,8 +6,40 @@
 MindReinforcement API
 =======================
 
-.. toctree::
-   :maxdepth: 1
-   :caption: MindReinforcement Python API
+.. automodule:: msrl
 
-   msrl
+msrl.agents
+-----------
+
+.. automodule:: msrl.agents
+    :members:
+
+msrl.environment
+----------------
+
+.. automodule:: msrl.environment
+    :members:
+
+msrl.mindspore_rl
+-----------------
+
+.. automodule:: msrl.mindspore_rl
+    :members:
+
+msrl.networks
+-------------
+
+.. automodule:: msrl.networks
+    :members:
+
+msrl.policy
+-----------
+
+.. automodule:: msrl.policy
+    :members:
+
+msrl.replay_buffer
+-------------------
+
+.. automodule:: msrl.replay_buffer
+    :members:
