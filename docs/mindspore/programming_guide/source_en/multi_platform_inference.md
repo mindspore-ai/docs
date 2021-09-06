@@ -34,6 +34,7 @@ Basic concepts and application scenarios of these formats are as follows:
 - Open Neural Network Exchange (ONNX)
     - ONNX is an open format built to represent machine learning models.
     - It is generally used to transfer models between different frameworks or used on the inference engine ([TensorRT](https://docs.nvidia.com/deeplearning/tensorrt/api/python_api/index.html)).
+    - At present, mindspire only supports the export of onnx model, and does not support loading onnx model for inference. Currently, the models supported for export are resnet50, yolov3_ darknet53, YOLOv4 and BERT. Can be used on [ONNXRT](https://onnxruntime.ai/).
 - Ascend Intermediate Representation (AIR)
     - AIR is an open file format defined by Huawei for machine learning.
     - It adapts to Huawei AI processors well and is generally used to execute inference tasks on Ascend 310.

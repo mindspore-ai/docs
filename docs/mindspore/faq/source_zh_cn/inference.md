@@ -19,3 +19,21 @@ A: 首先确认环境安装是否正确，`te`、`topi`等whl包是否正确安�
 <font size=3>**Q: 运行应用时报错`error while loading shared libraries: libge_compiler.so: cannot open shared object file: No such file or directory`怎么办？**</font>
 
 A: 安装MindSpore所依赖的Ascend 310 AI处理器配套软件包时，`CANN`包不能安装`nnrt`版本，而是需要安装功能完整的`toolkit`版本。
+
+<br/>
+
+<font size=3>**Q: 使用昇腾310进行推理的时候怎么设置高精度或者高性能模式？**</font>
+
+A: 在推理代码中通过Ascend310DeviceInfo中的SetPrecisionMode接口进行设置，可选：force_fp16，allow_fp32_to_fp16，must_keep_origin_dtype，allow_mix_precision。默认值为force_fp16，指的就是高性能模式。高精度模式可设置为allow_fp32_to_fp16或must_keep_origin_dtype。
+
+<br/>
+
+<font size=3>**Q: AIPP文件怎么配置？**</font>
+
+A: AIPP（Artificial Intelligence Pre-Processing）AI预处理，用于在AI Core上完成图像预处理，包括改变图像尺寸、色域转换（转换图像格式）、减均值/乘系数（改变图像像素），数据处理之后再进行真正的模型推理。相关的配置介绍比较复杂，可以参考[ATC工具的AIPP使能章节](https://support.huaweicloud.com/atctool-cann502alpha3infer/atlasatc_16_0015.html)
+
+<br/>
+
+<font size=3>**Q: 怎么设置昇腾310推理过程中的日志级别？**</font>
+
+A: 通过ASCEND_GLOBAL_LOG_LEVEL来设置，0：DEBUG级别；1：INFO级别；2：WARNING级别；3：ERROR级别；4：NULL级别，不输出日志；其他值为非法值。配置示例：export ASCEND_GLOBAL_LOG_LEVEL=1。如果推理过程中出现错误可通过修改日志级别来获取更详细的日志信息。
