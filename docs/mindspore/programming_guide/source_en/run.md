@@ -257,7 +257,7 @@ epoch: 1 step: 1875, loss is 0.06105463
 
 > For details about how to obtain the MNIST dataset used in the example, see [Downloading the Dataset](https://www.mindspore.cn/tutorials/en/master/quick_start.html#downloading-the-dataset).
 > Use the PyNative mode for debugging, including the execution of single operator, common function, and network training model. For details, see [Debugging in PyNative Mode](https://www.mindspore.cn/docs/programming_guide/en/master/debug_in_pynative_mode.html).
-> To use free control loop iterations, traversing data sets, etc., you can refer to the "Customizing a Training Cycle" part of the official website programming guide "[Training](https://www.mindspore.cn/docs/programming_guide/en/master/train.html#customizing-a-training-cycle)".
+> To use free control loop iterations, traversing data sets, etc., you can refer to the "Customizing a Training Cycle" part of the [Custom Training](https://www.mindspore.cn/docs/programming_guide/en/master/train_and_eval.html).
 
 ### Executing an Inference Model
 

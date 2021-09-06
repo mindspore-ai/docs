@@ -6,4 +6,5 @@ Application of Model
 
   callback
   self_define_metric
-  train
+  evaluate_the_model_during_training
+  on_device
