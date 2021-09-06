@@ -449,6 +449,38 @@ Copy mnist_benchmark, net.bin and [mnist_input.bin](https://gitee.com/mindspore/
     ========run success=======
    ```
 
+## Register Kernel
+
+Currently, Users can only register their own kernels for custom operator. We will support registering the built-in operators' kernels in the future. We use Hi3516D board as an example to show you how to use kernel register in codegen.
+
+### Prepare the model file
+
+You need to get a ms model that contains custom operators. Please refer to [Usage Description of the Integrated NNIE](https://www.mindspore.cn/lite/docs/en/master/use/nnie.html).
+
+### Run codegen
+
+Codegen can generate custom kernel's function declaration and reference code if the model has custom operators. Generate source codes for a model named nnie.ms:
+
+``` shell
+./codegen --modelPath=./nnie.ms --target=ARM32A
+```
+
+### Implement custom kernel by users
+
+A header file named registered_kernel.h in the generated files. The custom kernel function is declared in this file:
+
+``` C++
+int CustomKernel(TensorC *inputs, int input_num, TensorC *outputs, int output_num, CustomParameter *param);
+```
+
+Users need to implement this function then add their source files to the cmake project. Finally, we build the benchmark:
+
+``` shell
+cd nnie && mkdir buid && cd build
+cmake -DCMAKE_TOOLCHAIN_FILE=<MS_SRC_PATH>/mindspore/lite/cmake/himix200.toolchain.cmake -DPLATFORM_ARM32=ON -DPKG_PATH=<RUNTIME_PKG_PATH> ..
+make
+```
+
 ## More Details
 
 ### [Linux_x86_64 platform compile and deploy](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/micro/example/mnist_x86)
