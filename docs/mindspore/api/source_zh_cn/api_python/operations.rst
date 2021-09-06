@@ -330,6 +330,7 @@ Debug Operators
     :template: classtemplate.rst
 
     mindspore.ops.HistogramSummary
+    mindspore.ops.HookBackward
     mindspore.ops.ImageSummary
     mindspore.ops.InsertGradientOf
     mindspore.ops.Print
