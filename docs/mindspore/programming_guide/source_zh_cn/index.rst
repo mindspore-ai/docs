@@ -69,6 +69,7 @@ MindSpore编程指南
    grad_operation
    hypermap
    optim
+   train_and_eval
    distributed_training_ops
 
 .. toctree::
