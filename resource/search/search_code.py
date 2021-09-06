@@ -133,42 +133,40 @@ sort_results_source = r"""
     var lists = results;
     var resultCount = lists.length;
     function sortItem() {
-      if (results.length) {
-        for (i = 0; i < results.length; i++) {
-          var requestUrl = "";
-          if (DOCUMENTATION_OPTIONS.BUILDER === 'dirhtml') {
-            // dirhtml builder
-            var dirname = results[i][0] + '/';
-            if (dirname.match(/\/index\/$/)) {
-              dirname = dirname.substring(0, dirname.length-6);
-            } else if (dirname == 'index/') {
-              dirname = '';
-            }
-            requestUrl = DOCUMENTATION_OPTIONS.URL_ROOT + dirname;
-  
-          } else {
-            // normal html builders
-            requestUrl = DOCUMENTATION_OPTIONS.URL_ROOT + results[i][0] + DOCUMENTATION_OPTIONS.FILE_SUFFIX;
+      for (i = 0; i < results.length; i++) {
+        var requestUrl = "";
+        if (DOCUMENTATION_OPTIONS.BUILDER === 'dirhtml') {
+          // dirhtml builder
+          var dirname = results[i][0] + '/';
+          if (dirname.match(/\/index\/$/)) {
+            dirname = dirname.substring(0, dirname.length-6);
+          } else if (dirname == 'index/') {
+            dirname = '';
           }
-          if (results[i][3]){
-            results[i].push(true);
-          } else if (DOCUMENTATION_OPTIONS.HAS_SOURCE) {
-            $.ajax({url: requestUrl,
-              dataType: "text",
-              async: false,
-              complete: function(jqxhr, textstatus) {
-                var data = jqxhr.responseText;
-                if (data !== '' && data !== undefined) {
-                  if (Search.makeSearchSummary(data, [query], hlterms).length) {
-                    results[i].push(true);
-                    results[i].push(Search.makeSearchSummary(data, [query], hlterms));
-                  } else {
-                    results[i].push(false);
-                    results[i].push(Search.makeSearchSummary(data, searchterms, hlterms));
-                  }
+          requestUrl = DOCUMENTATION_OPTIONS.URL_ROOT + dirname;
+
+        } else {
+          // normal html builders
+          requestUrl = DOCUMENTATION_OPTIONS.URL_ROOT + results[i][0] + DOCUMENTATION_OPTIONS.FILE_SUFFIX;
+        }
+        if (results[i][3]){
+          results[i].push(true);
+        } else if (DOCUMENTATION_OPTIONS.HAS_SOURCE) {
+          $.ajax({url: requestUrl,
+            dataType: "text",
+            async: false,
+            complete: function(jqxhr, textstatus) {
+              var data = jqxhr.responseText;
+              if (data !== '' && data !== undefined) {
+                if (Search.makeSearchSummary(data, [query], hlterms).length) {
+                  results[i].push(true);
+                  results[i].push(Search.makeSearchSummary(data, [query], hlterms));
+                } else {
+                  results[i].push(false);
+                  results[i].push(Search.makeSearchSummary(data, searchterms, hlterms));
                 }
-              }});
-          }
+              }
+            }});
         }
       }
       beforList = [];
@@ -182,7 +180,9 @@ sort_results_source = r"""
       }
       results = afterList.concat(beforList);
     }
-    sortItem();"""
+    if (resultCount && resultCount < 100) {
+      sortItem()
+    };"""
 
 results_function_target = """$.ajax({url: requestUrl,
                   dataType: "text",
@@ -197,11 +197,30 @@ results_function_target = """$.ajax({url: requestUrl,
                     });
                   }});"""
 
-results_function_source = """listItem.append(item[7]);
+results_function_source = """if (resultCount < 100) {
+          listItem.append(item[7]);
           Search.output.append(listItem);
           listItem.slideDown(5, function() {
             displayNextItem();
-          });"""
+          });
+          } else {
+          $.ajax({url: requestUrl,
+                  dataType: "text",
+                  complete: function(jqxhr, textstatus) {
+                    var data = jqxhr.responseText;
+                    if (data !== '' && data !== undefined) {
+                      if (Search.makeSearchSummary(data, [query], hlterms).length) {
+                        listItem.append(Search.makeSearchSummary(data, [query], hlterms));
+                      } else {
+                        listItem.append(Search.makeSearchSummary(data, searchterms, hlterms));
+                      }
+                    }
+                    Search.output.append(listItem);
+                    listItem.slideDown(5, function() {
+                      displayNextItem();
+                    });
+                  }});
+          };"""
 
 highlight_words_target = """start = Math.max(start - 120, 0);"""
 
