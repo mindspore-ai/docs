@@ -113,7 +113,6 @@ MindSpore Programming Guide
    debug_in_pynative_mode
    dump_in_graph_mode
    custom_debugging_info
-   evaluate_the_model_during_training
    incremental_operator_build
 
 .. toctree::

@@ -4,27 +4,27 @@
 
 <!-- TOC -->
 
-- [使用MindConverter迁移模型定义脚本](#使用MindConverter迁移模型定义脚本)
+- [使用MindConverter迁移模型定义脚本](#使用mindconverter迁移模型定义脚本)
     - [工具概述](#工具概述)
     - [快速开始](#快速开始)
     - [环境依赖](#环境依赖)
     - [迁移方案](#迁移方案)
     - [实践步骤](#实践步骤)
-        - [第0步：导出模型文件](#第0步：导出模型文件)
-        - [第1步：转换模型定义](#第1步：转换模型定义)
-        - [第2步：转换数据处理](#第2步：转换数据处理)
-        - [第3步：转换模型训练](#第3步：转换模型训练)
-        - [第4步：转换模型推理](#第4步：转换模型推理)
+        - [第0步：导出模型文件](#第0步导出模型文件)
+        - [第1步：转换模型定义](#第1步转换模型定义)
+        - [第2步：转换数据处理](#第2步转换数据处理)
+        - [第3步：转换模型训练](#第3步转换模型训练)
+        - [第4步：转换模型推理](#第4步转换模型推理)
     - [命令行参数说明](#命令行参数说明)
     - [模型支持列表](#模型支持列表)
     - [错误码速查表](#错误码速查表)
     - [常见问题](#常见问题)
-        - [ARM环境安装依赖组件](#ARM环境安装依赖组件)
-        - [TensorFlow模型导出](#TensorFlow模型导出)
+        - [ARM环境安装依赖组件](#arm环境安装依赖组件)
+        - [TensorFlow模型导出](#tensorflow模型导出)
         - [整改forward参数列表](#整改forward参数列表)
-        - [MindSpore模型内嵌到原框架](#MindSpore模型内嵌到原框架)
+        - [MindSpore模型内嵌到原框架](#mindspore模型内嵌到原框架)
         - [转换报告与权重映射表](#转换报告与权重映射表)
-        - [基于AST转换脚本](#基于AST转换脚本)
+        - [基于AST转换脚本](#基于ast转换脚本)
 
 <!-- /TOC -->
 
@@ -225,7 +225,7 @@ dataset = GeneratorDataset(generator, column_names=['data', 'label']).batch(BATC
 
 优化器（optimizer）可查询[接口映射](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html)或自定义实现，更多转换方案可参考[编程指南](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/optim.html)。
 
-模型训练的代码比较灵活，代码组织风格与MindSpore图模式差异较大，建议自行实现，更多转换方案可参考[编程指南](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/train.html)。
+模型训练的代码比较灵活，代码组织风格与MindSpore图模式差异较大，建议自行实现，更多转换方案可参考[编程指南](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/train_and_eval.html)。
 
 PyTorch源码如下：
 

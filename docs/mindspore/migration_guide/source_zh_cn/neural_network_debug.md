@@ -154,7 +154,7 @@
 
    可通过定义推理的CallBack函数的方式在训练时进行推理。
 
-- [自定义训练循环](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/train.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%AE%AD%E7%BB%83%E5%BE%AA%E7%8E%AF)
+- [自定义训练](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/train_and_eval.html)
 
 - 自定义学习率
 

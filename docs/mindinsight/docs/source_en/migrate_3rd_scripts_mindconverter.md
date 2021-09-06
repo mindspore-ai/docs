@@ -10,11 +10,11 @@
     - [Install Dependencies](#install-dependencies)
     - [Migration Solution](#migration-solution)
     - [Practice Guidance](#practice-guidance)
-        - [Step 0：Export the model file](#step-0-export-the-model-file)
-        - [Step 1:Migrate the model definition](#step-1-migrate-the-model-definition)
-        - [Step 2：Migrate the data processing](#step-2-migrate-the-data-processing)
-        - [Step 3：Migrate the model training](#step-3-migrate-the-model-training)
-        - [Step 4：Migrate the model evaluation](#step-4-migrate-the-model-evaluation)
+        - [Step 0：Export the model file](#step-0export-the-model-file)
+        - [Step 1:Migrate the model definition](#step-1migrate-the-model-definition)
+        - [Step 2：Migrate the data processing](#step-2migrate-the-data-processing)
+        - [Step 3：Migrate the model training](#step-3migrate-the-model-training)
+        - [Step 4：Migrate the model evaluation](#step-4migrate-the-model-evaluation)
     - [MindConverter CLI Usage](#mindconverter-cli-usage)
     - [Model List Supported by MindConverter](#model-list-supported-by-mindconverter)
     - [MindConverter Error Code Definition](#mindconverter-error-code-definition)
@@ -225,7 +225,7 @@ The loss function(`loss_fn`) can be migrated by querying [API mapping](https://w
 
 The optimizer(`optimizer`) can be migrated by querying [API mapping](https://www.mindspore.cn/docs/migration_guide/en/master/api_mapping/pytorch_api_mapping.html) or user's implementation. For more optimizer migration, please refer to [the programming guidance](https://www.mindspore.cn/docs/programming_guide/en/master/optim.html).
 
-As the training codes could be flexible and significantly different from MindSpore, implementation by the users is recommended. For more model training migration, please refer to [the programming guidance](https://www.mindspore.cn/docs/programming_guide/en/master/train.html).
+As the training codes could be flexible and significantly different from MindSpore, implementation by the users is recommended. For more model training migration, please refer to [the programming guidance](https://www.mindspore.cn/docs/programming_guide/en/master/train_and_eval.html).
 
 Source codes with PyTorch framework are as follows:
 
@@ -631,4 +631,3 @@ The following cases are not supported:
               nn.ReLU6(inplace=True)
           )
    ```
-
