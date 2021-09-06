@@ -178,7 +178,7 @@ In MindInsight r1.3 and earlier versions, the cluster directory structure is as 
         |       |-- step_trace_raw_0_detail_time.csv
 ```
 
-Through the data conversion script, you can convert the cluster performance directory created by users using MindInsight r1.3 and earlier versions into the currently supported cluster performance directory. You can download [Cluster directory conversion script](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/transform_cluster_profiler_data.py) from the official website.
+Through the data conversion script, you can convert the cluster performance directory created by users using MindInsight r1.3 and earlier versions into the currently supported cluster performance directory. You can download [Cluster directory conversion script](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/transform_cluster_profiler_data.py) from the official website.
 
 ## Launch MindInsight
 

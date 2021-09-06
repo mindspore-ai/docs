@@ -177,7 +177,7 @@ done
         |       |-- step_trace_raw_0_detail_time.csv
 ```
 
-通过数据转换脚本，可以将用户使用MindInsight r1.3以及之前的版本创建的集群性能目录转换为当前支持的集群性能目录。可以从官网下载[集群目录转换脚本](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/transform_cluster_profiler_data.py)。
+通过数据转换脚本，可以将用户使用MindInsight r1.3以及之前的版本创建的集群性能目录转换为当前支持的集群性能目录。可以从官网下载[集群目录转换脚本](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/transform_cluster_profiler_data.py)。
 
 ## 启动MindInsight
 
