@@ -461,7 +461,7 @@ Ascend支持算子：[Pow](https://www.mindspore.cn/docs/api/zh-CN/master/api_py
 
 ### Jvp
 
-Jvp(Jacobian-vector-product)对应的是前向模式的自动微分，适用在输出的维度小于输入的维度的网络中。Jvp会将输入网络的正向运行结果以及微分结果返回出来。不同于反向自动微分，前向自动微分可以在求取网络的原本输出的同时求取其梯度，不需要像反向微分一样保存太多的中间结果，因此前向自动微分相比于反向自动微分往往会节省一定的内存。反向微分与正向微分的区别可以详见[自动微分设计](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/gradient.html)。
+Jvp(Jacobian-vector-product)对应的是前向模式的自动微分，适用在输出的维度小于输入的维度的网络中。Jvp会将输入网络的正向运行结果以及微分结果返回出来。不同于反向自动微分，前向自动微分可以在求取网络的原本输出的同时求取其梯度，不需要像反向微分一样保存太多的中间结果，因此前向自动微分相比于反向自动微分往往会节省一定的内存。反向微分与正向微分的区别可以详见[自动微分设计](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/design/gradient.html)。
 
 样例代码如下：
 
@@ -510,7 +510,7 @@ print(output)
 
 ### Vjp
 
-Vjp(Vector-jacobian-product), 运行的是反向模式的自动微分。Vjp会将输入网络的前向结果以及微分结果一并输出出来。 反向微分更加适用在输入的维度大于输出维度的网络中，具体内容详见[自动微分设计](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/gradient.html)。
+Vjp(Vector-jacobian-product), 运行的是反向模式的自动微分。Vjp会将输入网络的前向结果以及微分结果一并输出出来。 反向微分更加适用在输入的维度大于输出维度的网络中，具体内容详见[自动微分设计](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/design/gradient.html)。
 
 样例代码如下：
 
