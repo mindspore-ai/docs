@@ -381,6 +381,7 @@ Sponge Operators
     mindspore.ops.Constrain
     mindspore.ops.ConstrainForce
     mindspore.ops.ConstrainForceCycle
+    mindspore.ops.ConstrainForceCycleWithVirial
     mindspore.ops.ConstrainForceVirial
     mindspore.ops.CrdToUintCrdQuarter
     mindspore.ops.Dihedral14CFAtomEnergy
@@ -398,6 +399,7 @@ Sponge Operators
     mindspore.ops.FFT3D
     mindspore.ops.GetCenterOfMass
     mindspore.ops.IFFT3D
+    mindspore.ops.LastCrdToDr
     mindspore.ops.LJEnergy
     mindspore.ops.LJForce
     mindspore.ops.LJForceWithPMEDirectForce
@@ -406,7 +408,6 @@ Sponge Operators
     mindspore.ops.LJForceWithVirialEnergyUpdate
     mindspore.ops.MapCenterOfMass
     mindspore.ops.MDIterationGradientDescent
-    mindspore.ops.MDIterationLeapFrog
     mindspore.ops.MDIterationLeapFrog
     mindspore.ops.MDIterationLeapFrogLiujian
     mindspore.ops.MDIterationLeapFrogLiujianWithMaxVel
@@ -420,8 +421,8 @@ Sponge Operators
     mindspore.ops.PMEReciprocalForce
     mindspore.ops.PMEReciprocalForceUpdate
     mindspore.ops.RefreshBoxmapTimes
-    mindspore.ops.RefreshBoxmapTimes
     mindspore.ops.RefreshCrdVel
+    mindspore.ops.RefreshUintCrd
     mindspore.ops.Totalc6get
 
 Image Operators

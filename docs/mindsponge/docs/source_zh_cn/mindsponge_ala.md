@@ -1,4 +1,4 @@
-# SPONGE分子模拟实践
+# 丙氨酸三肽水溶液体系模拟
 
 `Linux` `GPU` `模型开发` `高级`
 
@@ -14,21 +14,14 @@
         - [构建模拟流程](#构建模拟流程)
         - [运行脚本](#运行脚本)
         - [运行结果](#运行结果)
+    - [性能描述](#性能描述)
 
 <!-- /TOC -->
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/hpc_sponge.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://https://gitee.com/mindspore/docs/blob/master/docs/mindsponge/docs/source_zh_cn/mindsponge_ala.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述
 
-分子模拟是指利用计算机以原子水平的分子模型来模拟分子结构与行为，进而模拟分子体系的各种物理、化学性质的方法。它是在实验基础上，通过基本原理，构筑起一套模型和算法，从而计算出合理的分子结构与分子行为。
-
-近年来，分子模拟技术发展迅速并且在多个学科领域得到了广泛的应用。在药物设计领域，可用于研究病毒、药物的作用机理等；在生物科学领域，可用于表征蛋白质的多级结构与性质；在材料学领域，可用于研究结构与力学性能、材料的优化设计等；在化学领域，可用于研究表面催化及机理；在石油化工领域，可用于分子筛催化剂结构表征、合成设计、吸附扩散，可构建和表征高分子链以及晶态或非晶态本体聚合物的结构，预测包括共混行为、机械性质、扩散、内聚等重要性质。
-
-MindSpore版的SPONGE是北大和深圳湾实验室高毅勤课题组与华为MindSpore团队联合开发的分子模拟库，具有高性能、模块化等特性。基于MindSpore自动并行、图算融合等特性，SPONGE可高效地完成传统分子模拟过程。SPONGE利用MindSpore自动微分的特性，可以将神经网络等AI方法与传统分子模拟进行结合。
-
-本篇教程将主要介绍如何在GPU上，使用MindSpore内置的SPONGE进行高性能分子模拟。
-
-> 你可以在这里下载完整的示例代码：<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/research/hpc/sponge>。
+本篇教程将主要介绍如何在GPU上，使用MindSPONGE进行丙氨酸三肽水溶液体系模拟。
 
 ## 整体执行
 
@@ -40,6 +33,8 @@ MindSpore版的SPONGE是北大和深圳湾实验室高毅勤课题组与华为Mi
 
 实践前，确保已经正确安装MindSpore。如果没有，可以通过[MindSpore安装页面](https://www.mindspore.cn/install)安装MindSpore。
 
+教程中的体系结构文件建模由AmberTools中自带的tleap工具（下载地址<http://ambermd.org/GetAmber.php>， 遵守GPL协议）完成。
+
 ## 模拟多肽水溶液体系示例
 
 SPONGE具有高性能及易用的优势，本教程使用SPONGE模拟多肽水溶液体系。模拟体系为丙氨酸三肽水溶液体系。
@@ -50,7 +45,7 @@ SPONGE具有高性能及易用的优势，本教程使用SPONGE模拟多肽水�
 
 - 属性文件（后缀为`.in`的文件），声明模拟的基本条件，对整个模拟过程进行参数控制。
 - 拓扑文件（后缀为`.param7`的文件），拓扑文件描述的是体系内部分子的拓扑关系及各种参数。
-- 坐标文件（后缀为`.rst7`的文件），坐标文件描述的是每个原子在体系中的初始时刻的坐标。
+- 坐标文件（后缀为`.rst7`的文件），坐标文件描述的是每个原子在体系中的初始时刻的坐标及速度。
 
 拓扑文件和坐标文件可以通过建模过程由AmberTools中自带的tleap工具（下载地址<http://ambermd.org/GetAmber.php>， 遵守GPL协议）建模完成。建模过程如下：
 
@@ -87,7 +82,7 @@ SPONGE具有高性能及易用的优势，本教程使用SPONGE模拟多肽水�
 - 将建好的体系保存成`parm7`及`rst7`文件
 
     ```bash
-    > saveamberparm ala ala.parm7 ala_350_cool_290.rst7
+    > saveamberparm ala WATER_ALA.parm7 WATER_ALA_350_cool_290.rst7
     ```
 
 通过tleap构建了所需要的拓扑文件（`WATER_ALA.parm7`）和坐标文件（`WATER_ALA_350_cool_290.rst7`）后，需要通过属性文件声明模拟的基本条件，对整个模拟过程进行参数控制。以本教程中的属性文件`NVT_290_10ns.in`为例，其文件内容如下：
@@ -111,16 +106,16 @@ NVT 290k
 - `thermostat`，表示控温方法，`1`表示采用的是`Liujian-Langevin`方法。
 - `langevin_gamma`，表示控温器中的`Gamma_ln`参数。
 - `target_temperature`，表示目标温度。
-- `amber_irest`，表示输入方式，`0`表示使用amber方式输入，并且`rst7`文件中不包含`veclocity`属性。
+- `amber_irest`，表示输入方式，`0`表示使用amber方式输入，`rst7`文件中不包含`veclocity`属性。
 - `cut`，表示非键相互作用的距离。
 
 ### 加载数据
 
-完成输入文件的构建后，将文件存放在本地工作区的`sponge_in`路径下，其目录结构如下：
+完成输入文件的构建后，将文件存放在本地工作区的`data`路径下，其目录结构如下：
 
 ```text
-└─sponge
-    ├─sponge_in
+└─data
+    ├─polypeptide
     │      NVT_290_10ns.in                 # specific MD simulation setting
     │      WATER_ALA.parm7                 # topology file include atom & residue & bond & nonbond information
     │      WATER_ALA_350_cool_290.rst7     # restart file record atom coordinate & velocity and box information
@@ -130,10 +125,11 @@ NVT 290k
 
 ```python
 import argparse
+import time
 from mindspore import context
 
 parser = argparse.ArgumentParser(description='Sponge Controller')
-parser.add_argument('--i', type=str, default=None, help='input file')
+parser.add_argument('--i', type=str, default=None, help='Input .in file')
 parser.add_argument('--amber_parm', type=str, default=None, help='paramter file in AMBER type')
 parser.add_argument('--c', type=str, default=None, help='initial coordinates file')
 parser.add_argument('--r', type=str, default="restrt", help='')
@@ -151,12 +147,16 @@ context.set_context(mode=context.GRAPH_MODE, device_target="GPU", device_id=args
 使用SPONGE中定义的计算力模块和计算能量模块，通过多次迭代进行分子动力学过程演化，使得体系达到我们所需要的平衡态，并记录每一个模拟步骤中得到的能量等数据。为了方便起见，本教程的计算迭代次数设置为`1`，其模拟流程构建代码如下：
 
 ```python
-from src.simulation_initial import Simulation
+from mindsponge.md.simulation import Simulation
 from mindspore import Tensor
 
 if __name__ == "__main__":
     simulation = Simulation(args_opt)
+
+    start = time.time()
+    compiler = args_opt.o
     save_path = args_opt.o
+    simulation.main_initial()
     for steps in range(simulation.md_info.step_limit):
         print_step = steps % simulation.ntwx
         if steps == simulation.md_info.step_limit - 1:
@@ -181,7 +181,7 @@ python main.py --i /path/NVT_290_10ns.in \
 - -`amber_parm` 为MD模拟体系的拓扑文件
 - -`c` 为我们输入的初始坐标文件
 - -`o` 为我们模拟输出的记录文件，其记录了输出每步的能量等信息
-- -`path` 为文件所在的路径，在本教程中为`sponge_in`
+- -`path` 为文件所在的路径，在本教程中为`data/polypeptide`
 
 训练过程中，使用属性文件（后缀为`.in`的文件）、拓扑文件（后缀为`.param7`的文件）以及坐标文件（后缀为`.rst7`的文件），通过在指定温度下进行模拟，计算力和能量，进行分子动力学过程演化。
 
@@ -191,8 +191,21 @@ python main.py --i /path/NVT_290_10ns.in \
 
 ```text
 _steps_ _TEMP_ _TOT_POT_ENE_ _BOND_ENE_ _ANGLE_ENE_ _DIHEDRAL_ENE_ _14LJ_ENE_ _14CF_ENE_ _LJ_ENE_ _CF_PME_ENE_
-      0 0.000   -5713.804         0.037       0.900         14.909      9.072    194.477  765.398    -6698.648
+      1 0.788   -5836.521         48.745       0.891         14.904      9.041    194.479  763.169    -6867.750
    ...
 ```
 
 其中记录了模拟过程中输出的各类能量， 分别是迭代次数（_steps_），温度（_TEMP_），总能量（_TOT_POT_E_），键长（_BOND_ENE_），键角（_ANGLE_ENE_），二面角相互作用（_DIHEDRAL_ENE_），非键相互作用，其包含静电力及Leonard-Jones相互作用。
+
+## 性能描述
+
+| Parameter                 |   GPU |
+| -------------------------- |---------------------------------- |
+| Resource                   | GPU (Tesla V100 SXM2); memory 16 GB
+| Upload date              |
+| MindSpore version          | 1.2
+| Training parameter        | step=1
+| Output                    | numpy file
+| Speed                      | 15.0 ms/step
+| Total time                 | 5.7 s
+| Script                    | [Link](https://gitee.com/mindspore/mindscience/tree/master/MindSPONGE/mindsponge/scripts)
