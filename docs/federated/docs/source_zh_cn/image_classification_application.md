@@ -567,7 +567,7 @@ if __name__ == "__main__":
 
 1. 将模型导出为MindIR格式文件。
 
-    可在训练流程代码中添加`export`语句获取MindIR格式模型文件， 示例代码如下：
+    可在[model.py](https://gitee.com/mindspore/mindspore/blob/r1.3/tests/st/fl/mobile/src/model.py)的训练流程代码中添加`export`语句获取MindIR格式模型文件， 示例代码如下：
 
     ```python
     from mindspore import export
@@ -582,6 +582,8 @@ if __name__ == "__main__":
             export(train_network, data, label, file_name= mindir_name, file_format='MINDIR')  # 添加export语句获取MindIR格式模型文件
         print(losses)
     ```
+
+    生成MindIR格式模型文件时，需要先将[model.py](https://gitee.com/mindspore/mindspore/blob/r1.3/tests/st/fl/mobile/src/model.py)文件中`context.set_fl_context(**ctx)`语句注释，同时`epoch`设置为1即可，运行`model.py`要求环境中安装[MindSpore](https://www.mindspore.cn/install)。运行脚步`model.py`之后会在当前路径下生成文件`lenet_train.mindir`。
 
     具体可参考[导出MindIR格式文件](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/save_model.html#mindir)。
 
