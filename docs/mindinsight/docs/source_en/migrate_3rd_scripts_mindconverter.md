@@ -225,7 +225,7 @@ The loss function(`loss_fn`) can be migrated by querying [API mapping](https://w
 
 The optimizer(`optimizer`) can be migrated by querying [API mapping](https://www.mindspore.cn/docs/migration_guide/en/master/api_mapping/pytorch_api_mapping.html) or user's implementation. For more optimizer migration, please refer to [the programming guidance](https://www.mindspore.cn/docs/programming_guide/en/master/optim.html).
 
-As the training codes could be flexible and significantly different from MindSpore, implementation by the users is recommended. For more model training migration, please refer to [the programming guidance](https://www.mindspore.cn/docs/programming_guide/en/master/train_and_eval.html).
+As the training codes could be flexible and significantly different from MindSpore, implementation by the users is recommended.
 
 Source codes with PyTorch framework are as follows:
 
