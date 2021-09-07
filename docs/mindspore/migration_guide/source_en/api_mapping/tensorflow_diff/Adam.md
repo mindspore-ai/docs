@@ -1,4 +1,4 @@
-# 比较与tf.keras.optimizers.Adam的功能差异
+# Function Differences with tf.keras.optimizers.Adam
 
 ## tf.keras.optimizers.Adam
 
@@ -30,13 +30,13 @@ class mindspore.nn.Adam(
 )(grads)
 ```
 
-## 使用方式
+## Differences
 
-TensorFlow: 对所有参数使用相同的学习率，没法设定不同参数组使用不同学习率。
+TensorFlow: Using the same learning rate for all parameters and it is impossible to use different learning rates for different parameter groups.
 
-MindSpore：支持所有的参数使用相同的学习率以及不同的参数组使用不同的值的方式。
+MindSpore：Using the same learning rate for all parameters and different values for different parameter groups is supported.
 
-## 代码示例
+## Code Example
 
 ```python
 # The following implements Adam with MindSpore.

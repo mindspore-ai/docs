@@ -1,6 +1,6 @@
 # 比较与tf.train.MomentumOptimizer的功能差异
 
-## tf.train.MomentumOptimizer的功能差异
+## tf.train.MomentumOptimizer
 
 ```python
 class tf.train.MomentumOptimizer(
@@ -60,7 +60,7 @@ optim = nn.Adagrad(group_params, learning_rate=0.1, weight_decay=0.0)
 loss = nn.SoftmaxCrossEntropyWithLogits()
 model = Model(net, loss_fn=loss, optimizer=optim)
 
-# The following implements MomentumOptimizer with tensorflow.
+# The following implements MomentumOptimizer with TensorFlow.
 image = tf.keras.layers.Input(shape=(28, 28, 1))
 model = tf.keras.models.Model(image, net)
 optim = tf.train.MomentumOptimizer(learning_rate=0.1, momentum=0.9)

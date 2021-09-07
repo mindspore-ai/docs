@@ -1,4 +1,4 @@
-# 比较与tf.train.linear_cosine_decay的功能差异
+# Function Differences with tf.train.linear_cosine_decay
 
 ## tf.train.linear_cosine_decay
 
@@ -24,26 +24,21 @@ class mindspore.nn.CosineDecayLR(
 )(global_step)
 ```
 
-## 使用方式
+## Differences
 
-TensorFlow: 计算公式如下：
+TensorFlow: The formulas are as follows：
+`global_step = min(global_step, decay_steps)
+linear_decay = (decay_steps - global_step) / decay_steps
+cosine_decay = 0.5 \* (1 + cos(pi \* 2 \* num_periods \* global_step / decay_steps))
+decayed = (alpha + linear_decay) \* cosine_decay + beta
+decayed_learning_rate = learning_rate \* decayed`
 
-`global_step = min(global_step, decay_steps)`
+MindSpore：The calculation logic is different from Tensorflow, the formulas are as follows：
+`current_step = min(global_step, decay_step)
+decayed_learning_rate = min_lr + 0.5 \* (max_lr - min_lr) \*
+        (1 + cos(pi \* current_step / decay_steps))`
 
-`linear_decay = (decay_steps - global_step) / decay_steps`
-
-`cosine_decay = 0.5 * (1 + cos(pi * 2 * num_periods * global_step / decay_steps))`
-
-`decayed = (alpha + linear_decay) * cosine_decay + beta`
-
-`decayed_learning_rate = learning_rate * decayed`
-
-MindSpore：计算逻辑和Tensorflow不一样，计算公式如下：
-`current_step = min(global_step, decay_step)`
-
-`decayed_learning_rate = min_lr + 0.5 * (max_lr - min_lr) *(1 + cos(pi * current_step / decay_steps))`
-
-## 代码示例
+## Code Example
 
 ```python
 # The following implements CosineDecayLR with MindSpore.

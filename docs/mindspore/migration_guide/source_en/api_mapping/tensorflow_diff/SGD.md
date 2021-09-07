@@ -1,45 +1,41 @@
-# 比较与tf.keras.optimizers.Adam的功能差异
+# Function Differences with tf.keras.optimizers.SGD
 
-## tf.keras.optimizers.Adam
+## tf.keras.optimizers.SGD
 
 ```python
-class tf.keras.optimizers.Adam(
+class tf.keras.optimizers.SGD(
     learning_rate=0.001,
-    beta_1=0.9,
-    beta_2=0.999,
-    epsilon=1e-07,
-    amsgrad=False,
-    name='Adam',
+    momentum=0.0,
+    nesterov=False,
+    name='SGD',
     **kwargs
 )
 ```
 
-## mindspore.nn.Adam
+## mindspore.nn.SGD
 
 ```python
-class mindspore.nn.Adam(
+class mindspore.nn.SGD(
     params,
-    learning_rate=1e-3,
-    beta1=0.9,
-    beta2=0.999,
-    eps=1e-8,
-    update_locking=False,
-    use_nesterov=False,
+    learning_rate=0.1,
+    momentum=0.0,
+    dampening=0.0,
     weight_decay=0.0,
+    nesterov=False,
     loss_scale=1.0
 )(grads)
 ```
 
-## 使用方式
+## Differences
 
-TensorFlow: 对所有参数使用相同的学习率，没法设定不同参数组使用不同学习率。
+TensorFlow: Using the same learning rate for all parameters and it is impossible to use different learning rates for different parameter groups.
 
-MindSpore：支持所有的参数使用相同的学习率以及不同的参数组使用不同的值的方式。
+MindSpore：Using the same learning rate for all parameters and different values for different parameter groups is supported.
 
-## 代码示例
+## Code Example
 
 ```python
-# The following implements Adam with MindSpore.
+# The following implements SGD with MindSpore.
 import tensorflow as tf
 import mindspore.nn as nn
 from mindspore import Tensor, Parameter
@@ -47,7 +43,7 @@ from mindspore import Model
 
 net = Net()
 #1) All parameters use the same learning rate and weight decay
-optim = nn.Adam(params=net.trainable_params())
+optim = nn.SGD(params=net.trainable_params())
 
 #2) Use parameter groups and set different values
 conv_params = list(filter(lambda x: 'conv' in x.name, net.trainable_params()))
@@ -65,10 +61,10 @@ optim = nn.Adagrad(group_params, learning_rate=0.1, weight_decay=0.0)
 loss = nn.SoftmaxCrossEntropyWithLogits()
 model = Model(net, loss_fn=loss, optimizer=optim)
 
-# The following implements Adam with TensorFlow.
+# The following implements SGD with TensorFlow.
 image = tf.keras.layers.Input(shape=(28, 28, 1))
 model = tf.keras.models.Model(image, net)
-optim = tf.keras.optimizers.Adam()
+optim = tf.keras.optimizers.SGD()
 loss = tf.keras.losses.BinaryCrossentropy()
 model.compile(optimizer=optim, loss=loss, metrics=['accuracy'])
 ```

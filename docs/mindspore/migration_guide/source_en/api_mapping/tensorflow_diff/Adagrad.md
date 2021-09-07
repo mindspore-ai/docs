@@ -1,45 +1,40 @@
-# 比较与tf.keras.optimizers.Adam的功能差异
+# Function Differences with tf.keras.optimizers.Adagrad
 
-## tf.keras.optimizers.Adam
+## tf.keras.optimizers.Adagrad
 
 ```python
-class tf.keras.optimizers.Adam(
+class tf.keras.optimizers.Adagrad(
     learning_rate=0.001,
-    beta_1=0.9,
-    beta_2=0.999,
+    initial_accumulator_value=0,
     epsilon=1e-07,
-    amsgrad=False,
-    name='Adam',
+    name='Adagrad',
     **kwargs
 )
 ```
 
-## mindspore.nn.Adam
+## mindspore.nn.Adagrad
 
 ```python
-class mindspore.nn.Adam(
+class mindspore.nn.Adagrad(
     params,
-    learning_rate=1e-3,
-    beta1=0.9,
-    beta2=0.999,
-    eps=1e-8,
-    update_locking=False,
-    use_nesterov=False,
-    weight_decay=0.0,
-    loss_scale=1.0
+    accum=0.1,
+    learning_rate=0.001,
+    update_slots=True,
+    loss_scale=1.0,
+    weight_decay=0.0
 )(grads)
 ```
 
-## 使用方式
+## Differences
 
-TensorFlow: 对所有参数使用相同的学习率，没法设定不同参数组使用不同学习率。
+TensorFlow: Using the same learning rate for all parameters and it is impossible to use different learning rates for different parameter groups.
 
-MindSpore：支持所有的参数使用相同的学习率以及不同的参数组使用不同的值的方式。
+MindSpore：Using the same learning rate for all parameters and different values for different parameter groups is supported.
 
-## 代码示例
+## Code Example
 
 ```python
-# The following implements Adam with MindSpore.
+# The following implements Adagrad with MindSpore.
 import tensorflow as tf
 import mindspore.nn as nn
 from mindspore import Tensor, Parameter
@@ -47,7 +42,7 @@ from mindspore import Model
 
 net = Net()
 #1) All parameters use the same learning rate and weight decay
-optim = nn.Adam(params=net.trainable_params())
+optim = nn.Adagrad(params=net.trainable_params())
 
 #2) Use parameter groups and set different values
 conv_params = list(filter(lambda x: 'conv' in x.name, net.trainable_params()))
@@ -65,10 +60,10 @@ optim = nn.Adagrad(group_params, learning_rate=0.1, weight_decay=0.0)
 loss = nn.SoftmaxCrossEntropyWithLogits()
 model = Model(net, loss_fn=loss, optimizer=optim)
 
-# The following implements Adam with TensorFlow.
+# The following implements Adagrad with TensorFlow.
 image = tf.keras.layers.Input(shape=(28, 28, 1))
 model = tf.keras.models.Model(image, net)
-optim = tf.keras.optimizers.Adam()
+optim = tf.keras.optimizers.Adagrad()
 loss = tf.keras.losses.BinaryCrossentropy()
 model.compile(optimizer=optim, loss=loss, metrics=['accuracy'])
 ```

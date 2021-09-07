@@ -1,4 +1,4 @@
-# 比较与tf.nn.softmax_cross_entropy_with_logits的功能差异
+# Function Differences with tf.nn.softmax_cross_entropy_with_logits
 
 ## tf.nn.softmax_cross_entropy_with_logits
 
@@ -20,13 +20,13 @@ class mindspore.nn.SoftmaxCrossEntropyWithLogits(
 )(logits, labels)
 ```
 
-## 使用方式
+## Differences
 
-TensorFlow: labels和logits的shape需一致，未提供reduction参数对loss求mean或sum。
+TensorFlow: The shape of labels and logits must be the same, and the reduction parameter is not provided, which cannot calculate mean or sum for loss.
 
-MindSpore：支持labels是稀疏矩阵，且通过reduction参数可对loss求mean或sum。
+MindSpore：Sparse matrices for labels are supported and mean or sum for loss can be calculated through the reduction parameter.
 
-## 代码示例
+## Code Example
 
 ```python
 # The following implements SoftmaxCrossEntropyWithLogits with MindSpore.
