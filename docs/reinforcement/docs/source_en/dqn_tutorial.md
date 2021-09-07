@@ -104,7 +104,7 @@ from mindspore import context
 context.set_context(mode=context.GRAPH_MODE)
 ```
 
-The `GRAPH_MODE` enables functions and methods that are annotated with `@ms_function` to be compiled into the [MindSopre computational graph](https://www.mindspore.cn/docs/programming_guide/en/master/api_structure.html) for auto-parallelisation and acceleration. In this tutorial, we use this feature to implement an efficient `DQNTrainer` class.
+The `GRAPH_MODE` enables functions and methods that are annotated with `@ms_function` to be compiled into the [MindSpore computational graph](https://www.mindspore.cn/docs/programming_guide/en/master/api_structure.html) for auto-parallelisation and acceleration. In this tutorial, we use this feature to implement an efficient `DQNTrainer` class.
 
 ### Defining the DQNTrainer class
 
