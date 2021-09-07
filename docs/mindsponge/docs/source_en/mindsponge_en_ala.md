@@ -1,4 +1,4 @@
-# SPONGE Molecular Simulation Practice
+# MindSPONGE Molecular Simulation Practice
 
 Translator: [LiangRio](https://gitee.com/liangrio)
 
@@ -6,7 +6,7 @@ Translator: [LiangRio](https://gitee.com/liangrio)
 
 <!-- TOC -->
 
-- [SPONGE Molecular Simulation Practice](#sponge-molecular-simulation-practice)
+- [MindSPONGE Molecular Simulation Practice](#sponge-molecular-simulation-practice)
     - [Overview](#overview)
     - [Overall Execution](#overall-execution)
     - [Preparation](#preparation)
@@ -16,10 +16,11 @@ Translator: [LiangRio](https://gitee.com/liangrio)
         - [Constructing Simulation Process](#constructing-simulation-process)
         - [Running Script](#running-script)
         - [Running Result](#running-result)
+    -[Performance](#performance)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/hpc_sponge.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://https://gitee.com/mindspore/docs/blob/master/docs/mindsponge/docs/source_zh_cn/mindsponge_ala.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## Overview
 
@@ -27,16 +28,16 @@ Molecular simulation is a method of exploiting computer to simulate the structur
 
 In recent years, molecular simulation technology has been developed rapidly and widely used in many fields. In the field of medical design, it can be used to study the mechanism of action of virus and drugs. In the field of biological science, it can be used to characterize the multi-level structure and properties of proteins. In the field of materials science, it can be used to study the structure and mechanical properties, material optimization design. In the field of chemistry, it can be used to study surface catalysis and mechanism. In the field of petrochemical industry, it can be used for structure characterization, synthesis design, adsorption and diffusion of molecular sieve catalyst, construction and characterization of polymer chain and structure of crystalline or amorphous bulk polymer, and prediction of important properties including blending behavior, mechanical properties, diffusion, cohesion and so on.
 
-SPONGE in MindSpore is molecular simulation library jointly developed by the Gao Yiqin research group of PKU and Shenzhen Bay Laboratory and Huawei MindSpore team. SPONGE has the features like high-performance, modularization, etc. SPONGE can complete the traditional molecular simulation process efficiently based on MindSpore's automatic parallelism, graph-computing fusion and other features. SPONGE can combine AI methods such as neural networks with traditional molecular simulations by utilizing MindSpore's feature of automatic differentiation.
+MindSPONGE in MindSpore is molecular simulation library jointly developed by the Gao Yiqin research group of PKU and Shenzhen Bay Laboratory and Huawei MindSpore team. MindSPONGE has the features like high-performance, modularization, etc. MindSPONGE can complete the traditional molecular simulation process efficiently based on MindSpore's automatic parallelism, graph-computing fusion and other features. MindSPONGE can combine AI methods such as neural networks with traditional molecular simulations by utilizing MindSpore's feature of automatic differentiation.
 
-This tutorial mainly introduces how to use SPONGE, which is built in MindSpore, to perform high performance molecular simulation on the GPU.
+This tutorial mainly introduces how to use MindSPONGE, which is built in MindSpore, to perform high performance molecular simulation on the GPU.
 
 > Here you can download the complete sample code: <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/research/hpc/sponge>.
 
 ## Overall Execution
 
 1. Prepare input files of molecular simulation, load data, and determine the molecular system of calculation;
-2. Define and initialize the SPONGE module, make sure the calculation process;
+2. Define and initialize the MindSPONGE module, make sure the calculation process;
 3. Run training script, output thermodynamic information of the simulation, and check the result.
 
 ## Preparation
@@ -45,7 +46,7 @@ Before practicing, make sure you have MindSpore installed correctly. If not, you
 
 ## Example of Simulated Polypeptide Aqueous Solution System
 
-SPONGE has advantages of high-performance and usability, and this tutorial uses SPONGE to simulate polypeptide aqueous solution system. The simulated system is an alanine tripeptide aqueous solution system.
+MindSPONGE has advantages of high-performance and usability, and this tutorial uses MindSPONGE to simulate polypeptide aqueous solution system. The simulated system is an alanine tripeptide aqueous solution system.
 
 ### Preparing Input Files
 
@@ -121,11 +122,11 @@ NVT 290k
 
 ### Loading Data
 
-After completing the construction of input files, save files under the path `sponge_in` to local workplace, the directory structure is as follows:
+After completing the construction of input files, save files under the path `data` to local workplace, the directory structure is as follows:
 
 ```text
-└─sponge
-    ├─sponge_in
+└─polypeptide
+    ├─data
     │      NVT_290_10ns.in                 # specific MD simulation setting
     │      WATER_ALA.parm7                 # topology file include atom & residue & bond & nonbond information
     │      WATER_ALA_350_cool_290.rst7     # restart file record atom coordinate & velocity and box information
@@ -154,10 +155,10 @@ context.set_context(mode=context.GRAPH_MODE, device_target="GPU", device_id=args
 
 ### Constructing Simulation Process
 
-By using computational force module and computational energy module defined in SPONGE, the system reaches the equilibrium state we need through multiple iterations of molecular dynamics process evolves, and energy and other data obtained in each simulation step is recorded. For convenience, this tutorial set `1` as the number of iterations, the code for constructing the simulation process is as follows:
+By using computational force module and computational energy module defined in MindSPONGE, the system reaches the equilibrium state we need through multiple iterations of molecular dynamics process evolves, and energy and other data obtained in each simulation step is recorded. For convenience, this tutorial set `1` as the number of iterations, the code for constructing the simulation process is as follows:
 
 ```python
-from src.simulation_initial import Simulation
+from mindsponge.md.simulation import Simulation
 from mindspore import Tensor
 
 if __name__ == "__main__":
@@ -189,7 +190,7 @@ python main.py --i /path/NVT_290_10ns.in \
 - `amber_parm` is topology file of MD simulation system.
 - `c` is initial coordinate file we input.
 - `o` is log file output after simulation, which records energy and other data obtained in each simulation step.
-- `path` is the path to the file, this path is denoted as `sponge_in` in this tutorial.
+- `path` is the path to the file, this path is denoted as `data` in this tutorial.
 
 During training, property file (file suffix`.in`), topology file (file suffix`.param7`) and coordinate file (file suffix`.rst7`) can be used under specified temperatures to perform simulation, compute force and energy, perform molecular dynamics process evolves.
 
@@ -199,8 +200,21 @@ After training, output file `ala_NVT_290_10ns.out` can be obtained, which record
 
 ```text
 _steps_ _TEMP_ _TOT_POT_ENE_ _BOND_ENE_ _ANGLE_ENE_ _DIHEDRAL_ENE_ _14LJ_ENE_ _14CF_ENE_ _LJ_ENE_ _CF_PME_ENE_
-      0 0.000   -5713.804         0.037       0.900         14.909      9.072    194.477  765.398    -6698.648
+      1 0.788   -5836.521         48.745       0.891         14.904      9.041    194.479  763.169    -6867.750
    ...
 ```
 
 Types of energy output in the simulation process are recorded, namely iterations(steps), temperature(TEMP), total energy(TOT_POT_E), bond length(BOND_ENE), bond angle(ANGLE_ENE), dihedral angle interactions(DIHEDRAL_ENE), and none-bonded interaction that includes electrostatic force and Leonard-Jones interaction.
+
+## Performance
+
+| Parameter                 |   GPU |
+| -------------------------- |---------------------------------- |
+| Resource                   | GPU (Tesla V100 SXM2); memory 16 GB
+| Upload date              |
+| MindSpore version          | 1.2
+| Training parameter        | step=1
+| Output                    | numpy file
+| Speed                      | 15.0 ms/step
+| Total time                 | 5.7 s
+| Script                    | [Link](https://gitee.com/mindspore/mindscience/tree/master/MindSPONGE/mindsponge/scripts)
