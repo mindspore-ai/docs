@@ -18,6 +18,7 @@ MindSpore Programming Guide
    :caption: Design
 
    design/technical_white_paper
+   design/gradient
    design/distributed_training_design
    design/mindir
    Design of Visualization↗ <https://www.mindspore.cn/mindinsight/docs/en/master/training_visual_design.html>
