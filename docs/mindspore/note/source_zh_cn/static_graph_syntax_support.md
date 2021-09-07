@@ -440,13 +440,13 @@ def test_call():
 
 | 二元算术运算符 | 支持类型                                                     |
 | :------------- | :----------------------------------------------------------- |
-| `+`            | `Number` + `Number`、`String` + `String`、`Number` + `Tensor`、`Tensor` + `Number`、`Tuple` + `Tensor`、`Tensor` + `Tuple`、<br>`List` + `Tensor`、`Tensor`+`List`、`List`+`List`、`Tensor` + `Tensor`、`RowTensor` + `Tensor`、`Tuple` + `Tuple`。 |
-| `-`            | `Number` - `Number`、`Tensor` - `Tensor`、`Number` - `Tensor`、`Tensor` - `Number`、`Tuple` - `Tensor`、`Tensor` - `Tuple`、<br>`List` - `Tensor`、`Tensor` - `List`。 |
-| `*`            | `Number` * `Number`、`Tensor` * `Tensor`、`Number` * `Tensor`、`Tensor` * `Number`、`List` * `Number`、`Number` * `List`、<br>`Tuple` * `Number`、`Number` * `Tuple`、`Tuple` * `Tensor`、`Tensor` * `Tuple`、 `List` * `Tensor`、`Tensor` * `List`。 |
-| `/`            | `Number` / `Number`、`Tensor` / `Tensor`、`Number` / `Tensor`、`Tensor` / `Number`、`Tuple` / `Tensor`、`Tensor` / `Tuple`、<br> `List` / `Tensor`、`Tensor` / `List`。 |
-| `%`            | `Number` % `Number`、`Tensor` % `Tensor`、`Number` % `Tensor`、`Tensor` % `Number`、`Tuple` % `Tensor`、`Tensor` % `Tuple`、<br> `List` % `Tensor`、`Tensor` % `List`。 |
-| `**`           | `Number` ** `Number`、`Tensor` ** `Tensor`、`Number` ** `Tensor`、`Tensor` ** `Number`、`Tuple` ** `Tensor`、<br>`Tensor` ** `Tuple`、 `List` ** `Tensor`、`Tensor` ** `List`。 |
-| `//`           | `Number` // `Number`、`Tensor` // `Tensor`、`Number` // `Tensor`、`Tensor` // `Number`、`Tuple` // `Tensor`、`Tensor` // `Tuple`、<br> `List` // `Tensor`、`Tensor` // `List`。 |
+| `+`            | `Number` + `Number`、`String` + `String`、`Number` + `Tensor`、`Tensor` + `Number`、`Tuple` + `Tensor`、`Tensor` + `Tuple`、`List` + `Tensor`、`Tensor`+`List`、`List`+`List`、`Tensor` + `Tensor`、`RowTensor` + `Tensor`、`Tuple` + `Tuple`。 |
+| `-`            | `Number` - `Number`、`Tensor` - `Tensor`、`Number` - `Tensor`、`Tensor` - `Number`、`Tuple` - `Tensor`、`Tensor` - `Tuple`、`List` - `Tensor`、`Tensor` - `List`。 |
+| `*`            | `Number` * `Number`、`Tensor` * `Tensor`、`Number` * `Tensor`、`Tensor` * `Number`、`List` * `Number`、`Number` * `List`、`Tuple` * `Number`、`Number` * `Tuple`、`Tuple` * `Tensor`、`Tensor` * `Tuple`、 `List` * `Tensor`、`Tensor` * `List`。 |
+| `/`            | `Number` / `Number`、`Tensor` / `Tensor`、`Number` / `Tensor`、`Tensor` / `Number`、`Tuple` / `Tensor`、`Tensor` / `Tuple`、`List` / `Tensor`、`Tensor` / `List`。 |
+| `%`            | `Number` % `Number`、`Tensor` % `Tensor`、`Number` % `Tensor`、`Tensor` % `Number`、`Tuple` % `Tensor`、`Tensor` % `Tuple`、`List` % `Tensor`、`Tensor` % `List`。 |
+| `**`           | `Number` \*\* `Number`、`Tensor` \*\* `Tensor`、`Number` \*\* `Tensor`、`Tensor` \*\* `Number`、`Tuple` \*\* `Tensor`、`Tensor` \*\* `Tuple`、 `List` \*\* `Tensor`、`Tensor` \*\* `List`。 |
+| `//`           | `Number` // `Number`、`Tensor` // `Tensor`、`Number` // `Tensor`、`Tensor` // `Number`、`Tuple` // `Tensor`、`Tensor` // `Tuple`、`List` // `Tensor`、`Tensor` // `List`。 |
 
 限制：
 
@@ -458,14 +458,14 @@ def test_call():
 
 | 赋值运算符 | 支持类型                                                     |
 | :--------- | :----------------------------------------------------------- |
-| `=`        | Mindspore支持的Python内置数据类型和MindSpore自定义数据类型   |
-| `+=`       | `Number` += `Number`、`String` += `String`、`Number` += `Tensor`、`Tensor` += `Number`、`Tuple` += `Tensor`、`Tensor` += `Tuple`、<br>`List` += `Tensor`、`Tensor` += `List`、`List` += `List`、`Tensor` += `Tensor`、`RowTensor` += `Tensor`、`Tuple` += `Tuple`。 |
-| `-=`       | `Number` -= `Number`、`Tensor` -= `Tensor`、`Number` -= `Tensor`、`Tensor` -= `Number`、`Tuple` -= `Tensor`、`Tensor` -= `Tuple`、<br>`List` -= `Tensor`、`Tensor` -= `List`。 |
-| `*=`       | `Number` *= `Number`、`Tensor` *= `Tensor`、`Number` *= `Tensor`、`Tensor` *= `Number`、`List` *= `Number`、`Number` *= `List`、<br/>`Tuple` *= `Number`、`Number` *= `Tuple`、`Tuple` *= `Tensor`、`Tensor` *= `Tuple`、 `List` *= `Tensor`、`Tensor` *= `List`。 |
-| `/=`       | `Number` /= `Number`、`Tensor` /= `Tensor`、`Number` /= `Tensor`、`Tensor` /= `Number`、`Tuple` /= `Tensor`、`Tensor` /= `Tuple`、<br/> `List` /= `Tensor`、`Tensor` /= `List`。 |
-| `%=`       | `Number` %= `Number`、`Tensor` %= `Tensor`、`Number` %= `Tensor`、`Tensor` %= `Number`、`Tuple` %= `Tensor`、`Tensor` %= `Tuple`、<br/> `List` %= `Tensor`、`Tensor` %= `List`。 |
-| `**=`      | `Number` \*\*= `Number`、`Tensor` \*\*= `Tensor`、`Number` \*\*= `Tensor`、`Tensor` \*\*= `Number`、`Tuple` \*\*= `Tensor`、<br/>`Tensor` \*\*= `Tuple`、 `List` \*\*= `Tensor`、`Tensor` \*\*= `List`。 |
-| `//=`      | `Number` //= `Number`、`Tensor` //= `Tensor`、`Number` //= `Tensor`、`Tensor` //= `Number`、`Tuple` //= `Tensor`、`Tensor` //= `Tuple`、<br/> `List` //= `Tensor`、`Tensor` //= `List`。 |
+| `=`        | MindSpore支持的Python内置数据类型和MindSpore自定义数据类型   |
+| `+=`       | `Number` += `Number`、`String` += `String`、`Number` += `Tensor`、`Tensor` += `Number`、`Tuple` += `Tensor`、`Tensor` += `Tuple`、`List` += `Tensor`、`Tensor` += `List`、`List` += `List`、`Tensor` += `Tensor`、`RowTensor` += `Tensor`、`Tuple` += `Tuple`。 |
+| `-=`       | `Number` -= `Number`、`Tensor` -= `Tensor`、`Number` -= `Tensor`、`Tensor` -= `Number`、`Tuple` -= `Tensor`、`Tensor` -= `Tuple`、`List` -= `Tensor`、`Tensor` -= `List`。 |
+| `*=`       | `Number` *= `Number`、`Tensor` *= `Tensor`、`Number` *= `Tensor`、`Tensor` *= `Number`、`List` *= `Number`、`Number` *= `List`、`Tuple` *= `Number`、`Number` *= `Tuple`、`Tuple` *= `Tensor`、`Tensor` *= `Tuple`、 `List` *= `Tensor`、`Tensor` *= `List`。 |
+| `/=`       | `Number` /= `Number`、`Tensor` /= `Tensor`、`Number` /= `Tensor`、`Tensor` /= `Number`、`Tuple` /= `Tensor`、`Tensor` /= `Tuple`、`List` /= `Tensor`、`Tensor` /= `List`。 |
+| `%=`       | `Number` %= `Number`、`Tensor` %= `Tensor`、`Number` %= `Tensor`、`Tensor` %= `Number`、`Tuple` %= `Tensor`、`Tensor` %= `Tuple`、`List` %= `Tensor`、`Tensor` %= `List`。 |
+| `**=`      | `Number` \*\*= `Number`、`Tensor` \*\*= `Tensor`、`Number` \*\*= `Tensor`、`Tensor` \*\*= `Number`、`Tuple` \*\*= `Tensor`、`Tensor` \*\*= `Tuple`、 `List` \*\*= `Tensor`、`Tensor` \*\*= `List`。 |
+| `//=`      | `Number` //= `Number`、`Tensor` //= `Tensor`、`Number` //= `Tensor`、`Tensor` //= `Number`、`Tuple` //= `Tensor`、`Tensor` //= `Tuple`、`List` //= `Tensor`、`Tensor` //= `List`。 |
 
 限制：
 
@@ -504,8 +504,8 @@ def test_call():
 | <=         | `Number` <= `Number`、`Number` <= `Tensor`、`Tensor` <= `Tensor`、`Tensor` <= `Number`。 |
 | >          | `Number` > `Number`、`Number` > `Tensor`、`Tensor` > `Tensor`、`Tensor` > `Number`。 |
 | >=         | `Number` >= `Number`、`Number` >= `Tensor`、`Tensor` >= `Tensor`、`Tensor` >= `Number`。 |
-| !=         | `Number` != `Number`、`Number` != `Tensor`、`Tensor` != `Tensor`、`Tensor` != `Number`、<br>`mstype` != `mstype`、`String` != `String`、`Tuple !` = `Tuple`、`List` != `List`。 |
-| ==         | `Number` == `Number`、`Number` == `Tensor`、`Tensor` == `Tensor`、`Tensor` == `Number`、<br/>`mstype` == `mstype`、`String` == `String`、`Tuple` == `Tuple`、`List` == `List`。 |
+| !=         | `Number` != `Number`、`Number` != `Tensor`、`Tensor` != `Tensor`、`Tensor` != `Number`、`mstype` != `mstype`、`String` != `String`、`Tuple !` = `Tuple`、`List` != `List`。 |
+| ==         | `Number` == `Number`、`Number` == `Tensor`、`Tensor` == `Tensor`、`Tensor` == `Number`、`mstype` == `mstype`、`String` == `String`、`Tuple` == `Tuple`、`List` == `List`。 |
 
 限制：
 
