@@ -64,26 +64,21 @@
 
 ### 降低二阶信息矩阵更新频率
 
-通过实验观察费雪矩阵的F范数（Frobenius norm）在前期变化剧烈，后期逐渐变稳定，从而假设${\left\{{F^k}\right\}} ^{n}_{k=1}$是一个马尔可夫过程，可以收敛到一个稳态分布π，其中$F^k$代表第k个迭代时的费雪矩阵。因此，在训练过程中逐步增大费雪矩阵的更新间隔，可以在不影响收敛速度的情况下，减少训练时间。例如在ResNet50中，更新间隔步数随着训练的进行越来越大，到后期每个epoch只需更新一次二阶信息矩阵。
+通过实验观察费雪矩阵的F范数（Frobenius norm）在前期变化剧烈，后期逐渐变稳定，从而假设$\Bigg\{{F^k}\Bigg\}^{n}_{k=1}$是一个马尔可夫过程，可以收敛到一个稳态分布π，其中$F^k$代表第k个迭代时的费雪矩阵。因此，在训练过程中逐步增大费雪矩阵的更新间隔，可以在不影响收敛速度的情况下，减少训练时间。例如在ResNet50中，更新间隔步数随着训练的进行越来越大，到后期每个epoch只需更新一次二阶信息矩阵。
 
 THOR受KFAC启发，将费雪矩阵按层解耦来降低矩阵复杂度，分别针对每一层的费雪矩阵做实验，发现有些层的费雪矩阵趋于稳态的速度更快，因此在统一的更新间隔上，更加细粒度的去调整每一层的更新频率。THOR使用矩阵的迹作为判断条件，当迹的变化情况大于某一阈值时更新该层的二阶信息矩阵，否则沿用上一个迭代的二阶信息矩阵，并且引入了停止更新机制，当迹的变化量小于某个阈值时停止更新该层二阶信息矩阵，具体更新公式如下：
 
 $\Delta^k=\frac{||tr(F^k_i+\lambda I)|-|tr(F^{k-1}_i+\lambda I)||}{|tr(F^{k-1}_i+\lambda I)|}$
 
-\begin{equation}\label{trace_update}
-\footnotesize
-\left\{
-\begin{array}{ll}
-\mbox{update  $F^k_i$,} &\mbox{if $\Delta^k \in (\omega_1, +\infty)$}\\
-\specialrule{0em}{0.5ex}{0.5ex}
-\mbox{do not update $F^k_i$  and set}&\\
-\mbox{ $F^k_i=F^{k-1}_i$,} &\mbox{if $\Delta^k \in [\omega_2, \omega_1]$}\\
-\specialrule{0em}{0.5ex}{0.5ex}
-\mbox{stop update $F^k_i$ and set}&\\
-\mbox{ $F^{k+t}_i\equiv F^{k-1}_i$ for all $t=1,2,\ldots$} &\mbox{if $\Delta^k \in [0, \omega_2)$}\\
-\end{array}\right.
-\end{equation}
-    
+$$\begin{cases}
+update F^k_i, \qquad\qquad\qquad\qquad\qquad if \Delta^k \in (\omega_1, +\infty)$}\\
+do\ not\ update\ F^{k}_{i}\ and\ set\\
+F^{k}_{i}=F^{k-1}_{i},\ \qquad\qquad\qquad\qquad\qquad if \Delta^k \in [\omega_2, \omega_1]\\
+stop\ update\ F^{k}_{i}\ and\ set\\
+F^{k+t}_{i}\equiv F^{k-1}_{i}\ for\ all\ t=1,2,...\quad if \Delta^{k} \in [0, \omega_{2})
+\end{cases}
+$$
+
 ### 硬件感知矩阵切分
 
 THOR在将费雪矩阵按层解耦的基础上，进一步假设每个网络层中的输入和输出块之间也是独立的，例如将每层网络的输入输出切分为n个块，这n个块之间即是独立的，根据该假设对二阶信息矩阵做进一步的切分，从而提高了计算效率。THOR结合矩阵信息损失数据和矩阵性能数据确定了矩阵分块维度，从而大大提升费雪矩阵求逆时间。
@@ -94,7 +89,7 @@ THOR在将费雪矩阵按层解耦的基础上，进一步假设每个网络层�
 
 （2）根据确定的矩阵维度，根据谱范数计算每个维度下的矩阵损失，具体公式为：
 
-$L=1-\sqrt {\frac{\lambda_{max}(\hat{A}{\hat{A}}^T)}{\lambda_{max}(AA^T)}}$
+$$L=1-\sqrt{\frac{\lambda_{max}\ \(\hat{A}{\hat{A}}^T)}{\lambda_{max}\ \(AA^T)}}$$
 
 其中$\lambda_{max}(X)$表示矩阵$X$的最大特征值，$A$表示原始未分割矩阵， $\hat A$表示分割后的矩阵。然后统计在该维度下损失小于1%的矩阵数量，最后通过除以总的矩阵数量得到标准化后的矩阵损失信息。
 
