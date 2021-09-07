@@ -156,8 +156,6 @@ If the loss errors are large, the problem locating can be done using following w
 
    Inference can be performed at training time by defining a CallBack function for inference.
 
-- [Custom Training](https://www.mindspore.cn/docs/programming_guide/en/master/train_and_eval.html)
-
 - Customized Learning Rate
 
    MindSpore provides some common implementations of dynamic learning rate and some common optimizers with adaptive learning rate adjustment functions, referring to [Dynamic Learning Rate](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.nn.html#dynamic-learning-rate) and [Optimizer Functions](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.nn.html#optimizer-functions) in the API documentation.
