@@ -12,6 +12,10 @@
 | torch.asin                                           | mindspore.ops.Asin                                             | 功能一致 |
 | torch.atan                                           | mindspore.ops.Atan                                             | 功能一致 |
 | torch.atan2                                          | mindspore.ops.Atan2                                            | 功能一致 |
+| torch.autograd.backward                              | mindspore.ops.GradOperation                                    |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/GradOperation.md)|
+| torch.autograd.enable_grad                           | mindspore.ops.stop_gradient                                    |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/stop_gradient.md)|
+| torch.autograd.grad                                  | mindspore.ops.GradOperation                                    |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/GradOperation.md)|
+| torch.autograd.no_grad                               | mindspore.ops.stop_gradient                                    |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/stop_gradient.md)|
 | torch.bitwise_and                                    | mindspore.ops.BitwiseAnd                                       | 功能一致 |
 | torch.bitwise_or                                     | mindspore.ops.BitwiseOr                                        | 功能一致 |
 | torch.bmm                                            | mindspore.ops.BatchMatMul                                      | 功能一致 |
@@ -160,6 +164,7 @@
 | torch.sigmoid                                        | mindspore.ops.Sigmoid                                          | 功能一致 |
 | torch.sin                                            | mindspore.ops.Sin                                              | 功能一致 |
 | torch.sinh                                           | mindspore.ops.Sinh                                             | 功能一致 |
+| torch.sparse_coo_tensor                              | mindspore.SparseTensor                                         |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/SparseTensor.md)|
 | torch.split                                          | mindspore.ops.Split                                            | 功能一致 |
 | torch.sqrt                                           | mindspore.ops.Sqrt                                             | 功能一致 |
 | torch.squeeze                                        | mindspore.ops.Squeeze                                          | 功能一致 |
