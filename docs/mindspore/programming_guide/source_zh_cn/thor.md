@@ -64,14 +64,14 @@
 
 ### 降低二阶信息矩阵更新频率
 
-通过实验观察费雪矩阵的F范数（Frobenius norm）在前期变化剧烈，后期逐渐变稳定，从而假设$\Bigg\{{F^k}\Bigg\}^{n}_{k=1}$是一个马尔可夫过程，可以收敛到一个稳态分布π，其中$F^k$代表第k个迭代时的费雪矩阵。因此，在训练过程中逐步增大费雪矩阵的更新间隔，可以在不影响收敛速度的情况下，减少训练时间。例如在ResNet50中，更新间隔步数随着训练的进行越来越大，到后期每个epoch只需更新一次二阶信息矩阵。
+通过实验观察费雪矩阵的F范数（Frobenius norm）在前期变化剧烈，后期逐渐变稳定，从而假设$\Big\{{F^k}\Bigg\}^{n}_{k=1}$是一个马尔可夫过程，可以收敛到一个稳态分布π，其中$F^k$代表第k个迭代时的费雪矩阵。因此，在训练过程中逐步增大费雪矩阵的更新间隔，可以在不影响收敛速度的情况下，减少训练时间。例如在ResNet50中，更新间隔步数随着训练的进行越来越大，到后期每个epoch只需更新一次二阶信息矩阵。
 
 THOR受KFAC启发，将费雪矩阵按层解耦来降低矩阵复杂度，分别针对每一层的费雪矩阵做实验，发现有些层的费雪矩阵趋于稳态的速度更快，因此在统一的更新间隔上，更加细粒度的去调整每一层的更新频率。THOR使用矩阵的迹作为判断条件，当迹的变化情况大于某一阈值时更新该层的二阶信息矩阵，否则沿用上一个迭代的二阶信息矩阵，并且引入了停止更新机制，当迹的变化量小于某个阈值时停止更新该层二阶信息矩阵，具体更新公式如下：
 
 $\Delta^k=\frac{||tr(F^k_i+\lambda I)|-|tr(F^{k-1}_i+\lambda I)||}{|tr(F^{k-1}_i+\lambda I)|}$
 
 $$\begin{cases}
-update F^k_i, \qquad\qquad\qquad\qquad\qquad if \Delta^k \in (\omega_1, +\infty)$}\\
+update F^k_i, \qquad\qquad\qquad\qquad\qquad if \Delta^k \in (\omega_1, +\infty)}\\
 do\ not\ update\ F^{k}_{i}\ and\ set\\
 F^{k}_{i}=F^{k-1}_{i},\ \qquad\qquad\qquad\qquad\qquad if \Delta^k \in [\omega_2, \omega_1]\\
 stop\ update\ F^{k}_{i}\ and\ set\\
@@ -109,7 +109,7 @@ $$L=1-\sqrt{\frac{\lambda_{max}\ \(\hat{A}{\hat{A}}^T)}{\lambda_{max}\ \(AA^T)}}
 
 图4 THOR在ResNet50上的实验结果
 
-图4中的THOR，THOR_stop，THOR_NT分别表示(w_1,w_2)=(0.01,0)，(w_1,w_2)=(0.01,0.001)，(w_1,w_2)=(0,0)，从图中可以看到THOR收敛所需迭代数大约是一阶的一半，且单step的时间与一阶相差也不大。相比一阶算法需要117min，二阶优化器端到端时间提速约40%。
+图4中的THOR，THOR_stop，THOR_NT分别表示($w_1$,$w_2$)=(0.01,0)，($w_1$,$w_2$)=(0.01,0.001)，($w_1$,$w_2$)=(0,0)，从图中可以看到THOR收敛所需迭代数大约是一阶的一半，且单step的时间与一阶相差也不大。相比一阶算法需要117min，二阶优化器端到端时间提速约40%。
 
 THOR还测试了在不同batchsize下ResNet50+ImageNet的收敛结果，结果见下图5，其中Hardware表示硬件平台，Software是指使用的深度学习框架，Batch size是每次训练的图片数量，Optimizer表示使用的优化器，Time指总体训练时间，Accuracy是指最后收敛精度。当batchsize为8192，使用256块Ascend 910时，只需2.7分钟精度即可收敛到75.9%。
 
