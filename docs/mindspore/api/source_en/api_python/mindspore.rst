@@ -40,7 +40,7 @@ DataType
   
   * **Numeric Type**
   
-    Currently, MindSpore supports ``Int`` type, ``Uint`` type and ``Float`` type.
+    Currently, MindSpore supports ``Int`` type, ``Uint`` type, ``Float`` type and ``Complex`` type.
     The following table lists the details.
   
     ==============================================   =============================
@@ -57,6 +57,8 @@ DataType
     ``mindspore.float16`` ,  ``mindspore.half``      16-bit floating-point number
     ``mindspore.float32`` ,  ``mindspore.single``    32-bit floating-point number
     ``mindspore.float64`` ,  ``mindspore.double``    64-bit floating-point number
+    ``mindspore.complex64``                          64-bit complex number
+    ``mindspore.complex128``                         128-bit complex number
     ==============================================   =============================
   
   * **Other Type**
@@ -71,7 +73,8 @@ DataType
     ``int_``                        Integer scalar.
     ``uint``                        Unsigned integer scalar.
     ``float_``                      Floating-point scalar.
-    ``number``                      Number, including ``int_`` , ``uint`` , ``float_`` and ``bool_`` .
+    ``complex``                     Complex scalar.
+    ``number``                      Number, including ``int_`` , ``uint`` , ``float_`` , ``complex`` and ``bool_`` .
     ``list_``                       List constructed by ``tensor`` , such as ``List[T0,T1,...,Tn]`` , where the element ``Ti`` can be of different types.
     ``tuple_``                      Tuple constructed by ``tensor`` , such as ``Tuple[T0,T1,...,Tn]`` , where the element ``Ti`` can be of different types.
     ``function``                    Function. Return in two ways, when function is not None, returns Func directly, the other returns Func(args: List[T0,T1,...,Tn], retval: T) when function is None.
@@ -100,10 +103,13 @@ DataType
             │   │   ├─── uint16, ushort
             │   │   ├─── uint32, uintc
             │   │   └─── uint64, uintp
-            │   └─── float_
-            │       ├─── float16
-            │       ├─── float32
-            │       └─── float64
+            │   ├─── float_
+            │   │   ├─── float16
+            │   │   ├─── float32
+            │   │   └─── float64
+            │   └─── complex
+            │       ├─── complex64
+            │       └─── complex128
             ├─── tensor
             │   ├─── Array[Float32]
             │   └─── ...
