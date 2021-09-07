@@ -246,6 +246,21 @@ Figure 9: Timeline Analysis
 The Timeline consists of the following parts:  
 
 - Device and Stream List: It will show the stream list on each device. Each stream consists of a series of tasks. One rectangle stands for one task, and the area stands for the execution time of the task.
+
+  Each color block represents the starting time and length of operator execution. The detailed explanation of timeline is as follows:  
+  - Process 0 node: contains the timeline of operators executed on AI Core.  
+    - Step: training steps.  
+    - Scope Name: The Scope Name of operators.  
+    - Stream ID: operators executed on the stream.  
+    - No. 7999: it is the timeline after all AI Core operators are merged.  
+    - No. 8001: it is the timeline after all communication operators are merged.  
+    - No. 8000: pure communication time (The timeline of the communication operator after removing the time of the AI operator. That is, the time-consuming of No.8000 is removed after the time-consuming of No.7999).  
+    - No. 8002: idle time (There is no communication operator and calculation operator in the execution timeline).  
+  - Process 9000 node: contains the timeline of operators executed on AI CPU.  
+  - Process 10000 node: contains the timeline for the execution of communication operators.  
+  - Process 11000 node: contains the timeline of operators executed on the Host CPU.  
+    - HostCpuOps: operators executed on Host CPU.  
+
 - The Operator Information: When we click one task, the corresponding operator of this task will be shown at the bottom.
 
 W/A/S/D can be applied to zoom in and out of the Timeline graph.
