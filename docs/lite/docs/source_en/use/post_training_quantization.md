@@ -39,12 +39,12 @@ Post training quantization can be enabled by configuring `configFile` through [C
 
 common quantization parameters are the basic settings for post training quantization, mainly including `quant_type`, `bit_num`, `min_quant_weight_size`, and `min_quant_weight_channel`. The detailed description of the parameters is as follows:
 
-| Parameter                  | Attribute | Function Description                                         | Parameter Type | Default Value | Value Range             |
-| -------------------------- | --------- | ------------------------------------------------------------ | -------------- | ------------- | ----------------------- |
-| `quant_type`               | Mandatory | The quantization type. When set to WEIGHT_QUANT, weight quantization is enabled; when set to FULL_QUANT, full quantization is enabled. | String         | -             | WEIGHT_QUAN, FULL_QUANT |
-| `bit_num`                  | Optional  | The number of quantized bits. Currently, 0bit～16bit quantization is supported. When it is set to 1～16bit, it is fixed bit quantization. When set to 0bit, mixed bit quantization is enabled. Currently, only weight quantization supports mixed bits. | Integer        | 8             | \[0，16]                |
-| `min_quant_weight_size`    | Optional  | Set the threshold of the weight size for quantization. If the number of weights is greater than this value, the weight will be quantized. | Integer        | 0             | \[0，+∞）               |
-| `min_quant_weight_channel` | Optional  | Set the threshold of the number of weight channels for quantization. If the number of weight channels is greater than this value, the weight will be quantized. | Integer        | 16            | \[0，+∞）               |
+| Parameter                  | Attribute | Function Description                                         | Parameter Type | Default Value | Value Range                                 |
+| -------------------------- | --------- | ------------------------------------------------------------ | -------------- | ------------- | ------------------------------------------- |
+| `quant_type`               | Mandatory | The quantization type. When set to WEIGHT_QUANT, weight quantization is enabled; when set to FULL_QUANT, full quantization is enabled. | String         | -             | WEIGHT_QUAN, FULL_QUANT                     |
+| `bit_num`                  | Optional  | The number of quantized bits. Currently, weight quantization supports 0-16bit quantization. When it is set to 1-16bit, it is fixed-bit quantization. When it is set to 0bit, mixed-bit quantization is enabled. Full quantization supports 1-8bit quantization. | Integer        | 8             | WEIGHT_QUAN:\[0，16]<br/>FULL_QUANT:\[1，8] |
+| `min_quant_weight_size`    | Optional  | Set the threshold of the weight size for quantization. If the number of weights is greater than this value, the weight will be quantized. | Integer        | 0             | \[0，+∞）                                   |
+| `min_quant_weight_channel` | Optional  | Set the threshold of the number of weight channels for quantization. If the number of weight channels is greater than this value, the weight will be quantized. | Integer        | 16            | \[0，+∞）                                   |
 
 The common quantization parameter configuration is as follows:
 
@@ -109,7 +109,7 @@ To calculate the full quantization activation quantized parameter, the user need
 | normalize_std      | Optional  | Normalized standard deviation<br/>dst = (src - mean) / std   | Vector         | -             | Channel 3: [std_1, std_2, std_3] <br/>Channel 1: [std_1]     |
 | resize_width       | Optional  | Resize width                                                 | Integer        | -             | [1，+∞）                                                     |
 | resize_height      | Optional  | Resize height                                                | Integer        | -             | [1，+∞）                                                     |
-| resize_method      | Optional  | Resize algorithm                                             | String         | -             | LINEAR, NEARST, CUBIC<br/>LINEAR：Bilinear interpolation<br/>NEARST：Nearest neighbor interpolation<br/>CUBIC：Bicubic interpolation |
+| resize_method      | Optional  | Resize algorithm                                             | String         | -             | LINEAR, NEAREST, CUBIC<br/>LINEAR：Bilinear interpolation<br/>NEARST：Nearest neighbor interpolation<br/>CUBIC：Bicubic interpolation |
 | center_crop_width  | Optional  | Center crop width                                            | Integer        | -             | [1，+∞）                                                     |
 | center_crop_height | Optional  | Center crop height                                           | Integer        | -             | [1，+∞）                                                     |
 
@@ -136,7 +136,7 @@ normalize_std=[127.5, 127.5, 127.5]
 # Image resize
 resize_width=224
 resize_height=224
-# Resize method supports LINEAR or NEARST or CUBIC
+# Resize method supports LINEAR or NEAREST or CUBIC
 resize_method=LINEAR
 # Image center crop
 center_crop_width=224
@@ -190,7 +190,7 @@ Fixed-bit weighting supports fixed-bit quantization between 1 and 16, and users 
 The general form of the fixed bit weight quantization conversion command is:
 
 ```bash
-./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --quantType=WeightQuant --configFile=/mindspore/lite/tools/converter/quantizer/config/fixed_bit_weight_quant.cfg
+./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/fixed_bit_weight_quant.cfg
 ```
 
 The fixed bit weight quantization configuration file is as follows:
@@ -266,7 +266,7 @@ normalize_std=[127.5, 127.5, 127.5]
 # Image resize
 resize_width=224
 resize_height=224
-# Resize method supports LINEAR or NEARST or CUBIC
+# Resize method supports LINEAR or NEAREST or CUBIC
 resize_method=LINEAR
 # Image center crop
 center_crop_width=224

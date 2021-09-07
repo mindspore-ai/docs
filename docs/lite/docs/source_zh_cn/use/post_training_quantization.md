@@ -39,12 +39,12 @@ MindSpore Lite训练后量化分为两类：
 
 通用量化参数是训练后量化的基本设置，主要包括`quant_type`、`bit_num`、`min_quant_weight_size`和`min_quant_weight_channel`。参数的详细介绍如下所示：
 
-| 参数                       | 属性 | 功能描述                                                     | 参数类型 | 默认值 | 取值范围                 |
-| -------------------------- | ---- | ------------------------------------------------------------ | -------- | ------ | ------------------------ |
-| `quant_type`               | 必选 | 设置量化类型，设置为WEIGHT_QUANT时，启用权重量化；设置为FULL_QUANT时，启用全量化。 | String   | -      | WEIGHT_QUANT、FULL_QUANT |
-| `bit_num`                  | 可选 | 设置量化的比特数，目前支持0bit～16bit量化，设置为1～16bit时为固定比特量化。设置为0bit时，启用混合比特量化，目前仅权重量化支持混合比特。 | Integer  | 8      | \[0，16]                 |
-| `min_quant_weight_size`    | 可选 | 设置参与量化的权重尺寸阈值，若权重数大于该值，则对此权重进行量化。 | Integer  | 0      | \[0，+∞）                |
-| `min_quant_weight_channel` | 可选 | 设置参与量化的权重通道数阈值，若权重通道数大于该值，则对此权重进行量化。 | Integer  | 16     | \[0，+∞）                |
+| 参数                       | 属性 | 功能描述                                                     | 参数类型 | 默认值 | 取值范围                              |
+| -------------------------- | ---- | ------------------------------------------------------------ | -------- | ------ | ------------------------------------- |
+| `quant_type`               | 必选 | 设置量化类型，设置为WEIGHT_QUANT时，启用权重量化；设置为FULL_QUANT时，启用全量化。 | String   | -      | WEIGHT_QUANT、FULL_QUANT              |
+| `bit_num`                  | 可选 | 设置量化的比特数，目前权重量化支持0-16bit量化，设置为1-16bit时为固定比特量化，设置为0bit时，启用混合比特量化。全量化支持1-8bit量化。 | Integer  | 8      | 权重量化：\[0，16]<br/>全量化：[1，8] |
+| `min_quant_weight_size`    | 可选 | 设置参与量化的权重尺寸阈值，若权重数大于该值，则对此权重进行量化。 | Integer  | 0      | \[0，+∞）                             |
+| `min_quant_weight_channel` | 可选 | 设置参与量化的权重通道数阈值，若权重通道数大于该值，则对此权重进行量化。 | Integer  | 16     | \[0，+∞）                             |
 
 通用量化参数配置如下所示：
 
@@ -82,7 +82,7 @@ init_scale=0.02
 
 | 参数                    | 属性 | 功能描述               | 参数类型 | 默认值  | 取值范围                                                     |
 | ----------------------- | ---- | ---------------------- | -------- | ------- | ------------------------------------------------------------ |
-| activation_quant_method | 可选 | 激活值量化算法         | String   | MAX_MIN | KL，MAX_MIN，RemovalOutlier。 <br>KL：基于[KL散度](http://on-demand.gputechconf.com/gtc/2017/presentation/s7310-8-bit-inference-with-tensorrt.pdf)对数据范围作量化校准。 <br>MAX_MIN：基于最大值、最小值计算数据的量化参数。 <br>RemovalOutlier：按照一定比例剔除数据的极大极小值，再计算量化参数。 <br>在校准数据集与实际推理时的输入数据相吻合的情况下，推荐使用MAX_MIN；而在校准数据集噪声比较大的情况下，推荐使用KL或者RemovalOutlier |
+| activation_quant_method | 可选 | 激活值量化算法         | String   | MAX_MIN | KL，MAX_MIN，RemovalOutlier。 <br>KL：基于[KL散度](http://on-demand.gputechconf.com/gtc/2017/presentation/s7310-8-bit-inference-with-tensorrt.pdf)对数据范围作量化校准。 <br>MAX_MIN：基于最大值、最小值计算数据的量化参数。 <br>RemovalOutlier：按照一定比例剔除数据的极大极小值，再计算量化参数。 <br>在校准数据集与实际推理时的输入数据相吻合的情况下，推荐使用MAX_MIN；而在校准数据集噪声比较大的情况下，推荐使用KL或者REMOVAL_OUTLIER |
 | bias_correction         | 可选 | 是否对量化误差进行校正 | Boolean  | True    | True，False。使能后，将能提升量化模型的精度。                |
 
 全量化参数配置如下所示：
@@ -109,7 +109,7 @@ bias_correction=true
 | normalize_std      | 可选 | 图像归一化的标准差<br/>dst = (src - mean) / std              | Vector   | -      | 3通道：[std_1, std_2, std_3] <br/>1通道：[std_1]             |
 | resize_width       | 可选 | 图像缩放宽度                                                 | Integer  | -      | [1，+∞）                                                     |
 | resize_height      | 可选 | 图像缩放高度                                                 | Integer  | -      | [1，+∞）                                                     |
-| resize_method      | 可选 | 图像缩放算法                                                 | String   | -      | LINEAR、NEARST、CUBIC<br/>LINEAR：线性插值<br/>NEARST：最邻近插值<br/>CUBIC：三次样条插值 |
+| resize_method      | 可选 | 图像缩放算法                                                 | String   | -      | LINEAR、NEAREST、CUBIC<br/>LINEAR：线性插值<br/>NEARST：最邻近插值<br/>CUBIC：三次样条插值 |
 | center_crop_width  | 可选 | 中心裁剪宽度                                                 | Integer  | -      | [1，+∞）                                                     |
 | center_crop_height | 可选 | 中心裁剪高度                                                 | Integer  | -      | [1，+∞）                                                     |
 
@@ -136,7 +136,7 @@ normalize_std=[127.5, 127.5, 127.5]
 # Image resize
 resize_width=224
 resize_height=224
-# Resize method supports LINEAR or NEARST or CUBIC
+# Resize method supports LINEAR or NEAREST or CUBIC
 resize_method=LINEAR
 # Image center crop
 center_crop_width=224
@@ -154,7 +154,7 @@ center_crop_height=224
 混合比特权重量化转换命令的一般形式为：
 
 ```bash
-./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --quantType=WeightQuant --configFile=/mindspore/lite/tools/converter/quantizer/config/mixed_bit_weight_quant.cfg
+./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/mixed_bit_weight_quant.cfg
 ```
 
 混合比特权重量化配置文件如下所示：
@@ -189,7 +189,7 @@ init_scale=0.02
 固定比特权重量化转换命令的一般形式为：
 
 ```bash
-./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --quantType=WeightQuant --configFile=/mindspore/lite/tools/converter/quantizer/config/fixed_bit_weight_quant.cfg
+./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/fixed_bit_weight_quant.cfg
 ```
 
 固定比特权重量化配置文件如下所示：
@@ -265,7 +265,7 @@ normalize_std=[127.5, 127.5, 127.5]
 # Image resize
 resize_width=224
 resize_height=224
-# Resize method supports LINEAR or NEARST or CUBIC
+# Resize method supports LINEAR or NEAREST or CUBIC
 resize_method=LINEAR
 # Image center crop
 center_crop_width=224
