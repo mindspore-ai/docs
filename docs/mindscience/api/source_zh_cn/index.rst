@@ -3,12 +3,11 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-网络脚本开发
-===================
+MindScience API
+===============
 
 .. toctree::
    :maxdepth: 1
+   :caption: MindScience Python API
 
-   使用MindConverter迁移脚本↗ <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/migrate_3rd_scripts_mindconverter.html>
-   migration_script
-   optim
+   mindsponge

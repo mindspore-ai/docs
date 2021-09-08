@@ -170,30 +170,3 @@ import mindspore
 
 sys.path.append(os.path.abspath('../../../../resource/search'))
 import search_code
-
-# Copy images from mindspore repository to sphinx workdir before running.
-import glob
-import shutil
-from sphinx.util import logging
-logger = logging.getLogger(__name__)
-
-image_specified = {"docs/api_img/UnsortedSegment*.png": "./api_python/ops/api_img"}
-
-
-for img in image_specified.keys():
-    des_dir = os.path.normpath(image_specified[img])
-    try:
-        if "*" in img:
-            imgs = glob.glob(os.path.join(os.getenv("MS_PATH"), os.path.normpath(img)))
-            if not imgs:
-                continue
-            if not os.path.exists(des_dir):
-                os.makedirs(des_dir)
-            for i in imgs:
-                shutil.copy(i, des_dir)
-        else:
-            img_fullpath = os.path.join(os.getenv("MS_PATH"), des_dir)
-            if os.path.exists(img_fullpath):
-                shutil.copy(img_fullpath, des_dir)
-    except:
-        logger.warning(f"{img} deal failed!")
