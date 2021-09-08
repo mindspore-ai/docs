@@ -119,8 +119,9 @@ wget -NP ./datasets/MNIST_Data/train https://mindspore-website.obs.myhuaweicloud
 wget -NP ./datasets/MNIST_Data/train https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-images-idx3-ubyte --no-check-certificate
 wget -NP ./datasets/MNIST_Data/test https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-labels-idx1-ubyte --no-check-certificate
 wget -NP ./datasets/MNIST_Data/test https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-images-idx3-ubyte --no-check-certificate
-!tree ./datasets/MNIST_Data
 ```
+
+The directory structure of the downloaded dataset file is as follows:
 
 ```text
 ./datasets/MNIST_Data
