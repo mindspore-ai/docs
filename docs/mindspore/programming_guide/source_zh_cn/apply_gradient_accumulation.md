@@ -54,12 +54,11 @@ from collections.abc import Iterable
 
 import mindspore.nn as nn
 from mindspore import ParameterTuple
-from mindspore import context, save_checkpoint
+from mindspore import context, DatasetHelper, save_checkpoint
 from mindspore.nn import Cell
 import mindspore.ops as ops
 from model_zoo.official.cv.lenet.src.dataset import create_dataset
 from model_zoo.official.cv.lenet.src.lenet import LeNet5
-from mindspore import DatasetHelper
 ```
 
 ### 加载数据集

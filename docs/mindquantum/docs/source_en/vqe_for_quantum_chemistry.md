@@ -43,7 +43,7 @@ from openfermion.chem import MolecularData
 from openfermionpyscf import run_pyscf
 import mindquantum as mq
 from mindquantum import Hamiltonian
-from mindquantum.gate import XGate, RX
+from mindquantum.gate import X, RX
 from mindquantum.circuit import Circuit, generate_uccsd
 from mindquantum.nn import generate_pqc_operator
 import mindspore as ms
