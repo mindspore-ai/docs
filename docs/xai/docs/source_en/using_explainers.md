@@ -9,7 +9,7 @@
 - [Using Explainers](#using-explainers)
     - [What are Explainers](#what-are-explainers)
     - [Preparations](#preparations)
-        - [Downloading Tutorial Package](#downloading-tutorial-package)
+        - [Downloading Data Package](#downloading-data-package)
         - [Preparing Python Environment](#preparing-python-environment)
     - [Using GradCAM](#using-gradcam)
         - [Batch Explanation](#batch-explanation)
@@ -40,42 +40,58 @@ There are 2 categories of explainers: gradient based and perturbation based. The
 
 ## Preparations
 
-### Downloading Tutorial Package
+### Downloading Data Package
 
-First of all, we have to download the tutorial package which contains all the necessary scripts and data for this tutorial:
-
-```bash
-wget https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/xai/xai_tutorial.tar.gz
-tar -xf xai_tutorial.tar.gz
-cd xai_tutorial
-tree ./
-```
+First of all, we have to download the data package and put it underneath the `xai/examples/` directory of a local XAI [source package](https://gitee.com/mindspore/xai):
 
 ```bash
-./
-├── data/
-│    ├── test/
-│    └── train/
-├── resnet50.ckpt
-├── dataset.py
-└── resnet.py
+wget https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/xai/xai_examples_data.tar.gz
+tar -xf xai_examples_data.tar.gz
+
+git clone https://gitee.com/mindspore/xai
+mv xai_examples_data xai/examples/
 ```
 
-- `data/test`: Test dataset.
-- `data/train`: Training dataset.
-- `resnet50.ckpt`: ResNet50 classifier checkpoint.
-- `dataset.py`: Dataset loader.
-- `resent.py`: ResNet architecture.
+`xai/examples/` files:
+
+```bash
+xai/examples/
+├── xai_examples_data/
+│    ├── ckpt/
+│    │    ├── resent50.ckpt
+│    ├── train/
+│    └── test/
+├── common/
+│    ├── dataset.py
+│    └── resnet.py
+├── using_explainers.py
+├── using_rise_plus.py
+├── using_benchmarks.py
+└── using_mindinsight.py
+```
+
+- `xai_examples_data/`: The extracted data package.
+- `xai_examples_data/ckpt/resent50.ckpt`: ResNet50 checkpoint file.
+- `xai_examples_data/test`: Test dataset.
+- `xai_examples_data/train`: Training dataset.
+- `common/dataset.py`: Dataset loader.
+- `common/resnet.py`: ResNet model definitions.
+- `using_explainers.py`: Example of using explainers.
+- `using_rise_plus.py`: Example of using RISEPlus explainer.
+- `using_benchmarks.py`: Example of using benchmarks.
+- `using_mindinsight.py`: Example of using MindInsight for visualizations.
 
 ### Preparing Python Environment
+
+The tutorial below is referencing [using_explainers.py](https://gitee.com/mindspore/xai/examples/using_explainers.py) 。
 
 In order to explain an image classification predication, we have to have a trained CNN network (`nn.Cell`) and an image to be examined:
 
 ```python
-# have to change the current directory to xai_tutorial/ first
+# have to change the current directory to xai/examples/ first
 from mindspore import context, load_checkpoint, load_param_into_net
-from resnet import resnet50
-from dataset import load_image_tensor
+from common.resnet import resnet50
+from common.dataset import load_image_tensor
 
 # only PYNATIVE_MODE is supported
 context.set_context(mode=context.PYNATIVE_MODE)
@@ -85,20 +101,20 @@ num_classes = 20
 
 # load the trained classifier
 net = resnet50(num_classes)
-param_dict = load_checkpoint("resnet50.ckpt")
+param_dict = load_checkpoint("xai_examples_data/ckpt/resnet50.ckpt")
 load_param_into_net(net, param_dict)
 
 # [1, 3, 224, 224] Tensor
-boat_image = load_image_tensor("data/test/boat.jpg")
+boat_image = load_image_tensor("xai_examples_data/test/boat.jpg")
 ```
-
-Users may refer to [ModelZoo - ResNet](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/resnet) for the details of defining and training a ResNet50 model.
 
 ## Using GradCAM
 
 `GradCAM` is a typical and effective gradient based explainer:
 
 ```python
+import mindspore as ms
+from mindspore import Tensor
 from mindspore_xai.explanation import GradCAM
 
 # usually specify the last convolutional layer
@@ -115,12 +131,12 @@ The returned `saliency` is a 1x1x224x224 tensor for an 1xCx224x224 image tensor,
 For gradient based explainers, batch explanation is usually more efficient. Other explainers may also batch the evaluations:
 
 ```python
-from dataset import load_dataset
+from common.dataset import load_dataset
 
-test_ds = load_dataset('data/test').batch(4)
+test_ds = load_dataset('xai_examples_data/test').batch(4)
 
 for images, labels in test_ds:
-    saliencies = grad_cam(images, targets=5)
+    saliencies = grad_cam(images, targets=Tensor([5, 5, 5, 5], dtype=ms.int32))
     # other custom operations ...
 ```
 
@@ -132,25 +148,31 @@ The ways of using other explainers are very similar to `GradCAM`, except `RISEPl
 
 ### Using RISEPlus
 
+The tutorial below is referencing [using_rise_plus.py](https://gitee.com/mindspore/xai/examples/using_rise_plus.py) 。
+
 `RISEPlus` is based on `RISE` with an introduction of Out-of-Distribution(OoD) detector. It solves the degeneration problem of `RISE` on samples that the classifier had never seem the similar in training.
 
 First, we need to train an OoD detector(`OoDNet`) with the classifier training dataset:
 
 ```python
-from mindspore import save_checkpoint, load_checkpoint, load_param_into_net
-from mindspore.nn import SoftmaxCrossEntropyWithLogits
-from mindspore_xai.explanation import OoDNet
-from dataset import load_dataset
-from resnet import resnet50
+# have to change the current directory to xai/examples/ first
+from mindspore import context, save_checkpoint, load_checkpoint, load_param_into_net
+from mindspore.nn import Softmax, SoftmaxCrossEntropyWithLogits
+from mindspore_xai.explanation import OoDNet, RISEPlus, OoDNet
+from common.dataset import load_dataset
+from common.resnet import resnet50
+
+# only PYNATIVE_MODE is supported
+context.set_context(mode=context.PYNATIVE_MODE)
 
 num_classes = 20
 
 # classifier training dataset
-train_ds = load_dataset('data/train').batch(4)
+train_ds = load_dataset('xai_examples_data/train').batch(4)
 
 # load the trained classifier
 net = resnet50(num_classes)
-param_dict = load_checkpoint('resnet50.ckpt')
+param_dict = load_checkpoint('xai_examples_data/ckpt/resnet50.ckpt')
 load_param_into_net(net, param_dict)
 
 ood_net = OoDNet(underlying=net, num_classes=num_classes)
@@ -214,11 +236,6 @@ class MyLeNet5(nn.Cell):
 Now we can use `RISEPlus` with the trained `OoDNet`:
 
 ```python
-from mindspore import load_checkpoint, load_param_into_net
-from mindspore.nn import Softmax
-from mindspore_xai.explanation import RISEPlus, OoDNet
-from resnet import resnet50
-
 # create a new classifier as the underlying when loading OoDNet from a checkpoint
 ood_net = OoDNet(underlying=resnet50(num_classes), num_classes=num_classes)
 param_dict = load_checkpoint('ood_net.ckpt')

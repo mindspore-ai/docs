@@ -33,6 +33,8 @@
 
 ### 准备脚本
 
+以下教程参考了 [using_mindinsight.py](https://gitee.com/mindspore/xai/examples/using_mindinsight.py) 。
+
 当前[MindSpore XAI](https://www.mindspore.cn/xai)提供解释方法及给解释方法进行评估的度量Python API，已提供的解释方法可以通过`mindspore_xai.explanation`包获取，度量方法可以通过`mindspore_xai.benchmark`包获取。用户准备好待解释的黑盒模型和数据，在脚本中根据需要实例化解释方法及度量方法，调用API用于收集解释结果和解释度量结果。
 
 MindSpore XAI还提供`mindspore_xai.runner.ImageClassificationRunner`运行模块，支持自动化运行所有解释方法和度量方法。用户将实例化的解释方法及度量方法进行注册，即可自动运行解释方法及度量方法，并生成及保存包含解释结果及解释度量结果的解释日志。
@@ -40,57 +42,50 @@ MindSpore XAI还提供`mindspore_xai.runner.ImageClassificationRunner`运行模�
 下面以ResNet50及带有20类多标签数据为例，用户初始化`explanation`中解释方法及`benchmark`中度量方法，调用`ImageClassificationRunner`进行解释和度量。其样例代码如下：
 
 ```python
+# 必须先把当前目录切换到 xai/examples/
 import mindspore.nn as nn
 from mindspore import context
 from mindspore import load_checkpoint, load_param_into_net
 
 from mindspore_xai.explanation import GradCAM, GuidedBackprop
-from mindspore_xai.benchmark import Faithfulness, Localization
+from mindspore_xai.benchmark import Faithfulness
 from mindspore_xai.runner import ImageClassificationRunner
 
-from resnet import resnet50
-from dataset import load_dataset
+from common.resnet import resnet50
+from common.dataset import classes, load_dataset
 
-if __name__ == "__main__":
-    context.set_context(mode=context.PYNATIVE_MODE)
-    num_classes = 20
 
-    net = resnet50(num_classes)
-    param_dict = load_checkpoint("resnet50.ckpt")
-    load_param_into_net(net, param_dict)
+context.set_context(mode=context.PYNATIVE_MODE)
+num_classes = 20
 
-    # 构造解释器及加载黑盒模型
-    gradcam = GradCAM(net, layer='layer4')
-    guidedbackprop = GuidedBackprop(net)
+net = resnet50(num_classes)
+param_dict = load_checkpoint("xai_examples_data/ckpt/resnet50.ckpt")
+load_param_into_net(net, param_dict)
 
-    # 构造度量方法去为解释器评分
-    # 需要用激活函数去构造 Faithfulness 度量方法, Faithfulness 会使用激活函数把模型输出的 logit 转换为分类慨率
-    activation_fn = nn.Sigmoid()  # for multi-label classification
-    faithfulness = Faithfulness(num_labels=num_classes, metric='InsertionAUC', activation_fn=activation_fn)
-    localization = Localization(num_labels=num_classes, metric='PointingGame')
+# 构造解释器及加载黑盒模型
+gradcam = GradCAM(net, layer='layer4')
+guidedbackprop = GuidedBackprop(net)
 
-    # 构造要解释的数据集对象, 如果要仗用 Localization 评分, 数据集需要提供界框资讯
-    # 数据集要提供以下其中一种的资讯列组合: [图], [图, 标签] 或 [图, 标签, 界框] (资讯列的先后次序必须跟从)
-    # 请参阅 'mindspore.dataset.project' 的API文档了解如何管理资讯列
-    dataset = load_dataset('data/test', bbox=True)
+# 构造度量方法去为解释器评分
+# 需要用激活函数去构造 Faithfulness 度量方法, Faithfulness 会使用激活函数把模型输出的 logit 转换为分类慨率
+activation_fn = nn.Sigmoid()  # for multi-label classification
+faithfulness = Faithfulness(num_labels=num_classes, metric='InsertionAUC', activation_fn=activation_fn)
 
-    # 数据集的分类名称
-    classes = [
-     'aeroplane', 'bicycle', 'bird', 'boat', 'bottle', 'bus', 'car', 'cat',
-     'chair', 'cow', 'diningtable', 'dog', 'horse', 'motorbike', 'person',
-     'pottedplant', 'sheep', 'sofa', 'train', 'tvmonitor',
-    ]
+# 构造要解释的数据集对象, 如果要仗用 Localization 评分, 数据集需要提供界框资讯
+# 数据集要提供以下其中一种的资讯列组合: [图], [图, 标签] 或 [图, 标签, 界框] (资讯列的先后次序必须跟从)
+# 请参阅 'mindspore.dataset.project' 的API文档了解如何管理资讯列
+test_dataset = load_dataset('xai_examples_data/test')
 
-    data = (dataset, classes)
-    explainers = [gradcam, guidedbackprop]
-    benchmarkers = [faithfulness, localization]
+data = (test_dataset, classes)
+explainers = [gradcam, guidedbackprop]
+benchmarkers = [faithfulness]
 
-    # 构造 runner 时要指定 summary_dir 文件夹路径
-    runner = ImageClassificationRunner(summary_dir='./summary_dir', network=net, activation_fn=activation_fn, data=data)
-    runner.register_saliency(explainers, benchmarkers)
+# 构造 runner 时要指定 summary_dir 文件夹路径
+runner = ImageClassificationRunner(summary_dir='./summary_dir', network=net, activation_fn=activation_fn, data=data)
+runner.register_saliency(explainers, benchmarkers)
 
-    # 调用 runner.run() 会产生解释及评分结果并会保存到 summary_dir 文件夹
-    runner.run()
+# 调用 runner.run() 会产生解释及评分结果并会保存到 summary_dir 文件夹
+runner.run()
 ```
 
 ### 使用限制
