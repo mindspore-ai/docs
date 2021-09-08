@@ -42,8 +42,9 @@ import numpy as np
 from openfermion.chem import MolecularData
 from openfermionpyscf import run_pyscf
 import mindquantum as mq
-from mindquantum import Circuit, X, RX, Hamiltonian
-from mindquantum.circuit import generate_uccsd
+from mindquantum import Hamiltonian
+from mindquantum.gate import XGate, RX
+from mindquantum.circuit import Circuit, generate_uccsd
 from mindquantum.nn import generate_pqc_operator
 import mindspore as ms
 import mindspore.context as context
@@ -420,7 +421,7 @@ from mindquantum.hiqfermion.transforms import Transform
 from mindquantum.hiqfermion.ucc import get_qubit_hamiltonian
 from mindquantum.hiqfermion.ucc import uccsd_singlet_generator, uccsd_singlet_get_packed_amplitudes
 from mindquantum.circuit import TimeEvolution
-from mindquantum.nn.mindquantum_ansatz_only_layer import MindQuantumAnsatzOnlyLayer
+from mindquantum.nn import MindQuantumAnsatzOnlyLayer
 ```
 
 The molecule Hamiltonian uses `get_qubit_hamiltonian` to read the previous computing result. The result is as follows:

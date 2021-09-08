@@ -54,11 +54,12 @@ from collections.abc import Iterable
 
 import mindspore.nn as nn
 from mindspore import ParameterTuple
-from mindspore import context, DatasetHelper, save_checkpoint
+from mindspore import context, save_checkpoint
 from mindspore.nn import Cell
 import mindspore.ops as ops
 from model_zoo.official.cv.lenet.src.dataset import create_dataset
 from model_zoo.official.cv.lenet.src.lenet import LeNet5
+from mindspore import DatasetHelper
 ```
 
 ### 加载数据集
@@ -290,7 +291,7 @@ python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt
 
 ```python
 import numpy as np
-import mindspore.common.dtype as mstype
+from mindspore import dtype as mstype
 from mindspore import ops, context, Tensor, Parameter
 from mindspore.nn import TrainOneStepCell
 from mindspore.common.initializer import initializer

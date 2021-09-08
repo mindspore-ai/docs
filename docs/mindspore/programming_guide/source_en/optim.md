@@ -42,7 +42,7 @@ They are different implementations of `dynamic_lr`.
 For example, the code example of the `piecewise_constant_lr` class is as follows:
 
 ```python
-from mindspore.nn.dynamic_lr import piecewise_constant_lr
+from mindspore.nn import piecewise_constant_lr
 
 def test_dynamic_lr():
     milestone = [2, 5, 10]

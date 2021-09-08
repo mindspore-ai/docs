@@ -35,7 +35,7 @@ Import required modules.
 ```python
 import numpy as np
 import mindquantum as mq
-from mindquantum.gate import H, X, Y, RY, RX
+from mindquantum.gate import HGate, XGate, YGate, RY, RX
 ```
 
 ## Quantum Gate

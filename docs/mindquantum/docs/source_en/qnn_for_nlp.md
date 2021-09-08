@@ -37,7 +37,7 @@ from mindspore import nn
 from mindspore.train.callback import LossMonitor
 from mindspore import Model
 from mindquantum.nn import MindQuantumLayer
-from mindquantum.gate import Hamiltonian, RX, RY, X, H
+from mindquantum.gate import Hamiltonian, RX, RY, XGate, HGate
 from mindquantum.circuit import Circuit, UN
 ```
 

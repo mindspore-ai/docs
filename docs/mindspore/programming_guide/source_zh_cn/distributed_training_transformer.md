@@ -307,7 +307,7 @@ MindSpore分布式并行训练的通信使用了华为集合通信库`Huawei Col
 ```python
 import os
 from mindspore import context
-from mindspore.communication.management import init
+from mindspore.communication import init
 
 if __name__ == "__main__":
     context.set_context(mode=context.GRAPH_MODE, device_target="Ascend", device_id=int(os.environ["DEVICE_ID"]))
