@@ -1,10 +1,10 @@
-# Using weights to store values
+# Initialization of Parameters
 
 Translator: [Karlos Ma](https://gitee.com/Mavendetta985)
 
 <!-- TOC -->
 
-- [Using weights to store values](#using-weights-to-store-values)
+- [Initialization of Parameters](#initialization-of-parameters)
     - [Overview](#overview)
     - [Using Encapsulation Operator to Initialize Parameters](#using-encapsulation-operator-to-initialize-parameters)
         - [Character String](#character-string)
@@ -337,7 +337,7 @@ print(x, "\n\n", y, "\n\n", z)
 The following information is displayed:
 
 ```text
-Parameter (name=x, shape=(2, 3), dtype=Int32, requires_grad=True)
+ Parameter (name=x, shape=(2, 3), dtype=Int32, requires_grad=True)
 
  Parameter (name=y, shape=(1, 2, 3), dtype=Float32, requires_grad=True)
 

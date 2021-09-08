@@ -441,13 +441,13 @@ notes:
 
 | Binary Arithmetic Operator | Supported Type|
 | :----------- |:--------|
-| `+` |`Number` + `Number`, `String` + `String`, `Number` + `Tensor`, `Tensor` + `Number`, `Tuple` + `Tensor`, `Tensor` + `Tuple`, <br/>`List` + `Tensor`, `Tensor`+`List`, `List`+`List`, `Tensor` + `Tensor`, `RowTensor`+`Tensor`, `Tuple` + `Tuple`.|
-| `-` |`Number` - `Number`, `Tensor` - `Tensor`, `Number` -`Tensor`, `Tensor` - `Number`, `Tuple` -`Tensor`, `Tensor` -`Tuple`, <br/>`List` -`Tensor`, `Tensor` -`List`.|
-| `*` |`Number` * `Number`, `Tensor` * `Tensor`, `Number` * `Tensor`, `Tensor` * `Number`, `List` * `Number`, <br>`Number` * `List`, `Tuple` * `Number`, `Number` * `Tuple`, `Tuple` * `Tensor`, `Tensor` * `Tuple`,  `List` * `Tensor`, <br>`Tensor` * `List`.|
-| `/` |`Number` / `Number`, `Tensor` / `Tensor`, `Number` / `Tensor`, `Tensor` / `Number`, `Tuple` / `Tensor`, `Tensor` / `Tuple`, <br/> `List` / `Tensor`, `Tensor` / `List`.|
-| `%` |`Number` % `Number`, `Tensor` % `Tensor`, `Number` % `Tensor`, `Tensor` % `Number`, `Tuple` % `Tensor`, <br>`Tensor` % `Tuple`, `List` % `Tensor`, `Tensor` % `List`.|
-| `**` |`Number` ** `Number`, `Tensor` ** `Tensor`, `Number` ** `Tensor`, `Tensor` ** `Number`, `Tuple` ** `Tensor`, <br/>`Tensor` ** `Tuple`,  `List` ** `Tensor`, `Tensor` ** `List`.|
-| `//` |`Number` // `Number`, `Tensor` // `Tensor`, `Number` // `Tensor`, `Tensor` // `Number`, `Tuple` // `Tensor`, <br>`Tensor` // `Tuple`,  `List` // `Tensor`, `Tensor` // `List`.|
+| `+` |`Number` + `Number`, `String` + `String`, `Number` + `Tensor`, `Tensor` + `Number`, `Tuple` + `Tensor`, `Tensor` + `Tuple`, `List` + `Tensor`, `Tensor`+`List`, `List`+`List`, `Tensor` + `Tensor`, `RowTensor`+`Tensor`, `Tuple` + `Tuple`.|
+| `-` |`Number` - `Number`, `Tensor` - `Tensor`, `Number` -`Tensor`, `Tensor` - `Number`, `Tuple` -`Tensor`, `Tensor` -`Tuple`, `List` -`Tensor`, `Tensor` -`List`.|
+| `*` |`Number` * `Number`, `Tensor` * `Tensor`, `Number` * `Tensor`, `Tensor` * `Number`, `List` * `Number`, `Number` * `List`, `Tuple` * `Number`, `Number` * `Tuple`, `Tuple` * `Tensor`, `Tensor` * `Tuple`,  `List` * `Tensor`, `Tensor` * `List`.|
+| `/` |`Number` / `Number`, `Tensor` / `Tensor`, `Number` / `Tensor`, `Tensor` / `Number`, `Tuple` / `Tensor`, `Tensor` / `Tuple`,  `List` / `Tensor`, `Tensor` / `List`.|
+| `%` |`Number` % `Number`, `Tensor` % `Tensor`, `Number` % `Tensor`, `Tensor` % `Number`, `Tuple` % `Tensor`, `Tensor` % `Tuple`, `List` % `Tensor`, `Tensor` % `List`.|
+| `**` |`Number` \*\* `Number`, `Tensor` \*\* `Tensor`, `Number` \*\* `Tensor`, `Tensor` \*\* `Number`, `Tuple` \*\* `Tensor`, `Tensor` \*\* `Tuple`,  `List` \*\* `Tensor`, `Tensor` \*\* `List`.|
+| `//` |`Number` // `Number`, `Tensor` // `Tensor`, `Number` // `Tensor`, `Tensor` // `Number`, `Tuple` // `Tensor`, `Tensor` // `Tuple`,  `List` // `Tensor`, `Tensor` // `List`.|
 
 Restrictions:
 
@@ -460,13 +460,13 @@ Restrictions:
 | Assignment Operator | Supported Type|
 | :----------- |:--------|
 | `=`          |All Built-in Python Types that MindSpore supported and MindSpore User-defined Data Types.|
-| `+=` |`Number` += `Number`, `String` += `String`, `Number` += `Tensor`, `Tensor` += `Number`, `Tuple` += `Tensor`, <br>`Tensor` += `Tuple`, `List` += `Tensor`, `Tensor` += `List`, `List` += `List`, `Tensor` += `Tensor`, `RowTensor` += `Tensor`, <br>`Tuple` += `Tuple`.|
-| `-=` |`Number` -= `Number`, `Tensor` -= `Tensor`, `Number` -= `Tensor`, `Tensor` -= `Number`, `Tuple` -= `Tensor`, <br>`Tensor` -= `Tuple`, `List` -= `Tensor`, `Tensor` -= `List`.|
-| `*=` |`Number` *= `Number`, `Tensor` *= `Tensor`, `Number` *= `Tensor`, `Tensor` *= `Number`, `List` *= `Number`, <br/>`Number` *= `List`, `Tuple` *= `Number`, `Number` *= `Tuple`, `Tuple` *= `Tensor`, `Tensor` *= `Tuple`,  `List` *= `Tensor`, <br/>`Tensor` *= `List`.|
-| `/=` |`Number` /= `Number`, `Tensor` /= `Tensor`, `Number` /= `Tensor`, `Tensor` /= `Number`, `Tuple` /= `Tensor`, <br>`Tensor` /= `Tuple`, `List` /= `Tensor`, `Tensor` /= `List`.|
-| `%=` |`Number` %= `Number`, `Tensor` %= `Tensor`, `Number` %= `Tensor`, `Tensor` %= `Number`, `Tuple` %= `Tensor`, <br>`Tensor` %= `Tuple`,  `List` %= `Tensor`、`Tensor` %= `List`.|
-| `**=` |`Number` \*\*= `Number`, `Tensor` \*\*= `Tensor`, `Number` \*\*= `Tensor`, `Tensor` \*\*= `Number`, `Tuple` \*\*= `Tensor`, <br/>`Tensor` \*\*= `Tuple`,  `List` \*\*= `Tensor`, `Tensor` \*\*= `List`.|
-| `//=` |`Number` //= `Number`, `Tensor` //= `Tensor`, `Number` //= `Tensor`, `Tensor` //= `Number`, `Tuple` //= `Tensor`, <br>`Tensor` //= `Tuple`, `List` //= `Tensor`, `Tensor` //= `List`.|
+| `+=` |`Number` += `Number`, `String` += `String`, `Number` += `Tensor`, `Tensor` += `Number`, `Tuple` += `Tensor`, `Tensor` += `Tuple`, `List` += `Tensor`, `Tensor` += `List`, `List` += `List`, `Tensor` += `Tensor`, `RowTensor` += `Tensor`, `Tuple` += `Tuple`.|
+| `-=` |`Number` -= `Number`, `Tensor` -= `Tensor`, `Number` -= `Tensor`, `Tensor` -= `Number`, `Tuple` -= `Tensor`, `Tensor` -= `Tuple`, `List` -= `Tensor`, `Tensor` -= `List`.|
+| `*=` |`Number` *= `Number`, `Tensor` *= `Tensor`, `Number` *= `Tensor`, `Tensor` *= `Number`, `List` *= `Number`, `Number` *= `List`, `Tuple` *= `Number`, `Number` *= `Tuple`, `Tuple` *= `Tensor`, `Tensor` *= `Tuple`,  `List` *= `Tensor`, `Tensor` *= `List`.|
+| `/=` |`Number` /= `Number`, `Tensor` /= `Tensor`, `Number` /= `Tensor`, `Tensor` /= `Number`, `Tuple` /= `Tensor`, `Tensor` /= `Tuple`, `List` /= `Tensor`, `Tensor` /= `List`.|
+| `%=` |`Number` %= `Number`, `Tensor` %= `Tensor`, `Number` %= `Tensor`, `Tensor` %= `Number`, `Tuple` %= `Tensor`, `Tensor` %= `Tuple`,  `List` %= `Tensor`、`Tensor` %= `List`.|
+| `**=` |`Number` \*\*= `Number`, `Tensor` \*\*= `Tensor`, `Number` \*\*= `Tensor`, `Tensor` \*\*= `Number`, `Tuple` \*\*= `Tensor`, `Tensor` \*\*= `Tuple`,  `List` \*\*= `Tensor`, `Tensor` \*\*= `List`.|
+| `//=` |`Number` //= `Number`, `Tensor` //= `Tensor`, `Number` //= `Tensor`, `Tensor` //= `Number`, `Tuple` //= `Tensor`, `Tensor` //= `Tuple`, `List` //= `Tensor`, `Tensor` //= `List`.|
 
 Notes:
 
@@ -504,8 +504,8 @@ Restrictions:
 | <= | `Number` <= `Number`, `Number` <= `Tensor`, `Tensor` <= `Tensor`, `Tensor` <= `Number`. |
 | > | `Number` > `Number`, `Number` > `Tensor`, `Tensor` > `Tensor`, `Tensor` > `Number`. |
 | >= | `Number` >= `Number`, `Number` >= `Tensor`, `Tensor` >= `Tensor`, `Tensor` >= `Number`. |
-| != | `Number` != `Number` , `Number` != `Tensor`, `Tensor` != `Tensor`, `Tensor` != `Number`, <br>`mstype` != `mstype`, `String` != `String`, `Tuple !` = `Tuple`, `List` != `List`. |
-| == | `Number` == `Number`, `Number` == `Tensor`, `Tensor` == `Tensor`, `Tensor` == `Number`, <br/>`mstype` == `mstype`, `String` == `String`, `Tuple` == `Tuple`, `List` == `List`. |
+| != | `Number` != `Number` , `Number` != `Tensor`, `Tensor` != `Tensor`, `Tensor` != `Number`, `mstype` != `mstype`, `String` != `String`, `Tuple !` = `Tuple`, `List` != `List`. |
+| == | `Number` == `Number`, `Number` == `Tensor`, `Tensor` == `Tensor`, `Tensor` == `Number`, `mstype` == `mstype`, `String` == `String`, `Tuple` == `Tuple`, `List` == `List`. |
 
 Restrictions:
 

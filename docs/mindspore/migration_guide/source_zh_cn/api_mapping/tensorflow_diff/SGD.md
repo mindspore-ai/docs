@@ -61,7 +61,7 @@ optim = nn.Adagrad(group_params, learning_rate=0.1, weight_decay=0.0)
 loss = nn.SoftmaxCrossEntropyWithLogits()
 model = Model(net, loss_fn=loss, optimizer=optim)
 
-# The following implements SGD with tensorflow.
+# The following implements SGD with TensorFlow.
 image = tf.keras.layers.Input(shape=(28, 28, 1))
 model = tf.keras.models.Model(image, net)
 optim = tf.keras.optimizers.SGD()
