@@ -287,6 +287,7 @@ Functions
 ^^^^^^^^^
 
 - :doc:`../generate/function_mindspore_dataset_Affine-1`
+- :doc:`../generate/function_mindspore_dataset_Affine-2`
 - :doc:`../generate/function_mindspore_dataset_ApplyNms-1`
 - :doc:`../generate/function_mindspore_dataset_Canny-1`
 - :doc:`../generate/function_mindspore_dataset_Conv2D-1`

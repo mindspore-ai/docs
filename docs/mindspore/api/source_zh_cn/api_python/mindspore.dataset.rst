@@ -97,4 +97,5 @@ Others
     mindspore.dataset.deserialize
     mindspore.dataset.serialize
     mindspore.dataset.show
+    mindspore.dataset.utils.imshow_det_bbox
     mindspore.dataset.zip

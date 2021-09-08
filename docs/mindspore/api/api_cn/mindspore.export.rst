@@ -37,7 +37,11 @@ mindspore.export
 
            - **enc_mode**(str): 指定加密模式，当设置enc_key时，选项有：“AES-GCM”，“AES-CBC”。默认值：“AES-GCM”。
 
+           - **dataset**(Dataset): 指定数据集对象，用于将数据集的预处理导入MindIR。
+
   样例：
+
+      计算图导出MindIR：
 
       .. code-block::
 
@@ -47,3 +51,15 @@ mindspore.export
               >>> net = LeNet()
               >>> input = Tensor(np.ones([1, 1, 32, 32]).astype(np.float32))
               >>> export(net, Tensor(input), file_name='lenet', file_format='MINDIR')
+
+      计算图与数据预处理图导出MindIR：
+
+      .. code-block::
+
+              >>> # 指定数据集对象，将数据预处理也导出至MindIR
+              >>> from mindspore import export, Tensor
+              >>>
+              >>> net = LeNet()
+              >>> input = Tensor(np.ones([1, 1, 32, 32]).astype(np.float32))
+              >>> de_dataset = create_mnist_dataset()
+              >>> export(net, Tensor(input), file_name='lenet', file_format='MINDIR', dataset=de_dataset)
