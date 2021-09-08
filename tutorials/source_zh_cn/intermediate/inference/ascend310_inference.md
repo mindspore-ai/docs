@@ -3,7 +3,8 @@
 <!-- TOC -->
 
 - [Ascend310处理器上推理MindIR模型](#ascend310处理器上推理mindir模型)
-    - [推理代码介绍](#推理代码介绍)
+    - [不带数据预处理的模型推理代码介绍](#模型不带预处理的推理代码介绍)
+    - [自带数据预处理的模型推理代码介绍](#模型自带预处理的推理代码介绍)
     - [构建脚本介绍](#构建脚本介绍)
     - [编译并执行推理代码](#编译并执行推理代码)
 
@@ -13,7 +14,7 @@
 
 本文介绍如何在Ascend310处理器中推理MindIR模型。Ascend环境配置可参考[Ascend安装指南](https://www.mindspore.cn/install/)，完整推理代码可参考[ascend310_resnet50_preprocess_sample](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/ascend310_resnet50_preprocess_sample)。
 
-## 推理代码介绍
+## 不带数据预处理的模型推理代码介绍
 
 推理部分使用了CPU算子来进行数据的预处理，然后完成推理。整体代码存放在`main.cc`文件中，现在对其中的功能实现进行说明。
 
@@ -97,6 +98,61 @@ ret = resnet50.Predict(inputs, &outputs);
 std::cout << "Image: " << image_file << " infer result: " << GetMax(outputs[0]) << std::endl;
 ```
 
+## 自带数据预处理的模型推理代码介绍
+
+由于数据预处理部分已经嵌入到MindIR，直接加载模型并输入图像即可完成推理。
+整体代码存放在`main_mindir_preprocess.cc`文件中，现在对其中的功能实现进行说明。
+
+引用`mindspore`和`mindspore::dataset`的名字空间。
+
+```c++
+namespace ms = mindspore;
+namespace ds = mindspore::dataset;
+```
+
+环境初始化，指定硬件为Ascend 310，DeviceID为0：
+
+```c++
+auto context = std::make_shared<ms::Context>();
+auto ascend310_info = std::make_shared<ms::Ascend310DeviceInfo>();
+ascend310_info->SetDeviceID(0);
+context->MutableDeviceInfo().push_back(ascend310_info);
+```
+
+加载模型文件：
+
+通过Load接口，即可把模型的计算图和模型的数据预处理流程加载到Model中。
+
+```c++
+// 加载MindIR模型
+ms::Graph graph;
+ms::Status ret = ms::Serialization::Load(resnet_file, ms::ModelType::kMindIR, &graph);
+// 图编译
+ms::Model resnet50;
+ret = resnet50.Build(ms::GraphCell(graph), context);
+```
+
+获取模型所需输入信息：
+
+```c++
+std::vector<ms::MSTensor> model_inputs = resnet50.GetInputs();
+```
+
+提供图片文件直接执行推理：
+
+```c++
+std::vector<MSTensor> outputs;
+// 此处提供需要预测的图片路径
+ret = resnet50.Predict(image_path, &outputs);
+```
+
+获取推理结果：
+
+```c++
+// 获取推理结果的最大概率
+std::cout << "Image: " << image_file << " infer result: " << GetMax(outputs[0]) << std::endl;
+```
+
 ## 构建脚本介绍
 
 构建脚本用于构建用户程序，完整代码位于`CMakeLists.txt` ，下面进行解释说明。
@@ -121,6 +177,9 @@ file(GLOB_RECURSE MD_LIB ${MINDSPORE_PATH}/_c_dataengine*)
 ```cmake
 add_executable(resnet50_sample main.cc)
 target_link_libraries(resnet50_sample ${MS_LIB} ${MD_LIB})
+
+add_executable(resnet50_mindir_preprocess main_mindir_preprocess.cc)
+target_link_libraries(resnet50_mindir_preprocess ${MS_LIB} ${MD_LIB})
 ```
 
 ## 编译并执行推理代码
@@ -139,8 +198,14 @@ cmake . -DMINDSPORE_PATH=`pip3 show mindspore-ascend | grep Location | awk '{pri
 make
 ```
 
-编译成功后，会获得`resnet50_sample`可执行文件。在工程目录`ascend310_resnet50_preprocess_sample`下创建`model`目录放置MindIR文件[resnet50_imagenet.mindir](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet.mindir)。此外，创建`test_data`目录用于存放待分类的图片，图片可来自ImageNet等各类开源数据集，输入执行命令即可获取推理结果：
+对于不带数据预处理的模型推理代码，编译成功后，会获得`resnet50_sample`可执行文件。在工程目录`ascend310_resnet50_preprocess_sample`下创建`model`目录放置MindIR文件[resnet50_imagenet.mindir](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet.mindir)。此外，创建`test_data`目录用于存放待分类的图片，图片可来自ImageNet等各类开源数据集，输入执行命令即可获取推理结果：
 
 ```bash
 ./resnet50_sample
+```
+
+对于自带数据预处理的模型推理代码，编译成功后，会获得`resnet50_mindir_preprocess`可执行文件。在工程目录`ascend310_resnet50_preprocess_sample`下创建`model`目录放置MindIR文件[resnet50_imagenet_with_preprocess.mindir](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet_with_preprocess.mindir)，并在`image_path`中提供所要进行推理的图片路径，输入执行命令即可获取推理结果：
+
+```bash
+./resnet50_mindir_preprocess
 ```
