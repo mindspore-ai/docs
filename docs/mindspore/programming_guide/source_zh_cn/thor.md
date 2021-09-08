@@ -66,7 +66,8 @@
 
 THOR受KFAC启发，将费雪矩阵按层解耦来降低矩阵复杂度，分别针对每一层的费雪矩阵做实验，发现有些层的费雪矩阵趋于稳态的速度更快，因此在统一的更新间隔上，更加细粒度的去调整每一层的更新频率。THOR使用矩阵的迹作为判断条件，当迹的变化情况大于某一阈值时更新该层的二阶信息矩阵，否则沿用上一个迭代的二阶信息矩阵，并且引入了停止更新机制，当迹的变化量小于某个阈值时停止更新该层二阶信息矩阵，具体更新公式如下：
 
-$$\begin{cases}
+$$
+\begin{cases}
 update\ F^{k}_{i} , \ \ \quad\qquad\qquad\qquad\qquad if \ \Delta^{k} \in (\omega_{1},+\infty)\\
 do\ not\ update\ F^{k}_{i}\ and\ set\\
 F^{k}_{i}=F^{k-1}_{i}, \ \quad\qquad\qquad\qquad\qquad if \ \Delta^{k} \in [\omega_{2},\omega_{1}]\\
