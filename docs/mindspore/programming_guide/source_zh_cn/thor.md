@@ -21,7 +21,7 @@
 
 ## 优化器背景介绍
 
-假设训练样本数据集：$D = {(x_1,y_1),...,(x_i,y_i),...,(x_N,y_N)},x_i \in X,y_i\in Y$，参数θ表述的深度神经网络模型为： $\hat{y} = f(x;\theta),x\in{X}$， 定义在模型输出和真实标签y之间的损失函数为：$L(y,\hat y),y \in Y$， 网络参数学习的过程是最小化损失函数的过程：$\underset{\theta}{\mathrm min}L(y,\hat{y})$。给定数据集、模型、损失函数后，深度学习训练问题归结为优化问题，深度神经网络训练优化问题参数规模巨大，需要大量的计算，难以计算出解析解。因此该过程也常常被比喻成下山，如图1 所示，一个人站在山顶的时候如何在有限视距内寻找最快路径下山呢？
+假设训练样本数据集：$D = {(x_1,y_1),...,(x_i,y_i),...,(x_N,y_N)},x_i \in X,y_i\in Y$，参数θ表述的深度神经网络模型为： $\hat{y} = f(x;\theta),x\in{X}$， 定义在模型输出和真实标签y之间的损失函数为：$L(y,\hat y),y \in Y$， 网络参数学习的过程是最小化损失函数的过程：$\min\limits_{\theta}L(y,\hat{y})$。给定数据集、模型、损失函数后，深度学习训练问题归结为优化问题，深度神经网络训练优化问题参数规模巨大，需要大量的计算，难以计算出解析解。因此该过程也常常被比喻成下山，如图1 所示，一个人站在山顶的时候如何在有限视距内寻找最快路径下山呢？
 
 ![The process of deeplearning training](./images/deeplearning_train_process.png)
 
@@ -49,7 +49,7 @@
 
 从数学公式上来看，与一阶优化算法相比，二阶优化算法则是先将$\nabla L_{\theta}$与一个矩阵$G^{-1}$相乘，产生如下的更新规则：$\theta = \theta -\eta G^{-1}\nabla L_{\theta}$，其中G即为二阶信息矩阵，不同的二阶优化算法中的G定义是不同的，常见的二阶优化算法有牛顿法，自然梯度法等，分别对应的二阶信息矩阵G为海森矩阵，费雪矩阵。
 
-牛顿法有着很好的局部收敛性质，当函数L在最优值点$\theta ^{\*}$点满足$\nabla L_{\theta ^{\*}}=0,\nabla ^{2}L_{\theta ^{\*}}$是正定矩阵, 且海森矩阵在极值点附近是李普希兹连续时，牛顿法二次收敛到最优值点。 海森矩阵是一个由多变量实值函数的所有二阶偏导数组成的方块矩阵。海森矩阵可以表示为：$H_{ij} = \frac{\partial^2L}{\partial \theta_i \partial \theta_j}$，其中L即为损失函数，$\theta$是需要更新的参数。
+牛顿法有着很好的局部收敛性质，当函数L在最优值点$\theta^{*}$点满足$\nabla L_{\theta^{*}}=0,\nabla^{2} L_{\theta^{*}}$是正定矩阵, 且海森矩阵在极值点附近是李普希兹连续时，牛顿法二次收敛到最优值点。 海森矩阵是一个由多变量实值函数的所有二阶偏导数组成的方块矩阵。海森矩阵可以表示为：$H_{ij} = \frac{\partial^2L}{\partial \theta_i \partial \theta_j}$，其中L即为损失函数，$\theta$是需要更新的参数。
 
 在SGD中，参数空间和函数空间的度量用的都是欧式距离，但欧式距离在一些情况下不能作为函数空间准确的距离度量。例如神经网络中，参数引起的目标函数变化是概率的变化，这并不适合在欧几里得空间度量，它不是概率属性变化的合理表征。KL散度是分布之间距离的合理度量。当使用KL散度作为概率分布之间距离的度量时。此时参数更新时，用到的梯度就是自然梯度。自然梯度法中的费雪矩阵可以表示为：$F=\mathrm{E}[\frac{\partial \mathrm {log} p(y|x,\theta)}{\partial \theta}{\frac{\partial \mathrm {log} p(y|x,\theta)}{\partial \theta}}^T]$，其中P(y|x,θ)是网络模型的预测分布，p(y|x,θ)是其概率密度，θ是需要网络模型的参数。
 
@@ -66,17 +66,18 @@
 
 THOR受KFAC启发，将费雪矩阵按层解耦来降低矩阵复杂度，分别针对每一层的费雪矩阵做实验，发现有些层的费雪矩阵趋于稳态的速度更快，因此在统一的更新间隔上，更加细粒度的去调整每一层的更新频率。THOR使用矩阵的迹作为判断条件，当迹的变化情况大于某一阈值时更新该层的二阶信息矩阵，否则沿用上一个迭代的二阶信息矩阵，并且引入了停止更新机制，当迹的变化量小于某个阈值时停止更新该层二阶信息矩阵，具体更新公式如下：
 
-$\Delta^k=\frac{||tr(F^k_i+\lambda I)|-|tr(F^{k-1}_i+\lambda I)||}{|tr(F^{k-1}_i+\lambda I)|}$
-
 $$\begin{cases}
-update F^k_i, \qquad\qquad\qquad\qquad\qquad if \Delta^{k} \in (\omega_1,+\infty)}\\
+update\ F^{k}_{i} , \ \ \quad\qquad\qquad\qquad\qquad if \ \Delta^{k} \in (\omega_{1},+\infty)\\
 do\ not\ update\ F^{k}_{i}\ and\ set\\
-F^{k}_{i}=F^{k-1}_{i},\ \qquad\qquad\qquad\qquad\qquad if \Delta^k \in [\omega_{2}, \omega_{1}]
-\\
+F^{k}_{i}=F^{k-1}_{i}, \ \quad\qquad\qquad\qquad\qquad if \ \Delta^{k} \in [\omega_{2},\omega_{1}]\\
 stop\ update\ F^{k}_{i}\ and\ set\\
-F^{k+t}_{i}\equiv F^{k-1}_{i}\ for\ all\ t=1,2,...\quad if \Delta^{k} \in [0, \omega_{2})
+F^{k+t}_{t}\equiv F^{k-1}_{i}\ for\ all\ t=1,2,...\quad if \ \Delta^{k} \in [0,\omega_{2})
 \end{cases}
 $$
+
+其中：
+
+$$\Delta^k=\frac{||tr(F^k_i+\lambda I)|-|tr(F^{k-1}_i+\lambda I)||}{|tr(F^{k-1}_i+\lambda I)|}$$
 
 ### 硬件感知矩阵切分
 
@@ -88,7 +89,7 @@ THOR在将费雪矩阵按层解耦的基础上，进一步假设每个网络层�
 
 （2）根据确定的矩阵维度，根据谱范数计算每个维度下的矩阵损失，具体公式为：
 
-$$L=1-\sqrt{\frac{\lambda_{max}\ \(\hat{A}{\hat{A}}^T)}{\lambda_{max}\ \(AA^T)}}$$
+$$L=1-\sqrt{\frac{\lambda_{max}\ \ (\hat{A}\hat{A}^T)}{\lambda_{max}\ \ (AA^T)}}$$
 
 其中$\lambda_{max}(X)$表示矩阵$X$的最大特征值，$A$表示原始未分割矩阵， $\hat A$表示分割后的矩阵。然后统计在该维度下损失小于1%的矩阵数量，最后通过除以总的矩阵数量得到标准化后的矩阵损失信息。
 
