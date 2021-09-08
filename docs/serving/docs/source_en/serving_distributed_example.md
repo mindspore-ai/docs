@@ -42,7 +42,7 @@ The following uses a simple distributed network MatMul as an example to demonstr
 
 ### Environment Preparation
 
-Before running the example, ensure that MindSpore Serving has been correctly installed. If not, install MindSpore Serving by referring to the [MindSpore Serving installation page](https://gitee.com/mindspore/serving/blob/r1.3/README.md#installation), and configure environment variables by referring to the [MindSpore Serving environment configuration page](https://gitee.com/mindspore/docs/blob/r1.3/install/mindspore_ascend_install_source_en.md#configuring-environment-variables).
+Before running the sample network, ensure that MindSpore Serving has been properly installed and the environment variables are configured. To install and configure MindSpore Serving on your PC, go to the [MindSpore Serving installation page](https://www.mindspore.cn/serving/docs/en/r1.3/serving_install.html).
 
 ### Exporting a Distributed Model
 
