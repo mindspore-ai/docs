@@ -1,16 +1,6 @@
-# MindSPONGE
+# MindSPONGE简介与安装
 
-- [MindSPONGE介绍](#MindSPONGE介绍)
-- [安装教程](#安装教程)
-    - [确认系统环境信息](#确认系统环境信息)
-    - [安装](#安装)
-        - [安装MindSpore](#安装mindspore)
-        - [安装MindSPONGE](#安装MindSPONGE)
-    - [源码安装](#源码安装)
-- [社区](#社区)
-    - [治理](#治理)
-- [贡献](#贡献)
-- [许可证](#许可证)
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindscience/docs/source_zh_cn/mindsponge/intro_and_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## MindSPONGE介绍
 
@@ -24,7 +14,7 @@ MindSPONGE中包含了多个传统分子模拟案例，更多详情，请点击�
 
 未来，MindSPONGE中将包含更多结合AI算法的分子模拟案例，欢迎大家的关注和支持。
 
-## 安装教程
+## 安装指南
 
 ### 确认系统环境信息
 
@@ -62,17 +52,3 @@ pip install ./output/mindsponge-*.whl
     cd ~/MindScience/MindSPONGE
     python setup.py install --user
     ```
-
-## 社区
-
-### 治理
-
-查看MindSpore如何进行[开放治理](https://gitee.com/mindspore/community/blob/master/governance.md)。
-
-## 贡献
-
-欢迎参与贡献MindSPONGE。更多详情，请参阅我们的[贡献者Wiki](https://gitee.com/mindspore/mindspore/blob/master/CONTRIBUTING.md)。
-
-## 许可证
-
-[Apache License 2.0](LICENSE)

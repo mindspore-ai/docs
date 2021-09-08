@@ -1,10 +1,10 @@
-# 基于AI分子力场进行分子动力学模拟
+# 基于AI分子力场模拟分子动力学
 
 `Linux` `GPU` `模型开发` `高级`
 
 <!-- TOC -->
 
-- [MindSPONGE分子模拟实践](#MindSPONGE分子模拟实践)
+- [基于AI分子力场模拟分子动力学](#基于ai分子力场模拟分子动力学)
     - [概述](#概述)
     - [准备环节](#准备环节)
     - [背景介绍](#背景介绍)
@@ -15,7 +15,8 @@
     - [结果可视化](#结果可视化)
 
 <!-- /TOC -->
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindsponge/docs/source_zh_cn/mindsponge_claisen.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindscience/docs/source_zh_cn/mindsponge/claisen.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 

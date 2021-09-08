@@ -4,17 +4,18 @@
 
 <!-- TOC -->
 
-- [summary](#summary)
-    - [Specifying the Actor-Learner-Environment Abstraction for DQN](#Specifying the Actor-Learner-Environment Abstraction for DQN)
-    - [Defining the DQNTrainer class](#Defining the DQNTrainer class)
-    - [Defining the DQNPolicy class](#Defining the DQNPolicy class)
-    - [Defining the DQNActor class](#Defining the DQNActor class)
-    - [Defining the DQNLearner class](#Defining the DQNLearner class)
-- [Execute and view results](#Execute and view results)
+- [Deep Q Learning (DQN) with MindSpore Reinforcement](#deep-q-learning-dqn-with-mindspore-reinforcement)
+    - [summary](#summary)
+    - [Specifying the Actor-Learner-Environment Abstraction for DQN](#specifying-the-actor-learner-environment-abstraction-for-dqn)
+        - [Defining the DQNTrainer class](#defining-the-dqntrainer-class)
+        - [Defining the DQNPolicy class](#defining-the-dqnpolicy-class)
+        - [Defining the DQNActor class](#defining-the-dqnactor-class)
+        - [Defining the DQNLearner class](#defining-the-dqnlearner-class)
+    - [Execute and view results](#execute-and-view-results)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/docs/reinforcement/docs/source_en/dqn_tutorial.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/reinforcement/docs/source_en/dqn.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## summary
 
