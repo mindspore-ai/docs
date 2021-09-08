@@ -6,7 +6,7 @@
 
 - [Using MindInsight Visualization](#using-mindinsight-visualization)
     - [Operation Process](#operation-process)
-        - [Downloading Tutorial Package](#downloading-tutorial-package)
+        - [Downloading Data Package](#downloading-data-package)
         - [Preparing the Script](#preparing-the-script)
         - [Restrictions](#restrictions)
         - [Enabling MindInsight](#enabling-mindinsight)
@@ -27,11 +27,13 @@
 
 ## Operation Process
 
-### Downloading Tutorial Package
+### Downloading Data Package
 
-Please follow the [Downloading Tutorial Package](https://www.mindspore.cn/xai/docs/en/master/using_explainers.html#id4) instructions to download the necessary files for the tutorial.
+Please follow the [Downloading Data Package](https://www.mindspore.cn/xai/docs/en/master/using_explainers.html#id4) instructions to download the necessary files for the tutorial.
 
 ### Preparing the Script
+
+The tutorial below is referencing [using_mindinsight.py](https://gitee.com/mindspore/xai/examples/using_mindinsight.py) 。
 
 Currently, [MindSpore XAI](https://www.mindspore.cn/xai/en) provides the explanation methods and explanation evaluation Python API. You can use the provided explanation methods by  `mindspore_xai.explanation` and the provided explanation evaluation by `mindspore_xai.benchmark`. You need to prepare the black-box model and data to be explained, instantiate explanation methods or explanation evaluation according to your need and call the explanation API in your script to collect the explanation result and explanation evaluation result.
 
@@ -40,57 +42,50 @@ MindSpore XAI also provides `mindspore_xai.runner.ImageClassificationRunner` to 
 The following uses ResNet-50 and multi-label dataset with 20 classes as an example. Initializing the explanation methods in `explanation` and the evaluation methods in `benchmark`, the users can then use `ImageClassificationRunner` to execute and explanation and evaluation for the black-box model. The sample code is as follows:
 
 ```python
+# have to change the current directory to xai/examples/ first
 import mindspore.nn as nn
 from mindspore import context
 from mindspore import load_checkpoint, load_param_into_net
 
 from mindspore_xai.explanation import GradCAM, GuidedBackprop
-from mindspore_xai.benchmark import Faithfulness, Localization
+from mindspore_xai.benchmark import Faithfulness
 from mindspore_xai.runner import ImageClassificationRunner
 
-from resnet import resnet50
-from dataset import load_dataset
+from common.resnet import resnet50
+from common.dataset import classes, load_dataset
 
-if __name__ == "__main__":
-    context.set_context(mode=context.PYNATIVE_MODE)
-    num_classes = 20
 
-    net = resnet50(num_classes)
-    param_dict = load_checkpoint("resnet50.ckpt")
-    load_param_into_net(net, param_dict)
+context.set_context(mode=context.PYNATIVE_MODE)
+num_classes = 20
 
-    # initialize explainers with the loaded black-box model
-    gradcam = GradCAM(net, layer='layer4')
-    guidedbackprop = GuidedBackprop(net)
+net = resnet50(num_classes)
+param_dict = load_checkpoint("xai_examples_data/ckpt/resnet50.ckpt")
+load_param_into_net(net, param_dict)
 
-    # initialize benchmarkers to evaluate the chosen explainers
-    # for Faithfulness, the initialization needs an activation function that transforms the output of the network to a probability is also needed
-    activation_fn = nn.Sigmoid()  # for multi-label classification
-    faithfulness = Faithfulness(num_labels=num_classes, metric='InsertionAUC', activation_fn=activation_fn)
-    localization = Localization(num_labels=num_classes, metric='PointingGame')
+# initialize explainers with the loaded black-box model
+gradcam = GradCAM(net, layer='layer4')
+guidedbackprop = GuidedBackprop(net)
 
-    # returns the dataset to be explained, when localization is chosen, the dataset is required to provide bounding box
-    # the columns of the dataset should be in [image], [image, labels], or [image, labels, bbox] (order matters)
-    # You may refer to 'mindspore.dataset.project' for columns managements
-    dataset = load_dataset('data/test', bbox=True)
+# initialize benchmarkers to evaluate the chosen explainers
+# for Faithfulness, the initialization needs an activation function that transforms the output of the network to a probability is also needed
+activation_fn = nn.Sigmoid()  # for multi-label classification
+faithfulness = Faithfulness(num_labels=num_classes, metric='InsertionAUC', activation_fn=activation_fn)
 
-    # specify the class names of the dataset
-    classes = [
-     'aeroplane', 'bicycle', 'bird', 'boat', 'bottle', 'bus', 'car', 'cat',
-     'chair', 'cow', 'diningtable', 'dog', 'horse', 'motorbike', 'person',
-     'pottedplant', 'sheep', 'sofa', 'train', 'tvmonitor',
-    ]
+# returns the dataset to be explained, when localization is chosen, the dataset is required to provide bounding box
+# the columns of the dataset should be in [image], [image, labels], or [image, labels, bbox] (order matters)
+# You may refer to 'mindspore.dataset.project' for columns managements
+dataset = load_dataset('xai_examples_data/test')
 
-    data = (dataset, classes)
-    explainers = [gradcam, guidedbackprop]
-    benchmarkers = [faithfulness, localization]
+data = (dataset, classes)
+explainers = [gradcam, guidedbackprop]
+benchmarkers = [faithfulness]
 
-    # initialize runner with specified summary_dir
-    runner = ImageClassificationRunner(summary_dir='./summary_dir', network=net, activation_fn=activation_fn, data=data)
-    runner.register_saliency(explainers, benchmarkers)
+# initialize runner with specified summary_dir
+runner = ImageClassificationRunner(summary_dir='./summary_dir', network=net, activation_fn=activation_fn, data=data)
+runner.register_saliency(explainers, benchmarkers)
 
-    # execute runner.run to generate explanation and evaluation results to save it to summary_dir
-    runner.run()
+# execute runner.run to generate explanation and evaluation results to save it to summary_dir
+runner.run()
 ```
 
 ### Restrictions

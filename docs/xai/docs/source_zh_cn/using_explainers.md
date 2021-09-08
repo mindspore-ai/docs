@@ -20,7 +20,7 @@
 
 ## 什么是解释器
 
-解释器是一些用来解释AI模型决策的算法，目前 MindSpore XAI 为图片分类场景提供7个解释器算法 。解释器输出热力图作为解释，它们代表了每个原图象素的重要性，其中高亮区域为对模型决策起重要作用的部分。
+解释器是一些用来解释AI模型决策的算法，目前 MindSpore XAI 为图片分类场景提供7个解释器算法。解释器输出热力图作为解释，它们代表了每个原图象素的重要性，其中高亮区域为对模型决策起重要作用的部分。
 
 热力图覆盖在原图上：
 
@@ -42,40 +42,56 @@
 
 ### 下载教程数据集及模型
 
-下载并解压缩`xai_tutorial.tar.gz`到指定位置：
+下载并解压缩用例数据包 `xai_examples_data.tar.gz` 到 XAI 本地 [源码包](https://gitee.com/mindspore/xai) 中的`xai/examples/`文件夹：
 
 ```bash
-wget https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/xai/xai_tutorial.tar.gz
-tar -xf xai_tutorial.tar.gz
-cd xai_tutorial
-tree ./
+wget https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/xai/xai_examples_data.tar.gz
+tar -xf xai_examples_data.tar.gz
+
+git clone https://gitee.com/mindspore/xai
+mv xai_examples_data xai/examples/
 ```
+
+`xai/examples/` 文件：
 
 ```bash
-./
-├── data/
-│    ├── test/
-│    └── train/
-├── resnet50.ckpt
-├── dataset.py
-└── resnet.py
+xai/examples/
+├── xai_examples_data/
+│    ├── ckpt/
+│    │    ├── resent50.ckpt
+│    ├── train/
+│    └── test/
+├── common/
+│    ├── dataset.py
+│    └── resnet.py
+├── using_explainers.py
+├── using_rise_plus.py
+├── using_benchmarks.py
+└── using_mindinsight.py
 ```
 
-- `data/test`: 测试数据。
-- `data/train`: 训练数据。
-- `resnet50.ckpt`: ResNet50 分类器 checkpoint。
-- `dataset.py`: 数据加载器。
-- `resent.py`: ResNet 模型架构。
+- `xai_examples_data/`：解压缩后的用例数据包。
+- `xai_examples_data/ckpt/resent50.ckpt`：ResNet50 权重。
+- `xai_examples_data/test`： 测试数据。
+- `xai_examples_data/train`： 训练数据。
+- `common/dataset.py`： 数据加载器。
+- `common/resnet.py`： ResNet 模型架构。
+- `using_explainers.py`： 解释器用例。
+- `using_rise_plus.py`： RISEPlus 解释器用例，它的使用方法跟其他解释器不同。
+- `using_benchmarks.py`： 度量方法用例。
+- `using_mindinsight.py`： MindInsight 可视化用例。
 
 ### 准备 Python 环境
 
-下载教程数据集及模型后，我们要加载一个训练好的分类器和一张要进行推理及解释的图片：
+以下教程参考了 [using_explainers.py](https://gitee.com/mindspore/xai/examples/using_explainers.py) 。
+
+下载用例数据包后，我们要加载一个训练好的分类器和一张要进行推理及解释的图片：
 
 ```python
-# 必须先把当前目录切换到 xai_tutorial/
+# 必须先把当前目录切换到 xai/examples/
 from mindspore import context, load_checkpoint, load_param_into_net
-from resnet import resnet50
-from dataset import load_image_tensor
+from common.resnet import resnet50
+from common.dataset import load_image_tensor
 
 # 只支持 PYNATIVE_MODE
 context.set_context(mode=context.PYNATIVE_MODE)
@@ -85,11 +101,11 @@ num_classes = 20
 
 # 加载训练好的分类器
 net = resnet50(num_classes)
-param_dict = load_checkpoint("resnet50.ckpt")
+param_dict = load_checkpoint("xai_examples_data/ckpt/resnet50.ckpt")
 load_param_into_net(net, param_dict)
 
 # [1, 3, 224, 224] 图片 Tensor
-boat_image = load_image_tensor("data/test/boat.jpg")
+boat_image = load_image_tensor("xai_examples_data/test/boat.jpg")
 ```
 
 ## 使用 GradCAM
@@ -97,6 +113,8 @@ boat_image = load_image_tensor("data/test/boat.jpg")
 `GradCAM`是一个典型及有效的梯度解释器：
 
 ```python
+import mindspore as ms
+from mindspore import Tensor
 from mindspore_xai.explanation import GradCAM
 
 # 通常指定最后一层的卷积层
@@ -115,10 +133,10 @@ saliency = grad_cam(boat_image, targets=5)
 ```python
 from dataset import load_dataset
 
-test_ds = load_dataset('data/test').batch(4)
+test_ds = load_dataset('xai_examples_data/test').batch(4)
 
 for images, labels in test_ds:
-    saliencies = grad_cam(images, targets=5)
+    saliencies = grad_cam(images, targets=Tensor([5, 5, 5, 5], dtype=ms.int32))
     # 其他用户操作 ...
 ```
 
@@ -130,25 +148,31 @@ for images, labels in test_ds:
 
 ### 使用 RISEPlus
 
+以下教程参考了 [using_rise_plus.py](https://gitee.com/mindspore/xai/examples/using_rise_plus.py) 。
+
 `RISEPlus`是一个基于`RISE`的解释器，它引入了分布外侦测器，解决了`RISE`在遇到分布外(OoD)样本时产生的热力图劣化问题。
 
 首先，我们要使用分类器的训练数据集去训练一个分布外侦测器(`OoDNet`)：
 
 ```python
-from mindspore import save_checkpoint, load_checkpoint, load_param_into_net
-from mindspore.nn import SoftmaxCrossEntropyWithLogits
-from mindspore_xai.explanation import OoDNet
-from dataset import load_dataset
-from resnet import resnet50
+# 必须先把当前目录切换到 xai/examples/
+from mindspore import context, save_checkpoint, load_checkpoint, load_param_into_net
+from mindspore.nn import Softmax, SoftmaxCrossEntropyWithLogits
+from mindspore_xai.explanation import RISEPlus, OoDNet
+from common.dataset import load_dataset, load_image_tensor
+from common.resnet import resnet50
+
+# 只支持 PYNATIVE_MODE
+context.set_context(mode=context.PYNATIVE_MODE)
 
 num_classes = 20
 
 # 分类器的训练数据集
-train_ds = load_dataset('data/train').batch(4)
+train_ds = load_dataset('xai_examples_data/train').batch(4)
 
 # 加载训练好的分类器
 net = resnet50(num_classes)
-param_dict = load_checkpoint('resnet50.ckpt')
+param_dict = load_checkpoint('xai_examples_data/ckpt/resnet50.ckpt')
 load_param_into_net(net, param_dict)
 
 ood_net = OoDNet(underlying=net, num_classes=num_classes)
@@ -212,17 +236,13 @@ class MyLeNet5(nn.Cell):
 现在，我们可以使用训练好的`OoDNet`去构造`RISEPlus`解释器输出热力图：
 
 ```python
-from mindspore import load_checkpoint, load_param_into_net
-from mindspore.nn import Softmax
-from mindspore_xai.explanation import RISEPlus, OoDNet
-from resnet import resnet50
-
 # 如果是要从 checkpoint 文件读取 OoDNet 的权重，我们就要传入一个新构造的下游分类器对象
 ood_net = OoDNet(underlying=resnet50(num_classes), num_classes=num_classes)
 param_dict = load_checkpoint('ood_net.ckpt')
 load_param_into_net(ood_net)
 
 rise_plus = RISEPlus(ood_net=ood_net, network=net, activation_fn=Softmax())
+boat_image = load_image_tensor("xai_examples_data/test/boat.jpg")
 saliency = rise_plus(boat_image, targets=5)
 ```
 

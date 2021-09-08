@@ -10,7 +10,6 @@
     - [什么是度量方法](#什么是度量方法)
     - [准备](#准备)
     - [使用 Robustness](#使用-robustness)
-        - [批次评分](#批次评分)
     - [使用 Faithfulness 及 ClassSensitivity](#使用-faithfulness-及-classsensitivity)
     - [使用 Localization](#使用-localization)
 
@@ -22,16 +21,19 @@
 
 ## 准备
 
+以下教程参考了 [using_benchmarks.py](https://gitee.com/mindspore/xai/examples/using_benchmarks.py) 。
+
 请参阅 [下载教程数据集及模型](https://www.mindspore.cn/xai/docs/zh-CN/master/using_explainers.html#id4) 以下载所有本教程所需的文件。
 
 下载教程数据集及模型后，我们要加载一张样本图片，一个训练好的分类器，一个解释器和一张热力图(可选)：
 
 ```python
-# 必须先把当前目录切换到 xai_tutorial/
+# 必须先把当前目录切换到 xai/examples/
 from mindspore import context, load_checkpoint, load_param_into_net
 from mindspore_xai.explanation import GradCAM
-from resnet import resnet50
-from dataset import load_image_tensor
+
+from common.resnet import resnet50
+from common.dataset import load_image_tensor
 
 # 只支持 PYNATIVE_MODE
 context.set_context(mode=context.PYNATIVE_MODE)
@@ -41,11 +43,11 @@ num_classes = 20
 
 # 加载训练好的分类器
 net = resnet50(num_classes)
-param_dict = load_checkpoint("resnet50.ckpt")
+param_dict = load_checkpoint("xai_examples_data/ckpt/resnet50.ckpt")
 load_param_into_net(net, param_dict)
 
 # [1, 3, 224, 224] Tensor
-boat_image = load_image_tensor('boat.jpg')
+boat_image = load_image_tensor('xai_examples_data/test/boat.jpg')
 
 # 解释器
 grad_cam = GradCAM(net, layer='layer4')
@@ -69,23 +71,6 @@ score = robustness.evaluate(grad_cam, boat_image, targets=5, saliency=saliency)
 ```
 
 如果输入的是一个 1xCx224x224 的图片Tensor，那返回的`score`就是一个只有一个数值的一维Tensor 。
-
-### 批次评分
-
-批次评分通常较有效率：
-
-```python
-from dataset import load_dataset
-
-test_ds = load_dataset('data/test').batch(4)
-
-for images, labels in test_ds:
-    # 略去 'saliency' 参数
-    scores = robustness.evaluate(grad_cam, images, targets=5)
-    # 其他用户操作 ...
-```
-
-如果输入的是一个 4xCx224x224 的批次图片Tensor，那返回的`scores`就是一个有4个数值的一维Tensor 。
 
 ## 使用 Faithfulness 及 ClassSensitivity
 
