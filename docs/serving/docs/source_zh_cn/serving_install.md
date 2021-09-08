@@ -15,6 +15,8 @@
 
 ## 安装
 
+MindSpore Serving当前仅支持Ascend 310、Ascend 910和Nvidia GPU环境。
+
 MindSpore Serving依赖MindSpore训练推理框架，安装完[MindSpore](https://gitee.com/mindspore/mindspore#%E5%AE%89%E8%A3%85)，再安装MindSpore Serving。可以采用pip安装或者源码编译安装两种方式。
 
 ### pip安装
