@@ -1,10 +1,10 @@
-# 丙氨酸三肽水溶液体系模拟
+# 模拟丙氨酸三肽水溶液体系
 
 `Linux` `GPU` `模型开发` `高级`
 
 <!-- TOC -->
 
-- [SPONGE分子模拟实践](#sponge分子模拟实践)
+- [模拟丙氨酸三肽水溶液体系](#模拟丙氨酸三肽水溶液体系)
     - [概述](#概述)
     - [整体执行](#整体执行)
     - [准备环节](#准备环节)
@@ -17,7 +17,8 @@
     - [性能描述](#性能描述)
 
 <!-- /TOC -->
-<a href="https://https://gitee.com/mindspore/docs/blob/master/docs/mindsponge/docs/source_zh_cn/mindsponge_ala.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindscience/docs/source_zh_cn/mindsponge/ala.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -208,4 +209,4 @@ _steps_ _TEMP_ _TOT_POT_ENE_ _BOND_ENE_ _ANGLE_ENE_ _DIHEDRAL_ENE_ _14LJ_ENE_ _1
 | Output                    | numpy file
 | Speed                      | 15.0 ms/step
 | Total time                 | 5.7 s
-| Script                    | [Link](https://gitee.com/mindspore/mindscience/tree/master/MindSPONGE/mindsponge/scripts)
+| Script                    | [Link](https://gitee.com/mindspore/mindscience/tree/master/MindSPONGE/scripts)

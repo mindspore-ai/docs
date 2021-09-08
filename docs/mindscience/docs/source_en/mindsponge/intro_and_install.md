@@ -1,16 +1,6 @@
-# MindSPONGE
+# Introduction and Installation of MindSPONGE
 
-- [MindSPONGE Overview]](#mindsponge-overview)
-- [Installation](#Installation)
-    - [Confirming System Environment Information](#confirming-system-environment-information)
-    - [Installation](#Installation)
-        - [Install MindSpore](#install-mindspore)
-        - [Install MindSPONGE](#install-mindsponge)
-    - [Install by Source Code](#install-by-source-code)
-- [Community](#Community)
-    - [Governance](#Governance)
-- [Contributing](#Contributing)
-- [License](#License)
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindscience/docs/source_en/mindsponge/intro_and_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## MindSPONGE Overview
 
@@ -72,17 +62,3 @@ Successfully installed, if there is no error message such as No module named 'mi
 ```bash
 python -c 'import mindsponge'
 ```
-
-## Community
-
-### Governance
-
-Check out how MindSpore Open Governance [works](<https://gitee.com/mindspore/community/blob/master/governance.md>).
-
-## Contributing
-
-Welcome contributions. See our [Contributor Wiki](https://gitee.com/mindspore/mindspore/blob/master/CONTRIBUTING.md) for more details.
-
-## License
-
-[Apache License 2.0](LICENSE)

@@ -6,7 +6,7 @@ Translator: [LiangRio](https://gitee.com/liangrio)
 
 <!-- TOC -->
 
-- [MindSPONGE Molecular Simulation Practice](#sponge-molecular-simulation-practice)
+- [MindSPONGE Molecular Simulation Practice](#mindsponge-molecular-simulation-practice)
     - [Overview](#overview)
     - [Overall Execution](#overall-execution)
     - [Preparation](#preparation)
@@ -16,11 +16,11 @@ Translator: [LiangRio](https://gitee.com/liangrio)
         - [Constructing Simulation Process](#constructing-simulation-process)
         - [Running Script](#running-script)
         - [Running Result](#running-result)
-    -[Performance](#performance)
+    - [Performance](#performance)
 
 <!-- /TOC -->
 
-<a href="https://https://gitee.com/mindspore/docs/blob/master/docs/mindsponge/docs/source_zh_cn/mindsponge_ala.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindscience/docs/source_zh_cn/mindsponge/ala.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## Overview
 
@@ -217,4 +217,4 @@ Types of energy output in the simulation process are recorded, namely iterations
 | Output                    | numpy file
 | Speed                      | 15.0 ms/step
 | Total time                 | 5.7 s
-| Script                    | [Link](https://gitee.com/mindspore/mindscience/tree/master/MindSPONGE/mindsponge/scripts)
+| Script                    | [Link](https://gitee.com/mindspore/mindscience/tree/master/MindSPONGE/scripts)

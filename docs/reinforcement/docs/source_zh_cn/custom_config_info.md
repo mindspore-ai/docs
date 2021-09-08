@@ -4,17 +4,17 @@
 
 <!-- TOC -->
 
-- [配置说明](#配置说明)
+- [强化学习配置说明](#强化学习配置说明)
     - [概述](#概述)
     - [算法相关参数配置](#算法相关参数配置)
-        - [Policy配置参数](#Policy配置参数)
+        - [Policy配置参数](#policy配置参数)
         - [Environment配置参数](#environment配置参数)
         - [Actor配置参数](#actor配置参数)
         - [Learner配置参数](#learner配置参数)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/docs/reinforcement/docs/source_zh_cn/custom_config_info.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/reinforcement/docs/source_zh_cn/custom_config_info.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 &nbsp;&nbsp;
 
 ## 概述
@@ -153,4 +153,3 @@ algorithm_config = {
     ...
 }
 ```
-
