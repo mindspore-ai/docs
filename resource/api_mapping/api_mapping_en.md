@@ -12,6 +12,10 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torch.asin                                           | mindspore.ops.Asin                                             | same |
 | torch.atan                                           | mindspore.ops.Atan                                             | same |
 | torch.atan2                                          | mindspore.ops.Atan2                                            | same |
+| torch.autograd.backward                              | mindspore.ops.GradOperation                                    |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/GradOperation_en.md)|
+| torch.autograd.enable_grad                           | mindspore.ops.stop_gradient                                    |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/stop_gradient_en.md)|
+| torch.autograd.grad                                  | mindspore.ops.GradOperation                                    |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/GradOperation_en.md)|
+| torch.autograd.no_grad                               | mindspore.ops.stop_gradient                                    |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/stop_gradient_en.md)|
 | torch.bitwise_and                                    | mindspore.ops.BitwiseAnd                                       | same |
 | torch.bitwise_or                                     | mindspore.ops.BitwiseOr                                        | same |
 | torch.bmm                                            | mindspore.ops.BatchMatMul                                      | same |
@@ -160,6 +164,7 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torch.sigmoid                                        | mindspore.ops.Sigmoid                                          | same |
 | torch.sin                                            | mindspore.ops.Sin                                              | same |
 | torch.sinh                                           | mindspore.ops.Sinh                                             | same |
+| torch.sparse_coo_tensor                              | mindspore.SparseTensor                                         |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/SparseTensor_en.md)|
 | torch.split                                          | mindspore.ops.Split                                            | same |
 | torch.sqrt                                           | mindspore.ops.Sqrt                                             | same |
 | torch.squeeze                                        | mindspore.ops.Squeeze                                          | same |

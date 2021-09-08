@@ -46,7 +46,7 @@ print(output)
 # 34.068203
 
 
-# The following implements softmax_cross_entropy_with_logits with tensorflow.
+# The following implements softmax_cross_entropy_with_logits with TensorFlow.
 logits = tf.constant([[3, 5, 6, 9], [42, 12, 32, 72]], dtype=tf.float32)
 labels = tf.constant([[0, 1, 0, 0], [1, 0, 0, 0]], dtype=tf.float32)
 output = tf.nn.softmax_cross_entropy_with_logits(labels=labels, logits=logits)

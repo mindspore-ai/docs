@@ -91,5 +91,4 @@
 | 编程指南        | 自动数据增强     | [auto_augmentation.ipynb](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/auto_augmentation.ipynb)       | - 介绍基于概率的自动数据增强<br/> - 介绍基于回调参数的自动数据增强
 | 编程指南        | 运行管理     | [mindspore_context.ipynb](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/context.ipynb)       | - 介绍执行模式的选择和切换<br/> - 介绍硬件管理的方式<br/> - 介绍分布式管理的用法<br/> - 介绍维测管理的使用方式
 | 编程指南        | 运行方式     | [mindspore_run.ipynb](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/run.ipynb)       | - 介绍单个算子的执行<br/> - 介绍普通函数的执行<br/> - 介绍网络模型的执行
-| 编程指南        | 训练     | [mindspore_train.ipynb](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/train.ipynb)       | - 学习自定义训练网络<br/> - 学习自定义训练循环<br/> - 学习如何边训练边推理<br/> - 介绍On-device执行
 | 编程指南        | 深度概率编程库     | [mindspore_probability.ipynb](https://gitee.com/mindspore/docs/blob/master/docs/probability/docs/source_zh_cn/probability.ipynb)       | - 介绍概率分布类<br/> - 介绍概率分布映射<br/> - 学习深度概率网络构建<br/> - 学习概率推断算法<br/>  - 学习贝叶斯网络的构建及转换<br/> - 学习MindSpore中贝叶斯工具箱的使用方法
