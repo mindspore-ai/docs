@@ -30,7 +30,7 @@ The following uses a distributed scenario as an example to describe the pipeline
 
 ### Environment Preparation
 
-Before running the sample network, ensure that MindSpore Serving has been properly installed. To install MindSpore Serving on your PC, go to the [MindSpore Serving installation page](https://gitee.com/mindspore/serving/blob/master/README.md#installation) and configure environment variables on the [MindSpore Serving environment configuration page](https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend_install_source_en.md#configuring-environment-variables).
+Before running the sample network, ensure that MindSpore Serving has been properly installed and the environment variables are configured. To install and configure MindSpore Serving on your PC, go to the [MindSpore Serving installation page](https://www.mindspore.cn/serving/docs/en/master/serving_install.html).
 
 ### Exporting a Multi-Graph Model
 

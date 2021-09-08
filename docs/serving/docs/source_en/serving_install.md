@@ -15,6 +15,8 @@
 
 ## Installation
 
+MindSpore Serving supports the Ascend 310, Ascend 910 and Nvidia GPU environments.
+
 MindSpore Serving depends on the MindSpore training and inference framework. Therefore, install [MindSpore](https://gitee.com/mindspore/mindspore/blob/master/README.md#installation) and then MindSpore Serving. You can install MindInsight either by pip or by source code.
 
 ### Installation by pip
