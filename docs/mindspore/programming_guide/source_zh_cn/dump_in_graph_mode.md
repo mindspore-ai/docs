@@ -442,9 +442,9 @@ numpy.load("Conv2D.Conv2D-op107.2.2.1623124369613540.output.0.DefaultFormat.npy"
 
 ### 异步Dump数据文件介绍
 
-启动训练后，异步Dump生成的原始数据文件是protobuf格式的文件，需要用到海思Run包中自带的数据解析工具进行解析，详见[如何查看dump数据文件](https://support.huawei.com/enterprise/zh/doc/EDOC1100191946/8d6ddc58) 。
+启动训练后，异步Dump生成的原始数据文件是protobuf格式的文件，需要用到海思Run包中自带的数据解析工具进行解析，详见[如何查看dump数据文件](https://support.huawei.com/enterprise/zh/doc/EDOC1100206690/640e796d) 。
 
-数据在Device侧的格式可能和Host侧计算图中的定义不同，异步Dump的数据格式为Device侧格式，如果想要转为Host侧格式，可以参考[如何进行dump数据文件Format转换](https://support.huawei.com/enterprise/zh/doc/EDOC1100191946/fa6aecce) 。
+数据在Device侧的格式可能和Host侧计算图中的定义不同，异步Dump的数据格式为Device侧格式，如果想要转为Host侧格式，可以参考[如何进行dump数据文件Format转换](https://support.huawei.com/enterprise/zh/doc/EDOC1100206690/130949fb) 。
 
 异步Dump生成的数据文件命名规则如下：
 
@@ -477,7 +477,7 @@ Dump生成的原始数据文件也可以使用MindInsight的数据解析工具Du
     python ${The absolute path of msaccucmp.py} convert -d {file path of dump} -out {file path of output}
     ```
 
-    若需要转换数据格式，可参考使用说明链接<https://support.huawei.com/enterprise/zh/doc/EDOC1100191946/fa6aecce> 。
+    若需要转换数据格式，可参考使用说明链接<https://support.huawei.com/enterprise/zh/doc/EDOC1100206690/130949fb> 。
 
     如Dump生成的数据文件为：
 
