@@ -80,11 +80,12 @@ The following describes the parameters in detail.
 | `--configFile=<CONFIGFILE>` | No | 1) Configure quantization parameter; 2) Profile path of converter. | - | - |
 | `--fp16=<FP16>` | No | Serialize const tensor in Float16 data type, only effective for const tensor in Float32 data type. | on or off | off |
 | `--inputShape=<INPUTSHAPE>` | No | Set the dimension of the model input, the order of input dimensions is consistent with the original model. For some models, the model structure can be further optimized, but the transformed model may lose the characteristics of dynamic shape. Multiple inputs are separated by `;`, and surround with `""` | e.g.  "inTensorName_1: 1,32,32,4;inTensorName_2:1,64,64,4;" | - |
-| `--inputFormat=<INPUTFORMAT>` | No | Set the format of model inputs. Only valid for 4-dimensional inputs. | NHWC, NCHW | NHWC |
+| `--inputDataFormat=<INPUTDATAFORMAT>` | No | Set the input format of exported model. Only valid for 4-dimensional inputs. | NHWC, NCHW | NHWC |
 
 > - The parameter name and parameter value are separated by an equal sign (=) and no space is allowed between them.
 > - The Caffe model is divided into two files: model structure `*.prototxt`, corresponding to the `--modelFile` parameter; model weight `*.caffemodel`, corresponding to the `--weightFile` parameter.
 > - The priority of `--fp16` option is very low. For example, if quantization is enabled, `--fp16` will no longer take effect on const tensors that have been quantized. All in all, this option only takes effect on const tensors of Float32 when serializing model.
+> - `inputDataFormat`: generally, in the scenario of integrating third-party hardware of NCHW specification([Usage Description of the Integrated NNIE](https://www.mindspore.cn/lite/docs/en/master/use/nnie.html#nnie)), designated as NCHW will have a significant performance improvement over NHWC. In other scenarios, users can also set as needed.
 
 The calibration dataset configuration file uses the `key=value` mode to define related parameters. For the configuration parameters related to quantization, please refer to [post training quantization](https://www.mindspore.cn/lite/docs/en/master/use/post_training_quantization.html), and others `key` to be configured is as follows:
 

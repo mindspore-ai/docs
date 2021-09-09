@@ -325,8 +325,7 @@ static PassBasePtr GetPassFromStoreRoom(const std::string &pass_name)
 > - `DumpGraph`: 导出当前状态下的模型。请确保当前模型为NHWC或者NCHW格式的模型，例如卷积算子等。
 > - `ToNCHWFormat`: 将当前状态下的模型转换为NCHW的格式，例如，四维的图输入、卷积算子等。
 > - `ToNHWCFormat`: 将当前状态下的模型转换为NHWC的格式，例如，四维的图输入、卷积算子等。
-> - `DeleteRedundantTranspose`: transpose算子的初步优化算法，删除冗余的transpose算子。
-> - `DecreaseTransposeAlgo`: transpose算子的优化算法，进一步进行图优化，删除冗余的transpose算子。
+> - `DecreaseTransposeAlgo`: transpose算子的优化算法，删除冗余的transpose算子。
 >
 > `ToNCHWFormat`与`ToNHWCFormat`需配套使用。在开放的运行位置处，用户所得到的模型已统一为NHWC的格式，用户也需确保在当前运行位置处返回之时，模型也是NHWC的格式。
 >
