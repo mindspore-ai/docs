@@ -191,8 +191,6 @@ self.loss = CrossEntropyLoss(parallel_config=parallel_config.dp_mp_config)
             parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, gradients_mean=False,
             full_batch=True, loss_repeated_mean=True,
             device_num=device_num, enable_parallel_optimizer=False)
-        set_algo_parameters(elementwise_op_strategy_follow=True)
-        _set_multi_subgraphs()
 
     parallel_config = TransformerOpParallelConfig(pipeline_stage=args_opt.pipeline_stage,
                                                   micro_batch_num=args_opt.micro_batch_num,

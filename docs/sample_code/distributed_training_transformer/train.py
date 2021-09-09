@@ -18,10 +18,8 @@ Train file for training transformers
 import argparse
 from mindspore.parallel.nn import TransformerOpParallelConfig
 from mindspore import Model
-import mindspore.communication.management as D
+import mindspore.communication as D
 from mindspore.context import ParallelMode
-from mindspore.parallel import set_algo_parameters
-from mindspore.parallel._cost_model_context import _set_multi_subgraphs
 from mindspore.nn import PipelineCell
 from mindspore.train.callback import TimeMonitor, LossMonitor, CheckpointConfig, ModelCheckpoint
 from mindspore.nn import AdamWeightDecay
@@ -140,8 +138,6 @@ def main():
             parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, gradients_mean=False,
             full_batch=True, loss_repeated_mean=True,
             device_num=device_num, enable_parallel_optimizer=False)
-        set_algo_parameters(elementwise_op_strategy_follow=True)
-        _set_multi_subgraphs()
 
     parallel_config = TransformerOpParallelConfig(pipeline_stage=args_opt.pipeline_stage,
                                                   micro_batch_num=args_opt.micro_batch_num,
