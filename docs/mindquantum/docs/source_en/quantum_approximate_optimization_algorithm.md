@@ -44,7 +44,7 @@ $$H=\sum_{(i,j)\in C}(Z_iZ_j-1)/2$$
 ```python
 from mindquantum.circuit import Circuit,StateEvolution
 from mindquantum import Hamiltonian, UN
-from mindquantum.gate import H, ZZ, RX,
+from mindquantum.gate import H, ZZ, RX
 from mindquantum.nn import MindQuantumAnsatzOnlyLayer
 from mindquantum.ops import QubitOperator
 import networkx as nx
