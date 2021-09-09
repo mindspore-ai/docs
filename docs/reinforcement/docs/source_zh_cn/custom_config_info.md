@@ -31,10 +31,8 @@ MindSpore-RL使用`algorithm_config`定义逻辑组件和相应的超参配置�
 
 下述代码定义了一组算法配置，并使用algorithm_config创建`Session`，`Session`负责分配资源并执行计算图编译和执行。
 
-// FIXME: import包将要调整，资料需要统一刷新
-
 ```python
-from msrl.mindspore_rl.session import Session
+from mindspore_rl.mindspore_rl import Session
 algorithm_config = {
     'actor': {...},
     'learner': {...},
@@ -91,11 +89,8 @@ algorithm_config = {
 
 以下样例中定义了外部环境配置，框架会采用`Environment(name='CartPole-v0')`方式创建`CartPole-v0`外部环境。
 
-// FIXME: import包将要调整，资料需要统一刷新
-
 ```python
-from msrl.environment.environment import Environment
-
+from mindspore_rl.environment import Environment
 algorithm_config = {
     ...
     'env': {
@@ -136,8 +131,6 @@ algorithm_config = {
 `Learner`负责基于历史经验对网络权重进行更新。`Learner`中持有`Policy`中定义的DNN网络（由`networks`指定`Policy`的成员对象名称），用于损失函数计算和网络权重更新。
 
 以下代码中定义`DQNLearner`配置，框架会采用`DQNLearner(algorithm_config['learner'])`方式创建Actor。
-
-// FIXME: import包将要调整，资料需要统一刷新
 
 ```python
 from example.dqn.dqn import DQNLearner

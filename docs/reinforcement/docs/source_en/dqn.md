@@ -201,9 +201,9 @@ class DQNPolicy():
          ...
          self.init_policy = RandomPolicy(params['action_space_dim'])
          self.collect_policy = EpsilonGreedyPolicy(self.policy_network,
-                               (1,1),params['epsi_high'],
-                               params['epsi_low'], params['decay'],
-                               params['action_space_dim'])
+                                                   (1,1), params['epsi_high'],
+                                                   params['epsi_low'], params['decay'],
+                                                   params['action_space_dim'])
          self.evaluation_policy = GreedyPolicy(self.policy_network)
 ```
 
@@ -275,10 +275,10 @@ Here, the `learn` method takes as input the trajectory (sampled from a reply buf
 
 ```python
 class DQNLearner(Learner):
-        def __init__(self, params=None):
-             self.target_network = params['target_network']
-             self.policy_network_train = params['policy_network_train']
-             self.gamma = Tensor(params['gamma'], mindspore.float32)
+    def __init__(self, params=None):
+        self.target_network = params['target_network']
+        self.policy_network_train = params['policy_network_train']
+        self.gamma = Tensor(params['gamma'], mindspore.float32)
 ```
 
 ## Execute and view results
@@ -293,22 +293,32 @@ python train.py
 The execution results are shown below:
 
 ```text
-buffer init start...
-buffer init time: 10.17387819290161
 -----------------------------------------
-Evaluation result in episode 0 is 9.399999618530273
+Evaluation result in episode 0 is 95.300
 -----------------------------------------
-Episode time: 0.05016589164733887, steps: 127.0, reward: 11.0, average time: 4560.535604303534us
-Episode time: 0.04132795333862305, steps: 136.0, reward: 9.0, average time: 4591.994815402561us
-Episode time: 0.04570341110229492, steps: 146.0, reward: 10.0, average time: 4570.341110229492us
-Episode time: 0.04680299758911133, steps: 156.0, reward: 10.0, average time: 4680.299758911133us
-Episode time: 0.03685498237609863, steps: 164.0, reward: 8.0, average time: 4606.872797012329us
-Episode time: 0.04632306098937988, steps: 174.0, reward: 10.0, average time: 4632.306098937988us
-Episode time: 0.04598045349121094, steps: 184.0, reward: 10.0, average time: 4598.045349121094us
-Episode time: 0.04650545120239258, steps: 194.0, reward: 10.0, average time: 4650.545120239258us
-Episode time: 0.04139065742492676, steps: 203.0, reward: 9.0, average time: 4598.961936102973us
-Episode time: 0.05491757392883301, steps: 215.0, reward: 12.0, average time: 4576.464494069417us
+Episode 0, steps: 33.0, reward: 33.000
+Episode 1, steps: 45.0, reward: 12.000
+Episode 2, steps: 54.0, reward: 9.000
+Episode 3, steps: 64.0, reward: 10.000
+Episode 4, steps: 73.0, reward: 9.000
+Episode 5, steps: 82.0, reward: 9.000
+Episode 6, steps: 91.0, reward: 9.000
+Episode 7, steps: 100.0, reward: 9.000
+Episode 8, steps: 109.0, reward: 9.000
+Episode 9, steps: 118.0, reward: 9.000
+...
+...
+Episode 200, steps: 25540.0, reward: 200.000
+Episode 201, steps: 25740.0, reward: 200.000
+Episode 202, steps: 25940.0, reward: 200.000
+Episode 203, steps: 26140.0, reward: 200.000
+Episode 204, steps: 26340.0, reward: 200.000
+Episode 205, steps: 26518.0, reward: 178.000
+Episode 206, steps: 26718.0, reward: 200.000
+Episode 207, steps: 26890.0, reward: 172.000
+Episode 208, steps: 27090.0, reward: 200.000
+Episode 209, steps: 27290.0, reward: 200.000
 -----------------------------------------
-Evaluation result in episode 10 is 9.800000190734863
-----------------------------------------
+Evaluation result in episode 210 is 200.000
+-----------------------------------------
 ```
