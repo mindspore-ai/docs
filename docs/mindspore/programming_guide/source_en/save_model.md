@@ -190,8 +190,18 @@ input = np.random.uniform(0.0, 1.0, size=[32, 3, 224, 224]).astype(np.float32)
 export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='MINDIR')
 ```
 
+If you wish to save the data preprocess operations into MindIR and use them to perform inference,
+you can pass the Dataset object into export method:
+
+```python
+de_dataset = create_dataset_for_renset(mode="eval")
+export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='MINDIR', dataset=de_dataset)
+```
+
 > - `input` is the input parameter of the `export` method, representing the input of the network. If the network has multiple inputs, they need to be passed into the `export` method together. eg: `export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='MINDIR')`.
 > - If `file_name` does not contain the ".mindir" suffix, the system will automatically add the ".mindir" suffix to it.
+> - Make sure that the Dataset object is using the preprocess operations of evaluation, otherwise you may can not get the
+expected preprocess results in inference.
 
 In order to avoid the hardware limitation of protobuf, when the exported model parameter size exceeds 1G, the framework will save the network structure and parameters separately by default.
 

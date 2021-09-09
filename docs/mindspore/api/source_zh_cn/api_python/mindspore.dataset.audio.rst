@@ -6,7 +6,7 @@ mindspore.dataset.audio
 mindspore.dataset.audio.transforms
 ----------------------------------
 
-.. msnoteautosummary::
+.. autosummary::
     :toctree: dataset_audio
     :nosignatures:
     :template: classtemplate.rst
@@ -29,9 +29,9 @@ mindspore.dataset.audio.transforms
 mindspore.dataset.audio.utils
 -----------------------------
 
-.. msnoteautosummary::
+.. autosummary::
     :toctree: dataset_audio
     :nosignatures:
     :template: classtemplate.rst
 
-    mindspore.dataset.audio.ScaleType
+    mindspore.dataset.audio.utils.ScaleType
