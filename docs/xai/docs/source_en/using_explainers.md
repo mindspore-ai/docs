@@ -14,7 +14,7 @@
     - [Using GradCAM](#using-gradcam)
         - [Batch Explanation](#batch-explanation)
         - [Using Other Explainers](#using-other-explainers)
-        - [Using RISEPlus](#using-riseplus)
+    - [Using RISEPlus](#using-riseplus)
 
 <!-- /TOC -->
 
@@ -146,7 +146,7 @@ The returned `saliencies` is a 4x1x224x224 tensor for a 4xCx224x224 batched imag
 
 The ways of using other explainers are very similar to `GradCAM`, except `RISEPlus`.
 
-### Using RISEPlus
+## Using RISEPlus
 
 The tutorial below is referencing [using_rise_plus.py](https://gitee.com/mindspore/xai/examples/using_rise_plus.py) 。
 

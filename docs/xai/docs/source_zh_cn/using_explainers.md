@@ -14,7 +14,7 @@
     - [使用 GradCAM](#使用-gradcam)
         - [批次解释](#批次解释)
         - [使用其他解释器](#使用其他解释器)
-        - [使用 RISEPlus](#使用-riseplus)
+    - [使用 RISEPlus](#使用-riseplus)
 
 <!-- /TOC -->
 
@@ -146,7 +146,7 @@ for images, labels in test_ds:
 
 使用其他解释器(`RISEPlus` 除外)的方法跟 `GradCAM` 的使用方法十分相似 。
 
-### 使用 RISEPlus
+## 使用 RISEPlus
 
 以下教程参考了 [using_rise_plus.py](https://gitee.com/mindspore/xai/examples/using_rise_plus.py) 。
 
