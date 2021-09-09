@@ -82,11 +82,12 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 | `--configFile=<CONFIGFILE>` | 否 | 1）可作为训练后量化配置文件路径；2）可作为转换器的配置文件路径。  |  - | -  |
 | `--fp16=<FP16>` | 否 | 设定在模型序列化时是否需要将Float32数据格式的权重存储为Float16数据格式。 | on、off | off |
 | `--inputShape=<INPUTSHAPE>` | 否 | 设定模型输入的维度，输入维度的顺序和原始模型保持一致。对某些特定的模型可以进一步优化模型结构，但是转化后的模型将可能失去动态shape的特性。多个输入用`;`分割，同时加上双引号`""`。 | e.g.  "inTensorName_1: 1,32,32,4;inTensorName_2:1,64,64,4;" | - |
-| `--inputFormat=<INPUTFORMAT>` | 否 | 设定模型输入的format，只对4维输入有效。 | NHWC、NCHW | NHWC |
+| `--inputDataFormat=<INPUTDATAFORMAT>` | 否 | 设定导出模型的输入format，只对4维输入有效。 | NHWC、NCHW | NHWC |
 
 > - 参数名和参数值之间用等号连接，中间不能有空格。
 > - Caffe模型一般分为两个文件：`*.prototxt`模型结构，对应`--modelFile`参数；`*.caffemodel`模型权值，对应`--weightFile`参数。
 > - `--fp16`的优先级很低，比如如果开启了量化，那么对于已经量化的权重，`--fp16`不会再次生效。总而言之，该选项只会在序列化时对模型中的Float32的权重生效。
+> - `inputDataFormat`：一般在集成NCHW规格的三方硬件场景下(例如[集成NNIE使用说明](https://www.mindspore.cn/lite/docs/zh-CN/master/use/nnie.html#nnie))，设为NCHW比NHWC会有较明显的性能提升。在其他场景下，用户也可按需设置。
 
 `configFile`配置文件采用`key=value`的方式定义相关参数，量化相关的配置参数详见[训练后量化](https://www.mindspore.cn/lite/docs/zh-CN/master/use/post_training_quantization.html)，其他可配置的`key`如下:
 
