@@ -66,10 +66,11 @@ print(output)
 The output is as follows:
 
 ```text
-([[0.968, 3.2000002, 1.78]
- [2.838, 8.6199998, 4.1300001]],
- [[4.5099998 2.7 3.6000001]
- [4.5099998 2.7 3.6000001]])
+(Tensor(shape=[2, 3], dtype=Float32, value=
+[[9.68000054e-01, 3.20000029e+00, 1.78000009e+00],
+ [2.83800006e+00, 8.61999989e+00, 4.13000011e+00]]), Tensor(shape=[2, 3], dtype=Float32, value=
+[[4.50999975e+00, 2.70000005e+00, 3.60000014e+00],
+ [4.50999975e+00, 2.70000005e+00, 3.60000014e+00]]))
 ```
 
 If the derivatives of the `x` and `y` inputs are considered, you only need to set `self.grad = nn.ForwardValueAndGrad(self.net, get_all=True)` in `ForwardValueAndGradWrtX`.
@@ -98,9 +99,9 @@ print(output)
 The output is as follows:
 
 ```text
-([[0.968, 3.2000002, 1.78]
-  [2.838, 8.6199998, 4.1300001]],
- (Tensor(shape=[1], dtype=Float32, value= [ 2.15359993e+01]),))
+(Tensor(shape=[2, 3], dtype=Float32, value=
+[[9.68000054e-01, 3.20000029e+00, 1.78000009e+00]
+ [2.83800006e+00, 8.61999989e+00, 4.13000011e+00]]), (Tensor(shape=[1], dtype=Float32, value= [2.15359993e+01]),))
 ```
 
 ### Gradient Value Scaling
@@ -127,10 +128,11 @@ print(output)
 The output is as follows:
 
 ```text
-([[0.968 3.2 1.78],
-  [2.838 8.62 4.13]],
-[[2.211 0.51 1.49 ]
- [5.588 2.68 4.07 ]])
+(Tensor(shape=[2, 3], dtype=Float32, value=
+[[9.68000054e-01, 3.20000029e+00, 1.78000009e+00],
+ [2.83800006e+00, 8.61999989e+00, 4.13000011e+00]]), Tensor(shape=[2, 3], dtype=Float32, value=
+[[2.21099997e+00, 5.09999990e-01, 1.49000001e+00],
+ [5.58799982e+00, 2.68000007e+00, 4.07000017e+00]]))
 ```
 
 `self.grad_wrt_output` may be denoted as the following form:
