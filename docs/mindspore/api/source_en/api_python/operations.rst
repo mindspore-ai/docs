@@ -297,6 +297,9 @@ Array Operators
     mindspore.ops.Squeeze
     mindspore.ops.StridedSlice
     mindspore.ops.TensorScatterAdd
+    mindspore.ops.TensorScatterMax
+    mindspore.ops.TensorScatterMin
+    mindspore.ops.TensorScatterSub
     mindspore.ops.TensorScatterUpdate
     mindspore.ops.Tile
     mindspore.ops.Transpose

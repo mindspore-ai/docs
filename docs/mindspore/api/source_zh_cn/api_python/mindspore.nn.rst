@@ -62,8 +62,12 @@ Recurrent Layers
     :nosignatures:
     :template: classtemplate.rst
 
+    mindspore.nn.GRUCell
+    mindspore.nn.GRU
     mindspore.nn.LSTMCell
     mindspore.nn.LSTM
+    mindspore.nn.RNNCell
+    mindspore.nn.RNN
 
 Sparse Layers
 -------------
