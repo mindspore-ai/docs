@@ -257,3 +257,57 @@ To use the two operators together, ensure that the output format of the previous
 <font size=3>**Q: Why is a .db file generated in MindRecord? What is the error reported when I load a dataset without a .db file?**</font>
 
 A: The .db file is the index file corresponding to the MindRecord file. If the .db file is missing, an error is reported when the total data volume of the dataset is obtained. The error message `MindRecordOp Count total rows failed` is displayed.
+
+<br/>
+
+<font size=3>**Q: How to read image and perform Decode operation in user defined Dataset?**</font>
+
+A: The user defined Dataset that passed into GeneratorDataset, after reading the image inside the function (such as `__getitem__` function), it can directly return bytes type data, numpy array type array or numpy array that has been decoded, as shown below:
+
+- Return bytes of data directly after reading the image
+
+    ```python
+    class ImageDataset:
+        def __init__(self, data_path):
+            self.data = data_path
+
+        def __getitem__(self, index):
+            # use file open and read method
+            f = open(self.data[index], 'rb')
+            img_bytes = f.read()
+            f.close()
+
+            # return bytes directly
+            return (img_bytes, )
+
+        def __len__(self):
+            return len(self.data)
+
+    # data_path is a list of image file name
+    dataset1 = ds.GeneratorDataset(ImageDataset(data_path), ["data"])
+    decode_op = py_vision.Decode()
+    to_tensor = py_vision.ToTensor(output_type=np.int32)
+    dataset1 = dataset1.map(operations=[decode_op, to_tensor], input_columns=["data"])
+    ```
+
+- Return numpy array after reading the image
+
+    ```python
+    # In the above use case, the __getitem__ function can be modified as follows, and the Decode operation is the same as the above use case
+    def __getitem__(self, index):
+        # use np.fromfile to read image
+        img_np = np.fromfile(self.data[index])
+
+        # return Numpy array directly
+        return (img_np, )
+    ```
+
+- Perform decode operation directly after reading the image
+
+    ```python
+    # According to the above use case, the __getitem__ function can be modified as follows to directly return the data after Decode. After that, there is no need to add Decode operation through the map operator.
+    def __getitem__(self, index):
+        # use Image.Open to open file, and convert to RGC
+        img_rgb = Image.Open(self.data[index]).convert("RGB")
+        return (img_rgb, )
+    ```

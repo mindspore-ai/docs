@@ -257,3 +257,57 @@ A：通常数据处理算子与网络计算算子混合使用会导致性能有�
 <font size=3>**Q: MindRecord为何会生成.db文件？ 缺少.db文件时加载数据集会有什么报错？**</font>
 
 A：.db文件为MindRecord文件对应的索引文件，缺少.db文件通常会在获取数据集总的数据量时报错，错误提示如：`MindRecordOp Count total rows failed`。
+
+<br/>
+
+<font size=3>**Q: 自定义Dataset中如何进行图像读取并进行Decode操作？**</font>
+
+A：传入GeneratorDataset的自定义Dataset，在接口内部（如`__getitem__`函数）进行图像读取后可以直接返回bytes类型的数据、numpy array类型的数组或已经做了解码操作的numpy array, 具体如下所示：
+
+- 读取图像后直接返回bytes类型的数据
+
+    ```python
+    class ImageDataset:
+        def __init__(self, data_path):
+            self.data = data_path
+
+        def __getitem__(self, index):
+            # use file open and read method
+            f = open(self.data[index], 'rb')
+            img_bytes = f.read()
+            f.close()
+
+            # return bytes directly
+            return (img_bytes, )
+
+        def __len__(self):
+            return len(self.data)
+
+    # data_path is a list of image file name
+    dataset1 = ds.GeneratorDataset(ImageDataset(data_path), ["data"])
+    decode_op = py_vision.Decode()
+    to_tensor = py_vision.ToTensor(output_type=np.int32)
+    dataset1 = dataset1.map(operations=[decode_op, to_tensor], input_columns=["data"])
+    ```
+
+- 读取图像后返回numpy array
+
+    ```python
+    # 在上面的用例中，对__getitem__函数可进行如下修改, Decode操作同上述用例一致
+    def __getitem__(self, index):
+        # use np.fromfile to read image
+        img_np = np.fromfile(self.data[index])
+
+        # return Numpy array directly
+        return (img_np, )
+    ```
+
+- 读取图像后直接进行Decode操作
+
+    ```python
+    # 依据上面的用例，对__getitem__函数可进行如下修改, 直接返回Decode之后的数据，此后可以不需要通过map算子接Decode操作
+    def __getitem__(self, index):
+        # use Image.Open to open file, and convert to RGC
+        img_rgb = Image.Open(self.data[index]).convert("RGB")
+        return (img_rgb, )
+    ```
