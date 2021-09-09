@@ -23,7 +23,7 @@
 
 ## 一阶求导
 
-MindSpore可以用`mindspore.nn.ForwardValueAndGrad (network, weights=None, get_all=False, get_by_list=False, sens_param=False)`来计算正向结果和一阶导数。 当`get_all` 和`get_by_list` 都设置成 `False`，将会输出第一个入参的导数。 当 `get_all` 设置成 `True`，所有入参的导数将会被输出。当 `get_by_list` 设置成 `False`，权重的导数将不会被输出。当 `get_by_list` 被设置成 `True`，权重的导数将会被输出。`sens_param` 用例缩放网络的正向输出值，用而影响梯度的计算结果。因此，它的维度和网络的正向输出结果一致。下面将举例说明。
+MindSpore可以用`mindspore.nn.ForwardValueAndGrad (network, weights=None, get_all=False, get_by_list=False, sens_param=False)`来计算正向结果和一阶导数。 当`get_all` 和`get_by_list` 都设置成 `False`，将会输出第一个入参的导数。 当 `get_all` 设置成 `True`，所有入参的导数将会被输出。当 `get_by_list` 设置成 `False`，权重的导数将不会被输出。当 `get_by_list` 被设置成 `True`，权重的导数将会被输出。`sens_param` 用来缩放网络的正向输出值，用而影响梯度的计算结果。因此，它的维度和网络的正向输出结果一致。下面将举例说明。
 
 ### 对输入求导
 
@@ -64,17 +64,18 @@ print(output)
 输出结果是:
 
 ```text
-([[0.968, 3.2000002, 1.78]
- [2.838, 8.6199998, 4.1300001]],
- [[4.5099998 2.7 3.6000001]
- [4.5099998 2.7 3.6000001]])
+(Tensor(shape=[2, 3], dtype=Float32, value=
+[[9.68000054e-01, 3.20000029e+00, 1.78000009e+00],
+ [2.83800006e+00, 8.61999989e+00, 4.13000011e+00]]), Tensor(shape=[2, 3], dtype=Float32, value=
+[[4.50999975e+00, 2.70000005e+00, 3.60000014e+00],
+ [4.50999975e+00, 2.70000005e+00, 3.60000014e+00]]))
 ```
 
-如果仅需求输出 `x` 和 `y` 的梯度，可以在 `ForwardValueAndGradWrtX` 设置 `self.grad = nn.ForwardValueAndGrad(self.net, get_all=True)`。
+如果需要同时输出 `x` 和 `y` 的梯度，可以在 `ForwardValueAndGradWrtX` 设置 `self.grad = nn.ForwardValueAndGrad(self.net, get_all=True)`。
 
 ### 对权重求导
 
-如果需求输出权重的梯度，可以参照下面的例子:
+如果需要输出权重的梯度，可以参照下面的例子:
 
 ```python
 class ForwardValueAndGradWrtX(nn.Cell):
@@ -96,9 +97,9 @@ print(output)
 输出结果是:
 
 ```text
-([[0.968, 3.2000002, 1.78]
-  [2.838, 8.6199998, 4.1300001]],
- (Tensor(shape=[1], dtype=Float32, value= [ 2.15359993e+01]),))
+(Tensor(shape=[2, 3], dtype=Float32, value=
+[[9.68000054e-01, 3.20000029e+00, 1.78000009e+00]
+ [2.83800006e+00, 8.61999989e+00, 4.13000011e+00]]), (Tensor(shape=[1], dtype=Float32, value= [2.15359993e+01]),))
 ```
 
 ### 梯度值缩放
@@ -125,10 +126,11 @@ print(output)
 输出结果是:
 
 ```text
-([[0.968 3.2 1.78],
-  [2.838 8.62 4.13]],
-[[2.211 0.51 1.49 ]
- [5.588 2.68 4.07 ]])
+(Tensor(shape=[2, 3], dtype=Float32, value=
+[[9.68000054e-01, 3.20000029e+00, 1.78000009e+00],
+ [2.83800006e+00, 8.61999989e+00, 4.13000011e+00]]), Tensor(shape=[2, 3], dtype=Float32, value=
+[[2.21099997e+00, 5.09999990e-01, 1.49000001e+00],
+ [5.58799982e+00, 2.68000007e+00, 4.07000017e+00]]))
 ```
 
 `self.grad_wrt_output` 可以统一写成以下的格式:
