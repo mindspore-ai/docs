@@ -9,5 +9,4 @@ MindScience 文档
    intro_and_install
    ala
    claisen
-   covid
  
