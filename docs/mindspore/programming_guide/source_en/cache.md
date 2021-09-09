@@ -420,7 +420,7 @@ During the single-node multi-device distributed training, the cache operator all
 
 ## Limitations
 
-- Currently, dataset classes such as `MindDataset`, `GraphDataset`, `GeneratorDataset`, `PaddedDataset`, and `NumpySlicesDataset` do not support cache. `GeneratorDataset`, `PaddedDataset`, and `NumpySlicesDataset` belong to `GeneratorOp`, so their error message is displayed as "There is currently no support for GeneratorOp under cache."
+- Currently, dataset classes such as `GraphDataset`, `GeneratorDataset`, `PaddedDataset`, and `NumpySlicesDataset` do not support cache. `GeneratorDataset`, `PaddedDataset`, and `NumpySlicesDataset` belong to `GeneratorOp`, so their error message is displayed as "There is currently no support for GeneratorOp under cache."
 - Data processed by `batch`, `concat`, `filter`, `repeat`, `skip`, `split`, `take`, and `zip` does not support cache.
 - Data processed by random data argumentation operations (such as `RandomCrop`) does not support cache.
 - The same cache instance cannot be nested in different locations of the same pipeline.
