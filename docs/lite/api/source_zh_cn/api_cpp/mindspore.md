@@ -35,7 +35,7 @@
 | [TimeMonitor](#timemonitor) | MindSpore Lite训练时间监测类，仅MindSpore Lite支持。 |
 | [TrainAccuracy](#trainaccuracy) | MindSpore Lite训练学习率调度类，仅MindSpore Lite支持。 |
 | [Version](#version) | 获取当前版本号，仅MindSpore Lite支持。 |
-| [Allocator](#allocator) | 内存管理基类。 |
+| [Allocator](#id59) | 内存管理基类。 |
 
 ### 枚举
 
