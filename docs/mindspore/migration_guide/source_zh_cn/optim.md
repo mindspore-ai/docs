@@ -13,6 +13,8 @@
 
 <!-- /TOC -->
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_zh_cn/optim.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+
 ## 概述
 
 优化器在模型训练过程中，用于计算和更新网络参数，本文对比MindSpore和PyTorch的在这一部分的实现方式差异，分别从基本用法、基类入参设置及支持的方法、自定义优化器、API映射四部分展开。
@@ -273,7 +275,7 @@ MindSpore暂无对应功能。
 
 ## 自定义优化器
 
-MindSpore和PyTorch都支持用户基于python基本语法及相关算子自定义优化器。在PyTorch中，通过重写`__init__`和`step`方法，用户可以根据需求自定义优化器，具体用法可以参考[这篇教程](http://mcneela.github.io/machine_learning/2019/09/03/Writing-Your-Own-Optimizers-In-PyTorch.html)。MindSpore也支持类似用法，以Momentum为例，使用基础的小算子构建：
+MindSpore和PyTorch都支持用户基于python基本语法及相关算子自定义优化器。在PyTorch中，通过重写`__init__`和`step`方法，用户可以根据需求自定义优化器，具体用法可以参考[这篇教程](http://mcneela.github.io/machine_learning/2019/09/03/Writing-Your-Own-Optimizers-In-Pytorch.html)。MindSpore也支持类似用法，以Momentum为例，使用基础的小算子构建：
 
 ```python
 from mindspore import Parameter, ops, nn
