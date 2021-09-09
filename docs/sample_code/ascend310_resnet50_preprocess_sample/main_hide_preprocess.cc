@@ -26,8 +26,8 @@
 #include "include/api/serialization.h"
 
 namespace ms = mindspore;
-constexpr auto resnet_file = "./model/resnet50_imagenet_with_preprocess.mindir";
-constexpr auto image_path = "./test_data/test_image.jpg";
+constexpr auto resnet_file = "./model/resnet50_imagenet.mindir";
+constexpr auto image_path = "./test_data/ILSVRC2012_val_00002138.JPEG";
 
 size_t GetMax(ms::MSTensor data);
 

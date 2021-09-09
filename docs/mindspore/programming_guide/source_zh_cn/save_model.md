@@ -187,8 +187,16 @@ input = np.random.uniform(0.0, 1.0, size=[32, 3, 224, 224]).astype(np.float32)
 export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='MINDIR')
 ```
 
+若希望在MindIR中保存模型推理时需要的预处理操作信息，可以将数据集对象传入export接口：
+
+```python
+de_dataset = create_dataset_for_renset(mode="eval")
+export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='MINDIR', dataset=de_dataset)
+```
+
 > - `input`为`export`方法的入参，代表网络的输入，如果网络有多个输入，需要一同传进`export`方法。 例如：`export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='MINDIR')`
 > - 如果`file_name`没有包含".mindir"后缀，系统会为其自动添加".mindir"后缀。
+> - 需要确保数据集对象处于evaluation的状态，即正在使用推理相关的算子，否则可能无法达到预期的结果。
 
 为了避免protobuf的硬件限制，当导出的模型参数大小超过1G时，框架默认会把网络结构和参数分开保存。
 
