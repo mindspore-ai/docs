@@ -113,8 +113,6 @@ The functional operators are the pre-instantiated Primitive operators, which can
      - Calculate the result of logical OR operation. (Usage is the same as "or" in Python)
    * - mindspore.ops.cast
      - Refer to :class:`mindspore.ops.Cast`.
-   * - mindspore.ops.check_bprop
-     - Refer to :class:`mindspore.ops.CheckBprop`.
    * - mindspore.ops.cos
      - Refer to :class:`mindspore.ops.Cos`.
    * - mindspore.ops.cosh
@@ -153,12 +151,8 @@ The functional operators are the pre-instantiated Primitive operators, which can
      - Refer to :class:`mindspore.ops.GatherNd`.
    * - mindspore.ops.ge
      - Refer to :class:`mindspore.ops.GreaterEqual`.
-   * - mindspore.ops.geswitch
-     - Refer to :class:`mindspore.ops.GeSwitch`.
    * - mindspore.ops.gt
      - Refer to :class:`mindspore.ops.Greater`.
-   * - mindspore.ops.identity
-     - Refer to :class:`mindspore.ops.identity`.
    * - mindspore.ops.invert
      - Refer to :class:`mindspore.ops.Invert`.
    * - mindspore.ops.in_dict
@@ -195,8 +189,6 @@ The functional operators are the pre-instantiated Primitive operators, which can
      - Refer to :class:`mindspore.ops.Maximum`.
    * - mindspore.ops.minimum
      - Refer to :class:`mindspore.ops.Minimum`.
-   * - mindspore.ops.merge
-     - Refer to :class:`mindspore.ops.Merge`.
    * - mindspore.ops.mul
      - Refer to :class:`mindspore.ops.Mul`.
    * - mindspore.ops.neg_tensor
@@ -207,8 +199,6 @@ The functional operators are the pre-instantiated Primitive operators, which can
      - Determine whether the object is not in the dict.
    * - mindspore.ops.ones_like
      - Refer to :class:`mindspore.ops.OnesLike`.
-   * - mindspore.ops.partial
-     - Refer to :class:`mindspore.ops.Partial`.
    * - mindspore.ops.pows
      - Refer to :class:`mindspore.ops.Pow`.
    * - mindspore.ops.print\_
@@ -333,8 +323,6 @@ The functional operators are the pre-instantiated Primitive operators, which can
      - Refer to :class:`mindspore.ops.Mul`.
    * - mindspore.ops.tensor_pow
      - Refer to :class:`mindspore.ops.Pow`.
-   * - mindspore.ops.tensor_range
-     - Refer to :class:`mindspore.ops.Range`.
    * - mindspore.ops.tensor_scatter_update
      - Refer to :class:`mindspore.ops.TensorScatterUpdate`.
    * - mindspore.ops.tensor_slice
