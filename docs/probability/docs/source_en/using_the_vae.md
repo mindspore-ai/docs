@@ -59,7 +59,7 @@ tree ./datasets/MNIST_Data
 The dataset is enhanced to meet the requirements of VAE network training. In this example, the pixel size of the original image is increased from $28\\times28$ to $32\\times32$, and multiple images are formed into a batch to accelerate training.
 
 ```python
-import mindspore.common.dtype as mstype
+import mindspore.dtype as mstype
 import mindspore.dataset as ds
 import mindspore.dataset.vision.c_transforms as CV
 

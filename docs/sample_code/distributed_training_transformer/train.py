@@ -17,12 +17,12 @@ Train file for training transformers
 """
 import argparse
 from mindspore.parallel.nn import TransformerOpParallelConfig
-from mindspore.train.model import Model
+from mindspore import Model
 import mindspore.communication.management as D
 from mindspore.context import ParallelMode
 from mindspore.parallel import set_algo_parameters
 from mindspore.parallel._cost_model_context import _set_multi_subgraphs
-from mindspore.nn.wrap.cell_wrapper import PipelineCell
+from mindspore.nn import PipelineCell
 from mindspore.train.callback import TimeMonitor, LossMonitor, CheckpointConfig, ModelCheckpoint
 from mindspore.nn import AdamWeightDecay
 from mindspore import context

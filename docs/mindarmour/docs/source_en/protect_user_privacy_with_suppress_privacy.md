@@ -53,7 +53,7 @@ from mindspore import load_checkpoint, load_param_into_net
 import mindspore.dataset as ds
 import mindspore.dataset.vision.c_transforms as CV
 import mindspore.dataset.transforms.c_transforms as C
-from mindspore.dataset.vision.utils import Inter
+from mindspore.dataset.vision import Inter
 from mindspore import dtype as mstype
 
 from examples.common.networks.lenet5.lenet5_net import LeNet5

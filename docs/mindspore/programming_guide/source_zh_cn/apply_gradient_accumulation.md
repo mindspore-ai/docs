@@ -290,7 +290,7 @@ python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt
 
 ```python
 import numpy as np
-import mindspore.common.dtype as mstype
+from mindspore import dtype as mstype
 from mindspore import ops, context, Tensor, Parameter
 from mindspore.nn import TrainOneStepCell
 from mindspore.common.initializer import initializer

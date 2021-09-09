@@ -20,7 +20,7 @@ A code example is as follows:
 ```python
 import numpy as np
 from mindspore.ops import constexpr
-from mindspore.ops import ops
+import mindspore.ops as ops
 import mindspore.nn as nn
 
 @constexpr

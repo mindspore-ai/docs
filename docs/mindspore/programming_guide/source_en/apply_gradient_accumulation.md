@@ -286,7 +286,7 @@ Generally, after the forward network is defined, [`TrainOneStepCell`](https://ww
 
 ```python
 import numpy as np
-import mindspore.common.dtype as mstype
+from mindspore import dtype as mstype
 from mindspore import ops, context, Tensor, Parameter
 from mindspore.nn import TrainOneStepCell
 from mindspore.common.initializer import initializer
@@ -438,7 +438,7 @@ from mindspore.context import ParallelMode
 from mindspore import Model, connect_network_with_dataset
 from mindspore import pytype_to_dtype
 from mindspore._c_expression import init_exec_dataset
-from mindspore.train.train_thor.dataset_helper import DatasetHelper
+from mindspore import DatasetHelper
 
 
 def _convert_type(types):

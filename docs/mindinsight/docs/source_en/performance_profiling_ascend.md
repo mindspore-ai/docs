@@ -47,7 +47,7 @@ The sample code is as follows:
 ```python
 import numpy as np
 from mindspore import nn, context
-from mindspore.train import Model
+from mindspore import Model
 import mindspore.dataset as ds
 from mindspore.profiler import Profiler
 

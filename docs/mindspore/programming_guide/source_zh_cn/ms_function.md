@@ -33,7 +33,7 @@ import mindspore.ops as ops
 import mindspore.context as context
 from mindspore import dtype
 from mindspore import Tensor
-from mindspore.common.api import ms_function
+from mindspore import ms_function
 
 @ms_function
 def add_func(x, y):
