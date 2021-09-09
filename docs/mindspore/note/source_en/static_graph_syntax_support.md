@@ -467,6 +467,10 @@ Restrictions:
 
 - The total number of graph operations is a multiple of number of iterations of the `for` loop. Excessive number of iterations of the `for` loop may cause the graph to occupy more memory than usage limit.
 
+- The `for...else...` statement is not supported.
+
+- The `while` statement cannot exist in loop body of the `for` statement.
+
 Example:
 
 ```python
@@ -499,9 +503,9 @@ Restrictions:
 
 - If `cond` is not a constant, the variable or constant assigned to a same sign inside body of `while` and outside body of `while` should have same data type.If the data type of assigned variables or constants is `Tensor`, the variables and constants should have same shape and element type.
 
-- `while...else...` statements are not supported.
+- The `while...else...` statement is not supported.
 
-- In while body, the data with type of `Number`, `List`, `Tuple` are not allowed to update and the shape  of `Tensor` data are not allowed to change.
+- If `cond` is not a constant, in while body, the data with type of `Number`, `List`, `Tuple` are not allowed to update and the shape  of `Tensor` data are not allowed to change.
 
 - The number of `while` cannot exceed 100.
 
