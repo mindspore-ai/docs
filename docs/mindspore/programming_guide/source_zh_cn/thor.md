@@ -68,11 +68,9 @@ THOR受KFAC启发，将费雪矩阵按层解耦来降低矩阵复杂度，分别
 
 $$
 \begin{cases}
-update\ F^{k}_{i} , \ \ \quad\qquad\qquad\qquad\qquad if \ \Delta^{k} \in (\omega_{1},+\infty)\\
-do\ not\ update\ F^{k}_{i}\ and\ set\\
-F^{k}_{i}=F^{k-1}_{i}, \ \quad\qquad\qquad\qquad\qquad if \ \Delta^{k} \in [\omega_{2},\omega_{1}]\\
-stop\ update\ F^{k}_{i}\ and\ set\\
-F^{k+t}_{t}\equiv F^{k-1}_{i}\ for\ all\ t=1,2,...\quad if \ \Delta^{k} \in [0,\omega_{2})
+update\ F^{k}_{i} , \qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\quad\ \ if \ \Delta^{k} \in (\omega_{1},+\infty)\\
+do\ not\ update\ F^{k}_{i}\ and\ set \  F^{k}_{i}=F^{k-1}_{i}, \ \quad\qquad\qquad\qquad\quad if \ \Delta^{k} \in [\omega_{2},\omega_{1}]\\
+stop\ update\ F^{k}_{i}\ and\ set \  F^{k+t}_{t}\equiv F^{k-1}_{i}\ for\ all\ t=1,2,...\quad if \ \Delta^{k} \in [0,\omega_{2})
 \end{cases}
 $$
 
