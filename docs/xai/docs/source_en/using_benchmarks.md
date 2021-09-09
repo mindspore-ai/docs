@@ -84,9 +84,9 @@ import mindspore as ms
 from mindspore import Tensor
 from mindspore_xai.explanation import Localization
 
-# top-left:100,100 bottom-right:150,150 is the bounding box of a boat
+# top-left:80,66 bottom-right:223,196 is the bounding box of a boat
 mask = np.zeros([1, 1, 224, 224])
-mask[:, :, 100:151, 100:151] = 1
+mask[:, :, 66:196, 80:223] = 1
 
 mask = Tensor(mask, dtype=ms.float32)
 

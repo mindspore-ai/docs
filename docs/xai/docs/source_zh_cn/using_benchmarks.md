@@ -86,9 +86,9 @@ import mindspore as ms
 from mindspore import Tensor
 from mindspore_xai.explanation import Localization
 
-# 左上角：100,100 到 右下角：150,150 是一条船的界框
+# 左上角：80,66 到 右下角：223,196 是一条船的界框
 mask = np.zeros([1, 1, 224, 224])
-mask[:, :, 100:151, 100:151] = 1
+mask[:, :, 66:196, 80:223] = 1
 
 mask = Tensor(mask, dtype=ms.float32)
 
