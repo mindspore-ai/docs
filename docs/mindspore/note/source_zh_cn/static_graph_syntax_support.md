@@ -589,6 +589,10 @@ return out
 
 - 图的算子数量和`for`循环的迭代次数成倍数关系，`for`循环迭代次数过大可能会导致图占用内存超过使用限制。
 
+- 不支持`for...else...`语句。
+
+- `for`的循环体内部不能包含`while`语句。
+
 示例：
 
 ```python
@@ -623,7 +627,7 @@ z: Tensor(shape=[2, 3], dtype=Int64, value=[[7, 7], [7, 7], [7, 7]])
 
 - 不支持`while...else...`语句
 
-- 循环体内部不能更新循环体外的`Number`、`List`、`Tuple`类型数据。不能更改`Tensor`类型数据的shape。
+- 如果`cond`不为常量， 循环体内部不能更新循环体外的`Number`、`List`、`Tuple`类型数据， 不能更改`Tensor`类型数据的shape。
 
 - while的数量不能超过100个。
 
