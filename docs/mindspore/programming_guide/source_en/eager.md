@@ -6,7 +6,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/eager.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/eager.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 When resources permit, in order to purse higher performance, data pipeline mode is generally used for data augmentation. That is, we have to define a `map` operator which helps us to start and execute the given data augmentation operator, and to transform the data in the data pipeline, for example:
 
