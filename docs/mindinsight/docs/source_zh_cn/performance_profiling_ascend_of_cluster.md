@@ -106,7 +106,7 @@ mkdir -p ${cluster_train_id}
 fi
 
 # Copy the networking information file of multi card environment to the cluster directory.
-cp $cluster_hccl_config_paht $cluster_train_id
+cp $cluster_hccl_config_path $cluster_train_id
 
 
 for node in ${node_list}
