@@ -26,6 +26,7 @@ MindSpore编程指南
    design/mindir
    design/data_engine
    可视化调试调优↗ <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/training_visual_design.html>
+   安全可信↗ <https://www.mindspore.cn/mindarmour/docs/zh-CN/master/design.html>
    design/glossary
 
 .. toctree::
