@@ -9,7 +9,7 @@ MindReinforcement API
 .. automodule:: mindspore_rl
 
 mindspore_rl.agent
------------
+------------------
 
 .. automodule:: mindspore_rl.agent
     :members:
@@ -21,19 +21,19 @@ mindspore_rl.core
     :members:
 
 mindspore_rl.environment
-----------------
+------------------------
 
 .. automodule:: mindspore_rl.environment
     :members:
 
 mindspore_rl.network
--------------
+--------------------
 
 .. automodule:: mindspore_rl.network
     :members:
 
 mindspore_rl.policy
------------
+-------------------
 
 .. automodule:: mindspore_rl.policy
     :members:
