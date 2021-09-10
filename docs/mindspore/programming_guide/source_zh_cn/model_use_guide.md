@@ -21,7 +21,7 @@
 
 ## 概述
 
-[`编程指南`](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/index.html)的网络构建部分讲述了如何定义前向网络、损失函数和优化器，并介绍了如何将这些结构封装成训练、评估网络并执行。在此基础上，本文档讲述如何使用高阶API`Model`进行模型训练和评估。
+[编程指南](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/index.html)的网络构建部分讲述了如何定义前向网络、损失函数和优化器，并介绍了如何将这些结构封装成训练、评估网络并执行。在此基础上，本文档讲述如何使用高阶API`Model`进行模型训练和评估。
 
 通常情况下，定义训练和评估网络并直接运行，已经可以满足基本需求，但仍然建议通过`Model`来进行模型训练和评估。一方面，`Model`可以在一定程度上简化代码。例如：无需手动遍历数据集；在不需要自定义`TrainOneStepCell`的场景下，可以借助`Model`自动构建训练网络；可以使用`Model`的`eval`接口进行模型评估，直接输出评估结果，无需手动调用评价指标的`clear`、`update`、`eval`函数等。另一方面，`Model`提供了很多高阶功能，如数据下沉、混合精度等，在不借助`Model`的情况下，使用这些功能需要花费较多的时间仿照`Model`进行自定义。
 

@@ -177,7 +177,7 @@ model.train(...)
 
 自动和半自动模式中还可以通过对`Cell`配置`pipeline_stage`属性进行流水线并行，对应的流水线并行教程可以参考[应用流水线并行](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/apply_pipeline_parallel.html)。
 
-### `全自动并行`
+### 全自动并行
 
 自动并行模式，融合了数据并行、模型并行及混合并行的分布式并行模式，可以自动建立代价模型，找到训练时间较短的并行策略，为用户选择1种并行模式。MindSpore提供了如下的两种不同的策略搜索算法：
 
