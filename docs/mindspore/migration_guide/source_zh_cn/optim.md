@@ -26,9 +26,21 @@ MindSpore：使用优化器时，通常需要预先定义网络、损失函数�
 ```python
 from mindspore import context, Tensor, ParameterTuple
 from mindspore import nn, Model, ops
+import numpy as np
+from mindspore import dtype as mstype
+
+class Net(nn.Cell):
+  def __init__(self):
+    super(Net, self).__init__()
+    self.conv = nn.Conv2d(3, 64, 3)
+    self.bn = nn.BatchNorm2d(64)
+  def construct(self, x):
+    x = self.conv(x)
+    x = self.bn(x)
+    return x
 
 net = Net()
-loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
+loss = nn.MSELoss()
 optimizer = nn.SGD(params=net.trainable_params(), learning_rate=0.01)
 ```
 
@@ -38,7 +50,7 @@ optimizer = nn.SGD(params=net.trainable_params(), learning_rate=0.01)
 
   ```python
   # 使用Model接口
-  model = Model(net, loss_fn=loss, optimizer=optimizer, metrics={"accuracy"})
+model = Model(net, loss_fn=loss, optimizer=optimizer, metrics={"accuracy"})
   ```
 
 - MindSpore提供了`TrainOneStepCell`接口，通过传入优化器和一个`WithLossCell`的实例，自定义训练网络；
@@ -46,11 +58,13 @@ optimizer = nn.SGD(params=net.trainable_params(), learning_rate=0.01)
   ```python
   # 使用TrainOneStepCell自定义网络
   loss_net = nn.WithLossCell(net, loss) # 包含损失函数的Cell
-  train_net = nn.TrainOneStepCell(loss_net, optim)
-  for i in range(epochs):
-    for image, label in train_dataset:
-      train_net.set_train()
-      res =train_net(image, label) # 执行网络的单步训练
+train_net = nn.TrainOneStepCell(loss_net, optimizer)
+train_dataset = [(Tensor(np.random.rand(1, 3, 64, 32), mstype.float32),
+                  Tensor(np.random.rand(1, 64, 64, 32), mstype.float32))]
+for i in range(5):
+  for image, label in train_dataset:
+    train_net.set_train()
+    res = train_net(image, label) # 执行网络的单步训练
   ```
 
 - 在PyNative模式下，实现单步执行优化器。
@@ -60,23 +74,23 @@ optimizer = nn.SGD(params=net.trainable_params(), learning_rate=0.01)
   context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
 
   class GradWrap(nn.Cell):
-      """ GradWrap definition """
-      def __init__(self, network):
-          super(GradWrap, self).__init__(auto_prefix=False)
-          self.network = network
-          self.weights = ParameterTuple(filter(lambda x: x.requires_grad, network.get_parameters()))
+    """ GradWrap definition """
+    def __init__(self, network):
+        super(GradWrap, self).__init__(auto_prefix=False)
+        self.network = network
+        self.weights = ParameterTuple(filter(lambda x: x.requires_grad, network.get_parameters()))
 
-      def construct(self, x, label):
-          weights = self.weights
-          return ops.GradOperation(get_by_list=True)(self.network, weights)(x, label)
+    def construct(self, x, label):
+        weights = self.weights
+        return ops.GradOperation(get_by_list=True)(self.network, weights)(x, label)
 
-  loss_net = nn.WithLossCell(net, loss)
-  train_network = GradWrap(loss_net)
+        loss_net = nn.WithLossCell(net, loss)
+        train_network = GradWrap(loss_net)
 
-  output = net(image)
-  loss_output = loss(output, label)
-  grads = train_network(image, label)
-  success = optimizer(grads)
+        output = net(image)
+        loss_output = loss(output, label)
+        grads = train_network(image, label)
+        success = optimizer(grads)
   ```
 
 PyTorch：PyTorch为`Tensor`建立了`grad`属性和`backward`方法，`tensor.grad`是通过`tensor.backward`方法（本质是`PyTorch.autograd.backward`）计算的，且在计算中进行梯度值累加，因此一般在调用`tensor.backward`方法前，需要手动将`grad`属性清零。MindSpore没有为`Tensor`和`grad`建立直接联系，在使用时不需要手动清零。
@@ -84,17 +98,33 @@ PyTorch：PyTorch为`Tensor`建立了`grad`属性和`backward`方法，`tensor.g
 在下面的代码中，初始化了一个优化器实例，每次循环调用`zero_grad`清零梯度，`backward`更新梯度，`step`更新网络参数，返回损失值。
 
 ```python
-import PyTorch
-from PyTorch import optim
+import torch
+from torch import optim, nn
+import numpy as np
 
-optimizer = optim.SGD(net.parameters(), lr=0.01)
-loss = PyTorch.nn.MSELoss()
+class Net(nn.Module):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.conv = nn.Conv2d(3, 64, 3)
+        self.bn = nn.BatchNorm2d(64)
+        self.relu = nn.ReLU()
+    def forward(self, x):
+        x = self.conv(x)
+        x = self.bn(x)
+        x = self.relu(x)
+        return x
 
-for epoch in range(epochs):
+model = Net()
+optimizer = optim.SGD(model.parameters(), lr=0.01)
+loss_fn = nn.MSELoss()
+train_dataset = [(torch.tensor(np.random.rand(1, 3, 64, 32).astype(np.float32)),
+            torch.tensor(np.random.rand(1, 64, 62, 30).astype(np.float32)))]
+
+for epoch in range(5):
   for image, label in train_dataset:
     optimizer.zero_grad()
-    output = net(image)
-    loss = loss(output, label)
+    output = model(image)
+    loss = loss_fn(output, label)
     loss.backward()
     optimizer.step()
 ```
@@ -125,14 +155,14 @@ MindSpore和PyTorch的优化器都需要传入网络中需要被训练的参数�
 
   ```python
   from mindspore import nn
-  optim = nn.SGD(net.trainable_params())
+  optim_sgd = nn.SGD(net.trainable_params())
   ```
 
   PyTorch的`state`包含了网络中所有的参数，其中需要被优化的是`parameter`，不需要优化的是`buffer`（例如：BatchNorm中的`running_mean`和`running_var`     ）。`parameters`方法返回需要被优化参数的`generator`。
 
   ```python
-  from PyTorch import nn, optim
-  optim = optim.SGD(params=model.parameters(), lr=0.01)
+  from torch import nn, optim
+  optim_sgd = optim.SGD(params=model.parameters(), lr=0.01)
   ```
 
 - 用户自定义：
@@ -141,22 +171,23 @@ MindSpore和PyTorch的优化器都需要传入网络中需要被训练的参数�
 
   ```python
   from mindspore import nn
+
   net = Net()
   all_params = net.get_parameters()
   non_conv_params = list(filter(lambda x: "conv" not in x.name, all_params))
-  optim = nn.SGD(params=non_conv_params)
+  optim_sgd = nn.SGD(params=non_conv_params)
   ```
 
  ```python
-  from PyTorch import optim
+  from torch import optim
 
   net = Net()
-  all_params = net.named_parameters()
+  all_params = model.named_parameters()
   target_params = []
   for name, params in all_params:
       if "conv" in name:
           target_params.append(params)
-  optim = optim.SGD(params=target_params, lr=0.01)
+  optim_sgd = optim.SGD(params=target_params, lr=0.01)
   ```
 
 #### 2. 学习率
@@ -168,32 +199,41 @@ MindSpore和PyTorch的优化器都需要传入网络中需要被训练的参数�
   ```python
   from mindspore import nn
 
-  milestone = [2, 5, 10]
-  learning_rates = [0.1, 0.05, 0.01]
-  lr = nn..dynamic_lr.piecewise_constant_lr(milestone, learning_rates)
-  print(lr)
+ milestone = [2, 5, 10]
+ learning_rates = [0.1, 0.05, 0.01]
+ lr = nn.dynamic_lr.piecewise_constant_lr(milestone, learning_rates)
+ print(lr)
+  ```
 
-  # out:
-  [0.1, 0.1, 0.05, 0.05, 0.05, 0.01, 0.01, 0.01, 0.01, 0.01]
+  ```text
+  out: [0.1, 0.1, 0.05, 0.05, 0.05, 0.01, 0.01, 0.01, 0.01, 0.01]
   ```
 
 - PyTorch：优化器作为`lr_scheduler`的输入，调用`step`方法对学习率进行更新。
 
   ```python
-  from troch import optim
+  from torch import optim
 
   model = Net()
-  optimizer = optim.SGD(model, 0.1)
-  scheduler = optim.ExponentialLR(optimizer, gamma=0.9)
+  optimizer = optim.SGD(model.parameters(), 0.1)
+  scheduler = optim.lr_scheduler.ExponentialLR(optimizer, gamma=0.9)
 
-  for epoch in range(epochs):
-      for input, target in dataset:
+  for epoch in range(5):
+      for input, target in train_dataset:
           optimizer.zero_grad()
           output = model(input)
           loss = loss_fn(output, target)
           loss.backward()
           optimizer.step()
       scheduler.step()
+      print(scheduler.get_last_lr())
+
+  # out:
+  # [0.09000000000000001]
+  # [0.08100000000000002]
+  # [0.07290000000000002]
+  # [0.06561000000000002]
+  # [0.05904900000000002]
   ```
 
 调整策略映射表
@@ -225,28 +265,27 @@ MindSpore和PyTorch都支持参数分组且使用方法相似，在使用时都�
 MindSpore参数分组用法请参考[编程指南](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/optim.html#id11)；PyTorch参数分组用法参考下述样例：
 
 ```python
-from PyTorch import optim
+from torch import optim
 
 net = Net()
 all_params = net.parameters()
-weight_params = []
-quant_params = []
+conv_params = []
+non_conv_params = []
 # 根据自己的筛选规则 将所有网络参数进行分组
 for pname, p in model.named_parameters():
-    if any([pname.endswith(k) for k in ['cw', 'dw', 'cx', 'dx', 'lamb']]):
-        quant_params += [p]
-    elif ('conv' or 'fc' in pname and 'weight' in pname):
-        weight_params += [p]
-# 取回分组参数的id
-params_id = list(map(id, weight_params)) + list(map(id, quant_params))
-# 取回剩余分特殊处置参数的id
-other_params = list(filter(lambda p: id(p) not in params_id, all_params))
+    if ('conv' in pname):
+        conv_params += [p]
+    else:
+        non_conv_params += [p]
+
+print(len(conv_params), len(non_conv_params))
 # 构建不同学习参数的优化器
-optimizer = PyTorch.optim.SGD([
-        {'params': other_params},
-        {'params': quant_params, 'lr': 0.02},
-        {'params': weight_params, 'weight_decay': 0.5}],
-        lr=0.01, momentum=0.9,)
+optimizer = torch.optim.SGD([
+        {'params': conv_params, 'lr': 0.02},
+        {'params': non_conv_params, 'weight_decay': 0.5}],
+        lr=0.01, momentum=0.9)
+
+# out: 2 2
 ```
 
 #### 5.混合精度
