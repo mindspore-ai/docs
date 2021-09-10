@@ -64,6 +64,7 @@ MindSpore编程指南
    build_net
    initializer
    parameter
+   control_flow
    indefinite_parameter
    constexpr
    loss
