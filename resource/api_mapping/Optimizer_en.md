@@ -31,6 +31,18 @@ MindSpore： `params` can be passed by interface `trainable_params`.
 ```python
 from mindspore import nn
 
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.conv = nn.Conv2d(3, 64, 3)
+        self.bn = nn.BatchNorm2d(64)
+        self.relu = nn.ReLU()
+    def construct(self, x):
+        x = self.conv(x)
+        x = self.bn(x)
+        out = self.relu(x)
+        return out
+
 net = Net()
 optim_sgd = nn.SGD(params=net.trainable_params())
 ```
@@ -39,6 +51,20 @@ PyTorch： `params` can be passed by interface `parameters`.
 
 ```python
 from torch import optim
+import torch
+import torch.nn as nn
+
+class Net(nn.Module):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.conv = nn.Conv2d(3, 64, 3)
+        self.bn = nn.BatchNorm2d(64)
+        self.relu = nn.ReLU()
+    def forward(self, x):
+        x = self.conv(x)
+        x = self.bn(x)
+        x = self.relu(x)
+        return x
 
 net = Net()
 optim_sgd = optim.SGD(params=net.parameters(), lr=0.01)
@@ -105,7 +131,7 @@ optimizer1 = nn.Momentum(net.trainable_params(), learning_rate=lr_dynamic, momen
 optimizer2 = nn.Momentum(net.trainable_params(), learning_rate=lr_schedule, momentum=0.9, weight_decay=0.9)
 ```
 
-```python
+```text
 [0.1, 0.1, 0.05, 0.05, 0.05, 0.01, 0.01, 0.01, 0.01, 0.01]
 0.0736396
 ```
@@ -114,18 +140,30 @@ optimizer2 = nn.Momentum(net.trainable_params(), learning_rate=lr_schedule, mome
 
 ```python
 from torch import optim
+import numpy as np
 
-optimizer = torch.optim.SGD(model.parameters(), lr=0.1, momentum=0.9)
-scheduler = optim.ExponentialLR(optimizer, gamma=0.9)
-
-for epoch in range(20):
+optimizer = torch.optim.SGD(net.parameters(), lr=0.1, momentum=0.9)
+scheduler = optim.lr_scheduler.ExponentialLR(optimizer, gamma=0.9)
+loss_fn = torch.nn.MSELoss()
+dataset = [(torch.tensor(np.random.rand(1, 3, 64, 32).astype(np.float32)),
+            torch.tensor(np.random.rand(1, 64, 62, 30).astype(np.float32)))]
+for epoch in range(5):
     for input, target in dataset:
         optimizer.zero_grad()
-        output = model(input)
+        output = net(input)
         loss = loss_fn(output, target)
         loss.backward()
         optimizer.step()
     scheduler.step()
+    print(scheduler.get_last_lr())
+```
+
+```text
+[0.09000000000000001]
+[0.08100000000000002]
+[0.07290000000000002]
+[0.06561000000000002]
+[0.05904900000000002]
 ```
 
 ## weight_decay setting
@@ -150,7 +188,7 @@ from mindspore import nn
 
 net = Net()
 
-conv_params = list(filter(=lambda x: 'conv' in x.name, net.trainable_params()))
+conv_params = list(filter(lambda x: 'conv' in x.name, net.trainable_params()))
 no_conv_params = list(filter(lambda x: "conv" not in x.name, net.trainable_params()))
 
 fix_lr = 0.01
@@ -183,8 +221,8 @@ for pname, p in net.named_parameters():
   else:
     no_conv_params += [p]
 
-group_params = [{'params': conv_params, 'weight_decay': 0.01, 'lr': fix_lr},
-                    {'params': no_conv_params, 'nesterov'=True}]
+group_params = [{'params': conv_params, 'weight_decay': 0.01, 'lr': 0.01},
+                {'params': no_conv_params, 'nesterov': True}]
 
 optim_sgd = optim.SGD(group_params, lr=0.01)
 ```

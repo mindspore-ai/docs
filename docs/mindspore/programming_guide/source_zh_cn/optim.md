@@ -130,7 +130,7 @@ from mindspore import nn
 
 milestone = [2, 5, 10]
 learning_rates = [0.1, 0.05, 0.01]
-lr = nn..dynamic_lr.piecewise_constant_lr(milestone, learning_rates)
+lr = nn.dynamic_lr.piecewise_constant_lr(milestone, learning_rates)
 print(lr)
 ```
 
