@@ -217,4 +217,4 @@ Types of energy output in the simulation process are recorded, namely iterations
 | Output                    | numpy file
 | Speed                      | 15.0 ms/step
 | Total time                 | 5.7 s
-| Script                    | [Link](https://gitee.com/mindspore/mindscience/tree/master/MindSPONGE/scripts)
+| Script                    | [Link](https://gitee.com/mindspore/mindscience/tree/master/MindSPONGE/examples/polypeptide/scripts)
