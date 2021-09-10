@@ -6,7 +6,7 @@
     - [Overview](#overview)
 
 <!-- /TOC -->
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/constexpr.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/constexpr.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 Overview
 
 A @constexpr python decorator is provided in `mindspore.ops.constexpr`,which can be used to decorate a function.The function will be executed by the Python interpreter in the compiling stage, and finally this function will be changed to a ValueNode of ANF graph after the inference state of MindSpore.
