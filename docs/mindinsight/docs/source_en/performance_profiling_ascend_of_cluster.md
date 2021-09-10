@@ -49,7 +49,7 @@ Script program description: the script program first creates the cluster job fol
 echo "=============================================================================================================="
 echo "Please run the script as: "
 echo "bash collect_cluster_profiler_data.sh"
-echo "for example: bash collect_cluster_profiler_data.sh cluster_hccl_config_path cluster_account_config_path cluster_train_id host_train_id device_regex output"s
+echo "for example: bash collect_cluster_profiler_data.sh cluster_hccl_config_path cluster_account_config_path cluster_train_id host_train_id device_regex output"
 echo "=============================================================================================================="
 
 SSH="ssh -o StrictHostKeyChecking=no"
@@ -78,7 +78,7 @@ get_node_passwd()
         cat ${cluster_config} | python3 -c 'import sys,json;print(json.load(sys.stdin)["cluster"]['\"${node}\"']["passwd"])'
 }
 
-# Copy the data from remote node to the local node.
+# Copy data from remote node to local node.
 rscp_pass()
 {
         local node="$1"
@@ -90,7 +90,7 @@ rscp_pass()
 }
 
 cluster_hccl_config_path=$1
-cluster_account_config_path=$2s
+cluster_account_config_path=$2
 cluster_train_id=$3
 host_train_id=$4
 device_regex=$5
@@ -104,8 +104,9 @@ if [ ! -d "${cluster_train_id}" ]; then
 mkdir -p ${cluster_train_id}
 fi
 
-# Copy the networking information file of multi-device environment to the cluster directory.
+# Copy the networking information file of multi card environment to the cluster directory.
 cp $cluster_hccl_config_paht $cluster_train_id
+
 
 for node in ${node_list}
 do
@@ -117,14 +118,17 @@ do
  mkdir -p ${target_dir}
  fi
 
- # Eight-device data
+ # Eight card data
  for((i=0;i<8;i++));
  do
    src_dir=${host_train_id}/${device_regex}${i}/${output}*/profiler*/*.*
+   if [ !$device_regex ]; then
+   src_dir=${host_train_id}/profiler*/*.*
+   fi
    $(rscp_pass ${node} ${user} ${passwd} "${src_dir}" ${target_dir})
  done
 
- # Save the mapping information to the host_ips_mapping.txt.
+ # save the mapping information to the host_ips_mapping.txt.
  echo "$node $host_ip_mapping_id">>${cluster_train_id}/$host_ip_mapping_file
 
  # host_ip_mapping_id ++
@@ -179,8 +183,8 @@ Script Parameter Description:
 
 - `cluster_train_id`  The path to save the performance data of the cluster profiler. For example, `/home/summary/run1` and `/home/data/Run2`, where `run1` and `run2` respectively save the jobs of two cluster training.
 - `host_train_id`  During cluster training, each host node stores the path of profiler performance data. For example：`/home/summary/`.
-- `device_regex`  The name of the folder where the performance data of the profiler is stored on different devices in each host node. For example：`/home/summary/device0` and `/home/summary/device1`, which are the folders corresponding to device 0 and device 1. At this time, device_regex is device.
-- `output`  The path to save the profiler performance file set by the user in the training script, the default is `./data`.
+- `device_regex`  The name of the folder where the performance data of the profiler is stored on different devices in each host node. For example：`/home/summary/device0` and `/home/summary/device1`, which are the folders corresponding to device 0 and device 1. At this time, device_regex is device. If it does not exist, this parameter is not set.
+- `output`  The relative path to save the profiler performance file set by the user in the training script, the default is `./data`.
 
 > The collected cluster performance jobs need to conform to the directory structure, otherwise, they cannot be visualized with MindInsight. It must contain the networking information file (the file name is optional) and host_ips_mapping.txt File (file name and suffix are unique).
 

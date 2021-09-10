@@ -50,7 +50,7 @@
 echo "=============================================================================================================="
 echo "Please run the script as: "
 echo "bash collect_cluster_profiler_data.sh"
-echo "for example: bash collect_cluster_profiler_data.sh cluster_hccl_config_path cluster_account_config_path cluster_train_id host_train_id device_regex output"s
+echo "for example: bash collect_cluster_profiler_data.sh cluster_hccl_config_path cluster_account_config_path cluster_train_id host_train_id device_regex output"
 echo "=============================================================================================================="
 
 SSH="ssh -o StrictHostKeyChecking=no"
@@ -91,7 +91,7 @@ rscp_pass()
 }
 
 cluster_hccl_config_path=$1
-cluster_account_config_path=$2s
+cluster_account_config_path=$2
 cluster_train_id=$3
 host_train_id=$4
 device_regex=$5
@@ -123,6 +123,9 @@ do
  for((i=0;i<8;i++));
  do
    src_dir=${host_train_id}/${device_regex}${i}/${output}*/profiler*/*.*
+   if [ !$device_regex ]; then
+   src_dir=${host_train_id}/profiler*/*.*
+   fi
    $(rscp_pass ${node} ${user} ${passwd} "${src_dir}" ${target_dir})
  done
 
@@ -181,8 +184,8 @@ done
 
 - `cluster_train_id`  为集群profiler性能数据保存的路径，比如`/home/summary/run1`、`/home/data/run2`  其中`run1`和`run2`分别保存两次集群训练的作业。
 - `host_train_id`  为集群训练时，各个主机节点保存profiler的性能数据的路径。比如：`/home/summary/`。
-- `device_regex`  为各个主机节点中不同卡保存profiler的性能数据的文件夹名称。比如：`/home/summary/device0`和`/home/summary/device1`分别是0号卡和1号卡对应的文件夹，此时device_regex为device。
-- `output` 为训练脚本中用户设置的保存profiler性能文件的路径，默认为`./data`。
+- `device_regex`  为各个主机节点中不同卡保存profiler的性能数据的文件夹名称。比如：`/home/summary/device0`和`/home/summary/device1`分别是0号卡和1号卡对应的文件夹，此时device_regex为device。若不存在，此参数不设置。
+- `output` 为训练脚本中用户设置的保存profiler性能文件的相对路径，默认为`./data`。
 
 通过脚本收集到的集群性能文件夹目录结构为：
 
