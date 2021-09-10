@@ -6,40 +6,34 @@
 MindReinforcement API
 =======================
 
-.. automodule:: msrl
+.. automodule:: mindspore_rl
 
-msrl.agents
+mindspore_rl.agent
 -----------
 
-.. automodule:: msrl.agents
+.. automodule:: mindspore_rl.agent
     :members:
 
-msrl.environment
-----------------
-
-.. automodule:: msrl.environment
-    :members:
-
-msrl.mindspore_rl
+mindspore_rl.core
 -----------------
 
-.. automodule:: msrl.mindspore_rl
+.. automodule:: mindspore_rl.core
     :members:
 
-msrl.networks
+mindspore_rl.environment
+----------------
+
+.. automodule:: mindspore_rl.environment
+    :members:
+
+mindspore_rl.network
 -------------
 
-.. automodule:: msrl.networks
+.. automodule:: mindspore_rl.network
     :members:
 
-msrl.policy
+mindspore_rl.policy
 -----------
 
-.. automodule:: msrl.policy
-    :members:
-
-msrl.replay_buffer
--------------------
-
-.. automodule:: msrl.replay_buffer
+.. automodule:: mindspore_rl.policy
     :members:
