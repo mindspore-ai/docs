@@ -20,7 +20,7 @@ from sphinx.util import inspect as sphinx_inspect
 from sphinx.domains import python as sphinx_domain_python
 from textwrap import dedent
 
-import msrl
+import mindspore_rl
 
 # -- Project information -----------------------------------------------------
 
