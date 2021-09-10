@@ -641,14 +641,11 @@ You can write a Python script to call the JAR package of the federated learning 
     parser.add_argument("--flName", type=str, default="lenet")
     parser.add_argument("--train_model_path", type=str, default="ms/lenet/")    # must be absolute path of .ms files
     parser.add_argument("--infer_model_path", type=str, default="ms/lenet/")    # must be absolute path of .ms files
-    parser.add_argument("--ip", type=str, default="10.113.216.106")
-    parser.add_argument("--ssl", type=str, default="false")
-    parser.add_argument("--port", type=int, default=6668)
+    parser.add_argument("--use_ssl", type=str, default="false")
+    parser.add_argument("--domain_name", type=str, default="http://10.113.216.106:6668")
     parser.add_argument("--server_num", type=int, default=0)
     parser.add_argument("--client_num", type=int, default=0)
-    parser.add_argument("--time_window", type=int, default=6000)
-    parser.add_argument("--use_elb", type=str, default="false")
-    parser.add_argument("--use_https", type=str, default="false")
+    parser.add_argument("--if_use_elb", type=str, default="false")
     parser.add_argument("--cert_path", type=str, default="null")
     parser.add_argument("--task", type=str, default="train")
 
@@ -661,14 +658,11 @@ You can write a Python script to call the JAR package of the federated learning 
     flName = args.flName
     train_model_path = args.train_model_path
     infer_model_path = args.infer_model_path
-    ip = args.ip
-    ssl = args.ssl
-    port = args.port
+    use_ssl = args.use_ssl
+    domain_name = args.domain_name
     server_num = args.server_num
     client_num = args.client_num
-    time_window = str(args.time_window)
-    use_elb = args.use_elb
-    use_https = args.use_https
+    if_use_elb = args.if_use_elb
     cert_path = args.cert_path
     task = args.task
 
@@ -703,12 +697,11 @@ You can write a Python script to call the JAR package of the federated learning 
         return train_path, test_path, train_batch_num, test_batch_num
 
     for i in range(client_num):
-        clientID = "f"+str(i)
         user = users[i]
         train_path, test_path = "", ""
         train_path, test_path, _, _= get_client_data_path(train_dataset, user)
         print("===========================")
-        print("client id: ", clientID)
+        print("process id: ", i)
         print("train path: ", train_path)
         print("test path: ", test_path)
 
@@ -728,14 +721,10 @@ You can write a Python script to call the JAR package of the federated learning 
         print("model path: ", train_model_path + "lenet_train" + str(i) + ".ms" + " ")
         cmd_client += infer_model_path + "lenet_train" + str(i) + ".ms" + " "
         print("model path: ", infer_model_path + "lenet_train" + str(i) + ".ms" + " ")
-        cmd_client += clientID + " "
-        cmd_client += ip + " "
-        cmd_client += ssl + " "
-        cmd_client += str(port) + " "
-        cmd_client += time_window + " "
-        cmd_client += use_elb + " "
+        cmd_client += use_ssl + " "
+        cmd_client += domain_name + " "
+        cmd_client += if_use_elb + " "
         cmd_client += str(server_num) + " "
-        cmd_client += use_https + " "
         cmd_client += cert_path + " "
         cmd_client += task + " "
         cmd_client += " > client" + ".log 2>&1 &"
@@ -754,7 +743,7 @@ You can write a Python script to call the JAR package of the federated learning 
 
         Specifies the root path of the training dataset.The sentiment classification task stores the training data (in .txt format) of each client. The LeNet image classification task stores the training files data.bin and label.bin of each client, for example, `leaf-master/data/femnist/3500_clients_bin/`.
 
-     - **`--test_dataset`**
+    - **`--test_dataset`**
 
         Specifies the test dataset path. For LeNet image classification tasks, this parameter does not need to be set and the default value is null. For sentiment classification tasks, if this parameter is not set, validation is not performed during training.
 
@@ -778,21 +767,13 @@ You can write a Python script to call the JAR package of the federated learning 
 
         Specifies the path of the inference model used by federated learning. It is the absolute path of the model file in .ms format. This parameter is mandatory for sentiment classification tasks, and can be set to the value of train_model_path for LeNet image classification tasks.
 
-    - **`--ip`**
-
-        Specifies the IP address of the server. The format is 10.113.216.106. Currently, the cloud supports only the HTTP communication mode. The HTTP communication mode is used by default.
-
-    - **`--ssl`**
+    - **`--use_ssl`**
 
         Determines whether to perform SSL certificate authentication for device-cloud communication. SSL certificate authentication is used only for HTTPS communication. If this parameter is set to false, SSL certificate authentication is not performed. If this parameter is set to true, SSL certificate authentication is performed only in HTTPS communication mode. In this case, `useHttps` must be set to true, and `cert_path` must be set to a specific certificate path. The default value is false.
 
-    - **`--port`**
+    - **`--domain_name`**
 
-        Specifies the port number. The value must be the same as the value of the `fl_server_port` parameter used when the server is started. The format is 6668.
-
-    - **`--time_window`**
-
-        Specifies the total time window for repeated requests on the device. The value must be the same as the sum of `start_fl_job_time_windows` and `update_model_time_windows` when the server is started.
+        Used to set the url for device-cloud communication. Currently, https and http communication are supported, the corresponding formats are like as: https://......, http://......, and when `if_use_elb` is set to true, the format must be: https://127.0.0.0 : 6666 or http://127.0.0.0 : 6666 , where `127.0.0.0` corresponds to the ip of the machine providing cloud-side services (corresponding to the cloud-side parameter `--scheduler_ip`), and `6666` corresponds to the cloud-side parameter `--scheduler_port`.
 
     - **`--server_num`**
 
@@ -802,17 +783,13 @@ You can write a Python script to call the JAR package of the federated learning 
 
         Specifies the number of clients. The value must be the same as that of `start_fl_job_cnt` when the server is started. This parameter is not required in actual scenarios.
 
-    - **`--use_elb`**
+    - **`--if_use_elb`**
 
         Applies to the multi-server scenario. If the value is true, each round request of the client uses a random port within the specified range. If the value is false, a fixed port is used. The default value is false. If the value of `server_num` is greater than 1, set this parameter to true. Simulates a client to randomly select different servers to send messages. This parameter is not required in actual scenarios.
 
-    - **`--use_https`**
-
-        Determines whether to perform HTTPS communication for device-cloud communication. The value false indicates that HTTP communication is performed. The value true indicates that HTTPS communication is performed. The default value is false.
-
     - **`--cert_path`**
 
-        Specifies the absolute path of the certificate. This parameter is mandatory when `--ssl` is set to true. The default value is `null`.
+        Specifies the absolute path of the certificate. This parameter is mandatory when `--use_ssl` is set to true. The default value is `null`.
 
     - **`--task`**
 
