@@ -11,6 +11,7 @@ MindSpore API
    :caption: MindSpore Python API
 
    api_python/mindspore
+   api_python/mindspore.boost
    api_python/mindspore.common.initializer
    api_python/mindspore.communication
    api_python/mindspore.compression
