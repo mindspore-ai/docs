@@ -1933,6 +1933,18 @@ virtual void *Malloc(size_t size)
 
     - `size`: 要分配的内存大小，单位为Byte。
 
+```cpp
+virtual void *Malloc(size_t weight, size_t height, DataType type)
+```
+
+Image格式内存分配。
+
+- 参数
+
+    - `weight`: 要分配的Image格式内存的宽度。
+    - `height`: 要分配的Image格式内存的高度。
+    - `type`: 要分配的Image格式内存的数据类型。
+
 #### Free
 
 ```cpp
