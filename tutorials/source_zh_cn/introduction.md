@@ -12,7 +12,7 @@
 
 昇腾AI全栈如下图所示：
 
-![昇腾全栈](images/introduction1.jpg)
+![昇腾全栈](images/introduction1.png)
 
 下面简单介绍每个模块的作用：
 
