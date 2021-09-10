@@ -6,6 +6,6 @@ MindScience Documents
    :maxdepth: 1
    :caption: MindSPONGE
 
-   intro_and_install
-   ala
+   mindsponge/intro_and_install
+   mindsponge/ala
    
