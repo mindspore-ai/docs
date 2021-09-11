@@ -126,6 +126,10 @@ def get_bprop_mul(self):
 
 最终，对于初始传播，在MindSpore中使用[sens](https://mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.GradOperation.html?highlight=gradoperation#mindspore.ops.GradOperation)进行缩放，默认值为1。同理对于输入y求导，可以使用同样的过程进行推导。
 
+### PyNative模式下的控制流
+
+在PyNative模式下，脚本按照Python的语法执行，因此在MindSpore中，针对控制流语法并没有做特殊处理，直接按照Python的语法直接展开执行，进而对展开的执行算子进行自动微分的操作。例如，对于for循环，在PyNative下会根据具体的循环次数，不断的执行for循环中的语句，并对其算子进行自动微分的操作。
+
 ## 动静统一
 
 ### 概述
