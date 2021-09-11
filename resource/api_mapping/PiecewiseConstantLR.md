@@ -47,14 +47,20 @@ from mindspore import nn
 # In MindSpore：
 milestone = [2, 5, 10]
 learning_rates = [0.1, 0.05, 0.01]
-output = piecewise_constant_lr(milestone, learning_rates)
+output = nn.piecewise_constant_lr(milestone, learning_rates)
 print(output)
 # Out：
 # [0.1, 0.1, 0.05, 0.05, 0.05, 0.01, 0.01, 0.01, 0.01, 0.01]
 
 
 # In torch:
+import numpy as np
+import torch
 from torch import optim
+
+model = torch.nn.Sequential(torch.nn.Linear(20, 1))
+optimizer = optim.SGD(model.parameters(), 0.1)
+
 # 使用step_lr
 step_lr = optim.lr_scheduler.StepLR(optimizer, step_size=2, gamma=0.9)
 # 使用multi_step_lr
