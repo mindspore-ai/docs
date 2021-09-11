@@ -45,7 +45,7 @@ $$ F(R) = -\frac{\partial U}{\partial R}$$
 
 除了QM方法和MM方法之外，还有一种介于两者之间的半经验（semi-empirical），其速度和精度处于也介于这两者之间。
 
-<div id="jump-img" style="text-align:center;"><img src="./images/methods.png" style="margin-bottom:0px; max-width:50%;" alt=""><br/>图1: 势能函数获取方法</div>
+![image](./images/methods.png)<br/>图1: 势能函数获取方法</div>
 
 可以说在传统的计算化学（computational chemistry）领域，“速度”和“精度”总是一对矛盾体，选择更高精度的算法必然意味着计算速度的急剧下降。而通过使用深度学习（deep learning）技术则有可能突破“速度”和“精度”的矛盾，由于人工神经网络（artificial neural network）具备强大的拟合能力，如果使用其用于拟合高精度QM方法计算得到的势能，就有可能以相对较低的计算代价实现较高精度的分子力场。
 
@@ -55,7 +55,7 @@ $$ F(R) = -\frac{\partial U}{\partial R}$$
 
 - 基于GNN的模型则将分子体系看作一张图（graph），每个原子作为点（vertex），原子间的相对距离座位边（edge）。在GNN模型中，每个点和变都用向量进行表示，之后对原子根据其周围的点向量和边向量对中心原子的点向量进行更新，通过几次更新迭代后得到每个原子所感受到的势能，最终将所有原子上的势能进行加和从而得到体系的总势能。相对于基于描述符的模型对于不同类型的描述符使用不同的神经网络进行处理，基于GNN的模型在每次更新迭代的时候，对所有原子都是用相同参数的神经网络进行处理。这类模型有2017年MPNN模型，2018年的SchNet模型，2019年的PhysNet模型，2021年的DeepMoleNet模型以及2021年北京大学和深圳湾实验室高毅勤教授课题组同华为合作开发的“分子CT”（molecular configuration transformer）模型。
 
-<div id="jump-img" style="text-align:center;"><img src="./images/mct.png" style="margin-bottom:0px; max-width:50%;" alt=""><br/>图2: 模型结构图</div>
+![image](./images/mct.png)<br/>图2: 模型结构图</div>
 
 2021年8月，高毅勤教授课题组开源了基于MindSpore的GNN深度分子模型框架Cybertron，支持分子CT模型、SchNet模型以及PhysNet模型，且用户可以基于该架构实现自己的GNN深度分子模型。而MindSPONGE则是高毅勤教授课题组同华为MindSpore团队合作开发的全新一代人工智能分子动力学模拟软件， 其原生支持基于深度学习的相关算法。MindSPONGE和Cybertron相配合，可以使用Cybertron训练分子力场，在MindSPONGE中进行分子动力学模拟。
 
@@ -63,7 +63,7 @@ $$ F(R) = -\frac{\partial U}{\partial R}$$
 
 ## 分子构象的抽样
 
-<div id="jump-img" style="text-align:center;"><img src="./images/claisen.png" style="margin-bottom:0px; max-width:50%;" alt=""><br/>图3: 分子内可逆克莱森重排反应</div>
+![image](./images/claisen.png)<br/>图3: 分子内可逆克莱森重排反应</div>
 
 如上图所示，该反应是一个典型的在分子内可逆克莱森重排反应，体系可以在七元环（以下简称A分子）和三元环（以下简称B分子）之间进行转化。如果要建立该反应的分子力场，首先需要对该体系的构象进行充足的抽样。在这里我们选择使用半经验的DFTB方法，对该体系进行快速地构想搜索。由于目前版本的MindSPONGE中暂时不支持基于QM的方法，这里我们使用免费的分子动力学模拟软件包`AmberTools`中的`sander`程序运行基于DFTB的MD模拟。运行该程序需要的参数文件为`cba.prmtop`，坐标文件为`cba.rst7`，输入文件为：
 
@@ -155,7 +155,7 @@ mpirun -np 4 sander.MPI -groupfile group.dat -ng 4
 
 使用该方法可以让体系在A分子和B分子之间实现快速的转变。在`colvar.info.data`文件中记录了体系中各个距离的分布，我们可以用绘图软件查看MD模拟过程中相关原子距离的变化。例如下图展示了其中一条轨迹中的d3和d6两个距离随模拟时间的变化，可以看到仅仅在前100ps的模拟中两者数值的相对大小就发生了若干次转变，每次转变都意味着发生了化学反应，说明这种方法可以对该体系进行有效地增强抽样。
 
-<div id="jump-img" style="text-align:center;"><img src="./images/colvardata.png" style="margin-bottom:0px; max-width:50%;" alt=""><br/>图4: d3和d6两个距离随模拟时间的变化</div>
+![image](./images/colvardata.png)<br/>图4: d3和d6两个距离随模拟时间的变化</div>
 
 ## 高精度量子化学计算
 
@@ -337,4 +337,4 @@ _steps_ _TEMP_ _TOT_POT_ENE_ _CVariable_ _Bias_Potential_
 
 模拟完成后，可以通过可视化软件观察得到重排反应的变化的过程，可以看到体系在七元环和三元环之间进行转化。可视化结果如下图所示：
 
-<div id="jump-img" style="text-align:center;"><img src="./images/result.png" style="margin-bottom:0px; max-width:60%;" alt=""><br/>图5: 分子内可逆克莱森重排反应仿真结果</div>
+![image](./images/result.png)<br/>图5: 分子内可逆克莱森重排反应仿真结果</div>
