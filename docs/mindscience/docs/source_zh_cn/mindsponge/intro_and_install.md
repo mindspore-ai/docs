@@ -19,7 +19,7 @@ MindSPONGE中包含了多个传统分子模拟案例，更多详情，请点击�
 ### 确认系统环境信息
 
 - 硬件平台确认为Linux系统下的GPU。
-- 参考[MindSpore安装指南](https://www.mindspore.cn/install)，完成MindSpore的安装，要求至少1.2.0版本。
+- 参考[MindSpore安装指南](https://www.mindspore.cn/install)，完成MindSpore的安装，要求1.5.0版本。
 
 ### pip安装
 
