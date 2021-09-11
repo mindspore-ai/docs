@@ -1,6 +1,6 @@
 # PyNative应用
 
-`动态图` `静态图` `PyNative` `动静统一`
+`动态图` `PyNative` `动静统一`
 
 <!-- TOC -->
 
@@ -14,6 +14,8 @@
     - [Loss函数及优化器](#loss函数及优化器)
     - [模型参数保存](#模型参数保存)
     - [训练网络](#训练网络)
+    - [提升PyNative性能](#提升PyNative性能)
+    - [PyNative下同步执行](#PyNative下同步执行)
 
 <!-- /TOC -->
 
@@ -21,7 +23,18 @@
 
 ## 概述
 
-本文主要介绍PyNative模式下的应用示例。
+MindSpore支持两种运行模式，在调试或者运行方面做了不同的优化:
+
+- PyNative模式：也称动态图模式，将神经网络中的各个算子逐一下发执行，方便用户编写和调试神经网络模型。
+- Graph模式：也称静态图模式或者图模式，将神经网络模型编译成一整张图，然后下发执行。该模式利用图优化等技术提高运行性能，同时有助于规模部署和跨平台运行。
+
+默认情况下，MindSpore处于Graph模式，可以通过`context.set_context(mode=context.PYNATIVE_MODE)`切换为PyNative模式；同样地，MindSpore处于PyNative模式时，可以通过`context.set_context(mode=context.GRAPH_MODE)`切换为Graph模式。
+
+PyNative模式下，支持执行单算子、普通函数和网络，以及单独求梯度的操作。下面将详细介绍使用方法和注意事项。
+
+> PyNative模式下为了提升性能，算子在device上使用了异步执行方式，因此在算子执行错误的时候，错误信息可能会在程序执行到最后才显示。因此在PyNative模式下，增加了一个pynative_synchronize的设置来控制算子device上是否使用异步执行。
+>
+> 下述例子中，参数初始化使用了随机值，在具体执行中输出的结果可能与本地执行输出的结果不同；如果需要稳定输出固定的值，可以设置固定的随机种子，设置方法请参考[mindspore.set_seed()](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.set_seed.html)。
 
 ## 设置模式
 
@@ -169,3 +182,204 @@ model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_
 ```
 
 完整的运行代码可以到ModelZoo下载[lenet](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/lenet)，并设置context.set_context(mode=context.PYNATIVE_MODE, device_target=config.device_target)。
+
+## 提升PyNative性能
+
+为了提高PyNative模式下的前向计算任务执行速度，MindSpore提供了ms_function功能，该功能可以在PyNative模式下将Python函数或者Python类的方法编译成计算图，通过图优化等技术提高运行速度，如下例所示。
+
+```python
+import numpy as np
+import mindspore.nn as nn
+from mindspore import context, Tensor
+import mindspore.ops as ops
+from mindspore import ms_function
+
+context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
+
+class TensorAddNet(nn.Cell):
+    def __init__(self):
+        super(TensorAddNet, self).__init__()
+        self.add = ops.Add()
+
+    @ms_function
+    def construct(self, x, y):
+        res = self.add(x, y)
+        return res
+
+x = Tensor(np.ones([4, 4]).astype(np.float32))
+y = Tensor(np.ones([4, 4]).astype(np.float32))
+net = TensorAddNet()
+
+z = net(x, y) # Staging mode
+add = ops.Add()
+res = add(x, z) # PyNative mode
+print(res.asnumpy())
+```
+
+输出：
+
+```text
+[[3. 3. 3. 3.]
+ [3. 3. 3. 3.]
+ [3. 3. 3. 3.]
+ [3. 3. 3. 3.]]
+```
+
+上述示例代码中，在`TensorAddNet`类的`construct`之前加装了`ms_function`装饰器，该装饰器会将`construct`方法编译成计算图，在给定输入之后，以图的形式下发执行，而上一示例代码中的`add`会直接以普通的PyNative的方式执行。
+
+需要说明的是，加装了`ms_function`装饰器的函数中，如果包含不需要进行参数训练的算子（如`pooling`、`add`等算子），则这些算子可以在被装饰的函数中直接调用，如下例所示。
+
+示例代码：
+
+```python
+import numpy as np
+import mindspore.nn as nn
+from mindspore import context, Tensor
+import mindspore.ops as ops
+from mindspore import ms_function
+
+context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
+
+add = ops.Add()
+
+@ms_function
+def add_fn(x, y):
+    res = add(x, y)
+    return res
+
+x = Tensor(np.ones([4, 4]).astype(np.float32))
+y = Tensor(np.ones([4, 4]).astype(np.float32))
+z = add_fn(x, y)
+print(z.asnumpy())
+```
+
+输出：
+
+```text
+[[2. 2. 2. 2.]
+ [2. 2. 2. 2.]
+ [2. 2. 2. 2.]
+ [2. 2. 2. 2.]]
+```
+
+如果被装饰的函数中包含了需要进行参数训练的算子（如`Convolution`、`BatchNorm`等算子），则这些算子必须在被装饰等函数之外完成实例化操作，如下例所示。
+
+示例代码：
+
+```python
+import numpy as np
+import mindspore.nn as nn
+from mindspore import context, Tensor
+from mindspore import ms_function
+
+context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
+
+conv_obj = nn.Conv2d(in_channels=3, out_channels=4, kernel_size=3, stride=2, padding=0)
+conv_obj.init_parameters_data()
+@ms_function
+def conv_fn(x):
+    res = conv_obj(x)
+    return res
+
+input_data = np.random.randn(2, 3, 6, 6).astype(np.float32)
+z = conv_fn(Tensor(input_data))
+print(z.asnumpy())
+```
+
+输出：
+
+```text
+[[[[ 0.10377571 -0.0182163 -0.05221086]
+[ 0.1428334 -0.01216263 0.03171652]
+[-0.00673915 -0.01216291 0.02872104]]
+
+[[ 0.02906547 -0.02333629 -0.0358406 ]
+[ 0.03805163 -0.00589525 0.04790922]
+[-0.01307234 -0.00916951 0.02396654]]
+
+[[ 0.01477884 -0.06549098 -0.01571796]
+[ 0.00526886 -0.09617482 0.04676902]
+[-0.02132788 -0.04203424 0.04523344]]
+
+[[ 0.04590619 -0.00251453 -0.00782715]
+[ 0.06099087 -0.03445276 0.00022781]
+[ 0.0563223 -0.04832596 -0.00948266]]]
+
+[[[ 0.08444098 -0.05898955 -0.039262 ]
+[ 0.08322686 -0.0074796 0.0411371 ]
+[-0.02319113 0.02128408 -0.01493311]]
+
+[[ 0.02473745 -0.02558945 -0.0337843 ]
+[-0.03617039 -0.05027632 -0.04603915]
+[ 0.03672804 0.00507637 -0.08433761]]
+
+[[ 0.09628943 0.01895323 -0.02196114]
+[ 0.04779419 -0.0871575 0.0055248 ]
+[-0.04382382 -0.00511185 -0.01168541]]
+
+[[ 0.0534859 0.02526264 0.04755395]
+[-0.03438103 -0.05877855 0.06530266]
+[ 0.0377498 -0.06117418 0.00546303]]]]
+```
+
+更多ms_function的功能可以参考[ms_function文档](https://mindspore.cn/docs/programming_guide/zh-CN/master/ms_function.html)
+
+## PyNative下同步执行
+
+PyNative模式下算子默认为异步执行，可以通过设置context来控制是否异步执行，当算子执行失败时，可以方便地通过调用栈看到出错的代码位置。
+
+设置为同步执行：
+
+```python
+context.set_context(pynative_synchronize=True)
+```
+
+示例代码:
+
+```python
+import numpy as np
+import mindspore.context as context
+import mindspore.nn as nn
+from mindspore import Tensor
+from mindspore import dtype as mstype
+import mindspore.ops as ops
+
+context.set_context(mode=context.PYNATIVE_MODE, device_target="Ascend", pynative_synchronize=True)
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.get_next = ops.GetNext([mstype.float32], [(1, 1)], 1, "test")
+
+    def construct(self, x1,):
+        x = self.get_next()
+        x = x + x1
+        return x
+
+context.set_context()
+x1 = np.random.randn(1, 1).astype(np.float32)
+net = Net()
+output = net(Tensor(x1))
+print(output.asnumpy())
+```
+
+输出：此时算子为同步执行，当算子执行错误时，可以看到完整的调用栈，找到出错的代码行。
+
+```text
+Traceback (most recent call last):
+  File "test_pynative_sync_control.py", line 41, in <module>
+    output = net(Tensor(x1))
+  File "mindspore/mindspore/nn/cell.py", line 406, in <module>
+    output = self.run_construct(cast_inputs, kwargs)
+  File "mindspore/mindspore/nn/cell.py", line 348, in <module>
+    output = self.construct(*cast_inputs, **kwargs)
+  File "test_pynative_sync_control.py", line 33, in <module>
+    x = self.get_next()
+  File "mindspore/mindspore/ops/primitive.py", line 247, in <module>
+    return _run_op(self, self.name, args)
+  File "mindspore/mindspore/common/api.py", line 77, in <module>
+    results = fn(*arg, **kwargs)
+  File "mindspore/mindspore/ops/primitive.py", line 677, in _run_op
+    output = real_run_op(obj, op_name, args)
+RuntimeError: mindspore/ccsrc/runtime/device/kernel_runtime.cc:1006 DebugStreamSync] Op Default/GetNext-op0 run failed!
+```
