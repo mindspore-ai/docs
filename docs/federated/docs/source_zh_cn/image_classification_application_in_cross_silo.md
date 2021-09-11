@@ -289,7 +289,7 @@ python finish_cross_silo_femnist.py --scheduler_port=6667
 
   上面`下载数据集`部分生成的`35_7_client_img/`数据集
 
-- 客户端本地训练epoch数：1
+- 客户端本地训练epoch数：20
 
 - 云云联邦学习总迭代数: 20
 
