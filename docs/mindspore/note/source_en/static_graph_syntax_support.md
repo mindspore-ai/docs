@@ -69,7 +69,7 @@ In graph mode, Python code is not executed by the Python interpreter. Instead, t
 Currently, only the function, Cell, and subclass instances modified by the `@ms_function` decorator can be built.
 For a function, build the function definition. For the network, build the `construct` method and other methods or functions called by the `construct` method.
 
-For details about how to use `ms_function`, click <https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.html#mindspore.ms_function>.
+For details about how to use `ms_function`, click <https://www.mindspore.cn/docs/api/en/master/api_python/mindspore/mindspore.ms_function.html#mindspore.ms_function>.
 
 For details about the definition of `Cell`, click <https://www.mindspore.cn/docs/programming_guide/en/master/cell.html>.
 
@@ -329,7 +329,7 @@ However, during construction, the parameter can be specified only in position pa
 
 Currently, the attributes and APIs related to `Primitive` and its subclasses cannot be called on the network.
 
-For details about the definition of `Primitive`, click <https://www.mindspore.cn/docs/programming_guide/en/master/operators.html>.
+For details about the definition of `Primitive`, click <https://www.mindspore.cn/docs/programming_guide/en/master/operators_classification.html>.
 
 For details about the defined `Primitive`, click <https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.ops.html>.
 
