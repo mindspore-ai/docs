@@ -95,6 +95,12 @@ MindSpore Programming Guide
 
 .. toctree::
    :maxdepth: 1
+   :caption: PyNative
+
+   debug_in_pynative_mode
+
+.. toctree::
+   :maxdepth: 1
    :caption: Numpy
 
    numpy
@@ -111,7 +117,7 @@ MindSpore Programming Guide
    :caption: Function Debugging
 
    read_ir_files
-   debug_in_pynative_mode
+   Debugging in PyNative Mode↗ <https://www.mindspore.cn/docs/programming_guide/en/master/debug_in_pynative_mode.html>
    dump_in_graph_mode
    custom_debugging_info
    incremental_operator_build
