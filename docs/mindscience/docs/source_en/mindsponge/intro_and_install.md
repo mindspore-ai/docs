@@ -21,7 +21,7 @@ In the future, MindSPONGE will implement more simulation cases, and your contrib
 ### Confirming System Environment Information
 
 - The hardware platform should be Linux CPU with avx supported.
-- Refer to [MindSpore Installation Guide](https://www.mindspore.cn/install), install MindSpore, version 1.4.1 or later is required.
+- Refer to [MindSpore Installation Guide](https://www.mindspore.cn/install), install MindSpore, version 1.5.0 is required.
 
 ### Install by pip
 
