@@ -70,7 +70,7 @@
 当前仅支持编译`@ms_function`装饰器修饰的函数、Cell及其子类的实例。
 对于函数，则编译函数定义；对于网络，则编译`construct`方法及其调用的其他方法或者函数。
 
-`ms_function`使用规则可参考文档：<https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.html#mindspore.ms_function>
+`ms_function`使用规则可参考文档：<https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.ms_function.html#mindspore.ms_function>
 
 `Cell`定义可参考文档：<https://www.mindspore.cn/docs/programming_guide/zh-CN/master/cell.html>
 
@@ -329,7 +329,7 @@ def generate_tensor():
 
 当前不支持在网络调用`Primitive`及其子类相关属性和接口。
 
-`Primitive`定义可参考文档：<https://www.mindspore.cn/docs/programming_guide/zh-CN/master/operators.html>
+`Primitive`定义可参考文档：<https://www.mindspore.cn/docs/programming_guide/zh-CN/master/operators_classification.html>
 
 当前已定义的`Primitive`可参考文档：<https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.ops.html>
 
