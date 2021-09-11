@@ -23,14 +23,16 @@ This article describes how to use Debugger in offline mode.
 ## Operation Process
 
 1. Prepare dump data. For details about how to use the dump function, see [Using Dump in the Graph Mode](https://www.mindspore.cn/docs/programming_guide/en/master/dump_in_graph_mode.html).
-2. Start MindInsight and set summary-base-dir to the upper one or two layers of a path in the dump configuration.
+2. Start MindInsight and set summary-base-dir to the summary-dir(summary-dir is the father directory of the path in the dump configuration) of one training or the father directory of more training using startup parameters.
 3. Find the offline debugger entry from the Summary list, and click Offline Debugger. The debugger UI is displayed, and debugging analysis starts.
 
 ## Environment Preparation
 
 Use the dump function of MindSpore to prepare offline data. For details about how to use the dump function, see [Using Dump in the Graph Mode](https://www.mindspore.cn/docs/programming_guide/en/master/dump_in_graph_mode.html).
 
-Start MindInsight and set summary-base-dir to the upper one or two layers of a path in the dump configuration. Then, you can query the offline debugger entry on the UI.
+It should be noted that only one dump path can be included in a summary-dir. For example, if the path in the Dump configuration file is "/home/workspace/data/dump_dir" in one training, after the dump data of this training is stored,  the other trainnings cannot set the path in the Dump configuration file as the children directory of "/home/workspace/data".
+
+Start MindInsight and set summary-base-dir to the summary-dir of one training or the father directory of more training. Then, you can query the offline debugger entry on the UI.
 
 MindInsight startup command:
 
