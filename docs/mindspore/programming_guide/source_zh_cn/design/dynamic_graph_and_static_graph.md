@@ -10,6 +10,7 @@
     - [MindSpore动态图](#mindspore动态图)
         - [PyNative执行原理](#pynative执行原理)
         - [PyNative自动微分原理](#pynative自动微分原理)
+        - [PyNative模式下的控制流](#pynative模式下的控制流)
     - [动静统一](#动静统一)
         - [概述](#概述)
         - [动态图和静态图互相转换](#动态图和静态图互相转换)
@@ -125,6 +126,10 @@ def get_bprop_mul(self):
 可以看到对Mul的输入求反向，需要两个输入和输出的反向传播梯度值，此时根据实际的输入值，可以将z连接到MulGrad。以此类推，对下一个算子Matmul，相应的得到MatmulGrad信息，再根据bprop的输入输出，将上下文梯度传播连接起来。
 
 最终，对于初始传播，在MindSpore中使用[sens](https://mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.GradOperation.html?highlight=gradoperation#mindspore.ops.GradOperation)进行缩放，默认值为1。同理对于输入y求导，可以使用同样的过程进行推导。
+
+### PyNative模式下的控制流
+
+在PyNative模式下，脚本按照Python的语法执行，因此在MindSpore中，针对控制流语法并没有做特殊处理，直接按照Python的语法直接展开执行，进而对展开的执行算子进行自动微分的操作。例如，对于for循环，在PyNative下会根据具体的循环次数，不断的执行for循环中的语句，并对其算子进行自动微分的操作。
 
 ## 动静统一
 
