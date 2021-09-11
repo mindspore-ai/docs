@@ -32,7 +32,7 @@ MindSPONGE in MindSpore is molecular simulation library jointly developed by the
 
 This tutorial mainly introduces how to use MindSPONGE, which is built in MindSpore, to perform high performance molecular simulation on the GPU.
 
-> Here you can download the complete sample code: <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/research/hpc/sponge>.
+> Here you can download the complete sample code: <https://gitee.com/mindspore/mindscience/tree/master/MindSPONGE/examples/polypeptide>.
 
 ## Overall Execution
 
