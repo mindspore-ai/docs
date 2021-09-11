@@ -25,7 +25,7 @@ To implement an reinforcement learning algorithm with MindSpore Reinforcement, a
 - implement the algorithm based on an actor-learner-environment abstraction;
 - create a session object that executes the implemented algorithm.
 
-This tutorial shows the use of the MindSpore Reinforcement API to implement the Deep Q Learning (DQN) algorithm. Note that, for [clarity](https://dictionary.cambridge.org/dictionary/english/clarity) and readability, only API-related code sections are presented, and irrelevant code is omitted. The source code of the full DQN implementation for MindSpore Reinforcement can be found [here](https://gitee.com/mindspore/reinforcement/tree/master/example/dqn).
+This tutorial shows the use of the MindSpore Reinforcement API to implement the Deep Q Learning (DQN) algorithm. Note that, for clarity and readability, only API-related code sections are presented, and irrelevant code is omitted. The source code of the full DQN implementation for MindSpore Reinforcement can be found [here](https://gitee.com/mindspore/reinforcement/tree/master/example/dqn).
 
 ## Specifying the Actor-Learner-Environment Abstraction for DQN
 
@@ -78,7 +78,7 @@ For the DQN algorithm, we configure one actor `'number': 1`, three behaviour pol
 
 The replay buffer's capacity is set to 100,000, and its sample size is 64. It stores data of a tensor type with shape `[(4,), (1,), (1,), (4,)]`. The second dimension has the type int32 and other dimensions are of the float32 type and. Both types are provided by MindSpore: `'type': [mindspore.float32, mindspore.int32, mindspore.float32, mindspore.float32]}`.
 
-Other components are defined in a similar way -- please refer to the [complete code example] and the [MindSpore Reinforcement API documentation] for more details.
+Other components are defined in a similar way -- please refer to the  [complete DQN code example](https://gitee.com/mindspore/reinforcement/tree/master/example/dqn) and the [MindSpore Reinforcement API documentation] for more details.
 
 Note that MindSpore Reinforcement uses a single *policy* class to define all policies and neural networks used by the algorithm. In this way, it hides the complexity of data sharing and communication between policies and neural networks.
 
@@ -135,6 +135,7 @@ def train_one_epoch(self, update_period=5):
     steps = self.zero_value
     while not done:
         done, r, state = self.msrl.agent_act(state)
+        self.msrl.replay_buffer_insert([state, action, my_reward, new_state])
         self.msrl.agent_learn(self.msrl.sample_replay_buffer())
         total_reward += r
         steps += 1
@@ -143,9 +144,11 @@ def train_one_epoch(self, update_period=5):
 
 The `@ms_function` annotation states that this method will be compiled into a MindSpore computational graph for acceleration. To support this, all scalar values must be defined as tensor types, e.g. `self.zero_value = Tensor(0, mindspore.float32)`.
 
-The `train_one_epoch` method first calls the `msrl.agent_reset` function (provided by the MindSpore Reinforcement API) to reset the environment. It then collects the experience from the environment with the `msrl.agent_act` function handler, and uses the `msrl.agent_learn` function to train the target model. The input of `msrl.agent_learn` is the sampled results returned by  `msrl.sample_replay_buffer`.
+The `train_one_epoch` method first calls the `msrl.agent_reset` function (provided by the MindSpore Reinforcement API) to reset the environment. It then collects the experience from the environment with the `msrl.agent_act` function handler and inserts the experience data in the replay buffer using the `msrl.replay_buffer_insert` function. Afterwards, it invokes the `msrl.agent_learn`  function to train the target model. The input of `msrl.agent_learn` is a set of sampled results returned by  `msrl.sample_replay_buffer`.
 
-The `init_training` and the `evaluation` methods are implemented analogously -- please refer to the [complete DQN code example] for details.
+The replay buffer class, `ReplayBuffer`, is provided by MindSpore Reinforcement. It defines `insert` and `sample` methods to store and sample the experience data in a replay buffer, respectively.
+
+The `init_training` and the `evaluation` methods are implemented analogously -- please refer to the [complete DQN code example](https://gitee.com/mindspore/reinforcement/tree/master/example/dqn) for details.
 
 ### Defining the DQNPolicy class
 
@@ -220,14 +223,12 @@ class DQNActor(Actor):
           # Initialise reply buffer
           action = self.init_policy()
           new_state, reward, done = self._environment.step(action)
-          self.replay_buffer.insert([state, action, my_reward, new_state])
           return done, reward, new_state
 
      def act(self, state):
           # Experience collection
           action = self.collect_policy(state)
           new_state, reward, done = self._environment.step(action)
-          self.replay_buffer.insert([state, action, reward, new_state])
           return done, reward, new_state
 
      def evaluate(self, state):
@@ -239,11 +240,7 @@ class DQNActor(Actor):
 
 The three methods act on the specified environment with different policies, which map states to actions. The methods take as input a tensor-typed value and return the trajectory from the environment.
 
-To interact with the environment, the actor uses the `step(action)` method defined in the `Environment` class. This method reacts to an action applied to the specified `environment and returns a triplet. The triplet includes a new state after applying the previous action, a obtained reward as a float type, and a boolean flag to terminate an episode and reset the environment.
-
-The replay buffer class, `ReplayBuffer`, defines an `insert` method, which is called by `DQNActor` objects to store the experience data in the replay buffer.
-
-The  `Environment` class and the `ReplayBuffer` class are provided by the MindSpore Reinforcement API.
+A user should implement an environment class that defines a `step` method. To interact with an environment, the actor uses the `step` method, which collects a triplet as the return value. The triplet includes a new state after applying the `action`, an obtained reward as a float, and a boolean flag to reset the environment. For example, if using the OpenAI Gym library, MindSpore Reinforcement refactors it for computational-graph acceleration and provides the class `GymEnvironment`. Users specify the used environments in the algorithm configuration.
 
 The constructor of the `DQNActor` class defines the environment, the reply buffer, the polices, and the networks. It takes as input the dictionary-typed parameters, which were defined in the algorithm configuration. Below, we only show the initialisation of the environment, other attributes are assigned in the similar way:
 
