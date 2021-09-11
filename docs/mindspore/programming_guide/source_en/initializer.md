@@ -18,7 +18,7 @@ Translator: [Karlos Ma](https://gitee.com/Mavendetta985)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/initializer.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_en/initializer.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -315,7 +315,7 @@ To update a parameter, set `requires_grad` to `True`.
 
 When `layerwise_parallel` is set to True, this parameter will be filtered out during parameter broadcast and parameter gradient aggregation.
 
-For details about the configuration of distributed parallelism, see <https://www.mindspore.cn/docs/programming_guide/en/master/auto_parallel.html>.
+For details about the configuration of distributed parallelism, see <https://www.mindspore.cn/docs/programming_guide/en/r1.5/auto_parallel.html>.
 
 In the following example, `Parameter` objects are built using three different data types. All the three `Parameter` objects need to be updated, and layerwise parallelism is not used.  
 

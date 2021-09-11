@@ -19,10 +19,10 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/apply_quantization_aware_training.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/notebook/mindspore_apply_quantization_aware_training.ipynb"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_notebook.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_zh_cn/apply_quantization_aware_training.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.5/notebook/mindspore_apply_quantization_aware_training.ipynb"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_notebook.png"></a>
 &nbsp;&nbsp;
-<a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbWFzdGVyL25vdGVib29rL21pbmRzcG9yZV9hcHBseV9xdWFudGl6YXRpb25fYXdhcmVfdHJhaW5pbmcuaXB5bmI=&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_modelarts.png"></a>
+<a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbWFzdGVyL25vdGVib29rL21pbmRzcG9yZV9hcHBseV9xdWFudGl6YXRpb25fYXdhcmVfdHJhaW5pbmcuaXB5bmI=&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_modelarts.png"></a>
 
 ## 背景
 
@@ -54,7 +54,7 @@ MindSpore的感知量化训练是指在训练时使用伪量化节点来模拟�
 | 规格 | 规格说明 |
 | --- | --- |
 | 硬件支持 | GPU、Ascend AI 910处理器的硬件平台 |
-| 网络支持 | 已实现的网络包括LeNet、ResNet50等网络，具体请参见<https://gitee.com/mindspore/mindspore/tree/master/model_zoo>。 |
+| 网络支持 | 已实现的网络包括LeNet、ResNet50等网络，具体请参见<https://gitee.com/mindspore/mindspore/tree/r1.5/model_zoo>。 |
 | 算法支持 | 支持非对称和对称的量化算法；支持逐层和逐通道的量化算法。|
 | 方案支持 | 支持4、7和8比特的量化方案。 |
 | 数据类型支持 | Ascend平台支持精度为FP32和FP16的网络进行量化训练，GPU平台支持FP32。 |
@@ -73,7 +73,7 @@ MindSpore的感知量化训练是指在训练时使用伪量化节点来模拟�
 
 在上面流程中，步骤2和步骤6是感知量化训练区别普通训练需要额外进行的步骤。接下来，以LeNet网络为例，展开叙述量化相关步骤。
 
-> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/lenet_quant> 。
+> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/mindspore/tree/r1.5/model_zoo/official/cv/lenet_quant> 。
 
 ### 定义量化网络
 
@@ -226,7 +226,7 @@ class LeNet5(nn.Cell):
         return x
 ```
 
-> - 量化算子：`nn.Conv2dQuant`、`nn.DenseQuant`、`nn.ActQuant`等为含有伪量化节点的算子。更多的量化算子内容请参见<https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.nn.html#quantized-functions> 。
+> - 量化算子：`nn.Conv2dQuant`、`nn.DenseQuant`、`nn.ActQuant`等为含有伪量化节点的算子。更多的量化算子内容请参见<https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/mindspore.nn.html#quantized-functions> 。
 > - 在需要量化的网络层后面插入伪量化节点`nn.FakeQuantWithMinMaxObserver`可以实现更多网络层的量化。
 > - 建议优先选择量化网络中靠后的层，因为量化前面的网络层可能会造成更多的精度损失。
 
@@ -271,10 +271,10 @@ if __name__ == "__main__":
     export(network, inputs, file_name="lenet_quant", file_format='MINDIR', quant_mode='QUANT', mean=127.5, std_dev=127.5)
 ```
 
-导出量化模型后，请[使用MindSpore进行推理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/index.html)。
+导出量化模型后，请[使用MindSpore进行推理](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/index.html)。
 
 > - 导出的模型格式支持MindIR和AIR。
-> - 感知量化训练后导出的模型支持[端侧推理](https://www.mindspore.cn/lite/docs/zh-CN/master/index.html)和[Ascend 310 AI处理器上推理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/multi_platform_inference_ascend_310.html)。
+> - 感知量化训练后导出的模型支持[端侧推理](https://www.mindspore.cn/lite/docs/zh-CN/r1.5/index.html)和[Ascend 310 AI处理器上推理](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/multi_platform_inference_ascend_310.html)。
 
 ## 参考文献
 

@@ -11,11 +11,11 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/intermediate/custom/metric.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/tutorials/source_zh_cn/intermediate/custom/metric.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 评价指标（Metrics）可以用来评估模型结果的可信度。
 
-MindSpore提供了多种Metrics评估指标，如：`accuracy`、`loss`、`precision`、`recall`、`F1`等，完整的`Metrics`功能可参考[API](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.nn.html#metrics)。
+MindSpore提供了多种Metrics评估指标，如：`accuracy`、`loss`、`precision`、`recall`、`F1`等，完整的`Metrics`功能可参考[API](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/mindspore.nn.html#metrics)。
 
 用户也可根据需求，自行开发并使用Metrics。
 
@@ -99,7 +99,7 @@ class Dice(Metric):
 
 ### 在框架中导入Metrics
 
-在同级目录中的[\_\_init\_\_.py](https://gitee.com/mindspore/mindspore/blob/master/mindspore/nn/metrics/__init__.py)文件中，添加已经定义好的[Dice](https://gitee.com/mindspore/mindspore/blob/master/mindspore/nn/metrics/dice.py)。可以点击链接查看文件的具体位置，Metrics在框架中位于`mindspore/nn/metrics/`目录下：
+在同级目录中的[\_\_init\_\_.py](https://gitee.com/mindspore/mindspore/blob/r1.5/mindspore/nn/metrics/__init__.py)文件中，添加已经定义好的[Dice](https://gitee.com/mindspore/mindspore/blob/r1.5/mindspore/nn/metrics/dice.py)。可以点击链接查看文件的具体位置，Metrics在框架中位于`mindspore/nn/metrics/`目录下：
 
 ```text
 __all__ = [

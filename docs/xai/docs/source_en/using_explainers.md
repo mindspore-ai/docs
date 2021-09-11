@@ -2,7 +2,7 @@
 
 `Linux` `Ascend` `GPU` `Model Optimization` `Beginner` `Intermediate` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_en/using_explainers.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/xai/docs/source_en/using_explainers.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
 <!-- TOC -->
 
@@ -48,7 +48,7 @@ First of all, we have to download the data package and put it underneath the `xa
 wget https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/xai/xai_examples_data.tar.gz
 tar -xf xai_examples_data.tar.gz
 
-git clone https://gitee.com/mindspore/xai
+git clone https://gitee.com/mindspore/xai.git -b r1.5
 mv xai_examples_data xai/examples/
 ```
 

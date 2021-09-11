@@ -18,7 +18,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/quick_start/image_segmentation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/lite/docs/source_en/quick_start/image_segmentation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -80,9 +80,9 @@ The following describes how to build and execute an on-device image segmentation
 
     <table>
       <tr>
-        <td><center><img src="https://gitee.com/mindspore/docs/raw/master/docs/lite/docs/source_en/images/segmentation3.png"><br>Figure 1 White background</br> </center></td>
-        <td><center><img src="https://gitee.com/mindspore/docs/raw/master/docs/lite/docs/source_en/images/segmentation4.png"><br>Figure 2 Blue background</br></center></td>
-        <td><center><img src="https://gitee.com/mindspore/docs/raw/master/docs/lite/docs/source_en/images/segmentation5.png"><br>Figure 3 Oil painting background</br></center></td>
+        <td><center><img src="https://gitee.com/mindspore/docs/raw/r1.5/docs/lite/docs/source_en/images/segmentation3.png"><br>Figure 1 White background</br> </center></td>
+        <td><center><img src="https://gitee.com/mindspore/docs/raw/r1.5/docs/lite/docs/source_en/images/segmentation4.png"><br>Figure 2 Blue background</br></center></td>
+        <td><center><img src="https://gitee.com/mindspore/docs/raw/r1.5/docs/lite/docs/source_en/images/segmentation5.png"><br>Figure 3 Oil painting background</br></center></td>
       </tr>
     </table>
 
@@ -119,13 +119,13 @@ app
 
 ### Configuring MindSpore Lite Dependencies
 
-Related library files are required for Android to call MindSpore Android AAR. You can use MindSpore Lite [source code](https://www.mindspore.cn/lite/docs/en/master/use/build.html) to generate the `mindspore-lite-maven-{version}.zip` library file package (including the `mindspore-lite-{version}.aar` library file) and decompress it.
+Related library files are required for Android to call MindSpore Android AAR. You can use MindSpore Lite [source code](https://www.mindspore.cn/lite/docs/en/r1.5/use/build.html) to generate the `mindspore-lite-maven-{version}.zip` library file package (including the `mindspore-lite-{version}.aar` library file) and decompress it.
 
 > version: version number in the output file, which is the same as the version number of the built branch code.
 
 In this example, the MindSpore Lite version file is automatically downloaded using the `app/download.gradle` file during the build process and stored in the `app/libs` directory.
 
-Note: If the automatic download fails, manually download the related library file [mindspore-lite-{version}-android-{arch}.tar.gz](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html), decompress it, and save it to the corresponding directory.
+Note: If the automatic download fails, manually download the related library file [mindspore-lite-{version}-android-{arch}.tar.gz](https://www.mindspore.cn/lite/docs/en/r1.5/use/downloads.html), decompress it, and save it to the corresponding directory.
 
 ### Downloading and Deploying the Model File
 
@@ -135,7 +135,7 @@ Note: If the download fails, manually download the model file [segment_model.ms]
 
 ### Writing On-Device Inference Code
 
-The inference code and process are as follows. For details about the complete code, see [src/java/com/mindspore/imagesegmentation/TrackingMobile](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/lite/image_segmentation/app/src/main/java/com/mindspore/imagesegmentation/help/TrackingMobile.java).
+The inference code and process are as follows. For details about the complete code, see [src/java/com/mindspore/imagesegmentation/TrackingMobile](https://gitee.com/mindspore/mindspore/blob/r1.5/model_zoo/official/lite/image_segmentation/app/src/main/java/com/mindspore/imagesegmentation/help/TrackingMobile.java).
 
 1. Load the MindSpore Lite model file and build the context, session, and computational graph for inference.
 
@@ -294,8 +294,8 @@ The inference code and process are as follows. For details about the complete co
 
         <table>
            <tr>
-            <td><center><img src="https://gitee.com/mindspore/docs/raw/master/docs/lite/docs/source_en/images/segmentation6.png"><br>Figure 1 Before inference</br></center></td>
-            <td><center><img src="https://gitee.com/mindspore/docs/raw/master/docs/lite/docs/source_en/images/segmentation7.png"><br>Figure 2 After inference</br></center></td>
+            <td><center><img src="https://gitee.com/mindspore/docs/raw/r1.5/docs/lite/docs/source_en/images/segmentation6.png"><br>Figure 1 Before inference</br></center></td>
+            <td><center><img src="https://gitee.com/mindspore/docs/raw/r1.5/docs/lite/docs/source_en/images/segmentation7.png"><br>Figure 2 After inference</br></center></td>
           </tr>
         </table>
 

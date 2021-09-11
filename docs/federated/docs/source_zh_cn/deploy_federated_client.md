@@ -14,7 +14,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/deploy_federated_client.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/federated/docs/source_zh_cn/deploy_federated_client.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 下面分别介绍如何在Android环境和x86环境部署Federated-Client。
 
@@ -24,7 +24,7 @@
 
 1. 配置编译环境。
 
-    目前只支持Linux环境编译，Linux编译环境配置可参考[这里](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html#linux)。
+    目前只支持Linux环境编译，Linux编译环境配置可参考[这里](https://www.mindspore.cn/lite/docs/zh-CN/r1.5/use/build.html#linux)。
 
 2. 在mindspore根目录进行编译，编译包含aarch64和aarch32的AAR包。
 
@@ -89,7 +89,7 @@ mindspore-lite-{version}
 └── classes.jar  # MindSpore Lite训练框架jar包
 ```
 
-在Android工程中只需依赖此AAR包即可调用联邦学习提供的相关接口，接口的具体调用和运行方式可参考[联邦学习接口介绍部分](https://www.mindspore.cn/federated/api/zh-CN/master/index.html)。
+在Android工程中只需依赖此AAR包即可调用联邦学习提供的相关接口，接口的具体调用和运行方式可参考[联邦学习接口介绍部分](https://www.mindspore.cn/federated/api/zh-CN/r1.5/index.html)。
 
 ## x86环境
 
@@ -97,7 +97,7 @@ mindspore-lite-{version}
 
 1. 配置编译环境。
 
-    目前只支持Linux环境编译，Linux编译环境配置可参考[这里](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html#linux)。
+    目前只支持Linux环境编译，Linux编译环境配置可参考[这里](https://www.mindspore.cn/lite/docs/zh-CN/r1.5/use/build.html#linux)。
 
 2. 在mindspore根目录进行编译，编译x86架构相关包。
 
@@ -168,4 +168,4 @@ mindspore-lite-java-flclient.jar  # 联邦学习框架jar包
 export LD_LIBRARY_PATH=/resource/x86libs/:$LD_LIBRARY_PATH
 ```
 
-设置好依赖环境之后，可参考[这里](https://www.mindspore.cn/federated/docs/zh-CN/master/image_classification_application.html)教程在x86环境中模拟启动多个客户端进行联邦学习。
+设置好依赖环境之后，可参考[这里](https://www.mindspore.cn/federated/docs/zh-CN/r1.5/image_classification_application.html)教程在x86环境中模拟启动多个客户端进行联邦学习。

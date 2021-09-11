@@ -15,7 +15,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/apply_pipeline_parallel.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_en/apply_pipeline_parallel.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -23,13 +23,13 @@ In recent years, the scale of neural networks has increased exponentially. Limit
 
 > Download address of the complete sample code:
 >
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training>.
+> <https://gitee.com/mindspore/docs/tree/r1.5/docs/sample_code/distributed_training>.
 
 ## Preparations
 
 ### Downloading the Dataset
 
-This example uses the `CIFAR-10` dataset. For details about how to download and load the dataset, visit <https://www.mindspore.cn/docs/programming_guide/en/master/distributed_training_ascend.html>.
+This example uses the `CIFAR-10` dataset. For details about how to download and load the dataset, visit <https://www.mindspore.cn/docs/programming_guide/en/r1.5/distributed_training_ascend.html>.
 
 ### Configuring the Distributed Environment
 
@@ -37,13 +37,13 @@ This example uses the `CIFAR-10` dataset. For details about how to download and 
 >
 > Due to the impact of HCCL, pipeline parallelism can only be performed across nodes.
 
-For details about how to configure the distributed environment and call the HCCL, visit <https://www.mindspore.cn/docs/programming_guide/en/master/distributed_training_ascend.html>.
+For details about how to configure the distributed environment and call the HCCL, visit <https://www.mindspore.cn/docs/programming_guide/en/r1.5/distributed_training_ascend.html>.
 
 ## Defining the Network
 
 The network definition is the same as that of the Ascend 910 AI Processor.
 
-For details about the definitions of the network, optimizer, and loss function, visit <https://www.mindspore.cn/docs/programming_guide/en/master/distributed_training_ascend.html>.
+For details about the definitions of the network, optimizer, and loss function, visit <https://www.mindspore.cn/docs/programming_guide/en/r1.5/distributed_training_ascend.html>.
 
 > To implement pipeline parallelism, you need to define the parallel strategy and call the `pipeline_stage` API to specify the stage on which each layer is to be executed. The granularity of the `pipeline_stage` API is `Cell`. `pipeline_stage` must be configured for all `Cells` that contain training parameters.
 
@@ -126,4 +126,4 @@ def test_train_cifar(epoch_size=10):
 
 ## Running the Multi-node Script
 
-Pipeline parallelism requires cross-node execution. For details about multi-node multi-device training, visit <https://www.mindspore.cn/docs/programming_guide/en/master/distributed_training_ascend.html>.
+Pipeline parallelism requires cross-node execution. For details about multi-node multi-device training, visit <https://www.mindspore.cn/docs/programming_guide/en/r1.5/distributed_training_ascend.html>.

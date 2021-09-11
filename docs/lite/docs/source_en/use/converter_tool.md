@@ -19,7 +19,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/converter_tool.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/lite/docs/source_en/use/converter_tool.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -35,7 +35,7 @@ The ms model converted by the conversion tool supports the conversion tool and t
 
 To use the MindSpore Lite model conversion tool, you need to prepare the environment as follows:
 
-- [Compile](https://www.mindspore.cn/lite/docs/en/master/use/build.html) or [download](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) model transfer tool.
+- [Compile](https://www.mindspore.cn/lite/docs/en/r1.5/use/build.html) or [download](https://www.mindspore.cn/lite/docs/en/r1.5/use/downloads.html) model transfer tool.
 
 - Add the path of dynamic library required by the conversion tool to the environment variables LD_LIBRARY_PATH.
 
@@ -85,9 +85,9 @@ The following describes the parameters in detail.
 > - The parameter name and parameter value are separated by an equal sign (=) and no space is allowed between them.
 > - The Caffe model is divided into two files: model structure `*.prototxt`, corresponding to the `--modelFile` parameter; model weight `*.caffemodel`, corresponding to the `--weightFile` parameter.
 > - The priority of `--fp16` option is very low. For example, if quantization is enabled, `--fp16` will no longer take effect on const tensors that have been quantized. All in all, this option only takes effect on const tensors of Float32 when serializing model.
-> - `inputDataFormat`: generally, in the scenario of integrating third-party hardware of NCHW specification([Usage Description of the Integrated NNIE](https://www.mindspore.cn/lite/docs/en/master/use/nnie.html#nnie)), designated as NCHW will have a significant performance improvement over NHWC. In other scenarios, users can also set as needed.
+> - `inputDataFormat`: generally, in the scenario of integrating third-party hardware of NCHW specification([Usage Description of the Integrated NNIE](https://www.mindspore.cn/lite/docs/en/r1.5/use/nnie.html#nnie)), designated as NCHW will have a significant performance improvement over NHWC. In other scenarios, users can also set as needed.
 
-The calibration dataset configuration file uses the `key=value` mode to define related parameters. For the configuration parameters related to quantization, please refer to [post training quantization](https://www.mindspore.cn/lite/docs/en/master/use/post_training_quantization.html), and others `key` to be configured is as follows:
+The calibration dataset configuration file uses the `key=value` mode to define related parameters. For the configuration parameters related to quantization, please refer to [post training quantization](https://www.mindspore.cn/lite/docs/en/r1.5/use/post_training_quantization.html), and others `key` to be configured is as follows:
 
 | Parameter Name | Attribute | Function Description | Parameter Type | Default Value | Value Range |
 | -------- | ------- | -----          | -----    | -----     |  ----- |
@@ -154,7 +154,7 @@ The following describes how to use the conversion command by using several commo
 
 To use the MindSpore Lite model conversion tool, the following environment preparations are required.
 
-- [Compile](https://www.mindspore.cn/lite/docs/en/master/use/build.html) or [download](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) model transfer tool.
+- [Compile](https://www.mindspore.cn/lite/docs/en/r1.5/use/build.html) or [download](https://www.mindspore.cn/lite/docs/en/r1.5/use/downloads.html) model transfer tool.
 
 - Add the path of dynamic library required by the conversion tool to the environment variables PATH.
 
@@ -186,7 +186,7 @@ mindspore-lite-{version}-win-x64
 
 ### Parameter Description
 
-Refer to the Linux environment model conversion tool [parameter description](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html#parameter-description).
+Refer to the Linux environment model conversion tool [parameter description](https://www.mindspore.cn/lite/docs/en/r1.5/use/converter_tool.html#parameter-description).
 
 ### Example
 

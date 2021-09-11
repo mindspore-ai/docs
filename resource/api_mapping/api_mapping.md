@@ -12,14 +12,14 @@
 | torch.asin                                           | mindspore.ops.Asin                                             | 功能一致 |
 | torch.atan                                           | mindspore.ops.Atan                                             | 功能一致 |
 | torch.atan2                                          | mindspore.ops.Atan2                                            | 功能一致 |
-| torch.autograd.backward                              | mindspore.ops.GradOperation                                    |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/GradOperation.md)|
-| torch.autograd.enable_grad                           | mindspore.ops.stop_gradient                                    |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/stop_gradient.md)|
-| torch.autograd.grad                                  | mindspore.ops.GradOperation                                    |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/GradOperation.md)|
-| torch.autograd.no_grad                               | mindspore.ops.stop_gradient                                    |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/stop_gradient.md)|
+| torch.autograd.backward                              | mindspore.ops.GradOperation                                    |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/GradOperation.md)|
+| torch.autograd.enable_grad                           | mindspore.ops.stop_gradient                                    |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/stop_gradient.md)|
+| torch.autograd.grad                                  | mindspore.ops.GradOperation                                    |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/GradOperation.md)|
+| torch.autograd.no_grad                               | mindspore.ops.stop_gradient                                    |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/stop_gradient.md)|
 | torch.bitwise_and                                    | mindspore.ops.BitwiseAnd                                       | 功能一致 |
 | torch.bitwise_or                                     | mindspore.ops.BitwiseOr                                        | 功能一致 |
 | torch.bmm                                            | mindspore.ops.BatchMatMul                                      | 功能一致 |
-| torch.broadcast_tensors                              | mindspore.ops.BroadcastTo                                      |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/BroadcastTo.md)|
+| torch.broadcast_tensors                              | mindspore.ops.BroadcastTo                                      |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/BroadcastTo.md)|
 | torch.cat                                            | mindspore.ops.Concat                                           | 功能一致 |
 | torch.ceil                                           | mindspore.ops.Ceil                                             | 功能一致 |
 | torch.chunk                                          | mindspore.ops.Split                                            | 功能一致 |
@@ -27,29 +27,29 @@
 | torch.cos                                            | mindspore.ops.Cos                                              | 功能一致 |
 | torch.cosh                                           | mindspore.ops.Cosh                                             | 功能一致 |
 | torch.cuda.device_count                              | mindspore.communication.get_group_size                         | 功能一致 |
-| torch.cuda.set_device                                | mindspore.context.set_context                                  |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/set_context.md)|
+| torch.cuda.set_device                                | mindspore.context.set_context                                  |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/set_context.md)|
 | torch.cumprod                                        | mindspore.ops.CumProd                                          | 功能一致 |
 | torch.cumsum                                         | mindspore.ops.CumSum                                           | 功能一致 |
 | torch.det                                            | mindspore.nn.MatDet                                            | 功能一致 |
-| torch.diag                                           | mindspore.nn.MatrixDiag                                        |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/MatrixDiag.md)|
+| torch.diag                                           | mindspore.nn.MatrixDiag                                        |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/MatrixDiag.md)|
 | torch.digamma                                        | mindspore.nn.DiGamma                                           | 功能一致 |
 | torch.distributed.all_gather                         | mindspore.ops.AllGather                                        | 功能一致 |
 | torch.distributed.all_reduce                         | mindspore.ops.AllReduce                                        | 功能一致 |
 | torch.distributions.gamma.Gamma                      | mindspore.ops.Gamma                                            | 功能一致 |
 | torch.distributed.get_rank                           | mindspore.communication.get_rank                               | 功能一致 |
-| torch.distributed.init_process_group                 | mindspore.communication.init                                   |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/init.md)|
-| torch.distributed.new_group                          | mindspore.communication.create_group                           |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/create_group.md)|
+| torch.distributed.init_process_group                 | mindspore.communication.init                                   |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/init.md)|
+| torch.distributed.new_group                          | mindspore.communication.create_group                           |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/create_group.md)|
 | torch.div                                            | mindspore.ops.Div                                              | 功能一致 |
-| torch.dot                                            | mindspore.ops.tensor_dot                                       |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/tensor_dot.md)|
+| torch.dot                                            | mindspore.ops.tensor_dot                                       |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/tensor_dot.md)|
 | torch.eq                                             | mindspore.ops.Equal                                            | 功能一致 |
 | torch.erfc                                           | mindspore.ops.Erfc                                             | 功能一致 |
 | torch.exp                                            | mindspore.ops.Exp                                              | 功能一致 |
 | torch.expm1                                          | mindspore.ops.Expm1                                            | 功能一致 |
 | torch.eye                                            | mindspore.ops.Eye                                              | 功能一致 |
-| torch.flatten                                        | mindspore.ops.Flatten                                          |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/Flatten.md)|
+| torch.flatten                                        | mindspore.ops.Flatten                                          |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/Flatten.md)|
 | torch.flip                                           | mindspore.ops.ReverseV2                                        | 功能一致 |
 | torch.floor                                          | mindspore.ops.Floor                                            | 功能一致 |
-| torch.floor_divide                                   | mindspore.ops.FloorDiv                                         |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/FloorDiv.md)|
+| torch.floor_divide                                   | mindspore.ops.FloorDiv                                         |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/FloorDiv.md)|
 | torch.fmod                                           | mindspore.ops.Mod                                              | 功能一致 |
 | torch.gather                                         | mindspore.ops.GatherD                                          | 功能一致 |
 | torch.gt                                             | mindspore.ops.Greater                                          | 功能一致 |
@@ -62,10 +62,10 @@
 | torch.log1p                                          | mindspore.ops.Log1p                                            | 功能一致 |
 | torch.logsumexp                                      | mindspore.nn.ReduceLogSumExp                                   | 功能一致 |
 | torch.matmul                                         | mindspore.nn.MatMul                                            | 功能一致 |
-| torch.max                                            | mindspore.ops.ArgMaxWithValue                                  |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/ArgMaxWithValue.md)|
+| torch.max                                            | mindspore.ops.ArgMaxWithValue                                  |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/ArgMaxWithValue.md)|
 | torch.maximum                                        | mindspore.ops.Maximum                                          | 功能一致 |
 | torch.mean                                           | mindspore.ops.ReduceMean                                       | 功能一致 |
-| torch.min                                            | mindspore.ops.ArgMinWithValue                                  |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/ArgMinWithValue.md)|
+| torch.min                                            | mindspore.ops.ArgMinWithValue                                  |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/ArgMinWithValue.md)|
 | torch.minimum                                        | mindspore.ops.Minimum                                          | 功能一致 |
 | torch.mm                                             | mindspore.ops.MatMul                                           | 功能一致 |
 | torch.mul                                            | mindspore.ops.Mul                                              | 功能一致 |
@@ -80,14 +80,14 @@
 | torch.nn.CTCLoss                                     | mindspore.ops.CTCLoss                                          | 功能一致 |
 | torch.nn.Dropout                                     | mindspore.nn.Dropout                                           | 功能一致 |
 | torch.nn.Embedding                                   | mindspore.nn.Embedding                                         | 功能一致 |
-| torch.nn.Flatten                                     | mindspore.nn.Flatten                                           |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/nn_Flatten.md)|
+| torch.nn.Flatten                                     | mindspore.nn.Flatten                                           |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/nn_Flatten.md)|
 | torch.nn.functional.adaptive_avg_pool2d              | mindspore.ops.AdaptiveAvgPool2D                                | 功能一致 |
 | torch.nn.functional.avg_pool2d                       | mindspore.ops.AvgPool                                          | 功能一致 |
 | torch.nn.functional.binary_cross_entropy             | mindspore.ops.BinaryCrossEntropy                               | 功能一致 |
 | torch.nn.functional.conv2d                           | mindspore.ops.Conv2D                                           | 功能一致 |
 | torch.nn.functional.elu                              | mindspore.ops.Elu                                              | 功能一致 |
 | torch.nn.functional.log_softmax                      | mindspore.nn.LogSoftmax                                        | 功能一致 |
-| torch.nn.functional.normalize                        | mindspore.ops.L2Normalize                                      |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/L2Normalize.md)|
+| torch.nn.functional.normalize                        | mindspore.ops.L2Normalize                                      |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/L2Normalize.md)|
 | torch.nn.functional.one_hot                          | mindspore.ops.OneHot                                           | 功能一致 |
 | torch.nn.functional.pad                              | mindspore.ops.Pad                                              | 功能一致 |
 | torch.nn.functional.pixel_shuffle                    | mindspore.ops.DepthToSpace                                     | 功能一致 |
@@ -96,34 +96,34 @@
 | torch.nn.functional.softplus                         | mindspore.ops.Softplus                                         | 功能一致 |
 | torch.nn.functional.softsign                         | mindspore.ops.Softsign                                         | 功能一致 |
 | torch.nn.GELU                                        | mindspore.nn.GELU                                              | 功能一致 |
-| torch.nn.GELU                                        | mindspore.nn.FastGelu                                          |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/FastGelu.md)|
+| torch.nn.GELU                                        | mindspore.nn.FastGelu                                          |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/FastGelu.md)|
 | torch.nn.GroupNorm                                   | mindspore.nn.GroupNorm                                         | 功能一致 |
-| torch.nn.init.constant_                              | mindspore.common.initializer.Constant                          |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/Constant.md)|
-| torch.nn.init.uniform_                               | mindspore.common.initializer.Uniform                           |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/Uniform.md)|
+| torch.nn.init.constant_                              | mindspore.common.initializer.Constant                          |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/Constant.md)|
+| torch.nn.init.uniform_                               | mindspore.common.initializer.Uniform                           |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/Uniform.md)|
 | torch.nn.KLDivLoss                                   | mindspore.ops.KLDivLoss                                        | 功能一致 |
 | torch.nn.L1Loss                                      | mindspore.nn.L1Loss                                            | 功能一致 |
 | torch.nn.LayerNorm                                   | mindspore.nn.LayerNorm                                         | 功能一致 |
 | torch.nn.LeakyReLU                                   | mindspore.nn.LeakyReLU                                         | 功能一致 |
-| torch.nn.Linear                                      | mindspore.nn.Dense                                             |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/Dense.md)|
+| torch.nn.Linear                                      | mindspore.nn.Dense                                             |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/Dense.md)|
 | torch.nn.LSTM                                        | mindspore.nn.LSTM                                              | 功能一致 |
 | torch.nn.LSTMCell                                    | mindspore.nn.LSTMCell                                          | 功能一致 |
 | torch.nn.MaxPool2d                                   | mindspore.nn.MaxPool2d                                         | 功能一致 |
 | torch.nn.Module                                      | mindspore.nn.Cell                                              | 功能一致 |
 | torch.nn.Module.add_module                                      | mindspore.nn.Cell.insert_child_to_cell                          | 功能一致 |
-| torch.nn.Module.buffers                     | mindspore.nn.Cell.untrainable_params                              |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/UnTrainableParams.md)|
-| torch.nn.Module.children                                      | mindspore.nn.Cell.cells                          |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/Cells.md)|
+| torch.nn.Module.buffers                     | mindspore.nn.Cell.untrainable_params                              |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/UnTrainableParams.md)|
+| torch.nn.Module.children                                      | mindspore.nn.Cell.cells                          |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/Cells.md)|
 | torch.nn.Module.load_state_dict                      | mindspore.load_param_into_net                                  | 功能一致 |
-| torch.nn.Module.named_children                     | mindspore.nn.Cell.name_cells                             | [差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/NameCells.md)|
+| torch.nn.Module.named_children                     | mindspore.nn.Cell.name_cells                             | [差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/NameCells.md)|
 | torch.nn.Module.named_modules                      | mindspore.nn.Cell.cells_and_names                              | 功能一致 |
-| torch.nn.Module.parameters                     | mindspore.nn.Cell.trainable_params                              |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/trainableParams.md)|
+| torch.nn.Module.parameters                     | mindspore.nn.Cell.trainable_params                              |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/trainableParams.md)|
 | torch.nn.Module.state_dict                      | mindspore.nn.Cell.parameters_dict                              | 功能一致 |
 | torch.nn.Module.train                      | mindspore.nn.Cell.set_train                              | 功能一致 |
 | torch.nn.ModuleList                                  | mindspore.nn.CellList                                          | 功能一致 |
 | torch.nn.MSELoss                                     | mindspore.nn.MSELoss                                           | 功能一致 |
 | torch.nn.Parameter                                   | mindspore.Parameter                                            | 功能一致 |
 | torch.nn.Parameter.clone                                  | mindspore.Parameter.clone                                            | 功能一致 |
-| torch.nn.Parameter.data                                  | mindspore.Parameter.data                                            |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/ParamsData.md)|
-| torch.nn.ParameterList                               | mindspore.ParameterTuple                                       |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/ParameterTuple.md)|
+| torch.nn.Parameter.data                                  | mindspore.Parameter.data                                            |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/ParamsData.md)|
+| torch.nn.ParameterList                               | mindspore.ParameterTuple                                       |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/ParameterTuple.md)|
 | torch.nn.PixelShuffle                                | mindspore.ops.DepthToSpace                                     | 功能一致 |
 | torch.nn.PReLU                                       | mindspore.nn.PReLU                                             | 功能一致 |
 | torch.nn.ReLU                                        | mindspore.nn.ReLU                                              | 功能一致 |
@@ -135,22 +135,22 @@
 | torch.nn.SyncBatchNorm.convert_sync_batchnorm        | mindspore.nn.GlobalBatchNorm                                   | 功能一致 |
 | torch.nn.Tanh                                        | mindspore.nn.Tanh                                              | 功能一致 |
 | torch.nn.Unfold                                      | mindspore.nn.Unfold                                            | 功能一致 |
-| torch.nn.Upsample                                    | mindspore.ops.ResizeBilinear                                   |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/ResizeBilinear.md)|
-| torch.norm                                           | mindspore.nn.Norm                                              |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/Norm.md)|
+| torch.nn.Upsample                                    | mindspore.ops.ResizeBilinear                                   |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/ResizeBilinear.md)|
+| torch.norm                                           | mindspore.nn.Norm                                              |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/Norm.md)|
 | torch.numel                                          | mindspore.ops.Size                                             | 功能一致 |
 | torch.ones                                           | mindspore.ops.Ones                                             | 功能一致 |
 | torch.ones_like                                      | mindspore.ops.OnesLike                                         | 功能一致 |
-| torch.optim.Adadelta                                 | mindspore.ops.ApplyAdadelta                                    |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/ApplyAdadelta.md)|
-| torch.optim.Adagrad                                  | mindspore.nn.Adagrad                                           |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/Adagrad.md)|
+| torch.optim.Adadelta                                 | mindspore.ops.ApplyAdadelta                                    |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/ApplyAdadelta.md)|
+| torch.optim.Adagrad                                  | mindspore.nn.Adagrad                                           |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/Adagrad.md)|
 | torch.optim.Adam                                     | mindspore.nn.Adam                                              | 功能一致 |
 | torch.optim.Adamax                                   | mindspore.ops.ApplyAdaMax                                      | 功能一致 |
 | torch.optim.AdamW                                    | mindspore.nn.AdamWeightDecay                                   | 功能一致 |
 | torch.optim.lr_scheduler.CosineAnnealingWarmRestarts | mindspore.nn.cosine_decay_lr                                   | 功能一致 |
-| torch.optim.lr_scheduler.ExponentialLR        | mindspore.nn.exponential_decay_lr                                    |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/ExponentialDecayLR.md)|
-| torch.optim.lr_scheduler.MultiStepLR        | mindspore.nn.piecewise_constant_lr                                  |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/PiecewiseConstantLR.md)|
+| torch.optim.lr_scheduler.ExponentialLR        | mindspore.nn.exponential_decay_lr                                    |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/ExponentialDecayLR.md)|
+| torch.optim.lr_scheduler.MultiStepLR        | mindspore.nn.piecewise_constant_lr                                  |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/PiecewiseConstantLR.md)|
 | torch.optim.lr_scheduler.StepLR                      | mindspore.nn.piecewise_constant_lr                             | 功能一致 |
-| torch.optim.Optimizer  | mindspore.nn.Optimizer                                    |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/Optimizer.md)|
-| torch.optim.Optimizer.step                           | mindspore.nn.TrainOneStepCell                                  |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/TrainOneStepCell.md)|
+| torch.optim.Optimizer  | mindspore.nn.Optimizer                                    |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/Optimizer.md)|
+| torch.optim.Optimizer.step                           | mindspore.nn.TrainOneStepCell                                  |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/TrainOneStepCell.md)|
 | torch.optim.RMSprop                                  | mindspore.nn.RMSProp                                           | 功能一致 |
 | torch.optim.SGD                                      | mindspore.nn.SGD                                               | 功能一致 |
 | torch.pow                                            | mindspore.ops.Pow                                              | 功能一致 |
@@ -164,12 +164,12 @@
 | torch.sigmoid                                        | mindspore.ops.Sigmoid                                          | 功能一致 |
 | torch.sin                                            | mindspore.ops.Sin                                              | 功能一致 |
 | torch.sinh                                           | mindspore.ops.Sinh                                             | 功能一致 |
-| torch.sparse_coo_tensor                              | mindspore.SparseTensor                                         |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/SparseTensor.md)|
+| torch.sparse_coo_tensor                              | mindspore.SparseTensor                                         |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/SparseTensor.md)|
 | torch.split                                          | mindspore.ops.Split                                            | 功能一致 |
 | torch.sqrt                                           | mindspore.ops.Sqrt                                             | 功能一致 |
 | torch.squeeze                                        | mindspore.ops.Squeeze                                          | 功能一致 |
 | torch.stack                                          | mindspore.ops.Stack                                            | 功能一致 |
-| torch.std_mean                                       | mindspore.ops.ReduceMean                                       |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/ReduceMean&std_mean.md)|
+| torch.std_mean                                       | mindspore.ops.ReduceMean                                       |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/ReduceMean&std_mean.md)|
 | torch.sum                                            | mindspore.ops.ReduceSum                                        | 功能一致 |
 | torch.tan                                            | mindspore.ops.Tan                                              | 功能一致 |
 | torch.tanh                                           | mindspore.ops.Tanh                                             | 功能一致 |
@@ -178,7 +178,7 @@
 | torch.Tensor.chunk                                   | mindspore.ops.Split                                            | 功能一致 |
 | torch.Tensor.expand                                  | mindspore.ops.BroadcastTo                                      | 功能一致 |
 | torch.Tensor.fill_                                   | mindspore.ops.Fill                                             | 功能一致 |
-| torch.Tensor.float                                   | mindspore.ops.Cast                                             |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/Cast.md)|
+| torch.Tensor.float                                   | mindspore.ops.Cast                                             |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/Cast.md)|
 | torch.Tensor.index_add                               | mindspore.ops.InplaceAdd                                       | 功能一致 |
 | torch.Tensor.mm                                      | mindspore.ops.MatMul                                           | 功能一致 |
 | torch.Tensor.mul                                     | mindspore.ops.Mul                                              | 功能一致 |
@@ -188,25 +188,25 @@
 | torch.Tensor.requires_grad_                          | mindspore.Parameter.requires_grad                              | 功能一致 |
 | torch.Tensor.round                                   | mindspore.ops.Round                                            | 功能一致 |
 | torch.Tensor.scatter                                 | mindspore.ops.ScatterNd                                        | 功能一致 |
-| torch.Tensor.scatter_add_                            | mindspore.ops.ScatterNdAdd                                     |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/ScatterNdAdd.md)|
+| torch.Tensor.scatter_add_                            | mindspore.ops.ScatterNdAdd                                     |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/ScatterNdAdd.md)|
 | torch.Tensor.sigmoid                                 | mindspore.nn.Sigmoid                                           | 功能一致 |
 | torch.Tensor.sign                                    | mindspore.ops.Sign                                             | 功能一致 |
 | torch.Tensor.size                                    | mindspore.ops.Shape                                            | 功能一致 |
 | torch.Tensor.sqrt                                    | mindspore.ops.Sqrt                                             | 功能一致 |
 | torch.Tensor.sub                                     | mindspore.ops.Sub                                              | 功能一致 |
-| torch.Tensor.t                                       | mindspore.ops.Transpose                                        |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/Transpose.md)|
+| torch.Tensor.t                                       | mindspore.ops.Transpose                                        |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/Transpose.md)|
 | torch.Tensor.transpose                               | mindspore.ops.Transpose                                        | 功能一致 |
 | torch.Tensor.unsqueeze                               | mindspore.ops.ExpandDims                                       | 功能一致 |
 | torch.Tensor.view                                    | mindspore.ops.Reshape                                          | 功能一致 |
 | torch.Tensor.zero_                                   | mindspore.ops.ZerosLike                                        | 功能一致 |
-| torch.topk                                           | mindspore.ops.TopK                                             |[差异对比]|(https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/TopK.md)|
+| torch.topk                                           | mindspore.ops.TopK                                             |[差异对比]|(https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/TopK.md)|
 | torch.transpose                                      | mindspore.ops.Transpose                                        | 功能一致 |
 | torch.tril                                           | mindspore.nn.Tril                                              | 功能一致 |
 | torch.triu                                           | mindspore.nn.Triu                                              | 功能一致 |
 | torch.unbind                                         | mindspore.ops.Unstack                                          | 功能一致 |
-| torch.unique                                         | mindspore.ops.Unique                                           |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/Unique.md)|
+| torch.unique                                         | mindspore.ops.Unique                                           |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/Unique.md)|
 | torch.unsqueeze                                      | mindspore.ops.ExpandDims                                       | 功能一致 |
-| torch.utils.data.DataLoader                          | None                                                           |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/DataLoader.md)|
+| torch.utils.data.DataLoader                          | None                                                           |[差异对比](https://gitee.com/mindspore/docs/blob/r1.5/resource/api_mapping/DataLoader.md)|
 | torch.utils.data.Dataset                             | mindspore.dataset.GeneratorDataset                             | 差异对比 |
 | torch.utils.data.distributed.DistributedSampler      | mindspore.dataset.DistributedSampler                           | 功能一致 |
 | torch.utils.data.RandomSampler                       | mindspore.dataset.RandomSampler                                | 功能一致 |

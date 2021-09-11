@@ -1,6 +1,6 @@
 # 安装MindSpore Hub
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/hub/docs/source_zh_cn/hub_installation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/hub/docs/source_zh_cn/hub_installation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 - [安装MindSpore Hub](#安装mindspore-hub)
     - [确认系统环境信息](#确认系统环境信息)
@@ -36,7 +36,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/Hub/an
 1. 从Gitee下载源码。
 
    ```bash
-   git clone https://gitee.com/mindspore/hub.git
+   git clone https://gitee.com/mindspore/hub.git -b r1.5
    ```
 
 2. 编译安装MindSpore Hub。
@@ -59,7 +59,7 @@ model = mshub.load("mindspore/cpu/1.0/lenet_v1_mnist", num_class = 10)
 如果出现下列提示，说明安装成功：
 
 ```text
-Downloading data from url https://gitee.com/mindspore/hub/raw/master/mshub_res/assets/mindspore/cpu/1.0/lenet_v1_mnist.md
+Downloading data from url https://gitee.com/mindspore/hub/raw/r1.5/mshub_res/assets/mindspore/cpu/1.0/lenet_v1_mnist.md
 
 Download finished!
 File size = 0.00 Mb

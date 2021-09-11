@@ -26,7 +26,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/save_load_model_hybrid_parallel.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_en/save_load_model_hybrid_parallel.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -267,7 +267,7 @@ User process:
 
 3. Execute stage 2 training: There are two devices in stage 2 training environment. The weight shape of the MatMul operator on each device is \[4, 8]. Load the initialized model parameter data from the integrated checkpoint file and then perform training.
 
-> For details about the distributed environment configuration and training code, see [Distributed Training](https://www.mindspore.cn/docs/programming_guide/en/master/distributed_training_ascend.html).
+> For details about the distributed environment configuration and training code, see [Distributed Training](https://www.mindspore.cn/docs/programming_guide/en/r1.5/distributed_training_ascend.html).
 >
 > This document provides the example code for integrating checkpoint files and loading checkpoint files before distributed training. The code is for reference only.
 

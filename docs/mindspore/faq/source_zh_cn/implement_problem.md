@@ -2,7 +2,7 @@
 
 `Linux` `Windows` `Ascend` `GPU` `CPU` `环境准备` `初级` `中级`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_zh_cn/implement_problem.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/faq/source_zh_cn/implement_problem.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 <font size=3>**Q: 使用MindSpore在模型保存后生成的`.meta`文件作用是什么，可以用`.meta`文件导入图结构吗？**</font>
 
@@ -49,7 +49,7 @@ res = model.eval(dataset)
 
 <font size=3>**Q: 如何使用SGD里的`param_group`来实现学习率的衰减？**</font>
 
-A: 如果需要按照`epoch`来变化，可以使用[Dynamic LR](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.nn.html#dynamic-lr),把其中的`step_per_epoch`设置成`step_size`，如果需要按照`step`来变化，可以把其中的`step_per_epoch`设置成1，也可以用[LearningRateSchedule](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.nn.html#dynamic-learning-rate)。
+A: 如果需要按照`epoch`来变化，可以使用[Dynamic LR](https://mindspore.cn/docs/api/zh-CN/r1.5/api_python/mindspore.nn.html#dynamic-lr),把其中的`step_per_epoch`设置成`step_size`，如果需要按照`step`来变化，可以把其中的`step_per_epoch`设置成1，也可以用[LearningRateSchedule](https://mindspore.cn/docs/api/zh-CN/r1.5/api_python/mindspore.nn.html#dynamic-learning-rate)。
 
 <br/>
 
@@ -78,7 +78,7 @@ def count_params(net):
     return total_params
 ```
 
-具体[脚本链接](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/cv/tinynet/src/utils.py)。
+具体[脚本链接](https://gitee.com/mindspore/mindspore/blob/r1.5/model_zoo/research/cv/tinynet/src/utils.py)。
 
 <br/>
 
@@ -101,7 +101,7 @@ class EarlyStop(Callback):
 
 <font size=3>**Q: 使用`nn.Conv2d`时，怎样获取期望大小的`feature map`？**</font>
 
-A: `Conv2d shape`推导方法可以[参考这里](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d)，`Conv2d`的`pad_mode`改成`same`，或者可以根据`Conv2d shape`推导公式自行计算`pad`，想要使得`shape`不变，一般pad为`(kernel_size-1)//2`。
+A: `Conv2d shape`推导方法可以[参考这里](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d)，`Conv2d`的`pad_mode`改成`same`，或者可以根据`Conv2d shape`推导公式自行计算`pad`，想要使得`shape`不变，一般pad为`(kernel_size-1)//2`。
 
 <br/>
 
@@ -160,7 +160,7 @@ A: 当前在图模式下，`construct`函数(或`@ms_function`装饰器修饰的
 
 如果是常量`Tensor`，请在`__init__`函数中定义。如果不是常量`Tensor`，可以通过`@constexpr`装饰器修饰函数，在函数里生成`Tensor`。
 
-关于`@constexpr`的用法可参考: <https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.constexpr.html>。
+关于`@constexpr`的用法可参考: <https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.constexpr.html>。
 
 对于网络中需要用到的常量`Tensor`，可以作为网络的属性，在`init`的时候定义，即`self.x = Tensor(args...)`，然后在`construct`函数(或`@ms_function`装饰器修饰的函数)里使用。
 
@@ -176,7 +176,7 @@ def generate_tensor():
 
 <font size=3>**Q: 运行时报错“'self.xx' should be defined in the class '__init__' function.”怎么办？**</font>
 
-A: 如果在`construct`函数里，想对类成员`self.xx`赋值，那么`self.xx`必须已经在`__init__`函数中被定义为[`Parameter`](<https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.Parameter.html>)类型，其他类型则不支持。局部变量`xx`不受这个限制。
+A: 如果在`construct`函数里，想对类成员`self.xx`赋值，那么`self.xx`必须已经在`__init__`函数中被定义为[`Parameter`](<https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/mindspore/mindspore.Parameter.html>)类型，其他类型则不支持。局部变量`xx`不受这个限制。
 
 <br/>
 
@@ -203,7 +203,7 @@ A: 网络的实例被调用时，会执行`construct`方法，然后会检查`co
 
 A: 在前端编译的推理阶段，会对节点的抽象类型(包含`type`、`shape`等)进行推导，常见抽象类型包括`AbstractScalar`、`AbstractTensor`、`AbstractFunction`、`AbstractTuple`、`AbstractList`等。在一些场景比如多分支场景，会对不同分支返回值的抽象类型进行`join`合并，推导出返回结果的抽象类型。如果抽象类型不匹配，或者`type`/`shape`不一致，则会抛出以上异常。
 
-当出现类似“Type Join Failed: dtype1 = Float32, dtype2 = Float16”的报错时，说明数据类型不一致，导致抽象类型合并失败。根据提供的数据类型和代码行信息，可以快速定位出错范围。此外，报错信息中提供了具体的抽象类型信息、节点信息，可以通过`analyze_fail.dat`文件查看MindIR信息，定位解决问题。关于MindIR的具体介绍，可以参考[MindSpore IR（MindIR）](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/design/mindir.html)。代码样例如下:
+当出现类似“Type Join Failed: dtype1 = Float32, dtype2 = Float16”的报错时，说明数据类型不一致，导致抽象类型合并失败。根据提供的数据类型和代码行信息，可以快速定位出错范围。此外，报错信息中提供了具体的抽象类型信息、节点信息，可以通过`analyze_fail.dat`文件查看MindIR信息，定位解决问题。关于MindIR的具体介绍，可以参考[MindSpore IR（MindIR）](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/design/mindir.html)。代码样例如下:
 
 ```python
 import numpy as np
@@ -370,7 +370,7 @@ print(network.layers)
 
 <font size=3>**Q: 使用MindSpore进行模型训练时，`CTCLoss`的输入参数有四个: `inputs`, `labels_indices`, `labels_values`, `sequence_length`，如何使用`CTCLoss`进行训练？**</font>
 
-A: 定义的`model.train`接口里接收的`dataset`可以是多个数据组成，形如(`data1`, `data2`, `data3`, ...)，所以`dataset`是可以包含`inputs`,`labels_indices`,`labels_values`,`sequence_length`的信息的。只需要定义好相应形式的`dataset`，传入`model.train`里就可以。具体的可以了解下相应的[数据处理接口](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dataset_loading.html)
+A: 定义的`model.train`接口里接收的`dataset`可以是多个数据组成，形如(`data1`, `data2`, `data3`, ...)，所以`dataset`是可以包含`inputs`,`labels_indices`,`labels_values`,`sequence_length`的信息的。只需要定义好相应形式的`dataset`，传入`model.train`里就可以。具体的可以了解下相应的[数据处理接口](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/dataset_loading.html)
 
 <br/>
 
@@ -382,7 +382,7 @@ A: 首先输入PyTorch的`pth`文件，以`ResNet-18`为例，MindSpore的网络
 
 <font size=3>**Q: MindSpore有哪些现成的推荐类或生成类网络或模型可用？**</font>
 
-A: 目前正在开发Wide & Deep、DeepFM、NCF等推荐类模型，NLP领域已经支持Bert_NEZHA，正在开发MASS等模型，用户可根据场景需要改造为生成类网络，可以关注[MindSpore Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo)。
+A: 目前正在开发Wide & Deep、DeepFM、NCF等推荐类模型，NLP领域已经支持Bert_NEZHA，正在开发MASS等模型，用户可根据场景需要改造为生成类网络，可以关注[MindSpore Model Zoo](https://gitee.com/mindspore/mindspore/tree/r1.5/model_zoo)。
 
 <br/>
 
@@ -447,7 +447,7 @@ if __name__ == "__main__":
 
 <font size=3>**Q: 如何使用MindSpore拟合$f(x)=ax^2+bx+c$这类的二次函数？**</font>
 
-A: 以下代码引用自MindSpore的官方教程的[代码仓](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/linear_regression.py)
+A: 以下代码引用自MindSpore的官方教程的[代码仓](https://gitee.com/mindspore/docs/blob/r1.5/docs/sample_code/linear_regression.py)
 
 在以下几处修改即可很好的拟合$f(x)=ax^2+bx+c$:
 

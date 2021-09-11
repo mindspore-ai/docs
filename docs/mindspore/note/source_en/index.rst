@@ -17,7 +17,7 @@ MindSpore Specification and Restriction
    syntax_list
    env_var_list
 
-The API mapping has been migrated to https://www.mindspore.cn/docs/migration_guide/en/master/api_mapping.html.
+The API mapping has been migrated to https://www.mindspore.cn/docs/migration_guide/en/r1.5/api_mapping.html.
 
 .. toctree::
    :glob:

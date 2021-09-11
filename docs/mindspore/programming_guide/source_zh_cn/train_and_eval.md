@@ -19,7 +19,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/train_and_eval.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_zh_cn/train_and_eval.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -29,7 +29,7 @@
 
 使用Cell构建前向网络，这里定义一个简单的线性回归LinearNet：
 
-> Cell的用法详见<https://www.mindspore.cn/docs/programming_guide/zh-CN/master/build_net.html>
+> Cell的用法详见<https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/build_net.html>
 
 ```python
 import numpy as np
@@ -69,7 +69,7 @@ train_net.set_train()
 
 `set_train`递归地配置了`Cell`的`training`属性，在实现训练和推理结构不同的网络时可以通过`training`属性区分训练和推理场景，例如`BatchNorm`、`Dropout`。
 
-前面的[`损失函数`](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/loss.html)章节已经介绍了如何定义损失函数，以及如何使用`WithLossCell`将前向网络与损失函数连接起来，这里介绍如何获取梯度和更新权重，构成一个完整的训练网络。MindSpore提供的`nn.TrainOneStepCell`具体实现如下：
+前面的[`损失函数`](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/loss.html)章节已经介绍了如何定义损失函数，以及如何使用`WithLossCell`将前向网络与损失函数连接起来，这里介绍如何获取梯度和更新权重，构成一个完整的训练网络。MindSpore提供的`nn.TrainOneStepCell`具体实现如下：
 
 ```python
 import mindspore.ops as ops
@@ -202,7 +202,7 @@ for epoch in range(epochs):
 
 1、ModelZoo中的Bert就在`nn.TrainOneStepCell`的基础上，加入了梯度截断操作，以获得更好的训练效果，Bert定义的训练包装函数代码片段如下：
 
-> Bert网络详见：https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/nlp/bert
+> Bert网络详见：https://gitee.com/mindspore/mindspore/tree/r1.5/model_zoo/official/nlp/bert
 
 ```python
 GRADIENT_CLIP_TYPE = 1
@@ -243,7 +243,7 @@ class BertTrainOneStepCell(nn.TrainOneStepCell):
 
 2、Wide&Deep输出两个损失函数值，并对网络的Wide和Deep两部分分别进行反向传播和参数更新，而`nn.TrainOneStep`仅适用于一个损失函数值的场景，因此ModelZoo中Wide&Deep自定义了训练封装函数，代码片段如下：
 
-> Wide&Deep网络详见：https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/recommend/wide_and_deep
+> Wide&Deep网络详见：https://gitee.com/mindspore/mindspore/tree/r1.5/model_zoo/official/recommend/wide_and_deep
 
 ```python
 class IthOutputCell(nn.Cell):
@@ -446,7 +446,7 @@ eval_net.set_train(False)
 
 MindSpore提供的基础评估指标仅适用于两个输入logits和label，当评估网络输出多个标签或多个预测值时，需要调用set_indexes函数指定哪几个输出用于计算评价指标。如果多个输出均需要用于计算评价指标，意味着MindSpore内置的评价指标不能满足需求，需要自定义。
 
-Metric的使用方法和自定义方式详见<https://www.mindspore.cn/docs/programming_guide/zh-CN/master/self_define_metric.html>。
+Metric的使用方法和自定义方式详见<https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/self_define_metric.html>。
 
 ## 构建网络的权重共享
 

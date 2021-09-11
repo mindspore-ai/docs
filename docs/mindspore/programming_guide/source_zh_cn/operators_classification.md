@@ -19,11 +19,11 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/operators_classification.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_zh_cn/operators_classification.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 ## 概述
 
-算子主要分为Primitivie算子和nn算子。所有的算子在Ascend AI处理器、GPU和CPU的支持情况，参见[算子支持列表](https://www.mindspore.cn/docs/note/zh-CN/master/operator_list.html)。
+算子主要分为Primitivie算子和nn算子。所有的算子在Ascend AI处理器、GPU和CPU的支持情况，参见[算子支持列表](https://www.mindspore.cn/docs/note/zh-CN/r1.5/operator_list.html)。
 
 ## Primitive算子
 
@@ -57,9 +57,9 @@ output = ops.tensor_pow(input_x, input_y)
 [1. 8. 64.]
 ```
 
-更多functional接口参见[functioinal接口](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.ops.html#functional)。
+更多functional接口参见[functioinal接口](https://mindspore.cn/docs/api/zh-CN/r1.5/api_python/mindspore.ops.html#functional)。
 
-composite接口提供了一些预定义的组合算子，比如clip_by_value算子，以及涉及图变换的函数（GradOperation、Map）等，其使用方式和functional接口相似，更多composite接口参见[composite接口](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.ops.html#composite)。
+composite接口提供了一些预定义的组合算子，比如clip_by_value算子，以及涉及图变换的函数（GradOperation、Map）等，其使用方式和functional接口相似，更多composite接口参见[composite接口](https://mindspore.cn/docs/api/zh-CN/r1.5/api_python/mindspore.ops.html#composite)。
 
 Primitive算子可以分为[计算算子](#计算算子)和[框架算子](#框架算子)。计算算子主要负责具体的计算，而框架算子主要用于构图，自动微分等功能。
 
@@ -69,7 +69,7 @@ Primitive算子可以分为[计算算子](#计算算子)和[框架算子](#框�
 
 #### 神经网络算子
 
-神经网络算子主要用于构建网络模型，比如卷积算子Conv2D，最大池化算子MaxPool等，参见[神经网络算子](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.ops.html#neural-network-operators)。
+神经网络算子主要用于构建网络模型，比如卷积算子Conv2D，最大池化算子MaxPool等，参见[神经网络算子](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/mindspore.ops.html#neural-network-operators)。
 
 以下代码展示了最大池化算子MaxPool的使用：
 
@@ -98,7 +98,7 @@ print(output)
 
 #### 数学算子
 
-数学算子主要是针对数学运算开发的算子，比如相加算子Add、求对数算子Log等，参见[数学算子](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.ops.html#math-operators)。
+数学算子主要是针对数学运算开发的算子，比如相加算子Add、求对数算子Log等，参见[数学算子](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/mindspore.ops.html#math-operators)。
 
 以下代码展示了求对数算子Log的使用：
 
@@ -122,7 +122,7 @@ print(output)
 
 #### 数组算子
 
-数组算子主要是针对数组类操作的算子，比如排序算子Sort、转置算子Transpose等，参见[数组算子](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.ops.html#array-operators)。
+数组算子主要是针对数组类操作的算子，比如排序算子Sort、转置算子Transpose等，参见[数组算子](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/mindspore.ops.html#array-operators)。
 
 以下代码展示了转置算子Transpose的使用：
 
@@ -152,7 +152,7 @@ print(output)
 
 #### 通信算子
 
-通信算子主要是针对多卡训练时对各个卡进行通信的算子，比如收集算子AllGather、广播算子Broadcast等，参见[通信算子](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.ops.html#communication-operators)。
+通信算子主要是针对多卡训练时对各个卡进行通信的算子，比如收集算子AllGather、广播算子Broadcast等，参见[通信算子](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/mindspore.ops.html#communication-operators)。
 
 以下代码展示了收集算子AllGather的使用：
 
@@ -192,11 +192,11 @@ print(output)
 
 `mindspore.ops.composite`中提供了一些涉及图变换的组合类算子，例如`MultitypeFuncGraph`、`HyperMap`和`GradOperation`等。
 
-`MultitypeFuncGraph`用于定义一组重载的函数，用户可以使用该算子，根据不同类型，采用不同实现，参见[MultitypeFuncGraph](https://mindspore.cn/docs/programming_guide/zh-CN/master/hypermap.html#multitypefuncgraph)。
+`MultitypeFuncGraph`用于定义一组重载的函数，用户可以使用该算子，根据不同类型，采用不同实现，参见[MultitypeFuncGraph](https://mindspore.cn/docs/programming_guide/zh-CN/r1.5/hypermap.html#multitypefuncgraph)。
 
-`HyperMap`可以对一组或多组输入做指定的运算，可以配合`MultitypeFuncGraph`一起使用，参见[HyperMap](https://mindspore.cn/docs/programming_guide/zh-CN/master/hypermap.html#id2)。
+`HyperMap`可以对一组或多组输入做指定的运算，可以配合`MultitypeFuncGraph`一起使用，参见[HyperMap](https://mindspore.cn/docs/programming_guide/zh-CN/r1.5/hypermap.html#id2)。
 
-`GradOperation`用于生成输入函数的梯度，利用get_all、get_by_list和sens_param参数控制梯度的计算方式，参见[GradOperation](https://mindspore.cn/docs/programming_guide/zh-CN/master/grad_operation.html)。
+`GradOperation`用于生成输入函数的梯度，利用get_all、get_by_list和sens_param参数控制梯度的计算方式，参见[GradOperation](https://mindspore.cn/docs/programming_guide/zh-CN/r1.5/grad_operation.html)。
 
 ## nn算子
 
@@ -206,7 +206,7 @@ nn算子还提供了部分与Primitive算子同名的接口，主要作用是对
 
 ### 卷积层算子
 
-卷积层算子主要是在模型卷积层中使用的算子，比如卷积算子Conv2d、转置卷积算子Conv2dTranspose等，参见[卷积层算子](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.nn.html#convolution-layers)。
+卷积层算子主要是在模型卷积层中使用的算子，比如卷积算子Conv2d、转置卷积算子Conv2dTranspose等，参见[卷积层算子](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/mindspore.nn.html#convolution-layers)。
 
 以下代码展示了卷积算子Conv2d的使用：
 
@@ -230,7 +230,7 @@ print(output)
 
 ### 池化层算子
 
-池化层算子主要是在模型池化层中使用的算子，比如平均池化算子AvgPool2d、最大池化算子MaxPool2d等，参见[池化层算子](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.nn.html#pooling-layers)。
+池化层算子主要是在模型池化层中使用的算子，比如平均池化算子AvgPool2d、最大池化算子MaxPool2d等，参见[池化层算子](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/mindspore.nn.html#pooling-layers)。
 
 以下代码展示了最大池化算子MaxPool2d的使用：
 
@@ -254,7 +254,7 @@ print(output.shape)
 
 ### 损失函数
 
-损失函数主要是用来评价模型的预测值和真实值的差异程度，常用的损失函数有BCEWithLogitsLoss、SoftmaxCrossEntropyWithLogits等，参见[损失函数](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.nn.html#loss-functions)。
+损失函数主要是用来评价模型的预测值和真实值的差异程度，常用的损失函数有BCEWithLogitsLoss、SoftmaxCrossEntropyWithLogits等，参见[损失函数](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/mindspore.nn.html#loss-functions)。
 
 以下代码展示了SoftmaxCrossEntropyWithLogits损失函数的使用：
 
@@ -280,7 +280,7 @@ print(output)
 
 ### 优化器
 
-优化器主要是用于计算和更新梯度，常用的优化器有Adam、Momentum等，参见[优化器](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.nn.html#optimizer-functions)。
+优化器主要是用于计算和更新梯度，常用的优化器有Adam、Momentum等，参见[优化器](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/mindspore.nn.html#optimizer-functions)。
 
 以下代码展示了Momentum优化器的使用：
 

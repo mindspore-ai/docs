@@ -41,7 +41,7 @@ Translator: [AQUA](https://gitee.com/Liu-HongYe)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/sample_code.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/migration_guide/source_en/sample_code.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
 This chapter will introduce the basic steps of network migration, common tools, ideas for locating problems and solutions with use cases.
 
@@ -80,13 +80,13 @@ The main purpose of reproducing the single Step results is for the next script d
 
 ### Pre-script Development Analysis
 
-Before starting the actual script development, a benchmark script analysis is performed. The purpose of the script analysis is to identify missing operators or features in MindSpore compared to the benchmark framework. The methodology can be found in the [Script Evaluation Tutorial](https://www.mindspore.cn/docs/migration_guide/en/master/script_analysis.html).
+Before starting the actual script development, a benchmark script analysis is performed. The purpose of the script analysis is to identify missing operators or features in MindSpore compared to the benchmark framework. The methodology can be found in the [Script Evaluation Tutorial](https://www.mindspore.cn/docs/migration_guide/en/r1.5/script_analysis.html).
 
-MindSpore already supports most of the common [functions](https://www.mindspore.cn/docs/programming_guide/en/master/index.html) and [operators](https://www.mindspore.cn/docs/note/en/master/operator_list.html). MindSpore supports both dynamic graph (PyNative) mode and static graph (Graph) mode, dynamic graph mode is flexible and easy to debug, so dynamic graph mode is mainly used for network debugging. Static graph mode has good performance and is mainly used for whole network training. When analyzing missing operators and functions, these two modes should be analyzed separately.
+MindSpore already supports most of the common [functions](https://www.mindspore.cn/docs/programming_guide/en/r1.5/index.html) and [operators](https://www.mindspore.cn/docs/note/en/r1.5/operator_list.html). MindSpore supports both dynamic graph (PyNative) mode and static graph (Graph) mode, dynamic graph mode is flexible and easy to debug, so dynamic graph mode is mainly used for network debugging. Static graph mode has good performance and is mainly used for whole network training. When analyzing missing operators and functions, these two modes should be analyzed separately.
 
 If missing operators and functions are found, we can first consider combining the missing operators and functions based on the current operators or functions, and for mainstream CV and NLP networks, new missing operators can generally be solved by combining existing operators.
 
-The combined operator can be implemented by means of a cell, which is the case in MindSpore for [nn class operator](https://gitee.com/mindspore/mindspore/tree/master/mindspore/nn). For example, the following `ReduceSumExp` operator is a combination of the existing `Exp`, `ReduceSum`, and `Log` suboperators.
+The combined operator can be implemented by means of a cell, which is the case in MindSpore for [nn class operator](https://gitee.com/mindspore/mindspore/tree/r1.5/mindspore/nn). For example, the following `ReduceSumExp` operator is a combination of the existing `Exp`, `ReduceSum`, and `Log` suboperators.
 
 ```python
 class ReduceLogSumExp(Cell):
@@ -130,7 +130,7 @@ We can analyze it based on both operator and functional aspects.
 | `nn.Linear`            | `nn.Dense`         | yes                    |
 | `torch.flatten`        | `nn.Flatten`       | yes                    |
 
-Note: For PyTorch scripts, MindSpore provides the [PyTorch operator mapping tool](https://www.mindspore.cn/docs/programming_guide/en/master/index.html#operator_api ), which can directly query whether the operator is supported.
+Note: For PyTorch scripts, MindSpore provides the [PyTorch operator mapping tool](https://www.mindspore.cn/docs/programming_guide/en/r1.5/index.html#operator_api ), which can directly query whether the operator is supported.
 
 - Feature Analysis
 
@@ -156,9 +156,9 @@ To understand the implementation of a neural network, it is necessary to know th
 3. data processing (e.g. common data slicing, shuffle, data augmentation, etc.).
 4. data distribution (distribution of data in batch_size units, distributed training involves multi-machine distribution).
 
-In the process of reading and parsing data, MindSpore provides a more friendly data format - [MindRecord](https://www.mindspore.cn/docs/programming_guide/en/master/convert_dataset.html). Users can convert the dataset in regular format to MindSpore data format, i.e. MindRecord, so that it can be easily loaded into MindSpore for training. At the same time, MindSpore is optimized for performance in some scenarios, and better performance can be obtained by using the MindRecord data format.
+In the process of reading and parsing data, MindSpore provides a more friendly data format - [MindRecord](https://www.mindspore.cn/docs/programming_guide/en/r1.5/convert_dataset.html). Users can convert the dataset in regular format to MindSpore data format, i.e. MindRecord, so that it can be easily loaded into MindSpore for training. At the same time, MindSpore is optimized for performance in some scenarios, and better performance can be obtained by using the MindRecord data format.
 
-Data processing is usually the most time-consuming phase of data preparation, and most of the operations on data are included in this step, such as Resize, Rescale, Crop, etc. in CV-like networks. MindSpore provides a set of common data processing integration interfaces, which can be called directly by users without implementing them. These integration interfaces not only improve the user-friendliness, but also improve the performance of data preprocessing and reduce the time consuming data preparation during training. For details, please refer to the [Data Preprocessing Tutorial](https://www.mindspore.cn/docs/programming_guide/en/master/optimize_data_processing.html).
+Data processing is usually the most time-consuming phase of data preparation, and most of the operations on data are included in this step, such as Resize, Rescale, Crop, etc. in CV-like networks. MindSpore provides a set of common data processing integration interfaces, which can be called directly by users without implementing them. These integration interfaces not only improve the user-friendliness, but also improve the performance of data preprocessing and reduce the time consuming data preparation during training. For details, please refer to the [Data Preprocessing Tutorial](https://www.mindspore.cn/docs/programming_guide/en/r1.5/optimize_data_processing.html).
 
 In the data distribution, MindData provides an extremely simple API, which can be used to combine and repeat data by directly calling batch and repeat operations.
 
@@ -183,7 +183,7 @@ input_tensor = preprocess(input_image)
 input_batch = input_tensor.unsqueeze(0) # create a mini-batch as expected by the model
 ```
 
-By looking at the above code, we find that the data preprocessing of ResNet50 mainly does Resize, CenterCrop, and Normalize operations, and there are two ways to implement these operations in MindSpore, one is to use MindSpore's data processing module MindData to call the encapsulated MindSpore's data processing module MindData to call the encapsulated data preprocessing interface, or through [Custom Dataset](https://www.mindspore.cn/docs/programming_guide/en/master/dataset_loading.html#loading-user-defined-dataset). Here it is more recommended for developers to choose the first way, which not only can reduce the development of repetitive code and the introduction of errors, but also can get better data processing performance. For more information about MindData data processing, please refer to the Data Pipeline section in [Programming Guide](https://www.mindspore.cn/docs/programming_guide/en/master/index.html).
+By looking at the above code, we find that the data preprocessing of ResNet50 mainly does Resize, CenterCrop, and Normalize operations, and there are two ways to implement these operations in MindSpore, one is to use MindSpore's data processing module MindData to call the encapsulated MindSpore's data processing module MindData to call the encapsulated data preprocessing interface, or through [Custom Dataset](https://www.mindspore.cn/docs/programming_guide/en/r1.5/dataset_loading.html#loading-user-defined-dataset). Here it is more recommended for developers to choose the first way, which not only can reduce the development of repetitive code and the introduction of errors, but also can get better data processing performance. For more information about MindData data processing, please refer to the Data Pipeline section in [Programming Guide](https://www.mindspore.cn/docs/programming_guide/en/r1.5/index.html).
 
 The following data processing functions are developed based on MindData:
 
@@ -257,7 +257,7 @@ Analyzing the ResNet50 network code, it can be divided into the following main s
 
 Based on the above subnetwork division, we redevelop the above development in conjunction with MindSpore syntax.
 
-Redeveloping the weight initialization (also directly using [MindSpore's defined weight initialization methods](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.common.initializer.html)).
+Redeveloping the weight initialization (also directly using [MindSpore's defined weight initialization methods](https://www.mindspore.cn/docs/api/en/r1.5/api_python/mindspore.common.initializer.html)).
 
 ```python
 def _conv_variance_scaling_initializer(in_channel, out_channel, kernel_size):
@@ -762,11 +762,11 @@ if __name__ == '__main__':
                 dataset_sink_mode=dataset_sink_mode)
 ```
 
-Note: For codes in other files in the directory, refer to MindSpore model_zoo's [ResNet50 implementation](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/resnet)(this script incorporates other ResNet family networks and ResNet-SE networks, and the specific implementation may differ from the benchmark script).
+Note: For codes in other files in the directory, refer to MindSpore model_zoo's [ResNet50 implementation](https://gitee.com/mindspore/mindspore/tree/r1.5/model_zoo/official/cv/resnet)(this script incorporates other ResNet family networks and ResNet-SE networks, and the specific implementation may differ from the benchmark script).
 
 ### Distributed training
 
-Distributed training has no impact on the network structure compared to stand-alone training, and can be done by modifying the stand-alone script by calling the distributed training interface provided by MindSpore, as described in [Distributed Training Tutorial](https://www.mindspore.cn/docs/programming_guide/en/master/distributed_training.html).
+Distributed training has no impact on the network structure compared to stand-alone training, and can be done by modifying the stand-alone script by calling the distributed training interface provided by MindSpore, as described in [Distributed Training Tutorial](https://www.mindspore.cn/docs/programming_guide/en/r1.5/distributed_training.html).
 
 #### ResNet50 Migration Example
 
@@ -865,7 +865,7 @@ if __name__ == '__main__':
 
 ### Problem Location
 
-You may encounter some interruptions in the training during the process, you can refer to the [Network Training Debug Tutorial](https://www.mindspore.cn/docs/migration_guide/en/master/neural_network_debug.html) to locate and solve them.
+You may encounter some interruptions in the training during the process, you can refer to the [Network Training Debug Tutorial](https://www.mindspore.cn/docs/migration_guide/en/r1.5/neural_network_debug.html) to locate and solve them.
 
 ## Precision tuning
 
@@ -879,7 +879,7 @@ Unless the performance problem has seriously hindered the accuracy debugging, th
 
 ### Analyzing Profiling Data
 
-Analyzing Profiling data is an essential step in the performance tuning phase, and MindSpore's performance and precision tuning tool [MindInsight](https://www.mindspore.cn/mindinsight/docs/en/master/index.html) provides a rich set of performance and precision tuning methods, and the most important information for performance tuning is the Profiling data. In the iteration trajectory, you can see very detailed information about the start run time, end run time, number of calls and call order of each operator, which is very helpful for our performance tuning. The way to generate Profiling data is as follows:
+Analyzing Profiling data is an essential step in the performance tuning phase, and MindSpore's performance and precision tuning tool [MindInsight](https://www.mindspore.cn/mindinsight/docs/en/r1.5/index.html) provides a rich set of performance and precision tuning methods, and the most important information for performance tuning is the Profiling data. In the iteration trajectory, you can see very detailed information about the start run time, end run time, number of calls and call order of each operator, which is very helpful for our performance tuning. The way to generate Profiling data is as follows:
 
 ```python
 from mindspore.profiler import Profiler
@@ -898,9 +898,9 @@ Model.train()
 profiler.analyse()
 ```
 
-For more detailed usage of Profiling, you can refer to [Profiling Performance Analysis Methods](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling.html).
+For more detailed usage of Profiling, you can refer to [Profiling Performance Analysis Methods](https://www.mindspore.cn/mindinsight/docs/en/r1.5/performance_profiling.html).
 
-After obtaining Profiling data, we can analyze the performance bottleneck stages and operators, and then perform performance optimization, which can be referred to [Performance Tuning Guide](https://www.mindspore.cn/docs/migration_guide/en/master/performance_optimization.html).
+After obtaining Profiling data, we can analyze the performance bottleneck stages and operators, and then perform performance optimization, which can be referred to [Performance Tuning Guide](https://www.mindspore.cn/docs/migration_guide/en/r1.5/performance_optimization.html).
 
 ### Common Problems and Corresponding Optimization Methods
 
@@ -915,7 +915,7 @@ When the data processing speed is slow, the queue is gradually depleted from the
 When distributed training is performed, after the forward propagation and gradient computation are completed during a Step, each machine starts to synchronize the AllReduce gradient, and the AllReduce synchronization time is mainly affected by the number of weights and machines.
 
 Normally, AllReduce gradient synchronization waits until all the inverse operators are finished, i.e., all the gradients of all weights are computed before synchronizing the gradients of all machines at once, but with AllReduce tangent, we can synchronize the gradients of some weights as soon as they are computed, so that the gradient synchronization and the gradient computation of the remaining operators can be This way, the gradient synchronization and the gradient computation of the remaining operators can be performed in parallel, hiding this part of the AllReduce gradient synchronization time. The slicing strategy is usually a manual attempt to find an optimal solution (supporting slicing greater than two segments).
-As an example, [ResNet50 network](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/train.py) has 160 weights and [85, 160] means that the gradient synchronization is performed immediately after the gradient is calculated for the 0th to 85th weights, and the gradient synchronization is performed after the gradient is calculated for the 86th to 160th weights. The code implementation is as follows:
+As an example, [ResNet50 network](https://gitee.com/mindspore/mindspore/blob/r1.5/model_zoo/official/cv/resnet/train.py) has 160 weights and [85, 160] means that the gradient synchronization is performed immediately after the gradient is calculated for the 0th to 85th weights, and the gradient synchronization is performed after the gradient is calculated for the 86th to 160th weights. The code implementation is as follows:
 
 ```python
 from mindspore import context
@@ -957,7 +957,7 @@ If MindSpore automatically generates too many conversion operators, it may be th
 
     The mixed precision training method accelerates the process of deep neural network training by using a mixture of single precision and half precision data formats, while maintaining the network accuracy that can be achieved with single precision training. Mixed precision training accelerates the computation process while reducing memory usage and access, and allows for training larger models or batch sizes on specific hardware.
 
-    For details, please refer to the [Mixed precision tutorial](https://www.mindspore.cn/docs/programming_guide/en/master/enable_mixed_precision.html).
+    For details, please refer to the [Mixed precision tutorial](https://www.mindspore.cn/docs/programming_guide/en/r1.5/enable_mixed_precision.html).
 
 - Enabling graph kernel fusion
 
@@ -965,4 +965,4 @@ If MindSpore automatically generates too many conversion operators, it may be th
 
     The scenarios for graph fusion include: scenarios with high performance requirements for network execution time; scenarios where custom combinatorial operators are implemented by splicing basic operators, and where automatic fusion of these basic operators is desired to improve the performance of the custom combinatorial operators.
 
-    For details, please refer to the [tutorial on graph arithmetic fusion](https://www.mindspore.cn/docs/programming_guide/en/master/enable_graph_kernel_fusion.html).
+    For details, please refer to the [tutorial on graph arithmetic fusion](https://www.mindspore.cn/docs/programming_guide/en/r1.5/enable_graph_kernel_fusion.html).

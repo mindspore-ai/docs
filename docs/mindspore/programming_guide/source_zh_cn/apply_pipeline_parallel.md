@@ -15,7 +15,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/apply_pipeline_parallel.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_zh_cn/apply_pipeline_parallel.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -23,13 +23,13 @@
 
 > 你可以在这里下载完整的样例代码：
 >
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training>。
+> <https://gitee.com/mindspore/docs/tree/r1.5/docs/sample_code/distributed_training>。
 
 ## 准备环节
 
 ### 下载数据集
 
-本样例采用`CIFAR-10`数据集，数据集的下载和加载方式可参考：<https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_ascend.html>。
+本样例采用`CIFAR-10`数据集，数据集的下载和加载方式可参考：<https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/distributed_training_ascend.html>。
 
 ### 配置分布式环境
 
@@ -37,13 +37,13 @@
 >
 > 受HCCL的影响，流水线并行只能跨机执行。
 
-分布式环境的配置以及集合通信库的调用可参考：<https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_ascend.html>。
+分布式环境的配置以及集合通信库的调用可参考：<https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/distributed_training_ascend.html>。
 
 ## 定义网络
 
 网络的定义和Ascend 910 AI处理器一致。
 
-网络、优化器、损失函数的定义可参考：<https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_ascend.html>。
+网络、优化器、损失函数的定义可参考：<https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/distributed_training_ascend.html>。
 
 > 流水线并行需要用户去定义并行的策略，通过调用`pipeline_stage`接口来指定每个layer要在哪个stage上去执行。`pipeline_stage`接口的粒度为`Cell`。所有包含训练参数的`Cell`都需要配置`pipeline_stage`，并且`pipeline_stage`要按照网络执行的先后顺序，从小到大进行配置。
 
@@ -127,4 +127,4 @@ def test_train_cifar(epoch_size=10):
 
 ## 运行多机脚本
 
-流水线并行需要跨机执行，多机多卡训练可参考：<https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_ascend.html>。
+流水线并行需要跨机执行，多机多卡训练可参考：<https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/distributed_training_ascend.html>。

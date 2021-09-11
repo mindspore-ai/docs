@@ -11,7 +11,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/image_classification_application.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/federated/docs/source_en/image_classification_application.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
 Federated learning can be divided into cross-silo federated learning and cross-device federated learning according to different participating customers. In the cross-silo federation learning scenario, the customers participating in federated learning are different organizations (for example, medical or financial) or geographically distributed data centers, that is, training models on multiple data islands. The clients participating in the cross-device federation learning scenario are a large number of mobiles or IoT devices. This framework will introduce how to use the network LeNet to implement an image classification application on the MindSpore cross-silo federation framework, and provides related tutorials for simulating to start multi-client participation in federated learning in the x86 environment.
 
@@ -460,9 +460,9 @@ The LeNet network is relatively simple. In addition to the input layer, the LeNe
 
 > For details about the LeNet network, visit <http://yann.lecun.com/exdb/lenet/>.
 
-For the network defining process, see the [model.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py).
+For the network defining process, see the [model.py](https://gitee.com/mindspore/mindspore/blob/r1.5/tests/st/fl/mobile/src/model.py).
 
-For more details, see the [Quick Start for Beginners](https://www.mindspore.cn/tutorials/en/master/quick_start.html#creating-a-model).
+For more details, see the [Quick Start for Beginners](https://www.mindspore.cn/tutorials/en/r1.5/quick_start.html#creating-a-model).
 
 ## Defining the Training Process
 
@@ -565,15 +565,15 @@ if __name__ == "__main__":
 
 In the dictionary `ctx`, the `enable_fl` parameter is used to set whether to start the federated learning training process. If the value is `true`, the federated learning process is started. If the value is `false`, the common training process is started. Other parameters can be set based on the actual situations. Only available model files need to be generated. In the preceding script, `data` and `label` use the simulation data.
 
-In the preceding information, `src.model` is the model definition file. For details, see the [model.py file](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py). `src.adam` is the optimizer definition file. For details, see the [adam.py file](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/adam.py).
+In the preceding information, `src.model` is the model definition file. For details, see the [model.py file](https://gitee.com/mindspore/mindspore/blob/r1.5/tests/st/fl/mobile/src/model.py). `src.adam` is the optimizer definition file. For details, see the [adam.py file](https://gitee.com/mindspore/mindspore/blob/r1.5/tests/st/fl/mobile/src/adam.py).
 
-For details about the definition of the optimizer loss function, see the [Quick Start for Beginners](https://www.mindspore.cn/tutorials/en/master/quick_start.html#optimizing-model-parameters).
+For details about the definition of the optimizer loss function, see the [Quick Start for Beginners](https://www.mindspore.cn/tutorials/en/r1.5/quick_start.html#optimizing-model-parameters).
 
 ## Generating a Device Model File
 
 1. **Export a model as a MindIR file.**
 
-    You can add the `export` statement to the training process code in [model.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py) to obtain the MindIR model file. The sample code is as follows:
+    You can add the `export` statement to the training process code in [model.py](https://gitee.com/mindspore/mindspore/blob/r1.5/tests/st/fl/mobile/src/model.py) to obtain the MindIR model file. The sample code is as follows:
 
     ```python
     from mindspore import export
@@ -590,13 +590,13 @@ For details about the definition of the optimizer loss function, see the [Quick 
         print(losses)
     ```
 
-    When generating a MindIR format model file, you need to comment the statement `context.set_fl_context(**ctx)` in the [model.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py)file, and set `epoch` to 1. Running `model.py` requires [MindSpore](https://www.mindspore.cn/install/en) to be installed in the environment . The file `lenet_train.mindir` will be generated in the current path after running the script `model.py`.
+    When generating a MindIR format model file, you need to comment the statement `context.set_fl_context(**ctx)` in the [model.py](https://gitee.com/mindspore/mindspore/blob/r1.5/tests/st/fl/mobile/src/model.py)file, and set `epoch` to 1. Running `model.py` requires [MindSpore](https://www.mindspore.cn/install/en) to be installed in the environment . The file `lenet_train.mindir` will be generated in the current path after running the script `model.py`.
 
-    For details, see [here](https://www.mindspore.cn/docs/programming_guide/en/master/save_model.html#mindir).
+    For details, see [here](https://www.mindspore.cn/docs/programming_guide/en/r1.5/save_model.html#mindir).
 
 2. **Convert the MindIR file into an .ms file that can be used by the federated learning framework on the device.**
 
-    For details about model conversion, see [Training Model Conversion Tutorial](https://www.mindspore.cn/lite/docs/en/master/use/converter_train.html).
+    For details about model conversion, see [Training Model Conversion Tutorial](https://www.mindspore.cn/lite/docs/en/r1.5/use/converter_train.html).
 
     The following is an example of model conversion:
 
@@ -622,7 +622,7 @@ For details about the definition of the optimizer loss function, see the [Quick 
 
 ## Simulating Multi-client Participation in Federated Learning
 
-You can write a Python script to call the JAR package of the federated learning framework. (For details about how to obtain the JAR package in the x86 environment, see [Building a Package](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/deploy_federated_client.md) in the Federated-Client deployment tutorial.
+You can write a Python script to call the JAR package of the federated learning framework. (For details about how to obtain the JAR package in the x86 environment, see [Building a Package](https://gitee.com/mindspore/docs/blob/r1.5/docs/federated/docs/source_en/deploy_federated_client.md) in the Federated-Client deployment tutorial.
 
 1. **Take the Lenet network as an example. The reference script `run.py` is as follows:**
 
@@ -748,7 +748,7 @@ You can write a Python script to call the JAR package of the federated learning 
 
     - **`--jarPath`**
 
-        Specifies the path of the federated learning JAR package. For details about how to obtain the JAR package in the x86 environment, see [Building a Package](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/deploy_federated_client.md) in the Federated-Client deployment tutorial.
+        Specifies the path of the federated learning JAR package. For details about how to obtain the JAR package in the x86 environment, see [Building a Package](https://gitee.com/mindspore/docs/blob/r1.5/docs/federated/docs/source_en/deploy_federated_client.md) in the Federated-Client deployment tutorial.
 
     - **`--train_dataset`**
 
@@ -859,7 +859,7 @@ You can write a Python script to call the JAR package of the federated learning 
 
 3. **Start the client.**
 
-    Before starting the client, please refer to the section [x86](https://www.mindspore.cn/federated/docs/en/master/deploy_federated_client.html) in the Federated-Client deployment tutorial for deployment of device environment .
+    Before starting the client, please refer to the section [x86](https://www.mindspore.cn/federated/docs/en/r1.5/deploy_federated_client.html) in the Federated-Client deployment tutorial for deployment of device environment .
 
     Run `run.py` as follows:
 

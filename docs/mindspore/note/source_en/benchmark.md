@@ -13,10 +13,10 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/note/source_en/benchmark.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/note/source_en/benchmark.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
 This document describes the MindSpore benchmarks.
-For details about the MindSpore networks, see [Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo).
+For details about the MindSpore networks, see [Model Zoo](https://gitee.com/mindspore/mindspore/tree/r1.5/model_zoo).
 
 ## Training Performance
 

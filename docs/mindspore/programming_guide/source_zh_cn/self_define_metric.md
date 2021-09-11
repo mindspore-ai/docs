@@ -11,12 +11,12 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/self_define_metric.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_zh_cn/self_define_metric.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 &nbsp;&nbsp;
 
 ## 概述
 
-当训练任务结束，常常需要评价函数(Metrics)来评估模型的好坏。不同的训练任务往往需要不同的Metrics函数。例如，对于二分类问题，常用的评价指标有precision(准确率)、recall(召回率)等， 而对于多分类任务，可使用宏平均(Macro)和微平均(Micro)来评估。MindSpore中提供的Metrics有：`nn.Accuracy`、`nn.Pecision`、`nn.MAE`、`nn.Topk`、`nn.MSE`等，详情可参考：[Metric](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.nn.html#metrics) 。虽然MindSpore提供了大部分常见任务的评价指标，但是无法满足所有任务的需求。因此使用者可针对具体的任务自定义Metrics来评估训练的模型。
+当训练任务结束，常常需要评价函数(Metrics)来评估模型的好坏。不同的训练任务往往需要不同的Metrics函数。例如，对于二分类问题，常用的评价指标有precision(准确率)、recall(召回率)等， 而对于多分类任务，可使用宏平均(Macro)和微平均(Micro)来评估。MindSpore中提供的Metrics有：`nn.Accuracy`、`nn.Pecision`、`nn.MAE`、`nn.Topk`、`nn.MSE`等，详情可参考：[Metric](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/mindspore.nn.html#metrics) 。虽然MindSpore提供了大部分常见任务的评价指标，但是无法满足所有任务的需求。因此使用者可针对具体的任务自定义Metrics来评估训练的模型。
 
 以下通过示例来介绍如何自定义Metrics以及如何在`nn.Model`中使用。
 
@@ -103,7 +103,7 @@ print(result)
 
 ## 在Model中使用Metrics
 
-`mindspore.Model`是用于训练和测试的高层API，可以将自定义或MindSpore已有的Metrics作为参数传入，Model能够自动调用传入的Metrics进行评估。`mindspore.Model`的信息，请参考[Model](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.Model.html#mindspore.Model)。
+`mindspore.Model`是用于训练和测试的高层API，可以将自定义或MindSpore已有的Metrics作为参数传入，Model能够自动调用传入的Metrics进行评估。`mindspore.Model`的信息，请参考[Model](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/mindspore/mindspore.Model.html#mindspore.Model)。
 
 ```python
 model = Model(network, loss, metrics={"MyMAE":MyMAE()})

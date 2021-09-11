@@ -14,7 +14,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/tokenizer.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_en/tokenizer.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -36,7 +36,7 @@ MindSpore provides the following tokenizers. In addition, you can customize toke
 | WhitespaceTokenizer | Performs tokenization on scalar text data based on spaces.  |
 | WordpieceTokenizer | Performs tokenization on scalar text data based on the word set.  |
 
-For details about tokenizers, see [MindSpore API](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.dataset.text.html).
+For details about tokenizers, see [MindSpore API](https://www.mindspore.cn/docs/api/en/r1.5/api_python/mindspore.dataset.text.html).
 
 ## MindSpore Tokenizers
 
@@ -191,7 +191,7 @@ print("------------------------before tokenization----------------------------")
 for data in dataset.create_dict_iterator(output_numpy=True):
     print(text.to_str(data['text']))
 
-# file from MindSpore repository https://gitee.com/mindspore/mindspore/blob/master/tests/ut/data/dataset/test_sentencepiece/botchan.txt
+# file from MindSpore repository https://gitee.com/mindspore/mindspore/blob/r1.5/tests/ut/data/dataset/test_sentencepiece/botchan.txt
 vocab_file = "./datasets/tokenizer/botchan.txt"
 vocab = text.SentencePieceVocab.from_file([vocab_file], 5000, 0.9995, SentencePieceModel.UNIGRAM, {})
 tokenizer_op = text.SentencePieceTokenizer(vocab, out_type=SPieceTokenizerOutType.STRING)

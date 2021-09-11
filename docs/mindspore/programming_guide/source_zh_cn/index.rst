@@ -25,16 +25,16 @@ MindSpore编程指南
    design/heterogeneous_training
    design/mindir
    design/data_engine
-   可视化调试调优↗ <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/training_visual_design.html>
-   安全可信↗ <https://www.mindspore.cn/mindarmour/docs/zh-CN/master/design.html>
+   可视化调试调优↗ <https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.5/training_visual_design.html>
+   安全可信↗ <https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.5/design.html>
    design/glossary
 
 .. toctree::
    :maxdepth: 1
    :caption: 快速入门
 
-   实现简单线性函数拟合↗ <https://www.mindspore.cn/tutorials/zh-CN/master/linear_regression.html> 
-   实现一个图片分类应用↗ <https://www.mindspore.cn/tutorials/zh-CN/master/quick_start.html>
+   实现简单线性函数拟合↗ <https://www.mindspore.cn/tutorials/zh-CN/r1.5/linear_regression.html> 
+   实现一个图片分类应用↗ <https://www.mindspore.cn/tutorials/zh-CN/r1.5/quick_start.html>
    quick_start/quick_video
 
 .. toctree::
@@ -138,8 +138,8 @@ MindSpore编程指南
    :maxdepth: 1
    :caption: 精度调优
 
-   精度问题初步定位指南↗ <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_problem_preliminary_location.html>
-   精度问题详细定位和调优指南↗ <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_optimization.html>
+   精度问题初步定位指南↗ <https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.5/accuracy_problem_preliminary_location.html>
+   精度问题详细定位和调优指南↗ <https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.5/accuracy_optimization.html>
 
 .. toctree::
    :maxdepth: 1
@@ -149,7 +149,7 @@ MindSpore编程指南
    enable_graph_kernel_fusion
    enable_auto_tune
    apply_gradient_accumulation
-   使用Profiler调试性能↗ <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling.html>
+   使用Profiler调试性能↗ <https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.5/performance_profiling.html>
 
 .. toctree::
    :glob:

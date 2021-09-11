@@ -24,7 +24,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/use_on_the_cloud.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_en/use_on_the_cloud.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -69,7 +69,7 @@ ModelArts uses OBS to store data. Therefore, before starting a training job, you
 ### Preparing for Script Execution
 
 Create an OBS bucket (for example, `resnet50-train`), create a code directory (for example, `resnet50_cifar10_train`) in the bucket, and upload all scripts in the following directories to the code directory:
-> ResNet-50 is used in scripts in <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/sample_for_cloud/> to train the CIFAR-10 dataset and validate the accuracy after training is complete. `1*Ascend` or `8*Ascend` can be used in scripts on ModelArts for training.
+> ResNet-50 is used in scripts in <https://gitee.com/mindspore/docs/tree/r1.5/docs/sample_code/sample_for_cloud/> to train the CIFAR-10 dataset and validate the accuracy after training is complete. `1*Ascend` or `8*Ascend` can be used in scripts on ModelArts for training.
 >
 > Note that the script version must be the same as the MindSpore version selected in "Creating a Training Task." For example, if you use scripts provided for MindSpore 1.1, you need to select MindSpore 1.1 when creating a training job.
 

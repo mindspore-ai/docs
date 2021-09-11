@@ -12,7 +12,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/apply_post_training_quantization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_zh_cn/apply_post_training_quantization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 ## 概念
 
@@ -34,5 +34,5 @@
 
 | 训练后量化工具 | 量化方法支持 | 推理硬件平台支持 | 量化模型部署 |
 | --- | --- | --- | --- |
-| [MindSpore训练后量化工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/post_training_quantization.html) | 权重量化 <br> 全量化 | CPU | [端侧推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime.html) |
-| 昇腾模型压缩工具 | 全量化 | Ascend 310 AI处理器 | [Ascend 310 AI处理器上推理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/multi_platform_inference_ascend_310.html) |
+| [MindSpore训练后量化工具](https://www.mindspore.cn/lite/docs/zh-CN/r1.5/use/post_training_quantization.html) | 权重量化 <br> 全量化 | CPU | [端侧推理](https://www.mindspore.cn/lite/docs/zh-CN/r1.5/use/runtime.html) |
+| 昇腾模型压缩工具 | 全量化 | Ascend 310 AI处理器 | [Ascend 310 AI处理器上推理](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/multi_platform_inference_ascend_310.html) |

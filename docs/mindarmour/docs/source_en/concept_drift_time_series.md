@@ -14,7 +14,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_en/concept_drift_time_series.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindarmour/docs/source_en/concept_drift_time_series.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -30,7 +30,7 @@ The following is a simple example showing the overall process of detecting conce
 3. Call the concept drift detection function.
 4. View the execution result.
 
-> You can obtain the complete executable sample code at <https://gitee.com/mindspore/mindarmour/blob/master/examples/reliability/concept_drift_time_series.py>.
+> You can obtain the complete executable sample code at <https://gitee.com/mindspore/mindarmour/blob/r1.5/examples/reliability/concept_drift_time_series.py>.
 
 ## Preparations
 

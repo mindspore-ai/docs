@@ -1,6 +1,6 @@
 # mindspore::converter
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/api/source_zh_cn/api_cpp/mindspore_converter.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/lite/api/source_zh_cn/api_cpp/mindspore_converter.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 以下描述了Mindspore Lite转换支持的模型类型及用户扩展所需的必要信息。
 
@@ -15,7 +15,7 @@
 
 ## FmkType
 
-\#include <[parser_context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/parser_context.h)>
+\#include <[parser_context.h](https://gitee.com/mindspore/mindspore/blob/r1.5/mindspore/lite/include/registry/parser_context.h)>
 
  **enum**类型变量，定义MindSpore Lite转换支持的框架类型。
 
@@ -29,7 +29,7 @@
 
 ## ConverterParameters
 
-\#include <[parser_context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/parser_context.h)>
+\#include <[parser_context.h](https://gitee.com/mindspore/mindspore/blob/r1.5/mindspore/lite/include/registry/parser_context.h)>
 
 **struct**类型结构体，定义模型解析时的转换参数，用于模型解析时的只读参数。
 
@@ -44,7 +44,7 @@ struct ConverterParameters {
 
 ## NodeParser
 
-\#include <[node_parser.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/node_parser.h)>
+\#include <[node_parser.h](https://gitee.com/mindspore/mindspore/blob/r1.5/mindspore/lite/include/registry/node_parser.h)>
 
 op节点的解析基类。
 
@@ -147,7 +147,7 @@ PrimitiveC类指针对象，存储节点属性。
 
 ## NodeParserPtr
 
-\#include <[node_parser.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/node_parser.h)>
+\#include <[node_parser.h](https://gitee.com/mindspore/mindspore/blob/r1.5/mindspore/lite/include/registry/node_parser.h)>
 
 NodeParser类的共享智能指针类型。
 
@@ -157,7 +157,7 @@ using NodeParserPtr = std::shared_ptr<NodeParser>;
 
 ## ModelParser
 
-\#include <[parser_context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/parser_context.h)>
+\#include <[parser_context.h](https://gitee.com/mindspore/mindspore/blob/r1.5/mindspore/lite/include/registry/parser_context.h)>
 
 ModelParser类的前置声明，定义了解析原始模型的基类。
 

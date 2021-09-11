@@ -13,7 +13,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_en/fuzzer_design.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindarmour/docs/source_en/fuzzer_design.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
 ## Background
 
@@ -61,10 +61,10 @@ Through multiple rounds of mutations, you can obtain a series of variant data in
 
 ## Code Implementation
 
-1. [fuzzing.py](https://gitee.com/mindspore/mindarmour/blob/master/mindarmour/fuzz_testing/fuzzing.py): overall fuzz testing process.
-2. [model_coverage_metrics.py](https://gitee.com/mindspore/mindarmour/blob/master/mindarmour/fuzz_testing/model_coverage_metrics.py): neuron coverage rate metrics, including KMNC, NBC, and SNAC.
-3. [image_transform.py](https://gitee.com/mindspore/mindarmour/blob/master/mindarmour/fuzz_testing/image_transform.py): image mutation methods, including methods based on image pixel value changes and affine transformation methods.
-4. [adversarial attacks](https://gitee.com/mindspore/mindarmour/tree/master/mindarmour/adv_robustness/attacks): methods for generating adversarial examples based on white-box and black-box attacks.
+1. [fuzzing.py](https://gitee.com/mindspore/mindarmour/blob/r1.5/mindarmour/fuzz_testing/fuzzing.py): overall fuzz testing process.
+2. [model_coverage_metrics.py](https://gitee.com/mindspore/mindarmour/blob/r1.5/mindarmour/fuzz_testing/model_coverage_metrics.py): neuron coverage rate metrics, including KMNC, NBC, and SNAC.
+3. [image_transform.py](https://gitee.com/mindspore/mindarmour/blob/r1.5/mindarmour/fuzz_testing/image_transform.py): image mutation methods, including methods based on image pixel value changes and affine transformation methods.
+4. [adversarial attacks](https://gitee.com/mindspore/mindarmour/tree/r1.5/mindarmour/adv_robustness/attacks): methods for generating adversarial examples based on white-box and black-box attacks.
 
 ## References
 

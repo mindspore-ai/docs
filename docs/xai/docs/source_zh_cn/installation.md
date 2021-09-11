@@ -2,7 +2,7 @@
 
 `Linux` `Ascend` `GPU` `模型调优` `初级` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_zh_cn/installation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/xai/docs/source_zh_cn/installation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 <!-- TOC -->
 
@@ -35,7 +35,7 @@ pip install mindspore_xai-{version}-py3-none-any.whl
 1. 从gitee.com下载源码：
 
     ```bash
-    git clone https://gitee.com/mindspore/xai.git
+    git clone https://gitee.com/mindspore/xai.git -b r1.5
     ```
 
 2. 安装所有依赖的Python包：
@@ -69,4 +69,4 @@ print(mindspore_xai.__version__)
 
 ## 注意事项
 
-[MindInsight](https://www.mindspore.cn/mindinsight) 是一个可选的XAI可视化工具，请参阅[安裝教程](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_install.html) 。
+[MindInsight](https://www.mindspore.cn/mindinsight) 是一个可选的XAI可视化工具，请参阅[安裝教程](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.5/mindinsight_install.html) 。

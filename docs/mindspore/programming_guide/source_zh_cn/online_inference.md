@@ -12,7 +12,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/online_inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_zh_cn/online_inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 ## 使用`model.eval`接口进行模型验证
 
@@ -37,9 +37,9 @@ print("============== {} ==============".format(acc))
 ```
 
 其中，  
-`model.eval`为模型验证接口，对应接口说明：<https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.html#mindspore.Model.eval>。
+`model.eval`为模型验证接口，对应接口说明：<https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/mindspore.html#mindspore.Model.eval>。
 
-> 推理样例代码：<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/eval.py>。
+> 推理样例代码：<https://gitee.com/mindspore/mindspore/blob/r1.5/model_zoo/official/cv/lenet/eval.py>。
 
 ### 使用MindSpore Hub从华为云加载模型
 
@@ -61,7 +61,7 @@ print("============== {} ==============".format(acc))
 ```
 
 其中，  
-`mindspore_hub.load`为加载模型参数接口，对应接口说明：<https://www.mindspore.cn/hub/api/zh-CN/master/index.html#module-mindspore_hub>。
+`mindspore_hub.load`为加载模型参数接口，对应接口说明：<https://www.mindspore.cn/hub/api/zh-CN/r1.5/index.html#module-mindspore_hub>。
 
 ## 使用`model.predict`接口进行推理操作
 
@@ -70,4 +70,4 @@ model.predict(input_data)
 ```
 
 其中，  
-`model.predict`为推理接口，对应接口说明：<https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.html#mindspore.Model.predict>。
+`model.predict`为推理接口，对应接口说明：<https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/mindspore.html#mindspore.Model.predict>。

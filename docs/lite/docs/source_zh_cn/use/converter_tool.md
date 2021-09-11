@@ -23,7 +23,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/converter_tool.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/lite/docs/source_zh_cn/use/converter_tool.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -39,7 +39,7 @@ MindSpore Lite提供离线转换模型功能的工具，支持多种类型的模
 
 使用MindSpore Lite模型转换工具，需要进行如下环境准备工作。
 
-- [编译](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)或[下载](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)模型转换工具。
+- [编译](https://www.mindspore.cn/lite/docs/zh-CN/r1.5/use/build.html)或[下载](https://www.mindspore.cn/lite/docs/zh-CN/r1.5/use/downloads.html)模型转换工具。
 - 将转换工具需要的动态链接库加入环境变量LD_LIBRARY_PATH。
 
     ```bash
@@ -87,9 +87,9 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 > - 参数名和参数值之间用等号连接，中间不能有空格。
 > - Caffe模型一般分为两个文件：`*.prototxt`模型结构，对应`--modelFile`参数；`*.caffemodel`模型权值，对应`--weightFile`参数。
 > - `--fp16`的优先级很低，比如如果开启了量化，那么对于已经量化的权重，`--fp16`不会再次生效。总而言之，该选项只会在序列化时对模型中的Float32的权重生效。
-> - `inputDataFormat`：一般在集成NCHW规格的三方硬件场景下(例如[集成NNIE使用说明](https://www.mindspore.cn/lite/docs/zh-CN/master/use/nnie.html#nnie))，设为NCHW比NHWC会有较明显的性能提升。在其他场景下，用户也可按需设置。
+> - `inputDataFormat`：一般在集成NCHW规格的三方硬件场景下(例如[集成NNIE使用说明](https://www.mindspore.cn/lite/docs/zh-CN/r1.5/use/nnie.html#nnie))，设为NCHW比NHWC会有较明显的性能提升。在其他场景下，用户也可按需设置。
 
-`configFile`配置文件采用`key=value`的方式定义相关参数，量化相关的配置参数详见[训练后量化](https://www.mindspore.cn/lite/docs/zh-CN/master/use/post_training_quantization.html)，其他可配置的`key`如下:
+`configFile`配置文件采用`key=value`的方式定义相关参数，量化相关的配置参数详见[训练后量化](https://www.mindspore.cn/lite/docs/zh-CN/r1.5/use/post_training_quantization.html)，其他可配置的`key`如下:
 
 |   参数名  |  属性   |     功能描述    |  参数类型 |   默认值 | 取值范围  |
 | -------- | ------- | -----          | -----    | -----     |  ----- |
@@ -150,7 +150,7 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
    CONVERTER RESULT SUCCESS:0
    ```
 
-> 训练后量化示例请参考<https://www.mindspore.cn/lite/docs/zh-CN/master/use/post_training_quantization.html>。
+> 训练后量化示例请参考<https://www.mindspore.cn/lite/docs/zh-CN/r1.5/use/post_training_quantization.html>。
 
 ## Windows环境使用说明
 
@@ -158,7 +158,7 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 
 使用MindSpore Lite模型转换工具，需要进行如下环境准备工作。
 
-- [编译](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)或[下载](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)模型转换工具。
+- [编译](https://www.mindspore.cn/lite/docs/zh-CN/r1.5/use/build.html)或[下载](https://www.mindspore.cn/lite/docs/zh-CN/r1.5/use/downloads.html)模型转换工具。
 - 将转换工具需要的动态链接库加入环境变量PATH。
 
   ```bash
@@ -189,7 +189,7 @@ mindspore-lite-{version}-win-x64
 
 ### 参数说明
 
-参考Linux环境模型转换工具的[参数说明](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html#id3)。
+参考Linux环境模型转换工具的[参数说明](https://www.mindspore.cn/lite/docs/zh-CN/r1.5/use/converter_tool.html#id3)。
 
 ### 使用示例
 
@@ -257,21 +257,21 @@ set GLOG_v=1
 
 本章节提供了扩展MindSpore Lite转换工具的示例程序，涵盖了Pass的创建全流程以及编译链接全流程，用户能够快速了解转换工具的扩展API的使用。
 
-本章节以一个tflite为[原始模型](https://download.mindspore.cn/model_zoo/official/lite/quick_start/add.tflite)为例，该模型仅包含一个简单的Add算子，通过扩展的Pass类，将Add算子转化为[Custom算子](https://www.mindspore.cn/lite/docs/zh-CN/master/use/register_kernel.html#custom)，最终输出Custom单算子模型。
+本章节以一个tflite为[原始模型](https://download.mindspore.cn/model_zoo/official/lite/quick_start/add.tflite)为例，该模型仅包含一个简单的Add算子，通过扩展的Pass类，将Add算子转化为[Custom算子](https://www.mindspore.cn/lite/docs/zh-CN/r1.5/use/register_kernel.html#custom)，最终输出Custom单算子模型。
 
-相关代码放置在[mindspore/lite/examples/converter_extend](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/converter_extend)目录。
+相关代码放置在[mindspore/lite/examples/converter_extend](https://gitee.com/mindspore/mindspore/tree/r1.5/mindspore/lite/examples/converter_extend)目录。
 
 本章节仅提供了在Linux环境下的使用说明,并且仅在1.3及以上版本支持。
 
 ### Pass扩展
 
-1. 自定义Pass：用户需继承[PassBase](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#passbase)，重载Execute接口函数[Execute](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#execute)。
+1. 自定义Pass：用户需继承[PassBase](https://www.mindspore.cn/lite/api/zh-CN/r1.5/api_cpp/mindspore_registry.html#passbase)，重载Execute接口函数[Execute](https://www.mindspore.cn/lite/api/zh-CN/r1.5/api_cpp/mindspore_registry.html#execute)。
 
-2. Pass注册：调用Pass的注册接口[REG_PASS](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#reg-pass)，把用户自己实现的Pass类注册进MindSpore Lite里。
+2. Pass注册：调用Pass的注册接口[REG_PASS](https://www.mindspore.cn/lite/api/zh-CN/r1.5/api_cpp/mindspore_registry.html#reg-pass)，把用户自己实现的Pass类注册进MindSpore Lite里。
 
 ### 算子InferShape扩展
 
-在离线转换阶段，我们会对模型的每一个节点的输出张量进行推断，包括输出张量的Format、DataType以及Shape，因此，离线转换阶段，用户需提供自己实现的算子的推断过程，这里用户可以参考[算子Infershape扩展](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html#id19)说明。
+在离线转换阶段，我们会对模型的每一个节点的输出张量进行推断，包括输出张量的Format、DataType以及Shape，因此，离线转换阶段，用户需提供自己实现的算子的推断过程，这里用户可以参考[算子Infershape扩展](https://www.mindspore.cn/lite/docs/zh-CN/r1.5/use/runtime_cpp.html#id19)说明。
 
 ### 示例演示
 
@@ -286,13 +286,13 @@ set GLOG_v=1
 
 - 编译构建
 
-  在`mindspore/lite/examples/converter_extend`目录下执行[build脚本](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/converter_extend/build.sh)，将自动下载MindSpore Lite发布件并编译Demo。
+  在`mindspore/lite/examples/converter_extend`目录下执行[build脚本](https://gitee.com/mindspore/mindspore/blob/r1.5/mindspore/lite/examples/converter_extend/build.sh)，将自动下载MindSpore Lite发布件并编译Demo。
 
   ```bash
   bash build.sh
   ```
 
-  > 若使用该build脚本下载MindSpore Lite发布件失败，请手动下载硬件平台为CPU、操作系统为Ubuntu-x64的MindSpore Lite发布件[mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，将解压后`tools/converter/lib`目录、`tools/converter/include`目录拷贝到`mindspore/lite/examples/converter_extend`目录下。
+  > 若使用该build脚本下载MindSpore Lite发布件失败，请手动下载硬件平台为CPU、操作系统为Ubuntu-x64的MindSpore Lite发布件[mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/zh-CN/r1.5/use/downloads.html)，将解压后`tools/converter/lib`目录、`tools/converter/include`目录拷贝到`mindspore/lite/examples/converter_extend`目录下。
   >
   > 通过手动下载并且将文件放到指定位置后，需要再次执行build.sh脚本才能完成编译构建。
 

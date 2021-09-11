@@ -13,7 +13,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/enable_mixed_precision.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_en/enable_mixed_precision.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -48,9 +48,9 @@ The procedure of using automatic mixed precision by API `Model` is as follows:
 
 2. Define the network. This step is the same as the common network definition. (You do not need to manually configure the precision of any specific operator.)
 
-3. Create dataset.You can learn detail step at <https://www.mindspore.cn/docs/programming_guide/en/master/dataset_sample.html>.
+3. Create dataset.You can learn detail step at <https://www.mindspore.cn/docs/programming_guide/en/r1.5/dataset_sample.html>.
 
-4. Use the `Model` API to encapsulate the network model and optimizer. You can learn how to set parameter `amp_level` through <https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.html#mindspore.Model>. In this step, MindSpore automatically converts the operators to the required format.
+4. Use the `Model` API to encapsulate the network model and optimizer. You can learn how to set parameter `amp_level` through <https://www.mindspore.cn/docs/api/en/r1.5/api_python/mindspore.html#mindspore.Model>. In this step, MindSpore automatically converts the operators to the required format.
 
 A code example is as follows:
 

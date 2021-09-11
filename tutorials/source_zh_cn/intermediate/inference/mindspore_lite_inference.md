@@ -9,7 +9,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/intermediate/inference/mindspore_lite_inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/tutorials/source_zh_cn/intermediate/inference/mindspore_lite_inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 本文将会以图像分割Demo为例讲解如何使用MindSpore Lite进行推理。
 
@@ -28,7 +28,7 @@
 
 ## MindSpore Lite推理流程
 
-推理代码流程如下，完整代码请参见 [src/java/com/mindspore/imagesegmentation/TrackingMobile](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/lite/image_segmentation/app/src/main/java/com/mindspore/imagesegmentation/help/TrackingMobile.java)。
+推理代码流程如下，完整代码请参见 [src/java/com/mindspore/imagesegmentation/TrackingMobile](https://gitee.com/mindspore/mindspore/blob/r1.5/model_zoo/official/lite/image_segmentation/app/src/main/java/com/mindspore/imagesegmentation/help/TrackingMobile.java)。
 
 1. 加载MindSpore Lite模型文件，构建上下文、会话以及用于推理的计算图。  
 
@@ -186,8 +186,8 @@
 
         <table>
            <tr>
-            <td><center><img src="https://gitee.com/mindspore/docs/raw/master/docs/lite/docs/source_zh_cn/images/segmentation6.png"><br>图1  推理前</br></center></td>
-            <td><center><img src="https://gitee.com/mindspore/docs/raw/master/docs/lite/docs/source_zh_cn/images/segmentation7.png"><br>图2  推理后</br></center></td>
+            <td><center><img src="https://gitee.com/mindspore/docs/raw/r1.5/docs/lite/docs/source_zh_cn/images/segmentation6.png"><br>图1  推理前</br></center></td>
+            <td><center><img src="https://gitee.com/mindspore/docs/raw/r1.5/docs/lite/docs/source_zh_cn/images/segmentation7.png"><br>图2  推理后</br></center></td>
           </tr>
         </table>
 
@@ -206,7 +206,7 @@
 
 ![apk](./images/segmentation_apk.png)
 
-如果已经安装了前面所说的运行依赖，可以通过Android Studio编译并运行[图像分割Demo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/lite/image_segmentation)。
+如果已经安装了前面所说的运行依赖，可以通过Android Studio编译并运行[图像分割Demo](https://gitee.com/mindspore/mindspore/tree/r1.5/model_zoo/official/lite/image_segmentation)。
 
 运行结果如下图所示（以选取相册某张头像图片为例）。
 
@@ -220,8 +220,8 @@
 
 <table>
   <tr>
-    <td><center><img src="https://gitee.com/mindspore/docs/raw/master/docs/lite/docs/source_zh_cn/images/segmentation3.png"><br>图1  白色背景</br> </center></td>
-    <td><center><img src="https://gitee.com/mindspore/docs/raw/master/docs/lite/docs/source_zh_cn/images/segmentation4.png"><br>图2  蓝色背景</br> </center></td>
-    <td><center><img src="https://gitee.com/mindspore/docs/raw/master/docs/lite/docs/source_zh_cn/images/segmentation5.png"><br>图3  油画背景</br> </center></td>
+    <td><center><img src="https://gitee.com/mindspore/docs/raw/r1.5/docs/lite/docs/source_zh_cn/images/segmentation3.png"><br>图1  白色背景</br> </center></td>
+    <td><center><img src="https://gitee.com/mindspore/docs/raw/r1.5/docs/lite/docs/source_zh_cn/images/segmentation4.png"><br>图2  蓝色背景</br> </center></td>
+    <td><center><img src="https://gitee.com/mindspore/docs/raw/r1.5/docs/lite/docs/source_zh_cn/images/segmentation5.png"><br>图3  油画背景</br> </center></td>
   </tr>
 </table>

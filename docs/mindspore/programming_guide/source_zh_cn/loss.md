@@ -19,7 +19,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/loss.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_zh_cn/loss.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -150,7 +150,7 @@ class L1Loss(LossBase):
 
 这里使用简单的线性拟场景作为样例，数据集和网络结构定义如下：
 
-> 线性拟合详细介绍可参考教程[实现简单线性函数拟合](https://www.mindspore.cn/tutorials/zh-CN/master/linear_regression.html)。
+> 线性拟合详细介绍可参考教程[实现简单线性函数拟合](https://www.mindspore.cn/tutorials/zh-CN/r1.5/linear_regression.html)。
 
 1. 定义数据集
 
@@ -229,7 +229,7 @@ class L1Loss(LossBase):
 
 完整代码如下：
 
-> 下述例子中，参数初始化使用了随机值，在具体执行中输出的结果可能与本地执行输出的结果不同；如果需要稳定输出固定的值，可以设置固定的随机种子，设置方法请参考[mindspore.set_seed()](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.set_seed.html)。
+> 下述例子中，参数初始化使用了随机值，在具体执行中输出的结果可能与本地执行输出的结果不同；如果需要稳定输出固定的值，可以设置固定的随机种子，设置方法请参考[mindspore.set_seed()](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/mindspore/mindspore.set_seed.html)。
 
 ```python
 import numpy as np
@@ -421,7 +421,7 @@ class WithLossCell(nn.Cell):
 
 完整代码如下：
 
-> 下述例子中，参数初始化使用了随机值，在具体执行中输出的结果可能与本地执行输出的结果不同；如果需要稳定输出固定的值，可以设置固定的随机种子，设置方法请参考[mindspore.set_seed()](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.set_seed.html)。
+> 下述例子中，参数初始化使用了随机值，在具体执行中输出的结果可能与本地执行输出的结果不同；如果需要稳定输出固定的值，可以设置固定的随机种子，设置方法请参考[mindspore.set_seed()](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/mindspore/mindspore.set_seed.html)。
 
 ```python
 import numpy as np

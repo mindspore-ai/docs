@@ -16,7 +16,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_zh_cn/preparation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/migration_guide/source_zh_cn/preparation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -38,7 +38,7 @@ pip install mindspore_{device}-{version}-cp37-cp37m-linux_{arch}.whl
 
 ### 使用源码安装
 
-访问[MindSpore代码仓](https://gitee.com/mindspore/mindspore)，使用`git clone https://gitee.com/mindspore/mindspore.git`下载MindSpore源码，源码根目录下的`build.sh`文件提供了多个备选参数，用于选择定制MindSpore服务，一般通过以下命令编译MindSpore。
+访问[MindSpore代码仓](https://gitee.com/mindspore/mindspore)，使用`git clone https://gitee.com/mindspore/mindspore.git -b r1.5`下载MindSpore源码，源码根目录下的`build.sh`文件提供了多个备选参数，用于选择定制MindSpore服务，一般通过以下命令编译MindSpore。
 
 ```bash
 cd mindspore
@@ -122,14 +122,14 @@ print(ops.add(x, y))
 
 ### MindSpore编程指南
 
-用户可以通过参考[MindSpore教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/index.html)了解如何使用MindSpore进行训练、调试、调优、推理；也可以通过参考[MindSpore编程指南](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/index.html)了解MindSpore的基本组成和常用编程方法；也可以通过参考[MindSpore Python API](https://www.mindspore.cn/docs/api/zh-CN/master/index.html)详细了解MindSpore各接口的相关信息，以便于用户能够更好地使用。
+用户可以通过参考[MindSpore教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/index.html)了解如何使用MindSpore进行训练、调试、调优、推理；也可以通过参考[MindSpore编程指南](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/index.html)了解MindSpore的基本组成和常用编程方法；也可以通过参考[MindSpore Python API](https://www.mindspore.cn/docs/api/zh-CN/r1.5/index.html)详细了解MindSpore各接口的相关信息，以便于用户能够更好地使用。
 
 ### ModelZoo和Hub
 
-[ModelZoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo)是MindSpore与社区共同提供的深度优化的模型集市，向开发者提供了深度优化的模型，以便于生态中的小伙伴可以方便地基于ModelZoo中的模型进行个性化开发。当前已经覆盖了机器视觉、自然语言处理、语音、推荐系统等多个领域的主流模型。
+[ModelZoo](https://gitee.com/mindspore/mindspore/tree/r1.5/model_zoo)是MindSpore与社区共同提供的深度优化的模型集市，向开发者提供了深度优化的模型，以便于生态中的小伙伴可以方便地基于ModelZoo中的模型进行个性化开发。当前已经覆盖了机器视觉、自然语言处理、语音、推荐系统等多个领域的主流模型。
 
-[mindspore Hub](https://www.mindspore.cn/resources/hub)是存放MindSpore官方或者第三方开发者提供的预训练模型的平台。它向应用开发者提供了简单易用的模型加载和微调API，使得用户可以基于预训练模型进行推理或者微调，并部署到自己的应用中。用户也可以将自己训练好的模型按照指定的步骤[发布模型](https://www.mindspore.cn/hub/docs/zh-CN/master/publish_model.html)到MindSpore Hub中，供其他用户下载和使用。
+[mindspore Hub](https://www.mindspore.cn/resources/hub)是存放MindSpore官方或者第三方开发者提供的预训练模型的平台。它向应用开发者提供了简单易用的模型加载和微调API，使得用户可以基于预训练模型进行推理或者微调，并部署到自己的应用中。用户也可以将自己训练好的模型按照指定的步骤[发布模型](https://www.mindspore.cn/hub/docs/zh-CN/r1.5/publish_model.html)到MindSpore Hub中，供其他用户下载和使用。
 
 ### 云上训练
 
-ModelArts是华为云提供的面向AI开发者的一站式开发平台，集成了昇腾AI处理器资源池，用户可以在该平台下体验MindSpore。相关文档可参考[云上使用MindSpore](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/use_on_the_cloud.html)和[AI开发平台ModelArts](https://support.huaweicloud.com/wtsnew-modelarts/index.html)。
+ModelArts是华为云提供的面向AI开发者的一站式开发平台，集成了昇腾AI处理器资源池，用户可以在该平台下体验MindSpore。相关文档可参考[云上使用MindSpore](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/use_on_the_cloud.html)和[AI开发平台ModelArts](https://support.huaweicloud.com/wtsnew-modelarts/index.html)。
