@@ -25,9 +25,7 @@ To implement an reinforcement learning algorithm with MindSpore Reinforcement, a
 - implement the algorithm based on an actor-learner-environment abstraction;
 - create a session object that executes the implemented algorithm.
 
-This tutorial shows the use of the MindSpore Reinforcement API to implement the Deep Q Learning (DQN) algorithm. Note that, for [clarity](https://dictionary.cambridge.org/dictionary/english/clarity) and readability, only API-related code sections are presented, and irrelevant code is omitted. The source code of the full DQN implementation for MindSpore Reinforcement can be found [here]
-
-You can find DQN example at [https://gitee.com/mindspore/reinforcement/tree/master/example/dqn](https://gitee.com/mindspore/reinforcement/tree/master/example/dqn)
+This tutorial shows the use of the MindSpore Reinforcement API to implement the Deep Q Learning (DQN) algorithm. Note that, for [clarity](https://dictionary.cambridge.org/dictionary/english/clarity) and readability, only API-related code sections are presented, and irrelevant code is omitted. The source code of the full DQN implementation for MindSpore Reinforcement can be found [here](https://gitee.com/mindspore/reinforcement/tree/master/example/dqn).
 
 ## Specifying the Actor-Learner-Environment Abstraction for DQN
 
