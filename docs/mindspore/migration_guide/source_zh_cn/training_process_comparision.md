@@ -1,8 +1,21 @@
 # 基本执行流程横向对比
 
+<!-- TOC -->
+
+- [基本执行流程横向对比](#基本执行流程横向对比)
+    - [总体流程](#总体流程)
+    - [构建数据集](#构建数据集)
+    - [反向传播](#反向传播)
+        - [反向传播原理](#反向传播原理)
+        - [TrainOneStepCell](#trainonestepcell)
+
+<!-- /TOC -->
+
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_zh_cn/training_process_comparision.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+
 ## 总体流程
 
-MindSpore 的模型训练和推理的总体执行流程，基本与主流的 AI 框架（如 Tensorflow 和 Pytorch）类似，主要分为以下几个步骤：
+MindSpore 的模型训练和推理的总体执行流程，基本与主流的 AI 框架（如 TensorFlow 和 PyTorch）类似，主要分为以下几个步骤：
 
 1. 构建数据集对象
 2. 定义正向网络结构
@@ -12,145 +25,145 @@ MindSpore 的模型训练和推理的总体执行流程，基本与主流的 AI 
 6. 执行反向传播计算梯度
 7. 优化器更新参数
 
-以下是典型的 MindSpore、Pytorch 和 Tensorflow 的训练代码：
+以下是典型的 MindSpore、PyTorch 和 TensorFlow 的训练代码：
 
-* MindSpore
+- MindSpore
 
-  ```python
-  from src.dataset import create_dataset
-  from src.lenet import LeNet
-  from mindspore import context, Model
-  from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
-  from mindspore.nn import Accuracy
+    ```python
+    from src.dataset import create_dataset
+    from src.lenet import LeNet
+    from mindspore import context, Model
+    from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
+    from mindspore.nn import Accuracy
 
-  # set context, including device type, device number...
-  context.set_context(mode=context.GRAPH_MODE, device_target=config.device_target)
-  # 1. define dataset object
-  ds_train = create_dataset(data_path, batch_size)
-  # 2. define farward network
-  network = LeNet(num_classes)
-  # 3. define loss
-  net_loss = SoftmaxCrossEntropyWithLogits()
-  # 4. define optimizer
-  net_opt = Momentum(network.trainable_params(), lr, momentum)
-  # define callbacks
-  config_ck = CheckpointConfig(save_checkpoint_steps)
-  ckpt_cb = ModelCheckpoint(prefix="lenet", config=config_ck)
-  loss_cb = LossMonitor()
+    # set context, including device type, device number...
+    context.set_context(mode=context.GRAPH_MODE, device_target=config.device_target)
+    # 1. define dataset object
+    ds_train = create_dataset(data_path, batch_size)
+    # 2. define farward network
+    network = LeNet(num_classes)
+    # 3. define loss
+    net_loss = SoftmaxCrossEntropyWithLogits()
+    # 4. define optimizer
+    net_opt = Momentum(network.trainable_params(), lr, momentum)
+    # define callbacks
+    config_ck = CheckpointConfig(save_checkpoint_steps)
+    ckpt_cb = ModelCheckpoint(prefix="lenet", config=config_ck)
+    loss_cb = LossMonitor()
 
-  # define model
-  model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
-  # 5-7. start training
-  model.train(epoch_size, ds_train, callbacks=[loss_cb, ckpoint_cb ])
-  ```
+    # define model
+    model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
+    # 5-7. start training
+    model.train(epoch_size, ds_train, callbacks=[loss_cb, ckpoint_cb ])
+    ```
 
-  代码来源： [ModelZoo/Lenet5](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/train.py)
+    代码来源： [ModelZoo/LeNet5](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/train.py)
 
-* Pytorch
+- PyTorch
 
-  ```python
-  import torch
-  import torchvision
-  from model import LeNet
-  # 1. define dataset object and DataLoader
-  train_set = torchvision.datasets.CIFAR10(root='./data', train=True)
-  train_loader = torch.utils.data.DataLoader(train_set, batch_size)
-  # 2. define farword network
-  net = LeNet()
-  # 3. define loss
-  net_loss = torch.nn.CrossEntropyLoss()
-  # 4. define optimizer
-  net_opt = torch.optim.Adam(net.parameters(), lr)
-  for epoch in range(n):
-      for step, data in enumerate(train_loader, start=0):
-          inputs, labels = data
-          optimizer.zero_grad()
-          # 5. forward propagation and output loss
-          outputs = net(inputs)
-          loss = net_loss(outputs, labels)
-          # 6. backward propagation
-          loss.backward()
-          # 7. update parameters
-          net_opt.step()
-          print('Epoch {}, Loss: {}' % (epoch + 1, step + 1, loss,))
-  print('Finished Training')
-  save_path = './Lenet.pth'
-  torch.save(net.state_dict(), path)
-  ```
+    ```python
+    import torch
+    import torchvision
+    from model import LeNet
+    # 1. define dataset object and DataLoader
+    train_set = torchvision.datasets.CIFAR10(root='./data', train=True)
+    train_loader = torch.utils.data.DataLoader(train_set, batch_size)
+    # 2. define farword network
+    net = LeNet()
+    # 3. define loss
+    net_loss = torch.nn.CrossEntropyLoss()
+    # 4. define optimizer
+    net_opt = torch.optim.Adam(net.parameters(), lr)
+    for epoch in range(n):
+        for step, data in enumerate(train_loader, start=0):
+            inputs, labels = data
+            optimizer.zero_grad()
+            # 5. forward propagation and output loss
+            outputs = net(inputs)
+            loss = net_loss(outputs, labels)
+            # 6. backward propagation
+            loss.backward()
+            # 7. update parameters
+            net_opt.step()
+            print('Epoch {}, Loss: {}' % (epoch + 1, step + 1, loss,))
+    print('Finished Training')
+    save_path = './Lenet.pth'
+    torch.save(net.state_dict(), path)
+    ```
 
-* Tensorflow
+- TensorFlow
 
-  ```python
-  import tensorflow as tf
-  from model import LeNet
-  mnist = tf.keras.datasets.mnist
-  (x_train, y_train), (x_test, y_test) = mnist.load_data()
-  # 1. define dataset
-  train_ds = tf.data.Dataset.from_tensor_slices((x_train, y_train)).batch(32)
-  # 2. define forward network
-  model = LeNet()
-  # 3. define loss
-  net_loss = tf.keras.losses.SparseCategoricalCrossentropy()
-  # 4. define optimizer
-  net_opt = tf.keras.optimizers.Adam()
+    ```python
+    import tensorflow as tf
+    from model import LeNet
+    mnist = tf.keras.datasets.mnist
+    (x_train, y_train), (x_test, y_test) = mnist.load_data()
+    # 1. define dataset
+    train_ds = tf.data.Dataset.from_tensor_slices((x_train, y_train)).batch(32)
+    # 2. define forward network
+    model = LeNet()
+    # 3. define loss
+    net_loss = tf.keras.losses.SparseCategoricalCrossentropy()
+    # 4. define optimizer
+    net_opt = tf.keras.optimizers.Adam()
 
-  @tf.function
-  def train_step(images, labels):
-      with tf.GradientTape() as tape:
-          # 5. forward execution and output loss
-          predictions = model(images)
-          loss = net_loss(labels, predictions)
-      # 6. backward propagation
-      gradients = tape.gradient(loss, model.trainable_variables)
-      # 7. update parameters
-      net_opt.apply_gradients(zip(gradients, model.trainable_variables))
-      return loss
+    @tf.function
+    def train_step(images, labels):
+        with tf.GradientTape() as tape:
+            # 5. forward execution and output loss
+            predictions = model(images)
+            loss = net_loss(labels, predictions)
+        # 6. backward propagation
+        gradients = tape.gradient(loss, model.trainable_variables)
+        # 7. update parameters
+        net_opt.apply_gradients(zip(gradients, model.trainable_variables))
+        return loss
 
-  for epoch in range(EPOCHS):
-      loss = 0
-      for images, labels in train_ds:
-          loss = train_step(images, labels)
-      print('Epoch {}, Loss: {}'.format(epoch + 1, loss))
+    for epoch in range(EPOCHS):
+        loss = 0
+        for images, labels in train_ds:
+            loss = train_step(images, labels)
+        print('Epoch {}, Loss: {}'.format(epoch + 1, loss))
 
-  ```
+    ```
 
-可以看到，MindSpore、Pytorch 和 Tensorflow 在步骤 1-4 的执行流程上几乎一致，API 也很相似，开发者在做网络迁移时可以很容易进行脚本适配。但在步骤 5-7 上，三者却有一定的差异，主要是因为 MindSpore、TensorFlow 和 Pytorch 实现自动微分的逻辑不同。下面我们就对其中的几点差异做详细说明。
+可以看到，MindSpore、PyTorch 和 TensorFlow 在步骤 1-4 的执行流程上几乎一致，API 也很相似，开发者在做网络迁移时可以很容易进行脚本适配。但在步骤 5-7 上，三者却有一定的差异，主要是因为 MindSpore、TensorFlow 和 PyTorch 实现自动微分的逻辑不同。下面我们就对其中的几点差异做详细说明。
 
 ## 构建数据集
 
-在构造自定义数据集时，MindSpore 和 Pytorch 有很多相似的 API，构造自定义 Dataset 对象的基本流程如下：
+在构造自定义数据集时，MindSpore 和 PyTorch 有很多相似的 API，构造自定义 Dataset 对象的基本流程如下：
 
 1. 首先创建一个类，在该类中定义  `__init__` 、 `__getitem__` 、 `__len__` 三个方法。
 
-  ```python
-  import numpy as np
-  class MyDataset():
-      """Self Defined dataset."""
-      def __init__(self, n):
-          self.data = []
-          self.label = []
-          for _ in range(n):
-              data.append(np.zeros((3, 4, 5))
-              label.append(np.ones((1))
-      def __len__(self):
-          return len(self.data)
-      def __getitem__(self, idx):
-          data = self.data[idx]
-          label = self.label[idx]
-          return data, label
-  ```
+    ```python
+    import numpy as np
+    class MyDataset():
+        """Self Defined dataset."""
+        def __init__(self, n):
+            self.data = []
+            self.label = []
+            for _ in range(n):
+                data.append(np.zeros((3, 4, 5))
+                label.append(np.ones((1))
+        def __len__(self):
+            return len(self.data)
+        def __getitem__(self, idx):
+            data = self.data[idx]
+            label = self.label[idx]
+            return data, label
+    ```
 
-  这里的  `__len__` 和  `__getitem__` 在 MindSpore 和 Pytorch 中都具有相同的意义，  `__len__`  表示数据集的总大小，`__getitem__`  通过传入的 idx 获取相应索引的数据。虽然   `MyDataset` 类可以帮助我们在给定索引的情况下获取数据，但实际训练的过程中，我们还需要更加复杂的功能，例如：按照某种自定义顺序索引数据、将不同索引的数据组合成一个 batch、为分布式训练做数据切分等。为了实现这些复杂的功能，MindSpore 提供了一个更高层的 API  `mindspore.dataset.GeneratorDataset` （对应到 Pytorch 上为  `torch.utils.data.DataLoader` ）。
+    这里的 `__len__` 和  `__getitem__` 在 MindSpore 和 PyTorch 中都具有相同的意义，  `__len__`  表示数据集的总大小，`__getitem__`  通过传入的 idx 获取相应索引的数据。虽然   `MyDataset` 类可以帮助我们在给定索引的情况下获取数据，但实际训练的过程中，我们还需要更加复杂的功能，例如：按照某种自定义顺序索引数据、将不同索引的数据组合成一个 batch、为分布式训练做数据切分等。为了实现这些复杂的功能，MindSpore 提供了一个更高层的 API  `mindspore.dataset.GeneratorDataset` （对应到 PyTorch 上为  `torch.utils.data.DataLoader` ）。
 
-2. 使用  `GeneratorDataset`  封装  `MyDataset`，提供更多数据预处理操作。
+2. 使用 `GeneratorDataset` 封装 `MyDataset`，提供更多数据预处理操作。
 
-  ```python
-  my_dataset = MyDataset(100)
-  # corresponding to torch.utils.data.DataLoader(my_dataset)
-  dataset = mindspore.dataset.GeneratorDataset(my_dataset)
-  ```
+    ```python
+    my_dataset = MyDataset(100)
+    # corresponding to torch.utils.data.DataLoader(my_dataset)
+    dataset = mindspore.dataset.GeneratorDataset(my_dataset)
+    ```
 
-可以发现，无论是 MindSpore 的 `GeneratorDataset` 还是 Pytorch 的  `DataLoader`，都提供了很多参数，我们将其中常用的参数进行对比：
+可以发现，无论是 MindSpore 的 `GeneratorDataset` 还是 PyTorch 的  `DataLoader`，都提供了很多参数，我们将其中常用的参数进行对比：
 
 |GeneratorDataset|DataLoader|参数意义|
 |:----|:----|:----|
@@ -170,86 +183,90 @@ MindSpore 的模型训练和推理的总体执行流程，基本与主流的 AI 
 
 `column_name`、`column_names` 是 MindSpore 增加的参数项，主要是为更好的描述数据列。`num_samples`  是限制实际读取的数据量，当数据集很大时可以只加载部分数据。
 
-在 Pytorch 中，数据 shffule 和分布式数据分发的操作主要由对应的  `sampler`  实现，MindSpore 沿用了这一设计，但考虑到这两个操作使用频率较高，MindSpore 直接在  `GeneratorDataSet` 类中增加新参数 `shuffle` 和  `num_shards`、`shard_id` 来实现这两个功能。
+在 PyTorch 中，数据 shffule 和分布式数据分发的操作主要由对应的  `sampler`  实现，MindSpore 沿用了这一设计，但考虑到这两个操作使用频率较高，MindSpore 直接在  `GeneratorDataSet` 类中增加新参数 `shuffle` 和  `num_shards`、`shard_id` 来实现这两个功能。
 
-对于 Pytorch 中额外的四个参数  `batch_size`、`batch_sampler`、`collate_fn` 和  `drop_last`，考虑到它们均与批处理有关，MindSpore 将这四个参数全部移动到了成员函数 `batch` 中，这种设计使得参数分组更加清晰。
+对于 PyTorch 中额外的四个参数  `batch_size`、`batch_sampler`、`collate_fn` 和  `drop_last`，考虑到它们均与批处理有关，MindSpore 将这四个参数全部移动到了成员函数 `batch` 中，这种设计使得参数分组更加清晰。
 
 3. 迭代 Dataset
 
-* Pytorch
+- PyTorch
 
-```python
-for step, (data, label) in enumerate(dataloader):
-    output = net(data)
-    loss = loss_fn(output, label)
-```
+    ```python
+    for step, (data, label) in enumerate(dataloader):
+        output = net(data)
+        loss = loss_fn(output, label)
+    ```
 
-* MindSpore
+- MindSpore
 
-```python
-# method 1: create a tuple iterator
-for columns in dataset.create_dict_iterator():
-    # type of columns is dict
-    data = columns['data']
-    label = columns['label']
-    ...
+    ```py
+    # method 1: create a tuple iterator
+    for columns in dataset.create_dict_iterator():
+        # type of columns is dict
+        data = columns['data']
+        label = columns['label']
+        ...
 
-# method 2: create a dict iterator
-for columns in dataset.create_tuple_iterator():
-    # type of columns is tuple
-    data = columns[0]
-    label = columns[1]
-    ...
-```
+    # method 2: create a dict iterator
+    for columns in dataset.create_tuple_iterator():
+        # type of columns is tuple
+        data = columns[0]
+        label = columns[1]
+        ...
+    ```
 
-MindSpore 和 Pytorch 的数据集迭代过程基本相同，而 MindSpore 可以以  `dict` 和  `tuple` 两种形式输出数据。
+MindSpore 和 PyTorch 的数据集迭代过程基本相同，而 MindSpore 可以以  `dict` 和  `tuple` 两种形式输出数据。
+
 需要注意的是，MindSpore 中的  `GeneratorDataset` 类除了用于迭代输出数据，它也为 MindSpore 特有的数据下沉模式做了适配，使得基于 NPU Ascend910 设备训练时，NPU 无需与 Host 交互便可获取训练数据。
 
 ## 反向传播
 
-MindSpore 和 Pytorch 都提供了自动微分功能，让我们在定义了正向网络后，可以通过简单的接口调用实现自动反向传播以及梯度更新。但需要注意的是，MindSpore 和 Pytorch 构建反向图的逻辑是不同的，这个差异也会带来 API 设计上的不同。
+MindSpore 和 PyTorch 都提供了自动微分功能，让我们在定义了正向网络后，可以通过简单的接口调用实现自动反向传播以及梯度更新。但需要注意的是，MindSpore 和 PyTorch 构建反向图的逻辑是不同的，这个差异也会带来 API 设计上的不同。
 
 ### 反向传播原理
 
-* Pytorch 的自动微分
+- PyTorch 的自动微分
 
-  我们知道 Pytorch 是基于函数式的自动微分，当我们定义一个网络结构后， 并不会建立反向图，而是在执行正向图的过程中，`Variable` 或  `Parameter` 记录每一个正向计算对应的反向函数，并生成一个动态计算图，用于后续的梯度计算。当在最终的输出处调用  `backward` 时，就会从根节点到叶节点应用链式法则计算梯度。Pytorch 的动态计算图所存储的节点实际时 Function 函数对象，每当对 Tensor 执行一步运算后，就会产生一个 Function 对象，它记录了反向传播中必要的信息。反向传播过程中，autograd 引擎会按照逆序，通过 Function 的 backward 依次计算梯度。 这一点我们可以通过 Tensor 的隐藏属性查看。
+    我们知道 PyTorch 是基于函数式的自动微分，当我们定义一个网络结构后， 并不会建立反向图，而是在执行正向图的过程中，`Variable` 或  `Parameter` 记录每一个正向计算对应的反向函数，并生成一个动态计算图，用于后续的梯度计算。当在最终的输出处调用  `backward` 时，就会从根节点到叶节点应用链式法则计算梯度。PyTorch 的动态计算图所存储的节点实际时 Function 函数对象，每当对 Tensor 执行一步运算后，就会产生一个 Function 对象，它记录了反向传播中必要的信息。反向传播过程中，autograd 引擎会按照逆序，通过 Function 的 backward 依次计算梯度。 这一点我们可以通过 Tensor 的隐藏属性查看。
 
-  例如，运行以下代码：
+    例如，运行以下代码：
 
-  ```python
-  import torch
-  from torch.autograd import Variable
-  x = Variable(torch.ones(2, 2), requires_grad=True)
-  x = x * 2
-  x = x - 1
-  x.backward(x)
-  ```
+    ```python
+    import torch
+    from torch.autograd import Variable
+    x = Variable(torch.ones(2, 2), requires_grad=True)
+    x = x * 2
+    x = x - 1
+    x.backward(x)
+    ```
 
-  此时我们查看 x 的属性，可以发现它已记录了整个反向传播过程所需要的信息：
-  ![图片](images/pytorch_backward.png)
-  上图中的  `grad_fn`  记录了 x 反向传播所需要的函数，而由于 x 是经过多次正向计算得到的，因此  `grad_fn`  不只记录了一条反向函数。
+    此时我们查看 x 的属性，可以发现它已记录了整个反向传播过程所需要的信息：
 
-* MindSpore 的自动微分
+    ![图片](images/pytorch_backward.png)
 
-  MindSpore 的自动微分是基于图结构的微分，和 Pytorch 不同，它不会在正向计算过程中记录任何信息，仅仅执行正常的计算流程。那么问题来了，如果连正向计算都结束了，MindSpore 也没有记录任何信息，那它是如何知道反向传播怎么执行的呢？答案是 MindSpore 把反向图当作一个真正的图结构，添加到用户定义的正向网络之后，组成一个新的计算图，而不像 Pytorch 那样仅仅记录正向计算过程。不过后添加的反向图及反向算子我们并不感知，也无法手动添加，只能通过 MindSpore 为我们提供的接口自动添加，这样做也避免了我们在反向构图时引入错误。
+    上图中的  `grad_fn`  记录了 x 反向传播所需要的函数，而由于 x 是经过多次正向计算得到的，因此  `grad_fn`  不只记录了一条反向函数。
 
-  最终，我们看似仅执行了正向图，其实图结构里既包含了正向算子，又包含了 MindSpore 为我们添加的反向算子，也就是说，MindSpore 在我们定义的正向图后面又新加了一个看不见的  `Cell`，这个  `Cell` 里都是根据正向图推导出来的反向算子。
+- MindSpore 的自动微分
 
-  而这个帮助我们构建反向图的接口就是 [GradOperation](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.GradOperation.html?highlight=gradopera#mindspore.ops.GradOperation) ：
+    MindSpore 的自动微分是基于图结构的微分，和 PyTorch 不同，它不会在正向计算过程中记录任何信息，仅仅执行正常的计算流程。那么问题来了，如果连正向计算都结束了，MindSpore 也没有记录任何信息，那它是如何知道反向传播怎么执行的呢？答案是 MindSpore 把反向图当作一个真正的图结构，添加到用户定义的正向网络之后，组成一个新的计算图，而不像 PyTorch 那样仅仅记录正向计算过程。不过后添加的反向图及反向算子我们并不感知，也无法手动添加，只能通过 MindSpore 为我们提供的接口自动添加，这样做也避免了我们在反向构图时引入错误。
 
-  ```python
-  class GradNetWrtX(nn.Cell):
-      def __init__(self, net):
-          super(GradNetWrtX, self).__init__()
-          self.net = net
-          self.grad_op = GradOperation()
-      def construct(self, x, y):
-          gradient_function = self.grad_op(self.net)
-          return gradient_function(x, y)
-  ```
+    最终，我们看似仅执行了正向图，其实图结构里既包含了正向算子，又包含了 MindSpore 为我们添加的反向算子，也就是说，MindSpore 在我们定义的正向图后面又新加了一个看不见的  `Cell`，这个  `Cell` 里都是根据正向图推导出来的反向算子。
+
+    而这个帮助我们构建反向图的接口就是 [GradOperation](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.GradOperation.html?highlight=gradopera#mindspore.ops.GradOperation) ：
+
+    ```python
+    class GradNetWrtX(nn.Cell):
+        def __init__(self, net):
+            super(GradNetWrtX, self).__init__()
+            self.net = net
+            self.grad_op = GradOperation()
+        def construct(self, x, y):
+            gradient_function = self.grad_op(self.net)
+            return gradient_function(x, y)
+    ```
 
 查看文档介绍我们可以发现，`GradOperation` 并不是一个算子，它的输入并不是 Tensor，而是一个  `Cell`，也就是我们定义的正向图。为什么输入是一个图结构呢？因为构建反向图并不需要知道具体的输入数据是什么，只要知道正向图的结构就行了，有了正向图就可以推算出反向图结构，之后我们可以把正向图+反向图当成一个新的计算图来对待，这个新的计算图就像是一个函数，对于你输入的任何一组数据，它不仅能计算出正向的输出，还能计算出所有权重的梯度，由于图结构是固定的，并不保存中间变量，所以这个图结构可以被反复调用。
+
 同理，之后我们再给网络加上优化器结构时，优化器也会加上优化器相关的算子，也就是再给这个计算图加点我们不感知的优化器算子，最终，计算图就构建完成。
 
 在 MindSpore 中，大部分操作都会最终转换成真实的算子，最终加入到计算图中，因此，我们实际执行的计算图中算子的数量远多余我们最开始定义的计算图中算子的数量。
@@ -270,8 +287,7 @@ net_opt = Momentum(network.trainable_params(), lr, momentum)
 model = Model(network, net_loss, net_opt)
 ```
 
-使用  `Model` 封装后，网络会自动添加反向、优化器相关算子。但有时网络结构复杂，有多个输入输出，或者在求梯度后，还需要对梯度进行额外的操作（例如梯度裁剪、使用 Loss Scale 等），此时我们需要自行掌控反向流程，为此，MindSpore 提供了  `nn.TrainOneStepCell`
-模板，`nn.TrainOneStepCell`  的功能是添加反向算子和优化器算子，当需要自定义反向结构时，我们可以基于该模板重写反向流程（Model 实际也是调用  `TrainOneStepCell` 完成自动微分）。
+使用  `Model` 封装后，网络会自动添加反向、优化器相关算子。但有时网络结构复杂，有多个输入输出，或者在求梯度后，还需要对梯度进行额外的操作（例如梯度裁剪、使用 Loss Scale 等），此时我们需要自行掌控反向流程，为此，MindSpore 提供了  `nn.TrainOneStepCell` 模板，`nn.TrainOneStepCell`  的功能是添加反向算子和优化器算子，当需要自定义反向结构时，我们可以基于该模板重写反向流程（Model 实际也是调用  `TrainOneStepCell` 完成自动微分）。
 
  `nn.TrainOneStepCell` 继承了 `nn.Cell`，所以它构建反向网络结构的逻辑和我们构建正向网络的保持一致。这里我们对 `nn.TrainOneStepCell` 的源码进行分析：
 
@@ -362,9 +378,10 @@ class TrainOneStepCell(Cell):
 ```
 
 如果理解了刚才介绍的 MindSpore 反向传播原理，就会很容易理解  `TrainOneStepCell` 的每一步在做什么，其实就是一个基于计算图求导的过程。
+
 这里需要特别说明最后两个语句，`DistributedGradReducer` 是负责一个分布式梯度计算的  `Cell` （相当于又是一个计算图），在多卡训练时，它会将所有卡的梯度先求和，然后除以卡的数量（ `self.degree` ），最终得到全局平均的梯度。而 `F.depend` 是 MindSpore 的特殊用法，它保证在最终的计算图执行时不会出来时序上的错误，先计算 loss 后再执行梯度更新。
 
-```python
+```py
 ...
 grads = self.grad_reducer(grads)
 loss = F.depend(loss, self.optimizer(grads))
@@ -372,6 +389,7 @@ loss = F.depend(loss, self.optimizer(grads))
 ```
 
 除了 `TrainOneStepCell`，MindSpore 还提供了带有 Loss Scale 的 `TrainOneStepWithLossScale`，原理其实是一样的，感兴趣的读者可以查看该方法的实现。
-当我们使用  `TrainOneStepCell` 添加反向网络结构后，仍可以使用 `Model` 类进行封装，但此时不需要再给 `Model` 传入 loss、优化器这两个参数了，因为传入的网络已经包含了正向+反向结构。最后，通过调用  `model.train()` ，开始正常的训练流程。
+
+当我们使用  `TrainOneStepCell` 添加反向网络结构后，仍可以使用 `Model` 类进行封装，但此时不需要再给 `Model` 传入 loss、优化器这两个参数了，因为传入的网络已经包含了正向+反向结构。最后，通过调用  `model.train` ，开始正常的训练流程。
 
 参考链接： [TrainOneStepCell](https://gitee.com/mindspore/mindspore/blob/master/mindspore/nn/wrap/cell_wrapper.py) 、 [TrainOneStepWithLossScale](https://gitee.com/mindspore/mindspore/blob/master/mindspore/nn/wrap/loss_scale.py)
