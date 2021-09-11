@@ -1,6 +1,6 @@
 # Introduction and Installation of MindSPONGE
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindscience/docs/source_en/mindsponge/intro_and_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindscience/docs/source_en/mindsponge/intro_and_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
 ## MindSPONGE Overview
 
@@ -12,7 +12,7 @@ MindSPONGE is molecular simulation library jointly developed by the `Gao Yiqin` 
 
 This tutorial mainly introduces how to use SPONGE, which is built in MindSpore, to perform high performance molecular simulation on the GPU.
 
-> Here you can download the complete sample code: <https://gitee.com/mindspore/mindscience/tree/master/MindSPONGE/examples>.
+> Here you can download the complete sample code: <https://gitee.com/mindspore/mindscience/tree/r0.1/MindSPONGE/examples>.
 
 In the future, MindSPONGE will implement more simulation cases, and your contribution is welcome.
 
@@ -45,7 +45,7 @@ pip install ./output/mindsponge-*.whl
 
     ```bash
     cd ~
-    git clone https://gitee.com/mindspore/mindscience.git
+    git clone https://gitee.com/mindspore/mindscience.git -b r0.1
     ```
 
 2. Compiling MindSPONGE

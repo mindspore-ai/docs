@@ -11,7 +11,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/intermediate/inference/mindspore_serving_inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/tutorials/source_zh_cn/intermediate/inference/mindspore_serving_inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 MindSpore Serving是一个轻量级、高性能的推理服务模块，旨在帮助MindSpore开发者在生产环境中高效部署在线推理服务。当用户使用MindSpore完成模型训练后，导出MindSpore模型，即可使用MindSpore Serving创建该模型的推理服务。
 
@@ -24,11 +24,11 @@ MindSpore Serving提供如下功能：
 - 服务的生命周期管理；
 - 多模型多版本的管理。
 
-本文以一个简单的Add网络为例，演示MindSpore Serving的基础使用方法。可通过链接查看[Add网络推理源码](https://gitee.com/mindspore/serving/tree/master/example/tensor_add)。
+本文以一个简单的Add网络为例，演示MindSpore Serving的基础使用方法。可通过链接查看[Add网络推理源码](https://gitee.com/mindspore/serving/tree/r1.5/example/tensor_add)。
 
 ## 环境准备
 
-用户在使用MindSpore Serving前，可参考[安装指南](https://gitee.com/mindspore/serving/blob/master/README_CN.md#%E5%AE%89%E8%A3%85)，与[MindSpore Serving环境变量配置](https://gitee.com/mindspore/serving/blob/master/README_CN.md#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)部署MindSpore Serving环境。
+用户在使用MindSpore Serving前，可参考[安装指南](https://gitee.com/mindspore/serving/blob/r1.5/README_CN.md#%E5%AE%89%E8%A3%85)，与[MindSpore Serving环境变量配置](https://gitee.com/mindspore/serving/blob/r1.5/README_CN.md#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)部署MindSpore Serving环境。
 
 ## 部署Serving推理服务
 
@@ -85,7 +85,7 @@ def add_cast(x1, x2):
 
 ### 启动服务
 
-执行[serving_server.py](https://gitee.com/mindspore/serving/blob/master/example/tensor_add/serving_server.py)，完成服务启动：
+执行[serving_server.py](https://gitee.com/mindspore/serving/blob/r1.5/example/tensor_add/serving_server.py)，完成服务启动：
 
 ```python
 import os
@@ -114,7 +114,7 @@ if __name__ == "__main__":
 
 ## 执行推理
 
-客户端提供两种方式访问推理服务，一种是通过[gRPC方式](https://www.mindspore.cn/serving/docs/en/master/serving_grpc.html)，一种是通过[RESTful方式](https://www.mindspore.cn/serving/docs/zh-CN/master/serving_restful.html)。本文以gRPC方式为例，通过`client.py`执行推理。
+客户端提供两种方式访问推理服务，一种是通过[gRPC方式](https://www.mindspore.cn/serving/docs/en/r1.5/serving_grpc.html)，一种是通过[RESTful方式](https://www.mindspore.cn/serving/docs/zh-CN/r1.5/serving_restful.html)。本文以gRPC方式为例，通过`client.py`执行推理。
 
 ```python
 import numpy as np

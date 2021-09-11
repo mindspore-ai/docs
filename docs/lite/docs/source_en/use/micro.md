@@ -16,7 +16,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/micro.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/lite/docs/source_en/use/micro.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -24,7 +24,7 @@ MindSpore Lite provides a code generator tool, namely codegen, which could have 
 
 Here is the process of using codegen:
 
-1. Use the [MindSpore Lite Converter](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html) to convert the pre-trained model into a `*.ms` file.
+1. Use the [MindSpore Lite Converter](https://www.mindspore.cn/lite/docs/en/r1.5/use/converter_tool.html) to convert the pre-trained model into a `*.ms` file.
 
 2. Use codegen and input the `*.ms` file to automatically generate the inference code.
 
@@ -34,8 +34,8 @@ Here is the process of using codegen:
 
 You can obtain codegen by any of the following ways:
 
-1. Download pre-compiled [Release Package](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) from MindSpore.
-2. [Build](https://www.mindspore.cn/lite/docs/en/master/use/build.html) from the source.
+1. Download pre-compiled [Release Package](https://www.mindspore.cn/lite/docs/en/r1.5/use/downloads.html) from MindSpore.
+2. [Build](https://www.mindspore.cn/lite/docs/en/r1.5/use/build.html) from the source.
 
 > Currently the code generator is only available on Linux x86_64.
 
@@ -75,7 +75,7 @@ Here is the detailed description of parameters:
 >
 > debugMode is not available when the filesystem is not supported.
 >
-> Please check the [API Document](https://www.mindspore.cn/lite/api/en/master/index.html) to get the detailed API description.
+> Please check the [API Document](https://www.mindspore.cn/lite/api/en/r1.5/index.html) to get the detailed API description.
 >
 > The following 3 interfaces are currently not supported：
 >
@@ -143,7 +143,7 @@ The generated program compilation and deployment need to install the following t
     └── operator_library   # operator source code (needs to be managed)
     ```
 
-> API header files could be found in the [Release Package](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) provided by the MindSpore team.
+> API header files could be found in the [Release Package](https://www.mindspore.cn/lite/docs/en/r1.5/use/downloads.html) provided by the MindSpore team.
 >
 > You need to obtain the source code corresponding to the target platform because the pre-compiled static library is not provided since the Cross compilation on Cortex-M platform is complicated. The corresponding project file structure is provided in the example and you could follow the instructions shown below to copy the source code and finish the compilation.
 
@@ -188,7 +188,7 @@ The generated program compilation and deployment need to install the following t
 
     If all success, the environment preparation is done.
 
-2. Generate the initialization codes run on the STM32F746 board. ([detailed code example](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/micro/example/mnist_stm32f746))
+2. Generate the initialization codes run on the STM32F746 board. ([detailed code example](https://gitee.com/mindspore/mindspore/tree/r1.5/mindspore/lite/micro/example/mnist_stm32f746))
 
     - start STM32CubeMX, new project and choose STM32F746IG.
     - Choose `Makefile` and `generator code`.
@@ -221,7 +221,7 @@ The generated program compilation and deployment need to install the following t
     └── test_stm32f746.ioc
     ```
 
-3. Modify makefile, organize operator library source code and generated inference code, check [example](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/micro/example/mnist_stm32f746) to get detailed information about makefile.
+3. Modify makefile, organize operator library source code and generated inference code, check [example](https://gitee.com/mindspore/mindspore/tree/r1.5/mindspore/lite/micro/example/mnist_stm32f746) to get detailed information about makefile.
 
     ```text
     # C includes
@@ -332,7 +332,7 @@ For the HarmonyOS application development, please refer to [demo](https://device
     └── src
    ```
 
-Download the precompile runtime component for openharmony in [Download page](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html). This is a BUILD.gn example:
+Download the precompile runtime component for openharmony in [Download page](https://www.mindspore.cn/lite/docs/en/r1.5/use/downloads.html). This is a BUILD.gn example:
 
    ```text
    import("//build/lite/config/component/lite_component.gni")
@@ -433,7 +433,7 @@ The result file is generated in out/hispark_taurus/ipcamera_hispark_taurus direc
 
 ### Running benchmark
 
-Copy mnist_benchmark, net.bin and [mnist_input.bin](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/micro/example/mnist_x86/mnist_input.bin) to the board, and run:
+Copy mnist_benchmark, net.bin and [mnist_input.bin](https://gitee.com/mindspore/mindspore/blob/r1.5/mindspore/lite/micro/example/mnist_x86/mnist_input.bin) to the board, and run:
 
    ```text
     OHOS # ./mnist_benchmark mnist_input.bin net.bin 1
@@ -455,7 +455,7 @@ Currently, Users can only register their own kernels for custom operator. We wil
 
 ### Prepare the model file
 
-You need to get a ms model that contains custom operators. Please refer to [Usage Description of the Integrated NNIE](https://www.mindspore.cn/lite/docs/en/master/use/nnie.html).
+You need to get a ms model that contains custom operators. Please refer to [Usage Description of the Integrated NNIE](https://www.mindspore.cn/lite/docs/en/r1.5/use/nnie.html).
 
 ### Run codegen
 
@@ -483,6 +483,6 @@ make
 
 ## More Details
 
-### [Linux_x86_64 platform compile and deploy](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/micro/example/mnist_x86)
+### [Linux_x86_64 platform compile and deploy](https://gitee.com/mindspore/mindspore/tree/r1.5/mindspore/lite/micro/example/mnist_x86)
 
-### [Android platform compile and deploy](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/micro/example/mobilenetv2)
+### [Android platform compile and deploy](https://gitee.com/mindspore/mindspore/tree/r1.5/mindspore/lite/micro/example/mobilenetv2)

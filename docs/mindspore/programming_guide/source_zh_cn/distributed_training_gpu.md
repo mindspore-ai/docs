@@ -17,7 +17,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/distributed_training_gpu.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_zh_cn/distributed_training_gpu.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -29,7 +29,7 @@
 
 本样例采用`CIFAR-10`数据集，数据集的下载以及加载方式和Ascend 910 AI处理器一致。
 
-数据集的下载和加载方式可参考：<https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_ascend.html>。
+数据集的下载和加载方式可参考：<https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/distributed_training_ascend.html>。
 
 ### 配置分布式环境
 
@@ -81,7 +81,7 @@ if __name__ == "__main__":
 
 在GPU硬件平台上，网络的定义和Ascend 910 AI处理器一致。
 
-网络、优化器、损失函数的定义可参考：<https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_ascend.html>。
+网络、优化器、损失函数的定义可参考：<https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/distributed_training_ascend.html>。
 
 ## 运行脚本
 
@@ -93,7 +93,7 @@ if __name__ == "__main__":
 
 > 你可以在这里找到样例的运行脚本：
 >
-> <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/distributed_training/run_gpu.sh>。
+> <https://gitee.com/mindspore/docs/blob/r1.5/docs/sample_code/distributed_training/run_gpu.sh>。
 >
 > 如果通过root用户执行脚本，`mpirun`需要加上`--allow-run-as-root`参数。
 
@@ -155,4 +155,4 @@ echo "start training"
 mpirun -n 16 --hostfile $HOSTFILE -x DATA_PATH=$DATA_PATH -x PATH -mca pml ob1 pytest -s -v ./resnet50_distributed_training.py > train.log 2>&1 &
 ```
 
-在GPU上进行分布式训练时，模型参数的保存和加载可参考[分布式训练模型参数保存和加载](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_ascend.html#id15)
+在GPU上进行分布式训练时，模型参数的保存和加载可参考[分布式训练模型参数保存和加载](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/distributed_training_ascend.html#id15)

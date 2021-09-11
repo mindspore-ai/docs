@@ -20,7 +20,7 @@ Translator: [LiangRio](https://gitee.com/liangrio)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindscience/docs/source_zh_cn/mindsponge/ala.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindscience/docs/source_zh_cn/mindsponge/ala.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -32,7 +32,7 @@ MindSPONGE in MindSpore is molecular simulation library jointly developed by the
 
 This tutorial mainly introduces how to use MindSPONGE, which is built in MindSpore, to perform high performance molecular simulation on the GPU.
 
-> Here you can download the complete sample code: <https://gitee.com/mindspore/mindscience/tree/master/MindSPONGE/examples/polypeptide>.
+> Here you can download the complete sample code: <https://gitee.com/mindspore/mindscience/tree/r0.1/MindSPONGE/examples/polypeptide>.
 
 ## Overall Execution
 
@@ -217,4 +217,4 @@ Types of energy output in the simulation process are recorded, namely iterations
 | Output                    | numpy file
 | Speed                      | 15.0 ms/step
 | Total time                 | 5.7 s
-| Script                    | [Link](https://gitee.com/mindspore/mindscience/tree/master/MindSPONGE/examples/polypeptide/scripts)
+| Script                    | [Link](https://gitee.com/mindspore/mindscience/tree/r0.1/MindSPONGE/examples/polypeptide/scripts)

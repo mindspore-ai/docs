@@ -14,7 +14,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/design/heterogeneous_training.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_zh_cn/design/heterogeneous_training.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -137,7 +137,7 @@ class AdamWeightDecayOp(Optimizer):
     return ParameterTuple(new)
 ```
 
-步骤4、5也可以直接融合到优化器算子中做进一步优化，完整的优化器异构训练流程可以参考： <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/nlp/pangu_alpha>
+步骤4、5也可以直接融合到优化器算子中做进一步优化，完整的优化器异构训练流程可以参考： <https://gitee.com/mindspore/mindspore/tree/r1.5/model_zoo/official/nlp/pangu_alpha>
 
 ## Embedding异构
 
@@ -194,7 +194,7 @@ class EmbeddingLookup(Cell):
 
 当前nn目录下的EmbeddingLookup、FTRL、LazyAdam等算子已经封装好异构接口，用户只需设置target属性为CPU或DEVICE即可切换执行后端。
 
-整体调用流程可以参考：<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/recommend/wide_and_deep>
+整体调用流程可以参考：<https://gitee.com/mindspore/mindspore/tree/r1.5/model_zoo/official/recommend/wide_and_deep>
 
 ## PS异构
 
@@ -204,7 +204,7 @@ class EmbeddingLookup(Cell):
 
 Parameter Server封装异构流程，用户只需配置参数使用PS即可，具体配置流程请参考Parameter Server训练流程。
 
-此外，wide&deep网络中也有使用PS的流程，可参考：<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/recommend/wide_and_deep>
+此外，wide&deep网络中也有使用PS的流程，可参考：<https://gitee.com/mindspore/mindspore/tree/r1.5/model_zoo/official/recommend/wide_and_deep>
 
 ## 约束
 

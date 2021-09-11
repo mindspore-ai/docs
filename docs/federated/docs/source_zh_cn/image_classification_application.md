@@ -11,7 +11,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/image_classification_application.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/federated/docs/source_zh_cn/image_classification_application.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 联邦学习根据参与客户的不同可分为云云联邦学习（cross-silo）和端云联邦学习（cross-device）。在云云联邦学习场景中，参与联邦学习的客户是不同的组织（例如，医疗或金融）或地理分布的数据中心，即在多个数据孤岛上训练模型。而在端云联邦学习场景中参与的客户为大量的移动或物联网设备。本框架将介绍如何在MindSpore端云联邦框架上使用网络LeNet实现一个图片分类应用，并提供在x86环境中模拟启动多客户端参与联邦学习的相关教程。
 
@@ -456,9 +456,9 @@
 
 > 更多的LeNet网络的介绍不在此赘述，希望详细了解LeNet网络，可以查询<http://yann.lecun.com/exdb/lenet/>。
 
-网络定义流程可参考[model.py文件](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py)。
+网络定义流程可参考[model.py文件](https://gitee.com/mindspore/mindspore/blob/r1.5/tests/st/fl/mobile/src/model.py)。
 
-具体网络定义流程可参考[初学入门](https://www.mindspore.cn/tutorials/zh-CN/master/quick_start.html#%E5%88%9B%E5%BB%BA%E6%A8%A1%E5%9E%8B)。
+具体网络定义流程可参考[初学入门](https://www.mindspore.cn/tutorials/zh-CN/r1.5/quick_start.html#%E5%88%9B%E5%BB%BA%E6%A8%A1%E5%9E%8B)。
 
 ## 定义训练过程
 
@@ -561,15 +561,15 @@ if __name__ == "__main__":
 
 其中字典`ctx`中参数`enable_fl`用于设置是否启动联邦学习训练流程，为`true`代表启动联邦学习流程，为`false`代表启动普通训练流程，其他参数可以根据实际情况进行设置。由于只需要生成可用的模型文件即可，上面脚本中`data`和`label`均采用了模拟数据。
 
-其中`src.model`为模型定义文件可参考[model.py文件](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py)，`src.adam`为优化器定义文件可参考[adam.py文件](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/adam.py)。
+其中`src.model`为模型定义文件可参考[model.py文件](https://gitee.com/mindspore/mindspore/blob/r1.5/tests/st/fl/mobile/src/model.py)，`src.adam`为优化器定义文件可参考[adam.py文件](https://gitee.com/mindspore/mindspore/blob/r1.5/tests/st/fl/mobile/src/adam.py)。
 
-具体优化器损失函数定义可参考[初学入门](https://www.mindspore.cn/tutorials/zh-CN/master/quick_start.html#%E4%BC%98%E5%8C%96%E6%A8%A1%E5%9E%8B%E5%8F%82%E6%95%B0)。
+具体优化器损失函数定义可参考[初学入门](https://www.mindspore.cn/tutorials/zh-CN/r1.5/quick_start.html#%E4%BC%98%E5%8C%96%E6%A8%A1%E5%9E%8B%E5%8F%82%E6%95%B0)。
 
 ## 生成端侧模型文件
 
 1. 将模型导出为MindIR格式文件。
 
-    可在[model.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py)的训练流程代码中添加`export`语句获取MindIR格式模型文件， 示例代码如下：
+    可在[model.py](https://gitee.com/mindspore/mindspore/blob/r1.5/tests/st/fl/mobile/src/model.py)的训练流程代码中添加`export`语句获取MindIR格式模型文件， 示例代码如下：
 
     ```python
     from mindspore import export
@@ -585,13 +585,13 @@ if __name__ == "__main__":
         print(losses)
     ```
 
-    生成MindIR格式模型文件时，需要先将[model.py文件](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py)中`context.set_fl_context(**ctx)`语句注释，同时`epoch`设置为1即可，运行`model.py`要求环境中安装[MindSpore](https://www.mindspore.cn/install)。运行脚步`model.py`之后会在当前路径下生成文件`lenet_train.mindir`。
+    生成MindIR格式模型文件时，需要先将[model.py文件](https://gitee.com/mindspore/mindspore/blob/r1.5/tests/st/fl/mobile/src/model.py)中`context.set_fl_context(**ctx)`语句注释，同时`epoch`设置为1即可，运行`model.py`要求环境中安装[MindSpore](https://www.mindspore.cn/install)。运行脚步`model.py`之后会在当前路径下生成文件`lenet_train.mindir`。
 
-    具体可参考[导出MindIR格式文件](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/save_model.html#mindir)。
+    具体可参考[导出MindIR格式文件](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/save_model.html#mindir)。
 
 2. 将MindIR文件转化为联邦学习端侧框架可用的ms文件。
 
-    模型转换可参考[训练模型转换教程](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_train.html )。
+    模型转换可参考[训练模型转换教程](https://www.mindspore.cn/lite/docs/zh-CN/r1.5/use/converter_train.html )。
 
     模型转换示例如下：
 
@@ -617,7 +617,7 @@ if __name__ == "__main__":
 
 ## 模拟启动多客户端参与联邦学习
 
-可编写一个Python脚本，调用联邦学习框架jar包（x86环境联邦学习jar包获取可参考[端侧部署中编译出包流程](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)）来模拟启动多客户端联邦学习任务。
+可编写一个Python脚本，调用联邦学习框架jar包（x86环境联邦学习jar包获取可参考[端侧部署中编译出包流程](https://www.mindspore.cn/federated/docs/zh-CN/r1.5/deploy_federated_client.html)）来模拟启动多客户端联邦学习任务。
 
 1. 以Lenet网络为例，参考脚本`run.py`如下。
 
@@ -741,7 +741,7 @@ if __name__ == "__main__":
 
     - `--jarPath`
 
-        设置联邦学习jar包路径，x86环境联邦学习jar包获取可参考[端侧部署中编译出包流程](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)。
+        设置联邦学习jar包路径，x86环境联邦学习jar包获取可参考[端侧部署中编译出包流程](https://www.mindspore.cn/federated/docs/zh-CN/r1.5/deploy_federated_client.html)。
 
     - `--train_dataset`
 
@@ -852,7 +852,7 @@ if __name__ == "__main__":
 
 3. 启动客户端。
 
-    启动客户端之前请先参照端侧部署教程中[x86环境部分](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)进行端侧环境部署。
+    启动客户端之前请先参照端侧部署教程中[x86环境部分](https://www.mindspore.cn/federated/docs/zh-CN/r1.5/deploy_federated_client.html)进行端侧环境部署。
 
     运行`run.py`，指令如下：
 

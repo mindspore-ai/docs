@@ -21,15 +21,15 @@ MindSpore Programming Guide
    design/gradient
    design/distributed_training_design
    design/mindir
-   Design of Visualization↗ <https://www.mindspore.cn/mindinsight/docs/en/master/training_visual_design.html>
+   Design of Visualization↗ <https://www.mindspore.cn/mindinsight/docs/en/r1.5/training_visual_design.html>
    design/glossary
 
 .. toctree::
    :maxdepth: 1
    :caption: Quickstart
 
-   Implementing Simple Linear Function Fitting↗ <https://www.mindspore.cn/tutorials/en/master/linear_regression.html> 
-   Implementing an Image Classification Application↗ <https://www.mindspore.cn/tutorials/en/master/quick_start.html>
+   Implementing Simple Linear Function Fitting↗ <https://www.mindspore.cn/tutorials/en/r1.5/linear_regression.html> 
+   Implementing an Image Classification Application↗ <https://www.mindspore.cn/tutorials/en/r1.5/quick_start.html>
    quick_start/quick_video
 
 .. toctree::
@@ -124,7 +124,7 @@ MindSpore Programming Guide
    enable_graph_kernel_fusion
    enable_auto_tune
    apply_gradient_accumulation
-   Debugging performance with Profiler↗ <https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling.html>
+   Debugging performance with Profiler↗ <https://www.mindspore.cn/mindinsight/docs/en/r1.5/performance_profiling.html>
 
 .. toctree::
    :glob:

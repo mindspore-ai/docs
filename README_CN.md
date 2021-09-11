@@ -62,7 +62,7 @@ MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/ma
 1. 下载MindSpore Docs仓代码。
 
    ```bash
-   git clone https://gitee.com/mindspore/docs.git
+   git clone https://gitee.com/mindspore/docs.git -b r1.5
    ```
 
 2. 进入api目录，安装该目录下`requirements.txt`文件中的依赖项。
@@ -78,12 +78,12 @@ MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/ma
    make html
    ```
 
-> - 构建[MindSpore教程](https://gitee.com/mindspore/docs/tree/master/tutorials)、[编程指南文档](https://gitee.com/mindspore/docs/tree/master/docs/mindspore/programming_guide)、[迁移指南文档](https://gitee.com/mindspore/docs/tree/master/docs/mindspore/migration_guide)、[深度概率编程文档](https://gitee.com/mindspore/docs/tree/master/docs/probability/docs)和[MindQuantum文档](https://gitee.com/mindspore/docs/tree/master/docs/mindquantum/docs)时还需安装[pandoc](https://pandoc.org/)，下载和安装pandoc请参考<https://pandoc.org/installing.html>。
+> - 构建[MindSpore教程](https://gitee.com/mindspore/docs/tree/r1.5/tutorials)、[编程指南文档](https://gitee.com/mindspore/docs/tree/r1.5/docs/mindspore/programming_guide)、[迁移指南文档](https://gitee.com/mindspore/docs/tree/r1.5/docs/mindspore/migration_guide)、[深度概率编程文档](https://gitee.com/mindspore/docs/tree/r1.5/docs/probability/docs)和[MindQuantum文档](https://gitee.com/mindspore/docs/tree/r1.5/docs/mindquantum/docs)时还需安装[pandoc](https://pandoc.org/)，下载和安装pandoc请参考<https://pandoc.org/installing.html>。
 >
 > - 构建Lite API时，需要先克隆`mindspore`仓并安装doxygen，并加入环境变量`MS_PATH`：
 >
 >   ```bash
->   git clone https://gitee.com/mindspore/mindspore.git {MS_REPO PATH}
+>   git clone https://gitee.com/mindspore/mindspore.git -b r1.5 {MS_REPO PATH}
 >   sudo apt install doxygen
 >   export MS_PATH={MS_REPO PATH}
 >   ```

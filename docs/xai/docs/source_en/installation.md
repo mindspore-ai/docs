@@ -2,7 +2,7 @@
 
 `Linux` `Ascend` `GPU` `Model Optimization` `Beginner` `Intermediate` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_en/installation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/xai/docs/source_en/installation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
 <!-- TOC -->
 
@@ -35,7 +35,7 @@ pip install mindspore_xai-{version}-py3-none-any.whl
 1. Download source code from gitee.com:
 
     ```bash
-    git clone https://gitee.com/mindspore/xai.git
+    git clone https://gitee.com/mindspore/xai.git -b r1.5
     ```
 
 2. Install the dependency python modules:
@@ -69,4 +69,4 @@ print(mindspore_xai.__version__)
 
 ## Note
 
-[MindInsight](https://www.mindspore.cn/mindinsight/en) is an optional tool for visualizing the model explanation from XAI. Please refer to [Installation](https://www.mindspore.cn/mindinsight/docs/en/master/mindinsight_install.html) for more details.
+[MindInsight](https://www.mindspore.cn/mindinsight/en) is an optional tool for visualizing the model explanation from XAI. Please refer to [Installation](https://www.mindspore.cn/mindinsight/docs/en/r1.5/mindinsight_install.html) for more details.

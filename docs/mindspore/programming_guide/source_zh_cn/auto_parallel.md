@@ -32,7 +32,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/auto_parallel.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_zh_cn/auto_parallel.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -102,7 +102,7 @@ context.get_auto_parallel_context("gradients_mean")
 
 其中`auto_parallel`和`data_parallel`在MindSpore教程中有完整样例：
 
-<https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training.html>。
+<https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/distributed_training.html>。
 
 代码样例如下：
 
@@ -265,7 +265,7 @@ context.get_auto_parallel_context("pipeline_stages")
 
 #### grad_accumulation_step
 
-`grad_accumulation_step`指梯度累积步数。具体用法请参考[指导教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/apply_gradient_accumulation.html)
+`grad_accumulation_step`指梯度累积步数。具体用法请参考[指导教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/apply_gradient_accumulation.html)
 
 代码样例如下：
 

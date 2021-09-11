@@ -17,7 +17,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/pynative_mode.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_zh_cn/pynative_mode.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -144,7 +144,7 @@ net_opt = nn.Momentum(network.trainable_params(), config.lr, config.momentum)
 
 保存模型可以通过定义CheckpointConfig来指定模型保存的参数。
 
-save_checkpoint_steps：每多少个step保存一下参数；keep_checkpoint_max：最多保存多少份模型参数。详细使用方式请参考[保存模型](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/save_model.html)。
+save_checkpoint_steps：每多少个step保存一下参数；keep_checkpoint_max：最多保存多少份模型参数。详细使用方式请参考[保存模型](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/save_model.html)。
 
 ```python
 config_ck = CheckpointConfig(save_checkpoint_steps=config.save_checkpoint_steps,
@@ -168,4 +168,4 @@ ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet", directory=config.ckpt_pa
 model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O2")
 ```
 
-完整的运行代码可以到ModelZoo下载[lenet](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/lenet)，并设置context.set_context(mode=context.PYNATIVE_MODE, device_target=config.device_target)。
+完整的运行代码可以到ModelZoo下载[lenet](https://gitee.com/mindspore/mindspore/tree/r1.5/model_zoo/official/cv/lenet)，并设置context.set_context(mode=context.PYNATIVE_MODE, device_target=config.device_target)。

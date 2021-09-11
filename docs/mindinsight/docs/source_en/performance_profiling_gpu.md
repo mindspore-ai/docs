@@ -20,7 +20,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/performance_profiling_gpu.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindinsight/docs/source_en/performance_profiling_gpu.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -50,7 +50,7 @@ To enable the performance profiling of neural networks, MindSpore Profiler APIs 
 
 - At the end of the training, `Profiler.analyse` should be called to finish profiling and generate the performance analysis results.
 
-The sample code is the same as that in the Ascend chip: <https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#preparing-the-training-script>.
+The sample code is the same as that in the Ascend chip: <https://www.mindspore.cn/mindinsight/docs/en/r1.5/performance_profiling_ascend.html#preparing-the-training-script>.
 
 In GPU scenarios, users can customize the callback mode to collect performance data. Data preparation stage and data sinking mode do not support this mode.
 
@@ -86,7 +86,7 @@ The code above is just an example. Users should implement callback by themselves
 
 ## Launching MindInsight
 
-The MindInsight launch command can refer to [MindInsight Commands](https://www.mindspore.cn/mindinsight/docs/en/master/mindinsight_commands.html).
+The MindInsight launch command can refer to [MindInsight Commands](https://www.mindspore.cn/mindinsight/docs/en/r1.5/mindinsight_commands.html).
 
 ## Training Performance
 
@@ -140,7 +140,7 @@ The usage is almost the same as that in Ascend. The difference is GPU Timeline d
 
 The usage is described as follows:
 
-<https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#timeline-analysis>
+<https://www.mindspore.cn/mindinsight/docs/en/r1.5/performance_profiling_ascend.html#timeline-analysis>
 
 ### Step Trace Analysis
 
@@ -148,7 +148,7 @@ The usage is almost the same as that in Ascend. (**Note that step trace do not s
 
 The usage is described as follows:
 
-<https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#step-trace-analysis>
+<https://www.mindspore.cn/mindinsight/docs/en/r1.5/performance_profiling_ascend.html#step-trace-analysis>
 
 ### Data Preparation Analysis
 
@@ -156,7 +156,7 @@ The usage is almost the same as that in Ascend.
 
 The usage is described as follows:
 
-<https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#minddata-performance-analysis>
+<https://www.mindspore.cn/mindinsight/docs/en/r1.5/performance_profiling_ascend.html#minddata-performance-analysis>
 
 ## Resource Utilization
 
@@ -174,7 +174,7 @@ The usage is almost the same as that in Ascend.
 
 The usage is described as follows:
 
-<https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#cpu-utilization-analysis>
+<https://www.mindspore.cn/mindinsight/docs/en/r1.5/performance_profiling_ascend.html#cpu-utilization-analysis>
 
 ## Notices
 

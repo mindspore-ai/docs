@@ -15,7 +15,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/serving/docs/source_zh_cn/serving_pipeline.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/serving/docs/source_zh_cn/serving_pipeline.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -30,11 +30,11 @@ MindSpore支持一个模型可以生成多张子图，通过调度多张子图�
 
 ### 环境准备
 
-运行示例前，需确保已经正确安装了MindSpore Serving，并配置了环境变量。MindSpore Serving和安装和配置可以参考[MindSpore Serving安装页面](https://www.mindspore.cn/serving/docs/zh-CN/master/serving_install.html)。
+运行示例前，需确保已经正确安装了MindSpore Serving，并配置了环境变量。MindSpore Serving和安装和配置可以参考[MindSpore Serving安装页面](https://www.mindspore.cn/serving/docs/zh-CN/r1.5/serving_install.html)。
 
 ### 导出多图模型
 
-导出分布式模型需要的文件可以参考[export_model目录](https://gitee.com/mindspore/serving/tree/master/example/pipeline_distributed/export_model)，需要如下文件列表：
+导出分布式模型需要的文件可以参考[export_model目录](https://gitee.com/mindspore/serving/tree/r1.5/example/pipeline_distributed/export_model)，需要如下文件列表：
 
 ```text
 export_model
@@ -47,9 +47,9 @@ export_model
 - `net.py`为MatMul网络定义。
 - `distributed_inference.py`配置分布式相关的参数。
 - `export_model.sh`在当前机器上创建`device`目录并且导出每个`device`对应的模型文件。
-- `rank_table_8pcs.json`为配置当前多卡环境的组网信息的json文件，可以参考[rank_table](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/utils/hccl_tools)。
+- `rank_table_8pcs.json`为配置当前多卡环境的组网信息的json文件，可以参考[rank_table](https://gitee.com/mindspore/mindspore/tree/r1.5/model_zoo/utils/hccl_tools)。
 
-使用[net.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/export_model/net.py)，构造一个包含MatMul、Neg算子的网络。
+使用[net.py](https://gitee.com/mindspore/serving/blob/r1.5/example/matmul_distributed/export_model/net.py)，构造一个包含MatMul、Neg算子的网络。
 
 ```python
 import numpy as np
@@ -73,7 +73,7 @@ class Net(Cell):
         return x
 ```
 
-使用[distributed_inference.py](https://gitee.com/mindspore/serving/blob/master/example/pipeline_distributed/export_model/distributed_inference.py)，生成多图模型。可以参考[分布式推理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_inference.html)。
+使用[distributed_inference.py](https://gitee.com/mindspore/serving/blob/r1.5/example/pipeline_distributed/export_model/distributed_inference.py)，生成多图模型。可以参考[分布式推理](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/distributed_inference.html)。
 
 ```python
 import numpy as np
@@ -107,7 +107,7 @@ def create_predict_data():
     return Tensor(inputs_np)
 ```
 
-使用[export_model.sh](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/export_model/export_model.sh)，导出多图模型。执行成功后会在上一级目录创建`model`目录，结构如下：
+使用[export_model.sh](https://gitee.com/mindspore/serving/blob/r1.5/example/matmul_distributed/export_model/export_model.sh)，导出多图模型。执行成功后会在上一级目录创建`model`目录，结构如下：
 
 ```text
 model
@@ -127,7 +127,7 @@ model
 
 ### 部署分布式推理服务
 
-启动分布式推理服务，可以参考[pipeline_distributed](https://gitee.com/mindspore/serving/tree/master/example/pipeline_distributed)，需要如下文件列表：
+启动分布式推理服务，可以参考[pipeline_distributed](https://gitee.com/mindspore/serving/tree/r1.5/example/pipeline_distributed)，需要如下文件列表：
 
 ```text
 matmul_distributed
@@ -142,7 +142,7 @@ matmul_distributed
 - `model`为存放模型文件的目录。
 - `serving_server.py`为启动服务脚本，包括`Main`和`Distributed Worker`进程。
 - `serving_agent.py`为启动`Agent`脚本。
-- `servable_config.py`为[模型配置文件](https://www.mindspore.cn/serving/docs/zh-CN/master/serving_model.html)，通过`distributed.declare_servable`声明了一个rank_size为8、stage_size为1的分布式模型，同时定义了一个Pipeline的方法`predict`。
+- `servable_config.py`为[模型配置文件](https://www.mindspore.cn/serving/docs/zh-CN/r1.5/serving_model.html)，通过`distributed.declare_servable`声明了一个rank_size为8、stage_size为1的分布式模型，同时定义了一个Pipeline的方法`predict`。
 
 模型配置文件内容如下：
 
@@ -188,7 +188,7 @@ def predict(x, y):
 
 #### 启动Serving服务器
 
-使用[serving_server.py](https://gitee.com/mindspore/serving/blob/master/example/pipeline_distributed/serving_server.py)，调用`distributed.start_servable`方法部署分布式Serving服务器。
+使用[serving_server.py](https://gitee.com/mindspore/serving/blob/r1.5/example/pipeline_distributed/serving_server.py)，调用`distributed.start_servable`方法部署分布式Serving服务器。
 
 ```python
 import os
@@ -220,7 +220,7 @@ if __name__ == "__main__":
 
 #### 启动Agent
 
-使用[serving_agent.py](https://gitee.com/mindspore/serving/blob/master/example/pipeline_distributed/serving_agent.py)，调用`startup_agents`方法会在当前机器上启动的8个`Agent`进程。`Agent`会从`Distributed Worker`获取rank_table，这样`Agent`之间才能利用HCCL进行通信。
+使用[serving_agent.py](https://gitee.com/mindspore/serving/blob/r1.5/example/pipeline_distributed/serving_agent.py)，调用`startup_agents`方法会在当前机器上启动的8个`Agent`进程。`Agent`会从`Distributed Worker`获取rank_table，这样`Agent`之间才能利用HCCL进行通信。
 
 ```python
 from mindspore_serving.server import distributed
@@ -251,7 +251,7 @@ if __name__ == '__main__':
 
 ### 执行推理
 
-通过gRPC访问推理服务，client需要指定gRPC服务器的ip地址和port。运行[serving_client.py](https://gitee.com/mindspore/serving/blob/master/example/pipeline_distributed/serving_client.py)，调用matmul分布式模型的`predict`方法，该方法对应注册的pipeline方法，执行推理。
+通过gRPC访问推理服务，client需要指定gRPC服务器的ip地址和port。运行[serving_client.py](https://gitee.com/mindspore/serving/blob/r1.5/example/pipeline_distributed/serving_client.py)，调用matmul分布式模型的`predict`方法，该方法对应注册的pipeline方法，执行推理。
 
 ```python
 import numpy as np
