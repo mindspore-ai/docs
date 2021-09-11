@@ -23,14 +23,16 @@
 ## 操作流程
 
 1. 准备Dump数据。Dump的使用方式详见[使用Dump功能在Graph模式调试](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dump_in_graph_mode.html) ；
-2. 启动MindInsight，指定summary-base-dir为dump配置中的{path}路径的上一层或上两层；
+2. 启动MindInsight，并通过启动参数指定summary-base-dir为某一次训练的summary-dir或多次训练的summary-dir的父目录（summary-dir为dump配置中的{path}的父目录）；
 3. 从训练列表中找到离线调试器入口，点击“离线调试器”，进入调试器页面，开始进行调试分析。
 
 ## 离线调试器环境准备
 
 使用MindSpore的Dump功能准备离线数据。Dump的使用方式详见[使用Dump功能在Graph模式调试](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dump_in_graph_mode.html) 。
 
-然后，启动MindInsight，指定summary-base-dir为dump配置中的{path}路径的上一层或上两层，即可在UI页面中查询到离线调试器的入口。
+需要注意的是，一个summary-dir目录下只能存放一个dump目录。例如，某一次训练的Dump配置文件中的path为“/home/workspace/data/dump_dir”，那么本次训练dump数据保存以后，再启动其它训练时，Dump配置文件中的path就不能指定为“/home/workspace/data”的子目录。
+
+然后，启动MindInsight，指定summary-base-dir为某一次训练的summary-dir或多次训练的summary-dir的父目录，即可在UI页面中查询到离线调试器的入口。
 
 MindInsight启动命令：
 
