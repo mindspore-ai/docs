@@ -369,13 +369,11 @@ app
             String idsFile = parentPath + "/data/vocab_map_ids.txt";
             String testDataset = parentPath + "/data/eval.txt";
             String trainModelPath = parentPath + "/model/albert_supervise.mindir.ms";
-            String inferModelPath = parentPath + "/model/albert_inference.mindir.ms";
+            String inferModelPath = parentPath + "/model/albert_supervise.mindir.ms";
             String flName = "albert";
-            // server ip address，请保证Android能够访问到server，否则会出现connection failed
-            String ip = "http://127.0.0.1:";
-            int port = 6668;
-            String clientID = UUID.randomUUID().toString();
             boolean useSSL = false;
+            // 端云通信url，请保证Android能够访问到server，否则会出现connection failed
+            String domainName = "http://10.113.216.106:6668";
             FLParameter flParameter = FLParameter.getInstance();
             flParameter.setTrainDataset(trainDataset);
             flParameter.setVocabFile(vocal_file);
@@ -384,10 +382,8 @@ app
             flParameter.setFlName(flName);
             flParameter.setTrainModelPath(trainModelPath);
             flParameter.setInferModelPath(inferModelPath);
-            flParameter.setClientID(clientID);
-            flParameter.setIp(ip);
-            flParameter.setPort(port);
             flParameter.setUseSSL(useSSL);
+            flParameter.setDomainName(domainName);
             SyncFLJob syncFLJob = new SyncFLJob();
             syncFLJob.flJobRun();
         }
@@ -397,9 +393,15 @@ app
             String dataPath = parentPath + "/data/eval_no_label.txt";
             String vocal_file = parentPath + "/data/vocab.txt";
             String idsFile = parentPath + "/data/vocab_map_ids.txt";
-            String modelPath = parentPath + "/model/albert_inference.mindir.ms";
+            String modelPath = parentPath + "/model/albert_supervise.mindir.ms";
+            FLParameter flParameter = FLParameter.getInstance();
+            flParameter.setFlName(flName);
+            flParameter.setTestDataset(dataPath);
+            flParameter.setVocabFile(vocabFile);
+            flParameter.setIdsFile(idsFile);
+            flParameter.setInferModelPath(modelPath);
             SyncFLJob syncFLJob = new SyncFLJob();
-            int[] labels = syncFLJob.modelInference(flName, dataPath, vocal_file, idsFile, modelPath);
+            int[] labels = syncFLJob.modelInference();
             LOGGER.info("labels = " + Arrays.toString(labels));
         }
     }

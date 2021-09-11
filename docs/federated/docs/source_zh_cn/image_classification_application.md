@@ -636,14 +636,11 @@ if __name__ == "__main__":
     parser.add_argument("--flName", type=str, default="lenet")
     parser.add_argument("--train_model_path", type=str, default="ms/lenet/")    # must be absolute path of .ms files
     parser.add_argument("--infer_model_path", type=str, default="ms/lenet/")    # must be absolute path of .ms files
-    parser.add_argument("--ip", type=str, default="10.113.216.106")
-    parser.add_argument("--ssl", type=str, default="false")
-    parser.add_argument("--port", type=int, default=6668)
+    parser.add_argument("--use_ssl", type=str, default="false")
+    parser.add_argument("--domain_name", type=str, default="http://10.113.216.106:6668")
     parser.add_argument("--server_num", type=int, default=0)
     parser.add_argument("--client_num", type=int, default=0)
-    parser.add_argument("--time_window", type=int, default=6000)
-    parser.add_argument("--use_elb", type=str, default="false")
-    parser.add_argument("--use_https", type=str, default="false")
+    parser.add_argument("--if_use_elb", type=str, default="false")
     parser.add_argument("--cert_path", type=str, default="null")
     parser.add_argument("--task", type=str, default="train")
 
@@ -656,14 +653,11 @@ if __name__ == "__main__":
     flName = args.flName
     train_model_path = args.train_model_path
     infer_model_path = args.infer_model_path
-    ip = args.ip
-    ssl = args.ssl
-    port = args.port
+    use_ssl = args.use_ssl
+    domain_name = args.domain_name
     server_num = args.server_num
     client_num = args.client_num
-    time_window = str(args.time_window)
-    use_elb = args.use_elb
-    use_https = args.use_https
+    if_use_elb = args.if_use_elb
     cert_path = args.cert_path
     task = args.task
 
@@ -698,12 +692,11 @@ if __name__ == "__main__":
         return train_path, test_path, train_batch_num, test_batch_num
 
     for i in range(client_num):
-        clientID = "f"+str(i)
         user = users[i]
         train_path, test_path = "", ""
         train_path, test_path, _, _= get_client_data_path(train_dataset, user)
         print("===========================")
-        print("client id: ", clientID)
+        print("process id: ", i)
         print("train path: ", train_path)
         print("test path: ", test_path)
 
@@ -723,14 +716,10 @@ if __name__ == "__main__":
         print("model path: ", train_model_path + "lenet_train" + str(i) + ".ms" + " ")
         cmd_client += infer_model_path + "lenet_train" + str(i) + ".ms" + " "
         print("model path: ", infer_model_path + "lenet_train" + str(i) + ".ms" + " ")
-        cmd_client += clientID + " "
-        cmd_client += ip + " "
-        cmd_client += ssl + " "
-        cmd_client += str(port) + " "
-        cmd_client += time_window + " "
-        cmd_client += use_elb + " "
+        cmd_client += use_ssl + " "
+        cmd_client += domain_name + " "
+        cmd_client += if_use_elb + " "
         cmd_client += str(server_num) + " "
-        cmd_client += use_https + " "
         cmd_client += cert_path + " "
         cmd_client += task + " "
         cmd_client += " > client" + ".log 2>&1 &"
@@ -771,21 +760,13 @@ if __name__ == "__main__":
 
         联邦学习使用的推理模型路径，为.ms格式的模型文件的绝对路径，LeNet图片分类任务可设置为与`train_model_path`相同。
 
-    - `--ip`
-
-        设置ip地址，即启动server端的服务器地址，格式为：10.113.216.106，目前云侧只支持http通信方式，默认采用http通信方式。
-
-    - `--ssl`
+    - `--use_ssl`
 
         设置端云通信是否进行ssl证书认证，ssl证书认证只在https通信中使用，设置为false，不进行ssl证书认证；设置为true时，进行ssl证书认证且只支持https通信，`useHttps`必须设置为true，`cert_path`必须给出具体证书路径；默认为false。
 
-    - `--port`
+    - `--domain_name`
 
-        设置端口号，与启动server端时的`fl_server_port`参数保持一致，格式为： 6668。
-
-    - `--time_window`
-
-        设置端侧重复请求的总时间窗口，与启动server端时的`start_fl_job_time_windows`和`update_model_time_windows`之和保持一致。
+        用于设置端云通信url，目前，可支持https和http通信，对应格式分别为：https://......、http://......，当`if_use_elb`设置为true时，格式必须为：https://127.0.0.0:6666 或者http://127.0.0.0:6666 ，其中`127.0.0.0`对应提供云侧服务的机器ip（即云侧参数`--scheduler_ip`），`6666`对应云侧参数`--scheduler_port`。
 
     - `--server_num`
 
@@ -795,17 +776,13 @@ if __name__ == "__main__":
 
         设置client数量， 与启动server端时的`start_fl_job_cnt`保持一致，真实场景不需要此参数。
 
-    - `--use_elb`
+    - `--if_use_elb`
 
         用于多server场景，为true代表客户端每个round的请求都采用指定范围内的随机端口，false则采用固定端口。默认为false，当启动server端的`server_num`大于1时，该参数需设置成true。用于模拟客户端随机选择不同的server发送信息，真实场景不需要此参数。
 
-    - `--use_https`
-
-        端云通信是否进行Https通信，设置为false，进行http通信；设置为true，进行https通信；默认为false。
-
     - `--cert_path`
 
-        当`--ssl`设置为true时，需对该参数进行设置，设置证书的绝对路径，默认为`null`。
+        当`--use_ssl`设置为true时，需对该参数进行设置，设置证书的绝对路径，默认为`null`。
 
     - `--task`
 
