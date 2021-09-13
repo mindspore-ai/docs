@@ -80,6 +80,11 @@ algorithm_config = {
 }
 ```
 
+|  键值  |    类型    |         范围          |                       说明                        |
+| :----: | :--------: | :-------------------: | :-----------------------------------------------: |
+|  type  |   Class    |     用户定义的类      |             需要和用户定义的类名相同              |
+| params | Dictionary | 任意key value形式的值 | 自定义参数，用户可以通过key value的形式传入任何值 |
+
 ### Environment配置参数
 
 `Env`表示外部环境，算法中需要指定类型名`type`和和参数`params`：
@@ -100,6 +105,12 @@ algorithm_config = {
     ...
 }
 ```
+
+|  键值  |    类型    |                 范围                  |                       说明                        |
+| :----: | :--------: | :-----------------------------------: | :-----------------------------------------------: |
+| number |  Integer   |                [1, +∞)                |                         -                         |
+|  type  |   Class    | GymEnvironment 或 MultiGymEnvironment |                         -                         |
+| params | Dictionary |         任意key value形式的值         | 自定义参数，用户可以通过key value的形式传入任何值 |
 
 ### Actor配置参数
 
@@ -126,6 +137,20 @@ algorithm_config = {
 }
 ```
 
+|            键值            |            类型             |                范围                 |                             说明                             |
+| :------------------------: | :-------------------------: | :---------------------------------: | :----------------------------------------------------------: |
+|           number           |           Integer           |               [1, +∞)               |              目前actor数量暂时不支持1以外的数值              |
+|            type            |            Class            | 用户定义的继承actor并实现虚函数的类 |         和用户定义的继承actor并实现虚函数的类名相同          |
+|           params           |         Dictionary          |        任意key value形式的值        |      自定义参数，用户可以通过key value的形式传入任何值       |
+|          policies          |       List of String        |     和用户定义的策略变量名相同      | 列表中的所有String都应该和用户定义的策略类中初始化的策略变量名一一对应 |
+|          networks          |       List of String        |       和定义的网络变量名相同        | 列表中的所有String都应该和用户定义的策略类中初始化的网络变量名一一对应 |
+|        environment         |           Boolean           |            True or False            |     如果值为False，将不能从actor中获得environment的实例      |
+|      eval_environment      |           Boolean           |            True or False            |   如果值为False，将不能从actor中获得eval_environment的实例   |
+|  replay_buffer::capacity   |           Integer           |               [0, +∞)               |                              -                               |
+|    replay_buffer::shape    |    List of Integer Tuple    |               [0, +∞)               |    Tuple中的第一个值需要和环境数量相等，如是单环境则不填     |
+|    replay_buffer::type     | List of mindspore data type |      需要是MindSpore的数据类型      |       type list的长度和replay_buffer::shape的长度相同        |
+| replay_buffer::sample_size |           Integer           |            [0, capacity]            |              值必须小于replay_buffer::capacity               |
+
 ### Learner配置参数
 
 `Learner`负责基于历史经验对网络权重进行更新。`Learner`中持有`Policy`中定义的DNN网络（由`networks`指定`Policy`的成员对象名称），用于损失函数计算和网络权重更新。
@@ -146,3 +171,11 @@ algorithm_config = {
     ...
 }
 ```
+
+|  键值   |      类型      |                 范围                  |                             说明                             |
+| :-----: | :------------: | :-----------------------------------: | :----------------------------------------------------------: |
+| number  |    Integer     |                [1, +∞)                |             目前learner数量暂时不支持1以外的数值             |
+|  type   |     Class      | 用户定义的继承learner并实现虚函数的类 |        和用户定义的继承learner并实现虚函数的类名相同         |
+| params  |   Dictionary   |         任意key value形式的值         |      自定义参数，用户可以通过key value的形式传入任何值       |
+| network | List of String |        和定义的网络名变量相同         | 列表中的所有String都应该和用户定义的策略类中初始化的网络变量名一一对应 |
+
