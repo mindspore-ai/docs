@@ -54,6 +54,8 @@ MindSPONGE
     mindspore.ops.MDIterationLeapFrogLiujian
     mindspore.ops.MDIterationLeapFrogLiujianWithMaxVel
     mindspore.ops.MDIterationLeapFrogWithMaxVel
+    mindspore.ops.MDIterationSetupRandState
+    mindspore.ops.MDTemperature
     mindspore.ops.NeighborListRefresh
     mindspore.ops.NeighborListUpdate
     mindspore.ops.PMEEnergy

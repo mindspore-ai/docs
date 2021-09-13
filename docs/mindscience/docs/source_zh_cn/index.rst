@@ -9,4 +9,5 @@ MindScience 文档
    mindsponge/intro_and_install
    mindsponge/ala
    mindsponge/claisen
+   mindsponge/covid
  
