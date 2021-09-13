@@ -47,6 +47,7 @@ class MyNet(nn.Cell):
     return self.build_block(x)
 
 # The following implements mindspore.nn.Cell.untrainable_params() with MindSpore.
+net = MyNet()
 print(type(net.untrainable_params()), "\n")
 for params in net.untrainable_params():
   print("Name: ", params.name)
@@ -84,6 +85,7 @@ class MyNet(nn.Module):
     return self.build_block(x)
 
 # The following implements torch.nn.Module.buffers() with torch.
+net = MyNet()
 print(type(net.buffers()), "\n")
 for name, params in net.named_buffers():
   print("Name: ", name)

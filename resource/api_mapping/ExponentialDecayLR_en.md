@@ -45,7 +45,8 @@ MindSpore: The function of calculating learning rate for each step is lr*decay_r
 
 ```python
 # In MindSpore：
-from mindspore import nn
+from mindspore import nn, Tensor
+from mindspore import dtype as mstype
 
 # In MindSpore：exponential_decay_lr
 learning_rate = 0.1
@@ -70,8 +71,29 @@ print(result)
 # 0.09486833
 
 # In torch:
+import torch
+import numpy as np
 from torch import optim
 
-optim_sgd = optim.SGD(net.parameters(), lr=0.01)
-exponential_decay_lr = optim.lr_scheduler.ExponentialLR(optim_sgd, decay_rate, gamma=0.9)
+model = torch.nn.Sequential(torch.nn.Linear(20, 1))
+optimizer = optim.SGD(model.parameters(), 0.1)
+exponential_decay_lr = optim.lr_scheduler.ExponentialLR(optimizer, gamma=0.9)
+myloss = torch.nn.MSELoss()
+dataset = [(torch.tensor(np.random.rand(1, 20).astype(np.float32)), torch.tensor([1.]))]
+
+for epoch in range(5):
+    for input, target in dataset:
+        optimizer.zero_grad()
+        output = model(input)
+        loss = myloss(output.view(-1), target)
+        loss.backward()
+        optimizer.step()
+    exponential_decay_lr.step()
+    print(exponential_decay_lr.get_last_lr())
+#  out
+# [0.09000000000000001]
+# [0.08100000000000002]
+# [0.07290000000000002]
+# [0.06561000000000002]
+# [0.05904900000000002]
 ```
