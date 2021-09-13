@@ -516,3 +516,13 @@ A: In MindSpore Ascend mode, if init is called first, then all processes will be
 <font size=3>**Q: What should I do if the memory continues to increase when resnet50 training is being performed on the CPU ARM platform?**</font>
 
 A: When performing resnet50 training on the CPU ARM, some operators are implemented based on the oneDNN library, and the oneDNN library is based on the libgomp library to achieve multi-threaded parallelism. Currently, libgomp has multiple parallel domain configurations. The number of threads is different and the memory usage continues to increase. The continuous growth of memory can be controlled by configuring a uniform number of threads globally. For comprehensive performance considerations, it is recommended to configure a unified configuration to 1/4 of the number of physical cores, such as export `OMP_NUM_THREADS=32`.
+
+<font size=3>**Q: Why report an error that the stream exceeds the limit when executing the model on the Ascend platform？**</font>
+
+A: Stream represents an operation queue. Tasks on the same stream are executed in sequence, and different streams can be executed in parallel. Various operations in the network generate tasks and are assigned to streams to control the concurrent mode of task execution. Ascend platform has a limit on the number of tasks on the same stream, and tasks that exceed the limit will be assigned to new streams. The multiple parallel methods of MindSpore will also assign new streams, such as parallel communication operators. Therefore, when the number of assigned streams exceeds the resource limit of the Ascend platform, an error will be reported. Reference solution:
+
+- Reduce the size of the network model
+
+- Reduce the use of communication operators in the network
+
+- Reduce conditional control statements in the network
