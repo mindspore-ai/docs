@@ -21,6 +21,8 @@ Benchmarks are algorithms evaluating the goodness of saliency maps from explaine
 
 ## Preparations
 
+The tutorial below is referencing [using_benchmarks.py](https://gitee.com/mindspore/xai/blob/r1.5/examples/using_benchmarks.py) 。
+
 Please follow the [Downloading Data Package](https://www.mindspore.cn/xai/docs/en/r1.5/using_explainers.html#id4) instructions to download the necessary files for the tutorial.
 
 With the tutorial package, we have to get the sample image, trained classifier, explainer and optionally the saliency map ready:
