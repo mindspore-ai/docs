@@ -65,6 +65,9 @@ class Net(nn.Cell):
         def pipeline_func(network, layer_id, offset, parallel_config, layers):
             pp_id = max(int(layer_id + offset) / layers_per_stage, 1)
             network.pipeline_stage = int(pp_id)
+            gradient_aggregation_group = 4
+            dis = max(int((layer_id + offset) / gradient_aggregation_group), 1)
+            network.set_comm_fusion(int((layer_id + offset) / dis) + 1)
             print(f"pipeline id is:{pp_id}", flush=True)
 
         self.base1 = Transformer(encoder_layers=en_layer,
