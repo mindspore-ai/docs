@@ -155,12 +155,12 @@ matmul_distributed
 from mindspore_serving.server import distributed
 from mindspore_serving.server import register
 
-distributed.declare_servable(rank_size=8, stage_size=1, with_batch_dim=False)
+model = distributed.declare_servable(rank_size=8, stage_size=1, with_batch_dim=False)
 
 
 @register.register_method(output_names=["y"])
 def predict(x):
-    y = register.call_servable(x)
+    y = register.add_stage(model, x, outputs_count=1)
     return y
 ```
 
@@ -232,7 +232,7 @@ if __name__ == '__main__':
 
 ### 执行推理
 
-通过gRPC访问推理服务，client需要指定gRPC服务器的ip地址和port。运行[serving_client.py](https://gitee.com/mindspore/serving/blob/r1.5/example/matmul_distributed/serving_client.py)，调用matmul分布式模型的`predict`方法，执行推理。
+通过gRPC访问推理服务，client需要指定gRPC服务器的网络地址。运行[serving_client.py](https://gitee.com/mindspore/serving/blob/r1.5/example/matmul_distributed/serving_client.py)，调用matmul分布式模型的`predict`方法，执行推理。
 
 ```python
 import numpy as np
