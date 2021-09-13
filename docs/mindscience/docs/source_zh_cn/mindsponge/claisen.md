@@ -103,7 +103,7 @@ MD simulation
 
 这里我们使用[PLUMED2](https://www.plumed.org/)来实现埋拓动力学的功能。PLUMED2是一种分子动力学插件库，使用其可以在多个MD软件中实现增强抽样效果。在这里我们使用的PLUMED2输入脚本为：
 
-```bath
+```bash
 MOLINFO STRUCTURE=./cba.pdb
 WHOLEMOLECULES STRIDE=1 ENTITY0=1-15
 
@@ -146,7 +146,7 @@ PRINT ...
 
 这里我们为了提高采样的效率，使用多重行走（multiple walker）算法，即同时运行多条轨迹，埋拓动力学根据所有的轨迹更新偏向势，并将更新后的偏向势运用到所有的轨迹。这里我们同时运行四条MD轨迹，执行命令为：
 
-```bath
+```bash
 mpirun -np 4 sander.MPI -groupfile group.dat -ng 4
 ```
 

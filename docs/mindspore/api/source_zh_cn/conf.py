@@ -177,7 +177,7 @@ import shutil
 from sphinx.util import logging
 logger = logging.getLogger(__name__)
 
-image_specified = {"docs/api_img/UnsortedSegment*.png": "./api_python/ops/api_img"}
+image_specified = {"docs/api_img/*.png": "./api_python/ops/api_img"}
 
 
 for img in image_specified.keys():

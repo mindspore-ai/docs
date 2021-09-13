@@ -1,16 +1,21 @@
-# 使用PyNative模式调试
+# PyNative模式应用
 
-`Linux` `Ascend` `GPU` `CPU` `模型开发` `初级` `中级` `高级`
+`动态图` `PyNative` `动静统一`
 
-<!-- TOC -->
+!-- TOC -->
 
-- [使用PyNative模式调试](#使用pynative模式调试)
+- [PyNative模式应用](#pynative模式应用)
     - [概述](#概述)
+    - [设置模式](#设置模式)
     - [执行单算子](#执行单算子)
-    - [执行普通函数](#执行普通函数)
-        - [提升PyNative性能](#提升pynative性能)
-    - [调试网络训练模型](#调试网络训练模型)
-    - [PyNative下同步执行](#PyNative下同步执行)
+    - [执行函数](#执行函数)
+    - [执行网络](#执行网络)
+    - [构建网络](#构建网络)
+    - [Loss函数及优化器](#loss函数及优化器)
+    - [模型参数保存](#模型参数保存)
+    - [训练网络](#训练网络)
+    - [提升PyNative性能](#提升pynative性能)
+    - [PyNative下同步执行](#pynative下同步执行)
 
 <!-- /TOC -->
 
@@ -35,63 +40,35 @@ PyNative模式下，支持执行单算子、普通函数和网络，以及单独
 >
 > 下述例子中，参数初始化使用了随机值，在具体执行中输出的结果可能与本地执行输出的结果不同；如果需要稳定输出固定的值，可以设置固定的随机种子，设置方法请参考[mindspore.set_seed()](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/mindspore/mindspore.set_seed.html)。
 
-## 执行单算子
+## 设置模式
 
-执行单个算子，并打印相关结果，如下例所示。
+```python
+context.set_context(mode=context.PYNATIVE_MODE)
+```
+
+## 执行单算子
 
 ```python
 import numpy as np
-import mindspore.nn as nn
+import mindspore.ops as ops
 from mindspore import context, Tensor
 
-context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
+context.set_context(mode=context.PYNATIVE_MODE, device_target="CPU")
 
-conv = nn.Conv2d(3, 4, 3, bias_init='zeros')
-input_data = Tensor(np.ones([1, 3, 5, 5]).astype(np.float32))
-output = conv(input_data)
-print(output.asnumpy())
+x = Tensor(np.ones([1, 3, 5, 5]).astype(np.float32))
+y = Tensor(np.ones([1, 3, 5, 5]).astype(np.float32))
+z = ops.add(x, y)
+print(z.asnumpy())
 ```
 
-输出：
-
-```text
-[[[[-0.02190447 -0.05208071 -0.05208071 -0.05208071 -0.06265172]
-[-0.01529094 -0.05286242 -0.05286242 -0.05286242 -0.04228776]
-[-0.01529094 -0.05286242 -0.05286242 -0.05286242 -0.04228776]
-[-0.01529094 -0.05286242 -0.05286242 -0.05286242 -0.04228776]
-[-0.01430791 -0.04892948 -0.04892948 -0.04892948 -0.01096004]]
-
-[[ 0.00802889 -0.00229866 -0.00229866 -0.00229866 -0.00471579]
-[ 0.01172971 0.02172665 0.02172665 0.02172665 0.03261888]
-[ 0.01172971 0.02172665 0.02172665 0.02172665 0.03261888]
-[ 0.01172971 0.02172665 0.02172665 0.02172665 0.03261888]
-[ 0.01784375 0.01185635 0.01185635 0.01185635 0.01839031]]
-
-[[ 0.04841832 0.03321705 0.03321705 0.03321705 0.0342317 ]
-[ 0.0651359 0.04310361 0.04310361 0.04310361 0.03355784]
-[ 0.0651359 0.04310361 0.04310361 0.04310361 0.03355784]
-[ 0.0651359 0.04310361 0.04310361 0.04310361 0.03355784]
-[ 0.04680437 0.03465693 0.03465693 0.03465693 0.00171057]]
-
-[[-0.01783456 -0.00459451 -0.00459451 -0.00459451 0.02316688]
-[ 0.01295831 0.00879035 0.00879035 0.00879035 0.01178642]
-[ 0.01295831 0.00879035 0.00879035 0.00879035 0.01178642]
-[ 0.01295831 0.00879035 0.00879035 0.00879035 0.01178642]
-[ 0.05016355 0.03958241 0.03958241 0.03958241 0.03443141]]]]
-```
-
-## 执行普通函数
-
-将若干算子组合成一个函数，然后直接通过函数调用的方式执行这些算子，并打印相关结果，如下例所示。
-
-示例代码：
+## 执行函数
 
 ```python
 import numpy as np
 from mindspore import context, Tensor
 import mindspore.ops as ops
 
-context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
+context.set_context(mode=context.PYNATIVE_MODE, device_target="CPU")
 
 def add_func(x, y):
     z = ops.add(x, y)
@@ -104,19 +81,114 @@ output = add_func(x, y)
 print(output.asnumpy())
 ```
 
-输出：
+## 执行网络
 
-```text
-[[3. 3. 3.]
- [3. 3. 3.]
- [3. 3. 3.]]
+在construct中定义网络结构，在具体运行时，下例中，执行net(x, y)时，会从construct函数中开始执行。
+
+```python
+import numpy as np
+import mindspore.nn as nn
+import mindspore.ops as ops
+from mindspore import context, Tensor
+
+context.set_context(mode=context.PYNATIVE_MODE, device_target="CPU")
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.mul = ops.Mul()
+
+    def construct(self, x, y):
+        return self.mul(x, y)
+
+x = Tensor(np.array([1.0, 2.0, 3.0]).astype(np.float32))
+y = Tensor(np.array([4.0, 5.0, 6.0]).astype(np.float32))
+
+net = Net()
+print(net(x, y))
 ```
 
-> PyNative不支持summary功能，图模式summary相关算子不能使用。
+## 构建网络
 
-### 提升PyNative性能
+可以在网络初始化时，明确定义网络所需要的各个部分，在construct中定义网络结构。
 
-为了提高PyNative模式下的前向计算任务执行速度，MindSpore提供了Staging功能，该功能可以在PyNative模式下将Python函数或者Python类的方法编译成计算图，通过图优化等技术提高运行速度，如下例所示。
+```python
+import mindspore.nn as nn
+from mindspore.common.initializer import Normal
+
+class LeNet5(nn.Cell):
+    def __init__(self, num_class=10, num_channel=1, include_top=True):
+        super(LeNet5, self).__init__()
+        self.conv1 = nn.Conv2d(num_channel, 6, 5, pad_mode='valid')
+        self.conv2 = nn.Conv2d(6, 16, 5, pad_mode='valid')
+        self.relu = nn.ReLU()
+        self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
+        self.include_top = include_top
+        if self.include_top:
+            self.flatten = nn.Flatten()
+            self.fc1 = nn.Dense(16 * 5 * 5, 120, weight_init=Normal(0.02))
+            self.fc2 = nn.Dense(120, 84, weight_init=Normal(0.02))
+            self.fc3 = nn.Dense(84, num_class, weight_init=Normal(0.02))
+
+
+    def construct(self, x):
+        x = self.conv1(x)
+        x = self.relu(x)
+        x = self.max_pool2d(x)
+        x = self.conv2(x)
+        x = self.relu(x)
+        x = self.max_pool2d(x)
+        if not self.include_top:
+            return x
+        x = self.flatten(x)
+        x = self.relu(self.fc1(x))
+        x = self.relu(self.fc2(x))
+        x = self.fc3(x)
+        return x
+```
+
+## Loss函数及优化器
+
+在PyNative模式下，通过针对每个参数对应的梯度进行参数更新。
+
+```python
+net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
+net_opt = nn.Momentum(network.trainable_params(), config.lr, config.momentum)
+```
+
+## 模型参数保存
+
+保存模型可以通过定义CheckpointConfig来指定模型保存的参数。
+
+save_checkpoint_steps：每多少个step保存一下参数；keep_checkpoint_max：最多保存多少份模型参数。详细使用方式请参考[保存模型](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/save_model.html)。
+
+```python
+config_ck = CheckpointConfig(save_checkpoint_steps=config.save_checkpoint_steps,
+                                 keep_checkpoint_max=config.keep_checkpoint_max)
+ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet", directory=config.ckpt_path, config=config_ck)
+```
+
+## 训练网络
+
+```python
+context.set_context(mode=context.PYNATIVE_MODE, device_target=config.device_target)
+ds_train = create_dataset(os.path.join(config.data_path, "train"), config.batch_size)
+network = LeNet5(config.num_classes)
+net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
+net_opt = nn.Momentum(network.trainable_params(), config.lr, config.momentum)
+time_cb = TimeMonitor(data_size=ds_train.get_dataset_size())
+config_ck = CheckpointConfig(save_checkpoint_steps=config.save_checkpoint_steps,
+                                keep_checkpoint_max=config.keep_checkpoint_max)
+ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet", directory=config.ckpt_path, config=config_ck)
+
+model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O2")
+```
+
+完整的运行代码可以到ModelZoo下载[lenet](https://gitee.com/mindspore/mindspore/tree/r1.5/model_zoo/official/cv/lenet)，并设置context.set_context(mode=context.PYNATIVE_MODE, device_target=config.device_target)。
+
+## 提升PyNative性能
+
+为了提高PyNative模式下的前向计算任务执行速度，MindSpore提供了ms_function功能，该功能可以在PyNative模式下将Python函数或者Python类的方法编译成计算图，通过图优化等技术提高运行速度，如下例所示。
 
 ```python
 import numpy as np
@@ -253,144 +325,7 @@ print(z.asnumpy())
 [ 0.0377498 -0.06117418 0.00546303]]]]
 ```
 
-## 调试网络训练模型
-
-PyNative模式下，还可以支持单独求梯度的操作。如下例所示，可通过`GradOperation`求该函数或者网络所有的输入梯度。需要注意，输入类型仅支持Tensor。
-
-示例代码：
-
-```python
-import mindspore.ops as ops
-import mindspore.context as context
-from mindspore import dtype as mstype
-from mindspore import Tensor
-
-context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
-
-def mul(x, y):
-    return x * y
-
-def mainf(x, y):
-    return ops.GradOperation(get_all=True)(mul)(x, y)
-
-print(mainf(Tensor(1, mstype.int32), Tensor(2, mstype.int32)))
-```
-
-输出：
-
-```text
-(Tensor(shape=[], dtype=Int32, value=2), Tensor(shape=[], dtype=Int32, value=1))
-```
-
-在进行网络训练时，求得梯度然后调用优化器对参数进行优化（暂不支持在反向计算梯度的过程中设置断点），然后再利用前向计算loss，从而实现在PyNative模式下进行网络训练。
-
-完整LeNet示例代码：
-
-```python
-import numpy as np
-import mindspore.nn as nn
-import mindspore.ops as ops
-from mindspore import dtype as mstype
-from mindspore import context, Tensor, ParameterTuple
-from mindspore.common.initializer import TruncatedNormal
-from mindspore.nn import Dense, WithLossCell, SoftmaxCrossEntropyWithLogits, Momentum
-
-context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
-
-def conv(in_channels, out_channels, kernel_size, stride=1, padding=0):
-    """weight initial for conv layer"""
-    weight = weight_variable()
-    return nn.Conv2d(in_channels, out_channels,
-                     kernel_size=kernel_size, stride=stride, padding=padding,
-                     weight_init=weight, has_bias=False, pad_mode="valid")
-
-def fc_with_initialize(input_channels, out_channels):
-    """weight initial for fc layer"""
-    weight = weight_variable()
-    bias = weight_variable()
-    return nn.Dense(input_channels, out_channels, weight, bias)
-
-def weight_variable():
-    """weight initial"""
-    return TruncatedNormal(0.02)
-
-
-class LeNet5(nn.Cell):
-    """
-    Lenet network
-    Args:
-        num_class (int): Num classes. Default: 10.
-
-    Returns:
-        Tensor, output tensor
-
-    Examples:
-        >>> LeNet(num_class=10)
-    """
-    def __init__(self, num_class=10):
-        super(LeNet5, self).__init__()
-        self.num_class = num_class
-        self.batch_size = 32
-        self.conv1 = conv(1, 6, 5)
-        self.conv2 = conv(6, 16, 5)
-        self.fc1 = fc_with_initialize(16 * 5 * 5, 120)
-        self.fc2 = fc_with_initialize(120, 84)
-        self.fc3 = fc_with_initialize(84, self.num_class)
-        self.relu = nn.ReLU()
-        self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
-        self.reshape = ops.Reshape()
-
-    def construct(self, x):
-        x = self.conv1(x)
-        x = self.relu(x)
-        x = self.max_pool2d(x)
-        x = self.conv2(x)
-        x = self.relu(x)
-        x = self.max_pool2d(x)
-        x = self.reshape(x, (self.batch_size, -1))
-        x = self.fc1(x)
-        x = self.relu(x)
-        x = self.fc2(x)
-        x = self.relu(x)
-        x = self.fc3(x)
-        return x
-
-
-class GradWrap(nn.Cell):
-    """ GradWrap definition """
-    def __init__(self, network):
-        super(GradWrap, self).__init__(auto_prefix=False)
-        self.network = network
-        self.weights = ParameterTuple(filter(lambda x: x.requires_grad, network.get_parameters()))
-
-    def construct(self, x, label):
-        weights = self.weights
-        return ops.GradOperation(get_by_list=True)(self.network, weights)(x, label)
-
-net = LeNet5()
-optimizer = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), 0.1, 0.9)
-criterion = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
-net_with_criterion = WithLossCell(net, criterion)
-train_network = GradWrap(net_with_criterion)
-train_network.set_train()
-
-input_data = Tensor(np.ones([net.batch_size, 1, 32, 32]).astype(np.float32) * 0.01)
-label = Tensor(np.ones([net.batch_size]).astype(np.int32))
-output = net(Tensor(input_data))
-loss_output = criterion(output, label)
-grads = train_network(input_data, label)
-success = optimizer(grads)
-loss = loss_output.asnumpy()
-print(loss)
-```
-
-输出：
-
-```text
-2.3050091
-```
-
-上述执行方式中，可以在`construct`函数任意需要的地方设置断点，获取网络执行的中间结果，通过pdb的方式对网络进行调试。
+更多ms_function的功能可以参考[ms_function文档](https://mindspore.cn/docs/programming_guide/zh-CN/r1.5/ms_function.html)
 
 ## PyNative下同步执行
 
