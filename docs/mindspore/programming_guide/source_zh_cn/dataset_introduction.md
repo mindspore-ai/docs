@@ -67,7 +67,7 @@ Dataset提供多种方式来实现全局shuffle操作。
    dataset = ds.NumpySlicesDataset(data=data, column_names=["column_1"], shuffle=True)
    ```
 
-   详情请参考：[NumpySlicesDataset](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/dataset/mindspore.dataset.NumpySlicesDataset.html?#mindspore-dataset-numpyslicesdataset)。
+   详情请参考：[NumpySlicesDataset](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/dataset/mindspore.dataset.NumpySlicesDataset.html#mindspore-dataset-numpyslicesdataset)。
 
 2. shuffle算子
 
@@ -79,7 +79,7 @@ Dataset提供多种方式来实现全局shuffle操作。
    dataset = dataset.shuffle(4)
    ```
 
-   详情请参考：[shuffle API](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/dataset/mindspore.dataset.GeneratorDataset.html?#mindspore.dataset.GeneratorDataset.shuffle)。
+   详情请参考：[shuffle API](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset.shuffle)。
 
 3. 随机采样
 
@@ -90,7 +90,7 @@ Dataset提供多种方式来实现全局shuffle操作。
    dataset = ds.NumpySlicesDataset(data=data, column_names=["column_1"],sampler=sampler)
    ```
 
-   详情请参考：[RandomSampler](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/dataset/mindspore.dataset.RandomSampler.html?#mindspore-dataset-randomsampler)。
+   详情请参考：[RandomSampler](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/dataset/mindspore.dataset.RandomSampler.html#mindspore-dataset-randomsampler)。
 
 ### Map操作
 
@@ -104,7 +104,7 @@ Dataset的`c_transforms`和`py_transforms`模块分别提供了基于`C++`和`Py
 
 文本类数据增强操作请参考：[文本类数据增强](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/tokenizer.html#%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E4%B8%8E%E5%A2%9E%E5%BC%BA)。
 
-Map操作请参考：[Map操作](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/dataset/mindspore.dataset.CelebADataset.html?#mindspore.dataset.CelebADataset.map)。
+Map操作请参考：[Map操作](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/dataset/mindspore.dataset.CelebADataset.html#mindspore.dataset.CelebADataset.map)。
 
 ### Batch操作
 
@@ -161,4 +161,4 @@ Batch 操作负责将多个`shape`相同的`Tensor`“打包”到一起，以�
    dataset = ds.GeneratorDataset((lambda: gen_3_cols(4)), ["col1", "col2", "col3"]).batch (batch_size=batch_func, input_columns=["col1", "col2"], per_batch_map=map_func)
    ```
 
-Batch操作请参考：[Batch操作](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/dataset/mindspore.dataset.CelebADataset.html?#mindspore.dataset.CelebADataset.batch)。
+Batch操作请参考：[Batch操作](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/dataset/mindspore.dataset.CelebADataset.html#mindspore.dataset.CelebADataset.batch)。
