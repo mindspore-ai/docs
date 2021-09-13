@@ -83,7 +83,7 @@ xai/examples/
 
 ### 准备 Python 环境
 
-以下教程参考了 [using_explainers.py](https://gitee.com/mindspore/xai/examples/using_explainers.py) 。
+以下教程参考了 [using_explainers.py](https://gitee.com/mindspore/xai/blob/master/examples/using_explainers.py) 。
 
 下载用例数据包后，我们要加载一个训练好的分类器和一张要进行推理及解释的图片：
 
@@ -148,7 +148,7 @@ for images, labels in test_ds:
 
 ## 使用 RISEPlus
 
-以下教程参考了 [using_rise_plus.py](https://gitee.com/mindspore/xai/examples/using_rise_plus.py) 。
+以下教程参考了 [using_rise_plus.py](https://gitee.com/mindspore/xai/blob/master/examples/using_rise_plus.py) 。
 
 `RISEPlus`是一个基于`RISE`的解释器，它引入了分布外侦测器，解决了`RISE`在遇到分布外(OoD)样本时产生的热力图劣化问题。
 
