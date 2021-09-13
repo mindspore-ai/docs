@@ -89,8 +89,6 @@ resnet50
 The following is an example to define preprocessing and post-processing:
 
 ```python
-import mindspore.dataset as ds
-import mindspore.dataset.transforms.c_transforms as TC
 import mindspore.dataset.vision.c_transforms as VC
 
 # cifar 10
@@ -139,7 +137,7 @@ def postprocess_top5(score):
     return ";".join(ret_label), ret_score
 ```
 
-The preprocessing and post-processing are defined in the same format. The input parameters are the input data of each instance. If the input data is a text, the input parameter is a str object. If the input data is of other types, such as Tensor, Scalar number, Boolean, and Bytes, the input parameter is a **numpy object**. The instance processing result is returned through `return`, which can be **numpy**, or a single data object or a tuple consisting of **bool, int, float, str, or bytes of Python**.
+The preprocessing and post-processing are defined in the same format. The input parameters are the input data of each instance. If the input data is a text, the input parameter is a str object. If the input data is of other types, such as Tensor, Scalar number, Boolean, and Bytes, the input parameter is a **numpy object**. The instance processing result is returned through `return`, and each returned data can be **numpy array, bool, int, float, str, or bytes**.
 
 The input sources and output usage of preprocessing and post-processing are determined by the [Method Definition](#method-definition).
 
@@ -149,10 +147,10 @@ The sample code for declaring the `resnet50` Servable model is as follows:
 
 ```python
 from mindspore_serving.server import register
-register.declare_servable(servable_file="resnet50_1b_cifar10.mindir", model_format="MindIR", with_batch_dim=True)
+resnet_model = register.declare_model(model_file="resnet50_1b_cifar10.mindir", model_format="MindIR", with_batch_dim=True)
 ```
 
-The input parameter `servable_file` of `declare_servable` indicates the model file name. `model_format` indicates the model type. Currently, the Ascend 310 environment supports both `OM` and `MindIR` model types. The Ascend 910 environment supports only the `MindIR` model type.
+The input parameter `model_file` of `declare_model` indicates the model file name. `model_format` indicates the model type. Currently, the Ascend 310 environment supports both `OM` and `MindIR` model types. The Ascend 910 and GPU environment supports only the `MindIR` model type.
 
 If the 1D model input and output is not the `batch` dimension, you need to change the value of `with_batch_dim` from the default value `True` to `False`.
 
@@ -171,8 +169,8 @@ For example:
 from mindspore_serving.server import register
 # Input1 indicates the input shape information of the model, without the batch dimension information.
 # input0: [N,3,416,416], input1: [2]
-register.declare_servable(servable_file="yolov3_darknet53.mindir", model_format="MindIR",
-                          with_batch_dim=True, without_batch_dim_inputs=1)
+yolov_model = register.declare_model(model_file="yolov3_darknet53.mindir", model_format="MindIR",
+                                     with_batch_dim=True, without_batch_dim_inputs=1)
 ```
 
 For distributed model, the only difference compared with non-distributed single model configuration is declaration, you need to use `mindspore_serving.server.distributed.declare_servable` method, `rank_size` is the number of devices used in the model, `stage_size` is the number of stages in the pipeline.
@@ -180,7 +178,7 @@ For distributed model, the only difference compared with non-distributed single 
 ```python
 from mindspore_serving.server import distributed
 
-distributed.declare_servable(rank_size=8, stage_size=1, with_batch_dim=False)
+model = distributed.declare_servable(rank_size=8, stage_size=1, with_batch_dim=False)
 ```
 
 ### Method Definition
@@ -194,9 +192,9 @@ from mindspore_serving.server import register
 def classify_top1(image):
     """Define method `classify_top1` for servable `resnet50`.
      The input is `image` and the output is `label`."""
-    x = register.call_preprocess(preprocess_eager, image)
-    x = register.call_servable(x)
-    x = register.call_postprocess(postprocess_top1, x)
+    x = register.add_stage(preprocess_eager, image, outputs_count=1)
+    x = register.add_stage(model, x, outputs_count=1)
+    x = register.add_stage(postprocess_top1, x, outputs_count=1)
     return x
 
 
@@ -204,9 +202,9 @@ def classify_top1(image):
 def classify_top5(image):
     """Define method `classify_top5` for servable `resnet50`.
      The input is `image` and the output is `label` and `score`. """
-    x = register.call_preprocess(preprocess_eager, image)
-    x = register.call_servable(x)
-    label, score = register.call_postprocess(postprocess_top5, x)
+    x = register.add_stage(preprocess_eager, image, outputs_count=1)
+    x = register.add_stage(model, x, outputs_count=1)
+    label, score = register.add_stage(postprocess_top5, x, outputs_count=2)
     return label, score
 ```
 
@@ -214,15 +212,9 @@ The preceding code defines the `classify_top1` and `classify_top5` methods in Se
 
 In the preceding method definition:
 
-- `call_preprocess` specifies the preprocessing used and its input.
-
-- `call_servable` specifies the input of model inference.
-
-- `call_postprocess` specifies the post-processing and its input used.
+- `add_stage` specifies the preprocessing, model and post-processing used and their inputs.
 
 - `return` specifies the data returned by the method and corresponds to the `output_names` parameter of `register_method`.
-
-The method definition cannot contain branch structures such as if, for, and while. Preprocessing and post-processing are optional and cannot be repeated. Model inference is mandatory, and the sequence cannot be disordered.
 
 When a user uses a service provided by a Servable method on the client, the user needs to specify the input value based on the input parameter name and identify the output value based on the output parameter name. For example, the method `classify_top5` accessed by the client is as follows:
 
@@ -264,4 +256,4 @@ if __name__ == '__main__':
     run_classify_top5()
 ```
 
-In addition, one request may include multiple instances, and multiple requests in queue for processing also have multiple instances. If multiple instances need to be processed concurrently by using, for example, multiple threads in customized preprocessing or post-processing (for example, the MindData concurrency is used to process multiple input images during preprocessing), MindSpore Serving provides `call_preprocess_pipeline` and `call_postprocess_pipeline` for registering such preprocessing and post-processing. For details, see [ResNet-50 sample model configuration](https://gitee.com/mindspore/serving/blob/master/example/resnet/resnet50/servable_config.py).
+In addition, one request may include multiple instances, and multiple requests in queue for processing also have multiple instances. If multiple instances need to be processed concurrently by using, for example, multiple threads in customized preprocessing or post-processing (for example, the MindData concurrency is used to process multiple input images during preprocessing), MindSpore Serving provides parameter `batch_size` for interface `add_stage`. For details, see [ResNet-50 sample model configuration](https://gitee.com/mindspore/serving/blob/master/example/resnet/resnet50/servable_config.py).
