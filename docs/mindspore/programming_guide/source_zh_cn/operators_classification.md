@@ -31,7 +31,11 @@ Primitive算子是开放给用户的最低阶算子接口，一个Primitive算�
 
 Primitive算子接口是构建高阶接口、自动微分、网络模型等能力的基础。
 
+Primitive算子可以分为[计算算子](#id3)和[框架算子](#id8)。计算算子主要负责具体的计算，而框架算子主要用于构图，自动微分等功能。
+
 functional接口是为简化没有属性的Primitive算子调用流程而提供的，functional接口和Primitive算子都可以从mindspore.ops中导入。
+
+composite接口提供了一些预定义的组合算子，比如clip_by_value算子，以及涉及图变换的函数（GradOperation、Map）等，其使用方式和functional接口相似，更多composite接口参见[composite接口](https://mindspore.cn/docs/api/zh-CN/r1.5/api_python/mindspore.ops.html#composite)。
 
 例如用户想使用pow功能，若使用Primitive算子，用户需要先实例化Pow算子，此时用户可以直接使用functional接口的tensor_pow来简化流程，代码示例如下：
 
@@ -58,10 +62,6 @@ output = ops.tensor_pow(input_x, input_y)
 ```
 
 更多functional接口参见[functioinal接口](https://mindspore.cn/docs/api/zh-CN/r1.5/api_python/mindspore.ops.html#functional)。
-
-composite接口提供了一些预定义的组合算子，比如clip_by_value算子，以及涉及图变换的函数（GradOperation、Map）等，其使用方式和functional接口相似，更多composite接口参见[composite接口](https://mindspore.cn/docs/api/zh-CN/r1.5/api_python/mindspore.ops.html#composite)。
-
-Primitive算子可以分为[计算算子](#计算算子)和[框架算子](#框架算子)。计算算子主要负责具体的计算，而框架算子主要用于构图，自动微分等功能。
 
 ### 计算算子
 
