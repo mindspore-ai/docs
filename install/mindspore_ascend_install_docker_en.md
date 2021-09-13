@@ -23,7 +23,7 @@ The current support for containerized build options is as follows:
 
 | Hardware   | Docker Image Hub                | Label                       | Note                                       |
 | :----- | :------------------------ | :----------------------- | :--------------------------------------- |
-| Ascend | `public-ascendhub/ascend-mindspore-arm` | `x.y.z` | The production environment of MindSpore released together with the Ascend Data Center Solution `x.y.z` version is pre-installed. |
+| Ascend | `public-ascendhub/mindspore-modelzoo` | `x.y.z` | The production environment of MindSpore released together with the Ascend Data Center Solution `x.y.z` version is pre-installed. |
 
 > `x.y.z` corresponds to the version number of Atlas Data Center Solution, which can be obtained on the Ascend Hub page.
 
@@ -41,18 +41,17 @@ The current support for containerized build options is as follows:
 
 ## Obtaining MindSpore Image
 
-1. Log in to [Ascend Hub Image Center](https://ascend.huawei.com/ascendhub/#/home), register and activate an account, get login instructions and pull instructions.
-2. After obtaining the download permission, enter the MindSpore image download page ([x86 version](https://ascend.huawei.com/ascendhub/#/detail?name=ascend-mindspore-x86), [arm version](https://ascend.huawei.com/ascendhub/#/detail?name=ascend-mindspore-arm)). Get login and download commands and execute:
+1. Log in to [Ascend Hub Image Center](https://ascend.huawei.com/ascendhub/#/home), register and activate an account, get login instructions and download instructions.
+2. After obtaining the download permission, enter the [MindSpore image download page](https://ascendhub.huawei.com/#/detail/mindspore-modelzoo). Get login and download commands and execute:
 
     ```bash
     docker login -u {username} -p {password} {url}
-    docker pull ascendhub.huawei.com/public-ascendhub/ascend-mindspore-{arch}:{tag}
+    docker pull ascendhub.huawei.com/public-ascendhub/mindspore-modelzoo:{tag}
     ```
 
     of which,
 
     - `{username}` `{password}` `{url}` represents the user's login information and image server information, which are automatically generated after registering and activating the account, and can be obtained by copying the login command on the corresponding MindSpore image page.
-    - `{arch}` denotes the system architecture. For example, the Linux system you are using is x86 architecture 64-bit, `{arch}` should be x86. If the system is ARM architecture 64-bit, then it should be arm.
     - `{tag}` corresponds to the version number of Atlas Data Center Solution, which can also be obtained by copying the download command on the MindSpore image download page.
 
 ## Running MindSpore Image
@@ -60,9 +59,7 @@ The current support for containerized build options is as follows:
 Execute the following command to start the Docker container instance:
 
 ```bash
-docker run -it -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
-               -v /usr/local/Ascend/add-ons/:/usr/local/Ascend/add-ons/ \
-               -v /var/log/npu/:/usr/slog \
+docker run -it --ipc=host \
                --device=/dev/davinci0 \
                --device=/dev/davinci1 \
                --device=/dev/davinci2 \
@@ -74,21 +71,21 @@ docker run -it -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
                --device=/dev/davinci_manager \
                --device=/dev/devmm_svm \
                --device=/dev/hisi_hdc \
-               ascendhub.huawei.com/public-ascendhub/ascend-mindspore-{arch}:{tag} \
+               -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
+               -v /usr/local/Ascend/add-ons/:/usr/local/Ascend/add-ons/ \
+               -v /var/log/npu/:/usr/slog \
+               ascendhub.huawei.com/public-ascendhub/mindspore-modelzoo:{tag} \
                /bin/bash
 ```
 
 of which,
 
-- `{arch}` denotes the system architecture. For example, the Linux system you are using is x86 architecture 64-bit, `{arch}` should be x86. If the system is ARM architecture 64-bit, then it should be arm.
 - `{tag}` corresponds to the version number of Atlas Data Center Solution, which can be automatically obtained on the MindSpore image download page.
 
 If you want to use MindInsight, you need to set the `--network` parameter to "host" mode, for example:
 
 ```bash
-docker run -it -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
-               -v /usr/local/Ascend/add-ons/:/usr/local/Ascend/add-ons/ \
-               -v /var/log/npu/:/usr/slog \
+docker run -it --ipc=host \
                --network host
                --device=/dev/davinci0 \
                --device=/dev/davinci1 \
@@ -101,7 +98,10 @@ docker run -it -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
                --device=/dev/davinci_manager \
                --device=/dev/devmm_svm \
                --device=/dev/hisi_hdc \
-               ascendhub.huawei.com/public-ascendhub/ascend-mindspore-{arch}:{tag} \
+               -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
+               -v /usr/local/Ascend/add-ons/:/usr/local/Ascend/add-ons/ \
+               -v /var/log/npu/:/usr/slog \
+               ascendhub.huawei.com/public-ascendhub/mindspore-modelzoo:{tag} \
                /bin/bash
 ```
 
@@ -168,10 +168,9 @@ When you need to update the MindSpore version:
 - log in to [Ascend Hub Image Center](https://ascend.huawei.com/ascendhub/#/home) again to obtain the download command of the latest docker version and execute:
 
     ```bash
-    docker pull ascendhub.huawei.com/public-ascendhub/ascend-mindspore-{arch}:{tag}
+    docker pull ascendhub.huawei.com/public-ascendhub/mindspore-modelzoo:{tag}
     ```
 
     of which,
 
-    - `{arch}` denotes the system architecture. For example, the Linux system you are using is x86 architecture 64-bit, `{arch}`  should be x86. If the system is ARM architecture 64-bit, then it should be arm.
     - `{tag}` corresponds to the version number of Atlas Data Center Solution, which can be automatically obtained on the MindSpore image download page.
