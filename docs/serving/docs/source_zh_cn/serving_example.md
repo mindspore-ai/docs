@@ -120,30 +120,30 @@ from mindspore_serving.server import register
 
 
 def add_trans_datatype(x1, x2):
-    """define preprocess, this example has two input and two output"""
+    """define preprocess, this example has one input and two outputs"""
     return x1.astype(np.float32), x2.astype(np.float32)
 
 
 # when with_batch_dim is set to False, only 2x2 add is supported
 # when with_batch_dim is set to True(default), Nx2 add is supported, while N is viewed as batch
 # float32 inputs/outputs
-register.declare_servable(servable_file="tensor_add.mindir", model_format="MindIR", with_batch_dim=False)
+model = register.declare_model(model_file="tensor_add.mindir", model_format="MindIR", with_batch_dim=False)
 
 
 # register add_common method in add
 @register.register_method(output_names=["y"])
 def add_common(x1, x2):  # only support float32 inputs
-    """method add_common data flow definition, only call model inference"""
-    y = register.call_servable(x1, x2)
+    """method add_common data flow definition, only call model"""
+    y = register.add_stage(model, x1, x2, outputs_count=1)
     return y
 
 
 # register add_cast method in add
 @register.register_method(output_names=["y"])
 def add_cast(x1, x2):
-    """method add_cast data flow definition, only call preprocess and model inference"""
-    x1, x2 = register.call_preprocess(add_trans_datatype, x1, x2)  # cast input to float32
-    y = register.call_servable(x1, x2)
+    """method add_cast data flow definition, only preprocessing and call model"""
+    x1, x2 = register.add_stage(add_trans_datatype, x1, x2, outputs_count=2)  # cast input to float32
+    y = register.add_stage(model, x1, x2, outputs_count=1)
     return y
 ```
 

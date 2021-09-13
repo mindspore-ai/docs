@@ -89,8 +89,6 @@ resnet50
 预处理和后处理定义方式例子如下：
 
 ```python
-import mindspore.dataset as ds
-import mindspore.dataset.transforms.c_transforms as TC
 import mindspore.dataset.vision.c_transforms as VC
 
 # cifar 10
@@ -139,7 +137,7 @@ def postprocess_top5(score):
     return ";".join(ret_label), ret_score
 ```
 
-预处理和后处理定义格式相同，入参为每个实例的输入数据。输入数据为文本时，入参为str对象；输入数据为其他数据类型，包括Tensor、Scalar number、Bool、Bytes时，入参为**numpy对象**。通过`return`返回实例的处理结果，`return`返回的数据可为**numpy、Python的bool、int、float、str、或bytes**单个数据对象或者由它们组成的tuple。
+预处理和后处理定义格式相同，入参为每个实例的输入数据。输入数据为文本时，入参为str对象；输入数据为其他数据类型，包括Tensor、Scalar number、Bool、Bytes时，入参为**numpy对象**。通过`return`返回实例的处理结果，`return`返回的每项数据可为**numpy、Python的bool、int、float、str、或bytes**数据对象。
 
 预处理和后处理输入的来源和输出的使用由[方法定义](#id9)决定。
 
@@ -149,10 +147,10 @@ def postprocess_top5(score):
 
 ```python
 from mindspore_serving.server import register
-register.declare_servable(servable_file="resnet50_1b_cifar10.mindir", model_format="MindIR", with_batch_dim=True)
+resnet_model = register.declare_model(model_file="resnet50_1b_cifar10.mindir", model_format="MindIR", with_batch_dim=True)
 ```
 
-其中`declare_servable`入参`servable_file`指示模型的文件名称；`model_format`指示模型的模型类别，当前Ascend310环境支持`OM`和`MindIR`两种模型类型，Ascend910环境仅支持`MindIR`模型类型。
+其中`declare_model`入参`model_file`指示模型的文件名称；`model_format`指示模型的模型类别，当前Ascend310环境支持`OM`和`MindIR`两种模型类型，Ascend910和GPU环境仅支持`MindIR`模型类型。
 
 如果模型输入和输出第1维度不是`batch`维度，需要设置参数`with_batch_dim=False`，`with_batch_dim`默认为`True`。
 
@@ -171,8 +169,8 @@ register.declare_servable(servable_file="resnet50_1b_cifar10.mindir", model_form
 from mindspore_serving.server import register
 # Input1 indicates the input shape information of the model, without the batch dimension information.
 # input0: [N,3,416,416], input1: [2]
-register.declare_servable(servable_file="yolov3_darknet53.mindir", model_format="MindIR",
-                          with_batch_dim=True, without_batch_dim_inputs=1)
+yolov_model = register.declare_model(model_file="yolov3_darknet53.mindir", model_format="MindIR",
+                                     with_batch_dim=True, without_batch_dim_inputs=1)
 ```
 
 对于分布式模型，与非分布式单模型配置相比仅声明方法不同，需要使用`mindspore_serving.server.distributed.declare_servable`，其中入参`rank_size`表示模型推理使用的device个数，`stage_size`表示流水线的段数，可以参考[部署分布式推理服务](https://www.mindspore.cn/serving/docs/zh-CN/r1.5/serving_distributed_example.html)。
@@ -180,7 +178,7 @@ register.declare_servable(servable_file="yolov3_darknet53.mindir", model_format=
 ```python
 from mindspore_serving.server import distributed
 
-distributed.declare_servable(rank_size=8, stage_size=1, with_batch_dim=False)
+model = distributed.declare_servable(rank_size=8, stage_size=1, with_batch_dim=False)
 ```
 
 ### 方法定义
@@ -194,9 +192,9 @@ from mindspore_serving.server import register
 def classify_top1(image):
     """Define method `classify_top1` for servable `resnet50`.
      The input is `image` and the output is `label`."""
-    x = register.call_preprocess(preprocess_eager, image)
-    x = register.call_servable(x)
-    x = register.call_postprocess(postprocess_top1, x)
+    x = register.add_stage(preprocess_eager, image, outputs_count=1)
+    x = register.add_stage(model, x, outputs_count=1)
+    x = register.add_stage(postprocess_top1, x, outputs_count=1)
     return x
 
 
@@ -204,9 +202,9 @@ def classify_top1(image):
 def classify_top5(image):
     """Define method `classify_top5` for servable `resnet50`.
      The input is `image` and the output is `label` and `score`. """
-    x = register.call_preprocess(preprocess_eager, image)
-    x = register.call_servable(x)
-    label, score = register.call_postprocess(postprocess_top5, x)
+    x = register.add_stage(preprocess_eager, image, outputs_count=1)
+    x = register.add_stage(model, x, outputs_count=1)
+    label, score = register.add_stage(postprocess_top5, x, outputs_count=2)
     return label, score
 ```
 
@@ -214,15 +212,9 @@ def classify_top5(image):
 
 另外方法定义中：
 
-- `call_preprocess`指示了使用的预处理及其输入。
+- `add_stage`指示了使用的预处理、模型和后处理，以及它们的输入。
 
-- `call_servable`指示了模型推理的输入。
-
-- `call_postprocess`指示了使用的后处理及其输入。
-
-- `return`指示了方法的返回数据，和`register_method`的`output_names`参数对应。
-
-方法定义不能包括if、for、while等分支结构，预处理和后处理可选，不可重复，模型推理必选，且顺序不能打乱。
+- `return`指示了方法的返回数据，可以是方法的输入或者`add_stage`的输出，和`register_method`的`output_names`参数对应。
 
 用户在客户端使用Servable某个方法提供的服务时，需要通过入参名称指定对应输入的值，通过出参名称识别各个输出的值。比如客户端访问方法`classify_top5`：
 
@@ -264,4 +256,4 @@ if __name__ == '__main__':
     run_classify_top5()
 ```
 
-另外，一次请求可包括多个实例，且多个排队处理的请求也将有多个实例，如果需要在自定义的预处理或后处理中通过多线程等并法方式处理多个实例，比如在预处理中使用MindData并发能力处理多个输入图片，MindSpore Serving提供了`call_preprocess_pipeline`和`call_postprocess_pipeline`用于注册此类预处理和后处理。详情可参考[ResNet-50样例的模型配置](https://gitee.com/mindspore/serving/blob/r1.5/example/resnet/resnet50/servable_config.py) 。
+另外，一次请求可包括多个实例，且多个排队处理的请求也将有多个实例，如果需要在自定义的预处理或后处理中通过多线程等并法方式处理多个实例，比如在预处理中使用MindData并发能力处理多个输入图片，MindSpore Serving在接口`add_stage`中提供了入参`batch_size`用于注册此类预处理和后处理。详情可参考[ResNet-50样例的模型配置](https://gitee.com/mindspore/serving/blob/r1.5/example/resnet/resnet50/servable_config.py) 。
