@@ -33,7 +33,7 @@
 
 ### 准备脚本
 
-以下教程参考了 [using_mindinsight.py](https://gitee.com/mindspore/xai/examples/using_mindinsight.py) 。
+以下教程参考了 [using_mindinsight.py](https://gitee.com/mindspore/xai/blob/r1.5/examples/using_mindinsight.py) 。
 
 当前[MindSpore XAI](https://www.mindspore.cn/xai)提供解释方法及给解释方法进行评估的度量Python API，已提供的解释方法可以通过`mindspore_xai.explanation`包获取，度量方法可以通过`mindspore_xai.benchmark`包获取。用户准备好待解释的黑盒模型和数据，在脚本中根据需要实例化解释方法及度量方法，调用API用于收集解释结果和解释度量结果。
 
