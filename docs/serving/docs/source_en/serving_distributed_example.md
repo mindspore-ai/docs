@@ -157,12 +157,12 @@ The content of the model configuration file is as follows:
 from mindspore_serving.server import distributed
 from mindspore_serving.server import register
 
-distributed.declare_servable(rank_size=8, stage_size=1, with_batch_dim=False)
+model = distributed.declare_servable(rank_size=8, stage_size=1, with_batch_dim=False)
 
 
 @register.register_method(output_names=["y"])
 def predict(x):
-    y = register.call_servable(x)
+    y = register.add_stage(model, x, outputs_count=1)
     return y
 ```
 
@@ -233,7 +233,7 @@ if __name__ == '__main__':
 
 ### Executing Inference
 
-To access the inference service through gRPC, the client needs to specify the IP address and port of the gRPC server. Run [serving_client.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/serving_client.py) to call the `predict` method of matmul distributed model, execute inference.
+To access the inference service through gRPC, the client needs to specify the network address of the gRPC server. Run [serving_client.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/serving_client.py) to call the `predict` method of matmul distributed model, execute inference.
 
 ```python
 import numpy as np
