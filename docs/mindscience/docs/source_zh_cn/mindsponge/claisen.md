@@ -27,7 +27,7 @@
 实践前，确保已经正确安装最新版本的MindSpore与MindSPONGE。如果没有，可以通过：
 
 - [MindSpore安装页面](https://www.mindspore.cn/install)安装MindSpore。
-- [MindSPONGE安装页面](https://gitee.com/mindspore/mindscience/tree/r1.5/MindSPONGE)安装MindSPONGE。
+- [MindSPONGE安装页面](https://gitee.com/mindspore/mindscience/tree/r0.1/MindSPONGE)安装MindSPONGE。
 
 教程中的体系结构文件建模由AmberTools中自带的tleap工具（下载地址<http://ambermd.org/GetAmber.php>， 遵守GPL协议）完成。
 
