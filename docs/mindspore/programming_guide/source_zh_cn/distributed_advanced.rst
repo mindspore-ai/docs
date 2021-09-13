@@ -4,6 +4,7 @@
 .. toctree::
   :maxdepth: 1
 
+  distributed_training_parallel_opt
   apply_pipeline_parallel
   apply_host_device_training
   apply_parameter_server_training
