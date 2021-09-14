@@ -110,10 +110,10 @@ if __name__ == "__main__":
 ```text
 matmul_multi_subgraphs
 ├── matmul/
-│    └── servable_config.py
-│    └── 1/
-│        │── matmul_0.mindir
-│        └── matmul_1.mindir
+│   │── servable_config.py
+│   └── 1/
+│       │── matmul_0.mindir
+│       └── matmul_1.mindir
 └── serving_server.py
 ```
 
