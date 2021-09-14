@@ -29,7 +29,7 @@
 目录结构如下：
 
 ```text
-└─tutorial_code
+└─sample_code
     ├─distribute_training_transformer
         ├── dataset.py
         ├── model.py
