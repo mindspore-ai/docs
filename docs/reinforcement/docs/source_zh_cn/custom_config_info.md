@@ -50,7 +50,7 @@ session.run(...)
 
 Policy通常用于智能体决策下一步需要执行的行为，算法中需要policy类型名`type`和参数`params`：
 
-- `type`：指定Policy的类型，这里可以是Reinforcement内置的Policy，例如`EpsilonGreedyPolicy`，`GreedyPolicy`，`RandomPolicy`等策略，也可以是用户自定义的Policy类型。
+- `type`：指定Policy的类型，Actor通过Policy决策应该采取的动作。在深度强化学习中，Policy通常采用深度神经网络提取环境特征，并输出下一步采取的动作。
 - `params`：指定实例化相应Policy的参数。这里需要注意的是，`params`和`type`需要匹配。
 
 以下样例中定义策略和参数配置，Policy是由用户定义的`DQNPolicy`，并指定了epsilon greedy衰减参数，学习率，网络模型隐层等参数，框架会采用`DQNPolicy(policy_params)`方式创建Policy对象。
@@ -155,7 +155,7 @@ algorithm_config = {
 
 `Learner`负责基于历史经验对网络权重进行更新。`Learner`中持有`Policy`中定义的DNN网络（由`networks`指定`Policy`的成员对象名称），用于损失函数计算和网络权重更新。
 
-以下代码中定义`DQNLearner`配置，框架会采用`DQNLearner(algorithm_config['learner'])`方式创建Actor。
+以下代码中定义`DQNLearner`配置，框架会采用`DQNLearner(algorithm_config['learner'])`方式创建Learner。
 
 ```python
 from example.dqn.dqn import DQNLearner
