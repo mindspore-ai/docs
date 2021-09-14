@@ -99,7 +99,13 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torch.nn.GELU                                        | mindspore.nn.FastGelu                                          |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/FastGelu_en.md)|
 | torch.nn.GroupNorm                                   | mindspore.nn.GroupNorm                                         | same |
 | torch.nn.init.constant_                              | mindspore.common.initializer.Constant                          |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/Constant_en.md)|
+| torch.nn.init.kaiming_normal_                                  | mindspore.common.initializer.HeNormal                                        | same |
+| torch.nn.init.kaiming_uniform_                                   | mindspore.common.initializer.HeUniform                                         | same |
+| torch.nn.init.normal_                                   | mindspore.common.initializer.Normal                                        | [diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/InitNormal_en.md)|
+| torch.nn.init.ones_                                  | mindspore.common.initializer.One                                         | same |
+| torch.nn.init.xavier_uniform_                                | mindspore.common.initializer.XavierUniform                                         | same |
 | torch.nn.init.uniform_                               | mindspore.common.initializer.Uniform                           |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/Uniform_en.md)|
+| torch.nn.init.zeros_                               | mindspore.common.initializer.Zero                                        | same |
 | torch.nn.KLDivLoss                                   | mindspore.ops.KLDivLoss                                        | same |
 | torch.nn.L1Loss                                      | mindspore.nn.L1Loss                                            | same |
 | torch.nn.LayerNorm                                   | mindspore.nn.LayerNorm                                         | same |

@@ -99,6 +99,13 @@
 | torch.nn.GELU                                        | mindspore.nn.FastGelu                                          |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/FastGelu.md)|
 | torch.nn.GroupNorm                                   | mindspore.nn.GroupNorm                                         | 功能一致 |
 | torch.nn.init.constant_                              | mindspore.common.initializer.Constant                          |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/Constant.md)|
+| torch.nn.init.kaiming_normal_                                  | mindspore.common.initializer.HeNormal                                        | 功能一致 |
+| torch.nn.init.kaiming_uniform_                                   | mindspore.common.initializer.HeUniform                                         | 功能一致 |
+| torch.nn.init.normal_                                   | mindspore.common.initializer.Normal                                        | [差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/InitNormal.md)|
+| torch.nn.init.ones_                                  | mindspore.common.initializer.One                                         | 功能一致 |
+| torch.nn.init.xavier_uniform_                                | mindspore.common.initializer.XavierUniform                                         | 功能一致 |
+ mindspore.common.initializer.Uniform                           |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/Uniform.md)|
+ | torch.nn.init.zeros_                               | mindspore.common.initializer.Zero                                        | 功能一致 |
 | torch.nn.init.uniform_                               | mindspore.common.initializer.Uniform                           |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/Uniform.md)|
 | torch.nn.KLDivLoss                                   | mindspore.ops.KLDivLoss                                        | 功能一致 |
 | torch.nn.L1Loss                                      | mindspore.nn.L1Loss                                            | 功能一致 |
