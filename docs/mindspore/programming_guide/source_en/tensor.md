@@ -70,7 +70,7 @@ True
 
 ### Operations
 
-Tensor supports a variety of operations, including arithmetic operations and logical operations. Some commonly used operators are as follows:
+Tensor supports a variety of operations, including arithmetic operations and logical operations. When two arrays of different shapes are subjected to numerical operations, the `broadcast` mechanism similar to `Numpy` will be triggered. Some commonly used operators are as follows:
 
 - arithmetic operations: add (`+`), subtract (`-`), multiply (`*`), divide (`/`), modulus (`%`), power (`**`), divide (`//`)
 
@@ -271,7 +271,7 @@ where `L0` >> `D0`, and `D0` is the number of non-zero elements.
 - `values`: A tensor of any data type of shape `[D0, D1, ..., DN]`. Represents the value of non-zero elements.
 - `dense_shape`: An integer tuple which contains the shape of the corresponding dense tensor.
 
-A code example is as follows:
+`RowTensor` can only be used in the `Cell`’s construct method. For details, see [mindspore.RowTensor](https://www.mindspore.cn/docs/api/en/r1.5/api_python/mindspore/mindspore.RowTensor.html). A code example is as follows:
 
 ```python
 import mindspore as ms
@@ -313,7 +313,7 @@ is `N` and the dense shape of the sparse tensor is `ndims`：
 - `values`: A 1-D tensor of any type and shape `[N]`. Represents the value of non-zero elements.
 - `dense_shape`: A integer tuple of size `ndims`, which specifies the dense shape of the sparse tensor.
 
-A code example is as follows:
+`SparseTensor` can only be used in the `Cell`’s construct method. For details, see [mindspore.SparseTensor](https://www.mindspore.cn/docs/api/en/r1.5/api_python/mindspore/mindspore.SparseTensor.html). A code example is as follows:
 
 ```python
 import mindspore as ms
