@@ -103,7 +103,7 @@ def test_inference():
     network = Net(matmul_size=(96, 16))
     model = Model(network)
     model.infer_predict_layout(Tensor(predict_data))
-    export(model._predict_network, Tensor(predict_data), file_name="matmul", file_format="MINDIR")
+    export(model.predict_network, Tensor(predict_data), file_name="matmul", file_format="MINDIR")
 
 
 def create_predict_data():
@@ -117,8 +117,8 @@ def create_predict_data():
 ```text
 model
 ├── device0
-│   ├── group_config.pb
-│   └── matmul.mindir
+│   ├── group_config.pb
+│   └── matmul.mindir
 ├── device1
 ├── device2
 ├── device3
@@ -139,7 +139,7 @@ matmul_distributed
 ├── serving_agent.py
 ├── serving_server.py
 ├── matmul
-│   └── servable_config.py
+│   └── servable_config.py
 ├── model
 └── rank_table_8pcs.json
 ```
@@ -220,7 +220,6 @@ def start_agents():
 
 if __name__ == '__main__':
     start_agents()
-
 ```
 
 - `distributed_address`为`Distributed Worker`的地址。
