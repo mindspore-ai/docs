@@ -66,7 +66,6 @@ def export_net():
     x = np.ones([2, 2]).astype(np.float32)
     y = np.ones([2, 2]).astype(np.float32)
     add = Net()
-    output = add(ms.Tensor(x), ms.Tensor(y))
     ms.export(add, ms.Tensor(x), ms.Tensor(y), file_name='tensor_add', file_format='MINDIR')
     dst_dir = '../add/1'
     try:
@@ -77,10 +76,6 @@ def export_net():
     dst_file = os.path.join(dst_dir, 'tensor_add.mindir')
     copyfile('tensor_add.mindir', dst_file)
     print("copy tensor_add.mindir to " + dst_dir + " success")
-
-    print(x)
-    print(y)
-    print(output.asnumpy())
 
 
 if __name__ == "__main__":
@@ -101,9 +96,9 @@ Start Serving with the following files:
 ```text
 tensor_add
 ├── add/
-│    └── servable_config.py
-│    └── 1/
-│        └── tensor_add.mindir
+│   │── servable_config.py
+│   └── 1/
+│       └── tensor_add.mindir
 └── serving_server.py
 ```
 

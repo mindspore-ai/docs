@@ -105,7 +105,7 @@ def test_inference():
     network = Net(matmul_size=(96, 16))
     model = Model(network)
     model.infer_predict_layout(Tensor(predict_data))
-    export(model._predict_network, Tensor(predict_data), file_name="matmul", file_format="MINDIR")
+    export(model.predict_network, Tensor(predict_data), file_name="matmul", file_format="MINDIR")
 
 
 def create_predict_data():
@@ -208,7 +208,7 @@ from mindspore_serving.server import distributed
 
 
 def start_agents():
-    """Start all the worker agents in current machine"""
+    """Start all the agents in current machine"""
     model_files = []
     group_configs = []
     for i in range(8):
