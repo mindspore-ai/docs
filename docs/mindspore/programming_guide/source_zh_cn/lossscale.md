@@ -5,6 +5,7 @@
 - [LossScale](#LossScale)
     - [概述](#概述)
     - [FixedLossScaleManager](#FixedLossScaleManager)
+        - [LossScale与优化器](#LossScale与优化器)
     - [DynamicLossScaleManager](#DynamicLossScaleManager)
 
 <!-- /TOC -->
@@ -110,6 +111,95 @@ model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_
 # Run training
 model.train(epoch=10, train_dataset=ds_train, callbacks=[LossMonitor()])
 ```
+
+### LossScale与优化器
+
+前面提到了使用`FixedLossScaleManager`且`drop_overflow_update`为False时，优化器需要配合使用。这是由于采用此方式进行配置时，梯度与`loss_scale`系数之间的除法运算在优化器中进行。优化器设置与`FixedLossScaleManager`相同的`loss_scale`，训练结果才是正确的。后续MindSpore会优化不同场景下溢出检测功能的用法，并逐步移除优化器中的`loss_scale`参数，到时便无需配置优化器的`loss_scale`参数。
+
+需要注意的是，当前MindSpore提供的部分优化器如`AdamWeightDecay`，未提供`loss_scale`参数。如果使用`FixedLossScaleManager`，且`drop_overflow_update`配置为False，优化器中未能进行梯度与`loss_scale`之间的除法运算，此时需要自定义`TrainOneStepCell`，并在其中对梯度除`loss_scale`，以使最终的计算结果正确，定义方式如下：
+
+```python
+import mindspore
+from mindspore import nn, ops, Tensor
+
+grad_scale = ops.MultitypeFuncGraph("grad_scale")
+
+@grad_scale.register("Tensor", "Tensor")
+def gradient_scale(scale, grad):
+    return grad * ops.cast(scale, ops.dtype(grad))
+
+class CustomTrainOneStepCell(nn.TrainOneStepCell):
+    def __init__(self, network, optimizer, sens=1.0):
+        super(CustomTrainOneStepCell, self).__init__(network, optimizer, sens)
+        self.hyper_map = ops.HyperMap()
+        self.reciprocal_sense = Tensor(1 / sens, mindspore.float32)
+
+    def scale_grad(self, gradients):
+        gradients = self.hyper_map(ops.partial(grad_scale, self.reciprocal_sense), gradients)
+        return gradients
+
+    def construct(self, *inputs):
+        loss = self.network(*inputs)
+        sens = ops.fill(loss.dtype, loss.shape, self.sens)
+        # calculate gradients, the sens will equal to the loss_scale
+        grads = self.grad(self.network, self.weights)(*inputs, sens)
+        # gradients / loss_scale
+        grads = self.scale_grad(grads)
+        # reduce gradients in distributed scenarios
+        grads = self.grad_reducer(grads)
+        loss = ops.depend(loss, self.optimizer(grads))
+        return loss
+```
+
+- network：参与训练的网络，该网络包含前向网络和损失函数的计算逻辑，输入数据和标签，输出损失函数值。
+- optimizer：所使用的优化器。
+- sens：参数用于接收用户指定的`loss_scale`，训练过程中梯度值会放大`loss_scale`倍。
+- scale_grad函数：用于梯度与`loss_scale`系数之间的除法运算，还原梯度。
+- construct函数：参照`nn.TrainOneStepCell`定义`construct`的计算逻辑，并在获取梯度后调用`scale_grad`。
+
+自定义`TrainOneStepCell`后，需要手动构建训练网络，如下:
+
+```python
+from mindspore import nn, FixedLossScaleManager
+
+network = LeNet5(10)
+
+# Define Loss and Optimizer
+net_loss = nn.SoftmaxCrossEntropyWithLogits(reduction="mean")
+net_opt = nn.AdamWeightDecay(network.trainable_params(), learning_rate=0.01)
+
+# Define LossScaleManager
+loss_scale = 1024.0
+loss_scale_manager = FixedLossScaleManager(loss_scale, False)
+
+# Build train network
+net_with_loss = nn.WithLossCell(network, net_loss)
+net_with_train = CustomTrainOneStepCell(net_with_loss, net_opt, loss_scale)
+```
+
+构建训练网络后可以直接运行或通过Model运行：
+
+```python
+epochs = 2
+
+#1) Execute net_with_train
+ds_train = create_dataset()
+
+for epoch in range(epochs):
+    for d in ds_train.create_dict_iterator():
+        result = net_with_train(d["data"], d["label"])
+
+#2) Define Model and run
+model = Model(net_with_train)
+
+ds_train = create_dataset()
+
+model.train(epoch=epochs, train_dataset=ds_train)
+```
+
+在此场景下使用`Model`进行训练时，`loss_scale_manager`和`amp_level`无需配置，因为`CustomTrainOneStepCell`中已经包含了混合精度的计算逻辑。
+
+> 更多关于手动构建训练网络的用法，可以参考文档[构建和执行网络模型](https://www.mindspore.cn/docs/programming_guide/zh-Ch/master/train_and_eval.html)以及[model基本使用](https://www.mindspore.cn/docs/programming_guide/zh-Ch/master/model_use_guide.html)。
 
 ## DynamicLossScaleManager
 
