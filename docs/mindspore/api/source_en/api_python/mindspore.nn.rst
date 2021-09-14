@@ -288,15 +288,8 @@ Math Functions
     :nosignatures:
     :template: classtemplate.rst
 
-    mindspore.nn.DiGamma
-    mindspore.nn.IGamma
-    mindspore.nn.LBeta
-    mindspore.nn.LGamma
-    mindspore.nn.MatDet
-    mindspore.nn.MatInverse
     mindspore.nn.MatMul
     mindspore.nn.Moments
-    mindspore.nn.ReduceLogSumExp
 
 Metrics
 --------
