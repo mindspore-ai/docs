@@ -70,9 +70,9 @@ Servable包含如下内容：
 ```text
 resnet50
 ├── 1
-│   └── resnet50_1b_cifar10.mindir
+│   └── resnet50_1b_cifar10.mindir
 ├── 2
-│   └── resnet50_1b_cifar10.mindir
+│   └── resnet50_1b_cifar10.mindir
 └── servable_config.py
 ```
 
@@ -89,6 +89,7 @@ resnet50
 预处理和后处理定义方式例子如下：
 
 ```python
+import numpy as np
 import mindspore.dataset.vision.c_transforms as VC
 
 # cifar 10
@@ -117,6 +118,7 @@ def preprocess_eager(image):
     image = hwc2chw(image)
     return image
 
+
 def postprocess_top1(score):
     """
     Define postprocess. This example has one input and one output.
@@ -129,7 +131,8 @@ def postprocess_top1(score):
 def postprocess_top5(score):
     """
     Define postprocess. This example has one input and two outputs.
-    The input is the numpy tensor of the score. The first output is the str joined by labels of top five, and the second output is the score tensor of the top five.
+    The input is the numpy tensor of the score. The first output is the str joined by labels of top five,
+    and the second output is the score tensor of the top five.
     """
     idx = np.argsort(score)[::-1][:5]  # top 5
     ret_label = [idx_2_label[i] for i in idx]
@@ -189,11 +192,11 @@ model = distributed.declare_servable(rank_size=8, stage_size=1, with_batch_dim=F
 from mindspore_serving.server import register
 
 @register.register_method(output_names=["label"])
-def classify_top1(image):
+def classify_top1(image):  # pipeline: preprocess_eager/postprocess_top1, model
     """Define method `classify_top1` for servable `resnet50`.
      The input is `image` and the output is `label`."""
     x = register.add_stage(preprocess_eager, image, outputs_count=1)
-    x = register.add_stage(model, x, outputs_count=1)
+    x = register.add_stage(resnet_model, x, outputs_count=1)
     x = register.add_stage(postprocess_top1, x, outputs_count=1)
     return x
 
@@ -203,7 +206,7 @@ def classify_top5(image):
     """Define method `classify_top5` for servable `resnet50`.
      The input is `image` and the output is `label` and `score`. """
     x = register.add_stage(preprocess_eager, image, outputs_count=1)
-    x = register.add_stage(model, x, outputs_count=1)
+    x = register.add_stage(resnet_model, x, outputs_count=1)
     label, score = register.add_stage(postprocess_top5, x, outputs_count=2)
     return label, score
 ```
