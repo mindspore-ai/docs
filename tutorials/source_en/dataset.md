@@ -70,6 +70,8 @@ You need to customize the following class functions:
 
     Define the `__getitem__` function of the dataset class to support random access and obtain and return data in the dataset based on the specified `index` value.
 
+    The return value of the `__getitem__` function needs to be a tuple of numpy arrays. When returning a single numpy array, it can be written as `return (np_array_1,)`.
+
     ```python
     def __getitem__(self, index):
         return self.data[index], self.label[index]
