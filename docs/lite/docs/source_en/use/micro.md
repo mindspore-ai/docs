@@ -473,7 +473,15 @@ A header file named registered_kernel.h in the generated files. The custom kerne
 int CustomKernel(TensorC *inputs, int input_num, TensorC *outputs, int output_num, CustomParameter *param);
 ```
 
-Users need to implement this function then add their source files to the cmake project. Finally, we build the benchmark:
+Users need to implement this function then add their source files to the cmake project. For example, we provide a sample library named libmicro_nnie.so in the nnie runtime package, [download](https://www.mindspore.cn/lite/docs/en/r1.5/use/downloads.html). The library contains the implementation of custom kernel for NNIE. Users can download it and modify the CMakeLists.txt：
+
+``` shell
+link_directories(<YOUR_PATH>/mindspore-lite-1.5.0-linux-aarch32/providers/Hi3516D)
+link_directories(<HI3516D_SDK_PATH>)
+target_link_libraries(benchmark net micro_nnie nnie mpi VoiceEngine upvqe securec -lm -pthread)
+```
+
+Finally, we build the benchmark:
 
 ``` shell
 cd nnie && mkdir buid && cd build
