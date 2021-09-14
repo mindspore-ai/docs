@@ -471,7 +471,13 @@ c                        # 执行模型推理
 int CustomKernel(TensorC *inputs, int input_num, TensorC *outputs, int output_num, CustomParameter *param);
 ```
 
-用户需要提供该函数的实现，并将相关源码集成到生成代码的cmake工程中，最后进行源码编译：
+用户需要提供该函数的实现，并将相关源码或者库集成到生成代码的cmake工程中。例如，我们提供了支持海思NNIE的custom kernel示例动态库libmicro_nnie.so，该文件包含在[官网下载页](https://www.mindspore.cn/lite/docs/zh-CN/r1.5/use/downloads.html)《NNIE 推理runtime及benchmark工具》组件中。用户需要修改生成代码的CMakeLists.txt，填加链接的库名称和路径。例如：
+
+``` shell
+link_directories(<YOUR_PATH>/mindspore-lite-1.5.0-linux-aarch32/providers/Hi3516D)
+link_directories(<HI3516D_SDK_PATH>)
+target_link_libraries(benchmark net micro_nnie nnie mpi VoiceEngine upvqe securec -lm -pthread)
+```
 
 ``` shell
 cd nnie && mkdir buid && cd build
