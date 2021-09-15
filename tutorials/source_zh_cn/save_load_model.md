@@ -23,8 +23,8 @@ model.train(epoch_num, dataset, callbacks=ckpt_cb)
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
 
 config_ck = CheckpointConfig(save_checkpoint_steps=32, keep_checkpoint_max=10)
-ckpt_cb = ModelCheckpoint(prefix='resnet50', directory=None, config=config_ckpt)
-model.train(epoch_num, dataset, callbacks= ckpt_cb)
+ckpt_cb = ModelCheckpoint(prefix='resnet50', directory=None, config=config_ck)
+model.train(epoch_num, dataset, callbacks=ckpt_cb)
 ```
 
 上述代码中，首先需要初始化一个`CheckpointConfig`类对象，用来设置保存策略。
