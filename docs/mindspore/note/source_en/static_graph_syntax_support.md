@@ -441,7 +441,7 @@ notes:
 
 | Binary Arithmetic Operator | Supported Type|
 | :----------- |:--------|
-| `+` |`Number` + `Number`, `String` + `String`, `Number` + `Tensor`, `Tensor` + `Number`, `Tuple` + `Tensor`, `Tensor` + `Tuple`, `List` + `Tensor`, `Tensor`+`List`, `List`+`List`, `Tensor` + `Tensor`, `RowTensor`+`Tensor`, `Tuple` + `Tuple`.|
+| `+` |`Number` + `Number`, `String` + `String`, `Number` + `Tensor`, `Tensor` + `Number`, `Tuple` + `Tensor`, `Tensor` + `Tuple`, `List` + `Tensor`, `Tensor`+`List`, `List`+`List`, `Tensor` + `Tensor`, `Tuple` + `Tuple`.|
 | `-` |`Number` - `Number`, `Tensor` - `Tensor`, `Number` -`Tensor`, `Tensor` - `Number`, `Tuple` -`Tensor`, `Tensor` -`Tuple`, `List` -`Tensor`, `Tensor` -`List`.|
 | `*` |`Number` * `Number`, `Tensor` * `Tensor`, `Number` * `Tensor`, `Tensor` * `Number`, `List` * `Number`, `Number` * `List`, `Tuple` * `Number`, `Number` * `Tuple`, `Tuple` * `Tensor`, `Tensor` * `Tuple`,  `List` * `Tensor`, `Tensor` * `List`.|
 | `/` |`Number` / `Number`, `Tensor` / `Tensor`, `Number` / `Tensor`, `Tensor` / `Number`, `Tuple` / `Tensor`, `Tensor` / `Tuple`,  `List` / `Tensor`, `Tensor` / `List`.|
@@ -454,13 +454,14 @@ Restrictions:
 - If all operands are `Number` type, value of Number can't be `Bool`.
 - If all operands are `Number` type, operations between  `Float64` and `Int32` are not supported.
 - If either operand is `Tensor` type, left and right operands can't both be `Bool` value.
+- The result of `List  * Number`  is concatenate  duplicate List Number times, data type of the `List` must be `Number`, `String`, `None` or `List`/`Tuple` that contains these types.  This rule applies to `Number * List`,  `Tuple * Number`, `Number * Tuple` too.
 
 ### Assignment Operators
 
-| Assignment Operator | Supported Type|
+| Assignment Operator | Supported Type、 |
 | :----------- |:--------|
 | `=`          |All Built-in Python Types that MindSpore supported and MindSpore User-defined Data Types.|
-| `+=` |`Number` += `Number`, `String` += `String`, `Number` += `Tensor`, `Tensor` += `Number`, `Tuple` += `Tensor`, `Tensor` += `Tuple`, `List` += `Tensor`, `Tensor` += `List`, `List` += `List`, `Tensor` += `Tensor`, `RowTensor` += `Tensor`, `Tuple` += `Tuple`.|
+| `+=` |`Number` += `Number`, `String` += `String`, `Number` += `Tensor`, `Tensor` += `Number`, `Tuple` += `Tensor`, `Tensor` += `Tuple`, `List` += `Tensor`, `Tensor` += `List`, `List` += `List`, `Tensor` += `Tensor`, `Tuple` += `Tuple`.|
 | `-=` |`Number` -= `Number`, `Tensor` -= `Tensor`, `Number` -= `Tensor`, `Tensor` -= `Number`, `Tuple` -= `Tensor`, `Tensor` -= `Tuple`, `List` -= `Tensor`, `Tensor` -= `List`.|
 | `*=` |`Number` *= `Number`, `Tensor` *= `Tensor`, `Number` *= `Tensor`, `Tensor` *= `Number`, `List` *= `Number`, `Number` *= `List`, `Tuple` *= `Number`, `Number` *= `Tuple`, `Tuple` *= `Tensor`, `Tensor` *= `Tuple`,  `List` *= `Tensor`, `Tensor` *= `List`.|
 | `/=` |`Number` /= `Number`, `Tensor` /= `Tensor`, `Number` /= `Tensor`, `Tensor` /= `Number`, `Tuple` /= `Tensor`, `Tensor` /= `Tuple`, `List` /= `Tensor`, `Tensor` /= `List`.|
@@ -475,9 +476,14 @@ Notes:
   Only instance of `Cell` and `Primitve` can be created in function construct, the statement like `xx = Tensor(...)` is forbidden.
 
   Only `Parameter` attribute of self can be assign, for more detail refer to [`Attribute Reference`](#attribute-references).
+
 - If all operands of  `AugAssign` are `Number` type, value of Number can't be `Bool`.
+
 - If all operands of  `AugAssign` are `Number` type, operations between  `Float64` and `Int32` are not supported.
+
 - If either operand of  `AugAssign` is `Tensor` type, left and right operands can't both be `Bool` value.
+
+- The result of `List *= Number` is concatenate duplicate List Number times, data type of the `List` must be `Number`, `String`, `None` or `List`/`Tuple` that contains these types. This rule applies to `Number * List`, `Tuple * Number`, `Number * Tuple` too.
 
 ### Logical Operators
 
