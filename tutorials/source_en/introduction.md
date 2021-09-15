@@ -33,7 +33,7 @@ For details, click [Huawei Ascend official website](https://e.huawei.com/en/prod
 
 MindSpore is a deep learning framework in all scenarios, aiming to achieve easy development, efficient execution, and all-scenario coverage. Easy development features friendly APIs and easy debugging. Efficient execution is reflected in computing, data preprocessing, and distributed training. All-scenario coverage means that the framework supports cloud, edge, and device scenarios.
 
-The following figure shows the overall MindSpore architecture, which mainly consists of four parts: MindSpore Extend, MindExpression (ME), MindCompiler and MIndRT.
+The following figure shows the overall MindSpore architecture:
 
 - **ModelZoo**: ModelZoo provides available deep learning algorithm networks, and more developers are welcome to contribute new networks.
 - **MindSpore Extend**: The expansion package of MindSpore expands the support of new fields, such as GNN/deep probabilistic programming/reinforcement learning, etc. We look forward to more developers to contribute and build together.
