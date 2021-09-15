@@ -232,4 +232,4 @@ optim = nn.Momentum(group_params, learning_rate=0.1, momentum=0.9, weight_decay=
 
 深度神经网络存在使用混合精度训练的场景，这种方法通过混合使用单精度和半精度数据格式来加速网络训练，同时保持了单精度训练所能达到的网络精度。混合精度训练能够加速计算过程，减少内存使用和存取，并使得在特定的硬件上可以训练更大的模型或batch size。
 
-在混合精度训练过程中，经常使用溢出检测功能，MindSpore提供了`FixedLossScaleManager`和`DynamicLossScaleManager`用于溢出检测。一般情况下优化器不需要与溢出检测功能配合使用，但使用`FixedLossScaleManager`进行溢出检测，并且`drop_overflow_update`为False时，优化器需设置`loss_scale`的值，且`loss_scale`值与`FixedLossScaleManager`的相同，具体用法详见：https://www.mindspore.cn/docs/programming_guide/zh-Ch/r1.5/lossscale.html
+在混合精度训练过程中，经常使用溢出检测功能，MindSpore提供了`FixedLossScaleManager`和`DynamicLossScaleManager`用于溢出检测。一般情况下优化器不需要与溢出检测功能配合使用，但使用`FixedLossScaleManager`进行溢出检测，并且`drop_overflow_update`为False时，优化器需设置`loss_scale`的值，且`loss_scale`值与`FixedLossScaleManager`的相同，具体用法详见：https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/lossscale.html
