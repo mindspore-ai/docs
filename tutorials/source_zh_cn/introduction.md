@@ -29,7 +29,7 @@
 
 MindSpore是一个全场景深度学习框架，旨在实现易开发、高效执行、全场景覆盖三大目标，其中易开发表现为API友好、调试难度低，高效执行包括计算效率、数据预处理效率和分布式训练效率，全场景则指框架同时支持云、边缘以及端侧场景。
 
-MindSpore总体架构如下图所示，下面介绍主要的扩展层（MindSpore Extend）、前端表达层（MindExpression，ME）、编译优化层（MindCompiler）和全场景运行时（MindRT）四个部分。
+MindSpore总体架构如下图所示，其中：
 
 - **ModelZoo（网络样例）**：ModelZoo提供可用的深度学习算法网络，也欢迎更多开发者贡献新的网络。
 - **MindSpore Extend（扩展层）**：MindSpore的扩展包，支持拓展新领域场景，如GNN/深度概率编程/强化学习等，期待更多开发者来一起贡献和构建。
