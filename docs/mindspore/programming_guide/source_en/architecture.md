@@ -6,7 +6,7 @@
 
 MindSpore is a deep learning framework in all scenarios, aiming to achieve easy development, efficient execution, and all-scenario coverage. Easy development features include API friendliness and low debugging difficulty. Efficient execution includes computing efficiency, data preprocessing efficiency, and distributed training efficiency. All-scenario coverage means that the framework supports cloud, edge, and device scenarios.
 
-The following figure shows the overall MindSpore architecture, which mainly consists of four parts: MindSpore Extend, MindExpression (ME), MindCompiler and MindRT.
+The following figure shows the overall MindSpore architecture:
 
 - **ModelZoo**: ModelZoo provides available deep learning algorithm networks, and more developers are welcome to contribute new networks.
 - **MindSpore Extend**: The expansion package of MindSpore expands the support of new fields, such as GNN/deep probabilistic programming/reinforcement learning, etc. We look forward to more developers to contribute and build together.
