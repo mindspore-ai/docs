@@ -157,10 +157,50 @@ using NodeParserPtr = std::shared_ptr<NodeParser>;
 
 ## ModelParser
 
-\#include <[parser_context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/parser_context.h)>
+\#include <[model_parser.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/model_parser.h)>
 
-ModelParser类的前置声明，定义了解析原始模型的基类。
+解析原始模型的基类。
+
+### ModelParser
 
 ```c++
-class ModelParser;
+ModelParser() = default;
 ```
+
+构造函数
+
+### ~ModelParser
+
+```c++
+virtual ~ModelParser() = default;
+```
+
+析构函数
+
+### 公有成员函数
+
+#### Parse
+
+```c++
+api::FuncGraphPtr Parse(const converter::ConverterParameters &flags);
+```
+
+模型解析接口。
+
+- 参数
+
+    - `flags`: 解析模型时基本信息，具体见[ConverterParameters](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_converter.html#converterparameters)。
+
+- 返回值
+
+FuncGraph的共享智能指针。
+
+### 保护数据成员
+
+#### res_graph_
+
+```c++
+api::FuncGraphPtr res_graph_ = nullptr;
+```
+
+FuncGraph的共享智能指针。
