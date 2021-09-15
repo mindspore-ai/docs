@@ -38,8 +38,8 @@ You can configure the checkpoint policies as required. The following describes t
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
 
 config_ck = CheckpointConfig(save_checkpoint_steps=32, keep_checkpoint_max=10)
-ckpt_cb = ModelCheckpoint(prefix='resnet50', directory=None, config=config_ckpt)
-model.train(epoch_num, dataset, callbacks= ckpt_cb)
+ckpt_cb = ModelCheckpoint(prefix='resnet50', directory=None, config=config_ck)
+model.train(epoch_num, dataset, callbacks=ckpt_cb)
 ```
 
 In the preceding code, you need to initialize a `CheckpointConfig` class object to set the saving policy.
