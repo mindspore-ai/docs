@@ -95,7 +95,7 @@ NVT 290k
    step_limit = 1,                        # Total step limit, number of MD steps run
    thermostat=1,                          # Thermostat for temperature ; thermostat=0 for Langevin thermostat
    langevin_gamma=1.0,                    # Gamma_ln for Langevin thermostat represents coupling strength between thermostat and system
-   target_temperature=290,               # Target temperature
+   target_temperature=290,                # Target temperature
    write_information_interval=1000,       # Output frequency
    amber_irest=0,                         # Input style ;  amber_irest=1 for using amber style input & rst7 file contains veclocity
    cut=10.0,                              # Nonbonded cutoff distance in Angstroms
