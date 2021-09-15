@@ -440,7 +440,7 @@ def test_call():
 
 | 二元算术运算符 | 支持类型                                                     |
 | :------------- | :----------------------------------------------------------- |
-| `+`            | `Number` + `Number`、`String` + `String`、`Number` + `Tensor`、`Tensor` + `Number`、`Tuple` + `Tensor`、`Tensor` + `Tuple`、`List` + `Tensor`、`Tensor`+`List`、`List`+`List`、`Tensor` + `Tensor`、`RowTensor` + `Tensor`、`Tuple` + `Tuple`。 |
+| `+`            | `Number` + `Number`、`String` + `String`、`Number` + `Tensor`、`Tensor` + `Number`、`Tuple` + `Tensor`、`Tensor` + `Tuple`、`List` + `Tensor`、`Tensor`+`List`、`List`+`List`、`Tensor` + `Tensor`、`Tuple` + `Tuple`。 |
 | `-`            | `Number` - `Number`、`Tensor` - `Tensor`、`Number` - `Tensor`、`Tensor` - `Number`、`Tuple` - `Tensor`、`Tensor` - `Tuple`、`List` - `Tensor`、`Tensor` - `List`。 |
 | `*`            | `Number` * `Number`、`Tensor` * `Tensor`、`Number` * `Tensor`、`Tensor` * `Number`、`List` * `Number`、`Number` * `List`、`Tuple` * `Number`、`Number` * `Tuple`、`Tuple` * `Tensor`、`Tensor` * `Tuple`、 `List` * `Tensor`、`Tensor` * `List`。 |
 | `/`            | `Number` / `Number`、`Tensor` / `Tensor`、`Number` / `Tensor`、`Tensor` / `Number`、`Tuple` / `Tensor`、`Tensor` / `Tuple`、`List` / `Tensor`、`Tensor` / `List`。 |
@@ -453,13 +453,14 @@ def test_call():
 - 当左右操作数都为`Number`类型时，`Number`的值不可为`Bool` 类型。
 - 当左右操作数都为`Number`类型时，不支持`Float64` 和 `Int32`间的运算。
 - 当任一操作数为`Tensor`类型时，左右操作数的值不可同时为`Bool`。
+- `List/Tuple`和`Number`进行`*`运算时表示将`List/Tuple`复制`Number`份后串联起来，`List/Tuple`内的数据类型必须为`Number`、`String`、`None`或由以上类型构成的`List/Tuple`。
 
 ### 赋值运算符
 
 | 赋值运算符 | 支持类型                                                     |
 | :--------- | :----------------------------------------------------------- |
 | `=`        | MindSpore支持的Python内置数据类型和MindSpore自定义数据类型   |
-| `+=`       | `Number` += `Number`、`String` += `String`、`Number` += `Tensor`、`Tensor` += `Number`、`Tuple` += `Tensor`、`Tensor` += `Tuple`、`List` += `Tensor`、`Tensor` += `List`、`List` += `List`、`Tensor` += `Tensor`、`RowTensor` += `Tensor`、`Tuple` += `Tuple`。 |
+| `+=`       | `Number` += `Number`、`String` += `String`、`Number` += `Tensor`、`Tensor` += `Number`、`Tuple` += `Tensor`、`Tensor` += `Tuple`、`List` += `Tensor`、`Tensor` += `List`、`List` += `List`、`Tensor` += `Tensor`、`Tuple` += `Tuple`。 |
 | `-=`       | `Number` -= `Number`、`Tensor` -= `Tensor`、`Number` -= `Tensor`、`Tensor` -= `Number`、`Tuple` -= `Tensor`、`Tensor` -= `Tuple`、`List` -= `Tensor`、`Tensor` -= `List`。 |
 | `*=`       | `Number` *= `Number`、`Tensor` *= `Tensor`、`Number` *= `Tensor`、`Tensor` *= `Number`、`List` *= `Number`、`Number` *= `List`、`Tuple` *= `Number`、`Number` *= `Tuple`、`Tuple` *= `Tensor`、`Tensor` *= `Tuple`、 `List` *= `Tensor`、`Tensor` *= `List`。 |
 | `/=`       | `Number` /= `Number`、`Tensor` /= `Tensor`、`Number` /= `Tensor`、`Tensor` /= `Number`、`Tuple` /= `Tensor`、`Tensor` /= `Tuple`、`List` /= `Tensor`、`Tensor` /= `List`。 |
@@ -474,9 +475,14 @@ def test_call():
   在`construct`函数中仅支持创建`Cell`和`Primitive`类型对象，使用`xx = Tensor(...)`的方式创建`Tensor`会失败。
 
   在`construct`函数中仅支持为self 的`Parameter`类型的属性赋值, 详情参考：[属性引用](#属性引用)。
+
 - 当`AugAssign`的左右操作数都为`Number`类型时，`Number`的值不可为`Bool` 类型。
+
 - 当`AugAssign`的左右操作数都为`Number`类型时，不支持`Float64` 和 `Int32`间的运算。
+
 - 当`AugAssign`的任一操作数为`Tensor`类型时，左右操作数的值不可同时为`Bool`。
+
+- `List/Tuple`和`Number`进行`*=`运算时表示将`List/Tuple`复制`Number`份后串联起来，`List/Tuple`内的数据类型必须为`Number`、`String`、`None`或由以上类型构成的`List/Tuple`。
 
 ### 逻辑运算符
 
