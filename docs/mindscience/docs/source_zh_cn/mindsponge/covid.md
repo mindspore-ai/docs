@@ -218,7 +218,7 @@ ambpdb -p XXX.top < XXX.crd > 6lzg_HPP.pdb
 
 能量最小化的作用是去除建模过程中产生的不合理构象，防止在模拟最开始因为局域不合理的构象导致出现较高的能量而引起体系的崩溃。SPONGE需要读入控制模拟选项的输入文件来进行模拟设置，本例中能量最小化分三步完成，每一步最小化中使用不同的下降率，第一步最小化的输入文件`min1.in`如下：
 
-```txt
+```text
 SARS-CoV-2 min1
 mode = Minimization,
 step_limit = 5000,
@@ -229,14 +229,14 @@ dt = 1e-7,
 
 第二步和第三步的最小化则分别使用`dt = 1e-5`和`dt = 1e-3`的下降率，而读入的坐标分别为上一步输出的坐标。`min2.in`和`min3.in`，如下：
 
-```txt
+```text
 SARS-CoV-2 min2
 mode = Minimization,
 step_limit = 5000,
 dt = 1e-5,
 ```
 
-```txt
+```text
 SARS-CoV-2 min3
 mode = Minimization,
 step_limit = 5000,
@@ -247,7 +247,7 @@ dt = 1e-3,
 
 对体系进行能量最小化后，体系仍然处于绝对零度。而蛋白质是在具有一定温度的环境中行使功能的，实验也往往是在一定温度下进行的，所以我们需要对模拟体系升温升压，比如室温室压（300K，1bar）。首先，我们在NVT系综下将体系升温至300K，模拟输入文件heat.in内容如下：
 
-```txt
+```text
 SARS-CoV-2 Heating 300k
 mode = NVT,
 dt = 1e-3,
@@ -262,7 +262,7 @@ cutoff = 10.0,
 
 体系升温到室温后，我们需要进一步引入压浴调整体系的体积，使得体系处于室温室压的模拟条件。在这一步骤中我们使用NPT系综，模拟输入文件`press.in`如下：
 
-```txt
+```text
 SARS-CoV-2 Pressure to 1bar
 mode = NPT,
 dt= 1e-3,
@@ -419,7 +419,7 @@ paste SAs1.dat SAace2.dat Sacomplex.dat | awk ‘{print $1,$2+$4-$6}’ >contact
 
 #### 结果可视化
 
-对于模拟结构和轨迹的可视化也同样非常重要，我们可以利用[VMD软件](www.ks.uiuc.edu/Research/vmd/)对分子动力学模拟的结构和轨迹进行可视化，从而对模拟体系进行更深入细致的研究。也可以通过VMD等软件制作模拟轨迹的动画等。使用VMD绘制得到的L452Q和德尔塔毒株结构图如下所示。
+对于模拟结构和轨迹的可视化也同样非常重要，我们可以利用[VMD软件](https://www.ks.uiuc.edu/Research/vmd/)对分子动力学模拟的结构和轨迹进行可视化，从而对模拟体系进行更深入细致的研究。也可以通过VMD等软件制作模拟轨迹的动画等。使用VMD绘制得到的L452Q和德尔塔毒株结构图如下所示。
 
 ![image](./images/resultcovid.png)
 
