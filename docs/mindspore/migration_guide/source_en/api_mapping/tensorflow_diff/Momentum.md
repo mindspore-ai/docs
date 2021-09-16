@@ -1,5 +1,7 @@
 # Function Differences with tf.train.MomentumOptimizer
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/api_mapping/tensorflow_diff/Momentum.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+
 ## tf.train.MomentumOptimizer
 
 ```python
