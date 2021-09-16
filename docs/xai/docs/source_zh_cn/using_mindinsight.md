@@ -71,7 +71,7 @@ guidedbackprop = GuidedBackprop(net)
 activation_fn = nn.Sigmoid()  # for multi-label classification
 faithfulness = Faithfulness(num_labels=num_classes, metric='InsertionAUC', activation_fn=activation_fn)
 
-# 构造要解释的数据集对象, 如果要仗用 Localization 评分, 数据集需要提供界框资讯
+# 构造要解释的数据集对象, 如果要使用 Localization 评分, 数据集需要提供界框资讯
 # 数据集要提供以下其中一种的资讯列组合: [图], [图, 标签] 或 [图, 标签, 界框] (资讯列的先后次序必须跟从)
 # 请参阅 'mindspore.dataset.project' 的API文档了解如何管理资讯列
 test_dataset = load_dataset('xai_examples_data/test')
