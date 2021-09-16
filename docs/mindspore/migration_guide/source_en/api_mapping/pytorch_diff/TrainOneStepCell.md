@@ -1,0 +1,25 @@
+# Function Differences with torch.optim.Optimizer.step
+
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/TrainOneStepCell.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+
+## torch.optim.Optimizer.step
+
+```python
+torch.optim.Optimizer.step(closure)
+```
+
+## mindspore.nn.TrainOneStepCell
+
+```python
+class mindspore.nn.TrainOneStepCell(
+    network,
+    optimizer,
+    sens=1.0
+)((*inputs))
+```
+
+## Differences
+
+PyTorch: An abstract method of the abstract class `Optimizer`, and it should be inherited and implemented by `Optimizer`'s subclass and return loss.
+
+MindSpore: A class, which requires `network` and `optimizer` to be passed as parameters, and loss will be returned by the `construct` method.
