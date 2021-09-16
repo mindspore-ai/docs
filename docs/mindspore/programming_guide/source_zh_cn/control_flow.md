@@ -107,7 +107,7 @@ class SingleIfNet(nn.Cell):
 
 forward_net = SingleIfNet()
 z = Tensor(np.array([0, 1]), dtype=ms.int32)
-output = forward_net(x, y, z)
+output = forward_net(z)
 ```
 
 ## 使用for语句
@@ -124,6 +124,7 @@ from mindspore import dtype as ms
 
 class IfInForNet(nn.Cell):
     def construct(self, x, y):
+        out = 0
         for i in range(0,3)
             if x + i < y :
                 out = out + x
@@ -148,6 +149,7 @@ from mindspore import dtype as ms
 
 class IfInForNet(nn.Cell):
     def construct(self, x, y):
+        out = 0
         #######cycle 0
         if x + 0 < y :
             out = out + x
@@ -195,6 +197,7 @@ from mindspore import dtype as ms
 class IfInWhileNet(nn.Cell):
     def construct(self, x, y):
         i = 0
+        out = x
         while i < 3:
             if x + i < y :
                 out = out + x
@@ -224,6 +227,7 @@ from mindspore import dtype as ms
 
 class IfInWhileNet(nn.Cell):
     def construct(self, x, y, i):
+        out = x
         while i < 3:
             if x + i < y :
                 out = out + x
@@ -257,6 +261,7 @@ class IfInWhileNet(nn.Cell):
 
     def construct(self, x, y, i):
         j = 0
+        out = x
         while i < 3:
             if x + i < y :
                 out = out + x
@@ -291,6 +296,7 @@ class IfInWhileNet(nn.Cell):
             self.expand_dims = ops.ExpandDims()
 
     def construct(self, x, y, i):
+        out = x
         while i < 3:
             if x + i < y :
                 out = out + x
