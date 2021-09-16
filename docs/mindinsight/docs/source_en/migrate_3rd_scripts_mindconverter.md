@@ -199,7 +199,7 @@ Corresponding generated codes with MindSpore framework are as follows:
 from mindspore.dataset import GeneratorDataset
 from mindspore.dataset.vision import py_transforms as transforms
 
-class CustomGenerator
+class CustomGenerator:
     def __init__(self, *args, **kwargs):
         self.records = [...]
         self.labels = [...]
