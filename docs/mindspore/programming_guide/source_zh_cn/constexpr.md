@@ -11,6 +11,10 @@
 
 由于该函数在MindSpore编译时期进行，所以使用@constexpr函数时，要求输入函数的入参必须为一个编译时刻就能够确定的常量值，否则如果该函数入参为一个编译时刻无法确定的值，那么入参将会为None，从而可能导致函数输出与预期不符。
 
+当@constexpr的入参为提前明确的参数时可以实现一些在construct函数中不支持的操作。比如根据shape创建Tensor等。
+
+为了避免出现@constexpr输入为编译时无法确定的值，可以在内部进行对None的判断处理，避免一些未知错误。
+
 代码样例如下:
 
 ```python
@@ -21,23 +25,47 @@ import mindspore.nn as nn
 
 @constexpr
 def construct_tensor(x):
+    if x is None:
+        raise ValueError("input is a unknown value")
     return Tensor(np.array(x))
 
 class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
         self.relu = ops.ReLU()
-    def construct(self):
-        return self.relu(construct_tensor(x))
+    def construct(self, x):
+        return self.relu(construct_tensor(ops.shape(x)))
 
 net = Net()
-out = net()
+x = Tensor(np.random.random(7,6,3))
+out = net(x)
 print(out)
 ```
 
 运行结果如下:
 
 ```text
+[7 6 3]
+```
 
-[1 2 0 4]
+如下所示，如果我们将Net改成输入为编译时无法确定的值时，则会抛出异常。 由于construct_tensor输入为必须运行ReLU时才能确定的值。在constexpr中会抛出ValueError。
+
+```python
+@constexpr
+def construct_tensor(x):
+    if x is None:
+        raise ValueError("input is a unknown value")
+    return Tensor(np.array(x))
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.relu = ops.ReLU()
+    def construct(self, x):
+        return self.relu(construct_tensor(self.relu(x)))
+
+net = Net()
+x = Tensor(np.random.random(7,6,3))
+out = net(x)
+print(out)
 ```
