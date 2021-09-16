@@ -26,6 +26,7 @@ MindSpore API
    api_python/mindspore.nn.probability
    api_python/mindspore.numpy
    api_python/mindspore.ops
+   api_python/mindspore.parallel
    api_python/mindspore.parallel.nn
    api_python/mindspore.profiler
    api_python/mindspore.train
