@@ -175,7 +175,7 @@ def main():
         model = Model(net, optimizer=opt)
 
     callback_size = 1
-    # single vs pieplien (save a slice of the model)
+    # single vs pipeline (save a slice of the model)
     ckpt_config = CheckpointConfig(save_checkpoint_steps=callback_size, keep_checkpoint_max=4,
                                    integrated_save=False)
     ckpoint_cb = ModelCheckpoint(prefix="test",
