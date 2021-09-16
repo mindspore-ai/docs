@@ -546,3 +546,50 @@ class BpropUserDefinedNet(nn.Cell):
             return self.zeros_like(out), self.zeros_like(out)
 ```
 
+<br/>
+
+<font size=3>**Q: What can I do if an error “There isn't any branch that can be evaluated“ is reported?**</font>
+When an error similar to "There isn't any branch that can be evaluated" appears.
+it means that there may be infinite recursion or loop in the code, which causes each branch of the if condition to be unable to deduce the correct type and dimension information.
+
+The example is as follow:
+
+```python
+from mindspore import Tensor, ms_function
+from mindspore import dtype as mstype
+import mindspore.context as context
+ZERO = Tensor([0], mstype.int32)
+ONE = Tensor([1], mstype.int32)
+@ms_function
+def f(x):
+    y = ZERO
+    if x < 0:
+        y = f(x - 3)
+    elif x < 3:
+        y = x * f(x - 1)
+    elif x < 5:
+        y = x * f(x - 2)
+    else:
+        y = f(x - 4)
+    z = y + 1
+    return z
+
+def test_endless():
+    context.set_context(mode=context.GRAPH_MODE)
+    x = Tensor([5], mstype.int32)
+    f(x)
+
+```
+
+the f(x)'s each branch of the if condition cannot deduce the correct type and dimension information
+
+<br/>
+
+<font size=3>**Q: What can I do if an error "Exceed function call depth limit 1000" is reported?**</font>
+
+This indicates that there is an infinite recursive loop in the code, or the code is too complex, that caused the stack depth exceed.
+
+At this time, you can set context.set_context(max_call_depth = value) to change the maximum depth of the stack, and consider simplifying the code logic or checking whether there is infinite recursion or loop in the code.
+
+Otherwise, set max_call_depth can change the recursive depth of MindSpore, it may also cause exceed the maximum depth of the system stack and cause segment fault. At this time, you may also need to set the system stack depth.
+
