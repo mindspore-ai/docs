@@ -49,7 +49,7 @@ cd mindspore
 bash build.sh -I x86_64 -j8
 ```
 
-更详细的编译说明，请参考[编译MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)章节。
+编译环境要求以及环境变量设置，请参考[编译MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)章节。
 本教程使用的示例源码在`mindspore/lite/examples/train_lenet_java`目录。
 
 ### 下载数据集
