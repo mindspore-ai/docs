@@ -16,9 +16,8 @@
 
 import numpy as np
 import mindspore.nn as nn
-import mindspore.common.dtype as mstype
-from mindspore.ops import operations as P
-from mindspore.common.tensor import Tensor
+from mindspore import Tensor, dtype as mstype
+from mindspore import ops
 
 class BboxAssignSampleForRcnn(nn.Cell):
     """
@@ -55,27 +54,27 @@ class BboxAssignSampleForRcnn(nn.Cell):
         self.add_gt_as_proposals_valid = Tensor(np.array(self.add_gt_as_proposals * np.ones(self.num_gts),
                                                          dtype=np.int32))
 
-        self.concat = P.Concat(axis=0)
-        self.max_gt = P.ArgMaxWithValue(axis=0)
-        self.max_anchor = P.ArgMaxWithValue(axis=1)
-        self.sum_inds = P.ReduceSum()
-        self.iou = P.IOU()
-        self.greaterequal = P.GreaterEqual()
-        self.greater = P.Greater()
-        self.select = P.Select()
-        self.gatherND = P.GatherNd()
-        self.squeeze = P.Squeeze()
-        self.cast = P.Cast()
-        self.logicaland = P.LogicalAnd()
-        self.less = P.Less()
-        self.random_choice_with_mask_pos = P.RandomChoiceWithMask(self.num_expected_pos)
-        self.random_choice_with_mask_neg = P.RandomChoiceWithMask(self.num_expected_neg)
-        self.reshape = P.Reshape()
-        self.equal = P.Equal()
-        self.bounding_box_encode = P.BoundingBoxEncode(means=(0.0, 0.0, 0.0, 0.0), stds=(0.1, 0.1, 0.2, 0.2))
-        self.concat_axis1 = P.Concat(axis=1)
-        self.logicalnot = P.LogicalNot()
-        self.tile = P.Tile()
+        self.concat = ops.Concat(axis=0)
+        self.max_gt = ops.ArgMaxWithValue(axis=0)
+        self.max_anchor = ops.ArgMaxWithValue(axis=1)
+        self.sum_inds = ops.ReduceSum()
+        self.iou = ops.IOU()
+        self.greaterequal = ops.GreaterEqual()
+        self.greater = ops.Greater()
+        self.select = ops.Select()
+        self.gatherND = ops.GatherNd()
+        self.squeeze = ops.Squeeze()
+        self.cast = ops.Cast()
+        self.logicaland = ops.LogicalAnd()
+        self.less = ops.Less()
+        self.random_choice_with_mask_pos = ops.RandomChoiceWithMask(self.num_expected_pos)
+        self.random_choice_with_mask_neg = ops.RandomChoiceWithMask(self.num_expected_neg)
+        self.reshape = ops.Reshape()
+        self.equal = ops.Equal()
+        self.bounding_box_encode = ops.BoundingBoxEncode(means=(0.0, 0.0, 0.0, 0.0), stds=(0.1, 0.1, 0.2, 0.2))
+        self.concat_axis1 = ops.Concat(axis=1)
+        self.logicalnot = ops.LogicalNot()
+        self.tile = ops.Tile()
 
         # Check
         self.check_gt_one = Tensor(np.array(-1 * np.ones((self.num_gts, 4)), dtype=np.float16))
@@ -102,15 +101,15 @@ class BboxAssignSampleForRcnn(nn.Cell):
         self.scalar_pos_iou_thr = Tensor(self.pos_iou_thr, dtype=mstype.float16)
         self.scalar_min_pos_iou = Tensor(self.min_pos_iou, dtype=mstype.float16)
 
-        self.expand_dims = P.ExpandDims()
-        self.split = P.Split(axis=1, output_num=4)
-        self.concat_last_axis = P.Concat(axis=-1)
-        self.round = P.Round()
+        self.expand_dims = ops.ExpandDims()
+        self.split = ops.Split(axis=1, output_num=4)
+        self.concat_last_axis = ops.Concat(axis=-1)
+        self.round = ops.Round()
         self.image_h_w = Tensor([cfg.img_height, cfg.img_width, cfg.img_height, cfg.img_width], dtype=mstype.float16)
         self.range = nn.Range(start=0, limit=cfg.num_expected_pos_stage2)
-        self.crop_and_resize = P.CropAndResize(method="bilinear_v2")
+        self.crop_and_resize = ops.CropAndResize(method="bilinear_v2")
         self.mask_shape = (cfg.mask_shape[0], cfg.mask_shape[1])
-        self.squeeze_mask_last = P.Squeeze(axis=-1)
+        self.squeeze_mask_last = ops.Squeeze(axis=-1)
     def construct(self, gt_bboxes_i, gt_labels_i, valid_mask, bboxes, gt_valids, gt_masks_i):
         """Get bbox assigner and sampler"""
         gt_bboxes_i = self.select(self.cast(self.tile(self.reshape(self.cast(gt_valids, mstype.int32), \

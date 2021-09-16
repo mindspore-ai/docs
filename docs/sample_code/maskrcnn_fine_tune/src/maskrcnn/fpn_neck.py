@@ -16,9 +16,8 @@
 
 import numpy as np
 import mindspore.nn as nn
-from mindspore.ops import operations as P
-from mindspore.common.tensor import Tensor
-from mindspore.common import dtype as mstype
+from mindspore import ops
+from mindspore.common import Tensor, dtype as mstype
 from mindspore.common.initializer import initializer
 
 
@@ -84,11 +83,11 @@ class FeatPyramidNeck(nn.Cell):
             self.fpn_convs_.append(fpn_conv)
         self.lateral_convs_list = nn.layer.CellList(self.lateral_convs_list_)
         self.fpn_convs_list = nn.layer.CellList(self.fpn_convs_)
-        self.interpolate1 = P.ResizeBilinear((48, 80))
-        self.interpolate2 = P.ResizeBilinear((96, 160))
-        self.interpolate3 = P.ResizeBilinear((192, 320))
-        self.cast = P.Cast()
-        self.maxpool = P.MaxPool(kernel_size=1, strides=2, pad_mode="same")
+        self.interpolate1 = ops.ResizeBilinear((48, 80))
+        self.interpolate2 = ops.ResizeBilinear((96, 160))
+        self.interpolate3 = ops.ResizeBilinear((192, 320))
+        self.cast = ops.Cast()
+        self.maxpool = ops.MaxPool(kernel_size=1, strides=2, pad_mode="same")
 
     def construct(self, inputs):
         """Feature pyramid network cell, usually uses as network neck."""
