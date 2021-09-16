@@ -43,7 +43,7 @@ Dataset也支持将常用的数据集和用户自定义的数据集转为MindSpo
 
 Dataset对多种常用的数据集提供对应的类来实现数据集的加载，同时对于不同存储格式的数据文件，Dataset也有对应的类来进行数据加载。MindSpore数据集加载请参考：[MindSpore数据集加载](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/dataset_loading.html#%E6%95%B0%E6%8D%AE%E9%9B%86%E5%8A%A0%E8%BD%BD%E6%80%BB%E8%A7%88)。
 
-Dataset提供了多种用途的采样器（Sampler），采样器负责生成读取的index序列，Dataset负责根据index读取相应数据，帮助用户对数据集进行不同形式的采样，以满足训练需求，解决诸如数据集过大或样本类别分布不均等问题。
+Dataset提供了多种用途的采样器（Sampler），采样器负责生成读取的index序列，Dataset负责根据index读取相应数据，帮助用户对数据集进行不同形式的采样，以满足训练需求，解决诸如数据集过大或样本类别分布不均等问题，注意，采样器负责对样本做filter和reorder操作，不会执行Batch操作。
 
 Mindspore的数据采样介绍请参考：[MindSpore数据采样](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/sampler.html#%E6%95%B0%E6%8D%AE%E9%87%87%E6%A0%B7)。
 
@@ -63,6 +63,7 @@ Dataset提供多种方式来实现全局shuffle操作。
 
    ```python
    import numpy as np
+   import mindspore.dataset as ds
    data = [1, 2, 3, 4]
    dataset = ds.NumpySlicesDataset(data=data, column_names=["column_1"], shuffle=True)
    ```
@@ -73,6 +74,7 @@ Dataset提供多种方式来实现全局shuffle操作。
 
    ```python
    import numpy as np
+   import mindspore.dataset as ds
    data = [1, 2, 3, 4]
    dataset = ds.NumpySlicesDataset(data=data, column_names=["column_1"])
    # buffer_size equal to the number of rows in the entire dataset will result in a global     shuffle
@@ -85,6 +87,7 @@ Dataset提供多种方式来实现全局shuffle操作。
 
    ```python
    import numpy as np
+   import mindspore.dataset as ds
    data = [1, 2, 3, 4]
    sampler = ds.RandomSampler()
    dataset = ds.NumpySlicesDataset(data=data, column_names=["column_1"],sampler=sampler)
@@ -112,7 +115,7 @@ Map操作请参考：[Map操作](https://www.mindspore.cn/docs/api/zh-CN/r1.5/ap
 
 每次只使用一个样本训练模型，具有较好的随机性，但并行化差，导致训练效率过低。引入mini-batch可以较好均衡训练速度和训练效果。
 
-Batch 操作负责将多个`shape`相同的`Tensor`“打包”到一起，以实现以mini-batch的方式来进行训练。
+Batch 操作负责将多个`shape`相同的`Tensor`“打包”到一起，以实现以mini-batch的方式来进行训练，Batch操作还提供drop_remainder参数，表示把最后一个不足batch_size的batch删除，默认会保留。
 
 在“打包”动作之前，Batch支持将`shape`不一致的`Tensor`根据用户需求、或者自动将`Tensor`的`shape`填充一致，以及通过`Per_batch_map`在“打包”之前
 执行用户自定义的函数。
