@@ -230,7 +230,7 @@ cross_silo_femnist/
 当执行以上三个指令之后，进入当前目录下`worker_0`文件夹，通过指令`grep -rn "test acc" *`查看`worker_0`日志，可看到如下类似打印：
 
 ```sh
-local epoch: 0, loss: 3.787421340711655, trian acc: 0.05342741935483871, test acc: 0.075
+fl iteration: 0, loss: 3.787421340711655, trian acc: 0.05342741935483871, test acc: 0.075
 ```
 
 则说明云云联邦启动成功，`worker_0`正在训练，其他worker可通过类似方式查看。
@@ -298,26 +298,26 @@ python finish_cross_silo_femnist.py --scheduler_port=6667
 `worker_0`测试结果：
 
 ```sh
-worker_0/worker.log:7409:local epoch: 0, loss: 3.787421340711655, trian acc: 0.05342741935483871, test acc: 0.075
-worker_0/worker.log:14419:local epoch: 1, loss: 3.725699281115686, trian acc: 0.05342741935483871, test acc: 0.075
-worker_0/worker.log:21429:local epoch: 2, loss: 3.5285709657335795, trian acc: 0.19556451612903225, test acc: 0.16875
-worker_0/worker.log:28439:local epoch: 3, loss: 3.0393165519160608, trian acc: 0.4889112903225806, test acc: 0.4875
-worker_0/worker.log:35449:local epoch: 4, loss: 2.575952764115026, trian acc: 0.6854838709677419, test acc: 0.60625
-worker_0/worker.log:42459:local epoch: 5, loss: 2.2081101375296512, trian acc: 0.7782258064516129, test acc: 0.6875
-worker_0/worker.log:49470:local epoch: 6, loss: 1.9229739431736557, trian acc: 0.8054435483870968, test acc: 0.69375
-worker_0/worker.log:56480:local epoch: 7, loss: 1.7005576549999293, trian acc: 0.8296370967741935, test acc: 0.65625
-worker_0/worker.log:63490:local epoch: 8, loss: 1.5248727620766704, trian acc: 0.8407258064516129, test acc: 0.6375
-worker_0/worker.log:70500:local epoch: 9, loss: 1.3838803705352127, trian acc: 0.8568548387096774, test acc: 0.7
-worker_0/worker.log:77510:local epoch: 10, loss: 1.265225578921041, trian acc: 0.8679435483870968, test acc: 0.7125
-worker_0/worker.log:84520:local epoch: 11, loss: 1.167484122101638, trian acc: 0.8659274193548387, test acc: 0.70625
-worker_0/worker.log:91530:local epoch: 12, loss: 1.082880981700859, trian acc: 0.8770161290322581, test acc: 0.65625
-worker_0/worker.log:98540:local epoch: 13, loss: 1.0097520119572772, trian acc: 0.8840725806451613, test acc: 0.64375
-worker_0/worker.log:105550:local epoch: 14, loss: 0.9469810053708015, trian acc: 0.9022177419354839, test acc: 0.7
-worker_0/worker.log:112560:local epoch: 15, loss: 0.8907848935604703, trian acc: 0.9022177419354839, test acc: 0.6625
-worker_0/worker.log:119570:local epoch: 16, loss: 0.8416629644123349, trian acc: 0.9082661290322581, test acc: 0.70625
-worker_0/worker.log:126580:local epoch: 17, loss: 0.798475691030866, trian acc: 0.9122983870967742, test acc: 0.70625
-worker_0/worker.log:133591:local epoch: 18, loss: 0.7599438544427897, trian acc: 0.9243951612903226, test acc: 0.6875
-worker_0/worker.log:140599:local epoch: 19, loss: 0.7250227383907605, trian acc: 0.9294354838709677, test acc: 0.7125
+worker_0/worker.log:7409:fl iteration: 0, loss: 3.787421340711655, trian acc: 0.05342741935483871, test acc: 0.075
+worker_0/worker.log:14419:fl iteration: 1, loss: 3.725699281115686, trian acc: 0.05342741935483871, test acc: 0.075
+worker_0/worker.log:21429:fl iteration: 2, loss: 3.5285709657335795, trian acc: 0.19556451612903225, test acc: 0.16875
+worker_0/worker.log:28439:fl iteration: 3, loss: 3.0393165519160608, trian acc: 0.4889112903225806, test acc: 0.4875
+worker_0/worker.log:35449:fl iteration: 4, loss: 2.575952764115026, trian acc: 0.6854838709677419, test acc: 0.60625
+worker_0/worker.log:42459:fl iteration: 5, loss: 2.2081101375296512, trian acc: 0.7782258064516129, test acc: 0.6875
+worker_0/worker.log:49470:fl iteration: 6, loss: 1.9229739431736557, trian acc: 0.8054435483870968, test acc: 0.69375
+worker_0/worker.log:56480:fl iteration: 7, loss: 1.7005576549999293, trian acc: 0.8296370967741935, test acc: 0.65625
+worker_0/worker.log:63490:fl iteration: 8, loss: 1.5248727620766704, trian acc: 0.8407258064516129, test acc: 0.6375
+worker_0/worker.log:70500:fl iteration: 9, loss: 1.3838803705352127, trian acc: 0.8568548387096774, test acc: 0.7
+worker_0/worker.log:77510:fl iteration: 10, loss: 1.265225578921041, trian acc: 0.8679435483870968, test acc: 0.7125
+worker_0/worker.log:84520:fl iteration: 11, loss: 1.167484122101638, trian acc: 0.8659274193548387, test acc: 0.70625
+worker_0/worker.log:91530:fl iteration: 12, loss: 1.082880981700859, trian acc: 0.8770161290322581, test acc: 0.65625
+worker_0/worker.log:98540:fl iteration: 13, loss: 1.0097520119572772, trian acc: 0.8840725806451613, test acc: 0.64375
+worker_0/worker.log:105550:fl iteration: 14, loss: 0.9469810053708015, trian acc: 0.9022177419354839, test acc: 0.7
+worker_0/worker.log:112560:fl iteration: 15, loss: 0.8907848935604703, trian acc: 0.9022177419354839, test acc: 0.6625
+worker_0/worker.log:119570:fl iteration: 16, loss: 0.8416629644123349, trian acc: 0.9082661290322581, test acc: 0.70625
+worker_0/worker.log:126580:fl iteration: 17, loss: 0.798475691030866, trian acc: 0.9122983870967742, test acc: 0.70625
+worker_0/worker.log:133591:fl iteration: 18, loss: 0.7599438544427897, trian acc: 0.9243951612903226, test acc: 0.6875
+worker_0/worker.log:140599:fl iteration: 19, loss: 0.7250227383907605, trian acc: 0.9294354838709677, test acc: 0.7125
 ```
 
 其他客户端的测试结果基本相同，不再一一列出。
