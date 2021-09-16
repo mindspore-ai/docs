@@ -82,6 +82,12 @@ z = Tensor(np.array([0, 1]), dtype=ms.int32)
 output = forward_net(x, y, z)
 ```
 
+例1报错信息如下：
+
+```text
+ValueError: mindspore/ccsrc/pipeline/jit/static_analysis/static_analysis.cc:734 ProcessEvalResults] The return values of different branches do not match. Shape Join Failed: shape1 = (2), shape2 = ()..
+```
+
 ### 使用条件为常量的if语句
 
 在例2中，`out`在true分支被赋值为标量0，在false分支被赋值为[0, 1]，`x`和`y`均为标量，条件`x < y + 1`为常量，图编译阶段可以确定是走true分支，因此网络中只存在true分支的内容并且无控制流算子，`out = out + 1`的输入`out`数据类型是确定的，因此该用例可正常执行。
@@ -125,7 +131,7 @@ from mindspore import dtype as ms
 class IfInForNet(nn.Cell):
     def construct(self, x, y):
         out = 0
-        for i in range(0,3)
+        for i in range(0,3):
             if x + i < y :
                 out = out + x
             else:
@@ -279,6 +285,12 @@ y = Tensor(np.array(1), dtype=ms.int32)
 output = forward_net(x, y, i)
 ```
 
+例7报错信息如下：
+
+```text
+IndexError: mindspore/core/abstract/prim_structures.cc:178 InferTupleOrListGetItem] list_getitem evaluator index should be in range[-3, 3), but got 3.
+```
+
 `while`条件为变量时，循环体内部不能更改算子的输入shape。因为MindSpore要求网络的同一个算子的输入shape在图编译时是确定的，而在`while`的循环体内部改变算子输入shape的操作是在图执行时生效，两者是矛盾的。如例8所示，条件`i < 3`为变量条件，`while`不展开，循环体内部的`ExpandDims`算子会改变表达式`out = out + 1`在下一轮循环的输入shape，会导致图编译出错。
 
 例8：
@@ -291,9 +303,9 @@ from mindspore.common import dtype as ms
 from mindspore import ops
 
 class IfInWhileNet(nn.Cell):
-     def __init__(self):
-            super().__init__()
-            self.expand_dims = ops.ExpandDims()
+    def __init__(self):
+        super().__init__()
+        self.expand_dims = ops.ExpandDims()
 
     def construct(self, x, y, i):
         out = x
@@ -312,4 +324,10 @@ i = Tensor(np.array(0), dtype=ms.int32)
 x = Tensor(np.array(0), dtype=ms.int32)
 y = Tensor(np.array(1), dtype=ms.int32)
 output = forward_net(x, y, i)
+```
+
+例8报错信息如下：
+
+```text
+ValueError: mindspore/ccsrc/pipeline/jit/static_analysis/static_analysis.cc:734 ProcessEvalResults] The return values of different branches do not match. Shape Join Failed: shape1 = (1, 1), shape2 = (1)..
 ```
