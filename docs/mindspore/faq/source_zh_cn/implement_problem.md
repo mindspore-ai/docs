@@ -611,3 +611,46 @@ class BpropUserDefinedNet(nn.Cell):
             return self.zeros_like(out), self.zeros_like(out)
 ```
 
+<br/>
+
+<font size=3>**Q: 编译时报错“There isn't any branch that can be evaluated”怎么办？**</font>
+
+当出现There isn't any branch that can be evaluated 时，说明代码中可能出现了无穷递归或者时死循环，导致if条件的每一个分支都无法推导出正确的类型和维度信息。
+例如代码
+
+```python
+from mindspore import Tensor, ms_function
+from mindspore.common import dtype as mstype
+import mindspore.context as context
+ZERO = Tensor([0], mstype.int32)
+ONE = Tensor([1], mstype.int32)
+@ms_function
+def f(x):
+    y = ZERO
+    if x < 0:
+        y = f(x - 3)
+    elif x < 3:
+        y = x * f(x - 1)
+    elif x < 5:
+        y = x * f(x - 2)
+    else:
+        y = f(x - 4)
+    z = y + 1
+    return z
+
+def test_endless():
+    context.set_context(mode=context.GRAPH_MODE)
+    x = Tensor([5], mstype.int32)
+    f(x)
+
+```
+
+其中f(x)由于每一个if分支都没办法推导出正确的类型信息导致失败。
+
+<br/>
+
+<font size=3>**Q: 编译时报错"Exceed function call depth limit 1000"怎么办？**</font>
+
+当出现Exceed function call depth limit 1000 时，说明代码中出现了无穷递归死循环，或者是代码过于复杂，类型推导过程中导致栈深度超过设置的最大深度。
+此时可以通过设置context.set_context(max_call_depth = value)这样的方式更改栈的最大深度，并考虑简化代码逻辑或者检查代码中是否存在无穷递归或死循环。
+此外设置max_call_depth = value 虽然可以改变MindSpore的递归深度，但是此时也可能会超过系统栈的最大深度而出现段错误。此时可能还需要设置将系统栈深度进行设置。
