@@ -22,4 +22,4 @@ help:
 .PHONY: clean
 
 clean:
-	-rm -rf $(BUILDDIR)/* $(SOURCEDIR)/mindsponge
+	-rm -rf $(BUILDDIR)/* $(SOURCEDIR)/mindsponge $(SOURCEDIR)/mindelec
