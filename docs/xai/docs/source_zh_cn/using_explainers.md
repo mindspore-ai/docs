@@ -177,7 +177,7 @@ load_param_into_net(net, param_dict)
 
 ood_net = OoDNet(underlying=net, num_classes=num_classes)
 
-# 如果分类器的激活函数是 Softmax，我们要使用 SoftmaxCrossEntropyWithLogits 作为损失函数，如果激活函数是 Sigmod 侧使用
+# 如果分类器的激活函数是 Softmax，我们要使用 SoftmaxCrossEntropyWithLogits 作为损失函数，如果激活函数是 Sigmod 则使用
 # BCEWithLogitsLoss 作为损失函数
 ood_net.train(train_ds, loss_fn=SoftmaxCrossEntropyWithLogits())
 
