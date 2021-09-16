@@ -8,4 +8,5 @@
   apply_pipeline_parallel
   apply_host_device_training
   apply_parameter_server_training
+  distributed_training_dataset_slice
   distributed_inference
