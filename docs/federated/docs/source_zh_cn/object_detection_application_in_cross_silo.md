@@ -220,7 +220,7 @@ python finish_cross_silo_fasterrcnn.py --scheduler_port=6667
 
 - 云云联邦学习总迭代数: 30
 
-- 实验结果：
+- 实验结果（记录客户端本地训练过程中的loss值）：
 
   进入当前目录下`worker_0`文件夹，通过指令`grep -rn "\]epoch:" *`查看`worker_0`日志，可看到每个step输出的loss值，如下所示：
 
