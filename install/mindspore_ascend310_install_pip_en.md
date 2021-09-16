@@ -21,13 +21,14 @@ The following describes how to quickly install MindSpore by pip on Linux in the 
 - Ensure that [GMP 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
 - Ensure that [CMake 3.18.3 or later](https://cmake.org/download/) is installed.
     - After installation, add the path of CMake to the system environment variables.
-- Ensure that Python 3.7.5 is installed.
-    - If Python 3.7.5 (64-bit) is not installed, download it from the [Python official website](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) or [HUAWEI CLOUD](https://mirrors.huaweicloud.com/python/3.7.5/Python-3.7.5.tgz) and install it.
-- Ensure that the Ascend 310 AI Processor software packages ([Ascend Data Center Solution 21.0.2](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910/software/252504581?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C252309113%7C251167910)) are installed.
+- Ensure that Python 3.7.5 or 3.9.0 is installed. If not installed, download and install Python from:
+    - Python 3.7.5 (64-bit): [Python official website](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) or [HUAWEI CLOUD](https://mirrors.huaweicloud.com/python/3.7.5/Python-3.7.5.tgz).
+    - Python 3.9.0 (64-bit): [Python official website](https://www.python.org/ftp/python/3.9.0/Python-3.9.0.tgz) or [HUAWEI CLOUD](https://mirrors.huaweicloud.com/python/3.9.0/Python-3.9.0.tgz).
+- Ensure that the Ascend 310 AI Processor software packages ([Ascend Data Center Solution 21.0.5]) are installed.
     - For the installation of software package,  please refer to the [Product Document](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910).
-    - The software packages include Driver and Firmware and CANN 5.0.2.
-        - [Driver and Firmware A300-3000 1.0.11 ARM platform](https://support.huawei.com/enterprise/zh/ascend-computing/a300-3000-pid-250702915/software/253276345?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702915)and[Driver and Firmware A300-3010 1.0.11 x86 platform](https://support.huawei.com/enterprise/zh/ascend-computing/a300-3010-pid-251560253/software/253276357?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251560253)
-        - [CANN 5.0.2.1](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/253944991?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251168373)
+    - The software packages include Driver and Firmware and CANN.
+        - [Driver and Firmware A300-3000 1.0.13 ARM platform] and [Driver and Firmware A300-3010 1.0.13 x86 platform]
+        - [CANN 5.0.T306]
     - Ensure that you have permissions to access the installation path `/usr/local/Ascend` of the Ascend 310 AI Processor software package. If not, ask the user root to add you to a user group to which `/usr/local/Ascend` belongs. For details about the configuration, see the description document in the software package.
     - Install the .whl package provided with the Ascend 310 AI Processor software package. The .whl package is released with the software package. After the software package is upgraded, you need to reinstall the .whl package.
 
@@ -49,6 +50,7 @@ In the preceding information:
 - When the network is connected, dependencies of the mindspore installation package are automatically downloaded during the .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/r1.5/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/mindspore/tree/r1.5/model_zoo). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/r1.5/requirements.txt).
 - `{version}` specifies the MindSpore version number. For example, when installing MindSpore 1.1.0, set `{version}` to 1.1.0.
 - `{arch}` specifies the system architecture. For example, if a Linux OS architecture is x86_64, set `{arch}` to `x86_64`. If the system architecture is ARM64, set `{arch}` to `aarch64`.
+- `{python_version}` spcecifies the python version for which MindSpore is built. If you wish to use Python3.7.5,`{python_version}` should be `cp37_cp37m`. If Python3.9.0 is used, it should be `cp39_cp39`.
 
 ## Configuring Environment Variables
 

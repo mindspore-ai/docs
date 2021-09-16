@@ -20,21 +20,35 @@
 ## 确认系统环境信息
 
 - 确认安装64位操作系统，其中Ubuntu 18.04/CentOS 7.6/EulerOS 2.8/OpenEuler 20.03/KylinV10 SP1是经过验证的。
+
 - 确认安装[GCC 7.3.0版本](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz)。
+
 - 确认安装[gmp 6.1.2版本](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz)。
+
 - 确认安装[Flex 2.5.35及以上版本](https://github.com/westes/flex/)。
+
 - 确认安装[OpenMPI 4.0.3版本](https://www.open-mpi.org/faq/?category=building#easy-build)（可选，单机多卡/多机多卡训练需要）。
-- 确认安装[Python 3.7.5版本](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz)。
+
+- 确认安装Python 3.7.5或3.9.0版本。如果未安装或者已安装其他版本的Python，可以选择下载并安装：
+
+    - Python 3.7.5版本 64位，下载地址：[官网](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz)或[华为云](https://mirrors.huaweicloud.com/python/3.7.5/Python-3.7.5.tgz)。
+    - Python 3.9.0版本 64位，下载地址：[官网](https://www.python.org/ftp/python/3.9.0/Python-3.9.0.tgz)或[华为云](https://mirrors.huaweicloud.com/python/3.9.0/Python-3.9.0.tgz)。
+
 - 确认安装[CMake 3.18.3及以上版本](https://cmake.org/download/)。
     - 安装完成后将CMake所在路径添加到系统环境变量。
+
 - 确认安装[patch 2.5及以上版本](http://ftp.gnu.org/gnu/patch/)。
     - 安装完成后将patch所在路径添加到系统环境变量中。
+
 - 确认安装[wheel 0.32.0及以上版本](https://pypi.org/project/wheel/)。
-- 确认安装Ascend 910 AI处理器配套软件包（[Ascend Data Center Solution 21.0.2](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910/software/252504581?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C252309113%7C251167910)）。
+
+- 确认安装Ascend 910 AI处理器配套软件包（[Ascend Data Center Solution 21.0.5]）。
+
     - 软件包安装方式请参考[产品文档](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910)。
     - 配套软件包包括驱动和固件和CANN。
-        - [驱动和固件A800-9000 1.0.11.SCP001 ARM平台](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9000-pid-250702818/software/253882155?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702818)和[驱动和固件A800-9010 1.0.11.SCP001 x86平台](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9010-pid-250702809/software/253882161?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702809)
-        - [CANN 5.0.2.1](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/253944991?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251168373)
+        - [驱动和固件A800-9000 1.0.13 ARM平台]和[驱动和固件A800-9010 1.0.13 x86平台]
+        - [CANN 5.0.T306]
+
     - 确认当前用户有权限访问Ascend 910 AI处理器配套软件包的安装路径`/usr/local/Ascend`，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
     - 安装Ascend 910 AI处理器配套软件包提供的whl包，whl包随配套软件包发布，参考如下命令完成安装。
 
@@ -99,7 +113,7 @@ bash build.sh -e ascend
 ## 安装MindSpore
 
 ```bash
-pip install output/mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install output/mindspore_ascend-{version}-{python_version}-linux_{arch}.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 其中：
@@ -107,6 +121,7 @@ pip install output/mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl -i htt
 - 在联网状态下，安装whl包时会自动下载mindspore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/r1.5/setup.py)中的required_package），其余情况需自行安装。运行模型时，需要根据[ModelZoo](https://gitee.com/mindspore/mindspore/tree/r1.5/model_zoo)中不同模型指定的requirements.txt安装额外依赖，常见依赖可以参考[requirements.txt](https://gitee.com/mindspore/mindspore/blob/r1.5/requirements.txt)。
 - `{version}`表示MindSpore版本号，例如安装1.1.0版本MindSpore时，`{version}`应写为1.1.0。
 - `{arch}`表示系统架构，例如使用的Linux系统是x86架构64位时，`{arch}`应写为`x86_64`。如果系统是ARM架构64位，则写为`aarch64`。
+- `{python_version}`表示用户的Python版本，Python版本为3.7.5时，`{python_version}`应写为`cp37_cp37m`。Python版本为3.9.0时，则写为`cp39_cp39`。
 
 ## 配置环境变量
 
@@ -193,5 +208,5 @@ print(ops.add(x, y))
     在源码根目录下执行编译脚本`build.sh`成功后，在`output`目录下找到编译生成的whl安装包，然后执行命令进行升级。
 
     ```bash
-    pip install --upgrade mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl
+    pip install --upgrade mindspore_ascend-{version}-{python_version}-linux_{arch}.whl
     ```
