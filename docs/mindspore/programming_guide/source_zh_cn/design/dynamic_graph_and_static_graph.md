@@ -49,7 +49,7 @@ import numpy as np
 import mindspore.context as context
 import mindspore.nn as nn
 from mindspore import Tensor
-from mindspore.ops as ops
+import mindspore.ops as ops
 
 context.set_context(mode=context.PYNATIVE_MODE, device_target="Ascend")
 x =Tensor(np.ones([1, 3, 3, 4]).astype(np.float32))
