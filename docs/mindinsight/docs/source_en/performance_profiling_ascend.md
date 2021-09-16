@@ -288,6 +288,10 @@ Common scenarios of CPU utilization:
 - According to the queue size, the network debugging personnel can judge that the performance of MindData has a bottleneck. They can adjust the number of threads by combining the utilization rate of the whole machine and the utilization rate of the operator.
 - Developers can check the utilization of operators. If an operator consumes CPU utilization, they can confirm whether the code needs to be optimized.
 
+> The default sampling interval is 1000ms. You can change the sampling interval through `mindspore.dataset.config.get_monitor_sampling_interval()`. For details：
+>
+> <https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.dataset.config.html#mindspore.dataset.config.set_monitor_sampling_interval>
+
 ### Memory Analysis
 
 This page is used to show the memory usage of the neural network model on the **device**, which is an **ideal prediction** based on the theoretical calculation results. The content of the page includes:

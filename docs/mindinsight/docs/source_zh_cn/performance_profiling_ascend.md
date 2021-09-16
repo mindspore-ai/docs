@@ -289,6 +289,10 @@ CPU利用率常用场景:
 - 网络调试人员根据Queue size判断是Data性能有瓶颈，可以结合整机利用率和算子利用率作为辅助尝试调整线程数。
 - 开发人员可以查看算子利用率，如果某一个算子比较耗CPU利用率，可以考虑优化该算子。
 
+> 默认采样间隔为1000ms，用户可以通过`mindspore.dataset.config.get_monitor_sampling_interval()`来改变采样间隔。详情参考：
+>
+> <https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.dataset.config.html#mindspore.dataset.config.set_monitor_sampling_interval>
+
 ### 内存使用情况分析
 
 该页面用于展示模型在**Device侧**的内存使用情况，是**基于理论值的理想预估**。页面内容包括：
