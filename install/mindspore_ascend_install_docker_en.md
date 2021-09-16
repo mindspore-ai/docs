@@ -30,12 +30,16 @@ The current support for containerized build options is as follows:
 ## System Environment Information Confirmation
 
 - Ensure that Ubuntu 18.04/CentOS 7.6 is installed with the 64-bit operating system.
+
 - Ensure that [Docker 18.03 or later](https://docs.docker.com/get-docker/) is installed.
-- Ensure that the Ascend 910 AI processor software package ([Ascend Data Center Solution 21.0.2](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910/software/252504581?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C252309113%7C251167910)) are installed.
+
+- Ensure that the Ascend 910 AI Processor software packages ([Ascend Data Center Solution 21.0.5]) are installed.
+
     - For the installation of software package,  please refer to the [Product Document](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910).
-    - The software packages include Driver and Firmware and CANN 5.0.2.
-        - [Driver and Firmware A800-9000 1.0.11.SCP001 ARM platform](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9000-pid-250702818/software/253882155?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702818)and[Driver and Firmware A800-9010 1.0.11.SCP001 platform](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9010-pid-250702809/software/253882161?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702809)
-        - [CANN 5.0.2.1](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/253944991?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251168373)
+    - The software packages include Driver and Firmware and CANN.
+        - [Driver and Firmware A800-9000 1.0.13 ARM platform] and [Driver and Firmware A800-9010 1.0.13 x86 platform]
+        - [CANN 5.0.T306]
+
     - Ensure that the current user has the right to access the installation path `/usr/local/Ascend`of Ascend 910 AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located. For the specific configuration, please refer to the software package instruction document.
     - After installing basic driver and corresponding software packages, ensure that the toolbox utility package in the CANN software package is installed, namely Ascend-cann-toolbox-{version}.run. The toolbox provides Ascend Docker runtime tools supported by Ascend NPU containerization.
 
