@@ -143,14 +143,14 @@ python poetry.py
 `generate_random_poetry`函数实现随机生成和续写诗句的功能，如果入参`s`为空则代表随机生成，`s`不为空则为续写诗句。
 
 ```python
-    output = generate_random_poetry(poetrymodel, s='')         #随机生成
-    output = generate_random_poetry(poetrymodel, s='天下为公')  #续写诗句
+output = generate_random_poetry(poetrymodel, s='')         #随机生成
+output = generate_random_poetry(poetrymodel, s='天下为公')  #续写诗句
 ```
 
 `generate_hidden`函数实现生成藏头诗的功能，入参`head`为隐藏的头部语句。
 
 ```python
-    output = generate_hidden(poetrymodel, head="人工智能")  #藏头诗
+output = generate_hidden(poetrymodel, head="人工智能")  #藏头诗
 ```
 
 执行推理指令
