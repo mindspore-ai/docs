@@ -11,7 +11,6 @@ MindSpore API
    :caption: MindSpore Python API
 
    api_python/mindspore
-   api_python/mindspore.boost
    api_python/mindspore.common.initializer
    api_python/mindspore.communication
    api_python/mindspore.compression
@@ -30,6 +29,7 @@ MindSpore API
    api_python/mindspore.parallel.nn
    api_python/mindspore.profiler
    api_python/mindspore.train
+   api_python/mindspore.boost
 
 .. toctree::
    :maxdepth: 1

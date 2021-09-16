@@ -318,7 +318,7 @@ cutoff = 10.0,
 
 运行完整的[运行脚本](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/examples/covid/scripts/run_covid.sh)后，就可以进行下面的分析步骤。完整运行脚本执行指令如下：
 
-```bath
+```bash
 bash run_covid.sh s1ace2
 ```
 
