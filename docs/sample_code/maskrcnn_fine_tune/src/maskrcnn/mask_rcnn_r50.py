@@ -16,10 +16,8 @@
 
 import numpy as np
 import mindspore.nn as nn
-from mindspore.ops import operations as P
-from mindspore.common.tensor import Tensor
-import mindspore.common.dtype as mstype
-from mindspore.ops import functional as F
+from mindspore import ops
+from mindspore import Tensor, dtype as mstype
 from .resnet50 import ResNetFea, ResidualBlockUsing
 from .bbox_assign_sample_stage2 import BboxAssignSampleForRcnn
 from .fpn_neck import FeatPyramidNeck
@@ -113,7 +111,7 @@ class Mask_Rcnn_Resnet50(nn.Cell):
         # Assign and sampler stage two
         self.bbox_assigner_sampler_for_rcnn = BboxAssignSampleForRcnn(config, self.train_batch_size,
                                                                       config.num_bboxes_stage2, True)
-        self.decode = P.BoundingBoxDecode(max_shape=(768, 1280), means=self.target_means, \
+        self.decode = ops.BoundingBoxDecode(max_shape=(768, 1280), means=self.target_means, \
                                           stds=self.target_stds)
 
         # Roi
@@ -158,26 +156,26 @@ class Mask_Rcnn_Resnet50(nn.Cell):
         self.rcnn_mask = RcnnMask(config, self.train_batch_size, self.num_classes)
 
         # Op declare
-        self.squeeze = P.Squeeze()
-        self.cast = P.Cast()
+        self.squeeze = ops.Squeeze()
+        self.cast = ops.Cast()
 
-        self.concat = P.Concat(axis=0)
-        self.concat_1 = P.Concat(axis=1)
-        self.concat_2 = P.Concat(axis=2)
-        self.reshape = P.Reshape()
-        self.select = P.Select()
-        self.greater = P.Greater()
-        self.transpose = P.Transpose()
+        self.concat = ops.Concat(axis=0)
+        self.concat_1 = ops.Concat(axis=1)
+        self.concat_2 = ops.Concat(axis=2)
+        self.reshape = ops.Reshape()
+        self.select = ops.Select()
+        self.greater = ops.Greater()
+        self.transpose = ops.Transpose()
 
         # Test mode
         self.test_batch_size = config.test_batch_size
-        self.split = P.Split(axis=0, output_num=self.test_batch_size)
-        self.split_shape = P.Split(axis=0, output_num=4)
-        self.split_scores = P.Split(axis=1, output_num=self.num_classes)
-        self.split_fb_mask = P.Split(axis=1, output_num=self.num_classes)
-        self.split_cls = P.Split(axis=0, output_num=self.num_classes-1)
-        self.tile = P.Tile()
-        self.gather = P.GatherNd()
+        self.split = ops.Split(axis=0, output_num=self.test_batch_size)
+        self.split_shape = ops.Split(axis=0, output_num=4)
+        self.split_scores = ops.Split(axis=1, output_num=self.num_classes)
+        self.split_fb_mask = ops.Split(axis=1, output_num=self.num_classes)
+        self.split_cls = ops.Split(axis=0, output_num=self.num_classes-1)
+        self.tile = ops.Tile()
+        self.gather = ops.GatherNd()
 
         self.rpn_max_num = config.rpn_max_num
 
@@ -194,11 +192,11 @@ class Mask_Rcnn_Resnet50(nn.Cell):
         self.test_box_zeros = Tensor(np.ones((self.rpn_max_num, 4)).astype(np.float16) * -1)
         self.test_iou_thr = Tensor(np.ones((self.rpn_max_num, 1)).astype(np.float16) * config.test_iou_thr)
         self.test_max_per_img = config.test_max_per_img
-        self.nms_test = P.NMSWithMask(config.test_iou_thr)
-        self.softmax = P.Softmax(axis=1)
-        self.logicand = P.LogicalAnd()
-        self.oneslike = P.OnesLike()
-        self.test_topk = P.TopK(sorted=True)
+        self.nms_test = ops.NMSWithMask(config.test_iou_thr)
+        self.softmax = ops.Softmax(axis=1)
+        self.logicand = ops.LogicalAnd()
+        self.oneslike = ops.OnesLike()
+        self.test_topk = ops.TopK(sorted=True)
         self.test_num_proposal = self.test_batch_size * self.rpn_max_num
 
         # Improve speed
@@ -223,13 +221,13 @@ class Mask_Rcnn_Resnet50(nn.Cell):
         self.rcnn_loss_reg_weight = Tensor(np.array(config.rcnn_loss_reg_weight).astype(np.float16))
         self.rcnn_loss_mask_fb_weight = Tensor(np.array(config.rcnn_loss_mask_fb_weight).astype(np.float16))
 
-        self.argmax_with_value = P.ArgMaxWithValue(axis=1)
+        self.argmax_with_value = ops.ArgMaxWithValue(axis=1)
         self.on_value = Tensor(1.0, mstype.float32)
         self.off_value = Tensor(0.0, mstype.float32)
-        self.onehot = P.OneHot()
-        self.reducesum = P.ReduceSum()
-        self.sigmoid = P.Sigmoid()
-        self.expand_dims = P.ExpandDims()
+        self.onehot = ops.OneHot()
+        self.reducesum = ops.ReduceSum()
+        self.sigmoid = ops.Sigmoid()
+        self.expand_dims = ops.ExpandDims()
         self.test_mask_fb_zeros = Tensor(np.zeros((self.rpn_max_num, 28, 28)).astype(np.float16))
         self.value = Tensor(1.0, mstype.float16)
     def construct(self, img_data, img_metas, gt_bboxes, gt_labels, gt_valids, gt_masks):
@@ -293,14 +291,14 @@ class Mask_Rcnn_Resnet50(nn.Cell):
 
             bbox_targets = self.concat(deltas_tuple)
             rcnn_labels = self.concat(labels_tuple)
-            bbox_targets = F.stop_gradient(bbox_targets)
-            rcnn_labels = F.stop_gradient(rcnn_labels)
+            bbox_targets = ops.stop_gradient(bbox_targets)
+            rcnn_labels = ops.stop_gradient(rcnn_labels)
             rcnn_labels = self.cast(rcnn_labels, mstype.int32)
 
             rcnn_pos_masks_fb = self.concat(pos_mask_fb_tuple)
-            rcnn_pos_masks_fb = F.stop_gradient(rcnn_pos_masks_fb)
+            rcnn_pos_masks_fb = ops.stop_gradient(rcnn_pos_masks_fb)
             rcnn_pos_labels = self.concat(pos_labels_tuple)
-            rcnn_pos_labels = F.stop_gradient(rcnn_pos_labels)
+            rcnn_pos_labels = ops.stop_gradient(rcnn_pos_labels)
             rcnn_pos_labels = self.cast(rcnn_pos_labels, mstype.int32)
         else:
             mask_tuple += proposal_mask
@@ -323,7 +321,7 @@ class Mask_Rcnn_Resnet50(nn.Cell):
             rois = self.concat_1((self.roi_align_index_tensor, bboxes_all))
             pos_rois = self.concat_1((self.roi_align_index_tensor_pos, pos_bboxes_all))
             pos_rois = self.cast(pos_rois, mstype.float32)
-            pos_rois = F.stop_gradient(pos_rois)
+            pos_rois = ops.stop_gradient(pos_rois)
         else:
             if self.test_batch_size > 1:
                 bboxes_all = self.concat(bboxes_tuple)
@@ -332,7 +330,7 @@ class Mask_Rcnn_Resnet50(nn.Cell):
             rois = self.concat_1((self.roi_align_index_test_tensor, bboxes_all))
 
         rois = self.cast(rois, mstype.float32)
-        rois = F.stop_gradient(rois)
+        rois = ops.stop_gradient(rois)
 
         if self.training:
             roi_feats = self.roi_align(rois,
@@ -350,11 +348,11 @@ class Mask_Rcnn_Resnet50(nn.Cell):
 
         roi_feats = self.cast(roi_feats, mstype.float16)
         rcnn_masks = self.concat(mask_tuple)
-        rcnn_masks = F.stop_gradient(rcnn_masks)
+        rcnn_masks = ops.stop_gradient(rcnn_masks)
         rcnn_mask_squeeze = self.squeeze(self.cast(rcnn_masks, mstype.bool_))
 
         rcnn_pos_masks = self.concat(pos_mask_tuple)
-        rcnn_pos_masks = F.stop_gradient(rcnn_pos_masks)
+        rcnn_pos_masks = ops.stop_gradient(rcnn_pos_masks)
         rcnn_pos_mask_squeeze = self.squeeze(self.cast(rcnn_pos_masks, mstype.bool_))
 
         rcnn_cls_loss, rcnn_reg_loss = self.rcnn_cls(roi_feats,
@@ -465,7 +463,7 @@ class Mask_Rcnn_Resnet50(nn.Cell):
 
                 scores_sorted = self.tile(scores_sorted, (1, 4))
                 cls_dets = self.concat_1((_bboxes_sorted, scores_sorted))
-                cls_dets = P.Slice()(cls_dets, (0, 0), (self.rpn_max_num, 5))
+                cls_dets = ops.Slice()(cls_dets, (0, 0), (self.rpn_max_num, 5))
 
                 cls_dets, _index, _mask_nms = self.nms_test(cls_dets)
                 _index = self.reshape(_index, (self.rpn_max_num, 1))

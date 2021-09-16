@@ -16,10 +16,8 @@
 convert resnet50 pretrain model to mask_rcnn backbone pretrain model
 """
 import argparse
-from mindspore.train.serialization import load_checkpoint, save_checkpoint
-from mindspore.common.parameter import Parameter
-from mindspore.common.tensor import Tensor
-import mindspore.common.dtype as mstype
+from mindspore import Parameter, Tensor, load_checkpoint, save_checkpoint
+from mindspore import dtype as mstype
 
 parser = argparse.ArgumentParser(description='load_ckpt')
 parser.add_argument('--ckpt_file', type=str, default='./resnet50.ckpt', help='ckpt file path')
