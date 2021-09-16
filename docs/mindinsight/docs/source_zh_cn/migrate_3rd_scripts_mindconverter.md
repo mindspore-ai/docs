@@ -199,7 +199,7 @@ data_loader = DataLoader(dataset, batch_size=BATCH_SIZE)
 from mindspore.dataset import GeneratorDataset
 from mindspore.dataset.vision import py_transforms as transforms
 
-class CustomGenerator
+class CustomGenerator:
     def __init__(self, *args, **kwargs):
         self.records = [...]
         self.labels = [...]
