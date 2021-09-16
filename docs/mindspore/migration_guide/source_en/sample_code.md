@@ -762,7 +762,7 @@ if __name__ == '__main__':
                 dataset_sink_mode=dataset_sink_mode)
 ```
 
-Note: For codes in other files in the directory, refer to MindSpore model_zoo's [ResNet50 implementation](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/resnet)(this script incorporates other ResNet family networks and ResNet-SE networks, and the specific implementation may differ from the benchmark script).
+Note: For codes in other files in the directory, refer to MindSpore model_zoo's [ResNet50 implementation](https://gitee.com/mindspore/models/tree/master/official/cv/resnet)(this script incorporates other ResNet family networks and ResNet-SE networks, and the specific implementation may differ from the benchmark script).
 
 ### Distributed training
 
