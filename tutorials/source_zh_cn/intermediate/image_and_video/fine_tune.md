@@ -4,7 +4,7 @@
 
 在本教程中，我们将使用COCO数据集当中book分类下的部分图片，对Mask R-CNN模型进行微调，最终实现图像分割的效果。教程通过终端运行，点击下载[代码与数据集](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/source-codes/maskrcnn_fine_tune.zip)。
 
-> 本篇基于MindSpore v1.3.0，Ascend环境运行。
+> 本篇基于Ascend环境运行。
 >
 > 运行本案例需要安装以下依赖项：
 >

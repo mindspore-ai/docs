@@ -17,12 +17,10 @@
 import time
 import numpy as np
 import mindspore.nn as nn
-from mindspore.common.tensor import Tensor
-from mindspore.ops import functional as F
-from mindspore.ops import composite as C
+from mindspore import Tensor
+from mindspore import ops
 from mindspore import ParameterTuple
 from mindspore.train.callback import Callback
-from mindspore.nn.wrap.grad_reducer import DistributedGradReducer
 
 time_stamp_init = False
 time_stamp_first = 0
@@ -134,13 +132,13 @@ class TrainOneStepCell(nn.Cell):
         self.network.set_grad()
         self.weights = ParameterTuple(network.trainable_params())
         self.optimizer = optimizer
-        self.grad = C.GradOperation(get_by_list=True,
-                                    sens_param=True)
+        self.grad = ops.GradOperation(get_by_list=True,
+                                      sens_param=True)
         self.sens = Tensor((np.ones((1,)) * sens).astype(np.float16))
         self.reduce_flag = reduce_flag
-        self.hyper_map = C.HyperMap()
+        self.hyper_map = ops.HyperMap()
         if reduce_flag:
-            self.grad_reducer = DistributedGradReducer(optimizer.parameters, mean, degree)
+            self.grad_reducer = nn.DistributedGradReducer(optimizer.parameters, mean, degree)
 
     def construct(self, x, img_shape, gt_bboxe, gt_label, gt_num, gt_mask):
         weights = self.weights
@@ -149,4 +147,4 @@ class TrainOneStepCell(nn.Cell):
         if self.reduce_flag:
             grads = self.grad_reducer(grads)
 
-        return F.depend(loss, self.optimizer(grads))
+        return ops.depend(loss, self.optimizer(grads))
