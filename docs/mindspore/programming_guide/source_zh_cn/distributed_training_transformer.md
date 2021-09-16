@@ -62,18 +62,18 @@
 我们会在接下来讨论他们的区别。现在以单机八卡训练一个`Transformer`模型为例，我们根据目前的卡数8设置`Transformer`模型的并行配置。我们可以设置`data_parallel`=1，`model_parallel`=8作为并行的基本配置。注意并行配置的情况下，`data_parallel`\*`model_parallel`\*`pipeline_stages`<=总卡数。对应的代码中的**并行配置**如下。
 
 ```python
-context.set_auto_parallel_context(mode=ParallelMode.SEMI_PARALLEL)
+context.set_auto_parallel_context(mode=ParallelMode.SEMI_AUTO_PARALLEL)
 parallel_config = TransformerOpParalllelConfig(data_parallel=1,
                                                model_parallel=8)
 ```
 
 ## 模型定义
 
-在定义好配置之后，我们可以开始构造一个网络。由于MindSpore已经提供了`Transformer`的使用，用户只需要额外增加`Embedding`层，对预测层和损失函数即可。下面依次介绍各个模块的配置。
+在定义好配置之后，我们可以开始构造一个网络。由于MindSpore已经提供了`Transformer`的使用，用户只需要额外增加`Embedding`层，输出层和损失函数即可。下面依次介绍各个模块的配置。
 
 ### Embedding层
 
-Tranformer中的Embeding层主要由词向量嵌入和位置向量嵌入两部分组合。我们提供了`VocabEmbedding`作为并行的Embedding层，需要传入`EmbeddingOpParallelConfig`进行初始化。和`OpParallelConfig`不同的是，`EmbeddingOpParallelConfig`拥有的属性如下
+Tranformer中的Embeding层主要由词向量嵌入和位置向量嵌入两部分组成。我们提供了`VocabEmbedding`作为并行的Embedding层，需要传入`EmbeddingOpParallelConfig`进行初始化。和`OpParallelConfig`不同的是，`EmbeddingOpParallelConfig`拥有的属性如下
 
 - `data_parallel`
 - `model_parallel`
@@ -84,6 +84,9 @@ Tranformer中的Embeding层主要由词向量嵌入和位置向量嵌入两部�
 在此我们定义了一个`EmbeddingLayer`，将查询的词向量和位置向量进行相加求和。注意，我们在此设置了`add`和`dorpout`操作。由于输入的tensor大小为`[batch_size, seq_length, hidden_szie]`，并且词向量的查找过程为数据并行，所以我们根据`OpParallelConfig`中的数据并行值`data_parallel`，调用算子的`shard`方法分别设置这两个算子的并行策略。如果用户不进行设置`shard`方法，那么默认的算子并行策略为**并行度为卡数的数据并行**。那么完成对应的代码如下所示:
 
 ```python
+import mindspore.nn as nn
+import mindspore.ops as ops
+from mindspore.parallel.nn import VocabEmbedding
 class EmbeddingLayer(nn.Cell):
     def __init__(self, vocab_size, position_size, embedding_size,
                  parallel_config, dropout_rate=0.1):
@@ -112,10 +115,11 @@ class EmbeddingLayer(nn.Cell):
 
 用户可以调用三个接口作为主要的构建API:`Transformer`、`TransformerEncoder`和`TransformerDecoder`。它们都需要传入`TransformerOpParallelConfig`作为并行设置的配置。我们根据`TransformerOpParallelConfig`中配置的并行配置，对`Transformer`内部使用的算子设置对应的并行策略。
 
-> `pipeline_func`这个方法可以自定义Transformer中每个`block`对应的`stage`, 是否开启重计算和设置优化器切分的融合标记。例如下面的例子中，我们根据传入的`layer_id`和`offset`(在`Transformer`接口中，在实例化`Encoder`时传入的`offset`为0， `Decoder`中传入的`offset`的值为`Encoder`的层数), `Encoder_layer`和`Decoder_layer`的总层数，和指定的`pipeline_stage`数目，按照均分的配置计算出当前的`block`对应的`stage`。在默认情况下，即用户不传入`lambda_func`的情况下，也是按照层数进行均分的设置。
+> `pipeline_func`这个方法可以自定义Transformer中每个`block`属于的`stage`、是否开启重计算和设置优化器切分的融合标记。例如下面的例子中，我们根据传入的`layer_id`和`offset`(在`Transformer`接口中，在实例化`Encoder`时传入的`offset`为0， `Decoder`中传入的`offset`的值为`Encoder`的层数), `Encoder_layer`和`Decoder_layer`的总层数，和指定的`pipeline_stage`数目，按照均分的配置计算出当前的`block`对应的`stage`。在默认情况下，即用户不传入`lambda_func`的情况下，也是按照层数进行均分的设置。
 
 ```python
 def pipeline_func(network, layer_id, offset, parallel_config, layers):
+    layers_per_stage = 2
     pp_id = max(int(layer_id + offset) / layers_per_stage, 1)
     network.pipeline_stage = int(pp_id)
     print(f"pipeline id is:{pp_id}", flush=True)
@@ -124,7 +128,15 @@ def pipeline_func(network, layer_id, offset, parallel_config, layers):
 在下面的代码中，我们实例化了上述定义的`EmbeddingLayer`，并且调用`set_comm_fusion`将其对应的反向梯度融合标记为第0组，调用`pipeline_stage`方法设置对应embedding的权重为第0个`stage`。将最后的`Head`类，一个简单的`Linear`层，放置于最后一个`stage`。在用户不设置Linear中的算子并行策略的情况下，默认是当前`stage`内的数据并行。
 
 ```python
-   def __init__(self, batch, src_len, tgt_len, hidden_size, vocab_size,
+import mindspore.nn as nn
+import mindspore.ops as ops
+from mindspore.parallel.nn import Transformer, AttentionMask, CrossEntropyLoss
+from mindspore.nn import Dense as Linear
+class Net(nn.Cell):
+    """
+      Single Transformer Model
+    """
+    def __init__(self, batch, src_len, tgt_len, hidden_size, vocab_size,
                  en_layer, de_layer, parallel_config, return_loss=False):
         super(Net, self).__init__()
         self.src_embedding = EmbeddingLayer(vocab_size=vocab_size, embedding_size=hidden_size,
@@ -142,6 +154,9 @@ def pipeline_func(network, layer_id, offset, parallel_config, layers):
         def pipeline_func(network, layer_id, offset, parallel_config, layers):
             pp_id = max(int(layer_id + offset) / layers_per_stage, 1)
             network.pipeline_stage = int(pp_id)
+            gradient_aggregation_group = 4
+            dis = max(int((layer_id + offset) / gradient_aggregation_group), 1)
+            network.set_comm_fusion(int((layer_id + offset) / dis) + 1)
             print(f"pipeline id is:{pp_id}", flush=True)
 
         self.base1 = Transformer(encoder_layers=en_layer,
@@ -163,6 +178,7 @@ def pipeline_func(network, layer_id, offset, parallel_config, layers):
         self.head.pipeline_stage = parallel_config.pipeline_stage - 1
         self.loss = CrossEntropyLoss(parallel_config=parallel_config.dp_mp_config)
         self.no_equal = ops.NotEqual().shard(((1, 1), ()))
+
 ```
 
 ### 定义损失函数
@@ -181,7 +197,43 @@ self.loss = CrossEntropyLoss(parallel_config=parallel_config.dp_mp_config)
 - 在设置`stage_num>1`的情况下，会进入流水线并行模式。流水线的配置就是设置每个`cell`对应的`pipeline_stage`属性，另外，在实例化网络中后，我们需要再调用`PipelineCell`来封装定义好的网络。这个`Cell`的作用是将输入切分成`mirco_batch_num`个数的小数据，以最大利用计算资源。值得注意的是，我们需要调用`net.infer_param_pipeline_stage()`而不是`net.trainable_params()`来获取当前`stage`对应的训练权重。注意，pipeline的stage内的卡数至少为8。pipeline的详细教程可以参考[这里](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/apply_pipeline_parallel.html)。
 
 ```python
-   if args_opt.distribute == 'true' :
+from mindspore.parallel.nn import TransformerOpParallelConfig
+from mindspore import Model
+import mindspore.communication as D
+from mindspore.context import ParallelMode
+from mindspore.nn import PipelineCell
+from mindspore.train.callback import TimeMonitor, LossMonitor, CheckpointConfig, ModelCheckpoint
+from mindspore.nn import AdamWeightDecay
+from mindspore import context
+from dataset import ToyDataset, Tokenzier
+from model import Net
+
+
+def set_weight_decay(params):
+    """
+    Set weight decay coefficient, zero for bias and layernorm, 1e-1 for rest
+    """
+    decay_filter = lambda x: 'layernorm' not in x.name.lower() and "bias" not in x.name.lower()
+    decay_params = list(filter(decay_filter, params))
+    other_params = list(filter(lambda x: not decay_filter(x), params))
+    group_params = [{
+        'params': decay_params,
+        'weight_decay': 1e-1
+    }, {
+        'params': other_params,
+        'weight_decay': 0.0
+    }, {
+        'order_params': params
+    }]
+    return group_params
+
+
+def main():
+    # Run the total forward model
+    ...
+    args_opt = parser.parse_args()
+
+    if args_opt.distribute == 'true':
         D.init()
         device_num = D.get_group_size()
         rank_id = D.get_rank()
@@ -194,8 +246,8 @@ self.loss = CrossEntropyLoss(parallel_config=parallel_config.dp_mp_config)
 
     parallel_config = TransformerOpParallelConfig(pipeline_stage=args_opt.pipeline_stage,
                                                   micro_batch_num=args_opt.micro_batch_num,
-                                                  model_parallel=args_opt.model_parallel,
-                                                  data_parallel=args_opt.data_parallel,
+                                                  model_parallel=args_opt.mp,
+                                                  data_parallel=args_opt.dp,
                                                   optimizer_shard=False)
 
     net = Net(batch=args_opt.batch_size // args_opt.micro_batch_num if args_opt.pipeline_stage else args_opt.batch_size,
@@ -235,6 +287,9 @@ self.loss = CrossEntropyLoss(parallel_config=parallel_config.dp_mp_config)
                                  config=ckpt_config)
     callback = [TimeMonitor(callback_size), LossMonitor(callback_size), ckpoint_cb]
     model.train(1, dataset, callbacks=callback, dataset_sink_mode=False)
+
+if __name__ == "__main__":
+    main()
 ```
 
 ## 准备环节

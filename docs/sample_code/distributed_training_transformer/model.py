@@ -56,14 +56,14 @@ class Net(nn.Cell):
         self.tgt_embedding = EmbeddingLayer(vocab_size=vocab_size, embedding_size=hidden_size,
                                             position_size=tgt_len,
                                             parallel_config=parallel_config.embedding_dp_mp_config)
-        total_layers = en_layer + de_layer + 2
+        total_layers = en_layer + de_layer
         layers_per_stage = total_layers // parallel_config.pipeline_stage
         self.src_embedding.pipeline_stage = 0
         self.tgt_embedding.pipeline_stage = 0
         self.return_loss = return_loss
 
         def pipeline_func(network, layer_id, offset, parallel_config, layers):
-            pp_id = max(int(layer_id + offset) / layers_per_stage, 1)
+            pp_id = min(int((layer_id + offset) / layers_per_stage), 1)
             network.pipeline_stage = int(pp_id)
             gradient_aggregation_group = 4
             dis = max(int((layer_id + offset) / gradient_aggregation_group), 1)
