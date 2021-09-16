@@ -39,7 +39,7 @@ MindSpore开发团队在现有的自然梯度算法的基础上，对FIM矩阵�
 
 本篇教程将主要介绍如何在Ascend 910 以及GPU上，使用MindSpore提供的二阶优化器THOR训练ResNet50-v1.5网络和ImageNet数据集。
 > 你可以在这里下载完整的示例代码：
-<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/resnet> 。
+<https://gitee.com/mindspore/models/tree/master/official/cv/resnet> 。
 
 示例代码目录结构
 
@@ -367,7 +367,7 @@ bash run_distribute_train.sh <RANK_TABLE_FILE> <DATASET_PATH> [CONFIG_PATH]
 
 脚本需要传入变量`RANK_TABLE_FILE`，`DATASET_PATH`和`CONFIG_PATH`，其中：
 
-- `RANK_TABLE_FILE`：组网信息文件的路径。(rank table文件的生成，参考[HCCL_TOOL](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/utils/hccl_tools))
+- `RANK_TABLE_FILE`：组网信息文件的路径。(rank table文件的生成，参考[HCCL_TOOL](https://gitee.com/mindspore/models/tree/master/utils/hccl_tools))
 - `DATASET_PATH`：训练数据集路径。
 - `CONFIG_PATH`：配置文件路径。
 

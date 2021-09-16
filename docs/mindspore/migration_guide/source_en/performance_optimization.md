@@ -30,7 +30,7 @@ This section will introduce the common use of MindSpore Profiler through three t
 
 ### Case 1: Long Step Interval
 
-We run ResNet50 training script in MindSpore [Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo ) with batch size set to 32, and we find that each step cost almost 90ms.
+We run ResNet50 training script in MindSpore [ModelZoo](https://gitee.com/mindspore/models/tree/master ) with batch size set to 32, and we find that each step cost almost 90ms.
 As we observed on the MindInsight UI page, the step interval in the step trace is too long, which may indicate that performance can be optimized in the dataset processing process.
 
 ![long_step_interval](images/profiler_case1_long_step_interval.png)
@@ -90,7 +90,7 @@ Figure 4: Step Interval is Shorten
 
 ### Case 2: Long Forward Propagation Interval
 
-We run VGG16 eval script in MindSpore [Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo ) , and each step cost almost 113.79ms.
+We run VGG16 eval script in MindSpore [ModelZoo](https://gitee.com/mindspore/models/tree/master ) , and each step cost almost 113.79ms.
 
 As we observed on the MindInsight UI page, the forward propagation in the step trace is too long, which may indicate that operators performance can be optimized.
 
@@ -124,7 +124,7 @@ Figure 7: FP interval is shorten from 82.45ms to 16.89ms
 
 ### Case 3: Optimize The Step Tail
 
-We run ResNet50 training script with 8 processes in MindSpore [Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo ) , set batch size to 32, and each step cost about 23.6ms.
+We run ResNet50 training script with 8 processes in MindSpore [ModelZoo](https://gitee.com/mindspore/models/tree/master ) , set batch size to 32, and each step cost about 23.6ms.
 We still want to improve the performance.
 
 As we observed on the MindInsight UI page, step interval and FP/BP interval can not be improved more, so we try to optimize step tail.
