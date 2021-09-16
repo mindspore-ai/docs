@@ -15,13 +15,10 @@
 """MaskRcnn Rcnn classification and box regression network."""
 
 import numpy as np
-import mindspore.common.dtype as mstype
 import mindspore.nn as nn
-from mindspore.ops import operations as P
-from mindspore.common.tensor import Tensor
+from mindspore import ops
+from mindspore import Parameter, Tensor, dtype as mstype
 from mindspore.common.initializer import initializer
-from mindspore.common.parameter import Parameter
-
 
 class DenseNoTranpose(nn.Cell):
     """Dense method"""
@@ -30,8 +27,8 @@ class DenseNoTranpose(nn.Cell):
         super(DenseNoTranpose, self).__init__()
         self.weight = Parameter(initializer(weight_init, [input_channels, output_channels], mstype.float32))
         self.bias = Parameter(initializer("zeros", [output_channels], mstype.float32))
-        self.matmul = P.MatMul(transpose_b=False)
-        self.bias_add = P.BiasAdd()
+        self.matmul = ops.MatMul(transpose_b=False)
+        self.bias_add = ops.BiasAdd()
 
     def construct(self, x):
         output = self.bias_add(self.matmul(x, self.weight), self.bias)
@@ -58,8 +55,8 @@ class FpnCls(nn.Cell):
         self.cls_scores = DenseNoTranpose(output_channels, num_classes, cls_weight).to_float(mstype.float16)
         self.reg_scores = DenseNoTranpose(output_channels, num_classes * 4, reg_weight).to_float(mstype.float16)
 
-        self.relu = P.ReLU()
-        self.flatten = P.Flatten()
+        self.relu = ops.ReLU()
+        self.flatten = ops.Flatten()
 
     def construct(self, x):
         """dense layer of classification and box head"""
@@ -117,21 +114,21 @@ class RcnnCls(nn.Cell):
         self.test_batch_size = cfg.test_batch_size
 
         self.fpn_cls = FpnCls(self.in_channels, self.rcnn_fc_out_channels, self.num_classes, cfg.roi_layer["out_size"])
-        self.relu = P.ReLU()
-        self.logicaland = P.LogicalAnd()
-        self.loss_cls = P.SoftmaxCrossEntropyWithLogits()
-        self.loss_bbox = P.SmoothL1Loss(beta=1.0)
-        self.loss_mask = P.SigmoidCrossEntropyWithLogits()
-        self.reshape = P.Reshape()
-        self.onehot = P.OneHot()
-        self.greater = P.Greater()
-        self.cast = P.Cast()
-        self.sum_loss = P.ReduceSum()
-        self.tile = P.Tile()
-        self.expandims = P.ExpandDims()
+        self.relu = ops.ReLU()
+        self.logicaland = ops.LogicalAnd()
+        self.loss_cls = ops.SoftmaxCrossEntropyWithLogits()
+        self.loss_bbox = ops.SmoothL1Loss(beta=1.0)
+        self.loss_mask = ops.SigmoidCrossEntropyWithLogits()
+        self.reshape = ops.Reshape()
+        self.onehot = ops.OneHot()
+        self.greater = ops.Greater()
+        self.cast = ops.Cast()
+        self.sum_loss = ops.ReduceSum()
+        self.tile = ops.Tile()
+        self.expandims = ops.ExpandDims()
 
-        self.gather = P.GatherNd()
-        self.argmax = P.ArgMaxWithValue(axis=1)
+        self.gather = ops.GatherNd()
+        self.argmax = ops.ArgMaxWithValue(axis=1)
 
         self.on_value = Tensor(1.0, mstype.float32)
         self.off_value = Tensor(0.0, mstype.float32)

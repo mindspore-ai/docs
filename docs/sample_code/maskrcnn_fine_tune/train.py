@@ -20,12 +20,10 @@ import os
 import argparse
 import ast
 
-from mindspore import context
+from mindspore import context, set_seed, load_checkpoint, load_param_into_net
 from mindspore.train.callback import CheckpointConfig, ModelCheckpoint, TimeMonitor
 from mindspore.train import Model
-from mindspore.train.serialization import load_checkpoint, load_param_into_net
 from mindspore.nn import Momentum
-from mindspore.common import set_seed
 
 from src.maskrcnn.mask_rcnn_r50 import Mask_Rcnn_Resnet50
 from src.network_define import LossCallBack, WithLossCell, TrainOneStepCell, LossNet

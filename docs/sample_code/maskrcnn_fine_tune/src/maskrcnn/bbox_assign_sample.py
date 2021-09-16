@@ -16,9 +16,8 @@
 
 import numpy as np
 import mindspore.nn as nn
-from mindspore.ops import operations as P
-from mindspore.common.tensor import Tensor
-import mindspore.common.dtype as mstype
+import mindspore.ops as ops
+from mindspore import Tensor, dtype as mstype
 
 
 class BboxAssignSample(nn.Cell):
@@ -61,29 +60,29 @@ class BboxAssignSample(nn.Cell):
         if self.add_gt_as_proposals:
             self.label_inds = Tensor(np.arange(1, self.num_gts + 1))
 
-        self.concat = P.Concat(axis=0)
-        self.max_gt = P.ArgMaxWithValue(axis=0)
-        self.max_anchor = P.ArgMaxWithValue(axis=1)
-        self.sum_inds = P.ReduceSum()
-        self.iou = P.IOU()
-        self.greaterequal = P.GreaterEqual()
-        self.greater = P.Greater()
-        self.select = P.Select()
-        self.gatherND = P.GatherNd()
-        self.squeeze = P.Squeeze()
-        self.cast = P.Cast()
-        self.logicaland = P.LogicalAnd()
-        self.less = P.Less()
-        self.random_choice_with_mask_pos = P.RandomChoiceWithMask(self.num_expected_pos)
-        self.random_choice_with_mask_neg = P.RandomChoiceWithMask(self.num_expected_neg)
-        self.reshape = P.Reshape()
-        self.equal = P.Equal()
-        self.bounding_box_encode = P.BoundingBoxEncode(means=(0.0, 0.0, 0.0, 0.0), stds=(1.0, 1.0, 1.0, 1.0))
-        self.scatterNdUpdate = P.ScatterNdUpdate()
-        self.scatterNd = P.ScatterNd()
-        self.logicalnot = P.LogicalNot()
-        self.tile = P.Tile()
-        self.zeros_like = P.ZerosLike()
+        self.concat = ops.Concat(axis=0)
+        self.max_gt = ops.ArgMaxWithValue(axis=0)
+        self.max_anchor = ops.ArgMaxWithValue(axis=1)
+        self.sum_inds = ops.ReduceSum()
+        self.iou = ops.IOU()
+        self.greaterequal = ops.GreaterEqual()
+        self.greater = ops.Greater()
+        self.select = ops.Select()
+        self.gatherND = ops.GatherNd()
+        self.squeeze = ops.Squeeze()
+        self.cast = ops.Cast()
+        self.logicaland = ops.LogicalAnd()
+        self.less = ops.Less()
+        self.random_choice_with_mask_pos = ops.RandomChoiceWithMask(self.num_expected_pos)
+        self.random_choice_with_mask_neg = ops.RandomChoiceWithMask(self.num_expected_neg)
+        self.reshape = ops.Reshape()
+        self.equal = ops.Equal()
+        self.bounding_box_encode = ops.BoundingBoxEncode(means=(0.0, 0.0, 0.0, 0.0), stds=(1.0, 1.0, 1.0, 1.0))
+        self.scatterNdUpdate = ops.ScatterNdUpdate()
+        self.scatterNd = ops.ScatterNd()
+        self.logicalnot = ops.LogicalNot()
+        self.tile = ops.Tile()
+        self.zeros_like = ops.ZerosLike()
 
         self.assigned_gt_inds = Tensor(np.array(-1 * np.ones(num_bboxes), dtype=np.int32))
         self.assigned_gt_zeros = Tensor(np.array(np.zeros(num_bboxes), dtype=np.int32))

@@ -15,10 +15,8 @@
 """RPN for MaskRCNN"""
 import numpy as np
 import mindspore.nn as nn
-import mindspore.common.dtype as mstype
-from mindspore.ops import operations as P
-from mindspore import Tensor
-from mindspore.ops import functional as F
+from mindspore import ops
+from mindspore import Tensor, dtype as mstype
 from mindspore.common.initializer import initializer
 from .bbox_assign_sample import BboxAssignSample
 
@@ -119,10 +117,10 @@ class RPN(nn.Cell):
         self.rpn_convs_list = nn.layer.CellList(self._make_rpn_layer(self.num_layers, in_channels, feat_channels,
                                                                      num_anchors, cls_out_channels))
 
-        self.transpose = P.Transpose()
-        self.reshape = P.Reshape()
-        self.concat = P.Concat(axis=0)
-        self.fill = P.Fill()
+        self.transpose = ops.Transpose()
+        self.reshape = ops.Reshape()
+        self.concat = ops.Concat(axis=0)
+        self.fill = ops.Fill()
         self.placeh1 = Tensor(np.ones((1,)).astype(np.float16))
 
         self.trans_shape = (0, 2, 3, 1)
@@ -134,14 +132,14 @@ class RPN(nn.Cell):
         self.num_expected_total = Tensor(np.array(cfg_rpn.num_expected_neg * self.batch_size).astype(np.float16))
         self.num_bboxes = cfg_rpn.num_bboxes
         self.get_targets = BboxAssignSample(cfg_rpn, self.batch_size, self.num_bboxes, False)
-        self.CheckValid = P.CheckValid()
-        self.sum_loss = P.ReduceSum()
-        self.loss_cls = P.SigmoidCrossEntropyWithLogits()
-        self.loss_bbox = P.SmoothL1Loss(beta=1.0/9.0)
-        self.squeeze = P.Squeeze()
-        self.cast = P.Cast()
-        self.tile = P.Tile()
-        self.zeros_like = P.ZerosLike()
+        self.CheckValid = ops.CheckValid()
+        self.sum_loss = ops.ReduceSum()
+        self.loss_cls = ops.SigmoidCrossEntropyWithLogits()
+        self.loss_bbox = ops.SmoothL1Loss(beta=1.0/9.0)
+        self.squeeze = ops.Squeeze()
+        self.cast = ops.Cast()
+        self.tile = ops.Tile()
+        self.zeros_like = ops.ZerosLike()
         self.loss = Tensor(np.zeros((1,)).astype(np.float16))
         self.clsloss = Tensor(np.zeros((1,)).astype(np.float16))
         self.regloss = Tensor(np.zeros((1,)).astype(np.float16))
@@ -280,10 +278,10 @@ class RPN(nn.Cell):
                 label_weight_with_batchsize = self.concat(label_weight_using)
 
                 # stop
-                bbox_target_ = F.stop_gradient(bbox_target_with_batchsize)
-                bbox_weight_ = F.stop_gradient(bbox_weight_with_batchsize)
-                label_ = F.stop_gradient(label_with_batchsize)
-                label_weight_ = F.stop_gradient(label_weight_with_batchsize)
+                bbox_target_ = ops.stop_gradient(bbox_target_with_batchsize)
+                bbox_weight_ = ops.stop_gradient(bbox_weight_with_batchsize)
+                label_ = ops.stop_gradient(label_with_batchsize)
+                label_weight_ = ops.stop_gradient(label_weight_with_batchsize)
 
                 cls_score_i = rpn_cls_score[i]
                 reg_score_i = rpn_bbox_pred[i]

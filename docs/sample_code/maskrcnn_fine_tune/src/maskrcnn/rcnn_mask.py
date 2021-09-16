@@ -15,10 +15,9 @@
 """MaskRcnn Rcnn for mask network."""
 
 import numpy as np
-import mindspore.common.dtype as mstype
 import mindspore.nn as nn
-from mindspore.ops import operations as P
-from mindspore.common.tensor import Tensor
+from mindspore import ops
+from mindspore import Tensor, dtype as mstype
 
 
 def _conv(in_channels, out_channels, kernel_size=1, stride=1, padding=0, pad_mode='pad', gain=1):
@@ -59,23 +58,23 @@ class FpnMask(nn.Cell):
         super(FpnMask, self).__init__()
         self.mask_conv1 = _conv(input_channels, output_channels, kernel_size=3, gain=2 ** 0.5,
                                 pad_mode="same").to_float(mstype.float16)
-        self.mask_relu1 = P.ReLU()
+        self.mask_relu1 = ops.ReLU()
 
         self.mask_conv2 = _conv(output_channels, output_channels, kernel_size=3, gain=2 ** 0.5,
                                 pad_mode="same").to_float(mstype.float16)
-        self.mask_relu2 = P.ReLU()
+        self.mask_relu2 = ops.ReLU()
 
         self.mask_conv3 = _conv(output_channels, output_channels, kernel_size=3, gain=2 ** 0.5,
                                 pad_mode="same").to_float(mstype.float16)
-        self.mask_relu3 = P.ReLU()
+        self.mask_relu3 = ops.ReLU()
 
         self.mask_conv4 = _conv(output_channels, output_channels, kernel_size=3, gain=2 ** 0.5,
                                 pad_mode="same").to_float(mstype.float16)
-        self.mask_relu4 = P.ReLU()
+        self.mask_relu4 = ops.ReLU()
 
         self.mask_deconv5 = _convTanspose(output_channels, output_channels, kernel_size=2, gain=2 ** 0.5,
                                           stride=2, pad_mode="valid").to_float(mstype.float16)
-        self.mask_relu5 = P.ReLU()
+        self.mask_relu5 = ops.ReLU()
         self.mask_conv6 = _conv(output_channels, num_classes, kernel_size=1, stride=1, gain=2,
                                 pad_mode="valid").to_float(mstype.float16)
 
@@ -138,14 +137,14 @@ class RcnnMask(nn.Cell):
 
         self.fpn_mask = FpnMask(self.in_channels, self.rcnn_mask_out_channels, self.num_classes)
 
-        self.logicaland = P.LogicalAnd()
-        self.loss_mask = P.SigmoidCrossEntropyWithLogits()
-        self.onehot = P.OneHot()
-        self.greater = P.Greater()
-        self.cast = P.Cast()
-        self.sum_loss = P.ReduceSum()
-        self.tile = P.Tile()
-        self.expandims = P.ExpandDims()
+        self.logicaland = ops.LogicalAnd()
+        self.loss_mask = ops.SigmoidCrossEntropyWithLogits()
+        self.onehot = ops.OneHot()
+        self.greater = ops.Greater()
+        self.cast = ops.Cast()
+        self.sum_loss = ops.ReduceSum()
+        self.tile = ops.Tile()
+        self.expandims = ops.ExpandDims()
 
         self.on_value = Tensor(1.0, mstype.float32)
         self.off_value = Tensor(0.0, mstype.float32)
@@ -154,7 +153,7 @@ class RcnnMask(nn.Cell):
         rmv_first = np.ones((self.num_bboxes, self.num_classes))
         rmv_first[:, 0] = np.zeros((self.num_bboxes,))
         self.rmv_first_tensor = Tensor(rmv_first.astype(np.float16))
-        self.mean_loss = P.ReduceMean()
+        self.mean_loss = ops.ReduceMean()
 
     def construct(self, mask_featuremap, labels=None, mask=None, mask_fb_targets=None):
         """Define rcnn for mask subnet."""
