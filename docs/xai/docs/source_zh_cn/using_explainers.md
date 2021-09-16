@@ -26,7 +26,7 @@
 
 ![saliency_overlay](./images/saliency_overlay.png)
 
-解释器主要分为两大类：基于梯度的 及 基于扰动的。基于梯度的解释器依赖反向传播去计算象素的重要性，而基于扰动的解释器侧是使用随机扰动原图的方法进行计算。
+解释器主要分为两大类：基于梯度的 及 基于扰动的。基于梯度的解释器依赖反向传播去计算象素的重要性，而基于扰动的解释器则是使用随机扰动原图的方法进行计算。
 
 | 解释器              | 类型             |
 |:------------------:|:----------------:|
@@ -177,7 +177,7 @@ load_param_into_net(net, param_dict)
 
 ood_net = OoDNet(underlying=net, num_classes=num_classes)
 
-# 如果分类器的激活函数是 Softmax，我们要使用 SoftmaxCrossEntropyWithLogits 作为损失函数，如果激活函数是 Sigmod 侧使用
+# 如果分类器的激活函数是 Softmax，我们要使用 SoftmaxCrossEntropyWithLogits 作为损失函数，如果激活函数是 Sigmod 则使用
 # BCEWithLogitsLoss 作为损失函数
 ood_net.train(train_ds, loss_fn=SoftmaxCrossEntropyWithLogits())
 
