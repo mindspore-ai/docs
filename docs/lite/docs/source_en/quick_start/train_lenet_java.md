@@ -49,7 +49,7 @@ cd mindspore
 bash build.sh -I x86_64 -j8
 ```
 
-For details about the build, see [Building MindSpore Lite](https://www.mindspore.cn/lite/docs/en/r1.5/use/build.html).
+Environment requirements and settings about the build, see [Building MindSpore Lite](https://www.mindspore.cn/lite/docs/en/r1.5/use/build.html).
 The sample source code used in this tutorial is in the `mindspore/lite/examples/train_lenet_java` directory.
 
 ### Downloading the Dataset
