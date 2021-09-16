@@ -15,6 +15,8 @@ Since the function is executed in the compiling state of MindSpore, so when usin
 
 Otherwise, if the parameter cannot be determined in compiling state of mindspore, the value of parameter will be none, that may make the return result of function does not match with expectations.
 
+When the input parameter can be determined, you can use @constexpr to implement some operations that are not supported in the construct function. For example, operations such as creating tensor based on a certain shape.
+You can use guard clauses to check if the input arguments is None to avoid @constexpr's input arguments cannot be determined.
 A code example is as follows:
 
 ```python
@@ -25,23 +27,46 @@ import mindspore.nn as nn
 
 @constexpr
 def construct_tensor(x):
+    if x is None:
+        raise ValueError("input is a unknown value")
     return Tensor(np.array(x))
 
 class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
         self.relu = ops.ReLU()
-    def construct(self):
-        return self.relu(construct_tensor(x))
+    def construct(self, x):
+        return self.relu(construct_tensor(ops.shape(x)))
 
 net = Net()
-out = net()
+x = Tensor(np.random.random(7,6,3))
+out = net(x)
 print(out)
 ```
 
 The following information is displayed:
 
 ```text
-
-[1 2 0 4]
+[7 6 3]
 ```
+
+As shown below, if we change Net to a value that cannot be determined in MindSpore compiling state, an exception will be thrown. Because the input of construct_tensor is a value that can be determined when ReLU must be run. ValueError will be thrown in constexpr.
+
+@constexpr
+def construct_tensor(x):
+    if x is None:
+        raise ValueError("input is a unknown value")
+    return Tensor(np.array(x))
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.relu = ops.ReLU()
+    def construct(self, x):
+        return self.relu(construct_tensor(self.relu(x)))
+
+net = Net()
+x = Tensor(np.random.random(7,6,3))
+out = net(x)
+print(out)
+
