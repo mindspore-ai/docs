@@ -120,6 +120,7 @@ MindSpore根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
 
 > - 以上选项可通过设置同名环境变量或者`mindspore/lite/CMakeLists.txt`文件修改。
 > - 修改选项后，添加`-i`参数进行增量编译不生效。
+> - 由于NPU和TensorRT的实现依赖于Delegate机制，所以在使用NPU或TensorRT时无法关闭Delegate机制，如果关闭了Delegate机制，则相关功能也必须关闭。
 
 ### 编译示例
 
