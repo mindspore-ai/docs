@@ -463,7 +463,9 @@ The data objects saved by asynchronous Dump include the final execution graph (`
 - `stream_id`: the id of the stream.
 - `timestamp`: the time stamp.
 
-For multi graph networks, due to the control flow, some subgraphs may not be executed, but Dump only saves the executed nodes, so the {graph_id} in the `.pb` file name under the 'graphs' directory may not always have a corresponding {graph_id} directory in {net_name} directory.
+Due to the control flow, some sub-graphs may not be executed, but Dump only saves the executed nodes, so the {graph_id} in the `.pb` file name under the 'graphs' directory may not always have a corresponding {graph_id} directory in {net_name} directory.
+
+For multi-graph networks, such as dynamic shape scenario, the steps of each graph are counted independently.
 
 ### Introduction to Asynchronous Dump Data File
 
