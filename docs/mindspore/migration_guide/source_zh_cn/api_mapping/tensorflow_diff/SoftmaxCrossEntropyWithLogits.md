@@ -4,10 +4,12 @@
 
 ```python
 class tf.nn.softmax_cross_entropy_with_logits(
-    labels,
-    logits,
-    axis=-1,
-    name=None
+    _sentinel=None,
+    labels=None,
+    logits=None,
+    dim=-1,
+    name=None,
+    axis=None
 )
 ```
 
