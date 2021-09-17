@@ -63,8 +63,7 @@
 
 ```python
 context.set_auto_parallel_context(mode=ParallelMode.SEMI_AUTO_PARALLEL)
-parallel_config = TransformerOpParalllelConfig(data_parallel=1,
-                                               model_parallel=8)
+parallel_config = TransformerOpParalllelConfig(data_parallel=1, model_parallel=8)
 ```
 
 ## 模型定义
@@ -115,7 +114,7 @@ class EmbeddingLayer(nn.Cell):
 
 用户可以调用三个接口作为主要的构建API:`Transformer`、`TransformerEncoder`和`TransformerDecoder`。它们都需要传入`TransformerOpParallelConfig`作为并行设置的配置。我们根据`TransformerOpParallelConfig`中配置的并行配置，对`Transformer`内部使用的算子设置对应的并行策略。
 
-> `pipeline_func`这个方法可以自定义Transformer中每个`block`属于的`stage`、是否开启重计算和设置优化器切分的融合标记。例如下面的例子中，我们根据传入的`layer_id`和`offset`(在`Transformer`接口中，在实例化`Encoder`时传入的`offset`为0， `Decoder`中传入的`offset`的值为`Encoder`的层数), `Encoder_layer`和`Decoder_layer`的总层数，和指定的`pipeline_stage`数目，按照均分的配置计算出当前的`block`对应的`stage`。在默认情况下，即用户不传入`lambda_func`的情况下，也是按照层数进行均分的设置。
+> `pipeline_func`这个方法可以设置transformer中每个`block`属于的`stage`、是否开启重计算和优化器切分的融合标记。例如下面的例子中，我们根据传入的`layer_id`和`offset`(在`Transformer`接口中，在实例化`Encoder`时传入的`offset`为0， `Decoder`中传入的`offset`的值为`Encoder`的层数), `Encoder_layer`和`Decoder_layer`的总层数，和指定的`pipeline_stage`数目，按照均分的配置计算出当前的`block`对应的`stage`。在默认情况下，即用户不传入`lambda_func`的情况下，也是按照层数进行均分的设置。
 
 ```python
 def pipeline_func(network, layer_id, offset, parallel_config, layers):
