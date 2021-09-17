@@ -24,11 +24,12 @@ import numpy as np
 from mindspore.ops import constexpr
 import mindspore.ops as ops
 import mindspore.nn as nn
+import mindspore.Tensor as Tensor
 
 @constexpr
 def construct_tensor(x):
     if x is None:
-        raise ValueError("input is a unknown value")
+        raise ValueError("input is an unknown value")
     return Tensor(np.array(x))
 
 class Net(nn.Cell):
@@ -39,7 +40,7 @@ class Net(nn.Cell):
         return self.relu(construct_tensor(ops.shape(x)))
 
 net = Net()
-x = Tensor(np.random.random(7,6,3))
+x = Tensor(np.random.random([7,6,3]))
 out = net(x)
 print(out)
 ```
@@ -52,10 +53,11 @@ The following information is displayed:
 
 As shown below, if we change Net to a value that cannot be determined in MindSpore compiling state, an exception will be thrown. Because the input of construct_tensor is a value that can be determined when ReLU must be run. ValueError will be thrown in constexpr.
 
+```python
 @constexpr
 def construct_tensor(x):
     if x is None:
-        raise ValueError("input is a unknown value")
+        raise ValueError("input is an unknown value")
     return Tensor(np.array(x))
 
 class Net(nn.Cell):
@@ -69,4 +71,10 @@ net = Net()
 x = Tensor(np.random.random(7,6,3))
 out = net(x)
 print(out)
+```
 
+The following information is displayed:
+
+```text
+ValueError: input is an unknown value
+```
