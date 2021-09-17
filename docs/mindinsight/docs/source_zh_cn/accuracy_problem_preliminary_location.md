@@ -258,7 +258,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 2. MindSpore的[DropOut](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Dropout.html#mindspore.nn.Dropout)算子，参数含义为保留的概率（keep_prob），而PyTorch的DropOut算子，参数含义为丢弃的概率。
 3. MindSpore的[BatchNorm](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.BatchNorm2d.html#mindspore.nn.BatchNorm2d)中的动量默认值和PyTorch不同。PyTorch默认是0.1，MindSpore中默认值是0.9。
 
-较完整的API差异列表请参考 <https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/api_mapping.md> 。
+较完整的API差异列表请参考 <https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html>。
 
 例子：
 
@@ -476,7 +476,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 5. 对比权重初始化是否一致。建议MindSpore脚本和标杆脚本加载具有相同值的checkpoint文件。网络结构一致的情况下，一般通过简单的权重名称替换即可将一个框架的checkpoint文件转换为另一个框架的checkpoint文件。
 6. 强烈建议在标杆脚本中使能混合精度。若标杆脚本使能混合精度后出现精度问题，则需要优化算法以使算法能够正常在混合精度下收敛。
 
-在对比的过程中，除了要对比脚本中写出来的参数，还要注意未写在脚本中的参数默认值 。例如，MindSpore的Conv2d算子，默认has_bias为False，使用Normal(0.0, 0.01)进行权重初始化，而PyTorch的Conv2d算子，默认has_bias为True，初始化方式也不同。MindSpore与PyTorch的详细API差异请见 <https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/api_mapping.md> 。
+在对比的过程中，除了要对比脚本中写出来的参数，还要注意未写在脚本中的参数默认值。例如，MindSpore的Conv2d算子，默认has_bias为False，使用Normal(0.0, 0.01)进行权重初始化，而PyTorch的Conv2d算子，默认has_bias为True，初始化方式也不同。MindSpore与PyTorch的详细API差异请见 <https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html>。
 
 执行完上述对比和固定流程后，一般会发现若干MindSpore脚本中的不一致，修复这些不一致后，往往精度问题就解决了。若不一致之处都修复了，问题仍然存在，可以使用相同的数据集和参数分别运行MindSpore脚本和标杆脚本，对比两者的loss：
 

@@ -122,7 +122,7 @@ Mapping between TensorFlow APIs and MindSpore APIs, which is provided by the com
 | torch.nn.Module.buffers                     | mindspore.nn.Cell.untrainable_params                              |[diff](https://www.mindspore.cn/docs/migration_guide/en/master/api_mapping/pytorch_diff/UnTrainableParams.html)|
 | torch.nn.Module.children                                      | mindspore.nn.Cell.cells                          |[diff](https://www.mindspore.cn/docs/migration_guide/en/master/api_mapping/pytorch_diff/Cells.html)|
 | torch.nn.Module.load_state_dict                      | mindspore.load_param_into_net                                  | same |
-| torch.nn.Module.named_children                     | mindspore.nn.Cell.name_cells                             | [diff](https://www.mindspore.cn/docs/migration_guide/en/master/api_mapping/pytorch_diff/NameCells.html)|
+| torch.nn.Module.named_children                     | mindspore.nn.Cell.name_cells                             | [diff](https://www.mindspore.cn/docs/migration_guide/en/master/api_mapping/pytorch_diff/NameCell.html)|
 | torch.nn.Module.named_modules                      | mindspore.nn.Cell.cells_and_names                              | same |
 | torch.nn.Module.parameters                     | mindspore.nn.Cell.trainable_params                              |[diff](https://www.mindspore.cn/docs/migration_guide/en/master/api_mapping/pytorch_diff/trainableParams.html)|
 | torch.nn.Module.state_dict                      | mindspore.nn.Cell.parameters_dict                              | same |

@@ -6,14 +6,6 @@
 MindScience API
 ===============
 
-.. toctree::
-   :maxdepth: 1
-   :caption: MindSPONGE Python API
-
    mindsponge
-
-.. toctree::
-   :maxdepth: 1
-   :caption: MindElec Python API
 
    mindelec
