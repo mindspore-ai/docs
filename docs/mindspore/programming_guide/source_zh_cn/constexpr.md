@@ -74,5 +74,5 @@ print(out)
 运行结果如下:
 
 ```text
-ValueError: input is a unknown value
+ValueError: input is an unknown value
 ```

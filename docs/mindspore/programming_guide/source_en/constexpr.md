@@ -76,5 +76,5 @@ print(out)
 The following information is displayed:
 
 ```text
-ValueError: input is a unknown value
+ValueError: input is an unknown value
 ```
