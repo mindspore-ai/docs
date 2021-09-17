@@ -187,8 +187,6 @@ Thor Layers
     :nosignatures:
     :template: classtemplate.rst
 
-    mindspore.nn.Conv2dThor
-    mindspore.nn.DenseThor
     mindspore.nn.EmbeddingThor
 
 Quantized Functions
