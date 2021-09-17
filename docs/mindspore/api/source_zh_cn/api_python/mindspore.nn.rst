@@ -179,15 +179,6 @@ Pooling layers
     mindspore.nn.MaxPool1d
     mindspore.nn.MaxPool2d
 
-Thor Layers
---------------
-
-.. msplatformautosummary::
-    :toctree: nn
-    :nosignatures:
-    :template: classtemplate.rst
-
-    mindspore.nn.EmbeddingThor
 
 Quantized Functions
 -------------------
