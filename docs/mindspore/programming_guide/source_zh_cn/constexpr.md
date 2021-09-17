@@ -22,11 +22,12 @@ import numpy as np
 from mindspore.ops import constexpr
 import mindspore.ops as ops
 import mindspore.nn as nn
+import mindspore.Tensor as Tensor
 
 @constexpr
 def construct_tensor(x):
     if x is None:
-        raise ValueError("input is a unknown value")
+        raise ValueError("input is an unknown value")
     return Tensor(np.array(x))
 
 class Net(nn.Cell):
@@ -37,7 +38,7 @@ class Net(nn.Cell):
         return self.relu(construct_tensor(ops.shape(x)))
 
 net = Net()
-x = Tensor(np.random.random(7,6,3))
+x = Tensor(np.random.random([7,6,3]))
 out = net(x)
 print(out)
 ```
@@ -48,13 +49,13 @@ print(out)
 [7 6 3]
 ```
 
-如下所示，如果我们将Net改成输入为编译时无法确定的值时，则会抛出异常。 由于construct_tensor输入为必须运行ReLU时才能确定的值。在constexpr中会抛出ValueError。
+如下所示，如果我们将Net改成输入为编译时无法确定的值时，则会抛出异常。 由于construct_tensor输入为运行ReLU时才能确定的值。在constexpr中会抛出ValueError。
 
 ```python
 @constexpr
 def construct_tensor(x):
     if x is None:
-        raise ValueError("input is a unknown value")
+        raise ValueError("input is an unknown value")
     return Tensor(np.array(x))
 
 class Net(nn.Cell):
@@ -68,4 +69,10 @@ net = Net()
 x = Tensor(np.random.random(7,6,3))
 out = net(x)
 print(out)
+```
+
+运行结果如下:
+
+```text
+ValueError: input is a unknown value
 ```
