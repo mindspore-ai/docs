@@ -56,11 +56,12 @@ MindSpore编程指南
    dataset
    pipeline
    dataset_advanced
-   
+   dataset_usage
+
 .. toctree::
    :maxdepth: 1
    :caption: 网络构建
-   
+
    build_net
    initializer
    parameter
