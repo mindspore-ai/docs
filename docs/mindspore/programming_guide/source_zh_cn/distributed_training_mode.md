@@ -47,7 +47,7 @@ context.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL)
 # context.set_auto_parallel_context(parallel_mode=ParallelMode.HYBRID_PARALLEL)
 ```
 
-下述涉及的自动并行接口，例如`auto_parallel_context`中的接口配置，可以在[分布式并行接口](https://mindspore.cn/docs/programming_guide/zh-CN/r1.5/auto_parallel.html)进行查看。分布式并行训练在各场景的支持情况如下表。
+下述涉及的自动并行接口，例如`context.set_auto_parallel_context`中的接口配置，可以在[分布式并行接口](https://mindspore.cn/docs/programming_guide/zh-CN/r1.5/auto_parallel.html)进行查看。分布式并行训练在各场景的支持情况如下表。
 
 | 并行模式 | 配置 | 动态图 | 静态图 | 支持设备 |
 | ---------- | ------ | ------ | ---------- | ---------- |
@@ -244,11 +244,11 @@ model.train(...)
 
   ```python
   # 设置输入在第1维度上进行切分， 此时要求用户确保dataset返回的输入在第1维度上进行切分
-  set_auto_parallel_context(dataset_strategy=((1, 8), (1, 8)))
+  context.set_auto_parallel_context(dataset_strategy=((1, 8), (1, 8)))
   # 相当于设置full_batch=False
-  auto_parallel_context(dataset_strategy="data_parallel")
+  context.set_auto_parallel_context(dataset_strategy="data_parallel")
   # 相当于设置full_batch=True
-  auto_parallel_context(dataset_strategy="full_batch")
+  context.set_auto_parallel_context(dataset_strategy="full_batch")
   ```
 
 因此，在用户设置上述的配置之后，需要**手动**设置dataset的获取顺序，确保每卡的数据是期望的。
