@@ -1,5 +1,7 @@
 # Function Differences with tf.train.linear_cosine_decay
 
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/migration_guide/source_en/api_mapping/tensorflow_diff/CosineDecayLR.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
+
 ## tf.train.linear_cosine_decay
 
 ```python
