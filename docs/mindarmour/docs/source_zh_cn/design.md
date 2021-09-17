@@ -33,7 +33,7 @@ MindArmour总体架构如下图所示，下面介绍主要的三个部分：模�
 
 不同于传统fuzz测试，AI Fuzzer根据神经网络特点，以神经元覆盖率作为测试评价准则。神经元覆盖率，是指通过一组输入观察到的激活神经元数量和神经元输出值的范围。通过神经元覆盖率增益来指导输入变异，让输入能够激活更多的神经元，神经元值的分布范围更广，从而探索不同类型的模型输出结果、错误行为，从而评测模型鲁棒性。
 
-![fuzz_architecture](https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.5/_images/fuzz_architecture.png)
+![fuzz_architecture](./images/fuzz_arch_zh.png)
 
 AI Fuzzer主要包括三个模块：
 
