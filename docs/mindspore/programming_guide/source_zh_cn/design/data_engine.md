@@ -121,17 +121,39 @@ MindSpore的设计充分考虑了数据处理的高效性、灵活性以及在�
 
     为了支持AutoAugment这种自动数据增强策略，MindSpore提供了以下接口。
 
-    - RandomChoice即随机选择，从算子列表中选择一个执行
+    - RandomChoice即随机选择，允许用户定义一个数据增强操作列表，数据处理过程中将针对每张图像等概率选择列表中的一个数据增强操作执行。
 
-        ![image](./images/data/random_choice.png)
+        ```python
+        from mindspore.dataset.transforms.c_transforms import RandomChoice
+        from mindspore.dataset.vision.c_transforms import RandomCrop, RandomHorizontalFlip, RandomRotation
 
-    - RandomApply即随机概率执行，以指定概率执行算子
+        transform_list = RandomChoice([RandomCrop((32, 32)),
+                                    RandomHorizontalFlip(0.5),
+                                    RandomRotation((90, 90))])
+        ```
 
-        ![image](./images/data/random_apply.png)
+    - RandomApply即随机概率执行，允许用户定义一个数据增强操作列表和对应概率，数据处理过程中将针对每张图像以指定的概率执行列表中的数据增强操作，要么全都执行，要么全不执行。
 
-    - RandomSelectSubpolicy即随机子策略选择，等概率选择一个子策略，以指定概率执行算子
+        ```python
+        from mindspore.dataset.transforms.c_transforms import RandomApply
+        from mindspore.dataset.vision.c_transforms import RandomCrop, RandomHorizontalFlip, RandomRotation
 
-        ![image](./images/data/random_select_subpolicy.png)
+        transform_list = RandomApply([RandomCrop((32, 32)),
+                                    RandomHorizontalFlip(0.5),
+                                    RandomRotation((90, 90))], 0.8)
+        ```
+
+    - RandomSelectSubpolicy即随机子策略选择，允许用户定义多个数据增强操作子策略列表，并对子策略中的每个数据增强操作指定执行的概率，数据处理过程中将针对每张图像先等概率选择一个子策略，然后按顺序依照概率决定其中各个数据增强操作是否执行。
+
+        ```python
+        from mindspore.dataset.vision.c_transforms import RandomSelectSubpolicy, RandomRotation, RandomVerticalFlip, \
+            RandomHorizontalFlip
+
+        transform_list = RandomSelectSubpolicy([[(RandomRotation((45, 45)), 0.5),
+                                                (RandomVerticalFlip(), 1)],
+                                                [(RandomRotation((90, 90)), 1),
+                                                (RandomHorizontalFlip(), 0.5)]])
+        ```
 
     自动数据增强操作可以使ImageNet数据集提升1%左右的训练精度。
 
