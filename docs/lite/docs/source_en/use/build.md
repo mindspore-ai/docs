@@ -115,11 +115,12 @@ If the user is sensitive to the package size of the framework, the following opt
 | MSLITE_CONTROLFLOW_TENSORLIST | Whether to support control flow model | on,off | on |
 | MSLITE_WEIGHT_DECODE | Whether to support quantitative model | on,off | on |
 | MSLITE_CUSTOM_KERNEL_REGISTRY | Whether to support southbound operator registration | on,off | on |
-| MSLITE_DELEGATE_USE | Whether to  support delegate mechanism | on,off | on |
+| MSLITE_DELEGATE_USE | Whether to  support Delegate mechanism | on,off | on |
 | MSLITE_ENABLE_V0 | Whether to compatible with models exported before 1.1.0 | on,off | on |
 
 > - The above options can be modified by setting the environment variable with the same name or the file `mindspore/lite/CMakeLists.txt`.
 > - After modifying the Option, adding the `-i` parameter for incremental compilation will not take effect.
+> - Since the implementation of NPU and TensorRT depends on the Delegate mechanism, the Delegate mechanism cannot be turned off when using NPU or TensorRT. If the Delegate mechanism is turned off, the related functions must also be turned off.
 
 ### Compilation Example
 
