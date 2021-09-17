@@ -37,19 +37,13 @@ mindelec.data
     :nosignatures:
     :template: classtemplate.rst
  
+	mindelec.data.BBoxType	
 	mindelec.data.BoundaryBC
 	mindelec.data.BoundaryIC
 	mindelec.data.Dataset
 	mindelec.data.Equation
 	mindelec.data.ExistedDataConfig
 	mindelec.data.ExistedDataset
-
-.. autosummary::
-    :toctree: mindelec
-    :nosignatures:
-    :template: classtemplate.rst
-
-	mindelec.data.BBoxType
 	mindelec.data.MaterialConfig
 	mindelec.data.PointCloud
 	mindelec.data.PointCloudSamplingConfig
@@ -64,6 +58,7 @@ mindelec.geometry
     :nosignatures:
     :template: classtemplate.rst
  
+	mindelec.geometry.create_config_from_edict
 	mindelec.geometry.CSGDifference
 	mindelec.geometry.CSGIntersection
 	mindelec.geometry.CSGUnion
@@ -78,13 +73,6 @@ mindelec.geometry
 	mindelec.geometry.Rectangle
 	mindelec.geometry.SamplingConfig
 	mindelec.geometry.TimeDomain
-
-.. autosummary::
-    :toctree: mindelec
-    :nosignatures:
-    :template: classtemplate.rst
-
-	mindelec.geometry.create_config_from_edict
 
 mindelec.loss
 -------------
@@ -119,15 +107,9 @@ mindelec.solver
     :template: classtemplate.rst
 
 	mindelec.solver.EvalCallback
+	mindelec.solver.LossAndTimeMonitor
 	mindelec.solver.Problem
 	mindelec.solver.Solver
-
-.. autosummary::
-    :toctree: mindelec
-    :nosignatures:
-    :template: classtemplate.rst
-
-	mindelec.solver.LossAndTimeMonitor
 
 mindelec.vision
 ----------------
