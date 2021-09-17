@@ -5,7 +5,7 @@
 ```python
 class tf.keras.optimizers.Adagrad(
     learning_rate=0.001,
-    initial_accumulator_value=0,
+    initial_accumulator_value=0.1,
     epsilon=1e-07,
     name='Adagrad',
     **kwargs
