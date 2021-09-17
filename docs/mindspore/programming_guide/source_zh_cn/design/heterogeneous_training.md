@@ -18,7 +18,7 @@
 
 ## 概述
 
-异构并行训练方法是通过分析图上算子内存占有和计算密集度，将内存消耗巨大或适合CPU逻辑处理的算子切分到CPU子图，将内存消耗较小计算密集型算子切分到硬件加速器子图，框架协同不同子图进行网络训练，使得处于不同硬件且无依赖关系的子图能够并行进行执行的过程。
+异构并行训练方法是通过分析图上算子内存占用和计算密集度，将内存消耗巨大或适合CPU逻辑处理的算子切分到CPU子图，将内存消耗较小计算密集型算子切分到硬件加速器子图，框架协同不同子图进行网络训练，使得处于不同硬件且无依赖关系的子图能够并行进行执行的过程。
 
 ## 计算流程
 
@@ -53,10 +53,10 @@ MindSpore异构并行训练典型的计算流程如下图所示：
 如图所示，将Adam算子配置到CPU执行同时指定加速器进行FP16计算，可以将参数内存占用降低到原始的1/3。
 
 1. 配置优化器算子到CPU执行
-2. 根据FP16的权重参数复制FP32优化器状态变量
+2. 初始化FP16的权重参数以及FP32的优化器状态变量
 3. 将输入优化器的梯度转为FP16（如果本来就是FP16梯度，可忽略这步）
-4. 权重转为FP32参与优化器运算
-5. 更新的FP32权重赋值给FP16的权重
+4. 权重和梯度转为FP32参与优化器运算
+5. 更新后的FP32权重赋值给FP16的权重
 
 优化器异构代码样例如下：
 
@@ -148,19 +148,24 @@ class AdamWeightDecayOp(Optimizer):
 1. 配置EmbeddingLookup算子到CPU执行
 
    ```python
-   P.EmbeddingLookup().add_prim_attr('primitive_target', 'CPU');
+   ops.EmbeddingLookup().add_prim_attr('primitive_target', 'CPU');
    ```
 
 2. 配置EmbeddingLookup相关优化器到CPU执行
 
    ```python
-   P.FusedSparseLazyAdam(use_locking, use_nesterov).add_prim_attr("primitive_target", "CPU");
+   ops.FusedSparseLazyAdam(use_locking, use_nesterov).add_prim_attr("primitive_target", "CPU");
    ```
 
 EmbeddingLookup算子设置代码样例如下：
 
 ```python
-class EmbeddingLookup(Cell):
+import mindspore.nn as nn
+import mindspore.ops as ops
+from mindspore import Parameter
+from mindspore.common.initializer import initializer
+
+class EmbeddingLookup(nn.Cell):
 
   def __init__(self, vocab_size, embedding_size, param_init='normal',
                target='CPU', sparse=True):
@@ -176,10 +181,10 @@ class EmbeddingLookup(Cell):
     if not sparse and target == 'CPU':
       raise ValueError('When target is CPU, embedding_lookup must be sparse.')
     if sparse:
-      self.gatherv2 = P.SparseGatherV2()
+      self.gatherv2 = ops.SparseGatherV2()
     else:
-      self.gatherv2 = P.Gather()
-    self.embeddinglookup = P.EmbeddingLookup().add_prim_attr('primitive_target', 'CPU')
+      self.gatherv2 = ops.Gather()
+    self.embeddinglookup = ops.EmbeddingLookup().add_prim_attr('primitive_target', 'CPU')
     self.embedding_size = validator.check_positive_int(embedding_size, 'embedding_size')
     self.embedding_table = Parameter(initializer(param_init, [self.vocab_size, self.embedding_size]),
                                      name='embedding_table')
@@ -202,7 +207,7 @@ class EmbeddingLookup(Cell):
 
 ![heterogeneous](./images/heter-ps.png)
 
-Parameter Server封装异构流程，用户只需配置参数使用PS即可，具体配置流程请参考Parameter Server训练流程。
+Parameter Server封装异构流程，用户只需配置参数使用PS即可，具体配置流程请参考[Parameter Server训练流程](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/apply_parameter_server_training.html)。
 
 此外，wide&deep网络中也有使用PS的流程，可参考：<https://gitee.com/mindspore/mindspore/tree/r1.5/model_zoo/official/recommend/wide_and_deep>
 
