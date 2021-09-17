@@ -5,7 +5,7 @@
 - [盘古α网络多维度混合并行解析析](#盘古α网络多维度混合并行解析)
     - [概述](#概述)
     - [Embedding层](#Embedding层)
-    - [Decorder层](#Decorder层)
+    - [Decoder层](#Decoder层)
         - [Self-attention](#Self-attention)
         - [Feedforward](#Feedforward)
     - [Residual层](#Residual层)
@@ -86,9 +86,9 @@ class Embedding(nn.Cell):
 
 ```
 
-## Decorder层
+## Decoder层
 
-训练大规模Transformer网络的关键困难在于如何解决随着层数增加造成的计算和内存瓶颈，选择合理的切分方式尤为重要。盘古α的主体网络由多个结构相同但不共享权重的Decorder组成，Decorder又由Self-attention和Feedforward两部分构成，它们的切分方式可以参照下图[1]：
+训练大规模Transformer网络的关键困难在于如何解决随着层数增加造成的计算和内存瓶颈，选择合理的切分方式尤为重要。盘古α的主体网络由多个结构相同但不共享权重的Decoder组成，Decoder又由Self-attention和Feedforward两部分构成，它们的切分方式可以参照下图[1]：
 
 ![image](./images/pangu_strategy.png)
 
