@@ -4,6 +4,9 @@ MindSPONGE
 .. warning::
     These are experimental prototypes that are subject to change and/or deletion.
 
+Operations
+-----------
+
 .. msplatformautosummary::
     :toctree: mindsponge
     :nosignatures:
