@@ -1,8 +1,8 @@
-# Installing MindSpore GPU Through Conda
+# Installing MindSpore GPU by Conda
 
 <!-- TOC -->
 
-- [Installing MindSpore GPU Through Conda](#installing-mindspore-gpu-through-conda)
+- [Installing MindSpore GPU by Conda](#installing-mindspore-gpu-by-conda)
     - [System Environment Information Confirmation](#system-environment-information-confirmation)
     - [Creating and Accessing the Conda Virtual Environment](#creating-and-accessing-the-conda-virtual-environment)
     - [Installing MindSpore](#installing-mindspore)
