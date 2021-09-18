@@ -1,5 +1,7 @@
 # Parameterized Electromagnetic Simulation with MindElec
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindelec/docs/mindscience/docs/source_en/mindelec/parameterization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
+
 ## Overview
 
 Electromagnetic simulation is widely used in the product design process of antennas, chips, and mobile phones to obtain the transmission characteristics (such as scattering parameters and electromagnetic fields) of the target to be simulated. The scattering parameters (S-parameters) are network parameters based on the input wave and the reflected wave. It is used to analyze a microwave circuit and describe a circuit network based on the strength of a reflected signal of a component port and the strength of a signal transmitted from a port to another port.

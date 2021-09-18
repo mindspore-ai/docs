@@ -1,5 +1,7 @@
 # Using MindElec to Solve Maxwell's Equations
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindelec/docs/mindscience/docs/source_en/mindelec/time_domain_maxwell.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
+
 ## Overview
 
 The rapid development of AI technology provides a new computing paradigm for scientific computing. The MindElec toolkit supports both data-driven and physics-driven AI methods to handle typical problems in the scientific computing field. The physics-driven AI method combines physical equations and initial boundary conditions to train the model. Compared with the data-driven method, the physics-driven method doesn’t require any labeled data. This tutorial focuses on physics-driven AI methods for solving point source time-domain Maxwell’s equations.

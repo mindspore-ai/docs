@@ -1,5 +1,7 @@
 # Using MindElec to Visualize Electromagnetic Simulation Results
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindelec/docs/mindscience/docs/source_en/mindelec/visualization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
+
 ## Overview
 
 Electromagnetic simulation results usually include physical parameters such as the electromagnetic field, and S-parameters in the simulation area. The visualized simulation result can directly reflect the strength and distribution of the concerned physical parameters and assist the designers in debugging and optimization. MindElec provides the visualization module `mindelec.vision` for the training process, testing process and simulation results (electromagnetic field and S-parameters). The following cases show how to use `mindelec.vision` for visualization.
