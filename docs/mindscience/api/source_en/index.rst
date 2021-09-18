@@ -6,6 +6,8 @@
 MindScience API
 ===============
 
-   mindsponge
+.. toctree::
+   :maxdepth: 1
 
+   mindsponge
    mindelec
