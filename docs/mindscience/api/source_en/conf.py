@@ -32,7 +32,6 @@ author = 'MindSpore'
 # The full version, including alpha/beta/rc tags
 release = 'master'
 
-import mindelec
 
 # -- General configuration ---------------------------------------------------
 
@@ -168,6 +167,7 @@ except:
 
 import mindspore
 
+import mindelec
 
 sys.path.append(os.path.abspath('../../../../resource/search'))
 import search_code
