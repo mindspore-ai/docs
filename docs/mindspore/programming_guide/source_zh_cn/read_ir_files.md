@@ -296,45 +296,38 @@ MindSpore在编译图的过程中，经常会出现`evaluate`阶段的图推导�
 会出现如下的报错：
 
 ```text
-  1 [ERROR] ANALYZER(32138,7f1c41bec740,python):2021-08-27-10:41:00.530.725 [mindspore/ccsrc/pipeline/jit/static_analysis/stack_frame.cc:85] DoJump] Function func.18, The number of parameters of this function is 2, but the number of provided arguments is 3. NodeInfo: In file test.py(19)
-  2     def func(x, y):
-  3
-  4 [ERROR] DEBUG(32138,7f1c41bec740,python):2021-08-27-10:41:00.530.811 [mindspore/ccsrc/debug/trace.cc:128] TraceGraphEval]
-  5 *******************************graph evaluate stack**********************************
-  6     #0 graph:construct_wrapper.0 with args[x:<Tensor(F32)[]>,y:<Tensor(F32)[]>,]In file test.py(22)
-  7     def construct(self, x, y):
-  8
-  9     #1 graph:construct.3 with args[x:<Tensor(F32)[]>,y:<Tensor(F32)[]>,]In file test.py(22)
- 10     def construct(self, x, y):
- 11
- 12
- 13 *************************************************************************************
- 14
- 15 Traceback (most recent call last):
- 16   File "test.py", line 31, in <module>
- 17     out = net(input1, input2)
- 18   File "/home/workspace/mindspore/mindspore/nn/cell.py", line 384, in __call__
- 19     out = self.compile_and_run(*inputs)
- 20   File "/home/workspace/mindspore/mindspore/nn/cell.py", line 647, in compile_and_run
- 21     self.compile(*inputs)
- 22   File "/home/workspace/mindspore/mindspore/nn/cell.py", line 634, in compile
- 23     _executor.compile(self, *inputs, phase=self.phase, auto_parallel_mode=self._auto_parallel_mode)
- 24   File "/home/workspace/mindspore/mindspore/common/api.py", line 536, in compile
- 25     result = self._executor.compile(obj, args_list, phase, use_vm, self.queue_name)
- 26 TypeError: mindspore/ccsrc/pipeline/jit/static_analysis/stack_frame.cc:85 DoJump] Function func.18, The number of parameters of this function is 2, but the number of provided arguments is 3. NodeInfo: In file test.py(19)
- 27     def func(x, y):
- 28
- 29 The function call stack (See file '/home/workspace/mindspore/rank_0/om/analyze_fail.dat' for more details):
- 30 # 0 In file test.py(26)
- 31         return c
- 32         ^
- 33 # 1 In file test.py(25)
- 34         c = self.mul(b, self.func(a, a, b))
- 35                         ^
+  1 [EXCEPTION] ANALYZER(31946,7f6f03941740,python):2021-09-18-15:10:49.094.863 [mindspore/ccsrc/pipeline/jit/static_analysis/stack_frame.cc:85] DoJump] The parameters number of the funct    ion is 2, but the number of provided arguments is 3.
+  2 FunctionGraph ID : func.18
+  3 NodeInfo: In file test.py(19)
+  4     def func(x, y):
+  5
+  6 Traceback (most recent call last):
+  7   File "test.py", line 31, in <module>
+  8     out = net(input1, input2)
+  9   File "/home/workspace/mindspore/mindspore/nn/cell.py", line 404, in __call__
+ 10     out = self.compile_and_run(*inputs)
+ 11   File "/home/workspace/mindspore/mindspore/nn/cell.py", line 682, in compile_and_run
+ 12     self.compile(*inputs)
+ 13   File "/home/workspace/mindspore/mindspore/nn/cell.py", line 669, in compile
+ 14     _cell_graph_executor.compile(self, *inputs, phase=self.phase, auto_parallel_mode=self._auto_parallel_mode)
+ 15   File "/home/workspace/mindspore/mindspore/common/api.py", line 542, in compile
+ 16     result = self._graph_executor.compile(obj, args_list, phase, use_vm, self.queue_name)
+ 17 TypeError: mindspore/ccsrc/pipeline/jit/static_analysis/stack_frame.cc:85 DoJump] The parameters number of the function is 2, but the number of provided arguments is 3.
+ 18 FunctionGraph ID : func.18
+ 19 NodeInfo: In file test.py(19)
+ 20     def func(x, y):
+ 21
+ 22 The function call stack (See file '/home/workspace/mindspore/rank_0/om/analyze_fail.dat' for more details):
+ 23 # 0 In file test.py(26)
+ 24         return c
+ 25         ^
+ 26 # 1 In file test.py(25)
+ 27         c = self.mul(b, self.func(a, a, b))
+ 28                         ^
 ```
 
 以上的报错信息为：“TypeError: mindspore/ccsrc/pipeline/jit/static_analysis/stack_frame.cc:85 DoJump] Function func.18, The number of parameters of this function is 2, but the number of provided arguments is 3 ...”。
-表明`Function func.18`只需要2个参数，但是却提供了3个参数。从”The function call stack ...“，可以知道出错的代码行为：”In file test.py(25) ... self.func(a, a, b)”，易知是该处的函数调用传入参数的数目过多。
+表明`FunctionGraph ID : func.18`只需要2个参数，但是却提供了3个参数。从”The function call stack ...“，可以知道出错的代码行为：”In file test.py(25) ... self.func(a, a, b)”，易知是该处的函数调用传入参数的数目过多。
 
 但如果报错信息不直观或者需要查看IR中已推导出的部分图信息，我们使用文本编辑软件（例如，vi）打开报错信息中的提示的文件（第29行括号中）：`/home/workspace/mindspore/rank_0/om/analyze_fail.dat`，内容如下：
 
@@ -389,7 +382,7 @@ MindSpore在编译图的过程中，经常会出现`evaluate`阶段的图推导�
  48 # num of function graphs in stack: 2
 ```
 
-`analyze_fail.dat`文件与前文介绍过的.dat文件格式一致，唯一有区别的地方在于`analyze_fail.dat`文件会指出推导出错的节点所在的位置。
-顺着`------------------------> [序号(从0开始)]`的指向位置，我们搜索并来到第30行的`------------------------> 1`，指向了推导出错的节点，为`%3 = FuncGraph::fg_18(%1, %1, %2) ...`，表达了该节点在IR中的信息，如何查看dat文件前文`dat文件介绍`一节中已经介绍，此处不再赘述。
+`analyze_fail.dat`文件与前文介绍过的.dat文件格式一致，唯一有区别的地方在于`analyze_fail.dat`文件中会指出推导出错的节点所在的位置。
+我们不断搜索`------------------------>`并来到最后一处该箭头出现的位置，即第30行的`------------------------> 1`。该最后一处箭头指向了推导出错的节点，为`%3 = FuncGraph::fg_18(%1, %1, %2) ...`，表达了该节点在IR中的信息，如何查看dat文件前文`dat文件介绍`一节中已经介绍，此处不再赘述。
 根据`(%1, %1, %2)`可知，该节点的输入参数有三个。从源码解析调用栈中可以知道实际该函数为`self.func`，在脚本中的定义为`def dunc(x, y):...`。
 在函数定义中，只需要两个参数，故会在此处出现推导失败的报错，我们需要修改脚本中传入的参数个数以解决该问题。

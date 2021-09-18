@@ -295,45 +295,38 @@ For example, we run the script below.
 An error happens.
 
 ```text
-  1 [ERROR] ANALYZER(32138,7f1c41bec740,python):2021-08-27-10:41:00.530.725 [mindspore/ccsrc/pipeline/jit/static_analysis/stack_frame.cc:85] DoJump] Function func.18, The number of parameters of this function is 2, but the number of provided arguments is 3. NodeInfo: In file test.py(19)
-  2     def func(x, y):
-  3
-  4 [ERROR] DEBUG(32138,7f1c41bec740,python):2021-08-27-10:41:00.530.811 [mindspore/ccsrc/debug/trace.cc:128] TraceGraphEval]
-  5 *******************************graph evaluate stack**********************************
-  6     #0 graph:construct_wrapper.0 with args[x:<Tensor(F32)[]>,y:<Tensor(F32)[]>,]In file test.py(22)
-  7     def construct(self, x, y):
-  8
-  9     #1 graph:construct.3 with args[x:<Tensor(F32)[]>,y:<Tensor(F32)[]>,]In file test.py(22)
- 10     def construct(self, x, y):
- 11
- 12
- 13 *************************************************************************************
- 14
- 15 Traceback (most recent call last):
- 16   File "test.py", line 31, in <module>
- 17     out = net(input1, input2)
- 18   File "/home/workspace/mindspore/mindspore/nn/cell.py", line 384, in __call__
- 19     out = self.compile_and_run(*inputs)
- 20   File "/home/workspace/mindspore/mindspore/nn/cell.py", line 647, in compile_and_run
- 21     self.compile(*inputs)
- 22   File "/home/workspace/mindspore/mindspore/nn/cell.py", line 634, in compile
- 23     _executor.compile(self, *inputs, phase=self.phase, auto_parallel_mode=self._auto_parallel_mode)
- 24   File "/home/workspace/mindspore/mindspore/common/api.py", line 536, in compile
- 25     result = self._executor.compile(obj, args_list, phase, use_vm, self.queue_name)
- 26 TypeError: mindspore/ccsrc/pipeline/jit/static_analysis/stack_frame.cc:85 DoJump] Function func.18, The number of parameters of this function is 2, but the number of provided arguments is 3. NodeInfo: In file test.py(19)
- 27     def func(x, y):
- 28
- 29 The function call stack (See file '/home/workspace/mindspore/rank_0/om/analyze_fail.dat' for more details):
- 30 # 0 In file test.py(26)
- 31         return c
- 32         ^
- 33 # 1 In file test.py(25)
- 34         c = self.mul(b, self.func(a, a, b))
- 35                         ^
+  1 [EXCEPTION] ANALYZER(31946,7f6f03941740,python):2021-09-18-15:10:49.094.863 [mindspore/ccsrc/pipeline/jit/static_analysis/stack_frame.cc:85] DoJump] The parameters number of the funct    ion is 2, but the number of provided arguments is 3.
+  2 FunctionGraph ID : func.18
+  3 NodeInfo: In file test.py(19)
+  4     def func(x, y):
+  5
+  6 Traceback (most recent call last):
+  7   File "test.py", line 31, in <module>
+  8     out = net(input1, input2)
+  9   File "/home/workspace/mindspore/mindspore/nn/cell.py", line 404, in __call__
+ 10     out = self.compile_and_run(*inputs)
+ 11   File "/home/workspace/mindspore/mindspore/nn/cell.py", line 682, in compile_and_run
+ 12     self.compile(*inputs)
+ 13   File "/home/workspace/mindspore/mindspore/nn/cell.py", line 669, in compile
+ 14     _cell_graph_executor.compile(self, *inputs, phase=self.phase, auto_parallel_mode=self._auto_parallel_mode)
+ 15   File "/home/workspace/mindspore/mindspore/common/api.py", line 542, in compile
+ 16     result = self._graph_executor.compile(obj, args_list, phase, use_vm, self.queue_name)
+ 17 TypeError: mindspore/ccsrc/pipeline/jit/static_analysis/stack_frame.cc:85 DoJump] The parameters number of the function is 2, but the number of provided arguments is 3.
+ 18 FunctionGraph ID : func.18
+ 19 NodeInfo: In file test.py(19)
+ 20     def func(x, y):
+ 21
+ 22 The function call stack (See file '/home/workspace/mindspore/rank_0/om/analyze_fail.dat' for more details):
+ 23 # 0 In file test.py(26)
+ 24         return c
+ 25         ^
+ 26 # 1 In file test.py(25)
+ 27         c = self.mul(b, self.func(a, a, b))
+ 28                         ^
 ```
 
 Above exception is 'TypeError: mindspore/ccsrc/pipeline/jit/static_analysis/stack_frame.cc:85 DoJump] Function func.18, The number of parameters of this function is 2, but the number of provided arguments is 3 ...'.
-And it tells us `Function func.18` only needs two parameters, but actually gives 3.
+And it tells us `FunctionGraph ID : func.18` only needs two parameters, but actually gives 3.
 We can find the related code is `self.func(a, a, b)` from 'The function call stack ... In file test.py(25)'.
 Easily, by checking the code, we know that we gave too much parameter to the calling function.
 
@@ -392,5 +385,5 @@ Then we can open `/home/workspace/mindspore/rank_0/om/analyze_fail.dat` that ind
 ```
 
 The file `analyze_fail.dat` has the same information format with the file `.dat`. The only difference is `analyze_fail.dat` will locate the node which inferring failed.
-Alone the location by the `------------------------> [No.]`, we reach the last position of the `------------------------> 1` at line 30.
+Searching the point by the text of `------------------------>`, we reach the last position of the `------------------------> 1` at line 30.
 The node at line 31 to 32 have an error. Its IR expression is `%3 = FuncGraph::fg_18(%1, %1, %2) ...`. We can know the node have 3 parameters from `(%1, %1, %2)`. But actually the function only need 2. So the compiler will fail when evaluating the node. To solve th problem, we should decrease the parameter number.
