@@ -1,4 +1,4 @@
-# 使用MindElec实现全量电磁场仿真计算
+# 基于全量点云方案的AI电磁仿真
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindelec/docs/mindscience/docs/source_zh_cn/mindelec/full_em.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
