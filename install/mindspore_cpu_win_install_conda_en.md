@@ -1,8 +1,8 @@
-# Installing MindSpore CPU (Windows) Through Conda
+# Installing MindSpore CPU (Windows) by Conda
 
 <!-- TOC -->
 
-- [Installing MindSpore CPU (Windows) Through Conda](#installing-mindspore-cpu-windows-through-conda)
+- [Installing MindSpore CPU (Windows) by Conda](#installing-mindspore-cpu-windows-by-conda)
     - [System Environment Information Confirmation](#system-environment-information-confirmation)
     - [Creating and Accessing the Conda Virtual Environment](#creating-and-accessing-the-conda-virtual-environment)
     - [Installing MindSpore](#installing-mindspore)
@@ -15,7 +15,7 @@
 
 [Conda](https://docs.conda.io/en/latest/) is an open-source, cross-platform, language-agnostic package manager and environment management system. It allows users to easily install different versions of binary software packages and any required libraries appropriate for their computing platform.
 
-The following describes how to quickly install MindSpore through Conda on Windows in the CPU environment.
+The following describes how to quickly install MindSpore by Conda on Windows in the CPU environment.
 
 For details about how to install third-party dependency software when confirming the system environment information, see the third-party dependency software installation section in the [Installing MindSpore Using Source Code Build on Windows (CPU)](https://www.mindspore.cn/news/newschildren?id=364) provided by the community. Thank you to the community member [lvmingfu](https://gitee.com/lvmingfu) for sharing.
 
