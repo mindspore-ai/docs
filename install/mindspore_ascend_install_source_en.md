@@ -1,4 +1,4 @@
-﻿﻿﻿﻿# Installing MindSpore in Ascend 910 by Source Code
+﻿# Installing MindSpore in Ascend 910 by Source Code
 
 <!-- TOC -->
 

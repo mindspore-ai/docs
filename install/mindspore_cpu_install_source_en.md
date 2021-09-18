@@ -1,4 +1,4 @@
-﻿﻿﻿# Installing MindSpore in CPU by Source Code
+﻿# Installing MindSpore in CPU by Source Code
 
 <!-- TOC -->
 
