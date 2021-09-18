@@ -11,11 +11,12 @@ mindspore::dataset::vision
 Classes
 -------
 
-
+- :doc:`../generate/classmindspore_dataset_vision_AdjustGamma`
 - :doc:`../generate/classmindspore_dataset_vision_Affine`
 - :doc:`../generate/classmindspore_dataset_vision_AutoContrast`
 - :doc:`../generate/classmindspore_dataset_vision_BoundingBoxAugment`
 - :doc:`../generate/classmindspore_dataset_vision_CenterCrop`
+- :doc:`../generate/classmindspore_dataset_vision_ConvertColor`
 - :doc:`../generate/classmindspore_dataset_vision_Crop`
 - :doc:`../generate/classmindspore_dataset_vision_CutMixBatch`
 - :doc:`../generate/classmindspore_dataset_vision_CutOut`
@@ -25,6 +26,7 @@ Classes
 - :doc:`../generate/classmindspore_dataset_vision_DvppDecodeResizeJpeg`
 - :doc:`../generate/classmindspore_dataset_vision_Equalize`
 - :doc:`../generate/classmindspore_dataset_vision_GaussianBlur`
+- :doc:`../generate/classmindspore_dataset_vision_HorizontalFlip`
 - :doc:`../generate/classmindspore_dataset_vision_HWC2CHW`
 - :doc:`../generate/classmindspore_dataset_vision_Invert`
 - :doc:`../generate/classmindspore_dataset_vision_MixUpBatch`
@@ -54,11 +56,14 @@ Classes
 - :doc:`../generate/classmindspore_dataset_vision_Resize`
 - :doc:`../generate/classmindspore_dataset_vision_ResizePreserveAR`
 - :doc:`../generate/classmindspore_dataset_vision_ResizeWithBBox`
+- :doc:`../generate/classmindspore_dataset_vision_RGB2BGR`
 - :doc:`../generate/classmindspore_dataset_vision_RGB2GRAY`
 - :doc:`../generate/classmindspore_dataset_vision_RGBA2BGR`
 - :doc:`../generate/classmindspore_dataset_vision_RGBA2RGB`
 - :doc:`../generate/classmindspore_dataset_vision_Rotate`
+- :doc:`../generate/classmindspore_dataset_vision_SlicePatches`
 - :doc:`../generate/classmindspore_dataset_vision_SoftDvppDecodeRandomCropResizeJpeg`
 - :doc:`../generate/classmindspore_dataset_vision_SoftDvppDecodeResizeJpeg`
 - :doc:`../generate/classmindspore_dataset_vision_SwapRedBlue`
 - :doc:`../generate/classmindspore_dataset_vision_UniformAugment`
+- :doc:`../generate/classmindspore_dataset_vision_VerticalFlip`
