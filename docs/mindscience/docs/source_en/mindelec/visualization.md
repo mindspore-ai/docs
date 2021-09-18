@@ -1,4 +1,4 @@
-# Using MindElec to Visualize Electromagnetic Simulation Results
+# Visualizing Electromagnetic Simulation Results
 
 ## Overview
 

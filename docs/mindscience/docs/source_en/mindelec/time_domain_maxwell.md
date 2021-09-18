@@ -1,4 +1,4 @@
-# Using MindElec to Solve Maxwell's Equations
+# AI Method for Solving Point Source Maxwell's Equations
 
 ## Overview
 

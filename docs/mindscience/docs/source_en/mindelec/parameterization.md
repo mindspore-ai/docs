@@ -1,4 +1,4 @@
-# Parameterized Electromagnetic Simulation with MindElec
+# AI Electromagnetic Simulation based on Parameterization Method
 
 ## Overview
 

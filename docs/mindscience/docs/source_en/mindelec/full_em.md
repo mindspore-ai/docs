@@ -1,4 +1,4 @@
-# Using MindElec to for full electromagnetic field simulation
+# AI Electromagnetic Simulation based on Point Cloud Method
 
 ## Overview
 
