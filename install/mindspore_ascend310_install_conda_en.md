@@ -1,8 +1,8 @@
-# Installing MindSpore Ascend 310 Through Conda
+# Installing MindSpore Ascend 310 by Conda
 
 <!-- TOC -->
 
-- [Installing MindSpore Ascend 310 Through Conda](#installing-mindspore-ascend-310-through-conda)
+- [Installing MindSpore Ascend 310 by Conda](#installing-mindspore-ascend-310-by-conda)
     - [Checking System Environment Information](#checking-system-environment-information)
     - [Creating and Accessing the Conda Virtual Environment](#creating-and-accessing-the-conda-virtual-environment)
     - [Installing MindSpore](#installing-mindspore)
