@@ -1,5 +1,7 @@
 # Using MindElec to Solve Maxwell's Equations with Physics-Informed Auto-Decoder
 
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindelec/docs/mindscience/docs/source_en/mindelec/incremental_learning.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
+
 ## Overview
 
 The Physics-Informed Neural Networks (PINNs) is unable to solve parametric Partial Differential Equations (PDEs). When the parameters of PDEs (dielectric constants) change, the PINNs method needs to retrain a new neural network and it increases the total solving time.
