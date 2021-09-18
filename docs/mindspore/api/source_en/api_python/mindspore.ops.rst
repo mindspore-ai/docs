@@ -117,6 +117,10 @@ The functional operators are the pre-instantiated Primitive operators, which can
      - Refer to :class:`mindspore.ops.Cos`.
    * - mindspore.ops.cosh
      - Refer to :class:`mindspore.ops.Cosh`.
+   * - mindspore.ops.cumprod
+     - Refer to :class:`mindspore.ops.CumProd`.
+   * - mindspore.ops.cumsum
+     - Refer to :class:`mindspore.ops.CumSum`.
    * - mindspore.ops.div
      - Refer to :class:`mindspore.ops.RealDiv`.
    * - mindspore.ops.depend
@@ -323,6 +327,8 @@ The functional operators are the pre-instantiated Primitive operators, which can
      - Refer to :class:`mindspore.ops.Mul`.
    * - mindspore.ops.tensor_pow
      - Refer to :class:`mindspore.ops.Pow`.
+   * - mindspore.ops.tensor_scatter_add
+     - Refer to :class:`mindspore.ops.TensorScatterAdd`.
    * - mindspore.ops.tensor_scatter_update
      - Refer to :class:`mindspore.ops.TensorScatterUpdate`.
    * - mindspore.ops.tensor_slice
