@@ -35,8 +35,6 @@ release = 'master'
 
 # -- General configuration ---------------------------------------------------
 
-import mindelec
-
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
@@ -169,6 +167,7 @@ except:
 
 import mindspore
 
+import mindelec
 
 sys.path.append(os.path.abspath('../../../../resource/search'))
 import search_code
