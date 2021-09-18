@@ -42,7 +42,7 @@ input_ = Tensor(np.array([[value]]).astype(np.float32))
 net = Net()
 output = net(input_)
 print(output)
-[[6. ]]
+[[6.]]
 ```
 
 ## AllGather
@@ -72,9 +72,9 @@ input_x = Tensor(np.array([[value]]).astype(np.float32))
 net = Net()
 output = net(input_x)
 print(output)
-[[0.]
- [1.]
- [2.]
+[[0.],
+ [1.],
+ [2.],
  [3.]]
 ```
 
