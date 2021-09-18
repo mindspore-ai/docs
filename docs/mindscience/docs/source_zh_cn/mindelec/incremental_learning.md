@@ -1,5 +1,7 @@
 # 使用MindElec增量训练求解麦克斯韦方程
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindelec/docs/mindscience/docs/source_zh_cn/mindelec/incremental_learning.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+
 ## 概述
 
 原始的PINNs（Physics-Informed Neural Networks, PINNs)方法不具备求解一类方程的能力。当方程中的特征参数（如介电系数等）发生变化时需要重新训练，增加了求解时间。

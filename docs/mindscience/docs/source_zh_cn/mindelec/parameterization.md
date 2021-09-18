@@ -1,5 +1,7 @@
 # 使用MindElec进行参数化电磁仿真
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindelec/docs/mindscience/docs/source_zh_cn/mindelec/parameterization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+
 ## 概述
 
 电磁仿真在天线、芯片和手机等产品设计过程中应用广泛，主要目的是获取待仿真目标的传输特性（散射参数、电磁场等）。散射参数（S参数）是建立在输入波、反射波基础上的网络参数，用于微波电路分析，以器件端口的反射信号强度以及从该端口传向另一端口的信号的强度来描述电路网络。

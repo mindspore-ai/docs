@@ -1,5 +1,7 @@
 # 使用MindElec可视化电磁仿真结果
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindelec/docs/mindscience/docs/source_zh_cn/mindelec/visualization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+
 ## 概述
 
 电磁仿真结果通常包含仿真区域内的电磁场、S参数等物理量。仿真结果的可视化能够直观反映所关心物理量的大小和分布，辅助设计人员调试调优。MindElec提供了对训练/测试过程，以及仿真结果（电磁场、S参数）的可视化模块`mindelec.vision`，下面的案例将介绍如何通过`mindelec.vision`进行可视化。

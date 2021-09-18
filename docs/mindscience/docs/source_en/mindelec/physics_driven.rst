@@ -1,5 +1,5 @@
-Physics Driven Approach
-=======================
+Physics Informed Deep Learning Method for Electromagnetic Simulation
+=====================================================================
 
 .. toctree::
   :maxdepth: 1
