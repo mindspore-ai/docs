@@ -56,7 +56,7 @@ The following five types of scripts and software packages are required for confi
 
 2. Script for preparing a bootable SD card: [make_ubuntu_sd.sh](https://gitee.com/ascend/tools/blob/master/makesd/for_1.0.9.alpha/make_ubuntu_sd.sh)
 
-3. Ubuntu OS image package: [ubuntu-18.04.xx-server-arm64.iso](http://cdimage.ubuntu.com/ubuntu/releases/18.04/release/ubuntu-18.04.5-server-arm64.iso)
+3. Ubuntu OS image package: [ubuntu-18.04.xx-server-arm64.iso](http://cdimage.ubuntu.com/ubuntu/releases/18.04/release/ubuntu-18.04.6-server-arm64.iso)
 
 4. Driver package and running package of Atlas 200 DK:
 
