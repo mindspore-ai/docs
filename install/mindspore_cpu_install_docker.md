@@ -57,6 +57,12 @@ docker run -it swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-cpu:{tag} /b
 
 - `{tag}`对应上述表格中的标签。
 
+如需使用可视化调试调优工具MindInsight，需设置`--network`参数为`host`模式，例如:
+
+```bash
+docker run -it --network host swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-cpu:{tag} /bin/bash
+```
+
 ## 验证是否安装成功
 
 - 如果你安装的是指定版本`x.y.z`的容器。
@@ -111,6 +117,10 @@ print(ops.add(x, y))
 
 至此，你已经成功通过Docker方式安装了MindSpore CPU版本。
 
+- 验证MindInsight安装：
+
+    输入```mindinsight start --port 8080```，如提示启动status为success，则安装成功。
+
 - 如果你安装的是`runtime`标签的容器，需要自行安装MindSpore。
 
     进入[MindSpore安装指南页面](https://www.mindspore.cn/install)，选择CPU硬件平台、Linux-x86_64操作系统和pip的安装方式，获得安装指南。运行容器后参考安装指南，通过pip方式安装MindSpore CPU版本，并进行验证。
@@ -119,4 +129,4 @@ print(ops.add(x, y))
 
     进入[MindSpore安装指南页面](https://www.mindspore.cn/install)，选择CPU硬件平台、Linux-x86_64操作系统和Source的安装方式，获得安装指南。运行容器后，下载MindSpore代码仓并参考安装指南，通过源码编译方式安装MindSpore CPU版本，并进行验证。
 
-如果您想了解更多关于mindspore Docker镜像的构建过程，请查看[docker repo](https://gitee.com/mindspore/mindspore/blob/master/scripts/docker/README.md)了解详细信息。
+如果您想了解更多关于MindSpore Docker镜像的构建过程，请查看[docker repo](https://gitee.com/mindspore/mindspore/blob/master/scripts/docker/README.md)了解详细信息。
