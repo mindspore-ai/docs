@@ -211,7 +211,7 @@ target_link_libraries( # Specifies the target library.
 
 在JNI层调用MindSpore Lite C++ API实现端侧推理。
 
-推理代码流程如下，完整代码请参见[MindSporeNetnative.cpp](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/lite/image_classification/app/src/main/cpp/MindSporeNetnative.cpp)。
+推理代码流程如下，完整代码请参见[MindSporeNetnative.cpp](https://gitee.com/mindspore/models/blob/master/official/lite/image_classification/app/src/main/cpp/MindSporeNetnative.cpp)。
 
 1. 加载MindSpore Lite模型文件，构建上下文、会话以及用于推理的计算图。  
 

@@ -78,7 +78,7 @@ def count_params(net):
     return total_params
 ```
 
-[Script Link](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/cv/tinynet/src/utils.py).
+[Script Link](https://gitee.com/mindspore/models/blob/master/research/cv/tinynet/src/utils.py).
 
 <br/>
 
