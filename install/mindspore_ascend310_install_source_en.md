@@ -1,4 +1,4 @@
-﻿# Installing MindSpore in Ascend 310 by Source Code Compilation
+﻿# Installing MindSpore in Ascend 310 by Source Code
 
 <!-- TOC -->
 
