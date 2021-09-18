@@ -97,7 +97,7 @@ of which,
 - `--privileged=true` enables the container to expand;
 - `{tag}` corresponds to the label in the above table.
 
-If you want to use MindInsight, you need to set the `--network` parameter to "host" mode, for example:
+If you want to use MindInsight, you need to set the `--network` parameter to `host` mode, for example:
 
 ```bash
 docker run -it -v /dev/shm:/dev/shm --network host --runtime=nvidia --privileged=true swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu:{tag} /bin/bash
@@ -169,4 +169,4 @@ It means MindSpore has been installed by docker successfully.
 
     Go to [MindSpore Installation Guide Page](https://www.mindspore.cn/install/en), choose the GPU hardware platform, Linux-x86_64 operating system and pip installation method to get the installation guide. After running the container, download the MindSpore code repository and refer to the installation guide, install the MindSpore GPU version through source code compilation, and verify it.
 
-If you want to know more about the mindspore Docker image building process, please check [docker repo](https://gitee.com/mindspore/mindspore/blob/r1.5/docker/README.md) for details.
+If you want to know more about the MindSpore Docker image building process, please check [docker repo](https://gitee.com/mindspore/mindspore/blob/r1.5/docker/README.md) for details.
