@@ -1,5 +1,7 @@
 # 使用MindElec实现全量电磁场仿真计算
 
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindelec/docs/mindscience/docs/source_zh_cn/mindelec/full_em.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+
 ## 概述
 
 本教程介绍MindElec提供的基于点云计算电磁场的方法，引导您快速使用MindElec，实现高效电磁仿真计算。

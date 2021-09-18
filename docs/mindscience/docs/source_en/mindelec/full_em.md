@@ -1,5 +1,7 @@
 # Using MindElec to for full electromagnetic field simulation
 
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindelec/docs/mindscience/docs/source_en/mindelec/full_em.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
+
 ## Overview
 
 This tutorial describes the point cloud-based electromagnetic computation method provided by MindElec, helping you quickly use MindElec to implement efficient electromagnetic simulation.
