@@ -1,8 +1,8 @@
-# Installing MindSpore Ascend 910 Through Conda
+# Installing MindSpore Ascend 910 by Conda
 
 <!-- TOC -->
 
-- [Installing MindSpore Ascend 910 Through Conda](#installing-mindspore-ascend-910-through-conda)
+- [Installing MindSpore Ascend 910 by Conda](#installing-mindspore-ascend-910-by-conda)
     - [System Environment Information Confirmation](#system-environment-information-confirmation)
     - [Creating and Accessing the Conda Virtual Environment](#creating-and-accessing-the-conda-virtual-environment)
     - [Installing MindSpore](#installing-mindspore)
