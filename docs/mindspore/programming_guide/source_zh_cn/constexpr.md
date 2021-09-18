@@ -22,7 +22,7 @@ import numpy as np
 from mindspore.ops import constexpr
 import mindspore.ops as ops
 import mindspore.nn as nn
-import mindspore.Tensor as Tensor
+from mindspore import Tensor
 
 @constexpr
 def construct_tensor(x):
@@ -66,7 +66,7 @@ class Net(nn.Cell):
         return self.relu(construct_tensor(self.relu(x)))
 
 net = Net()
-x = Tensor(np.random.random(7,6,3))
+x = Tensor(np.random.random([7,6,3]))
 out = net(x)
 print(out)
 ```
