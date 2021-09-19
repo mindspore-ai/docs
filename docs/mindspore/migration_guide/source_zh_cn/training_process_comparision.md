@@ -187,6 +187,8 @@ MindSpore 的模型训练和推理的总体执行流程，基本与主流的 AI 
 
 对于 PyTorch 中额外的四个参数  `batch_size`、`batch_sampler`、`collate_fn` 和  `drop_last`，考虑到它们均与批处理有关，MindSpore 将这四个参数全部移动到了成员函数 `batch` 中，这种设计使得参数分组更加清晰。
 
+需要注意的是，MindSpore 的 GeneratorDataset 和 PyTorch 的 Dataloader 并不是同一个概念。GenerateDataset 加载数据集后生成最基本的数据流，输出为单个样本数据，我们还可以继续使用 MindData 提供的接口进行其他预处理的数据增强操作，例如 map、batch、shuffle、repeat 等，。而 Dataloader 通常是数据处理的最终出口，输出 batch size 个样本，然后直接送入网络。
+
 3. 迭代 Dataset
 
 - PyTorch
@@ -227,7 +229,7 @@ MindSpore 和 PyTorch 都提供了自动微分功能，让我们在定义了正�
 
 - PyTorch 的自动微分
 
-    我们知道 PyTorch 是基于函数式的自动微分，当我们定义一个网络结构后， 并不会建立反向图，而是在执行正向图的过程中，`Variable` 或  `Parameter` 记录每一个正向计算对应的反向函数，并生成一个动态计算图，用于后续的梯度计算。当在最终的输出处调用  `backward` 时，就会从根节点到叶节点应用链式法则计算梯度。PyTorch 的动态计算图所存储的节点实际时 Function 函数对象，每当对 Tensor 执行一步运算后，就会产生一个 Function 对象，它记录了反向传播中必要的信息。反向传播过程中，autograd 引擎会按照逆序，通过 Function 的 backward 依次计算梯度。 这一点我们可以通过 Tensor 的隐藏属性查看。
+  我们知道 PyTorch 是基于计算路径追踪的自动微分，当我们定义一个网络结构后， 并不会建立反向图，而是在执行正向图的过程中，`Variable` 或  `Parameter` 记录每一个正向计算对应的反向函数，并生成一个动态计算图，用于后续的梯度计算。当在最终的输出处调用  `backward` 时，就会从根节点到叶节点应用链式法则计算梯度。PyTorch 的动态计算图所存储的节点实际是 Function 函数对象，每当对 Tensor 执行一步运算后，就会产生一个 Function 对象，它记录了反向传播中必要的信息。反向传播过程中，autograd 引擎会按照逆序，通过 Function 的 backward 依次计算梯度。 这一点我们可以通过 Tensor 的隐藏属性查看。
 
     例如，运行以下代码：
 
@@ -248,7 +250,9 @@ MindSpore 和 PyTorch 都提供了自动微分功能，让我们在定义了正�
 
 - MindSpore 的自动微分
 
-    MindSpore 的自动微分是基于图结构的微分，和 PyTorch 不同，它不会在正向计算过程中记录任何信息，仅仅执行正常的计算流程。那么问题来了，如果连正向计算都结束了，MindSpore 也没有记录任何信息，那它是如何知道反向传播怎么执行的呢？答案是 MindSpore 把反向图当作一个真正的图结构，添加到用户定义的正向网络之后，组成一个新的计算图，而不像 PyTorch 那样仅仅记录正向计算过程。不过后添加的反向图及反向算子我们并不感知，也无法手动添加，只能通过 MindSpore 为我们提供的接口自动添加，这样做也避免了我们在反向构图时引入错误。
+  在图模式下，MindSpore 的自动微分是基于图结构的微分，和 PyTorch 不同，它不会在正向计算过程中记录任何信息，仅仅执行正常的计算流程（在PyNative模式下和 PyTorch 类似）。那么问题来了，如果整个正向计算都结束了，MindSpore 也没有记录任何信息，那它是如何知道反向传播怎么执行的呢？
+
+  MindSpore 在做自动微分时，需要传入正向图结构，自动微分的过程就是通过对正向图的分析从而得到反向传播信息，自动微分的结果与正向计算中具体的数值无关，仅和正向图结构有关。通过对正向图的自动微分，我们得到了反向传播过程，而这个反向传播过程其实也是通过一个图结构来表达，也就是反向图。将反向图添加到用户定义的正向图之后，组成一个最终的计算图。不过后添加的反向图和其中的反向算子我们并不感知，也无法手动添加，只能通过 MindSpore 为我们提供的接口自动添加，这样做也避免了我们在反向构图时引入错误。
 
     最终，我们看似仅执行了正向图，其实图结构里既包含了正向算子，又包含了 MindSpore 为我们添加的反向算子，也就是说，MindSpore 在我们定义的正向图后面又新加了一个看不见的  `Cell`，这个  `Cell` 里都是根据正向图推导出来的反向算子。
 
@@ -265,11 +269,11 @@ MindSpore 和 PyTorch 都提供了自动微分功能，让我们在定义了正�
             return gradient_function(x, y)
     ```
 
-查看文档介绍我们可以发现，`GradOperation` 并不是一个算子，它的输入并不是 Tensor，而是一个  `Cell`，也就是我们定义的正向图。为什么输入是一个图结构呢？因为构建反向图并不需要知道具体的输入数据是什么，只要知道正向图的结构就行了，有了正向图就可以推算出反向图结构，之后我们可以把正向图+反向图当成一个新的计算图来对待，这个新的计算图就像是一个函数，对于你输入的任何一组数据，它不仅能计算出正向的输出，还能计算出所有权重的梯度，由于图结构是固定的，并不保存中间变量，所以这个图结构可以被反复调用。
+查看文档介绍我们可以发现，`GradOperation` 并不是一个算子，它的输入输出并不是 Tensor，而是 `Cell`，也就是我们定义的正向图和自动微分得到的反向图。为什么输入是一个图结构呢？因为构建反向图并不需要知道具体的输入数据是什么，只要知道正向图的结构就行了，有了正向图就可以推算出反向图结构，之后我们可以把正向图+反向图当成一个新的计算图来对待，这个新的计算图就像是一个函数，对于你输入的任何一组数据，它不仅能计算出正向的输出，还能计算出所有权重的梯度，由于图结构是固定的，并不保存中间变量，所以这个图结构可以被反复调用。
 
 同理，之后我们再给网络加上优化器结构时，优化器也会加上优化器相关的算子，也就是再给这个计算图加点我们不感知的优化器算子，最终，计算图就构建完成。
 
-在 MindSpore 中，大部分操作都会最终转换成真实的算子，最终加入到计算图中，因此，我们实际执行的计算图中算子的数量远多余我们最开始定义的计算图中算子的数量。
+在 MindSpore 中，大部分操作都会最终转换成真实的算子操作，最终加入到计算图中，因此，我们实际执行的计算图中算子的数量远多于我们最开始定义的计算图中算子的数量。
 
 ### TrainOneStepCell
 
@@ -379,17 +383,21 @@ class TrainOneStepCell(Cell):
 
 如果理解了刚才介绍的 MindSpore 反向传播原理，就会很容易理解  `TrainOneStepCell` 的每一步在做什么，其实就是一个基于计算图求导的过程。
 
-这里需要特别说明最后两个语句，`DistributedGradReducer` 是负责一个分布式梯度计算的  `Cell` （相当于又是一个计算图），在多卡训练时，它会将所有卡的梯度先求和，然后除以卡的数量（ `self.degree` ），最终得到全局平均的梯度。而 `F.depend` 是 MindSpore 的特殊用法，它保证在最终的计算图执行时不会出来时序上的错误，先计算 loss 后再执行梯度更新。
+这里需要特别解释最后几个语句：
+
+- `sens` 表示初始梯度，类似 PyTorch 中 `loss.backward(sens)` 的作用，为反向传播过程设置一个初始梯度。
+- `DistributedGradReducer` 是负责一个分布式梯度计算的  `Cell` （相当于又是一个计算图），在多卡训练时，它会将所有卡的梯度先求和，然后除以卡的数量（ `self.degree` ），最终得到全局平均的梯度。
 
 ```py
 ...
+grads = self.grad(self.network, self.weights)(*inputs, sens)
 grads = self.grad_reducer(grads)
 loss = F.depend(loss, self.optimizer(grads))
 ...
 ```
 
-除了 `TrainOneStepCell`，MindSpore 还提供了带有 Loss Scale 的 `TrainOneStepWithLossScale`，原理其实是一样的，感兴趣的读者可以查看该方法的实现。
+除了 `TrainOneStepCell`，对于混合精度场景，MindSpore 还提供了带有 [Loss Scale](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/enable_mixed_precision.html) 的 `TrainOneStepWithLossScale`，原理其实是一样的，感兴趣的读者可以阅读混合精度的原理以及查看该方法的实现。
 
-当我们使用  `TrainOneStepCell` 添加反向网络结构后，仍可以使用 `Model` 类进行封装，但此时不需要再给 `Model` 传入 loss、优化器这两个参数了，因为传入的网络已经包含了正向+反向结构。最后，通过调用  `model.train` ，开始正常的训练流程。
+当我们使用  `TrainOneStepCell` 添加反向网络结构后，仍可以使用 `Model` 类进行封装，但此时不需要再给 `Model` 传入 loss、优化器这两个参数了，因为传入的网络已经包含了正向+反向结构。最后，通过调用  `model.train()` ，开始正常的训练流程。
 
 参考链接： [TrainOneStepCell](https://gitee.com/mindspore/mindspore/blob/r1.5/mindspore/nn/wrap/cell_wrapper.py) 、 [TrainOneStepWithLossScale](https://gitee.com/mindspore/mindspore/blob/r1.5/mindspore/nn/wrap/loss_scale.py)
