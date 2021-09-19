@@ -10,7 +10,7 @@
             - [ds.04 训练环境上的数据集同标准数据集不同](#ds04-训练环境上的数据集同标准数据集不同)
         - [常见数据处理算法问题](#常见数据处理算法问题)
             - [dp.01 未对数据进行归一化或标准化](#dp01-未对数据进行归一化或标准化)
-            - [dp.02 推理时数据处理方式和训练集不一致](#dp02-推理时数据处理方式和训练集不一致)
+            - [dp.02 推理时数据处理方式有误](#dp02-推理时数据处理方式有误)
             - [dp.03 训练时没有对数据集进行混洗](#dp03-训练时没有对数据集进行混洗)
             - [dp.04 涉及到数据补齐时，补齐方式错误](#dp04-涉及到数据补齐时补齐方式错误)
             - [dp.05 并行训练时多节点分片方式错误](#dp05-并行训练时多节点分片方式错误)
@@ -43,15 +43,17 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/accuracy_problem_preliminary_location.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-本指南旨在为算法开发者提供一个简明扼要的精度问题初步定位指导。完整的精度问题定位和调优方法，请参考[精度问题详细定位及调优指南](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_optimization.html)。
+本指南旨在为算法开发者提供一个简明扼要的精度问题初步定位指导。完整的精度问题定位和调优方法，请参考[精度问题详细定位和调优指南](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_optimization.html)。
 
-本指南适用于训练脚本能够运行到训练结束并输出每个迭代的loss值的情况。若训练中途出现中断训练的报错，则应该首先根据错误提示解决这些报错。本指南假设读者有能力独立完成深度学习训练脚本的编写，对深度学习、MindSpore有基础的了解。
+本指南适用于训练脚本能够运行到训练结束并输出每个迭代的loss值的情况。若训练中途出现中断训练的报错，则应该首先根据错误提示解决这些报错。
+
+本指南假设读者有能力独立完成深度学习训练脚本的编写，对深度学习、MindSpore有基础的了解。
 
 我们提供两种常见的问题初步定位方法：基于checklist的精度问题初步定位和基于现象对比的精度问题初步定位。实际操作时，一般使用一种方法即可，推荐优先使用基于checklist的精度问题初步定位方法。如果有标杆脚本（指开发MindSpore脚本时参考的脚本），可以考虑基于现象对比的精度问题初步定位方法。
 
 ## 基于问题checklist的精度问题初步定位
 
-当出现精度问题时，您可以参考以下checklist进行检查。若通过checklist发现了可疑的问题，则您应参考[精度问题详细定位及调优指南](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_optimization.html)尝试修复这些可疑问题。若checklist使用完毕后，未发现可疑问题，则您应尝试其它精度问题定位和调优手段，或者参考“精度问题详细定位及调优指南”。如果您怀疑精度问题和MindSpore框架相关，请在向我们求助前确认不存在checklist上列出的问题，求助方法请见本文末尾。
+当出现精度问题时，您可以参考以下checklist进行检查。若通过checklist发现了可疑的问题，则您应参考[精度问题详细定位和调优指南](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_optimization.html)尝试修复这些可疑问题。若checklist使用完毕后，未发现可疑问题，则您应尝试其它精度问题定位和调优手段，或者参考[精度问题详细定位和调优指南](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_optimization.html)。如果您怀疑精度问题和MindSpore框架相关，请在向我们求助前确认不存在checklist上列出的问题，求助方法请见本文末尾。
 
 ### checklist使用说明
 
@@ -69,7 +71,7 @@
 
 缺失值常常以NaN，+/-Inf等形式存在，不同的数据集中使用的缺失值符号也不尽相同。检查缺失值时，首先明确每个字段使用何种方式表示缺失值，然后使用计数器对每个字段中的缺失值个数进行计数，以此来掌握数据集中缺失值的情况。
 
-若数据中存在未处理的缺失值，则此项的检查结果为“存在问题”，需要采取合适的手段处理（处理手段请参考 “精度问题详细定位指南”）
+若数据中存在未处理的缺失值，则此项的检查结果为“存在问题”，需要采取合适的手段处理（处理手段请参考 [精度问题详细定位和调优指南](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_optimization.html)）
 
 检查结论：
 
@@ -139,11 +141,11 @@
 
 请填写
 
-#### dp.02 推理时数据处理方式和训练集不一致
+#### dp.02 推理时数据处理方式有误
 
 检查方法：
 
-检查训练脚本的数据处理代码和推理脚本的数据处理代码，查看处理逻辑是否一致。需要说明的是，一些用于数据增强的随机操作（如随机旋转，随机裁切等）一般只应用在训练集，推理时无需进行随机操作。
+检查训练脚本的数据处理代码和推理脚本的数据处理代码，两者的处理逻辑一般要保持一致。需要说明的是，一些用于数据增强的随机操作（如随机旋转，随机裁切等）一般只应用在训练集，推理时无需进行随机操作。
 
 例子：
 
@@ -252,7 +254,12 @@
 
 检查方法：
 
-MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况下，要特别注意（1）MindSpore脚本的参数初始化方式是否同标杆脚本相同（2）MindSpore中部分API的参数默认值，参数含义同其它框架不同。此处我们列举一些比较重要的差异供大家检查。
+MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况下，要特别注意:
+
+1. MindSpore脚本的参数初始化方式是否同标杆脚本相同
+2. MindSpore中部分API的参数默认值，参数含义同其它框架不同
+
+此处我们列举一些比较重要的差异供大家检查：
 
 1. MindSpore的[Conv2d](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d)算子，默认没有bias（has_bias=False），而PyTorch的Conv2d算子，默认有bias。Conv2d算子的weight默认使用 Normal(0.0, 0.01)，这一初始化方式和PyTorch（Uniform）、TensorFlow（Uniform）均不同。
 2. MindSpore的[DropOut](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Dropout.html#mindspore.nn.Dropout)算子，参数含义为保留的概率（keep_prob），而PyTorch的DropOut算子，参数含义为丢弃的概率。
