@@ -196,7 +196,7 @@ optimizer = nn.Momentum(net.trainable_params(), learning_rate=0.01, momentum=0.9
 
 分组时，学习率可以使用固定学习率，也可以使用dynamic_lr和learningrate_schedule动态学习率。
 
-> 当前Mindspore除个别优化器外，均支持对学习率进行分组，详情参考各优化器的说明。
+> 当前MindSpore除个别优化器外（例如AdaFactor，FTRL），均支持对学习率进行分组，详情参考各优化器的说明。
 
 例如下面的例子:
 
@@ -232,4 +232,6 @@ optim = nn.Momentum(group_params, learning_rate=0.1, momentum=0.9, weight_decay=
 
 深度神经网络存在使用混合精度训练的场景，这种方法通过混合使用单精度和半精度数据格式来加速网络训练，同时保持了单精度训练所能达到的网络精度。混合精度训练能够加速计算过程，减少内存使用和存取，并使得在特定的硬件上可以训练更大的模型或batch size。
 
-在混合精度训练过程中，经常使用溢出检测功能，MindSpore提供了`FixedLossScaleManager`和`DynamicLossScaleManager`用于溢出检测。一般情况下优化器不需要与溢出检测功能配合使用，但使用`FixedLossScaleManager`进行溢出检测，并且`drop_overflow_update`为False时，优化器需设置`loss_scale`的值，且`loss_scale`值与`FixedLossScaleManager`的相同，具体用法详见：https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/lossscale.html
+在混合精度训练过程中，会使用float16类型来替代float32类型存储数据，但由于float16类型数据比float32类型数据范围小很多，所以当某些参数（例如梯度）在训练过程中变得很小时，就会发生数据下溢。为避免半精度float16类型数据下溢，MindSpore提供了`FixedLossScaleManager`和`DynamicLossScaleManager`方法。其主要思想是计算loss时，将loss扩大一定的倍数，由于链式法则的存在，梯度也会相应扩大，然后在优化器更新权重时再缩小相应的倍数，从而避免了数据下溢的情况又不影响计算结果。
+
+一般情况下优化器不需要与`LossScale`功能配合使用，但使用`FixedLossScaleManager`，并且`drop_overflow_update`为False时，优化器需设置`loss_scale`的值，且`loss_scale`值与`FixedLossScaleManager`的相同，具体用法详见：<https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/lossscale.html>。
