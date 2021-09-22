@@ -124,26 +124,34 @@ Dropout 常用于防止训练过拟合，有一个重要的 **概率值** 参数
 
 BatchNorm 是 CV 领域比较特殊的正则化方法，它在训练和推理的过程中有着不同计算流程，通常由算子属性控制。MindSpore 和 PyTorch 的 BatchNorm 在这一点上使用了两种不同的参数组。
 
-`torch.nn.BatchNorm2d` 在不同参数下的状态
+- 差异一
 
-|training|track_running_stats|状态|
-|:----|:----|:----|
-|True|True|期望中训练的状态，running_mean 和 running_var 会跟踪整个训练过程中 batch 的统计特性，而每组输入数据用当前 batch 的 mean 和 var 统计特性做归一化，然后再更新 running_mean 和 running_var。|
-|True|False|每组输入数据会根据当前 batch 的统计特性做归一化，但不会有 running_mean 和 running_var 参数了。|
-|False|Ture|期望中推理的状态，BN 使用 running_mean 和 running_var 做归一化，并且不会对其进行更新。|
-|False|False|效果同第二点，只不过处于推理状态，不会学习 weight 和 bias 两个参数。一般不采用该状态。|
+  `torch.nn.BatchNorm2d` 在不同参数下的状态
 
-`mindspore.nn.BatchNorm2d` 在不同参数下的状态
+  |training|track_running_stats|状态|
+  |:----|:----|:----|
+  |True|True|期望中训练的状态，running_mean 和 running_var 会跟踪整个训练过程中 batch 的统计特性，而每组输入数据用当前 batch 的 mean 和 var 统计特性做归一化，然后再更新 running_mean 和 running_var。|
+  |True|False|每组输入数据会根据当前 batch 的统计特性做归一化，但不会有 running_mean 和 running_var 参数了。|
+  |False|Ture|期望中推理的状态，BN 使用 running_mean 和 running_var 做归一化，并且不会对其进行更新。|
+  |False|False|效果同第二点，只不过处于推理状态，不会学习 weight 和 bias 两个参数。一般不采用该状态。|
 
-|use_batch_statistics|状态|
-|:----|:----|
-|True|期望中训练的状态，moving_mean 和 moving_var 会跟踪整个训练过程中 batch 的统计特性，而每组输入数据用当前 batch 的 mean 和 var 统计特性做归一化，然后再更新 moving_mean 和 moving_var。|
-|Fasle|期望中推理的状态，BN 使用 moving_mean 和 moving_var 做归一化，并且不会对其进行更新。|
-|None|自动设置 use_batch_statistics。如果是训练，use_batch_statistics=True，如果是推理，use_batch_statistics=False。|
+  `mindspore.nn.BatchNorm2d` 在不同参数下的状态
 
-通过比较可以发现，`mindspore.nn.BatchNorm2d`  相比 `torch.nn.BatchNorm2d`，少了两种冗余的状态，仅保留了最常用的训练和推理两种状态。
+  |use_batch_statistics|状态|
+  |:----|:----|
+  |True|期望中训练的状态，moving_mean 和 moving_var 会跟踪整个训练过程中 batch 的统计特性，而每组输入数据用当前 batch 的 mean 和 var 统计特性做归一化，然后再更新 moving_mean 和 moving_var。|
+  |Fasle|期望中推理的状态，BN 使用 moving_mean 和 moving_var 做归一化，并且不会对其进行更新。|
+  |None|自动设置 use_batch_statistics。如果是训练，use_batch_statistics=True，如果是推理，use_batch_statistics=False。|
 
-参考链接：[mindspore.nn.BatchNorm2d](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/nn/mindspore.nn.BatchNorm2d.html)，[torch.nn.BatchNorm2d](https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm2d.html)
+  通过比较可以发现，`mindspore.nn.BatchNorm2d`  相比 `torch.nn.BatchNorm2d`，少了两种冗余的状态，仅保留了最常用的训练和推理两种状态。
+
+- 差异二
+
+  BatchNorm系列算子 的 momentum 参数在 MindSpore 和 PyTorch 表示的意义相反，关系为：
+
+  $momentum_{pytorch} = 1 - momentum_{mindspore}$
+
+  参考链接：[mindspore.nn.BatchNorm2d](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/nn/mindspore.nn.BatchNorm2d.html)，[torch.nn.BatchNorm2d](https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm2d.html)
 
 ### 算子行为不同
 
@@ -240,7 +248,7 @@ ops.MaxPool(kernel_size=2, strides=2, pad_mode='same')(data)
 
 - Conv2d
 
-    - mindspore.nn.Conv2d的weight为：$\mathcal{N}(0, 1)$, bias为：zeros。
+    - mindspore.nn.Conv2d的weight为：$\mathcal{N}(0, 1)$，bias为：zeros。
     - torch.nn.Conv2d的weight为：$\mathcal{U} (-\sqrt{k},\sqrt{k} )$，bias为：$\mathcal{U} (-\sqrt{k},\sqrt{k} )$。
     - tf.keras.Layers.Conv2D的weight为：glorot_uniform，bias为：zeros。
 
@@ -248,7 +256,7 @@ ops.MaxPool(kernel_size=2, strides=2, pad_mode='same')(data)
 
 - Dense(Linear)
 
-    - mindspore.nn.Linear的weight为：$\mathcal{N}(0, 1)$, bias为：zeros。
+    - mindspore.nn.Linear的weight为：$\mathcal{N}(0, 1)$，bias为：zeros。
     - torch.nn.Dense的weight为：$\mathcal{U}(-\sqrt{k},\sqrt{k})$，bias为：$\mathcal{U}(-\sqrt{k},\sqrt{k} )$。
     - tf.keras.Layers.Dense的weight为：glorot_uniform，bias为：zeros。
 
