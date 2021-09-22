@@ -18,7 +18,9 @@
 ## 确认系统环境信息
 
 - 硬件平台支持Ascend、GPU和CPU。
-- 确认安装[Python](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) 3.7.5版本。
+- 确认安装Python 3.7.5或3.9.0版本。如果未安装或者已安装其他版本的Python，可以选择下载并安装：
+    - Python 3.7.5版本 64位，下载地址：[官网](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz)或[华为云](https://mirrors.huaweicloud.com/python/3.7.5/Python-3.7.5.tgz)。
+    - Python 3.9.0版本 64位，下载地址：[官网](https://www.python.org/ftp/python/3.9.0/Python-3.9.0.tgz)或[华为云](https://mirrors.huaweicloud.com/python/3.9.0/Python-3.9.0.tgz)。
 - MindInsight与MindSpore的版本需保持一致。
 - 若采用源码编译安装，还需确认安装以下依赖。
     - 确认安装[node.js](https://nodejs.org/en/download/) 10.19.0及以上版本。
