@@ -10,12 +10,12 @@ import functools
 
 def _sort_param(param_list, target_str):
     """Sort param_list as default order."""
-    ls = []
-    for param_name in param_list:
-        ls.append((param_name, target_str.find(param_name)))
-    ls.sort(key=lambda x: x[1], reverse=False)
-    ls = [i[0] for i in ls]
-    return ls
+    ls_certain = []
+    for i in target_str.split(','):
+        param_uncertain = i.split('=')[0].split(':')[0].strip().replace("*", "")
+        if param_uncertain in param_list:
+            ls_certain.append(param_uncertain)
+    return ls_certain
 
 
 def get_default_params(func):
