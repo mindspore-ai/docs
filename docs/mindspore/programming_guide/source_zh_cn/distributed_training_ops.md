@@ -18,11 +18,20 @@
 
 ![image](./images/communication.png)
 
+下述的每个章节代码给出了在4张GPU进行通信的示例，对应的输出结果来自于`rank0`。用户需要将代码另存为communication.py，通过mpirun命令去启动脚本，如下所示：
+
+```bash
+mpirun -output-filename log -merge-stderr-to-stdout -np 4 python communication.py
+```
+
+上述代码中的`-np`表示将启动4个进程任务，并且将输出日志保存在`log/1/rank.0`目录下面。`python communication.py`表示启动脚本。其中`mpirun`命令需要安装OpenMPI，对应的安装请参考<https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_gpu.html>。
+
 ## AllReduce
 
 `AllReduce`操作会将每卡对应输入`tensor`进行求和操作，最终每张卡输出是相同的`tensor`，例如上图左上部分所示，每张卡各自的输入为`0, 1, 2, 3`，经过`AllReduce`之后，每张卡输出的结果为每张卡输入之和为6(0+1+2+3)。
 
 ```python
+import numpy as np
 from mindspore.communication import init, get_rank
 from mindspore import Tensor
 import mindspore.nn as nn
