@@ -5,4 +5,4 @@
   :maxdepth: 1
 
   parameterization
-  full_em
+  point_cloud
