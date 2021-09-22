@@ -47,7 +47,7 @@
 在准备数据时，您可以参考以下最佳实践：
 
 1. 设置`iteration`参数，仅保存出现问题的迭代和前一个迭代这两个迭代的数据。例如，要分析的问题会在第10个迭代（从1开始数）出现，则可以这样设置：`"iteration": "8|9"`。请注意`iteration`参数从0开始计算迭代数。保存上述两个迭代的数据能够支撑大多数场景的问题分析。
-2. 在出现问题的迭代执行完毕后，建议您通过[`run_context.request_stop()`](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.train.html#mindspore.train.callback.RunContext.request_stop)等方法提前结束训练。
+2. 在出现问题的迭代执行完毕后，建议您通过[run_context.request_stop()](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.train.html#mindspore.train.callback.RunContext.request_stop)等方法提前结束训练。
 
 #### 数据分析
 

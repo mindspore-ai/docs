@@ -24,4 +24,4 @@ mindspore.ops.stop_gradient(input)
 
 PyTorch: Use `torch.autograd.enable_grad` to enable gradient calculation, and `torch.autograd.no_grad` to disable gradient calculation.
 
-MindSpore: Use [`stop_gradient`](https://www.mindspore.cn/tutorials/en/master/autograd.html#stop-gradient) to disable calculation of gradient for certain operators.
+MindSpore: Use [stop_gradient](https://www.mindspore.cn/tutorials/en/master/autograd.html#stop-gradient) to disable calculation of gradient for certain operators.

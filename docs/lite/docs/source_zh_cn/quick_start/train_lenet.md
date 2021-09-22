@@ -107,7 +107,7 @@ cp /Downloads/mindspore-lite-{version}-android-aarch64.tar.gz output/mindspore-l
 
 准备好一台Android设备，并通过USB与工作电脑正确连接。手机需开启“USB调试模式”，华为手机一般在`设置->系统和更新->开发人员选项->USB调试`中打开“USB调试模式”。
 
-本示例使用[`adb`](https://developer.android.google.cn/studio/command-line/adb)工具与Android设备进行通信，在工作电脑上远程操控移动设备；如果没有安装`adb`工具，可以执行`apt install adb`安装。
+本示例使用[adb](https://developer.android.google.cn/studio/command-line/adb)工具与Android设备进行通信，在工作电脑上远程操控移动设备；如果没有安装`adb`工具，可以执行`apt install adb`安装。
 
 ## 模型训练和验证
 

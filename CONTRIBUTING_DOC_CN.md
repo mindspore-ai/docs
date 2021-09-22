@@ -55,7 +55,7 @@ MindSpore docs仓提供了[文档写作要求](https://gitee.com/mindspore/docs/
 
     完成写作后，需在网页目录中添加新建的文件。
 
-    以训练教程为例，先在`source_zh_cn`目录下找到[`index.rst`](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/index.rst)文件，该文件即对应训练教程网页的组织结构。
+    以训练教程为例，先在`source_zh_cn`目录下找到[index.rst](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/index.rst)文件，该文件即对应训练教程网页的组织结构。
 
     在对应的分类中添加新建的文件，也可新建分类后再添加。以《实现一个图片分类应用》文档为例，该文档存放在`quick_start`目录，命名为`quick_start.md`，需将`quick_start/quick_start`添加至“快速入门”分类下，如下所示。
 
@@ -136,7 +136,7 @@ MindSpore docs仓提供了[API注释写作要求](https://gitee.com/mindspore/do
     - `mindspore.ops`：[中文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_zh_cn/api_python/mindspore.ops.rst) | [英文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_en/api_python/mindspore.ops.rst)
     - `mindspore.ops.operations`：[中文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_zh_cn/api_python/operations.rst) | [英文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_en/api_python/operations.rst)
 
-- 如果不属于已有模块，需新增MindSpore docs仓的接口工程文件，并按字母序添加模块到[目录结构](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_zh_cn/index.rst)中。如需新增`mindspore.context`模块接口，需在`docs/docs/api_python/source_zh_cn/mindspore`目录下新增[`mindspore.context.rst`](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_zh_cn/api_python/mindspore.context.rst)文件，并将其添加到目录结构中。同时，在`docs/docs/api_python/source_en/mindspore`目录下做相应修改，即可生成英文页面内容。
+- 如果不属于已有模块，需新增MindSpore docs仓的接口工程文件，并按字母序添加模块到[目录结构](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_zh_cn/index.rst)中。如需新增`mindspore.context`模块接口，需在`docs/docs/api_python/source_zh_cn/mindspore`目录下新增[mindspore.context.rst](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_zh_cn/api_python/mindspore.context.rst)文件，并将其添加到目录结构中。同时，在`docs/docs/api_python/source_en/mindspore`目录下做相应修改，即可生成英文页面内容。
 
     ```rst
     .. toctree::

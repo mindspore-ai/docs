@@ -243,7 +243,7 @@ Line 23 to 32 indicates the graph structure, which contains several nodes, namel
 Line 34 to 39 shows the execution order of the `CNode` from graph `2_construct.22`, corresponding to the order of code execution. The information format is: `No.: belonging graph:node name{[0]: the first input, [1]: the second input, ...}`. For `CNode`, the first input indicates how to compute for this `CNode`.
 Line 28 indicates the number of graphs. Here is 3.
 
-The [`CNode`](https://www.mindspore.cn/docs/programming_guide/en/master/design/mindir.html#syntax) information format is as follows: including the node name, attribute, input node, output information, format, and source code parsing call stack.
+The [CNode](https://www.mindspore.cn/docs/programming_guide/en/master/design/mindir.html#syntax) information format is as follows: including the node name, attribute, input node, output information, format, and source code parsing call stack.
 
 ```text
 %[No,] : [outputs' Spec] = [op_name]{[prim_type]}[attr0, attr1, ...](arg0, arg1, ...)    #(inputs' Spec)#[scope]

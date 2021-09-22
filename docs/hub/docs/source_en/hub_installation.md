@@ -1,13 +1,13 @@
 # MindSpore Hub Installation
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/hub/docs/source_en/hub_installation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
-
 - [MindSpore Hub Installation](#mindspore-hub-installation)
     - [System Environment Information Confirmation](#system-environment-information-confirmation)
     - [Installation Methods](#installation-methods)
         - [Installation by pip](#installation-by-pip)
         - [Installation by Source Code](#installation-by-source-code)
     - [Installation Verification](#installation-verification)
+
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/hub/docs/source_en/hub_installation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## System Environment Information Confirmation
 
