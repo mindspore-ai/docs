@@ -475,7 +475,7 @@ Notes:
 
   Only instance of `Cell` and `Primitve` can be created in function construct, the statement like `xx = Tensor(...)` is forbidden.
 
-  Only `Parameter` attribute of self can be assign, for more detail refer to [`Attribute Reference`](#attribute-references).
+  Only `Parameter` attribute of self can be assign, for more detail refer to [Attribute Reference](#attribute-references).
 
 - If all operands of  `AugAssign` are `Number` type, value of Number can't be `Bool`.
 

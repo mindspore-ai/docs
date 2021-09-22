@@ -51,11 +51,11 @@ MindSpore Lite训练框架中的[Model](https://www.mindspore.cn/lite/api/zh-CN/
 
 ### 读取模型
 
-模型文件是一个flatbuffer序列化文件，它通过MindSpore模型转换工具得到，其文件扩展名为`.ms`。在模型训练或推理之前，模型需要从文件系统中加载。相关操作主要在[`Serialization`](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#serialization)类中实现，该类实现了模型文件读写的方法。
+模型文件是一个flatbuffer序列化文件，它通过MindSpore模型转换工具得到，其文件扩展名为`.ms`。在模型训练或推理之前，模型需要从文件系统中加载。相关操作主要在[Serialization](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#serialization)类中实现，该类实现了模型文件读写的方法。
 
 ### 创建上下文
 
-[`Context`](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)是一个MindSpore Lite对象，它包含了`Model`用来加载模型文件、引导图编译和执行的基础配置参数。它能够让你指定模型运行的设备类型（例如CPU或GPU），模型训练和推理时使用的线程数量，以及内存分配策略。目前`Model`只支持单线程的CPU设备。
+[Context](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)是一个MindSpore Lite对象，它包含了`Model`用来加载模型文件、引导图编译和执行的基础配置参数。它能够让你指定模型运行的设备类型（例如CPU或GPU），模型训练和推理时使用的线程数量，以及内存分配策略。目前`Model`只支持单线程的CPU设备。
 
 如果用户通过`new`创建`Context`，不再需要时，需要用户通过`delete`释放。一般在`Model`对象创建完成后，`Context`对象即可释放。
 
@@ -231,7 +231,7 @@ if (ret != RET_OK) {
 
 在图执行之前，无论执行训练或推理，输入数据必须载入模型的输入张量。MindSpore Lite提供了以下函数来获取模型的输入张量：
 
-1. 使用[`GetInputByTensorName`](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getinputbytensorname)方法，获取连接到基于张量名称的模型输入节点模型输入张量。
+1. 使用[GetInputByTensorName](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getinputbytensorname)方法，获取连接到基于张量名称的模型输入节点模型输入张量。
 
     ```cpp
     /// \brief  Get input MindSpore Lite MSTensors of model by tensor    name.
@@ -242,7 +242,7 @@ if (ret != RET_OK) {
     inline MSTensor GetInputByTensorName(const std::string &tensor_name);
     ```
 
-2. 使用[`GetInputs`](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getinputs)方法，直接获取所有模型输入张量的向量。
+2. 使用[GetInputs](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getinputs)方法，直接获取所有模型输入张量的向量。
 
     ```cpp
     /// \brief  Get input MindSpore Lite MSTensors of model.
@@ -325,7 +325,7 @@ if (ret != RET_OK) {
 
 MindSpore Lite提供下列方法来获取模型的输出张量：
 
-1. 使用[`GetOutputsByNodeName`](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getoutputsbynodename)方法获取一个确定节点的输出张量。
+1. 使用[GetOutputsByNodeName](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getoutputsbynodename)方法获取一个确定节点的输出张量。
 
     ```cpp
     /// \brief Get output MSTensors of model by node name.
@@ -352,7 +352,7 @@ MindSpore Lite提供下列方法来获取模型的输出张量：
     }
     ```
 
-2. 使用[`GetOutputByTensorName`](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getoutputbytensorname)方法，依据张量名称获取输出张量。
+2. 使用[GetOutputByTensorName](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getoutputbytensorname)方法，依据张量名称获取输出张量。
 
     ```cpp
     /// \brief Obtains the output tensor of the model by name.
@@ -377,7 +377,7 @@ MindSpore Lite提供下列方法来获取模型的输出张量：
     }
     ```
 
-3. 使用[`GetOutputs`](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getoutputs)方法，根据张量名称排序的所有输出张量。
+3. 使用[GetOutputs](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getoutputs)方法，根据张量名称排序的所有输出张量。
 
     ```cpp
     /// \brief Obtains all output tensors of the model.
