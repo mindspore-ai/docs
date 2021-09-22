@@ -102,16 +102,16 @@ bias_correction=true
 | 参数               | 属性 | 功能描述                                                     | 参数类型 | 默认值 | 取值范围                                                     |
 | ------------------ | ---- | ------------------------------------------------------------ | -------- | ------ | ------------------------------------------------------------ |
 | calibrate_path     | 必选 | 存放校准数据集的目录；如果模型有多个输入，请依次填写对应的数据所在目录，目录路径间请用`,`隔开 | String   | -      | input_name_1:/mnt/image/input_1_dir,input_name_2:input_2_dir |
-| calibrate_size     | 必选 | 矫正集数量                                                   | Integer  | -      | [1，+∞）                                                     |
+| calibrate_size     | 必选 | 矫正集数量                                                   | Integer  | -      | [1, 65535]                                                   |
 | input_type         | 必选 | 矫正数据文件格式类型                                         | String   | -      | IMAGE、BIN <br>IMAGE：图片文件数据 <br>BIN：满足推理的输入要求二进制`.bin`文件数据 |
 | image_to_format    | 可选 | 图像格式转换                                                 | String   | -      | RGB、GRAY、BGR                                               |
 | normalize_mean     | 可选 | 图像归一化的均值<br/>dst = (src - mean) / std                | Vector   | -      | 3通道：[mean_1, mean_2, mean_3] <br/>1通道：[mean_1]         |
 | normalize_std      | 可选 | 图像归一化的标准差<br/>dst = (src - mean) / std              | Vector   | -      | 3通道：[std_1, std_2, std_3] <br/>1通道：[std_1]             |
-| resize_width       | 可选 | 图像缩放宽度                                                 | Integer  | -      | [1，+∞）                                                     |
-| resize_height      | 可选 | 图像缩放高度                                                 | Integer  | -      | [1，+∞）                                                     |
+| resize_width       | 可选 | 图像缩放宽度                                                 | Integer  | -      | [1, 65535]                                                   |
+| resize_height      | 可选 | 图像缩放高度                                                 | Integer  | -      | [1, 65535]                                                   |
 | resize_method      | 可选 | 图像缩放算法                                                 | String   | -      | LINEAR、NEAREST、CUBIC<br/>LINEAR：线性插值<br/>NEARST：最邻近插值<br/>CUBIC：三次样条插值 |
-| center_crop_width  | 可选 | 中心裁剪宽度                                                 | Integer  | -      | [1，+∞）                                                     |
-| center_crop_height | 可选 | 中心裁剪高度                                                 | Integer  | -      | [1，+∞）                                                     |
+| center_crop_width  | 可选 | 中心裁剪宽度                                                 | Integer  | -      | [1, 65535]                                                   |
+| center_crop_height | 可选 | 中心裁剪高度                                                 | Integer  | -      | [1, 65535]                                                   |
 
 数据预处理参数配置如下所示：
 
