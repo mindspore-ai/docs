@@ -49,13 +49,13 @@ The following figure shows the detailed training process:
 
 ### Reading Models
 
-A Model file is flatbuffer-serialized file which was converted using the [MindSpore Model Converter Tool](https://www.mindspore.cn/lite/api/en/r1.5/generate/classmindspore_Serialization.html). These files have a `.ms` extension. Before model training and/or inference, the model needs to be loaded from the file system and parsed. Related operations are mainly implemented in the [`Serialization`](https://www.mindspore.cn/lite/api/en/r1.5/api_cpp/mindspore.html) class which holds the model data such as the network structure, weights data and operators attributes.
+A Model file is flatbuffer-serialized file which was converted using the [MindSpore Model Converter Tool](https://www.mindspore.cn/lite/api/en/r1.5/generate/classmindspore_Serialization.html). These files have a `.ms` extension. Before model training and/or inference, the model needs to be loaded from the file system and parsed. Related operations are mainly implemented in the [Serialization](https://www.mindspore.cn/lite/api/en/r1.5/api_cpp/mindspore.html) class which holds the model data such as the network structure, weights data and operators attributes.
 
 > In MindSpore Lite the user is not allowed to access the training model object, since it is being used by `Model` during training. All interactions with training model object including instantiation, compilation and deletion are handled within `Model`.
 
 ### Creating Contexts
 
-[`Context`](https://www.mindspore.cn/lite/api/en/r1.5/generate/classmindspore_Context.html) is a MindSpore Lite Object which contains basic configuration parameters required by the sessions to guide graph compilation and execution. It allows to define the device to run the model, e.g., CPU or GPU, the number of threads used for training and inference and the memory allocation scheme.
+[Context](https://www.mindspore.cn/lite/api/en/r1.5/generate/classmindspore_Context.html) is a MindSpore Lite Object which contains basic configuration parameters required by the sessions to guide graph compilation and execution. It allows to define the device to run the model, e.g., CPU or GPU, the number of threads used for training and inference and the memory allocation scheme.
 Currently, only single threaded CPU device is supported by `TrainSession`.
 
 Once the `Model` is created with the `Context` object, it is no longer needed and can be deleted.
