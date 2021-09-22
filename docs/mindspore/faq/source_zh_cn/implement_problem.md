@@ -461,6 +461,12 @@ A: 流表示一个操作队列，同一条流上的任务按序串行执行，�
 
 - 减少网络中的条件控制语句
 
+<font size=3>**Q: 在Ascend平台上，日志中出现报错“Ascend error occurred, error message:”且跟随了一个错误码，如“E40011”，如何查找出现错误码的原因？**</font>
+
+当出现“Ascend error occurred, error message:”时，说明昇腾CANN相关模块出现异常，上报了错误日志。
+
+此时错误码后有异常的错误信息。如果需要该异常更详细的可能原因和处理方法，请参考对应昇腾版本文档的《Error Code故障处理》部分，如[昇腾CANN社区版(5.0.3 alpha 002)(训练) Error Code故障处理](https://support.huaweicloud.com/trouble-cann503alpha2training/atlaspd_15_0002.html)。
+
 ## 网络编译问题
 
 <font size=3>**Q: 编译时报错“Create python object \`<class 'mindspore.common.tensor.Tensor'>\` failed, only support create Cell or Primitive object.”怎么办？**</font>
