@@ -51,10 +51,26 @@ from mindspore import Tensor
 import mindspore.ops as ops
 
 context.set_context(mode=context.PYNATIVE_MODE, device_target="Ascend")
-x =Tensor(np.ones([1, 3, 3, 4]).astype(np.float32))
+x = Tensor(np.ones([1, 3, 3, 4]).astype(np.float32))
 y = Tensor(np.ones([1, 3, 3, 4]).astype(np.float32))
 output = ops.add(x, y)
 print(output.asnumpy())
+```
+
+输出：
+
+```text
+[[[[2. 2. 2. 2.]
+   [2. 2. 2. 2.]
+   [2. 2. 2. 2.]]
+
+  [[2. 2. 2. 2.]
+   [2. 2. 2. 2.]
+   [2. 2. 2. 2.]]
+
+  [[2. 2. 2. 2.]
+   [2. 2. 2. 2.]
+   [2. 2. 2. 2.]]]]
 ```
 
 此例中，当调用到Python接口ops.add(x, y)时，会将Python的接口调用通过Pybind11调用到框架的C++层，转换成C++的调用，接着框架会根据用户设置的device_target选择对应的硬件设备，在该硬件设备上执行add这个操作。
@@ -102,6 +118,13 @@ x = Tensor([[0.8, 0.6, 0.2], [1.8, 1.3, 1.1]], dtype=mstype.float32)
 y = Tensor([[0.11, 3.3, 1.1], [1.1, 0.2, 1.4], [1.1, 2.2, 0.3]], dtype=mstype.float32)
 output = GradNetWrtX(Net())(x, y)
 print(output)
+```
+
+输出：
+
+```text
+[[9.0199995 5.4       7.2000003]
+ [9.0199995 5.4       7.2000003]]
 ```
 
 ![forward](./images/forward.png) ![backward](./images/backward.png)
