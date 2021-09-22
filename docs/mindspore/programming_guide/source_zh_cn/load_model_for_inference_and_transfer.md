@@ -28,6 +28,10 @@
 
 以下通过示例来介绍如何通过本地加载，用于推理验证和迁移学习。
 
+> 你可以在这里查看网络和数据集的定义：
+>
+> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/save_model>
+
 ## 本地加载模型
 
 ### 用于推理验证
@@ -37,10 +41,14 @@
 示例代码如下：
 
 ```python
+from mindspore import Model, load_checkpoint
+from mindspore.nn import SoftmaxCrossEntropyWithLogits
+
 resnet = ResNet50()
 load_checkpoint("resnet50-2_32.ckpt", net=resnet)
-dateset_eval = create_dataset(os.path.join(mnist_path, "test"), 32, 1) # define the test dataset
-loss = CrossEntropyLoss()
+# create eval dataset, mnist_path is the data path
+dateset_eval = create_dataset(mnist_path)
+loss = SoftmaxCrossEntropyWithLogits()
 model = Model(resnet, loss, metrics={"accuracy"})
 acc = model.eval(dataset_eval)
 ```
@@ -56,6 +64,10 @@ acc = model.eval(dataset_eval)
 
 ```python
 # return a parameter dict for model
+from mindspore import Model, load_checkpoint
+from mindspore.nn import Momentum
+from mindspore.nn import SoftmaxCrossEntropyWithLogits
+
 param_dict = load_checkpoint("resnet50-2_32.ckpt")
 resnet = ResNet50()
 opt = Momentum(resnet.trainable_params(), 0.01, 0.9)

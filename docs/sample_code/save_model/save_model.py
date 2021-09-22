@@ -27,10 +27,12 @@ import numpy as np
 
 context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
 
+
 def output_file_formats(ckpt_path, net_work, batch_size, output_file_name, output_format):
     load_checkpoint(ckpt_path, net=net_work)
     input_data = np.random.uniform(0.0, 1.0, size=batch_size).astype(np.float32)
     export(net_work, Tensor(input_data), file_name=output_file_name, file_format=output_format)
+
 
 if __name__ == "__main__":
     lr = 0.01
