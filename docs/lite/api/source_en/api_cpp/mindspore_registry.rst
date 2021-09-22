@@ -33,7 +33,6 @@ Typedefs
 Defines
 -------
 
-- :doc:`../generate/define_register_kernel_interface.h_REGISTER_CUSTOM_KERNEL-1`
 - :doc:`../generate/define_pass_registry.h_REG_SCHEDULED_PASS-1`
 - :doc:`../generate/define_register_kernel.h_REGISTER_KERNEL-1`
 - :doc:`../generate/define_model_parser_registry.h_REG_MODEL_PARSER-1`
