@@ -169,9 +169,9 @@
 
 检查训练脚本的数据处理代码中是否使能了混洗（shuffle）功能。通过混洗，可以打乱数据顺序，有助于避免过拟合。如果未进行混洗，或者混洗不充分，会导致总是以相同的数据顺序更新模型，严重限制了梯度优化方向的可选择性，导致收敛点的选择空间变少，容易过拟合。混洗功能的常见使能方式有如下几种，使用任意一种方式来使能混洗功能均可：
 
-1. 创建数据集时，指定shuffle参数为True。例如  [`mindspore.dataset.Cifar10Dataset`](https://mindspore.cn/docs/api/zh-CN/r1.5/api_python/dataset/mindspore.dataset.Cifar10Dataset.html#mindspore.dataset.Cifar10Dataset)中的shuffle参数。
-2. 在数据处理的过程中，使用shuffle方法，例如[`mindspore.dataset.Cifar10Dataset.shuffle`](https://mindspore.cn/docs/api/zh-CN/r1.5/api_python/dataset/mindspore.dataset.Cifar10Dataset.html#mindspore.dataset.Cifar10Dataset.shuffle)。
-3. 如果使用了Sampler，还可以使能Sampler提供的shuffle功能。例如[`mindspore.dataset.PKSampler`](https://mindspore.cn/docs/api/zh-CN/r1.5/api_python/dataset/mindspore.dataset.PKSampler.html#mindspore.dataset.PKSampler)中的shuffle参数。
+1. 创建数据集时，指定shuffle参数为True。例如  [mindspore.dataset.Cifar10Dataset](https://mindspore.cn/docs/api/zh-CN/r1.5/api_python/dataset/mindspore.dataset.Cifar10Dataset.html#mindspore.dataset.Cifar10Dataset)中的shuffle参数。
+2. 在数据处理的过程中，使用shuffle方法，例如[mindspore.dataset.Cifar10Dataset.shuffle](https://mindspore.cn/docs/api/zh-CN/r1.5/api_python/dataset/mindspore.dataset.Cifar10Dataset.html#mindspore.dataset.Cifar10Dataset.shuffle)。
+3. 如果使用了Sampler，还可以使能Sampler提供的shuffle功能。例如[mindspore.dataset.PKSampler](https://mindspore.cn/docs/api/zh-CN/r1.5/api_python/dataset/mindspore.dataset.PKSampler.html#mindspore.dataset.PKSampler)中的shuffle参数。
 
 例子：
 以ModelZoo中的resnet50为例（cifar10数据集），其在创建数据集时shuffle参数指定为True，因此检查结果为“无问题”。
@@ -435,7 +435,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 固定随机性的目的是使模型训练过程精确复现。固定随机性后，两次训练所产生的loss曲线应完全一致。固定MindSpore脚本随机性的步骤如下：
 
-1. 在脚本开始处固定全局随机数种子。包括MindSpore全局随机数种子，[`mindspore.set_seed(1)`](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/mindspore.html#mindspore.set_seed)，[`mindspore.dataset.config.set_seed(1)`](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/mindspore.dataset.config.html#mindspore.dataset.config.set_seed)；numpy全局随机数种子`numpy.random.seed(1)`；python随机数种子`random.seed(1)`等。如下：
+1. 在脚本开始处固定全局随机数种子。包括MindSpore全局随机数种子，[mindspore.set_seed(1)](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/mindspore.html#mindspore.set_seed)，[mindspore.dataset.config.set_seed(1)](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/mindspore.dataset.config.html#mindspore.dataset.config.set_seed)；numpy全局随机数种子`numpy.random.seed(1)`；python随机数种子`random.seed(1)`等。如下：
 
     ```python
     import random

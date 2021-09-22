@@ -69,7 +69,7 @@ train_net.set_train()
 
 `set_train`递归地配置了`Cell`的`training`属性，在实现训练和推理结构不同的网络时可以通过`training`属性区分训练和推理场景，例如`BatchNorm`、`Dropout`。
 
-前面的[`损失函数`](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/loss.html)章节已经介绍了如何定义损失函数，以及如何使用`WithLossCell`将前向网络与损失函数连接起来，这里介绍如何获取梯度和更新权重，构成一个完整的训练网络。MindSpore提供的`nn.TrainOneStepCell`具体实现如下：
+前面的[损失函数](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/loss.html)章节已经介绍了如何定义损失函数，以及如何使用`WithLossCell`将前向网络与损失函数连接起来，这里介绍如何获取梯度和更新权重，构成一个完整的训练网络。MindSpore提供的`nn.TrainOneStepCell`具体实现如下：
 
 ```python
 import mindspore.ops as ops

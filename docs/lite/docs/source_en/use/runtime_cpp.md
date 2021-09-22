@@ -2,8 +2,6 @@
 
 `Windows` `macOS` `Linux` `iOS` `Android` `C++` `Inference Application` `Model Loading` `Data Preparation` `Intermediate` `Expert`
 
-> MindSpore has unified the inference API. If you want to continue to use the MindSpore Lite independent API for inference, you can refer to the [document](https://www.mindspore.cn/lite/docs/en/r1.3/use/runtime_cpp.html).
-
 <!-- TOC -->
 
 - [Using C++ Interface to Perform Inference](#using-c-interface-to-perform-inference)
@@ -33,6 +31,8 @@
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/lite/docs/source_en/use/runtime_cpp.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
+
+> MindSpore has unified the inference API. If you want to continue to use the MindSpore Lite independent API for inference, you can refer to the [document](https://www.mindspore.cn/lite/docs/en/r1.3/use/runtime_cpp.html).
 
 ## Overview
 

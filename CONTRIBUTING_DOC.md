@@ -55,7 +55,7 @@ If you need to add a document, create a markdown or reStructuredText file in a p
 
     After the writing is complete, add the new document to the web page directory.
 
-   Take a training tutorial as an example. Find the [`index.rst`](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/index.rst) file in the `source_en` directory. This file corresponds to the organization structure of the training tutorial web page.
+   Take a training tutorial as an example. Find the [index.rst](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/index.rst) file in the `source_en` directory. This file corresponds to the organization structure of the training tutorial web page.
 
     Add the new document to the corresponding category. You can also create a category before adding the document. Take **Implementing an Image Classification Application** as an example. Save the document in the `quick_start` directory and name it as `quick_start.md`. Add `quick_start/quick_start` to the Quick Start category, as shown below.
 
@@ -136,7 +136,7 @@ If you want to add an API, check whether the API has been added to an existing m
     - `mindspore.ops`: [中文](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_zh_cn/api_python/mindspore.ops.rst) | [English](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_en/api_python/mindspore.ops.rst)
     - `mindspore.ops.operations`: [中文](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_zh_cn/api_python/operations.rst) | [English](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_en/api_python/operations.rst)
 
-- If the API does not belong to the existing module, add an API project file of the MindSpore docs repository. Please add modules to the [directory structure](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_en/index.rst) in alphabetical order. To add the API of the `mindspore.context` module, you need to create the [`mindspore.context.rst`](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_en/api_python/mindspore.context.rst) file in the `docs/docs/api_python/source_en/mindspore` directory and add the file to the directory structure.
+- If the API does not belong to the existing module, add an API project file of the MindSpore docs repository. Please add modules to the [directory structure](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_en/index.rst) in alphabetical order. To add the API of the `mindspore.context` module, you need to create the [mindspore.context.rst](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_en/api_python/mindspore.context.rst) file in the `docs/docs/api_python/source_en/mindspore` directory and add the file to the directory structure.
 
     ```rst
     .. toctree::
