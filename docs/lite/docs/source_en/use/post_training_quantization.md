@@ -43,8 +43,8 @@ common quantization parameters are the basic settings for post training quantiza
 | -------------------------- | --------- | ------------------------------------------------------------ | -------------- | ------------- | ------------------------------------------- |
 | `quant_type`               | Mandatory | The quantization type. When set to WEIGHT_QUANT, weight quantization is enabled; when set to FULL_QUANT, full quantization is enabled. | String         | -             | WEIGHT_QUAN, FULL_QUANT                     |
 | `bit_num`                  | Optional  | The number of quantized bits. Currently, weight quantization supports 0-16bit quantization. When it is set to 1-16bit, it is fixed-bit quantization. When it is set to 0bit, mixed-bit quantization is enabled. Full quantization supports 1-8bit quantization. | Integer        | 8             | WEIGHT_QUAN:\[0，16]<br/>FULL_QUANT:\[1，8] |
-| `min_quant_weight_size`    | Optional  | Set the threshold of the weight size for quantization. If the number of weights is greater than this value, the weight will be quantized. | Integer        | 0             | \[0，+∞）                                   |
-| `min_quant_weight_channel` | Optional  | Set the threshold of the number of weight channels for quantization. If the number of weight channels is greater than this value, the weight will be quantized. | Integer        | 16            | \[0，+∞）                                   |
+| `min_quant_weight_size`    | Optional  | Set the threshold of the weight size for quantization. If the number of weights is greater than this value, the weight will be quantized. | Integer        | 0             | [1, 65535]                                  |
+| `min_quant_weight_channel` | Optional  | Set the threshold of the number of weight channels for quantization. If the number of weight channels is greater than this value, the weight will be quantized. | Integer        | 16            | [1, 65535]                                  |
 
 The common quantization parameter configuration is as follows:
 
@@ -102,16 +102,16 @@ To calculate the full quantization activation quantized parameter, the user need
 | Parameter          | Attribute | Function Description                                         | Parameter Type | Default Value | Value Range                                                  |
 | ------------------ | --------- | ------------------------------------------------------------ | -------------- | ------------- | ------------------------------------------------------------ |
 | calibrate_path     | Mandatory | The directory where the calibration dataset is stored; if the model has multiple inputs, please fill in the directory where the corresponding data is located one by one, and separate the directory paths with `,` | String         | -             | input_name_1:/mnt/image/input_1_dir,input_name_2:input_2_dir |
-| calibrate_size     | Mandatory | Calibration data size                                        | Integer        | -             | [1，+∞）                                                     |
+| calibrate_size     | Mandatory | Calibration data size                                        | Integer        | -             | [1, 65535]                                                   |
 | input_type         | Mandatory | Correction data file format type                             | String         | -             | IMAGE、BIN <br>IMAGE：image file data <br>BIN：binary `.bin` file data |
 | image_to_format    | Optional  | Image format conversion                                      | String         | -             | RGB、GRAY、BGR                                               |
 | normalize_mean     | Optional  | Normalized mean<br/>dst = (src - mean) / std                 | Vector         | -             | Channel 3: [mean_1, mean_2, mean_3] <br/>Channel 1: [mean_1] |
 | normalize_std      | Optional  | Normalized standard deviation<br/>dst = (src - mean) / std   | Vector         | -             | Channel 3: [std_1, std_2, std_3] <br/>Channel 1: [std_1]     |
-| resize_width       | Optional  | Resize width                                                 | Integer        | -             | [1，+∞）                                                     |
-| resize_height      | Optional  | Resize height                                                | Integer        | -             | [1，+∞）                                                     |
+| resize_width       | Optional  | Resize width                                                 | Integer        | -             | [1, 65535]                                                   |
+| resize_height      | Optional  | Resize height                                                | Integer        | -             | [1, 65535]                                                   |
 | resize_method      | Optional  | Resize algorithm                                             | String         | -             | LINEAR, NEAREST, CUBIC<br/>LINEAR：Bilinear interpolation<br/>NEARST：Nearest neighbor interpolation<br/>CUBIC：Bicubic interpolation |
-| center_crop_width  | Optional  | Center crop width                                            | Integer        | -             | [1，+∞）                                                     |
-| center_crop_height | Optional  | Center crop height                                           | Integer        | -             | [1，+∞）                                                     |
+| center_crop_width  | Optional  | Center crop width                                            | Integer        | -             | [1, 65535]                                                   |
+| center_crop_height | Optional  | Center crop height                                           | Integer        | -             | [1, 65535]                                                   |
 
 The data preprocessing parameter configuration is as follows:
 
