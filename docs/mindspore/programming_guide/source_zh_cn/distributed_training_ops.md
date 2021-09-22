@@ -47,9 +47,9 @@ class Net(nn.Cell):
         return self.allreduce_sum(x)
 
 value = get_rank()
-input_ = Tensor(np.array([[value]]).astype(np.float32))
+input_x = Tensor(np.array([[value]]).astype(np.float32))
 net = Net()
-output = net(input_)
+output = net(input_x)
 print(output)
 [[6.]]
 ```
@@ -109,9 +109,9 @@ class Net(nn.Cell):
     def construct(self, x):
         return self.reducescatter(x)
 
-input_ = Tensor(np.array([[0], [1], [2], [3]]).astype(np.float32))
+input_x = Tensor(np.array([[0], [1], [2], [3]]).astype(np.float32))
 net = Net()
-output = net(input_)
+output = net(input_x)
 print(output)
 [[0.]]
 ```
