@@ -66,12 +66,11 @@ optimizer = nn.SGD(params=net.trainable_params(), learning_rate=0.01)
     # 使用TrainOneStepCell自定义网络
     loss_net = nn.WithLossCell(net, loss) # 包含损失函数的Cell
     train_net = nn.TrainOneStepCell(loss_net, optimizer)
-    train_dataset = [(Tensor(np.random.rand(1, 3, 64, 32), mstype.float32),
-                    Tensor(np.random.rand(1, 64, 64, 32), mstype.float32))]
+    train_dataset = [(Tensor(np.random.rand(1, 3, 64, 32), mstype.float32), Tensor(np.random.rand(1, 64, 64, 32), mstype.float32))]
     for i in range(5):
-    for image, label in train_dataset:
-      train_net.set_train()
-      res = train_net(image, label) # 执行网络的单步训练
+        for image, label in train_dataset:
+            train_net.set_train()
+            res = train_net(image, label) # 执行网络的单步训练
     ```
 
 - 在PyNative模式下，实现单步执行优化器。
@@ -124,16 +123,15 @@ class Net(nn.Module):
 model = Net()
 optimizer = optim.SGD(model.parameters(), lr=0.01)
 loss_fn = nn.MSELoss()
-train_dataset = [(torch.tensor(np.random.rand(1, 3, 64, 32).astype(np.float32)),
-            torch.tensor(np.random.rand(1, 64, 62, 30).astype(np.float32)))]
+train_dataset = [(torch.tensor(np.random.rand(1, 3, 64, 32).astype(np.float32)), torch.tensor(np.random.rand(1, 64, 62, 30).astype(np.float32)))]
 
 for epoch in range(5):
-  for image, label in train_dataset:
-    optimizer.zero_grad()
-    output = model(image)
-    loss = loss_fn(output, label)
-    loss.backward()
-    optimizer.step()
+    for image, label in train_dataset:
+        optimizer.zero_grad()
+        output = model(image)
+        loss = loss_fn(output, label)
+        loss.backward()
+        optimizer.step()
 ```
 
 ## 基类入参设置及支持的方法
@@ -313,7 +311,7 @@ mindspore中没有直接可以按照组别获取对应学习率的功能，但�
 
 #### 获取优化器的状态
 
-`PyTorch.optimizer.param_groups`：获取优化器相关配置参数的状态，返回数据格式为字典的列表，key为参数名，value为参数值。以SGD为例，字典的key为key为'params'、 'lr'、 'momentum'、'dampening'、'weight_decay'、 'nesterov'等。
+`PyTorch.optimizer.param_groups`：获取优化器相关配置参数的状态，返回数据格式为字典的列表，key为参数名，value为参数值。以SGD为例，字典的key为key为'params'、 'lr'、'momentum'、'dampening'、'weight_decay'、 'nesterov'等。
 
 `PyTorch.optimizer.state_dict`：获取optimizer的状态，返回一个key为“state”、“param_groups”，value为对应数值的字典。
 
