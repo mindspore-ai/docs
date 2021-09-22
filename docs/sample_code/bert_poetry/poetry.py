@@ -56,6 +56,8 @@ class LossCallBack(Callback):
             f.write("epoch: {}, step: {}, outputs are {}".format(cb_params.cur_epoch_num, cb_params.cur_step_num,
                                                                  str(cb_params.net_outputs)))
             f.write("\n")
+        print("epoch: {}, step: {}, outputs are {}".format(cb_params.cur_epoch_num, cb_params.cur_step_num,
+                                                           str(cb_params.net_outputs)))
 
 
 def test_train():
@@ -64,11 +66,14 @@ def test_train():
     '''
     target = args_opt.device_target
     if target == "Ascend":
-        devid = int(os.getenv('DEVICE_ID'))
+        try:
+            devid = int(os.getenv('DEVICE_ID'))
+        except TypeError:
+            devid = 0
         context.set_context(mode=context.GRAPH_MODE, device_target="Ascend", device_id=devid)
 
     poetry, tokenizer, keep_words = create_tokenizer()
-    print(len(keep_words))
+    print("total vocab_size after filtering is ", len(keep_words))
 
     dataset = create_poetry_dataset(bert_net_cfg.batch_size, poetry, tokenizer)
 
