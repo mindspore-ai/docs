@@ -1,10 +1,10 @@
-# 使用MindElec实现全量电磁场仿真计算
+# 基于点云方案的AI电磁仿真
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindelec/docs/mindscience/docs/source_zh_cn/mindelec/full_em.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindelec/docs/mindscience/docs/source_zh_cn/mindelec/point_cloud.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述
 
-本教程介绍MindElec提供的基于点云计算电磁场的方法，引导您快速使用MindElec，实现高效电磁仿真计算。
+本教程介绍MindElec提供的基于点云方案的AI电磁仿真方法，引导您快速使用MindElec。
 
 传统电磁仿真计算通常使用基于有限元或有限差分的方法计算电磁场，这些方法需要复杂的网格剖分与迭代计算，整体流程耗时长，影响产品研发效率。MindElec提供一种新的电磁场端到端AI计算方法，该方法基于点云数据，跳过网格剖分与迭代求解，直接计算仿真区域内电磁场，大幅提升整体仿真速度，助力产品高效研发。
 
@@ -13,14 +13,14 @@
 
 ## 整体流程
 
-基于点云数据的全量电磁场预测整体流程如下：
+基于点云数据的电磁仿真整体流程如下：
 
-1. 从CST文件中导出几何/材料信息
+1. 从CST文件导出几何/材料信息
 2. 点云数据生成
 3. 数据压缩
-4. 电磁场仿真计算
+4. 电磁仿真计算
 
-## 从CST文件中导出几何/材料信息
+## 从CST文件导出几何/材料信息
 
 MindElec提供两种自动化执行脚本，用于将cst格式文件转换为Python可读取的stp文件，使用该脚本可以实现数据批量转换，实现大规模电磁仿真：
 
@@ -55,21 +55,21 @@ python generate_cloud_point.py --stp_path STP_PATH
 
 ## 数据压缩
 
-如果点云分辨率设置较高，点云数据单条数据后续处理的内存与计算消耗可能过高，因此MindElec提供数据压缩功能，用户可以调用`data_compression`目录下的脚本，压缩原始点云数据，降低后续流程的内存与计算消耗，该压缩过程分两步：
+如果点云分辨率设置较高，仅单条点云数据的后处理就需巨大的内存和计算量，因此MindElec提供数据压缩功能。用户可以调用`data_compression`目录下的脚本，压缩原始点云数据，该压缩过程分两步：
 
-1. 首次使用时需要调用`train.py`训练压缩模型，若已有压缩模型检查点可以跳过该步。
-2. 模型训练结束后即可调用`data_compress.py`进行数据压缩。
+- 首次使用时需要调用`train.py`训练压缩模型，若已有压缩模型检查点可以跳过该步。
+- 模型训练结束后即可调用`data_compress.py`进行数据压缩。
 
 ### 压缩模型训练（可选）
 
 #### 训练数据准备
 
-压缩模型使用的训练数据是分块的点云数据，用户生成点云数据后，调用`data_compression/src/dataset.py`中的`generate_data`函数即可生成训练与推理所需数据，分块大小与数据输入输出路径通过该脚本中以下参数配置
+压缩模型使用的训练数据是分块的点云数据。用户生成点云数据后，调用`data_compression/src/dataset.py`中的`generate_data`函数即可生成训练与推理所需数据。分块大小与数据输入输出路径通过该脚本中以下参数配置
 
 ``` python
 PATCH_DIM = [25, 50, 25]
 NUM_SAMPLE = 10000
-INPUT_PATH = "/data2/dataset/phone_data/sampling_output_528.npy"
+INPUT_PATH = ""
 DATA_CONFIG_PATH = "./data_config.npy"
 SAVE_DATA_PATH = "./"
 ```
@@ -78,7 +78,7 @@ SAVE_DATA_PATH = "./"
 
 #### 构建压缩模型
 
-参照`data_compression/src/model.py`构建压缩模型，该模型使用自监督学习方式训练，模型分为编码器与解码器两部分，训练时需要网络重建数据（`decoding=True`），推理压缩数据时略去解压缩器（`decoding=False`）。
+参照`data_compression/src/model.py`构建压缩模型，该模型使用自监督学习方式训练。模型分为编码器与解码器两部分，训练时需要网络重建数据（`decoding=True`），推理压缩数据时略去解压缩器（`decoding=False`）。
 
 对于不同大小的数据块尺寸，需要相应地修改编码器部分代码，确保编码器`Encoder`部分输出空间尺寸为`[1,1,1]`。
 
@@ -108,13 +108,13 @@ class Decoder(nn.Cell):
 
 #### 模型训练
 
-压缩模型训练时，首先根据`config.py`中定义的输入特征数，数据块大小，基础特征数等参数初始化自编码器`EncoderDecoder`：
+压缩模型训练时，首先根据`config.py`中定义的输入特征数、数据块大小、基础特征数等初始化自编码器`EncoderDecoder`：
 
 ``` python
 model_net = EncoderDecoder(config["input_channels"], config["patch_shape"], config["base_channels"], ecoding=True)
 ```
 
-然后调用MindElec的数据接口读取数据集，使用该接口可以自动打乱数据并分批：
+其次调用MindElec的数据接口读取数据集，该接口可以自动打乱数据并分批次：
 
 ```python
 train_dataset = create_dataset(input_path=opt.train_input_path,
@@ -124,7 +124,7 @@ train_dataset = create_dataset(input_path=opt.train_input_path,
 eval_dataset ...
 ```
 
-设定学习率衰减策略：
+为提升模型的精度，设定如下学习率衰减策略：
 
 ``` python
 milestones, learning_rates = step_lr_generator(step_size,
@@ -133,7 +133,7 @@ milestones, learning_rates = step_lr_generator(step_size,
                                                config["lr_decay_milestones"])
 ```
 
-然后调用MindElec的训练接口`Solver`定义训练参数，包括优化器、度量标准、损失函数等等：
+MindElec的训练接口`Solver`可定义训练参数，包括优化器、度量标准、损失函数等：
 
 ``` python
 solver = Solver(model_net,
@@ -160,7 +160,7 @@ for epoch in range(config["epochs"] // config["eval_interval"]):
 
 ### 推理数据压缩
 
-数据压缩时需要传入原始点云与模型检查点文件的路径，同时根据`config.py`中定义的参数，定义压缩模型并导入模型检查点：
+数据压缩时需要传入原始点云与模型检查点文件的路径，同时根据`config.py`文件定义压缩模型并导入模型检查点：
 
 ``` python
 encoder = EncoderDecoder(config["input_channels"], config["patch_shape"], decoding=False)
@@ -169,14 +169,14 @@ load_checkpoint(opt.model_path, encoder)
 
 数据压缩脚本会自动将点云数据切分成适应压缩模型的数据块，同时使用训练数据准备时生成的`data_config.npy`对数据做归一化。切分完成后自动调用MindSpore推理对数据进行压缩，压缩后数据块编码结果按原始分块空间位置重新排列，得到最后的压缩结果。
 
-## 电磁场仿真计算
+## 电磁仿真计算
 
-点云数据准备完毕后即可调用MindElec `full_em`目录下的电磁仿真模型实现全量电磁场仿真计算，该过程分两步：
+点云数据准备完毕后即可调用MindElec `full_em`和`S_parameter`目录下的电磁仿真模型，实现全量电磁场和S参数的仿真计算，每个仿真过程均可以分为如下两步：
 
-1. 调用`train.py`训练全量电磁场仿真模型。
-2. 模型训练结束后调用`eval.py`进行全量电磁场的仿真计算。
+- 调用`train.py`训练仿真模型。
+- 模型训练结束后调用`eval.py`进行全量电磁场或S参数的仿真计算。
 
-### 训练
+### 全量电磁场仿真
 
 #### 构建全量电磁场仿真模型
 
@@ -219,7 +219,7 @@ class ModelHead(nn.Cell):
     ...
 ```
 
-#### 启动模型训练
+#### 模型训练
 
 电磁场仿真模型训练时，首先通过`Maxwell3D`初始化仿真模型，网络输出为6维：
 
@@ -227,7 +227,7 @@ class ModelHead(nn.Cell):
 model_net = Maxwell3D(6)
 ```
 
-调用`src/dataset.py`中定义的的数据读取接口加载数据集，该接口的实现基于MindElec的数据接口，在加载数据的同时可以自动打乱数据并分批：
+调用`src/dataset.py`中定义的的数据读取接口加载数据集，该接口的实现基于MindElec的数据接口，在加载数据的同时可以自动打乱数据并分批次：
 
 ``` python
 dataset, _ = create_dataset(opt.data_path, batch_size=config.batch_size, shuffle=True)
@@ -239,7 +239,7 @@ dataset, _ = create_dataset(opt.data_path, batch_size=config.batch_size, shuffle
 lr = get_lr(config.lr, step_size, config.epochs)
 ```
 
-然后调用MindElec的训练接口`Solver`定义训练参数，包括优化器、度量标准、损失函数等等：
+其次调用MindElec的训练接口`Solver`定义训练参数，包括优化器、度量标准、损失函数等：
 
 ``` python
 solver = Solver(model_net,
@@ -260,9 +260,9 @@ solver.model.train(config.epochs, dataset, callbacks=[LossMonitor(), TimeMonitor
                    dataset_sink_mode=False)
 ```
 
-### 推理
+#### 模型推理
 
-传入推理输入数据与模型检查点文件的路径，同时根据`config.py`中定义的参数定义模型并导入模型检查点：
+传入推理输入数据与模型检查点文件的路径，同时根据`config.py`文件定义模型并导入模型检查点：
 
 ``` python
 model_net = Maxwell3D(6)
@@ -280,4 +280,127 @@ print('test_res:', f'l2_error: {l2_s11:.10f} ')
 
 以手机电磁仿真为例，通过该流程计算出的电磁场分布与变化情况如下图：
 
-![result_ex](./images/full_em/result_e.gif)
+![result_ex](./images/point_cloud/result_e.gif)
+
+### S参数仿真
+
+#### 构建S参数仿真模型
+
+参照`S_parameter/src/model.py`构建S参数仿真模型，该模型同样通过监督学习方式训练，分为特征提取与S参数计算两部分。
+
+``` Python
+class S11Predictor(nn.Cell):
+    """S11Predictor architecture for MindElec"""
+    def __init__(self, input_dim):
+        super(S11Predictor, self).__init__()
+        self.conv1 = nn.Conv3d(input_dim, 512, kernel_size=(3, 3, 1))
+        self.conv2 = nn.Conv3d(512, 512, kernel_size=(3, 3, 1))
+        self.conv3 = nn.Conv3d(512, 512, kernel_size=(3, 3, 1))
+        self.conv4 = nn.Conv3d(512, 512, kernel_size=(2, 1, 3), pad_mode='pad', padding=0)
+        self.down1 = ops.MaxPool3D(kernel_size=(2, 3, 1), strides=(2, 3, 1))
+        self.down2 = ops.MaxPool3D(kernel_size=(2, 3, 1), strides=(2, 3, 1))
+        self.down3 = ops.MaxPool3D(kernel_size=(2, 3, 1), strides=(2, 3, 1))
+        self.down_1_1 = ops.MaxPool3D(kernel_size=(1, 13, 1), strides=(1, 13, 1))
+        self.down_1_2 = nn.MaxPool2d(kernel_size=(10, 3))
+        self.down_2 = nn.MaxPool2d((5, 4*3))
+        self.fc1 = nn.Dense(1536, 2048)
+        self.fc2 = nn.Dense(2048, 2048)
+        self.fc3 = nn.Dense(2048, 1001)
+        self.concat = ops.Concat(axis=1)
+        self.relu = nn.ReLU()
+
+
+    def construct(self, x):
+        """forward"""
+        bs = x.shape[0]
+        x = self.conv1(x)
+        x = self.relu(x)
+        x = self.down1(x)
+        x_1 = self.down_1_1(x)
+        x_1 = self.down_1_2(x_1.view(bs, x_1.shape[1], x_1.shape[2], -1)).view((bs, -1))
+        x = self.conv2(x)
+        x = self.relu(x)
+        x = self.down2(x)
+        x_2 = self.down_2(x.view(bs, x.shape[1], x.shape[2], -1)).view((bs, -1))
+        x = self.conv3(x)
+        x = self.relu(x)
+        x = self.down3(x)
+        x = self.conv4(x)
+        x = self.relu(x).view((bs, -1))
+        x = self.concat([x, x_1, x_2])
+        x = self.relu(x).view(bs, -1)
+        x = self.relu(self.fc1(x))
+        x = self.relu(self.fc2(x))
+        x = self.fc3(x)
+        return x
+```
+
+#### 模型训练
+
+S参数仿真模型训练时，首先通过`S11Predictor`初始化仿真模型，网络输入张量channel维度在`Config.py`中配置：
+
+``` python
+model_net = S11Predictor(config["input_channels"])
+```
+
+其次调用`src/dataset.py`中定义的的数据读取接口加载数据集：
+
+``` python
+dataset = create_dataset(input_path, label_path, config.batch_size, shuffle=True)
+```
+
+设定学习率衰减策略：
+
+``` python
+milestones, learning_rates = step_lr_generator(step_size, epochs, lr, lr_decay_milestones)
+```
+
+调用MindElec的训练接口`Solver`定义训练参数：
+
+``` python
+solver = Solver(model_net,
+                train_input_map={'train': ['train_input_data']},
+                test_input_map={'test': ['test_input_data']},
+                optimizer=optimizer,
+                amp_level="O2",
+                loss_fn=loss_net)
+```
+
+最后使用`Solver.model.train`训练模型，训练完成后存储模型检查点：
+
+``` python
+solver.model.train(config["epochs"],
+                   train_dataset,
+                   callbacks=[LossMonitor(), TimeMonitor()],
+                   dataset_sink_mode=True)
+
+save_checkpoint(model_net, os.path.join(opt.checkpoint_dir, 'model_best.ckpt'))
+```
+
+#### 模型推理
+
+根据`config.py`文件定义模型并导入模型检查点文件：
+
+``` python
+model_net = S11Predictor(input_dim=config["input_channels"])
+load_checkpoint(opt.model_path, model_net)
+```
+
+调用MindElec的`solver.model.eval`接口进行推理：
+
+``` python
+solver = Solver(network=model_net,
+                mode="Data",
+                optimizer=nn.Adam(model_net.trainable_params(), 0.001),
+                metrics={'eval_mrc': eval_error_mrc},
+                loss_fn=nn.MSELoss())
+
+res_eval = solver.model.eval(valid_dataset=eval_dataset, dataset_sink_mode=True)
+
+loss_mse, l2_s11 = res_eval["eval_mrc"]["loss_error"], res_eval["eval_mrc"]["l2_error"]
+print('Loss_mse: ', loss_mse, ' L2_S11: ', l2_s11)
+```
+
+以手机S参数为例，通过该流程计算出的S参数如下图：
+
+![result_ex](./images/point_cloud/S11.JPG)

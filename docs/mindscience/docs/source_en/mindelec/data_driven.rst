@@ -5,4 +5,4 @@ Data Driven Deep Learning Method for Electromagnetic Simulation
   :maxdepth: 1
 
   parameterization
-  full_em
+  point_cloud
