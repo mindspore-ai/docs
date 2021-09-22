@@ -19,7 +19,9 @@
 ## System Environment Information Confirmation
 
 - The hardware platform supports Ascend, GPU and CPU.
-- Confirm that [Python](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) 3.7.5 is installed.
+- Ensure that Python 3.7.5 or 3.9.0 is installed. If not installed, download and install Python from:
+    - Python 3.7.5 (64-bit): [Python official website](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) or [HUAWEI CLOUD](https://mirrors.huaweicloud.com/python/3.7.5/Python-3.7.5.tgz).
+    - Python 3.9.0 (64-bit): [Python official website](https://www.python.org/ftp/python/3.9.0/Python-3.9.0.tgz) or [HUAWEI CLOUD](https://mirrors.huaweicloud.com/python/3.9.0/Python-3.9.0.tgz).
 - The versions of MindInsight and MindSpore must be consistent.
 - If you use source code to compile and install, the following dependencies also need to be installed:
     - Confirm that [node.js](https://nodejs.org/en/download/) 10.19.0 or later is installed.
