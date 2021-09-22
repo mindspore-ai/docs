@@ -1,4 +1,4 @@
-# 使用MindElec求解麦克斯韦方程
+# 点源时域麦克斯韦方程AI求解
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindelec/docs/mindscience/docs/source_zh_cn/mindelec/time_domain_maxwell.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 

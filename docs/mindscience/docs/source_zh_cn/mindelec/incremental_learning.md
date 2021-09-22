@@ -1,4 +1,4 @@
-# 使用MindElec增量训练求解麦克斯韦方程
+# 增量训练求解麦克斯韦方程族
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindelec/docs/mindscience/docs/source_zh_cn/mindelec/incremental_learning.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
@@ -13,7 +13,7 @@
 
 ## 问题描述
 
-本案例处理点源麦克斯韦方程的介质参数泛化求解问题。控制方程的具体形式以及求解域和激励源配置可以参考[点源问题的求解教程](https://gitee.com/mindspore/docs/blob/r1.5/docs/mindscience/docs/source_zh_cn/mindelec/time_domain_maxwell_CN.md)。
+本案例处理点源麦克斯韦方程的介质参数泛化求解问题。控制方程的具体形式以及求解域和激励源配置可以参考[点源问题的求解教程](https://www.mindspore.cn/mindscience/docs/zh-CN/r0.1/mindelec/time_domain_maxwell.html)。
 
 ## 基于物理信息的自解码器
 

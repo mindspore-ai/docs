@@ -1,4 +1,4 @@
-# 使用MindElec可视化电磁仿真结果
+# 电磁仿真结果可视化
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindelec/docs/mindscience/docs/source_zh_cn/mindelec/visualization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
