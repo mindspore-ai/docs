@@ -1,6 +1,6 @@
 # 基于参数化方案的AI电磁仿真
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindelec/docs/mindscience/docs/source_zh_cn/mindelec/parameterization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindscience/docs/source_zh_cn/mindelec/parameterization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述
 
