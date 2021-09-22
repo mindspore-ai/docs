@@ -1,4 +1,3 @@
-
 # MindElec Introduction and Installation
 
 <!-- TOC -->
