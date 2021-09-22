@@ -120,7 +120,7 @@ BERT采用了Encoder结构，`attention_mask`为全1的向量，即每个token�
 
 数据集为[43030首诗词](https://github.com/AaronJny/DeepLearningExamples/tree/master/keras-bert-poetry-generator)其中的`poetry.txt`。
 
-BERT-Base模型的预训练ckpt：可在[MindSpore官网](http://download.mindspore.cn/model_zoo/official/nlp/bert/bert_base_ascend_0.5.0_cn-wiki_official_nlp_20200720.tar.gz)下载。
+BERT-Base模型的预训练ckpt：可在[MindSpore官网](https://www.mindspore.cn/resources/hub/details?MindSpore/ascend/1.0/bert_base_v1.0_cn-wiki)下载。
 
 ### 训练
 

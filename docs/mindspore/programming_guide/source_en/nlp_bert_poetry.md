@@ -120,7 +120,7 @@ Perform training and inference on the Ascend 910 AI Processor using MindSpore 0.
 
 A dataset containing [43030 poems](https://github.com/AaronJny/DeepLearningExamples/tree/master/keras-bert-poetry-generator): `poetry.txt`.
 
-Pre-trained checkpoints of a BERT-base model: [Download from MindSpore](http://download.mindspore.cn/model_zoo/official/nlp/bert/bert_base_ascend_0.5.0_cn-wiki_official_nlp_20200720.tar.gz).
+Pre-trained checkpoints of a BERT-base model: [Download from MindSpore](https://www.mindspore.cn/resources/hub/details/en?MindSpore/ascend/1.0/bert_base_v1.0_cn-wiki).
 
 ### Training
 
