@@ -296,6 +296,12 @@ if __name__ == "__main__":
 
 ## 执行训练
 
+> 由于训练环节只涉及到网络的部分层，会在运行过程中输出非训练层的WARNING信息，在此推荐用户执行脚本前将日志级别设定为ERROE，直接获取运行结果。设定命令为：
+
+```shell
+export GLOG_v=3
+```
+
 现在，我们执行`maskrcnn_fine_tune/train.py`文件，利用之前获取的backbone和数据集，完成训练过程。
 
 ```python
