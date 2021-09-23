@@ -18,6 +18,7 @@ LeNet5 network
 import mindspore.nn as nn
 from mindspore.common.initializer import Normal
 
+
 class LeNet5(nn.Cell):
     """
     Lenet network
