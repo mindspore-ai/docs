@@ -304,7 +304,7 @@ if (ret != RET_OK) {
     }
 
     // Assuming data_ptr is the pointer to a batch of data tensors
-    // and iassuming label_ptr is a pointer to a batch of label indices (obtained by the DataLoder)
+    // and assuming label_ptr is a pointer to a batch of label indices (obtained by the DataLoder)
     auto *in_data = inputs.at(data_index)->MutableData();
     auto *in_labels = inputs.at(label_index)->MutableData();
     if ((in_data == nullptr)|| (in_labels == nullptr)) {
@@ -319,7 +319,7 @@ if (ret != RET_OK) {
     ```
 
     > - MindSpore Lite模型输入张量的数据维度必须为NHWC（批次数，高度，宽度和通道数）。
-    > - 用户不能主动释放`GetInputs`和`GetInputsByTensorName`函数返回的张量。
+    > - 用户不能主动释放`GetInputs`和`GetInputByTensorName`函数返回的张量。
 
 ### 获取输出张量
 
