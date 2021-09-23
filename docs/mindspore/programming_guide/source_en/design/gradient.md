@@ -90,7 +90,7 @@ $$
   \end{matrix}
   \right]\left[
  \begin{matrix}
-   \frac{\partial x_{1}}{\partial X_{1}}\\
+   \frac{\partial x_{1}}{\partial X_{i}}\\
    ...  \\
    \frac{\partial x_{n}}{\partial X_{i}}
   \end{matrix}
