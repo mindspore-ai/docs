@@ -32,7 +32,7 @@ pip install mindspore-gpu
 #### 安装MindSPONGE
 
 ```bash
-pip install https://hiq.huaweicloud.com/download/mindscience/x86_64/mindscience_mindsponge_gpu-{version}-py3-none-any.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/mindscience/x86_64/mindscience_mindsponge_gpu-{version}-py3-none-any.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 > - 在联网状态下，安装whl包时会自动下载MindSPONGE安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/setup.py)），其余情况需自行安装。

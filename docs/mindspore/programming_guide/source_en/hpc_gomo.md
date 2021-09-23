@@ -26,7 +26,7 @@ Generalized Operator Modelling of the Ocean (GOMO) is a 3D regional ocean model 
 
 The following describes how to use MindSpore to build and run the 3D ocean model GOMO on GPU.
 > Download address of the complete sample code:
-<https://gitee.com/mindspore/models/tree/r1.5/research/hpc/ocean_model>.
+<https://gitee.com/mindspore/models/tree/master/research/hpc/ocean_model>.
 
 The directory structure of the sample code is as follows:
 

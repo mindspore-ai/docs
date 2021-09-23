@@ -21,7 +21,7 @@ MindElec is an AI electromagnetic simulation toolkit developed based on MindSpor
 
 This tutorial mainly introduces how to use MindElec, which is built in MindSpore, to perform high performance electromagnetic simulation using AI method.
 
-> Here you can download the complete sample code: <https://gitee.com/mindspore/mindscience/tree/r1.5/MindElec/examples>.
+> Here you can download the complete sample code: <https://gitee.com/mindspore/mindscience/tree/r0.1/MindElec/examples>.
 
 In the future, MindElec will implement more simulation cases, and your contribution is welcome.
 
@@ -32,7 +32,7 @@ In the future, MindElec will implement more simulation cases, and your contribut
 - The hardware platform should be Ascend, GPU or CPU.
 - See our [MindSpore Installation Guide](https://www.mindspore.cn/install/en) to install MindSpore.  
     The versions of MindElec and MindSpore must be consistent.
-- All other dependencies are included in [requirements.txt](https://gitee.com/mindspore/mindscience/blob/r1.5/MindElec/requirements.txt).
+- All other dependencies are included in [requirements.txt](https://gitee.com/mindspore/mindscience/blob/r0.1/MindElec/requirements.txt).
 
 ### Installation
 
@@ -44,7 +44,7 @@ You can install MindElec either by pip or by source code.
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/mindscience/{arch}/mindscience_mindelec_ascend-{version}-{python_version}-linux_{arch}.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-> - When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about other dependency items, see [setup.py](https://gitee.com/mindspore/mindscience/blob/r1.5/MindElec/setup.py)），point cloud data sampling depends on [pythonocc](https://github.com/tpaviot/pythonocc-core), which you need to install manually.
+> - When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about other dependency items, see [setup.py](https://gitee.com/mindspore/mindscience/blob/r0.1/MindElec/setup.py)），point cloud data sampling depends on [pythonocc](https://github.com/tpaviot/pythonocc-core), which you need to install manually.
 > - `{arch}` specifies system architecture，for example, when using x86-64 Linux，`{arch}` should be x86_64, and aarch64 for ARM system(64-bit).
 > - `{version}` specifies version of MindElec, 0.1.0 for example.
 > - `{python_version}` specifies version of python,cp37_cp37m for python of version 3.7.5, and cp39_cp39 for python of version 3.9.0.

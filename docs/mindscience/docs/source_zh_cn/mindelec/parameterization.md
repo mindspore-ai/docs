@@ -14,7 +14,7 @@ MindElec通过AI方法跳过传统数值方法的迭代计算直接得到待仿�
 - 点云方案实现的是从天线/手机的采样点云到仿真结果的映射，该方案先将手机结构文件转化为点云张量数据，（压缩后）使用卷积神经网络提取结构特征，再通过数层全连接层映射到最终的仿真结果（S参数），该方案的优点是适用于结构参数数量或种类可能发生变化的复杂工况。
 
 > 本例面向Ascend 910 AI处理器，你可以在这里下载完整的样例代码：
-> <https://gitee.com/mindspore/mindscience/tree/r1.5/MindElec/examples/data_driven/parameterization>
+> <https://gitee.com/mindspore/mindscience/tree/r0.1/MindElec/examples/data_driven/parameterization>
 
 ## 目标场景
 
@@ -40,7 +40,7 @@ PEC金属板置于一定厚度的PCB长方体之上，呈现为左右对称蝶�
 
 该数据已经提供为.npy文件，可从以下地址下载。
 
-<https://gitee.com/mindspore/mindscience/tree/r1.5/MindElec/examples/data_driven/parameterization/dataset>
+<https://gitee.com/mindspore/mindscience/tree/r0.1/MindElec/examples/data_driven/parameterization/dataset>
 
 ## 参数化电磁仿真
 

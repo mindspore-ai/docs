@@ -9,7 +9,7 @@ This tutorial describes the deep learning electromagnetic simulation method base
 Conventional electromagnetic simulation usually uses finite element or finite-difference methods to compute electromagnetic fields. These methods require complex mesh division and iterative computation, which is time-consuming and affects product R&D efficiency. MindElec provides a new end-to-end electromagnetic field AI computation method. This method directly computes the electromagnetic field in the simulation area based on point cloud data without mesh division and iterative solution, greatly accelerating the overall simulation speed and facilitating efficient product R&D.
 
 > This current sample is for Ascend 910 AI processor. You can find the complete executable code at
-> <https://gitee.com/mindspore/mindscience/tree/r1.5/MindElec/examples/data_driven/pointcloud>
+> <https://gitee.com/mindspore/mindscience/tree/r0.1/MindElec/examples/data_driven/pointcloud>
 
 ## Overall Process
 
