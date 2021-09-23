@@ -339,7 +339,7 @@ print(output)
 
     - 在进行模型评估时，评估网络的输出会透传给评估指标的`update`函数，也就是说，`update`函数将接收到三个输入，分别为`logits`、`label1`和`label2`。`nn.MAE`仅允许在两个输入上计算评价指标，因此使用`set_indexes`指定`mae1`使用下标为0和1的输入，也就是`logits`和`label1`，计算评估结果；指定`mae2`使用下标为0和2的输入，也就是`logits`和`label2`，计算评估结果。
 
-    - 在实际场景中，往往需要所有标签同时参与评估，这时候就需要自定义`Metric`，灵活使用评估网络的所有输出计算评估结果。`Metric`自定义方法详见：https://www.mindspore.cn/docs/programming_guide/zh-CN/master/self_define_metric.html。
+    - 在实际场景中，往往需要所有标签同时参与评估，这时候就需要自定义`Metric`，灵活使用评估网络的所有输出计算评估结果。`Metric`自定义方法详见：<https://www.mindspore.cn/docs/programming_guide/zh-CN/master/self_define_metric.html>。
 
 6. 推理
 
