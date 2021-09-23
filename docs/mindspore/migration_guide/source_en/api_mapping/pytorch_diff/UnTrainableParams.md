@@ -5,24 +5,26 @@
 ## torch.nn.Module.buffers
 
 ```python
-torch.nn.Module.buffers()
+torch.nn.Module.buffers(recurse=True)
 ```
 
 ## mindspore.nn.Cell.untrainable_params
 
 ```python
-mindspore.nn.Cell.untrainable_params()
+mindspore.nn.Cell.untrainable_params(recurse=True)
 ```
 
 ## Differences
 
-PyTorch:
+In PyTorch, the network has three concepts: `parameter`, `buffer`, and `state`, where `state` is the collection of `parameter` and `buffer`. `parameter` can use the `requires_grad` attribute to distinguish whether the `parameter` in the network needs to be optimized; `buffer` is mostly defined as an invariant in the network, for example, when defining the network, the `running_mean` and `running_var` in BN will be automatically register as buffer; users can also register `parameter` and `buffer` through related interfaces.
 
-- torch.nn.Module.buffers(): The function returns a Generator over module persistent buffers.
+-`torch.nn.Module.buffers`: Get the buffer in the network, and return an iterator.
 
-- torch.nn.Module.named_buffers(): The function returns a Generator over module persistent buffers, yielding both the names of the buffers as well as the buffers themselves.
+-`torch.nn.Module.named_buffers`: Get the name of buffer and buffer itself in the network, and return an iterator.
 
-MindSpore: The function returns a list of all untrainable parameters. `Parameter` has an attribute `name` in MindSpore, names of parameters can be obtained after getting parameters by using the `untrainable_params` method.
+In MindSpore, there is only the concept of `parameter` currently. The `requires_grad` attribute is used to distinguish whether the `parameter` in the network needs to be optimized. For example, when defining the network, the `moving_mean` and `moving_var` in BN will be defined as `parameter` with attribute `requires_grad=False`.
+
+-`mindspore.nn.Cell.untrainable_params`: The function returns a list of all untrainable parameters. `Parameter` has an attribute `name` in MindSpore, names of parameters can be obtained after getting parameters by using the `untrainable_params` method.
 
 ## Code Example
 

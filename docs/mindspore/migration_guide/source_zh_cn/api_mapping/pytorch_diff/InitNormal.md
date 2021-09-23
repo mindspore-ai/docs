@@ -1,24 +1,24 @@
-# 比较与torch.nn.init.uniform_的功能差异
+# 比较与torch.nn.init.normal_的功能差异
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/migration_guide/source_zh_cn/api_mapping/pytorch_diff/InitNormal.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
-## torch.nn.init.uniform_
+## torch.nn.init.normal_
 
 ```python
-torch.nn.init.uniform_(tensor, a=0., b=1.)
+torch.nn.init.normal_(tensor, mean=0., std=1.)
 ```
 
-## mindspore.common.initializer.Uniform
+## mindspore.common.initializer.Normal
 
 ```python
-mindspore.common.initializer.Uniform(scale=0.07)
+mindspore.common.initializer.Normal(sigma=0.01, mean=0.0)
 ```
 
 ## 使用方式
 
-PyTorch: 生成范围为 U(a, b) 的随机均匀分布。默认值：a=0, b=1.
+PyTorch: 默认输出均值为0，标准差为1的正态分布。使用时传入均值和标准差。
 
-MindSpore：生成范围为 U(-scale, scale) 的随机均匀分布。scale默认值为0.07。
+MindSpore：默认均值为0，标准差为0.01的正态分布。使用时传入均值和标准差。
 
 ## 代码示例
 
@@ -26,22 +26,23 @@ MindSpore：生成范围为 U(-scale, scale) 的随机均匀分布。scale默认
 
 ```python
 import mindspore
-from mindspore.common.initializer import Uniform, initializer
+from mindspore.common.initializer import Normal, initializer
 
-w = initializer(Uniform(1), shape=[3, 4], dtype=mindspore.float32)
+w = initializer(Normal(sigma=1, mean=0.0), shape=[3, 4], dtype=mindspore.float32)
 print(w)
+
 # out
-# [[ 0.3710562  -0.8446909   0.07222586  0.4807771 ]
-# [-0.4605304  -0.46153235  0.8576784   0.32084346]
-# [ 0.97628933 -0.22949246 -0.3052143  -0.0164203 ]]
+# [[ 1.154151   -2.0898762  -0.652796    1.4034489 ]
+# [-1.415637    1.717648   -0.6167477  -1.2566634 ]
+# [ 3.330741    0.49453223  1.9247946  -0.49406782]]
 
 import torch
 from torch import nn
 
-w = nn.init.uniform_(torch.empty(3, 4), -1, 1)
+w = nn.init.normal_(torch.empty(3, 4), mean=0., std=1.)
 print(w)
 # out
-# tensor([[ 0.2265,  0.2944,  0.4167, -0.4217],
-#        [ 0.0971, -0.4190,  0.7143, -0.0494],
-#        [ 0.4092, -0.1708, -0.9689,  0.3019]])
+# tensor([[ 0.0305, -1.1593,  1.0516, -1.0172],
+#         [-0.1539,  0.0793,  0.9397, -0.1186],
+#         [ 2.6214,  0.5601,  0.7149, -0.4375]])
 ```
