@@ -1,8 +1,8 @@
-﻿# dtype
+﻿# DataType
 
 <!-- TOC -->
 
-- [dtype](#dtype)
+- [DataType](#dtype)
     - [Overview](#overview)
     - [Data Type Conversion API](#data-type-conversion-api)
 

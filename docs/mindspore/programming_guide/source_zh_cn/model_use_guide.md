@@ -61,7 +61,7 @@
 
 对于简单场景的神经网络，可以在定义`Model`时指定前向网络`network`、损失函数`loss_fn`、优化器`optimizer`和评估指标`metrics`。此时，Model会使用`network`作为推理网络，并使用`nn.WithLossCell`和`nn.TrainOneStepCell`构建训练网络，使用`nn.WithEvalCell`构建评估网络。
 
-以[构建和执行网络模型](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/train_and_eval.html)中使用的线性回归为例：
+以[构建训练与评估网络](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/train_and_eval.html)中使用的线性回归为例：
 
 ```python
 import numpy as np
@@ -85,7 +85,7 @@ opt = nn.Momentum(net.trainable_params(), learning_rate=0.005, momentum=0.9)
 metrics = {"mae"}
 ```
 
-[构建和执行网络模型](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/train_and_eval.html)中讲述了通过`nn.WithLossCell`、`nn.TrainOneStepCell`和`nn.WithEvalCell`构建训练和评估网络并直接运行方式。使用`Model`时则不需要手动构建训练和评估网络，用以下方式定义`Model`并调用`train`和`eval`接口能够达到相同的效果。
+[构建训练与评估网络](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/train_and_eval.html)中讲述了通过`nn.WithLossCell`、`nn.TrainOneStepCell`和`nn.WithEvalCell`构建训练和评估网络并直接运行方式。使用`Model`时则不需要手动构建训练和评估网络，用以下方式定义`Model`并调用`train`和`eval`接口能够达到相同的效果。
 
 创建训练集和验证集：
 
@@ -198,7 +198,7 @@ print(output)
 
 ## 自定义场景的Model应用
 
-在[损失函数](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/loss.html)和[构建和执行网络模型](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/train_and_eval.html)中已经提到过，MindSpore提供的网络封装函数`nn.WithLossCell`、`nn.TrainOneStepCell`和`nn.WithEvalCell`并不适用于所有场景，实际场景中常常需要自定义网络的封装方式。这种情况下`Model`使用这些封装函数自动地进行封装显然是不合理的。接下来介绍这些场景下如何正确地使用`Model`。
+在[损失函数](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/loss.html)和[构建训练与评估网络](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/train_and_eval.html)中已经提到过，MindSpore提供的网络封装函数`nn.WithLossCell`、`nn.TrainOneStepCell`和`nn.WithEvalCell`并不适用于所有场景，实际场景中常常需要自定义网络的封装方式。这种情况下`Model`使用这些封装函数自动地进行封装显然是不合理的。接下来介绍这些场景下如何正确地使用`Model`。
 
 ### 手动连接前向网络与损失函数
 
@@ -373,7 +373,7 @@ print(output)
 
 在自定义`TrainOneStepCell`时，需要手动构建训练网络作为`Model`的`network`，`loss_fn`和`optimizer`均使用默认值`None`，此时`Model`会使用`network`作为训练网络，而不会进行任何封装。
 
-自定义`TrainOneStepCell`的场景可参考[构建和执行网络模型](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/train_and_eval.html)，这里列举一个简单的例子：
+自定义`TrainOneStepCell`的场景可参考[构建训练与评估网络](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/train_and_eval.html)，这里列举一个简单的例子：
 
 ```python
 from mindspore.nn import TrainOneStepCell as CustomTrainOneStepCell
@@ -410,6 +410,6 @@ epoch: 1 step: 10, loss is 2.3682175
 
 ### 自定义网络的权重共享
 
-[构建和执行网络模型](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/train_and_eval.html)中已经介绍过权重共享的机制，使用MindSpore构建不同网络结构时，只要这些网络结构是在同一个实例的基础上封装的，那这个实例中的所有权重便是共享的，一个网络结构中的权重发生变化，意味着其他网络结构中的权重同步发生了变化。
+[构建训练与评估网络](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/train_and_eval.html)中已经介绍过权重共享的机制，使用MindSpore构建不同网络结构时，只要这些网络结构是在同一个实例的基础上封装的，那这个实例中的所有权重便是共享的，一个网络结构中的权重发生变化，意味着其他网络结构中的权重同步发生了变化。
 
 在使用Model进行训练时，对于简单的场景，`Model`内部使用`nn.WithLossCell`、`nn.TrainOneStepCell`和`nn.WithEvalCell`在前向`network`实例的基础上构建训练和评估网络，`Model`本身确保了推理、训练、评估网络之间权重共享。但对于自定义使用Model的场景，用户需要注意前向网络仅示例化一次。如果构建训练网络和评估网络时分别实例化前向网络，那在使用`eval`进行模型评估时，便需要手动加载训练网络中的权重，否则模型评估使用的将是初始的权重值。
