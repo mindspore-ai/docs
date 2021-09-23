@@ -50,8 +50,8 @@
 
 针对`Transformer`中网络的定义和实现，我们为每个算子设置了对应的切分策略。用户根据自己的需求，设置全局的并行配置可以实现`Transformer`网络的并行配置。`Transformer`目前定义的并行配置主要有三个类别`TransformerOpParallelConfig`、`OpParallelConfig`和`EmbeddingOpParallelConfig`。`TransformerOpParallelConfig`的导入路径为`mindspore.parallel.nn`，它可以配置的属性如下所示：
 
-- data_parallel (int): # 设置模型的数据并行数，默认值为1。
-- model_parallel (int): # 设置模型的模型并行数，默认值为1。
+- data_parallel (int): # 设置数据并行数，默认值为1。
+- model_parallel (int): # 设置模型并行数，默认值为1。
 - pipeline_stage (int): # 设置Pipeline Stage数目，默认值为 1。
 - micro_batch_num (int): # 设置输入Batch的切分个数，即将一个Batch切分成多个小batch，默认值为1。
 - optimizer_shard (bool): # 是否开启优化器并行，默认值为False。
@@ -74,9 +74,9 @@ parallel_config = TransformerOpParalllelConfig(data_parallel=1, model_parallel=8
 
 Tranformer中的Embeding层主要由词向量嵌入和位置向量嵌入两部分组成。我们提供了`VocabEmbedding`作为并行的Embedding层，需要传入`EmbeddingOpParallelConfig`进行初始化。和`OpParallelConfig`不同的是，`EmbeddingOpParallelConfig`拥有的属性如下
 
-- `data_parallel`
-- `model_parallel`
-- `vocab_emb_dp`
+- `data_parallel`: 设置数据并行数，默认值为1。
+- `model_parallel`: 设置模型并行数，默认值为1。
+- `vocab_emb_dp`: 是否配置Embedding为数据并行，默认值为True。
 
 `vocab_emb_dp`用来区分`embedding_lookup`操作的两种并行模式`数据并行`和`行切分并行`。当`vocab_emb_dp`为`True`时，embedding查找的过程将会被设置为并行度为`data_parallel`的数据并行。当`vocab_emb_dp`为`False`时，embedding的权重将会在第0维度按`model_parallel`进行均分，可以减少变量的存储。
 
