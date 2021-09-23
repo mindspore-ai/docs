@@ -33,9 +33,9 @@ Primitive算子接口是构建高阶接口、自动微分、网络模型等能�
 
 Primitive算子可以分为[计算算子](#id3)和[框架算子](#id8)。计算算子主要负责具体的计算，而框架算子主要用于构图，自动微分等功能。
 
-functional接口是为简化没有属性的Primitive算子调用流程而提供的，functional接口和Primitive算子都可以从mindspore.ops中导入。
+composite接口提供了一些预定义的组合算子，比如clip_by_value算子，以及涉及图变换的函数（GradOperation、Map）等，更多composite接口参见[composite接口](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.ops.html#composite)。
 
-composite接口提供了一些预定义的组合算子，比如clip_by_value算子，以及涉及图变换的函数（GradOperation、Map）等，其使用方式和functional接口相似，更多composite接口参见[composite接口](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.ops.html#composite)。
+functional接口是为简化没有属性的Primitive算子调用流程而提供的，functional接口、composite接口和Primitive算子都可以从mindspore.ops中导入。
 
 例如用户想使用pow功能，若使用Primitive算子，用户需要先实例化Pow算子，此时用户可以直接使用functional接口的tensor_pow来简化流程，代码示例如下：
 
@@ -53,6 +53,7 @@ output = pow(input_x, input_y)
 
 # 直接使用functional接口
 output = ops.tensor_pow(input_x, input_y)
+print(output)
 ```
 
 运行结果如下：
@@ -61,7 +62,7 @@ output = ops.tensor_pow(input_x, input_y)
 [1. 8. 64.]
 ```
 
-更多functional接口参见[functioinal接口](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.ops.html#functional)。
+更多functional接口参见[functional接口](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.ops.html#functional)。
 
 ### 计算算子
 
@@ -202,7 +203,7 @@ print(output)
 
 nn算子是对低阶API的封装，主要包括卷积层算子、池化层算子、损失函数、优化器等。
 
-nn算子还提供了部分与Primitive算子同名的接口，主要作用是对Primitive算子进行进一步封装，为用户提供更友好对API，当nn算子功能满足用户的要求时可以直接使用nn算子，而当nn算子功能无法满足用户特定要求时可以使用低阶的Primitive算子实现特定的功能。
+nn算子还提供了部分与Primitive算子同名的接口，主要作用是对Primitive算子进行进一步封装，为用户提供更友好的API，当nn算子功能满足用户的要求时可以直接使用nn算子，而当nn算子功能无法满足用户特定要求时可以使用低阶的Primitive算子实现特定的功能。
 
 ### 卷积层算子
 
