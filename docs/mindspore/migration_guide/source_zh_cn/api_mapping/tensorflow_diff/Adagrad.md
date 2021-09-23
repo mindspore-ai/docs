@@ -1,5 +1,7 @@
 # 比较与tf.keras.optimizers.Adagrad的功能差异
 
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/migration_guide/source_zh_cn/api_mapping/tensorflow_diff/Adagrad.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
+
 ## tf.keras.optimizers.Adagrad
 
 ```python
