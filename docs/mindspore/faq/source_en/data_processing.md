@@ -95,13 +95,13 @@ When `dataset_sink_mode` is set to `False`, data processing and network computin
 
 <font size=3>**Q: Can MindSpore train image data of different sizes by batch?**</font>
 
-A: You can refer to the usage of YOLOv3 which contains the resizing of different images. For details about the script, see [yolo_dataset](https://gitee.com/mindspore/models/blob/r1.5/official/cv/yolov3_darknet53/src/yolo_dataset.py).
+A: You can refer to the usage of YOLOv3 which contains the resizing of different images. For details about the script, see [yolo_dataset](https://gitee.com/mindspore/models/blob/master/official/cv/yolov3_darknet53/src/yolo_dataset.py).
 
 <br/>
 
 <font size=3>**Q: Must data be converted into MindRecords when MindSpore is used for segmentation training?**</font>
 
-A: [build_seg_data.py](https://gitee.com/mindspore/models/blob/r1.5/official/cv/deeplabv3/src/data/build_seg_data.py) is used to generate MindRecords based on a dataset. You can directly use or adapt it to your dataset. Alternatively, you can use `GeneratorDataset` if you want to read the dataset by yourself.
+A: [build_seg_data.py](https://gitee.com/mindspore/models/blob/master/official/cv/deeplabv3/src/data/build_seg_data.py) is used to generate MindRecords based on a dataset. You can directly use or adapt it to your dataset. Alternatively, you can use `GeneratorDataset` if you want to read the dataset by yourself.
 
 [GenratorDataset example](https://www.mindspore.cn/docs/programming_guide/en/r1.5/dataset_loading.html#loading-user-defined-dataset)
 
