@@ -8,11 +8,15 @@
 torch.nn.Module.children()
 ```
 
+For more information, see[torch.nn.Module.children](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.Module.children).
+
 ## mindspore.nn.Cell.cells
 
 ```python
 mindspore.nn.Cell.cells()
 ```
+
+For more information, see[mindspore.nn.Cell.cells](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.cells).
 
 ## Differences
 

@@ -12,6 +12,8 @@ torch.dot(
 )
 ```
 
+更多内容详见[torch.dot](https://pytorch.org/docs/1.5.0/torch.html#torch.dot)。
+
 ## mindspore.ops.tensor_dot
 
 ```python
@@ -21,6 +23,8 @@ mindspore.ops.tensor_dot(
     axes
 )
 ```
+
+更多内容详见[mindspore.ops.tensor_dot](https://mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.tensor_dot.html#mindspore.ops.tensor_dot)。
 
 ## 使用方式
 

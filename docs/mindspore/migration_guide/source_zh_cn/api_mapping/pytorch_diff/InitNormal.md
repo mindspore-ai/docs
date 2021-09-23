@@ -8,11 +8,15 @@
 torch.nn.init.normal_(tensor, mean=0., std=1.)
 ```
 
+更多内容详见[torch.nn.init.normal_](https://pytorch.org/docs/1.5.0/nn.init.html#torch.nn.init.normal_)。
+
 ## mindspore.common.initializer.Normal
 
 ```python
 mindspore.common.initializer.Normal(sigma=0.01, mean=0.0)
 ```
+
+更多内容详见[mindspore.common.initializer.Normal](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.common.initializer.html#mindspore.common.initializer.Normal)。
 
 ## 使用方式
 

@@ -11,6 +11,8 @@ class torch.optim.Optimizer(
 )
 ```
 
+For more information, see[torch.optim.Optimizer](https://pytorch.org/docs/1.5.0/optim.html#torch.optim.Optimizer).
+
 ## mindspore.nn.Optimizer()
 
 ```python
@@ -21,6 +23,8 @@ class mindspore.nn.Optimizer(
     loss_scale=1.0
 )
 ```
+
+For more information, see[mindspore.nn.Optimizer](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Optimizer.html#mindspore.nn.Optimizer).
 
 ## Differences
 

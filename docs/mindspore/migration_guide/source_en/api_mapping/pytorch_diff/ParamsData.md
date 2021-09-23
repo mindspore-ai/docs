@@ -8,11 +8,15 @@
 torch.nn.Parameter.data
 ```
 
+For more information, see[torch.nn.Parameter.data](https://pytorch.org/docs/1.5.0/nn.Parameter.html#torch.nn.Parameter.data).
+
 ## mindspore.Parameter.data
 
 ```python
 mindspore.Parameter.data
 ```
+
+For more information, see[mindspore.Parameter.data](https://mindspore.cn/docs/api/en/master/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter.data).
 
 ## Differences
 

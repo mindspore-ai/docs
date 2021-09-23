@@ -15,6 +15,8 @@ torch.sparse_coo_tensor(
 )
 ```
 
+更多内容详见[torch.sparse_coo_tensor](https://pytorch.org/docs/1.5.0/torch.html#torch.sparse_coo_tensor)。
+
 ## mindspore.SparseTensor
 
 ```python
@@ -24,6 +26,8 @@ class mindspore.SparseTensor(
   dense_shape
 )
 ```
+
+更多内容详见[mindspore.SparseTensor](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.SparseTensor.html#mindspore.SparseTensor)。
 
 ## 使用方式
 

@@ -12,6 +12,8 @@ torch.floor_divide(
 )
 ```
 
+更多内容详见[torch.floor_divide](https://pytorch.org/docs/1.5.0/torch.html#torch.floor_divide)。
+
 ## mindspore.ops.FloorDiv
 
 ```python
@@ -20,6 +22,8 @@ class mindspore.ops.FloorDiv(*args, **kwargs)(
     input_y
 )
 ```
+
+更多内容详见[mindspore.ops.FloorDiv](https://mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.FloorDiv.html#mindspore.ops.FloorDiv)。
 
 ## 使用方式
 

@@ -12,11 +12,15 @@ torch.flatten(
 )
 ```
 
+For more information, see[torch.flatten](https://pytorch.org/docs/1.5.0/torch.html#torch.flatten).
+
 ## mindspore.ops.Flatten
 
 ```python
 class mindspore.ops.Flatten(*args, **kwargs)(input_x)
 ```
+
+For more information, see[mindspore.ops.Flatten](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Flatten.html#mindspore.ops.Flatten).
 
 ## Differences
 

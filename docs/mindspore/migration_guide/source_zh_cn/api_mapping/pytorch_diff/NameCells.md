@@ -8,11 +8,15 @@
 torch.nn.Module.named_children()
 ```
 
+更多内容详见[torch.nn.Module.named_children](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.Module.named_children)。
+
 ## mindspore.nn.Cell.name_cells
 
 ```python
 mindspore.nn.Cell.name_cells()
 ```
+
+更多内容详见[mindspore.nn.Cell.name_cells](https://mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.name_cells)。
 
 ## 使用方式
 

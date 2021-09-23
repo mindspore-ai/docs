@@ -14,6 +14,8 @@ torch.nn.Upsample(
 )
 ```
 
+For more information, see[torch.nn.Upsample](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.Upsample).
+
 ## mindspore.ops.ResizeBilinear
 
 ```python
@@ -22,6 +24,8 @@ class mindspore.ops.ResizeBilinear(
     align_corners=False
 )(input)
 ```
+
+For more information, see[mindspore.ops.ResizeBilinear](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.ResizeBilinear.html#mindspore.ops.ResizeBilinear).
 
 ## Differences
 

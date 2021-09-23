@@ -14,6 +14,8 @@ torch.nn.functional.normalize(
 )
 ```
 
+For more information, see[torch.nn.functional.normalize](https://pytorch.org/docs/1.5.0/nn.functional.html#torch.nn.functional.normalize).
+
 ## mindspore.ops.L2Normalize
 
 ```python
@@ -22,6 +24,8 @@ class mindspore.ops.L2Normalize(
     epsilon=1e-4
 )(input_x)
 ```
+
+For more information, see[mindspore.ops.L2Normalize](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.L2Normalize.html#mindspore.ops.L2Normalize).
 
 ## Differences
 

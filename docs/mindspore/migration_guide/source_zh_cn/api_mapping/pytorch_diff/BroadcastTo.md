@@ -10,11 +10,15 @@ torch.broadcast_tensors(
 )
 ```
 
+更多内容详见[torch.broadcast_tensors](https://pytorch.org/docs/1.5.0/torch.html#torch.broadcast_tensors)。
+
 ## mindspore.ops.BroadcastTo
 
 ```python
 class mindspore.ops.BroadcastTo(shape)(input_x)
 ```
+
+更多内容详见[mindspore.ops.BroadcastTo](https://mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.BroadcastTo.html#mindspore.ops.BroadcastTo)。
 
 ## 使用方式
 

@@ -17,11 +17,15 @@ torch.distributed.init_process_group(
 )
 ```
 
+更多内容详见[torch.distributed.init_process_group](https://pytorch.org/docs/1.5.0/distributed.html#torch.distributed.init_process_group)。
+
 ## mindspore.communication.init
 
 ```python
 mindspore.communication.init(backend_name=None)
 ```
+
+更多内容详见[mindspore.communication.init](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.communication.html#mindspore.communication.init)。
 
 ## 使用方式
 

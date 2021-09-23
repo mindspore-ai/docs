@@ -8,6 +8,8 @@
 class torchvision.transforms.ToTensor
 ```
 
+更多内容详见[torchvision.transforms.ToTensor](https://pytorch.org/vision/0.10/transforms.html#torchvision.transforms.ToTensor)。
+
 ## mindspore.dataset.vision.py_transforms.ToTensor
 
 ```python
@@ -15,6 +17,8 @@ class mindspore.dataset.vision.py_transforms.ToTensor(
     output_type=np.float32
     )
 ```
+
+更多内容详见[mindspore.dataset.vision.py_transforms.ToTensor](https://mindspore.cn/docs/api/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.py_transforms.ToTensor.html#mindspore.dataset.vision.py_transforms.ToTensor)。
 
 ## 使用方式
 

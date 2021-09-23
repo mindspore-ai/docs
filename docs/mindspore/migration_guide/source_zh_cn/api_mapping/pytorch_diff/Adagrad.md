@@ -15,6 +15,8 @@ class torch.optim.Adagrad(
 )
 ```
 
+更多内容详见[torch.optim.Adagrad](https://pytorch.org/docs/1.5.0/optim.html#torch.optim.Adagrad)。
+
 ## mindspore.nn.Adagrad
 
 ```python
@@ -27,6 +29,8 @@ class mindspore.nn.Adagrad(
     weight_decay=0.0
 )(grads)
 ```
+
+更多内容详见[mindspore.nn.Adagrad](https://mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Adagrad.html#mindspore.nn.Adagrad)。
 
 ## 使用方式
 

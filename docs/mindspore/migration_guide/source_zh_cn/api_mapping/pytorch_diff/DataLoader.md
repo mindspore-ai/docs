@@ -11,6 +11,8 @@ class torch.utils.data.DataLoader(
     timeout=0, worker_init_fn=None, multiprocessing_context=None)
 ```
 
+更多内容详见[torch.utils.data.DataLoader](https://pytorch.org/docs/1.5.0/data.html#torch.utils.data.DataLoader)。
+
 ## MindSpore
 
 MindSpore中的数据集无需加载器。

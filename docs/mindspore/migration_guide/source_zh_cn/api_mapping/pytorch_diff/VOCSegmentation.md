@@ -16,6 +16,8 @@ class torchvision.datasets.VOCSegmentation(
     )
 ```
 
+更多内容详见[torchvision.datasets.VOCSegmentation](https://pytorch.org/vision/0.10/datasets.html#torchvision.datasets.VOCSegmentation)。
+
 ## mindspore.dataset.VOCDataset
 
 ```python
@@ -35,6 +37,8 @@ class mindspore.dataset.VOCDataset(
     extra_metadata=False
     )
 ```
+
+更多内容详见[mindspore.dataset.VOCDataset](https://mindspore.cn/docs/api/zh-CN/master/api_python/dataset/mindspore.dataset.VOCDataset.html#mindspore.dataset.VOCDataset)。
 
 ## 使用方式
 

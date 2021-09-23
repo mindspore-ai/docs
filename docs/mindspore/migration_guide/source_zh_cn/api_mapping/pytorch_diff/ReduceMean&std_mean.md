@@ -13,6 +13,8 @@ torch.std_mean(
 )
 ```
 
+更多内容详见[torch.std_mean](https://pytorch.org/docs/1.5.0/torch.html#torch.std_mean)。
+
 ## mindspore.ops.ReduceMean
 
 ```python
@@ -21,6 +23,8 @@ class mindspore.ops.ReduceMean(keep_dims=False)(
     axis=()
 )
 ```
+
+更多内容详见[mindspore.ops.ReduceMean](https://mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.ReduceMean.html#mindspore.ops.ReduceMean)。
 
 ## 使用方式
 

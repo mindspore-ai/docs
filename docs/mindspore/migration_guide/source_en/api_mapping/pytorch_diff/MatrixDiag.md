@@ -12,11 +12,15 @@ torch.diag(
 )
 ```
 
+For more information, see[torch.diag](https://pytorch.org/docs/1.5.0/torch.html#torch.diag).
+
 ## mindspore.nn.MatrixDiag
 
 ```python
 class mindspore.nn.MatrixDiag()(x)
 ```
+
+For more information, see[mindspore.nn.MatrixDiag](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.MatrixDiag.html#mindspore.nn.MatrixDiag).
 
 ## Differences
 

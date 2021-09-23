@@ -10,6 +10,8 @@ torchtext.data.functional.sentencepiece_numericalizer(
     )
 ```
 
+更多内容详见[torchtext.data.functional.sentencepiece_numericalizer](https://pytorch.org/docs/1.5.0/data.html#torchtext.data.functional.sentencepiece_numericalizer)。
+
 ## mindspore.dataset.text.transforms.SentencePieceTokenizer
 
 ```python
@@ -18,6 +20,8 @@ class mindspore.dataset.text.transforms.SentencePieceTokenizer(
     out_type
     )
 ```
+
+更多内容详见[mindspore.dataset.text.transforms.SentencePieceTokenizer](https://mindspore.cn/docs/api/zh-CN/master/api_python/dataset_text/mindspore.dataset.text.transforms.SentencePieceTokenizer.html#mindspore.dataset.text.transforms.SentencePieceTokenizer)。
 
 ## 使用方式
 
