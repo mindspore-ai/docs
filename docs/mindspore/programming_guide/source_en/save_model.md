@@ -169,6 +169,7 @@ save_checkpoint(net, "lenet.ckpt",append_dict=save_dict)
 ```
 
 After execution, in addition to the parameters in net, the information of `save_dict` will also be saved in `lenet.ckpt`.
+Currently, only basic types of storage are supported, including int, float, bool, etc.
 
 ## Export MindIR Model
 

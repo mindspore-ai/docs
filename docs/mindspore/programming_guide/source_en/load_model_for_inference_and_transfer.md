@@ -21,6 +21,10 @@ CheckPoints which are saved locally during model training, they are used for inf
 
 The following uses examples to describe how to load models from local.
 
+> You can view the definition of the network and dataset here:
+>
+> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/save_model>
+
 ## Loading the local Model
 
 After saving CheckPoint files, you can load parameters.
@@ -32,9 +36,13 @@ In inference-only scenarios, use `load_checkpoint` to directly load parameters t
 The sample code is as follows:
 
 ```python
+from mindspore import Model, load_checkpoint
+from mindspore.nn import SoftmaxCrossEntropyWithLogits
+
 resnet = ResNet50()
 load_checkpoint("resnet50-2_32.ckpt", net=resnet)
-dateset_eval = create_dataset(os.path.join(mnist_path, "test"), 32, 1) # define the test dataset
+# create eval dataset, mnist_path is the data path
+dateset_eval = create_dataset(mnist_path)
 loss = CrossEntropyLoss()
 model = Model(resnet, loss, metrics={"accuracy"})
 acc = model.eval(dataset_eval)
@@ -50,6 +58,10 @@ In the retraining and fine-tuning scenarios for task interruption, you can load 
 The sample code is as follows:
 
 ```python
+from mindspore import Model, load_checkpoint
+from mindspore.nn import Momentum
+from mindspore.nn import SoftmaxCrossEntropyWithLogits
+
 # return a parameter dict for model
 param_dict = load_checkpoint("resnet50-2_32.ckpt")
 resnet = ResNet50()

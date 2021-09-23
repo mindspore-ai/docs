@@ -171,6 +171,7 @@ save_checkpoint(net, "lenet.ckpt",append_dict=save_dict)
 ```
 
 执行后，除了net中的参数，`save_dict`的信息也会保存在`lenet.ckpt`中。
+目前只支持基础类型的保存，包括int、float、bool等。
 
 ## 导出MindIR格式文件
 
