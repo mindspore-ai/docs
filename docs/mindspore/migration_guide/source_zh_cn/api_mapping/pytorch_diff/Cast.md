@@ -8,6 +8,8 @@
 torch.Tensor.float()
 ```
 
+更多内容详见[torch.Tensor.float](https://pytorch.org/docs/1.5.0/tensors.html#torch.Tensor.float)。
+
 ## mindspore.ops.Cast
 
 ```python
@@ -16,6 +18,8 @@ class mindspore.ops.Cast(*args, **kwargs)(
     type
 )
 ```
+
+更多内容详见[mindspore.ops.Cast](https://mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Cast.html#mindspore.ops.Cast)。
 
 ## 使用方式
 

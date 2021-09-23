@@ -12,6 +12,8 @@ torch.Tensor.scatter_add_(
 )
 ```
 
+For more information, see[torch.Tensor.scatter_add_](https://pytorch.org/docs/1.5.0/tensors.html#torch.Tensor.scatter_add_).
+
 ## mindspore.ops.ScatterNdAdd
 
 ```python
@@ -21,6 +23,8 @@ class mindspore.ops.ScatterNdAdd(use_locking=False)(
     update
 )
 ```
+
+For more information, see[mindspore.ops.ScatterNdAdd](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.ScatterNdAdd.html#mindspore.ops.ScatterNdAdd).
 
 ## Differences
 

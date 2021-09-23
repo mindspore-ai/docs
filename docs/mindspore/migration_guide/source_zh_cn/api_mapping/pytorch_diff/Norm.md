@@ -15,6 +15,8 @@ torch.norm(
 )
 ```
 
+更多内容详见[torch.norm](https://pytorch.org/docs/1.5.0/torch.html#torch.norm)。
+
 ## mindspore.nn.Norm
 
 ```python
@@ -23,6 +25,8 @@ class mindspore.nn.Norm(
     keep_dims=False
 )(input)
 ```
+
+更多内容详见[mindspore.nn.Norm](https://mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Norm.html#mindspore.nn.Norm)。
 
 ## 使用方式
 

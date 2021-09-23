@@ -14,6 +14,8 @@ torch.nn.Upsample(
 )
 ```
 
+更多内容详见[torch.nn.Upsample](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.Upsample)。
+
 ## mindspore.ops.ResizeBilinear
 
 ```python
@@ -22,6 +24,8 @@ class mindspore.ops.ResizeBilinear(
     align_corners=False
 )(input)
 ```
+
+更多内容详见[mindspore.ops.ResizeBilinear](https://mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.ResizeBilinear.html#mindspore.ops.ResizeBilinear)。
 
 ## 使用方式
 

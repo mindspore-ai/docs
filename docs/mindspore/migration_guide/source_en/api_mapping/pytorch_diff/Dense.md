@@ -12,6 +12,8 @@ torch.nn.Linear(
 )
 ```
 
+For more information, see[torch.nn.Linear](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.Linear).
+
 ## mindspore.nn.Dense
 
 ```python
@@ -24,6 +26,8 @@ class mindspore.nn.Dense(
     activation=None
 )(input)
 ```
+
+For more information, see[mindspore.nn.Dense](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Dense.html#mindspore.nn.Dense).
 
 ## Differences
 

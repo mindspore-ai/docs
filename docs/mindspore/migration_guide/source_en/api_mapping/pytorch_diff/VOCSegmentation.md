@@ -16,6 +16,8 @@ class torchvision.datasets.VOCSegmentation(
     )
 ```
 
+For more information, see[torchvision.datasets.VOCSegmentation](https://pytorch.org/vision/0.10/datasets.html#torchvision.datasets.VOCSegmentation).
+
 ## mindspore.dataset.VOCDataset
 
 ```python
@@ -35,6 +37,8 @@ class mindspore.dataset.VOCDataset(
     extra_metadata=False
     )
 ```
+
+For more information, see[mindspore.dataset.VOCDataset](https://mindspore.cn/docs/api/en/master/api_python/dataset/mindspore.dataset.VOCDataset.html#mindspore.dataset.VOCDataset).
 
 ## Differences
 

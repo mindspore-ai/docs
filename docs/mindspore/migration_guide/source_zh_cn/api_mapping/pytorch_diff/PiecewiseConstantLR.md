@@ -14,6 +14,8 @@ torch.optim.lr_scheduler.StepLR(
 )
 ```
 
+更多内容详见[torch.optim.lr_scheduler.StepLR](https://pytorch.org/docs/1.5.0/optim.html#torch.optim.lr_scheduler.StepLR)。
+
 ## torch.optim.lr_scheduler.MultiStepLR
 
 ```python
@@ -26,6 +28,8 @@ torch.optim.lr_scheduler.MultiStepLR(
 )
 ```
 
+更多内容详见[torch.optim.lr_scheduler.MultiStepLR](https://pytorch.org/docs/1.5.0/optim.html#torch.optim.lr_scheduler.MultiStepLR)。
+
 ## mindspore.nn.piecewise_constant_lr
 
 ```python
@@ -34,6 +38,8 @@ mindspore.nn.piecewise_constant_lr(
     learning_rates
 )
 ```
+
+更多内容详见[mindspore.nn.piecewise_constant_lr](https://mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.piecewise_constant_lr.html#mindspore.nn.piecewise_constant_lr)。
 
 ## 使用方式
 

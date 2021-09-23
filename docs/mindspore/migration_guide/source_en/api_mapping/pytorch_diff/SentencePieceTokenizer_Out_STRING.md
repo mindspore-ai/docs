@@ -10,6 +10,8 @@ torchtext.data.functional.sentencepiece_tokenizer(
     )
 ```
 
+For more information, see[torchtext.data.functional.sentencepiece_tokenizer](https://pytorch.org/docs/1.5.0/data.html#torchtext.data.functional.sentencepiece_tokenizer).
+
 ## mindspore.dataset.text.transforms.SentencePieceTokenizer
 
 ```python
@@ -18,6 +20,8 @@ class mindspore.dataset.text.transforms.SentencePieceTokenizer(
     out_type
     )
 ```
+
+For more information, see[mindspore.dataset.text.transforms.SentencePieceTokenizer](https://mindspore.cn/docs/api/en/master/api_python/dataset_text/mindspore.dataset.text.transforms.SentencePieceTokenizer.html#mindspore.dataset.text.transforms.SentencePieceTokenizer).
 
 ## Differences
 

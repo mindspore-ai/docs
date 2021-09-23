@@ -13,11 +13,15 @@ torch.distributed.new_group(
 )
 ```
 
+For more information, see[torch.distributed.new_group](https://pytorch.org/docs/1.5.0/distributed.html#torch.distributed.new_group).
+
 ## mindspore.communication.create_group
 
 ```python
 mindspore.communication.create_group(group, rank_ids)
 ```
+
+For more information, see[mindspore.communication.create_group](https://mindspore.cn/docs/api/en/master/api_python/mindspore.communication.html#mindspore.communication.create_group).
 
 ## Differences
 
