@@ -13,6 +13,8 @@
     - [使用while语句](#使用while语句)
         - [使用条件为常量的while语句](#使用条件为常量的while语句)
         - [使用条件为变量的while语句](#使用条件为变量的while语句)
+    - [约束](#约束)
+        - [副作用约束](#副作用约束)
 
 <!-- TOC -->
 
@@ -118,7 +120,7 @@ output = forward_net(z)
 
 ## 使用for语句
 
-`for`语句会展开循环体内容。在例3中，`for`循环了3次，与例4最终生成的执行图结构是完全一致的，因此使用`for`语句的网络的子图数量、算子数量取决于`for`的迭代次数，算子数量过多或者子图过多会导致硬件资源受限。
+`for`语句会展开循环体内容。在例3中，`for`循环了3次，与例4最终生成的执行图结构是完全一致的，因此使用`for`语句的网络的子图数量、算子数量取决于`for`的迭代次数，算子数量过多或者子图过多会导致硬件资源受限。`for`语句导致出现子图过多的问题时，可参考`while`写作方式，尝试将`for`语句等价转换为条件是变量的`while`语句。
 
 例3：
 
@@ -331,3 +333,87 @@ output = forward_net(x, y, i)
 ```text
 ValueError: mindspore/ccsrc/pipeline/jit/static_analysis/static_analysis.cc:734 ProcessEvalResults] The return values of different branches do not match. Shape Join Failed: shape1 = (1, 1), shape2 = (1)..
 ```
+
+## 约束
+
+当前使用流程语句除了条件变量场景下的约束，还有一些其他特定场景下的约束。
+
+### 副作用约束
+
+在使用条件为变量的流程控制语句时，图编译生成的网络模型中会包含控制流算子，在此场景下，正向图会执行两次。如果此时正向图中存在`Assign`等副作用算子并且是训练场景时，会导致反向图计算结果与预期不符。
+
+如例9所示，期望x的梯度为2，但是实际执行得到的梯度为3，原因是正向图执行了两次，`tmp = self.var + 1`和`self.assign(self.var, tmp)`被执行了两次，`out = (self.var + 1) * x`实际上是`out = (2 + 1) * x`，最终导致梯度结果出错。
+
+例9：
+
+```python
+import numpy as np
+from mindspore import context
+from mindspore import Tensor, nn
+from mindspore import dtype as ms
+from mindspore import ops
+from mindspore.ops import composite
+from mindspore import Parameter
+
+class ForwardNet(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.var = Parameter(Tensor(np.array(0), ms.int32))
+        self.assign = ops.Assign()
+
+    def construct(self, x, y):
+        if x < y:
+            tmp = self.var + 1
+            self.assign(self.var, tmp)
+        out = (self.var + 1) * x
+        out = out + 1
+        return out
+
+class BackwardNet(nn.Cell):
+    def __init__(self, net):
+        super(BackwardNet, self).__init__(auto_prefix=False)
+        self.forward_net = net
+        self.grad = composite.GradOperation()
+
+    def construct(self, *inputs):
+        grads = self.grad(self.forward_net)(*inputs)
+        return grads
+
+forward_net = ForwardNet()
+backward_net = BackwardNet(forward_net)
+x = Tensor(np.array(0), dtype=ms.int32)
+y = Tensor(np.array(1), dtype=ms.int32)
+output = backward_net(x, y)
+print("output:", output)
+```
+
+执行结果:
+
+```text
+output: 3
+```
+
+控制流训练场景不支持的副作用算子列表如下：
+
+| Side Effect List      |
+| --------------------- |
+| Print                 |
+| Assign                |
+| AssignAdd             |
+| AssignSub             |
+| ScalarSummary         |
+| ImageSummary          |
+| TensorSummary         |
+| HistogramSummary      |
+| ScatterAdd            |
+| ScatterDiv            |
+| ScatterMax            |
+| ScatterMin            |
+| ScatterMul            |
+| ScatterNdAdd          |
+| ScatterNdSub          |
+| ScatterNdUpadte       |
+| ScatterNonAliasingAdd |
+| ScatterSub            |
+| ScatterUpdate         |
+
