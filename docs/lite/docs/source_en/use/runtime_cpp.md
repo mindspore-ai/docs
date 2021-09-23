@@ -27,6 +27,10 @@
         - [Separating Graph Loading and Model Build](#separating-graph-loading-and-model-build)
         - [Viewing Logs](#viewing-logs)
         - [Obtaining the Version Number](#obtaining-the-version-number)
+        - [Extension Usage](#extension-usage)
+            - [Operator InferShape Extension](#operator-infershape-extension)
+            - [Operator Extension](#operator-extension)
+            - [Example](#example)
 
 <!-- /TOC -->
 
@@ -636,3 +640,139 @@ The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/b
 #include "include/api/types.h"
 std::string version = mindspore::Version();
 ```
+
+### Extension Usage
+
+In this chapter, we will show the users an example of extending Mindspore Lite inference, covering the whole process of creation and registration of custom operator. The example will help the users understand the extension usage as soon as possible. The chapter takes a simple model that consists of a single operator `Add` as an example. The code related to the example can be obtained from the directory [mindspore/lite/examples/runtime_extend](https://gitee.com/mindspore/mindspore/tree/r1.5/mindspore/lite/examples/runtime_extend).
+
+The chapter only provides instruction in the Linux System.
+
+#### Operator InferShape Extension
+
+The users need to inherit the basic class [KernelInterface](https://www.mindspore.cn/lite/api/en/r1.5/api_cpp/mindspore_kernel.html#kernelinterface), and override the interface function [Infer](https://www.mindspore.cn/lite/api/en/r1.5/api_cpp/mindspore_kernel.html#infer).
+
+```cpp
+int CheckInputs(const std::vector<mindspore::MSTensor> &inputs) {         // check function when compiling, to judge the shape of input tensor is valid or not
+  for (auto &input : inputs) {
+    auto input_shape = input.Shape();
+    if (std::find(input_shape.begin(), input_shape.end(), -1) != input_shape.end()) {
+      return lite::RET_INFER_INVALID;
+    }
+  }
+  return lite::RET_OK;
+}
+
+class CustomAddInfer : public kernel::KernelInterface {
+ public:
+  CustomAddInfer() = default;
+  ~CustomAddInfer() = default;
+
+  Status Infer(std::vector<mindspore::MSTensor> *inputs, std::vector<mindspore::MSTensor> *outputs,
+               const schema::Primitive *primitive) override {        // override interface
+    (*outputs)[0].SetFormat((*inputs)[0].format());
+    (*outputs)[0].SetDataType((*inputs)[0].DataType());
+    auto ret = CheckInputs(inputs);
+    if (ret == lite::RET_INFER_INVALID) {
+      (*outputs)[0].SetShape({-1});        // set the shape as {-1}，which represents the inferring process will be called again when running
+      return kLiteInferInvalid;
+    } else if (ret != lite::RET_OK) {
+      return kLiteError;
+    }
+    (*outputs)[0].SetShape((*inputs)[0].Shape());
+    return kSuccess;
+  }
+};
+std::shared_ptr<kernel::KernelInterface> CustomAddInferCreator() { return std::make_shared<CustomAddInfer>(); }
+REGISTER_CUSTOM_KERNEL_INTERFACE(CustomOpTutorial, Custom_Add, CustomAddInferCreator)       // call the registration interface
+```
+
+> The process of inferring shape is composed of two periods, one is static inference when compiling graph, and the other is dynamic inference when running.
+>
+> Static inference:
+>
+> 1. If the called function `CheckInputs` returns false or the current node needs to be inferred in the period of running, the shape of output tensor should be set as {-1}, which will be viewed as an identification to infer again when running. In such situation, the return code needs to be set to `RET_INFER_INVALID`.
+> 2. In other situation, please return other code. If the code is not `kSuccess`, the program will be aborted and please check the program accordingly.
+>
+> Dynamic inference
+>
+> In this period, whether the dynamic inference is needed is up to the shape of output tensor of current node. Please refer to the `Operator Extension` as follows.
+
+#### Operator Extension
+
+1. The users need to inherit the basic class [Kernel](https://www.mindspore.cn/lite/api/zh-CN/r1.5/api_cpp/mindspore_kernel.html#kernel), and override the related interface.
+
+    - Prepare: The interface will be called during graph compilation. Users can make preparations or necessary verifications for the current node before running.
+
+    - Execute：The interface is running interface. Users can call **dynamic inference** [PreProcess](https://gitee.com/mindspore/mindspore/tree/r1.5/mindspore/lite/examples/runtime_extend/src/custom_add_kernel.cc) in this interface.
+
+      ```cpp
+      int CheckOutputs(const std::vector<mindspore::MSTensor> &outputs) {           // Check function when running, to judge whether the shape inference is needed
+        for (auto &output : outputs) {
+          auto output_shape = output.Shape();
+          if (std::find(output_shape.begin(), output_shape.end(), -1) != output_shape.end()) {
+            return lite::RET_INFER_INVALID;
+          }
+        }
+        return lite::RET_OK;
+      }
+      ```
+
+    - ReSize: The interface is used to handle the changeable information of the current node due to the shape change of graph inputs.
+
+    - Attribute Parsing: The users need to provide their own parsing of custom operator, which can refer to [ParseAttrData](https://gitee.com/mindspore/mindspore/tree/r1.5/mindspore/lite/examples/runtime_extend/src/custom_add_kernel.cc).
+
+2. Operator registration. The users can refer to the interface [REGISTER_CUSTOM_KERNEL](https://www.mindspore.cn/lite/api/zh-CN/r1.5/api_cpp/mindspore_registry.html#register-custom-kernel).
+
+   ```cpp
+   const auto kFloat32 = DataType::kNumberTypeFloat32;
+   std::shared_ptr<Kernel> CustomAddCreator(const std::vector<mindspore::MSTensor> &inputs,
+                                            const std::vector<mindspore::MSTensor> &outputs,
+                                            const schema::Primitive *primitive, const mindspore::Context *ctx) {
+     return std::make_shared<CustomAddKernel>(inputs, outputs, primitive, ctx);
+   }
+   REGISTER_CUSTOM_KERNEL(CPU, CustomOpTutorial, kFloat32, Custom_Add, CustomAddCreator)
+   ```
+
+#### Example
+
+1. Compile
+
+   - Environment Requirements
+
+       - System environment: Linux x86_64; Recommend Ubuntu 18.04.02LTS
+       - compilation dependencies:
+           - [CMake](https://cmake.org/download/) >= 3.18.3
+           - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
+
+   - Compilation and Build
+
+     Execute the script [build.sh](https://gitee.com/mindspore/mindspore/blob/r1.5/mindspore/lite/examples/runtime_extend/build.sh) in the directory of `mindspore/lite/examples/runtime_extend`, And then, the released package of Mindspore Lite will be downloaded and the demo will be compiled automatically.
+
+     ```bash
+     bash build.sh
+     ```
+
+     > If the automatic download is failed, users can download the specified package manually. The hardware platform is CPU and the system is Ubuntu-x64 [mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/en/r1.5/use/downloads.html), After unzipping, please copy the dynamic library `libmindspore-lite.so` in the directory of `runtime/lib` to the directory of `mindspore/lite/examples/runtime_extend/lib` and copy the directory of `runtime/include` to the directory of `mindspore/lite/examples/runtime_extend`.
+     >
+     > If the model `add_extend.ms` is failed to download, please download [add_extend.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/add_extend.ms) manually, and copy to the directory of `mindspore/lite/examples/runtime_extend/model`.
+     >
+     > After manually downloading and storing the specified file, users need to execute the `build.sh` script to complete the compilation and build process.
+
+   - Compilation Result
+
+     The executable program `runtime_extend_tutorial` will be generated in the directory of `mindspore/lite/examples/runtime_extend/build`.
+
+2. Execute Program
+
+   After compiling and building, please enter the directory of `mindspore/lite/examples/runtime_extend/build`, and then execute the following command to experience the extension usaged.
+
+   ```bash
+   ./runtime_extend_tutorial ../model/add_extend.ms
+   ```
+
+   After the execution, the following information is displayed, including the tensor name, tensor size, number of output tensors, and the first 20 pieces of data.
+
+   ```text
+   tensor name is:add-0 tensor size is:400 tensor elements num is:100
+   output data is:2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+   ```
