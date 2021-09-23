@@ -2,7 +2,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/CocoDataset.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
-## torch.torchvision.datasets.CocoDetection
+## torchvision.datasets.CocoDetection
 
 ```python
 class torchvision.datasets.CocoDetection(
@@ -13,6 +13,8 @@ class torchvision.datasets.CocoDetection(
     transforms: Optional[Callable]=None
     )
 ```
+
+For more information, see[torchvision.datasets.CocoDetection](https://pytorch.org/vision/0.10/datasets.html#torchvision.datasets.CocoDetection).
 
 ## mindspore.dataset.CocoDataset
 
@@ -32,6 +34,8 @@ class mindspore.dataset.CocoDataset(
     extra_metadata=False
     )
 ```
+
+For more information, see[mindspore.dataset.CocoDataset](https://mindspore.cn/docs/api/en/r1.5/api_python/dataset/mindspore.dataset.CocoDataset.html#mindspore.dataset.CocoDataset).
 
 ## Differences
 

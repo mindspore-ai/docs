@@ -8,11 +8,15 @@
 torch.nn.Module.buffers(recurse=True)
 ```
 
+For more information, see[torch.nn.Module.buffers](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.Module.buffers).
+
 ## mindspore.nn.Cell.untrainable_params
 
 ```python
 mindspore.nn.Cell.untrainable_params(recurse=True)
 ```
+
+For more information, see[mindspore.nn.Cell.untrainable_params](https://mindspore.cn/docs/api/en/r1.5/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.untrainable_params).
 
 ## Differences
 

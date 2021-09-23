@@ -12,6 +12,8 @@ torchtext.data.functional.numericalize_tokens_from_iterator(
     )
 ```
 
+更多内容详见[torchtext.data.functional.numericalize_tokens_from_iterator](https://pytorch.org/docs/1.5.0/data.html#torchtext.data.functional.numericalize_tokens_from_iterator)。
+
 ## mindspore.dataset.text.transforms.Lookup
 
 ```python
@@ -21,6 +23,8 @@ class mindspore.dataset.text.transforms.Lookup(
     data_type=mstype.int32
     )
 ```
+
+更多内容详见[mindspore.dataset.text.transforms.Lookup](https://mindspore.cn/docs/api/zh-CN/r1.5/api_python/dataset_text/mindspore.dataset.text.transforms.Lookup.html#mindspore.dataset.text.transforms.Lookup)。
 
 ## 使用方式
 

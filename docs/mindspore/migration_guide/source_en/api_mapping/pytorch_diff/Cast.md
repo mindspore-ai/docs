@@ -8,6 +8,8 @@
 torch.Tensor.float()
 ```
 
+For more information, see[torch.Tensor.float](https://pytorch.org/docs/1.5.0/tensors.html#torch.Tensor.float).
+
 ## mindspore.ops.Cast
 
 ```python
@@ -16,6 +18,8 @@ class mindspore.ops.Cast(*args, **kwargs)(
     type
 )
 ```
+
+For more information, see[mindspore.ops.Cast](https://mindspore.cn/docs/api/en/r1.5/api_python/ops/mindspore.ops.Cast.html#mindspore.ops.Cast).
 
 ## Differences
 

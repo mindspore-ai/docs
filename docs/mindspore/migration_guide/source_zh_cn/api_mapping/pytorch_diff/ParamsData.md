@@ -8,11 +8,15 @@
 torch.nn.Parameter.data
 ```
 
+更多内容详见[torch.nn.Parameter.data](https://pytorch.org/docs/1.5.0/nn.Parameter.html#torch.nn.Parameter.data)。
+
 ## mindspore.Parameter.data
 
 ```python
 mindspore.Parameter.data
 ```
+
+更多内容详见[mindspore.Parameter.data](https://mindspore.cn/docs/api/zh-CN/r1.5/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter.data)。
 
 ## 使用方式
 

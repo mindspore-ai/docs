@@ -14,11 +14,15 @@ torch.unique(
 )
 ```
 
+更多内容详见[torch.unique](https://pytorch.org/docs/1.5.0/torch.html#torch.unique)。
+
 ## mindspore.ops.Unique
 
 ```python
 class mindspore.ops.Unique(*args, **kwargs)(x)
 ```
+
+更多内容详见[mindspore.ops.Unique](https://mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.Unique.html#mindspore.ops.Unique)。
 
 ## 使用方式
 

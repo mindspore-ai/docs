@@ -8,6 +8,8 @@
 torch.Tensor.t(input)
 ```
 
+更多内容详见[torch.Tensor.t](https://pytorch.org/docs/1.5.0/tensors.html#torch.Tensor.t)。
+
 ## mindspore.ops.Transpose
 
 ```python
@@ -16,6 +18,8 @@ class mindspore.ops.Transpose(*args, **kwargs)(
     input_perm
 )
 ```
+
+更多内容详见[mindspore.ops.Transpose](https://mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.Transpose.html#mindspore.ops.Transpose)。
 
 ## 使用方式
 

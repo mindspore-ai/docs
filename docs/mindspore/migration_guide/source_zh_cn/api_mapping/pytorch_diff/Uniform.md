@@ -12,11 +12,15 @@ torch.nn.init.uniform_(
 )
 ```
 
+更多内容详见[torch.nn.init.uniform_](https://pytorch.org/docs/1.5.0/nn.init.html#torch.nn.init.uniform_)。
+
 ## mindspore.common.initializer.Uniform
 
 ```python
 class mindspore.common.initializer.Uniform(scale=0.07)(arr)
 ```
+
+更多内容详见[mindspore.common.initializer.Uniform](https://mindspore.cn/docs/api/zh-CN/r1.5/api_python/mindspore.common.initializer.html#mindspore.common.initializer.Uniform)。
 
 ## 使用方式
 

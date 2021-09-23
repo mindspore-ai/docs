@@ -14,6 +14,8 @@ class torch.optim.Adadelta(
 )
 ```
 
+更多内容详见[torch.optim.Adadelta](https://pytorch.org/docs/1.5.0/optim.html#torch.optim.Adadelta)。
+
 ## mindspore.ops.ApplyAdadelta
 
 ```python
@@ -27,6 +29,8 @@ class mindspore.ops.ApplyAdadelta(*args, **kwargs)(
     grad
 )
 ```
+
+更多内容详见[mindspore.ops.ApplyAdadelta](https://mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.ApplyAdadelta.html#mindspore.ops.ApplyAdadelta)。
 
 ## 使用方式
 

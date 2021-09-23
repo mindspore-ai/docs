@@ -10,11 +10,15 @@ torchtext.data.functional.load_sp_model(
     )
 ```
 
+更多内容详见[torchtext.data.functional.load_sp_model](https://pytorch.org/docs/1.5.0/data.html#torchtext.data.functional.load_sp_model)。
+
 ## mindspore.dataset.text.utils.SentencePieceVocab
 
 ```python
 classmindspore.dataset.text.utils.SentencePieceVocab
 ```
+
+更多内容详见[mindspore.dataset.text.utils.SentencePieceVocab](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/dataset_text/mindspore.dataset.text.SentencePieceVocab.html#mindspore.dataset.text.utils.SentencePieceVocab)。
 
 ## 使用方式
 
