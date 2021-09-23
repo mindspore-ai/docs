@@ -73,18 +73,12 @@ MindSpore编程指南
    hypermap
    optim
    train_and_eval
-   distributed_training_ops
-
-.. toctree::
-   :maxdepth: 1
-   :caption: 运行管理
-
-   context
 
 .. toctree::
    :maxdepth: 1
    :caption: 模型运行
 
+   context
    run
    ms_function
    save_and_load_models

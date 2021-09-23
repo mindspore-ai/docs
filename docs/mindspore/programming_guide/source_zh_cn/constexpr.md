@@ -1,8 +1,8 @@
-# contexpr网络内构造常量
+# 网络内构造常量
 
 <!-- TOC -->
 
-- [contexpr网络内构造常量](#contexpr网络内构造常量)
+- [网络内构造常量](#网络内构造常量)
 
 <!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/constexpr.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
