@@ -585,7 +585,7 @@ if __name__ == "__main__":
         print(losses)
     ```
 
-    生成MindIR格式模型文件时，需要先将[model.py文件](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py)中`context.set_fl_context(**ctx)`语句注释，同时`epoch`设置为1即可，运行`model.py`要求环境中安装[MindSpore](https://www.mindspore.cn/install)。运行脚步`model.py`之后会在当前路径下生成文件`lenet_train.mindir`。
+    生成MindIR格式模型文件时，需要先将[model.py文件](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py)中`context.set_fl_context(**ctx)`语句注释，同时`epoch`设置为1即可，运行`model.py`要求环境中安装[MindSpore](https://www.mindspore.cn/install)。运行脚本`model.py`之后会在当前路径下生成文件`lenet_train.mindir`。
 
     具体可参考[导出MindIR格式文件](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/save_model.html#mindir)。
 

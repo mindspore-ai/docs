@@ -167,7 +167,7 @@ mpirun -np 4 sander.MPI -groupfile group.dat -ng 4
 
 ## 高精度量子化学计算
 
-在对分子构象进了充分的抽样之后，就可以在其中随机抽取若干构象进行高精度量子化学计算。sander程序得到的轨迹文件后缀名是.nc，使用[MDAnalysis](https://www.mdanalysis.org)这个工具包，就可以在Python中读取对应的坐标文件。例如，使用下面的脚步就可以将nc文件中的坐标转换为numpy数组：
+在对分子构象进了充分的抽样之后，就可以在其中随机抽取若干构象进行高精度量子化学计算。sander程序得到的轨迹文件后缀名是.nc，使用[MDAnalysis](https://www.mdanalysis.org)这个工具包，就可以在Python中读取对应的坐标文件。例如，使用下面的脚本就可以将nc文件中的坐标转换为numpy数组：
 
 ```python
 import numpy as np
