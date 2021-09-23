@@ -10,9 +10,7 @@
     - [模型训练、评估和推理](#模型训练评估和推理)
     - [自定义场景的Model应用](#自定义场景的model应用)
         - [手动连接前向网络与损失函数](#手动连接前向网络与损失函数)
-            - [模型评估与推理](#模型评估与推理)
         - [自定义训练网络](#自定义训练网络)
-            - [自定义训练的模型评估与推理](#自定义训练的模型评估与推理)
         - [自定义网络的权重共享](#自定义网络的权重共享)
 
 <!-- /TOC -->
@@ -26,6 +24,8 @@
 通常情况下，定义训练和评估网络并直接运行，已经可以满足基本需求，但仍然建议通过`Model`来进行模型训练和评估。一方面，`Model`可以在一定程度上简化代码。例如：无需手动遍历数据集；在不需要自定义`TrainOneStepCell`的场景下，可以借助`Model`自动构建训练网络；可以使用`Model`的`eval`接口进行模型评估，直接输出评估结果，无需手动调用评价指标的`clear`、`update`、`eval`函数等。另一方面，`Model`提供了很多高阶功能，如数据下沉、混合精度等，在不借助`Model`的情况下，使用这些功能需要花费较多的时间仿照`Model`进行自定义。
 
 本文档首先对Model进行基本介绍，然后重点讲解如何使用`Model`进行模型训练、评估和推理。
+
+> 下述例子中，参数初始化使用了随机值，在具体执行中输出的结果可能与本地执行输出的结果不同；如果需要稳定输出固定的值，可以设置固定的随机种子，设置方法请参考[mindspore.set_seed()](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/mindspore/mindspore.set_seed.html)。
 
 ## Model基本介绍
 
@@ -64,7 +64,6 @@
 以[构建训练与评估网络](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/train_and_eval.html)中使用的线性回归为例：
 
 ```python
-import numpy as np
 import mindspore.nn as nn
 from mindspore.common.initializer import Normal
 
@@ -90,8 +89,8 @@ metrics = {"mae"}
 创建训练集和验证集：
 
 ```python
-import mindspore.dataset as ds
 import numpy as np
+import mindspore.dataset as ds
 
 def get_data(num, w=2.0, b=3.0):
     for _ in range(num):
@@ -210,6 +209,7 @@ print(output)
 
     ```python
     import numpy as np
+    import mindspore.dataset as ds
 
     def get_multilabel_data(num, w=2.0, b=3.0):
         for _ in range(num):
@@ -243,9 +243,11 @@ print(output)
             return self.get_loss(x1)/2 + self.get_loss(x2)/2
     ```
 
-3. 连接前向网络和损失函数
+3. 连接前向网络和损失函数，`net`使用上一节定义的`LinearNet`
 
     ```python
+    import mindspore.nn as nn
+
     class CustomWithLossCell(nn.Cell):
         def __init__(self, backbone, loss_fn):
             super(CustomWithLossCell, self).__init__(auto_prefix=False)
@@ -255,7 +257,7 @@ print(output)
         def construct(self, data, label1, label2):
             output = self._backbone(data)
             return self._loss_fn(output, label1, label2)
-
+    net = LinearNet()
     loss = L1LossForMultiLabel()
     loss_net = CustomWithLossCell(net, loss)
     ```
@@ -266,6 +268,7 @@ print(output)
     from mindspore.train.callback import LossMonitor
     from mindspore import Model
 
+    opt = nn.Momentum(net.trainable_params(), learning_rate=0.005, momentum=0.9)
     model = Model(network=loss_net, optimizer=opt)
     multi_train_dataset = create_multilabel_dataset(num_data=160)
     model.train(epoch=1, train_dataset=multi_train_dataset, callbacks=[LossMonitor()], dataset_sink_mode=False)
@@ -286,15 +289,15 @@ print(output)
     epoch: 1 step: 10, loss is 7.6557174
     ```
 
-#### 模型评估与推理
-
-1. 模型评估
+5. 模型评估
 
     `Model`默认使用`nn.WithEvalCell`构建评估网络，在不满足需求的情况下同样需要手动构建评估网络，多数据和多标签便是一个典型的场景。`Model`提供了`eval_network`用于设置自定义的评估网络。手动构建评估网络的方式如下：
 
     自定义评估网络的封装方式：
 
     ```python
+    import mindspore.nn as nn
+
     class CustomWithEvalCell(nn.Cell):
         def __init__(self, network):
             super(CustomWithEvalCell, self).__init__(auto_prefix=False)
@@ -314,6 +317,9 @@ print(output)
     使用Model进行模型评估：
 
     ```python
+    from mindspore.train.callback import LossMonitor
+    from mindspore import Model
+
     mae1 = nn.MAE()
     mae2 = nn.MAE()
     mae1.set_indexes([0, 1])
@@ -331,11 +337,11 @@ print(output)
     {'mae1': 8.572821712493896, 'mae2': 8.346409797668457}
     ```
 
-- 在进行模型评估时，评估网络的输出会透传给评估指标的`update`函数，也就是说，`update`函数将接收到三个输入，分别为`logits`、`label1`和`label2`。`nn.MAE`仅允许在两个输入上计算评价指标，因此使用`set_indexes`指定`mae1`使用下标为0和1的输入，也就是`logits`和`label1`，计算评估结果；指定`mae2`使用下标为0和2的输入，也就是`logits`和`label2`，计算评估结果。
+    - 在进行模型评估时，评估网络的输出会透传给评估指标的`update`函数，也就是说，`update`函数将接收到三个输入，分别为`logits`、`label1`和`label2`。`nn.MAE`仅允许在两个输入上计算评价指标，因此使用`set_indexes`指定`mae1`使用下标为0和1的输入，也就是`logits`和`label1`，计算评估结果；指定`mae2`使用下标为0和2的输入，也就是`logits`和`label2`，计算评估结果。
 
-- 在实际场景中，往往需要所有标签同时参与评估，这时候就需要自定义`Metric`，灵活使用评估网络的所有输出计算评估结果。
+    - 在实际场景中，往往需要所有标签同时参与评估，这时候就需要自定义`Metric`，灵活使用评估网络的所有输出计算评估结果。`Metric`自定义方法详见：<https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/self_define_metric.html>。
 
-2. 推理
+6. 推理
 
    `Model`没有提供用于指定自定义推理网络的参数，此时可以直接运行前向网络获得推理结果。
 
@@ -377,6 +383,9 @@ print(output)
 
 ```python
 from mindspore.nn import TrainOneStepCell as CustomTrainOneStepCell
+from mindspore import Model
+from mindspore.train.callback import LossMonitor
+
 # 手动构建训练网络
 train_net = CustomTrainOneStepCell(loss_net, opt)
 # 定义`Model`并执行训练
@@ -400,11 +409,7 @@ epoch: 1 step: 9, loss is 2.8107128
 epoch: 1 step: 10, loss is 2.3682175
 ```
 
-此时`train_net`即为训练网络。
-
-#### 自定义训练的模型评估与推理
-
-自定义训练网络时，同样需要自定义评估网络，进行模型评估和推理的方式与上一节`手动连接前向网络与损失函数`相同。
+此时`train_net`即为训练网络。自定义训练网络时，同样需要自定义评估网络，进行模型评估和推理的方式与上一节`手动连接前向网络与损失函数`相同。
 
 当自定义训练网络的标签和预测值均为单一值时，评价函数不需要特殊处理(自定义或使用`set_indexes`)，其他场景仍然需要注意评价指标的正确使用方式。
 
@@ -412,4 +417,4 @@ epoch: 1 step: 10, loss is 2.3682175
 
 [构建训练与评估网络](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/train_and_eval.html)中已经介绍过权重共享的机制，使用MindSpore构建不同网络结构时，只要这些网络结构是在同一个实例的基础上封装的，那这个实例中的所有权重便是共享的，一个网络结构中的权重发生变化，意味着其他网络结构中的权重同步发生了变化。
 
-在使用Model进行训练时，对于简单的场景，`Model`内部使用`nn.WithLossCell`、`nn.TrainOneStepCell`和`nn.WithEvalCell`在前向`network`实例的基础上构建训练和评估网络，`Model`本身确保了推理、训练、评估网络之间权重共享。但对于自定义使用Model的场景，用户需要注意前向网络仅示例化一次。如果构建训练网络和评估网络时分别实例化前向网络，那在使用`eval`进行模型评估时，便需要手动加载训练网络中的权重，否则模型评估使用的将是初始的权重值。
+在使用Model进行训练时，对于简单的场景，`Model`内部使用`nn.WithLossCell`、`nn.TrainOneStepCell`和`nn.WithEvalCell`在前向`network`实例的基础上构建训练和评估网络，`Model`本身确保了推理、训练、评估网络之间权重共享。但对于自定义使用Model的场景，用户需要注意前向网络仅实例化一次。如果构建训练网络和评估网络时分别实例化前向网络，那在使用`eval`进行模型评估时，便需要手动加载训练网络中的权重，否则模型评估使用的将是初始的权重值。
