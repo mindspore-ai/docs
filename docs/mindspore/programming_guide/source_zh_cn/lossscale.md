@@ -199,7 +199,7 @@ model.train(epoch=epochs, train_dataset=ds_train)
 
 在此场景下使用`Model`进行训练时，`loss_scale_manager`和`amp_level`无需配置，因为`CustomTrainOneStepCell`中已经包含了混合精度的计算逻辑。
 
-> 更多关于手动构建训练网络的用法，可以参考文档[构建和执行网络模型](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/train_and_eval.html)以及[model基本使用](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/model_use_guide.html)。
+> 更多关于手动构建训练网络的用法，可以参考文档[构建训练与评估网络](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/train_and_eval.html)以及[model基本使用](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/model_use_guide.html)。
 
 ## DynamicLossScaleManager
 

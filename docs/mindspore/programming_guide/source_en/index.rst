@@ -65,14 +65,9 @@ MindSpore Programming Guide
 
 .. toctree::
    :maxdepth: 1
-   :caption: Execution Management
-
-   context
-
-.. toctree::
-   :maxdepth: 1
    :caption: Model Running
 
+   context
    run
    save_and_load_models
    model
