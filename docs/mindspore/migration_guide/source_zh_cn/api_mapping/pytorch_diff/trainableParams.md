@@ -8,11 +8,15 @@
 torch.nn.Module.parameters()
 ```
 
+更多内容详见[torch.nn.Module.parameters](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.Module.parameters)。
+
 ## mindspore.nn.Cell.trainable_params
 
 ```python
 mindspore.nn.Cell.trainable_params()
 ```
+
+更多内容详见[mindspore.nn.Cell.trainable_params](https://mindspore.cn/docs/api/zh-CN/r1.5/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.trainable_params)。
 
 ## 使用方式
 

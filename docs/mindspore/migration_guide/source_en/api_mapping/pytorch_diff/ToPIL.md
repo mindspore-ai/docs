@@ -10,11 +10,15 @@ class torchvision.transforms.ToPILImage(
     )
 ```
 
+For more information, see[torchvision.transforms.ToPILImage](https://pytorch.org/vision/0.10/transforms.html#torchvision.transforms.ToPILImage).
+
 ## mindspore.dataset.vision.py_transforms.ToPIL
 
 ```python
 class mindspore.dataset.vision.py_transforms.ToPIL
 ```
+
+For more information, see[mindspore.dataset.vision.py_transforms.ToPIL](https://mindspore.cn/docs/api/en/r1.5/api_python/dataset_vision/mindspore.dataset.vision.py_transforms.ToPIL.html#mindspore.dataset.vision.py_transforms.ToPIL).
 
 ## Differences
 

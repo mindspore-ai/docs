@@ -11,11 +11,15 @@ class torch.nn.Flatten(
 )
 ```
 
+更多内容详见[torch.nn.Flatten](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.Flatten)。
+
 ## mindspore.nn.Flatten
 
 ```python
 class mindspore.nn.Flatten()(input)
 ```
+
+更多内容详见[mindspore.nn.Flatten](https://mindspore.cn/docs/api/zh-CN/r1.5/api_python/nn/mindspore.nn.Flatten.html#mindspore.nn.Flatten)。
 
 ## 使用方式
 

@@ -15,6 +15,8 @@ class torch.optim.Adagrad(
 )
 ```
 
+For more information, see[torch.optim.Adagrad](https://pytorch.org/docs/1.5.0/optim.html#torch.optim.Adagrad).
+
 ## mindspore.nn.Adagrad
 
 ```python
@@ -27,6 +29,8 @@ class mindspore.nn.Adagrad(
     weight_decay=0.0
 )(grads)
 ```
+
+For more information, see[mindspore.nn.Adagrad](https://mindspore.cn/docs/api/en/r1.5/api_python/nn/mindspore.nn.Adagrad.html#mindspore.nn.Adagrad).
 
 ## Differences
 

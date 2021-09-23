@@ -12,6 +12,8 @@ torch.Tensor.scatter_add_(
 )
 ```
 
+更多内容详见[torch.Tensor.scatter_add_](https://pytorch.org/docs/1.5.0/tensors.html#torch.Tensor.scatter_add_)。
+
 ## mindspore.ops.ScatterNdAdd
 
 ```python
@@ -21,6 +23,8 @@ class mindspore.ops.ScatterNdAdd(use_locking=False)(
     update
 )
 ```
+
+更多内容详见[mindspore.ops.ScatterNdAdd](https://mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.ScatterNdAdd.html#mindspore.ops.ScatterNdAdd)。
 
 ## 使用方式
 

@@ -10,6 +10,8 @@ class torchvision.transforms.ConvertImageDtype(
     )
 ```
 
+For more information, see[torchvision.transforms.ConvertImageDtype](https://pytorch.org/vision/0.10/transforms.html#torchvision.transforms.ConvertImageDtype).
+
 ## mindspore.dataset.vision.py_transforms.ToType(output_type)
 
 ```python
@@ -17,6 +19,8 @@ class mindspore.dataset.vision.py_transforms.ToType(
     output_type
     )
 ```
+
+For more information, see[mindspore.dataset.vision.py_transforms.ToType](https://mindspore.cn/docs/api/en/r1.5/api_python/dataset_vision/mindspore.dataset.vision.py_transforms.ToType.html#mindspore.dataset.vision.py_transforms.ToType).
 
 ## Differences
 

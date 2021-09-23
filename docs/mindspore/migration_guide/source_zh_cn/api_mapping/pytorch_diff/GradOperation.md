@@ -14,6 +14,8 @@ torch.autograd.backward(
 )
 ```
 
+更多内容详见[torch.autograd.backward](https://pytorch.org/docs/1.5.0/autograd.html#torch.autograd.backward)。
+
 ## torch.autograd.grad
 
 ```python
@@ -28,6 +30,8 @@ torch.autograd.grad(
 )
 ```
 
+更多内容详见[torch.autograd.grad](https://pytorch.org/docs/1.5.0/autograd.html#torch.autograd.grad)。
+
 ## mindspore.ops.GradOperation
 
 ```python
@@ -37,6 +41,8 @@ class mindspore.ops.GradOperation(
   sens_param=False
 )
 ```
+
+更多内容详见[mindspore.ops.GradOperation](https://mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.GradOperation.html#mindspore.ops.GradOperation)。
 
 ## 使用方式
 

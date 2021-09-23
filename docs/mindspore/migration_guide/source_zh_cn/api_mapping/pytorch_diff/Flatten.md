@@ -12,11 +12,15 @@ torch.flatten(
 )
 ```
 
+更多内容详见[torch.flatten](https://pytorch.org/docs/1.5.0/torch.html#torch.flatten)。
+
 ## mindspore.ops.Flatten
 
 ```python
 class mindspore.ops.Flatten(*args, **kwargs)(input_x)
 ```
+
+更多内容详见[mindspore.ops.Flatten](https://mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.Flatten.html#mindspore.ops.Flatten)。
 
 ## 使用方式
 

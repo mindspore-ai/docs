@@ -11,6 +11,8 @@ torch.min(
     keepdim=False)
 ```
 
+更多内容详见[torch.min](https://pytorch.org/docs/1.5.0/torch.html#torch.min)。
+
 ## mindspore.ops.ArgMinWithValue
 
 ```python
@@ -19,6 +21,8 @@ class mindspore.ops.ArgMinWithValue(
     keep_dims=False
 )(input_x)
 ```
+
+更多内容详见[mindspore.ops.ArgMinWithValue](https://mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.ArgMinWithValue.html#mindspore.ops.ArgMinWithValue)。
 
 ## 使用方式
 

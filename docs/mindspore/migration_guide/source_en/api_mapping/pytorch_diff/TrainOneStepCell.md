@@ -8,6 +8,8 @@
 torch.optim.Optimizer.step(closure)
 ```
 
+For more information, see[torch.optim.Optimizer.step](https://pytorch.org/docs/1.5.0/optim.html#torch.optim.Optimizer.step).
+
 ## mindspore.nn.TrainOneStepCell
 
 ```python
@@ -17,6 +19,8 @@ class mindspore.nn.TrainOneStepCell(
     sens=1.0
 )((*inputs))
 ```
+
+For more information, see[mindspore.nn.TrainOneStepCell](https://mindspore.cn/docs/api/en/r1.5/api_python/nn/mindspore.nn.TrainOneStepCell.html#mindspore.nn.TrainOneStepCell).
 
 ## Differences
 

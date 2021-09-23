@@ -8,17 +8,23 @@
 torch.autograd.enable_grad()
 ```
 
+更多内容详见[torch.autograd.enable_grad](https://pytorch.org/docs/1.5.0/autograd.html#torch.autograd.enable_grad)。
+
 ## torch.autograd.no_grad
 
 ```python
 torch.autograd.no_grad()
 ```
 
+更多内容详见[torch.autograd.no_grad](https://pytorch.org/docs/1.5.0/autograd.html#torch.autograd.no_grad)。
+
 ## mindspore.ops.stop_gradient
 
 ```python
 mindspore.ops.stop_gradient(input)
 ```
+
+更多内容详见[mindspore.ops.stop_gradient](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/mindspore.ops.html#functional)。
 
 ## 使用方式
 
