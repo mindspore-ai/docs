@@ -12,6 +12,8 @@
         - [转换工具converter](#转换工具converter)
             - [概述](#概述)
             - [环境准备](#环境准备)
+            - [扩展配置](#扩展配置)
+            - [NNIE配置](#nnie配置)
             - [执行converter](#执行converter)
         - [推理工具runtime](#推理工具runtime)
             - [概述](#概述)
@@ -102,29 +104,37 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
 
     ${PACKAGE_ROOT_PATH}是解压得到的文件夹路径。
 
-4. 使能NNIE模型转换
+#### 扩展配置
 
-    NNIE模型可以使用NNIE硬件以提高模型运行速度，用户需配置以下两点，以使能NNIE模型转换。
+在转换阶段，为了能够加载扩展模块，用户需要配置扩展动态库路径。扩展相关的参数有`plugin_path`，`disable_fusion`。参数的详细介绍如下所示：
 
-    - NNIE转换配置文件
+| 参数 | 属性 | 功能描述 | 参数类型 | 默认值 | 取值范围 |
+| ---- | ---- | -------- | -------- | ------ | -------- |
+| plugin_path | 可选 | 第三方库加载路径 | String | - | 如有多个请用`;`分隔 |
+| disable_fusion | 可选 | 是否关闭融合优化 | String | off | off、on |
 
-        MindSpore Lite所需的NNIE转换配置文件，需参照海思提供的《HiSVP 开发指南》中表格`nnie_mapper 配置选项说明`来进行配置，以nnie.cfg指代此配置文件：
+发布件中已为用户生成好默认的配置文件（converter.cfg）。文件内保存着NNIE动态库的相对路径，用户需要依据实际情况，决定是否需要手动修改该配置文件。该配置文件内容如下：
 
-        nnie.cfg文件的示例参考如下：
+```ini
+[registry]
+plugin_path=../providers/Hi3516D/libmslite_nnie_converter.so
+```
 
-        ```text
-        [net_type] 0
-        [image_list] ./input_nchw.txt
-        [image_type] 0
-        [norm_type] 0
-        [mean_file] null
-        ```
+#### NNIE配置
 
-        `input_nchw.txt`为被转换CAFFE模型的浮点文本格式的输入数据，详情请参照《HiSVP 开发指南》中的`image_list`说明。在配置文件中，配置选项caffemodel_file、prototxt_file、is_simulation、instructions_name不可配置，其他选项功能可正常配置。
+NNIE模型可以使用NNIE硬件以提高模型运行速度，用户还需要配置NNIE自身的配置文件。用户需参照海思提供的《HiSVP 开发指南》中表格`nnie_mapper 配置选项说明`来进行配置，以nnie.cfg指代此配置文件：
 
-    - NNIE动态库路径配置（可选）
+nnie.cfg文件的示例参考如下：
 
-        在NNIE转换时，通过参数configFile传入配置文件(`--configFile=./converter.cfg`)以使能NNIE转换，配置方式请参见[推理模型转换的参数说明](https://www.mindspore.cn/lite/docs/zh-CN/r1.5/use/converter_tool.html#id5)。在配置文件中，保存着NNIE动态库的相对路径，用户可手动修改该路径，默认不需修改即可。
+```text
+[net_type] 0
+[image_list] ./input_nchw.txt
+[image_type] 0
+[norm_type] 0
+[mean_file] null
+```
+
+> `input_nchw.txt`为被转换CAFFE模型的浮点文本格式的输入数据，详情请参照《HiSVP 开发指南》中的`image_list`说明。在配置文件中，配置选项caffemodel_file、prototxt_file、is_simulation、instructions_name不可配置，其他选项功能可正常配置。
 
 #### 执行converter
 

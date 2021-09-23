@@ -55,14 +55,14 @@ mindspore-lite-{version}-linux-x64
 └── tools
     └── converter
         ├── include
-        │   └── registry             # 自定义算子、模型解析、转换优化注册头文件
+        │   └── registry             # 自定义算子、模型解析、节点解析、转换优化注册头文件
         ├── converter                # 模型转换工具
         │   └── converter_lite       # 可执行程序
         └── lib                      # 转换工具依赖的动态库
             ├── libglog.so.0         # Glog的动态库
-            └── libmslite_converter_plugin.so  # 注册插件的动态库
-            └── libopencv_core.so.4.5          # OpenCV的动态库
-            └── libopencv_imgcodecs.so.4.5     # OpenCV的动态库
+            ├── libmslite_converter_plugin.so  # 注册插件的动态库
+            ├── libopencv_core.so.4.5          # OpenCV的动态库
+            ├── libopencv_imgcodecs.so.4.5     # OpenCV的动态库
             └── libopencv_imgproc.so.4.5       # OpenCV的动态库
 ```
 
@@ -79,7 +79,7 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 | `--modelFile=<MODELFILE>` | 是 | 输入模型的路径。 | - | - |
 | `--outputFile=<OUTPUTFILE>` | 是 | 输出模型的路径，不需加后缀，可自动生成`.ms`后缀。 | - | - |
 | `--weightFile=<WEIGHTFILE>` | 转换Caffe模型时必选 | 输入模型weight文件的路径。 | - | - |
-| `--configFile=<CONFIGFILE>` | 否 | 1）可作为训练后量化配置文件路径；2）可作为转换器的配置文件路径。  |  - | -  |
+| `--configFile=<CONFIGFILE>` | 否 | 1）可作为训练后量化配置文件路径；2）可作为扩展功能配置文件路径。  | - | -  |
 | `--fp16=<FP16>` | 否 | 设定在模型序列化时是否需要将Float32数据格式的权重存储为Float16数据格式。 | on、off | off |
 | `--inputShape=<INPUTSHAPE>` | 否 | 设定模型输入的维度，输入维度的顺序和原始模型保持一致。对某些特定的模型可以进一步优化模型结构，但是转化后的模型将可能失去动态shape的特性。多个输入用`;`分割，同时加上双引号`""`。 | e.g.  "inTensorName_1: 1,32,32,4;inTensorName_2:1,64,64,4;" | - |
 | `--inputDataFormat=<INPUTDATAFORMAT>` | 否 | 设定导出模型的输入format，只对4维输入有效。 | NHWC、NCHW | NHWC |
@@ -88,13 +88,7 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 > - Caffe模型一般分为两个文件：`*.prototxt`模型结构，对应`--modelFile`参数；`*.caffemodel`模型权值，对应`--weightFile`参数。
 > - `--fp16`的优先级很低，比如如果开启了量化，那么对于已经量化的权重，`--fp16`不会再次生效。总而言之，该选项只会在序列化时对模型中的Float32的权重生效。
 > - `inputDataFormat`：一般在集成NCHW规格的三方硬件场景下(例如[集成NNIE使用说明](https://www.mindspore.cn/lite/docs/zh-CN/r1.5/use/nnie.html#nnie))，设为NCHW比NHWC会有较明显的性能提升。在其他场景下，用户也可按需设置。
-
-`configFile`配置文件采用`key=value`的方式定义相关参数，量化相关的配置参数详见[训练后量化](https://www.mindspore.cn/lite/docs/zh-CN/r1.5/use/post_training_quantization.html)，其他可配置的`key`如下:
-
-|   参数名  |  属性   |     功能描述    |  参数类型 |   默认值 | 取值范围  |
-| -------- | ------- | -----          | -----    | -----     |  ----- |
-| plugin_path | 可选 | 第三方库加载路径  | String  |  -  | 如有多个请用`;`分隔   |
-| disable_fusion | 可选 | 是否关闭融合优化 | String  |  off  |  off、on |
+> - `configFile`配置文件采用`key=value`的方式定义相关参数，量化相关的配置参数详见[训练后量化](https://www.mindspore.cn/lite/docs/zh-CN/r1.5/use/post_training_quantization.html)，扩展功能相关的配置参数详见[扩展配置](https://www.mindspore.cn/lite/docs/zh-CN/r1.5/use/nnie.html#id6)。
 
 ### 使用示例
 
@@ -173,8 +167,6 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 mindspore-lite-{version}-win-x64
 └── tools
     └── converter # 模型转换工具
-        ├── include
-        │   └── registry              # 自定义算子、模型解析、转换优化注册头文件
         ├── converter
         │   └── converter_lite.exe    # 可执行程序
         └── lib
@@ -255,13 +247,13 @@ set GLOG_v=1
 
 ## 高级用法
 
-本章节提供了扩展MindSpore Lite转换工具的示例程序，涵盖了Pass的创建全流程以及编译链接全流程，用户能够快速了解转换工具的扩展API的使用。
+仅在Linux环境下，转换工具提供了外部扩展功能。
 
-本章节以一个tflite为[原始模型](https://download.mindspore.cn/model_zoo/official/lite/quick_start/add.tflite)为例，该模型仅包含一个简单的Add算子，通过扩展的Pass类，将Add算子转化为[Custom算子](https://www.mindspore.cn/lite/docs/zh-CN/r1.5/use/register_kernel.html#custom)，最终输出Custom单算子模型。
+本章节将通过MindSpore Lite转换工具扩展功能的示例程序，涵盖了Pass的创建全流程以及编译链接全流程，来使用户能够快速了解转换工具的扩展功能的使用。
+
+本章节以[add.tflite](https://download.mindspore.cn/model_zoo/official/lite/quick_start/add.tflite)模型为例。该模型仅包含一个简单的Add算子，通过扩展的Pass类，将Add算子转化为[Custom算子](https://www.mindspore.cn/lite/docs/zh-CN/r1.5/use/register_kernel.html#custom)，最终输出Custom单算子模型。
 
 相关代码放置在[mindspore/lite/examples/converter_extend](https://gitee.com/mindspore/mindspore/tree/r1.5/mindspore/lite/examples/converter_extend)目录。
-
-本章节仅提供了在Linux环境下的使用说明,并且仅在1.3及以上版本支持。
 
 ### Pass扩展
 
@@ -286,7 +278,7 @@ set GLOG_v=1
 
 - 编译构建
 
-  在`mindspore/lite/examples/converter_extend`目录下执行[build脚本](https://gitee.com/mindspore/mindspore/blob/r1.5/mindspore/lite/examples/converter_extend/build.sh)，将自动下载MindSpore Lite发布件并编译Demo。
+  在`mindspore/lite/examples/converter_extend`目录下执行[build.sh](https://gitee.com/mindspore/mindspore/blob/r1.5/mindspore/lite/examples/converter_extend/build.sh)，将自动下载MindSpore Lite发布件并编译Demo。
 
   ```bash
   bash build.sh
@@ -298,13 +290,13 @@ set GLOG_v=1
 
 - 编译输出
 
-  在`mindspore/lite/examples/converter_extend/build`目录下生成了libconverter_extend_tutorial.so的动态库。
+  在`mindspore/lite/examples/converter_extend/build`目录下生成了`libconverter_extend_tutorial.so`的动态库。
 
 #### 执行程序
 
 1. 拷贝动态库
 
-   将生成的libconverter_extend_tutorial.so动态库文件拷贝到发布件的tools/converter/lib下。
+   将生成的`libconverter_extend_tutorial.so`动态库文件拷贝到发布件的`tools/converter/lib`下。
 
 2. 进入发布件的转换目录
 
@@ -315,10 +307,11 @@ set GLOG_v=1
 3. 创建converter的配置文件（converter.cfg)，文件内容如下：
 
    ```text
-   plugin_path=libconverter_extend_tutorial.so      # 用户请配置动态库的绝对路径
+   [registry]
+   plugin_path=libconverter_extend_tutorial.so      # 用户请配置动态库的正确路径
    ```
 
-4. 将转换工具需要的动态链接库加入环境变量LD_LIBRARY_PATH
+4. 将转换工具需要的动态链接库加入环境变量`LD_LIBRARY_PATH`
 
    ```bash
    export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/tools/converter/lib
@@ -330,4 +323,4 @@ set GLOG_v=1
    ./converter_lite --fmk=TFLITE --modelFile=add.tflite --configFile=converter.cfg --outputFile=add_extend
    ```
 
-执行完后，将生成名为add_extend.ms的模型文件,文件路径由参数outputFile决定。
+执行完后，将生成名为`add_extend.ms`的模型文件,文件路径由参数`outputFile`决定。
