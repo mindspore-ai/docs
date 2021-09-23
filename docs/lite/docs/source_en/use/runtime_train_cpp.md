@@ -307,7 +307,7 @@ MindSpore Lite provides the following methods to obtain model input tensors:
     }
 
     // Assuming data_ptr is the pointer to a batch of data tensors
-    // and iassuming label_ptr is a pointer to a batch of label indices (obtained by the DataLoder)
+    // and assuming label_ptr is a pointer to a batch of label indices (obtained by the DataLoder)
     auto *in_data = inputs.at(data_index)->MutableData();
     auto *in_labels = inputs.at(label_index)->MutableData();
     if ((in_data == nullptr)|| (in_labels == nullptr)) {
@@ -324,7 +324,7 @@ MindSpore Lite provides the following methods to obtain model input tensors:
 Note:  
 
 - The data layout in the model input tensors of MindSpore Lite must be NHWC (bathc size, height, weight and channel).
-- The Tensors returned by `GetInputs` and `GetInputsByTensorName` methods shuold not be released by users.
+- The Tensors returned by `GetInputs` and `GetInputByTensorName` methods shuold not be released by users.
 
 ### Obtaining Output Tensors
 
