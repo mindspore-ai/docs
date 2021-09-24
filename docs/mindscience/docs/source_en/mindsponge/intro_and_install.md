@@ -34,10 +34,11 @@ pip install mindspore-gpu
 #### Install MindSPONGE
 
 ```bash
-cd ~/MindScience/MindSPONGE
-bash build.sh
-pip install ./output/mindsponge-*.whl
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/mindscience/x86_64/mindscience_mindsponge_gpu-{version}-py3-none-any.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
+
+> - When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about other dependency items, see [setup.py](https://gitee.com/mindspore/mindscience/blob/r0.1/MindSPONGE/setup.py)). In other cases, you need to manually install dependency items.
+> - `{version}` refers to the MindSPONGE version. For example, if you want to install MindSPONGE 0.1.0, {version} should be 0.1.0.
 
 ### Install by Source Code
 

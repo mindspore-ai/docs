@@ -53,3 +53,11 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/mindsc
     cd ~/MindScience/MindSPONGE
     python setup.py install --user
     ```
+
+## 验证是否成功安装
+
+执行如下命令，如果没有报错`No module named 'mindsponge'`，则说明安装成功。
+
+```bash
+python -c 'import mindsponge'
+```
