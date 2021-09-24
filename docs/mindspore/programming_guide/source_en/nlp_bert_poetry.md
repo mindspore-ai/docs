@@ -17,7 +17,6 @@
         - [Data Preparation](#data-preparation)
         - [Training](#training)
         - [Inference Validation](#inference-validation)
-        - [Service Deployment](#service-deployment)
     - [References](#references)
 
 <!-- /TOC -->
@@ -34,8 +33,6 @@ Use MindSpore to train an intelligent poem writing model and deploy the predicti
 Figure 1: Case flowchart
 
 The following skips the process of pre-training BERT and directly describes the process of fine-tuning a pre-trained BERT-base model of MindSpore.
-
-In addition, the following shows how to deploy the model as a prediction service through MindSpore Serving. The client code can send a request to the prediction service and obtain the prediction result.
 
 ## Model Description
 
@@ -101,13 +98,6 @@ Download the [sample code](https://mindspore-website.obs.cn-north-4.myhuaweiclou
   ├── vocab.txt                            # Vocabulary
   ├── generator.py                         # Function used for generating poems during inference
   ├── poetry.py                            # Training, inference, and export functions
-  ├── serving
-    ├── ms_serving                         # Enabling MindSpore Serving
-    ├── bert_flask.py                      # Receiving requests on a server.
-    ├── poetry_client.py                   # Client code
-    ├── ms_service_pb2_grpc.py             # Defining grpc-related functions for bert_flask.py
-    └── ms_service_pb2.py                  # Defining protocol buffer-related functions for bert_flask.py
-
 ```
 
 ## Implementation Procedure
@@ -197,103 +187,6 @@ An acrostic poem:
 智士不知身没处，
 能令圣德属何年。
 ```
-
-### Service Deployment
-
-Use MindSpore Serving to deploy the trained model as an inference service. Server-side deployment includes the following steps: model export, Serving startup, and startup for preprocessing and post-processing services. A client sends an inference request to a server for model inference. The server returns the generated poem to the client for display.
-
-- Model export
-
-    Before using Serving to deploy a service, export the MindIR model using the `export_net` function provided in `poetry.py`.
-
-    ```bash
-    python poetry.py --export=True --ckpt_path=/your/ckpt/path
-    ```
-
-    The `poetry.pb` file is generated in the current path.
-
-- Serving startup
-
-    Start Serving on the server and load the exported MindIR file `poetry.pb`.
-
-    ```bash
-    cd serving
-    ./ms_serving --model_path=/path/to/your/MINDIR_file --model_name=your_mindir.pb
-    ```
-
-- Startup for preprocessing and post-processing services
-
-    Implement the preprocessing and post-processing services using the Flask framework. Run the `bert_flask.py` file on the server to start the Flask service.
-
-    ```bash
-    python bert_flask.py
-    ```
-
-    After the preceding steps are performed, the server-side deployment is complete.
-
-- Client
-
-    Use a computer as the client. Set the URL request address in `poetry_client.py` to the IP address of the server where the inference service is started, and ensure that the port number is the same as that in `bert_flask.py` on the server. For example:
-
-    ```text
-    url = 'http://10.155.170.71:8080/'
-    ```
-
-    Run the `poetry_client.py` file.
-
-    ```bash
-    python poetry_client.py
-    ```
-
-    Enter an instruction on the client to perform inference on the remote server to obtain a poem.
-
-    ```text
-    选择模式：0-随机生成，1：续写，2：藏头诗
-    0
-    ```
-
-    ```text
-    一朵黄花叶，
-    千竿绿树枝。
-    含香待夏晚，
-    澹浩长风时。
-    ```
-
-    ```text
-    选择模式：0-随机生成，1：续写，2：藏头诗
-    1
-    输入首句诗
-    明月
-    ```
-
-    ```text
-    明月照三峡，
-    长空一片云。
-    秋风与雨过，
-    唯有客舟分。
-    寒影出何处，
-    远林含不闻。
-    不知前后事，
-    何道逐风君。
-    ```
-
-    ```text
-    选择模式：0-随机生成，1：续写，2：藏头诗
-    2
-    输入藏头诗
-    人工智能
-    ```
-
-    ```text
-    人生事太远，
-    工部与神期。
-    智者岂无识，
-    能文争有疑。
-    ```
-
-    Read the poem and appreciate its tonal patterns, rhymes, and meanings. An AI poet has established fame.
-
-> You can also modify other datasets to complete simple generation tasks, such as the Chinese New Year couplet writing and simple chat robot.
 
 ## References
 
