@@ -19,6 +19,7 @@ import numpy as np
 import cv2
 import mmcv
 from pycocotools.coco import COCO
+from pycocotools import mask as maskHelper
 from src.config import config
 import mindspore.dataset as de
 
@@ -517,11 +518,11 @@ def annToMask(ann, height, width):
     """Convert annotation to RLE and then to binary mask."""
     segm = ann['segmentation']
     if isinstance(segm, list):
-        rles = COCO.mask.frPyObjects(segm, height, width)
-        rle = COCO.mask.merge(rles)
+        rles = maskHelper.frPyObjects(segm, height, width)
+        rle = maskHelper.merge(rles)
     elif isinstance(segm['counts'], list):
-        rle = COCO.mask.frPyObjects(segm, height, width)
+        rle = maskHelper.frPyObjects(segm, height, width)
     else:
         rle = ann['segmentation']
-    m = COCO.mask.decode(rle)
+    m = maskHelper.decode(rle)
     return m
