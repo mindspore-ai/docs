@@ -50,10 +50,4 @@ export RANK_ID=0
 echo "start training for device 0"
 env > env0.log
 python ./train.py --distribute=true --file_path=${DATA_PATH} --mp=${RANK_SIZE} > train.log0 2>&1 &
-if [ $? -eq 0 ];then
-    echo "training success"
-else
-    echo "training failed"
-    exit 2
-fi
 cd ../
