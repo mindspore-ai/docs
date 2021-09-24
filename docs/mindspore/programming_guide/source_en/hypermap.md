@@ -1,8 +1,8 @@
-﻿# Hypermap
+﻿# Operation Overloading
 
 <!-- TOC -->
 
-- [Hypermap](#hypermap)
+- [Operation Overloading](operation-overloading)
     - [Overview](#overview)
     - [MultitypeFuncGraph](#multitypefuncgraph)
     - [HyperMap](#hypermap)
