@@ -25,7 +25,7 @@
 Create a directory to store the inference code project, for example, `/home/mindspore_sample/gpu_resnet50_inference_sample`. You can download the [sample code](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/gpu_resnet50_inference_sample) from the official website. The `model` directory is used to store the exported `MindIR` [model file](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet.mindir). The directory structure of the inference code project is as follows:
 
 ```text
-└─gpu_resnet50_preprocess_sample
+└─gpu_resnet50_inference_sample
     ├── build.sh                          // Build script
     ├── CMakeLists.txt                    // CMake script
     ├── README.md                         // Usage description
@@ -119,13 +119,13 @@ target_link_libraries(main ${MS_LIB})
 
 ### Building Inference Code
 
-Go to the project directory `gpu_resnet50_preprocess_sample` and modify the `pip3` in the `build.sh` based on the actual situation. And then execute the building script.
+Go to the project directory `gpu_resnet50_inference_sample` and modify the `pip3` in the `build.sh` based on the actual situation. And then execute the building script.
 
 ```bash
 bash build.sh
 ```
 
-After building, the executable `main` file is generated in `gpu_resnet50_preprocess_sample/out`.
+After building, the executable `main` file is generated in `gpu_resnet50_inference_sample/out`.
 
 ### Performing Inference and Viewing the Result
 

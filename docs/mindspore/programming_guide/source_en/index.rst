@@ -24,6 +24,8 @@ MindSpore Programming Guide
    Design of Visualization↗ <https://www.mindspore.cn/mindinsight/docs/en/master/training_visual_design.html>
    design/glossary
 
+Note: Clicking on the title with "↗" will leave the Programming Guide page.
+
 .. toctree::
    :maxdepth: 1
    :caption: Quickstart
