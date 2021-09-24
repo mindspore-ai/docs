@@ -34,7 +34,7 @@ class mindspore.ops.GradOperation(
 
 ## 使用方式
 
-TensorFlow: 计算`ys`关于`xs`的梯度，返回一个与`xs`长度相同的列表。
+TensorFlow：计算`ys`关于`xs`的梯度，返回一个与`xs`长度相同的列表。
 
 MindSpore：计算梯度，其中`get_all`为False时，只会对第一个输入求导，为True时，会对所有输入求导；`get_by_list`为False时，不会对权重求导，为True时，会对权重求导；`sens_param`对网络的输出值做缩放以改变最终梯度。
 

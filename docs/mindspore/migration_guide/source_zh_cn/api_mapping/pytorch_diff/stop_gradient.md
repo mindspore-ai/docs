@@ -28,6 +28,6 @@ mindspore.ops.stop_gradient(input)
 
 ## 使用方式
 
-PyTorch: 使用`torch.autograd.enable_grad`启用梯度计算，使用`torch.autograd.no_grad`禁用梯度计算。
+PyTorch：使用`torch.autograd.enable_grad`启用梯度计算，使用`torch.autograd.no_grad`禁用梯度计算。
 
 MindSpore：使用[stop_gradient](https://www.mindspore.cn/tutorials/zh-CN/r1.5/autograd.html#%E5%81%9C%E6%AD%A2%E8%AE%A1%E7%AE%97%E6%A2%AF%E5%BA%A6)禁止网络内的算子对梯度的影响。

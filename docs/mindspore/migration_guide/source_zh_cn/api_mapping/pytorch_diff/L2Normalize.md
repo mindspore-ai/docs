@@ -29,7 +29,7 @@ class mindspore.ops.L2Normalize(
 
 ## 使用方式
 
-PyTorch: 支持通过指定参数`p`来使用Lp范式。
+PyTorch：支持通过指定参数`p`来使用Lp范式。
 
 MindSpore：仅支持L2范式。
 

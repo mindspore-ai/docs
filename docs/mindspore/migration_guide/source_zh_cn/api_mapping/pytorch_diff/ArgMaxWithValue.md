@@ -26,7 +26,7 @@ class mindspore.ops.ArgMaxWithValue(
 
 ## 使用方式
 
-PyTorch: 输出为元组(最大值, 最大值的索引)。
+PyTorch：输出为元组(最大值, 最大值的索引)。
 
 MindSpore：输出为元组(最大值的索引, 最大值)。
 

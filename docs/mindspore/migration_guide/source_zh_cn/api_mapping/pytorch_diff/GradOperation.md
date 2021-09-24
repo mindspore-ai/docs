@@ -46,7 +46,7 @@ class mindspore.ops.GradOperation(
 
 ## 使用方式
 
-PyTorch: 使用`torch.autograd.backward`计算给定Tensor关于叶子节点的梯度总和，反向传播计算Tensor的梯度时，只计算`requires_grad=True`的叶子节点的梯度。使用`torch.autograd.grad`计算并返回输出关于输入的梯度总和，如果`only_inputs`为True，仅返回与指定输入相关的梯度列表。
+PyTorch：使用`torch.autograd.backward`计算给定Tensor关于叶子节点的梯度总和，反向传播计算Tensor的梯度时，只计算`requires_grad=True`的叶子节点的梯度。使用`torch.autograd.grad`计算并返回输出关于输入的梯度总和，如果`only_inputs`为True，仅返回与指定输入相关的梯度列表。
 
 MindSpore：计算梯度，其中`get_all`为False时，只会对第一个输入求导，为True时，会对所有输入求导；`get_by_list`为False时，不会对权重求导，为True时，会对权重求导；`sens_param`对网络的输出值做缩放以改变最终梯度。
 

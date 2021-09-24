@@ -31,7 +31,7 @@ class mindspore.SparseTensor(
 
 ## 使用方式
 
-PyTorch: 以`COO(rdinate)`格式构造一个稀疏张量。
+PyTorch：以`COO(rdinate)`格式构造一个稀疏张量。
 
 MindSpore：构造稀疏张量，只能在`Cell`的构造方法中使用，PyNative模式暂不支持稀疏张量。
 

@@ -20,6 +20,6 @@ class mindspore.ParameterTuple()
 
 ## 使用方式
 
-PyTorch: 以列表形式储存网络参数。
+PyTorch：以列表形式储存网络参数。
 
 MindSpore：以元组形式储存网络参数。

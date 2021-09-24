@@ -23,7 +23,7 @@ class mindspore.ops.Cast(*args, **kwargs)(
 
 ## 使用方式
 
-PyTorch: 将tensor类型转成为float类型。
+PyTorch：将tensor类型转成为float类型。
 
 MindSpore：将输入类型转换为指定的数据类型。
 

@@ -32,7 +32,7 @@ class mindspore.nn.CosineDecayLR(
 
 ## 使用方式
 
-TensorFlow: 计算公式如下：
+TensorFlow：计算公式如下：
 
 `global_step = min(global_step, decay_steps)`
 
