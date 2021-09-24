@@ -14,6 +14,8 @@ class tf.keras.optimizers.SGD(
 )
 ```
 
+更多内容详见[tf.keras.optimizers.SGD](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/optimizers/SGD)。
+
 ## mindspore.nn.SGD
 
 ```python
@@ -27,6 +29,8 @@ class mindspore.nn.SGD(
     loss_scale=1.0
 )(grads)
 ```
+
+更多内容详见[mindspore.nn.SGD](https://mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.SGD.html)。
 
 ## 使用方式
 

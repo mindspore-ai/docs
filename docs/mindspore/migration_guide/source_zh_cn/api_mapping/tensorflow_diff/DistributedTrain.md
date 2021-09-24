@@ -12,6 +12,8 @@ losses =  strategy.reduce(tf.distribute.ReduceOp.SUM, per_replica_losses,
 
 ```
 
+更多内容详见[tf.distribute.Strategy](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/distribute/Strategy)。
+
 ## mindspore.context.set_auto_parallel_context(ParallelMode=ParallelMode.DataParallel, gradients_mean=True)
 
 ```python
@@ -21,6 +23,8 @@ context.set_auto_parallel_context(ParallelMode=ParallelMode.DataParallel, gradie
 init()
 # Run net, the same with stand alone training
 ```
+
+更多内容详见[context.set_auto_parallel_context(ParallelMode=ParallelMode.DataParallel)](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.context.html#mindspore.context.set_auto_parallel_context)。
 
 ## 使用方式
 
