@@ -1,4 +1,4 @@
-# Introduction and Installation of MindSPONGE
+# MindSPONGE Introduction and Installation
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindscience/docs/source_en/mindsponge/intro_and_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 

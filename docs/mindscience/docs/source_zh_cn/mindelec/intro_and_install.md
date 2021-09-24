@@ -1,4 +1,4 @@
-# MindElec介绍与安装
+# MindElec介绍和安装
 
 <!-- TOC -->
 

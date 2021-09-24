@@ -27,7 +27,7 @@
 首先创建目录放置推理代码工程，例如`/home/mindspore_sample/gpu_resnet50_inference_sample`，可以从官网示例下载[样例代码](https://gitee.com/mindspore/docs/tree/r1.5/docs/sample_code/gpu_resnet50_inference_sample)，`model`目录用于存放`MindIR`[模型文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet.mindir)，推理代码工程目录结构如下：
 
 ```text
-└─gpu_resnet50_preprocess_sample
+└─gpu_resnet50_inference_sample
     ├── build.sh                          // 构建脚本
     ├── CMakeLists.txt                    // CMake构建脚本
     ├── README.md                         // 使用说明
@@ -132,7 +132,7 @@ target_link_libraries(main ${MS_LIB})
 
 ### 编译推理代码
 
-接下来编译推理的代码，首先要进入工程目录`gpu_resnet50_preprocess_sample`：
+接下来编译推理的代码，首先要进入工程目录`gpu_resnet50_inference_sample`：
 
 可以根据实际情况对build.sh中的`pip3`修改，修改完成后`bash build.sh`命令编译即可。
 
@@ -140,7 +140,7 @@ target_link_libraries(main ${MS_LIB})
 bash build.sh
 ```
 
-编译完成后，在`gpu_resnet50_preprocess_sample/out`下会生成可执行`main`文件。
+编译完成后，在`gpu_resnet50_inference_sample/out`下会生成可执行`main`文件。
 
 ### 执行推理并查看结果
 
