@@ -396,11 +396,13 @@ A: Stream represents an operation queue. Tasks on the same stream are executed i
 
 - Reduce conditional control statements in the network
 
+<br/>
+
 <font size=3>**Q: On the Ascend platform, if an error "Ascend error occurred, error message:" is reported and followed by an error code, such as "E40011", how to find the cause of the error code?**</font>
 
-When "Ascend error occurred, error message:" appears, it indicates that a module of Ascend CANN is abnormal and the error code is reported.
+A: When "Ascend error occurred, error message:" appears, it indicates that a module of Ascend CANN is abnormal and the error code is reported.
 
-At this time, there is an error message after the error code. If you need a more detailed possible cause and solution for this exception, please refer to the "error code troubleshooting" section of the corresponding Ascend version document, such as [CANN Community 5.0.3 alpha 002 (training) Error Code troubleshooting](https://support.huaweicloud.com/trouble-cann503alpha2training/atlaspd_15_0002.html).
+At this time, there is an error message after the error code. If you need a more detailed possible cause and solution for this exception, please refer to the "error code troubleshooting" section of the corresponding Ascend version document, such as [CANN Community 5.0.3 alpha 002 (training) Error Code troubleshooting](https://support.huaweicloud.com/trouble-cann503alpha2training/atlaspd_15_0001.html).
 
 ## Network Compilation Problems
 
