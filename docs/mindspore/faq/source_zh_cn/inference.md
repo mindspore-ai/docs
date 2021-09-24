@@ -4,6 +4,36 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_zh_cn/inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
+<font size=3>**Q: 在Ascend310硬件平台安装了MindSpore1.3版本，运行mindspore_serving中的`add_model.py`样例出现报错？**</font>
+
+A: Ascend310上支持模型导出、Serving推理，但是不支持MindSpore前端Python脚本直接推理，`add`样例中导出模型多了MindSpore前端Python脚本直接推理的代码，在Ascend310场景注释掉即可。
+
+```python
+def export_net():
+    """Export add net of 2x2 + 2x2, and copy output model `tensor_add.mindir` to directory ../add/1"""
+    x = np.ones([2, 2]).astype(np.float32)
+    y = np.ones([2, 2]).astype(np.float32)
+    add = Net()
+    # MindSpore前端Python脚本直接推理，310注释掉
+    # output = add(ms.Tensor(x), ms.Tensor(y))
+    ms.export(add, ms.Tensor(x), ms.Tensor(y), file_name='tensor_add', file_format='MINDIR')
+    dst_dir = '../add/1'
+    try:
+        os.mkdir(dst_dir)
+    except OSError:
+        pass
+
+    dst_file = os.path.join(dst_dir, 'tensor_add.mindir')
+    copyfile('tensor_add.mindir', dst_file)
+    print("copy tensor_add.mindir to " + dst_dir + " success")
+
+    print(x)
+    print(y)
+    # print(output.asnumpy())。
+```
+
+<br/>
+
 <font size=3>**Q: 编译应用时报错`/usr/bin/ld: warning: libxxx.so, needed by libmindspore.so, not found`怎么办？**</font>
 
 A: 寻找缺少的动态库文件所在目录，添加该路径到环境变量`LD_LIBRARY_PATH`中，环境变量设置参考[Ascend 310 AI处理器上使用MindIR模型进行推理#编译推理代码](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/multi_platform_inference_ascend_310_mindir.html#id6)。
