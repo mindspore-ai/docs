@@ -90,13 +90,7 @@ The following describes the parameters in detail.
 > - The Caffe model is divided into two files: model structure `*.prototxt`, corresponding to the `--modelFile` parameter; model weight `*.caffemodel`, corresponding to the `--weightFile` parameter.
 > - The priority of `--fp16` option is very low. For example, if quantization is enabled, `--fp16` will no longer take effect on const tensors that have been quantized. All in all, this option only takes effect on const tensors of Float32 when serializing model.
 > - `inputDataFormat`: generally, in the scenario of integrating third-party hardware of NCHW specification([Usage Description of the Integrated NNIE](https://www.mindspore.cn/lite/docs/en/r1.5/use/nnie.html#nnie)), designated as NCHW will have a significant performance improvement over NHWC. In other scenarios, users can also set as needed.
-
-The calibration dataset configuration file uses the `key=value` mode to define related parameters. For the configuration parameters related to quantization, please refer to [post training quantization](https://www.mindspore.cn/lite/docs/en/r1.5/use/post_training_quantization.html). For the configuration parameters related to extension, please refer to [Extension Configuration](https://www.mindspore.cn/lite/docs/en/r1.5/use/nnie.html#extension-configuration).
-
-| Parameter Name | Attribute | Function Description | Parameter Type | Default Value | Value Range |
-| -------- | ------- | -----          | -----    | -----     |  ----- |
-| plugin_path | Optional | Third-party library path | String | - | If there are more than one, please use `;` to separate. |
-| disable_fusion | Optional | Indicate whether to correct the quantization error | String | off | off or on. |
+> - The calibration dataset configuration file uses the `key=value` mode to define related parameters. For the configuration parameters related to quantization, please refer to [post training quantization](https://www.mindspore.cn/lite/docs/en/r1.5/use/post_training_quantization.html). For the configuration parameters related to extension, please refer to [Extension Configuration](https://www.mindspore.cn/lite/docs/en/r1.5/use/nnie.html#extension-configuration).
 
 ### Example
 
