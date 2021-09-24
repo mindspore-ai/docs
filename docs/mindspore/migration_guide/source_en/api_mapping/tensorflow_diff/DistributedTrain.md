@@ -12,7 +12,7 @@ losses =  strategy.reduce(tf.distribute.ReduceOp.SUM, per_replica_losses, axis=N
 
 For more information, see[tf.distribute.Strategy](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/distribute/Strategy).
 
-## mindspore.context.set_auto_parallel_context(ParallelMode=ParallelMode.DataParallel, gradients_mean=True)
+## mindspore.context.set_auto_parallel_context(parallel_mode=ParallelMode.DataParallel, gradients_mean=True)
 
 ```python
 from mindspore import context
