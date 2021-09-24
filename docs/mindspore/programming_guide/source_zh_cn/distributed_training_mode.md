@@ -30,21 +30,22 @@
 在用户调用分布式训练流程时，需要调用如下代码进行通信的初始化，并且配置对应的rank_table_file，可以参考[分布式训练(Ascend)](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/distributed_training_ascend.html#id20)的**多机多卡训练**章节。
 
 ```python
-import mindspore.communication.management as D
-D.init()
-device_num = D.get_group_size()
-rank = D.get_rank()
+from mindspore.communication import init, get_rank, get_group_size
+from mindspore import context
+init()
+device_num = get_group_size()
+rank = get_rank()
 print("rank_id is {}, device_num is {}".format(rank, device_num))
 context.reset_auto_parallel_context()
 # 下述的并行配置用户只需要配置其中一种模式
 # 数据并行模式
-context.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL)
+context.set_auto_parallel_context(parallel_mode=context.ParallelMode.DATA_PARALLEL)
 # 半自动并行模式
-# context.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL)
+# context.set_auto_parallel_context(parallel_mode=context.ParallelMode.SEMI_AUTO_PARALLEL)
 # 全并行模式
-# context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL)
+# context.set_auto_parallel_context(parallel_mode=context.ParallelMode.AUTO_PARALLEL)
 # 手动并行模式
-# context.set_auto_parallel_context(parallel_mode=ParallelMode.HYBRID_PARALLEL)
+# context.set_auto_parallel_context(parallel_mode=context.ParallelMode.HYBRID_PARALLEL)
 ```
 
 下述涉及的自动并行接口，例如`context.set_auto_parallel_context`中的接口配置，可以在[分布式并行接口](https://mindspore.cn/docs/programming_guide/zh-CN/r1.5/auto_parallel.html)进行查看。分布式并行训练在各场景的支持情况如下表。
@@ -61,11 +62,10 @@ context.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL)
 在数据并行中，用户定义网络的方式和单机脚本一样，但是在网络定义之前调用`D.init()`去初始化设备通信状态。
 
 ```python
-from mindspore import Tensor, context, Model
-import mindspore.communication.management as D
-import mindspore.ops as ops
-from mindspore import dtype as mstype
-import mindspore.nn as nn
+import numpy as np
+from mindspore import Tensor, context, Model, Parameter
+from mindspore.communication import init
+from mindspore import ops, nn
 
 class DataParallelNet(nn.Cell):
     def __init__(self):
@@ -81,9 +81,9 @@ class DataParallelNet(nn.Cell):
         x = self.reduce(x, -1)
         return x
 
-D.init()
+init()
 # 设置并行模式为数据并行，其他方式一致
-context.set_auto_parallel_context(mode=ParallelMode.DATA_PARALLEL)
+context.set_auto_parallel_context(parallel_mode=context.ParallelMode.DATA_PARALLEL)
 net = DataParallelNet()
 model = Model(net)
 model.train(...)
@@ -112,11 +112,10 @@ model.train(...)
     以`SemiAutoParallelNet`为例，在半自动并行模式下的脚本代码如下，`MatMul`的切分策略为`((1, 1),(1, 2))`，指定`self.weight`在第二维度上被切分两份。
 
     ```python
-    from mindspore import Tensor, context, Model
-    import mindspore.communication.management as D
-    import mindspore.ops as ops
-    from mindspore import dtype as mstype
-    import mindspore.nn as nn
+    import numpy as np
+    from mindspore import Tensor, context, Model, Parameter
+    from mindspore.communication import init
+    from mindspore import ops, nn
 
     class SemiAutoParallelNet(nn.Cell):
         def __init__(self):
@@ -126,7 +125,7 @@ model.train(...)
             self.weight = Parameter(Tensor(weight_init))
             self.weight2 = Parameter(Tensor(weight_init))
             # set shard strategy
-            self.fc = ops.MatMul().shard(((1, 1),(1, 2))
+            self.fc = ops.MatMul().shard(((1, 1),(1, 2)))
             # 在construct函数中去初始化并行调用operation算子时，相当于用户没有设置matmul算子的策略。那么默认的策略会自动配置数据并行
             # 即((8, 1), (1, 1))
             self.fc2 = ops.MatMul()
@@ -138,8 +137,8 @@ model.train(...)
             x = self.reduce(x, -1)
             return x
 
-    D.init()
-    context.set_auto_parallel_context(mode=ParallelMode.SEMI_AUTO_PARALLEL)
+    init()
+    context.set_auto_parallel_context(parallel_mode=context.ParallelMode.SEMI_AUTO_PARALLEL)
     net = SemiAutoParallelNet()
     model = Model(net)
     model.train(...)
@@ -148,25 +147,28 @@ model.train(...)
 在前后算子的设备矩阵不一致时，会自动插入[重排布](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/design/distributed_training_design.html?highlight=%E9%87%8D%E6%8E%92%E5%B8%83#id4), 确保`tensor`的切分状态符合下一个算子输入要求。例如在单机八卡的训练中，有下述的示例代码：
 
 ```python
-    class SemiAutoParallelNet(nn.Cell):
-        def __init__(self):
-            super(SemiAutoParallelNet, self).__init__()
-            # initialize full tensor weight
-            weight_init = np.random.rand(128, 128).astype(np.float32)
-            self.weight = Parameter(Tensor(weight_init))
-            self.weight2 = Parameter(Tensor(weight_init))
-            # set shard strategy
-            self.fc = ops.MatMul().shard(((1, 1),(1, 2))
-            self.fc2 = ops.MatMul().shard(((8, 1),(1, 1))
-            self.reduce = ops.ReduceSum()
+import numpy as np
+from mindspore import Tensor, Parameter
+from mindspore import ops, nn
+class SemiAutoParallelNet(nn.Cell):
+    def __init__(self):
+        super(SemiAutoParallelNet, self).__init__()
+        # initialize full tensor weight
+        weight_init = np.random.rand(128, 128).astype(np.float32)
+        self.weight = Parameter(Tensor(weight_init))
+        self.weight2 = Parameter(Tensor(weight_init))
+        # set shard strategy
+        self.fc = ops.MatMul().shard(((1, 1),(1, 2))
+        self.fc2 = ops.MatMul().shard(((8, 1),(1, 1))
+        self.reduce = ops.ReduceSum()
 
-        def construct(self, x):
-            x = self.fc(x, self.weight)
-            # 在实际运行中，经过fc的输出的tensor shape为 [batch, 64] (在最后一维度切分)
-            # 而fc2配置x的第0维度切分为8个分片，所以在实际执行上，此处会插入用户脚本中没有申明的StrideSlice算子，将x进行取切片操作
-            x = self.fc2(x, self.weight2)
-            x = self.reduce(x, -1)
-            return x
+    def construct(self, x):
+        x = self.fc(x, self.weight)
+        # 在实际运行中，经过fc的输出的tensor shape为 [batch, 64] (在最后一维度切分)
+        # 而fc2配置x的第0维度切分为8个分片，所以在实际执行上，此处会插入用户脚本中没有申明的StrideSlice算子，将x进行取切片操作
+        x = self.fc2(x, self.weight2)
+        x = self.reduce(x, -1)
+        return x
 ```
 
 因此，如果前后的算子对输入的切分要求不一样，插入的重排布算子可能会有`AllGather`、`Split`、`Concat`和`StridedSlice`等算子。因此会增加网络的计算和通信耗时。用户可以[保存ir图](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/design/mindir.html)查看整张网络的算子状态。其中自动并行流程产生的`ir`图名为`step_parallel_begin_xxxx.ir`和`step_parallel_end_xxxx.ir`。前者表示在进入并行流程之前图状态，后者表示经过自动并行流程处理后的图状态，用户可以查看后者这个文件查找自动并行插入的算子。
@@ -187,10 +189,11 @@ model.train(...)
 用户可以通过如下代码去设置上述的策略搜索算法：
 
 ```python
+from mindspore import context
 # 设置动态规划算法进行策略搜索
-context.set_auto_parallel_context(mode=ParallelMode.AUTO_PARALLEL, auto_parallel_search_mode="dynamic_programming")
+context.set_auto_parallel_context(parallel_mode=context.ParallelMode.AUTO_PARALLEL, auto_parallel_search_mode="dynamic_programming")
 # 设置双递归方法进行策略搜索
-context.set_auto_parallel_context(mode=ParallelMode.AUTO_PARALLEL, auto_parallel_search_mode="recursive_programming")
+context.set_auto_parallel_context(parallel_mode=context.ParallelMode.AUTO_PARALLEL, auto_parallel_search_mode="recursive_programming")
 ```
 
 > 在自动并行模式下，用户设置的`shard`策略也会生效，不会被搜索出来的策略覆盖掉。
@@ -200,11 +203,10 @@ context.set_auto_parallel_context(mode=ParallelMode.AUTO_PARALLEL, auto_parallel
 在MindSpore中特指用户通过手动切分模型实现混合并行的场景，用户可以在网络结构中定义通信算子原语`AllReduce`和`AllGather`等，手动的执行并行流程，例如下面的代码示例：
 
 ```python
+import numpy as np
 from mindspore import Tensor, context, Model
-import mindspore.communication.management as D
-import mindspore.ops as ops
-from mindspore import dtype as mstype
-import mindspore.nn as nn
+from mindspore.communication import init
+from mindspore import ops, nn, Parameter
 
 class HybridParallelNet(nn.Cell):
     def __init__(self):
@@ -225,8 +227,8 @@ class HybridParallelNet(nn.Cell):
         x = self.reduce(x)
         return x
 
-D.init()
-context.set_auto_parallel_context(mode=ParallelMode.HYBRID_PARALLEL)
+init()
+context.set_auto_parallel_context(parallel_mode=context.ParallelMode.HYBRID_PARALLEL)
 net = HybridParallelNet()
 model = Model(net)
 model.train(...)
@@ -243,6 +245,7 @@ model.train(...)
 - 模型并行导入。模型并行导入的方式主要针对图像领域中图像尺寸太大无法在单卡进行计算时，直接在输入流程上就对图像进行切分。MindSpore在`context.set_auto_parallel_context`中提供了`dataset_strategy`接口，用户可以通过这个接口配置更加灵活的输入策略。注意，当用户使用此接口时，需要确保`dataset`返回的`tensor`符合对应的切分策略。如下代码所示：
 
   ```python
+  from mindspore import context
   # 设置输入在第1维度上进行切分， 此时要求用户确保dataset返回的输入在第1维度上进行切分
   context.set_auto_parallel_context(dataset_strategy=((1, 8), (1, 8)))
   # 相当于设置full_batch=False
