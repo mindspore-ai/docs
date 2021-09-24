@@ -53,11 +53,11 @@ class LossCallBack(Callback):
     def step_end(self, run_context):
         cb_params = run_context.original_args()
         with open("./loss.log", "a+") as f:
-            f.write("epoch: {}, step: {}, outputs are {}".format(cb_params.cur_epoch_num, cb_params.cur_step_num,
-                                                                 str(cb_params.net_outputs)))
+            f.write("epoch: {}, step: {}, loss: {}".format(cb_params.cur_epoch_num, cb_params.cur_step_num,
+                                                           cb_params.net_outputs[0]))
             f.write("\n")
-        print("epoch: {}, step: {}, outputs are {}".format(cb_params.cur_epoch_num, cb_params.cur_step_num,
-                                                           str(cb_params.net_outputs)))
+        print("epoch: {}, step: {}, loss: {}".format(cb_params.cur_epoch_num, cb_params.cur_step_num,
+                                                     cb_params.net_outputs[0]))
 
 
 def test_train():
