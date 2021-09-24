@@ -23,7 +23,7 @@ class mindspore.common.initializer.Constant(value)(arr)
 
 ## 使用方式
 
-PyTorch: 以常量`val`填充输入的tensor。
+PyTorch：以常量`val`填充输入的tensor。
 
 MindSpore：以`value`（整型或numpy数组）填充输入的numpy数组，且是原地更新输入值。
 

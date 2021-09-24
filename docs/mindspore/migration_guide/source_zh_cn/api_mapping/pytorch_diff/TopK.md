@@ -30,7 +30,7 @@ class mindspore.ops.TopK(
 
 ## 使用方式
 
-PyTorch: 支持获取指定维度的前k项最大或最小值。
+PyTorch：支持获取指定维度的前k项最大或最小值。
 
 MindSpore：目前仅支持获取最后维度的前k项最大值。
 

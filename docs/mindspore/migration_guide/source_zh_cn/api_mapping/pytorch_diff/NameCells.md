@@ -20,7 +20,7 @@ mindspore.nn.Cell.name_cells()
 
 ## 使用方式
 
-PyTorch: 获取网络中的外层子模块的名称和模块，返回类型为迭代器。
+PyTorch：获取网络中的外层子模块的名称和模块，返回类型为迭代器。
 
 MindSpore：获取网络中的外层子模块的名称和模块，返回类型为odict_values。
 

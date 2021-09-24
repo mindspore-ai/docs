@@ -28,7 +28,7 @@ class mindspore.ops.ReduceMean(keep_dims=False)(
 
 ## 使用方式
 
-PyTorch: 计算指定维度数据的标准差和平均值。
+PyTorch：计算指定维度数据的标准差和平均值。
 
 MindSpore：计算指定维度数据的平均值。
 

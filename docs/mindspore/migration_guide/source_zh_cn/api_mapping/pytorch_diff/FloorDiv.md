@@ -27,7 +27,7 @@ class mindspore.ops.FloorDiv(*args, **kwargs)(
 
 ## 使用方式
 
-PyTorch: 结果是往0方向取整，而非真的向下取整。例如相除为-0.9，取整后的结果为0。
+PyTorch：结果是往0方向取整，而非真的向下取整。例如相除为-0.9，取整后的结果为0。
 
 MindSpore：结果按floor方式向下取整。例如相除为-0.9，取整后的结果为-1。
 

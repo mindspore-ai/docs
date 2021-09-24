@@ -24,7 +24,7 @@ class mindspore.common.initializer.Uniform(scale=0.07)(arr)
 
 ## 使用方式
 
-PyTorch: 通过入参`a`和`b`分别指定均匀分布的上下界，即U(-a, b)。
+PyTorch：通过入参`a`和`b`分别指定均匀分布的上下界，即U(-a, b)。
 
 MindSpore：仅通过一个入参`scale`指定均匀分布的范围，即U(-scale, scale)，且是原地更新输入值。
 

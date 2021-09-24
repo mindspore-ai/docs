@@ -26,7 +26,7 @@ class mindspore.ops.ArgMinWithValue(
 
 ## 使用方式
 
-PyTorch: 输出为元组(最小值, 最小值的索引)。
+PyTorch：输出为元组(最小值, 最小值的索引)。
 
 MindSpore：输出为元组(最小值的索引, 最小值)。
 

@@ -20,7 +20,7 @@ class mindspore.nn.FastGelu()(input_data)
 
 ## 使用方式
 
-PyTorch: 基于高斯分布的累积分布函数。
+PyTorch：基于高斯分布的累积分布函数。
 
 MindSpore：采用与PyTorch不同的计算公式。
 
