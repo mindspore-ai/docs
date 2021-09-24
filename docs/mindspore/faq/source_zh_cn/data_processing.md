@@ -4,6 +4,35 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/faq/source_zh_cn/data_processing.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
+<font size=3>**Q: 请问如果不使用高阶API，怎么实现数据下沉？**</font>
+
+A: 可以参考此手动下沉方式的[test_tdt_data_transfer.py](https://gitee.com/mindspore/mindspore/blob/r1.5/tests/st/data_transfer/test_tdt_data_transfer.py)示例实现，不用借助`model.train`接口，目前支持：GPU和Ascend硬件使用。
+
+<br/>
+
+<font size=3>**Q: 在`GeneratorDataset`中，看到有参数`shuffle`，在跑任务时发现`shuffle=True`和`shuffle=False`，两者没有区别，这是为什么？**</font>
+
+A: 开启`shuffle`,需要传入的`Dataset`是支持随机访问的（例如自定义的`Dataset`有`getitem`方法），如果是在自定义的`Dataset`里面通过`yeild`方式返回回来的数据，是不支持随机访问的，具体可查看教程中的[数据集加载](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/dataset_loading.html#id5)章节。
+
+<br/>
+
+<font size=3>**Q: 请问`Dataset`如何把两个`columns`合并成一个`column`？**</font>
+
+A: 可以添加如下操作把 两个字段合成一个。
+
+```python
+def combine(x, y):
+    x = x.flatten()
+    y = y.flatten()
+    return np.append(x, y)
+
+dataset = dataset.map(operations=combine, input_columns=["data", "data2"], output_columns=["data"])
+```
+
+注：因为两个`columns`是不同的`shape`，需要先`flatten`下，然后再合并。
+
+<br/>
+
 <font size=3>**Q: 请问`GeneratorDataset`支持`ds.PKSampler`采样吗？**</font>
 
 A: 自定义数据集`GeneratorDataset`不支持`PKSampler`采样逻辑。主要原因是自定义数据操作灵活度太大了，内置的`PKSampler`难以做到通用性，所以选择在接口层面直接提示不支持。但是对于`GeneratorDataset`，可以方便的定义自己需要的`Sampler`逻辑，即在`ImageDataset`类的`__getitem__`函数中定义具体的`sampler`规则，返回自己需要的数据即可。
