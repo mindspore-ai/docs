@@ -43,7 +43,7 @@ mindspore.nn.piecewise_constant_lr(
 
 ## 使用方式
 
-PyTorch: 分段设置学习率，`torch.optim.lr_scheduler.StepLR`通过传入step_size，每隔固定的step_size，学习率乘以gamma；`torch.optim.lr_scheduler.MultiStepLR`通过传入milestones的step数值列表，达到step数值，学习率乘以gamma。使用时，优化器作为输入，在训练过程中调用`step`方法进行数值的更新。
+PyTorch：分段设置学习率，`torch.optim.lr_scheduler.StepLR`通过传入step_size，每隔固定的step_size，学习率乘以gamma；`torch.optim.lr_scheduler.MultiStepLR`通过传入milestones的step数值列表，达到step数值，学习率乘以gamma。使用时，优化器作为输入，在训练过程中调用`step`方法进行数值的更新。
 
 MindSpore：传入milestones的step数值列表和对应的学习率设置值列表，达到step数值，学习率取对应的值。最终返回一个学习率的列表，作为优化器的输入。
 

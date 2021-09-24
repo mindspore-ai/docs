@@ -34,7 +34,7 @@ class mindspore.ops.ApplyAdadelta(*args, **kwargs)(
 
 ## 使用方式
 
-PyTorch: 需要将期望更新的参数放入1个迭代类型参数`params`后传入，且设置了`step`方法执行单步优化返回损失值。
+PyTorch：需要将期望更新的参数放入1个迭代类型参数`params`后传入，且设置了`step`方法执行单步优化返回损失值。
 
 MindSpore：需要分别传入期望更新的参数`var`，`accum`，`accum_update`，`grad`。
 

@@ -20,7 +20,7 @@ mindspore.common.initializer.Normal(sigma=0.01, mean=0.0)
 
 ## 使用方式
 
-PyTorch: 默认输出均值为0，标准差为1的正态分布。使用时传入均值和标准差。
+PyTorch：默认输出均值为0，标准差为1的正态分布。使用时传入均值和标准差。
 
 MindSpore：默认均值为0，标准差为0.01的正态分布。使用时传入均值和标准差。
 

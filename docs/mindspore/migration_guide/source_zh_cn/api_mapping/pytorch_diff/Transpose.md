@@ -23,7 +23,7 @@ class mindspore.ops.Transpose(*args, **kwargs)(
 
 ## 使用方式
 
-PyTorch: 仅适用于1维和2维的输入。
+PyTorch：仅适用于1维和2维的输入。
 
 MindSpore：输入的维度不限，且需要通过参数设置转置方式。
 

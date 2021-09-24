@@ -45,7 +45,7 @@ mindspore.nn.ExponentialDecayLR(
 
 ## 使用方式
 
-PyTorch: 计算方式为lr*gamma^{epoch}。使用时，优化器作为输入，通过调用`step`方法进行学习率的更新。
+PyTorch：计算方式为lr*gamma^{epoch}。使用时，优化器作为输入，通过调用`step`方法进行学习率的更新。
 
 MindSpore：计算方式为lr*decay_rate^{p}，这种动态学习率的调整方式在mindspore里有两种实现方式：`exponential_decay_lr`预生成学习率列表，将列表传入优化器；`ExponentialDecayLR`则是通过计算图的方式传入优化器中参与训练。
 

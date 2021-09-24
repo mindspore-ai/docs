@@ -29,7 +29,7 @@ class mindspore.ops.ResizeBilinear(
 
 ## 使用方式
 
-PyTorch: 有多种模式可以选择。
+PyTorch：有多种模式可以选择。
 
 MindSpore：仅支持`bilinear`模式。
 

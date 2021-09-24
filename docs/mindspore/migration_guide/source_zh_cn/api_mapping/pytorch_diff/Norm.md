@@ -30,7 +30,7 @@ class mindspore.nn.Norm(
 
 ## 使用方式
 
-PyTorch: 支持包括L2在内的多种范式。
+PyTorch：支持包括L2在内的多种范式。
 
 MindSpore：目前仅支持L2范式。
 

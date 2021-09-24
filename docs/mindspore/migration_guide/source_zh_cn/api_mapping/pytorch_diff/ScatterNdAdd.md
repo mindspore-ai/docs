@@ -28,7 +28,7 @@ class mindspore.ops.ScatterNdAdd(use_locking=False)(
 
 ## 使用方式
 
-PyTorch: 给定输入tensor，更新tensor和索引tensor；将更新tensor按照索引tensor在指定的轴上加到输入tensor上。
+PyTorch：给定输入tensor，更新tensor和索引tensor；将更新tensor按照索引tensor在指定的轴上加到输入tensor上。
 
 MindSpore：给定输入tensor，更新tensor和索引tensor；将更新tensor按照索引tensor加到输入tensor上；
 不支持通过参数自定义轴，但可通过调整索引tensor的形状来明确轴。
