@@ -1,8 +1,8 @@
-﻿# HyperMap
+﻿# 运算重载
 
 <!-- TOC -->
 
-- [HyperMap](#hypermap)
+- [运算重载](#运算重载)
     - [概述](#概述)
     - [MultitypeFuncGraph](#multitypefuncgraph)
     - [HyperMap](#hypermap-1)
