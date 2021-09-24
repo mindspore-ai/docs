@@ -542,7 +542,12 @@ dict_keys(['a', 'b', 'c', 'd'])
 
 ## Loading User-defined Dataset
 
-For the datasets that cannot be directly loaded by MindSpore, you can construct the `GeneratorDataset` object to load them in a customized method or convert them into the MindRecord data format. The following demonstrates some different methods to load user-defined datasets. For comparison, keep the generated random data the same.
+For the datasets that cannot be directly loaded by MindSpore, you can construct the `GeneratorDataset` object to load them in a customized method or convert them into the MindRecord data format.  The `GeneratorDataset` object receives a randomly accessible object or iterable object, and the method of data reading is defined in the object.
+
+> 1. Compared with iterable objects, random access objects with `__getitem__` function do not need to perform operations such as index increment. The logic is more streamlined and easy to use.
+> 2. In distributed training scenarios, dataset need to be sliced. `GeneratorDataset` can receive the `sampler` parameter, or receive `num_shards` and `shard_id` to specify the number of slices and the index of slice. The latter method is easier to use.
+
+The following demonstrates some different methods to load user-defined datasets. For comparison, keep the generated random data remains the same.
 
 ### Constructing Dataset Generator Function
 
