@@ -1,8 +1,8 @@
-# 盘古α网络多维度混合并行解析
+# 鹏程·盘古模型网络多维度混合并行解析
 
 <!-- TOC -->
 
-- [盘古α网络多维度混合并行解析析](#盘古α网络多维度混合并行解析)
+- [鹏程·盘古模型网络多维度混合并行解析析](#鹏程盘古模型网络多维度混合并行解析)
     - [概述](#概述)
     - [Embedding层](#Embedding层)
     - [Decoder层](#Decoder层)
@@ -18,7 +18,7 @@
 
 ## 概述
 
-在MindSpore发布的盘古α模型[1]中，我们看到借助多维度自动混合并行可以实现超大规模Transformer网络的分布式训练。这篇文章将从网络脚本出发，详解模型各个组成部分的切分方式。
+在MindSpore发布的鹏程·盘古模型模型[1]中，我们看到借助多维度自动混合并行可以实现超大规模Transformer网络的分布式训练。这篇文章将从网络脚本出发，详解模型各个组成部分的切分方式。
 
 > 完整代码可以参考：https://gitee.com/mindspore/models/tree/master/official/nlp/pangu_alpha
 
@@ -99,7 +99,7 @@ class EmbeddingLayer(nn.Cell):
 
 ## Decoder层
 
-训练大规模Transformer网络的关键困难在于如何解决随着层数增加造成的计算和内存瓶颈，选择合理的切分方式尤为重要。盘古α的主体网络由多个结构相同但不共享权重的Decoder组成，Decoder又由Self-Attention和FeedForward两部分构成，切分的原则是尽量减少通信，它们的切分方式可以参照下图[1]：
+训练大规模Transformer网络的关键困难在于如何解决随着层数增加造成的计算和内存瓶颈，选择合理的切分方式尤为重要。鹏程·盘古模型的主体网络由多个结构相同但不共享权重的Decoder组成，Decoder又由Self-Attention和FeedForward两部分构成，切分的原则是尽量减少通信，它们的切分方式可以参照下图[1]：
 
 ![image](./images/pangu_strategy.png)
 

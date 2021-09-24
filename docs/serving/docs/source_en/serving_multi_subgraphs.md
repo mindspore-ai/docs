@@ -19,11 +19,11 @@
 
 ## Overview
 
-MindSpore allows a model to generate multiple subgraphs. Such a model is generally a stateful model. Multiple subgraps can share weights and cooperate with each other to achieve performance optimization. For example, in the Pangu α network scenario,  based on a sentence, a sentence is generated through multiple inferences, where each inference generates one word. Two graphs are generated for different input lengths. The first graph processes the text with variable length for the first time and only needs to be executed one time. The second graph processes the word generated last time and needs to be executed multiple time. Compared with that before optimization, only the first graph is executed multiple times, the inference service performance can be improved by 5 to 6 times.
+MindSpore allows a model to generate multiple subgraphs. Such a model is generally a stateful model. Multiple subgraps can share weights and cooperate with each other to achieve performance optimization. For example, in the Pengcheng·Pangu Model network scenario,  based on a sentence, a sentence is generated through multiple inferences, where each inference generates one word. Two graphs are generated for different input lengths. The first graph processes the text with variable length for the first time and only needs to be executed one time. The second graph processes the word generated last time and needs to be executed multiple time. Compared with that before optimization, only the first graph is executed multiple times, the inference service performance can be improved by 5 to 6 times.
 
 MindSpore Serving supports scheduling multi-subgraph model, improving the inference service performance in specific scenarios.
 
-The following uses a simple single-chip model scenario as an example to describe the multi-subgraph model deployment process. For the detail about the distributed scenario, see [Pangu α model Serving deployment](https://gitee.com/mindspore/models/tree/master/official/nlp/pangu_alpha#serving)
+The following uses a simple single-chip model scenario as an example to describe the multi-subgraph model deployment process. For the detail about the distributed scenario, see [Pengcheng·Pangu Model model Serving deployment](https://gitee.com/mindspore/models/tree/master/official/nlp/pangu_alpha#serving)
 
 ### Environment Preparation
 
