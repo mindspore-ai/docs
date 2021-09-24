@@ -8,7 +8,7 @@
 
 近年来，分子模拟技术发展迅速并且在多个学科领域得到了广泛的应用。在药物设计领域，可用于研究病毒、药物的作用机理等；在生物科学领域，可用于表征蛋白质的多级结构与性质；在材料学领域，可用于研究结构与力学性能、材料的优化设计等；在化学领域，可用于研究表面催化及机理；在石油化工领域，可用于分子筛催化剂结构表征、合成设计、吸附扩散，可构建和表征高分子链以及晶态或非晶态本体聚合物的结构，预测包括共混行为、机械性质、扩散、内聚等重要性质。
 
-MindSPONGE是由`高毅勤`课题组（北京大学、深圳湾实验室）和华为`MindSpore`团队联合开发的分子模拟库，具有高性能、模块化等特性。MindSPONGE是`MindSpore`和`SPONGE`（`S`imulation `P`ackage `O`f `N`ext `GE`neration molecular modeling）的缩写。MindSPONGE是第一个根植于AI计算框架的分子模拟工具，其使用模块化的设计思路，可以快速构建分子模拟流程，并且基于MindSpore自动并行、图算融合等特性，可高效地完成传统分子模拟。同时，MindSPONGE也可以将神经网络等AI方法与传统分子模拟进行结合，应用到生物、材料、医药等领域中。
+MindSPONGE是由`高毅勤`课题组（北京大学、深圳湾实验室）和华为`MindSpore`团队联合开发的分子模拟库，具有高性能、模块化等特性。MindSPONGE是`MindSpore`和`SPONGE`（`S`imulation `P`ackage `O`f `N`ext `GE`neration molecular modeling）的缩写。MindSPONGE是第一个根植于AI框架的分子模拟工具，其使用模块化的设计思路，可以快速构建分子模拟流程，并且基于MindSpore自动并行、图算融合等特性，可高效地完成传统分子模拟。同时，MindSPONGE也可以将神经网络等AI方法与传统分子模拟进行结合，应用到生物、材料、医药等领域中。
 
 MindSPONGE中包含了多个传统分子模拟案例，更多详情，请点击查看[案例](https://gitee.com/mindspore/mindscience/tree/r0.1/MindSPONGE/examples)。
 

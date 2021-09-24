@@ -3,8 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-MindSpore Specification and Restriction
-=======================================
+MindSpore Specification and Notes
+==================================
 
 .. toctree::
    :glob:
@@ -27,5 +27,3 @@ The API mapping has been migrated to https://www.mindspore.cn/docs/migration_gui
    roadmap
    help_seeking_path
    community
-
- 
