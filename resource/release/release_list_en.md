@@ -8,6 +8,7 @@
         - [Before Version 1.2](#before-version-12)
     - [Ascend Supporting Software Package](#ascend-supporting-software-package)
     - [Downloads](#downloads)
+        - [1.5.0-rc1](#150-rc1)
         - [1.4.1](#141)
         - [1.4.0](#140)
         - [1.3.0](#130)
@@ -36,26 +37,30 @@
 
 |   Category   |   Subcategory   |      Version      |
 |    ---   |    ---   |       ---      |
-| Releasenotes and API Updates | | [1.3.0](https://gitee.com/mindspore/mindspore/blob/r1.3/RELEASE.md) |
-| Installation | | [1.3.0](https://gitee.com/mindspore/docs/tree/r1.3/install) |
-| Tutorials |  | [1.3.0](https://www.mindspore.cn/tutorials/en/r1.3/index.html) &nbsp;&nbsp;  [master](https://www.mindspore.cn/tutorials/en/master/index.html) |
-| Docs |MindSpore  | [1.3.0](https://www.mindspore.cn/docs/programming_guide/en/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/docs/programming_guide/en/master/index.html) |
-| |MindSpore Lite  | [1.3.0](https://www.mindspore.cn/lite/docs/en/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/lite/docs/en/master/index.html) |
-| |MindInsight  | [1.3.0](https://www.mindspore.cn/mindinsight/docs/en/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/mindinsight/docs/en/master/index.html) |
-| |MindSpore Hub  | [1.3.0](https://www.mindspore.cn/hub/docs/en/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/hub/docs/en/master/index.html) |
-| |MindArmour  | [1.3.0](https://www.mindspore.cn/mindarmour/docs/en/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/mindarmour/docs/en/master/index.html) |
-| |MindSpore Federated  | [1.3.0](https://www.mindspore.cn/federated/docs/en/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/federated/docs/en/master/index.html) |
-| |MindSpore Serving | [1.3.0](https://www.mindspore.cn/serving/docs/en/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/serving/docs/en/master/index.html) |
-| |MindSpore Probability  | [1.3.0](https://www.mindspore.cn/probability/docs/en/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/probability/docs/en/master/index.html) |
-| |MindQuantum | [0.2.0](https://www.mindspore.cn/mindquantum/docs/en/r0.2/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/mindquantum/docs/en/master/index.html) |
-| API |MindSpore  | [1.3.0](https://www.mindspore.cn/docs/api/en/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/docs/api/en/master/index.html) |
-| |MindSpore Lite  | [1.3.0](https://www.mindspore.cn/lite/api/en/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/lite/docs/en/master/index.html) |
-| |MindSpore Hub  | [1.3.0](https://www.mindspore.cn/hub/api/en/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/hub/api/en/master/index.html) |
-| |MindArmour  | [1.3.0](https://www.mindspore.cn/mindarmour/api/en/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/mindarmour/api/en/master/index.html) |
-| |MindSpore Federated  | [1.3.0](https://www.mindspore.cn/federated/api/en/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/federated/api/en/master/index.html) |
-| |MindSpore Serving | [1.3.0](https://www.mindspore.cn/serving/api/en/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/serving/api/en/master/index.html) |
-| |MindSpore Probability  | [1.3.0](https://www.mindspore.cn/probability/api/en/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/probability/api/en/master/index.html) |
-| |MindQuantum | [0.2.0](https://www.mindspore.cn/mindquantum/api/en/r0.2/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/mindquantum/api/en/master/index.html) |
+| Releasenotes and API Updates | | [1.5.0-rc1](https://gitee.com/mindspore/mindspore/blob/r1.5/RELEASE.md) &nbsp;&nbsp;  [1.3.0](https://gitee.com/mindspore/mindspore/blob/r1.3/RELEASE.md) |
+| Installation | | [1.5.0-rc1](https://gitee.com/mindspore/docs/tree/r1.5/install) &nbsp;&nbsp;  [1.3.0](https://gitee.com/mindspore/docs/tree/r1.3/install) |
+| Tutorials |  | [1.5.0-rc1](https://www.mindspore.cn/tutorials/en/r1.5/index.html) &nbsp;&nbsp;  [1.3.0](https://www.mindspore.cn/tutorials/en/r1.3/index.html) &nbsp;&nbsp;  [master](https://www.mindspore.cn/tutorials/en/master/index.html) |
+| Docs |MindSpore  | [1.5.0-rc1](https://www.mindspore.cn/docs/programming_guide/en/r1.5/index.html) &nbsp;&nbsp; [1.3.0](https://www.mindspore.cn/docs/programming_guide/en/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/docs/programming_guide/en/master/index.html) |
+| |MindSpore Lite  | [1.5.0-rc1](https://www.mindspore.cn/lite/docs/en/r1.5/index.html) &nbsp;&nbsp; [1.3.0](https://www.mindspore.cn/lite/docs/en/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/lite/docs/en/master/index.html) |
+| |MindInsight  | [1.5.0-rc1](https://www.mindspore.cn/mindinsight/docs/en/r1.5/index.html) &nbsp;&nbsp; [1.3.0](https://www.mindspore.cn/mindinsight/docs/en/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/mindinsight/docs/en/master/index.html) |
+| |MindSpore Hub  | [1.5.0-rc1](https://www.mindspore.cn/hub/docs/en/r1.5/index.html) &nbsp;&nbsp; [1.3.0](https://www.mindspore.cn/hub/docs/en/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/hub/docs/en/master/index.html) |
+| |MindArmour  | [1.5.0-rc1](https://www.mindspore.cn/mindarmour/docs/en/r1.5/index.html) &nbsp;&nbsp; [1.3.0](https://www.mindspore.cn/mindarmour/docs/en/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/mindarmour/docs/en/master/index.html) |
+| |MindSpore Federated  | [1.5.0-rc1](https://www.mindspore.cn/federated/docs/en/r1.5/index.html) &nbsp;&nbsp; [1.3.0](https://www.mindspore.cn/federated/docs/en/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/federated/docs/en/master/index.html) |
+| |MindSpore Serving  | [1.5.0-rc1](https://www.mindspore.cn/serving/docs/en/r1.5/index.html) &nbsp;&nbsp; [1.3.0](https://www.mindspore.cn/serving/docs/en/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/serving/docs/en/master/index.html) |
+| |MindSpore Probability  | [1.5.0-rc1](https://www.mindspore.cn/probability/docs/en/r1.5/index.html) &nbsp;&nbsp; [1.3.0](https://www.mindspore.cn/probability/docs/en/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/probability/docs/en/master/index.html) |
+| |MindQuantum  | [0.3.1-rc1](https://www.mindspore.cn/mindquantum/docs/en/r0.3/index.html) &nbsp;&nbsp; [0.2.0](https://www.mindspore.cn/mindquantum/docs/en/r0.2/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/mindquantum/docs/en/master/index.html) |
+| |MindSpore XAI  | [1.5.0-rc1](https://www.mindspore.cn/xai/docs/en/r1.5/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/xai/docs/en/master/index.html) |
+| |MindScience(MindElec and MindSPONGE)  | [0.1.0-rc1](https://www.mindspore.cn/mindscience/docs/en/r0.1/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/mindscience/docs/en/master/index.html) |
+| API |MindSpore  | [1.5.0-rc1](https://www.mindspore.cn/docs/api/en/r1.5/index.html) &nbsp;&nbsp; [1.3.0](https://www.mindspore.cn/docs/api/en/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/docs/api/en/master/index.html) |
+| |MindSpore Lite  | [1.5.0-rc1](https://www.mindspore.cn/lite/api/en/r1.5/index.html) &nbsp;&nbsp; [1.3.0](https://www.mindspore.cn/lite/api/en/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/lite/api/en/master/index.html) |
+| |MindSpore Hub  | [1.5.0-rc1](https://www.mindspore.cn/hub/api/en/r1.5/index.html) &nbsp;&nbsp; [1.3.0](https://www.mindspore.cn/hub/api/en/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/hub/api/en/master/index.html) |
+| |MindArmour  | [1.5.0-rc1](https://www.mindspore.cn/mindarmour/api/en/r1.5/index.html) &nbsp;&nbsp; [1.3.0](https://www.mindspore.cn/mindarmour/api/en/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/mindarmour/api/en/master/index.html) |
+| |MindSpore Federated  | [1.5.0-rc1](https://www.mindspore.cn/federated/api/en/r1.5/index.html) &nbsp;&nbsp; [1.3.0](https://www.mindspore.cn/federated/api/en/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/federated/api/en/master/index.html) |
+| |MindSpore Serving | [1.5.0-rc1](https://www.mindspore.cn/serving/api/en/r1.5/index.html) &nbsp;&nbsp; [1.3.0](https://www.mindspore.cn/serving/api/en/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/serving/api/en/master/index.html) |
+| |MindSpore Probability  | [1.5.0-rc1](https://www.mindspore.cn/probability/api/en/r1.33/index.html) &nbsp;&nbsp; [1.3.0](https://www.mindspore.cn/probability/api/en/r1.3/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/probability/api/en/master/index.html) |
+| |MindQuantum | [0.3.1-rc1](https://www.mindspore.cn/mindquantum/api/en/r0.3/index.html) &nbsp;&nbsp; [0.2.0](https://www.mindspore.cn/mindquantum/api/en/r0.2/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/mindquantum/api/en/master/index.html) |
+| |MindSpore XAI  | [1.5.0-rc1](https://www.mindspore.cn/xai/api/en/r1.5/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/xai/api/en/master/index.html) |
+| |MindScience(MindElec and MindSPONGE)  | [0.1.0-rc1]((https://www.mindspore.cn/mindscience/api/en/r0.1/index.html)) &nbsp;&nbsp; [master](https://www.mindspore.cn/mindscience/api/en/master/index.html) |
 
 ### Before Version 1.2
 
@@ -77,6 +82,8 @@
 
 |    MindSpore Version    |    Hardware Platform    |    Supporting Software Package    |    Driver and Firmware    |    CANN    |    Software Package Documentation    |
 |    ---    |    ---    |    ---    |    ---    |    ---    |    ---    |
+| 1.5.0-rc1 | Ascend 910 | Ascend Data Center Solution 21.0.5 | - | [CANN 5.0.T306](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/254156433) | - |
+|| Ascend 310 | Ascend Data Center Solution 21.0.5 | - | [CANN 5.0.T306](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/254156433) | - |
 | 1.4.0 | Ascend 910 | Ascend Data Center Solution 21.0.T301 | - | CANN 5.0.3 | - |
 || Ascend 310 | Ascend Data Center Solution 21.0.T301 | - | CANN 5.0.3 | - |
 | 1.3.0 | Ascend 910 | [Ascend Data Center Solution 21.0.2](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910/software/252504581?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C252309113%7C251167910) | [A800-9000 1.0.11.SCP001 ARM platform](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9000-pid-250702818/software/253882155?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702818) or [A800-9010 1.0.11.SCP001 x86 platform](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9010-pid-250702809/software/253882161?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702809) | [CANN 5.0.2.1](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/253944991?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251168373) | [Ascend Data Center Solution 21.0.2](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910/software/252504581?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C252309113%7C251167910) |
@@ -87,6 +94,39 @@
 || Ascend 310 | [Ascend Data Center Solution 21.0.1](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910/software/252504563?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C252309113%7C251167910) | [A300-3000 1.0.10](https://support.huawei.com/enterprise/zh/ascend-computing/a300-3000-pid-250702915/software/252496291?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702915) | [5.0.1](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252504455?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251168373) | [Ascend Data Center Solution 21.0.1](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910) |
 
 ## Downloads
+
+### 1.5.0-rc1
+
+|   Module Name   |   Hardware Platform   |   Operating System   |      Python Version      |      Download Links      |        SHA-256     |
+|    ---   |    ---   |    ---   |       ---      |    ---      |    ---   |
+|   MindSpore   |   Ascend 910<br>Ascend310 |   Linux-aarch64   |   Python3.7.5   |   [mindspore_ascend-1.5.0rc1-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/MindSpore/ascend/aarch64/mindspore_ascend-1.5.0rc1-cp37-cp37m-linux_aarch64.whl)   | c1b7df9432ec802d2d3374f22c4137a353f1b6389916292de98960de04ea783a |
+|  |  |  | Python3.9.0 | [mindspore_ascend-1.5.0rc1-cp39-cp39-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/MindSpore/ascend/aarch64/mindspore_ascend-1.5.0rc1-cp39-cp39-linux_aarch64.whl) | 006d6533c7043b857748fa4fdc9177731a13ae071a955e730b18eb32a086020d |
+|      |      |   Linux-x86_64   |   Python3.7.5   |   [mindspore_ascend-1.5.0rc1-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/MindSpore/ascend/x86_64/mindspore_ascend-1.5.0rc1-cp37-cp37m-linux_x86_64.whl)   | 0e6415255f2a72d131bdc17171b9d56acc09aba61ee4f8d322fadc8f28ebc284 |
+| | |  | Python3.9.0 | [mindspore_ascend-1.5.0rc1-cp39-cp39-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/MindSpore/ascend/x86_64/mindspore_ascend-1.5.0rc1-cp39-cp39-linux_x86_64.whl) | 44e8f1ed9b3ed587867c24853f07870e432652b10bf99d4bcc65652190961d14 |
+| | Ascend 310-Binary | Linux-aarch64 | Python3.7.5<br/>Python3.9.0 | [mindspore_ascend-1.5.0rc1-linux_aarch64.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/MindSpore/ascend/aarch64/mindspore_ascend-1.5.0rc1-linux_aarch64.tar.gz) | b24961c7568b7da61d83e064dd35fa07a0313bce24c0af1e4a441876ef3d30d3 |
+|      |      |   Linux-x86_64   | Python3.7.5<br/>Python3.9.0 |   [mindspore_ascend-1.5.0rc1-linux_x86_64.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/MindSpore/ascend/x86_64/mindspore_ascend-1.5.0rc1-linux_x86_64.tar.gz)   | cd30c65091efa87b8a89195aa36c5a5c86518d6be16bd3917dc9d8fd921866f1 |
+|      |   GPU CUDA 10.1   |   Linux-x86_64   |   Python3.7.5   |   [mindspore_gpu-1.5.0rc1-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/MindSpore/gpu/x86_64/cuda-10.1/mindspore_gpu-1.5.0rc1-cp37-cp37m-linux_x86_64.whl)   | 090bd0adba0d4fe80a4d95b5d428a18b1815ceb98f27808598ea68b719fa186a |
+| |  |  | Python3.9.0 | [mindspore_gpu-1.5.0rc1-cp39-cp39-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/MindSpore/gpu/x86_64/cuda-10.1/mindspore_gpu-1.5.0rc1-cp39-cp39-linux_x86_64.whl) | 9b53abf8379d5327fc582164f6dbd005594c2fd3a0aef317c5abb95042c54500 |
+|      |   GPU CUDA 11.1   |   Linux-x86_64   |   Python3.7.5   |   [mindspore_gpu-1.5.0rc1-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/MindSpore/gpu/x86_64/cuda-11.1/mindspore_gpu-1.5.0rc1-cp37-cp37m-linux_x86_64.whl)   | e28342697967e5fb6dfb3556ab73652063d75aa036ec3f00f19304874099f4b3 |
+| |  |  | Python3.9.0 | [mindspore_gpu-1.5.0rc1-cp39-cp39-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/MindSpore/gpu/x86_64/cuda-11.1/mindspore_gpu-1.5.0rc1-cp39-cp39-linux_x86_64.whl) | 8838eb4d51b328ce8b62376055c4fe80f9f4aedb48a6cb49b29bc3410a0906a3 |
+|      |   CPU   |   Linux-aarch64   |   Python3.7.5   |   [mindspore-1.5.0rc1-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/MindSpore/cpu/aarch64/mindspore-1.5.0rc1-cp37-cp37m-linux_aarch64.whl)   | b57496b0ab4ba760feda4c0a8c9213d6a2ddec07399fc78b5df24f12493aeff7 |
+| |  |  | Python3.9.0 | [mindspore-1.5.0rc1-cp39-cp39-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/MindSpore/cpu/aarch64/mindspore-1.5.0rc1-cp39-cp39-linux_aarch64.whl) | 8ddcd76598920dfad1329b96d200f5fd0c638bddfd7fc7a9354d37ecebc2089d |
+|      |      |   Linux-x86_64   |   Python3.7.5   |   [mindspore-1.5.0rc1-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/MindSpore/cpu/x86_64/mindspore-1.5.0rc1-cp37-cp37m-linux_x86_64.whl)   | 0a86caa7fb42af6d29732f06b6568669279f83ba490f656a927fc4a5e2a56dc8 |
+| | |  | Python3.9.0 | [mindspore-1.5.0rc1-cp39-cp39-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/MindSpore/cpu/x86_64/mindspore-1.5.0rc1-cp39-cp39-linux_x86_64.whl) | 9d18b6f4098bed313bbe70880ff6d5d044510c5b14bb1e45421b2ff90c5972e9 |
+|      |         |   Windows-x64   |   Python3.7.5   |   [mindspore-1.5.0rc1-cp37-cp37m-win_amd64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/MindSpore/cpu/x86_64/mindspore-1.5.0rc1-cp37-cp37m-win_amd64.whl)   | 534e7dc9c3e3598a3d9a735fd7a7974d33e763780e1372ac47f29bdecaf1aa6c |
+| | |  | Python3.9.0 | [mindspore-1.5.0rc1-cp39-cp39-win_amd64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/MindSpore/cpu/x86_64/mindspore-1.5.0rc1-cp39-cp39-win_amd64.whl) | 4860bd25473ca0dd9d0eb64846955631f6cd8ba44777864131e95ea8c9a6bdcc |
+|   MindSpore<br>Serving   |   Ascend 910<br>Ascend310   |   Linux-aarch64   |   Python3.7.5   |   [mindspore_serving-1.5.0rc1-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/Serving/aarch64/mindspore_serving-1.5.0rc1-cp37-cp37m-linux_aarch64.whl)   | f38ea974195a83bbd32b4051484a6de457b9af203b35bac67fe514c3a3605da6 |
+|  |  |  | Python3.9.0 | [mindspore_serving-1.5.0rc1-cp39-cp39-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/Serving/aarch64/mindspore_serving-1.5.0rc1-cp39-cp39-linux_aarch64.whl) | 213d58e33cbb4399d76eaf3314a454d01417422b205b5167a9eb444de34fb78d |
+|      |      |   Linux-x86_64   |   Python3.7.5   |   [mindspore_serving-1.5.0rc1-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/Serving/x86_64/mindspore_serving-1.5.0rc1-cp37-cp37m-linux_x86_64.whl)   | 0d84ccf8e570cb3c08623907c0466fe581a82d185e62faa9c29b30160a6143bb |
+| | |  | Python3.9.0 | [mindspore_serving-1.5.0rc1-cp39-cp39-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/Serving/x86_64/mindspore_serving-1.5.0rc1-cp39-cp39-linux_x86_64.whl) | 52dc31ca9743e4cdfbc68d3dd18761ba633bfcb108bad5f73ad578f450ce8857 |
+|   MindInsight   |      |   any   | Python3 | [mindinsight-1.5.0rc1-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/MindInsight/any/mindinsight-1.5.0rc1-py3-none-any.whl) | befa0b4db49661f25356d31b99aa481d371bfe2e9f9026323cfebc5da8b0cdb0 |
+|   MindArmour   |      |   any   | Python3 | [mindarmour-1.5.0rc1-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/MindArmour/any/mindarmour-1.5.0rc1-py3-none-any.whl) | 341240ec7b95287608a5d6e69347c42953651e643c758e0241dc259fac7c4056 |
+|   MindSpore<br>Hub   |      |   any   | Python3 |   [mindspore_hub-1.5.0rc1-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/Hub/any/mindspore_hub-1.5.0rc1-py3-none-any.whl)   | 04b131bffb12548488373a0c826a1904be561cc5ddf5a257647175e94da4454f |
+|   MindQuantum   |      |   any   | Python3 | [mindquantum-0.3.1rc1-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/MindQuantum/any/mindquantum-0.3.1rc1-py3-none-any.whl) | 33daf223b697797a74370eab3f5ae8b3798cdea6a2e08026ed2ca25d36af5cf5 |
+| MindSpore XAI | | any | Python3 | [mindspore_xai-1.5.0rc1-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/Xai/any/mindspore_xai-1.5.0rc1-py3-none-any.whl) | 5037d6ffcac95174f5b8150cb630a29c3d3d2573de71cb113ee3a4a5041fbd91 |
+| MindScience (MindElec) | Ascend910 | Linux-aarch64 | Python3.7.5 | [mindscience_mindelec_ascend-0.1.0rc1-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/MindScience/aarch64/mindscience_mindelec_ascend-0.1.0rc1-cp37-cp37m-linux_aarch64.whl) | 3ad42c57e413abb1d6a9b8741c79e3a425b202cd8ab46c0b8044609800621671 |
+|  |  | Linux-x86_64 | Python3.7.5 | [mindscience_mindelec_ascend-0.1.0rc1-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/MindScience/x86_64/mindscience_mindelec_ascend-0.1.0rc1-cp37-cp37m-linux_x86_64.whl) | 5f3431c21faa525d7ac555921c1eba6ac99b4d81750e39cd2de99dae761505a9 |
+| MindScience (MindSPONGE) | GPU CUDA 10.1<br/>GPU CUDA 11.1 | any | Python3 | [mindscience_mindsponge_gpu-0.1.0rc1-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/MindScience/any/mindscience_mindsponge_gpu-0.1.0rc1-py3-none-any.whl) | b5f92468921812776b8cf66e675123df29cb23a5cfe40cc13b4f02a31f45cf22 |
 
 ### 1.4.1
 
