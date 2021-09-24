@@ -29,6 +29,8 @@ MindSpore编程指南
    安全可信↗ <https://www.mindspore.cn/mindarmour/docs/zh-CN/master/design.html>
    design/glossary
 
+注意：点击带“↗”的标题，将会离开编程指南页面。
+
 .. toctree::
    :maxdepth: 1
    :caption: 快速入门
