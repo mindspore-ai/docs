@@ -17,7 +17,6 @@
         - [数据准备](#数据准备)
         - [训练](#训练)
         - [推理验证](#推理验证)
-        - [服务部署](#服务部署)
     - [参考文献](#参考文献)
 
 <!-- /TOC -->
@@ -34,8 +33,6 @@
 图1：案例流程图
 
 由于Bert预训练比较费时费力，在本案例中省略了预训练阶段，直接提供MindSpore预训练好的Bert-Base模型，经过Fine-tuning后训练获得最终的模型的训练全流程。
-
-除此之外，将展示如何通过MindSpore Serving将该模型部署成一个预测服务，Clients代码可以发送请求给该预测服务并获得预测结果。
 
 ## 模型介绍
 
@@ -101,12 +98,6 @@ BERT采用了Encoder结构，`attention_mask`为全1的向量，即每个token�
   ├── vocab.txt                            # 词汇表
   ├── generator.py                         # 推理生成诗句使用函数
   ├── poetry.py                            # 训练、推理、导出函数
-  ├── serving
-    ├── ms_serving                         # 启动服务器侧serving
-    ├── bert_flask.py                      # 服务器侧接收requests请求
-    ├── poetry_client.py                   # 客户端代码
-    ├── ms_service_pb2_grpc.py             # 定义了grpc相关函数供bert_flask.py使用
-    └── ms_service_pb2.py                  # 定义了protocol buffer相关函数供bert_flask.py使用
 
 ```
 
@@ -197,103 +188,6 @@ python poetry.py --train=False  --ckpt_path=/your/ckpt/path
 智士不知身没处，
 能令圣德属何年。
 ```
-
-### 服务部署
-
-通过MindSpore Serving将训练好的模型部署成推理服务。服务端部署包含以下3个步骤：模型导出、Serving服务启动、预处理及后处理的服务启动；客户端发送推理请求给服务端进行模型推理，推理生成的诗句返回给客户端展示。
-
-- 模型导出
-
-    在使用Serving部署服务前，需要导出模型文件，在`poetry.py`中提供了`export_net`函数负责导出MindIR模型，执行命令:
-
-    ```bash
-    python poetry.py --export=True --ckpt_path=/your/ckpt/path
-    ```
-
-    会在当前路径下生成`poetry.pb`文件。
-
-- Serving服务
-
-    在服务器侧启动Serving服务，并加载导出的MindIR文件`poetry.pb`。
-
-    ```bash
-    cd serving
-    ./ms_serving --model_path=/path/to/your/MINDIR_file --model_name=your_mindir.pb
-    ```
-
-- 预处理及后处理的服务
-
-    预处理及后处理通过Flask框架来快速实现，在服务器侧运行`bert_flask.py`文件，启动Flask服务。
-
-    ```bash
-    python bert_flask.py
-    ```
-
-    通过以上步骤，服务端部署就已经完成。
-
-- 客户端
-
-    可用电脑作为客户端，修改`poetry_client.py`中的url请求地址为推理服务启动的服务器IP，并确保端口与服务端`bert_flask.py`中的端口一致，例如：
-
-    ```python
-    url = 'http://10.155.170.71:8080/'
-    ```
-
-    运行`poetry_client.py`文件
-
-    ```bash
-    python poetry_client.py
-    ```
-
-    此时在客户端输入指令，即可在远端服务器进行推理，返回生成的诗句。
-
-    ```text
-    选择模式：0-随机生成，1：续写，2：藏头诗
-    0
-    ```
-
-    ```text
-    一朵黄花叶，
-    千竿绿树枝。
-    含香待夏晚，
-    澹浩长风时。
-    ```
-
-    ```text
-    选择模式：0-随机生成，1：续写，2：藏头诗
-    1
-    输入首句诗
-    明月
-    ```
-
-    ```text
-    明月照三峡，
-    长空一片云。
-    秋风与雨过，
-    唯有客舟分。
-    寒影出何处，
-    远林含不闻。
-    不知前后事，
-    何道逐风君。
-    ```
-
-    ```text
-    选择模式：0-随机生成，1：续写，2：藏头诗
-    2
-    输入藏头诗
-    人工智能
-    ```
-
-    ```text
-    人生事太远，
-    工部与神期。
-    智者岂无识，
-    能文争有疑。
-    ```
-
-    细读鉴赏一下，平仄、押韵、意味均有体现，AI诗人已然成形。
-
-> 友情提醒，修改其他类型数据集，也可以完成其他简单的生成类任务，如对春联，简单聊天机器人等，用户可尝试体验实现。
 
 ## 参考文献
 
