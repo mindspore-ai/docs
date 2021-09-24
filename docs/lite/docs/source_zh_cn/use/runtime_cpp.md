@@ -642,9 +642,9 @@ std::string version = mindspore::Version();
 
 ### 扩展使用
 
-本教程提供了扩展MindSpore Lite推理框架的示例程序，通过演示自定义算子的构建、注册的全流程，用户能够快速了解推理框架的扩展API的使用，能够在推理框架中集成自定义算子。本教程以一个具有简易Add计算能力的Custom单算子为模型。相关代码放置在[mindspore/lite/examples/runtime_extend](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/runtime_extend)目录。
+本章节提供了扩展MindSpore Lite推理框架的示例程序，通过演示自定义算子的构建、注册的全流程，用户能够快速了解推理框架的扩展API的使用，能够在推理框架中集成自定义算子。本章节以一个具有简易Add计算能力的Custom单算子为模型。相关代码放置在[mindspore/lite/examples/runtime_extend](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/runtime_extend)目录。
 
-本教程仅提供了在Linux环境下的使用说明,并且仅在1.3及以上版本支持。
+本章节仅提供了在Linux环境下的使用说明。
 
 #### 算子InferShape扩展
 
@@ -678,7 +678,7 @@ class CustomAddInfer : public kernel::KernelInterface {
       return kLiteError;
     }
     (*outputs)[0].SetShape((*inputs)[0].Shape());
-    return lite::RET_OK;
+    return kSuccess;
   }
 };
 std::shared_ptr<kernel::KernelInterface> CustomAddInferCreator() { return std::make_shared<CustomAddInfer>(); }
@@ -689,7 +689,7 @@ REGISTER_CUSTOM_KERNEL_INTERFACE(CustomOpTutorial, Custom_Add, CustomAddInferCre
 >
 > 静态推断：
 >
-> 1. `CheckInputs`失败或者当前节点需要动态推断的情形下，需将输出张量的shape设为{-1}，以便在图运行时的识别标识,且返回码需设置为RET_INFER_INVALID。
+> 1. `CheckInputs`失败或者当前节点需要动态推断的情形下，需将输出张量的shape设为{-1}，以便在图运行时的识别标识,且返回码需设置为`RET_INFER_INVALID`。
 > 2. 其他情形下，返回其他错误码，程序将会停止，请进行必要的检查。
 >
 > 动态推断：
@@ -745,7 +745,7 @@ REGISTER_CUSTOM_KERNEL_INTERFACE(CustomOpTutorial, Custom_Add, CustomAddInferCre
 
    - 编译构建
 
-     在`mindspore/lite/examples/runtime_extend`目录下执行[build脚本](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_extend/build.sh)，将自动下载MindSpore Lite发布件并编译Demo。
+     在`mindspore/lite/examples/runtime_extend`目录下执行[build.sh](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_extend/build.sh)，将自动下载MindSpore Lite发布件并编译Demo。
 
      ```bash
      bash build.sh
@@ -753,7 +753,7 @@ REGISTER_CUSTOM_KERNEL_INTERFACE(CustomOpTutorial, Custom_Add, CustomAddInferCre
 
      > 若使用该build脚本下载MindSpore Lite发布件失败，请手动下载硬件平台为CPU、操作系统为Ubuntu-x64的MindSpore Lite发布件[mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，将解压后`runtime/lib`目录下的`libmindspore-lite.so`文件拷贝到`mindspore/lite/examples/runtime_extend/lib`目录、`runtime/include`目录拷贝到`mindspore/lite/examples/runtime_extend`目录下。
      >
-     > 若add_extend.ms模型下载失败，请手动下载相关模型文件[add_extend.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/add_extend.ms)，并将其拷贝到`mindspore/lite/examples/runtime_extend/model`目录。
+     > 若`add_extend.ms`模型下载失败，请手动下载相关模型文件[add_extend.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/add_extend.ms)，并将其拷贝到`mindspore/lite/examples/runtime_extend/model`目录。
      >
      > 通过手动下载并且将该文件放到指定位置后，需要再次执行build.sh脚本才能完成编译构建。
 

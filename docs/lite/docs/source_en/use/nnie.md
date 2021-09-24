@@ -12,6 +12,8 @@
         - [Converter](#converter)
             - [Overview](#overview)
             - [Environment Preparation](#environment-preparation)
+            - [Extension Configuration](#extension-configuration)
+            - [NNIE Configuration](#nnie-configuration)
             - [Executing Converter](#executing-converter)
         - [Runtime](#runtime)
             - [Overview](#overview-1)
@@ -102,29 +104,37 @@ To use the MindSpore Lite model conversion tool, you need to prepare the environ
 
     ${PACKAGE_ROOT_PATH} indicates the path of the folder obtained after the decompression.
 
-4. Enable NNIE model conversion.
+#### Extension Configuration
 
-    The NNIE model can use the NNIE hardware to accelerate the model running. You need to configure the following to enable the NNIE model conversion:
+To load the extension module when converting, users need to configure the path of extended dynamic library. The parameters related to the extension include `plugin_path`, `disable_fusion`. The detailed description of the parameters is as follows:
 
-    - NNIE conversion configuration file
+| Parameter | Attribute | Function Description | Parameter Type | Default Value | Value Range |
+| --------- | --------- | -------------------- | -------------- | ------------- | ----------- |
+| plugin_path | Optional | Third-party library path | String | - | If there are more than one, please use `;` to separate. |
+| disable_fusion | Optional | Indicate whether to correct the quantization error | String | off | off or on. |
 
-        You can configure the NNIE conversion configuration file required by MindSpore Lite by referring to the `description of configuration items for nnie_mapper` in the HiSVP Development Guide provided by HiSilicon. `nnie.cfg` indicates the configuration file.
+We have generated the default configuration file which restores the relative path of the NNIE dynamic library for the users in the released package. The users need to decide whether the configuration file needs to be modified manually. The content is as follows:
 
-        The following is an example of the `nnie.cfg` file:
+```ini
+[registry]
+plugin_path=../providers/Hi3516D/libmslite_nnie_converter.so
+```
 
-        ```text
-        [net_type] 0
-        [image_list] ./input_nchw.txt
-        [image_type] 0
-        [norm_type] 0
-        [mean_file] null
-        ```
+#### NNIE Configuration
 
-        `input_nchw.txt` is the input data of the floating-point text format of the Caffe model to be converted. For details, see the description of `image_list` in the HiSVP Development Guide. In the configuration file, you can configure theitems other than caffemodel_file, prototxt_file, is_simulation and instructions_name.
+The NNIE model can use the NNIE hardware to accelerate the model running. To do so, the users also need to prepare NNIE's own configuration file. Users can configure the configuration file required by MindSpore Lite by referring to the `description of configuration items for nnie_mapper` in the HiSVP Development Guide provided by HiSilicon. `nnie.cfg` indicates the configuration file.
 
-    - (Optional) NNIE dynamic library path configuration
+The following is an example of the `nnie.cfg` file:
 
-        During NNIE conversion, use the configFile parameter to transfer the configuration file (`--configFile=./converter.cfg`) to enable NNIE conversion. For details about the configuration method, see ["Parameter Description" in Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html#id5). The relative path of the NNIE dynamic library is stored in the configuration file. You can manually change the path. By default, the path does not need to be changed.
+```text
+[net_type] 0
+[image_list] ./input_nchw.txt
+[image_type] 0
+[norm_type] 0
+[mean_file] null
+```
+
+> `input_nchw.txt` is the input data of the floating-point text format of the Caffe model to be converted. For details, see the description of `image_list` in the HiSVP Development Guide. In the configuration file, you can configure theitems other than caffemodel_file, prototxt_file, is_simulation and instructions_name.
 
 #### Executing Converter
 
