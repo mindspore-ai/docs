@@ -41,11 +41,11 @@ context.reset_auto_parallel_context()
 # 数据并行模式
 context.set_auto_parallel_context(parallel_mode=context.ParallelMode.DATA_PARALLEL)
 # 半自动并行模式
-# context.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL)
+# context.set_auto_parallel_context(parallel_mode=context.ParallelMode.SEMI_AUTO_PARALLEL)
 # 全并行模式
-# context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL)
+# context.set_auto_parallel_context(parallel_mode=context.ParallelMode.AUTO_PARALLEL)
 # 手动并行模式
-# context.set_auto_parallel_context(parallel_mode=ParallelMode.HYBRID_PARALLEL)
+# context.set_auto_parallel_context(parallel_mode=context.ParallelMode.HYBRID_PARALLEL)
 ```
 
 下述涉及的自动并行接口，例如`context.set_auto_parallel_context`中的接口配置，可以在[分布式并行接口](https://mindspore.cn/docs/programming_guide/zh-CN/master/auto_parallel.html)进行查看。分布式并行训练在各场景的支持情况如下表。
@@ -83,7 +83,7 @@ class DataParallelNet(nn.Cell):
 
 init()
 # 设置并行模式为数据并行，其他方式一致
-context.set_auto_parallel_context(mode=context.ParallelMode.DATA_PARALLEL)
+context.set_auto_parallel_context(parallel_mode=context.ParallelMode.DATA_PARALLEL)
 net = DataParallelNet()
 model = Model(net)
 model.train(...)
@@ -138,7 +138,7 @@ model.train(...)
             return x
 
     init()
-    context.set_auto_parallel_context(mode=context.ParallelMode.SEMI_AUTO_PARALLEL)
+    context.set_auto_parallel_context(parallel_mode=context.ParallelMode.SEMI_AUTO_PARALLEL)
     net = SemiAutoParallelNet()
     model = Model(net)
     model.train(...)
@@ -189,10 +189,11 @@ class SemiAutoParallelNet(nn.Cell):
 用户可以通过如下代码去设置上述的策略搜索算法：
 
 ```python
+from mindspore import context
 # 设置动态规划算法进行策略搜索
-context.set_auto_parallel_context(mode=ParallelMode.AUTO_PARALLEL, auto_parallel_search_mode="dynamic_programming")
+context.set_auto_parallel_context(parallel_mode=context.ParallelMode.AUTO_PARALLEL, auto_parallel_search_mode="dynamic_programming")
 # 设置双递归方法进行策略搜索
-context.set_auto_parallel_context(mode=ParallelMode.AUTO_PARALLEL, auto_parallel_search_mode="recursive_programming")
+context.set_auto_parallel_context(parallel_mode=context.ParallelMode.AUTO_PARALLEL, auto_parallel_search_mode="recursive_programming")
 ```
 
 > 在自动并行模式下，用户设置的`shard`策略也会生效，不会被搜索出来的策略覆盖掉。
@@ -227,7 +228,7 @@ class HybridParallelNet(nn.Cell):
         return x
 
 init()
-context.set_auto_parallel_context(mode=context.ParallelMode.HYBRID_PARALLEL)
+context.set_auto_parallel_context(parallel_mode=context.ParallelMode.HYBRID_PARALLEL)
 net = HybridParallelNet()
 model = Model(net)
 model.train(...)

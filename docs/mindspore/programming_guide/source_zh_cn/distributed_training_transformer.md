@@ -62,7 +62,8 @@
 我们会在接下来讨论他们的区别。现在以单机八卡训练一个`Transformer`模型为例，我们根据目前的卡数8设置`Transformer`模型的并行配置。我们可以设置`data_parallel`=1，`model_parallel`=8作为并行的基本配置。注意并行配置的情况下，`data_parallel`\*`model_parallel`\*`pipeline_stages`<=总卡数。对应的代码中的**并行配置**如下。
 
 ```python
-context.set_auto_parallel_context(mode=ParallelMode.SEMI_AUTO_PARALLEL)
+from mindspore import context
+context.set_auto_parallel_context(parallel_mode=context.ParallelMode.SEMI_AUTO_PARALLEL)
 parallel_config = TransformerOpParalllelConfig(data_parallel=1, model_parallel=8)
 ```
 
