@@ -35,7 +35,7 @@ This document describes how to quickly install MindSpore in a Linux system with 
     - For the installation of software package,  please refer to the [Product Document](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910).
     - The software packages include Driver and Firmware and CANN.
         - [Driver and Firmware A800-9000 1.0.13 ARM platform] and [Driver and Firmware A800-9010 1.0.13 x86 platform]
-        - [CANN 5.0.T306]
+        - [CANN 5.0.T306](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/254156433)
 
     - Ensure that the current user has the right to access the installation path `/usr/local/Ascend`of Ascend 910 AI processor software package, If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located. For the specific configuration, please refer to the software package instruction document.
 

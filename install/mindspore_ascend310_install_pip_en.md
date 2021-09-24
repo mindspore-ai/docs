@@ -28,7 +28,7 @@ The following describes how to quickly install MindSpore by pip on Linux in the 
     - For the installation of software package,  please refer to the [Product Document](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910).
     - The software packages include Driver and Firmware and CANN.
         - [Driver and Firmware A300-3000 1.0.13 ARM platform] and [Driver and Firmware A300-3010 1.0.13 x86 platform]
-        - [CANN 5.0.T306]
+        - [CANN 5.0.T306](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/254156433)
     - Ensure that you have permissions to access the installation path `/usr/local/Ascend` of the Ascend 310 AI Processor software package. If not, ask the user root to add you to a user group to which `/usr/local/Ascend` belongs. For details about the configuration, see the description document in the software package.
     - Install the .whl package provided with the Ascend 310 AI Processor software package. The .whl package is released with the software package. After the software package is upgraded, you need to reinstall the .whl package.
 
