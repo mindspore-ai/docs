@@ -25,6 +25,6 @@ mindspore.communication.create_group(group, rank_ids)
 
 ## 使用方式
 
-PyTorch: 该接口传入待构建通信域rank列表，指定backend创建指定的通信域，并返回创建的通信域。
+PyTorch：该接口传入待构建通信域rank列表，指定backend创建指定的通信域，并返回创建的通信域。
 
 MindSpore：该接口传入group名字，以及待构建通信域rank列表，创建一个以传入的group名字为key的通信域，不返回任何值。

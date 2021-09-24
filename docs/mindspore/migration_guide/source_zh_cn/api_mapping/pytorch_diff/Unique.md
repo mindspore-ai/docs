@@ -26,7 +26,7 @@ class mindspore.ops.Unique(*args, **kwargs)(x)
 
 ## 使用方式
 
-PyTorch: 可通过设置参数来确定输出是否排序，是否输出输入的tensor的各元素在输出tensor中的位置索引，是否输出各唯一值在输入的tensor中的数量。
+PyTorch：可通过设置参数来确定输出是否排序，是否输出输入的tensor的各元素在输出tensor中的位置索引，是否输出各唯一值在输入的tensor中的数量。
 
 MindSpore：升序输出所有的唯一值，以及输入的tensor的各元素在输出tensor中的位置索引。
 

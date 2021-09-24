@@ -22,7 +22,7 @@ class mindspore.ops.BroadcastTo(shape)(input_x)
 
 ## 使用方式
 
-PyTorch: 按照[一定的规则](https://pytorch.org/docs/stable/notes/broadcasting.html#broadcasting-semantics)
+PyTorch：按照[一定的规则](https://pytorch.org/docs/stable/notes/broadcasting.html#broadcasting-semantics)
 将输入的若干个tensor广播成1个tensor。
 
 MindSpore：将一个给定的tensor广播成指定形状的tensor。

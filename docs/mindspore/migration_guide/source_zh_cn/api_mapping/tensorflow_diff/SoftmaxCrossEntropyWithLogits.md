@@ -30,7 +30,7 @@ class mindspore.nn.SoftmaxCrossEntropyWithLogits(
 
 ## 使用方式
 
-TensorFlow: labels和logits的shape需一致，未提供reduction参数对loss求mean或sum。
+TensorFlow：labels和logits的shape需一致，未提供reduction参数对loss求mean或sum。
 
 MindSpore：支持labels是稀疏矩阵，且通过reduction参数可对loss求mean或sum。
 
