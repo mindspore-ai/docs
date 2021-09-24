@@ -16,6 +16,8 @@ class tf.keras.optimizers.Adam(
 )
 ```
 
+更多内容详见[tf.keras.optimizers.Adam](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/optimizers/Adam)。
+
 ## mindspore.nn.Adam
 
 ```python
@@ -31,6 +33,8 @@ class mindspore.nn.Adam(
     loss_scale=1.0
 )(grads)
 ```
+
+更多内容详见[mindspore.nn.Adam](https://mindspore.cn/docs/api/zh-CN/r1.5/api_python/nn/mindspore.nn.Adam.html)。
 
 ## 使用方式
 
