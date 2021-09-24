@@ -14,6 +14,8 @@ class tf.train.MomentumOptimizer(
 )
 ```
 
+For more information, see[tf.train.MomentumOptimizer](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/train/MomentumOptimizer).
+
 ## mindspore.nn.Momentum
 
 ```python
@@ -26,6 +28,8 @@ class mindspore.nn.Momentum(
     use_nesterov=False
 )(grads)
 ```
+
+For more information, see[mindspore.nn.Momentum](https://mindspore.cn/docs/api/en/r1.5/api_python/nn/mindspore.nn.Momentum.html).
 
 ## Differences
 

@@ -18,6 +18,8 @@ tf.gradients(
 )
 ```
 
+更多内容详见[tf.gradients](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/gradients)。
+
 ## mindspore.ops.GradOperation
 
 ```python
@@ -27,6 +29,8 @@ class mindspore.ops.GradOperation(
   sens_param=False
 )
 ```
+
+更多内容详见[mindspore.ops.GradOperation](https://mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.GradOperation.html)。
 
 ## 使用方式
 

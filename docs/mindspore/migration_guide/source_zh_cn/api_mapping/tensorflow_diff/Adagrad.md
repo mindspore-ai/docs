@@ -14,6 +14,8 @@ class tf.keras.optimizers.Adagrad(
 )
 ```
 
+更多内容详见[tf.keras.optimizers.Adagrad](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/optimizers/Adagrad)。
+
 ## mindspore.nn.Adagrad
 
 ```python
@@ -26,6 +28,8 @@ class mindspore.nn.Adagrad(
     weight_decay=0.0
 )(grads)
 ```
+
+更多内容详见[mindspore.nn.Adagrad](https://mindspore.cn/docs/api/zh-CN/r1.5/api_python/nn/mindspore.nn.Adagrad.html)。
 
 ## 使用方式
 
