@@ -4,16 +4,16 @@
 
 - [Network Parameters](#network-parameters)
     - [Overview](#overview)
-    - [Use parameter to initialize parameters](#use-parameter-to-initialize-parameters)
-        - [Initialization](#initialization)
+    - [Use of parameters](#use-of-parameters)
+        - [Declaration](#declaration)
         - [Attributes](#attributes)
         - [Methods](#methods)
-        - [ParameterTuple](#parametertuple)
-        - [Dependency Control](#dependency-control)
     - [Using Encapsulation Operator to Initialize Parameters](#using-encapsulation-operator-to-initialize-parameters)
         - [Character String](#character-string)
         - [Initializer Subclass](#initializer-subclass)
         - [The Custom of the Tensor](#the-custom-of-the-tensor)
+    - [ParameterTuple](#parametertuple)
+    - [Dependency Control](#dependency-control)
 
 <!-- /TOC -->
 
@@ -21,29 +21,25 @@
 
 ## Overview
 
-`Parameter` is a variable tensor, indicating the parameters that need to be updated during network training. The following describes the `Parameter` initialization, attributes, methods, and `ParameterTuple`.
+`Parameter` is a variable tensor, indicating the parameters that need to be updated during network training. The following describes the `Parameter` initialization, attributes, methods, and `ParameterTuple`. The following describes the Parameter initialization, attributes, methods,  ParameterTuple and dependency control.
 
-## Use parameter to initialize parameters
+## Use of parameters
 
-Parameter is a variable tensor, indicating the parameters that need to be updated during network training. The following describes the Parameter initialization, attributes, methods, and ParameterTuple.
+Parameter is a variable tensor, indicating the parameters that need to be updated during network training.
 
-### Initialization
+### Declaration
 
 ```python
 mindspore.Parameter(default_input, name=None, requires_grad=True, layerwise_parallel=False)
 ```
 
-Initialize a `Parameter` object. The input data supports the `Tensor`, `Initializer`, `int`, and `float` types.
+- `default_input`: Initialize a `Parameter` object. The input data supports the `Tensor`, `Initializer`, `int`, and `float` types. The `initializer` API can be called to generate the `Initializer` object. When `init` is used to initialize `Tensor`, the `Tensor` only stores the shape and type of the tensor, not the actual data. Therefore, `Tensor` does not occupy any memory, you can call the `init_data` API to convert `Tensor` saved in `Parameter` to the actual data.
 
-The `initializer` API can be called to generate the `Initializer` object.
+- `name`: You can specify a name for each `Parameter` to facilitate subsequent operations and updates. It is recommended to use the default value of `name` when initialize a parameter as one attribute of a cell, otherwise, the parameter name may be different than expected.
 
-When `init` is used to initialize `Tensor`, the `Tensor` only stores the shape and type of the tensor, not the actual data. Therefore, `Tensor` does not occupy any memory, you can call the `init_data` API to convert `Tensor` saved in `Parameter` to the actual data.
+- `requires_grad`: update a parameter, set `requires_grad` to `True`.
 
-You can specify a name for each `Parameter` to facilitate subsequent operations and updates. It is recommended to use the default value of `name` when initialize a parameter as one attribute of a cell, otherwise, the parameter name may be different than expected.
-
-To update a parameter, set `requires_grad` to `True`.
-
-When `layerwise_parallel` is set to True, this parameter will be filtered out during parameter broadcast and parameter gradient aggregation.
+- `layerwise_parallel`: When `layerwise_parallel` is set to True, this parameter will be filtered out during parameter broadcast and parameter gradient aggregation.
 
 For details about the configuration of distributed parallelism, see <https://www.mindspore.cn/docs/programming_guide/en/r1.5/auto_parallel.html>.
 
@@ -64,7 +60,7 @@ z = Parameter(default_input=2.0, name='z')
 print(x, "\n\n", y, "\n\n", z)
 ```
 
-The following information is displayed:
+The output is as follows:
 
 ```text
  Parameter (name=x, shape=(2, 3), dtype=Int32, requires_grad=True)
@@ -111,7 +107,7 @@ print("name: ", x.name, "\n",
       "data: ", x.data)
 ```
 
-The following information is displayed:
+The output is as follows:
 
 ```text
 name:  Parameter
@@ -156,7 +152,7 @@ print(x.init_data())
 print(x.set_data(data=Tensor(np.arange(2*3).reshape((1, 2, 3)))))
 ```
 
-The following information is displayed:
+The output is as follows:
 
 ```text
 Parameter (name=Parameter, shape=(1, 2, 3), dtype=Float32, requires_grad=True)
@@ -165,93 +161,13 @@ Parameter (name=Parameter, shape=(1, 2, 3), dtype=Float32, requires_grad=True)
 Parameter (name=Parameter, shape=(1, 2, 3), dtype=Float32, requires_grad=True)
 ```
 
-### ParameterTuple
-
-Inherited from `tuple`, `ParameterTuple` is used to store multiple `Parameter` objects. `__new__(cls, iterable)` is used to transfer an iterator for storing `Parameter` for building, and the `clone` API is provided for cloning.
-
-The following example builds a `ParameterTuple` object and clones it.  
-
-```python
-import numpy as np
-from mindspore import Tensor, Parameter, ParameterTuple
-from mindspore import dtype as mstype
-from mindspore.common.initializer import initializer
-
-x = Parameter(default_input=Tensor(np.arange(2*3).reshape((2, 3))), name='x')
-y = Parameter(default_input=initializer('ones', [1, 2, 3], mstype.float32), name='y')
-z = Parameter(default_input=2.0, name='z')
-params = ParameterTuple((x, y, z))
-params_copy = params.clone("params_copy")
-print(params, "\n")
-print(params_copy)
-```
-
-The following information is displayed:
-
-```text
-(Parameter (name=x, shape=(2, 3), dtype=Int32, requires_grad=True), Parameter (name=y, shape=(1, 2, 3), dtype=Float32, requires_grad=True), Parameter (name=z, shape=(), dtype=Float32, requires_grad=True))
-
-(Parameter (name=params_copy.x, shape=(2, 3), dtype=Int32, requires_grad=True), Parameter (name=params_copy.y, shape=(1, 2, 3), dtype=Float32, requires_grad=True), Parameter (name=params_copy.z, shape=(), dtype=Float32, requires_grad=True))
-```
-
-### Dependency Control
-
-If the result of a function depends on or affects an external state, we consider that the function has side effects, such as a function changing an external global variable, and the result of a function depends on the value of a global variable. If the operator changes the value of the input parameter or the output of the operator depends on the value of the global parameter, we think this is an operator with side effects.
-
-Side effects are classified as memory side effects and IO side effects based on memory properties and IO status. At present, memory side effects are mainly Assign, optimizer operators and so on, IO side effects are mainly Print operators. You can view the operator definition in detail, the memory side effect operator has side_effect_mem properties in the definition, and the IO side effect operator has side_effect_io properties in the definition.
-
-Depend is used for processing dependency operations.In most cases, if the operators have IO or memory side effects, they will be executed according to the user's semantics, and there is no need to use the Depend operator to guarantee the execution order.In some cases, if the two operators A and B do not have sequential dependencies, and A must execute before B, we recommend that you use Depend to specify the order in which they are executed. Here's how to use it:
-
-```python
-a = A(x)                --->        a = A(x)
-b = B(y)                --->        y = Depend(y, a)
-                        --->        b = B(y)
-```
-
-Please note that a special set of operators for floating point overflow state detection have hidden side effects, but are not IO side effects or memory side effects. In addition, there are strict sequencing requirements for use, i.e., before using the NPUClearFloatStatus operator, you need to ensure that the NPU AllocFloatStatus has been executed, and before using the NPUGetFloatStatus operator, you need to ensure that the NPUClearFlotStatus has been executed. Because these operators are used less, the current scenario is to keep them defined as side-effect-free in the form of Depend ensuring execution order. Examples are as follows:
-
-```python
-import numpy as np
-from mindspore.common.tensor import Tensor
-from mindspore import ops
-
-npu_alloc_status = ops.NPUAllocFloatStatus()
-npu_get_status = ops.NPUGetFloatStatus()
-npu_clear_status = ops.NPUClearFloatStatus()
-x = Tensor(np.ones([3, 3]).astype(np.float32))
-y = Tensor(np.ones([3, 3]).astype(np.float32))
-init = npu_alloc_status()
-sum_ = ops.Add()(x, y)
-product = ops.MatMul()(x, y)
-init = ops.depend(init, sum_)
-init = ops.depend(init, product)
-get_status = npu_get_status(init)
-sum_ = ops.depend(sum_, get_status)
-product = ops.depend(product, get_status)
-out = ops.Add()(sum_, product)
-init = ops.depend(init, out)
-clear = npu_clear_status(init)
-out = ops.depend(out, clear)
-print(out)
-```
-
-The following information is displayed:
-
-```text
-[[5. 5. 5.]
- [5. 5. 5.]
- [5. 5. 5.]]
-```
-
-Specific usage methods can refer to the implementation of [start_overflow_check functions](https://gitee.com/mindspore/mindspore/blob/r1.5/mindspore/nn/wrap/loss_scale.py) in the overflow detection logic.
-
 ## Using Encapsulation Operator to Initialize Parameters
 
 Mindspore provides a variety of methods of initializing parameters, and encapsulates parameter initialization functions in some operators. This section will introduce the method of initialization of parameters by operators with parameter initialization function. Taking `Conv2D` operator as an example, it will introduce the initialization of parameters in the network by strings, `Initializer` subclass and custom `Tensor`, etc. `Normal`, a subclass of `Initializer`, is used in the following code examples and can be replaced with any of the subclasses of Initializer in the code examples.
 
 ### Character String
 
-Network parameters are initialized using a string. The contents of the string need to be consistent with the name of the `Initializer` subclass. Initialization using a string will use the default parameters in the `Initializer` subclass. For example, using the string `Normal` is equivalent to using the `Initializer` subclass `Normal()`. The code sample is as follows:
+Network parameters are initialized using a string. The contents of the string need to be consistent with the name of the `Initializer` subclass(Letters are not case sensitive). Initialization using a string will use the default parameters in the `Initializer` subclass. For example, using the string `Normal` is equivalent to using the `Initializer` subclass `Normal()`. The code sample is as follows:
 
 ```python
 import numpy as np
@@ -266,6 +182,8 @@ net = nn.Conv2d(3, 64, 3, weight_init='Normal')
 output = net(input_data)
 print(output)
 ```
+
+The output is as follows:
 
 ```text
 [[[[ 3.10382620e-02  4.38603461e-02  4.38603461e-02 ...  4.38603461e-02
@@ -318,6 +236,8 @@ output = net(input_data)
 print(output)
 ```
 
+The output is as follows:
+
 ```text
 [[[[ 6.2076533e-01  8.7720710e-01  8.7720710e-01 ...  8.7720710e-01
      8.7720710e-01  2.7743810e-01]
@@ -367,6 +287,8 @@ output = net(input_data)
 print(output)
 ```
 
+The output is as follows:
+
 ```text
 [[[[12. 18. 18. ... 18. 18. 12.]
    [18. 27. 27. ... 27. 27. 18.]
@@ -386,3 +308,65 @@ print(output)
    [18. 27. 27. ... 27. 27. 18.]
    [12. 18. 18. ... 18. 18. 12.]]]]
 ```
+
+## ParameterTuple
+
+Inherited from `tuple`, `ParameterTuple` is used to store multiple `Parameter` objects. `__new__(cls, iterable)` is used to transfer an iterator for storing `Parameter` for building, and the `clone` API is provided for cloning.
+
+The following example builds a `ParameterTuple` object and clones it.  
+
+```python
+import numpy as np
+from mindspore import Tensor, Parameter, ParameterTuple
+from mindspore import dtype as mstype
+from mindspore.common.initializer import initializer
+
+x = Parameter(default_input=Tensor(np.arange(2*3).reshape((2, 3))), name='x')
+y = Parameter(default_input=initializer('ones', [1, 2, 3], mstype.float32), name='y')
+z = Parameter(default_input=2.0, name='z')
+params = ParameterTuple((x, y, z))
+params_copy = params.clone("params_copy")
+print(params, "\n")
+print(params_copy)
+```
+
+The output is as follows:
+
+```text
+(Parameter (name=x, shape=(2, 3), dtype=Int32, requires_grad=True), Parameter (name=y, shape=(1, 2, 3), dtype=Float32, requires_grad=True), Parameter (name=z, shape=(), dtype=Float32, requires_grad=True))
+
+(Parameter (name=params_copy.x, shape=(2, 3), dtype=Int32, requires_grad=True), Parameter (name=params_copy.y, shape=(1, 2, 3), dtype=Float32, requires_grad=True), Parameter (name=params_copy.z, shape=(), dtype=Float32, requires_grad=True))
+```
+
+## Dependency Control
+
+If the result of a function depends on or affects an external state, we consider that the function has side effects, such as a function changing an external global variable, and the result of a function depends on the value of a global variable. If the operator changes the value of the input parameter or the output of the operator depends on the value of the global parameter, we think this is an operator with side effects.
+
+Side effects are classified as memory side effects and IO side effects based on memory properties and IO status. At present, memory side effects are mainly Assign, optimizer operators and so on, IO side effects are mainly Print operators. You can view the operator definition in detail, the memory side effect operator has side_effect_mem properties in the definition, and the IO side effect operator has side_effect_io properties in the definition.
+
+Depend is used for processing dependency operations.In most cases, if the operators have IO or memory side effects, they will be executed according to the user's semantics, and there is no need to use the Depend operator to guarantee the execution order.In some cases, if the two operators A and B do not have sequential dependencies, and A must execute before B, we recommend that you use Depend to specify the order in which they are executed. Here's how to use it:
+
+```python
+a = A(x)                --->        a = A(x)
+b = B(y)                --->        y = Depend(y, a)
+                        --->        b = B(y)
+```
+
+Please note that a special set of operators for floating point overflow state detection have hidden side effects, but are not IO side effects or memory side effects. In addition, there are strict sequencing requirements for use, i.e., before using the NPUClearFloatStatus operator, you need to ensure that the NPU AllocFloatStatus has been executed, and before using the NPUGetFloatStatus operator, you need to ensure that the NPUClearFlotStatus has been executed. Because these operators are used less, the current scenario is to keep them defined as side-effect-free in the form of Depend ensuring execution order. Examples are as follows:
+
+```python
+import mindspore.ops as ops
+self.alloc_status = ops.operations.NPUAllocFloatStatus()
+self.get_status = ops.operations.NPUGetFloatStatus()
+self.clear_status = ops.operations.NPUClearFloatStatus()
+...
+init = self.alloc_status()
+init = ops.functional.Depend(init, input)
+clear_status = self.clear_status(init)
+input = ops.functional.Depend(input, clear_status)
+output = Compute(input)
+init = ops.functional.Depend(init, output)
+get_status = self.get_status(init)
+```
+
+Specific usage methods can refer to the implementation of [start_overflow_check functions](https://gitee.com/mindspore/mindspore/blob/r1.5/mindspore/nn/wrap/loss_scale.py) in the overflow detection logic.
