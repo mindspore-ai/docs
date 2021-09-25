@@ -48,8 +48,9 @@ output = conv3d(input_data, weight)
 print(output)
 ```
 
-```text
 The output is as follows:
+
+```text
 [[[[[108 108 108 ... 108 108 108]
     [108 108 108 ... 108 108 108]
     [108 108 108 ... 108 108 108]
@@ -88,8 +89,9 @@ output = conv3d(input_data, weight)
 print(output)
 ```
 
-```text
 The output is as follows:
+
+```text
 [[[[[0 0 0 ... 0 0 0]
     [0 0 0 ... 0 0 0]
     [0 0 0 ... 0 0 0]]
@@ -127,6 +129,8 @@ conv3d = ops.Conv3D(out_channel=32, kernel_size=(4, 3, 3))
 output = conv3d(input_data, weight)
 print(output)
 ```
+
+The output is as follows:
 
 ```text
 [[[[[0 0 0 ... 0 0 0]
