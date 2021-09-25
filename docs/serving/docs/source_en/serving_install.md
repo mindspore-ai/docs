@@ -31,7 +31,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/Servin
 
 > - `{version}` denotes the version of MindSpore Serving. For example, when you are downloading MindSpore Serving 1.1.0, `{version}` should be 1.1.0.
 > - `{arch}` denotes the system architecture. For example, the Linux system you are using is x86 architecture 64-bit, `{arch}` should be `x86_64`. If the system is ARM architecture 64-bit, then it should be `aarch64`.
-> - `{python_version}` spcecifies the python version for which MindSpore is built. If you wish to use Python3.7.5,`{python_version}` should be `cp37_cp37m`. If Python3.9.0 is used, it should be `cp39_cp39`. Please use the same Python environment whereby MindSpore is installed.
+> - `{python_version}` spcecifies the python version for which MindSpore is built. If you wish to use Python3.7.5,`{python_version}` should be `cp37-cp37m`. If Python3.9.0 is used, it should be `cp39-cp39`. Please use the same Python environment whereby MindSpore is installed.
 
 ### Installation by Source Code
 
