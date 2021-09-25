@@ -5,6 +5,7 @@
 <!-- TOC -->
 
 - [下载MindSpore Lite](#下载mindspore-lite)
+    - [1.5.0](#150)
     - [1.3.0](#130)
     - [1.2.0](#120)
     - [1.1.0](#110)
@@ -14,6 +15,19 @@
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/lite/docs/source_zh_cn/use/downloads.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 欢迎使用MindSpore Lite，我们提供了支持多种操作系统和硬件平台的模型转换、模型推理、图像处理等功能，你可以下载适用于本地环境的版本包直接使用。
+
+## 1.5.0
+
+|   组件   | 硬件平台 |   操作系统   |   链接   |   SHA-256   |
+|   ---   |   ---   |     ---     |   ---   |     ---     |
+| 推理/训练runtime、推理aar包、以及benchmark工具 | CPU     | Android-aarch32 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/MindSpore/lite/release/android/cpu/mindspore-lite-1.5.0-android-aarch32.tar.gz> | 7317c9359bd6da97c389780a9a6f91987c512a794d3a367e42e411eaacb181e0 |
+| 推理/训练runtime、推理aar包、以及benchmark工具 | CPU/GPU | Android-aarch64 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/MindSpore/lite/release/android/gpu/mindspore-lite-1.5.0-android-aarch64.tar.gz> | d0453a1e5f5f653cc77f160b3ea9252ee1ab96d0bce3e9128d4a54f47279ac46 |
+| 推理/训练runtime、推理jar包、以及benchmark/codegen/converter/cropper工具 | CPU     | Ubuntu-x64 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/MindSpore/lite/release/linux/mindspore-lite-1.5.0-linux-x64.tar.gz> | 81451541762699c259d13dd1d5a985fde653aeaf91052471bb918eb4f5045f49 |
+| 推理runtime以及benchmark/codegen/converter工具 | CPU     | Windows-x64 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/MindSpore/lite/release/windows/mindspore-lite-1.5.0-win-x64.zip> | 3ee80e7906f6173b805d985b51551c489bd23614b8747fb6e795a7303729913b |
+| iOS 推理runtime | CPU | iOS-aarch32 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/MindSpore/lite/release/ios/mindspore-lite-1.5.0-ios-aarch32.tar.gz> | 56a508d49605d46b65b84d4160155ebcbb21d1f9295baac1c96148f0a2b06e79 |
+| iOS 推理runtime | CPU | iOS-aarch64 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/MindSpore/lite/release/ios/mindspore-lite-1.5.0-ios-aarch64.tar.gz> | 69af90551a97f6d36379431a63fc31ebff102809fc5ec7e7a48e566f3a578ad8 |
+| NNIE converter工具 | CPU     | Ubuntu-x64 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/MindSpore/lite/release/linux/nnie/mindspore-lite-1.5.0-linux-x64.tar.gz> | ee0ec7fdc203a5106eccc02ca15c7543c4e6c957e605f8a9aaead4d966f10c4b |
+| NNIE 推理runtime及benchmark工具 | Hi3516D | Linux-aarch32 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0-rc1/MindSpore/lite/release/linux/mindspore-lite-1.5.0-linux-aarch32.tar.gz> | 477628889908fb64ae4b7b989c0181593f9c66bebf119f6a07437911879bff8b |
 
 ## 1.3.0
 
