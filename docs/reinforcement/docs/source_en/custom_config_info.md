@@ -78,10 +78,10 @@ algorithm_config = {
 }
 ```
 
-|  key   |    Type    |              Range              |                         Description                          |
-| :----: | :--------: | :-----------------------------: | :----------------------------------------------------------: |
-|  type  |   Class    |     The user-defined class      |       This type is the same name as user-defined class       |
-| params | Dictionary | Any value with key value format | Customized parameter, user can input any value with key value format |
+|  key   |        Type        |                  Range                  |                         Description                          |
+| :----: | :----------------: | :-------------------------------------: | :----------------------------------------------------------: |
+|  type  |       Class        |         The user-defined class          |      This type is the same name as user-defined class.       |
+| params | Dictionary or None | Any value with key value format or None | Customized parameter, user can input any value with key value format. If it does not need parameter, fill None. |
 
 ### Environment Configuration
 
@@ -97,18 +97,18 @@ from mindspore_rl.environment import Environment
 algorithm_config = {
     ...
     'env': {
-        'type': Environment,               # the class name of environment
+        'type': GymEnvironment,            # the class name of environment
         'params': {'name': 'CartPole-v0'}  # parameter of environment
     }
     ...
 }
 ```
 
-|  key   |    Type    |                 Range                 |                         Description                          |
-| :----: | :--------: | :-----------------------------------: | :----------------------------------------------------------: |
-| number |  Integer   |                [1, +∞)                |                              -                               |
-|  type  |   Class    | GymEnvironment or MultiGymEnvironment |                              -                               |
-| params | Dictionary |    Any value with key value format    | Customized parameter, user can input any value with key value format |
+|        key        |        Type        |                  Range                  |                         Description                          |
+| :---------------: | :----------------: | :-------------------------------------: | :----------------------------------------------------------: |
+| number (optional) |      Integer       |                 [1, +∞)                 | If the type is GymEnvironment, then user does not need to fill number. If the type MultiGymEnvironment, user needs to fill the number of environment. |
+|       type        |       Class        |  GymEnvironment or MultiGymEnvironment  |                              -                               |
+|      params       | Dictionary or None | Any value with key value format or None | Customized parameter, user can input any value with key value format. If it does not need parameter, fill None. |
 
 ### Actor Configuration
 
@@ -126,8 +126,8 @@ algorithm_config = {
         'policies': ['init_policy', 'collect_policy', 'eval_policy'],       # Take the policies that called init_policy, collect_policy and eval_policy in Policy class as input to create the instance of actor
         'networks': ['policy_net', 'target_net'],                           # Take the networks that called policy_net and target_net in Policy class as input to create the instance of actor
         'environment': True,                                                # take the object of environment to create the instance of actor
-        'buffer': {'capacity': 100000,                                      # the capacity of ReplayBuffer
-                   'batch_size': 64,                                        # sample Batch Size
+        'replay_buffer': {'capacity': 100000,                               # the capacity of ReplayBuffer
+                   'sample_size': 64,                                       # sample Batch Size
                    'shape': [(4,), (1,), (1,), (4,)],                       # the dimension info of ReplayBuffer
                    'type': [ms.float32, ms.int32, ms.float32, ms.float32]}, # the data type of ReplayBuffer
     }
@@ -139,9 +139,9 @@ algorithm_config = {
 | :------------------------: | :-------------------------: | :--------------------------------------------------------: | :----------------------------------------------------------: |
 |           number           |           Integer           |                          [1, +∞)                           |                              -                               |
 |            type            |            Class            | The subclass of actor that is user-defined and implemented | This type is the same name as the subclass of actor that is user-defined and implemented |
-|           params           |         Dictionary          |              Any value with key value format               | Customized parameter, user can input any value with key value format |
+|           params           |     Dictionary or None      |          Any value with key value format or None           | Customized parameter, user can input any value with key value format. If it does not need parameter, fill None. |
 |          policies          |       List of String        |      Same variable name as the user-defined policies       | Every string in list must match with policies' name which is user initialized in  defined policy class |
-|          networks          |       List of String        |        Same variable name as the user-defined networks         | Every string in list must match with networks' name which is user initialized in  defined policy class |
+|          networks          |       List of String        |      Same variable name as the user-defined networks       | Every string in list must match with networks' name which is user initialized in  defined policy class |
 |        environment         |           Boolean           |                       True or False                        | If this value is False, user can not obtain environment instance in actor |
 |      eval_environment      |           Boolean           |                       True or False                        | If this value is False, user can not obtain environment instance in actor |
 |  replay_buffer::capacity   |           Integer           |                          [0, +∞)                           |                              -                               |
@@ -170,9 +170,9 @@ algorithm_config = {
 }
 ```
 
-|   key   |      Type      |                       Range                        |                         Description                          |
-| :-----: | :------------: | :------------------------------------------------: | :----------------------------------------------------------: |
-| number  |    Integer     |                      [1, +∞)                       |                              -                               |
-|  type   |     Class      | The user-defined and implement subclass of learner | This type is the same name as the subclass of learner that is user-defined and implemented |
-| params  |   Dictionary   |          Any value with key value format           | Customized parameter, user can input any value with key value format |
-| network | List of String |     Same variable name as the user-defined network     | Every string in list must match with networks' name which is user initialized in  defined policy class |
+|   key    |        Type        |                       Range                        |                         Description                          |
+| :------: | :----------------: | :------------------------------------------------: | :----------------------------------------------------------: |
+|  number  |      Integer       |                      [1, +∞)                       |                              -                               |
+|   type   |       Class        | The user-defined and implement subclass of learner | This type is the same name as the subclass of learner that is user-defined and implemented |
+|  params  | Dictionary or None |      Any value with key value format or None       | Customized parameter, user can input any value with key value format. If it does not need parameter, fill None. |
+| networks |   List of String   |   Same variable name as the user-defined network   | Every string in list must match with networks' name which is user initialized in  defined policy class |
