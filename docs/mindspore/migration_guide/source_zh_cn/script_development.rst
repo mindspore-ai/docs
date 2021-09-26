@@ -11,4 +11,6 @@
 
    使用MindConverter迁移脚本↗ <https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.5/migrate_3rd_scripts_mindconverter.html>
    migration_script
+   training_process_comparision
+   typical_api_comparision
    optim
