@@ -47,7 +47,7 @@ from mindspore.nn import SoftmaxCrossEntropyWithLogits
 resnet = ResNet50()
 load_checkpoint("resnet50-2_32.ckpt", net=resnet)
 # create eval dataset, mnist_path is the data path
-dateset_eval = create_dataset(mnist_path)
+dataset_eval = create_dataset(mnist_path)
 loss = SoftmaxCrossEntropyWithLogits()
 model = Model(resnet, loss, metrics={"accuracy"})
 acc = model.eval(dataset_eval)
