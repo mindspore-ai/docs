@@ -601,3 +601,8 @@ At this time, you can set context.set_context(max_call_depth = value) to change 
 
 Otherwise, set max_call_depth can change the recursive depth of MindSpore, it may also cause exceed the maximum depth of the system stack and cause segment fault. At this time, you may also need to set the system stack depth.
 
+<br/>
+
+<font size=3>**Q: Why report an error that 'Mindspore can not compile temporary source code in terminal. Please write source code to a python file and run the file.'?**</font>
+
+A: When compiling a network, MindSpore use `inspect.getsourcelines(self.fn)` to get the code file. If the network is the temporary code which edited in terminal, MindSpore will report an error as the title. It can be solved if writing the network to a python file.
