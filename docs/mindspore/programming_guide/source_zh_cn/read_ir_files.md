@@ -296,7 +296,7 @@ MindSpore在编译图的过程中，经常会出现`evaluate`阶段的图推导�
 会出现如下的报错：
 
 ```text
-  1 [EXCEPTION] ANALYZER(31946,7f6f03941740,python):2021-09-18-15:10:49.094.863 [mindspore/ccsrc/pipeline/jit/static_analysis/stack_frame.cc:85] DoJump] The parameters number of the funct    ion is 2, but the number of provided arguments is 3.
+  1 [EXCEPTION] ANALYZER(31946,7f6f03941740,python):2021-09-18-15:10:49.094.863 [mindspore/ccsrc/pipeline/jit/static_analysis/stack_frame.cc:85] DoJump] The parameters number of the function is 2, but the number of provided arguments is 3.
   2 FunctionGraph ID : func.18
   3 NodeInfo: In file test.py(19)
   4     def func(x, y):
@@ -326,10 +326,10 @@ MindSpore在编译图的过程中，经常会出现`evaluate`阶段的图推导�
  28                         ^
 ```
 
-以上的报错信息为：“TypeError: mindspore/ccsrc/pipeline/jit/static_analysis/stack_frame.cc:85 DoJump] Function func.18, The number of parameters of this function is 2, but the number of provided arguments is 3 ...”。
-表明`FunctionGraph ID : func.18`只需要2个参数，但是却提供了3个参数。从”The function call stack ...“，可以知道出错的代码行为：”In file test.py(25) ... self.func(a, a, b)”，易知是该处的函数调用传入参数的数目过多。
+以上的报错信息为：“TypeError: mindspore/ccsrc/pipeline/jit/static_analysis/stack_frame.cc:85 DoJump] The parameters number of the function is 2, but the number of provided arguments is 3...”。
+表明`FunctionGraph ID : func.18`只需要2个参数，但是却提供了3个参数。从“The function call stack ...”中，可以知道出错的代码为：“In file test.py(25) ... self.func(a, a, b)”，易知是该处的函数调用传入参数的数目过多。
 
-但如果报错信息不直观或者需要查看IR中已推导出的部分图信息，我们使用文本编辑软件（例如，vi）打开报错信息中的提示的文件（第29行括号中）：`/home/workspace/mindspore/rank_0/om/analyze_fail.dat`，内容如下：
+但如果报错信息不直观或者需要查看IR中已推导出的部分图信息，我们使用文本编辑软件（例如，vi）打开报错信息中的提示的文件（第22行括号中）：`/home/workspace/mindspore/rank_0/om/analyze_fail.dat`，内容如下：
 
 ```text
   1 # [No.1] construct_wrapper.0
