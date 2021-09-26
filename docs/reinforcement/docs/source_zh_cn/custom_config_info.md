@@ -80,10 +80,10 @@ algorithm_config = {
 }
 ```
 
-|  键值  |    类型    |         范围          |                       说明                        |
-| :----: | :--------: | :-------------------: | :-----------------------------------------------: |
-|  type  |   Class    |     用户定义的类      |             需要和用户定义的类名相同              |
-| params | Dictionary | 任意key value形式的值 | 自定义参数，用户可以通过key value的形式传入任何值 |
+|  键值  |        类型        |             范围              |                             说明                             |
+| :----: | :----------------: | :---------------------------: | :----------------------------------------------------------: |
+|  type  |       Class        |         用户定义的类          |                   需要和用户定义的类名相同                   |
+| params | Dictionary或者None | 任意key value形式的值或者None | 自定义参数，用户可以通过key value的形式传入任何值。如果没有则填None |
 
 ### Environment配置参数
 
@@ -99,18 +99,18 @@ from mindspore_rl.environment import Environment
 algorithm_config = {
     ...
     'env': {
-        'type': Environment,               # 外部环境类名
+        'type': GymEnvironment,            # 外部环境类名
         'params': {'name': 'CartPole-v0'}  # 环境参数
     }
     ...
 }
 ```
 
-|  键值  |    类型    |                 范围                  |                       说明                        |
-| :----: | :--------: | :-----------------------------------: | :-----------------------------------------------: |
-| number |  Integer   |                [1, +∞)                |                         -                         |
-|  type  |   Class    | GymEnvironment 或 MultiGymEnvironment |                         -                         |
-| params | Dictionary |         任意key value形式的值         | 自定义参数，用户可以通过key value的形式传入任何值 |
+|     键值     |        类型        |                 范围                  |                             说明                             |
+| :----------: | :----------------: | :-----------------------------------: | :----------------------------------------------------------: |
+| number(可选) |      Integer       |                [1, +∞)                | 如果type中选择的是MultiGymEnvironment，则需要输入环境的数量。如果type中选择的是GymEnvironment则不需要填环境数量。 |
+|     type     |       Class        | GymEnvironment 或 MultiGymEnvironment |                              -                               |
+|    params    | Dictionary或者None |     任意key value形式的值或者None     | 自定义参数，用户可以通过key value的形式传入任何值。如果没有则填None |
 
 ### Actor配置参数
 
@@ -128,8 +128,9 @@ algorithm_config = {
         'policies': ['init_policy', 'collect_policy', 'eval_policy'],       # 从Policy中提取名为init_policy/collect_policy/eval_policy成员对象，用于构建Actor
         'networks': ['policy_net', 'target_net'],                           # 从Policy中提取policy_net/target_net成员对象，用于构建Actor
         'environment': True,                                                # 提取env对象，用于构建Actor对象
-        'buffer': {'capacity': 100000,                                      # ReplayBuffer容量
-                   'batch_size': 64,                                        # 采样Batch Size
+        'eval_environment': True,                                           # 是否使用eval_environment
+        'replay_buffer': {'capacity': 100000,                               # ReplayBuffer容量
+                   'sample_size': 64,                                       # 采样Batch Size
                    'shape': [(4,), (1,), (1,), (4,)],                       # ReplayBuffer的维度信息
                    'type': [ms.float32, ms.int32, ms.float32, ms.float32]}, # ReplayBuffer数据类型
     }
@@ -141,7 +142,7 @@ algorithm_config = {
 | :------------------------: | :-------------------------: | :---------------------------------: | :----------------------------------------------------------: |
 |           number           |           Integer           |               [1, +∞)               |              目前actor数量暂时不支持1以外的数值              |
 |            type            |            Class            | 用户定义的继承actor并实现虚函数的类 |         和用户定义的继承actor并实现虚函数的类名相同          |
-|           params           |         Dictionary          |        任意key value形式的值        |      自定义参数，用户可以通过key value的形式传入任何值       |
+|           params           |     Dictionary或者None      |    任意key value形式的值或者None    | 自定义参数，用户可以通过key value的形式传入任何值。如果没有则填None |
 |          policies          |       List of String        |     和用户定义的策略变量名相同      | 列表中的所有String都应该和用户定义的策略类中初始化的策略变量名一一对应 |
 |          networks          |       List of String        |       和定义的网络变量名相同        | 列表中的所有String都应该和用户定义的策略类中初始化的网络变量名一一对应 |
 |        environment         |           Boolean           |            True or False            |     如果值为False，将不能从actor中获得environment的实例      |
@@ -172,10 +173,10 @@ algorithm_config = {
 }
 ```
 
-|  键值   |      类型      |                 范围                  |                             说明                             |
-| :-----: | :------------: | :-----------------------------------: | :----------------------------------------------------------: |
-| number  |    Integer     |                [1, +∞)                |             目前learner数量暂时不支持1以外的数值             |
-|  type   |     Class      | 用户定义的继承learner并实现虚函数的类 |        和用户定义的继承learner并实现虚函数的类名相同         |
-| params  |   Dictionary   |         任意key value形式的值         |      自定义参数，用户可以通过key value的形式传入任何值       |
-| network | List of String |        和定义的网络名变量相同         | 列表中的所有String都应该和用户定义的策略类中初始化的网络变量名一一对应 |
+|   键值   |        类型        |                 范围                  |                             说明                             |
+| :------: | :----------------: | :-----------------------------------: | :----------------------------------------------------------: |
+|  number  |      Integer       |                [1, +∞)                |             目前learner数量暂时不支持1以外的数值             |
+|   type   |       Class        | 用户定义的继承learner并实现虚函数的类 |        和用户定义的继承learner并实现虚函数的类名相同         |
+|  params  | Dictionary或者None |     任意key value形式的值或者None     | 自定义参数，用户可以通过key value的形式传入任何值。如果没有则填None |
+| networks |   List of String   |        和定义的网络名变量相同         | 列表中的所有String都应该和用户定义的策略类中初始化的网络变量名一一对应 |
 
