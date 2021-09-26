@@ -120,7 +120,7 @@ cd /mindspore/lite/examples/unified_api
 bash prepare_and_run.sh -D /PATH/MNIST_Data -t arm64
 ```
 
-`/PATH/MNIST_Data` is the absolute mnist dataset path in your machine, `-t arm64` represents that we will train and run the model on an Android device.
+`/PATH/MNIST_Data` is the absolute mnist dataset path in your machine, `-t arm64` represents that we will train and run the model on an Android device, if the work computer is connected to multiple mobile devices, you can use `-i devices_id` to specify the running device.
 
 The script `prepare_and_run.sh` has done the following works:
 
@@ -183,11 +183,23 @@ Epoch (2):      Training Accuracy is 0.94415
 10.1600:        Loss is 0.026495
 10.1700:        Loss is 0.436495
 10.1800:        Loss is 0.157564
-Epoch (10):     Loss is 0.102652
-Epoch (10):     Training Accuracy is 0.96805
-Eval Accuracy is 0.965244
+Epoch (5):     Loss is 0.102652
+Epoch (5):     Training Accuracy is 0.96805
+AvgRunTime: 18980.5 ms
+Total allocation: 125829120
+Accuracy is 0.965244
+
 ===Evaluating trained Model=====
-Eval Accuracy is 0.965244
+Total allocation: 20971520
+Accuracy is 0.965244
+
+===Running Inference Model=====
+There are 1 input tensors with sizes:
+tensor 0: shape is [32 32 32 1]
+There are 1 output tensor with sizes:
+tensor 0: shape is [32 10]
+The predicted classes are:
+4, 0, 2, 8, 9, 4, 5, 6, 3, 5, 2, 1, 4, 6, 8, 0, 5, 7, 3, 5, 8, 3, 4, 1, 9, 8, 7, 3, 0, 2, 3, 6,
 ```
 
 > If the Android device is not available on your hand, you could also exectute `bash prepare_and_run.sh -D /PATH/MNIST_Data -t x86` and run it on the x86 platform.
@@ -206,14 +218,18 @@ unified_api/
   │   └── train_utils.py
   │
   ├── scripts
+  │   ├── batch_of32.dat
   │   ├── eval.sh
+  │   ├── infer.sh
   │   └── train.sh
   │
   ├── src
+  │   ├── inference.cc
   │   ├── net_runner.cc
   │   ├── net_runner.h
   │   └── utils.h
   │
+  ├── Makefile
   ├── README.md
   ├── README_CN.md
   └── prepare_and_run.sh

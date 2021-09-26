@@ -118,7 +118,7 @@ cd mindspore/lite/examples/unified_api
 bash prepare_and_run.sh -D /PATH/MNIST_Data -t arm64
 ```
 
-其中`/PATH/MNIST_Data`是你工作电脑上存放MNIST数据集的绝对路径，`-t arm64`为执行训练和推理的设备类型。
+其中`/PATH/MNIST_Data`是你工作电脑上存放MNIST数据集的绝对路径，`-t arm64`为执行训练和推理的设备类型，如果工作电脑连接多台手机设备，可使用`-i devices_id`指定运行设备。
 
 `prepare_and_run.sh`脚本做了以下工作：
 
@@ -181,11 +181,23 @@ Epoch (2):      Training Accuracy is 0.94415
 10.1600:        Loss is 0.026495
 10.1700:        Loss is 0.436495
 10.1800:        Loss is 0.157564
-Epoch (10):     Loss is 0.102652
-Epoch (10):     Training Accuracy is 0.96805
-Eval Accuracy is 0.965244
+Epoch (5):     Loss is 0.102652
+Epoch (5):     Training Accuracy is 0.96805
+AvgRunTime: 18980.5 ms
+Total allocation: 125829120
+Accuracy is 0.965244
+
 ===Evaluating trained Model=====
-Eval Accuracy is 0.965244
+Total allocation: 20971520
+Accuracy is 0.965244
+
+===Running Inference Model=====
+There are 1 input tensors with sizes:
+tensor 0: shape is [32 32 32 1]
+There are 1 output tensors with sizes:
+tensor 0: shape is [32 10]
+The predicted classes are:
+4, 0, 2, 8, 9, 4, 5, 6, 3, 5, 2, 1, 4, 6, 8, 0, 5, 7, 3, 5, 8, 3, 4, 1, 9, 8, 7, 3, 0, 2, 3, 6,
 ```
 
 > 如果你没有Android设备，也可以执行`bash prepare_and_run.sh -D /PATH/MNIST_Data -t x86`直接在PC上运行本示例。
@@ -202,14 +214,18 @@ Eval Accuracy is 0.965244
   │   └── train_utils.py
   |
   ├── scripts
+  │   ├── batch_of32.dat
   │   ├── eval.sh
+  │   ├── infer.sh
   │   └── train.sh
   │
   ├── src
+  │   ├── inference.cc
   │   ├── net_runner.cc
   │   ├── net_runner.h
   │   └── utils.h
   │
+  ├── Makefile
   ├── README.md
   ├── README_CN.md
   └── prepare_and_run.sh
