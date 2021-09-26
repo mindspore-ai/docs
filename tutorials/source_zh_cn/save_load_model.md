@@ -76,10 +76,10 @@ model = Model(resnet, loss, metrics={"accuracy"})
 
 ```python
 # 定义验证数据集
-dateset_eval = create_dataset(os.path.join(mnist_path, "test"), 32, 1)
+dataset_eval = create_dataset(os.path.join(mnist_path, "test"), 32, 1)
 
 # 调用eval()进行推理
-acc = model.eval(dateset_eval)
+acc = model.eval(dataset_eval)
 ```
 
 ### 用于迁移学习
@@ -90,7 +90,7 @@ acc = model.eval(dateset_eval)
 # 设置训练轮次
 epoch = 1
 # 定义训练数据集
-dateset = create_dataset(os.path.join(mnist_path, "train"), 32, 1)
+dataset = create_dataset(os.path.join(mnist_path, "train"), 32, 1)
 # 调用train()进行训练
 model.train(epoch, dataset)
 ```
