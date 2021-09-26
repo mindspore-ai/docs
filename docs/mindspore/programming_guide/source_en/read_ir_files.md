@@ -295,7 +295,7 @@ For example, we run the script below.
 An error happens.
 
 ```text
-  1 [EXCEPTION] ANALYZER(31946,7f6f03941740,python):2021-09-18-15:10:49.094.863 [mindspore/ccsrc/pipeline/jit/static_analysis/stack_frame.cc:85] DoJump] The parameters number of the funct    ion is 2, but the number of provided arguments is 3.
+  1 [EXCEPTION] ANALYZER(31946,7f6f03941740,python):2021-09-18-15:10:49.094.863 [mindspore/ccsrc/pipeline/jit/static_analysis/stack_frame.cc:85] DoJump] The parameters number of the function is 2, but the number of provided arguments is 3.
   2 FunctionGraph ID : func.18
   3 NodeInfo: In file test.py(19)
   4     def func(x, y):
@@ -325,7 +325,7 @@ An error happens.
  28                         ^
 ```
 
-Above exception is 'TypeError: mindspore/ccsrc/pipeline/jit/static_analysis/stack_frame.cc:85 DoJump] Function func.18, The number of parameters of this function is 2, but the number of provided arguments is 3 ...'.
+Above exception is 'TypeError: mindspore/ccsrc/pipeline/jit/static_analysis/stack_frame.cc:85 DoJump] The parameters number of the function is 2, but the number of provided arguments is 3...'.
 And it tells us `FunctionGraph ID : func.18` only needs two parameters, but actually gives 3.
 We can find the related code is `self.func(a, a, b)` from 'The function call stack ... In file test.py(25)'.
 Easily, by checking the code, we know that we gave too much parameter to the calling function.
