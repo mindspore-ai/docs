@@ -11,8 +11,8 @@
     - [执行函数](#执行函数)
     - [执行网络](#执行网络)
     - [构建网络](#构建网络)
-    - [Loss函数及优化器](#loss函数及优化器)
-    - [模型参数保存](#模型参数保存)
+    - [设置Loss函数及优化器](#设置loss函数及优化器)
+    - [保存模型参数](#保存模型参数)
     - [训练网络](#训练网络)
     - [提升PyNative性能](#提升pynative性能)
     - [PyNative下同步执行](#pynative下同步执行)
@@ -61,6 +61,28 @@ z = ops.add(x, y)
 print(z.asnumpy())
 ```
 
+输出：
+
+```text
+[[[[2. 2. 2. 2. 2.]
+   [2. 2. 2. 2. 2.]
+   [2. 2. 2. 2. 2.]
+   [2. 2. 2. 2. 2.]
+   [2. 2. 2. 2. 2.]]
+
+  [[2. 2. 2. 2. 2.]
+   [2. 2. 2. 2. 2.]
+   [2. 2. 2. 2. 2.]
+   [2. 2. 2. 2. 2.]
+   [2. 2. 2. 2. 2.]]
+
+  [[2. 2. 2. 2. 2.]
+   [2. 2. 2. 2. 2.]
+   [2. 2. 2. 2. 2.]
+   [2. 2. 2. 2. 2.]
+   [2. 2. 2. 2. 2.]]]]
+```
+
 ## 执行函数
 
 ```python
@@ -79,6 +101,14 @@ x = Tensor(np.ones([3, 3], dtype=np.float32))
 y = Tensor(np.ones([3, 3], dtype=np.float32))
 output = add_func(x, y)
 print(output.asnumpy())
+```
+
+输出：
+
+```text
+[[3. 3. 3.]
+ [3. 3. 3.]
+ [3. 3. 3.]]
 ```
 
 ## 执行网络
@@ -106,6 +136,12 @@ y = Tensor(np.array([4.0, 5.0, 6.0]).astype(np.float32))
 
 net = Net()
 print(net(x, y))
+```
+
+输出：
+
+```text
+[ 4. 10. 18.]
 ```
 
 ## 构建网络
@@ -147,16 +183,16 @@ class LeNet5(nn.Cell):
         return x
 ```
 
-## Loss函数及优化器
+## 设置Loss函数及优化器
 
-在PyNative模式下，通过针对每个参数对应的梯度进行参数更新。
+在PyNative模式下，通过优化器针对每个参数对应的梯度进行参数更新。
 
 ```python
 net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
 net_opt = nn.Momentum(network.trainable_params(), config.lr, config.momentum)
 ```
 
-## 模型参数保存
+## 保存模型参数
 
 保存模型可以通过定义CheckpointConfig来指定模型保存的参数。
 
@@ -184,7 +220,7 @@ ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet", directory=config.ckpt_pa
 model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O2")
 ```
 
-完整的运行代码可以到ModelZoo下载[lenet](https://gitee.com/mindspore/models/tree/master/official/cv/lenet)，并设置context.set_context(mode=context.PYNATIVE_MODE, device_target=config.device_target)。
+完整的运行代码可以到ModelZoo下载[lenet](https://gitee.com/mindspore/models/tree/master/official/cv/lenet)，在train.py中修改为context.set_context(mode=context.PYNATIVE_MODE, device_target=config.device_target)。
 
 ## 提升PyNative性能
 
