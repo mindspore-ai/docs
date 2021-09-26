@@ -41,7 +41,7 @@ If `sink_size` is greater than 0, the raw dataset can be traversed for an unlimi
 
 The total sunk data volume is controlled by the `epoch` and `sink_size` variables. That is, the total data volume is calculated as follows: Total data volume = `epoch` x `sink_size`.
 
-When using `LossMonitor`, `TimeMonitor` or other `Callback` interfaces, if the `dateset_sink_mode` is set to False, each `step` between the Host side and the Device side interacts once, so each `step` will return a result. If `dataset_sink_mode` is True, because the data is transmitted through the channel on the Device, there is one data interaction between the Host side and the Device side for each `epoch`, so each `epoch` only returns one result.
+When using `LossMonitor`, `TimeMonitor` or other `Callback` interfaces, if the `dataset_sink_mode` is set to False, each `step` between the Host side and the Device side interacts once, so each `step` will return a result. If `dataset_sink_mode` is True, because the data is transmitted through the channel on the Device, there is one data interaction between the Host side and the Device side for each `epoch`, so each `epoch` only returns one result.
 
 > The CPU and pynative mode cannot support dataset sink mode currently.
 

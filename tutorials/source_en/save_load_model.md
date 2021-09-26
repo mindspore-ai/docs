@@ -91,10 +91,10 @@ In the inference-only scenario, parameters are directly loaded to the network fo
 
 ```python
 # Define a validation dataset.
-dateset_eval = create_dataset(os.path.join(mnist_path, "test"), 32, 1)
+dataset_eval = create_dataset(os.path.join(mnist_path, "test"), 32, 1)
 
 # Call eval() for inference.
-acc = model.eval(dateset_eval)
+acc = model.eval(dataset_eval)
 ```
 
 ### For Transfer Learning
@@ -105,7 +105,7 @@ You can load network parameters and optimizer parameters to the model in the cas
 # Set the number of training epochs.
 epoch = 1
 # Define a training dataset.
-dateset = create_dataset(os.path.join(mnist_path, "train"), 32, 1)
+dataset = create_dataset(os.path.join(mnist_path, "train"), 32, 1)
 # Call train() for training.
 model.train(epoch, dataset)
 ```
