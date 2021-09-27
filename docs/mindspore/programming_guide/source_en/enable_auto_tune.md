@@ -9,6 +9,8 @@
     - [TuneMode](#TuneMode)
     - [EnvironmentVariables](#EnvironmentVariables)
     - [EnablingTune](#EnablingTune)
+    - [TuningResult](#TuningResult)
+    - [MergeKnowledgeBase](#MergeKnowledgeBase)
     - [Notice](#Notice)
 
 <!-- /TOC -->
@@ -25,31 +27,66 @@ The AutoTune tool includes `RL` and `GA` tuning modes. The`RL`tuning mode mainly
 
 ## EnvironmentVariables
 
-When using the AutoTune tool to tune the operators, some environment variables need to be configured (Required). Try to find the descriptions in [Environment Variable](https://support.huawei.com/enterprise/en/doc/EDOC1100206689/3f0a50ba/environment-variable-configuration).
+When using the AutoTune tool to tune the operators, some environment variables need to be configured (Required).
+
+```shell
+# Run package installation directory
+LOCAL_ASCEND=/usr/local/Ascend
+# Run package startup depends path
+export LD_LIBRARY_PATH=${LOCAL_ASCEND}/fwkacllib/lib64:$LD_LIBRARY_PATH
+export PATH=${LOCAL_ASCEND}/fwkacllib/ccec_compiler/bin:${LOCAL_ASCEND}/fwkacllib/bin:$PATH
+export PYTHONPATH=${LOCAL_ASCEND}/fwkacllib/python/site-packages:$PYTHONPATH
+export ASCEND_OPP_PATH=${LOCAL_ASCEND}/opp
+
+# Offline tuning environment variables
+export ENABLE_TUNE_DUMP=True
+```
+
+Try to find the detailed description of environment variables, or other optional environment variables descriptions in [Environment Variable](https://support.huawei.com/enterprise/en/doc/EDOC1100206689/3f0a50ba/environment-variable-configuration).
 
 ## EnablingTune
 
-AutoTune tools support `Online` and `Offline` tuning mode. The Online tune can be turned on by set `auto_tune_mode` in context. The Offline is using the dump data (The output description file, and the binary file of operators) of network model (Generate when training network) to tune the operators. This document mainly introduces how to use online tuning, the usage of Offline tune can be got in [Offline Tune](https://support.huawei.com/enterprise/en/doc/EDOC1100206689/2fa72dd0).
+The AutoTune tool supports two tuning modes, `Online tune` and `Offline Tune`.
 
-Set `auto_tune_mode` in context to turn on Online tune. The value of `auto_tune_mode` should be in `["NO_TUNE", "RL", "GA", "RL,GA"]`.
+1. Online Tune
 
-NO_TUNE: turn off tune.
+  Set `auto_tune_mode` in context to turn on Online tune. The value of `auto_tune_mode` should be in `["NO_TUNE", "RL", "GA", "RL,GA"]`.
 
-RL: turn on RL tune.
+  NO_TUNE: turn off tune.
 
-GA: turn on GA tune.
+  RL: turn on RL tune.
 
-RL,GA: turn on GA and RL at the same time, the tool will select RL or GA automatically according to different types of operators which used in the network.
+  GA: turn on GA tune.
 
-Example of online tuning:
+  RL,GA: turn on GA and RL at the same time, the tool will select RL or GA automatically according to different types of operators which are used in the network.
 
-```python
-import mindspore.context as context
+  Example of online tuning:
 
-context.set_context(mode=context.GRAPH_MODE, device_target="Ascend", auto_tune_mode="GA,RL")
+  ```python
+  import mindspore.context as context
+  context.set_context(mode=context.GRAPH_MODE, device_target="Ascend", auto_tune_mode="GA,RL")
+  ....
+  ```
 
-......
-```
+  After setting the above context, you can start the tuning according to the normal execution of the training script. During the execution of the use case, no operation is required. The result of the model is the result after tuning.
+
+2. Offline Tune
+
+  The Offline Tune is using the dump data (The output description file, and the binary file of operators) of network model (Generate when training network) to tune the operators. The method of Offline Tune and related environment variables can be found in [Offline Tune](https://support.huawei.com/enterprise/en/doc/EDOC1100206689/2fa72dd0) in `CANN` development tool guide, which is not described here.
+
+## TuningResult
+
+After the tuning starts, a file named `tune_result_{timestamp}_pidxxx.json` will be generated in the working directory to record the tuning process and tuning results. Please refer to [tuning result file analysis](https://support.huawei.com/enterprise/en/doc/EDOC1100206689/b6ae7c6a) for specific analysis of this file.
+
+After the tuning is complete. The custom knowledge base will be generated if the conditions are met. If the `TUNE_BANK_PATH`(Environment variable of the knowledge base storage path) is specified, the knowledge base(generated after tuning) will be saved in the specified directory. Otherwise, the knowledge base will be in the following default path.
+
+For `RL` tuning: it will be stored in `data/rl/<soc_version>/custom/` (installation path of `FwkACLlib`).
+
+For `GA` tuning: it will be stored in `data/tiling/<soc_version>/custom/` (installation path of `FwkACLlib`).
+
+## MergeKnowledgeBase
+
+After operator tuning, the generated tuning knowledge base supports merging, which is convenient for re-executing, or the other models.(Only the same Ascend AI Processor can be merged). The more specific merging methods can be found in [merging knowledge base](https://support.huawei.com/enterprise/en/doc/EDOC1100206689/c1a94cfc/repository-merging).
 
 ## Notice
 
