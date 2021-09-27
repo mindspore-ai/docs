@@ -52,7 +52,7 @@ tar -zxf mindspore_ascend-{version}-linux_{arch}.tar.gz
 
 In the preceding information:
 
-- `{version}` specifies the MindSpore version number. For example, when installing MindSpore 1.3.0, set `{version}` to 1.3.0.
+- `{version}` specifies the MindSpore version number. For example, when installing MindSpore 1.5.0, set `{version}` to 1.5.0, when installing MindSpore 1.5.0-rc1, the first `{version}` which represents download path should be written as 1.5.0-rc1, and the second `{version}` which represents file name should be 1.5.0rc1.
 - `{arch}` specifies the system architecture. For example, if a Linux OS architecture is x86_64, set `{arch}` to `x86_64`. If the system architecture is ARM64, set `{arch}` to `aarch64`.
 
 ## Configuring Environment Variables
