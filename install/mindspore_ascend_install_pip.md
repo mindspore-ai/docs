@@ -142,6 +142,9 @@ print(ops.add(x, y))
 当需要升级MindSpore版本时，可执行如下命令：
 
 ```bash
-pip install --upgrade mindspore-ascend
+pip install --upgrade mindspore-ascend=={version}
 ```
 
+其中：
+
+- 升级到rc版本时，需要手动指定`{version}`为rc版本号，例如1.5.0rc1；如果升级到正式版本，`=={version}`字段可以缺省。
