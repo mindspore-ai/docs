@@ -211,18 +211,36 @@ b = B(y)                --->        y = Depend(y, a)
 Please note that a special set of operators for floating point overflow state detection have hidden side effects, but are not IO side effects or memory side effects. In addition, there are strict sequencing requirements for use, i.e., before using the NPUClearFloatStatus operator, you need to ensure that the NPU AllocFloatStatus has been executed, and before using the NPUGetFloatStatus operator, you need to ensure that the NPUClearFlotStatus has been executed. Because these operators are used less, the current scenario is to keep them defined as side-effect-free in the form of Depend ensuring execution order. Examples are as follows:
 
 ```python
-import mindspore.ops as ops
-self.alloc_status = ops.operations.NPUAllocFloatStatus()
-self.get_status = ops.operations.NPUGetFloatStatus()
-self.clear_status = ops.operations.NPUClearFloatStatus()
-...
-init = self.alloc_status()
-init = ops.functional.Depend(init, input)
-clear_status = self.clear_status(init)
-input = ops.functional.Depend(input, clear_status)
-output = Compute(input)
-init = ops.functional.Depend(init, output)
-get_status = self.get_status(init)
+import numpy as np
+from mindspore.common.tensor import Tensor
+from mindspore import ops
+
+npu_alloc_status = ops.NPUAllocFloatStatus()
+npu_get_status = ops.NPUGetFloatStatus()
+npu_clear_status = ops.NPUClearFloatStatus()
+x = Tensor(np.ones([3, 3]).astype(np.float32))
+y = Tensor(np.ones([3, 3]).astype(np.float32))
+init = npu_alloc_status()
+sum_ = ops.Add()(x, y)
+product = ops.MatMul()(x, y)
+init = ops.depend(init, sum_)
+init = ops.depend(init, product)
+get_status = npu_get_status(init)
+sum_ = ops.depend(sum_, get_status)
+product = ops.depend(product, get_status)
+out = ops.Add()(sum_, product)
+init = ops.depend(init, out)
+clear = npu_clear_status(init)
+out = ops.depend(out, clear)
+print(out)
+```
+
+The following information is displayed:
+
+```text
+[[5. 5. 5.]
+ [5. 5. 5.]
+ [5. 5. 5.]]
 ```
 
 Specific usage methods can refer to the implementation of [start_overflow_check functions](https://gitee.com/mindspore/mindspore/blob/r1.5/mindspore/nn/wrap/loss_scale.py) in the overflow detection logic.
