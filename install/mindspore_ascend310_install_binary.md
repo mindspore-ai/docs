@@ -55,7 +55,7 @@ tar -zxf mindspore_ascend-{version}-linux_{arch}.tar.gz
 
 其中：
 
-- `{version}`表示MindSpore版本号，例如安装1.3.0版本MindSpore时，`{version}`应写为1.3.0。
+- `{version}`表示MindSpore版本号，例如安装1.5.0版本MindSpore时，`{version}`应写为1.5.0，而安装1.5.0-rc1版本时，第一个`{version}`代表下载路径应写为1.5.0-rc1，第二个`{version}`代表版本号应写为1.5.0rc1。
 - `{arch}`表示系统架构，例如使用的Linux系统是x86架构64位时，`{arch}`应写为`x86_64`。如果系统是ARM架构64位，则写为`aarch64`。
 
 ## 配置环境变量
