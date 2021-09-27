@@ -10,8 +10,8 @@
 | --- | --- |
 | [FmkType](#fmktype) | Mindspore Lite支持的框架类型。|
 | [ConverterParameters](#converterparameters) | 模型解析时的只读参数。|
-| [NodeParser](#nodepaser) | op节点的解析基类。|
-| [ModelParser](#modelpaser) | 模型解析的基类。|
+| [NodeParser](#nodeparser) | op节点的解析基类。|
+| [ModelParser](#modelparser) | 模型解析的基类。|
 
 ## FmkType
 

@@ -247,9 +247,15 @@ set GLOG_v=1
 
 ## 高级用法
 
-仅在Linux环境下，转换工具提供了外部扩展功能。
+转换工具仅在Linux环境下支持外部扩展功能，包括节点解析扩展、模型解析扩展以及图优化扩展。用户可以按需任意组合，以实现自己的意图。
 
-本章节将通过MindSpore Lite转换工具扩展功能的示例程序，涵盖了Pass的创建全流程以及编译链接全流程，来使用户能够快速了解转换工具的扩展功能的使用。
+> - 节点解析扩展：用户自定义模型中某一节点的解析过程，支持ONNX、CAFFE、TF、TFLITE。接口可参考[NodeParser](https://www.mindspore.cn/lite/api/zh-CN/r1.5/api_cpp/mindspore_converter.html#nodeparser)。
+> - 模型解析扩展：用户自定义模型的整个解析过程，支持ONNX、CAFFE、TF、TFLITE。接口可参考[ModelParser](https://www.mindspore.cn/lite/api/zh-CN/r1.5/api_cpp/mindspore_converter.html#modelparser)。
+> - 图优化扩展：模型解析之后，用户可自定义对图的优化过程。接口可参考[PassBase](https://www.mindspore.cn/lite/api/zh-CN/r1.5/api_cpp/mindspore_registry.html#passbase)。
+>
+> 节点解析扩展需要依赖flatbuffers和protobuf及三方框架的序列化文件，并且flatbuffers和protobuf需要与发布件采用的版本一致，序列化文件需保证兼容发布件采用的序列化文件。发布件中不提供flatbuffers、protobuf及序列化文件，用户需自行编译，并生成序列化文件。用户可以从[MindSpore仓](https://gitee.com/mindspore/mindspore/tree/r1.5)中获取[flabuffers](https://gitee.com/mindspore/mindspore/blob/r1.5/cmake/external_libs/flatbuffers.cmake)、[probobuf](https://gitee.com/mindspore/mindspore/blob/r1.5/cmake/external_libs/protobuf.cmake)、[ONNX原型文件](https://gitee.com/mindspore/mindspore/tree/r1.5/third_party/proto/onnx)、[CAFFE原型文件](https://gitee.com/mindspore/mindspore/tree/r1.5/third_party/proto/caffe)、[TF原型文件](https://gitee.com/mindspore/mindspore/tree/r1.5/third_party/proto/tensorflow)和[TFLITE原型文件](https://gitee.com/mindspore/mindspore/blob/r1.5/mindspore/lite/tools/converter/parser/tflite/schema.fbs)。
+
+本章节将通过MindSpore Lite转换工具扩展功能的示例程序，涵盖了Pass的创建全流程以及编译链接全流程，来使用户能够快速了解转换工具的图优化扩展功能的使用。
 
 本章节以[add.tflite](https://download.mindspore.cn/model_zoo/official/lite/quick_start/add.tflite)模型为例。该模型仅包含一个简单的Add算子，通过扩展的Pass类，将Add算子转化为[Custom算子](https://www.mindspore.cn/lite/docs/zh-CN/r1.5/use/register_kernel.html#custom)，最终输出Custom单算子模型。
 
