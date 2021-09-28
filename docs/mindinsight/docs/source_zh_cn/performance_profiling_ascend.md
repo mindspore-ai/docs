@@ -249,18 +249,18 @@ Timeline主要包含如下几个部分：
 - Device及其stream list：包含Device上的stream列表，每个stream由task执行序列组成，一个task是其中的一个小方块，大小代表执行时间长短。
 
   各个颜色块表示算子执行的起始时间及时长。timeline的详细解释如下：
-  - Process 0 节点：包含在AI Core上执行的算子的时间线。
+  - Process AI Core Op：包含在AI Core上执行的算子的时间线。
     - Step：训练步数。
     - Scope Name：算子的Scope Name。
     - Stream ID：在该stream上执行的算子。
-    - 编号 7999：为所有AI Core 算子合并后的时间线。
-    - 编号 8001：为所有通信算子合并后的时间线。
-    - 编号 8000：纯通信时间（通信算子的时间去除AI算子的时间后的时间线，即编号8000的耗时去除编号7999的耗时后的耗时）。
-    - 编号 8002：空闲时间（既没有通信算子也没有计算算子在执行的时间线）。  
-  - Process 9000 节点：包含在AI CPU上执行的算子的时间线。
-  - Process 10000 节点：包含通信算子执行的时间线。
-  - Process 11000 节点：包含在Host CPU上执行的算子的时间线。
-    - HostCpuOps：在Host CPU上执行的算子。
+  - Process AI CPU Op：包含在AI CPU上执行的算子的时间线。
+  - Process Communication Op 节点：包含通信算子执行的时间线。
+  - Process Host CPU Op：包含在Host CPU上执行的算子的时间线。
+  - Process Op Overlap Analyse：所有计算算子与通信算子合并后的时间线，分析通信时间占比。
+    - Merged Computation Op：为所有计算（AI Core、AI CPU、Host CPU）算子合并后的时间线。
+    - Merged Communication Op：为所有通信算子合并后的时间线。
+    - Pure Communication Op：纯通信时间（通信算子的执行时间去除与计算算子时间重叠部分后的时间线）。
+    - Free Time：空闲时间（既没有通信算子也没有计算算子在执行的时间线）。  
 
 - 算子信息：选中某个task后，可以显示该task对应算子的信息，包括名称、type等。
 
