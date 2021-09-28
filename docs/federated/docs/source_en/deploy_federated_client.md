@@ -40,9 +40,8 @@ The following describes how to deploy the Federated-Client in the Android and x8
 
 ### Running Dependencies
 
-- [Android Studio](https://developer.android.google.cn/studio) >= 3.2 (Android 4.0 or later is recommended.)
-- [Android SDK](https://developer.android.com/studio?hl=zh-cn#cmdline-tools) >= 26 (installed in Android Studio by default)
-- [OpenJDK](https://openjdk.java.net/install/) >= 1.8 (installed in Android Studio by default)
+- [Android Studio](https://developer.android.google.cn/studio) >= 4.0
+- [Android SDK](https://developer.android.com/studio?hl=zh-cn#cmdline-tools) >= 29
 
 ### Building a Dependency Environment
 
@@ -114,7 +113,7 @@ The Android project only depends on the AAR package to call APIs provided by fed
 ### Running Dependencies
 
 - [Python](https://www.python.org/downloads/) >= 3.7.5
-- [OpenJDK](https://openjdk.java.net/install/) >= 1.8
+- [OpenJDK](https://openjdk.java.net/install/) >= 1.9
 
 ### Building a Dependency Environment
 

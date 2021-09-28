@@ -40,9 +40,8 @@
 
 ### 运行依赖
 
-- [Android Studio](https://developer.android.google.cn/studio) >= 3.2 （推荐4.0以上版本）
-- [Android SDK](https://developer.android.com/studio?hl=zh-cn#cmdline-tools) >= 26 （Android Studio默认安装）
-- [OpenJDK](https://openjdk.java.net/install/) >= 1.8 （Android Studio默认安装）
+- [Android Studio](https://developer.android.google.cn/studio) >= 4.0
+- [Android SDK](https://developer.android.com/studio?hl=zh-cn#cmdline-tools) >= 29
 
 ### 构建依赖环境
 
@@ -114,7 +113,7 @@ mindspore-lite-{version}
 ### 运行依赖
 
 - [Python](https://www.python.org/downloads/)>=3.7.5
-- [OpenJDK](https://openjdk.java.net/install/) >= 1.8
+- [OpenJDK](https://openjdk.java.net/install/) >= 1.9
 
 ### 构建依赖环境
 
