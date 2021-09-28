@@ -4,6 +4,35 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_en/data_processing.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
+<font size=3>**Q: How do I offload data if I do not use high-level APIs?**</font>
+
+A: You can refer to the [test_tdt_data_transfer.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/data_transfer/test_tdt_data_transfer.py) example of the manual offloading mode without using the `model.train` API. Currently, the GPU-based and Ascend-based hardware is supported.
+
+<br/>
+
+<font size=3>**Q: Why is there no difference between `shuffle=True` and `shuffle=False` in `GeneratorDataset`?**</font>
+
+A: If `shuffle` is enabled, the input `Dataset` must support random access (for example, the user-defined `Dataset` has the `getitem` method). If data is returned in `yeild` mode in the user-defined `Dataset`, random access is not supported. For details, see section [Loading Dataset Overview](https://www.mindspore.cn/docs/programming_guide/en/master/dataset_loading.html#id5).
+
+<br/>
+
+<font size=3>**Q: How does `Dataset` combine two `columns` into one `column`?**</font>
+
+A: You can perform the following operations to combine the two columns into one:
+
+```python
+def combine(x, y):
+    x = x.flatten()
+    y = y.flatten()
+    return np.append(x, y)
+
+dataset = dataset.map(operations=combine, input_columns=["data", "data2"], output_columns=["data"])
+```
+
+Note: The `shapes`of the two `columns` are different. Therefore, you need to `flatten` them before combining.
+
+<br/>
+
 <font size=3>**Q: Does `GeneratorDataset` support `ds.PKSampler` sampling?**</font>
 
 A: `GeneratorDataset` does not support `PKSampler` sampling logic. The main reason is that the custom data operation is too flexible. The built-in `PKSampler` cannot be universal. Therefore, a message is displayed at the API layer, indicating that the operation is not supported. However, for `GeneratorDataset`, you can easily define the required `Sampler` logic. That is, you can define specific `sampler` rules in the `__getitem__` function of the `ImageDataset` class and return the required data.
