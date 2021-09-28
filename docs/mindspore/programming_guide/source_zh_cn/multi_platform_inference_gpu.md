@@ -148,7 +148,7 @@ bash build.sh
 
 首先，登录GPU环境，创建`model`目录放置MindIR文件`resnet50_imagenet.mindir`，例如`/home/mindspore_sample/gpu_resnet50_inference_sample/model`。
 
-在执行推理之前，首先需要设置环境变量，环境变量需要根据实际情况修改，例如：
+在执行推理之前，首先需要设置环境变量，环境变量需要根据实际情况修改。其中TensorRT库为可选配置项，推荐将TensorRT库路径添加到`LD_LIBRARY_PATH`环境变量中，有助提升模型推理性能。
 
 ```bash
 export LD_PRELOAD=/home/miniconda3/lib/libpython37m.so
