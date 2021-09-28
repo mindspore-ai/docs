@@ -47,7 +47,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/mindsc
 > - When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about other dependency items, see [setup.py](https://gitee.com/mindspore/mindscience/blob/master/MindElec/setup.py)），point cloud data sampling depends on [pythonocc](https://github.com/tpaviot/pythonocc-core), which you need to install manually.
 > - `{arch}` specifies system architecture，for example, when using x86-64 Linux，`{arch}` should be x86_64, and aarch64 for ARM system(64-bit).
 > - `{version}` specifies version of MindElec, 0.1.0 for example.
-> - `{python_version}` specifies version of python,cp37_cp37m for python of version 3.7.5, and cp39_cp39 for python of version 3.9.0.
+> - `{python_version}` specifies version of python, cp37-cp37m for python of version 3.7.5, and cp39-cp39 for python of version 3.9.0.
 
 #### Installation by Source Code
 
