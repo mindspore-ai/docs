@@ -13,6 +13,10 @@ LiteSession defines session in MindSpore Lite for compiling Model and forwarding
 | function                                                     |
 | ------------------------------------------------------------ |
 | [boolean init(MSConfig config)](#init)                       |
+| [static LiteSession createSession(final MappedByteBuffer buffer, final MSConfig config)](#createsession)  |
+| [static LiteSession createSession(final MSConfig config)](#createsession)                                 |
+| [long getSessionPtr()](#getsessionptr)                       |
+| [void setSessionPtr(long sessionPtr)](#setsessionptr)        |
 | [void bindThread(boolean if_bind)](#bindthread)              |
 | [boolean compileGraph(Model model)](#compilegraph)           |
 | [boolean runGraph()](#rungraph)                              |
@@ -44,23 +48,74 @@ Initialize LiteSession.
 
 - Parameters
 
-    - `MSConfig`: MSConfig class.
+    - `config`: MSConfig class.
 
 - Returns
 
   Whether the initialization is successful.
 
+## createSession
+
+```java
+public static LiteSession createSession(final MSConfig config)
+```
+
+Use MSConfig to create Litessesion.
+
+- Parameters
+
+    - `config`: MSConfig class.
+
+- Returns
+
+  Return LiteSession object.
+
+```java
+public static LiteSession createSession(final MappedByteBuffer buffer, final MSConfig config)
+```
+
+Use Model buffer and MSConfig to create Litessesion.
+
+- Parameters
+
+    - `buffer`: MappedByteBuffer class.
+    - `config`: MSConfig class.
+
+- Returns
+
+  Return LiteSession object.
+
+## getSessionPtr
+
+```java
+public long getSessionPtr()
+```
+
+- Returns
+
+  Return session pointer.
+
+## setSessionPtr
+
+```java
+public void setSessionPtr(long sessionPtr)
+```
+
+- Parameters
+
+    - `sessionPtr`: session pointer.
+
 ## bindThread
 
 ```java
-public void bindThread(boolean if_bind)
+public void bindThread(boolean isBind)
 ```
 
 Attempt to bind or unbind threads in the thread pool to or from the specified cpu core.
 
 - Parameters
 
-    - `if_bind`: Define whether to bind or unbind threads.
+    - `isBind`: Define whether to bind or unbind threads.
 
 ## compileGraph
 

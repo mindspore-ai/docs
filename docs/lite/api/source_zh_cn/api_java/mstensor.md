@@ -23,6 +23,8 @@ MSTensor定义了MindSpore Lite中的张量。
 | [long size()](#size)                       |
 | [int elementsNum()](#elementsnum)         |
 | [void free()](#free)                       |
+| [String tensorName()](#tensorname)         |
+| [DataType](#datatype)                      |
 
 ## getShape
 
@@ -149,3 +151,43 @@ public void free()
 ```
 
 释放MSTensor运行过程中动态分配的内存。
+
+## tensorName
+
+```java
+public String tensorName()
+```
+
+返回tensor的名称。
+
+- 返回值
+
+  tensor的名称。
+
+## DataType
+
+```java
+import com.mindspore.lite.DataType;
+```
+
+DataType定义了MindSpore Lite中的张量的数据类型。
+
+### 公有成员变量
+
+```java
+public static final int kNumberTypeBool = 30;
+public static final int kNumberTypeInt = 31;
+public static final int kNumberTypeInt8 = 32;
+public static final int kNumberTypeInt16 = 33;
+public static final int kNumberTypeInt32 = 34;
+public static final int kNumberTypeInt64 = 35;
+public static final int kNumberTypeUInt = 36;
+public static final int kNumberTypeUInt8 = 37;
+public static final int kNumberTypeUInt16 = 38;
+public static final int kNumberTypeUint32 = 39;
+public static final int kNumberTypeUInt64 = 40;
+public static final int kNumberTypeFloat = 41;
+public static final int kNumberTypeFloat16 = 42;
+public static final int kNumberTypeFloat32 = 43;
+public static final int kNumberTypeFloat64 = 44;
+```
