@@ -87,3 +87,9 @@ with open(mod_path, "r+", encoding="utf8") as f:
 
 sys.path.append(os.path.abspath('../../../../resource/search'))
 import search_code
+
+sys.path.append(os.path.abspath('../../../../resource/custom_directives'))
+from custom_directives import IncludeCodeDirective
+
+def setup(app):
+    app.add_directive('includecode', IncludeCodeDirective)
