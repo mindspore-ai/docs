@@ -109,7 +109,12 @@ print(ops.add(x, y))
 当需要升级MindSpore版本时，可执行如下命令：
 
 ```bash
-pip install --upgrade mindspore-gpu
+pip install --upgrade mindspore-gpu=={version}
 ```
 
+其中：
+
+- 升级到rc版本时，需要手动指定`{version}`为rc版本号，例如1.5.0rc1；如果升级到正式版本，`=={version}`字段可以缺省。
+
 注意：1.3.0及以上版本升级时，默认选择CUDA11版本，若仍希望使用CUDA10版本，请选择相应的完整wheel安装包。
+

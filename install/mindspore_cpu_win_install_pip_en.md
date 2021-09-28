@@ -58,5 +58,10 @@ It means MindSpore has been installed successfully.
 Using the following command if you need to update the MindSpore version:
 
 ```bash
-pip install --upgrade mindspore
+pip install --upgrade mindspore=={version}
 ```
+
+Of which,
+
+- When updating to a release candidate (rc) version, `{version}` should be specified, e.g. 1.5.0rc1; When updating to a standard release, `=={version}` could be removed.
+
