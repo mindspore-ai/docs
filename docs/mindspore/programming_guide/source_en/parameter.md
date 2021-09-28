@@ -23,7 +23,7 @@
 
 `Parameter` is a variable tensor, indicating the parameters that need to be updated during network training. The following describes the `Parameter` initialization, attributes, methods, and `ParameterTuple`. The following describes the Parameter initialization, attributes, methods,  ParameterTuple and dependency control.
 
-## Use of parameters
+## Parameters
 
 Parameter is a variable tensor, indicating the parameters that need to be updated during network training.
 
@@ -159,6 +159,35 @@ Parameter (name=Parameter, shape=(1, 2, 3), dtype=Float32, requires_grad=True)
 Parameter (name=x_clone, shape=(1, 2, 3), dtype=Float32, requires_grad=True)
 Parameter (name=Parameter, shape=(1, 2, 3), dtype=Float32, requires_grad=True)
 Parameter (name=Parameter, shape=(1, 2, 3), dtype=Float32, requires_grad=True)
+```
+
+## ParameterTuple
+
+Inherited from `tuple`, `ParameterTuple` is used to store multiple `Parameter` objects. `__new__(cls, iterable)` is used to transfer an iterator for storing `Parameter` for building, and the `clone` API is provided for cloning.
+
+The following example builds a `ParameterTuple` object and clones it.  
+
+```python
+import numpy as np
+from mindspore import Tensor, Parameter, ParameterTuple
+from mindspore import dtype as mstype
+from mindspore.common.initializer import initializer
+
+x = Parameter(default_input=Tensor(np.arange(2*3).reshape((2, 3))), name='x')
+y = Parameter(default_input=initializer('ones', [1, 2, 3], mstype.float32), name='y')
+z = Parameter(default_input=2.0, name='z')
+params = ParameterTuple((x, y, z))
+params_copy = params.clone("params_copy")
+print(params, "\n")
+print(params_copy)
+```
+
+The output is as follows:
+
+```text
+(Parameter (name=x, shape=(2, 3), dtype=Int32, requires_grad=True), Parameter (name=y, shape=(1, 2, 3), dtype=Float32, requires_grad=True), Parameter (name=z, shape=(), dtype=Float32, requires_grad=True))
+
+(Parameter (name=params_copy.x, shape=(2, 3), dtype=Int32, requires_grad=True), Parameter (name=params_copy.y, shape=(1, 2, 3), dtype=Float32, requires_grad=True), Parameter (name=params_copy.z, shape=(), dtype=Float32, requires_grad=True))
 ```
 
 ## Using Encapsulation Operator to Initialize Parameters
@@ -309,35 +338,6 @@ The output is as follows:
    [12. 18. 18. ... 18. 18. 12.]]]]
 ```
 
-## ParameterTuple
-
-Inherited from `tuple`, `ParameterTuple` is used to store multiple `Parameter` objects. `__new__(cls, iterable)` is used to transfer an iterator for storing `Parameter` for building, and the `clone` API is provided for cloning.
-
-The following example builds a `ParameterTuple` object and clones it.  
-
-```python
-import numpy as np
-from mindspore import Tensor, Parameter, ParameterTuple
-from mindspore import dtype as mstype
-from mindspore.common.initializer import initializer
-
-x = Parameter(default_input=Tensor(np.arange(2*3).reshape((2, 3))), name='x')
-y = Parameter(default_input=initializer('ones', [1, 2, 3], mstype.float32), name='y')
-z = Parameter(default_input=2.0, name='z')
-params = ParameterTuple((x, y, z))
-params_copy = params.clone("params_copy")
-print(params, "\n")
-print(params_copy)
-```
-
-The output is as follows:
-
-```text
-(Parameter (name=x, shape=(2, 3), dtype=Int32, requires_grad=True), Parameter (name=y, shape=(1, 2, 3), dtype=Float32, requires_grad=True), Parameter (name=z, shape=(), dtype=Float32, requires_grad=True))
-
-(Parameter (name=params_copy.x, shape=(2, 3), dtype=Int32, requires_grad=True), Parameter (name=params_copy.y, shape=(1, 2, 3), dtype=Float32, requires_grad=True), Parameter (name=params_copy.z, shape=(), dtype=Float32, requires_grad=True))
-```
-
 ## Dependency Control
 
 If the result of a function depends on or affects an external state, we consider that the function has side effects, such as a function changing an external global variable, and the result of a function depends on the value of a global variable. If the operator changes the value of the input parameter or the output of the operator depends on the value of the global parameter, we think this is an operator with side effects.
@@ -355,18 +355,34 @@ b = B(y)                --->        y = Depend(y, a)
 Please note that a special set of operators for floating point overflow state detection have hidden side effects, but are not IO side effects or memory side effects. In addition, there are strict sequencing requirements for use, i.e., before using the NPUClearFloatStatus operator, you need to ensure that the NPU AllocFloatStatus has been executed, and before using the NPUGetFloatStatus operator, you need to ensure that the NPUClearFlotStatus has been executed. Because these operators are used less, the current scenario is to keep them defined as side-effect-free in the form of Depend ensuring execution order. Examples are as follows:
 
 ```python
-import mindspore.ops as ops
-self.alloc_status = ops.operations.NPUAllocFloatStatus()
-self.get_status = ops.operations.NPUGetFloatStatus()
-self.clear_status = ops.operations.NPUClearFloatStatus()
-...
-init = self.alloc_status()
-init = ops.functional.Depend(init, input)
-clear_status = self.clear_status(init)
-input = ops.functional.Depend(input, clear_status)
-output = Compute(input)
-init = ops.functional.Depend(init, output)
-get_status = self.get_status(init)
+import numpy as np
+from mindspore.common.tensor import Tensor
+from mindspore import ops
+
+npu_alloc_status = ops.NPUAllocFloatStatus()
+npu_get_status = ops.NPUGetFloatStatus()
+npu_clear_status = ops.NPUClearFloatStatus()
+x = Tensor(np.ones([3, 3]).astype(np.float32))
+y = Tensor(np.ones([3, 3]).astype(np.float32))
+init = npu_alloc_status()
+sum_ = ops.Add()(x, y)
+product = ops.MatMul()(x, y)
+init = ops.depend(init, sum_)
+init = ops.depend(init, product)
+get_status = npu_get_status(init)
+sum_ = ops.depend(sum_, get_status)
+product = ops.depend(product, get_status)
+out = ops.Add()(sum_, product)
+init = ops.depend(init, out)
+clear = npu_clear_status(init)
+out = ops.depend(out, clear)
+print(out)
 ```
+
+```text
+[[5. 5. 5.]
+ [5. 5. 5.]
+ [5. 5. 5.]]
+ ```
 
 Specific usage methods can refer to the implementation of [start_overflow_check functions](https://gitee.com/mindspore/mindspore/blob/r1.5/mindspore/nn/wrap/loss_scale.py) in the overflow detection logic.
