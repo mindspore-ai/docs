@@ -120,7 +120,7 @@ print(names)
 
 ### set_grad
 
-The `set_grad` API is used to construct a backward network. If no parameter is transferred for calling the API, the default value of `requires_grad` is True. This API needs to be used in the scenario where the backward network is computed.
+The `set_grad` API is used to specify whether the network requires gradient. If no parameter is transferred for calling the API, the default value of `requires_grad` is True, and the backward network needed to compute the gradients will be generated when the forward network is executed.
 
 Take `TrainOneStepCell` as an example. Its API function is to perform single-step training on the network. The backward network needs to be computed. Therefore, `set_grad` needs to be used in the initialization method.
 
@@ -135,7 +135,7 @@ class TrainOneStepCell(Cell):
         ......
 ```
 
-If using similar APIs such as `TrainOneStepCell`, you do not need to use `set_grad`. The internal encapsulation is implemented.
+If using similar APIs such as `TrainOneStepCell` and `GradOperation`, you do not need to use `set_grad`. The internal encapsulation is implemented.
 
 If you need to customize APIs of this training function, call APIs internally or set `network.set_grad` externally.
 
