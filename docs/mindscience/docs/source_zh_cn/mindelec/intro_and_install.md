@@ -44,7 +44,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/mindsc
 > - 在联网状态下，安装whl包时会自动下载MindElec安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindscience/blob/master/MindElec/setup.py)），点云数据采样依赖[pythonocc](https://github.com/tpaviot/pythonocc-core)，需自行安装。
 > - `{arch}`表示系统架构，例如使用的Linux系统是x86架构64位时，`{arch}`应写为x86_64。如果系统是ARM架构64位，则写为aarch64。
 > - `{version}`表示MindElec版本号，例如下载0.1.0版本MindElec时，`{version}`应写为0.1.0。
-> - `{python_version}`表示用户的Python版本，Python版本为3.7.5时，{python_version}应写为cp37_cp37m。Python版本为3.9.0时，则写为cp39_cp39。
+> - `{python_version}`表示用户的Python版本，Python版本为3.7.5时，{python_version}应写为cp37-cp37m。Python版本为3.9.0时，则写为cp39-cp39。
 
 #### 源码安装
 
