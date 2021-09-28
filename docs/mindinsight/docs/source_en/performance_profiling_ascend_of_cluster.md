@@ -226,7 +226,13 @@ Figure 3 shows the performance information of a single device in the cluster. Pl
 
 Cluster communication and computational overlap time analysis components are used in pipeline parallel and model parallel mode to identify slow hosts and slow devices in cluster training.
 
-The cluster communication and computation overlap time analysis components add five new indicators: pure receive time, stage time, pure communication time, computation time, and pure collection communication time. The pure communication time reflects the value of the increase in training time caused by communication, the pure receiving time (point-to-point communication) reflects the value of the increase in training time caused by communication between stages, and the time of pure collection communication (different from point-to-point communication) reflects the value of the increase in training time caused by collective communication. Stage time is used to locate slow stages, and computation time is used to locate slow devices.
+The cluster communication and computation overlap time analysis components add five new indicators: Communication Time(including the receive operator only), Stage Time, Communication Time, Computation Time, Communication Time(not including the receive operator).
+
+- Communication Time(including the receive operator only): only the point-to-point(receive) communication operator is executed, and the calculation operator does not execute the time period. This time period reflects the asynchronous situation between the parallel stages of the pipeline.
+- Stage Time: the time-consuming duration of each stage. This value is the duration of the step minus the duration of the receive communication operator in the step. Through this indicator, you can see which stage takes the longest time.
+- Communication Time: the time period when only the communication operator is executed, and the calculation operator is not executed. If this part takes a long time, it means that the communication time-consuming has a greater impact on performance.
+- Computation Time: the total execution time of AI Core operator, used to judge whether there is a slow card. The longer the time, the slower the execution speed of the corresponding card.
+- Communication Time(not including the receive operator): only the time period during which other communication operators except the receive communication operators are executed, and the computation operators does not execute. When this time period accounts for a large proportion, you need to consider whether the segmentation strategy of the operators in the stage can be adjusted to reduce the time-consuming duration of this time period.
 
 ![cluster_pipeline-parallel_analyse.png](./images/cluster_pipeline-parallel_analyse_en.png)
 
