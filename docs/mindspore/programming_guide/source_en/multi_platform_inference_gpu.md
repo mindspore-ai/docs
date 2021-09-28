@@ -133,7 +133,7 @@ After completing the preceding operations, you can learn how to perform inferenc
 
 Log in to the GPU environment, and create the `model` directory to store the `resnet50_imagenet.mindir` file, for example, `/home/mindspore_sample/gpu_resnet50_inference_sample/model`.
 
-Set the environment variable base on the actual situation.
+Set the environment variable base on the actual situation, where the `TensorRT` is an optional configuration item. It is recommended to add `TensorRT` path to `LD_LIBRARY_PATH` to improve mode inference performance.
 
 ```bash
 export LD_PRELOAD=/home/miniconda3/lib/libpython37m.so
