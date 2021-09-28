@@ -13,6 +13,10 @@ LiteSession定义了MindSpore Lite中的会话，用于进行Model的编译和�
 | function                                                     |
 | ------------------------------------------------------------ |
 | [boolean init(MSConfig config)](#init)                       |
+| [static LiteSession createSession(final MappedByteBuffer buffer, final MSConfig config)](#createsession)  |
+| [static LiteSession createSession(final MSConfig config)](#createsession)                                 |
+| [long getSessionPtr()](#getsessionptr)                       |
+| [void setSessionPtr(long sessionPtr)](#setsessionptr)        |
 | [void bindThread(boolean if_bind)](#bindthread)              |
 | [boolean compileGraph(Model model)](#compilegraph)           |
 | [boolean runGraph()](#rungraph)                              |
@@ -44,23 +48,74 @@ public boolean init(MSConfig config)
 
 - 参数
 
-    - `MSConfig`: MSConfig类。
+    - `config`: MSConfig类。
 
 - 返回值
 
   初始化是否成功。
 
+## createSession
+
+```java
+public static LiteSession createSession(final MSConfig config)
+```
+
+创建LiteSession。
+
+- 参数
+
+    - `config`: MSConfig类。
+
+- 返回值
+
+  返回创建的LiteSession。
+
+```java
+public static LiteSession createSession(final MappedByteBuffer buffer, final MSConfig config)
+```
+
+创建LiteSession。
+
+- 参数
+
+    - `buffer`: MappedByteBuffer类。
+    - `config`: MSConfig类。
+
+- 返回值
+
+  返回创建的LiteSession。
+
+## getSessionPtr
+
+```java
+public long getSessionPtr()
+```
+
+- 返回值
+
+  返回session指针。
+
+## setSessionPtr
+
+```java
+public void setSessionPtr(long sessionPtr)
+```
+
+- 参数
+
+    - `sessionPtr`: session指针。
+
 ## bindThread
 
 ```java
-public void bindThread(boolean if_bind)
+public void bindThread(boolean isBind)
 ```
 
 尝试将线程池中的线程绑定到指定的CPU内核，或从指定的CPU内核进行解绑。
 
 - 参数
 
-    - `if_bind`: 是否对线程进行绑定或解绑。
+    - `isBind`: 是否对线程进行绑定或解绑。
 
 ## compileGraph
 
