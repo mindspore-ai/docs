@@ -4,6 +4,36 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_en/inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
+<font size=3>**Q: MindSpore 1.3 is installed on the Ascend 310 hardware platform. When I run the `add_model.py` sample in mindspore_serving, an error message is displayed. Why?**</font>
+
+A: Ascend 310 supports model export and Serving inference, but does not support direct inference using the MindSpore frontend Python script. In the `add` sample, the code for direct inference using the MindSpore frontend Python script is added. You only need to comment out the code in the Ascend 310 scenario.
+
+```python
+def export_net():
+    """Export add net of 2x2 + 2x2, and copy output model `tensor_add.mindir` to directory ../add/1"""
+    x = np.ones([2, 2]).astype(np.float32)
+    y = np.ones([2, 2]).astype(np.float32)
+    add = Net()
+    # Comment out the MindSpore frontend Python script used for direct inference in the Ascend 310 scenario.
+    # output = add(ms.Tensor(x), ms.Tensor(y))
+    ms.export(add, ms.Tensor(x), ms.Tensor(y), file_name='tensor_add', file_format='MINDIR')
+    dst_dir = '../add/1'
+    try:
+        os.mkdir(dst_dir)
+    except OSError:
+        pass
+
+    dst_file = os.path.join(dst_dir, 'tensor_add.mindir')
+    copyfile('tensor_add.mindir', dst_file)
+    print("copy tensor_add.mindir to " + dst_dir + " success")
+
+    print(x)
+    print(y)
+    # print(output.asnumpy()).
+```
+
+<br/>
+
 <font size=3>**Q: What should I do when error `/usr/bin/ld: warning: libxxx.so, needed by libmindspore.so, not found` prompts during application compiling?**</font>
 
 A: Find the directory where the missing dynamic library file is located, add the path to the environment variable `LD_LIBRARY_PATH`, and refer to [Inference Using the MindIR Model on Ascend 310 AI Processors#Building Inference Code](https://www.mindspore.cn/docs/programming_guide/en/master/multi_platform_inference_ascend_310_mindir.html#building-inference-code) for environment variable settings.
