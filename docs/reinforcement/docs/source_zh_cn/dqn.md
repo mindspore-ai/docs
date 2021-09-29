@@ -37,38 +37,36 @@ MindSpore Reinforcement使用*算法配置*指定DQN算法所需的逻辑组件�
 算法配置是一个Python字典，指定如何构造DQN算法的不同组件。每个组件的超参数在单独的Python字典中配置。DQN算法配置定义如下：
 
 ```python
-dqn_algorithm_configuration = {
-   'actor': {
-       'number': 1,
-       'class': DQNActor,
-       'parameters': None,
-       'policies': ['init_policy', 'collect_policy', 'evaluation_policy'],
-       'networks': ['policy_network', 'target_network'],
-       'environment': True,
-       'replay_buffer': {'capacity': 100000, 'shape': [(4,), (1,), (1,), (4,)],
-                         'sample_size': 64,
-                         'type': [mindspore.float32, mindspore.int32,
-                                  mindspore.float32, mindspore.float32]},
-   },
-
-   'learner': {
-       'number': 1,
-       'class': DQNLearner,
-       'parameters': learner_parameters,
-       'networks': ['target_network', 'policy_network_train']
+    'actor': {
+        'number': 1,
+        'type': DQNActor,
+        'params': None,
+        'policies': ['init_policy', 'collect_policy', 'evaluate_policy'],
+        'networks': ['policy_network', 'target_network'],
+        'environment': True,
+        'eval_environment': True,
+        'replay_buffer': {'capacity': 100000, 'shape': [(4,), (1,), (1,), (4,)],
+                          'sample_size': 64, 'type': [ms.float32, ms.int32, ms.float32, ms.float32]},
     },
-
-   'policy': {
-       'class': DQNPolicy,
-       'parameters': policy_parameters
+    'learner': {
+        'number': 1,
+        'type': DQNLearner,
+        'params': learner_params,
+        'networks': ['target_network', 'policy_network_train']
     },
-
-   'environment': {
-       'class': Environment,
-       'parameters': environment_parameters
+    'policy_and_network': {
+        'type': DQNPolicy,
+        'params': policy_params
+    },
+    'environment': {
+        'type': GymEnvironment,
+        'params': env_params
+    },
+    'eval_environment': {
+        'type': GymEnvironment,
+        'params': eval_env_params
     }
 }
-
 ```
 
 以上配置定义了四个顶层项，每个配置对应一个算法组件：*actor、learner、policy*和*environment*。每个项对应一个类，该类必须由用户定义，以实现DQN算法的逻辑。
@@ -120,32 +118,37 @@ class DQNTrainer(Trainer):
     def train(self, episode):
         self.init_training()
         for i in range(episode):
-           reward, episode_steps=self.train_one_epoch(self.update_period)
+           reward, episode_steps = self.train_one_episode(self.update_period)
         reward = self.evaluation()
 ```
 
-`train`方法首先调用`init_training`初始化训练。然后，它为指定数量的episode（iteration）训练模型，每个episode调用用户定义的`tre_one_epoch`方法。最后，train方法通过调用`evaluation`方法来评估策略以获得奖励值。
+`train`方法首先调用`init_training`初始化训练。然后，它为指定数量的episode（iteration）训练模型，每个episode调用用户定义的`train_one_episode`方法。最后，train方法通过调用`evaluation`方法来评估策略以获得奖励值。
 
-在训练循环的每次迭代中，调用`tre_one_epoch`方法来训练一个episode：
+在训练循环的每次迭代中，调用`tre_one_episode`方法来训练一个episode：
 
 ```python
 @ms_function
-def train_one_epoch(self, update_period=5):
-    state, done = self.msrl.agent_reset()
-    total_reward = self.zero_value
-    steps = self.zero_value
+def train_one_episode(self, update_period=5):
+    """Train one episode"""
+    state, done = self.msrl.agent_reset_collect()
+    total_reward = self.zero
+    steps = self.zero
     while not done:
-        done, r, state = self.msrl.agent_act(state)
+        done, r, new_state, action, my_reward = self.msrl.agent_act(state)
         self.msrl.replay_buffer_insert([state, action, my_reward, new_state])
-        self.msrl.agent_learn(self.msrl.sample_replay_buffer())
+        state = new_state
+        r = self.squeeze(r)
+        self.msrl.agent_learn(self.msrl.replay_buffer_sample())
         total_reward += r
         steps += 1
+        if not self.mod(steps, update_period):
+            self.msrl.agent_update()
     return total_reward, steps
 ```
 
 `@ms_function`注解表示此方法将被编译为MindSpore计算图用于加速。所有标量值都必须定义为张量类型，例如`self.zero_value = Tensor(0, mindspore.float32)`。
 
-`train_one_episode`方法首先调用`msrl.agent_reset`函数（由MindSpore Reinforcement API提供）来重置环境。然后，它使用`msrl.agent_act`函数处理程序从环境中收集经验，并使用`msrl.agent_learn`函数训练目标模型。`msrl.agent_learn`的输入是`msrl.sample_replay_buffer`返回的采样结果。
+`train_one_episode`方法首先调用`msrl.agent_reset_collect`函数（由MindSpore Reinforcement API提供）来重置环境。然后，它使用`msrl.agent_act`函数处理程序从环境中收集经验，并使用`msrl.agent_learn`函数训练目标模型。`msrl.agent_learn`的输入是`msrl.sample_replay_buffer`返回的采样结果。
 
 回放缓存`ReplayBuffer`由MindSpore Reinfocement提供。它定义了`insert`和`sample`方法，分别用于对经验数据进行存储和采样。
 
@@ -158,12 +161,14 @@ def train_one_epoch(self, update_period=5):
 ```python
 class DQNPolicy():
      def __init__(self, params):
-         self.policy_network = FullyConnectedNetwork(
-                       params['state_space_dim'],
-                       params['hidden_size'],params['action_space_dim'])
-         self.target_network = FullyConnectedNetwork(
-                       params['state_space_dim'],
-                       params['hidden_size'],params['action_space_dim'])
+        self.policy_network = FullyConnectedNet(
+            params['state_space_dim'],
+            params['hidden_size'],
+            params['action_space_dim'])
+        self.target_network = FullyConnectedNet(
+            params['state_space_dim'],
+            params['hidden_size'],
+            params['action_space_dim'])
 ```
 
 构造函数将先前定义的Python字典类型的超参数`policy_parameters`作为输入。
@@ -173,9 +178,16 @@ class DQNPolicy():
 ```python
 class FullyConnectedNetwork(mindspore.nn.Cell):
      def __init__(self, input_size, hidden_size, output_size):
-         self.linear1 = mindspore.nn.Dense(input_size, hidden_size)
-         self.linear2 = mindspore.nn.Dense(hidden_size, output_size)
-         self.relu = mindspore.nn.ReLU()
+        super(FullyConnectedNet, self).__init__()
+        self.linear1 = nn.Dense(
+            input_size,
+            hidden_size,
+            weight_init="XavierUniform")
+        self.linear2 = nn.Dense(
+            hidden_size,
+            output_size,
+            weight_init="XavierUniform")
+        self.relu = nn.ReLU()
 ```
 
 DQN算法使用损失函数来优化神经网络的权重。此时，用户必须定义一个用于计算损失函数的神经网络。此网络被指定为`DQNPolicy`的嵌套类。此外，还需要优化器来训练网络。优化器和损失函数定义如下：
@@ -184,15 +196,12 @@ DQN算法使用损失函数来优化神经网络的权重。此时，用户必�
 class DQNPolicy():
      def __init__(self, params):
         ...
-        class PolicyNetWithLossCell(mindspore.nn.Cell):
-            def __init__(self, backbone, loss_fn):
-            ...
-            loss_fn = mindspore.nn.MSELoss()
-            optimizer =  mindspore.nn.Adam(self.policy_net.trainable_params(),
-                                           learning_rate=params['lr'])
-            loss_Q_net = self.PolicyNetWithLossCell(self.policy_network, loss_fn)
-            self.policy_network_train = mindspore.nn.TrainOneStepCell(loss_Q_net, otimizer)
-            self.policy_network_train.set_train(mode=True)
+        loss_fn = mindspore.nn.MSELoss()
+        optimizer =  mindspore.nn.Adam(self.policy_net.trainable_params(),
+                                       learning_rate=params['lr'])
+        loss_Q_net = self.PolicyNetWithLossCell(self.policy_network, loss_fn)
+        self.policy_network_train = mindspore.nn.TrainOneStepCell(loss_Q_net, otimizer)
+        self.policy_network_train.set_train(mode=True)
 ```
 
 DQN算法是一种*off-policy*算法，使用贪婪策略学习。它使用不同的行为策略来对环境采取行动和收集数据。在本示例中，我们用`RandomPolicy`初始化训练，用`EpsilonGreedyPolicy`收集训练期间的经验，用`GreedyPolicy`进行评估：
@@ -201,12 +210,10 @@ DQN算法是一种*off-policy*算法，使用贪婪策略学习。它使用不�
 class DQNPolicy():
      def __init__(self, params):
          ...
-         self.init_policy = RandomPolicy(params['action_space_dim'])
-         self.collect_policy = EpsilonGreedyPolicy(self.policy_network,
-                               (1,1),params['epsi_high'],
-                               params['epsi_low'], params['decay'],
-                               params['action_space_dim'])
-         self.evaluation_policy = GreedyPolicy(self.policy_network)
+        self.init_policy = RandomPolicy(params['action_space_dim'])
+        self.collect_policy = EpsilonGreedyPolicy(self.policy_network, (1, 1), params['epsi_high'],
+                                                  params['epsi_low'], params['decay'], params['action_space_dim'])
+        self.evaluate_policy = GreedyPolicy(self.policy_network)
 ```
 
 由于上述三种行为策略在一系列RL算法中非常常见，MindSpore Reinforcement将它们作为可重用的构建块提供。用户还可以自定义特定算法的行为策略。
@@ -219,24 +226,34 @@ class DQNPolicy():
 
 ```python
 class DQNActor(Actor):
-      ...
-     def act_init(self, state):
-          # 初始化回放缓冲区
-          action = self.init_policy()
-          new_state, reward, done = self._environment.step(action)
-          return done, reward, new_state
+     ...
+    def act_init(self, state):
+        """Fill the replay buffer"""
+        action = self.init_policy()
+        new_state, reward, done = self._environment.step(action)
+        action = self.reshape(action, (1,))
+        my_reward = self.select(done, self.penalty, self.reward)
+        return done, reward, new_state, action, my_reward
 
-     def act(self, state):
-          # 收集经验
-          action = self.collect_policy(state)
-          new_state, reward, done = self._environment.step(action)
-          return done, reward, new_state
+    def act(self, state):
+        """Experience collection"""
+        self.step += 1
 
-     def evaluate(self, state):
-          # 评估策略
-          action = self.evaluation_policy(state)
-          new_state, reward, done = self._environment.step(action)
-          return done, reward, new_state
+        ts0 = self.expand_dims(state, 0)
+        step_tensor = self.ones((1, 1), ms.float32) * self.step
+
+        action = self.collect_policy(ts0, step_tensor)
+        new_state, reward, done = self._environment.step(action)
+        action = self.reshape(action, (1,))
+        my_reward = self.select(done, self.penalty, self.reward)
+        return done, reward, new_state, action, my_reward
+
+    def evaluate(self, state):
+        """Evaluate the trained policy"""
+        ts0 = self.expand_dims(state, 0)
+        action = self.evaluate_policy(ts0)
+        new_state, reward, done = self._eval_env.step(action)
+        return done, reward, new_state
 ```
 
 这三种方法使用不同的策略作用于指定的环境，这些策略将状态映射到操作。这些方法将张量类型的值作为输入，并从环境返回轨迹。
