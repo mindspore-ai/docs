@@ -248,9 +248,15 @@ Several common examples are selected below to illustrate the use of conversion c
 
 ## Advanced Usage
 
-The extension ability is only supported in Linux.
+The extension ability is only supported in Linux, including node-parse extension, model-parse extension and graph-optimization extension. The users can combined them as needed to achieve their own intention.
 
-In this chapter, we will show the users an example of extending Mindspore Lite converter tool, covering the whole process of creating pass, compiling and linking. The example will help the users understand the advanced usage as soon as possible.
+> - node-parse extension: The users can define the process to parse a certain node of a model by themselves, which only support ONNX, CAFFE, TF and TFLITE. The related interface is [NodeParser](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore_converter.html#nodeparser).
+> - model-parse extension: The users can define the process to parse a model by themselves, which only support ONNX, CAFFE, TF and TFLITE. The related interface is [ModelParser](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore_converter.html#modelparser).
+> - graph-optimization extension: After parsing a model, the users can define the process to optimize the parsed graph. The related interface is [PassBase](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore_registry.html#passbase).
+>
+> The node-parse extension needs to rely on the flatbuffers, protobuf and the serialization files of third-party frameworks, at the same time, the version of flatbuffers and the protobuf needs to be consistent with that of the released package, the serialized files must be compatible with that used by the released package. Note that the flatbuffers, protobuf and the serialization files are not provided in the released package, users need to compile and generate the serialized files by themselves. The users can obtain the basic information about [flabuffers](https://gitee.com/mindspore/mindspore/blob/master/cmake/external_libs/flatbuffers.cmake), [probobuf](https://gitee.com/mindspore/mindspore/blob/master/cmake/external_libs/protobuf.cmake), [ONNX prototype file](https://gitee.com/mindspore/mindspore/tree/master/third_party/proto/onnx), [CAFFE prototype file](https://gitee.com/mindspore/mindspore/tree/master/third_party/proto/caffe), [TF prototype file](https://gitee.com/mindspore/mindspore/tree/master/third_party/proto/tensorflow) and [TFLITE prototype file](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/tools/converter/parser/tflite/schema.fbs) from the [MindSpore WareHouse](https://gitee.com/mindspore/mindspore/tree/master).
+
+In this chapter, we will show the users an example of extending Mindspore Lite converter tool, covering the whole process of creating pass, compiling and linking. The example will help the users understand the graph-optimization extension as soon as possible.
 
 The chapter takes a [add.tflite](https://download.mindspore.cn/model_zoo/official/lite/quick_start/add.tflite), which only includes an opreator of adding, as an example. We will show the users how to convert the single operator of adding to that of [Custom](https://www.mindspore.cn/lite/docs/en/master/use/register_kernel.html#custom) and finally, obtain a model, which only includs a single operator of custom.
 
