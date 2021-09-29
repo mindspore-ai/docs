@@ -72,53 +72,115 @@ MindSpore defines logical network structures and operator attributes through a u
 
 <table class="docutils">
 <tr>
+  <td>AdvancedEast</td>
   <td>AlexNet</td>
+  <td>AutoDis</td>
   <td>BERT</td>
   <td>BGCF</td>
-</tr>
-<tr>
   <td>CenterFace</td>
+</tr>
+<tr>
+  <td>CNN</td>
   <td>CNN&CTC</td>
+  <td>CRNN</td>
+  <td>CSPDarkNet53</td>
+  <td>CTPN</td>
+  <td>DeepFM</td>
+</tr>
+<tr>
   <td>DeepLabV3</td>
-</tr>
-<tr>
+  <td>DeepText</td>
   <td>DenseNet121</td>
-  <td>Faster R-CNN</td>
-  <td>GAT</td>
+  <td>DPN</td>
+  <td>DS-CNN</td>
+  <td>FaceAttribute</td>
 </tr>
 <tr>
+  <td>FaceDetection</td>
+  <td>FaceQualityAssessment</td>
+  <td>FaceRecognition</td>
+  <td>FaceRecognitionForTracking</td>
+  <td>Faster R-CNN</td>
+  <td>FasterRcnn-ResNet50</td>
+</tr>
+<tr>
+  <td>FasterRcnn-ResNet101</td>
+  <td>FasterRcnn-ResNet152</td>
+  <td>FCN</td>
+  <td>FCN-4</td>
+  <td>GAT</td>
   <td>GCN</td>
+</tr>
+<tr>
   <td>GoogLeNet</td>
+  <td>GRU</td>
+  <td>hardnet</td>
+  <td>InceptionV3</td>
+  <td>InceptionV4</td>
   <td>LeNet</td>
 </tr>
 <tr>
+  <td>LSTM-SegtimentNet</td>
   <td>Mask R-CNN</td>
+  <td>MaskRCNN_MobileNetV1</td>
   <td>MASS</td>
+  <td>MobileNetV1</td>
   <td>MobileNetV2</td>
 </tr>
 <tr>
   <td>NCF</td>
   <td>PSENet</td>
-  <td>ResNet</td>
+  <td>ResNet18</td>
+  <td>ResNet50</td>
+  <td>ResNet101</td>
+  <td>ResNet152</td>
 </tr>
 <tr>
-  <td>ResNeXt</td>
-  <td>InceptionV3</td>
+  <td>ResNetV2-50</td>
+  <td>ResNetV2-101</td>
+  <td>ResNetV2-152</td>
+  <td>SE-Net</td>
+  <td>SSD-MobileNetV2</td>
+  <td>ResNext50</td>
+</tr>
+<tr>
+  <td>ResNext101</td>
+  <td>RetinaNet</td>
+  <td>Seq2Seq(Attention)</td>
+  <td>SE-ResNet50</td>
+  <td>ShuffleNetV1</td>
+  <td>SimplePoseNet</td>
+</tr>
+<tr>
   <td>SqueezeNet</td>
-</tr>
-<tr>
   <td>SSD</td>
-  <td>Transformer</td>
-  <td>TinyBert</td>
+  <td>SSD-GhostNet</td>
+  <td>SSD-MobileNetV1-FPN</td>
+  <td>SSD-MobileNetV2-FPNlite</td>
+  <td>SSD-ResNet50</td>
 </tr>
 <tr>
+  <td>SSD-ResNet50-FPN</td>
+  <td>SSD-VGG16</td>
+  <td>TextCNN</td>
+  <td>TextRCNN</td>
+  <td>TinyBert</td>
+  <td>TinyDarknet</td>
+</tr>
+<tr>
+  <td>Transformer</td>
+  <td>UNet++</td>
   <td>UNet2D</td>
   <td>VGG16</td>
+  <td>WarpCTC</td>
   <td>Wide&Deep</td>
 </tr>
 <tr>
-  <td>YOLOv3</td>
+  <td>WGAN</td>
+  <td>Xception</td>
+  <td>YOLOv3-DarkNet53</td>
+  <td>YOLOv3-ResNet18</td>
   <td>YOLOv4</td>
-  <td></td>
+  <td>YOLOv5</td>
 </tr>
 </table>
