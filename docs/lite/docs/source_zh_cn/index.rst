@@ -133,7 +133,6 @@
 										<button class="doc-filter-btn doc-btn" id="stage-Model-Loading">模型加载</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Model-Training">模型训练</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Model-Optimization">模型调优</button>
-										<button class="doc-filter-btn doc-btn" id="stage-Model-Compiling">模型编译</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Model-Code-Generation">模型代码生成</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Model-Obfuscator">模型混淆</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Inference">推理应用</button>
@@ -193,7 +192,7 @@
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Windows os-Linux os-Android os-Mac stage-Environment-Preparation user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Windows os-Linux os-Android os-mac os-ios stage-Environment-Preparation user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -332,7 +331,7 @@
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Windows os-Linux os-Android language-cpp stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Windows os-Linux os-Android os-mac os-ios language-cpp stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -388,11 +387,11 @@
 										</div>
 										<div class="doc-article-desc">
 											该教程介绍了集成TensorRT的使用说明。
-                                                                                </div>
-                                                                        </div>  
-                                                                </a>    
-                                                        </div>  
-                                                        <div class="doc-article-item all os-Windows os-Linux os-Android language-cpp stage-Inference user-Expert hidden">
+										</div>
+									</div>
+								</a>
+							</div>  
+                            <div class="doc-article-item all os-Windows os-Linux os-Android language-cpp stage-Inference user-Expert hidden">
 								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/register_kernel.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -464,7 +463,7 @@
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Windows os-Linux os-Mac stage-Visualization">
+							<div class="doc-article-item all os-Windows os-Linux os-mac stage-Visualization">
 								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/visual_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
