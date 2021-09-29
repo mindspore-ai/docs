@@ -18,6 +18,9 @@ MSConfig类用于保存执行中的配置变量。
 | [boolean init(int deviceType)](#init)                        |
 | [boolean init()](#init)                                      |
 | [void free()](#free)                                         |
+| [long getMSConfigPtr()](#getmsconfigptr)                     |
+| [DeviceType](#devicetype)                                    |
+| [CpuBindMode](#cpubindmode)                                  |
 
 ## init
 
@@ -100,3 +103,59 @@ public void free()
 ```
 
 释放MSConfig运行过程中动态分配的内存。LiteSession init之后即可释放。
+
+## getMSConfigPtr
+
+```java
+public long getMSConfigPtr()
+```
+
+获取MSConfig指针。
+
+- 返回值
+
+  MSConfig指针。
+
+## DeviceType
+
+```java
+import com.mindspore.lite.config.DeviceType;
+```
+
+设备类型。
+
+### 公有成员变量
+
+```java
+public static final int DT_CPU = 0;
+public static final int DT_GPU = 1;
+public static final int DT_NPU = 2;
+```
+
+DeviceType的值为0，指定设备类型为CPU。
+
+DeviceType的值为1，指定设备类型为GPU。
+
+DeviceType的值为2，指定设备类型为NPU。
+
+## CpuBindMode
+
+```java
+import com.mindspore.lite.config.CpuBindMode;
+```
+
+绑核策略。
+
+### 公有成员变量
+
+```java
+public static final int MID_CPU = 2;
+public static final int HIGHER_CPU = 1;
+public static final int NO_BIND = 0;
+```
+
+CpuBindMode的值为2，优先绑定中核。
+
+CpuBindMode的值为1，优先绑定大核。
+
+CpuBindMode的值为0，不绑核。
