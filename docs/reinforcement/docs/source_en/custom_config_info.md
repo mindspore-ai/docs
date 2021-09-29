@@ -36,8 +36,9 @@ from mindspore_rl.mindspore_rl import Session
 algorithm_config = {
     'actor': {...},
     'learner': {...},
-    'policy': {},
-    'env': {...}
+    'policy_and_network': {...},
+    'environment': {...},
+    'eval_environment': {...}
 }
 
 session = Session(algorithm_config)
@@ -59,7 +60,7 @@ Policy is usually used to determine the behaviour (or action) that agent will ex
 from example.dqn.dqn import DQNPolicy
 
 policy_params = {
-    'epsi_high': 0.9,        # epsi_high/epsi_low/decay control the proportion of exploitation and exploration
+    'epsi_high': 0.1,        # epsi_high/epsi_low/decay control the proportion of exploitation and exploration
     'epsi_low': 0.1,         # epsi_high：the highest probability of exploration，epsi_low：the lowest probability of exploration，
     'decay': 200,            # decay：the step decay
     'lr': 0.001,             # learning rate
@@ -94,11 +95,12 @@ The following example defines the configuration of environment. Framework will c
 
 ```python
 from mindspore_rl.environment import Environment
+env_params = {'name': 'CartPole-v0'}
 algorithm_config = {
     ...
     'env': {
         'type': GymEnvironment,            # the class name of environment
-        'params': {'name': 'CartPole-v0'}  # parameter of environment
+        'params': env_params               # parameter of environment
     }
     ...
 }
@@ -107,7 +109,7 @@ algorithm_config = {
 |        key        |        Type        |                  Range                  |                         Description                          |
 | :---------------: | :----------------: | :-------------------------------------: | :----------------------------------------------------------: |
 | number (optional) |      Integer       |                 [1, +∞)                 | If the type is GymEnvironment, then user does not need to fill number. If the type MultiGymEnvironment, user needs to fill the number of environment. |
-|       type        |       Class        |  GymEnvironment or MultiGymEnvironment  |                              -                               |
+|       type        |       Class        |  GymEnvironment or MultiGymEnvironment  |                The class name of environment                 |
 |      params       | Dictionary or None | Any value with key value format or None | Customized parameter, user can input any value with key value format. If it does not need parameter, fill None. |
 
 ### Actor Configuration
@@ -126,6 +128,7 @@ algorithm_config = {
         'policies': ['init_policy', 'collect_policy', 'eval_policy'],       # Take the policies that called init_policy, collect_policy and eval_policy in Policy class as input to create the instance of actor
         'networks': ['policy_net', 'target_net'],                           # Take the networks that called policy_net and target_net in Policy class as input to create the instance of actor
         'environment': True,                                                # take the object of environment to create the instance of actor
+        'eval_environment': True,                                           # take the object of eval environment to create the instance of actor
         'replay_buffer': {'capacity': 100000,                               # the capacity of ReplayBuffer
                    'sample_size': 64,                                       # sample Batch Size
                    'shape': [(4,), (1,), (1,), (4,)],                       # the dimension info of ReplayBuffer
@@ -137,14 +140,14 @@ algorithm_config = {
 
 |            key             |            Type             |                           Range                            |                         Description                          |
 | :------------------------: | :-------------------------: | :--------------------------------------------------------: | :----------------------------------------------------------: |
-|           number           |           Integer           |                          [1, +∞)                           |                              -                               |
+|           number           |           Integer           |                          [1, +∞)                           |          Number of Actor, currently only support 1           |
 |            type            |            Class            | The subclass of actor that is user-defined and implemented | This type is the same name as the subclass of actor that is user-defined and implemented |
 |           params           |     Dictionary or None      |          Any value with key value format or None           | Customized parameter, user can input any value with key value format. If it does not need parameter, fill None. |
 |          policies          |       List of String        |      Same variable name as the user-defined policies       | Every string in list must match with policies' name which is user initialized in  defined policy class |
 |          networks          |       List of String        |      Same variable name as the user-defined networks       | Every string in list must match with networks' name which is user initialized in  defined policy class |
 |        environment         |           Boolean           |                       True or False                        | If this value is False, user can not obtain environment instance in actor |
 |      eval_environment      |           Boolean           |                       True or False                        | If this value is False, user can not obtain environment instance in actor |
-|  replay_buffer::capacity   |           Integer           |                          [0, +∞)                           |                              -                               |
+|  replay_buffer::capacity   |           Integer           |                          [0, +∞)                           |                 The capacity of ReplayBuffer                 |
 |    replay_buffer::shape    |    List of Integer Tuple    |                          [0, +∞)                           | The first number of tuple must equal to number of environment |
 |    replay_buffer::type     | List of mindspore data type |               Belongs to MindSpore data type               | The length of this list must equal to the length of replay_buffer::shape |
 | replay_buffer::sample_size |           Integer           |                       [0, capacity]                        |      The maximum value is the capacity of replay buffer      |
@@ -157,13 +160,13 @@ The following code defines the configuration of `DQNLearner` . Framework will cr
 
 ```python
 from example.dqn.dqn import DQNLearner
-
+learner_params = {'gamma': 0.99}  
 algorithm_config = {
     ...
     'learner': {
         'number': 1,                                    # the number of Learner
         'type': DQNLearner,                             # the class name of Learner
-        'params': {'gamma': 0.99}                       # the decay rate
+        'params': learner_params                        # the decay rate
         'networks': ['target_net', 'policy_net_train']  # Learner takes the target_net and policy_net_train from Policy as input argument to update the network
     },
     ...
@@ -172,7 +175,7 @@ algorithm_config = {
 
 |   key    |        Type        |                       Range                        |                         Description                          |
 | :------: | :----------------: | :------------------------------------------------: | :----------------------------------------------------------: |
-|  number  |      Integer       |                      [1, +∞)                       |                              -                               |
+|  number  |      Integer       |                      [1, +∞)                       |          Number of Actor, currently only support 1           |
 |   type   |       Class        | The user-defined and implement subclass of learner | This type is the same name as the subclass of learner that is user-defined and implemented |
 |  params  | Dictionary or None |      Any value with key value format or None       | Customized parameter, user can input any value with key value format. If it does not need parameter, fill None. |
 | networks |   List of String   |   Same variable name as the user-defined network   | Every string in list must match with networks' name which is user initialized in  defined policy class |

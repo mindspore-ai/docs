@@ -36,8 +36,9 @@ from mindspore_rl.mindspore_rl import Session
 algorithm_config = {
     'actor': {...},
     'learner': {...},
-    'policy': {},
-    'env': {...}
+    'policy_and_network': {...},
+    'environment': {...},
+    'eval_environment': {...}
 }
 
 session = Session(algorithm_config)
@@ -61,7 +62,7 @@ Policy通常用于智能体决策下一步需要执行的行为，算法中需�
 from example.dqn.dqn import DQNPolicy
 
 policy_params = {
-    'epsi_high': 0.9,        # epsi_high/epsi_low/decay共同控制探索-利用比例
+    'epsi_high': 0.1,        # epsi_high/epsi_low/decay共同控制探索-利用比例
     'epsi_low': 0.1,         # epsi_high：最大探索比例，epsi_low：最低探索比例，decay：衰减步长
     'decay': 200,
     'lr': 0.001,             # 学习率
@@ -96,11 +97,12 @@ algorithm_config = {
 
 ```python
 from mindspore_rl.environment import Environment
+env_params = {'name': 'CartPole-v0'}
 algorithm_config = {
     ...
-    'env': {
+    'environment': {
         'type': GymEnvironment,            # 外部环境类名
-        'params': {'name': 'CartPole-v0'}  # 环境参数
+        'params': env_params               # 环境参数
     }
     ...
 }
@@ -109,7 +111,7 @@ algorithm_config = {
 |     键值     |        类型        |                 范围                  |                             说明                             |
 | :----------: | :----------------: | :-----------------------------------: | :----------------------------------------------------------: |
 | number(可选) |      Integer       |                [1, +∞)                | 如果type中选择的是MultiGymEnvironment，则需要输入环境的数量。如果type中选择的是GymEnvironment则不需要填环境数量。 |
-|     type     |       Class        | GymEnvironment 或 MultiGymEnvironment |                              -                               |
+|     type     |       Class        | GymEnvironment 或 MultiGymEnvironment |                         外部环境类名                         |
 |    params    | Dictionary或者None |     任意key value形式的值或者None     | 自定义参数，用户可以通过key value的形式传入任何值。如果没有则填None |
 
 ### Actor配置参数
@@ -147,7 +149,7 @@ algorithm_config = {
 |          networks          |       List of String        |       和定义的网络变量名相同        | 列表中的所有String都应该和用户定义的策略类中初始化的网络变量名一一对应 |
 |        environment         |           Boolean           |            True or False            |     如果值为False，将不能从actor中获得environment的实例      |
 |      eval_environment      |           Boolean           |            True or False            |   如果值为False，将不能从actor中获得eval_environment的实例   |
-|  replay_buffer::capacity   |           Integer           |               [0, +∞)               |                              -                               |
+|  replay_buffer::capacity   |           Integer           |               [0, +∞)               |                       ReplayBuffer容量                       |
 |    replay_buffer::shape    |    List of Integer Tuple    |               [0, +∞)               |    Tuple中的第一个值需要和环境数量相等，如是单环境则不填     |
 |    replay_buffer::type     | List of mindspore data type |      需要是MindSpore的数据类型      |       type list的长度和replay_buffer::shape的长度相同        |
 | replay_buffer::sample_size |           Integer           |            [0, capacity]            |              值必须小于replay_buffer::capacity               |
@@ -160,14 +162,14 @@ algorithm_config = {
 
 ```python
 from example.dqn.dqn import DQNLearner
-
+learner_params = {'gamma': 0.99}  
 algorithm_config = {
     ...
     'learner': {
         'number': 1,                                    # Learner个数
         'type': DQNLearner,                             # Learner类名
-        'params': {'gamma': 0.99}                       # 未来期望衰减值
-        'networks': ['target_net', 'policy_net_train']  # Learner从Policy中提取名为target_net/policy_net_train成员对象，用于更新
+        'params': learner_params                        # 未来期望衰减值
+        'networks': ['target_net', 'policy_network_train']  # Learner从Policy中提取名为target_net/policy_net_train成员对象，用于更新
     },
     ...
 }
