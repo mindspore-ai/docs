@@ -48,12 +48,11 @@ MindSpore Lite 模型转换工具提供了多个参数，目前工具仅支持Li
 | `--modelFile=<MODELFILE>`   | 是       | MINDIR模型文件名（包括路径）                | -           | -      |
 | `--outputFile=<OUTPUTFILE>` | 是       | 输出模型文件名（包括路径）自动生成`.ms`后缀 | -           | -      |
 | `--trainModel=true`         | 是       | 是否是训练模式；如果要训练模型，必须为true  | true, false | false  |
-| `--quantType=<QUANTTYPE>` | 否 | 设置模型的量化类型。 | WeightQuant：权重量化（训练只支持此类型） | - |
-| `--bitNum=<BITNUM>` | 否 | 设定训练后量化（权重量化）的比特数，目前支持1bit～16bit量化 | \[1，16] | 8 |
-| `--quantWeightSize=<QUANTWEIGHTSIZE>` | 否 | 设定参与训练后量化（权重量化）的卷积核尺寸阈值，若卷积核尺寸大于该值，则对此权重进行量化 |  \[0，+∞） | 0 |
-| `--quantWeightChannel=<QUANTWEIGHTCHANNEL>` | 否 | 设定参与训练后量化（权重量化）的卷积通道数阈值，若卷积通道数大于该值，则对此权重进行量化 | \[0，+∞） | 16 |
+| `--configFile=<CONFIGFILE>` | 否 | 1）可作为训练后量化配置文件路径；2）可作为扩展功能配置文件路径。  | - | -  |
 
 > 参数名称和数值之间使用等号连接且不能有空格。
+>
+> `configFile`配置文件采用`key=value`的方式定义相关参数，量化相关的配置参数详见[训练后量化](https://www.mindspore.cn/lite/docs/zh-CN/r1.5/use/post_training_quantization.html)。
 
 ### 模型转换示例
 

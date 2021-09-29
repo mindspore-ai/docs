@@ -49,12 +49,11 @@ The table below shows the parameters used in the MindSpore Lite model training t
 | `--modelFile=<MODELFILE>`   | yes      | Path of the input model.                                     | -           | -             |
 | `--outputFile=<OUTPUTFILE>` | yes      | Path of the output model. The suffix `.ms` can be automatically generated. | -           | -             |
 | `--trainModel=true`         | yes      | Training on Device or not                                    | true, false | false         |
-| `--quantType=<QUANTTYPE>` | No | Sets the quantization type of the model. | WeightQuant: this quantType is only supported while use litetraining | - |
-| `--bitNum=<BITNUM>` | No | Sets the quantization bitNum when quantType is set as WeightQuant, now supports 1 bit to 16 bit quantization. | \[1, 16] | 8 |
-| `--quantWeightSize=<QUANTWEIGHTSIZE>` | No | Sets a size threshold of convolution filter when quantType is set as WeightQuant. If the size is bigger than this value, it will trigger weight quantization. | \[0, +∞) | 0 |
-| `--quantWeightChannel=<QUANTWEIGHTCHANNEL>` | No | Sets a channel number threshold of convolution filter when quantType is set as WeightQuant. If the number is bigger than the channel number, it will trigger weight quantization. | \[0, +∞) | 16 |
+| `--configFile=<CONFIGFILE>` | No | 1) Configure quantization parameter; 2) Profile path for extension. | - | - |
 
 > The parameter name and parameter value are separated by an equal sign (=) and no space is allowed between them.
+>
+> The calibration dataset configuration file uses the `key=value` mode to define related parameters. For the configuration parameters related to quantization, please refer to [post training quantization](https://www.mindspore.cn/lite/docs/en/r1.5/use/post_training_quantization.html).
 
 If running the conversion command is failed, an errorcode will be output.
 
