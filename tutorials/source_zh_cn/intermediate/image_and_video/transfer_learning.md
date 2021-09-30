@@ -130,7 +130,10 @@ count = 1
 plt.figure(figsize=(12,5))
 for i in images:
     plt.subplot(3,8,count)
-    plt.imshow(i.asnumpy().transpose(1,2,0))
+    picture_show = np.transpose(i.asnumpy(),(1,2,0))
+    picture_show = picture_show/np.amax(picture_show)
+    picture_show = np.clip(picture_show, 0, 1)
+    plt.imshow(picture_show)
     plt.title(class_name[int(labels[count-1].asnumpy())])
     plt.xticks([])
     count += 1
@@ -245,12 +248,17 @@ class EvalCallBack(Callback):
         pred = np.argmax(output.asnumpy(),axis=1)
 
         # 可视化模型预测
+        plt.figure(figsize=(12,5))
         for i in range(len(labels)):
-            plt.subplot(2,2,i+1)
+            plt.subplot(3,8,i+1)
             color = 'blue' if pred[i] == labels[i] else 'red'
             plt.title('pre:{}'.format(class_name[pred[i]]), color=color)
-            plt.imshow(images[i].transpose(1,2,0))
+            picture_show = np.transpose(images[i],(1,2,0))
+            picture_show = picture_show/np.amax(picture_show)
+            picture_show = np.clip(picture_show, 0, 1)
+            plt.imshow(picture_show)
             plt.axis('off')
+        plt.show()
     ```
 
 - 从训练好的ckpt文件里删除需要重置的参数。
