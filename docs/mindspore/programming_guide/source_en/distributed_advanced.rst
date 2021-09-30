@@ -8,3 +8,4 @@ Distributed Parallel Advanced Features
   apply_host_device_training
   apply_parameter_server_training
   distributed_inference
+  apply_recompute
