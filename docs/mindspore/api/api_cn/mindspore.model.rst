@@ -21,6 +21,11 @@ mindspore.Model
          - auto: 在不同处理器上会将 *amp_level* 设置为专家推荐的 *level* ，如在GPU上设为02，在Ascend上设为03。但这并不总是符合实际要求，建议在不同网络模型上用户要根据情况自定义设置 *amp_level* 。
       在GPU上建议使用O2，在Ascend上建议使用O3。关于 *amp_level* 详见 *mindpore.amp.build_train_network* 。
 
+      - **boost_level** (str) – mindspore.boost中的参数级别选项，用于提升模式训练的级别。支持[“O0”、“O1”、“O2”]。 默认值：“O0”。
+
+         - O0：无变化。
+         - O1：开启boost模式，性能提升20%左右，精度与原精度相同。
+         - O2：开启boost模式，性能提升30%左右，精度下降不到3%。
 
    **样例** :
 
@@ -92,7 +97,11 @@ mindspore.Model
 
       配置项是PYNATIVE_MODE或CPU时，模型评价流程使用的是数据不下沉（non-sink）模式。
 
-      .. note:: 如果dataset_sink_mode配置为True，数据将被送到处理器中。如果处理器是Ascend，数据特征将被逐一传输，每次数据传输的限制是256M。
+      .. note:: 
+      
+         如果dataset_sink_mode配置为True，数据将被送到处理器中。如果处理器是Ascend，数据特征将被逐一传输，每次数据传输的限制是256M。
+         
+         如果dataset_sink_mode配置为True，调用epoch_end方法时会执行Callback类的step_end方法。
 
       **参数** ：
 
@@ -236,7 +245,13 @@ mindspore.Model
 
       配置项是PYNATIVE_MODE或CPU时，模型训练流程使用的是数据不下沉（non-sink）模式。
 
-      .. note:: 如果dataset_sink_mode配置为True，数据将被送到处理器中。如果处理器是Ascend，数据特征将被逐一传输，每次数据传输的限制是256M。如果sink_size > 0，每次epoch可以无限次遍历数据集，直到遍历数据量等于sink_size为止。然后下次epoch是从上一次遍历的最后位置继续开始遍历。该接口会构建并执行计算图，如果'model.build'已经执行过，那么它会直接执行计算图而不构建。
+      .. note:: 
+      
+      如果dataset_sink_mode配置为True，数据将被送到处理器中。如果处理器是Ascend，数据特征将被逐一传输，每次数据传输的限制是256M。
+
+      如果dataset_sink_mode配置为True，调用epoch_end方法时会执行Callback类的step_end方法。
+      
+      如果sink_size > 0，每次epoch可以无限次遍历数据集，直到遍历数据量等于sink_size为止。然后下次epoch是从上一次遍历的最后位置继续开始遍历。该接口会构建并执行计算图，如果'model.build'已经执行过，那么它会直接执行计算图而不构建。
 
       **参数** ：
 

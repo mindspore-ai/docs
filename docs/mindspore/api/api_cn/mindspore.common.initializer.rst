@@ -1,5 +1,5 @@
 mindspore.common.initializer
-=========
+=============================
 初始化神经元参数
 
 .. py:class:: mindspore.common.initializer.Initializer(**kwargs)
@@ -21,12 +21,12 @@ mindspore.common.initializer
     **参数：**
 
         - **init** (`Union[Tensor, str, Initializer子类, numbers.Number]`) – 初始化方式。
-        
-            - *str*：直接使用字符串指定张量初始化方式，如normal表示使用正态分布初始化张量。该字符串需要是继承自Initializer的子类的别名。
+
+            - *str*：`init`是继承自 Initializer 的类的别名，相应的类将被调用。 `init`的值可以是“normal”、“ones”或“zeros”等。
+
+            - *Initializer*：`init`是从 Initializer 继承来初始化张量的类。
             
-            - *Initializer*：使用Initializer初始化张量，如：使用Normal，则张量按照正态分布方式进行初始化。
-            
-            - *numbers.Number*：使用常量初始化方式，初始值是该参数指定的值。
+            - *numbers.Number*：调用常量来初始化张量。
             
         - **shape** (`Union[[tuple, list, int]`) - 初始化后的形状，可传入整数类型的列表、元组和变量作为参数，默认值为None。
         
@@ -61,6 +61,9 @@ mindspore.common.initializer
 .. py:class:: mindspore.common.initializer.Normal(sigma=0.01, mean=0.0)
 
     初始化一个正态分布数组，使用均数和标准差来确定张量内填充的数值，记为N(sigma, mean)。
+
+    .. math::
+    f(x) =  \frac{1} {\sqrt{2*π} * sigma}exp(-\frac{(x - mean)^2} {2*{sigma}^2})
      
     **参数：**
 
@@ -88,9 +91,10 @@ mindspore.common.initializer
 
     用HeUniform方法初始化一个数组，数组内的样本符合均匀分布U[-boundary,boundary]。
 	
-	边界（boundary）的定义： 
+    边界（boundary）的定义： 
 	
-	boundary = \sqrt{\frac{6}{(1 + a^2) \times \text{fan_in}}}
+    .. math::
+        boundary = \sqrt{\frac{6}{(1 + a^2) \times \text{fan_in}}}
     
     **参数：**
 
@@ -107,6 +111,15 @@ mindspore.common.initializer
 .. py:class:: mindspore.common.initializer.HeNormal(negative_slope=0, mode="fan_in", nonlinearity="leaky_relu")
 
     用HeNormal方法初始化一个数组，数组内的样本符合正态分布N(0, sigma)。
+
+    .. math::
+        sigma = \frac{gain} {\sqrt{mode}}
+    
+    其中，
+    
+    gain是一个可选的缩放因子。mode 是权重张量中输入单元或输出单元的数量。
+
+    HeUniform 算法的详细信息，请查看 https://arxiv.org/abs/1502.01852。
     
     **参数：**
 
@@ -124,14 +137,19 @@ mindspore.common.initializer
 
     用Xarvier方法分布初始化一个数组，样本符合均匀分布U[-boundary,boundary]。
 	
-	边界（boundary）的定义如下：
+    边界（boundary）的定义如下：
     
+    .. math::
+
     boundary = gain * \sqrt{\frac{6}{n_{in} + n_{out}}}
 	
-		- n_{in}为权重张量内输入单元的数量。
-		- n_{out}为权重张量内输出单元的数量。
+    - gain是一个可选的缩放因子。
+    - n_{in}为权重张量内输入单元的数量。
+    - n_{out}为权重张量内输出单元的数量。
+
+    有关 XavierUniform 算法的详细信息，请查看 http://proceedings.mlr.press/v9/glorot10a.html。
     
-     **参数：**
+     **参数：** 
 
         - **gain** (`float`) - 可选的缩放因子，默认值为1。
     
@@ -174,7 +192,3 @@ mindspore.common.initializer
     **返回：**
 
         Array，指定常数的数组。
-    
-
-        
-    

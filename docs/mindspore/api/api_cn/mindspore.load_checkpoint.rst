@@ -11,7 +11,7 @@ mindspore.load_checkpoint
 
       - **net**(Cell) – MindSpore网络结构。默认值：None。
 
-      - **strict_load**(bool) – 是否将参数严格加载到网络中。如果是False, 它将根据相同的后缀名将参数字典中的参数加载到网络中，并会在精度不匹配时，进行精度转换。默认值：False。
+      - **strict_load**(bool) – 是否将参数严格加载到网络中。如果是False, 它将根据相同的后缀名将参数字典中的参数加载到网络中，并会在精度不匹配时，进行精度转换，比如将float32转换为float16。默认值：False。
 
       - **filter_prefix**(Union[str, list[str], tuple[str]]) – 以filter_prefix开头的参数将不会被加载。默认值：None。
 
