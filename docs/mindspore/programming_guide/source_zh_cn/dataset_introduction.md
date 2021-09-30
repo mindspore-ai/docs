@@ -115,7 +115,7 @@ Map操作请参考：[Map操作](https://www.mindspore.cn/docs/api/zh-CN/master/
 
 每次只使用一个样本训练模型，具有较好的随机性，但并行化差，导致训练效率过低。引入mini-batch可以较好均衡训练速度和训练效果。
 
-Batch 操作负责将多个`shape`相同的`Tensor`“打包”到一起，以实现以mini-batch的方式来进行训练，Batch操作还提供drop_remainder参数，表示把最后一个不足batch_size的batch删除，默认会保留。
+Batch 操作负责将多个`shape`相同的`Tensor`“打包”到一起，以实现以mini-batch的方式来进行训练，Batch操作还提供drop_remainder参数，表示把最后一个不足batch_size的batch删除，默认会保留。假如数据集大小为17373，使用8张卡进行训练并且Batch size为16，每张卡分配2172条样本，当drop_remainder为True时，每张卡上可打包135个mini-batch。
 
 在“打包”动作之前，Batch支持将`shape`不一致的`Tensor`根据用户需求、或者自动将`Tensor`的`shape`填充一致，以及通过`Per_batch_map`在“打包”之前
 执行用户自定义的函数。
