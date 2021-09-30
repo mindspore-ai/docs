@@ -9,9 +9,9 @@ mindspore.load_param_into_net
 
       - **net**(Cell) – MindSpore网络结构。
 
-      - **parameter_dict**(dict) – 参数字典。
+      - **parameter_dict**(dict) – 加载由checkpoint文件生成的字典。
 
-      - **strict_load**(bool) – 是否将参数严格加载到网络中。如果是False, 它将以相同的后缀名将参数字典中的参数加载到网络中，并会在精度不匹配时，进行精度转换。默认值：False。
+      - **strict_load**(bool) – 是否将参数严格加载到网络中。如果是False, 它将以相同的后缀名将参数字典中的参数加载到网络中，并会在精度不匹配时，进行精度转换，比如将float32转换为float16。默认值：False。
 
   返回：
 

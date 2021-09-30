@@ -7,7 +7,8 @@ mindspore.export
 
    说明：
 
-       当导出文件格式为AIR、ONNX时，单个张量的大小不能超过2GB。
+       1. 当导出文件格式为AIR、ONNX时，单个张量的大小不能超过2GB。
+       2. 当file_name 没有后缀时，系统会根据file_format 自动添加一个。
 
    参数：
 

@@ -1,10 +1,10 @@
 mindspore.communication
-=========
+========================
 集合通信接口的类。
 
 .. py:class:: mindspore.communication.GlobalComm
 
-    全局通信信息。
+    全局通信信息。GlobalComm 是一个全局类。 成员包含：BACKEND、WORLD_COMM_GROUP。
     
 .. py:method:: mindspore.communication.init(backend_name=None)
 
@@ -290,4 +290,4 @@ mindspore.communication
         
         - **ValueError** – 在参数‘group’是‘hccl_world_group’或后台不可用时抛出。
         
-        - **RuntimeError** – 在‘HCCL’或‘NCCL’服务不可用时抛出。    
+        - **RuntimeError** – 在‘HCCL’或‘NCCL’服务不可用时抛出。
