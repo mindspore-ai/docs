@@ -22,9 +22,9 @@ For more information, see[mindspore.nn.Cell.untrainable_params](https://mindspor
 
 In PyTorch, the network has three concepts: `parameter`, `buffer`, and `state`, where `state` is the collection of `parameter` and `buffer`. `parameter` can use the `requires_grad` attribute to distinguish whether the `parameter` in the network needs to be optimized; `buffer` is mostly defined as an invariant in the network, for example, when defining the network, the `running_mean` and `running_var` in BN will be automatically register as buffer; users can also register `parameter` and `buffer` through related interfaces.
 
--`torch.nn.Module.buffers`: Get the buffer in the network, and return an iterator.
+-`torch.nn.Module.buffers`: Get the buffer in the network, and return a generator.
 
--`torch.nn.Module.named_buffers`: Get the name of buffer and buffer itself in the network, and return an iterator.
+-`torch.nn.Module.named_buffers`: Get the name of buffer and buffer itself in the network, and return a generator.
 
 In MindSpore, there is only the concept of `parameter` currently. The `requires_grad` attribute is used to distinguish whether the `parameter` in the network needs to be optimized. For example, when defining the network, the `moving_mean` and `moving_var` in BN will be defined as `parameter` with attribute `requires_grad=False`.
 
