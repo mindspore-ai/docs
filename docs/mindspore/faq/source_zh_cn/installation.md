@@ -245,7 +245,13 @@ A: 寻找缺少的动态库文件所在目录，添加该路径到环境变量`L
 
 <font size=3>**Q: 运行应用时出现`ModuleNotFoundError: No module named 'te'`怎么办？**</font>
 
-A: 首先确认环境安装是否正确，`te`、`topi`等whl包是否正确安装。如果用户环境中有多个Python版本，如Conda虚拟环境中，需`ldd name_of_your_executable_app`确认应用所链接的`libpython3.7m.so.1.0`是否与当前Python路径一致，如果不一致需要调整环境变量`LD_LIBRARY_PATH`顺序。
+A: 首先确认环境安装是否正确，`te`、`topi`等whl包是否正确安装。如果用户环境中有多个Python版本，如Conda虚拟环境中，需`ldd name_of_your_executable_app`确认应用所链接的`libpython3.so`是否与当前Python路径一致，如果不一致需要调整环境变量`LD_LIBRARY_PATH`顺序，例如
+
+```bash
+export LD_LIBRARY_PATH=`python -c "import distutils.sysconfig as sysconfig; print(sysconfig.get_config_var('LIBDIR'))"`:$LD_LIBRARY_PATH
+```
+
+将当前的`python`命令对应程序的运行库路径加入到`LD_LIBRARY_PATH`的最前面。
 
 <br/>
 
