@@ -66,14 +66,22 @@
 
         描述函数功能。
 
-    **参数：**
+        **参数：**
 
-        - **参数1** (`Tensor`) – 参数1说明。
-        - **参数2** (`int`) – 参数2说明。
+            - **参数1** (`Tensor`) – 参数1说明。
+            - **参数2** (`int`) – 参数2说明。
 
-    **返回：**
+        **返回：**
 
-        返回说明。
+            返回说明。
+```
+
+## Note
+
+```text
+    .. note::
+
+        此处描述具体需要注意的部分。
 ```
 
 ## 注意事项
@@ -104,6 +112,18 @@
     ```
 
 3. 注意文中专有名词的正确书写，例如“Numpy”，“Python”，“MindSpore”等。
+
+4. 以下词请保持英文原词，无需翻译成中文：
+
+    a. 参数名称，例如“Args”里面的参数解释。
+
+    b. 数据类型，例如：Number, String, Tuple, List, Set, Dictionary, int, float, bool, complex, 等等。
+
+    c. 报错和默认值，例如：RuntimeError, ValueError, None, True, False。
+
+    d. 一些专有名词，例如：shape, Tensor, Ascend, checkpoint 以及加“ ”，\` \`, ‘ ’等特殊表示的词。
+
+    e. Raises翻译为“异常”。
 
 ## 参考
 
