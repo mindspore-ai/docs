@@ -8,7 +8,7 @@ mindspore.common.initializer
    
     **参数：**
 
-        - **kwargs** (`dict`) – **Initializer**的关键字参数。
+        - **kwargs** (`dict`) – **Initializer** 的关键字参数。
 
     **返回：**
 
@@ -22,15 +22,13 @@ mindspore.common.initializer
 
         - **init** (`Union[Tensor, str, Initializer子类, numbers.Number]`) – 初始化方式。
 
-            - *str*：`init`是继承自 Initializer 的类的别名，相应的类将被调用。 `init`的值可以是“normal”、“ones”或“zeros”等。
-
-            - *Initializer*：`init`是从 Initializer 继承来初始化张量的类。
-            
-            - *numbers.Number*：调用常量来初始化张量。
+          - *str*：`init` 是继承自 Initializer 的类的别名，相应的类将被调用。`init` 的值可以是 `normal`、`ones` 或 `zeros` 等。
+          - *Initializer*：`init` 是从 Initializer继承来初始化张量的类。
+          - *numbers.Number*：调用常量来初始化张量。
             
         - **shape** (`Union[[tuple, list, int]`) - 初始化后的形状，可传入整数类型的列表、元组和变量作为参数，默认值为None。
         
-        - **dtype** (`mindspore.dtype`) – 初始化后张量内的数据类型，默认值为`mindspore.float32`。 
+        - **dtype** (`mindspore.dtype`) – 初始化后张量内的数据类型，默认值为 `mindspore.float32` 。 
 
     **返回：**
 
@@ -63,7 +61,7 @@ mindspore.common.initializer
     初始化一个正态分布数组，使用均数和标准差来确定张量内填充的数值，记为N(sigma, mean)。
 
     .. math::
-    f(x) =  \frac{1} {\sqrt{2*π} * sigma}exp(-\frac{(x - mean)^2} {2*{sigma}^2})
+        f(x) =  \frac{1} {\sqrt{2*π} * sigma}exp(-\frac{(x - mean)^2} {2*{sigma}^2})
      
     **参数：**
 
@@ -98,11 +96,11 @@ mindspore.common.initializer
     
     **参数：**
 
-        - **negative_slope** (`int, float, bool`) - 本层后激活函数的负数区间斜率（仅适用于非线性激活函数‘leaky_relu’），默认值为0。
+        - **negative_slope** (`int, float, bool`) - 本层后激活函数的负数区间斜率（仅适用于非线性激活函数 `leaky_relu`），默认值为0。
 
-        - **mode** (`str`) - 可选“fan_in”或“fan_out”，“fan_in”会保留前向传递中权重的方差大小，“fan_out”会保留反向传递的数值，默认为”fan_in“。
+        - **mode** (`str`) - 可选 `fan_in` 或 `fan_out` ，`fan_in` 会保留前向传递中权重的方差大小，`fan_out` 会保留反向传递的数值，默认为 `fan_in`。
         
-        - **nonlinearity** (`str`) - 非线性函数，仅有“relu”或“leaky_relu”可供选择，默认为“leaky_relu”。
+        - **nonlinearity** (`str`) - 非线性函数，仅有 `relu` 或 `leaky_relu` 可供选择，默认为 `leaky_relu` 。
         
     **返回：**
 
@@ -123,11 +121,11 @@ mindspore.common.initializer
     
     **参数：**
 
-        - **negative_slope** (`int, float, bool`) - 本层后激活函数的负数区间斜率（仅适用于非线性激活函数‘leaky_relu’），默认值为0。
+        - **negative_slope** (`int, float, bool`) - 本层后激活函数的负数区间斜率（仅适用于非线性激活函数 `leaky_relu` ），默认值为0。
 
-        - **mode** (`str`) - 可选“fan_in”或“fan_out”，“fan_in”会保留前向传递中权重的方差大小，“fan_out”会保留向后传递的数值，默认为”fan_in“。
+        - **mode** (`str`) - 可选 `fan_in` 或 `fan_out` ， `fan_in` 会保留前向传递中权重的方差大小， `fan_out` 会保留向后传递的数值，默认为 `fan_in` 。
         
-        - **nonlinearity** (`str`) - 非线性函数，仅有“relu”或“leaky_relu”可供选择，默认为“leaky_relu”。
+        - **nonlinearity** (`str`) - 非线性函数，仅有 `relu` 或 `leaky_relu` 可供选择，默认为 `leaky_relu`。
         
     **返回：**
 
@@ -141,11 +139,11 @@ mindspore.common.initializer
     
     .. math::
 
-    boundary = gain * \sqrt{\frac{6}{n_{in} + n_{out}}}
+        boundary = gain * \sqrt{\frac{6}{n_{in} + n_{out}}}
 	
-    - gain是一个可选的缩放因子。
-    - n_{in}为权重张量内输入单元的数量。
-    - n_{out}为权重张量内输出单元的数量。
+    - `gain` 是一个可选的缩放因子。
+    - `n_{in}` 为权重张量内输入单元的数量。
+    - `n_{out}` 为权重张量内输出单元的数量。
 
     有关 XavierUniform 算法的详细信息，请查看 http://proceedings.mlr.press/v9/glorot10a.html。
     
