@@ -355,7 +355,7 @@ def generate_tensor():
 
 原型代表编程语言中最紧密绑定的操作。
 
-### 属性引用
+### <a id="attr_ref">属性引用</a>
 
 属性引用是后面带有一个句点加一个名称的原型。
 
@@ -462,7 +462,7 @@ def test_call():
 | `=`        | MindSpore支持的Python内置数据类型和MindSpore自定义数据类型   |
 | `+=`       | `Number` += `Number`、`String` += `String`、`Number` += `Tensor`、`Tensor` += `Number`、`Tuple` += `Tensor`、`Tensor` += `Tuple`、`List` += `Tensor`、`Tensor` += `List`、`List` += `List`、`Tensor` += `Tensor`、`Tuple` += `Tuple`。 |
 | `-=`       | `Number` -= `Number`、`Tensor` -= `Tensor`、`Number` -= `Tensor`、`Tensor` -= `Number`、`Tuple` -= `Tensor`、`Tensor` -= `Tuple`、`List` -= `Tensor`、`Tensor` -= `List`。 |
-| `*=`       | `Number` *= `Number`、`Tensor` *= `Tensor`、`Number` *= `Tensor`、`Tensor` *= `Number`、`List` *= `Number`、`Number` *= `List`、`Tuple` *= `Number`、`Number` *= `Tuple`、`Tuple` *= `Tensor`、`Tensor` *= `Tuple`、 `List` *= `Tensor`、`Tensor` *= `List`。 |
+| `*=`       | `Number` \*= `Number`、`Tensor` \*= `Tensor`、`Number` \*= `Tensor`、`Tensor` \*= `Number`、`List` \*= `Number`、`Number` \*= `List`、`Tuple` \*= `Number`、`Number` \*= `Tuple`、`Tuple` \*= `Tensor`、`Tensor` \*= `Tuple`、 `List` \*= `Tensor`、`Tensor` \*= `List`。 |
 | `/=`       | `Number` /= `Number`、`Tensor` /= `Tensor`、`Number` /= `Tensor`、`Tensor` /= `Number`、`Tuple` /= `Tensor`、`Tensor` /= `Tuple`、`List` /= `Tensor`、`Tensor` /= `List`。 |
 | `%=`       | `Number` %= `Number`、`Tensor` %= `Tensor`、`Number` %= `Tensor`、`Tensor` %= `Number`、`Tuple` %= `Tensor`、`Tensor` %= `Tuple`、`List` %= `Tensor`、`Tensor` %= `List`。 |
 | `**=`      | `Number` \*\*= `Number`、`Tensor` \*\*= `Tensor`、`Number` \*\*= `Tensor`、`Tensor` \*\*= `Number`、`Tuple` \*\*= `Tensor`、`Tensor` \*\*= `Tuple`、 `List` \*\*= `Tensor`、`Tensor` \*\*= `List`。 |
@@ -474,7 +474,7 @@ def test_call():
 
   在`construct`函数中仅支持创建`Cell`和`Primitive`类型对象，使用`xx = Tensor(...)`的方式创建`Tensor`会失败。
 
-  在`construct`函数中仅支持为self 的`Parameter`类型的属性赋值, 详情参考：[属性引用](#属性引用)。
+  在`construct`函数中仅支持为self 的`Parameter`类型的属性赋值, 详情参考：[属性引用](#a-id-attr-ref-a)。
 
 - 当`AugAssign`的左右操作数都为`Number`类型时，`Number`的值不可为`Bool` 类型。
 
@@ -612,7 +612,7 @@ return z
 结果如下：
 
 ```text
-z: Tensor(shape=[2, 3], dtype=Int64, value=[[7, 7], [7, 7], [7, 7]])
+z: Tensor(shape=[2, 3], dtype=Int64, value=[[7, 7, 7], [7, 7, 7]])
 ```
 
 #### while语句

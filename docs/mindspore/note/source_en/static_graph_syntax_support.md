@@ -363,7 +363,7 @@ In `Cell` instance of MindSpore, using attribute reference as left operands must
 
 - The attribute must belong to self, such as self.xxx. It is not supported to change attribute of other instance.
 
-- The attribute type must be `Parameter` and be initialized in `__init__` funcntion.
+- The attribute type must be `Parameter` and be initialized in `__init__` function.
 
 For example:
 
@@ -463,7 +463,7 @@ Restrictions:
 | `=`          |All Built-in Python Types that MindSpore supported and MindSpore User-defined Data Types.|
 | `+=` |`Number` += `Number`, `String` += `String`, `Number` += `Tensor`, `Tensor` += `Number`, `Tuple` += `Tensor`, `Tensor` += `Tuple`, `List` += `Tensor`, `Tensor` += `List`, `List` += `List`, `Tensor` += `Tensor`, `Tuple` += `Tuple`.|
 | `-=` |`Number` -= `Number`, `Tensor` -= `Tensor`, `Number` -= `Tensor`, `Tensor` -= `Number`, `Tuple` -= `Tensor`, `Tensor` -= `Tuple`, `List` -= `Tensor`, `Tensor` -= `List`.|
-| `*=` |`Number` *= `Number`, `Tensor` *= `Tensor`, `Number` *= `Tensor`, `Tensor` *= `Number`, `List` *= `Number`, `Number` *= `List`, `Tuple` *= `Number`, `Number` *= `Tuple`, `Tuple` *= `Tensor`, `Tensor` *= `Tuple`,  `List` *= `Tensor`, `Tensor` *= `List`.|
+| `*=` |`Number` \*= `Number`, `Tensor` \*= `Tensor`, `Number` \*= `Tensor`, `Tensor` \*= `Number`, `List` \*= `Number`, `Number` \*= `List`, `Tuple` \*= `Number`, `Number` \*= `Tuple`, `Tuple` \*= `Tensor`, `Tensor` \*= `Tuple`,  `List` \*= `Tensor`, `Tensor` \*= `List`.|
 | `/=` |`Number` /= `Number`, `Tensor` /= `Tensor`, `Number` /= `Tensor`, `Tensor` /= `Number`, `Tuple` /= `Tensor`, `Tensor` /= `Tuple`, `List` /= `Tensor`, `Tensor` /= `List`.|
 | `%=` |`Number` %= `Number`, `Tensor` %= `Tensor`, `Number` %= `Tensor`, `Tensor` %= `Number`, `Tuple` %= `Tensor`, `Tensor` %= `Tuple`,  `List` %= `Tensor`、`Tensor` %= `List`.|
 | `**=` |`Number` \*\*= `Number`, `Tensor` \*\*= `Tensor`, `Number` \*\*= `Tensor`, `Tensor` \*\*= `Number`, `Tuple` \*\*= `Tensor`, `Tensor` \*\*= `Tuple`,  `List` \*\*= `Tensor`, `Tensor` \*\*= `List`.|
@@ -475,7 +475,7 @@ Notes:
 
   Only instance of `Cell` and `Primitve` can be created in function construct, the statement like `xx = Tensor(...)` is forbidden.
 
-  Only `Parameter` attribute of self can be assign, for more detail refer to [Attribute Reference](#attribute-references).
+  Only `Parameter` attribute of self can be assigned, for more detail refer to [Attribute Reference](#attribute-references).
 
 - If all operands of  `AugAssign` are `Number` type, value of Number can't be `Bool`.
 
@@ -612,7 +612,7 @@ return z
 The result is as follows:
 
 ```text
-z: Tensor(shape=[2, 3], dtype=Int64, value=[[7, 7], [7, 7], [7, 7]])
+z: Tensor(shape=[2, 3], dtype=Int64, value=[[7, 7, 7], [7, 7, 7]])
 ```
 
 #### while Statements
@@ -658,7 +658,7 @@ while x < y:
 return out
 ```
 
-The variable `op1` assigned to `out` inisde `while` and the variable or constant `init` initially assigned to `out` must have same data type.
+The variable `op1` assigned to `out` inside `while` and the variable or constant `init` initially assigned to `out` must have same data type.
 
 ### Function Definition Statements
 
@@ -717,7 +717,7 @@ Support List Comprehension and Generator Expression.
 
 Generates a list. Own to the implicit converting during compiling, the result of expression is a tuple.
 
-Usage：Referencing Python official syntax description.
+Usage: refer to Python official syntax description.
 
 For example:
 
@@ -750,7 +750,7 @@ TypeError:  The `generators` supports one `comprehension` in ListComp/GeneratorE
 
 #### Generator Expression
 
-Generates a list. The same as List Comprehension. The expression would generate a list immediately, not like the behaviour running in Python.
+Generates a list. The same as List Comprehension. The expression would generate a list immediately, not like the behavior running in Python.
 
 Usage: Referencing List Comprehension.
 
