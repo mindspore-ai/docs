@@ -226,7 +226,13 @@ A: Find the directory where the missing dynamic library file is located, add the
 
 <font size=3>**Q: What should I do when error `ModuleNotFoundError: No module named 'te'` prompts during application running?**</font>
 
-A: First confirm whether the system environment is installed correctly and whether the whl packages such as `te` and `topi` are installed correctly. If there are multiple Python versions in the user environment, such as Conda virtual environment, you need to execute `ldd name_of_your_executable_app` to confirm whether the application link `libpython3.7m.so.1.0` is consistent with the current Python directory, if not, you need to adjust the order of the environment variable `LD_LIBRARY_PATH` .
+A: First confirm whether the system environment is installed correctly and whether the whl packages such as `te` and `topi` are installed correctly. If there are multiple Python versions in the user environment, such as Conda virtual environment, you need to execute `ldd name_of_your_executable_app` to confirm whether the application link `libpython3.so` is consistent with the current Python directory, if not, you need to adjust the order of the environment variable `LD_LIBRARY_PATH`. For example:
+
+```bash
+export LD_LIBRARY_PATH=`python -c "import distutils.sysconfig as sysconfig; print(sysconfig.get_config_var('LIBDIR'))"`:$LD_LIBRARY_PATH
+```
+
+Add the library directory of the program corresponding to the current `python` command to the top of `LD_LIBRARY_PATH`.
 
 <br/>
 
