@@ -152,8 +152,8 @@ The index value can be `int`, `bool`, `None`, `ellipsis`, `slice`, `Tensor`, `Li
     The result is as follows:
 
     ```text
-    data_single: Tensor(shape=[2, 2, 2, 3], dtype=Int64, value=[[[[4, 5], [6, 7]], [[8, 9], [10, 11]]], [[[0, 1], [2, 3]], [[12, 13], [14, 15]]]])
-    data_multi: Tensor(shape=[1, 2, 2, 2, 3], dtype=Int64, value=[[[[[4, 5], [6, 7]], [[8, 9], [10, 11]]], [[[4, 5], [6, 7]], [[8, 9], [10, 11]]]]])
+    data_single: Tensor(shape=[2, 2, 2, 3], dtype=Int64, value=[[[[6, 7, 8], [9, 10, 11]], [[12, 13, 14], [15, 16 ,17]]], [[[0, 1, 2], [3, 4, 5]], [[18, 19, 20], [21, 22, 23]]]])
+    data_multi: Tensor(shape=[1, 2, 2, 2, 3], dtype=Int64, value=[[[[[6, 7, 8], [9, 10, 11]], [[12, 13, 14], [15, 16 ,17]]], [[[0, 1, 2], [3, 4, 5]], [[18, 19, 20], [21, 22, 23]]]]]))
     ```
 
 - `List` index value
@@ -189,7 +189,7 @@ The index value can be `int`, `bool`, `None`, `ellipsis`, `slice`, `Tensor`, `Li
 
 - `Tuple` index value
 
-    The data type of the `Tuple` index can be `int`, `bool`, `None`, `slice`, `ellipsis`, `Tensor`, `List`, or `Tuple`. Single-level and multi-level `Tuple` index values are supported. For the single-level `Tuple` index, the value is `tensor_x[tuple_index]`. For the multi-level `Tuple` index, the value is `tensor_x[tuple_index0][tuple_index1]...`. The regulations of elements `List` and `Tuple` are the same as that of single index `List` index. The regulations of others are the same to the respondding single element type.
+    The data type of the `Tuple` index can be `int`, `bool`, `None`, `slice`, `ellipsis`, `Tensor`, `List`, or `Tuple`. Single-level and multi-level `Tuple` index values are supported. For the single-level `Tuple` index, the value is `tensor_x[tuple_index]`. For the multi-level `Tuple` index, the value is `tensor_x[tuple_index0][tuple_index1]...`. The regulations of elements `List` and `Tuple` are the same as that of single index `List` index. The regulations of others are the same to the responding single element type.
 
     Elements in the `Tuple` index can be sort out by `Basic Index` or `Advanced Index`. `slice`, `ellipsis` and `None` are `Basic Index` and `int`, `bool`, `Tensor`, `List`, `Tuple` are `Advanced Index`. In the Getitem Progress, all the elements of the `Advanced Index` type will be broadcast to the same shape, and the final shape will be inserted to the first `Advanced Index` element's position if they are continuous, else they will be inserted to the `0` position.
 
