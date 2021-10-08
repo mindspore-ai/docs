@@ -25,9 +25,9 @@ def get_default_params(func):
     pos_count = func_code.co_argcount
     arg_names = func_code.co_varnames
     karg_pos = func_code.co_kwonlyargcount
-    kwargs_num = arg_names.count("args") + arg_names.count("kwargs")
-    all_param_names = list(arg_names[:pos_count+karg_pos+kwargs_num])
     all_params = re.findall(r"def [\w_\d\-]+\(([\S\s]*?)\):", source_code)[0].replace("\n", "").replace("'", "\"")
+    kwargs_num = all_params.count("*") - all_params.count("**")
+    all_param_names = list(arg_names[:pos_count+karg_pos+kwargs_num])
 
     # sub null spaces from matched all param str.
     re_space_sub = re.compile(r",\s+")
