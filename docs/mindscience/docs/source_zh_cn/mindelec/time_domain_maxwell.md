@@ -18,7 +18,7 @@ $$
 $$
 
 $$
-\nabla\times H=\epsilon \dfrac{\partial E}{\partial t} 
+\nabla\times H=\epsilon \dfrac{\partial E}{\partial t}
 $$
 
 其中$\epsilon,\mu$分别是介质的绝对介电常数、绝对磁导率。$J(x, t)$是电磁仿真过程中的激励源，通常表现为端口脉冲的形式。这在数学意义上近似为狄拉克函数形式所表示的点源，可以表示为：
