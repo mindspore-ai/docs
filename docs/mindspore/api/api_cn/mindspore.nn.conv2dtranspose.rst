@@ -43,7 +43,7 @@ mindspore.nn.Conv2dTranspose
 
       Shape为 :math:`(N, C_{out}, H_{out}, W_{out})` 的张量。
 
-   **抛出异常** ：
+   **异常** ：
 
       - **TypeError** - 如果 `in_channels`，`out_channels` 或者 `group` 不是整数。
       - **TypeError** - 如果 `kernel_size`，`stride`，`padding` 或者 `dilation` 既不是整数也不是元组。

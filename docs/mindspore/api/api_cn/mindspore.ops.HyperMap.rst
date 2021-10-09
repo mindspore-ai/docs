@@ -1,5 +1,5 @@
 mindspore.ops.HyperMap
-============================
+=======================
 
 .. py:class:: mindspore.ops.HyperMap(ops=None, reverse=False)
 
@@ -21,7 +21,7 @@ mindspore.ops.HyperMap
 
       序列或嵌套序列，执行函数如 `operation(args[0][i], args[1][i])` 之后输出的序列。
 
-   **抛出异常** ：
+   **异常** ：
 
       **TypeError** - 如果 *ops* 不是 `MultitypeFuncGraph` 或 `None` 。
 

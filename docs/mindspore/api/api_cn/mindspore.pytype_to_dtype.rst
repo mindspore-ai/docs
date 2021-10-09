@@ -5,10 +5,10 @@ mindspore.pytype_to_dtype
 
     将Python数据类型转换为MindSpore数据类型。
 
-    参数：
+    **参数：**
 
-        **obj**(type) – python数据对象。
+        **obj** (type) – python数据对象。
 
-    返回:
+    **返回:**
 
         MindSpore的数据类型。

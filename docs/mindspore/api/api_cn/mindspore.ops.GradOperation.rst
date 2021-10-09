@@ -63,7 +63,7 @@ mindspore.ops.GradOperation
 
       将一个函数作为参数，并返回梯度函数的高阶函数。
 
-   **抛出异常** ：
+   **异常** ：
 
       **TypeError** - 如果 *get_all* ，*get_by_list* 或者 *sens_params* 不是布尔值。
 

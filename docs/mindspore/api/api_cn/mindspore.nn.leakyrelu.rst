@@ -20,13 +20,13 @@ mindspore.nn.LeakyReLU
 
    **输入** ：
 
-      - **x** （Tensor） - LeakyReLU的输入。形状是 `(N,*)` ，*表示任意数量的附加维度。
+      - **x** （Tensor） - LeakyReLU的输入。形状是 `(N,*)` ，`*` 表示任意数量的附加维度。
 
    **输出** ：
 
       张量，跟x保持相同的数据类型和形状。
 
-   **抛出异常** ：
+   **异常** ：
 
       - TypeError – 如果 `alpha` 不是浮点数或整型值。
 

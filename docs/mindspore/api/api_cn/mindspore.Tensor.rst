@@ -7,18 +7,18 @@ mindspore.Tensor
 
     MindSpore中的张量继承于C++中的张量对象。部分函数由C++编写，部分函数由Python编写。
 
-    参数：
+    **参数：**
 
-        - **input_data**(Union[Tensor, float, int, bool, tuple, list, numpy.ndarray]) – 输入的张量数据。
-        - **dtype**(mindspore.dtype) – 张量的数据类型需为*mindSpore.dtype*中的None，bool或者数值型。这个参数是用于定义输出张量的数据类型。如果该参数为None，则输出张量的数据类型和*input_data*一致，默认参数：None。
-        - **shape**(Union[tuple, list, int]) – 该参数为输出张量的形式，可由一列整数、一个元组、或一个整数表示。如果输入张量的形式已被定义，则无需设置该参数。
-        - **init**(Initializer) – 'init'数据的相关信息。'init'被用于在并行模式中延迟初始化，通常来说，不推荐在其他条件下使用该接口初始化参数，只有当调用*Tensor.init_data* API用以转换张量数据时，才会使用'init'接口来初始化参数。
+        - **input_data** (Union[Tensor, float, int, bool, tuple, list, numpy.ndarray]) – 输入的张量数据。
+        - **dtype** (mindspore.dtype) – 张量的数据类型需为 *mindSpore.dtype* 中的None，bool或者数值型。这个参数是用于定义输出张量的数据类型。如果该参数为None，则输出张量的数据类型和 *input_data* 一致，默认参数：None。
+        - **shape** (Union[tuple, list, int]) – 该参数为输出张量的形式，可由一列整数、一个元组、或一个整数表示。如果输入张量的形式已被定义，则无需设置该参数。
+        - **init** (Initializer) – `init` 数据的相关信息。`init` 被用于在并行模式中延迟初始化，通常来说，不推荐在其他条件下使用该接口初始化参数，只有当调用 *Tensor.init_data* API用以转换张量数据时，才会使用 `init` 接口来初始化参数。
 
-    输出：
+    **输出：**
 
-        张量。如果*dtype*和数据形式未被设置，将会返回与输入张量相同的*dtype*和形式；否则，输出张量的*dtype*和形式将是用户指定的设置。
+        张量。如果 *dtype* 和数据形式未被设置，将会返回与输入张量相同的 *dtype* 和形式；否则，输出张量的 *dtype* 和形式将是用户指定的设置。
 
-    样例：
+    **样例：**
 
     .. code-block::
 
@@ -51,15 +51,15 @@ mindspore.Tensor
 
         按元素返回绝对值。
 
-        返回：
+        **返回：**
 
             张量，值为按元素返回的绝对值。
 
-        支持平台：
+        **支持平台：**
 
             ``Ascend`` ``GPU`` ``CPU``
 
-        样例：
+        **样例：**
 
             .. code-block::
 

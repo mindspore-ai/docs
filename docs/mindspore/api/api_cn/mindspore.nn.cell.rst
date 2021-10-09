@@ -173,7 +173,7 @@ mindspore.nn.Cell
 
          属于流水线并行当前stage的参数。
       
-      **抛出异常**：
+      **异常**：
 
          **RuntimeError** – 如果有不属于任何阶段的参数存在。
 
@@ -202,7 +202,7 @@ mindspore.nn.Cell
          - **child_name** (`str`) – 子网络名称。
          - **child_cell** (`Cell`) – 要插入的子网络。
       
-      **抛出异常**：
+      **异常**：
 
          - **KeyError** – 如果子网络的名称不正确或与其他子网络名称重复。
          - **TypeError** – 如果子网络Cell类型不正确。
@@ -219,7 +219,7 @@ mindspore.nn.Cell
          - **param** (`Parameter`) – 要插入到单元格的参数。
          - **check_name** (`bool`) – 明确名称输入是否兼容。默认值：True。
       
-      **抛出异常**：
+      **异常**：
 
          - **KeyError** – 如果参数名称为空或包含点。
          - **TypeError** – 如果用户没有先调用init()。
@@ -339,7 +339,7 @@ mindspore.nn.Cell
 
          Cell类型，网络本身。
       
-      **抛出异常**：
+      **异常**：
 
          **ValueError** – 如果 `acc_type` 不在算法库内。
 
@@ -443,7 +443,7 @@ mindspore.nn.Cell
 
          Cell类型，网络本身。
       
-      **抛出异常**：
+      **异常**：
 
          **ValueError** – 如果 `dst_type` 不是float32，也不是float16。
 
