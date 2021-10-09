@@ -73,7 +73,7 @@ Modules in MindSpore Lite:
 
 The script `build.sh` in the root directory of MindSpore can be used to compile MindSpore Lite.
 
-#### The compilation parameter of `build.sh`
+#### Instructions for parameters of `build.sh`
 
 | Parameter  |  Parameter Description  | Value Range | Defaults |
 | -------- | ----- | ---- | ---- |
@@ -88,7 +88,9 @@ The script `build.sh` in the root directory of MindSpore can be used to compile 
 > - When the `-I` parameter changes, such as `-I x86_64` is converted to `-I arm64`, adding `-i` for parameter compilation does not take effect.
 > - When compiling the AAR package, the `-A on` parameter must be added, and there is no need to add the `-I` parameter.
 
-#### The compilation options of `mindspore/lite/CMakeLists.txt`
+#### Module build compilation options
+
+The construction of modules is controlled by environment variables. Users can control the modules built by compiling by declaring relevant environment variables. After the compilation option is modified, in order to make the option effective, the `-i` parameter cannot be added for incremental compilation when compiling with the `build.sh` script.
 
 - General module compilation options
 
@@ -105,21 +107,19 @@ The script `build.sh` in the root directory of MindSpore can be used to compile 
 
 > - For TensorRT and NPU compilation environment configuration, refer to [Application Specific Integrated Circuit Integration Instructions](https://www.mindspore.cn/lite/docs/en/master/use/asic.html).
 
-- Basic framework function reduction compilation options
+- Runtime feature compilation options
 
 If the user is sensitive to the package size of the framework, the following options can be configured to reduce the package size by reducing the function of the runtime model reasoning framework. Then, the user can further reduce the package size by operator reduction through the [reduction tool](https://www.mindspore.cn/lite/docs/en/master/use/build.html) or [download](https://www.mindspore.cn/lite/docs/en/master/use/cropper_tool.html).
 
 | Option  |  Parameter Description  | Value Range | Defaults |
 | -------- | ----- | ---- | ---- |
 | MSLITE_STRING_KERNEL | Whether to support string data reasoning model, such as smart_reply.tflite | on,off | on |
-| MSLITE_CONTROLFLOW_TENSORLIST | Whether to support control flow model | on,off | on |
-| MSLITE_WEIGHT_DECODE | Whether to support quantitative model | on,off | on |
-| MSLITE_CUSTOM_KERNEL_REGISTRY | Whether to support southbound operator registration | on,off | on |
-| MSLITE_DELEGATE_USE | Whether to  support Delegate mechanism | on,off | on |
+| MSLITE_ENABLE_CONTROLFLOW | Whether to support control flow model | on,off | on |
+| MSLITE_ENABLE_WEIGHT_DECODE | Whether to support weight quantitative model | on,off | on |
+| MSLITE_ENABLE_CUSTOM_KERNEL | Whether to support southbound operator registration | on,off | on |
+| MSLITE_ENABLE_DELEGATE | Whether to  support Delegate mechanism | on,off | on |
 | MSLITE_ENABLE_V0 | Whether to compatible with models exported before 1.1.0 | on,off | on |
 
-> - The above options can be modified by setting the environment variable with the same name or the file `mindspore/lite/CMakeLists.txt`.
-> - After modifying the Option, adding the `-i` parameter for incremental compilation will not take effect.
 > - Since the implementation of NPU and TensorRT depends on the Delegate mechanism, the Delegate mechanism cannot be turned off when using NPU or TensorRT. If the Delegate mechanism is turned off, the related functions must also be turned off.
 
 ### Compilation Example
