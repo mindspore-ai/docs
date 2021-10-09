@@ -73,7 +73,7 @@ MindSpore Lite包含模块：
 
 MindSpore根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
 
-#### `build.sh`的编译参数
+#### `build.sh`的参数使用说明
 
 | 参数  |  参数说明  | 取值范围 | 默认值 |
 | -------- | ----- | ---- | ---- |
@@ -88,7 +88,9 @@ MindSpore根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
 > - 在`-I`参数变动时，如`-I x86_64`变为`-I arm64`，添加`-i`参数进行增量编译不生效。
 > - 编译AAR包时，必须添加`-A on`参数，且无需添加`-I`参数。
 
-#### `mindspore/lite/CMakeLists.txt`的编译选项
+#### 模块构建编译选项
+
+模块的构建通过环境变量进行控制，用户可通过声明相关环境变量，控制编译构建的模块。在修改编译选项后，为使选项生效，在使用‵build.sh‵脚本进行编译时，不可添加`-i`参数进行增量编译。
 
 - 通用模块编译选项
 
@@ -105,21 +107,19 @@ MindSpore根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
 
 > - TensorRT 和 NPU 的编译环境配置，参考[专用芯片集成说明](https://www.mindspore.cn/lite/docs/zh-CN/r1.5/use/asic.html)。
 
-- 基础框架功能裁减编译选项
+- runtime功能裁减编译选项
 
 若用户对框架包大小敏感，可通过配置以下选项，对runtime模型推理框架进行功能裁减，以减少包大小，之后，用户可再通过[裁减工具](https://www.mindspore.cn/lite/docs/zh-CN/r1.5/use/cropper_tool.html)进行算子裁减以进一步减少包大小。
 
 | 选项  |  参数说明  | 取值范围 | 默认值 |
 | -------- | ----- | ---- | ---- |
-| MSLITE_STRING_KERNEL | 是否支持string数据推理模型，如smart_reply.tflite模型 | on、off | on |
-| MSLITE_CONTROLFLOW_TENSORLIST | 是否支持控制流模型 | on、off | on |
-| MSLITE_WEIGHT_DECODE | 是否支持量化模型推理 | on、off | on |
-| MSLITE_CUSTOM_KERNEL_REGISTRY | 是否支持南向算子注册 | on、off | on |
-| MSLITE_DELEGATE_USE | 是否支持Delegate机制 | on、off | on |
+| MSLITE_ENABLE_STRING_KERNEL | 是否支持string数据推理模型，如smart_reply.tflite模型 | on、off | on |
+| MSLITE_ENABLE_CONTROLFLOW | 是否支持控制流模型 | on、off | on |
+| MSLITE_ENABLE_WEIGHT_DECODE | 是否支持权重量化模型推理 | on、off | on |
+| MSLITE_ENABLE_CUSTOM_KERNEL | 是否支持南向算子注册 | on、off | on |
+| MSLITE_ENABLE_DELEGATE | 是否支持Delegate机制 | on、off | on |
 | MSLITE_ENABLE_V0 | 是否兼容1.1.0之前版本导出的模型 | on、off | on |
 
-> - 以上选项可通过设置同名环境变量或者`mindspore/lite/CMakeLists.txt`文件修改。
-> - 修改选项后，添加`-i`参数进行增量编译不生效。
 > - 由于NPU和TensorRT的实现依赖于Delegate机制，所以在使用NPU或TensorRT时无法关闭Delegate机制，如果关闭了Delegate机制，则相关功能也必须关闭。
 
 ### 编译示例
