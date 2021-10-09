@@ -25,7 +25,7 @@ mindspore.nn.GELU
 
       张量，跟x保持相同的数据类型和形状。
 
-   **抛出异常** ：
+   **异常** ：
 
       - TypeError – 如果 `x` 的数据类型既不是float16也不是float32。
 

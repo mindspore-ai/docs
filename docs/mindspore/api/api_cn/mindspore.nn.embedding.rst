@@ -26,7 +26,7 @@ mindspore.nn.Embedding
 
       张量的形状  :math:`(\text{batch_size}, \text{x_length}, \text{embedding_size})` 。
 
-   **抛出异常** ：
+   **异常** ：
 
       - TypeError – 如果 `vocab_size` 或者 `embedding_size` 不是整型值。
 
