@@ -36,7 +36,7 @@ mindspore.communication
 
 .. py:class:: mindspore.communication.release()
 
-    释放分布式资源,例如 `HCCL` 或 `NCCL` 服务。
+    释放分布式资源,例如‘HCCL’或‘NCCL’服务。
     
     .. note::
     
@@ -58,7 +58,7 @@ mindspore.communication
 
         - **group** (`str`) - 通信组名称，通常由 `create_group` 方法创建，否则将使用默认组。
         
-        - **默认值** - `WORLD_COMM_GROUP`
+        - **默认值** - ‘WORLD_COMM_GROUP’。
         
     **返回：**
 
@@ -70,7 +70,7 @@ mindspore.communication
         
         - **ValueError** – 在后台不可用时抛出。
         
-        - **RuntimeError** – 在 `HCCL` 或 `NCCL` 服务不可用时抛出。
+        - **RuntimeError** – 在‘HCCL’或‘NCCL’服务不可用时抛出。
         
 .. py:class:: mindspore.communication.get_group_size(group=GlobalComm.WORLD_COMM_GROUP)
 
@@ -84,7 +84,7 @@ mindspore.communication
 
         - **group** (`str`) - 通信组名称，通常由 `create_group` 方法创建，否则将使用默认组。
         
-        - **默认值** - `WORLD_COMM_GROUP`
+        - **默认值** - ‘WORLD_COMM_GROUP’。
         
     **返回：**
 
@@ -96,7 +96,7 @@ mindspore.communication
         
         - **ValueError** – 在后台不可用时抛出。
         
-        - **RuntimeError** – 在 `HCCL` 或 `NCCL` 服务不可用时抛出。
+        - **RuntimeError** – 在‘HCCL’或‘NCCL’服务不可用时抛出。
         
         
 
@@ -126,7 +126,7 @@ mindspore.communication
         
         - **ValueError** – 在参数 `group` 是 `hccl_world_group` 或后台不可用时抛出。
         
-        - **RuntimeError** – 在 `HCCL` 或 `NCCL` 服务不可用，以及使用GPU版本的MindSpore时抛出。
+        - **RuntimeError** – 在‘HCCL’或‘NCCL’服务不可用，以及使用GPU版本的MindSpore时抛出。
 
     **样例：**
     
@@ -167,7 +167,7 @@ mindspore.communication
         
         - **ValueError** – 在参数 `group` 是 `hccl_world_group` 或后台不可用时抛出。
         
-        - **RuntimeError** – 在 `HCCL` 或 `NCCL` 服务不可用，以及使用GPU版本的MindSpore时抛出。
+        - **RuntimeError** – 在‘HCCL’或‘NCCL’服务不可用，以及使用GPU版本的MindSpore时抛出。
     
     **样例：**
     
@@ -205,7 +205,7 @@ mindspore.communication
         
         - **ValueError** – 在列表rank_ids的长度小于1，或列表rank_ids内有重复数据，以及后台无效时抛出。
         
-        - **RuntimeError** – 在 `HCCL` 或 `NCCL` 服务不可用，以及使用GPU版本的MindSpore时抛出。
+        - **RuntimeError** – 在‘HCCL’或‘NCCL’ 服务不可用，以及使用GPU版本的MindSpore时抛出。
         
     **样例：**
     
@@ -231,7 +231,7 @@ mindspore.communication
 
         - **group** (`str`) - 通信组名称，通常由 `create_group` 方法创建，否则将使用默认组名称。
         
-        - **默认值** - `WORLD_COMM_GROUP` 
+        - **默认值** - ‘WORLD_COMM_GROUP’。
     
     **返回：**
 
@@ -243,7 +243,7 @@ mindspore.communication
         
         - **ValueError** – 在后台不可用时抛出。
         
-        - **RuntimeError** – 在 `HCCL` 或 `NCCL` 服务不可用时抛出。
+        - **RuntimeError** – 在‘HCCL’或‘NCCL’服务不可用时抛出。
 
 .. py:class:: mindspore.communication.get_local_rank_size(group=GlobalComm.WORLD_COMM_GROUP)
 
@@ -256,7 +256,7 @@ mindspore.communication
         
     **参数：**
 
-        - **group** (`str`) - 传入的通信组名称，通常由 `create_group` 方法创建，或默认使用 `WORLD_COMM_GROUP`。
+        - **group** (`str`) - 传入的通信组名称，通常由 `create_group` 方法创建，或默认使用‘WORLD_COMM_GROUP’。
         
     **返回：**
 
@@ -268,7 +268,7 @@ mindspore.communication
         
         - **ValueError** – 在后台不可用时抛出。
         
-        - **RuntimeError** – 在 `HCCL` 或 `NCCL` 服务不可用时抛出。
+        - **RuntimeError** – 在‘HCCL’或‘NCCL’服务不可用时抛出。
         
 .. py:class:: mindspore.communication.destroy_group(group)
 
@@ -290,4 +290,4 @@ mindspore.communication
         
         - **ValueError** – 在参数 `group` 是 `hccl_world_group` 或后台不可用时抛出。
         
-        - **RuntimeError** – 在 `HCCL` 或 `NCCL` 服务不可用时抛出。
+        - **RuntimeError** – 在‘HCCL’或‘NCCL’服务不可用时抛出。

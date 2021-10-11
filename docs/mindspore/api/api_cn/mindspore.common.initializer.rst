@@ -22,7 +22,7 @@ mindspore.common.initializer
 
         - **init** (`Union[Tensor, str, Initializer子类, numbers.Number]`) – 初始化方式。
 
-          - *str*：`init` 是继承自 Initializer 的类的别名，相应的类将被调用。`init` 的值可以是 `normal`、`ones` 或 `zeros` 等。
+          - *str*：`init` 是继承自 Initializer 的类的别名，相应的类将被调用。`init` 的值可以是“normal”、“ones”或“zeros”等。
           - *Initializer*：`init` 是从 Initializer继承来初始化张量的类。
           - *numbers.Number*：调用常量来初始化张量。
             
@@ -96,11 +96,11 @@ mindspore.common.initializer
     
     **参数：**
 
-        - **negative_slope** (`int, float, bool`) - 本层后激活函数的负数区间斜率（仅适用于非线性激活函数 `leaky_relu`），默认值为0。
+        - **negative_slope** (`int, float, bool`) - 本层后激活函数的负数区间斜率（仅适用于非线性激活函数‘leaky_relu’），默认值为0。
 
-        - **mode** (`str`) - 可选 `fan_in` 或 `fan_out` ，`fan_in` 会保留前向传递中权重的方差大小，`fan_out` 会保留反向传递的数值，默认为 `fan_in`。
+        - **mode** (`str`) - 可选“fan_in”或“fan_out”，“fan_in”会保留前向传递中权重的方差大小，“fan_out”会保留反向传递的数值，默认为“fan_in”。
         
-        - **nonlinearity** (`str`) - 非线性函数，仅有 `relu` 或 `leaky_relu` 可供选择，默认为 `leaky_relu` 。
+        - **nonlinearity** (`str`) - 非线性函数，仅有“relu”或“leaky_relu”可供选择，默认为“leaky_relu”。
         
     **返回：**
 
@@ -121,11 +121,11 @@ mindspore.common.initializer
     
     **参数：**
 
-        - **negative_slope** (`int, float, bool`) - 本层后激活函数的负数区间斜率（仅适用于非线性激活函数 `leaky_relu` ），默认值为0。
+        - **negative_slope** (`int, float, bool`) - 本层后激活函数的负数区间斜率（仅适用于非线性激活函数‘leaky_relu’），默认值为0。
 
-        - **mode** (`str`) - 可选 `fan_in` 或 `fan_out` ， `fan_in` 会保留前向传递中权重的方差大小， `fan_out` 会保留向后传递的数值，默认为 `fan_in` 。
+        - **mode** (`str`) - 可选“fan_in”或“fan_out”，“fan_in”会保留前向传递中权重的方差大小，“fan_out”会保留向后传递的数值，默认为“fan_in”。
         
-        - **nonlinearity** (`str`) - 非线性函数，仅有 `relu` 或 `leaky_relu` 可供选择，默认为 `leaky_relu`。
+        - **nonlinearity** (`str`) - 非线性函数，仅有“relu”或“leaky_relu”可供选择，默认为“leaky_relu”。
         
     **返回：**
 
