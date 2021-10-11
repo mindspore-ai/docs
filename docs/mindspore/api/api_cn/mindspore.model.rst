@@ -10,7 +10,7 @@ mindspore.Model
       - **network** (`Cell`) – 一个训练或测试的神经网络模型。
       - **loss_fn** (`Cell`) - 损失函数，如果损失函数是None， `network` 需要包含损失函数逻辑以及梯度计算，如果有并行计算逻辑也需加入。默认值：None。
       - **optimizer** (`Cell`) - 更新网络权重的优化器。默认值：None。
-      - **metrics** (`Union[dict, set]`) - 在训练和测试时的模型评价指标。例如: {`accuracy`, `recall`}。默认值：None。
+      - **metrics** (`Union[dict, set]`) - 在训练和测试时的模型评价指标。例如: {“accuracy”, “recall”}。默认值：None。
       - **eval_network** (`Cell`) -  指定用于评估的模型。如果没有定义， *network* 和 *loss_fn* 将会被封装成 *eval_network* 。默认值：None。
       - **eval_indexes** (`list`) -  在定义 *eval_network* 时，如果 *eval_indexes* 为None， *eval_network* 的所有输出将传给 *metrics* 中，否则 *eval_indexes* 必须包含三个元素，为损失值、预测值和标签在输出中的位置。损失值将传给损失评价函数，而预测值和标签在输出中的位置传给其他评价函数。默认值：None。
       - **amp_level** (`str`) - 在 *mindspore.amp.build_train_network* 中的可选参数 *level* ， *level* 为混合精度的等级，该参数支持 [“O0”, “O2”, “O3”, “auto”]。默认值：“O0”。
