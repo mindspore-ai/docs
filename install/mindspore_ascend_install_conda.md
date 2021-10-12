@@ -62,14 +62,14 @@
 如果您希望使用Python3.7.5版本：
 
 ```bash
-conda create -n mindspore_py37 python=3.7.5
+conda create -n mindspore_py37 -c conda-forge python=3.7.5
 conda activate mindspore_py37
 ```
 
 如果您希望使用Python3.9.0版本：
 
 ```bash
-conda create -n mindspore_py39 python=3.9.0
+conda create -n mindspore_py39 -c conda-forge python=3.9.0
 conda activate mindspore_py39
 ```
 
@@ -92,7 +92,7 @@ pip uninstall te topi hccl -y
 执行如下命令安装MindSpore。
 
 ```bash
-conda install mindspore-ascend={version} -c mindspore
+conda install mindspore-ascend={version} -c mindspore -c conda-forge
 ```
 
 其中：
