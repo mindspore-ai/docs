@@ -19,7 +19,7 @@
 
 ## 概述
 
-AutoTune是使用硬件资源对TBE算子性能进行自动调优的一个工具。相比于人工对算子性能调试，耗时更短、人力投入成本低，可以获得性能更优的模型。本文档主要介绍AutoTune的在线调优使用方法，该工具的架构，功能描述，使用指南以及常见问题处理方的法详细介绍请参考[AutoTune工具指南](https://support.huawei.com/enterprise/zh/doc/EDOC1100206690/31d1d888)。
+AutoTune是使用硬件资源对TBE算子性能进行自动调优的一个工具。相比于人工对算子性能调试，耗时更短、人力投入成本低，可以获得性能更优的模型。本文档主要介绍AutoTune的在线调优使用方法，该工具的架构，功能描述，使用指南以及常见问题处理方法的详细介绍请参考[AutoTune工具指南](https://support.huawei.com/enterprise/zh/doc/EDOC1100206690/31d1d888)。
 
 ## 调优模式
 
@@ -78,11 +78,7 @@ MindSpore对接AutoTune工具接口，支持`在线调优`和`离线调优`两�
 
 调优开始后，会在执行调优的工作目录下生成命名为`tune_result_{timestamp}_pidxxx.json`的文件来记录调优过程和调优结果。该文件的具体解析请参考[调优结果文件分析](https://support.huawei.com/enterprise/zh/doc/EDOC1100206690/b6ae7c6a)。
 
-调优完成后，若满足自定义知识库生成条件，则会生成自定义知识库。如果指定了知识库存储路径的环境变量`TUNE_BANK_PATH`，调优生成的知识库会在指定目录下生成，否则调优生成的知识库会在如下默认路径中：
-
-对于`RL`调优：会存储到`FwkACLlib`安装路径的`data/rl/<soc_version>/custom/`中。
-
-对于`GA`调优：会存储到`FwkACLlib`安装路径的`data/tiling/<soc_version>/custom/`中。
+调优完成后，若满足自定义知识库生成条件，则会生成自定义知识库。如果指定了知识库存储路径的环境变量`TUNE_BANK_PATH`，调优生成的知识库会在指定目录下生成，否则调优生成的知识库会在如下默认路径中。知识库存储路径请参考[自定义知识库](https://support.huawei.com/enterprise/zh/doc/EDOC1100206690/b6ae7c6a)。
 
 ## 知识库合并
 
