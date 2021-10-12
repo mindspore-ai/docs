@@ -62,6 +62,7 @@ Note: Clicking on the title with "↗" will leave the Programming Guide page.
    parameter
    loss
    grad_operation
+   indefinite_parameter
    constexpr
    hypermap
    optim
