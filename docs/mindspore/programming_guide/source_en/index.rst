@@ -57,6 +57,7 @@ Note: Clicking on the title with "↗" will leave the Programming Guide page.
    :maxdepth: 1
    :caption: Build the Network
 
+   build_net
    initializer
    parameter
    loss
