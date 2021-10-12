@@ -61,6 +61,7 @@ Note: Clicking on the title with "↗" will leave the Programming Guide page.
    initializer
    parameter
    control_flow
+   indefinite_parameter
    loss
    grad_operation
    constexpr
