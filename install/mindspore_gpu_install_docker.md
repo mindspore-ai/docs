@@ -75,19 +75,20 @@ sudo systemctl restart docker
 对于`GPU`后端，可以直接使用以下命令获取最新的稳定镜像：
 
 ```bash
-docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu:{tag}
+docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu-{cuda_version}:{tag}
 ```
 
 其中：
 
-- `{tag}`对应上述表格中的标签。
+- `{tag}` 对应上述表格中的标签。
+- `{cuda_version}` 对应MindSpore依赖的CUDA版本，包括`cuda10.1`和`cuda11.1`。
 
 ## 运行MindSpore镜像
 
 执行以下命令启动Docker容器实例：
 
 ```bash
-docker run -it -v /dev/shm:/dev/shm --runtime=nvidia --privileged=true swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu:{tag} /bin/bash
+docker run -it -v /dev/shm:/dev/shm --runtime=nvidia --privileged=true swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu-{cuda_version}:{tag} /bin/bash
 ```
 
 其中：
@@ -96,6 +97,7 @@ docker run -it -v /dev/shm:/dev/shm --runtime=nvidia --privileged=true swr.cn-so
 - `--runtime=nvidia` 用于指定容器运行时为`nvidia-container-runtime`；
 - `--privileged=true` 赋予容器扩展的能力;
 - `{tag}`对应上述表格中的标签。
+- `{cuda_version}` 对应MindSpore依赖的CUDA版本，包括`cuda10.1`和`cuda11.1`。
 
 如需使用可视化调试调优工具MindInsight，需设置`--network`参数为`host`模式，例如:
 

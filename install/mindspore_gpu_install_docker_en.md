@@ -75,19 +75,20 @@ sudo systemctl restart docker
 For the `CPU` backend, you can directly use the following command to obtain the latest stable image:
 
 ```bash
-docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu:{tag}
+docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu-{cuda_version}:{tag}
 ```
 
 of which,
 
 - `{tag}` corresponds to the label in the above table.
+- `{cuda_version}` corresponds to CUDA version of which MindSpore is based on, including `cuda10.1` and `cuda11.1`.
 
 ## Running MindSpore Image
 
 Execute the following command to start the Docker container instance:
 
 ```bash
-docker run -it -v /dev/shm:/dev/shm --runtime=nvidia --privileged=true swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu:{tag} /bin/bash
+docker run -it -v /dev/shm:/dev/shm --runtime=nvidia --privileged=true swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu-{cuda_version}:{tag} /bin/bash
 ```
 
 of which,
@@ -96,11 +97,12 @@ of which,
 - `--runtime=nvidia` is used to specify the container runtime as `nvidia-container-runtime`;
 - `--privileged=true` enables the container to expand;
 - `{tag}` corresponds to the label in the above table.
+- `{cuda_version}` corresponds to CUDA version of which MindSpore is based on, including `cuda10.1` and `cuda11.1`.
 
 If you want to use MindInsight, you need to set the `--network` parameter to `host` mode, for example:
 
 ```bash
-docker run -it -v /dev/shm:/dev/shm --network host --runtime=nvidia --privileged=true swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu:{tag} /bin/bash
+docker run -it -v /dev/shm:/dev/shm --network host --runtime=nvidia --privileged=true swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu-{cuda_version}:{tag} /bin/bash
 ```
 
 ## Installation Verification
