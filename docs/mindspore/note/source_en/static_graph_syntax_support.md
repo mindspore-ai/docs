@@ -220,12 +220,15 @@ Forcible conversion to `Tuple` is not supported on the network. That is, the syn
 
   `values`: extracts all `value` values from `dict` to form `Tuple` and return it.
 
+  `items`: extracts `Tuple` composed of each pair of `value` values and `key` values in `dict` to form `Tuple` and return.
+
   For example:
 
   ```python
   x = {"a": Tensor(np.array([1, 2, 3])), "b": Tensor(np.array([4, 5, 6])), "c": Tensor(np.array([7, 8, 9]))}
   y = x.keys()
   z = x.values()
+  q = x.items()
   ```
 
   The result is as follows:
@@ -233,6 +236,7 @@ Forcible conversion to `Tuple` is not supported on the network. That is, the syn
   ```text
   y: ("a", "b", "c")
   z: (Tensor(shape=[3], dtype=Int64, value=[1, 2, 3]), Tensor(shape=[3], dtype=Int64, value=[4, 5, 6]), Tensor(shape=[3], dtype=Int64, value=[7, 8, 9]))
+  q: (("a", Tensor(shape=[3], dtype=Int64, value=[1, 2, 3])), ("b", Tensor(shape=[3], dtype=Int64, value=[4, 5, 6])), ("c", Tensor(shape=[3], dtype=Int64, value=[7, 8, 9])))
   ```
 
 - Supported index values and value assignment
