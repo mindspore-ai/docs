@@ -1,5 +1,7 @@
 # Parameter Passing
 
+Translator: [lamuxiaoyu](https://gitee.com/xiaoxinniuniu)
+
 <!-- TOC -->
 
 - [Parameter Passing](#parameter-passing)
