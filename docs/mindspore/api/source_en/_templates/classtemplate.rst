@@ -11,6 +11,7 @@
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
+    :exclude-members: infer_value, infer_shape, infer_dtype
     :members:
 
 {% else %}

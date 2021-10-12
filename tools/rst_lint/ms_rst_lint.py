@@ -4,13 +4,15 @@ from docutils import nodes
 from docutils.parsers.rst import Directive
 from docutils.parsers.rst import directives
 from docutils.parsers.rst.directives import register_directive
+from docutils.parsers.rst.roles import register_generic_role
+from sphinx.ext.autodoc.directive import AutodocDirective
+from sphinx.domains.python import PyCurrentModule
+from sphinx.directives.other import TocTree
 from restructuredtext_lint.cli import main
 
 
 class CustomDirective(Directive):
     """Base class of customized directives for python domains in sphinx."""
-    required_arguments = 1
-    optional_arguments = 0
     final_argument_whitespace = True
     has_content = True
 
@@ -18,16 +20,7 @@ class CustomDirective(Directive):
         """run method."""
         self.assert_has_content()
         text = '\n'.join(self.content)
-
-        try:
-            if self.arguments:
-                classes = directives.class_option(self.arguments[0])
-            else:
-                classes = []
-        except ValueError:
-            raise self.error(
-                'Invalid class attribute value for "%s" directive: "%s".'
-                % (self.name, self.arguments[0]))
+        classes = []
         node = nodes.container(text)
         node['classes'].extend(classes)
         self.add_name(node)
@@ -35,26 +28,79 @@ class CustomDirective(Directive):
         return [node]
 
 
-class PyClass(CustomDirective):
-    """Customizing py:class."""
+class CustomDirectiveNoNested(CustomDirective):
+    """Customizing CustomDirective with nonest."""
+    def run(self):
+        self.assert_has_content()
+        text = '\n'.join(self.content)
+        classes = []
+        node = nodes.container(text)
+        node['classes'].extend(classes)
+        self.add_name(node)
+        return [node]
 
 
-class PyMethod(CustomDirective):
-    """Customizing py:method."""
+class Autoclass(AutodocDirective):
+    """Customizing automodule."""
+    def run(self):
+        """run method."""
+        text = '\n'.join(self.content)
+        classes = []
+        node = nodes.container(text)
+        node['classes'].extend(classes)
+        self.add_name(node)
+        return [node]
 
 
-class PyFunction(CustomDirective):
-    """Customizing py:function."""
+class Toctree(TocTree):
+    """Customizing toctree."""
+
+    def run(self):
+        """run method."""
+        text = '\n'.join(self.content)
+        if self.arguments:
+            classes = directives.class_option(self.arguments[0])
+        else:
+            classes = []
+        node = nodes.container(text)
+        node['classes'].extend(classes)
+        self.add_name(node)
+        self.state.nested_parse(self.content, self.content_offset, node)
+        return [node]
 
 
-class PyProperty(CustomDirective):
-    """Customizing py:property."""
+class CurrentModule(PyCurrentModule):
+    """Customizing currentmodule."""
+    has_content = False
+    required_arguments = 1
+    optional_arguments = 3
+    final_argument_whitespace = False
+
+    def run(self):
+        """run method."""
+        return []
 
 
-register_directive('py:class', PyClass)
-register_directive('py:method', PyMethod)
-register_directive('py:function', PyFunction)
-register_directive('py:property', PyProperty)
+# Register directive.
+register_directive('py:class', CustomDirective)
+register_directive('py:method', CustomDirective)
+register_directive('py:function', CustomDirective)
+register_directive('py:property', CustomDirective)
+register_directive('py:data', CustomDirective)
+register_directive('py:obj', CustomDirective)
+register_directive('automodule', Autoclass)
+register_directive('autoclass', Autoclass)
+register_directive('autofunction', Autoclass)
+register_directive('toctree', Toctree)
+register_directive('autosummary', CustomDirectiveNoNested)
+register_directive('msplatformautosummary', CustomDirectiveNoNested)
+register_directive('msnoteautosummary', CustomDirectiveNoNested)
+register_directive('currentmodule', CurrentModule)
+
+# Register roles.
+register_generic_role('class', nodes.literal)
+register_generic_role('doc', nodes.literal)
+register_generic_role('py:obj', nodes.literal)
 
 if __name__ == "__main__":
     sys.exit(main())
