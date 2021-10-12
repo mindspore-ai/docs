@@ -42,14 +42,14 @@ Create a Conda virtual environment based on the Python version you want to use a
 If you want to use Python 3.7.5:
 
 ```bash
-conda create -n mindspore_py37 python=3.7.5
+conda create -n mindspore_py37 -c conda-forge python=3.7.5
 conda activate mindspore_py37
 ```
 
 If you want to use Python 3.9.0:
 
 ```bash
-conda create -n mindspore_py39 python=3.9.0
+conda create -n mindspore_py39 -c conda-forge python=3.9.0
 conda activate mindspore_py39
 ```
 
@@ -65,7 +65,7 @@ pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/te-{version}
 Execute the following command to install MindSpore.
 
 ```bash
-conda install mindspore-ascend={version} -c mindspore
+conda install mindspore-ascend={version} -c mindspore -c conda-forge
 ```
 
 In the preceding information:
