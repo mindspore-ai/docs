@@ -15,6 +15,7 @@
         - [Using a while Statement with a Variable Condition](#using-a-while-statement-with-a-variable-condition)
     - [Constraints](#constraints)
         - [Side Effect](#side-effect)
+        - [Dead Cycle](#dead-cycle)
 
 <!-- /TOC -->
 
@@ -416,3 +417,7 @@ The following table lists the side effect operators that are not supported in th
 | ScatterNonAliasingAdd |
 | ScatterSub            |
 | ScatterUpdate         |
+
+### Dead Cycle
+
+If the value of `cond` in expression `while cond:` is always a scalar `True`, whether there is a `break` or `return` in while body, an unexpected exception might be raised.
