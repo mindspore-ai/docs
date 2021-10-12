@@ -15,14 +15,10 @@ MindSpore Reinforcement依赖MindSpore训练推理框架，安装完[MindSpore](
 
 ## pip安装
 
-//FIXME: 更新versions页面
-
 使用pip命令安装，请从[MindSpore Reinforcement下载页面](https://www.mindspore.cn/versions)下载并安装whl包。
 
-//FIXME: 确定Reinforcement安装包名，及发布路径
-
  ```shell
-pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/Rl/{arch}/mindspore_rl-{version}-py3-none-any.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0/Reinforcement/any/mindspore_rl-{version}-py3-none-any.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 > - 在联网状态下，安装whl包时会自动下载MindSpore Reinforcement安装包的依赖项（依赖项详情参见requirement.txt），其余情况需自行安装。
