@@ -1,5 +1,7 @@
 # Constructing Single Operator Network and Multi-layer Network
 
+Translator: [ChanJiatao](https://gitee.com/ChanJiatao)
+
 `Linux` `Ascend` `GPU` `CPU` `Model Development` `Primary`
 
 <!-- TOC -->
@@ -24,7 +26,7 @@ A Cell has the module management capability. A Cell can be composed of multiple 
 
 ## Running Basic Operators
 
-The construction of network is inseparable from the use of basic operators. The base operation unit of MindSpore is the operations module，which encapsulates different types of operators，such as:
+The construction of network is inseparable from the use of basic operators. The base operation unit of MindSpore is the operations module, which encapsulates different types of operators, such as:
 
 - array_ops: The operators associated with arrays.
 
