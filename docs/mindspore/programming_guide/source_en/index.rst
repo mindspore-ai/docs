@@ -60,6 +60,7 @@ Note: Clicking on the title with "↗" will leave the Programming Guide page.
    build_net
    initializer
    parameter
+   control_flow
    loss
    grad_operation
    indefinite_parameter
