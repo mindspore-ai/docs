@@ -78,11 +78,7 @@ The AutoTune tool supports two tuning modes, `Online tune` and `Offline Tune`.
 
 After the tuning starts, a file named `tune_result_{timestamp}_pidxxx.json` will be generated in the working directory to record the tuning process and tuning results. Please refer to [tuning result file analysis](https://support.huawei.com/enterprise/en/doc/EDOC1100206689/b6ae7c6a) for specific analysis of this file.
 
-After the tuning is complete. The custom knowledge base will be generated if the conditions are met. If the `TUNE_BANK_PATH`(Environment variable of the knowledge base storage path) is specified, the knowledge base(generated after tuning) will be saved in the specified directory. Otherwise, the knowledge base will be in the following default path.
-
-For `RL` tuning: it will be stored in `data/rl/<soc_version>/custom/` (installation path of `FwkACLlib`).
-
-For `GA` tuning: it will be stored in `data/tiling/<soc_version>/custom/` (installation path of `FwkACLlib`).
+After the tuning is complete. The custom knowledge base will be generated if the conditions are met. If the `TUNE_BANK_PATH`(Environment variable of the knowledge base storage path) is specified, the knowledge base(generated after tuning) will be saved in the specified directory. Otherwise, the knowledge base will be in the following default path. Please refer to [Custom knowledge base](https://support.huawei.com/enterprise/en/doc/EDOC1100206689/b6ae7c6a) for the storage path.
 
 ## MergeKnowledgeBase
 
