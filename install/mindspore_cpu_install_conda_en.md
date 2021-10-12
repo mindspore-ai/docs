@@ -34,14 +34,14 @@ Create a Conda virtual environment based on the Python version you want to use a
 If you want to use Python 3.7.5:
 
 ```bash
-conda create -n mindspore_py37 python=3.7.5
+conda create -n mindspore_py37 -c conda-forge python=3.7.5
 conda activate mindspore_py37
 ```
 
 If you want to use Python 3.9.0:
 
 ```bash
-conda create -n mindspore_py39 python=3.9.0
+conda create -n mindspore_py39 -c conda-forge python=3.9.0
 conda activate mindspore_py39
 ```
 
@@ -50,7 +50,7 @@ conda activate mindspore_py39
 Ensure that you are in the Conda virtual environment and run the following command to install MindSpore:
 
 ```bash
-conda install mindspore-cpu={version} -c mindspore
+conda install mindspore-cpu={version} -c mindspore -c conda-forge
 ```
 
 In the preceding information:
