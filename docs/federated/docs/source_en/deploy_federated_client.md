@@ -26,9 +26,10 @@ The following describes how to deploy the Federated-Client in the Android and x8
 
     Currently, only the Linux build environment is supported. For details about how to configure the Linux build environment, click [here](https://www.mindspore.cn/lite/docs/en/r1.5/use/build.html#linux).
 
-- Build the AAR package that contains aarch64 and aarch32 in the mindspore home directory.
+- Turn on Federated-Client compile option and build the AAR package that contains aarch64 and aarch32 in the mindspore home directory.
 
     ```sh
+    export MSLITE_ENABLE_FL=on
     bash build.sh -A on -j32
     ```
 
