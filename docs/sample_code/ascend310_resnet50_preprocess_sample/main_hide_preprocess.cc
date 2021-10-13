@@ -30,6 +30,7 @@ constexpr auto resnet_file = "./model/resnet50_imagenet.mindir";
 constexpr auto image_path = "./test_data/ILSVRC2012_val_00002138.JPEG";
 
 size_t GetMax(ms::MSTensor data);
+ms::MSTensor ReadFile(const std::string &file);
 
 int main() {
   // set context
@@ -62,10 +63,11 @@ int main() {
   }
 
   // infer
+  std::vector<MSTensor> inputs = {ReadFile(image_path)};
   std::vector<MSTensor> outputs;
-  ret = resnet50.Predict(image_path, &outputs);
+  ret = resnet50.PredictWithPreprocess(inputs, &outputs);
   if (ret.IsError()) {
-    std::cout << "ERROR: Predict failed." << std::endl;
+    std::cout << "ERROR: PredictWithPreprocess failed." << std::endl;
     return 1;
   }
 
@@ -86,4 +88,32 @@ size_t GetMax(ms::MSTensor data) {
     }
   }
   return max_idx;
+}
+
+ms::MSTensor ReadFile(const std::string &file) {
+  if (file.empty()) {
+    std::cout << "Pointer file is nullptr" << std::endl;
+    return ms::MSTensor();
+  }
+
+  std::ifstream ifs(file);
+  if (!ifs.good()) {
+    std::cout << "File: " << file << " is not exist" << std::endl;
+    return ms::MSTensor();
+  }
+
+  if (!ifs.is_open()) {
+    std::cout << "File: " << file << "open failed" << std::endl;
+    return ms::MSTensor();
+  }
+
+  ifs.seekg(0, std::ios::end);
+  size_t size = ifs.tellg();
+  ms::MSTensor buffer(file, ms::DataType::kNumberTypeUInt8, {static_cast<int64_t>(size)}, nullptr, size);
+
+  ifs.seekg(0, std::ios::beg);
+  ifs.read(reinterpret_cast<char *>(buffer.MutableData()), size);
+  ifs.close();
+
+  return buffer;
 }
