@@ -1,0 +1,23 @@
+﻿# Function Differences with torch.cuda.set_device
+
+## torch.cuda.set_device
+
+```python
+torch.cuda.set_device(device)
+```
+
+For more information, see[torch.cuda.set_device](https://pytorch.org/docs/1.5.0/cuda.html#torch.cuda.set_device).
+
+## mindspore.context.set_context
+
+```python
+mindspore.context.set_context(**kwargs)
+```
+
+For more information, see[mindspore.context.set_context](https://mindspore.cn/docs/api/en/r1.3/api_python/mindspore.context.html#mindspore.context.set_context).
+
+## Differences
+
+PyTorch: It is used to set the current `device`.
+
+MindSpore：It is not only used to set the current `device`, but also set the `mode`, `device_target`, `save_graphs`, etc.
