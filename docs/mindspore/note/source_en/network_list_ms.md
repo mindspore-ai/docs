@@ -61,7 +61,7 @@
 | Computer Vision (CV)  | Object Detection  | [YOLOv3-DarkNet53 (Quantization)](https://gitee.com/mindspore/models/tree/master/official/cv/yolov3_darknet53_quant)  |  ✅ |    |    |    |   |   |
 | Computer Vision (CV)  | Object Detection  | [YOLOv4](https://gitee.com/mindspore/models/tree/master/official/cv/yolov4)         |  ✅ |    |    |    |   |   |
 | Computer Vision (CV) | Text Detection  | [DeepText](https://gitee.com/mindspore/models/tree/master/official/cv/deeptext)   |  ✅ |    |    |    |   |   |
-| Computer Vision (CV) | Text Detection  | [PSENet](https://gitee.com/mindspore/models/tree/master/official/cv/psenet)   |  ✅ |  ✅ |    |    |   |   |
+| Computer Vision (CV) | Text Detection  | [PSENet](https://gitee.com/mindspore/models/tree/master/official/cv/psenet)   |  ✅ |   |    |    |   |   |
 | Computer Vision (CV) | Text Recognition  | [CNN+CTC](https://gitee.com/mindspore/models/tree/master/official/cv/cnnctc)                |  ✅ |  ✅ |    |    |   |   |
 | Computer Vision (CV) | Semantic Segmentation  | [DeepLabV3](https://gitee.com/mindspore/models/tree/master/official/cv/deeplabv3)     |  ✅ |    |    |    | ✅ |   |
 | Computer Vision (CV) | Semantic Segmentation  | [U-Net2D (Medical)](https://gitee.com/mindspore/models/tree/master/official/cv/unet)                |  ✅ |    |    |    |   |   |
