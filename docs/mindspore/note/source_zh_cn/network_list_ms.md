@@ -61,7 +61,7 @@
 | 计算机视觉（CV）  | 目标检测（Object Detection）  | [YOLOv3-DarkNet53（量化）](https://gitee.com/mindspore/models/tree/master/official/cv/yolov3_darknet53_quant)   |  ✅ |   |   |   |  |  |
 | 计算机视觉（CV） | 目标检测（Object Detection）  |[YOLOv4](https://gitee.com/mindspore/models/tree/master/official/cv/yolov4)         |  ✅ |   |   |   |  |  |
 | 计算机视觉（CV） | 文本检测（Text Detection）  | [DeepText](https://gitee.com/mindspore/models/tree/master/official/cv/deeptext)                |  ✅ |   |   |   |  |  |
-| 计算机视觉（CV） | 文本检测（Text Detection）  | [PSENet](https://gitee.com/mindspore/models/tree/master/official/cv/psenet)                |  ✅ |  ✅ |   |   |  |  |
+| 计算机视觉（CV） | 文本检测（Text Detection）  | [PSENet](https://gitee.com/mindspore/models/tree/master/official/cv/psenet)                |  ✅ |   |   |   |  |  |
 | 计算机视觉（CV） | 文本识别（Text Recognition）  | [CNN+CTC](https://gitee.com/mindspore/models/tree/master/official/cv/cnnctc)                |  ✅ |  ✅ |   |   |  |  |
 | 计算机视觉（CV） | 语义分割（Semantic Segmentation）  | [DeepLabV3](https://gitee.com/mindspore/models/tree/master/official/cv/deeplabv3)   |  ✅ |   |   |   | ✅ |  |
 | 计算机视觉（CV） | 语义分割（Semantic Segmentation）  | [U-Net2D (Medical)](https://gitee.com/mindspore/models/tree/master/official/cv/unet)   |  ✅ |   |   |   |  |  |
