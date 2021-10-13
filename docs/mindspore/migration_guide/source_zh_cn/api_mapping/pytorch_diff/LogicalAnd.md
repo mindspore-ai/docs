@@ -1,0 +1,61 @@
+# 比较与torch.logical_and的功能差异
+
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/migration_guide/source_zh_cn/api_mapping/pytorch_diff/LogicalAnd.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
+
+## torch.logical_and
+
+```python
+class torch.logical_and(input, other, out=None)
+```
+
+更多内容详见 [torch.logical_and](https://pytorch.org/docs/1.5.0/torch.html#torch.logical_and)。
+
+## mindspore.ops.LogicalAnd
+
+```python
+class class mindspore.ops.LogicalAnd(x, y)
+```
+
+更多内容详见 [mindspore.ops.LogicalAnd](https://mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.LogicalAnd.html#mindspore.ops.LogicalAnd)。
+
+## 使用方式
+
+PyTorch: 计算给定输入张量的逐元素逻辑与。 零被视为“False”，非零被视为“True”。
+
+MindSpore: 输入可以是bool值或数据类型为bool的张量。
+
+## 代码示例
+
+```python
+import numpy as np
+import torch
+import mindspore.ops as ops
+from mindspore import Tensor, Parameter
+from mindspore import dtype as mstype
+
+# MindSpore
+x = Tensor(np.array([True, False, True]), mstype.bool_)
+y = Tensor(np.array([True, True, False]), mstype.bool_)
+logical_and = ops.LogicalAnd()
+logical_and(x, y)
+# [ True False False]
+x = Tensor(np.array([True, False, True]), mstype.bool_)
+y = Tensor(np.array([True, True, False]), mstype.int32)
+logical_and = ops.LogicalAnd()
+logical_and(x, y)
+# TypeError: For 'LogicalAnd', the type of `x` should be subclass of Tensor[Bool], but got Tensor[Int32].
+
+# Pytorch
+torch.logical_and(torch.tensor([True, False, True]), torch.tensor([True, False, False]))
+# tensor([ True, False, False])
+a = torch.tensor([0, 1, 10, 0], dtype=torch.int8)
+b = torch.tensor([4, 0, 1, 0], dtype=torch.int8)
+torch.logical_and(a, b)
+# tensor([False, False,  True, False])
+torch.logical_and(a.double(), b.double())
+# tensor([False, False,  True, False])
+torch.logical_and(a.double(), b)
+# tensor([False, False,  True, False])
+torch.logical_and(a, b, out=torch.empty(4, dtype=torch.bool))
+# tensor([False, False,  True, False])
+```
