@@ -32,7 +32,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{ms_version}/Min
 ```
 
 > - When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about other dependency items, see [setup.py](https://gitee.com/mindspore/mindquantum/blob/r0.3/setup.py)). In other cases, you need to manually install dependency items.
-> - `{ms_version}` refers to the MindSpore version that matches with MindQuantum. For example, if you want to install MindQuantum 0.3.0, then,`{ms_version}` should be 1.4.0。
+> - `{ms_version}` refers to the MindSpore version that matches with MindQuantum. For example, if you want to install MindQuantum 0.3.0, then,`{ms_version}` should be 1.5.0。
 > - `{mq_version}` denotes the version of MindQuantum. For example, when you are downloading MindQuantum 0.3.0, `{version}` should be 0.3.0.
 > - Refers to [MindSpore](https://www.mindspore.cn/versions) to find different version of packages。
 
