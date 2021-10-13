@@ -52,6 +52,7 @@
             - [super](#super)
             - [pow](#pow)
             - [print](#print)
+            - [filter](#filer)
         - [函数参数](#函数参数)
     - [网络定义](#网络定义)
         - [网络入参](#网络入参)
@@ -773,7 +774,7 @@ print(l)
 
 ### Python内置函数
 
-当前支持的Python内置函数包括：`len`、`isinstance`、`partial`、`map`、`range`、`enumerate`、`super`和`pow`。
+当前支持的Python内置函数包括：`len`、`isinstance`、`partial`、`map`、`range`、`enumerate`、`super`、`pow`和`filter`。
 
 #### len
 
@@ -1097,6 +1098,38 @@ print("y", y)
 ```text
 x Tensor(shape=[3], dtype=Int64, value=[1, 2, 3]))
 y Tensor(shape=[], dtype=Int64, value=3))
+```
+
+#### filter
+
+功能：根据提供的函数对一个序列的元素做判断，每个元素依次作为参数传入函数中，将返回结果不为0或False的元素组成新的序列。
+
+调用：`filter(func, sequence)`
+
+入参：
+
+- `func` -- 函数。
+
+- `sequence` -- 序列（`Tuple`或`List`）。
+
+返回值：返回一个`Tuple`。
+
+示例如下：
+
+```python
+def is_odd(x):
+  if x % 2:
+    return True
+  return False
+
+elements = (1, 2, 3, 4, 5)
+ret = filter(is_odd, elements)
+```
+
+结果如下：
+
+```text
+ret: (1, 3, 5)
 ```
 
 ### 函数参数

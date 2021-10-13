@@ -52,6 +52,7 @@
             - [super](#super)
             - [pow](#pow)
             - [print](#print)
+            - [filter](#filter)
         - [Function Parameters](#function-parameters)
     - [Network Definition](#network-definition)
         - [Instance Types on the Entire Network](#instance-types-on-the-entire-network)
@@ -773,7 +774,7 @@ Restrictions: The same as List Comprehension.
 
 ### Python Built-in Functions
 
-Currently, the following built-in Python functions are supported: `len`, `isinstance`, `partial`, `map`, `range`, `enumerate`, `super`, and `pow`.
+Currently, the following built-in Python functions are supported: `len`, `isinstance`, `partial`, `map`, `range`, `enumerate`, `super`, `pow`, and `filter`.
 
 #### len
 
@@ -1097,6 +1098,37 @@ The result is as follows:
 ```text
 x: Tensor(shape=[3], dtype=Int64, value=[1, 2, 3]))
 y: Tensor(shape=[], dtype=Int64, value=3))
+```
+
+#### filter
+
+According to the provided function to judge the elements of a sequence. Each element is passed into the function as a parameter in turn, and the elements whose return result is not 0 or False form a new sequence.
+
+Calling: `filter(func, sequence)`
+
+Input parameters:
+
+- `func` -- Function.
+- `sequence` -- A sequence (`Tuple` or `List`).
+
+Return value: A `Tuple`.
+
+For example:
+
+```python
+def is_odd(x):
+  if x % 2:
+    return True
+  return False
+
+elements = (1, 2, 3, 4, 5)
+ret = filter(is_odd, elements)
+```
+
+The result is as follows:
+
+```text
+ret: (1, 3, 5)
 ```
 
 ### Function Parameters
