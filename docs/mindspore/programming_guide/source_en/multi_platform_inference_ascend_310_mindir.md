@@ -284,12 +284,12 @@ Get information of this model:
 std::vector<ms::MSTensor> model_inputs = resnet50.GetInputs();
 ```
 
-Provide image path and start prediction:
+Read image and start data preprocessing and prediction:
 
 ```c++
+std::vector<MSTensor> inputs = {ReadFile(image_path)};
 std::vector<MSTensor> outputs;
-// Provide the path of image file
-ret = resnet50.Predict(image_path, &outputs);
+ret = resnet50.PredictWithPreprocess(inputs, &outputs);
 ```
 
 Print the result:

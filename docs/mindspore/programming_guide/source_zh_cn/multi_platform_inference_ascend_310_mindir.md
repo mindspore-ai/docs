@@ -282,12 +282,12 @@ ret = resnet50.Build(ms::GraphCell(graph), context);
 std::vector<ms::MSTensor> model_inputs = resnet50.GetInputs();
 ```
 
-提供图片文件直接执行推理：
+提供图片文件，一键执行预处理与模型推理：
 
 ```c++
+std::vector<MSTensor> inputs = {ReadFile(image_path)};
 std::vector<MSTensor> outputs;
-// 此处提供需要预测的图片路径
-ret = resnet50.Predict(image_path, &outputs);
+ret = resnet50.PredictWithPreprocess(inputs, &outputs);
 ```
 
 获取推理结果：
