@@ -26,9 +26,10 @@
 
     目前只支持Linux环境编译，Linux编译环境配置可参考[这里](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html#linux)。
 
-2. 在mindspore根目录进行编译，编译包含aarch64和aarch32的AAR包。
+2. 开启联邦编译选项，在mindspore根目录进行编译，编译包含aarch64和aarch32的AAR包。
 
     ```sh
+    export MSLITE_ENABLE_FL=on
     bash build.sh -A on -j32
     ```
 
