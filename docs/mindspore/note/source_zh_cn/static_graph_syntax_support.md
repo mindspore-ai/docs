@@ -222,12 +222,15 @@
 
   `values`：取出`dict`里所有的`value`值，组成`Tuple`返回。
 
+  `items`：取出`dict`里每一对`key`和`value`组成的`Tuple`，组成`Tuple`返回。
+
   示例如下：
 
   ```python
   x = {"a": Tensor(np.array([1, 2, 3])), "b": Tensor(np.array([4, 5, 6])), "c": Tensor(np.array([7, 8, 9]))}
   y = x.keys()
   z = x.values()
+  q = x.items()
   ```
 
   结果如下：
@@ -235,6 +238,7 @@
   ```text
   y: ("a", "b", "c")
   z: (Tensor(shape=[3], dtype=Int64, value=[1, 2, 3]), Tensor(shape=[3], dtype=Int64, value=[4, 5, 6]), Tensor(shape=[3], dtype=Int64, value=[7, 8, 9]))
+  q: (("a", Tensor(shape=[3], dtype=Int64, value=[1, 2, 3])), ("b", Tensor(shape=[3], dtype=Int64, value=[4, 5, 6])), ("c", Tensor(shape=[3], dtype=Int64, value=[7, 8, 9])))
   ```
 
 - 支持索引取值和赋值
