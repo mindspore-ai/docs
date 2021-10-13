@@ -126,7 +126,7 @@ MindSpore编程指南
    :caption: 功能调试
 
    read_ir_files
-   Debugging in PyNative Mode↗ <https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/debug_in_pynative_mode.html>
+   使用PyNative模式调试↗ <https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/debug_in_pynative_mode.html>
    dump_in_graph_mode
    custom_debugging_info
    incremental_operator_build
