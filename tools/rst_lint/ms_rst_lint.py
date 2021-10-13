@@ -13,8 +13,10 @@ from restructuredtext_lint.cli import main
 
 class CustomDirective(Directive):
     """Base class of customized directives for python domains in sphinx."""
-    final_argument_whitespace = True
     has_content = True
+    required_arguments = 1
+    optional_arguments = 3
+    final_argument_whitespace = True
 
     def run(self):
         """run method."""

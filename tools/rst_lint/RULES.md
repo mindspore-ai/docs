@@ -139,9 +139,9 @@
 
 ## Content block expected for the "xxx" directive; none found
 
-表示所在位置命令下面缺少空行。
+表示所在位置命令下面缺少空行，或者所在位置命令下没有具体内容。
 
-- 正确示例：
+- 正确示例1：
 
     ```text
     .. code-block::
@@ -150,10 +150,28 @@
         import sys
     ```
 
-- 错误示例：
+- 错误示例1：
 
     ```text
     .. code-block::
         import mindspore
         import sys
+    ```
+
+- 正确示例2：
+
+    ```text
+    .. code-block::
+
+        import mindspore
+        import sys
+    ```
+
+- 错误示例2：
+
+    ```text
+    .. code-block::
+
+    import mindspore
+    import sys
     ```

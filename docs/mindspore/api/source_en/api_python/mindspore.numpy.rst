@@ -3,11 +3,6 @@ mindspore.numpy
 
 .. automodule:: mindspore.numpy
 
-.. autosummary::
-    :toctree: numpy
-    :nosignatures:
-    :template: classtemplate_inherited.rst
-
 Array Generation
 ----------------
 
