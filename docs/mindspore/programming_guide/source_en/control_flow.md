@@ -420,4 +420,4 @@ The following table lists the side effect operators that are not supported in th
 
 ### Dead Cycle
 
-If the value of `cond` in expression `while cond:` is always a scalar `True`, whether there is a `break` or `return` in while body, an unexpected exception might be raised.
+If the value of `cond` in expression `while cond:` is always a scalar `True`, no matter whether there is a `break` or `return` in while body, an unexpected exception may be raised.
