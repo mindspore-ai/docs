@@ -123,7 +123,10 @@ def test_eval(model_ckpt_path):
     '''eval model'''
     target = args_opt.device_target
     if target == "Ascend":
-        devid = int(os.getenv('DEVICE_ID'))
+        try:
+            devid = int(os.getenv('DEVICE_ID'))
+        except TypeError:
+            devid = 0
         context.set_context(mode=context.GRAPH_MODE, device_target="Ascend", device_id=devid)
     bert_net_cfg.batch_size = 1
     poetrymodel = BertPoetryModel(bert_net_cfg, False, 3191, dropout_prob=0.0)
