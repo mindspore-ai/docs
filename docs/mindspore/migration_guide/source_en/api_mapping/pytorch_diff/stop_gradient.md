@@ -24,7 +24,7 @@ For more information, see[torch.autograd.no_grad](https://pytorch.org/docs/1.5.0
 mindspore.ops.stop_gradient(input)
 ```
 
-For more information, see[mindspore.ops.stop_gradient](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.ops.html#functional).
+For more information, see[mindspore.ops.stop_gradient](https://www.mindspore.cn/tutorials/en/master/autograd.html#stop-gradient).
 
 ## Differences
 
