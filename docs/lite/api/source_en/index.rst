@@ -18,7 +18,18 @@ MindSpore Lite API
   api_cpp/mindspore_dataset_transforms
   api_cpp/mindspore_dataset_vision
   api_cpp/mindspore_registry
+  api_cpp/mindspore_registry_opencl
   api_cpp/mindspore_converter
+  api_cpp/mindspore_abstract
+  api_cpp/mindspore_api
+  api_cpp/mindspore_change
+  api_cpp/mindspore_common
+  api_cpp/mindspore_id_generator
+  api_cpp/mindspore_label_manage
+  api_cpp/mindspore_ops
+  api_cpp/mindspore_prim
+  api_cpp/mindspore_tensor
+  api_cpp/mindspore_utils
   api_cpp/lite_cpp_example
 
 

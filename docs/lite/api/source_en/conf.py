@@ -119,6 +119,7 @@ exhale_args = {
     "exhaleDoxygenStdin": textwrap.dedent("""
         INPUT = ../include
         EXTRACT_ALL = NO
+        EXCLUDE_SYMBOLS = operator/
     """),
     'contentsDirectives': False,
 
@@ -174,6 +175,11 @@ with open("../_custom/sphinx_builder_html", "r", encoding="utf8") as f:
 exec(source_code, sphinx_builder_html.__dict__)
 
 # Copy sourcefiles from mindspore repository to "../include/".
+import json
+import re
+from sphinx.util import logging
+logger = logging.getLogger(__name__)
+
 ms_path = os.getenv("MS_PATH")
 if os.path.exists("../include"):
     shutil.rmtree("../include")
@@ -191,7 +197,20 @@ with open("./SourceFileNames.txt") as f:
         else:
             shutil.copy(os.path.join(ms_path, name), "../include/")
 
-# Remove "MS_API" in classes. 
+with open("./SourceFileNames.json") as f:
+    hfile_dic = json.load(f)
+    for i in hfile_dic.items():
+        dir_name, hfile_list_ = i
+        source_dir = os.path.join(ms_path, os.path.normpath(dir_name))
+        target_dir = os.path.join("../include", os.path.normpath(re.sub("^mindspore/", "", dir_name)))
+        os.makedirs(target_dir, exist_ok=True)
+        for file_ in hfile_list_:
+            try:
+                shutil.copy(os.path.join(source_dir, file_), target_dir)
+            except FileNotFoundError:
+                logger.warning("头文件{}没有找到!".format(os.path.join(dir_name, file_)))
+
+# Remove "MS_API" in classes.
 files_copyed = glob.glob("../include/*.h")
 for file in files_copyed:
     with open(file, "r+", encoding="utf8") as f:
