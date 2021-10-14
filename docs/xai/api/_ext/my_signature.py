@@ -35,9 +35,6 @@ def get_default_params(func):
 
     all_param_names = _sort_param(all_param_names, all_params)
 
-    # sub the extra "=" from param.
-    re_equate_sub = re.compile("=")
-
     re_defaults_param = re.compile(r"(.*?)".join(all_param_names) + r"(.*)")
     defaults_params = re_defaults_param.findall(all_params)
     if defaults_params:
@@ -46,7 +43,7 @@ def get_default_params(func):
         defaults_params_list = []
         for i in defaults_params:
             if "=" in i and i:
-                i = re_equate_sub.sub("", i, count=1).strip(",")
+                i = "".join(i.split('=')[-1]).strip(",")
                 if i[:6] == "lambda":
                     i = "<" + i + ">"
                 defaults_params_list.append(i)
