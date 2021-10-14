@@ -24,7 +24,7 @@ torch.autograd.no_grad()
 mindspore.ops.stop_gradient(input)
 ```
 
-更多内容详见[mindspore.ops.stop_gradient](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.ops.html#functional)。
+更多内容详见[mindspore.ops.stop_gradient](https://www.mindspore.cn/tutorials/zh-CN/master/autograd.html#%E5%81%9C%E6%AD%A2%E8%AE%A1%E7%AE%97%E6%A2%AF%E5%BA%A6)。
 
 ## 使用方式
 
