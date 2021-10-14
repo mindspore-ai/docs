@@ -1,5 +1,7 @@
 # Dataset
 
+Translator: [Wei_zz](https://gitee.com/wei-zz)
+
 <!-- TOC -->
 
 - [Dataset](#dataset)
@@ -12,20 +14,20 @@
 
 <!-- TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/dataset_introduction.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/dataset_introduction.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 Data is the foundation of deep learning, and high-quality data input will play a positive role in the entire deep neural network.
 In the network training and inference process, the original data is generally stored in a disk or a database, and it needs to be first read into the memory space through the data loading step, converted into the framework's common tensor (Tensor) format, and then processed and enhanced by the data step, map it to a feature space that is easier to learn, while increasing the number of samples and generalization, and finally input to the network for calculation.
 
 The overall process is shown in the figure below:
 
-![avatar](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/_images/basic_dataset_pipeline.png)
+![avatar](images/basic_dataset_pipeline.png)
 
 This chapter introduces some basic concepts involved in data loading, data processing, and enhancement operations in `mindspore.dataset`(hereinafter referred to as Dataset).
 
 ## Dataset
 
-![avatar](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/_images/basic_dataset_data.png)
+![avatar](images/basic_dataset_data.png)
 
 A dataset is a collection of samples. A row of the dataset is a sample that contains one or more features, and may also contain a label. The dataset needs to meet certain specifications to facilitate the evaluation of the model's effect.
 
@@ -35,7 +37,7 @@ Dataset also supports the conversion of commonly used data sets and user-defined
 
 ## Dataset Loading
 
-![avatar](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/_images/basic_dataset_load.png)
+![avatar](images/basic_dataset_load.png)
 
 The dataset loading makes the model training continuously obtain data for training.
 
@@ -51,7 +53,7 @@ After the Dataset loads the data into the memory, the data is organized in the f
 
 ### Shuffle Operation
 
-![avatar](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/_images/basic_dataset_shuffle.png)
+![avatar](images/basic_dataset_shuffle.png)
 
 Training is generally multiple epochs, and the shuffle operation disrupts the order of the data to ensure that the data order of each epoch is different during training to prevent training from overfitting.
 
@@ -95,7 +97,7 @@ Dataset provides multiple ways to implement global shuffle operations.
 
 ### Map Operation
 
-![avatar](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/_images/basic_dataset_map.png)
+![avatar](images/basic_dataset_map.png)
 
 The Map operation performs data enhancement on all kinds of data, is responsible for starting and executing the data enhancement operators provided by the Dataset or user-defined, and mapping and transforming the data. Among them, data enhancement is a method of creating "new" data with different directions. One is to generate "more data" from limited data, and the other is to prevent overfitting.
 
@@ -109,7 +111,7 @@ For Map operation, please refer to: [Map operation](https://www.mindspore.cn/doc
 
 ### Batch Operation
 
-![avatar](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/_images/basic_dataset_batch.png)
+![avatar](images/basic_dataset_batch.png)
 
 Only one sample is used to train the model at a time, which has good randomness, but poor parallelization, resulting in low training efficiency. The introduction of mini-batch can better balance the training speed and training effect.
 
