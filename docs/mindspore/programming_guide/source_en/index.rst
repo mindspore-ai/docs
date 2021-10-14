@@ -43,6 +43,7 @@ Note: Clicking on the title with "↗" will leave the Programming Guide page.
    parameter_introduction
    operators
    cell
+   dataset_introduction
 
 .. toctree::
    :maxdepth: 1
