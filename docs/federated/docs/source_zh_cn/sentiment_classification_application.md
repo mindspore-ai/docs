@@ -519,6 +519,11 @@ app
         androidTestImplementation 'androidx.test.ext:junit:1.1.1'
         androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
         implementation 'com.android.support:multidex:1.0.3'
+
+        //添加联邦学习所依赖的第三方开源软件
+        implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.14.9'
+        implementation group: 'com.google.flatbuffers', name: 'flatbuffers-java', version: '1.11.0'
+        implementation(group: 'org.bouncycastle',name: 'bcprov-jdk15on', version: '1.68')
     }
     ```
 
