@@ -89,7 +89,27 @@ mindspore-lite-{version}
 └── classes.jar  # MindSpore Lite训练框架jar包
 ```
 
-在Android工程中只需依赖此AAR包即可调用联邦学习提供的相关接口，接口的具体调用和运行方式可参考[联邦学习接口介绍部分](https://www.mindspore.cn/federated/api/zh-CN/r1.5/index.html)。
+注意1，由于生成Android环境中的联邦学习jar包时未包含所依赖的第三方开源软件包，因此在Android环境中，使用AAR包前，需要用户在Android工程下的app/build.gradle文件的dependencies{}字段中添加相关依赖语句，用于加载联邦学习所依赖的三个开源软件，如下所示：
+
+```java
+dependencies {
+
+//添加联邦学习所依赖第三方开源软件
+implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.14.9'
+implementation group: 'com.google.flatbuffers', name: 'flatbuffers-java', version: '1.11.0'
+implementation(group: 'org.bouncycastle',name: 'bcprov-jdk15on', version: '1.68')
+}
+```
+
+具体实现可参考文档[情感分类应用](https://www.mindspore.cn/federated/docs/zh-CN/r1.5/sentiment_classification_application.html)中 `Android工程配置依赖项`部分提供的`app/build.gradle` 文件示例。
+
+注意2，由于联邦学习依赖的第三方开源软件`bcprov-jdk15on`包含多版本class文件，为防止低版本jdk编译高版本class文件出错，在Android工程的`gradle.properties`文件中可添加如下设置语句：
+
+```java
+android.jetifier.blacklist=bcprov
+```
+
+在Android工程中设置好了如上所示依赖之后，只需依赖 AAR包即可调用联邦学习提供的相关接口，接口的具体调用和运行方式可参考[联邦学习接口介绍部分](https://www.mindspore.cn/federated/api/zh-CN/r1.5/index.html)。
 
 ## x86环境
 

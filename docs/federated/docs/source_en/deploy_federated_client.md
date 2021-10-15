@@ -89,7 +89,27 @@ mindspore-lite-{version}
 └── classes.jar  # MindSpore Lite training framework JAR package
 ```
 
-The Android project only depends on the AAR package to call APIs provided by federated learning. For details about how to call and run the APIs, see the API description of federated learning.
+Note 1: since the federated learning jar package in the Android environment does not contain the dependent third-party open source software packages, in the Android environment, before using the AAR package, the user needs to add related dependency statements in the dependencies{} field to load the three open source software that Federated Learning depends on, and the dependencies{} field is in the app/build.gradle file under the Android project, as shown below:
+
+```java
+dependencies {
+
+// Add third-party open source software that federated learning relies on
+implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.14.9'
+implementation group: 'com.google.flatbuffers', name: 'flatbuffers-java', version: '1.11.0'
+implementation(group: 'org.bouncycastle',name: 'bcprov-jdk15on', version: '1.68')
+}
+```
+
+For specific implementation, please refer to the example of  `app/build.gradle` provided in the `Android project configuration dependencies` section in the document [sentiment classification application](https://www.mindspore.cn/federated/docs/en/r1.5/sentiment_classification_application.html).
+
+Note 2: since the third-party open source software `bcprov-jdk15on` that Federated Learning relies on contains multi-version class files, in order to prevent errors in compiling high-version class files with lower version jdk, the following setting statement can be added to the `gradle.properties` file of the Android project:
+
+```java
+android.jetifier.blacklist=bcprov
+```
+
+After setting up the dependencies shown above in the Android project, you only need to rely on the AAR package to call APIs provided by federated learning. For details about how to call and run the APIs, see the API description of federated learning.
 
 ## x86
 
