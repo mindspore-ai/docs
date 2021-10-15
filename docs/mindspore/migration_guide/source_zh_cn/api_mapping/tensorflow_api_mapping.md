@@ -79,4 +79,10 @@
 | [tf.zeros_like](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/zeros_like)                                                             |[mindspore.ops.ZerosLike](https://mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.ZerosLike.html)                                                     | 功能一致 |
 | [tf.distribute.Strategy](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/distribute/Strategy)                                           |[context.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL)](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.context.html#mindspore.context.set_auto_parallel_context) |  [差异对比](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/tensorflow_diff/DistributedTrain.html)|
 
+## TensorFlow Probability与MindSpore
 
+由社区提供的TensorFlow Probability APIs和MindSpore APIs之间的映射。
+
+| TensorFlow Probability 0.14.1 APIs                                                                                                                  | MindSpore APIs                                                                                                                                                       |  说明  |
+|-----------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|
+| [tfp.bijectors.Softplus](http://www.tensorflow.org/probability/api_docs/python/tfp/bijectors/Softplus)                                              |[mindspore.nn.probability.bijector.Softplus](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/nn_probability/mindspore.nn.probability.bijector.Softplus.html)|[差异对比](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/tensorflow_probability_diff/BijectorSoftplus.html)|

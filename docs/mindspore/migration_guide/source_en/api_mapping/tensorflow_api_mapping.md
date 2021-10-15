@@ -79,3 +79,11 @@ Mapping between TensorFlow APIs and MindSpore APIs, which is provided by the com
 | [tf.zeros_like](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/zeros_like)                                                             |[mindspore.ops.ZerosLike](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.ZerosLike.html)                                                     | same |
 | [tf.distribute.Strategy](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/distribute/Strategy)                                           |[context.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL)](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.context.html#mindspore.context.set_auto_parallel_context) |  [diff](https://www.mindspore.cn/docs/migration_guide/en/master/api_mapping/tensorflow_diff/DistributedTrain.html)|
 
+## TensorFlow Probability and MindSpore
+
+Mapping between TensorFlow Probability APIs and MindSpore APIs, which is provided by the community.
+
+| TensorFlow  Probability 0.14.1 APIs                                                                                                                 | MindSpore APIs                                                                                                                                             | Description |
+|-----------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|
+| [tfp.bijectors.Softplus](http://www.tensorflow.org/probability/api_docs/python/tfp/bijectors/Softplus)                                                              |[mindspore.nn.probability.bijector.Softplus](https://www.mindspore.cn/docs/api/en/master/api_python/nn_probability/mindspore.nn.probability.bijector.Softplus.html)                                             |[diff](https://www.mindspore.cn/docs/migration_guide/en/master/api_mapping/tensorflow_probability_diff/BijectorSoftplus.html)|
+
