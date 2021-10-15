@@ -11,6 +11,8 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/api/source_en/interface_description_federated_client.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
+Note that before using the following interfaces, you can first refer to the document [on-device deployment](https://www.mindspore.cn/federated/docs/en/master/deploy_federated_client.html) to deploy related environments.
+
 ## flJobRun() for Starting Federated Learning
 
 Before calling the flJobRun() API, instantiate the parameter class FLParameter and set related parameters as follows:
