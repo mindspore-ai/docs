@@ -184,34 +184,54 @@ ms_path = os.getenv("MS_PATH")
 if os.path.exists("../include"):
     shutil.rmtree("../include")
 os.mkdir("../include")
-with open("./SourceFileNames.txt") as f:
-    contents = f.readlines()
-    for i in contents:
-        if i == "\n":
-            continue
-        name = i.strip().strip("\n")
-        if "*" in name:
-            files = glob.glob(os.path.join(ms_path, name))
-            for file in files:
-                shutil.copy(file, "../include/")
-        else:
-            shutil.copy(os.path.join(ms_path, name), "../include/")
 
 with open("./SourceFileNames.json") as f:
     hfile_dic = json.load(f)
-    for i in hfile_dic.items():
+    exclude_hfiles = hfile_dic.get("with-exclude")
+    no_exclude_hfiles = hfile_dic.get("with-no-exclude")
+
+    # Deal with with-no-exclude.
+    hfile_no_exclude = []
+    for i in no_exclude_hfiles.items():
         dir_name, hfile_list_ = i
         source_dir = os.path.join(ms_path, os.path.normpath(dir_name))
-        target_dir = os.path.join("../include", os.path.normpath(re.sub("^mindspore/", "", dir_name)))
-        os.makedirs(target_dir, exist_ok=True)
-        for file_ in hfile_list_:
-            try:
-                shutil.copy(os.path.join(source_dir, file_), target_dir)
-            except FileNotFoundError:
-                logger.warning("头文件{}没有找到!".format(os.path.join(dir_name, file_)))
+        for j in hfile_list_:
+            if "*" in j:
+                hfile_no_exclude.extend(glob.glob(os.path.join(source_dir, j), recursive=True))
+            else:
+                hfile_no_exclude.append(os.path.join(source_dir, j))
+
+    # Deal with with-exclude.
+    hfile_lists = []
+    exclude_lists = []
+    for i in exclude_hfiles.items():
+        dir_name, pattern_ = i
+        source_dir = os.path.join(ms_path, os.path.normpath(dir_name))
+        for j in pattern_.get("pattern"):
+            if "*" in j:
+                hfile_lists.extend(glob.glob(os.path.join(source_dir, j), recursive=True))
+            else:
+                hfile_lists.append(os.path.join(source_dir, j))
+        for exclude_ in pattern_.get("exclude"):
+            if "*" in exclude_:
+                exclude_lists.extend(glob.glob(os.path.join(source_dir, exclude_), recursive=True))
+            else:
+                exclude_lists.append(os.path.join(source_dir, exclude_))
+
+    # Copy header files.
+    hfile_with_exclude = list(set(hfile_lists).difference(set(exclude_lists)))
+    all_hfiles = hfile_no_exclude + hfile_with_exclude
+    for file_ in all_hfiles:
+        target_dir = os.path.join("../include", os.path.normpath(re.sub(rf"^{ms_path}/(mindspore/)?", "", os.path.dirname(file_))))
+        try:
+            if not os.path.exists(target_dir):
+                os.makedirs(target_dir, exist_ok=True)
+            shutil.copy(file_, target_dir)
+        except FileNotFoundError:
+            logger.warning("头文件{} 没有找到,!".format(file_))
 
 # Remove "MS_API" in classes.
-files_copyed = glob.glob("../include/*.h")
+files_copyed = glob.glob("../include/**/*.h")
 for file in files_copyed:
     with open(file, "r+", encoding="utf8") as f:
         content = f.read()
