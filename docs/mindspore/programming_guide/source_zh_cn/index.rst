@@ -130,6 +130,7 @@ MindSpore编程指南
    dump_in_graph_mode
    custom_debugging_info
    incremental_operator_build
+   fixing_randomness
 
 .. toctree::
    :maxdepth: 1

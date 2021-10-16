@@ -433,32 +433,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 ### 固定MindSpore脚本随机性
 
-固定随机性的目的是使模型训练过程精确复现。固定随机性后，两次训练所产生的loss曲线应完全一致。固定MindSpore脚本随机性的步骤如下：
-
-1. 在脚本开始处固定全局随机数种子。包括MindSpore全局随机数种子，[mindspore.set_seed(1)](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/mindspore.html#mindspore.set_seed)，[mindspore.dataset.config.set_seed(1)](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.dataset.config.html#mindspore.dataset.config.set_seed)；numpy全局随机数种子`numpy.random.seed(1)`；python随机数种子`random.seed(1)`等。如下：
-
-    ```python
-    import random
-
-    import numpy
-
-    import mindspore
-
-    mindspore.set_seed(1)
-    mindspore.dataset.config.set_seed(1)
-    numpy.random.seed(1)
-    random.seed(1)
-    ```
-
-2. 固定超参。建议以明确的数值指定各个超参，涉及到动态学习率的，请确保生成动态学习率的各个参数都是确定的。避免使用带有随机性的超参。
-
-3. 固定初始化权重。建议通过加载固定checkpoint文件的形式固定初始化权重。加载checkpoint时要确保文件被完全加载，不能pop出某些key后再加载。
-
-4. 固定数据处理方法和数据顺序。删除或替换所有随机数据处理算子（例如 删除[RandomHorizontalFlip](https://mindspore.cn/docs/api/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.RandomHorizontalFlip.html#mindspore.dataset.vision.c_transforms.RandomHorizontalFlip)、将[RandomCrop](https://mindspore.cn/docs/api/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.RandomCrop.html#mindspore.dataset.vision.c_transforms.RandomCrop)替换为[Crop](https://mindspore.cn/docs/api/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.Crop.html#mindspore.dataset.vision.c_transforms.Crop)等）。关闭shuffle功能。不要使用数据集的sampler。将`num_parallel_workers`参数设置为1以避免并行数据处理对数据顺序的影响。如果需要从某个迭代开始训练，可以使用`dataset.skip()`接口跳过之前迭代的数据。目前已知的随机算子包括：所有名称中带有Random的算子。
-
-5. 固定网络。删除网络中带有随机性的算子，例如DropOut算子和名称中带有Random的算子。若有的随机算子确实不能删除，则应该设置固定的随机数种子（随机数种子建议选择0以外的数字）。DropOut算子随机性在部分场景下难以固定，建议始终删除。目前已知的随机算子包括：[Random Operators](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.ops.html#random-operators)、所有名称中带有DropOut的算子。
-
-进行上述操作后，在相同环境下两次运行训练脚本，检查loss曲线。若loss曲线完全一致（至少前两个loss值完全一致），则说明成功固定了随机性。
+见[固定随机性以复现脚本运行结果](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/fixing_randomness.html)。
 
 ### 复现精度问题
 
