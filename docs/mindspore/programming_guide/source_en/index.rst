@@ -53,6 +53,7 @@ Note: Clicking on the title with "↗" will leave the Programming Guide page.
    dataset
    pipeline
    dataset_advanced
+   dataset_usage
 
 .. toctree::
    :maxdepth: 1
