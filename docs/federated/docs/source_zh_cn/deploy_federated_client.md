@@ -96,7 +96,7 @@ dependencies {
 
 //添加联邦学习所依赖第三方开源软件
 implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.14.9'
-implementation group: 'com.google.flatbuffers', name: 'flatbuffers-java', version: '1.11.0'
+implementation group: 'com.google.flatbuffers', name: 'flatbuffers-java', version: '2.0.0'
 implementation(group: 'org.bouncycastle',name: 'bcprov-jdk15on', version: '1.68')
 }
 ```
