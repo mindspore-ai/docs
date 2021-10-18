@@ -91,7 +91,7 @@ mindspore-lite-{version}
 
 Note 1: since the federated learning jar package in the Android environment does not contain the dependent third-party open source software packages, in the Android environment, before using the AAR package, the user needs to add related dependency statements in the dependencies{} field to load the three open source software that Federated Learning depends on, and the dependencies{} field is in the app/build.gradle file under the Android project, as shown below:
 
-```java
+```text
 dependencies {
 
 // Add third-party open source software that federated learning relies on

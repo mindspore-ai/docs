@@ -185,6 +185,28 @@ if os.path.exists("../include"):
     shutil.rmtree("../include")
 os.mkdir("../include")
 
+#Copy header files mapping .cmake files.
+cmake_path = [("mindspore/lite/cmake/file_list.cmake", "${CORE_DIR}", "mindspore/core")]
+header_files = []
+for i in cmake_path:
+    with open(os.path.join(ms_path, i[0])) as f:
+        for j in f.readlines():
+            re_str = i[1].replace("$", "\$").replace('{', '\{').replace('}', '\}') + r'.*?\.h'
+            pattern_ = re.findall(re_str, j)
+            if not pattern_:
+                continue
+            header_files.append(os.path.join(ms_path, pattern_[0].replace(i[1], i[-1])))
+
+for file_ in header_files:
+        target_dir = os.path.join("../include", os.path.normpath(re.sub(rf"^{ms_path}/(mindspore/)?", "", os.path.dirname(file_))))
+        try:
+            if not os.path.exists(target_dir):
+                os.makedirs(target_dir, exist_ok=True)
+            shutil.copy(file_, target_dir)
+        except FileNotFoundError:
+            logger.warning("头文件{} 没有找到,!".format(file_))
+
+# Copy header files with specified path.
 with open("./SourceFileNames.json") as f:
     hfile_dic = json.load(f)
     exclude_hfiles = hfile_dic.get("with-exclude")
