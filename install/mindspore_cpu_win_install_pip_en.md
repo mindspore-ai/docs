@@ -6,7 +6,6 @@
     - [System Environment Information Confirmation](#system-environment-information-confirmation)
     - [Installing MindSpore](#installing-mindspore)
     - [Installation Verification](#installation-verification)
-    - [Version Update](#version-update)
 
 <!-- /TOC -->
 
@@ -50,11 +49,3 @@ The result of multiplication calculation is correct, MindSpore has been installe
 ```
 
 It means MindSpore has been installed successfully.
-
-## Version Update
-
-Using the following command if you need to update the MindSpore version:
-
-```bash
-pip install --upgrade mindspore
-```

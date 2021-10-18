@@ -6,7 +6,6 @@
     - [确认系统环境信息](#确认系统环境信息)
     - [安装MindSpore](#安装mindspore)
     - [验证是否安装成功](#验证是否安装成功)
-    - [升级MindSpore版本](#升级mindspore版本)
 
 <!-- /TOC -->
 
@@ -52,11 +51,3 @@ The result of multiplication calculation is correct, MindSpore has been installe
 ```
 
 说明MindSpore安装成功了。
-
-## 升级MindSpore版本
-
-当需要升级MindSpore版本时，可执行如下命令：
-
-```bash
-pip install --upgrade mindspore
-```
