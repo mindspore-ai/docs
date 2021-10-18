@@ -91,7 +91,7 @@ mindspore-lite-{version}
 
 注意1，由于生成Android环境中的联邦学习jar包时未包含所依赖的第三方开源软件包，因此在Android环境中，使用AAR包前，需要用户在Android工程下的app/build.gradle文件中，为dependencies{}字段添加相关依赖语句，用于加载联邦学习所依赖的三个开源软件，如下所示：
 
-```java
+```text
 dependencies {
 
 //添加联邦学习所依赖第三方开源软件

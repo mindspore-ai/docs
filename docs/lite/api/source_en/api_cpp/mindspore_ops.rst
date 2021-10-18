@@ -7,11 +7,7 @@ Classes
 
 - :doc:`../generate/classmindspore_ops_Abs`
 
-- :doc:`../generate/classmindspore_ops_AbsGrad`
-
 - :doc:`../generate/classmindspore_ops_Activation`
-
-- :doc:`../generate/classmindspore_ops_ActivationGrad`
 
 - :doc:`../generate/classmindspore_ops_Adam`
 
@@ -23,8 +19,6 @@ Classes
 
 - :doc:`../generate/classmindspore_ops_AddFusion`
 
-- :doc:`../generate/classmindspore_ops_AddGrad`
-
 - :doc:`../generate/classmindspore_ops_AddN`
 
 - :doc:`../generate/classmindspore_ops_Affine`
@@ -32,6 +26,8 @@ Classes
 - :doc:`../generate/classmindspore_ops_All`
 
 - :doc:`../generate/classmindspore_ops_ApplyAdagradDA`
+
+- :doc:`../generate/classmindspore_ops_ApplyKerasMomentum`
 
 - :doc:`../generate/classmindspore_ops_ApplyMomentum`
 
@@ -61,17 +57,11 @@ Classes
 
 - :doc:`../generate/classmindspore_ops_AvgPool3D`
 
-- :doc:`../generate/classmindspore_ops_AvgPool3DGrad`
-
 - :doc:`../generate/classmindspore_ops_AvgPoolFusion`
-
-- :doc:`../generate/classmindspore_ops_AvgPoolGrad`
 
 - :doc:`../generate/classmindspore_ops_BatchMatmul`
 
 - :doc:`../generate/classmindspore_ops_BatchNorm`
-
-- :doc:`../generate/classmindspore_ops_BatchNormGrad`
 
 - :doc:`../generate/classmindspore_ops_BatchToSpace`
 
@@ -79,13 +69,7 @@ Classes
 
 - :doc:`../generate/classmindspore_ops_BiasAdd`
 
-- :doc:`../generate/classmindspore_ops_BiasAddGrad`
-
 - :doc:`../generate/classmindspore_ops_BinaryCrossEntropy`
-
-- :doc:`../generate/classmindspore_ops_BinaryCrossEntropyGrad`
-
-- :doc:`../generate/classmindspore_ops_BNGrad`
 
 - :doc:`../generate/classmindspore_ops_Broadcast`
 
@@ -97,11 +81,13 @@ Classes
 
 - :doc:`../generate/classmindspore_ops_Cdist`
 
-- :doc:`../generate/classmindspore_ops_CdistGrad`
-
 - :doc:`../generate/classmindspore_ops_Ceil`
 
+- :doc:`../generate/classmindspore_ops_CeLU`
+
 - :doc:`../generate/classmindspore_ops_Clip`
+
+- :doc:`../generate/classmindspore_ops_Complex`
 
 - :doc:`../generate/classmindspore_ops_Concat`
 
@@ -111,11 +97,7 @@ Classes
 
 - :doc:`../generate/classmindspore_ops_Conv2D`
 
-- :doc:`../generate/classmindspore_ops_Conv2DBackpropFilter`
-
 - :doc:`../generate/classmindspore_ops_Conv2DBackpropFilterFusion`
-
-- :doc:`../generate/classmindspore_ops_Conv2DBackpropInput`
 
 - :doc:`../generate/classmindspore_ops_Conv2DBackpropInputFusion`
 
@@ -147,8 +129,6 @@ Classes
 
 - :doc:`../generate/classmindspore_ops_CustomPredict`
 
-- :doc:`../generate/classmindspore_ops_DeConv2DGradFilter`
-
 - :doc:`../generate/classmindspore_ops_Depend`
 
 - :doc:`../generate/classmindspore_ops_DepthToSpace`
@@ -163,15 +143,11 @@ Classes
 
 - :doc:`../generate/classmindspore_ops_DivFusion`
 
-- :doc:`../generate/classmindspore_ops_DivGrad`
-
 - :doc:`../generate/classmindspore_ops_Dropout`
 
 - :doc:`../generate/classmindspore_ops_DropoutDoMask`
 
 - :doc:`../generate/classmindspore_ops_DropoutGenMask`
-
-- :doc:`../generate/classmindspore_ops_DropoutGrad`
 
 - :doc:`../generate/classmindspore_ops_DType`
 
@@ -197,6 +173,8 @@ Classes
 
 - :doc:`../generate/classmindspore_ops_ExpFusion`
 
+- :doc:`../generate/classmindspore_ops_ExtractVolumePatches`
+
 - :doc:`../generate/classmindspore_ops_FakeQuantWithMinMaxVars`
 
 - :doc:`../generate/classmindspore_ops_FakeQuantWithMinMaxVarsPerChannel`
@@ -208,8 +186,6 @@ Classes
 - :doc:`../generate/classmindspore_ops_Fill`
 
 - :doc:`../generate/classmindspore_ops_Flatten`
-
-- :doc:`../generate/classmindspore_ops_FlattenGrad`
 
 - :doc:`../generate/classmindspore_ops_Floor`
 
@@ -229,6 +205,8 @@ Classes
 
 - :doc:`../generate/classmindspore_ops_GeLU`
 
+- :doc:`../generate/classmindspore_ops_Ger`
+
 - :doc:`../generate/classmindspore_ops_GetNext`
 
 - :doc:`../generate/classmindspore_ops_GLU`
@@ -237,19 +215,13 @@ Classes
 
 - :doc:`../generate/classmindspore_ops_GreaterEqual`
 
-- :doc:`../generate/classmindspore_ops_GroupConv2DGradInput`
-
 - :doc:`../generate/classmindspore_ops_GRU`
 
 - :doc:`../generate/classmindspore_ops_HashtableLookup`
 
 - :doc:`../generate/classmindspore_ops_HShrink`
 
-- :doc:`../generate/classmindspore_ops_HShrinkGrad`
-
 - :doc:`../generate/classmindspore_ops_HSigmoid`
-
-- :doc:`../generate/classmindspore_ops_HSigmoidGrad`
 
 - :doc:`../generate/classmindspore_ops_Identity`
 
@@ -265,6 +237,8 @@ Classes
 
 - :doc:`../generate/classmindspore_ops_L2NormalizeFusion`
 
+- :doc:`../generate/classmindspore_ops_LARSUpdate`
+
 - :doc:`../generate/classmindspore_ops_LayerNorm`
 
 - :doc:`../generate/classmindspore_ops_LayerNormBetaGammaBackprop`
@@ -272,8 +246,6 @@ Classes
 - :doc:`../generate/classmindspore_ops_LayerNormBetaGammaBackpropV2`
 
 - :doc:`../generate/classmindspore_ops_LayerNormFusion`
-
-- :doc:`../generate/classmindspore_ops_LayerNormGrad`
 
 - :doc:`../generate/classmindspore_ops_LayerNormXBackprop`
 
@@ -293,8 +265,6 @@ Classes
 
 - :doc:`../generate/classmindspore_ops_Log1p`
 
-- :doc:`../generate/classmindspore_ops_LogGrad`
-
 - :doc:`../generate/classmindspore_ops_LogicalAnd`
 
 - :doc:`../generate/classmindspore_ops_LogicalNot`
@@ -313,21 +283,15 @@ Classes
 
 - :doc:`../generate/classmindspore_ops_LSTM`
 
-- :doc:`../generate/classmindspore_ops_LSTMGrad`
-
 - :doc:`../generate/classmindspore_ops_MaskedFill`
 
 - :doc:`../generate/classmindspore_ops_MatMul`
 
 - :doc:`../generate/classmindspore_ops_Maximum`
 
-- :doc:`../generate/classmindspore_ops_MaximumGrad`
-
 - :doc:`../generate/classmindspore_ops_MaxPool`
 
 - :doc:`../generate/classmindspore_ops_MaxPoolFusion`
-
-- :doc:`../generate/classmindspore_ops_MaxPoolGrad`
 
 - :doc:`../generate/classmindspore_ops_Merge`
 
@@ -335,19 +299,13 @@ Classes
 
 - :doc:`../generate/classmindspore_ops_Minimum`
 
-- :doc:`../generate/classmindspore_ops_MinimumGrad`
-
 - :doc:`../generate/classmindspore_ops_Mod`
 
 - :doc:`../generate/classmindspore_ops_Mul`
 
 - :doc:`../generate/classmindspore_ops_MulFusion`
 
-- :doc:`../generate/classmindspore_ops_MulGrad`
-
 - :doc:`../generate/classmindspore_ops_Neg`
-
-- :doc:`../generate/classmindspore_ops_NegGrad`
 
 - :doc:`../generate/classmindspore_ops_NeighborExchange`
 
@@ -377,13 +335,7 @@ Classes
 
 - :doc:`../generate/classmindspore_ops_PartialFusion`
 
-- :doc:`../generate/classmindspore_ops_PoolGrad`
-
-- :doc:`../generate/classmindspore_ops_PoolingGrad`
-
 - :doc:`../generate/classmindspore_ops_Pow`
-
-- :doc:`../generate/classmindspore_ops_PowerGrad`
 
 - :doc:`../generate/classmindspore_ops_PowFusion`
 
@@ -437,10 +389,6 @@ Classes
 
 - :doc:`../generate/classmindspore_ops_ReLU6`
 
-- :doc:`../generate/classmindspore_ops_ReLUGrad`
-
-- :doc:`../generate/classmindspore_ops_ReLUGradV2`
-
 - :doc:`../generate/classmindspore_ops_ReLUV2`
 
 - :doc:`../generate/classmindspore_ops_Reshape`
@@ -448,8 +396,6 @@ Classes
 - :doc:`../generate/classmindspore_ops_Resize`
 
 - :doc:`../generate/classmindspore_ops_ResizeBilinear`
-
-- :doc:`../generate/classmindspore_ops_ResizeGrad`
 
 - :doc:`../generate/classmindspore_ops_ResizeNearestNeighbor`
 
@@ -466,8 +412,6 @@ Classes
 - :doc:`../generate/classmindspore_ops_Round`
 
 - :doc:`../generate/classmindspore_ops_Rsqrt`
-
-- :doc:`../generate/classmindspore_ops_RsqrtGrad`
 
 - :doc:`../generate/classmindspore_ops_ScalarSummary`
 
@@ -489,8 +433,6 @@ Classes
 
 - :doc:`../generate/classmindspore_ops_SigmoidCrossEntropyWithLogits`
 
-- :doc:`../generate/classmindspore_ops_SigmoidCrossEntropyWithLogitsGrad`
-
 - :doc:`../generate/classmindspore_ops_Sin`
 
 - :doc:`../generate/classmindspore_ops_Size`
@@ -503,11 +445,7 @@ Classes
 
 - :doc:`../generate/classmindspore_ops_SmoothL1Loss`
 
-- :doc:`../generate/classmindspore_ops_SmoothL1LossGrad`
-
 - :doc:`../generate/classmindspore_ops_SoftMarginLoss`
-
-- :doc:`../generate/classmindspore_ops_SoftMarginLossGrad`
 
 - :doc:`../generate/classmindspore_ops_Softmax`
 
@@ -516,8 +454,6 @@ Classes
 - :doc:`../generate/classmindspore_ops_Softplus`
 
 - :doc:`../generate/classmindspore_ops_SoftShrink`
-
-- :doc:`../generate/classmindspore_ops_SoftShrinkGrad`
 
 - :doc:`../generate/classmindspore_ops_SpaceToBatch`
 
@@ -541,8 +477,6 @@ Classes
 
 - :doc:`../generate/classmindspore_ops_Sqrt`
 
-- :doc:`../generate/classmindspore_ops_SqrtGrad`
-
 - :doc:`../generate/classmindspore_ops_Square`
 
 - :doc:`../generate/classmindspore_ops_SquaredDifference`
@@ -553,13 +487,9 @@ Classes
 
 - :doc:`../generate/classmindspore_ops_StridedSlice`
 
-- :doc:`../generate/classmindspore_ops_StridedSliceGrad`
-
 - :doc:`../generate/classmindspore_ops_Sub`
 
 - :doc:`../generate/classmindspore_ops_SubFusion`
-
-- :doc:`../generate/classmindspore_ops_SubGrad`
 
 - :doc:`../generate/classmindspore_ops_Switch`
 
@@ -597,6 +527,8 @@ Classes
 
 - :doc:`../generate/classmindspore_ops_Transpose`
 
+- :doc:`../generate/classmindspore_ops_Trunc`
+
 - :doc:`../generate/classmindspore_ops_UniformReal`
 
 - :doc:`../generate/classmindspore_ops_Unique`
@@ -623,396 +555,13 @@ Enums
 - :doc:`../generate/enum_mindspore_ops_Index-1`
 
 
-Functions
----------
-
-
-- :doc:`../generate/function_mindspore_ops_AdamInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_AddFusionInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_AddInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_AddNInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_ApplyAdagradDAInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_ApplyMomentumInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_ArgMaxFusionInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_ArgMaxInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_ArgMinFusionInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_ArgMinInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_ASinInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_AssertInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_AssignAddInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_ATanInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_AudioSpectrogramInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_AvgPool3DGradInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_AvgPool3DInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_AvgPoolFusionInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_AvgPoolGradInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_AvgPoolInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_BatchMatmulInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_BatchNormGradInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_BatchNormInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_BatchToSpaceInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_BatchToSpaceNDInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_BiasAddGradInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_BiasAddInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_BinaryCrossEntropyGradInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_BroadcastInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_BroadCastInferShape-1`
-
-- :doc:`../generate/function_mindspore_ops_BroadcastToInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_CalBroadCastShape-1`
-
-- :doc:`../generate/function_mindspore_ops_CastInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_CdistGradInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_CdistInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_CeilInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_ConcatInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_ConstantOfShapeInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_Conv2DBackpropFilterInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_Conv2DBackpropInputInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_Conv2dInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_Conv2DTransposeInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_CropInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_CTCLossInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_CTCLossV2GradInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_CTCLossV2Infer-1`
-
-- :doc:`../generate/function_mindspore_ops_CumSumInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_CustomExtractFeaturesInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_CustomNormalizeInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_CustomPredictInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_DependInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_DepthToSpaceInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_DetectionPostProcessInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_DiagInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_DiagPartInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_DivInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_DropoutDoMaskInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_DropoutGenMaskInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_DropoutGradInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_DropoutInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_DynamicBroadcastGradientArgsInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_EluInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_EmbeddingLookupInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_EqualInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_ErfinvInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_ExpandDimsInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_ExpInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_FakeQuantWithMinMaxVarsInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_FakeQuantWithMinMaxVarsPerChannelInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_FftImagInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_FftRealInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_FillInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_FlattenGradInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_FlattenInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_FloorInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_FullConnectionInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_GatherNdInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_GetFftLength-1`
-
-- :doc:`../generate/function_mindspore_ops_GetNextInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_GreaterEqualInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_GroupConv2DGradInputInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_HashtableLookupInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_HShrinkGradInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_HShrinkInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_HSigmoidGradInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_HSigmoidInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_IndexAddInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_L2NormalizeInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_LayerNormBetaGammaBackpropInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_LayerNormBetaGammaBackpropV2Infer-1`
-
-- :doc:`../generate/function_mindspore_ops_LayerNormFusionInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_LayerNormGradInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_LayerNormInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_LayerNormXBackpropInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_LayerNormXBackpropV2Infer-1`
-
-- :doc:`../generate/function_mindspore_ops_LeakyReluInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_LerpInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_LessEqualInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_LessInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_Log2Ceil-1`
-
-- :doc:`../generate/function_mindspore_ops_LogicalAndInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_LogicalNotInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_LogicalOrInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_LogInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_LrnInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_LshProjectionInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_LstmGradInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_LstmInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_MaskedFillInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_MaximumInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_MaxPoolFusionInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_MaxPoolGradInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_MaxPoolInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_MergeInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_MfccInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_MinimumInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_MulInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_NegInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_NeighborExchangeInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_NonMaxSuppressionInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_NotEqualInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_OnesLikeInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_PackInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_PadInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_PowInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_PReLUInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_PriorBoxInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_QuantDTypeCastInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_RangeInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_RankInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_RealDivInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_ReciprocalInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_ReduceFusionInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_ReduceInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_ReduceSumInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_ReLU6Infer-1`
-
-- :doc:`../generate/function_mindspore_ops_ReLUV2Infer-1`
-
-- :doc:`../generate/function_mindspore_ops_ReshapeInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_ResizeBilinearInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_ResizeGradInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_ResizeInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_ReverseSequenceInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_ReverseV2Infer-1`
-
-- :doc:`../generate/function_mindspore_ops_RfftInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_ROIPoolingInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_RollInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_RoundInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_RsqrtInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_ScatterNdInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_ScatterNdUpdateInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_SGDInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_SigmoidCrossEntropyWithLogitsGradInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_SigmoidCrossEntropyWithLogitsInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_SinInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_SkipGramInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_SliceFusionInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_SmoothL1LossGradInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_SmoothL1LossInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_SoftMarginLossGradInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_SoftMarginLossInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_SoftmaxCrossEntropyWithLogitsInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_SoftmaxInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_SoftShrinkGradInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_SoftShrinkInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_SpaceToBatchInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_SpaceToBatchNDInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_SpaceToDepthInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_SparseApplyRMSPropInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_SparseSoftmaxCrossEntropyWithLogitsInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_SparseToDenseInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_SplitInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_SplitVInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_SquaredDifferenceInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_SqueezeInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_StackInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_StridedSliceGradInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_StridedSliceInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_SubInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_TanInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_TensorListFromTensorInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_TensorListStackInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_TileInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_TopKInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_TransposeInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_UnpackInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_UnsortedSegmentSumInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_UnsqueezeInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_UnstackInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_WhereInfer-1`
-
-- :doc:`../generate/function_mindspore_ops_ZerosLikeInfer-1`
-
-
 Typedefs
 --------
 
 
 - :doc:`../generate/typedef_mindspore_ops_OpPrimCDefineFunc-1`
+
+- :doc:`../generate/typedef_mindspore_ops_PrimApplyKerasMomentumPtr-1`
 
 - :doc:`../generate/typedef_mindspore_ops_PrimArgMaxFusion-1`
 
@@ -1025,6 +574,8 @@ Typedefs
 - :doc:`../generate/typedef_mindspore_ops_PrimBroadcast-1`
 
 - :doc:`../generate/typedef_mindspore_ops_PrimCast-1`
+
+- :doc:`../generate/typedef_mindspore_ops_PrimCeLUPtr-1`
 
 - :doc:`../generate/typedef_mindspore_ops_PrimClipPtr-1`
 
@@ -1042,17 +593,19 @@ Typedefs
 
 - :doc:`../generate/typedef_mindspore_ops_PrimExpandDims-1`
 
-- :doc:`../generate/typedef_mindspore_ops_PrimFlattenGrad-1`
+- :doc:`../generate/typedef_mindspore_ops_PrimExtractVolumePatchesPtr-1`
 
 - :doc:`../generate/typedef_mindspore_ops_PrimGatherNd-1`
 
+- :doc:`../generate/typedef_mindspore_ops_PrimGerPtr-1`
+
 - :doc:`../generate/typedef_mindspore_ops_PrimGreaterEqual-1`
+
+- :doc:`../generate/typedef_mindspore_ops_PrimLARSUpdatePtr-1`
 
 - :doc:`../generate/typedef_mindspore_ops_PrimLayerNormPtr-1`
 
 - :doc:`../generate/typedef_mindspore_ops_PrimLrn-1`
-
-- :doc:`../generate/typedef_mindspore_ops_PrimMaxPoolGradPtr-1`
 
 - :doc:`../generate/typedef_mindspore_ops_PrimNonMaxSuppressionPtr-1`
 
@@ -1062,9 +615,9 @@ Typedefs
 
 - :doc:`../generate/typedef_mindspore_ops_PrimSplit-1`
 
-- :doc:`../generate/typedef_mindspore_ops_PrimStridedSliceGradPtr-1`
-
 - :doc:`../generate/typedef_mindspore_ops_PrimStridedSlicePtr-1`
+
+- :doc:`../generate/typedef_mindspore_ops_PrimTruncPtr-1`
 
 
 Variables
@@ -1323,11 +876,7 @@ Variables
 
 - :doc:`../generate/variable_mindspore_ops_kN-1`
 
-- :doc:`../generate/variable_mindspore_ops_kNameAbsGrad-1`
-
 - :doc:`../generate/variable_mindspore_ops_kNameActivation-1`
-
-- :doc:`../generate/variable_mindspore_ops_kNameActivationGrad-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameAdam-1`
 
@@ -1339,8 +888,6 @@ Variables
 
 - :doc:`../generate/variable_mindspore_ops_kNameAddFusion-1`
 
-- :doc:`../generate/variable_mindspore_ops_kNameAddGrad-1`
-
 - :doc:`../generate/variable_mindspore_ops_kNameAddN-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameAffine-1`
@@ -1348,6 +895,8 @@ Variables
 - :doc:`../generate/variable_mindspore_ops_kNameAll-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameApplyAdagradDA-1`
+
+- :doc:`../generate/variable_mindspore_ops_kNameApplyKerasMomentum-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameApplyMomentum-1`
 
@@ -1377,11 +926,7 @@ Variables
 
 - :doc:`../generate/variable_mindspore_ops_kNameAvgPoolFusion-1`
 
-- :doc:`../generate/variable_mindspore_ops_kNameAvgPoolGrad-1`
-
 - :doc:`../generate/variable_mindspore_ops_kNameBatchNorm-1`
-
-- :doc:`../generate/variable_mindspore_ops_kNameBatchNormGrad-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameBatchToSpace-1`
 
@@ -1389,13 +934,7 @@ Variables
 
 - :doc:`../generate/variable_mindspore_ops_kNameBiasAdd-1`
 
-- :doc:`../generate/variable_mindspore_ops_kNameBiasAddGrad-1`
-
 - :doc:`../generate/variable_mindspore_ops_kNameBinaryCrossEntropy-1`
-
-- :doc:`../generate/variable_mindspore_ops_kNameBinaryCrossEntropyGrad-1`
-
-- :doc:`../generate/variable_mindspore_ops_kNameBNGrad-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameBroadcast-1`
 
@@ -1405,9 +944,9 @@ Variables
 
 - :doc:`../generate/variable_mindspore_ops_kNameCdist-1`
 
-- :doc:`../generate/variable_mindspore_ops_kNameCdistGrad-1`
-
 - :doc:`../generate/variable_mindspore_ops_kNameCeil-1`
+
+- :doc:`../generate/variable_mindspore_ops_kNameCeLU-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameClip-1`
 
@@ -1419,11 +958,7 @@ Variables
 
 - :doc:`../generate/variable_mindspore_ops_kNameConv2D-1`
 
-- :doc:`../generate/variable_mindspore_ops_kNameConv2DBackpropFilter-1`
-
 - :doc:`../generate/variable_mindspore_ops_kNameConv2DBackpropFilterFusion-1`
-
-- :doc:`../generate/variable_mindspore_ops_kNameConv2DBackpropInput-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameConv2DBackpropInputFusion-1`
 
@@ -1451,8 +986,6 @@ Variables
 
 - :doc:`../generate/variable_mindspore_ops_kNameCustomPredict-1`
 
-- :doc:`../generate/variable_mindspore_ops_kNameDeConv2DGradFilter-1`
-
 - :doc:`../generate/variable_mindspore_ops_kNameDepend-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameDepthToSpace-1`
@@ -1462,8 +995,6 @@ Variables
 - :doc:`../generate/variable_mindspore_ops_kNameDiv-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameDivFusion-1`
-
-- :doc:`../generate/variable_mindspore_ops_kNameDivGrad-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameDropout-1`
 
@@ -1487,6 +1018,8 @@ Variables
 
 - :doc:`../generate/variable_mindspore_ops_kNameExpFusion-1`
 
+- :doc:`../generate/variable_mindspore_ops_kNameExtractVolumePatches-1`
+
 - :doc:`../generate/variable_mindspore_ops_kNameFakeQuantWithMinMaxVars-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameFakeQuantWithMinMaxVarsPerChannel-1`
@@ -1498,8 +1031,6 @@ Variables
 - :doc:`../generate/variable_mindspore_ops_kNameFill-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameFlatten-1`
-
-- :doc:`../generate/variable_mindspore_ops_kNameFlattenGrad-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameFloor-1`
 
@@ -1517,6 +1048,8 @@ Variables
 
 - :doc:`../generate/variable_mindspore_ops_kNameGeLU-1`
 
+- :doc:`../generate/variable_mindspore_ops_kNameGer-1`
+
 - :doc:`../generate/variable_mindspore_ops_kNameGetNext-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameGLU-1`
@@ -1525,19 +1058,13 @@ Variables
 
 - :doc:`../generate/variable_mindspore_ops_kNameGreaterEqual-1`
 
-- :doc:`../generate/variable_mindspore_ops_kNameGroupConv2DGradInput-1`
-
 - :doc:`../generate/variable_mindspore_ops_kNameGRU-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameHashtableLookup-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameHShrink-1`
 
-- :doc:`../generate/variable_mindspore_ops_kNameHShrinkGrad-1`
-
 - :doc:`../generate/variable_mindspore_ops_kNameHSigmoid-1`
-
-- :doc:`../generate/variable_mindspore_ops_kNameHSigmoidGrad-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameIdentity-1`
 
@@ -1553,11 +1080,11 @@ Variables
 
 - :doc:`../generate/variable_mindspore_ops_kNameL2NormalizeFusion-1`
 
+- :doc:`../generate/variable_mindspore_ops_kNameLARSUpdate-1`
+
 - :doc:`../generate/variable_mindspore_ops_kNameLayerNorm-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameLayerNormFusion-1`
-
-- :doc:`../generate/variable_mindspore_ops_kNameLayerNormGrad-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameLeakyRelu-1`
 
@@ -1570,8 +1097,6 @@ Variables
 - :doc:`../generate/variable_mindspore_ops_kNameLinSpace-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameLog-1`
-
-- :doc:`../generate/variable_mindspore_ops_kNameLogGrad-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameLogicalAnd-1`
 
@@ -1591,21 +1116,15 @@ Variables
 
 - :doc:`../generate/variable_mindspore_ops_kNameLSTM-1`
 
-- :doc:`../generate/variable_mindspore_ops_kNameLSTMGrad-1`
-
 - :doc:`../generate/variable_mindspore_ops_kNameMaskedFill-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameMatMul-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameMaximum-1`
 
-- :doc:`../generate/variable_mindspore_ops_kNameMaximumGrad-1`
-
 - :doc:`../generate/variable_mindspore_ops_kNameMaxPool-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameMaxPoolFusion-1`
-
-- :doc:`../generate/variable_mindspore_ops_kNameMaxPoolGrad-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameMerge-1`
 
@@ -1613,19 +1132,13 @@ Variables
 
 - :doc:`../generate/variable_mindspore_ops_kNameMinimum-1`
 
-- :doc:`../generate/variable_mindspore_ops_kNameMinimumGrad-1`
-
 - :doc:`../generate/variable_mindspore_ops_kNameMod-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameMul-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameMulFusion-1`
 
-- :doc:`../generate/variable_mindspore_ops_kNameMulGrad-1`
-
 - :doc:`../generate/variable_mindspore_ops_kNameNeg-1`
-
-- :doc:`../generate/variable_mindspore_ops_kNameNegGrad-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameNeighborExchange-1`
 
@@ -1645,13 +1158,7 @@ Variables
 
 - :doc:`../generate/variable_mindspore_ops_kNamePartialFusion-1`
 
-- :doc:`../generate/variable_mindspore_ops_kNamePoolGrad-1`
-
-- :doc:`../generate/variable_mindspore_ops_kNamePoolingGrad-1`
-
 - :doc:`../generate/variable_mindspore_ops_kNamePow-1`
-
-- :doc:`../generate/variable_mindspore_ops_kNamePowerGrad-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNamePowFusion-1`
 
@@ -1703,10 +1210,6 @@ Variables
 
 - :doc:`../generate/variable_mindspore_ops_kNameReLU6-1`
 
-- :doc:`../generate/variable_mindspore_ops_kNameReLUGrad-1`
-
-- :doc:`../generate/variable_mindspore_ops_kNameReLUGradV2-1`
-
 - :doc:`../generate/variable_mindspore_ops_kNameReLUV2-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameReshape-1`
@@ -1714,8 +1217,6 @@ Variables
 - :doc:`../generate/variable_mindspore_ops_kNameResize-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameResizeBilinear-1`
-
-- :doc:`../generate/variable_mindspore_ops_kNameResizeGrad-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameResizeNearestNeighbor-1`
 
@@ -1733,8 +1234,6 @@ Variables
 
 - :doc:`../generate/variable_mindspore_ops_kNameRsqrt-1`
 
-- :doc:`../generate/variable_mindspore_ops_kNameRsqrtGrad-1`
-
 - :doc:`../generate/variable_mindspore_ops_kNameScale-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameScaleFusion-1`
@@ -1751,8 +1250,6 @@ Variables
 
 - :doc:`../generate/variable_mindspore_ops_kNameSigmoidCrossEntropyWithLogits-1`
 
-- :doc:`../generate/variable_mindspore_ops_kNameSigmoidCrossEntropyWithLogitsGrad-1`
-
 - :doc:`../generate/variable_mindspore_ops_kNameSin-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameSize-1`
@@ -1765,19 +1262,13 @@ Variables
 
 - :doc:`../generate/variable_mindspore_ops_kNameSmoothL1Loss-1`
 
-- :doc:`../generate/variable_mindspore_ops_kNameSmoothL1LossGrad-1`
-
 - :doc:`../generate/variable_mindspore_ops_kNameSoftMarginLoss-1`
-
-- :doc:`../generate/variable_mindspore_ops_kNameSoftMarginLossGrad-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameSoftmax-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameSoftmaxCrossEntropyWithLogits-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameSoftShrink-1`
-
-- :doc:`../generate/variable_mindspore_ops_kNameSoftShrinkGrad-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameSpaceToBatch-1`
 
@@ -1801,8 +1292,6 @@ Variables
 
 - :doc:`../generate/variable_mindspore_ops_kNameSqrt-1`
 
-- :doc:`../generate/variable_mindspore_ops_kNameSqrtGrad-1`
-
 - :doc:`../generate/variable_mindspore_ops_kNameSquaredDifference-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameSqueeze-1`
@@ -1814,8 +1303,6 @@ Variables
 - :doc:`../generate/variable_mindspore_ops_kNameSub-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameSubFusion-1`
-
-- :doc:`../generate/variable_mindspore_ops_kNameSubGrad-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameSwitch-1`
 
@@ -1850,6 +1337,8 @@ Variables
 - :doc:`../generate/variable_mindspore_ops_kNameTopKFusion-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameTranspose-1`
+
+- :doc:`../generate/variable_mindspore_ops_kNameTrunc-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameUniformReal-1`
 
