@@ -31,7 +31,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{ms_version}/Rei
 
 ```shell
 bash build.sh
-pip install output/mindspore_rl-0.1-py3-none-any.whl
+pip install output/mindspore_rl-0.1.0-py3-none-any.whl
 ```
 
 其中，`build.sh`为`reinforcement`目录下的编译脚本文件。

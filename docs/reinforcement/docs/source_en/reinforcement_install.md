@@ -31,7 +31,7 @@ Download [source code](https://gitee.com/mindspore/reinforcement)，and enter `r
 
 ```shell
 bash build.sh
-pip install output/mindspore_rl-0.1-py3-none-any.whl
+pip install output/mindspore_rl-0.1.0-py3-none-any.whl
 ```
 
 The `build.sh` is the compile script under the `reinforcement` directory。
