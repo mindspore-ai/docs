@@ -8,7 +8,7 @@
 torch.autograd.enable_grad()
 ```
 
-For more information, see[torch.autograd.enable_grad](https://pytorch.org/docs/1.5.0/autograd.html#torch.autograd.enable_grad).
+For more information, see [torch.autograd.enable_grad](https://pytorch.org/docs/1.5.0/autograd.html#torch.autograd.enable_grad).
 
 ## torch.autograd.no_grad
 
@@ -16,7 +16,7 @@ For more information, see[torch.autograd.enable_grad](https://pytorch.org/docs/1
 torch.autograd.no_grad()
 ```
 
-For more information, see[torch.autograd.no_grad](https://pytorch.org/docs/1.5.0/autograd.html#torch.autograd.no_grad).
+For more information, see [torch.autograd.no_grad](https://pytorch.org/docs/1.5.0/autograd.html#torch.autograd.no_grad).
 
 ## mindspore.ops.stop_gradient
 
@@ -24,7 +24,7 @@ For more information, see[torch.autograd.no_grad](https://pytorch.org/docs/1.5.0
 mindspore.ops.stop_gradient(input)
 ```
 
-For more information, see[mindspore.ops.stop_gradient](https://www.mindspore.cn/tutorials/en/r1.5/autograd.html#stop-gradient).
+For more information, see [mindspore.ops.stop_gradient](https://www.mindspore.cn/tutorials/en/r1.5/autograd.html#stop-gradient).
 
 ## Differences
 

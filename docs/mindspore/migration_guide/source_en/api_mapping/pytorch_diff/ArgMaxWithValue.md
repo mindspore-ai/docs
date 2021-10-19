@@ -11,7 +11,7 @@ torch.max(
     keepdim=False)
 ```
 
-For more information, see[torch.max](https://pytorch.org/docs/1.5.0/torch.html#torch.max).
+For more information, see [torch.max](https://pytorch.org/docs/1.5.0/torch.html#torch.max).
 
 ## mindspore.ops.ArgMaxWithValue
 
@@ -22,7 +22,7 @@ class mindspore.ops.ArgMaxWithValue(
 )(input_x)
 ```
 
-For more information, see[mindspore.ops.ArgMaxWithValue](https://mindspore.cn/docs/api/en/r1.5/api_python/ops/mindspore.ops.ArgMaxWithValue.html#mindspore.ops.ArgMaxWithValue).
+For more information, see [mindspore.ops.ArgMaxWithValue](https://mindspore.cn/docs/api/en/r1.5/api_python/ops/mindspore.ops.ArgMaxWithValue.html#mindspore.ops.ArgMaxWithValue).
 
 ## Differences
 

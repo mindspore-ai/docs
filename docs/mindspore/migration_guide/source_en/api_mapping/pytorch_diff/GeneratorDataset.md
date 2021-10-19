@@ -8,7 +8,7 @@
 class torch.utils.data.Dataset
 ```
 
-For more information, see [torch.utils.data.Dataset](https://pytorch.org/docs/1.9.0/data.html?highlight=torch%20utils%20data%20dataset#torch.utils.data.Dataset).
+For more information, see  [torch.utils.data.Dataset](https://pytorch.org/docs/1.9.0/data.html?highlight=torch%20utils%20data%20dataset#torch.utils.data.Dataset).
 
 ## mindspore.dataset.GeneratorDataset
 
@@ -29,7 +29,7 @@ class mindspore.dataset.GeneratorDataset(
     )
 ```
 
-For more information, see [mindspore.dataset.GeneratorDataset](https://mindspore.cn/docs/api/zh-CN/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset).
+For more information, see  [mindspore.dataset.GeneratorDataset](https://mindspore.cn/docs/api/zh-CN/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset).
 
 ## Differences
 

@@ -11,7 +11,7 @@ torch.nn.init.constant_(
 )
 ```
 
-For more information, see[torch.nn.init.constant_](https://pytorch.org/docs/1.5.0/nn.init.html#torch.nn.init.constant_).
+For more information, see [torch.nn.init.constant_](https://pytorch.org/docs/1.5.0/nn.init.html#torch.nn.init.constant_).
 
 ## mindspore.common.initializer.Constant
 
@@ -19,7 +19,7 @@ For more information, see[torch.nn.init.constant_](https://pytorch.org/docs/1.5.
 class mindspore.common.initializer.Constant(value)(arr)
 ```
 
-For more information, see[mindspore.common.initializer.Constant](https://mindspore.cn/docs/api/en/r1.5/api_python/mindspore.common.initializer.html#mindspore.common.initializer.Constant).
+For more information, see [mindspore.common.initializer.Constant](https://mindspore.cn/docs/api/en/r1.5/api_python/mindspore.common.initializer.html#mindspore.common.initializer.Constant).
 
 ## Differences
 

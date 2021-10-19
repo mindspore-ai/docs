@@ -16,7 +16,7 @@ class torchvision.datasets.VOCDetection(
     )
 ```
 
-For more information, see[torchvision.datasets.VOCDetection](https://pytorch.org/vision/0.10/datasets.html#torchvision.datasets.VOCDetection).
+For more information, see [torchvision.datasets.VOCDetection](https://pytorch.org/vision/0.10/datasets.html#torchvision.datasets.VOCDetection).
 
 ## mindspore.dataset.VOCDataset
 
@@ -38,7 +38,7 @@ class mindspore.dataset.VOCDataset(
     )
 ```
 
-For more information, see[mindspore.dataset.VOCDataset](https://mindspore.cn/docs/api/en/r1.5/api_python/dataset/mindspore.dataset.VOCDataset.html#mindspore.dataset.VOCDataset).
+For more information, see [mindspore.dataset.VOCDataset](https://mindspore.cn/docs/api/en/r1.5/api_python/dataset/mindspore.dataset.VOCDataset.html#mindspore.dataset.VOCDataset).
 
 ## Differences
 

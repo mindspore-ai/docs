@@ -11,7 +11,7 @@ class torch.optim.Optimizer(
 )
 ```
 
-For more information, see[torch.optim.Optimizer](https://pytorch.org/docs/1.5.0/optim.html#torch.optim.Optimizer).
+For more information, see [torch.optim.Optimizer](https://pytorch.org/docs/1.5.0/optim.html#torch.optim.Optimizer).
 
 ## mindspore.nn.Optimizer()
 
@@ -24,7 +24,7 @@ class mindspore.nn.Optimizer(
 )
 ```
 
-For more information, see[mindspore.nn.Optimizer](https://mindspore.cn/docs/api/en/r1.5/api_python/nn/mindspore.nn.Optimizer.html#mindspore.nn.Optimizer).
+For more information, see [mindspore.nn.Optimizer](https://mindspore.cn/docs/api/en/r1.5/api_python/nn/mindspore.nn.Optimizer.html#mindspore.nn.Optimizer).
 
 ## Differences
 

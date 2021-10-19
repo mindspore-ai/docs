@@ -10,7 +10,7 @@ per_replica_losses = strategy.run(train_step, args=(dataset_inputs,))
 losses =  strategy.reduce(tf.distribute.ReduceOp.SUM, per_replica_losses, axis=None)
 ```
 
-For more information, see[tf.distribute.Strategy](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/distribute/Strategy).
+For more information, see [tf.distribute.Strategy](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/distribute/Strategy).
 
 ## mindspore.context.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
 
@@ -23,7 +23,7 @@ init()
 # Run net, the same with stand alone training
 ```
 
-For more information, see[context.set_auto_parallel_context(ParallelMode=ParallelMode.DataParallel)](https://mindspore.cn/docs/api/zh-CN/r1.5/api_python/mindspore.context.html#mindspore.context.set_auto_parallel_context).
+For more information, see [context.set_auto_parallel_context(ParallelMode=ParallelMode.DataParallel)](https://mindspore.cn/docs/api/zh-CN/r1.5/api_python/mindspore.context.html#mindspore.context.set_auto_parallel_context).
 
 ## Differences
 

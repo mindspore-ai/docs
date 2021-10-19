@@ -12,7 +12,7 @@ torchtext.data.functional.numericalize_tokens_from_iterator(
     )
 ```
 
-For more information, see[torchtext.data.functional.numericalize_tokens_from_iterator](https://pytorch.org/docs/1.5.0/data.html#torchtext.data.functional.numericalize_tokens_from_iterator).
+For more information, see [torchtext.data.functional.numericalize_tokens_from_iterator](https://pytorch.org/docs/1.5.0/data.html#torchtext.data.functional.numericalize_tokens_from_iterator).
 
 ## mindspore.dataset.text.transforms.Lookup
 
@@ -24,7 +24,7 @@ class mindspore.dataset.text.transforms.Lookup(
     )
 ```
 
-For more information, see[mindspore.dataset.text.transforms.Lookup](https://mindspore.cn/docs/api/en/r1.5/api_python/dataset_text/mindspore.dataset.text.transforms.Lookup.html#mindspore.dataset.text.transforms.Lookup).
+For more information, see [mindspore.dataset.text.transforms.Lookup](https://mindspore.cn/docs/api/en/r1.5/api_python/dataset_text/mindspore.dataset.text.transforms.Lookup.html#mindspore.dataset.text.transforms.Lookup).
 
 ## Differences
 

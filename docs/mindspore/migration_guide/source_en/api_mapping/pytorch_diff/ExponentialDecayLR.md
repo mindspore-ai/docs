@@ -13,7 +13,7 @@ torch.optim.lr_scheduler.ExponentialLR(
 )
 ```
 
-For more information, see[torch.optim.lr_scheduler.ExponentialLR](https://pytorch.org/docs/1.5.0/optim.html#torch.optim.lr_scheduler.ExponentialLR).
+For more information, see [torch.optim.lr_scheduler.ExponentialLR](https://pytorch.org/docs/1.5.0/optim.html#torch.optim.lr_scheduler.ExponentialLR).
 
 ## mindspore.nn.exponential_decay_lr
 
@@ -28,7 +28,7 @@ mindspore.nn.exponential_decay_lr(
 )
 ```
 
-For more information, see[mindspore.nn.exponential_decay_lr](https://mindspore.cn/docs/api/en/r1.5/api_python/nn/mindspore.nn.exponential_decay_lr.html#mindspore.nn.exponential_decay_lr).
+For more information, see [mindspore.nn.exponential_decay_lr](https://mindspore.cn/docs/api/en/r1.5/api_python/nn/mindspore.nn.exponential_decay_lr.html#mindspore.nn.exponential_decay_lr).
 
 ## mindspore.nn.ExponentialDecayLR
 
@@ -41,7 +41,7 @@ mindspore.nn.ExponentialDecayLR(
 )
 ```
 
-For more information, see[mindspore.nn.ExponentialDecayLR](https://www.mindspore.cn/docs/api/en/r1.5/api_python/nn/mindspore.nn.ExponentialDecayLR.html#mindspore.nn.ExponentialDecayLR).
+For more information, see [mindspore.nn.ExponentialDecayLR](https://www.mindspore.cn/docs/api/en/r1.5/api_python/nn/mindspore.nn.ExponentialDecayLR.html#mindspore.nn.ExponentialDecayLR).
 
 ## Differences
 
