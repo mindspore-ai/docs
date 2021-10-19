@@ -14,7 +14,7 @@ class tf.keras.optimizers.SGD(
 )
 ```
 
-For more information, see[tf.keras.optimizers.SGD](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/optimizers/SGD).
+For more information, see [tf.keras.optimizers.SGD](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/optimizers/SGD).
 
 ## mindspore.nn.SGD
 
@@ -30,7 +30,7 @@ class mindspore.nn.SGD(
 )(grads)
 ```
 
-For more information, see[mindspore.nn.SGD](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.SGD.html).
+For more information, see [mindspore.nn.SGD](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.SGD.html).
 
 ## Differences
 

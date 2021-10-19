@@ -14,7 +14,7 @@ class torch.optim.Adadelta(
 )
 ```
 
-For more information, see[torch.optim.Adadelta](https://pytorch.org/docs/1.5.0/optim.html#torch.optim.Adadelta).
+For more information, see [torch.optim.Adadelta](https://pytorch.org/docs/1.5.0/optim.html#torch.optim.Adadelta).
 
 ## mindspore.ops.ApplyAdadelta
 
@@ -30,7 +30,7 @@ class mindspore.ops.ApplyAdadelta(*args, **kwargs)(
 )
 ```
 
-For more information, see[mindspore.ops.ApplyAdadelta](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.ApplyAdadelta.html#mindspore.ops.ApplyAdadelta).
+For more information, see [mindspore.ops.ApplyAdadelta](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.ApplyAdadelta.html#mindspore.ops.ApplyAdadelta).
 
 ## Differences
 

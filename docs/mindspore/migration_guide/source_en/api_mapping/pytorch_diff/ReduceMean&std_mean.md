@@ -13,7 +13,7 @@ torch.std_mean(
 )
 ```
 
-For more information, see[torch.std_mean](https://pytorch.org/docs/1.5.0/torch.html#torch.std_mean).
+For more information, see [torch.std_mean](https://pytorch.org/docs/1.5.0/torch.html#torch.std_mean).
 
 ## mindspore.ops.ReduceMean
 
@@ -24,7 +24,7 @@ class mindspore.ops.ReduceMean(keep_dims=False)(
 )
 ```
 
-For more information, see[mindspore.ops.ReduceMean](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.ReduceMean.html#mindspore.ops.ReduceMean).
+For more information, see [mindspore.ops.ReduceMean](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.ReduceMean.html#mindspore.ops.ReduceMean).
 
 ## Differences
 

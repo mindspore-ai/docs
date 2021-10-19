@@ -14,7 +14,7 @@ class tf.keras.optimizers.Adagrad(
 )
 ```
 
-For more information, see[tf.keras.optimizers.Adagrad](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/optimizers/Adagrad).
+For more information, see [tf.keras.optimizers.Adagrad](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/optimizers/Adagrad).
 
 ## mindspore.nn.Adagrad
 
@@ -29,7 +29,7 @@ class mindspore.nn.Adagrad(
 )(grads)
 ```
 
-For more information, see[mindspore.nn.Adagrad](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Adagrad.html).
+For more information, see [mindspore.nn.Adagrad](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Adagrad.html).
 
 ## Differences
 

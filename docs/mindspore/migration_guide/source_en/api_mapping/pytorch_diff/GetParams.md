@@ -8,7 +8,7 @@
 torch.nn.Module.parameters(recurse=True)
 ```
 
-For more information, see[torch.nn.Module.parameters](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.Module.parameters).
+For more information, see [torch.nn.Module.parameters](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.Module.parameters).
 
 ## mindspore.nn.Cell.get_parameters
 
@@ -16,7 +16,7 @@ For more information, see[torch.nn.Module.parameters](https://pytorch.org/docs/1
 mindspore.nn.Cell.get_parameters(expand=True)
 ```
 
-For more information, see[mindspore.nn.Cell.get_parameters](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.get_parameters).
+For more information, see [mindspore.nn.Cell.get_parameters](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.get_parameters).
 
 ## Differences
 

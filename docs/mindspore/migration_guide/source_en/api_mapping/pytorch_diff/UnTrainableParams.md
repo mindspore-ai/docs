@@ -8,7 +8,7 @@
 torch.nn.Module.buffers(recurse=True)
 ```
 
-For more information, see[torch.nn.Module.buffers](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.Module.buffers).
+For more information, see [torch.nn.Module.buffers](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.Module.buffers).
 
 ## mindspore.nn.Cell.untrainable_params
 
@@ -16,7 +16,7 @@ For more information, see[torch.nn.Module.buffers](https://pytorch.org/docs/1.5.
 mindspore.nn.Cell.untrainable_params(recurse=True)
 ```
 
-For more information, see[mindspore.nn.Cell.untrainable_params](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.untrainable_params).
+For more information, see [mindspore.nn.Cell.untrainable_params](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.untrainable_params).
 
 ## Differences
 

@@ -15,7 +15,7 @@ class torch.randperm(
 )
 ```
 
-For more information, see [torch.randperm](https://pytorch.org/docs/1.5.0/torch.html#torch.randperm).
+For more information, see  [torch.randperm](https://pytorch.org/docs/1.5.0/torch.html#torch.randperm).
 
 ## mindspore.ops.Randperm
 
@@ -27,7 +27,7 @@ class mindspore.ops.Randperm(
 )(n)
 ```
 
-For more information, see [mindspore.ops.Randperm](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Randperm.html#mindspore.ops.Randperm).
+For more information, see  [mindspore.ops.Randperm](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Randperm.html#mindspore.ops.Randperm).
 
 ## Differences
 

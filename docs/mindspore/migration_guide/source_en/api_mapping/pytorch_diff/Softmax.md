@@ -13,7 +13,7 @@ torch.nn.functional.softmax(
 )
 ```
 
-For more information, see[torch.nn.functional.softmax](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.Softmax).
+For more information, see [torch.nn.functional.softmax](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.Softmax).
 
 ## mindspore.ops.Softmax
 
@@ -23,7 +23,7 @@ class mindspore.ops.Softmax(
 )(logits)
 ```
 
-For more information, see[mindspore.ops.Softmax](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Softmax.html#mindspore.ops.Softmax).
+For more information, see [mindspore.ops.Softmax](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Softmax.html#mindspore.ops.Softmax).
 
 ## Differences
 
