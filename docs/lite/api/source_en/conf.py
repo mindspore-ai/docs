@@ -115,11 +115,13 @@ exhale_args = {
     "createTreeView": True,
     "exhaleExecutesDoxygen": True,
     "exhaleUseDoxyfile": False,
-    "verboseBuild": True,
+    "verboseBuild": False,
     "exhaleDoxygenStdin": textwrap.dedent("""
         INPUT = ../include
         EXTRACT_ALL = NO
-        EXCLUDE_SYMBOLS = operator/
+        HIDE_UNDOC_CLASSES = YES
+        HIDE_UNDOC_MEMBERS = YES
+        EXCLUDE_SYMBOLS = operator*
     """),
     'contentsDirectives': False,
 
