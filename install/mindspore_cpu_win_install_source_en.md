@@ -74,12 +74,6 @@ It means MindSpore has been installed successfully.
 
 Using the following command if you need to update the MindSpore version:
 
-- Update online
-
-    ```bash
-    pip install --upgrade mindspore
-    ```
-
 - Update after source code compilation
 
     After successfully executing the compile script `build.bat` in the root path of the source code, find the whl package in path `output`, use the following command to update your version.

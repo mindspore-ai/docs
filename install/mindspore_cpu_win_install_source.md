@@ -77,12 +77,6 @@ The result of multiplication calculation is correct, MindSpore has been installe
 
 当需要升级MindSpore版本时，可执行如下命令：
 
-- 直接在线升级
-
-    ```bash
-    pip install --upgrade mindspore
-    ```
-
 - 本地源码编译升级
 
     在源码根目录下执行编译脚本`build.sh`成功后，在`output`目录下找到编译生成的whl安装包，然后执行命令进行升级。
