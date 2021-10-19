@@ -14,7 +14,7 @@ torch.optim.lr_scheduler.StepLR(
 )
 ```
 
-For more information, see[torch.optim.lr_scheduler.StepLR](https://pytorch.org/docs/1.5.0/optim.html#torch.optim.lr_scheduler.StepLR).
+For more information, see [torch.optim.lr_scheduler.StepLR](https://pytorch.org/docs/1.5.0/optim.html#torch.optim.lr_scheduler.StepLR).
 
 ## torch.optim.lr_scheduler.MultiStepLR
 
@@ -28,7 +28,7 @@ torch.optim.lr_scheduler.MultiStepLR(
 )
 ```
 
-For more information, see[torch.optim.lr_scheduler.MultiStepLR](https://pytorch.org/docs/1.5.0/optim.html#torch.optim.lr_scheduler.MultiStepLR).
+For more information, see [torch.optim.lr_scheduler.MultiStepLR](https://pytorch.org/docs/1.5.0/optim.html#torch.optim.lr_scheduler.MultiStepLR).
 
 ## mindspore.nn.piecewise_constant_lr
 
@@ -39,7 +39,7 @@ mindspore.nn.piecewise_constant_lr(
 )
 ```
 
-For more information, see[mindspore.nn.piecewise_constant_lr](https://mindspore.cn/docs/api/en/r1.5/api_python/nn/mindspore.nn.piecewise_constant_lr.html#mindspore.nn.piecewise_constant_lr).
+For more information, see [mindspore.nn.piecewise_constant_lr](https://mindspore.cn/docs/api/en/r1.5/api_python/nn/mindspore.nn.piecewise_constant_lr.html#mindspore.nn.piecewise_constant_lr).
 
 ## Differences
 

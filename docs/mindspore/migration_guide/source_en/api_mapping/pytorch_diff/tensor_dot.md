@@ -12,7 +12,7 @@ torch.dot(
 )
 ```
 
-For more information, see[torch.dot](https://pytorch.org/docs/1.5.0/torch.html#torch.dot).
+For more information, see [torch.dot](https://pytorch.org/docs/1.5.0/torch.html#torch.dot).
 
 ## mindspore.ops.tensor_dot
 
@@ -24,7 +24,7 @@ mindspore.ops.tensor_dot(
 )
 ```
 
-For more information, see[mindspore.ops.tensor_dot](https://mindspore.cn/docs/api/en/r1.5/api_python/ops/mindspore.ops.tensor_dot.html#mindspore.ops.tensor_dot).
+For more information, see [mindspore.ops.tensor_dot](https://mindspore.cn/docs/api/en/r1.5/api_python/ops/mindspore.ops.tensor_dot.html#mindspore.ops.tensor_dot).
 
 ## Differences
 

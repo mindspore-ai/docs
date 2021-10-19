@@ -8,7 +8,7 @@
 class torch.nn.GELU()(input)
 ```
 
-For more information, see[torch.nn.GELU](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.GELU).
+For more information, see [torch.nn.GELU](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.GELU).
 
 ## mindspore.nn.FastGelu
 
@@ -16,7 +16,7 @@ For more information, see[torch.nn.GELU](https://pytorch.org/docs/1.5.0/nn.html#
 class mindspore.nn.FastGelu()(input_data)
 ```
 
-For more information, see[mindspore.nn.FastGelu](https://mindspore.cn/docs/api/en/r1.5/api_python/nn/mindspore.nn.FastGelu.html#mindspore.nn.FastGelu).
+For more information, see [mindspore.nn.FastGelu](https://mindspore.cn/docs/api/en/r1.5/api_python/nn/mindspore.nn.FastGelu.html#mindspore.nn.FastGelu).
 
 ## Differences
 

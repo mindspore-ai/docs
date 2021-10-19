@@ -11,7 +11,7 @@ torchtext.data.utils.ngrams_iterator(
     )
 ```
 
-For more information, see[torchtext.data.utils.ngrams_iterator](https://pytorch.org/docs/1.5.0/data.html#torchtext.data.utils.ngrams_iterator).
+For more information, see [torchtext.data.utils.ngrams_iterator](https://pytorch.org/docs/1.5.0/data.html#torchtext.data.utils.ngrams_iterator).
 
 ## mindspore.dataset.text.transforms.Ngram
 
@@ -24,7 +24,7 @@ class mindspore.dataset.text.transforms.Ngram(
     )
 ```
 
-For more information, see[mindspore.dataset.text.transforms.Ngram](https://mindspore.cn/docs/api/en/r1.5/api_python/dataset_text/mindspore.dataset.text.transforms.Ngram.html#mindspore.dataset.text.transforms.Ngram).
+For more information, see [mindspore.dataset.text.transforms.Ngram](https://mindspore.cn/docs/api/en/r1.5/api_python/dataset_text/mindspore.dataset.text.transforms.Ngram.html#mindspore.dataset.text.transforms.Ngram).
 
 ## Differences
 

@@ -16,7 +16,7 @@ torch.topk(
 )
 ```
 
-For more information, see[torch.topk](https://pytorch.org/docs/1.5.0/torch.html#torch.topk).
+For more information, see [torch.topk](https://pytorch.org/docs/1.5.0/torch.html#torch.topk).
 
 ## mindspore.ops.TopK
 
@@ -26,7 +26,7 @@ class mindspore.ops.TopK(
 )(input_x, k)
 ```
 
-For more information, see[mindspore.ops.TopK](https://mindspore.cn/docs/api/en/r1.5/api_python/ops/mindspore.ops.TopK.html#mindspore.ops.TopK).
+For more information, see [mindspore.ops.TopK](https://mindspore.cn/docs/api/en/r1.5/api_python/ops/mindspore.ops.TopK.html#mindspore.ops.TopK).
 
 ## Differences
 

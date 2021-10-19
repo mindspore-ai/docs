@@ -12,7 +12,7 @@ torch.flatten(
 )
 ```
 
-For more information, see[torch.flatten](https://pytorch.org/docs/1.5.0/torch.html#torch.flatten).
+For more information, see [torch.flatten](https://pytorch.org/docs/1.5.0/torch.html#torch.flatten).
 
 ## mindspore.ops.Flatten
 
@@ -20,7 +20,7 @@ For more information, see[torch.flatten](https://pytorch.org/docs/1.5.0/torch.ht
 class mindspore.ops.Flatten(*args, **kwargs)(input_x)
 ```
 
-For more information, see[mindspore.ops.Flatten](https://mindspore.cn/docs/api/en/r1.5/api_python/ops/mindspore.ops.Flatten.html#mindspore.ops.Flatten).
+For more information, see [mindspore.ops.Flatten](https://mindspore.cn/docs/api/en/r1.5/api_python/ops/mindspore.ops.Flatten.html#mindspore.ops.Flatten).
 
 ## Differences
 

@@ -15,7 +15,7 @@ torch.norm(
 )
 ```
 
-For more information, see[torch.norm](https://pytorch.org/docs/1.5.0/torch.html#torch.norm).
+For more information, see [torch.norm](https://pytorch.org/docs/1.5.0/torch.html#torch.norm).
 
 ## mindspore.nn.Norm
 
@@ -26,7 +26,7 @@ class mindspore.nn.Norm(
 )(input)
 ```
 
-For more information, see[mindspore.nn.Norm](https://mindspore.cn/docs/api/en/r1.5/api_python/nn/mindspore.nn.Norm.html#mindspore.nn.Norm).
+For more information, see [mindspore.nn.Norm](https://mindspore.cn/docs/api/en/r1.5/api_python/nn/mindspore.nn.Norm.html#mindspore.nn.Norm).
 
 ## Differences
 

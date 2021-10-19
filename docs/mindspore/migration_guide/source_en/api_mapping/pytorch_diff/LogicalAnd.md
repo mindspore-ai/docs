@@ -8,7 +8,7 @@
 class torch.logical_and(input, other, out=None)
 ```
 
-For more information, see [torch.logical_and](https://pytorch.org/docs/1.5.0/torch.html#torch.logical_and).
+For more information, see  [torch.logical_and](https://pytorch.org/docs/1.5.0/torch.html#torch.logical_and).
 
 ## mindspore.ops.LogicalAnd
 
@@ -16,7 +16,7 @@ For more information, see [torch.logical_and](https://pytorch.org/docs/1.5.0/tor
 class class mindspore.ops.LogicalAnd(x, y)
 ```
 
-For more information, see [mindspore.ops.LogicalAnd](https://mindspore.cn/docs/api/en/r1.5/api_python/ops/mindspore.ops.LogicalAnd.html#mindspore.ops.LogicalAnd).
+For more information, see  [mindspore.ops.LogicalAnd](https://mindspore.cn/docs/api/en/r1.5/api_python/ops/mindspore.ops.LogicalAnd.html#mindspore.ops.LogicalAnd).
 
 ## Differences
 
