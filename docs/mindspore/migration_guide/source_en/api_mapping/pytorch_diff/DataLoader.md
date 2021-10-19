@@ -11,7 +11,7 @@ class torch.utils.data.DataLoader(
     timeout=0, worker_init_fn=None, multiprocessing_context=None)
 ```
 
-For more information, see[torch.utils.data.DataLoader](https://pytorch.org/docs/1.5.0/data.html#torch.utils.data.DataLoader).
+For more information, see [torch.utils.data.DataLoader](https://pytorch.org/docs/1.5.0/data.html#torch.utils.data.DataLoader).
 
 ## MindSpore
 

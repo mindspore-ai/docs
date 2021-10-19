@@ -10,7 +10,7 @@ torchtext.data.functional.load_sp_model(
     )
 ```
 
-For more information, see[torchtext.data.functional.load_sp_model](https://pytorch.org/docs/1.5.0/data.html#torchtext.data.functional.load_sp_model).
+For more information, see [torchtext.data.functional.load_sp_model](https://pytorch.org/docs/1.5.0/data.html#torchtext.data.functional.load_sp_model).
 
 ## mindspore.dataset.text.utils.SentencePieceVocab
 
@@ -18,7 +18,7 @@ For more information, see[torchtext.data.functional.load_sp_model](https://pytor
 classmindspore.dataset.text.utils.SentencePieceVocab
 ```
 
-For more information, see[mindspore.dataset.text.utils.SentencePieceVocab](https://www.mindspore.cn/docs/api/en/master/api_python/dataset_text/mindspore.dataset.text.SentencePieceVocab.html#mindspore.dataset.text.utils.SentencePieceVocab).
+For more information, see [mindspore.dataset.text.utils.SentencePieceVocab](https://www.mindspore.cn/docs/api/en/master/api_python/dataset_text/mindspore.dataset.text.SentencePieceVocab.html#mindspore.dataset.text.utils.SentencePieceVocab).
 
 ## Differences
 

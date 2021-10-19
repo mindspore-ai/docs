@@ -8,7 +8,7 @@
 torch.optim.Optimizer.step(closure)
 ```
 
-For more information, see[torch.optim.Optimizer.step](https://pytorch.org/docs/1.5.0/optim.html#torch.optim.Optimizer.step).
+For more information, see [torch.optim.Optimizer.step](https://pytorch.org/docs/1.5.0/optim.html#torch.optim.Optimizer.step).
 
 ## mindspore.nn.TrainOneStepCell
 
@@ -20,7 +20,7 @@ class mindspore.nn.TrainOneStepCell(
 )((*inputs))
 ```
 
-For more information, see[mindspore.nn.TrainOneStepCell](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.TrainOneStepCell.html#mindspore.nn.TrainOneStepCell).
+For more information, see [mindspore.nn.TrainOneStepCell](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.TrainOneStepCell.html#mindspore.nn.TrainOneStepCell).
 
 ## Differences
 

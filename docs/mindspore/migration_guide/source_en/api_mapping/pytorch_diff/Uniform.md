@@ -12,7 +12,7 @@ torch.nn.init.uniform_(
 )
 ```
 
-For more information, see[torch.nn.init.uniform_](https://pytorch.org/docs/1.5.0/nn.init.html#torch.nn.init.uniform_).
+For more information, see [torch.nn.init.uniform_](https://pytorch.org/docs/1.5.0/nn.init.html#torch.nn.init.uniform_).
 
 ## mindspore.common.initializer.Uniform
 
@@ -20,7 +20,7 @@ For more information, see[torch.nn.init.uniform_](https://pytorch.org/docs/1.5.0
 class mindspore.common.initializer.Uniform(scale=0.07)(arr)
 ```
 
-For more information, see[mindspore.common.initializer.Uniform](https://mindspore.cn/docs/api/en/master/api_python/mindspore.common.initializer.html#mindspore.common.initializer.Uniform).
+For more information, see [mindspore.common.initializer.Uniform](https://mindspore.cn/docs/api/en/master/api_python/mindspore.common.initializer.html#mindspore.common.initializer.Uniform).
 
 ## Differences
 

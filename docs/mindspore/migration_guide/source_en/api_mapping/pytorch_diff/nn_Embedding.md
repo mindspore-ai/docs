@@ -16,7 +16,7 @@ class torch.nn.Embedding(
     _weight=None)
 ```
 
-For more information, see[torch.nn.Embedding](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.Embedding).
+For more information, see [torch.nn.Embedding](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.Embedding).
 
 ## mindspore.nn.Embedding
 
@@ -30,7 +30,7 @@ class mindspore.nn.Embedding(
     padding_idx=None)
 ```
 
-For more information, see[mindspore.nn.Embedding](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Embedding.html?#mindspore.nn.Embedding).
+For more information, see [mindspore.nn.Embedding](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Embedding.html?#mindspore.nn.Embedding).
 
 ## Differences
 

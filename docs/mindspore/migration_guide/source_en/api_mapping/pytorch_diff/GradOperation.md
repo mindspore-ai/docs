@@ -14,7 +14,7 @@ torch.autograd.backward(
 )
 ```
 
-For more information, see[torch.autograd.backward](https://pytorch.org/docs/1.5.0/autograd.html#torch.autograd.backward).
+For more information, see [torch.autograd.backward](https://pytorch.org/docs/1.5.0/autograd.html#torch.autograd.backward).
 
 ## torch.autograd.grad
 
@@ -30,7 +30,7 @@ torch.autograd.grad(
 )
 ```
 
-For more information, see[torch.autograd.grad](https://pytorch.org/docs/1.5.0/autograd.html#torch.autograd.grad).
+For more information, see [torch.autograd.grad](https://pytorch.org/docs/1.5.0/autograd.html#torch.autograd.grad).
 
 ## mindspore.ops.GradOperation
 
@@ -42,7 +42,7 @@ class mindspore.ops.GradOperation(
 )
 ```
 
-For more information, see[mindspore.ops.GradOperation](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.GradOperation.html#mindspore.ops.GradOperation).
+For more information, see [mindspore.ops.GradOperation](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.GradOperation.html#mindspore.ops.GradOperation).
 
 ## Differences
 

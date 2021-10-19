@@ -18,7 +18,7 @@ tf.gradients(
 )
 ```
 
-For more information, see[tf.gradients](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/gradients).
+For more information, see [tf.gradients](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/gradients).
 
 ## mindspore.ops.GradOperation
 
@@ -30,7 +30,7 @@ class mindspore.ops.GradOperation(
 )
 ```
 
-For more information, see[mindspore.ops.GradOperation](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.GradOperation.html).
+For more information, see [mindspore.ops.GradOperation](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.GradOperation.html).
 
 ## Differences
 

@@ -11,7 +11,7 @@ torch.min(
     keepdim=False)
 ```
 
-For more information, see[torch.min](https://pytorch.org/docs/1.5.0/torch.html#torch.min).
+For more information, see [torch.min](https://pytorch.org/docs/1.5.0/torch.html#torch.min).
 
 ## mindspore.ops.ArgMinWithValue
 
@@ -22,7 +22,7 @@ class mindspore.ops.ArgMinWithValue(
 )(input_x)
 ```
 
-For more information, see[mindspore.ops.ArgMinWithValue](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.ArgMinWithValue.html#mindspore.ops.ArgMinWithValue).
+For more information, see [mindspore.ops.ArgMinWithValue](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.ArgMinWithValue.html#mindspore.ops.ArgMinWithValue).
 
 ## Differences
 

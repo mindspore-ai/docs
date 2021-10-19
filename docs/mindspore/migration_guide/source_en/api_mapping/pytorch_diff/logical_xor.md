@@ -8,7 +8,7 @@
 class torch.logical_xor(input, other, out=None)
 ```
 
-For more information, see [torch.logical_xor](https://pytorch.org/docs/1.5.0/torch.html#torch.logical_xor).
+For more information, see  [torch.logical_xor](https://pytorch.org/docs/1.5.0/torch.html#torch.logical_xor).
 
 ## mindspore.numpy.logical_xor
 
@@ -16,7 +16,7 @@ For more information, see [torch.logical_xor](https://pytorch.org/docs/1.5.0/tor
 class mindspore.numpy.logical_xor(x1, x2, dtype=None)
 ```
 
-For more information, see [mindspore.numpy.logical_xor](https://mindspore.cn/docs/api/en/master/api_python/numpy/mindspore.numpy.logical_xor.html#mindspore.numpy.logical_xor).
+For more information, see  [mindspore.numpy.logical_xor](https://mindspore.cn/docs/api/en/master/api_python/numpy/mindspore.numpy.logical_xor.html#mindspore.numpy.logical_xor).
 
 ## Differences
 

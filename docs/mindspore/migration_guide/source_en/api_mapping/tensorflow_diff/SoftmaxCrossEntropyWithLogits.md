@@ -15,7 +15,7 @@ class tf.nn.softmax_cross_entropy_with_logits(
 )
 ```
 
-For more information, see[tf.nn.softmax_cross_entropy_with_logits](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/nn/softmax_cross_entropy_with_logits).
+For more information, see [tf.nn.softmax_cross_entropy_with_logits](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/nn/softmax_cross_entropy_with_logits).
 
 ## mindspore.nn.SoftmaxCrossEntropyWithLogits
 
@@ -26,7 +26,7 @@ class mindspore.nn.SoftmaxCrossEntropyWithLogits(
 )(logits, labels)
 ```
 
-For more information, see[mindspore.nn.SoftmaxCrossEntropyWithLogits](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.SoftmaxCrossEntropyWithLogits.html).
+For more information, see [mindspore.nn.SoftmaxCrossEntropyWithLogits](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.SoftmaxCrossEntropyWithLogits.html).
 
 ## Differences
 

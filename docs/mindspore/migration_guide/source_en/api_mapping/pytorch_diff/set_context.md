@@ -8,7 +8,7 @@
 torch.cuda.set_device(device)
 ```
 
-For more information, see[torch.cuda.set_device](https://pytorch.org/docs/1.5.0/cuda.html#torch.cuda.set_device).
+For more information, see [torch.cuda.set_device](https://pytorch.org/docs/1.5.0/cuda.html#torch.cuda.set_device).
 
 ## mindspore.context.set_context
 
@@ -16,7 +16,7 @@ For more information, see[torch.cuda.set_device](https://pytorch.org/docs/1.5.0/
 mindspore.context.set_context(**kwargs)
 ```
 
-For more information, see[mindspore.context.set_context](https://mindspore.cn/docs/api/en/master/api_python/mindspore.context.html#mindspore.context.set_context).
+For more information, see [mindspore.context.set_context](https://mindspore.cn/docs/api/en/master/api_python/mindspore.context.html#mindspore.context.set_context).
 
 ## Differences
 

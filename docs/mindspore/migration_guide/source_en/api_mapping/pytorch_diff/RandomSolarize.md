@@ -11,7 +11,7 @@ class torchvision.transforms.RandomSolarize(
     )
 ```
 
-For more information, see [torchvision.transforms.RandomSolarize](https://pytorch.org/vision/0.10/transforms.html#torchvision.transforms.RandomSolarize).
+For more information, see  [torchvision.transforms.RandomSolarize](https://pytorch.org/vision/0.10/transforms.html#torchvision.transforms.RandomSolarize).
 
 ## mindspore.dataset.vision.c_transforms.RandomSolarize
 
@@ -21,7 +21,7 @@ class mindspore.dataset.vision.c_transforms.RandomSolarize(
     )
 ```
 
-For more information, see [mindspore.dataset.vision.c_transforms.RandomSolarize](https://mindspore.cn/docs/api/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.RandomSolarize.html#mindspore.dataset.vision.c_transforms.RandomSolarize).
+For more information, see  [mindspore.dataset.vision.c_transforms.RandomSolarize](https://mindspore.cn/docs/api/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.RandomSolarize.html#mindspore.dataset.vision.c_transforms.RandomSolarize).
 
 ## Differences
 

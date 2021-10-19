@@ -12,7 +12,7 @@ class torch.argsort(
 )
 ```
 
-For more information, see [torch.argsort](https://pytorch.org/docs/1.5.0/torch.html#torch.argsort).
+For more information, see  [torch.argsort](https://pytorch.org/docs/1.5.0/torch.html#torch.argsort).
 
 ## mindspore.ops.Sort
 
@@ -23,7 +23,7 @@ class mindspore.ops.Sort(
 )(x)
 ```
 
-For more information, see [mindspore.ops.Sort](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Sort.html#mindspore.ops.Sort).
+For more information, see  [mindspore.ops.Sort](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Sort.html#mindspore.ops.Sort).
 
 ## Differences
 

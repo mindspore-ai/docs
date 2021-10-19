@@ -16,7 +16,7 @@ class tf.train.linear_cosine_decay(
 )
 ```
 
-For more information, see[tf.train.linear_cosine_decay](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/train/linear_cosine_decay).
+For more information, see [tf.train.linear_cosine_decay](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/train/linear_cosine_decay).
 
 ## mindspore.nn.CosineDecayLR
 
@@ -28,7 +28,7 @@ class mindspore.nn.CosineDecayLR(
 )(global_step)
 ```
 
-For more information, see[mindspore.nn.CosineDecayLR](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.CosineDecayLR.html).
+For more information, see [mindspore.nn.CosineDecayLR](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.CosineDecayLR.html).
 
 ## Differences
 

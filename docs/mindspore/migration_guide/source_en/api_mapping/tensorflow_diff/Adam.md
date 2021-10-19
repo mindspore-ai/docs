@@ -16,7 +16,7 @@ class tf.keras.optimizers.Adam(
 )
 ```
 
-For more information, see[tf.keras.optimizers.Adam](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/optimizers/Adam).
+For more information, see [tf.keras.optimizers.Adam](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/optimizers/Adam).
 
 ## mindspore.nn.Adam
 
@@ -34,7 +34,7 @@ class mindspore.nn.Adam(
 )(grads)
 ```
 
-For more information, see[mindspore.nn.Adam](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Adam.html).
+For more information, see [mindspore.nn.Adam](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Adam.html).
 
 ## Differences
 
