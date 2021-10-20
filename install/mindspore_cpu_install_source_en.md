@@ -24,7 +24,7 @@ This document describes how to quickly install MindSpore by source code in a Lin
 
 - Ensure that [gmp 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
 
-- Ensure that [llvm 12.0.1](https://github.com/llvm/llvm-project/archive/refs/tags/llvmorg-12.0.1.tar.gz) is installed.
+- Ensure that [llvm 12.0.1](https://github.com/llvm/llvm-project/archive/refs/tags/llvmorg-12.0.1.tar.gz) is installed. (optional, required for graph kernel fusion)
 
 - Ensure that Python 3.7.5 or 3.9.0 is installed. If not installed, download and install Python from:
 
