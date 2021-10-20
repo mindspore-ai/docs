@@ -37,7 +37,7 @@ NodeParserRegistry(converter::FmkType fmk_type, const std::string &node_type,
                    const converter::NodeParserPtr &node_parser);
 ```
 
-构造函数
+构造函数。
 
 - 参数
 
@@ -53,7 +53,7 @@ NodeParserRegistry(converter::FmkType fmk_type, const std::string &node_type,
 ~NodeParserRegistry = default;
 ```
 
-析构函数
+析构函数。
 
 ## 公有成员函数
 
@@ -79,7 +79,7 @@ static converter::NodeParserPtr GetNodeParser(converter::FmkType fmk_type, const
 #define REG_NODE_PARSER(fmk_type, node_type, node_parser)
 ```
 
-注册NodeParser宏
+注册NodeParser宏。
 
 - 参数
 
@@ -183,7 +183,7 @@ PassBase(const std::string &name = "PassBase")
 virtual ~PassBase() = default;
 ```
 
-析构函数
+析构函数。
 
 ### 公有成员函数
 
@@ -502,7 +502,7 @@ KernelReg(const std::string &arch, const std::string &provider, DataType data_ty
 #define REGISTER_CUSTOM_KERNEL(arch, provider, data_type, op_type, creator)
 ```
 
-注册Custom算子
+注册Custom算子。
 
 - 参数
 
@@ -592,7 +592,7 @@ static std::shared_ptr<kernel::KernelInterface> GetKernelInterface(const std::st
 KernelInterfaceReg(const std::string &provider, int op_type, KernelInterfaceCreator creator)
 ```
 
-构造函数，构造注册算子的扩展能力
+构造函数，构造注册算子的扩展能力。
 
 - 参数
 
@@ -606,7 +606,7 @@ KernelInterfaceReg(const std::string &provider, int op_type, KernelInterfaceCrea
 KernelInterfaceReg(const std::string &provider, const std::string &op_type, KernelInterfaceCreator creator)
 ```
 
-构造函数，构造注册custom算子的扩展能力
+构造函数，构造注册custom算子的扩展能力。
 
 - 参数
 

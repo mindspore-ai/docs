@@ -15,7 +15,7 @@
 
 ## FmkType
 
-\#include <[parser_context.h](https://gitee.com/mindspore/mindspore/blob/r1.5/mindspore/lite/include/registry/parser_context.h)>
+\#include <[converter_context.h](https://gitee.com/mindspore/mindspore/blob/r1.5/mindspore/lite/include/registry/converter_context.h)>
 
  **enum**类型变量，定义MindSpore Lite转换支持的框架类型。
 
@@ -29,7 +29,7 @@
 
 ## ConverterParameters
 
-\#include <[parser_context.h](https://gitee.com/mindspore/mindspore/blob/r1.5/mindspore/lite/include/registry/parser_context.h)>
+\#include <[converter_context.h](https://gitee.com/mindspore/mindspore/blob/r1.5/mindspore/lite/include/registry/converter_context.h)>
 
 **struct**类型结构体，定义模型解析时的转换参数，用于模型解析时的只读参数。
 
@@ -54,7 +54,7 @@ op节点的解析基类。
 NodeParser() = default;
 ```
 
-构造函数
+构造函数。
 
 ### ~NodeParser
 
@@ -62,7 +62,7 @@ NodeParser() = default;
 virtual ~NodeParser() = default;
 ```
 
-析构函数
+析构函数。
 
 ### 公有成员函数
 
@@ -82,7 +82,7 @@ onnx节点解析接口函数。
 
 - 返回值
 
-PrimitiveC类指针对象，存储节点属性。
+    PrimitiveC类指针对象，存储节点属性。
 
 #### Parse
 
@@ -100,7 +100,7 @@ caffe节点解析接口函数。
 
 - 返回值
 
-PrimitiveC类指针对象，存储节点属性。
+    PrimitiveC类指针对象，存储节点属性。
 
 #### Parse
 
@@ -124,7 +124,7 @@ tf节点解析接口函数。
 
 - 返回值
 
-PrimitiveC类指针对象，存储节点属性。
+    PrimitiveC类指针对象，存储节点属性。
 
 #### Parse
 
@@ -143,7 +143,7 @@ tflite节点解析接口函数。
 
 - 返回值
 
-PrimitiveC类指针对象，存储节点属性。
+    PrimitiveC类指针对象，存储节点属性。
 
 ## NodeParserPtr
 
@@ -167,7 +167,7 @@ using NodeParserPtr = std::shared_ptr<NodeParser>;
 ModelParser() = default;
 ```
 
-构造函数
+构造函数。
 
 ### ~ModelParser
 
@@ -175,7 +175,7 @@ ModelParser() = default;
 virtual ~ModelParser() = default;
 ```
 
-析构函数
+析构函数。
 
 ### 公有成员函数
 
@@ -193,7 +193,7 @@ api::FuncGraphPtr Parse(const converter::ConverterParameters &flags);
 
 - 返回值
 
-FuncGraph的共享智能指针。
+    FuncGraph的共享智能指针。
 
 ### 保护数据成员
 
