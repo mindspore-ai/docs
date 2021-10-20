@@ -2,6 +2,43 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindinsight/faq/source_zh_cn/faq.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
+<font size=3>**Q: 请问在做神经网络中间特征可视化时，输入模型一张图片，如何获取中间层的各个输出，并进行可视化？**</font>
+
+A: 可以通过MindSpore提供的`TensorSummary`算子配合`SummaryCollector`完成感兴趣数据的收集，收集到的数据可以使用MindInsight可视化查看。对于图像类数据，您还可以用`ImageSummary`进行收集。由于`tensor`数据较大，收集的时候请合理控制`collect_tensor_freq`参数的取值，否则会消耗大量磁盘空间并显著降低运行速度。
+
+使用样例如下：
+
+```python
+class Net(nn.Cell):
+    """Net definition."""
+    def __init__(self):
+        super(Net, self).__init__()
+        ...
+
+        # Init ImageSummary
+        self.image_summary = ops.ImageSummary()
+        # Init TensorSummary
+        self.tensor_summary = ops.TensorSummary()
+
+    def construct(self, data):
+        # Record image by Summary operator
+        self.image_summary("image", data)
+        # Record tensor by Summary operator
+        self.tensor_summary("tensor", data)
+        ...
+        return out
+```
+
+详细教程请参考[可视化调试调优](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.5/summary_record.html#summarysummarycollector)。
+
+<br/>
+
+<font size=3>**Q: 请问在Ubuntu上安装了MindInsight，运行时提示port 8080不可使用于MindInsight，应该怎么解决？**</font>
+
+A: 出现这个问题可能是因为8080端口已被其它进程（例如nginx）占用。可以尝试更换MindInsight使用的端口，命令如：`mindinsight start --port 8081 --summary-base-dir xxx`，8081可以修改为其它端口。
+
+<br/>
+
 <font size=3>**Q：MindInsight启动失败并且提示:`ImportError: libcrypto.so.1.0.0: cannot open shared object file: No such file or directory` 如何处理？**</font>
 
 A：需要在命令行中使用”export LD_LIBRARY_PATH=dir:$LD_LIBRARY_PATH”来导入LD_LIBRARY_PATH变量。
