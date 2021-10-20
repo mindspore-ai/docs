@@ -27,6 +27,7 @@ The composite operators are the pre-defined combination of operators.
     mindspore.ops.GradOperation
     mindspore.ops.HyperMap
     mindspore.ops.laplace
+    mindspore.ops.Map
     mindspore.ops.matmul
     mindspore.ops.multinomial
     mindspore.ops.MultitypeFuncGraph
@@ -203,6 +204,8 @@ The functional operators are the pre-instantiated Primitive operators, which can
      - Determine whether the object is not in the dict.
    * - mindspore.ops.ones_like
      - Refer to :class:`mindspore.ops.OnesLike`.
+   * - mindspore.ops.partial
+     - Refer to :class:`mindspore.ops.Partial`.
    * - mindspore.ops.pows
      - Refer to :class:`mindspore.ops.Pow`.
    * - mindspore.ops.print\_
@@ -227,6 +230,8 @@ The functional operators are the pre-instantiated Primitive operators, which can
      - Get the sum of two numbers. (Usage is the same as "+" in Python)
    * - mindspore.ops.scalar_cast
      - Refer to :class:`mindspore.ops.ScalarCast`.
+   * - mindspore.ops.check_bprop
+     - Refer to :class:`mindspore.ops.CheckBprop`.
    * - mindspore.ops.scalar_div
      - Get the quotient of dividing the first input number by the second input number. (Usage is the same as "/" in Python)
    * - mindspore.ops.scalar_eq

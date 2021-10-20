@@ -41,6 +41,7 @@ Neural Network Operators
     mindspore.ops.ComputeAccidentalHits
     mindspore.ops.Conv2D
     mindspore.ops.Conv2DBackpropInput
+    mindspore.ops.Conv2DTranspose
     mindspore.ops.Conv3D
     mindspore.ops.Conv3DTranspose
     mindspore.ops.CTCGreedyDecoder
@@ -395,9 +396,11 @@ Other Operators
     mindspore.ops.Assign
     mindspore.ops.BoundingBoxDecode
     mindspore.ops.BoundingBoxEncode
+    mindspore.ops.CheckBprop
     mindspore.ops.CheckValid
     mindspore.ops.Depend
     mindspore.ops.InTopK
     mindspore.ops.IOU
     mindspore.ops.NoRepeatNGram
+    mindspore.ops.Partial
     mindspore.ops.PopulationCount
