@@ -4,6 +4,24 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_zh_cn/operators_compile.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
+<font size=3>**Q: 在使用`ops.concat`算子时，因为数据规模有点大，导致报错`Error:Input and (output + workspace) num should <=192!`，可以怎么处理？**</font>
+
+A: 这种报错，主要为`ops.concat`算子提示`shape`过大。建议对`dataset`对象创建迭代器时可设置输出为`numpy`, 如下设置：
+
+```python
+gallaryloader.create_dict_iterator(output_numpy=True)
+```
+
+另外在上述后处理环节（非网络计算过程中，即非`construct`函数里面），可以采用`numpy`直接计算，如采用`numpy.concatenate`代替上述`ops.concat`进行计算。
+
+<br/>
+
+<font size=3>**Q: 请问在静态图模式的`construct`函数里，如何把一个`tensor`中所含有的负数值全部去除掉？**</font>
+
+A: 建议使用`ops.clip_by_value`接口，把负数全变成0来进行计算。
+
+<br/>
+
 <font size=3>**Q: `TransData`算子的功能是什么，能否优化性能？**</font>
 
 A: `TransData`算子出现的场景是: 如果网络中相互连接的算子使用的数据格式不一致（如NC1HWC0），框架就会自动插入`transdata`算子使其转换成一致的数据格式，然后再进行计算。 华为Ascend支持5D格式运算，通过`transdata`算子将数据由4D转为5D以提升性能。
