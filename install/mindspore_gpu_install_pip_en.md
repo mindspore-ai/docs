@@ -24,7 +24,7 @@ This document describes how to quickly install MindSpore by pip in a Linux syste
 - Ensure that [OpenSSL 1.1.1 or later](https://github.com/openssl/openssl.git) is installed.
     - Ensure that [OpenSSL](https://github.com/openssl/openssl) is installed and set system variable `export OPENSSL_ROOT_DIR="OpenSSL installation directory"`.
 - Ensure that [NCCL 2.7.6](https://docs.nvidia.com/deeplearning/sdk/nccl-install-guide/index.html#debian) for CUDA 10.1 or [NCCL 2.7.8](https://docs.nvidia.com/deeplearning/sdk/nccl-install-guide/index.html#debian) for CUDA 11.1 is installed. (optional, required for single-node/multi-GPU and multi-node/multi-GPU training)
-- Ensure that [TensorRT-7.2.2.3](https://developer.nvidia.com/nvidia-tensorrt-download) is installed. (optional，required for Serving inference).
+- Ensure that [TensorRT-7.2.2](https://developer.nvidia.com/nvidia-tensorrt-download) is installed. (optional，required for Serving inference).
 - Ensure that [gmp 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
 - Ensure that Python 3.7.5 or 3.9.0 is installed. If not installed, download and install Python from:
     - Python 3.7.5 (64-bit): [Python official website](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) or [HUAWEI CLOUD](https://mirrors.huaweicloud.com/python/3.7.5/Python-3.7.5.tgz).
