@@ -16,6 +16,8 @@ Classes
 
 - :doc:`../generate/classmindspore_tensor_MetaTensor`
 
+- :doc:`../generate/classmindspore_tensor_MSTensor`
+
 - :doc:`../generate/classmindspore_tensor_Tensor`
 
 - :doc:`../generate/classmindspore_tensor_TensorData`
