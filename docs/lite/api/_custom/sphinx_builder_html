@@ -1053,6 +1053,10 @@ class StandaloneHTMLBuilder(Builder):
             if '<h2>Definition' in output:
                 output = output.replace(' (<a class="reference internal" href="#file-include-datasets-h"><span class="std std-ref">File datasets.h</span></a>)', "")
 
+            # Add links to the Python operator interface.
+            if "mindspore.ops." in output:
+                output = re.sub(r'(mindspore\.ops\.\w+) ', r'<a class="reference internal" href="https://www.mindspore.cn/docs/api/en/master/api_python/ops/\1.html">\1</a>', output, count=0)
+
         except UnicodeError:
             logger.warning(__("a Unicode error occurred when rendering the page %s. "
                               "Please make sure all config values that contain "

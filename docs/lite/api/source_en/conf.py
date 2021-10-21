@@ -193,7 +193,7 @@ header_files = []
 for i in cmake_path:
     with open(os.path.join(ms_path, i[0])) as f:
         for j in f.readlines():
-            re_str = i[1].replace("$", "\$").replace('{', '\{').replace('}', '\}') + r'.*?\.h'
+            re_str = r'^\s+(' + i[1].replace("$", "\$").replace('{', '\{').replace('}', '\}') + r'.*?\.h)'
             pattern_ = re.findall(re_str, j)
             if not pattern_:
                 continue
