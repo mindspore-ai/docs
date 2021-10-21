@@ -57,7 +57,7 @@
 
 - 确认安装配套CUDA 10.1的[NCCL 2.7.6版本](https://docs.nvidia.com/deeplearning/sdk/nccl-install-guide/index.html#debian)或者配套CUDA 11.1[NCCL 2.7.8版本](https://docs.nvidia.com/deeplearning/sdk/nccl-install-guide/index.html#debian)（可选，单机多卡/多机多卡训练需要）。
 
-- 确认安装[TensorRT-7.2.2.3](https://developer.nvidia.com/nvidia-tensorrt-download)（可选，Serving推理需要）。
+- 确认安装[TensorRT-7.2.2](https://developer.nvidia.com/nvidia-tensorrt-download)（可选，Serving推理需要）。
 
 - 确认安装[NUMA 2.0.11及以上版本](https://github.com/numactl/numactl)。
     如果未安装，使用如下命令下载安装：
