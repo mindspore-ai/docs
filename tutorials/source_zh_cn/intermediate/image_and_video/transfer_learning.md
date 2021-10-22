@@ -1,5 +1,7 @@
 # 图像分类迁移学习
 
+`Ascend` `GPU` `进阶` `计算机视觉` `全流程`
+
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/tutorials/source_zh_cn/intermediate/image_and_video/transfer_learning.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 在实际场景中，为了减少从头开始训练所带来的时间成本，大多数情况下会基于已有的模型来进行迁移学习。本章将会以狗和狼的图像分类为例，讲解如何在MindSpore中加载预训练模型，并通过固定权重来实现迁移学习的目的。

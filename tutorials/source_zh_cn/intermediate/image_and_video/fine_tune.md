@@ -1,5 +1,7 @@
 # 图像分割模型微调
 
+`Ascend` `进阶` `计算机视觉` `全流程`
+
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/tutorials/source_zh_cn/intermediate/image_and_video/fine_tune.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 在本教程中，我们将使用COCO数据集当中book分类下的部分图片，对Mask R-CNN模型进行微调，最终实现图像分割的效果。教程通过终端运行，点击下载[数据集](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/source-codes/maskrcnn_fine_tune.zip)。相关源码可参考链接：<https://gitee.com/mindspore/docs/tree/r1.5/docs/sample_code/maskrcnn_fine_tune>。

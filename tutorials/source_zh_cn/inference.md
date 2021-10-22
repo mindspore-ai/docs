@@ -1,5 +1,7 @@
 # 推理
 
+`Ascend` `端侧` `入门` `推理应用`
+
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/tutorials/source_zh_cn/inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 本节是初级教程的最后一节，为了更好地适配不同推理设备，因此推理分为 1）昇腾AI处理器推理和 2）移动设备推理。
