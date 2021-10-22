@@ -1,6 +1,6 @@
 # 保存及加载模型
 
-`Ascend` `GPU` `CPU` `入门` `模型导出`
+`Ascend` `GPU` `CPU` `入门` `模型导出` `模型加载`
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/tutorials/source_zh_cn/save_load_model.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 

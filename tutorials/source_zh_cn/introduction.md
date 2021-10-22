@@ -1,6 +1,6 @@
 # 基本介绍
 
-`Ascend` `GPU` `CPU` `入门`
+`Ascend` `GPU` `CPU` `端侧` `入门`
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/tutorials/source_zh_cn/introduction.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 

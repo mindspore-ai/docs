@@ -1,6 +1,6 @@
 ﻿# 技术白皮书
 
-`Linux` `Ascend` `GPU` `CPU` `全流程` `框架开发` `中级` `高级` `贡献者`
+`Ascend` `GPU` `CPU` `设计`
 
 <!-- TOC -->
 

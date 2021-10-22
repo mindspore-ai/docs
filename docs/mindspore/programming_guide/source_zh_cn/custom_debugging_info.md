@@ -1,6 +1,6 @@
 # 自定义调试信息
 
-`Linux` `Ascend` `GPU` `CPU` `模型调优` `中级` `高级`
+`Ascend` `GPU` `CPU` `模型调优`
 
 <!-- TOC -->
 

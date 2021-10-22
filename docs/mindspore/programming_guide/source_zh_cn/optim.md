@@ -1,7 +1,7 @@
 
 # 优化器
 
-`Linux` `Ascend` `GPU` `CPU` `模型开发`
+`Ascend` `GPU` `CPU` `模型开发`
 
 <!-- TOC -->
 
@@ -36,7 +36,7 @@
 
 ### 使用Cell的网络权重获取函数
 
-`Parameter`类中包含了一个`requires_grad`的布尔型的类属性，表征了模型网络中的权重是否需要梯度来进行更新（详情可参考：https://gitee.com/mindspore/mindspore/blob/r1.5/mindspore/common/parameter.py ）。其中大部分权重的`requires_grad`的默认值都为True；少数默认为False，例如BatchNormalize中的`moving_mean`和`moving_variance`。用户可以根据需要，自行对`requires_grad`的值进行修改。
+`Parameter`类中包含了一个`requires_grad`的布尔型的类属性，表征了模型网络中的权重是否需要梯度来进行更新（详情可参考：<https://gitee.com/mindspore/mindspore/blob/r1.5/mindspore/common/parameter.py> ）。其中大部分权重的`requires_grad`的默认值都为True；少数默认为False，例如BatchNormalize中的`moving_mean`和`moving_variance`。用户可以根据需要，自行对`requires_grad`的值进行修改。
 
 MindSpore提供了`get_parameters`方法来获取模型网络中所有权重，该方法返回了`Parameter`类型的网络权重；`trainable_params`方法本质是一个filter，过滤了`requires grad=True`的`Parameter`。用户在构建优化器时，可以通过配置`params`为`net.trainable_params()`来指定需要优化和更新的权重。
 
