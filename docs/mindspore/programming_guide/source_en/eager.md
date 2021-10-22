@@ -1,5 +1,6 @@
 # Lightweight Data Processing
 
+`Ascend` `GPU` `CPU` `Data Preparation`
 <!-- TOC -->
 
 - [Lightweight Data Processing](#lightweight-data-processing)

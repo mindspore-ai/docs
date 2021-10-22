@@ -1,6 +1,6 @@
 # ResNet-50 Second-Order Optimization Practice
 
-`Linux` `Ascend` `GPU` `Model Development` `Model Optimization` `Expert`
+`Ascend` `GPU` `Function Extension` `Whole Process`
 
 <!-- TOC -->
 

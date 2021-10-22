@@ -1,6 +1,6 @@
 # Loading a Model for Inference and Transfer Learning
 
-`Linux` `Ascend` `GPU` `CPU` `Model Loading` `Beginner` `Intermediate` `Expert`
+`Ascend` `GPU` `CPU` `Model Loading`
 
 <!-- TOC -->
 

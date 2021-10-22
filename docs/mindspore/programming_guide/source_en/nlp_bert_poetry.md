@@ -1,6 +1,6 @@
 # Using the BERT Network to Implement Intelligent Poem Writing
 
-`Linux` `Ascend` `Model Training` `Inference Application` `Expert`
+`Ascend` `Natural Language Processing` `Whole Process`
 
 <!-- TOC -->
 

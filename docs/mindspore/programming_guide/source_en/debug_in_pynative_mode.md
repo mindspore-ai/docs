@@ -1,6 +1,6 @@
 # Debugging in PyNative Mode
 
-`Linux` `Ascend` `GPU` `CPU` `Model Development` `Beginner` `Intermediate` `Expert`
+`Ascend` `GPU` `CPU` `Model Running`
 
 <!-- TOC -->
 

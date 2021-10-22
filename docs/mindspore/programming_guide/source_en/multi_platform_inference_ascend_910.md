@@ -1,6 +1,6 @@
 # Inference on the Ascend 910 AI processor
 
-`Linux` `Ascend` `Inference Application` `Beginner` `Intermediate` `Expert`
+`Ascend` `Inference Application`
 
 <!-- TOC -->
 

@@ -1,5 +1,7 @@
 # Cell
 
+`Ascend` `GPU` `CPU` `Beginner`
+
 <!-- TOC -->
 
 - [Cell](#cell)

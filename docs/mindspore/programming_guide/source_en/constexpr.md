@@ -1,5 +1,7 @@
 # Construct Constants In the Network
 
+`Ascend` `GPU` `CPU` `Model Development`
+
 <!-- TOC -->
 
 - [Construct Constants In the Network](#construct-constants-in-the-network)

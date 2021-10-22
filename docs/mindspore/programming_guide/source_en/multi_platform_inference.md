@@ -1,6 +1,6 @@
 # Inference Model Overview
 
-`Linux` `Ascend` `GPU` `CPU` `Inference Application` `Beginner` `Intermediate` `Expert`
+`Ascend` `GPU` `CPU` `Inference Application`
 
 <!-- TOC -->
 

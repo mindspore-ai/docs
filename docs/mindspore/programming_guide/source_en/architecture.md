@@ -1,6 +1,6 @@
 # Overall Architecture
 
-`Linux` `Windows` `Ascend` `GPU` `CPU` `On Device` `Model Development` `Model Optimization` `Framework Development` `Intermediate` `Expert` `Contributor`
+`Ascend` `GPU` `CPU` `Device` `Beginner`
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_en/architecture.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 

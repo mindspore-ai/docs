@@ -1,5 +1,7 @@
 # Network Parameters
 
+`Ascend` `GPU` `CPU` `Model Development`
+
 <!-- TOC -->
 
 - [Network Parameters](#network-parameters)

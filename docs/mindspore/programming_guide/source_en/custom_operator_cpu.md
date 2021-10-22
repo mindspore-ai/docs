@@ -2,7 +2,7 @@
 
 Translator: [JuLyAi](https://gitee.com/julyai)
 
-`Linux` `CPU` `model developing` `advanced_use`
+`CPU` `Model Development`
 
 <!-- TOC -->
 

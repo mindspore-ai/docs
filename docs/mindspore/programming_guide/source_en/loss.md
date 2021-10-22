@@ -1,8 +1,8 @@
 # Loss Function
 
-Translator: [Misaka19998](https://gitee.com/Misaka19998)
+`Ascend` `GPU` `CPU` `Model Development`
 
-`Linux` `Ascend` `GPU` `CPU` `Model Development` `Expert`
+Translator: [Misaka19998](https://gitee.com/Misaka19998)
 
 <!-- TOC -->
 

@@ -1,5 +1,7 @@
 # Loading Dataset Overview
 
+`Ascend` `GPU` `CPU` `Data Preparation`
+
 <!-- TOC -->
 
 - [Loading Dataset Overview](#loading-dataset-overview)

@@ -1,6 +1,6 @@
 # Using the Process Control Statement
 
-`Linux` `Ascend` `GPU` `CPU` `Model Development` `Expert`
+`Ascend` `GPU` `CPU` `Model Development`
 
 <!-- TOC -->
 

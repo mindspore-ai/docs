@@ -1,6 +1,6 @@
 # Inference on a GPU
 
-`Linux` `GPU` `Inference Application` `Beginner` `Intermediate` `Expert`
+`GPU` `Inference Application`
 
 <!-- TOC -->
 

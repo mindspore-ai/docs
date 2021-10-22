@@ -2,7 +2,7 @@
 
 Translator: [unseeme](https://gitee.com/unseenme)
 
-`Linux` `Model Optimization` `Expert`
+`Device` `Ascend` `Inference Application`
 
 <!-- TOC -->
 

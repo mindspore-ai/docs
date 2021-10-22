@@ -1,6 +1,6 @@
 ﻿# Technical White Paper
 
-`Linux` `Ascend` `GPU` `CPU` `Whole Process` `Framework Development` `Intermediate` `Advanced` `Contributor`
+`Ascend` `GPU` `CPU` `Design`
 
 <!-- TOC -->
 

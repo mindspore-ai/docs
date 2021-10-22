@@ -1,6 +1,6 @@
 # Inference on the Ascend 310 AI Processor
 
-`Linux` `Ascend` `Inference Application` `Beginner` `Intermediate` `Expert`
+`Ascend` `Inference Application`
 
 <!-- TOC -->
 

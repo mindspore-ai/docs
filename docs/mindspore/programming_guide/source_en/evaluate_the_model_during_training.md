@@ -1,6 +1,6 @@
 ﻿# Evaluating the Model during Training
 
-`Linux` `Ascend` `GPU` `CPU` `Model Export` `Model Training` `Beginner` `Intermediate` `Expert`
+`Ascend` `GPU` `CPU` `Model Running`
 
 <!-- TOC -->
 
