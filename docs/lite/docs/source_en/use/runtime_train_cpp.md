@@ -256,7 +256,7 @@ MindSpore Lite provides the following methods to obtain model input tensors:
 
 3. Copying Data
 
-    After model input tensors are obtained, the data must be copied into the tensors. The following methods allows to access the size of the data, the number of elements, the data type and the writable pointer. See also detailed description in the [MSTensor](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_MSTensor.html) API documentation.
+    After model input tensors are obtained, the data must be copied into the tensors. The following methods allows to access the size of the data, the number of elements, the data type and the writable pointer. See also detailed description in the [MSTensor](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_tensor_MSTensor.html) API documentation.
 
     ```cpp
     /// \brief Obtains the length of the data of the MSTensor, in bytes.
