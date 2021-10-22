@@ -1,7 +1,5 @@
 # gRPC-based MindSpore Serving Access
 
-`Linux` `Ascend` `GPU` `Serving` `Beginner` `Intermediate` `Expert`
-
 <!-- TOC -->
 
 - [gRPC-based MindSpore Serving Access](#grpc-based-mindspore-serving-access)
@@ -9,7 +7,9 @@
     - [add](#add)
     - [ResNet-50](#resnet-50)
     - [Accessing Serving Server through Unix Domain Socket](#accessing-serving-server-through-unix-domain-socket)
-    - [Accessing SSL/TLS enabled Serving service](#accessing-ssltls-enabled-serving-service)
+    - [Accessing SSL/TLS enabled Serving Service](#accessing-ssltls-enabled-serving-service)
+        - [One-way authentication](#one-way-authentication)
+        - [Mutual authentication](#mutual-authentication)
 
 <!-- /TOC -->
 

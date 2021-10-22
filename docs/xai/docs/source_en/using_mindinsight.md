@@ -1,7 +1,5 @@
 # Using MindInsight Visualization
 
-`Linux` `Ascend` `GPU` `Model Optimization` `Beginner` `Intermediate` `Expert`
-
 <!-- TOC -->
 
 - [Using MindInsight Visualization](#using-mindinsight-visualization)

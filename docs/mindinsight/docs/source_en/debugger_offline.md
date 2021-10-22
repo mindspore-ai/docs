@@ -1,12 +1,10 @@
 ﻿# Using the Offline Debugger
 
-`Linux` `Ascend` `GPU` `Model Optimization` `Intermediate` `Expert`
-
 <!-- TOC -->
 
-- [Using the Offline Debugger](#use-offline-debugger)
+- [Using the Offline Debugger](#using-the-offline-debugger)
     - [Overview](#overview)
-    - [Operation Procedure](#operation-procedure)
+    - [Operation Process](#operation-process)
     - [Environment Preparation](#environment-preparation)
     - [UI Introduction](#ui-introduction)
     - [Usage Example](#usage-example)

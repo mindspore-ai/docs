@@ -1,7 +1,5 @@
 # Improving Model Security with NAD Algorithm
 
-`Linux` `Ascend` `GPU` `CPU` `Model Training` `Model Optimization` `Enterprise` `Expert`
-
 <!-- TOC -->
 
 - [Improving Model Security with NAD Algorithm](#improving-model-security-with-nad-algorithm)

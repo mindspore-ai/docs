@@ -2,8 +2,6 @@
 
 Translator: [LiangRio](https://gitee.com/liangrio)
 
-`Linux` `GPU` `Model Development` `Expert`
-
 <!-- TOC -->
 
 - [MindSPONGE Molecular Simulation Practice](#mindsponge-molecular-simulation-practice)

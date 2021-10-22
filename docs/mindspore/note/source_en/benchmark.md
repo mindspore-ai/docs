@@ -1,7 +1,5 @@
 # Benchmarks
 
-`Linux` `Ascend` `Model Training` `Intermediae` `Expert`
-
 <!-- TOC -->
 
 - [Benchmarks](#benchmarks)

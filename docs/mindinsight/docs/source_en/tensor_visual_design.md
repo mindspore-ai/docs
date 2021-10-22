@@ -1,7 +1,5 @@
 # Tensor Visualization Design
 
-`Linux` `Ascend` `GPU` `CPU` `Model Development` `Model Optimization` `Framework Development` `Intermediate` `Expert` `Contributor`
-
 <!-- TOC -->
 
 - [Tensor Visualization Design](#tensor-visualization-design)

@@ -1,7 +1,5 @@
 # 使用MindConverter迁移模型定义脚本
 
-`Linux` `Ascend` `模型开发` `初级`
-
 <!-- TOC -->
 
 - [使用MindConverter迁移模型定义脚本](#使用mindconverter迁移模型定义脚本)

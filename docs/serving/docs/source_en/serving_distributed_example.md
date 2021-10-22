@@ -2,8 +2,6 @@
 
 Translator: [xiaoxiaozhang](https://gitee.com/xiaoxinniuniu)
 
-`Linux` `Ascend` `Serving` `Intermediate` `Senior`
-
 <!-- TOC -->
 
 - [MindSpore Serving-based Distributed Inference Service Deployment](#mindspore-serving-based-distributed-inference-service-deployment)

@@ -1,7 +1,5 @@
 # 使用 MindInsight 可视化
 
-`Linux` `Ascend` `GPU` `模型调优` `初级` `中级` `高级`
-
 <!-- TOC -->
 
 - [使用 MindInsight 可视化](#使用-mindinsight-可视化)

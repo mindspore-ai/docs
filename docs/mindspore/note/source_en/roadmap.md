@@ -1,16 +1,15 @@
 # RoadMap
 
-`Linux` `Windows` `Ascend` `GPU` `CPU` `Whole Process` `Framework Development` `Intermediate` `Expert` `Contributor`
-
 <!-- TOC -->
 
-- [Preset Models](#preset-models)
-- [Usability](#usability)
-- [Performance Optimization](#performance-optimization)
-- [Architecture Evolution](#architecture-evolution)
-- [MindInsight Debugging and Optimization](#mindinsight-debugging-and-optimization)
-- [MindArmour Security Hardening Package](#mindarmour-security-hardening-package)
-- [Inference Framework](#inference-framework)
+- [RoadMap](#roadmap)
+    - [Preset Models](#preset-models)
+    - [Usability](#usability)
+    - [Performance Optimization](#performance-optimization)
+    - [Architecture Evolution](#architecture-evolution)
+    - [MindInsight Debugging and Optimization](#mindinsight-debugging-and-optimization)
+    - [MindArmour Security Hardening Package](#mindarmour-security-hardening-package)
+    - [Inference Framework](#inference-framework)
 
 <!-- /TOC -->
 

@@ -1,11 +1,11 @@
 # MindSpore Network List
 
-`Linux` `Ascend` `GPU` `CPU` `Model Development` `Intermediate` `Expert`
-
 <!-- TOC -->
 
 - [MindSpore Network List](#mindspore-network-list)
     - [Model Zoo](#model-zoo)
+        - [Official](#official)
+        - [Research](#research)
 
 <!-- /TOC -->
 

@@ -1,7 +1,5 @@
 # MindSpore RL Configuration Instruction
 
-`Linux` `Ascend` `GPU` `CPU` `Reinforcement` `Configuration`
-
 <!-- TOC -->
 
 - [MindSpore RL Configuration Instruction](#mindspore-rl-configuration-instruction)

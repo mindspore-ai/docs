@@ -1,7 +1,5 @@
 # 获取MindSpore Federated
 
-`安装`
-
 <!-- TOC -->
 
 - [获取MindSpore Federated](#获取mindspore-federated)
