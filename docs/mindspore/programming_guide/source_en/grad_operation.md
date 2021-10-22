@@ -1,5 +1,7 @@
 ﻿# Gradient Operation
 
+`Ascend` `GPU` `CPU` `Model Development`
+
 <!-- TOC -->
 
 - [Gradient Operation](#gradient-operation)

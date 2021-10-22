@@ -1,6 +1,6 @@
 # Customize Metrics to Verify Model Evaluation Accuracy
 
-`Linux` `GPU` `CPU` `Whole Process` `Beginner` `Intermediate` `Expert`
+`Ascend` `GPU` `CPU` `Model Evaluation`
 
 <!-- TOC -->
 

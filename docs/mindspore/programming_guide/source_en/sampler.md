@@ -1,5 +1,7 @@
 # Data Sampling
 
+`Ascend` `GPU` `CPU` `Data Preparation`
+
 <!-- TOC -->
 
 - [Data Sampling](#data-sampling)

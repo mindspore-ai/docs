@@ -1,6 +1,6 @@
 # Online Inference with Checkpoint
 
-`Linux` `Ascend` `Inference Application` `Beginner` `Intermediate` `Expert`
+`Ascend` `Inference Application`
 
 <!-- TOC -->
 

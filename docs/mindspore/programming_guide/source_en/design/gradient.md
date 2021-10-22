@@ -1,19 +1,19 @@
 # MindSpore Automatic Differentiation
 
-`Linux` `Windows` `Ascend` `GPU` `CPU` `Framework Development` `Intermediate` `Model Development` `Expert` `Contributor`
+`Ascend` `GPU` `CPU` `Design` `Model Development`
 
 <!-- TOC -->
 
-- [MindSpore Automatic Differentiation](#MindSpore-Automatic-Differentiation)
-    - [Automatic Differentiation Overview](#Automatic-Differentiation-Overview)
-        - [Forward Mode AD](#Forward-Mode-AD)
-        - [Backward Mode AD](#Backward-Mode-AD)
-    - [GradOperation](#GradOperation)
-        - [GradOperation Design](#GradOperation-Design)
-        - [GradOperation Implementation](#GradOperation-Implementation)
-        - [GradOperation Example](#GradOperation-Example)
-    - [Forward Mode Implementation](#Forward-Mode-Implementation)
-    - [References](#References)
+- [MindSpore Automatic Differentiation](#mindSpore-automatic-differentiation)
+    - [Automatic Differentiation Overview](#automatic-differentiation-overview)
+        - [Forward Mode AD](#forward-mode-ad)
+        - [Backward Mode AD](#backward-mode-ad)
+    - [GradOperation](#gradoperation)
+        - [GradOperation Design](#gradoperation-design)
+        - [GradOperation Implementation](#gradoperation-implementation)
+        - [GradOperation Example](#gradoperation-example)
+    - [Forward Mode Implementation](#forward-mode-implementation)
+    - [References](#references)
 
 <!-- /TOC -->
 

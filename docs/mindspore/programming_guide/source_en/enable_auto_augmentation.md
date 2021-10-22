@@ -1,6 +1,6 @@
 # Application of Auto Augmentation
 
-`Linux` `Ascend` `GPU` `CPU` `Data Preparation` `Intermediate` `Expert`
+`Ascend` `GPU` `CPU` `Data Preparation`
 
 <!-- TOC -->
 

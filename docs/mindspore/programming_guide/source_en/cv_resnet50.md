@@ -1,6 +1,6 @@
 # Image Classification Using ResNet-50 Network
 
-`Linux` `Ascend` `GPU` `Whole Process` `Beginner` `Intermediate` `Expert`
+`Ascend` `GPU` `Whole Process` `Computer Vision`
 
 <!-- TOC -->
 

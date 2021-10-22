@@ -1,5 +1,7 @@
 # Initializer
 
+`Ascend` `GPU` `CPU` `Model Development`
+
 Translator: [Karlos Ma](https://gitee.com/Mavendetta985)
 
 <!-- TOC -->

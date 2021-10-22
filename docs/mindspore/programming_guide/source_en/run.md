@@ -1,5 +1,7 @@
 # Running Mode
 
+`Ascend` `GPU` `CPU` `Model Running`
+
 <!-- TOC -->
 
 - [Running Mode](#running-mode)

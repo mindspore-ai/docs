@@ -1,8 +1,8 @@
 # Multi-hop Knowledge Reasoning Question-answering Model TPRR
 
-Translator: [longvoyage](https://gitee.com/yuanyanglv)
+`Ascend` `Natural Language Processing` `Whole Process`
 
-`Linux` `Ascend` `Model Development` `Expert`
+Translator: [longvoyage](https://gitee.com/yuanyanglv)
 
 <!-- TOC -->
 

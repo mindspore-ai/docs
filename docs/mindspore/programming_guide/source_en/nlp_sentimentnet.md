@@ -1,6 +1,6 @@
 # Realizing Sentiment Classification With SentimentNet
 
-`Linux` `GPU` `CPU` `Whole Process` `Beginner` `Intermediate` `Expert`
+`CPU` `CPU` `Natural Language Processing` `Whole Process`
 
 <!-- TOC -->
 

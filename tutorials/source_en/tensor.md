@@ -1,5 +1,7 @@
 # Tensor
 
+`Ascend` `GPU` `CPU` `Beginner`
+
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/tutorials/source_en/tensor.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
 Tensor is a basic data structure in the MindSpore network computing.

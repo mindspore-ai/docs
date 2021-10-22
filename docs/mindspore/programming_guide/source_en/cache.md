@@ -1,5 +1,7 @@
 ﻿# Single-Node Tensor Cache
 
+`Ascend` `GPU` `CPU` `Data Preparation`
+
 <!-- TOC -->
 
 - [Single-Node Tensor Cache](#single-node-tensor-cache)

@@ -1,6 +1,6 @@
 # Using MobileNetV2 to Implement Fine-Tuning
 
-`Linux` `Windows` `Ascend` `GPU` `CPU` `Model Development` `Intermediate` `Expert`
+`Ascend` `GPU` `CPU` `Whole Peocess`
 
 <!-- TOC -->
 

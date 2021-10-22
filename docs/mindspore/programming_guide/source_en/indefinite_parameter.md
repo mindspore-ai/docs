@@ -1,5 +1,7 @@
 # Parameter Passing
 
+`Ascend` `GPU` `CPU` `Model Development`
+
 Translator: [lamuxiaoyu](https://gitee.com/xiaoxinniuniu)
 
 <!-- TOC -->
