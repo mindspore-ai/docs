@@ -1,10 +1,12 @@
 # MindSpore Lite推理流程
 
+`端侧` `进阶` `推理应用`
+
 <!-- TOC -->
 
 - [MindSpore Lite推理流程](#mindspore-lite推理流程)
     - [运行依赖](#运行依赖)
-    - [MindSpore Lite推理流程](#mindspore-lite推理流程)
+    - [MindSpore Lite推理流程](#mindspore-lite推理流程-1)
     - [在Android中部署Demo](#在android中部署demo)
 
 <!-- /TOC -->

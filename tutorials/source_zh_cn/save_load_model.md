@@ -1,5 +1,7 @@
 # 保存及加载模型
 
+`Ascend` `GPU` `CPU` `入门` `模型导出`
+
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/tutorials/source_zh_cn/save_load_model.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 上一节我们训练完网络，本节将会学习如何保存模型和加载模型，以及如何将保存的模型导出成特定格式到不同平台进行推理。
