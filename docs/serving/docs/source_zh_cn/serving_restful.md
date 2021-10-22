@@ -1,7 +1,5 @@
 # 基于RESTful接口访问MindSpore Serving服务
 
-`Linux` `Serving` `Ascend` `GPU` `初级` `中级` `高级`
-
 <!-- TOC -->
 
 - [基于RESTful接口访问MindSpore Serving服务](#基于restful接口访问mindspore-serving服务)
@@ -10,7 +8,7 @@
     - [请求输入格式](#请求输入格式)
         - [base64数据编码](#base64数据编码)
     - [请求应答格式](#请求应答格式)
-    - [访问开启SSL/TSL的RESTful服务](#访问开启SSL/TLS的RESTful服务)
+    - [访问开启SSL/TLS的RESTful服务](#访问开启ssltls的restful服务)
 
 <!-- /TOC -->
 

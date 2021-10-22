@@ -1,7 +1,5 @@
 ﻿# Differential Privacy Design
 
-`Ascend` `Model Development` `Model Optimization` `Framework Development` `Enterprise` `Expert` `Contributor`
-
 <!-- TOC -->
 
 - [Differential Privacy Design](#differential-privacy-design)

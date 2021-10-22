@@ -1,7 +1,5 @@
 # MindInsight Commands
 
-`Linux` `Ascend` `GPU` `CPU` `Model Optimization` `Intermediate` `Expert`
-
 <!-- TOC -->
 
 - [MindInsight Commands](#mindinsight-commands)
@@ -10,7 +8,7 @@
     - [Start the Service](#start-the-service)
     - [View the Service Process Information](#view-the-service-process-information)
     - [Stop the Service](#stop-the-service)
-    - [Parse Summary](#parse-summary)
+    - [Parse summary](#parse-summary)
     - [Use Mindoptimizer to Tune Hyperparameters](#use-mindoptimizer-to-tune-hyperparameters)
 
 <!-- /TOC -->

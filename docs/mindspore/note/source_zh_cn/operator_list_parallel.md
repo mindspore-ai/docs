@@ -1,7 +1,5 @@
 # MindSpore分布式算子支持
 
-`Linux` `Ascend` `GPU` `CPU` `模型开发` `初级` `中级` `高级`
-
 <!-- TOC -->
 
 - [MindSpore分布式算子支持](#mindspore分布式算子支持)

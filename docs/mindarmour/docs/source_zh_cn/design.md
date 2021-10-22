@@ -1,4 +1,6 @@
-# 安全可信
+# 安全可信设计
+
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindarmour/docs/source_zh_cn/design.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 ## 总体架构
 

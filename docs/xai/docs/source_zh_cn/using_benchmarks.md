@@ -1,7 +1,5 @@
 # 使用度量方法
 
-`Linux` `Ascend` `GPU` `模型调优` `初级` `中级` `高级`
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/xai/docs/source_zh_cn/using_benchmarks.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
 <!-- TOC -->

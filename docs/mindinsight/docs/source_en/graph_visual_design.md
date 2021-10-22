@@ -1,7 +1,5 @@
 # Computational Graph Visualization Design
 
-`Linux` `Ascend` `GPU` `CPU` `Model Development` `Model Optimization` `Framework Development` `Intermediate` `Expert` `Contributor`
-
 <!-- TOC -->
 
 - [Computational Graph Visualization Design](#computational-graph-visualization-design)

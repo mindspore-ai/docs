@@ -1,7 +1,5 @@
 # Tensor Index Support
 
-`Linux` `Ascend` `GPU` `Model Development` `Beginner` `Intermediate` `Expert`
-
 <!-- TOC -->
 
 - [Tensor Index Support](#tensor-index-support)
@@ -469,4 +467,3 @@ Index value augmented-assignment can be regarded as taking the value of the posi
     tensor_x: Tensor(shape=[3, 4], dtype=Float32, value=[[0.0, 3.0, 4.0, 3.0], [4.0, 7.0, 8.0, 7.0], [8.0, 9.0, 10.0, 11.0]])
     tensor_y: Tensor(shape=[3, 4], dtype=Float32, value=[[0.0, 1.0, 2.0, 3.0], [0.0, 2.0, 4.0, 6.0], [8.0, 9.0, 10.0, 11.0]])
     ```
-

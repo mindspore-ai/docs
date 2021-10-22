@@ -1,7 +1,5 @@
 # 使用mindoptimizer进行超参调优
 
-`Linux` `Ascend` `GPU` `CPU` `模型调优` `中级` `高级`
-
 <!-- TOC -->
 
 - [使用mindoptimizer进行超参调优](#使用mindoptimizer进行超参调优)

@@ -1,7 +1,5 @@
 # Model Encryption Protection
 
-`Linux` `Ascend` `GPU` `CPU` `Model Protection` `Enterprise` `Expert`
-
 <!-- TOC -->
 
 - [Model Encryption Protection](#model-encryption-protection)

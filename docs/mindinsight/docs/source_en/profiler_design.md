@@ -1,7 +1,5 @@
 ﻿# Performance Profiling Design
 
-`Ascend` `GPU` `Model Development` `Model Optimization` `Framework Development` `Intermediate` `Expert` `Contributor`
-
 <!-- TOC -->
 
 - [Performance Profiling Design](#performance-profiling-design)

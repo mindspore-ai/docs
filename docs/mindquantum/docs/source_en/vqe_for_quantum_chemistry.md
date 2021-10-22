@@ -1,7 +1,5 @@
 # VQE Application in Quantum Chemistry Computing
 
-`Linux` `CPU` `Whole Process` `Beginner` `Intermediate` `Expert`
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindquantum/docs/source_en/vqe_for_quantum_chemistry.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
 ## Overview

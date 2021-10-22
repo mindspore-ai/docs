@@ -1,7 +1,5 @@
 # Using Explainers
 
-`Linux` `Ascend` `GPU` `Model Optimization` `Beginner` `Intermediate` `Expert`
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/xai/docs/source_en/using_explainers.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
 <!-- TOC -->

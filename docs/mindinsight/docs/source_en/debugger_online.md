@@ -1,19 +1,21 @@
 # Using Online Debugger
 
-`Linux` `Ascend` `GPU` `Model Optimization` `Intermediate` `Expert`
-
 <!-- TOC -->
 
 - [Using Online Debugger](#using-online-debugger)
     - [Overview](#overview)
     - [Operation Process](#operation-process)
     - [Debugger Environment Preparation](#debugger-environment-preparation)
+        - [Launch MindInsight in Debugger Mode](#launch-mindinsight-in-debugger-mode)
+        - [Run the Training Script in Debug Mode](#run-the-training-script-in-debug-mode)
     - [Debugger UI Introduction](#debugger-ui-introduction)
         - [Computational Graph](#computational-graph)
         - [Node List](#node-list)
         - [Graph Node Details](#graph-node-details)
         - [Watchpoint List](#watchpoint-list)
         - [Setting Watchpoints](#setting-watchpoints)
+        - [Stack List](#stack-list)
+        - [Stack Information](#stack-information)
         - [Recheck](#recheck)
         - [Training Control](#training-control)
         - [Tensor Check View](#tensor-check-view)
@@ -271,4 +273,3 @@ Tensors can be downloaded in tensor check view. Users can download the desired t
 - To check overflow during computation, you need to enable the overflow detection function of the asynchronous dump. For details about how to enable the function, see [Asynchronous Dump](https://www.mindspore.cn/docs/programming_guide/en/r1.5/custom_debugging_info.html#asynchronous-dump).
 - The graph displayed by the debugger is the finally optimized execution graph. The called operator may have been integrated with other operators, or the name of the called operator is changed after optimization.
 - Enabling the debugger will turn off memory reuse mode, which may lead to an 'out of memory' error when the training network is too large.
-

@@ -1,7 +1,5 @@
 ﻿# AI Model Security Testing Design
 
-`Linux` `Ascend` `GPU` `CPU` `Data Preparation` `Model Development` `Model Training` `Model Optimization` `Enterprise` `Expert`
-
 <!-- TOC -->
 
 - [AI Model Security Testing Design](#ai-model-security-testing-design)

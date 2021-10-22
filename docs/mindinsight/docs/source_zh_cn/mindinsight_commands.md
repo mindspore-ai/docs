@@ -1,7 +1,5 @@
 # MindInsight相关命令
 
-`Linux` `Ascend` `GPU` `CPU` `模型调优` `中级` `高级`
-
 <!-- TOC -->
 
 - [MindInsight相关命令](#mindinsight相关命令)

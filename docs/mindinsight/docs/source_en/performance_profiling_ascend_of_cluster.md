@@ -1,7 +1,5 @@
 # Cluster Performance Profiling (Ascend)
 
-`Linux` `Ascend` `Model Optimization` `Intermediate` `Expert`
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindinsight/docs/source_en/performance_profiling_ascend_of_cluster.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
 ## Overview

@@ -1,7 +1,5 @@
 # Performance Profiling (GPU)
 
-`Linux` `GPU` `Model Optimization` `Intermediate` `Expert`
-
 <!-- TOC -->
 
 - [Performance Profiling (GPU)](#performance-profiling-gpu)

@@ -1,7 +1,5 @@
 ﻿# Overall Design of Training Visualization
 
-`Linux` `Ascend` `GPU` `CPU` `Model Development` `Model Optimization` `Framework Development` `Intermediate` `Expert` `Contributor`
-
 <!-- TOC -->
 
 - [Overall Design of Training Visualization](#overall-design-of-training-visualization)

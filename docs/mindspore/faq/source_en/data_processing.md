@@ -1,7 +1,5 @@
 ﻿# Data Processing
 
-`Linux` `Windows` `Ascend` `GPU` `CPU` `Environment Preparation` `Basic` `Intermediate`
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/faq/source_en/data_processing.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
 <font size=3>**Q: How do I offload data if I do not use high-level APIs?**</font>

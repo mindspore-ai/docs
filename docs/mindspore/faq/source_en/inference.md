@@ -1,7 +1,5 @@
 ﻿# Inference
 
-`Linux` `Windows` `Ascend` `GPU` `CPU` `Environment Preparation` `Basic` `Intermediate`
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/faq/source_en/inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
 <font size=3>**Q: MindSpore 1.3 is installed on the Ascend 310 hardware platform. When I run the `add_model.py` sample in mindspore_serving, an error message is displayed. Why?**</font>
@@ -52,7 +50,7 @@ A: While installing Ascend 310 AI Processor software packages，the `CANN` packa
 
 <font size=3>**Q: How to set high-precision or high-performance mode when performing inference on Ascend 310 AI Processor?**</font>
 
-A: Set in the inference code through the SetPrecisionMode interface of Ascend310DeviceInfo. Optional: force_ fp16，allow_fp32_to_fp16，must_keep_origin_dtype，allow_mix_precision. The default value is force_fp16, which refers to the high-performance mode. High precision mode can be set to allow_fp32_to_fp16 or must_keep_origin_dtype.
+A: Set in the inference code through the SetPrecisionMode interface of Ascend310DeviceInfo. Optional: force_fp16，allow_fp32_to_fp16，must_keep_origin_dtype，allow_mix_precision. The default value is force_fp16, which refers to the high-performance mode. High precision mode can be set to allow_fp32_to_fp16 or must_keep_origin_dtype.
 <br/>
 
 <font size=3>**Q: How to configure AIPP files?**</font>
