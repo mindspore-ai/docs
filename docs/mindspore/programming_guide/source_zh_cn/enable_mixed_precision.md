@@ -1,6 +1,6 @@
 # 使能混合精度
 
-`Linux` `Ascend` `GPU` `模型训练` `中级` `高级`
+`Ascend` `GPU` `模型调优`
 
 <!-- TOC -->
 

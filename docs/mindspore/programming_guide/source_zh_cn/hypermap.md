@@ -1,11 +1,13 @@
 ﻿# 运算重载
 
+`Ascend` `GPU` `CPU` `模型开发`
+
 <!-- TOC -->
 
 - [运算重载](#运算重载)
     - [概述](#概述)
     - [MultitypeFuncGraph](#multitypefuncgraph)
-    - [HyperMap](#hypermap-1)
+    - [HyperMap](#hypermap)
 
 <!-- /TOC -->
 

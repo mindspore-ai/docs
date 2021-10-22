@@ -1,6 +1,6 @@
 # 构建训练与评估网络
 
-`Linux` `Ascend` `GPU` `CPU` `模型开发` `高级`
+`Ascend` `GPU` `CPU` `模型开发` `模型运行` `模型评估`
 
 <!-- TOC -->
 
@@ -202,7 +202,7 @@ for epoch in range(epochs):
 
 1、ModelZoo中的Bert就在`nn.TrainOneStepCell`的基础上，加入了梯度截断操作，以获得更好的训练效果，Bert定义的训练包装函数代码片段如下：
 
-> Bert网络详见：https://gitee.com/mindspore/models/tree/master/official/nlp/bert
+> Bert网络详见：<https://gitee.com/mindspore/models/tree/master/official/nlp/bert>
 
 ```python
 GRADIENT_CLIP_TYPE = 1
@@ -243,7 +243,7 @@ class BertTrainOneStepCell(nn.TrainOneStepCell):
 
 2、Wide&Deep输出两个损失函数值，并对网络的Wide和Deep两部分分别进行反向传播和参数更新，而`nn.TrainOneStep`仅适用于一个损失函数值的场景，因此ModelZoo中Wide&Deep自定义了训练封装函数，代码片段如下：
 
-> Wide&Deep网络详见：https://gitee.com/mindspore/models/tree/master/official/recommend/wide_and_deep
+> Wide&Deep网络详见：<https://gitee.com/mindspore/models/tree/master/official/recommend/wide_and_deep>
 
 ```python
 class IthOutputCell(nn.Cell):

@@ -1,6 +1,6 @@
 ﻿# 使用Dump功能在Graph模式调试
 
-`Linux` `Ascend` `GPU` `CPU` `模型调优` `中级` `高级`
+`Ascend` `GPU` `CPU` `模型调优`
 
 <!-- TOC -->
 

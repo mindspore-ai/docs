@@ -1,6 +1,6 @@
 # 使用MobileNetV2网络实现微调（Fine Tune）
 
-`Linux` `Windows` `Ascend` `GPU` `CPU` `模型开发` `中级` `高级`
+`Ascend` `GPU` `CPU` `全流程`
 
 <!-- TOC -->
 

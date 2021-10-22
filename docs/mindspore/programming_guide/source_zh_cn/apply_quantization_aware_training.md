@@ -1,6 +1,6 @@
 # 应用感知量化训练
 
-`Linux` `Ascend` `GPU` `模型调优` `高级`
+`Ascend` `GPU` `扩展功能`
 
 <!-- TOC -->
 

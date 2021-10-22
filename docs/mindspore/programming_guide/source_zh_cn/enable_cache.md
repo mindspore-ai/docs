@@ -1,6 +1,6 @@
 # 应用单节点数据缓存
 
-`Linux` `Ascend` `GPU` `CPU` `数据准备` `中级` `高级`
+`Ascend` `GPU` `CPU` `数据准备`
 
 <!-- TOC -->
 

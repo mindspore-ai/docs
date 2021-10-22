@@ -1,6 +1,6 @@
 # PyNative模式应用
 
-`动态图` `PyNative` `动静统一`
+`Ascend` `GPU` `CPU` `模型运行`
 
 <!-- TOC -->
 

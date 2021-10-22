@@ -1,6 +1,6 @@
 # 保存模型
 
-`Linux` `Ascend` `GPU` `CPU` `模型导出` `初级` `中级` `高级`
+`Ascend` `GPU` `CPU` `模型导出`
 
 <!-- TOC -->
 
@@ -10,6 +10,10 @@
         - [使用callback机制](#使用callback机制)
             - [CheckPoint配置策略](#checkpoint配置策略)
         - [使用save_checkpoint方法](#使用save_checkpoint方法)
+            - [`save_obj`和`ckpt_file_name`参数](#save_obj和ckpt_file_name参数)
+            - [`integrated_save`参数](#integrated_save参数)
+            - [`async_save`参数](#async_save参数)
+            - [`append_dict`参数](#append_dict参数)
     - [导出MindIR格式文件](#导出mindir格式文件)
     - [导出AIR格式文件](#导出air格式文件)
     - [导出ONNX格式文件](#导出onnx格式文件)

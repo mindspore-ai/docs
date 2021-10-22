@@ -1,10 +1,10 @@
 # 大幅面数据集切分
 
-`Linux` `Ascend` `模型训练` `中级` `高级`
+`Ascend` `分布式并行`
 
 <!-- TOC -->
 
-- [数据集切分](#数据集切分)
+- [大幅面数据集切分](#大幅面数据集切分)
     - [概述](#概述)
     - [创建数据集](#创建数据集)
     - [配置数据集切分策略](#配置数据集切分策略)
@@ -21,7 +21,7 @@
 
 >你可以在这里下载完整的样例代码：
 >
->https://gitee.com/mindspore/docs/tree/r1.5/docs/sample_code/distributed_training
+><https://gitee.com/mindspore/docs/tree/r1.5/docs/sample_code/distributed_training>
 
 目录结构如下：
 

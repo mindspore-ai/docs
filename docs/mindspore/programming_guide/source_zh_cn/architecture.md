@@ -1,6 +1,6 @@
 # MindSpore总体架构
 
-`Linux` `Windows` `Ascend` `GPU` `CPU` `端侧` `模型开发` `模型调优` `框架开发` `中级` `高级` `贡献者`
+`Ascend` `GPU` `CPU` `端侧` `入门`
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/programming_guide/source_zh_cn/architecture.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
 
