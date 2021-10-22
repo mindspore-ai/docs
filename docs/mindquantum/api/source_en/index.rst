@@ -9,10 +9,10 @@ MindQuantum API
 .. toctree::
    :maxdepth: 1
 
-   mindquantum
-   mindquantum.parameterresolver
-   mindquantum.ops
-   mindquantum.hiqfermion
-   mindquantum.nn
-   mindquantum.ansatz
+   mindquantum.core
+   mindquantum.simulator
+   mindquantum.framework
+   mindquantum.algorithm
+   mindquantum.io
+   mindquantum.engine
    mindquantum.utils
