@@ -1,0 +1,37 @@
+# 比较与torch.Tensor.stride的功能差异
+
+## torch.Tensor.stride
+
+```python
+torch.torch.Tensor.stride()
+```
+
+## mindspore.Tensor.strides
+
+```python
+mindspore.Tensor.strides()
+```
+
+## 使用方式
+
+PyTorch：每一维中遍历所需要经过的元素个数，返回类型为元组。
+
+MindSpore：每一维中遍历所需要经过的字节数，返回类型为元组。
+
+## 代码示例
+
+```python
+import mindspore as ms
+
+a = ms.Tensor([[1, 2, 3], [7, 8, 9]])
+print(a.strides)
+# out:
+# (24, 8)
+
+import torch as tc
+
+b = tc.tensor([[1, 2, 3], [7, 8, 9]])
+print(b.stride())
+# out:
+# (3, 1)
+```
