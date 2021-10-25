@@ -20,6 +20,7 @@
         - [Evaluating](#evaluating)
     - [Others](#others)
         - [Session Mode Switching](#session-mode-switching)
+        - [Resizing the Input Dimension](#resizing-the-input-dimension)
         - [Obtaining Input Tensors](#obtaining-input-tensors)
         - [Obtaining Output Tensors](#obtaining-output-tensors)
         - [Execute Callback](#execute-callback)
@@ -224,6 +225,24 @@ if (ret != RET_OK) {
     std::cerr << "Could not set to evaluate mode" << std::endl;
     return -1;
 }
+```
+
+### Resizing the Input Dimension
+
+When MindSpore Lite is used for inference, if the input shape needs to be resized, you can call the Resize API of [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model) to resize the shape of the input tensor after a model is created and built.
+
+> Some networks do not support variable dimensions. As a result, an error message is displayed and the model exits unexpectedly. For example, the model contains the MatMul operator, one input tensor of the MatMul operator is the weight, and the other input tensor is the input. If a variable dimension API is called, the input tensor does not match the shape of the weight tensor. As a result, the training fails.
+
+The following sample code demonstrates how to perform Resize on the input tensor of MindSpore Lite:
+
+```cpp
+// Assume we have created a Model instance named model.
+auto inputs = model->GetInputs();
+std::vector<int64_t> resize_shape = {16, 32, 32, 1};
+// Assume the model has only one input,resize input shape to [16, 32, 32, 1]
+std::vector<std::vector<int64_t>> new_shapes;
+new_shapes.push_back(resize_shape);
+return model->Resize(inputs, new_shapes);
 ```
 
 ### Obtaining Input Tensors
