@@ -375,7 +375,7 @@ using CreateKernel = std::function<std::shared_ptr<kernel::Kernel>(
 #### RegKernel
 
 ``` c++
-static Status RegKernel(const std::string &arch, const std::string &provider, DataType data_type, int type, CreateKernel creator)
+static Status RegKernel(const std::string &arch, const std::string &provider, DataType data_type, int type, const CreateKernel creator)
 ```
 
 算子注册。
@@ -395,7 +395,7 @@ static Status RegKernel(const std::string &arch, const std::string &provider, Da
 #### RegCustomKernel
 
 ``` c++
-static Status RegCustomKernel(const std::string &arch, const std::string &provider, DataType data_type, const std::string &op_type, CreateKernel creator)
+static Status RegCustomKernel(const std::string &arch, const std::string &provider, DataType data_type, const std::string &op_type, const CreateKernel creator)
 ```
 
 Custom算子注册。
@@ -441,7 +441,7 @@ static CreateKernel GetCreator(const schema::Primitive *primitive, KernelDesc *d
 ### KernelReg
 
 ``` c++
-KernelReg(const std::string &arch, const std::string &provider, DataType data_type, int op_type, CreateKernel creator)
+KernelReg(const std::string &arch, const std::string &provider, DataType data_type, int op_type, const CreateKernel creator)
 ```
 
 构造函数，构造注册算子，进行算子注册。
@@ -459,7 +459,7 @@ KernelReg(const std::string &arch, const std::string &provider, DataType data_ty
     - `creator`: 创建算子的函数指针，具体见[CreateKernel](#createkernel)的说明。
 
 ``` c++
-KernelReg(const std::string &arch, const std::string &provider, DataType data_type, const std::string &op_type, CreateKernel creator)
+KernelReg(const std::string &arch, const std::string &provider, DataType data_type, const std::string &op_type, const CreateKernel creator)
 ```
 
 构造函数，构造注册Custom算子，进行算子注册。
@@ -537,7 +537,7 @@ using KernelInterfaceCreator = std::function<std::shared_ptr<kernel::KernelInter
 #### CustomReg
 
 ``` c++
-static Status CustomReg(const std::string &provider, const std::string &op_type, KernelInterfaceCreator creator)
+static Status CustomReg(const std::string &provider, const std::string &op_type, const KernelInterfaceCreator creator)
 ```
 
 Custom算子的扩展能力注册。
@@ -553,7 +553,7 @@ Custom算子的扩展能力注册。
 #### Reg
 
 ``` c++
-static Status Reg(const std::string &provider, int op_type, KernelInterfaceCreator creator)
+static Status Reg(const std::string &provider, int op_type, const KernelInterfaceCreator creator)
 ```
 
 算子的扩展能力注册。
@@ -589,7 +589,7 @@ static std::shared_ptr<kernel::KernelInterface> GetKernelInterface(const std::st
 ### KernelInterfaceReg
 
 ``` c++
-KernelInterfaceReg(const std::string &provider, int op_type, KernelInterfaceCreator creator)
+KernelInterfaceReg(const std::string &provider, int op_type, const KernelInterfaceCreator creator)
 ```
 
 构造函数，构造注册算子的扩展能力。
@@ -603,7 +603,7 @@ KernelInterfaceReg(const std::string &provider, int op_type, KernelInterfaceCrea
     - `creator`: KernelInterface的创建函数，详细见[KernelInterfaceCreator](#kernelinterfacecreator)的说明。
 
 ``` c++
-KernelInterfaceReg(const std::string &provider, const std::string &op_type, KernelInterfaceCreator creator)
+KernelInterfaceReg(const std::string &provider, const std::string &op_type, const KernelInterfaceCreator creator)
 ```
 
 构造函数，构造注册custom算子的扩展能力。
