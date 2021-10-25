@@ -1,6 +1,6 @@
 # Applying a Gradient Accumulation Algorithm
 
-`Linux` `GPU` `Model Optimization` `Intermediate` `Expert`
+`GPU` `Model Optimization`
 
 <!-- TOC -->
 

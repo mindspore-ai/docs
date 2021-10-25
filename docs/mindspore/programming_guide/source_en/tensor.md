@@ -1,5 +1,7 @@
 ﻿# Tensor
 
+`Ascend` `GPU` `CPU` `Beginner`
+
 <!-- TOC -->
 
 - [Tensor](#tensor)

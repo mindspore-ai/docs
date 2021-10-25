@@ -1,5 +1,7 @@
 # Auto Augmentation
 
+`Ascend` `GPU` `CPU` `Data Preparation`
+
 <!-- TOC -->
 
 - [Auto Augmentation](#auto-augmentation)

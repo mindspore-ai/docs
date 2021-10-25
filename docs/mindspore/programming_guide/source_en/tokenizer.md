@@ -1,5 +1,7 @@
 # Text Data Processing and Enhancement
 
+`Ascend` `GPU` `CPU` `Data Preparation`
+
 <!-- TOC -->
 
 - [Text Data Processing and Enhancement](#text-data-processing-and-enhancement)

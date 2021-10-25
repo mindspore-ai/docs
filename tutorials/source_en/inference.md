@@ -1,5 +1,7 @@
 # Inference
 
+`Ascend` `Device` `Beginner` `Inference Application`
+
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 This is the last tutorial. To better adapt to different inference devices, inference is classified into Ascend AI Processor inference and mobile device inference.

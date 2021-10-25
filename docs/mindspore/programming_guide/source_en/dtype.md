@@ -1,5 +1,7 @@
 ﻿# DataType
 
+`Ascend` `GPU` `CPU` `Beginner`
+
 <!-- TOC -->
 
 - [DataType](#dtype)

@@ -1,5 +1,7 @@
 # Parallel Distributed Training Interfaces
 
+`Ascend` `GPU` `Distributed Parallel`
+
 <!-- TOC -->
 
 - [Parallel Distributed Training Interfaces](#parallel-distributed-training-interfaces)

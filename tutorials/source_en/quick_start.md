@@ -1,5 +1,7 @@
 # Quick Start for Beginners
 
+`Ascend` `GPU` `CPU` `Beginner` `Whole Process`
+
 <!-- TOC -->
 
 - [Quick Start for Beginners](#quick-start-for-beginners)

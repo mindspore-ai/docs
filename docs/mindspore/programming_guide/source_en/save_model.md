@@ -1,6 +1,6 @@
 # Saving Models
 
-`Linux` `Ascend` `GPU` `CPU` `Model Export` `Beginner` `Intermediate` `Expert`
+`Ascend` `GPU` `CPU` `Model Export`
 
 <!-- TOC -->
 

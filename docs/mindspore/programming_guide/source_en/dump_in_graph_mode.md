@@ -1,6 +1,6 @@
 ﻿# Using Dump in the Graph Mode
 
-`Linux` `Ascend` `GPU` `CPU` `Model Optimization` `Intermediate` `Expert`
+`Ascend` `GPU` `CPU` `Model Optimization`
 
 <!-- TOC -->
 

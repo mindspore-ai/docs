@@ -1,5 +1,7 @@
 # Configuring Running Information
 
+`Ascend` `GPU` `CPU` `Model Running`
+
 <!-- TOC -->
 
 - [Configuring Running Information](#configuring-running-information)

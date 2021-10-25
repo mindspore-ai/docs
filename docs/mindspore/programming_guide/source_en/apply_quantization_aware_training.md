@@ -1,6 +1,6 @@
 # Applying Quantization Aware Training
 
-`Linux` `Ascend` `GPU` `Model Optimization` `Expert`
+`Ascend` `GPU` `Function Extension`
 
 <!-- TOC -->
 

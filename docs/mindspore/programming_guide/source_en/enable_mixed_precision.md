@@ -1,6 +1,6 @@
 # Enabling Mixed Precision
 
-`Linux` `Ascend` `GPU` `Model Training` `Intermediate` `Expert`
+`Ascend` `GPU` `Model Optimization`
 
 <!-- TOC -->
 

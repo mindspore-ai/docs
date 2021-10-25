@@ -1,6 +1,6 @@
 # Saving and Loading Models in Hybrid Parallel Mode
 
-`Linux` `Ascend` `GPU` `Model Training` `Intermediate` `Expert`
+`Ascend` `GPU` `Distributed Parallel` `Model Export` `Model Loading`
 
 <!-- TOC -->
 

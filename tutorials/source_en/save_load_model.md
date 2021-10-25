@@ -1,5 +1,7 @@
 # Saving and Loading the Model
 
+`Ascend` `GPU` `CPU` `Beginner` `Model Export` `Model Loading`
+
 <!-- TOC -->
 
 - [Saving and Loading the Model](#saving-and-loading-the-model)

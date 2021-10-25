@@ -1,6 +1,6 @@
 # Custom Operators (Ascend)
 
-`Linux` `Ascend` `Model Development` `Expert`
+`Ascend` `Model Development`
 
 <!-- TOC -->
 

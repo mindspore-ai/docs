@@ -1,6 +1,6 @@
 # Inference on a CPU
 
-`Linux` `CPU` `Inference Application` `Beginner` `Intermediate` `Expert`
+`CPU` `Inference Application`
 
 <!-- TOC -->
 

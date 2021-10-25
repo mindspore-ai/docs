@@ -2,7 +2,7 @@
 
 Translator: [Leon_02](https://gitee.com/Leon_02)
 
-`Linux` `GPU` `Model Development` `Expert`
+`GPU` `Model Development`
 
 <!-- TOC -->
 
