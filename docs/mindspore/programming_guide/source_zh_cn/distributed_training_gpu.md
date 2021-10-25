@@ -419,3 +419,134 @@ mpirun -n 16 --hostfile $HOSTFILE -x DATA_PATH=$DATA_PATH -x PATH -mca pml ob1 p
 
 在GPU上进行分布式训练时，模型参数的保存和加载的方法与Ascend上一致，可参考[分布式训练模型参数保存和加载](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_ascend.html#id18)
 。
+
+## 不依赖OpenMPI进行训练
+
+出于训练时的安全及可靠性要求，MindSpore GPU还支持**不依赖OpenMPI的分布式训练**。
+
+OpenMPI在分布式训练的场景中，起到在Host侧同步数据以及进程间组网的功能；MindSpore通过**复用PS模式训练架构**，取代了OpenMPI能力。
+
+参考[PS模式](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/apply_parameter_server_training.html)训练教程，将多个MindSpore训练进程作为`Worker`启动，并且额外启动一个`Scheduler`，对脚本做少量修改，即可执行**不依赖OpenMPI的分布式训练**。
+
+执行Worker脚本前需要导出环境变量，如[PS设置环境变量](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/apply_parameter_server_training.html#id5):
+
+```text
+export MS_SERVER_NUM=0                # Server number
+export MS_WORKER_NUM=8                # Worker number
+export MS_SCHED_HOST=127.0.0.1        # Scheduler IP address
+export MS_SCHED_PORT=6667             # Scheduler port
+export MS_ROLE=MS_WORKER              # The role of this process: MS_SCHED represents the scheduler, MS_WORKER represents the worker, MS_PSERVER represents the Server
+```
+
+> 在此模式下，不建议启动MS_SERVER角色的进程，因为此角色在数据并行训练中无影响。
+
+### 运行脚本
+
+在GPU硬件平台上，下面以使用8张卡的分布式训练脚本为例，演示如何运行脚本：
+
+> 你可以在这里找到样例的运行目录：
+>
+> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training>。
+
+相比OpenMPI方式启动，此模式需要调用[PS模式](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/apply_parameter_server_training.html)中的`set_ps_context`接口，告诉MindSpore此次任务使用了PS模式训练架构:
+
+```python
+from mindspore import context
+from mindspore.communication import init
+
+if __name__ == "__main__":
+    context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
+    context.set_ps_context(config_file_path="/path/to/config_file.json", enable_ssl=True,
+                           client_password="123456", server_password="123456")
+    init("nccl")
+    ...
+```
+
+其中，
+
+- `mode=context.GRAPH_MODE`：使用分布式训练需要指定运行模式为图模式（PyNative模式不支持并行）。
+- `init("nccl")`：使能NCCL通信，并完成分布式训练初始化操作。
+- 默认情况下，安全加密通道是开启的，需要通过`set_ps_context`正确配置安全加密通道或者关闭安全加密通道后，才能调用init("nccl")，否则初始化组网会失败。
+- 若不想使用安全加密通道，请设置`mindspore.context.set_ps_context(enable_ssl=False)`。
+- 详细参数配置说明请参考Python API `mindspore.context.set_ps_context`，以及本文档`安全认证`章节。
+
+脚本内容`run_gpu_cluster.sh`如下，在启动Worker和Scheduler之前，需要添加相关环境变量设置：
+
+```bash
+#!/bin/bash
+
+echo "=========================================="
+echo "Please run the script as: "
+echo "bash run_gpu_cluster.sh DATA_PATH"
+echo "For example: bash run_gpu_cluster.sh /path/dataset"
+echo "It is better to use the absolute path."
+echo "==========================================="
+DATA_PATH=$1
+export DATA_PATH=${DATA_PATH}
+
+rm -rf device
+mkdir device
+cp ./resnet50_distributed_training_gpu.py ./resnet.py ./device
+cd ./device
+echo "start training"
+
+# Launch 8 workers.
+for((i=0;i<8;i++));
+do
+    export MS_WORKER_NUM=8
+    export MS_SCHED_HOST=127.0.0.1
+    export MS_SCHED_PORT=6667
+    export MS_ROLE=MS_WORKER
+    pytest -s -v ./resnet50_distributed_training_gpu.py > worker_$i.log 2>&1 &
+done
+
+# Launch 1 scheduler.
+export MS_WORKER_NUM=8
+export MS_SCHED_HOST=127.0.0.1
+export MS_SCHED_PORT=6667
+export MS_ROLE=MS_SCHED
+pytest -s -v ./resnet50_distributed_training_gpu.py > scheduler.log 2>&1 &
+```
+
+若希望启动数据并行模式训练，脚本`resnet50_distributed_training_gpu.py`中需要将`set_auto_parallel_context`入参并行模式改为`DATA_PARALLEL`:
+
+```python
+context.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
+```
+
+脚本会在后台运行，日志文件会保存到当前目录下，共跑了10个epoch，每个epoch有234个step，关于Loss部分结果保存在worker_*.log中。将loss值grep出来后，示例如下：
+
+```text
+epoch: 1 step: 1, loss is 2.3025854
+epoch: 1 step: 1, loss is 2.3025854
+epoch: 1 step: 1, loss is 2.3025854
+epoch: 1 step: 1, loss is 2.3025854
+epoch: 1 step: 1, loss is 2.3025854
+epoch: 1 step: 1, loss is 2.3025854
+epoch: 1 step: 1, loss is 2.3025854
+epoch: 1 step: 1, loss is 2.3025854
+```
+
+### 安全认证
+
+要支持节点/进程间的SSL安全认证，要开启安全认证，需要在启动命令加上`enable_ssl=True`(默认开启)，config_file_path指定的config.json配置文件需要添加如下字段：
+
+```json
+{
+    "server_cert_path": "server.p12",
+    "crl_path": "",
+    "client_cert_path": "client.p12",
+    "ca_cert_path": "ca.crt",
+    "cipher_list": "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:DHE-DSS-AES256-GCM-SHA384:DHE-PSK-AES128-GCM-SHA256:DHE-PSK-AES256-GCM-SHA384:DHE-PSK-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-PSK-CHACHA20-POLY1305:DHE-RSA-AES128-CCM:DHE-RSA-AES256-CCM:DHE-RSA-CHACHA20-POLY1305:DHE-PSK-AES128-CCM:DHE-PSK-AES256-CCM:ECDHE-ECDSA-AES128-CCM:ECDHE-ECDSA-AES256-CCM:ECDHE-ECDSA-CHACHA20-POLY1305",
+    "cert_expire_warning_time_in_day": 90,
+}
+```
+
+- server_cert_path: 服务端包含了证书和秘钥的密文的p12文件。
+- crl_path: 吊销列表的文件。
+- client_cert_path: 客户端包含了证书和秘钥的密文的p12文件。
+- ca_cert_path: 根证书。
+- cipher_list: 密码套件。
+- cert_expire_warning_time_in_day: 证书过期的告警时间。
+
+p12文件中的秘钥为密文存储，在启动时需要传入密码，具体参数请参考Python API `mindspore.context.set_ps_context`中的`client_password`以及`server_password`字段。
