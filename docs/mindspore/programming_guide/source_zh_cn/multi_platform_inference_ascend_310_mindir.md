@@ -331,7 +331,7 @@ target_link_libraries(resnet50_hide_preprocess ${MS_LIB} ${MD_LIB})
 进入工程目录`ascend310_resnet50_preprocess_sample`，设置如下环境变量：
 
 ```bash
-# control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, default level is WARNING.
+# control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
 export GLOG_v=2
 
 # Conda environmental options
