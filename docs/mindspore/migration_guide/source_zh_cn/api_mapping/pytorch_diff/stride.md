@@ -1,5 +1,7 @@
 # 比较与torch.Tensor.stride的功能差异
 
+<a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/migration_guide/source_zh_cn/api_mapping/pytorch_diff/stride.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source.png"></a>
+
 ## torch.Tensor.stride
 
 ```python
