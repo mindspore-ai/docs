@@ -1,6 +1,6 @@
 # ms_function动静结合
 
-`Ascend` `GPU` `CPU` `PyNative` `动静结合`
+`Ascend` `GPU` `CPU` `模型运行`
 
 <!-- TOC -->
 

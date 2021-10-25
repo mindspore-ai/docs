@@ -1,7 +1,7 @@
 
 # 优化器
 
-`Linux` `Ascend` `GPU` `CPU` `模型开发`
+`Ascend` `GPU` `CPU` `模型开发`
 
 <!-- TOC -->
 

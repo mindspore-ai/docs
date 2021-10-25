@@ -1,13 +1,13 @@
 # 自定义Metrics验证模型推理精度
 
-`Linux` `Ascend` `GPU` `CPU` `模型加载` `初级` `中级` `高级`
+`Ascend` `GPU` `CPU` `模型评估`
 
 <!-- TOC -->
 
-- [自定义Metrics验证模型推理精度](#自定义Metrics验证模型推理精度)
+- [自定义Metrics验证模型推理精度](#自定义metrics验证模型推理精度)
     - [概述](#概述)
-    - [自定义Metrics步骤](#自定义Metrics步骤)
-    - [在Model中使用Metrics](#在Model中使用Metrics)
+    - [自定义Metrics步骤](#自定义metrics步骤)
+    - [在Model中使用Metrics](#在model中使用metrics)
 
 <!-- /TOC -->
 
@@ -110,5 +110,3 @@ model = Model(network, loss, metrics={"MyMAE":MyMAE()})
 output = model.eval(eval_dataset)
 
 ```
-
-

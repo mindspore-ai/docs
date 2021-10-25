@@ -1,15 +1,17 @@
 # 鹏程·盘古模型网络多维度混合并行解析
 
+`Ascend` `GPU` `分布式并行`
+
 <!-- TOC -->
 
-- [鹏程·盘古模型网络多维度混合并行解析析](#鹏程盘古模型网络多维度混合并行解析)
+- [鹏程·盘古模型网络多维度混合并行解析](#鹏程·盘古模型网络多维度混合并行解析)
     - [概述](#概述)
-    - [Embedding层](#Embedding层)
-    - [Decoder层](#Decoder层)
-        - [Self-attention](#Self-attention)
-        - [Feedforward](#FeedForward)
-    - [Residual层](#Residual层)
-    - [Linear层](#Linear层)
+    - [Embedding层](#embedding层)
+    - [Decoder层](#decoder层)
+        - [Self-Attention](#self-attention)
+        - [FeedForward](#feedforward)
+    - [Residual层](#residual层)
+    - [预测层](#预测层)
     - [参考文献](#参考文献)
 
 <!-- /TOC -->

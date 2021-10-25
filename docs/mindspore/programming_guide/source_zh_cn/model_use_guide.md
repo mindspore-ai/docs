@@ -1,6 +1,6 @@
 # Model基本使用
 
-`Linux` `Ascend` `GPU` `CPU` `模型开发` `高级`
+`Ascend` `GPU` `CPU` `模型开发`
 
 <!-- TOC -->
 

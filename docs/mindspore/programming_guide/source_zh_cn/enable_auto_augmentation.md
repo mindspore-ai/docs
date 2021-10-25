@@ -1,6 +1,6 @@
 # 应用自动数据增强
 
-`Linux` `Ascend` `GPU` `CPU` `数据准备` `中级` `高级`
+`Ascend` `GPU` `CPU` `数据准备`
 
 <!-- TOC -->
 

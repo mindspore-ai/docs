@@ -1,6 +1,6 @@
 # 加载Checkpoint在线推理
 
-`Linux` `Ascend` `推理应用` `初级` `中级` `高级`
+`Ascend` `推理应用`
 
 <!-- TOC -->
 
