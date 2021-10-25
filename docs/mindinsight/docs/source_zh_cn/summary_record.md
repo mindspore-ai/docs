@@ -1,7 +1,5 @@
 ﻿# 收集Summary数据
 
-`Linux` `Ascend` `GPU` `CPU` `模型调优` `中级` `高级`
-
 <!-- TOC -->
 
 - [收集Summary数据](#收集summary数据)

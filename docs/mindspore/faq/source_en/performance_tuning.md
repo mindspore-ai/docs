@@ -1,7 +1,5 @@
 ﻿# Performance Tuning
 
-`Linux` `Windows` `Ascend` `GPU` `CPU` `Environment Preparation` `Basic` `Intermediate`
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_en/performance_tuning.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 <font size=3>**Q: What can I do if the network performance is abnormal and weight initialization takes a long time during training after MindSpore is installed?**</font>

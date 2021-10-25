@@ -1,7 +1,5 @@
 # The Application of Quantum Neural Network in NLP
 
-`Linux` `CPU` `Whole Process` `Beginner` `Intermediate` `Expert`
-
 <!-- TOC -->
 
 - [The Application of Quantum Neural Network in NLP](#the-application-of-quantum-neural-network-in-nlp)

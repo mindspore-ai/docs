@@ -1,7 +1,5 @@
 ﻿# 安装
 
-`Linux` `Windows` `Ascend` `GPU` `CPU` `环境准备` `初级` `中级`
-
 <!-- TOC -->
 
 - [安装](#安装)

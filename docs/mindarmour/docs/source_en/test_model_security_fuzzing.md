@@ -1,7 +1,5 @@
 ﻿# Testing Model Security Using Fuzz Testing
 
-`Linux` `Ascend` `GPU` `CPU` `Model Evaluation` `Enterprise` `Expert`
-
 <!-- TOC -->
 
 - [Testing Model Security Using Fuzz Testing](#testing-model-security-using-fuzz-testing)

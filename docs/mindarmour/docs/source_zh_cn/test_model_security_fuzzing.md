@@ -1,7 +1,5 @@
 # 使用fuzz testing模块测试模型安全性
 
-`Linux` `Ascend` `GPU` `CPU` `模型评测` `企业` `高级`
-
 <!-- TOC -->
 
 - [使用fuzz testing模块测试模型安全性](#使用fuzz-testing模块测试模型安全性)

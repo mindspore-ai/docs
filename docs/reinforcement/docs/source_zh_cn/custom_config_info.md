@@ -1,7 +1,5 @@
 # 强化学习配置说明
 
-`Linux` `Ascend` `GPU` `CPU` `强化学习` `配置`
-
 <!-- TOC -->
 
 - [强化学习配置说明](#强化学习配置说明)
@@ -83,8 +81,9 @@ algorithm_config = {
 
 |  键值  |        类型        |             范围              |                             说明                             |
 | :----: | :----------------: | :---------------------------: | :----------------------------------------------------------: |
-|  type  |       Class        |         用户定义的类          |                   需要和用户定义的类名相同                   |
-| params | Dictionary或者None | 任意key value形式的值或者None | 自定义参数，用户可以通过key value的形式传入任何值。如果没有则填None |
+ |   type   |       Class        | 用户定义的继承learner并实现虚函数的类 |        和用户定义的继承learner并实现虚函数的类名相同         |
+ |  params  | Dictionary或者None |     任意key value形式的值或者None     | 自定义参数，用户可以通过key value的形式传入任何值。如果没有则填None |
+ | networks |   List of String   |        和定义的网络名变量相同         | 列表中的所有String都应该和用户定义的策略类中初始化的网络变量名一一对应 |
 
 ### Environment配置参数
 

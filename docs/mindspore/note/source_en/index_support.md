@@ -1,7 +1,5 @@
 # Tensor Index Support
 
-`Linux` `Ascend` `GPU` `Model Development` `Beginner` `Intermediate` `Expert`
-
 <!-- TOC -->
 
 - [Tensor Index Support](#tensor-index-support)

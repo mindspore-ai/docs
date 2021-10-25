@@ -1,7 +1,5 @@
 # 通过配置模型提供Servable
 
-`Linux` `Ascend` `GPU` `Serving` `初级` `中级` `高级`
-
 <!-- TOC -->
 
 - [通过配置模型提供Servable](#通过配置模型提供servable)

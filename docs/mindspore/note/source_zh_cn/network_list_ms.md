@@ -1,11 +1,11 @@
 # MindSpore网络支持
 
-`Linux` `Ascend` `GPU` `CPU` `模型开发` `中级` `高级`
-
 <!-- TOC -->
 
 - [MindSpore网络支持](#mindspore网络支持)
     - [Model Zoo](#model-zoo)
+    - [标准网络](#标准网络)
+    - [研究网络](#研究网络)
 
 <!-- /TOC -->
 

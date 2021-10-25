@@ -1,7 +1,5 @@
 ﻿# Service Deployment with Multiple Subgraphs and Stateful Model
 
-`Linux` `Ascend` `Serving` `Intermediate` `Expert`
-
 <!-- TOC -->
 
 - [Service Deployment with Multiple Subgraphs and Stateful Model](#service-deployment-with-multiple-subgraphs-and-stateful-model)

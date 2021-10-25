@@ -1,7 +1,5 @@
 # 使用MindSpore Reinforcement实现深度Q学习（DQN）
 
-`Linux` `Ascend` `GPU` `CPU` `reinforcement learning`
-
 <!-- TOC -->
 
 - [使用MindSpore Reinforcement实现深度Q学习（DQN）](#使用mindspore-reinforcement实现深度q学习dqn)

@@ -1,7 +1,5 @@
 # Protecting User Privacy with Differential Privacy Mechanism
 
-`Linux` `Ascend` `Model Training` `Model Optimization` `Enterprise` `Expert`
-
 <!-- TOC -->
 
 - [Protecting User Privacy with Differential Privacy Mechanism](#protecting-user-privacy-with-differential-privacy-mechanism)

@@ -1,7 +1,5 @@
 ﻿# 特性咨询
 
-`Linux` `Windows` `Ascend` `GPU` `CPU` `环境准备` `初级` `中级`
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_zh_cn/feature_advice.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 <font size=3>**Q: 导出MindIR格式的时候，`input=np.random.uniform(...)`是不是固定格式？**</font>

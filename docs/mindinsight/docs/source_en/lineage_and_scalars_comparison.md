@@ -1,7 +1,5 @@
 # Viewing Lineage and Scalars Comparison
 
-`Linux` `Ascend` `GPU` `CPU` `Model Optimization` `Intermediate` `Expert`
-
 <!-- TOC -->
 
 - [Viewing Lineage and Scalars Comparison](#viewing-lineage-and-scalars-comparison)

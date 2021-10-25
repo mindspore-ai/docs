@@ -1,7 +1,5 @@
 # 使用解释器
 
-`Linux` `Ascend` `GPU` `模型调优` `初级` `中级` `高级`
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_zh_cn/using_explainers.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 <!-- TOC -->

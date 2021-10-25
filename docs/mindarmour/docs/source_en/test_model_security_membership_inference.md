@@ -1,7 +1,5 @@
 # Using Membership Inference to Test Model Security
 
-`Linux` `Ascend` `GPU` `CPU` `Model Evaluation` `Enterprise` `Expert`
-
 <!-- TOC -->
 
 - [Using Membership Inference to Test Model Security](#using-membership-inference-to-test-model-security)

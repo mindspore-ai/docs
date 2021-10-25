@@ -1,7 +1,5 @@
 ﻿# Cloud-based Deployment
 
-`Linux` `Model Training` `Intermediate` `Expert`
-
 <!-- TOC -->
 
 - [Cloud-based Deployment](#cloud-based-deployment)
