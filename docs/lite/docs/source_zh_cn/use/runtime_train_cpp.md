@@ -20,6 +20,7 @@
         - [推理](#推理)
     - [其他](#其他)
         - [会话模式切换](#会话模式切换)
+        - [输入维度Resize](#输入维度Resize)
         - [获取输入张量](#获取输入张量)
         - [获取输出张量](#获取输出张量)
         - [执行回调](#执行回调)
@@ -225,6 +226,24 @@ if (ret != RET_OK) {
     std::cerr << "Could not set to evaluate mode" << std::endl;
     return -1;
 }
+```
+
+### 输入维度Resize
+
+使用MindSpore Lite进行推理时，如果需要对输入的shape进行Resize，则可以在已完成创建[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)与模型编译[Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build)之后调用Model的[Resize](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#resize)接口，对输入的Tensor重新设置shape。
+
+> 某些网络不支持可变维度，会提示错误信息后异常退出，比如，模型中有MatMul算子，并且MatMul的一个输入Tensor是权重，另一个输入Tensor是变量时，调用可变维度接口可能会导致输入Tensor和权重Tensor的Shape不匹配，最终导致训练失败。
+
+下面示例代码演示训练时如何对MindSpore Lite的输入Tensor进行Resize：
+
+```cpp
+// Assume we have created a Model instance named model.
+auto inputs = model->GetInputs();
+std::vector<int64_t> resize_shape = {16, 32, 32, 1};
+// Assume the model has only one input,resize input shape to [16, 32, 32, 1]
+std::vector<std::vector<int64_t>> new_shapes;
+new_shapes.push_back(resize_shape);
+return model->Resize(inputs, new_shapes);
 ```
 
 ### 获取输入张量
