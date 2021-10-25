@@ -1,6 +1,6 @@
 # PyNative模式应用
 
-`动态图` `PyNative` `动静统一`
+`Ascend` `GPU` `CPU` `模型运行`
 
 <!-- TOC -->
 
@@ -181,7 +181,6 @@ class LeNet5(nn.Cell):
         x = self.relu(self.fc2(x))
         x = self.fc3(x)
         return x
-
 ```
 
 ## 设置Loss函数及优化器

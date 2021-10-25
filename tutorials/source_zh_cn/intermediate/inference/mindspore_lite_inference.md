@@ -1,5 +1,7 @@
 # MindSpore Lite推理流程
 
+`端侧` `进阶` `推理应用`
+
 <!-- TOC -->
 
 - [MindSpore Lite推理流程](#mindspore-lite推理流程)

@@ -1,5 +1,7 @@
 # 使用Parameter Server训练
 
+`Ascend` `进阶` `分布式并行`
+
 <!-- TOC -->
 
 - [使用Parameter Server训练](#使用parameter-server训练)

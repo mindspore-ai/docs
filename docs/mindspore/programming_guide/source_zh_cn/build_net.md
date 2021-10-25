@@ -1,6 +1,6 @@
 # 构建单算子网络和多层网络
 
-`Linux` `Ascend` `GPU` `CPU` `模型开发` `初级`
+`Ascend` `GPU` `CPU` `模型开发`
 
 <!-- TOC -->
 

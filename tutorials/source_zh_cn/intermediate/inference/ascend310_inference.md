@@ -1,5 +1,7 @@
 # Ascend310处理器上推理MindIR模型
 
+`Ascend` `进阶` `推理应用`
+
 <!-- TOC -->
 
 - [Ascend310处理器上推理MindIR模型](#ascend310处理器上推理mindir模型)

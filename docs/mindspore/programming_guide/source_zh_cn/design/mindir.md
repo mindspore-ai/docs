@@ -1,6 +1,6 @@
 # MindSpore IR（MindIR）
 
-`Linux` `Windows` `Ascend` `GPU` `框架开发` `中级` `模型开发` `高级` `贡献者`
+`Ascend` `GPU` `设计` `模型开发`
 
 <!-- TOC -->
 
