@@ -5,7 +5,8 @@
 <!-- TOC -->
 
 - [Downloading MindSpore Lite](#downloading-mindspore-lite)
-    - [1.5.0-rc1](#150)
+    - [1.5.0](#150)
+    - [1.5.0-rc1](#150-rc1)
     - [1.3.0](#130)
     - [1.2.0](#120)
     - [1.1.0](#110)
@@ -15,6 +16,20 @@
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/downloads.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 Welcome to MindSpore Lite. We provide functions such as model conversion, model inference, image processing, etc. that support multiple operating systems and hardware platforms. You can download the version package suitable for the local environment and use it directly.
+
+## 1.5.0
+
+|  Module Name  | Hardware Platform |  Operating System  | Download Links |   SHA-256   |
+|      ---      |       ---         |         ---        |      ---       |    ---      |
+| Inference/training runtime, inference/training aar package, and benchmark tools | CPU     | Android-aarch32 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0/MindSpore/lite/release/android/cpu/mindspore-lite-1.5.0-android-aarch32.tar.gz> | 83101ffc38de6c33c94d09bddd0efed31c23f468f76694ecbec5623db5f04afd |
+| Inference/training runtime, inference/training aar package, and benchmark tools | CPU/GPU | Android-aarch64 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0/MindSpore/lite/release/android/gpu/mindspore-lite-1.5.0-android-aarch64.tar.gz> | 2f09c9f018c1141f2c415d48ff8ec01c17a2ad5e0b7d3233b8aa0612a2330a9e |
+| Inference/training runtime, inference/training jar package, and benchmark/codegen/converter/cropper tools | CPU     | Ubuntu-x64 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0/MindSpore/lite/release/linux/mindspore-lite-1.5.0-linux-x64.tar.gz> | 2359084653c1ddb55da738d5daf65e2cb0b0426032232ae455a72f8960961823 |
+| Inference runtime and benchmark/codegen/converter tools | CPU     | Windows-x64 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0/MindSpore/lite/release/windows/mindspore-lite-1.5.0-win-x64.zip> | 2ed5d767be638787755c3855e28312d655e15219ad8bf500b43d6cea3a8d2dc6 |
+| iOS inference runtime | CPU | iOS-aarch32 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0/MindSpore/lite/release/ios/mindspore-lite-1.5.0-ios-aarch32.tar.gz> | b3cd43f694f051e996cb8b39ed30137f92a4c324adaaceac1d75aa995bd7deb1 |
+| iOS inference runtime | CPU | iOS-aarch64 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0/MindSpore/lite/release/ios/mindspore-lite-1.5.0-ios-aarch64.tar.gz> | 9e919cdaf92fbb408ab169113182f7977d51409575e3a864a5a985a3004623d4 |
+| NNIE converter tool | CPU  | Ubuntu-x64 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0/MindSpore/lite/release/linux/nnie/mindspore-lite-1.5.0-linux-x64.tar.gz> | ab424c967b9ead17cebf1ef353b8b8129b7725e57f045be94a235741d12326c8 |
+| NNIE inference runtime and benchmark tools | Hi3516D | Linux-aarch32 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0/MindSpore/lite/release/linux/mindspore-lite-1.5.0-linux-aarch32.tar.gz> | 976ce83dc89f3ebeab9b706ce0b1a8f49cab7a2c19cd860446c3464164054ceb |
+| HarmonyOS lite runtime | Hi3516D | OpenHarmony | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0/MindSpore/lite/ohos_aarch32/mindspore-lite-1.5.0-ohos-aarch32.tar.gz> | 49cf161c90c259415718b0c6b4538bbc06d4629bfa604c4cbcbc04cf5ed1e3e8 |
 
 ## 1.5.0-rc1
 
