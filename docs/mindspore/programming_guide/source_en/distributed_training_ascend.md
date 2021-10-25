@@ -1,6 +1,6 @@
 # Parallel Distributed Training Example (Ascend)
 
-`Linux` `Ascend` `Model Training` `Intermediate` `Expert`
+`Ascend` `Distributed Parallel` `Whole Process`
 
 <!-- TOC -->
 

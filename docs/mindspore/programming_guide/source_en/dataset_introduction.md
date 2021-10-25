@@ -1,5 +1,7 @@
 # Dataset
 
+`Ascend` `GPU` `CPU` `Beginner`
+
 Translator: [Wei_zz](https://gitee.com/wei-zz)
 
 <!-- TOC -->

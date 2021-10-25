@@ -1,6 +1,6 @@
 # Inference Using the MindIR Model on Ascend 310 AI Processors
 
-`Linux` `Ascend` `Inference Application` `Beginner` `Intermediate` `Expert`
+`Ascend` `Inference Application`
 
 <!-- TOC -->
 

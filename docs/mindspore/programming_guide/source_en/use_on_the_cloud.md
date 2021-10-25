@@ -1,6 +1,6 @@
 ﻿# Using MindSpore on the Cloud
 
-`Linux` `Ascend` `Whole Process` `Beginner` `Intermediate` `Expert`
+`Ascend` `GPU` `CPU` `Model Development` `Model Running` `Model Evaluation`
 
 <!-- TOC -->
 

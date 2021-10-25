@@ -1,5 +1,7 @@
 # Network Parameters
 
+`Ascend` `GPU` `CPU` `Model Development`
+
 <!-- TOC -->
 
 - [Network Parameters](#network-parameters)
@@ -43,7 +45,7 @@ mindspore.Parameter(default_input, name=None, requires_grad=True, layerwise_para
 
 For details about the configuration of distributed parallelism, see <https://www.mindspore.cn/docs/programming_guide/en/master/auto_parallel.html>.
 
-In the following example, `Parameter` objects are built using three different data types. All the three `Parameter` objects need to be updated, and layerwise parallelism is not used.  
+In the following example, `Parameter` objects are built using three different data types. All the three `Parameter` objects need to be updated, and layerwise parallelism is not used.
 
 The code sample is as follows:
 

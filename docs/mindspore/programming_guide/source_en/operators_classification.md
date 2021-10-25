@@ -1,5 +1,7 @@
 ﻿# Operators Classification
 
+`Ascend` `GPU` `CPU` `Beginner`
+
 <!-- TOC -->
 
 - [Operators Classification](#operators-classification)

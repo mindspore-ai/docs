@@ -2,7 +2,7 @@
 
 Translator: [ChanJiatao](https://gitee.com/ChanJiatao)
 
-`Linux` `Ascend` `GPU` `CPU` `Model Development` `Primary`
+`Ascend` `GPU` `CPU` `Model Development`
 
 <!-- TOC -->
 

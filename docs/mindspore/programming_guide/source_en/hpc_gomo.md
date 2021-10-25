@@ -1,6 +1,6 @@
 # Implementing Regional Ocean Model GOMO
 
-`Linux` `GPU` `Model Development` `Expert`
+`GPU` `High Performance Computing` `Whole Process`
 
 <!-- TOC -->
 

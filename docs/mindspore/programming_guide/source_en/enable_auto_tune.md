@@ -1,6 +1,6 @@
 # Enabling AutoTune
 
-`Linux` `Ascend` `AutoTune` `Operator Compile` `Intermediate` `Expert`
+`Ascend` `Model Optimization`
 
 <!-- TOC -->
 

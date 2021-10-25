@@ -1,6 +1,6 @@
 # Custom Debugging Information
 
-`Linux` `Ascend` `GPU` `CPU` `Model Optimization` `Intermediate` `Expert`
+`Ascend` `Model Optimization`
 
 <!-- TOC -->
 

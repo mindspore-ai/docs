@@ -1,6 +1,6 @@
 # Host&Device Heterogeneous
 
-`Linux` `Ascend` `CPU` `Model Training` `Intermediate` `Expert`
+`Ascend` `GPU` `Distributed Parallel` `Whole Process`
 
 <!-- TOC -->
 

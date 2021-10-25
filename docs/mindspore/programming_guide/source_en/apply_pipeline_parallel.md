@@ -1,6 +1,6 @@
 # Pipeline Parallelism
 
-`Linux` `Ascend` `Model Training` `Intermediate` `Expert`
+`Ascend` `Distributed Parallel` `Whole Process`
 
 <!-- TOC -->
 

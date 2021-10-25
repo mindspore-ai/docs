@@ -1,6 +1,6 @@
 # Distributed Parallel Training Example (GPU)
 
-`Linux` `GPU` `Model Training` `Intermediate` `Expert`
+`GPU` `Distributed Parallel` `Whole Process`
 
 <!-- TOC -->
 

@@ -1,6 +1,6 @@
 # Parameter Server Mode
 
-`Linux` `Ascend` `GPU` `Model Training` `Intermediate` `Expert`
+`Ascend` `GPU` `Distributed Parallel` `Whole Process`
 
 <!-- TOC -->
 

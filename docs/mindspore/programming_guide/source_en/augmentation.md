@@ -1,5 +1,7 @@
 # Image Data Processing and Enhancement
 
+`Ascend` `GPU` `CPU` `Data Preparation`
+
 <!-- TOC -->
 
 - [Image Data Processing and Enhancement](#image-data-processing-and-enhancement)

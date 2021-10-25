@@ -1,6 +1,6 @@
 ﻿# Incremental Operator Build
 
-`Linux` `Ascend` `Model Training` `Beginner` `Intermediate` `Expert`
+`Ascend` `Model Optimization`
 
 <!-- TOC -->
 
