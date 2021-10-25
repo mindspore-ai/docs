@@ -26,7 +26,7 @@ mpirun -output-filename log -merge-stderr-to-stdout -np 4 python communication.p
 
 ## AllReduce
 
-<img src="./images/allreduce.png" width="60%">
+![image](images/allreduce.png)
 
 `AllReduce`操作会将每卡中`AllReduce`算子的输入tensor进行求和操作，最终每卡的`AllReduce`算子输出是相同的数值。例如上图所示，每张卡AllReduce算子输入分别为`0, 1, 2, 3`。经过`AllReduce`之后，每张卡输出的结果为所有卡输入之和为6(0+1+2+3)。
 
@@ -63,7 +63,7 @@ print(output)
 
 ## AllGather
 
-<img src="./images/allgather.png" width="60%">
+![image](images/allgather.png)
 
 `AllGather`操作会将每张卡的输入tensor的第0维度上进行拼接，最终每张卡输出是相同的数值。例如上图所示，每卡的输入是大小为1x1的tensor，经过`AllGather`操作之后，每卡`AllGather`算子的输出shape为[4,1]。其中索引为[0,0]的元素值来自于0号卡`AllGather`的输入[[0.0]]，索引为[1,0]的元素值来自于1号卡`AllGather`的输入[[1.0]]。
 
@@ -104,7 +104,7 @@ print(output)
 
 ## ReduceScatter
 
-<img src="./images/reducescatter.png" width="60%">
+![image](images/reducescatter.png)
 
 `ReduceScatter`操作会将每张卡的输入先进行求和，然后在第0维度按卡数切分，将数据分发到对应的卡上。例如上图所示，每卡的输入均为4x1的tensor。`ReduceScatter`先对输入求和得到[0, 4, 8, 12]的tensor，然后进行分发，每卡获得1x1大小的tensor。例如卡0对应的输出结果为[[0.0]]，卡1对应的输出结果为[[4.0]]。
 
@@ -141,7 +141,7 @@ print(output)
 
 ## Broadcast
 
-<img src="./images/broadcast.png" width="60%">
+![image](images/broadcast.png)
 
 `Broadcast`操作是将某张卡的输入广播到其他卡上，常见于参数的初始化。例如上图中，将0卡大小为1x1的tensor进行广播，最终每张卡输出均为[[0]]。
 
