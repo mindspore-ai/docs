@@ -1,6 +1,6 @@
 # 推理模型总览
 
- `Linux` `Ascend` `GPU` `CPU` `推理应用` `初级` `中级` `高级`
+`Ascend` `GPU` `CPU` `推理应用`
 
 <!-- TOC -->
 

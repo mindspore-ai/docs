@@ -1,6 +1,6 @@
 # 使能算子调优工具
 
-`Linux` `Ascend` `AutoTune` `算子编译` `中级` `高级`
+`Ascend` `模型调优`
 
 <!-- TOC -->
 

@@ -1,6 +1,6 @@
 # 构建训练与评估网络
 
-`Linux` `Ascend` `GPU` `CPU` `模型开发` `高级`
+`Ascend` `GPU` `CPU` `模型开发` `模型运行` `模型评估`
 
 <!-- TOC -->
 

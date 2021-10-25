@@ -1,6 +1,6 @@
 # Ascend 310 AI处理器上使用AIR模型进行推理
 
-`Linux` `Ascend` `推理应用` `初级` `中级` `高级`
+`Ascend` `推理应用`
 
 <!-- TOC -->
 
