@@ -1,6 +1,6 @@
 # Host&Device异构
 
-`Linux` `Ascend` `CPU` `模型训练` `中级` `高级`
+`Ascend` `GPU` `分布式并行` `全流程`
 
 <!-- TOC -->
 

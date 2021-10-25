@@ -1,15 +1,22 @@
 # 分布式并行训练Transformer模型
 
-`Linux` `Ascend` `模型训练` `中级` `高级`
+`Ascend` `分布式并行`
 
 <!-- TOC -->
 
-- [分布式并行训练Transformer模型](#分布式并行训练Transformer模型)
+- [分布式并行训练Transformer模型](#分布式并行训练transformer模型)
     - [概述](#概述)
-    - [并行配置](#并行配置)
+    - [并行配置定义](#并行配置定义)
     - [模型定义](#模型定义)
+        - [Embedding层](#embedding层)
+        - [Transformer层](#transformer层)
+        - [定义损失函数](#定义损失函数)
     - [端到端流程](#端到端流程)
     - [准备环节](#准备环节)
+        - [下载数据集](#下载数据集)
+        - [预处理流程](#预处理流程)
+        - [配置分布式环境变量](#配置分布式环境变量)
+        - [调用集合通信库](#调用集合通信库)
     - [运行脚本](#运行脚本)
 
 <!-- /TOC -->
@@ -24,7 +31,7 @@
 
 > 你可以在这里下载完整的样例代码：
 >
-> https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training_transformer
+> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training_transformer>
 
 目录结构如下：
 

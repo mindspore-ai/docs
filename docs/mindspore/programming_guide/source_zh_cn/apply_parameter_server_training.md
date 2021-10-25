@@ -1,10 +1,10 @@
 # Parameter Server模式
 
-`Linux` `Ascend` `GPU` `模型训练` `中级` `高级`
+`Ascend` `GPU` `分布式并行` `全流程`
 
 <!-- TOC -->
 
-- [Parameter Server模式](#parameter_server模式)
+- [Parameter Server模式](#parameter-server模式)
     - [概述](#概述)
     - [准备工作](#准备工作)
         - [训练脚本准备](#训练脚本准备)

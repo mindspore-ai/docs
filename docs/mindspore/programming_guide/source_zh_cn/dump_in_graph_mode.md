@@ -1,6 +1,6 @@
 ﻿# 使用Dump功能在Graph模式调试
 
-`Linux` `Ascend` `GPU` `CPU` `模型调优` `中级` `高级`
+`Ascend` `GPU` `CPU` `模型调优`
 
 <!-- TOC -->
 
@@ -465,7 +465,7 @@ numpy.load("Conv2D.Conv2D-op107.2.2.1623124369613540.output.0.DefaultFormat.npy"
 
 由于存在控制流，某些子图可能不会被执行，Dump只保存执行过的节点，所以graphs目录下`.pb`文件名中的{graph_id}并不一定在{net_name}下存在对应的{graph_id}目录。
 
-对于多图网络，如动态shape的场景，每张图的轮次独立计数。
+对于多图网络，例如动态shape的场景，每张图的轮次独立计数。
 
 ### 异步Dump数据文件介绍
 

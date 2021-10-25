@@ -1,5 +1,7 @@
 # 基于MindSpore Serving部署推理服务
 
+`Ascend` `GPU` `进阶` `推理应用`
+
 <!-- TOC -->
 
 - [基于MindSpore Serving部署推理服务](#基于mindspore-serving部署推理服务)

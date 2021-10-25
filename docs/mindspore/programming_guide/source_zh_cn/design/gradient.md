@@ -1,6 +1,6 @@
 # 函数式可微分编程
 
-`Linux` `Windows` `Ascend` `GPU` `CPU` `框架开发` `中级` `模型开发` `高级` `贡献者`
+`Ascend` `GPU` `CPU` `设计` `模型开发`
 
 <!-- TOC -->
 
@@ -8,10 +8,10 @@
     - [自动微分简介](#自动微分简介)
         - [前向自动微分](#前向自动微分)
         - [反向自动微分](#反向自动微分)
-    - [GradOperation实现](#GradOperation实现)
-        - [GradOperation算法设计](#GradOperation算法设计)
-        - [GradOperation算法实现](#GradOperation算法实现)
-        - [GradOperation示例](#GradOperation示例)
+    - [GradOperation实现](#gradoperation实现)
+        - [GradOperation算法设计](#gradoperation算法设计)
+        - [GradOperation算法实现](#gradoperation算法实现)
+        - [GradOperation示例](#gradoperation示例)
     - [前向自动微分实现](#前向自动微分实现)
         - [参考文献](#参考文献)
 
