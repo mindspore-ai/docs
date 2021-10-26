@@ -56,7 +56,7 @@ bash build.sh -e gpu -j{thread_num} # gpu环境
 ### 设置环境变量（仅用于Ascend环境）
 
 ```bash
-# control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, default level is WARNING.
+# control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
 export GLOG_v=2
 
 # Conda environmental options

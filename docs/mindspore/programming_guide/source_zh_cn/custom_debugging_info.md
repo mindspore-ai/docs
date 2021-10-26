@@ -371,8 +371,8 @@ MindSpore采用glog来输出日志，常用的几个环境变量如下：
 
 - `GLOG_v`
 
-    该环境变量控制日志的级别。  
-    该环境变量默认值为2，即WARNING级别，对应关系如下：0-DEBUG、1-INFO、2-WARNING、3-ERROR。
+    该环境变量控制日志的级别。指定日志级别后，将会输出大于或等于该级别的日志信息，对应关系如下：0-DEBUG、1-INFO、2-WARNING、3-ERROR、4-CRITICAL。
+    该环境变量默认值为2，即WARNING级别。ERROR级别表示程序执行出现报错，输出错误日志，程序不终止。CRITICAL级别表示程序执行出现异常，将会终止执行程序。
 
 - `GLOG_logtostderr`
 
@@ -401,7 +401,7 @@ MindSpore采用glog来输出日志，常用的几个环境变量如下：
 - `GLOG_stderrthreshold`
 
     日志模块在将日志输出到文件的同时也会将日志打印到屏幕，该环境变量用于控制此种场景下打印到屏幕的日志级别。
-    该环境变量默认值为2，即WARNING级别，对应关系如下：0-DEBUG、1-INFO、2-WARNING、3-ERROR。
+    该环境变量默认值为2，即WARNING级别，对应关系如下：0-DEBUG、1-INFO、2-WARNING、3-ERROR、4-CRITICAL。
 
 MindSpore子模块按照目录划分如下：
 

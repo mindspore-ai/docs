@@ -148,7 +148,7 @@ Go to the project directory `ascend910_resnet50_preprocess_sample` and set the f
 > If the device is Ascend 310, go to the project directory `ascend310_resnet50_preprocess_sample`. The following code uses Ascend 910 as an example.
 
 ```bash
-# Control the log print level. 0 indicates DEBUG, 1 indicates INFO, 2 indicates WARNING (default value), and 3 indicates ERROR.
+# Control the log print level. 0 indicates DEBUG, 1 indicates INFO, 2 indicates WARNING (default value), 3 indicates ERROR, and 4 indicates CRITICAL.
 export GLOG_v=2
 
 # Select the Conda environment.
