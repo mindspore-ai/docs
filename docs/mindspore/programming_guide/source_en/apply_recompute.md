@@ -1,6 +1,6 @@
 # Recomputation
 
- `Ascend` `GPU` `CPU` `Model Training` `Intermediate` `Expert`
+ `Ascend` `GPU` `CPU` `Model Running` `Intermediate` `Expert`
 
 <!-- TOC -->
 

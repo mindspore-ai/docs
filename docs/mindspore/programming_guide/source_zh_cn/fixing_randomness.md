@@ -1,6 +1,6 @@
 # 固定随机性以复现脚本运行结果
 
-`Linux` `Ascend` `模型训练` `中级` `高级`
+`Linux` `Ascend` `模型运行` `中级` `高级`
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/fixing_randomness.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 

@@ -1,6 +1,6 @@
 # ForwardValueAndGrad
 
-`Ascend` `GPU` `CPU` `图模式` `PyNative模式`
+`Ascend` `GPU` `CPU` `模型运行`
 
 <!-- TOC -->
 
