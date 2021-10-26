@@ -2,8 +2,6 @@
 
 Translator: [Wei_zz](https://gitee.com/wei-zz)
 
-`Linux` `CPU` `Whole Process` `Beginner` `Intermediate` `Advanced`
-
 <!-- TOC -->
 
 - [Parameterized Quantum Circuit](#parameterized-quantum-circuit)
@@ -11,7 +9,7 @@ Translator: [Wei_zz](https://gitee.com/wei-zz)
     - [Preparing Environment](#preparing-environment)
     - [Quantum Gate](#quantum-gate)
     - [Quantum Circuit](#quantum-circuit)
-        - [HiQsimulator Compatible Quantum Circuit Building Format](#hiqsimulator-compatible-quantum-circuit-building-format)
+        - [[HiQsimulator](https://hiq.huaweicloud.com/doc/index.html) Compatible Quantum Circuit Building Format](#hiqsimulatorhttpshiqhuaweicloudcomdocindexhtml-compatible-quantum-circuit-building-format)
         - [A More Convenient Circuit Generation](#a-more-convenient-circuit-generation)
     - [Simulate Quantum Circuit by MindSpore Operator](#simulate-quantum-circuit-by-mindspore-operator)
 

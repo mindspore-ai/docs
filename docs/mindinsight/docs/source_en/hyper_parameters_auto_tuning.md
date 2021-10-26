@@ -1,7 +1,5 @@
 # Use Mindoptimizer to Tune Hyperparameters
 
-`Linux` `Ascend` `GPU` `CPU` `Model Optimization` `Intermediate` `Expert`
-
 <!-- TOC -->
 
 - [Use Mindoptimizer to Tune Hyperparameters](#use-mindoptimizer-to-tune-hyperparameters)

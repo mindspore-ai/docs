@@ -1,7 +1,5 @@
 # 基于MindSpore Serving部署分布式推理服务
 
-`Linux` `Ascend` `Serving` `中级` `高级`
-
 <!-- TOC -->
 
 - [基于MindSpore Serving部署分布式推理服务](#基于mindspore-serving部署分布式推理服务)

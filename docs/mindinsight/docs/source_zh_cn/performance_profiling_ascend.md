@@ -1,21 +1,19 @@
 # 性能调试（Ascend）
 
-`Linux` `Ascend` `模型调优` `中级` `高级`
-
 <!-- TOC -->
 
 - [性能调试（Ascend）](#性能调试ascend)
     - [概述](#概述)
     - [操作流程](#操作流程)
     - [准备训练脚本](#准备训练脚本)
-    - [启动MindInsight](#启动MindInsight)
+    - [启动MindInsight](#启动mindinsight)
     - [训练性能](#训练性能)
         - [迭代轨迹分析](#迭代轨迹分析)
         - [算子性能分析](#算子性能分析)
         - [数据准备性能分析](#数据准备性能分析)
-        - [Timeline分析](#Timeline分析)
+        - [Timeline分析](#timeline分析)
     - [资源利用](#资源利用)
-        - [CPU利用率分析](#CPU利用率分析)
+        - [CPU利用率分析](#cpu利用率分析)
         - [内存使用情况分析](#内存使用情况分析)
     - [规格](#规格)
     - [注意事项](#注意事项)
@@ -249,18 +247,18 @@ Timeline主要包含如下几个部分：
 - Device及其stream list：包含Device上的stream列表，每个stream由task执行序列组成，一个task是其中的一个小方块，大小代表执行时间长短。
 
   各个颜色块表示算子执行的起始时间及时长。timeline的详细解释如下：
-  - Process AI Core Op：包含在AI Core上执行的算子的时间线。
-    - Step：训练步数。
-    - Scope Name：算子的Scope Name。
-    - Stream ID：在该stream上执行的算子。
-  - Process AI CPU Op：包含在AI CPU上执行的算子的时间线。
-  - Process Communication Op 节点：包含通信算子执行的时间线。
-  - Process Host CPU Op：包含在Host CPU上执行的算子的时间线。
-  - Process Op Overlap Analyse：所有计算算子与通信算子合并后的时间线，分析通信时间占比。
-    - Merged Computation Op：为所有计算（AI Core、AI CPU、Host CPU）算子合并后的时间线。
-    - Merged Communication Op：为所有通信算子合并后的时间线。
-    - Pure Communication Op：纯通信时间（通信算子的执行时间去除与计算算子时间重叠部分后的时间线）。
-    - Free Time：空闲时间（既没有通信算子也没有计算算子在执行的时间线）。  
+    - Process AI Core Op：包含在AI Core上执行的算子的时间线。
+        - Step：训练步数。
+        - Scope Name：算子的Scope Name。
+        - Stream ID：在该stream上执行的算子。
+    - Process AI CPU Op：包含在AI CPU上执行的算子的时间线。
+    - Process Communication Op 节点：包含通信算子执行的时间线。
+    - Process Host CPU Op：包含在Host CPU上执行的算子的时间线。
+    - Process Op Overlap Analyse：所有计算算子与通信算子合并后的时间线，分析通信时间占比。
+        - Merged Computation Op：为所有计算（AI Core、AI CPU、Host CPU）算子合并后的时间线。
+        - Merged Communication Op：为所有通信算子合并后的时间线。
+        - Pure Communication Op：纯通信时间（通信算子的执行时间去除与计算算子时间重叠部分后的时间线）。
+        - Free Time：空闲时间（既没有通信算子也没有计算算子在执行的时间线）。
 
 - 算子信息：选中某个task后，可以显示该task对应算子的信息，包括名称、type等。
 

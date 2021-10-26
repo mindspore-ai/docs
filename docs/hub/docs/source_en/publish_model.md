@@ -1,7 +1,5 @@
 # Publishing Models using MindSpore Hub
 
-`Linux` `Ascend` `GPU` `Model Publishing` `Intermediate` `Expert`
-
 <!-- TOC -->
 
 - [Publishing Models using MindSpore Hub](#publishing-models-using-mindspore-hub)

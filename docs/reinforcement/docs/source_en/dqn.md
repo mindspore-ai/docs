@@ -1,7 +1,5 @@
 # Deep Q Learning (DQN) with MindSpore Reinforcement
 
-`Linux` `Ascend` `GPU` `CPU` `reinforcement learning`
-
 <!-- TOC -->
 
 - [Deep Q Learning (DQN) with MindSpore Reinforcement](#deep-q-learning-dqn-with-mindspore-reinforcement)

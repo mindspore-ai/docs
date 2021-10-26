@@ -1,7 +1,5 @@
 # Static Graph Syntax Support
 
-`Linux` `Ascend` `GPU` `CPU` `Model Development` `Beginner` `Intermediate` `Expert`
-
 <!-- TOC -->
 
 - [Static Graph Syntax Support](#static-graph-syntax-support)
@@ -55,6 +53,7 @@
             - [filter](#filter)
         - [Function Parameters](#function-parameters)
     - [Network Definition](#network-definition)
+        - [Network Input parameters](#network-input-parameters)
         - [Instance Types on the Entire Network](#instance-types-on-the-entire-network)
         - [Network Construction Components](#network-construction-components)
         - [Network Constraints](#network-constraints)
@@ -430,7 +429,7 @@ This is because these operators are converted to operators with the same name fo
 
 For details about the rules, click <https://www.mindspore.cn/docs/note/en/master/operator_list_implicit.html>.
 
-### Unary  Arithmetic Operators
+### Unary Arithmetic Operators
 
 | Unary Arithmetic Operator | Supported Type                 |
 | :------------------------ | :----------------------------- |

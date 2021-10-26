@@ -1,7 +1,5 @@
 # Obtaining MindSpore Federated
 
-`MindSpore Federated` `Installation`
-
 <!-- TOC -->
 
 - [Obtaining MindSpore Federated](#obtaining-mindspore-federated)

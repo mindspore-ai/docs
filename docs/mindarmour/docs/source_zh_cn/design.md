@@ -1,5 +1,7 @@
 # 安全可信
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_zh_cn/design.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+
 ## 总体架构
 
 AI作为一种通用技术，带来巨大机遇和效益的同时也面临着新的安全与隐私保护的挑战。MindArmour关注AI应用场景中常见的安全与隐私问题：AI模型易受对抗样本欺骗、数据采集过程中可能收集到敏感隐私数据、模型使用过程中可能泄露隐私数据、模型资产存在被窃取风险、数据漂移导致模型失效等。并提供相应的安全与隐私保护能力。

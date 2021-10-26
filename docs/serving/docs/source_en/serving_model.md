@@ -1,7 +1,5 @@
 # Servable Provided Through Model Configuration
 
-`Linux` `Ascend` `GPU` `Serving` `Beginner` `Intermediate` `Expert`
-
 <!-- TOC -->
 
 - [Servable Provided Through Model Configuration](#servable-provided-through-model-configuration)

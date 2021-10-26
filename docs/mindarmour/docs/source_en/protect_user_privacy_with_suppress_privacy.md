@@ -2,8 +2,6 @@
 
 Translator: [翁炜华](https://gitee.com/weng-weihua)
 
-`Linux` `Ascend` `Model Training` `Model Optimization` `Enterprise` `Expert`
-
 <!-- TOC -->
 
 - [Protecting User Privacy with Suppress Privacy](#protecting-user-privacy-with-suppress-privacy)

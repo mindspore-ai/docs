@@ -1,7 +1,5 @@
 # Collecting Summary Record
 
-`Linux` `Ascend` `GPU` `CPU` `Model Optimization` `Intermediate` `Expert`
-
 <!-- TOC -->
 
 - [Collecting Summary Record](#collecting-summary-record)

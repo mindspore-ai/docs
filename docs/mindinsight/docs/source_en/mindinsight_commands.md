@@ -1,7 +1,5 @@
 # MindInsight Commands
 
-`Linux` `Ascend` `GPU` `CPU` `Model Optimization` `Intermediate` `Expert`
-
 <!-- TOC -->
 
 - [MindInsight Commands](#mindinsight-commands)
@@ -117,7 +115,7 @@ The shutdown is successful if it prompts as follows:
 Stop mindinsight service successfully
 ```
 
-## Parse summary
+## Parse Summary
 
 MindInsight provides tools for parsing summary log files. Users can save the scalars in the summary log file into a csv file and the images into a png file through the commands, which is convenient for viewing and further processing.
 

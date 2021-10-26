@@ -1,7 +1,5 @@
 # Performance Profiling (Ascend)
 
-`Linux` `Ascend` `Model Optimization` `Intermediate` `Expert`
-
 <!-- TOC -->
 
 - [Performance Profiling (Ascend)](#performance-profiling-ascend)
@@ -9,9 +7,10 @@
     - [Operation Process](#operation-process)
     - [Preparing the Training Script](#preparing-the-training-script)
     - [Launch MindInsight](#launch-mindinsight)
-    - [Training Performance](#training-performanece)
+    - [Training Performance](#training-performance)
         - [Step Trace Analysis](#step-trace-analysis)
         - [Operator Performance Analysis](#operator-performance-analysis)
+        - [Calculation quantity analysis](#calculation-quantity-analysis)
         - [Data Preparation Performance Analysis](#data-preparation-performance-analysis)
         - [Timeline Analysis](#timeline-analysis)
     - [Resource Utilization](#resource-utilization)
@@ -248,18 +247,18 @@ The Timeline consists of the following parts:
 - Device and Stream List: It will show the stream list on each device. Each stream consists of a series of tasks. One rectangle stands for one task, and the area stands for the execution time of the task.
 
   Each color block represents the starting time and length of operator execution. The detailed explanation of timeline is as follows:
-  - Process Device ID: contains the timeline of operators executed on AI Core.
-    - Step: training steps.
-    - Scope Name: the Scope Name of operators.
-    - Stream ID: operators executed on the stream.
-  - Process AI CPU Op: contains the timeline of operators executed on AI CPU.
-  - Process Communication Op: contains the timeline for the execution of communication operators.
-  - Process Host CPU Op: contains the timeline of operators executed on the Host CPU.
-  - Process Op Overlap Analyse: the timeline of all computation operators and communication operators merged, analyse the proportion of communication time.
-    - Merged Computation Op: it is the timeline after all computation operators are merged.
-    - Merged Communication Op: it is the timeline after all communication operators are merged.
-    - Pure Communication Op: pure communication time (the timeline of the communication operator after removing the overlap with the computation operator time).
-    - Free Time: there is no communication operator and calculation operator in the execution timeline.
+    - Process Device ID: contains the timeline of operators executed on AI Core.
+        - Step: training steps.
+        - Scope Name: the Scope Name of operators.
+        - Stream ID: operators executed on the stream.
+    - Process AI CPU Op: contains the timeline of operators executed on AI CPU.
+    - Process Communication Op: contains the timeline for the execution of communication operators.
+    - Process Host CPU Op: contains the timeline of operators executed on the Host CPU.
+    - Process Op Overlap Analyse: the timeline of all computation operators and communication operators merged, analyse the proportion of communication time.
+        - Merged Computation Op: it is the timeline after all computation operators are merged.
+        - Merged Communication Op: it is the timeline after all communication operators are merged.
+        - Pure Communication Op: pure communication time (the timeline of the communication operator after removing the overlap with the computation operator time).
+        - Free Time: there is no communication operator and calculation operator in the execution timeline.
 
 - The Operator Information: When we click one task, the corresponding operator of this task will be shown at the bottom.
 

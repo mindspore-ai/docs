@@ -1,7 +1,5 @@
 # Migrating From Third Party Frameworks With MindConverter
 
-`Linux` `Ascend` `Model Development` `Beginner`
-
 <!-- TOC -->
 
 - [Migrating From Third Party Frameworks With MindConverter](#migrating-from-third-party-frameworks-with-mindconverter)

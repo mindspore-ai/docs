@@ -1,7 +1,5 @@
 # Viewing Dashboard
 
-`Linux` `Ascend` `GPU` `CPU` `Model Optimization` `Intermediate` `Expert`
-
 <!-- TOC -->
 
 - [Viewing Dashboard](#viewing-dashboard)
