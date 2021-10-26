@@ -1,4 +1,8 @@
-# 低阶API的使用
+# 中低阶API实现深度学习
+
+`Ascend` `GPU` `CPU` `进阶` `全流程`
+
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/intermediate/mid_low_level_api.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 为方便用户控制整网的执行流程，MindSpore提供了高阶的训练和推理接口`mindspore.Model`，通过指定要训练的神经网络模型和常见的训练设置，调用`train`和`eval`方法对网络进行训练和推理。同时，用户如果想要对特定模块进行个性化设置，也可以调用对应的中低阶接口自行定义，本文介绍了如何使用中低阶API定义各个模块。
 

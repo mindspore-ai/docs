@@ -1,5 +1,7 @@
 # Forward Value And Grad
 
+`Ascend` `GPU` `CPU` `Model Running`
+
 <!-- TOC -->
 
 - [Forward Value And Grad](#forward-value-and-grad)

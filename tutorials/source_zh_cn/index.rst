@@ -27,6 +27,7 @@ MindSpore教程
    :maxdepth: 1
    :caption: 进阶教程
 
+   intermediate/mid_low_level_api
    custom
    image_and_video
    text
