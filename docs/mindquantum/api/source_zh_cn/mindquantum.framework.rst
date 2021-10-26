@@ -1,14 +1,8 @@
 mindquantum.framework
----------------------
-
-Functions
-^^^^^^^^^
-
-.. automodule:: mindquantum.framework
-    :members:
+=====================
 
 Operators
-^^^^^^^^^
+---------
 
 .. msplatformautosummary::
     :toctree: operations
@@ -23,7 +17,7 @@ Operators
     mindquantum.framework.MQN2EncoderOnlyOps
 
 Layer
-^^^^^^^^^
+-----
 
 .. msplatformautosummary::
     :toctree: layer

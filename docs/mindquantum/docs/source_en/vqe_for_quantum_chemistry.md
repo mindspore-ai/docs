@@ -15,7 +15,7 @@ This tutorial consists of the following parts:
 3. Using MindQuantum to perform VQE simulation with efficient and automatic derivation
 
 > This document applies to the CPU environment.
-> You can obtain the complete executable sample code at <https://gitee.com/mindspore/mindquantum/blob/master/tutorials/source/vqe_for_quantum_chemistry.py>.
+> You can obtain the complete executable sample code at <https://gitee.com/mindspore/mindquantum/blob/master/tutorials/source/7.vqe_for_quantum_chemistry.py>.
 
 ## Environment Preparation
 

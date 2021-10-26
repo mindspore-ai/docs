@@ -7,7 +7,7 @@
 Quantum approximate optimization algorithm (QAOA) is a quantum algorithm that uses quantum computers to solve combination optimization problems. It was first proposed by Farhi et al. in 2014. In this tutorial, we will use QAOA to solve the Max-Cut problem and get familiar with the construction and training of quantum circuits in MindQuantum.
 
 > This document applies to the CPU environment.
-> You can obtain the complete executable sample code at <https://gitee.com/mindspore/mindquantum/blob/master/tutorials/source/quantum_approximate_optimization_algorithm.py>.
+> You can obtain the complete executable sample code at <https://gitee.com/mindspore/mindquantum/blob/master/tutorials/source/5.quantum_approximate_optimization_algorithm.py>.
 
 ## Environment Preparation
 
