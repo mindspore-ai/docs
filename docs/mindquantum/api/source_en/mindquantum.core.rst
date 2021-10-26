@@ -1,5 +1,12 @@
 mindquantum.core
--------------------
+================
 
 .. automodule:: mindquantum.core
-    :members:
+
+.. toctree::
+   :maxdepth: 1
+
+   mindquantum.core.gates
+   mindquantum.core.circuit
+   mindquantum.core.operators
+   mindquantum.core.parameterresolver

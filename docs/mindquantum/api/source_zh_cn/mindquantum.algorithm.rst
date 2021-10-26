@@ -1,5 +1,10 @@
 mindquantum.algorithm
----------------------
+=====================
 
 .. automodule:: mindquantum.algorithm
-    :members:
+
+.. toctree::
+   :maxdepth: 1
+
+   mindquantum.algorithm.library
+   mindquantum.algorithm.nisq
