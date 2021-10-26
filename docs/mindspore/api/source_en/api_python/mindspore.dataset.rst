@@ -71,7 +71,7 @@ Sampler
 .. autosummary::
     :toctree: dataset
     :nosignatures:
-    :template: classtemplate_inherited.rst
+    :template: classtemplate_inherited_sampler.rst
 
     mindspore.dataset.DistributedSampler
     mindspore.dataset.PKSampler
