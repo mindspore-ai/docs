@@ -7,7 +7,6 @@
     - [Creating and Accessing the Conda Virtual Environment](#creating-and-accessing-the-conda-virtual-environment)
     - [Installing MindSpore](#installing-mindspore)
     - [Installation Verification](#installation-verification)
-    - [Version Update](#version-update)
 
 <!-- /TOC -->
 
@@ -121,19 +120,3 @@ print(ops.add(x, y))
 ```
 
 It means MindSpore has been installed successfully.
-
-## Version Update
-
-Using the following command if you need to update the MindSpore version:
-
-For CUDA 10.1:
-
-```bash
-conda update mindspore-gpu cudatoolkit=10.1
-```
-
-For CUDA 11.1:
-
-```bash
-conda update mindspore-gpu cudatoolkit=11.1
-```

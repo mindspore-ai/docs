@@ -77,5 +77,5 @@ It means MindSpore has been installed successfully.
 Using the following command if you need to update the MindSpore version:
 
 ```bash
-conda update mindspore-cpu
+conda update mindspore-cpu -c mindspore -c conda-forge
 ```
