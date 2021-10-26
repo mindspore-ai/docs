@@ -109,6 +109,12 @@ A: MindSpore不同版本的安装目录名同为`mindspore`，安装在同一个
 
 <br/>
 
+<font size=3>**Q: 在ARM架构的环境上使用pip安装MindSpore时报错: `Could not find a version that satisfies the requirement`应该怎么办？**</font>
+
+A: 大概率是因为pip版本低于19.3，无法识别`manylinux2014`标签，导致pip install阶段下载了错误版本的`numpy`或`scipy`等python软件包，进而引发了无法找到构建依赖的问题，请执行`pip install --upgrade pip`将环境中的pip升级到19.3以上，重新安装MindSpore。
+
+<br/>
+
 ## 源码编译安装
 
 <font size=3>**Q: 编译时`bash -p`方式和 `bash -e`方式的区别？**</font>

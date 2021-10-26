@@ -28,11 +28,11 @@ The following describes how to quickly install MindSpore by Conda on Linux in th
     - If you prefer the complete capabilities provided by Conda, you can choose to download [Anaconda3](https://repo.anaconda.com/archive/).
     - If you want to save disk space or prefer custom Conda installation, you can choose to download [Miniconda3](https://repo.anaconda.com/miniconda/).
 
-- Ensure that the Ascend 310 AI Processor software packages ([Ascend Data Center Solution 21.0.5]) are installed.
+- Ensure that the Ascend 310 AI Processor software packages ([Ascend Data Center Solution]) are installed.
     - For the installation of software package,  please refer to the [Product Document](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910).
     - The software packages include Driver and Firmware and CANN.
-        - [Driver and Firmware A300-3000 1.0.13 ARM platform] and [Driver and Firmware A300-3010 1.0.13 x86 platform]
-        - [CANN 5.0.T306](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/254156433)
+        - [Driver and Firmware A300-3000 1.0.12 ARM platform] and [Driver and Firmware A300-3010 1.0.12 x86 platform]
+        - [CANN 5.0.3](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252806307)
 
     - Ensure that you have permissions to access the installation path `/usr/local/Ascend` of the Ascend 310 AI Processor software package. If not, ask the user root to add you to a user group to which `/usr/local/Ascend` belongs. For details about the configuration, see the description document in the software package.
 
@@ -139,3 +139,11 @@ The following information is displayed:
 ```
 
 The preceding information indicates that MindSpore is successfully installed.
+
+## Version Update
+
+Using the following command if you need to update the MindSpore version:
+
+```bash
+conda update mindspore-ascend -c mindspore -c conda-forge
+```

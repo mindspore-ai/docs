@@ -30,12 +30,14 @@
     - Python 3.7.5版本 64位，下载地址：[官网](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz)或[华为云](https://mirrors.huaweicloud.com/python/3.7.5/Python-3.7.5.tgz)。
     - Python 3.9.0版本 64位，下载地址：[官网](https://www.python.org/ftp/python/3.9.0/Python-3.9.0.tgz)或[华为云](https://mirrors.huaweicloud.com/python/3.9.0/Python-3.9.0.tgz)。
 
-- 确认安装Ascend 310 AI处理器配套软件包（[Ascend Data Center Solution 21.0.5]）。
+- 如果您的环境为ARM架构，请确认当前使用的Python配套的pip版本>=19.3。
+
+- 确认安装Ascend 310 AI处理器配套软件包（[Ascend Data Center Solution]）。
 
     - 软件包安装方式请参考[产品文档](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910)。
     - 配套软件包包括驱动和固件和CANN。
-        - [驱动和固件A300-3000 1.0.13 ARM平台]和[驱动和固件A300-3010 1.0.13 x86平台]
-        - [CANN 5.0.T306](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/254156433)
+        - [驱动和固件A300-3000 1.0.12 ARM平台]和[驱动和固件A300-3010 1.0.12 x86平台]
+        - [CANN 5.0.3](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252806307)
 
     - 确认当前用户有权限访问Ascend 310 AI处理器配套软件包的安装路径`/usr/local/Ascend`，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
     - 安装Ascend 310 AI处理器配套软件包提供的whl包，whl包随配套软件包发布，升级配套软件包之后需要重新安装。
