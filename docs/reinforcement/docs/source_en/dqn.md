@@ -75,7 +75,7 @@ For the DQN algorithm, we configure one actor `'number': 1`, three behaviour pol
 
 The replay buffer's capacity is set to 100,000, and its sample size is 64. It stores data of a tensor type with shape `[(4,), (1,), (1,), (4,)]`. The second dimension has the type int32 and other dimensions are of the float32 type and. Both types are provided by MindSpore: `'type': [mindspore.float32, mindspore.int32, mindspore.float32, mindspore.float32]}`.
 
-Other components are defined in a similar way -- please refer to the  [complete DQN code example](https://gitee.com/mindspore/reinforcement/tree/r0.1/example/dqn) and the [MindSpore Reinforcement API documentation] for more details.
+Other components are defined in a similar way -- please refer to the  [complete DQN code example](https://gitee.com/mindspore/reinforcement/tree/r0.1/example/dqn) and the [MindSpore Reinforcement API documentation](https://wwww.mindspore.cn/reinforcement/api/en/r0.1/index.html) for more details.
 
 Note that MindSpore Reinforcement uses a single *policy* class to define all policies and neural networks used by the algorithm. In this way, it hides the complexity of data sharing and communication between policies and neural networks.
 

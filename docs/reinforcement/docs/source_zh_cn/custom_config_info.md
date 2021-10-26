@@ -54,10 +54,8 @@ Policy通常用于智能体决策下一步需要执行的行为，算法中需�
 
 以下样例中定义策略和参数配置，Policy是由用户定义的`DQNPolicy`，并指定了epsilon greedy衰减参数，学习率，网络模型隐层等参数，框架会采用`DQNPolicy(policy_params)`方式创建Policy对象。
 
-// FIXME: import包将要调整，资料需要统一刷新
-
 ```python
-from example.dqn.dqn import DQNPolicy
+from dqn.src.dqn import DQNPolicy
 
 policy_params = {
     'epsi_high': 0.1,        # epsi_high/epsi_low/decay共同控制探索-利用比例
@@ -159,7 +157,7 @@ algorithm_config = {
 以下代码中定义`DQNLearner`配置，框架会采用`DQNLearner(algorithm_config['learner'])`方式创建Learner。
 
 ```python
-from example.dqn.dqn import DQNLearner
+from dqn.src.dqn import DQNLearner
 learner_params = {'gamma': 0.99}  
 algorithm_config = {
     ...

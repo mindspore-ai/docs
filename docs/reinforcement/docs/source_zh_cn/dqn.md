@@ -24,7 +24,7 @@
 - 基于Actor-Learner-Environment抽象实现算法；
 - 创建一个执行已实现的算法的会话对象。
 
-本教程展示了使用MindSpore Reinforcement API实现深度Q学习（DQN）算法。注：为保证清晰性和可读性，仅显示与API相关的代码，不相关的代码已省略。点击[此处](https://gitee.com/mindspore/reinforcement/tree/r1.5/example/dqn)获取MindSpore Reinforcement实现完整DQN的源代码。
+本教程展示了使用MindSpore Reinforcement API实现深度Q学习（DQN）算法。注：为保证清晰性和可读性，仅显示与API相关的代码，不相关的代码已省略。点击[此处](https://gitee.com/mindspore/reinforcement/tree/r0.1/example/dqn)获取MindSpore Reinforcement实现完整DQN的源代码。
 
 ## 指定DQN的Actor-Learner-Environment抽象
 
@@ -75,7 +75,7 @@ MindSpore Reinforcement使用*算法配置*指定DQN算法所需的逻辑组件�
 
 回放缓冲区的容量设置为100,000，其样本大小为64。它存储shape为`[(4,), (1,), (1,), (4,)]`的张量数据。第二个维度的类型为int32，其他维度的类型为float32。这两种类型都由MindSpore提供：`'type': [mindspore.float32, mindspore.int32, mindspore.float32, mindspore.float32]}`。
 
-其他组件也以类似的方式定义。有关更多详细信息，请参阅[完整代码示例](https://gitee.com/mindspore/reinforcement/tree/r1.5/example/dqn)和[MindSpore Reinforcement API]。
+其他组件也以类似的方式定义。有关更多详细信息，请参阅[完整代码示例](https://gitee.com/mindspore/reinforcement/tree/r0.1/example/dqn)和[MindSpore Reinforcement API](https://www.mindspore.cn/reinforcement/api/zh-CN/r0.1/index.html)。
 
 请注意，MindSpore Reinforcement使用单个*policy*类来定义算法使用的所有策略和神经网络。通过这种方式，它隐藏了策略和神经网络之间数据共享和通信的复杂性。
 
@@ -150,7 +150,7 @@ def train_one_episode(self, update_period=5):
 
 回放缓存`ReplayBuffer`由MindSpore Reinfocement提供。它定义了`insert`和`sample`方法，分别用于对经验数据进行存储和采样。
 
-`init_training`和`evaluation`方法的实现类似。详细信息，请参阅[完整的DQN代码示例](https://gitee.com/mindspore/reinforcement/tree/r1.5/example/dqn)。
+`init_training`和`evaluation`方法的实现类似。详细信息，请参阅[完整的DQN代码示例](https://gitee.com/mindspore/reinforcement/tree/r0.1/example/dqn)。
 
 ### 定义DQNPolicy类
 
