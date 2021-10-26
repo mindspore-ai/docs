@@ -52,10 +52,8 @@ Policy is usually used to determine the behaviour (or action) that agent will ex
 - `type` : specify the name of Policy, Actor determines the action through Policy. In deep reinforcement learning, Policy usually uses deep neural network to extract the feature of environment, and outputs the action in the next step.
 - `params` : specify the parameter that used during creating the instance of Policy. One thing should be noticed is that `type` and `params` need to be matched.
 
-// FIXME: import包将要调整，资料需要统一刷新
-
 ```python
-from example.dqn.dqn import DQNPolicy
+from dqn.src.dqn import DQNPolicy
 
 policy_params = {
     'epsi_high': 0.1,        # epsi_high/epsi_low/decay control the proportion of exploitation and exploration
@@ -157,7 +155,7 @@ algorithm_config = {
 The following code defines the configuration of `DQNLearner` . Framework will create the instance of Learner like `DQNLearner(algorithm_config['learner'])`.
 
 ```python
-from example.dqn.dqn import DQNLearner
+from dqn.src.dqn import DQNLearner
 learner_params = {'gamma': 0.99}  
 algorithm_config = {
     ...
