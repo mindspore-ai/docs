@@ -29,6 +29,7 @@ mindspore.set_seed
         .. code-block::
 
             >>> import numpy as np
+            >>> import mindspore as ms
             >>> import mindspore.ops as ops
             >>> from mindspore import Tensor, set_seed, Parameter
             >>> from mindspore.common.initializer import initializer
