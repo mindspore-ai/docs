@@ -6,6 +6,18 @@
 
 MindSpore provides APIs for loading common datasets and datasets in standard formats. You can directly use the corresponding dataset loading class in mindspore.dataset to load data. The dataset class provides common data processing APIs for users to quickly process data.
 
+## Data Preparation
+
+Execute the following command to download and decompress the dataset to the specified location.
+
+```bash
+mkdir ./datasets
+wget -N https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cifar-10-binary.tar.gz --no-check-certificate
+wget -N https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/MNIST_Data.zip --no-check-certificate
+unzip -d ./datasets -o MNIST_Data.zip
+tar -zxvf cifar-10-binary.tar.gz -C ./datasets
+```
+
 ## Loading the Dataset
 
 In the following example, the CIFAR-10 dataset is loaded through the `Cifar10Dataset` API, and the first five samples are obtained using the sequential sampler.
@@ -13,7 +25,7 @@ In the following example, the CIFAR-10 dataset is loaded through the `Cifar10Dat
 ```python
 import mindspore.dataset as ds
 
-DATA_DIR = "./datasets/cifar-10-batches-bin/train"
+DATA_DIR = "./datasets/cifar-10-batches-bin"
 sampler = ds.SequentialSampler(num_samples=5)
 dataset = ds.Cifar10Dataset(DATA_DIR, sampler=sampler)
 ```
