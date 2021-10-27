@@ -15,10 +15,10 @@ class torch.nn.Unfold(
 
 For more information, see [torch.nn.Unfold](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.Unfold).
 
-## mindspore.ops.Unfold
+## mindspore.nn.Unfold
 
 ```python
-class mindspore.ops.Unfold(
+class mindspore.nn.Unfold(
     ksizes,
     strides,
     rates,
@@ -26,7 +26,7 @@ class mindspore.ops.Unfold(
 )(x)
 ```
 
-For more information, see [mindspore.ops.Unfold](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Unfold.html#mindspore.ops.Unfold).
+For more information, see [mindspore.nn.Unfold](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Unfold.html#mindspore.nn.Unfold).
 
 ## Differences
 

@@ -15,10 +15,10 @@ class torch.nn.Unfold(
 
 更多内容详见[torch.nn.Unfold](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.Unfold)。
 
-## mindspore.ops.Unfold
+## mindspore.nn.Unfold
 
 ```python
-class mindspore.ops.Unfold(
+class mindspore.nn.Unfold(
     ksizes,
     strides,
     rates,
@@ -26,7 +26,7 @@ class mindspore.ops.Unfold(
 )(x)
 ```
 
-更多内容详见[mindspore.ops.Unfold](https://mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Unfold.html#mindspore.nn.Unfold)。
+更多内容详见[mindspore.nn.Unfold](https://mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Unfold.html#mindspore.nn.Unfold)。
 
 ## 使用方式
 
