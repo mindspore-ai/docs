@@ -2,7 +2,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/faq/source_zh_cn/faq.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-<font size=3>**Q: 请问在做神经网络中间特征可视化时，输入模型一张图片，如何获取中间层的各个输出，并进行可视化？**</font>
+<font size=3>**Q: 请问在做神经网络中间特征可视化时，输入给模型一张图片，如何获取中间层的各个输出，并进行可视化？**</font>
 
 A: 可以通过MindSpore提供的`TensorSummary`算子配合`SummaryCollector`完成感兴趣数据的收集，收集到的数据可以使用MindInsight可视化查看。对于图像类数据，您还可以用`ImageSummary`进行收集。由于`tensor`数据较大，收集的时候请合理控制`collect_tensor_freq`参数的取值，否则会消耗大量磁盘空间并显著降低运行速度。
 

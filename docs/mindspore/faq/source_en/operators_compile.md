@@ -2,6 +2,24 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_en/operators_compile.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
+<font size=3>**Q: When the `ops.concat` operator is used, the error message `Error:Input and (output + workspace) num should <=192!` is displayed indicating that the data volume is large. What can I do?**</font>
+
+A: The `shape` of the `ops.concat` operator is too large. You are advised to set the output to `numpy` when creating an iterator for the `dataset` object. The setting is as follows:
+
+```python
+gallaryloader.create_dict_iterator(output_numpy=True)
+```
+
+In the post-processing phase (in a non-network calculation process, that is, in a non-construct function), `numpy` can be directly used for computation. For example, `numpy.concatenate` is used to replace the `ops.concat` for computation.
+
+<br/>
+
+<font size=3>**Q: In the `construct` function of the static graph mode, how do I remove all negative values contained in a `tensor`?**</font>
+
+A: You are advised to use the `ops.clip_by_value` interface to change all negative numbers to 0 for computation.
+
+<br/>
+
 <font size=3>**Q: What is the function of the `TransData` operator? Can the performance be optimized?**</font>
 
 A: The `TransData` operator is used in the scenario where the data formats (such as NC1HWC0) used by interconnected operators on the network are inconsistent. In this case, the framework automatically inserts the `TransData` operator to convert the data formats into the same format and then performs computation. Huawei Ascend supports 5D format operations, and uses the `transdata` operator to convert data from 4D to 5D to improve performance.
