@@ -1,6 +1,9 @@
 mindquantum.core.circuit
 ========================
 
+Quantum Circuit
+---------------
+
 .. automodule:: mindquantum.core.circuit
     :exclude-members: C, D, A, AP, CPN
     :members:
