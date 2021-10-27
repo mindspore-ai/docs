@@ -6,6 +6,8 @@
 
 为方便用户控制整网的执行流程，MindSpore提供了高阶的训练和推理接口`mindspore.Model`，通过指定要训练的神经网络模型和常见的训练设置，调用`train`和`eval`方法对网络进行训练和推理。同时，用户如果想要对特定模块进行个性化设置，也可以调用对应的中低阶接口自行定义，本文介绍了如何使用中低阶API定义各个模块。
 
+> 你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mid_low_level_api.py>。
+
 ## 定义数据集
 
 MindSpore的`mindspore.dataset`模块集成了常见的数据处理功能：用户既可以调用此模块的相关接口来[加载常见的数据集](https://www.mindspore.cn/tutorials/zh-CN/master/dataset.html#%E5%8A%A0%E8%BD%BD%E6%95%B0%E6%8D%AE%E9%9B%86)，也可以构造数据集类并配合使用`GeneratorDataset`接口，实现自定义数据集和数据加载。使用`GeneratorDataset`生成具有多项式关系的样本和对应的结果，代码样例如下：
