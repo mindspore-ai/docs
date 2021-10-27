@@ -1,8 +1,9 @@
 # Optimizing Model Parameters
 
-`Ascend` `GPU` `CPU` `Beginner` `Model Development`
+`Ascend` `GPU` `Beginner` `Model Development`
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/tutorials/source_en/optimization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
+
 After learning how to create a model and build a dataset in the preceding tutorials, you can start to learn how to set hyperparameters and optimize model parameters.
 
 ## Hyperparameters
@@ -67,6 +68,14 @@ A model training process is generally divided into four steps.
 3. Define hyperparameters, a loss function, and an optimizer.
 4. Enter the epoch and dataset for training.
 
+Execute the following command to download and decompress the dataset to the specified location.
+
+```bash
+mkdir ./datasets
+wget -N https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cifar-10-binary.tar.gz --no-check-certificate
+tar -zxvf cifar-10-binary.tar.gz -C ./datasets
+```
+
 The code example for model training is as follows:
 
 ```python
@@ -76,7 +85,7 @@ import mindspore.dataset.vision.c_transforms as CV
 from mindspore import nn, Tensor, Model
 from mindspore import dtype as mstype
 
-DATA_DIR = "./datasets/cifar-10-batches-bin/train"
+DATA_DIR = "./datasets/cifar-10-batches-bin"
 
 # Define a neural network.
 class Net(nn.Cell):
