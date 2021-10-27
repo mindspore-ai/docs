@@ -2,6 +2,43 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindinsight/faq/source_en/faq.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
+<font size=3>**Q: When visualizing intermediate features of a neural network, how do I obtain and visualize the outputs of the intermediate layer when inputting an image to the model?**</font>
+
+A: The `TensorSummary` operator provided by MindSpore can be used together with `SummaryCollector` to collect data of interest. The collected data can be visualized using MindInsight. You can also use `ImageSummary` to collect the image data. The data volume of `tensor` is large. So, you need to properly control the value of `collect_tensor_freq` during collection. Otherwise, a large amount of disk space will be consumed and the running speed will be greatly reduced.
+
+Sample command:
+
+```python
+class Net(nn.Cell):
+    """Net definition."""
+    def __init__(self):
+        super(Net, self).__init__()
+        ...
+
+        # Init ImageSummary
+        self.image_summary = ops.ImageSummary()
+        # Init TensorSummary
+        self.tensor_summary = ops.TensorSummary()
+
+    def construct(self, data):
+        # Record image by Summary operator
+        self.image_summary("image", data)
+        # Record tensor by Summary operator
+        self.tensor_summary("tensor", data)
+        ...
+        return out
+```
+
+For details, see [Collecting Summary Record](https://www.mindspore.cn/mindinsight/docs/en/master/summary_record.html#summarysummarycollector).
+
+<br/>
+
+<font size=3>**Q: What can I do if the system displays a message indicating that port 8080 cannot be used for MindInsight installed on Ubuntu?**</font>
+
+A: The possible cause is that port 8080 is occupied by another process (for example, nginx). You can run the `mindinsight start --port 8081 --summary-base-dir xxx` command to change the port used by MindInsight. Replace 8081 as required.
+
+<br/>
+
 <font size=3>**Q: What can I do if the error message `ImportError: libcrypto.so.1.0.0: cannot open shared object file: No such file or directory` is displayed in the MindInsight running logs after MindInsight failed to start?**</font>
 
 A: You can use "export LD_LIBRARY_PATH=dir:$LD_LIBRARY_PATH" command to export LD_LIBRARY_PATH variable in Linux environment.

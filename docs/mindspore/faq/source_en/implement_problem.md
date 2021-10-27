@@ -2,6 +2,24 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/docs/mindspore/faq/source_en/implement_problem.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
+<font size=3>**Q: How do I use MindSpore to implement multi-scale training?**</font>
+
+A: During multi-scale training, when different `shape` are used to call `Cell` objects, different graphs are automatically built and called based on different `shape`. Note that multi-scale training supports only the `feed` mode and does not support the data offloading mode. For details, see the multi-scale training of the [yolov3](https://gitee.com/mindspore/models/tree/master/official/cv/yolov3_darknet53).
+
+<br/>
+
+<font size=3>**Q: If a `tensor` whose `requirements_grad` is set to `False` is converted into `numpy` for processing and then converted into `tensor`, will the computational graph and backward propagation be affected?**</font>
+
+A: In PyNative mode, if `numpy` is used for computation, gradient transfer will be interrupted. In the scenario where `requirements_grad` is set to `False`, if the backward propagation of `tensor` is not transferred to other parameters, there is no impact. If `requirements_grad` is set to `True`, there is an impact.
+
+<br/>
+
+<font size=3>**Q: How do I modify the `weight` and `bias` of the fully-connected layer like `torch.nn.functional.linear()`?**</font>
+
+A: The `nn.Dense` interface is similar to `torch.nn.functional.linear()`. `nn.Dense` can specify the initial values of `weight` and `bias`. Subsequent changes are automatically updated by the optimizer. During the training, you do not need to change the values of the two parameters.
+
+<br/>
+
 <font size=3>**Q: What is the function of the `.meta` file generated after the model is saved using MindSpore? Can the `.meta` file be used to import the graph structure?**</font>
 
 A: The `.meta` file is a built graph structure. However, this structure cannot be directly imported currently. If you do not know the graph structure, you still need to use the MindIR file to import the network.
