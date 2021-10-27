@@ -1,6 +1,9 @@
 mindquantum.core.gates
 ======================
 
+Quantum Gates
+-------------
+
 .. automodule:: mindquantum.core.gates
     :members:
 
