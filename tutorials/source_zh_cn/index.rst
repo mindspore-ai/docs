@@ -27,7 +27,8 @@ MindSpore教程
    :maxdepth: 1
    :caption: 进阶教程
 
-   custom
+   intermediate/mid_low_level_api
+   intermediate/data
    image_and_video
    text
    intermediate/pynative_mode_and_graph_mode
