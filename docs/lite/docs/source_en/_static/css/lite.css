@@ -10,6 +10,9 @@
     position: relative;
 
 }
+.doc-environment-detail button{
+    margin-bottom: 0.5rem;
+}
 .doc-stage-detail button{
     margin-bottom: 0.5rem;
 }
