@@ -23,9 +23,9 @@ MindSpore的Docker镜像托管在[Huawei SWR](https://support.huaweicloud.com/sw
 
 | 硬件平台 | Docker镜像仓库            | 标签      | 说明                                                         |
 | :------- | :------------------------ | :-------- | :----------------------------------------------------------- |
-| GPU      | `mindspore/mindspore-gpu` | `x.y.z`   | 已经预安装MindSpore `x.y.z` GPU版本的生产环境。              |
-|          |                           | `devel`   | 提供开发环境从源头构建MindSpore（`GPU CUDA11.1`后端）。安装详情请参考<https://www.mindspore.cn/install> 。 |
-|          |                           | `runtime` | 提供运行时环境，未安装MindSpore二进制包（`GPU CUDA11.1`后端）。 |
+| GPU      | `mindspore/mindspore-gpu-{cuda10.1|cuda11.1}` | `x.y.z` | 已经预安装MindSpore `x.y.z` GPU版本的生产环境。(CUDA10.1或CUDA11.1后端) |
+|          | `mindspore/mindspore-gpu` | `devel`   | 提供开发环境从源头构建MindSpore（`GPU CUDA11.1`后端）。安装详情请参考<https://www.mindspore.cn/install> 。 |
+|          | `mindspore/mindspore-gpu` | `runtime` | 提供运行时环境，未安装MindSpore二进制包（`GPU CUDA11.1`后端）。 |
 
 > **注意：** 不建议从源头构建GPU `devel` Docker镜像后直接安装whl包。我们强烈建议您在GPU `runtime` Docker镜像中传输并安装whl包。
 > `x.y.z`对应MindSpore版本号，例如安装1.1.0版本MindSpore时，`x.y.z`应写为1.1.0。
@@ -75,13 +75,23 @@ sudo systemctl restart docker
 对于`GPU`后端，可以直接使用以下命令获取最新的稳定镜像：
 
 ```bash
-docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu-{cuda_version}:{tag}
+docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu-{cuda_version}:{version}
 ```
 
 其中：
 
-- `{tag}` 对应上述表格中的标签。
+- `{version}` 对应MindSpore版本，如1.5.0。
 - `{cuda_version}` 对应MindSpore依赖的CUDA版本，包括`cuda10.1`和`cuda11.1`。
+
+另外，如果需要获取构建环境或者运行时环境镜像：
+
+```bash
+docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu:{tag}
+```
+
+其中：
+
+- `{tag}` 对应上述表格中的标签，包括`devel`和`runtime`。
 
 ## 运行MindSpore镜像
 

@@ -78,5 +78,5 @@ The result of multiplication calculation is correct, MindSpore has been installe
 当需要升级MindSpore版本时，可执行如下命令：
 
 ```bash
-conda update mindspore-cpu
+conda update mindspore-cpu -c mindspore -c conda-forge
 ```

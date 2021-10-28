@@ -7,7 +7,6 @@
     - [创建并进入Conda虚拟环境](#创建并进入conda虚拟环境)
     - [安装MindSpore](#安装mindspore)
     - [验证是否成功安装](#验证是否成功安装)
-    - [升级MindSpore版本](#升级mindspore版本)
 
 <!-- /TOC -->
 
@@ -121,19 +120,3 @@ print(ops.add(x, y))
 ```
 
 说明MindSpore安装成功了。
-
-## 升级MindSpore版本
-
-当需要升级MindSpore版本时，可执行如下命令：
-
-CUDA10.1版本：
-
-```bash
-conda update mindspore-gpu cudatoolkit=10.1
-```
-
-CUDA11.1版本：
-
-```bash
-conda update mindspore-gpu cudatoolkit=11.1
-```
