@@ -1,4 +1,4 @@
-﻿# 执行问题
+﻿﻿﻿# 执行问题
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_zh_cn/implement_problem.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
@@ -552,10 +552,10 @@ class Net(nn.Cell):
         self.cast = ops.Cast()
 
     def construct(self, x, a, b):
-        if a > b:
-            return self.relu(x)
+        if a > b:    # if的两个分支返回值的type不一致
+            return self.relu(x)    # shape: (2, 3, 4, 5), dtype:Float32
         else:
-            return self.cast(self.relu(x), ms.float16)
+            return self.cast(self.relu(x), ms.float16)    # shape: (2, 3, 4, 5)， dtype:Float16
 
 input_x = Tensor(np.random.rand(2, 3, 4, 5).astype(np.float32))
 input_a = Tensor(2, ms.float32)
@@ -591,10 +591,10 @@ class Net(nn.Cell):
         self.reducesum = ops.ReduceSum()
 
     def construct(self, x, a, b):
-        if a > b:
-            return self.relu(x)
+        if a > b:    # if的两个分支返回值的shape不一致
+            return self.relu(x)    # shape: (2, 3, 4, 5), dtype:Float32
         else:
-            return self.reducesum(x)
+            return self.reducesum(x)    # shape:(), dype: Float32
 
 input_x = Tensor(np.random.rand(2, 3, 4, 5).astype(np.float32))
 input_a = Tensor(2, ms.float32)
@@ -614,7 +614,44 @@ The function call stack (See file 'analyze_fail.dat' for more details):
         if a > b:
 ```
 
-当出现如“Type Join Failed: abstract type AbstractTensor can not join with AbstractTuple”的报错时，说明这两种抽象类型无法匹配，需要根据提供的代码行等报错信息，重新检视代码并修改。
+当出现如“Type Join Failed: abstract type AbstractTensor can not join with AbstractTuple”的报错时，说明抽象类型不匹配，导致抽象类型合并失败，代码样例如下：
+
+```python
+import mindspore.ops as ops
+from mindspore import Tensor, ms_function
+
+x = Tensor([1.0])
+y = Tensor([2.0])
+grad = ops.GradOperation(get_by_list=False, sens_param=True)
+sens = 1.0
+
+def test_net(a, b):
+    return a, b
+
+@ms_function()
+def join_fail():
+    sens_i = ops.Fill()(ops.DType()(x), ops.Shape()(x), sens)    # sens_i 是一个标量shape: (1), dtype:Float64, value:1.0
+    a = grad(test_net)(x, y, sens_i)    # 对有两个输出的test_net求梯度需要两个sens，但只提供了一个sens，Join会失败
+    return a
+
+join_fail()
+```
+
+执行结果如下：
+
+```text
+TypeError: mindspore/core/abstract/abstract_value.cc:48 AbstractTypeJoinLogging] Type Join Failed: abstract type AbstractTensor cannot not join with AbstractTuple. For more details, please refer to the FAQ at https://www.mindspore.cn. this: AbstractTensor(shape: (1), element: AbstractScalar(Type: Float64, Value: AnyValue, Shape: NoShape), value_ptr: 0x55f643f283d0, value: Tensor(shape=[1], dtype=Float64, value= [ 1.00000000e+00])), other: AbstractTuple(element[0]: AbstractTensor(shape: (1), element: AbstractScalar(Type: Float64, Value: AnyValue, Shape: NoShape), value_ptr: 0x55f64473a500, value: Tensor(shape=[1], dtype=Float64, value= [ 1.00000000e+00])), element[1]: AbstractTensor(shape: (1), element: AbstractScalar(Type: Float64, Value: AnyValue, Shape: NoShape), value_ptr: 0x55f6447042c0, value: Tensor(shape=[1], dtype=Float64, value= [ 2.00000000e+00]))). Please check the node test_net.2:test_net{[0]: test_net, [1]: test_net}. trace:
+In file test_shape_join_failed.py(9)/def test_net(a, b):/
+In file test_shape_join_failed.py(15)/ a = grad(test_net)(x, y, sens_i)/
+
+The function call stack (See file 'analyze_fail.dat' for more details):
+# 0 In file test_shape_join_failed.py(15)
+a = grad(test_net)(x, y, sens_i)
+^
+# 1 In file test_shape_join_failed.py(9)
+def test_net(a, b):
+^
+```
 
 <br/>
 
