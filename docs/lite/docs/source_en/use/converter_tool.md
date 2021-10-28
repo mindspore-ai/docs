@@ -85,6 +85,8 @@ The following describes the parameters in detail.
 | `--fp16=<FP16>` | No | Serialize const tensor in Float16 data type, only effective for const tensor in Float32 data type. | on or off | off |
 | `--inputShape=<INPUTSHAPE>` | No | Set the dimension of the model input, the order of input dimensions is consistent with the original model. For some models, the model structure can be further optimized, but the transformed model may lose the characteristics of dynamic shape. Multiple inputs are separated by `;`, and surround with `""` | e.g.  "inTensorName_1: 1,32,32,4;inTensorName_2:1,64,64,4;" | - |
 | `--inputDataFormat=<INPUTDATAFORMAT>` | No | Set the input format of exported model. Only valid for 4-dimensional inputs. | NHWC, NCHW | NHWC |
+| `--decryptKey=<DECRYPTKEY>` | No | The key used to decrypt the MindIR file, expressed in hexadecimal characters. Only valid when fmkIn is 'MINDIR'. | - | - |
+| `--decryptMode=<DECRYPTMODE>` | No | Decryption mode for the MindIR file. Only valid when dec_key is set. | AES-GCM, AES-CBC | AES-GCM |
 
 > - The parameter name and parameter value are separated by an equal sign (=) and no space is allowed between them.
 > - The Caffe model is divided into two files: model structure `*.prototxt`, corresponding to the `--modelFile` parameter; model weight `*.caffemodel`, corresponding to the `--weightFile` parameter.
