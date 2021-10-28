@@ -220,7 +220,7 @@ class DQNPolicy():
 
 ### 定义DQNActor类
 
-定义一个新的Actor组件用于实现`DQNActor`，该组件继承了MindSpore Reinforcement提供的`Actor`类。然后，必须过载trainer使用的方法：
+定义一个新的Actor组件用于实现`DQNActor`，该组件继承了MindSpore Reinforcement提供的`Actor`类。然后，必须重载trainer使用的方法：
 
 ```python
 class DQNActor(Actor):
@@ -273,7 +273,7 @@ class DQNActor(Actor):
 
 ### 定义DQNLearner类
 
-为了实现`DQNLearner`，类必须继承MindSpore Reinforcement API中的`Learner`类，并过载`learn`方法：
+为了实现`DQNLearner`，类必须继承MindSpore Reinforcement API中的`Learner`类，并重载`learn`方法：
 
 ```python
 class DQNLearner(Learner):
