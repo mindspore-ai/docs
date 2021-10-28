@@ -94,6 +94,14 @@ A: The version of pip installed on your system is most likely lower than 19.3, w
 
 <br/>
 
+<br/>
+
+<font size=3>**Q: What should I do if error message `Running setup.py install for pillow: finished with status 'error' ... The headers or library files could not be found for jpeg, ...` is generated when I install MindSpore using pip?**</font>
+
+A: MindSpore relies on the third-party library `pillow` for some data processing operations, while `pillow` needs to rely on the `libjpeg` library already installed in the environment. Take the Ubuntu environment as an example, you can use `sudo apt-get install libjpeg8-dev` to install the `libjpeg` library, and then install MindSpore.
+
+<br/>
+
 ## Source Code Compilation Installation
 
 <font size=3>**Q: What is the difference between `bash -p` and `bash -e` when an error is reported during application build?**</font>

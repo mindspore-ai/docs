@@ -113,6 +113,14 @@ A: 大概率是因为pip版本低于19.3，无法识别`manylinux2014`标签，�
 
 <br/>
 
+<br/>
+
+<font size=3>**Q: pip安装MindSpore时，报错 `Running setup.py install for pillow: finished with status 'error' ... The headers or library files could not be found for jpeg, ...`，应该怎么办？**</font>
+
+A: MindSpore依赖三方库`pillow`进行部分的数据处理操作，而`pillow`需要依赖环境上已经安装`libjpeg`库，以Ubuntu环境为例，可以使用`sudo apt-get install libjpeg8-dev`来安装`libjpeg`库，然后再安装MindSpore。
+
+<br/>
+
 ## 源码编译安装
 
 <font size=3>**Q: 编译时`bash -p`方式和 `bash -e`方式的区别？**</font>
