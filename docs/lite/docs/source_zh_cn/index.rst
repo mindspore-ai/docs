@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-在手机或IoT设备上使用MindSpore
+MindSpore Lite文档
 =================================
 
 .. toctree::
