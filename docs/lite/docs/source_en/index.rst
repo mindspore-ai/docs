@@ -93,7 +93,7 @@ MindSpore Lite Documentation
 									<div class="col-sm-2">
 										<div class="doc-os">Environment</div>
 									</div>
-									<div class="col-sm-10 col-sm-pull-1">
+									<div class="col-sm-10 col-sm-pull-1 doc-environment-detail">
 										<button class="doc-filter-btn doc-btn" id="os-Windows">Windows</button>
 										<button class="doc-filter-btn doc-btn" id="os-Linux">Linux</button>
 										<button class="doc-filter-btn doc-btn" id="os-mac">Mac</button>
