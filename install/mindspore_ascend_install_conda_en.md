@@ -30,12 +30,12 @@ This document describes how to quickly install MindSpore in a Linux system with 
     - If you prefer the complete capabilities provided by Conda, you can choose to download [Anaconda3](https://repo.anaconda.com/archive/).
     - If you want to save disk space or prefer custom Conda installation, you can choose to download [Miniconda3](https://repo.anaconda.com/miniconda/).
 
-- Ensure that the Ascend 910 AI processor software package ([Ascend Data Center Solution 21.0.5]) are installed.
+- Ensure that the Ascend 910 AI processor software package ([Ascend Data Center Solution]) are installed.
 
     - For the installation of software package,  please refer to the [Product Document](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910).
     - The software packages include Driver and Firmware and CANN.
-        - [Driver and Firmware A800-9000 1.0.13 ARM platform] and [Driver and Firmware A800-9010 1.0.13 x86 platform]
-        - [CANN 5.0.T306](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/254156433)
+        - [Driver and Firmware A800-9000 1.0.12 ARM platform] and [Driver and Firmware A800-9010 1.0.12 x86 platform]
+        - [CANN 5.0.3](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252806307)
 
     - Ensure that the current user has the right to access the installation path `/usr/local/Ascend`of Ascend 910 AI processor software package, If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located. For the specific configuration, please refer to the software package instruction document.
 
@@ -172,5 +172,5 @@ It means MindSpore has been installed successfully.
 Using the following command if you need to update the MindSpore version:
 
 ```bash
-conda update mindspore-ascend
+conda update mindspore-ascend -c mindspore -c conda-forge
 ```

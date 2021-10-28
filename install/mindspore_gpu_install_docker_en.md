@@ -7,7 +7,6 @@
     - [nvidia-container-toolkit Installation](#nvidia-container-toolkit-installation)
     - [Obtaining MindSpore Image](#obtaining-mindspore-image)
     - [Running MindSpore Image](#running-mindspore-image)
-    - [Installation Verification](#installation-verification)
 
 <!-- /TOC -->
 
@@ -23,9 +22,9 @@ The current support for containerized build is as follows:
 
 | Hardware   | Docker Image Hub                | Label                       | Note                                       |
 | :----- | :------------------------ | :----------------------- | :--------------------------------------- |
-| GPU    | `mindspore/mindspore-gpu` | `x.y.z`                  | A production environment with the MindSpore `x.y.z` GPU version pre-installed.       |
-|        |                           | `devel`                  | Provide a development environment to build MindSpore from the source (`GPU CUDA11.1` backend). For installation details, please refer to <https://www.mindspore.cn/install/en>. |
-|        |                           | `runtime`                | Provide runtime environment, MindSpore binary package (`GPU CUDA11.1` backend) is not installed. |
+| GPU    | `mindspore/mindspore-gpu-{cuda10.1|cuda11.1}` | `x.y.z`                  | A production environment with the MindSpore `x.y.z` GPU version pre-installed. (CUDA10.1 or CUDA11.1 backend) |
+|        | `mindspore/mindspore-gpu` | `devel`                  | Provide a development environment to build MindSpore from the source (`GPU CUDA11.1` backend). For installation details, please refer to <https://www.mindspore.cn/install/en>. |
+|        | `mindspore/mindspore-gpu` | `runtime`                | Provide runtime environment, MindSpore binary package (`GPU CUDA11.1` backend) is not installed. |
 
 > **Note:** It is not recommended to install the whl package directly after building the GPU `devel` Docker image from the source. We strongly recommend that you transfer and install the `whl` package in the GPU `runtime` Docker image.
 > `x.y.z` corresponds to the MindSpore version number. For example, when installing MindSpore version 1.1.0, `x.y.z` should be written as 1.1.0.
@@ -75,13 +74,23 @@ sudo systemctl restart docker
 For the `CPU` backend, you can directly use the following command to obtain the latest stable image:
 
 ```bash
-docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu-{cuda_version}:{tag}
+docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu-{cuda_version}:{version}
 ```
 
 of which,
 
-- `{tag}` corresponds to the label in the above table.
+- `{version}` corresponds to MindSpore version, e.g. 1.5.0.
 - `{cuda_version}` corresponds to CUDA version of which MindSpore is based on, including `cuda10.1` and `cuda11.1`.
+
+If you wish to obtain a develop environment or runtime environment:
+
+```bash
+docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu:{tag}
+```
+
+of which,
+
+- `{tag}` corresponds to the label in the above table, namely `devel` and `runtime`.
 
 ## Running MindSpore Image
 

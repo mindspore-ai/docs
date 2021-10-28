@@ -33,12 +33,12 @@
     - 如果您喜欢Conda提供的完整能力，可以选择下载[Anaconda3](https://repo.anaconda.com/archive/)。
     - 如果您需要节省磁盘空间，或者喜欢自定义安装Conda软件包，可以选择下载[Miniconda3](https://repo.anaconda.com/miniconda/)。
 
-- 确认安装Ascend 910 AI处理器配套软件包（[Ascend Data Center Solution 21.0.5]）。
+- 确认安装Ascend 910 AI处理器配套软件包（[Ascend Data Center Solution]）。
 
     - 软件包安装方式请参考[产品文档](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910)。
     - 配套软件包包括驱动和固件和CANN。
-        - [驱动和固件A800-9000 1.0.13 ARM平台]和[驱动和固件A800-9010 1.0.13 x86平台]
-        - [CANN 5.0.T306](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/254156433)
+        - [驱动和固件A800-9000 1.0.12 ARM平台]和[驱动和固件A800-9010 1.0.12 x86平台]
+        - [CANN 5.0.3](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252806307)
 
     - 确认当前用户有权限访问Ascend 910 AI处理器配套软件包的安装路径`/usr/local/Ascend`，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
 
@@ -175,6 +175,5 @@ print(ops.add(x, y))
 当需要升级MindSpore版本时，可执行如下命令：
 
 ```bash
-conda update mindspore-ascend
+conda update mindspore-ascend -c mindspore -c conda-forge
 ```
-
