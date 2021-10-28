@@ -72,10 +72,8 @@ class IncludeCodeDirective(Directive):
             if not matched_code:
                 logger.warning('{}: warning: {} could not get '\
                                'specified code string.'.format(env.docname, filename))
-                raise Exception
+                return []
             return [code_block]
 
         except FileNotFoundError:
             logger.warning('{}: WARNING: {} file not found.'.format(env.docname, filename))
-        finally:
-            logger.warning('{}: WARNING: {} parse error.'.format(env.docname, filename))
