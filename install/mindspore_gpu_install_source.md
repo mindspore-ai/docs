@@ -47,7 +47,7 @@
 
 - 确认安装[wheel 0.32.0及以上版本](https://pypi.org/project/wheel/)。
 
-- 确认安装[CUDA 10.1](https://developer.nvidia.com/cuda-10.1-download-archive-base)配套[cuDNN 7.6.X版本](https://developer.nvidia.com/rdp/cudnn-archive) 或者 [CUDA 11.1](https://developer.nvidia.com/cuda-11.1.0-download-archive)配套[cuDNN 8.0.X版本](https://developer.nvidia.com/rdp/cudnn-archive#a-collapse805-111)。  
+- 确认安装[CUDA 10.1](https://developer.nvidia.com/cuda-10.1-download-archive-base)配套[cuDNN 7.6.X版本](https://developer.nvidia.com/rdp/cudnn-archive) 或者 [CUDA 11.1](https://developer.nvidia.com/cuda-11.1.0-download-archive)配套[cuDNN 8.0.X版本](https://developer.nvidia.com/rdp/cudnn-archive)。
     - CUDA安装后，若CUDA没有安装在默认位置，需要设置环境变量PATH（如：`export PATH=/usr/local/cuda-${version}/bin:$PATH`）和`LD_LIBRARY_PATH`（如：`export LD_LIBRARY_PATH=/usr/local/cuda-${version}/lib64:$LD_LIBRARY_PATH`），详细安装后的设置可参考[CUDA安装手册](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#post-installation-actions)。
 
 - 确认安装[OpenMPI 4.0.3版本](https://www.open-mpi.org/faq/?category=building#easy-build)（可选，单机多卡/多机多卡训练需要）。

@@ -78,18 +78,11 @@ This document describes how to quickly install MindSpore in a Linux system with 
     yum install numactl-devel
     ```
 
-- Ensure that the git tool is installed.
-
-    If not, for Ubuntu users, use the following command to install it:
+- Ensure that the git is installed, otherwise execute the following command to install git:
 
     ```bash
-    apt-get install git
-    ```
-
-    If not, for EulerOS and CentOS users, use the following command to install it:
-
-    ```bash
-    yum install git
+    apt-get install git # for linux distributions using apt, e.g. ubuntu
+    yum install git     # for linux distributions using yum, e.g. centos
     ```
 
 - Ensure that the [git-lfs tool](https://github.com/git-lfs/git-lfs/wiki/installation) is installed.
