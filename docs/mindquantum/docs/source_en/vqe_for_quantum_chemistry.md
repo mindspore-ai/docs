@@ -361,7 +361,7 @@ eps = 1.e-8
 energy_diff = eps * 1000
 energy_last = initial_energy.asnumpy() + energy_diff
 iter_idx = 0
-while (abs(energy_diff) > eps):
+while abs(energy_diff) > eps:
     energy_i = train_pqcnet().asnumpy()
     if iter_idx % 5 == 0:
         print("Step %3d energy %20.16f" % (iter_idx, float(energy_i)))
@@ -501,7 +501,7 @@ print("eps: ", eps)
 energy_diff = eps * 1000
 energy_last = initial_energy.asnumpy() + energy_diff
 iter_idx = 0
-while (abs(energy_diff) > eps):
+while abs(energy_diff) > eps:
     energy_i = train_pqcnet().asnumpy()
     if iter_idx % 5 == 0:
         print("Step %3d energy %20.16f" % (iter_idx, float(energy_i)))

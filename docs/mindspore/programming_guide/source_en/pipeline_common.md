@@ -234,7 +234,7 @@ def generator_func():
         yield (np.array([i, i+1, i+2]),)
 
 def generator_func2():
-    for i in range(4):
+    for _ in range(4):
         yield (np.array([1, 2]),)
 
 dataset1 = ds.GeneratorDataset(generator_func, ["data1"])
@@ -270,11 +270,11 @@ import numpy as np
 import mindspore.dataset as ds
 
 def generator_func():
-    for i in range(2):
+    for _ in range(2):
         yield (np.array([0, 0, 0]),)
 
 def generator_func2():
-    for i in range(2):
+    for _ in range(2):
         yield (np.array([1, 2, 3]),)
 
 dataset1 = ds.GeneratorDataset(generator_func, ["data1"])

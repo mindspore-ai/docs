@@ -217,7 +217,7 @@ from mindspore import Model
 ```
 
 ```python
-def train_net(args, model, epoch_size, data_path, repeat_size, ckpoint_cb, sink_mode):
+def train_net(model, epoch_size, data_path, repeat_size, ckpoint_cb, sink_mode):
     """Define a training method."""
     # Load the training dataset.
     ds_train = create_dataset(os.path.join(data_path, "train"), 32, repeat_size)
@@ -232,7 +232,7 @@ Validate the generalization capability of the model based on the result obtained
 2. Use the saved model parameters for inference.
 
 ```python
-def test_net(network, model, data_path):
+def test_net(model, data_path):
     """Define a validation method."""
     ds_eval = create_dataset(os.path.join(data_path, "test"))
     acc = model.eval(ds_eval, dataset_sink_mode=False)
@@ -246,8 +246,8 @@ train_epoch = 1
 mnist_path = "./datasets/MNIST_Data"
 dataset_size = 1
 model = Model(net, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
-train_net(args, model, train_epoch, mnist_path, dataset_size, ckpoint, False)
-test_net(net, model, mnist_path)
+train_net(model, train_epoch, mnist_path, dataset_size, ckpoint, False)
+test_net(model, mnist_path)
 ```
 
 Run the following command to execute the script:

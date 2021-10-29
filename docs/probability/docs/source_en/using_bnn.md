@@ -123,7 +123,6 @@ In the classic LeNet5 network, the data goes through the following calculation p
 In this example, a probabilistic programming method will be introduced, using the `bnn_layers` module to transform the convolutional layer and the fully connected layer into a Bayesian layer.
 
 ```python
-from mindspore.common.initializer import Normal
 import mindspore.nn as nn
 from mindspore.nn.probability import bnn_layers
 import mindspore.ops as ops
