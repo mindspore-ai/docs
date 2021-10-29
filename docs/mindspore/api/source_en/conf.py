@@ -155,7 +155,7 @@ try:
                        ("mindspore/nn/layer/basic.py", "Repair error comments for mindspore.nn.Pad.",
                        "paddings[0][1] = 1 + 3 + 1 = 4.", "paddings[0][1] = 1 + 3 + 1 = 5."),
                       ("mindspore/nn/layer/basic.py", "Repair error comments for mindspore.nn.Pad.",
-                       "so output.shape is (4, 7)", "so output.shape is (5, 7)")]
+                       "So the shape of output is (4, 7).", "So the shape of output is (5, 7).")]
 
     base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
     for i in decorator_list:
