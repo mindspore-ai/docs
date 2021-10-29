@@ -118,7 +118,7 @@ class MyMomentum(nn.Optimizer):
     """定义优化器"""
     def __init__(self, params, learning_rate, momentum=0.9, use_nesterov=False):
         super(MyMomentum, self).__init__(learning_rate, params)
-        self.momentum = Parameter(Tensor(momentum, mstype.float32), name="momentum")
+        self.momentum = ms.Parameter(ms.Tensor(momentum, mstype.float32), name="momentum")
         self.use_nesterov = use_nesterov
         self.moments = self.parameters.clone(prefix="moments", init="zeros")
         self.assign = ops.Assign()
