@@ -56,8 +56,8 @@
     如果未安装，使用如下命令下载安装：
 
     ```bash
-    apt-get install git # ubuntu and so on
-    yum install git     # centos and so on
+    apt-get install git # for linux distributions using apt, e.g. ubuntu
+    yum install git     # for linux distributions using yum, e.g. centos
     ```
 
 ## 从代码仓下载源码

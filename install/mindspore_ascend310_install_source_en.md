@@ -52,12 +52,11 @@ The following describes how to quickly install MindSpore by compiling the source
         pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/te-{version}-py3-none-any.whl
         ```
 
-- Ensure that the git tool is installed.
-    If not, run the following command to download and install it:
+- Ensure that the git is installed, otherwise execute the following command to install git:
 
     ```bash
-    apt-get install git # ubuntu and so on
-    yum install git     # centos and so on
+    apt-get install git # for linux distributions using apt, e.g. ubuntu
+    yum install git     # for linux distributions using yum, e.g. centos
     ```
 
 ## Downloading Source Code from the Code Repository
