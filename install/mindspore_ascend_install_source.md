@@ -77,18 +77,12 @@
     yum install numactl-devel
     ```
 
-- 确认安装git工具。  
-
-    Ubuntu系统用户，如果未安装，使用如下命令下载安装：
-
-    ```bash
-    apt-get install git
-    ```
-
-    EulerOS和CentOS系统用户，如果未安装，使用如下命令下载安装：
+- 确认安装git工具。
+    如果未安装，使用如下命令下载安装：
 
     ```bash
-    yum install git
+    apt-get install git # for linux distributions using apt, e.g. ubuntu
+    yum install git     # for linux distributions using yum, e.g. centos
     ```
 
 - 确认安装[git-lfs工具](https://github.com/git-lfs/git-lfs/wiki/installation)。

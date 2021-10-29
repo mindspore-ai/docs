@@ -144,7 +144,7 @@ import mindspore.context as context
 import mindspore.ops as ops
 from mindspore import Tensor
 
-context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
+context.set_context(device_target="GPU")
 
 x = Tensor(np.ones([1,3,3,4]).astype(np.float32))
 y = Tensor(np.ones([1,3,3,4]).astype(np.float32))
