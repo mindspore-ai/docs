@@ -1,4 +1,4 @@
-﻿﻿﻿# Implement Problem
+﻿﻿# Implement Problem
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_en/implement_problem.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
