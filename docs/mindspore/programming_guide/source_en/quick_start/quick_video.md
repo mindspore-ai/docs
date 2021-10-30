@@ -842,6 +842,30 @@ Provides video tutorials from installation to try-on, helping you quickly use Mi
                     </svg>
                </a>
           </div>
+          <div
+               class="video-item-wraper" style="width: 33.3%;display: flex;justify-content: center;align-items: center;padding: 10px;box-sizing: border-box;">
+               <a href="https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_video/dump_in_graph_mode.html" target="_blank"
+                    style="position: relative;">
+                    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/teaching_video/cover/%E6%89%8B%E6%8A%8A%E6%89%8B%E7%B3%BB%E5%88%97/%E4%BD%BF%E7%94%A8Dump%E5%8A%9F%E8%83%BD%E5%9C%A8Graph%E6%A8%A1%E5%BC%8F%E8%B0%83%E8%AF%95%20%E6%B1%87%E6%80%BB%E9%A1%B5EN.png"
+                         style="max-width: 100%;width: 400px;">
+                    <svg style="position: absolute;left: 50%;top: 50%;width: 30px;height: 30px;transform: translate(-50%, -50%);"
+                         data-v-1534670d="" id="图层_1" data-name="图层 1" xmlns="http://www.w3.org/2000/svg"
+                         viewBox="0 0 30 30" class="icon-position">
+                         <title data-v-1534670d="">play</title>
+                         <g data-v-1534670d="" style="opacity: 0.3;">
+                              <path data-v-1534670d="" d="M301.21,376.21a15,15,0,1,1-15,15A15,15,0,0,1,301.21,376.21Z"
+                                   transform="translate(-286.21 -376.21)"
+                                   style="fill: rgb(255, 255, 255); fill-rule: evenodd;"></path>
+                         </g>
+                         <path data-v-1534670d=""
+                              d="M301.21,377.21a14,14,0,1,1-14,14,14,14,0,0,1,14-14m0-1a15,15,0,1,0,15,15,15,15,0,0,0-15-15Z"
+                              transform="translate(-286.21 -376.21)" style="fill: rgb(255, 255, 255);"></path>
+                         <path data-v-1534670d=""
+                              d="M308.15,392.32l-9.39,5.28c-.72.41-1.31.06-1.31-.76v-10.5c0-.83.58-1.17,1.31-.76l9.39,5.28C308.87,391.25,308.87,391.91,308.15,392.32Z"
+                              transform="translate(-286.21 -376.21)" style="fill: rgb(255, 255, 255);"></path>
+                    </svg>
+               </a>
+          </div>
      </div>
 
 </body>
