@@ -38,7 +38,7 @@ enable=indexing-exception,old-raise-syntax
 # --enable=similarities". If you want to run only the classes checker, but have
 # no Warning level messages displayed, use"--disable=all --enable=classes
 # --disable=W"
-disable=C0413,C0412,C0411,design,similarities,no-self-use,attribute-defined-outside-init,locally-disabled,star-args,pointless-except,bad-option-value,global-statement,fixme,suppressed-message,useless-suppression,locally-enabled,no-member,no-name-in-module,import-error,unsubscriptable-object,unbalanced-tuple-unpacking,undefined-variable,not-context-manager
+disable=C0103,C0301,C0413,C0412,C0411,C0114,W0404,W0621,C0116,C0115,E0102,E1003,E1120,E1123,R1720,R1721,R1723,R1725,R1732,W0106,W0221,W0613,W0622,design,similarities,no-self-use,attribute-defined-outside-init,locally-disabled,star-args,pointless-except,bad-option-value,global-statement,fixme,suppressed-message,useless-suppression,locally-enabled,no-member,no-name-in-module,import-error,unsubscriptable-object,unbalanced-tuple-unpacking,undefined-variable,not-context-manager
 
 
 # Set the cache size for astng objects.

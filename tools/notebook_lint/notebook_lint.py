@@ -95,7 +95,7 @@ def check_lint(path, lint_name="md"):
                 location_, error_info = re.findall(":([0-9]+):(.*)", i)[0]
                 file_name = check_path.replace(lint_ext, ".ipynb")
                 error_infos.append((file_name, location_, error_info.strip()))
-            except KeyboardInterrupt:
+            except IndexError:
                 pass
             finally:
                 pass
@@ -112,7 +112,7 @@ def convert_to_py(path):
             if content:
                 content += ["\n"]
             for i in cell["source"]:
-                if i.strip().startswith("!"):
+                if i.strip().startswith("!") or i.strip().startswith("%"):
                     content.append("# " + i)
                 else:
                     content.append(i)
@@ -138,7 +138,7 @@ def print_info(check_info, location_info):
             if len(detail_content) > 30:
                 detail_content = detail_content[:30] + "..."
             infos = "{}:{}:{}:{} \"{}\"".format(file, cell_num, line, error_info, detail_content)
-        except KeyboardInterrupt:
+        except IndexError:
             pass
         finally:
             pass
