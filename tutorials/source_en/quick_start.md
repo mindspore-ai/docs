@@ -114,10 +114,11 @@ def create_dataset(data_path, batch_size=32, repeat_size=1,
     mnist_ds = mnist_ds.map(operations=rescale_nml_op, input_columns="image", num_parallel_workers=num_parallel_workers)
     mnist_ds = mnist_ds.map(operations=hwc2chw_op, input_columns="image", num_parallel_workers=num_parallel_workers)
 
-    # Perform shuffle and batch operations.
+    # Perform shuffle, batch and repeat operations.
     buffer_size = 10000
     mnist_ds = mnist_ds.shuffle(buffer_size=buffer_size)
     mnist_ds = mnist_ds.batch(batch_size, drop_remainder=True)
+    mnist_ds = mnist_ds.repeat(count=repeat_size)
 
     return mnist_ds
 ```
