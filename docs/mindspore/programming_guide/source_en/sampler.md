@@ -224,7 +224,6 @@ Samples dataset shards in distributed training.
 The following example uses a distributed sampler to divide a generated dataset into three shards, obtains no more than three data samples in each shard, and displays the loaded data on shard number 0.
 
 ```python
-import numpy as np
 import mindspore.dataset as ds
 
 data_source = [0, 1, 2, 3, 4, 5, 6, 7, 8]

@@ -104,7 +104,7 @@ The following demonstrates the use of automatic data augmentation based on callb
             self.step_num = 0
 
         def preprocess(self, input_):
-            return (np.array((input_ + self.step_num ** self.ep_num - 1), ))
+            return np.array((input_ + self.step_num ** self.ep_num - 1), )
 
         def update(self, data):
             self.ep_num = data['ep_num']

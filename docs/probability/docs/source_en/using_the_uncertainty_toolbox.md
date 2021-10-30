@@ -166,7 +166,7 @@ wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/not
 Load the DNN network and the training dataset that need uncertainty measurement. Since the uncertainty measurement requires a Bayesian network, when the initialized uncertainty measurement tool is called for the first time, the DNN network will be converted to The Bayesian network is trained, and after completion, the corresponding data can be passed in to measure accidental uncertainty or cognitive uncertainty.
 
 ```python
-from mindspore import context, Tensor
+from mindspore import context
 from mindspore.nn.probability.toolbox import UncertaintyEvaluation
 from mindspore import dtype as mstype
 

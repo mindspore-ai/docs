@@ -67,7 +67,6 @@ Because the BNN of the entire model needs to be converted, it is necessary to as
 
 ```python
 import pprint
-import numpy as np
 from mindspore.nn import WithLossCell, TrainOneStepCell
 from mindspore.nn.probability import transforms
 from mindspore import context
