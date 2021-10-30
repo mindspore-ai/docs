@@ -9,6 +9,8 @@
 """
 
 import html
+import time
+from lxml import etree,  html
 import posixpath
 import re
 import sys
@@ -1028,13 +1030,34 @@ class StandaloneHTMLBuilder(Builder):
         try:
             output = self.templates.render(templatename, ctx)
 
-            # Replace the sequence of "Return" and "Parameters" for c++ api. 
+            # Replace the sequence of "Return" and "Parameters" for c++ api.
             Return_re = "<dt><strong>Return</strong></dt>"
             Param_re = "<dt><strong>Parameters</strong></dt>"
             re_output = re.compile(
                 r"(<dt><strong>Return</strong></dt><dd>[\w\W]*?</dd>)\n(<dt><strong>Parameters</strong></dt><dd><ul class=\"breatheparameterlist[\w\W]*?</dd>)")
             if Return_re in output and Param_re in output:
                 output = re_output.sub(r"\g<2>\n\g<1>", output)
+
+            # Move Example to the end.
+            output_html = etree.HTML(output, etree.HTMLParser())
+            api_name = output_html.xpath('//dl[@class="class" or @class="function"]')
+            for i in api_name:
+                doc_ = i.xpath('dd/dl[@class="simple"]')
+                if not doc_:
+                    continue
+                example_node = doc_[0].xpath('dt/strong[text()="Example"]')
+                if example_node:
+                    is_example = doc_[0].xpath('dt[last()]/strong/text()')
+                    if is_example and is_example[0] == "Example":
+                        continue
+                    example_code = example_node[0].xpath('../following-sibling::dd[1]')
+                    example_node = example_node[0].xpath('..')
+                    doc_node = doc_[0]
+                    doc_node.remove(example_node[0])
+                    doc_node.remove(example_code[0])
+                    doc_node.append(example_node[0])
+                    doc_node.append(example_code[0])
+                    output = html.tostring(output_html, method='html').decode('utf-8')
 
             # Add a space between "<a>" and "<em>" for c++ api.
             space_re = re.compile(r"(\w)(</a> <em>)")
@@ -1296,3 +1319,4 @@ def setup(app: Sphinx) -> Dict[str, Any]:
         'parallel_read_safe': True,
         'parallel_write_safe': True,
     }
+
