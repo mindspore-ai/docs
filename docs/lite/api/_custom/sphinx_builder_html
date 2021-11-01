@@ -9,12 +9,12 @@
 """
 
 import html
-import time
-from lxml import etree,  html
 import posixpath
 import re
 import sys
 import warnings
+from lxml import html as lhtml
+from lxml import etree
 from hashlib import md5
 from os import path
 from typing import Any, Dict, IO, Iterable, Iterator, List, Set, Tuple
@@ -1057,7 +1057,7 @@ class StandaloneHTMLBuilder(Builder):
                     doc_node.remove(example_code[0])
                     doc_node.append(example_node[0])
                     doc_node.append(example_code[0])
-                    output = html.tostring(output_html, method='html').decode('utf-8')
+                    output = lhtml.tostring(output_html, method='html').decode('utf-8')
 
             # Add a space between "<a>" and "<em>" for c++ api.
             space_re = re.compile(r"(\w)(</a> <em>)")
