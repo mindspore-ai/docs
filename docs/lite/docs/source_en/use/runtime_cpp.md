@@ -497,6 +497,35 @@ if (predict_ret != mindspore::kSuccess) {
 }
 ```
 
+### Multiple Heterogeneous Devices Inference
+
+MindSpore Lite supports multiple heterogeneous devices inference.
+Users can set multiple heterogeneous devices inference information by set multiple [DeviceInfoContext](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#deviceinfocontext) in [Context](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#context).
+
+The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L546) demonstrates how to infer the model in multiple heterogeneous devices:
+
+```cpp
+mindspore::Context context;
+// enable NPU CPU GPU in inference. NPU is preferentially used, then the CPU, and GPU get the lowest priority.
+context.MutableDeviceInfo().push_back(std::make_shared<mindspore::KirinNPUDeviceInfo>());
+context.MutableDeviceInfo().push_back(std::make_shared<mindspore::CPUDeviceInfo>());
+context.MutableDeviceInfo().push_back(std::make_shared<mindspore::GPUDeviceInfo>());
+
+Status build_ret = model->Build(graph_cell, context);
+if (build_ret != mindspore::kSuccess) {
+  std::cerr << "Model build error " << build_ret << std::endl;
+  return -1;
+}
+
+auto inputs = model->GetInputs();
+auto outputs = model->GetOutputs();
+Status predict_ret = model->Predict(inputs, &outputs);
+if (predict_ret != mindspore::kSuccess) {
+  std::cerr << "Model predict error " << predict_ret << std::endl;
+  return -1;
+}
+```
+
 ### Sharing a Memory Pool
 
 If there are multiple [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model), you can configure the same [Allocator](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Allocator.html#class-allocator) in [DeviceInfoContext](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_DeviceInfoContext.html#class-deviceinfocontext) to share the memory pool and reduce the memory size during running. The maximum memory size of the memory pool is `3 GB`, and the maximum memory size allocated each time is `2 GB`.
