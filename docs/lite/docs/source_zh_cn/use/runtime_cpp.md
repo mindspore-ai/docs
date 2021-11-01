@@ -496,6 +496,35 @@ if (predict_ret != mindspore::kSuccess) {
 }
 ```
 
+### 多硬件异构运行
+
+MindSpore Lite 支持多硬件异构推理。
+用户可以在[Context](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)中配置多个[DeviceInfoContext](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#deviceinfocontext)，并且根据设备的先后顺序，设置异构硬件的运行优先级。
+
+下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L546)演示如何进行多硬件异构推理：
+
+```cpp
+mindspore::Context context;
+// enable NPU CPU GPU in inference. NPU is preferentially used, then the CPU, and GPU get the lowest priority.
+context.MutableDeviceInfo().push_back(std::make_shared<mindspore::KirinNPUDeviceInfo>());
+context.MutableDeviceInfo().push_back(std::make_shared<mindspore::CPUDeviceInfo>());
+context.MutableDeviceInfo().push_back(std::make_shared<mindspore::GPUDeviceInfo>());
+
+Status build_ret = model->Build(graph_cell, context);
+if (build_ret != mindspore::kSuccess) {
+  std::cerr << "Model build error " << build_ret << std::endl;
+  return -1;
+}
+
+auto inputs = model->GetInputs();
+auto outputs = model->GetOutputs();
+Status predict_ret = model->Predict(inputs, &outputs);
+if (predict_ret != mindspore::kSuccess) {
+  std::cerr << "Model predict error " << predict_ret << std::endl;
+  return -1;
+}
+```
+
 ### 共享内存池
 
 如果存在多个[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)的情况，可以通过在[DeviceInfoContext](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#deviceinfocontext)中配置同一个[Allocator](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#allocator)，实现共享内存池来减少运行时内存大小。其中，内存池的内存总大小限制为`3G`，单次分配的内存限制为`2G`。
