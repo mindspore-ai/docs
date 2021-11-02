@@ -186,6 +186,18 @@ const schema::Primitive *primitive() const
 
 返回算子经由flatbuffers反序化为Primitive后的结果。
 
+### GetAttr
+
+``` c++
+std::string GetAttr(const std::string &key) const
+```
+
+- 参数
+
+    - `key`: 配置名。
+
+获取指定配置名对应的配置。
+
 ## KernelInterface
 
 \#include <[kernel_interface.h](https://gitee.com/mindspore/mindspore/blob/r1.5/mindspore/lite/include/kernel_interface.h)>
