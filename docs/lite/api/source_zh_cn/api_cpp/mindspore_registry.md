@@ -569,7 +569,7 @@ static Status Reg(const std::string &provider, int op_type, const KernelInterfac
 #### GetKernelInterface
 
 ``` c++
-static std::shared_ptr<kernel::KernelInterface> GetKernelInterface(const std::string &provider, const schema::Primitive *primitive)
+static std::shared_ptr<kernel::KernelInterface> GetKernelInterface(const std::string &provider, const schema::Primitive *primitive, const kernel::Kernel *kernel)
 ```
 
 获取注册的算子扩展能力。
@@ -579,6 +579,8 @@ static std::shared_ptr<kernel::KernelInterface> GetKernelInterface(const std::st
     - `provider`：产商名，由用户自定义。
 
     - `primitive`：算子经过flatbuffers反序化后的结果，存储算子属性。
+
+    - `kernel`：算子的内核，不传的话默认为空，为空时必须保证primitive非空有效。
 
 ## KernelInterfaceReg
 
