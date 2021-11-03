@@ -344,7 +344,7 @@ MindSpore uses glog to output logs. The following environment variables are comm
 - `GLOG_v`
 
     The environment variable specifies the log level. After the log level is specified, the log information greater than or equal to this level will be output. The values are as follows: 0: DEBUG; 1: INFO; 2: WARNING; 3: ERROR; 4: CRITICAL.
-    The default value is 2, indicating the WARNING level. ERROR level indicates that an error occurred during program execution. The error log will be output and the program will not be terminated. CRITICAL level indicates that an exception occurs during program execution and the program execution will be terminated.
+    The default value is 2, indicating the WARNING level. ERROR level indicates that an error occurred during program execution. The error log will be output and the program may not be terminated. CRITICAL level indicates that an exception occurs during program execution and the program execution will be terminated.
 
 - `GLOG_logtostderr`
 
