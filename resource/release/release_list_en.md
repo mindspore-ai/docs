@@ -8,6 +8,7 @@
         - [Before Version 1.2](#before-version-12)
     - [Ascend Supporting Software Package](#ascend-supporting-software-package)
     - [Downloads](#downloads)
+        - [1.5.1](#151)
         - [1.5.0](#150)
         - [1.5.0-rc1](#150-rc1)
         - [1.4.1](#141)
@@ -99,6 +100,17 @@
 || Ascend 310 | [Ascend Data Center Solution 21.0.1](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910/software/252504563?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C252309113%7C251167910) | [A300-3000 1.0.10](https://support.huawei.com/enterprise/zh/ascend-computing/a300-3000-pid-250702915/software/252496291?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702915) | [5.0.1](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252504455?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251168373) | [Ascend Data Center Solution 21.0.1](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910) |
 
 ## Downloads
+
+### 1.5.1
+
+|   Module Name   |   Hardware Platform   |   Operating System   |      Python Version      |      Download Links      |        SHA-256     |
+|    ---   |    ---   |    ---   |       ---      |    ---      |    ---   |
+|   MindSpore   |   Ascend 910<br>Ascend310 |   Linux-aarch64   |   Python3.7.5   |   [mindspore_ascend-1.5.1-cp37-cp37m-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.1/MindSpore/ascend/aarch64/mindspore_ascend-1.5.1-cp37-cp37m-linux_aarch64.whl)   | ba835765693cba6fddc5f296867f417eb8ee6b0afea53f63018e9d041d0b5d36 |
+|  |  |  | Python3.9.0 | [mindspore_ascend-1.5.1-cp39-cp39-linux_aarch64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.1/MindSpore/ascend/aarch64/mindspore_ascend-1.5.1-cp39-cp39-linux_aarch64.whl) | 5ae3447971241915287bd773ef8c189ac5b5f67358a39a0ae85b57ba66bc346c |
+|      |      |   Linux-x86_64   |   Python3.7.5   |   [mindspore_ascend-1.5.1-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.1/MindSpore/ascend/x86_64/mindspore_ascend-1.5.1-cp37-cp37m-linux_x86_64.whl)   | 5416ed52a4b02b0bdc213fad2db5015a92d114e00f8fce25b88c4f965ce160ca |
+| | |  | Python3.9.0 | [mindspore_ascend-1.5.1-cp39-cp39-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.1/MindSpore/ascend/x86_64/mindspore_ascend-1.5.1-cp39-cp39-linux_x86_64.whl) | ea5bf47bdf9d33cac34c93bfa03221628e655b7936642993570ffd570ae5b69d |
+| | Ascend 310-Binary | Linux-aarch64 | Python3.7.5<br/>Python3.9.0 | [mindspore_ascend-1.5.1-linux_aarch64.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.1/MindSpore/ascend/aarch64/mindspore_ascend-1.5.1-linux_aarch64.tar.gz) | 8f26d9ad78071ebc0c74b883e294f31db189b26a143f03562a9b18c571eaf312 |
+|      |      |   Linux-x86_64   | Python3.7.5<br/>Python3.9.0 |   [mindspore_ascend-1.5.1-linux_x86_64.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.1/MindSpore/ascend/x86_64/mindspore_ascend-1.5.1-linux_x86_64.tar.gz)   | 52c3b1c77ad678a77e7ba1e0d6a828c47da37882624d598af813846541f26f7e |
 
 ### 1.5.0
 
