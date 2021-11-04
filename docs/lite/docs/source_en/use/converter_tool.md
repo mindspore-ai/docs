@@ -87,6 +87,8 @@ The following describes the parameters in detail.
 | `--inputDataFormat=<INPUTDATAFORMAT>` | No | Set the input format of exported model. Only valid for 4-dimensional inputs. | NHWC, NCHW | NHWC |
 | `--decryptKey=<DECRYPTKEY>` | No | The key used to decrypt the MindIR file, expressed in hexadecimal characters. Only valid when fmkIn is 'MINDIR'. | - | - |
 | `--decryptMode=<DECRYPTMODE>` | No | Decryption mode for the MindIR file. Only valid when dec_key is set. | AES-GCM, AES-CBC | AES-GCM |
+| `--inputDataType=<INPUTDATATYPE>` | No | Set data type of input tensor of quantized model. Only valid for input tensor which has quantization parameters(scale and zero point). Keep same with the data type of input tensor of origin model by default. | FLOAT32, INT8, UINT8, DEFAULT | DEFAULT |
+| `--outputDataType=<OUTPUTDATATYPE>` | No | Set data type of output tensor of quantized model. Only valid for output tensor which has quantization parameters(scale and zero point). Keep same with the data type of output tensor of origin model by default. | FLOAT32, INT8, UINT8, DEFAULT | DEFAULT |
 
 > - The parameter name and parameter value are separated by an equal sign (=) and no space is allowed between them.
 > - The Caffe model is divided into two files: model structure `*.prototxt`, corresponding to the `--modelFile` parameter; model weight `*.caffemodel`, corresponding to the `--weightFile` parameter.
