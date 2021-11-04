@@ -43,9 +43,9 @@ mindconverter --model_file /path/to/model_file --shape SHAPE --input_nodes INPUT
 ```
 
 - `--model_file` specifies the path of model file, the model file supports `onnx` format or `pb` format.
-- `--shape` specifies the input shape of model. Multiple inputs are separated by space.
-- `--input_nodes` specifies the input names of model. Multiple inputs are separated by space.
-- `--output_nodes` specifies the output names of model. Multiple outputs are separated by space.
+- `--shape` specifies the input shape of model. Multiple inputs are separated by space. The parameter can be omitted for model file in `onnx` format.
+- `--input_nodes` specifies the input names of model. Multiple inputs are separated by space. The parameter can be omitted for model file in `onnx` format.
+- `--output_nodes` specifies the output names of model. Multiple outputs are separated by space. The parameter can be omitted for model file in `onnx` format.
 - Output files are generated and saved under `$PWD/output` by default.
 
 ## Install Dependencies
@@ -123,13 +123,10 @@ Exporting ONNX model file from PyTorch model(refer to [FAQ](#export-the-model-fi
 Run the following MindConverter CLI to generate the model scripts(`model.py`), weights information(`ckpt`), [migration reports and weights mapping](#migration-reports-and-weights-mapping).
 
 ```shell
-mindconverter --model_file /path/to/model.onnx \
-              --shape 1,3,224,224 \
-              --input_nodes input_node_name \
-              --output_nodes output_node_name
+mindconverter --model_file /path/to/model.onnx
 ```
 
-To migrate ONNX model file, you need to specify the model input shape, input node names and output node names. [Netron](https://github.com/lutzroeder/netron) is recommended to get the above information.
+If you need to specify the model input shape, input node names and output node names. [Netron](https://github.com/lutzroeder/netron) is recommended to get the above information.
 
 Model scripts(`model.py`) and weights information(`ckpt`) can be used not only to validate the equivalence of migration, but also to generate the [MindIR](https://www.mindspore.cn/docs/programming_guide/en/master/save_model.html#mindir) file.
 
