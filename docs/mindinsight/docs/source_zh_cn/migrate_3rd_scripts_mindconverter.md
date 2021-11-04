@@ -43,9 +43,9 @@ mindconverter --model_file /path/to/model_file --shape SHAPE --input_nodes INPUT
 ```
 
 - `--model_file`指定模型文件路径，模型文件支持`onnx`或`pb`格式。
-- `--shape`指定模型输入shape信息，多输入场景以空格分隔。
-- `--input_nodes`指定模型输入节点名称，多输入场景以空格分隔。
-- `--output_nodes`指定模型输出节点名称，多输出场景以空格分隔。
+- `--shape`指定模型输入shape信息，多输入场景以空格分隔，当模型文件为`onnx`格式时，可省略当前参数。
+- `--input_nodes`指定模型输入节点名称，多输入场景以空格分隔，当模型文件为`onnx`格式时，可省略当前参数。
+- `--output_nodes`指定模型输出节点名称，多输出场景以空格分隔，当模型文件为`onnx`格式时，可省略当前参数。
 - 转换结果默认输出到`$PWD/output`。
 
 ## 环境依赖
@@ -123,13 +123,10 @@ pip install tf2onnx~=1.7.1
 执行MindConverter CLI命令，生成MindSpore模型文件（`model.py`）、权重信息（`ckpt`）、[转换报告与权重映射表](#id15)。
 
 ```shell
-mindconverter --model_file /path/to/model.onnx \
-              --shape 1,3,224,224 \
-              --input_nodes input_node_name \
-              --output_nodes output_node_name
+mindconverter --model_file /path/to/model.onnx
 ```
 
-使用ONNX模型文件迁移，需要先从`.onnx`文件中获取模型输入节点`shape`、输入节点名称、输出节点名称，推荐使用[Netron](https://github.com/lutzroeder/netron)工具加载ONNX模型文件，获取上述信息。
+如果需要从`.onnx`文件中获取模型输入节点`shape`、输入节点名称、输出节点名称，推荐使用[Netron](https://github.com/lutzroeder/netron)工具加载ONNX模型文件，获取上述信息。
 
 模型文件（`model.py`）与权重信息（`ckpt`）可用于验证模型迁移的等价性，也可用于导出[MindIR](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/save_model.html#mindir)格式文件。
 
