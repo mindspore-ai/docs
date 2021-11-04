@@ -87,3 +87,7 @@ from custom_directives import IncludeCodeDirective
 
 def setup(app):
     app.add_directive('includecode', IncludeCodeDirective)
+    app.add_stylesheet('css/bootstrap.min.css')
+    app.add_stylesheet('css/training.css')
+    app.add_javascript('js/training.js')
+

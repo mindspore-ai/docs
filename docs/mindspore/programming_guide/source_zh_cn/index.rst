@@ -1,7 +1,7 @@
 .. MindSpore documentation master file, created by
    sphinx-quickstart on Thu Mar 24 11:00:00 2020.
    You can adapt this file completely to your liking, but it should at least
-   contain the root <em>toctree</em> directive.
+   contain the root `toctree` directive.
 
 MindSpore编程指南
 ===================
@@ -254,9 +254,10 @@ MindSpore编程指南
 							</div>
 							
 						</div>
-						<hr>
+						
+						<font size="2">注意：点击带“↗”的标题，将会离开编程指南页面。</font>
 
-						注意：点击带“↗”的标题，将会离开编程指南页面。
+						<hr>
 
 						<div class="doc-footer">
 							<nav aria-label="Page navigation">
