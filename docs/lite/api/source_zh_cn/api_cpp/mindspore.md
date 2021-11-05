@@ -586,6 +586,23 @@ Status LoadConfig(const std::string &config_path);
 >
 > op_name2=data_type:float32
 
+#### UpdateConfig
+
+```cpp
+Status UpdateConfig(const std::string &section, const std::pair<std::string, std::string> &config);
+```
+
+刷新配置，读文件相对比较费时，如果少部分配置发生变化可以通过该接口更新部分配置。
+
+- 参数
+
+    - `section`: 配置的章节名。
+    - `config`: 要更新的配置对。
+
+- 返回值
+
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
 #### GetInputs
 
 ```cpp
