@@ -39,7 +39,7 @@ import numpy as np
 input_x = np.array([1, 1, 1]).astype(np.float32)
 uniform = mindspore.common.initializer.Uniform(scale=1)
 output = uniform(input_x)
-print(input_x)
+print(output)
 # Out：
 # [-0.2333 0.6208 -0.1627]
 
