@@ -186,6 +186,42 @@ const schema::Primitive *primitive() const
 
 返回算子经由flatbuffers反序化为Primitive后的结果。
 
+### GetAttr
+
+``` c++
+std::string GetAttr(const std::string &key) const
+```
+
+获取指定配置名对应的配置。
+
+- 参数
+
+    - `key`: 配置名。
+
+### SetConfig
+
+``` c++
+void SetConfig(const std::map<std::string, std::map<std::string, std::string>> *config)
+```
+
+保存配置内容的常量指针到kernel里，该接口当前是由框架在加载配置文件时自动触发调用的，不建议用户使用。
+
+- 参数
+
+    - `config`: 配置的常量指针。
+
+### GetConfig
+
+``` c++
+std::map<std::string, std::string> GetConfig(const std::string &section) const
+```
+
+获取指定章节名对应的配置。
+
+- 参数
+
+    - `section`: 配置的章节名称。
+
 ## KernelInterface
 
 \#include <[kernel_interface.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/kernel_interface.h)>
