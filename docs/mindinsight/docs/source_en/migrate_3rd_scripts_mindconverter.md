@@ -153,7 +153,7 @@ mindspore.export(network, input_data, file_name='network_name', file_format='MIN
 Note
 
 1. The Dropout operator will be lost after conversion because the inference mode is used to load the ONNX or TensorFlow model. Manually re-implementation is necessary.
-2. This script conversion tool relies on operators which supported by MindConverter and MindSpore. Unsupported operators may not be successfully mapped to MindSpore operators. You can manually edit, or implement the mapping based on MindConverter, and make [contribution](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/mindconverter/tutorial/add_operator_mapper_base_tutorial.ipynb) to our MindInsight repository. We appreciate your support for the MindSpore community.
+2. This script conversion tool relies on operators which supported by MindConverter and MindSpore. Unsupported operators may not be successfully mapped to MindSpore operators. You can manually edit, or implement the mapping based on MindConverter, and make [contribution](https://gitee.com/mindspore/mindinsight/blob/master/ecosystem_tools/mindconverter/tutorial/add_operator_mapper_base_tutorial.ipynb) to our MindInsight repository. We appreciate your support for the MindSpore community.
 3. MindConverter converts dynamic input shape to constant one based on `--shape` while using graph based scheme, as a result, it is required that inputs’ shape used to retrain or inference in MindSpore are the same as that used to convert using MindConverter. If the input shape has changed, please running MindConverter again with new `--shape` or fixing shape related parameters in the old script.
 4. MindSpore script and MindSpore checkpoint file are saved in the one file folder path, while report file and weight map file are saved in the other one.
 5. The security and consistency of the model file should be guaranteed by the user.
@@ -354,11 +354,11 @@ Arguments are as follows：
 
 ## Model List Supported by MindConverter
 
-For supported models (tested based on PyTorch 1.5.0 and TensorFlow 1.15.0, x86 Ubuntu released version), please refer to [LINK](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/mindconverter/docs/supported_model_list.md#).
+For supported models (tested based on PyTorch 1.5.0 and TensorFlow 1.15.0, x86 Ubuntu released version), please refer to [LINK](https://gitee.com/mindspore/mindinsight/blob/master/ecosystem_tools/mindconverter/docs/supported_model_list.md#).
 
 ## MindConverter Error Code Definition
 
-For error code defined in MindConverter, please refer to [LINK](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/mindconverter/docs/error_code_definition.md#).
+For error code defined in MindConverter, please refer to [LINK](https://gitee.com/mindspore/mindinsight/blob/master/ecosystem_tools/mindconverter/docs/error_code_definition.md#).
 
 ## FAQ
 
