@@ -153,7 +153,7 @@ mindspore.export(network, input_data, file_name='network_name', file_format='MIN
 注意事项：
 
 1. 由于模型转换工具以推理模式加载ONNX文件，转换后会导致网络中Dropout算子丢失，需要用户手动补齐。
-2. 模型转换工具本质上为算子驱动，对于MindConverter未维护的ONNX算子与MindSpore算子映射，将会出现相应的算子无法转换的问题，对于该类算子，用户可手动修改，或基于MindConverter实现映射关系，向MindInsight仓库[贡献](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/mindconverter/tutorial/add_operator_mapper_base_tutorial.ipynb)。
+2. 模型转换工具本质上为算子驱动，对于MindConverter未维护的ONNX算子与MindSpore算子映射，将会出现相应的算子无法转换的问题，对于该类算子，用户可手动修改，或基于MindConverter实现映射关系，向MindInsight仓库[贡献](https://gitee.com/mindspore/mindinsight/blob/master/ecosystem_tools/mindconverter/tutorial/add_operator_mapper_base_tutorial.ipynb)。
 3. 在使用基于计算图的迁移时，MindConverter会根据`--shape`参数将模型输入的批次大小（batch size）、句子长度（sequence length）、图片尺寸（image shape）等尺寸相关参数固定下来，用户需要保证基于MindSpore重训练、推理时输入shape与转换时一致；若需要调整输入尺寸，请重新指定`--shape`进行转换，或修改转换后脚本中涉及张量尺寸变更操作相应的操作数。
 4. 脚本文件和权重文件输出于同一个目录下，转换报告和权重映射表输出于同一个目录下。
 5. 模型文件的安全性与一致性请用户自行保证。
@@ -354,11 +354,11 @@ usage: mindconverter [-h] [--version]
 
 ## 模型支持列表
 
-MindConverter已支持转换的模型列表，请参考[链接](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/mindconverter/docs/supported_model_list_cn.md#)。
+MindConverter已支持转换的模型列表，请参考[链接](https://gitee.com/mindspore/mindinsight/blob/master/ecosystem_tools/mindconverter/docs/supported_model_list_cn.md#)。
 
 ## 错误码速查表
 
-MindConverter错误码定义，请参考[链接](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/mindconverter/docs/error_code_definition_cn.md#)。
+MindConverter错误码定义，请参考[链接](https://gitee.com/mindspore/mindinsight/blob/master/ecosystem_tools/mindconverter/docs/error_code_definition_cn.md#)。
 
 ## 常见问题
 
