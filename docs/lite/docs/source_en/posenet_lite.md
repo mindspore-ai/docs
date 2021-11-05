@@ -12,4 +12,4 @@ The blue marking points detect the distribution of facial features of the human 
 
 ![image_posenet](images/posenet_detection.png)
 
-Using MindSpore Lite to realize posenet [example](https://gitee.com/mindspore/models/tree/master/official/lite/posenet).
+Using MindSpore Lite to realize posenet [example](https://gitee.com/mindspore/models/tree/r1.5/official/lite/posenet).

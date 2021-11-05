@@ -4,7 +4,7 @@
 
 <font size=3>**Q: How do I use MindSpore to implement multi-scale training?**</font>
 
-A: During multi-scale training, when different `shape` are used to call `Cell` objects, different graphs are automatically built and called based on different `shape`. Note that multi-scale training supports only the `feed` mode and does not support the data offloading mode. For details, see the multi-scale training of the [yolov3](https://gitee.com/mindspore/models/tree/master/official/cv/yolov3_darknet53).
+A: During multi-scale training, when different `shape` are used to call `Cell` objects, different graphs are automatically built and called based on different `shape`. Note that multi-scale training supports only the `feed` mode and does not support the data offloading mode. For details, see the multi-scale training of the [yolov3](https://gitee.com/mindspore/models/tree/r1.5/official/cv/yolov3_darknet53).
 
 <br/>
 
@@ -94,7 +94,7 @@ def count_params(net):
     return total_params
 ```
 
-[Script Link](https://gitee.com/mindspore/models/blob/master/research/cv/tinynet/src/utils.py).
+[Script Link](https://gitee.com/mindspore/models/blob/r1.5/research/cv/tinynet/src/utils.py).
 
 <br/>
 
