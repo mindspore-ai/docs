@@ -184,6 +184,7 @@ MindSpore提供了同步Dump与异步Dump两种模式：
             ms_output_trace_code_graph_{graph_id}.ir
         - execution_order/
             ms_execution_order_graph_{graph_id}.csv
+            ms_global_execution_order_graph_{graph_id}.csv
 ```
 
 - `path`：`data_dump.json`配置文件中设置的绝对路径。
@@ -225,6 +226,12 @@ ms_output_trace_code_graph_{graph_id}.ir
 
 ```text
 ms_execution_order_graph_{graph_id}.csv
+```
+
+图形全局执行顺序文件的后缀为`.csv`。此文件存储执行图形的迭代列表，文件名格式为：
+
+```text
+ms_global_execution_order_graph_{graph_id}.csv
 ```
 
 `.dump_metadata`记录了训练的原信息，其中`data_dump.json`保存了用户设置的dump配置。
@@ -450,6 +457,7 @@ numpy.load("Conv2D.Conv2D-op107.2.2.1623124369613540.output.0.DefaultFormat.npy"
             ms_output_trace_code_graph_{graph_id}.ir
         - execution_order/
             ms_execution_order_graph_{graph_id}.csv
+            ms_global_execution_order_graph_{graph_id}.csv
 ```
 
 - `path`：`data_dump.json`配置文件中设置的绝对路径。
