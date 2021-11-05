@@ -22,7 +22,7 @@
 
 1. 将你的预训练模型托管在可以访问的存储位置。
 
-2. 参照[模板](https://gitee.com/mindspore/models/blob/master/official/cv/googlenet/mindspore_hub_conf.py)，在你自己的代码仓中添加模型生成文件`mindspore_hub_conf.py`，文件放置的位置如下：
+2. 参照[模板](https://gitee.com/mindspore/models/blob/r1.5/official/cv/googlenet/mindspore_hub_conf.py)，在你自己的代码仓中添加模型生成文件`mindspore_hub_conf.py`，文件放置的位置如下：
 
    ```text
    googlenet

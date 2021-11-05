@@ -73,7 +73,7 @@ MindSpore的感知量化训练是指在训练时使用伪量化节点来模拟�
 
 在上面流程中，步骤2和步骤6是感知量化训练区别普通训练需要额外进行的步骤。接下来，以LeNet网络为例，展开叙述量化相关步骤。
 
-> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/models/tree/master/official/cv/lenet_quant> 。
+> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/models/tree/r1.5/official/cv/lenet_quant> 。
 
 ### 定义量化网络
 

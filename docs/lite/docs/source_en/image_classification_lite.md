@@ -15,7 +15,7 @@ Image classification is to identity what an image represents, to predict the obj
 | tree       | 0.8584      |
 | houseplant | 0.7867      |
 
-Using MindSpore Lite to realize image classification [example](https://gitee.com/mindspore/models/tree/master/official/lite/image_classification).
+Using MindSpore Lite to realize image classification [example](https://gitee.com/mindspore/models/tree/r1.5/official/lite/image_classification).
 
 ## Image classification model list
 

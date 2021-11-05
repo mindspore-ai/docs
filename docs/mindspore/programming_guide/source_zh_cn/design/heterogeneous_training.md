@@ -137,7 +137,7 @@ class AdamWeightDecayOp(Optimizer):
     return ParameterTuple(new)
 ```
 
-步骤4、5也可以直接融合到优化器算子中做进一步优化，完整的优化器异构训练流程可以参考： <https://gitee.com/mindspore/models/tree/master/official/nlp/pangu_alpha>
+步骤4、5也可以直接融合到优化器算子中做进一步优化，完整的优化器异构训练流程可以参考： <https://gitee.com/mindspore/models/tree/r1.5/official/nlp/pangu_alpha>
 
 ## Embedding异构
 
@@ -199,7 +199,7 @@ class EmbeddingLookup(nn.Cell):
 
 当前nn目录下的EmbeddingLookup、FTRL、LazyAdam等算子已经封装好异构接口，用户只需设置target属性为CPU或DEVICE即可切换执行后端。
 
-整体调用流程可以参考：<https://gitee.com/mindspore/models/tree/master/official/recommend/wide_and_deep>
+整体调用流程可以参考：<https://gitee.com/mindspore/models/tree/r1.5/official/recommend/wide_and_deep>
 
 ## PS异构
 
@@ -209,7 +209,7 @@ class EmbeddingLookup(nn.Cell):
 
 Parameter Server封装异构流程，用户只需配置参数使用PS即可，具体配置流程请参考[Parameter Server训练流程](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/apply_parameter_server_training.html)。
 
-此外，wide&deep网络中也有使用PS的流程，可参考：<https://gitee.com/mindspore/models/tree/master/official/recommend/wide_and_deep>
+此外，wide&deep网络中也有使用PS的流程，可参考：<https://gitee.com/mindspore/models/tree/r1.5/official/recommend/wide_and_deep>
 
 ## 约束
 

@@ -57,7 +57,7 @@ MindSpore 的模型训练和推理的总体执行流程，基本与主流的 AI 
     model.train(epoch_size, ds_train, callbacks=[loss_cb, ckpoint_cb ])
     ```
 
-    代码来源： [ModelZoo/LeNet5](https://gitee.com/mindspore/models/tree/master/official/cv/lenet/train.py)
+    代码来源： [ModelZoo/LeNet5](https://gitee.com/mindspore/models/tree/r1.5/official/cv/lenet/train.py)
 
 - PyTorch
 
