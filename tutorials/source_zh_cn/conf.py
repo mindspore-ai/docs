@@ -11,9 +11,9 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import os
-import sys
 import IPython
 import re
+import sys
 import nbsphinx as nbs
 
 # -- Project information -----------------------------------------------------
@@ -67,6 +67,8 @@ html_search_language = 'zh'
 
 html_search_options = {'dict': '../resource/jieba.txt'}
 
+html_static_path = ['_static']
+
 # Remove extra outputs for nbsphinx extension.
 nbsphinx_source_re = re.compile(r"(app\.connect\('html-collect-pages', html_collect_pages\))")
 nbsphinx_math_re = re.compile(r"(\S.*$)")
@@ -91,3 +93,7 @@ from custom_directives import IncludeCodeDirective
 
 def setup(app):
     app.add_directive('includecode', IncludeCodeDirective)
+    app.add_stylesheet('css/bootstrap.min.css')
+    app.add_stylesheet('css/training.css')
+    app.add_javascript('js/training.js')
+
