@@ -31,6 +31,12 @@ MindInsight文档
    accuracy_optimization
 
 .. toctree::
+   :maxdepth: 1
+   :caption: 性能调优指南
+
+   performance_tuning_guide
+
+.. toctree::
    :glob:
    :maxdepth: 1
    :caption: 参考文档
