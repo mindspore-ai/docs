@@ -211,7 +211,7 @@ MindSpore编程指南
 									<button class="doc-filter-btn doc-btn" id="hardware-ascend">Ascend</button>
 									<button class="doc-filter-btn doc-btn" id="hardware-gpu">GPU</button>
 									<button class="doc-filter-btn doc-btn" id="hardware-cpu">CPU</button>
-									<button class="doc-filter-btn doc-btn" id="hardware-device">Device</button>
+									<button class="doc-filter-btn doc-btn" id="hardware-device">端侧</button>
 								</div>
 							</div>
 							</div>
@@ -328,7 +328,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-ascend stage-Inference experience-local hidden">
+							<div class="doc-article-item all hardware-ascend hardware-device stage-Inference experience-local hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/apply_post_training_quantization.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
