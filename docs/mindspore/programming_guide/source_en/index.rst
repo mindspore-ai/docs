@@ -228,8 +228,8 @@ MindSpore Programming Guide
 										<div class="doc-experience">Experience</div>
 									</div>							
 									<div class="col-sm-10 col-sm-pull-1 doc-stage-detail">
-										<button class="doc-filter-btn doc-btn" id="experience-online">online</button>
-										<button class="doc-filter-btn doc-btn" id="experience-local">local</button>
+										<button class="doc-filter-btn doc-btn" id="experience-online">Online</button>
+										<button class="doc-filter-btn doc-btn" id="experience-local">Local</button>
 									</div>
 									
 								</div>
@@ -251,7 +251,7 @@ MindSpore Programming Guide
 						</div>
 
                   <div class="doc-article-list">
-						<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner experience-online hidden">
+						<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner experience-local experience-online hidden">
                      <a href="https://www.mindspore.cn/docs/programming_guide/en/master/api_structure.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
@@ -479,7 +479,7 @@ MindSpore Programming Guide
                         </div>
                      </a>
                   </div>
-                  <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-online hidden">
+                  <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local experience-online hidden">
                      <a href="https://www.mindspore.cn/docs/programming_guide/en/master/convert_dataset.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
@@ -863,7 +863,7 @@ MindSpore Programming Guide
                         </div>
                      </a>
                   </div>
-                  <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-online hidden">
+                  <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local experience-online hidden">
                      <a href="https://www.mindspore.cn/docs/programming_guide/en/master/load_dataset_image.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
@@ -887,7 +887,7 @@ MindSpore Programming Guide
                         </div>
                      </a>
                   </div>
-                  <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-online hidden">
+                  <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local experience-online hidden">
                      <a href="https://www.mindspore.cn/docs/programming_guide/en/master/load_dataset_text.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
@@ -1031,7 +1031,7 @@ MindSpore Programming Guide
                         </div>
                      </a>
                   </div>
-                  <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Development experience-online hidden">
+                  <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Development experience-local experience-online hidden">
                      <a href="https://www.mindspore.cn/docs/programming_guide/en/master/numpy.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
@@ -1103,7 +1103,7 @@ MindSpore Programming Guide
                         </div>
                      </a>
                   </div>
-                  <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-online hidden">
+                  <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local experience-online hidden">
                      <a href="https://www.mindspore.cn/docs/programming_guide/en/master/optimize_data_processing.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
