@@ -10,6 +10,7 @@ mindspore
 Classes
 -------
 
+
 - :doc:`../generate/structmindspore_Any_Base`
 
 - :doc:`../generate/structmindspore_Any_Derived`
@@ -79,8 +80,6 @@ Classes
 - :doc:`../generate/structmindspore_TypeEqual`
 
 - :doc:`../generate/structmindspore_TypeHasher`
-
-- :doc:`../generate/structmindspore_TypeIdManager`
 
 - :doc:`../generate/structmindspore_TypeListEqual`
 
@@ -524,6 +523,8 @@ Functions
 
 - :doc:`../generate/function_mindspore_ConstIteratorCast-1`
 
+- :doc:`../generate/function_mindspore_ConstStringHash-1`
+
 - :doc:`../generate/function_mindspore_ContainMultiTarget-1`
 
 - :doc:`../generate/function_mindspore_DeepLinkedGraphSearch-1`
@@ -574,9 +575,9 @@ Functions
 
 - :doc:`../generate/function_mindspore_GetTimeString-1`
 
-- :doc:`../generate/function_mindspore_GetValue-2`
-
 - :doc:`../generate/function_mindspore_GetValue-1`
+
+- :doc:`../generate/function_mindspore_GetValue-2`
 
 - :doc:`../generate/function_mindspore_GetValueNode-1`
 
@@ -662,15 +663,15 @@ Functions
 
 - :doc:`../generate/function_mindspore_MakeNode-7`
 
+- :doc:`../generate/function_mindspore_MakeValue-1`
+
+- :doc:`../generate/function_mindspore_MakeValue-2`
+
 - :doc:`../generate/function_mindspore_MakeValue-3`
 
 - :doc:`../generate/function_mindspore_MakeValue-4`
 
 - :doc:`../generate/function_mindspore_MakeValue-5`
-
-- :doc:`../generate/function_mindspore_MakeValue-1`
-
-- :doc:`../generate/function_mindspore_MakeValue-2`
 
 - :doc:`../generate/function_mindspore_Manage-1`
 
@@ -692,6 +693,8 @@ Functions
 
 - :doc:`../generate/function_mindspore_NewValueNode-3`
 
+- :doc:`../generate/function_mindspore_NewValueNode-4`
+
 - :doc:`../generate/function_mindspore_SizetAddWithOverflowCheck-1`
 
 - :doc:`../generate/function_mindspore_SizetMulWithOverflowCheck-1`
@@ -712,6 +715,8 @@ Functions
 
 - :doc:`../generate/function_mindspore_StringToType-1`
 
+- :doc:`../generate/function_mindspore_StringToTypeId-1`
+
 - :doc:`../generate/function_mindspore_SuccDeeper-1`
 
 - :doc:`../generate/function_mindspore_SuccDeeperSimple-1`
@@ -731,6 +736,8 @@ Functions
 - :doc:`../generate/function_mindspore_TransformableClone-1`
 
 - :doc:`../generate/function_mindspore_type-1`
+
+- :doc:`../generate/function_mindspore_TypeIdToString-1`
 
 - :doc:`../generate/function_mindspore_TypeIdToType-1`
 
@@ -897,6 +904,8 @@ Typedefs
 
 - :doc:`../generate/typedef_mindspore_NodeDebugInfoPtr-1`
 
+- :doc:`../generate/typedef_mindspore_NodeToNodeMap-1`
+
 - :doc:`../generate/typedef_mindspore_NodeUsersMap-1`
 
 - :doc:`../generate/typedef_mindspore_NodeVisitFunc-1`
@@ -1038,6 +1047,8 @@ Variables
 - :doc:`../generate/variable_mindspore_GRAPH_FLAG_EFFECT_PATIAL_ORDER-1`
 
 - :doc:`../generate/variable_mindspore_GRAPH_FLAG_HAS_EFFECT-1`
+
+- :doc:`../generate/variable_mindspore_GRAPH_FLAG_IS_WHILE_HEADER-1`
 
 - :doc:`../generate/variable_mindspore_GRAPH_FLAG_MIX_PRECISION_FP16-1`
 
