@@ -153,6 +153,8 @@ Classes
 
 - :doc:`../generate/classmindspore_ops_DynamicBroadcastGradientArgs`
 
+- :doc:`../generate/classmindspore_ops_DynamicBroadcastTo`
+
 - :doc:`../generate/classmindspore_ops_Eltwise`
 
 - :doc:`../generate/classmindspore_ops_Elu`
@@ -231,7 +233,15 @@ Classes
 
 - :doc:`../generate/classmindspore_ops_InvertPermutation`
 
+- :doc:`../generate/classmindspore_ops_IOU`
+
 - :doc:`../generate/classmindspore_ops_IsFinite`
+
+- :doc:`../generate/classmindspore_ops_IsInf`
+
+- :doc:`../generate/classmindspore_ops_IsNan`
+
+- :doc:`../generate/classmindspore_ops_L2Loss`
 
 - :doc:`../generate/classmindspore_ops_L2Normalize`
 
@@ -293,8 +303,6 @@ Classes
 
 - :doc:`../generate/classmindspore_ops_MaxPoolFusion`
 
-- :doc:`../generate/classmindspore_ops_Merge`
-
 - :doc:`../generate/classmindspore_ops_Mfcc`
 
 - :doc:`../generate/classmindspore_ops_Minimum`
@@ -308,6 +316,8 @@ Classes
 - :doc:`../generate/classmindspore_ops_Neg`
 
 - :doc:`../generate/classmindspore_ops_NeighborExchange`
+
+- :doc:`../generate/classmindspore_ops_NeighborExchangeV2`
 
 - :doc:`../generate/classmindspore_ops_NonMaxSuppression`
 
@@ -455,6 +465,8 @@ Classes
 
 - :doc:`../generate/classmindspore_ops_SoftShrink`
 
+- :doc:`../generate/classmindspore_ops_Sort`
+
 - :doc:`../generate/classmindspore_ops_SpaceToBatch`
 
 - :doc:`../generate/classmindspore_ops_SpaceToBatchND`
@@ -492,6 +504,8 @@ Classes
 - :doc:`../generate/classmindspore_ops_SubFusion`
 
 - :doc:`../generate/classmindspore_ops_Switch`
+
+- :doc:`../generate/classmindspore_ops_SwitchLayer`
 
 - :doc:`../generate/classmindspore_ops_Tan`
 
@@ -559,6 +573,10 @@ Typedefs
 --------
 
 
+- :doc:`../generate/typedef_mindspore_ops_kPrimL2LossPtr-1`
+
+- :doc:`../generate/typedef_mindspore_ops_kPrimNeighborExchangeV2Ptr-1`
+
 - :doc:`../generate/typedef_mindspore_ops_OpPrimCDefineFunc-1`
 
 - :doc:`../generate/typedef_mindspore_ops_PrimApplyKerasMomentumPtr-1`
@@ -589,17 +607,25 @@ Typedefs
 
 - :doc:`../generate/typedef_mindspore_ops_PrimDepend-1`
 
+- :doc:`../generate/typedef_mindspore_ops_PrimDynamicBroadcastToPtr-1`
+
 - :doc:`../generate/typedef_mindspore_ops_PrimElu-1`
 
 - :doc:`../generate/typedef_mindspore_ops_PrimExpandDims-1`
 
 - :doc:`../generate/typedef_mindspore_ops_PrimExtractVolumePatchesPtr-1`
 
+- :doc:`../generate/typedef_mindspore_ops_PrimFloorPtr-1`
+
 - :doc:`../generate/typedef_mindspore_ops_PrimGatherNd-1`
 
 - :doc:`../generate/typedef_mindspore_ops_PrimGerPtr-1`
 
 - :doc:`../generate/typedef_mindspore_ops_PrimGreaterEqual-1`
+
+- :doc:`../generate/typedef_mindspore_ops_PrimIsInfPtr-1`
+
+- :doc:`../generate/typedef_mindspore_ops_PrimIsNanPtr-1`
 
 - :doc:`../generate/typedef_mindspore_ops_PrimLARSUpdatePtr-1`
 
@@ -612,6 +638,8 @@ Typedefs
 - :doc:`../generate/typedef_mindspore_ops_PrimReverseSequence-1`
 
 - :doc:`../generate/typedef_mindspore_ops_PrimSGD-1`
+
+- :doc:`../generate/typedef_mindspore_ops_PrimSlicePtr-1`
 
 - :doc:`../generate/typedef_mindspore_ops_PrimSplit-1`
 
@@ -829,6 +857,8 @@ Variables
 - :doc:`../generate/variable_mindspore_ops_kIsDepthWise-1`
 
 - :doc:`../generate/variable_mindspore_ops_kIsGrad-1`
+
+- :doc:`../generate/variable_mindspore_ops_kIsOriPadMode-1`
 
 - :doc:`../generate/variable_mindspore_ops_kIsScale-1`
 
@@ -1076,6 +1106,12 @@ Variables
 
 - :doc:`../generate/variable_mindspore_ops_kNameIsFinite-1`
 
+- :doc:`../generate/variable_mindspore_ops_kNameIsInf-1`
+
+- :doc:`../generate/variable_mindspore_ops_kNameIsNan-1`
+
+- :doc:`../generate/variable_mindspore_ops_kNameL2Loss-1`
+
 - :doc:`../generate/variable_mindspore_ops_kNameL2Normalize-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameL2NormalizeFusion-1`
@@ -1126,8 +1162,6 @@ Variables
 
 - :doc:`../generate/variable_mindspore_ops_kNameMaxPoolFusion-1`
 
-- :doc:`../generate/variable_mindspore_ops_kNameMerge-1`
-
 - :doc:`../generate/variable_mindspore_ops_kNameMfcc-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameMinimum-1`
@@ -1141,6 +1175,8 @@ Variables
 - :doc:`../generate/variable_mindspore_ops_kNameNeg-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameNeighborExchange-1`
+
+- :doc:`../generate/variable_mindspore_ops_kNameNeighborExchangeV2-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameNonMaxSuppression-1`
 
@@ -1270,6 +1306,8 @@ Variables
 
 - :doc:`../generate/variable_mindspore_ops_kNameSoftShrink-1`
 
+- :doc:`../generate/variable_mindspore_ops_kNameSort-1`
+
 - :doc:`../generate/variable_mindspore_ops_kNameSpaceToBatch-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameSpaceToBatchND-1`
@@ -1305,6 +1343,8 @@ Variables
 - :doc:`../generate/variable_mindspore_ops_kNameSubFusion-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameSwitch-1`
+
+- :doc:`../generate/variable_mindspore_ops_kNameSwitchLayer-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameTan-1`
 
