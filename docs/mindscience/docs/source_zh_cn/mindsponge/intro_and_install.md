@@ -51,7 +51,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{ms_version}/min
 2. 编译安装MindSPONGE
 
     ```bash
-    cd ~/MindScience/MindSPONGE
+    cd ~/mindScience/MindSPONGE
     python setup.py install --user
     ```
 
