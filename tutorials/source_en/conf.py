@@ -11,9 +11,9 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import os
-import sys
 import IPython
 import re
+import sys
 import nbsphinx as nbs
 
 # -- Project information -----------------------------------------------------
@@ -54,10 +54,6 @@ exclude_patterns = []
 
 highlight_language = 'none'
 
-suppress_warnings = [
-    'nbsphinx',
-]
-
 pygments_style = 'sphinx'
 
 # -- Options for HTML output -------------------------------------------------
@@ -66,6 +62,10 @@ pygments_style = 'sphinx'
 # a list of builtin themes.
 #
 html_theme = 'sphinx_rtd_theme'
+
+html_search_language = 'en'
+
+html_static_path = ['_static']
 
 # Remove extra outputs for nbsphinx extension.
 nbsphinx_source_re = re.compile(r"(app\.connect\('html-collect-pages', html_collect_pages\))")
@@ -91,3 +91,7 @@ from custom_directives import IncludeCodeDirective
 
 def setup(app):
     app.add_directive('includecode', IncludeCodeDirective)
+    app.add_stylesheet('css/bootstrap.min.css')
+    app.add_stylesheet('css/training.css')
+    app.add_javascript('js/training.js')
+

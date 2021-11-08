@@ -233,7 +233,7 @@ MindSpore编程指南
 										<button class="doc-filter-btn doc-btn" id="stage-Model-Evaluation">模型评估</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Model-Loading">模型加载</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Distributed-Parallel">分布式并行</button>
-										<button class="doc-filter-btn doc-btn" id="stage-Function-Extension">功能扩展</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Function-Extension">扩展功能</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Design">设计</button>
 									</div>
 									
@@ -268,7 +268,7 @@ MindSpore编程指南
 						</div>
 
 						<div class="doc-article-list">
-						   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner experience-online hidden">
+						   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner experience-local experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/api_structure.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -280,7 +280,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-gpu stage-Model-Optimization experience-online hidden">
+							<div class="doc-article-item all hardware-gpu stage-Model-Optimization experience-local experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/apply_gradient_accumulation.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -340,7 +340,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-ascend hardware-gpu experience-online hidden">
+							<div class="doc-article-item all hardware-ascend hardware-gpu stage-Function-Extension experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/apply_quantization_aware_training.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -364,7 +364,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-online hidden">
+							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/augmentation.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -376,7 +376,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-online hidden">
+							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/auto_augmentation.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -412,7 +412,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-online hidden">
+							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/cache.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -436,7 +436,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner experience-online hidden">
+							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/cell.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -460,7 +460,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Running experience-online hidden">
+							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Running experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/context.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -484,7 +484,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-online hidden">
+							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/convert_dataset.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -496,7 +496,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Optimization experience-online hidden">
+							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Optimization experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -556,7 +556,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-ascend hardware-gpu stage-Whole-Process experience-online hidden">
+							<div class="doc-article-item all hardware-ascend hardware-gpu stage-Whole-Process experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/cv_resnet50.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -568,7 +568,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-ascend hardware-gpu stage-Whole-Process experience-local hidden">
+							<div class="doc-article-item all hardware-ascend hardware-gpu stage-Whole-Process stage-Function-Extension experience-local hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/cv_resnet50_second_order_optimizer.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -580,7 +580,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-online hidden">
+							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dataset_conversion.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -604,7 +604,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-online hidden">
+							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dataset_loading.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -628,7 +628,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Running experience-online hidden">
+							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Running experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/debug_in_pynative_mode.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -736,7 +736,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner experience-online hidden">
+							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dtype.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -760,7 +760,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-online hidden">
+							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/eager.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -772,7 +772,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-online hidden">
+							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/enable_auto_augmentation.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -796,7 +796,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-online hidden">
+							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/enable_cache.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -808,7 +808,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-ascend hardware-gpu stage-Model-Optimization experience-online hidden">
+							<div class="doc-article-item all hardware-ascend hardware-gpu stage-Model-Optimization experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/enable_graph_kernel_fusion.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -820,7 +820,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-ascend hardware-gpu stage-Model-Optimization experience-online hidden">
+							<div class="doc-article-item all hardware-ascend hardware-gpu stage-Model-Optimization experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/enable_mixed_precision.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -832,7 +832,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Running experience-online hidden">
+							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Running experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/evaluate_the_model_during_training.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -904,7 +904,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Development experience-online hidden">
+							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Development experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/initializer.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -916,7 +916,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-online hidden">
+							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/load_dataset_image.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -940,7 +940,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-online hidden">
+							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/load_dataset_text.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -952,7 +952,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Loading experience-online hidden">
+							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Loading experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/load_model_for_inference_and_transfer.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -1096,7 +1096,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-gpu hardware-cpu stage-Whole-Process experience-online hidden">
+							<div class="doc-article-item all hardware-gpu hardware-cpu stage-Whole-Process experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/nlp_sentimentnet.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -1120,7 +1120,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Development experience-online hidden">
+							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Development experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/numpy.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -1180,7 +1180,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-online hidden">
+							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/optimize_data_processing.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -1204,7 +1204,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Development experience-online hidden">
+							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Development experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/parameter.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -1216,7 +1216,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner experience-online hidden">
+							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/parameter_introduction.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -1228,7 +1228,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-online hidden">
+							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/pipeline_common.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -1252,7 +1252,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Running experience-online hidden">
+							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Running experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/run.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -1264,7 +1264,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-online hidden">
+							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/sampler.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -1288,7 +1288,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Export experience-online hidden">
+							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Export experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/save_model.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -1312,7 +1312,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner experience-online hidden">
+							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/tensor.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -1324,7 +1324,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-ascend experience-local hidden">
+							<div class="doc-article-item all hardware-ascend stage-Function-Extension experience-local hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/thor.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -1336,7 +1336,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-online hidden">
+							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/tokenizer.html" class="article-link">
 									<div>
 										<div class="doc-article-head">

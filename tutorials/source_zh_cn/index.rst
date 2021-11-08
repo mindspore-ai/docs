@@ -77,14 +77,11 @@ MindSpore教程
 										<button class="doc-filter-btn doc-btn" id="stage-Data-Preparation">数据准备</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Model-Development">模型开发</button>
                               <button class="doc-filter-btn doc-btn" id="stage-Model-Running">模型运行</button>
-                              <button class="doc-filter-btn doc-btn" id="stage-Model-Optimization">模型调优</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Model-Export">模型导出</button>
                               <button class="doc-filter-btn doc-btn" id="stage-Inference">推理应用</button>
-										<button class="doc-filter-btn doc-btn" id="stage-Model-Evaluation">模型评估</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Model-Loading">模型加载</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Distributed-Parallel">分布式并行</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Function-Extension">功能扩展</button>
-										<button class="doc-filter-btn doc-btn" id="stage-Design">设计</button>
 									</div>
 									
 								</div>
@@ -115,7 +112,7 @@ MindSpore教程
 						</div>
 
                   <div class="doc-article-list">
-                     <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner stage-Model-Development experience-online hidden">
+                     <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner stage-Model-Development experience-local experience-online hidden">
                         <a href="https://www.mindspore.cn/tutorials/zh-CN/master/autograd.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
@@ -127,7 +124,7 @@ MindSpore教程
                            </div>
                         </a>
                      </div>
-                     <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner stage-Data-Preparation experience-online hidden">
+                     <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner stage-Data-Preparation experience-local experience-online hidden">
                         <a href="https://www.mindspore.cn/tutorials/zh-CN/master/dataset.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
@@ -163,7 +160,7 @@ MindSpore教程
                            </div>
                         </a>
                      </div>
-                     <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner stage-Whole-Process experience-online hidden">
+                     <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner stage-Whole-Process experience-local experience-online hidden">
                         <a href="https://www.mindspore.cn/tutorials/zh-CN/master/linear_regression.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
@@ -175,7 +172,7 @@ MindSpore教程
                            </div>
                         </a>
                      </div>
-                     <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner stage-Model-Development experience-online hidden">
+                     <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner stage-Model-Development experience-local experience-online hidden">
                         <a href="https://www.mindspore.cn/tutorials/zh-CN/master/model.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
@@ -187,7 +184,7 @@ MindSpore教程
                            </div>
                         </a>
                      </div>
-                     <div class="doc-article-item all hardware-ascend hardware-gpu stage-Beginner stage-Model-Development experience-online hidden">
+                     <div class="doc-article-item all hardware-ascend hardware-gpu stage-Beginner stage-Model-Development experience-local experience-online hidden">
                         <a href="https://www.mindspore.cn/tutorials/zh-CN/master/optimization.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
@@ -199,7 +196,7 @@ MindSpore教程
                            </div>
                         </a>
                      </div>
-                     <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner stage-Whole-Process experience-online hidden">
+                     <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner stage-Whole-Process experience-local experience-online hidden">
                         <a href="https://www.mindspore.cn/tutorials/zh-CN/master/quick_start.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
@@ -223,7 +220,7 @@ MindSpore教程
                            </div>
                         </a>
                      </div>
-                     <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner experience-online hidden">
+                     <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner experience-local experience-online hidden">
                         <a href="https://www.mindspore.cn/tutorials/zh-CN/master/tensor.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
@@ -235,7 +232,7 @@ MindSpore教程
                            </div>
                         </a>
                      </div>
-                     <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation stage-Advanced experience-online hidden">
+                     <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation stage-Advanced experience-local experience-online hidden">
                         <a href="https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/data.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
@@ -259,7 +256,7 @@ MindSpore教程
                            </div>
                         </a>
                      </div>
-                     <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Running stage-Advanced experience-online hidden">
+                     <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Running stage-Advanced experience-local experience-online hidden">
                         <a href="https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/pynative_mode_and_graph_mode.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
@@ -319,7 +316,7 @@ MindSpore教程
                            </div>
                         </a>
                      </div>
-                     <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Whole-Process stage-Advanced experience-online hidden">
+                     <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Whole-Process stage-Advanced experience-local experience-online hidden">
                         <a href="https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/image_and_video/adversarial_example_generation.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
@@ -331,7 +328,7 @@ MindSpore教程
                            </div>
                         </a>
                      </div>
-                     <div class="doc-article-item all hardware-ascend hardware-gpu stage-Whole-Process stage-Advanced experience-online hidden">
+                     <div class="doc-article-item all hardware-ascend hardware-gpu stage-Whole-Process stage-Advanced experience-local experience-online hidden">
                         <a href="https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/image_and_video/dcgan.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
@@ -379,7 +376,7 @@ MindSpore教程
                            </div>
                         </a>
                      </div>
-                     <div class="doc-article-item all hardware-ascend hardware-gpu stage-Inference stage-Advanced experience-online hidden">
+                     <div class="doc-article-item all hardware-ascend hardware-gpu stage-Inference stage-Advanced experience-local experience-online hidden">
                         <a href="https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/inference/ascend910_and_gpu_inference.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
@@ -427,7 +424,7 @@ MindSpore教程
                            </div>
                         </a>
                      </div>
-                     <div class="doc-article-item all hardware-ascend hardware-gpu stage-Whole-Process stage-Advanced experience-online hidden">
+                     <div class="doc-article-item all hardware-ascend hardware-gpu stage-Whole-Process stage-Advanced experience-local experience-online hidden">
                         <a href="https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/text/rnn_classification.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
@@ -439,7 +436,7 @@ MindSpore教程
                            </div>
                         </a>
                      </div>
-                     <div class="doc-article-item all hardware-ascend hardware-gpu stage-Whole-Process stage-Advanced experience-online hidden">
+                     <div class="doc-article-item all hardware-ascend hardware-gpu stage-Whole-Process stage-Advanced experience-local experience-online hidden">
                         <a href="https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/text/rnn_generation.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
@@ -451,7 +448,7 @@ MindSpore教程
                            </div>
                         </a>
                      </div>
-                     <div class="doc-article-item all hardware-gpu hardware-cpu stage-Whole-Process stage-Advanced experience-online hidden">
+                     <div class="doc-article-item all hardware-gpu hardware-cpu stage-Whole-Process stage-Advanced experience-local experience-online hidden">
                         <a href="https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/text/sentimentnet.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
