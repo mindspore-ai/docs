@@ -5,7 +5,7 @@
 - [pip方式安装MindSpore CPU版本](#pip方式安装mindspore-cpu版本)
     - [确认系统环境信息](#确认系统环境信息)
     - [下载安装MindSpore](#下载安装mindspore)
-    - [查询安装是否成功](#查询安装是否成功)
+    - [验证是否成功安装](#验证是否成功安装)
     - [升级MindSpore版本](#升级mindspore版本)
 
 <!-- /TOC -->
@@ -43,7 +43,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindSp
 - `{arch}`表示系统架构，例如使用的Linux系统是x86架构64位时，`{arch}`应写为`x86_64`。如果系统是ARM架构64位，则写为`aarch64`。
 - `{python_version}`表示用户的Python版本，Python版本为3.7.5时，`{python_version}`应写为`cp37-cp37m`。Python版本为3.9.0时，则写为`cp39-cp39`。
 
-## 查询安装是否成功
+## 验证是否成功安装
 
 ```bash
 python -c "import mindspore;mindspore.run_check()"
