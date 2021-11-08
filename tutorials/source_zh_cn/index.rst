@@ -60,7 +60,7 @@ MindSpore教程
 									<button class="doc-filter-btn doc-btn" id="hardware-ascend">Ascend</button>
 									<button class="doc-filter-btn doc-btn" id="hardware-gpu">GPU</button>
 									<button class="doc-filter-btn doc-btn" id="hardware-cpu">CPU</button>
-									<button class="doc-filter-btn doc-btn" id="hardware-device">Device</button>
+									<button class="doc-filter-btn doc-btn" id="hardware-device">端侧</button>
 								</div>
 							</div>
 							</div>
