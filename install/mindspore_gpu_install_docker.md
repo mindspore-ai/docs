@@ -7,7 +7,7 @@
     - [nvidia-container-toolkit安装](#nvidia-container-toolkit安装)
     - [获取MindSpore镜像](#获取mindspore镜像)
     - [运行MindSpore镜像](#运行mindspore镜像)
-    - [验证是否安装成功](#验证是否安装成功)
+    - [验证是否成功安装](#验证是否成功安装)
 
 <!-- /TOC -->
 
@@ -115,7 +115,7 @@ docker run -it -v /dev/shm:/dev/shm --runtime=nvidia --privileged=true swr.cn-so
 docker run -it -v /dev/shm:/dev/shm --network host --runtime=nvidia --privileged=true swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu:{tag} /bin/bash
 ```
 
-## 验证是否安装成功
+## 验证是否成功安装
 
 - 如果你安装的是指定版本`x.y.z`的容器。
 
