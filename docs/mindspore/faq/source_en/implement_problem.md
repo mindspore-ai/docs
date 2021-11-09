@@ -1,4 +1,4 @@
-﻿# Implement Problem
+﻿﻿﻿# Implement Problem
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_en/implement_problem.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
@@ -566,7 +566,8 @@ def test_net(a, b):
 @ms_function()
 def join_fail():
     sens_i = ops.Fill()(ops.DType()(x), ops.Shape()(x), sens)     # sens_i  is a Scalar Tensor with shape: (1), dtype:Float64, value:1.0
-    a = grad(test_net)(x, y, sens_i)     # For test_net with two outputs, two sens are needed to calculate the gradient, but only one is provided that causes Join Faileure.
+    # sens_i = (sens_i, sens_i)
+    a = grad(test_net)(x, y, sens_i)     # For test_net output with type tuple(Tensor, Tensor), sens_i wih same type are needed to calculate the gradient, but sens_i is a Tensor；Setting sens_i = (sens_i, sens_i) before grad can fix the problem.
     return a
 
 join_fail()

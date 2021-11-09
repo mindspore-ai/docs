@@ -1,4 +1,4 @@
-﻿# 执行问题
+﻿﻿﻿# 执行问题
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_zh_cn/implement_problem.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
@@ -631,7 +631,8 @@ def test_net(a, b):
 @ms_function()
 def join_fail():
     sens_i = ops.Fill()(ops.DType()(x), ops.Shape()(x), sens)    # sens_i 是一个标量shape: (1), dtype:Float64, value:1.0
-    a = grad(test_net)(x, y, sens_i)    # 对有两个输出的test_net求梯度需要两个sens，但只提供了一个sens，Join会失败
+    # sens_i = (sens_i, sens_i)
+    a = grad(test_net)(x, y, sens_i)    # 对输出类型为tuple(Tensor, Tensor)的test_net求梯度需要sens_i的类型同输出保持一致，但sens_i是个Tensor; 在grad前设置sens_i = (sens_i, sens_i)可以修复问题。
     return a
 
 join_fail()
