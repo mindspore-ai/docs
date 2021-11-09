@@ -42,11 +42,11 @@
 
 - 确认安装[wheel 0.32.0及以上版本](https://pypi.org/project/wheel/)。
 
-- 确认安装Ascend 910 AI处理器配套软件包（[Ascend Data Center Solution]）。
+- 确认安装Ascend 910 AI处理器配套软件包（[Ascend Data Center Solution 21.0.3](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910/software/252504583)）。
 
     - 软件包安装方式请参考[产品文档](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910)。
     - 配套软件包包括驱动和固件和CANN。
-        - [驱动和固件A800-9000 1.0.12 ARM平台]和[驱动和固件A800-9010 1.0.12 x86平台]
+        - [A800-9000 1.0.12 ARM平台](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9000-pid-250702818/software/253845425) 或 [A800-9010 1.0.12 x86平台](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9010-pid-250702809/software/253845445)
         - [CANN 5.0.3](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252806307)
 
     - 确认当前用户有权限访问Ascend 910 AI处理器配套软件包的安装路径`/usr/local/Ascend`，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
