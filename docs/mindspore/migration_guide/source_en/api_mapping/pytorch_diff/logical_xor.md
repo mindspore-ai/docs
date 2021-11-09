@@ -22,7 +22,7 @@ For more information, see  [mindspore.numpy.logical_xor](https://mindspore.cn/do
 
 PyTorch: Computes the element-wise logical XOR of the given input tensors. Zeros are treated as `False` and nonzeros are treated as `True`.
 
-MindSpore: The input should be a bool or a tensor whose data type is bool.
+MindSpore: Computes the truth value of x1 XOR x2, element-wise. The input should be a bool or a tensor whose data type is bool.
 
 ## Code Example
 
@@ -33,24 +33,24 @@ import torch
 # MindSpore
 x1 = np.array([True, False])
 x2 = np.array([False, False])
-np.logical_xor(x1, x2)
+print(np.logical_xor(x1, x2))
 # [True False]
 x1 = np.array([0, 1, 10, 0])
 x2 = np.array([4, 0, 1, 0])
-np.logical_xor(x1, x2)
+print(np.logical_xor(x1, x2))
 # TypeError: For 'LogicalOr', the type of `x` should be subclass of Tensor[Bool], but got Tensor[Int32].
 
 # PyTorch
-torch.logical_xor(torch.tensor([True, False, True]), torch.tensor([True, False, False]))
+print(torch.logical_xor(torch.tensor([True, False, True]), torch.tensor([True, False, False])))
 # tensor([False, False,  True])
 a = torch.tensor([0, 1, 10, 0], dtype=torch.int8)
 b = torch.tensor([4, 0, 1, 0], dtype=torch.int8)
-torch.logical_xor(a, b)
+print(torch.logical_xor(a, b))
 # tensor([ True,  True, False, False])
-torch.logical_xor(a.double(), b.double())
+print(torch.logical_xor(a.double(), b.double()))
 # tensor([ True,  True, False, False])
-torch.logical_xor(a.double(), b)
+print(torch.logical_xor(a.double(), b))
 # tensor([ True,  True, False, False])
-torch.logical_xor(a, b, out=torch.empty(4, dtype=torch.bool))
+print(torch.logical_xor(a, b, out=torch.empty(4, dtype=torch.bool)))
 # tensor([ True,  True, False, False])
 ```
