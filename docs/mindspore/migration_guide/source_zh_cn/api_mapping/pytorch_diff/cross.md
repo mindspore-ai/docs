@@ -32,7 +32,7 @@ class mindspore.numpy.cross(
 
 ## 使用方式
 
-PyTorch: 输入必须具有相同的大小，并且它们的dim维度的大小应为3。如果未给出dim，则默认为找到的第一个大小为3的维度。
+PyTorch: 返回input和other维度dim中向量的叉积。输入必须具有相同的大小，并且它们的dim维度的大小应为3。如果未给出dim，则默认为找到的第一个大小为3的维度。
 
 MindSpore: 如果a和b是向量数组，则默认情况下，向量由a和b的最后一个轴定义，这些轴的维度可以是2或3。当a或b的维数为2时，假设输入向量的第三个分量为零，并相应地计算叉积。如果两个输入向量的维度均为2，则返回叉积的z分量。
 
@@ -56,20 +56,20 @@ print(output)
 # [-3  3]]
 x = np.array([[1,2], [4,5]])
 y = np.array([[4,5], [1,2]])
-np.cross(x, y)
+print(np.cross(x, y))
 # Tensor(shape=[2], dtype=Int32, value= [-3,  3])
 
 # PyTorch
 a = torch.tensor([[1,2,3], [4,5,6]], dtype=torch.int8)
 b = torch.tensor([[4,5,6], [1,2,3]], dtype=torch.int8)
-torch.cross(a, b, dim=1)
+print(torch.cross(a, b, dim=1))
 # tensor([[-3,  6, -3],
 #         [ 3, -6,  3]], dtype=torch.int8)
-torch.cross(a, b)
+print(torch.cross(a, b))
 # tensor([[-3,  6, -3],
 #         [ 3, -6,  3]], dtype=torch.int8)
 a = torch.tensor([[1,2], [4,5]], dtype=torch.int8)
 b = torch.tensor([[4,5], [1,2]], dtype=torch.int8)
-torch.cross(a, b)
+print(torch.cross(a, b))
 # RuntimeError: no dimension of size 3 in input
 ```
