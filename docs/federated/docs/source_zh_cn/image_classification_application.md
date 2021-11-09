@@ -766,7 +766,7 @@ if __name__ == "__main__":
 
     - `--domain_name`
 
-        用于设置端云通信url，目前，可支持https和http通信，对应格式分别为：https://......、http://......，当`if_use_elb`设置为true时，格式必须为：https://127.0.0.0:6666 或者http://127.0.0.0:6666 ，其中`127.0.0.0`对应提供云侧服务的机器ip（即云侧参数`--scheduler_ip`），`6666`对应云侧参数`--scheduler_port`。
+        用于设置端云通信url，目前，可支持https和http通信，对应格式分别为：https://......、http://......，当`if_use_elb`设置为true时，格式必须为：https://127.0.0.0:6666 或者http://127.0.0.0:6666 ，其中`127.0.0.0`对应提供云侧服务的机器ip（即云侧参数`--scheduler_ip`），`6666`对应云侧参数`--fl_server_port`。
 
     - `--server_num`
 

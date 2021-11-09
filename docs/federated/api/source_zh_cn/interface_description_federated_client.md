@@ -28,7 +28,7 @@
 | inferModelPath | String   | Y        | 联邦学习使用的推理模型路径，为.ms文件的绝对路径              | 有监督情感分类任务与图片分类任务均需设置为与trainModelPath相同 |
 | useSSL         | boolean  | N        | 端云通信是否进行ssl证书认证，ssl证书认证只在https通信中使用  | 设置为false, 不进行ssl证书认证；设置为true，进行ssl证书认证；默认为false |
 | certPath       | String   | N        | 端侧https通信所使用的SSL根证书路径                           | 当端云进行https通信时，且useSSL设置为true时必须设置该参数    |
-| domainName     | String   | Y        | 端云通信url                                                  | 目前，https和http通信均支持，对应格式分别为：https://......、http://......，当`useElb`设置为true时，格式必须为：https://127.0.0.0:6666 或者http://127.0.0.0:6666 ，其中`127.0.0.0`对应提供云侧服务的机器ip（即云侧参数`--scheduler_ip`），`6666`对应云侧参数`--scheduler_port` |
+| domainName     | String   | Y        | 端云通信url                                                  | 目前，https和http通信均支持，对应格式分别为：https://......、http://......，当`useElb`设置为true时，格式必须为：https://127.0.0.0:6666 或者http://127.0.0.0:6666 ，其中`127.0.0.0`对应提供云侧服务的机器ip（即云侧参数`--scheduler_ip`），`6666`对应云侧参数`--fl_server_port` |
 | ifUseElb       | boolean  | N        | 用于设置是否模拟弹性负载均衡，true代表客户端会将请求随机发给一定范围内的server地址， false客户端的请求会发给固定的server地址 | 默认值为false                                                |
 | serverNum      | int      | N        | 用于设置模拟弹性负载均衡时可发送请求的server数量             | 当ifUseElb设置为true时，可设置为与云侧启动server端时的`server_num`参数保持一致，默认值为1 |
 
@@ -165,7 +165,7 @@ flParameter.setCertPath(certPath);
 | inferModelPath | String   | Y        | 联邦学习使用的推理模型路径，为.ms文件的绝对路径              | 有监督情感分类任务与图片分类任务均需设置为与trainModelPath相同 |
 | useSSL         | boolean  | N        | 端云通信是否进行ssl证书认证，ssl证书认证只在https通信中使用  | 设置为false, 不进行ssl证书认证；设置为true，进行ssl证书认证；默认为false |
 | certPath       | String   | N        | 端侧https通信所使用的SSL根证书路径                           | 当端云进行https通信时，且useSSL设置为true时必须设置该参数    |
-| domainName     | String   | Y        | 端云通信url                                                  | 目前，https和http通信均支持，对应格式分别为：https://......、http://......，当`useElb`设置为true时，格式必须为：https://127.0.0.0:6666 或者http://127.0.0.0:6666 ，其中`127.0.0.0`对应提供云侧服务的机器ip（即云侧参数`--scheduler_ip`），`6666`对应云侧参数`--scheduler_port` |
+| domainName     | String   | Y        | 端云通信url                                                  | 目前，https和http通信均支持，对应格式分别为：https://......、http://......，当`useElb`设置为true时，格式必须为：https://127.0.0.0:6666 或者http://127.0.0.0:6666 ，其中`127.0.0.0`对应提供云侧服务的机器ip（即云侧参数`--scheduler_ip`），`6666`对应云侧参数`--fl_server_port` |
 | ifUseElb       | boolean  | N        | 用于设置是否模拟弹性负载均衡，true代表客户端会将请求随机发给一定范围内的server地址， false客户端的请求会发给固定的server地址 | 默认值为false                                                |
 | serverNum      | int      | N        | 用于设置模拟弹性负载均衡时可发送请求的server数量             | 当ifUseElb设置为true时，可设置为与云侧启动server端时的`server_num`参数保持一致，默认值为1 |
 
