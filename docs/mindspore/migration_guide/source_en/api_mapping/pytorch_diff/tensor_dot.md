@@ -7,8 +7,7 @@
 ```python
 torch.dot(
     input,
-    other,
-    out=None
+    tensor
 )
 ```
 

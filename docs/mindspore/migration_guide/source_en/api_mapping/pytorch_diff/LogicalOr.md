@@ -13,7 +13,7 @@ For more information, see  [torch.logical_or](https://pytorch.org/docs/1.5.0/tor
 ## mindspore.ops.LogicalOr
 
 ```python
-class class mindspore.ops.LogicalOr(x, y)
+class class mindspore.ops.LogicalOr()(x, y)
 ```
 
 For more information, see  [mindspore.ops.LogicalOr](https://mindspore.cn/docs/api/en/r1.5/api_python/ops/mindspore.ops.LogicalOr.html#mindspore.ops.LogicalOr).
@@ -22,7 +22,7 @@ For more information, see  [mindspore.ops.LogicalOr](https://mindspore.cn/docs/a
 
 PyTorch: Computes the element-wise logical OR of the given input tensors. Zeros are treated as `False` and nonzeros are treated as `True`.
 
-MindSpore: The input should be a bool or a tensor whose data type is bool.
+MindSpore: Computes the “logical OR” of two tensors element-wise. The input should be a bool or a tensor whose data type is bool.
 
 ## Code Example
 
@@ -36,25 +36,25 @@ from mindspore import dtype as mstype
 x = Tensor(np.array([True, False, True]), mstype.bool_)
 y = Tensor(np.array([True, True, False]), mstype.bool_)
 logical_or = ops.LogicalOr()
-logical_or(x, y)
+print(logical_or(x, y))
 # [ True  True  True]
 x = Tensor(np.array([True, False, True]), mstype.bool_)
 y = Tensor(np.array([True, True, False]), mstype.int32)
 logical_or = ops.LogicalOr()
-logical_or(x, y)
+print(logical_or(x, y))
 # TypeError: For 'LogicalOr', the type of `x` should be subclass of Tensor[Bool], but got Tensor[Int32] .
 
 # PyTorch
-torch.logical_or(torch.tensor([True, False, True]), torch.tensor([True, False, False]))
+print(torch.logical_or(torch.tensor([True, False, True]), torch.tensor([True, False, False])))
 # tensor([ True, False,  True])
 a = torch.tensor([0, 1, 10, 0], dtype=torch.int8)
 b = torch.tensor([4, 0, 1, 0], dtype=torch.int8)
-torch.logical_or(a, b)
+print(torch.logical_or(a, b))
 # tensor([ True,  True,  True, False])
-torch.logical_or(a.double(), b.double())
+print(torch.logical_or(a.double(), b.double()))
 # tensor([ True,  True,  True, False])
-torch.logical_or(a.double(), b)
+print(torch.logical_or(a.double(), b))
 # tensor([ True,  True,  True, False])
-torch.logical_or(a, b, out=torch.empty(4, dtype=torch.bool))
+print(torch.logical_or(a, b, out=torch.empty(4, dtype=torch.bool)))
 # tensor([ True,  True,  True, False])
 ```

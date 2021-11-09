@@ -12,8 +12,7 @@ torch.distributed.init_process_group(
     world_size=-1,
     rank=-1,
     store=None,
-    group_name='',
-    pg_options=None
+    group_name=''
 )
 ```
 
