@@ -22,7 +22,7 @@ class mindspore.numpy.logical_not(a, dtype=None)
 
 PyTorch: 计算给定输入张量的逐元素逻辑非。零被视为“False”，非零被视为“True”。
 
-MindSpore: 输入应该是一个dtype为bool的张量。
+MindSpore: 按元素计算输入张量的逻辑非。输入应该是一个dtype为bool的张量。
 
 ## 代码示例
 
@@ -31,18 +31,18 @@ import mindspore.numpy as np
 import torch
 
 # MindSpore
-np.logical_not(np.array([True, False]))
+print(np.logical_not(np.array([True, False])))
 # Tensor(shape=[2], dtype=Bool, value= [False,  True])
-np.logical_not(np.array([0, 1, -10]))
+print(np.logical_not(np.array([0, 1, -10])))
 # TypeError: For 'LogicalNot or '~' operator', the type of `x` should be subclass of Tensor[Bool], but got Tensor[Int32].
 
 # PyTorch
-torch.logical_not(torch.tensor([True, False]))
+print(torch.logical_not(torch.tensor([True, False])))
 # tensor([False,  True])
-torch.logical_not(torch.tensor([0, 1, -10], dtype=torch.int8))
+print(torch.logical_not(torch.tensor([0, 1, -10], dtype=torch.int8)))
 # tensor([ True, False, False])
-torch.logical_not(torch.tensor([0., 1.5, -10.], dtype=torch.double))
+print(torch.logical_not(torch.tensor([0., 1.5, -10.], dtype=torch.double)))
 # tensor([ True, False, False])
-torch.logical_not(torch.tensor([0., 1., -10.], dtype=torch.double), out=torch.empty(3, dtype=torch.int16))
+print(torch.logical_not(torch.tensor([0., 1., -10.], dtype=torch.double), out=torch.empty(3, dtype=torch.int16)))
 # tensor([1, 0, 0], dtype=torch.int16)
 ```
