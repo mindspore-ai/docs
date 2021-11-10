@@ -13,7 +13,7 @@ torch.nn.functional.softmax(
 )
 ```
 
-更多内容详见[torch.nn.functional.softmax](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.Softmax)。
+更多内容详见[torch.nn.functional.softmax](https://pytorch.org/docs/1.5.0/nn.functional.html#torch.nn.functional.softmax)。
 
 ## mindspore.ops.Softmax
 
@@ -47,7 +47,7 @@ output1 = softmax(logits)
 print(output1)
 # Out:
 # [0.01165623 0.03168492 0.08612854 0.23412167 0.6364086 ]
-logits = Tensor(np.array([[1, 2, 3, 4, 5], [5, 4, 3, 2, 1]), mindspore.float32)
+logits = Tensor(np.array([[1, 2, 3, 4, 5], [5, 4, 3, 2, 1]]), mindspore.float32)
 softmax = ops.Softmax(axis=0)
 output2 = softmax(logits)
 print(output2)

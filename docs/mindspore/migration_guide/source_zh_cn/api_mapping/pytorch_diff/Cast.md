@@ -5,7 +5,7 @@
 ## torch.Tensor.float
 
 ```python
-torch.Tensor.float()
+torch.Tensor.float(memory_format=torch.preserve_format)
 ```
 
 更多内容详见[torch.Tensor.float](https://pytorch.org/docs/1.5.0/tensors.html#torch.Tensor.float)。

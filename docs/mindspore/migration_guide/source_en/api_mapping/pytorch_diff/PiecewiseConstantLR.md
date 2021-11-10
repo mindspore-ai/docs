@@ -9,8 +9,7 @@ torch.optim.lr_scheduler.StepLR(
     optimizer,
     step_size,
     gamma=0.1,
-    last_epoch=-1,
-    verbose=False
+    last_epoch=-1
 )
 ```
 
@@ -23,8 +22,7 @@ torch.optim.lr_scheduler.MultiStepLR(
      optimizer,
      milestones,
      gamma=0.1,
-     last_epoch=-1,
-     verbose=False)
+     last_epoch=-1
 )
 ```
 

@@ -8,7 +8,9 @@
 torch.min(
     input,
     dim,
-    keepdim=False)
+    keepdim=False,
+    out=None
+)
 ```
 
 更多内容详见[torch.min](https://pytorch.org/docs/1.5.0/torch.html#torch.min)。

@@ -7,10 +7,10 @@
 ```python
 torchtext.data.functional.load_sp_model(
     spm
-    )
+)
 ```
 
-更多内容详见[torchtext.data.functional.load_sp_model](https://pytorch.org/docs/1.5.0/data.html#torchtext.data.functional.load_sp_model)。
+更多内容详见[torchtext.data.functional.load_sp_model](https://pytorch.org/text/0.10.0/data_functional.html#load-sp-model)。
 
 ## mindspore.dataset.text.utils.SentencePieceVocab
 
