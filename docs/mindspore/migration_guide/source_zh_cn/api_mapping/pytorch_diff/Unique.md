@@ -7,10 +7,10 @@
 ```python
 torch.unique(
     input,
-    sorted,
-    return_inverse,
-    return_counts,
-    dim
+    sorted=True,
+    return_inverse=False,
+    return_counts=False,
+    dim=None
 )
 ```
 

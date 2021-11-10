@@ -50,5 +50,5 @@ out_constant = torch.nn.init.constant_(
 )
 print(out_constant)
 # Out：
-# tensor([1., 1., 1.])
+# tensor([1, 1, 1])
 ```

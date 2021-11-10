@@ -5,7 +5,7 @@
 ## torch.Tensor.stride
 
 ```python
-torch.Tensor.stride()
+torch.Tensor.stride(dim)
 ```
 
 ## mindspore.Tensor.strides

@@ -6,12 +6,11 @@
 
 ```python
 torch.nn.Upsample(
-    input,
-    size,
-    scale_factor,
+    size=None,
+    scale_factor=None,
     mode='nearest',
     align_corners=None
-)
+)(input)
 ```
 
 更多内容详见[torch.nn.Upsample](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.Upsample)。
@@ -19,21 +18,16 @@ torch.nn.Upsample(
 ## mindspore.nn.ResizeBilinear
 
 ```python
-class mindspore.nn.ResizeBilinear(
-    x,
-    size=None,
-    scale_factor=None,
-    align_corners=False
-)(input)
+class mindspore.nn.ResizeBilinear()(x, size=None, scale_factor=None, align_corners=False)
 ```
 
 更多内容详见[mindspore.nn.ResizeBilinear](https://mindspore.cn/docs/api/zh-CN/r1.5/api_python/nn/mindspore.nn.ResizeBilinear.html#mindspore.nn.ResizeBilinear)。
 
 ## 使用方式
 
-PyTorch：有多种模式可以选择。
+PyTorch：对数据进行上采样时有多种模式可以选择。
 
-MindSpore：仅支持`bilinear`模式。
+MindSpore：仅支持`bilinear`模式对数据进行采样。
 
 ## 代码示例
 
