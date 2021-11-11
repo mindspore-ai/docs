@@ -75,7 +75,7 @@ MindSpore Reinforcement使用*算法配置*指定DQN算法所需的逻辑组件�
 
 回放缓冲区的容量设置为100,000，其样本大小为64。它存储shape为`[(4,), (1,), (1,), (4,)]`的张量数据。第二个维度的类型为int32，其他维度的类型为float32。这两种类型都由MindSpore提供：`'type': [mindspore.float32, mindspore.int32, mindspore.float32, mindspore.float32]}`。
 
-其他组件也以类似的方式定义。有关更多详细信息，请参阅[完整代码示例](https://gitee.com/mindspore/reinforcement/tree/master/example/dqn)和[https://www.mindspore.cn/reinforcement/api/zh-CN/master/index.html]。
+其他组件也以类似的方式定义。有关更多详细信息，请参阅[完整代码示例](https://gitee.com/mindspore/reinforcement/tree/master/example/dqn)和[API](https://www.mindspore.cn/reinforcement/api/zh-CN/master/index.html)。
 
 请注意，MindSpore Reinforcement使用单个*policy*类来定义算法使用的所有策略和神经网络。通过这种方式，它隐藏了策略和神经网络之间数据共享和通信的复杂性。
 
