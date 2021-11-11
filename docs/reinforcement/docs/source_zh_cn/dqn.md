@@ -122,7 +122,7 @@ class DQNTrainer(Trainer):
 
 `train`方法首先调用`init_training`初始化训练。然后，它为指定数量的episode（iteration）训练模型，每个episode调用用户定义的`train_one_episode`方法。最后，train方法通过调用`evaluation`方法来评估策略以获得奖励值。
 
-在训练循环的每次迭代中，调用`tre_one_episode`方法来训练一个episode：
+在训练循环的每次迭代中，调用`train_one_episode`方法来训练一个episode：
 
 ```python
 @ms_function
