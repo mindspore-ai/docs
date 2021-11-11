@@ -8,7 +8,9 @@
 torch.max(
     input,
     dim,
-    keepdim=False)
+    keepdim=False,
+    out=None
+)
 ```
 
 For more information, see [torch.max](https://pytorch.org/docs/1.5.0/torch.html#torch.max).

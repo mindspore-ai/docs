@@ -38,8 +38,8 @@ import numpy as np
 # In MindSpore, only one parameter is set to specify the scope of uniform distribution (-1, 1).
 input_x = np.array([1, 1, 1]).astype(np.float32)
 uniform = mindspore.common.initializer.Uniform(scale=1)
-output = uniform(input_x)
-print(output)
+uniform(input_x)
+print(input_x)
 # Out：
 # [-0.2333 0.6208 -0.1627]
 

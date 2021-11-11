@@ -8,8 +8,7 @@
 torch.optim.lr_scheduler.ExponentialLR(
     optimizer,
     gamma,
-    last_epoch=-1,
-    verbose=False)
+    last_epoch=-1
 )
 ```
 

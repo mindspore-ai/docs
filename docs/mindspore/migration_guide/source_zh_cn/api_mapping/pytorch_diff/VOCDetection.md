@@ -56,7 +56,7 @@ from torch.utils.data import DataLoader
 
 # In MindSpore, the generated dataset with different task setting has different output columns.
 
-voc_dataset_dir =  = "/path/to/voc_dataset_directory/"
+voc_dataset_dir = "/path/to/voc_dataset_directory/"
 
 # task = Detection, output columns: [image, dtype=uint8], [bbox, dtype=float32], [label, dtype=uint32], [difficult, dtype=uint32], [truncate, dtype=uint32].
 dataset = ds.VOCDataset(dataset_dir=voc_dataset_dir, task="Detection", usage="train")

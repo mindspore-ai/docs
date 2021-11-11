@@ -9,10 +9,10 @@ torchtext.data.functional.numericalize_tokens_from_iterator(
     vocab,
     iterator,
     removed_tokens=None
-    )
+)
 ```
 
-更多内容详见[torchtext.data.functional.numericalize_tokens_from_iterator](https://pytorch.org/docs/1.5.0/data.html#torchtext.data.functional.numericalize_tokens_from_iterator)。
+更多内容详见[torchtext.data.functional.numericalize_tokens_from_iterator](https://pytorch.org/text/0.10.0/data_functional.html#numericalize-tokens-from-iterator)。
 
 ## mindspore.dataset.text.transforms.Lookup
 
@@ -21,7 +21,7 @@ class mindspore.dataset.text.transforms.Lookup(
     vocab,
     unknown_token=None,
     data_type=mstype.int32
-    )
+)
 ```
 
 更多内容详见[mindspore.dataset.text.transforms.Lookup](https://mindspore.cn/docs/api/zh-CN/r1.5/api_python/dataset_text/mindspore.dataset.text.transforms.Lookup.html#mindspore.dataset.text.transforms.Lookup)。

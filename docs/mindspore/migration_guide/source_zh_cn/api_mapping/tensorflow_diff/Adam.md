@@ -61,7 +61,7 @@ no_conv_params = list(filter(lambda x: 'conv' not in x.name, net.trainable_param
 group_params = [{'params': conv_params, 'weight_decay': 0.01, 'grad_centralization':True},
                 {'params': no_conv_params, 'lr': 0.01},
                 {'order_params': net.trainable_params()}]
-optim = nn.Adagrad(group_params, learning_rate=0.1, weight_decay=0.0)
+optim = nn.Adam(group_params, learning_rate=0.1, weight_decay=0.0)
 # The conv_params's parameters will use default learning rate of 0.1 and weight decay of 0.01 and grad
 # centralization of True.
 # The no_conv_params's parameters will use learning rate of 0.01 and default weight decay of 0.0 and grad

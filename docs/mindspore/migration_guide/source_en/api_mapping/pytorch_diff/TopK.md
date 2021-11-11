@@ -11,7 +11,6 @@ torch.topk(
     dim=None,
     largest=True,
     sorted=True,
-    *,
     out=None
 )
 ```

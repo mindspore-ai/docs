@@ -8,10 +8,10 @@
 torchtext.data.utils.ngrams_iterator(
     token_list,
     ngrams
-    )
+)
 ```
 
-更多内容详见[torchtext.data.utils.ngrams_iterator](https://pytorch.org/docs/1.5.0/data.html#torchtext.data.utils.ngrams_iterator)。
+更多内容详见[torchtext.data.utils.ngrams_iterator](https://pytorch.org/text/0.10.0/data_utils.html#ngrams-iterator)。
 
 ## mindspore.dataset.text.transforms.Ngram
 
@@ -21,7 +21,7 @@ class mindspore.dataset.text.transforms.Ngram(
     left_pad=("", 0),
     right_pad=("", 0),
     separator=" "
-    )
+)
 ```
 
 更多内容详见[mindspore.dataset.text.transforms.Ngram](https://mindspore.cn/docs/api/zh-CN/r1.5/api_python/dataset_text/mindspore.dataset.text.transforms.Ngram.html#mindspore.dataset.text.transforms.Ngram)。

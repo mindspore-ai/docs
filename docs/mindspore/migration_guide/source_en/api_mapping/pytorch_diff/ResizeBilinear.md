@@ -6,12 +6,11 @@
 
 ```python
 torch.nn.Upsample(
-    input,
-    size,
-    scale_factor,
+    size=None,
+    scale_factor=None,
     mode='nearest',
     align_corners=None
-)
+)(input)
 ```
 
 For more information, see [torch.nn.Upsample](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.Upsample).
@@ -19,21 +18,16 @@ For more information, see [torch.nn.Upsample](https://pytorch.org/docs/1.5.0/nn.
 ## mindspore.nn.ResizeBilinear
 
 ```python
-class mindspore.nn.ResizeBilinear(
-    x,
-    size=None,
-    scale_factor=None,
-    align_corners=False
-)(input)
+class mindspore.nn.ResizeBilinear()(x, size=None, scale_factor=None, align_corners=False)
 ```
 
 For more information, see [mindspore.nn.ResizeBilinear](https://mindspore.cn/docs/api/en/r1.5/api_python/nn/mindspore.nn.ResizeBilinear.html#mindspore.nn.ResizeBilinear).
 
 ## Differences
 
-PyTorch: Multiple choice of modes to resize the image.
+PyTorch: Multiple modes can be chosen when upsampling data.
 
-MindSpore：Only the mode of `bilinear` is supported.
+MindSpore：Only supports `bilinear` mode to sample data.
 
 ## Code Example
 
