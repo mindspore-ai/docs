@@ -193,6 +193,7 @@ auto context = std::make_shared<mindspore::Context>();
 if (context == nullptr) {
     std::cerr << "New context failed." << std::endl;
 }
+auto &device_list = context->MutableDeviceInfo();
 
 // Set NPU device first, make NPU preferred backend.
 auto npu_device_info = std::make_shared<mindspore::KirinNPUDeviceInfo>();
@@ -205,7 +206,6 @@ npu_device_info->SetFrequency(3);
 device_list.push_back(npu_device_info);
 
 // Set CPU device after NPU as second choice.
-auto &device_list = context->MutableDeviceInfo();
 auto cpu_device_info = std::make_shared<mindspore::CPUDeviceInfo>();
 if (cpu_device_info == nullptr) {
   std::cerr << "New CPUDeviceInfo failed." << std::endl;
