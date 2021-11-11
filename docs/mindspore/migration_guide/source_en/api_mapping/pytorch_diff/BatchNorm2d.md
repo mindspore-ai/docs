@@ -27,7 +27,7 @@ class mindspore.nn.BatchNorm2d(
     gamma_init="ones",
     beta_init="zeros",
     moving_mean_init="zeros",
-    moving_var_init="zeros",
+    moving_var_init="ones",
     use_batch_statistics=None,
     data_format="NCHW")
 )
@@ -37,7 +37,7 @@ For more information, see [mindspore.nn.BatchNorm2d](https://mindspore.cn/docs/a
 
 ## Differences
 
-PyTorch：The default value of the momentum parameter is 0.1.
+PyTorch：The default value of the momentum parameter used for running_mean and running_var calculation is 0.1.
 
 MindSpore：The default value of the momentum parameter is 0.9, and the momentum relationship with Pytorch is 1-momentum, that is, when Pytorch’s momentum value is 0.2, MindSpore’s momemtum should be 0.8.
 

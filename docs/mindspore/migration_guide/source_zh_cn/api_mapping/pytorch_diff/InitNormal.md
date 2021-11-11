@@ -5,7 +5,7 @@
 ## torch.nn.init.normal_
 
 ```python
-torch.nn.init.normal_(tensor, mean=0., std=1.)
+torch.nn.init.normal_(tensor, mean=0.0, std=1.0)
 ```
 
 更多内容详见[torch.nn.init.normal_](https://pytorch.org/docs/1.5.0/nn.init.html#torch.nn.init.normal_)。

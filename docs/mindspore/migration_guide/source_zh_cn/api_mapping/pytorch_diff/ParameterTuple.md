@@ -5,7 +5,7 @@
 ## torch.nn.ParameterList
 
 ```python
-class torch.nn.ParameterList()
+class torch.nn.ParameterList(parameters=None)
 ```
 
 更多内容详见[torch.nn.ParameterList](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.ParameterList)。
