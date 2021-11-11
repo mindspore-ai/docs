@@ -44,14 +44,13 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{ms_version}/min
 1. 从代码仓下载源码
 
     ```bash
-    cd ~
     git clone https://gitee.com/mindspore/mindscience.git -b r0.1
     ```
 
 2. 编译安装MindSPONGE
 
     ```bash
-    cd ~/MindScience/MindSPONGE
+    cd mindscience/MindSPONGE
     python setup.py install --user
     ```
 
