@@ -14,7 +14,7 @@
 有源麦克斯韦方程是电磁仿真的经典控制方程，它是一组描述电场、磁场与电荷密度、电流密度之间关系的偏微分方程组，具体形式如下：
 
 $$
-\nabla\times E=-\mu \dfrac{\partial H}{\partial t} + J(x, t),
+\nabla\times E=-\mu \dfrac{\partial H}{\partial t} - J(x, t),
 $$
 
 $$
