@@ -46,14 +46,13 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{ms_version}/min
 1. Download Source Code from Gitee
 
     ```bash
-    cd ~
     git clone https://gitee.com/mindspore/mindscience.git
     ```
 
 2. Compiling MindSPONGE
 
     ```bash
-    cd ~/mindscience/MindSPONGE
+    cd mindscience/MindSPONGE
     python setup.py install --user
     ```
 

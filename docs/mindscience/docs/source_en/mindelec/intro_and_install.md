@@ -2,12 +2,14 @@
 
 <!-- TOC -->
 
-- [MindElec Installation](#mindelec-installation)
-    - [System Environment Information Confirmation](#system-environment-information-confirmation)
-    - [Installation](#installation)
-        - [Installation by pip](#installation-by-pip)
-        - [Installation by Source Code](#installation-by-source-code)
-    - [Installation Verification](#installation-verification)
+- [MindElec Introduction and Installation](#mindelec-introduction-and-installation)
+    - [MindElec Overview](#mindelec-overview)
+    - [MindElec Installation](#mindelec-installation)
+        - [System Environment Information Confirmation](#system-environment-information-confirmation)
+        - [Installation](#installation)
+            - [Installation by pip](#installation-by-pip)
+            - [Installation by Source Code](#installation-by-source-code)
+        - [Installation Verification](#installation-verification)
 
 <!-- /TOC -->
 
@@ -61,7 +63,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{ms_version}/min
 2. Run following command in source code directory, compile and install MindElec.
 
     ```bash
-    cd ~/MindElec
+    cd mindscience/MindElec
     bash build.sh
     pip install output/mindscience_mindelec_ascend-{version}-{python_version}-linux_{arch}.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
     ```

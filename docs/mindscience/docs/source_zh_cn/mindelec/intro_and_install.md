@@ -2,12 +2,14 @@
 
 <!-- TOC -->
 
-- [安装MindELec](#安装mindelec)
-    - [确认系统环境信息](#确认系统环境信息)
-    - [安装方式](#安装方式)
-        - [pip安装](#pip安装)
-        - [源码安装](#源码安装)
-    - [验证是否成功安装](#验证是否成功安装)
+- [MindElec介绍和安装](#mindelec介绍和安装)
+    - [MindElec介绍](#mindelec介绍)
+    - [MindElec安装](#mindelec安装)
+        - [确认系统环境信息](#确认系统环境信息)
+        - [安装方式](#安装方式)
+            - [pip安装](#pip安装)
+            - [源码安装](#源码安装)
+        - [验证是否成功安装](#验证是否成功安装)
 
 <!-- /TOC -->
 <a href=
@@ -58,7 +60,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{ms_version}/min
 2. 在源码根目录下，执行如下命令编译并安装MindElec。
 
     ```bash
-    cd ~/MindElec
+    cd mindscience/MindElec
     bash build.sh
     pip install output/mindscience_mindelec_ascend-{version}-{python_version}-linux_{arch}.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
     ```
