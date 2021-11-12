@@ -9,6 +9,9 @@
     - [AllGather](#allgather)
     - [ReduceScatter](#reducescatter)
     - [Broadcast](#broadcast)
+    - [NeighborExchange](#neighborexchange)
+    - [NeighborExchangeV2](#neighborexchangev2)
+    - [AlltoAll](#alltoall)
 
 <!-- /TOC -->
 
@@ -28,7 +31,7 @@ mpirun -output-filename log -merge-stderr-to-stdout -np 4 python communication.p
 
 ![image](images/allreduce.png)
 
-`AllReduce`操作会将每卡中`AllReduce`算子的输入tensor进行求和操作，最终每卡的`AllReduce`算子输出是相同的数值。例如上图所示，每张卡AllReduce算子输入分别为`0, 1, 2, 3`。经过`AllReduce`之后，每张卡输出的结果为所有卡输入之和为6(0+1+2+3)。
+`AllReduce`操作会将每卡中`AllReduce`算子的输入Tensor进行求和操作，最终每卡的`AllReduce`算子输出是相同的数值。例如上图所示，每张卡AllReduce算子输入分别为`0, 1, 2, 3`。经过`AllReduce`之后，每张卡输出的结果为所有卡输入之和为6(0+1+2+3)。
 
 示例代码如下：我们根据rank号(每张卡所属通信编号)初始化每个进程中`AllReduce`算子输入的数值，例如卡0，我们申请了一个1x1大小，数值为0的输入。然后调用`AllReduce`算子，在通信域为`0-1-2-3`的卡(所有卡的通信范围即nccl_world_group)中进行通信，并且打印输出结果。
 
@@ -65,7 +68,7 @@ print(output)
 
 ![image](images/allgather.png)
 
-`AllGather`操作会将每张卡的输入tensor的第0维度上进行拼接，最终每张卡输出是相同的数值。例如上图所示，每卡的输入是大小为1x1的tensor，经过`AllGather`操作之后，每卡`AllGather`算子的输出shape为[4,1]。其中索引为[0,0]的元素值来自于0号卡`AllGather`的输入[[0.0]]，索引为[1,0]的元素值来自于1号卡`AllGather`的输入[[1.0]]。
+`AllGather`操作会将每张卡的输入Tensor的第0维度上进行拼接，最终每张卡输出是相同的数值。例如上图所示，每卡的输入是大小为1x1的Tensor，经过`AllGather`操作之后，每卡`AllGather`算子的输出shape为[4,1]。其中索引为[0,0]的元素值来自于0号卡`AllGather`的输入[[0.0]]，索引为[1,0]的元素值来自于1号卡`AllGather`的输入[[1.0]]。
 
 示例代码如下：我们根据rank号(每张卡所属通信编号)初始化每个进程中`AllGather`算子输入的数值，例如卡0，我们申请了一个1x1大小，数值为0的输入。然后调用`AllGather`算子，在通信域为`0-1-2-3`的卡(所有卡的通信范围即nccl_world_group)中进行通信，并且打印输出结果。
 
@@ -106,7 +109,7 @@ print(output)
 
 ![image](images/reducescatter.png)
 
-`ReduceScatter`操作会将每张卡的输入先进行求和，然后在第0维度按卡数切分，将数据分发到对应的卡上。例如上图所示，每卡的输入均为4x1的tensor。`ReduceScatter`先对输入求和得到[0, 4, 8, 12]的tensor，然后进行分发，每卡获得1x1大小的tensor。例如卡0对应的输出结果为[[0.0]]，卡1对应的输出结果为[[4.0]]。
+`ReduceScatter`操作会将每张卡的输入先进行求和，然后在第0维度按卡数切分，将数据分发到对应的卡上。例如上图所示，每卡的输入均为4x1的Tensor。`ReduceScatter`先对输入求和得到[0, 4, 8, 12]的Tensor，然后进行分发，每卡获得1x1大小的Tensor。例如卡0对应的输出结果为[[0.0]]，卡1对应的输出结果为[[4.0]]。
 
 示例代码如下：我们根据rank号(每张卡所属通信编号)初始化每个进程中`ReduceScatter`算子输入的数值，例如卡0，我们申请了一个4x1大小，数值为0的输入。然后调用`ReduceScatter`算子，在通信域为`0-1-2-3`的卡(所有卡的通信范围即nccl_world_group)中进行通信，并且打印输出结果。
 
@@ -143,7 +146,7 @@ print(output)
 
 ![image](images/broadcast.png)
 
-`Broadcast`操作是将某张卡的输入广播到其他卡上，常见于参数的初始化。例如上图中，将0卡大小为1x1的tensor进行广播，最终每张卡输出均为[[0]]。
+`Broadcast`操作是将某张卡的输入广播到其他卡上，常见于参数的初始化。例如上图中，将0卡大小为1x1的Tensor进行广播，最终每张卡输出均为[[0]]。
 
 示例代码如下：我们将`Broadcast`算子的根节点设置为0号卡，表示将从0号卡广播数据到其他卡上。同时申请了一个1x1大小，数值为0的输入。然后调用`Broadcast`算子，在通信域为`0-1-2-3`的卡(所有卡的通信范围即nccl_world_group)中进行通信，最终每张卡都会输出来自卡0的并且打印输出结果。
 
@@ -175,4 +178,233 @@ print(output)
 
 ```text
 [[0]]
+```
+
+## NeighborExchange
+
+![image](images/NeighborExchange.png)
+
+`NeighborExchange`操作会将提供一组数据分别发往其它特定的卡上，同时从特定的卡接收数据。例如上图中，rank 0 向rank 1发送shape为[16,16]的Tensor， 并接收rank 1发送的shape为[32,32]的Tensor；rank 1 向rank 0发送shape为[32,32]的Tensor， 并接收rank 0发送的shape为[16,16]的Tensor。最终rank 0输出了接收到的shape为[32,32]的Tensor， rank 1输出接收到的[16,16]的Tensor。
+
+示例代码如下：我们使用`NeighborExchange`算子进行0号卡和1号卡之间的数据交换，将0号卡的数据发送到1号卡，并接收来自1号卡的数据；1号卡将数据发送到0号卡，并接收来自0号卡的数据；最终每张卡输出接收到的数据。
+
+```python
+import os
+import mindspore as ms
+from mindspore import Tensor
+from mindspore import context
+from mindspore.communication import init
+import mindspore.nn as nn
+import mindspore.ops as ops
+import numpy as np
+
+class Net0(nn.Cell):
+    def __init__(self):
+        super(Net0, self).__init__()
+        self.neighborexchange = ops.NeighborExchange(send_rank_ids=[1], recv_rank_ids=[1], recv_shapes=([2, 2],), send_shapes=([3, 3],), recv_type=ms.float32)
+
+    def construct(self, x):
+        out = self.neighborexchange((x,))
+        return out[0]
+
+class Net1(nn.Cell):
+    def __init__(self):
+        super(Net1, self).__init__()
+        self.neighborexchange = ops.NeighborExchange(send_rank_ids=[0], recv_rank_ids=[0], recv_shapes=([3, 3],), send_shapes=([2, 2],), recv_type=ms.float32)
+
+    def construct(self, x):
+        out = self.neighborexchange((x,))
+        return out[0]
+
+context.set_context(mode=context.GRAPH_MODE, device_target='Ascend')
+init()
+rank_id = int(os.getenv("RANK_ID"))
+if (rank_id % 2 == 0):
+    input_x = Tensor(np.ones([3, 3]), dtype = ms.float32)
+    net = Net0()
+    output = net(input_x)
+    print(output)
+else:
+    input_x = Tensor(np.ones([2, 2]) * 2, dtype = ms.float32)
+    net = Net1()
+    output = net(input_x)
+    print(output)
+```
+
+使用shell脚本启动2卡脚本，示例shell脚本如下：
+
+```shell
+export MINDSPORE_HCCL_CONFIG_PATH=absolute path of hccl_config_json
+export DEVICE_NUM=2
+BASE_PATH=$(cd "$(dirname $0)"; pwd)
+for((i=0; i<$DEVICE_NUM; i++)); do
+    rm -rf ${BASE_PATH}/rank${i}
+    mkdir ${BASE_PATH}/rank${i}
+    cp -r ${BASE_PATH}/neighborexchange.py ${BASE_PATH}/rank${i}/
+    cd ${BASE_PATH}/rank${i}
+    export RANK_ID=${i}
+    export DEVICE_ID=${i}
+    echo "start training for device $i"
+    python neighborexchange.py > log.txt 2>&1 &
+done
+```
+
+rank0的结果为：
+
+```text
+[[2. 2.]
+ [2. 2.]]
+```
+
+rank1的结果为：
+
+```text
+[[1. 1. 1.]
+ [1. 1. 1.]
+ [1. 1. 1.]]
+```
+
+## NeighborExchangeV2
+
+![image](images/neighborexchangev2.png)
+
+`NeighborExchangeV2`操作会将Tensor中按照属性设置将部分数据发送给周边的8张卡，且从周边的8张卡中接收数据并拼接成新的Tensor，常用于将大Tensor切分在多卡上进行分布式卷积运算的场景。例如上图中为一个16卡的示例， 以图中rank 10为例，将rank10的数据进行切分后分别向rank 5、6、7、11、15、14、13、9发送了对应部分的数据，例如图中红色发给rank5，红色、黄色和蓝色发给rank6，蓝色发给rank7等；同时rank10从这些卡分别接收了一些数据，根据属性设置和rank10原有的数据进行拼接，组成了新的Tensor输出，例如图中的rank10和浅绿色部分所示。
+
+示例代码如下：我们使用`NeighborExchangeV2`算子进行0号卡和1号卡之间的数据交换，将0号卡的下方的数据发送到1号卡，并接收来自1号卡的数据拼接在下方；1号卡将上方部分数据发送到0号卡，并接收来自0号卡的数据拼接在上方；最终每张卡输出接收到的数据。
+
+```python
+import os
+import mindspore as ms
+from mindspore import Tensor
+from mindspore import context
+from mindspore.communication import init
+import mindspore.nn as nn
+import mindspore.ops as ops
+import numpy as np
+
+class Net0(nn.Cell):
+    def __init__(self):
+        super(Net0, self).__init__()
+        self.neighborexchangev2 = ops.NeighborExchangeV2(send_rank_ids=[-1, -1, -1, -1, 1, -1, -1, -1], send_lens=[0, 1, 0, 0], recv_rank_ids=[-1, -1, -1, -1, 1, -1, -1, -1], recv_lens=[0, 1, 0, 0], data_format="NCHW")
+
+    def construct(self, x):
+        out = self.neighborexchangev2(x)
+        return out
+
+class Net1(nn.Cell):
+    def __init__(self):
+        super(Net1, self).__init__()
+        self.neighborexchangev2 = ops.NeighborExchangeV2(send_rank_ids=[0, -1, -1, -1, -1, -1, -1, -1], send_lens=[1, 0, 0, 0], recv_rank_ids=[0, -1, -1, -1, -1, -1, -1, -1], recv_lens=[1, 0, 0, 0], data_format="NCHW")
+
+    def construct(self, x):
+        out = self.neighborexchangev2(x)
+        return out
+
+context.set_context(mode=context.GRAPH_MODE, device_target='Ascend')
+init()
+rank_id = int(os.getenv("RANK_ID"))
+if (rank_id % 2 == 0):
+    input_x = Tensor(np.ones([1, 1, 2, 2]), dtype = ms.float32)
+    net = Net0()
+    output = net(input_x)
+    print(output)
+else:
+    input_x = Tensor(np.ones([1, 1, 2, 2]) * 2, dtype = ms.float32)
+    net = Net1()
+    output = net(input_x)
+    print(output)
+```
+
+使用shell脚本启动2卡脚本，示例shell脚本如下：
+
+```shell
+export MINDSPORE_HCCL_CONFIG_PATH=absolute path of hccl_config_json
+export DEVICE_NUM=2
+BASE_PATH=$(cd "$(dirname $0)"; pwd)
+for((i=0; i<$DEVICE_NUM; i++)); do
+    rm -rf ${BASE_PATH}/rank${i}
+    mkdir ${BASE_PATH}/rank${i}
+    cp -r ${BASE_PATH}/neighborexchangev2.py ${BASE_PATH}/rank${i}/
+    cd ${BASE_PATH}/rank${i}
+    export RANK_ID=${i}
+    export DEVICE_ID=${i}
+    echo "start training for device $i"
+    python neighborexchangev2.py > log.txt 2>&1 &
+done
+```
+
+rank 0结果为：
+
+```text
+[[[[1. 1.]
+   [1. 1.]
+   [2. 2.]]]]
+```
+
+rank 1结果为：
+
+```text
+[[[[1. 1.]
+   [2. 2.]
+   [2. 2.]]]]
+```
+
+## AlltoAll
+
+![image](images/alltoall.png)
+
+`AlltoAll`操作会将输入数据在特定的维度切分成特定的块数，并按顺序发送给其他rank，同时从其他rank接收输入，按顺序在特定的维度拼接数据。例如上图中，将Tensor在0维切分成5块，同时接收其它rank的数据，并在1维进行拼接，最后输出拼接后的数据。
+
+示例代码如下：我们使用`AlltoAll`算子进行8卡的数据交换，把每张卡在第-2维进行切分，并按顺序把切分的数据发送给其它卡，同时接收其它卡的数据，在-1维进行拼接；最终每张卡输出拼接后的数据。
+
+```python
+import os
+import mindspore as ms
+from mindspore import Tensor
+from mindspore import context
+from mindspore.communication import init
+import mindspore.nn as nn
+import mindspore.ops as ops
+import numpy as np
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.alltoall = ops.AlltoAll(split_count = 8, split_dim = -2, concat_dim = -1)
+
+    def construct(self, x):
+        out = self.alltoall(x)
+        return out
+
+context.set_context(mode=context.GRAPH_MODE, device_target='Ascend')
+init()
+net = Net()
+rank_id = int(os.getenv("RANK_ID"))
+input_x = Tensor(np.ones([1, 1, 8, 1]) * rank_id, dtype = ms.float32)
+output = net(input_x)
+print(output)
+```
+
+使用shell脚本启动8卡脚本，示例shell脚本如下：
+
+```shell
+export MINDSPORE_HCCL_CONFIG_PATH=absolute path of hccl_config_json
+export DEVICE_NUM=8
+BASE_PATH=$(cd "$(dirname $0)"; pwd)
+for((i=0; i<$DEVICE_NUM; i++)); do
+    rm -rf ${BASE_PATH}/rank${i}
+    mkdir ${BASE_PATH}/rank${i}
+    cp -r ${BASE_PATH}/alltoall.py ${BASE_PATH}/rank${i}/
+    cd ${BASE_PATH}/rank${i}
+    export RANK_ID=${i}
+    export DEVICE_ID=${i}
+    echo "start training for device $i"
+    python alltoall.py > log.txt 2>&1 &
+done
+```
+
+rank0~rank7的结果为：
+
+```text
+[[[[0. 1. 2. 3. 4. 5. 6. 7.]]]]
 ```
