@@ -279,6 +279,7 @@ Math Functions
 
     mindspore.nn.MatMul
     mindspore.nn.Moments
+    mindspore.nn.ReduceLogSumExp
 
 Metrics
 --------
