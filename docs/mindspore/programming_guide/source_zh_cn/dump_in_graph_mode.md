@@ -171,7 +171,7 @@ MindSpore提供了同步Dump与异步Dump两种模式：
 
 - `path`：`data_dump.json`配置文件中设置的绝对路径。
 - `rank_id`： 逻辑卡号。
-- `net_name`：`data_dump.json`配置文件中设置的网络称。
+- `net_name`：`data_dump.json`配置文件中设置的网络名称。
 - `graph_id`：训练的图标号。
 - `iteration_id`：训练的轮次。
 - `op_type`：算子类型。
