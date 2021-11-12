@@ -18,6 +18,42 @@ def _sort_param(param_list, target_str):
     return ls_certain
 
 
+def get_anotation(func):
+    """Get anotation for string type."""
+    anotation_dict = dict()
+    source_code = inspect.getsource(func)
+    func_code = func.__code__
+    pos_count = func_code.co_argcount
+    arg_names = func_code.co_varnames
+    karg_pos = func_code.co_kwonlyargcount
+    all_params = re.findall(r"def [\w_\d\-]+\(([\S\s]*?)\):", source_code)[0].replace("\n", "").replace("'", "\"")
+    kwargs_num = all_params.count("*") - all_params.count("**")
+    all_param_names = list(arg_names[:pos_count + karg_pos + kwargs_num])
+
+    # sub null spaces from matched all param str.
+    re_space_sub = re.compile(r",\s{2,}")
+    all_params = re_space_sub.sub(",", all_params)
+    if ":" not in all_params:
+        return None
+    all_param_names = _sort_param(all_param_names, all_params)
+
+    re_defaults_param = re.compile(r".*?)".join(["("+i for i in all_param_names]) + r".*)")
+    anotation_params = re_defaults_param.findall(all_params)
+    if anotation_params:
+        if not isinstance(anotation_params[0], tuple):
+            anotation_param = [anotation_params[0]]
+        else:
+            anotation_param = anotation_params[0]
+        for i in anotation_param:
+            if ":" not in i:
+                continue
+            key, value = i.split("=")[0].split(":")
+            value = value.rstrip(',')
+            anotation_dict[key] = value
+
+    return anotation_dict
+
+
 def get_default_params(func):
     """ Get the default signatures from function. """
     source_code = inspect.getsource(func)
@@ -73,7 +109,10 @@ def _my_signature_from_function(cls, func):
     positional = tuple(arg_names[:pos_count])
     keyword_only_count = func_code.co_kwonlyargcount
     keyword_only = arg_names[pos_count:(pos_count + keyword_only_count)]
-    annotations = func.__annotations__
+    # annotations = func.__annotations__
+    annotations = get_anotation(func)
+    if not annotations:
+        annotations = func.__annotations__
     defaults = get_default_params(func)
     if keyword_only_count == len(defaults):
         kwdefaults = dict()

@@ -87,6 +87,12 @@ inspect_source_code_str = """signature = inspect.signature(subject)"""
 inspect_target_code_str = """signature = my_signature.signature(subject)"""
 autodoc_source_code_str = """args = self.format_args(**kwargs)"""
 is_autodoc_code_str = """args = args.replace("'", "")"""
+anotation_repair_str = """\
+        for i, param in enumerate(parameters):
+            if isinstance(param.annotation, str) and param.name in annotations:
+                parameters[i] = param.replace(annotation=annotations[param.name])
+"""
+
 with open(autodoc_source_path, "r+", encoding="utf8") as f:
     code_str = f.read()
     if is_autodoc_code_str not in code_str:
@@ -106,11 +112,11 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
             exec(code_str, sphinx_autodoc.__dict__)
 with open(inspect_source_path, "r+", encoding="utf8") as g:
     code_str = g.read()
-    if inspect_target_code_str not in code_str:
-        code_str = code_str.replace(inspect_source_code_str, inspect_target_code_str)
-        if "import my_signature" not in code_str:
-            code_str = code_str.replace("import sys", "import sys\nimport my_signature")
-        exec(code_str, sphinx_inspect.__dict__)
+    code_str = code_str.replace(inspect_source_code_str, inspect_target_code_str)
+    code_str = code_str.replace(anotation_repair_str, "")
+    if "import my_signature" not in code_str:
+        code_str = code_str.replace("import sys", "import sys\nimport my_signature")
+    exec(code_str, sphinx_inspect.__dict__)
 
 # remove extra space for default params for autodoc.
 sphinx_domain_python_source_path = os.path.abspath(sphinx_domain_python.__file__)
