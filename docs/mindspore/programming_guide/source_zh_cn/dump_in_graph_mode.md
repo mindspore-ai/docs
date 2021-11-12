@@ -189,7 +189,7 @@ MindSpore提供了同步Dump与异步Dump两种模式：
 
 - `path`：`data_dump.json`配置文件中设置的绝对路径。
 - `rank_id`： 逻辑卡号。
-- `net_name`：`data_dump.json`配置文件中设置的网络称。
+- `net_name`：`data_dump.json`配置文件中设置的网络名称。
 - `graph_id`：训练的图标号。
 - `iteration_id`：训练的轮次。
 - `op_type`：算子类型。
@@ -228,11 +228,13 @@ ms_output_trace_code_graph_{graph_id}.ir
 ms_execution_order_graph_{graph_id}.csv
 ```
 
-图形全局执行顺序文件的后缀为`.csv`。此文件存储执行图形的迭代列表，文件名格式为：
+图执行历史文件的后缀为`.csv`，文件名格式为：
 
 ```text
 ms_global_execution_order_graph_{graph_id}.csv
 ```
+
+此文件记录该图在训练过程中的执行轮次历史。图编译过程中，一张根图可能产生多张子图，但子图与根图具有相同的执行轮次历史。故与图执行序文件不同，此处仅保存根图的图执行历史文件。
 
 `.dump_metadata`记录了训练的原信息，其中`data_dump.json`保存了用户设置的dump配置。
 
@@ -473,7 +475,7 @@ numpy.load("Conv2D.Conv2D-op107.2.2.1623124369613540.output.0.DefaultFormat.npy"
 
 由于存在控制流，某些子图可能不会被执行，Dump只保存执行过的节点，所以graphs目录下`.pb`文件名中的{graph_id}并不一定在{net_name}下存在对应的{graph_id}目录。
 
-对于多图网络，例如动态shape的场景，每张图的轮次独立计数。
+对于多图网络，例如动态shape的场景，每张卡上所有计算图的轮次统一计数。
 
 ### 异步Dump数据文件介绍
 
@@ -492,7 +494,7 @@ numpy.load("Conv2D.Conv2D-op107.2.2.1623124369613540.output.0.DefaultFormat.npy"
 
 Dump生成的原始数据文件也可以使用MindInsight的数据解析工具DumpParser解析，DumpParser的使用方式详见[DumpParser介绍](https://gitee.com/mindspore/mindinsight/tree/master/mindinsight/parser) 。MindInsight解析出来的数据格式与同步dump的数据格式完全相同。
 
-异步Dump生成的最终执行图文件和节点执行序文件命名规则与同步Dump相同，可以参考[同步Dump数据文件介绍](#id9)。
+异步Dump生成的最终执行图文件和执行序文件命名规则与同步Dump相同，可以参考[同步Dump数据文件介绍](#id9)。
 
 ### 异步Dump数据分析样例
 
