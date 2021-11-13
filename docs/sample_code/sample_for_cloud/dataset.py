@@ -20,7 +20,7 @@ import mindspore.dataset.vision.c_transforms as C
 import mindspore.dataset.transforms.c_transforms as C2
 
 
-device_id = int(os.getenv('DEVICE_ID'))
+device_id = int(os.getenv('DEVICE_ID', '0'))
 device_num = int(os.getenv('RANK_SIZE'))
 
 
