@@ -173,10 +173,10 @@ Currently, only basic types of storage are supported, including int, float, bool
 
 ## Export MindIR Model
 
-If you want to perform inference across platforms or hardware (Ascend AI processor, MindSpore on-device, GPU, etc.), you can generate the corresponding MindIR format model file through the network definition and CheckPoint. MindIR format file can be applied to MindSpore Lite. Currently, it supports inference network based on static graph without controlling flow semantics.
+If you want to perform inference across platforms or hardware (Ascend AI processor, MindSpore on-device, GPU, etc.), you can generate the corresponding MindIR format model file through the network definition and CheckPoint. MindIR format file can be applied to MindSpore Lite. Currently, it supports inference network based on static graph mode.
 
 If you want to perform inference on the device, then you need to generate corresponding MindIR models based on the network and CheckPoint.
-Currently we support the export of MindIR models for inference based on the graph mode, which do not contain control flow. Taking the export of MindIR model as an example to illustrate the implementation of model export,
+Currently we support the export of MindIR models for inference based on the graph mode. Taking the export of MindIR model as an example to illustrate the implementation of model export,
 the code is as follows:
 
 ```python
@@ -208,15 +208,14 @@ In order to avoid the hardware limitation of protobuf, when the exported model p
 
 -The name of the network structure file ends with the user-specified prefix plus `_graph.mindir`.
 -In the same level directory, there will be a folder with user-specified prefix plus `_variables`, which stores network parameters.
+And when the parameter's data size exceeds 1T, it will split to another file named data_1, data_2, etc.
 
-Taking the above code as an example, if the parameter size in the model exceeds 1G, the generated directory structure is as follows:
+Taking the above code as an example, if the parameter size with the model exceeds 1G, the generated directory structure is as follows:
 
 ```text
 resnet50-2_32_graph.mindir
 resnet50-2_32_variables
      data_0
-     data_1
-     ...
 ```
 
 ## Export AIR Model
