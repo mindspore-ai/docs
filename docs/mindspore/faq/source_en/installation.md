@@ -39,12 +39,6 @@ A: Add the `--trusted-host=ms-release.obs.cn-north-4.myhuaweicloud.com` paramete
 
 <br/>
 
-<font size=3>**Q: Any specific requirements for Python version when pip install MindSpore?**</font>
-
-A: MindSpore utilizes many of the new features in Python3.7+，therefore we recommend you add Python3.7.5 develop environment via `conda`.
-
-<br/>
-
 <font size=3>**Q: Any specific requirements for Protobuf version when use MindSpore?**</font>
 
 A: MindSpore installs version 3.13.0 of Protobuf by default.  If it is not the version, there will be many warnings in the log when using pytest to test the code.  It is recommended that you use the command 'pip install protobuf==3.13.0' to reinstall version 3.13.0.
@@ -91,8 +85,6 @@ A: All versions of MindSpore are installed in the directory named `mindspore`, i
 <font size=3>**Q: What should I do if error message `Could not find a version that satisfies the requirement` is generated when I install MindSpore on a ARM architecture system using pip?**</font>
 
 A: The version of pip installed on your system is most likely lower than 19.3, which is too low to recognize `manylinux2014` label that identifies ARM64 architecture for pypi. Wrong versions of python packages such as `numpy` or `scipy` are downloaded, and dependencies are then found lacking while trying to build these packages. As such, please upgrade pip to a later version by typing `pip install --upgrade pip`, and then try installing MindSpore again.
-
-<br/>
 
 <br/>
 
@@ -196,16 +188,6 @@ A: The possible reasons are:
 
 <br/>
 
-<font size=3>**Q: What is the difference between `bash -p` and `bash -e` when an error is reported during application build?**</font>
-
-A: MindSpore Serving build and running depend on MindSpore. Serving provides two build modes: 1. Use `bash -p {python site-packages}/mindspore/lib` to specify an installed MindSpore path to avoid building MindSpore when building Serving. 2. Build Serving and the corresponding MindSpore. Serving passes the `-e`, `-V`, and `-j` options to MindSpore.
-For example, use `bash -e ascend -V 910 -j32` in the Serving directory as follows:
-
-- Build MindSpore in the `third_party/mindspore` directory using `bash -e ascend -V 910 -j32`.
-- Use the MindSpore build result as the Serving build dependency.
-
-<br/>
-
 ## Uninstall
 
 <font size=3>**Q: How to uninstall MindSpore?**</font>
@@ -299,36 +281,6 @@ A: Above question is relatively common, and there are two feasible solutions, yo
 
 - Exchange the order of import, first `import mindspore` and then import other third party libraries.
 - Before executing the program, we can add environment variables first (`export LD_PRELOAD=/{your_path}/libgomp.so.1`), where `{your_path}` is the path mentioned in above error.
-
-<font size=3>**Q: When the third-party component gensim is used to train the NLP network, the error "ValueError" may be reported. What can I do?**</font>
-
-A: The following error information is displayed:
-
-```bash
->>> import gensim
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/__init__.py", line 11, in <module>
-    from gensim import parsing, corpora, matutils, interfaces, models, similarities, utils  # noqa:F401
-  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/corpora/__init__.py", line 6, in <module>
-    from .indexedcorpus import IndexedCorpus  # noqa:F401 must appear before the other classes
-  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/corpora/indexedcorpus.py", line 14, in <module>
-    from gensim import interfaces, utils
-  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/interfaces.py", line 19, in <module>
-    from gensim import utils, matutils
-  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/matutils.py", line 1024, in <module>
-    from gensim._matutils import logsumexp, mean_absolute_difference, dirichlet_expectation
-  File "gensim/_matutils.pyx", line 1, in init gensim._matutils
-ValueError: numpy.ndarray size changed, may indicate binary incompatibility. Expected 88 from C header, got 80 from PyObject
-```
-
-For details about the error cause, see the [gensim](https://github.com/RaRe-Technologies/gensim/issues/3095) or [numpy](https://github.com/numpy/numpy/issues/18709) official website.
-
-Solutions:
-
-Method 1: Reinstall the Numpy and Gensim and run the following commands: `pip uninstall gensim numpy -y && pip install numpy==1.18.5 gensim`
-
-Method 2: If the problem persists, delete the cache file of the wheel installation package and then perform method 1. (The cache directory of the wheel installation package is `~/.cache/pip/wheels`)
 
 <br/>
 

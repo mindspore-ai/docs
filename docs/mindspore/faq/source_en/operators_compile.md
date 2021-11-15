@@ -46,7 +46,7 @@ A: Yes. For details, see [mindspore.ops.Transpose](https://www.mindspore.cn/docs
 
 <font size=3>**Q: Can MindSpore calculate the variance of any tensor?**</font>
 
-A: Currently, mindspore does not have APIs or operators similar to variance which can directly calculate the variance of a `tensor`. However, MindSpore has sufficient small operators to support such operations. For details, see [class Moments(Cell)](https://www.mindspore.cn/docs/api/en/master/_modules/mindspore/nn/layer/math.html#Moments).
+A: Currently, MindSpore does not have APIs or operators similar to variance which can directly calculate the variance of a `tensor`. However, MindSpore has sufficient small operators to support such operations. For details, see [class Moments(Cell)](https://www.mindspore.cn/docs/api/en/master/_modules/mindspore/nn/layer/math.html#Moments).
 
 <br/>
 
