@@ -89,4 +89,13 @@ A: The problem is that the Graph mode is selected but the PyNative mode is used.
 - PyNative mode: dynamic graph mode. In this mode, operators in the neural network are delivered and executed one by one, facilitating the compilation and debugging of the neural network model.
 - Graph mode: static graph mode. In this mode, the neural network model is compiled into an entire graph and then delivered for execution. This mode uses technologies such as graph optimization to improve the running performance and facilitates large-scale deployment and cross-platform running.
 
+<br/>
+
+<font size=3>**Q: What can I do if the Kernel Select Failed message:`Can not select a valid kernel info for [xxx] in AI CORE or AI CPU kernel info candidates list` is displayed on Ascend backend?**</font>
+
+A: The `Ascend` backend operators can be divided into `AI CORE` operators and `AI CPU` operators. Some operators are supported by `AI CORE`, some operators are supported by `AI CPU`, and some operators are supported by `AI CORE` and `AI CPU` at the same time. According to the error message:
+
+1. If the `AI CORE` operator's candidates list is empty, it may be that all operator information failed to pass the verification in the `check support` stage. You can search the keyword `CheckSupport` in the log to find the reason for the failure. Modify the shape or data type according to the specific information, or ask the developer to further locate the problem.
+2. If the `AI CPU` operator's candidates list is not empty, or the candidates list of `AI CORE` and `AI CPU` are both not empty, it may be that the given input data type was not in the candidate list and was filtered out in the selection stage. Try to modify the input data type of the operator according to the candidate list.
+
 You can select a proper mode and writing method to complete the training by referring to the official website [tutorial](https://www.mindspore.cn/docs/programming_guide/en/master/debug_in_pynative_mode.html).
