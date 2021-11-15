@@ -559,6 +559,144 @@ print(output)
 ([ 1.48, 1.49, 1.15]), ([ 0.70, 0.83, 0.98]), [-0.64, -0.39, -0.30])))
 ```
 
+## 函数式接口grad、jvp和vjp
+
+自动微分功能在科学计算领域有重要的使用场景，科学计算领域一般采用函数式的接口。为了提升自动微分功能的易用性，MindSpore提供GradOperation、Jvp和Vjp的函数式接口`grad`、`jvp`和`vjp`。函数式接口无需实例化被调用接口，契合用户的使用习惯。
+
+### grad
+
+`grad`接口用于生成输入函数的梯度。利用`grad_position`和`sens_param`参数控制梯度的计算方式。`grad_position`默认是`0`，表示只对第一个输入求导；为非零`int`类型时，会对该数字对应索引位置输入求导；为`tuple`时，会对tuple内数字索引位置的输入求导。`sens_param`默认是`False`，表示不对网络输出值缩放，当`sens_param`为`True`时，对网络输出值进行缩放。
+
+样例代码如下：
+
+`grad_position`参数控制对特定输入求导。
+
+```python
+import numpy as np
+import mindspore.nn as nn
+import mindspore.context as context
+from mindspore import Tensor
+from mindspore.ops import grad
+context.set_context(mode=context.GRAPH_MODE)
+class Net(nn.Cell):
+    def construct(self, x, y, z):
+        return x*y*z
+
+x = Tensor(np.array([[1, 2], [3, 4]]).astype(np.float32))
+y = Tensor(np.array([[-2, 3], [-1, 2]]).astype(np.float32))
+z = Tensor(np.array([[0, 3], [5, -1]]).astype(np.float32))
+net = Net()
+output = grad(net, grad_position=(1, 2))(x, y, z)
+print(output)
+```
+
+输出结果为：
+
+```text
+(Tensor(shape=[2, 2], dtype=Float32, value=
+[[ 0.00000000e+00,  6.00000000e+00],
+ [ 1.50000000e+01, -4.00000000e+00]]), Tensor(shape=[2, 2], dtype=Float32, value=
+[[-2.00000000e+00,  6.00000000e+00],
+ [-3.00000000e+00,  8.00000000e+00]]))
+```
+
+`sens_param`参数控制对网络输出进行缩放。
+
+```python
+import numpy as np
+import mindspore.nn as nn
+import mindspore.context as context
+from mindspore import Tensor
+from mindspore.ops import grad
+context.set_context(mode=context.GRAPH_MODE)
+class Net(nn.Cell):
+    def construct(self, x, y, z):
+        return x**2 + y**2 + z**2, x*y*z
+
+x = Tensor(np.array([[1, 2], [3, 4]]).astype(np.float32))
+y = Tensor(np.array([[-2, 3], [-1, 2]]).astype(np.float32))
+z = Tensor(np.array([[0, 3], [5, -1]]).astype(np.float32))
+v = Tensor(np.array([[-1, 3], [2, 1]]).astype(np.float32))
+net = Net()
+output = grad(net, grad_position=(1, 2), sens_param=True)(x, y, z, (v, v))
+print(output)
+```
+
+输出结果为：
+
+```text
+(Tensor(shape=[2, 2], dtype=Float32, value=
+[[ 4.00000000e+00,  3.60000000e+01],
+ [ 2.60000000e+01,  0.00000000e+00]]), Tensor(shape=[2, 2], dtype=Float32, value=
+[[ 2.00000000e+00,  3.60000000e+01],
+ [ 1.40000000e+01,  6.00000000e+00]]))
+```
+
+### jvp
+
+`jvp`对应前向模式的自动微分，输出网络的正向运算结果和微分结果。
+
+样例代码如下：
+
+```python
+import numpy as np
+import mindspore.nn as nn
+import mindspore.context as context
+from mindspore.ops import jvp
+from mindspore import Tensor
+context.set_context(mode=context.GRAPH_MODE)
+class Net(nn.Cell):
+    def construct(self, x, y):
+        return x**3 + y
+
+x = Tensor(np.array([[1, 2], [3, 4]]).astype(np.float32))
+y = Tensor(np.array([[1, 2], [3, 4]]).astype(np.float32))
+v = Tensor(np.array([[1, 1], [1, 1]]).astype(np.float32))
+output, grads = jvp(Net(), (x, y), (v, v))
+print(grads)
+```
+
+输出结果为：
+
+```text
+[[ 4. 13.],
+ [28. 49.]]
+```
+
+### vjp
+
+`vjp`对应反向模式的自动微分，输出网络的正向运算结果和微分结果。
+
+样例代码如下：
+
+```python
+import numpy as np
+import mindspore.nn as nn
+import mindspore.context as context
+from mindspore.ops import vjp
+from mindspore import Tensor
+context.set_context(mode=context.GRAPH_MODE)
+class Net(nn.Cell):
+    def construct(self, x, y):
+        return x**3 + y
+
+x = Tensor(np.array([[1, 2], [3, 4]]).astype(np.float32))
+y = Tensor(np.array([[1, 2], [3, 4]]).astype(np.float32))
+v = Tensor(np.array([[1, 1], [1, 1]]).astype(np.float32))
+output, grads = vjp(Net(), (x, y), v)
+print(grads)
+```
+
+输出结果为：
+
+```text
+(Tensor(shape=[2, 2], dtype=Float32, value=
+[[ 3.00000000e+00,  1.20000000e+01],
+ [ 2.70000000e+01,  4.80000000e+01]]), Tensor(shape=[2, 2], dtype=Float32, value=
+[[ 1.00000000e+00,  1.00000000e+00],
+ [ 1.00000000e+00,  1.00000000e+00]]))
+```
+
 ## 引用
 
 [1] Zhang L, Han J, Wang H, et al. [Deep potential molecular dynamics: a scalable model with the accuracy of quantum mechanics[J]](https://arxiv.org/pdf/1707.09571v2.pdf). Physical review letters, 2018, 120(14): 143001.
