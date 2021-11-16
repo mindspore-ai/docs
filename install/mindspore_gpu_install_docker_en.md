@@ -87,20 +87,19 @@ of which,
 Execute the following command to start the Docker container instance:
 
 ```bash
-docker run -it -v /dev/shm:/dev/shm --runtime=nvidia --privileged=true swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu:{tag} /bin/bash
+docker run -it -v /dev/shm:/dev/shm --runtime=nvidia swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu:{tag} /bin/bash
 ```
 
 of which,
 
 - `-v /dev/shm:/dev/shm` mounts the directory where the NCCL shared memory segment is located into the container;
 - `--runtime=nvidia` is used to specify the container runtime as `nvidia-container-runtime`;
-- `--privileged=true` enables the container to expand;
 - `{tag}` corresponds to the label in the above table.
 
 If you want to use MindInsight, you need to set the `--network` parameter to "host" mode, for example:
 
 ```bash
-docker run -it -v /dev/shm:/dev/shm --network host --runtime=nvidia --privileged=true swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu:{tag} /bin/bash
+docker run -it -v /dev/shm:/dev/shm --network host --runtime=nvidia swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu:{tag} /bin/bash
 ```
 
 ## Installation Verification
