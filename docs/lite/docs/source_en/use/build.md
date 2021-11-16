@@ -119,6 +119,8 @@ If the user is sensitive to the package size of the framework, the following opt
 | MSLITE_ENABLE_CUSTOM_KERNEL | Whether to support southbound operator registration | on,off | on |
 | MSLITE_ENABLE_DELEGATE | Whether to  support Delegate mechanism | on,off | on |
 | MSLITE_ENABLE_V0 | Whether to compatible with models exported before 1.1.0 | on,off | on |
+| MSLITE_ENABLE_FP16 | Whether to support FP16 operator | on,off | on |
+| MSLITE_ENABLE_INT8 | Whether to support INT8 operator | on,off | on |
 
 > - Since the implementation of NPU and TensorRT depends on the Delegate mechanism, the Delegate mechanism cannot be turned off when using NPU or TensorRT. If the Delegate mechanism is turned off, the related functions must also be turned off.
 

@@ -119,6 +119,8 @@ MindSpore根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
 | MSLITE_ENABLE_CUSTOM_KERNEL | 是否支持南向算子注册 | on、off | on |
 | MSLITE_ENABLE_DELEGATE | 是否支持Delegate机制 | on、off | on |
 | MSLITE_ENABLE_V0 | 是否兼容1.1.0之前版本导出的模型 | on、off | on |
+| MSLITE_ENABLE_FP16 | 是否支持FP16算子 | on、off | on |
+| MSLITE_ENABLE_INT8 | 是否支持INT8算子 | on、off | on |
 
 > - 由于NPU和TensorRT的实现依赖于Delegate机制，所以在使用NPU或TensorRT时无法关闭Delegate机制，如果关闭了Delegate机制，则相关功能也必须关闭。
 

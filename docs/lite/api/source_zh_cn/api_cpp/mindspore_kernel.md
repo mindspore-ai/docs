@@ -72,7 +72,8 @@ virtual int Execute()
 virtual int ReSize()
 ```
 
-根据输入的形状态重新分配算子需要的内存。
+在用户调用`Model::Resize`接口时，或是模型推理中需要重新推理算子形状时，会调用到该接口。
+在`ReSize`函数中，若有必要，根据输入的形状态重新推理输出形状，并分配算子运算中需要的内存。
 
 ### type
 
@@ -248,7 +249,7 @@ using KernelInterfaceCreator = std::function<std::shared_ptr<KernelInterface>()>
 
 #### Infer
 
-算子的InferShape能力，用于根据输入推导出输出的shape、数据类型以及format。
+算子的InferShape能力，用于根据输入推导出输出的形状、数据类型以及format。
 
 ``` c++
 virtual int Infer(std::vector<mindspore::MSTensor> *inputs, std::vector<mindspore::MSTensor> *outputs, const schema::Primitive *primitive)
