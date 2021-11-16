@@ -136,12 +136,6 @@ A: [build_seg_data.py](https://gitee.com/mindspore/models/blob/r1.5/official/cv/
 
 <br/>
 
-<font size=3>**Q: 如何不将数据处理为MindRecord格式，直接进行训练呢？**</font>
-
-A: 可以使用自定义的数据加载方式 `GeneratorDataset`，具体可以参考[数据集加载](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/dataset_loading.html)文档中的自定义数据集加载。
-
-<br/>
-
 <font size=3>**Q: MindSpore在Ascend硬件平台进行多卡训练，自定义数据集如何给不同卡传递不同数据？**</font>
 
 A: 使用`GeneratorDataset`的时候，可以使用`num_shards=num_shards`,`shard_id=device_id`参数来控制不同卡读取哪个分片的数据，`__getitem__`和`__len__`按全量数据集处理即可。

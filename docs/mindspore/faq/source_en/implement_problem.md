@@ -420,6 +420,40 @@ A: When "Ascend error occurred, error message:" appears, it indicates that a mod
 
 At this time, there is an error message after the error code. If you need a more detailed possible cause and solution for this exception, please refer to the "error code troubleshooting" section of the corresponding Ascend version document, such as [CANN Community 5.0.3 alpha 002 (training) Error Code troubleshooting](https://support.huaweicloud.com/trouble-cann503alpha2training/atlaspd_15_0001.html).
 
+<br/>
+
+<font size=3>**Q: When the third-party component gensim is used to train the NLP network, the error "ValueError" may be reported. What can I do?**</font>
+
+A: The following error information is displayed:
+
+```bash
+>>> import gensim
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/__init__.py", line 11, in <module>
+    from gensim import parsing, corpora, matutils, interfaces, models, similarities, utils  # noqa:F401
+  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/corpora/__init__.py", line 6, in <module>
+    from .indexedcorpus import IndexedCorpus  # noqa:F401 must appear before the other classes
+  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/corpora/indexedcorpus.py", line 14, in <module>
+    from gensim import interfaces, utils
+  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/interfaces.py", line 19, in <module>
+    from gensim import utils, matutils
+  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/matutils.py", line 1024, in <module>
+    from gensim._matutils import logsumexp, mean_absolute_difference, dirichlet_expectation
+  File "gensim/_matutils.pyx", line 1, in init gensim._matutils
+ValueError: numpy.ndarray size changed, may indicate binary incompatibility. Expected 88 from C header, got 80 from PyObject
+```
+
+For details about the error cause, see the [gensim](https://github.com/RaRe-Technologies/gensim/issues/3095) or [numpy](https://github.com/numpy/numpy/issues/18709) official website.
+
+Solutions:
+
+Method 1: Reinstall the Numpy and Gensim and run the following commands: `pip uninstall gensim numpy -y && pip install numpy==1.18.5 gensim`
+
+Method 2: If the problem persists, delete the cache file of the wheel installation package and then perform method 1. (The cache directory of the wheel installation package is `~/.cache/pip/wheels`)
+
+<br/>
+
 ## Network Compilation Problems
 
 <font size=3>**Q: What can I do if an error "Create python object \`<class 'mindspore.common.tensor.Tensor'>\` failed, only support create Cell or Primitive object." is reported?**</font>
