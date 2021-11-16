@@ -563,7 +563,7 @@ if __name__ == "__main__":
     print(losses)
 ```
 
-In the dictionary `ctx`, the `enable_fl` parameter is used to set whether to start the federated learning training process. If the value is `true`, the federated learning process is started. If the value is `false`, the common training process is started. Other parameters can be set based on the actual situations. Only available model files need to be generated. In the preceding script, `data` and `label` use the simulation data.
+For details, please refer to the script [test_mobile_lenet.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/test_mobile_lenet.py). In the dictionary `ctx`, the `enable_fl` parameter is used to set whether to start the federated learning training process. If the value is `true`, the federated learning process is started. If the value is `false`, the common training process is started. Other parameters can be set based on the actual situations. Only available model files need to be generated. In the preceding script, `data` and `label` use the simulation data.
 
 In the preceding information, `src.model` is the model definition file. For details, see the [model.py file](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py). `src.adam` is the optimizer definition file. For details, see the [adam.py file](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/adam.py).
 
@@ -573,7 +573,7 @@ For details about the definition of the optimizer loss function, see the [Quick 
 
 1. **Export a model as a MindIR file.**
 
-    You can add the `export` statement to the training process code in [model.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py) to obtain the MindIR model file. The sample code is as follows:
+    You can add the `export` statement to the training process code in [test_mobile_lenet.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/test_mobile_lenet.py) to obtain the MindIR model file. The sample code is as follows:
 
     ```python
     from mindspore import export
@@ -590,7 +590,7 @@ For details about the definition of the optimizer loss function, see the [Quick 
         print(losses)
     ```
 
-    When generating a MindIR format model file, you need to comment the statement `context.set_fl_context(**ctx)` in the [model.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py)file, and set `epoch` to 1. Running `model.py` requires [MindSpore](https://www.mindspore.cn/install/en) to be installed in the environment . The file `lenet_train.mindir` will be generated in the current path after running the script `model.py`.
+    When generating a MindIR format model file, you need to comment the statement `context.set_fl_context(**ctx)` in the [test_mobile_lenet.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/test_mobile_lenet.py) file, and set `epoch` to 1. Running `test_mobile_lenet.py` requires [MindSpore](https://www.mindspore.cn/install/en) to be installed in the environment . The file `lenet_train.mindir` will be generated in the current path after running the script `test_mobile_lenet.py`.
 
     For details, see [here](https://www.mindspore.cn/docs/programming_guide/en/master/save_model.html#mindir).
 

@@ -559,7 +559,7 @@ if __name__ == "__main__":
     print(losses)
 ```
 
-其中字典`ctx`中参数`enable_fl`用于设置是否启动联邦学习训练流程，为`true`代表启动联邦学习流程，为`false`代表启动普通训练流程，其他参数可以根据实际情况进行设置。由于只需要生成可用的模型文件即可，上面脚本中`data`和`label`均采用了模拟数据。
+具体可参考脚本[test_mobile_lenet.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/test_mobile_lenet.py)。其中字典`ctx`中参数`enable_fl`用于设置是否启动联邦学习训练流程，为`true`代表启动联邦学习流程，为`false`代表启动普通训练流程，其他参数可以根据实际情况进行设置。由于只需要生成可用的模型文件即可，上面脚本中`data`和`label`均采用了模拟数据。
 
 其中`src.model`为模型定义文件可参考[model.py文件](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py)，`src.adam`为优化器定义文件可参考[adam.py文件](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/adam.py)。
 
@@ -569,7 +569,7 @@ if __name__ == "__main__":
 
 1. 将模型导出为MindIR格式文件。
 
-    可在[model.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py)的训练流程代码中添加`export`语句获取MindIR格式模型文件， 示例代码如下：
+    可在[test_mobile_lenet.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/test_mobile_lenet.py)的训练流程代码中添加`export`语句获取MindIR格式模型文件， 示例代码如下：
 
     ```python
     from mindspore import export
@@ -585,7 +585,7 @@ if __name__ == "__main__":
         print(losses)
     ```
 
-    生成MindIR格式模型文件时，需要先将[model.py文件](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py)中`context.set_fl_context(**ctx)`语句注释，同时`epoch`设置为1即可，运行`model.py`要求环境中安装[MindSpore](https://www.mindspore.cn/install)。运行脚本`model.py`之后会在当前路径下生成文件`lenet_train.mindir`。
+    生成MindIR格式模型文件时，需要先将[test_mobile_lenet.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/test_mobile_lenet.py)中`context.set_fl_context(**ctx)`语句注释，同时`epoch`设置为1即可，运行`test_mobile_lenet.py`要求环境中安装[MindSpore](https://www.mindspore.cn/install)。运行脚本`test_mobile_lenet.py`之后会在当前路径下生成文件`lenet_train.mindir`。
 
     具体可参考[导出MindIR格式文件](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/save_model.html#mindir)。
 
