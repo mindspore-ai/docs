@@ -98,21 +98,20 @@ docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu:{tag}
 执行以下命令启动Docker容器实例：
 
 ```bash
-docker run -it -v /dev/shm:/dev/shm --runtime=nvidia --privileged=true swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu-{cuda_version}:{tag} /bin/bash
+docker run -it -v /dev/shm:/dev/shm --runtime=nvidia swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu-{cuda_version}:{tag} /bin/bash
 ```
 
 其中：
 
 - `-v /dev/shm:/dev/shm` 将NCCL共享内存段所在目录挂载至容器内部；
 - `--runtime=nvidia` 用于指定容器运行时为`nvidia-container-runtime`；
-- `--privileged=true` 赋予容器扩展的能力;
 - `{tag}`对应上述表格中的标签。
 - `{cuda_version}` 对应MindSpore依赖的CUDA版本，包括`cuda10.1`和`cuda11.1`。
 
 如需使用可视化调试调优工具MindInsight，需设置`--network`参数为`host`模式，例如:
 
 ```bash
-docker run -it -v /dev/shm:/dev/shm --network host --runtime=nvidia --privileged=true swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu:{tag} /bin/bash
+docker run -it -v /dev/shm:/dev/shm --network host --runtime=nvidia swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu:{tag} /bin/bash
 ```
 
 ## 验证是否成功安装
