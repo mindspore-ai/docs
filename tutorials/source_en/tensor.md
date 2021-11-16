@@ -38,7 +38,7 @@ x_np = Tensor(arr)
 
 If the initial value is `NumPy.array`, the generated `Tensor` data type corresponds to `NumPy.array`.
 
-- **Generate a tensor from the `init`**
+- **Generate a tensor from the init**
 
 You can create a tensor with the `init`, `shape` and `dtype`.
 

@@ -96,9 +96,7 @@ def check_notebook(path):
     cells = get_notebook_cells(path)
     for num, cell in enumerate(cells):
         if not cell["source"]:
-            if "docs" in path:
-                filename = path.split("docs")[-1]
-            print("{}:cell_{}:empty cell need to delete".format(filename, num+1))
+            print("{}:cell_{}:empty cell need to delete".format(path, num+1))
 
 def find_file(path, files=None):
     """递归遍历path中的所有文件"""
@@ -231,9 +229,7 @@ def print_info(check_info, location_info):
             if len(detail_content) > 30:
                 detail_content = detail_content[:30] + "..."
             error_code = re.findall(r"([A-Z]+\d+)", error_info)[0]
-            if "docs" in file:
-                filename = file.split("docs", 1)[-1]
-            infos = "{}:{}:{}:{} \"{}\"".format(filename, cell_num, line, error_info, detail_content)
+            infos = "{}:{}:{}:{} \"{}\"".format(file, cell_num, line, error_info, detail_content)
         except IndexError:
             pass
         finally:
@@ -286,7 +282,6 @@ if __name__ == "__main__":
         elif os.path.isdir(check_path_):
             ipynb_f = [file for file in find_file(check_path_, files=[]) if file.endswith(".ipynb")]
             for one_ipynb_f in ipynb_f:
-                print(one_ipynb_f)
                 run(one_ipynb_f)
     if os.path.exists("./mdrules.rb"):
         os.remove("./mdrules.rb")
