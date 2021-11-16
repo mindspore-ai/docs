@@ -36,8 +36,6 @@ Neural Network Operators
     mindspore.ops.BCEWithLogitsLoss
     mindspore.ops.BiasAdd
     mindspore.ops.BinaryCrossEntropy
-    mindspore.ops.BNTrainingReduce
-    mindspore.ops.BNTrainingUpdate
     mindspore.ops.ComputeAccidentalHits
     mindspore.ops.Conv2D
     mindspore.ops.Conv2DBackpropInput
