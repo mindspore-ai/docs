@@ -351,6 +351,15 @@ The functional operators are the pre-instantiated Primitive operators, which can
    * - mindspore.ops.zeros_like
      - Refer to :class:`mindspore.ops.ZerosLike`.
 
+.. msplatformautosummary::
+    :toctree: ops
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.ops.grad
+    mindspore.ops.jvp
+    mindspore.ops.vjp
+
 primitive
 ---------
 

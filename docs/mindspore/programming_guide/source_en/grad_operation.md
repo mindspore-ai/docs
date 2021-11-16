@@ -454,6 +454,146 @@ GPU supports the following operators: [Pow](https://www.mindspore.cn/docs/api/en
 
 Ascend supports the following operators: [Pow](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Pow.html#mindspore.ops.Pow), [Log](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Log.html#mindspore.ops.Log), [Square](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Square.html#mindspore.ops.Square), [Exp](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Exp.html#mindspore.ops.Exp), [Neg](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Neg.html#mindspore.ops.Neg), [Mul](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Mul.html#mindspore.ops.Mul), [Div](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Div.html#mindspore.ops.Div), [MatMul](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.MatMul.html#mindspore.ops.MatMul), [Sin](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Sin.html#mindspore.ops.Sin), [Cos](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Cos.html#mindspore.ops.Cos), [Tan](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Tan.html#mindspore.ops.Tan), [Sinh](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Sinh.html#mindspore.ops.Sinh), [Cosh](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Cosh.html#mindspore.ops.Cosh) and [Atanh](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Atanh.html#mindspore.ops.Atanh).
 
+## Functional Interfaces: grad, jvp和vjp
+
+The automatic differentiation plays an important role in the field of scientific computing, and functional interfaces are generally used in this field. In order to improve the usability of the automatic differentiation function, MindSpore provides functional interfaces of GradOperation, Jvp and Vjp: grad, jvp and vjp. The functional interface does not need object initialization, which fits the user's habits.
+
+### grad
+
+`grad` is used to generate the gradient of the input function. The `grad_position`, and `sens_param` parameters are used to control the gradient calculation method. The default value of `grad_position` is `0`, which means the derivative of first input will be computed. When `grad_position` is set to int or tuple type, the derivative of corresponding inputs indexed by `grad_position` will be computed. `sens_param` scales the output value of the network to change the final gradient. The default value of `sens_param` is `False`.
+
+Example：
+
+The `grad_position` parameter controls the derivation of specific inputs.
+
+```python
+import numpy as np
+import mindspore.nn as nn
+import mindspore.context as context
+from mindspore import Tensor
+from mindspore.ops import grad
+context.set_context(mode=context.GRAPH_MODE)
+class Net(nn.Cell):
+    def construct(self, x, y, z):
+        return x*y*z
+
+x = Tensor(np.array([[1, 2], [3, 4]]).astype(np.float32))
+y = Tensor(np.array([[-2, 3], [-1, 2]]).astype(np.float32))
+z = Tensor(np.array([[0, 3], [5, -1]]).astype(np.float32))
+net = Net()
+output = grad(net, grad_position=(1, 2))(x, y, z)
+print(output)
+```
+
+results：
+
+```text
+(Tensor(shape=[2, 2], dtype=Float32, value=
+[[ 0.00000000e+00,  6.00000000e+00],
+ [ 1.50000000e+01, -4.00000000e+00]]), Tensor(shape=[2, 2], dtype=Float32, value=
+[[-2.00000000e+00,  6.00000000e+00],
+ [-3.00000000e+00,  8.00000000e+00]]))
+```
+
+Example：
+
+The `sens_param` parameter decides whether to scale the output value of the network to change the final gradient.
+
+```python
+import numpy as np
+import mindspore.nn as nn
+import mindspore.context as context
+from mindspore import Tensor
+from mindspore.ops import grad
+context.set_context(mode=context.GRAPH_MODE)
+class Net(nn.Cell):
+    def construct(self, x, y, z):
+        return x**2 + y**2 + z**2, x*y*z
+
+x = Tensor(np.array([[1, 2], [3, 4]]).astype(np.float32))
+y = Tensor(np.array([[-2, 3], [-1, 2]]).astype(np.float32))
+z = Tensor(np.array([[0, 3], [5, -1]]).astype(np.float32))
+v = Tensor(np.array([[-1, 3], [2, 1]]).astype(np.float32))
+net = Net()
+output = grad(net, grad_position=(1, 2), sens_param=True)(x, y, z, (v, v))
+print(output)
+```
+
+result：
+
+```text
+(Tensor(shape=[2, 2], dtype=Float32, value=
+[[ 4.00000000e+00,  3.60000000e+01],
+ [ 2.60000000e+01,  0.00000000e+00]]), Tensor(shape=[2, 2], dtype=Float32, value=
+[[ 2.00000000e+00,  3.60000000e+01],
+ [ 1.40000000e+01,  6.00000000e+00]]))
+```
+
+### jvp
+
+`jvp` corresponds to the automatic differentiation of the forward mode, and returns the result of the network and the differentiation of the network.
+
+Example：
+
+```python
+import numpy as np
+import mindspore.nn as nn
+import mindspore.context as context
+from mindspore.ops import jvp
+from mindspore import Tensor
+context.set_context(mode=context.GRAPH_MODE)
+class Net(nn.Cell):
+    def construct(self, x, y):
+        return x**3 + y
+
+x = Tensor(np.array([[1, 2], [3, 4]]).astype(np.float32))
+y = Tensor(np.array([[1, 2], [3, 4]]).astype(np.float32))
+v = Tensor(np.array([[1, 1], [1, 1]]).astype(np.float32))
+output, grads = jvp(Net(), (x, y), (v, v))
+print(grads)
+```
+
+results：
+
+```text
+[[ 4. 13.],
+ [28. 49.]]
+```
+
+### vjp
+
+`vjp` corresponds to the automatic differentiation of the reverse mode, and returns the result of the network and the differentiation of the network.
+
+Example：
+
+```python
+import numpy as np
+import mindspore.nn as nn
+import mindspore.context as context
+from mindspore.ops import vjp
+from mindspore import Tensor
+context.set_context(mode=context.GRAPH_MODE)
+class Net(nn.Cell):
+    def construct(self, x, y):
+        return x**3 + y
+
+x = Tensor(np.array([[1, 2], [3, 4]]).astype(np.float32))
+y = Tensor(np.array([[1, 2], [3, 4]]).astype(np.float32))
+v = Tensor(np.array([[1, 1], [1, 1]]).astype(np.float32))
+output, grads = vjp(Net(), (x, y), v)
+print(grads)
+```
+
+results：
+
+```text
+(Tensor(shape=[2, 2], dtype=Float32, value=
+[[ 3.00000000e+00,  1.20000000e+01],
+ [ 2.70000000e+01,  4.80000000e+01]]), Tensor(shape=[2, 2], dtype=Float32, value=
+[[ 1.00000000e+00,  1.00000000e+00],
+ [ 1.00000000e+00,  1.00000000e+00]]))
+```
+
 ## References
 
 [1] Zhang L, Han J, Wang H, et al. [Deep potential molecular dynamics: a scalable model with the accuracy of quantum mechanics[J]](https://arxiv.org/pdf/1707.09571v2.pdf). Physical review letters, 2018, 120(14): 143001.
