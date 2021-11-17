@@ -383,6 +383,16 @@ Sparse Operators
     mindspore.ops.SparseToDense
     mindspore.ops.SparseTensorDenseMatmul
 
+Custom Operators
+^^^^^^^^^^^^^^^^
+
+.. msplatformautosummary::
+    :toctree: ops
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.ops.Custom
+
 Other Operators
 ^^^^^^^^^^^^^^^
 
