@@ -113,7 +113,7 @@ from mindspore_serving.server import register
 
 
 def add_trans_datatype(x1, x2):
-    """define preprocess, this example has one input and two outputs"""
+    """define preprocess, this example has two inputs and two outputs"""
     return x1.astype(np.float32), x2.astype(np.float32)
 
 
