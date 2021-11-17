@@ -392,6 +392,8 @@ op_info_register
     :nosignatures:
     :template: classtemplate.rst
 
+    mindspore.ops.custom_info_register
+    mindspore.ops.CustomRegOp
     mindspore.ops.DataType
     mindspore.ops.op_info_register
     mindspore.ops.TBERegOp
