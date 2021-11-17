@@ -485,6 +485,40 @@ A: 当出现“Ascend error occurred, error message:”时，说明昇腾CANN相
 
 此时错误码后有异常的错误信息。如果需要该异常更详细的可能原因和处理方法，请参考对应昇腾版本文档的《Error Code故障处理》部分，如[昇腾CANN社区版(5.0.3 alpha 002)(训练) Error Code故障处理](https://support.huaweicloud.com/trouble-cann503alpha2training/atlaspd_15_0001.html)。
 
+<br/>
+
+<font size=3>**Q: 训练nlp类网络，当使用第三方组件gensim时，可能会报错: ValueError，如何解决？**</font>
+
+A: 以下为报错信息:
+
+```bash
+>>> import gensim
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/__init__.py", line 11, in <module>
+    from gensim import parsing, corpora, matutils, interfaces, models, similarities, utils  # noqa:F401
+  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/corpora/__init__.py", line 6, in <module>
+    from .indexedcorpus import IndexedCorpus  # noqa:F401 must appear before the other classes
+  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/corpora/indexedcorpus.py", line 14, in <module>
+    from gensim import interfaces, utils
+  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/interfaces.py", line 19, in <module>
+    from gensim import utils, matutils
+  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/matutils.py", line 1024, in <module>
+    from gensim._matutils import logsumexp, mean_absolute_difference, dirichlet_expectation
+  File "gensim/_matutils.pyx", line 1, in init gensim._matutils
+ValueError: numpy.ndarray size changed, may indicate binary incompatibility. Expected 88 from C header, got 80 from PyObject
+```
+
+报错原因请参考[gensim](https://github.com/RaRe-Technologies/gensim/issues/3095)官网，或者[numpy](https://github.com/numpy/numpy/issues/18709)官网:
+
+解决方案:
+
+方法一: 重新安装numpy及gensim, 执行命令: `pip uninstall gensim numpy -y && pip install numpy gensim` ；
+
+方法二: 如果还是有问题，请删除wheel安装包的缓存文件，然后执行方法一（wheel安装包缓存目录为: `~/.cache/pip/wheels`）。
+
+<br/>
+
 ## 网络编译问题
 
 <font size=3>**Q: 编译时报错“Create python object \`<class 'mindspore.common.tensor.Tensor'>\` failed, only support create Cell or Primitive object.”怎么办？**</font>

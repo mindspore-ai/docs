@@ -136,12 +136,6 @@ A: [build_seg_data.py](https://gitee.com/mindspore/models/blob/r1.5/official/cv/
 
 <br/>
 
-<font size=3>**Q: How do I perform training without processing data in MindRecord format?**</font>
-
-A: You can use the customized data loading method `GeneratorDataset`. For details, click [here](https://www.mindspore.cn/tutorial/en/r0.7/use/data_preparation/loading_the_datasets.html#id5).
-
-<br/>
-
 <font size=3>**Q: When MindSpore performs multi-device training on the Ascend hardware platform, how does the user-defined dataset transfer data to different chip?**</font>
 
 A: When `GeneratorDataset` is used, the `num_shards=num_shards` and `shard_id=device_id` parameters can be used to control which shard of data is read by different devices. `__getitem__` and `__len__` are processed as full datasets.
