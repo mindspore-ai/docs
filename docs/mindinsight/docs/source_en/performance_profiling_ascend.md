@@ -126,7 +126,7 @@ Figure 2 displays the Step Trace page. The Step Trace detail will show the start
 
 The graphs at the bottom of the page show the execution time of Step Interval, Forward/Backward Propagation and Step Tail (The time between the end of Backward Propagation and the end of Parameter Update) changes according to different steps, it will help to decide whether we can optimize the performance of some stages. Here are more details:
 
-- **Step Interval** is the duration for reading data from data queues. If this part takes long time, it is advised to check the data processing for further analysis.
+- **Step Interval** is the duration for reading data from data queues. If this part takes long time, it is advised to check the data preparation for further analysis.
 - **Forward and Backward Propagation** is the duration for executing the forward and backward operations on the network, which handle the main calculation work of a step. If this part takes long time, it is advised to check the statistics of operators or timeline for further analysis.
 - **Step Tail** is the duration for performing parameter aggregation and update operations in parallel training. If the operation takes long time, it is advised to check the statistics of communication operators and the status of parallelism.
 
