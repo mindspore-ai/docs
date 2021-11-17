@@ -1,6 +1,7 @@
 """Customized directives for sphinx."""
 import re
 import os
+from functools import reduce
 from docutils.parsers.rst import Directive, directives
 from docutils import nodes
 from sphinx.util import logging
@@ -17,7 +18,7 @@ class IncludeCodeDirective(Directive):
     In `.rst` files, it should be used as below:
 
     .. includecode:: path/to/sample_code.py
-        :position: begin_label, end_label
+        :position: begin_label, end_label|begin_labe2, end_labe2|...
 
     or
 
@@ -27,7 +28,7 @@ class IncludeCodeDirective(Directive):
 
     ```{includecode} path/to/sample_code.py
     ---
-    position: begin_label, end_label
+    position: begin_label, end_label|begin_labe2, end_labe2|...
     ```
 
     or
@@ -65,15 +66,48 @@ class IncludeCodeDirective(Directive):
             if "position" not in self.options:
                 matched_code = text_no_docstring
             else:
-                start_label, stop_label = self.options["position"].split(", ")
-                matched_regex = re.compile(r'# {}\n([\s\S]*?)# {}'.format(start_label, stop_label))
-                matched_code = matched_regex.findall(text_no_docstring)[0]
+                matched_list = []
+                positions = self.options["position"]
+                positions_list = positions.replace(' ', '').split('|')
+                positions_list = [i.split(',') for i in positions_list]
+                exclude_ = reduce(lambda x, y: x + y, positions_list)
+                exclude_ = ['# '+i+'\n' for i in exclude_]
+                for position in positions_list:
+                    start_label, stop_label = position
+                    matched_regex = re.compile(r'# {}\n([\s\S]*?)# {}'.format(start_label, stop_label))
+                    space_start_re = re.compile(r'^( +)')
+                    matched_str = matched_regex.findall(text_no_docstring)[0]
+                    space_start = space_start_re.findall(matched_str)
+                    if space_start:
+                        space_start = space_start[0]
+                        matched_ = matched_str.split('\n')
+                        matched_ = [i.split(space_start, 1)[-1] for i in matched_]
+                        matched_str = '\n'.join(matched_)
+                    matched_list.append(matched_str)
+                matched_code = ''.join(matched_list)
+                for i in exclude_:
+                    matched_code = matched_code.replace(i, '')
+                matched_code_list = matched_code.split('\n')
+                result = []
+                header_list = []
+                if matched_code_list[0].startswith('from') or matched_code_list[0].startswith('import'):
+                    for i in matched_code_list:
+                        starts_ = re.findall(r'^(import|from|sys\.)', i)
+                        if starts_:
+                            header_list.append(i)
+                        else:
+                            result.append(i)
+                    matched_code = '\n'.join(header_list) + '\n\n' + '\n'.join(result).lstrip('\n')
+
             code_block = nodes.literal_block(text=matched_code)
             if not matched_code:
-                logger.warning('{}: warning: {} could not get '\
-                               'specified code string.'.format(env.docname, filename))
+                logger.warning('{}: warning:{}: there is no code to be found.'.format(env.docname, self.lineno))
                 return []
             return [code_block]
 
         except FileNotFoundError:
-            logger.warning('{}: WARNING: {} file not found.'.format(env.docname, filename))
+            logger.warning('{}: WARNING: {}: {} file not found.'.format(env.docname, self.lineno, filename))
+            return []
+        except IndexError:
+            logger.warning('{}: WARNING: {}: has error format.'.format(env.docname, self.lineno))
+            return []
