@@ -19,7 +19,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/performance_tuning_guild.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/performance_tuning_guide.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -32,7 +32,7 @@ MindInsight从单机和集群的角度分别提供了多项指标，用于帮助
 
 [集群性能调试（Ascend）](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend_of_cluster.html)
 
-用户可以结合实际的[调优案例](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/performance_optimization.html) ,理解起来更加直观。
+用户可以结合实际的[调优案例](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/performance_optimization.html) 阅读本文，理解起来更加直观。
 
 ## 单卡性能调优
 
@@ -54,7 +54,7 @@ MindInsight在性能调优的单卡页面为用户提供了`迭代轨迹`标签�
 
 ### 迭代间隙耗时长
 
-理想情况下，某个迭代开始前向训练时，其所需要的训练数据已经在Host侧完成了加载及增强并发送到了Device侧，反映到迭代间隙耗时通常在毫秒内，否则就会由于等待训练数据而造成芯片算力的浪费。迭代间隙耗时长，说明该迭代开始前向计算时等待了较长的时间后训练数据才发送到了Device侧。用户需要到`数据准备`页面进一步确认是数据增强还是数据发送过程存在性能问题。
+理想情况下，某个迭代开始前向训练时，其所需要的训练数据已经在Host侧完成了加载及增强并发送到了Device侧，反映到迭代间隙耗时通常在1毫秒内，否则就会由于等待训练数据而造成芯片算力的浪费。迭代间隙耗时长，说明该迭代开始前向计算时等待了较长的时间后训练数据才发送到了Device侧。用户需要到`数据准备`页面进一步确认是数据增强还是数据发送过程存在性能问题。
 
 ![minddata_profile.png](images/data_profile.png)
 
@@ -99,7 +99,7 @@ MindInsight在性能调优的单卡页面为用户提供了`迭代轨迹`标签�
 步骤1：跳转到`算子耗时统计排名`标签页，查看训练过程中各算子的耗时情况，重点关注耗时排名靠前的部分算子。解决算子耗时长的思路主要有以下几个：
 
 - 在不影响精度的前提下，将float32类型修改为float16类型；
-- 存在转换算子过多（TransData、Cast类算子）且耗时明显时，如果是用户手动加入的Cast算子，可分析其必要性，如果对精度没有影响，可去掉冗余的Cast、TransData算子；如果是MindSpore自动生成的转换算子过多，可能是MindSpore框架针对某些特殊情况没有充分优化，请到[MindSpore社区](https://gitee.com/mindspore/mindspore/issues) 反馈。
+- 存在转换算子过多（TransData、Cast类算子）且耗时明显时，如果是用户手动加入的算子，可分析其必要性，如果对精度没有影响，可去掉冗余的Cast、TransData算子；如果是MindSpore自动生成的转换算子过多，可能是MindSpore框架针对某些特殊情况没有充分优化，请到[MindSpore社区](https://gitee.com/mindspore/mindspore/issues) 反馈。
 - 若有某个算子耗时明显不合理，请到[MindSpore社区](https://gitee.com/mindspore/mindspore/issues) 反馈。
 
 步骤2：用户可以查看时间线页面，观察算子的起始时间、耗时时长、执行序以及算子间的并发情况等信息。用户可重点关注如下两点：
@@ -117,7 +117,7 @@ MindInsight在性能调优的单卡页面为用户提供了`迭代轨迹`标签�
 
 - 慢节点：由于集合通信算子是同步执行的，若集群中存在慢节点，则会由于木桶效应，拖累整个集群的性能。
 - 慢链路：若集群中某些链路存在问题，带宽较小，会影响集群通信的时长从而拖累整个集群的性能。
-- 切分合理性：主要针对模型并行和流水线并行。对于模型并行，基于算子切分后，由于算子[重排布](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/design/distributed_training_design.html) 会插入通信算子用于数据交换，而过多的通信是影响集群性能的主要因素。理想情况下，通信耗时越短越好，当纯通信时长(只有通信算子执行的时间段，通信算子与计算算子并行执行的时间段由于通信时间隐藏在了计算算子执行的时间内可不用关注)占据总时长的比例较大时，用户需要考虑算子切分是否可以优化，避免因为重排布而插入通信算子，从而减少通信的耗时；针对流水线并行，由于会将不同的层切分到不同的stage里，若因为切分不合理使得各stage上的计算量不均衡，则会导致stage间由于不同步而产生额外的数据等待时间（Receive通信算子的耗时长）。
+- 切分合理性：主要针对模型并行和流水线并行。对于模型并行，基于算子切分后，由于算子[重排布](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/design/distributed_training_design.html) 会插入通信算子用于数据交换，而过多的通信是影响集群性能的主要因素。理想情况下，通信耗时越短越好，当纯通信时长(只有通信算子执行的时间段，通信算子与计算算子并行执行的时间段由于通信时间隐藏在了计算算子执行的时间内可不用关注)占据总时长的比例较大时，用户需要考虑算子切分是否可以优化，避免因为重排布而插入通信算子，从而减少通信的耗时；针对流水线并行，由于会将不同的层切分到不同的stage里，若因为切分不合理使得各stage上的计算量不均衡，则会导致stage间由于不同步而产生额外的数据等待时间（表现为Receive通信算子的耗时长，该通信算子用于接收其他stage发送的数据）。
 
 针对如上影响集群性能的主要因素，MindInsight为数据并行、模型并行、流水线并行及其混合并行分别提供了不同的指标，以帮助用户快速发现集群中的性能瓶颈点。
 
@@ -146,7 +146,7 @@ MindInsight在性能调优的单卡页面为用户提供了`迭代轨迹`标签�
 - 观察是否有某张卡的迭代拖尾耗时明显比其它卡长，通常该情况是由于集群中存在慢节点导致，用户可参考步骤1和步骤2确定是否有慢节点并修复。
 - 若所有卡的迭代拖尾耗时基本相同，且该阶段耗时较长，通常是由于AllReduce集合通信算子耗时长导致。用户可尝试通过修改all_reduce_fusion_config参数，改变[AllReduce融合切分策略](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/auto_parallel.html?highlight=all_reduce_fusion_config) 降低该阶段的耗时。
 
-#### 模型并行
+### 模型并行
 
 针对模型并行，集群迭代轨迹页面提供了集群中所有卡的迭代间隙、纯通信时间、计算时间三个指标。
 
@@ -191,7 +191,7 @@ MindInsight在性能调优的单卡页面为用户提供了`迭代轨迹`标签�
 - 若等待时长较长，说明集群中存在慢节点，用户可通过步骤1和步骤2确认并修复慢节点。
 - 除了通信和等待时长，对于AllReduce通信算子还会存在Reduce时长，若该时间段较长，说明执行Reduce的逻辑存在异常，请到[MindSpore社区](https://gitee.com/mindspore/mindspore/issues) 反馈。
 
-#### 流水线并行
+### 流水线并行
 
 针对流水线并行，集群迭代轨迹页面提供了集群中所有卡的迭代间隙、stage时间、纯计算时间、纯通信时间、纯通信时间（除Receive通信算子）、纯通信时间（仅包含Receive通信算子）等指标，用于帮助用户确认是否有慢节点、慢链路以及分析模型的切分合理性。
 
@@ -209,4 +209,4 @@ MindInsight在性能调优的单卡页面为用户提供了`迭代轨迹`标签�
 
 步骤3: 观察集群迭代轨迹页面的纯通信时间（仅包含Receive通信算子）：
 
-该指标反映的是当前stage等待接收其他stage发来的数据的时间。理论上当各stage的耗时基本相同时，不会出现该时间段耗时很长的现象。因此用户看到该指标后，可以先按步骤2进行分析，确认stage间是否存在耗时差异过大的问题。若不存在步骤2提到的任何问题，说明该耗时是正常的，用户可不需要关注；用户也可以到`时间线`页面，查看Receive通信算子（该通信算子用于接收其他stage发送的数据）的执行序，结合各自网络分析该算子耗时的合理性。
+该指标反映的是当前stage等待接收其他stage发来的数据的时间。理论上当各stage的耗时基本相同时，不会出现该时间段耗时很长的现象。因此用户看到该指标后，可以先按步骤2进行分析，确认stage间是否存在耗时差异过大的问题。若不存在步骤2提到的任何问题，说明该耗时是正常的，用户可不需要关注；用户也可以到`时间线`页面，查看Receive通信算子的执行序，结合各自网络分析该算子耗时的合理性。
