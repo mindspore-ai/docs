@@ -252,7 +252,7 @@ using KernelInterfaceCreator = std::function<std::shared_ptr<KernelInterface>()>
 算子的InferShape能力，用于根据输入推导出输出的形状、数据类型以及format。
 
 ``` c++
-virtual int Infer(std::vector<mindspore::MSTensor> *inputs, std::vector<mindspore::MSTensor> *outputs, const schema::Primitive *primitive)
+virtual int Infer(std::vector<mindspore::MSTensor> *inputs, std::vector<mindspore::MSTensor> *outputs, const schema::Primitive *primitive, const Kernel *kernel)
 ```
 
 - 参数
@@ -263,3 +263,27 @@ virtual int Infer(std::vector<mindspore::MSTensor> *inputs, std::vector<mindspor
 
     - `primitive`: 算子经过flatbuffers反序化后的结果，存储算子属性。
 
+    - `kernel`: 算子的基类结构，在Build阶段，kernel是空指针，Build完成后框架传递的kernel才有值，当kernel非空时就不建议去操作primitive了，因为有可能primtive已经无效了。
+
+#### Infer
+
+算子的InferShape能力，用于根据输入推导出输出的shape、数据类型以及format。
+
+该接口已不推荐使用，建议使用带有kernel参数的Infer接口。因为如果模型通过以下Build接口执行编译，编译后框架会自动释放模型的内存，导致primitive不可用。
+
+``` c++
+Status Build(GraphCell graph, const std::shared_ptr<Context> &model_context = nullptr,
+               const std::shared_ptr<TrainCfg> &train_cfg = nullptr)
+```
+
+``` c++
+virtual int Infer(std::vector<mindspore::MSTensor> *inputs, std::vector<mindspore::MSTensor> *outputs, const schema::Primitive *primitive)
+```
+
+- 参数
+
+    - `inputs`: 算子输入[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)。
+
+    - `outputs`: 算子输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)。
+
+    - `primitive`: 算子经过flatbuffers反序化后的结果，存储算子属性。
