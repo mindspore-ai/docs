@@ -244,7 +244,7 @@ git clone https://gitee.com/mindspore/mindspore.git
 
 - Visual Studio 编译依赖
     - [Visual Studio](https://visualstudio.microsoft.com/zh-hans/vs/older-downloads/) = 2017，已自带cmake。
-    - 编译64位：进入开始菜单，点击“适用于 VS 2017 的 x64 本机工具命令提示”，或者打开cmd窗口，执行`call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Profession\VC\Auxiliary\Build\vavars64.bat"`。
+    - 编译64位：进入开始菜单，点击“适用于 VS 2017 的 x64 本机工具命令提示”，或者打开cmd窗口，执行`call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Profession\VC\Auxiliary\Build\vcvars64.bat"`。
     - 编译32位：进入开始菜单，点击“VS 2017的 x64_x86 交叉工具命令提示符”，或者打开cmd窗口，执行`call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Profession\VC\Auxiliary\Build\vcvarsamd64_x86.bat"`。
 
 ### 编译选项

@@ -244,7 +244,7 @@ Finally, the following files will be generated in the `output/` directory:
 
 - Visual Studio compilation dependencies:
     - [Visual Studio](https://visualstudio.microsoft.com/vs/older-downloads/) = 2017, cmake is included.
-    - Compile 64-bit: Enter the start menu, click "x64 Native Tools Command Prompt for VS 2017", or open the cmd window and execute `call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Profession\VC\Auxiliary\Build\vavars64.bat"`.
+    - Compile 64-bit: Enter the start menu, click "x64 Native Tools Command Prompt for VS 2017", or open the cmd window and execute `call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Profession\VC\Auxiliary\Build\vcvars64.bat"`.
     - Compile 32-bit: Enter the start menu, click "x64_x86 Cross Tools Command Prompt for VS 2017", or open the cmd window and execute `call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Profession\VC\Auxiliary\Build\vcvarsamd64_x86.bat"`.
 
 ### Compilation Options
