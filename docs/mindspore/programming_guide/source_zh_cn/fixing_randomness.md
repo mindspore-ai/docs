@@ -50,7 +50,6 @@
 1. 本文档主要适用于Ascend后端上`GRAPH_MODE`的训练脚本。
 2. Ascend后端上使用atomic_write特性的算子列表：
 
-    - [BNTrainingReduce](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.BNTrainingReduce.html#mindspore.ops.BNTrainingReduce)
     - [ReduceSum](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.ReduceSum.html#mindspore.ops.ReduceSum)
     - [DynamicGRUV2](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.DynamicGRUV2.html#mindspore.ops.DynamicGRUV2)
     - [DynamicRNN](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.DynamicRNN.html#mindspore.ops.DynamicRNN)
