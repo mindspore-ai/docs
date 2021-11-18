@@ -24,6 +24,12 @@ MindInsight Documents
    mindinsight_commands
 
 .. toctree::
+   :maxdepth: 1
+   :caption: Performance Tuning Guide
+
+   performance_tuning_guide
+
+.. toctree::
    :glob:
    :maxdepth: 1
    :caption: References
