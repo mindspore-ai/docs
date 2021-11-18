@@ -9,7 +9,7 @@
         - [Installation by Source Code](#installation-by-source-code)
             - [Downloading Source Code from Gitee](#downloading-source-code-from-gitee)
             - [Compiling MindInsight](#compiling-mindInsight)
-    - [Installation by Docker](#installation-by-docker)  
+    - [Installation by Docker](#installation-by-docker)
     - [Installation Verification](#installation-verification)
 
 <!-- /TOC -->
@@ -47,7 +47,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindIn
 ```
 
 > - When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindinsight/blob/master/requirements.txt)). In other cases, you need to manually install dependency items.
-> - `{version}` denotes the version of MindInsight. For example, when you are downloading MindSpore 1.3.0, `{version}` should be 1.3.0.
+> - `{version}` denotes the version of MindInsight. For example, when you are downloading MindInsight 1.3.0, `{version}` should be 1.3.0.
 > - MindInsight supports only Linux distro with x86 architecture 64-bit or ARM architecture 64-bit.
 
 ### Installation by Source Code
