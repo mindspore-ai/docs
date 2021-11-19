@@ -5,7 +5,9 @@
 - [使用MindConverter迁移模型定义脚本](#使用mindconverter迁移模型定义脚本)
     - [工具概述](#工具概述)
     - [快速开始](#快速开始)
-    - [环境依赖](#环境依赖)
+    - [工具安装](#工具安装)
+        - [环境依赖](#环境依赖)
+        - [安装方式](#安装方式)
     - [迁移方案](#迁移方案)
     - [实践步骤](#实践步骤)
         - [第0步：导出模型文件](#第0步导出模型文件)
@@ -17,8 +19,8 @@
     - [模型支持列表](#模型支持列表)
     - [错误码速查表](#错误码速查表)
     - [常见问题](#常见问题)
-        - [安装方式说明](#安装方式说明)
         - [ARM环境安装依赖组件](#arm环境安装依赖组件)
+        - [判断模型输入shape的形式](#判断模型输入shape的形式)
         - [TensorFlow模型导出](#tensorflow模型导出)
         - [整改forward参数列表](#整改forward参数列表)
         - [MindSpore模型内嵌到原框架](#mindspore模型内嵌到原框架)
@@ -37,21 +39,28 @@ MindConverter是一款模型迁移工具，可将PyTorch(ONNX)或Tensorflow(PB)�
 
 ## 快速开始
 
-安装MindConverter请参考[安装方式说明](#id11)，安装完成后可获得命令行如下：
+安装MindConverter请参考[工具安装](#工具安装)，安装完成后可获得命令行如下：
 
 ```shell
 mindconverter --model_file /path/to/model_file --shape SHAPE --input_nodes INPUTS --output_nodes OUTPUTS
 ```
 
 - `--model_file`指定模型文件路径，模型文件支持`onnx`或`pb`格式。
-- `--shape`指定模型输入shape信息，多输入场景以空格分隔，当模型文件为`onnx`格式时，可省略当前参数。
-- `--input_nodes`指定模型输入节点名称，多输入场景以空格分隔，当模型文件为`onnx`格式时，可省略当前参数。
-- `--output_nodes`指定模型输出节点名称，多输出场景以空格分隔，当模型文件为`onnx`格式时，可省略当前参数。
+- `--shape`指定模型输入shape信息，多输入场景以空格分隔。
+- `--input_nodes`指定模型输入节点名称，多输入场景以空格分隔。
+- `--output_nodes`指定模型输出节点名称，多输出场景以空格分隔。
 - 转换结果默认输出到`$PWD/output`。
+
+注意事项：
+
+1. 模型文件为`onnx`格式，如果模型输入shape是静态数值，只需要指定`--model_file`即可完成转换；否则需要指定`--shape`和`--input_nodes`才可完成转换；`--output_nodes`可省略。模型输入shape判断请参考[常见问题](#判断模型输入shape的形式)。
+2. 模型文件为`pb`格式，无特殊场景。
 
 更多CLI参数请参考[命令行参数说明](#id11)。
 
-## 环境依赖
+## 工具安装
+
+### 环境依赖
 
 使用MindConverter前需要安装以下依赖包，建议在x86环境下安装。ARM环境请参考[常见问题](#arm)。
 
@@ -67,6 +76,55 @@ pip install onnxruntime~=1.5.2
 # 如果使用 Tensorflow PB 文件转换，则需安装tf2onnx
 pip install tf2onnx~=1.7.1
 ```
+
+### 安装方式
+
+可以采用pip或源码编译方式进行安装。
+
+#### pip安装
+
+安装PyPI上的版本:
+
+```bash
+pip install mindconverter
+```
+
+安装自定义版本:
+
+```bash
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindInsight/any/mindconverter-{version}-py3-none-any.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+```
+
+> - 在联网状态下，安装whl包时会自动下载MindConverter安装包的依赖项（依赖项详情参见[requirements.txt](https://gitee.com/mindspore/mindinsight/blob/master/ecosystem_tools/mindconverter/requirements.txt)），其余情况需自行安装。
+> - `{version}`表示MindConverter版本号，例如下载1.6.0版本MindConverter时，`{version}`应写为1.6.0。
+
+#### 源码编译安装
+
+从代码仓下载源码
+
+```bash
+git clone https://gitee.com/mindspore/mindinsight.git
+```
+
+编译安装MindConverter，可选择以下任意一种安装方式：
+
+1. 在源码根目录下执行如下命令。
+
+    ```bash
+    cd mindinsight/ecosystem_tools/mindconverter
+    pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+    python setup.py install
+    ```
+
+2. 构建`whl`包进行安装。
+
+    进入源码的根目录，先执行`build`目录下的MindConverter编译脚本，再执行命令安装`output`目录下生成的`whl`包。
+
+    ```bash
+    cd mindinsight
+    bash build/build.sh mindconverter
+    pip install output/mindverter-{version}-py3-none-any.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
+    ```
 
 ## 迁移方案
 
@@ -365,55 +423,6 @@ MindConverter错误码定义，请参考[链接](https://gitee.com/mindspore/min
 
 ## 常见问题
 
-### 安装方式说明
-
-可以采用pip或源码编译方式进行安装。
-
-#### pip安装
-
-安装PyPI上的版本:
-
-```bash
-pip install mindconverter
-```
-
-安装自定义版本:
-
-```bash
-pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindInsight/any/mindconverter-{version}-py3-none-any.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
-```
-
-> - 在联网状态下，安装whl包时会自动下载MindConverter安装包的依赖项（依赖项详情参见[requirements.txt](https://gitee.com/mindspore/mindinsight/blob/master/ecosystem_tools/mindconverter/requirements.txt)），其余情况需自行安装。
-> - `{version}`表示MindConverter版本号，例如下载1.6.0版本MindConverter时，`{version}`应写为1.6.0。
-
-#### 源码编译安装
-
-从代码仓下载源码
-
-```bash
-git clone https://gitee.com/mindspore/mindinsight.git
-```
-
-编译安装MindConverter，可选择以下任意一种安装方式：
-
-1. 在源码根目录下执行如下命令。
-
-    ```bash
-    cd mindinsight/ecosystem_tools/mindconverter
-    pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
-    python setup.py install
-    ```
-
-2. 构建`whl`包进行安装。
-
-    进入源码的根目录，先执行`build`目录下的MindConverter编译脚本，再执行命令安装`output`目录下生成的`whl`包。
-
-    ```bash
-    cd mindinsight
-    bash build/build.sh mindconverter
-    pip install output/mindverter-{version}-py3-none-any.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
-    ```
-
 ### ARM环境安装依赖组件
 
 ARM环境下使用模型迁移工具，需要源码编译安装`protobuf`/`onnx`/`onnxoptimizer`，编译过程可能涉及其他系统组件，现编译报错需要人工排查，因此建议切换到x86环境中使用模型迁移工具。
@@ -479,6 +488,10 @@ ARM环境下使用模型迁移工具，需要源码编译安装`protobuf`/`onnx`
    ```shell
    pip install onnxruntime~=1.5.2
    ```
+
+### 判断模型输入shape的形式
+
+使用[Netron](https://github.com/lutzroeder/netron)工具加载ONNX模型文件，点击最上面的一个节点，观察侧栏中`INPUTS`里每一个输入的type，如果type是一个具体数值，如`int64[1,9]`，那么当前输入为静态；否则为动态，如`int64[batch,sequence]`。
 
 ### TensorFlow模型导出
 
