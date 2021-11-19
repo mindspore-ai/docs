@@ -310,12 +310,15 @@ Running Data Recorder(RDR) is the feature MindSpore provides to record data whil
     {
         "rdr": {
             "enable": true,
+            "mode": 1,
             "path": "/path/to/rdr/dir"
         }
     }
     ```
 
     > enable: Controls whether the RDR is enabled.
+    >
+    > mode: Controls RDR data exporting mode.
     >
     > path: Set the path to which RDR stores data. The current path must be absolute.
 
@@ -327,7 +330,7 @@ Running Data Recorder(RDR) is the feature MindSpore provides to record data whil
 
 #### Set RDR By Environment Variables
 
-Set `export MS_RDR_ENABLE=1` to enable RDR, and set the root directory by `export MS_RDR_PATH=/path/to/root/dir` for recording data. The final directory for recording data is `/path/to/root/dir/rank_{RANK_ID}/rdr/`. `{RANK_ID}` is the unique ID for multi-cards training, the single card scenario defaults to `RANK_ID=0`.
+Set `export MS_RDR_ENABLE=1` to enable RDR, and set `export MS_RDR_MODE=1` to control RDR to export data only in exceptional scenario, and set the root directory by `export MS_RDR_PATH=/path/to/root/dir` for recording data. The final directory for recording data is `/path/to/root/dir/rank_{RANK_ID}/rdr/`. `{RANK_ID}` is the unique ID for multi-cards training, the single card scenario defaults to `RANK_ID=0`.
 
 > The configuration file set by the user takes precedence over the environment variables.
 
