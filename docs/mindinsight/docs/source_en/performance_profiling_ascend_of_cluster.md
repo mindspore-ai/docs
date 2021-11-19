@@ -203,6 +203,7 @@ Figure 1 is the overview of cluster training performance, which is the overall p
 
 - Cluster iteration trajectory: The iterative trajectory information of all devices in the cluster is displayed; The overview page shows the cluster iteration trajectory performance.
 - Cluster communication performance: Show the communication performance of all devices in the cluster and the link performance of the whole network; The overview page shows the cluster communication performance.
+- Cluster performance helper: The helper on the left provides possible performance bottlenecks during training, and users can optimize performance according to the prompts.
 
 ### Cluster Iterative Trajectory Analysis
 

@@ -248,13 +248,13 @@ The Timeline consists of the following parts:
 
   Each color block represents the starting time and length of operator execution. The detailed explanation of timeline is as follows:
     - Process Device ID: contains the timeline of operators executed on AI Core.
-        - Step: training steps.
+        - Step: the number of training steps.
         - Scope Name: the Scope Name of operators.
-        - Stream ID: operators executed on the stream.
-    - Process AI CPU Op: contains the timeline of operators executed on AI CPU.
-    - Process Communication Op: contains the timeline for the execution of communication operators.
+        - Stream #ID: operators executed on the stream.
+    - Process AI CPU Op: the timeline of operators executed on the AI CPU.
+    - Process Communication Op: the timeline for the execution of communication operators.
     - Process Host CPU Op: contains the timeline of operators executed on the Host CPU.
-    - Process Op Overlap Analyse: the timeline of all computation operators and communication operators merged, analyse the proportion of communication time.
+    - Process Op Overlap Analyse: the timeline of all computation operators and communication operators merged, it can be used to analyse the proportion of communication time.
         - Merged Computation Op: it is the timeline after all computation operators are merged.
         - Merged Communication Op: it is the timeline after all communication operators are merged.
         - Pure Communication Op: pure communication time (the timeline of the communication operator after removing the overlap with the computation operator time).

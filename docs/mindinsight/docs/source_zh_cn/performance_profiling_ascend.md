@@ -248,13 +248,13 @@ Timeline主要包含如下几个部分：
 
   各个颜色块表示算子执行的起始时间及时长。timeline的详细解释如下：
     - Process AI Core Op：包含在AI Core上执行的算子的时间线。
-        - Step：训练步数。
+        - Step：训练迭代数。
         - Scope Name：算子的Scope Name。
-        - Stream ID：在该stream上执行的算子。
-    - Process AI CPU Op：包含在AI CPU上执行的算子的时间线。
-    - Process Communication Op 节点：包含通信算子执行的时间线。
-    - Process Host CPU Op：包含在Host CPU上执行的算子的时间线。
-    - Process Op Overlap Analyse：所有计算算子与通信算子合并后的时间线，分析通信时间占比。
+        - Stream #ID：在该stream上执行的算子。
+    - Process AI CPU Op：在AI CPU上执行的算子的时间线。
+    - Process Communication Op：包含通信算子执行的时间线。
+    - Process Host CPU Op：在Host CPU上执行的算子的时间线。
+    - Process Op Overlap Analyse：所有计算算子与通信算子合并后的时间线，可用于分析通信时间占比。
         - Merged Computation Op：为所有计算（AI Core、AI CPU、Host CPU）算子合并后的时间线。
         - Merged Communication Op：为所有通信算子合并后的时间线。
         - Pure Communication Op：纯通信时间（通信算子的执行时间去除与计算算子时间重叠部分后的时间线）。
