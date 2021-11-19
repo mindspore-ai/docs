@@ -13,8 +13,9 @@
 |RANK_TABLE_FILE|MindSpore|路径指向文件，包含指定多Ascend AI处理器环境中Ascend AI处理器的"device_id"对应的"device_ip"。|String|文件路径，支持相对路径与绝对路径|与RANK_SIZE配合使用|可选（Ascend AI处理器，使用多卡执行分布式用例时，由用户指定）|无|
 |RANK_SIZE|MindSpore|指定深度学习时调用Ascend AI处理器的数量|Integer|1~8，调用Ascend AI处理器的数量|与RANK_TABLE_FILE配合使用|可选（Ascend AI处理器，使用多卡执行分布式用例时，由用户指定）|无|
 |RANK_ID|MindSpore|指定深度学习时调用Ascend AI处理器的逻辑ID|Integer|0~7，多机并行时不同server中DEVICE_ID会有重复，使用RANK_ID可以避免这个问题（多机并行时 RANK_ID = SERVER_ID * DEVICE_NUM + DEVICE_ID|无|可选|无|
-|MS_RDR_ENABLE|MindSpore|是否开启程序运行数据记录器（RDR），如果MindSpore出现了运行异常，会自动导出MindSpore中预先记录的数据以辅助定位运行异常的原因|Integer|1：开启RDR功能 <br>0：关闭RDR功能|与MS_RDR_PATH一起使用|可选|无|
-|MS_RDR_PATH|MindSpore|配置程序运行数据记录器（RDR）的文件导出的根目录路径|String|目录路径，仅支持绝对路径|与`MS_RDR_ENABLE=1`一起使用，最终RDR文件将保存在`${MS_RDR_PATH}/rank_${RANK_ID}/rdr/`目录下。其中`RANK_ID`为多卡训练场景中的卡号，单卡场景默认`RANK_ID=0`。|可选|无|
+|MS_RDR_ENABLE|MindSpore|是否开启程序运行数据记录器（RDR），如果MindSpore出现了运行异常，会自动导出MindSpore中预先记录的数据以辅助定位运行异常的原因|Integer|1：开启RDR功能 <br>0：关闭RDR功能|配合`MS_RDR_MODE`与`MS_RDR_PATH`使用|可选|无|
+|MS_RDR_MODE|MindSpore|指定运行数据记录器（RDR）导出数据的模式|Integer|1：仅在训练进程异常终止时导出数据 <br>2：训练进程异常终止或正常结束时导出数据|配合`MS_RDR_ENABLE=1`使用|可选|1|
+|MS_RDR_PATH|MindSpore|配置程序运行数据记录器（RDR）的文件导出的根目录路径|String|目录路径，仅支持绝对路径|配合`MS_RDR_ENABLE=1`使用，最终RDR文件将保存在`${MS_RDR_PATH}/rank_${RANK_ID}/rdr/`目录下。其中`RANK_ID`为多卡训练场景中的卡号，单卡场景默认`RANK_ID=0`。|可选|无|
 |GLOG_v|MindSpore|[日志功能与用法](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#id11)|Integer|0-DEBUG <br>1-INFO <br>2-WARNING <br>3-ERROR|无|可选|2|
 |GLOG_logtostderr|MindSpore|[日志功能与用法](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#id11)|Integer|1:日志输出到屏幕 <br> 0:日志输出到文件|与GLOG_log_dir一起使用|可选|1|
 |GLOG_log_dir|MindSpore|[日志功能与用法](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#id11)|String|文件路径，支持相对路径与绝对路径|与GLOG_logtostderr一起使用|可选|无|
