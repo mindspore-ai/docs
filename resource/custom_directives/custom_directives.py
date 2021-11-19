@@ -26,14 +26,15 @@ class IncludeCodeDirective(Directive):
 
     In `.md` files, it should be used as below:
 
-    ```{includecode} path/to/sample_code.py
-    ---
-    position: begin_label, end_label|begin_labe2, end_labe2|...
+    ```{eval-rst}
+    .. includecode:: path/to/sample_code.py
+        :position: begin_label, end_label|begin_labe2, end_labe2|...
     ```
 
     or
 
-    ```{includecode} path/to/sample_code.py
+    ```{eval-rst}
+    .. includecode:: path/to/sample_code.py
     ```
     """
 
