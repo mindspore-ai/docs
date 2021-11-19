@@ -1,4 +1,4 @@
-Mindquantum Documents
+MindQuantum Documents
 ======================
 
 .. toctree::
