@@ -72,7 +72,7 @@ A: MindSpore currently supports CPU, GPU, and Ascend. Currently, you can try out
 
 <font size=3>**Q: Does MindSpore have any limitation on the input size of a single Tensor for exporting and loading models?**</font>
 
-A: Due to hardware limitations of Protobuf, when exporting to AIR and ONNX formats, the size of model parameters cannot exceed 2G; when exporting to MINDIR format, the size of a single Tensor cannot exceed 2G. MindSpore only supports MINDIR, and the size of a single Tensor cannot exceed 2G.
+A: Due to hardware limitations of Protobuf, when exporting to AIR and ONNX formats, the size of model parameters cannot exceed 2G; when exporting to MINDIR format, there is no limit to the size of model parameters. MindSpore only supports MINDIR, and the size of a single Tensor cannot exceed 2G.
 
 <br/>
 
