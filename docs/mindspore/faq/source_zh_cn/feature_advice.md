@@ -72,7 +72,7 @@ A: Ascend 310不能导出AIR，需要在Ascend 910加载训练好的checkpoint�
 
 <font size=3>**Q: MindSpore对导出、导入模型的单个Tensor输入大小有什么限制？**</font>
 
-A: 由于Protobuf的硬件限制，导出AIR、ONNX格式时，模型参数大小不能超过2G；导出MINDIR格式时，单个Tensor大小不能超过2G，MindSpore不支持导入AIR、ONNX格式，只支持MINDIR，导入大小的限制与导出一致。
+A: 由于Protobuf的硬件限制，导出AIR、ONNX格式时，模型参数大小不能超过2G；导出MINDIR格式时，模型参数大小没有限制，MindSpore不支持导入AIR、ONNX格式，只支持MINDIR，导入大小的限制与导出一致。
 
 <br/>
 
