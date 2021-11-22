@@ -9,20 +9,23 @@
 
     **参数：**
 
-        - **参数1** (Tensor) – 参数1说明。
-        - **参数2** (int) – 参数2说明。
+    - **参数1** (Tensor) – 参数1说明。
+    - **参数2** (int) – 参数2说明。
+
+      - **二级参数1** (int) – 二级参数1说明。（注意：二级参数需要和上面一级参数的“*”对齐。）
+      - **二级参数2** (int) – 二级参数2说明。
 
     **返回：**
 
-        返回说明。
+    返回说明。
 
     **样例：**
 
-        .. code-block::
+    .. code-block::
 
-            >>> a = Tensor(np.ones((1, 6)))
-            >>> b = a.reshape((2, 3))
-            输出结果
+        >>> a = Tensor(np.ones((1, 6)))
+        >>> b = a.reshape((2, 3))
+        输出结果
 ```
 
 ## 属性 Property
@@ -43,21 +46,21 @@
 
         **返回：**
 
-            返回说明。
+        返回说明。
 
         **支持平台：**
 
-           ``Ascend``  ``GPU``  ``CPU``
+        ``Ascend``  ``GPU``  ``CPU``
 
         **样例：**
 
-          .. code-block::
+        .. code-block::
 
-                >>> from mindspore import Tensor
-                >>> a = Tensor([1.1, -2.1]).astype("float32")
-                >>> output = a.abs()
-                >>> print(output)
-                [1.1 .2.1]
+            >>> from mindspore import Tensor
+            >>> a = Tensor([1.1, -2.1]).astype("float32")
+            >>> output = a.abs()
+            >>> print(output)
+            [1.1 .2.1]
 ```
 
 ## 函数 Function
@@ -69,12 +72,12 @@
 
         **参数：**
 
-            - **参数1** (Tensor) – 参数1说明。
-            - **参数2** (int) – 参数2说明。
+        - **参数1** (Tensor) – 参数1说明。
+        - **参数2** (int) – 参数2说明。
 
         **返回：**
 
-            返回说明。
+        返回说明。
 ```
 
 ## Note
