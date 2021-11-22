@@ -173,7 +173,8 @@ MindSpore编程指南
    enable_mixed_precision
    enable_graph_kernel_fusion
    enable_auto_tune
-   enalbe_dataset_offload
+   enable_dataset_autotune
+   enable_dataset_offload
    apply_gradient_accumulation
    使用Profiler调试性能↗ <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling.html>
 
