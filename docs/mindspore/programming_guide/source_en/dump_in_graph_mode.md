@@ -119,7 +119,7 @@ The configuration files required for different modes and the data format of dump
     }
     ```
 
-    - `dump_mode`: 0: dump all kernels in graph, 1: dump kernels in kernels list.
+    - `dump_mode`: 0: dump all kernels data in graph, 1: dump kernels data in kernels list.
     - `path`: The absolute path to save dump data.
     - `net_name`: The net name eg:ResNet50.
     - `iteration`: Specify the iterations to dump, type is string. Use "|" to separate the step data of different intervals to be saved. For example, "0 | 5-8 | 100-120" represents dump the data of the 1st, 6th to 9th, and 101st to 121st steps. If iteration set to "all", data of every iteration will be dumped.
@@ -394,7 +394,7 @@ Large networks (such as Bert Large) will cause memory overflow when using synchr
     }
     ```
 
-    - `dump_mode`: 0: dump all kernels in graph, 1: dump kernels in kernels list.
+    - `dump_mode`: 0: dump all kernels data in graph, 1: dump kernels data in kernels list.
     - `path`: The absolute path to save dump data. It is not a mandatory option and can be left unset or set to an empty string.
     - `net_name`: The net name eg:ResNet50.
     - `iteration`: Specify the iterations to dump, type is string. Use "|" to separate the step data of different intervals to be saved. For example, "0 | 5-8 | 100-120" represents dump the data of the 1st, 6th to 9th, and 101st to 121st steps. If iteration set to "all", data of every iteration will be dumped.
