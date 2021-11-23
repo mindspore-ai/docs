@@ -36,7 +36,6 @@ MindSpore Programming Guide
 
    Implementing Simple Linear Function Fitting↗ <https://www.mindspore.cn/tutorials/en/master/linear_regression.html> 
    Implementing an Image Classification Application↗ <https://www.mindspore.cn/tutorials/en/master/quick_start.html>
-   quick_start/quick_video
 
 .. toctree::
    :glob:
