@@ -138,9 +138,7 @@ More MindSpore developers are also welcome to participate in improving the mappi
 | [tf.train.linear_cosine_decay](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/train/linear_cosine_decay)                               |[mindspore.nn.CosineDecayLR](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.CosineDecayLR.html)                                                |[diff](https://www.mindspore.cn/docs/migration_guide/en/master/api_mapping/tensorflow_diff/CosineDecayLR.html)|
 | [tf.train.MomentumOptimizer](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/train/MomentumOptimizer)                                   |[mindspore.nn.Momentum](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Momentum.html)                                                          |[diff](https://www.mindspore.cn/docs/migration_guide/en/master/api_mapping/tensorflow_diff/Momentum.html)|
 
-## TensorFlow Probability and MindSpore
-
-Mapping between TensorFlow Probability APIs and MindSpore APIs, which is provided by the community.
+## tfp
 
 | TensorFlow  Probability 0.14.1 APIs                                                                                                                 | MindSpore APIs                                                                                                                                             | Description |
 |-----------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|
