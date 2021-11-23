@@ -32,7 +32,6 @@ Note: Clicking on the title with "↗" will leave the Programming Guide page.
 
    Implementing Simple Linear Function Fitting↗ <https://www.mindspore.cn/tutorials/en/r1.5/linear_regression.html> 
    Implementing an Image Classification Application↗ <https://www.mindspore.cn/tutorials/en/r1.5/quick_start.html>
-   quick_start/quick_video
 
 .. toctree::
    :maxdepth: 1
