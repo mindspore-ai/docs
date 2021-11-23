@@ -236,7 +236,7 @@ Benchmark tool provides Dump function (currently only supports `CPU` operator), 
     }
     ```
 
-    - `dump_mode`: 0: dump all kernels in graph, 1: dump kernels in kernels list.
+    - `dump_mode`: 0: dump all kernels data in graph, 1: dump kernels data in kernels list.
     - `path`: The absolute path to save dump data.
     - `net_name`: The net name, e.g.: ResNet50. If this field is not specified, the default value is "default".
     - `input_output`: 0: dump input and output of kernel, 1: dump input of kernel, 2: dump output of kernel.
