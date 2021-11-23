@@ -5,7 +5,9 @@
 - [Migrating From Third Party Frameworks With MindConverter](#migrating-from-third-party-frameworks-with-mindconverter)
     - [Overview](#overview)
     - [Quick Starts](#quick-starts)
-    - [Install Dependencies](#install-dependencies)
+    - [Install Tools](#install-tools)
+        - [Install Dependencies](#install-dependencies)
+        - [Install MindConverter](#install-mindconverter)
     - [Migration Solution](#migration-solution)
     - [Practice Guidance](#practice-guidance)
         - [Step 0：Export the model file](#step-0export-the-model-file)
@@ -17,8 +19,8 @@
     - [Model List Supported by MindConverter](#model-list-supported-by-mindconverter)
     - [MindConverter Error Code Definition](#mindconverter-error-code-definition)
     - [FAQ](#faq)
-        - [Install MindConverter](#install-mindconverter)
         - [Install dependencies under ARM](#install-dependencies-under-arm)
+        - [Determine the form of model input shape](#determine-the-form-of-model-input-shape)
         - [Export the model file of Tensorflow](#export-the-model-file-of-tensorflow)
         - [Rectify parameters of forward function definition](#rectify-parameters-of-forward-function-definition)
         - [Mix the MindSpore model with the original training scripts](#mix-the-mindspore-model-with-the-original-training-scripts)
@@ -37,21 +39,28 @@ MindConverter is a migration tool to transform the model file of PyTorch(ONNX) o
 
 ## Quick Starts
 
-MindConverter installation is described in [Install MindConverter](#id11). After the installation, you will have the MindConverter CLI with the basic usage as follows.
+MindConverter installation is described in [Install Tools](#install-tools). After the installation, you will have the MindConverter CLI with the basic usage as follows.
 
 ```shell
 mindconverter --model_file /path/to/model_file --shape SHAPE --input_nodes INPUTS --output_nodes OUTPUTS
 ```
 
 - `--model_file` specifies the path of model file, the model file supports `onnx` format or `pb` format.
-- `--shape` specifies the input shape of model. Multiple inputs are separated by space. The parameter can be omitted for model file in `onnx` format.
-- `--input_nodes` specifies the input names of model. Multiple inputs are separated by space. The parameter can be omitted for model file in `onnx` format.
-- `--output_nodes` specifies the output names of model. Multiple outputs are separated by space. The parameter can be omitted for model file in `onnx` format.
+- `--shape` specifies the input shape of model. Multiple inputs are separated by space.
+- `--input_nodes` specifies the input names of model. Multiple inputs are separated by space.
+- `--output_nodes` specifies the output names of model. Multiple outputs are separated by space.
 - Output files are generated and saved under `$PWD/output` by default.
+
+Notes:
+
+1. The model file is in `onnx` format. If the model input shape is a static value, just specify `-- model_ file` to complete the conversion. Otherwise, you need to specify `--shape` and `--input_nodes` to complete the conversion. `--output_nodes` can be omitted. For model input shape judgment, please refer to [Determine the form of model input shape](#determine-the-form-of-model-input-shape).
+2. The model file is in `pb` format without special scenarios.
 
 For more CLI arguments, please refer to [MindConverter CLI Usage](#mindconverter-cli-usage).
 
-## Install Dependencies
+## Install Tools
+
+### Install Dependencies
 
 The following dependencies are required for MindConverter usage and suggested to be installed under the x86 environment. Refer to [installation](#install-dependencies-under-arm) under the ARM environment.
 
@@ -67,6 +76,56 @@ pip install onnxruntime~=1.5.2
 # tf2onnx is required if model file is in pb format.
 pip install tf2onnx~=1.7.1
 ```
+
+### Install MindConverter
+
+You can install MindConverter either by pip or by source code.
+
+#### Installation by pip
+
+Install from PyPI:
+
+```bash
+pip install mindconverter
+```
+
+Install with customized version:
+
+```bash
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindInsight/any/mindconverter-{version}-py3-none-any.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+```
+
+> - When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindinsight/blob/master/ecosystem_tools/mindconverter/requirements.txt)). In other cases, you need to manually install dependency items.
+> - `{version}` denotes the version of MindConverter. For example, when you are downloading MindConverter 1.6.0, `{version}` should be 1.6.0.
+> - MindConverter supports only Linux distro with x86 architecture 64-bit or ARM architecture 64-bit.
+
+#### Installation by Source Code
+
+Downloading Source Code from Gitee.
+
+```bash
+git clone https://gitee.com/mindspore/mindinsight.git
+```
+
+Compiling MindConverter by any of the following installation methods:
+
+1. Run the following command in the root directory of the source code:
+
+    ```bash
+    cd mindinsight/ecosystem_tools/mindconverter
+    pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+    python setup.py install
+    ```
+
+2. Build the `whl` package for installation.
+
+    Enter the root directory of the source code, first execute the MindConverter compilation script in the `build` directory, and then execute the command to install the `whl` package generated in the `output` directory.
+
+    ```bash
+    cd mindinsight/ecosystem_tools/mindconverter
+    bash build/build.sh mindconverter
+    pip install output/mindconverter-{version}-py3-none-any.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
+    ```
 
 ## Migration Solution
 
@@ -153,7 +212,7 @@ np.allclose(output_data, output_benchmark)
 mindspore.export(network, input_data, file_name='network_name', file_format='MINDIR')
 ```
 
-Note
+Notes:
 
 1. The Dropout operator will be lost after conversion because the inference mode is used to load the ONNX or TensorFlow model. Manually re-implementation is necessary.
 2. This script conversion tool relies on operators which supported by MindConverter and MindSpore. Unsupported operators may not be successfully mapped to MindSpore operators. You can manually edit, or implement the mapping based on MindConverter, and make [contribution](https://gitee.com/mindspore/mindinsight/blob/master/ecosystem_tools/mindconverter/tutorial/add_operator_mapper_base_tutorial.ipynb) to our MindInsight repository. We appreciate your support for the MindSpore community.
@@ -365,56 +424,6 @@ For error code defined in MindConverter, please refer to [LINK](https://gitee.co
 
 ## FAQ
 
-### Install MindConverter
-
-You can install MindConverter either by pip or by source code.
-
-#### Installation by pip
-
-Install from PyPI:
-
-```bash
-pip install mindconverter
-```
-
-Install with customized version:
-
-```bash
-pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindInsight/any/mindconverter-{version}-py3-none-any.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
-```
-
-> - When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindinsight/blob/master/ecosystem_tools/mindconverter/requirements.txt)). In other cases, you need to manually install dependency items.
-> - `{version}` denotes the version of MindConverter. For example, when you are downloading MindConverter 1.6.0, `{version}` should be 1.3.0.
-> - MindConverter supports only Linux distro with x86 architecture 64-bit or ARM architecture 64-bit.
-
-#### Installation by Source Code
-
-Downloading Source Code from Gitee.
-
-```bash
-git clone https://gitee.com/mindspore/mindinsight.git
-```
-
-Compiling MindConverter by any of the following installation methods:
-
-1. Run the following command in the root directory of the source code:
-
-    ```bash
-    cd mindinsight/ecosystem_tools/mindconverter
-    pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
-    python setup.py install
-    ```
-
-2. Build the `whl` package for installation.
-
-    Enter the root directory of the source code, first execute the MindConverter compilation script in the `build` directory, and then execute the command to install the `whl` package generated in the `output` directory.
-
-    ```bash
-    cd mindinsight/ecosystem_tools/mindconverter
-    bash build/build.sh mindconverter
-    pip install output/mindconverter-{version}-py3-none-any.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
-    ```
-
 ### Install dependencies under ARM
 
 MindConverter under the ARM environment requires compiling `protobuf`/`onnx`/`onnxoptimizer` from scratch. Since the compiling is complicated and error prone, we strongly recommend to use MindConverter under the x86 environment.
@@ -480,6 +489,10 @@ MindConverter under the ARM environment requires compiling `protobuf`/`onnx`/`on
    ```shell
    pip install onnxruntime~=1.5.2
    ```
+
+### Determine the form of model input shape
+
+Using [Netron](https://github.com/lutzroeder/netron) load the onnx model file, click the top node, and observe the type of each input in `INPUTS` in the sidebar. If the type is a specific value, such as `int64[1,9]`, the current input is static. Otherwise, it is dynamic, such as `int64[batch,sequence]`.
 
 ### Export the model file of Tensorflow
 
