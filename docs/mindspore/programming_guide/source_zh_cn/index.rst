@@ -41,7 +41,6 @@ MindSpore编程指南
 
    实现简单线性函数拟合↗ <https://www.mindspore.cn/tutorials/zh-CN/master/linear_regression.html> 
    实现一个图片分类应用↗ <https://www.mindspore.cn/tutorials/zh-CN/master/quick_start.html>
-   quick_start/quick_video
 
 .. toctree::
    :glob:
