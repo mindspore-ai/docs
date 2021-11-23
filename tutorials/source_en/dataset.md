@@ -10,12 +10,38 @@ MindSpore provides APIs for loading common datasets and datasets in standard for
 
 Execute the following command to download and decompress the dataset to the specified location.
 
-```bash
-mkdir ./datasets
-wget -N https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cifar-10-binary.tar.gz --no-check-certificate
-wget -N https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/MNIST_Data.zip --no-check-certificate
-unzip -d ./datasets -o MNIST_Data.zip
-tar -zxvf cifar-10-binary.tar.gz -C ./datasets
+```python
+import os
+import requests
+import tarfile
+import zipfile
+
+def download_dataset(url, target_path):
+    """下载并解压数据集"""
+    if not os.path.exists(target_path):
+        os.makedirs(target_path)
+    download_file = url.split("/")[-1]
+    if not os.path.exists(download_file):
+        res = requests.get(url, stream=True)
+        if download_file.split(".")[-1] not in ["tgz","zip","tar","gz"]:
+            download_file = os.path.join(target_path, download_file)
+        with open(download_file, "wb") as f:
+            for chunk in res.iter_content(chunk_size=512):
+                if chunk:
+                    f.write(chunk)
+    if download_file.endswith("zip"):
+        z = zipfile.ZipFile(download_file, "r")
+        z.extractall(path=target_path)
+        z.close()
+    if download_file.endswith(".tar.gz") or download_file.endswith(".tar") or download_file.endswith(".tgz"):
+        t = tarfile.open(download_file)
+        names = t.getnames()
+        for name in names:
+            t.extract(name, target_path)
+        t.close()
+
+download_dataset("https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cifar-10-binary.tar.gz", "./datasets")
+download_dataset("https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/MNIST_Data.zip", "./datasets")
 ```
 
 ## Loading the Dataset
