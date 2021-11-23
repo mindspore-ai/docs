@@ -19,13 +19,12 @@
 
     返回说明。
 
-    **样例：**
+    ..rubric:: 样例：
 
-    .. code-block::
+    >>> a = Tensor(np.ones((1, 6)))
+    >>> b = a.reshape((2, 3))
+    输出结果
 
-        >>> a = Tensor(np.ones((1, 6)))
-        >>> b = a.reshape((2, 3))
-        输出结果
 ```
 
 ## 属性 Property
@@ -52,15 +51,14 @@
 
         ``Ascend``  ``GPU``  ``CPU``
 
-        **样例：**
+        ..rubric:: 样例：
 
-        .. code-block::
+        >>> from mindspore import Tensor
+        >>> a = Tensor([1.1, -2.1]).astype("float32")
+        >>> output = a.abs()
+        >>> print(output)
+        [1.1 .2.1]
 
-            >>> from mindspore import Tensor
-            >>> a = Tensor([1.1, -2.1]).astype("float32")
-            >>> output = a.abs()
-            >>> print(output)
-            [1.1 .2.1]
 ```
 
 ## 函数 Function
