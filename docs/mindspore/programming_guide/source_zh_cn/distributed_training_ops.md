@@ -408,3 +408,74 @@ rank0~rank7的结果为：
 ```text
 [[[[0. 1. 2. 3. 4. 5. 6. 7.]]]]
 ```
+
+## 注意事项
+
+在昇腾芯片上，NeighborExchange、NeighborExchangeV2、AlltoAll这三个算子支持两种底层环境配置：分级和全连接配网。
+
+1. 分级方式需设置环境变量`export HCCL_ALGO="level0:fullmesh;level1:fullmesh"`开启分级算法，此环境变量为空或者不设置则为全连接。分级算法只支持4的整数倍的卡之间进行通信。
+2. 全连接配网支持任意卡之间进行通信，没有数量限制。全连接配网方式可参考[HCCN Tool 接口参考](https://support.huawei.com/enterprise/zh/ascend-computing/a300t-9000-pid-250702906?category=developer-documents)进行配置。全连接配网时，所有卡需要VLan ID相同、IP和子网掩码在同一网段，配置到其他卡的静态路由表和ARP。其中，**VLan ID需要在交换机上进行配置**，其他IP等改动的单机8卡配置参考样例如下：
+
+    ```shell
+    # 配置IP与子网掩码到同一网段
+    hccn_tool -i 0 -ip -s address 192.98.92.100 netmask 255.255.255.0
+    hccn_tool -i 1 -ip -s address 192.98.92.101 netmask 255.255.255.0
+    hccn_tool -i 2 -ip -s address 192.98.92.102 netmask 255.255.255.0
+    hccn_tool -i 3 -ip -s address 192.98.92.103 netmask 255.255.255.0
+    hccn_tool -i 4 -ip -s address 192.98.92.104 netmask 255.255.255.0
+    hccn_tool -i 5 -ip -s address 192.98.92.105 netmask 255.255.255.0
+    hccn_tool -i 6 -ip -s address 192.98.92.106 netmask 255.255.255.0
+    hccn_tool -i 7 -ip -s address 192.98.92.107 netmask 255.255.255.0
+
+    # 策略路由
+    hccn_tool -i 0 -ip_rule -a dir from ip 192.98.92.100 table 100
+    hccn_tool -i 1 -ip_rule -a dir from ip 192.98.92.101 table 101
+    hccn_tool -i 2 -ip_rule -a dir from ip 192.98.92.102 table 102
+    hccn_tool -i 3 -ip_rule -a dir from ip 192.98.92.103 table 103
+    hccn_tool -i 4 -ip_rule -a dir from ip 192.98.92.104 table 104
+    hccn_tool -i 5 -ip_rule -a dir from ip 192.98.92.105 table 105
+    hccn_tool -i 6 -ip_rule -a dir from ip 192.98.92.106 table 106
+    hccn_tool -i 7 -ip_rule -a dir from ip 192.98.92.107 table 107
+
+    hccn_tool -i 0 -ip_route -a ip 192.98.92.0 ip_mask 24 via 192.98.92.100 dev eth0 table 100
+    hccn_tool -i 1 -ip_route -a ip 192.98.92.0 ip_mask 24 via 192.98.92.101 dev eth1 table 101
+    hccn_tool -i 2 -ip_route -a ip 192.98.92.0 ip_mask 24 via 192.98.92.102 dev eth2 table 102
+    hccn_tool -i 3 -ip_route -a ip 192.98.92.0 ip_mask 24 via 192.98.92.103 dev eth3 table 103
+    hccn_tool -i 4 -ip_route -a ip 192.98.92.0 ip_mask 24 via 192.98.92.104 dev eth4 table 104
+    hccn_tool -i 5 -ip_route -a ip 192.98.92.0 ip_mask 24 via 192.98.92.105 dev eth5 table 105
+    hccn_tool -i 6 -ip_route -a ip 192.98.92.0 ip_mask 24 via 192.98.92.106 dev eth6 table 106
+    hccn_tool -i 7 -ip_route -a ip 192.98.92.0 ip_mask 24 via 192.98.92.107 dev eth7 table 107
+
+    # 静态ARP
+    hccn_tool -i 0 -arp -a dev eth0 ip 192.98.92.101 mac 78:b4:6a:f4:4c:16
+    hccn_tool -i 0 -arp -a dev eth0 ip 192.98.92.102 mac 78:b4:6a:f4:4c:15
+    hccn_tool -i 0 -arp -a dev eth0 ip 192.98.92.103 mac 78:b4:6a:f4:4c:14
+
+    hccn_tool -i 1 -arp -a dev eth1 ip 192.98.92.100 mac 78:b4:6a:f4:4c:17
+    hccn_tool -i 1 -arp -a dev eth1 ip 192.98.92.102 mac 78:b4:6a:f4:4c:15
+    hccn_tool -i 1 -arp -a dev eth1 ip 192.98.92.103 mac 78:b4:6a:f4:4c:14
+
+    hccn_tool -i 2 -arp -a dev eth2 ip 192.98.92.100 mac 78:b4:6a:f4:4c:17
+    hccn_tool -i 2 -arp -a dev eth2 ip 192.98.92.101 mac 78:b4:6a:f4:4c:16
+    hccn_tool -i 2 -arp -a dev eth2 ip 192.98.92.103 mac 78:b4:6a:f4:4c:14
+
+    hccn_tool -i 3 -arp -a dev eth3 ip 192.98.92.100 mac 78:b4:6a:f4:4c:17
+    hccn_tool -i 3 -arp -a dev eth3 ip 192.98.92.101 mac 78:b4:6a:f4:4c:16
+    hccn_tool -i 3 -arp -a dev eth3 ip 192.98.92.102 mac 78:b4:6a:f4:4c:15
+
+    hccn_tool -i 4 -arp -a dev eth4 ip 192.98.92.105 mac 78:b4:6a:f4:4c:0e
+    hccn_tool -i 4 -arp -a dev eth4 ip 192.98.92.106 mac 78:b4:6a:f4:4c:0d
+    hccn_tool -i 4 -arp -a dev eth4 ip 192.98.92.107 mac 78:b4:6a:f4:4c:0c
+
+    hccn_tool -i 5 -arp -a dev eth5 ip 192.98.92.104 mac 78:b4:6a:f4:4c:0f
+    hccn_tool -i 5 -arp -a dev eth5 ip 192.98.92.106 mac 78:b4:6a:f4:4c:0d
+    hccn_tool -i 5 -arp -a dev eth5 ip 192.98.92.107 mac 78:b4:6a:f4:4c:0c
+
+    hccn_tool -i 6 -arp -a dev eth6 ip 192.98.92.104 mac 78:b4:6a:f4:4c:0f
+    hccn_tool -i 6 -arp -a dev eth6 ip 192.98.92.105 mac 78:b4:6a:f4:4c:0e
+    hccn_tool -i 6 -arp -a dev eth6 ip 192.98.92.107 mac 78:b4:6a:f4:4c:0c
+
+    hccn_tool -i 7 -arp -a dev eth7 ip 192.98.92.104 mac 78:b4:6a:f4:4c:0f
+    hccn_tool -i 7 -arp -a dev eth7 ip 192.98.92.105 mac 78:b4:6a:f4:4c:0e
+    hccn_tool -i 7 -arp -a dev eth7 ip 192.98.92.106 mac 78:b4:6a:f4:4c:0d
+    ```
