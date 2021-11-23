@@ -6,7 +6,7 @@ Mapping between TensorFlow APIs and MindSpore APIs, which is provided by the com
 
 More MindSpore developers are also welcome to participate in improving the mapping content.
 
-## TensorFlow
+## tf
 
 | TensorFlow  1.15 APIs                                                                                                                               | MindSpore APIs                                                                                                                                             | Description |
 |-----------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|
@@ -30,19 +30,19 @@ More MindSpore developers are also welcome to participate in improving the mappi
 | [tf.transpose](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/transpose)                                                               |[mindspore.ops.Transpose](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Transpose.html)                                                     |  |
 | [tf.zeros_like](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/zeros_like)                                                             |[mindspore.ops.ZerosLike](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.ZerosLike.html)                                                     |  |
 
-## TensorFlow.distribute
+## tf.distribute
 
 | TensorFlow  1.15 APIs                                                                                                                               | MindSpore APIs                                                                                                                                             | Description |
 |-----------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|
 | [tf.distribute.Strategy](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/distribute/Strategy)                                           |[context.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL)](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.context.html#mindspore.context.set_auto_parallel_context) |  [diff](https://www.mindspore.cn/docs/migration_guide/en/master/api_mapping/tensorflow_diff/DistributedTrain.html)|
 
-## TensorFlow.image
+## tf.image
 
 | TensorFlow  1.15 APIs                                                                                                                               | MindSpore APIs                                                                                                                                             | Description |
 |-----------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|
 | [tf.image.ssim](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/image/ssim)                                                             |[mindspore.nn.SSIM](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.SSIM.html)                                                                  |  |
 
-## TensorFlow.keras
+## tf.keras
 
 | TensorFlow  1.15 APIs                                                                                                                               | MindSpore APIs                                                                                                                                             | Description |
 |-----------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|
@@ -58,20 +58,20 @@ More MindSpore developers are also welcome to participate in improving the mappi
 | [tf.keras.optimizers.Adam](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/optimizers/Adam)                                       |[mindspore.nn.Adam](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Adam.html)                                                                  |[diff](https://www.mindspore.cn/docs/migration_guide/en/master/api_mapping/tensorflow_diff/Adam.html)|
 | [tf.keras.optimizers.SGD](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/optimizers/SGD)                                         |[mindspore.nn.SGD](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.SGD.html)                                                                    |[diff](https://www.mindspore.cn/docs/migration_guide/en/master/api_mapping/tensorflow_diff/SGD.html)|
 
-## TensorFlow.layers
+## tf.layers
 
 | TensorFlow  1.15 APIs                                                                                                                               | MindSpore APIs                                                                                                                                             | Description |
 |-----------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|
 | [tf.layers.Dense](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/layers/Dense)                                                         |[mindspore.nn.Dense](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Dense.html)                                                                |  |
 
-## TensorFlow.linalg
+## tf.linalg
 
 | TensorFlow  1.15 APIs                                                                                                                               | MindSpore APIs                                                                                                                                             | Description |
 |-----------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|
 | [tf.linalg.inv](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/linalg/inv)                                                             |[mindspore.ops.Inv](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Inv.html)                                                                 |  |
 | [tf.linalg.matmul](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/linalg/matmul)                                                       |[mindspore.nn.MatMul](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.MatMul.html)                                                              |  |
 
-## TensorFlow.math
+## tf.math
 
 | TensorFlow  1.15 APIs                                                                                                                               | MindSpore APIs                                                                                                                                             | Description |
 |-----------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|
@@ -87,13 +87,13 @@ More MindSpore developers are also welcome to participate in improving the mappi
 | [tf.math.sigmoid](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/math/sigmoid)                                                         |[mindspore.nn.Sigmoid](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Sigmoid.html)                                                            |  |
 | [tf.math.subtract](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/math/subtract)                                                       |[mindspore.ops.Sub](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Sub.html)                                                                 |  |
 
-## TensorFlow.metrics
+## tf.metrics
 
 | TensorFlow  1.15 APIs                                                                                                                               | MindSpore APIs                                                                                                                                             | Description |
 |-----------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|
 | [tf.metrics.mean_iou](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/metrics/mean_iou)                                                 |[mindspore.ops.IOU](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.IOU.html)                                                                 |  |
 
-## TensorFlow.nn
+## tf.nn
 
 | TensorFlow  1.15 APIs                                                                                                                               | MindSpore APIs                                                                                                                                             | Description |
 |-----------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|
@@ -117,20 +117,20 @@ More MindSpore developers are also welcome to participate in improving the mappi
 | [tf.nn.softmax](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/nn/softmax)                                                             |[mindspore.nn.Softmax](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Softmax.html)                                                            |  |
 | [tf.nn.softmax_cross_entropy_with_logits](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/nn/softmax_cross_entropy_with_logits)         |[mindspore.nn.SoftmaxCrossEntropyWithLogits](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.SoftmaxCrossEntropyWithLogits.html)                |[diff](https://www.mindspore.cn/docs/migration_guide/en/master/api_mapping/tensorflow_diff/SoftmaxCrossEntropyWithLogits.html)|
 
-## TensorFlow.random
+## tf.random
 
 | TensorFlow  1.15 APIs                                                                                                                               | MindSpore APIs                                                                                                                                             | Description |
 |-----------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|
 | [tf.random.gamma](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/random/gamma)                                                         |[mindspore.ops.Gamma](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Gamma.html)                                                             |  |
 | [tf.random.uniform](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/random/uniform)                                                     |[mindspore.ops.uniform](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.uniform.html)                                                         |  |
 
-## TensorFlow.sparse
+## tf.sparse
 
 | TensorFlow  1.15 APIs                                                                                                                               | MindSpore APIs                                                                                                                                             | Description |
 |-----------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|
 | [tf.sparse.SparseTensor](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/sparse/SparseTensor)                                           |[mindspore.SparseTensor](https://mindspore.cn/docs/api/en/master/api_python/mindspore/mindspore.SparseTensor.html)                                                 |  |
 
-## TensorFlow.train
+## tf.train
 
 | TensorFlow  1.15 APIs                                                                                                                               | MindSpore APIs                                                                                                                                             | Description |
 |-----------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|
