@@ -4,7 +4,7 @@
 
 <font size=3>**Q: How do I use MindSpore to implement multi-scale training?**</font>
 
-A: During multi-scale training, when different `shape` are used to call `Cell` objects, different graphs are automatically built and called based on different `shape`. Note that multi-scale training supports only the `feed` mode and does not support the data offloading mode. For details, see the multi-scale training of the [yolov3](https://gitee.com/mindspore/models/tree/master/official/cv/yolov3_darknet53).
+A: During multi-scale training, when different `shape` are used to call `Cell` objects, different graphs are automatically built and called based on different `shape`. Note that multi-scale training supports only the non-data sink mode and does not support the data offloading mode. For details, see the multi-scale training of the [yolov3](https://gitee.com/mindspore/models/tree/master/official/cv/yolov3_darknet53).
 
 <br/>
 
