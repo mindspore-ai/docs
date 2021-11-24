@@ -243,3 +243,13 @@ Installation Verification
     :template: classtemplate.rst
 
     mindspore.run_check
+
+Debugging
+--------------------------
+
+.. autosummary::
+    :toctree: mindspore
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.set_dump
