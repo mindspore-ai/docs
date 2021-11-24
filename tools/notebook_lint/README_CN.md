@@ -20,7 +20,7 @@
 
     安装[Ruby](http://rubyinstaller.org/downloads)。
 
-    安装[Rubygems](https://rubygems/org/pages/download)
+    安装[Rubygems](https://rubygems.org/pages/download)
 
     完成上面两个依赖安装后，执行下述命令即可安装markdownlint。
 
