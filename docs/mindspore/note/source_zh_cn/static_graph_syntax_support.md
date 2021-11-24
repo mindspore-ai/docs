@@ -17,7 +17,7 @@
             - [Cell](#cell)
             - [Parameter](#parameter)
     - [原型](#原型)
-        - [<a id="attr_ref">属性引用</a>](#a-idattr_ref属性引用a)
+        - [属性引用](#属性引用)
         - [索引取值](#索引取值)
         - [调用](#调用)
     - [运算符](#运算符)
@@ -50,7 +50,7 @@
             - [super](#super)
             - [pow](#pow)
             - [print](#print)
-            - [filter](#filer)
+            - [filter](#filter)
         - [函数参数](#函数参数)
     - [网络定义](#网络定义)
         - [网络入参](#网络入参)
@@ -115,8 +115,16 @@
   示例如下：
 
   ```python
-  x = [1, 2, 3]
-  x.append(4)
+  from mindspore import ms_function
+
+  @ms_function()
+  def test_list():
+      x = [1, 2, 3]
+      x.append(4)
+      return x
+
+  x = test_list()
+  print('x:{}'.format(x))
   ```
 
   结果如下：
@@ -136,22 +144,34 @@
   示例如下：
 
   ```python
-  x = [[1, 2], 2, 3, 4]
+  from mindspore import ms_function, Tensor
+  import numpy as np
 
-  m = x[0][1]
-  x[1] = Tensor(np.array([1, 2, 3]))
-  x[2] = "ok"
-  x[3] = (1, 2, 3)
-  x[0][1] = 88
-  n = x[-3]
+  t = Tensor(np.array([1, 2, 3]))
+
+  @ms_function()
+  def test_index():
+      x = [[1, 2], 2, 3, 4]
+      m = x[0][1]
+      x[1] = t
+      x[2] = "ok"
+      x[3] = (1, 2, 3)
+      x[0][1] = 88
+      n = x[-3]
+      return m, x, n
+
+  m, x, n = test_index()
+  print('m:{}'.format(m))
+  print('x:{}'.format(x))
+  print('n:{}'.format(n))
   ```
 
   结果如下：
 
   ```text
-  m: 2
-  x: ([1, 88], Tensor(shape=[3], dtype=Int64, value=[1, 2, 3]), 'ok', (1, 2, 3))
-  n: Tensor(shape=[3], dtype=Int64, value=[1, 2, 3])
+  m:2
+  x:[[1, 88], Tensor(shape=[3], dtype=Int64, value= [1, 2, 3]), 'ok', (1, 2, 3)]
+  n:[1 2 3]
   ```
 
 #### Tuple
@@ -177,25 +197,41 @@
   `int`、`slice`索引示例如下：
 
   ```python
-  x = (1, (2, 3, 4), 3, 4, Tensor(np.array([1, 2, 3])))
-  y = x[1][1]
-  z = x[4]
-  m = x[1:4]
-  n = x[-4]
+  from mindspore import ms_function, Tensor
+  import numpy as np
+
+  t = Tensor(np.array([1, 2, 3]))
+
+  @ms_function()
+  def test_index():
+      x = (1, (2, 3, 4), 3, 4, t)
+      y = x[1][1]
+      z = x[4]
+      m = x[1:4]
+      n = x[-4]
+      return y, z, m, n
+
+  y, z, m, n = test_index()
+  print('y:{}'.format(y))
+  print('z:{}'.format(z))
+  print('m:{}'.format(m))
+  print('n:{}'.format(n))
   ```
 
   结果如下：
 
   ```text
-  y: 3
-  z: Tensor(shape=[3], dtype=Int64, value=[1, 2, 3])
-  m: ((2, 3, 4), 3, 4)
-  n: (2, 3, 4)
+  y:3
+  z:[1 2 3]
+  m:((2, 3, 4), 3, 4)
+  n:(2, 3, 4)
   ```
 
   `Tensor`索引示例如下：
 
   ```python
+  from mindspore import Tensor, nn, dtype
+
   class Net(nn.Cell):
       def __init__(self):
           super(Net, self).__init__()
@@ -206,6 +242,18 @@
       def construct(self, x, index):
           ret = self.layers[index](x)
           return ret
+
+  x = Tensor([-1.0], dtype.float32)
+
+  net = Net()
+  ret = net(x, 0)
+  print('ret:{}'.format(ret))
+  ```
+
+  结果如下：
+
+  ```text
+  ret:[0.]
   ```
 
 #### Dictionary
@@ -225,18 +273,30 @@
   示例如下：
 
   ```python
+  from mindspore import ms_function, Tensor
+  import numpy as np
+
   x = {"a": Tensor(np.array([1, 2, 3])), "b": Tensor(np.array([4, 5, 6])), "c": Tensor(np.array([7, 8, 9]))}
-  y = x.keys()
-  z = x.values()
-  q = x.items()
+
+  @ms_function()
+  def test_dict():
+      y = x.keys()
+      z = x.values()
+      q = x.items()
+      return y, z, q
+
+  y, z, q = test_dict()
+  print('y:{}'.format(y))
+  print('z:{}'.format(z))
+  print('q:{}'.format(q))
   ```
 
   结果如下：
 
   ```text
-  y: ("a", "b", "c")
-  z: (Tensor(shape=[3], dtype=Int64, value=[1, 2, 3]), Tensor(shape=[3], dtype=Int64, value=[4, 5, 6]), Tensor(shape=[3], dtype=Int64, value=[7, 8, 9]))
-  q: (("a", Tensor(shape=[3], dtype=Int64, value=[1, 2, 3])), ("b", Tensor(shape=[3], dtype=Int64, value=[4, 5, 6])), ("c", Tensor(shape=[3], dtype=Int64, value=[7, 8, 9])))
+  y:('a', 'b', 'c')
+  z:(Tensor(shape=[3], dtype=Int64, value= [1, 2, 3]), Tensor(shape=[3], dtype=Int64, value= [4, 5, 6]), Tensor(shape=[3], dtype=Int64, value= [7, 8, 9]))
+  q:[('a', Tensor(shape=[3], dtype=Int64, value= [1, 2, 3])), ('b', Tensor(shape=[3], dtype=Int64, value= [4, 5, 6])), ('c', Tensor(shape=[3], dtype=Int64, value= [7, 8, 9]))]
   ```
 
 - 支持索引取值和赋值
@@ -246,16 +306,27 @@
   示例如下：
 
   ```python
+  from mindspore import ms_function, Tensor
+  import numpy as np
+
   x = {"a": Tensor(np.array([1, 2, 3])), "b": Tensor(np.array([4, 5, 6])), "c": Tensor(np.array([7, 8, 9]))}
-  y = x["b"]
-  x["a"] = (2, 3, 4)
+
+  @ms_function()
+  def test_dict():
+      y = x["b"]
+      x["a"] = (2, 3, 4)
+      return x, y
+
+  x, y = test_dict()
+  print('x:{}'.format(x))
+  print('y:{}'.format(y))
   ```
 
   结果如下：
 
   ```text
-  y: Tensor(shape=[3], dtype=Int64, value=[4, 5, 6])
-  x: {"a": (2, 3, 4), Tensor(shape=[3], dtype=Int64, value=[4, 5, 6]), Tensor(shape=[3], dtype=Int64, value=[7, 8, 9])}
+  x:{'a': (2, 3, 4), 'b': Tensor(shape=[3], dtype=Int64, value= [4, 5, 6]), 'c': Tensor(shape=[3], dtype=Int64, value= [7, 8, 9])}
+  y:[4 5 6]
   ```
 
 ### MindSpore自定义数据类型
@@ -275,9 +346,23 @@
 如下示例，通过`@constexpr`生成一个`shape = (3, 4), dtype = int64`的`Tensor`。
 
 ```python
+from mindspore import Tensor
+from mindspore.ops import constexpr
+
 @constexpr
 def generate_tensor():
     return Tensor(np.ones((3, 4)))
+
+x = generate_tensor()
+print('x:{}'.format(x))
+```
+
+结果如下：
+
+```Text
+x:[[1. 1. 1. 1.]
+ [1. 1. 1. 1.]
+ [1. 1. 1. 1.]]
 ```
 
 下面将介绍下`Tensor`支持的属性和接口。
@@ -301,27 +386,41 @@ def generate_tensor():
   示例如下：
 
   ```python
+  from mindspore import ms_function, Tensor
+  import numpy as np
+
   x = Tensor(np.array([[True, False, True], [False, True, False]]))
+  y = Tensor(np.ones((2, 3), np.float32))
+  z = Tensor(np.ones((2, 2, 3)))
+
   x_shape = x.shape
   x_dtype = x.dtype
   x_all = x.all()
   x_any = x.any()
   x_view = x.view((1, 6))
-
-  y = Tensor(np.ones((2, 3), np.float32))
-  z = Tensor(np.ones((2, 2, 3)))
   y_as_z = y.expand_as(z)
+
+  print('x_shape:{}'.format(x_shape))
+  print('x_dtype:{}'.format(x_dtype))
+  print('x_all:{}'.format(x_all))
+  print('x_any:{}'.format(x_any))
+  print('x_view:{}'.format(x_view))
+  print('y_as_z:{}'.format(y_as_z))
   ```
 
   结果如下:
 
   ```text
-  x_shape: (2, 3)
-  x_dtype: Bool
-  x_all: Tensor(shape=[], dtype=Bool, value=False)
-  x_any: Tensor(shape=[], dtype=Bool, value=True)
-  x_view: Tensor(shape=[1, 6], dtype=Bool, value=[[True, False, True, False, True, False]])
-  y_as_z: Tensor(shape=[2, 2, 3], dtype=Float32, value=[[[1.0, 1.0, 1.0], [1.0, 1.0, 1.0]], [[1.0, 1.0, 1.0], [1.0, 1.0, 1.0]]])
+  x_shape:(2, 3)
+  x_dtype:Bool
+  x_all:False
+  x_any:True
+  x_view:[[ True False  True False  True False]]
+  y_as_z:[[[1. 1. 1.]
+    [1. 1. 1.]]
+
+   [[1. 1. 1.]
+    [1. 1. 1.]]]
   ```
 
 #### Primitive
@@ -358,7 +457,7 @@ def generate_tensor():
 
 原型代表编程语言中最紧密绑定的操作。
 
-### <a id="attr_ref">属性引用</a>
+### 属性引用
 
 属性引用是后面带有一个句点加一个名称的原型。
 
@@ -370,17 +469,31 @@ def generate_tensor():
 示例如下：
 
 ```python
+from mindspore import ms_function, Tensor, nn, dtype, Parameter
+import numpy as np
+from mindspore.ops import constexpr
+
 class Net(nn.Cell):
     def __init__(self):
         super().__init__()
-        self.weight = Parameter(Tensor(3, mindspore.float32), name="w")
+        self.weight = Parameter(Tensor(3, dtype.float32), name="w")
         self.m = 2
 
     def construct(self, x, y):
-        self.weight = x     # 满足条件可以修改
-        self.m = 3               # self.m 非Parameter类型禁止修改
-        y.weight = x          # y不是self，禁止修改
+        self.weight = x  # 满足条件可以修改
+        # self.m = 3  # self.m 非Parameter类型禁止修改
+        # y.weight = x  # y不是self，禁止修改
         return x
+
+net = Net()
+ret = net(1, 2)
+print('ret:{}'.format(ret))
+```
+
+结果如下:
+
+```text
+ret:1
 ```
 
 ### 索引取值
@@ -402,21 +515,29 @@ class Net(nn.Cell):
 示例如下：
 
 ```python
+from mindspore import Tensor, nn, dtype, ops
+import numpy as np
+
 class Net(nn.Cell):
     def __init__(self):
         super().__init__()
-        self.matmul = P.MatMul()
+        self.matmul = ops.MatMul()
 
     def construct(self, x, y):
         out = self.matmul(x, y)  # Primitive调用
         return out
 
-def test_call():
-    x = Tensor(np.ones(shape=[1, 3]), mindspore.float32)
-    y = Tensor(np.ones(shape=[3, 4]), mindspore.float32)
-    net = Net()
-    ret = net(x, y)
-    print(ret)
+x = Tensor(np.ones(shape=[1, 3]), dtype.float32)
+y = Tensor(np.ones(shape=[3, 4]), dtype.float32)
+net = Net()
+ret = net(x, y)
+print('ret:{}'.format(ret))
+```
+
+结果如下:
+
+```text
+ret:[[3. 3. 3. 3.]]
 ```
 
 ## 运算符
@@ -445,7 +566,7 @@ def test_call():
 | :------------- | :----------------------------------------------------------- |
 | `+`            | `Number` + `Number`、`String` + `String`、`Number` + `Tensor`、`Tensor` + `Number`、`Tuple` + `Tensor`、`Tensor` + `Tuple`、`List` + `Tensor`、`Tensor`+`List`、`List`+`List`、`Tensor` + `Tensor`、`Tuple` + `Tuple`。 |
 | `-`            | `Number` - `Number`、`Tensor` - `Tensor`、`Number` - `Tensor`、`Tensor` - `Number`、`Tuple` - `Tensor`、`Tensor` - `Tuple`、`List` - `Tensor`、`Tensor` - `List`。 |
-| `*`            | `Number` * `Number`、`Tensor` * `Tensor`、`Number` * `Tensor`、`Tensor` * `Number`、`List` * `Number`、`Number` * `List`、`Tuple` * `Number`、`Number` * `Tuple`、`Tuple` * `Tensor`、`Tensor` * `Tuple`、 `List` * `Tensor`、`Tensor` * `List`。 |
+| `*`            | `Number` \* `Number`、`Tensor` \* `Tensor`、`Number` \* `Tensor`、`Tensor` \* `Number`、`List` \* `Number`、`Number` \* `List`、`Tuple` \* `Number`、`Number` \* `Tuple`、`Tuple` \* `Tensor`、`Tensor` \* `Tuple`、 `List` \* `Tensor`、`Tensor` \* `List`。 |
 | `/`            | `Number` / `Number`、`Tensor` / `Tensor`、`Number` / `Tensor`、`Tensor` / `Number`、`Tuple` / `Tensor`、`Tensor` / `Tuple`、`List` / `Tensor`、`Tensor` / `List`。 |
 | `%`            | `Number` % `Number`、`Tensor` % `Tensor`、`Number` % `Tensor`、`Tensor` % `Number`、`Tuple` % `Tensor`、`Tensor` % `Tuple`、`List` % `Tensor`、`Tensor` % `List`。 |
 | `**`           | `Number` \*\* `Number`、`Tensor` \*\* `Tensor`、`Number` \*\* `Tensor`、`Tensor` \*\* `Number`、`Tuple` \*\* `Tensor`、`Tensor` \*\* `Tuple`、 `List` \*\* `Tensor`、`Tensor` \*\* `List`。 |
@@ -471,13 +592,14 @@ def test_call():
 | `**=`      | `Number` \*\*= `Number`、`Tensor` \*\*= `Tensor`、`Number` \*\*= `Tensor`、`Tensor` \*\*= `Number`、`Tuple` \*\*= `Tensor`、`Tensor` \*\*= `Tuple`、 `List` \*\*= `Tensor`、`Tensor` \*\*= `List`。 |
 | `//=`      | `Number` //= `Number`、`Tensor` //= `Tensor`、`Number` //= `Tensor`、`Tensor` //= `Number`、`Tuple` //= `Tensor`、`Tensor` //= `Tuple`、`List` //= `Tensor`、`Tensor` //= `List`。 |
 
-限制：
+限制：ret:[1 2]
+ret:[0 3]
 
 - 对于 `=`来说，不支持下列场景:
 
   在`construct`函数中仅支持创建`Cell`和`Primitive`类型对象，使用`xx = Tensor(...)`的方式创建`Tensor`会失败。
 
-  在`construct`函数中仅支持为self 的`Parameter`类型的属性赋值, 详情参考：[属性引用](#a-id-attr-ref-a)。
+  在`construct`函数中仅支持为self 的`Parameter`类型的属性赋值, 详情参考：[属性引用](#属性引用)。
 
 - 当`AugAssign`的左右操作数都为`Number`类型时，`Number`的值不可为`Bool` 类型。
 
@@ -548,37 +670,90 @@ def test_call():
 示例1：
 
 ```python
-if (x > y).any():
-  return m
-else:
-  return n
+from mindspore import ms_function, Tensor, dtype
+
+x = Tensor([1, 2], dtype.int32)
+y = Tensor([0, 3], dtype.int32)
+m = 'xx'
+n = 'yy'
+
+@ms_function()
+def test_cond(x, y):
+    if (x > y).any():
+        return m
+    else:
+        return n
+
+ret = test_cond(x, y)
+print('ret:{}'.format(ret))
 ```
 
 `if`分支返回的`m`和`else`分支返回的`n`，二者数据类型必须一致。
 
+结果如下:
+
+  ```text
+ret:xx
+  ```
+
 示例2：
 
 ```python
-out = init
-if (x > y).all():
-  out = m
-else:
-  out = n
-return out
-```
+from mindspore import ms_function, Tensor, dtype
+
+x = Tensor([1, 2], dtype.int32)
+y = Tensor([0, 3], dtype.int32)
+m = 'xx'
+n = 'yy'
+
+@ms_function()
+def test_cond(x, y):
+    out = 'init'
+    if (x > y).any():
+        out = m
+    else:
+        out = n
+    return out
+
+ret = test_cond(x, y)
+print('ret:{}'.format(ret))
+````
 
 `if`分支中`out`被赋值的变量或者常量`m`与`else`分支中`out`被赋值的变量或者常量`n`的数据类型必须一致。
+
+结果如下:
+
+```text
+ret:xx
+```
 
 示例3：
 
 ```python
-out = init
-if (x > y).any():
-  out = m
-return out
+from mindspore import ms_function, Tensor, dtype
+
+x = Tensor([1, 2], dtype.int32)
+y = Tensor([0, 3], dtype.int32)
+m = 'xx'
+
+@ms_function()
+def test_cond(x, y):
+    out = 'init'
+    if (x > y).any():
+        out = m
+    return out
+
+ret = test_cond(x, y)
+print('ret:{}'.format(ret))
 ```
 
 `if`分支中`out`被赋值的变量或者常量`m`与`out`初始赋值的变量或者常量`init`的数据类型必须一致。
+
+结果如下:
+
+```text
+ret:xx
+```
 
 ### 循环语句
 
@@ -605,17 +780,27 @@ return out
 示例：
 
 ```python
+from mindspore import ms_function, Tensor
+import numpy as np
+
 z = Tensor(np.ones((2, 3)))
-x = (1, 2, 3)
-for i in x:
-  z += i
-return z
+
+@ms_function()
+def test_cond():
+    x = (1, 2, 3)
+    for i in x:
+        z += i
+    return z
+
+ret = test_cond()
+print('ret:{}'.format(ret))
 ```
 
 结果如下：
 
 ```text
-z: Tensor(shape=[2, 3], dtype=Int64, value=[[7, 7, 7], [7, 7, 7]])
+ret:[[7. 7. 7.]
+ [7. 7. 7.]]
 ```
 
 #### while语句
@@ -643,25 +828,60 @@ z: Tensor(shape=[2, 3], dtype=Int64, value=[[7, 7, 7], [7, 7, 7]])
 示例1：
 
 ```python
-while x < y:
-  x += 1
-  return m
-return n
+from mindspore import ms_function
+
+m = 1
+n = 2
+
+@ms_function()
+def test_cond(x, y):
+    while x < y:
+        x += 1
+        return m
+    return n
+
+ret = test_cond(1, 5)
+print('ret:{}'.format(ret))
 ```
 
 `while`循环内返回的`m`和`while`外返回的`n`数据类型必须一致。
 
+结果如下：
+
+```text
+ret:1
+```
+
 示例2：
 
 ```python
-out = m
-while x < y:
-  x += 1
-  out = op1(out,x)
-return out
+from mindspore import ms_function
+
+m = 1
+n = 2
+
+def ops1(a, b):
+    return a + b
+
+@ms_function()
+def test_cond(x, y):
+    out = m
+    while x < y:
+        x += 1
+        out = ops1(out, x)
+    return out
+
+ret = test_cond(1, 5)
+print('ret:{}'.format(ret))
 ```
 
 `while`内，`out`在循环体内被赋值的变量`op1`的输出类型和初始类型`m`必须一致。
+
+结果如下：
+
+```text
+ret:15
+```
 
 ### 函数定义语句
 
@@ -676,15 +896,23 @@ return out
 示例如下：
 
 ```python
+from mindspore import ms_function
+
 def number_add(x, y):
-  return x + y
-ret = number_add(1, 2)
+    return x + y
+
+@ms_function()
+def test(x, y):
+    return number_add(x, y)
+
+ret = test(1, 5)
+print('ret:{}'.format(ret))
 ```
 
 结果如下：
 
 ```text
-ret: 3
+ret: 6
 ```
 
 限制：
@@ -702,14 +930,21 @@ ret: 3
 示例如下：
 
 ```python
-number_add = lambda x, y: x + y
-ret = number_add(2, 3)
+from mindspore import ms_function
+
+@ms_function()
+def test(x, y):
+    number_add = lambda x, y: x + y
+    return number_add(x, y)
+
+ret = test(1, 5)
+print('ret:{}'.format(ret))
 ```
 
 结果如下：
 
 ```text
-ret: 5
+ret: 6
 ```
 
 ### 列表生成式和生成器表达式
@@ -725,14 +960,21 @@ ret: 5
 示例如下：
 
 ```python
-l = [x * x for x in range(1, 11) if x % 2 == 0]
-print(l)
+from mindspore import ms_function
+
+@ms_function()
+def test(x, y):
+    l = [x * x for x in range(1, 11) if x % 2 == 0]
+    return l
+
+ret = test(1, 5)
+print('ret:{}'.format(ret))
 ```
 
 结果如下：
 
 ```text
-(4, 16, 36, 64, 100)
+ret:(4, 16, 36, 64, 100)
 ```
 
 限制：
@@ -760,14 +1002,21 @@ TypeError:  The `generators` supports one `comprehension` in ListComp/GeneratorE
 示例如下：
 
 ```python
-l = (x * x for x in range(1, 11) if x % 2 == 0)
-print(l)
+from mindspore import ms_function
+
+@ms_function()
+def test(x, y):
+    l = (x * x for x in range(1, 11) if x % 2 == 0)
+    return l
+
+ret = test(1, 5)
+print('ret:{}'.format(ret))
 ```
 
 结果如下：
 
 ```text
-(4, 16, 36, 64, 100)
+ret:(4, 16, 36, 64, 100)
 ```
 
 使用限制同列表生成式。
@@ -791,23 +1040,36 @@ print(l)
 示例如下：
 
 ```python
-x = (2, 3, 4)
-y = [2, 3, 4]
-d = {"a": 2, "b": 3}
+from mindspore import ms_function, Tensor
+import numpy as np
+
 z = Tensor(np.ones((6, 4, 5)))
-x_len = len(x)
-y_len = len(y)
-d_len = len(d)
-z_len = len(z)
+
+@ms_function()
+def test():
+    x = (2, 3, 4)
+    y = [2, 3, 4]
+    d = {"a": 2, "b": 3}
+    x_len = len(x)
+    y_len = len(y)
+    d_len = len(d)
+    z_len = len(z)
+    return x_len, y_len, d_len, z_len
+
+x_len, y_len, d_len, z_len = test()
+print('x_len:{}'.format(x_len))
+print('y_len:{}'.format(y_len))
+print('d_len:{}'.format(d_len))
+print('z_len:{}'.format(z_len))
 ```
 
 结果如下：
 
 ```text
-x_len: 3
-y_len: 3
-d_len: 2
-z_len: 6
+x_len:3
+y_len:3
+d_len:2
+z_len:6
 ```
 
 #### isinstance
@@ -827,20 +1089,32 @@ z_len: 6
 示例如下：
 
 ```python
-x = (2, 3, 4)
-y = [2, 3, 4]
+from mindspore import ms_function, Tensor
+import numpy as np
+
 z = Tensor(np.ones((6, 4, 5)))
-x_is_tuple = isinstance(x, tuple)
-y_is_list= isinstance(y, list)
-z_is_tensor = isinstance(z, Tensor)
+
+@ms_function()
+def test():
+    x = (2, 3, 4)
+    y = [2, 3, 4]
+    x_is_tuple = isinstance(x, tuple)
+    y_is_list = isinstance(y, list)
+    z_is_tensor = isinstance(z, Tensor)
+    return x_is_tuple, y_is_list, z_is_tensor
+
+x_is_tuple, y_is_list, z_is_tensor = test()
+print('x_is_tuple:{}'.format(x_is_tuple))
+print('y_is_list:{}'.format(y_is_list))
+print('z_is_tensor:{}'.format(z_is_tensor))
 ```
 
 结果如下：
 
 ```text
-x_is_tuple: True
-y_is_list: True
-z_is_tensor: True
+x_is_tuple:True
+y_is_list:True
+z_is_tensor:True
 ```
 
 #### partial
@@ -860,19 +1134,28 @@ z_is_tensor: True
 示例如下：
 
 ```python
-def add(x, y):
-  return x + y
+from mindspore import ms_function, ops
 
-add_ = partial(add, x=2)
-m = add_(y=3)
-n = add_(y=5)
+def add(x, y):
+    return x + y
+
+@ms_function()
+def test():
+    add_ = ops.partial(add, x=2)
+    m = add_(y=3)
+    n = add_(y=5)
+    return m, n
+
+m, n = test()
+print('m:{}'.format(m))
+print('n:{}'.format(n))
 ```
 
 结果如下：
 
 ```text
-m: 5
-n: 7
+m:5
+n:7
 ```
 
 #### map
@@ -893,12 +1176,20 @@ n: 7
 示例如下：
 
 ```python
-def add(x, y):
-  return x + y
+from mindspore import ms_function
 
-elements_a = (1, 2, 3)
-elements_b = (4, 5, 6)
-ret = map(add, elements_a, elements_b)
+def add(x, y):
+    return x + y
+
+@ms_function()
+def test():
+    elements_a = (1, 2, 3)
+    elements_b = (4, 5, 6)
+    ret = map(add, elements_a, elements_b)
+    return ret
+
+ret = test()
+print('ret:{}'.format(ret))
 ```
 
 结果如下：
@@ -921,15 +1212,23 @@ ret: (5, 7, 9)
 示例如下：
 
 ```python
-elements_a = (1, 2, 3)
-elements_b = (4, 5, 6)
-ret = zip(elements_a, elements_b)
+from mindspore import ms_function
+
+@ms_function()
+def test():
+    elements_a = (1, 2, 3)
+    elements_b = (4, 5, 6)
+    ret = zip(elements_a, elements_b)
+    return ret
+
+ret = test()
+print('ret:{}'.format(ret))
 ```
 
 结果如下：
 
 ```text
-ret: ((1, 4), (2, 5), (3, 6))
+ret:((1, 4), (2, 5), (3, 6))
 ```
 
 #### range
@@ -957,17 +1256,27 @@ ret: ((1, 4), (2, 5), (3, 6))
 示例如下：
 
 ```python
-x = range(0, 6, 2)
-y = range(0, 5)
-z = range(3)
+from mindspore import ms_function
+
+@ms_function()
+def test():
+    x = range(0, 6, 2)
+    y = range(0, 5)
+    z = range(3)
+    return x, y, z
+
+x, y, z = test()
+print('x:{}'.format(x))
+print('y:{}'.format(y))
+print('z:{}'.format(z))
 ```
 
 结果如下：
 
 ```text
-x: (0, 2, 4)
-y: (0, 1, 2, 3, 4)
-z: (0, 1, 2)
+x:(0, 2, 4)
+y:(0, 1, 2, 3, 4)
+z:(0, 1, 2)
 ```
 
 #### enumerate
@@ -991,17 +1300,28 @@ z: (0, 1, 2)
 示例如下：
 
 ```python
-x = (100, 200, 300, 400)
-y = Tensor(np.array([[1, 2], [3, 4], [5 ,6]]))
-m = enumerate(x, 3)
-n = enumerate(y)
+from mindspore import ms_function, Tensor
+import numpy as np
+
+y = Tensor(np.array([[1, 2], [3, 4], [5, 6]]))
+
+@ms_function()
+def test():
+    x = (100, 200, 300, 400)
+    m = enumerate(x, 3)
+    n = enumerate(y)
+    return m, n
+
+m, n = test()
+print('m:{}'.format(m))
+print('n:{}'.format(n))
 ```
 
 结果如下：
 
 ```text
-m: ((3, 100), (4, 200), (5, 300), (5, 400))
-n: ((0, Tensor(shape=[2], dtype=Int64, value=[1, 2])), (1, Tensor(shape=[2], dtype=Int64, value=[3, 4])), (2, Tensor(shape=[2], dtype=Int64, value=[5, 6])))
+m:((3, 100), (4, 200), (5, 300), (6, 400))
+n:((0, Tensor(shape=[2], dtype=Int64, value= [1, 2])), (1, Tensor(shape=[2], dtype=Int64, value= [3, 4])), (2, Tensor(shape=[2], dtype=Int64, value= [5, 6])))
 ```
 
 #### super
@@ -1025,26 +1345,28 @@ n: ((0, Tensor(shape=[2], dtype=Int64, value=[1, 2])), (1, Tensor(shape=[2], dty
 示例如下：
 
 ```python
+from mindspore import nn
+
 class FatherNet(nn.Cell):
-  def __init__(self, x):
-      super(FatherNet, self).__init__(x)
-      self.x = x
+    def __init__(self, x):
+        super(FatherNet, self).__init__(x)
+        self.x = x
 
-  def construct(self, x, y):
-      return self.x * x
+    def construct(self, x, y):
+        return self.x * x
 
-  def test_father(self, x):
-      return self.x + x
+    def test_father(self, x):
+        return self.x + x
 
 class SingleSubNet(FatherNet):
-def __init__(self, x, z):
-    super(SingleSubNet, self).__init__(x)
-    self.z = z
+    def __init__(self, x, z):
+        super(SingleSubNet, self).__init__(x)
+        self.z = z
 
-def construct(self, x, y):
-    ret_father_construct = super().construct(x, y)
-    ret_father_test = super(SingleSubNet, self).test_father(x)
-    return ret_father_construct, ret_father_test
+    def construct(self, x, y):
+        ret_father_construct = super().construct(x, y)
+        ret_father_test = super(SingleSubNet, self).test_father(x)
+        return ret_father_construct, ret_father_test
 ```
 
 #### pow
@@ -1064,15 +1386,25 @@ def construct(self, x, y):
 示例如下：
 
 ```python
+from mindspore import ms_function, Tensor
+import numpy as np
+
 x = Tensor(np.array([1, 2, 3]))
 y = Tensor(np.array([1, 2, 3]))
-ret = pow(x, y)
+
+@ms_function()
+def test(x, y):
+    return pow(x, y)
+
+ret = test(x, y)
+
+print('ret:{}'.format(ret))
 ```
 
 结果如下：
 
 ```text
-ret: Tensor(shape=[3], dtype=Int64, value=[1, 4, 27]))
+ret:[ 1  4 27]
 ```
 
 #### print
@@ -1089,17 +1421,26 @@ ret: Tensor(shape=[3], dtype=Int64, value=[1, 4, 27]))
 示例如下：
 
 ```python
-x = Tensor(np.array([1, 2, 3]))
-y = 3
-print("x", x)
-print("y", y)
+from mindspore import ms_function, Tensor, dtype
+import numpy as np
+
+x = Tensor(np.array([1, 2, 3]), dtype.int32)
+y = Tensor(3, dtype.int32)
+
+@ms_function()
+def test(x, y):
+    print(x)
+    print(y)
+    return x, y
+
+ret = test(x, y)
 ```
 
 结果如下：
 
 ```text
-x Tensor(shape=[3], dtype=Int64, value=[1, 2, 3]))
-y Tensor(shape=[], dtype=Int64, value=3))
+Tensor(shape=[3], dtype=Int32, value= [1 2 3])
+3
 ```
 
 #### filter
@@ -1119,19 +1460,27 @@ y Tensor(shape=[], dtype=Int64, value=3))
 示例如下：
 
 ```python
-def is_odd(x):
-  if x % 2:
-    return True
-  return False
+from mindspore import ms_function
 
-elements = (1, 2, 3, 4, 5)
-ret = filter(is_odd, elements)
+def is_odd(x):
+    if x % 2:
+        return True
+    return False
+
+@ms_function()
+def test():
+    elements = (1, 2, 3, 4, 5)
+    ret = filter(is_odd, elements)
+    return ret
+
+ret = test()
+print('ret:{}'.format(ret))
 ```
 
 结果如下：
 
 ```text
-ret: (1, 3, 5)
+ret:(1, 3, 5)
 ```
 
 ### 函数参数
@@ -1155,6 +1504,9 @@ ret: (1, 3, 5)
 示例如下：
 
 ```python
+from mindspore import nn, ops, Tensor
+import numpy as np
+
 class Net(nn.Cell):
     def __init__(self, flag):
         super(Net, self).__init__()
@@ -1168,7 +1520,7 @@ class Net(nn.Cell):
 class GradNet(nn.Cell):
     def __init__(self, net):
         super(GradNet, self).__init__()
-        self.grad_all = C.GradOperation(get_all=True)
+        self.grad_all = ops.GradOperation(get_all=True)
         self.forward_net = net
 
     def construct(self, x, y, z):
@@ -1182,6 +1534,18 @@ input_z = Tensor(np.ones((2, 3)).astype(np.float32) * 2)
 net = Net(flag)
 grad_net = GradNet(net)
 ret = grad_net(input_x, input_y, input_z)
+
+print('ret:{}'.format(ret))
+```
+
+结果如下：
+
+```text
+ret:(Tensor(shape=[2, 3], dtype=Float32, value=
+[[ 1.00000000e+00,  1.00000000e+00,  1.00000000e+00],
+ [ 1.00000000e+00,  1.00000000e+00,  1.00000000e+00]]), Tensor(shape=[2, 3], dtype=Float32, value=
+[[ 1.00000000e+00,  1.00000000e+00,  1.00000000e+00],
+ [ 1.00000000e+00,  1.00000000e+00,  1.00000000e+00]]))
 ```
 
 上面定义的Net网络里，在初始化时传入一个`string` flag，作为网络的属性保存起来，然后在`construct`里使用`self.flag`这个属性。
@@ -1213,6 +1577,9 @@ ret = grad_net(input_x, input_y, input_z)
    示例如下：
 
    ```python
+   from mindspore import nn, Tensor, Parameter
+   import numpy as np
+
    class Net(nn.Cell):
        def __init__(self):
            super(Net, self).__init__()
@@ -1220,22 +1587,44 @@ ret = grad_net(input_x, input_y, input_z)
            self.par = Parameter(Tensor(np.ones((2, 3, 4))), name="par")
 
        def construct(self, x, y):
+           self.par[0] = y
+           self.x = x
            return x + y
+
+   net = Net()
+   net(1, 2)
    ```
 
    上面所定义的网络里，`self.num`不是一个`Parameter`，不允许被修改，而`self.par`是一个`Parameter`，可以被修改。
+
+   结果报错如下：
+
+  ```Text
+   TypeError: mindspore/ccsrc/pipeline/jit/parse/parse.cc:1740 HandleAssignClassMember] 'self.x' should be initialized as a 'Parameter' in the '__init__' function before assigning.
+   ```
 
 2. 当`construct`函数里，使用未定义的类成员时，不会像Python解释器那样抛出`AttributeError`，而是作为`None`处理。
 
    示例如下：
 
    ```python
+   from mindspore import nn
+
    class Net(nn.Cell):
        def __init__(self):
            super(Net, self).__init__()
 
        def construct(self, x):
            return x + self.y
+
+   net = Net()
+   net(1)
    ```
 
    上面所定义的网络里，`construct`里使用了并未定义的类成员`self.y`，此时会将`self.y`作为`None`处理。
+
+   结果报错如下：
+
+   ```Text
+   RuntimeError: mindspore/ccsrc/frontend/operator/composite/multitype_funcgraph.cc:161 GenerateFromTypes] The 'add' operation does not support the type [Int64, kMetaTypeNone]
+   ```
