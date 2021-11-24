@@ -1,5 +1,7 @@
 # 比较与tf.arg_min的功能差异
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_zh_cn/api_mapping/tensorflow_diff/TensorArgmin.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+
 ## tf.arg_min
 
 ```python
