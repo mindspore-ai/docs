@@ -145,13 +145,7 @@ with open(sphinx_domain_python_source_path, "r+", encoding="utf8") as f:
 try:
     decorator_list = [("mindspore/common/_decorator.py", "deprecated",
                        "    def decorate(func):",
-                       "    def decorate(func):\n\n        import functools\n\n        @functools.wraps(func)"),
-                      ("mindspore/nn/optim/optimizer.py", "opt_init_args_register",
-                       "    def deco(self, *args, **kwargs):",
-                       "\n\n    import functools\n\n    @functools.wraps(fn)\n    def deco(self, *args, **kwargs):"),
-                      ("mindspore/ops/primitive.py", "prim_attr_register",
-                       "    def deco(self, *args, **kwargs)",
-                       "\n\n    import functools\n\n    @functools.wraps(fn)\n    def deco(self, *args, **kwargs)")]
+                       "    def decorate(func):\n\n        import functools\n\n        @functools.wraps(func)")]
 
     base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
     for i in decorator_list:
