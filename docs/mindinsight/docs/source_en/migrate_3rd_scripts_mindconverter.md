@@ -134,7 +134,7 @@ A typical model project contains 4 main components. Tips for migrating each comp
 - Model definition（`model.py`）
   1. Transform the model structure with MindConverter CLI.
   2. Manually enhance the readability of the generated model scripts(Optional).
-  3. Mix the generated model with the original project to validate equivalence of the migration. Refer to [FAQ](#mix-the-mindspore-model-into-the-original-training-script).
+  3. Mix the generated model with the original project to validate equivalence of the migration. Refer to [FAQ](#mix-the-mindspore-model-into-the-original-training-scripts).
 - Data processing（`dataset.py`）
   1. For a built-in dataset, please query [API mapping](https://www.mindspore.cn/docs/migration_guide/en/master/api_mapping/pytorch_api_mapping.html) for migration.
   2. For a customized dataset and data augmentation, please refer to [the migration template](#step-2-migrate-the-data-processing).
