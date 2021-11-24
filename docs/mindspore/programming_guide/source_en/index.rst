@@ -34,7 +34,7 @@ MindSpore Programming Guide
    :caption: Quickstart
    :hidden:
 
-   Implementing Simple Linear Function Fitting↗ <https://www.mindspore.cn/tutorials/en/master/linear_regression.html> 
+   Implementing Simple Linear Function Fitting↗ <https://www.mindspore.cn/tutorials/en/master/linear_regression.html>
    Implementing an Image Classification Application↗ <https://www.mindspore.cn/tutorials/en/master/quick_start.html>
 
 .. toctree::
@@ -156,6 +156,7 @@ MindSpore Programming Guide
    enable_mixed_precision
    enable_graph_kernel_fusion
    enable_auto_tune
+   enable_dataset_offload
    apply_gradient_accumulation
    Debugging performance with Profiler↗ <https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling.html>
 
@@ -164,7 +165,7 @@ MindSpore Programming Guide
    :maxdepth: 1
    :caption: Application
    :hidden:
- 
+
    cv
    nlp
    hpc
@@ -176,13 +177,13 @@ MindSpore Programming Guide
 			<div class="row">
 				<div class="col-md-12">
 					<div>
-						
-						
+
+
 						<div class="doc-condition">
 							<span class="doc-filter">Filter</span>
 							<button class="doc-delete doc-btn" id="all">Clear All Conditions</button>
 						</div>
-					
+
 						<div class="doc-label-content">
 							<div class="doc-label-choice">
 								<div class="row">
@@ -197,12 +198,12 @@ MindSpore Programming Guide
 								</div>
 							</div>
 							</div>
-							
+
 							<div class="doc-label-choice">
 								<div class="row">
 									<div class="col-sm-2 ">
 										<div class="doc-stage">Classification</div>
-									</div>							
+									</div>
 									<div class="col-sm-10 col-sm-pull-1 doc-stage-detail">
 										<button class="doc-filter-btn doc-btn" id="stage-Beginner">Beginner</button>
                               <button class="doc-filter-btn doc-btn" id="stage-Whole-Process">Whole Process</button>
@@ -218,23 +219,23 @@ MindSpore Programming Guide
 										<button class="doc-filter-btn doc-btn" id="stage-Function-Extension">Function Extension</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Design">Design</button>
 									</div>
-									
+
 								</div>
-							</div>							
+							</div>
 							<div class="doc-label-choice">
 								<div class="row">
 									<div class="col-sm-2 ">
 										<div class="doc-experience">Experience</div>
-									</div>							
+									</div>
 									<div class="col-sm-10 col-sm-pull-1 doc-stage-detail">
 										<button class="doc-filter-btn doc-btn" id="experience-online">Online</button>
 										<button class="doc-filter-btn doc-btn" id="experience-local">Local</button>
 									</div>
-									
+
 								</div>
-								
+
 							</div>
-							
+
 						</div>
 
                   <font size="2">Note: Clicking on the title with "↗" will leave the Programming Guide page.</font>
@@ -244,7 +245,7 @@ MindSpore Programming Guide
 						<div class="doc-footer">
 							<nav aria-label="Page navigation">
 								<ul class="pagination" id="pageNav">
-									
+
 								</ul>
 							</nav>
 						</div>
@@ -257,7 +258,7 @@ MindSpore Programming Guide
                                  <span class="doc-head-content">MindSpore API Overview</span>
                               </div>
                               <div class="doc-article-desc">
-                              MindSpore is a deep learning framework in all scenarios, aiming to achieve easy development, efficient execution, and all-scenario coverage. 
+                              MindSpore is a deep learning framework in all scenarios, aiming to achieve easy development, efficient execution, and all-scenario coverage.
                               </div>
                         </div>
                      </a>
@@ -281,7 +282,7 @@ MindSpore Programming Guide
                                  <span class="doc-head-content">Host&Device Heterogeneous</span>
                               </div>
                               <div class="doc-article-desc">
-                              In deep learning, to efficiently train a huge model, one solution is to employ homogeneous accelerators (*e.g.*, Ascend 910 AI Accelerator and GPU) for distributed training. 
+                              In deep learning, to efficiently train a huge model, one solution is to employ homogeneous accelerators (*e.g.*, Ascend 910 AI Accelerator and GPU) for distributed training.
                               </div>
                         </div>
                      </a>
@@ -317,7 +318,7 @@ MindSpore Programming Guide
                                  <span class="doc-head-content">Applying Post Training Quantization</span>
                               </div>
                               <div class="doc-article-desc">
-                              Post training quantization refers to perform weights quantization or full quantization on a pre-trained model. It can reduce model size while also speed up the inference. 
+                              Post training quantization refers to perform weights quantization or full quantization on a pre-trained model. It can reduce model size while also speed up the inference.
                               </div>
                         </div>
                      </a>
@@ -341,7 +342,7 @@ MindSpore Programming Guide
                                  <span class="doc-head-content">Recomputation</span>
                               </div>
                               <div class="doc-article-desc">
-                              The automatic differential of MindSpore is in reverse-mode, which derives the backward pass according to the forward pass. 
+                              The automatic differential of MindSpore is in reverse-mode, which derives the backward pass according to the forward pass.
                               </div>
                         </div>
                      </a>
@@ -353,7 +354,7 @@ MindSpore Programming Guide
                                  <span class="doc-head-content">Overall Architecture</span>
                               </div>
                               <div class="doc-article-desc">
-                              MindSpore is a deep learning framework in all scenarios, aiming to achieve easy development, efficient execution, and all-scenario coverage. 
+                              MindSpore is a deep learning framework in all scenarios, aiming to achieve easy development, efficient execution, and all-scenario coverage.
                               </div>
                         </div>
                      </a>
@@ -401,7 +402,7 @@ MindSpore Programming Guide
                                  <span class="doc-head-content">Constructing Single Operator Network and Multi-layer Network</span>
                               </div>
                               <div class="doc-article-desc">
-                              The Cell class of MindSpore is the base class for constructing all networks, which is also the base unit of networks. 
+                              The Cell class of MindSpore is the base class for constructing all networks, which is also the base unit of networks.
                               </div>
                         </div>
                      </a>
@@ -437,7 +438,7 @@ MindSpore Programming Guide
                                  <span class="doc-head-content">Cell</span>
                               </div>
                               <div class="doc-article-desc">
-                              The <em>Cell</em> class of MindSpore is the base class for building all networks and the basic unit of a network. 
+                              The <em>Cell</em> class of MindSpore is the base class for building all networks and the basic unit of a network.
                               </div>
                         </div>
                      </a>
@@ -461,7 +462,7 @@ MindSpore Programming Guide
                                  <span class="doc-head-content">Configuring Running Information</span>
                               </div>
                               <div class="doc-article-desc">
-                              Before initializing the network, configure the context parameter to control the policy executed by the program. 
+                              Before initializing the network, configure the context parameter to control the policy executed by the program.
                               </div>
                         </div>
                      </a>
@@ -473,7 +474,7 @@ MindSpore Programming Guide
                                  <span class="doc-head-content">Using the Process Control Statement</span>
                               </div>
                               <div class="doc-article-desc">
-                              The MindSpore process control statement is similar to the native Python syntax, especially in <em>PYNATIVE_MODE</em> mode. 
+                              The MindSpore process control statement is similar to the native Python syntax, especially in <em>PYNATIVE_MODE</em> mode.
                               </div>
                         </div>
                      </a>
@@ -569,7 +570,7 @@ MindSpore Programming Guide
                                  <span class="doc-head-content">ResNet-50 Second-Order Optimization Practice</span>
                               </div>
                               <div class="doc-article-desc">
-                              Common optimization algorithms are classified into the first-order and the second-order optimization algorithms. 
+                              Common optimization algorithms are classified into the first-order and the second-order optimization algorithms.
                               </div>
                         </div>
                      </a>
@@ -593,7 +594,7 @@ MindSpore Programming Guide
                                  <span class="doc-head-content">Dataset</span>
                               </div>
                               <div class="doc-article-desc">
-                              Data is the foundation of deep learning, and high-quality data input will play a positive role in the entire deep neural network. 
+                              Data is the foundation of deep learning, and high-quality data input will play a positive role in the entire deep neural network.
                               </div>
                         </div>
                      </a>
@@ -605,7 +606,7 @@ MindSpore Programming Guide
                                  <span class="doc-head-content">Loading Dataset Overview</span>
                               </div>
                               <div class="doc-article-desc">
-                              MindSpore can load common image datasets. You can directly use the classes in <em>mindspore.dataset</em> to load datasets. 
+                              MindSpore can load common image datasets. You can directly use the classes in <em>mindspore.dataset</em> to load datasets.
                               </div>
                         </div>
                      </a>
@@ -701,7 +702,7 @@ MindSpore Programming Guide
                                  <span class="doc-head-content">Lightweight Data Processing</span>
                               </div>
                               <div class="doc-article-desc">
-                              When resources permit, in order to purse higher performance, data pipeline mode is generally used for data augmentation. 
+                              When resources permit, in order to purse higher performance, data pipeline mode is generally used for data augmentation.
                               </div>
                         </div>
                      </a>
@@ -845,7 +846,7 @@ MindSpore Programming Guide
                                  <span class="doc-head-content">Parameter Passing</span>
                               </div>
                               <div class="doc-article-desc">
-                              This article describes the use of variable parameters in network construction, indicates that a variable number of parameters can be used to construct a network. 
+                              This article describes the use of variable parameters in network construction, indicates that a variable number of parameters can be used to construct a network.
                               </div>
                         </div>
                      </a>
@@ -857,7 +858,7 @@ MindSpore Programming Guide
                                  <span class="doc-head-content">Initializer</span>
                               </div>
                               <div class="doc-article-desc">
-                              The Initializer class is the basic data structure used for initialization in MindSpore. 
+                              The Initializer class is the basic data structure used for initialization in MindSpore.
                               </div>
                         </div>
                      </a>
@@ -893,7 +894,7 @@ MindSpore Programming Guide
                                  <span class="doc-head-content">Loading Text Dataset</span>
                               </div>
                               <div class="doc-article-desc">
-                              The <em>mindspore.dataset</em> module provided by MindSpore enables users to customize their data fetching strategy from disk. 
+                              The <em>mindspore.dataset</em> module provided by MindSpore enables users to customize their data fetching strategy from disk.
                               </div>
                         </div>
                      </a>
@@ -917,7 +918,7 @@ MindSpore Programming Guide
                                  <span class="doc-head-content">Loss Function</span>
                               </div>
                               <div class="doc-article-desc">
-                              Loss function, also known as object function, is used for measuring the difference between predicted and true value. 
+                              Loss function, also known as object function, is used for measuring the difference between predicted and true value.
                               </div>
                         </div>
                      </a>
@@ -953,7 +954,7 @@ MindSpore Programming Guide
                                  <span class="doc-head-content">Inference Using the MindIR Model on Ascend 310 AI Processors</span>
                               </div>
                               <div class="doc-article-desc">
-                              Ascend 310 is a highly efficient and integrated AI processor oriented to edge scenarios. This tutorial describes how to use MindSpore to perform inference on the Ascend 310 based on the MindIR model file. 
+                              Ascend 310 is a highly efficient and integrated AI processor oriented to edge scenarios. This tutorial describes how to use MindSpore to perform inference on the Ascend 310 based on the MindIR model file.
                               </div>
                         </div>
                      </a>
@@ -1025,7 +1026,7 @@ MindSpore Programming Guide
                                  <span class="doc-head-content">Multi-hop Knowledge Reasoning Question-answering Model TPRR</span>
                               </div>
                               <div class="doc-article-desc">
-                              TPRR(Thinking Path Re-Ranker) is an open-domain knowledge based multi-hop question-answering model proposed by Huawei, which is used to realize multi-hop knowledge reasoning question-answering. 
+                              TPRR(Thinking Path Re-Ranker) is an open-domain knowledge based multi-hop question-answering model proposed by Huawei, which is used to realize multi-hop knowledge reasoning question-answering.
                               </div>
                         </div>
                      </a>
@@ -1097,7 +1098,7 @@ MindSpore Programming Guide
                                  <span class="doc-head-content">Optimization Algorithms</span>
                               </div>
                               <div class="doc-article-desc">
-                              <em>mindspore.nn.optim</em> is a module in the MindSpore framework for implementing various optimization algorithms, including common optimizers and learning rates. 
+                              <em>mindspore.nn.optim</em> is a module in the MindSpore framework for implementing various optimization algorithms, including common optimizers and learning rates.
                               </div>
                         </div>
                      </a>
@@ -1145,7 +1146,7 @@ MindSpore Programming Guide
                                  <span class="doc-head-content">General Data Processing</span>
                               </div>
                               <div class="doc-article-desc">
-                              Data is the basis of deep learning. Good data input can play a positive role in the entire deep neural network training. 
+                              Data is the basis of deep learning. Good data input can play a positive role in the entire deep neural network training.
                               </div>
                         </div>
                      </a>
@@ -1265,7 +1266,7 @@ MindSpore Programming Guide
                                  <span class="doc-head-content">Distributed Training Design</span>
                               </div>
                               <div class="doc-article-desc">
-                               Parallel distributed training has become a development trend to resolve the performance bottleneck of ultra-large scale networks. MindSpore supports the mainstream distributed training paradigm and develops an automatic hybrid parallel solution. 
+                               Parallel distributed training has become a development trend to resolve the performance bottleneck of ultra-large scale networks. MindSpore supports the mainstream distributed training paradigm and develops an automatic hybrid parallel solution.
                               </div>
                         </div>
                      </a>
@@ -1313,7 +1314,7 @@ MindSpore Programming Guide
                                  <span class="doc-head-content">Technical White Paper</span>
                               </div>
                               <div class="doc-article-desc">
-                              Deep learning research and application have experienced explosive development in recent decades, triggering the third wave of artificial intelligence and achieving great success in image recognition, speech recognition and synthesis, unmanned driving, and machine vision. 
+                              Deep learning research and application have experienced explosive development in recent decades, triggering the third wave of artificial intelligence and achieving great success in image recognition, speech recognition and synthesis, unmanned driving, and machine vision.
                               </div>
                         </div>
                      </a>
@@ -1739,9 +1740,9 @@ MindSpore Programming Guide
                      </a>
                   </div>
 						</div>
-				
+
 					</div>
-					
+
 				</div>
 			</div>
 		</div>
