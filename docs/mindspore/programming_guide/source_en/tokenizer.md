@@ -107,12 +107,23 @@ I am making small mistakes during working hours
 
 Download the dictionary files `hmm_model.utf8` and `jieba.dict.utf8` and put them in the specified location.
 
-```bash
-wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/hmm_model.utf8 --no-check-certificate
-wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/jieba.dict.utf8 --no-check-certificate
-mkdir -p ./datasets/tokenizer/
-mv hmm_model.utf8 jieba.dict.utf8 -t ./datasets/tokenizer/
-tree ./datasets/tokenizer/
+```python
+import os
+import requests
+
+def download_dataset(dataset_url, path):
+    filename = dataset_url.split("/")[-1]
+    if not os.path.exists(path):
+        os.makedirs(path)
+    res = requests.get(dataset_url, stream=True)
+    save_path = os.path.join(path, filename)
+    with open(save_path, "wb") as f:
+        for chunk in res.iter_content(chunk_size=512):
+            if chunk:
+                f.write(chunk)
+
+download_dataset("https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/hmm_model.utf8", "./datasets/tokenizer/")
+download_dataset("https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/jieba.dict.utf8", "./datasets/tokenizer/")
 ```
 
 ```text
@@ -164,11 +175,8 @@ The output is as follows:
 
 Download the text dataset file `botchan.txt` and place it in the specified location.
 
-```bash
-wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/botchan.txt --no-check-certificate
-mkdir -p ./datasets/tokenizer/
-mv botchan.txt ./datasets/tokenizer/
-tree ./datasets/tokenizer/
+```python
+download_dataset("https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/botchan.txt", "./datasets/tokenizer/")
 ```
 
 ```text
