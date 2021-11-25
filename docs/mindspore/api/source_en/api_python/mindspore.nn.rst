@@ -236,6 +236,7 @@ Optimizer Functions
     mindspore.nn.Adam
     mindspore.nn.AdamOffload
     mindspore.nn.AdamWeightDecay
+    mindspore.nn.ASGD
     mindspore.nn.FTRL
     mindspore.nn.Lamb
     mindspore.nn.LARS
@@ -244,6 +245,7 @@ Optimizer Functions
     mindspore.nn.Optimizer
     mindspore.nn.ProximalAdagrad
     mindspore.nn.RMSProp
+    mindspore.nn.Rprop
     mindspore.nn.SGD
     mindspore.nn.thor
 
