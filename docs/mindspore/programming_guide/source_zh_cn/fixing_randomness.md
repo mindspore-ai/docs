@@ -58,9 +58,9 @@
 
 5. 固定网络。
 
-   删除网络中带有随机性的算子，例如DropOut算子和名称中带有Random的算子。若有的随机算子确实不能删除，则应该设置固定的随机数种子（随机数种子建议选择0以外的数字）。DropOut算子随机性在部分场景下难以固定，建议始终删除。目前已知的随机算子包括：[Random Operators](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.ops.html#random-operators)，所有名称中带有DropOut的算子。
+   删除网络中带有随机性的算子，例如DropOut算子和名称中带有Random的算子。若有的随机算子确实不能删除，则应该设置固定的随机数种子（随机数种子建议选择0以外的数字）。DropOut算子随机性在部分场景下难以固定，建议始终删除。目前已知的随机算子包括：[Random Operators](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.ops.html#random-operators)；所有DropOut算子，例如[Dropout](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Dropout.html#mindspore.ops.Dropout)，[Dropout2D](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Dropout2D.html#mindspore.ops.Dropout2D)，[Dropout3D](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Dropout3D.html#mindspore.ops.Dropout3D)，[DropoutDoMask](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.DropoutDoMask.html#mindspore.ops.DropoutDoMask)，[DropoutGenMask](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.DropoutGenMask.html#mindspore.ops.DropoutGenMask)等。
 
-   此外，Ascend后端上有一部分特殊算子，这些算子在计算时带有微小的随机性，该随机性不会引起计算结果的错误，只是会导致计算结果在输入相同的两次计算之间产生微小的差异。针对含有这些特殊算子的网络，误差累积导致的loss差异会显著增大，本文提供的loss曲线是否一致的判断标准不适用。Ascend后端上特殊算子的列表请见本文最后。
+   此外，Ascend后端上有一部分特殊算子，这些算子在计算时带有微小的随机性，该随机性不会引起计算结果的错误，只是会导致计算结果在输入相同的两次计算之间产生微小的差异。针对含有这些特殊算子的网络，误差累积导致的脚本两次运行之间loss值的差异会明显增大，本文提供的loss值是否一致的判断标准不适用。Ascend后端上特殊算子的列表请见本文最后。
 
 6. 确认是否成功固定了随机性。
 
