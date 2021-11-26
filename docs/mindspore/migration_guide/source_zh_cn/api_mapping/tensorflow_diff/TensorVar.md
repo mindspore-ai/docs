@@ -40,6 +40,7 @@ print(a.var(ddof=1)) # 1.6666666
 import tensorflow as tf
 tf.enable_eager_execution()
 
+x  = [[1, 2], [3, 4]]
 print(tf.math.reduce_variance(x).numpy())  # 1.25
 print(tf.math.reduce_variance(x, 0).numpy())  # [1., 1.]
 print(tf.math.reduce_variance(x, 1).numpy())  # [0.25,  0.25]
