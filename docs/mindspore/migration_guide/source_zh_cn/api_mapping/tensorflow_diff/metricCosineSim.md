@@ -38,6 +38,7 @@ print(m.result().numpy())
 
 
 from mindspore import nn
+import numpy as np
 
 input_data = np.array([[1, 3, 4], [2, 4, 2], [0, 1, 0]])
 metric = nn.CosineSimilarity()

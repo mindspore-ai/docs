@@ -65,7 +65,7 @@ from mindspore.common.initializer import initializer, Constant
 value = np.array([0, 1, 2, 3, 4, 5, 6, 7])
 value = value.reshape([2, 4])
 
-x = initializer(Constant(value), shape=[8, 1], dtype=ms.float32)
+x = initializer(Constant(value), shape=[2, 4], dtype=ms.float32)
 
 print(x)
 
