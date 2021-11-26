@@ -51,7 +51,7 @@ python -c "import mindspore;mindspore.run_check()"
 如果输出：
 
 ```text
-mindspore version: 版本号
+Mindspore version: 版本号
 The result of multiplication calculation is correct, MindSpore has been installed successfully!
 ```
 
@@ -62,7 +62,7 @@ The result of multiplication calculation is correct, MindSpore has been installe
 当需要升级MindSpore版本时，可执行如下命令：
 
 ```bash
-pip install --upgrade mindspore-nightly=={version}
+pip install --upgrade mindspore-dev=={version}
 ```
 
 其中：
