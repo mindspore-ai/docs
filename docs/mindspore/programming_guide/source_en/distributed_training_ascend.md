@@ -233,7 +233,7 @@ class HybridParallelNet(nn.Cell):
 
 Compared with the auto parallel mode, semi auto parallel mode supports manual configuration on shard strategies for network tuning. The definition of shard strategies could be referred by this [design document](https://www.mindspore.cn/docs/programming_guide/en/r1.5/design/distributed_training_design.html).
 
-In the above example `HybridParallelNet`, the script in semi auto parallel mode is as follows. The shard stratege of `MatMul` is `{(1, 1), (1, 2)}`, which means `self.weight` is sliced at the second dimension.
+In the above example `HybridParallelNet`, the script in semi auto parallel mode is as follows. The shard stratege of `MatMul` is `((1, 1), (1, 2))`, which means `self.weight` is sliced at the second dimension.
 
 ```python
 from mindspore import Tensor
@@ -248,7 +248,7 @@ class SemiAutoParallelNet(nn.Cell):
         weight_init = np.random.rand(512, 128).astype(np.float32)
         self.weight = Parameter(Tensor(weight_init))
         # set shard strategy
-        self.fc = ops.MatMul().shard({(1, 1),(1, 2)})
+        self.fc = ops.MatMul().shard(((1, 1),(1, 2)))
         self.reduce = ops.ReduceSum()
 
     def construct(self, x):
