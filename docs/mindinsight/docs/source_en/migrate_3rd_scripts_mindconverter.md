@@ -5,8 +5,12 @@
 - [Migrating From Third Party Frameworks With MindConverter](#migrating-from-third-party-frameworks-with-mindconverter)
     - [Overview](#overview)
     - [Quick Starts](#quick-starts)
+        - [Start with MindConverter CLI](#start-with-mindconverter-cli)
+        - [Start with MindConverter API](#start-with-mindconverter-api)
     - [Install Tools](#install-tools)
         - [Install Dependencies](#install-dependencies)
+            - [Start with MindConverter CLI](#start-with-mindconverter-cli)
+            - [Start with MindConverter API](#start-with-mindconverter-api)
         - [Install MindConverter](#install-mindconverter)
     - [Migration Solution](#migration-solution)
     - [Practice Guidance](#practice-guidance)
@@ -37,9 +41,13 @@ MindConverter is a migration tool to transform the model file of PyTorch(ONNX) o
 
 ![mindconverter-overview](images/mindconverter-overview.png)
 
+Moreover, this tool is able to transform the model file of PyTorch to MindSpore by adding API(`pytorch2mindspore`) to original PyTorch scripts.
+
 ## Quick Starts
 
-MindConverter installation is described in [Install Tools](#install-tools). After the installation, you will have the MindConverter CLI with the basic usage as follows.
+MindConverter installation is described in [Install Tools](#install-tools). After the installation, you will have the MindConverter CLI and MindConverter API with the basic usage as follows.
+
+### Start with MindConverter CLI
 
 ```shell
 mindconverter --model_file /path/to/model_file --shape SHAPE --input_nodes INPUTS --output_nodes OUTPUTS
@@ -58,11 +66,24 @@ Notes:
 
 For more CLI arguments, please refer to [MindConverter CLI Usage](#mindconverter-cli-usage).
 
+### Start with MindConverter API
+
+Write the following code in PyTorch network scripts.
+
+```python
+from mindconverter import pytorch2mindspore
+pytorch2mindspore(model, dummy_inputs)
+```
+
+For the usage of API, please refer to [MindConverter API Description](https://www.mindspore.cn/mindinsight/api/en/master/mindconverter.html).
+
 ## Install Tools
 
 ### Install Dependencies
 
 The following dependencies are required for MindConverter usage and suggested to be installed under the x86 environment. Refer to [installation](#install-dependencies-under-arm) under the ARM environment.
+
+#### Start with MindConverter CLI
 
 ```shell
 # Corresponding version of MindSpore is required(e.g. r1.2).
@@ -75,6 +96,16 @@ pip install onnxruntime~=1.5.2
 
 # tf2onnx is required if model file is in pb format.
 pip install tf2onnx~=1.7.1
+```
+
+#### Start with MindConverter API
+
+```shell
+# Corresponding version of MindSpore is required(e.g. r1.6).
+pip install mindspore~=1.6.0
+
+# torch is required, and official LTS version 1.8.2 is recommended.
+pip install torch~=1.8.2+cpu -f https://download.pytorch.org/whl/lts/1.8/torch_lts.html
 ```
 
 ### Install MindConverter
