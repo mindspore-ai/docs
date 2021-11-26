@@ -48,7 +48,7 @@ python -c "import mindspore;mindspore.run_check()"
 The outputs should be the same as:
 
 ```text
-mindspore version: __version__
+Mindspore version: __version__
 The result of multiplication calculation is correct, MindSpore has been installed successfully!
 ```
 
@@ -59,7 +59,7 @@ It means MindSpore has been installed successfully.
 Using the following command if you need to update the MindSpore version:
 
 ```bash
-pip install --upgrade mindspore-nightly=={version}
+pip install --upgrade mindspore-dev=={version}
 ```
 
 Of which,
