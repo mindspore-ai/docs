@@ -1497,7 +1497,7 @@ ret:(1, 3, 5)
 
 ### Network Input parameters
 
-The input parameters of the outermost network only can be `lool`, `int`, `float`, `Tensor`, `mstype.number(mstype.bool, mstype.int, mstype.float, mstype.uint)`, `List` or `Tuple` that contains these types, and `Dictionary` whose values are these types. Note that the input of the outermost network can't be `None`, if `None` is required, use default input value `None` instead.
+The input parameters of the outermost network only can be `lool`, `int`, `float`, `Tensor`, `None`, `mstype.number(mstype.bool, mstype.int, mstype.float, mstype.uint)`, `List` or `Tuple` that contains these types, and `Dictionary` whose values are these types.
 
 While calculating gradient for outermost network, only `Tensor` input could be calculated, input of other type will be ignored. For example, input parameter `(x, y,  z)` of outermost network, `x` and `z` are `Tensor` type, `y` is other type. While calculating gradient for the network, only gradients of `x` and `z` are calculated, and `(grad_x, grad_y)` is returned.
 If you want to use other types of input for the network, please transfer them to the network while initializing network in the `__init__` function, and save them as network attributes, then use  in the `construct`.
