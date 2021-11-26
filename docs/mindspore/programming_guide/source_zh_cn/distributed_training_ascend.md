@@ -235,7 +235,7 @@ class HybridParallelNet(nn.Cell):
 
 半自动并行模式相较于自动并行模式需要用户手动配置并行策略进行调优。关于算子并行策略的定义可以参考这篇[设计文档](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/design/distributed_training_design.html#id10)。
 
-以前述的`HybridParallelNet`为例，在半自动并行模式下的脚本代码如下，`MatMul`的切分策略为`{(1, 1),(1, 2)}`，指定`self.weight`在第二维度上被切分两份。
+以前述的`HybridParallelNet`为例，在半自动并行模式下的脚本代码如下，`MatMul`的切分策略为`((1, 1),(1, 2))`，指定`self.weight`在第二维度上被切分两份。
 
 ```python
 from mindspore import Tensor
@@ -250,7 +250,7 @@ class SemiAutoParallelNet(nn.Cell):
         weight_init = np.random.rand(512, 128).astype(np.float32)
         self.weight = Parameter(Tensor(weight_init))
         # set shard strategy
-        self.fc = ops.MatMul().shard({(1, 1),(1, 2)})
+        self.fc = ops.MatMul().shard(((1, 1),(1, 2)))
         self.reduce = ops.ReduceSum()
 
     def construct(self, x):
