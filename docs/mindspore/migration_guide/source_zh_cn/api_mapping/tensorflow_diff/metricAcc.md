@@ -1,4 +1,4 @@
-# 比较与tf.keras.metrics.Accuracy的功能差异
+# 比较与tf.keras.metrics.Accuracy、tf.keras.metrics.BinaryAccuracy、tf.keras.metrics.CategoricalAccuracy、tf.keras.metrics.SparseCategoricalAccuracy的功能差异
 
 ## tf.keras.metrics.Accuracy
 
@@ -9,6 +9,30 @@ tf.keras.metrics.Accuracy(
 ```
 
 更多内容详见[tf.keras.metrics.Accuracy](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/metrics/Accuracy)。
+
+```python
+tf.keras.metrics.BinaryAccuracy(
+    name='binary_accuracy', dtype=None, threshold=0.5
+)
+```
+
+更多内容详见[tf.keras.metrics.BinaryAccuracy](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/metrics/BinaryAccuracy)。
+
+```python
+tf.keras.metrics.CategoricalAccuracy(
+    name='categorical_accuracy', dtype=None
+)
+```
+
+更多内容详见[tf.keras.metrics.CategoricalAccuracy](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/metrics/CategoricalAccuracy)。
+
+```python
+tf.keras.metrics.SparseCategoricalAccuracy(
+    name='sparse_categorical_accuracy', dtype=None
+)
+```
+
+更多内容详见[tf.keras.metrics.SparseCategoricalAccuracy](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/metrics/SparseCategoricalAccuracy)。
 
 ## mindspore.nn.Accuracy
 

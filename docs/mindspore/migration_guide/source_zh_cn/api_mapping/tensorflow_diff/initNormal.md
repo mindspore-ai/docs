@@ -3,10 +3,12 @@
 ## tf.keras.initializers.RandomNormal
 
 ```python
-tf.keras.initializers.RandomNormal(mean=0.0, stddev=0.05, seed=None)
+tf.keras.initializers.RandomNormal(
+    mean=0.0, stddev=0.05, seed=None, dtype=tf.dtypes.float32
+)
 ```
 
-更多内容详见[tf.keras.initializers.RandomNormal](https://www.tensorflow.org/api_docs/python/tf/keras/initializers/RandomNormal)。
+更多内容详见[tf.keras.initializers.RandomNormal](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/initializers/RandomNormal)。
 
 ## mindspore.common.initializer.Normal
 

@@ -5,10 +5,12 @@
 ## tf.keras.initializers.RandomUniform
 
 ```python
-tf.keras.initializers.RandomUniform(minval=-0.05, maxval=0.05, seed=None)
+tf.keras.initializers.RandomUniform(
+    minval=-0.05, maxval=0.05, seed=None, dtype=tf.dtypes.float32
+)
 ```
 
-更多内容详见[tf.keras.initializers.RandomUniform](https://www.tensorflow.org/api_docs/python/tf/keras/initializers/RandomUniform)。
+更多内容详见[tf.keras.initializers.RandomUniform](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/initializers/RandomUniform)。
 
 ## mindspore.common.initializer.Uniform
 
@@ -16,7 +18,7 @@ tf.keras.initializers.RandomUniform(minval=-0.05, maxval=0.05, seed=None)
 class mindspore.common.initializer.Uniform(scale=0.07)
 ```
 
-更多内容详见[mindspore.common.initializer.Uniform](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/tensorflow_diff/initUniform.html)。
+更多内容详见[mindspore.common.initializer.Uniform](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.common.initializer.html?#mindspore.common.initializer.Uniform)。
 
 ## 使用方式
 
