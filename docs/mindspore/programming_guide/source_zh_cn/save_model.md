@@ -9,6 +9,7 @@
     - [保存CheckPoint格式文件](#保存checkpoint格式文件)
         - [使用callback机制](#使用callback机制)
             - [CheckPoint配置策略](#checkpoint配置策略)
+            - [断点续训](#断点续训)
         - [使用save_checkpoint方法](#使用save_checkpoint方法)
             - [`save_obj`和`ckpt_file_name`参数](#save_obj和ckpt_file_name参数)
             - [`integrated_save`参数](#integrated_save参数)
@@ -103,6 +104,25 @@ MindSpore提供了两种保存CheckPoint策略：迭代策略和时间策略，�
 `save_checkpoint_seconds`和`keep_checkpoint_per_n_minutes`为时间策略，根据训练的时长进行配置。
 
 两种策略不能同时使用，迭代策略优先级高于时间策略，当同时设置时，只有迭代策略可以生效。当参数显示设置为`None`时，表示放弃该策略。在迭代策略脚本正常结束的情况下，会默认保存最后一个step的CheckPoint文件。
+
+#### 断点续训
+
+MindSpore提供了断点续训的功能，当用户开启该功能时，如果在训练过程中发生了异常，那么MindSpore会自动保存异常发生时的CheckPoint文件(临终CheckPoint)。断点续训的功能通过`CheckpointConfig`中的`exception_save`参数(bool类型)控制，设置为True时开启该功能，False关闭该功能，默认为False。断点续训功能保存的临终CheckPoint文件与正常流程保存的CheckPoint互不影响，命名机制和保存路径与正常流程设置保持一致，唯一不同之处在于会在临终CheckPoint文件名最后加上'_breakpoint'进行区分。
+
+具体用法如下：
+
+```python
+from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
+config_ck = CheckpointConfig(save_checkpoint_steps=32, keep_checkpoint_max=10, exception_save=True)
+ckpoint_cb = ModelCheckpoint(prefix='resnet50', directory=None, config=config_ck)
+model.train(epoch_num, dataset, callbacks=ckpoint_cb)
+```
+
+如果在训练过程中发生了异常，那么会自动保存临终CheckPoint，假如在训练中的第10个epoch的第10个step中发生异常，保存的临终CheckPoint文件如下:
+
+```text
+resnet50-10_10_breakpoint.ckpt  # 临终CheckPoint文件名最后会加上'_breakpoint'与正常流程CheckPoint区分开。
+```
 
 ### 使用save_checkpoint方法
 
