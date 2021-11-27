@@ -16,9 +16,9 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/enable_dataset_autotune.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/enable_dataset_autotune.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-## Overview
+## 概述
 
 MindSpore提供了一种自动数据调优的工具——AutoTune，用于在训练过程中根据环境资源的情况自动调整数据处理管道的并行度，
 最大化利用系统资源加速数据处理管道的处理速度。
@@ -27,7 +27,7 @@ MindSpore提供了一种自动数据调优的工具——AutoTune，用于在训
 进一步对数据处理管道中的各个算子（如GeneratorDataset、map、batch此类数据算子）进行参数调整，
 目前可调整的参数包括算子的工作线程数（num_parallel_workers），算子的内部队列深度（prefetch_size）。
 
-![autotune](../source_en/images/autotune.png)
+![autotune](./images/autotune.png)
 
 使能AutoTune后，MindSpore会根据一定的时间间隔，对数据处理管道的资源情况进行采样统计。
 
@@ -66,7 +66,7 @@ print("time interval:", ds.config.get_autotune_interval())
 
 自动数据加速目前仅可用于下沉模式（dataset_sink_mode=True）。
 
-Profiling性能分析和自动数据加速无法同时开启。
+Profiling性能分析和自动数据加速无法同时开启，用户在使用时需要确保关闭Profiling。
 
 ## 样例
 
