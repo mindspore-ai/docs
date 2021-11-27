@@ -156,6 +156,7 @@ MindSpore Programming Guide
    enable_mixed_precision
    enable_graph_kernel_fusion
    enable_auto_tune
+   enable_dataset_autotune
    enable_dataset_offload
    apply_gradient_accumulation
    Debugging performance with Profiler↗ <https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling.html>
