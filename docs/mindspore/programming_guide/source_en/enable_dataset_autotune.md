@@ -11,8 +11,8 @@
     - [Constraints](#constraints)
     - [Example](#example)
         - [AutoTune Config](#autotune-config)
-        - [Start training](#start-training)
-        - [Before next training](#before-next-training)
+        - [Start Training](#start-training)
+        - [Before Next Training](#before-next-training)
 
 <!-- /TOC -->
 
@@ -70,7 +70,7 @@ A warning message will result if you enable Dataset AutoTune first and then Data
 
 Take LeNet training as example.
 
-### AutoTune config
+### AutoTune Config
 
 To enable AutoTune for Dataset, only one statement is needed.
 
@@ -90,7 +90,7 @@ def create_dataset(...)
     ...
 ```
 
-### Start training
+### Start Training
 
 Start the training process as described in [lenet/README.md](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/README.md). AutoTune will display its analysis result through LOG messages.
 
@@ -117,7 +117,7 @@ After tuning the configuration of the dataset pipeline, the step time is reduced
 
 At the end of training with AutoTune, an improved configuration is created by AutoTune.
 
-### Before next training
+### Before Next Training
 
 Before starting the next training process, users can apply the recommended configuration changes to the dataset Python scripts.
 This allows the dataset pipeline to be run at an improved speed from the beginning of the training process.
