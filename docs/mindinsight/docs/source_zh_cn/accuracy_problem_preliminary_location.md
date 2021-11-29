@@ -261,9 +261,9 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 此处我们列举一些比较重要的差异供大家检查：
 
-1. MindSpore的[Conv2d](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d)算子，默认没有bias（has_bias=False），而PyTorch的Conv2d算子，默认有bias。Conv2d算子的weight默认使用 Normal(0.0, 0.01)，这一初始化方式和PyTorch（Uniform）、TensorFlow（Uniform）均不同。
+1. MindSpore的[Conv2d](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d)算子，默认没有bias（has_bias=False），而PyTorch的Conv2d算子，默认有bias。Conv2d算子的weight默认使用 Normal(0.0, 0.01)，这一初始化方式和PyTorch（Uniform）、TensorFlow（Uniform）均不同。与PyTorch的[差异对比](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_diff/nn_Conv2d.html)。
 2. MindSpore的[DropOut](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Dropout.html#mindspore.nn.Dropout)算子，参数含义为保留的概率（keep_prob），而PyTorch的DropOut算子，参数含义为丢弃的概率。
-3. MindSpore的[BatchNorm](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.BatchNorm2d.html#mindspore.nn.BatchNorm2d)中的动量默认值和PyTorch不同。PyTorch默认是0.1，MindSpore中默认值是0.9。
+3. MindSpore的[BatchNorm](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.BatchNorm2d.html#mindspore.nn.BatchNorm2d)中的动量默认值和PyTorch不同。PyTorch默认是0.1，MindSpore中默认值是0.9。与PyTorch的[差异对比](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_diff/BatchNorm2d.html)。
 
 较完整的API差异列表请参考 <https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html>。
 
@@ -373,6 +373,8 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 ### 常见混合精度和溢出问题
 
+当您在Ascend后端上运行脚本时，或者使用了混合精度功能时，建议您参考本节中的检查项进行检查，以确认是否存在混合精度及溢出问题。
+
 #### mp.01 训练中存在溢出问题
 
 检查方法：
@@ -397,7 +399,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 检查方法：
 
-在使用[混合精度](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/enable_mixed_precision.html)时，应检查是否正确设置了[loss scale](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/lossscale.html)，推荐优先使用动态loss scale。对于Ascend AI处理器上的训练，其在大部分情况下为混合精度训练。由于Ascend AI处理器计算特性与GPU混合精度计算特性存在差异，LossScaleManager超参也往往需要进行适当的调整以保证精度。当用户模型基于默认Loss Scale参数训练产生溢出的迭代过多，影响最终精度时，需要对Loss Scale参数进行适当调整，减少发生浮点异常的次数。
+在使用[混合精度](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/enable_mixed_precision.html)时，一般应确认使能了[DynamicLossScaleManager](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/lossscale.html#dynamiclossscalemanager)或[FixedLossScaleManager](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/lossscale.html#fixedlossscalemanager)，推荐优先使用DynamicLossScaleManager。可以先使用DynamicLossScaleManager或FixedLossScaleManager的默认参数值进行训练，若产生溢出的迭代过多，影响最终精度时，应根据主要的溢出现象，针对性调整loss_scale的值。当主要溢出现象为梯度上溢时，应减小loss_scale的值（可以尝试将原loss_scale值除以2）；当主要溢出现象为梯度下溢时，应增大loss_scale的值（可以尝试将原loss_scale值乘以2）。对于Ascend AI处理器上的训练，其在大部分情况下为混合精度训练。由于Ascend AI处理器计算特性与GPU混合精度计算特性存在差异，LossScaleManager超参也可能需要根据训练情况调整为与GPU上不同的值以保证精度。
 
 检查结论：
 
