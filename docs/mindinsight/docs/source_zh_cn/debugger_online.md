@@ -184,6 +184,8 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 
 图7： 堆栈信息
 
+注意：有部分算子由框架生成，例如`TupleGetItem`、`Depend`、`UpdateState`等，可能关联到框架本身的代码，或者没有代码可以关联，均为正常现象。
+
 ### 重新检查
 
 为了更详细地对节点进行监测分析，用户可以在修改监测点的节点，添加删除监测点后对当前轮次重新检查。`重新检查`按钮位于监测点列表右上角，如图3所示。

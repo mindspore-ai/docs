@@ -69,7 +69,7 @@ The UI of the offline debugger is the same as that of the online debugger. For d
 
     At this point, the debugger is in a state of loading offline data.
 
-2. Wait for a moment. A dialog box is displayed on the MindInsight UI, asking you whether to use the recommended watchpoints. The following procedures are the same as that for online debugging. [Debugger Usage Example](https://www.mindspore.cn/mindinsight/docs/en/master/debugger.html#debugger-usage-example).
+2. Wait for a moment. A dialog box is displayed on the MindInsight UI, asking you whether to use the recommended watchpoints. The following procedures are the same as that for online debugging. [Debugger Usage Example](https://www.mindspore.cn/mindinsight/docs/en/master/debugger_online.html#debugger-usage-example).
 
 3. Compared with the online debugger, the offline debugger can reset the training step. As shown in Figure 3, click the edit icon on the right, and an edit box will appear, as shown in Figure 4. Enter the step id to be reset and click the tick icon.
 
