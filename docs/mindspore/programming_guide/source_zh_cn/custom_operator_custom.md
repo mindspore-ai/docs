@@ -9,6 +9,7 @@
     - [基本用法](#基本用法)
         - [akg类型的自定义算子开发](#akg类型的自定义算子开发)
         - [tbe类型的自定义算子开发](#tbe类型的自定义算子开发)
+        - [aicpu类型的自定义算子开发](#aicpu类型的自定义算子开发)
         - [aot类型的自定义算子开发](#aot类型的自定义算子开发)
             - [GPU示例](#cpu示例)
             - [CPU示例](#gpu示例)
@@ -49,6 +50,7 @@
 | :------: | :------: |:------: | ------ | ------ |
 | akg | MindAKG DSL | JIT | `Ascend` `GPU` | Ascend/GPU平台普通场景 |
 | tbe | TBE DSL | JIT | `Ascend` | Ascend平台场景 |
+| aicpu | C/C++ | AOT | `Ascend` | Ascend平台场景 |
 | aot | C/C++/CUDA | AOT | `GPU` `CPU` | GPU/CPU平台高性能场景 |
 | pyfunc | Python | JIT | `CPU` | 快速算法验证、需要与Python进行交互等场景 |
 
@@ -181,6 +183,92 @@ python test_custom_tbe.py
 ```text
 [[2. 2.]
  [4. 4.]]
+```
+
+### aicpu类型的自定义算子开发
+
+aicpu类型的自定义算子采用AOT编译方式，要求算子开发者基于提供的特定接口，手写算子实现函数对应的源码文件，并提前将源码文件编译为动态链接库，然后框架会根据开发者在算子属性中配置的动态链接库名称，找到对应动态链接库并加载算子。具体算子实现参考[CANN AICPU 自定义算子开发](https://support.huaweicloud.com/usermanual-mindstudio303/atlasms_02_0193.html)。
+
+算子输出shape和数据类型推理可以通过定义Python函数实现，描述算子输出shape和数据类型的推导逻辑。
+
+这种类型的自定义算子需要注册算子信息，算子信息生成方式请参考[算子信息注册](#算子信息注册)，aicpu类型的自定义算子，需要额外指定`attr("cust_aicpu",  "required", "str", "mindspore_aicpu_kernels")`的属性，用于MindSpore找到对应的算子实现的动态链接库。
+
+> - 需要注意的是，aicpu类型的自定义算子开发后编译成的动态链接库，需要存放到MindSpore的lib目录下，比如MindSpore安装在虚拟环境`/home/conda/envs/aicpu/lib/python3.7/site-packages/mindspore`下，则aicpu的so文件需要放到`/home/conda/envs/aicpu/lib/python3.7/site-packages/mindspore/lib/`目录下。
+> - “cust_aicpu”的值为字符串，用算子动态链接库的名字去除`lib`前缀与`.so`后缀表示，如`libmindspore_aicpu_kernels.so`则设为`"mindspore_aicpu_kernels"`即可。
+
+下面以test_resize_bilinear_aicpu.py为例介绍aicpu类型的自定义算子开发流程，其中自定义算子实现了双线性差值缩放的功能，并且编译好的算子动态链接库，我们命名为libmindspore_aicpu_kernels.so，并已将该动态链接库放至mindspore根目录的lib下。
+
+test_resize_bilinear_aicpu.py内容：
+
+```python
+import numpy as np
+from mindspore import Tensor
+import mindspore.context as context
+import mindspore.nn as nn
+import mindspore.ops as ops
+from mindspore import dtype as mstype
+from mindspore.ops import CustomRegOp, custom_info_register, DataType
+
+context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
+
+# 算子实现，注册算子信息
+resize_bilinear_op_info = CustomRegOp("ResizeBilinear") \
+    .fusion_type("OPAQUE") \
+    .input(0, "input", "required") \
+    .output(1, "output", "required") \
+    .attr("align_corners", "required", "bool") \
+    .attr("cust_aicpu", "required", "str", "mindspore_aicpu_kernels") \
+    .dtype_format(DataType.F16_Default, DataType.F32_Default) \
+    .dtype_format(DataType.F32_Default, DataType.F32_Default) \
+    .target("Ascend") \
+    .get_op_info()
+
+@custom_info_register(resize_bilinear_op_info)
+def resize_bilinear_aicpu():
+    """ResizeBilinear AiCPU register"""
+    return
+
+# 定义自定义算子网络
+class NetResizeBilinear(nn.Cell):
+    def __init__(self, size=None, align_corner=False):
+        super(NetResizeBilinear, self).__init__()
+        self.op = ops.Custom(resize_bilinear_aicpu, out_shape=size, \
+                                                    out_dtype=mstype.float32, func_type="aicpu")
+        self.align_corner = align_corner
+        self.cust_aicpu_so_path = "mindspore_aicpu_kernels"
+
+    def construct(self, inputs):
+        return self.op(inputs, self.align_corner,  self.cust_aicpu_so_path)
+
+if __name__ == "__main__":
+    # 定义aicpu类型的自定义算子
+    input_tensor = Tensor(np.array(
+        [[[[0.1, 0.2, 0.3], [0.4, 0.5, 0.6], [0.7, 0.8, 0.9]]]]).astype(np.float32))
+    resize_nn = NetResizeBilinear((1, 1, 6, 3))
+    output = resize_nn(input_tensor)
+    print("output: ", output)
+```
+
+本例中，有如下几点需要说明：
+
+- 可以用多种方式指定`Custom`原语的`out_shape`和`out_dtype`参数，可以给定类型，也可以用Python lambda函数等设置，本例直接指定了输出size以及输出数据类型为float32类型。
+- 通过`CustomRegOp`生成算子信息，并通过`custom_info_register`装饰器注册算子信息。
+
+执行用例：
+
+```bash
+python test_resize_bilinear_aicpu.py
+```
+
+执行结果：
+
+```text
+output : [[[[0.1        0.2        0.3        ]
+        [0.25        0.35000002        0.45000002]
+        [0.4        0.5        0.6        ]
+        [0.55        0.65        0.75        ]
+        [0.7        0.8        0.9        ]
+        [0.7        0.8        0.9        ]]]]
 ```
 
 ### aot类型的自定义算子开发
