@@ -166,11 +166,7 @@
 
          4. 节点模式不正确。
 
-             节点模式不正确，是指部分区分训练、推理模式的算子，需要按照实际情况设置模式。典型的包括：
-
-             1）`BatchNorm`算子，训练时应打开`BatchNorm`的训练模式，此开关在调用`net.set_train(True)`的时候会自动打开。
-
-             2）`DropOut`算子，推理时不应使用`DropOut`算子。
+             节点模式不正确，是指节点所处的训练/推理模式和实际情况不一致。请参考[使用API时根据训练/推理场景对应设置模式](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_problem_preliminary_location.html#api-02-api)以合理设置节点模式。
 
          5. 权重冻结错误（冻结了不应冻结的权重）。
 

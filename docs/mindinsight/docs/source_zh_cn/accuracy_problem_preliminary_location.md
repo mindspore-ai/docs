@@ -20,7 +20,7 @@
             - [hp.03 batch size过大](#hp03-batch-size过大)
         - [常见API使用问题](#常见api使用问题)
             - [api.01 使用API时未注意到MindSpore API和其它框架API的差异](#api01-使用api时未注意到mindspore-api和其它框架api的差异)
-            - [api.02 使用API时未根据训练/推理场景对应设置参数](#api02-使用api时未根据训练推理场景对应设置参数)
+            - [api.02 使用API时未根据训练/推理场景对应设置模式](#api02-使用api时未根据训练推理场景对应设置模式)
         - [常见计算图结构问题](#常见计算图结构问题)
             - [cg.01 权重共享错误](#cg01-权重共享错误)
             - [cg.02 权重冻结错误](#cg02-权重冻结错误)
@@ -277,7 +277,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 请填写
 
-#### api.02 使用API时未根据训练/推理场景对应设置参数
+#### api.02 使用API时未根据训练/推理场景对应设置模式
 
 检查方法：
 
@@ -288,6 +288,10 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 推理脚本中，未使用model.predict API进行推理时需要进行本检查。
 
 根据是否为训练场景，在调用模型时提前设置cell.set_train()。若为训练场景，应该先调用 cell.set_train(True)，其它场景，则应该先调用cell.set_train(False)。
+
+备注：
+
+对于mindspore.nn名称空间下的BatchNorm系列算子，建议您保持参数`use_batch_statistics`为默认值None。当`use_batch_statistics`为默认值None时，BatchNorm算子会根据cell.set_train()所给定的模式决定每个迭代中是否更新moving mean和moving variance参数：在cell.set_train()所给定的模式为True时更新上述两个参数，在cell.set_train()所给定的模式为True时不对上述两个参数进行更新。若设置了`use_batch_statistics=True`，即使设置了cell.set_train(False)以表示当前处于非训练场景，BatchNorm算子仍然会更新moving mean和moving variance参数。
 
 例子：
 
