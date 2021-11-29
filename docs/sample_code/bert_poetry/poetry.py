@@ -27,7 +27,7 @@ from mindspore import context, load_checkpoint, load_param_into_net
 from mindspore.nn import DynamicLossScaleUpdateCell
 from mindspore.nn import AdamWeightDecay
 from mindspore import Model
-from mindspore.train.callback import Callback
+from mindspore.train.callback import Callback, TimeMonitor
 from mindspore.train.callback import CheckpointConfig, ModelCheckpoint
 from mindspore import Tensor, Parameter, export
 from mindspore import dtype as mstype
@@ -94,6 +94,7 @@ def test_train():
     # load checkpoint into network
     ckpt_config = CheckpointConfig(save_checkpoint_steps=steps_per_epoch, keep_checkpoint_max=1)
     ckpoint_cb = ModelCheckpoint(prefix=cfg.ckpt_prefix, directory=cfg.ckpt_dir, config=ckpt_config)
+    time_cb = TimeMonitor(dataset.get_dataset_size())
 
     param_dict = load_checkpoint(cfg.pre_training_ckpt)
     new_dict = {}
@@ -117,7 +118,7 @@ def test_train():
     netwithgrads = BertPoetryCell(netwithloss, optimizer=optimizer, scale_update_cell=update_cell)
 
     model = Model(netwithgrads)
-    model.train(cfg.epoch_num, dataset, callbacks=[callback, ckpoint_cb], dataset_sink_mode=True)
+    model.train(cfg.epoch_num, dataset, callbacks=[callback, ckpoint_cb, time_cb], dataset_sink_mode=True)
 
 def test_eval(model_ckpt_path):
     '''eval model'''

@@ -95,6 +95,13 @@ Download the [sample code](https://mindspore-website.obs.cn-north-4.myhuaweiclou
     ├── utils.py                           # Defining the fine-tuning forward network structure
     ├── poetry_utils.py                    # Tokenizer
     └── poetry_dataset.py                  # Parsing poetry.txt and generating the required dataset
+  ├── serving
+    ├── bert
+      ├── 1
+        ├── poetry.mindir                  # exported MindIR file
+      ├── servable_config.py               # Serving inference script
+    ├── poetry_client.py                   # Serving client script
+    ├── serving_server.py                  # Serving server script
   ├── vocab.txt                            # Vocabulary
   ├── generator.py                         # Function used for generating poems during inference
   ├── poetry.py                            # Training, inference, and export functions
@@ -187,6 +194,44 @@ An acrostic poem:
 智士不知身没处，
 能令圣德属何年。
 ```
+
+### Service Deployment
+
+Use MindSpore Serving to deploy the trained model as an inference service. Server-side deployment includes the following three steps: model export, Serving server startup, Serving client startup. The processor utilizes Serving service for inference and the generated poem will be sent back to the client. Notice, you need to startup Serving server before Serving client.
+
+- Model export
+
+    Before using Serving to deploy a service, export the MindIR model using `export_net` function provided in `poetry.py`.
+
+    ```bash
+    python poetry.py --export=True --ckpt_path=/your/ckpt/path
+    ```
+
+    The `poetry.mindir` file is generated in the current path. You need to move the generated file to `serving/bert/1`.
+
+- Serving server startup
+
+    Start Serving server and load the exported MindIR file.
+
+    ```bash
+    cd serving
+    python serving_server.py
+    ```
+
+- Serving client startup
+
+    Start Serving client and send inference request.
+
+    ```bash
+    cd serving
+    python poetry_client.py
+    ```
+
+    Select a certain mode and the inference will be called through Serving. The generated poem will be displayed on the client.
+
+    ```text
+    选择模式： 0-随机生成，1：续写，2：藏头诗
+    ```
 
 ## References
 

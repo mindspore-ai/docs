@@ -1,11 +1,27 @@
+# Copyright 2021 Huawei Technologies Co., Ltd
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ============================================================================
+"""Tokenizer"""
 import re
 import unicodedata
 import numpy as np
 
-class Tokenizer(object):
+class Tokenizer():
+    """tokenizer"""
     def __init__(self, token_dict, do_lower_case=True):
         self._do_lower_case = do_lower_case
-        self._token_to_id = token_dict
+        self.token_to_id = token_dict
 
         self._token_pad = '[PAD]'
         self._token_unk = '[UNK]'
@@ -13,18 +29,18 @@ class Tokenizer(object):
         self._token_start = '[CLS]'
         self._token_end = '[SEP]'
 
-        self._id_to_token = {value: key for key, value in token_dict.items()}
+        self.id_to_token = {value: key for key, value in token_dict.items()}
         self._vocab_size = len(token_dict)
 
 
     def tokenize(self, text, maxlen=None):
+        """encode"""
         if self._do_lower_case:
             text = text.lower()
             text = unicodedata.normalize('NFD', text)
             text = ''.join([
                 ch for ch in text if unicodedata.category(ch) != 'Mn'
             ])
-        spaced = ''
 
         src_tokens = []
         for ch in text:
@@ -52,6 +68,7 @@ class Tokenizer(object):
 
 
     def encode(self, text, maxlen=None):
+        """encode"""
         text = self.tokenize(text)
         if maxlen is not None:
             self.truncate_sequence(maxlen, text, pop_index=-2)
@@ -61,6 +78,7 @@ class Tokenizer(object):
 
 
     def decode(self, ids, tokens=None):
+        """decode"""
         tokens = self.id_to_tokens(ids)
         tokens = [token for token in tokens if not self._is_special(token)]
 
@@ -88,22 +106,22 @@ class Tokenizer(object):
         punctuation_regex = '|'.join([re.escape(p) for p in punctuation])
         punctuation_regex = '(%s) ' % punctuation_regex
         text = re.sub(punctuation_regex, '\\1', text)
-        text = re.sub('(\d\.) (\d)', '\\1\\2', text)
+        text = re.sub(r'(\d\.) (\d)', '\\1\\2', text)
 
         return text.strip()
 
     def token_to_ids(self, tokens):
         ids = []
-        unk_ids = self._token_to_id[self._token_unk]
+        unk_ids = self.token_to_id[self._token_unk]
         for token in tokens:
-            ids.append(self._token_to_id.get(token, unk_ids))
+            ids.append(self.token_to_id.get(token, unk_ids))
         return ids
 
 
     def id_to_tokens(self, ids):
         tokens = []
         for index in ids:
-            tokens.append(self._id_to_token[index])
+            tokens.append(self.id_to_token[index])
         return tokens
 
     def truncate_sequence(self, maxlen, first_sequence, pop_index=-1):
@@ -123,7 +141,7 @@ class Tokenizer(object):
     def _word_piece_tokenize(self, word):
         """word内分成subword
         """
-        if word in self._token_to_id:
+        if word in self.token_to_id:
             return [word]
 
         tokens = []
@@ -134,7 +152,7 @@ class Tokenizer(object):
                 sub_token = word[start:stop]
                 if start > 0:
                     sub_token = ''.join(['##', sub_token])
-                if sub_token in self._token_to_id:
+                if sub_token in self.token_to_id:
                     break
                 stop -= 1
             if start == stop:
@@ -192,6 +210,10 @@ class Tokenizer(object):
 
     @staticmethod
     def _cjk_punctuation():
-        return u'\uff02\uff03\uff04\uff05\uff06\uff07\uff08\uff09\uff0a\uff0b\uff0c\uff0d\uff0f\uff1a\uff1b\uff1c\uff1d\uff1e\uff20\uff3b\uff3c\uff3d\uff3e\uff3f\uff40\uff5b\uff5c\uff5d\uff5e\uff5f\uff60\uff62\uff63\uff64\u3000\u3001\u3003\u3008\u3009\u300a\u300b\u300c\u300d\u300e\u300f\u3010\u3011\u3014\u3015\u3016\u3017\u3018\u3019\u301a\u301b\u301c\u301d\u301e\u301f\u3030\u303e\u303f\u2013\u2014\u2018\u2019\u201b\u201c\u201d\u201e\u201f\u2026\u2027\ufe4f\ufe51\ufe54\u00b7\uff01\uff1f\uff61\u3002'
-
-
+        a = [u'\uff02\uff03\uff04\uff05\uff06\uff07\uff08\uff09\uff0a\uff0b\uff0c\uff0d\uff0f\uff1a\uff1b',
+             u'\uff1c\uff1d\uff1e\uff20\uff3b\uff3c\uff3d\uff3e\uff3f\uff40\uff5b\uff5c\uff5d\uff5e',
+             u'\uff5f\uff60\uff62\uff63\uff64\u3000\u3001\u3003\u3008\u3009\u300a\u300b\u300c\u300d\u300e',
+             u'\u300f\u3010\u3011\u3014\u3015\u3016\u3017\u3018\u3019\u301a\u301b\u301c\u301d\u301e\u301f',
+             u'\u3030\u303e\u303f\u2013\u2014\u2018\u2019\u201b\u201c\u201d\u201e\u201f\u2026\u2027\ufe4f',
+             u'\ufe51\ufe54\u00b7\uff01\uff1f\uff61\u3002']
+        return ''.join(a)
