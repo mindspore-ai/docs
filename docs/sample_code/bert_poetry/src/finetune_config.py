@@ -17,18 +17,20 @@
 config settings, will be used in finetune.py
 """
 
+import os
 from easydict import EasyDict as edict
 from mindspore import dtype as mstype
 from .bert_model import BertConfig
 
 bs = 16
+cur_dir = os.path.dirname(__file__) + "/../"
 
 cfg = edict({
-    'dict_path': './vocab.txt',
+    'dict_path': cur_dir + 'vocab.txt',
     'disallowed_words': ['（', '）', '(', ')', '__', '《', '》', '【', '】', '[', ']'],
     'max_len': 64,
     'min_word_frequency': 8,
-    'dataset_path': './poetry.txt',
+    'dataset_path': cur_dir + 'poetry.txt',
     'batch_size': bs,
     'epoch_num': 20,
     'ckpt_prefix': 'poetry',

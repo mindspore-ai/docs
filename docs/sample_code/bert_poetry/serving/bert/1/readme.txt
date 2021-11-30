@@ -1,0 +1,1 @@
+You need to move the exported poetry.mindir file to thie directory
