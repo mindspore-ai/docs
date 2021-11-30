@@ -56,10 +56,10 @@ MindSpore提供两种方式供用户启用数据准备异构加速功能。
 
 使用全局配置设置自动异构加速。在这种情况下，所有map数据处理算子的offload参数将设置为True（默认为None）。值得注意的是，如果用户指定特定map操作算子的offload为False，该map算子将直接应用该配置而不是全局配置。
 
-  ```python
-  import mindspore.dataset as ds
-  ds.config.set_auto_offload(True)
-  ```
+```python
+import mindspore.dataset as ds
+ds.config.set_auto_offload(True)
+```
 
 ### 方法 2
 
@@ -85,12 +85,12 @@ dataset = dataset.map(operations=image_ops , input_columns="image", offload=True
 
 3. 异构加速算子必须是数据处理管道中最后一个或最后多个且连续的数据增强操作，且所对应的map算子必须定义在最后。如
 
-  ```dataset = dataset.map(operations=type_cast_op, input_columns= "label")```
+    ```dataset = dataset.map(operations=type_cast_op, input_columns= "label")```
 
-  必须在
+    必须在
 
-  ```dataset = dataset.map(operations=image_ops , input_columns="image", offload=True)```
+    ```dataset = dataset.map(operations=image_ops , input_columns="image", offload=True)```
 
-  之前，即处理"image"列的map算子必须定义在数据处理管道所有map的最后。
+    之前，即处理"image"列的map算子必须定义在数据处理管道所有map的最后。
 
 4. 该功能目前不支持用户在map数据算子中指定输出列。

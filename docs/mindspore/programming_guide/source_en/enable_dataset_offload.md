@@ -50,10 +50,10 @@ There are two options to enable offload.
 
 Use the global config to set automatic offload. In this case, the offload argument for all map data processing operators will be set to True (see Option 2). However, if the offload argument is given for a specific map operator, it will have priority over the global config option.
 
-  ```python
-  import mindspore.dataset as ds
-  ds.config.set_auto_offload(True)
-  ```
+```python
+import mindspore.dataset as ds
+ds.config.set_auto_offload(True)
+```
 
 ### Option 2
 
