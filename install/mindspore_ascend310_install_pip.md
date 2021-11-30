@@ -32,9 +32,9 @@
 
 - 如果您的环境为ARM架构，请确认当前使用的Python配套的pip版本>=19.3。
 
-- 确认安装Ascend 310 AI处理器配套软件包（[Ascend Data Center Solution 21.0.3](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910/software/252504583)）。
+- 确认安装Ascend 310 AI处理器配套软件包（Ascend Data Center Solution 21.0.3）。
 
-    - 软件包安装方式请参考[产品文档](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910)。
+    - 软件包安装方式请参考[CANN软件安装指南](https://support.huawei.com/enterprise/zh/doc/EDOC1100219211)。
     - 配套软件包包括驱动和固件和CANN。
         - [A300-3000 1.0.12 ARM平台](https://support.huawei.com/enterprise/zh/ascend-computing/a300-3000-pid-250702915/software/253845265) 或 [A300-3010 1.0.12 x86平台](https://support.huawei.com/enterprise/zh/ascend-computing/a300-3010-pid-251560253/software/253845285)
         - [CANN 5.0.3](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252806307)
