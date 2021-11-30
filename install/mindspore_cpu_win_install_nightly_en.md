@@ -48,7 +48,7 @@ python -c "import mindspore;mindspore.run_check()"
 The outputs should be the same as:
 
 ```text
-Mindspore version: __version__
+MindSpore version: __version__
 The result of multiplication calculation is correct, MindSpore has been installed successfully!
 ```
 
