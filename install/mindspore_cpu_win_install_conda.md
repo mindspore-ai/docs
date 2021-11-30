@@ -66,7 +66,7 @@ python -c "import mindspore;mindspore.run_check()"
 如果输出：
 
 ```text
-mindspore version: 版本号
+MindSpore version: 版本号
 The result of multiplication calculation is correct, MindSpore has been installed successfully!
 ```
 
