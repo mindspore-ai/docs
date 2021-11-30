@@ -1,6 +1,6 @@
 # 使能图算融合
 
-`Ascend` `GPU` `模型调优`
+`Ascend` `GPU` `CPU` `模型调优`
 
 <!-- TOC -->
 
@@ -39,7 +39,8 @@ from mindspore import context
 context.set_context(enable_graph_kernel=True)
 ```
 
-> 图算融合优化只支持Graph模式。
+> - 图算融合优化只支持Graph模式。
+> - 对于CPU平台，图算融合采用了[OpenMP](https://www.openmp.org/)并行计算技术进行算子性能加速。为了获取更好的执行性能，建议配置OMP_NUM_THREADS环境变量以指定OpenMP并行线程数。推荐配置为小于等于当前CPU核数的正整数，如：`export OMP_NUM_THREADS=10`
 
 ### 样例脚本
 
