@@ -28,7 +28,7 @@ When a model compiled using MindSpore runs in the graph mode `context.set_contex
 
 `context.set_context(save_graphs=True)` is used to save the intermediate code in each compilation phase. The intermediate code can be saved in two formats. One is the text format with the suffix `.ir`, and the other is the graphical format with the suffix `.dot`. When the network scale is small, you are advised to use the graphical format that is more intuitive. When the network scale is large, you are advised to use the text format that is more efficient.
 
-You can run the graphviz command to convert a .dot file to the picture format. For example, you can run the `dot -Tpng *.dot -o *.png` command to convert a .dot file to a .png file.
+You can run the graphviz command to convert a .dot file to the picture format. For example, you can run the `dot -Tpng *.dot -o *.png` command to convert a `.dot` file to a .png file.
 
 Add the following code to `train.py`. When running the script, MindSpore will automatically store the IR files generated during compilation under the specified path.
 
@@ -37,7 +37,30 @@ if __name__ == "__main__":
     context.set_context(save_graphs=True, save_graphs_path="path/to/ir/files")
 ```
 
-After the training command is executed, the following files are generated in the path of `save_graphs_path`: the IR files starting with digits and underscores are generated during the ME graph compilation. The compute graph is saved in each phase of the `pipeline`. Let's see the important phases. For examples, the `parse` phase parses the `construct` function of the entrance. The `symbol_resolve` phase recursively parses other functions and objects directly or indirectly referenced by the entry function. The `abstract_specialize` phase, namely `graph evaluate` phase, `data type` derivation and `shape` derivation are performed. The `optimize` phase, hardware-independent optimization is performed, the automatic differential and automatic parallel functions are also performed. The `validate` phase, the compiled compute graph is verified. The `task_emit` phase, the computing graph is transferred to the backend for further processing. The calculation graph is executed in the `execute` phase.
+After the training command is executed, some files are generated in the path of `save_graphs_path`: the IR files
+starting with digits and underscores are generated during the ME graph compilation. The compute graph is saved in each
+phase of the `pipeline`. Let's see the important phases.
+
+- The `parse` phase parses the `construct` function of the entrance. If viewing the IR file, we can see that only the
+  graph information of the top cell is parsed in this phase.
+- The `symbol_resolve` phase recursively parses other functions and objects directly or indirectly referenced by the
+  entry function. When using the unsupported syntax, it will get an error in this phase.
+- The `abstract_specialize` phase infers every node's `data type` and `shape` by the cell's inputs. When you want to
+  know the shape or data type of a specific operator in IR, you can view this IR file.
+- The `optimize` phase, hardware-independent optimization is performed, the automatic differential and automatic
+  parallel functions are also performed. Some ir files with the prefix `opt_pass` are saved here. No need to pay too
+  much attention to those files if you are not the framework developer.
+- The `validate` phase will check the temporary operators which should be removed in the prior phase. If any temporary
+  operator exists, the process will report an error and exit.
+- The `task_emit` phase will transfer the compute graph to the backend for further processing.
+- The `execute` phase will execute the compute graph. This is the final graph in the phase of frontend.
+
+In addition, you don't need to pay too much attention to the IR files (such as files beginning with `hwopt`) if you are
+not the framework developer because the backend is close to the hardware. Only need pay attention to the
+file `graph_build_[graph_id]_[IR_id].ir`. It is the MindIR after the frontend and backend optimization.
+
+> Multiple files may be saved because the backend only can handle the single graph.
+> It is different with the frontend when the front save all sub-graphs in the one file.
 
 ```text
 .
@@ -168,7 +191,8 @@ The ]`CNode`](https://www.mindspore.cn/docs/programming_guide/en/master/design/m
       # Call stack for source code parsing
 ```
 
-> After several optimizations by the compiler, the node may undergo several changes (such as operator splitting and operator merging). The source code parsing call stack information of the node may not be in a one-to-one correspondence with the script. This is only an auxiliary method.
+> - After several optimizations by the compiler, the node may undergo several changes (such as operator splitting and operator merging). The source code parsing call stack information of the node may not be in a one-to-one correspondence with the script. This is only an auxiliary method.
+> - After the `kernel select` phase at the backend, two lines of input and output specification information (that is, the content after `:`) will appear. The first line represents the specifications on the HOST side, and the second line represents the specifications on the DEVICE side.
 
 ### dat Introduction
 
