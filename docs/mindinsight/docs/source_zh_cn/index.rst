@@ -21,6 +21,7 @@ MindInsight文档
    performance_profiling
    debugger
    model_explanation
+   landscape
    mindinsight_commands
 
 .. toctree::
