@@ -150,14 +150,14 @@ if __name__ == '__main__':
     run_classify_top1()
 ```
 
-`ResNet-50` Servable提供的`classify_top1`方法需要用户提供输入`image`，上面例子中，每个实例的输入`image`为图像的二进制数据。
+`resnet50` Servable提供的`classify_top1`方法需要用户提供输入`image`，上面例子中，每个实例的输入`image`为图像的二进制数据。
 正常结束执行后，预期将会有以下打印：
 
 ```text
 [{'label': 'tabby, tabby cat'}, {'label': 'ox'}]
 ```
 
-如果Resnet50模型未训练，可能有其他未知分类结果。
+如果ResNet-50模型未训练，可能有其他未知分类结果。
 
 ## 通过Unix domain socket访问Serving服务器
 
