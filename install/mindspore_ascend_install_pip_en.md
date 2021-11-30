@@ -32,9 +32,9 @@ This document describes how to quickly install MindSpore in a Linux system with 
 
 - If you are using a ARM architecture system, please ensure that pip installed for current Python has a version >= 19.3.
 
-- Ensure that the Ascend 910 AI Processor software packages ([Ascend Data Center Solution 21.0.3](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910/software/252504583)) are installed.
+- Ensure that the Ascend 910 AI processor software package (Ascend Data Center Solution 21.0.3) are installed.
 
-    - For the installation of software package,  please refer to the [Product Document](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910).
+    - For the installation of software package,  please refer to the [CANN Software Installation Guide](https://support.huawei.com/enterprise/en/doc/EDOC1100219213).
     - The software packages include Driver and Firmware and CANN.
         - [A800-9000 1.0.12 ARM platform](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9000-pid-250702818/software/253845425) or [A800-9010 1.0.12 x86 platform](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9010-pid-250702809/software/253845445)
 
