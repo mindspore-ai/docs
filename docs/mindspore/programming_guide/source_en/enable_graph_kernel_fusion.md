@@ -1,6 +1,6 @@
 # Enabling Graph Kernel Fusion
 
-`Ascend` `GPU` `Model Optimization`
+`Ascend` `GPU` `CPU` `Model Optimization`
 
 <!-- TOC -->
 
@@ -35,7 +35,8 @@ from mindspore import context
 context.set_context(enable_graph_kernel=True)
 ```
 
-> Only Graph Mode is supported by graph kernel.
+> - Only Graph Mode is supported by graph kernel.
+> - On the CPU platform, graph kernel fusion uses the [OpenMP](https://www.openmp.org/) parallel computing technology for operator acceleration. To get a better operator execution performance, it is suggested to use the environment variable: `OMP_NUM_THREADS` to set OpenMP parallel threads. The recommended value for `OMP_NUM_THREADS` is a positive integer, which should be no more than the number of CPU kernels, such as: `export OMP_NUM_THREADS=10`
 
 ### Sample Scripts
 
