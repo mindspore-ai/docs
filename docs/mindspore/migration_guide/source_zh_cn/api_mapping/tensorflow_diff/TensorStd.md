@@ -40,7 +40,7 @@ print(a.std(ddof=1)) # 1.2909944
 import tensorflow as tf
 tf.enable_eager_execution()
 
-x  = [[1, 2], [3, 4]]
+x = tf.constant([[1., 2.], [3., 4.]])
 print(tf.math.reduce_std(x).numpy())  # 1.118034
 print(tf.math.reduce_std(x, 0).numpy())  # [1., 1.]
 print(tf.math.reduce_std(x, 1).numpy())  # [0.5,  0.5]

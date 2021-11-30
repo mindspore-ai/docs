@@ -5,10 +5,12 @@
 ## tf.keras.initializers.TruncatedNormal
 
 ```python
-tf.keras.initializers.TruncatedNormal(mean=0.0, stddev=0.05, seed=None)
+tf.keras.initializers.TruncatedNormal(
+    mean=0.0, stddev=0.05, seed=None, dtype=tf.dtypes.float32
+)
 ```
 
-更多内容详见[tf.keras.initializers.TruncatedNormal](https://www.tensorflow.org/api_docs/python/tf/keras/initializers/TruncatedNormal)。
+更多内容详见[tf.keras.initializers.TruncatedNormal](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/initializers/TruncatedNormal)。
 
 ## mindspore.common.initializer.TruncatedNormal
 
