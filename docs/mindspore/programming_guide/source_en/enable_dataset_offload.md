@@ -77,6 +77,6 @@ The offload hardware accelerator feature is still in development phase. The curr
 
 2. Offload feature does not support concatenated or zipped datasets currently.  
 
-3. The map operation(s) you wish to offload must be the last map operations in the pipeline. This includes map operations done to other dataset columns, for instance, ```dataset = dataset.map(operations=type_cast_op, input_columns= "label")``` must come before ```dataset = dataset.map(operations=image_ops , input_columns="image", offload=True)```.
+3. The map operation(s) you wish to offload must be the last map operations in the pipeline. This includes map operations done to other dataset columns, for instance, `dataset = dataset.map(operations=type_cast_op, input_columns= "label")` must come before `dataset = dataset.map(operations=image_ops , input_columns="image", offload=True)`.
 
-4. Offload feature does not support map operations with a user specified ```output_columns```.
+4. Offload feature does not support map operations with a user specified `output_columns`.

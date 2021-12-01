@@ -97,6 +97,9 @@ register_directive('toctree', Toctree)
 register_directive('autosummary', CustomDirectiveNoNested)
 register_directive('msplatformautosummary', CustomDirectiveNoNested)
 register_directive('msnoteautosummary', CustomDirectiveNoNested)
+register_directive('cnmsautosummary', CustomDirectiveNoNested)
+register_directive('cnmsplatformautosummary', CustomDirectiveNoNested)
+register_directive('cnmsnoteautosummary', CustomDirectiveNoNested)
 register_directive('currentmodule', CurrentModule)
 
 # Register roles.
