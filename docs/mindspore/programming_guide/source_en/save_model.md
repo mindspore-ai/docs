@@ -9,6 +9,7 @@
     - [Saving CheckPoint files](#saving-checkpoint-files)
         - [Using Callback Mechanism](#use-callback-mechanism)
             - [CheckPoint Configuration Strategy](#checkpoint-configuration-policies)
+            - [Resume Training At The Breakpoint](#resume-training-at-the-breakpoint)
         - [Using Save Checkpoint Method](#use-save-checkpoint-method)
     - [Export MindIR Model](#export-mindir-model)
     - [Export AIR Model](#export-air-model)
@@ -97,6 +98,25 @@ CheckpointConfig contains the following four parameters:
 The two types of policies cannot be used together. Iteration policies have a higher priority than time policies. When the two types of policies are configured at the same time, only iteration policies take effect.
 If a parameter is set to None, the related policy is cancelled.
 After the training script is normally executed, the CheckPoint file generated during the last step is saved by default.
+
+#### Resume Training At The Breakpoint
+
+MindSpore provides the function of resuming training at the breakpoint. If an exception occurs during training, MindSpore will automatically save the CheckPoint file (the final CheckPoint) when the exception occurs. The `exception_save` parameter (bool type) in `CheckpointConfig` controls the function of resuming training at the breakpoint. If this parameter is set to True, this function is enabled, if this parameter is set to False, this function is disabled, and the default value is False. The final CheckPoint file does not affect the CheckPoint saved in the normal process, and the naming mechanism and save path are the same as those in the normal process. The only difference is that '_breakpoint' is added to the end of the final CheckPoint file name.
+
+The following describes the usage:
+
+```python
+from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
+config_ck = CheckpointConfig(save_checkpoint_steps=32, keep_checkpoint_max=10, exception_save=True)
+ckpoint_cb = ModelCheckpoint(prefix='resnet50', directory=None, config=config_ck)
+model.train(epoch_num, dataset, callbacks=ckpoint_cb)
+```
+
+If an exception occurs during the training process, the final Checkpoint is automatically saved. If an exception occurs in the tenth step of the tenth epoch during the training, the final Checkpoint file is saved as follows:
+
+```text
+resnet50-10_10_breakpoint.ckpt  # The '_breakpoint' is added to the end of the final CheckPoint file name.
+```
 
 ### Using Save_checkpoint Method
 
