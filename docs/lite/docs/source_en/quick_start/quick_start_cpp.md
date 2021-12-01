@@ -212,7 +212,7 @@ if (model == nullptr) {
 auto build_ret = model->Build(model_buf, size, mindspore::kMindIR, context);
 delete[](model_buf);
 if (build_ret != mindspore::kSuccess) {
-  std::cerr << "Build model failed." << std::endl;
+  std::cerr << "Build model error " << build_ret << std::endl;
   return -1;
 }
 ```
@@ -240,7 +240,7 @@ mindspore::GraphCell graph_cell(graph);
 auto build_ret = model->Build(graph_cell, context);
 if (build_ret != mindspore::kSuccess) {
   delete model;
-  std::cerr << "Build model failed." << std::endl;
+  std::cerr << "Build model error " << build_ret << std::endl;
   return -1;
 }
 ```
@@ -265,8 +265,8 @@ auto outputs = model->GetOutputs();
 auto predict_ret = model->Predict(inputs, &outputs);
 if (predict_ret != mindspore::kSuccess) {
   delete model;
-  std::cerr << "Predict error " << ret << std::endl;
-  return ret;
+  std::cerr << "Predict model error " << predict_ret << std::endl;
+  return -1;
 }
 
 // Print Output Tensor Data.
