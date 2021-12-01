@@ -322,9 +322,9 @@ Running Data Recorder(RDR)是MindSpore提供训练程序运行时记录数据的
 
     > enable: 控制RDR功能是否开启。
     >
-    > mode: 控制RDR数据导出模型。
+    > mode: 控制RDR数据导出模式，设置为1表示仅在训练异常终止时导出数据，设置为2表示训练异常终止或正常结束时导出数据。
     >
-    > path: 设置RDR保存数据的路径。当前必须为绝对路径。
+    > path: 设置RDR保存数据的路径，仅支持绝对路径。
 
 2. 通过 `context` 配置RDR。
 
@@ -334,7 +334,7 @@ Running Data Recorder(RDR)是MindSpore提供训练程序运行时记录数据的
 
 #### 通过环境变量配置RDR
 
-通过`export MS_RDR_ENABLE=1`来开启RDR，通过`export MS_RDR_MODE=1`来设置仅在异常场景导出数据，然后通过`export MS_RDR_PATH=/path/to/root/dir`设置RDR文件导出的根目录路径，最终RDR文件将保存在`/path/to/root/dir/rank_{RANK_ID}/rdr/`目录下。其中`RANK_ID`为多卡训练场景中的卡号，单卡场景默认`RANK_ID=0`。
+通过`export MS_RDR_ENABLE=1`来开启RDR，通过`export MS_RDR_MODE=1`或`export MS_RDR_MODE=2`来设置导出数据模式，然后通过`export MS_RDR_PATH=/path/to/root/dir`设置RDR文件导出的根目录路径，最终RDR文件将保存在`/path/to/root/dir/rank_{RANK_ID}/rdr/`目录下。其中`RANK_ID`为多卡训练场景中的卡号，单卡场景默认`RANK_ID=0`。
 
 > 用户设置的配置文件优先级高于环境变量。
 
