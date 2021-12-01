@@ -17,7 +17,7 @@
             - [parameter_broadcast](#parameter_broadcast)
         - [Automatic Parallel Configuration](#automatic-parallel-configuration)
             - [gradient_fp32_sync](#gradient_fp32_sync)
-            - [auto_parallel_search_mode](#auto_parallel_search_mode)
+            - [search_mode](#search_mode)
             - [strategy_ckpt_load_file](#strategy_ckpt_load_file)
             - [strategy_ckpt_save_file](#strategy_ckpt_save_file)
             - [full_batch](#full_batch)
@@ -200,17 +200,20 @@ context.set_auto_parallel_context(gradient_fp32_sync=False)
 context.get_auto_parallel_context("gradient_fp32_sync")
 ```
 
-#### auto_parallel_search_mode
+#### search_mode
 
-MindSpore provides two search policies: `dynamic_programming` and `recursive_programming`. `dynamic_programming` can search for the optimal policy depicted by the cost model, but it takes a long time to search for the parallel policy of a huge network model. `recursive_programming` can quickly search out parallel policies, but the found policies may not have the optimal running performance. MindSpore provides parameters to allow users to select a search algorithm. The default value is `dynamic_programming`.
+`auto_parallel_search_mode` is replaced by `search_mode`. `auto_parallel_search_mode` will be deleted in the future MindSpore version. This attribute indicates the algorithm chosen for searching op-level parallelism: `dynamic_programming`, `recursive_programming`, and `sharding_propagation`.
+
+`dynamic_programming` can search for the optimal policy depicted by the cost model, but it takes a long time to search on a huge network model.
+`recursive_programming` can quickly search out parallel policies, but the found policies may not have the optimal running performance. `shardin_propagation` requires users to configure sharding strategies for some operators, and the algorithm will then propagate the strategies from configured ops to non-configured ops, with the goal of minimizing [tensor redistribution](https://www.mindspore.cn/docs/programming_guide/en/master/design/distributed_training_design.html#id10) communication. MindSpore allows users to select a search algorithm. The default value is `dynamic_programming`.
 
 The following is a code example:
 
 ```python
 from mindspore import context
 
-context.set_auto_parallel_context(auto_parallel_search_mode="dynamic_programming")
-context.get_auto_parallel_context("auto_parallel_search_mode")
+context.set_auto_parallel_context(search_mode="dynamic_programming")
+context.get_auto_parallel_context("search_mode")
 ```
 
 #### strategy_ckpt_load_file

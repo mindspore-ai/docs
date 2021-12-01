@@ -1,19 +1,20 @@
 Distributed Parallel Overview
 ==============================
 
-In deep learning, the increasing number of datasets and parameters prolongs the training time and requires more hardware resources, becoming a training bottleneck. Parallel distributed training is an important optimization method for training, which can reduce requirements on hardware, such as memory and computing performance. Based on different parallel principles and modes, parallelism is generally classified into the following types:
+In deep learning, the increasing number of dataset and parameters prolongs the training time and requires more hardware resources, which becomes a training bottleneck. Parallel training is an important optimization method, which reduces requirements of a single device for high memory and performance. Parallelisms are generally classified into the following types:
 
-- Data parallelism: splits data into many batches and then allocates the batches to each worker for model computation.
-- Model parallelism: splits a model. MindSpore supports the intra-layer model parallelism. Parameters are split and then allocated to each worker for training.
+- Data parallelism: splits data into many batches and then allocates the batches to each device for model computation.
+- Model parallelism: splits the model across multiple devices, which includes op-level model parallelism, pipeline model parallelism and optimizer model parallelism.
 - Hybrid parallelism: contains data parallelism and model parallelism.
 
-MindSpore also provides the parallel distributed training function. It supports the following modes:
+MindSpore also provides the parallel training functionality. It supports the following modes:
 
 - `DATA_PARALLEL`: data parallelism.
-- `AUTO_PARALLEL`: automatic parallelism, which integrates data parallelism, model parallelism, and hybrid parallelism. A cost model can be automatically created to find the parallel strategy with a relatively short training time and to select one parallel mode for users. MindSpore offers two different strategy search algorithms as follows:
+- `AUTO_PARALLEL`: automatic parallelism, which integrates data parallelism, model parallelism, and hybrid parallelism. A cost model is built to characterize training time and memory usage. Currently, MindSpore supports searching strategies for op-level model parallelism, which includes three different algorithms as follows:
 
-  - `dynamic_programming`: Dynamic programming search algorithm. The optimal strategy of cost model description can be found, but it takes a long time to search for parallel strategy of huge network model. Its cost model refers to modeling the training time based on the memory-based computation and communication overheads of the Ascend 910 chip.
-  - `recursive_programming`: Double recursive programming search algorithm. The optimal strategy can be generated instantly even for a large network or for a large-scale multi-device partitioning need. Its symbolic cost model can flexibly adapt to different accelerator clusters.
+  - `dynamic_programming`: Dynamic programming search algorithm. The optimal strategy under the cost model description can be found, but it takes a long time to search for parallel strategy of huge network model. Its cost model refers to modeling the training time based on the memory-based computation and communication overheads of the Ascend 910 chip.
+  - `recursive_programming`: Double recursive programming search algorithm. The optimal strategy can be generated instantly even for a large network. Its symbolic cost model can be flexibly adapted to different accelerator clusters.
+  - `sharding_propagation`: Sharding Propagation algorithms. This mode requires users to configure sharding strategies for some operators, and then propagates from these operators to other operators, with the goal of minimizing communication cost in tensor redistribution. For definitions of sharding strategy and tensor redistribution, please refer to this [design article](https://www.mindspore.cn/docs/programming_guide/en/master/design/distributed_training_design.html#id10)
 
 - `HYBRID_PARALLEL`: On MindSpore, users manually split parameters to implement intra-layer model parallelism.
 
