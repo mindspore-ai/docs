@@ -85,11 +85,11 @@ dataset = dataset.map(operations=image_ops , input_columns="image", offload=True
 
 3. 异构加速算子必须是数据处理管道中最后一个或最后多个且连续的数据增强操作，且所对应的map算子必须定义在最后。如
 
-    ```dataset = dataset.map(operations=type_cast_op, input_columns= "label")```
+    `dataset = dataset.map(operations=type_cast_op, input_columns= "label")`
 
     必须在
 
-    ```dataset = dataset.map(operations=image_ops , input_columns="image", offload=True)```
+    `dataset = dataset.map(operations=image_ops , input_columns="image", offload=True)`
 
     之前，即处理"image"列的map算子必须定义在数据处理管道所有map的最后。
 
