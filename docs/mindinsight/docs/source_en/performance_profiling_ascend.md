@@ -41,7 +41,9 @@ To enable the performance profiling of neural networks, MindSpore Profiler APIs 
 >
 > <https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.profiler.html>
 
-The sample code is as follows:
+Profiler can control whether performance data collection is turned on or off based on step (epoch) with the start_profile parameter. For the data sinking mode of graph mode, CANN can only be told to turn on and off after each epoch, so for the data sinking mode, it needs to turn on and off based on the epoch.
+
+The code for a normal scenario is as follows:
 
 ```python
 import numpy as np
@@ -82,12 +84,77 @@ if __name__ == '__main__':
     # If you are running in parallel mode on Ascend, the Profiler should be initialized before HCCL
     # initialized.
 
-    profiler = Profiler(output_path='./profiler_data')
+    profiler = Profiler(output_path = './profiler_data', start_profile = False)
     # Train Model
     net = Net()
     train(net)
     # Profiler end
     profiler.analyse()
+```
+
+Graph mode:
+
+- When dataset_sink_mode is set to False, it needs to be enabled based on step.
+
+    ```python
+    from mindspore.profiler.callback import Callback
+    class StopAtStep(Callback):
+        def __init__(self, start_step, stop_step):
+            super(StopAtStep, self).__init__()
+            self.start_step = start_step
+            self.stop_step = stop_step
+            self.profiler = Profiler(start_profile=False)
+        def step_begin(self, run_context):
+            cb_params = run_context.original_args()
+            step_num = cb_params.cur_step_num
+            if step_num == self.start_step:
+                self.profiler.start()
+        def step_end(self, run_context):
+            cb_params = run_context.original_args()
+            step_num = cb_params.cur_step_num
+            if step_num == self.stop_step:
+                self.profiler.stop()
+        def end(self, run_context):
+            self.profiler.analyse()
+    ```
+
+- When dataset_sink_mode is set to True, It needs to be enabled based on epoch.
+
+    ```python
+    class StopAtEpoch(Callback):
+        def init(self, start_epoch, stop_epoch):
+            super(StopAtStep, self).init()
+            self.start_epoch = start_epoch
+            self.stop_epoch = stop_epoch
+            self.profiler = Profiler(start_profile=False)
+        def epoch_begin(self, run_context):
+            cb_params = run_context.original_args()
+            epoch_num = cb_params.cur_epoch_num
+            if step_num == self.start_epoch:
+              self.profiler.start()
+        def epoch_end(self, run_context):
+            cb_params = run_context.original_args()
+            epoch_num = cb_params.cur_epoch_num
+            if epoch_num == self.stop_epoch:
+                self.profiler.stop()
+        def end(self, run_context):
+            self.profiler.analyse()
+    ```
+
+Custom training：
+
+```python
+profiler = Profiler(start_profile=False)
+data_loader = ds.create_dict_iterator()
+
+for i, data in enumerate(data_loader):
+    train()
+    if i==100:
+        profiler.start()
+    if i==200:
+        profiler.stop()
+
+profiler.analyse()
 ```
 
 ## Launch MindInsight

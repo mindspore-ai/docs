@@ -44,7 +44,9 @@
 
 - 在训练结束后，调用`Profiler.analyse()`停止性能数据收集并生成性能分析结果。
 
-样例代码如下：
+Profiler可以通过start_profile参数控制是否基于step（epoch）开启、关闭收集性能数据。对于图模式的数据下沉模式，只有在每个epoch结束后才有机会告知CANN开启和停止，因此对于数据下沉模式，需要基于epoch开启和关闭。
+
+正常场景样例代码如下：
 
 ```python
 import numpy as np
@@ -85,12 +87,77 @@ if __name__ == '__main__':
     # If you are running in parallel mode on Ascend, the Profiler should be initialized before HCCL
     # initialized.
 
-    profiler = Profiler(output_path = './profiler_data')
+    profiler = Profiler(output_path = './profiler_data', start_profile = False)
     # Train Model
     net = Net()
     train(net)
     # Profiler end
     profiler.analyse()
+```
+
+图模式：
+
+- 对于非数据下沉，需要基于step开启
+
+    ```python
+    from mindspore.profiler.callback import Callback
+    class StopAtStep(Callback):
+        def __init__(self, start_step, stop_step):
+            super(StopAtStep, self).__init__()
+            self.start_step = start_step
+            self.stop_step = stop_step
+            self.profiler = Profiler(start_profile=False)
+        def step_begin(self, run_context):
+            cb_params = run_context.original_args()
+            step_num = cb_params.cur_step_num
+            if step_num == self.start_step:
+                self.profiler.start()
+        def step_end(self, run_context):
+            cb_params = run_context.original_args()
+            step_num = cb_params.cur_step_num
+            if step_num == self.stop_step:
+                self.profiler.stop()
+        def end(self, run_context):
+            self.profiler.analyse()
+    ```
+
+- 对于数据下沉，需要基于epoch开启
+
+    ```python
+    class StopAtEpoch(Callback):
+        def init(self, start_epoch, stop_epoch):
+            super(StopAtStep, self).init()
+            self.start_epoch = start_epoch
+            self.stop_epoch = stop_epoch
+            self.profiler = Profiler(start_profile=False)
+        def epoch_begin(self, run_context):
+            cb_params = run_context.original_args()
+            epoch_num = cb_params.cur_epoch_num
+            if step_num == self.start_epoch:
+              self.profiler.start()
+        def epoch_end(self, run_context):
+            cb_params = run_context.original_args()
+            epoch_num = cb_params.cur_epoch_num
+            if epoch_num == self.stop_epoch:
+                self.profiler.stop()
+        def end(self, run_context):
+            self.profiler.analyse()
+    ```
+
+自定义训练：
+
+```python
+profiler = Profiler(start_profile=False)
+data_loader = ds.create_dict_iterator()
+
+for i, data in enumerate(data_loader):
+    train()
+    if i==100:
+        profiler.start()
+    if i==200:
+        profiler.stop()
+
+profiler.analyse()
 ```
 
 ## 启动MindInsight
