@@ -59,10 +59,10 @@ A：此场景下，异常进程由于各种问题退出，其余进程由于GPU�
 
 <br/>
 
-<font size=3>**Q：在执行单机单卡的脚本时，调用communication.management.init方法可能会报错导致执行失败。**</font>
+<font size=3>**Q：在执行单机单卡的脚本时，调用mindspore.communication.init方法可能会报错导致执行失败。**</font>
 
 ```text
 [CRITICAL] DISTRIBUTED [mindspore/ccsrc/distributed/cluster/cluster_context.cc:130] InitNodeRole] Role name is invalid.
 ```
 
-A：`communication.management.init`接口只有在执行分布式训练时建议调用，详细作用请参考[Python API文档](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.communication.html#mindspore.communication.init)。在单机单卡模式下，调用此接口会让MindSpore加载分布式相关的配置以及环境变量，导致报错。
+A：`mindspore.communication.init`接口只有在执行分布式训练时建议调用，详细作用请参考[Python API文档](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.communication.html#mindspore.communication.init)。在单机单卡模式下，调用此接口会让MindSpore加载分布式相关的配置以及环境变量，导致报错。
