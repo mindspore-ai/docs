@@ -10,3 +10,4 @@ MindInsight API
    :maxdepth: 1
 
    mindinsight.debugger
+   mindconverter

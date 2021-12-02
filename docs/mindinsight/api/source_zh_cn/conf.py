@@ -21,6 +21,7 @@ from sphinx.domains import python as sphinx_domain_python
 from textwrap import dedent
 
 import mindinsight
+import mindconverter
 
 # -- Project information -----------------------------------------------------
 
