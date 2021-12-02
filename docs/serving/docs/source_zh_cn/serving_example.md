@@ -24,7 +24,7 @@ MindSpore Serving是一个轻量级、高性能的服务模块，旨在帮助Min
 
 ### 环境准备
 
-运行示例前，需确保已经正确安装了MindSpore Serving，并配置了环境变量。MindSpore Serving和安装和配置可以参考[MindSpore Serving安装页面](https://www.mindspore.cn/serving/docs/zh-CN/r1.5/serving_install.html)。
+运行示例前，需确保已经正确安装了MindSpore Serving，并配置了环境变量。MindSpore Serving安装和配置可以参考[MindSpore Serving安装页面](https://www.mindspore.cn/serving/docs/zh-CN/r1.5/serving_install.html)。
 
 ### 下载样例
 
