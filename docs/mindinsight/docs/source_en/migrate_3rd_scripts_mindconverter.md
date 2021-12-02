@@ -163,9 +163,13 @@ Exporting ONNX model file from PyTorch model(refer to [FAQ](#export-the-model-fi
    from project.model import Model as PyTorchModel
 
    model = PyTorchModel()
+   param_dict = torch.load('/path/to/weights.pth')
+   model.load_state_dict(param_dict)
+
    input_shape = (1, 3, 224, 224)
-   input_tensor = torch.randn(*input_shape)
-   torch.onnx.export(model, input_tensor, '/path/to/model.onnx')
+   input_tensor = torch.randn(*input_shape, dtype=torch.float32)
+   torch.onnx.export(model, input_tensor, '/path/to/model.onnx', opset_version=11)
+
    ```
 
 4. Validate the equivalence onnx model file against the original scripts.
@@ -359,36 +363,52 @@ As the evaluation codes could be flexible and significantly different from MindS
 Source codes with PyTorch framework are as follows:
 
 ```python
+import torch
 from project.model import Network as PyTorchNetwork
 
 network = PyTorchNetwork()
+param_dict = torch.load('/path/to/weights.path')
+network.load_state_dict(param_dict)
+
+
 for data, label in data_loader:
     output = network(data)
     loss = loss_fn(output, label)
+    accuracy = metric_fn(output, label)
+    print(accuracy)
 ```
 
 Corresponding generated codes(Low-Level API) with MindSpore framework are as follows:
 
 ```python
-from mindspore import Model
+import mindspore
 from project.model import Network as MindSporeNetwork
 
 network = MindSporeNetwork()
+param_dict = mindspore.load_checkpoint('/path/to/weights.ckpt')
+mindspore.load_param_into_net(network, param_dict)
+
 data_iterator = dataset.create_tuple_iterator()
 for data, label in data_iterator:
     output = network(data)
     loss = loss_fn(output, label)
+    accuracy = metric_fn(output, label)
+    print(accuracy)
 ```
 
 Corresponding generated codes(High-Level API) with MindSpore framework are as follows:
 
 ```python
+import mindspore
 from mindspore import Model
 from project.model import Network as MindSporeNetwork
 
 network = MindSporeNetwork()
-model = Model(network, loss_fn=loss_fn)
-model.eval(dataset)
+param_dict = mindspore.load_checkpoint('/path/to/weights.ckpt')
+mindspore.load_param_into_net(network, param_dict)
+
+model = Model(network, loss_fn=loss_fn, metrics={'accuracy'})
+accuracy = model.eval(dataset)
 ```
 
 ## MindConverter CLI Usage
@@ -582,6 +602,9 @@ for data, label in data_loader:
     ms_output = network(ms_data)
     output = torch.Tensor(ms_output.asnumpy())
     loss = loss_fn(output, label)
+    accuracy = metric_fn(output, label)
+    print(accuracy)
+
 ```
 
 ### Migration reports and weights mapping
