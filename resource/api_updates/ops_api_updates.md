@@ -7,8 +7,8 @@ Compared with the previous version, the added, deleted and supported platforms c
 [mindspore.ops.acos](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.ACos.html#mindspore.ops.ACos)|New|Refer to mindspore.ops.ACos.|r1.5: Ascend/GPU/CPU|functional
 [mindspore.ops.acosh](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.Acosh.html#mindspore.ops.Acosh)|New|Refer to mindspore.ops.Acosh.|r1.5: Ascend/GPU/CPU|functional
 [mindspore.ops.add](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.Add.html#mindspore.ops.Add)|New|Refer to mindspore.ops.Add.|r1.5: Ascend/GPU/CPU|functional
-[mindspore.ops.array_reduce](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/)|Deleted|Reduce the dimension of the array.|  |functional
-[mindspore.ops.array_to_scalar](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/)|Deleted|Convert the array to a scalar.|  |functional
+mindspore.ops.array_reduce|Deleted|Reduce the dimension of the array.|  |functional
+mindspore.ops.array_to_scalar|Deleted|Convert the array to a scalar.|  |functional
 [mindspore.ops.asin](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.Asin.html#mindspore.ops.Asin)|New|Refer to mindspore.ops.Asin.|r1.5: Ascend/GPU/CPU|functional
 [mindspore.ops.asinh](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.Asinh.html#mindspore.ops.Asinh)|New|Refer to mindspore.ops.Asinh.|r1.5: Ascend/GPU/CPU|functional
 [mindspore.ops.atan](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.Atan.html#mindspore.ops.Atan)|New|Refer to mindspore.ops.Atan.|r1.5: Ascend/GPU/CPU|functional
@@ -33,18 +33,18 @@ Compared with the previous version, the added, deleted and supported platforms c
 [mindspore.ops.gather_d](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.GatherD.html#mindspore.ops.GatherD)|New|Refer to mindspore.ops.GatherD.|r1.5: Ascend/GPU/CPU|functional
 [mindspore.ops.ge](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.GreaterEqual.html#mindspore.ops.GreaterEqual)|New|Refer to mindspore.ops.GreaterEqual.|r1.5: Ascend/GPU/CPU|functional
 [mindspore.ops.gt](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.Greater.html#mindspore.ops.Greater)|New|Refer to mindspore.ops.Greater.|r1.5: Ascend/GPU/CPU|functional
-[mindspore.ops.hastype](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/)|Deleted|Determine whether the object has the specified type.|  |functional
+mindspore.ops.hastype|Deleted|Determine whether the object has the specified type.|  |functional
 [mindspore.ops.invert](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.Invert.html#mindspore.ops.Invert)|New|Refer to mindspore.ops.Invert.|r1.5: Ascend|functional
 [mindspore.ops.isfinite](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.IsFinite.html#mindspore.ops.IsFinite)|New|Refer to mindspore.ops.IsFinite.|r1.5: Ascend/GPU/CPU|functional
 [mindspore.ops.isnan](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.IsNan.html#mindspore.ops.IsNan)|New|Refer to mindspore.ops.IsNan.|r1.5: GPU/CPU|functional
 [mindspore.ops.le](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.LessEqual.html#mindspore.ops.LessEqual)|New|Refer to mindspore.ops.LessEqual.|r1.5: Ascend/GPU/CPU|functional
 [mindspore.ops.less](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.Less.html#mindspore.ops.Less)|New|Refer to mindspore.ops.Less.|r1.5: Ascend/GPU/CPU|functional
 [mindspore.ops.log](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.Log.html#mindspore.ops.Log)|New|Refer to mindspore.ops.Log.|r1.5: Ascend/GPU/CPU|functional
-[mindspore.ops.make_row_tensor](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/)|Deleted|Generate row tensor.|  |functional
-[mindspore.ops.make_sparse_tensor](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/)|Deleted|Generate sparse tensor.|  |functional
+mindspore.ops.make_row_tensor|Deleted|Generate row tensor.|  |functional
+mindspore.ops.make_sparse_tensor|Deleted|Generate sparse tensor.|  |functional
 [mindspore.ops.maximum](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.Maximum.html#mindspore.ops.Maximum)|New|Refer to mindspore.ops.Maximum.|r1.5: Ascend/GPU/CPU|functional
 [mindspore.ops.minimum](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.Minimum.html#mindspore.ops.Minimum)|New|Refer to mindspore.ops.Minimum.|r1.5: Ascend/GPU/CPU|functional
-[mindspore.ops.mixed_precision_cast](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/)|Deleted|A temporary ops for mixed precision will be converted to cast after the step of compiling.|  |functional
+mindspore.ops.mixed_precision_cast|Deleted|A temporary ops for mixed precision will be converted to cast after the step of compiling.|  |functional
 [mindspore.ops.mul](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.Mul.html#mindspore.ops.Mul)|New|Refer to mindspore.ops.Mul.|r1.5: Ascend/GPU/CPU|functional
 [mindspore.ops.pows](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.Pow.html#mindspore.ops.Pow)|New|Refer to mindspore.ops.Pow.|r1.5: Ascend/GPU/CPU|functional
 [mindspore.ops.reduce_max](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.ReduceMax.html#mindspore.ops.ReduceMax)|New|Refer to mindspore.ops.ReduceMax.|r1.5: Ascend/GPU/CPU|functional
@@ -52,16 +52,16 @@ Compared with the previous version, the added, deleted and supported platforms c
 [mindspore.ops.reduce_min](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.ReduceMin.html#mindspore.ops.ReduceMin)|New|Refer to mindspore.ops.ReduceMin.|r1.5: Ascend/GPU/CPU|functional
 [mindspore.ops.reduce_prod](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.ReduceProd.html#mindspore.ops.ReduceProd)|New|Refer to mindspore.ops.ReduceProd.|r1.5: Ascend/GPU|functional
 [mindspore.ops.reduce_sum](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.ReduceSum.html#mindspore.ops.ReduceSum)|New|Refer to mindspore.ops.ReduceSum.|r1.5: Ascend/GPU/CPU|functional
-[mindspore.ops.reduced_shape](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/)|Deleted|Calculate the shape of the reduction operator.|  |functional
-[mindspore.ops.row_tensor_get_dense_shape](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/)|Deleted|Get corresponding dense shape of row tensor.|  |functional
-[mindspore.ops.row_tensor_get_indices](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/)|Deleted|Get indices of row tensor.|  |functional
-[mindspore.ops.row_tensor_get_values](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/)|Deleted|Get values of row tensor.|  |functional
+mindspore.ops.reduced_shape|Deleted|Calculate the shape of the reduction operator.|  |functional
+mindspore.ops.row_tensor_get_dense_shape|Deleted|Get corresponding dense shape of row tensor.|  |functional
+mindspore.ops.row_tensor_get_indices|Deleted|Get indices of row tensor.|  |functional
+mindspore.ops.row_tensor_get_values|Deleted|Get values of row tensor.|  |functional
 [mindspore.ops.sin](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.Sin.html#mindspore.ops.Sin)|New|Refer to mindspore.ops.Sin.|r1.5: Ascend/GPU/CPU|functional
 [mindspore.ops.sinh](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.Sinh.html#mindspore.ops.Sinh)|New|Refer to mindspore.ops.Sinh.|r1.5: Ascend/CPU|functional
 [mindspore.ops.sort](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.Sort.html#mindspore.ops.Sort)|New|Refer to mindspore.ops.Sort.|r1.5: Ascend/GPU/CPU|functional
-[mindspore.ops.sparse_tensor_get_dense_shape](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/)|Deleted|Get corresponding dense shape of sparse tensor.|  |functional
-[mindspore.ops.sparse_tensor_get_indices](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/)|Deleted|Get indices of sparse tensor.|  |functional
-[mindspore.ops.sparse_tensor_get_values](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/)|Deleted|Get values of sparse tensor.|  |functional
+mindspore.ops.sparse_tensor_get_dense_shape|Deleted|Get corresponding dense shape of sparse tensor.|  |functional
+mindspore.ops.sparse_tensor_get_indices|Deleted|Get indices of sparse tensor.|  |functional
+mindspore.ops.sparse_tensor_get_values|Deleted|Get values of sparse tensor.|  |functional
 [mindspore.ops.squeeze](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.Squeeze.html#mindspore.ops.Squeeze)|New|Refer to mindspore.ops.Squeeze.|r1.5: Ascend/GPU/CPU|functional
 [mindspore.ops.sub](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.Sub.html#mindspore.ops.Sub)|New|Refer to mindspore.ops.Sub.|r1.5: Ascend/GPU/CPU|functional
 [mindspore.ops.tan](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/ops/mindspore.ops.Tan.html#mindspore.ops.Tan)|New|Refer to mindspore.ops.Tan.|r1.5: Ascend/CPU|functional
