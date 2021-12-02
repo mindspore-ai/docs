@@ -198,10 +198,19 @@ self.loss = CrossEntropyLoss(parallel_config=parallel_config.dp_mp_config)
 
 ## 端到端流程
 
-在定义并行配置、模型和损失函数之后，我们可以将他们放在一起完成整个训练过程，对应的代码如下。
+在定义并行配置、模型和损失函数之后，我们可以将上述代码整合完成训练过程。在启动训练之前，我们调用`auto_parallel_context`设置并行选项，设置并行模式为`SEMI_AUTO_PARALLEL`。在流水线并行的情况下，MindSpore提供了额外的配置可以通信为代价额外节省内存。其过程如下：在含有数据并行维度的并且开启优化器切分的情况下(`enable_parallel_optimizer=True`)，
+通过设置`parallel_optimizer_config= {"gradient_accumulation_shard":True}`可以将流水线并行训练时的累积变量进一步切分，以达到节省内存的目的，同时会在每个`micro_step`之间引入通信以保证每卡梯度的一致性。
+
+```python
+context.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, gradients_mean=False, full_batch=True, loss_repeated_mean=True, device_num=device_num, enable_parallel_optimizer=True, parallel_optimizer_config = {"gradient_accumulation_shard": gradient_accumulation_shard})
+```
+
+关于`stage_num`的说明如下，MindSpore通过`stage_num`来判断是否进入流水线并行训练。
 
 - 在设置`stage_num=1`的情况下，进行算子级别的并行。用户可以通过设置`TransformerOpParallelConfig`中的`model_parallel`和`data_parallel`属性进行配置并行训练。
 - 在设置`stage_num>1`的情况下，会进入流水线并行模式。流水线的配置就是设置每个`cell`对应的`pipeline_stage`属性，另外，在实例化网络中后，我们需要再调用`PipelineCell`来封装定义好的网络。这个`Cell`的作用是将输入切分成`mirco_batch_num`个数的小数据，以最大利用计算资源。值得注意的是，我们需要调用`net.infer_param_pipeline_stage()`而不是`net.trainable_params()`来获取当前`stage`对应的训练权重。注意，pipeline的stage内的卡数至少为8。pipeline的详细教程可以参考[这里](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/apply_pipeline_parallel.html)。
+
+整合后的主文件代码如下。
 
 ```python
 from mindspore.parallel.nn import TransformerOpParallelConfig
@@ -239,23 +248,28 @@ def main():
     # Run the total forward model
     ...
     args_opt = parser.parse_args()
+    ...
 
     if args_opt.distribute == 'true':
         D.init()
         device_num = D.get_group_size()
         rank_id = D.get_rank()
-        print("rank_id is {}, device_num is {}".format(rank_id, device_num))
+        dp = device_num // args_opt.mp // args_opt.pipeline_stage
+        print("rank_id is {}, device_num is {}, dp is {}".format(rank_id, device_num, dp))
+        gradient_accumulation_shard = dp > 1 and args_opt.pipeline_stage > 1
         context.reset_auto_parallel_context()
         context.set_auto_parallel_context(
             parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, gradients_mean=False,
             full_batch=True, loss_repeated_mean=True,
-            device_num=device_num, enable_parallel_optimizer=False)
+            device_num=device_num, enable_parallel_optimizer=True,
+            parallel_optimizer_config={"gradient_accumulation_shard": gradient_accumulation_shard})
+    else:
+        dp = 1
 
     parallel_config = TransformerOpParallelConfig(pipeline_stage=args_opt.pipeline_stage,
                                                   micro_batch_num=args_opt.micro_batch_num,
                                                   model_parallel=args_opt.mp,
-                                                  data_parallel=args_opt.dp,
-                                                  optimizer_shard=False)
+                                                  data_parallel=dp)
 
     net = Net(batch=args_opt.batch_size // args_opt.micro_batch_num if args_opt.pipeline_stage else args_opt.batch_size,
               src_len=args_opt.src_len, tgt_len=args_opt.tgt_len,
