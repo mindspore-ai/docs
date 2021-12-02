@@ -35,6 +35,9 @@ This document describes how to quickly install MindSpore by compiling source cod
 
 - Ensure that [wheel 0.32.0 or later](https://pypi.org/project/wheel/) is installed.
 
+- Ensure that [CMake 3.18.3 or later](https://cmake.org/download/) is installed.
+    - Add the path where the executable file `cmake` stores to the environment variable PATH.
+
 - Ensure that [patch 2.5 or later](http://ftp.gnu.org/gnu/patch/) is installed.
     - Add the path where the executable file `patch` stores to the environment variable PATH.
 
@@ -62,7 +65,7 @@ Of which,
 ## Installing MindSpore
 
 ```bash
-pip install output/mindspore-{version}-{python_version}-any.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install output/mindspore-{version}-{python_version}-macosx_{platform_version}_{arch}.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 If there is any compile error when installing scipy package, please use following command to install scipy package first, then install mindspore package as normal.
@@ -75,6 +78,8 @@ Of which,
 
 - When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
 - `{version}` specifies the MindSpore version number. For example, when installing MindSpore 1.6.0, set `{version}` to 1.6.0.
+- `{platform_version}` specifies the macOS version number. For example, when installing macOS 10.15, set `{platform_version}` to `10_15`.
+- `{arch}` denotes the system architecture. For example, the macOS you are using is x86 architecture 64-bit, `{arch}` should be `x86_64`. If the system is ARM architecture 64-bit, then it should be `arm64`.
 - `{python_version}` spcecifies the python version for which MindSpore is built. If Python3.9.0 is used, it should be `cp39-cp39`.
 
 ## Installation Verification
@@ -91,3 +96,21 @@ The result of multiplication calculation is correct, MindSpore has been installe
 ```
 
 It means MindSpore has been installed successfully.
+
+## Version Update
+
+Using the following command if you need to update the MindSpore version:
+
+- Update online
+
+    ```bash
+    pip install --upgrade mindspore
+    ```
+
+- Update after source code compilation
+
+    After successfully executing the compile script `build.sh` in the root path of the source code, find the whl package in path `output`, use the following command to update your version.
+
+    ```bash
+    pip install --upgrade mindspore-{version}-{python_version}-macosx_{platform_version}_{arch}.whl
+    ```

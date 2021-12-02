@@ -35,6 +35,9 @@
 
 - 确认安装[wheel 0.32.0及以上版本](https://pypi.org/project/wheel/)。
 
+- 确认安装[CMake 3.18.3及以上版本](https://cmake.org/download/)。
+    - 安装完成后需将CMake所在路径添加到系统环境变量。
+
 - 确认安装[patch 2.5及以上版本](http://ftp.gnu.org/gnu/patch/)。
     - 安装完成后需将patch所在路径添加到系统环境变量中。
 
@@ -61,7 +64,7 @@ bash build.sh -e cpu -S on -j4
 ## 安装MindSpore
 
 ```bash
-pip install output/mindspore-{version}-{python_version}-any.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install output/mindspore-{version}-{python_version}-macosx_{platform_version}_{arch}.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 如果在安装scipy包时出现编译错误，可以尝试先使用下面的命令安装scipy包，再安装MindSpore包。
@@ -74,6 +77,8 @@ pip install --pre -i https://pypi.anaconda.org/scipy-wheels-nightly/simple scipy
 
 - 在联网状态下，安装whl包时会自动下载mindspore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装。运行模型时，需要根据[ModelZoo](https://gitee.com/mindspore/models/tree/master/)中不同模型指定的requirements.txt安装额外依赖，常见依赖可以参考[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)。
 - `{version}`表示MindSpore版本号，例如安装1.6.0版本MindSpore时，`{version}`应写为1.6.0。
+- `{platform_version}`表示系统版本，例如系统版本为macOS 10.15时，`{platform_version}`应写为`10_15`。
+- `{arch}`表示系统架构，例如使用的macOS系统是x86架构64位时，`{arch}`应写为`x86_64`。如果系统是ARM架构64位，则写为`arm64`。
 - `{python_version}`表示用户的Python版本，Python版本为3.9.0时，则写为`cp39-cp39`。
 
 ## 验证安装是否成功
@@ -90,3 +95,21 @@ The result of multiplication calculation is correct, MindSpore has been installe
 ```
 
 说明MindSpore安装成功了。
+
+## 升级MindSpore版本
+
+当需要升级MindSpore版本时，可执行如下命令：
+
+- 直接在线升级
+
+    ```bash
+    pip install --upgrade mindspore
+    ```
+
+- 本地源码编译升级
+
+    在源码根目录下执行编译脚本`build.sh`成功后，在`output`目录下找到编译生成的whl安装包，然后执行命令进行升级。
+
+    ```bash
+    pip install --upgrade mindspore-{version}-{python_version}-macosx_{platform_version}_{arch}.whl
+    ```
