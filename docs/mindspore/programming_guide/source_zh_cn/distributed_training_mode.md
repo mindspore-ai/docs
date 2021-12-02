@@ -183,22 +183,25 @@ class SemiAutoParallelNet(nn.Cell):
 
 ### 全自动并行
 
-自动并行模式，融合了数据并行、模型并行及混合并行的分布式并行模式，可以自动建立代价模型，找到训练时间较短的并行策略，为用户选择1种并行模式。MindSpore提供了如下的两种不同的策略搜索算法：
+自动并行模式，融合了数据并行、模型并行及混合并行的分布式并行模式，可以自动建立代价模型，找到训练时间较短的并行策略，为用户选择合适的并行模式。MindSpore提供了如下的三种不同的策略搜索算法：
 
 - `dynamic_programming`：动态规划策略搜索算法。能够搜索出代价模型刻画的最优策略，但在搜索巨大网络模型的并行策略时耗时较长。其代价模型是围绕Ascend 910芯片基于内存的计算开销和通信开销对训练时间建模。
 - `recursive_programming`：双递归策略搜索算法。对于巨大网络以及大规模多卡切分能够保证瞬间生成最优策略。其基于符号运算的代价模型可以自由适配不同的加速器集群。
+- `sharding_propagation`：切分策略传播算法。由配置并行策略的算子向未配置的算子传播并行策略。在传播时，算法会尽量选取引发张量重排布通信最少的策略。关于算子的并行策略配置和张量重排布，可参考[半自动并行](#半自动并行)。
 
 用户可以通过如下代码去设置上述的策略搜索算法：
 
 ```python
 from mindspore import context
 # 设置动态规划算法进行策略搜索
-context.set_auto_parallel_context(parallel_mode=context.ParallelMode.AUTO_PARALLEL, auto_parallel_search_mode="dynamic_programming")
+context.set_auto_parallel_context(parallel_mode=context.ParallelMode.AUTO_PARALLEL, search_mode="dynamic_programming")
 # 设置双递归方法进行策略搜索
-context.set_auto_parallel_context(parallel_mode=context.ParallelMode.AUTO_PARALLEL, auto_parallel_search_mode="recursive_programming")
+context.set_auto_parallel_context(parallel_mode=context.ParallelMode.AUTO_PARALLEL, search_mode="recursive_programming")
+# 设置切分策略传播算法
+context.set_auto_parallel_context(parallel_mode=context.ParallelMode.AUTO_PARALLEL, search_mode="sharding_propagation")
 ```
 
-> 在自动并行模式下，用户设置的`shard`策略也会生效，不会被搜索出来的策略覆盖掉。
+> 在`sharding_propagation`模式下，算法根据用户设置的`shard`策略传播到整个模型，在`dynamic_programming`模式下，用户设置的`shard`策略也会生效，不会被搜索出来的策略覆盖掉。
 
 ### 混合并行
 
