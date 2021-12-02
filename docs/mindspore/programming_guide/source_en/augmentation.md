@@ -77,7 +77,7 @@ def download_dataset(url, target_path):
         os.makedirs(target_path)
     download_file = url.split("/")[-1]
     if not os.path.exists(download_file):
-        res = requests.get(url, stream=True)
+        res = requests.get(url, stream=True, verify=False)
         if download_file.split(".")[-1] not in ["tgz", "zip", "tar", "gz"]:
             download_file = os.path.join(target_path, download_file)
         with open(download_file, "wb") as f:
@@ -274,7 +274,7 @@ def download_dataset(dataset_url, path):
     filename = dataset_url.split("/")[-1]
     if not os.path.exists(path):
         os.makedirs(path)
-    res = requests.get(dataset_url, stream=True)
+    res = requests.get(dataset_url, stream=True, verify=False)
     save_path = os.path.join(path, filename)
     with open(save_path, "wb") as f:
         for chunk in res.iter_content(chunk_size=512):
