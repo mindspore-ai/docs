@@ -405,7 +405,7 @@ Large networks (such as Bert Large) will cause memory overflow when using synchr
     }
     ```
 
-    - `dump_mode`: 0: dump all kernels data in graph, 1: dump kernels data in kernels list.
+    - `dump_mode`: 0: dump all kernels data in graph, 1: dump kernels data in kernels list, 2: dump the kernels data specified by `set_dump` in the scripts, see [mindspore.dump](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore/mindspore.set_dump.html) for the usage of `set_dump`.
     - `path`: The absolute path to save dump data. It is not a mandatory option and can be left unset or set to an empty string.
     - `net_name`: The net name eg:ResNet50.
     - `iteration`: Specify the iterations to dump, type is string. Use "|" to separate the step data of different intervals to be saved. For example, "0 | 5-8 | 100-120" represents dump the data of the 1st, 6th to 9th, and 101st to 121st steps. If iteration set to "all", data of every iteration will be dumped.
