@@ -42,7 +42,7 @@ If the initial value is `NumPy.array`, the generated `Tensor` data type correspo
 
 You can create a tensor with the `init`, `shape` and `dtype`.
 
-- `init`: Supported subclasses of incoming `Subclass of Initializer`.
+- `init`: Supported subclasses of incoming Subclass of `Initializer`.
 - `shape`: Supported subclasses of incoming `list`, `tuple`, `int`.
 - `dtype`: Supported subclasses of incoming `mindspore.dtype`.
 
