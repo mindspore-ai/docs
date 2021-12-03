@@ -87,7 +87,7 @@ if __name__ == '__main__':
     # If you are running in parallel mode on Ascend, the Profiler should be initialized before HCCL
     # initialized.
 
-    profiler = Profiler(output_path = './profiler_data', start_profile = False)
+    profiler = Profiler(output_path = './profiler_data')
     # Train Model
     net = Net()
     train(net)
