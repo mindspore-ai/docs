@@ -17,6 +17,9 @@
         - [部分模型精度结果](#部分模型精度结果)
     - [全量化](#全量化)
         - [部分模型精度结果](#部分模型精度结果-1)
+    - [量化Debug](#量化debug)
+        - [设置无需量化Node](#设置无需量化node)
+        - [使用建议](#使用建议)
 
 <!-- /TOC -->
 
@@ -45,6 +48,14 @@ MindSpore Lite训练后量化分为两类：
 | `bit_num`                  | 可选 | 设置量化的比特数，目前权重量化支持0-16bit量化，设置为1-16bit时为固定比特量化，设置为0bit时，启用混合比特量化。全量化支持1-8bit量化。 | Integer  | 8      | 权重量化：\[0，16]<br/>全量化：[1，8] |
 | `min_quant_weight_size`    | 可选 | 设置参与量化的权重尺寸阈值，若权重数大于该值，则对此权重进行量化。 | Integer  | 0      | [0, 65535]                            |
 | `min_quant_weight_channel` | 可选 | 设置参与量化的权重通道数阈值，若权重通道数大于该值，则对此权重进行量化。 | Integer  | 16     | [0, 65535]                            |
+| `skip_quant_node`          | 可选 | 设置无需量化的算子名称，多个算子之间用`,`分割。              | String   | -      | -                                     |
+| `debug_info_save_path`     | 可选 | 设置量化Debug信息文件保存的文件夹路径。                      | String   | -      | -                                     |
+
+> 目前`min_quant_weight_size`、`min_quant_weight_channel`仅对权重量化有效。
+>
+> 目前`skip_quant_node`仅对全量化有效。
+>
+> 建议：全量化在精度不满足的情况下，可设置`debug_info_save_path`开启Debug模式得到相关统计报告，针对不适合量化的算子设置`skip_quant_node`对其不进行量化。
 
 通用量化参数配置如下所示：
 
@@ -59,33 +70,40 @@ bit_num=8
 min_quant_weight_size=0
 # Layers with channel size of weights exceeds threshold `min_quant_weight_channel` will be quantized.
 min_quant_weight_channel=16
+# Set the name of the operator that skips the quantization, and use `,` to split between multiple operators.
+skip_quant_node=node_name1,node_name2,node_name3
+# Set the folder path where the quantization debug information file is saved.
+debug_info_save_path=/home/workspace/mindspore/debug_info_save_path
 ```
 
 ### 混合比特权重量化参数
 
 混合比特权重量化参数包括`init_scale`，启用混合比特权重量化后，将会针对不同层自动搜索最优的比特数。参数的详细介绍如下所示：
 
-| 参数       | 属性 | 功能描述                                                     | 参数类型 | 默认值 | 取值范围 |
-| ---------- | ---- | ------------------------------------------------------------ | -------- | ------ | -------- |
-| init_scale | 可选 | 初始化scale，数值越大可以带来更大的压缩率，但是也会造成不同程度的精度损失 | float    | 0.02   | (0 , 1)  |
+| 参数       | 属性 | 功能描述                                                     | 参数类型 | 默认值 | 取值范围    |
+| ---------- | ---- | ------------------------------------------------------------ | -------- | ------ | ----------- |
+| init_scale | 可选 | 初始化scale，数值越大可以带来更大的压缩率，但是也会造成不同程度的精度损失 | float    | 0.02   | (0 , 1)     |
+| auto_tune  | 可选 | 自动搜索init_scale参数，设置后将自动会搜索一组模型输出Tensor在余弦相似度在0.995左右的`init_scale`值 | Boolean  | False  | True，False |
 
 混合比特量化参数配置如下所示：
 
 ```ini
 [mixed_bit_weight_quant_param]
 init_scale=0.02
+auto_tune=false
 ```
 
 ### 全量化参数
 
 全量化参数主要包括`activation_quant_method`及`bias_correction`。参数的详细介绍如下所示：
 
-| 参数                    | 属性 | 功能描述               | 参数类型 | 默认值  | 取值范围                                                     |
-| ----------------------- | ---- | ---------------------- | -------- | ------- | ------------------------------------------------------------ |
-| activation_quant_method | 可选 | 激活值量化算法         | String   | MAX_MIN | KL，MAX_MIN，RemovalOutlier。 <br>KL：基于[KL散度](http://on-demand.gputechconf.com/gtc/2017/presentation/s7310-8-bit-inference-with-tensorrt.pdf)对数据范围作量化校准。 <br>MAX_MIN：基于最大值、最小值计算数据的量化参数。 <br>RemovalOutlier：按照一定比例剔除数据的极大极小值，再计算量化参数。 <br>在校准数据集与实际推理时的输入数据相吻合的情况下，推荐使用MAX_MIN；而在校准数据集噪声比较大的情况下，推荐使用KL或者REMOVAL_OUTLIER |
-| bias_correction         | 可选 | 是否对量化误差进行校正 | Boolean  | True    | True，False。使能后，将能提升量化模型的精度。                |
+| 参数                    | 属性 | 功能描述                                                     | 参数类型 | 默认值  | 取值范围                                                     |
+| ----------------------- | ---- | ------------------------------------------------------------ | -------- | ------- | ------------------------------------------------------------ |
+| activation_quant_method | 可选 | 激活值量化算法                                               | String   | MAX_MIN | KL，MAX_MIN，RemovalOutlier。 <br>KL：基于[KL散度](http://on-demand.gputechconf.com/gtc/2017/presentation/s7310-8-bit-inference-with-tensorrt.pdf)对数据范围作量化校准。 <br>MAX_MIN：基于最大值、最小值计算数据的量化参数。 <br>RemovalOutlier：按照一定比例剔除数据的极大极小值，再计算量化参数。 <br>在校准数据集与实际推理时的输入数据相吻合的情况下，推荐使用MAX_MIN；而在校准数据集噪声比较大的情况下，推荐使用KL或者REMOVAL_OUTLIER |
+| bias_correction         | 可选 | 是否对量化误差进行校正                                       | Boolean  | True    | True，False。使能后，将能提升量化模型的精度。                |
+| target_device           | 可选 | 全量化支持多硬件后端。设置特定硬件后，转换的量化模型可执行专有硬件量化算子库；不设置可执行通用硬件量化算子库。 | String   | -       | KIRIN：转换后的量化模型可以在KIRIN NPU上执行量化推理。       |
 
-全量化参数配置如下所示：
+通用全量化参数配置如下所示：
 
 ```ini
 [full_quant_param]
@@ -95,9 +113,19 @@ activation_quant_method=MAX_MIN
 bias_correction=true
 ```
 
+Kirin NPU全量化参数配置如下所示，转换后的量化模型在推理时需要[配置使用NPU后端](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html#npu)：
+
+```ini
+[full_quant_param]
+# Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
+activation_quant_method=MAX_MIN
+# Supports specific hardware backends
+target_device=KIRIN
+```
+
 ### 数据预处理
 
-计算全量化的激活值量化参数，用户需要提供校准数据集，针对图片校准数据集，将提供通道转换、归一化、缩放和裁剪等数据预处理功能。
+计算全量化激活值的量化参数，用户需要提供校准数据集，针对图片校准数据集，提供通道转换、归一化、缩放和裁剪等数据预处理功能。
 
 | 参数               | 属性 | 功能描述                                                     | 参数类型 | 默认值 | 取值范围                                                     |
 | ------------------ | ---- | ------------------------------------------------------------ | -------- | ------ | ------------------------------------------------------------ |
@@ -180,7 +208,6 @@ init_scale=0.02
 用户可根据模型及自身需要对权重量化的参数作出调整。
 > init_scale默认的初始值为0.02，搜索的压缩率相当与6-7固定比特的压缩效果。
 >
-> 针对稀疏结构模型，建议将init_scale设置为0.00003。
 
 ### 固定比特量化
 
@@ -196,10 +223,8 @@ init_scale=0.02
 
 ```ini
 [common_quant_param]
-# Supports WEIGHT_QUANT or FULL_QUANT
 quant_type=WEIGHT_QUANT
 # Weight quantization support the number of bits [0,16], Set to 0 is mixed bit quantization, otherwise it is fixed bit quantization
-# Full quantization support the number of bits [1,8]
 bit_num=8
 # Layers with size of weights exceeds threshold `min_quant_weight_size` will be quantized.
 min_quant_weight_size=0
@@ -235,15 +260,9 @@ min_quant_weight_channel=16
 
 ```ini
 [common_quant_param]
-# Supports WEIGHT_QUANT or FULL_QUANT
 quant_type=FULL_QUANT
-# Weight quantization support the number of bits [0,16], Set to 0 is mixed bit quantization, otherwise it is fixed bit quantization
 # Full quantization support the number of bits [1,8]
 bit_num=8
-# Layers with size of weights exceeds threshold `min_quant_weight_size` will be quantized.
-min_quant_weight_size=0
-# Layers with channel size of weights exceeds threshold `min_quant_weight_channel` will be quantized.
-min_quant_weight_channel=16
 
 [data_preprocess_param]
 # Calibration dataset path, the format is input_name_1:input_1_dir,input_name_2:input_2_dir
@@ -287,3 +306,75 @@ bias_correction=true
 | [Mobilenet_V2_1.0_224](https://storage.googleapis.com/download.tensorflow.org/models/tflite_11_05_08/mobilenet_v2_1.0_224.tgz)      | [ImageNet](http://image-net.org/) | MAX_MIN |    71.56%    |  71.16%  | 校准数据集随机选择ImageNet Validation数据集中的100张 |
 
 > 以上所有结果均在x86环境上测得。
+
+## 量化Debug
+
+开启量化Debug功能，能够得到数据分布统计报告，用于评估量化误差，辅助决策模型（算子）是否适合量化。针对全量化，会根据所提供矫正数据集的数量，生成N份数据分布统计报告，即每一轮都会生成一份报告；针对权重量化，只会生成1份数据分布统计报告。
+
+设置`debug_info_save_path`参数后，将会在`/home/workspace/mindspore/debug_info_save_path`文件夹中生成相关Debug报告：
+
+```ini
+[common_quant_param]
+debug_info_save_path=/home/workspace/mindspore/debug_info_save_path
+```
+
+数据分布统计报告会统计每个Tensor原始数据分布以及量化Tensor反量化后的数据分布情况。数据分布统计报告相关字段如下所示：
+
+| Type             | Name                                                     |
+| ---------------- | -------------------------------------------------------- |
+| NodeName         | 节点名                                                   |
+| NodeType         | 节点类型                                                 |
+| TensorName       | Tensor名                                                 |
+| InOutFlag        | Tensor输出、输出类型                                     |
+| DataTypeFlag     | 数据类型，原始数据用Origin，反量化后的数据用Dequant      |
+| TensorTypeFlag   | 针对输入输出等数据类用Activation表示，常量等用Weight表示 |
+| Min              | 最小值，0%分位点                                         |
+| Q1               | 25%分位点                                                |
+| Median           | 中位数，50%分位点                                        |
+| Q3               | 75%分位点                                                |
+| MAX              | 最大值，100%分位点                                       |
+| Mean             | 均值                                                     |
+| Var              | 方差                                                     |
+| Sparsity         | 稀疏度                                                   |
+| Clip             | 截断率                                                   |
+| CosineSimilarity | 和原始数据对比的余弦相似度                               |
+
+量化参数文件`quant_param.csv`包含所有量化Tensor的量化参数信息，量化参数相关字段如下所示：
+
+| Type          | Name              |
+| ------------- | ----------------- |
+| NodeName      | 节点名            |
+| NodeType      | 节点类型          |
+| TensorName    | Tensor名          |
+| ElementsNum   | Tensor数据量      |
+| Dims          | Tensor维度        |
+| Scale         | 量化参数scale     |
+| ZeroPoint     | 量化参数ZeroPoint |
+| Bits          | 量化比特数        |
+| CorrctionVar  | 误差矫正系数-方差 |
+| CorrctionMean | 误差矫正系数-均值 |
+
+> 由于混合比特量化是非标准量化，该量化参数文件可能为空。
+
+### 设置无需量化Node
+
+量化是将Float32算子转换Int8算子，目前的量化策略是针对可支持的某一类算子所包含的Node都会进行量化，但是存在部分Node敏感度较高，量化后会引发较大的误差，同时某些层量化后推理速度远低于Float16的推理速度。支持指定层不量化，可以有效提高精度和推理速度。
+
+下面将`conv2d_1` `add_8` `concat_1`三个Node不进行量化的示例：
+
+```ini
+[common_quant_param]
+# Supports WEIGHT_QUANT or FULL_QUANT
+quant_type=FULL_QUANT
+# Weight quantization support the number of bits [0,16], Set to 0 is mixed bit quantization, otherwise it is fixed bit quantization
+# Full quantization support the number of bits [1,8]
+bit_num=8
+# Set the name of the operator that skips the quantization, and use `,` to split between multiple operators.
+skip_quant_node=conv2d_1,add_8,concat_1
+```
+
+### 使用建议
+
+1. 通过过滤`InOutFlag == Output && DataTypeFlag == Dequant`，可以筛选出所有量化算子的输出层，通过查看量化输出的`CosineSimilarity`来判断算子的精度损失，越接近1损失越小。
+2. 针对Add、Concat等合并类算子，如果不同输入Tensor之间`min`、`max`分布差异较大，容易引发较大误差，可以设置`skip_quant_node`，将其不量化。
+3. 针对截断率`Clip`较高的算子，可以设置`skip_quant_node`，将其不量化。

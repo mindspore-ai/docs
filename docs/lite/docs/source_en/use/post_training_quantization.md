@@ -17,6 +17,9 @@
         - [Partial Model Accuracy Result](#partial-model-accuracy-result)
     - [Full Quantization](#full-quantization)
         - [Partial Model Accuracy Result](#partial-model-accuracy-result-1)
+    - [Quantization Debug](#quantization-debug)
+        - [Skip Quantization Node](#skip-quantization-node)
+        - [Recommendations](#recommendations)
 
 <!-- /TOC -->
 
@@ -45,7 +48,8 @@ common quantization parameters are the basic settings for post training quantiza
 | `bit_num`                  | Optional  | The number of quantized bits. Currently, weight quantization supports 0-16bit quantization. When it is set to 1-16bit, it is fixed-bit quantization. When it is set to 0bit, mixed-bit quantization is enabled. Full quantization supports 1-8bit quantization. | Integer        | 8             | WEIGHT_QUAN:\[0，16]<br/>FULL_QUANT:\[1，8] |
 | `min_quant_weight_size`    | Optional  | Set the threshold of the weight size for quantization. If the number of weights is greater than this value, the weight will be quantized. | Integer        | 0             | [0, 65535]                                  |
 | `min_quant_weight_channel` | Optional  | Set the threshold of the number of weight channels for quantization. If the number of weight channels is greater than this value, the weight will be quantized. | Integer        | 16            | [0, 65535]                                  |
-
+| `skip_quant_node`          | Optional | Set the name of the operator that does not need to be quantified, and use `,` to split between multiple operators. | String   | -      | -                                     |
+| `debug_info_save_path`     | Optional | Set the folder path where the quantized debug information file is saved. | String   | -      | -                                     |
 The common quantization parameter configuration is as follows:
 
 ```ini
@@ -59,7 +63,17 @@ bit_num=8
 min_quant_weight_size=0
 # Layers with channel size of weights exceeds threshold `min_quant_weight_channel` will be quantized.
 min_quant_weight_channel=16
+# Set the name of the operator that skips the quantization, and use `,` to split between multiple operators.
+skip_quant_node=node_name1,node_name2,node_name3
+# Set the folder path where the quantization debug information file is saved.
+debug_info_save_path=/home/workspace/mindspore/debug_info_save_path
 ```
+
+> `min_quant_weight_size` and `min_quant_weight_channel` are only valid for weight quantization.
+>
+> `skip_quant_node` is only valid for full quantization.
+>
+> Recommendation: When the accuracy of full quantization is not satisfied, you can set `debug_info_save_path` to turn on the Debug mode to get the relevant statistical report, and set `skip_quant_node` for operators that are not suitable for quantization to not quantize them.
 
 ### Mixed Bit Weight Quantization Parameter
 
@@ -67,23 +81,26 @@ The mixed bit weight quantization parameters include `init_scale`. When enable t
 
 | Parameter  | Attribute | Function Description                                         | Parameter Type | Default Value | Value Range |
 | ---------- | --------- | ------------------------------------------------------------ | -------------- | ------------- | ----------- |
-| init_scale | Optional  | Initialize the scale. The larger the value, the greater the compression rate, but it will also cause varying degrees of accuracy loss. | float          | 0.02          | (0 , 1)     |
+| init_scale | Optional  | Initialize the scale. The larger the value, the greater the compression rate, but it will also cause varying degrees of accuracy loss. | Float          | 0.02          | (0 , 1)     |
+| auto_tune  | Optional  | Automatically search for the init_scale parameter. After setting, it will automatically search for a set of `init_scale` values whose cosine similarity of the model output Tensor is around 0.995. | Boolean        | False         | True，False |
 
 The mixed bit quantization parameter configuration is as follows:
 
 ```ini
 [mixed_bit_weight_quant_param]
 init_scale=0.02
+auto_tune=false
 ```
 
 ### Full Quantization Parameters
 
 The full quantization parameters mainly include `activation_quant_method` and `bias_correction`. The detailed description of the parameters is as follows:
 
-| Parameter               | Attribute | Function Description                                | Parameter Type | Default Value | Value Range                                                  |
-| ----------------------- | --------- | --------------------------------------------------- | -------------- | ------------- | ------------------------------------------------------------ |
-| activation_quant_method | Optional  | Activation quantization algorithm                   | String         | MAX_MIN       | KL, MAX_MIN, or RemovalOutlier.<br/>KL: quantizes and calibrates the data range based on [KL divergence](http://on-demand.gputechconf.com/gtc/2017/presentation/s7310-8-bit-inference-with-tensorrt.pdf).<br/>MAX_MIN: data quantization parameter computed based on the maximum and minimum values.<br/>RemovalOutlier: removes the maximum and minimum values of data based on a certain proportion and then calculates the quantization parameters.<br/>If the calibration dataset is consistent with the input data during actual inference, MAX_MIN is recommended. If the noise of the calibration dataset is large, KL or RemovalOutlier is recommended. |
-| bias_correction         | Optional  | Indicate whether to correct the quantization error. | Boolean        | True          | True or False. After this parameter is enabled, the accuracy of the converted model can be improved. You are advised to set this parameter to true. |
+| Parameter               | Attribute | Function Description                                         | Parameter Type | Default Value | Value Range                                                  |
+| ----------------------- | --------- | ------------------------------------------------------------ | -------------- | ------------- | ------------------------------------------------------------ |
+| activation_quant_method | Optional  | Activation quantization algorithm                            | String         | MAX_MIN       | KL, MAX_MIN, or RemovalOutlier.<br/>KL: quantizes and calibrates the data range based on [KL divergence](http://on-demand.gputechconf.com/gtc/2017/presentation/s7310-8-bit-inference-with-tensorrt.pdf).<br/>MAX_MIN: data quantization parameter computed based on the maximum and minimum values.<br/>RemovalOutlier: removes the maximum and minimum values of data based on a certain proportion and then calculates the quantization parameters.<br/>If the calibration dataset is consistent with the input data during actual inference, MAX_MIN is recommended. If the noise of the calibration dataset is large, KL or RemovalOutlier is recommended. |
+| bias_correction         | Optional  | Indicate whether to correct the quantization error.          | Boolean        | True          | True or False. After this parameter is enabled, the accuracy of the converted model can be improved. You are advised to set this parameter to true. |
+| target_device           | Optional  | Full quantization supports multiple hardware backends. After setting the specific hardware, the converted quantization model can execute the proprietary hardware quantization operator library; without setting the executable general hardware quantization operator library. | String         | -             | KIRIN: The converted quantitative model can perform quantitative reasoning on the KIRIN NPU. |
 
 The full quantization parameter configuration is as follows:
 
@@ -93,6 +110,16 @@ The full quantization parameter configuration is as follows:
 activation_quant_method=MAX_MIN
 # Whether to correct the quantization error. Recommended to set to true.
 bias_correction=true
+```
+
+Kirin NPU full quantization parameter configuration is shown below, the converted quantization model needs to be inferred during inference [Configuring to NPU Backend](https://www.mindspore.cn/lite/docs/en/master/use/runtime_cpp.html#configuring-the-npu-backend).
+
+```ini
+[full_quant_param]
+# Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
+activation_quant_method=MAX_MIN
+# Supports specific hardware backends
+target_device=KIRIN
 ```
 
 ### Data Preprocessing
@@ -161,10 +188,8 @@ The mixed bit weight quantification configuration file is as follows:
 
 ```ini
 [common_quant_param]
-# Supports WEIGHT_QUANT or FULL_QUANT
 quant_type=WEIGHT_QUANT
 # Weight quantization support the number of bits [0,16], Set to 0 is mixed bit quantization, otherwise it is fixed bit quantization
-# Full quantization support the number of bits [1,8]
 bit_num=0
 # Layers with size of weights exceeds threshold `min_quant_weight_size` will be quantized.
 min_quant_weight_size=5000
@@ -181,7 +206,6 @@ Users can adjust the weighted parameters according to the model and their own ne
 
 > The init_scale default value is 0.02, and the compression rate is equivalent to the compression effect of 6-7 fixed bits quantization.
 >
-> For the sparse structure model, it is recommended to set init_scale to 0.00003.
 
 ### Fixed Bit Weight Quantization
 
@@ -197,10 +221,8 @@ The fixed bit weight quantization configuration file is as follows:
 
 ```ini
 [common_quant_param]
-# Supports WEIGHT_QUANT or FULL_QUANT
 quant_type=WEIGHT_QUANT
 # Weight quantization support the number of bits [0,16], Set to 0 is mixed bit quantization, otherwise it is fixed bit quantization
-# Full quantization support the number of bits [1,8]
 bit_num=8
 # Layers with size of weights exceeds threshold `min_quant_weight_size` will be quantized.
 min_quant_weight_size=0
@@ -236,15 +258,9 @@ The full quantization profile is as follows:
 
 ```ini
 [common_quant_param]
-# Supports WEIGHT_QUANT or FULL_QUANT
 quant_type=FULL_QUANT
-# Weight quantization support the number of bits [0,16], Set to 0 is mixed bit quantization, otherwise it is fixed bit quantization
 # Full quantization support the number of bits [1,8]
 bit_num=8
-# Layers with size of weights exceeds threshold `min_quant_weight_size` will be quantized.
-min_quant_weight_size=0
-# Layers with channel size of weights exceeds threshold `min_quant_weight_channel` will be quantized.
-min_quant_weight_channel=16
 
 [data_preprocess_param]
 # Calibration dataset path, the format is input_name_1:input_1_dir,input_name_2:input_2_dir
@@ -288,3 +304,75 @@ bias_correction=true
 | [Mobilenet_V2_1.0_224](https://storage.googleapis.com/download.tensorflow.org/models/tflite_11_05_08/mobilenet_v2_1.0_224.tgz) | [ImageNet](http://image-net.org/) | MAX_MIN  | 71.56%              | 71.16%                              | Randomly select 100 images from the ImageNet Validation dataset as a calibration dataset. |
 
 > All the preceding results are obtained in the x86 environment.
+
+## Quantization Debug
+
+Turn on the quantization Debug function, you can get the data distribution statistics report, which is used to evaluate the quantization error and assist the decision-making model (operator) whether it is suitable for quantization. For full quantification, N data distribution statistics reports will be generated according to the number of correction data sets provided, that is, one report will be generated for each round; for weighting, only one data distribution statistics report will be generated.
+
+When setting the `debug_info_save_path` parameter, the relevant debug report will be generated in the `/home/workspace/mindspore/debug_info_save_path` folder:
+
+```ini
+[common_quant_param]
+debug_info_save_path=/home/workspace/mindspore/debug_info_save_path
+```
+
+The data distribution statistics report will count the original data distribution of each Tensor and the data distribution after dequantization of the quantized Tensor. The relevant fields of the data distribution statistics report are as follows:
+
+| Type             | Name                                                         |
+| ---------------- | ------------------------------------------------------------ |
+| NodeName         | The node name                                                |
+| NodeType         | The node type                                                |
+| TensorName       | The tensor name                                              |
+| InOutFlag        | The input or output tensor                                   |
+| DataTypeFlag     | The data type, use Origin for original model, use Dequant for quantization model |
+| TensorTypeFlag   | The data types such as input and output, use Activation, and constants, etc., use Weight. |
+| Min              | The minimum value                                            |
+| Q1               | The 25% quantile                                             |
+| Median           | The median                                                   |
+| Q3               | The 75% quantile                                             |
+| MAX              | The maximum                                                  |
+| Mean             | The mean                                                     |
+| Var              | The var                                                      |
+| Sparsity         | The sparsity                                                 |
+| Clip             | The Clip                                                     |
+| CosineSimilarity | Cosine similarity compared with the original data            |
+
+The quantization parameter file `quant_param.csv` contains the quantization parameter information of all quantized Tensors. The quantization parameter related fields are as follows:
+
+| Type          | Name                                 |
+| ------------- | ------------------------------------ |
+| NodeName      | The node name                        |
+| NodeType      | The node type                        |
+| TensorName    | The tensor name                      |
+| ElementsNum   | The Tensor elements num              |
+| Dims          | The tensor dims                      |
+| Scale         | The quantization parameter scale     |
+| ZeroPoint     | The quantization parameter zeropoint |
+| Bits          | The number of quantization bits      |
+| CorrctionVar  | Bias correction coefficient-variance |
+| CorrctionMean | Bias correction coefficient-mean     |
+
+> Mixed bit quantization is non-standard quantization, the quantization parameter file may be empty.
+
+### Skip Quantization Node
+
+Quantization is to convert the Float32 operator to the Int8 operator. The current quantization strategy is to quantify all the nodes contained in a certain type of operator that can be supported, but there are some nodes that are more sensitive and will cause larger errors after quantization. At the same time, the inference speed of some layers after quantization is much lower than that of Float16. It supports non-quantization of the specified layer, which can effectively improve the accuracy and inference speed.
+
+Below is an example of `conv2d_1` `add_8` `concat_1` without quantifying the three nodes:
+
+```ini
+[common_quant_param]
+# Supports WEIGHT_QUANT or FULL_QUANT
+quant_type=FULL_QUANT
+# Weight quantization support the number of bits [0,16], Set to 0 is mixed bit quantization, otherwise it is fixed bit quantization
+# Full quantization support the number of bits [1,8]
+bit_num=8
+# Set the name of the operator that skips the quantization, and use `,` to split between multiple operators.
+skip_quant_node=conv2d_1,add_8,concat_1
+```
+
+### Recommendations
+
+1. By filtering `InOutFlag == Output && DataTypeFlag == Dequant`, the output layer of all quantization operators can be filtered out, and the accuracy loss of the operator can be judged by looking at the quantized output `CosineSimilarity`, the closer to 1 the smaller the loss.
+2. For merging operators such as Add and Concat, if the distribution of `min` and `max` between different input Tensors is quite different, which is likely to cause large errors, you can set `skip_quant_node` to not quantize them.
+3. For operators with a higher cutoff rate `Clip`, you can set `skip_quant_node` to not quantize it.
