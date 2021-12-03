@@ -315,6 +315,7 @@ std::shared_ptr<Allocator> GetAllocator() const;
 | `uint32_t GetDeviceID() const`                                       | - 返回值: 已配置的设备ID                                                                                                                                                                                                                               |
 | `void SetPrecisionMode(const std::string &precision_mode)`                   | 用于指定推理时算子精度<br><br> - `precision_mode`: 可选值`origin`(以模型中指定精度进行推理), `fp16`(以FP16精度进行推理)，默认值: `origin`                                                                                                                                                     |
 | `std::string GetPrecisionMode() const`                                       | - 返回值: 已配置的精度模式                                                                                                                                                                                                                               |
+| `int GetRankID() const`                                       | - 返回值: 当前运行的RANK ID                                                                                                                                                                                                                               |
 
 ## KirinNPUDeviceInfo
 
@@ -387,7 +388,7 @@ Status Load(const std::string &file, ModelType model_type, Graph *graph, const K
 - 参数
 
     - `file`: 模型文件路径。
-    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kOM`。MindSpore Lite仅支持`ModelType::kMindIR`类型。
+    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Opt`、`ModelType::kOM`。MindSpore Lite支持`ModelType::kMindIR`、`ModelType::kMindIR_Opt`类型。
     - `graph`: 输出参数，保存图数据的对象。
     - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16、24或32。
     - `dec_mode`: 解密模式，可选有`AES-GCM`、`AES-CBC`。
@@ -408,7 +409,7 @@ Status Load(const std::vector<std::string> &files, ModelType model_type, std::ve
 - 参数
 
     - `files`: 多个模型文件路径，用vector存储。
-    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kOM`。
+    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Opt`、`ModelType::kOM`。MindSpore Lite支持`ModelType::kMindIR`、`ModelType::kMindIR_Opt`类型。
     - `graphs`: 输出参数，依次保存图数据的对象。
     - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16、24或32。
     - `dec_mode`: 解密模式，可选有`AES-GCM`、`AES-CBC`。
@@ -430,7 +431,7 @@ Status Load(const void *model_data, size_t data_size, ModelType model_type, Grap
 
     - `model_data`：模型数据指针。
     - `data_size`：模型数据字节数。
-    - `model_type`：模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kOM`。MindSpore Lite仅支持`ModelType::kMindIR`类型。
+    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Opt`、`ModelType::kOM`。MindSpore Lite支持`ModelType::kMindIR`、`ModelType::kMindIR_Opt`类型。
     - `graph`：输出参数，保存图数据的对象。
     - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16、24或32。
     - `dec_mode`: 解密模式，可选有`AES-GCM`、`AES-CBC`。
@@ -510,7 +511,7 @@ Status Build(const void *model_data, size_t data_size, ModelType model_type,
 
     - `model_data`: 指向存储读入模型文件缓冲区的指针。
     - `data_size`: 缓冲区大小。
-    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kOM`。MindSpore Lite仅支持`ModelType::kMindIR`类型。
+    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Opt`、`ModelType::kOM`。MindSpore Lite支持`ModelType::kMindIR`、`ModelType::kMindIR_Opt`类型。
     - `model_context`: 模型[Context](#context)。
     - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16、24或32。
     - `dec_mode`: 解密模式，可选有`AES-GCM`、`AES-CBC`。
@@ -532,7 +533,7 @@ Status Build(const std::string &model_path, ModelType model_type,
 - 参数
 
     - `model_path`: 模型文件路径。
-    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kOM`。MindSpore Lite仅支持`ModelType::kMindIR`类型。
+    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Opt`、`ModelType::kOM`。MindSpore Lite支持`ModelType::kMindIR`、`ModelType::kMindIR_Opt`类型。
     - `model_context`: 模型[Context](#context)。
     - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16、24或32。
     - `dec_mode`: 解密模式，可选有`AES-GCM`、`AES-CBC`。
