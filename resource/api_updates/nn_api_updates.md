@@ -4,6 +4,7 @@ Compared with the previous version, the added, deleted and supported platforms c
 
 |API|Status|Description|Support Platform|Class
 |:----|:----|:----|:----|:----
+[mindspore.nn.GraphKernel](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/nn/mindspore.nn.GraphKernel.html#mindspore.nn.GraphKernel)|Deleted|Base class for GraphKernel cell that can be compiled into a fused kernel automatically when enable_graph_kernel in context is set to True.|Ascend/GPU/CPU|Cell
 [mindspore.nn.GraphCell](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/nn/mindspore.nn.GraphCell.html#mindspore.nn.GraphCell)|New|Base class for running the graph loaded from a MindIR.|r1.5: Ascend/GPU/CPU|Cell
 [mindspore.nn.Jvp](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/nn/mindspore.nn.Jvp.html#mindspore.nn.Jvp)|New|Compute the jacobian-vector-product of the given network.|r1.5: To Be Developed|Gradient
 [mindspore.nn.Vjp](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/nn/mindspore.nn.Vjp.html#mindspore.nn.Vjp)|New|Computes the dot product between a vector  v  and the Jacobian of the given network at the point given by the inputs.|r1.5: To Be Developed|Gradient

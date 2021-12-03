@@ -572,8 +572,6 @@ Variables
 
 - :doc:`../generate/variable_mindspore_prim_kPrimInplaceAdd-1`
 
-- :doc:`../generate/variable_mindspore_prim_kPrimInplaceAssign-1`
-
 - :doc:`../generate/variable_mindspore_prim_kPrimInplaceSub-1`
 
 - :doc:`../generate/variable_mindspore_prim_kPrimInsertGradientOf-1`
