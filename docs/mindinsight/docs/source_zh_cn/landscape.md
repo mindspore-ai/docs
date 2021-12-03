@@ -219,7 +219,7 @@
 
 损失函数多维分析描述了训练过程中模型的运动轨迹情况，用户可以通过查看损失函数多维分析来了解模型训练过程的运动轨迹。
 
-点击图2序号2的训练看板，进入如图3所示页面：
+点击图2序号1的训练看板，进入如图3所示页面：
 
 ![train_landscape.png](./images/train_landscape.png)
 
@@ -268,11 +268,11 @@ Loss图形对比描述了训练结束时收敛点周围的情况，用户可以�
 
 ![landscape_analysis_train_1.png](./images/landscape_analysis_train_1.png)
 
-图8 ResNet50网络1-5epoch等值线图
+图8 ResNet-50网络1-5epoch等值线图
 
 ![landscape_analysis_train_2.png](./images/landscape_analysis_train_2.png)
 
-图9 ResNet50网络80-90epoch等值线图
+图9 ResNet-50网络80-90epoch等值线图
 
 从图8中可以看出，在训练初期，当loss标量曲线迅速下降时，loss轨迹与等值线几乎垂直；从图9中可以看出在训练结束阶段，此时loss曲线平滑，等值线图存在多个局部最优点。
 
