@@ -15,7 +15,6 @@ Cell
 
     mindspore.nn.Cell
     mindspore.nn.GraphCell
-    mindspore.nn.GraphKernel
 
 Containers
 ----------
