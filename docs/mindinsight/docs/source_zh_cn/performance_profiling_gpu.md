@@ -66,13 +66,13 @@ class StopAtStep(Callback):
         cb_params = run_context.original_args()
         step_num = cb_params.cur_step_num
         if step_num == self.start_step:
-            self.profiler = Profiler()
+            self.profiler.start()
 
     def step_end(self, run_context):
         cb_params = run_context.original_args()
         step_num = cb_params.cur_step_num
         if step_num == self.stop_step and not self.already_analysed:
-            self.profiler.analyse()
+            self.profiler.stop()
             self.already_analysed = True
 
     def end(self, run_context):
