@@ -320,7 +320,7 @@ Strategy Perception includes Computational Graph Exploration module, Parallel St
 
 #### General Introduction
 
-![image-20211122155239553](./images/strategy_perception.png)
+![image-20211118132511452](./images/profiler_strategy_graph_en.png)
 
 Figure 12: The Page of Strategy Perception
 
@@ -328,13 +328,17 @@ The upper right corner of the page will show the parallel mode of this training.
 
 Users can choose computational graphs of different stages to explore. Users can also use the graph selector to extract communication nodes from specific parts of the computational graph (feed-forward graph, back-propagation graph, and recompute graph).
 
-When the aggregation node is not expanded, it will show statistics of different special operators, like operators with strategy, operators for redistribution, and operators for gradient aggregation. The colors of the three types of operators are shown in the legend.
+The pipeline parallel view is at the upper left corner of the page. When training parallel mode is pipeline parallel, this view shows the data sending and receiving relationship between stages. Click the operator to jump to the graph.
+
+The computational graph is displayed in the middle of the page. The node of the square is the aggregation node, which can be double-clicked to open or close. The ellipse is the common operator.
+
+When the aggregation node is not expanded, it will show statistics of different special operators, like operators with strategy, operators for redistribution, and operators for gradient aggregation. If the output of the previous operator cannot be calculated with the output of the next operator, a redistribution operator is automatically inserted between two operators to implement the arrangement transformation. For more details, please refer to the chapter of distributed training design in the design document.
 
 By clicking a certain node (operator or aggregation node), the node attributes panel will show the inputs and outputs of the node and its shard methods. The input and output nodes can be tracked by clicking.
 
 ### Operator Strategy Matrix
 
-![image-20211118133144763](./images/strategy_demo.png)
+![image-20211118133144763](./images/profiler_strategy_graph_stack.png)
 
 Figure 13: Operator Strategy Matrix
 
@@ -342,15 +346,31 @@ If an input node of the operator has shard methods, a strategy matrix will be pr
 
 The corresponding input edges will be highlighted when hovering on the strategy matrix. Along with the input and output locating feature, users can analyze the rationality of the operator's shard method and adjust accordingly if needed.
 
+It is important to note that constants are not plotted in the computational graph, so the shard strategy for constants is not reflected in the graph.
+
 ### Training Pipeline
 
-![image-20211122180619886](./images/pipeline_panel.png)
+![image-20211122180619886](./images/profiler_strategy_graph_pipeline.png)
 
 Figure 14: Training Pipeline
 
 When the pipeline parallel strategy is adopted, click the button in the upper left corner to expand the training pipeline panel. This panel shows the send operators (red rectangles) and receive operators (green rectangles) in each stage and their correspondences between different stages. The rectangles (operators) can be clicked and the corresponding operator will be focused in the computational graph.
 
 With the training pipeline panel, users can evaluate the rationality of stage segmentation and analyze the design space of pipeline parallel strategy, the number of micro-batches, etc.
+
+### Operator Stacking and Edge Hiding
+
+![image-20211118125032089](./images/profiler_strategy_graph_stack.png)
+
+Figure 14: Operator Stacking
+
+In the computational graph, if there are too many operators of the same type in the aggregation node, they will be stacked and displayed. Double-click to expand the operator.
+
+![image-20211118125032089](./images/profiler_strategy_hideline.png)
+
+Figure 14: View Hidden Edges
+
+In order to prevent the lines from being too messy and some unimportant edges will be hidden, move the mouse over the circle of the aggregation node to see the hidden edges.
 
 ## Specifications
 
