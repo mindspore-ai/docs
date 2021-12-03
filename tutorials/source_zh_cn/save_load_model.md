@@ -8,9 +8,22 @@
 
 ## 保存模型
 
-在模型训练的过程中，使用Callback回调机制传入回调函数`ModelCheckpoint`对象，可以保存模型参数，生成CheckPoint文件。
+保存模型的接口有主要2种方式：1）一种是简单的对网络模型进行保存，可以在训练前后进行保存，优点是接口简单易用，但是只保留执行命令时候的网络模型状态；2）另外一种是在网络模型训练中进行保存，MindSpore在网络模型训练的过程中，自动保存训练时候设定好的epoch数和step数的参数，也就是把模型训练过程中产生的中间权重参数也保存下来，方便进行网络微调和停止训练。
 
-> 上面我们也曾提到过Callback机制，其设计的理念不是针对下沉式，而是针对流程进行设计的，其支持网络计算前后、epoch执行前后、step执行前后的回调处理机制；下沉的目的是为了提升训练执行效率，由于下沉在加速硬件上执行，所以Callback需要等下沉执行完毕后才能回调执行，在设计上两者解耦。
+### 直接保存模型
+
+使用MindSpore提供的save_checkpoint保存模型，传入网络和保存路径：
+
+```python
+import mindspore as ms
+
+# 定义的网络模型为net，一般在训练前或者训练后使用
+ms.save_checkpoint(net, "./MyNet.ckpt")
+```
+
+### 训练过程中保存模型
+
+在模型训练的过程中，使用`model.train`里面的`callbacks`参数传入保存模型的对象 `ModelCheckpoint`，可以保存模型参数，生成CheckPoint(简称ckpt)文件。
 
 ```python
 from mindspore.train.callback import ModelCheckpoint

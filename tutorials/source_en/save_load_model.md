@@ -23,9 +23,22 @@ In the previous tutorial, you learn how to train the network. In this tutorial, 
 
 ## Saving the Model
 
-During model training, use the callback mechanism to pass the object of the callback function `ModelCheckpoint` to save model parameters and generate checkpoint files.
+There are two main ways to save the interface of the model: 1) One is to simply save the network model, which can be saved before and after training. The advantage is that the interface is simple and easy to use, but only the state of the network model when the command is executed is retained; 2) The other one is to save the interface during network model training. In the process of network model training, MindSpore automatically saves the parameters of the epoch number and step number set during training, that is, the intermediate weight parameters generated during the model training process are also saved to facilitate network fine-tuning and stop training.
 
-> The callback mechanism is not designed for offloading but for processes. It supports the callback processing mechanisms before and after network computation, epoch execution, and step execution. The purpose of offloading is to improve the training execution efficiency. Because the offloading is executed on the acceleration hardware, the callback can be executed only after the offloading is complete. The two functions are decoupled from the perspective of design.
+### Saving the Model Directly
+
+Use the save_checkpoint provided by MindSpore to save the model, pass it to the network and save the path:
+
+```python
+import mindspore as ms
+
+# The defined network model is net, which is generally used before or after training
+ms.save_checkpoint(net, "./MyNet.ckpt")
+```
+
+### Saving the Model During Training
+
+In the process of model training, use the `callbacks` parameter in `model.train` to pass in the object `ModelCheckpoint` that saves the model, which can save the model parameters and generate CheckPoint (abbreviated as ckpt) files.
 
 ```python
 from mindspore.train.callback import ModelCheckpoint
