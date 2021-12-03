@@ -54,10 +54,6 @@ def main():
                         type=int,
                         default=1,
                         help="Running training or prediction.")
-    parser.add_argument("--device_num",
-                        type=int,
-                        default=128,
-                        help="Use device nums, default is 128.")
     parser.add_argument("--file_path",
                         type=str,
                         default="./output/wmt14.fr_en.txt",
@@ -116,11 +112,6 @@ def main():
                         type=float,
                         default=0.0001,
                         help='The learnign rate of the training process.')
-    parser.add_argument('--dp',
-                        required=False,
-                        type=int,
-                        default=1,
-                        help='The data parallel way.')
     parser.add_argument('--mp',
                         required=False,
                         type=int,
@@ -132,18 +123,22 @@ def main():
         D.init()
         device_num = D.get_group_size()
         rank_id = D.get_rank()
-        print("rank_id is {}, device_num is {}".format(rank_id, device_num))
+        dp = device_num // args_opt.mp // args_opt.pipeline_stage
+        print("rank_id is {}, device_num is {}, dp is {}".format(rank_id, device_num, dp))
+        gradient_accumulation_shard = dp > 1 and args_opt.pipeline_stage > 1
         context.reset_auto_parallel_context()
         context.set_auto_parallel_context(
             parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, gradients_mean=False,
             full_batch=True, loss_repeated_mean=True,
-            device_num=device_num, enable_parallel_optimizer=False)
+            device_num=device_num, enable_parallel_optimizer=True,
+            parallel_optimizer_config={"gradient_accumulation_shard": gradient_accumulation_shard})
+    else:
+        dp = 1
 
     parallel_config = TransformerOpParallelConfig(pipeline_stage=args_opt.pipeline_stage,
                                                   micro_batch_num=args_opt.micro_batch_num,
                                                   model_parallel=args_opt.mp,
-                                                  data_parallel=args_opt.dp,
-                                                  optimizer_shard=False)
+                                                  data_parallel=dp)
 
     net = Net(batch=args_opt.batch_size // args_opt.micro_batch_num if args_opt.pipeline_stage else args_opt.batch_size,
               src_len=args_opt.src_len, tgt_len=args_opt.tgt_len,
