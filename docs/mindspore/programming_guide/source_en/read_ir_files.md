@@ -37,9 +37,30 @@ if __name__ == "__main__":
     context.set_context(save_graphs=True, save_graphs_path="path/to/ir/files")
 ```
 
-After the training command is executed, some files are generated in the path of `save_graphs_path`: the IR files
-starting with digits and underscores are generated during the ME graph compilation. The compute graph is saved in each
-phase of the `pipeline`. Let's see the important phases.
+After the training command is executed, some files are generated in the path of `save_graphs_path`.
+
+```text
+.
+├──00_parse_0000.dot
+├──00_parse_0001.ir
+├──00_parse_0002.dat
+├──01_symbol_resolve_0003.dot
+├──01_symbol_resolve_0004.ir
+├──01_symbol_resolve_0005.dat
+├──02_combine_like_graphs_0006.dot
+├──02_combine_like_graphs_0007.ir
+├──02_combine_like_graphs_0008.dat
+├──03_inference_opt_prepare_0009.dot
+├──03_inference_opt_prepare_0010.ir
+├──03_inference_opt_prepare_0011.dat
+├──04_abstract_specialize_0012.dot
+├──04_abstract_specialize_0013.ir
+├──04_abstract_specialize_0014.dat
+...
+```
+
+The IR files starting with digits and underscores are generated during the ME graph compilation. The compute graph is
+saved in each phase of the `pipeline`. Let's see the important phases.
 
 - The `parse` phase parses the `construct` function of the entrance. If viewing the IR file, we can see that only the
   graph information of the top cell is parsed in this phase.
@@ -61,26 +82,6 @@ file `graph_build_[graph_id]_[IR_id].ir`. It is the MindIR after the frontend an
 
 > Multiple files may be saved because the backend only can handle the single graph.
 > It is different with the frontend when the front save all sub-graphs in the one file.
-
-```text
-.
-├──00_parse_0000.dot
-├──00_parse_0001.ir
-├──00_parse_0002.dat
-├──01_symbol_resolve_0003.dot
-├──01_symbol_resolve_0004.ir
-├──01_symbol_resolve_0005.dat
-├──02_combine_like_graphs_0006.dot
-├──02_combine_like_graphs_0007.ir
-├──02_combine_like_graphs_0008.dat
-├──03_inference_opt_prepare_0009.dot
-├──03_inference_opt_prepare_0010.ir
-├──03_inference_opt_prepare_0011.dat
-├──04_abstract_specialize_0012.dot
-├──04_abstract_specialize_0013.ir
-├──04_abstract_specialize_0014.dat
-...
-```
 
 ## IR File Contents Introduction
 
@@ -183,13 +184,19 @@ Line 5 to 6 are the input list, which is in the format of `%para[No.]_[name] : <
 Line 8 tells us the number of subgraph parsed by the network. There are 3 graphs in this IR. Line 42 is the entry graph `1_construct_wrapper.21`. Line 32 is graph `3_func.23`, parsed from the `func(x, y)` in the source script. Line 12 is graph `2_construct.22`, parsed from the function `construct`.
 Taking graph `2_construct.22` as an example, Line 10 to 28 indicate the graph structure, which contains several nodes, namely, `CNode`. In this example, there are `Sub`, `Add`, `Mul`. They are defined in the function `__init__`. Line 19 calls a graph by `call @3_func.23`. It indicates calling the graph `func(x, y)` to execute a division operation.
 
-The ]`CNode`](https://www.mindspore.cn/docs/programming_guide/en/master/design/mindir.html#syntax) information format is as follows: including the node name, attribute, input node, the specs of the inputs and outputs, and source code parsing call stack. The ANF graph is a unidirectional acyclic graph. So, the connection between nodes is displayed only based on the input relationship. The source code parsing call stack reflects the relationship between the `CNode` and the script source code. For example, line 15 is parsed from `a = self.sub(x, 1)`.
+The ]`CNode`](https://www.mindspore.cn/docs/programming_guide/en/master/design/mindir.html#syntax) information format is as follows: including the node name, attribute, input node, the specs of the inputs and outputs, and source code parsing call stack. The ANF graph is a unidirectional acyclic graph. So, the connection between nodes is displayed only based on the input relationship. The corresponding source code reflects the relationship between the `CNode` and the script source code. For example, line 15 is parsed from `a = self.sub(x, 1)`.
 
 ```text
   %[No.]([debug_name]) = [op_name]([arg], ...) primitive_attrs: {[key]: [value], ...}
       : (<[input data_type]x[input shape]>, ...) -> (<[output data_type]x[output shape]>, ...)
-      # Call stack for source code parsing
+      # Corresponding source code
 ```
+
+About the corresponding source code:
+
+- There are two mode for the corresponding source code displaying. The first mode is to display the complete call stack, such as `15_execute_0142.ir` on the frontend and `graph_build_0_136.ir` on the backend. The second mode only displays one code line for reducing the size of the IR file, which eliminates the call stack.
+- If the operator is a back propagation operator, the associated code line will not only display its own code, but also the corresponding forward code, identified by "Corresponding forward node candidate:".
+- If the operator is a fusion operator, the associated code line will display the fusion related code, identified by "Corresponding code candidate:", where the separator "-" is used to distinguish different codes.
 
 > - After several optimizations by the compiler, the node may undergo several changes (such as operator splitting and operator merging). The source code parsing call stack information of the node may not be in a one-to-one correspondence with the script. This is only an auxiliary method.
 > - After the `kernel select` phase at the backend, two lines of input and output specification information (that is, the content after `:`) will appear. The first line represents the specifications on the HOST side, and the second line represents the specifications on the DEVICE side.
@@ -267,11 +274,11 @@ Line 23 to 32 indicates the graph structure, which contains several nodes, namel
 Line 34 to 39 shows the execution order of the `CNode` from graph `2_construct.22`, corresponding to the order of code execution. The information format is: `No.: belonging graph:node name{[0]: the first input, [1]: the second input, ...}`. For `CNode`, the first input indicates how to compute for this `CNode`.
 Line 28 indicates the number of graphs. Here is 3.
 
-The [CNode](https://www.mindspore.cn/docs/programming_guide/en/master/design/mindir.html#syntax) information format is as follows: including the node name, attribute, input node, output information, format, and source code parsing call stack.
+The [CNode](https://www.mindspore.cn/docs/programming_guide/en/master/design/mindir.html#syntax) information format is as follows: including the node name, attribute, input node, output information, format and the corresponding source code.
 
 ```text
 %[No,] : [outputs' Spec] = [op_name]{[prim_type]}[attr0, attr1, ...](arg0, arg1, ...)    #(inputs' Spec)#[scope]
-  # Call stack for source code parsing/#debug_name
+  # Corresponding source code/#debug_name
 ```
 
 ## Reading analyze_fail.dat

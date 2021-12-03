@@ -694,3 +694,9 @@ Otherwise, set max_call_depth can change the recursive depth of MindSpore, it ma
 <font size=3>**Q: Why report an error that 'could not get source code' and 'Mindspore can not compile temporary source code in terminal. Please write source code to a python file and run the file.'?**</font>
 
 A: When compiling a network, MindSpore use `inspect.getsourcelines(self.fn)` to get the code file. If the network is the temporary code which edited in terminal, MindSpore will report an error as the title. It can be solved if writing the network to a python file.
+
+<br/>
+
+<font size=3>**Q: Why report an error that 'Corresponding forward node candidate:' and 'Corresponding code candidate:'?**</font>
+
+A: "Corresponding forward node candidate:" is the code in the associated forward network, indicating that the backpropagation operator corresponds to the forward code. "Corresponding code candidate:" means that the operator is fused by these code, and the separator "-" is used to distinguish different code.

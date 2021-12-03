@@ -756,3 +756,9 @@ def test_endless():
 <font size=3>**Q: 编译时报错“could not get source code”以及“Mindspore can not compile temporary source code in terminal. Please write source code to a python file and run the file.”是什么原因？**</font>
 
 A: MindSpore编译网络时通过`inspect.getsourcelines(self.fn)`获取网络代码所在的文件，如果网络是编辑在命令行中的临时代码，那么会出现如标题所示的报错，需要将网络写在Python文件中去执行才能避免该错误。
+
+<br/>
+
+<font size=3>**Q: 报错提示中的“Corresponding forward node candidate:”或“Corresponding code candidate:”是什么意思？**</font>
+
+A: “Corresponding forward node candidate:”为关联的正向网络中的代码，表示该反向传播算子与该正向代码对应。“Corresponding code candidate:”表示该算子是由这些代码融合而来，其中分符“-”用以区分不同的代码。
