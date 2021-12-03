@@ -36,9 +36,7 @@ mindspore.Model.eval(valid_dataset, callbacks=None, dataset_sink_mode=True)
 
 `tf.keras.Model.predict`和`tf.keras.Model.predict_generator`分别支持数据集的不同载入方式，除基本的`callbacks`等，还可通过`workers`、 `use_multiprocessing`配置多线程场景下的进程数等。
 
-`mindspore.Model.train`除了可配置基本的参数`valid_dataset`、`callbacks`等，还可以配置`dataset_sink_mode`设置是否下沉。
-
-接口大致功能一致，入参配置存在差异，具体请参考官网API文档。
+`mindspore.Model.train`除了可配置基本的参数`valid_dataset`、`callbacks`，还可以配置`dataset_sink_mode`设置是否下沉。
 
 ## 代码示例
 
