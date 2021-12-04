@@ -35,3 +35,4 @@
 |MS_DEBUGGER_PORT|Debugger|连接MindInsight Debugger Server的端口|Integer|1~65536，连接MindInsight Debugger Server的端口|与ENABLE_MS_DEBUGGER=1、MS_DEBUGGER_HOST一起使用|可选|无
 |MS_DEBUGGER_PARTIAL_MEM|Debugger|是否开启部分内存复用（只有在Debugger选中的节点才会关闭这些节点的内存复用）|Boolean|1：开启Debugger选中节点的内存复用<br>0：关闭Debugger选中节点的内存复用|无|可选|无|
 |GRAPH_OP_RUN|MindSpore|图模式下以任务下沉方式运行pipeline大网络模型时，可能会由于流资源限制而无法正常启动，此环境变量可以指定图模式的执行方式，配置为0表示任务下沉，是默认执行方式；1则表示非任务下沉方式，该方式没有流的限制，但性能有所下降。|Integer|0：执行任务下沉<br>1：执行非任务下沉|无|可选|无|
+|GROUP_INFO_FILE|MindSpore|指定通信域信息存储路径|String|通信域信息文件路径，支持相对路径与绝对路径。|无|可选|无|
