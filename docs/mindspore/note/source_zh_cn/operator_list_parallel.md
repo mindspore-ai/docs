@@ -74,7 +74,7 @@
 | [mindspore.ops.Log](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Log.html) | 无                                                           |
 | [mindspore.ops.Log1p](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Log1p.html) | 无                                                           |
 | [mindspore.ops.LogSoftmax](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.LogSoftmax.html) | 输入（logits）在轴（axis）对应的维度不可切分，切分后，在数学逻辑上和单机不等价 |
-| [mindspore.ops.MatMul](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.MatMul.html) | 不支持`transpose_a=True`                                     |
+| [mindspore.ops.MatMul](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.MatMul.html) | 1. 不支持`transpose_a=True`；<br />2. 当`transpose_b=True`时，输入的切分策略需是 ((A, B), (C, B)) 的形式<br />3. 当`transpose_b=False`时，输入的切分策略需是 ((A, B), (B, C)) 的形式；<br />4. 支持设置输出切分策略，合法的输出切分策略为 ((A, C),) 或 ((A * B, C),) 。 |
 | [mindspore.ops.Maximum](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Maximum.html) | 无                                                           |
 | [mindspore.ops.MaxPool](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.MaxPool.html) | 1. 数据格式只支持‘NCHW’；<br />2. 输出的H/W维的shape必须能被输入的H/W维的切分策略整除；<br />3. 如果切分H/W：<br />     1) 当kernel_size <= stride时，输入切片大小需能被stride整除；<br />     2) 不支持kernel_size > stride；<br />4. 在auto_parallel模式下，不支持双递归算法。 |
 | [mindspore.ops.Minimum](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Minimum.html) | 无                                                           |
@@ -96,6 +96,7 @@
 | [mindspore.ops.ReLU6](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.ReLU6.html) | 无                                                           |
 | [mindspore.ops.ReLUV2](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.ReLUV2.html) | 无                                                           |
 | [mindspore.ops.Reshape](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Reshape.html) | 不支持配置切分策略，并且，在自动并行模式下，当reshape算子后接有多个算子，不允许对这些算子配置不同的切分策略 |
+| [mindspore.ops.ResizeNearestNeighbor](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.ResizeNearestNeighbor.html) | 在`align_corners=True`时只支持切分第一维和第二维             |
 | [mindspore.ops.Round](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Round.html) | 无                                                           |
 | [mindspore.ops.Rsqrt](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Rsqrt.html) | 无                                                           |
 | [mindspore.ops.ScatterUpdate](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.ScatterUpdate.html) | 第一个输入的第一维不能切分，第二个输入不能切分，第三个输入的前n维（n为第二个输入的维度）不能切分；在auto_parallel模式下，不支持双递归算法。 |
