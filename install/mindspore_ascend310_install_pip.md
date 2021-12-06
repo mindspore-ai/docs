@@ -128,4 +128,3 @@ make
 ```
 
 说明MindSpore安装成功了。
-
