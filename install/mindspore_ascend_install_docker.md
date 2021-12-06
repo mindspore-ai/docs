@@ -91,7 +91,7 @@ docker run -it --ipc=host \
 
 ```bash
 docker run -it --ipc=host \
-               --network host
+               --network host \
                --device=/dev/davinci0 \
                --device=/dev/davinci1 \
                --device=/dev/davinci2 \
