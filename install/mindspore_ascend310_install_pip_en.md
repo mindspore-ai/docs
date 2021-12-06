@@ -127,4 +127,3 @@ The following information is displayed:
 ```
 
 The preceding information indicates that MindSpore is successfully installed.
-
