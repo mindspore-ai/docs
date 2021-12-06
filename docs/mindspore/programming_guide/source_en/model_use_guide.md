@@ -61,7 +61,7 @@ The `Model` contains the following input parameters:
 
 For neural networks in simple scenarios, the forward network `network`, loss function `loss_fn`, optimizer `optimizer` and evaluation metrics `metrics` can be specified during defining `Model`. In this case, Model will use `network` as the inference network and build the training network using `nn.WithLossCell` and `nn.TrainOneStepCell` as well as build the evaluation network using `nn.WithEvalCell`.
 
-Take the linear regression used in [Build Training and Evaluating Network](https://www.mindspore.cn/docs/programming_guide/en/master/train_and_eval.html) as an example:
+Take the linear regression used in [Build Training and Evaluating Network](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/train_and_eval.html) as an example:
 
 ```python
 import mindspore.nn as nn
@@ -84,7 +84,7 @@ opt = nn.Momentum(net.trainable_params(), learning_rate=0.005, momentum=0.9)
 metrics = {"mae"}
 ```
 
-[Build Training and Evaluating Network](https://www.mindspore.cn/docs/programming_guide/en/master/train_and_eval.html) describes the way to build and directly run training and evaluating networks via `nn. WithLossCell`, `nn.TrainOneStepCell` and `nn.WithEvalCell`. When using `Model`, there is no need to build the training and evaluating networks manually. You can use the following way to define `Model` and invoke `train` and `eval` interfaces to achieve the same effect.
+[Build Training and Evaluating Network](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/train_and_eval.html) describes the way to build and directly run training and evaluating networks via `nn. WithLossCell`, `nn.TrainOneStepCell` and `nn.WithEvalCell`. When using `Model`, there is no need to build the training and evaluating networks manually. You can use the following way to define `Model` and invoke `train` and `eval` interfaces to achieve the same effect.
 
 Create training and validation sets:
 
@@ -197,7 +197,7 @@ Compared to building the network and then running it directly, there is no need 
 
 ## Model Applications for Custom Scenarios
 
-As already mentioned in [Loss Function](https://www.mindspore.cn/docs/programming_guide/en/master/loss.html) and [Build Training and Evaluating Network](https://www.mindspore.cn/docs/programming_guide/en/master/train_and_eval.html), the network encapsulation functions `nn.WithLossCell`, `nn.TrainOneStepCell` and `nn.WithEvalCell` provided by MindSpore are not applicable to all scenarios which means we often need to customize the encapsulation method of the network in real scenarios. In such cases it is obviously not reasonable for `Model` to use these encapsulation functions to encapsulate automatically. The next section will introduce how to properly use `Model` in these cases.
+As already mentioned in [Loss Function](https://www.mindspore.cn/docs/programming_guide/en/master/loss.html) and [Build Training and Evaluating Network](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/train_and_eval.html), the network encapsulation functions `nn.WithLossCell`, `nn.TrainOneStepCell` and `nn.WithEvalCell` provided by MindSpore are not applicable to all scenarios which means we often need to customize the encapsulation method of the network in real scenarios. In such cases it is obviously not reasonable for `Model` to use these encapsulation functions to encapsulate automatically. The next section will introduce how to properly use `Model` in these cases.
 
 ### Connect Forward Network with Loss Function Manually
 
@@ -379,7 +379,7 @@ The following example is from the `Loss Function` <https://www.mindspore.cn/docs
 
 When customizing `TrainOneStepCell`, you need to manually build the training network as `network` of `Model`, where `loss_fn` and `optimizer` both use the default value `None`. Then, `Model` will use `network` as the training network without any encapsulation.
 
-Scenarios for customizing `TrainOneStepCell` can be found in [Build Training and Evaluating Network](https://www.mindspore.cn/docs/programming_guide/en/master/train_ and_eval.html). The following is a simple example, where `loss_net` and `opt` are `CustomWithLossCell` and `Momentum` as defined in the previous section.
+Scenarios for customizing `TrainOneStepCell` can be found in [Build Training and Evaluating Network](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/train_and_eval.html). The following is a simple example, where `loss_net` and `opt` are `CustomWithLossCell` and `Momentum` as defined in the previous section.
 
 ```python
 from mindspore.nn import TrainOneStepCell as CustomTrainOneStepCell
@@ -415,6 +415,6 @@ When both the label and the predicted value of the custom training network are s
 
 ### Weight Sharing of Custom Network
 
-The weight sharing mechanism has been introduced in [Build Training and Evaluating Network](https://www.mindspore.cn/docs/programming_guide/en/master/train_and_eval.html). When using MindSpore to build different network structures, as long as they are encapsulated in a same instance, all weights in this instance are shared. So, if there is any weight change in one network structure, the weights in other network structures will be changed simultaneously.
+The weight sharing mechanism has been introduced in [Build Training and Evaluating Network](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/train_and_eval.html). When using MindSpore to build different network structures, as long as they are encapsulated in a same instance, all weights in this instance are shared. So, if there is any weight change in one network structure, the weights in other network structures will be changed simultaneously.
 
 When using Model for training, for simple scenarios, `Model` internally uses `nn.WithLossCell`, `nn.TrainOneStepCell` and `nn.WithEvalCell` to build training and evaluating networks based on the forward `network` Instance. `Model` itself ensures weight sharing among inference, training, and evaluating networks. However, for custom scenarios, users need to be aware that the forward network should be instantiated only once. If the forward network is instantiated separately when building the training network and the evaluating network, you need to manually load the weights in the training network when using `eval` for model evaluation. Otherwise the model evaluation will use the initial weight values.

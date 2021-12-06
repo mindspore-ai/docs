@@ -39,7 +39,7 @@ MindSpore：输出张量，数据类型与x相同的4维张量，形状为[out_b
 ```python
 from mindspore import Tensor
 import mindspore.nn as nn
-import mindspore.common.dtype as mstype
+from mindspore import dtype as mstype
 import torch
 import numpy as np
 

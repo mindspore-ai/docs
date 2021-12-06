@@ -47,7 +47,7 @@ class MyL1Loss(nn.LossBase):
         x = self.abs(base - target)
         return self.get_loss(x)
 
-# import mindspore.common.dtype as mstype
+# from mindspore import dtype as mstype
 # class MyMomentum(nn.Optimizer):
 #     """使用基础算子定义优化器"""
 #     def __init__(self, params, learning_rate, momentum=0.9, use_nesterov=False):
