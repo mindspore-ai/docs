@@ -42,12 +42,12 @@
 from mindspore import Model, load_checkpoint
 from mindspore.nn import SoftmaxCrossEntropyWithLogits
 
-resnet = ResNet50()
-load_checkpoint("resnet50-2_32.ckpt", net=resnet)
+lenet = LeNet5(10)
+load_checkpoint("checkpoint_lenet-1_1875.ckpt", net=lenet)
 # create eval dataset, mnist_path is the data path
 dataset_eval = create_dataset(mnist_path)
 loss = SoftmaxCrossEntropyWithLogits()
-model = Model(resnet, loss, metrics={"accuracy"})
+model = Model(lenet, loss, metrics={"accuracy"})
 acc = model.eval(dataset_eval)
 ```
 
@@ -66,15 +66,15 @@ from mindspore import Model, load_checkpoint
 from mindspore.nn import Momentum
 from mindspore.nn import SoftmaxCrossEntropyWithLogits
 
-param_dict = load_checkpoint("resnet50-2_32.ckpt")
-resnet = ResNet50()
-opt = Momentum(resnet.trainable_params(), 0.01, 0.9)
+param_dict = load_checkpoint("checkpoint_lenet-1_1875.ckpt")
+lenet = LeNet50(10)
+opt = Momentum(lenet.trainable_params(), 0.01, 0.9)
 # load the parameter into net
-load_param_into_net(resnet, param_dict)
+load_param_into_net(lenet, param_dict)
 # load the parameter into optimizer
 load_param_into_net(opt, param_dict)
 loss = SoftmaxCrossEntropyWithLogits()
-model = Model(resnet, loss, opt)
+model = Model(lenet, loss, opt)
 model.train(epoch, dataset)
 ```
 
@@ -90,7 +90,7 @@ model.train(epoch, dataset)
 ```python
 from mindspore import Parameter, Tensor, load_checkpoint, save_checkpoint
 # 加载checkpoint文件
-param_dict = load_checkpoint("lenet.ckpt")
+param_dict = load_checkpoint("checkpoint_lenet-1_1875.ckpt")
 # 可以通过遍历这个dict，查看key和value
 for key, value in param_dict.items():
   # key 为string类型
