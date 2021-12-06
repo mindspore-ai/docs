@@ -69,4 +69,3 @@ pip install --upgrade mindspore=={version}
 其中：
 
 - 升级到rc版本时，需要手动指定`{version}`为rc版本号，例如1.5.0rc1；如果升级到正式版本，`=={version}`字段可以缺省。
-
