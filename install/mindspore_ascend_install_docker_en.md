@@ -90,7 +90,7 @@ If you want to use MindInsight, you need to set the `--network` parameter to "ho
 
 ```bash
 docker run -it --ipc=host \
-               --network host
+               --network host \
                --device=/dev/davinci0 \
                --device=/dev/davinci1 \
                --device=/dev/davinci2 \
