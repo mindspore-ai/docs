@@ -64,4 +64,3 @@ pip install --upgrade mindspore=={version}
 Of which,
 
 - When updating to a release candidate (rc) version, `{version}` should be specified, e.g. 1.5.0rc1; When updating to a standard release, `=={version}` could be removed.
-
