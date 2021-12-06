@@ -196,9 +196,9 @@ aicpu类型的自定义算子采用AOT编译方式，要求算子开发者基于
 > - 需要注意的是，aicpu类型的自定义算子开发后编译成的动态链接库，需要存放到MindSpore的lib目录下，比如MindSpore安装在虚拟环境`/home/conda/envs/aicpu/lib/python3.7/site-packages/mindspore`下，则aicpu的so文件需要放到`/home/conda/envs/aicpu/lib/python3.7/site-packages/mindspore/lib/`目录下。
 > - “cust_aicpu”的值为字符串，用算子动态链接库的名字去除`lib`前缀与`.so`后缀表示，如`libmindspore_aicpu_kernels.so`则设为`"mindspore_aicpu_kernels"`即可。
 
-下面以test_resize_bilinear_aicpu.py为例介绍aicpu类型的自定义算子开发流程，其中自定义算子实现了双线性差值缩放的功能，并且编译好的算子动态链接库，我们命名为libmindspore_aicpu_kernels.so，并已将该动态链接库放至mindspore根目录的lib下。
+下面以test_dropout_aicpu.py为例介绍aicpu类型的自定义算子开发流程，其中自定义算子实现了dropout的功能，并且编译好的算子动态链接库，我们命名为libmindspore_aicpu_kernels.so，并已将该动态链接库放至mindspore根目录的lib下。
 
-test_resize_bilinear_aicpu.py内容：
+test_dropout_aicpu.py内容：
 
 ```python
 import numpy as np
@@ -212,63 +212,70 @@ from mindspore.ops import CustomRegOp, custom_info_register, DataType
 context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
 
 # 算子实现，注册算子信息
-resize_bilinear_op_info = CustomRegOp("ResizeBilinear") \
+dropout2d_op_info = CustomRegOp("Dropout2D") \
     .fusion_type("OPAQUE") \
-    .input(0, "input", "required") \
-    .output(1, "output", "required") \
-    .attr("align_corners", "required", "bool") \
+    .input(0, "x", "required") \
+    .output(0, "y", "required") \
+    .output(1, "mask", "required") \
+    .attr("keep_prob", "required", "float") \
     .attr("cust_aicpu", "required", "str", "mindspore_aicpu_kernels") \
-    .dtype_format(DataType.F16_Default, DataType.F32_Default) \
-    .dtype_format(DataType.F32_Default, DataType.F32_Default) \
+    .dtype_format(DataType.BOOL_Default, DataType.BOOL_Default, DataType.BOOL_Default) \
+    .dtype_format(DataType.I8_Default, DataType.I8_Default, DataType.BOOL_Default) \
+    .dtype_format(DataType.I16_Default, DataType.I16_Default, DataType.BOOL_Default) \
+    .dtype_format(DataType.I32_Default, DataType.I32_Default, DataType.BOOL_Default) \
+    .dtype_format(DataType.I64_Default, DataType.I64_Default, DataType.BOOL_Default) \
+    .dtype_format(DataType.U8_Default, DataType.U8_Default, DataType.BOOL_Default) \
+    .dtype_format(DataType.U16_Default, DataType.U16_Default, DataType.BOOL_Default) \
+    .dtype_format(DataType.U32_Default, DataType.U32_Default, DataType.BOOL_Default) \
+    .dtype_format(DataType.U64_Default, DataType.U64_Default, DataType.BOOL_Default) \
+    .dtype_format(DataType.F16_Default, DataType.F16_Default, DataType.BOOL_Default) \
+    .dtype_format(DataType.F32_Default, DataType.F32_Default, DataType.BOOL_Default) \
+    .dtype_format(DataType.F64_Default, DataType.F64_Default, DataType.BOOL_Default) \
     .target("Ascend") \
     .get_op_info()
 
-@custom_info_register(resize_bilinear_op_info)
-def resize_bilinear_aicpu():
-    """ResizeBilinear AiCPU register"""
+@custom_info_register(dropout2d_op_info)
+def dropout2d_aicpu():
+    """Dropout2D AiCPU register"""
     return
 
 # 定义自定义算子网络
-class NetResizeBilinear(nn.Cell):
-    def __init__(self, size=None, align_corner=False):
-        super(NetResizeBilinear, self).__init__()
-        self.op = ops.Custom(resize_bilinear_aicpu, out_shape=size, \
-                                                    out_dtype=mstype.float32, func_type="aicpu")
-        self.align_corner = align_corner
+class NetDropout2D(nn.Cell):
+    def __init__(self, keep_prob=0.5):
+        super(NetDropout2D, self).__init__()
+        self.op = ops.Custom(dropout2d_aicpu, out_shape=lambda x, _, cust_attr: (x, x), \
+                              out_dtype=lambda x, _, cust_attr: (x, mstype.bool_), func_type="aicpu")
+        self.keep_prob = keep_prob
         self.cust_aicpu_so_path = "mindspore_aicpu_kernels"
 
     def construct(self, inputs):
-        return self.op(inputs, self.align_corner,  self.cust_aicpu_so_path)
+        return self.op(inputs, self.keep_prob,  self.cust_aicpu_so_path)
 
 if __name__ == "__main__":
     # 定义aicpu类型的自定义算子
-    input_tensor = Tensor(np.array(
-        [[[[0.1, 0.2, 0.3], [0.4, 0.5, 0.6], [0.7, 0.8, 0.9]]]]).astype(np.float32))
-    resize_nn = NetResizeBilinear((1, 1, 6, 3))
-    output = resize_nn(input_tensor)
+    input_tensor = Tensor(np.ones([1, 1, 2, 3]), mstype.float32)
+    dropout2d_nn = NetDropout2D(0.5)
+    output, mask = dropout2d_nn(input_tensor)
     print("output: ", output)
+    print("mask: ", mask)
 ```
 
 本例中，有如下几点需要说明：
 
-- 可以用多种方式指定`Custom`原语的`out_shape`和`out_dtype`参数，可以给定类型，也可以用Python lambda函数等设置，本例直接指定了输出size以及输出数据类型为float32类型。
+- 可以用多种方式指定`Custom`原语的`out_shape`和`out_dtype`参数，可以给定类型，也可以用Python lambda函数等设置。本例中lambda函数表明输出的两个shape与输入相同，第一个输出的数据类型和输入张量的信息相同，第二个输出的数据类型为bool类型。
 - 通过`CustomRegOp`生成算子信息，并通过`custom_info_register`装饰器注册算子信息。
 
 执行用例：
 
 ```bash
-python test_resize_bilinear_aicpu.py
+python test_dropout_aicpu.py
 ```
 
 执行结果：
 
 ```text
-output : [[[[0.1        0.2        0.3        ]
-        [0.25        0.35000002        0.45000002]
-        [0.4        0.5        0.6        ]
-        [0.55        0.65        0.75        ]
-        [0.7        0.8        0.9        ]
-        [0.7        0.8        0.9        ]]]]
+output : [[[[2.  2.  2.] [2.  2.  2.]]]]
+mask: [[[[True  True  True]  [True  True  True]]]]
 ```
 
 ### aot类型的自定义算子开发
