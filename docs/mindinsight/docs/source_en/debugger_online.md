@@ -108,11 +108,13 @@ After clicking a graph node, you can view its detailed information in the lower 
 
 In the GPU environment, select and right-click an executable graph node, and choose `Run to This Node` from the shortcut menu to run the training script to the selected node (no more than one step).
 
-### Watchpoint List
+### Anomaly Check List
+
+The anomaly check list shows all the set anomaly check rules. Anomaly check rule, referred to as watchpoint.
 
 ![debugger_watch_point_list](./images/debugger_watch_point_list.png)
 
-Figure 3: The watchpoint list
+Figure 3: The anomaly check list
 
 As shown in Figure 3, the watchpoint list is in the lower left corner of the UI. The three icons from left to right in the upper right corner of the watchpoint list are used to `recheck`, `clear`, and `create` watchpoints.
 
