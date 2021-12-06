@@ -18,7 +18,7 @@ MindSpore的`mindspore.dataset`模块集成了常见的数据处理功能：用�
 import numpy as np
 import mindspore as ms
 from mindspore import ops, nn
-import mindspore.common.dtype as mstype
+from mindspore import dtype as mstype
 import mindspore.dataset as ds
 import mindspore.common.initializer as init
 ```

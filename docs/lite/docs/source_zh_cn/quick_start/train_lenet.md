@@ -240,7 +240,7 @@ The predicted classes are:
 ```python
 import numpy as np
 from mindspore import context, Tensor
-import mindspore.dtype as mstype
+from mindspore import dtype as mstype
 from mindspore import export
 from lenet import LeNet5
 from train_utils import TrainWrap

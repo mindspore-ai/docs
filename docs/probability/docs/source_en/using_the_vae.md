@@ -39,10 +39,12 @@ import requests
 
 def download_dataset(dataset_url, path):
     filename = dataset_url.split("/")[-1]
+    save_path = os.path.join(path, filename)
+    if os.path.exists(save_path):
+        return
     if not os.path.exists(path):
         os.makedirs(path)
     res = requests.get(dataset_url, stream=True, verify=False)
-    save_path = os.path.join(path, filename)
     with open(save_path, "wb") as f:
         for chunk in res.iter_content(chunk_size=512):
             if chunk:
@@ -74,7 +76,7 @@ download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datas
 The dataset is enhanced to meet the requirements of VAE network training. In this example, the pixel size of the original image is increased from $28\\times28$ to $32\\times32$, and multiple images are formed into a batch to accelerate training.
 
 ```python
-import mindspore.dtype as mstype
+from mindspore import dtype as mstype
 import mindspore.dataset as ds
 import mindspore.dataset.vision.c_transforms as CV
 

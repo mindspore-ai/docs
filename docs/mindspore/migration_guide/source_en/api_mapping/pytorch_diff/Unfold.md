@@ -40,7 +40,7 @@ where out_batch is the same as the in_batch.
 ```python
 from mindspore import Tensor
 import mindspore.nn as nn
-import mindspore.common.dtype as mstype
+from mindspore import dtype as mstype
 import torch
 import numpy as np
 

@@ -272,10 +272,12 @@ import requests
 
 def download_dataset(dataset_url, path):
     filename = dataset_url.split("/")[-1]
+    save_path = os.path.join(path, filename)
+    if os.path.exists(save_path):
+        return
     if not os.path.exists(path):
         os.makedirs(path)
     res = requests.get(dataset_url, stream=True, verify=False)
-    save_path = os.path.join(path, filename)
     with open(save_path, "wb") as f:
         for chunk in res.iter_content(chunk_size=512):
             if chunk:

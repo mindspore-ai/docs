@@ -16,7 +16,7 @@
 grad accumulation cell wrapper
 """
 import numpy as np
-import mindspore.dtype as mstype
+from mindspore import dtype as mstype
 from mindspore import ops, context, Tensor, Parameter
 from mindspore.nn import Cell, TrainOneStepCell, TrainOneStepWithLossScaleCell
 from mindspore.nn.wrap.loss_scale import _grad_scale
