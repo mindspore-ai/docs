@@ -16,7 +16,7 @@ out = transformer_model(src, tgt)
 ## mindspore.parallel.nn.Transformer
 
 ```python
-class mindspore.ops.Transpose(*args, **kwargs)(
+class mindspore.parallel.nn.Transformer(*args, **kwargs)(
     encoder_inputs, encoder_masks, decoder_inputs=None,
     decoder_masks=None, memory_mask=None, init_reset=True, batch_valid_length=None
 )
@@ -31,9 +31,10 @@ mindspore.parallel.nn.Transformer在初始化参数和torch.nn.Transformer并不
 - mindspore.parallel.nn.Transformer缺少src_key_padding_mask、tgt_key_padding_mask和memory_key_padding_mask输入。
 - mindspore.parallel.nn.Transformer提供了静态图的增量推理功能。
 - mindspore.parallel.nn.Transformer默认采用fp16进行矩阵运算。
-- mindspore.parallel.nn.Transformer的输入中encoder_mask,decoder_mask是必要输入的。
+- mindspore.parallel.nn.Transformer的输入中encoder_mask,decoder_mask是必须输入的。
 - mindspore.parallel.nn.Transformer会返回decoder的输出值、以及encoder和decoder中每层attention的key,value的历史值。
 - mindspore.parallel.nn.Transformer的输出值，是以batch为第0个维度的，对应于torch.nn.transformer中设置bathc_first=True。
+- mindspore.parallel.nn.TransformerEncoder提供了并行配置parallel_config，可以实现混合并行和流水线并行。
 
 PyTorch：实例化Transformer时需要提供的参数较少。
 
