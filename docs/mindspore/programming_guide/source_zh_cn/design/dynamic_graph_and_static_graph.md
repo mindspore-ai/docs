@@ -1,41 +1,83 @@
-# 动态图和静态图
+# 静态图和动态图
 
 `Ascend` `GPU` `CPU` `设计` `模型运行`
 
 <!-- TOC -->
 
-- [动态图和静态图](#动态图和静态图)
-    - [动态图和静态图的概念](#动态图和静态图的概念)
+- [静态图和动态图](#静态图和动态图)
+    - [静态图和动态图的概念](#静态图和动态图的概念)
     - [MindSpore静态图](#mindspore静态图)
+        - [Graph模式执行原理](#graph模式执行原理)
+        - [Graph模式自动微分原理](#graph模式自动微分原理)
     - [MindSpore动态图](#mindspore动态图)
-        - [PyNative执行原理](#pynative执行原理)
-        - [PyNative自动微分原理](#pynative自动微分原理)
+        - [PyNative模式执行原理](#pynative模式执行原理)
+        - [PyNative模式自动微分原理](#pynative模式自动微分原理)
     - [动静统一](#动静统一)
         - [概述](#概述)
         - [动态图和静态图互相转换](#动态图和静态图互相转换)
         - [动静结合](#动静结合)
+        - [JIT Fallback](#jit-fallback)
 
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/design/dynamic_graph_and_static_graph.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-## 动态图和静态图的概念
+## 静态图和动态图的概念
 
 目前主流的深度学习框架的执行模式有两种，分别为静态图模式和动态图模式。
 
-静态图模式下，程序在编译执行时将先生成神经网络的图结构，然后再执行图中涉及的计算操作。因此在静态图模式下允许编译器对执行图进行更大程度的优化，从而获得更好的执行性能，而恰恰由于存在着这样的深度优化，使得编译器实际执行和原始代码之间有着更大的差距，导致代码中的错误将更将难以发现以及调试。
+静态图模式下，程序在编译执行时先生成神经网络的图结构，然后再执行图中涉及的计算操作。因此，在静态图模式下，编译器利用图优化等技术对执行图进行更大程度的优化，从而获得更好的执行性能，有助于规模部署和跨平台运行。
 
-动态图模式下，程序按照我们编写的代码顺序进行执行，在执行正向过程中根据反向传播的原理，动态的生成反向执行图，在这种模式下，执行的过程完全按照我们实际编写的代码来执行，因此该模式下更容易进行代码或者网络的调试，并且意味着更加容易将我们大脑中的想法转换成实际的代码。
+动态图模式下，程序按照代码的编写顺序执行，在执行正向过程中根据反向传播的原理，动态生成反向执行图。这种模式下，编译器将神经网络中的各个算子逐一下发执行，方便用户编写和调试神经网络模型。
 
 ## MindSpore静态图
 
-在MindSpore中静态图模式又被称为Graph模式，可以通过context.set_context(mode=context.GRAPH_MODE)来设置成静态图模式。MindSpore通过源码转换的方式，将Python的源码转换成IR，再在此基础上进行相关的图优化，最终在硬件设备上执行优化后的图。由于静态图模式下，可以针对图进行全局的优化，因此在静态图下能获得较好的性能，但是执行图是从源码转换而来，因此在静态图下不是所有的Python语法都能支持。
+在MindSpore中，静态图模式又被称为Graph模式，可以通过`context.set_context(mode=context.GRAPH_MODE)`来设置成静态图模式。静态图模式比较适合网络固定且需要高性能的场景。在静态图模式下，基于图优化、计算图整图下沉等技术，编译器可以针对图进行全局的优化，因此在静态图下能获得较好的性能，但是执行图是从源码转换而来，因此在静态图下不是所有的Python语法都能支持。
+
+### Graph模式执行原理
+
+在Graph模式下，MindSpore通过源码转换的方式，将Python的源码转换成IR，再在此基础上进行相关的图优化，最终在硬件设备上执行优化后的图。MindSpore使用的是一种基于图表示的函数式IR，即MindIR，采用了接近于ANF函数式的语义。Graph模式是基于MindIR进行编译优化的，使用Graph模式时，需要使用`nn.Cell`类并且在`construct`函数中编写执行代码， 或者调用`@ms_function`装饰器。
+
+Graph模式的代码用例如下所示：
+
+```python
+import numpy as np
+import mindspore.nn as nn
+import mindspore.ops as ops
+from mindspore import context, Tensor
+
+context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.mul = ops.Mul()
+
+    def construct(self, x, y):
+        return self.mul(x, y)
+
+x = Tensor(np.array([1.0, 2.0, 3.0]).astype(np.float32))
+y = Tensor(np.array([4.0, 5.0, 6.0]).astype(np.float32))
+
+net = Net()
+print(net(x, y))
+```
+
+输出：
+
+```text
+[ 4. 10. 18.]
+```
+
+### Graph模式自动微分原理
+
+在MindSpore中，Graph模式下的自动微分原理可以参考[自动微分](https://www.mindspore.cn/tutorials/zh-CN/master/autograd.html)。
 
 ## MindSpore动态图
 
-在MindSpore中动态图模式又被称为PyNative模式，可以通过context.set_context(mode=context.PYNATIVE_MODE)来设置成动态图模式。
+在MindSpore中，动态图模式又被称为PyNative模式，可以通过`context.set_context(mode=context.PYNATIVE_MODE)`来设置成动态图模式。在脚本开发和网络流程调试中，推荐使用动态图模式进行调试，支持执行单算子、普通函数和网络、以及单独求梯度的操作。
 
-### PyNative执行原理
+### PyNative模式执行原理
 
 在PyNative模式下，用户可以使用完整的Python API，此外针对使用MindSpore提供的API时，框架会根据用户选择的硬件平台（Ascend，GPU，CPU），将算子API的操作在对应的硬件平台上执行，并返回相应的结果。框架整体的执行过程如下：
 
@@ -77,7 +119,7 @@ print(output.asnumpy())
 
 从上述原理可以看到，在PyNative模式下，Python脚本代码会根据Python的语法进行执行，而执行过程中涉及到MindSpore的API，会根据用户设置在不同的硬件上进行执行，从而进行加速。因此，在PyNative模式下，用户可以随意使用Python的语法以及调试方法。例如可以使用常见的PyCharm、VS Code等IDE进行代码的调试。
 
-### PyNative自动微分原理
+### PyNative模式自动微分原理
 
 在前面的介绍中，我们可以看出，在PyNative下执行正向过程完全是按照Python的语法进行执行。在PyNative下是基于Tensor进行实现反向传播的，我们在执行正向过程中，将所有应用于Tensor的操作记录下来，并针对每个操作求取其反向，并将所有反向过程串联起来形成整体反向传播图（简称反向图）。最终，将反向图在设备上进行执行计算出梯度。
 
@@ -225,4 +267,35 @@ print(out)
 ```text
 [[[[15.999838]]
 [[15.999838]]]]
+```
+
+### JIT Fallback
+
+JIT Fallback是从静态图的角度出发考虑静态图和动态图的统一，希望静态图模式能够尽量多的支持动态图模式的语法，其借鉴了传统JIT编译的Fallback的思路。MindSpore默认使用静态图模式即Graph模式，不是所有的Python语法都能支持，用户在编写程序时容易遇到语法约束限制。通过JIT Fallback，用户可以灵活地进行静态图和动态图的切换。
+
+当前JIT Fallback有条件地支持Graph模式的部分常量场景。编译静态图时，如果遇到不支持的语法，将会记录相关语句并生成解释节点，在后续处理中将相关语句Fallback到Python解释器进行解释执行，从而支持该语法。
+
+代码用例如下：
+
+```python
+import numpy as np
+import mindspore.nn as nn
+from mindspore import context, Tensor
+
+context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
+
+class Net(nn.Cell):
+    def construct(self):
+        x = np.array([1, 2, 3])
+        y = Tensor(x)
+        return y
+
+net = Net()
+print(net())
+```
+
+输出：
+
+```text
+[1 2 3]
 ```
