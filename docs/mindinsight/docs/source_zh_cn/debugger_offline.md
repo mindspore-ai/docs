@@ -96,6 +96,12 @@ mindinsight start --port {PORT} --summary-base-dir {SUMMARY_BASE_DIR} --offline-
 
    图4：重置训练轮次编辑状态
 
+   另外，离线调试器在计算图的上方显示图执行历史，显示离线数据情况和轮次信息，如图5所示。
+
+   ![debugger_offline_graph_excution_history](images/debugger_offline_graph_excution_histry.png)
+
+   图5：图执行历史
+
 ## 离线调试器API使用样例
 
 ```python

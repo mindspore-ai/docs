@@ -96,6 +96,12 @@ The UI of the offline debugger is the same as that of the online debugger. For d
 
    Figure 4: Resetting the trainning step in edit status
 
+   In addition, the offline debugger displays the graph execution history above the calculation diagram, and displays the offline data and round information, as shown in Figure 5.
+
+   ![debugger_offline_graph_execution_graph](images/debugger_offline_graph_excution_history.png)
+
+   Figure 5: Graph execution history
+
 ## Offline Debugger API example
 
 ```python
