@@ -15,6 +15,7 @@
             - [all_reduce_fusion_config](#all_reduce_fusion_config)
             - [enable_parallel_optimizer](#enable_parallel_optimizer)
             - [parameter_broadcast](#parameter_broadcast)
+            - [comm_fusion](#comm_fusion)
         - [Automatic Parallel Configuration](#automatic-parallel-configuration)
             - [gradient_fp32_sync](#gradient_fp32_sync)
             - [search_mode](#search_mode)
@@ -183,6 +184,29 @@ from mindspore import context
 
 context.set_auto_parallel_context(parameter_broadcast=True)
 context.get_auto_parallel_context("parameter_broadcast")
+```
+
+#### comm_fusion
+
+`comm_fusion` allows user to configure the communication fusion for various communication operators, and for now, only `allreduce` is supported. For `allreduce`, it has three `mode` options:
+
+- `auto`：automatic communication operators fusion by gradients size, and another parameter `config` is `None`. The gradients fusion size is automatically set by 64 MB.
+- `size`：manual communication operators fusion by gradients size, and the type of another parameter `config` is `int` and unit is `MB`.
+- `index`：manual communication operators fusion by parameters' index，same as `all_reduce_fusion_config`, and the type of parameter `config` is `list(int)`.
+
+The following is a code example:
+
+```python
+from mindspore import context
+
+# auto
+context.set_auto_parallel_context(comm_fusion={"allreduce": {"mode": "auto", "config": None}})
+
+# size
+context.set_auto_parallel_context(comm_fusion={"allreduce": {"mode": "size", "config": 32}})
+
+# index
+context.set_auto_parallel_context(comm_fusion={"allreduce": {"mode": "index", "config": [20, 35]}})
 ```
 
 ### Automatic Parallel Configuration
