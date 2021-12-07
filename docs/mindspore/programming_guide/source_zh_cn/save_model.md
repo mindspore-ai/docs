@@ -205,7 +205,7 @@ export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='MINDIR', d
 为了避免protobuf的硬件限制，当导出的模型参数大小超过1G时，框架默认会把网络结构和参数分开保存。
 
 - 网络结构文件的名称以用户指定前缀加`_graph.mindir`结尾。
-- 同级目录下，会生用户指定前缀加`_variables`的文件夹，里面存放网络的参数。
+- 同级目录下，会生成一个用户指定前缀加`_variables`的文件夹，里面存放网络的参数。其中参数大小每超过1T会被分开保存成命名为data_1，data_2，data_3等的多个文件。
 
 以上述代码为例，如果模型中参数大小超过1G，生成的目录结构如下：
 
