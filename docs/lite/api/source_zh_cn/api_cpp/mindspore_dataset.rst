@@ -171,7 +171,6 @@ Eager类
 - :doc:`../generate/variable_mindspore_dataset_kDftAutoNumWorkers-1`
 - :doc:`../generate/variable_mindspore_dataset_kDftMetaColumnPrefix-1`
 - :doc:`../generate/variable_mindspore_dataset_kDftNumConnections-1`
-- :doc:`../generate/variable_mindspore_dataset_kDftPrefetchSize-1`
 - :doc:`../generate/variable_mindspore_dataset_kMaxLegalPort-1`
 - :doc:`../generate/variable_mindspore_dataset_kMinLegalPort-1`
 

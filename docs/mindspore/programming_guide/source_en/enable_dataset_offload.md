@@ -63,10 +63,10 @@ Set the argument offload to True in the map data processing operator (by default
 import mindspore.dataset as ds
 import mindspore.dataset.vision.c_transforms as C
 
-dataset = ds.ImageFolder(dir)​
-image_ops = [C.RandomCropDecodeResize(train_image_size), C.RandomHorizontalFlip(prob=0.5), C.Normalize(mean=mean, std=std), C.HWC2CHW()]​
+dataset = ds.ImageFolder(dir)
+image_ops = [C.RandomCropDecodeResize(train_image_size), C.RandomHorizontalFlip(prob=0.5), C.Normalize(mean=mean, std=std), C.HWC2CHW()]
 dataset = dataset.map(operations=type_cast_op, input_columns= "label")
-dataset = dataset.map(operations=image_ops , input_columns="image", offload=True)​
+dataset = dataset.map(operations=image_ops , input_columns="image", offload=True)
 ```
 
 ## Constraints
