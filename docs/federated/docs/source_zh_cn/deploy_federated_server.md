@@ -47,7 +47,7 @@ MindSpore Federated Learning Server集群物理架构如图所示：
 
 ### 安装MindSpore
 
-MindSpore联邦学习云侧集群对硬件设备无依赖，因此安装`CPU`版本的MindSpore即可。执行[官网提供的命令](https://www.mindspore.cn/install)安装MindSpore最新`CPU`版本。
+MindSpore联邦学习云侧集群支持在x86的CPU和GPU硬件平台上部署。执行[官网提供的命令](https://www.mindspore.cn/install)安装MindSpore最新版本。
 
 ## 定义模型
 

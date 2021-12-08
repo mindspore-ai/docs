@@ -46,7 +46,7 @@ As shown in the preceding figure, in the federated learning cloud cluster, there
 
 ### Installing MindSpore
 
-The MindSpore federated learning cloud cluster does not depend on hardware devices. Therefore, you only need to install the MindSpore of the `CPU` version. Run commands provided by the [official website](https://www.mindspore.cn/install) to install the latest MindSpore of the `CPU` version.
+The MindSpore federated learning cloud cluster supports deployment on x86 CPU and GPU hardware platforms. Run commands provided by the [official website](https://www.mindspore.cn/install) to install the latest MindSpore.
 
 ## Defining a Model
 
