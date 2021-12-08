@@ -28,13 +28,60 @@ class mindspore.parallel.nn.Transformer(*args, **kwargs)(
 
 mindspore.parallel.nn.Transformer在初始化参数和torch.nn.Transformer并不完全相同，但是基本功能保持一致。是因为mindspore.nn.Transformer提供了更多细粒度的控制以及并行配置，可以轻松的实现并行训练。其中的主要区别概括如下：
 
+| mindspore.parallel.nn.Transformer | torch.nn.Transformer | 说明                                                         |
+| --------------------------------- | -------------------- | ------------------------------------------------------------ |
+| hidden_size                       | d_model              | 参数名称不一致，含义相同。                                   |
+| batch_size                        |                      | MindSpore需要传入额外的batch size以作校验和增量推理使用。    |
+| ffn_hidden_size                   | dim_feedforward      | 参数名称不一致，含义相同。                                   |
+| src_seq_length                    |                      | encoder输入序列长度。                                        |
+| tgt_seq_length                    |                      | decoder输入序列长度。                                        |
+| encoder_layers                    | num_encoder_layers   | encoder的层数，含义相同。                                    |
+| decoder_layers                    | num_decoder_layers   | decoder的层数，含义相同。                                    |
+| num_heads                         | nhead                | Attention的head数目，含义相同。                              |
+| attention_dropout_rate            | dropout              | 含义不同。attention_dropout_rate表示在softmax处的dropout，而PyTorch的dropout参数额外控制了隐藏层的dropout rate。 |
+| hidden_dropout_rate               | dropout              | 含义不同。hidden_dropout_rate表示在隐藏层处的dropout，而PyTorch的dropout参数额外控制了softmax处的dropout rate。 |
+| hidden_act                        | activation           | 激活层的类型，含义相同。MindSpore仅支持字符串。              |
+| post_layernorm_residual           | norm_first           | 含义不同。MindSpore的该参数表示残差相加对输入是否应用layernorm，而PyTorch表示输入子层时是否先输入layernorm。 |
+| layernorm_compute_type            |                      | 控制layernorm的计算类型。                                    |
+| softmax_compute_type              |                      | 控制attention中softmax的计算类型。                           |
+| param_init_type                   |                      | 控制参数初始化的类型。                                       |
+| lambda_func                       |                      | 控制并行的相关配置，详见API文档。                            |
+| use_past                          |                      | 是否使用增量推理。                                           |
+| moe_config                        |                      | MoE并行的配置参数。                                          |
+| parallel_config                   |                      | 并行设置的配置参数。                                         |
+|                                   | custom_encoder       | 用户自定义的encoder。                                        |
+|                                   | custom_decoder       | 用户自定义的decoder。                                        |
+|                                   | layer_norm_eps       | layernorm计算时防止初零的数值。                              |
+|                                   | batch_first          | 输入输出Tensor中batch是否为第0维度。MindSpore以第0个维度为batch维度，对应于torch.nn.transformer中设置bathc_first=True。 |
+
+除了以上初始化参数不同之外，还有一些前向执行的输入和输出差异如下：
+
 - mindspore.parallel.nn.Transformer缺少src_key_padding_mask、tgt_key_padding_mask和memory_key_padding_mask输入。
+
+- mindspore.parallel.nn.Transformer的输入中encoder_mask,decoder_mask是必须输入的。
+
+- mindspore.parallel.nn.Transformer会额外返回encoder和decoder中每层attention的key,value的历史值。
+
+- mindspore.parallel.nn.Transformer中的post_layernorm_residual和torch.nn.transformer中的norm_first的参数对比如下：
+
+  ```python
+  # PyTorch
+  if norm_fist:
+      x = x + attention(norm(x))
+  else:
+      x = norm(x + attention(x))
+
+  # MindSpore
+  if post_layernorm_residual:
+      x = norm(x) + attention(norm(x))
+  else:
+      x = x + attention(norm(x))
+  ```
+
+另外mindspore.parallel.nn.Transformer在功能上存在如下的差异：
+
 - mindspore.parallel.nn.Transformer提供了静态图的增量推理功能。
 - mindspore.parallel.nn.Transformer默认采用fp16进行矩阵运算。
-- mindspore.parallel.nn.Transformer的输入中encoder_mask,decoder_mask是必须输入的。
-- mindspore.parallel.nn.Transformer会返回decoder的输出值、以及encoder和decoder中每层attention的key,value的历史值。
-- mindspore.parallel.nn.Transformer的输出值，是以batch为第0个维度的，对应于torch.nn.transformer中设置bathc_first=True。
-- mindspore.parallel.nn.TransformerEncoder提供了并行配置parallel_config，可以实现混合并行和流水线并行。
 
 PyTorch：实例化Transformer时需要提供的参数较少。
 
