@@ -129,15 +129,6 @@ MindSpore Programming Guide
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Advanced Features
-   :hidden:
-
-   second_order_optimizer
-   apply_quantization_aware_training
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
    :caption: Function Debugging
    :hidden:
 
@@ -154,12 +145,21 @@ MindSpore Programming Guide
    :hidden:
 
    enable_mixed_precision
-   enable_graph_kernel_fusion
    enable_auto_tune
    enable_dataset_autotune
    enable_dataset_offload
    apply_gradient_accumulation
    Debugging performance with Profiler↗ <https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling.html>
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: Advanced Features
+   :hidden:
+
+   second_order_optimizer
+   graph_kernel_fusion
+   apply_quantization_aware_training
 
 .. toctree::
    :glob:
