@@ -18,7 +18,7 @@ Currently, the MindSpore Federated framework code has been integrated into the M
 
 ### Obtaining the MindSpore WHL Package
 
-You can use the source code or download the release version to install MindSpore on hardware platforms such as the CPU and GPU. For details about the installation process, see [Install](https://www.mindspore.cn/install/en) on the MindSpore website.
+You can use the source code or download the release version to install MindSpore on hardware platforms such as the x86 CPU and GPU. For details about the installation process, see [Install](https://www.mindspore.cn/install/en) on the MindSpore website.
 
 ### Obtaining the MindSpore Lite Java Package
 
