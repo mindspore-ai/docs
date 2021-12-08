@@ -24,6 +24,7 @@
             - [full_batch](#full_batch)
             - [pipeline_stages](#pipeline_stages)
             - [grad_accumulation_step](#grad_accumulation_step)
+            - [parallel_optimizer_config](#parallel_optimizer_config)
     - [Distributed Communication Interface](#distributed-communication-interface)
         - [init](#init)
         - [get_group_size](#get_group_size)
@@ -281,7 +282,7 @@ context.get_auto_parallel_context("full_batch")
 
 #### pipeline_stages
 
-`pipeline_stages` is used to set parallel stage information of  pipeline. It is used to show how the machines are distributed in `auto_parallel` mode in pipeline. Currently pipeline parallel is still under development.
+`pipeline_stages` is used to set parallel stage information of pipeline. It is used to show how the machines are distributed in `auto_parallel` mode in pipeline. Currently pipeline parallel is still under development.
 
 The following is a code example:
 
@@ -302,6 +303,19 @@ The following is a code example:
 from mindspore import context
 context.set_auto_parallel_context(grad_accumulation_step=4)
 context.get_auto_parallel_context("grad_accumulation_step")
+```
+
+#### parallel_optimizer_config
+
+`parallel_optimizer_config` is a dict contains the keys and values for setting the parallel optimizer configuration. The configuration provides more detailed behavior control about parallel training
+when parallel optimizer is enabled. Currently it supports the key `gradient_accumulation_shard`.
+The configuration will be effective when we use context.set_auto_parallel_context(enable_parallel_optimizer=True). It supports the following keys.
+
+- gradient_accumulation_shard: If true, the accumulation gradient parameters will be sharded across the data parallel devices. This will bring in additional communication(ReduceScatter) at each step when accumulate the gradients, but saves a lot of device memory, thus can make model be trained with larger batch size. This configuration is effective only when the model runs on pipeline training or gradient accumulation with data parallel. The default value is True.
+
+```python
+from mindspore import context
+context.set_auto_parallel_context(parallel_optimizer_config={"gradient_accumulation_shard": True}, enable_parallel_optimizer=True)
 ```
 
 ## Distributed Communication Interface
