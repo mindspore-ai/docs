@@ -1,7 +1,5 @@
 # MindInsight相关命令
 
-`Linux` `Ascend` `GPU` `CPU` `模型调优` `中级` `高级`
-
 <!-- TOC -->
 
 - [MindInsight相关命令](#mindinsight相关命令)
@@ -38,6 +36,8 @@ mindinsight start [-h] [--workspace <WORKSPACE>] [--port <PORT>]
                   [--summary-base-dir <SUMMARY_BASE_DIR>]
                   [--enable-debugger <ENABLE_DEBUGGER>]
                   [--debugger-port <DEBUGGER_PORT>]
+                  [--offline-debugger-mem-limit <OFFLINE_DEBUGGER_MEMORY_LIMIT>]
+                  [--max-offline-debugger-session-num <MAX_OFFLINE_DEBUGGER_SESSION_NUMBER>]
 ```
 
 参数含义如下:
@@ -51,7 +51,8 @@ mindinsight start [-h] [--workspace <WORKSPACE>] [--port <PORT>]
 |`--reload-interval <RELOAD_INTERVAL>`|可选|指定加载数据的时间间隔（单位：秒）。|Integer|3|0～300|设置为0时表示只加载一次数据。|
 |`--summary-base-dir <SUMMARY_BASE_DIR>`|可选|指定加载训练日志数据的根目录路径。|String|./|-|MindInsight将遍历此路径下的直属子目录。若某个直属子目录包含日志文件，则该子目录被识别为日志文件目录，若根目录包含日志文件，则根目录被识别为日志文件目录。|
 |`--enable-debugger <ENABLE_DEBUGGER>`|可选|是否开启Debugger功能|Boolean|False|True/False/1/0|只有开启了调试器，才会在MindInsight页面显示调试器入口。|
-|`--debugger-port <DEBUGGER_PORT>`|可选|指定Debugger Server服务端口。|Integer|50051|1~65535|-|
+|`--offline-debugger-mem-limit <OFFLINE_DEBUGGER_MEMORY_LIMIT>`|可选|指定单个离线调试器会话内存使用上限（单位MB），当出现内存不足导致MindInght离线调试器运行问题时，需要用户根据内存情况设置。|Integer|16*1024|6*1024~int32上限|-|
+|`--max-offline-debugger-session-num <MAX_OFFLINE_DEBUGGER_SESSION_NUMBER>`|可选|指定离线调试器会话数上限，会话数指的是能同时使用离线调试器调试的训练作业个数。|Integer|2|1~2|-|
 
 > 服务启动时，命令行参数值将被保存为进程的环境变量，并以 `MINDINSIGHT_` 开头作为标识，如 `MINDINSIGHT_PORT`，`MINDINSIGHT_WORKSPACE` 等。
 

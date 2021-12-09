@@ -1,16 +1,20 @@
 # 自定义算子（Ascend）
 
-`Linux` `Ascend` `模型开发` `高级`
+`Ascend` `模型开发`
 
 <!-- TOC -->
 
-- [自定义算子](#自定义算子)
+- [自定义算子（Ascend）](#自定义算子ascend)
     - [概述](#概述)
     - [注册算子原语](#注册算子原语)
     - [实现TBE算子和注册算子信息](#实现tbe算子和注册算子信息)
         - [实现TBE算子](#实现tbe算子)
         - [注册算子信息](#注册算子信息)
         - [示例](#示例)
+     - [实现AICPU算子和注册算子信息](#实现AICPU算子和注册算子信息)
+       - [实现AICPU算子](#实现AICPU算子)
+       - [注册AICPU自定义算子信息](#注册AICPU自定义算子信息)
+       - [示例](#示例)
     - [使用自定义算子](#使用自定义算子)
     - [定义算子反向传播函数](#定义算子反向传播函数)
 
@@ -156,6 +160,118 @@ def CusSquareImpl(input_x, output_y, kernel_name="CusSquareImpl"):
               "tensor_list": [data, res]}
 
     te.lang.cce.cce_build_code(sch, config)
+```
+
+## 实现AICPU算子和注册算子信息
+
+### 实现AICPU算子
+
+基于CANN开发AICPU算子包含算子原型定义、算子代码实现、算子信息库定义等步骤，具体开发步骤请参考[CANN AICPU 自定义算子开发](https://support.huaweicloud.com/usermanual-mindstudio303/atlasms_02_0194.html)。
+
+开发完成之后将编译生成一个指定名称的文件，如`libmindspore_aicpu_kernels.so`，`libcust_reshape.so`这类文件，这些动态库中可包含一个或多个AICPU算子实现，将该文件放到MindSpore安装或者编译目录下的lib目录下，MindSpore即可通过后续自定义算子注册信息加载该文件。
+
+> 算子实现的动态库文件，需要放到MindSpore的lib目录下，比如MindSpore安装在虚拟环境`/home/conda/envs/aicpu/lib/python3.7/site-packages/mindspore`下，则aicpu的so文件需要放到`/home/conda/envs/aicpu/lib/python3.7/site-packages/mindspore/lib/`目录下，这样即可正常加载到文件。
+
+更多关于AICPU算子的调试和性能优化请参考[MindStudio文档](https://support.huaweicloud.com/usermanual-mindstudioc73/atlasmindstudio_02_0043.html)。
+
+### 注册AICPU自定义算子信息
+
+在完成上一步后，跟TBE算子一致，我们需要补充算子信息。AICPU算子通过`AiCPURegOp`接口定义，通过`op_info_register`装饰器将算子信息与算子实现入口函数绑定。当算子实现py文件被导入时，`op_info_register`装饰器会将算子信息注册到后端的算子信息库中。更多关于算子信息的使用方法请参考`AiCPURegOp`的成员方法的注释说明，算子信息的字段含义可以参考[AICPU文档](https://support.huaweicloud.com/usermanual-mindstudio303/atlasms_02_0194.html)。
+
+> - 算子信息中定义输入输出信息的个数和顺序、算子实现入口函数的参数中的输入输出信息的个数和顺序、算子原语中输入输出名称列表的个数和顺序，三者要完全一致。
+> - 算子如果带属性，在算子信息中需要用`attr`描述属性信息，属性的名称与算子原语定义中的属性名称要一致。
+
+需要额外注意的是，在基础的注册信息外，我们需要额外添加`attr("cust_aicpu", "str")`属性，该属性是用于获取算子实现的so名称。以`RandomChoiceWithMask`算子为例，假设我们已经定义好了算子原语，并且算子实现已经编译为`librandom_choice_with_mask.so`，那么我们只需要在算子信息库中添加`attr("cust_aicpu", "str")`，然后在算子定义时，设置该属性值为`"random_choice_with_mask"`即可完成将该算子注册到自定义AICPU算子列表中。
+
+> “cust_aicpu”的值为字符串，用算子so的名字去除`lib`前缀与`.so`后缀表示，如`libmindspore_aicpu_kernels.so`则设为`"mindspore_aicpu_kernels"`即可。
+
+```python
+from mindspore.ops import op_info_register, AiCPURegOp, DataType
+
+random_choice_with_mask_op_info = AiCPURegOp("RandomChoiceWithMask") \
+    .fusion_type("OPAQUE") \
+    .input(0, "x", "required") \
+    .output(0, "y", "required") \
+    .output(1, "mask", "required") \
+    .attr("count", "int") \
+    .attr("seed", "int") \
+    .attr("seed2", "int") \
+    .attr("cust_aicpu", "str") \
+    .dtype_format(DataType.BOOL_Default, DataType.I32_Default, DataType.BOOL_Default) \
+    .get_op_info()
+
+@op_info_register(random_choice_with_mask_op_info)
+def _random_choice_with_mask_aicpu():
+    """RandomChoiceWithMask AiCPU register"""
+    return
+```
+
+### 示例
+
+下面以`ResizeBilinear`算子的AICPU调用实现为例进行介绍，我们会经历算子实现、算子原语注册、算子信息库、算子调用四个步骤：
+
+1. 算子实现：参考[实现AICPU算子](#实现AICPU算子)的相关内容，我们将算子编译成`libmindspore_aicpu_kernels.so`。
+2. 算子原语注册：参考[注册算子原语](#注册算子原语)的相关内容，我们将定义一个ResizeBilinear的算子。
+3. 算子信息库：参考[注册AICPU自定义算子信息](#注册AICPU自定义算子信息)的相关内容，我们将实现ResizeBilinear的信息库，并且添加`"cust_aicpu"`的属性。
+4. 算子调用：我们可以正常按照单算子网络的形式调用ResizeBilinear算子，同时可以配置`"cust_aicpu"`的属性值为`mindspore_aicpu_kernels`。
+
+```python
+import numpy as np
+from mindspore.ops import prim_attr_register, PrimitiveWithInfer
+from mindspore import dtype as mstype
+from mindspore.ops import op_info_register, AiCPURegOp, DataType
+import mindspore.nn as nn
+import mindspore.ops as ops
+import mindspore.context as context
+from mindspore import Tensor
+context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
+
+class ResizeBilinear(PrimitiveWithInfer):
+    @prim_attr_register
+    def __init__(self, size, align_corners=False):
+        pass
+
+    def infer_shape(self, input_shape):
+        input_shape = list(input_shape)
+        batch, channel, _, _ = input_shape
+        out_shape = [batch, channel]
+        for i in self.size:
+            out_shape.append(int(i))
+        return out_shape
+
+    def infer_dtype(self, input_dtype):
+        return input_dtype
+
+resize_bilinear_op_info = AiCPURegOp("ResizeBilinear") \
+    .fusion_type("OPAQUE") \
+    .input(0, "input", "required") \
+    .output(1, "output", "required") \
+    .attr("align_corners", "bool") \
+    .attr("cust_aicpu", "str") \
+    .dtype_format(DataType.F16_Default, DataType.F32_Default) \
+    .dtype_format(DataType.F32_Default, DataType.F32_Default) \
+    .get_op_info()
+
+@op_info_register(resize_bilinear_op_info)
+def _resize_bilinear_aicpu():
+    """ResizeBilinear AiCPU register"""
+    return
+
+class NetResizeBilinear(nn.Cell):
+    def __init__(self, size=None, align_corner=False):
+        super(NetResizeBilinear, self).__init__()
+        self.op = ops.ResizeBilinear(size=size, align_corners=align_corner)
+        self.op.add_prim_attr("cust_aicpu", "mindspore_aicpu_kernels")
+
+    def construct(self, inputs):
+        return self.op(inputs)
+
+def test_net():
+    input_tensor = Tensor(np.array(
+        [[[[0.1, 0.2, 0.3], [0.4, 0.5, 0.6], [0.7, 0.8, 0.9]]]]).astype(np.float32))
+    resize_nn = NetResizeBilinear((6, 3))
+    output = resize_nn(input_tensor)
+    print("output: ", output)
 ```
 
 ## 使用自定义算子

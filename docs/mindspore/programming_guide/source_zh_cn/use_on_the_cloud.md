@@ -1,6 +1,6 @@
 # 在云上使用MindSpore
 
-`Linux` `Ascend` `全流程` `初级` `中级` `高级`
+`Ascend` `全流程`
 
 <!-- TOC -->
 

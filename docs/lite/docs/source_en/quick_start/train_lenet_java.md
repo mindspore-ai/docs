@@ -19,7 +19,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/quick_start/train_lenet_java.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/quick_start/train_lenet_java.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -49,7 +49,7 @@ cd mindspore
 bash build.sh -I x86_64 -j8
 ```
 
-For details about the build, see [Building MindSpore Lite](https://www.mindspore.cn/lite/docs/en/master/use/build.html).
+Environment requirements and settings about the build, see [Building MindSpore Lite](https://www.mindspore.cn/lite/docs/en/master/use/build.html).
 The sample source code used in this tutorial is in the `mindspore/lite/examples/train_lenet_java` directory.
 
 ### Downloading the Dataset

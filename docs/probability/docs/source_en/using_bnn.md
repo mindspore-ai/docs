@@ -14,7 +14,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/probability/docs/source_en/using_bnn.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/probability/docs/source_en/using_bnn.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 Deep learning models have a strong fitting capability, while Bayesian theory has a good explainable capability. MindSpore Deep Probability Programming combines deep learning and Bayesian learning. By setting the network weight to distribution, introducing hidden space distribution, etc., the distribution can be sampled forward propagation, which introduces uncertainty and enhances The robustness and interpretability of the model are improved.
 
@@ -51,13 +51,30 @@ context.set_context(mode=context.GRAPH_MODE, save_graphs=False, device_target="G
 
 Download the MNIST dataset and unzip it to the specified location, execute the following command:
 
-```bash
-mkdir -p ./datasets/MNIST_Data/train ./datasets/MNIST_Data/test
-wget -NP ./datasets/MNIST_Data/train https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-labels-idx1-ubyte --no-check-certificate
-wget -NP ./datasets/MNIST_Data/train https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-images-idx3-ubyte --no-check-certificate
-wget -NP ./datasets/MNIST_Data/test https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-labels-idx1-ubyte --no-check-certificate
-wget -NP ./datasets/MNIST_Data/test https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-images-idx3-ubyte --no-check-certificate
-tree ./datasets/MNIST_Data
+```python
+import os
+import requests
+
+def download_dataset(dataset_url, path):
+    filename = dataset_url.split("/")[-1]
+    save_path = os.path.join(path, filename)
+    if os.path.exists(save_path):
+        return
+    if not os.path.exists(path):
+        os.makedirs(path)
+    res = requests.get(dataset_url, stream=True, verify=False)
+    with open(save_path, "wb") as f:
+        for chunk in res.iter_content(chunk_size=512):
+            if chunk:
+                f.write(chunk)
+
+train_path = "datasets/MNIST_Data/train"
+test_path = "datasets/MNIST_Data/test"
+
+download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-labels-idx1-ubyte", train_path)
+download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-images-idx3-ubyte", train_path)
+download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-labels-idx1-ubyte", test_path)
+download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-images-idx3-ubyte", test_path)
 ```
 
 ```text
@@ -74,7 +91,7 @@ tree ./datasets/MNIST_Data
 
 ### Defining the Dataset Enhancement Method
 
-The original training dataset of the MNIST dataset is 60,000 single-channel digital images with $28\times28$ pixels. The LeNet5 network containing the Bayesian layer used in this training received the training data tensor as `(32,1 ,32,32)`, through the custom create_dataset function to enhance the original dataset to meet the training requirements of the data, the specific enhancement operation explanation can refer to the official website quick start [Implement an image classification application](https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_start.html).
+The original training dataset of the MNIST dataset is 60,000 single-channel digital images with $28\times28$ pixels. The LeNet5 network containing the Bayesian layer used in this training received the training data tensor as `(32,1 ,32,32)`, through the custom create_dataset function to enhance the original dataset to meet the training requirements of the data, the specific enhancement operation explanation can refer to [Quick Start for Beginners](https://www.mindspore.cn/tutorials/en/master/quick_start.html).
 
 ```python
 import mindspore.dataset.vision.c_transforms as CV
@@ -123,7 +140,6 @@ In the classic LeNet5 network, the data goes through the following calculation p
 In this example, a probabilistic programming method will be introduced, using the `bnn_layers` module to transform the convolutional layer and the fully connected layer into a Bayesian layer.
 
 ```python
-from mindspore.common.initializer import Normal
 import mindspore.nn as nn
 from mindspore.nn.probability import bnn_layers
 import mindspore.ops as ops

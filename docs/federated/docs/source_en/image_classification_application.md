@@ -1,8 +1,8 @@
-﻿# Implementing an Image Classification Application (x86)
+﻿# Implementing an Image Classification Application of Cross-device Federated Learning (x86)
 
 <!-- TOC -->
 
-- [Implementing an Image Classification Application (x86)](#implementing-an-image-classification-application-x86)
+- [Implementing an Image Classification Application of Cross-device Federated Learning (x86)](#implementing-an-image-classification-application-of-cross-device-federated-learning-x86)
     - [Downloading the Dataset](#downloading-the-dataset)
     - [Defining the Network](#defining-the-network)
     - [Defining the Training Process](#defining-the-training-process)
@@ -11,7 +11,9 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/image_classification_application.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/image_classification_application.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+
+Federated learning can be divided into cross-silo federated learning and cross-device federated learning according to different participating customers. In the cross-silo federation learning scenario, the customers participating in federated learning are different organizations (for example, medical or financial) or geographically distributed data centers, that is, training models on multiple data islands. The clients participating in the cross-device federation learning scenario are a large number of mobiles or IoT devices. This framework will introduce how to use the network LeNet to implement an image classification application on the MindSpore cross-silo federation framework, and provides related tutorials for simulating to start multi-client participation in federated learning in the x86 environment.
 
 Before you start, check whether MindSpore has been correctly installed. If not, install MindSpore on your computer by referring to [Install](https://www.mindspore.cn/install/en) on the MindSpore website.
 
@@ -460,7 +462,7 @@ The LeNet network is relatively simple. In addition to the input layer, the LeNe
 
 For the network defining process, see the [model.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py).
 
-For more details, see the [MindSpore Image Classification Task](https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_start.html#%E5%AE%9A%E4%B9%89%E7%BD%91%E7%BB%9C).
+For more details, see the [Quick Start for Beginners](https://www.mindspore.cn/tutorials/en/master/quick_start.html#creating-a-model).
 
 ## Defining the Training Process
 
@@ -561,17 +563,17 @@ if __name__ == "__main__":
     print(losses)
 ```
 
-In the dictionary `ctx`, the `enable_fl` parameter is used to set whether to start the federated learning training process. If the value is `true`, the federated learning process is started. If the value is `false`, the common training process is started. Other parameters can be set based on the actual situations. Only available model files need to be generated. In the preceding script, `data` and `label` use the simulation data.
+For details, please refer to the script [test_mobile_lenet.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/test_mobile_lenet.py). In the dictionary `ctx`, the `enable_fl` parameter is used to set whether to start the federated learning training process. If the value is `true`, the federated learning process is started. If the value is `false`, the common training process is started. Other parameters can be set based on the actual situations. Only available model files need to be generated. In the preceding script, `data` and `label` use the simulation data.
 
 In the preceding information, `src.model` is the model definition file. For details, see the [model.py file](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py). `src.adam` is the optimizer definition file. For details, see the [adam.py file](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/adam.py).
 
-For details about the definition of the optimizer loss function, see the [MindSpore official document](https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_start.html#%E5%AE%9A%E4%B9%89%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E5%8F%8A%E4%BC%98%E5%8C%96%E5%99%A8).
+For details about the definition of the optimizer loss function, see the [Quick Start for Beginners](https://www.mindspore.cn/tutorials/en/master/quick_start.html#optimizing-model-parameters).
 
 ## Generating a Device Model File
 
 1. **Export a model as a MindIR file.**
 
-    You can add the `export` statement to the training process code to obtain the MindIR model file. The sample code is as follows:
+    You can add the `export` statement to the training process code in [test_mobile_lenet.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/test_mobile_lenet.py) to obtain the MindIR model file. The sample code is as follows:
 
     ```python
     from mindspore import export
@@ -588,7 +590,9 @@ For details about the definition of the optimizer loss function, see the [MindSp
         print(losses)
     ```
 
-    For details, see [here](https://www.mindspore.cn/docs/programming_guide/en/master/save_model.html?highlight=mindir#mindir).
+    When generating a MindIR format model file, you need to comment the statement `context.set_fl_context(**ctx)` in the [test_mobile_lenet.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/test_mobile_lenet.py) file, and set `epoch` to 1. Running `test_mobile_lenet.py` requires [MindSpore](https://www.mindspore.cn/install/en) to be installed in the environment . The file `lenet_train.mindir` will be generated in the current path after running the script `test_mobile_lenet.py`.
+
+    For details, see [here](https://www.mindspore.cn/docs/programming_guide/en/master/save_model.html#mindir).
 
 2. **Convert the MindIR file into an .ms file that can be used by the federated learning framework on the device.**
 
@@ -637,14 +641,11 @@ You can write a Python script to call the JAR package of the federated learning 
     parser.add_argument("--flName", type=str, default="lenet")
     parser.add_argument("--train_model_path", type=str, default="ms/lenet/")    # must be absolute path of .ms files
     parser.add_argument("--infer_model_path", type=str, default="ms/lenet/")    # must be absolute path of .ms files
-    parser.add_argument("--ip", type=str, default="10.113.216.106")
-    parser.add_argument("--ssl", type=str, default="false")
-    parser.add_argument("--port", type=int, default=6668)
+    parser.add_argument("--use_ssl", type=str, default="false")
+    parser.add_argument("--domain_name", type=str, default="http://10.113.216.106:6668")
     parser.add_argument("--server_num", type=int, default=0)
     parser.add_argument("--client_num", type=int, default=0)
-    parser.add_argument("--time_window", type=int, default=6000)
-    parser.add_argument("--use_elb", type=str, default="false")
-    parser.add_argument("--use_https", type=str, default="false")
+    parser.add_argument("--if_use_elb", type=str, default="false")
     parser.add_argument("--cert_path", type=str, default="null")
     parser.add_argument("--task", type=str, default="train")
 
@@ -657,14 +658,11 @@ You can write a Python script to call the JAR package of the federated learning 
     flName = args.flName
     train_model_path = args.train_model_path
     infer_model_path = args.infer_model_path
-    ip = args.ip
-    ssl = args.ssl
-    port = args.port
+    use_ssl = args.use_ssl
+    domain_name = args.domain_name
     server_num = args.server_num
     client_num = args.client_num
-    time_window = str(args.time_window)
-    use_elb = args.use_elb
-    use_https = args.use_https
+    if_use_elb = args.if_use_elb
     cert_path = args.cert_path
     task = args.task
 
@@ -699,12 +697,11 @@ You can write a Python script to call the JAR package of the federated learning 
         return train_path, test_path, train_batch_num, test_batch_num
 
     for i in range(client_num):
-        clientID = "f"+str(i)
         user = users[i]
         train_path, test_path = "", ""
         train_path, test_path, _, _= get_client_data_path(train_dataset, user)
         print("===========================")
-        print("client id: ", clientID)
+        print("process id: ", i)
         print("train path: ", train_path)
         print("test path: ", test_path)
 
@@ -724,14 +721,10 @@ You can write a Python script to call the JAR package of the federated learning 
         print("model path: ", train_model_path + "lenet_train" + str(i) + ".ms" + " ")
         cmd_client += infer_model_path + "lenet_train" + str(i) + ".ms" + " "
         print("model path: ", infer_model_path + "lenet_train" + str(i) + ".ms" + " ")
-        cmd_client += clientID + " "
-        cmd_client += ip + " "
-        cmd_client += ssl + " "
-        cmd_client += str(port) + " "
-        cmd_client += time_window + " "
-        cmd_client += use_elb + " "
+        cmd_client += use_ssl + " "
+        cmd_client += domain_name + " "
+        cmd_client += if_use_elb + " "
         cmd_client += str(server_num) + " "
-        cmd_client += use_https + " "
         cmd_client += cert_path + " "
         cmd_client += task + " "
         cmd_client += " > client" + ".log 2>&1 &"
@@ -750,7 +743,7 @@ You can write a Python script to call the JAR package of the federated learning 
 
         Specifies the root path of the training dataset.The sentiment classification task stores the training data (in .txt format) of each client. The LeNet image classification task stores the training files data.bin and label.bin of each client, for example, `leaf-master/data/femnist/3500_clients_bin/`.
 
-     - **`--test_dataset`**
+    - **`--test_dataset`**
 
         Specifies the test dataset path. For LeNet image classification tasks, this parameter does not need to be set and the default value is null. For sentiment classification tasks, if this parameter is not set, validation is not performed during training.
 
@@ -774,21 +767,13 @@ You can write a Python script to call the JAR package of the federated learning 
 
         Specifies the path of the inference model used by federated learning. It is the absolute path of the model file in .ms format. This parameter is mandatory for sentiment classification tasks, and can be set to the value of train_model_path for LeNet image classification tasks.
 
-    - **`--ip`**
-
-        Specifies the IP address of the server. The format is 10.113.216.106. Currently, the cloud supports only the HTTP communication mode. The HTTP communication mode is used by default.
-
-    - **`--ssl`**
+    - **`--use_ssl`**
 
         Determines whether to perform SSL certificate authentication for device-cloud communication. SSL certificate authentication is used only for HTTPS communication. If this parameter is set to false, SSL certificate authentication is not performed. If this parameter is set to true, SSL certificate authentication is performed only in HTTPS communication mode. In this case, `useHttps` must be set to true, and `cert_path` must be set to a specific certificate path. The default value is false.
 
-    - **`--port`**
+    - **`--domain_name`**
 
-        Specifies the port number. The value must be the same as the value of the `fl_server_port` parameter used when the server is started. The format is 6668.
-
-    - **`--time_window`**
-
-        Specifies the total time window for repeated requests on the device. The value must be the same as the sum of `start_fl_job_time_windows` and `update_model_time_windows` when the server is started.
+        Used to set the url for device-cloud communication. Currently, https and http communication are supported, the corresponding formats are like as: https://......, http://......, and when `if_use_elb` is set to true, the format must be: https://127.0.0.0 : 6666 or http://127.0.0.0 : 6666 , where `127.0.0.0` corresponds to the ip of the machine providing cloud-side services (corresponding to the cloud-side parameter `--scheduler_ip`), and `6666` corresponds to the cloud-side parameter `--fl_server_port`.
 
     - **`--server_num`**
 
@@ -798,17 +783,13 @@ You can write a Python script to call the JAR package of the federated learning 
 
         Specifies the number of clients. The value must be the same as that of `start_fl_job_cnt` when the server is started. This parameter is not required in actual scenarios.
 
-    - **`--use_elb`**
+    - **`--if_use_elb`**
 
         Applies to the multi-server scenario. If the value is true, each round request of the client uses a random port within the specified range. If the value is false, a fixed port is used. The default value is false. If the value of `server_num` is greater than 1, set this parameter to true. Simulates a client to randomly select different servers to send messages. This parameter is not required in actual scenarios.
 
-    - **`--use_https`**
-
-        Determines whether to perform HTTPS communication for device-cloud communication. The value false indicates that HTTP communication is performed. The value true indicates that HTTPS communication is performed. The default value is false.
-
     - **`--cert_path`**
 
-        Specifies the absolute path of the certificate. This parameter is mandatory when `--ssl` is set to true. The default value is `null`.
+        Specifies the absolute path of the certificate. This parameter is mandatory when `--use_ssl` is set to true. The default value is `null`.
 
     - **`--task`**
 

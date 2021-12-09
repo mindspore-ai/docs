@@ -5,8 +5,8 @@
 - [性能调试](#性能调试)
     - [快速入门](#快速入门)
         - [案例一：迭代间隙过长](#案例一迭代间隙过长)
-        - [案例二：前后向运行时间长（算子计算时间过长）](#案例二前后向运行时间长算子计算时间过长)
-        - [案例三：前后向运行时间长（算子执行间隙过长）](#案例三前后向运行时间长算子执行间隙过长)
+        - [案例二：前向运行时间长](#案例二前向运行时间长)
+        - [案例三：优化迭代拖尾](#案例三优化迭代拖尾)
     - [常见问题](#常见问题)
         - [启动失败](#启动失败)
 
@@ -14,7 +14,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_zh_cn/performance_optimization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-Profiler为MindSpore提供了性能调优能力，在算子性能、迭代性能、数据处理性能等方面提供了易用、丰富的调试功能，帮助用户快速定位、解决性能问题。
+Profiler为MindSpore提供了性能调优能力，针对算子性能、数据处理性能等提供了易用、丰富的调试功能，帮助用户快速定位、解决性能问题。
 
 本章将介绍性能调优的常见方法及案例，以及一些常见问题的处理。
 
@@ -26,61 +26,132 @@ Profiler的功能介绍及使用说明请参见教程：
 
 [性能调试（GPU）](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_gpu.html)
 
+[集群性能调试（Ascend）](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend_of_cluster.html)
+
 本节将通过三个典型案例介绍Profiler工具的常见使用方式。
 
 ### 案例一：迭代间隙过长
 
-如您在MindInsight性能分析页面观察到，迭代轨迹中的迭代间隙过长，这通常可能说明数据处理过程中存在可以优化的性能点。
+在MindSpore [ModelZoo](https://gitee.com/mindspore/models/tree/master )中运行ResNet50单卡训练脚本，batch size设置为32，发现单step时间约为90ms，性能较差。
+通过MindInsight性能分析页面观察到迭代轨迹中的迭代间隙过长，这通常说明数据是性能瓶颈点。
 
 ![long_step_interval](images/profiler_case1_long_step_interval.png)
 
 图1： 迭代轨迹中的迭代间隙过长
 
-查看网页下方的数据处理详情卡片，我们观察到，主机队列为满的情况比例较少，可以初步判定是数据处理阶段存在性能问题。进入数据准备详情页查看具体问题。
+查看数据准备详情页面中的迭代间隙标签页，我们观察到，数据队列在前期有较多的数据，后期数据的个数变为0，原因是前期在图编译阶段已经开始了数据集的加载和增强，队列中随即缓存了多条数据；
+而后期正常训练开始后，队列中的数据被消费的速度要快于被生产的速度，因此数据队列逐渐变为空，说明此时数据变成了瓶颈。观察主机队列也是同样的情况。综合分析，正常训练过程中，
+数据处理为性能瓶颈点。 因此，需要进入数据准备详情页面中的数据处理标签页来查看具体问题。
 
 ![dataset_process_step_interval](images/profiler_case1_dataset_process_step_interval.png)
 
 图2：数据准备详情页面——迭代间隙
 
+通过观察数据处理标签页的```算子间队列关系```，我们发现，```Queue_3```及其之后的队列使用率较低，即```MapOp_3```作为生产者生产数据的速度较慢，因此可以判定```MapOp_3```的性能还有优化空间，尝试对该算子进行性能优化。
+
 ![data_processing](images/profiler_case1_data_processing.png)
 
 图3：数据准备详情页面——数据处理
 
-通过观察数据处理的```算子间队列关系```，我们发现，Queue_3和Queue_2的使用比率较低，因此，可以判定是对应的数据处理算子（```ShuffleOp_3```和```BatchOp_2```）的性能还有优化空间。您可以根据这些信息调整训练脚本。
+针对数据处理算子的性能优化，可以参考[优化数据处理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/optimize_data_processing.html )页面。
+查看ResNet50网络中数据处理的代码部分，发现map算子的num_parallel_workers参数没有设置，默认为1，代码如下：
 
-您也可以参考首页左侧小助手提供的建议信息，对训练脚本进行优化。
+```python
+if do_train:
+    trans = [
+        C.RandomCropDecodeResize(image_size, scale=(0.08, 1.0), ratio=(0.75, 1.333)),
+        C.RandomHorizontalFlip(prob=0.5),
+        C.Normalize(mean=mean, std=std),
+        C.HWC2CHW()
+    ]
+else:
+    trans = [
+        C.Decode(),
+        C.Resize(256),
+        C.CenterCrop(image_size),
+        C.Normalize(mean=mean, std=std),
+        C.HWC2CHW()
+    ]
 
-![profiler_helper](images/profiler_case1_helper.png)
+data_set = data_set.map(operations=trans, input_columns="image")
+```
 
-图4：小助手
+将num_parallel_workers参数调整为12后，再次运行训练脚本，优化参考代码如下：
 
-### 案例二：前后向运行时间长（算子计算时间过长）
+```python
+data_set = data_set.map(operations=trans, input_columns="image", num_parallel_workers=12)
+```
 
-当您发现迭代运行时间过长时，可以首先查看迭代轨迹，观察各部分的时间分布是否正常。
+通过MindInsight性能分析页面观察迭代轨迹，可以看到迭代间隙时长由72.8ms缩短到0.25ms，单step时长由90ms缩短到18.07ms。
+
+![short_step_interval](images/profiler_case1_short_step_interval.png)
+
+图4：迭代轨迹中迭代间隙缩短
+
+### 案例二：前向运行时间长
+
+在MindSpore [ModelZoo](https://gitee.com/mindspore/models/tree/master )中运行VGG16模型的推理脚本，发现单step时间约为113.79ms，性能较差。
+通过MindInsight性能分析页面观察到迭代轨迹中的前向运行时间很长。在单卡训练或推理过程中，前向耗时长通常考虑是否有算子的耗时时长可以优化。
 
 ![long_fp_bp](images/profiler_case2_long_fpbp.png)
 
-图5：迭代轨迹中，前向后向运行时间过长
+图5：迭代轨迹中，前向运行时间过长
 
-从上图的迭代轨迹中，我们发现前向和后向的运行时间偏长。打开算子耗时统计详情页面，进一步确定是否存在耗时过高的算子，判断算子执行时间上是否有优化空间。
+打开算子耗时统计详情页面，在算子详情页面中发现MatMul算子耗时占比较高。
 
 ![operator_details](images/profiler_case2_operator_details.png)
 
 图6：通过算子耗时详情页面寻找可优化算子
 
-### 案例三：前后向运行时间长（算子执行间隙过长）
+对于算子耗时优化，在float16和float32格式精度无明显差别的前提下，通常可使用计算量更小的float16格式來提高性能，参考[使能混合精度](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/enable_mixed_precision.html )页面。
 
-在案例二中，我们介绍了由于算子执行时间较长导致迭代运行时间长的情况。除此之外，算子与算子间执行的时间间隙过大也会造成运行时间过长。
+优化参考代码如下：
 
-要确认算子的执行是否存在间隙过大的情况，我们可以观察时间线数据。
+```python
+from mindspore import context
+...
+network = vgg16(config.num_classes, config, phase="test")
+network.add_flags_recursive(fp16=True)
+```
 
-首先，在主页面右下角的时间线卡片点击`下载`按钮，对时间线数据进行下载。下载完成后，在谷歌浏览器中打开`chrome://tracing`，将文件上传或拖入网页中进行数据加载。
+在设置float16格式后，再次运行推理脚本，通过MindInsight性能分析页面观察迭代轨迹，可以看到前向运行时长由82.45ms缩短到16.89ms，单step耗时大大缩短。如下图所示：
 
-![timeline](images/profiler_case3_timeline.png)
+![short_fp_bp](images/profiler_case2_short_fpbp.png)
 
-图7：通过时间线数据寻找可优化的算子执行间隙
+图7：迭代轨迹中前向耗时缩短
 
-在发现算子间执行存在较大间隙时，通常是与集合通信或AICPU算子产生的依赖还未解除，您可以调整脚本对该部分进行优化，进一步提升训练性能。
+### 案例三： 优化迭代拖尾
+
+在MindSpore [ModelZoo](https://gitee.com/mindspore/models/tree/master )中运行ResNet50 8卡训练脚本，batch size设置为32，单step时间为23.6ms，期望能继续提高单step时间。
+通过MindInsight性能分析页面观察迭代轨迹，发现迭代间隙与前反向已经没有多少优化的空间，考虑迭代拖尾是否可以优化。
+
+![long_tail](images/profiler_case3_long_tail.png)
+
+图8：迭代轨迹中迭代拖尾耗时情况
+
+迭代拖尾时间包含AllReduce梯度同步、参数更新等操作。正常情况下，AllReduce梯度同步会等所有反向算子执行结束，也就是对所有权重都计算出梯度后再一次性同步所有机器的梯度，
+而使用AllReduce切分，我们可以在计算出一部分权重的梯度后，立刻进行这部分权重的梯度同步，这样梯度同步和剩余算子的梯度计算可以并行执行，也就隐藏了这部分AllReduce梯度同步的时间。
+切分策略通常是手动尝试，寻找一个最优的方案（支持切分大于两段）。以ResNet50网络为例，该网络共有160个权重，[85, 160]表示第0至85个权重计算完梯度后立刻进行梯度同步，第86至160个权重计算完后再进行梯度同步，这里共切分两段，因此需要进行两次梯度同步。优化参考代码如下：
+
+```python
+from mindspore import context
+from resnet50_imagenet2012_config.yaml import config
+...
+
+if config.net_name == "resnet50" or config.net_name == "se-resnet50":
+    # AllReduce split
+    context.set_auto_parallel_context(all_reduce_fusion_config=[85, 160])
+else:
+    # Another split stratety
+    context.set_auto_parallel_context(all_reduce_fusion_config=[180, 313])
+init()
+```
+
+对AllReduce进行切分后，再次运行ResNet50 8P脚本，通过MindInsight性能分析页面观察迭代轨迹，迭代拖尾时间由6.15ms缩短到4.20ms。如下图所示：
+
+![short_tail](images/profiler_case3_short_tail.png)
+
+图9：迭代拖尾耗时变短
 
 ## 常见问题
 

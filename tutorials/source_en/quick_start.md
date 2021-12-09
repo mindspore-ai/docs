@@ -1,5 +1,7 @@
 # Quick Start for Beginners
 
+`Ascend` `GPU` `CPU` `Beginner` `Whole Process`
+
 <!-- TOC -->
 
 - [Quick Start for Beginners](#quick-start-for-beginners)
@@ -14,7 +16,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/quick_start.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/quick_start.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 The following describes the basic functions of MindSpore to implement common tasks in deep learning. For details, see links in each section.
 
@@ -42,15 +44,32 @@ This example runs in graph mode. You can configure hardware information as requi
 
 The MNIST dataset used in this example consists of 10 classes of 28 x 28 pixels grayscale images. It has a training set of 60,000 examples, and a test set of 10,000 examples.
 
-Click [here](http://yann.lecun.com/exdb/mnist/) to download the MNIST dataset and place the dataset according to the following directory structure. If the operating environment is Linux, you can also run the following command to download and place the dataset:
+Click [here](http://yann.lecun.com/exdb/mnist/) to download the MNIST dataset and place the dataset according to the following directory structure. The following example code downloads and unzips the dataset to the specified location.
 
-```bash
-mkdir -p ./datasets/MNIST_Data/train ./datasets/MNIST_Data/test
-wget -NP ./datasets/MNIST_Data/train https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-labels-idx1-ubyte
-wget -NP ./datasets/MNIST_Data/train https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-images-idx3-ubyte
-wget -NP ./datasets/MNIST_Data/test https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-labels-idx1-ubyte
-wget -NP ./datasets/MNIST_Data/test https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-images-idx3-ubyte
-tree ./datasets/MNIST_Data
+```python
+import os
+import requests
+
+def download_dataset(dataset_url, path):
+    filename = dataset_url.split("/")[-1]
+    save_path = os.path.join(path, filename)
+    if os.path.exists(save_path):
+        return
+    if not os.path.exists(path):
+        os.makedirs(path)
+    res = requests.get(dataset_url, stream=True, verify=False)
+    with open(save_path, "wb") as f:
+        for chunk in res.iter_content(chunk_size=512):
+            if chunk:
+                f.write(chunk)
+
+train_path = "datasets/MNIST_Data/train"
+test_path = "datasets/MNIST_Data/test"
+
+download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-labels-idx1-ubyte", train_path)
+download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-images-idx3-ubyte", train_path)
+download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-labels-idx1-ubyte", test_path)
+download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-images-idx3-ubyte", test_path)
 ```
 
 ```text
@@ -112,10 +131,11 @@ def create_dataset(data_path, batch_size=32, repeat_size=1,
     mnist_ds = mnist_ds.map(operations=rescale_nml_op, input_columns="image", num_parallel_workers=num_parallel_workers)
     mnist_ds = mnist_ds.map(operations=hwc2chw_op, input_columns="image", num_parallel_workers=num_parallel_workers)
 
-    # Perform shuffle and batch operations.
+    # Perform shuffle, batch and repeat operations.
     buffer_size = 10000
     mnist_ds = mnist_ds.shuffle(buffer_size=buffer_size)
     mnist_ds = mnist_ds.batch(batch_size, drop_remainder=True)
+    mnist_ds = mnist_ds.repeat(count=repeat_size)
 
     return mnist_ds
 ```
@@ -215,7 +235,7 @@ from mindspore import Model
 ```
 
 ```python
-def train_net(args, model, epoch_size, data_path, repeat_size, ckpoint_cb, sink_mode):
+def train_net(model, epoch_size, data_path, repeat_size, ckpoint_cb, sink_mode):
     """Define a training method."""
     # Load the training dataset.
     ds_train = create_dataset(os.path.join(data_path, "train"), 32, repeat_size)
@@ -230,7 +250,7 @@ Validate the generalization capability of the model based on the result obtained
 2. Use the saved model parameters for inference.
 
 ```python
-def test_net(network, model, data_path):
+def test_net(model, data_path):
     """Define a validation method."""
     ds_eval = create_dataset(os.path.join(data_path, "test"))
     acc = model.eval(ds_eval, dataset_sink_mode=False)
@@ -244,8 +264,8 @@ train_epoch = 1
 mnist_path = "./datasets/MNIST_Data"
 dataset_size = 1
 model = Model(net, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
-train_net(args, model, train_epoch, mnist_path, dataset_size, ckpoint, False)
-test_net(net, model, mnist_path)
+train_net(model, train_epoch, mnist_path, dataset_size, ckpoint, False)
+test_net(model, mnist_path)
 ```
 
 Run the following command to execute the script:

@@ -1,6 +1,6 @@
 # 应用单节点数据缓存
 
-`Linux` `Ascend` `GPU` `CPU` `数据准备` `中级` `高级`
+`Ascend` `GPU` `CPU` `数据准备`
 
 <!-- TOC -->
 
@@ -13,9 +13,10 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/enable_cache.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9lbmFibGVfY2FjaGUuaXB5bmI=&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_modelarts.png"></a>&nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/notebook/mindspore_enable_cache.ipynb"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_notebook.png"></a>&nbsp;&nbsp;
-<a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9lbmFibGVfY2FjaGUuaXB5bmI=&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_modelarts.png"></a>
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/notebook/mindspore_enable_cache.py"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_download_code.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/enable_cache.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -160,7 +161,7 @@
 
 由于推理的数据处理流程中通常不包含具有随机性的操作，如ResNet50的数据处理流程仅包含`Decode`、`Resize`、`CenterCrop`、`Normalize`、`HWC2CHW`、`TypeCast`等操作，因此通常可以在数据处理的最后一个步骤之后插入缓存，直接缓存经过所有数据增强操作之后的数据，以最大限度的避免重复的计算，获得更好的性能提升。本节将采用这种方法，以ResNet网络为样本，进行示例。
 
-完整示例代码请参考ModelZoo的[ResNet](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/resnet)。
+完整示例代码请参考ModelZoo的[ResNet](https://gitee.com/mindspore/models/tree/master/official/cv/resnet)。
 
 1. 创建管理缓存的Shell脚本`cache_util.sh`：
 
@@ -284,7 +285,7 @@
 
 需要注意的是，在训练过程的数据处理流程中，数据集经加载后通常还需要进行一些带有随机性的增强操作，如`RandomCropDecodeResize`，若将缓存添加到该具有随机性的操作之后，将会导致第一次的增强操作结果被缓存下来，后序从缓存服务器中读取的结果均为第一次已缓存的数据，导致数据的随机性丢失，影响训练网络的精度。因此我们可以选择直接在数据集读取算子之后添加缓存。本节将采用这种方法，以MobileNetV2网络为样本，进行示例。
 
-完整示例代码请参考ModelZoo的[MobileNetV2](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/mobilenetv2)。
+完整示例代码请参考ModelZoo的[MobileNetV2](https://gitee.com/mindspore/models/tree/master/official/cv/mobilenetv2)。
 
 1. 创建管理缓存的Shell脚本`cache_util.sh`：
 

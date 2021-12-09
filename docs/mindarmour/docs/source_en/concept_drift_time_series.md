@@ -1,4 +1,4 @@
-﻿# Implementing the Concept Drift Detection Application of Time Series Data
+# Implementing the Concept Drift Detection Application of Time Series Data
 
 <!-- TOC -->
 
@@ -14,7 +14,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_en/concept_drift_time_series.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_en/concept_drift_time_series.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 

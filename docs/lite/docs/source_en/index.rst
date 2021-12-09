@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Using MindSpore on Mobile and IoT
+MindSpore Lite Documentation
 =======================================
 
 .. toctree::
@@ -40,6 +40,8 @@ Using MindSpore on Mobile and IoT
    use/runtime
    use/micro
    use/asic
+   use/register_kernel
+   use/delegate
 
 .. toctree::
    :glob:
@@ -91,10 +93,13 @@ Using MindSpore on Mobile and IoT
 									<div class="col-sm-2">
 										<div class="doc-os">Environment</div>
 									</div>
-									<div class="col-sm-10 col-sm-pull-1">
+									<div class="col-sm-10 col-sm-pull-1 doc-environment-detail">
 										<button class="doc-filter-btn doc-btn" id="os-Windows">Windows</button>
 										<button class="doc-filter-btn doc-btn" id="os-Linux">Linux</button>
+										<button class="doc-filter-btn doc-btn" id="os-mac">Mac</button>
 										<button class="doc-filter-btn doc-btn" id="os-Android">Android</button>
+										<button class="doc-filter-btn doc-btn" id="os-ios">iOS</button>
+										<button class="doc-filter-btn doc-btn" id="os-iot">IoT</button>
 									</div>
 								</div>
 			
@@ -128,9 +133,12 @@ Using MindSpore on Mobile and IoT
 										<button class="doc-filter-btn doc-btn" id="stage-Model-Loading">Model Loading</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Model-Training">Model Training</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Model-Optimization">Model Optimization</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Model-Code-Generation">Model Code Generation</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Model-Obfuscator">Model Obfuscator</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Inference">Inference</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Benchmark-Testing">Benchmark Testing</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Static-Library-Cropping">Static Library Cropping</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Visualization">Visualization</button>
 									</div>
 								</div>
 							</div>
@@ -142,6 +150,7 @@ Using MindSpore on Mobile and IoT
 								</div>
 								<div class="col-sm-10 col-sm-pull-1">
 									<button class="doc-filter-btn doc-btn" id="hardware-NPU">NPU</button>
+									<button class="doc-filter-btn doc-btn" id="hardware-NNIE">NNIE</button>
 									<button class="doc-filter-btn doc-btn" id="hardware-TensorRT">TensorRT</button>
 								</div>
 							</div>
@@ -170,6 +179,32 @@ Using MindSpore on Mobile and IoT
 						</div>
 
 						<div class="doc-article-list">
+							<div class="doc-article-item all os-Windows os-Linux os-Android stage-Environment-Preparation user-Beginner user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/use/downloads.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Downloading MindSpore Lite</span>
+										</div>
+							
+										<div class="doc-article-desc">
+										Welcome to MindSpore Lite. You can download the version package suitable for the local environment and use it directly.
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Windows os-Linux os-Android os-mac os-ios stage-Environment-Preparation user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/use/build.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Building MindSpore Lite</span>
+										</div>
+							
+										<div class="doc-article-desc">
+										This chapter introduces how to quickly compile MindSpore Lite.
+										</div>
+									</div>
+								</a>
+							</div>
 						    <div class="doc-article-item all os-Windows os-Linux language-cpp stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
 								<a href="https://www.mindspore.cn/lite/docs/en/master/quick_start/quick_start_cpp.html" class="article-link">
 									<div>
@@ -248,32 +283,6 @@ Using MindSpore on Mobile and IoT
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Windows os-Linux os-Android stage-Environment-Preparation user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/use/downloads.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">Downloading MindSpore Lite</span>
-										</div>
-										<div class="doc-article-desc">
-											This tutorial introduces how to download the MindSpore Lite quickly.
-										</div>
-									</div>
-								</a>
-							</div>
-							
-							<div class="doc-article-item all os-Windows os-Linux os-Android stage-Environment-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/use/build.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">Building MindSpore Lite</span>
-										</div>
-										<div class="doc-article-desc">
-											This tutorial introduces how to build the MindSpore Lite quickly.
-												
-										</div>
-									</div>
-								</a>
-							</div>
 							<div class="doc-article-item all os-Windows os-Linux stage-Model-Converting user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html" class="article-link">
 									<div>
@@ -299,6 +308,19 @@ Using MindSpore on Mobile and IoT
 									</div>
 								</a>
 							</div>
+							<div class="doc-article-item all os-Linux os-iot language-cpp stage-Model-Code-Generation stage-Inference user-Beginner user-Intermediate hidden">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/use/micro.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Perform Inference on Mini and Small Systems</span>
+										</div>
+										<div class="doc-article-desc">
+										MindSpore Lite provides a code generator tool, namely codegen, which could have runtime compiling and computational graphs building done offline. 
+										Only necessary codes and information are kept in the generated program, thereby minimizing the size of the generated inference program.
+										</div>
+									</div>
+								</a>
+							</div>
 							<div class="doc-article-item all os-Windows os-Linux language-cpp stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/lite/docs/en/master/use/image_processing.html" class="article-link">
 									<div>
@@ -311,7 +333,7 @@ Using MindSpore on Mobile and IoT
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Windows os-Linux os-Android language-cpp stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Windows os-Linux os-Android os-mac os-ios language-cpp stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/lite/docs/en/master/use/runtime_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -343,6 +365,18 @@ Using MindSpore on Mobile and IoT
 										</div>
 										<div class="doc-article-desc">
 										This tutorial introduces the instructions for using the integrated NPU, including steps to use, supported chips, and supported operators.
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all hardware-NNIE os-Linux stage-Environment-Preparation user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/use/nnie.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Usage Description of the Integrated NNIE</span>
+										</div>
+										<div class="doc-article-desc">
+											This tutorial introduces instructions for using integrated NNIE.
 										</div>
 									</div>
 								</a>
@@ -420,6 +454,30 @@ Using MindSpore on Mobile and IoT
 									</div>
 								</a>
 							</div>
+							<div class="doc-article-item all os-Windows os-Linux os-mac stage-Visualization">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/use/visual_tool.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Visualization Tool</span>
+										</div>
+										<div class="doc-article-desc">
+										Netron is a neural network model visualization tool developed based on the Electron platform. Netron supports MindSpore Lite models, allowing you to easily view model information. 
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux stage-Model-Obfuscator user-Expert">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/use/obfuscator_tool.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Model Obfuscation Tool</span>
+										</div>
+										<div class="doc-article-desc">
+										MindSpore Lite provides a lightweight offline model obfuscator to protect the confidentiality of model files deployed on the IoT devices.
+										</div>
+									</div>
+								</a>
+							</div>
 						</div>
 				
 					</div>
@@ -427,4 +485,4 @@ Using MindSpore on Mobile and IoT
 				</div>
 			</div>
 		</div>
-		
+	

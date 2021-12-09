@@ -11,32 +11,32 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/api/source_zh_cn/interface_description_federated_client.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
+注意，在使用以下接口前，可先参照文档[端侧部署](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)进行相关环境的部署。
+
 ## 联邦学习启动接口flJobRun()
 
 调用flJobRun()接口前，需先实例化参数类FLParameter，进行相关参数设置， 相关参数如下：
 
-| 参数名称       | 参数类型 | 是否必须 | 描述信息                                                    | 备注                                                         |
-| -------------- | -------- | -------- | ----------------------------------------------------------- | ------------------------------------------------------------ |
-| trainDataset   | String   | Y        | 训练数据集路径                                              | 情感分类任务是训练数据txt文件格式；图片分类任务是训练data.bin文件与label.bin文件用逗号拼接 |
-| vocabFile      | String   | Y        | 数据预处理的词典文件路径                                    | 情感分类任务必须设置；图片分类任务不需要设置该参数，默认为null |
-| idsFile        | String   | Y        | 词典的映射id文件路径                                        | 情感分类任务必须设置；图片分类任务不需要设置该参数，默认为null |
-| testDataset    | String   | N        | 测试数据集路径                                              | 1. 图片分类任务不需要设置该参数，默认为null；情感分类任务不设置该参数代表训练过程中不进行验证<br />2.情感分类任务是测试数据txt文件格式；图片分类任务是测试data.bin文件与label.bin文件用逗号拼接 |
-| flName         | String   | Y        | 联邦学习使用的模型名称                                      | 情感分类任务需设置为”albert“; lenet场景需设置为”lenet“       |
-| trainModelPath | String   | Y        | 联邦学习使用的训练模型路径，为.ms文件的绝对路径             |                                                              |
-| inferModelPath | String   | Y        | 联邦学习使用的推理模型路径，为.ms文件的绝对路径             | 有监督情感分类任务与图片分类任务均需设置为与trainModelPath相同 |
-| clientID       | String   | Y        | 用于唯一标识客户端的ID                                      |                                                              |
-| ip             | String   | Y        | Server端所启动服务的ip地址，形如“10.113.216.106”            | 后期ip+port会改为域名                                        |
-| port           | int      | Y        | Server端所启动服务的端口号                                  | 后期ip+port会改为域名                                        |
-| useHttps       | boolean  | N        | 端云通信是否进行https通信                                   | 设置为false, 进行http通信；设置为true，进行https通信；默认为false |
-| useSSL         | boolean  | N        | 端云通信是否进行ssl证书认证，ssl证书认证只在https通信中使用 | 设置为false, 不进行ssl证书认证；设置为true，进行ssl证书认证；默认为false |
+| 参数名称       | 参数类型 | 是否必须 | 描述信息                                                     | 备注                                                         |
+| -------------- | -------- | -------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| trainDataset   | String   | Y        | 训练数据集路径                                               | 情感分类任务是训练数据txt文件格式；图片分类任务是训练data.bin文件与label.bin文件用逗号拼接 |
+| vocabFile      | String   | Y        | 数据预处理的词典文件路径                                     | 情感分类任务必须设置；图片分类任务不需要设置该参数，默认为null |
+| idsFile        | String   | Y        | 词典的映射id文件路径                                         | 情感分类任务必须设置；图片分类任务不需要设置该参数，默认为null |
+| testDataset    | String   | N        | 测试数据集路径                                               | 1. 图片分类任务不需要设置该参数，默认为null；情感分类任务不设置该参数代表训练过程中不进行验证<br />2.情感分类任务是测试数据txt文件格式；图片分类任务是测试data.bin文件与label.bin文件用逗号拼接 |
+| flName         | String   | Y        | 联邦学习使用的模型名称                                       | 情感分类任务需设置为”albert“; lenet场景需设置为”lenet“       |
+| trainModelPath | String   | Y        | 联邦学习使用的训练模型路径，为.ms文件的绝对路径              |                                                              |
+| inferModelPath | String   | Y        | 联邦学习使用的推理模型路径，为.ms文件的绝对路径              | 有监督情感分类任务与图片分类任务均需设置为与trainModelPath相同 |
+| useSSL         | boolean  | N        | 端云通信是否进行ssl证书认证，ssl证书认证只在https通信中使用  | 设置为false, 不进行ssl证书认证；设置为true，进行ssl证书认证；默认为false |
+| certPath       | String   | N        | 端侧https通信所使用的SSL根证书路径                           | 当端云进行https通信时，且useSSL设置为true时必须设置该参数    |
+| domainName     | String   | Y        | 端云通信url                                                  | 目前，https和http通信均支持，对应格式分别为：https://......、http://......，当`useElb`设置为true时，格式必须为：https://127.0.0.0:6666 或者http://127.0.0.0:6666 ，其中`127.0.0.0`对应提供云侧服务的机器ip（即云侧参数`--scheduler_ip`），`6666`对应云侧参数`--fl_server_port` |
+| ifUseElb       | boolean  | N        | 用于设置是否模拟弹性负载均衡，true代表客户端会将请求随机发给一定范围内的server地址， false客户端的请求会发给固定的server地址 | 默认值为false                                                |
+| serverNum      | int      | N        | 用于设置模拟弹性负载均衡时可发送请求的server数量             | 当ifUseElb设置为true时，可设置为与云侧启动server端时的`server_num`参数保持一致，默认值为1 |
 
-注意useSSL设置为true时只支持https通信，以上参数中`useHttps`必须设置为`true`，且还需对以下参数进行设置：
+注意useSSL设置为true时只支持https通信，还需对以下参数进行设置：
 
 ```java
 FLParameter flParameter = FLParameter.getInstance();
-String hostName  =  "10.113.216.106";
-String certPath  =  "client.crt";             //  给出证书绝对路径
-flParameter.setHostName(hostName);
+String certPath  =  "client.crt";             //  端云通信SSL根证书绝对路径
 flParameter.setCertPath(certPath);
 ```
 
@@ -55,11 +55,8 @@ flParameter.setCertPath(certPath);
    String flName = "albert";  
    String trainModelPath = "SyncFLClient/ms/albert/albert_train.mindir.ms";                      //绝对路径
    String inferModelPath = "SyncFLClient/ms/albert/albert_train.mindir.ms";                      //绝对路径
-   String clientID = UUID.randomUUID().toString();
-   String ip = "10.113.216.106";
-   int port = 6668;
-   boolean useHttps = false;
    boolean useSSL = false;
+   String domainName = "http://10.113.216.106:6668";
 
    FLParameter flParameter = FLParameter.getInstance();
    flParameter.setTrainDataset(trainDataset);
@@ -69,11 +66,8 @@ flParameter.setCertPath(certPath);
    flParameter.setFlName(flName);
    flParameter.setTrainModelPath(trainModelPath);
    flParameter.setInferModelPath(inferModelPath);
-   flParameter.setClientID(clientID);
-   flParameter.setIp(ip);
-   flParameter.setPort(port);
-   flParameter.setUseHttps(useHttps);
    flParameter.setUseSSL(useSSL);
+   flParameter.setDomainName(domainName);
 
    // start FLJob
    SyncFLJob syncFLJob = new SyncFLJob();
@@ -89,11 +83,8 @@ flParameter.setCertPath(certPath);
    String flName = "lenet";
    String trainModelPath = "SyncFLClient/lenet_train.mindir0.ms";                      //绝对路径
    String inferModelPath = "SyncFLClient/lenet_train.mindir0.ms";                      //绝对路径
-   String clientID = UUID.randomUUID().toString();
-   String ip = "10.113.216.106";
-   int port = 6668;
-   boolean useHttps = false;
    boolean useSSL = false;
+   String domainName = "http://10.113.216.106:6668";
 
    FLParameter flParameter = FLParameter.getInstance();
    flParameter.setTrainDataset(trainDataset);
@@ -101,11 +92,8 @@ flParameter.setCertPath(certPath);
    flParameter.setFlName(flName);
    flParameter.setTrainModelPath(trainModelPath);
    flParameter.setInferModelPath(inferModelPath);
-   flParameter.setClientID(clientID);
-   flParameter.setIp(ip);
-   flParameter.setPort(port);
-   flParameter.setUseHttps(useHttps);
    flParameter.setUseSSL(useSSL);
+   flParameter.setDomainName(domainName);
 
    // start FLJob
    SyncFLJob syncFLJob = new SyncFLJob();
@@ -175,21 +163,17 @@ flParameter.setCertPath(certPath);
 | flName         | String   | Y        | 联邦学习使用的模型名称                                       | 情感分类任务需设置为”albert“; lenet场景需设置为”lenet“       |
 | trainModelPath | String   | Y        | 联邦学习使用的训练模型路径，为.ms文件的绝对路径              |                                                              |
 | inferModelPath | String   | Y        | 联邦学习使用的推理模型路径，为.ms文件的绝对路径              | 有监督情感分类任务与图片分类任务均需设置为与trainModelPath相同 |
-| ip             | String   | Y        | Server端所启动服务的ip地址，形如“10.113.216.106”             | 后期ip+port会改为域名                                        |
-| port           | int      | Y        | Server端所启动服务的端口号                                   | 后期ip+port会改为域名                                        |
-| useHttps       | boolean  | N        | 端云通信是否进行https通信                                    | 设置为false, 进行http通信；设置为true，进行https通信；默认为false |
 | useSSL         | boolean  | N        | 端云通信是否进行ssl证书认证，ssl证书认证只在https通信中使用  | 设置为false, 不进行ssl证书认证；设置为true，进行ssl证书认证；默认为false |
-| useElb         | boolean  | Y        | 用于设置是否模拟弹性负载均衡，true代表客户端会将请求随机发给一定范围内的server地址， false客户端的请求会发给固定的server地址。 |                                                              |
-| serverNum      | int      | Y        | 用于设置模拟弹性负载均衡时可发送请求的server数量，需与云侧启动server数量一致。 |                                                              |
+| certPath       | String   | N        | 端侧https通信所使用的SSL根证书路径                           | 当端云进行https通信时，且useSSL设置为true时必须设置该参数    |
+| domainName     | String   | Y        | 端云通信url                                                  | 目前，https和http通信均支持，对应格式分别为：https://......、http://......，当`useElb`设置为true时，格式必须为：https://127.0.0.0:6666 或者http://127.0.0.0:6666 ，其中`127.0.0.0`对应提供云侧服务的机器ip（即云侧参数`--scheduler_ip`），`6666`对应云侧参数`--fl_server_port` |
+| ifUseElb       | boolean  | N        | 用于设置是否模拟弹性负载均衡，true代表客户端会将请求随机发给一定范围内的server地址， false客户端的请求会发给固定的server地址 | 默认值为false                                                |
+| serverNum      | int      | N        | 用于设置模拟弹性负载均衡时可发送请求的server数量             | 当ifUseElb设置为true时，可设置为与云侧启动server端时的`server_num`参数保持一致，默认值为1 |
 
-注意useSSL设置为true时只支持https通信，以上参数中`useHttps`必须设置为`true`，且还需对以下参数进行设置：
+注意useSSL设置为true时只支持https通信，还需对以下参数进行设置：
 
 ```java
 FLParameter flParameter = FLParameter.getInstance();
-String hostName  =  "10.113.216.106";
-String certPath  =  "client.crt";             //  给出证书绝对路径
-
-flParameter.setHostName(hostName);
+String certPath  =  "client.crt";             //  端云通信SSL根证书绝对路径
 flParameter.setCertPath(certPath);
 ```
 
@@ -204,21 +188,17 @@ flParameter.setCertPath(certPath);
    String flName = "albert";     // 情感分类任务场景需设置为"albert", lenet图片分类任务场景需设置为"lenet"
    String trainModelPath = "SyncFLClient/ms/albert/albert_train.mindir.ms";                      //绝对路径
    String inferModelPath = "SyncFLClient/ms/albert/albert_train.mindir.ms";                      //绝对路径
-   String ip = "10.113.216.106";
-   int port = 6668;
-   boolean useHttps = false;
    boolean useSSL = false;
-   boolean useElb = false;
+   String domainName = "http://10.113.216.106:6668";
+   boolean ifUseElb = false;
    int serverNum = 1;
 
    FLParameter flParameter = FLParameter.getInstance();
    flParameter.setFlName(flName);
    flParameter.setTrainModelPath(trainModelPath);
    flParameter.setInferModelPath(inferModelPath);
-   flParameter.setIp(ip);
-   flParameter.setPort(port);
-   flParameter.setUseHttps(useHttps);
    flParameter.setUseSSL(useSSL);
+   flParameter.setDomainName(domainName);
    flParameter.setUseElb(useElb);
    flParameter.setServerNum(serverNum);
 
@@ -234,10 +214,8 @@ flParameter.setCertPath(certPath);
    String flName = "lenet";     // 情感分类任务场景需设置为"albert", lenet场景需设置为"lenet"
    String trainModelPath = "SyncFLClient/lenet_train.mindir0.ms";                      //绝对路径
    String inferModelPath = "SyncFLClient/lenet_train.mindir0.ms";                      //绝对路径
-   String ip = "10.113.216.106";
-   int port = 6668
-   boolean useHttps = false;
    boolean useSSL = false;
+   String domainName = "http://10.113.216.106:6668";
    boolean useElb = false;
    int serverNum = 1;
 
@@ -245,10 +223,8 @@ flParameter.setCertPath(certPath);
    flParameter.setFlName(flName);
    flParameter.setTrainModelPath(trainModelPath);
    flParameter.setInferModelPath(inferModelPath);
-   flParameter.setIp(ip);
-   flParameter.setPort(port);
-   flParameter.setUseHttps(useHttps);
    flParameter.setUseSSL(useSSL);
+   flParameter.setDomainName(domainName);
    flParameter.setUseElb(useElb);
    flParameter.setServerNum(serverNum);
 

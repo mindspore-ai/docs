@@ -1,7 +1,5 @@
 ﻿# 安装
 
-`Linux` `Windows` `Ascend` `GPU` `CPU` `环境准备` `初级` `中级`
-
 <!-- TOC -->
 
 - [安装](#安装)
@@ -38,12 +36,6 @@ A: pip会通过wheel安装包的文件名来判断该安装包是否与当前Pyt
 <font size=3>**Q: 使用pip安装时报错: `SSL:CERTIFICATE_VERIFY_FATLED`应该怎么办？**</font>
 
 A: 在pip安装命令后添加参数 `--trusted-host=ms-release.obs.cn-north-4.myhuaweicloud.com`重试即可。
-
-<br/>
-
-<font size=3>**Q: pip安装MindSpore对Python版本是否有特别要求？**</font>
-
-A: MindSpore开发过程中用到了Python3.7+的新特性，因此建议您通过`conda`工具添加Python3.7.5的开发环境。
 
 <br/>
 
@@ -106,6 +98,18 @@ A: 出现这种类型的报错，大概率是run包更新后个人的Conda环境
 <font size=3>**Q: pip同时安装MindSpore CPU和GPU版本，import时报错 `cannot import name 'context' from 'mindspore'`，应该怎么办？**</font>
 
 A: MindSpore不同版本的安装目录名同为`mindspore`，安装在同一个Python环境可能产生目录相互覆盖问题，导致无法使用，如果需要使用多平台版本的MindSpore时（例如同时使用CPU和GPU版本），请先卸载其他版本再安装新版本。
+
+<br/>
+
+<font size=3>**Q: 在ARM架构的环境上使用pip安装MindSpore时报错: `Could not find a version that satisfies the requirement`应该怎么办？**</font>
+
+A: 大概率是因为pip版本低于19.3，无法识别`manylinux2014`标签，导致pip install阶段下载了错误版本的`numpy`或`scipy`等python软件包，进而引发了无法找到构建依赖的问题，请执行`pip install --upgrade pip`将环境中的pip升级到19.3以上，重新安装MindSpore。
+
+<br/>
+
+<font size=3>**Q: pip安装MindSpore时，报错 `Running setup.py install for pillow: finished with status 'error' ... The headers or library files could not be found for jpeg, ...`，应该怎么办？**</font>
+
+A: MindSpore依赖三方库`pillow`进行部分的数据处理操作，而`pillow`需要依赖环境上已经安装`libjpeg`库，以Ubuntu环境为例，可以使用`sudo apt-get install libjpeg8-dev`来安装`libjpeg`库，然后再安装MindSpore。
 
 <br/>
 
@@ -203,16 +207,6 @@ A: 可能的原因有:
 
 <br/>
 
-<font size=3>**Q: 编译应用时报错`bash -p`方式和 `bash -e`方式的区别？**</font>
-
-A: MindSpore Serving的编译和运行依赖MindSpore，Serving提供两种编译方式: 一种指定已安装的MindSpore路径，即`bash -p {python site-packages}/mindspore/lib`，避免编译Serving时再编译MindSpore；另一种，编译Serving时，编译配套的MindSpore，Serving会将`-e`、`-V`和`-j`选项透传给MindSpore。
-比如，在Serving目录下，`bash -e ascend -V 910 -j32`:
-
-- 首先将会以`bash -e ascend -V 910 -j32`方式编译`third_party/mindspore`目录下的MindSpore；
-- 其次，编译脚本将MindSpore编译结果作为Serving的编译依赖。
-
-<br/>
-
 ## 卸载
 
 <font size=3>**Q: 如何卸载MindSpore？**</font>
@@ -245,7 +239,13 @@ A: 寻找缺少的动态库文件所在目录，添加该路径到环境变量`L
 
 <font size=3>**Q: 运行应用时出现`ModuleNotFoundError: No module named 'te'`怎么办？**</font>
 
-A: 首先确认环境安装是否正确，`te`、`topi`等whl包是否正确安装。如果用户环境中有多个Python版本，如Conda虚拟环境中，需`ldd name_of_your_executable_app`确认应用所链接的`libpython3.7m.so.1.0`是否与当前Python路径一致，如果不一致需要调整环境变量`LD_LIBRARY_PATH`顺序。
+A: 首先确认环境安装是否正确，`te`、`topi`等whl包是否正确安装。如果用户环境中有多个Python版本，如Conda虚拟环境中，需`ldd name_of_your_executable_app`确认应用所链接的`libpython3.so`是否与当前Python路径一致，如果不一致需要调整环境变量`LD_LIBRARY_PATH`顺序，例如
+
+```bash
+export LD_LIBRARY_PATH=`python -c "import distutils.sysconfig as sysconfig; print(sysconfig.get_config_var('LIBDIR'))"`:$LD_LIBRARY_PATH
+```
+
+将当前的`python`命令对应程序的运行库路径加入到`LD_LIBRARY_PATH`的最前面。
 
 <br/>
 
@@ -260,6 +260,12 @@ A: 常见原因有两种: Ascend AI处理器配套软件包或固件/驱动包�
 <br/>
 
 ## 安装验证
+
+<font size=3>**Q: MindSpore的GPU版本对设备的计算能力有限制吗？**</font>
+
+A: 目前MindSpore仅支持计算能力大于5.3的设备。
+
+<br/>
 
 <font size=3>**Q: 个人电脑CPU环境安装MindSpore后验证代码时报错: `the pointer[session] is null`，具体代码如下，该如何验证是否安装成功呢？**</font>
 
@@ -294,38 +300,6 @@ A: 上述问题较为常见，当前有两种可行的解决方法，可任选�
 
 - 交换import的顺序，先`import mindspore`再import其他三方库。
 - 执行程序之前先添加环境变量（`export LD_PRELOAD=/{your_path}/libgomp.so.1`），其中`{your_path}`是上述报错提示的路径。
-
-<br/>
-
-<font size=3>**Q: 训练nlp类网络，当使用第三方组件gensim时，可能会报错: ValueError，如何解决？**</font>
-
-A: 以下为报错信息:
-
-```bash
->>> import gensim
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/__init__.py", line 11, in <module>
-    from gensim import parsing, corpora, matutils, interfaces, models, similarities, utils  # noqa:F401
-  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/corpora/__init__.py", line 6, in <module>
-    from .indexedcorpus import IndexedCorpus  # noqa:F401 must appear before the other classes
-  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/corpora/indexedcorpus.py", line 14, in <module>
-    from gensim import interfaces, utils
-  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/interfaces.py", line 19, in <module>
-    from gensim import utils, matutils
-  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/matutils.py", line 1024, in <module>
-    from gensim._matutils import logsumexp, mean_absolute_difference, dirichlet_expectation
-  File "gensim/_matutils.pyx", line 1, in init gensim._matutils
-ValueError: numpy.ndarray size changed, may indicate binary incompatibility. Expected 88 from C header, got 80 from PyObject
-```
-
-报错原因请参考[gensim](https://github.com/RaRe-Technologies/gensim/issues/3095)官网，或者[numpy](https://github.com/numpy/numpy/issues/18709)官网:
-
-解决方案:
-
-方法一: 重新安装numpy及gensim, 执行命令: `pip uninstall gensim numpy -y && pip install numpy gensim` ；
-
-方法二: 如果还是有问题，请删除wheel安装包的缓存文件，然后执行方法一（wheel安装包缓存目录为: `~/.cache/pip/wheels`）。
 
 <br/>
 

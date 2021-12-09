@@ -10,12 +10,12 @@ import functools
 
 def _sort_param(param_list, target_str):
     """Sort param_list as default order."""
-    ls = []
-    for param_name in param_list:
-        ls.append((param_name, target_str.find(param_name)))
-    ls.sort(key=lambda x: x[1], reverse=False)
-    ls = [i[0] for i in ls]
-    return ls
+    ls_certain = []
+    for i in target_str.split(','):
+        param_uncertain = i.split('=')[0].split(':')[0].strip().replace("*", "")
+        if param_uncertain in param_list:
+            ls_certain.append(param_uncertain)
+    return ls_certain
 
 
 def get_default_params(func):
@@ -25,18 +25,15 @@ def get_default_params(func):
     pos_count = func_code.co_argcount
     arg_names = func_code.co_varnames
     karg_pos = func_code.co_kwonlyargcount
-    kwargs_num = arg_names.count("args") + arg_names.count("kwargs")
-    all_param_names = list(arg_names[:pos_count+karg_pos+kwargs_num])
     all_params = re.findall(r"def [\w_\d\-]+\(([\S\s]*?)\):", source_code)[0].replace("\n", "").replace("'", "\"")
+    kwargs_num = all_params.count("*") - all_params.count("**")
+    all_param_names = list(arg_names[:pos_count+karg_pos+kwargs_num])
 
     # sub null spaces from matched all param str.
-    re_space_sub = re.compile(r",\s+")
+    re_space_sub = re.compile(r",\s{2,}")
     all_params = re_space_sub.sub(",", all_params)
 
     all_param_names = _sort_param(all_param_names, all_params)
-
-    # sub the extra "=" from param.
-    re_equate_sub = re.compile("=")
 
     re_defaults_param = re.compile(r"(.*?)".join(all_param_names) + r"(.*)")
     defaults_params = re_defaults_param.findall(all_params)
@@ -46,7 +43,7 @@ def get_default_params(func):
         defaults_params_list = []
         for i in defaults_params:
             if "=" in i and i:
-                i = re_equate_sub.sub("", i, count=1).strip(",")
+                i = "".join(i.split('=')[-1]).strip(",")
                 if i[:6] == "lambda":
                     i = "<" + i + ">"
                 defaults_params_list.append(i)
@@ -87,7 +84,7 @@ def _my_signature_from_function(cls, func):
         if not isinstance(kwdefaults, type(None)):
             for key, value in kwdefaults.items():
                 if isinstance(value, str):
-                    kwdefaults[key] = '"' + value + '"'
+                    kwdefaults[key] = '\'' + value + '\''
     pos_defaults = func.__defaults__
 
     if pos_defaults:

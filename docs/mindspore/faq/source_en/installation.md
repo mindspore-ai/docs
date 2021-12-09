@@ -1,7 +1,5 @@
 # Installation
 
-`Linux` `Windows` `Ascend` `GPU` `CPU` `Environment Preparation` `Basic` `Intermediate`
-
 <!-- TOC -->
 
 - [Installation](#installation)
@@ -13,7 +11,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_en/installation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_en/installation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Installing Using pip
 
@@ -38,12 +36,6 @@ Hence, if you run into such a problem, please make sure the current environment 
 <font size=3>**Q: What should I do if an error message `SSL:CERTIFICATE_VERIFY_FATLED` is displayed when I use pip to install MindSpore?**</font>
 
 A: Add the `--trusted-host=ms-release.obs.cn-north-4.myhuaweicloud.com` parameter to the pip installation command and try again.
-
-<br/>
-
-<font size=3>**Q: Any specific requirements for Python version when pip install MindSpore?**</font>
-
-A: MindSpore utilizes many of the new features in Python3.7+，therefore we recommend you add Python3.7.5 develop environment via `conda`.
 
 <br/>
 
@@ -87,6 +79,18 @@ A: When you encounter the error, you should update the `te/topi/hccl` python too
 <font size=3>**Q: What should I do when I install both CPU and GPU versions of MindSpore, an error occurs while importing mindspore, saying `cannot import name 'context' from 'mindspore'`?**</font>
 
 A: All versions of MindSpore are installed in the directory named `mindspore`, installing them in one Python environment may overwrite each other and cause failures. If you wish to use alternate versions of MindSpore for different platforms (e.g. CPU and GPU versions), please uninstall the unused version and install the new version afterwards.
+
+<br/>
+
+<font size=3>**Q: What should I do if error message `Could not find a version that satisfies the requirement` is generated when I install MindSpore on a ARM architecture system using pip?**</font>
+
+A: The version of pip installed on your system is most likely lower than 19.3, which is too low to recognize `manylinux2014` label that identifies ARM64 architecture for pypi. Wrong versions of python packages such as `numpy` or `scipy` are downloaded, and dependencies are then found lacking while trying to build these packages. As such, please upgrade pip to a later version by typing `pip install --upgrade pip`, and then try installing MindSpore again.
+
+<br/>
+
+<font size=3>**Q: What should I do if error message `Running setup.py install for pillow: finished with status 'error' ... The headers or library files could not be found for jpeg, ...` is generated when I install MindSpore using pip?**</font>
+
+A: MindSpore relies on the third-party library `pillow` for some data processing operations, while `pillow` needs to rely on the `libjpeg` library already installed in the environment. Take the Ubuntu environment as an example, you can use `sudo apt-get install libjpeg8-dev` to install the `libjpeg` library, and then install MindSpore.
 
 <br/>
 
@@ -184,16 +188,6 @@ A: The possible reasons are:
 
 <br/>
 
-<font size=3>**Q: What is the difference between `bash -p` and `bash -e` when an error is reported during application build?**</font>
-
-A: MindSpore Serving build and running depend on MindSpore. Serving provides two build modes: 1. Use `bash -p {python site-packages}/mindspore/lib` to specify an installed MindSpore path to avoid building MindSpore when building Serving. 2. Build Serving and the corresponding MindSpore. Serving passes the `-e`, `-V`, and `-j` options to MindSpore.
-For example, use `bash -e ascend -V 910 -j32` in the Serving directory as follows:
-
-- Build MindSpore in the `third_party/mindspore` directory using `bash -e ascend -V 910 -j32`.
-- Use the MindSpore build result as the Serving build dependency.
-
-<br/>
-
 ## Uninstall
 
 <font size=3>**Q: How to uninstall MindSpore?**</font>
@@ -226,7 +220,13 @@ A: Find the directory where the missing dynamic library file is located, add the
 
 <font size=3>**Q: What should I do when error `ModuleNotFoundError: No module named 'te'` prompts during application running?**</font>
 
-A: First confirm whether the system environment is installed correctly and whether the whl packages such as `te` and `topi` are installed correctly. If there are multiple Python versions in the user environment, such as Conda virtual environment, you need to execute `ldd name_of_your_executable_app` to confirm whether the application link `libpython3.7m.so.1.0` is consistent with the current Python directory, if not, you need to adjust the order of the environment variable `LD_LIBRARY_PATH` .
+A: First confirm whether the system environment is installed correctly and whether the whl packages such as `te` and `topi` are installed correctly. If there are multiple Python versions in the user environment, such as Conda virtual environment, you need to execute `ldd name_of_your_executable_app` to confirm whether the application link `libpython3.so` is consistent with the current Python directory, if not, you need to adjust the order of the environment variable `LD_LIBRARY_PATH`. For example:
+
+```bash
+export LD_LIBRARY_PATH=`python -c "import distutils.sysconfig as sysconfig; print(sysconfig.get_config_var('LIBDIR'))"`:$LD_LIBRARY_PATH
+```
+
+Add the library directory of the program corresponding to the current `python` command to the top of `LD_LIBRARY_PATH`.
 
 <br/>
 
@@ -241,6 +241,12 @@ A: There are 2 common reasons: an incorrect version of Ascend AI processor softw
 <br/>
 
 ## Verifying the Installation
+
+<font size=3>**Q: Does MindSpore of the GPU version have requirements on the computing capability of devices?**</font>
+
+A: Currently, MindSpore supports only devices with the computing capability version greater than 5.3.
+
+<br/>
 
 <font size=3>**Q: After MindSpore is installed on a CPU of a PC, an error message `the pointer[session] is null` is displayed during code verification. The specific code is as follows. How do I verify whether MindSpore is successfully installed?**</font>
 
@@ -275,36 +281,6 @@ A: Above question is relatively common, and there are two feasible solutions, yo
 
 - Exchange the order of import, first `import mindspore` and then import other third party libraries.
 - Before executing the program, we can add environment variables first (`export LD_PRELOAD=/{your_path}/libgomp.so.1`), where `{your_path}` is the path mentioned in above error.
-
-<font size=3>**Q: When the third-party component gensim is used to train the NLP network, the error "ValueError" may be reported. What can I do?**</font>
-
-A: The following error information is displayed:
-
-```bash
->>> import gensim
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/__init__.py", line 11, in <module>
-    from gensim import parsing, corpora, matutils, interfaces, models, similarities, utils  # noqa:F401
-  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/corpora/__init__.py", line 6, in <module>
-    from .indexedcorpus import IndexedCorpus  # noqa:F401 must appear before the other classes
-  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/corpora/indexedcorpus.py", line 14, in <module>
-    from gensim import interfaces, utils
-  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/interfaces.py", line 19, in <module>
-    from gensim import utils, matutils
-  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/matutils.py", line 1024, in <module>
-    from gensim._matutils import logsumexp, mean_absolute_difference, dirichlet_expectation
-  File "gensim/_matutils.pyx", line 1, in init gensim._matutils
-ValueError: numpy.ndarray size changed, may indicate binary incompatibility. Expected 88 from C header, got 80 from PyObject
-```
-
-For details about the error cause, see the [gensim](https://github.com/RaRe-Technologies/gensim/issues/3095) or [numpy](https://github.com/numpy/numpy/issues/18709) official website.
-
-Solutions:
-
-Method 1: Reinstall the Numpy and Gensim and run the following commands: `pip uninstall gensim numpy -y && pip install numpy==1.18.5 gensim`
-
-Method 2: If the problem persists, delete the cache file of the wheel installation package and then perform method 1. (The cache directory of the wheel installation package is `~/.cache/pip/wheels`)
 
 <br/>
 

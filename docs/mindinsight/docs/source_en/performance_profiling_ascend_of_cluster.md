@@ -1,26 +1,6 @@
 # Cluster Performance Profiling (Ascend)
 
-`Linux` `Ascend` `Model Optimization` `Intermediate` `Expert`
-
-<!-- TOC -->
-
-- [Cluster Performance Profiling (Ascend)](#cluster-performance-profiling-ascend)
-    - [Overview](#overview)
-    - [Operation Process](#operation-process)
-    - [Distributed Training](#distributed-training)
-    - [Collect Cluster Performance Data](#distributed-training)
-    - [Launch MindInsight](#launch-mindinsight)
-    - [Training Performance](#training-performance)
-        - [Cluster Iterative Trajectory Analysis](#cluster-iterative-trajectory-analysis)
-        - [Cluster Communication Performance Analysis](#cluster-communication-performance-analysis)
-    - [Resource Utilization](#resource-utilization)
-        - [Cluster Memory Analysis](#cluster-memory-analysis)
-    - [Specifications](#specifications)
-    - [Notices](#notices)
-
-<!-- /TOC -->
-
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/performance_profiling_ascend_of_cluster.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/performance_profiling_ascend_of_cluster.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -41,7 +21,7 @@ For distributed training, please refer to [Distributed Training](https://www.min
 
 In multi-server and multi-device training, after the cluster training, the performance data is distributed in each host node. To analyze the cluster performance, we need to collect the performance data of all host nodes to one host for analysis. Considering the complexity of the cluster running environment and the related permissions and login problems, a more reasonable way is to let users collect cluster performance data. The following is the process of using a script to collect performance data after a distributed cluster training. Users can refer to this script to collect cluster performance data.
 
-Script program description: the script program first creates the cluster job folder, and then uses the SSHPass technology for non interactive remote copy (to avoid manual authentication, manually enter the password), copies the data of each host node in the cluster to the cluster job folder. At the same time, the script program generates the host IP address mapping table and copies the networking information file of the multi-device environment to the cluster job file.
+Script program description: the script program first creates the cluster job folder, and then uses the SSHPass technology for non interactive remote copy (to avoid manual authentication, manually enter the password), copies the data of each host node in the cluster to the cluster job folder.
 
 ```bash
 #!/bin/bash
@@ -49,7 +29,7 @@ Script program description: the script program first creates the cluster job fol
 echo "=============================================================================================================="
 echo "Please run the script as: "
 echo "bash collect_cluster_profiler_data.sh"
-echo "for example: bash collect_cluster_profiler_data.sh cluster_hccl_config_path cluster_account_config_path cluster_train_id host_train_id device_regex output"s
+echo "for example: bash collect_cluster_profiler_data.sh cluster_hccl_config_path cluster_account_config_path cluster_train_id host_train_id is_absolute_path"
 echo "=============================================================================================================="
 
 SSH="ssh -o StrictHostKeyChecking=no"
@@ -78,7 +58,7 @@ get_node_passwd()
         cat ${cluster_config} | python3 -c 'import sys,json;print(json.load(sys.stdin)["cluster"]['\"${node}\"']["passwd"])'
 }
 
-# Copy the data from remote node to the local node.
+# Copy data from remote node to local node.
 rscp_pass()
 {
         local node="$1"
@@ -90,45 +70,45 @@ rscp_pass()
 }
 
 cluster_hccl_config_path=$1
-cluster_account_config_path=$2s
+cluster_account_config_path=$2
 cluster_train_id=$3
 host_train_id=$4
-device_regex=$5
-output=$6
-host_ip_mapping_file='host_ips_mapping.txt'
-host_ip_mapping_id=1
+is_absolute_path=$5
+
 node_list=$(get_cluster_list ${cluster_account_config_path})
 echo "-----begin----"
 
-if [ ! -d "${cluster_train_id}" ]; then
-mkdir -p ${cluster_train_id}
+target_dir=${cluster_train_id}/profiler/
+if [ ! -d "${target_dir}" ]; then
+mkdir -p ${target_dir}
 fi
-
-# Copy the networking information file of multi-device environment to the cluster directory.
-cp $cluster_hccl_config_paht $cluster_train_id
 
 for node in ${node_list}
 do
  user=$(get_node_user ${cluster_account_config_path} ${node})
  passwd=$(get_node_passwd ${cluster_account_config_path} ${node})
  echo "------------------${user}@${node}---------------------"
- target_dir=${cluster_train_id}/cluster_profiler/${host_ip_mapping_id}/profiler/
- if [ ! -d "${target_dir}" ]; then
- mkdir -p ${target_dir}
- fi
 
- # Eight-device data
+ # Eight devices data
+ if [ $is_absolute_path = '0' ];then
+ device_regex=$(basename $(dirname $host_train_id))
+ output=$(basename $host_train_id)
+ grandfather_host_train_id=$(dirname $(dirname $host_train_id))
  for((i=0;i<8;i++));
  do
-   src_dir=${host_train_id}/${device_regex}${i}/${output}*/profiler*/*.*
+   src_dir=${grandfather_host_train_id}/${device_regex}${i}/${output}*/profiler/*.*
    $(rscp_pass ${node} ${user} ${passwd} "${src_dir}" ${target_dir})
  done
-
- # Save the mapping information to the host_ips_mapping.txt.
- echo "$node $host_ip_mapping_id">>${cluster_train_id}/$host_ip_mapping_file
-
- # host_ip_mapping_id ++
- host_ip_mapping_id=$((${host_ip_mapping_id}+1))
+ elif [ $is_absolute_path = '1' ];then
+ src_dir=${host_train_id}/profiler/*.*
+ for((i=0;i<8;i++));
+ do
+   $(rscp_pass ${node} ${user} ${passwd} "${src_dir}" ${target_dir})
+ done
+ else
+ echo "The value of is_absolute_path can only be 0 or 1."
+ exit 1
+ fi
 done
 ```
 
@@ -177,14 +157,23 @@ Script Parameter Description:
     }
     ```
 
-- `cluster_train_id`  The path to save the performance data of the cluster profiler. For example, `/home/summary/run1` and `/home/data/Run2`, where `run1` and `run2` respectively save the jobs of two cluster training.
-- `host_train_id`  During cluster training, each host node stores the path of profiler performance data. For example：`/home/summary/`.
-- `device_regex`  The name of the folder where the performance data of the profiler is stored on different devices in each host node. For example：`/home/summary/device0` and `/home/summary/device1`, which are the folders corresponding to device 0 and device 1. At this time, device_regex is device.
-- `output`  The path to save the profiler performance file set by the user in the training script, the default is `./data`.
+- `cluster_train_id` Path to save cluster performance data summary. For example, `/home/summary/run1` and `/home/summary/run2`, where `run1` and `run2` respectively save the jobs of two cluster training.
+- `host_train_id` In cluster training, the performance data saving path is set by the user. When the performance data save path is set to an absolute path, `host_train_id` is the value set by the user. For example, when the value is `/data/run`, multi devices performance data are saved in `/data/run/profiler` (`profiler`folder is automatically created by the program), the value of `host_train_id` should be set to `/data/run`. When the performance data saving path is set as a relative path, multi card performance data may be saved in different folders, such as `/data/run/device0/data/profiler`, `/data/run/device1/data/profiler`. Their common path is `/data/run/device/data/profiler`, and the performance data storage path of each device is `/data/run/device{device_id}/data/profiler`. The value of `host_train_id` should be set to `/data/run/device/data`.
+- `is_absolute_path` In the cluster performance data to be collected, whether the single machine and multi devices data are saved in the same directory. If yes, set to 1; Not set to 0.
 
 > The collected cluster performance jobs need to conform to the directory structure, otherwise, they cannot be visualized with MindInsight. It must contain the networking information file (the file name is optional) and host_ips_mapping.txt File (file name and suffix are unique).
 
 The directory structure of cluster performance folder collected by script is as follows:
+
+```text
+|-- run
+    |-- profiler
+        |-- step_trace_raw_{rank_id}_detail_time.csv
+```
+
+> The format of cluster directory and single device performance directory are unified.
+
+In MindInsight r1.3 and earlier versions, the cluster directory structure is as follows:
 
 ```text
 |-- run
@@ -196,12 +185,7 @@ The directory structure of cluster performance folder collected by script is as 
         |       |-- step_trace_raw_0_detail_time.csv
 ```
 
-Cluster performance folder structure description：
-
-- `hccl.json` It is the networking information file of the current multi-device environment. It records the correspondence between host_ip and device_id and rank_id.
-- `host_ips_mapping.txt` For host_ip mapping file. From the security point of view, the real host ip needs to be mapped to avoid exposing the real host value, leading to security risks. A host_ip mapping table is maintained here. One line of content in the file represents a set of mappings. For example, 10.xxx.xxx.1 1 means that the mapping value of 10.xxx.xxx.1 is 1.
-- `cluster_profiler` It is the label of cluster training job, which is used to judge whether the training job belongs to cluster training job.
-- `1` Save the performance data of the host node profiler, and it is the single-server multi device Profiler Data. The `cluster_profiler` folder contains performance data for all host nodes in the cluster.
+Through the data conversion script, you can convert the cluster performance directory created by users using MindInsight r1.3 and earlier versions into the currently supported cluster performance directory. You can download [Cluster directory conversion script](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/transform_cluster_profiler_data.py) from the official website.
 
 ## Launch MindInsight
 
@@ -209,7 +193,7 @@ The MindInsight launch command can refer to [MindInsight Commands](https://www.m
 
 ## Training Performance
 
-Users can select the specified training from the training list and click performance debugging to view the performance data of the training. Cluster training performance includes cluster iterative trajectory analysis and cluster communication performance analysis.
+The user can select the specified training from the training list, click performance debugging, and click the "cluster" tab to display the performance data of this training from the cluster perspective. Cluster training performance includes cluster iterative trajectory analysis and cluster communication performance analysis.
 
 ![cluster_summary.png](./images/cluster_summary.png)
 
@@ -217,12 +201,13 @@ Figure 1: overview of cluster training performance
 
 Figure 1 is the overview of cluster training performance, which is the overall presentation of cluster iterative trajectory component and cluster communication performance component. The display contents of each component are as follows:
 
-- Cluster iteration trajectory: The iterative trajectory information of all cards in the cluster is displayed; The overview page shows the cluster iteration trajectory performance.
-- Cluster communication performance: Show the communication performance of all cards in the cluster and the link performance of the whole network; The overview page shows the cluster communication performance.
+- Cluster iteration trajectory: The iterative trajectory information of all devices in the cluster is displayed; The overview page shows the cluster iteration trajectory performance.
+- Cluster communication performance: Show the communication performance of all devices in the cluster and the link performance of the whole network; The overview page shows the cluster communication performance.
+- Cluster performance helper: The helper on the left provides possible performance bottlenecks during training, and users can optimize performance according to the prompts.
 
 ### Cluster Iterative Trajectory Analysis
 
-Using the cluster iterative trajectory analysis component, we can find out the slow host and slow device in cluster training. Cluster iteration trajectory analysis component shows the iteration information of all devices, including iteration gap, forward and backward, iteration trailing, and supports sorting operation. The iteration gap reflects the speed of the data processing stage, and the iteration gap time of the device can reflect the speed of the corresponding host processing data. The forward and backward time of the device reflects the computing power of the device. Iterative tailing reflects all_reduce time and parallelism.
+Using the cluster iterative trajectory analysis component, we can find out the slow host and slow device in cluster training. Cluster iteration trajectory analysis component shows the iteration information of all devices, including step interval, forward and backward, iteration trailing, and supports sorting operation. The step interval reflects the speed of the data processing stage, and the step interval time of the device can reflect the speed of the corresponding host processing data. The forward and backward time of the device reflects the computing power of the device. Iterative tailing reflects all_reduce time and parallelism.
 
 ![cluster_iterative_trajectory.png](./images/cluster_iterative_trajectory.png)
 
@@ -236,31 +221,60 @@ Figure 3: single device details
 
 Figure 3 shows the performance information of a single device in the cluster. Please refer to [single device performance information](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html) for the performance information of a single device.
 
+### Cluster Communication and Computation Overlap Time Analysis
+
+Cluster communication and computational overlap time analysis components are used in pipeline parallel and model parallel mode to identify slow hosts and slow devices in cluster training.
+
+The cluster communication and computation overlap time analysis components add five new indicators: Communication Time(including the receive operator only), Stage Time, Communication Time, Computation Time, Communication Time(not including the receive operator).
+
+- Communication Time(including the receive operator only): only the point-to-point(receive) communication operator is executed, and the calculation operator does not execute the time period. This time period reflects the asynchronous situation between the parallel stages of the pipeline.
+- Stage Time: the time-consuming duration of each stage. This value is the duration of the step minus the duration of the receive communication operator in the step. Through this indicator, you can see which stage takes the longest time.
+- Communication Time: the time period when only the communication operator is executed, and the calculation operator is not executed. If this part takes a long time, it means that the communication time-consuming has a greater impact on performance.
+- Computation Time: the total execution time of AI Core operator, used to judge whether there is a slow card. The longer the time, the slower the execution speed of the corresponding card.
+- Communication Time(not including the receive operator): only the time period during which other communication operators except the receive communication operators are executed, and the computation operators does not execute. When this time period accounts for a large proportion, you need to consider whether the segmentation strategy of the operators in the stage can be adjusted to reduce the time-consuming duration of this time period.
+
+![cluster_pipeline-parallel_analyse.png](./images/cluster_pipeline-parallel_analyse_en.png)
+
+Figure 4: pipeline parallel mode analysis
+
+Figure 4 shows the information in pipeline parallel scene, showing the average value of all step by default. The page shows step interval time, pure receive time, stage time, pure communication time, calculation time, pure collection communication time. Because the computation graph of the whole network is divided into subgraph of multiple stages, the stage time can be used to locate the slow stage, and the device of the same stage can be filtered out by selecting the stage number, and the idea of model parallel mode can be used to locate the bottleneck within the stage.
+
+![cluster_model-parallel_analyse.png](./images/cluster_model-parallel_analyse_en.png)
+
+Figure 5: model parallel mode analysis
+
+Figure 5 shows the information in model parallel scene(here refers to the in-layer model parallel), showing the average value of all step by default. The page shows step interval time, pure communication time, and calculation time. Computation time can be used to locate slow devices. If there is no slow device, observe the communication time and computation time ratio, if the communication time is relatively large, consider whether there is a slow link.
+
 ### Cluster Communication Performance Analysis
 
-The cluster communication performance component displays the cluster communication performance information from two dimensions: card granularity and whole network link.
+The cluster communication performance component displays the cluster communication performance information from two dimensions: device granularity and whole network link.
 
 ![cluster_communication_info.png](./images/cluster_communication_info.png)
 
-Figure 4: cluster communication performance analysis
+Figure 6: cluster communication performance analysis
 
-Figure 4 shows the analysis page of cluster communication performance, including the communication performance of logic card and the link information of the whole network (all logic card link information).
+Figure 6 shows the analysis page of cluster communication performance, including the communication performance of logic device and the link information of the whole network (all logic device link information).
 
-Logic card communication performance tab page is mainly used to show the communication performance of logic card, including communication time, waiting time, logic card link information.
+Logic device communication performance tab page is mainly used to show the communication performance of logic device, including communication time, waiting time, operator details, logic device link information.
 
 - Communication time: Represents the communication time of the communication operator. If the communication time is too long, there may be a problem with a link, and the specific link can be located through the link bandwidth. The calculation method of communication time is to count the total communication operator time of SDMA link (intra server communication) and RDMA link (inter server communication). If it is the SDMA link, the total time of `Reduce inline` and `Memcpy` operators is taken as the communication time; If it is the RDMA link, the total time of three consecutive operators `RDMASendPayload`, `RDMASendNotify`, `Notify Wait` is taken as the communication time.
-- Waiting time: Also called synchronization time. Before communication between cards, synchronization will be carried out first to ensure that the two cards are synchronized before communication. The waiting time is calculated by counting the total time consumption of all `Notify wait` operators and subtracting the time consumption of `Notify wait` operator in the communication time of RDMA link.
-- Logic card link information: Display the link information of the source card or the destination card. Link information includes communication time, traffic, bandwidth (traffic divided by communication time) and link type. The link types include SDMA link (intra server communication link) and RDMA link (inter server communication link). Click the details and display them by pop-up window.
+- Waiting time: Also called synchronization time. Before communication between devices, synchronization will be carried out first to ensure that the two devices are synchronized before communication. The waiting time is calculated by counting the total time consumption of all `Notify wait` operators and subtracting the time consumption of `Notify wait` operator in the communication time of RDMA link.
+- Operator details: Display the communication performance with operator granularity, including the communication duration, waiting duration and link information of the communication operator.
+- Logic device link information: Display the link information of the source device or the destination device. Link information includes communication time, traffic, bandwidth (traffic divided by communication time) and link type. The link types include SDMA link (intra server communication link) and RDMA link (inter server communication link). Click the details and display them by pop-up window.
+
+![operator_performance.png](./images/operator_performance.png)
+
+Figure 7: Operator performance information
 
 ![rank_id_link_info.png](./images/rank_id_link_info.png)
 
-Figure 5: link information of logic card
+Figure 8: link information of logic device
 
-The whole network link information tab page displays the link information of all logic cards, and provides the selection of source card, destination card and link type.
+The whole network link information tab page displays the link information of all logic devices, and provides the selection of source device, destination device and link type.
 
 ![rank_ids_link_info.png](./images/rank_ids_link_info.png)
 
-Figure 6: link information of the whole network
+Figure 9: link information of the whole network
 
 By default, communication performance data is not collected. You need to use the `profile_communication` parameter in `mindspore.profiler.Profiler` like `Profiler(profile_communication=True)` to turn on the communication performance data switch. It should be noted that only multi devices training can generate communication operator performance data. Setting this parameter in single device training scenario does not work.
 
@@ -284,7 +298,7 @@ This page shows the memory usage of the model on the **device side** in the para
 
 ![cluster_memory.png](./images/cluster_memory.png)
 
-Figure 3: The page of cluster memory analysis
+Figure 10: The page of cluster memory analysis
 
 ### Cluster FLOPs Analysis
 
@@ -296,7 +310,67 @@ This page shows the FLOPs data for each device in the parallel mode. The content
 
 ![cluster_flops.png](./images/cluster_flops.png)
 
-Figure 4: The page of cluster FLOPs analysis
+Figure 11: The page of cluster FLOPs analysis
+
+## Strategy Perception
+
+Strategy Perception includes Computational Graph Exploration module, Parallel Strategy Analysis module, etc.
+
+### Graph Exploration Module
+
+#### General Introduction
+
+![image-20211118132511452](./images/profiler_strategy_graph_en.png)
+
+Figure 12: The Page of Strategy Perception
+
+The upper right corner of the page will show the parallel mode of this training. The figure above shows that the parallel mode in the current training is auto parallel.
+
+Users can choose computational graphs of different stages to explore. Users can also use the graph selector to extract communication nodes from specific parts of the computational graph (feed-forward graph, back-propagation graph, and recompute graph).
+
+The pipeline parallel view is at the upper left corner of the page. When training parallel mode is pipeline parallel, this view shows the data sending and receiving relationship between stages. Click the operator to jump to the graph.
+
+The computational graph is displayed in the middle of the page. The node of the square is the aggregation node, which can be double-clicked to open or close. The ellipse is the common operator.
+
+When the aggregation node is not expanded, it will show statistics of different special operators, like operators with strategy, operators for redistribution, and operators for gradient aggregation. If the output of the previous operator cannot be calculated with the output of the next operator, a redistribution operator is automatically inserted between two operators to implement the arrangement transformation. For more details, please refer to the chapter of distributed training design in the design document.
+
+By clicking a certain node (operator or aggregation node), the node attributes panel will show the inputs and outputs of the node and its shard methods. The input and output nodes can be tracked by clicking.
+
+### Operator Strategy Matrix
+
+![image-20211118133144763](./images/profiler_strategy_graph_stack.png)
+
+Figure 13: Operator Strategy Matrix
+
+If an input node of the operator has shard methods, a strategy matrix will be presented below the operator. One row represents the shard method of a certain input node. The number in the small grid cell represents the number of slices of the input node in the corresponding dimension.
+
+The corresponding input edges will be highlighted when hovering on the strategy matrix. Along with the input and output locating feature, users can analyze the rationality of the operator's shard method and adjust accordingly if needed.
+
+It is important to note that constants are not plotted in the computational graph, so the shard strategy for constants is not reflected in the graph.
+
+### Training Pipeline
+
+![image-20211122180619886](./images/profiler_strategy_graph_pipeline.png)
+
+Figure 14: Training Pipeline
+
+When the pipeline parallel strategy is adopted, click the button in the upper left corner to expand the training pipeline panel. This panel shows the send operators (red rectangles) and receive operators (green rectangles) in each stage and their correspondences between different stages. The rectangles (operators) can be clicked and the corresponding operator will be focused in the computational graph.
+
+With the training pipeline panel, users can evaluate the rationality of stage segmentation and analyze the design space of pipeline parallel strategy, the number of micro-batches, etc.
+
+### Operator Stacking and Edge Hiding
+
+![image-20211118125032089](./images/profiler_strategy_graph_stack.png)
+
+Figure 14: Operator Stacking
+
+In the computational graph, if there are too many operators of the same type in the aggregation node, they will be stacked and displayed. Double-click to expand the operator.
+
+![image-20211118125032089](./images/profiler_strategy_hideline.png)
+
+Figure 14: View Hidden Edges
+
+In order to prevent the lines from being too messy and some unimportant edges will be hidden, move the mouse over the circle of the aggregation node to see the hidden edges.
 
 ## Specifications
 

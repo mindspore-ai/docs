@@ -227,20 +227,20 @@ Benchmark工具提供Dump功能（目前仅支持`CPU`算子），将模型中�
     ```json
     {
         "common_dump_settings": {
-            "dump_mode": 0,
+            "dump_mode": 1,
             "path": "/absolute_path",
             "net_name": "ResNet50",
             "input_output": 0,
-            "kernels": ["Default/Conv-op12", "Default/Conv-op13"],
+            "kernels": ["Default/Conv-op12", "Default/Conv-op13"]
         }
     }
     ```
 
-    - `dump_mode`：设置成0，表示Dump出该网络中的所有算子；设置成1，表示Dump`"kernels"`里面指定的算子。
+    - `dump_mode`：设置成0，表示Dump出该网络中的所有算子数据；设置成1，表示Dump`"kernels"`里面指定的算子数据。
     - `path`：Dump保存数据的绝对路径。
-    - `net_name`：自定义的网络名称，例如："ResNet50"，未指定该字段的话，默认值为"Default"。
+    - `net_name`：自定义的网络名称，例如："ResNet50"，未指定该字段的话，默认值为"default"。
     - `input_output`：设置成0，表示Dump出算子的输入和算子的输出；设置成1，表示Dump出算子的输入；设置成2，表示Dump出算子的输出。
-    - `kernels`：算子的名称列表。未指定该字段或者该值设置为[ ]，会Dump模型中的所有算子的数据。
+    - `kernels`：算子的名称列表。如果未指定此字段或者此字段的值设置为[]，`"dump_mode"`须设置为0；否则`"dump_mode"`的值须设置为1。
 
 2. 设置Dump环境变量，指定Dump的json配置文件。
 
@@ -270,7 +270,7 @@ Benchmark工具提供Dump功能（目前仅支持`CPU`算子），将模型中�
 
 - `path`：`data_dump.json`配置文件中设置的绝对路径。
 - `net_name`：`data_dump.json`配置文件中设置的网络名称。
-- `folder_id`：默认创建编号为1的文件夹，每执行一次benchmark程序，该文件夹编号加1，以此类推，最多支持的文件夹数量为1000。
+- `folder_id`：默认创建编号为0的文件夹，每执行一次benchmark程序，该文件夹编号加1，以此类推，最多支持的文件夹数量为1000。
 - `op_name`：算子名称。
 - `input_output_index`：输入或输出标号，例如`output_0`表示该文件是该算子的第1个输出Tensor的数据。
 - `data_type`：数据类型。

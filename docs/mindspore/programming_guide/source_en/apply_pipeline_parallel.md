@@ -1,10 +1,10 @@
-# Pipeline Parallelism Application
+# Pipeline Parallelism
 
-`Linux` `Ascend` `Model Training` `Intermediate` `Expert`
+`Ascend` `GPU` `Distributed Parallel` `Whole Process`
 
 <!-- TOC -->
 
-- [Pipeline Parallelism Application](#pipeline-parallelism-application)
+- [Pipeline Parallelism](#pipeline-parallelism)
     - [Overview](#overview)
     - [Preparations](#preparations)
         - [Downloading the Dataset](#downloading-the-dataset)
@@ -15,11 +15,17 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/apply_pipeline_parallel.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/apply_pipeline_parallel.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
-In recent years, the scale of neural networks has increased exponentially. Limited by the memory on a single device, the number of devices used for training large models is also increasing. Due to the low communication bandwidth between servers, the performance of the conventional hybrid parallelism (data parallel + model parallel) is poor. Therefore, pipeline parallelism needs to be introduced. Pipeline parallelism can divide a model in space based on `stage`. Each `stage` needs to execute only a part of the network, which greatly reduces memory overheads, shrinks the communication domain, and shortens the communication time. MindSpore can automatically convert a standalone model to the pipeline parallel mode based on user configurations.
+In recent years, the scale of neural networks has increased exponentially. Limited by the memory on a single device, the
+number of devices used for training large models is also increasing. Due to the low communication bandwidth between
+servers, the performance of the conventional hybrid parallelism (data parallel + model parallel) is poor. Therefore,
+pipeline parallelism needs to be introduced. Pipeline parallelism can divide a model in space based on `stage`.
+Each `stage` needs to execute only a part of the network, which greatly reduces memory overheads, shrinks the
+communication domain, and shortens the communication time. MindSpore can automatically convert a standalone model to the
+pipeline parallel mode based on user configurations.
 
 > Download address of the complete sample code:
 >
@@ -29,21 +35,22 @@ In recent years, the scale of neural networks has increased exponentially. Limit
 
 ### Downloading the Dataset
 
-This example uses the `CIFAR-10` dataset. For details about how to download and load the dataset, visit <https://www.mindspore.cn/docs/programming_guide/en/master/distributed_training_ascend.html>.
+This example uses the `CIFAR-10` dataset. For details about how to download and load the dataset,
+visit <https://www.mindspore.cn/docs/programming_guide/en/master/distributed_training_ascend.html>.
 
 ### Configuring the Distributed Environment
 
-> Currently, pipeline parallelism supports only Ascend.
->
-> Due to the impact of HCCL, pipeline parallelism can only be performed across nodes.
+> Pipeline parallelism supports Ascend and GPU.
 
-For details about how to configure the distributed environment and call the HCCL, visit <https://www.mindspore.cn/docs/programming_guide/en/master/distributed_training_ascend.html>.
+For details about how to configure the distributed environment and call the HCCL,
+visit <https://www.mindspore.cn/docs/programming_guide/en/master/distributed_training_ascend.html>.
 
 ## Defining the Network
 
-The network definition is the same as that of the Ascend 910 AI Processor.
+The network definition is the same as that in the Parallel Distributed Training Example.
 
-For details about the definitions of the network, optimizer, and loss function, visit <https://www.mindspore.cn/docs/programming_guide/en/master/distributed_training_ascend.html>.
+For details about the definitions of the network, optimizer, and loss function,
+visit <https://www.mindspore.cn/docs/programming_guide/en/master/distributed_training_ascend.html>.
 
 > To implement pipeline parallelism, you need to define the parallel strategy and call the `pipeline_stage` API to specify the stage on which each layer is to be executed. The granularity of the `pipeline_stage` API is `Cell`. `pipeline_stage` must be configured for all `Cells` that contain training parameters.
 
@@ -97,8 +104,13 @@ To enable pipeline parallelism, you need to add the following configurations to 
 - Set `pipeline_stages` in `set_auto_parallel_context` to specify the total number of `stages`.
 - Set the `SEMI_AUTO_PARALLEL` mode. Currently, the pipeline parallelism supports only this mode.
 - Define the LossCell. In this example, the `nn.WithLossCell` API is called.
-- Pass the `parameters` used in this `stage` to the optimizer. Call the `add_pipeline_stage` method of `Parameter` to pass all `stage` information to `Parameter` if multiple `stages` share a parameter. Then, call the `infer_param_pipeline_stage` API of the `Cell` to obtain the training parameters of the `stage`.
-- Finally, wrap the LossCell with `PipelineCell`, and specify the Micro_batch size. To improve machine utilization, MindSpore divides Mini_batch into finer-grained Micro_batch to streamline the entire cluster. The final loss value is the sum of the loss values computed by all Micro_batch. The size of Micro_batch must be greater than or equal to the number of `stages`.
+- Pass the `parameters` used in this `stage` to the optimizer. Call the `add_pipeline_stage` method of `Parameter` to
+  pass all `stage` information to `Parameter` if multiple `stages` share a parameter. Then, call
+  the `infer_param_pipeline_stage` API of the `Cell` to obtain the training parameters of the `stage`.
+- Finally, wrap the LossCell with `PipelineCell`, and specify the Micro_batch size. To improve machine utilization,
+  MindSpore divides Mini_batch into finer-grained Micro_batch to streamline the entire cluster. The final loss value is
+  the sum of the loss values computed by all Micro_batch. The size of Micro_batch must be greater than or equal to the
+  number of `stages`.
 
 ```python
 from mindspore import context, Model, nn
@@ -106,6 +118,7 @@ from mindspore.nn import Momentum
 from mindspore.train.callback import LossMonitor
 from mindspore.context import ParallelMode
 from resnet import resnet50
+
 
 def test_train_cifar(epoch_size=10):
     context.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, gradients_mean=True)
@@ -124,6 +137,16 @@ def test_train_cifar(epoch_size=10):
     model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=True)
 ```
 
-## Running the Multi-node Script
+## Running the Single-host with 8 devices Script
 
-Pipeline parallelism requires cross-node execution. For details about multi-node multi-device training, visit <https://www.mindspore.cn/docs/programming_guide/en/master/distributed_training_ascend.html>.
+Using the sample code, you can run a 2-stage pipeline on 8 Ascend devices using below scripts:
+
+```bash
+bash run_pipeline.sh [DATA_PATH] Ascend
+```
+
+You can run a 2-stage pipeline on 8 GPU devices using below scripts:
+
+```bash
+bash run_pipeline.sh [DATA_PATH] GPU
+```

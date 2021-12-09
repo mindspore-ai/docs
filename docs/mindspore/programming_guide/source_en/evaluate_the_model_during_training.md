@@ -1,6 +1,6 @@
 ﻿# Evaluating the Model during Training
 
-`Linux` `Ascend` `GPU` `CPU` `Model Export` `Model Training` `Beginner` `Intermediate` `Expert`
+`Ascend` `GPU` `CPU` `Model Running`
 
 <!-- TOC -->
 
@@ -13,7 +13,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/evaluate_the_model_during_training.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/evaluate_the_model_during_training.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 

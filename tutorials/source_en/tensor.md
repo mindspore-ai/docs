@@ -1,6 +1,8 @@
 # Tensor
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/tensor.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+`Ascend` `GPU` `CPU` `Beginner`
+
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/tensor.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 Tensor is a basic data structure in the MindSpore network computing.
 
@@ -35,6 +37,37 @@ x_np = Tensor(arr)
 ```
 
 If the initial value is `NumPy.array`, the generated `Tensor` data type corresponds to `NumPy.array`.
+
+- **Generate a tensor from the init**
+
+You can create a tensor with the `init`, `shape` and `dtype`.
+
+- `init`: Supported subclasses of incoming Subclass of `Initializer`.
+- `shape`: Supported subclasses of incoming `list`, `tuple`, `int`.
+- `dtype`: Supported subclasses of incoming `mindspore.dtype`.
+
+```python
+from mindspore import Tensor
+from mindspore import set_seed
+from mindspore import dtype as mstype
+from mindspore.common.initializer import One, Normal
+
+set_seed(1)
+
+tensor1 = Tensor(shape=(2, 2), dtype=mstype.float32, init=One())
+tensor2 = Tensor(shape=(2, 2), dtype=mstype.float32, init=Normal())
+print(tensor1)
+print(tensor2)
+```
+
+```text
+    [[1. 1.]
+     [1. 1.]]
+    [[-0.00128023 -0.01392901]
+     [ 0.0130886  -0.00107818]]
+```
+
+The `init` is used for delayed initialization in parallel mode. Usually, it is not recommended to use `init` interface to initialize parameters in other conditions.
 
 - **Inherit attributes of another tensor to form a new tensor.**
 

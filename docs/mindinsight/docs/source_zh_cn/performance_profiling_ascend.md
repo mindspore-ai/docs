@@ -1,21 +1,19 @@
 # 性能调试（Ascend）
 
-`Linux` `Ascend` `模型调优` `中级` `高级`
-
 <!-- TOC -->
 
 - [性能调试（Ascend）](#性能调试ascend)
     - [概述](#概述)
     - [操作流程](#操作流程)
     - [准备训练脚本](#准备训练脚本)
-    - [启动MindInsight](#启动MindInsight)
+    - [启动MindInsight](#启动mindinsight)
     - [训练性能](#训练性能)
         - [迭代轨迹分析](#迭代轨迹分析)
         - [算子性能分析](#算子性能分析)
         - [数据准备性能分析](#数据准备性能分析)
-        - [Timeline分析](#Timeline分析)
+        - [Timeline分析](#timeline分析)
     - [资源利用](#资源利用)
-        - [CPU利用率分析](#CPU利用率分析)
+        - [CPU利用率分析](#cpu利用率分析)
         - [内存使用情况分析](#内存使用情况分析)
     - [规格](#规格)
     - [注意事项](#注意事项)
@@ -46,12 +44,14 @@
 
 - 在训练结束后，调用`Profiler.analyse()`停止性能数据收集并生成性能分析结果。
 
-样例代码如下：
+Profiler可以通过start_profile参数控制是否基于step（epoch）开启、关闭收集性能数据。对于图模式的数据下沉模式，只有在每个epoch结束后才有机会告知CANN开启和停止，因此对于数据下沉模式，需要基于epoch开启和关闭。
+
+正常场景样例代码如下：
 
 ```python
 import numpy as np
 from mindspore import nn, context
-from mindspore.train import Model
+from mindspore import Model
 import mindspore.dataset as ds
 from mindspore.profiler import Profiler
 
@@ -95,6 +95,71 @@ if __name__ == '__main__':
     profiler.analyse()
 ```
 
+图模式：
+
+- 对于非数据下沉，需要基于step开启
+
+    ```python
+    from mindspore.profiler.callback import Callback
+    class StopAtStep(Callback):
+        def __init__(self, start_step, stop_step):
+            super(StopAtStep, self).__init__()
+            self.start_step = start_step
+            self.stop_step = stop_step
+            self.profiler = Profiler(start_profile=False)
+        def step_begin(self, run_context):
+            cb_params = run_context.original_args()
+            step_num = cb_params.cur_step_num
+            if step_num == self.start_step:
+                self.profiler.start()
+        def step_end(self, run_context):
+            cb_params = run_context.original_args()
+            step_num = cb_params.cur_step_num
+            if step_num == self.stop_step:
+                self.profiler.stop()
+        def end(self, run_context):
+            self.profiler.analyse()
+    ```
+
+- 对于数据下沉，需要基于epoch开启
+
+    ```python
+    class StopAtEpoch(Callback):
+        def init(self, start_epoch, stop_epoch):
+            super(StopAtStep, self).init()
+            self.start_epoch = start_epoch
+            self.stop_epoch = stop_epoch
+            self.profiler = Profiler(start_profile=False)
+        def epoch_begin(self, run_context):
+            cb_params = run_context.original_args()
+            epoch_num = cb_params.cur_epoch_num
+            if step_num == self.start_epoch:
+              self.profiler.start()
+        def epoch_end(self, run_context):
+            cb_params = run_context.original_args()
+            epoch_num = cb_params.cur_epoch_num
+            if epoch_num == self.stop_epoch:
+                self.profiler.stop()
+        def end(self, run_context):
+            self.profiler.analyse()
+    ```
+
+自定义训练：
+
+```python
+profiler = Profiler(start_profile=False)
+data_loader = ds.create_dict_iterator()
+
+for i, data in enumerate(data_loader):
+    train()
+    if i==100:
+        profiler.start()
+    if i==200:
+        profiler.stop()
+
+profiler.analyse()
+```
+
 ## 启动MindInsight
 
 启动命令请参考[MindInsight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_commands.html)。
@@ -128,7 +193,7 @@ if __name__ == '__main__':
 
 页面下方显示了迭代间隙、前后向计算、迭代拖尾时间随着step的变化曲线等，用户可以据此判断某个阶段是否存在性能优化空间。其中：
 
-- **迭代间隙：** 主要负责从数据队列中读取数据，如果该部分耗时较长，建议前往数据处理部分进一步分析。
+- **迭代间隙：** 主要负责从数据队列中读取数据，如果该部分耗时较长，建议前往数据准备部分进一步分析。
 - **前后向计算：** 执行网络中的前向算子以及反向算子，承载了一个step主要的计算工作，如果该部分耗时较长，建议前往算子统计或时间线中进一步分析。
 - **迭代拖尾：** 主要在多卡场景下执行参数聚合、参数更新操作，包括前后向计算结束到参数更新完成的时间。如果该部分耗时较长，建议查看`all_reduce`耗时以及并行情况。
 
@@ -142,7 +207,7 @@ if __name__ == '__main__':
 
 ### 算子性能分析
 
-使用算子性能分析组件可以对MindSpore运行过程中的各个算子的执行时间进行统计展示(包括AICORE、AICPU、HOSTCPU算子)。其中AICORE算子包含计算量相关信息。
+使用算子性能分析组件可以对MindSpore运行过程中的各个算子的执行时间进行统计展示(包括AICORE、AICPU、HOSTCPU算子)。
 
 - AICORE算子：AI Core 算子是昇腾 AI 处理器计算核心的主要构成，负责执行向量和张量相关的计算密集型算子。TBE（Tensor Boost Engine）是一种在TVM（Tensor Virtual Machine）框架基础上扩展的算子开发工具，用户可使用 TBE 进行 AI Core 算子信息注册。
 - AICPU算子：AI CPU算子是AI CPU负责执行昇腾处理器中海思 SoC 的CPU类算子（包括控制算子、标量和向量等通用计算）。MindSpore中同一个算子可能会同时拥有 AI Core 算子和AI CPU算子，框架会优先选择 AI Core 算子，没有 AI Core 算子或者不满足选择的场景下，会调用AI CPU算子。
@@ -167,11 +232,26 @@ if __name__ == '__main__':
 - 选择分类：按算子类别的统计结果进行排序展示，展示维度包括算子分类名称、算子类别执行时间、执行频次、占总时间的比例等。点击每个算子类别，可以进一步查看该类别下所有单个算子的统计信息。
 - 搜索：在右侧搜索框中输入字符串，支持对算子名称/类别进行模糊搜索。
 
-AICORE算子的计算量相关信息统计，包含算子粒度和模型粒度的信息，有如下三个指标：
+### 计算量分析
+
+计算量分析模块可展示实际计算量相关数据，包括算子粒度、scope层级粒度、模型粒度的计算量数据。实际计算量是指在设备上运行时的计算量，区别于理论计算量，例如Ascend910设备上矩阵运算单元处理的是16x16大小的矩阵，所以实际运行时会对原始数据做补齐到16等操作。
+目前仅支持AICORE设备上的计算量统计。计算量相关数据包括如下三个指标：
 
 - FLOPs：浮点运算次数，单位为M（10^6次）。
 - FLOPS：每秒浮点运算次数，单位为G/秒（10^9次/秒）。
 - FLOPS利用率：通过FLOPS除以AICORE设备峰值FLOPS得到。
+
+![flops_statistics.png](./images/flops-single-card.png)
+
+图5：计算量统计分析
+
+图5的红框中包括了算子粒度、scope层级粒度、模型粒度的计算量数据。其中点击查看详情可以看到scope层级粒度的计算量。
+
+![flops_scope_statistics.png](./images/flops-scope.png)
+
+图6：Scope层级FLOPs
+
+图6是一个桑基图，以一种树的结构展示数据，其中光标选中某个scope能看到具体的FLOPs值。
 
 ### 数据准备性能分析
 
@@ -179,9 +259,9 @@ AICORE算子的计算量相关信息统计，包含算子粒度和模型粒度�
 
 ![minddata_profile.png](images/data_profile.png)
 
-图5：数据准备性能分析
+图7：数据准备性能分析
 
-图5展示了数据准备性能分析页面，包含迭代间隙、数据处理两个TAB页面。
+图7展示了数据准备性能分析页面，包含迭代间隙、数据处理两个TAB页面。
 
 迭代间隙TAB页主要用来分析数据准备三个阶段是否存在性能瓶颈，数据队列图是分析判断的重要依据：  
 
@@ -191,9 +271,9 @@ AICORE算子的计算量相关信息统计，包含算子粒度和模型粒度�
 
 ![data_op_profile.png](./images/data_op_profile.png)
 
-图6：数据处理pipeline分析
+图8：数据处理pipeline分析
 
-图6展示了数据处理TAB页面，可以对数据处理pipeline做进一步分析。不同的数据算子之间使用队列进行数据交换，队列的长度可以反映出算子处理数据的快慢，进而推断出pipeline中的瓶颈算子所在。
+图8展示了数据处理TAB页面，可以对数据处理pipeline做进一步分析。不同的数据算子之间使用队列进行数据交换，队列的长度可以反映出算子处理数据的快慢，进而推断出pipeline中的瓶颈算子所在。
 
 算子队列的平均使用率代表队列中已有数据Size除以队列最大数据Size的平均值，使用率越高说明队列中数据积累越多。算子队列关系展示了数据处理pipeline中的算子以及它们之间的连接情况，点击某个队列可以在下方查看该队列中数据Size随着时间的变化曲线，以及与数据队列连接的算子信息等。对数据处理pipeline的分析有如下建议：  
 
@@ -227,11 +307,26 @@ Timeline组件可以展示：
 
 ![timeline.png](./images/timeline.png)
 
-图7：Timeline分析
+图9：Timeline分析
 
 Timeline主要包含如下几个部分：  
 
 - Device及其stream list：包含Device上的stream列表，每个stream由task执行序列组成，一个task是其中的一个小方块，大小代表执行时间长短。
+
+  各个颜色块表示算子执行的起始时间及时长。timeline的详细解释如下：
+    - Process AI Core Op：包含在AI Core上执行的算子的时间线。
+        - Step：训练迭代数。
+        - Scope Name：算子的Scope Name。
+        - Stream #ID：在该stream上执行的算子。
+    - Process AI CPU Op：在AI CPU上执行的算子的时间线。
+    - Process Communication Op：包含通信算子执行的时间线。
+    - Process Host CPU Op：在Host CPU上执行的算子的时间线。
+    - Process Op Overlap Analyse：所有计算算子与通信算子合并后的时间线，可用于分析通信时间占比。
+        - Merged Computation Op：为所有计算（AI Core、AI CPU、Host CPU）算子合并后的时间线。
+        - Merged Communication Op：为所有通信算子合并后的时间线。
+        - Pure Communication Op：纯通信时间（通信算子的执行时间去除与计算算子时间重叠部分后的时间线）。
+        - Free Time：空闲时间（既没有通信算子也没有计算算子在执行的时间线）。
+
 - 算子信息：选中某个task后，可以显示该task对应算子的信息，包括名称、type等。
 
 可以使用W/A/S/D来放大、缩小地查看Timeline图信息。
@@ -242,9 +337,9 @@ Timeline主要包含如下几个部分：
 
 ![resource_visibility.png](./images/resource_visibility.png)
 
-图8：资源利用总览
+图10：资源利用总览
 
-图8展示了资源利用总览页面，包括CPU利用率分析与内存使用情况分析。通过点击右上角的`查看详情`按钮可以查看详细信息。
+图10展示了资源利用总览页面，包括CPU利用率分析与内存使用情况分析。通过点击右上角的`查看详情`按钮可以查看详细信息。
 
 ### CPU利用率分析
 
@@ -253,19 +348,19 @@ CPU利用率包含整机CPU利用率、进程CPU利用率、Data pipeline算子C
 
 ![device_cpu_utilization.png](./images/device_cpu_utilization.png)
 
-图9: 整机CPU利用率
+图11: 整机CPU利用率
 
 整机CPU利用率：展示设备在训练过程中整体的CPU使用情况，包含用户利用率、系统利用率、空闲利用率、IO利用率、当前活跃进程数、上下文切换次数。如果用户利用率较低，可以尝试增大算子线程数，增加CPU使用情况；如果系统利用率较大，同时上下文切换次数、CPU等待处理的进程较大，说明需要相应减少线程个数。
 
 ![process_cpu_utilization.png](./images/process_cpu_utilizaton.png)
 
-图10: 进程利用率
+图12: 进程利用率
 
 进程利用率：展示单个进程的CPU占用情况。整机利用率和进程利用率结合，可以确定训练过程中是否有其他进程影响训练。
 
 ![data_op_cpu_utilization.png](./images/data_op_utilization.png)
 
-图11: 算子利用率
+图13: 算子利用率
 
 算子利用率：展示Data pipeline单个算子占用的CPU利用率。可以根据实际情况，调整对应算子的线程数。如果线程数不大，占用CPU较多，可以考虑优化代码。
 
@@ -273,6 +368,10 @@ CPU利用率常用场景:
 
 - 网络调试人员根据Queue size判断是Data性能有瓶颈，可以结合整机利用率和算子利用率作为辅助尝试调整线程数。
 - 开发人员可以查看算子利用率，如果某一个算子比较耗CPU利用率，可以考虑优化该算子。
+
+> 默认采样间隔为1000ms，用户可以通过`mindspore.dataset.config.get_monitor_sampling_interval()`来改变采样间隔。详情参考：
+>
+> <https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.dataset.config.html#mindspore.dataset.config.set_monitor_sampling_interval>
 
 ### 内存使用情况分析
 
@@ -286,7 +385,7 @@ CPU利用率常用场景:
 
 ![memory.png](./images/memory.png)
 
-图12：内存使用情况页面
+图14：内存使用情况页面
 
 用户可以结合```内存分配概览```提供的信息以及折线图的变化趋势来了解内存使用的大致情况，除此之外，从折线图里还可以获得更多细节信息，包括：
 
@@ -297,7 +396,7 @@ CPU利用率常用场景:
 
 ![memory_graphics.png](./images/memory_graphics.png)
 
-图13：内存使用折线图
+图15：内存使用折线图
 
 ## 规格
 

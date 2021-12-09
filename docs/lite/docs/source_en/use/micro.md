@@ -16,7 +16,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/micro.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/micro.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -448,6 +448,46 @@ Copy mnist_benchmark, net.bin and [mnist_input.bin](https://gitee.com/mindspore/
     0.000000, 0.000000, 0.003906, 0.000000, 0.000000, 0.992188, 0.000000, 0.000000, 0.000000, 0.000000,
     ========run success=======
    ```
+
+## Register Kernel
+
+Currently, Users can only register their own kernels for custom operator. We will support registering the built-in operators' kernels in the future. We use Hi3516D board as an example to show you how to use kernel register in codegen.
+
+### Prepare the model file
+
+You need to get a ms model that contains custom operators. Please refer to [Usage Description of the Integrated NNIE](https://www.mindspore.cn/lite/docs/en/master/use/nnie.html).
+
+### Run codegen
+
+Codegen can generate custom kernel's function declaration and reference code if the model has custom operators. Generate source codes for a model named nnie.ms:
+
+``` shell
+./codegen --modelPath=./nnie.ms --target=ARM32A
+```
+
+### Implement custom kernel by users
+
+A header file named registered_kernel.h in the generated files. The custom kernel function is declared in this file:
+
+``` C++
+int CustomKernel(TensorC *inputs, int input_num, TensorC *outputs, int output_num, CustomParameter *param);
+```
+
+Users need to implement this function then add their source files to the cmake project. For example, we provide a sample library named libmicro_nnie.so in the nnie runtime package, [download](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html). The library contains the implementation of custom kernel for NNIE. Users can download it and modify the CMakeLists.txt：
+
+``` shell
+link_directories(<YOUR_PATH>/mindspore-lite-1.5.0-linux-aarch32/providers/Hi3516D)
+link_directories(<HI3516D_SDK_PATH>)
+target_link_libraries(benchmark net micro_nnie nnie mpi VoiceEngine upvqe securec -lm -pthread)
+```
+
+Finally, we build the benchmark:
+
+``` shell
+cd nnie && mkdir buid && cd build
+cmake -DCMAKE_TOOLCHAIN_FILE=<MS_SRC_PATH>/mindspore/lite/cmake/himix200.toolchain.cmake -DPLATFORM_ARM32=ON -DPKG_PATH=<RUNTIME_PKG_PATH> ..
+make
+```
 
 ## More Details
 

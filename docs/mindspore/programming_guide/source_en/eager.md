@@ -1,12 +1,13 @@
 # Lightweight Data Processing
 
+`Ascend` `GPU` `CPU` `Data Preparation`
 <!-- TOC -->
 
 - [Lightweight Data Processing](#lightweight-data-processing)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/eager.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/eager.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 When resources permit, in order to purse higher performance, data pipeline mode is generally used for data augmentation. That is, we have to define a `map` operator which helps us to start and execute the given data augmentation operator, and to transform the data in the data pipeline, for example:
 
@@ -28,8 +29,24 @@ import mindspore.dataset.vision.c_transforms as C
 import mindspore.dataset.vision.py_transforms as P
 ```
 
-```bash
-wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/banana.jpg --no-check-certificate
+```python
+import os
+import requests
+
+def download_dataset(dataset_url, path):
+    filename = dataset_url.split("/")[-1]
+    save_path = os.path.join(path, filename)
+    if os.path.exists(save_path):
+        return
+    if not os.path.exists(path):
+        os.makedirs(path)
+    res = requests.get(dataset_url, stream=True, verify=False)
+    with open(save_path, "wb") as f:
+        for chunk in res.iter_content(chunk_size=512):
+            if chunk:
+                f.write(chunk)
+
+download_dataset("https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/banana.jpg", ".")
 ```
 
 ```python

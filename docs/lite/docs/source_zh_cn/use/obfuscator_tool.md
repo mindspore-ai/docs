@@ -79,6 +79,3 @@ MindSpore Lite模型混淆工具提供了多种参数设置，用户可根据需
   ```
 
   这表示已经成功将MindSpore Lite模型混淆，获得新文件`lenet_obf.ms`。
-
-- 如果混淆命令执行失败，程序会返回一个[错误码](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/errorcode_and_metatype.html)。
-

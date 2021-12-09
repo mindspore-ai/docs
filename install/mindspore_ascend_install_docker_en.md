@@ -11,7 +11,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend_install_docker_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend_install_docker_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 [Docker](https://docs.docker.com/get-docker/) is an open source application container engine, developers can package their applications and dependencies into a lightweight, portable container. By using Docker, MindSpore can be rapidly deployed and separated from the system environment.
 
@@ -23,34 +23,39 @@ The current support for containerized build options is as follows:
 
 | Hardware   | Docker Image Hub                | Label                       | Note                                       |
 | :----- | :------------------------ | :----------------------- | :--------------------------------------- |
-| Ascend | `public-ascendhub/ascend-mindspore-arm` | `x.y.z` | The production environment of MindSpore released together with the Ascend Data Center Solution `x.y.z` version is pre-installed. |
+| Ascend | `public-ascendhub/mindspore-modelzoo` | `x.y.z` | The production environment of MindSpore released together with the Ascend Data Center Solution `x.y.z` version is pre-installed. |
 
 > `x.y.z` corresponds to the version number of Atlas Data Center Solution, which can be obtained on the Ascend Hub page.
 
 ## System Environment Information Confirmation
 
-- Confirm that Ubuntu 18.04/CentOS 7.6 is installed with the 64-bit operating system.
-- Confirm that [Docker 18.03 or later](https://docs.docker.com/get-docker/) is installed.
-- Confirm that the Ascend 910 AI processor software package [Ascend Data Center Solution 21.0.2] are installed.
-    - For the installation of software package,  please refer to the [Product Document].
-    - The software packages include [Driver and Firmware A800-9000] and [CANN 5.0.2].
-    - Confirm that the current user has the right to access the installation path `/usr/local/Ascend`of Ascend 910 AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located. For the specific configuration, please refer to the software package instruction document.
-    - After installing basic driver and corresponding software packages, confirm that the toolbox utility package in the CANN software package is installed, namely Ascend-cann-toolbox-{version}.run. The toolbox provides Ascend Docker runtime tools supported by Ascend NPU containerization.
+- Ensure that Ubuntu 18.04/CentOS 7.6 is installed with the 64-bit operating system.
+
+- Ensure that [Docker 18.03 or later](https://docs.docker.com/get-docker/) is installed.
+
+- Ensure that the Ascend 910 AI processor software package (Ascend Data Center Solution 21.0.3) are installed.
+
+    - For the installation of software package,  please refer to the [CANN Software Installation Guide](https://support.huawei.com/enterprise/en/doc/EDOC1100219213).
+    - The software packages include Driver and Firmware and CANN.
+        - [A800-9000 1.0.12 ARM platform](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9000-pid-250702818/software/253845425) or [A800-9010 1.0.12 x86 platform](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9010-pid-250702809/software/253845445)
+        - [CANN 5.0.3](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252806307)
+
+    - Ensure that the current user has the right to access the installation path `/usr/local/Ascend`of Ascend 910 AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located. For the specific configuration, please refer to the software package instruction document.
+    - After installing basic driver and corresponding software packages, ensure that the toolbox utility package in the CANN software package is installed, namely Ascend-cann-toolbox-{version}.run. The toolbox provides Ascend Docker runtime tools supported by Ascend NPU containerization.
 
 ## Obtaining MindSpore Image
 
-1. Log in to [Ascend Hub Image Center](https://ascend.huawei.com/ascendhub/#/home), register and activate an account, get login instructions and pull instructions.
-2. After obtaining the download permission, enter the MindSpore image download page ([x86 version](https://ascend.huawei.com/ascendhub/#/detail?name=ascend-mindspore-x86), [arm version](https://ascend.huawei.com/ascendhub/#/detail?name=ascend-mindspore-arm)). Get login and download commands and execute:
+1. Log in to [Ascend Hub Image Center](https://ascend.huawei.com/ascendhub/#/home), register and activate an account, get login instructions and download instructions.
+2. After obtaining the download permission, enter the [MindSpore image download page](https://ascendhub.huawei.com/#/detail/mindspore-modelzoo). Get login and download commands and execute:
 
     ```bash
     docker login -u {username} -p {password} {url}
-    docker pull swr.cn-south-1.myhuaweicloud.com/public-ascendhub/ascend-mindspore-{arch}:{tag}
+    docker pull ascendhub.huawei.com/public-ascendhub/mindspore-modelzoo:{tag}
     ```
 
     of which,
 
     - `{username}` `{password}` `{url}` represents the user's login information and image server information, which are automatically generated after registering and activating the account, and can be obtained by copying the login command on the corresponding MindSpore image page.
-    - `{arch}` denotes the system architecture. For example, the Linux system you are using is x86 architecture 64-bit, `{arch}` should be x86. If the system is ARM architecture 64-bit, then it should be arm.
     - `{tag}` corresponds to the version number of Atlas Data Center Solution, which can also be obtained by copying the download command on the MindSpore image download page.
 
 ## Running MindSpore Image
@@ -58,9 +63,7 @@ The current support for containerized build options is as follows:
 Execute the following command to start the Docker container instance:
 
 ```bash
-docker run -it -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
-               -v /usr/local/Ascend/add-ons/:/usr/local/Ascend/add-ons/ \
-               -v /var/log/npu/:/usr/slog \
+docker run -it --ipc=host \
                --device=/dev/davinci0 \
                --device=/dev/davinci1 \
                --device=/dev/davinci2 \
@@ -72,22 +75,22 @@ docker run -it -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
                --device=/dev/davinci_manager \
                --device=/dev/devmm_svm \
                --device=/dev/hisi_hdc \
-               swr.cn-south-1.myhuaweicloud.com/public-ascendhub/ascend-mindspore-{arch}:{tag} \
+               -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
+               -v /usr/local/Ascend/add-ons/:/usr/local/Ascend/add-ons/ \
+               -v /var/log/npu/:/usr/slog \
+               ascendhub.huawei.com/public-ascendhub/mindspore-modelzoo:{tag} \
                /bin/bash
 ```
 
 of which,
 
-- `{arch}` denotes the system architecture. For example, the Linux system you are using is x86 architecture 64-bit, `{arch}` should be x86. If the system is ARM architecture 64-bit, then it should be arm.
 - `{tag}` corresponds to the version number of Atlas Data Center Solution, which can be automatically obtained on the MindSpore image download page.
 
-If you want to use MindInsight, you need to set the --network parameter to "host" mode, for example:
+If you want to use MindInsight, you need to set the `--network` parameter to "host" mode, for example:
 
 ```bash
-docker run -it -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
-               -v /usr/local/Ascend/add-ons/:/usr/local/Ascend/add-ons/ \
-               -v /var/log/npu/:/usr/slog \
-               --network host
+docker run -it --ipc=host \
+               --network host \
                --device=/dev/davinci0 \
                --device=/dev/davinci1 \
                --device=/dev/davinci2 \
@@ -99,7 +102,10 @@ docker run -it -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
                --device=/dev/davinci_manager \
                --device=/dev/devmm_svm \
                --device=/dev/hisi_hdc \
-               swr.cn-south-1.myhuaweicloud.com/public-ascendhub/ascend-mindspore-{arch}:{tag} \
+               -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
+               -v /usr/local/Ascend/add-ons/:/usr/local/Ascend/add-ons/ \
+               -v /var/log/npu/:/usr/slog \
+               ascendhub.huawei.com/public-ascendhub/mindspore-modelzoo:{tag} \
                /bin/bash
 ```
 
@@ -116,7 +122,7 @@ python -c "import mindspore;mindspore.run_check()"
 The outputs should be the same as:
 
 ```text
-mindspore version: __version__
+MindSpore version: __version__
 The result of multiplication calculation is correct, MindSpore has been installed successfully!
 ```
 
@@ -139,17 +145,17 @@ print(ops.add(x, y))
 The outputs should be the same as:
 
 ```text
-[[[ 2.  2.  2.  2.],
-    [ 2.  2.  2.  2.],
-    [ 2.  2.  2.  2.]],
+[[[[2. 2. 2. 2.]
+   [2. 2. 2. 2.]
+   [2. 2. 2. 2.]]
 
-    [[ 2.  2.  2.  2.],
-    [ 2.  2.  2.  2.],
-    [ 2.  2.  2.  2.]],
+  [[2. 2. 2. 2.]
+   [2. 2. 2. 2.]
+   [2. 2. 2. 2.]]
 
-    [[ 2.  2.  2.  2.],
-    [ 2.  2.  2.  2.],
-    [ 2.  2.  2.  2.]]]
+  [[2. 2. 2. 2.]
+   [2. 2. 2. 2.]
+   [2. 2. 2. 2.]]]]
 ```
 
 It means MindSpore has been installed by docker successfully.
@@ -166,10 +172,9 @@ When you need to update the MindSpore version:
 - log in to [Ascend Hub Image Center](https://ascend.huawei.com/ascendhub/#/home) again to obtain the download command of the latest docker version and execute:
 
     ```bash
-    docker pull swr.cn-south-1.myhuaweicloud.com/public-ascendhub/ascend-mindspore-{arch}:{tag}
+    docker pull ascendhub.huawei.com/public-ascendhub/mindspore-modelzoo:{tag}
     ```
 
     of which,
 
-    - `{arch}` denotes the system architecture. For example, the Linux system you are using is x86 architecture 64-bit, `{arch}`  should be x86. If the system is ARM architecture 64-bit, then it should be arm.
     - `{tag}` corresponds to the version number of Atlas Data Center Solution, which can be automatically obtained on the MindSpore image download page.

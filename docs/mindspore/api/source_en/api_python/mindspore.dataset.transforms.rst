@@ -20,6 +20,7 @@ mindspore.dataset.transforms.c_transforms
     mindspore.dataset.transforms.c_transforms.PadEnd
     mindspore.dataset.transforms.c_transforms.RandomApply
     mindspore.dataset.transforms.c_transforms.RandomChoice
+    mindspore.dataset.transforms.c_transforms.Relational
     mindspore.dataset.transforms.c_transforms.Slice
     mindspore.dataset.transforms.c_transforms.TypeCast
     mindspore.dataset.transforms.c_transforms.Unique

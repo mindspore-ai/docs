@@ -43,3 +43,11 @@ A：[MindSpore Lite](https://www.mindspore.cn/lite)支持云侧量化感知训�
 <font size=3>**Q：MindSpore有轻量的端侧推理引擎么？**</font>
 
 A：MindSpore轻量化推理框架MindSpore Lite已于r0.7版本正式上线，欢迎试用并提出宝贵意见，概述、教程和文档等请参考[MindSpore Lite](https://www.mindspore.cn/lite)
+
+<br/>
+
+<font size=3>**Q：针对编译JAVA库时出现 `sun.security.validator.ValidatorException: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target` 问题时如何解决？**</font>
+
+A：需要使用keytool工具将相关网站的安全证书导入java的cacerts证书库 `keytool -import -file "XX.cer" -keystore ${JAVA_HOME}/lib/security/cacerts" -storepass changeit`。
+
+<br/>

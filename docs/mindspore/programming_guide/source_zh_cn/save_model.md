@@ -1,24 +1,32 @@
 # 保存模型
 
-`Linux` `Ascend` `GPU` `CPU` `模型导出` `初级` `中级` `高级`
+`Ascend` `GPU` `CPU` `模型导出`
 
 <!-- TOC -->
 
 - [保存模型](#保存模型)
     - [概述](#概述)
     - [保存CheckPoint格式文件](#保存checkpoint格式文件)
-        - [CheckPoint配置策略](#checkpoint配置策略)
+        - [使用callback机制](#使用callback机制)
+            - [CheckPoint配置策略](#checkpoint配置策略)
+            - [断点续训](#断点续训)
+        - [使用save_checkpoint方法](#使用save_checkpoint方法)
+            - [`save_obj`和`ckpt_file_name`参数](#save_obj和ckpt_file_name参数)
+            - [`integrated_save`参数](#integrated_save参数)
+            - [`async_save`参数](#async_save参数)
+            - [`append_dict`参数](#append_dict参数)
     - [导出MindIR格式文件](#导出mindir格式文件)
     - [导出AIR格式文件](#导出air格式文件)
     - [导出ONNX格式文件](#导出onnx格式文件)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/save_model.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9zYXZlX21vZGVsLmlweW5i&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_modelarts.png"></a>
 &nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/notebook/mindspore_save_model.ipynb"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_notebook.png"></a>
 &nbsp;&nbsp;
-<a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9zYXZlX21vZGVsLmlweW5i&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_modelarts.png"></a>
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/notebook/mindspore_save_model.py"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_download_code.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/save_model.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -32,6 +40,10 @@
 以下通过示例来介绍保存CheckPoint格式文件和导出MindIR、AIR和ONNX格式文件的方法。
 
 ## 保存CheckPoint格式文件
+
+下面介绍两种保存checkpoint文件的方法。
+
+### 使用callback机制
 
 在模型训练的过程中，使用Callback机制传入回调函数`ModelCheckpoint`对象，可以保存模型参数，生成CheckPoint文件。
 
@@ -79,7 +91,7 @@ resnet50-3_32.ckpt  # 表示保存的是第3个epoch的第32个step的模型参�
 
 > - 当执行分布式并行训练任务时，每个进程需要设置不同`directory`参数，用以保存CheckPoint文件到不同的目录，以防文件发生读写错乱。
 
-### CheckPoint配置策略
+#### CheckPoint配置策略
 
 MindSpore提供了两种保存CheckPoint策略：迭代策略和时间策略，可以通过创建`CheckpointConfig`对象设置相应策略。
 `CheckpointConfig`中共有四个参数可以设置：
@@ -94,9 +106,101 @@ MindSpore提供了两种保存CheckPoint策略：迭代策略和时间策略，�
 
 两种策略不能同时使用，迭代策略优先级高于时间策略，当同时设置时，只有迭代策略可以生效。当参数显示设置为`None`时，表示放弃该策略。在迭代策略脚本正常结束的情况下，会默认保存最后一个step的CheckPoint文件。
 
+#### 断点续训
+
+MindSpore提供了断点续训的功能，当用户开启该功能时，如果在训练过程中发生了异常，那么MindSpore会自动保存异常发生时的CheckPoint文件(临终CheckPoint)。断点续训的功能通过`CheckpointConfig`中的`exception_save`参数(bool类型)控制，设置为True时开启该功能，False关闭该功能，默认为False。断点续训功能保存的临终CheckPoint文件与正常流程保存的CheckPoint互不影响，命名机制和保存路径与正常流程设置保持一致，唯一不同之处在于会在临终CheckPoint文件名最后加上'_breakpoint'进行区分。
+
+具体用法如下：
+
+```python
+from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
+config_ck = CheckpointConfig(save_checkpoint_steps=32, keep_checkpoint_max=10, exception_save=True)
+ckpoint_cb = ModelCheckpoint(prefix='resnet50', directory=None, config=config_ck)
+model.train(epoch_num, dataset, callbacks=ckpoint_cb)
+```
+
+如果在训练过程中发生了异常，那么会自动保存临终CheckPoint，假如在训练中的第10个epoch的第10个step中发生异常，保存的临终CheckPoint文件如下:
+
+```text
+resnet50-10_10_breakpoint.ckpt  # 临终CheckPoint文件名最后会加上'_breakpoint'与正常流程CheckPoint区分开。
+```
+
+### 使用save_checkpoint方法
+
+可以使用`save_checkpoint`函数把自定义信息保存成 checkpoint文件，函数声明如下：
+
+```python
+def save_checkpoint(save_obj, ckpt_file_name, integrated_save=True,
+                    async_save=False, append_dict=None, enc_key=None, enc_mode="AES-GCM")
+```
+
+其中必填的参数有：`save_obj`、`ckpt_file_name`。
+
+下面通过具体示例来说明如何使用每个参数。
+
+#### `save_obj`和`ckpt_file_name`参数
+
+**`save_obj`**：可以传入一个  Cell类对象或一个list。
+**`ckpt_file_name`**：string类型，表示保存checkpoint文件的名称。
+
+```python
+from mindspore import save_checkpoint, Tensor
+from mindspore import dtype as mstype
+```
+
+1. 传入Cell对象
+
+    ```python
+    net = LeNet()
+    save_checkpoint(net, "lenet.ckpt")
+    ```
+
+    ​执行后就可以把net中的参数保存成`lenet.ckpt`文件。
+
+2. 传入list对象
+
+    list格式如下：[{"name": param_name, "data": param_data}]，它由一组dict对象组成。
+
+    `param_name`为需要保存对象的名称，`param_data`为需要保存对象的数据，它为Tensor类型。
+
+    ```python
+    save_list = [{"name": "lr", "data": Tensor(0.01, mstype.float32)}, {"name": "train_epoch", "data": Tensor(20, mstype.int32)}]
+    save_checkpoint(save_list, "hyper_param.ckpt")
+    ```
+
+    执行后就可以把`save_list`保存成`hyper_param.ckpt`文件。
+
+#### `integrated_save`参数
+
+**`integrated_save`**：bool类型，表示参数是否合并保存，默认为True。在模型并行场景下，Tensor会被切分到不同卡所运行的程序中。如果`integrated_save`设置为True，则这些被切分的Tensor会被合并保存到每个checkpoint文件中，这样checkpoint文件保存的就是完整的训练参数。
+
+```python
+save_checkpoint(net, "lenet.ckpt", integrated_save=True)
+```
+
+#### `async_save`参数
+
+**`async_save`**：bool类型，表示是否开启异步保存功能，默认为False。如果设置为True，则会开启多线程执行写checkpoint文件操作，从而可以并行执行训练和保存任务，在训练大规模网络时会节省脚本运行的总时长。
+
+```python
+save_checkpoint(net, "lenet.ckpt", async_save=True)
+```
+
+#### `append_dict`参数
+
+**`append_dict`**：dict类型，表示需要额外保存的信息，例如：
+
+```python
+save_dict = {"epoch_num": 2, "lr": 0.01}
+save_checkpoint(net, "lenet.ckpt",append_dict=save_dict)
+```
+
+执行后，除了net中的参数，`save_dict`的信息也会保存在`lenet.ckpt`中。
+目前只支持基础类型的保存，包括int、float、bool等。
+
 ## 导出MindIR格式文件
 
-如果想跨平台或硬件执行推理（如昇腾AI处理器、MindSpore端侧、GPU等），可以通过网络定义和CheckPoint生成MindIR格式模型文件。当前支持基于静态图，且不包含控制流语义的推理网络导出。导出该格式文件的代码样例如下：
+如果想跨平台或硬件执行推理（如昇腾AI处理器、MindSpore端侧、GPU等），可以通过网络定义和CheckPoint生成MindIR格式模型文件。当前支持基于静态图。导出该格式文件的代码样例如下：
 
 ```python
 import numpy as np
@@ -109,22 +213,28 @@ input = np.random.uniform(0.0, 1.0, size=[32, 3, 224, 224]).astype(np.float32)
 export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='MINDIR')
 ```
 
+若希望在MindIR中保存模型推理时需要的预处理操作信息，可以将数据集对象传入export接口：
+
+```python
+de_dataset = create_dataset_for_renset(mode="eval")
+export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='MINDIR', dataset=de_dataset)
+```
+
 > - `input`为`export`方法的入参，代表网络的输入，如果网络有多个输入，需要一同传进`export`方法。 例如：`export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='MINDIR')`
-> - 导出的文件名称会自动添加".mindir"后缀。
+> - 如果`file_name`没有包含".mindir"后缀，系统会为其自动添加".mindir"后缀。
+> - 需要确保数据集对象处于evaluation的状态，即正在使用推理相关的算子，否则可能无法达到预期的结果。
 
 为了避免protobuf的硬件限制，当导出的模型参数大小超过1G时，框架默认会把网络结构和参数分开保存。
 
 - 网络结构文件的名称以用户指定前缀加`_graph.mindir`结尾。
-- 同级目录下，会生用户指定前缀加`_variables`的文件夹，里面存放网络的参数。
+- 同级目录下，会生成一个用户指定前缀加`_variables`的文件夹，里面存放网络的参数。其中参数大小每超过1T会被分开保存成命名为data_1、data_2、data_3等的多个文件。
 
-以上述代码为例，如果模型中参数大小超过1G，生成的目录结构如下：
+以上述代码为例，如果带参数的模型大小超过1G，生成的目录结构如下：
 
 ```text
 resnet50-2_32_graph.mindir
 resnet50-2_32_variables
     data_0
-    data_1
-    ...
 ```
 
 > 加载时，如果传入的文件名以`_graph.mindir`结尾，框架会自动查找同级目录下的参数文件。
@@ -147,7 +257,7 @@ export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='AIR')
 `input`用来指定导出模型的输入shape以及数据类型。
 
 > - `input`为`export`方法的入参，代表网络的输入，如果网络有多个输入，需要一同传进`export`方法。 例如：`export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='AIR')`
-> - 导出的文件名称会自动添加".air"后缀。
+> - 如果`file_name`没有包含".air"后缀，系统会为其自动添加".air"后缀。
 
 ## 导出ONNX格式文件
 
@@ -165,5 +275,5 @@ export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='ONNX')
 ```
 
 > - `input`为`export`方法的入参，代表网络的输入，如果网络有多个输入，需要一同传进`export`方法。 例如：`export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='ONNX')`
-> - 导出的文件名称会自动添加".onnx"后缀。
-> - 目前ONNX格式导出仅支持ResNet系列网络。
+> - 如果`file_name`没有包含".onnx"后缀，系统会为其自动添加".onnx"后缀。
+> - 目前ONNX格式导出仅支持ResNet系列、YOLOV3、YOLOV4、BERT网络。

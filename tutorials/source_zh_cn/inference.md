@@ -1,5 +1,7 @@
 # 推理
 
+`Ascend` `端侧` `入门` `推理应用`
+
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 本节是初级教程的最后一节，为了更好地适配不同推理设备，因此推理分为 1）昇腾AI处理器推理和 2）移动设备推理。
@@ -146,7 +148,7 @@ target_link_libraries(resnet50_sample ${MS_LIB} ${MD_LIB})
 > 如果是Ascend 310设备，则进入工程目录`ascend310_resnet50_preprocess_sample`，以下代码均用Ascend 910为例。
 
 ```bash
-# 控制log的打印级别. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 默认是WARNING级别.
+# 控制log的打印级别. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, 默认是WARNING级别.
 export GLOG_v=2
 
 # 选择Conda环境

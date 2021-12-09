@@ -1,6 +1,6 @@
 # Inference Using the MindIR Model on Ascend 310 AI Processors
 
-`Linux` `Ascend` `Inference Application` `Beginner` `Intermediate` `Expert`
+`Ascend` `Inference Application`
 
 <!-- TOC -->
 
@@ -16,7 +16,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/multi_platform_inference_ascend_310_mindir.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/multi_platform_inference_ascend_310_mindir.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -49,6 +49,7 @@ Create a directory to store the inference code project, for example, `/home/HwHi
     ├── CMakeLists.txt                    // Build script
     ├── README.md                         // Usage description
     ├── main.cc                           // Main function
+    ├── main_hide_preprocess.cc           // Main function2，infer without defining preprocess(since defined in MindIR)
     ├── model
     │   └── resnet50_imagenet.mindir      // MindIR model file
     └── test_data
@@ -59,7 +60,9 @@ Create a directory to store the inference code project, for example, `/home/HwHi
 
 ## Inference Code
 
-### Data-preprocessing by CPU operators
+### Infer model with defining preprocess manually: main.cc
+
+#### Data-preprocessing by CPU operators
 
 Inference sample code: <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/ascend310_resnet50_preprocess_sample/main.cc> .
 
@@ -79,7 +82,7 @@ ascend310_info->SetDeviceID(0);
 context->MutableDeviceInfo().push_back(ascend310_info);
 ```
 
-Load mindir file:
+Load MindIR file:
 
 ```c++
 // Load MindIR model
@@ -90,7 +93,7 @@ ms::Model resnet50;
 ret = resnet50.Build(ms::GraphCell(graph), context);
 ```
 
-Get informance of this model:
+Get information of this model:
 
 ```c++
 std::vector<ms::MSTensor> model_inputs = resnet50.GetInputs();
@@ -148,7 +151,7 @@ Print the result:
 std::cout << "Image: " << image_file << " infer result: " << GetMax(outputs[0]) << std::endl;
 ```
 
-### Data pre-processing by Ascend 310 operators
+#### Data pre-processing by Ascend 310 operators
 
 Dvpp module is a hardware decoder embedded in Ascend 310 AI chip which has a better performance on image processing compare with CPU operators. Several transforms applied on JPEG format image are supported.
 
@@ -204,7 +207,7 @@ ds::Execute preprocessor({decode, resize, center_crop, normalize}, MapTargetDevi
 ret = preprocessor(image, &image);
 ```
 
-Load mindir file: Ascend 310 operators must bind with Aipp module, insert Aipp module for model graph compiling.
+Load MindIR file: Ascend 310 operators must bind with Aipp module, insert Aipp module for model graph compiling.
 
  ```c++
 // Load MindIR model
@@ -242,6 +245,60 @@ Print the result:
 std::cout << "Image: " << image_file << " infer result: " << GetMax(outputs[0]) << std::endl;
 ```
 
+### Infer model without defining preprocess: main_hide_preprocess.cc
+
+> Note: Only supports CV models currently.
+
+Inference sample code: <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/ascend310_resnet50_preprocess_sample/main_hide_preprocess.cc> .
+
+Using namespace of `mindspore` and `mindspore::dataset`.
+
+```c++
+namespace ms = mindspore;
+namespace ds = mindspore::dataset;
+```
+
+Set global context, device target is `Ascend 310` and device id is `0`:
+
+```c++
+auto context = std::make_shared<ms::Context>();
+auto ascend310_info = std::make_shared<ms::Ascend310DeviceInfo>();
+ascend310_info->SetDeviceID(0);
+context->MutableDeviceInfo().push_back(ascend310_info);
+```
+
+Load MindIR file:
+
+```c++
+// Load MindIR model
+ms::Graph graph;
+ms::Status ret = ms::Serialization::Load(resnet_file, ms::ModelType::kMindIR, &graph);
+// Build model with graph object
+ms::Model resnet50;
+ret = resnet50.Build(ms::GraphCell(graph), context);
+```
+
+Get information of this model:
+
+```c++
+std::vector<ms::MSTensor> model_inputs = resnet50.GetInputs();
+```
+
+Read image and start data preprocessing and prediction:
+
+```c++
+std::vector<MSTensor> inputs = {ReadFile(image_path)};
+std::vector<MSTensor> outputs;
+ret = resnet50.PredictWithPreprocess(inputs, &outputs);
+```
+
+Print the result:
+
+```c++
+// Output the maximum probability to the screen
+std::cout << "Image: " << image_file << " infer result: " << GetMax(outputs[0]) << std::endl;
+```
+
 ## Introduce to Building Script
 
 The building script is used to building applications: <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/ascend310_resnet50_preprocess_sample/CMakeLists.txt>.
@@ -266,6 +323,9 @@ Use the source files to generate the target executable file, and link the MindSp
 ```cmake
 add_executable(resnet50_sample main.cc)
 target_link_libraries(resnet50_sample ${MS_LIB} ${MD_LIB})
+
+add_executable(resnet50_hide_preprocess main_hide_preprocess.cc)
+target_link_libraries(resnet50_hide_preprocess ${MS_LIB} ${MD_LIB})
 ```
 
 ## Building Inference Code
@@ -273,7 +333,7 @@ target_link_libraries(resnet50_sample ${MS_LIB} ${MD_LIB})
 Go to the project directory `ascend310_resnet50_preprocess_sample` and set the following environment variables:
 
 ```bash
-# control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, default level is WARNING.
+# control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
 export GLOG_v=2
 
 # Conda environmental options
@@ -314,6 +374,8 @@ Log in to the Ascend 310 server, and create the `model` directory for storing th
 Create the `test_data` directory to store images, for example, `/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/ascend310_resnet50_preprocess_sample/test_data`.
 Then, perform the inference.
 
+If your MindIR file does not contain preprocess information, you can execute the following command:
+
 ```bash
 ./resnet50_sample
 ```
@@ -330,4 +392,17 @@ Image: ./test_data/ILSVRC2012_val_00009191.JPEG infer result: 0
 Image: ./test_data/ILSVRC2012_val_00009346.JPEG infer result: 0
 Image: ./test_data/ILSVRC2012_val_00009379.JPEG infer result: 0
 Image: ./test_data/ILSVRC2012_val_00009396.JPEG infer result: 0
+```
+
+If you export the preprocess information simultaneously when you export a MindIR file, you can execute the following command:
+
+```bash
+./resnet50_hide_preprocess
+```
+
+The model will load the image file inside the `test_data` directory (for example: ILSVRC2012_val_00002138.JPEG,
+configable in main_hide_preprocess.cc) and start prediction, then you get the inference result as follows:
+
+```text
+Image: ./test_data/ILSVRC2012_val_00002138.JPEG infer result: 0
 ```

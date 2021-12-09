@@ -1,7 +1,5 @@
 # 基准性能
 
-`Linux` `Ascend` `模型训练` `中级` `高级`
-
 <!-- TOC -->
 
 - [基准性能](#基准性能)
@@ -15,7 +13,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/note/source_zh_cn/benchmark.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-本文介绍MindSpore的基准性能。MindSpore网络定义可参考[Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo)。
+本文介绍MindSpore的基准性能。MindSpore网络定义可参考[ModelZoo](https://gitee.com/mindspore/models/tree/master)。
 
 ## 训练性能
 

@@ -1,7 +1,5 @@
 ﻿# 收集Summary数据
 
-`Linux` `Ascend` `GPU` `CPU` `模型调优` `中级` `高级`
-
 <!-- TOC -->
 
 - [收集Summary数据](#收集summary数据)
@@ -19,8 +17,9 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/summary_record.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/notebook/mindspore_mindinsight_dashboard.ipynb" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_notebook.png"></a>
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/notebook/mindspore_mindinsight_dashboard.ipynb" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_notebook.png"></a>&nbsp;&nbsp;
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/notebook/mindspore_mindinsight_dashboard.py" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_download_code.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/summary_record.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -126,7 +125,7 @@ def train():
     model = Model(network, loss, opt, metrics={"Accuracy": Accuracy()})
 
     # How to create a valid dataset instance,
-    # for detail, see the https://www.mindspore.cn/docs/programming_guide/zh-CN/master/quick_start/quick_start.html document.
+    # for detail, see the https://www.mindspore.cn/tutorials/zh-CN/master/quick_start.html document.
     ds_train = create_dataset('./dataset_path')
 
     # Init a SummaryCollector callback instance, and use it in model.train or model.eval
@@ -317,7 +316,7 @@ model.train(epoch=2, train_dataset=ds_train, callbacks=[confusion_matrix])
 
 ### 方式四：进阶用法，自定义训练循环
 
-如果训练时不是使用MindSpore提供的 `Model` 接口，而是模仿 `Model` 的 `train` 接口自由控制循环的迭代次数。则可以模拟 `SummaryCollector`，使用下面的方式记录summary算子数据。详细的自定义训练循环教程，请[参考官网教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/train.html#自定义训练循环)。
+如果训练时不是使用MindSpore提供的 `Model` 接口，而是模仿 `Model` 的 `train` 接口自由控制循环的迭代次数。则可以模拟 `SummaryCollector`，使用下面的方式记录summary算子数据。详细的自定义训练循环教程，请参考[构建训练与评估网络](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/train_and_eval.html)。
 
 下面的例子，将演示如何使用summary算子以及 `SummaryRecord` 的 `add_value` 接口在自定义训练循环中记录数据。更多 `SummaryRecord` 的教程，请[参考Python API文档](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.train.html#mindspore.train.summary.SummaryRecord)。需要说明的是，`SummaryRecord`不会自动记录计算图，您需要手动传入继承了`Cell`的网络实例以记录计算图。此外，生成计算图的内容仅包含您在`construct`方法中使用到的代码和函数。
 

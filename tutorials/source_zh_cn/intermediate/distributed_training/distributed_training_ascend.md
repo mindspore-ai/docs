@@ -1,9 +1,10 @@
 # 分布式并行训练 （Ascend）
 
+`Ascend` `进阶` `分布式并行`
+
 <!-- TOC -->
 
 - [分布式并行训练 （Ascend）](#分布式并行训练-ascend)
-    - [概述](#概述)
     - [准备环节](#准备环节)
         - [下载数据集](#下载数据集)
         - [配置分布式环境变量](#配置分布式环境变量)
@@ -29,11 +30,41 @@
 
 - 混合并行（Hybrid Parallel）：指涵盖数据并行和模型并行的并行模式。
 
+![png](images/data_parallel.png)
+
+数据并行示意图
+
+![png](images/model_parallel.png)
+
+层间模型并行示意图
+
+实现以上三种并行模式，依赖于各个计算单元之间进行通信，主要有以下四种集合通信算子:
+
+![png](images/communication.png)
+
+以MatMul为例，简单说明一下对算子进行切分后，如何应用上述的并行逻辑。
+
+![png](images/matmul_net.png)
+
+![png](images/apply_allreduce.png)
+
+对于公式所示的矩阵连乘，对于矩阵的切分如公式的子步骤所示，划分到4个计算单元上。各卡上的运算与通信逻辑如上图，通过Allreduce算子保证计算的正确性。
+
+![png](images/matmul_net1.png)
+
+![png](images/apply_allgather.png)
+
+对于公式所示的矩阵连乘，对于矩阵的切分如公式的子步骤所示，划分到4个计算单元上。各卡上的运算与通信逻辑如上图，通过Allgather算子保证计算的正确性。
+
 本篇教程我们主要讲解如何在Ascend 910 AI处理器硬件平台上，利用MindSpore通过下面两种并行模式训练ResNet-50网络。
 
 - DATA_PARALLEL：数据并行模式。
 
 - AUTO_PARALLEL：自动并行模式，融合了数据并行、模型并行及混合并行的1种分布式并行模式，可以自动建立代价模型，找到训练时间较短的并行策略，为用户选择1种并行模式。
+
+依据代价模型的自动策略寻优流程示意图如下所示，以动态规划的方式，求解算子切分的时间、空间代价、算子间切分策略切换的重新排布时间、空间代价，寻优全局最优的算子切分策略策略。
+
+![png](images/cost_model.png)
 
 > 你可以在这里下载完整的样例代码：
 >
@@ -183,10 +214,11 @@ def create_dataset(data_path, repeat_num=1, batch_size=32):
     return data_set
 ```
 
-其中，与单机不同的是，在数据集接口需要传入`num_shards`和`shard_id`参数，分别对应卡的数量和逻辑序号，建议通过HCCL接口获取：
+其中，与单机不同的是，在数据集接口需要传入`num_shards`和`shard_id`参数，分别对应卡的数量和逻辑序号，
+`num_shards`告知数据集处理逻辑需要将完整的数据batch拆分为多少个数据子batch，`shard_id`告知数据集处理逻辑当前进程持有第几个数据子batch，建议通过HCCL接口获取：
 
-- `get_rank`：获取当前设备在集群中的ID。
-- `get_group_size`：获取集群数量。
+- `get_rank`：获取当前设备在集群中的ID，用于设置`shard_id`。
+- `get_group_size`：获取集群数量，用于设置`num_shards`。
 
 > 数据并行场景加载数据集时，建议对每卡指定相同的数据集文件，若是各卡加载的数据集不同，可能会影响计算精度。
 

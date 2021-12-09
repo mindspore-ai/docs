@@ -1,4 +1,5 @@
 #!/bin/bash
+# applicable to Ascend
 
 EXEC_PATH=$(pwd)
 

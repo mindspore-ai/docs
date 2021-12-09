@@ -1,7 +1,5 @@
 # MindSpore Serving-based Inference Service Deployment
 
-`Linux` `Ascend` `Serving` `GPU` `Beginner` `Intermediate` `Expert`
-
 <!-- TOC -->
 
 - [MindSpore Serving-based Inference Service Deployment](#mindspore-serving-based-inference-service-deployment)
@@ -16,7 +14,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/serving/docs/source_en/serving_example.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/serving/docs/source_en/serving_example.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -26,7 +24,7 @@ The following uses a simple `Add` network as an example to describe how to use M
 
 ### Preparing the Environment
 
-Before running the sample network, ensure that MindSpore Serving has been properly installed. To install MindSpore Serving on your PC, go to the [MindSpore Serving installation page](https://gitee.com/mindspore/serving/blob/master/README.md#installation) and configure environment variables on the [MindSpore Serving environment configuration page](https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend_install_source_en.md#configuring-environment-variables).
+Before running the sample network, ensure that MindSpore Serving has been properly installed and the environment variables are configured. To install and configure MindSpore Serving on your PC, go to the [MindSpore Serving installation page](https://www.mindspore.cn/serving/docs/en/master/serving_install.html).
 
 ### Downloading the Example
 
@@ -66,7 +64,6 @@ def export_net():
     x = np.ones([2, 2]).astype(np.float32)
     y = np.ones([2, 2]).astype(np.float32)
     add = Net()
-    output = add(ms.Tensor(x), ms.Tensor(y))
     ms.export(add, ms.Tensor(x), ms.Tensor(y), file_name='tensor_add', file_format='MINDIR')
     dst_dir = '../add/1'
     try:
@@ -78,17 +75,13 @@ def export_net():
     copyfile('tensor_add.mindir', dst_file)
     print("copy tensor_add.mindir to " + dst_dir + " success")
 
-    print(x)
-    print(y)
-    print(output.asnumpy())
-
 
 if __name__ == "__main__":
     export_net()
 ```
 
 To use MindSpore for neural network definition, inherit `mindspore.nn.Cell`. (A `Cell` is a base class of all neural networks.) Define each layer of a neural network in the `__init__` method in advance, and then define the `construct` method to complete the forward construction of the neural network. Use `export` of the `mindspore` module to export the model file.
-For more detailed examples, see [Implementing an Image Classification Application](https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_start.html).
+For more detailed examples, see [Quick Start for Beginners](https://www.mindspore.cn/tutorials/en/master/quick_start.html).
 
 Execute the `add_model.py` script to generate the `tensor_add.mindir` file. The input of the model is two 2D tensors with shape [2,2], and the output is the sum of the two input tensors.
 
@@ -101,9 +94,9 @@ Start Serving with the following files:
 ```text
 tensor_add
 ├── add/
-│    └── servable_config.py
-│    └── 1/
-│        └── tensor_add.mindir
+│   │── servable_config.py
+│   └── 1/
+│       └── tensor_add.mindir
 └── serving_server.py
 ```
 
@@ -120,37 +113,36 @@ from mindspore_serving.server import register
 
 
 def add_trans_datatype(x1, x2):
-    """define preprocess, this example has one input and one output"""
+    """define preprocess, this example has two inputs and two outputs"""
     return x1.astype(np.float32), x2.astype(np.float32)
 
 
 # when with_batch_dim is set to False, only 2x2 add is supported
 # when with_batch_dim is set to True(default), Nx2 add is supported, while N is viewed as batch
 # float32 inputs/outputs
-register.declare_servable(servable_file="tensor_add.mindir", model_format="MindIR", with_batch_dim=False)
+model = register.declare_model(model_file="tensor_add.mindir", model_format="MindIR", with_batch_dim=False)
 
 
 # register add_common method in add
 @register.register_method(output_names=["y"])
 def add_common(x1, x2):  # only support float32 inputs
-    """method add_common data flow definition, only call model servable"""
-    y = register.call_servable(x1, x2)
+    """method add_common data flow definition, only call model"""
+    y = register.add_stage(model, x1, x2, outputs_count=1)
     return y
 
 
 # register add_cast method in add
 @register.register_method(output_names=["y"])
 def add_cast(x1, x2):
-    """method add_cast data flow definition, only call preprocess and model servable"""
-    x1, x2 = register.call_preprocess(add_trans_datatype, x1, x2)  # cast input to float32
-    y = register.call_servable(x1, x2)
+    """method add_cast data flow definition, only preprocessing and call model"""
+    x1, x2 = register.add_stage(add_trans_datatype, x1, x2, outputs_count=2)  # cast input to float32
+    y = register.add_stage(model, x1, x2, outputs_count=1)
     return y
 ```
 
 #### Starting the Service
 
-The server calls a Python API to start the inference process shared by both master and worker nodes. The client directly connects to the inference service and delivers an inference task.
-Run the [serving_server.py](https://gitee.com/mindspore/serving/blob/master/example/tensor_add/serving_server.py) script to deploy lightweight service:
+Run the [serving_server.py](https://gitee.com/mindspore/serving/blob/master/example/tensor_add/serving_server.py) script to start the Serving server:
 
 ```python
 import os

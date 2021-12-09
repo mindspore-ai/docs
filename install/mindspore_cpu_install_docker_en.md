@@ -10,7 +10,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_install_docker_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_install_docker_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 [Docker](https://docs.docker.com/get-docker/) is an open source application container engine, developers can package their applications and dependencies into a lightweight, portable container. By using Docker, MindSpore can be rapidly deployed and separated from the system environment.
 
@@ -30,8 +30,8 @@ The current support for containerized build is as follows:
 
 ## System Environment Information Confirmation
 
-- Confirm that Ubuntu 18.04 is installed with the 64-bit operating system.
-- Confirm that [Docker 18.03 or later versioin](https://docs.docker.com/get-docker/) is installed.
+- Ensure that a 64-bit Linux operating system is installed, where Ubuntu 18.04 is verified.
+- Ensure that [Docker 18.03 or later versioin](https://docs.docker.com/get-docker/) is installed.
 
 ## Obtaining MindSpore Image
 
@@ -57,6 +57,12 @@ of which,
 
 - `{tag}` corresponds to the label in the above table.
 
+If you want to use MindInsight, you need to set the `--network` parameter to `host` mode, for example:
+
+```bash
+docker run -it --network host swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-cpu:{tag} /bin/bash
+```
+
 ## Installation Verification
 
 - If you are installing the container of the specified version `x.y.z`.
@@ -72,7 +78,7 @@ python -c "import mindspore;mindspore.run_check()"
 - The outputs should be the same as:
 
 ```text
-mindspore version: __version__
+MindSpore version: __version__
 The result of multiplication calculation is correct, MindSpore has been installed successfully!
 ```
 
@@ -96,27 +102,31 @@ print(ops.add(x, y))
 The outputs should be the same as:
 
 ```text
-[[[ 2.  2.  2.  2.],
-[ 2.  2.  2.  2.],
-[ 2.  2.  2.  2.]],
+[[[[2. 2. 2. 2.]
+   [2. 2. 2. 2.]
+   [2. 2. 2. 2.]]
 
-[[ 2.  2.  2.  2.],
-[ 2.  2.  2.  2.],
-[ 2.  2.  2.  2.]],
+  [[2. 2. 2. 2.]
+   [2. 2. 2. 2.]
+   [2. 2. 2. 2.]]
 
-[[ 2.  2.  2.  2.],
-[ 2.  2.  2.  2.],
-[ 2.  2.  2.  2.]]]
+  [[2. 2. 2. 2.]
+   [2. 2. 2. 2.]
+   [2. 2. 2. 2.]]]]
 ```
 
 It means MindSpore has been installed by docker successfully.
 
+- If you need to verify the MindInsight installation:
+
+    Enter ```mindinsight start --port 8080```, if it prompts that the startup status is successful, it means MindInsight has been installed successfully.
+
 - If you install a container with the label of `runtime`, you need to install MindSpore yourself.
 
-    Go to [MindSpore Installation Guide Page](https://www.mindspore.cn/install/en), choose the CPU hardware platform, Ubuntu-x86 operating system and pip installation method to get the installation guide. Refer to the installation guide after running the container and install the MindSpore CPU version by pip, and verify it.
+    Go to [MindSpore Installation Guide Page](https://www.mindspore.cn/install/en), choose the CPU hardware platform, Linux-x86_64 operating system and pip installation method to get the installation guide. Refer to the installation guide after running the container and install the MindSpore CPU version by pip, and verify it.
 
 - If you install a container with the label of `devel`, you need to compile and install MindSpore yourself.
 
-    Go to [MindSpore Installation Guide Page](https://www.mindspore.cn/install/en), choose the CPU hardware platform, Ubuntu-x86 operating system and pip installation method to get the installation guide. After running the container, download the MindSpore code repository and refer to the installation guide, install the MindSpore CPU version through source code compilation, and verify it.
+    Go to [MindSpore Installation Guide Page](https://www.mindspore.cn/install/en), choose the CPU hardware platform, Linux-x86_64 operating system and pip installation method to get the installation guide. After running the container, download the MindSpore code repository and refer to the installation guide, install the MindSpore CPU version through source code compilation, and verify it.
 
-If you want to know more about the mindspore Docker image building process, please check [docker repo](https://gitee.com/mindspore/mindspore/blob/master/docker/README.md) for details.
+If you want to know more about the MindSpore Docker image building process, please check [docker repo](https://gitee.com/mindspore/mindspore/blob/master/scripts/docker/README.md) for details.

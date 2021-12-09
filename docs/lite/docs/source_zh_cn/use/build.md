@@ -73,7 +73,7 @@ MindSpore Lite包含模块：
 
 MindSpore根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
 
-#### `build.sh`的编译参数
+#### `build.sh`的参数使用说明
 
 | 参数  |  参数说明  | 取值范围 | 默认值 |
 | -------- | ----- | ---- | ---- |
@@ -88,7 +88,11 @@ MindSpore根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
 > - 在`-I`参数变动时，如`-I x86_64`变为`-I arm64`，添加`-i`参数进行增量编译不生效。
 > - 编译AAR包时，必须添加`-A on`参数，且无需添加`-I`参数。
 
-#### `mindspore/lite/CMakeLists.txt`的选项
+#### 模块构建编译选项
+
+模块的构建通过环境变量进行控制，用户可通过声明相关环境变量，控制编译构建的模块。在修改编译选项后，为使选项生效，在使用‵build.sh‵脚本进行编译时，不可添加`-i`参数进行增量编译。
+
+- 通用模块编译选项
 
 | 选项  |  参数说明  | 取值范围 | 默认值 |
 | -------- | ----- | ---- | ---- |
@@ -101,8 +105,24 @@ MindSpore根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
 | MSLITE_ENABLE_TOOLS | 是否编译配套工具 | on、off | on |
 | MSLITE_ENABLE_TESTCASES | 是否编译测试用例 | on、off | off |
 
-> - 以上选项可通过设置同名环境变量或者`mindspore/lite/CMakeLists.txt`文件修改。
-> - 修改选项后，添加`-i`参数进行增量编译不生效。
+> - TensorRT 和 NPU 的编译环境配置，参考[专用芯片集成说明](https://www.mindspore.cn/lite/docs/zh-CN/master/use/asic.html)。
+
+- runtime功能裁减编译选项
+
+若用户对框架包大小敏感，可通过配置以下选项，对runtime模型推理框架进行功能裁减，以减少包大小，之后，用户可再通过[裁减工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cropper_tool.html)进行算子裁减以进一步减少包大小。
+
+| 选项  |  参数说明  | 取值范围 | 默认值 |
+| -------- | ----- | ---- | ---- |
+| MSLITE_ENABLE_STRING_KERNEL | 是否支持string数据推理模型，如smart_reply.tflite模型 | on、off | on |
+| MSLITE_ENABLE_CONTROLFLOW | 是否支持控制流模型 | on、off | on |
+| MSLITE_ENABLE_WEIGHT_DECODE | 是否支持权重量化模型推理 | on、off | on |
+| MSLITE_ENABLE_CUSTOM_KERNEL | 是否支持南向算子注册 | on、off | on |
+| MSLITE_ENABLE_DELEGATE | 是否支持Delegate机制 | on、off | on |
+| MSLITE_ENABLE_V0 | 是否兼容1.1.0之前版本导出的模型 | on、off | on |
+| MSLITE_ENABLE_FP16 | 是否支持FP16算子 | on、off | 在`-I x86_64`时off，在`-I arm64`时on，在`-I arm32`时，若Android_NDK版本大于r21e，则on，否则off |
+| MSLITE_ENABLE_INT8 | 是否支持INT8算子 | on、off | on |
+
+> - 由于NPU和TensorRT的实现依赖于Delegate机制，所以在使用NPU或TensorRT时无法关闭Delegate机制，如果关闭了Delegate机制，则相关功能也必须关闭。
 
 ### 编译示例
 
@@ -217,12 +237,15 @@ git clone https://gitee.com/mindspore/mindspore.git
 
 - 系统环境：Windows 7，Windows 10；64位。
 
-- 编译依赖
+- MinGW 编译依赖
     - [CMake](https://cmake.org/download/) >= 3.18.3
-    - [MinGW GCC](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/7.3.0/threads-posix/seh/x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z/download) = 7.3.0
+    - 编译64位：[MinGW-W64 x86_64](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/7.3.0/threads-posix/seh/x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z) = GCC-7.3.0
+    - 编译32位：[MinGW-W64 i686](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/7.3.0/threads-posix/dwarf/i686-7.3.0-release-posix-dwarf-rt_v5-rev0.7z) = GCC-7.3.0
 
-> - 编译脚本中会执行`git clone`获取第三方依赖库的代码。
-> - 如果要编译32位Mindspore Lite，请使用32位[MinGW](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/7.3.0/threads-posix/dwarf/i686-7.3.0-release-posix-dwarf-rt_v5-rev0.7z)编译。
+- Visual Studio 编译依赖
+    - [Visual Studio](https://visualstudio.microsoft.com/zh-hans/vs/older-downloads/) = 2017，已自带cmake。
+    - 编译64位：进入开始菜单，点击“适用于 VS 2017 的 x64 本机工具命令提示”，或者打开cmd窗口，执行`call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Profession\VC\Auxiliary\Build\vcvars64.bat"`。
+    - 编译32位：进入开始菜单，点击“VS 2017的 x64_x86 交叉工具命令提示符”，或者打开cmd窗口，执行`call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Profession\VC\Auxiliary\Build\vcvarsamd64_x86.bat"`。
 
 ### 编译选项
 
@@ -240,8 +263,8 @@ MindSpore根目录下的`build.bat`脚本可用于MindSpore Lite的编译。
 | 选项  |  参数说明  | 取值范围 | 默认值 |
 | -------- | ----- | ---- | ---- |
 | MSLITE_ENABLE_SSE | 是否启用SSE指令集 | on、off | off |
-| MSLITE_ENABLE_AVX | 是否启用AVX指令集 | on、off | off |
-| MSLITE_ENABLE_CONVERTER | 是否编译模型转换工具 | on、off | on |
+| MSLITE_ENABLE_AVX | 是否启用AVX指令集（该选项暂不支持Visual Studio编译器） | on、off | off |
+| MSLITE_ENABLE_CONVERTER | 是否编译模型转换工具（该选项暂不支持Visual Studio编译器） | on、off | on |
 | MSLITE_ENABLE_TOOLS | 是否编译配套工具 | on、off | on |
 | MSLITE_ENABLE_TESTCASES | 是否编译测试用例 | on、off | off |
 
@@ -257,15 +280,10 @@ git clone https://gitee.com/mindspore/mindspore.git
 
 然后，使用cmd工具在源码根目录下，执行如下命令即可编译MindSpore Lite。
 
-- 以默认线程数（6线程）编译Windows版本。
+- 打开SSE指令集优化，以8线程编译。
 
 ```bat
-call build.bat lite
-```
-
-- 以指定线程数8编译Windows版本。
-
-```bat
+set MSLITE_ENABLE_SSE=on
 call build.bat lite 8
 ```
 
@@ -277,24 +295,43 @@ call build.bat lite 8
 
 ### 目录结构
 
-```text
-mindspore-lite-{version}-win-x64
-├── runtime
-│   ├── include
-│   └── lib
-│       ├── libgcc_s_seh-1.dll      # MinGW动态库
-│       ├── libmindspore-lite.a     # MindSpore Lite推理框架的静态库
-│       ├── libmindspore-lite.dll   # MindSpore Lite推理框架的动态库
-│       ├── libmindspore-lite.dll.a # MindSpore Lite推理框架的动态库的链接文件
-│       ├── libssp-0.dll            # MinGW动态库
-│       ├── libstdc++-6.dll         # MinGW动态库
-│       └── libwinpthread-1.dll     # MinGW动态库
-└── tools
-    ├── benchmark # 基准测试工具
-    └── converter # 模型转换工具
-```
+- 当编译器为 MinGW 时：
 
-> 暂不支持在Windows进行端侧训练。
+    ```text
+    mindspore-lite-{version}-win-x64
+    ├── runtime
+    │   ├── include
+    │   └── lib
+    │       ├── libgcc_s_seh-1.dll      # MinGW动态库
+    │       ├── libmindspore-lite.a     # MindSpore Lite推理框架的静态库
+    │       ├── libmindspore-lite.dll   # MindSpore Lite推理框架的动态库
+    │       ├── libmindspore-lite.dll.a # MindSpore Lite推理框架的动态库的链接文件
+    │       ├── libssp-0.dll            # MinGW动态库
+    │       ├── libstdc++-6.dll         # MinGW动态库
+    │       └── libwinpthread-1.dll     # MinGW动态库
+    └── tools
+        ├── benchmark # 基准测试工具
+        └── converter # 模型转换工具
+    ```
+
+- 当编译器为 Visual Studio 时：
+
+    ```text
+    mindspore-lite-{version}-win-x64
+    ├── runtime
+    │   ├── include
+    │   └── lib
+    │       ├── libmindspore-lite.dll     # MindSpore Lite推理框架的动态库
+    │       ├── libmindspore-lite.dll.lib # MindSpore Lite推理框架的动态库的导入库
+    │       └── libmindspore-lite.lib     # MindSpore Lite推理框架的静态库
+    └── tools
+        └── benchmark # 基准测试工具
+    ```
+
+> - 链接 MinGW 编译出的静态库时，需要在链接选项中，加`-Wl,--whole-archive mindspore-lite -Wl,--no-whole-archive`。
+> - 链接 Visual Studio 编译出的静态库时，需要在“属性->链接器->命令行->其它选项”中，加`/WHOLEARCHIVE:libmindspore-lite.lib`。
+> - 使用 Visual Studio 编译器时，读入 model 流必须加 std::ios::binary，否则会出现读取模型文件不完整的问题。
+> - 暂不支持在 Windows 进行端侧训练。
 
 ## macOS环境编译
 

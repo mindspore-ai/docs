@@ -1,7 +1,5 @@
 # MindInsight Commands
 
-`Linux` `Ascend` `GPU` `CPU` `Model Optimization` `Intermediate` `Expert`
-
 <!-- TOC -->
 
 - [MindInsight Commands](#mindinsight-commands)
@@ -15,7 +13,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/mindinsight_commands.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/mindinsight_commands.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## View the Command Help Information
 
@@ -38,6 +36,8 @@ mindinsight start [-h] [--workspace <WORKSPACE>] [--port <PORT>]
                   [--summary-base-dir <SUMMARY_BASE_DIR>]
                   [--enable-debugger <ENABLE_DEBUGGER>]
                   [--debugger-port <DEBUGGER_PORT>]
+                  [--offline-debugger-mem-limit <OFFLINE_DEBUGGER_MEMORY_LIMIT>]
+                  [--max-offline-debugger-session-num <MAX_OFFLINE_DEBUGGER_SESSION_NUMBER>]
 ```
 
 Optional parameters are as follows:
@@ -52,6 +52,8 @@ Optional parameters are as follows:
 |`--summary-base-dir <SUMMARY_BASE_DIR>`|Optional|Specifies the root directory for loading training log data.|String|./|-|MindInsight traverses the direct subdirectories in this directory and searches for log files. If a direct subdirectory contains log files, it is identified as the log file directory. If a root directory contains log files, it is identified as the log file directory.|
 |`--enable-debugger <ENABLE_DEBUGGER>`|Optional|Whether to launch the MindInsight Debugger.|Boolean|False|True/False/1/0|The debugger entry can be shown on MindInsight UI only when MindInsight Debugger is launched.|
 |`--debugger-port <DEBUGGER_PORT>`|Optional|Specifies the port number of the debugger server.|Integer|50051|1~65535|-|
+|`--offline-debugger-mem-limit <OFFLINE_DEBUGGER_MEMORY_LIMIT>`|Optional|Specifies the maximum memory limit of a single offline debugger session. When the offline debugger cannot be executed due to insufficient memory, set it according to the device memory.|Integer|16*1024|6*1024~The upper limit of int32|-|
+|`--max-offline-debugger-session-num <MAX_OFFLINE_DEBUGGER_SESSION_NUMBER>`|Optional|Specifies the maximum session number of the offline debugger. The session number refers to the amount of training jobs that can be debugged at the same time.|Integer|2|1~2|-|
 
 > When the service is started, the parameter values of the command line are saved as the environment variables of the process and start with `MINDINSIGHT_`, for example, `MINDINSIGHT_PORT`, `MINDINSIGHT_WORKSPACE`, etc.
 
@@ -113,7 +115,7 @@ The shutdown is successful if it prompts as follows:
 Stop mindinsight service successfully
 ```
 
-## Parse summary
+## Parse Summary
 
 MindInsight provides tools for parsing summary log files. Users can save the scalars in the summary log file into a csv file and the images into a png file through the commands, which is convenient for viewing and further processing.
 

@@ -1,8 +1,8 @@
 # Multi-hop Knowledge Reasoning Question-answering Model TPRR
 
-Translator: [longvoyage](https://gitee.com/yuanyanglv)
+`Ascend` `Natural Language Processing` `Whole Process`
 
-`Linux` `Ascend` `Model Development` `Expert`
+Translator: [longvoyage](https://gitee.com/yuanyanglv)
 
 <!-- TOC -->
 
@@ -20,7 +20,7 @@ Translator: [longvoyage](https://gitee.com/yuanyanglv)
     - [Reference](#reference)
 
 <!-- /TOC -->
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/nlp_tprr.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/nlp_tprr.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
 ## Overview
 
@@ -29,7 +29,7 @@ TPRR(Thinking Path Re-Ranker) is an open-domain knowledge based multi-hop questi
 This tutorial will mainly introduce how to build and run a multi-hop knowledge reasoning question-answering model TPRR with MindSpore on Ascend.
 
 > You can download the complete sample code here:
-<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/research/nlp/tprr>.
+<https://gitee.com/mindspore/models/tree/master/research/nlp/tprr>.
 
 The sample code directory structure is as follows:
 

@@ -14,7 +14,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/deploy_federated_client.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/deploy_federated_client.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 The following describes how to deploy the Federated-Client in the Android and x86 environments:
 
@@ -26,9 +26,10 @@ The following describes how to deploy the Federated-Client in the Android and x8
 
     Currently, only the Linux build environment is supported. For details about how to configure the Linux build environment, click [here](https://www.mindspore.cn/lite/docs/en/master/use/build.html#linux).
 
-- Build the AAR package that contains aarch64 and aarch32 in the mindspore home directory.
+- Turn on Federated-Client compile option and build the AAR package that contains aarch64 and aarch32 in the mindspore home directory.
 
     ```sh
+    export MSLITE_ENABLE_FL=on
     bash build.sh -A on -j32
     ```
 
@@ -40,9 +41,8 @@ The following describes how to deploy the Federated-Client in the Android and x8
 
 ### Running Dependencies
 
-- [Android Studio](https://developer.android.google.cn/studio) >= 3.2 (Android 4.0 or later is recommended.)
-- [Android SDK](https://developer.android.com/studio?hl=zh-cn#cmdline-tools) >= 26 (installed in Android Studio by default)
-- [OpenJDK](https://openjdk.java.net/install/) >= 1.8 (installed in Android Studio by default)
+- [Android Studio](https://developer.android.google.cn/studio) >= 4.0
+- [Android SDK](https://developer.android.com/studio?hl=zh-cn#cmdline-tools) >= 29
 
 ### Building a Dependency Environment
 
@@ -89,7 +89,27 @@ mindspore-lite-{version}
 └── classes.jar  # MindSpore Lite training framework JAR package
 ```
 
-The Android project only depends on the AAR package to call APIs provided by federated learning. For details about how to call and run the APIs, see the API description of federated learning.
+Note 1: since the federated learning jar package in the Android environment does not contain the dependent third-party open source software packages, in the Android environment, before using the AAR package, the user needs to add related dependency statements in the dependencies{} field to load the three open source software that Federated Learning depends on, and the dependencies{} field is in the app/build.gradle file under the Android project, as shown below:
+
+```text
+dependencies {
+
+// Add third-party open source software that federated learning relies on
+implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.14.9'
+implementation group: 'com.google.flatbuffers', name: 'flatbuffers-java', version: '2.0.0'
+implementation(group: 'org.bouncycastle',name: 'bcprov-jdk15on', version: '1.68')
+}
+```
+
+For specific implementation, please refer to the example of `app/build.gradle` provided in the `Android project configuration dependencies` section in the document [sentiment classification application](https://www.mindspore.cn/federated/docs/en/master/sentiment_classification_application.html).
+
+Note 2: since the third-party open source software `bcprov-jdk15on` that Federated Learning relies on contains multi-version class files, in order to prevent errors in compiling high-version class files with lower version jdk, the following setting statement can be added to the `gradle.properties` file of the Android project:
+
+```java
+android.jetifier.blacklist=bcprov
+```
+
+After setting up the dependencies shown above in the Android project, you only need to rely on the AAR package to call APIs provided by federated learning. For details about how to call and run the APIs, see the API description of federated learning.
 
 ## x86
 
@@ -114,7 +134,7 @@ The Android project only depends on the AAR package to call APIs provided by fed
 ### Running Dependencies
 
 - [Python](https://www.python.org/downloads/) >= 3.7.5
-- [OpenJDK](https://openjdk.java.net/install/) >= 1.8
+- [OpenJDK](https://openjdk.java.net/install/) >= 1.9
 
 ### Building a Dependency Environment
 

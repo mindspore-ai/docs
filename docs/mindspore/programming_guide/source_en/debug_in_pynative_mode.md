@@ -1,6 +1,6 @@
 # Debugging in PyNative Mode
 
-`Linux` `Ascend` `GPU` `CPU` `Model Development` `Beginner` `Intermediate` `Expert`
+`Ascend` `GPU` `CPU` `Model Running`
 
 <!-- TOC -->
 
@@ -10,10 +10,11 @@
     - [Executing a Common Function](#executing-a-common-function)
         - [Improving PyNative Performance](#improving-pynative-performance)
     - [Debugging Network Train Model](#debugging-network-train-model)
+    - [Synchronous Execution Under PyNative](#synchronous-execution-under-PyNative)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/debug_in_pynative_mode.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/debug_in_pynative_mode.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -26,9 +27,9 @@ By default, MindSpore is in Graph mode. You can switch it to PyNative mode by ca
 
 In PyNative mode, single operators, common functions, network inference, and separated gradient calculation can be executed. The following describes the usage and precautions.
 
-> In PyNative mode, operators are executed asynchronously on the device to improve performance. Therefore, when an error occurs during operator execution, the error information may be displayed after the program is executed.
+> In PyNative mode, operators are executed asynchronously on the device to improve performance. Therefore, when an error occurs during operator execution, the error information may be displayed after the program is executed. Therefore, in PyNative mode, a pynative_synchronize setting is added to control whether operators are executed asynchronously on the device.
 >
-> In the following example, the parameter initialization uses random values, and the output results in specific execution may be different from the results of local execution; if you need to stabilize the output of a fixed value, you can set a fixed random seed. For the setting method, please refer to [mindspore.set_seed()](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.html#mindspore.set_seed).
+> In the following example, the parameter initialization uses random values, and the output results in specific execution may be different from the results of local execution; if you need to stabilize the output of a fixed value, you can set a fixed random seed. For the setting method, please refer to [mindspore.set_seed()](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore/mindspore.set_seed.html).
 
 ## Executing a Single Operator
 
@@ -386,3 +387,63 @@ Output:
 ```
 
 In the preceding execution, an intermediate result of network execution can be obtained at any required place in `construt` function, and the network can be debugged by using the Python Debugger (pdb).
+
+## Synchronous Execution Under PyNative
+
+In PyNative mode, the operators are executed asynchronously by default. You can control whether to execute asynchronously by setting the context. When the operator fails to execute, you can easily see the error code location through the call stack.
+
+Set context pynative_synchronize to True：
+
+```python
+context.set_context(pynative_synchronize=True)
+```
+
+Example Code:
+
+```python
+import numpy as np
+import mindspore.context as context
+import mindspore.nn as nn
+from mindspore import Tensor
+from mindspore import dtype as mstype
+import mindspore.ops as ops
+
+context.set_context(mode=context.PYNATIVE_MODE, device_target="Ascend", pynative_synchronize=True)
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.get_next = ops.GetNext([mstype.float32], [(1, 1)], 1, "test")
+
+    def construct(self, x1,):
+        x = self.get_next()
+        x = x + x1
+        return x
+
+context.set_context()
+x1 = np.random.randn(1, 1).astype(np.float32)
+net = Net()
+output = net(Tensor(x1))
+print(output.asnumpy())
+```
+
+Output: you can see the complete call stack.
+
+```text
+Traceback (most recent call last):
+  File "test_pynative_sync_control.py", line 41, in <module>
+    output = net(Tensor(x1))
+  File "mindspore/mindspore/nn/cell.py", line 406, in <module>
+    output = self.run_construct(cast_inputs, kwargs)
+  File "mindspore/mindspore/nn/cell.py", line 348, in <module>
+    output = self.construct(*cast_inputs, **kwargs)
+  File "test_pynative_sync_control.py", line 33, in <module>
+    x = self.get_next()
+  File "mindspore/mindspore/ops/primitive.py", line 247, in <module>
+    return _run_op(self, self.name, args)
+  File "mindspore/mindspore/common/api.py", line 77, in <module>
+    results = fn(*arg, **kwargs)
+  File "mindspore/mindspore/ops/primitive.py", line 677, in _run_op
+    output = real_run_op(obj, op_name, args)
+RuntimeError: mindspore/ccsrc/runtime/device/kernel_runtime.cc:1006 DebugStreamSync] Op Default/GetNext-op0 run failed!
+```

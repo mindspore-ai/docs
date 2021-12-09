@@ -11,14 +11,15 @@ MindSpore Lite API
    :caption: C++ API
 
    api_cpp/mindspore
-   api_cpp/dataset
-   api_cpp/kernel
-   api_cpp/vision
-   api_cpp/lite
-   api_cpp/registry
-   api_cpp/session
-   api_cpp/tensor
-   api_cpp/errorcode_and_metatype
+   api_cpp/mindspore_dataset
+   api_cpp/mindspore_dataset_config
+   api_cpp/mindspore_dataset_text
+   api_cpp/mindspore_dataset_transforms
+   api_cpp/mindspore_dataset_vision
+   api_cpp/mindspore_kernel
+   api_cpp/mindspore_registry
+   api_cpp/mindspore_registry_opencl
+   api_cpp/mindspore_converter
    api_cpp/lite_cpp_example
 
 

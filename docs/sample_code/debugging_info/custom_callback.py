@@ -22,6 +22,7 @@ import mindspore.nn as nn
 from mindspore.nn import Momentum, SoftmaxCrossEntropyWithLogits
 from mindspore import Model, context, save_checkpoint
 from mindspore.train.callback import Callback, LossMonitor
+from mindspore import log as logger
 
 from src.dataset import create_train_dataset, create_eval_dataset
 from src.net import Net
@@ -64,7 +65,7 @@ class SaveCallback(Callback):
     def step_end(self, run_context):
         """step end"""
         cb_params = run_context.original_args()
-        result = self.model.eval(self.ds_eval)
+        result = self.model.eval(self.ds_eval, dataset_sink_mode=False)
         if result['Accuracy'] > self.acc:
             self.acc = result['Accuracy']
             file_name = str(self.acc) + ".ckpt"
@@ -81,7 +82,7 @@ def set_dump_info():
             "dump_mode": 0,
             "path": abspath + "/data_dump",
             "net_name": "LeNet5",
-            "iteration": 0,
+            "iteration": "0|5-8|100-120",
             "input_output": 2,
             "kernels": ["Default/network-WithLossCell/_backbone-LeNet5/flatten-Flatten/Reshape-op118"],
             "support_device": [0, 1, 2, 3, 4, 5, 6, 7]
@@ -115,4 +116,4 @@ if __name__ == "__main__":
     model = Model(network=net, loss_fn=net_loss, optimizer=net_opt, metrics={'Accuracy': nn.Accuracy()})
     model.train(epoch=100,
                 train_dataset=train_dataset,
-                callbacks=[LossMonitor(), StopAtTime(3), SaveCallback(model, eval_dataset)])
+                callbacks=[LossMonitor(), StopAtTime(3), SaveCallback(model, eval_dataset)], dataset_sink_mode=False)

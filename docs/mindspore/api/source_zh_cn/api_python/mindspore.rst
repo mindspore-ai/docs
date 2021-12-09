@@ -1,13 +1,39 @@
 mindspore
 =========
 
+Tensor
+------
+
+.. autosummary::
+    :toctree: mindspore
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.Tensor
+    mindspore.RowTensor
+    mindspore.SparseTensor
+
+Parameter
+---------
+
+.. autosummary::
+    :toctree: mindspore
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.Parameter
+    mindspore.ParameterTuple
+
+DataType
+--------
+
 .. class:: mindspore.dtype
   
   Create a data type object of MindSpore.
   
   The actual path of ``dtype`` is ``/mindspore/common/dtype.py``.
   Run the following command to import the package:
-
+  
   .. code-block::
   
       from mindspore import dtype as mstype
@@ -31,6 +57,8 @@ mindspore
     ``mindspore.float16`` ,  ``mindspore.half``      16-bit floating-point number
     ``mindspore.float32`` ,  ``mindspore.single``    32-bit floating-point number
     ``mindspore.float64`` ,  ``mindspore.double``    64-bit floating-point number
+    ``mindspore.complex64``                          64-bit complex number
+    ``mindspore.complex128``                         128-bit complex number
     ==============================================   =============================
   
   * **Other Type**
@@ -45,7 +73,8 @@ mindspore
     ``int_``                        Integer scalar.
     ``uint``                        Unsigned integer scalar.
     ``float_``                      Floating-point scalar.
-    ``number``                      Number, including ``int_`` , ``uint`` , ``float_`` and ``bool_`` .
+    ``complex``                     Complex scalar.
+    ``number``                      Number, including ``int_`` , ``uint`` , ``float_`` , ``complex`` and ``bool_`` .
     ``list_``                       List constructed by ``tensor`` , such as ``List[T0,T1,...,Tn]`` , where the element ``Ti`` can be of different types.
     ``tuple_``                      Tuple constructed by ``tensor`` , such as ``Tuple[T0,T1,...,Tn]`` , where the element ``Ti`` can be of different types.
     ``function``                    Function. Return in two ways, when function is not None, returns Func directly, the other returns Func(args: List[T0,T1,...,Tn], retval: T) when function is None.
@@ -74,10 +103,13 @@ mindspore
             │   │   ├─── uint16, ushort
             │   │   ├─── uint32, uintc
             │   │   └─── uint64, uintp
-            │   └─── float_
-            │       ├─── float16
-            │       ├─── float32
-            │       └─── float64
+            │   ├─── float_
+            │   │   ├─── float16
+            │   │   ├─── float32
+            │   │   └─── float64
+            │   └─── complex
+            │       ├─── complex64
+            │       └─── complex128
             ├─── tensor
             │   ├─── Array[Float32]
             │   └─── ...
@@ -95,6 +127,129 @@ mindspore
             ├─── type_none
             ├─── symbolic_key
             └─── env_type
-  
-.. automodule:: mindspore
-    :members:
+
+
+.. autosummary::
+    :toctree: mindspore
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.dtype_to_nptype
+    mindspore.issubclass_
+    mindspore.dtype_to_pytype
+    mindspore.pytype_to_dtype
+    mindspore.get_py_obj_dtype
+
+Seed
+----
+
+.. autosummary::
+    :toctree: mindspore
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.set_seed
+    mindspore.get_seed
+
+Model
+-----
+
+.. autosummary::
+    :toctree: mindspore
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.Model
+
+Dataset Helper
+---------------
+
+.. autosummary::
+    :toctree: mindspore
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.DatasetHelper
+    mindspore.connect_network_with_dataset
+
+Loss Scale Manager
+-------------------
+
+.. autosummary::
+    :toctree: mindspore
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.LossScaleManager
+    mindspore.FixedLossScaleManager
+    mindspore.DynamicLossScaleManager
+
+Serialization
+-------------
+
+.. autosummary::
+    :toctree: mindspore
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.save_checkpoint
+    mindspore.load_checkpoint
+    mindspore.load_param_into_net
+    mindspore.export
+    mindspore.load
+    mindspore.parse_print
+    mindspore.build_searched_strategy
+    mindspore.merge_sliced_parameter
+    mindspore.load_distributed_checkpoint
+    mindspore.async_ckpt_thread_status
+
+JIT
+---
+
+.. autosummary::
+    :toctree: mindspore
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.ms_function
+
+Log
+---
+
+.. autosummary::
+    :toctree: mindspore
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.get_level
+    mindspore.get_log_config
+
+Automatic Mixed Precision
+-------------------------
+
+.. autosummary::
+    :toctree: mindspore
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.build_train_network
+
+Installation Verification
+--------------------------
+
+.. autosummary::
+    :toctree: mindspore
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.run_check
+
+Debugging
+--------------------------
+
+.. autosummary::
+    :toctree: mindspore
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.set_dump

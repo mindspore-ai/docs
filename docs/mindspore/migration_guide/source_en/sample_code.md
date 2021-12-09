@@ -41,7 +41,7 @@ Translator: [AQUA](https://gitee.com/Liu-HongYe)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/sample_code.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/sample_code.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 This chapter will introduce the basic steps of network migration, common tools, ideas for locating problems and solutions with use cases.
 
@@ -257,7 +257,7 @@ Analyzing the ResNet50 network code, it can be divided into the following main s
 
 Based on the above subnetwork division, we redevelop the above development in conjunction with MindSpore syntax.
 
-Redeveloping the weight initialization (also directly using [MindSpore's defined weight initialization methods](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.common.initializer.html?highlight=common%20initializer#)).
+Redeveloping the weight initialization (also directly using [MindSpore's defined weight initialization methods](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.common.initializer.html)).
 
 ```python
 def _conv_variance_scaling_initializer(in_channel, out_channel, kernel_size):
@@ -762,7 +762,7 @@ if __name__ == '__main__':
                 dataset_sink_mode=dataset_sink_mode)
 ```
 
-Note: For codes in other files in the directory, refer to MindSpore model_zoo's [ResNet50 implementation](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/resnet)(this script incorporates other ResNet family networks and ResNet-SE networks, and the specific implementation may differ from the benchmark script).
+Note: For codes in other files in the directory, refer to MindSpore model_zoo's [ResNet50 implementation](https://gitee.com/mindspore/models/tree/master/official/cv/resnet)(this script incorporates other ResNet family networks and ResNet-SE networks, and the specific implementation may differ from the benchmark script).
 
 ### Distributed training
 
@@ -915,7 +915,7 @@ When the data processing speed is slow, the queue is gradually depleted from the
 When distributed training is performed, after the forward propagation and gradient computation are completed during a Step, each machine starts to synchronize the AllReduce gradient, and the AllReduce synchronization time is mainly affected by the number of weights and machines.
 
 Normally, AllReduce gradient synchronization waits until all the inverse operators are finished, i.e., all the gradients of all weights are computed before synchronizing the gradients of all machines at once, but with AllReduce tangent, we can synchronize the gradients of some weights as soon as they are computed, so that the gradient synchronization and the gradient computation of the remaining operators can be This way, the gradient synchronization and the gradient computation of the remaining operators can be performed in parallel, hiding this part of the AllReduce gradient synchronization time. The slicing strategy is usually a manual attempt to find an optimal solution (supporting slicing greater than two segments).
-As an example, [ResNet50 network](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/train.py) has 160 weights and [85, 160] means that the gradient synchronization is performed immediately after the gradient is calculated for the 0th to 85th weights, and the gradient synchronization is performed after the gradient is calculated for the 86th to 160th weights. The code implementation is as follows:
+As an example, [ResNet50 network](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/train.py) has 160 weights and [85, 160] means that the gradient synchronization is performed immediately after the gradient is calculated for the 0th to 85th weights, and the gradient synchronization is performed after the gradient is calculated for the 86th to 160th weights. The code implementation is as follows:
 
 ```python
 from mindspore import context
@@ -923,7 +923,7 @@ from resnet50_imagenet2012_config.yaml import config
 ...
 
 device_id = int(os.getenv('DEVICE_ID'))
-context.set_context(device_id=device_id, enable_auto_mixed_precision=True)
+context.set_context(device_id=device_id)
 context.set_auto_parallel_context(device_num=config.device_num,
                                   parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
 set_algo_parameters(elementwise_op_strategy_follow=True)

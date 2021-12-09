@@ -1,5 +1,7 @@
 ﻿# Single-Node Tensor Cache
 
+`Ascend` `GPU` `CPU` `Data Preparation`
+
 <!-- TOC -->
 
 - [Single-Node Tensor Cache](#single-node-tensor-cache)
@@ -11,7 +13,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/cache.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/cache.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -420,7 +422,7 @@ During the single-node multi-device distributed training, the cache operator all
 
 ## Limitations
 
-- Currently, dataset classes such as `MindDataset`, `GraphDataset`, `GeneratorDataset`, `PaddedDataset`, and `NumpySlicesDataset` do not support cache. `GeneratorDataset`, `PaddedDataset`, and `NumpySlicesDataset` belong to `GeneratorOp`, so their error message is displayed as "There is currently no support for GeneratorOp under cache."
+- Currently, dataset classes such as `GraphDataset`, `GeneratorDataset`, `PaddedDataset`, and `NumpySlicesDataset` do not support cache. `GeneratorDataset`, `PaddedDataset`, and `NumpySlicesDataset` belong to `GeneratorOp`, so their error message is displayed as "There is currently no support for GeneratorOp under cache."
 - Data processed by `batch`, `concat`, `filter`, `repeat`, `skip`, `split`, `take`, and `zip` does not support cache.
 - Data processed by random data argumentation operations (such as `RandomCrop`) does not support cache.
 - The same cache instance cannot be nested in different locations of the same pipeline.

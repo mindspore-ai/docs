@@ -1,14 +1,29 @@
 # 保存及加载模型
 
+`Ascend` `GPU` `CPU` `入门` `模型导出` `模型加载`
+
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/save_load_model.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 上一节我们训练完网络，本节将会学习如何保存模型和加载模型，以及如何将保存的模型导出成特定格式到不同平台进行推理。
 
 ## 保存模型
 
-在模型训练的过程中，使用Callback回调机制传入回调函数`ModelCheckpoint`对象，可以保存模型参数，生成CheckPoint文件。
+保存模型的接口有主要2种方式：1）一种是简单的对网络模型进行保存，可以在训练前后进行保存，优点是接口简单易用，但是只保留执行命令时候的网络模型状态；2）另外一种是在网络模型训练中进行保存，MindSpore在网络模型训练的过程中，自动保存训练时候设定好的epoch数和step数的参数，也就是把模型训练过程中产生的中间权重参数也保存下来，方便进行网络微调和停止训练。
 
-> 上面我们也曾提到过Callback机制，其设计的理念不是针对下沉式，而是针对流程进行设计的，其支持网络计算前后、epoch执行前后、step执行前后的回调处理机制；下沉的目的是为了提升训练执行效率，由于下沉在加速硬件上执行，所以Callback需要等下沉执行完毕后才能回调执行，在设计上两者解耦。
+### 直接保存模型
+
+使用MindSpore提供的save_checkpoint保存模型，传入网络和保存路径：
+
+```python
+import mindspore as ms
+
+# 定义的网络模型为net，一般在训练前或者训练后使用
+ms.save_checkpoint(net, "./MyNet.ckpt")
+```
+
+### 训练过程中保存模型
+
+在模型训练的过程中，使用`model.train`里面的`callbacks`参数传入保存模型的对象 `ModelCheckpoint`，可以保存模型参数，生成CheckPoint(简称ckpt)文件。
 
 ```python
 from mindspore.train.callback import ModelCheckpoint
@@ -23,8 +38,8 @@ model.train(epoch_num, dataset, callbacks=ckpt_cb)
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
 
 config_ck = CheckpointConfig(save_checkpoint_steps=32, keep_checkpoint_max=10)
-ckpt_cb = ModelCheckpoint(prefix='resnet50', directory=None, config=config_ckpt)
-model.train(epoch_num, dataset, callbacks= ckpt_cb)
+ckpt_cb = ModelCheckpoint(prefix='resnet50', directory=None, config=config_ck)
+model.train(epoch_num, dataset, callbacks=ckpt_cb)
 ```
 
 上述代码中，首先需要初始化一个`CheckpointConfig`类对象，用来设置保存策略。
@@ -76,10 +91,10 @@ model = Model(resnet, loss, metrics={"accuracy"})
 
 ```python
 # 定义验证数据集
-dateset_eval = create_dataset(os.path.join(mnist_path, "test"), 32, 1)
+dataset_eval = create_dataset(os.path.join(mnist_path, "test"), 32, 1)
 
 # 调用eval()进行推理
-acc = model.eval(dateset_eval)
+acc = model.eval(dataset_eval)
 ```
 
 ### 用于迁移学习
@@ -90,7 +105,7 @@ acc = model.eval(dateset_eval)
 # 设置训练轮次
 epoch = 1
 # 定义训练数据集
-dateset = create_dataset(os.path.join(mnist_path, "train"), 32, 1)
+dataset = create_dataset(os.path.join(mnist_path, "train"), 32, 1)
 # 调用train()进行训练
 model.train(epoch, dataset)
 ```
@@ -123,7 +138,7 @@ export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='MINDIR')
 ```
 
 > - `input`用来指定导出模型的输入shape以及数据类型，如果网络有多个输入，需要一同传进`export`方法。 例如：`export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='MINDIR')`
-> - 导出的文件名称会自动添加".mindir"后缀。
+> - 如果`file_name`没有包含".mindir"后缀，系统会为其自动添加".mindir"后缀。
 
 ### 其他格式导出
 
@@ -136,7 +151,7 @@ export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='AIR')
 ```
 
 > - `input`用来指定导出模型的输入shape以及数据类型，如果网络有多个输入，需要一同传进`export`方法。 例如：`export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='AIR')`
-> - 导出的文件名称会自动添加".air"后缀。
+> - 如果`file_name`没有包含".air"后缀，系统会为其自动添加".air"后缀。
 
 #### 导出ONNX格式文件
 
@@ -147,4 +162,5 @@ export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='ONNX')
 ```
 
 > - `input`用来指定导出模型的输入shape以及数据类型，如果网络有多个输入，需要一同传进`export`方法。 例如：`export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='ONNX')`
-> - 导出的文件名称会自动添加".onnx"后缀。
+> - 如果`file_name`没有包含".onnx"后缀，系统会为其自动添加".onnx"后缀。
+> - 目前ONNX格式导出仅支持ResNet系列、BERT网络。

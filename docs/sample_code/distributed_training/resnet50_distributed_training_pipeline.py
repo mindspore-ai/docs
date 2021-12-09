@@ -1,4 +1,4 @@
-# Copyright 2020 Huawei Technologies Co., Ltd
+# Copyright 2020-2021 Huawei Technologies Co., Ltd
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ============================================================================
-"""resnet50_distributed_training
-This sample code is applicable to Ascend.
+"""
+Resnet50_distributed_training
 """
 import os
 import mindspore.nn as nn
@@ -29,10 +29,13 @@ from mindspore.context import ParallelMode
 from mindspore.train.callback import LossMonitor
 from resnet import resnet50
 
-device_id = int(os.getenv('DEVICE_ID'))
-context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
-context.set_context(device_id=device_id) # set device_id
+device_target = os.getenv('DEVICE_TARGET')
+context.set_context(mode=context.GRAPH_MODE, device_target=device_target)
+if device_target == "Ascend":
+    device_id = int(os.getenv('DEVICE_ID'))
+    context.set_context(device_id=device_id)
 init()
+
 
 def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=1):
     """create dataset"""
@@ -76,6 +79,7 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=
 
 class SoftmaxCrossEntropyExpand(nn.Cell):
     """Loss"""
+
     def __init__(self, sparse=False):
         super(SoftmaxCrossEntropyExpand, self).__init__()
         self.exp = ops.Exp()
@@ -113,7 +117,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
 
 def test_train_cifar(epoch_size=10):
     """train net"""
-    context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
+    context.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, gradients_mean=True)
     context.set_auto_parallel_context(pipeline_stages=2, full_batch=True)
     loss_cb = LossMonitor()
     data_path = os.getenv('DATA_PATH')

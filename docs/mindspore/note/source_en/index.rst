@@ -3,18 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-MindSpore Design And Specification
-==================================
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: Design
-   
-   design/technical_white_paper
-   design/mindir
-   design/distributed_training_design
-
+MindSpore Specification and Notes
+=======================================
 
 .. toctree::
    :glob:
@@ -27,12 +17,13 @@ MindSpore Design And Specification
    syntax_list
    env_var_list
 
+The API mapping has been migrated to https://www.mindspore.cn/docs/migration_guide/en/master/api_mapping.html.
+
 .. toctree::
    :glob:
    :maxdepth: 1
    :caption: Others
 
-   glossary
    roadmap
    help_seeking_path
    community

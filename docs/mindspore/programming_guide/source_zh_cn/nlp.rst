@@ -7,4 +7,4 @@
   nlp_sentimentnet
   nlp_bert_poetry
   nlp_tprr
-  pangu_alpha
+

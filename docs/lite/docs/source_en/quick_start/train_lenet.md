@@ -6,6 +6,7 @@
 
 - [Overview](#overview)
 - [Environment Preparing](#environment-preparing)
+    - [Environment Requirements](#environment-requirements)
     - [Dataset](#dataset)
     - [Install MindSpore](#install-mindspore)
     - [Download and Install MindSpore Lite](#download-and-install-mindspore-lite)
@@ -23,9 +24,9 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/quick_start/train_lenet.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/quick_start/train_lenet.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
-> MindSpore has unified the end-to-side cloud inference API. If you want to continue to use the MindSpore Lite independent API for inference, you can refer to [here](https://www.mindspore.cn/lite/docs/en/r1.3/quick_start/train_lenet.html).
+> MindSpore has unified the end-to-side cloud inference API. If you want to continue to use the MindSpore Lite independent API for training, you can refer to [here](https://www.mindspore.cn/lite/docs/en/r1.3/quick_start/train_lenet.html).
 
 ## Overview
 
@@ -42,6 +43,21 @@ Details will be told after environment deployed and model training by running pr
 ## Environment Preparing
 
 Ubuntu 18.04 64-bit operating system on x86 platform is recommended.
+
+### Environment Requirements
+
+- The compilation environment supports Linux x86_64 only. Ubuntu 18.04.02 LTS is recommended.
+
+- Software dependency
+
+    - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
+
+    - [CMake](https://cmake.org/download/) >= 3.18.3
+
+    - [Git](https://git-scm.com/downloads) >= 2.28.0
+
+    - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
+        - Configure environment variables: `export ANDROID_NDK=NDK path`.
 
 ### DataSet
 
@@ -104,7 +120,7 @@ cd /mindspore/lite/examples/unified_api
 bash prepare_and_run.sh -D /PATH/MNIST_Data -t arm64
 ```
 
-`/PATH/MNIST_Data` is the absolute mnist dataset path in your machine, `-t arm64` represents that we will train and run the model on an Android device.
+`/PATH/MNIST_Data` is the absolute mnist dataset path in your machine, `-t arm64` represents that we will train and run the model on an Android device, if the work computer is connected to multiple mobile devices, you can use `-i devices_id` to specify the running device.
 
 The script `prepare_and_run.sh` has done the following works:
 
@@ -167,11 +183,23 @@ Epoch (2):      Training Accuracy is 0.94415
 10.1600:        Loss is 0.026495
 10.1700:        Loss is 0.436495
 10.1800:        Loss is 0.157564
-Epoch (10):     Loss is 0.102652
-Epoch (10):     Training Accuracy is 0.96805
-Eval Accuracy is 0.965244
+Epoch (5):     Loss is 0.102652
+Epoch (5):     Training Accuracy is 0.96805
+AvgRunTime: 18980.5 ms
+Total allocation: 125829120
+Accuracy is 0.965244
+
 ===Evaluating trained Model=====
-Eval Accuracy is 0.965244
+Total allocation: 20971520
+Accuracy is 0.965244
+
+===Running Inference Model=====
+There are 1 input tensors with sizes:
+tensor 0: shape is [32 32 32 1]
+There are 1 output tensor with sizes:
+tensor 0: shape is [32 10]
+The predicted classes are:
+4, 0, 2, 8, 9, 4, 5, 6, 3, 5, 2, 1, 4, 6, 8, 0, 5, 7, 3, 5, 8, 3, 4, 1, 9, 8, 7, 3, 0, 2, 3, 6,
 ```
 
 > If the Android device is not available on your hand, you could also exectute `bash prepare_and_run.sh -D /PATH/MNIST_Data -t x86` and run it on the x86 platform.
@@ -190,14 +218,18 @@ unified_api/
   │   └── train_utils.py
   │
   ├── scripts
+  │   ├── batch_of32.dat
   │   ├── eval.sh
+  │   ├── infer.sh
   │   └── train.sh
   │
   ├── src
+  │   ├── inference.cc
   │   ├── net_runner.cc
   │   ├── net_runner.h
   │   └── utils.h
   │
+  ├── Makefile
   ├── README.md
   ├── README_CN.md
   └── prepare_and_run.sh
@@ -205,14 +237,14 @@ unified_api/
 
 ### Model Exporting
 
-Whether it is an off-the-shelf prepared model, or a custom written model, the model needs to be exported to a `.mindir` file. Here we use the already-implemented [LeNet model](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/lenet).
+Whether it is an off-the-shelf prepared model, or a custom written model, the model needs to be exported to a `.mindir` file. Here we use the already-implemented [LeNet model](https://gitee.com/mindspore/models/tree/master/official/cv/lenet).
 
 Import and instantiate a LeNet5 model and set the model to train mode:
 
 ```python
 import numpy as np
 from mindspore import context, Tensor
-import mindspore.dtype as mstype
+from mindspore import dtype as mstype
 from mindspore import export
 from lenet import LeNet5
 from train_utils import TrainWrap
@@ -344,7 +376,7 @@ void NetRunner::InitAndFigureInputs() {
 
 #### Dataset Processing
 
-`InitDB` initializes the MNIST dataset and loads it into the memory. MindData has provided the data preprocessing API, the user could refer to the [C++ API Docs](https://www.mindspore.cn/lite/api/en/master/api_cpp/session.html) for more details.
+`InitDB` initializes the MNIST dataset and loads it into the memory. MindData has provided the data preprocessing API, the user could refer to the [C++ API Docs](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore_dataset.html) for more details.
 
 ```cpp
 int NetRunner::InitDB() {

@@ -18,7 +18,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/quick_start/image_segmentation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/quick_start/image_segmentation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -50,7 +50,7 @@ The following describes how to build and execute an on-device image segmentation
 
 ### Building and Running
 
-1. Load the sample source code to Android Studio and install the corresponding SDK. (After the SDK version is specified, Android Studio automatically installs the SDK.)
+1. Load the [sample source code](https://gitee.com/mindspore/models/tree/master/official/lite/image_segmentation) to Android Studio and install the corresponding SDK. (After the SDK version is specified, Android Studio automatically installs the SDK.)
 
     ![start_home](../images/lite_quick_start_home.png)
 
@@ -135,7 +135,7 @@ Note: If the download fails, manually download the model file [segment_model.ms]
 
 ### Writing On-Device Inference Code
 
-The inference code and process are as follows. For details about the complete code, see [src/java/com/mindspore/imagesegmentation/TrackingMobile](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/lite/image_segmentation/app/src/main/java/com/mindspore/imagesegmentation/help/TrackingMobile.java).
+The inference code and process are as follows. For details about the complete code, see [src/java/com/mindspore/imagesegmentation/TrackingMobile](https://gitee.com/mindspore/models/blob/master/official/lite/image_segmentation/app/src/main/java/com/mindspore/imagesegmentation/help/TrackingMobile.java).
 
 1. Load the MindSpore Lite model file and build the context, session, and computational graph for inference.
 

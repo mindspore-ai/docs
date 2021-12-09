@@ -21,7 +21,7 @@ Translator: [Soleil](https://gitee.com/deng-zhihua)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/neural_network_debug.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/neural_network_debug.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 This chapter introduces the basic principles and common tools of Network Debugging, as well as some solutions to some common problems.
 
@@ -155,8 +155,6 @@ If the loss errors are large, the problem locating can be done using following w
 - [Reasoning With Training](https://www.mindspore.cn/docs/programming_guide/en/master/evaluate_the_model_during_training.html)
 
    Inference can be performed at training time by defining a CallBack function for inference.
-
-- [Custom Training Loops](https://www.mindspore.cn/docs/programming_guide/en/master/train.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%AE%AD%E7%BB%83%E5%BE%AA%E7%8E%AF)
 
 - Customized Learning Rate
 

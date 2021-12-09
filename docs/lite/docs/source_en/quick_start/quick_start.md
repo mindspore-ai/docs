@@ -19,7 +19,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/quick_start/quick_start.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/quick_start/quick_start.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -31,9 +31,9 @@ This tutorial demonstrates the on-device deployment process based on the image c
 2. Convert the model into a MindSpore Lite model.
 3. Use the MindSpore Lite inference model on the device. The following describes how to use the MindSpore Lite C++ APIs (Android JNIs) and MindSpore Lite image classification models to perform on-device inference, classify the content captured by a device camera, and display the most possible classification result on the application's image preview screen.
 
-> Click to find [Android image classification models](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite) and [image classification sample code](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/lite/image_classification).
+> Click to find [Android image classification models](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/1.5) and [image classification sample code](https://gitee.com/mindspore/models/tree/master/official/lite/image_classification).
 >
-> In this example, we explain how to use C++ API. Besides, MindSpore Lite also supports Java API. Please refer to [image segmentation demo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/lite/image_segmentation) to learn more about Java API.
+> In this example, we explain how to use C++ API. Besides, MindSpore Lite also supports Java API. Please refer to [image segmentation demo](https://gitee.com/mindspore/models/tree/master/official/lite/image_segmentation) to learn more about Java API.
 
 We provide the APK file corresponding to this example. You can scan the QR code below or download the [APK file](https://download.mindspore.cn/model_zoo/official/lite/apk/label/Classification.apk) directly, and deploy it to Android devices for use.
 
@@ -42,7 +42,7 @@ We provide the APK file corresponding to this example. You can scan the QR code 
 ## Selecting a Model
 
 The MindSpore team provides a series of preset device models that you can use in your application.  
-Click to download [image classification models](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2.ms) in MindSpore ModelZoo.
+Click to download [image classification models](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/1.5/mobilenetv2.ms) in MindSpore ModelZoo.
 In addition, you can use the preset model to perform transfer learning to implement your image classification tasks.
 
 ## Converting a Model
@@ -69,7 +69,7 @@ The following section describes how to build and execute an on-device image clas
 
 ### Building and Running
 
-1. Load the sample source code to Android Studio and install the corresponding SDK. (After the SDK version is specified, Android Studio automatically installs the SDK.)
+1. Load the [sample source code](https://gitee.com/mindspore/models/tree/master/official/lite/image_classification) to Android Studio and install the corresponding SDK. (After the SDK version is specified, Android Studio automatically installs the SDK.)
 
     ![start_home](../images/lite_quick_start_home.png)
 
@@ -166,18 +166,31 @@ Create a link to the `.so` library file in the `app/CMakeLists.txt` file:
 
 ```text
 # ============== Set MindSpore Dependencies. =============
-include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp)
+include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION})
 include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/runtime)
 include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/runtime/include)
-include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/runtime/dataset/include)
+include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/runtime/include/dataset)
+include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/runtime/include/dataset/lite_cv)
+include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/runtime/include/schema)
+include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/runtime/include/ir/dtype)
+include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/runtime/third_party)
 
 add_library(mindspore-lite SHARED IMPORTED)
 add_library(minddata-lite SHARED IMPORTED)
+add_library(libmindspore-lite-train SHARED IMPORTED)
+add_library(libjpeg SHARED IMPORTED)
+add_library(libturbojpeg SHARED IMPORTED)
 
 set_target_properties(mindspore-lite PROPERTIES IMPORTED_LOCATION
         ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/runtime/lib/libmindspore-lite.so)
 set_target_properties(minddata-lite PROPERTIES IMPORTED_LOCATION
-        ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/runtime/dataset/lib/libminddata-lite.so)
+        ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/runtime/lib/libminddata-lite.so)
+set_target_properties(libmindspore-lite-train PROPERTIES IMPORTED_LOCATION
+        ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/runtime/lib/libmindspore-lite-train.so)
+set_target_properties(libjpeg PROPERTIES IMPORTED_LOCATION
+        ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/runtime/third_party/libjpeg-turbo/lib/libjpeg.so)
+set_target_properties(libturbojpeg PROPERTIES IMPORTED_LOCATION
+        ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/runtime/third_party/libjpeg-turbo/lib/libturbojpeg.so)
 # --------------- MindSpore Lite set End. --------------------
 
 # Link target library.
@@ -187,6 +200,9 @@ target_link_libraries( # Specifies the target library.
         # --- mindspore ---
         minddata-lite
         mindspore-lite
+        libmindspore-lite-train
+        libjpeg
+        libturbojpeg
 
         # --- other dependencies.---
         -ljnigraphics
@@ -201,13 +217,13 @@ target_link_libraries( # Specifies the target library.
 
 In this example, the build process automatically downloads the `mobilenetv2.ms` by referring to the `app/download.gradle` file and saves in the `app/src/main/assets/model` directory.
 
-Note: if the automatic download fails, please manually download the relevant library files [mobilenetv2.ms]( https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2.ms) and put them in the corresponding location.
+Note: if the automatic download fails, please manually download the relevant library files [mobilenetv2.ms]( https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/1.5/mobilenetv2.ms) and put them in the corresponding location.
 
 ### Writing On-Device Inference Code
 
 Call MindSpore Lite C++ APIs at the JNI layer to implement on-device inference.
 
-The inference process code is as follows. For details about the complete code, see [MindSporeNetnative.cpp](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/lite/image_classification/app/src/main/cpp/MindSporeNetnative.cpp).
+The inference process code is as follows. For details about the complete code, see [MindSporeNetnative.cpp](https://gitee.com/mindspore/models/blob/master/official/lite/image_classification/app/src/main/cpp/MindSporeNetnative.cpp).
 
 1. Load the MindSpore Lite model file and build the context, session, and computational graph for inference.  
 

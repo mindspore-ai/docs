@@ -121,3 +121,8 @@ with open(sphinx_domain_python_source_path, "r+", encoding="utf8") as f:
     if python_code_target not in code_str:
         code_str = code_str.replace(python_code_source, python_code_target)
         exec(code_str, sphinx_domain_python.__dict__)
+
+
+
+sys.path.append(os.path.abspath('../../../../resource/search'))
+import search_code

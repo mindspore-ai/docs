@@ -9,6 +9,7 @@
     - [环境准备](#环境准备)
     - [参数说明](#参数说明)
     - [使用示例](#使用示例)
+    - [裁剪后静态库编译为动态库so（可选）](#裁剪后静态库编译为动态库so（可选）)
 
 <!-- /TOC -->
 
@@ -16,9 +17,9 @@
 
 ## 概述
 
-MindSpore Lite提供对Runtime的`libmindspore-lite.a`静态库裁剪工具，能够筛选出`ms`模型中存在的算子，对静态库文件进行裁剪，有效降低库文件大小。
+MindSpore Lite提供对Runtime的`libmindspore-lite.a`静态库裁剪工具，能够筛选出`ms`模型中存在的算子，对静态库文件进行算子裁剪。若进行算子裁减之后，仍然不能满足大小要求，可重新[编译](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)推理框架包，在编译时使用`框架功能裁减编译选项`进行框架功能裁减，之后再使用本工具进行算子裁减。
 
-裁剪工具运行环境是x86_64，目前支持对CPU、GPU算子的裁剪，其中GPU库支持CMAKE的MSLITE_GPU_BACKEND设置为opencl。
+裁剪工具运行环境是x86_64，目前支持对CPU、GPU算子的裁剪，其中GPU库支持`lite/Cmakelist.txt`的MSLITE_GPU_BACKEND设置为opencl。在裁减完算子后，可将裁减后的静态库编译为动态库以适应不同需求。
 
 ## 环境准备
 
@@ -86,3 +87,33 @@ MindSpore Lite提供对Runtime的`libmindspore-lite.a`静态库裁剪工具，�
 ```
 
 本例将根据`modelFile`传入的`ms`模型，对arm64-gpu的`libmindspore-lite.a`静态库进行裁剪，并将裁剪后的`libmindspore-lite.a`静态库保存到`/mindspore-lite/lib/`目录。
+
+## 裁剪后静态库编译为动态库so（可选）
+
+在裁减完静态库后，若有需要，可将裁减后的静态库编译为动态库，编译环境要求参考MindSpore Lite[编译](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)要求，不同架构下的包，所用的编译命令不同，具体命令可通过MindSpore Lite编译过程中打印的命令获取，参考示例步骤如下。
+
+1. 在`lite/Cmakelist.txt`中添加如下命令，以开启编译过程命令打印。
+
+    ```text
+    set(CMAKE_VERBOSE_MAKEFILE on)
+    ```
+
+2. 参考MindSpore Lite[编译](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)，编译所需特定架构上的推理包。
+
+3. 在编译完成后，在打印的编译信息中，找到编译libmindspore-lite.so时的命令，下文为编译arm64架构的推理包时的打印命令，其中`/home/android-ndk-r20b`为安装的Android SDK路径。
+
+    ```bash
+    /home/android-ndk-r20b/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=aarch64-none-linux-android21 --gcc-toolchain=/home/android-ndk-r20b/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/android-ndk-r20b/toolchains/llvm/prebuilt/linux-x86_64/sysroot -fPIC -D_FORTIFY_SOURCE=2 -O2 -Wall -Werror -Wno-attributes -Wno-deprecated-declarations         -Wno-missing-braces -Wno-overloaded-virtual -std=c++17 -fPIC -fPIE -fstack-protector-strong  -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -Wa,--noexecstack -Wformat -Werror=format-security    -fomit-frame-pointer -fstrict-aliasing -ffunction-sections         -fdata-sections -ffast-math -fno-rtti -fno-exceptions -Wno-unused-private-field -O2 -DNDEBUG  -Wl,-z,relro -Wl,-z,now -Wl,-z,noexecstack -s  -Wl,--exclude-libs,libgcc.a -Wl,--exclude-libs,libatomic.a -static-libstdc++ -Wl,--build-id -Wl,--warn-shared-textrel -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments -Wl,-z,noexecstack  -shared -Wl,-soname,libmindspore-lite.so -o libmindspore-lite.so @CMakeFiles/mindspore-lite.dir/objects1.rsp  -llog -ldl -latomic -lm
+    ```
+
+4. 修改命令，替换待编译对象，将裁剪后的静态库编译为动态库。
+
+    以上条打印命令为例，找到原先命令里的待编译对象`@CMakeFiles/mindspore-lite.dir/objects1.rsp`，改为裁剪后的静态库对象`-Wl,--whole-archive ./libmindspore-lite.a -Wl,--no-whole-archive`，其中`./libmindspore-lite.a`为已裁剪后的静态库路径，用户可替换为自身库所在路径，修改后命令如下。
+
+    ```bash
+    /home/android-ndk-r20b/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=aarch64-none-linux-android21 --gcc-toolchain=/home/android-ndk-r20b/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/android-ndk-r20b/toolchains/llvm/prebuilt/linux-x86_64/sysroot -fPIC -D_FORTIFY_SOURCE=2 -O2 -Wall -Werror -Wno-attributes -Wno-deprecated-declarations         -Wno-missing-braces -Wno-overloaded-virtual -std=c++17 -fPIC -fPIE -fstack-protector-strong  -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -Wa,--noexecstack -Wformat -Werror=format-security    -fomit-frame-pointer -fstrict-aliasing -ffunction-sections         -fdata-sections -ffast-math -fno-rtti -fno-exceptions -Wno-unused-private-field -O2 -DNDEBUG  -Wl,-z,relro -Wl,-z,now -Wl,-z,noexecstack -s  -Wl,--exclude-libs,libgcc.a -Wl,--exclude-libs,libatomic.a -static-libstdc++ -Wl,--build-id -Wl,--warn-shared-textrel -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments -Wl,-z,noexecstack  -shared -Wl,-soname,libmindspore-lite.so -o libmindspore-lite.so -Wl,--whole-archive ./libmindspore-lite.a -Wl,--no-whole-archive  -llog -ldl -latomic -lm
+    ```
+
+    使用该命令可将裁剪后的静态库编译为动态库，并在当前目录下生成`libmindspore-lite.so`。
+
+> - 在命令示例中，`-static-libstdc++`为集成静态std库，用户可删除该命令，改为链接动态std库，以降低包大小。

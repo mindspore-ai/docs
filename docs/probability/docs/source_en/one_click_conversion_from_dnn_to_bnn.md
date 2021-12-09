@@ -11,7 +11,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/probability/docs/source_en/one_click_conversion_from_dnn_to_bnn.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/probability/docs/source_en/one_click_conversion_from_dnn_to_bnn.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## One-click Conversion from DNN to BNN
 
@@ -67,7 +67,6 @@ Because the BNN of the entire model needs to be converted, it is necessary to as
 
 ```python
 import pprint
-import numpy as np
 from mindspore.nn import WithLossCell, TrainOneStepCell
 from mindspore.nn.probability import transforms
 from mindspore import context

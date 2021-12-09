@@ -24,4 +24,4 @@ EXTRADIR      = $(SOURCEDIR)/api_python
 .PHONY: clean
 
 clean:
-	-rm -rf $(BUILDDIR)/* $(EXTRADIR)/ops $(EXTRADIR)/nn $(EXTRADIR)/dataset $(EXTRADIR)/dataset_vision $(EXTRADIR)/dataset_transforms $(EXTRADIR)/dataset_text $(EXTRADIR)/text $(EXTRADIR)/numpy $(EXTRADIR)/nn_probability
+	-rm -rf $(BUILDDIR)/* $(EXTRADIR)/ops $(EXTRADIR)/nn $(EXTRADIR)/dataset $(EXTRADIR)/dataset_vision $(EXTRADIR)/dataset_transforms $(EXTRADIR)/dataset_text $(EXTRADIR)/text $(EXTRADIR)/numpy $(EXTRADIR)/nn_probability $(EXTRADIR)/mindspore

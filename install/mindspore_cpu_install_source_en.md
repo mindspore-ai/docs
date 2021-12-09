@@ -12,33 +12,45 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_install_source_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_install_source_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 This document describes how to quickly install MindSpore by source code in a Linux system with a CPU environment.
 
 ## System Environment Information Confirmation
 
-- Confirm that the 64-bit operating system is installed, where Ubuntu 18.04 are verified.
-- Confirm that [GCC 7.3.0](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) is installed.
-- Confirm that [gmp 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
-- Confirm that [Python 3.7.5](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) is installed.
-- Confirm that [CMake 3.18.3 or later](https://cmake.org/download/) is installed.
+- Ensure that the 64-bit operating system is installed, where Ubuntu 18.04 are verified.
+
+- Ensure that [GCC 7.3.0](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) is installed.
+
+- Ensure that [gmp 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
+
+- Ensure that [llvm 12.0.1](https://github.com/llvm/llvm-project/archive/refs/tags/llvmorg-12.0.1.tar.gz) is installed. (optional, required for graph kernel fusion)
+
+- Ensure that Python 3.7.5 or 3.9.0 is installed. If not installed, download and install Python from:
+
+    - Python 3.7.5 (64-bit): [Python official website](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) or [HUAWEI CLOUD](https://mirrors.huaweicloud.com/python/3.7.5/Python-3.7.5.tgz).
+    - Python 3.9.0 (64-bit): [Python official website](https://www.python.org/ftp/python/3.9.0/Python-3.9.0.tgz) or [HUAWEI CLOUD](https://mirrors.huaweicloud.com/python/3.9.0/Python-3.9.0.tgz).
+
+- Ensure that [CMake 3.18.3 or later](https://cmake.org/download/) is installed.
     - Add the path where the executable file `cmake` stores to the environment variable PATH.
-- Confirm that [wheel 0.32.0 or later](https://pypi.org/project/wheel/) is installed.
-- Confirm that [patch 2.5 or later](http://ftp.gnu.org/gnu/patch/) is installed.
+
+- Ensure that [wheel 0.32.0 or later](https://pypi.org/project/wheel/) is installed.
+
+- Ensure that [patch 2.5 or later](http://ftp.gnu.org/gnu/patch/) is installed.
     - Add the path where the executable file `patch` stores to the environment variable PATH.
-- Confirm that [NUMA 2.0.11 or later](https://github.com/numactl/numactl) is installed.
+
+- Ensure that [NUMA 2.0.11 or later](https://github.com/numactl/numactl) is installed.
      If not, use the following command to install it:
 
     ```bash
     apt-get install libnuma-dev
     ```
 
-- Confirm that the git tool is installed.  
-    If not, use the following command to install it:
+- Ensure that the git is installed, otherwise execute the following command to install git:
 
     ```bash
-    apt-get install git
+    apt-get install git # for linux distributions using apt, e.g. ubuntu
+    yum install git     # for linux distributions using yum, e.g. centos
     ```
 
 ## Downloading Source Code from Code Repository
@@ -62,14 +74,15 @@ Of which,
 ## Installing MindSpore
 
 ```bash
-pip install output/mindspore-{version}-cp37-cp37m-linux_{arch}.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install output/mindspore-{version}-{python_version}-linux_{arch}.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 Of which,
 
-- When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
-- `{version}` denotes the version of MindSpore. For example, when you are installing MindSpore 1.1.0, `{version}` should be 1.1.0.
+- When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
+- `{version}` specifies the MindSpore version number. For example, when installing MindSpore 1.5.0-rc1, set `{version}` to 1.5.0rc1.
 - `{arch}` denotes the system architecture. For example, the Linux system you are using is x86 architecture 64-bit, `{arch}` should be `x86_64`. If the system is ARM architecture 64-bit, then it should be `aarch64`.
+- `{python_version}` spcecifies the python version for which MindSpore is built. If you wish to use Python3.7.5,`{python_version}` should be `cp37-cp37m`. If Python3.9.0 is used, it should be `cp39-cp39`.
 
 ## Installation Verification
 
@@ -80,7 +93,7 @@ python -c "import mindspore;mindspore.run_check()"
 The outputs should be the same as:
 
 ```text
-mindspore version: __version__
+MindSpore version: __version__
 The result of multiplication calculation is correct, MindSpore has been installed successfully!
 ```
 
@@ -101,5 +114,5 @@ Using the following command if you need to update the MindSpore version:
     After successfully executing the compile script `build.sh` in the root path of the source code, find the whl package in path `output`, use the following command to update your version.
 
     ```bash
-    pip install --upgrade mindspore-{version}-cp37-cp37m-linux_{arch}.whl
+    pip install --upgrade mindspore-{version}-{python_version}-linux_{arch}.whl
     ```

@@ -14,8 +14,9 @@ MindSpore迁移指南
    script_analysis
    script_development
    neural_network_debug
-   精度调优 <https://www.mindspore.cn/docs/programming_guide/zh-CN/master/accuracy_optimization.html>
+   accuracy_optimization
    performance_optimization
    inference
    sample_code
+   api_mapping
    faq

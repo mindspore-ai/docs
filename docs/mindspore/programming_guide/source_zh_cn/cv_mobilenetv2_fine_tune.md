@@ -1,6 +1,6 @@
 # 使用MobileNetV2网络实现微调（Fine Tune）
 
-`Linux` `Windows` `Ascend` `GPU` `CPU` `模型开发` `中级` `高级`
+`Ascend` `GPU` `CPU` `全流程`
 
 <!-- TOC -->
 
@@ -36,7 +36,7 @@ MindSpore是一个多元化的机器学习框架。既可以在手机等端侧�
 
 目前，Window上暂只支持支持CPU，Ubuntu与EulerOS上支持CPU、GPU与Ascend AI处理器三种处理器。
 
-> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/mobilenetv2>
+> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/models/tree/master/official/cv/mobilenetv2>
 
 ## 任务描述及准备
 

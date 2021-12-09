@@ -1,6 +1,9 @@
 # Optimizing Model Parameters
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/optimization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+`Ascend` `GPU` `Beginner` `Model Development`
+
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/optimization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+
 After learning how to create a model and build a dataset in the preceding tutorials, you can start to learn how to set hyperparameters and optimize model parameters.
 
 ## Hyperparameters
@@ -65,6 +68,41 @@ A model training process is generally divided into four steps.
 3. Define hyperparameters, a loss function, and an optimizer.
 4. Enter the epoch and dataset for training.
 
+Execute the following command to download and decompress the dataset to the specified location.
+
+```python
+import os
+import requests
+import tarfile
+import zipfile
+
+def download_dataset(url, target_path):
+    """下载并解压数据集"""
+    if not os.path.exists(target_path):
+        os.makedirs(target_path)
+    download_file = url.split("/")[-1]
+    if not os.path.exists(download_file):
+        res = requests.get(url, stream=True, verify=False)
+        if download_file.split(".")[-1] not in ["tgz","zip","tar","gz"]:
+            download_file = os.path.join(target_path, download_file)
+        with open(download_file, "wb") as f:
+            for chunk in res.iter_content(chunk_size=512):
+                if chunk:
+                    f.write(chunk)
+    if download_file.endswith("zip"):
+        z = zipfile.ZipFile(download_file, "r")
+        z.extractall(path=target_path)
+        z.close()
+    if download_file.endswith(".tar.gz") or download_file.endswith(".tar") or download_file.endswith(".tgz"):
+        t = tarfile.open(download_file)
+        names = t.getnames()
+        for name in names:
+            t.extract(name, target_path)
+        t.close()
+
+download_dataset("https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cifar-10-binary.tar.gz", "./datasets")
+```
+
 The code example for model training is as follows:
 
 ```python
@@ -74,7 +112,7 @@ import mindspore.dataset.vision.c_transforms as CV
 from mindspore import nn, Tensor, Model
 from mindspore import dtype as mstype
 
-DATA_DIR = "./datasets/cifar-10-batches-bin/train"
+DATA_DIR = "./datasets/cifar-10-batches-bin"
 
 # Define a neural network.
 class Net(nn.Cell):

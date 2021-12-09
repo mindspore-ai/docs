@@ -2,8 +2,6 @@
 
 Translator: [翁炜华](https://gitee.com/weng-weihua)
 
-`Linux` `Ascend` `Model Training` `Model Optimization` `Enterprise` `Expert`
-
 <!-- TOC -->
 
 - [Protecting User Privacy with Suppress Privacy](#protecting-user-privacy-with-suppress-privacy)
@@ -20,7 +18,7 @@ Translator: [翁炜华](https://gitee.com/weng-weihua)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_en/protect_user_privacy_with_suppress_privacy.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_en/protect_user_privacy_with_suppress_privacy.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -53,7 +51,7 @@ from mindspore import load_checkpoint, load_param_into_net
 import mindspore.dataset as ds
 import mindspore.dataset.vision.c_transforms as CV
 import mindspore.dataset.transforms.c_transforms as C
-from mindspore.dataset.vision.utils import Inter
+from mindspore.dataset.vision import Inter
 from mindspore import dtype as mstype
 
 from examples.common.networks.lenet5.lenet5_net import LeNet5

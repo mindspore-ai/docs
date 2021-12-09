@@ -1,7 +1,5 @@
 # 基于MindSpore Serving部署推理服务
 
-`Linux` `Ascend` `GPU` `Serving` `初级` `中级` `高级`
-
 <!-- TOC -->
 
 - [基于MindSpore Serving部署推理服务](#基于mindspore-serving部署推理服务)
@@ -26,7 +24,7 @@ MindSpore Serving是一个轻量级、高性能的服务模块，旨在帮助Min
 
 ### 环境准备
 
-运行示例前，需确保已经正确安装了MindSpore Serving。如果没有，可以通过[MindSpore Serving安装页面](https://gitee.com/mindspore/serving/blob/master/README_CN.md#%E5%AE%89%E8%A3%85)，将MindSpore Serving正确地安装到你的电脑当中，同时通过[MindSpore Serving环境配置页面](https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend_install_pip.md#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)完成环境变量配置。
+运行示例前，需确保已经正确安装了MindSpore Serving，并配置了环境变量。MindSpore Serving安装和配置可以参考[MindSpore Serving安装页面](https://www.mindspore.cn/serving/docs/zh-CN/master/serving_install.html)。
 
 ### 下载样例
 
@@ -66,7 +64,6 @@ def export_net():
     x = np.ones([2, 2]).astype(np.float32)
     y = np.ones([2, 2]).astype(np.float32)
     add = Net()
-    output = add(ms.Tensor(x), ms.Tensor(y))
     ms.export(add, ms.Tensor(x), ms.Tensor(y), file_name='tensor_add', file_format='MINDIR')
     dst_dir = '../add/1'
     try:
@@ -78,17 +75,13 @@ def export_net():
     copyfile('tensor_add.mindir', dst_file)
     print("copy tensor_add.mindir to " + dst_dir + " success")
 
-    print(x)
-    print(y)
-    print(output.asnumpy())
-
 
 if __name__ == "__main__":
     export_net()
 ```
 
 使用MindSpore定义神经网络需要继承`mindspore.nn.Cell`。Cell是所有神经网络的基类。神经网络的各层需要预先在`__init__`方法中定义，然后通过定义`construct`方法来完成神经网络的前向构造。使用`mindspore`模块的`export`即可导出模型文件。
-更为详细完整的示例可以参考[实现一个图片分类应用](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/quick_start/quick_start.html)。
+更为详细完整的示例可以参考[初学入门](https://www.mindspore.cn/tutorials/zh-CN/master/quick_start.html)。
 
 执行`add_model.py`脚本，生成`tensor_add.mindir`文件，该模型的输入为两个shape为[2,2]的二维Tensor，输出结果是两个输入Tensor之和。
 
@@ -101,9 +94,9 @@ if __name__ == "__main__":
 ```text
 tensor_add
 ├── add/
-│    └── servable_config.py
-│    └── 1/
-│        └── tensor_add.mindir
+│   │── servable_config.py
+│   └── 1/
+│       └── tensor_add.mindir
 └── serving_server.py
 ```
 
@@ -120,30 +113,30 @@ from mindspore_serving.server import register
 
 
 def add_trans_datatype(x1, x2):
-    """define preprocess, this example has two input and two output"""
+    """define preprocess, this example has two inputs and two outputs"""
     return x1.astype(np.float32), x2.astype(np.float32)
 
 
 # when with_batch_dim is set to False, only 2x2 add is supported
 # when with_batch_dim is set to True(default), Nx2 add is supported, while N is viewed as batch
 # float32 inputs/outputs
-register.declare_servable(servable_file="tensor_add.mindir", model_format="MindIR", with_batch_dim=False)
+model = register.declare_model(model_file="tensor_add.mindir", model_format="MindIR", with_batch_dim=False)
 
 
 # register add_common method in add
 @register.register_method(output_names=["y"])
 def add_common(x1, x2):  # only support float32 inputs
-    """method add_common data flow definition, only call model inference"""
-    y = register.call_servable(x1, x2)
+    """method add_common data flow definition, only call model"""
+    y = register.add_stage(model, x1, x2, outputs_count=1)
     return y
 
 
 # register add_cast method in add
 @register.register_method(output_names=["y"])
 def add_cast(x1, x2):
-    """method add_cast data flow definition, only call preprocess and model inference"""
-    x1, x2 = register.call_preprocess(add_trans_datatype, x1, x2)  # cast input to float32
-    y = register.call_servable(x1, x2)
+    """method add_cast data flow definition, only preprocessing and call model"""
+    x1, x2 = register.add_stage(add_trans_datatype, x1, x2, outputs_count=2)  # cast input to float32
+    y = register.add_stage(model, x1, x2, outputs_count=1)
     return y
 ```
 
@@ -159,6 +152,7 @@ from mindspore_serving import server
 
 def start():
     servable_dir = os.path.dirname(os.path.realpath(sys.argv[0]))
+
     servable_config = server.ServableStartConfig(servable_directory=servable_dir, servable_name="add",
                                                  device_ids=(0, 1))
     server.start_servables(servable_configs=servable_config)
@@ -169,7 +163,6 @@ def start():
 
 if __name__ == "__main__":
     start()
-
 ```
 
 上述启动脚本将在设备0和1上共加载和运行两个`add`推理副本，来自客户端的推理请求将被切割分流到两个推理副本。

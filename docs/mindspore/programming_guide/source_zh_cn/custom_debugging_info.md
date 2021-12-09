@@ -1,6 +1,6 @@
 # 自定义调试信息
 
-`Linux` `Ascend` `GPU` `CPU` `模型调优` `中级` `高级`
+`Ascend` `GPU` `CPU` `模型调优`
 
 <!-- TOC -->
 
@@ -25,11 +25,12 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/custom_debugging_info.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbWFzdGVyL21pbmRzcG9yZV9jdXN0b21fZGVidWdnaW5nX2luZm8uaXB5bmI=&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_modelarts.png"></a>
 &nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/notebook/mindspore_custom_debugging_info.ipynb"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_notebook.png"></a>
 &nbsp;&nbsp;
-<a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbWFzdGVyL21pbmRzcG9yZV9jdXN0b21fZGVidWdnaW5nX2luZm8uaXB5bmI=&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_modelarts.png"></a>
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/notebook/mindspore_custom_debugging_info.py"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_download_code.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/custom_debugging_info.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -105,9 +106,14 @@ class Callback():
 - `loss_fn`：损失函数
 - `optimizer`：优化器
 - `train_dataset`：训练的数据集
+- `epoch_num`：训练的epoch的数量
+- `batch_num`：一个epoch中step的数量
+- `train_network`：训练的网络
 - `cur_epoch_num`：当前的epoch数
 - `cur_step_num`：当前的step数
-- `batch_num`：一个epoch中step的数量
+- `parallel_mode`：并行模式
+- `list_callback`：所有的callback函数
+- `net_outputs`：网络的输出结果
 - ...
 
 用户可以继承`Callback`基类自定义`Callback`对象。
@@ -308,14 +314,17 @@ Running Data Recorder(RDR)是MindSpore提供训练程序运行时记录数据的
     {
         "rdr": {
             "enable": true,
-            "path": "/home/mindspore/rdr"
+            "mode": 1,
+            "path": "/path/to/rdr/dir"
         }
     }
     ```
 
     > enable: 控制RDR功能是否开启。
     >
-    > path: 设置RDR保存数据的路径。当前必须为绝对路径。
+    > mode: 控制RDR数据导出模式，设置为1表示仅在训练异常终止时导出数据，设置为2表示训练异常终止或正常结束时导出数据。
+    >
+    > path: 设置RDR保存数据的路径，仅支持绝对路径。
 
 2. 通过 `context` 配置RDR。
 
@@ -325,7 +334,7 @@ Running Data Recorder(RDR)是MindSpore提供训练程序运行时记录数据的
 
 #### 通过环境变量配置RDR
 
-通过`export MS_RDR_ENABLE=1`来开启RDR, 然后设置RDR文件导出路径: `export MS_RDR_PATH=/absolute/path`.
+通过`export MS_RDR_ENABLE=1`来开启RDR，通过`export MS_RDR_MODE=1`或`export MS_RDR_MODE=2`来设置导出数据模式，然后通过`export MS_RDR_PATH=/path/to/root/dir`设置RDR文件导出的根目录路径，最终RDR文件将保存在`/path/to/root/dir/rank_{RANK_ID}/rdr/`目录下。其中`RANK_ID`为多卡训练场景中的卡号，单卡场景默认`RANK_ID=0`。
 
 > 用户设置的配置文件优先级高于环境变量。
 
@@ -333,7 +342,7 @@ Running Data Recorder(RDR)是MindSpore提供训练程序运行时记录数据的
 
 假如在Ascend 910上使用MindSpore进行训练，训练出现了`Run task error`异常。
 
-这时我们到`/home/mindspore/rdr`目录中，可以看到有几个文件出现在该目录中，每一个文件都代表着一种数据。比如 `hwopt_d_before_graph_0.ir` 该文件为计算图文件。可以使用文本工具打开该文件，用以查看计算图，分析计算图是否符合预期。
+这时我们到RDR文件的导出目录中，可以看到有几个文件，每一个文件都代表着一种数据。比如 `hwopt_d_before_graph_0.ir` 该文件为计算图文件。可以使用文本工具打开该文件，用以查看计算图，分析计算图是否符合预期。
 
 ## 内存复用
 
@@ -366,8 +375,8 @@ MindSpore采用glog来输出日志，常用的几个环境变量如下：
 
 - `GLOG_v`
 
-    该环境变量控制日志的级别。  
-    该环境变量默认值为2，即WARNING级别，对应关系如下：0-DEBUG、1-INFO、2-WARNING、3-ERROR。
+    该环境变量控制日志的级别。指定日志级别后，将会输出大于或等于该级别的日志信息，对应关系如下：0-DEBUG、1-INFO、2-WARNING、3-ERROR、4-CRITICAL。
+    该环境变量默认值为2，即WARNING级别。ERROR级别表示程序执行出现报错，输出错误日志，程序可能不会终止。CRITICAL级别表示程序执行出现异常，将会终止执行程序。
 
 - `GLOG_logtostderr`
 
@@ -376,11 +385,15 @@ MindSpore采用glog来输出日志，常用的几个环境变量如下：
 
 - `GLOG_log_dir`
 
-    该环境变量指定日志输出的路径。  
+    该环境变量指定日志输出的路径，日志保存路径为：`指定的路径/rank_${rank_id}/logs/`。非分布式训练场景下，`rank_id`为0；分布式训练场景下，`rank_id`为当前设备在集群中的ID。  
     若`GLOG_logtostderr`的值为0，则必须设置此变量。  
     若指定了`GLOG_log_dir`且`GLOG_logtostderr`的值为1时，则日志输出到屏幕，不输出到文件。  
     C++和Python的日志会被输出到不同的文件中，C++日志的文件名遵从`GLOG`日志文件的命名规则，这里是`mindspore.机器名.用户名.log.日志级别.时间戳.进程ID`，Python日志的文件名为`mindspore.log.进程ID`。  
     `GLOG_log_dir`只能包含大小写字母、数字、"-"、"_"、"/"等字符。
+
+- `GLOG_log_max`
+
+    单个日志文件的默认最大为50MB，可以通过该环境变量更改日志文件默认的最大值。如果当前写入的日志文件超过最大值，则新输出的日志内容会写入到新的日志文件中。
 
 - `MS_SUBMODULE_LOG_v`
 
@@ -392,7 +405,7 @@ MindSpore采用glog来输出日志，常用的几个环境变量如下：
 - `GLOG_stderrthreshold`
 
     日志模块在将日志输出到文件的同时也会将日志打印到屏幕，该环境变量用于控制此种场景下打印到屏幕的日志级别。
-    该环境变量默认值为2，即WARNING级别，对应关系如下：0-DEBUG、1-INFO、2-WARNING、3-ERROR。
+    该环境变量默认值为2，即WARNING级别，对应关系如下：0-DEBUG、1-INFO、2-WARNING、3-ERROR、4-CRITICAL。
 
 MindSpore子模块按照目录划分如下：
 

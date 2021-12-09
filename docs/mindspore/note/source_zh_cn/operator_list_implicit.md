@@ -1,7 +1,5 @@
 # MindSpore隐式类型转换的算子支持
 
-`Linux` `Ascend` `GPU` `CPU` `模型开发` `初级` `中级` `高级`
-
 <!-- TOC -->
 
 - [MindSpore隐式类型转换的算子支持](#mindspore隐式类型转换的算子支持)

@@ -2,8 +2,6 @@
 
 Translator: [xiaoxiaozhang](https://gitee.com/xiaoxinniuniu)
 
-`Linux` `Ascend` `Serving` `Intermediate` `Senior`
-
 <!-- TOC -->
 
 - [MindSpore Serving-based Distributed Inference Service Deployment](#mindspore-serving-based-distributed-inference-service-deployment)
@@ -17,7 +15,7 @@ Translator: [xiaoxiaozhang](https://gitee.com/xiaoxinniuniu)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/serving/docs/source_en/serving_distributed_example.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/serving/docs/source_en/serving_distributed_example.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -42,7 +40,7 @@ The following uses a simple distributed network MatMul as an example to demonstr
 
 ### Environment Preparation
 
-Before running the example, ensure that MindSpore Serving has been correctly installed. If not, install MindSpore Serving by referring to the [MindSpore Serving installation page](https://gitee.com/mindspore/serving/blob/master/README.md#installation), and configure environment variables by referring to the [MindSpore Serving environment configuration page](https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend_install_source_en.md#configuring-environment-variables).
+Before running the sample network, ensure that MindSpore Serving has been properly installed and the environment variables are configured. To install and configure MindSpore Serving on your PC, go to the [MindSpore Serving installation page](https://www.mindspore.cn/serving/docs/en/master/serving_install.html).
 
 ### Exporting a Distributed Model
 
@@ -59,7 +57,7 @@ export_model
 - `net.py` contains the definition of MatMul network.
 - `distributed_inference.py` is used to configure distributed parameters.
 - `export_model.sh` creates `device` directory on the current host and exports model files corresponding to `device`.
-- `rank_table_8pcs.json` is a json file for configuring the multi-cards network. For details, see [rank_table](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/utils/hccl_tools).
+- `rank_table_8pcs.json` is a json file for configuring the multi-cards network. For details, see [rank_table](https://gitee.com/mindspore/models/tree/master/utils/hccl_tools).
 
 Use [net.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/export_model/net.py) to construct a network that contains the MatMul and Neg operators.
 
@@ -105,7 +103,7 @@ def test_inference():
     network = Net(matmul_size=(96, 16))
     model = Model(network)
     model.infer_predict_layout(Tensor(predict_data))
-    export(model._predict_network, Tensor(predict_data), file_name="matmul", file_format="MINDIR")
+    export(model.predict_network, Tensor(predict_data), file_name="matmul", file_format="MINDIR")
 
 
 def create_predict_data():
@@ -157,12 +155,12 @@ The content of the model configuration file is as follows:
 from mindspore_serving.server import distributed
 from mindspore_serving.server import register
 
-distributed.declare_servable(rank_size=8, stage_size=1, with_batch_dim=False)
+model = distributed.declare_servable(rank_size=8, stage_size=1, with_batch_dim=False)
 
 
 @register.register_method(output_names=["y"])
 def predict(x):
-    y = register.call_servable(x)
+    y = register.add_stage(model, x, outputs_count=1)
     return y
 ```
 
@@ -208,7 +206,7 @@ from mindspore_serving.server import distributed
 
 
 def start_agents():
-    """Start all the worker agents in current machine"""
+    """Start all the agents in current machine"""
     model_files = []
     group_configs = []
     for i in range(8):
@@ -233,7 +231,7 @@ if __name__ == '__main__':
 
 ### Executing Inference
 
-To access the inference service through gRPC, the client needs to specify the IP address and port of the gRPC server. Run [serving_client.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/serving_client.py) to call the `predict` method of matmul distributed model, execute inference.
+To access the inference service through gRPC, the client needs to specify the network address of the gRPC server. Run [serving_client.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/serving_client.py) to call the `predict` method of matmul distributed model, execute inference.
 
 ```python
 import numpy as np

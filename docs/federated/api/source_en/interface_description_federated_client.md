@@ -9,7 +9,9 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/api/source_en/interface_description_federated_client.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/api/source_en/interface_description_federated_client.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+
+Note that before using the following interfaces, you can first refer to the document [on-device deployment](https://www.mindspore.cn/federated/docs/en/master/deploy_federated_client.html) to deploy related environments.
 
 ## flJobRun() for Starting Federated Learning
 
@@ -17,26 +19,24 @@ Before calling the flJobRun() API, instantiate the parameter class FLParameter a
 
 | Parameter       | Type | Mandatory | Description                                                    | Remarks                                                         |
 | -------------- | -------- | -------- | ----------------------------------------------------------- | ------------------------------------------------------------ |
-| trainDataset   | String   | Y        | Path of the training dataset                                              | The training data of a sentiment classification task is in .txt format. The training files data.bin and label.bin in the image classification task are combined by commas (,).|
-| vocabFile      | String   | Y        | Path of the dictionary file for data preprocessing                                    | This parameter is mandatory for sentiment classification tasks. This parameter does not need to be set for image classification tasks, and the default value is null.|
-| idsFile        | String   | Y        | Path of the mapping ID file of a dictionary                                        | This parameter is mandatory for sentiment classification tasks. This parameter does not need to be set for image classification tasks, and the default value is null.|
-| testDataset    | String   | N        | Path of the test dataset                                              | 1. For image classification tasks, this parameter does not need to be set and the default value is null. For sentiment classification tasks, if this parameter is not set, verification is not performed during training.<br />2. The test data of a sentiment classification task is in .txt format. The test files data.bin and label.bin in the image classification task are combined by commas (,).|
-| flName         | String   | Y        | Name of the model used for federated learning                                      | Set this parameter to `albert` for sentiment classification tasks or `lenet` for the LeNet scenario.|
-| trainModelPath | String   | Y        | Path of a training model used for federated learning, which is an absolute path of the .ms file|                                                              |
-| inferModelPath | String   | Y        | Path of an inference model used for federated learning, which is an absolute path of the .ms file| The value of this parameter need to be the same as that of trainModelPath for supervised sentiment classification tasks and image classification tasks. |
-| clientID       | String   | Y        | Unique ID of a client                                      |                                                              |
-| ip             | String   | Y        | IP address of a service started on the server, for example, `10.113.216.106`| The IP address and port number will be changed to the hostname later.|
-| port           | Integer| Y        | Port number of a service started on the server                                  | The IP address and port number will be changed to the hostname later.|
-| useHttps       | Boolean| N        | Whether to perform SSL certificate authentication for device-cloud communication                                   | The value false indicates HTTP communication, and the value true indicates HTTPS communication. The default value is false. |
-| useSSL         | Boolean| N        | Whether to perform SSL certificate authentication (which applies only to the HTTPS communication scenario) for device-cloud communication | The value false indicates that SSL certificate authentication is not performed. The value true indicates that SSL certificate authentication is performed. The default value is false. |
+| trainDataset   | String   | Y        | Path of the training dataset.                                             | The training data of a sentiment classification task is in .txt format. The training files data.bin and label.bin in the image classification task are combined by commas (,).|
+| vocabFile      | String   | Y        | Path of the dictionary file for data preprocessing.                                   | This parameter is mandatory for sentiment classification tasks. This parameter does not need to be set for image classification tasks, and the default value is null.|
+| idsFile        | String   | Y        | Path of the mapping ID file of a dictionary.                                       | This parameter is mandatory for sentiment classification tasks. This parameter does not need to be set for image classification tasks, and the default value is null.|
+| testDataset    | String   | N        | Path of the test dataset.                                             | 1. For image classification tasks, this parameter does not need to be set and the default value is null. For sentiment classification tasks, if this parameter is not set, verification is not performed during training.<br />2. The test data of a sentiment classification task is in .txt format. The test files data.bin and label.bin in the image classification task are combined by commas (,).|
+| flName         | String   | Y        | Name of the model used for federated learning.                                     | Set this parameter to `albert` for sentiment classification tasks or `lenet` for the LeNet scenario.|
+| trainModelPath | String   | Y        | Path of a training model used for federated learning, which is an absolute path of the .ms file. |                                                              |
+| inferModelPath | String   | Y        | Path of an inference model used for federated learning, which is an absolute path of the .ms file. | The value of this parameter need to be the same as that of trainModelPath for supervised sentiment classification tasks and image classification tasks. |
+| useSSL         | Boolean| N        | Whether to perform SSL certificate authentication (which applies only to the HTTPS communication scenario) for device-cloud communication. | The value false indicates that SSL certificate authentication is not performed. The value true indicates that SSL certificate authentication is performed. The default value is false. |
+| certPath       | String  | N | the SSL root certificate path used for device-cloud https communication. | This parameter must be set when the device-cloud is performing https communication and `useSSL` is set to true. |
+| domainName | String | Y | the url for device-cloud communication. | Currently, https and http communication are supported, the corresponding formats are like: https://......, http://......, and when `useElb` is set to true, the format must be: https://127.0.0.0 : 6666 or http://127.0.0.0 : 6666 , where `127.0.0.0` corresponds to the ip of the machine providing cloud-side services (corresponding to the cloud-side parameter `--scheduler_ip`), and `6666` corresponds to the cloud-side parameter `--fl_server_port`. |
+| ifUseElb | Boolean | Y | Whether to simulate the elastic load balancing. The value true indicates that the client sends requests to a random server address within a specified range. The value false indicates that the client sends a request to a fixed server address. | The default value is false. |
+| serverNum | Integer | Y | Number of servers that can send requests during elastic load balancing simulation. | It can be the same as the number of servers started on the cloud when set `ifUseElb` to true, the default value is 1. |
 
-When `useSSL` is set to `true`, only HTTPS communication is supported. In the preceding parameters, `useHttps` must be set to `true`. In addition, the following parameters need to be set:
+When `useSSL` is set to `true`, only HTTPS communication is supported. In addition, the following parameters need to be set:
 
 ```java
 FLParameter flParameter = FLParameter.getInstance();
-String hostName  =  "10.113.216.106";
-String certPath  =  "client.crt";             // Provide the absolute path of the certificate.
-flParameter.setHostName(hostName);
+String certPath  =  "client.crt";             // Provide the absolute path of the SSL root certificate.
 flParameter.setCertPath(certPath);
 ```
 
@@ -55,11 +55,8 @@ The sample code is as follows:
    String flName = "albert";  
    String trainModelPath = "SyncFLClient/ms/albert/albert_train.mindir.ms";                      // Absolute path
    String inferModelPath = "SyncFLClient/ms/albert/albert_train.mindir.ms";                      // Absolute path
-   String clientID = UUID.randomUUID().toString();
-   String ip = "10.113.216.106";
-   int port = 6668;
-   boolean useHttps = false;
    boolean useSSL = false;
+   String domainName = "http://10.113.216.106:6668";
 
    FLParameter flParameter = FLParameter.getInstance();
    flParameter.setTrainDataset(trainDataset);
@@ -69,11 +66,8 @@ The sample code is as follows:
    flParameter.setFlName(flName);
    flParameter.setTrainModelPath(trainModelPath);
    flParameter.setInferModelPath(inferModelPath);
-   flParameter.setClientID(clientID);
-   flParameter.setIp(ip);
-   flParameter.setPort(port);
-   flParameter.setUseHttps(useHttps);
    flParameter.setUseSSL(useSSL);
+   flParameter.setDomainName(domainName);
 
    // start FLJob
    SyncFLJob syncFLJob = new SyncFLJob();
@@ -89,11 +83,8 @@ The sample code is as follows:
    String flName = "lenet";
    String trainModelPath = "SyncFLClient/lenet_train.mindir0.ms";                      // Absolute path
    String inferModelPath = "SyncFLClient/lenet_train.mindir0.ms";                      // Absolute path
-   String clientID = UUID.randomUUID().toString();
-   String ip = "10.113.216.106";
-   int port = 6668;
-   boolean useHttps = false;
    boolean useSSL = false;
+   String domainName = "http://10.113.216.106:6668";
 
    FLParameter flParameter = FLParameter.getInstance();
    flParameter.setTrainDataset(trainDataset);
@@ -101,11 +92,8 @@ The sample code is as follows:
    flParameter.setFlName(flName);
    flParameter.setTrainModelPath(trainModelPath);
    flParameter.setInferModelPath(inferModelPath);
-   flParameter.setClientID(clientID);
-   flParameter.setIp(ip);
-   flParameter.setPort(port);
-   flParameter.setUseHttps(useHttps);
    flParameter.setUseSSL(useSSL);
+   flParameter.setDomainName(domainName);
 
    // start FLJob
    SyncFLJob syncFLJob = new SyncFLJob();
@@ -116,13 +104,13 @@ The sample code is as follows:
 
 Before calling the modelInference() API, instantiate the parameter class FLParameter and set related parameters as follows:
 
-| Parameter  | Type | Mandatory | Description                                  | Applicable API Version                                                 |
+| Parameter  | Type | Mandatory | DescriptionRemarks                           | Remarks                                                      |
 | --------- | -------- | -------- | ----------------------------------------- | ----------------------------------------------------------- |
-| flName    | String   | Y        | Name of the model used for federated learning                    | Set this parameter to `albert` for sentiment classification tasks or `lenet` for image classification tasks.|
-| dataPath  | String   | Y        | Dataset path                                | The sentiment classification task is in .txt format without labels. The image classification task is in .bin format. |
-| vocabFile | String   | Y        | Path of the dictionary file for data preprocessing                  | This parameter is mandatory for sentiment classification tasks.  This parameter is not needed for image classification task. |
-| idsFile   | String   | Y        | Path of the mapping ID file of a dictionary                      | This parameter is mandatory for sentiment classification tasks. This parameter is not needed for image classification task. |
-| modelPath | String   | Y        | Path of an inference model used for federated learning, which is an absolute path of the .ms file| Both the supervised sentiment classification task and the image classification task need to be set as the same as trainModelPath that used in the federated learning training task |
+| flName    | String   | Y        | Name of the model used for federated learning.                   | Set this parameter to `albert` for sentiment classification tasks or `lenet` for image classification tasks.|
+| dataPath  | String   | Y        | Dataset path.                               | The sentiment classification task is in .txt format without labels. The image classification task is in .bin format. |
+| vocabFile | String   | Y        | Path of the dictionary file for data preprocessing.                 | This parameter is mandatory for sentiment classification tasks.  This parameter is not needed for image classification task. |
+| idsFile   | String   | Y        | Path of the mapping ID file of a dictionary.                     | This parameter is mandatory for sentiment classification tasks. This parameter is not needed for image classification task. |
+| modelPath | String   | Y        | Path of an inference model used for federated learning, which is an absolute path of the .ms file. | Both the supervised sentiment classification task and the image classification task need to be set as the same as trainModelPath that used in the federated learning training task. |
 
 Create a SyncFLJob object and use the modelInference() method of the SyncFLJob class to start an inference task on the device. The inferred label array is returned.
 
@@ -158,7 +146,7 @@ The sample code is as follows:
    String modelPath = "SyncFLClient/lenet_train.mindir0.ms";            // Absolute path
    FLParameter flParameter = FLParameter.getInstance();
    flParameter.setFlName(flName);
-flParameter.setTestDataset(dataPath);
+   flParameter.setTestDataset(dataPath);
    flParameter.setInferModelPath(modelPath);
 
    // inference
@@ -172,24 +160,20 @@ Before calling the getModel() API, instantiate the parameter class FLParameter a
 
 | Parameter       | Type | Mandatory | Description                                                     | Remarks                                                         |
 | -------------- | -------- | -------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| flName         | String   | Y        | Name of the model used for federated learning                                       | Set this parameter to `albert` for sentiment classification tasks or `lenet` for the LeNet scenario.|
-| trainModelPath | String   | Y        | Path of a training model used for federated learning, which is an absolute path of the .ms file|                                                              |
-| inferModelPath | String   | Y        | Path of an inference model used for federated learning, which is an absolute path of the .ms file| The value of this parameter need to be the same as that of trainModelPath for supervised sentiment classification tasks and image classification tasks. |
-| ip             | String   | Y        | IP address of a service started on the server, for example, `10.113.216.106`| The IP address and port number will be changed to the hostname later.|
-| port           | Integer| Y        | Port number of a service started on the server                                  | The IP address and port number will be changed to the hostname later.|
-| useHttps       | Boolean| N        | Whether to perform SSL certificate authentication for device-cloud communication                                   | The value false indicates HTTP communication, and the value true indicates HTTPS communication. The default value is false. |
-| useSSL         | Boolean| N        | Whether to perform SSL certificate authentication (which applies only to the HTTPS communication scenario) for device-cloud communication | The value false indicates that SSL certificate authentication is not performed. The value true indicates that SSL certificate authentication is performed. The default value is false. |
-| useElb         | Boolean| Y        | Whether to simulate the elastic load balancing. The value true indicates that the client sends requests to a random server address within a specified range. The value false indicates that the client sends a request to a fixed server address.|                                                              |
-| serverNum      | Integer| Y        | Number of servers that can send requests during elastic load balancing simulation, which must be the same as the number of servers started on the cloud|                                                              |
+| flName         | String   | Y        | Name of the model used for federated learning.                                      | Set this parameter to `albert` for sentiment classification tasks or `lenet` for the LeNet scenario.|
+| trainModelPath | String   | Y        | Path of a training model used for federated learning, which is an absolute path of the .ms file. |                                                              |
+| inferModelPath | String   | Y        | Path of an inference model used for federated learning, which is an absolute path of the .ms file. | The value of this parameter need to be the same as that of trainModelPath for supervised sentiment classification tasks and image classification tasks. |
+| useSSL         | Boolean| N        | Whether to perform SSL certificate authentication (which applies only to the HTTPS communication scenario) for device-cloud communication. | The value false indicates that SSL certificate authentication is not performed. The value true indicates that SSL certificate authentication is performed. The default value is false. |
+| certPath | String | N | the SSL root certificate path used for device-cloud https communication. | This parameter must be set when the device-cloud is performing https communication and `useSSL` is set to true. |
+| domainName | String | Y | the url for device-cloud communication. | Currently, https and http communication are supported, the corresponding formats are like: https://......, http://......, and when `useElb` is set to true, the format must be: https://127.0.0.0 : 6666 or http://127.0.0.0 : 6666 , where `127.0.0.0` corresponds to the ip of the machine providing cloud-side services (corresponding to the cloud-side parameter `--scheduler_ip`), and `6666` corresponds to the cloud-side parameter `--fl_server_port`. |
+| ifUseElb      | Boolean| Y        | Whether to simulate the elastic load balancing. The value true indicates that the client sends requests to a random server address within a specified range. The value false indicates that the client sends a request to a fixed server address. | The default value is false. |
+| serverNum      | Integer| Y        | Number of servers that can send requests during elastic load balancing simulation. | It can be the same as the number of servers started on the cloud when set `ifUseElb` to true, the default value is 1. |
 
-When `useSSL` is set to `true`, only HTTPS communication is supported. In the preceding parameters, `useHttps` must be set to `true`. In addition, the following parameters need to be set:
+When `useSSL` is set to `true`, only HTTPS communication is supported. In addition, the following parameters need to be set:
 
 ```java
 FLParameter flParameter = FLParameter.getInstance();
-String hostName  =  "10.113.216.106";
-String certPath  =  "client.crt";             // Provide the absolute path of the certificate.
-
-flParameter.setHostName(hostName);
+String certPath  =  "client.crt";             // Provide the absolute path of the SSL root certificate.
 flParameter.setCertPath(certPath);
 ```
 
@@ -204,10 +188,8 @@ The sample code is as follows:
    String flName = "albert";     // Set this parameter to `albert` for sentiment classification tasks or `lenet` for image classification tasks.
    String trainModelPath = "SyncFLClient/ms/albert/albert_train.mindir.ms";                      // Absolute path
    String inferModelPath = "SyncFLClient/ms/albert/albert_train.mindir.ms";                      // Absolute path
-   String ip = "10.113.216.106";
-   int port = 6668;
-   boolean useHttps = false;
    boolean useSSL = false;
+   String domainName = "http://10.113.216.106:6668";
    boolean useElb = false;
    int serverNum = 1;
 
@@ -215,10 +197,8 @@ The sample code is as follows:
    flParameter.setFlName(flName);
    flParameter.setTrainModelPath(trainModelPath);
    flParameter.setInferModelPath(inferModelPath);
-   flParameter.setIp(ip);
-   flParameter.setPort(port);
-   flParameter.setUseHttps(useHttps);
    flParameter.setUseSSL(useSSL);
+   flParameter.setDomainName(domainName);
    flParameter.setUseElb(useElb);
    flParameter.setServerNum(serverNum);
 
@@ -234,10 +214,8 @@ The sample code is as follows:
    String flName = "lenet";     // Set this parameter to `albert` for sentiment classification tasks or `lenet` for the LeNet scenario.
    String trainModelPath = "SyncFLClient/lenet_train.mindir0.ms";                      // Absolute path
    String inferModelPath = "SyncFLClient/lenet_train.mindir0.ms";                      // Absolute path
-   String ip = "10.113.216.106";
-   int port = 6668
-   boolean useHttps = false;
    boolean useSSL = false;
+   String domainName = "http://10.113.216.106:6668";
    boolean useElb = false;
    int serverNum = 1;
 
@@ -245,10 +223,8 @@ The sample code is as follows:
    flParameter.setFlName(flName);
    flParameter.setTrainModelPath(trainModelPath);
    flParameter.setInferModelPath(inferModelPath);
-   flParameter.setIp(ip);
-   flParameter.setPort(port);
-   flParameter.setUseHttps(useHttps);
    flParameter.setUseSSL(useSSL);
+   flParameter.setDomainName(domainName);
    flParameter.setUseElb(useElb);
    flParameter.setServerNum(serverNum);
 

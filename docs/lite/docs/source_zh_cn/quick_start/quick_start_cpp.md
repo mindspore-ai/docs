@@ -7,8 +7,12 @@
 - [体验C++极简推理Demo](#体验c极简推理demo)
     - [概述](#概述)
     - [构建与运行](#构建与运行)
-    - [模型加载](#模型加载)
-    - [模型编译](#模型编译)
+        - [Linux x86](#linux-x86)
+        - [Windows](#windows)
+    - [配置CMake](#配置CMake)
+    - [模型读取](#模型读取)
+    - [创建配置上下文](#创建配置上下文)
+    - [模型创建加载与编译](#模型创建加载与编译)
     - [模型推理](#模型推理)
     - [内存释放](#内存释放)
 
@@ -16,20 +20,21 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/quick_start/quick_start_cpp.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
+> MindSpore已经统一了端边云推理API，如您想继续使用MindSpore Lite独立API进行端侧推理，可以参考[此文档](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/quick_start/quick_start_cpp.html)。
+
 ## 概述
 
 本教程提供了MindSpore Lite执行推理的示例程序，通过随机输入、执行推理、打印推理结果的方式，演示了C++进行端侧推理的基本流程，用户能够快速了解MindSpore Lite执行推理相关API的使用。本教程通过随机生成的数据作为输入数据，执行MobileNetV2模型的推理，打印获得输出数据。相关代码放置在[mindspore/lite/examples/quick_start_cpp](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_cpp)目录。
 
 使用MindSpore Lite执行推理主要包括以下步骤：
 
-1. 模型加载：从文件系统中读取由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)转换得到的`.ms`模型，通过[mindspore::lite::Model::Import](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/lite.html#import)导入模型，进行模型解析，创建得到 `Model *`。
-2. 创建配置上下文：创建配置上下文[Context](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/lite.html#context)，保存会话所需的一些基本配置参数，用于指导图编译和图执行。
-3. 创建会话：创建[LiteSession](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/session.html#litesession)会话，并将上一步得到的[Context](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/lite.html#context)配置到会话中。
-4. 图编译：执行推理之前，需要调用[LiteSession](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/session.html#litesession)的`CompileGraph`接口进行图编译。图编译阶段主要进行子图切分、算子选型调度等过程，该阶段会耗费较多时间，所以建议[LiteSession](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/session.html#litesession)创建一次，编译一次，多次推理。
-5. 输入数据：图执行之前需要向`输入Tensor`中填充数据。
-6. 执行推理：使用[LiteSession](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/session.html#litesession)的`RunGraph`进行模型推理。
-7. 获得输出：图执行结束之后，可以通过`输出Tensor`得到推理结果。
-8. 释放内存：无需使用MindSpore Lite推理框架时，需要释放已创建的[LiteSession](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/session.html#litesession)和[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/lite.html#model)。
+1. 模型读取：从文件系统中读取由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)转换得到的`.ms`模型。
+2. 创建配置上下文：创建配置上下文[Context](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)，保存需要的一些基本配置参数，用于指导模型编译和模型执行。
+3. 模型创建、加载与编译：执行推理之前，需要调用[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)的[Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build)接口进行模型加载和模型编译，并将上一步得到的Context配置到Model中。模型加载阶段将文件缓存解析成运行时的模型。模型编译阶段主要进行算子选型调度、子图切分等过程，该阶段会耗费较多时间，所以建议Model创建一次，编译一次，多次推理。
+4. 输入数据：模型执行之前需要向`输入Tensor`中填充数据。
+5. 执行推理：使用[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)的[Predict](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#predict)接口进行模型推理。
+6. 获得输出：模型执行结束之后，可以通过`输出Tensor`得到推理结果。
+7. 释放内存：无需使用MindSpore Lite推理框架时，需要释放已创建的[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)。
 
 ![img](../images/lite_runtime.png)
 
@@ -71,8 +76,8 @@
   执行完成后将能得到如下结果，打印输出Tensor的名称、输出Tensor的大小，输出Tensor的数量以及前50个数据：
 
   ```text
-  tensor name is:Default/head-MobileNetV2Head/Softmax-op204 tensor size is:4000 tensor elements num is:1000
-  output data is:5.26823e-05 0.00049752 0.000296722 0.000377607 0.000177048 8.02107e-05 0.000212864 0.000422286 0.000273189 0.000234105 0.00099807 0.0042331 0.00204993 0.00124968 0.00294458 0.00139795 0.00111545 0.000656357 0.000809457 0.00153731 0.000621049 0.00224637 0.00127045 0.00187557 0.000420144 0.000150638 0.000266477 0.000438628 0.000187773 0.00054668 0.000212853 0.000921661 0.000127179 0.000565873 0.00100394 0.000300159 0.000282677 0.000358067 0.00215288 0.000477845 0.00107596 0.00065134 0.000722132 0.000807501 0.000631415 0.00043247 0.00125898 0.000255094 8.2606e-05 9.91917e-05 0.000794512
+  tensor name is:Softmax-65 tensor size is:4004 tensor elements num is:1001
+  output data is:1.74225e-05 1.15919e-05 2.02728e-05 0.000106485 0.000124295 0.00140576 0.000185107 0.000762011 1.50996e-05 5.91942e-06 6.61469e-06 3.72883e-06 4.30761e-06 2.38897e-06 1.5163e-05 0.000192663 1.03767e-05 1.31953e-05 6.69638e-06 3.17411e-05 4.00895e-06 9.9641e-06 3.85127e-06 6.25101e-06 9.08853e-06 1.25043e-05 1.71761e-05 4.92751e-06 2.87637e-05 7.46446e-06 1.39375e-05 2.18824e-05 1.08861e-05 2.5007e-06 3.49876e-05 0.000384547 5.70778e-06 1.28909e-05 1.11038e-05 3.53906e-06 5.478e-06 9.76608e-06 5.32172e-06 1.10386e-05 5.35474e-06 1.35796e-05 7.12652e-06 3.10017e-05 4.34154e-06 7.89482e-05 1.79441e-05
   ```
 
 ### Windows
@@ -107,8 +112,8 @@
   执行完成后将能得到如下结果，打印输出Tensor的名称、输出Tensor的大小，输出Tensor的数量以及前50个数据：
 
   ```text
-  tensor name is:Default/head-MobileNetV2Head/Softmax-op204 tensor size is:4000 tensor elements num is:1000
-  output data is:5.26823e-05 0.00049752 0.000296722 0.000377607 0.000177048 8.02107e-05 0.000212864 0.000422286 0.000273189 0.000234105 0.00099807 0.0042331 0.00204993 0.00124968 0.00294458 0.00139795 0.00111545 0.000656357 0.000809457 0.00153731 0.000621049 0.00224637 0.00127045 0.00187557 0.000420144 0.000150638 0.000266477 0.000438628 0.000187773 0.00054668 0.000212853 0.000921661 0.000127179 0.000565873 0.00100394 0.000300159 0.000282677 0.000358067 0.00215288 0.000477845 0.00107596 0.00065134 0.000722132 0.000807501 0.000631415 0.00043247 0.00125898 0.000255094 8.2606e-05 9.91917e-05 0.000794512
+  tensor name is:Softmax-65 tensor size is:4004 tensor elements num is:1001
+  output data is:1.74225e-05 1.15919e-05 2.02728e-05 0.000106485 0.000124295 0.00140576 0.000185107 0.000762011 1.50996e-05 5.91942e-06 6.61469e-06 3.72883e-06 4.30761e-06 2.38897e-06 1.5163e-05 0.000192663 1.03767e-05 1.31953e-05 6.69638e-06 3.17411e-05 4.00895e-06 9.9641e-06 3.85127e-06 6.25101e-06 9.08853e-06 1.25043e-05 1.71761e-05 4.92751e-06 2.87637e-05 7.46446e-06 1.39375e-05 2.18824e-05 1.08861e-05 2.5007e-06 3.49876e-05 0.000384547 5.70778e-06 1.28909e-05 1.11038e-05 3.53906e-06 5.478e-06 9.76608e-06 5.32172e-06 1.10386e-05 5.35474e-06 1.35796e-05 7.12652e-06 3.10017e-05 4.34154e-06 7.89482e-05 1.79441e-05
   ```
 
 ## 配置CMake
@@ -132,7 +137,7 @@ endif()
 # Add directory to include search path
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
-# Add directory to link search path
+# Add directory to linker search path
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib)
 
 file(GLOB_RECURSE QUICK_START_CXX ${CMAKE_CURRENT_SOURCE_DIR}/*.cc)
@@ -159,60 +164,83 @@ else()
 endif()
 ```
 
-## 模型加载
+## 模型读取
 
-模型加载需要从文件系统中读取MindSpore Lite模型，并通过`mindspore::lite::Model::Import`函数导入模型进行解析。
+模型读取需要从文件系统中读取MindSpore Lite模型，存放在内存缓冲区。
 
 ```c++
 // Read model file.
 size_t size = 0;
-char *model_buf = ReadFile(model_path, &size);
+char *model_buf = ReadFile(model_path.c_str(), &size);
 if (model_buf == nullptr) {
   std::cerr << "Read model file failed." << std::endl;
   return -1;
 }
-// Load the .ms model.
-auto model = mindspore::lite::Model::Import(model_buf, size);
-delete[](model_buf);
+```
+
+## 创建配置上下文
+
+```c++
+// Create and init context, add CPU device info
+auto context = std::make_shared<mindspore::Context>();
+if (context == nullptr) {
+  std::cerr << "New context failed." << std::endl;
+  return -1;
+}
+auto &device_list = context->MutableDeviceInfo();
+auto device_info = std::make_shared<mindspore::CPUDeviceInfo>();
+if (device_info == nullptr) {
+  std::cerr << "New CPUDeviceInfo failed." << std::endl;
+  return -1;
+}
+device_list.push_back(device_info);
+```
+
+## 模型创建加载与编译
+
+模型加载与编译可以调用[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)的复合[Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build)接口，直接从文件缓存加载、编译得到运行时的模型。
+
+```c++
+// Create model
+auto model = new (std::nothrow) mindspore::Model();
 if (model == nullptr) {
-  std::cerr << "Import model file failed." << std::endl;
+  std::cerr << "New Model failed." << std::endl;
+  return -1;
+}
+// Build model
+auto build_ret = model->Build(model_buf, size, mindspore::kMindIR, context);
+delete[](model_buf);
+if (build_ret != mindspore::kSuccess) {
+  std::cerr << "Build model error " << build_ret << std::endl;
   return -1;
 }
 ```
 
-## 模型编译
-
-模型编译主要包括创建配置上下文、创建会话、图编译等步骤。
+也可以分别调用[Serialization](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#serialization)的[Load](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#load)接口去加载模型得到[Graph](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#graph)，调用[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)的[Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build)去构建模型。
 
 ```c++
-mindspore::session::LiteSession *Compile(mindspore::lite::Model *model) {
-  // Create and init context.
-  auto context = std::make_shared<mindspore::lite::Context>();
-  if (context == nullptr) {
-    std::cerr << "New context failed while." << std::endl;
-    return nullptr;
-  }
+// Load graph.
+mindspore::Graph graph;
+auto load_ret = mindspore::Serialization::Load(model_buf, size, mindspore::kMindIR, &graph);
+delete[](model_buf);
+if (load_ret != mindspore::kSuccess) {
+  std::cerr << "Load graph file failed." << std::endl;
+  return -1;
+}
 
-  // Create the session.
-  mindspore::session::LiteSession *session = mindspore::session::LiteSession::CreateSession(context.get());
-  if (session == nullptr) {
-    std::cerr << "CreateSession failed while running." << std::endl;
-    return nullptr;
-  }
-
-  // Compile graph.
-  auto ret = session->CompileGraph(model);
-  if (ret != mindspore::lite::RET_OK) {
-    delete session;
-    std::cerr << "Compile failed while running." << std::endl;
-    return nullptr;
-  }
-
-  // Note: when use model->Free(), the model can not be compiled again.
-  if (model != nullptr) {
-    model->Free();
-  }
-  return session;
+// Create model
+auto model = new (std::nothrow) mindspore::Model();
+if (model == nullptr) {
+  std::cerr << "New Model failed." << std::endl;
+  return -1;
+}
+// Build model
+mindspore::GraphCell graph_cell(graph);
+auto build_ret = model->Build(graph_cell, context);
+if (build_ret != mindspore::kSuccess) {
+  delete model;
+  std::cerr << "Build model error " << build_ret << std::endl;
+  return -1;
 }
 ```
 
@@ -221,46 +249,44 @@ mindspore::session::LiteSession *Compile(mindspore::lite::Model *model) {
 模型推理主要包括输入数据、执行推理、获得输出等步骤，其中本示例中的输入数据是通过随机数据构造生成，最后将执行推理后的输出结果打印出来。
 
 ```c++
-int Run(mindspore::session::LiteSession *session) {
-  auto inputs = session->GetInputs();
+// Get Input
+auto inputs = model->GetInputs();
+// Generate random data as input data.
+auto ret = GenerateInputDataWithRandom(inputs);
+if (ret != mindspore::kSuccess) {
+  delete model;
+  std::cerr << "Generate Random Input Data failed." << std::endl;
+  return -1;
+}
+// Get Output
+auto outputs = model->GetOutputs();
 
-  // Generate random data as input data.
-  auto ret = GenerateInputDataWithRandom(inputs);
-  if (ret != mindspore::lite::RET_OK) {
-    std::cerr << "Generate Random Input Data failed." << std::endl;
-    return ret;
-  }
+// Model Predict
+auto predict_ret = model->Predict(inputs, &outputs);
+if (predict_ret != mindspore::kSuccess) {
+  delete model;
+  std::cerr << "Predict model error " << predict_ret << std::endl;
+  return -1;
+}
 
-  // Run Inference.
-  ret = session->RunGraph();
-  if (ret != mindspore::lite::RET_OK) {
-    std::cerr << "Inference error " << ret << std::endl;
-    return ret;
+// Print Output Tensor Data.
+for (auto tensor : outputs) {
+  std::cout << "tensor name is:" << tensor.Name() << " tensor size is:" << tensor.DataSize()
+            << " tensor elements num is:" << tensor.ElementNum() << std::endl;
+  auto out_data = reinterpret_cast<const float *>(tensor.Data().get());
+  std::cout << "output data is:";
+  for (int i = 0; i < tensor.ElementNum() && i <= 50; i++) {
+    std::cout << out_data[i] << " ";
   }
-
-  // Get Output Tensor Data.
-  auto out_tensors = session->GetOutputs();
-  for (auto tensor : out_tensors) {
-    std::cout << "tensor name is:" << tensor.first << " tensor size is:" << tensor.second->Size()
-              << " tensor elements num is:" << tensor.second->ElementsNum() << std::endl;
-    auto out_data = reinterpret_cast<float *>(tensor.second->MutableData());
-    std::cout << "output data is:";
-    for (int i = 0; i < tensor.second->ElementsNum() && i <= 50; i++) {
-      std::cout << out_data[i] << " ";
-    }
-    std::cout << std::endl;
-  }
-  return mindspore::lite::RET_OK;
+  std::cout << std::endl;
 }
 ```
 
 ## 内存释放
 
-无需使用MindSpore Lite推理框架时，需要释放已经创建的`LiteSession`和`Model`。
+无需使用MindSpore Lite推理框架时，需要释放已经创建的`Model`。
 
 ```c++
-// Delete model buffer.
+// Delete model.
 delete model;
-// Delete session buffer.
-delete session;
 ```

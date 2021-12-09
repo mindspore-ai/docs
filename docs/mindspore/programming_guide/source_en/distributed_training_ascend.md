@@ -1,10 +1,10 @@
-# Parallel Distributed Training (Ascend)
+# Parallel Distributed Training Example (Ascend)
 
-`Linux` `Ascend` `Model Training` `Intermediate` `Expert`
+`Ascend` `Distributed Parallel` `Whole Process`
 
 <!-- TOC -->
 
-- [Parallel Distributed Training (Ascend)](#parallel-distributed-training-ascend)
+- [Parallel Distributed Training Example (Ascend)](#parallel-distributed-training-example-ascend)
     - [Overview](#overview)
     - [Preparations](#preparations)
         - [Downloading the Dataset](#downloading-the-dataset)
@@ -19,16 +19,17 @@
         - [Defining the Optimizer](#defining-the-optimizer)
     - [Training the Network](#training-the-network)
     - [Running the Script](#running-the-script)
+        - [Single-host Training](#single-host-training)
+        - [Multi-host Training](#multi-host-training)
     - [Distributed Training Model Parameters Saving and Loading](#distributed-training-model-parameters-saving-and-loading)
         - [Auto Parallel Mode](#auto-parallel-mode)
         - [Data Parallel Mode](#data-parallel-mode)
-        - [Semi Auto Parallel Mode](#semi-auto-parallel-mode)
-        - [Hybrid Parallel Mode](#hybrid-parallel-mode)
-    - [Multi-machine Training](#multi-machine-training)
+        - [Semi Auto Parallel Mode](#semi-auto-parallel-mode-1)
+        - [Hybrid Parallel Mode](#hybrid-parallel-mode-1)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/distributed_training_ascend.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/distributed_training_ascend.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -115,6 +116,7 @@ The Huawei Collective Communication Library (HCCL) is used for the communication
 > - Each host has four devices numbered 0 to 3 and four devices numbered 4 to 7 deployed on two different networks. During training of 2 or 4 devices, the devices must be connected and clusters cannot be created across networks.
 > - When we create a multi-node system, all nodes should use one same switch.
 > - The server hardware architecture and operating system require the symmetrical multi-processing (SMP) mode.
+> - Currently only supports global single group communication in PyNative mode.
 
 The sample code for calling the HCCL is as follows:
 
@@ -202,7 +204,7 @@ In this section we focus on how to define a network in hybrid parallel or semi-a
 
 Hybrid parallel mode adds the setting `layerwise_parallel` for `parameter` based on the data parallel mode. The `parameter` with the settig would be saved and computed in slice tensor and would not apply gradients aggregation. In this mode, MindSpore would not infer computation and communication for parallel operators automatically. To ensure the consistency of calculation logic, users are required to manually infer extra operations and insert them to networks. Therefore, this parallel mode is suitable for the users with deep understanding of parallel theory.
 
-In the following example, specify the `self.weight` as the `layerwise_parallel`, that is, the `self.weight` and the output of `MatMul` are sliced on the second dimension. At this time, perform ReduceSum on the second dimension would only get one sliced result. `AllReduce.Sum` is required here to accumulate the results among all devices. More information about the parallel theory please refer to the [design document](https://www.mindspore.cn/docs/note/en/master/design/distributed_training_design.html).
+In the following example, specify the `self.weight` as the `layerwise_parallel`, that is, the `self.weight` and the output of `MatMul` are sliced on the second dimension. At this time, perform ReduceSum on the second dimension would only get one sliced result. `AllReduce.Sum` is required here to accumulate the results among all devices. More information about the parallel theory please refer to the [design document](https://www.mindspore.cn/docs/programming_guide/en/master/design/distributed_training_design.html).
 
 ```python
 from mindspore import Tensor
@@ -229,9 +231,9 @@ class HybridParallelNet(nn.Cell):
 
 ### Semi Auto Parallel Mode
 
-Compared with the auto parallel mode, semi auto parallel mode supports manual configuration on shard strategies for network tuning. The definition of shard strategies could be referred by this [design document](https://www.mindspore.cn/docs/note/en/master/design/distributed_training_design.html).
+Compared with the auto parallel mode, semi auto parallel mode supports manual configuration on shard strategies for network tuning. The definition of shard strategies could be referred by this [design document](https://www.mindspore.cn/docs/programming_guide/en/master/design/distributed_training_design.html).
 
-In the above example `HybridParallelNet`, the script in semi auto parallel mode is as follows. The shard stratege of `MatMul` is `{(1, 1), (1, 2)}`, which means `self.weight` is sliced at the second dimension.
+In the above example `HybridParallelNet`, the script in semi auto parallel mode is as follows. The shard stratege of `MatMul` is `((1, 1), (1, 2))`, which means `self.weight` is sliced at the second dimension.
 
 ```python
 from mindspore import Tensor
@@ -246,7 +248,7 @@ class SemiAutoParallelNet(nn.Cell):
         weight_init = np.random.rand(512, 128).astype(np.float32)
         self.weight = Parameter(Tensor(weight_init))
         # set shard strategy
-        self.fc = ops.MatMul().shard({(1, 1),(1, 2)})
+        self.fc = ops.MatMul().shard(((1, 1),(1, 2)))
         self.reduce = ops.ReduceSum()
 
     def construct(self, x):
@@ -356,6 +358,8 @@ In the preceding code:
 
 ## Running the Script
 
+### Single-host Training
+
 After the script required for training is edited, run the corresponding command to call the script.
 
 Currently, MindSpore distributed execution uses the single-device single-process running mode. That is, one process runs on each device, and the number of total processes is the same as the number of devices that are being used. For device 0, the corresponding process is executed in the foreground. For other devices, the corresponding processes are executed in the background. You need to create a directory for each process to store log information and operator compilation information. The following takes the distributed training script for eight devices as an example to describe how to run the script:
@@ -447,13 +451,112 @@ epoch: 9 step: 156, loss is 1.2316195
 epoch: 10 step: 156, loss is 1.1533381
 ```
 
+### Multi-host Training
+
+The previous chapters introduced the distributed training of MindSpore, which is based on the Ascend environment of a single host with multiple cards. Using multiple hosts for distributed training can greatly improve the training speed.
+In the Ascend environment, the communication between NPU units across hosts is the same as the communication between each NPU unit in a single host. It is still communicated through HCCL. The difference is that the NPU units in a single host are naturally interoperable, while cross-host communication needs to be guaranteed that the networks of the two hosts are interoperable.
+After confirming that the network of the NPU unit between the hosts is smooth, configure the json configuration file of multiple hosts. This tutorial takes the configuration file of 16 cards as an example. The detailed configuration file description can refer to the introduction of the single-host multi-card part of this tutorial. It should be noted that in the json file configuration of multiple hosts, the order of rank_id is required to be consistent with the lexicographic order of server_id.
+
+```json
+{
+    "version": "1.0",
+    "server_count": "2",
+    "server_list": [
+        {
+            "server_id": "10.155.111.140",
+            "device": [
+                {"device_id": "0","device_ip": "192.1.27.6","rank_id": "0"},
+                {"device_id": "1","device_ip": "192.2.27.6","rank_id": "1"},
+                {"device_id": "2","device_ip": "192.3.27.6","rank_id": "2"},
+                {"device_id": "3","device_ip": "192.4.27.6","rank_id": "3"},
+                {"device_id": "4","device_ip": "192.1.27.7","rank_id": "4"},
+                {"device_id": "5","device_ip": "192.2.27.7","rank_id": "5"},
+                {"device_id": "6","device_ip": "192.3.27.7","rank_id": "6"},
+                {"device_id": "7","device_ip": "192.4.27.7","rank_id": "7"}],
+             "host_nic_ip": "reserve"
+        },
+        {
+            "server_id": "10.155.111.141",
+            "device": [
+                {"device_id": "0","device_ip": "192.1.27.8","rank_id": "8"},
+                {"device_id": "1","device_ip": "192.2.27.8","rank_id": "9"},
+                {"device_id": "2","device_ip": "192.3.27.8","rank_id": "10"},
+                {"device_id": "3","device_ip": "192.4.27.8","rank_id": "11"},
+                {"device_id": "4","device_ip": "192.1.27.9","rank_id": "12"},
+                {"device_id": "5","device_ip": "192.2.27.9","rank_id": "13"},
+                {"device_id": "6","device_ip": "192.3.27.9","rank_id": "14"},
+                {"device_id": "7","device_ip": "192.4.27.9","rank_id": "15"}],
+            "host_nic_ip": "reserve"
+        }
+    ],
+    "status": "completed"
+}
+```
+
+After preparing the configuration file, you can organize distributed multi-host training scripts. Taking 2 hosts with 16 cards as an example, the scripts written on the two hosts are similar to the running scripts of a single host with multiple cards. The difference is that different rank_id variables are specified.
+
+```bash
+#!/bin/bash
+
+echo "=============================================================================================================="
+echo "Please run the script as: "
+echo "bash run_cluster.sh DATA_PATH RANK_TABLE_FILE RANK_SIZE RANK_START"
+echo "For example: bash run_cluster.sh /path/dataset /path/rank_table.json 16 0"
+echo "It is better to use the absolute path."
+echo "The time interval between multiple hosts to execute the script should not exceed 120s"
+echo "=============================================================================================================="
+
+execute_path=$(pwd)
+echo ${execute_path}
+script_self=$(readlink -f "$0")
+self_path=$(dirname "${script_self}")
+echo ${self_path}
+
+export DATA_PATH=$1
+export RANK_TABLE_FILE=$2
+export RANK_SIZE=$3
+RANK_START=$4
+DEVICE_START=0
+for((i=0;i<=7;i++));
+do
+  export RANK_ID=$[i+RANK_START]
+  export DEVICE_ID=$[i+DEVICE_START]
+  rm -rf ${execute_path}/device_$RANK_ID
+  mkdir ${execute_path}/device_$RANK_ID
+  cd ${execute_path}/device_$RANK_ID || exit
+  pytest -s ${self_path}/resnet50_distributed_training.py >train$RANK_ID.log 2>&1 &
+done
+```
+
+For the reference scripts listed above, the required code organization structure is as follows. The script will get the path of the script and the path of the command execution, and put all tasks in the background for execution, the code link can be obtained at the top of this tutorial.
+
+```text
+└─sample_code
+    ├─distributed_training
+    │      resnet50_distributed_training.py
+    │      run_cluster.sh
+```
+
+When executing, the two hosts execute the following commands respectively, among which rank_table.json is configured according to the 16-card distributed json file reference configuration shown in this chapter.
+
+```bash
+# server0
+bash run.sh /path/dataset /path/rank_table.json 16 0
+# server1
+bash run.sh /path/dataset /path/rank_table.json 16 8
+```
+
+### Non-sink Mode Training
+
+In graph mode, you can specify to train the model in a non-sink mode by setting the environment variable [GRAPH_OP_RUN](https://www.mindspore.cn/docs/note/en/master/env_var_list.html)=1. In this case, you need to set environment variable `HCCL_WHITELIST_DISABLE=1` and train model with OpenMPI `mpirun`. The startup script is consistent with the [GPU's distributed training](https://www.mindspore.cn/docs/programming_guide/en/master/distributed_training_gpu.html#running-the-script) script.
+
 ## Distributed Training Model Parameters Saving and Loading
 
 The below content introduced how to save and load models under the four distributed parallel training modes respectively. Before saving model parameters for distributed training, it is necessary to configure distributed environment variables and collective communication library in accordance with this tutorial.
 
 ### Auto Parallel Mode
 
-It is convenient to save and load the model parameters in auto parallel mode. Just add configuration `CheckpointConfig` and `ModelCheckpoint` to `test_train_cifar` method in the training network steps of this tutorial, and the model parameters can be saved. The code is as follows:
+It is convenient to save and load the model parameters in auto parallel mode. Just add configuration `CheckpointConfig` and `ModelCheckpoint` to `test_train_cifar` method in the training network steps of this tutorial, and the model parameters can be saved. It should be noted that in parallel mode, you need to specify a different checkpoint save path for the scripts running on each card to prevent conflicts when reading and writing files, The code is as follows:
 
 ```python
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
@@ -468,7 +571,7 @@ def test_train_cifar(epoch_size=10):
     loss = SoftmaxCrossEntropyExpand(sparse=True)
     opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), 0.01, 0.9)
     ckpt_config = CheckpointConfig()
-    ckpt_callback = ModelCheckpoint(prefix='auto_parallel', config=ckpt_config)
+    ckpt_callback = ModelCheckpoint(prefix='auto_parallel', directory="./ckpt_" + str(get_rank()) + "/", config=ckpt_config)
     model = Model(net, loss_fn=loss, optimizer=opt)
     model.train(epoch_size, dataset, callbacks=[loss_cb, ckpt_callback], dataset_sink_mode=True)
 ```
@@ -576,98 +679,3 @@ It should be noted that if users choose this checkpoint saving policy, users nee
 ### Hybrid Parallel Mode
 
 For model parameter saving and loading in Hybrid Parallel Mode, please refer to [Saving and Loading Model Parameters in the Hybrid Parallel Scenario](https://www.mindspore.cn/docs/programming_guide/en/master/save_load_model_hybrid_parallel.html).
-
-## Multi-machine Training
-
-The previous chapters introduced the distributed training of MindSpore, which is based on the Ascend environment of a single machine with multiple cards. Using multiple machines for distributed training can greatly improve the training speed.
-In the Ascend environment, the communication between NPU units across machines is the same as the communication between each NPU unit in a single machine. It is still communicated through HCCL. The difference is that the NPU units in a single machine are naturally interoperable, while cross-machine communication needs to be guaranteed that the networks of the two machines are interoperable.
-After confirming that the network of the NPU unit between the machines is smooth, configure the json configuration file of multiple machines. This tutorial takes the configuration file of 16 cards as an example. The detailed configuration file description can refer to the introduction of the single-machine multi-card part of this tutorial. It should be noted that in the json file configuration of multiple machines, the order of rank_id is required to be consistent with the lexicographic order of server_id.
-
-```json
-{
-    "version": "1.0",
-    "server_count": "2",
-    "server_list": [
-        {
-            "server_id": "10.155.111.140",
-            "device": [
-                {"device_id": "0","device_ip": "192.1.27.6","rank_id": "0"},
-                {"device_id": "1","device_ip": "192.2.27.6","rank_id": "1"},
-                {"device_id": "2","device_ip": "192.3.27.6","rank_id": "2"},
-                {"device_id": "3","device_ip": "192.4.27.6","rank_id": "3"},
-                {"device_id": "4","device_ip": "192.1.27.7","rank_id": "4"},
-                {"device_id": "5","device_ip": "192.2.27.7","rank_id": "5"},
-                {"device_id": "6","device_ip": "192.3.27.7","rank_id": "6"},
-                {"device_id": "7","device_ip": "192.4.27.7","rank_id": "7"}],
-             "host_nic_ip": "reserve"
-        },
-        {
-            "server_id": "10.155.111.141",
-            "device": [
-                {"device_id": "0","device_ip": "192.1.27.8","rank_id": "8"},
-                {"device_id": "1","device_ip": "192.2.27.8","rank_id": "9"},
-                {"device_id": "2","device_ip": "192.3.27.8","rank_id": "10"},
-                {"device_id": "3","device_ip": "192.4.27.8","rank_id": "11"},
-                {"device_id": "4","device_ip": "192.1.27.9","rank_id": "12"},
-                {"device_id": "5","device_ip": "192.2.27.9","rank_id": "13"},
-                {"device_id": "6","device_ip": "192.3.27.9","rank_id": "14"},
-                {"device_id": "7","device_ip": "192.4.27.9","rank_id": "15"}],
-            "host_nic_ip": "reserve"
-        }
-    ],
-    "status": "completed"
-}
-```
-
-After preparing the configuration file, you can organize distributed multi-machine training scripts. Taking 2 machines with 16 cards as an example, the scripts written on the two machines are similar to the running scripts of a single machine with multiple cards. The difference is that different rank_id variables are specified.
-
-```bash
-#!/bin/bash
-
-echo "=============================================================================================================="
-echo "Please run the script as: "
-echo "bash run_cluster.sh DATA_PATH RANK_TABLE_FILE RANK_SIZE RANK_START"
-echo "For example: bash run_cluster.sh /path/dataset /path/rank_table.json 16 0"
-echo "It is better to use the absolute path."
-echo "The time interval between multiple machines to execute the script should not exceed 120s"
-echo "=============================================================================================================="
-
-execute_path=$(pwd)
-echo ${execute_path}
-script_self=$(readlink -f "$0")
-self_path=$(dirname "${script_self}")
-echo ${self_path}
-
-export DATA_PATH=$1
-export RANK_TABLE_FILE=$2
-export RANK_SIZE=$3
-RANK_START=$4
-DEVICE_START=0
-for((i=0;i<=7;i++));
-do
-  export RANK_ID=$[i+RANK_START]
-  export DEVICE_ID=$[i+DEVICE_START]
-  rm -rf ${execute_path}/device_$RANK_ID
-  mkdir ${execute_path}/device_$RANK_ID
-  cd ${execute_path}/device_$RANK_ID || exit
-  pytest -s ${self_path}/resnet50_distributed_training.py >train$RANK_ID.log 2>&1 &
-done
-```
-
-For the reference scripts listed above, the required code organization structure is as follows. The script will get the path of the script and the path of the command execution, and put all tasks in the background for execution, the code link can be obtained at the top of this tutorial.
-
-```text
-└─sample_code
-    ├─distributed_training
-    │      resnet50_distributed_training.py
-    │      run_cluster.sh
-```
-
-When executing, the two machines execute the following commands respectively, among which rank_table.json is configured according to the 16-card distributed json file reference configuration shown in this chapter.
-
-```bash
-# server0
-bash run.sh /path/dataset /path/rank_table.json 16 0
-# server1
-bash run.sh /path/dataset /path/rank_table.json 16 8
-```

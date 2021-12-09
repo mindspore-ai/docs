@@ -10,8 +10,8 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
-# import sys
+import os
+import sys
 
 
 # -- Project information -----------------------------------------------------
@@ -58,7 +58,14 @@ html_theme = 'sphinx_rtd_theme'
 
 html_static_path = ['_static']
 
+sys.path.append(os.path.abspath('../../../../resource/custom_directives'))
+from custom_directives import IncludeCodeDirective
+
 def setup(app):
     app.add_stylesheet('css/bootstrap.min.css')
     app.add_stylesheet('css/lite.css')
     app.add_javascript('js/lite.js')
+    app.add_directive('includecode', IncludeCodeDirective)
+
+sys.path.append(os.path.abspath('../../../../resource/search'))
+import search_code

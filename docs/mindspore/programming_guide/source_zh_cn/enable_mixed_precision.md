@@ -1,6 +1,6 @@
 # 使能混合精度
 
-`Linux` `Ascend` `GPU` `模型训练` `中级` `高级`
+`Ascend` `GPU` `模型调优`
 
 <!-- TOC -->
 
@@ -13,9 +13,10 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/enable_mixed_precision.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9taXhlZF9wcmVjaXNpb24uaXB5bmI=&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_modelarts.png"></a>&nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/notebook/mindspore_mixed_precision.ipynb"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_notebook.png"></a>&nbsp;&nbsp;
-<a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9taXhlZF9wcmVjaXNpb24uaXB5bmI=&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_modelarts.png"></a>
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/notebook/mindspore_mixed_precision.py"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_download_code.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/enable_mixed_precision.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -41,59 +42,7 @@ MindSpore混合精度典型的计算流程如下图所示：
 
 ## 自动混合精度
 
-使用自动混合精度，需要调用相应的接口，将待训练网络和优化器作为输入传进去；该接口会将整张网络的算子转换成FP16算子(除`BatchNorm`算子和Loss涉及到的算子外)。可以使用`amp`接口和`Model`接口两种方式实现混合精度。
-
-使用`amp`接口具体的实现步骤为：
-
-1. 引入MindSpore的混合精度的接口`amp`；
-
-2. 定义网络：该步骤和普通的网络定义没有区别(无需手动配置某个算子的精度)；
-
-3. 使用`amp.build_train_network`接口封装网络模型、优化器和损失函数，设置level参数，参考<https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.html#mindspore.build_train_network>。在该步骤中，MindSpore会将有需要的算子自动进行类型转换。
-
-代码样例如下：
-
-```python
-import numpy as np
-
-import mindspore.nn as nn
-from mindspore import Tensor, context
-import mindspore.ops as ops
-from mindspore.nn import Momentum
-# The interface of Auto_mixed precision
-from mindspore import amp
-
-context.set_context(mode=context.GRAPH_MODE)
-context.set_context(device_target="Ascend")
-
-# Define network
-class Net(nn.Cell):
-    def __init__(self, input_channel, out_channel):
-        super(Net, self).__init__()
-        self.dense = nn.Dense(input_channel, out_channel)
-        self.relu = ops.ReLU()
-
-    def construct(self, x):
-        x = self.dense(x)
-        x = self.relu(x)
-        return x
-
-
-# Initialize network
-net = Net(512, 128)
-
-# Define training data, label
-predict = Tensor(np.ones([64, 512]).astype(np.float32) * 0.01)
-label = Tensor(np.zeros([64, 128]).astype(np.float32))
-
-# Define Loss and Optimizer
-loss = nn.SoftmaxCrossEntropyWithLogits()
-optimizer = Momentum(params=net.trainable_params(), learning_rate=0.1, momentum=0.9)
-train_network = amp.build_train_network(net, optimizer, loss, level="O3", loss_scale_manager=None)
-
-# Run training
-output = train_network(predict, label)
-```
+使用自动混合精度，需要调用`Model`接口，将待训练网络和优化器作为输入传进去，该接口会将整张网络的算子转换成FP16算子(除`BatchNorm`算子和Loss涉及到的算子外)。
 
 使用`Model`接口具体的实现步骤为：
 
@@ -113,12 +62,11 @@ import mindspore.nn as nn
 from mindspore.nn import Accuracy
 from mindspore import context, Model
 from mindspore.common.initializer import Normal
-from src.dataset import create_dataset
+from mindspore import dataset as ds
 
 context.set_context(mode=context.GRAPH_MODE)
-context.set_context(device_target="Ascend")
+context.set_context(device_target="CPU")
 
-# Define network
 class LeNet5(nn.Cell):
     """
     Lenet network
@@ -129,8 +77,7 @@ class LeNet5(nn.Cell):
 
     Returns:
         Tensor, output tensor
-    Examples:
-        >>> LeNet(num_class=10)
+
 
     """
     def __init__(self, num_class=10, num_channel=1):
@@ -154,15 +101,32 @@ class LeNet5(nn.Cell):
         return x
 
 # create dataset
-ds_train = create_dataset("/dataset/MNIST/train", 32)
+def get_data(num, img_size=(1, 32, 32), num_classes=10, is_onehot=True):
+    for _ in range(num):
+        img = np.random.randn(*img_size)
+        target = np.random.randint(0, num_classes)
+        target_ret = np.array([target]).astype(np.float32)
+        if is_onehot:
+            target_onehot = np.zeros(shape=(num_classes,))
+            target_onehot[target] = 1
+            target_ret = target_onehot.astype(np.float32)
+        yield img.astype(np.float32), target_ret
+
+def create_dataset(num_data=1024, batch_size=32, repeat_size=1):
+    input_data = ds.GeneratorDataset(list(get_data(num_data)), column_names=['data','label'])
+    input_data = input_data.batch(batch_size, drop_remainder=True)
+    input_data = input_data.repeat(repeat_size)
+    return input_data
+
+ds_train = create_dataset()
 
 # Initialize network
 network = LeNet5(10)
 
 # Define Loss and Optimizer
-net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
+net_loss = nn.SoftmaxCrossEntropyWithLogits(reduction="mean")
 net_opt = nn.Momentum(network.trainable_params(),learning_rate=0.01, momentum=0.9)
-model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O3")
+model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O2", loss_scale_manager=None)
 
 # Run training
 model.train(epoch=10, train_dataset=ds_train)

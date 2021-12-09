@@ -20,6 +20,8 @@ MindSpore Federated 文档
 
    image_classification_application
    sentiment_classification_application
+   image_classification_application_in_cross_silo
+   object_detection_application_in_cross_silo
 
 .. toctree::
    :maxdepth: 1

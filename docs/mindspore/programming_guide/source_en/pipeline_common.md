@@ -1,5 +1,7 @@
 # General Data Processing
 
+`Ascend` `GPU` `CPU` `Data Preparation`
+
 <!-- TOC -->
 
 - [General Data Processing](#general-data-processing)
@@ -14,7 +16,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/pipeline_common.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/pipeline_common.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -232,7 +234,7 @@ def generator_func():
         yield (np.array([i, i+1, i+2]),)
 
 def generator_func2():
-    for i in range(4):
+    for _ in range(4):
         yield (np.array([1, 2]),)
 
 dataset1 = ds.GeneratorDataset(generator_func, ["data1"])
@@ -268,11 +270,11 @@ import numpy as np
 import mindspore.dataset as ds
 
 def generator_func():
-    for i in range(2):
+    for _ in range(2):
         yield (np.array([0, 0, 0]),)
 
 def generator_func2():
-    for i in range(2):
+    for _ in range(2):
         yield (np.array([1, 2, 3]),)
 
 dataset1 = ds.GeneratorDataset(generator_func, ["data1"])

@@ -1,10 +1,10 @@
-# 分布式并行训练 （Ascend）
+# 分布式并行训练基础样例（Ascend）
 
-`Linux` `Ascend` `模型训练` `中级` `高级`
+`Ascend` `分布式并行` `全流程`
 
 <!-- TOC -->
 
-- [分布式并行训练 （Ascend）](#分布式并行训练-ascend)
+- [分布式并行训练基础样例（Ascend）](#分布式并行训练基础样例ascend)
     - [概述](#概述)
     - [准备环节](#准备环节)
         - [下载数据集](#下载数据集)
@@ -19,12 +19,13 @@
         - [定义优化器](#定义优化器)
     - [训练网络](#训练网络)
     - [运行脚本](#运行脚本)
+        - [单机多卡训练](#单机多卡训练)
+        - [多机多卡训练](#多机多卡训练)
     - [分布式训练模型参数保存和加载](#分布式训练模型参数保存和加载)
         - [自动并行模式](#自动并行模式)
         - [数据并行模式](#数据并行模式)
         - [半自动并行模式](#半自动并行模式-1)
         - [手动混合并行模式](#手动混合并行模式-1)
-    - [多机多卡训练](#多机多卡训练)
 
 <!-- /TOC -->
 
@@ -117,6 +118,7 @@ MindSpore分布式并行训练的通信使用了华为集合通信库`Huawei Col
 > - 每台机器的0-3卡和4-7卡各为1个组网，2卡和4卡训练时卡必须相连且不支持跨组网创建集群。
 > - 组建多机集群时需要保证各台机器使用同一交换机。
 > - 服务器硬件架构及操作系统需要是SMP（Symmetrical Multi-Processing，对称多处理器）处理模式。
+> - PyNative模式下当前仅支持全局单Group通信。
 
 下面是调用集合通信库样例代码：
 
@@ -204,7 +206,7 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=
 
 手动混合并行模式在数据并行模式的基础上，对`parameter`增加了模型并行`layerwise_parallel`配置，包含此配置的`parameter`将以切片的形式保存并参与计算，在优化器计算时不会进行梯度累加。在该模式下，框架不会自动插入并行算子前后需要的计算和通信操作，为了保证计算逻辑的正确性，用户需要手动推导并写在网络结构中，适合对并行原理深入了解的用户使用。
 
-以下面的代码为例，将`self.weight`指定为模型并行配置，即`self.weight`和`MatMul`的输出在第二维`channel`上存在切分。这时再在第二维上进行`ReduceSum`得到的仅是单卡累加结果，还需要引入`AllReduce.Sum`通信操作对每卡的结果做加和。关于并行算子的推导原理可以参考这篇[设计文档](https://www.mindspore.cn/docs/note/zh-CN/master/design/distributed_training_design.html#id10)。
+以下面的代码为例，将`self.weight`指定为模型并行配置，即`self.weight`和`MatMul`的输出在第二维`channel`上存在切分。这时再在第二维上进行`ReduceSum`得到的仅是单卡累加结果，还需要引入`AllReduce.Sum`通信操作对每卡的结果做加和。关于并行算子的推导原理可以参考这篇[设计文档](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/design/distributed_training_design.html#id10)。
 
 ```python
 from mindspore import Tensor
@@ -231,9 +233,9 @@ class HybridParallelNet(nn.Cell):
 
 ### 半自动并行模式
 
-半自动并行模式相较于自动并行模式需要用户手动配置并行策略进行调优。关于算子并行策略的定义可以参考这篇[设计文档](https://www.mindspore.cn/docs/note/zh-CN/master/design/distributed_training_design.html#id10)。
+半自动并行模式相较于自动并行模式需要用户手动配置并行策略进行调优。关于算子并行策略的定义可以参考这篇[设计文档](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/design/distributed_training_design.html#id10)。
 
-以前述的`HybridParallelNet`为例，在半自动并行模式下的脚本代码如下，`MatMul`的切分策略为`{(1, 1),(1, 2)}`，指定`self.weight`在第二维度上被切分两份。
+以前述的`HybridParallelNet`为例，在半自动并行模式下的脚本代码如下，`MatMul`的切分策略为`((1, 1),(1, 2))`，指定`self.weight`在第二维度上被切分两份。
 
 ```python
 from mindspore import Tensor
@@ -248,7 +250,7 @@ class SemiAutoParallelNet(nn.Cell):
         weight_init = np.random.rand(512, 128).astype(np.float32)
         self.weight = Parameter(Tensor(weight_init))
         # set shard strategy
-        self.fc = ops.MatMul().shard({(1, 1),(1, 2)})
+        self.fc = ops.MatMul().shard(((1, 1),(1, 2)))
         self.reduce = ops.ReduceSum()
 
     def construct(self, x):
@@ -358,6 +360,8 @@ def test_train_cifar(epoch_size=10):
 
 ## 运行脚本
 
+### 单机多卡训练
+
 上述已将训练所需的脚本编辑好了，接下来通过命令调用对应的脚本。
 
 目前MindSpore分布式执行采用单卡单进程运行方式，即每张卡上运行1个进程，进程数量与使用的卡的数量一致。其中，0卡在前台执行，其他卡放在后台执行。每个进程创建1个目录，用来保存日志信息以及算子编译信息。下面以使用8张卡的分布式训练脚本为例，演示如何运行脚本：
@@ -449,137 +453,7 @@ epoch: 9 step: 156, loss is 1.2316195
 epoch: 10 step: 156, loss is 1.1533381
 ```
 
-## 分布式训练模型参数保存和加载
-
-在MindSpore中，支持四种分布式并行训练模式，即自动并行模式（Auto Parallel）、数据并行模式（Data Parallel）、半自动并行模式（Semi Auto Parallel）、手动混合并行模式（Hybrid Parallel），下面分别介绍四种分布式并行训练模式下模型的保存和加载。分布式训练进行模型参数的保存之前，需要先按照本教程配置分布式环境变量和集合通信库。
-
-### 自动并行模式
-
-自动并行模式（Auto Parallel）下模型参数的保存和加载与单卡用法基本相同，只需在本教程训练网络步骤中的`test_train_cifar`方法中添加配置`CheckpointConfig`和`ModelCheckpoint`，即可实现模型参数的保存。具体代码如下：
-
-```python
-from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
-
-def test_train_cifar(epoch_size=10):
-    context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
-    loss_cb = LossMonitor()
-    dataset = create_dataset(data_path)
-    batch_size = 32
-    num_classes = 10
-    net = resnet50(batch_size, num_classes)
-    loss = SoftmaxCrossEntropyExpand(sparse=True)
-    opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), 0.01, 0.9)
-    ckpt_config = CheckpointConfig()
-    ckpt_callback = ModelCheckpoint(prefix='auto_parallel', config=ckpt_config)
-    model = Model(net, loss_fn=loss, optimizer=opt)
-    model.train(epoch_size, dataset, callbacks=[loss_cb, ckpt_callback], dataset_sink_mode=True)
-```
-
-保存好checkpoint文件后，用户可以很容易加载模型参数进行推理或再训练场景，如用于再训练场景可使用如下代码加载模型：
-
-```python
-from mindspore import load_checkpoint, load_param_into_net
-
-net = resnet50(batch_size=32, num_classes=10)
-# The parameter for load_checkpoint is a .ckpt file which has been successfully saved
-param_dict = load_checkpoint('...')
-load_param_into_net(net, param_dict)
-```
-
-详细的checkpoint配置策略和保存加载方法可以参考[模型参数的保存和加载](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/save_model.html#checkpoint)。
-
-对于网络中切分的参数框架默认会自动聚合保存到模型文件，但考虑到在超大模型场景下，单个完整的模型文件过大会带来传输慢、难加载等问题，所以用户可以通过`CheckpointConfig`中`integrated_save`参数选择非合并保存，即每张卡保存各自卡上的参数切片。如果再训练或推理的切分策略或集群规模与训练不一致，需要采用特殊的加载方式。
-
-针对采用多卡再训练及微调的场景，用户可以使用`model.infer_train_layout`函数推导再训练分布式策略（该函数当前仅支持数据集下沉模式），再传递给`load_distributed_checkpoint`函数中`predict_strategy`参数，该函数从所有分片的模型文件中加载需要的部分进行合并切分操作，将参数从`strategy_ckpt_load_file`（训练策略）恢复到`predict_strategy`（再训练策略），最后加载到`model.train_network`中。若采用单卡进行再训练及微调，可以直接将`predict_strategy`置为`None`。参考代码如下：
-
-```python
-from mindspore import load_distributed_checkpoint, context
-from mindspore.communication import init
-
-context.set_context(mode=context.GRAPH_MODE)
-init()
-context.set_auto_parallel_context(full_batch=True, parallel_mode='semi_auto_parallel', strategy_ckpt_load_file='./train_strategy.ckpt')
-# create model and dataset
-dataset = create_custom_dataset()
-resnet = ResNet50()
-opt = Momentum()
-loss = SoftmaxCrossEntropyWithLogits()
-model = Model(resnet, loss, opt)
-# infer train strategy
-layout_dict = model.infer_train_layout(dataset, True, 100)
-# load into `model.train_network` net
-ckpt_file_list = create_ckpt_file_list()
-load_distributed_checkpoint(model.train_network, ckpt_file_list, layout_dict)
-# training the model
-model.train(2, dataset)
-```
-
-> 分布式推理场景可以参考教程：[分布式推理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/multi_platform_inference_ascend_910.html#id1)。
-
-### 数据并行模式
-
-数据并行模式（Data Parallel）下checkpoint的使用方法和自动并行模式（Auto Parallel）一样，只需要将`test_train_cifar`中
-
-```python
-context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
-```
-
-修改为:
-
-```python
-context.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
-```
-
-> 数据并行场景下加载模型参数时建议每卡加载相同的checkpoint文件，避免造成计算误差，或者可以打开`parameter_broadcast`开关将0号卡的参数广播到其他卡上。
-
-### 半自动并行模式
-
-半自动并行模式（Semi Auto Parallel）下checkpoint使用方法，与自动并行模式（Auto Parallel）和数据并行模式（Data Parallel）的用法相同，不同之处在于网络的定义，半自动并行模式（Semi Auto Parallel）下网络模型的定义请参考本教程中定义网络部分的[半自动并行模式](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_ascend.html#id9)。
-
-保存模型时，可以使用如下代码来实现：
-
-```python
-...
-net = SemiAutoParallelNet()
-...
-ckpt_config = CheckpointConfig()
-ckpt_callback = ModelCheckpoint(prefix='semi_auto_parallel', config=ckpt_config)
-```
-
-加载模型时，可以使用如下代码来实现：
-
-```python
-net = SemiAutoParallelNet()
-# The parameter for load_checkpoint is a .ckpt file which has been successfully saved
-param_dict = load_checkpoint('...')
-load_param_into_net(net, param_dict)
-```
-
-以上介绍的三种并行训练模式，checkpoint文件的保存方式都是每张卡上均保存完整的checkpoint文件，在以上三种并行训练模式上，用户还可以选择每张卡上只保存本卡的checkpoint文件，以半自动并行模式（Semi Auto Parallel）为例，进行说明。
-
-只需要改动设置checkpoint保存策略的代码，将`CheckpointConfig`中的`integrated_save`参数设置为Fasle，便可实现每张卡上只保存本卡的checkpoint文件，具体改动如下：
-
-将checkpoint配置策略由：
-
-```python
-# config checkpoint
-ckpt_config = CheckpointConfig(keep_checkpoint_max=1)
-```
-
-改为：
-
-```python
-# config checkpoint
-ckpt_config = CheckpointConfig(keep_checkpoint_max=1, integrated_save=False)
-```
-
-需要注意的是，如果用户选择了这种checkpoint保存方式，那么就需要用户自己对切分的checkpoint进行保存和加载，以便进行后续的推理或再训练。具体用法可参考[对保存的checkpoint文件做合并处理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/save_load_model_hybrid_parallel.html#checkpoint)。
-
-### 手动混合并行模式
-
-手动混合并行模式（Hybrid Parallel）的模型参数保存和加载请参考[手动设置并行场景模型参数的保存和加载](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/save_load_model_hybrid_parallel.html)。
-
-## 多机多卡训练
+### 多机多卡训练
 
 前面的章节，对MindSpore的分布式训练进行了介绍，都是基于单机多卡的Ascend环境，使用多机进行分布式训练，可以更大地提升训练速度。
 在Ascend环境下，跨机器的NPU单元的通信与单机内各个NPU单元的通信一样，依旧是通过HCCL进行通信，区别在于，单机内的NPU单元天然的是互通的，而跨机器的则需要保证两台机器的网络是互通的。
@@ -673,3 +547,137 @@ bash run_cluster.sh /path/dataset /path/rank_table.json 16 0
 # server1
 bash run_cluster.sh /path/dataset /path/rank_table.json 16 8
 ```
+
+### 非下沉场景训练方式
+
+图模式下，用户可以通过设置环境变量[GRAPH_OP_RUN](https://www.mindspore.cn/docs/note/zh-CN/master/env_var_list.html)=1来指定以非下沉方式训练模型。该方式需要采用OpenMPI的mpirun进行分布式训练，并且需要设置环境变量HCCL_WHITELIST_DISABLE=1。除此之外，训练启动脚本和[GPU分布式训练](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_gpu.html#id7)一致。
+
+## 分布式训练模型参数保存和加载
+
+在MindSpore中，支持四种分布式并行训练模式，即自动并行模式（Auto Parallel）、数据并行模式（Data Parallel）、半自动并行模式（Semi Auto Parallel）、手动混合并行模式（Hybrid Parallel），下面分别介绍四种分布式并行训练模式下模型的保存和加载。分布式训练进行模型参数的保存之前，需要先按照本教程配置分布式环境变量和集合通信库。
+
+### 自动并行模式
+
+自动并行模式（Auto Parallel）下模型参数的保存和加载与单卡用法基本相同，只需在本教程训练网络步骤中的`test_train_cifar`方法中添加配置`CheckpointConfig`和`ModelCheckpoint`，即可实现模型参数的保存。需要注意的是，并行模式下需要对每张卡上运行的脚本指定不同的checkpoint保存路径，防止读写文件时发生冲突，具体代码如下：
+
+```python
+from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
+
+def test_train_cifar(epoch_size=10):
+    context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
+    loss_cb = LossMonitor()
+    dataset = create_dataset(data_path)
+    batch_size = 32
+    num_classes = 10
+    net = resnet50(batch_size, num_classes)
+    loss = SoftmaxCrossEntropyExpand(sparse=True)
+    opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), 0.01, 0.9)
+    ckpt_config = CheckpointConfig()
+    ckpt_callback = ModelCheckpoint(prefix='auto_parallel', directory="./ckpt_" + str(get_rank()) + "/", config=ckpt_config)
+    model = Model(net, loss_fn=loss, optimizer=opt)
+    model.train(epoch_size, dataset, callbacks=[loss_cb, ckpt_callback], dataset_sink_mode=True)
+```
+
+保存好checkpoint文件后，用户可以很容易加载模型参数进行推理或再训练场景，如用于再训练场景可使用如下代码加载模型：
+
+```python
+from mindspore import load_checkpoint, load_param_into_net
+
+net = resnet50(batch_size=32, num_classes=10)
+# The parameter for load_checkpoint is a .ckpt file which has been successfully saved
+param_dict = load_checkpoint('...')
+load_param_into_net(net, param_dict)
+```
+
+详细的checkpoint配置策略和保存加载方法可以参考[模型参数的保存和加载](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/save_model.html#checkpoint)。
+
+对于网络中切分的参数框架默认会自动聚合保存到模型文件，但考虑到在超大模型场景下，单个完整的模型文件过大会带来传输慢、难加载等问题，所以用户可以通过`CheckpointConfig`中`integrated_save`参数选择非合并保存，即每张卡保存各自卡上的参数切片。如果再训练或推理的切分策略或集群规模与训练不一致，需要采用特殊的加载方式。
+
+针对采用多卡再训练及微调的场景，用户可以使用`model.infer_train_layout`函数推导再训练分布式策略（该函数当前仅支持数据集下沉模式），再传递给`load_distributed_checkpoint`函数中`predict_strategy`参数，该函数从所有分片的模型文件中加载需要的部分进行合并切分操作，将参数从`strategy_ckpt_load_file`（训练策略）恢复到`predict_strategy`（再训练策略），最后加载到`model.train_network`中。若采用单卡进行再训练及微调，可以直接将`predict_strategy`置为`None`。参考代码如下：
+
+```python
+from mindspore import load_distributed_checkpoint, context
+from mindspore.communication import init
+
+context.set_context(mode=context.GRAPH_MODE)
+init()
+context.set_auto_parallel_context(full_batch=True, parallel_mode='semi_auto_parallel', strategy_ckpt_load_file='./train_strategy.ckpt')
+# create model and dataset
+dataset = create_custom_dataset()
+resnet = ResNet50()
+opt = Momentum()
+loss = SoftmaxCrossEntropyWithLogits()
+model = Model(resnet, loss, opt)
+# infer train strategy
+layout_dict = model.infer_train_layout(dataset, True, 100)
+# load into `model.train_network` net
+ckpt_file_list = create_ckpt_file_list()
+load_distributed_checkpoint(model.train_network, ckpt_file_list, layout_dict)
+# training the model
+model.train(2, dataset)
+```
+
+> 分布式推理场景可以参考教程：[分布式推理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/multi_platform_inference_ascend_910.html#id1)。
+
+### 数据并行模式
+
+数据并行模式（Data Parallel）下checkpoint的使用方法和自动并行模式（Auto Parallel）一样，只需要将`test_train_cifar`中
+
+```python
+context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
+```
+
+修改为:
+
+```python
+context.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
+```
+
+> 数据并行场景下加载模型参数时建议每卡加载相同的checkpoint文件，避免造成计算误差，或者可以打开`parameter_broadcast`开关将0号卡的参数广播到其他卡上。
+
+### 半自动并行模式
+
+半自动并行模式（Semi Auto Parallel）下checkpoint使用方法，与自动并行模式（Auto Parallel）和数据并行模式（Data Parallel）的用法相同，不同之处在于网络的定义，半自动并行模式（Semi Auto Parallel）下网络模型的定义请参考本教程中定义网络部分的[半自动并行模式](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_ascend.html#id9)。
+
+保存模型时，可以使用如下代码来实现：
+
+```python
+...
+net = SemiAutoParallelNet()
+...
+ckpt_config = CheckpointConfig()
+ckpt_callback = ModelCheckpoint(prefix='semi_auto_parallel', directory="./ckpt_" + str(get_rank()) + "/", config=ckpt_config)
+```
+
+加载模型时，可以使用如下代码来实现：
+
+```python
+net = SemiAutoParallelNet()
+# The parameter for load_checkpoint is a .ckpt file which has been successfully saved
+param_dict = load_checkpoint('...')
+load_param_into_net(net, param_dict)
+```
+
+以上介绍的三种并行训练模式，checkpoint文件的保存方式都是每张卡上均保存完整的checkpoint文件，在以上三种并行训练模式上，用户还可以选择每张卡上只保存本卡的checkpoint文件，以半自动并行模式（Semi Auto Parallel）为例，进行说明。
+
+只需要改动设置checkpoint保存策略的代码，将`CheckpointConfig`中的`integrated_save`参数设置为Fasle，便可实现每张卡上只保存本卡的checkpoint文件，具体改动如下：
+
+将checkpoint配置策略由：
+
+```python
+# config checkpoint
+ckpt_config = CheckpointConfig(keep_checkpoint_max=1)
+```
+
+改为：
+
+```python
+# config checkpoint
+ckpt_config = CheckpointConfig(keep_checkpoint_max=1, integrated_save=False)
+```
+
+需要注意的是，如果用户选择了这种checkpoint保存方式，那么就需要用户自己对切分的checkpoint进行保存和加载，以便进行后续的推理或再训练。具体用法可参考[对保存的checkpoint文件做合并处理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/save_load_model_hybrid_parallel.html#checkpoint)。
+
+### 手动混合并行模式
+
+手动混合并行模式（Hybrid Parallel）的模型参数保存和加载请参考[手动设置并行场景模型参数的保存和加载](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/save_load_model_hybrid_parallel.html)。

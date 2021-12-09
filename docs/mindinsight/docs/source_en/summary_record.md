@@ -1,7 +1,5 @@
 # Collecting Summary Record
 
-`Linux` `Ascend` `GPU` `CPU` `Model Optimization` `Intermediate` `Expert`
-
 <!-- TOC -->
 
 - [Collecting Summary Record](#collecting-summary-record)
@@ -19,7 +17,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/summary_record.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/summary_record.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -122,7 +120,7 @@ def train():
     model = Model(network, loss, opt, metrics={"Accuracy": Accuracy()})
 
     # How to create a valid dataset instance,
-    # for details, see the https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_start.html document.
+    # for details, see the https://www.mindspore.cn/tutorials/en/master/quick_start.html document.
     ds_train = create_dataset('./dataset_path')
 
     # Initialize a SummaryCollector callback instance, and use it in model.train or model.eval
@@ -313,7 +311,7 @@ In the saved files, `ms_output_after_hwopt.pb` is the computational graph after 
 
 ### Method four: Advanced usage, custom training cycle
 
-If you are not using the `Model` interface provided by MindSpore, you can implement a method by imitating `train` method of `Model` interface to control the number of iterations. You can imitate the `SummaryCollector` and record the summary operator data in the following manner. For a detailed custom training cycle tutorial, please [refer to the tutorial on the official website](https://www.mindspore.cn/docs/programming_guide/en/master/train.html#customizing-a-training-cycle).
+If you are not using the `Model` interface provided by MindSpore, you can implement a method by imitating `train` method of `Model` interface to control the number of iterations. You can imitate the `SummaryCollector` and record the summary operator data in the following manner.
 
 The following example demonstrates how to record data in a custom training cycle using the summary operator and the `add_value` interface of `SummaryRecord`. For more tutorials about `SummaryRecord`, [refer to the Python API documentation](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.train.html#mindspore.train.summary.SummaryRecord). Please note that `SummaryRecord` will not record computational graph automatically. If you need to record the computational graph, please manually pass the instance of network that inherits from Cell. The recorded computational graph only includes the code and functions used in the construct method.
 

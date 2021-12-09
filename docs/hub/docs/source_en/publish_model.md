@@ -1,7 +1,5 @@
 # Publishing Models using MindSpore Hub
 
-`Linux` `Ascend` `GPU` `Model Publishing` `Intermediate` `Expert`
-
 <!-- TOC -->
 
 - [Publishing Models using MindSpore Hub](#publishing-models-using-mindspore-hub)
@@ -10,7 +8,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/hub/docs/source_en/publish_model.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/hub/docs/source_en/publish_model.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -24,7 +22,7 @@ You can publish models to MindSpore Hub via PR in [hub](https://gitee.com/mindsp
 
 1. Host your pre-trained model in a storage location where we are able to access.
 
-2. Add a model generation python file called `mindspore_hub_conf.py` in your own repo using this [template](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/googlenet/mindspore_hub_conf.py). The location of the `mindspore_hub_conf.py` file is shown below:
+2. Add a model generation python file called `mindspore_hub_conf.py` in your own repo using this [template](https://gitee.com/mindspore/models/blob/master/official/cv/googlenet/mindspore_hub_conf.py). The location of the `mindspore_hub_conf.py` file is shown below:
 
    ```text
    googlenet

@@ -1,19 +1,19 @@
 # 实现区域海洋模型GOMO
 
-`Linux`  `GPU` `模型开发`  `高级`
+`GPU` `高性能计算` `全流程`
 
 <!-- TOC -->
 
-- [实现区域海洋模型GOMO](#实现区域海洋模型GOMO)
+- [实现区域海洋模型GOMO](#实现区域海洋模型gomo)
     - [概述](#概述)
     - [准备环节](#准备环节)
         - [安装软件依赖](#安装软件依赖)
         - [准备数据](#准备数据)
     - [加载数据](#加载数据)
-    - [定义网络](#定义网络)
+    - [定义GOMO网络](#定义gomo网络)
+        - [初始化变量](#初始化变量)
+        - [定义GOMO模型](#定义gomo模型)
     - [训练网络](#训练网络)
-        - [配置模型保存](#配置模型保存)
-        - [配置训练网络](#配置训练网络)
         - [运行脚本](#运行脚本)
     - [引用](#引用)
 
@@ -26,7 +26,7 @@ GOMO（Generalized Operator Modelling of the Ocean）是基于 OpenArray 的三�
 
 本篇教程将主要介绍如何在GPU上，使用MindSpore构建并运行三维海洋模型GOMO。
 > 你可以在这里下载完整的示例代码：
-<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/research/hpc/ocean_model> 。
+<https://gitee.com/mindspore/models/tree/master/research/hpc/ocean_model> 。
 
 示例代码目录结构如下：
 

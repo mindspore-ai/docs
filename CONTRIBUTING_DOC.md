@@ -38,7 +38,7 @@ MindSpore docs repository provides [Document Writing Specifications](https://git
 
 If you want to update an existing document, click `View source on Gitee` (as shown in the following figure) on the top of the page to go to the source file. Modify the document and commit changes to a PR to make the contribution.
 
-![View Source on Gitee](https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png)
+![View Source on Gitee](https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png)
 
 #### Adding a Document
 
@@ -55,7 +55,7 @@ If you need to add a document, create a markdown or reStructuredText file in a p
 
     After the writing is complete, add the new document to the web page directory.
 
-   Take a training tutorial as an example. Find the [`index.rst`](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/index.rst) file in the `source_en` directory. This file corresponds to the organization structure of the training tutorial web page.
+   Take a training tutorial as an example. Find the [index.rst](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/index.rst) file in the `source_en` directory. This file corresponds to the organization structure of the training tutorial web page.
 
     Add the new document to the corresponding category. You can also create a category before adding the document. Take **Implementing an Image Classification Application** as an example. Save the document in the `quick_start` directory and name it as `quick_start.md`. Add `quick_start/quick_start` to the Quick Start category, as shown below.
 
@@ -99,7 +99,7 @@ By default, tutorials and documents of the latest version are displayed on the o
 
 ![master_doc_en](./resource/_static/master_doc_en.png)
 
-Take **Implementing an Image Classification Application** as an example. The document link is <https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_start.html>.
+Take **Quick Start for Beginners** as an example. The document link is <https://www.mindspore.cn/tutorials/en/master/quick_start.html>.
 
 ## API
 
@@ -136,7 +136,7 @@ If you want to add an API, check whether the API has been added to an existing m
     - `mindspore.ops`: [中文](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_zh_cn/api_python/mindspore.ops.rst) | [English](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_en/api_python/mindspore.ops.rst)
     - `mindspore.ops.operations`: [中文](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_zh_cn/api_python/operations.rst) | [English](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_en/api_python/operations.rst)
 
-- If the API does not belong to the existing module, add an API project file of the MindSpore docs repository. Please add modules to the [directory structure](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_en/index.rst) in alphabetical order. To add the API of the `mindspore.context` module, you need to create the [`mindspore.context.rst`](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_en/api_python/mindspore.context.rst) file in the `docs/docs/api_python/source_en/mindspore` directory and add the file to the directory structure.
+- If the API does not belong to the existing module, add an API project file of the MindSpore docs repository. Please add modules to the [directory structure](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_en/index.rst) in alphabetical order. To add the API of the `mindspore.context` module, you need to create the [mindspore.context.rst](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_en/api_python/mindspore.context.rst) file in the `docs/docs/api_python/source_en/mindspore` directory and add the file to the directory structure.
 
     ```rst
     .. toctree::
@@ -174,7 +174,7 @@ For specific image requirements and specifications, please refer to [Image Speci
 
 ### Updating or Adding an Image
 
-If you want to update an existing image or adding a new image, click ![View Source on Gitee](https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png) on the top of the page to go to the source file. Usually the images will be stored in the directory ./images. You only need to put the new images into this directory, or replace the modified images with the original ones, and commit changes to a PR to make the contribution.
+If you want to update an existing image or adding a new image, click ![View Source on Gitee](https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png) on the top of the page to go to the source file. Usually the images will be stored in the directory ./images. You only need to put the new images into this directory, or replace the modified images with the original ones, and commit changes to a PR to make the contribution.
 
 > Please submit the original image to Gitee at the same time, and put it in the same path as the image for subsequent modification.
 

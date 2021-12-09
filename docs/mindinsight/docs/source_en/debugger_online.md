@@ -1,19 +1,21 @@
 # Using Online Debugger
 
-`Linux` `Ascend` `GPU` `Model Optimization` `Intermediate` `Expert`
-
 <!-- TOC -->
 
 - [Using Online Debugger](#using-online-debugger)
     - [Overview](#overview)
     - [Operation Process](#operation-process)
     - [Debugger Environment Preparation](#debugger-environment-preparation)
+        - [Launch MindInsight in Debugger Mode](#launch-mindinsight-in-debugger-mode)
+        - [Run the Training Script in Debug Mode](#run-the-training-script-in-debug-mode)
     - [Debugger UI Introduction](#debugger-ui-introduction)
         - [Computational Graph](#computational-graph)
         - [Node List](#node-list)
         - [Graph Node Details](#graph-node-details)
         - [Watchpoint List](#watchpoint-list)
         - [Setting Watchpoints](#setting-watchpoints)
+        - [Stack List](#stack-list)
+        - [Stack Information](#stack-information)
         - [Recheck](#recheck)
         - [Training Control](#training-control)
         - [Tensor Check View](#tensor-check-view)
@@ -22,7 +24,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/debugger_online.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/debugger_online.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -59,7 +61,8 @@ For more launch parameters, please refer to [MindInsight Commands](https://www.m
 
 ### Run the Training Script in Debug Mode
 
-Run the training script in debug mode, you need to set `export ENABLE_MS_DEBUGGER=1` or `export ENABLE_MS_DEBUGGER=True` to specify the training is in the debugger mode, and set the debugger port to which the training is connected:
+Run the training script in debug mode, you need to set `export ENABLE_MS_DEBUGGER=1` or `export ENABLE_MS_DEBUGGER=True` to specify the training is in the debugger mode, and set the debugger host and port to which the training is connected:
+`export MS_DEBUGGER_HOST=127.0.0.1` (the service address must be consistent with MindInsight host address);
 `export MS_DEBUGGER_PORT=50051` (the port must be consistent with MindInsight debugger-port).
 
 If the memory space of your equipment is limited, you can use the partial memory reuse mode before starting the training to reduce the running space: `export MS_DEBUGGER_PARTIAL_MEM=1`。
@@ -105,11 +108,13 @@ After clicking a graph node, you can view its detailed information in the lower 
 
 In the GPU environment, select and right-click an executable graph node, and choose `Run to This Node` from the shortcut menu to run the training script to the selected node (no more than one step).
 
-### Watchpoint List
+### Anomaly Check List
+
+The anomaly check list shows all the set anomaly check rules. Anomaly check rule, referred to as watchpoint.
 
 ![debugger_watch_point_list](./images/debugger_watch_point_list.png)
 
-Figure 3: The watchpoint list
+Figure 3: The anomaly check list
 
 As shown in Figure 3, the watchpoint list is in the lower left corner of the UI. The three icons from left to right in the upper right corner of the watchpoint list are used to `recheck`, `clear`, and `create` watchpoints.
 
@@ -152,14 +157,19 @@ The following conditions are supported (abbreviations in parentheses):
 
 After a watchpoint is generated, you can select or deselect nodes to be monitored in the node list, as shown in Figure 3. In addition, you can click the `clear watchpoint` icon or `X` icon to delete watchpoints.
 
-During training, the debugger analyzes the outputs of these monitored nodes in real time. Once the watchpoint conditions are hit, the training is suspended. You can view the information about the hit watchpoints on the UI.
+During training, the debugger analyzes the outputs of these monitored nodes in real time. Once the watchpoint conditions are hit, the training is suspended. You can view the information about the hit nodes on the UI.
 
 ![debugger_watch_point_hit](images/debugger_watch_point_hit.png)
 
-Figure 5: Viewing hit watchpoints
+Figure 5: Viewing hit nodes
 
-The hit watchpoints are displayed on the left of the UI. The hit nodes and watchpoint conditions are sorted based on the node execution sequence. Each record displays the configured threshold and the actual value.
-In addition, after you click a record, the corresponding node is displayed in the computational graph. You can view the node information to analyze the possible cause. Click `View` to enter the tensor check view. You can view the hit watchpoint information and optimization guide, as shown in Figure 6.
+The hit nodes are displayed on the left of the UI. If more than one watchpoints are set, UI can show the result of the specified watchpoint by choosing the watchpoint id in the watchpoint pull list.
+If the training network consists of more than one sub graphs, you can choose the sub graph name in the graph file pull list to show the results of the specified sub graph.
+For multi-card training, you can choose the logic card id in the logic card pull list to show the hit nodes on the specified card
+(Only for offline debugger, online debugger does not support distributed training at present).
+
+In the same sub graph, the hit nodes are sorted based on the node execution sequence. On the left of the node name, click on the expand icon, the hit watchpoints and watchpoint condition will be displayed. Each record displays the configured threshold and the actual value.
+In addition, after you click a record, the corresponding node is displayed in the computational graph. You can view the node information to analyze the possible cause. Click `View` to enter the tensor check view. You can view the hit watchpoint information and optimization guide, as shown in Figure 8.
 
 ### Stack List
 
@@ -181,6 +191,8 @@ On the Stack Info tab page, click Search in a row to search for all nodes relate
 
 ![debugger_stack_info](images/debugger_stack_info.png)
 
+Note: some operators are generated by the framework, such as `TupleGetItem`, `Append`, `UpdateState`, and so on. These operators may be associated with the code of the framework itself, or no code can be associated, which is normal.
+
 Figure 7: Stack information
 
 ### Recheck
@@ -201,11 +213,11 @@ with four buttons: `CONTINUE`, `PAUSE`, `TERMINATE` and `OK`:
 
 ![debugger_tensor_view](images/debugger_tensor_view.png)
 
-Figure 6: Viewing tensors value
+Figure 8: Viewing tensors value
 
 Some `tensors` have too many dimensions and cannot be directly displayed on the home page. You can click the corresponding `View` button to view the detailed information about the `tensor` value on the displayed tensor check view.
 
-As shown in Figure 6, the tensor check view displays the `tensor` values in the upper part of the UI. You can set the `Dimension Selection` and click `Current Step`, `Previous step`, and `Comparison Result` to display and compare tensors. (Currently, the parameter node can be compared only with the previous one step.) In addition, you can set shards in `Dimension Selection` to display a `tensor` in the specified dimension.
+As shown in Figure 8, the tensor check view displays the `tensor` values in the upper part of the UI. You can set the `Dimension Selection` and click `Current Step`, `Previous step`, and `Comparison Result` to display and compare tensors. (Currently, the parameter node can be compared only with the previous one step.) In addition, you can set shards in `Dimension Selection` to display a `tensor` in the specified dimension.
 
 The `node information`, `current step`, and `statistics` are displayed on the top of the view. The optimization guide is displayed on the left of the view. When a watchpoint is hit, the hit information and optimization suggestions are displayed. The tensor relationship diagram and detailed `node information` are displayed on the lower part of the view.
 
@@ -219,7 +231,7 @@ Tensors can be downloaded in tensor check view. Users can download the desired t
 
     ![debugger_waiting](./images/debugger_waiting.png)
 
-    Figure 7: Debugger Start and Waiting for the Training
+    Figure 9: Debugger Start and Waiting for the Training
 
     The Debugger server is launched and waiting for the training to connect.
 
@@ -229,7 +241,7 @@ Tensors can be downloaded in tensor check view. Users can download the desired t
 
     ![debugger_ask_recommend](images/debugger_ask_recommend.png)
 
-    Figure 8: Debugger ask whether to use the recommended watchpoints
+    Figure 10: Debugger ask whether to use the recommended watchpoints
 
 4. Later, you can see that the computational graph is displayed on the Debugger UI, as shown in Figure 1.
 
@@ -251,6 +263,7 @@ Tensors can be downloaded in tensor check view. Users can download the desired t
     - The debugger does not support connected to multiple training process.
     - The debugger does not support CPU scenarios.
     - The debugger does not support PyNative mode.
+    - The debugger does not support multi networks scenarios.
 
 - Impact on Performance:
     - Debugger will slow down the training performance.

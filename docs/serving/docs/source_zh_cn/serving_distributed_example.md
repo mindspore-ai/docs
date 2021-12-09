@@ -1,7 +1,5 @@
 # 基于MindSpore Serving部署分布式推理服务
 
-`Linux` `Ascend` `Serving` `中级` `高级`
-
 <!-- TOC -->
 
 - [基于MindSpore Serving部署分布式推理服务](#基于mindspore-serving部署分布式推理服务)
@@ -40,7 +38,7 @@
 
 ### 环境准备
 
-运行示例前，需确保已经正确安装了MindSpore Serving。如果没有，可以参考[MindSpore Serving安装页面](https://gitee.com/mindspore/serving/blob/master/README_CN.md#%E5%AE%89%E8%A3%85)，将MindSpore Serving正确地安装到你的电脑当中，同时参考[MindSpore Serving环境配置页面](https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend_install_source.md#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)完成环境变量配置。
+运行示例前，需确保已经正确安装了MindSpore Serving，并配置了环境变量。MindSpore Serving安装和配置可以参考[MindSpore Serving安装页面](https://www.mindspore.cn/serving/docs/zh-CN/master/serving_install.html)。
 
 ### 导出分布式模型
 
@@ -57,7 +55,7 @@ export_model
 - `net.py`为MatMul网络定义。
 - `distributed_inference.py`配置分布式相关的参数。
 - `export_model.sh`在当前机器上创建`device`目录并且导出每个`device`对应的模型文件。
-- `rank_table_8pcs.json`为配置当前多卡环境的组网信息的json文件，可以参考[rank_table](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/utils/hccl_tools)。
+- `rank_table_8pcs.json`为配置当前多卡环境的组网信息的json文件，可以参考[rank_table](https://gitee.com/mindspore/models/tree/master/utils/hccl_tools)。
 
 使用[net.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/export_model/net.py)，构造一个包含MatMul、Neg算子的网络。
 
@@ -103,7 +101,7 @@ def test_inference():
     network = Net(matmul_size=(96, 16))
     model = Model(network)
     model.infer_predict_layout(Tensor(predict_data))
-    export(model._predict_network, Tensor(predict_data), file_name="matmul", file_format="MINDIR")
+    export(model.predict_network, Tensor(predict_data), file_name="matmul", file_format="MINDIR")
 
 
 def create_predict_data():
@@ -117,8 +115,8 @@ def create_predict_data():
 ```text
 model
 ├── device0
-│   ├── group_config.pb
-│   └── matmul.mindir
+│   ├── group_config.pb
+│   └── matmul.mindir
 ├── device1
 ├── device2
 ├── device3
@@ -139,7 +137,7 @@ matmul_distributed
 ├── serving_agent.py
 ├── serving_server.py
 ├── matmul
-│   └── servable_config.py
+│   └── servable_config.py
 ├── model
 └── rank_table_8pcs.json
 ```
@@ -155,12 +153,12 @@ matmul_distributed
 from mindspore_serving.server import distributed
 from mindspore_serving.server import register
 
-distributed.declare_servable(rank_size=8, stage_size=1, with_batch_dim=False)
+model = distributed.declare_servable(rank_size=8, stage_size=1, with_batch_dim=False)
 
 
 @register.register_method(output_names=["y"])
 def predict(x):
-    y = register.call_servable(x)
+    y = register.add_stage(model, x, outputs_count=1)
     return y
 ```
 
@@ -220,7 +218,6 @@ def start_agents():
 
 if __name__ == '__main__':
     start_agents()
-
 ```
 
 - `distributed_address`为`Distributed Worker`的地址。
@@ -232,7 +229,7 @@ if __name__ == '__main__':
 
 ### 执行推理
 
-通过gRPC访问推理服务，client需要指定gRPC服务器的ip地址和port。运行[serving_client.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/serving_client.py)，调用matmul分布式模型的`predict`方法，执行推理。
+通过gRPC访问推理服务，client需要指定gRPC服务器的网络地址。运行[serving_client.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/serving_client.py)，调用matmul分布式模型的`predict`方法，执行推理。
 
 ```python
 import numpy as np

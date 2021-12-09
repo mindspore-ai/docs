@@ -1,7 +1,5 @@
 # MindSpore Distributed Operator List
 
-`Linux` `Ascend` `GPU` `CPU` `Model Development` `Beginner` `Intermediate` `Expert`
-
 <!-- TOC -->
 
 - [MindSpore Distributed Operator List](#mindspore-distributed-operator-list)
@@ -9,7 +7,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/note/source_en/operator_list_parallel.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/note/source_en/operator_list_parallel.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Distributed Operator
 
@@ -29,8 +27,10 @@
 | [mindspore.ops.AssignSub](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.AssignSub.html) | None                                                         |
 | [mindspore.ops.Atan](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Atan.html) | None                                                         |
 | [mindspore.ops.Atan2](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Atan2.html) | None                                                         |
+| [mindspore.ops.AvgPool](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.AvgPool.html) | 1. The data format only supports 'NCHW'; <br />2. The shapes of output H/W dimension must be divisible by the split strategies of input H/W dimension;<br />3. If H/W is split: <br />    1) If the kernel_size <= stride, the input slice size must be divisible by stride;<br />    2) It does not support kernel_size > stride;<br />4. In auto_parallel mode, the strategy's searching algorithm can not use "recursive_programming". |
 | [mindspore.ops.Atanh](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Atanh.html) | None                                                         |
 | [mindspore.ops.BatchMatMul](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.BatchMatMul.html) | `transpore_a=True` is not supported.                         |
+| [mindspore.ops.BatchNorm](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.BatchNorm.html) | It does not support GPU.                                     |
 | [mindspore.ops.BesselI0e](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.BesselI0e.html) | None                                                         |
 | [mindspore.ops.BesselI1e](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.BesselI1e.html) | None                                                         |
 | [mindspore.ops.BiasAdd](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.BiasAdd.html) | None                                                         |
@@ -38,6 +38,8 @@
 | [mindspore.ops.Cast](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Cast.html) | The shard strategy is ignored in the Auto Parallel and Semi Auto Parallel mode. |
 | [mindspore.ops.Ceil](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Ceil.html) | None                                                         |
 | [mindspore.ops.Concat](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Concat.html) | The input_x can't be split into the dimension of axis, otherwise it's inconsistent with the single machine in the mathematical logic. |
+| [mindspore.ops.Conv2D](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Conv2D.html) | 1. The data format only supports 'NCHW';<br />2. If data exchange between adjacent nodes is involved:<br />    1) Only Ascend is supported;<br />    2) Only the dimensions of N/C-in/C-out/W are supported to split;<br />3. When the value of group or dilation is not 1, only the dimension of N is supported to split;<br />4. The last two dimensions of weight can not be split;<br />5. The output shape of H/W dimension must be divisible by the strategy of input H/W dimensions;<br />6. In pad mode: The H/W dimension can not be split;<br />7. In valid mode: If H/W dimension is split:<br />    1) When the kernel_size <= stride, the input‘s slice shape of H/W dimension must be divisible by stride;<br />    2) It does not support that kernel_size > stride;<br />8. In the same mode: If H/W dimension is split:<br />    1) When the kernel_size <= stride, the input‘s slice shape of H/W dimension must be divisible by stride;<br />    2) When the kernel_size > stride:<br />        a) H dimension can not be split;<br />        b) The input's shape of W dimension must be divisible by stride;<br />        c) The input's slice shape of W dimension should be greater than (kernel_size - stride + 1) / 2;<br />        d) It does not support that kernel_size - stride = 1; |
+| [mindspore.ops.Conv2DBackpropInput](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Conv2DBackpropInput.html) | 1. The data format only supports 'NCHW';<br />2. If data exchange between adjacent nodes is involved:<br />    1) Only Ascend is supported;<br />    2) Only the dimensions of N/C-in/C-out/W are supported to split;<br />3. When the value of group or dilation is not 1, only the dimension of N is supported to split;<br />4. The last two dimensions of weight can not be split;<br />5. The output shape of H/W dimension must be divisible by the strategy of input H/W dimensions;<br />6. In pad mode: The H/W dimension can not be split;<br />7. In valid mode: The H/W dimension can not be split;<br />8. In the same mode:<br />    1) H dimension can not be split;<br />    2) If W dimension is split:<br />        a) The input shape of W dimension multiplied by stride should be equal to the output shape of W dimension;<br />        b) If the kernel_size > stride, data should be sent and received between adjacent devices, and the length of data sent and received by W dimension should be less than the slice size; |
 | [mindspore.ops.Cos](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Cos.html) | None                                                         |
 | [mindspore.ops.Cosh](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Cosh.html) | None                                                         |
 | [mindspore.ops.Div](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Div.html) | None                                                         |
@@ -57,6 +59,7 @@
 | [mindspore.ops.FloorDiv](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.FloorDiv.html) | None                                                         |
 | [mindspore.ops.FloorMod](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.FloorMod.html) | None                                                         |
 | [mindspore.ops.Gather](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Gather.html) | Only support 1-dim and 2-dim parameters and the last dimension of the input_params should be 32-byte aligned; Scalar input_indices is not supported; Repeated calculation is not supported when the parameters are split in the dimension of the axis; Split input_indices and input_params at the same time is not supported. |
+| [mindspore.ops.GatherD](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.GatherD.html) | The dimension corresponding to dim cannot be segmented; In auto_parallel mode, the strategy's searching algorithm can not use "recursive_programming". |
 | [mindspore.ops.GatherNd](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.GatherNd.html) | The first input can't be split, and the last dimension of the second input can't be split; In auto_parallel mode, the strategy's searching algorithm can not use "recursive_programming". |
 | [mindspore.ops.GeLU](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.GeLU.html) | None                                                         |
 | [mindspore.ops.Greater](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Greater.html) | None                                                         |
@@ -71,8 +74,9 @@
 | [mindspore.ops.Log](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Log.html) | None                                                         |
 | [mindspore.ops.Log1p](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Log1p.html) | None                                                         |
 | [mindspore.ops.LogSoftmax](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.LogSoftmax.html) | The logits can't be split into the dimension of axis, otherwise it's inconsistent with the single machine in the mathematical logic. |
-| [mindspore.ops.MatMul](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.MatMul.html) | `transpose_a=True` is not supported.                         |
+| [mindspore.ops.MatMul](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.MatMul.html) | 1. `transpose_a=True` is not supported; <br />2. When `transpose_b=True` is set, the input's split strategy must be in the form of ((A, B), (C, B));<br />3. When `transpose_b=False` is set, the input's split strategy must be in the form of ((A, B), (B, C));<br />4. It is supported to set the output's split strategy, the legal output's split strategy is ((A, C),) or ((A * B, C),) |
 | [mindspore.ops.Maximum](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Maximum.html) | None                                                         |
+| [mindspore.ops.MaxPool](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.MaxPool.html) | 1. The data format only supports 'NCHW'; <br />2. The shapes of output H/W dimension must be divisible by the split strategies of input H/W dimension;<br />3. If H/W is split: <br />    1) If the kernel_size <= stride, the input slice size must be divisible by stride;<br />    2) It does not support kernel_size > stride;<br />4. In auto_parallel mode, the strategy's searching algorithm can not use "recursive_programming". |
 | [mindspore.ops.Minimum](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Minimum.html) | None                                                         |
 | [mindspore.ops.Mod](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Mod.html) | None                                                         |
 | [mindspore.ops.Mul](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Mul.html) | None                                                         |
@@ -92,6 +96,7 @@
 | [mindspore.ops.ReLU6](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.ReLU6.html) | None                                                         |
 | [mindspore.ops.ReLUV2](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.ReLUV2.html) | None                                                         |
 | [mindspore.ops.Reshape](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Reshape.html) | Configuring shard strategy is not supported. In auto parallel mode, if multiple operators are followed by the reshape operator, different shard strategys are not allowed to be configured for these operators. |
+| [mindspore.ops.ResizeNearestNeighbor]()                      | When `align_corners=True` is set, only the first dimension and the second dimension are supported to split. |
 | [mindspore.ops.Round](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Round.html) | None                                                         |
 | [mindspore.ops.Rsqrt](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Rsqrt.html) | None                                                         |
 | [mindspore.ops.ScatterUpdate](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.ScatterUpdate.html) | The first dimension of first input can not be split, the second input can not  be split, and the first n dimensions (n is the dimension size of the second input) of the third input can not be split; In auto_parallel mode, the strategy's searching algorithm can not use "recursive_programming". |
@@ -105,7 +110,7 @@
 | [mindspore.ops.SoftmaxCrossEntropyWithLogits](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.SoftmaxCrossEntropyWithLogits.html) | The last dimension of logits and labels can't be splited; Only supports using output[0]. |
 | [mindspore.ops.Softplus](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Softplus.html) | None                                                         |
 | [mindspore.ops.Softsign](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Softsign.html) | None                                                         |
-| [mindspore.ops.SparseGatherV2](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.SparseGatherV2.html) | The same as GatherV2.                                        |
+| [mindspore.ops.SparseGatherV2](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.SparseGatherV2.html) | The same as Gather.                                          |
 | [mindspore.ops.Split](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Split.html) | The input_x can't be split into the dimension of axis, otherwise it's inconsistent with the single machine in the mathematical logic. |
 | [mindspore.ops.Sqrt](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Sqrt.html) | None                                                         |
 | [mindspore.ops.Square](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Square.html) | None                                                         |

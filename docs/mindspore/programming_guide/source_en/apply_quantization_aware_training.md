@@ -1,6 +1,6 @@
 # Applying Quantization Aware Training
 
-`Linux` `Ascend` `GPU` `Model Optimization` `Expert`
+`Ascend` `GPU` `Function Extension`
 
 <!-- TOC -->
 
@@ -19,7 +19,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/apply_quantization_aware_training.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/apply_quantization_aware_training.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Background
 
@@ -51,7 +51,7 @@ Aware quantization training specifications
 | Specification | Description |
 | --- | --- |
 | Hardware | Supports hardware platforms based on the GPU or Ascend AI 910 processor. |
-| Network | Supports networks such as LeNet and ResNet50. For details, see <https://gitee.com/mindspore/mindspore/tree/master/model_zoo>.  |
+| Network | Supports networks such as LeNet and ResNet50. For details, see <https://gitee.com/mindspore/models/tree/master>.  |
 | Algorithm | Supports asymmetric and symmetric quantization algorithms, as well as layer-by-layer and channel-by-channel quantization algorithms. |
 | Solution | Supports 4-, 7-, and 8-bit quantization solutions.  |
 | Data Type | Supports the FP32 and FP16 networks for quantization training on Ascend, and the FP32 network on GPU.  |
@@ -70,7 +70,7 @@ The procedure of quantization aware training is the same as that of common train
 
 Compared with common training, the quantization aware training requires additional steps which are steps 2 and 6 in the preceding process. Next, the LeNet network is used as an example to describe quantization-related steps.
 
-> You can obtain the complete executable sample code at <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/lenet_quant>.
+> You can obtain the complete executable sample code at <https://gitee.com/mindspore/models/tree/master/official/cv/lenet_quant>.
 
 ### Defining a Quantization Network
 

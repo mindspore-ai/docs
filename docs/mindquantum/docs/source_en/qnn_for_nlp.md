@@ -1,7 +1,5 @@
 # The Application of Quantum Neural Network in NLP
 
-`Linux` `CPU` `Whole Process` `Beginner` `Intermediate` `Expert`
-
 <!-- TOC -->
 
 - [The Application of Quantum Neural Network in NLP](#the-application-of-quantum-neural-network-in-nlp)
@@ -17,7 +15,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindquantum/docs/source_en/qnn_for_nlp.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindquantum/docs/source_en/qnn_for_nlp.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 

@@ -1,5 +1,7 @@
 # Saving and Loading the Model
 
+`Ascend` `GPU` `CPU` `Beginner` `Model Export` `Model Loading`
+
 <!-- TOC -->
 
 - [Saving and Loading the Model](#saving-and-loading-the-model)
@@ -15,15 +17,28 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/save_load_model.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/save_load_model.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 In the previous tutorial, you learn how to train the network. In this tutorial, you will learn how to save and load a model, and how to export a saved model in a specified format to different platforms for inference.
 
 ## Saving the Model
 
-During model training, use the callback mechanism to pass the object of the callback function `ModelCheckpoint` to save model parameters and generate checkpoint files.
+There are two main ways to save the interface of the model: 1) One is to simply save the network model, which can be saved before and after training. The advantage is that the interface is simple and easy to use, but only the state of the network model when the command is executed is retained; 2) The other one is to save the interface during network model training. In the process of network model training, MindSpore automatically saves the parameters of the epoch number and step number set during training, that is, the intermediate weight parameters generated during the model training process are also saved to facilitate network fine-tuning and stop training.
 
-> The callback mechanism is not designed for offloading but for processes. It supports the callback processing mechanisms before and after network computation, epoch execution, and step execution. The purpose of offloading is to improve the training execution efficiency. Because the offloading is executed on the acceleration hardware, the callback can be executed only after the offloading is complete. The two functions are decoupled from the perspective of design.
+### Saving the Model Directly
+
+Use the save_checkpoint provided by MindSpore to save the model, pass it to the network and save the path:
+
+```python
+import mindspore as ms
+
+# The defined network model is net, which is generally used before or after training
+ms.save_checkpoint(net, "./MyNet.ckpt")
+```
+
+### Saving the Model During Training
+
+In the process of model training, use the `callbacks` parameter in `model.train` to pass in the object `ModelCheckpoint` that saves the model, which can save the model parameters and generate CheckPoint (abbreviated as ckpt) files.
 
 ```python
 from mindspore.train.callback import ModelCheckpoint
@@ -38,8 +53,8 @@ You can configure the checkpoint policies as required. The following describes t
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
 
 config_ck = CheckpointConfig(save_checkpoint_steps=32, keep_checkpoint_max=10)
-ckpt_cb = ModelCheckpoint(prefix='resnet50', directory=None, config=config_ckpt)
-model.train(epoch_num, dataset, callbacks= ckpt_cb)
+ckpt_cb = ModelCheckpoint(prefix='resnet50', directory=None, config=config_ck)
+model.train(epoch_num, dataset, callbacks=ckpt_cb)
 ```
 
 In the preceding code, you need to initialize a `CheckpointConfig` class object to set the saving policy.
@@ -91,10 +106,10 @@ In the inference-only scenario, parameters are directly loaded to the network fo
 
 ```python
 # Define a validation dataset.
-dateset_eval = create_dataset(os.path.join(mnist_path, "test"), 32, 1)
+dataset_eval = create_dataset(os.path.join(mnist_path, "test"), 32, 1)
 
 # Call eval() for inference.
-acc = model.eval(dateset_eval)
+acc = model.eval(dataset_eval)
 ```
 
 ### For Transfer Learning
@@ -105,7 +120,7 @@ You can load network parameters and optimizer parameters to the model in the cas
 # Set the number of training epochs.
 epoch = 1
 # Define a training dataset.
-dateset = create_dataset(os.path.join(mnist_path, "train"), 32, 1)
+dataset = create_dataset(os.path.join(mnist_path, "train"), 32, 1)
 # Call train() for training.
 model.train(epoch, dataset)
 ```
@@ -138,7 +153,7 @@ export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='MINDIR')
 ```
 
 > - `input` specifies the input shape and data type of the exported model. If the network has multiple inputs, you need to pass them to the `export` method.  Example: `export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='MINDIR')`
-> - The suffix ".mindir" is automatically added to the name of the exported file.
+> - If `file_name` does not contain the ".mindir" suffix, the system will automatically add the ".mindir" suffix to it.
 
 ### Exporting in Other Formats
 
@@ -151,7 +166,7 @@ export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='AIR')
 ```
 
 > - `input` specifies the input shape and data type of the exported model. If the network has multiple inputs, you need to pass them to the `export` method. Example: `export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='AIR')`
-> - The suffix ".air" is automatically added to the name of the exported file.
+> - If `file_name` does not contain the ".air" suffix, the system will automatically add the ".air" suffix to it.
 
 #### Exporting an ONNX File
 
@@ -162,4 +177,5 @@ export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='ONNX')
 ```
 
 > - `input` specifies the input shape and data type of the exported model. If the network has multiple inputs, you need to pass them to the `export` method. Example: `export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='ONNX')`
-> - The suffix ".onnx" is automatically added to the name of the exported file.
+> - If `file_name` does not contain the ".onnx" suffix, the system will automatically add the ".onnx" suffix to it.
+> - Currently, only the ONNX format export of ResNet series networks and BERT are supported.

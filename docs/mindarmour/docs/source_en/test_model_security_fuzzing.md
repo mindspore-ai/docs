@@ -1,7 +1,5 @@
 ﻿# Testing Model Security Using Fuzz Testing
 
-`Linux` `Ascend` `GPU` `CPU` `Model Evaluation` `Enterprise` `Expert`
-
 <!-- TOC -->
 
 - [Testing Model Security Using Fuzz Testing](#testing-model-security-using-fuzz-testing)
@@ -12,7 +10,7 @@
         - [Fuzz Testing Application](#fuzz-testing-application)
 
 <!-- /TOC -->
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_en/test_model_security_fuzzing.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_en/test_model_security_fuzzing.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
 ## Overview
 
@@ -22,13 +20,15 @@ The fuzz testing module of MindArmour uses the neuron coverage rate as the test 
 
 The LeNet model and MNIST dataset are used as an example to describe how to use Fuzz testing.
 
-> This example is for CPUs, GPUs, and Ascend 910 AI processors. You can download the complete sample code at <https://gitee.com/mindspore/mindarmour/blob/master/examples/ai_fuzzer/lenet5_mnist_fuzzing.py>.
+> This example is for CPUs, GPUs, and Ascend 910 AI processors. Currently only supports GRAPH_MODE. You can download the complete sample code at <https://gitee.com/mindspore/mindarmour/blob/master/examples/ai_fuzzer/lenet5_mnist_fuzzing.py>.
 
 ## Implementation
 
 ### Importing Library Files
 
 The following lists the required common modules, MindSpore-related modules, Fuzz testing feature modules, and configuration log labels and log levels.
+
+Here, we use `KMultisectionNeuronCoverage` as fuzzing guide, you can also choose other supported neuron coverage metrics: `NeuronCoverage`, `TopKNeuronCoverage`, `NeuronBoundsCoverage`, `SuperNeuronActivateCoverage`.
 
 ```python
 import numpy as np
@@ -37,11 +37,11 @@ from mindspore import context
 from mindspore import load_checkpoint, load_param_into_net
 
 from mindarmour.fuzz_testing import Fuzzer
-from mindarmour.fuzz_testing import ModelCoverageMetrics
+from mindarmour.fuzz_testing import KMultisectionNeuronCoverage
 from mindarmour.utils import LogUtil
 
 from examples.common.dataset.data_processing import generate_mnist_dataset
-from examples.common.networks.lenet5.lenet5_net import LeNet5
+from examples.common.networks.lenet5.lenet5_net_for_fuzzing import LeNet5
 
 LOGGER = LogUtil.get_instance()
 TAG = 'Fuzz_testing'
@@ -127,17 +127,7 @@ For details about the API configuration, see the `context.set_context`.
                    ]
    ```
 
-   Set evaluation metrics. Currently, the following evaluation metrics are supported:
-   - General evaluation metric: accuracy.
-   - Neuron coverage rate metrics: kmnc, nbc, and snac.
-   - Adversarial attack evaluation metric: attack_success_rate.
-   You can set this parameter to `auto`. By default, all evaluation metrics are used.
-
-   ```python
-   eval_metrics =['accuracy', 'kmnc', 'attack_success_rate']
-   ```
-
-3. Initialize the seed queue. Each seed in the seed queue has two values: original image and image label. Here we select 100 samples as initial seed queue.
+   Initialize the seed queue. Each seed in the seed queue has two values: original image and image label. Here we select 100 samples as initial seed queue.
 
    ```python
    # make initial seeds
@@ -147,28 +137,25 @@ For details about the API configuration, see the `context.set_context`.
    initial_seeds = initial_seeds[:100]
    ```
 
-4. Test the neuron coverage rate before the fuzz testing.
+4. Instantiate class `KMultisectionNeuronCoverage` and test the k-multisection neuron coverage rate before the fuzz testing.
 
    ```python
-   segmented_num = 1000
-   neuron_num = 10
-   model_coverage_test = ModelCoverageMetrics(model, neuron_num, segmented_num, train_images)
-   model_coverage_test.calculate_coverage(np.array(test_images[:100]).astype(np.float32))
-   LOGGER.info(TAG, 'KMNC of this test is : %s', model_coverage_test.get_kmnc())
+   coverage = KMultisectionNeuronCoverage(model, train_images, segmented_num=100, incremental=True)
+   kmnc = coverage.get_metrics(test_images[:100])
+   print('KMNC of initial seeds is: ', kmnc)
    ```
 
    Result:
 
    ```text
-    KMNC of this test is : 0.0851
+   KMNC of initial seeds is:  0.3152149321266968
    ```
 
 5. Perform the fuzz testing.
 
    ```python
-   eval_metrics = 'auto'
-   model_fuzz_test = Fuzzer(model, train_images, neuron_num, segmented_num)
-   _, _, _, _, metrics = model_fuzz_test.fuzzing(mutate_config, initial_seeds, eval_metrics=eval_metrics)
+   model_fuzz_test = Fuzzer(model)
+   fuzz_samples, true_labels, fuzz_preds, fuzz_strategies, metrics_report = model_fuzz_test.fuzzing(mutate_config, initial_seeds, coverage, evaluate=True, max_iters=10,mutate_num_per_seed=20)
    ```
 
 6. Experiment results.
@@ -194,12 +181,12 @@ For details about the API configuration, see the `context.set_context`.
    The fuzz testing result is as follows:
 
    ```text
-   Accuracy: 0.7929
-   Attack_success_rate: 0.3939
-   Neural_coverage_KMNC: 0.4797
+   Accuracy:  0.445
+   Attack_success_rate:  0.375
+   coverage_metrics:  0.43835972850678734
    ```
 
-   Before the fuzzing test, the KMNC neuron coverage rate of the seed is 8.5%. After the fuzzing test, the KMNC neuron coverage rate is 47.97%, and the neuron coverage rate and sample diversity increase. After the fuzzing test, the accuracy rate of the model to generate samples is 79.29%, and the attack success rate is 39.39% for samples using the adversarial attack method. Since the initial seed, the mutation method and the corresponding parameters are all randomly selected, it is normal that the result floats to some extent.
+   Before the fuzzing test, the KMNC neuron coverage rate of the seed is 31.5%. After the fuzzing test, the KMNC neuron coverage rate is 43.8%, and the neuron coverage rate and sample diversity increase. After the fuzzing test, the accuracy rate of the model to generate samples is 44.5%, and the attack success rate is 37.5% for samples using the adversarial attack method. Since the initial seed, the mutation method and the corresponding parameters are all randomly selected, it is normal that the result floats to some extent.
 
    Original image:
 

@@ -1,6 +1,6 @@
 # 使能图算融合
 
-`Linux` `Ascend` `GPU` `模型调优` `中级` `高级`
+`Ascend` `GPU` `CPU` `模型调优`
 
 <!-- TOC -->
 
@@ -13,11 +13,17 @@
 
 <!-- /TOC -->
 
+<a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbWFzdGVyL25vdGVib29rL21pbmRzcG9yZV9lbmFibGVfZ3JhcGhfa2VybmVsX2Z1c2lvbi5pcHluYg==&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_modelarts.png"></a>&nbsp;&nbsp;
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/notebook/mindspore_enable_graph_kernel_fusion.ipynb"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_notebook.png"></a>
+&nbsp;&nbsp;
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/notebook/mindspore_enable_graph_kernel_fusion.py"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_download_code.png"></a>&nbsp;&nbsp;
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/enable_graph_kernel_fusion.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
-图算融合是MindSpore特有的网络性能优化技术。它可以通过自动分析和优化现有网络计算图逻辑，并结合目标硬件能力，对计算图进行计算化简和替代、算子拆分和融合、算子特例化编译等优化，以提升设备计算资源利用率，实现对网络性能的整体优化。相比传统优化技术，图算融合具有多算子跨边界联合优化、与算子编译跨层协同、基于Polyhedral的算子即时编译等独特优势。另外，图算融合只需要用户打开对应配置后，整个优化过程即可自动完成，不需要网络开发人员进行其它额外感知，使得用户可以聚焦网络算法实现。
+图算融合是MindSpore特有的网络性能优化技术。它可以通过自动分析和优化现有网络计算图逻辑，并结合目标硬件能力，对计算图进行计算化简和替代、算子拆分和融合、算子特例化编译等优化，以提升设备计算资源利用率，实现对网络性能的整体优化。相比传统优化技术，图算融合具有多算子跨边界联合优化、与MindAKG（基于Polyhedral的算子编译器）跨层协同、即时编译等独特优势。另外，图算融合只需要用户打开对应配置后，整个优化过程即可自动完成，不需要网络开发人员进行其它额外感知，使得用户可以聚焦网络算法实现。
+
+> MindSpore默认自动安装MindAKG。对于CPU后端并且通过源码安装的MindSpore，需确保已正确安装[llvm 12.0.1版本](https://github.com/llvm/llvm-project/archive/refs/tags/llvmorg-12.0.1.tar.gz)。
 
 图算融合的适用场景包括：
 
@@ -33,7 +39,8 @@ from mindspore import context
 context.set_context(enable_graph_kernel=True)
 ```
 
-> 图算融合优化只支持Graph模式。
+> - 图算融合优化只支持Graph模式。
+> - 对于CPU平台，图算融合采用了[OpenMP](https://www.openmp.org/)并行计算技术进行算子性能加速。为了获取更好的执行性能，建议配置OMP_NUM_THREADS环境变量以指定OpenMP并行线程数。推荐配置为小于等于当前CPU核数的正整数，如：`export OMP_NUM_THREADS=10`
 
 ### 样例脚本
 

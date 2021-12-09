@@ -71,7 +71,7 @@ Sampler
 .. autosummary::
     :toctree: dataset
     :nosignatures:
-    :template: classtemplate_inherited.rst
+    :template: classtemplate_inherited_sampler.rst
 
     mindspore.dataset.DistributedSampler
     mindspore.dataset.PKSampler
@@ -97,4 +97,5 @@ Others
     mindspore.dataset.deserialize
     mindspore.dataset.serialize
     mindspore.dataset.show
+    mindspore.dataset.utils.imshow_det_bbox
     mindspore.dataset.zip

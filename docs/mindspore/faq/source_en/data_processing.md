@@ -1,8 +1,41 @@
 ﻿# Data Processing
 
-`Linux` `Windows` `Ascend` `GPU` `CPU` `Environment Preparation` `Basic` `Intermediate`
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_en/data_processing.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_en/data_processing.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<font size=3>**Q: How do I offload data if I do not use high-level APIs?**</font>
+
+A: You can refer to the [test_tdt_data_transfer.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/data_transfer/test_tdt_data_transfer.py) example of the manual offloading mode without using the `model.train` API. Currently, the GPU-based and Ascend-based hardware is supported.
+
+<br/>
+
+<font size=3>**Q: Why is there no difference between `shuffle=True` and `shuffle=False` in `GeneratorDataset`?**</font>
+
+A: If `shuffle` is enabled, the input `Dataset` must support random access (for example, the user-defined `Dataset` has the `getitem` method). If data is returned in `yeild` mode in the user-defined `Dataset`, random access is not supported. For details, see section [Loading Dataset Overview](https://www.mindspore.cn/docs/programming_guide/en/master/dataset_loading.html#id5).
+
+<br/>
+
+<font size=3>**Q: How does `Dataset` combine two `columns` into one `column`?**</font>
+
+A: You can perform the following operations to combine the two columns into one:
+
+```python
+def combine(x, y):
+    x = x.flatten()
+    y = y.flatten()
+    return np.append(x, y)
+
+dataset = dataset.map(operations=combine, input_columns=["data", "data2"], output_columns=["data"])
+```
+
+Note: The `shapes`of the two `columns` are different. Therefore, you need to `flatten` them before combining.
+
+<br/>
+
+<font size=3>**Q: Does `GeneratorDataset` support `ds.PKSampler` sampling?**</font>
+
+A: `GeneratorDataset` does not support `PKSampler` sampling logic. The main reason is that the custom data operation is too flexible. The built-in `PKSampler` cannot be universal. Therefore, a message is displayed at the API layer, indicating that the operation is not supported. However, for `GeneratorDataset`, you can easily define the required `Sampler` logic. That is, you can define specific `sampler` rules in the `__getitem__` function of the `ImageDataset` class and return the required data.
+
+<br/>
 
 <font size=3>**Q: How does MindSpore load the existing pre-trained word vector?**</font>
 
@@ -89,23 +122,17 @@ When `dataset_sink_mode` is set to `False`, data processing and network computin
 
 <font size=3>**Q: Can MindSpore train image data of different sizes by batch?**</font>
 
-A: You can refer to the usage of YOLOv3 which contains the resizing of different images. For details about the script, see [yolo_dataset](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/yolov3_darknet53/src/yolo_dataset.py).
+A: You can refer to the usage of YOLOv3 which contains the resizing of different images. For details about the script, see [yolo_dataset](https://gitee.com/mindspore/models/blob/master/official/cv/yolov3_darknet53/src/yolo_dataset.py).
 
 <br/>
 
 <font size=3>**Q: Must data be converted into MindRecords when MindSpore is used for segmentation training?**</font>
 
-A: [build_seg_data.py](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/deeplabv3/src/data/build_seg_data.py) is used to generate MindRecords based on a dataset. You can directly use or adapt it to your dataset. Alternatively, you can use `GeneratorDataset` if you want to read the dataset by yourself.
+A: [build_seg_data.py](https://gitee.com/mindspore/models/blob/master/official/cv/deeplabv3/src/data/build_seg_data.py) is used to generate MindRecords based on a dataset. You can directly use or adapt it to your dataset. Alternatively, you can use `GeneratorDataset` if you want to read the dataset by yourself.
 
 [GenratorDataset example](https://www.mindspore.cn/docs/programming_guide/en/master/dataset_loading.html#loading-user-defined-dataset)
 
 [GeneratorDataset API description](https://www.mindspore.cn/docs/api/en/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)
-
-<br/>
-
-<font size=3>**Q: How do I perform training without processing data in MindRecord format?**</font>
-
-A: You can use the customized data loading method `GeneratorDataset`. For details, click [here](https://www.mindspore.cn/tutorial/en/r0.7/use/data_preparation/loading_the_datasets.html#id5).
 
 <br/>
 
@@ -251,3 +278,57 @@ To use the two operators together, ensure that the output format of the previous
 <font size=3>**Q: Why is a .db file generated in MindRecord? What is the error reported when I load a dataset without a .db file?**</font>
 
 A: The .db file is the index file corresponding to the MindRecord file. If the .db file is missing, an error is reported when the total data volume of the dataset is obtained. The error message `MindRecordOp Count total rows failed` is displayed.
+
+<br/>
+
+<font size=3>**Q: How to read image and perform Decode operation in user defined Dataset?**</font>
+
+A: The user defined Dataset that passed into GeneratorDataset, after reading the image inside the function (such as `__getitem__` function), it can directly return bytes type data, numpy array type array or numpy array that has been decoded, as shown below:
+
+- Return bytes of data directly after reading the image
+
+    ```python
+    class ImageDataset:
+        def __init__(self, data_path):
+            self.data = data_path
+
+        def __getitem__(self, index):
+            # use file open and read method
+            f = open(self.data[index], 'rb')
+            img_bytes = f.read()
+            f.close()
+
+            # return bytes directly
+            return (img_bytes, )
+
+        def __len__(self):
+            return len(self.data)
+
+    # data_path is a list of image file name
+    dataset1 = ds.GeneratorDataset(ImageDataset(data_path), ["data"])
+    decode_op = py_vision.Decode()
+    to_tensor = py_vision.ToTensor(output_type=np.int32)
+    dataset1 = dataset1.map(operations=[decode_op, to_tensor], input_columns=["data"])
+    ```
+
+- Return numpy array after reading the image
+
+    ```python
+    # In the above use case, the __getitem__ function can be modified as follows, and the Decode operation is the same as the above use case
+    def __getitem__(self, index):
+        # use np.fromfile to read image
+        img_np = np.fromfile(self.data[index])
+
+        # return Numpy array directly
+        return (img_np, )
+    ```
+
+- Perform decode operation directly after reading the image
+
+    ```python
+    # According to the above use case, the __getitem__ function can be modified as follows to directly return the data after Decode. After that, there is no need to add Decode operation through the map operator.
+    def __getitem__(self, index):
+        # use Image.Open to open file, and convert to RGC
+        img_rgb = Image.Open(self.data[index]).convert("RGB")
+        return (img_rgb, )
+    ```

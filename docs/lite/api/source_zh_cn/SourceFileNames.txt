@@ -1,0 +1,13 @@
+mindspore/ccsrc/minddata/dataset/include/dataset/config.h
+mindspore/ccsrc/minddata/dataset/include/dataset/constants.h
+mindspore/ccsrc/minddata/dataset/include/dataset/datasets.h
+mindspore/ccsrc/minddata/dataset/include/dataset/execute.h
+mindspore/ccsrc/minddata/dataset/include/dataset/iterator.h
+mindspore/ccsrc/minddata/dataset/include/dataset/samplers.h
+mindspore/ccsrc/minddata/dataset/include/dataset/text.h
+mindspore/ccsrc/minddata/dataset/include/dataset/transforms.h
+mindspore/ccsrc/minddata/dataset/include/dataset/vision.h
+mindspore/ccsrc/minddata/dataset/include/dataset/vision_ascend.h
+mindspore/ccsrc/minddata/dataset/include/dataset/vision_lite.h
+mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h
+mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h

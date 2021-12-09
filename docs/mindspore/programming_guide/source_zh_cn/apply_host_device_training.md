@@ -1,10 +1,10 @@
-# 应用Host&Device混合训练
+# Host&Device异构
 
-`Linux` `Ascend` `CPU` `模型训练` `中级` `高级`
+`Ascend` `GPU` `分布式并行` `全流程`
 
 <!-- TOC -->
 
-- [Host&Device混合训练](#hostdevice混合训练)
+- [Host&Device异构](#hostdevice异构)
     - [概述](#概述)
     - [准备工作](#准备工作)
     - [配置混合执行](#配置混合执行)
@@ -19,11 +19,11 @@
 
 在深度学习中，工作人员时常会遇到超大模型的训练问题，即模型参数所占内存超过了设备内存上限。为高效地训练超大模型，一种方案便是分布式并行训练，也就是将工作交由同构的多个加速器（如Ascend 910 AI处理器，GPU等）共同完成。但是这种方式在面对几百GB甚至几TB级别的模型时，所需的加速器过多。而当从业者实际难以获取大规模集群时，这种方式难以应用。另一种可行的方案是使用主机端（Host）和加速器（Device）的混合训练模式。此方案同时发挥了主机端内存大和加速器端计算快的优势，是一种解决超大模型训练较有效的方式。
 
-在MindSpore中，用户可以将待训练的参数放在主机，同时将必要算子的执行位置配置为主机，其余算子的执行位置配置为加速器，从而方便地实现混合训练。此教程以推荐模型[Wide&Deep](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/recommend/wide_and_deep)为例，讲解MindSpore在主机和Ascend 910 AI处理器的混合训练。
+在MindSpore中，用户可以将待训练的参数放在主机，同时将必要算子的执行位置配置为主机，其余算子的执行位置配置为加速器，从而方便地实现混合训练。此教程以推荐模型[Wide&Deep](https://gitee.com/mindspore/models/tree/master/official/recommend/wide_and_deep)为例，讲解MindSpore在主机和Ascend 910 AI处理器的混合训练。
 
 ## 准备工作
 
-1. 准备模型代码。Wide&Deep的代码可参见：<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/recommend/wide_and_deep>，其中，`train_and_eval_auto_parallel.py`为训练的主函数所在，`src/`目录中包含Wide&Deep模型的定义、数据处理和配置信息等，`script/`目录中包含不同配置下的训练脚本。
+1. 准备模型代码。Wide&Deep的代码可参见：<https://gitee.com/mindspore/models/tree/master/official/recommend/wide_and_deep>，其中，`train_and_eval_auto_parallel.py`为训练的主函数所在，`src/`目录中包含Wide&Deep模型的定义、数据处理和配置信息等，`script/`目录中包含不同配置下的训练脚本。
 
 2. 准备数据集。请参考[1]中的链接下载数据集，并利用脚本`src/preprocess_data.py`将数据集转换为MindRecord格式。
 

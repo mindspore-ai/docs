@@ -23,7 +23,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/build.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/build.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 This chapter introduces how to quickly compile MindSpore Lite, which includes the following modules:
 
@@ -73,7 +73,7 @@ Modules in MindSpore Lite:
 
 The script `build.sh` in the root directory of MindSpore can be used to compile MindSpore Lite.
 
-#### The compilation parameter of `build.sh`
+#### Instructions for parameters of `build.sh`
 
 | Parameter  |  Parameter Description  | Value Range | Defaults |
 | -------- | ----- | ---- | ---- |
@@ -88,7 +88,11 @@ The script `build.sh` in the root directory of MindSpore can be used to compile 
 > - When the `-I` parameter changes, such as `-I x86_64` is converted to `-I arm64`, adding `-i` for parameter compilation does not take effect.
 > - When compiling the AAR package, the `-A on` parameter must be added, and there is no need to add the `-I` parameter.
 
-#### The options of `mindspore/lite/CMakeLists.txt`
+#### Module build compilation options
+
+The construction of modules is controlled by environment variables. Users can control the modules built by compiling by declaring relevant environment variables. After the compilation option is modified, in order to make the option effective, the `-i` parameter cannot be added for incremental compilation when compiling with the `build.sh` script.
+
+- General module compilation options
 
 | Option  |  Parameter Description  | Value Range | Defaults |
 | -------- | ----- | ---- | ---- |
@@ -101,8 +105,24 @@ The script `build.sh` in the root directory of MindSpore can be used to compile 
 | MSLITE_ENABLE_TOOLS | Whether to compile supporting tools | on, off | on |
 | MSLITE_ENABLE_TESTCASES | Whether to compile test cases | on, off | off |
 
-> - The above options can be modified by setting the environment variable with the same name or the file `mindspore/lite/CMakeLists.txt`.
-> - After modifying the Option, adding the `-i` parameter for incremental compilation will not take effect.
+> - For TensorRT and NPU compilation environment configuration, refer to [Application Specific Integrated Circuit Integration Instructions](https://www.mindspore.cn/lite/docs/en/master/use/asic.html).
+
+- Runtime feature compilation options
+
+If the user is sensitive to the package size of the framework, the following options can be configured to reduce the package size by reducing the function of the runtime model reasoning framework. Then, the user can further reduce the package size by operator reduction through the [reduction tool](https://www.mindspore.cn/lite/docs/en/master/use/build.html) or [download](https://www.mindspore.cn/lite/docs/en/master/use/cropper_tool.html).
+
+| Option  |  Parameter Description  | Value Range | Defaults |
+| -------- | ----- | ---- | ---- |
+| MSLITE_STRING_KERNEL | Whether to support string data reasoning model, such as smart_reply.tflite | on,off | on |
+| MSLITE_ENABLE_CONTROLFLOW | Whether to support control flow model | on,off | on |
+| MSLITE_ENABLE_WEIGHT_DECODE | Whether to support weight quantitative model | on,off | on |
+| MSLITE_ENABLE_CUSTOM_KERNEL | Whether to support southbound operator registration | on,off | on |
+| MSLITE_ENABLE_DELEGATE | Whether to  support Delegate mechanism | on,off | on |
+| MSLITE_ENABLE_V0 | Whether to compatible with models exported before 1.1.0 | on,off | on |
+| MSLITE_ENABLE_FP16 | Whether to support FP16 operator | on,off | off when `-I x86_64`, on when `-I arm64`, when `-I arm32`, if the Android_NDK version is greater than r21e, it is on, otherwise it is off |
+| MSLITE_ENABLE_INT8 | Whether to support INT8 operator | on,off | on |
+
+> - Since the implementation of NPU and TensorRT depends on the Delegate mechanism, the Delegate mechanism cannot be turned off when using NPU or TensorRT. If the Delegate mechanism is turned off, the related functions must also be turned off.
 
 ### Compilation Example
 
@@ -217,12 +237,15 @@ Finally, the following files will be generated in the `output/` directory:
 
 - System environment: Windows 7, Windows 10; 64-bit.
 
-- Compilation dependencies are:
+- MinGW compilation dependencies:
     - [CMake](https://cmake.org/download/) >= 3.18.3
-    - [MinGW GCC](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/7.3.0/threads-posix/seh/x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z/download) = 7.3.0
+    - Compile 64-bit: [MinGW-W64 x86_64](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/7.3.0/threads-posix/seh/x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z) = GCC-7.3.0
+    - Compile 32-bit: [MinGW-W64 i686](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/7.3.0/threads-posix/dwarf/i686-7.3.0-release-posix-dwarf-rt_v5-rev0.7z) = GCC-7.3.0
 
-> - The compilation script will execute `git clone` to obtain the code of the third-party dependent libraries.
-> - If you want to compile 32-bit Mindspore Lite, please use 32-bit [MinGW](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/7.3.0/threads-posix/dwarf/i686-7.3.0-release-posix-dwarf-rt_v5-rev0.7z) to compile.
+- Visual Studio compilation dependencies:
+    - [Visual Studio](https://visualstudio.microsoft.com/vs/older-downloads/) = 2017, cmake is included.
+    - Compile 64-bit: Enter the start menu, click "x64 Native Tools Command Prompt for VS 2017", or open the cmd window and execute `call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Profession\VC\Auxiliary\Build\vcvars64.bat"`.
+    - Compile 32-bit: Enter the start menu, click "x64_x86 Cross Tools Command Prompt for VS 2017", or open the cmd window and execute `call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Profession\VC\Auxiliary\Build\vcvarsamd64_x86.bat"`.
 
 ### Compilation Options
 
@@ -240,8 +263,8 @@ The script `build.bat` in the root directory of MindSpore can be used to compile
 | Option  |  Parameter Description  | Value Range | Defaults |
 | -------- | ----- | ---- | ---- |
 | MSLITE_ENABLE_SSE | Whether to enable SSE instruction set | on, off | off |
-| MSLITE_ENABLE_AVX | Whether to enable AVX instruction set | on, off | off |
-| MSLITE_ENABLE_CONVERTER | Whether to compile the model conversion tool | on, off | on |
+| MSLITE_ENABLE_AVX | Whether to enable AVX instruction set (This option does not currently support the Visual Studio compiler) | on, off | off |
+| MSLITE_ENABLE_CONVERTER | Whether to compile the model conversion tool (This option does not currently support the Visual Studio compiler) | on, off | on |
 | MSLITE_ENABLE_TOOLS | Whether to compile supporting tools | on, off | on |
 | MSLITE_ENABLE_TESTCASES | Whether to compile test cases | on, off | off |
 
@@ -257,15 +280,10 @@ git clone https://gitee.com/mindspore/mindspore.git
 
 Then, use the cmd tool to compile MindSpore Lite in the root directory of the source code and execute the following commands.
 
-- Compile the Windows version with the default number of threads (6 threads).
+- Turn on SSE instruction set optimization and compile with 8 threads.
 
 ```bat
-call build.bat lite
-```
-
-- Compile the Windows version with the specified number of 8 threads.
-
-```bat
+set MSLITE_ENABLE_SSE=on
 call build.bat lite 8
 ```
 
@@ -277,24 +295,43 @@ Finally, the following files will be generated in the `output/` directory:
 
 ### Directory Structure
 
-```text
-mindspore-lite-{version}-win-x64
-├── runtime
-│   ├── include
-│   └── lib
-│       ├── libgcc_s_seh-1.dll      # Dynamic library of MinGW
-│       ├── libmindspore-lite.a     # Static library of inference framework in MindSpore Lite
-│       ├── libmindspore-lite.dll   # Dynamic library of inference framework in MindSpore Lite
-│       ├── libmindspore-lite.dll.a # Link file of dynamic library of inference framework in MindSpore Lite
-│       ├── libssp-0.dll            # Dynamic library of MinGW
-│       ├── libstdc++-6.dll         # Dynamic library of MinGW
-│       └── libwinpthread-1.dll     # Dynamic library of MinGW
-└── tools
-    ├── benchmark # Benchmarking tool
-    └── converter # Model conversion tool
-```
+- When the compiler is MinGW:
 
-> Currently, MindSpore Lite is not supported on Windows.
+    ```text
+    mindspore-lite-{version}-win-x64
+    ├── runtime
+    │   ├── include
+    │   └── lib
+    │       ├── libgcc_s_seh-1.dll      # Dynamic library of MinGW
+    │       ├── libmindspore-lite.a     # Static library of inference framework in MindSpore Lite
+    │       ├── libmindspore-lite.dll   # Dynamic library of inference framework in MindSpore Lite
+    │       ├── libmindspore-lite.dll.a # Link file of dynamic library of inference framework in MindSpore Lite
+    │       ├── libssp-0.dll            # Dynamic library of MinGW
+    │       ├── libstdc++-6.dll         # Dynamic library of MinGW
+    │       └── libwinpthread-1.dll     # Dynamic library of MinGW
+    └── tools
+        ├── benchmark # Benchmarking tool
+        └── converter # Model conversion tool
+    ```
+
+- When the compiler is Visual Studio:
+
+    ```text
+    mindspore-lite-{version}-win-x64
+    ├── runtime
+    │   ├── include
+    │   └── lib
+    │       ├── libmindspore-lite.dll     # Dynamic library of inference framework in MindSpore Lite
+    │       ├── libmindspore-lite.dll.lib # Import library of dynamic library of inference framework in MindSpore Lite
+    │       └── libmindspore-lite.lib     # Static library of inference framework in MindSpore Lite
+    └── tools
+        └── benchmark # Benchmarking tool
+    ```
+
+> - When linking the static library compiled by MinGW, you need to add `-Wl, --whole-archive mindspore-lite -Wl, --no-whole-archive` in the link options.
+> - When linking the static library compiled by Visual Studio, you need to add `/WHOLEARCHIVE:libmindspore-lite.lib` in "Property Pages -> Linker -> Command Line -> Additional Options".
+> - When using the Visual Studio compiler, std::ios::binary must be added to read the model stream, otherwise the problem of incomplete reading of the model file will occur.
+> - Currently, MindSpore Lite is not supported on Windows.
 
 ## macOS Environment Compilation
 

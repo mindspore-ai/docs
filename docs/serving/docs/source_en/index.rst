@@ -19,5 +19,4 @@ MindSpore Serving Documents
    serving_grpc
    serving_restful
    serving_model
-   serving_pipeline
-
+   serving_multi_subgraphs

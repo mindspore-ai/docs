@@ -1,5 +1,7 @@
 # Auto Augmentation
 
+`Ascend` `GPU` `CPU` `Data Preparation`
+
 <!-- TOC -->
 
 - [Auto Augmentation](#auto-augmentation)
@@ -12,7 +14,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/auto_augmentation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/auto_augmentation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -102,7 +104,7 @@ The following demonstrates the use of automatic data augmentation based on callb
             self.step_num = 0
 
         def preprocess(self, input_):
-            return (np.array((input_ + self.step_num ** self.ep_num - 1), ))
+            return np.array((input_ + self.step_num ** self.ep_num - 1), )
 
         def update(self, data):
             self.ep_num = data['ep_num']

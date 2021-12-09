@@ -1,5 +1,7 @@
 # MindSpore Data Format Conversion
 
+`Ascend` `GPU` `CPU` `Data Preparation`
+
 <!-- TOC -->
 
 - [MindSpore Data Format Conversion](#mindspore-data-format-conversion)
@@ -15,7 +17,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/dataset_conversion.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/dataset_conversion.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -202,13 +204,40 @@ For details about dataset conversion, see [MindSpore API](https://www.mindspore.
 
 You can use the `Cifar10ToMR` class to convert the original CIFAR-10 data to MindRecord and use `MindDataset` to load the data.
 
-1. Download and decompress the [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz). Execute the following command in jupyter notebook:
+1. Download and decompress the [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz). The following example code downloads and unzips the dataset to the specified location:
 
-    ```bash
-    wget -N https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cifar-10-python.tar.gz --no-check-certificate
-    mkdir -p datasets
-    tar -xzf cifar-10-python.tar.gz -C datasets
-    tree ./datasets/cifar-10-batches-py
+    ```python
+    import os
+    import requests
+    import tarfile
+    import zipfile
+    import shutil
+
+    def download_dataset(url, target_path):
+        """download and decompress dataset"""
+        if not os.path.exists(target_path):
+            os.makedirs(target_path)
+        download_file = url.split("/")[-1]
+        if not os.path.exists(download_file):
+            res = requests.get(url, stream=True, verify=False)
+            if download_file.split(".")[-1] not in ["tgz", "zip", "tar", "gz"]:
+                download_file = os.path.join(target_path, download_file)
+            with open(download_file, "wb") as f:
+                for chunk in res.iter_content(chunk_size=512):
+                    if chunk:
+                        f.write(chunk)
+        if download_file.endswith("zip"):
+            z = zipfile.ZipFile(download_file, "r")
+            z.extractall(path=target_path)
+            z.close()
+        if download_file.endswith(".tar.gz") or download_file.endswith(".tar") or download_file.endswith(".tgz"):
+            t = tarfile.open(download_file)
+            names = t.getnames()
+            for name in names:
+                t.extract(name, target_path)
+            t.close()
+
+    download_dataset("https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cifar-10-python.tar.gz", "./datasets")
     ```
 
     ```text

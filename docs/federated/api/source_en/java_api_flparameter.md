@@ -5,12 +5,10 @@
 - [FLParameter](#flparameter)
     - [Public Member Functions](#public-member-functions)
     - [getInstance](#getinstance)
-    - [getHostName](#gethostname)
-    - [setHostName](#sethostname)
+    - [getDomainName](#getdomainname)
+    - [setDomainName](#setdomainname)
     - [getCertPath](#getcertpath)
     - [setCertPath](#setcertpath)
-    - [isUseHttps](#isusehttps)
-    - [setUseHttps](#setusehttps)
     - [getTrainDataset](#gettraindataset)
     - [setTrainDataset](#settraindataset)
     - [getVocabFile](#getvocabfile)
@@ -25,12 +23,8 @@
     - [setTrainModelPath](#settrainmodelpath)
     - [getInferModelPath](#getinfermodelpath)
     - [setInferModelPath](#setinfermodelpath)
-    - [getIp](#getip)
-    - [setIp](#setip)
     - [isUseSSL](#isusessl)
     - [setUseSSL](#setusessl)
-    - [getPort](#getport)
-    - [setPort](#setport)
     - [getTimeOut](#gettimeout)
     - [setTimeOut](#settimeout)
     - [getSleepTime](#getsleeptime)
@@ -40,11 +34,10 @@
     - [getServerNum](#getservernum)
     - [setServerNum](#setservernum)
     - [getClientID](#getclientid)
-    - [setClientID](#setclientid)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/api/source_en/java_api_flparameter.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/api/source_en/java_api_flparameter.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ```java
 import com.mindspore.flclient.FLParameter
@@ -57,12 +50,10 @@ FLParameter is used to define parameters related to federated learning.
 | **Function**                                         |
 | ---------------------------------------------------- |
 | public static synchronized FLParameter getInstance() |
-| public String getHostName()                          |
-| public void setHostName(String hostName)             |
+| public String getDomainName()                        |
+| public void setDomainName(String domainName)         |
 | public String getCertPath()                          |
 | public void setCertPath(String certPath)             |
-| public boolean isUseHttps()                          |
-| public void setUseHttps(boolean useHttps)            |
 | public String getTrainDataset()                      |
 | public void setTrainDataset(String trainDataset)     |
 | public String getVocabFile()                         |
@@ -77,12 +68,8 @@ FLParameter is used to define parameters related to federated learning.
 | public void setTrainModelPath(String trainModelPath) |
 | public String getInferModelPath()                    |
 | public void setInferModelPath(String inferModelPath) |
-| public String getIp()                                |
-| public void setIp(String ip)                         |
 | public boolean isUseSSL()                            |
 | public void setUseSSL(boolean useSSL)                |
-| public int getPort()                                 |
-| public void setPort(int port)                        |
 | public int getTimeOut()                              |
 | public void setTimeOut(int timeOut)                  |
 | public int getSleepTime()                            |
@@ -92,7 +79,6 @@ FLParameter is used to define parameters related to federated learning.
 | public int getServerNum()                            |
 | public void setServerNum(int serverNum)              |
 | public String getClientID()                          |
-| public void setClientID(String clientID)             |
 
 ## getInstance
 
@@ -106,29 +92,29 @@ Obtains a single FLParameter instance.
 
     Single object of the FLParameter type.
 
-## getHostName
+## getDomainName
 
 ```java
-public String getHostName()
+public String getDomainName()
 ```
 
-Obtains the hostname set by a user.
+Obtains the domain name set by a user.
 
 - Return value
 
-    Hostname of the string type.
+    Domain name of the string type.
 
-## setHostName
+## setDomainName
 
 ```java
-public void setHostName(String hostName)
+public void setDomainName(String domainName)
 ```
 
-Sets the hostname.
+Used to set the url for device-cloud communication. Currently, https and http communication are supported, the corresponding formats are like: https://......, http://......, and when `useElb` is set to true, the format must be: https://127.0.0.0 : 6666 or http://127.0.0.0 : 6666 , where `127.0.0.0` corresponds to the ip of the machine providing cloud-side services (corresponding to the cloud-side parameter `--scheduler_ip`), and `6666` corresponds to the cloud-side parameter `--fl_server_port`.
 
 - Parameter
 
-    - `hostName`: hostname.
+    - `domainName`: domain name.
 
 ## getCertPath
 
@@ -152,29 +138,6 @@ Sets the certificate path.
 
 - Parameter
     - `certPath`: certificate path.
-
-## isUseHttps
-
-```java
-public boolean isUseHttps()
-```
-
-Determines whether the HTTPS communication mode is used for device-cloud communication.
-
-- Return value
-
-    Boolean type. The value true indicates HTTPS communication, and the value false indicates HTTP communication. The default value is false. Currently, the cloud does not support HTTPS communication.
-
-## setUseHttps
-
-```java
- public void setUseHttps(boolean useHttps)
-```
-
-Determines whether to use the HTTPS communication mode for device-cloud communication.
-
-- Parameter
-    - `useHttps`: determines whether to use the HTTPS communication mode.
 
 ## getTrainDataset
 
@@ -338,29 +301,6 @@ Sets the path of the inference model.
 - Parameter
     - `inferModelPath`: path of the inference model.
 
-## getIp
-
-```java
-public String getIp()
-```
-
-Obtains the IP address set by a user for device-cloud communication.
-
-- Return value
-
-    IP address of the string type.
-
-## setIp
-
-```java
-public void setIp(String ip)
-```
-
-Sets the IP address for device-cloud communication.
-
-- Parameter
-    - `ip`: IP address for device-cloud communication.
-
 ## isUseSSL
 
 ```java
@@ -383,29 +323,6 @@ Determines whether to perform SSL certificate authentication (which applies only
 
 - Parameter
     - `useSSL`: determines whether to perform SSL certificate authentication for device-cloud communication.
-
-## getPort
-
-```java
-public int getPort()
-```
-
-Obtains the port number set by a user for device-cloud communication.
-
-- Return value
-
-    Port number for device-cloud communication, which is an integer.
-
-## setPort
-
-```java
-public void setPort(int port)
-```
-
-Sets the port number for device-cloud communication.
-
-- Parameter
-    - `port`: port number for device-cloud communication.
 
 ## getTimeOut
 
@@ -505,19 +422,8 @@ Sets the number of servers that can send requests during elastic load balancing 
 public String getClientID()
 ```
 
-Obtains the unique client ID set by a user.
+Obtains the unique client ID which is automatically generated in the program before starting the federated learning task.
 
 - Return value
 
     Unique ID of the client, which is of the string type.
-
-## setClientID
-
-```java
-public void setClientID(String clientID)
-```
-
-Sets the unique ID of a client.
-
-- Parameter
-    - `clientID`: unique ID of a client.

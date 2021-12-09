@@ -1,6 +1,6 @@
 # Enabling Mixed Precision
 
-`Linux` `Ascend` `GPU` `Model Training` `Intermediate` `Expert`
+`Ascend` `GPU` `Model Optimization`
 
 <!-- TOC -->
 
@@ -13,7 +13,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/enable_mixed_precision.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/enable_mixed_precision.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -40,59 +40,7 @@ This document describes the computation process by using examples of automatic a
 
 ## Automatic Mixed Precision
 
-To use the automatic mixed precision, you need to invoke the corresponding API, which takes the network to be trained and the optimizer as the input. This API converts the operators of the entire network into FP16 operators (except the `BatchNorm` and Loss operators). You can use automatic mixed precision through API `amp` or API `Model`.
-
-The procedure of using automatic mixed precision by API `amp` is as follows:
-
-1. Introduce the MindSpore mixed precision API `amp`.
-
-2. Define the network. This step is the same as the common network definition. (You do not need to manually configure the precision of any specific operator.)
-
-3. Use the `amp.build_train_network` API to encapsulate the network model and optimizer. You can learn how to set parameter `level` through <https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.html#mindspore.build_train_network>. In this step, MindSpore automatically converts the operators to the required format.
-
-A code example is as follows:
-
-```python
-import numpy as np
-
-import mindspore.nn as nn
-from mindspore import Tensor, context
-import mindspore.ops as ops
-from mindspore.nn import Momentum
-# The interface of Auto_mixed precision
-from mindspore import amp
-
-context.set_context(mode=context.GRAPH_MODE)
-context.set_context(device_target="Ascend")
-
-# Define network
-class Net(nn.Cell):
-    def __init__(self, input_channel, out_channel):
-        super(Net, self).__init__()
-        self.dense = nn.Dense(input_channel, out_channel)
-        self.relu = ops.ReLU()
-
-    def construct(self, x):
-        x = self.dense(x)
-        x = self.relu(x)
-        return x
-
-
-# Initialize network
-net = Net(512, 128)
-
-# Define training data, label
-predict = Tensor(np.ones([64, 512]).astype(np.float32) * 0.01)
-label = Tensor(np.zeros([64, 128]).astype(np.float32))
-
-# Define Loss and Optimizer
-loss = nn.SoftmaxCrossEntropyWithLogits()
-optimizer = Momentum(params=net.trainable_params(), learning_rate=0.1, momentum=0.9)
-train_network = amp.build_train_network(net, optimizer, loss, level="O3", loss_scale_manager=None)
-
-# Run training
-output = train_network(predict, label)
-```
+To use the automatic mixed precision, you need to invoke API `Model`, which takes the network to be trained and the optimizer as the input. This API converts the operators of the entire network into FP16 operators (except the `BatchNorm` and Loss operators).
 
 The procedure of using automatic mixed precision by API `Model` is as follows:
 
@@ -112,12 +60,11 @@ import mindspore.nn as nn
 from mindspore.nn import Accuracy
 from mindspore import context, Model
 from mindspore.common.initializer import Normal
-from src.dataset import create_dataset
+from mindspore import dataset as ds
 
 context.set_context(mode=context.GRAPH_MODE)
-context.set_context(device_target="Ascend")
+context.set_context(device_target="CPU")
 
-# Define network
 class LeNet5(nn.Cell):
     """
     Lenet network
@@ -128,8 +75,7 @@ class LeNet5(nn.Cell):
 
     Returns:
         Tensor, output tensor
-    Examples:
-        >>> LeNet(num_class=10)
+
 
     """
     def __init__(self, num_class=10, num_channel=1):
@@ -153,15 +99,32 @@ class LeNet5(nn.Cell):
         return x
 
 # create dataset
-ds_train = create_dataset("/dataset/MNIST/train", 32)
+def get_data(num, img_size=(1, 32, 32), num_classes=10, is_onehot=True):
+    for _ in range(num):
+        img = np.random.randn(*img_size)
+        target = np.random.randint(0, num_classes)
+        target_ret = np.array([target]).astype(np.float32)
+        if is_onehot:
+            target_onehot = np.zeros(shape=(num_classes,))
+            target_onehot[target] = 1
+            target_ret = target_onehot.astype(np.float32)
+        yield img.astype(np.float32), target_ret
+
+def create_dataset(num_data=1024, batch_size=32, repeat_size=1):
+    input_data = ds.GeneratorDataset(list(get_data(num_data)), column_names=['data','label'])
+    input_data = input_data.batch(batch_size, drop_remainder=True)
+    input_data = input_data.repeat(repeat_size)
+    return input_data
+
+ds_train = create_dataset()
 
 # Initialize network
 network = LeNet5(10)
 
 # Define Loss and Optimizer
-net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
+net_loss = nn.SoftmaxCrossEntropyWithLogits(reduction="mean")
 net_opt = nn.Momentum(network.trainable_params(),learning_rate=0.01, momentum=0.9)
-model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O3")
+model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O2", loss_scale_manager=None)
 
 # Run training
 model.train(epoch=10, train_dataset=ds_train)

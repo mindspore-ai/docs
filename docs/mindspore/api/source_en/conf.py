@@ -14,6 +14,7 @@
 import os
 import re
 import sys
+import sphinx
 sys.path.append(os.path.abspath('../_ext'))
 import sphinx.ext.autosummary.generate as g
 from sphinx.ext import autodoc as sphinx_autodoc
@@ -21,7 +22,6 @@ from sphinx.util import inspect as sphinx_inspect
 from sphinx.domains import python as sphinx_domain_python
 from textwrap import dedent
 
-import mindspore
 
 # -- Project information -----------------------------------------------------
 
@@ -140,3 +140,54 @@ with open(sphinx_domain_python_source_path, "r+", encoding="utf8") as f:
     if python_code_target not in code_str:
         code_str = code_str.replace(python_code_source, python_code_target)
         exec(code_str, sphinx_domain_python.__dict__)
+
+# Repair error decorators defined in mindspore.
+try:
+    decorator_list = [("mindspore/common/_decorator.py", "deprecated",
+                       "    def decorate(func):",
+                       "    def decorate(func):\n\n        import functools\n\n        @functools.wraps(func)")]
+
+    base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
+    for i in decorator_list:
+        with open(os.path.join(base_path, os.path.normpath(i[0])), "r+", encoding="utf8") as f:
+            content = f.read()
+            if i[3] not in content:
+                content = content.replace(i[2], i[3])
+                f.seek(0)
+                f.truncate()
+                f.write(content)
+except:
+    pass
+
+import mindspore
+
+
+sys.path.append(os.path.abspath('../../../../resource/search'))
+import search_code
+
+# Copy images from mindspore repository to sphinx workdir before running.
+import glob
+import shutil
+from sphinx.util import logging
+logger = logging.getLogger(__name__)
+
+image_specified = {"docs/api_img/*.png": "./api_python/ops/api_img"}
+
+
+for img in image_specified.keys():
+    des_dir = os.path.normpath(image_specified[img])
+    try:
+        if "*" in img:
+            imgs = glob.glob(os.path.join(os.getenv("MS_PATH"), os.path.normpath(img)))
+            if not imgs:
+                continue
+            if not os.path.exists(des_dir):
+                os.makedirs(des_dir)
+            for i in imgs:
+                shutil.copy(i, des_dir)
+        else:
+            img_fullpath = os.path.join(os.getenv("MS_PATH"), des_dir)
+            if os.path.exists(img_fullpath):
+                shutil.copy(img_fullpath, des_dir)
+    except:
+        logger.warning(f"{img} deal failed!")

@@ -14,9 +14,11 @@ Neural Network Operators
     mindspore.ops.Acosh
     mindspore.ops.Adam
     mindspore.ops.AdamNoUpdateParam
+    mindspore.ops.AdamWeightDecay
     mindspore.ops.AdaptiveAvgPool2D
     mindspore.ops.ApplyAdadelta
     mindspore.ops.ApplyAdagrad
+    mindspore.ops.ApplyAdagradDA
     mindspore.ops.ApplyAdagradV2
     mindspore.ops.ApplyAdaMax
     mindspore.ops.ApplyAddSign
@@ -34,11 +36,10 @@ Neural Network Operators
     mindspore.ops.BCEWithLogitsLoss
     mindspore.ops.BiasAdd
     mindspore.ops.BinaryCrossEntropy
-    mindspore.ops.BNTrainingReduce
-    mindspore.ops.BNTrainingUpdate
     mindspore.ops.ComputeAccidentalHits
     mindspore.ops.Conv2D
     mindspore.ops.Conv2DBackpropInput
+    mindspore.ops.Conv2DTranspose
     mindspore.ops.Conv3D
     mindspore.ops.Conv3DTranspose
     mindspore.ops.CTCGreedyDecoder
@@ -61,6 +62,7 @@ Neural Network Operators
     mindspore.ops.FusedSparseProximalAdagrad
     mindspore.ops.GeLU
     mindspore.ops.GetNext
+    mindspore.ops.HShrink
     mindspore.ops.HSigmoid
     mindspore.ops.HSwish
     mindspore.ops.KLDivLoss
@@ -91,9 +93,11 @@ Neural Network Operators
     mindspore.ops.Sigmoid
     mindspore.ops.SigmoidCrossEntropyWithLogits
     mindspore.ops.SmoothL1Loss
+    mindspore.ops.SoftMarginLoss
     mindspore.ops.Softmax
     mindspore.ops.SoftmaxCrossEntropyWithLogits
     mindspore.ops.Softplus
+    mindspore.ops.SoftShrink
     mindspore.ops.Softsign
     mindspore.ops.SparseApplyAdagrad
     mindspore.ops.SparseApplyAdagradV2
@@ -132,6 +136,7 @@ Math Operators
     mindspore.ops.BitwiseOr
     mindspore.ops.BitwiseXor
     mindspore.ops.Ceil
+    mindspore.ops.Conj
     mindspore.ops.Cos
     mindspore.ops.Cosh
     mindspore.ops.CumProd
@@ -143,6 +148,7 @@ Math Operators
     mindspore.ops.EqualCount
     mindspore.ops.Erf
     mindspore.ops.Erfc
+    mindspore.ops.Erfinv
     mindspore.ops.Exp
     mindspore.ops.Expm1
     mindspore.ops.FloatStatus
@@ -151,6 +157,7 @@ Math Operators
     mindspore.ops.Greater
     mindspore.ops.GreaterEqual
     mindspore.ops.HistogramFixedWidth
+    mindspore.ops.Imag
     mindspore.ops.IndexAdd
     mindspore.ops.InplaceAdd
     mindspore.ops.InplaceSub
@@ -158,6 +165,7 @@ Math Operators
     mindspore.ops.Invert
     mindspore.ops.IsInf
     mindspore.ops.IsNan
+    mindspore.ops.Lerp
     mindspore.ops.Less
     mindspore.ops.LessEqual
     mindspore.ops.LinSpace
@@ -180,6 +188,7 @@ Math Operators
     mindspore.ops.NPUClearFloatStatus
     mindspore.ops.NPUGetFloatStatus
     mindspore.ops.Pow
+    mindspore.ops.Real
     mindspore.ops.RealDiv
     mindspore.ops.Reciprocal
     mindspore.ops.ReduceAll
@@ -241,6 +250,7 @@ Array Operators
     mindspore.ops.IsFinite
     mindspore.ops.IsInstance
     mindspore.ops.IsSubClass
+    mindspore.ops.MaskedFill
     mindspore.ops.MaskedSelect
     mindspore.ops.Meshgrid
     mindspore.ops.Ones
@@ -282,9 +292,13 @@ Array Operators
     mindspore.ops.SparseApplyFtrlV2
     mindspore.ops.SparseGatherV2
     mindspore.ops.Split
+    mindspore.ops.SplitV
     mindspore.ops.Squeeze
     mindspore.ops.StridedSlice
     mindspore.ops.TensorScatterAdd
+    mindspore.ops.TensorScatterMax
+    mindspore.ops.TensorScatterMin
+    mindspore.ops.TensorScatterSub
     mindspore.ops.TensorScatterUpdate
     mindspore.ops.Tile
     mindspore.ops.Transpose
@@ -321,6 +335,7 @@ Debug Operators
     :template: classtemplate.rst
 
     mindspore.ops.HistogramSummary
+    mindspore.ops.HookBackward
     mindspore.ops.ImageSummary
     mindspore.ops.InsertGradientOf
     mindspore.ops.Print
@@ -347,44 +362,6 @@ Random Operators
     mindspore.ops.UniformInt
     mindspore.ops.UniformReal
 
-Sponge Operators
-^^^^^^^^^^^^^^^^
-
-.. msplatformautosummary::
-    :toctree: ops
-    :nosignatures:
-    :template: classtemplate.rst
-
-    mindspore.ops.AngleAtomEnergy
-    mindspore.ops.AngleEnergy
-    mindspore.ops.AngleForce
-    mindspore.ops.AngleForceWithAtomEnergy
-    mindspore.ops.BondAtomEnergy
-    mindspore.ops.BondEnergy
-    mindspore.ops.BondForce
-    mindspore.ops.BondForceWithAtomEnergy
-    mindspore.ops.BondForceWithAtomVirial
-    mindspore.ops.DihedralAtomEnergy
-    mindspore.ops.DihedralEnergy
-    mindspore.ops.DihedralForce
-    mindspore.ops.DihedralForceWithAtomEnergy
-    mindspore.ops.Dihedral14CFAtomEnergy
-    mindspore.ops.Dihedral14CFEnergy
-    mindspore.ops.Dihedral14LJAtomEnergy
-    mindspore.ops.Dihedral14LJCFForceWithAtomEnergy
-    mindspore.ops.Dihedral14LJEnergy
-    mindspore.ops.Dihedral14LJForce
-    mindspore.ops.Dihedral14LJForceWithDirectCF
-    mindspore.ops.LJEnergy
-    mindspore.ops.LJForce
-    mindspore.ops.LJForceWithPMEDirectForce
-    mindspore.ops.MDIterationLeapFrog
-    mindspore.ops.MDIterationLeapFrogLiujian
-    mindspore.ops.NeighborListUpdate
-    mindspore.ops.PMEEnergy
-    mindspore.ops.PMEExcludedForce
-    mindspore.ops.PMEReciprocalForce
-
 Image Operators
 ^^^^^^^^^^^^^^^
 
@@ -406,6 +383,16 @@ Sparse Operators
     mindspore.ops.SparseToDense
     mindspore.ops.SparseTensorDenseMatmul
 
+Custom Operators
+^^^^^^^^^^^^^^^^
+
+.. msplatformautosummary::
+    :toctree: ops
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.ops.Custom
+
 Other Operators
 ^^^^^^^^^^^^^^^
 
@@ -417,9 +404,11 @@ Other Operators
     mindspore.ops.Assign
     mindspore.ops.BoundingBoxDecode
     mindspore.ops.BoundingBoxEncode
+    mindspore.ops.CheckBprop
     mindspore.ops.CheckValid
     mindspore.ops.Depend
     mindspore.ops.InTopK
     mindspore.ops.IOU
     mindspore.ops.NoRepeatNGram
+    mindspore.ops.Partial
     mindspore.ops.PopulationCount

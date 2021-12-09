@@ -76,3 +76,13 @@ with open(mod_path, "r+", encoding="utf8") as f:
             contents[num:num+10] = [nbsphinx_math_re.sub(r"# \g<1>", i) for i in contents[num:num+10]]
             break
     exec("".join(contents), nbs.__dict__)
+
+sys.path.append(os.path.abspath('../../../../resource/search'))
+import search_code
+
+
+sys.path.append(os.path.abspath('../../../../resource/custom_directives'))
+from custom_directives import IncludeCodeDirective
+
+def setup(app):
+    app.add_directive('includecode', IncludeCodeDirective)

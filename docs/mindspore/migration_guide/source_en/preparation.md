@@ -18,7 +18,7 @@ Translator: [Misaka19998](https://gitee.com/Misaka19998/docs/tree/master)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/preparation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/preparation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -58,7 +58,7 @@ After successfully compilation, MindSpore install package will be created in `ou
 ### Configuring Environment Variables (only for Ascend)
 
 ```bash
-# control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, default level is WARNING.
+# control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
 export GLOG_v=2
 
 # Conda environmental options
@@ -128,7 +128,7 @@ Users can read [MindSpore Tutorial](https://www.mindspore.cn/docs/programming_gu
 
 ### ModelZoo and Hub
 
-[ModelZoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo) is a model market of MindSpore and community, which provides deeply-optimized models to developers. In order that the users of MindSpore will have individual development conveniently based on models in ModelZoo. Currently, there are major models in several fields, like computer vision, natural language processing, audio and recommender systems.
+[ModelZoo](https://gitee.com/mindspore/models/tree/master) is a model market of MindSpore and community, which provides deeply-optimized models to developers. In order that the users of MindSpore will have individual development conveniently based on models in ModelZoo. Currently, there are major models in several fields, like computer vision, natural language processing, audio and recommender systems.
 
 [mindspore Hub](https://www.mindspore.cn/resources/hub/en) is a platform to save pretrained model of official MindSpore or third party developers. It provides some simple and useful APIs for developers to load and finetune models, so that users can infer or tune models based on pretrained models and deploy models to their applications. Users is able to follow some steps to [publish model](https://www.mindspore.cn/hub/docs/en/master/publish_model.html) to MindSpore Hub,for other developers to download and use.
 

@@ -1,6 +1,6 @@
 ﻿# Image Classification Model
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/image_classification_lite.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/image_classification_lite.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Image classification introduction
 
@@ -15,7 +15,7 @@ Image classification is to identity what an image represents, to predict the obj
 | tree       | 0.8584      |
 | houseplant | 0.7867      |
 
-Using MindSpore Lite to realize image classification [example](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/lite/image_classification).
+Using MindSpore Lite to realize image classification [example](https://gitee.com/mindspore/models/tree/master/official/lite/image_classification).
 
 ## Image classification model list
 

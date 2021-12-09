@@ -14,7 +14,7 @@ Cell
     :template: classtemplate.rst
 
     mindspore.nn.Cell
-    mindspore.nn.GraphKernel
+    mindspore.nn.GraphCell
 
 Containers
 ----------
@@ -42,6 +42,17 @@ Convolution Layers
     mindspore.nn.Conv3d
     mindspore.nn.Conv3dTranspose
 
+Gradient
+------------------
+
+.. msplatformautosummary::
+    :toctree: nn
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.nn.Jvp
+    mindspore.nn.Vjp
+
 Recurrent Layers
 ----------------
 
@@ -50,8 +61,12 @@ Recurrent Layers
     :nosignatures:
     :template: classtemplate.rst
 
+    mindspore.nn.GRUCell
+    mindspore.nn.GRU
     mindspore.nn.LSTMCell
     mindspore.nn.LSTM
+    mindspore.nn.RNNCell
+    mindspore.nn.RNN
 
 Sparse Layers
 -------------
@@ -79,6 +94,7 @@ Non-linear Activations
     mindspore.nn.FastGelu
     mindspore.nn.GELU
     mindspore.nn.get_activation
+    mindspore.nn.HShrink
     mindspore.nn.HSigmoid
     mindspore.nn.HSwish
     mindspore.nn.LeakyReLU
@@ -89,6 +105,7 @@ Non-linear Activations
     mindspore.nn.ReLU6
     mindspore.nn.Sigmoid
     mindspore.nn.Softmax
+    mindspore.nn.SoftShrink
     mindspore.nn.Tanh
 
 Utilities
@@ -109,6 +126,7 @@ Utilities
     mindspore.nn.Pad
     mindspore.nn.Range
     mindspore.nn.ResizeBilinear
+    mindspore.nn.Roll
     mindspore.nn.Tril
     mindspore.nn.Triu
     mindspore.nn.Unfold
@@ -160,17 +178,6 @@ Pooling layers
     mindspore.nn.MaxPool1d
     mindspore.nn.MaxPool2d
 
-Thor Layers
---------------
-
-.. msplatformautosummary::
-    :toctree: nn
-    :nosignatures:
-    :template: classtemplate.rst
-
-    mindspore.nn.Conv2dThor
-    mindspore.nn.DenseThor
-    mindspore.nn.EmbeddingThor
 
 Quantized Functions
 -------------------
@@ -213,6 +220,7 @@ Loss Functions
     mindspore.nn.RMSELoss
     mindspore.nn.SampledSoftmaxLoss
     mindspore.nn.SmoothL1Loss
+    mindspore.nn.SoftMarginLoss
     mindspore.nn.SoftmaxCrossEntropyWithLogits
 
 Optimizer Functions
@@ -227,6 +235,7 @@ Optimizer Functions
     mindspore.nn.Adam
     mindspore.nn.AdamOffload
     mindspore.nn.AdamWeightDecay
+    mindspore.nn.ASGD
     mindspore.nn.FTRL
     mindspore.nn.Lamb
     mindspore.nn.LARS
@@ -235,6 +244,7 @@ Optimizer Functions
     mindspore.nn.Optimizer
     mindspore.nn.ProximalAdagrad
     mindspore.nn.RMSProp
+    mindspore.nn.Rprop
     mindspore.nn.SGD
     mindspore.nn.thor
 
@@ -251,6 +261,7 @@ Wrapper Functions
     mindspore.nn.FixedLossScaleUpdateCell
     mindspore.nn.ForwardValueAndGrad
     mindspore.nn.GetNextSingleOp
+    mindspore.nn.MicroBatchInterleaved
     mindspore.nn.ParameterUpdate
     mindspore.nn.PipelineCell
     mindspore.nn.TimeDistributed
@@ -268,12 +279,6 @@ Math Functions
     :nosignatures:
     :template: classtemplate.rst
 
-    mindspore.nn.DiGamma
-    mindspore.nn.IGamma
-    mindspore.nn.LBeta
-    mindspore.nn.LGamma
-    mindspore.nn.MatDet
-    mindspore.nn.MatInverse
     mindspore.nn.MatMul
     mindspore.nn.Moments
     mindspore.nn.ReduceLogSumExp
@@ -309,6 +314,7 @@ Metrics
     mindspore.nn.Recall
     mindspore.nn.ROC
     mindspore.nn.RootMeanSquareDistance
+    mindspore.nn.rearrange_inputs
     mindspore.nn.Top1CategoricalAccuracy
     mindspore.nn.Top5CategoricalAccuracy
     mindspore.nn.TopKCategoricalAccuracy

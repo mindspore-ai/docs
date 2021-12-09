@@ -1,6 +1,6 @@
 # Experience C++ Simple Inference Demo
 
-`Linux` `Windows` `x86` `C++` `Whole Process``Inference Application` `Data Preparation` `Beginner`
+`Linux` `Windows` `x86` `C++` `Whole Process` `Inference Application` `Data Preparation` `Beginner`
 
 <!-- TOC -->
 
@@ -10,14 +10,17 @@
         - [Linux x86](#linux-x86)
         - [Windows](#windows)
     - [CMake Integration](#cmake-integration)
-    - [Model Loading](#model-loading)
-    - [Model Build](#model-build)
+    - [Model Reading](#model-reading)
+    - [Creating and Configuring Context](#creating-and-configuring-context)
+    - [Model Creating Loading and Building](#model-creating-loading-and-building)
     - [Model Inference](#model-inference)
     - [Memory Release](#memory-release)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/quick_start/quick_start_cpp.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/quick_start/quick_start_cpp.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+
+> MindSpore has unified the inference API. If you want to continue to use the MindSpore Lite independent API for inference, you can refer to the [document](https://www.mindspore.cn/lite/docs/en/r1.3/quick_start/quick_start_cpp.html).
 
 ## Overview
 
@@ -25,14 +28,13 @@ This tutorial provides a MindSpore Lite inference demo. It demonstrates the basi
 
 The MindSpore Lite inference steps are as follows:
 
-1. Load the model: Read the `.ms` model converted by the [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html) from the file system, import the model by using [mindspore::lite::Model::Import](https://www.mindspore.cn/lite/api/en/master/api_cpp/lite.html#import), parse the model, and create the `Model *`.
-2. Create and configure context: Create and configure [context](https://www.mindspore.cn/lite/api/en/master/api_cpp/lite.html#context) to save some basic configuration parameters required by a session to guide graph build and execution.
-3. Create a session: Create [LiteSession](https://www.mindspore.cn/lite/api/en/master/api_cpp/session.html#litesession) and configure the [context](https://www.mindspore.cn/lite/api/en/master/api_cpp/lite.html#context) obtained in the previous step to the session.
-4. Build a graph: Before performing inference, call the `CompileGraph` API of [LiteSession](https://www.mindspore.cn/lite/api/en/master/api_cpp/session.html#litesession) to build a graph. In the graph build phase, subgraph partition and operator selection and scheduling are performed, which takes a long time. Therefore, it is recommended that with one [LiteSession](https://www.mindspore.cn/lite/api/en/master/api_cpp/session.html#litesession) created, one graph be built. In this case, the inference will be performed for multiple times.
-5. Input data: Before the graph is executed, data needs to be filled in the `Input Tensor`.
-6. Perform inference: Use `RunGraph` of the [LiteSession](https://www.mindspore.cn/lite/api/en/master/api_cpp/session.html#litesession) to perform model inference.
-7. Obtain the output: After the graph execution is complete, you can obtain the inference result by `outputting the tensor`.
-8. Release the memory: If the MindSpore Lite inference framework is not required, release the created [LiteSession](https://www.mindspore.cn/lite/api/en/master/api_cpp/session.html#litesession) and [Model](https://www.mindspore.cn/lite/api/en/master/api_cpp/lite.html#model).
+1. Read the model: Read the `.ms` model file converted by the [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html) from the file system.
+2. Create and configure context: Create and configure [Context](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html#class-context) to save some basic configuration parameters required to build and execute the model.
+3. Create, load and build a model: Use [Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build) of [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model) to create and build the model, and configure the [Context](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html#class-context) obtained in the previous step. In the model loading phase, the file cache is parsed into a runtime model. In the model building phase, subgraph partition, operator selection and scheduling are performed, which will take a long time. Therefore, it is recommended that the model should be created once, built once, and performed for multiple times.
+4. Input data: Before the model is executed, data needs to be filled in the `Input Tensor`.
+5. Perform inference: Use [Predict](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#predict) of [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model) to perform model inference.
+6. Obtain the output: After the model execution is complete, you can obtain the inference result by `Output Tensor`.
+7. Release the memory: If the MindSpore Lite inference framework is not required, release the created [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model).
 
 ![img](../images/lite_runtime.png)
 
@@ -74,8 +76,8 @@ The MindSpore Lite inference steps are as follows:
   After the execution, the following information is displayed, including the tensor name, tensor size, number of output tensors, and the first 50 pieces of data.
 
   ```text
-  tensor name is:Default/head-MobileNetV2Head/Softmax-op204 tensor size is:4000 tensor elements num is:1000
-  output data is:5.26823e-05 0.00049752 0.000296722 0.000377607 0.000177048 8.02107e-05 0.000212864 0.000422286 0.000273189 0.000234105 0.00099807 0.0042331 0.00204993 0.00124968 0.00294458 0.00139795 0.00111545 0.000656357 0.000809457 0.00153731 0.000621049 0.00224637 0.00127045 0.00187557 0.000420144 0.000150638 0.000266477 0.000438628 0.000187773 0.00054668 0.000212853 0.000921661 0.000127179 0.000565873 0.00100394 0.000300159 0.000282677 0.000358067 0.00215288 0.000477845 0.00107596 0.00065134 0.000722132 0.000807501 0.000631415 0.00043247 0.00125898 0.000255094 8.2606e-05 9.91917e-05 0.000794512
+  tensor name is: Softmax-65 tensor size is: 4004 tensor elements num is: 1001
+  output data is: 1.74225e-05 1.15919e-05 2.02728e-05 0.000106485 0.000124295 0.00140576 0.000185107 0.000762011 1.50996e-05 5.91942e-06 6.61469e-06 3.72883e-06 4.30761e-06 2.38897e-06 1.5163e-05 0.000192663 1.03767e-05 1.31953e-05 6.69638e-06 3.17411e-05 4.00895e-06 9.9641e-06 3.85127e-06 6.25101e-06 9.08853e-06 1.25043e-05 1.71761e-05 4.92751e-06 2.87637e-05 7.46446e-06 1.39375e-05 2.18824e-05 1.08861e-05 2.5007e-06 3.49876e-05 0.000384547 5.70778e-06 1.28909e-05 1.11038e-05 3.53906e-06 5.478e-06 9.76608e-06 5.32172e-06 1.10386e-05 5.35474e-06 1.35796e-05 7.12652e-06 3.10017e-05 4.34154e-06 7.89482e-05 1.79441e-05
   ```
 
 ### Windows
@@ -111,11 +113,11 @@ The MindSpore Lite inference steps are as follows:
   After the execution, the following information is displayed, including the tensor name, tensor size, number of output tensors, and the first 50 pieces of data.
 
   ```text
-  tensor name is:Default/head-MobileNetV2Head/Softmax-op204 tensor size is:4000 tensor elements num is:1000
-  output data is:5.26823e-05 0.00049752 0.000296722 0.000377607 0.000177048 8.02107e-05 0.000212864 0.000422286 0.000273189 0.000234105 0.00099807 0.0042331 0.00204993 0.00124968 0.00294458 0.00139795 0.00111545 0.000656357 0.000809457 0.00153731 0.000621049 0.00224637 0.00127045 0.00187557 0.000420144 0.000150638 0.000266477 0.000438628 0.000187773 0.00054668 0.000212853 0.000921661 0.000127179 0.000565873 0.00100394 0.000300159 0.000282677 0.000358067 0.00215288 0.000477845 0.00107596 0.00065134 0.000722132 0.000807501 0.000631415 0.00043247 0.00125898 0.000255094 8.2606e-05 9.91917e-05 0.000794512
+  tensor name is: Softmax-65 tensor size is: 4004 tensor elements num is: 1001
+  output data is: 1.74225e-05 1.15919e-05 2.02728e-05 0.000106485 0.000124295 0.00140576 0.000185107 0.000762011 1.50996e-05 5.91942e-06 6.61469e-06 3.72883e-06 4.30761e-06 2.38897e-06 1.5163e-05 0.000192663 1.03767e-05 1.31953e-05 6.69638e-06 3.17411e-05 4.00895e-06 9.9641e-06 3.85127e-06 6.25101e-06 9.08853e-06 1.25043e-05 1.71761e-05 4.92751e-06 2.87637e-05 7.46446e-06 1.39375e-05 2.18824e-05 1.08861e-05 2.5007e-06 3.49876e-05 0.000384547 5.70778e-06 1.28909e-05 1.11038e-05 3.53906e-06 5.478e-06 9.76608e-06 5.32172e-06 1.10386e-05 5.35474e-06 1.35796e-05 7.12652e-06 3.10017e-05 4.34154e-06 7.89482e-05 1.79441e-05
   ```
 
-## Configure CMake
+## CMake Integration
 
 The following is the sample code when integrating `libmindspore-lite.a` static library through CMake.
 
@@ -136,7 +138,7 @@ endif()
 # Add the directory to include search path
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
-# Add the directory to link search path
+# Add the directory to linker search path
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib)
 
 file(GLOB_RECURSE QUICK_START_CXX ${CMAKE_CURRENT_SOURCE_DIR}/*.cc)
@@ -163,9 +165,9 @@ else()
 endif()
 ```
 
-## Model Loading
+## Model Reading
 
-Read the MindSpore Lite model from the file system and use the `mindspore::lite::Model::Import` function to import the model for parsing.
+Read the MindSpore Lite model from the file system and store it in the memory buffer.
 
 ```c++
 // Read model file.
@@ -175,96 +177,116 @@ if (model_buf == nullptr) {
   std::cerr << "Read model file failed." << std::endl;
   return -1;
 }
-// Load the .ms model.
-auto model = mindspore::lite::Model::Import(model_buf, size);
-delete[](model_buf);
+```
+
+## Creating and Configuring Context
+
+```c++
+// Create and init context, add CPU device info
+auto context = std::make_shared<mindspore::Context>();
+if (context == nullptr) {
+  std::cerr << "New context failed." << std::endl;
+  return -1;
+}
+auto &device_list = context->MutableDeviceInfo();
+auto device_info = std::make_shared<mindspore::CPUDeviceInfo>();
+if (device_info == nullptr) {
+  std::cerr << "New CPUDeviceInfo failed." << std::endl;
+  return -1;
+}
+device_list.push_back(device_info);
+```
+
+## Model Creating Loading and Building
+
+Use [Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build) of [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model) to load the model directly from the memory buffer and build the model.  
+
+```c++
+// Create model
+auto model = new (std::nothrow) mindspore::Model();
 if (model == nullptr) {
-  std::cerr << "Import model file failed." << std::endl;
+  std::cerr << "New Model failed." << std::endl;
+  return -1;
+}
+// Build model
+auto build_ret = model->Build(model_buf, size, mindspore::kMindIR, context);
+delete[](model_buf);
+if (build_ret != mindspore::kSuccess) {
+  std::cerr << "Build model error " << build_ret << std::endl;
   return -1;
 }
 ```
 
-## Model Build
-
-Model build includes context configuration creation, session creation, and graph build.
+There is another method that uses [Load](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#load) of [Serialization](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Serialization.html#class-serialization) to load [Graph](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Graph.html#class-graph) and use [Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build) of [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model) to build the model.
 
 ```c++
-mindspore::session::LiteSession *Compile(mindspore::lite::Model *model) {
-  // Create and init context.
-  auto context = std::make_shared<mindspore::lite::Context>();
-  if (context == nullptr) {
-    std::cerr << "New context failed while." << std::endl;
-    return nullptr;
-  }
+// Load graph.
+mindspore::Graph graph;
+auto load_ret = mindspore::Serialization::Load(model_buf, size, mindspore::kMindIR, &graph);
+delete[](model_buf);
+if (load_ret != mindspore::kSuccess) {
+  std::cerr << "Load graph file failed." << std::endl;
+  return -1;
+}
 
-  // Create the session.
-  mindspore::session::LiteSession *session = mindspore::session::LiteSession::CreateSession(context.get());
-  if (session == nullptr) {
-    std::cerr << "CreateSession failed while running." << std::endl;
-    return nullptr;
-  }
-
-  // Build a graph.
-  auto ret = session->CompileGraph(model);
-  if (ret != mindspore::lite::RET_OK) {
-    delete session;
-    std::cerr << "Compile failed while running." << std::endl;
-    return nullptr;
-  }
-
-  // Note: when use model->Free(), the model can not be compiled again.
-  if (model != nullptr) {
-    model->Free();
-  }
-  return session;
+// Create model
+auto model = new (std::nothrow) mindspore::Model();
+if (model == nullptr) {
+  std::cerr << "New Model failed." << std::endl;
+  return -1;
+}
+// Build model
+mindspore::GraphCell graph_cell(graph);
+auto build_ret = model->Build(graph_cell, context);
+if (build_ret != mindspore::kSuccess) {
+  delete model;
+  std::cerr << "Build model error " << build_ret << std::endl;
+  return -1;
 }
 ```
 
 ## Model Inference
 
-Model inference includes data input, inference execution, and output obtaining. In this example, the input data is randomly generated, and the output result is printed after inference.
+Model inference includes input data injection, inference execution, and output obtaining. In this example, the input data is randomly generated, and the output result is printed after inference.
 
 ```c++
-int Run(mindspore::session::LiteSession *session) {
-  auto inputs = session->GetInputs();
+auto inputs = model->GetInputs();
+// Generate random data as input data.
+auto ret = GenerateInputDataWithRandom(inputs);
+if (ret != mindspore::kSuccess) {
+  delete model;
+  std::cerr << "Generate Random Input Data failed." << std::endl;
+  return -1;
+}
+// Get Output
+auto outputs = model->GetOutputs();
 
-  // Generate random data as input data.
-  auto ret = GenerateInputDataWithRandom(inputs);
-  if (ret != mindspore::lite::RET_OK) {
-    std::cerr << "Generate Random Input Data failed." << std::endl;
-    return ret;
-  }
+// Model Predict
+auto predict_ret = model->Predict(inputs, &outputs);
+if (predict_ret != mindspore::kSuccess) {
+  delete model;
+  std::cerr << "Predict model error " << predict_ret << std::endl;
+  return -1;
+}
 
-  // Run Inference.
-  ret = session->RunGraph();
-  if (ret != mindspore::lite::RET_OK) {
-    std::cerr << "Inference error " << ret << std::endl;
-    return ret;
+// Print Output Tensor Data.
+for (auto tensor : outputs) {
+  std::cout << "tensor name is:" << tensor.Name() << " tensor size is:" << tensor.DataSize()
+            << " tensor elements num is:" << tensor.ElementNum() << std::endl;
+  auto out_data = reinterpret_cast<const float *>(tensor.Data().get());
+  std::cout << "output data is:";
+  for (int i = 0; i < tensor.ElementNum() && i <= 50; i++) {
+    std::cout << out_data[i] << " ";
   }
-
-  // Get Output Tensor Data.
-  auto out_tensors = session->GetOutputs();
-  for (auto tensor : out_tensors) {
-    std::cout << "tensor name is:" << tensor.first << " tensor size is:" << tensor.second->Size()
-              << " tensor elements num is:" << tensor.second->ElementsNum() << std::endl;
-    auto out_data = reinterpret_cast<float *>(tensor.second->MutableData());
-    std::cout << "output data is:";
-    for (int i = 0; i < tensor.second->ElementsNum() && i <= 50; i++) {
-      std::cout << out_data[i] << " ";
-    }
-    std::cout << std::endl;
-  }
-  return mindspore::lite::RET_OK;
+  std::cout << std::endl;
 }
 ```
 
 ## Memory Release
 
-If the MindSpore Lite inference framework is not required, release the created `LiteSession` and `Model`.
+If the inference process of MindSpore Lite is complete, release the created `Model`.
 
 ```c++
-// Delete model buffer.
+// Delete model.
 delete model;
-// Delete session buffer.
-delete session;
 ```

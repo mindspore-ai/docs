@@ -462,7 +462,7 @@
    model.train(epoch_size, dataset)
    ```
 
-PyTorch和mindspore在一些基础API的定义上比较相似，比如[mindspore.nn.SequentialCell](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.SequentialCell.html#mindspore.nn.SequentialCell)和[torch.nn.Sequential](https://pytorch.org/docs/stable/generated/torch.nn.Sequential.html#torch.nn.Sequential)，另外，一些算子API可能不尽相同，此处列举一些常见的API对照，更多信息可以参考MindSpore官网的[MindSpore与PyTorch对照表](https://www.mindspore.cn/docs/note/zh-CN/master/index.html#operator_api)。
+PyTorch和mindspore在一些基础API的定义上比较相似，比如[mindspore.nn.SequentialCell](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.SequentialCell.html#mindspore.nn.SequentialCell)和[torch.nn.Sequential](https://pytorch.org/docs/stable/generated/torch.nn.Sequential.html#torch.nn.Sequential)，另外，一些算子API可能不尽相同，此处列举一些常见的API对照，更多信息可以参考MindSpore官网的[MindSpore与PyTorch对照表](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html)。
 
 |              PyTorch              |                     MindSpore                      |
 | :-------------------------------: | :------------------------------------------------: |

@@ -1,5 +1,7 @@
 # Image Data Processing and Enhancement
 
+`Ascend` `GPU` `CPU` `Data Preparation`
+
 <!-- TOC -->
 
 - [Image Data Processing and Enhancement](#image-data-processing-and-enhancement)
@@ -16,7 +18,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/augmentation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/augmentation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -62,14 +64,46 @@ The following example uses a sequential sampler to load the CIFAR-10 dataset [1]
 
 Download [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz) and decompress it to the specified path, execute the following command:
 
-```bash
-wget -N https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cifar-10-binary.tar.gz --no-check-certificate
-mkdir -p datasets
-tar -xzf cifar-10-binary.tar.gz -C datasets
-mkdir -p datasets/cifar-10-batches-bin/train datasets/cifar-10-batches-bin/test
-mv -f datasets/cifar-10-batches-bin/test_batch.bin datasets/cifar-10-batches-bin/test
-mv -f datasets/cifar-10-batches-bin/data_batch*.bin datasets/cifar-10-batches-bin/batches.meta.txt datasets/cifar-10-batches-bin/train
-tree ./datasets/cifar-10-batches-bin
+```python
+import os
+import requests
+import tarfile
+import zipfile
+import shutil
+
+def download_dataset(url, target_path):
+    """download and decompress dataset"""
+    if not os.path.exists(target_path):
+        os.makedirs(target_path)
+    download_file = url.split("/")[-1]
+    if not os.path.exists(download_file):
+        res = requests.get(url, stream=True, verify=False)
+        if download_file.split(".")[-1] not in ["tgz", "zip", "tar", "gz"]:
+            download_file = os.path.join(target_path, download_file)
+        with open(download_file, "wb") as f:
+            for chunk in res.iter_content(chunk_size=512):
+                if chunk:
+                    f.write(chunk)
+    if download_file.endswith("zip"):
+        z = zipfile.ZipFile(download_file, "r")
+        z.extractall(path=target_path)
+        z.close()
+    if download_file.endswith(".tar.gz") or download_file.endswith(".tar") or download_file.endswith(".tgz"):
+        t = tarfile.open(download_file)
+        names = t.getnames()
+        for name in names:
+            t.extract(name, target_path)
+        t.close()
+
+download_dataset("https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cifar-10-binary.tar.gz", "./datasets")
+test_path = "./datasets/cifar-10-batches-bin/test"
+train_path = "./datasets/cifar-10-batches-bin/train"
+if not os.path.exists(test_path):
+    os.makedirs(test_path)
+if not os.path.exists(train_path):
+    os.makedirs(train_path)
+shutil.move("./datasets/cifar-10-batches-bin/test_batch.bin", test_path)
+[shutil.move("./datasets/cifar-10-batches-bin/"+i, train_path) for i in os.listdir("./datasets/cifar-10-batches-bin/") if os.path.isfile("./datasets/cifar-10-batches-bin/"+i) and not i.endswith(".html")]
 ```
 
 ```text
@@ -232,13 +266,30 @@ The following example loads the MNIST dataset [2], resizes the loaded image to (
 
 Download and decompress the MNIST dataset, store it in the `./datasets/MNIST_data/` path, execute the following command:
 
-```bash
-mkdir -p ./datasets/MNIST_Data/train ./datasets/MNIST_Data/test
-wget -NP ./datasets/MNIST_Data/train https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-labels-idx1-ubyte --no-check-certificate
-wget -NP ./datasets/MNIST_Data/train https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-images-idx3-ubyte --no-check-certificate
-wget -NP ./datasets/MNIST_Data/test https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-labels-idx1-ubyte --no-check-certificate
-wget -NP ./datasets/MNIST_Data/test https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-images-idx3-ubyte --no-check-certificate
-tree ./datasets/MNIST_Data
+```python
+import os
+import requests
+
+def download_dataset(dataset_url, path):
+    filename = dataset_url.split("/")[-1]
+    save_path = os.path.join(path, filename)
+    if os.path.exists(save_path):
+        return
+    if not os.path.exists(path):
+        os.makedirs(path)
+    res = requests.get(dataset_url, stream=True, verify=False)
+    with open(save_path, "wb") as f:
+        for chunk in res.iter_content(chunk_size=512):
+            if chunk:
+                f.write(chunk)
+
+train_path = "datasets/MNIST_Data/train"
+test_path = "datasets/MNIST_Data/test"
+
+download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-labels-idx1-ubyte", train_path)
+download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-images-idx3-ubyte", train_path)
+download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-labels-idx1-ubyte", test_path)
+download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-images-idx3-ubyte", test_path)
 ```
 
 ```text

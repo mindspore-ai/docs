@@ -9,3 +9,6 @@ file(GLOB_RECURSE MD_LIB ${MINDSPORE_PATH}/_c_dataengine*)
 
 add_executable(resnet50_sample main.cc)
 target_link_libraries(resnet50_sample ${MS_LIB} ${MD_LIB})
+
+add_executable(resnet50_hide_preprocess main_hide_preprocess.cc)
+target_link_libraries(resnet50_hide_preprocess ${MS_LIB} ${MD_LIB})

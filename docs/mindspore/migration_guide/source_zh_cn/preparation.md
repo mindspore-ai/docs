@@ -56,7 +56,7 @@ bash build.sh -e gpu -j{thread_num} # gpu环境
 ### 设置环境变量（仅用于Ascend环境）
 
 ```bash
-# control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, default level is WARNING.
+# control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
 export GLOG_v=2
 
 # Conda environmental options
@@ -126,7 +126,7 @@ print(ops.add(x, y))
 
 ### ModelZoo和Hub
 
-[ModelZoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo)是MindSpore与社区共同提供的深度优化的模型集市，向开发者提供了深度优化的模型，以便于生态中的小伙伴可以方便地基于ModelZoo中的模型进行个性化开发。当前已经覆盖了机器视觉、自然语言处理、语音、推荐系统等多个领域的主流模型。
+[ModelZoo](https://gitee.com/mindspore/models/tree/master)是MindSpore与社区共同提供的深度优化的模型集市，向开发者提供了深度优化的模型，以便于生态中的小伙伴可以方便地基于ModelZoo中的模型进行个性化开发。当前已经覆盖了机器视觉、自然语言处理、语音、推荐系统等多个领域的主流模型。
 
 [mindspore Hub](https://www.mindspore.cn/resources/hub)是存放MindSpore官方或者第三方开发者提供的预训练模型的平台。它向应用开发者提供了简单易用的模型加载和微调API，使得用户可以基于预训练模型进行推理或者微调，并部署到自己的应用中。用户也可以将自己训练好的模型按照指定的步骤[发布模型](https://www.mindspore.cn/hub/docs/zh-CN/master/publish_model.html)到MindSpore Hub中，供其他用户下载和使用。
 

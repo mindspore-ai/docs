@@ -1,20 +1,15 @@
 # Inference on a CPU
 
-`Linux` `CPU` `Inference Application` `Beginner` `Intermediate` `Expert`
+`CPU` `Inference Application`
 
 <!-- TOC -->
 
 - [Inference on a CPU](#inference-on-a-cpu)
-    - [Inference Using a Checkpoint File](#inference-using-a-checkpoint-file)
     - [Inference Using an ONNX File](#inference-using-an-onnx-file)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/multi_platform_inference_cpu.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
-
-## Inference Using a Checkpoint File
-
-The inference is the same as that on the Ascend 910 AI processor.
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/multi_platform_inference_cpu.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Inference Using an ONNX File
 

@@ -1,6 +1,6 @@
-﻿# FAQ
+# FAQ
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/faq/source_en/faq.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/faq/source_en/faq.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 <br/>
 
@@ -40,5 +40,11 @@ A: [MindSpore Lite](https://www.mindspore.cn/lite/en) supports the inference of 
 <font size=3>**Q: Does MindSpore have a lightweight on-device inference engine?**</font>
 
 A:The MindSpore lightweight inference framework MindSpore Lite has been officially launched in r0.7. You are welcome to try it and give your comments. For details about the overview, tutorials, and documents, see [MindSpore Lite](https://www.mindspore.cn/lite/en).
+
+<br/>
+
+<font size=3>**Q: How to solve the problem of `sun.security.validator.ValidatorException: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target` when compiling JAVA library?**</font>
+
+A：Use the `keytool` tool to import the security certificate of the relevant website into the cacerts certificate library of java. E.g `keytool -import -file "XX.cer" -keystore ${JAVA_HOME}/lib/security/cacerts" -storepass changeit`.
 
 <br/>

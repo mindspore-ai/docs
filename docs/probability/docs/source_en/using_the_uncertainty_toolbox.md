@@ -16,7 +16,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/probability/docs/source_en/using_the_uncertainty_toolbox.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/probability/docs/source_en/using_the_uncertainty_toolbox.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 One of advantages of BNN is that uncertainty can be obtained. MDP provides a toolbox for uncertainty evaluation at the upper layer. Users can easily use the toolbox to compute uncertainty. Uncertainty means an uncertain degree of a prediction result of a deep learning model. Currently, most deep learning algorithm can only provide prediction results but cannot determine the result reliability. There are two types of uncertainties: aleatoric uncertainty and epistemic uncertainty.
 
@@ -40,13 +40,30 @@ This example will use the MNIST data set and the LeNet5 network model example fo
 
 Download the MNIST_Data data set, execute the following command to complete the download of the data set and unzip it to the specified location:
 
-```bash
-mkdir -p ./datasets/MNIST_Data/train ./datasets/MNIST_Data/test
-wget -NP ./datasets/MNIST_Data/train https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-labels-idx1-ubyte --no-check-certificate
-wget -NP ./datasets/MNIST_Data/train https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-images-idx3-ubyte --no-check-certificate
-wget -NP ./datasets/MNIST_Data/test https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-labels-idx1-ubyte --no-check-certificate
-wget -NP ./datasets/MNIST_Data/test https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-images-idx3-ubyte --no-check-certificate
-tree ./datasets/MNIST_Data
+```python
+import os
+import requests
+
+def download_dataset(dataset_url, path):
+    filename = dataset_url.split("/")[-1]
+    save_path = os.path.join(path, filename)
+    if os.path.exists(save_path):
+        return
+    if not os.path.exists(path):
+        os.makedirs(path)
+    res = requests.get(dataset_url, stream=True, verify=False)
+    with open(save_path, "wb") as f:
+        for chunk in res.iter_content(chunk_size=512):
+            if chunk:
+                f.write(chunk)
+
+train_path = "datasets/MNIST_Data/train"
+test_path = "datasets/MNIST_Data/test"
+
+download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-labels-idx1-ubyte", train_path)
+download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-images-idx3-ubyte", train_path)
+download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-labels-idx1-ubyte", test_path)
+download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-images-idx3-ubyte", test_path)
 ```
 
 ```text
@@ -155,10 +172,10 @@ MindSpore uses the Uncertainty Toolbox `UncertaintyEvaluation` interface to meas
 
 ### Preparing the Model Weight Parameter File
 
-In this example, the corresponding model weight parameter file `checkpoint_lenet.ckpt` has been prepared. This parameter file is the weight parameter file saved after training for 5 epochs in [Implement an image classification application](https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_start.html), execute the following command to download:
+In this example, the corresponding model weight parameter file `checkpoint_lenet.ckpt` has been prepared. This parameter file is the weight parameter file saved after training for 5 epochs in [Quick Start for Beginners](https://www.mindspore.cn/tutorials/en/master/quick_start.html), execute the following command to download:
 
 ```bash
-wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/models/checkpoint_lenet.ckpt --no-check-certificate
+download_dataset("https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/models/checkpoint_lenet.ckpt", ".")
 ```
 
 ### Completing the Initialization
@@ -166,7 +183,7 @@ wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/not
 Load the DNN network and the training dataset that need uncertainty measurement. Since the uncertainty measurement requires a Bayesian network, when the initialized uncertainty measurement tool is called for the first time, the DNN network will be converted to The Bayesian network is trained, and after completion, the corresponding data can be passed in to measure accidental uncertainty or cognitive uncertainty.
 
 ```python
-from mindspore import context, Tensor
+from mindspore import context
 from mindspore.nn.probability.toolbox import UncertaintyEvaluation
 from mindspore import dtype as mstype
 

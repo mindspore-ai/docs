@@ -1,7 +1,5 @@
 # Obtaining MindSpore Federated
 
-`MindSpore Federated` `Installation`
-
 <!-- TOC -->
 
 - [Obtaining MindSpore Federated](#obtaining-mindspore-federated)
@@ -12,7 +10,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/federated_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/federated_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Installation Overview
 
@@ -20,7 +18,7 @@ Currently, the MindSpore Federated framework code has been integrated into the M
 
 ### Obtaining the MindSpore WHL Package
 
-You can use the source code or download the release version to install MindSpore on hardware platforms such as the CPU and GPU. For details about the installation process, see [Install](https://www.mindspore.cn/install/en) on the MindSpore website.
+You can use the source code or download the release version to install MindSpore on hardware platforms such as the x86 CPU and GPU. For details about the installation process, see [Install](https://www.mindspore.cn/install/en) on the MindSpore website.
 
 ### Obtaining the MindSpore Lite Java Package
 

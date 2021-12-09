@@ -1,7 +1,5 @@
 # 基于gRPC接口访问MindSpore Serving服务
 
-`Linux` `Ascend` `GPU` `Serving` `初级` `中级` `高级`
-
 <!-- TOC -->
 
 - [基于gRPC接口访问MindSpore Serving服务](#基于grpc接口访问mindspore-serving服务)
@@ -10,6 +8,8 @@
     - [ResNet-50样例](#resnet-50样例)
     - [通过Unix domain socket访问Serving服务器](#通过unix-domain-socket访问serving服务器)
     - [访问开启SSL/TLS的Serving服务](#访问开启ssltls的serving服务)
+        - [单向认证](#单向认证)
+        - [双向认证](#双向认证)
 
 <!-- /TOC -->
 
@@ -150,14 +150,14 @@ if __name__ == '__main__':
     run_classify_top1()
 ```
 
-`ResNet-50` Servable提供的`classify_top1`方法需要用户提供输入`image`，上面例子中，每个实例的输入`image`为图像的二进制数据。
+`resnet50` Servable提供的`classify_top1`方法需要用户提供输入`image`，上面例子中，每个实例的输入`image`为图像的二进制数据。
 正常结束执行后，预期将会有以下打印：
 
 ```text
 [{'label': 'tabby, tabby cat'}, {'label': 'ox'}]
 ```
 
-如果Resnet50模型未训练，可能有其他未知分类结果。
+如果ResNet-50模型未训练，可能有其他未知分类结果。
 
 ## 通过Unix domain socket访问Serving服务器
 
@@ -297,10 +297,10 @@ openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out s
       run_add_common()
   ```
 
-  - `ssl_config`表示客户端的`SSL`配置。该参数默认为`None`，表示不开启`SSL/TLS`。开启`SSL/TLS`则需要传入`mindspore_serving.client.SSLConfig`对象。
-  - `certificate`为客户端证书文件的路径。
-  - `private_key`为客户端私钥文件的路径。
-  - `custom_ca`为客户端的根证书文件的路径，用来验证服务器的身份。该参数可以为`None`，这个时候gRPC会通过gRPC安装路径下的`grpc/_cython/_credentials/roots.pem`文件或`GRPC_DEFAULT_SSL_ROOTS_FILE_PATH`环境变量找到对应的根证书。
+    - `ssl_config`表示客户端的`SSL`配置。该参数默认为`None`，表示不开启`SSL/TLS`。开启`SSL/TLS`则需要传入`mindspore_serving.client.SSLConfig`对象。
+    - `certificate`为客户端证书文件的路径。
+    - `private_key`为客户端私钥文件的路径。
+    - `custom_ca`为客户端的根证书文件的路径，用来验证服务器的身份。该参数可以为`None`，这个时候gRPC会通过gRPC安装路径下的`grpc/_cython/_credentials/roots.pem`文件或`GRPC_DEFAULT_SSL_ROOTS_FILE_PATH`环境变量找到对应的根证书。pem`文件或`GRPC_DEFAULT_SSL_ROOTS_FILE_PATH`环境变量找到对应的根证书。
 
   由于仅客户端验证服务器证书，所以只需要将`custom_ca`设置为签发服务器证书的`ca.crt`。
 
@@ -375,6 +375,3 @@ openssl x509 -req -in client.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out c
   客户端需要提供自己的证书给服务器验证，我们分别传入客户端的证书`client.crt`和私钥`client.key`。
 
 当gRPC服务器与客户端`SSL/TLS`开启状态不一致的时候，服务器或客户端会出现`ssl3_get_record:wrong version number`的错误，这时需要确认服务器与客户端是否都开启了`SSL/TLS`。
-
-
-

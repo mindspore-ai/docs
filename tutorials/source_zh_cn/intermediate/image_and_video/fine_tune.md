@@ -1,10 +1,14 @@
 # 图像分割模型微调
 
+`Ascend` `进阶` `计算机视觉` `全流程`
+
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/intermediate/image_and_video/fine_tune.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-在本教程中，我们将使用COCO数据集当中book分类下的部分图片，对Mask R-CNN模型进行微调，最终实现图像分割的效果。教程通过终端运行，点击下载[代码与数据集](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/source-codes/FineTune.zip)。
+在本教程中，我们将使用COCO数据集当中book分类下的部分图片，对Mask R-CNN模型进行微调，最终实现图像分割的效果。教程通过终端运行，点击下载[数据集](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/source-codes/maskrcnn_fine_tune.zip)，相关源码可参考链接：<https://gitee.com/mindspore/docs/tree/master/docs/sample_code/maskrcnn_fine_tune>。
 
-> 运行本案例需要在MindSpore1.2及以上版本的基础上安装以下依赖项：
+> 本篇基于Ascend环境运行。
+>
+> 运行本案例需要安装以下依赖项：
 >
 > Cython
 >
@@ -209,7 +213,7 @@ def create_new_dataset(image_dir, batch_size=config.batch_size, is_training=True
 
 ## 定义模型
 
-Mask R-CNN网络可以完成图片中实例的分类、定位和分割，教程中的网络实现部分位于`MaskRCNNFineTune/FineTune/src/maskrcnn`文件夹下，用户可以打开代码查看。下面我们先介绍一些Mask R-CNN的基本信息。
+Mask R-CNN网络可以完成图片中实例的分类、定位和分割，教程中的网络实现部分位于`/maskrcnn_fine_tune/src/maskrcnn`文件夹下，用户可以打开代码查看。下面我们先介绍一些Mask R-CNN的基本信息。
 
 Mask R-CNN包括三个主要的子网络：
 
@@ -217,19 +221,33 @@ Mask R-CNN包括三个主要的子网络：
 
 > 图片及模型解析来源于[Mask R-CNN模型解析](https://bbs.huaweicloud.com/blogs/114705)。
 
-- backbone网络:
+- backbone网络
 
-  Mask R-CNN的骨干网，主要实现图像的特征提取，这里包括ResNet与FPN(Feature Pyramid Network，图像特征金字塔)。ResNet通过加入残差模块来避免网络层数太多时带来的退化问题，FPN保留卷积过程中的阶段性结果，解决小物体识别困难的问题。ResNet结合FPN生成的特征图可用作后续两个模型的输入。
+    Mask R-CNN的骨干网，主要实现图像的特征提取，这里包括ResNet与FPN(Feature Pyramid Network，图像特征金字塔)。ResNet通过加入残差模块来避免网络层数太多时带来的退化问题，FPN保留卷积过程中的阶段性结果，解决小物体识别困难的问题。FPN的思想是，保留卷积过程中不同阶段的输出结果，同时进行训练，这样，既能在较为抽象的特征中识别较大物体，也能够在细节较多的特征中对小物体进行有效的识别，对不同层次的语义特征都能够进行有效的利用。
 
-- RPN网络：
+    ResNet在卷积处理的过程中，定义了不同的stage，每个stage输出不同尺寸的特征图，而这种结构恰好可以用来生成FPN，这两种模型的组合如下图所示：
 
-  RPN(region proposal network)主要用于生成Proposal，即带有前景、背景、包围框信息的区域。在backbone生成特征图之后，PRN会对特征图上的像素生成Anchor，由Anchor与Ground Truth Box的重叠程度可以判断区域内的图像是前景还是背景。训练之后，也可以由多个Anchor组合得到与Ground Truth box最相配的区域，即RoI(Region of Interest)。由RoI生成head网络所需要的数据：RoI中物体的分类，RoI与Ground Truth box的偏移量，RoI的mask信息。我们将带有这些信息的RoI称为Proposal，并将其输入到RoI Align层，经过池化操作之后，就得到了head网络的训练数据。
+    ![FPN](./images/maskrcnn_fpn.png)
 
-  ![Anchor](./images/maskrcnn_anchor.png)
+- RPN网络
 
-- head网络：
+    RPN(region proposal network)主要用于生成Proposal，即带有前景、背景、包围框信息的区域。在backbone生成特征图之后，PRN会对特征图上的像素生成Anchor，然后我们需要对Anchor进行处理，生成可以训练的数据，包括两个部分：Anchor是前景还是背景、Anchor的包围框修正信息。
 
-  head网络输出物体的分类信息、定位信息和遮罩mask，实现图像分类、图像定位和图像分割。
+    ![Anchor](./images/maskrcnn_anchor.png)
+
+    由Anchor与Ground Truth Box的重叠程度可以判断区域内的图像是前景（正样本）还是背景（负样本）。针对正样本，我们需要对其进行包围框的回归，得到Anchor的修正信息。训练过程如图所示，其中分类问题使用交叉熵损失函数训练，回归问题使用SmoothL1损失函数进行训练。这样，通过对Anchor的训练，我们就得到了初步的Anchor分类和回归模型。
+
+    ![Anchor](./images/maskrcnn_anchor_train.png)
+
+    训练之后，也可以由多个Anchor组合得到与Ground Truth box最相配的区域，即RoI(Region of Interest)。由RoI生成head网络所需要的数据：RoI中物体的分类，RoI与Ground Truth box的偏移量，RoI的mask信息。我们将带有这些信息的RoI称为Proposal，并将其输入到RoI Align层。Mask R-CNN中，RoI Align使用双线性差值算法减缓精度损失，将Proposal和特征图池化为固定的尺寸。经过池化操作之后，就得到了head网络的训练数据。
+
+- head网络
+
+    在分类与回归分支中，head的输入数据首先经过两层卷积网络，然后输入到两个全连接层，再分别输入到softmax和线性回归激活层。其中softmax层使用交叉熵损失函数训练，线性回归使用SmoothL1损失函数训练。这与RPN中Anchor的训练是一致的。
+
+    在mask分支中，mask信息经历conv、BatchNorm、ReLU、反卷积操作，再通过sigmoid激活函数判断像素位置是否属于遮罩，完成输出。
+
+    head网络最终输出物体的分类信息、定位信息和遮罩mask，实现图像分类、图像定位和图像分割。
 
 整体上，Mask R-CNN通过backbone网络、RPN网络、head网络依次实现特征提取、Proposal生成、mask生成，最终完成图像分割的目的。
 
@@ -237,7 +255,7 @@ Mask R-CNN包括三个主要的子网络：
 
 在实现过程中，我们下载已经预训练好的[ResNet50模型](https://download.mindspore.cn/model_zoo/r1.2/resnet50_ascend_v120_imagenet2012_official_cv_bs256_acc76/resnet50_ascend_v120_imagenet2012_official_cv_bs256_acc76.ckpt)，针对书籍分类对Mask R-CNN进行微调。
 
-首先需要将下载好的模型放置在`MaskRCnnFineTune/`文件夹路径下，并重命名为`resnet50.ckpt`，然后运行`MaskRCnnFineTune/convert_checkpoint.py`。在该脚本中提取了ResNet50的主干作为backbone用于后面的训练：
+首先需要将下载好的模型放置在`maskrcnn_fine_tune/`文件夹路径下，并重命名为`resnet50.ckpt`，然后运行`maskrcnn_fine_tune/convert_checkpoint.py`。在该脚本中提取了ResNet50的主干作为backbone用于后面的训练：
 
 ```python
 
@@ -280,7 +298,13 @@ if __name__ == "__main__":
 
 ## 执行训练
 
-现在，我们执行`MaskRCnnFineTune/train.py`文件，利用之前获取的backbone和数据集，完成训练过程。
+> 由于训练环节只涉及到网络的部分层，会在运行过程中输出非训练层的WARNING信息，在此推荐用户执行脚本前将日志级别设定为ERROR，直接获取运行结果。设定命令为：
+
+```shell
+export GLOG_v=3
+```
+
+现在，我们执行`maskrcnn_fine_tune/train.py`文件，利用之前获取的backbone和数据集，完成训练过程。
 
 ```python
 if __name__ == '__main__':

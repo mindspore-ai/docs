@@ -1,5 +1,7 @@
 # Optimization Algorithms
 
+`Ascend` `GPU` `CPU` `Model Development`
+
 <!-- TOC -->
 
 - [Optimization Algorithms](#optimization-algorithms)
@@ -13,7 +15,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/optim.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/optim.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -42,7 +44,7 @@ They are different implementations of `dynamic_lr`.
 For example, the code example of the `piecewise_constant_lr` class is as follows:
 
 ```python
-from mindspore.nn.dynamic_lr import piecewise_constant_lr
+from mindspore.nn import piecewise_constant_lr
 
 def test_dynamic_lr():
     milestone = [2, 5, 10]

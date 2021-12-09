@@ -1,11 +1,10 @@
 # Inference on a GPU
 
-`Linux` `GPU` `Inference Application` `Beginner` `Intermediate` `Expert`
+`GPU` `Inference Application`
 
 <!-- TOC -->
 
 - [Inference on a GPU](#inference-on-a-gpu)
-    - [Inference Using a Checkpoint File](#inference-using-a-checkpoint-file)
     - [Use C++ Interface to Load a MindIR File for Inferencing](#use-c-interface-to-load-a-mindir-file-for-inferencing)
         - [Inference Directory Structure](#inference-directory-structure)
         - [Inference Code](#inference-code)
@@ -17,11 +16,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/multi_platform_inference_gpu.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
-
-## Inference Using a Checkpoint File
-
-The inference is the same as that on the Ascend 910 AI processor.
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/multi_platform_inference_gpu.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Use C++ Interface to Load a MindIR File for Inferencing
 
@@ -30,7 +25,7 @@ The inference is the same as that on the Ascend 910 AI processor.
 Create a directory to store the inference code project, for example, `/home/mindspore_sample/gpu_resnet50_inference_sample`. You can download the [sample code](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/gpu_resnet50_inference_sample) from the official website. The `model` directory is used to store the exported `MindIR` [model file](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet.mindir). The directory structure of the inference code project is as follows:
 
 ```text
-└─gpu_resnet50_preprocess_sample
+└─gpu_resnet50_inference_sample
     ├── build.sh                          // Build script
     ├── CMakeLists.txt                    // CMake script
     ├── README.md                         // Usage description
@@ -124,13 +119,13 @@ target_link_libraries(main ${MS_LIB})
 
 ### Building Inference Code
 
-Go to the project directory `gpu_resnet50_preprocess_sample` and modify the `pip3` in the `build.sh` based on the actual situation. And then execute the building script.
+Go to the project directory `gpu_resnet50_inference_sample` and modify the `pip3` in the `build.sh` based on the actual situation. And then execute the building script.
 
 ```bash
 bash build.sh
 ```
 
-After building, the executable `main` file is generated in `gpu_resnet50_preprocess_sample/out`.
+After building, the executable `main` file is generated in `gpu_resnet50_inference_sample/out`.
 
 ### Performing Inference and Viewing the Result
 
@@ -138,7 +133,7 @@ After completing the preceding operations, you can learn how to perform inferenc
 
 Log in to the GPU environment, and create the `model` directory to store the `resnet50_imagenet.mindir` file, for example, `/home/mindspore_sample/gpu_resnet50_inference_sample/model`.
 
-Set the environment variable base on the actual situation.
+Set the environment variable base on the actual situation, where the `TensorRT` is an optional configuration item. It is recommended to add `TensorRT` path to `LD_LIBRARY_PATH` to improve mode inference performance.
 
 ```bash
 export LD_PRELOAD=/home/miniconda3/lib/libpython37m.so
@@ -171,7 +166,7 @@ infer finished.
 
 ### Notices
 
-- During the training process, some networks set operator precision to FP16 artificially. For example, the [Bert mode](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/bert/src/bert_model.py) set the `Dense` and `LayerNorm` to FP16:
+- During the training process, some networks set operator precision to FP16 artificially. For example, the [Bert mode](https://gitee.com/mindspore/models/blob/master/official/nlp/bert/src/bert_model.py) set the `Dense` and `LayerNorm` to FP16:
 
 ```python
 class BertOutput(nn.Cell):

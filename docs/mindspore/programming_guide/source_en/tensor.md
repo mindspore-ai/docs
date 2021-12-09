@@ -1,5 +1,7 @@
 ﻿# Tensor
 
+`Ascend` `GPU` `CPU` `Beginner`
+
 <!-- TOC -->
 
 - [Tensor](#tensor)
@@ -15,7 +17,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/tensor.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/tensor.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -25,9 +27,9 @@ Tensors of different dimensions represent different data. For example, a 0-dimen
 
 ## Tensor Structure
 
-During tensor creation, the `Tensor`, `float`, `int`, `bool`, `tuple`, `list`, and `NumPy.array` types can be transferred, while `tuple` and `list` can only store `float`, `int`, and `bool` data.
+During tensor creation, the `Tensor`, `float`, `int`, `bool`, `tuple`, `list`, `complex`, and `NumPy.array` types can be transferred, while `tuple` and `list` can only store `float`, `int`, `bool` and `complex` data, where `complex` represets the complex data types.
 
-`dtype` can be specified when `Tensor` is initialized. When the `dtype` is not specified, if the initial value is `int`, `float` or `bool`, then a 0-dimensional `Tensor` with data types `mindspore.int32`, `mindspore.float64` or `mindspore.bool_` will be generated respectively. If the initial values are `tuple` and `list`, the generated 1-dimensional `Tensor` data type corresponds to the type stored in `tuple` and `list`. If it contains multiple different types of data, follow the below priority: `bool` < `int` < `float`, to select the mindspore data type corresponding to the highest relative priority type. If the initial value is `Tensor`,  the consistent data type `Tensor` is generated. If the initial value is `NumPy.array`, the corresponding data type `Tensor` is generated.
+`dtype` can be specified when `Tensor` is initialized. When the `dtype` is not specified, if the initial value is `int`, `float`, `bool` or `complex`, then a 0-dimensional `Tensor` with data types `mindspore.int32`, `mindspore.float64` , `mindspore.bool_` or `mindspore.complex128` will be generated respectively. If the initial values are `tuple` and `list`, the generated 1-dimensional `Tensor` data type corresponds to the type stored in `tuple` and `list`. If it contains multiple different types of data, follow the below priority: `bool` < `int` < `float` < `complex`, to select the mindspore data type corresponding to the highest relative priority type. If the initial value is `Tensor`,  the consistent data type `Tensor` is generated. If the initial value is `NumPy.array`, the corresponding data type `Tensor` is generated.
 
 A code example is as follows:
 
@@ -70,7 +72,7 @@ True
 
 ### Operations
 
-Tensor supports a variety of operations, including arithmetic operations and logical operations. Some commonly used operators are as follows:
+Tensor supports a variety of operations, including arithmetic operations and logical operations. When two arrays of different shapes are subjected to numerical operations, the `broadcast` mechanism similar to `Numpy` will be triggered. Some commonly used operators are as follows:
 
 - arithmetic operations: add (`+`), subtract (`-`), multiply (`*`), divide (`/`), modulus (`%`), power (`**`), divide (`//`)
 
@@ -189,7 +191,7 @@ x_strides: (8, 4)
 
 ### Methods
 
-Tensor methods include `len`, `str`, `repr`, `hash`, `all`, `any`, `asnumpy` and many other functions. Numpy-like ndarray methods are also provided. For a full description of all tensor methods, please see [API: mindspore.Tensor](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.html#mindspore.Tensor). The following is a brief introduction to some of the tensor methods.
+Tensor methods include `len`, `str`, `repr`, `hash`, `all`, `any`, `asnumpy` and many other functions. Numpy-like ndarray methods are also provided. For a full description of all tensor methods, please see [API: mindspore.Tensor](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore/mindspore.Tensor.html). The following is a brief introduction to some of the tensor methods.
 
 - `len()`: returns the length of the tensor.
 - `str()`: returns the string representation of the tensor.
@@ -271,7 +273,7 @@ where `L0` >> `D0`, and `D0` is the number of non-zero elements.
 - `values`: A tensor of any data type of shape `[D0, D1, ..., DN]`. Represents the value of non-zero elements.
 - `dense_shape`: An integer tuple which contains the shape of the corresponding dense tensor.
 
-A code example is as follows:
+`RowTensor` can only be used in the `Cell`’s construct method. For details, see [mindspore.RowTensor](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore/mindspore.RowTensor.html). A code example is as follows:
 
 ```python
 import mindspore as ms
@@ -313,7 +315,7 @@ is `N` and the dense shape of the sparse tensor is `ndims`：
 - `values`: A 1-D tensor of any type and shape `[N]`. Represents the value of non-zero elements.
 - `dense_shape`: A integer tuple of size `ndims`, which specifies the dense shape of the sparse tensor.
 
-A code example is as follows:
+`SparseTensor` can only be used in the `Cell`’s construct method. For details, see [mindspore.SparseTensor](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore/mindspore.SparseTensor.html). A code example is as follows:
 
 ```python
 import mindspore as ms
@@ -321,11 +323,11 @@ import mindspore.nn as nn
 from mindspore import SparseTensor
 class Net(nn.Cell):
     def __init__(self, dense_shape):
-       super(Net, self).__init__()
-       self.dense_shape = dense_shape
+        super(Net, self).__init__()
+        self.dense_shape = dense_shape
     def construct(self, indices, values):
-       x = SparseTensor(indices, values, self.dense_shape)
-       return x.values, x.indices, x.dense_shape
+        x = SparseTensor(indices, values, self.dense_shape)
+        return x.values, x.indices, x.dense_shape
 
 indices = Tensor([[0, 1], [1, 2]])
 values = Tensor([1, 2], dtype=ms.float32)

@@ -1,5 +1,7 @@
 # Data Sampling
 
+`Ascend` `GPU` `CPU` `Data Preparation`
+
 <!-- TOC -->
 
 - [Data Sampling](#data-sampling)
@@ -14,7 +16,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/sampler.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/sampler.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -36,14 +38,46 @@ The following uses the CIFAR-10 as an example to introduce several common MindSp
 
 Download the CIFAR-10 data set and unzip it to the specified path, execute the following command:
 
-```bash
-wget -N https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cifar-10-binary.tar.gz --no-check-certificate
-mkdir -p datasets
-tar -xzf cifar-10-binary.tar.gz -C datasets
-mkdir -p datasets/cifar-10-batches-bin/train datasets/cifar-10-batches-bin/test
-mv -f datasets/cifar-10-batches-bin/test_batch.bin datasets/cifar-10-batches-bin/test
-mv -f datasets/cifar-10-batches-bin/data_batch*.bin datasets/cifar-10-batches-bin/batches.meta.txt datasets/cifar-10-batches-bin/train
-tree ./datasets/cifar-10-batches-bin
+```python
+import os
+import requests
+import tarfile
+import zipfile
+import shutil
+
+def download_dataset(url, target_path):
+    """download and decompress dataset"""
+    if not os.path.exists(target_path):
+        os.makedirs(target_path)
+    download_file = url.split("/")[-1]
+    if not os.path.exists(download_file):
+        res = requests.get(url, stream=True, verify=False)
+        if download_file.split(".")[-1] not in ["tgz", "zip", "tar", "gz"]:
+            download_file = os.path.join(target_path, download_file)
+        with open(download_file, "wb") as f:
+            for chunk in res.iter_content(chunk_size=512):
+                if chunk:
+                    f.write(chunk)
+    if download_file.endswith("zip"):
+        z = zipfile.ZipFile(download_file, "r")
+        z.extractall(path=target_path)
+        z.close()
+    if download_file.endswith(".tar.gz") or download_file.endswith(".tar") or download_file.endswith(".tgz"):
+        t = tarfile.open(download_file)
+        names = t.getnames()
+        for name in names:
+            t.extract(name, target_path)
+        t.close()
+
+download_dataset("https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cifar-10-binary.tar.gz", "./datasets")
+test_path = "./datasets/cifar-10-batches-bin/test"
+train_path = "./datasets/cifar-10-batches-bin/train"
+if not os.path.exists(test_path):
+    os.makedirs(test_path)
+if not os.path.exists(train_path):
+    os.makedirs(train_path)
+shutil.move("./datasets/cifar-10-batches-bin/test_batch.bin", test_path)
+[shutil.move("./datasets/cifar-10-batches-bin/"+i, train_path) for i in os.listdir("./datasets/cifar-10-batches-bin/") if os.path.isfile("./datasets/cifar-10-batches-bin/"+i) and not i.endswith(".html")]
 ```
 
 ```text
@@ -222,7 +256,6 @@ Samples dataset shards in distributed training.
 The following example uses a distributed sampler to divide a generated dataset into three shards, obtains no more than three data samples in each shard, and displays the loaded data on shard number 0.
 
 ```python
-import numpy as np
 import mindspore.dataset as ds
 
 data_source = [0, 1, 2, 3, 4, 5, 6, 7, 8]

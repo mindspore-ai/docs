@@ -2,14 +2,13 @@
 
 Translator: [Leon_02](https://gitee.com/Leon_02)
 
-`Linux` `GPU` `Model Development` `Expert`
+`GPU` `Model Development`
 
 <!-- TOC -->
 
 - [Custom Operators (GPU)](#custom-operators-gpu)
     - [Overview](#overview)
     - [Registering the Operator Primitive](#registering-the-operator-primitive)
-    - [Defining the bprop Function for an Operator](#defining-the-bprop-function-for-an-operator)
     - [Implementing a GPU operator](#implementing-a-GPU-operator)
     - [Registering the Operator Information](#registering-the-operator-information)
     - [Compiling Mindspore](#compiling-for-mindspore)
@@ -17,7 +16,7 @@ Translator: [Leon_02](https://gitee.com/Leon_02)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/custom_operator_gpu.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/custom_operator_gpu.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -82,29 +81,6 @@ __all__ = [
   ...,
   'TensorAddV2'
 ]
-```
-
-## Defining the bprop Function for an Operator
-
-If an operator wants to support automatic differentiation, its back-propagation function (bprop) needs to be defined in its primitive. You need to describe the forward input, forward output and output gradient in bprop to get the reverse computing logic of input gradient. Reverse computation logic can be composed of built-in operators or custom reverse operators.
-
-The following points should be paid attention to when defining the bprop Function for an operator:
-
-- The input order of a bprop function is defined as forward input, forward output and output gradient. If the operator is a multi output operator, the forward output and output gradient will be provided in the form of tuples.
-- The return value of a bprop function is conventionally a tuple of input gradients, the order of elements in tuples is consistent with the order of forward input parameters. Even if there is only one input gradient, the return value must be in the form of tuples.
-
-For example, the reverse primitive for `TensorAddV2` can be:
-
-```python
-import mindspore.ops as ops
-@bprop_getters.register(ops.TensorAddV2)
-def get_bprop_tensoraddv2(self):
-    """Generate bprop for TensorAddV2"""
-
-    def bprop(x1, x2, out, dout):
-        return dout, dout
-
-    return bprop
 ```
 
 ## Implementing a GPU operator

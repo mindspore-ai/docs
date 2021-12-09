@@ -23,7 +23,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/sentiment_classification_application.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/sentiment_classification_application.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 In privacy compliance scenarios, the federated learning modeling mode based on device-cloud synergy can make full use of the advantages of device data and prevent sensitive user data from being directly reported to the cloud. When exploring the application scenarios of federated learning, we notice the input method scenario. Users attach great importance to their text privacy and intelligent functions on the input method. Therefore, federated learning is naturally applicable to the input method scenario. MindSpore Federated applies the federated language model to the emoji prediction function of the input method. The federated language model recommends emojis suitable for the current context based on the chat text data. During federated learning modeling, each emoji is defined as a sentiment label category, and each chat phrase corresponds to an emoji. MindSpore Federated defines the emoji prediction task as a federated sentiment classification task.
 
@@ -244,17 +244,13 @@ app
     ```java
     import android.annotation.SuppressLint;
     import android.os.Build;
-
     import androidx.annotation.RequiresApi;
-
-    import com.huawei.flAndroid.utils.AssetCopyer;
-    import com.huawei.flclient.FLParameter;
-    import com.huawei.flclient.SyncFLJob;
-
+    import com.mindspore.flAndroid.utils.AssetCopyer;
+    import com.mindspore.flclient.FLParameter;
+    import com.mindspore.flclient.SyncFLJob;
     import java.util.Arrays;
     import java.util.UUID;
     import java.util.logging.Logger;
-
     public class FlJob {
         private static final Logger LOGGER = Logger.getLogger(AssetCopyer.class.toString());
         private final String parentPath;
@@ -265,19 +261,16 @@ app
         @SuppressLint("NewApi")
         @RequiresApi(api = Build.VERSION_CODES.M)
         public void syncJobTrain() {
-            String trainDataset = parentPath + "/data/140.txt";
+            String trainDataset = parentPath + "/data/0.txt";
             String vocal_file = parentPath + "/data/vocab.txt";
             String idsFile = parentPath + "/data/vocab_map_ids.txt";
             String testDataset = parentPath + "/data/eval.txt";
-            String trainModelPath = parentPath + "/model/albert_ad_train.mindir.ms";
-            String inferModelPath = parentPath + "/model/albert_ad_infer.mindir.ms";
-            String flName = "adbert";
-            // Server IP address. Ensure that the Android device can access the server. Otherwise, the message "connection failed" is displayed.
-            String ip = "http://127.0.0.1:";
-            int port = 6668;
-            String clientID = UUID.randomUUID().toString();
+            String trainModelPath = parentPath + "/model/albert_supervise.mindir.ms";
+            String inferModelPath = parentPath + "/model/albert_supervise.mindir.ms";
+            String flName = "albert";
             boolean useSSL = false;
-
+            // The url for device-cloud communication. Ensure that the Android device can access the server. Otherwise, the message "connection failed" is displayed.
+            String domainName = "http://10.113.216.106:6668";
             FLParameter flParameter = FLParameter.getInstance();
             flParameter.setTrainDataset(trainDataset);
             flParameter.setVocabFile(vocal_file);
@@ -286,27 +279,29 @@ app
             flParameter.setFlName(flName);
             flParameter.setTrainModelPath(trainModelPath);
             flParameter.setInferModelPath(inferModelPath);
-            flParameter.setClientID(clientID);
-            flParameter.setIp(ip);
-            flParameter.setPort(port);
             flParameter.setUseSSL(useSSL);
-
+            flParameter.setDomainName(domainName);
             SyncFLJob syncFLJob = new SyncFLJob();
             syncFLJob.flJobRun();
         }
         // Android federated learning inference task
         public void syncJobPredict() {
-            String flName = "adbert";
+            String flName = "albert";
             String dataPath = parentPath + "/data/eval_no_label.txt";
             String vocal_file = parentPath + "/data/vocab.txt";
             String idsFile = parentPath + "/data/vocab_map_ids.txt";
-            String modelPath = parentPath + "/model/albert_ad_infer.mindir.ms";
+            String modelPath = parentPath + "/model/albert_supervise.mindir.ms";
+            FLParameter flParameter = FLParameter.getInstance();
+            flParameter.setFlName(flName);
+            flParameter.setTestDataset(dataPath);
+            flParameter.setVocabFile(vocabFile);
+            flParameter.setIdsFile(idsFile);
+            flParameter.setInferModelPath(modelPath);
             SyncFLJob syncFLJob = new SyncFLJob();
-            int[] labels = syncFLJob.modelInference(flName, dataPath, vocal_file, idsFile, modelPath);
+            int[] labels = syncFLJob.modelInference();
             LOGGER.info("labels = " + Arrays.toString(labels));
         }
     }
-
     ```
 
 3. MainActivity.java: This code file is used to start federated learning training and inference tasks.
@@ -414,6 +409,11 @@ app
         androidTestImplementation 'androidx.test.ext:junit:1.1.1'
         androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
         implementation 'com.android.support:multidex:1.0.3'
+
+        // Add third-party open source software that federated learning relies on
+        implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.14.9'
+        implementation group: 'com.google.flatbuffers', name: 'flatbuffers-java', version: '2.0.0'
+        implementation(group: 'org.bouncycastle',name: 'bcprov-jdk15on', version: '1.68')
     }
     ```
 

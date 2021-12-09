@@ -28,11 +28,13 @@
 ### pip安装
 
 ```bash
-pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindQuantum/any/mindquantum-{version}-py3-none-any.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{ms_version}/MindQuantum/any/mindquantum-{mq_version}-py3-none-any.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 > - 在联网状态下，安装whl包时会自动下载MindQuantum安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindquantum/blob/master/setup.py)），其余情况需自行安装。
-> - `{version}`表示MindQuantum版本号，例如下载1.3.0版本MindQuantum时，`{version}`应写为1.3.0。
+> - `{ms_version}`表示与MindQuantum匹配的MindSpore版本号，例如下载0.3.0版本MindQuantum时，`{ms_version}`应写为1.5.0。
+> - `{mq_version}`表示MindQuantum版本号，例如下载0.3.0版本MindQuantum时，`{mq_version}`应写为0.3.0。
+> - 前往[官网](https://www.mindspore.cn/versions)可查询更多版本安装包。
 
 ### 源码安装
 

@@ -1,5 +1,6 @@
 #!/bin/bash
 # This shell script will launch parallel pipelines
+# applicable to Ascend
 
 # get path to dataset directory
 if [ $# != 1 ]

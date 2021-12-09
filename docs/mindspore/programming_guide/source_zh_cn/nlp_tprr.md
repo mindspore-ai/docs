@@ -1,10 +1,10 @@
 # 多跳知识推理问答模型TPRR
 
-`Linux`  `Ascend` `模型开发`  `高级`
+`Ascend` `自然语言处理` `全流程`
 
 <!-- TOC -->
 
-- [多跳知识推理问答模型TPRR](#多跳知识推理问答模型TPRR)
+- [多跳知识推理问答模型TPRR](#多跳知识推理问答模型tprr)
     - [概述](#概述)
     - [准备环节](#准备环节)
         - [安装软件依赖](#安装软件依赖)
@@ -26,7 +26,7 @@ TPRR(Thinking Path Re-Ranker)是由华为提出的基于开放域多跳问答的
 
 本篇教程将主要介绍如何在Ascend上，使用MindSpore构建并运行多跳知识推理问答模型TPRR。
 > 你可以在这里下载完整的示例代码：
-<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/research/nlp/tprr> 。
+<https://gitee.com/mindspore/models/tree/master/research/nlp/tprr> 。
 
 示例代码目录结构如下：
 

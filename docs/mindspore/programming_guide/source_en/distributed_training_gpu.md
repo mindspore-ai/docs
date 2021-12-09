@@ -1,10 +1,10 @@
-# Distributed Parallel Training (GPU)
+# Distributed Parallel Training Example (GPU)
 
-`Linux` `GPU` `Model Training` `Intermediate` `Expert`
+`GPU` `Distributed Parallel` `Whole Process`
 
 <!-- TOC -->
 
-- [Distributed Parallel Training (GPU)](#distributed-parallel-training-gpu)
+- [Distributed Parallel Training Example (GPU)](#distributed-parallel-training-example-gpu)
     - [Overview](#overview)
     - [Preparation](#preparation)
         - [Downloading the Dataset](#downloading-the-dataset)
@@ -12,11 +12,12 @@
         - [Calling the Collective Communication Library](#calling-the-collective-communication-library)
     - [Defining the Network](#defining-the-network)
     - [Running the Script](#running-the-script)
-    - [Running the Multi-Host Script](#running-the-multi-host-script)
+        - [Single-host Training](#single-host-training)
+        - [Multi-host Training](#multi-host-training)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/distributed_training_gpu.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/distributed_training_gpu.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -84,7 +85,11 @@ For details about the definitions of the network, optimizer, and loss function, 
 
 ## Running the Script
 
-On the GPU hardware platform, MindSpore uses OpenMPI `mpirun` for distributed training. The following takes the distributed training script for eight devices as an example to describe how to run the script:
+On the GPU hardware platform, MindSpore uses OpenMPI `mpirun` for distributed training.
+
+### Single-host Training
+
+The following takes the distributed training script for eight devices as an example to describe how to run the script:
 
 > Obtain the running script of the example from:
 >
@@ -125,7 +130,7 @@ epoch: 1 step: 1, loss is 2.3025854
 epoch: 1 step: 1, loss is 2.3025854
 ```
 
-## Running the Multi-Host Script
+### Multi-host Training
 
 If multiple hosts are involved in the training, you need to set the multi-host configuration in the `mpirun` command. You can use the `-H` option in the `mpirun` command. For example, `mpirun -n 16 -H DEVICE1_IP:8,DEVICE2_IP:8 python hello.py` indicates that eight processes are started on the hosts whose IP addresses are DEVICE1_IP and DEVICE2_IP, respectively. Alternatively, you can create a hostfile similar to the following and transfer its path to the `--hostfile` option of `mpirun`. Each line in the hostfile is in the format of `[hostname] slots=[slotnum]`, where hostname can be an IP address or a host name.
 

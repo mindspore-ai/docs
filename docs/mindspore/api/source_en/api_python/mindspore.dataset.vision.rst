@@ -14,6 +14,7 @@ mindspore.dataset.vision.c_transforms
     mindspore.dataset.vision.c_transforms.AutoContrast
     mindspore.dataset.vision.c_transforms.BoundingBoxAugment
     mindspore.dataset.vision.c_transforms.CenterCrop
+    mindspore.dataset.vision.c_transforms.ConvertColor
     mindspore.dataset.vision.c_transforms.Crop
     mindspore.dataset.vision.c_transforms.CutMixBatch
     mindspore.dataset.vision.c_transforms.CutOut
@@ -98,3 +99,16 @@ mindspore.dataset.vision.py_transforms
     mindspore.dataset.vision.py_transforms.ToTensor
     mindspore.dataset.vision.py_transforms.ToType
     mindspore.dataset.vision.py_transforms.UniformAugment
+
+mindspore.dataset.vision.utils
+-------------------------------
+
+.. autosummary::
+    :toctree: dataset_vision
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.dataset.vision.Border
+    mindspore.dataset.vision.ImageBatchFormat
+    mindspore.dataset.vision.Inter
+    mindspore.dataset.vision.SliceMode

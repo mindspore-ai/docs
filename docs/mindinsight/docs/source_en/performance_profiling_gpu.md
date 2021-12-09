@@ -1,7 +1,5 @@
 # Performance Profiling (GPU)
 
-`Linux` `GPU` `Model Optimization` `Intermediate` `Expert`
-
 <!-- TOC -->
 
 - [Performance Profiling (GPU)](#performance-profiling-gpu)
@@ -20,7 +18,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/performance_profiling_gpu.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/performance_profiling_gpu.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -68,13 +66,13 @@ class StopAtStep(Callback):
         cb_params = run_context.original_args()
         step_num = cb_params.cur_step_num
         if step_num == self.start_step:
-            self.profiler = Profiler()
+            self.profiler.start()
 
     def step_end(self, run_context):
         cb_params = run_context.original_args()
         step_num = cb_params.cur_step_num
         if step_num == self.stop_step and not self.already_analysed:
-            self.profiler.analyse()
+            self.profiler.stop()
             self.already_analysed = True
 
     def end(self, run_context):

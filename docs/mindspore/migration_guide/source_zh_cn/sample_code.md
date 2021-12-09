@@ -181,7 +181,7 @@ input_tensor = preprocess(input_image)
 input_batch = input_tensor.unsqueeze(0) # create a mini-batch as expected by the model
 ```
 
-通过观察以上代码，我们发现 ResNet50 的数据预处理主要做了 Resize、CenterCrop、Normalize 操作，在 MindSpore 中实现这些操作有两种方式，一是使用 MindSpore 的数据处理模块 MindData 来调用已封装好的数据预处理接口，二是通过 [自定义数据集](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dataset_loading.html?highlight=data%20generator#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86%E5%8A%A0%E8%BD%BD) 进行加载。这里更建议开发者选择第一种方式，这样不仅可以减少重复代码的开发，减少错误的引入，还可以得到更好的数据处理性能。更多关于MindData数据处理的介绍，可参考 [编程指南](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/index.html)中的数据管道部分。
+通过观察以上代码，我们发现 ResNet50 的数据预处理主要做了 Resize、CenterCrop、Normalize 操作，在 MindSpore 中实现这些操作有两种方式，一是使用 MindSpore 的数据处理模块 MindData 来调用已封装好的数据预处理接口，二是通过 [自定义数据集](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dataset_loading.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86%E5%8A%A0%E8%BD%BD) 进行加载。这里更建议开发者选择第一种方式，这样不仅可以减少重复代码的开发，减少错误的引入，还可以得到更好的数据处理性能。更多关于MindData数据处理的介绍，可参考 [编程指南](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/index.html)中的数据管道部分。
 
 以下是基于 MindData 开发的数据处理函数：
 
@@ -761,7 +761,7 @@ if __name__ == '__main__':
                 dataset_sink_mode=dataset_sink_mode)
 ```
 
-注意：关于目录中其他文件的代码，可以参考 MindSpore model_zoo 的 [ResNet50 实现](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/resnet)（该脚本融合了其他 ResNet 系列网络及ResNet-SE 网络，具体实现可能和对标脚本有差异）。
+注意：关于目录中其他文件的代码，可以参考 MindSpore ModelZoo 的 [ResNet50 实现](https://gitee.com/mindspore/models/tree/master/official/cv/resnet)（该脚本融合了其他 ResNet 系列网络及ResNet-SE 网络，具体实现可能和对标脚本有差异）。
 
 ### 分布式训练
 
@@ -914,7 +914,7 @@ profiler.analyse()
 当进行分布式训练时，在一个Step的训练过程中，完成前向传播和梯度计算后，各个机器开始进行AllReduce梯度同步，AllReduce同步时间主要受权重数量、机器数量影响，对于越复杂、机器规模越大的网络，其 AllReduce 梯度更新时间也越久，此时我们可以进行AllReduce 切分来优化这部分耗时。
 
 正常情况下，AllReduce 梯度同步会等所有反向算子执行结束，也就是对所有权重都计算出梯度后再一次性同步所有机器的梯度，而使用AllReduce切分后，我们可以在计算出一部分权重的梯度后，就立刻进行这部分权重的梯度同步，这样梯度同步和剩余算子的梯度计算可以并行执行，也就隐藏了这部分 AllReduce 梯度同步时间。切分策略通常是手动尝试，寻找一个最优的方案（支持切分大于两段）。
-以 [ResNet50网络](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/train.py) 为例，该网络共有 160  个 权重，  [85, 160] 表示第 0 至 85个权重计算完梯度后立刻进行梯度同步，第 86 至 160 个 权重计算完后再进行梯度同步，这里共切分两段，因此需要进行两次梯度同步。代码实现如下：
+以 [ResNet50网络](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/train.py) 为例，该网络共有 160  个 权重，  [85, 160] 表示第 0 至 85个权重计算完梯度后立刻进行梯度同步，第 86 至 160 个 权重计算完后再进行梯度同步，这里共切分两段，因此需要进行两次梯度同步。代码实现如下：
 
 ```python
 from mindspore import context
@@ -922,7 +922,7 @@ from resnet50_imagenet2012_config.yaml import config
 ...
 
 device_id = int(os.getenv('DEVICE_ID'))
-context.set_context(device_id=device_id, enable_auto_mixed_precision=True)
+context.set_context(device_id=device_id)
 context.set_auto_parallel_context(device_num=config.device_num,
                                   parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
 set_algo_parameters(elementwise_op_strategy_follow=True)

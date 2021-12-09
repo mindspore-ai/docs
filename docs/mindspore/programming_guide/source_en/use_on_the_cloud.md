@@ -1,6 +1,6 @@
 ﻿# Using MindSpore on the Cloud
 
-`Linux` `Ascend` `Whole Process` `Beginner` `Intermediate` `Expert`
+`Ascend` `GPU` `CPU` `Model Development` `Model Running` `Model Evaluation`
 
 <!-- TOC -->
 
@@ -24,7 +24,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/use_on_the_cloud.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/use_on_the_cloud.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 

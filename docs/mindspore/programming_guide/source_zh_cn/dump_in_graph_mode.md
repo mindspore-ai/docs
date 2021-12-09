@@ -1,12 +1,14 @@
 ﻿# 使用Dump功能在Graph模式调试
 
-`Linux` `Ascend` `GPU` `CPU` `模型调优` `中级` `高级`
+`Ascend` `GPU` `CPU` `模型调优`
 
 <!-- TOC -->
 
 - [使用Dump功能在Graph模式调试](#使用dump功能在graph模式调试)
     - [概述](#概述)
         - [调试过程](#调试过程)
+            - [数据准备](#数据准备)
+            - [数据分析](#数据分析)
         - [适用场景](#适用场景)
     - [Dump功能说明](#dump功能说明)
     - [同步Dump](#同步dump)
@@ -42,6 +44,11 @@
 
 数据准备阶段使用同步Dump或异步Dump来生成Dump数据。使用方法详见[同步Dump操作步骤](#id7)和[异步Dump操作步骤](#id12)。
 
+在准备数据时，您可以参考以下最佳实践：
+
+1. 设置`iteration`参数，仅保存出现问题的迭代和前一个迭代这两个迭代的数据。例如，要分析的问题会在第10个迭代（从1开始数）出现，则可以这样设置：`"iteration": "8|9"`。请注意`iteration`参数从0开始计算迭代数。保存上述两个迭代的数据能够支撑大多数场景的问题分析。
+2. 在出现问题的迭代执行完毕后，建议您通过[run_context.request_stop()](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.train.html#mindspore.train.callback.RunContext.request_stop)等方法提前结束训练。
+
 #### 数据分析
 
 如果用户已经安装了MindInsight, 可以使用MindInsight的离线调试器来分析。离线调试器的使用方法详见[使用离线调试器](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_offline.html) 。
@@ -64,7 +71,7 @@
 
 1. 静态图算子结果分析。
 
-   通过Dump功能获得的IR图，可以了解脚本代码与执行算子的映射关系（详情见[MindSpore IR简介](https://www.mindspore.cn/docs/note/zh-CN/master/design/mindir.html#id1)）。结合执行算子的输入和输出数据，可以分析训练过程中可能存在的溢出、梯度爆炸与消失等问题，反向跟踪到脚本中可能存在问题的代码。
+   通过Dump功能获得的IR图，可以了解脚本代码与执行算子的映射关系（详情见[MindSpore IR简介](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/design/mindir.html#id1)）。结合执行算子的输入和输出数据，可以分析训练过程中可能存在的溢出、梯度爆炸与消失等问题，反向跟踪到脚本中可能存在问题的代码。
 
 2. 特征图分析。
 
@@ -101,6 +108,7 @@ MindSpore提供了同步Dump与异步Dump两种模式：
             "path": "/absolute_path",
             "net_name": "ResNet50",
             "iteration": "0|5-8|100-120",
+            "saved_data": "tensor",
             "input_output": 0,
             "kernels": ["Default/Conv-op12"],
             "support_device": [0,1,2,3,4,5,6,7]
@@ -112,15 +120,16 @@ MindSpore提供了同步Dump与异步Dump两种模式：
     }
     ```
 
-    - `dump_mode`：设置成0，表示Dump出该网络中的所有算子；设置成1，表示Dump`"kernels"`里面指定的算子。
+    - `dump_mode`：设置成0，表示Dump出该网络中的所有算子数据；设置成1，表示Dump`"kernels"`里面指定的算子数据。
     - `path`：Dump保存数据的绝对路径。
     - `net_name`：自定义的网络名称，例如："ResNet50"。
-    - `iteration`：指定需要Dump数据的迭代。类型为str，用“|”分离要保存的不同区间的step的数据。如"0|5-8|100-120"表示Dump参数初始值，第1个，第6个到第9个， 第101个到第121个step的数据。指定“all”，表示Dump所有迭代的数据。
+    - `iteration`：指定需要Dump数据的迭代。类型为str，用“|”分离要保存的不同区间的step的数据。如"0|5-8|100-120"表示Dump第1个，第6个到第9个， 第101个到第121个step的数据。指定“all”，表示Dump所有迭代的数据。
+    - `saved_data`: 指定Dump的数据。类型为str，取值成"tensor"，表示Dump出完整张量数据；取值成"statistic"，表示只Dump张量的统计信息；取值"full"代表两种都要。Dump统计信息现只支持GPU场景，其他场景若选"statistic"便会错误退出。默认取值为"tensor"。
     - `input_output`：设置成0，表示Dump出算子的输入和算子的输出；设置成1，表示Dump出算子的输入；设置成2，表示Dump出算子的输出。
-    - `kernels`：算子的名称列表。开启IR保存开关`context.set_context(save_graphs=True)`并执行用例，从生成的IR文件`trace_code_graph_{graph_id}`中获取算子名称。详细说明可以参照教程：[如何保存IR](https://www.mindspore.cn/docs/note/zh-CN/master/design/mindir.html#ir)。
-    - `support_device`：支持的设备，默认设置成0到7即可；在分布式训练场景下，需要dump个别设备上的数据，可以只在`support_device`中指定需要Dump的设备Id。该配置参数在CPU上无效，因为CPU下没有device这个概念。
+    - `kernels`：算子的名称列表。开启IR保存开关`context.set_context(save_graphs=True)`并执行用例，从生成的IR文件`trace_code_graph_{graph_id}`中获取算子名称。详细说明可以参照教程：[如何保存IR](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/read_ir_files.html#id2)。
+    - `support_device`：支持的设备，默认设置成0到7即可；在分布式训练场景下，需要dump个别设备上的数据，可以只在`support_device`中指定需要Dump的设备Id。该配置参数在CPU上无效，因为CPU下没有device这个概念，但是在json格式的配置文件中仍需保留该字段。
     - `enable`：开启E2E Dump。
-    - `trans_flag`：开启格式转换。将设备上的数据格式转换成NCHW格式。若为`True`，则数据会以Host侧的4D格式（NCHW）格式保存；若为`False`，则保留Device侧的数据格式。该配置参数在CPU上无效，因为CPU上没有format转换。
+    - `trans_flag`：开启格式转换。将设备上的数据格式转换成NCHW格式。若为`True`，则数据会以Host侧的4D格式（NCHW）格式保存；若为`False`，则保留Device侧的数据格式。该配置参数在CPU上无效，因为CPU上没有format转换，但是在json格式的配置文件中仍需保留该字段。
 
 2. 设置Dump环境变量。
 
@@ -152,7 +161,7 @@ MindSpore提供了同步Dump与异步Dump两种模式：
 3. 启动网络训练脚本。
 
    训练启动后，若正确配置了`MINDSPORE_DUMP_CONFIG`环境变量，则会读取配置文件的内容，并按照Dump配置中指定的数据保存路径保存算子数据。
-   同步模式下，如果要Dump数据，必须采用非数据下沉模式（设置`model.train`或`DatasetHelper`中的`dataset_sink_mode`参数为`False`），以保证可以获取每个step的Dump数据。
+   同步模式下，GPU环境如果要Dump数据，必须采用非数据下沉模式（设置`model.train`或`DatasetHelper`中的`dataset_sink_mode`参数为`False`），以保证可以获取每个step的Dump数据。
    若脚本中都不调用`model.train`或`DatasetHelper`，则默认为非数据下沉模式。使用Dump功能将自动生成最终执行图的IR文件。
 
     可以在训练脚本中设置`context.set_context(reserve_class_name_in_scope=False)`，避免Dump文件名称过长导致Dump数据文件生成失败。
@@ -170,6 +179,7 @@ MindSpore提供了同步Dump与异步Dump两种模式：
         - {net_name}/
             - {graph_id}/
                 - {iteration_id}/
+                    statistic.csv
                     {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy
             ...
         - graphs/
@@ -177,11 +187,12 @@ MindSpore提供了同步Dump与异步Dump两种模式：
             ms_output_trace_code_graph_{graph_id}.ir
         - execution_order/
             ms_execution_order_graph_{graph_id}.csv
+            ms_global_execution_order_graph_{graph_id}.csv
 ```
 
 - `path`：`data_dump.json`配置文件中设置的绝对路径。
 - `rank_id`： 逻辑卡号。
-- `net_name`：`data_dump.json`配置文件中设置的网络称。
+- `net_name`：`data_dump.json`配置文件中设置的网络名称。
 - `graph_id`：训练的图标号。
 - `iteration_id`：训练的轮次。
 - `op_type`：算子类型。
@@ -195,6 +206,8 @@ MindSpore提供了同步Dump与异步Dump两种模式：
 
 对于多图网络，由于存在控制流，某些子图可能不会被执行，Dump只保存执行过的节点，所以graphs目录下`.pb`文件名中的{graph_id}并不一定在{net_name}下存在对应的{graph_id}目录。
 
+只当`saved_data`为"statistic"或者"full"时，才会生成`statistic.csv`，当`saved_data`为"tensor"或者"full"时，才会生成`{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy`命名的完整张量信息。
+
 ### 同步Dump数据文件介绍
 
 同步Dump生成的数据文件是后缀名为`.npy`的文件，文件命名格式为：
@@ -204,6 +217,8 @@ MindSpore提供了同步Dump与异步Dump两种模式：
 ```
 
 可以用Numpy的`numpy.load`接口读取数据。
+
+同步Dump生成的统计数据文件名为`statistic.csv`，此文件存有相同目录下所有落盘张量（文件名为`{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy`）的统计信息。每个张量一行，每行有张量的 Op Type，Op Name，Task ID，Stream ID，Timestamp，IO，Slot，Data Size，Data Type，Shape，Max Value，Min Value，Avg Value，Count，Negative Zero Count，Positive Zero Count，NaN Count，Negative Inf Count，Positive Inf Count，Zero Count。
 
 同步Dump生成的最终执行图文件后缀名分别为`.pb`和`.ir`，文件命名格式为：
 
@@ -220,13 +235,21 @@ ms_output_trace_code_graph_{graph_id}.ir
 ms_execution_order_graph_{graph_id}.csv
 ```
 
+图执行历史文件的后缀为`.csv`，文件名格式为：
+
+```text
+ms_global_execution_order_graph_{graph_id}.csv
+```
+
+此文件记录该图在训练过程中的执行轮次历史。图编译过程中，一张根图可能产生多张子图，但子图与根图具有相同的执行轮次历史。故与图执行序文件不同，此处仅保存根图的图执行历史文件。
+
 `.dump_metadata`记录了训练的原信息，其中`data_dump.json`保存了用户设置的dump配置。
 
 ### 同步Dump数据分析样例
 
 对于Ascend场景，在通过Dump功能将脚本对应的图保存到磁盘上后，会产生最终执行图文件`ms_output_trace_code_graph_{graph_id}.ir`。该文件中保存了对应的图中每个算子的堆栈信息，记录了算子对应的生成脚本。
 
-以[AlexNet脚本](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/alexnet/src/alexnet.py)为例 ：
+以[AlexNet脚本](https://gitee.com/mindspore/models/blob/master/official/cv/alexnet/src/alexnet.py)为例 ：
 
 ```python
 import mindspore.nn as nn
@@ -380,22 +403,26 @@ numpy.load("Conv2D.Conv2D-op107.2.2.1623124369613540.output.0.DefaultFormat.npy"
             "path": "/absolute_path",
             "net_name": "ResNet50",
             "iteration": "0|5-8|100-120",
+            "saved_data": "tensor",
             "input_output": 0,
             "kernels": ["Default/Conv-op12"],
             "support_device": [0,1,2,3,4,5,6,7],
-            "op_debug_mode": 0
+            "op_debug_mode": 0,
+            "file_format": "npy"
         }
     }
     ```
 
-    - `dump_mode`：设置成0，表示Dump出改网络中的所有算子；设置成1，表示Dump`"kernels"`里面指定的算子。
+    - `dump_mode`：设置成0，表示Dump出该网络中的所有算子数据；设置成1，表示Dump`"kernels"`里面指定的算子数据；设置成2，表示Dump脚本中通过`set_dump`指定的算子数据，`set_dump`的使用详见[mindspore.set_dump](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.set_dump.html) 。
     - `path`：Dump保存数据的绝对路径。
     - `net_name`：自定义的网络名称，例如："ResNet50"。
-    - `iteration`：指定需要Dump的迭代。类型为str，用“|”分离要保存的不同区间的step的数据。如"0|5-8|100-120"表示Dump参数初始值，第1个，第6个到第9个， 第101个到第121个step的数据。指定“all”，表示Dump所有迭代的数据。
+    - `iteration`：指定需要Dump的迭代。类型为str，用“|”分离要保存的不同区间的step的数据。如"0|5-8|100-120"表示Dump第1个，第6个到第9个， 第101个到第121个step的数据。指定“all”，表示Dump所有迭代的数据。
+    - `saved_data`: 指定Dump的数据。类型为str，取值成"tensor"，表示Dump出完整张量数据；取值成"statistic"，表示只Dump张量的统计信息；取值"full"代表两种都要。Dump统计信息现只支持GPU场景，其他场景若选"statistic"便会错误退出。默认取值为"tensor"。
     - `input_output`：设置成0，表示Dump出算子的输入和算子的输出；设置成1，表示Dump出算子的输入；设置成2，表示Dump出算子的输出。
-    - `kernels`：算子的名称列表。开启IR保存开关`context.set_context(save_graphs=True)`并执行用例，从生成的`trace_code_graph_{graph_id}`IR文件中获取算子名称。`kernels`仅支持TBE算子、AiCPU算子、通信算子，若设置成通信算子的名称，将会Dump出通信算子的输入算子的数据。详细说明可以参照教程：[如何保存IR](https://www.mindspore.cn/docs/note/zh-CN/master/design/mindir.html#ir)。
+    - `kernels`：算子的名称列表。开启IR保存开关`context.set_context(save_graphs=True)`并执行用例，从生成的`trace_code_graph_{graph_id}`IR文件中获取算子名称。`kernels`仅支持TBE算子、AiCPU算子、通信算子，若设置成通信算子的名称，将会Dump出通信算子的输入算子的数据。详细说明可以参照教程：[如何保存IR](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/read_ir_files.html#id2)。
     - `support_device`：支持的设备，默认设置成0到7即可；在分布式训练场景下，需要dump个别设备上的数据，可以只在`support_device`中指定需要Dump的设备Id。
     - `op_debug_mode`：该属性用于算子溢出调试，设置成0，表示不开启溢出；设置成1，表示开启AiCore溢出检测；设置成2，表示开启Atomic溢出检测；设置成3，表示开启全部溢出检测功能。在Dump数据的时候请设置成0，若设置成其他值，则只会Dump溢出算子的数据。
+    - `file_format`: dump数据的文件类型，只支持`npy`和`bin`两种取值。设置成`npy`，则dump出的算子张量数据将为host侧格式的npy文件；设置成`bin`，则dump出的数据将为device侧格式的protobuf文件，需要借助转换工具进行处理，详细步骤请参考[异步Dump数据分析样例](#id15)。默认取值为`bin`。
 
 2. 设置数据Dump的环境变量。
 
@@ -443,6 +470,7 @@ numpy.load("Conv2D.Conv2D-op107.2.2.1623124369613540.output.0.DefaultFormat.npy"
             ms_output_trace_code_graph_{graph_id}.ir
         - execution_order/
             ms_execution_order_graph_{graph_id}.csv
+            ms_global_execution_order_graph_{graph_id}.csv
 ```
 
 - `path`：`data_dump.json`配置文件中设置的绝对路径。
@@ -456,13 +484,15 @@ numpy.load("Conv2D.Conv2D-op107.2.2.1623124369613540.output.0.DefaultFormat.npy"
 - `stream_id`：流标号。
 - `timestamp`：时间戳。
 
-对于多图网络，由于存在控制流，某些子图可能不会被执行，Dump只保存执行过的节点，所以graphs目录下`.pb`文件名中的{graph_id}并不一定在{net_name}下存在对应的{graph_id}目录。
+由于存在控制流，某些子图可能不会被执行，Dump只保存执行过的节点，所以graphs目录下`.pb`文件名中的{graph_id}并不一定在{net_name}下存在对应的{graph_id}目录。
+
+对于多图网络，例如动态shape的场景，每张卡上所有计算图的轮次统一计数。
 
 ### 异步Dump数据文件介绍
 
-启动训练后，异步Dump生成的原始数据文件是protobuf格式的文件，需要用到海思Run包中自带的数据解析工具进行解析，详见[如何查看dump数据文件](https://support.huawei.com/enterprise/zh/doc/EDOC1100191946/8d6ddc58) 。
+若未配置`file_format`值或`file_format`值为`bin`，启动训练后，异步Dump生成的原始数据文件是protobuf格式的文件，需要用到海思Run包中自带的数据解析工具进行解析，详见[如何查看dump数据文件](https://support.huawei.com/enterprise/zh/doc/EDOC1100206690/640e796d) 。
 
-数据在Device侧的格式可能和Host侧计算图中的定义不同，异步Dump的数据格式为Device侧格式，如果想要转为Host侧格式，可以参考[如何进行dump数据文件Format转换](https://support.huawei.com/enterprise/zh/doc/EDOC1100191946/fa6aecce) 。
+数据在Device侧的格式可能和Host侧计算图中的定义不同，异步Dump的数据格式为Device侧格式，如果想要转为Host侧格式，可以参考[如何进行dump数据文件Format转换](https://support.huawei.com/enterprise/zh/doc/EDOC1100206690/130949fb) 。
 
 异步Dump生成的数据文件命名规则如下：
 
@@ -475,7 +505,9 @@ numpy.load("Conv2D.Conv2D-op107.2.2.1623124369613540.output.0.DefaultFormat.npy"
 
 Dump生成的原始数据文件也可以使用MindInsight的数据解析工具DumpParser解析，DumpParser的使用方式详见[DumpParser介绍](https://gitee.com/mindspore/mindinsight/tree/master/mindinsight/parser) 。MindInsight解析出来的数据格式与同步dump的数据格式完全相同。
 
-异步Dump生成的最终执行图文件和节点执行序文件命名规则与同步Dump相同，可以参考[同步Dump数据文件介绍](#id9)。
+若配置`file_format`值为`npy`，则启用异步dump生成的数据文件命名规则与同步Dump相同，可以参考[同步Dump数据文件介绍](#id9)。
+
+异步Dump生成的最终执行图文件和执行序文件命名规则与同步Dump相同，可以参考[同步Dump数据文件介绍](#id9)。
 
 ### 异步Dump数据分析样例
 
@@ -495,7 +527,7 @@ Dump生成的原始数据文件也可以使用MindInsight的数据解析工具Du
     python ${The absolute path of msaccucmp.py} convert -d {file path of dump} -out {file path of output}
     ```
 
-    若需要转换数据格式，可参考使用说明链接<https://support.huawei.com/enterprise/zh/doc/EDOC1100191946/fa6aecce> 。
+    若需要转换数据格式，可参考使用说明链接<https://support.huawei.com/enterprise/zh/doc/EDOC1100206690/130949fb> 。
 
     如Dump生成的数据文件为：
 

@@ -1,14 +1,16 @@
-# Distributed Inference With Multi Devices
+# Distributed Inference
+
+`Ascend` `Inference Application`
 
 <!-- TOC -->
 
-- [Distributed Inference With Multi Devices](#distributed-inference-with-multi-devices)
+- [Distributed Inference](#distributed-inference)
     - [Process of Distributed Inference](#process-of-distributed-inference)
     - [Distributed Export MindIR File With Multi Devices](#distributed-export-mindir-file-with-multi-devices)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/distributed_inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/distributed_inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 Distributed inference means use multiple devices for prediction. If data parallel or integrated save is used in training, the method of distributed inference is same with the above description. It is noted that each device should load one same checkpoint file.
 
@@ -28,6 +30,7 @@ The process of distributed inference is as follows:
     > - In the distributed Inference scenario, during the training phase, the `integrated_save` of `CheckpointConfig` interface should be set to `False`, which means that each device only saves the slice of model instead of the full model.
     > - `parallel_mode` of `set_auto_parallel_context` interface should be set to `auto_parallel` or `semi_auto_parallel`.
     > - In addition, you need to specify `strategy_ckpt_save_file` to indicate the path of the strategy file.
+    > - If pipeline distributed inference is used, then the pipeline parallel training also must be used. And the `device_num` and `pipeline_stages` used for pipeline training and inference must be the same.  While applying pipeline inference, `micro_size` is 1 and there is no need to use `PipelineCell`. The pipeline distributed training tutorial can be referred the link: <https://mindspore.cn/docs/programming_guide/en/master/apply_pipeline_parallel.html>.
 
 2. Set context and infer predication strategy according to the predication data.
 
@@ -59,6 +62,8 @@ The process of distributed inference is as follows:
     - `create_ckpt_file_list`：user-defined interface that returns a list of checkpoint file path in order of rank id.
     - `load_distributed_checkpoint`：merges model slices, then splits it according to the predication strategy, and loads it into the network.
 
+    > For pipeline inference, each `stage` only needs to load the checkpoint file of self_stage.
+    >
     > The `load_distributed_checkpoint` interface supports that predict_strategy is `None`, which is single device inference, and the process is different from distributed inference. The detailed usage can be referred to the link:
     > <https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.html#mindspore.load_distributed_checkpoint>.
 

@@ -1,7 +1,5 @@
 # AI模型安全测试设计
 
-`Linux` `Ascend` `GPU` `CPU` `数据准备` `模型开发` `模型训练` `模型调优` `企业` `高级`
-
 <!-- TOC -->
 
 - [AI模型安全测试设计](#ai模型安全测试设计)
@@ -39,11 +37,11 @@ Fuzz Testing架构主要包括三个模块：
 
 2. Fuzzer moduler（变异指导模块）:
 
-   对变异生成的数据进行fuzz测试，观察神经元覆盖率的变化情况，如果生成的数据使得神经元覆盖率增加，则加入变异的种子队列，用于下一轮的数据变异。目前支持的神经元覆盖率指标包括KMNC、NBC、SNAC[2]。
+   对变异生成的数据进行fuzz测试，观察神经元覆盖率的变化情况，如果生成的数据使得神经元覆盖率增加，则加入变异的种子队列，用于下一轮的数据变异。目前支持的神经元覆盖率指标包括KMNC、NBC、SNAC、NC、TKNC[2]。
 
 3. Evaluation（评估模块）：
 
-   评估Fuzz Testing的效果，生成数据的质量，变异方法的强度。支持3个类型5种指标，包括通用评价指标：accuracy，神经元覆盖率指标：kmnc， nbc，snac，对抗攻击评价指标：attack_success_rate。
+   评估Fuzz Testing的效果，生成数据的质量，变异方法的强度。支持3个类型5种指标，包括通用评价指标：accuracy，神经元覆盖率指标：kmnc，nbc，snac，nc，tknc，对抗攻击评价指标：attack_success_rate。
 
 ## Fuzz Testing流程
 

@@ -1,4 +1,4 @@
-# Installing MindSpore in Ascend 910 by Source Code
+﻿# Installing MindSpore in Ascend 910 by Source Code
 
 <!-- TOC -->
 
@@ -13,25 +13,43 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend_install_source_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend_install_source_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 This document describes how to quickly install MindSpore in a Linux system with an Ascend 910 environment by source code.
 
 ## System Environment Information Confirmation
 
-- Confirm that the 64-bit operating system is installed, where Ubuntu 18.04/CentOS 7.6/EulerOS 2.8/OpenEuler 20.03/KylinV10 SP1 are verified.
+- Ensure that the 64-bit operating system is installed, where Ubuntu 18.04/CentOS 7.6/EulerOS 2.8/OpenEuler 20.03/KylinV10 SP1 are verified.
+
 - Ensure that right version [GCC 7.3.0](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) is installed.
-- Confirm that [gmp 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
-- Confirm that [Python 3.7.5](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) is installed.
-- Confirm that [CMake 3.18.3 or later](https://cmake.org/download/) is installed.
+
+- Ensure that [gmp 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
+
+- Ensure that [Flex 2.5.35 or later](https://github.com/westes/flex/) is installed.
+
+- Ensure that [OpenMPI 4.0.3](https://www.open-mpi.org/faq/?category=building#easy-build) is installed. (optional, required for single-node/multi-Ascend and multi-node/multi-Ascend training)
+
+- Ensure that Python 3.7.5 or 3.9.0 is installed. If not installed, download and install Python from:
+
+    - Python 3.7.5 (64-bit): [Python official website](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) or [HUAWEI CLOUD](https://mirrors.huaweicloud.com/python/3.7.5/Python-3.7.5.tgz).
+    - Python 3.9.0 (64-bit): [Python official website](https://www.python.org/ftp/python/3.9.0/Python-3.9.0.tgz) or [HUAWEI CLOUD](https://mirrors.huaweicloud.com/python/3.9.0/Python-3.9.0.tgz).
+
+- Ensure that [CMake 3.18.3 or later](https://cmake.org/download/) is installed.
     - Add the path where the executable file `cmake` stores to the environment variable PATH.
-- Confirm that [patch 2.5 or later](http://ftp.gnu.org/gnu/patch/) is installed.
+
+- Ensure that [patch 2.5 or later](http://ftp.gnu.org/gnu/patch/) is installed.
     - Add the path where the executable file `patch` stores to the environment variable PATH.
-- Confirm that [wheel 0.32.0 or later](https://pypi.org/project/wheel/) is installed.
-- Confirm that the Ascend 910 AI processor software package ([Ascend Data Center Solution 21.0.2]) are installed.
-    - For the installation of software package,  please refer to the [Product Document].
-    - The software packages include [Driver and Firmware A800-9000] and [CANN 5.0.2].
-    - Confirm that the current user has the right to access the installation path `/usr/local/Ascend`of Ascend 910 AI processor software package, If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located. For the specific configuration, please refer to the software package instruction document.
+
+- Ensure that [wheel 0.32.0 or later](https://pypi.org/project/wheel/) is installed.
+
+- Ensure that the Ascend 910 AI processor software package (Ascend Data Center Solution 21.0.3) are installed.
+
+    - For the installation of software package,  please refer to the [CANN Software Installation Guide](https://support.huawei.com/enterprise/en/doc/EDOC1100219213).
+    - The software packages include Driver and Firmware and CANN.
+        - [A800-9000 1.0.12 ARM platform](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9000-pid-250702818/software/253845425) or [A800-9010 1.0.12 x86 platform](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9010-pid-250702809/software/253845445)
+        - [CANN 5.0.3](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252806307)
+
+    - Ensure that the current user has the right to access the installation path `/usr/local/Ascend`of Ascend 910 AI processor software package, If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located. For the specific configuration, please refer to the software package instruction document.
     - Install the .whl package provided in Ascend 910 AI processor software package. The .whl package is released with the software package. After software package is upgraded, reinstall the .whl package.
 
         ```bash
@@ -46,7 +64,7 @@ This document describes how to quickly install MindSpore in a Linux system with 
         pip uninstall te topi hccl -y
         ```
 
-- Confirm that [NUMA 2.0.11 or later](https://github.com/numactl/numactl) is installed.
+- Ensure that [NUMA 2.0.11 or later](https://github.com/numactl/numactl) is installed.
 
     If not, for Ubuntu users, use the following command to install it:
 
@@ -60,21 +78,14 @@ This document describes how to quickly install MindSpore in a Linux system with 
     yum install numactl-devel
     ```
 
-- Confirm that the git tool is installed.
-
-    If not, for Ubuntu users, use the following command to install it:
+- Ensure that the git is installed, otherwise execute the following command to install git:
 
     ```bash
-    apt-get install git
+    apt-get install git # for linux distributions using apt, e.g. ubuntu
+    yum install git     # for linux distributions using yum, e.g. centos
     ```
 
-    If not, for EulerOS and CentOS users, use the following command to install it:
-
-    ```bash
-    yum install git
-    ```
-
-- Confirm that the [git-lfs tool](https://github.com/git-lfs/git-lfs/wiki/installation) is installed.
+- Ensure that the [git-lfs tool](https://github.com/git-lfs/git-lfs/wiki/installation) is installed.
 
 ## Downloading Source Code from Code Repository
 
@@ -97,21 +108,22 @@ Of which,
 ## Installing MindSpore
 
 ```bash
-pip install output/mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install output/mindspore_ascend-{version}-{python_version}-linux_{arch}.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 Of which,
 
-- When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
-- `{version}` denotes the version of MindSpore. For example, when you are installing MindSpore 1.1.0, `{version}` should be 1.1.0.
+- When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
+- `{version}` specifies the MindSpore version number. For example, when installing MindSpore 1.5.0-rc1, set `{version}` to 1.5.0rc1.
 - `{arch}` denotes the system architecture. For example, the Linux system you are using is x86 architecture 64-bit, `{arch}` should be `x86_64`. If the system is ARM architecture 64-bit, then it should be `aarch64`.
+- `{python_version}` spcecifies the python version for which MindSpore is built. If you wish to use Python3.7.5,`{python_version}` should be `cp37-cp37m`. If Python3.9.0 is used, it should be `cp39-cp39`.
 
 ## Configuring Environment Variables
 
 - **If Ascend 910 AI processor software is installed in a non-default path**, after MindSpore is installed, export runtime-related environment variables. `/usr/local/Ascend` in the following command `LOCAL_ASCEND=/usr/local/Ascend` denotes the installation path of the software package, please replace it as your actual installation path.
 
     ```bash
-    # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, default level is WARNING.
+    # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
     export GLOG_v=2
 
     # Conda environmental options
@@ -140,7 +152,7 @@ python -c "import mindspore;mindspore.run_check()"
 - The outputs should be the same as:
 
 ```text
-mindspore version: __version__
+MindSpore version: __version__
 The result of multiplication calculation is correct, MindSpore has been installed successfully!
 ```
 
@@ -163,17 +175,17 @@ print(ops.add(x, y))
 - The outputs should be the same as:
 
 ```text
-[[[ 2.  2.  2.  2.],
-    [ 2.  2.  2.  2.],
-    [ 2.  2.  2.  2.]],
+[[[[2. 2. 2. 2.]
+   [2. 2. 2. 2.]
+   [2. 2. 2. 2.]]
 
-    [[ 2.  2.  2.  2.],
-    [ 2.  2.  2.  2.],
-    [ 2.  2.  2.  2.]],
+  [[2. 2. 2. 2.]
+   [2. 2. 2. 2.]
+   [2. 2. 2. 2.]]
 
-    [[ 2.  2.  2.  2.],
-    [ 2.  2.  2.  2.],
-    [ 2.  2.  2.  2.]]]
+  [[2. 2. 2. 2.]
+   [2. 2. 2. 2.]
+   [2. 2. 2. 2.]]]]
 ```
 
 It means MindSpore has been installed successfully.
@@ -193,5 +205,5 @@ Using the following command if you need to update the MindSpore version.
     After successfully executing the compile script `build.sh` in the root path of the source code, find the whl package in path `output`, use the following command to update your version.
 
     ```bash
-    pip install --upgrade mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl
+    pip install --upgrade mindspore_ascend-{version}-{python_version}-linux_{arch}.whl
     ```

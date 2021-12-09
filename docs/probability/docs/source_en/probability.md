@@ -47,7 +47,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/probability/docs/source_en/probability.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/probability/docs/source_en/probability.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 MindSpore deep probabilistic programming is to combine Bayesian learning with deep learning, including probability distribution, probability distribution mapping, deep probability network, probability inference algorithm, Bayesian layer, Bayesian conversion, and Bayesian toolkit. For professional Bayesian learning users, it provides probability sampling, inference algorithms, and model build libraries. On the other hand, advanced APIs are provided for users who are unfamiliar with Bayesian deep learning, so that they can use Bayesian models without changing the deep learning programming logic.
 
@@ -851,7 +851,7 @@ decoder = Decoder()
 cvae = ConditionalVAE(encoder, decoder, hidden_size=400, latent_size=20, num_classes=10)
 ```
 
-Load a dataset, for example, Mnist. For details about the data loading and preprocessing process, see [Implementing an Image Classification Application](https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_start.html). The create_dataset function is used to create a data iterator.
+Load a dataset, for example, Mnist. For details about the data loading and preprocessing process, see [Quick Start for Beginners](https://www.mindspore.cn/tutorials/en/master/quick_start.html). The create_dataset function is used to create a data iterator.
 
 ```python
 ds_train = create_dataset(image_path, 128, 1)

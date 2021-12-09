@@ -1,4 +1,4 @@
-Mindquantum文档
+MindQuantum文档
 =========================
 
 .. toctree::

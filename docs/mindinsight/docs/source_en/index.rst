@@ -21,7 +21,14 @@ MindInsight Documents
    performance_profiling
    debugger
    model_explanation
+   landscape
    mindinsight_commands
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Performance Tuning Guide
+
+   performance_tuning_guide
 
 .. toctree::
    :glob:

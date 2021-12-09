@@ -1,5 +1,7 @@
 # 基于MindSpore Serving部署推理服务
 
+`Ascend` `GPU` `进阶` `推理应用`
+
 <!-- TOC -->
 
 - [基于MindSpore Serving部署推理服务](#基于mindspore-serving部署推理服务)
@@ -52,25 +54,25 @@ tensor_add
 
 ```python
 import numpy as np
-from mindspore_serving.worker import register
+from mindspore_serving.server import register
 
 
 def add_trans_datatype(x1, x2):
     """预处理定义，本例中有两个输入和输出"""
     return x1.astype(np.float32), x2.astype(np.float32)
 
-# 进行模型声明，其中declare_servable入参servable_file指示模型的文件名称，model_format指示模型的模型类别
+
+# 进行模型声明，其中declare_model入参model_file指示模型的文件名称，model_format指示模型的模型类别
 # 当with_batch_dim设定为False时, 仅支持2x2的Tensor
 # 当with_batch_dim设定为True时, 可支持Nx2的Tensor, N的值由batch决定
-register.declare_servable(servable_file="tensor_add.mindir", model_format="MindIR", with_batch_dim=False)
-
+model = register.declare_model(model_file="tensor_add.mindir", model_format="MindIR", with_batch_dim=False)
 
 # add_common方法定义
 # Servable方法的入参由Python方法的入参指定，Servable方法的出参由register_method的output_names指定
 @register.register_method(output_names=["y"])
 def add_common(x1, x2):  # 仅支持float32类型的输入
     """add_common数据流定义，只调用模型推理"""
-    y = register.call_servable(x1, x2)
+    y = register.add_stage(model, x1, x2, outputs_count=1)
     return y
 
 
@@ -78,8 +80,8 @@ def add_common(x1, x2):  # 仅支持float32类型的输入
 @register.register_method(output_names=["y"])
 def add_cast(x1, x2):
     """add_cast数据流定义，调用预处理和模型推理"""
-    x1, x2 = register.call_preprocess(add_trans_datatype, x1, x2)  # 将输入转换为 float32
-    y = register.call_servable(x1, x2)
+    x1, x2 = register.add_stage(add_trans_datatype, x1, x2, outputs_count=2)  # 将输入转换为 float32
+    y = register.add_stage(model, x1, x2, outputs_count=1)
     return y
 ```
 

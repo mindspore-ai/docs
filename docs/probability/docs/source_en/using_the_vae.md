@@ -15,7 +15,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/probability/docs/source_en/using_the_vae.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/probability/docs/source_en/using_the_vae.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 The following describes how to use the variational and dpn modules in MDP to implement VAE. VAE is a typical depth probabilistic model that applies variational inference to learn the representation of latent variables. The model can not only compress input data, but also generate new images of this type. The overall process is as follows:
 
@@ -33,13 +33,30 @@ The following describes how to use the variational and dpn modules in MDP to imp
 
 In this example, using the MNIST_Data dataset, execute the following command to download and unzip it to the corresponding location:
 
-```bash
-mkdir -p ./datasets/MNIST_Data/train ./datasets/MNIST_Data/test
-wget -NP ./datasets/MNIST_Data/train https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-labels-idx1-ubyte --no-check-certificate
-wget -NP ./datasets/MNIST_Data/train https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-images-idx3-ubyte --no-check-certificate
-wget -NP ./datasets/MNIST_Data/test https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-labels-idx1-ubyte --no-check-certificate
-wget -NP ./datasets/MNIST_Data/test https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-images-idx3-ubyte --no-check-certificate
-tree ./datasets/MNIST_Data
+```python
+import os
+import requests
+
+def download_dataset(dataset_url, path):
+    filename = dataset_url.split("/")[-1]
+    save_path = os.path.join(path, filename)
+    if os.path.exists(save_path):
+        return
+    if not os.path.exists(path):
+        os.makedirs(path)
+    res = requests.get(dataset_url, stream=True, verify=False)
+    with open(save_path, "wb") as f:
+        for chunk in res.iter_content(chunk_size=512):
+            if chunk:
+                f.write(chunk)
+
+train_path = "datasets/MNIST_Data/train"
+test_path = "datasets/MNIST_Data/test"
+
+download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-labels-idx1-ubyte", train_path)
+download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-images-idx3-ubyte", train_path)
+download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-labels-idx1-ubyte", test_path)
+download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-images-idx3-ubyte", test_path)
 ```
 
 ```text
@@ -59,7 +76,7 @@ tree ./datasets/MNIST_Data
 The dataset is enhanced to meet the requirements of VAE network training. In this example, the pixel size of the original image is increased from $28\\times28$ to $32\\times32$, and multiple images are formed into a batch to accelerate training.
 
 ```python
-import mindspore.common.dtype as mstype
+from mindspore import dtype as mstype
 import mindspore.dataset as ds
 import mindspore.dataset.vision.c_transforms as CV
 

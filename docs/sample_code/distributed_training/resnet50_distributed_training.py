@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ============================================================================
-"""resnet50_distributed_training
-This sample code is applicable to Ascend.
+"""
+Resnet50_distributed_training
 """
 import os
 import mindspore.nn as nn

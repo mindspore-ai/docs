@@ -1,7 +1,5 @@
 ﻿# 如何求助（求助路径）
 
-`Linux` `Windows` `Ascend` `GPU` `CPU` `全流程` `初级` `中级` `高级`
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/note/source_zh_cn/help_seeking_path.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 本文将简述用户在使用MindSpore遇到问题时，如何使用官方提供的问题求助路径解决问题。MindSpore问题求助整体流程如图中所示，从用户使用MindSpore发现问题开始，直至选择到合适的问题解决方法。下面我们基于问题求助流程图对各种求助方法做解释说明。
@@ -17,7 +15,7 @@
 
 - 用户群咨询
 
-    - QQ用户群号：871543426。
+    - QQ用户群号：486831414。
     - 如果网站搜索方法不能解决当前问题，可通过QQ用户群咨询，建议想要简单咨询的用户选取此方法。
     - 加群后可以与其他用户讨论交流，还有技术专家在群中提供帮助解答。
     - 通过专家的解答或和其他用户的交流来解决当前遇到的问题。

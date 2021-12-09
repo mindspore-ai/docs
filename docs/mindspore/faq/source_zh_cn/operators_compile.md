@@ -1,8 +1,24 @@
 ﻿# 算子编译
 
-`Linux` `Windows` `Ascend` `GPU` `CPU` `环境准备` `初级` `中级`
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_zh_cn/operators_compile.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+
+<font size=3>**Q: 在使用`ops.concat`算子时，因为数据规模有点大，导致报错`Error:Input and (output + workspace) num should <=192!`，可以怎么处理？**</font>
+
+A: 这种报错，主要为`ops.concat`算子提示`shape`过大。建议对`dataset`对象创建迭代器时可设置输出为`numpy`, 如下设置：
+
+```python
+gallaryloader.create_dict_iterator(output_numpy=True)
+```
+
+另外在上述后处理环节（非网络计算过程中，即非`construct`函数里面），可以采用`numpy`直接计算，如采用`numpy.concatenate`代替上述`ops.concat`进行计算。
+
+<br/>
+
+<font size=3>**Q: 请问在静态图模式的`construct`函数里，如何把一个`tensor`中所含有的负数值全部去除掉？**</font>
+
+A: 建议使用`ops.clip_by_value`接口，把负数全变成0来进行计算。
+
+<br/>
 
 <font size=3>**Q: `TransData`算子的功能是什么，能否优化性能？**</font>
 
@@ -73,5 +89,14 @@ A: 这边的问题是选择了Graph模式却使用了PyNative的写法，所以�
 - PyNative模式: 也称动态图模式，将神经网络中的各个算子逐一下发执行，方便用户编写和调试神经网络模型。
 
 - Graph模式: 也称静态图模式或者图模式，将神经网络模型编译成一整张图，然后下发执行。该模式利用图优化等技术提高运行性能，同时有助于规模部署和跨平台运行。
+
+<br/>
+
+<font size=3>**Q: Ascend后端报错：`AI CORE` 和`AI CPU`中都找不到有效的`kernel info`这个Kernel Select Failed时，如何定位？**</font>
+
+A: Ascend后端，算子有AI CORE算子和AI CPU算子之分，部分算子AI CORE支持，部分算子AI CPU支持，部分算子两者同时支持。根据报错信息：
+
+1. 如果`AI CORE`候选算子信息为空，则可能是在算子`check support`阶段，所有的算子信息均校验未通过。可以在日志中搜索关键字`CheckSupport`找到未通过的原因，根据具体信息修改shape或data type, 或者找开发人员进一步定位；
+2. 如果`AI CPU`候选算子信息不为空，或者`AI CORE`和`AI CPU`候选算子信息都不为空，则可能是用户给到该算子的输入数据类型不在候选列表中，在选择阶段被过滤掉导致，可以根据候选列表尝试修改该算子的输入data type。
 
 用户可以参考[官网教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/debug_in_pynative_mode.html)选择合适、统一的模式和写法来完成训练。

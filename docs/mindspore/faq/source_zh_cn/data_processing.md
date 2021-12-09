@@ -1,8 +1,41 @@
 ﻿# 数据处理
 
-`Linux` `Windows` `Ascend` `GPU` `CPU` `环境准备` `初级` `中级`
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_zh_cn/data_processing.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+
+<font size=3>**Q: 请问如果不使用高阶API，怎么实现数据下沉？**</font>
+
+A: 可以参考此手动下沉方式的[test_tdt_data_transfer.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/data_transfer/test_tdt_data_transfer.py)示例实现，不用借助`model.train`接口，目前支持：GPU和Ascend硬件使用。
+
+<br/>
+
+<font size=3>**Q: 在`GeneratorDataset`中，看到有参数`shuffle`，在跑任务时发现`shuffle=True`和`shuffle=False`，两者没有区别，这是为什么？**</font>
+
+A: 开启`shuffle`,需要传入的`Dataset`是支持随机访问的（例如自定义的`Dataset`有`getitem`方法），如果是在自定义的`Dataset`里面通过`yeild`方式返回回来的数据，是不支持随机访问的，具体可查看教程中的[数据集加载](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dataset_loading.html#id5)章节。
+
+<br/>
+
+<font size=3>**Q: 请问`Dataset`如何把两个`columns`合并成一个`column`？**</font>
+
+A: 可以添加如下操作把 两个字段合成一个。
+
+```python
+def combine(x, y):
+    x = x.flatten()
+    y = y.flatten()
+    return np.append(x, y)
+
+dataset = dataset.map(operations=combine, input_columns=["data", "data2"], output_columns=["data"])
+```
+
+注：因为两个`columns`是不同的`shape`，需要先`flatten`下，然后再合并。
+
+<br/>
+
+<font size=3>**Q: 请问`GeneratorDataset`支持`ds.PKSampler`采样吗？**</font>
+
+A: 自定义数据集`GeneratorDataset`不支持`PKSampler`采样逻辑。主要原因是自定义数据操作灵活度太大了，内置的`PKSampler`难以做到通用性，所以选择在接口层面直接提示不支持。但是对于`GeneratorDataset`，可以方便的定义自己需要的`Sampler`逻辑，即在`ImageDataset`类的`__getitem__`函数中定义具体的`sampler`规则，返回自己需要的数据即可。
+
+<br/>
 
 <font size=3>**Q: MindSpore如何加载已有的预训练词向量？**</font>
 
@@ -89,23 +122,17 @@ A: 当`dataset_sink_mode=True`时，数据处理会和网络计算构成Pipeline
 
 <font size=3>**Q: MindSpore能否支持按批次对不同尺寸的图片数据进行训练？**</font>
 
-A: 你可以参考yolov3对于此场景的使用，里面有对于图像的不同缩放,脚本见[yolo_dataset](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/yolov3_darknet53/src/yolo_dataset.py)。
+A: 你可以参考yolov3对于此场景的使用，里面有对于图像的不同缩放,脚本见[yolo_dataset](https://gitee.com/mindspore/models/blob/master/official/cv/yolov3_darknet53/src/yolo_dataset.py)。
 
 <br/>
 
 <font size=3>**Q: 使用MindSpore做分割训练，必须将数据转为MindRecord吗？**</font>
 
-A: [build_seg_data.py](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/deeplabv3/src/data/build_seg_data.py)是将数据集生成MindRecord的脚本，可以直接使用/适配下你的数据集。或者如果你想尝试自己实现数据集的读取，可以使用`GeneratorDataset`自定义数据集加载。
+A: [build_seg_data.py](https://gitee.com/mindspore/models/blob/master/official/cv/deeplabv3/src/data/build_seg_data.py)是将数据集生成MindRecord的脚本，可以直接使用/适配下你的数据集。或者如果你想尝试自己实现数据集的读取，可以使用`GeneratorDataset`自定义数据集加载。
 
 [GenratorDataset 示例](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dataset_loading.html#id5)
 
 [GenratorDataset API说明](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)
-
-<br/>
-
-<font size=3>**Q: 如何不将数据处理为MindRecord格式，直接进行训练呢？**</font>
-
-A: 可以使用自定义的数据加载方式 `GeneratorDataset`，具体可以参考[数据集加载](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dataset_loading.html)文档中的自定义数据集加载。
 
 <br/>
 
@@ -225,7 +252,7 @@ A: 上述错误通常是脚本书写错误导致，具体发生在下面这种�
 
 <font size=3>**Q: MindSpore中和Dataloader对应的算子是什么？**</font>
 
-A：如果将Dataloader考虑为接收自定义Dataset的API接口，MindSpore数据处理API中和Dataloader较为相似的是GeneratorDataset，可接收用户自定义的Dataset，具体使用方式参考[GeneratorDataset 文档](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dataset_loading.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86%E5%8A%A0%E8%BD%BD)，差异对比也可查看[API算子映射表](https://www.mindspore.cn/docs/note/zh-CN/master/index.html#operator_api)。
+A：如果将Dataloader考虑为接收自定义Dataset的API接口，MindSpore数据处理API中和Dataloader较为相似的是GeneratorDataset，可接收用户自定义的Dataset，具体使用方式参考[GeneratorDataset 文档](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dataset_loading.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86%E5%8A%A0%E8%BD%BD)，差异对比也可查看[API算子映射表](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html)。
 
 <br/>
 
@@ -252,3 +279,56 @@ A：通常数据处理算子与网络计算算子混合使用会导致性能有�
 
 A：.db文件为MindRecord文件对应的索引文件，缺少.db文件通常会在获取数据集总的数据量时报错，错误提示如：`MindRecordOp Count total rows failed`。
 
+<br/>
+
+<font size=3>**Q: 自定义Dataset中如何进行图像读取并进行Decode操作？**</font>
+
+A：传入GeneratorDataset的自定义Dataset，在接口内部（如`__getitem__`函数）进行图像读取后可以直接返回bytes类型的数据、numpy array类型的数组或已经做了解码操作的numpy array, 具体如下所示：
+
+- 读取图像后直接返回bytes类型的数据
+
+    ```python
+    class ImageDataset:
+        def __init__(self, data_path):
+            self.data = data_path
+
+        def __getitem__(self, index):
+            # use file open and read method
+            f = open(self.data[index], 'rb')
+            img_bytes = f.read()
+            f.close()
+
+            # return bytes directly
+            return (img_bytes, )
+
+        def __len__(self):
+            return len(self.data)
+
+    # data_path is a list of image file name
+    dataset1 = ds.GeneratorDataset(ImageDataset(data_path), ["data"])
+    decode_op = py_vision.Decode()
+    to_tensor = py_vision.ToTensor(output_type=np.int32)
+    dataset1 = dataset1.map(operations=[decode_op, to_tensor], input_columns=["data"])
+    ```
+
+- 读取图像后返回numpy array
+
+    ```python
+    # 在上面的用例中，对__getitem__函数可进行如下修改, Decode操作同上述用例一致
+    def __getitem__(self, index):
+        # use np.fromfile to read image
+        img_np = np.fromfile(self.data[index])
+
+        # return Numpy array directly
+        return (img_np, )
+    ```
+
+- 读取图像后直接进行Decode操作
+
+    ```python
+    # 依据上面的用例，对__getitem__函数可进行如下修改, 直接返回Decode之后的数据，此后可以不需要通过map算子接Decode操作
+    def __getitem__(self, index):
+        # use Image.Open to open file, and convert to RGC
+        img_rgb = Image.Open(self.data[index]).convert("RGB")
+        return (img_rgb, )
+    ```

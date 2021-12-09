@@ -1,5 +1,7 @@
 # Parallel Distributed Training Interfaces
 
+`Ascend` `GPU` `Distributed Parallel`
+
 <!-- TOC -->
 
 - [Parallel Distributed Training Interfaces](#parallel-distributed-training-interfaces)
@@ -13,9 +15,10 @@
             - [all_reduce_fusion_config](#all_reduce_fusion_config)
             - [enable_parallel_optimizer](#enable_parallel_optimizer)
             - [parameter_broadcast](#parameter_broadcast)
+            - [comm_fusion](#comm_fusion)
         - [Automatic Parallel Configuration](#automatic-parallel-configuration)
             - [gradient_fp32_sync](#gradient_fp32_sync)
-            - [auto_parallel_search_mode](#auto_parallel_search_mode)
+            - [search_mode](#search_mode)
             - [strategy_ckpt_load_file](#strategy_ckpt_load_file)
             - [strategy_ckpt_save_file](#strategy_ckpt_save_file)
             - [full_batch](#full_batch)
@@ -32,7 +35,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/auto_parallel.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/auto_parallel.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -183,6 +186,29 @@ context.set_auto_parallel_context(parameter_broadcast=True)
 context.get_auto_parallel_context("parameter_broadcast")
 ```
 
+#### comm_fusion
+
+`comm_fusion` allows user to configure the communication fusion for various communication operators, and for now, only `allreduce` is supported. For `allreduce`, it has three `mode` options:
+
+- `auto`：automatic communication operators fusion by gradients size, and another parameter `config` is `None`. The gradients fusion size is automatically set by 64 MB.
+- `size`：manual communication operators fusion by gradients size, and the type of another parameter `config` is `int` and unit is `MB`.
+- `index`：manual communication operators fusion by parameters' index，same as `all_reduce_fusion_config`, and the type of parameter `config` is `list(int)`.
+
+The following is a code example:
+
+```python
+from mindspore import context
+
+# auto
+context.set_auto_parallel_context(comm_fusion={"allreduce": {"mode": "auto", "config": None}})
+
+# size
+context.set_auto_parallel_context(comm_fusion={"allreduce": {"mode": "size", "config": 32}})
+
+# index
+context.set_auto_parallel_context(comm_fusion={"allreduce": {"mode": "index", "config": [20, 35]}})
+```
+
 ### Automatic Parallel Configuration
 
 #### gradient_fp32_sync
@@ -198,17 +224,20 @@ context.set_auto_parallel_context(gradient_fp32_sync=False)
 context.get_auto_parallel_context("gradient_fp32_sync")
 ```
 
-#### auto_parallel_search_mode
+#### search_mode
 
-MindSpore provides two search policies: `dynamic_programming` and `recursive_programming`. `dynamic_programming` can search for the optimal policy depicted by the cost model, but it takes a long time to search for the parallel policy of a huge network model. `recursive_programming` can quickly search out parallel policies, but the found policies may not have the optimal running performance. MindSpore provides parameters to allow users to select a search algorithm. The default value is `dynamic_programming`.
+`auto_parallel_search_mode` is replaced by `search_mode`. `auto_parallel_search_mode` will be deleted in the future MindSpore version. This attribute indicates the algorithm chosen for searching op-level parallelism: `dynamic_programming`, `recursive_programming`, and `sharding_propagation`.
+
+`dynamic_programming` can search for the optimal policy depicted by the cost model, but it takes a long time to search on a huge network model.
+`recursive_programming` can quickly search out parallel policies, but the found policies may not have the optimal running performance. `shardin_propagation` requires users to configure sharding strategies for some operators, and the algorithm will then propagate the strategies from configured ops to non-configured ops, with the goal of minimizing [tensor redistribution](https://www.mindspore.cn/docs/programming_guide/en/master/design/distributed_training_design.html#id10) communication. MindSpore allows users to select a search algorithm. The default value is `dynamic_programming`.
 
 The following is a code example:
 
 ```python
 from mindspore import context
 
-context.set_auto_parallel_context(auto_parallel_search_mode="dynamic_programming")
-context.get_auto_parallel_context("auto_parallel_search_mode")
+context.set_auto_parallel_context(search_mode="dynamic_programming")
+context.get_auto_parallel_context("search_mode")
 ```
 
 #### strategy_ckpt_load_file
@@ -259,8 +288,8 @@ The following is a code example:
 ```python
 from mindspore import context
 
-context.set_auto_parallel_context(parallel_stages=4)
-context.get_auto_parallel_context("parallel_stages")
+context.set_auto_parallel_context(pipeline_stages=4)
+context.get_auto_parallel_context("pipeline_stages")
 ```
 
 #### grad_accumulation_step

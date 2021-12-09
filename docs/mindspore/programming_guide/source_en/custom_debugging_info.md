@@ -1,6 +1,6 @@
 # Custom Debugging Information
 
-`Linux` `Ascend` `GPU` `CPU` `Model Optimization` `Intermediate` `Expert`
+`Ascend` `Model Optimization`
 
 <!-- TOC -->
 
@@ -20,7 +20,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/custom_debugging_info.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/custom_debugging_info.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -99,6 +99,12 @@ The main attributes of `cb_params` are as follows:
 - cur_epoch_num: Number of current epochs
 - cur_step_num: Number of current steps
 - batch_num: Number of batches in an epoch
+- epoch_num: Number of training epochs
+- batch_num: Number of training batch
+- train_network: Training network
+- parallel_mode: Parallel mode
+- list_callback: All callback functions
+- net_outputs: Network output results
 - ...
 
 You can inherit the callback base class to customize a callback object.
@@ -304,14 +310,17 @@ Running Data Recorder(RDR) is the feature MindSpore provides to record data whil
     {
         "rdr": {
             "enable": true,
-            "path": "/home/mindspore/rdr"
+            "mode": 1,
+            "path": "/path/to/rdr/dir"
         }
     }
     ```
 
     > enable: Controls whether the RDR is enabled.
     >
-    > path: Set the path to which RDR stores data. The current path must be absolute.
+    > mode: Controls RDR data exporting mode. When mode is set to 1, RDR exports data only in exceptional scenario. When mode is set to 2, RDR exports data in exceptional or normal scenario.
+    >
+    > path: Set the path to which RDR stores data. Only absolute path is supported.
 
 2. Configure RDR via `context`.
 
@@ -321,7 +330,7 @@ Running Data Recorder(RDR) is the feature MindSpore provides to record data whil
 
 #### Set RDR By Environment Variables
 
-Set `export MS_RDR_ENABLE=1` to enable RDR, and set the absolute path for recording data: `export MS_RDR_PATH=/absolute/path`.
+Set `export MS_RDR_ENABLE=1` to enable RDR, and set `export MS_RDR_MODE=1` or `export MS_RDR_MODE=2` to control exporting mode for RDR data, and set the root directory by `export MS_RDR_PATH=/path/to/root/dir` for recording data. The final directory for recording data is `/path/to/root/dir/rank_{RANK_ID}/rdr/`. `{RANK_ID}` is the unique ID for multi-cards training, the single card scenario defaults to `RANK_ID=0`.
 
 > The configuration file set by the user takes precedence over the environment variables.
 
@@ -329,7 +338,7 @@ Set `export MS_RDR_ENABLE=1` to enable RDR, and set the absolute path for record
 
 If MindSpore is used for training on Ascend 910, there is an exception `Run task error` in training.
 
-When we go to the directory `/home/mindspore-rdr`, we can see several files appear in this directory, each file represents a kind of data. For example, `hwopt_d_before_graph_0.ir` is a computational graph file. You can use a text tool to open this file to view the calculational graph and analyze whether the calculational graph meets your expectations.
+When we go to the directory for recording data, we can see several files appear in this directory, each file represents a kind of data. For example, `hwopt_d_before_graph_0.ir` is a computational graph file. You can use a text tool to open this file to view the calculational graph and analyze whether the calculational graph meets your expectations.
 
 ## Log-related Environment Variables and Configurations
 
@@ -337,8 +346,8 @@ MindSpore uses glog to output logs. The following environment variables are comm
 
 - `GLOG_v`
 
-    The environment variable specifies the log level.  
-    The default value is 2, indicating the WARNING level. The values are as follows: 0: DEBUG; 1: INFO; 2: WARNING; 3: ERROR.
+    The environment variable specifies the log level. After the log level is specified, the log information greater than or equal to this level will be output. The values are as follows: 0: DEBUG; 1: INFO; 2: WARNING; 3: ERROR; 4: CRITICAL.
+    The default value is 2, indicating the WARNING level. ERROR level indicates that an error occurred during program execution. The error log will be output and the program may not be terminated. CRITICAL level indicates that an exception occurs during program execution and the program execution will be terminated.
 
 - `GLOG_logtostderr`
 
@@ -347,11 +356,14 @@ MindSpore uses glog to output logs. The following environment variables are comm
 
 - `GLOG_log_dir`
 
-    The environment variable specifies the log output path.  
+    The environment variable specifies the log output path. Log files will be saved to the path of `the_specified_directory/rank_${rank_id}/logs/`. During the distributed training, `rank_id` is the ID of the current device in the cluster. Otherwise, `rank_id` is `0`.  
     If `GLOG_logtostderr` is set to 0, value of this variable must be specified.  
     If `GLOG_log_dir` is specified and the value of `GLOG_logtostderr` is 1, logs are output to the screen but not to a file.  
     Logs of C++ and Python will be output to different files. The file name of C++ log complies with the naming rule of `GLOG` log file. Here, the name is `mindspore.MachineName.UserName.log.LogLevel.Timestamp`. The file name of Python log is `mindspore.log`.  
     `GLOG_log_dir` can only contains characters such as uppercase letters, lowercase letters, digits, "-", "_" and "/".
+
+- `GLOG_log_max`
+    Each log file's max size is 50 MB by default. But we can change it by set this environment variable. When the log file reaches the max size, the next logs will be written to the new log file.
 
 - `MS_SUBMODULE_LOG_v`
 
@@ -363,7 +375,7 @@ MindSpore uses glog to output logs. The following environment variables are comm
 - `GLOG_stderrthreshold`
 
     The log module will print logs to the screen when these logs are output to a file. This environment variable is used to control the log level printed to the screen in this scenario.
-    The default value is 2, indicating the WARNING level. The values are as follows: 0: DEBUG; 1: INFO; 2: WARNING; 3: ERROR.
+    The default value is 2, indicating the WARNING level. The values are as follows: 0: DEBUG; 1: INFO; 2: WARNING; 3: ERROR; 4: CRITICAL.
 
 Sub modules of MindSpore grouped by source directory:
 

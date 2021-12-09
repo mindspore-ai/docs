@@ -1,6 +1,6 @@
 # Saving and Loading Models in Hybrid Parallel Mode
 
-`Linux` `Ascend` `GPU` `Model Training` `Intermediate` `Expert`
+`Ascend` `GPU` `Distributed Parallel` `Model Export` `Model Loading`
 
 <!-- TOC -->
 
@@ -26,7 +26,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/save_load_model_hybrid_parallel.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/save_load_model_hybrid_parallel.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 

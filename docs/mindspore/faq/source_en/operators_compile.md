@@ -1,8 +1,24 @@
 ﻿# Operators Compile
 
-`Linux` `Windows` `Ascend` `GPU` `CPU` `Environment Preparation` `Basic` `Intermediate`
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_en/operators_compile.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_en/operators_compile.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<font size=3>**Q: When the `ops.concat` operator is used, the error message `Error:Input and (output + workspace) num should <=192!` is displayed indicating that the data volume is large. What can I do?**</font>
+
+A: The `shape` of the `ops.concat` operator is too large. You are advised to set the output to `numpy` when creating an iterator for the `dataset` object. The setting is as follows:
+
+```python
+gallaryloader.create_dict_iterator(output_numpy=True)
+```
+
+In the post-processing phase (in a non-network calculation process, that is, in a non-construct function), `numpy` can be directly used for computation. For example, `numpy.concatenate` is used to replace the `ops.concat` for computation.
+
+<br/>
+
+<font size=3>**Q: In the `construct` function of the static graph mode, how do I remove all negative values contained in a `tensor`?**</font>
+
+A: You are advised to use the `ops.clip_by_value` interface to change all negative numbers to 0 for computation.
+
+<br/>
 
 <font size=3>**Q: What is the function of the `TransData` operator? Can the performance be optimized?**</font>
 
@@ -30,7 +46,7 @@ A: Yes. For details, see [mindspore.ops.Transpose](https://www.mindspore.cn/docs
 
 <font size=3>**Q: Can MindSpore calculate the variance of any tensor?**</font>
 
-A: Currently, mindspore does not have APIs or operators similar to variance which can directly calculate the variance of a `tensor`. However, MindSpore has sufficient small operators to support such operations. For details, see [class Moments(Cell)](https://www.mindspore.cn/docs/api/en/master/_modules/mindspore/nn/layer/math.html#Moments).
+A: Currently, MindSpore does not have APIs or operators similar to variance which can directly calculate the variance of a `tensor`. However, MindSpore has sufficient small operators to support such operations. For details, see [class Moments(Cell)](https://www.mindspore.cn/docs/api/en/master/_modules/mindspore/nn/layer/math.html#Moments).
 
 <br/>
 
@@ -72,5 +88,14 @@ A: The problem is that the Graph mode is selected but the PyNative mode is used.
 
 - PyNative mode: dynamic graph mode. In this mode, operators in the neural network are delivered and executed one by one, facilitating the compilation and debugging of the neural network model.
 - Graph mode: static graph mode. In this mode, the neural network model is compiled into an entire graph and then delivered for execution. This mode uses technologies such as graph optimization to improve the running performance and facilitates large-scale deployment and cross-platform running.
+
+<br/>
+
+<font size=3>**Q: What can I do if the Kernel Select Failed message:`Can not select a valid kernel info for [xxx] in AI CORE or AI CPU kernel info candidates list` is displayed on Ascend backend?**</font>
+
+A: The `Ascend` backend operators can be divided into `AI CORE` operators and `AI CPU` operators. Some operators are supported by `AI CORE`, some operators are supported by `AI CPU`, and some operators are supported by `AI CORE` and `AI CPU` at the same time. According to the error message:
+
+1. If the `AI CORE` operator's candidates list is empty, it may be that all operator information failed to pass the verification in the `check support` stage. You can search the keyword `CheckSupport` in the log to find the reason for the failure. Modify the shape or data type according to the specific information, or ask the developer to further locate the problem.
+2. If the `AI CPU` operator's candidates list is not empty, or the candidates list of `AI CORE` and `AI CPU` are both not empty, it may be that the given input data type was not in the candidate list and was filtered out in the selection stage. Try to modify the input data type of the operator according to the candidate list.
 
 You can select a proper mode and writing method to complete the training by referring to the official website [tutorial](https://www.mindspore.cn/docs/programming_guide/en/master/debug_in_pynative_mode.html).

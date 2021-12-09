@@ -1,7 +1,5 @@
 # 静态图语法支持
 
-`Linux` `Ascend` `GPU` `CPU` `模型开发` `初级` `中级` `高级`
-
 <!-- TOC -->
 
 - [静态图语法支持](#静态图语法支持)
@@ -17,28 +15,29 @@
             - [Tensor](#tensor)
             - [Primitive](#primitive)
             - [Cell](#cell)
+            - [Parameter](#parameter)
+    - [原型](#原型)
+        - [属性引用](#属性引用)
+        - [索引取值](#索引取值)
+        - [调用](#调用)
     - [运算符](#运算符)
-        - [算术运算符](#算术运算符)
+        - [单目算术运算符](#单目算术运算符)
+        - [二元算术运算符](#二元算术运算符)
         - [赋值运算符](#赋值运算符)
         - [逻辑运算符](#逻辑运算符)
-        - [成员运算符](#成员运算符)
-        - [身份运算符](#身份运算符)
-    - [表达式](#表达式)
+        - [比较运算符](#比较运算符)
+    - [复合语句](#复合语句)
         - [条件控制语句](#条件控制语句)
-            - [单if](#单if)
-            - [并列if](#并列if)
-            - [嵌套if](#嵌套if)
+            - [if语句](#if语句)
         - [循环语句](#循环语句)
-            - [for](#for)
-            - [while](#while)
-            - [并列while](#并列while)
-            - [嵌套while](#嵌套while)
-        - [循环嵌套条件控制语句](#循环嵌套条件控制语句)
-            - [if in for](#if-in-for)
-            - [if in while](#if-in-while)
+            - [for语句](#for语句)
+            - [while语句](#while语句)
         - [函数定义语句](#函数定义语句)
             - [def关键字](#def关键字)
             - [lambda表达式](#lambda表达式)
+        - [列表生成式和生成器表达式](#列表生成式和生成器表达式)
+            - [列表生成式](#列表生成式)
+            - [生成器表达式](#生成器表达式)
     - [函数](#函数)
         - [Python内置函数](#python内置函数)
             - [len](#len)
@@ -51,6 +50,7 @@
             - [super](#super)
             - [pow](#pow)
             - [print](#print)
+            - [filter](#filter)
         - [函数参数](#函数参数)
     - [网络定义](#网络定义)
         - [网络入参](#网络入参)
@@ -69,7 +69,7 @@
 当前仅支持编译`@ms_function`装饰器修饰的函数、Cell及其子类的实例。
 对于函数，则编译函数定义；对于网络，则编译`construct`方法及其调用的其他方法或者函数。
 
-`ms_function`使用规则可参考文档：<https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.html#mindspore.ms_function>
+`ms_function`使用规则可参考文档：<https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.ms_function.html#mindspore.ms_function>
 
 `Cell`定义可参考文档：<https://www.mindspore.cn/docs/programming_guide/zh-CN/master/cell.html>
 
@@ -79,7 +79,6 @@
 
 > 以下所有示例都运行在Graph模式下的网络中，为了简洁，并未将网络的定义都写出来。
 >
->`Tensor`不支持在静态图里直接构造，可通过参数传入网络`construct`方法，或者作为网络属性在`__init__`方法构造，然后在`construct`方法使用。
 
 ## 数据类型
 
@@ -116,8 +115,16 @@
   示例如下：
 
   ```python
-  x = [1, 2, 3]
-  x.append(4)
+  from mindspore import ms_function
+
+  @ms_function()
+  def test_list():
+      x = [1, 2, 3]
+      x.append(4)
+      return x
+
+  x = test_list()
+  print('x:{}'.format(x))
   ```
 
   结果如下：
@@ -137,22 +144,34 @@
   示例如下：
 
   ```python
-  x = [[1, 2], 2, 3, 4]
+  from mindspore import ms_function, Tensor
+  import numpy as np
 
-  m = x[0][1]
-  x[1] = Tensor(np.array([1, 2, 3]))
-  x[2] = "ok"
-  x[3] = (1, 2, 3)
-  x[0][1] = 88
-  n = x[-3]
+  t = Tensor(np.array([1, 2, 3]))
+
+  @ms_function()
+  def test_index():
+      x = [[1, 2], 2, 3, 4]
+      m = x[0][1]
+      x[1] = t
+      x[2] = "ok"
+      x[3] = (1, 2, 3)
+      x[0][1] = 88
+      n = x[-3]
+      return m, x, n
+
+  m, x, n = test_index()
+  print('m:{}'.format(m))
+  print('x:{}'.format(x))
+  print('n:{}'.format(n))
   ```
 
   结果如下：
 
   ```text
-  m: 2
-  x: ([1, 88], Tensor(shape=[3], dtype=Int64, value=[1, 2, 3]), 'ok', (1, 2, 3))
-  n: Tensor(shape=[3], dtype=Int64, value=[1, 2, 3])
+  m:2
+  x:[[1, 88], Tensor(shape=[3], dtype=Int64, value= [1, 2, 3]), 'ok', (1, 2, 3)]
+  n:[1 2 3]
   ```
 
 #### Tuple
@@ -178,25 +197,41 @@
   `int`、`slice`索引示例如下：
 
   ```python
-  x = (1, (2, 3, 4), 3, 4, Tensor(np.array([1, 2, 3])))
-  y = x[1][1]
-  z = x[4]
-  m = x[1:4]
-  n = x[-4]
+  from mindspore import ms_function, Tensor
+  import numpy as np
+
+  t = Tensor(np.array([1, 2, 3]))
+
+  @ms_function()
+  def test_index():
+      x = (1, (2, 3, 4), 3, 4, t)
+      y = x[1][1]
+      z = x[4]
+      m = x[1:4]
+      n = x[-4]
+      return y, z, m, n
+
+  y, z, m, n = test_index()
+  print('y:{}'.format(y))
+  print('z:{}'.format(z))
+  print('m:{}'.format(m))
+  print('n:{}'.format(n))
   ```
 
   结果如下：
 
   ```text
-  y: 3
-  z: Tensor(shape=[3], dtype=Int64, value=[1, 2, 3])
-  m: ((2, 3, 4), 3, 4)
-  n: (2, 3, 4)
+  y:3
+  z:[1 2 3]
+  m:((2, 3, 4), 3, 4)
+  n:(2, 3, 4)
   ```
 
   `Tensor`索引示例如下：
 
   ```python
+  from mindspore import Tensor, nn, dtype
+
   class Net(nn.Cell):
       def __init__(self):
           super(Net, self).__init__()
@@ -207,6 +242,18 @@
       def construct(self, x, index):
           ret = self.layers[index](x)
           return ret
+
+  x = Tensor([-1.0], dtype.float32)
+
+  net = Net()
+  ret = net(x, 0)
+  print('ret:{}'.format(ret))
+  ```
+
+  结果如下：
+
+  ```text
+  ret:[0.]
   ```
 
 #### Dictionary
@@ -221,19 +268,35 @@
 
   `values`：取出`dict`里所有的`value`值，组成`Tuple`返回。
 
+  `items`：取出`dict`里每一对`key`和`value`组成的`Tuple`，组成`Tuple`返回。
+
   示例如下：
 
   ```python
+  from mindspore import ms_function, Tensor
+  import numpy as np
+
   x = {"a": Tensor(np.array([1, 2, 3])), "b": Tensor(np.array([4, 5, 6])), "c": Tensor(np.array([7, 8, 9]))}
-  y = x.keys()
-  z = x.values()
+
+  @ms_function()
+  def test_dict():
+      y = x.keys()
+      z = x.values()
+      q = x.items()
+      return y, z, q
+
+  y, z, q = test_dict()
+  print('y:{}'.format(y))
+  print('z:{}'.format(z))
+  print('q:{}'.format(q))
   ```
 
   结果如下：
 
   ```text
-  y: ("a", "b", "c")
-  z: (Tensor(shape=[3], dtype=Int64, value=[1, 2, 3]), Tensor(shape=[3], dtype=Int64, value=[4, 5, 6]), Tensor(shape=[3], dtype=Int64, value=[7, 8, 9]))
+  y:('a', 'b', 'c')
+  z:(Tensor(shape=[3], dtype=Int64, value= [1, 2, 3]), Tensor(shape=[3], dtype=Int64, value= [4, 5, 6]), Tensor(shape=[3], dtype=Int64, value= [7, 8, 9]))
+  q:[('a', Tensor(shape=[3], dtype=Int64, value= [1, 2, 3])), ('b', Tensor(shape=[3], dtype=Int64, value= [4, 5, 6])), ('c', Tensor(shape=[3], dtype=Int64, value= [7, 8, 9]))]
   ```
 
 - 支持索引取值和赋值
@@ -243,21 +306,32 @@
   示例如下：
 
   ```python
+  from mindspore import ms_function, Tensor
+  import numpy as np
+
   x = {"a": Tensor(np.array([1, 2, 3])), "b": Tensor(np.array([4, 5, 6])), "c": Tensor(np.array([7, 8, 9]))}
-  y = x["b"]
-  x["a"] = (2, 3, 4)
+
+  @ms_function()
+  def test_dict():
+      y = x["b"]
+      x["a"] = (2, 3, 4)
+      return x, y
+
+  x, y = test_dict()
+  print('x:{}'.format(x))
+  print('y:{}'.format(y))
   ```
 
   结果如下：
 
   ```text
-  y: Tensor(shape=[3], dtype=Int64, value=[4, 5, 6])
-  x: {"a": (2, 3, 4), Tensor(shape=[3], dtype=Int64, value=[4, 5, 6]), Tensor(shape=[3], dtype=Int64, value=[7, 8, 9])}
+  x:{'a': (2, 3, 4), 'b': Tensor(shape=[3], dtype=Int64, value= [4, 5, 6]), 'c': Tensor(shape=[3], dtype=Int64, value= [7, 8, 9])}
+  y:[4 5 6]
   ```
 
 ### MindSpore自定义数据类型
 
-当前MindSpore自定义数据类型包括：`Tensor`、`Primitive`和`Cell`。
+当前MindSpore自定义数据类型包括：`Tensor`、`Primitive`、`Cell`和`Parameter`。
 
 #### Tensor
 
@@ -272,9 +346,23 @@
 如下示例，通过`@constexpr`生成一个`shape = (3, 4), dtype = int64`的`Tensor`。
 
 ```python
+from mindspore import Tensor
+from mindspore.ops import constexpr
+
 @constexpr
 def generate_tensor():
     return Tensor(np.ones((3, 4)))
+
+x = generate_tensor()
+print('x:{}'.format(x))
+```
+
+结果如下：
+
+```Text
+x:[[1. 1. 1. 1.]
+ [1. 1. 1. 1.]
+ [1. 1. 1. 1.]]
 ```
 
 下面将介绍下`Tensor`支持的属性和接口。
@@ -298,28 +386,41 @@ def generate_tensor():
   示例如下：
 
   ```python
+  from mindspore import ms_function, Tensor
+  import numpy as np
+
   x = Tensor(np.array([[True, False, True], [False, True, False]]))
+  y = Tensor(np.ones((2, 3), np.float32))
+  z = Tensor(np.ones((2, 2, 3)))
+
   x_shape = x.shape
   x_dtype = x.dtype
   x_all = x.all()
   x_any = x.any()
   x_view = x.view((1, 6))
-
-  y = Tensor(np.ones((2, 3), np.float32))
-  z = Tensor(np.ones((2, 2, 3)))
   y_as_z = y.expand_as(z)
+
+  print('x_shape:{}'.format(x_shape))
+  print('x_dtype:{}'.format(x_dtype))
+  print('x_all:{}'.format(x_all))
+  print('x_any:{}'.format(x_any))
+  print('x_view:{}'.format(x_view))
+  print('y_as_z:{}'.format(y_as_z))
   ```
 
   结果如下:
 
   ```text
-  x_shape: (2, 3)
-  x_dtype: Bool
-  x_all: Tensor(shape=[], dtype=Bool, value=False)
-  x_any: Tensor(shape=[], dtype=Bool, value=True)
-  x_view: Tensor(shape=[1, 6], dtype=Bool, value=[[True, False, True, False, True, False]])
+  x_shape:(2, 3)
+  x_dtype:Bool
+  x_all:False
+  x_any:True
+  x_view:[[ True False  True False  True False]]
+  y_as_z:[[[1. 1. 1.]
+    [1. 1. 1.]]
 
-  y_as_z: Tensor(shape=[2, 2, 3], dtype=Float32, value=[[[1.0, 1.0, 1.0], [1.0, 1.0, 1.0]], [[1.0, 1.0, 1.0], [1.0, 1.0, 1.0]]])
+   [[1. 1. 1.]
+    [1. 1. 1.]]]
   ```
 
 #### Primitive
@@ -330,7 +431,7 @@ def generate_tensor():
 
 当前不支持在网络调用`Primitive`及其子类相关属性和接口。
 
-`Primitive`定义可参考文档：<https://www.mindspore.cn/docs/programming_guide/zh-CN/master/operators.html>
+`Primitive`定义可参考文档：<https://www.mindspore.cn/docs/programming_guide/zh-CN/master/operators_classification.html>
 
 当前已定义的`Primitive`可参考文档：<https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.ops.html>
 
@@ -346,6 +447,99 @@ def generate_tensor():
 
 当前已定义的`Cell`可参考文档：<https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.nn.html>
 
+#### Parameter
+
+`Parameter`是变量张量，代表在训练网络时，需要被更新的参数。
+
+`Parameter`的定义和使用参考：<https://www.mindspore.cn/docs/programming_guide/zh-CN/master/parameter.html>
+
+## 原型
+
+原型代表编程语言中最紧密绑定的操作。
+
+### 属性引用
+
+属性引用是后面带有一个句点加一个名称的原型。
+
+在MindSpore的Cell 实例中使用属性引用作为左值需满足如下要求：
+
+- 被修改的属性属于本`cell`对象，即必须为`self.xxx`。
+- 该属性在Cell的`__init__`函数中完成初始化且其为Parameter类型。
+
+示例如下：
+
+```python
+from mindspore import ms_function, Tensor, nn, dtype, Parameter
+import numpy as np
+from mindspore.ops import constexpr
+
+class Net(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.weight = Parameter(Tensor(3, dtype.float32), name="w")
+        self.m = 2
+
+    def construct(self, x, y):
+        self.weight = x  # 满足条件可以修改
+        # self.m = 3  # self.m 非Parameter类型禁止修改
+        # y.weight = x  # y不是self，禁止修改
+        return x
+
+net = Net()
+ret = net(1, 2)
+print('ret:{}'.format(ret))
+```
+
+结果如下:
+
+```text
+ret:1
+```
+
+### 索引取值
+
+对序列`Tuple`、`List`、`Dictionary`、`Tensor`的索引取值操作(Python称为抽取)。
+
+`Tuple`的索引取值请参考本文的[Tuple](#tuple)章节。
+
+`List`的索引取值请参考本文的[List](#list)章节。
+
+`Dictionary`的索引取值请参考本文的[Dictionary](#dictionary)章节。
+
+`Tensor`的索引取请参考:<https://www.mindspore.cn/docs/note/zh-CN/master/index_support.html>
+
+### 调用
+
+所谓调用就是附带可能为空的一系列参数来执行一个可调用对象(例如：`Cell`、`Primitive`)。
+
+示例如下：
+
+```python
+from mindspore import Tensor, nn, dtype, ops
+import numpy as np
+
+class Net(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.matmul = ops.MatMul()
+
+    def construct(self, x, y):
+        out = self.matmul(x, y)  # Primitive调用
+        return out
+
+x = Tensor(np.ones(shape=[1, 3]), dtype.float32)
+y = Tensor(np.ones(shape=[3, 4]), dtype.float32)
+net = Net()
+ret = net(x, y)
+print('ret:{}'.format(ret))
+```
+
+结果如下:
+
+```text
+ret:[[3. 3. 3. 3.]]
+```
+
 ## 运算符
 
 算术运算符和赋值运算符支持`Number`和`Tensor`运算，也支持不同`dtype`的`Tensor`运算。
@@ -354,59 +548,110 @@ def generate_tensor():
 
 规则可参考文档：<https://www.mindspore.cn/docs/note/zh-CN/master/operator_list_implicit.html>
 
-### 算术运算符
+### 单目算术运算符
 
-| 算术运算符 | 支持类型                                                                                                |
-| :--------- | :------------------------------------------------------------------------------------------------------ |
-| `+`        | `Number` + `Number`、`Tensor` + `Tensor`、`Tensor` + `Number`、`Tuple` + `Tuple`、`String` + `String`、`List` + `List`。 |
-| `-`        | `Number` - `Number`、`Tensor` - `Tensor`、`Tensor` - `Number`。                                         |
-| `*`        | `Number` \* `Number`、`Tensor` \* `Tensor`、`Tensor` \* `Number`。                                      |
-| `/`        | `Number` / `Number`、`Tensor` / `Tensor`、`Tensor` / `Number`。                                         |
-| `%`        | `Number` % `Number`、`Tensor` % `Tensor`、`Tensor` % `Number`。                                         |
-| `**`       | `Number` \*\* `Number`、`Tensor` \*\* `Tensor`、`Tensor` \*\* `Number`。                                |
-| `//`       | `Number` // `Number`、`Tensor` // `Tensor`、`Tensor` // `Number`。                                      |
-| `~`        | `~Tensor[Bool]`。                                                                                       |
+| 单目算术运算符 | 支持类型                                        |
+| :------------- | :---------------------------------------------- |
+| `+`            | `Number`、`Tensor`，取正值。                    |
+| `-`            | `Number`、`Tensor`，取负值。                    |
+| ~              | `Tensor`， 且其数据类型为`Bool`。成员逐个取反。 |
+
+说明：
+
+- 在Python中`~`操作符对输入的整数安位取反; MindSpore对`~`的功能重新定义为对`Tensor(Bool)`的逻辑取反。
+
+### 二元算术运算符
+
+| 二元算术运算符 | 支持类型                                                     |
+| :------------- | :----------------------------------------------------------- |
+| `+`            | `Number` + `Number`、`String` + `String`、`Number` + `Tensor`、`Tensor` + `Number`、`Tuple` + `Tensor`、`Tensor` + `Tuple`、`List` + `Tensor`、`Tensor`+`List`、`List`+`List`、`Tensor` + `Tensor`、`Tuple` + `Tuple`。 |
+| `-`            | `Number` - `Number`、`Tensor` - `Tensor`、`Number` - `Tensor`、`Tensor` - `Number`、`Tuple` - `Tensor`、`Tensor` - `Tuple`、`List` - `Tensor`、`Tensor` - `List`。 |
+| `*`            | `Number` \* `Number`、`Tensor` \* `Tensor`、`Number` \* `Tensor`、`Tensor` \* `Number`、`List` \* `Number`、`Number` \* `List`、`Tuple` \* `Number`、`Number` \* `Tuple`、`Tuple` \* `Tensor`、`Tensor` \* `Tuple`、 `List` \* `Tensor`、`Tensor` \* `List`。 |
+| `/`            | `Number` / `Number`、`Tensor` / `Tensor`、`Number` / `Tensor`、`Tensor` / `Number`、`Tuple` / `Tensor`、`Tensor` / `Tuple`、`List` / `Tensor`、`Tensor` / `List`。 |
+| `%`            | `Number` % `Number`、`Tensor` % `Tensor`、`Number` % `Tensor`、`Tensor` % `Number`、`Tuple` % `Tensor`、`Tensor` % `Tuple`、`List` % `Tensor`、`Tensor` % `List`。 |
+| `**`           | `Number` \*\* `Number`、`Tensor` \*\* `Tensor`、`Number` \*\* `Tensor`、`Tensor` \*\* `Number`、`Tuple` \*\* `Tensor`、`Tensor` \*\* `Tuple`、 `List` \*\* `Tensor`、`Tensor` \*\* `List`。 |
+| `//`           | `Number` // `Number`、`Tensor` // `Tensor`、`Number` // `Tensor`、`Tensor` // `Number`、`Tuple` // `Tensor`、`Tensor` // `Tuple`、`List` // `Tensor`、`Tensor` // `List`。 |
+
+限制：
+
+- 当左右操作数都为`Number`类型时，`Number`的值不可为`Bool` 类型。
+- 当左右操作数都为`Number`类型时，不支持`Float64` 和 `Int32`间的运算。
+- 当任一操作数为`Tensor`类型时，左右操作数的值不可同时为`Bool`。
+- `List/Tuple`和`Number`进行`*`运算时表示将`List/Tuple`复制`Number`份后串联起来，`List/Tuple`内的数据类型必须为`Number`、`String`、`None`或由以上类型构成的`List/Tuple`。
 
 ### 赋值运算符
 
-| 赋值运算符 | 支持类型                                                                                                     |
-| :--------- | :----------------------------------------------------------------------------------------------------------- |
-| `=`        | 标量、`Tensor`                                                                                               |
-| `+=`       | `Number` += `Number`、`Tensor` += `Tensor`、`Tensor` += `Number`、`Tuple` += `Tuple`、`String` += `String`。 |
-| `-=`       | `Number` -= `Number`、`Tensor` -= `Tensor`、`Tensor` -= `Number`。                                           |
-| `*=`       | `Number` \*= `Number`、`Tensor` \*= `Tensor`、`Tensor` \*= `Number`。                                        |
-| `/=`       | `Number` /= `Number`、`Tensor` /= `Tensor`、`Tensor` /= `Number`。                                           |
-| `%=`       | `Number` %= `Number`、`Tensor` %= `Tensor`、`Tensor` %= `Number`。                                           |
-| `**=`      | `Number` \*\*= `Number`、`Tensor` \*\*= `Tensor`、`Tensor` \*\*= `Number`。                                  |
-| `//=`      | `Number` //= `Number`、`Tensor` //= `Tensor`、`Tensor` //= `Number`。                                        |
+| 赋值运算符 | 支持类型                                                     |
+| :--------- | :----------------------------------------------------------- |
+| `=`        | MindSpore支持的Python内置数据类型和MindSpore自定义数据类型   |
+| `+=`       | `Number` += `Number`、`String` += `String`、`Number` += `Tensor`、`Tensor` += `Number`、`Tuple` += `Tensor`、`Tensor` += `Tuple`、`List` += `Tensor`、`Tensor` += `List`、`List` += `List`、`Tensor` += `Tensor`、`Tuple` += `Tuple`。 |
+| `-=`       | `Number` -= `Number`、`Tensor` -= `Tensor`、`Number` -= `Tensor`、`Tensor` -= `Number`、`Tuple` -= `Tensor`、`Tensor` -= `Tuple`、`List` -= `Tensor`、`Tensor` -= `List`。 |
+| `*=`       | `Number` \*= `Number`、`Tensor` \*= `Tensor`、`Number` \*= `Tensor`、`Tensor` \*= `Number`、`List` \*= `Number`、`Number` \*= `List`、`Tuple` \*= `Number`、`Number` \*= `Tuple`、`Tuple` \*= `Tensor`、`Tensor` \*= `Tuple`、 `List` \*= `Tensor`、`Tensor` \*= `List`。 |
+| `/=`       | `Number` /= `Number`、`Tensor` /= `Tensor`、`Number` /= `Tensor`、`Tensor` /= `Number`、`Tuple` /= `Tensor`、`Tensor` /= `Tuple`、`List` /= `Tensor`、`Tensor` /= `List`。 |
+| `%=`       | `Number` %= `Number`、`Tensor` %= `Tensor`、`Number` %= `Tensor`、`Tensor` %= `Number`、`Tuple` %= `Tensor`、`Tensor` %= `Tuple`、`List` %= `Tensor`、`Tensor` %= `List`。 |
+| `**=`      | `Number` \*\*= `Number`、`Tensor` \*\*= `Tensor`、`Number` \*\*= `Tensor`、`Tensor` \*\*= `Number`、`Tuple` \*\*= `Tensor`、`Tensor` \*\*= `Tuple`、 `List` \*\*= `Tensor`、`Tensor` \*\*= `List`。 |
+| `//=`      | `Number` //= `Number`、`Tensor` //= `Tensor`、`Number` //= `Tensor`、`Tensor` //= `Number`、`Tuple` //= `Tensor`、`Tensor` //= `Tuple`、`List` //= `Tensor`、`Tensor` //= `List`。 |
+
+限制：ret:[1 2]
+ret:[0 3]
+
+- 对于 `=`来说，不支持下列场景:
+
+  在`construct`函数中仅支持创建`Cell`和`Primitive`类型对象，使用`xx = Tensor(...)`的方式创建`Tensor`会失败。
+
+  在`construct`函数中仅支持为self 的`Parameter`类型的属性赋值, 详情参考：[属性引用](#属性引用)。
+
+- 当`AugAssign`的左右操作数都为`Number`类型时，`Number`的值不可为`Bool` 类型。
+
+- 当`AugAssign`的左右操作数都为`Number`类型时，不支持`Float64` 和 `Int32`间的运算。
+
+- 当`AugAssign`的任一操作数为`Tensor`类型时，左右操作数的值不可同时为`Bool`。
+
+- `List/Tuple`和`Number`进行`*=`运算时表示将`List/Tuple`复制`Number`份后串联起来，`List/Tuple`内的数据类型必须为`Number`、`String`、`None`或由以上类型构成的`List/Tuple`。
 
 ### 逻辑运算符
 
-| 逻辑运算符 | 支持类型                                       |
-| :--------- | :--------------------------------------------- |
-| `and`      | `Number` and `Number`、`Tensor` and `Tensor`。 |
-| `or`       | `Number` or `Number`、`Tensor` or`Tensor`。    |
-| `not`      | not `Number`、not `Tensor`、not `tuple`。      |
+| 逻辑运算符 | 支持类型                                                     |
+| :--------- | :----------------------------------------------------------- |
+| `and`      | `String`、 `Number`、 `Tuple`、`List` 、`Dict`、`None`、标量、Tensor。 |
+| `or`       | `String`、 `Number`、 `Tuple`、`List` 、`Dict`、`None`、标量、Tensor。 |
+| `not`      | `Number`、`Tuple`、`List`、只有一个成员的Tensor。            |
 
-### 成员运算符
+限制：
 
-| 成员运算符 | 支持类型                                                                                                                                              |
-| :--------- | :---------------------------------------------------------------------------------------------------------------------------------------------------- |
+- 当and/or的左操作数是Tensor类型时，左右操作数类型必须保持一致且Tensor成员个数只能有一个。
+
+- 当and/or的左操作数不是Tensor类型时，右操作数可以为支持的任意类型。
+
+### 比较运算符
+
+| 比较运算符 | 支持类型                                                     |
+| :--------- | :----------------------------------------------------------- |
 | `in`       | `Number` in `tuple`、`String` in `tuple`、`Tensor` in `Tuple`、`Number` in `List`、`String` in `List`、`Tensor` in `List`、`String` in `Dictionary`。 |
-| `not in`   | 与`in`相同。                                                                                                                                          |
+| `not in`   | 与`in`相同。                                                 |
+| `is`       | 仅支持判断是`None`、 `True`或者`False`。                     |
+| `is not`   | 仅支持判断不是`None`、 `True`或者`False`。                   |
+| <          | `Number` < `Number`、`Number` < `Tensor`、`Tensor` < `Tensor`、`Tensor` < `Number`。 |
+| <=         | `Number` <= `Number`、`Number` <= `Tensor`、`Tensor` <= `Tensor`、`Tensor` <= `Number`。 |
+| >          | `Number` > `Number`、`Number` > `Tensor`、`Tensor` > `Tensor`、`Tensor` > `Number`。 |
+| >=         | `Number` >= `Number`、`Number` >= `Tensor`、`Tensor` >= `Tensor`、`Tensor` >= `Number`。 |
+| !=         | `Number` != `Number`、`Number` != `Tensor`、`Tensor` != `Tensor`、`Tensor` != `Number`、`mstype` != `mstype`、`String` != `String`、`Tuple !` = `Tuple`、`List` != `List`。 |
+| ==         | `Number` == `Number`、`Number` == `Tensor`、`Tensor` == `Tensor`、`Tensor` == `Number`、`mstype` == `mstype`、`String` == `String`、`Tuple` == `Tuple`、`List` == `List`。 |
 
-### 身份运算符
+限制：
 
-| 身份运算符 | 支持类型                                   |
-| :--------- | :----------------------------------------- |
-| `is`       | 仅支持判断是`None`、 `True`或者`False`。   |
-| `is not`   | 仅支持判断不是`None`、 `True`或者`False`。 |
+- 对于`<`、`<=`、`>`、`>=`、`!=`来说，当左右操作数都为`Number`类型时，`Number`的值不可为`Bool` 类型。
+- 对于`<`、`<=`、`>`、`>=`、`!=`、`==`来说，当左右操作数都为`Number`类型时，不支持`Float64` 和 `Int32`间的运算。
+- 对于`<`、`<=`、`>`、`>=`、`!=`、`==`来说，当左右任一操作数为`Tensor`类型时，左右操作数的值不可同时为`Bool`。
+- 对于`==`来说，当左右操作数都为`Number`类型时，支持左右操作数同时为`Bool`，不支持只有一个操作数为`Bool`。
+- 对于`!=`、`==`来说除`mstype`外，其他取值均可和`None`进行比较来判空。
+- 不支持链式比较，如: `a>b>c`。
 
-## 表达式
+## 复合语句
 
 ### 条件控制语句
 
-#### 单if
+#### if语句
 
 使用方式：
 
@@ -414,287 +659,228 @@ def generate_tensor():
 
 - `x = y if (cond) else z`
 
-参数：`cond` -- 支持类型`Number`、`Tuple`、`List`、`String`、`None`、`Tensor`、`Function`，也可以是计算结果类型是其中之一的表达式。
+参数：`cond` -- 支持`Bool`类型的变量，也支持类型为`Number`、`List`、`Tuple`、`Dict`、`String`类型的常量。
 
 限制：
 
-- 在构图时，如果`if`未能消除，则`if`分支`return`的数据类型和shape，与`if`分支外`return`的数据类型和shape必须一致。
+- 如果`cond`不为常量，在不同分支中同一符号被赋予的变量或者常量的数据类型应一致，如果是被赋予变量或者常量数据类型是`Tensor`，则要求`Tensor`的type和shape也应一致。
 
-- 当只有`if`时，`if`分支变量更新后数据类型和shape，与更新前数据类型和shape必须一致。
-
-- 当即有`if`又有`else`时，`if`分支变量更新后数据类型和shape，与`else`分支更新后数据类型和shape必须一致。
-
-- 不支持高阶微分场景。
-
-- 不支持`elif`语句。
+- `if`的使用数量不能超过100个。
 
 示例1：
 
 ```python
-if x > y:
-  return m
-else:
-  return n
+from mindspore import ms_function, Tensor, dtype
+
+x = Tensor([1, 2], dtype.int32)
+y = Tensor([0, 3], dtype.int32)
+m = 'xx'
+n = 'yy'
+
+@ms_function()
+def test_cond(x, y):
+    if (x > y).any():
+        return m
+    else:
+        return n
+
+ret = test_cond(x, y)
+print('ret:{}'.format(ret))
 ```
 
-`if`分支返回的`m`和`else`分支返回的`n`，二者数据类型和shape必须一致。
+`if`分支返回的`m`和`else`分支返回的`n`，二者数据类型必须一致。
+
+结果如下:
+
+  ```text
+ret:xx
+  ```
 
 示例2：
 
 ```python
-if x > y:
-  out = m
-else:
-  out = n
-return out
+from mindspore import ms_function, Tensor, dtype
+
+x = Tensor([1, 2], dtype.int32)
+y = Tensor([0, 3], dtype.int32)
+m = 'xx'
+n = 'yy'
+
+@ms_function()
+def test_cond(x, y):
+    out = 'init'
+    if (x > y).any():
+        out = m
+    else:
+        out = n
+    return out
+
+ret = test_cond(x, y)
+print('ret:{}'.format(ret))
+````
+
+`if`分支中`out`被赋值的变量或者常量`m`与`else`分支中`out`被赋值的变量或者常量`n`的数据类型必须一致。
+
+结果如下:
+
+```text
+ret:xx
 ```
 
-`if`分支更新后`out`和`else`分支更新后`out`，二者数据类型和shape必须一致。
-
-#### 并列if
-
-使用方式：
-
-- `if (cond1):statements else:statements...if (cond2):statements...`
-
-参数：`cond1`、 `cond2`-- 与`单if`一致。
-
-限制：
-
-- 继承`单if`所有限制。
-
-- 计算图总`if`数量不超过50个。
-
-- `if`数量过多会导致编译时间过长，减少`if`数量有助于提升编译效率。
-
-示例：
+示例3：
 
 ```python
-if x > y:
-  out = x
-else:
-  out = y
-if z > x:
-  out = out + 1
-return out
+from mindspore import ms_function, Tensor, dtype
+
+x = Tensor([1, 2], dtype.int32)
+y = Tensor([0, 3], dtype.int32)
+m = 'xx'
+
+@ms_function()
+def test_cond(x, y):
+    out = 'init'
+    if (x > y).any():
+        out = m
+    return out
+
+ret = test_cond(x, y)
+print('ret:{}'.format(ret))
 ```
 
-#### 嵌套if
+`if`分支中`out`被赋值的变量或者常量`m`与`out`初始赋值的变量或者常量`init`的数据类型必须一致。
 
-使用方式：
+结果如下:
 
-- `if (cond1):if (cond2):statements...`
-
-参数：`cond1`、 `cond2`-- 与`单if`一致。
-
-限制：
-
-- 继承`单if`所有限制。
-
-- 计算图`if`数量不超过50个。
-
-- `if`数量过多会导致编译时间过长，减少`if`数量有助于提升编译效率。
-
-示例：
-
-```python
-if x > y:
-  z = z + 1
-  if z > x:
-    return m
-else:
-  return n
+```text
+ret:xx
 ```
 
 ### 循环语句
 
-#### for
+#### for语句
 
 使用方式：
 
-- `for i in sequence`
+- `for i in sequence  statements...`
 
-参数：`sequence` -- 遍历序列(`Tuple`、`List`)
+- `for i in sequence  statements... if (cond) break`
+
+- `for i in sequence  statements... if (cond) continue`
+
+参数：`sequence` -- 遍历序列(`Tuple`、`List`、`range`等)
 
 限制：
 
 - 图的算子数量和`for`循环的迭代次数成倍数关系，`for`循环迭代次数过大可能会导致图占用内存超过使用限制。
 
+- 不支持`for...else...`语句。
+
+- `for`的循环体内部不能包含`while`语句。
+
 示例：
 
 ```python
+from mindspore import ms_function, Tensor
+import numpy as np
+
 z = Tensor(np.ones((2, 3)))
-x = (1, 2, 3)
-for i in x:
-  z += i
-return z
+
+@ms_function()
+def test_cond():
+    x = (1, 2, 3)
+    for i in x:
+        z += i
+    return z
+
+ret = test_cond()
+print('ret:{}'.format(ret))
 ```
 
 结果如下：
 
 ```text
-z: Tensor(shape=[2, 3], dtype=Int64, value=[[7, 7], [7, 7], [7, 7]])
+ret:[[7. 7. 7.]
+ [7. 7. 7.]]
 ```
 
-#### 单while
+#### while语句
 
 使用方式：
 
-- `while (cond)`
+- `while (cond)  statements...`
 
-参数：`cond` -- 与`单if`一致。
+- `while (cond)  statements... if (cond1) break`
+
+- `while (cond)  statements... if (cond1) continue`
+
+参数：`cond` -- 支持`Bool`类型的变量，也支持类型为`Number`、`List`、`Tuple`、`Dict`、`String`类型的常量。
 
 限制：
 
-- 在构图时，如果`while`未能消除，则`while`内`return`的数据类型和shape，与`while`外`return`的数据类型和shape必须一致。
+- 如果`cond`不为常量，在循环体内外同一符号被赋值的变量或者常量的数据类型应一致，如果是被赋予数据类型`Tensor`，则要求`Tensor`的type和shape也应一致。
 
-- `while`内变量更新后数据类型和shape，与更新前数据类型和shape必须一致。
+- 不支持`while...else...`语句
 
-- 不支持训练场景。
+- 如果`cond`不为常量， 循环体内部不能更新循环体外的`Number`、`List`、`Tuple`类型数据， 不能更改`Tensor`类型数据的shape。
+
+- while的数量不能超过100个。
 
 示例1：
 
 ```python
-while x < y:
-  x += 1
-  return m
-return n
+from mindspore import ms_function
+
+m = 1
+n = 2
+
+@ms_function()
+def test_cond(x, y):
+    while x < y:
+        x += 1
+        return m
+    return n
+
+ret = test_cond(1, 5)
+print('ret:{}'.format(ret))
 ```
 
-`while`内返回的`m`和`while`外返回的`n`数据类型必须和shape一致。
-
-示例2：
-
-```python
-out = m
-while x < y:
-  x += 1
-  out = out + 1
-return out
-```
-
-`while`内，`out`更新后和更新前的数据类型和shape必须一致。
-
-#### 并列while
-
-使用方式：
-
-- `while (cond1):statements while (cond2):statemetns...`
-
-参数：`cond1`、 `cond2`-- 与`单if`一致。
-
-限制：
-
-- 继承`单while`所有限制。
-
-- 并列`while`总数不超过50个。
-
-- `while`数量过多会导致编译时间过长，减少`while`数量有助于提升编译效率。
-
-示例：
-
-```python
-out = m
-while x < y:
-  x += 1
-  out = out + 1
-while out > 10:
-  out -= 10
-return out
-```
-
-#### 嵌套while
-
-使用方式：
-
-- `while (cond1):while (cond2):statements...`
-
-参数：`cond1`、 `cond2`-- 与`单if`一致。
-
-限制：
-
-- 继承`单while`所有限制。
-
-- 嵌套`while`总数不超过50个。
-
-- `while`数量过多会导致编译时间过长，减少`while`数量有助于提升编译效率。
-
-示例：
-
-```python
-out = m
-while x < y:
-  while z < y:
-    z += 1
-    out = out + 1
-  x += 1
-return out
-```
-
-### 循环嵌套条件控制语句
-
-#### if in for
-
-使用方式：
-
-- `for i in sequence:if (cond)`
-
-参数：
-
-`cond` -- 与`单if`一致。
-
-`sequence` -- 遍历序列(`Tuple`、`List`)
-
-限制：
-
-- 继承`单if`所有限制。
-
-- 继承`for`所有限制。
-
-- `cond`为变量时，不能有`if (cond):return`、`if (cond):continue`、`if (cond):break`语句。
-
-- `if`数量和`for`循环的迭代次数成倍数关系，`for`循环迭代次数过大可能会导致编译时间过长。
-
-示例如下：
-
-```python
-z = Tensor(np.ones((2, 3)))
-x = (1, 2, 3)
-for i in x:
-  if i < 3:
-    z += i
-return z
-```
+`while`循环内返回的`m`和`while`外返回的`n`数据类型必须一致。
 
 结果如下：
 
 ```text
-z: Tensor(shape=[2, 3], dtype=Int64, value=[[4, 4], [4, 4], [4, 4]])
+ret:1
 ```
 
-#### if in while
-
-使用方式：
-
-- `while (cond1):if (cond2)`
-
-参数：`cond1`、 `cond2`-- 与`单if`一致。
-
-限制：
-
-- 继承`单if`、`单while`所有限制。
-
-- `cond2`为变量时，不能有`if (cond2):return`、`if (cond2):continue`、`if (cond2):break`语句。
-
-示例：
+示例2：
 
 ```python
-out = m
-while x < y:
-  if z > 2*x:
-    out = out + 1
-  x += 1
-return out
+from mindspore import ms_function
+
+m = 1
+n = 2
+
+def ops1(a, b):
+    return a + b
+
+@ms_function()
+def test_cond(x, y):
+    out = m
+    while x < y:
+        x += 1
+        out = ops1(out, x)
+    return out
+
+ret = test_cond(1, 5)
+print('ret:{}'.format(ret))
+```
+
+`while`内，`out`在循环体内被赋值的变量`op1`的输出类型和初始类型`m`必须一致。
+
+结果如下：
+
+```text
+ret:15
 ```
 
 ### 函数定义语句
@@ -710,16 +896,30 @@ return out
 示例如下：
 
 ```python
+from mindspore import ms_function
+
 def number_add(x, y):
-  return x + y
-ret = number_add(1, 2)
+    return x + y
+
+@ms_function()
+def test(x, y):
+    return number_add(x, y)
+
+ret = test(1, 5)
+print('ret:{}'.format(ret))
 ```
 
 结果如下：
 
 ```text
-ret: 3
+ret: 6
 ```
+
+限制：
+
+- 函数必须有返回语句。
+- 最外层网络模型的`construct`函数不支持kwargs，即不支持 `def  construct(**kwargs):`。
+- 不支持变参和非变参的混合使用，即不支持 `def function(x, y, *args):`和 `def function(x = 1, y = 1, **kwargs):`。
 
 #### lambda表达式
 
@@ -730,21 +930,102 @@ ret: 3
 示例如下：
 
 ```python
-number_add = lambda x, y: x + y
-ret = number_add(2, 3)
+from mindspore import ms_function
+
+@ms_function()
+def test(x, y):
+    number_add = lambda x, y: x + y
+    return number_add(x, y)
+
+ret = test(1, 5)
+print('ret:{}'.format(ret))
 ```
 
 结果如下：
 
 ```text
-ret: 5
+ret: 6
 ```
+
+### 列表生成式和生成器表达式
+
+支持列表生成式（List Comprehension）和生成器表达式（Generator Expression）。
+
+#### 列表生成式
+
+用于生成列表。由于编译器会自动把List类型转换成Tuple类型，经过编译后最终输出类型为Tuple。
+
+使用方式：参考Python语法说明。
+
+示例如下：
+
+```python
+from mindspore import ms_function
+
+@ms_function()
+def test(x, y):
+    l = [x * x for x in range(1, 11) if x % 2 == 0]
+    return l
+
+ret = test(1, 5)
+print('ret:{}'.format(ret))
+```
+
+结果如下：
+
+```text
+ret:(4, 16, 36, 64, 100)
+```
+
+限制：
+
+不支持多层嵌套迭代器的使用方式。
+
+限制用法示例如下（使用了两层迭代器）：
+
+```python
+l = [y for x in ((1, 2), (3, 4), (5, 6)) for y in x]
+```
+
+会提示错误：
+
+```text
+TypeError:  The `generators` supports one `comprehension` in ListComp/GeneratorExp, but got 2 comprehensions.
+```
+
+#### 生成器表达式
+
+用于生成列表，与列表生成式动作完全一致，最终的输出类型同样是Tuple。此表达式即刻产生List值，与Python解释器中列表生成式的动作有所差异。
+
+使用方式：同列表生成式。
+
+示例如下：
+
+```python
+from mindspore import ms_function
+
+@ms_function()
+def test(x, y):
+    l = (x * x for x in range(1, 11) if x % 2 == 0)
+    return l
+
+ret = test(1, 5)
+print('ret:{}'.format(ret))
+```
+
+结果如下：
+
+```text
+ret:(4, 16, 36, 64, 100)
+```
+
+使用限制同列表生成式。
 
 ## 函数
 
 ### Python内置函数
 
-当前支持的Python内置函数包括：`len`、`isinstance`、`partial`、`map`、`range`、`enumerate`、`super`和`pow`。
+当前支持的Python内置函数包括：`len`、`isinstance`、`partial`、`map`、`range`、`enumerate`、`super`、`pow`和`filter`。
 
 #### len
 
@@ -759,24 +1040,37 @@ ret: 5
 示例如下：
 
 ```python
-x = (2, 3, 4)
-y = [2, 3, 4]
-d = {"a": 2, "b": 3}
+from mindspore import ms_function, Tensor
+import numpy as np
+
 z = Tensor(np.ones((6, 4, 5)))
-x_len = len(x)
-y_len = len(y)
-d_len = len(d)
-z_len = len(z)
+
+@ms_function()
+def test():
+    x = (2, 3, 4)
+    y = [2, 3, 4]
+    d = {"a": 2, "b": 3}
+    x_len = len(x)
+    y_len = len(y)
+    d_len = len(d)
+    z_len = len(z)
+    return x_len, y_len, d_len, z_len
+
+x_len, y_len, d_len, z_len = test()
+print('x_len:{}'.format(x_len))
+print('y_len:{}'.format(y_len))
+print('d_len:{}'.format(d_len))
+print('z_len:{}'.format(z_len))
 ```
 
 结果如下：
 
 ```text
-x_len: 3
-y_len: 3
-d_len: 2
-z_len: 6
-  ```
+x_len:3
+y_len:3
+d_len:2
+z_len:6
+```
 
 #### isinstance
 
@@ -795,21 +1089,33 @@ z_len: 6
 示例如下：
 
 ```python
-x = (2, 3, 4)
-y = [2, 3, 4]
+from mindspore import ms_function, Tensor
+import numpy as np
+
 z = Tensor(np.ones((6, 4, 5)))
-x_is_tuple = isinstance(x, tuple)
-y_is_list= isinstance(y, list)
-z_is_tensor = isinstance(z, Tensor)
+
+@ms_function()
+def test():
+    x = (2, 3, 4)
+    y = [2, 3, 4]
+    x_is_tuple = isinstance(x, tuple)
+    y_is_list = isinstance(y, list)
+    z_is_tensor = isinstance(z, Tensor)
+    return x_is_tuple, y_is_list, z_is_tensor
+
+x_is_tuple, y_is_list, z_is_tensor = test()
+print('x_is_tuple:{}'.format(x_is_tuple))
+print('y_is_list:{}'.format(y_is_list))
+print('z_is_tensor:{}'.format(z_is_tensor))
 ```
 
 结果如下：
 
 ```text
-x_is_tuple: True
-y_is_list: True
-z_is_tensor: True
-  ```
+x_is_tuple:True
+y_is_list:True
+z_is_tensor:True
+```
 
 #### partial
 
@@ -828,19 +1134,28 @@ z_is_tensor: True
 示例如下：
 
 ```python
-def add(x, y):
-  return x + y
+from mindspore import ms_function, ops
 
-add_ = partial(add, x=2)
-m = add_(y=3)
-n = add_(y=5)
+def add(x, y):
+    return x + y
+
+@ms_function()
+def test():
+    add_ = ops.partial(add, x=2)
+    m = add_(y=3)
+    n = add_(y=5)
+    return m, n
+
+m, n = test()
+print('m:{}'.format(m))
+print('n:{}'.format(n))
 ```
 
 结果如下：
 
 ```text
-m: 5
-n: 7
+m:5
+n:7
 ```
 
 #### map
@@ -861,12 +1176,20 @@ n: 7
 示例如下：
 
 ```python
-def add(x, y):
-  return x + y
+from mindspore import ms_function
 
-elements_a = (1, 2, 3)
-elements_b = (4, 5, 6)
-ret = map(add, elements_a, elements_b)
+def add(x, y):
+    return x + y
+
+@ms_function()
+def test():
+    elements_a = (1, 2, 3)
+    elements_b = (4, 5, 6)
+    ret = map(add, elements_a, elements_b)
+    return ret
+
+ret = test()
+print('ret:{}'.format(ret))
 ```
 
 结果如下：
@@ -889,15 +1212,23 @@ ret: (5, 7, 9)
 示例如下：
 
 ```python
-elements_a = (1, 2, 3)
-elements_b = (4, 5, 6)
-ret = zip(elements_a, elements_b)
+from mindspore import ms_function
+
+@ms_function()
+def test():
+    elements_a = (1, 2, 3)
+    elements_b = (4, 5, 6)
+    ret = zip(elements_a, elements_b)
+    return ret
+
+ret = test()
+print('ret:{}'.format(ret))
 ```
 
 结果如下：
 
 ```text
-ret: ((1, 4), (2, 5), (3, 6))
+ret:((1, 4), (2, 5), (3, 6))
 ```
 
 #### range
@@ -925,17 +1256,27 @@ ret: ((1, 4), (2, 5), (3, 6))
 示例如下：
 
 ```python
-x = range(0, 6, 2)
-y = range(0, 5)
-z = range(3)
+from mindspore import ms_function
+
+@ms_function()
+def test():
+    x = range(0, 6, 2)
+    y = range(0, 5)
+    z = range(3)
+    return x, y, z
+
+x, y, z = test()
+print('x:{}'.format(x))
+print('y:{}'.format(y))
+print('z:{}'.format(z))
 ```
 
 结果如下：
 
 ```text
-x: (0, 2, 4)
-y: (0, 1, 2, 3, 4)
-z: (0, 1, 2)
+x:(0, 2, 4)
+y:(0, 1, 2, 3, 4)
+z:(0, 1, 2)
 ```
 
 #### enumerate
@@ -959,17 +1300,28 @@ z: (0, 1, 2)
 示例如下：
 
 ```python
-x = (100, 200, 300, 400)
-y = Tensor(np.array([[1, 2], [3, 4], [5 ,6]]))
-m = enumerate(x, 3)
-n = enumerate(y)
+from mindspore import ms_function, Tensor
+import numpy as np
+
+y = Tensor(np.array([[1, 2], [3, 4], [5, 6]]))
+
+@ms_function()
+def test():
+    x = (100, 200, 300, 400)
+    m = enumerate(x, 3)
+    n = enumerate(y)
+    return m, n
+
+m, n = test()
+print('m:{}'.format(m))
+print('n:{}'.format(n))
 ```
 
 结果如下：
 
 ```text
-m: ((3, 100), (4, 200), (5, 300), (5, 400))
-n: ((0, Tensor(shape=[2], dtype=Int64, value=[1, 2])), (1, Tensor(shape=[2], dtype=Int64, value=[3, 4])), (2, Tensor(shape=[2], dtype=Int64, value=[5, 6])))
+m:((3, 100), (4, 200), (5, 300), (6, 400))
+n:((0, Tensor(shape=[2], dtype=Int64, value= [1, 2])), (1, Tensor(shape=[2], dtype=Int64, value= [3, 4])), (2, Tensor(shape=[2], dtype=Int64, value= [5, 6])))
 ```
 
 #### super
@@ -993,26 +1345,28 @@ n: ((0, Tensor(shape=[2], dtype=Int64, value=[1, 2])), (1, Tensor(shape=[2], dty
 示例如下：
 
 ```python
+from mindspore import nn
+
 class FatherNet(nn.Cell):
-  def __init__(self, x):
-      super(FatherNet, self).__init__(x)
-      self.x = x
+    def __init__(self, x):
+        super(FatherNet, self).__init__(x)
+        self.x = x
 
-  def construct(self, x, y):
-      return self.x * x
+    def construct(self, x, y):
+        return self.x * x
 
-  def test_father(self, x):
-      return self.x + x
+    def test_father(self, x):
+        return self.x + x
 
 class SingleSubNet(FatherNet):
-def __init__(self, x, z):
-    super(SingleSubNet, self).__init__(x)
-    self.z = z
+    def __init__(self, x, z):
+        super(SingleSubNet, self).__init__(x)
+        self.z = z
 
-def construct(self, x, y):
-    ret_father_construct = super().construct(x, y)
-    ret_father_test = super(SingleSubNet, self).test_father(x)
-    return ret_father_construct, ret_father_test
+    def construct(self, x, y):
+        ret_father_construct = super().construct(x, y)
+        ret_father_test = super(SingleSubNet, self).test_father(x)
+        return ret_father_construct, ret_father_test
 ```
 
 #### pow
@@ -1032,15 +1386,25 @@ def construct(self, x, y):
 示例如下：
 
 ```python
+from mindspore import ms_function, Tensor
+import numpy as np
+
 x = Tensor(np.array([1, 2, 3]))
 y = Tensor(np.array([1, 2, 3]))
-ret = pow(x, y)
+
+@ms_function()
+def test(x, y):
+    return pow(x, y)
+
+ret = test(x, y)
+
+print('ret:{}'.format(ret))
 ```
 
 结果如下：
 
 ```text
-ret: Tensor(shape=[3], dtype=Int64, value=[1, 4, 27]))
+ret:[ 1  4 27]
 ```
 
 #### print
@@ -1057,36 +1421,82 @@ ret: Tensor(shape=[3], dtype=Int64, value=[1, 4, 27]))
 示例如下：
 
 ```python
-x = Tensor(np.array([1, 2, 3]))
-y = 3
-print("x", x)
-print("y", y)
+from mindspore import ms_function, Tensor, dtype
+import numpy as np
+
+x = Tensor(np.array([1, 2, 3]), dtype.int32)
+y = Tensor(3, dtype.int32)
+
+@ms_function()
+def test(x, y):
+    print(x)
+    print(y)
+    return x, y
+
+ret = test(x, y)
 ```
 
 结果如下：
 
 ```text
-x Tensor(shape=[3], dtype=Int64, value=[1, 2, 3]))
-y Tensor(shape=[], dtype=Int64, value=3))
+Tensor(shape=[3], dtype=Int32, value= [1 2 3])
+3
+```
+
+#### filter
+
+功能：根据提供的函数对一个序列的元素做判断，每个元素依次作为参数传入函数中，将返回结果不为0或False的元素组成新的序列。
+
+调用：`filter(func, sequence)`
+
+入参：
+
+- `func` -- 函数。
+
+- `sequence` -- 序列（`Tuple`或`List`）。
+
+返回值：返回一个`Tuple`。
+
+示例如下：
+
+```python
+from mindspore import ms_function
+
+def is_odd(x):
+    if x % 2:
+        return True
+    return False
+
+@ms_function()
+def test():
+    elements = (1, 2, 3, 4, 5)
+    ret = filter(is_odd, elements)
+    return ret
+
+ret = test()
+print('ret:{}'.format(ret))
+```
+
+结果如下：
+
+```text
+ret:(1, 3, 5)
 ```
 
 ### 函数参数
 
 - 参数默认值：目前不支持默认值设为`Tensor`类型数据，支持`int`、`float`、`bool`、`None`、`str`、`tuple`、`list`、`dict`类型数据。
-
 - 可变参数：支持带可变参数网络的推理和训练。
-
 - 键值对参数：目前不支持带键值对参数的函数求反向。
-
 - 可变键值对参数：目前不支持带可变键值对的函数求反向。
 
 ## 网络定义
 
 ### 网络入参
 
-整网（最外层网络）入参支持`bool`、`int`、`float`、`Tensor`、`mstype.number(mstype.bool_、mstype.int、mstype.float、mstype.uint)`，以及只包含这些类型对象的`list`或者`tuple`，和`value`值是这些类型的`dict`。
+整网（最外层网络）入参仅支持`bool`、`int`、`float`、`Tensor`、`None`、`mstype.number(mstype.bool_、mstype.int、mstype.float、mstype.uint)`，以及只包含这些类型对象的`list`或者`tuple`，和`value`值是这些类型的`Dictionary`。
 
-在对整网入参求梯度的时候，会忽略非`Tensor`的入参，只计算`Tensor`入参的梯度，例如整网入参`(x, y, z)`中，`x`和`z`是`Tensor`，`y`是非`Tensor`时，在对整网入参求梯度的时候，只会计算`x`和`z`的梯度，返回`(grad_x, grad_z)`。
+在对整网入参求梯度的时候，会忽略非`Tensor`的入参，只计算`Tensor`入参的梯度。例如整网入参`(x, y, z)`中，`x`和`z`是`Tensor`，`y`是非`Tensor`时，在对整网入参求梯度的时候，只会计算`x`和`z`的梯度，返回`(grad_x, grad_z)`。
 
 如果网络里要使用其他类型，可在初始化网络的时候，传入该类型对象，作为网络属性保存起来，然后在`construct`里使用。
 内层调用的网络入参无此限制。
@@ -1094,6 +1504,9 @@ y Tensor(shape=[], dtype=Int64, value=3))
 示例如下：
 
 ```python
+from mindspore import nn, ops, Tensor
+import numpy as np
+
 class Net(nn.Cell):
     def __init__(self, flag):
         super(Net, self).__init__()
@@ -1107,7 +1520,7 @@ class Net(nn.Cell):
 class GradNet(nn.Cell):
     def __init__(self, net):
         super(GradNet, self).__init__()
-        self.grad_all = C.GradOperation(get_all=True)
+        self.grad_all = ops.GradOperation(get_all=True)
         self.forward_net = net
 
     def construct(self, x, y, z):
@@ -1121,15 +1534,27 @@ input_z = Tensor(np.ones((2, 3)).astype(np.float32) * 2)
 net = Net(flag)
 grad_net = GradNet(net)
 ret = grad_net(input_x, input_y, input_z)
+
+print('ret:{}'.format(ret))
 ```
 
-上面定义的Net网络里，在初始化时传入一个`str`，作为网络的属性保存起来，然后在`construct`里使用`self.flag`这个属性。
+结果如下：
+
+```text
+ret:(Tensor(shape=[2, 3], dtype=Float32, value=
+[[ 1.00000000e+00,  1.00000000e+00,  1.00000000e+00],
+ [ 1.00000000e+00,  1.00000000e+00,  1.00000000e+00]]), Tensor(shape=[2, 3], dtype=Float32, value=
+[[ 1.00000000e+00,  1.00000000e+00,  1.00000000e+00],
+ [ 1.00000000e+00,  1.00000000e+00,  1.00000000e+00]]))
+```
+
+上面定义的Net网络里，在初始化时传入一个`string` flag，作为网络的属性保存起来，然后在`construct`里使用`self.flag`这个属性。
 
 整网入参`x`和`z`是`Tensor`，`y`是`int`数，`grad_net`在对整网入参`(x, y, z)`求梯度时，会自动忽略`y`的梯度，只计算`x`和`z`的梯度，`ret = (grad_x, grad_z)`。
 
 ### 网络实例类型
 
-- 带[@ms_function](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.html#mindspore.ms_function)装饰器的普通Python函数。
+- 带[@ms_function](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.ms_function.html)装饰器的普通Python函数。
 
 - 继承自[nn.Cell](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Cell.html)的Cell子类。
 
@@ -1152,6 +1577,9 @@ ret = grad_net(input_x, input_y, input_z)
    示例如下：
 
    ```python
+   from mindspore import nn, Tensor, Parameter
+   import numpy as np
+
    class Net(nn.Cell):
        def __init__(self):
            super(Net, self).__init__()
@@ -1159,22 +1587,44 @@ ret = grad_net(input_x, input_y, input_z)
            self.par = Parameter(Tensor(np.ones((2, 3, 4))), name="par")
 
        def construct(self, x, y):
+           self.par[0] = y
+           self.x = x
            return x + y
+
+   net = Net()
+   net(1, 2)
    ```
 
    上面所定义的网络里，`self.num`不是一个`Parameter`，不允许被修改，而`self.par`是一个`Parameter`，可以被修改。
+
+   结果报错如下：
+
+  ```Text
+   TypeError: mindspore/ccsrc/pipeline/jit/parse/parse.cc:1740 HandleAssignClassMember] 'self.x' should be initialized as a 'Parameter' in the '__init__' function before assigning.
+   ```
 
 2. 当`construct`函数里，使用未定义的类成员时，不会像Python解释器那样抛出`AttributeError`，而是作为`None`处理。
 
    示例如下：
 
    ```python
+   from mindspore import nn
+
    class Net(nn.Cell):
        def __init__(self):
            super(Net, self).__init__()
 
        def construct(self, x):
            return x + self.y
-    ```
+
+   net = Net()
+   net(1)
+   ```
 
    上面所定义的网络里，`construct`里使用了并未定义的类成员`self.y`，此时会将`self.y`作为`None`处理。
+
+   结果报错如下：
+
+   ```Text
+   RuntimeError: mindspore/ccsrc/frontend/operator/composite/multitype_funcgraph.cc:161 GenerateFromTypes] The 'add' operation does not support the type [Int64, kMetaTypeNone]
+   ```

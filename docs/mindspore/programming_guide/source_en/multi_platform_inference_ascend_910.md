@@ -1,87 +1,26 @@
 # Inference on the Ascend 910 AI processor
 
-`Linux` `Ascend` `Inference Application` `Beginner` `Intermediate` `Expert`
+`Ascend` `Inference Application`
 
 <!-- TOC -->
 
 - [Inference on the Ascend 910 AI processor](#inference-on-the-ascend-910-ai-processor)
-    - [Inference Using a Checkpoint File with Single Device](#inference-using-a-checkpoint-file-with-single-device)
-    - [Use C++ Interface to Load a MindIR File for Inferencing](#use-c-interface-to-load-a-mindir-file-for-inferencing)
-        - [Inference Directory Structure](#inference-directory-structure)
-        - [Inference Code](#inference-code)
-        - [Introduce to Building Script](#introduce-to-building-script)
-        - [Building Inference Code](#building-inference-code)
-        - [Performing Inference and Viewing the Result](#performing-inference-and-viewing-the-result)
+    - [Overview](#overview)
+    - [Inference Directory Structure](#inference-directory-structure)
+    - [Inference Code](#inference-code)
+    - [Introduce to Building Script](#introduce-to-building-script)
+    - [Building Inference Code](#building-inference-code)
+    - [Performing Inference and Viewing the Result](#performing-inference-and-viewing-the-result)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/multi_platform_inference_ascend_910.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/multi_platform_inference_ascend_910.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
-## Inference Using a Checkpoint File with Single Device
-
-1. Use the `model.eval` interface for model validation.
-
-   1.1 Local Storage
-
-     When the pre-trained models are saved in local, the steps of performing inference on validation dataset are as follows: firstly creating a model, then loading the model and parameters using `load_checkpoint` and `load_param_into_net` in `mindspore` module, and finally performing inference on the validation dataset once being created. The method of processing the validation dataset is the same as that of the training dataset.
-
-    ```python
-    network = LeNet5(cfg.num_classes)
-    net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
-    net_opt = nn.Momentum(network.trainable_params(), cfg.lr, cfg.momentum)
-    model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
-
-    print("============== Starting Testing ==============")
-    param_dict = load_checkpoint(args.ckpt_path)
-    load_param_into_net(network, param_dict)
-    dataset = create_dataset(os.path.join(args.data_path, "test"),
-                             cfg.batch_size,
-                             1)
-    acc = model.eval(dataset, dataset_sink_mode=args.dataset_sink_mode)
-    print("============== {} ==============".format(acc))
-    ```
-
-    In the preceding information:  
-    `model.eval` is an API for model validation. For details about the API, see <https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.html#mindspore.Model.eval>.
-    > Inference sample code: <https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/eval.py>.
-
-    1.2 Remote Storage
-
-    When the pre-trained models are saved remotely, the steps of performing inference on the validation dataset are as follows: firstly determining which model to be used, then loading the model and parameters using `mindspore_hub.load`, and finally performing inference on the validation dataset once being created. The method of processing the validation dataset is the same as that of the training dataset.
-
-    ```python
-    model_uid = "mindspore/ascend/0.7/googlenet_v1_cifar10"  # using GoogleNet as an example.
-    network = mindspore_hub.load(model_uid, num_classes=10)
-    net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
-    net_opt = nn.Momentum(network.trainable_params(), cfg.lr, cfg.momentum)
-    model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
-
-    print("============== Starting Testing ==============")
-    dataset = create_dataset(os.path.join(args.data_path, "test"),
-                             cfg.batch_size,
-                             1)
-    acc = model.eval(dataset, dataset_sink_mode=args.dataset_sink_mode)
-    print("============== {} ==============".format(acc))
-    ```
-
-    In the preceding information:
-
-    `mindpsore_hub.load` is an API for loading model parameters. Please check the details in <https://www.mindspore.cn/hub/api/en/master/index.html#module-mindspore_hub>.
-
-2. Use the `model.predict` API to perform inference.
-
-   ```python
-   model.predict(input_data)
-   ```
-
-   In the preceding information:  
-   `model.predict` is an API for inference. For details about the API, see <https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.html#mindspore.Model.predict>.
-
-## Use C++ Interface to Load a MindIR File for Inferencing
+## Overview
 
 Users can create C++ applications and call MindSpore C++ interface to inference MindIR models.
 
-### Inference Directory Structure
+## Inference Directory Structure
 
 Create a directory to store the inference code project, for example, `/home/HwHiAiUser/mindspore_sample/ascend910_resnet50_preprocess_sample`. The directory code can be obtained from the [official website](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/ascend910_resnet50_preprocess_sample). The `model` directory stores the exported `MindIR` [model files](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet.mindir) and the `test_data` directory stores the images to be classified. The directory structure of the inference code project is as follows:
 
@@ -98,7 +37,7 @@ Create a directory to store the inference code project, for example, `/home/HwHi
         ├── ...                           // Input sample image n
 ```
 
-### Inference Code
+## Inference Code
 
 Inference sample code: <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/ascend310_resnet50_preprocess_sample/main.cc> .
 
@@ -187,7 +126,7 @@ Print the result:
 std::cout << "Image: " << image_file << " infer result: " << GetMax(outputs[0]) << std::endl;
 ```
 
-### Introduce to Building Script
+## Introduce to Building Script
 
 The building script is used to building applications: <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/ascend910_resnet50_preprocess_sample/CMakeLists.txt>.
 
@@ -213,12 +152,12 @@ add_executable(resnet50_sample main.cc)
 target_link_libraries(resnet50_sample ${MS_LIB} ${MD_LIB})
 ```
 
-### Building Inference Code
+## Building Inference Code
 
 Go to the project directory `ascend910_resnet50_preprocess_sample` and set the following environment variables:
 
 ```bash
-# control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, default level is WARNING.
+# control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
 export GLOG_v=2
 
 # Conda environmental options
@@ -251,7 +190,7 @@ make
 
 After building, the executable `main` file is generated in `ascend910_resnet50_preprocess_sample`.
 
-### Performing Inference and Viewing the Result
+## Performing Inference and Viewing the Result
 
 Log in to the Ascend 910 server, and create the `model` directory for storing the MindIR file `resnet50_imagenet.mindir`, for example, `/home/HwHiAiUser/mindspore_sample/ascend910_resnet50_preprocess_sample/model`.
 Create the `test_data` directory to store images, for example, `/home/HwHiAiUser/mindspore_sample/ascend910_resnet50_preprocess_sample/test_data`.

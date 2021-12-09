@@ -1,6 +1,6 @@
 # Ascend 310 AI处理器上使用MindIR模型进行推理
 
-`Linux` `Ascend` `推理应用` `初级` `中级` `高级`
+`Ascend` `推理应用`
 
 <!-- TOC -->
 
@@ -10,6 +10,10 @@
     - [导出MindIR模型文件](#导出mindir模型文件)
     - [推理目录结构介绍](#推理目录结构介绍)
     - [推理代码介绍](#推理代码介绍)
+        - [需要手动定义预处理的模型推理方式：main.cc](#需要手动定义预处理的模型推理方式maincc)
+            - [使用CPU算子数据预处理](#使用cpu算子数据预处理)
+            - [使用Ascend 310算子数据预处理](#使用ascend-310算子数据预处理)
+        - [免手动定义预处理的模型推理方式：main_hide_preprocess.cc](#免手动定义预处理的模型推理方式main_hide_preprocesscc)
     - [构建脚本介绍](#构建脚本介绍)
     - [编译推理代码](#编译推理代码)
     - [执行推理并查看结果](#执行推理并查看结果)
@@ -49,6 +53,7 @@ Ascend 310是面向边缘场景的高能效高集成度AI处理器，本教程�
     ├── CMakeLists.txt                    // 构建脚本
     ├── README.md                         // 使用说明
     ├── main.cc                           // 主函数
+    ├── main_hide_preprocess.cc           // 主函数2，免预处理代码的推理方式（已嵌入到MindIR中）
     ├── model
     │   └── resnet50_imagenet.mindir      // MindIR模型文件
     └── test_data
@@ -59,7 +64,9 @@ Ascend 310是面向边缘场景的高能效高集成度AI处理器，本教程�
 
 ## 推理代码介绍
 
-### 使用CPU算子数据预处理
+### 需要手动定义预处理的模型推理方式：main.cc
+
+#### 使用CPU算子数据预处理
 
 推理代码样例：<https://gitee.com/mindspore/docs/blob/master/docs/sample_code/ascend310_resnet50_preprocess_sample/main.cc> 。
 
@@ -148,7 +155,7 @@ ret = resnet50.Predict(inputs, &outputs);
 std::cout << "Image: " << image_file << " infer result: " << GetMax(outputs[0]) << std::endl;
 ```
 
-### 使用Ascend 310算子数据预处理
+#### 使用Ascend 310算子数据预处理
 
 Dvpp模块为Ascend 310芯片内置硬件解码器，相较于CPU拥有对图形处理更强劲的性能。支持JPEG图片的解码缩放等基础操作。
 
@@ -240,6 +247,60 @@ ret = resnet50.Predict(inputs, &outputs);
 std::cout << "Image: " << image_file << " infer result: " << GetMax(outputs[0]) << std::endl;
 ```
 
+### 免手动定义预处理的模型推理方式：main_hide_preprocess.cc
+
+> 注意：目前只支持CV类的模型
+
+推理代码样例：<https://gitee.com/mindspore/docs/blob/master/docs/sample_code/ascend310_resnet50_preprocess_sample/main_hide_preprocess.cc> 。
+
+引用`mindspore`和`mindspore::dataset`的名字空间。
+
+```c++
+namespace ms = mindspore;
+namespace ds = mindspore::dataset;
+```
+
+环境初始化，指定硬件为Ascend 310，DeviceID为0：
+
+```c++
+auto context = std::make_shared<ms::Context>();
+auto ascend310_info = std::make_shared<ms::Ascend310DeviceInfo>();
+ascend310_info->SetDeviceID(0);
+context->MutableDeviceInfo().push_back(ascend310_info);
+```
+
+加载模型文件:
+
+```c++
+// Load MindIR model
+ms::Graph graph;
+ms::Status ret = ms::Serialization::Load(resnet_file, ms::ModelType::kMindIR, &graph);
+// Build model with graph object
+ms::Model resnet50;
+ret = resnet50.Build(ms::GraphCell(graph), context);
+```
+
+获取模型所需输入信息：
+
+```c++
+std::vector<ms::MSTensor> model_inputs = resnet50.GetInputs();
+```
+
+提供图片文件，一键执行预处理与模型推理：
+
+```c++
+std::vector<MSTensor> inputs = {ReadFile(image_path)};
+std::vector<MSTensor> outputs;
+ret = resnet50.PredictWithPreprocess(inputs, &outputs);
+```
+
+获取推理结果：
+
+```c++
+// 获取推理结果的最大概率
+std::cout << "Image: " << image_file << " infer result: " << GetMax(outputs[0]) << std::endl;
+```
+
 ## 构建脚本介绍
 
 构建脚本用于构建用户程序，样例来自于：<https://gitee.com/mindspore/docs/blob/master/docs/sample_code/ascend310_resnet50_preprocess_sample/CMakeLists.txt> 。
@@ -264,6 +325,9 @@ file(GLOB_RECURSE MD_LIB ${MINDSPORE_PATH}/_c_dataengine*)
 ```cmake
 add_executable(resnet50_sample main.cc)
 target_link_libraries(resnet50_sample ${MS_LIB} ${MD_LIB})
+
+add_executable(resnet50_hide_preprocess main_hide_preprocess.cc)
+target_link_libraries(resnet50_hide_preprocess ${MS_LIB} ${MD_LIB})
 ```
 
 ## 编译推理代码
@@ -271,7 +335,7 @@ target_link_libraries(resnet50_sample ${MS_LIB} ${MD_LIB})
 进入工程目录`ascend310_resnet50_preprocess_sample`，设置如下环境变量：
 
 ```bash
-# control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, default level is WARNING.
+# control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
 export GLOG_v=2
 
 # Conda environmental options
@@ -312,6 +376,8 @@ make
 创建`test_data`目录放置图片，例如`/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/ascend310_resnet50_preprocess_sample/test_data`。
 就可以开始执行推理了:
 
+如果使用的MindIR，在导出时是不带数据预处理的，可以执行该主函数：
+
 ```bash
 ./resnet50_sample
 ```
@@ -328,4 +394,16 @@ Image: ./test_data/ILSVRC2012_val_00009191.JPEG infer result: 0
 Image: ./test_data/ILSVRC2012_val_00009346.JPEG infer result: 0
 Image: ./test_data/ILSVRC2012_val_00009379.JPEG infer result: 0
 Image: ./test_data/ILSVRC2012_val_00009396.JPEG infer result: 0
+```
+
+如果使用的MindIR，在导出时是带数据预处理的，可以执行该主函数：
+
+```bash
+./resnet50_hide_preprocess
+```
+
+执行后，会对`test_data`目录下放置的ILSVRC2012_val_00002138.JPEG图片（在main_hide_preprocess.cc中可配置）进行推理，可以看到推理结果如下。
+
+```text
+Image: ./test_data/ILSVRC2012_val_00002138.JPEG infer result: 0
 ```

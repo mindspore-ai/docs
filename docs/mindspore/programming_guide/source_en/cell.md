@@ -1,5 +1,7 @@
 # Cell
 
+`Ascend` `GPU` `CPU` `Beginner`
+
 <!-- TOC -->
 
 - [Cell](#cell)
@@ -9,11 +11,13 @@
         - [parameters_dict](#parameters_dict)
         - [cells_and_names](#cells_and_names)
         - [set_grad](#set_grad)
+        - [set_train](#set_train)
+        - [to_float](#to_float)
     - [Relationship Between the nn Module and the ops Module](#relationship-between-the-nn-module-and-the-ops-module)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/cell.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/cell.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -118,7 +122,7 @@ print(names)
 
 ### set_grad
 
-The `set_grad` API is used to construct a backward network. If no parameter is transferred for calling the API, the default value of `requires_grad` is True. This API needs to be used in the scenario where the backward network is computed.
+The `set_grad` API is used to specify whether the network requires gradient. If no parameter is transferred for calling the API, the default value of `requires_grad` is True, and the backward network needed to compute the gradients will be generated when the forward network is executed.
 
 Take `TrainOneStepCell` as an example. Its API function is to perform single-step training on the network. The backward network needs to be computed. Therefore, `set_grad` needs to be used in the initialization method.
 
@@ -133,9 +137,53 @@ class TrainOneStepCell(Cell):
         ......
 ```
 
-If using similar APIs such as `TrainOneStepCell`, you do not need to use `set_grad`. The internal encapsulation is implemented.
+If using similar APIs such as `TrainOneStepCell` and `GradOperation`, you do not need to use `set_grad`. The internal encapsulation is implemented.
 
 If you need to customize APIs of this training function, call APIs internally or set `network.set_grad` externally.
+
+### set_train
+
+The `set_train` interface recursively configures the training attributes of the current `Cell` and all sub-`Cell`. When called without parameters, the default training attribute is set to True.
+
+When implementing networks with different training and inference structures, the training and inference scenarios can be distinguished by the `training` attribute, and the execution logic of the network can be switched by combining with `set_train` when the network is running.
+
+For example, part of the code of `nn.Dropout` is as follows:
+
+```python
+class Dropout(Cell):
+    def __init__(self, keep_prob=0.5, dtype=mstype.float32):
+        """Initialize Dropout."""
+        super(Dropout, self).__init__()
+        self.dropout = ops.Dropout(keep_prob, seed0, seed1)
+        ......
+
+    def construct(self, x):
+        if not self.training:
+            return x
+
+        if self.keep_prob == 1:
+            return x
+
+        out, _ = self.dropout(x)
+        return out
+```
+
+In `nn.Dropout`, two execution logics are distinguished according to the training attribute of `Cell`. When training is False, the input is returned directly, and when training is True, the `Dropout` operator is executed. Therefore, when defining the network, you need to set the execution mode of the network according to the training and inference scenarios. Take `nn.Dropout` as an example:
+
+```python
+import mindspore.nn as nn
+net = nn.Dropout()
+# execute training
+net.set_train()
+# execute inference
+net.set_train(False)
+```
+
+### to_float
+
+The `to_float` interface recursively configures the coercion type of the current `Cell` and all sub-`Cell` so that the current network structure runs with a specific float type. Usually used in mixed precision scenes.
+
+For details of `to_float` and mixed precision, please refer to [Enabling Mixed Precision](https://www.mindspore.cn/docs/programming_guide/en/master/enable_mixed_precision.html).
 
 ## Relationship Between the nn Module and the ops Module
 

@@ -1,8 +1,6 @@
 ﻿# Feature Advice
 
-`Linux` `Windows` `Ascend` `GPU` `CPU` `Environment Preparation` `Basic` `Intermediate`
-
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_en/feature_advice.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_en/feature_advice.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 <font size=3>**Q: Is the `input=np.random.uniform(...)` format fixed when the MindIR format is exported?**</font>
 
@@ -74,7 +72,7 @@ A: MindSpore currently supports CPU, GPU, and Ascend. Currently, you can try out
 
 <font size=3>**Q: Does MindSpore have any limitation on the input size of a single Tensor for exporting and loading models?**</font>
 
-A: Due to hardware limitations of Protobuf, when exporting to AIR and ONNX formats, the size of model parameters cannot exceed 2G; when exporting to MINDIR format, the size of a single Tensor cannot exceed 2G. MindSpore only supports MINDIR, and the size of a single Tensor cannot exceed 2G.
+A: Due to hardware limitations of Protobuf, when exporting to AIR and ONNX formats, the size of model parameters cannot exceed 2G; when exporting to MINDIR format, there is no limit to the size of model parameters. MindSpore only supports MINDIR, and the size of a single Tensor cannot exceed 2G.
 
 <br/>
 
@@ -92,7 +90,7 @@ A: MindSpore supports Python native expression via `import mindspore`.
 
 <font size=3>**Q: Does MindSpore support truncated gradient?**</font>
 
-A: Yes. For details, see [Definition and Usage of Truncated Gradient](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/transformer/src/transformer_for_train.py#L35).
+A: Yes. For details, see [Definition and Usage of Truncated Gradient](https://gitee.com/mindspore/models/blob/master/official/nlp/transformer/src/transformer_for_train.py#L35).
 
 <br/>
 
@@ -138,7 +136,7 @@ A: PyNative mode is compatible with transfer learning. For more tutorial informa
 
 <br/>
 
-<font size=3>**Q: What is the difference between [MindSpore ModelZoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo) and [Ascend ModelZoo](https://www.hiascend.com/software/modelzoo)?**</font>
+<font size=3>**Q: What is the difference between [MindSpore ModelZoo](https://gitee.com/mindspore/models/tree/master) and [Ascend ModelZoo](https://www.hiascend.com/software/modelzoo)?**</font>
 
 A: `MindSpore ModelZoo` contains models only implemented by MindSpore. But these models support different devices including Ascend, GPU, CPU and mobile. `Ascend ModelZoo` contains models only running on Ascend which are implemented by different ML platform including MindSpore, PyTorch, TensorFlow and Caffe. You can refer to the corresponding [gitee repository](https://gitee.com/ascend/modelzoo).
 

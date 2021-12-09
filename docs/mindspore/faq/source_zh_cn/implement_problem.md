@@ -1,8 +1,67 @@
 ﻿# 执行问题
 
-`Linux` `Windows` `Ascend` `GPU` `CPU` `环境准备` `初级` `中级`
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_zh_cn/implement_problem.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+
+<font size=3>**Q: 请问使用MindSpore如何实现多尺度训练？**</font>
+
+A: 在多尺度训练过程中，使用不同`shape`调用`Cell`对象的时候，会自动根据不同`shape`编译并调用不同的图，从而实现多尺度的训练。要注意多尺度训练只支持非数据下沉模式，不能支持数据下沉的训练方式。可以参考[yolov3](https://gitee.com/mindspore/models/tree/master/official/cv/yolov3_darknet53)的多尺度训练实现。
+
+<br/>
+
+<font size=3>**Q: 如果MindSpore的`requires_grad=False`的`tensor`转化为`numpy`类型进行处理然后再转化会`tensor`，会对计算图和反向传播有影响吗？**</font>
+
+A: 在PyNative模式下，如果中间使用`numpy`计算，会导致梯度传递中断，`requires_grad=False`的场景下，如果该`tensor`的反向传播不传给其他参数使用，是没有影响的；如果`requires_grad=True`的场景下，是有影响的。
+
+<br/>
+
+<font size=3>**Q: 请问怎样实现类似`torch.nn.functional.linear()`那样能够对全连接层`weight`、`bias`进行修改，应该如何操作？**</font>
+
+A: MindSpore与`torch.nn.functional.linear()`功能最接近的接口就是`nn.Dense`了。`nn.Dense`能指定`weight`和`bias`的初始值，后续的变化是由优化器自动更新的。训练过程中，用户不需要主动修改这两个参数的值。
+
+<br/>
+
+<font size=3>**Q: 使用MindSpore在模型保存后生成的`.meta`文件作用是什么，可以用`.meta`文件导入图结构吗？**</font>
+
+A: 这里的`.meta`文件是编译好的图结构，但是目前并不支持直接导入这种结构。如果不知道图结构的情况下想要导入网络，还是需要用MindIR格式的文件。
+
+<br/>
+
+<font size=3>**Q: 请问`yolov4-tiny-3l.weights`模型文件可以直接转换成MindSpore模型吗？**</font>
+
+A: 不能的，需要把其他框架训练好的参数转换成MindSpore的格式，才能转成MindSpore的模型。
+
+<br/>
+
+<font size=3>**Q: 使用MindSpore进行`model.train`的时候进行了如下设置，为什么会报错呢？**</font>
+
+```python
+model.train(1, dataset, callbacks=LossMonitor(1), dataset_sink_mode=True)
+model.train(1, dataset, callbacks=LossMonitor(1), dataset_sink_mode=False)
+```
+
+A: 因为在已经设置为下沉模式的情况下，就不能再设置为非下沉了，是运行机制上的限制。
+
+<br/>
+
+<font size=3>**Q: 使用MindSpore训练模型在`eval`阶段，需要注意什么？能够直接加载网络和参数吗？需要在Model中使用优化器吗？**</font>
+
+A: 在`eval`阶段主要看需要什么，比如图像分类任务`eval`网络的输出是各个类的概率值，与对应标签计算`acc`。
+大多数情况是可以直接复用训练的网络和参数的，需要注意的是需要设置推理模式。
+
+```python
+net.set_train(False)
+```
+
+在eval阶段不需要优化器，但是需要使用MindSpore的`model.eval`接口的话需要配置一下`loss function`，如：
+
+```python
+# 定义模型
+model = Model(net, loss_fn=loss, metrics={'top_1_accuracy', 'top_5_accuracy'})
+# 评估模型
+res = model.eval(dataset)
+```
+
+<br/>
 
 <font size=3>**Q: 如何使用SGD里的`param_group`来实现学习率的衰减？**</font>
 
@@ -35,7 +94,7 @@ def count_params(net):
     return total_params
 ```
 
-具体[脚本链接](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/cv/tinynet/src/utils.py)。
+具体[脚本链接](https://gitee.com/mindspore/models/blob/master/research/cv/tinynet/src/utils.py)。
 
 <br/>
 
@@ -108,137 +167,6 @@ A: 您好，我们网络的输出为`Tensor`，需要使用`asnumpy()`方法将`
 out = net(x)
 np.save("output.npy", out.asnumpy())
 ```
-
-<br/>
-
-<font size=3>**Q: 运行时报错“Create python object \`<class 'mindspore.common.tensor.Tensor'>\` failed, only support create Cell or Primitive object.”怎么办？**</font>
-
-A: 当前在图模式下，`construct`函数(或`@ms_function`装饰器修饰的函数)仅支持构造`Cell`和`Primitive object`，不支持构造`Tensor`，即不支持语法`x = Tensor(args...)`。
-
-如果是常量`Tensor`，请在`__init__`函数中定义。如果不是常量`Tensor`，可以通过`@constexpr`装饰器修饰函数，在函数里生成`Tensor`。
-
-关于`@constexpr`的用法可参考: <https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.constexpr.html>。
-
-对于网络中需要用到的常量`Tensor`，可以作为网络的属性，在`init`的时候定义，即`self.x = Tensor(args...)`，然后在`construct`函数(或`@ms_function`装饰器修饰的函数)里使用。
-
-如下示例，通过`@constexpr`生成一个`shape = (3, 4), dtype = int64`的`Tensor`。
-
-```python
-@constexpr
-def generate_tensor():
-    return Tensor(np.ones((3, 4).astype(np.int64)))
-```
-
-<br/>
-
-<font size=3>**Q: 运行时报错“'self.xx' should be defined in the class '__init__' function.”怎么办？**</font>
-
-A: 如果在`construct`函数里，想对类成员`self.xx`赋值，那么`self.xx`必须已经在`__init__`函数中被定义为[`Parameter`](<https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.html#mindspore.Parameter>)类型，其他类型则不支持。局部变量`xx`不受这个限制。
-
-<br/>
-
-<font size=3>**Q: 运行时报错“This comparator 'AnyValue' is not supported. For statement 'is', only support compare with 'None', 'False' or 'True'”怎么办？**</font>
-
-A: 对于语法`is` 或 `is not`而言，当前`MindSpore`仅支持与`True`、`False`和`None`的比较。暂不支持其他类型，如字符串等。
-
-<br/>
-
-<font size=3>**Q: 运行时报错“MindSpore does not support comparison with operators more than one now, ops size =2”怎么办？**</font>
-
-A: 对于比较语句，`MindSpore`最多支持一个操作数。例如不支持语句`1 < x < 3`，请使用`1 < x and x < 3`的方式代替。
-
-<br/>
-
-<font size=3>**Q: 运行时报错“TypeError: The function construct need 1 positional argument and 0 default argument, but provided 2”怎么办？**</font>
-
-A: 网络的实例被调用时，会执行`construct`方法，然后会检查`construct`方法需要的参数个数和实际传入的参数个数，如果不一致则会抛出以上异常。
-请检查脚本中调用网络实例时传入的参数个数，和定义的网络中`construct`函数需要的参数个数是否一致。
-
-<br/>
-
-<font size=3>**Q: 运行时报错“Type Join Failed”或“Shape Join Failed”怎么办？**</font>
-
-A: 在前端编译的推理阶段，会对节点的抽象类型(包含`type`、`shape`等)进行推导，常见抽象类型包括`AbstractScalar`、`AbstractTensor`、`AbstractFunction`、`AbstractTuple`、`AbstractList`等。在一些场景比如多分支场景，会对不同分支返回值的抽象类型进行`join`合并，推导出返回结果的抽象类型。如果抽象类型不匹配，或者`type`/`shape`不一致，则会抛出以上异常。
-
-当出现类似“Type Join Failed: dtype1 = Float32, dtype2 = Float16”的报错时，说明数据类型不一致，导致抽象类型合并失败。根据提供的数据类型和代码行信息，可以快速定位出错范围。此外，报错信息中提供了具体的抽象类型信息、节点信息，可以通过`analyze_fail.dat`文件查看MindIR信息，定位解决问题。关于MindIR的具体介绍，可以参考[MindSpore IR（MindIR）](https://www.mindspore.cn/docs/note/zh-CN/master/design/mindir.html)。代码样例如下:
-
-```python
-import numpy as np
-import mindspore as ms
-import mindspore.ops as ops
-from mindspore import nn, Tensor, context
-
-context.set_context(mode=context.GRAPH_MODE)
-class Net(nn.Cell):
-    def __init__(self):
-        super().__init__()
-        self.relu = ops.ReLU()
-        self.cast = ops.Cast()
-
-    def construct(self, x, a, b):
-        if a > b:
-            return self.relu(x)
-        else:
-            return self.cast(self.relu(x), ms.float16)
-
-input_x = Tensor(np.random.rand(2, 3, 4, 5).astype(np.float32))
-input_a = Tensor(2, ms.float32)
-input_b = Tensor(6, ms.float32)
-net = Net()
-out_me = net(input_x, input_a, input_b)
-```
-
-执行结果如下:
-
-```text
-TypeError: The return values of different branches do not match. Type Join Failed: dtype1 = Float32, dtype2 = Float16. The abstract type of the return value of the current branch is AbstractTensor(shape: (2, 3, 4, 5), element: AbstractScalar(Type: Float16, Value: AnyValue, Shape: NoShape), value_ptr: 0x32ed00e0, value: AnyValue), and that of the previous branch is AbstractTensor(shape: (2, 3, 4, 5), element: AbstractScalar(Type: Float32, Value: AnyValue, Shape: NoShape), value_ptr: 0x32ed00e0, value: AnyValue). Please check the node construct.4:[CNode]5{[0]: [CNode]6}, true branch: ✓construct.2, false branch: ✗construct.3. trace:
-In file test_type_join_failed.py(14)/        if a > b:/
-
-The function call stack (See file 'analyze_fail.dat' for more details):
-# 0 In file test_type_join_failed.py(14)
-        if a > b:
-```
-
-当出现类似“Shape Join Failed: shape1 = (2, 3, 4, 5), shape2 = ()”的报错时，说明`shape`不一致，导致抽象类型合并失败。代码样例如下:
-
-```python
-import numpy as np
-import mindspore as ms
-import mindspore.ops as ops
-from mindspore import nn, Tensor, context
-
-context.set_context(mode=context.GRAPH_MODE)
-class Net(nn.Cell):
-    def __init__(self):
-        super().__init__()
-        self.relu = ops.ReLU()
-        self.reducesum = ops.ReduceSum()
-
-    def construct(self, x, a, b):
-        if a > b:
-            return self.relu(x)
-        else:
-            return self.reducesum(x)
-
-input_x = Tensor(np.random.rand(2, 3, 4, 5).astype(np.float32))
-input_a = Tensor(2, ms.float32)
-input_b = Tensor(6, ms.float32)
-net = Net()
-out = net(input_x, input_a, input_b)
-```
-
-执行结果如下:
-
-```text
-ValueError: The return values of different branches do not match. Shape Join Failed: shape1 = (2, 3, 4, 5), shape2 = (). The abstract type of the return value of the current branch is AbstractTensor(shape: (), element: AbstractScalar(Type: Float32, Value: AnyValue, Shape: NoShape), value_ptr: 0x239b5120, value: AnyValue), and that of the previous branch is AbstractTensor(shape: (2, 3, 4, 5), element: AbstractScalar(Type: Float32, Value: AnyValue, Shape: NoShape), value_ptr: 0x239b5120, value: AnyValue). Please check the node construct.4:[CNode]5{[0]: [CNode]6}, true branch: ✓construct.2, false branch: ✗construct.3. trace:
-In file test_shape_join_failed.py(14)/        if a > b:/
-
-The function call stack (See file 'analyze_fail.dat' for more details):
-# 0 In file test_shape_join_failed.py(14)
-        if a > b:
-```
-
-当出现如“Type Join Failed: abstract type AbstractTensor can not join with AbstractTuple”的报错时，说明这两种抽象类型无法匹配，需要根据提供的代码行等报错信息，重新检视代码并修改。
 
 <br/>
 
@@ -339,7 +267,7 @@ A: 首先输入PyTorch的`pth`文件，以`ResNet-18`为例，MindSpore的网络
 
 <font size=3>**Q: MindSpore有哪些现成的推荐类或生成类网络或模型可用？**</font>
 
-A: 目前正在开发Wide & Deep、DeepFM、NCF等推荐类模型，NLP领域已经支持Bert_NEZHA，正在开发MASS等模型，用户可根据场景需要改造为生成类网络，可以关注[MindSpore Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo)。
+A: 目前正在开发Wide & Deep、DeepFM、NCF等推荐类模型，NLP领域已经支持Bert_NEZHA，正在开发MASS等模型，用户可根据场景需要改造为生成类网络，可以关注[MindSpore ModelZoo](https://gitee.com/mindspore/models/tree/master)。
 
 <br/>
 
@@ -536,3 +464,341 @@ A: MindSpore Ascend模式下，如果先调用init，那么会为所有的进程
 <font size=3>**Q: 在CPU ARM平台上进行resnet50训练，内存持续增长怎么办？**</font>
 
 A: 在CPU ARM上进行resnet50训练时，部分算子的实现是基于oneDNN库，oneDNN库中是基于libgomp库实现多线程并行，当前libgomp存在多个并行域配置的线程数不同时有内存占用持续增长的问题。可通过全局配置统一的线程数来控制内存的持续增长。再综合性能上的考虑，建议统一配置为物理核数的1/4，比如`export OMP_NUM_THREADS=32`。
+
+<br/>
+
+<font size=3>**Q: 为什么在Ascend平台执行模型时报流超限的错误？**</font>
+
+A: 流表示一个操作队列，同一条流上的任务按序串行执行，不同流之间可以并行执行。网络中的各种操作会生成Task并被分配到流上，以控制任务执行的并发方式。由于Ascend平台对同一条流上的的任务数存在限制，超限的任务会分配新流，且MindSpore框架的多种并行方式也会分配新流，例如通信算子并行，因此当分配流的数目超过Ascend平台的资源限制就会报流超限的错误。参考解决方案：
+
+- 减小网络模型规模
+
+- 减少网络中通信算子的使用
+
+- 减少网络中的条件控制语句
+
+<br/>
+
+<font size=3>**Q: 在Ascend平台上，日志中出现报错“Ascend error occurred, error message:”且跟随了一个错误码，如“E40011”，如何查找出现错误码的原因？**</font>
+
+A: 当出现“Ascend error occurred, error message:”时，说明昇腾CANN相关模块出现异常，上报了错误日志。
+
+此时错误码后有异常的错误信息。如果需要该异常更详细的可能原因和处理方法，请参考对应昇腾版本文档的《Error Code故障处理》部分，如[昇腾CANN社区版(5.0.3 alpha 002)(训练) Error Code故障处理](https://support.huaweicloud.com/trouble-cann503alpha2training/atlaspd_15_0001.html)。
+
+<br/>
+
+<font size=3>**Q: 训练nlp类网络，当使用第三方组件gensim时，可能会报错: ValueError，如何解决？**</font>
+
+A: 以下为报错信息:
+
+```bash
+>>> import gensim
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/__init__.py", line 11, in <module>
+    from gensim import parsing, corpora, matutils, interfaces, models, similarities, utils  # noqa:F401
+  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/corpora/__init__.py", line 6, in <module>
+    from .indexedcorpus import IndexedCorpus  # noqa:F401 must appear before the other classes
+  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/corpora/indexedcorpus.py", line 14, in <module>
+    from gensim import interfaces, utils
+  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/interfaces.py", line 19, in <module>
+    from gensim import utils, matutils
+  File "/home/miniconda3/envs/ci39_cj/lib/python3.9/site-packages/gensim/matutils.py", line 1024, in <module>
+    from gensim._matutils import logsumexp, mean_absolute_difference, dirichlet_expectation
+  File "gensim/_matutils.pyx", line 1, in init gensim._matutils
+ValueError: numpy.ndarray size changed, may indicate binary incompatibility. Expected 88 from C header, got 80 from PyObject
+```
+
+报错原因请参考[gensim](https://github.com/RaRe-Technologies/gensim/issues/3095)官网，或者[numpy](https://github.com/numpy/numpy/issues/18709)官网:
+
+解决方案:
+
+方法一: 重新安装numpy及gensim, 执行命令: `pip uninstall gensim numpy -y && pip install numpy gensim` ；
+
+方法二: 如果还是有问题，请删除wheel安装包的缓存文件，然后执行方法一（wheel安装包缓存目录为: `~/.cache/pip/wheels`）。
+
+<br/>
+
+## 网络编译问题
+
+<font size=3>**Q: 编译时报错“Create python object \`<class 'mindspore.common.tensor.Tensor'>\` failed, only support create Cell or Primitive object.”怎么办？**</font>
+
+A: 当前在图模式下，`construct`函数(或`@ms_function`装饰器修饰的函数)仅支持构造`Cell`和`Primitive object`，不支持构造`Tensor`，即不支持语法`x = Tensor(args...)`。
+
+如果是常量`Tensor`，请在`__init__`函数中定义。如果不是常量`Tensor`，可以通过`@constexpr`装饰器修饰函数，在函数里生成`Tensor`。
+
+关于`@constexpr`的用法可参考: <https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.constexpr.html>。
+
+对于网络中需要用到的常量`Tensor`，可以作为网络的属性，在`init`的时候定义，即`self.x = Tensor(args...)`，然后在`construct`函数(或`@ms_function`装饰器修饰的函数)里使用。
+
+如下示例，通过`@constexpr`生成一个`shape = (3, 4), dtype = int64`的`Tensor`。
+
+```python
+@constexpr
+def generate_tensor():
+    return Tensor(np.ones((3, 4).astype(np.int64)))
+```
+
+<br/>
+
+<font size=3>**Q: 编译时报错“'self.xx' should be defined in the class '__init__' function.”怎么办？**</font>
+
+A: 如果在`construct`函数里，想对类成员`self.xx`赋值，那么`self.xx`必须已经在`__init__`函数中被定义为[Parameter](<https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.Parameter.html>)类型，其他类型则不支持。局部变量`xx`不受这个限制。
+
+<br/>
+
+<font size=3>**Q: 编译时报错“This comparator 'AnyValue' is not supported. For statement 'is', only support compare with 'None', 'False' or 'True'”怎么办？**</font>
+
+A: 对于语法`is` 或 `is not`而言，当前`MindSpore`仅支持与`True`、`False`和`None`的比较。暂不支持其他类型，如字符串等。
+
+<br/>
+
+<font size=3>**Q: 编译时报错“MindSpore does not support comparison with operators more than one now, ops size =2”怎么办？**</font>
+
+A: 对于比较语句，`MindSpore`最多支持一个操作数。例如不支持语句`1 < x < 3`，请使用`1 < x and x < 3`的方式代替。
+
+<br/>
+
+<font size=3>**Q: 编译时报错“TypeError: The function construct need 1 positional argument and 0 default argument, but provided 2”怎么办？**</font>
+
+A: 网络的实例被调用时，会执行`construct`方法，然后会检查`construct`方法需要的参数个数和实际传入的参数个数，如果不一致则会抛出以上异常。
+请检查脚本中调用网络实例时传入的参数个数，和定义的网络中`construct`函数需要的参数个数是否一致。
+
+<br/>
+
+<font size=3>**Q: 编译时报错“Type Join Failed”或“Shape Join Failed”怎么办？**</font>
+
+A: 在前端编译的推理阶段，会对节点的抽象类型(包含`type`、`shape`等)进行推导，常见抽象类型包括`AbstractScalar`、`AbstractTensor`、`AbstractFunction`、`AbstractTuple`、`AbstractList`等。在一些场景比如多分支场景，会对不同分支返回值的抽象类型进行`join`合并，推导出返回结果的抽象类型。如果抽象类型不匹配，或者`type`/`shape`不一致，则会抛出以上异常。
+
+当出现类似“Type Join Failed: dtype1 = Float32, dtype2 = Float16”的报错时，说明数据类型不一致，导致抽象类型合并失败。根据提供的数据类型和代码行信息，可以快速定位出错范围。此外，报错信息中提供了具体的抽象类型信息、节点信息，可以通过`analyze_fail.dat`文件查看MindIR信息，定位解决问题。关于MindIR的具体介绍，可以参考[MindSpore IR（MindIR）](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/design/mindir.html)。代码样例如下:
+
+```python
+import numpy as np
+import mindspore as ms
+import mindspore.ops as ops
+from mindspore import nn, Tensor, context
+
+context.set_context(mode=context.GRAPH_MODE)
+class Net(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.relu = ops.ReLU()
+        self.cast = ops.Cast()
+
+    def construct(self, x, a, b):
+        if a > b:    # if的两个分支返回值的type不一致
+            return self.relu(x)    # shape: (2, 3, 4, 5), dtype:Float32
+        else:
+            return self.cast(self.relu(x), ms.float16)    # shape: (2, 3, 4, 5)， dtype:Float16
+
+input_x = Tensor(np.random.rand(2, 3, 4, 5).astype(np.float32))
+input_a = Tensor(2, ms.float32)
+input_b = Tensor(6, ms.float32)
+net = Net()
+out_me = net(input_x, input_a, input_b)
+```
+
+执行结果如下:
+
+```text
+TypeError: The return values of different branches do not match. Type Join Failed: dtype1 = Float32, dtype2 = Float16. The abstract type of the return value of the current branch is AbstractTensor(shape: (2, 3, 4, 5), element: AbstractScalar(Type: Float16, Value: AnyValue, Shape: NoShape), value_ptr: 0x32ed00e0, value: AnyValue), and that of the previous branch is AbstractTensor(shape: (2, 3, 4, 5), element: AbstractScalar(Type: Float32, Value: AnyValue, Shape: NoShape), value_ptr: 0x32ed00e0, value: AnyValue). Please check the node construct.4:[CNode]5{[0]: [CNode]6}, true branch: ✓construct.2, false branch: ✗construct.3. trace:
+In file test_type_join_failed.py(14)/        if a > b:/
+
+The function call stack (See file 'analyze_fail.dat' for more details):
+# 0 In file test_type_join_failed.py(14)
+        if a > b:
+```
+
+当出现类似“Shape Join Failed: shape1 = (2, 3, 4, 5), shape2 = ()”的报错时，说明`shape`不一致，导致抽象类型合并失败。代码样例如下:
+
+```python
+import numpy as np
+import mindspore as ms
+import mindspore.ops as ops
+from mindspore import nn, Tensor, context
+
+context.set_context(mode=context.GRAPH_MODE)
+class Net(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.relu = ops.ReLU()
+        self.reducesum = ops.ReduceSum()
+
+    def construct(self, x, a, b):
+        if a > b:    # if的两个分支返回值的shape不一致
+            return self.relu(x)    # shape: (2, 3, 4, 5), dtype:Float32
+        else:
+            return self.reducesum(x)    # shape:(), dype: Float32
+
+input_x = Tensor(np.random.rand(2, 3, 4, 5).astype(np.float32))
+input_a = Tensor(2, ms.float32)
+input_b = Tensor(6, ms.float32)
+net = Net()
+out = net(input_x, input_a, input_b)
+```
+
+执行结果如下:
+
+```text
+ValueError: The return values of different branches do not match. Shape Join Failed: shape1 = (2, 3, 4, 5), shape2 = (). The abstract type of the return value of the current branch is AbstractTensor(shape: (), element: AbstractScalar(Type: Float32, Value: AnyValue, Shape: NoShape), value_ptr: 0x239b5120, value: AnyValue), and that of the previous branch is AbstractTensor(shape: (2, 3, 4, 5), element: AbstractScalar(Type: Float32, Value: AnyValue, Shape: NoShape), value_ptr: 0x239b5120, value: AnyValue). Please check the node construct.4:[CNode]5{[0]: [CNode]6}, true branch: ✓construct.2, false branch: ✗construct.3. trace:
+In file test_shape_join_failed.py(14)/        if a > b:/
+
+The function call stack (See file 'analyze_fail.dat' for more details):
+# 0 In file test_shape_join_failed.py(14)
+        if a > b:
+```
+
+当出现如“Type Join Failed: abstract type AbstractTensor can not join with AbstractTuple”的报错时，说明抽象类型不匹配，导致抽象类型合并失败，代码样例如下：
+
+```python
+import mindspore.ops as ops
+from mindspore import Tensor, ms_function
+
+x = Tensor([1.0])
+y = Tensor([2.0])
+grad = ops.GradOperation(get_by_list=False, sens_param=True)
+sens = 1.0
+
+def test_net(a, b):
+    return a, b
+
+@ms_function()
+def join_fail():
+    sens_i = ops.Fill()(ops.DType()(x), ops.Shape()(x), sens)    # sens_i 是一个标量shape: (1), dtype:Float64, value:1.0
+    # sens_i = (sens_i, sens_i)
+    a = grad(test_net)(x, y, sens_i)    # 对输出类型为tuple(Tensor, Tensor)的test_net求梯度需要sens_i的类型同输出保持一致，但sens_i是个Tensor; 在grad前设置sens_i = (sens_i, sens_i)可以修复问题。
+    return a
+
+join_fail()
+```
+
+执行结果如下：
+
+```text
+TypeError: mindspore/core/abstract/abstract_value.cc:48 AbstractTypeJoinLogging] Type Join Failed: abstract type AbstractTensor cannot not join with AbstractTuple. For more details, please refer to the FAQ at https://www.mindspore.cn. this: AbstractTensor(shape: (1), element: AbstractScalar(Type: Float64, Value: AnyValue, Shape: NoShape), value_ptr: 0x55f643f283d0, value: Tensor(shape=[1], dtype=Float64, value= [ 1.00000000e+00])), other: AbstractTuple(element[0]: AbstractTensor(shape: (1), element: AbstractScalar(Type: Float64, Value: AnyValue, Shape: NoShape), value_ptr: 0x55f64473a500, value: Tensor(shape=[1], dtype=Float64, value= [ 1.00000000e+00])), element[1]: AbstractTensor(shape: (1), element: AbstractScalar(Type: Float64, Value: AnyValue, Shape: NoShape), value_ptr: 0x55f6447042c0, value: Tensor(shape=[1], dtype=Float64, value= [ 2.00000000e+00]))). Please check the node test_net.2:test_net{[0]: test_net, [1]: test_net}. trace:
+In file test_shape_join_failed.py(9)/def test_net(a, b):/
+In file test_shape_join_failed.py(15)/ a = grad(test_net)(x, y, sens_i)/
+
+The function call stack (See file 'analyze_fail.dat' for more details):
+# 0 In file test_shape_join_failed.py(15)
+a = grad(test_net)(x, y, sens_i)
+^
+# 1 In file test_shape_join_failed.py(9)
+def test_net(a, b):
+^
+```
+
+<br/>
+
+<font size=3>**Q: 编译时报错“The params of function 'bprop' of Primitive or Cell requires the forward inputs as well as the 'out' and 'dout'”怎么办？**</font>
+
+A: 用户自定义的Cell的反向传播函数`bprop`，它的输入需要包含正向网络的输入，以及`out`和`dout`，例如：
+
+```python
+class BpropUserDefinedNet(nn.Cell):
+        def __init__(self):
+            super(BpropUserDefinedNet, self).__init__()
+            self.zeros_like = P.ZerosLike()
+
+        def construct(self, x, y):
+            return x + y
+
+        def bprop(self, x, y, out, dout):
+            return self.zeros_like(out), self.zeros_like(out)
+```
+
+<br/>
+
+<font size=3>**Q: 编译时报错“There isn't any branch that can be evaluated”怎么办？**</font>
+
+当出现There isn't any branch that can be evaluated 时，说明代码中可能出现了无穷递归或者时死循环，导致if条件的每一个分支都无法推导出正确的类型和维度信息。
+例如代码
+
+```python
+from mindspore import Tensor, ms_function
+from mindspore.common import dtype as mstype
+import mindspore.context as context
+ZERO = Tensor([0], mstype.int32)
+ONE = Tensor([1], mstype.int32)
+@ms_function
+def f(x):
+    y = ZERO
+    if x < 0:
+        y = f(x - 3)
+    elif x < 3:
+        y = x * f(x - 1)
+    elif x < 5:
+        y = x * f(x - 2)
+    else:
+        y = f(x - 4)
+    z = y + 1
+    return z
+
+def test_endless():
+    context.set_context(mode=context.GRAPH_MODE)
+    x = Tensor([5], mstype.int32)
+    f(x)
+
+```
+
+其中f(x)由于每一个if分支都没办法推导出正确的类型信息导致失败。
+
+<br/>
+
+<font size=3>**Q: 编译时报错"Exceed function call depth limit 1000"怎么办？**</font>
+
+当出现Exceed function call depth limit 1000 时，说明代码中出现了无穷递归死循环，或者是代码过于复杂，类型推导过程中导致栈深度超过设置的最大深度。
+此时可以通过设置context.set_context(max_call_depth = value)这样的方式更改栈的最大深度，并考虑简化代码逻辑或者检查代码中是否存在无穷递归或死循环。
+此外设置max_call_depth = value 虽然可以改变MindSpore的递归深度，但是此时也可能会超过系统栈的最大深度而出现段错误。此时可能还需要设置将系统栈深度进行设置。
+
+<br/>
+
+<font size=3>**Q: 编译时报错“could not get source code”以及“Mindspore can not compile temporary source code in terminal. Please write source code to a python file and run the file.”是什么原因？**</font>
+
+A: MindSpore编译网络时通过`inspect.getsourcelines(self.fn)`获取网络代码所在的文件，如果网络是编辑在命令行中的临时代码，那么会出现如标题所示的报错，需要将网络写在Python文件中去执行才能避免该错误。
+
+<br/>
+
+<font size=3>**Q: 报错提示中的“Corresponding forward node candidate:”或“Corresponding code candidate:”是什么意思？**</font>
+
+A: “Corresponding forward node candidate:”为关联的正向网络中的代码，表示该反向传播算子与该正向代码对应。“Corresponding code candidate:”表示该算子是由这些代码融合而来，其中分符“-”用以区分不同的代码。
+
+<br/>
+
+<font size=3>**Q: 什么是“JIT Fallback”？编译时报错“Should not use Python object in runtime”怎么办？**</font>
+
+A: JIT Fallback是从静态图的角度出发考虑静态图和动态图的统一，希望静态图模式能够尽量多的支持动态图模式的语法，其借鉴了传统JIT编译的fallback的思路。编译静态图时，如果遇到不支持的语法，将会记录相关语句并生成解释节点，在后续处理中将相关语句fallback到Python解释器进行解释执行，从而支持该语法。JIT Fallback的环境变量开关是`DEV_ENV_ENABLE_FALLBACK`，默认使用JIT Fallback。
+
+当出现“Should not use Python object in runtime”和“We suppose all nodes generated by JIT Fallback would not return to outside of graph”的报错信息时，说明静态图模式代码中出现了错误使用语法，生成的解释节点在编译阶段无法正常解释执行，从而出现报错。当前JIT Fallback有条件地支持Graph模式的部分常量场景，同时需要符合MindSpore的编程语法，编写代码时请参考[静态图语法支持](https://www.mindspore.cn/docs/note/zh-CN/master/static_graph_syntax_support.html)。
+
+例如，在调用第三方库NumPy时，JIT Fallback支持`np.add(x, y)`和`Tensor(np.add(x, y))`的语法，但MindSpore不支持NumPy类型的返回值，将会出现报错。代码样例如下：
+
+```python
+import numpy as np
+import mindspore.nn as nn
+from mindspore import context
+
+context.set_context(mode=context.GRAPH_MODE)
+
+class Net(nn.Cell):
+    def construct(self, x, y):
+        out = np.add(x, y)
+        return out
+
+net = Net()
+out = net(1, 1)
+```
+
+执行结果如下：
+
+```text
+RuntimeError: mindspore/ccsrc/pipeline/jit/validator.cc:139 ValidateValueNode] Should not use Python object in runtime, node: ValueNode<InterpretedObject> InterpretedObject: '2'
+
+We suppose all nodes generated by JIT Fallback not return to outside of graph.
+
+# In file test.py(9)
+        out = np.add(x, y)
+        ^
+```
+
+出现JIT Fallback相关的报错时，请根据[静态图语法支持](https://www.mindspore.cn/docs/note/zh-CN/master/static_graph_syntax_support.html)以及报错代码行，重新检视代码语法并修改。如果需要关闭JIT Fallback，可以设置`export DEV_ENV_ENABLE_FALLBACK=0`。

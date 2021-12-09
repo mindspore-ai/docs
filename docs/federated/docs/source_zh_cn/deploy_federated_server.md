@@ -12,6 +12,7 @@
     - [启动集群](#启动集群)
     - [弹性伸缩](#弹性伸缩)
     - [容灾](#容灾)
+    - [安全](#安全)
 
 <!-- /TOC -->
 
@@ -48,7 +49,7 @@ MindSpore Federated Learning Server集群物理架构如图所示：
 
 ### 安装MindSpore
 
-选择安装与硬件平台配套的MindSpore版本（版本号>=1.3.0）。
+MindSpore联邦学习云侧集群支持在x86的CPU和GPU硬件平台上部署。执行[官网提供的命令](https://www.mindspore.cn/install)安装MindSpore最新版本。
 
 ## 定义模型
 
@@ -75,6 +76,7 @@ scheduler_port = 6667
 fl_server_port = 6668
 fl_name = "LeNet"
 scheduler_manage_port = 11202
+config_file_path = "./config.json"
 
 fl_ctx = {
     "enable_fl": enable_fl,
@@ -98,7 +100,7 @@ model.train()
 
 > 部分参数只在`Scheduler`用到，如scheduler_manage_port，部分参数只在`Server`用到，如fl_server_port，为了方便部署，可将这些参数配置统一传入，MindSpore会根据进程角色，读取不同的参数配置。
 
-建议将参数配置通过Python `argparse`模块传入：
+建议将参数配置通过Python `argparse`模块传入，以下是部分关键参数传入脚本的示例：
 
 ```python
 import argparse
@@ -126,21 +128,31 @@ scheduler_manage_port = args.scheduler_manage_port
 config_file_path = args.config_file_path
 ```
 
-> 每个Python脚本对应一个进程，若要在不同主机部署多个`Server`角色，则需要分别建立多个进程，可以通过shell指令配合Python的方式快速启动多`Server`。可参考[示例](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile)。
+> 每个Python脚本对应一个进程，若要在不同主机部署多个`Server`角色，则需要分别建立多个进程，可以通过shell指令配合Python的方式快速启动多`Server`。可参考**[示例](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile)**。
+>
+> 每个`Server`进程需要有一个集群内唯一标志`MS_NODE_ID`，需要通过环境变量设置此字段。本部署教程中，此变量已在[脚本run_mobile_server.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/run_mobile_server.py)中设置。
 
 ## 启动集群
 
-参考[示例](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile)，启动集群。参考示例目录结构如下：
+参考[示例](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile)，启动集群。参考示例关键目录结构如下：
 
 ```text
 mobile/
+├── config.json
 ├── finish_mobile.py
 ├── run_mobile_sched.py
 ├── run_mobile_server.py
 ├── src
-│   └── model.py
+│   └── model.py
 └── test_mobile_lenet.py
 ```
+
+- config.json：配置文件，用于安全能力配置，容灾等。
+- finish_mobile.py：由于Server集群为常驻进程，使用本文件手动退出集群。
+- run_mobile_sched.py：启动Scheduler。
+- run_mobile_server.py：启动Server。
+- model.py：网络模型。
+- test_mobile_lenet.py：训练脚本
 
 1. 启动Scheduler
 
@@ -174,7 +186,7 @@ mobile/
     python run_mobile_server.py --scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6668 --server_num=4 --start_fl_job_threshold=8 --local_server_num=1
     ```
 
-    看到日志打印
+    看到日志中打印本行：
 
     ```sh
     Server started successfully.
@@ -185,8 +197,7 @@ mobile/
     > 以上分布式部署的指令中，`server_num`都为4，这是因为此参数代表集群全局的`Server`数量，不应随着物理节点的数量而改变。对于不同节点上的`Server`来说，它们无需感知各自的IP地址，集群的一致性和节点发现都由`Scheduler`进行调度。
 
 3. 停止联邦学习
-
-    可以采用`finish_mobile.py`用于停止联邦学习服务器，执行如下指令来停止联邦学习集群，其中`scheduler_port`传参和启动服务器时的传参保持一致。
+    当前版本联邦学习集群为常驻进程，也可以执行`finish_mobile.py`脚本用于中途停止联邦学习服务器，执行如下指令来停止联邦学习集群，其中`scheduler_port`传参和启动服务器时的传参保持一致，代表停止此`Scheduler`对应的集群。
 
     ```sh
     python finish_mobile.py --scheduler_port=6667
@@ -275,7 +286,7 @@ MindSpore联邦学习框架支持`Server`的弹性伸缩，对外通过`Schedule
     }
     ```
 
-    选择`Rank3`和`Rank2`进行缩容:
+    选择`Rank3`和`Rank2`进行缩容：
 
     ```sh
     curl -i -X POST \
@@ -290,12 +301,14 @@ MindSpore联邦学习框架支持`Server`的弹性伸缩，对外通过`Schedule
 > - 在集群扩容/缩容成功后，训练任务会自动恢复，不需要用户进行额外干预。
 >
 > - 可以通过集群管理工具(如Kubernetes)创建或者释放`Server`资源。
+>
+> - 缩容后，被缩容节点进程不会退出，需要集群管理工具(如Kubernetes)释放`Server`资源或者执行`kill -15 $PID`来控制进程退出。
 
 ## 容灾
 
-在MindSpore联邦学习集群中某节点下线后，可以保持集群在线而不退出训练任务，在该节点重新被启动后，可以恢复训练任务。目前MindSpore暂时只支持除Server 0以外的其他Server节点的容灾，而且需要节点下线超过30秒后重启才能恢复正常。
+在MindSpore联邦学习集群中某节点下线后，可以保持集群在线而不退出训练任务，在该节点重新被启动后，可以恢复训练任务。目前MindSpore暂时支持Server节点的容灾(Server 0除外)。
 
-容灾需要配置一个配置文件config.json，具体的格式如下，这个配置文件通过config_file_path指定：
+想要支持容灾，config_file_path指定的config.json配置文件需要添加如下字段：
 
 ```json
 {
@@ -306,6 +319,10 @@ MindSpore联邦学习框架支持`Server`的弹性伸缩，对外通过`Schedule
 }
 ```
 
+- recovery：有此字段则代表需要支持容灾。
+- storage_type：持久化存储类型，目前只支持值为`1`，代表文件存储。
+- storage_file_path：容灾恢复文件路径。
+
 节点重新启动的指令类似扩容指令，在节点被手动下线之后，执行如下指令：
 
 ```sh
@@ -315,3 +332,30 @@ python run_mobile_server.py --scheduler_ip=192.168.216.124 --scheduler_port=6667
 此指令代表重新启动了`Server`，其联邦学习服务端口为`6673`。
 
 > 在弹性伸缩命令下发成功后，在扩缩容业务执行完毕前，不支持容灾。
+>
+> 容灾后，重新启动节点的`MS_NODE_ID`变量需要和异常退出的节点保持一致，来保证能够恢复组网。
+
+## 安全
+
+MindSpore联邦学习框架支持`Server`的SSL安全认证，要开启安全认证，需要在启动命令加上enable_ssl=True，config_file_path指定的config.json配置文件需要添加如下字段：
+
+```json
+{
+    "server_cert_path": "server.p12",
+    "crl_path": "",
+    "client_cert_path": "client.p12",
+    "ca_cert_path": "ca.crt",
+    "cert_expire_warning_time_in_day": 90,
+    "cipher_list": "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!3DES:!MD5:!PSK",
+    "connection_num":10000
+}
+```
+
+- server_cert_path：服务端包含了证书和秘钥的密文的p12文件。
+- crl_path：吊销列表的文件。
+- client_cert_path：客户端包含了证书和秘钥的密文的p12文件。
+- ca_cert_path：根证书。
+- cipher_list：密码套件。
+- cert_expire_warning_time_in_day：证书过期的告警时间。
+
+p12文件中的秘钥为密文存储，在启动时需要传入密码，具体参数请参考Python API `mindspore.context.set_fl_context`中的`client_password`以及`server_password`字段。

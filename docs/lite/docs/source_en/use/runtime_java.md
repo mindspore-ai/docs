@@ -29,7 +29,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/runtime_java.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/runtime_java.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -40,7 +40,7 @@ If MindSpore Lite is used in an Android project, you can use [C++ API](https://w
 1. Load the model: Read the `.ms` model converted by the model conversion tool introduced in [Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html) from the file system and import the model using the [loadModel](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#loadmodel).
 2. Create a configuration context: Create a configuration context [MSConfig](https://www.mindspore.cn/lite/api/en/master/api_java/msconfig.html#msconfig) to save some basic configuration parameters required by a session to guide graph build and execution, including `deviceType` (device type), `threadNum` (number of threads), `cpuBindMode` (CPU core binding mode), and `enable_float16` (whether to preferentially use the float16 operator).
 3. Create a session: Create [LiteSession](https://www.mindspore.cn/lite/api/en/master/api_java/lite_session.html#litesession) and call the [init](https://www.mindspore.cn/lite/api/en/master/api_java/lite_session.html#init) method to configure the [MSConfig](https://www.mindspore.cn/lite/api/en/master/api_java/msconfig.html#msconfig) obtained in the previous step in the session.
-4. Build a graph: Before building a graph, the [compileGraph](https://www.mindspore.cn/lite/api/en/master/api_java/lite_session.html#compilegraph) API of [LiteSession](https://www.mindspore.cn/lite/api/en/master/api_java/lite_session.html#litesession) needs to be called to build the graph, including graph partition and operator selection and scheduling. This takes a long time. Therefore, it is recommended that with [LiteSession](https://www.mindspore.cn/lite/api/en/master/api_cpp/session.html#litesession) created each time, one graph be built. In this case, the inference will be performed for multiple times.
+4. Build a graph: Before building a graph, the [compileGraph](https://www.mindspore.cn/lite/api/en/master/api_java/lite_session.html#compilegraph) API of [LiteSession](https://www.mindspore.cn/lite/api/en/master/api_java/lite_session.html#litesession) needs to be called to build the graph, including graph partition and operator selection and scheduling. This takes a long time. Therefore, it is recommended that with [LiteSession](https://www.mindspore.cn/lite/api/en/master/api_java/lite_session.html#litesession) created each time, one graph be built. In this case, the inference will be performed for multiple times.
 5. Input data: Before the graph is performed, data needs to be filled in to the `Input Tensor`.
 6. Perform inference: Use the [runGraph](https://www.mindspore.cn/lite/api/en/master/api_java/lite_session.html#rungraph) of the [LiteSession](https://www.mindspore.cn/lite/api/en/master/api_java/lite_session.html#litesession) to perform model inference.
 7. Obtain the output: After the graph execution is complete, you can obtain the inference result by `outputting the tensor`.
@@ -160,7 +160,7 @@ msConfig.free();
 
 ## Building a Graph
 
-Before building a graph, the [compileGraph](https://www.mindspore.cn/lite/api/en/master/api_java/lite_session.html#compilegraph) API of [LiteSession](https://www.mindspore.cn/lite/api/en/master/api_java/lite_session.html#litesession) needs to be called to build the graph, including graph partition and operator selection and scheduling. This takes a long time. Therefore, it is recommended that with the [LiteSession](https://www.mindspore.cn/lite/api/en/master/api_cpp/session.html#litesession) created each time, one graph be built. In this case, the inference will be performed for multiple times.
+Before building a graph, the [compileGraph](https://www.mindspore.cn/lite/api/en/master/api_java/lite_session.html#compilegraph) API of [LiteSession](https://www.mindspore.cn/lite/api/en/master/api_java/lite_session.html#litesession) needs to be called to build the graph, including graph partition and operator selection and scheduling. This takes a long time. Therefore, it is recommended that with the [LiteSession](https://www.mindspore.cn/lite/api/en/master/api_java/lite_session.html#litesession) created each time, one graph be built. In this case, the inference will be performed for multiple times.
 
 The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L87) demonstrates how to call `CompileGraph` to build a graph.
 

@@ -1,7 +1,5 @@
 # Using Membership Inference to Test Model Security
 
-`Linux` `Ascend` `GPU` `CPU` `Model Evaluation` `Enterprise` `Expert`
-
 <!-- TOC -->
 
 - [Using Membership Inference to Test Model Security](#using-membership-inference-to-test-model-security)
@@ -15,7 +13,7 @@
     - [References](#references)
 
 <!-- /TOC -->
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_en/test_model_security_membership_inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_en/test_model_security_membership_inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
 ## Overview
 

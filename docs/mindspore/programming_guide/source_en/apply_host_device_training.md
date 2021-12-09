@@ -1,10 +1,10 @@
-# Applying Host&Device Hybrid Training
+# Host&Device Heterogeneous
 
-`Linux` `Ascend` `CPU` `Model Training` `Intermediate` `Expert`
+`Ascend` `GPU` `Distributed Parallel` `Whole Process`
 
 <!-- TOC -->
 
-- [Applying Host&Device Hybrid Training](#applying-hostdevice-hybrid-training)
+- [Host&Device Heterogeneous](#hostdevice-heterogeneous)
     - [Overview](#overview)
     - [Preliminaries](#preliminaries)
     - [Configuring for Hybrid Training](#configuring-for-hybrid-training)
@@ -13,7 +13,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/apply_host_device_training.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/apply_host_device_training.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -22,11 +22,11 @@ the number of required accelerators is too overwhelming for people to access, re
 efficient method for addressing huge model problem.
 
 In MindSpore, users can easily implement hybrid training by configuring trainable parameters and necessary operators to run on hosts, and other operators to run on accelerators.
-This tutorial introduces how to train [Wide&Deep](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/recommend/wide_and_deep) in the Host+Ascend 910 AI Accelerator mode.
+This tutorial introduces how to train [Wide&Deep](https://gitee.com/mindspore/models/tree/master/official/recommend/wide_and_deep) in the Host+Ascend 910 AI Accelerator mode.
 
 ## Preliminaries
 
-1. Prepare the model. The Wide&Deep code can be found at: <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/recommend/wide_and_deep>, in which `train_and_eval_auto_parallel.py` is the main function for training, `src/` directory contains the model definition, data processing and configuration files, `script/` directory contains the launch scripts in different modes.
+1. Prepare the model. The Wide&Deep code can be found at: <https://gitee.com/mindspore/models/tree/master/official/recommend/wide_and_deep>, in which `train_and_eval_auto_parallel.py` is the main function for training, `src/` directory contains the model definition, data processing and configuration files, `script/` directory contains the launch scripts in different modes.
 
 2. Prepare the dataset. Please refer the link in [1] to download the dataset, and use the script `src/preprocess_data.py` to transform dataset into MindRecord format.
 

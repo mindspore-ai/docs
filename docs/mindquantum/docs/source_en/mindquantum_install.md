@@ -1,6 +1,6 @@
 # MindQuantum Installation
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindquantum/docs/source_en/mindquantum_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindquantum/docs/source_en/mindquantum_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 <!-- TOC --->
 
@@ -18,7 +18,7 @@
 ## Confirming System Environment Information
 
 - The hardware platform should be Linux CPU with avx supported.
-- Refer to [MindQuantum Installation Guide](https://www.mindspore.cn/install/en), install MindSpore, version 1.2.0 or later is required.
+- Refer to [MindSpore Installation Guide](https://www.mindspore.cn/install/en), install MindSpore, version 1.2.0 or later is required.
 - See [setup.py](https://gitee.com/mindspore/mindquantum/blob/master/setup.py) for the remaining dependencies.
 
 ## Installation Methods
@@ -28,11 +28,13 @@ You can install MindInsight either by pip or by source code.
 ### Install by pip
 
 ```bash
-pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindQuantum/any/mindquantum-{version}-py3-none-any.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{ms_version}/MindQuantum/any/mindquantum-{mq_version}-py3-none-any.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 > - When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about other dependency items, see [setup.py](https://gitee.com/mindspore/mindquantum/blob/master/setup.py)). In other cases, you need to manually install dependency items.
-> - `{version}` denotes the version of MindQuantum. For example, when you are downloading MindQuantum 0.2.0, `{version}` should be 1.3.0.
+> - `{ms_version}` refers to the MindSpore version that matches with MindQuantum. For example, if you want to install MindQuantum 0.3.0, then,`{ms_version}` should be 1.5.0。
+> - `{mq_version}` denotes the version of MindQuantum. For example, when you are downloading MindQuantum 0.3.0, `{version}` should be 0.3.0.
+> - Refers to [MindSpore](https://www.mindspore.cn/versions) to find different version of packages。
 
 ### Install by Source Code
 

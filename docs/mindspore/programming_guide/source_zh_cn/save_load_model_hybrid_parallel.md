@@ -1,6 +1,6 @@
 # 保存和加载模型（HyBrid Parallel模式）
 
-`Linux` `Ascend` `GPU` `模型训练` `中级` `高级`
+`Ascend` `GPU` `分布式并行` `模型导出` `模型加载`
 
 <!-- TOC -->
 

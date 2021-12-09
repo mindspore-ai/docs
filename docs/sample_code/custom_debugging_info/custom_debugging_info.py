@@ -38,7 +38,7 @@ def set_dump_info():
             "dump_mode": 0,
             "path": abspath + "/data_dump",
             "net_name": "LeNet5",
-            "iteration": 0,
+            "iteration": "0|5-8|100-120",
             "input_output": 2,
             "kernels": ["Default/network-WithLossCell/_backbone-LeNet5/flatten-Flatten/Reshape-op118"],
             "support_device": [0, 1, 2, 3, 4, 5, 6, 7]

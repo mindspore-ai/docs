@@ -1,5 +1,7 @@
 # 分布式训练模型参数保存和加载
 
+`Ascend` `GPU` `进阶` `分布式并行` `模型导出`
+
 <!-- TOC -->
 
 - [分布式训练模型参数保存和加载](#分布式训练模型参数保存和加载)
@@ -14,7 +16,7 @@
 
 ## 自动并行模式
 
-自动并行模式（Auto Parallel）下模型参数的保存和加载与非分布式训练的模型参数保存和加载用法相同，以[Ascend分布式训练](https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/distributed_training/distributed_training_ascend.html)为例，只需在Ascend训练网络步骤中的`test_train_cifar`方法中添加配置`CheckpointConfig`和`ModelCheckpoint`，即可实现模型参数的保存，具体代码如下：
+自动并行模式（Auto Parallel）下模型参数的保存和加载与非分布式训练的模型参数保存和加载用法相同，以[Ascend分布式训练](https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/distributed_training/distributed_training_ascend.html)为例，只需在Ascend训练网络步骤中的`test_train_cifar`方法中添加配置`CheckpointConfig`和`ModelCheckpoint`，即可实现模型参数的保存。需要注意的是，并行模式下需要对每张卡上运行的脚本指定不同的checkpoint保存路径，防止读写文件时发生冲突，具体代码如下：
 
 ```python
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
@@ -29,7 +31,7 @@ def test_train_cifar(epoch_size=10):
     loss = SoftmaxCrossEntropyExpand(sparse=True)
     opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), 0.01, 0.9)
     ckpt_config = CheckpointConfig()
-    ckpt_callback = ModelCheckpoint(prefix='auto_parallel', config=ckpt_config)
+    ckpt_callback = ModelCheckpoint(prefix='auto_parallel', directory="./ckpt_" + str(get_rank()) + "/", config=ckpt_config)
     model = Model(net, loss_fn=loss, optimizer=opt)
     model.train(epoch_size, dataset, callbacks=[loss_cb, ckpt_callback], dataset_sink_mode=True)
 ```

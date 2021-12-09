@@ -447,7 +447,47 @@ c                        # 执行模型推理
     ========run success=======
    ```
 
-## 更多详情
+## 自定义算子
+
+使用前请先参考[自定义南向算子](https://www.mindspore.cn/lite/docs/zh-CN/master/use/register_kernel.html)了解基本概念。Codegen目前仅支持custom类型的自定义算子注册和实现，暂不支持内建算子（比如conv2d、fc等）的注册和自定义实现。下面以海思Hi3516D开发板为例，说明如何在codegen中使用自定义算子。
+
+### 准备模型文件
+
+使用最新的转换工具生成带NNIE类型custom算子的ms格式模型，具体步骤请参考[集成NNIE使用说明](https://www.mindspore.cn/lite/docs/zh-CN/master/use/nnie.html)。
+
+### 执行codegen生成源码
+
+对于含有custom类型算子的ms模型，codegen能够自动生成该算子的函数声明和调用。假设模型文件名为nnie.ms，执行如下命令生成源代码：
+
+``` shell
+./codegen --modelPath=./nnie.ms --target=ARM32A
+```
+
+### 用户实现自定义算子
+
+上一步会在当前路径下生成nnie源码目录，其有一个叫registered_kernel.h的头文件指定了custom算子的函数声明：
+
+``` C++
+int CustomKernel(TensorC *inputs, int input_num, TensorC *outputs, int output_num, CustomParameter *param);
+```
+
+用户需要提供该函数的实现，并将相关源码或者库集成到生成代码的cmake工程中。例如，我们提供了支持海思NNIE的custom kernel示例动态库libmicro_nnie.so，该文件包含在[官网下载页](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)《NNIE 推理runtime及benchmark工具》组件中。用户需要修改生成代码的CMakeLists.txt，填加链接的库名称和路径。例如：
+
+``` shell
+link_directories(<YOUR_PATH>/mindspore-lite-1.5.0-linux-aarch32/providers/Hi3516D)
+link_directories(<HI3516D_SDK_PATH>)
+target_link_libraries(benchmark net micro_nnie nnie mpi VoiceEngine upvqe securec -lm -pthread)
+```
+
+最后进行源码编译：
+
+``` shell
+cd nnie && mkdir buid && cd build
+cmake -DCMAKE_TOOLCHAIN_FILE=<MS_SRC_PATH>/mindspore/lite/cmake/himix200.toolchain.cmake -DPLATFORM_ARM32=ON -DPKG_PATH=<RUNTIME_PKG_PATH> ..
+make
+```
+
+## 其它平台使用说明
 
 ### [Linux_x86_64平台编译部署](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/micro/example/mnist_x86)
 

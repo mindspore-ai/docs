@@ -7,6 +7,7 @@
 - [基于C++接口实现端侧训练](#基于c接口实现端侧训练)
     - [概述](#概述)
     - [准备](#准备)
+        - [环境要求](#环境要求)
         - [下载数据集](#下载数据集)
         - [安装MindSpore](#安装MindSpore)
         - [下载并安装MindSpore Lite](#下载并安装MindSpore-Lite)
@@ -22,7 +23,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/quick_start/train_lenet.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-> 注意：MindSpore已经统一端边云推理API，如您想继续使用MindSpore Lite独立API进行端侧推理，可以参考[此文档](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/quick_start/train_lenet.html)。
+> 注意：MindSpore已经统一端边云推理API，如您想继续使用MindSpore Lite独立API进行端侧训练，可以参考[此文档](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/quick_start/train_lenet.html)。
 
 ## 概述
 
@@ -39,6 +40,21 @@
 ## 准备
 
 推荐使用Ubuntu 18.04 64位操作系统。
+
+### 环境要求
+
+- 系统环境：Linux x86_64，推荐使用Ubuntu 18.04.02LTS
+
+- 软件依赖
+
+    - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
+
+    - [CMake](https://cmake.org/download/) >= 3.18.3
+
+    - [Git](https://git-scm.com/downloads) >= 2.28.0
+
+    - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
+        - 配置环境变量：`export ANDROID_NDK=NDK路径`
 
 ### 下载数据集
 
@@ -91,7 +107,7 @@ cp /Downloads/mindspore-lite-{version}-android-aarch64.tar.gz output/mindspore-l
 
 准备好一台Android设备，并通过USB与工作电脑正确连接。手机需开启“USB调试模式”，华为手机一般在`设置->系统和更新->开发人员选项->USB调试`中打开“USB调试模式”。
 
-本示例使用[`adb`](https://developer.android.google.cn/studio/command-line/adb)工具与Android设备进行通信，在工作电脑上远程操控移动设备；如果没有安装`adb`工具，可以执行`apt install adb`安装。
+本示例使用[adb](https://developer.android.google.cn/studio/command-line/adb)工具与Android设备进行通信，在工作电脑上远程操控移动设备；如果没有安装`adb`工具，可以执行`apt install adb`安装。
 
 ## 模型训练和验证
 
@@ -102,7 +118,7 @@ cd mindspore/lite/examples/unified_api
 bash prepare_and_run.sh -D /PATH/MNIST_Data -t arm64
 ```
 
-其中`/PATH/MNIST_Data`是你工作电脑上存放MNIST数据集的绝对路径，`-t arm64`为执行训练和推理的设备类型。
+其中`/PATH/MNIST_Data`是你工作电脑上存放MNIST数据集的绝对路径，`-t arm64`为执行训练和推理的设备类型，如果工作电脑连接多台手机设备，可使用`-i devices_id`指定运行设备。
 
 `prepare_and_run.sh`脚本做了以下工作：
 
@@ -165,11 +181,23 @@ Epoch (2):      Training Accuracy is 0.94415
 10.1600:        Loss is 0.026495
 10.1700:        Loss is 0.436495
 10.1800:        Loss is 0.157564
-Epoch (10):     Loss is 0.102652
-Epoch (10):     Training Accuracy is 0.96805
-Eval Accuracy is 0.965244
+Epoch (5):     Loss is 0.102652
+Epoch (5):     Training Accuracy is 0.96805
+AvgRunTime: 18980.5 ms
+Total allocation: 125829120
+Accuracy is 0.965244
+
 ===Evaluating trained Model=====
-Eval Accuracy is 0.965244
+Total allocation: 20971520
+Accuracy is 0.965244
+
+===Running Inference Model=====
+There are 1 input tensors with sizes:
+tensor 0: shape is [32 32 32 1]
+There are 1 output tensors with sizes:
+tensor 0: shape is [32 10]
+The predicted classes are:
+4, 0, 2, 8, 9, 4, 5, 6, 3, 5, 2, 1, 4, 6, 8, 0, 5, 7, 3, 5, 8, 3, 4, 1, 9, 8, 7, 3, 0, 2, 3, 6,
 ```
 
 > 如果你没有Android设备，也可以执行`bash prepare_and_run.sh -D /PATH/MNIST_Data -t x86`直接在PC上运行本示例。
@@ -186,14 +214,18 @@ Eval Accuracy is 0.965244
   │   └── train_utils.py
   |
   ├── scripts
+  │   ├── batch_of32.dat
   │   ├── eval.sh
+  │   ├── infer.sh
   │   └── train.sh
   │
   ├── src
+  │   ├── inference.cc
   │   ├── net_runner.cc
   │   ├── net_runner.h
   │   └── utils.h
   │
+  ├── Makefile
   ├── README.md
   ├── README_CN.md
   └── prepare_and_run.sh
@@ -201,14 +233,14 @@ Eval Accuracy is 0.965244
 
 ### 定义并导出模型
 
-首先我们需要基于MindSpore框架创建一个LeNet模型，本例中直接用MindSpore model_zoo的现有[LeNet模型](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/lenet)。
+首先我们需要基于MindSpore框架创建一个LeNet模型，本例中直接用MindSpore ModelZoo的现有[LeNet模型](https://gitee.com/mindspore/models/tree/master/official/cv/lenet)。
 
 > 本小结使用MindSpore云侧功能导出，更多信息请参考[MindSpore教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/index.html)。
 
 ```python
 import numpy as np
 from mindspore import context, Tensor
-import mindspore.dtype as mstype
+from mindspore import dtype as mstype
 from mindspore import export
 from lenet import LeNet5
 from train_utils import TrainWrap
@@ -342,7 +374,7 @@ int NetRunner::Main() {
 
 2. 数据集处理
 
-    `InitDB`函数预处理`MNIST`数据集并加载至内存。MindData提供了数据预处理API，用户可参见[C++ API 说明文档](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/session.html) 获取更多详细信息。
+    `InitDB`函数预处理`MNIST`数据集并加载至内存。MindData提供了数据预处理API，用户可参见[C++ API 说明文档](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_dataset.html) 获取更多详细信息。
 
     ```cpp
     int NetRunner::InitDB() {
@@ -370,7 +402,7 @@ int NetRunner::Main() {
 
 3. 执行训练
 
-    首先创建训练回调类对象（例如`LRScheduler`、`LossMonitor`、`ClassificationTrainAccuracyMonitor`和`CkptSaver`）数组指针；然后调用`TrainLoop`类的`Train`函数，将模型设置为训练模式；最后在训练过程中遍历执行回调类对象对应的函数并输出训练日志。`CkptSaver`会根据设定训练步长数值为当前会话保存`CheckPoint`模型，`CheckPoint`模型包含已更新的权重，在应用崩溃或设备出现故障时可以直接加载`CheckPoint`模型，继续开始训练。
+    首先创建训练回调类对象（例如`LRScheduler`、`LossMonitor`、`TrainAccuracy`和`CkptSaver`）数组指针；然后调用`TrainLoop`类的`Train`函数，将模型设置为训练模式；最后在训练过程中遍历执行回调类对象对应的函数并输出训练日志。`CkptSaver`会根据设定训练步长数值为当前会话保存`CheckPoint`模型，`CheckPoint`模型包含已更新的权重，在应用崩溃或设备出现故障时可以直接加载`CheckPoint`模型，继续开始训练。
 
     ```cpp
     int NetRunner::TrainLoop() {
@@ -395,7 +427,7 @@ int NetRunner::Main() {
 
 4. 验证精度
 
-    训练结束后调用`CalculateAccuracy`评估模型精度。该函数调用`TrainSession`的`Eval`方法，将模型设置为推理模式。
+    训练结束后调用`CalculateAccuracy`评估模型精度。该函数调用`AccuracyMetrics`的`Eval`方法，将模型设置为推理模式。
 
     ```cpp
     float NetRunner::CalculateAccuracy(int max_tests) {

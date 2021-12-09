@@ -13,8 +13,8 @@
 # limitations under the License.
 # ============================================================================
 
-'''
-Bert finetune script.
+'''Bert finetune script
+This sample code is applicable to Ascend.
 '''
 import os
 import re
@@ -27,7 +27,7 @@ from mindspore import context, load_checkpoint, load_param_into_net
 from mindspore.nn import DynamicLossScaleUpdateCell
 from mindspore.nn import AdamWeightDecay
 from mindspore import Model
-from mindspore.train.callback import Callback
+from mindspore.train.callback import Callback, TimeMonitor
 from mindspore.train.callback import CheckpointConfig, ModelCheckpoint
 from mindspore import Tensor, Parameter, export
 from mindspore import dtype as mstype
@@ -53,9 +53,11 @@ class LossCallBack(Callback):
     def step_end(self, run_context):
         cb_params = run_context.original_args()
         with open("./loss.log", "a+") as f:
-            f.write("epoch: {}, step: {}, outputs are {}".format(cb_params.cur_epoch_num, cb_params.cur_step_num,
-                                                                 str(cb_params.net_outputs)))
+            f.write("epoch: {}, step: {}, loss: {}".format(cb_params.cur_epoch_num, cb_params.cur_step_num,
+                                                           cb_params.net_outputs[0]))
             f.write("\n")
+        print("epoch: {}, step: {}, loss: {}".format(cb_params.cur_epoch_num, cb_params.cur_step_num,
+                                                     cb_params.net_outputs[0]))
 
 
 def test_train():
@@ -64,11 +66,14 @@ def test_train():
     '''
     target = args_opt.device_target
     if target == "Ascend":
-        devid = int(os.getenv('DEVICE_ID'))
+        try:
+            devid = int(os.getenv('DEVICE_ID'))
+        except TypeError:
+            devid = 0
         context.set_context(mode=context.GRAPH_MODE, device_target="Ascend", device_id=devid)
 
     poetry, tokenizer, keep_words = create_tokenizer()
-    print(len(keep_words))
+    print("total vocab_size after filtering is ", len(keep_words))
 
     dataset = create_poetry_dataset(bert_net_cfg.batch_size, poetry, tokenizer)
 
@@ -89,6 +94,7 @@ def test_train():
     # load checkpoint into network
     ckpt_config = CheckpointConfig(save_checkpoint_steps=steps_per_epoch, keep_checkpoint_max=1)
     ckpoint_cb = ModelCheckpoint(prefix=cfg.ckpt_prefix, directory=cfg.ckpt_dir, config=ckpt_config)
+    time_cb = TimeMonitor(dataset.get_dataset_size())
 
     param_dict = load_checkpoint(cfg.pre_training_ckpt)
     new_dict = {}
@@ -112,13 +118,16 @@ def test_train():
     netwithgrads = BertPoetryCell(netwithloss, optimizer=optimizer, scale_update_cell=update_cell)
 
     model = Model(netwithgrads)
-    model.train(cfg.epoch_num, dataset, callbacks=[callback, ckpoint_cb], dataset_sink_mode=True)
+    model.train(cfg.epoch_num, dataset, callbacks=[callback, ckpoint_cb, time_cb], dataset_sink_mode=True)
 
 def test_eval(model_ckpt_path):
     '''eval model'''
     target = args_opt.device_target
     if target == "Ascend":
-        devid = int(os.getenv('DEVICE_ID'))
+        try:
+            devid = int(os.getenv('DEVICE_ID'))
+        except TypeError:
+            devid = 0
         context.set_context(mode=context.GRAPH_MODE, device_target="Ascend", device_id=devid)
     bert_net_cfg.batch_size = 1
     poetrymodel = BertPoetryModel(bert_net_cfg, False, 3191, dropout_prob=0.0)

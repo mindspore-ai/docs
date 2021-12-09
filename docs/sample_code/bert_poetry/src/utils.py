@@ -27,8 +27,6 @@ from mindspore.nn import DistributedGradReducer
 from mindspore.context import ParallelMode
 from mindspore.communication import get_group_size
 from mindspore import context
-from mindspore.nn import LearningRateSchedule
-from mindspore.nn import PolynomialDecayLR, WarmUpLR
 from .bert_model import BertModel
 from .bert_for_pre_training import clip_grad
 
@@ -219,19 +217,18 @@ class BertPoetry(nn.Cell):
 
 
 
-class BertLearningRate(LearningRateSchedule):
+class BertLearningRate(nn.WarmUpLR):
     """
     Warmup-decay learning rate for Bert network.
     """
     def __init__(self, learning_rate, end_learning_rate, warmup_steps, decay_steps, power):
-        super(BertLearningRate, self).__init__()
+        super(BertLearningRate, self).__init__(learning_rate, warmup_steps)
         self.warmup_flag = False
         if warmup_steps > 0:
             self.warmup_flag = True
-            self.warmup_lr = WarmUpLR(learning_rate, warmup_steps)
-        self.decay_lr = PolynomialDecayLR(learning_rate, end_learning_rate, decay_steps, power)
+            self.warmup_lr = nn.WarmUpLR(learning_rate, warmup_steps)
+        self.decay_lr = nn.PolynomialDecayLR(learning_rate, end_learning_rate, decay_steps, power)
         self.warmup_steps = Tensor(np.array([warmup_steps]).astype(np.float32))
-
         self.greater = ops.Greater()
         self.one = Tensor(np.array([1.0]).astype(np.float32))
         self.cast = ops.Cast()

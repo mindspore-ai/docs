@@ -1,6 +1,6 @@
 # Enabling Graph Kernel Fusion
 
-`Linux` `Ascend` `GPU` `Model Optimization` `Intermediate` `Expert`
+`Ascend` `GPU` `CPU` `Model Optimization`
 
 <!-- TOC -->
 
@@ -13,11 +13,13 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/enable_graph_kernel_fusion.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/enable_graph_kernel_fusion.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Introduction
 
-The graph kernel fusion is used to optimize network performance by cooperating with JIT operator compilation. With analyzing and evaluating the compute graph, it will apply optimization such as computing workload reduction, operator splitting, fusion and special operator compiling, to reduce network execution time. Also, the whole optimization process is completed automatically only if the graph kernel setting is enabled. This will help the user focus on the network development.
+The graph kernel fusion is used to optimize network performance by cooperating with MindAKG which is a operator compiler based on polyhedral technology. With analyzing and evaluating the compute graph, it will apply optimization such as computing workload reduction, operator splitting, fusion and special operator compiling, to reduce network execution time. Also, the whole optimization process is completed automatically only if the graph kernel setting is enabled. This will help the user focus on the network development.
+
+> MindAKG is installed with MindSpore by default. For CPU backend and installed from source, ensure that [llvm 12.0.1](https://github.com/llvm/llvm-project/archive/refs/tags/llvmorg-12.0.1.tar.gz) is installed.
 
 The graph kernel fusion is available for:
 
@@ -33,7 +35,8 @@ from mindspore import context
 context.set_context(enable_graph_kernel=True)
 ```
 
-> Only Graph Mode is supported by graph kernel.
+> - Only Graph Mode is supported by graph kernel.
+> - On the CPU platform, graph kernel fusion uses the [OpenMP](https://www.openmp.org/) parallel computing technology for operator acceleration. To get a better operator execution performance, it is suggested to use the environment variable: `OMP_NUM_THREADS` to set OpenMP parallel threads. The recommended value for `OMP_NUM_THREADS` is a positive integer, which should be no more than the number of CPU kernels, such as: `export OMP_NUM_THREADS=10`
 
 ### Sample Scripts
 

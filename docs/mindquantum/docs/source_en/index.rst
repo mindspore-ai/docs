@@ -1,4 +1,4 @@
-Mindquantum Documents
+MindQuantum Documents
 ======================
 
 .. toctree::
@@ -16,3 +16,5 @@ Mindquantum Documents
 
    parameterized_quantum_circuit
    qnn_for_nlp
+   vqe_for_quantum_chemistry
+   quantum_approximate_optimization_algorithm

@@ -8,8 +8,6 @@ MindInsight文档
 
    mindinsight_install
 
-
-
 .. toctree::
    :glob:
    :maxdepth: 1
@@ -23,7 +21,21 @@ MindInsight文档
    performance_profiling
    debugger
    model_explanation
+   landscape
    mindinsight_commands
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 精度调优指南
+
+   accuracy_problem_preliminary_location
+   accuracy_optimization
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 性能调优指南
+
+   performance_tuning_guide
 
 .. toctree::
    :glob:

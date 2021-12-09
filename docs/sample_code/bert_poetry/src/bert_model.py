@@ -125,7 +125,7 @@ class EmbeddingLookup(nn.Cell):
                                          name='embedding_table')
         self.expand = ops.ExpandDims()
         self.shape_flat = (-1,)
-        self.gather = ops.GatherV2()
+        self.gather = ops.Gather()
         self.one_hot = ops.OneHot()
         self.on_value = Tensor(1.0, mstype.float32)
         self.off_value = Tensor(0.0, mstype.float32)
@@ -193,7 +193,7 @@ class EmbeddingPostprocessor(nn.Cell):
         self.shape = tuple(embedding_shape)
         self.layernorm = nn.LayerNorm((embedding_size,))
         self.dropout = nn.Dropout(1 - dropout_prob)
-        self.gather = ops.GatherV2()
+        self.gather = ops.Gather()
         self.use_relative_positions = use_relative_positions
         self.slice = ops.StridedSlice()
         self.full_position_embeddings = Parameter(initializer
@@ -249,7 +249,7 @@ class BertOutput(nn.Cell):
                               weight_init=TruncatedNormal(initializer_range)).to_float(compute_type)
         self.dropout = nn.Dropout(1 - dropout_prob)
         self.dropout_prob = dropout_prob
-        self.add = ops.TensorAdd()
+        self.add = ops.Add()
         if compute_type == mstype.float16:
             self.layernorm = FusedLayerNorm((out_channels,),
                                             use_batch_norm=enable_fused_layernorm).to_float(compute_type)
@@ -340,7 +340,7 @@ class RelaPosEmbeddingsGenerator(nn.Cell):
         self.on_value = Tensor(1.0, mstype.float32)
         self.off_value = Tensor(0.0, mstype.float32)
         self.shape = ops.Shape()
-        self.gather = ops.GatherV2()  # index_select
+        self.gather = ops.Gather()  # index_select
         self.matmul = ops.BatchMatMul()
 
     def construct(self):
@@ -483,7 +483,7 @@ class BertAttention(nn.Cell):
         if self.has_attention_mask:
             self.expand_dims = ops.ExpandDims()
             self.sub = ops.Sub()
-            self.add = ops.TensorAdd()
+            self.add = ops.Add()
             self.cast = ops.Cast()
             self.get_dtype = ops.DType()
         if do_return_2d_tensor:
@@ -829,13 +829,13 @@ class CreateAttentionMaskFromInputMask(nn.Cell):
 
         if not self.input_mask_from_dataset:
             self.input_mask = initializer(
-                "ones", [config.batch_size, config.seq_length], mstype.int32).to_tensor()
+                "ones", [config.batch_size, config.seq_length], mstype.int32).init_data()
 
         self.cast = ops.Cast()
         self.reshape = ops.Reshape()
         self.shape = (config.batch_size, 1, config.seq_length)
         self.broadcast_ones = initializer(
-            "ones", [config.batch_size, config.seq_length, 1], mstype.float32).to_tensor()
+            "ones", [config.batch_size, config.seq_length, 1], mstype.float32).init_data()
         self.batch_matmul = ops.BatchMatMul()
 
     def construct(self, input_mask):
@@ -883,7 +883,7 @@ class BertModel(nn.Cell):
 
         if not self.token_type_ids_from_dataset:
             self.token_type_ids = initializer(
-                "zeros", [self.batch_size, self.seq_length], mstype.int32).to_tensor()
+                "zeros", [self.batch_size, self.seq_length], mstype.int32).init_data()
 
         self.bert_embedding_lookup = EmbeddingLookup(
             vocab_size=config.vocab_size,

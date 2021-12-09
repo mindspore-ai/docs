@@ -1,86 +1,26 @@
 # Ascend 910 AI处理器上推理
 
-`Linux` `Ascend` `推理应用` `初级` `中级` `高级`
+`Ascend` `推理应用`
 
 <!-- TOC -->
 
 - [Ascend 910 AI处理器上推理](#ascend-910-ai处理器上推理)
-    - [使用checkpoint格式文件单卡推理](#使用checkpoint格式文件单卡推理)
-    - [使用C++接口推理MindIR格式文件](#使用c接口推理mindir格式文件)
-        - [推理目录结构介绍](#推理目录结构介绍)
-        - [推理代码介绍](#推理代码介绍)
-        - [构建脚本介绍](#构建脚本介绍)
-        - [编译推理代码](#编译推理代码)
-        - [执行推理并查看结果](#执行推理并查看结果)
+    - [概述](#概述)
+    - [推理目录结构介绍](#推理目录结构介绍)
+    - [推理代码介绍](#推理代码介绍)
+    - [构建脚本介绍](#构建脚本介绍)
+    - [编译推理代码](#编译推理代码)
+    - [执行推理并查看结果](#执行推理并查看结果)
 
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/multi_platform_inference_ascend_910.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-## 使用checkpoint格式文件单卡推理
-
-1. 使用`model.eval`接口来进行模型验证。
-
-   1.1 模型已保存在本地
-
-   首先构建模型，然后使用`mindspore`模块的`load_checkpoint`和`load_param_into_net`从本地加载模型与参数，传入验证数据集后即可进行模型推理，验证数据集的处理方式与训练数据集相同。
-
-    ```python
-    network = LeNet5(cfg.num_classes)
-    net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
-    net_opt = nn.Momentum(network.trainable_params(), cfg.lr, cfg.momentum)
-    model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
-
-    print("============== Starting Testing ==============")
-    param_dict = load_checkpoint(args.ckpt_path)
-    load_param_into_net(network, param_dict)
-    dataset = create_dataset(os.path.join(args.data_path, "test"),
-                             cfg.batch_size,
-                             1)
-    acc = model.eval(dataset, dataset_sink_mode=args.dataset_sink_mode)
-    print("============== {} ==============".format(acc))
-    ```
-
-    其中，  
-    `model.eval`为模型验证接口，对应接口说明：<https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.html#mindspore.Model.eval>。
-    > 推理样例代码：<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/eval.py>。
-
-   1.2 使用MindSpore Hub从华为云加载模型
-
-   首先构建模型，然后使用`mindspore_hub.load`从云端加载模型参数，传入验证数据集后即可进行推理，验证数据集的处理方式与训练数据集相同。
-
-    ```python
-    model_uid = "mindspore/ascend/0.7/googlenet_v1_cifar10"  # using GoogleNet as an example.
-    network = mindspore_hub.load(model_uid, num_classes=10)
-    net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
-    net_opt = nn.Momentum(network.trainable_params(), cfg.lr, cfg.momentum)
-    model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
-
-    print("============== Starting Testing ==============")
-    dataset = create_dataset(os.path.join(args.data_path, "test"),
-                             cfg.batch_size,
-                             1)
-    acc = model.eval(dataset, dataset_sink_mode=args.dataset_sink_mode)
-    print("============== {} ==============".format(acc))
-    ```
-
-    其中，  
-    `mindspore_hub.load`为加载模型参数接口，对应接口说明：<https://www.mindspore.cn/hub/api/zh-CN/master/index.html#module-mindspore_hub>。
-
-2. 使用`model.predict`接口来进行推理操作。
-
-   ```python
-   model.predict(input_data)
-   ```
-
-   其中，  
-   `model.predict`为推理接口，对应接口说明：<https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.html#mindspore.Model.predict>。
-
-## 使用C++接口推理MindIR格式文件
+## 概述
 
 用户可以创建C++应用程序，调用MindSpore的C++接口推理MindIR模型。
 
-### 推理目录结构介绍
+## 推理目录结构介绍
 
 创建目录放置推理代码工程，例如`/home/HwHiAiUser/mindspore_sample/ascend910_resnet50_preprocess_sample`，可以从官网示例下载[样例代码](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/ascend910_resnet50_preprocess_sample)，`model`目录用于存放`MindIR`[模型文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet.mindir)，`test_data`目录用于存放待分类的图片，推理代码工程目录结构如下:
 
@@ -97,7 +37,7 @@
         ├── ...                           // 输入样本图片n
 ```
 
-### 推理代码介绍
+## 推理代码介绍
 
 推理代码样例：<https://gitee.com/mindspore/docs/blob/master/docs/sample_code/ascend910_resnet50_preprocess_sample/main.cc> 。
 
@@ -186,7 +126,7 @@ ret = resnet50.Predict(inputs, &outputs);
 std::cout << "Image: " << image_file << " infer result: " << GetMax(outputs[0]) << std::endl;
 ```
 
-### 构建脚本介绍
+## 构建脚本介绍
 
 构建脚本用于构建用户程序，样例来自于：<https://gitee.com/mindspore/docs/blob/master/docs/sample_code/ascend910_resnet50_preprocess_sample/CMakeLists.txt> 。
 
@@ -212,12 +152,12 @@ add_executable(resnet50_sample main.cc)
 target_link_libraries(resnet50_sample ${MS_LIB} ${MD_LIB})
 ```
 
-### 编译推理代码
+## 编译推理代码
 
 进入工程目录`ascend910_resnet50_preprocess_sample`，设置如下环境变量：
 
 ```bash
-# control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, default level is WARNING.
+# control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
 export GLOG_v=2
 
 # Conda environmental options
@@ -250,7 +190,7 @@ make
 
 编译完成后，在`ascend910_resnet50_preprocess_sample`下会生成可执行`main`文件。
 
-### 执行推理并查看结果
+## 执行推理并查看结果
 
 登录Ascend 910环境，创建`model`目录放置MindIR文件`resnet50_imagenet.mindir`，例如`/home/HwHiAiUser/mindspore_sample/ascend910_resnet50_preprocess_sample/model`。
 创建`test_data`目录放置图片，例如`/home/HwHiAiUser/mindspore_sample/ascend910_resnet50_preprocess_sample/test_data`。

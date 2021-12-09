@@ -1,5 +1,7 @@
 # 分布式并行接口说明
 
+`Ascend` `GPU` `分布式并行`
+
 <!-- TOC -->
 
 - [分布式并行接口说明](#分布式并行接口说明)
@@ -13,9 +15,10 @@
             - [all_reduce_fusion_config](#all_reduce_fusion_config)
             - [enable_parallel_optimizer](#enable_parallel_optimizer)
             - [parameter_broadcast](#parameter_broadcast)
+            - [comm_fusion](#comm_fusion)
         - [自动并行配置](#自动并行配置)
             - [gradient_fp32_sync](#gradient_fp32_sync)
-            - [auto_parallel_search_mode](#auto_parallel_search_mode)
+            - [search_mode](#search_mode)
             - [strategy_ckpt_load_file](#strategy_ckpt_load_file)
             - [strategy_ckpt_save_file](#strategy_ckpt_save_file)
             - [full_batch](#full_batch)
@@ -45,7 +48,7 @@ MindSpore提供了分布式并行训练的功能，它支持了包括数据并�
 MindSpore的分布式并行配置通过`auto_parallel_context`来进行集中管理，用户可根据自身需求和实际情况来进行个性化的配置。这些配置可分为三大类：
 
 - 通用配置：对数据并行、自动并行以及混合并行均起作用的配置，如：`device_num`、`global_rank`等。
-- 自动并行配置：仅在自动并行模式下起作用的配置，如：`auto_parallel_search_mode`、`gradient_fp32_sync`等。
+- 自动并行配置：仅在自动并行模式下起作用的配置，如：`search_mode`、`gradient_fp32_sync`等。
 
 用户可利用`context.set_auto_parallel_context`配置上述参数，同时可通过`context.get_auto_parallel_context`来获取上述参数。
 
@@ -185,6 +188,29 @@ context.set_auto_parallel_context(parameter_broadcast=True)
 context.get_auto_parallel_context("parameter_broadcast")
 ```
 
+#### comm_fusion
+
+`comm_fusion`通过设置通信算子的融合配置，实现不同通信算子的融合功能，当前仅支持`allreduce`通信算子的配置。对于`allreduce`通信算子的配置，共支持三种不同的`mode`：
+
+- `auto`：自动进行`allreduce`通信算子融合，按照梯度数据量阈值64MB进行算子融合，配置参数`config`为`None`。
+- `size`：按照手动设置梯度量阈值的方式进行`allreduce`通信算子融合，配置参数`config`类型为`int`，单位`MB`。
+- `index`：按照通信算子序列号进行融合的方式，与`all_reduce_fusion_config`功能相同，配置参数`config`类型为`list(int)`。
+
+代码样例如下：
+
+```python
+from mindspore import context
+
+# auto
+context.set_auto_parallel_context(comm_fusion={"allreduce": {"mode": "auto", "config": None}})
+
+# size
+context.set_auto_parallel_context(comm_fusion={"allreduce": {"mode": "size", "config": 32}})
+
+# index
+context.set_auto_parallel_context(comm_fusion={"allreduce": {"mode": "index", "config": [20, 35]}})
+```
+
 ### 自动并行配置
 
 #### gradient_fp32_sync
@@ -200,17 +226,19 @@ context.set_auto_parallel_context(gradient_fp32_sync=False)
 context.get_auto_parallel_context("gradient_fp32_sync")
 ```
 
-#### auto_parallel_search_mode
+#### search_mode
 
-MindSpore提供了`dynamic_programming`和`recursive_programming`两种搜索策略的算法，默认是`dynamic_programming`。`dynamic_programming`能够搜索出代价模型刻画的最优策略，但在搜索巨大网络模型的并行策略时耗时较长；而`recursive_programming`能瞬间搜索出并行策略，同时在已验证的常用网络中搜索出来的策略是最优策略，但在未经验证的某些特殊网络中可能找到次优策略。为此，MindSpore提供了参数，让用户自由选择搜索算法。
+`auto_parallel_search_mode`字段现已替换为`search_mode`，`auto_parallel_search_mode`将会在未来版本中删除。该字段用于指示并行策略搜索使用的算法。当前，MindSpore提供了`dynamic_programming`，`recursive_programming`和`sharding_propagation`三种搜索策略的算法用于搜索算子级并行策略，默认是`dynamic_programming`。
+
+`dynamic_programming`能够搜索出代价模型刻画的最优策略，但在搜索巨大网络模型的并行策略时耗时较长；而`recursive_programming`能瞬间搜索出并行策略，同时在已验证的常用网络中搜索出来的策略是最优策略，但在未经验证的某些特殊网络中可能找到次优策略。`sharding_propagation`要求用户配置一些算子的并行策略，并以此为基础向整个网络传播。在传播时，算法会尽量选取引发张量[重排布](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/design/distributed_training_design.html#id10)通信最少的策略。MindSpore提供了参数，让用户自由选择搜索算法。
 
 代码样例如下：
 
 ```python
 from mindspore import context
 
-context.set_auto_parallel_context(auto_parallel_search_mode="recursive_programming")
-context.get_auto_parallel_context("auto_parallel_search_mode")
+context.set_auto_parallel_context(search_mode="recursive_programming")
+context.get_auto_parallel_context("search_mode")
 ```
 
 #### strategy_ckpt_load_file
@@ -259,8 +287,8 @@ context.get_auto_parallel_context("full_batch")
 
 ```python
 from mindspore import context
-context.set_auto_parallel_context(pipeline_stage=4)
-context.get_auto_parallel_context("pipeline_stage")
+context.set_auto_parallel_context(pipeline_stages=4)
+context.get_auto_parallel_context("pipeline_stages")
 ```
 
 #### grad_accumulation_step

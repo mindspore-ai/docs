@@ -1,6 +1,6 @@
 # MSTensor
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/api/source_en/api_java/mstensor.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/api/source_en/api_java/mstensor.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ```java
 import com.mindspore.lite.MSTensor;
@@ -23,6 +23,8 @@ MSTensor defined tensor in MindSpore Lite.
 | [long size()](#size)                       |
 | [int elementsNum()](#elementsnum)         |
 | [void free()](#free)                       |
+| [String tensorName()](#tensorname)         |
+| [DataType](#datatype)                      |
 
 ## getShape
 
@@ -149,3 +151,43 @@ public void free()
 ```
 
 Free all temporary memory in MindSpore Lite MSTensor.
+
+## tensorName
+
+```java
+public String tensorName()
+```
+
+Get tensor name.
+
+- Returns
+
+  Tensor name.
+
+## DataType
+
+```java
+import com.mindspore.lite.DataType;
+```
+
+Define tensor data type.
+
+### Public member variable
+
+```java
+public static final int kNumberTypeBool = 30;
+public static final int kNumberTypeInt = 31;
+public static final int kNumberTypeInt8 = 32;
+public static final int kNumberTypeInt16 = 33;
+public static final int kNumberTypeInt32 = 34;
+public static final int kNumberTypeInt64 = 35;
+public static final int kNumberTypeUInt = 36;
+public static final int kNumberTypeUInt8 = 37;
+public static final int kNumberTypeUInt16 = 38;
+public static final int kNumberTypeUint32 = 39;
+public static final int kNumberTypeUInt64 = 40;
+public static final int kNumberTypeFloat = 41;
+public static final int kNumberTypeFloat16 = 42;
+public static final int kNumberTypeFloat32 = 43;
+public static final int kNumberTypeFloat64 = 44;
+```

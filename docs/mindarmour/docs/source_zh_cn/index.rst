@@ -39,6 +39,7 @@ MindArmour 文档
    :maxdepth: 1
    :caption: 参考文档
 
+   design
    differential_privacy_design
    fuzzer_design
    security_and_privacy

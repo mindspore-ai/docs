@@ -1,7 +1,5 @@
 # Static Graph Syntax Support
 
-`Linux` `Ascend` `GPU` `CPU` `Model Development` `Beginner` `Intermediate` `Expert`
-
 <!-- TOC -->
 
 - [Static Graph Syntax Support](#static-graph-syntax-support)
@@ -17,28 +15,29 @@
             - [Tensor](#tensor)
             - [Primitive](#primitive)
             - [Cell](#cell)
+            - [Parameter](#parameter)
+    - [Primaries](#primaries)
+        - [Attribute References](#attribute-references)
+        - [Index Value](#index-value)
+        - [Calls](#calls)
     - [Operators](#operators)
-        - [Arithmetic Operators](#arithmetic-operators)
+        - [Unary Arithmetic Operators](#unary-arithmetic-operators)
+        - [Binary Arithmetic Operators](#binary-arithmetic-operators)
         - [Assignment Operators](#assignment-operators)
         - [Logical Operators](#logical-operators)
-        - [Member Operators](#member-operators)
-        - [Identity Operators](#identity-operators)
-    - [Expressions](#expressions)
+        - [Compare Operators](#compare-operators)
+    - [Compound Statements](#compound-statements)
         - [Conditional Control Statements](#conditional-control-statements)
-            - [single if](#single-if)
-            - [side-by-side if](#side-by-side-if)
-            - [if in if](#if-in-if)
+            - [if Statements](#if-statements)
         - [Loop Statements](#loop-statements)
-            - [for](#for)
-            - [while](#while)
-            - [side-by-side while](#side-by-side-while)
-            - [while in while](#while-in-while)
-        - [Conditional Control Statements in Loop Statements](#conditional-control-statements-in-loop-statements)
-            - [if in for](#if-in-for)
-            - [if in while](#if-in-while)
+            - [for Statements](#for-statements)
+            - [while Statements](#while-statements)
         - [Function Definition Statements](#function-definition-statements)
             - [def Keyword](#def-keyword)
             - [lambda Expression](#lambda-expression)
+        - [List Comprehension and Generator Expression](#list-comprehension-and-generator-expression)
+            - [List Comprehension](#list-comprehension)
+            - [Generator Expression](#generator-expression)
     - [Functions](#functions)
         - [Python Built-in Functions](#python-built-in-functions)
             - [len](#len)
@@ -51,15 +50,17 @@
             - [super](#super)
             - [pow](#pow)
             - [print](#print)
+            - [filter](#filter)
         - [Function Parameters](#function-parameters)
     - [Network Definition](#network-definition)
+        - [Network Input parameters](#network-input-parameters)
         - [Instance Types on the Entire Network](#instance-types-on-the-entire-network)
         - [Network Construction Components](#network-construction-components)
         - [Network Constraints](#network-constraints)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/note/source_en/static_graph_syntax_support.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/note/source_en/static_graph_syntax_support.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -68,7 +69,7 @@ In graph mode, Python code is not executed by the Python interpreter. Instead, t
 Currently, only the function, Cell, and subclass instances modified by the `@ms_function` decorator can be built.
 For a function, build the function definition. For the network, build the `construct` method and other methods or functions called by the `construct` method.
 
-For details about how to use `ms_function`, click <https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.html#mindspore.ms_function>.
+For details about how to use `ms_function`, click <https://www.mindspore.cn/docs/api/en/master/api_python/mindspore/mindspore.ms_function.html#mindspore.ms_function>.
 
 For details about the definition of `Cell`, click <https://www.mindspore.cn/docs/programming_guide/en/master/cell.html>.
 
@@ -78,7 +79,6 @@ The following describes the data types, syntax, and related operations supported
 
 > All the following examples run on the network in graph mode. For brevity, the network definition is not described.
 >
-> The `Tensor` cannot be directly constructed in static graphs. It can be transferred to the network through parameters or constructed in the `__init__` method as a network attribute and then used in the `construct` method of the network.
 
 ## Data Types
 
@@ -115,8 +115,16 @@ Forcible conversion to `List` is not supported on the network. That is, the synt
   For example:
 
   ```python
-  x = [1, 2, 3]
-  x.append(4)
+  from mindspore import ms_function
+
+  @ms_function()
+  def test_list():
+      x = [1, 2, 3]
+      x.append(4)
+      return x
+
+  x = test_list()
+  print('x:{}'.format(x))
   ```
 
   The result is as follows:
@@ -136,22 +144,34 @@ Forcible conversion to `List` is not supported on the network. That is, the synt
   For example:
 
   ```python
-  x = [[1, 2], 2, 3, 4]
+  from mindspore import ms_function, Tensor
+  import numpy as np
 
-  m = x[0][1]
-  x[1] = Tensor(np.array([1, 2, 3]))
-  x[2] = "ok"
-  x[3] = (1, 2, 3)
-  x[0][1] = 88
-  n = x[-3]
+  t = Tensor(np.array([1, 2, 3]))
+
+  @ms_function()
+  def test_index():
+      x = [[1, 2], 2, 3, 4]
+      m = x[0][1]
+      x[1] = t
+      x[2] = "ok"
+      x[3] = (1, 2, 3)
+      x[0][1] = 88
+      n = x[-3]
+      return m, x, n
+
+  m, x, n = test_index()
+  print('m:{}'.format(m))
+  print('x:{}'.format(x))
+  print('n:{}'.format(n))
   ```
 
   The result is as follows:
 
   ```text
-  m: 2
-  x: ([1, 88], Tensor(shape=[3], dtype=Int64, value=[1, 2, 3]), 'ok', (1, 2, 3))
-  n: Tensor(shape=[3], dtype=Int64, value=[1, 2, 3])
+  m:2
+  x:[[1, 88], Tensor(shape=[3], dtype=Int64, value= [1, 2, 3]), 'ok', (1, 2, 3)]
+  n:[1 2 3]
   ```
 
 #### Tuple
@@ -177,25 +197,41 @@ Forcible conversion to `Tuple` is not supported on the network. That is, the syn
   An example of the `int` and `slice` indexes is as follows:
 
   ```python
-  x = (1, (2, 3, 4), 3, 4, Tensor(np.array([1, 2, 3])))
-  y = x[1][1]
-  z = x[4]
-  m = x[1:4]
-  n = x[-4]
+  from mindspore import ms_function, Tensor
+  import numpy as np
+
+  t = Tensor(np.array([1, 2, 3]))
+
+  @ms_function()
+  def test_index():
+      x = (1, (2, 3, 4), 3, 4, t)
+      y = x[1][1]
+      z = x[4]
+      m = x[1:4]
+      n = x[-4]
+      return y, z, m, n
+
+  y, z, m, n = test_index()
+  print('y:{}'.format(y))
+  print('z:{}'.format(z))
+  print('m:{}'.format(m))
+  print('n:{}'.format(n))
   ```
 
   The result is as follows:
 
   ```text
-  y: 3
-  z: Tensor(shape=[3], dtype=Int64, value=[1, 2, 3])
-  m: ((2, 3, 4), 3, 4)
-  n: (2, 3, 4)
+  y:3
+  z:[1 2 3]
+  m:((2, 3, 4), 3, 4)
+  n:(2, 3, 4)
   ```
 
   An example of the `Tensor` index is as follows:
 
   ```python
+  from mindspore import Tensor, nn, dtype
+
   class Net(nn.Cell):
       def __init__(self):
           super(Net, self).__init__()
@@ -206,6 +242,18 @@ Forcible conversion to `Tuple` is not supported on the network. That is, the syn
       def construct(self, x, index):
           ret = self.layers[index](x)
           return ret
+
+  x = Tensor([-1.0], dtype.float32)
+
+  net = Net()
+  ret = net(x, 0)
+  print('ret:{}'.format(ret))
+  ```
+
+  The result is as follows:
+
+  ```text
+  ret:[0.]
   ```
 
 #### Dictionary
@@ -220,19 +268,34 @@ Forcible conversion to `Tuple` is not supported on the network. That is, the syn
 
   `values`: extracts all `value` values from `dict` to form `Tuple` and return it.
 
+  `items`: extracts `Tuple` composed of each pair of `value` values and `key` values in `dict` to form `Tuple` and return.
+
   For example:
 
   ```python
+  from mindspore import ms_function, Tensor
+  import numpy as np
+
   x = {"a": Tensor(np.array([1, 2, 3])), "b": Tensor(np.array([4, 5, 6])), "c": Tensor(np.array([7, 8, 9]))}
-  y = x.keys()
-  z = x.values()
+
+  @ms_function()
+  def test_dict():
+      y = x.keys()
+      z = x.values()
+      q = x.items()
+      return y, z, q
+
+  y, z, q = test_dict()
+  print('y:{}'.format(y))
+  print('z:{}'.format(z))
   ```
 
   The result is as follows:
 
   ```text
-  y: ("a", "b", "c")
-  z: (Tensor(shape=[3], dtype=Int64, value=[1, 2, 3]), Tensor(shape=[3], dtype=Int64, value=[4, 5, 6]), Tensor(shape=[3], dtype=Int64, value=[7, 8, 9]))
+  y:('a', 'b', 'c')
+  z:(Tensor(shape=[3], dtype=Int64, value= [1, 2, 3]), Tensor(shape=[3], dtype=Int64, value= [4, 5, 6]), Tensor(shape=[3], dtype=Int64, value= [7, 8, 9]))
+  q:[('a', Tensor(shape=[3], dtype=Int64, value= [1, 2, 3])), ('b', Tensor(shape=[3], dtype=Int64, value= [4, 5, 6])), ('c', Tensor(shape=[3], dtype=Int64, value= [7, 8, 9]))]
   ```
 
 - Supported index values and value assignment
@@ -242,16 +305,27 @@ Forcible conversion to `Tuple` is not supported on the network. That is, the syn
   For example:
 
   ```python
+  from mindspore import ms_function, Tensor
+  import numpy as np
+
   x = {"a": Tensor(np.array([1, 2, 3])), "b": Tensor(np.array([4, 5, 6])), "c": Tensor(np.array([7, 8, 9]))}
-  y = x["b"]
-  x["a"] = (2, 3, 4)
+
+  @ms_function()
+  def test_dict():
+      y = x["b"]
+      x["a"] = (2, 3, 4)
+      return x, y
+
+  x, y = test_dict()
+  print('x:{}'.format(x))
+  print('y:{}'.format(y))
   ```
 
   The result is as follows:
 
   ```text
-  y: Tensor(shape=[3], dtype=Int64, value=[4, 5, 6])
-  x: {"a": (2, 3, 4), Tensor(shape=[3], dtype=Int64, value=[4, 5, 6]), Tensor(shape=[3], dtype=Int64, value=[7, 8, 9])}
+  x:{'a': (2, 3, 4), 'b': Tensor(shape=[3], dtype=Int64, value= [4, 5, 6]), 'c': Tensor(shape=[3], dtype=Int64, value= [7, 8, 9])}
+  y:[4 5 6]
   ```
 
 ### MindSpore User-defined Data Types
@@ -271,9 +345,23 @@ The constant `Tensor` used on the network can be used as a network attribute and
 In the following example, `Tensor` of `shape = (3, 4), dtype = int64` is generated by `@constexpr`.
 
 ```python
+from mindspore import Tensor
+from mindspore.ops import constexpr
+
 @constexpr
 def generate_tensor():
     return Tensor(np.ones((3, 4)))
+
+x = generate_tensor()
+print('x:{}'.format(x))
+```
+
+The result is as follows:
+
+```text
+x:[[1. 1. 1. 1.]
+ [1. 1. 1. 1.]
+ [1. 1. 1. 1.]]
 ```
 
 The following describes the attributes, APIs supported by the `Tensor`.
@@ -297,28 +385,41 @@ The following describes the attributes, APIs supported by the `Tensor`.
   For example:
 
   ```python
+  from mindspore import ms_function, Tensor
+  import numpy as np
+
   x = Tensor(np.array([[True, False, True], [False, True, False]]))
+  y = Tensor(np.ones((2, 3), np.float32))
+  z = Tensor(np.ones((2, 2, 3)))
+
   x_shape = x.shape
   x_dtype = x.dtype
   x_all = x.all()
   x_any = x.any()
   x_view = x.view((1, 6))
-
-  y = Tensor(np.ones((2, 3), np.float32))
-  z = Tensor(np.ones((2, 2, 3)))
   y_as_z = y.expand_as(z)
+
+  print('x_shape:{}'.format(x_shape))
+  print('x_dtype:{}'.format(x_dtype))
+  print('x_all:{}'.format(x_all))
+  print('x_any:{}'.format(x_any))
+  print('x_view:{}'.format(x_view))
+  print('y_as_z:{}'.format(y_as_z))
   ```
 
   The result is as follows:
 
   ```text
-  x_shape: (2, 3)
-  x_dtype: Bool
-  x_all: Tensor(shape=[], dtype=Bool, value=False)
-  x_any: Tensor(shape=[], dtype=Bool, value=True)
-  x_view: Tensor(shape=[1, 6], dtype=Bool, value=[[True, False, True, False, True, False]])
+  x_shape:(2, 3)
+  x_dtype:Bool
+  x_all:False
+  x_any:True
+  x_view:[[ True False  True False  True False]]
+  y_as_z:[[[1. 1. 1.]
+    [1. 1. 1.]]
 
-  y_as_z: Tensor(shape=[2, 2, 3], dtype=Float32, value=[[[1.0, 1.0, 1.0], [1.0, 1.0, 1.0]], [[1.0, 1.0, 1.0], [1.0, 1.0, 1.0]]])
+  [[1. 1. 1.]
+    [1. 1. 1.]]]
   ```
 
 #### Primitive
@@ -329,7 +430,7 @@ However, during construction, the parameter can be specified only in position pa
 
 Currently, the attributes and APIs related to `Primitive` and its subclasses cannot be called on the network.
 
-For details about the definition of `Primitive`, click <https://www.mindspore.cn/docs/programming_guide/en/master/operators.html>.
+For details about the definition of `Primitive`, click <https://www.mindspore.cn/docs/programming_guide/en/master/operators_classification.html>.
 
 For details about the defined `Primitive`, click <https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.ops.html>.
 
@@ -345,6 +446,100 @@ For details about the definition of `Cell`, click <https://www.mindspore.cn/docs
 
 For details about the defined `Cell`, click <https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.nn.html>.
 
+#### Parameter
+
+`Parameter` is a variable tensor, indicating the parameters that need to be updated during network training.
+
+For details about the definition of `Parameter`：<https://www.mindspore.cn/docs/programming_guide/en/master/parameter.html>
+
+## Primaries
+
+Primaries represent the most tightly bound operations of the language Which contains `Attribute references`, `Subscriptions`, `Calls`.
+
+### Attribute References
+
+An attribute reference is a primary followed by a period and a name.
+
+In `Cell` instance of MindSpore, using attribute reference as left operands must meet the restrictions below:
+
+- The attribute must belong to self, such as self.xxx. It is not supported to change attribute of other instance.
+
+- The attribute type must be `Parameter` and be initialized in `__init__` function.
+
+For example:
+
+```python
+from mindspore import ms_function, Tensor, nn, dtype, Parameter
+import numpy as np
+from mindspore.ops import constexpr
+
+class Net(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.weight = Parameter(Tensor(3, dtype.float32), name="w")
+        self.m = 2
+
+    def construct(self, x, y):
+        self.weight = x     # restictions matched,  success
+        # self.m = 3               # self.m not Parameter type, failure
+        # y.weight = x          # not attribute of self, failure
+        return x
+
+net = Net()
+ret = net(1, 2)
+print('ret:{}'.format(ret))
+```
+
+The result is as follows:
+
+```text
+ret:1
+```
+
+### Index Value
+
+Index value of  a sequence `Tuple`, `List`, `Dictionary`, `Tensor` which called subscription in Python.
+
+Index value of `Tuple` refers to chapter [Tuple](#tuple) of this page.
+
+Index value of `List` refers to chapter [List](#list) of this page.
+
+Index value of `Dictionary` refers to chapter [Dictionary](#dictionary) of this page.
+
+Index value of `Tensor` refers to  <https://www.mindspore.cn/docs/note/en/master/index_support.html>
+
+### Calls
+
+A call calls a callable object (e.g., `Cell` or `Primitive`) with a possibly empty series of arguments.
+
+For example:
+
+```python
+from mindspore import Tensor, nn, dtype, ops
+import numpy as np
+
+class Net(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.matmul = ops.MatMul()
+
+    def construct(self, x, y):
+        out = self.matmul(x, y)  # A call of Primitive
+        return out
+
+x = Tensor(np.ones(shape=[1, 3]), dtype.float32)
+y = Tensor(np.ones(shape=[3, 4]), dtype.float32)
+net = Net()
+ret = net(x, y)
+print('ret:{}'.format(ret))
+```
+
+The result is as follows:
+
+```text
+ret:[[3. 3. 3. 3.]]
+```
+
 ## Operators
 
 Arithmetic operators and assignment operators support the `Number` and `Tensor` operations, as well as the `Tensor` operations of different `dtype`.
@@ -353,59 +548,108 @@ This is because these operators are converted to operators with the same name fo
 
 For details about the rules, click <https://www.mindspore.cn/docs/note/en/master/operator_list_implicit.html>.
 
-### Arithmetic Operators
+### Unary Arithmetic Operators
 
-| Arithmetic Operator | Supported Type
-| :----------- |:--------
-| `+` |`Number` + `Number`, `Tensor` + `Tensor`, `Tensor` + `Number`, `Tuple` + `Tuple`, `String` + `String`, and `List` + `List`
-| `-` |`Number` - `Number`, `Tensor` - `Tensor`, and `Tensor` - `Number`
-| `*` |`Number` \* `Number`, `Tensor` \* `Tensor`, and `Tensor` \* `Number`
-| `/` |`Number` / `Number`, `Tensor` / `Tensor`, and `Tensor` / `Number`
-| `%` |`Number` % `Number`, `Tensor` % `Tensor`, and `Tensor`% `Number`
-| `**` |`Number` \*\* `Number`, `Tensor` \*\* `Tensor`, and `Tensor` \*\* `Number`
-| `//` |`Number` // `Number`, `Tensor` // `Tensor`, and `Tensor` // `Number`
-| `~`  | `~Tensor[Bool]`
+| Unary Arithmetic Operator | Supported Type                 |
+| :------------------------ | :----------------------------- |
+| `+`                       | `Number`, `Tensor`             |
+| `-`                       | `Number`, `Tensor`             |
+| `~`                       | `Tensor` with `Bool` data type |
+
+notes:
+
+- In native python the `~` operator get the bitwise inversion of its integer argument; in Mindspore the `~` redefined to get logic not for `Tensor(Bool)`.
+
+### Binary Arithmetic Operators
+
+| Binary Arithmetic Operator | Supported Type|
+| :----------- |:--------|
+| `+` |`Number` + `Number`, `String` + `String`, `Number` + `Tensor`, `Tensor` + `Number`, `Tuple` + `Tensor`, `Tensor` + `Tuple`, `List` + `Tensor`, `Tensor`+`List`, `List`+`List`, `Tensor` + `Tensor`, `Tuple` + `Tuple`.|
+| `-` |`Number` - `Number`, `Tensor` - `Tensor`, `Number` -`Tensor`, `Tensor` - `Number`, `Tuple` -`Tensor`, `Tensor` -`Tuple`, `List` -`Tensor`, `Tensor` -`List`.|
+| `*` |`Number` \* `Number`, `Tensor` \* `Tensor`, `Number` \* `Tensor`, `Tensor` \* `Number`, `List` \* `Number`, `Number` \* `List`, `Tuple` \* `Number`, `Number` \* `Tuple`, `Tuple` \* `Tensor`, `Tensor` \* `Tuple`,  `List` \*`Tensor`, `Tensor` \* `List`.|
+| `/` |`Number` / `Number`, `Tensor` / `Tensor`, `Number` / `Tensor`, `Tensor` / `Number`, `Tuple` / `Tensor`, `Tensor` / `Tuple`,  `List` / `Tensor`, `Tensor` / `List`.|
+| `%` |`Number` % `Number`, `Tensor` % `Tensor`, `Number` % `Tensor`, `Tensor` % `Number`, `Tuple` % `Tensor`, `Tensor` % `Tuple`, `List` % `Tensor`, `Tensor` % `List`.|
+| `**` |`Number` \*\* `Number`, `Tensor` \*\* `Tensor`, `Number` \*\* `Tensor`, `Tensor` \*\* `Number`, `Tuple` \*\* `Tensor`, `Tensor` \*\* `Tuple`,  `List` \*\* `Tensor`, `Tensor` \*\* `List`.|
+| `//` |`Number` // `Number`, `Tensor` // `Tensor`, `Number` // `Tensor`, `Tensor` // `Number`, `Tuple` // `Tensor`, `Tensor` // `Tuple`,  `List` // `Tensor`, `Tensor` // `List`.|
+
+Restrictions:
+
+- If all operands are `Number` type, value of Number can't be `Bool`.
+- If all operands are `Number` type, operations between  `Float64` and `Int32` are not supported.
+- If either operand is `Tensor` type, left and right operands can't both be `Bool` value.
+- The result of `List  * Number`  is concatenate  duplicate List Number times, data type of the `List` must be `Number`, `String`, `None` or `List`/`Tuple` that contains these types.  This rule applies to `Number * List`,  `Tuple * Number`, `Number * Tuple` too.
 
 ### Assignment Operators
 
-| Assignment Operator | Supported Type
-| :----------- |:--------
-| `=`          |Scalar and `Tensor`
-| `+=` |`Number` += `Number`, `Tensor` += `Tensor`, `Tensor` += `Number`, `Tuple` += `Tuple`, and `String` += `String`
-| `-=` |`Number` -= `Number`, `Tensor` -= `Tensor`, and `Tensor` -= `Number`
-| `*=` |`Number` \*= `Number`, `Tensor` \*= `Tensor`, and `Tensor` \*= `Number`
-| `/=` |`Number` /= `Number`, `Tensor` /= `Tensor`, and `Tensor` /= `Number`
-| `%=` |`Number` %= `Number`, `Tensor` %= `Tensor`, and `Tensor` %= `Number`
-| `**=` |`Number` \*\*= `Number`, `Tensor` \*\*= `Tensor`, and `Tensor` \*\*= `Number`
-| `//=` |`Number` //= `Number`, `Tensor` //= `Tensor`, and `Tensor` //= `Number`
+| Assignment Operator | Supported Type、 |
+| :----------- |:--------|
+| `=`          |All Built-in Python Types that MindSpore supported and MindSpore User-defined Data Types.|
+| `+=` |`Number` += `Number`, `String` += `String`, `Number` += `Tensor`, `Tensor` += `Number`, `Tuple` += `Tensor`, `Tensor` += `Tuple`, `List` += `Tensor`, `Tensor` += `List`, `List` += `List`, `Tensor` += `Tensor`, `Tuple` += `Tuple`.|
+| `-=` |`Number` -= `Number`, `Tensor` -= `Tensor`, `Number` -= `Tensor`, `Tensor` -= `Number`, `Tuple` -= `Tensor`, `Tensor` -= `Tuple`, `List` -= `Tensor`, `Tensor` -= `List`.|
+| `*=` |`Number` \*= `Number`, `Tensor` \*= `Tensor`, `Number` \*= `Tensor`, `Tensor` \*= `Number`, `List` \*= `Number`, `Number` \*= `List`, `Tuple` \*= `Number`, `Number` \*= `Tuple`, `Tuple` \*= `Tensor`, `Tensor` \*= `Tuple`,  `List` \*= `Tensor`, `Tensor` \*= `List`.|
+| `/=` |`Number` /= `Number`, `Tensor` /= `Tensor`, `Number` /= `Tensor`, `Tensor` /= `Number`, `Tuple` /= `Tensor`, `Tensor` /= `Tuple`, `List` /= `Tensor`, `Tensor` /= `List`.|
+| `%=` |`Number` %= `Number`, `Tensor` %= `Tensor`, `Number` %= `Tensor`, `Tensor` %= `Number`, `Tuple` %= `Tensor`, `Tensor` %= `Tuple`,  `List` %= `Tensor`、`Tensor` %= `List`.|
+| `**=` |`Number` \*\*= `Number`, `Tensor` \*\*= `Tensor`, `Number` \*\*= `Tensor`, `Tensor` \*\*= `Number`, `Tuple` \*\*= `Tensor`, `Tensor` \*\*= `Tuple`,  `List` \*\*= `Tensor`, `Tensor` \*\*= `List`.|
+| `//=` |`Number` //= `Number`, `Tensor` //= `Tensor`, `Number` //= `Tensor`, `Tensor` //= `Number`, `Tuple` //= `Tensor`, `Tensor` //= `Tuple`, `List` //= `Tensor`, `Tensor` //= `List`.|
+
+Notes:
+
+- For `=` the scenarios below are not allowed:
+
+  Only instance of `Cell` and `Primitve` can be created in function construct, the statement like `xx = Tensor(...)` is forbidden.
+
+  Only `Parameter` attribute of self can be assigned, for more detail refer to [Attribute Reference](#attribute-references).
+
+- If all operands of  `AugAssign` are `Number` type, value of Number can't be `Bool`.
+
+- If all operands of  `AugAssign` are `Number` type, operations between  `Float64` and `Int32` are not supported.
+
+- If either operand of  `AugAssign` is `Tensor` type, left and right operands can't both be `Bool` value.
+
+- The result of `List *= Number` is concatenate duplicate List Number times, data type of the `List` must be `Number`, `String`, `None` or `List`/`Tuple` that contains these types. This rule applies to `Number * List`, `Tuple * Number`, `Number * Tuple` too.
 
 ### Logical Operators
 
-| Logical Operator | Supported Type
-| :----------- |:--------
-| `and` |`Number` and `Number`, `Tensor`, and `Tensor`
-| `or` |`Number` or `Number`, and `Tensor` or `Tensor`
-| `not` |not `Number`, not `Tensor`, and not `tuple`
+| Logical Operator | Supported Type|
+| :----------- |:--------|
+| `and` |`String`,  `Number`,  `Tuple`, `List` , `Dict`, `None`, `Scalar`, `Tensor`.|
+| `or` |`String`,  `Number`,  `Tuple`, `List` , `Dict`, `None`, `Scalar`, `Tensor`.|
+| `not` |`Number`, `tuple`, `List` and `Tensor`  with only one element.|
 
-### Member Operators
+Restrictions:
 
-| Member Operator | Supported Type
-| :----------- |:--------
-| `in` |`Number` in `tuple`, `String` in `tuple`, `Tensor` in `Tuple`, `Number` in `List`, `String` in `List`, `Tensor` in `List`, and `String` in `Dictionary`
-| `not in` | Same as `in`
+- For operator `and`, `or`,  if left operand is a `Tensor`,  right operand should be `Tensor` which has same data type with left operand, and both`Tensor` must have only one element.
+- For operator `and`, `or`,  if left operand not `Tensor`, right operand can be any supported type.
 
-### Identity Operators
+### Compare Operators
 
-| Identity Operator | Supported Type
-| :----------- |:--------
-| `is` | The value can only be `None`, `True`, or `False`.
-| `is not` | The value can only be `None`, `True`, or `False`.
+| Compare Operator | Supported Type|
+| :----------- |:--------|
+| `in` |`Number` in `tuple`, `String` in `tuple`, `Tensor` in `Tuple`, `Number` in `List`, `String` in `List`, `Tensor` in `List`, and `String` in `Dictionary`.|
+| `not in` | Same as `in`. |
+| `is` | The value can only be `None`, `True`, or `False`. |
+| `is not` | The value can only be `None`, `True`, or `False`. |
+| < | `Number` < `Number`, `Number` < `Tensor`, `Tensor` < `Tensor`, `Tensor` < `Number`. |
+| <= | `Number` <= `Number`, `Number` <= `Tensor`, `Tensor` <= `Tensor`, `Tensor` <= `Number`. |
+| > | `Number` > `Number`, `Number` > `Tensor`, `Tensor` > `Tensor`, `Tensor` > `Number`. |
+| >= | `Number` >= `Number`, `Number` >= `Tensor`, `Tensor` >= `Tensor`, `Tensor` >= `Number`. |
+| != | `Number` != `Number` , `Number` != `Tensor`, `Tensor` != `Tensor`, `Tensor` != `Number`, `mstype` != `mstype`, `String` != `String`, `Tuple !` = `Tuple`, `List` != `List`. |
+| == | `Number` == `Number`, `Number` == `Tensor`, `Tensor` == `Tensor`, `Tensor` == `Number`, `mstype` == `mstype`, `String` == `String`, `Tuple` == `Tuple`, `List` == `List`. |
 
-## Expressions
+Restrictions:
+
+- For operators `<`, `<=`, `>`, `>=`, `!=`, if all operators are `Number` type, value of Number can't be `Bool`.
+- For operators `<`, `<=`, `>`, `>=`, `!=`, `==`, if all operands are `Number` type, operations between  `Float64` and `Int32` are not supported.
+- For operators `<`, `<=`, `>`, `>=`, `!=`, `==`, if either operand is `Tensor` type, left and right operands can't both be `Bool` value.
+- For operator `==`, if all operands are `Number` type,  support both `Number` have `Bool` value, not support only one `Number` has `Bool` value.
+- For operators `!=`, `==`, all supported types but `mstype` can compare with `None`.
+- The chain comparison like: `a>b>c` is not supported.
+
+## Compound Statements
 
 ### Conditional Control Statements
 
-#### single if
+#### if Statements
 
 Usage:
 
@@ -413,287 +657,231 @@ Usage:
 
 - `x = y if (cond) else z`
 
-Parameter: `cond` -- The supported types are `Number`, `Tuple`, `List`, `String`, `None`, `Tensor` and `Function`. It can also be an expression whose computation result type is one of them.
+Parameter: `cond` -- Variables of `Bool` type and constants of `Bool`, `List`, `Tuple`, `Dict` and `String` types are supported.
 
 Restrictions:
 
-- During graph building, if `if` is not eliminated, the data type and shape of `return` inside the `if` branch must be the same as those outside the `if` branch.
+- If `cond` is not a constant, the variable or constant assigned to a same sign in different branches should have same data type.If the data type of assigned variables or constants is `Tensor`, the variables and constants should have same shape and element type.
 
-- When only `if` is available, the data type and shape of the `if` branch variable after the update must be the same as those before the update.
-
-- When both `if` and `else` are available, the updated data type and shape of the `if` branch variable must be the same as those of the `else` branch.
-
-- Does not support higher-order differential.
-
-- Does not support `elif` statements.
+- The number of `if` cannot exceed 100.
 
 Example 1:
 
 ```python
-if x > y:
+from mindspore import ms_function, Tensor, dtype
+
+x = Tensor([1, 2], dtype.int32)
+y = Tensor([0, 3], dtype.int32)
+m = 'xx'
+n = 'yy'
+
+@ms_function()
+def test_cond(x, y):
+    if (x > y).any():
+        return m
+    else:
+        return n
+
+ret = test_cond(x, y)
+print('ret:{}'.format(ret))if (x > y).any():
   return m
 else:
   return n
 ```
 
-The data types of `m` returned by the `if` branch and `n` returned by the `else` branch must be the same as those of shape.
+The data type of `m` returned by the `if` branch and `n` returned by the `else` branch must be same.
+
+The result is as follows:
+
+```text
+ret:xx
+```
 
 Example 2:
 
 ```python
-if x > y:
-  out = m
-else:
-  out = n
-return out
+from mindspore import ms_function, Tensor, dtype
+
+x = Tensor([1, 2], dtype.int32)
+y = Tensor([0, 3], dtype.int32)
+m = 'xx'
+n = 'yy'
+
+@ms_function()
+def test_cond(x, y):
+    out = 'init'
+    if (x > y).any():
+        out = m
+    else:
+        out = n
+    return out
+
+ret = test_cond(x, y)
+print('ret:{}'.format(ret))
 ```
 
-The data types of `out` after the `if` branch is updated and `else` after the `out` branch is updated must be the same as those of shape.
+The variable or constant `m` assigned to `out` in `if` branch and the variable or constant `n` assigned to out in `false` branch must have same data type.
 
-#### side-by-side if
+The result is as follows:
 
-Usage:
-
-- `if (cond1):statements else:statements...if (cond2):statements...`
-
-Parameters: `cond1` and `cond2` -- Consistent with `single if`.
-
-Restrictions:
-
-- Inherit all restrictions of `single if`.
-
-- The total number of `if` in calculating graph can not exceed 50.
-
-- Too many `if` will cause the compilation time to be too long. Reducing the number of `if` will help improve compilation efficiency.
-
-Example:
-
-```python
-if x > y:
-  out = x
-else:
-  out = y
-if z > x:
-  out = out + 1
-return out
+```text
+ret:xx
 ```
 
-#### if in if
-
-Usage:
-
-- `if (cond1):if (cond2):statements...`
-
-Parameters: `cond1` and `cond2` -- Consistent with `single if`.
-
-Restrictions:
-
-- Inherit all restrictions of `single if`.
-
-- The total number of `if` in calculating graph can not exceed 50.
-
-- Too many `if` will cause the compilation time to be too long. Reducing the number of `if` will help improve compilation efficiency.
-
-Example:
+Example 3:
 
 ```python
-if x > y:
-  z = z + 1
-  if z > x:
-    return m
-else:
-  return n
+from mindspore import ms_function, Tensor, dtype
+
+x = Tensor([1, 2], dtype.int32)
+y = Tensor([0, 3], dtype.int32)
+m = 'xx'
+
+@ms_function()
+def test_cond(x, y):
+    out = 'init'
+    if (x > y).any():
+        out = m
+    return out
+
+ret = test_cond(x, y)
+print('ret:{}'.format(ret))
+```
+
+The variable or constant `m` assigned to `out` in `if` branch and the variable or constant `init` initially assigned to `out` must have same data type.
+
+The result is as follows:
+
+```text
+ret:xx
 ```
 
 ### Loop Statements
 
-#### for
+#### for Statements
 
 Usage:
 
-- `for i in sequence`
+- `for i in sequence  statements...`
 
-Parameter: `sequence` --Iterative sequences (`Tuple` and `List`).
+- `for i in sequence  statements... if (cond) break`
+
+- `for i in sequence  statements... if (cond) continue`
+
+Parameter: `sequence` -- Iterative sequences (`Tuple`, `List`, `range` and so on).
 
 Restrictions:
 
 - The total number of graph operations is a multiple of number of iterations of the `for` loop. Excessive number of iterations of the `for` loop may cause the graph to occupy more memory than usage limit.
 
+- The `for...else...` statement is not supported.
+
+- The `while` statement cannot exist in loop body of the `for` statement.
+
 Example:
 
 ```python
+from mindspore import ms_function, Tensor
+import numpy as np
+
 z = Tensor(np.ones((2, 3)))
-x = (1, 2, 3)
-for i in x:
-  z += i
-return z
+
+@ms_function()
+def test_cond():
+    x = (1, 2, 3)
+    for i in x:
+        z += i
+    return z
+
+ret = test_cond()
+print('ret:{}'.format(ret))
 ```
 
 The result is as follows:
 
 ```text
-z: Tensor(shape=[2, 3], dtype=Int64, value=[[7, 7], [7, 7], [7, 7]])
+ret:[[7. 7. 7.]
+ [7. 7. 7.]]
 ```
 
-#### single while
+#### while Statements
 
 Usage:
 
-- `while (cond)`
+- `while (cond)  statements...`
 
-Parameter: `cond` -- Consistent with `single if`.
+- `while (cond)  statements... if (cond1) break`
+
+- `while (cond)  statements... if (cond1) continue`
+
+Parameter: `cond` -- Variables of `Bool` type and constants of `Bool`, `List`, `Tuple`, `Dict` and `String` types are supported.
 
 Restrictions:
 
-- During graph building, if `while` is not eliminated, the data type and `shape` of `return` inside `while` must be the same as those outside `while`.
+- If `cond` is not a constant, the variable or constant assigned to a same sign inside body of `while` and outside body of `while` should have same data type.If the data type of assigned variables or constants is `Tensor`, the variables and constants should have same shape and element type.
 
-- The data type and shape of the updated variables in `while` must be the same as those before the update.
+- The `while...else...` statement is not supported.
 
-- Does not support training scenarios.
+- If `cond` is not a constant, in while body, the data with type of `Number`, `List`, `Tuple` are not allowed to update and the shape  of `Tensor` data are not allowed to change.
+
+- The number of `while` cannot exceed 100.
 
 Example 1:
 
 ```python
-while x < y:
-  x += 1
-  return m
-return n
+from mindspore import ms_function
+
+m = 1
+n = 2
+
+@ms_function()
+def test_cond(x, y):
+    while x < y:
+        x += 1
+        return m
+    return n
+
+ret = test_cond(1, 5)
+print('ret:{}'.format(ret))
 ```
 
-The `m` data type returned inside `while` inside and `n` data type returned outside `while` must be the same as those of shape.
-
-Example 2:
-
-```python
-out = m
-while x < y:
-  x += 1
-  out = out + 1
-return out
-```
-
-In `while`, the data types of `out` before and after update must be the same as those of shape.
-
-#### side-by-side while
-
-Usage:
-
-- `while (cond1):statements while (cond2):statemetns...`
-
-Parameters: `cond1` and `cond2` -- Consistent with `single if`.
-
-Restrictions:
-
-- Inherit all restrictions of `single while`.
-
-- The total number of `while` in calculating graph can not exceed 50.
-
-- Too many `while` will cause the compilation time to be too long. Reducing the number of `while` will help improve compilation efficiency.
-
-Example:
-
-```python
-out = m
-while x < y:
-  x += 1
-  out = out + 1
-while out > 10:
-  out -= 10
-return out
-```
-
-#### while in while
-
-Usage:
-
--`while (cond1):while (cond2):statements...`
-
-Parameters: `cond1` and `cond2` -- Consistent with `single if`.
-
-Restrictions:
-
-- Inherit all restrictions of `single while`.
-
-- The total number of `while` in calculating graph can not exceed 50.
-
-- Too many `while` will cause the compilation time to be too long. Reducing the number of `while` will help improve compilation efficiency.
-
-Example:
-
-```python
-out = m
-while x < y:
-  while z < y:
-    z += 1
-    out = out + 1
-  x += 1
-return out
-```
-
-### Conditional Control Statements in Loop Statements
-
-#### if in for
-
-Usage:
-
-- for i in sequence:if (cond)`
-
-Parameters:
-
-- `cond` -- Consistent with `single if`.
-
-- `sequence` -- Iterative sequence(`Tuple`、`List`)
-
-Restrictions:
-
-- Inherit all restrictions of `single if`.
-
-- Inherit all restrictions of `for`.
-
-- If `cond` is variable, it is forbidden to use `if (cond):return`,`if (cond):continue`,`if (cond):break` statements.
-
-- The total number of `if` is a multiple of number of iterations of the `for` loop. Excessive number of iterations of the `for` loop may cause the compilation time to be too long.
-
-Example:
-
-```python
-z = Tensor(np.ones((2, 3)))
-x = (1, 2, 3)
-for i in x:
-  if i < 3:
-    z += i
-return z
-```
+The data type of `m` returned inside `while` and data type of `n` returned outside `while` must have same data type.
 
 The result is as follows:
 
 ```text
-z: Tensor(shape=[2, 3], dtype=Int64, value=[[4, 4], [4, 4], [4, 4]])
+ret:1
 ```
 
-#### if in while
-
-Usage:
-
-- `while (cond1):if (cond2)`
-
-Parameters: `cond1` and `cond2` -- Consistent with `single if`.
-
-Restrictions:
-
-- Inherit all restrictions of `single if` and `single while`.
-
-- If `cond2` is variable, it is forbidden to use `if (cond2):return`,`if (cond2):continue`,`if (cond2):break` statements.
-
-Example:
+Example 2:
 
 ```python
-out = m
-while x < y:
-  if z > 2*x:
-    out = out + 1
-  x += 1
-return out
+from mindspore import ms_function
+
+m = 1
+n = 2
+
+def ops1(a, b):
+    return a + b
+
+@ms_function()
+def test_cond(x, y):
+    out = m
+    while x < y:
+        x += 1
+        out = ops1(out, x)
+    return out
+
+ret = test_cond(1, 5)
+print('ret:{}'.format(ret))
+```
+
+The variable `op1` assigned to `out` inside `while` and the variable or constant `init` initially assigned to `out` must have same data type.
+
+The result is as follows:
+
+```text
+ret:15
 ```
 
 ### Function Definition Statements
@@ -709,16 +897,30 @@ Usage:
 For example:
 
 ```python
+from mindspore import ms_function
+
 def number_add(x, y):
-  return x + y
-ret = number_add(1, 2)
+    return x + y
+
+@ms_function()
+def test(x, y):
+    return number_add(x, y)
+
+ret = test(1, 5)
+print('ret:{}'.format(ret))
 ```
 
 The result is as follows:
 
 ```text
-ret: 3
+ret: 6
 ```
+
+Restrictions:
+
+- The defined function must has `return` statement.
+- `Construct` function of the outermost network is not support  kwargs, like:`def construct(**kwargs):`.
+- Mixed use of variable argument and non-variable argument is not supported, like:`def function(x, y, *args)` and `def function(x = 1, y = 1, **kwargs)`.
 
 #### lambda Expression
 
@@ -729,21 +931,102 @@ Usage: `lambda x, y: x + y`
 For example:
 
 ```python
-number_add = lambda x, y: x + y
-ret = number_add(2, 3)
+from mindspore import ms_function
+
+@ms_function()
+def test(x, y):
+    number_add = lambda x, y: x + y
+    return number_add(x, y)
+
+ret = test(1, 5)
+print('ret:{}'.format(ret))
 ```
 
 The result is as follows:
 
 ```text
-ret: 5
+ret: 6
 ```
+
+### List Comprehension and Generator Expression
+
+Support List Comprehension and Generator Expression.
+
+#### List Comprehension
+
+Generates a list. Own to the implicit converting during compiling, the result of expression is a tuple.
+
+Usage: refer to Python official syntax description.
+
+For example:
+
+```python
+from mindspore import ms_function
+
+@ms_function()
+def test(x, y):
+    l = [x * x for x in range(1, 11) if x % 2 == 0]
+    return l
+
+ret = test(1, 5)
+print('ret:{}'.format(ret))
+```
+
+The result is as follows:
+
+```text
+ret:(4, 16, 36, 64, 100)
+```
+
+Restrictions:
+
+Use multiple nested iterations comprehension in the generator.
+
+For example (Use two nested iterations):
+
+```python
+l = [y for x in ((1, 2), (3, 4), (5, 6)) for y in x]
+```
+
+The result would be:
+
+```text
+TypeError:  The `generators` supports one `comprehension` in ListComp/GeneratorExp, but got 2 comprehensions.
+```
+
+#### Generator Expression
+
+Generates a list. The same as List Comprehension. The expression would generate a list immediately, not like the behavior running in Python.
+
+Usage: Referencing List Comprehension.
+
+For example:
+
+```python
+from mindspore import ms_function
+
+@ms_function()
+def test(x, y):
+    l = (x * x for x in range(1, 11) if x % 2 == 0)
+    return l
+
+ret = test(1, 5)
+print('ret:{}'.format(ret))
+```
+
+The result is as follows:
+
+```text
+ret:(4, 16, 36, 64, 100)
+```
+
+Restrictions: The same as List Comprehension.
 
 ## Functions
 
 ### Python Built-in Functions
 
-Currently, the following built-in Python functions are supported: `len`, `isinstance`, `partial`, `map`, `range`, `enumerate`, `super`, and `pow`.
+Currently, the following built-in Python functions are supported: `len`, `isinstance`, `partial`, `map`, `range`, `enumerate`, `super`, `pow`, and `filter`.
 
 #### len
 
@@ -758,24 +1041,37 @@ Return value: length of the sequence, which is of the `int` type. If the input p
 For example:
 
 ```python
-x = (2, 3, 4)
-y = [2, 3, 4]
-d = {"a": 2, "b": 3}
+from mindspore import ms_function, Tensor
+import numpy as np
+
 z = Tensor(np.ones((6, 4, 5)))
-x_len = len(x)
-y_len = len(y)
-d_len = len(d)
-z_len = len(z)
+
+@ms_function()
+def test():
+    x = (2, 3, 4)
+    y = [2, 3, 4]
+    d = {"a": 2, "b": 3}
+    x_len = len(x)
+    y_len = len(y)
+    d_len = len(d)
+    z_len = len(z)
+    return x_len, y_len, d_len, z_len
+
+x_len, y_len, d_len, z_len = test()
+print('x_len:{}'.format(x_len))
+print('y_len:{}'.format(y_len))
+print('d_len:{}'.format(d_len))
+print('z_len:{}'.format(z_len))
 ```
 
 The result is as follows:
 
 ```text
-x_len: 3
-y_len: 3
-d_len: 2
-z_len: 6
-  ```
+x_len:3
+y_len:3
+d_len:2
+z_len:6
+```
 
 #### isinstance
 
@@ -794,21 +1090,33 @@ Return value: If `obj` is an instance of `type`, return `True`. Otherwise, retur
 For example:
 
 ```python
-x = (2, 3, 4)
-y = [2, 3, 4]
+from mindspore import ms_function, Tensor
+import numpy as np
+
 z = Tensor(np.ones((6, 4, 5)))
-x_is_tuple = isinstance(x, mstype.tuple_)
-y_is_list= isinstance(y, mstype.list_)
-z_is_tensor = isinstance(z, mstype.tensor)
+
+@ms_function()
+def test():
+    x = (2, 3, 4)
+    y = [2, 3, 4]
+    x_is_tuple = isinstance(x, tuple)
+    y_is_list = isinstance(y, list)
+    z_is_tensor = isinstance(z, Tensor)
+    return x_is_tuple, y_is_list, z_is_tensor
+
+x_is_tuple, y_is_list, z_is_tensor = test()
+print('x_is_tuple:{}'.format(x_is_tuple))
+print('y_is_list:{}'.format(y_is_list))
+print('z_is_tensor:{}'.format(z_is_tensor))
 ```
 
 The result is as follows:
 
 ```text
-x_is_tuple: True
-y_is_list: True
-z_is_tensor: True
-  ```
+x_is_tuple:True
+y_is_list:True
+z_is_tensor:True
+```
 
 #### partial
 
@@ -827,19 +1135,28 @@ Return value: functions with certain input parameter values fixed
 For example:
 
 ```python
-def add(x, y):
-  return x + y
+from mindspore import ms_function, ops
 
-add_ = partial(add, x=2)
-m = add_(y=3)
-n = add_(y=5)
+def add(x, y):
+    return x + y
+
+@ms_function()
+def test():
+    add_ = ops.partial(add, x=2)
+    m = add_(y=3)
+    n = add_(y=5)
+    return m, n
+
+m, n = test()
+print('m:{}'.format(m))
+print('n:{}'.format(n))
 ```
 
 The result is as follows:
 
 ```text
-m: 5
-n: 7
+m:5
+n:7
 ```
 
 #### map
@@ -860,12 +1177,20 @@ Return value: A `Tuple`
 For example:
 
 ```python
-def add(x, y):
-  return x + y
+from mindspore import ms_function
 
-elements_a = (1, 2, 3)
-elements_b = (4, 5, 6)
-ret = map(add, elements_a, elements_b)
+def add(x, y):
+    return x + y
+
+@ms_function()
+def test():
+    elements_a = (1, 2, 3)
+    elements_b = (4, 5, 6)
+    ret = map(add, elements_a, elements_b)
+    return ret
+
+ret = test()
+print('ret:{}'.format(ret))
 ```
 
 The result is as follows:
@@ -888,15 +1213,23 @@ Return value: A `Tuple`
 For example:
 
 ```python
-elements_a = (1, 2, 3)
-elements_b = (4, 5, 6)
-ret = zip(elements_a, elements_b)
+from mindspore import ms_function
+
+@ms_function()
+def test():
+    elements_a = (1, 2, 3)
+    elements_b = (4, 5, 6)
+    ret = zip(elements_a, elements_b)
+    return ret
+
+ret = test()
+print('ret:{}'.format(ret))
 ```
 
 The result is as follows:
 
 ```text
-ret: ((1, 4), (2, 5), (3, 6))
+ret:((1, 4), (2, 5), (3, 6))
 ```
 
 #### range
@@ -924,17 +1257,27 @@ Return value: A `Tuple`
 For example:
 
 ```python
-x = range(0, 6, 2)
-y = range(0, 5)
-z = range(3)
+from mindspore import ms_function
+
+@ms_function()
+def test():
+    x = range(0, 6, 2)
+    y = range(0, 5)
+    z = range(3)
+    return x, y, z
+
+x, y, z = test()
+print('x:{}'.format(x))
+print('y:{}'.format(y))
+print('z:{}'.format(z))
 ```
 
 The result is as follows:
 
 ```text
-x: (0, 2, 4)
-y: (0, 1, 2, 3, 4)
-z: (0, 1, 2)
+x:(0, 2, 4)
+y:(0, 1, 2, 3, 4)
+z:(0, 1, 2)
 ```
 
 #### enumerate
@@ -958,17 +1301,28 @@ Return value: A `Tuple`
 For example:
 
 ```python
-x = (100, 200, 300, 400)
-y = Tensor(np.array([[1, 2], [3, 4], [5 ,6]]))
-m = enumerate(x, 3)
-n = enumerate(y)
+from mindspore import ms_function, Tensor
+import numpy as np
+
+y = Tensor(np.array([[1, 2], [3, 4], [5, 6]]))
+
+@ms_function()
+def test():
+    x = (100, 200, 300, 400)
+    m = enumerate(x, 3)
+    n = enumerate(y)
+    return m, n
+
+m, n = test()
+print('m:{}'.format(m))
+print('n:{}'.format(n))
 ```
 
 The result is as follows:
 
 ```text
-m: ((3, 100), (4, 200), (5, 300), (5, 400))
-n: ((0, Tensor(shape=[2], dtype=Int64, value=[1, 2])), (1, Tensor(shape=[2], dtype=Int64, value=[3, 4])), (2, Tensor(shape=[2], dtype=Int64, value=[5, 6])))
+m:((3, 100), (4, 200), (5, 300), (6, 400))
+n:((0, Tensor(shape=[2], dtype=Int64, value= [1, 2])), (1, Tensor(shape=[2], dtype=Int64, value= [3, 4])), (2, Tensor(shape=[2], dtype=Int64, value= [5, 6])))
 ```
 
 #### super
@@ -992,26 +1346,28 @@ Return value: method of the parent class.
 For example:
 
 ```python
+from mindspore import nn
+
 class FatherNet(nn.Cell):
-  def __init__(self, x):
-      super(FatherNet, self).__init__(x)
-      self.x = x
+    def __init__(self, x):
+        super(FatherNet, self).__init__(x)
+        self.x = x
 
-  def construct(self, x, y):
-      return self.x * x
+    def construct(self, x, y):
+        return self.x * x
 
-  def test_father(self, x):
-      return self.x + x
+    def test_father(self, x):
+        return self.x + x
 
 class SingleSubNet(FatherNet):
-def __init__(self, x, z):
-    super(SingleSubNet, self).__init__(x)
-    self.z = z
+    def __init__(self, x, z):
+        super(SingleSubNet, self).__init__(x)
+        self.z = z
 
-def construct(self, x, y):
-    ret_father_construct = super().construct(x, y)
-    ret_father_test = super(SingleSubNet, self).test_father(x)
-    return ret_father_construct, ret_father_test
+    def construct(self, x, y):
+        ret_father_construct = super().construct(x, y)
+        ret_father_test = super(SingleSubNet, self).test_father(x)
+        return ret_father_construct, ret_father_test
 ```
 
 #### pow
@@ -1031,15 +1387,25 @@ Return value: `y` power of `x`, `Number`, or `Tensor`
 For example:
 
 ```python
+from mindspore import ms_function, Tensor
+import numpy as np
+
 x = Tensor(np.array([1, 2, 3]))
 y = Tensor(np.array([1, 2, 3]))
-ret = pow(x, y)
+
+@ms_function()
+def test(x, y):
+    return pow(x, y)
+
+ret = test(x, y)
+
+print('ret:{}'.format(ret))
 ```
 
 The result is as follows:
 
 ```text
-ret: Tensor(shape=[3], dtype=Int64, value=[1, 4, 27]))
+ret:[ 1  4 27]
 ```
 
 #### print
@@ -1056,17 +1422,65 @@ Return value: none
 For example:
 
 ```python
-x = Tensor(np.array([1, 2, 3]))
-y = 3
-print("x: ", x)
-print("y: ", y)
+from mindspore import ms_function, Tensor, dtype
+import numpy as np
+
+x = Tensor(np.array([1, 2, 3]), dtype.int32)
+y = Tensor(3, dtype.int32)
+
+@ms_function()
+def test(x, y):
+    print(x)
+    print(y)
+    return x, y
+
+ret = test(x, y)
 ```
 
 The result is as follows:
 
 ```text
-x: Tensor(shape=[3], dtype=Int64, value=[1, 2, 3]))
-y: Tensor(shape=[], dtype=Int64, value=3))
+Tensor(shape=[3], dtype=Int32, value= [1 2 3])
+3
+```
+
+#### filter
+
+According to the provided function to judge the elements of a sequence. Each element is passed into the function as a parameter in turn, and the elements whose return result is not 0 or False form a new sequence.
+
+Calling: `filter(func, sequence)`
+
+Input parameters:
+
+- `func` -- Function.
+- `sequence` -- A sequence (`Tuple` or `List`).
+
+Return value: A `Tuple`.
+
+For example:
+
+```python
+from mindspore import ms_function
+
+def is_odd(x):
+    if x % 2:
+        return True
+    return False
+
+@ms_function()
+def test():
+    elements = (1, 2, 3, 4, 5)
+    ret = filter(is_odd, elements)
+    return ret
+
+ret = test()
+print('ret:{}'.format(ret))
+```
+
+The result is as follows:
+
+```text
+ret:(1, 3, 5)
 ```
 
 ### Function Parameters
@@ -1081,9 +1495,67 @@ y: Tensor(shape=[], dtype=Int64, value=3))
 
 ## Network Definition
 
+### Network Input parameters
+
+The input parameters of the outermost network only can be `lool`, `int`, `float`, `Tensor`, `None`, `mstype.number(mstype.bool, mstype.int, mstype.float, mstype.uint)`, `List` or `Tuple` that contains these types, and `Dictionary` whose values are these types.
+
+While calculating gradient for outermost network, only `Tensor` input could be calculated, input of other type will be ignored. For example, input parameter `(x, y,  z)` of outermost network, `x` and `z` are `Tensor` type, `y` is other type. While calculating gradient for the network, only gradients of `x` and `z` are calculated, and `(grad_x, grad_y)` is returned.
+If you want to use other types of input for the network, please transfer them to the network while initializing network in the `__init__` function, and save them as network attributes, then use  in the `construct`.
+
+The input parameters of inner network do not have this restriction.
+
+For example:
+
+```python
+from mindspore import nn, ops, Tensor
+import numpy as np
+
+class Net(nn.Cell):
+    def __init__(self, flag):
+        super(Net, self).__init__()
+        self.flag = flag
+
+    def construct(self, x, y, z):
+        if self.flag == "ok":
+            return x + y + z
+        return x - y - z
+
+class GradNet(nn.Cell):
+    def __init__(self, net):
+        super(GradNet, self).__init__()
+        self.grad_all = ops.GradOperation(get_all=True)
+        self.forward_net = net
+
+    def construct(self, x, y, z):
+        return self.grad_all(self.forward_net)(x, y, z)
+
+flag = "ok"
+input_x = Tensor(np.ones((2, 3)).astype(np.float32))
+input_y = 2
+input_z = Tensor(np.ones((2, 3)).astype(np.float32) * 2)
+
+net = Net(flag)
+grad_net = GradNet(net)
+ret = grad_net(input_x, input_y, input_z)
+
+print('ret:{}'.format(ret))
+```
+
+The result is as follows:
+
+```text
+ret:(Tensor(shape=[2, 3], dtype=Float32, value=
+[[ 1.00000000e+00,  1.00000000e+00,  1.00000000e+00],
+ [ 1.00000000e+00,  1.00000000e+00,  1.00000000e+00]]), Tensor(shape=[2, 3], dtype=Float32, value=
+[[ 1.00000000e+00,  1.00000000e+00,  1.00000000e+00],
+ [ 1.00000000e+00,  1.00000000e+00,  1.00000000e+00]]))
+```
+
+In the `Net` defined above,  string `flag` is transferred during initialization and saved as attribute `self.flag`, then used in the construct. The input parameter `x` and `z` are `Tensor`, `y` is `int`. While `grad_net` calculates gradient of the input parameters for the outermost network, gradient of `y` is automatically ignored, only the gradient of x and z is calculated, ret = (grad_x, grad_z).
+
 ### Instance Types on the Entire Network
 
-- Common Python function with the [@ms_function](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.html#mindspore.ms_function) decorator.
+- Common Python function with the [@ms_function](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore/mindspore.ms_function.html) decorator.
 
 - Cell subclass inherited from [nn.Cell](https://www.mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Cell.html).
 
@@ -1101,54 +1573,59 @@ y: Tensor(shape=[], dtype=Int64, value=3))
 
 ### Network Constraints
 
-1. By default, the input parameters of the entire network (that is, the outermost network input parameters) support only `Tensor`. To support non-`Tensor`, you can set the `support_non_tensor_inputs` attribute of the network to `True`.
-
-   During network initialization, `self.support_non_tensor_inputs = True` is set. Currently, this configuration supports only the forward network and does not support the backward network. That is, the backward operation cannot be performed on the network whose input parameters are not `Tensor`.
-
-   The following is an example of supporting the outermost layer to transfer scalars:
-
-   ```python
-   class ExpandDimsNet(nn.Cell):
-       def __init__(self):
-           super(ExpandDimsNet, self).__init__()
-           self.support_non_tensor_inputs = True
-           self.expandDims = ops.ExpandDims()
-
-       def construct(self, input_x, input_axis):
-           return self.expandDims(input_x, input_axis)
-   expand_dim_net = ExpandDimsNet()
-   input_x = Tensor(np.random.randn(2,2,2,2).astype(np.float32))
-   expand_dim_net(input_x, 0)
-   ```
-
-2. You are not allowed to modify non-`Parameter` data members of the network.
+1. You are not allowed to modify non-`Parameter` data members of the network.
 
    For example:
 
    ```python
-   class Net(Cell):
+   from mindspore import nn, Tensor, Parameter
+   import numpy as np
+
+   class Net(nn.Cell):
        def __init__(self):
            super(Net, self).__init__()
            self.num = 2
            self.par = Parameter(Tensor(np.ones((2, 3, 4))), name="par")
 
        def construct(self, x, y):
+           self.par[0] = y
+           self.x = x
            return x + y
+
+   net = Net()
+   net(1, 2)
    ```
 
    In the preceding defined network, `self.num` is not a `Parameter` and cannot be modified. `self.par` is a `Parameter` and can be modified.
 
-3. When an undefined class member is used in the `construct` function, `AttributeError` is not thrown like the Python interpreter. Instead, it is processed as `None`.
+   The result would be:
+
+   ```Text
+   TypeError: mindspore/ccsrc/pipeline/jit/parse/parse.cc:1740 HandleAssignClassMember] 'self.x' should be initialized as a 'Parameter' in the '__init__' function before assigning.
+   ```
+
+2. When an undefined class member is used in the `construct` function, `AttributeError` is not thrown like the Python interpreter. Instead, it is processed as `None`.
 
    For example:
 
    ```python
-   class Net(Cell):
+   from mindspore import nn
+
+   class Net(nn.Cell):
        def __init__(self):
            super(Net, self).__init__()
 
        def construct(self, x):
            return x + self.y
-    ```
+
+   net = Net()
+   net(1)
+   ```
 
    In the preceding defined network, `construct` uses the undefined class member `self.y`. In this case, `self.y` is processed as `None`.
+
+   The result would be:
+
+   ```text
+   RuntimeError: mindspore/ccsrc/frontend/operator/composite/multitype_funcgraph.cc:161 GenerateFromTypes] The 'add' operation does not support the type [Int64, kMetaTypeNone]
+   ```

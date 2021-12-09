@@ -5,12 +5,10 @@
 - [FLParameter](#flparameter)
     - [公有成员函数](#公有成员函数)
     - [getInstance](#getinstance)
-    - [getHostName](#gethostname)
-    - [setHostName](#sethostname)
+    - [getDomainName](#getdomainname)
+    - [setDomainName](#setdomainname)
     - [getCertPath](#getcertpath)
     - [setCertPath](#setcertpath)
-    - [isUseHttps](#isusehttps)
-    - [setUseHttps](#setusehttps)
     - [getTrainDataset](#gettraindataset)
     - [setTrainDataset](#settraindataset)
     - [getVocabFile](#getvocabfile)
@@ -25,12 +23,8 @@
     - [setTrainModelPath](#settrainmodelpath)
     - [getInferModelPath](#getinfermodelpath)
     - [setInferModelPath](#setinfermodelpath)
-    - [getIp](#getip)
-    - [setIp](#setip)
     - [isUseSSL](#isusessl)
     - [setUseSSL](#setusessl)
-    - [getPort](#getport)
-    - [setPort](#setport)
     - [getTimeOut](#gettimeout)
     - [setTimeOut](#settimeout)
     - [getSleepTime](#getsleeptime)
@@ -40,7 +34,6 @@
     - [getServerNum](#getservernum)
     - [setServerNum](#setservernum)
     - [getClientID](#getclientid)
-    - [setClientID](#setclientid)
 
 <!-- /TOC -->
 
@@ -57,12 +50,10 @@ FLParameter定义联邦学习相关参数，供用户进行设置。
 | **function**                                         |
 | ---------------------------------------------------- |
 | public static synchronized FLParameter getInstance() |
-| public String getHostName()                          |
-| public void setHostName(String hostName)             |
+| public String getDomainName()                        |
+| public void setDomainName(String domainName)         |
 | public String getCertPath()                          |
 | public void setCertPath(String certPath)             |
-| public boolean isUseHttps()                          |
-| public void setUseHttps(boolean useHttps)            |
 | public String getTrainDataset()                      |
 | public void setTrainDataset(String trainDataset)     |
 | public String getVocabFile()                         |
@@ -77,12 +68,8 @@ FLParameter定义联邦学习相关参数，供用户进行设置。
 | public void setTrainModelPath(String trainModelPath) |
 | public String getInferModelPath()                    |
 | public void setInferModelPath(String inferModelPath) |
-| public String getIp()                                |
-| public void setIp(String ip)                         |
 | public boolean isUseSSL()                            |
 | public void setUseSSL(boolean useSSL)                |
-| public int getPort()                                 |
-| public void setPort(int port)                        |
 | public int getTimeOut()                              |
 | public void setTimeOut(int timeOut)                  |
 | public int getSleepTime()                            |
@@ -92,7 +79,6 @@ FLParameter定义联邦学习相关参数，供用户进行设置。
 | public int getServerNum()                            |
 | public void setServerNum(int serverNum)              |
 | public String getClientID()                          |
-| public void setClientID(String clientID)             |
 
 ## getInstance
 
@@ -106,29 +92,29 @@ public static synchronized FLParameter getInstance()
 
     FLParameter类型的单例对象。
 
-## getHostName
+## getDomainName
 
 ```java
-public String getHostName()
+public String getDomainName()
 ```
 
-获取用户设置的域名hostName。
+获取用户设置的域名domainName。
 
 - 返回值
 
     String类型的域名。
 
-## setHostName
+## setDomainName
 
 ```java
-public void setHostName(String hostName)
+public void setDomainName(String domainName)
 ```
 
-用于设置域名hostName。
+用于设置端云通信url，目前，可支持https和http通信，对应格式分别为：https://......、http://......，当`useElb`设置为true时，格式必须为：https://127.0.0.0:6666 或者http://127.0.0.0:6666 ，其中`127.0.0.0`对应提供云侧服务的机器ip（即云侧参数`--scheduler_ip`），`6666`对应云侧参数`--fl_server_port`。
 
 - 参数
 
-    - `hostName`: 域名。
+    - `domainName`: 域名。
 
 ## getCertPath
 
@@ -152,29 +138,6 @@ public void setCertPath(String certPath)
 
 - 参数
     - `certPath`: 证书路径。
-
-## isUseHttps
-
-```java
-public boolean isUseHttps()
-```
-
-端云通信是否采用https通信方式。
-
-- 返回值
-
-    boolean类型，true代表进行https通信， false代表进行http通信，默认值为false，目前云侧暂不支持https通信。
-
-## setUseHttps
-
-```java
- public void setUseHttps(boolean useHttps)
-```
-
-用于设置端云通信是否采用https通信方式。
-
-- 参数
-    - `useHttps`: 是否采用https通信方式。
 
 ## getTrainDataset
 
@@ -338,29 +301,6 @@ public void setInferModelPath(String inferModelPath)
 - 参数
     - `inferModelPath`: 推理模型路径。
 
-## getIp
-
-```java
-public String getIp()
-```
-
-用于获取用户设置的端云通信的ip地址。
-
-- 返回值
-
-    String类型的ip地址。
-
-## setIp
-
-```java
-public void setIp(String ip)
-```
-
-设置端云通信的ip地址。
-
-- 参数
-    - `ip`: 端云通信的ip地址。
-
 ## isUseSSL
 
 ```java
@@ -383,29 +323,6 @@ public void setUseSSL(boolean useSSL)
 
 - 参数
     - `useSSL`: 端云通信是否进行ssl证书认证。
-
-## getPort
-
-```java
-public int getPort()
-```
-
-用于获取用户设置的端云通信的端口号port。
-
-- 返回值
-
-    int类型的端云通信的端口号port。
-
-## setPort
-
-```java
-public void setPort(int port)
-```
-
-用于设置端云通信的端口号port。
-
-- 参数
-    - `port`: 端云通信的端口号。
 
 ## getTimeOut
 
@@ -505,19 +422,8 @@ public void setServerNum(int serverNum)
 public String getClientID()
 ```
 
-用于获取用户设置的唯一标识客户端的ID。
+启动联邦学习任务前，在程序中会自动生成一个唯一标识客户端的ID，该方法用于获取该ID。
 
 - 返回值
 
     String类型的唯一标识客户端的ID。
-
-## setClientID
-
-```java
-public void setClientID(String clientID)
-```
-
-用于设置唯一标识客户端的ID。
-
-- 参数
-    - `clientID`: 唯一标识客户端的ID。

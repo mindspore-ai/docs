@@ -1,7 +1,5 @@
 ﻿# 特性咨询
 
-`Linux` `Windows` `Ascend` `GPU` `CPU` `环境准备` `初级` `中级`
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_zh_cn/feature_advice.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 <font size=3>**Q: 导出MindIR格式的时候，`input=np.random.uniform(...)`是不是固定格式？**</font>
@@ -74,7 +72,7 @@ A: Ascend 310不能导出AIR，需要在Ascend 910加载训练好的checkpoint�
 
 <font size=3>**Q: MindSpore对导出、导入模型的单个Tensor输入大小有什么限制？**</font>
 
-A: 由于Protobuf的硬件限制，导出AIR、ONNX格式时，模型参数大小不能超过2G；导出MINDIR格式时，单个Tensor大小不能超过2G，MindSpore不支持导入AIR、ONNX格式，只支持MINDIR，导入大小的限制与导出一致。
+A: 由于Protobuf的硬件限制，导出AIR、ONNX格式时，模型参数大小不能超过2G；导出MINDIR格式时，模型参数大小没有限制，MindSpore不支持导入AIR、ONNX格式，只支持MINDIR，导入大小的限制与导出一致。
 
 <br/>
 
@@ -104,7 +102,7 @@ A: MindSpore支持Python原生表达，`import mindspore`相关包即可使用�
 
 <font size=3>**Q: 请问MindSpore支持梯度截断吗？**</font>
 
-A: 支持，可以参考[梯度截断的定义和使用](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/transformer/src/transformer_for_train.py#L35)。
+A: 支持，可以参考[梯度截断的定义和使用](https://gitee.com/mindspore/models/blob/master/official/nlp/transformer/src/transformer_for_train.py#L35)。
 
 <br/>
 
@@ -150,7 +148,7 @@ A: PyNative模式是兼容迁移学习的，更多的教程信息，可以参考
 
 <br/>
 
-<font size=3>**Q: MindSpore仓库中的[ModelZoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo)和昇腾官网的[ModelZoo](https://www.hiascend.com/software/modelzoo)有什么关系？**</font>
+<font size=3>**Q: MindSpore仓库中的[ModelZoo](https://gitee.com/mindspore/models/tree/master)和昇腾官网的[ModelZoo](https://www.hiascend.com/software/modelzoo)有什么关系？**</font>
 
 A: MindSpore的ModelZoo主要提供MindSpore框架实现的模型，同时包括了Ascend/GPU/CPU/Mobile多种设备的支持。昇腾的ModelZoo主要提供运行于Ascend加速芯片上的模型，包括了MindSpore/PyTorch/TensorFlow/Caffe等多种框架的支持。可以参考对应的[Gitee仓库](https://gitee.com/ascend/modelzoo)
 

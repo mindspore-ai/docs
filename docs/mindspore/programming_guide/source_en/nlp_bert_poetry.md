@@ -1,6 +1,6 @@
 # Using the BERT Network to Implement Intelligent Poem Writing
 
-`Linux` `Ascend` `Model Training` `Inference Application` `Expert`
+`Ascend` `Natural Language Processing` `Whole Process`
 
 <!-- TOC -->
 
@@ -17,11 +17,10 @@
         - [Data Preparation](#data-preparation)
         - [Training](#training)
         - [Inference Validation](#inference-validation)
-        - [Service Deployment](#service-deployment)
     - [References](#references)
 
 <!-- /TOC -->
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/nlp_bert_poetry.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/nlp_bert_poetry.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 Poetry is an indispensable part of the five-millennium-old Chinese culture. When appreciating poetry, you can perceive the pure and vast world with ultimate sensibility and reduce stress and anxiety brought by the fast-paced world. As we know, one has to practice a skill a lot to become good at it. Today, let's see how the science-backed MindSpore trains a model to show its sense of arts!
 
@@ -34,8 +33,6 @@ Use MindSpore to train an intelligent poem writing model and deploy the predicti
 Figure 1: Case flowchart
 
 The following skips the process of pre-training BERT and directly describes the process of fine-tuning a pre-trained BERT-base model of MindSpore.
-
-In addition, the following shows how to deploy the model as a prediction service through MindSpore Serving. The client code can send a request to the prediction service and obtain the prediction result.
 
 ## Model Description
 
@@ -98,16 +95,16 @@ Download the [sample code](https://mindspore-website.obs.cn-north-4.myhuaweiclou
     ├── utils.py                           # Defining the fine-tuning forward network structure
     ├── poetry_utils.py                    # Tokenizer
     └── poetry_dataset.py                  # Parsing poetry.txt and generating the required dataset
+  ├── serving
+    ├── bert
+      ├── 1
+        ├── poetry.mindir                  # exported MindIR file
+      ├── servable_config.py               # Serving inference script
+    ├── poetry_client.py                   # Serving client script
+    ├── serving_server.py                  # Serving server script
   ├── vocab.txt                            # Vocabulary
   ├── generator.py                         # Function used for generating poems during inference
   ├── poetry.py                            # Training, inference, and export functions
-  ├── serving
-    ├── ms_serving                         # Enabling MindSpore Serving
-    ├── bert_flask.py                      # Receiving requests on a server.
-    ├── poetry_client.py                   # Client code
-    ├── ms_service_pb2_grpc.py             # Defining grpc-related functions for bert_flask.py
-    └── ms_service_pb2.py                  # Defining protocol buffer-related functions for bert_flask.py
-
 ```
 
 ## Implementation Procedure
@@ -120,7 +117,7 @@ Perform training and inference on the Ascend 910 AI Processor using MindSpore 0.
 
 A dataset containing [43030 poems](https://github.com/AaronJny/DeepLearningExamples/tree/master/keras-bert-poetry-generator): `poetry.txt`.
 
-Pre-trained checkpoints of a BERT-base model: [Download from MindSpore](http://download.mindspore.cn/model_zoo/official/nlp/bert/bert_base_ascend_0.5.0_cn-wiki_official_nlp_20200720.tar.gz).
+Pre-trained checkpoints of a BERT-base model: [Download from MindSpore](https://www.mindspore.cn/resources/hub/details/en?MindSpore/ascend/1.0/bert_base_v1.0_cn-wiki).
 
 ### Training
 
@@ -200,100 +197,41 @@ An acrostic poem:
 
 ### Service Deployment
 
-Use MindSpore Serving to deploy the trained model as an inference service. Server-side deployment includes the following steps: model export, Serving startup, and startup for preprocessing and post-processing services. A client sends an inference request to a server for model inference. The server returns the generated poem to the client for display.
+Use MindSpore Serving to deploy the trained model as an inference service. Server-side deployment includes the following three steps: model export, Serving server startup, Serving client startup. The processor utilizes Serving service for inference and the generated poem will be sent back to the client. Notice, you need to startup Serving server before Serving client.
 
 - Model export
 
-    Before using Serving to deploy a service, export the MindIR model using the `export_net` function provided in `poetry.py`.
+    Before using Serving to deploy a service, export the MindIR model using `export_net` function provided in `poetry.py`.
 
     ```bash
     python poetry.py --export=True --ckpt_path=/your/ckpt/path
     ```
 
-    The `poetry.pb` file is generated in the current path.
+    The `poetry.mindir` file is generated in the current path. You need to move the generated file to `serving/bert/1`.
 
-- Serving startup
+- Serving server startup
 
-    Start Serving on the server and load the exported MindIR file `poetry.pb`.
+    Start Serving server and load the exported MindIR file.
 
     ```bash
     cd serving
-    ./ms_serving --model_path=/path/to/your/MINDIR_file --model_name=your_mindir.pb
+    python serving_server.py
     ```
 
-- Startup for preprocessing and post-processing services
+- Serving client startup
 
-    Implement the preprocessing and post-processing services using the Flask framework. Run the `bert_flask.py` file on the server to start the Flask service.
+    Start Serving client and send inference request.
 
     ```bash
-    python bert_flask.py
-    ```
-
-    After the preceding steps are performed, the server-side deployment is complete.
-
-- Client
-
-    Use a computer as the client. Set the URL request address in `poetry_client.py` to the IP address of the server where the inference service is started, and ensure that the port number is the same as that in `bert_flask.py` on the server. For example:
-
-    ```text
-    url = 'http://10.155.170.71:8080/'
-    ```
-
-    Run the `poetry_client.py` file.
-
-    ```bash
+    cd serving
     python poetry_client.py
     ```
 
-    Enter an instruction on the client to perform inference on the remote server to obtain a poem.
+    Select a certain mode and the inference will be called through Serving. The generated poem will be displayed on the client.
 
     ```text
-    选择模式：0-随机生成，1：续写，2：藏头诗
-    0
+    选择模式： 0-随机生成，1：续写，2：藏头诗
     ```
-
-    ```text
-    一朵黄花叶，
-    千竿绿树枝。
-    含香待夏晚，
-    澹浩长风时。
-    ```
-
-    ```text
-    选择模式：0-随机生成，1：续写，2：藏头诗
-    1
-    输入首句诗
-    明月
-    ```
-
-    ```text
-    明月照三峡，
-    长空一片云。
-    秋风与雨过，
-    唯有客舟分。
-    寒影出何处，
-    远林含不闻。
-    不知前后事，
-    何道逐风君。
-    ```
-
-    ```text
-    选择模式：0-随机生成，1：续写，2：藏头诗
-    2
-    输入藏头诗
-    人工智能
-    ```
-
-    ```text
-    人生事太远，
-    工部与神期。
-    智者岂无识，
-    能文争有疑。
-    ```
-
-    Read the poem and appreciate its tonal patterns, rhymes, and meanings. An AI poet has established fame.
-
-> You can also modify other datasets to complete simple generation tasks, such as the Chinese New Year couplet writing and simple chat robot.
 
 ## References
 

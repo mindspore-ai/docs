@@ -1,15 +1,14 @@
 # GPU上推理
 
-`Linux` `GPU` `推理应用` `初级` `中级` `高级`
+`GPU` `推理应用`
 
 <!-- TOC -->
 
 - [GPU上推理](#gpu上推理)
-    - [使用checkpoint格式文件推理](#使用checkpoint格式文件推理)
     - [使用C++接口推理MindIR格式文件](#使用c接口推理mindir格式文件)
         - [推理目录结构介绍](#推理目录结构介绍)
         - [推理代码介绍](#推理代码介绍)
-        - [构建脚本介绍](#构建脚本介绍)
+        - [构建脚本](#构建脚本)
         - [编译推理代码](#编译推理代码)
         - [执行推理并查看结果](#执行推理并查看结果)
         - [备注](#备注)
@@ -18,10 +17,6 @@
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/multi_platform_inference_gpu.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
-
-## 使用checkpoint格式文件推理
-
-与在Ascend 910 AI处理器上推理一样。
 
 ## 使用C++接口推理MindIR格式文件
 
@@ -32,7 +27,7 @@
 首先创建目录放置推理代码工程，例如`/home/mindspore_sample/gpu_resnet50_inference_sample`，可以从官网示例下载[样例代码](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/gpu_resnet50_inference_sample)，`model`目录用于存放`MindIR`[模型文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet.mindir)，推理代码工程目录结构如下：
 
 ```text
-└─gpu_resnet50_preprocess_sample
+└─gpu_resnet50_inference_sample
     ├── build.sh                          // 构建脚本
     ├── CMakeLists.txt                    // CMake构建脚本
     ├── README.md                         // 使用说明
@@ -137,7 +132,7 @@ target_link_libraries(main ${MS_LIB})
 
 ### 编译推理代码
 
-接下来编译推理的代码，首先要进入工程目录`gpu_resnet50_preprocess_sample`：
+接下来编译推理的代码，首先要进入工程目录`gpu_resnet50_inference_sample`：
 
 可以根据实际情况对build.sh中的`pip3`修改，修改完成后`bash build.sh`命令编译即可。
 
@@ -145,7 +140,7 @@ target_link_libraries(main ${MS_LIB})
 bash build.sh
 ```
 
-编译完成后，在`gpu_resnet50_preprocess_sample/out`下会生成可执行`main`文件。
+编译完成后，在`gpu_resnet50_inference_sample/out`下会生成可执行`main`文件。
 
 ### 执行推理并查看结果
 
@@ -153,7 +148,7 @@ bash build.sh
 
 首先，登录GPU环境，创建`model`目录放置MindIR文件`resnet50_imagenet.mindir`，例如`/home/mindspore_sample/gpu_resnet50_inference_sample/model`。
 
-在执行推理之前，首先需要设置环境变量，环境变量需要根据实际情况修改，例如：
+在执行推理之前，首先需要设置环境变量，环境变量需要根据实际情况修改。其中TensorRT库为可选配置项，推荐将TensorRT库路径添加到`LD_LIBRARY_PATH`环境变量中，有助提升模型推理性能。
 
 ```bash
 export LD_PRELOAD=/home/miniconda3/lib/libpython37m.so
@@ -186,7 +181,7 @@ infer finished.
 
 ### 备注
 
-- 一些网络在训练过程时，人为将部分算子精度设置为FP16。例如ModelZoo中的[Bert网络](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/bert/src/bert_model.py)，将Dense和LayerNorm设置为FP16进行训练。
+- 一些网络在训练过程时，人为将部分算子精度设置为FP16。例如ModelZoo中的[Bert网络](https://gitee.com/mindspore/models/blob/master/official/nlp/bert/src/bert_model.py)，将Dense和LayerNorm设置为FP16进行训练。
 
 ```python
 class BertOutput(nn.Cell):

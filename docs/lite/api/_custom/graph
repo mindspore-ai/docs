@@ -2672,6 +2672,8 @@ class ExhaleRoot(object):
                     "\n".join(spec for spec in utils.specificationsForKind(node.kind))
                 )
                 gen_file.write(specifications)
+        except FileNotFoundError:
+            print("file not found!")
         except:
             utils.fancyError(
                 "Critical error while generating the file for [{0}].".format(node.file_name)

@@ -1,12 +1,14 @@
 ﻿# Using Dump in the Graph Mode
 
-`Linux` `Ascend` `GPU` `CPU` `Model Optimization` `Intermediate` `Expert`
+`Ascend` `GPU` `CPU` `Model Optimization`
 
 <!-- TOC -->
 
 - [Using Dump in the Graph Mode](#using-dump-in-the-graph-mode)
     - [Overview](#overview)
         - [Debugging Process](#debugging-process)
+            - [Data preparation](#data-preparation)
+            - [Data analysis](#data-analysis)
         - [Applicable Scene](#applicable-scene)
     - [Dump Introduction](#dump-introduction)
     - [Synchronous Dump](#synchronous-dump)
@@ -22,7 +24,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/dump_in_graph_mode.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/dump_in_graph_mode.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -41,6 +43,11 @@ Using dump to help debugging is divided into two steps: 1. Data preparation; 2. 
 #### Data preparation
 
 The data preparation phase uses synchronous dump or asynchronous dump to generate dump data. See [Synchronous Dump Step](#synchronous-dump-step) and [Asynchronous Dump Step](#asynchronous-dump-step) for details.
+
+When preparing data, you can refer to the following best practices:
+
+1. Set the `iteration` parameter to save only the data of the iteration with the problem and the previous iteration. For example, if the problem to be analyzed will appear in the 10th iteration (counting from 1), you can set it as follows: `"iteration": "8 | 9"`. Note that the `iteration` parameter evaluates iterations from 0. Saving the data of the above two iterations can help problem analysis under most scenarios.
+2. After the iteration with problems is completed, it is recommended that you use [run_context.request_stop()](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.train.html#mindspore.train.callback.RunContext.request_stop) or other methods to stop the training.
 
 #### Data analysis
 
@@ -64,7 +71,7 @@ If MindInsight is not installed, you need to analyze the data through the follow
 
 1. Analysis of static graph operator results.
 
-   Through the IR diagram obtained by the Dump function, you can understand the mapping relationship between the script code and the execution operator (for details, see [MindSpore IR Introduction](https://www.mindspore.cn/docs/note/en/master/design/mindir.html#overview)). Combining the input and output data of the execution operator, it is possible to analyze possible overflow, gradient explosion and disappearance during the training process, and backtrack to the code that may have problems in the script.
+   Through the IR diagram obtained by the Dump function, you can understand the mapping relationship between the script code and the execution operator (for details, see [MindSpore IR Introduction](https://www.mindspore.cn/docs/programming_guide/en/master/design/mindir.html#overview)). Combining the input and output data of the execution operator, it is possible to analyze possible overflow, gradient explosion and disappearance during the training process, and backtrack to the code that may have problems in the script.
 
 2. Analysis of the feature map.
 
@@ -101,6 +108,7 @@ The configuration files required for different modes and the data format of dump
             "path": "/absolute_path",
             "net_name": "ResNet50",
             "iteration": "0|5-8|100-120",
+            "saved_data": "tensor",
             "input_output": 0,
             "kernels": ["Default/Conv-op12"],
             "support_device": [0,1,2,3,4,5,6,7]
@@ -112,15 +120,16 @@ The configuration files required for different modes and the data format of dump
     }
     ```
 
-    - `dump_mode`: 0: dump all kernels in graph, 1: dump kernels in kernels list.
+    - `dump_mode`: 0: dump all kernels data in graph, 1: dump kernels data in kernels list.
     - `path`: The absolute path to save dump data.
     - `net_name`: The net name eg:ResNet50.
-    - `iteration`: Specify the iterations to dump, type is string. Use "|" to separate the step data of different intervals to be saved. For example, "0 | 5-8 | 100-120" represents the initial value of the dump parameter, the data of the 1st, 6th to 9th, and 101st to 121st steps. If iteration set to "all", data of every iteration will be dumped.
+    - `iteration`: Specify the iterations to dump, type is string. Use "|" to separate the step data of different intervals to be saved. For example, "0 | 5-8 | 100-120" represents dump the data of the 1st, 6th to 9th, and 101st to 121st steps. If iteration set to "all", data of every iteration will be dumped.
+    - `saved_data`: Specify what data is to be dumped, type is string. Use "tensor" to dump tensor data, use "statistic" to dump tensor statistics, use "full" to dump both tensor data and statistics. Default setting is "tensor". Statistics dump is only supported on GPU, using "statistic" or "full" on CPU or Ascend will result in exception.
     - `input_output`: 0: dump input and output of kernel, 1:dump input of kernel, 2:dump output of kernel. This configuration parameter only supports Ascend and CPU, and GPU can only dump the output of operator.
-    - `kernels`: List of operator names. Turn on the IR save switch `context.set_context(save_graphs=True)` and execute the network to obtain the operator name from the generated `trace_code_graph_{graph_id}`IR file. For details, please refer to [Saving IR](https://www.mindspore.cn/docs/note/en/master/design/mindir.html#saving-ir).
-    - `support_device`: Supported devices, default setting is `[0,1,2,3,4,5,6,7]`. You can specify specific device ids to dump specific device data. This configuration parameter is invalid on the CPU, because there is no concept of device on the CPU.
+    - `kernels`: List of operator names. Turn on the IR save switch `context.set_context(save_graphs=True)` and execute the network to obtain the operator name from the generated `trace_code_graph_{graph_id}`IR file. For details, please refer to [Saving IR](https://www.mindspore.cn/docs/programming_guide/en/master/design/mindir.html#saving-ir).
+    - `support_device`: Supported devices, default setting is `[0,1,2,3,4,5,6,7]`. You can specify specific device ids to dump specific device data. This configuration parameter is invalid on the CPU, because there is no concept of device on the CPU, but it is still need to reserve this parameter in the json file.
     - `enable`: Enable Asynchronous Dump.
-    - `trans_flag`: Enable trans flag. Transform the device data format into NCHW. If it is `True`, the data will be saved in the 4D format (NCHW) format on the Host side; if it is `False`, the data format on the Device side will be retained. This configuration parameter is invalid on the CPU, because there is no format conversion on the CPU.
+    - `trans_flag`: Enable trans flag. Transform the device data format into NCHW. If it is `True`, the data will be saved in the 4D format (NCHW) format on the Host side; if it is `False`, the data format on the Device side will be retained. This configuration parameter is invalid on the CPU, because there is no format conversion on the CPU, but it is still need to reserve this parameter in the json file.
 
 2. Set Dump environment.
 
@@ -150,7 +159,7 @@ The configuration files required for different modes and the data format of dump
 3. Execute the training script to dump data.
 
    After the training is started, if the `MINDSPORE_DUMP_CONFIG` environment variable is correctly configured, the content of the configuration file will be read and the operator data will be saved according to the data storage path specified in the Dump configuration.
-   In synchronous mode, if you want to dump data, you must use the non-data sink mode (set the `dataset_sink_mode` parameter in `model.train` or `DatasetHelper` to `False`) to ensure that you can get the dump data of each step.
+   In synchronous mode, if you want to dump data in GPU environment, you must use the non-data sink mode (set the `dataset_sink_mode` parameter in `model.train` or `DatasetHelper` to `False`) to ensure that you can get the dump data of each step.
    If `model.train` or `DatasetHelper` is not called in the script, the default is non-data sinking mode. Using the Dump function will automatically generate the IR file of the final execution graph.
 
     You can set `context.set_context(reserve_class_name_in_scope=False)` in your training script to avoid dump failure because of file name is too long.
@@ -168,6 +177,7 @@ After starting the training, the data objects saved by the synchronous Dump incl
         - {net_name}/
             - {graph_id}/
                 - {iteration_id}/
+                    statistic.csv
                     {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy
             ...
         - graphs/
@@ -175,6 +185,7 @@ After starting the training, the data objects saved by the synchronous Dump incl
             ms_output_trace_code_graph_{graph_id}.ir
         - execution_order/
             ms_execution_order_graph_{graph_id}.csv
+            ms_global_execution_order_graph_{graph_id}.csv
 
 ```
 
@@ -194,6 +205,8 @@ After starting the training, the data objects saved by the synchronous Dump incl
 
 For multi graph networks, due to the control flow, some subgraphs may not be executed, but Dump only saves the executed nodes, so the {graph_id} in the `.pb` file name under the 'graphs' directory may not always have a corresponding {graph_id} directory in {net_name} directory.
 
+Only when `saved_data` is "statistic" or "full", will tensor statistics be dumped in `statistic.csv`. Only when `saved_data` is "tensor" or "full", will full tensor data be dumped in `{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy`.
+
 ### Introduction to Synchronous Dump Data File
 
 The data file generated by the synchronous Dump is a binary file with the suffix `.npy`, and the file naming format is:
@@ -203,6 +216,8 @@ The data file generated by the synchronous Dump is a binary file with the suffix
 ```
 
 User can use Numpy interface `numpy.load` to read the data.
+
+The statistics file generated by the synchronous dump is named `statistic.csv`. This file stores key statistics for all tensors dumped under the same directory as itself (with the file names `{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy`). Each row in `statistic.csv` summarizes a single tensor, each row contains the statistics: Op Type, Op Name, Task ID, Stream ID, Timestamp, IO, Slot, Data Size, Data Type, Shape, Max Value, Min Value, Avg Value, Count, Negative Zero Count, Positive Zero Count, NaN Count, Negative Inf Count, Positive Inf Count, Zero Count.
 
 The suffixes of the final execution graph files generated by synchronous Dump are `.pb` and `.ir` respectively, and the file naming format is:
 
@@ -219,13 +234,22 @@ The suffix of the node execution sequence file generated by the synchronous Dump
 ms_execution_order_graph_{graph_id}.csv
 ```
 
+The suffix of the graph execution history file is `.csv`. The file naming format is:
+
+```text
+ms_global_execution_order_graph_{graph_id}.csv
+```
+
+This file stores the list of iterations in which the graph was executed. After the graph is compiled, it may be split into multiple sub-graphs.
+Since sub-graphs share the same graph execution history with root graph, only root graph will generate an execution history file.
+
 `.dump_metadata` records the original training information, and `data_dump.json` saves the dump configuration set by the user.
 
 ### Synchronous Dump Data Analysis Sample
 
 For the Ascend scene, after the graph corresponding to the script is saved to the disk through the Dump function, the final execution graph file `ms_output_trace_code_graph_{graph_id}.ir` will be generated. This file saves the stack information of each operator in the corresponding graph, and records the generation script corresponding to the operator.
 
-Take [AlexNet script](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/alexnet/src/alexnet.py) as an example:
+Take [AlexNet script](https://gitee.com/mindspore/models/blob/master/official/cv/alexnet/src/alexnet.py) as an example:
 
 ```python
 import mindspore.nn as nn
@@ -379,23 +403,27 @@ Large networks (such as Bert Large) will cause memory overflow when using synchr
             "path": "/absolute_path",
             "net_name": "ResNet50",
             "iteration": "0|5-8|100-120",
+            "saved_data": "tensor",
             "input_output": 0,
             "kernels": ["Default/Conv-op12"],
             "support_device": [0,1,2,3,4,5,6,7],
-            "op_debug_mode": 0
+            "op_debug_mode": 0,
+            "file_format": "npy"
         }
     }
     ```
 
-    - `dump_mode`: 0: dump all kernels in graph, 1: dump kernels in kernels list.
+    - `dump_mode`: 0: dump all kernels data in graph, 1: dump kernels data in kernels list, 2: dump the kernels data specified by `set_dump` in the scripts, see [mindspore.dump](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore/mindspore.set_dump.html) for the usage of `set_dump`.
     - `path`: The absolute path to save dump data. It is not a mandatory option and can be left unset or set to an empty string.
     - `net_name`: The net name eg:ResNet50.
-    - `iteration`: Specify the iterations to dump, type is string. Use "|" to separate the step data of different intervals to be saved. For example, "0 | 5-8 | 100-120" represents the initial value of the dump parameter, the data of the 1st, 6th to 9th, and 101st to 121st steps. If iteration set to "all", data of every iteration will be dumped.
+    - `iteration`: Specify the iterations to dump, type is string. Use "|" to separate the step data of different intervals to be saved. For example, "0 | 5-8 | 100-120" represents dump the data of the 1st, 6th to 9th, and 101st to 121st steps. If iteration set to "all", data of every iteration will be dumped.
+    - `saved_data`: Specify what data is to be dumped, type is string. Use "tensor" to dump tensor data, use "statistic" to dump tensor statistics, use "full" to dump both tensor data and statistics. Default setting is "tensor". Statistics dump is only supported on GPU, using "statistic" or "full" on CPU or Ascend will result in exception.
     - `input_output`: When set to 0, it means to Dump the operator's input and output; setting it to 1 means to Dump the operator's input; setting it to 2 means to Dump the output of the operator.
-    - `kernels`: List of operator names. Turn on the IR save switch `context.set_context(save_graphs=True)` and execute the network to obtain the operator name from the generated `trace_code_graph_{graph_id}`IR file. `kernels` only supports TBE operator, AiCPU operator and communication operator. The data of communication operation input operator will be dumped if `kernels` is set to the name of communication operator. For details, please refer to [Saving IR](https://www.mindspore.cn/docs/note/en/master/design/mindir.html#saving-ir).
+    - `kernels`: List of operator names. Turn on the IR save switch `context.set_context(save_graphs=True)` and execute the network to obtain the operator name from the generated `trace_code_graph_{graph_id}`IR file. `kernels` only supports TBE operator, AiCPU operator and communication operator. The data of communication operation input operator will be dumped if `kernels` is set to the name of communication operator. For details, please refer to [Saving IR](https://www.mindspore.cn/docs/programming_guide/en/master/design/mindir.html#saving-ir).
     - `support_device`: Supported devices, default setting is `[0,1,2,3,4,5,6,7]`. You can specify specific device ids to dump specific device data.
     - `enable`: Enable Asynchronous Dump. If synchronous dump and asynchronous dump are enabled at the same time, only synchronous dump will take effect.
     - `op_debug_mode`: 0: disable overflow check function; 1: enable AiCore overflow check; 2: enable Atomic overflow check; 3: enable all overflow check function. If it is not set to 0, only the data of the overflow operator will be dumped.
+    - `file_format`: Dump file type. It can be either `npy` and `bin`. `npy`: data will be dumped in npy files as host format. `bin`: data will be dumped in protobuf file as device format and need to be transformed to parse using the provided data analysis tool. Please refer to [Asynchronous Dump Data Analysis Sample](#asynchronous-dump-data-analysis-sample) for details. The default value is `bin`.
 
 2. Set Dump environment.
 
@@ -443,6 +471,7 @@ The data objects saved by asynchronous Dump include the final execution graph (`
             ms_output_trace_code_graph_{graph_id}.ir
         - execution_order/
             ms_execution_order_graph_{graph_id}.csv
+            ms_global_execution_order_graph_{graph_id}.csv
 ```
 
 - `path`: the absolute path set in the `data_dump.json` configuration file.
@@ -456,13 +485,15 @@ The data objects saved by asynchronous Dump include the final execution graph (`
 - `stream_id`: the id of the stream.
 - `timestamp`: the time stamp.
 
-For multi graph networks, due to the control flow, some subgraphs may not be executed, but Dump only saves the executed nodes, so the {graph_id} in the `.pb` file name under the 'graphs' directory may not always have a corresponding {graph_id} directory in {net_name} directory.
+Due to the control flow, some sub-graphs may not be executed, but Dump only saves the executed nodes, so the {graph_id} in the `.pb` file name under the 'graphs' directory may not always have a corresponding {graph_id} directory in {net_name} directory.
+
+For multi-graph networks, such as dynamic shape scenario, the iterations of all graphs on each device are counted uniformly.
 
 ### Introduction to Asynchronous Dump Data File
 
-After the training is started, the original data file generated by asynchronous Dump is in protobuf format. It needs to be parsed using the data analysis tool that comes with the HiSilicon Run package. For details, please refer to [How to view dump data files](https://support.huaweicloud.com/intl/en-us/usermanual-mindstudioc73/atlasmindstudioaccuracy_16_0022.html).
+If not configured `file_format` or set `file_format` to `bin`, after the training is started, the original data file generated by asynchronous Dump is in protobuf format. It needs to be parsed using the data analysis tool that comes with the HiSilicon Run package. For details, please refer to [How to view dump data files](https://support.huawei.com/enterprise/en/doc/EDOC1100206689/640e796d/how-do-i-view-a-dump-file).
 
-The data format on the Device side may be different from the definition in the calculation diagram on the Host side. The data format of the asynchronous dump is the Device side format. If you want to convert to the Host side format, you can refer to [How to convert dump data file format](https://support.huaweicloud.com/intl/en-us/usermanual-mindstudioc73/atlasmindstudioaccuracy_16_0021.html).
+The data format on the Device side may be different from the definition in the calculation diagram on the Host side. The data format of the asynchronous dump is the Device side format. If you want to convert to the Host side format, you can refer to [How to convert dump data file format](https://support.huawei.com/enterprise/en/doc/EDOC1100206689/130949fb/how-do-i-convert-the-format-of-a-dump-file).
 
 The naming rules for data files generated by asynchronous Dump are as follows:
 
@@ -476,7 +507,9 @@ If ".", "/", "\", and spaces appear in `op_type` and `op_name`, they will be con
 The original data file generated by dump can also be parsed by using the data parsing tool DumpParser of MindInsight. Please refer to [DumpParser Introduction](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/parser/README.md) for the usage of DumpParser.
 The data format parsed by MindInsight is exactly the same as that of synchronous dump.
 
-The final execution graph file and node execution sequence file naming rules generated by asynchronous Dump are the same as that of synchronous Dump. You can refer to [Introduction to Synchronous Dump Data File](#introduction-to-synchronous-dump-data-file).
+If setting `file_format` to `npy`, the naming convention of data files generated by asynchronous dump is the same as those of synchronous dump. Please refer to [Introduction to Synchronous Dump Data File](#introduction-to-synchronous-dump-data-file).
+
+The final execution graph file and execution order file naming rules generated by asynchronous Dump are the same as that of synchronous Dump. You can refer to [Introduction to Synchronous Dump Data File](#introduction-to-synchronous-dump-data-file).
 
 ### Asynchronous Dump Data Analysis Sample
 
@@ -496,7 +529,7 @@ Through the asynchronous Dump function, the data files generated by the operator
     python ${The  absolute path of msaccucmp.py} convert -d {file path of dump} -out {file path of output}
     ```
 
-    Or you can use `msaccucmp.py` to convert the format of dump file. Please see <https://support.huawei.com/enterprise/zh/doc/EDOC1100191946/fa6aecce>.
+    Or you can use `msaccucmp.py` to convert the format of dump file. Please see <https://support.huawei.com/enterprise/en/doc/EDOC1100206689/130949fb/how-do-i-convert-the-format-of-a-dump-file>.
 
     For example, the data file generated by Dump is:
 

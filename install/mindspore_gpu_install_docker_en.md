@@ -7,11 +7,10 @@
     - [nvidia-container-toolkit Installation](#nvidia-container-toolkit-installation)
     - [Obtaining MindSpore Image](#obtaining-mindspore-image)
     - [Running MindSpore Image](#running-mindspore-image)
-    - [Installation Verification](#installation-verification)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_gpu_install_docker_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_gpu_install_docker_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 [Docker](https://docs.docker.com/get-docker/) is an open source application container engine, developers can package their applications and dependencies into a lightweight, portable container. By using Docker, MindSpore can be rapidly deployed and separated from the system environment.
 
@@ -23,17 +22,17 @@ The current support for containerized build is as follows:
 
 | Hardware   | Docker Image Hub                | Label                       | Note                                       |
 | :----- | :------------------------ | :----------------------- | :--------------------------------------- |
-| GPU    | `mindspore/mindspore-gpu` | `x.y.z`                  | A production environment with the MindSpore `x.y.z` GPU version pre-installed.       |
-|        |                           | `devel`                  | Provide a development environment to build MindSpore from the source (`GPU CUDA10.1` backend). For installation details, please refer to <https://www.mindspore.cn/install/en>. |
-|        |                           | `runtime`                | Provide runtime environment, MindSpore binary package (`GPU CUDA10.1` backend) is not installed. |
+| GPU    | `mindspore/mindspore-gpu-{cuda10.1|cuda11.1}` | `x.y.z`                  | A production environment with the MindSpore `x.y.z` GPU version pre-installed. (CUDA10.1 or CUDA11.1 backend) |
+|        | `mindspore/mindspore-gpu` | `devel`                  | Provide a development environment to build MindSpore from the source (`GPU CUDA11.1` backend). For installation details, please refer to <https://www.mindspore.cn/install/en>. |
+|        | `mindspore/mindspore-gpu` | `runtime`                | Provide runtime environment, MindSpore binary package (`GPU CUDA11.1` backend) is not installed. |
 
 > **Note:** It is not recommended to install the whl package directly after building the GPU `devel` Docker image from the source. We strongly recommend that you transfer and install the `whl` package in the GPU `runtime` Docker image.
 > `x.y.z` corresponds to the MindSpore version number. For example, when installing MindSpore version 1.1.0, `x.y.z` should be written as 1.1.0.
 
 ## System Environment Information Confirmation
 
-- Confirm that Ubuntu 18.04 is installed with the 64-bit operating system.
-- Confirm that [Docker 18.03 or later versioin](https://docs.docker.com/get-docker/) is installed.
+- Ensure that a 64-bit Linux operating system is installed, where Ubuntu 18.04 is verified.
+- Ensure that [Docker 18.03 or later versioin](https://docs.docker.com/get-docker/) is installed.
 
 ## nvidia-container-toolkit Installation
 
@@ -75,32 +74,43 @@ sudo systemctl restart docker
 For the `CPU` backend, you can directly use the following command to obtain the latest stable image:
 
 ```bash
+docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu-{cuda_version}:{version}
+```
+
+of which,
+
+- `{version}` corresponds to MindSpore version, e.g. 1.5.0.
+- `{cuda_version}` corresponds to CUDA version of which MindSpore is based on, including `cuda10.1` and `cuda11.1`.
+
+If you wish to obtain a develop environment or runtime environment:
+
+```bash
 docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu:{tag}
 ```
 
 of which,
 
-- `{tag}` corresponds to the label in the above table.
+- `{tag}` corresponds to the label in the above table, namely `devel` and `runtime`.
 
 ## Running MindSpore Image
 
 Execute the following command to start the Docker container instance:
 
 ```bash
-docker run -it -v /dev/shm:/dev/shm --runtime=nvidia --privileged=true swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu:{tag} /bin/bash
+docker run -it -v /dev/shm:/dev/shm --runtime=nvidia swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu-{cuda_version}:{tag} /bin/bash
 ```
 
 of which,
 
 - `-v /dev/shm:/dev/shm` mounts the directory where the NCCL shared memory segment is located into the container;
 - `--runtime=nvidia` is used to specify the container runtime as `nvidia-container-runtime`;
-- `--privileged=true` enables the container to expand;
 - `{tag}` corresponds to the label in the above table.
+- `{cuda_version}` corresponds to CUDA version of which MindSpore is based on, including `cuda10.1` and `cuda11.1`.
 
-If you want to use MindInsight, you need to set the --network parameter to "host" mode, for example:
+If you want to use MindInsight, you need to set the `--network` parameter to `host` mode, for example:
 
 ```bash
-docker run -it -v /dev/shm:/dev/shm --network host --runtime=nvidia --privileged=true swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu:{tag} /bin/bash
+docker run -it -v /dev/shm:/dev/shm --network host --runtime=nvidia swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu-{cuda_version}:{tag} /bin/bash
 ```
 
 ## Installation Verification
@@ -118,7 +128,7 @@ python -c "import mindspore;mindspore.run_check()"
 - The outputs should be the same as:
 
 ```text
-mindspore version: __version__
+MindSpore version: __version__
 The result of multiplication calculation is correct, MindSpore has been installed successfully!
 ```
 
@@ -132,7 +142,7 @@ import mindspore.context as context
 import mindspore.ops as ops
 from mindspore import Tensor
 
-context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
+context.set_context(device_target="GPU")
 
 x = Tensor(np.ones([1,3,3,4]).astype(np.float32))
 y = Tensor(np.ones([1,3,3,4]).astype(np.float32))
@@ -142,17 +152,17 @@ print(ops.add(x, y))
 The outputs should be the same as:
 
 ```text
-[[[ 2.  2.  2.  2.],
-[ 2.  2.  2.  2.],
-[ 2.  2.  2.  2.]],
+[[[[2. 2. 2. 2.]
+   [2. 2. 2. 2.]
+   [2. 2. 2. 2.]]
 
-[[ 2.  2.  2.  2.],
-[ 2.  2.  2.  2.],
-[ 2.  2.  2.  2.]],
+  [[2. 2. 2. 2.]
+   [2. 2. 2. 2.]
+   [2. 2. 2. 2.]]
 
-[[ 2.  2.  2.  2.],
-[ 2.  2.  2.  2.],
-[ 2.  2.  2.  2.]]]
+  [[2. 2. 2. 2.]
+   [2. 2. 2. 2.]
+   [2. 2. 2. 2.]]]]
 ```
 
 It means MindSpore has been installed by docker successfully.
@@ -163,10 +173,10 @@ It means MindSpore has been installed by docker successfully.
 
 - If you install a container with the label of `runtime`, you need to install MindSpore yourself.
 
-    Go to [MindSpore Installation Guide Page](https://www.mindspore.cn/install/en), choose the GPU hardware platform, Ubuntu-x86 operating system and pip installation method to get the installation guide. Refer to the installation guide after running the container and install the MindSpore GPU version by pip, and verify it.
+    Go to [MindSpore Installation Guide Page](https://www.mindspore.cn/install/en), choose the GPU hardware platform, Linux-x86_64 operating system and pip installation method to get the installation guide. Refer to the installation guide after running the container and install the MindSpore GPU version by pip, and verify it.
 
 - If you install a container with the label of `devel`, you need to compile and install MindSpore yourself.
 
-    Go to [MindSpore Installation Guide Page](https://www.mindspore.cn/install/en), choose the GPU hardware platform, Ubuntu-x86 operating system and pip installation method to get the installation guide. After running the container, download the MindSpore code repository and refer to the installation guide, install the MindSpore GPU version through source code compilation, and verify it.
+    Go to [MindSpore Installation Guide Page](https://www.mindspore.cn/install/en), choose the GPU hardware platform, Linux-x86_64 operating system and pip installation method to get the installation guide. After running the container, download the MindSpore code repository and refer to the installation guide, install the MindSpore GPU version through source code compilation, and verify it.
 
-If you want to know more about the mindspore Docker image building process, please check [docker repo](https://gitee.com/mindspore/mindspore/blob/master/docker/README.md) for details.
+If you want to know more about the MindSpore Docker image building process, please check [docker repo](https://gitee.com/mindspore/mindspore/blob/master/scripts/docker/README.md) for details.

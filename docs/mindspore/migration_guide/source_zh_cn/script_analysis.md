@@ -45,7 +45,7 @@ MindSpore API由各种Python/C++ API算子组成，可以大致分为：
 
 若该网页均未能找到对应的ME算子，则可继续在[MindSpore API列表](https://www.mindspore.cn/docs/api/zh-CN/master/index.html)中搜索算子名称。
 
-若源码为PyTorch脚本，则可以直接查询[MindSpore与PyTorch的算子映射](https://www.mindspore.cn/docs/note/zh-CN/master/index.html#operator_api)找到对应的MindSpore算子。注意，针对相同功能的算子，MindSpore的命名可能与其他框架不同，同名算子参数与功能也可能与其他框架有区别，均以官方描述为准。
+若源码为PyTorch脚本，则可以直接查询[MindSpore与PyTorch的算子映射](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html)找到对应的MindSpore算子。注意，针对相同功能的算子，MindSpore的命名可能与其他框架不同，同名算子参数与功能也可能与其他框架有区别，均以官方描述为准。
 
 ### 缺失算子处理策略
 

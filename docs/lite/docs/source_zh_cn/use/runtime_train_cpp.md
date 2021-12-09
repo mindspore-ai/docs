@@ -6,10 +6,9 @@
 
 - [使用C++接口执行训练](#使用c接口执行训练)
     - [概述](#概述)
-    - [创建会话](#创建会话)
+    - [模型创建加载与编译](#模型创建加载与编译)
         - [读取模型](#读取模型)
         - [创建上下文](#创建上下文)
-        - [创建会话](#创建会话)
         - [创建迭代训练](#创建迭代训练)
         - [使用示例](#使用示例-1)
     - [数据处理](#数据处理)
@@ -21,11 +20,10 @@
         - [推理](#推理)
     - [其他](#其他)
         - [会话模式切换](#会话模式切换)
+        - [输入维度Resize](#输入维度Resize)
         - [获取输入张量](#获取输入张量)
         - [获取输出张量](#获取输出张量)
-        - [执行训练或推理](#执行训练或推理)
-            - [执行会话](#执行会话)
-            - [执行回调](#执行回调)
+        - [执行回调](#执行回调)
         - [保存模型](#保存模型)
 
 <!-- /TOC -->
@@ -42,126 +40,97 @@
 
 > 转换得到的 *.ms 模型文件包含模型结构，.ms模型文件将被载入设备端进行训练。
 
-下面的时序图展示了训练详细流程：
+下图展示了训练详细流程：
 
-![训练流程图](../images/train_sequence.png)
-
-图中的名词说明：
-
-- `OS`：程序运行的操作系统。
-- `User`：用户调用`TrainLoop`类的函数。
-- `MindData`：在训练中加载数据并预处输入理数据的系列接口（例如读取图像，缩放至指定大小，转换为bitmap格式）。
-- `ToD`：MindSpore Lite在设备端的训练机制。
-- `MS Lite`：MindSpore Lite架构，它能为模型节点和内联张量提供flatbuffer反序列化的功能、执行图编译并调用图执行器进行训练。
-- `CreateTrainSession`：创建`TrainSession`类的对象。
-- `CreateTrainLoop`：创建`TrainLoop`类的对象。
-- `InitDataset`：用户自定义函数，加载并预处理数据。
-- `train_loop`：迭代训练`TrainLoop`类的对象。
-- `Train`：`TrainLoop`类的成员函数，接受现有的或用户自定义的回调对象。
-- `Callbacks`：执行现有的或用户自定义的回调函数。
-
-MindSpore Lite架构引入了`MindData`数据处理接口。首先，`MindData`简化了训练流程，创建会话、加载数据、预处理、训练和保存模型一个函数搞定；其次，它可在训练中加载并处理数据，这极大地降低了移动端的资源消耗。
-
-用户依次执行上图中`User`列的函数即可启动模型训练。首先调用`CreateSession`函数创建训练会话对象，并创建`TrainLoop`类对象；然后依次执行`InitDataset`、`Train`、`Eval`即可完成训练。`ToD`和`MindData`列为模型训练中调用MindSpore Lite底层函数。
+![训练流程图](../images/train_sequence_unify_api.png)
 
 > 更多C++API说明，请参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/master/index.html)。
 
-## 创建会话
+## 模型创建加载与编译
 
-MindSpore Lite训练框架中的[TrainSession](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/session.html#trainsession)是训练的主入口，通过`TrainSession`我们可以进行编译和运行图模型。
+MindSpore Lite训练框架中的[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)是训练的主入口，通过`Model`我们可以实现模型加载、模型编译和模型执行。
 
 ### 读取模型
 
-模型文件是一个flatbuffer序列化文件，它通过MindSpore模型转换工具得到，其文件扩展名为`.ms`。在模型训练或推理之前，模型需要从文件系统中加载并解析。相关操作主要在[`TrainModel`](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/lite.html#trainmodel)类中实现，该类具有例如网络结构、张量大小、权重数据和操作属性等模型数据。
-
-> 在MindSpore Lite中训练模型将被`TrainSession`占用，所以你不能直接改变它。所有与训练模型的交互操作，包括实例化、编译和删除操作将在`TrainSession`中处理。
+模型文件是一个flatbuffer序列化文件，它通过MindSpore模型转换工具得到，其文件扩展名为`.ms`。在模型训练或推理之前，模型需要从文件系统中加载。相关操作主要在[Serialization](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#serialization)类中实现，该类实现了模型文件读写的方法。
 
 ### 创建上下文
 
-[`Context`](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/lite.html#context)是一个MindSpore Lite对象，它包含了`TrainSession`用来加载模型文件、引导图编译和执行的基础配置参数。它能够让你指定模型运行的设备类型（例如CPU或GPU），模型训练和推理时使用的线程数量，以及内存分配策略。目前`TrainSession`只支持单线程的CPU设备。
+[Context](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)是一个MindSpore Lite对象，它包含了`Model`用来加载模型文件、引导图编译和执行的基础配置参数。它能够让你指定模型运行的设备类型（例如CPU或GPU），模型训练和推理时使用的线程数量，以及内存分配策略。目前`Model`只支持单线程的CPU设备。
 
-如果用户通过`new`创建`Context`，不再需要时，需要用户通过`delete`释放。一般在`TrainSession`对象创建完成后，`Context`对象即可释放。
-
-### 创建会话
-
-有两种方式可以创建会话：
-
-- 第一种直接读取文件系统上的训练模型文件，然后反序列化，编译并生成有效的`TrainSession`对象。上述`Context`将作为一个基本配置传递给`TrainSession`。该静态函数原型如下：
-
-  `TrainSession *TrainSession::CreateSession(const string &filename, const Context *context, bool mode)`
-
-  其中`filename`是模型文件名，`context`是指向Context的对象指针，`mode`表示当前会话是否为训练模式。成功创建后，函数返回一个已全部编译并可使用的`TrainSession`，该实例必须在当前会话结束前使用`delete`释放。
-
-- 第二种使用flatbuffer的内存拷贝创建`TrainSession`。静态方法如下：
-
-  `TrainSession *TrainSession::CreateSession(const char *model_buf, size_t size, lite::Context *context, bool train_mode = false)`
-
-  其中`model_buf`是一个指向内存缓冲区的常量指针，`size`是缓冲区长度。成功创建后，函数返回一个完整编译并且可以使用的`TrainSession`实例。`model_buf`指针在函数调用完成后，可以被立即释放以节省资源。`train_mode`为是否将模型设置为训练模式。一旦`TrainSession`实例不再被使用，它必须使用`delete`释放。
+如果用户通过`new`创建`Context`，不再需要时，需要用户通过`delete`释放。一般在`Model`对象创建完成后，`Context`对象即可释放。
 
 ### 创建迭代训练
 
-用户可通过`CreateTrainLoop`函数创建的`TrainLoop`类对象来调用`MindData`接口函数，所以我们更推荐`CreateTrainLoop`函数。`CreateTrainLoop`原型如下：
+用户可通过`Model`的`Build`方法将模型编译至可运行状态。`Build`原型如下：
 
-  `TrainLoop *CreateTrainLoop(session::TrainSession *train_session, lite::Context *context, int batch_size = -1)`
+  `Status Build(GraphCell graph, const std::shared_ptr<Context> &model_context = nullptr, const std::shared_ptr<TrainCfg> &train_cfg = nullptr);`
 
-下面示例代码演示了如何使用`TrainLoop`类在CPU多线程上创建训练会话：
+下面示例代码演示了如何使用`Model`类在CPU多线程上创建训练会话：
 
 ```cpp
-#include "include/train_session.h"
-#include "include/context.h"
-
 int CreateSession() {
-    mindspore::lite::Context context;
-    context.device_list_[0].device_info_.cpu_device_info_.cpu_bind_mode_ = mindspore::lite::NO_BIND;
-    context.device_list_[0].device_info_.cpu_device_info_.enable_float16_ = false;
-    context.device_list_[0].device_type_ = mindspore::lite::DT_CPU;
-    context.thread_num_ = 2;
-    // Create Session
-    session_ = mindspore::session::TrainSession::CreateSession(ms_file_, &context);
-    MS_ASSERT(nullptr != session_);
-    loop_ = mindspore::session::TrainLoop::CreateTrainLoop(session_, &context);
-    acc_metrics_ = std::shared_ptr<AccuracyMetrics>(new AccuracyMetrics);
-    loop_->Init({acc_metrics_.get()});
-    return 0;
+  auto context = std::make_shared<mindspore::Context>();
+  auto cpu_context = std::make_shared<mindspore::CPUDeviceInfo>();
+  cpu_context->SetEnableFP16(enable_fp16_);
+  context->MutableDeviceInfo().push_back(cpu_context);
+
+  graph_ = new mindspore::Graph();
+  auto status = mindspore::Serialization::Load(ms_file_, mindspore::kFlatBuffer, graph_);
+  if (status != mindspore::kSuccess) {
+    std::cout << "Error " << status << " during serialization of graph " << ms_file_;
+    MS_ASSERT(status != mindspore::kSuccess);
+  }
+
+  auto cfg = std::make_shared<mindspore::TrainCfg>();
+  if (enable_fp16_) {
+    cfg.get()->optimization_level_ = mindspore::kO2;
+  }
+
+  model_ = new mindspore::Model();
+  status = model_->Build(mindspore::GraphCell(*graph_), context, cfg);
+  if (status != mindspore::kSuccess) {
+    std::cout << "Error " << status << " during build of model " << ms_file_;
+    MS_ASSERT(status != mindspore::kSuccess);
+  }
+  return;
 }
 ```
 
-> 参见[训练一个LeNet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet/src/net_runner.cc)获取完整代码。
+> 参见[训练一个LeNet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/unified_api/src/net_runner.cc)获取完整代码。
 
 ## 数据处理
 
 ### 数据输入流
 
-`Dataset`类及其扩展类（例如`MnistDataset`和`AlbumDataset`）为用户提供了丰富的数据处理API，用户只需要指定数据集的路径，通过接口函数返回对应类型的共享指针来设定训练中执行的数据处理操作，输入流会在训练过程中加载并解析数据。API说明详见[Dataset](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/dataset.html)。
+`Dataset`类及其扩展类（例如`MnistDataset`和`AlbumDataset`）为用户提供了丰富的数据处理API，用户只需要指定数据集的路径，通过接口函数返回对应类型的共享指针来设定训练中执行的数据处理操作，输入流会在训练过程中加载并解析数据。API说明详见[Dataset](https://www.mindspore.cn/lite/api/zh-CN/master/generate/classmindspore_dataset_Dataset.html)。
 
 ### 数据预处理流
 
-`TensorTransform`类其扩展类（例如`TypeCast`和`OneHot`）为用户提供了丰富的数据预处理API，其功能与云侧Python接口相同，例如维度重塑、数据类型转换和独热编码等，用户只需要创建`TensorTransform`扩展类的对象并传递给Map函数， Map会在训练过程中顺序调用预处理函数处理已加载的数据。API说明详见[Vision](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/vision.html)。
+`TensorTransform`类其扩展类（例如`TypeCast`和`OneHot`）为用户提供了丰富的数据预处理API，其功能与云侧Python接口相同，例如维度重塑、数据类型转换和独热编码等，用户只需要创建`TensorTransform`扩展类的对象并传递给Map函数， Map会在训练过程中顺序调用预处理函数处理已加载的数据。API说明详见[Vision](https://www.mindspore.cn/lite/api/zh-CN/master/generate/namespace_mindspore__dataset__vision.html)。
 
 ### 使用示例
 
 下述代码展示了如何使用`Dataset`类和`TensorTransform`类读取和处理数据：
 
 ```cpp
-#include "include/datasets.h"
-#include "include/context.h"
-#include "include/transforms.h"
-
 int DataSetPipeline() {
-    train_ds_ = Mnist(data_dir_ + "/train", "all");
-    TypeCast typecast_f("float32");
+    train_ds_ = Mnist(data_dir_ + "/train", "all", std::make_shared<SequentialSampler>(0, 0));
+
+    TypeCast typecast_f(mindspore::DataType::kNumberTypeFloat32);
     Resize resize({h_, w_});
     train_ds_ = train_ds_->Map({&resize, &typecast_f}, {"image"});
-    TypeCast typecast("int32");
+
+    TypeCast typecast(mindspore::DataType::kNumberTypeInt32);
     train_ds_ = train_ds_->Map({&typecast}, {"label"});
-    train_ds_ = train_ds_->Shuffle(2);
+
     train_ds_ = train_ds_->Batch(batch_size_, true);
     if (verbose_) {
-      std::cout << "DatasetSize is " << train_ds_->GetDatasetSize() << std::endl;
+    std::cout << "DatasetSize is " << train_ds_->GetDatasetSize() << std::endl;
     }
     if (train_ds_->GetDatasetSize() == 0) {
-      std::cout << "No relevant data was found in " << data_dir_ << std::endl;
-      MS_ASSERT(train_ds_->GetDatasetSize() != 0);
+    std::cout << "No relevant data was found in " << data_dir_ << std::endl;
+    MS_ASSERT(train_ds_->GetDatasetSize() != 0);
     }
     return 0;
 }
@@ -171,42 +140,52 @@ int DataSetPipeline() {
 
 ## 执行训练
 
-MindSpore为用户提供了现有的回调类：`accuracy_metrics`、`accuracy_monitor`、`ckpt_saver`、`classification_train_accuracy`、`loss_monitor`和`metrics`。`TrainLoop`类的`Train`和`Eval`函数分别将模型设置为训练和验证模式，指定数据预处理方法并监测会话状态。
+MindSpore为用户提供了现有的回调类：`AccuracyMetrics`、`CkptSaver`、`TrainAccuracy`、`LossMonitor`和`Metrics`。`Model`类的`Train`和`Evaluate`函数分别将模型设置为训练和验证模式，指定数据预处理方法并监测会话状态。
 
 ### 训练
 
-创建现有回调类对象并调用`TrainLoop`类的`Train`函数进行训练：
+创建现有回调类对象并调用`Model`类的`Train`函数进行训练：
 
 ```cpp
 int Train() {
-  struct mindspore::lite::StepLRLambda step_lr_lambda(1, 0.8);
-  mindspore::lite::LRScheduler step_lr_sched(mindspore::lite::StepLRLambda, static_cast<void *>(&step_lr_lambda), 1);
-  mindspore::lite::LossMonitor lm(100);
-  mindspore::lite::ClassificationTrainAccuracyMonitor am(1);
-  mindspore::lite::CkptSaver cs(1000, std::string("lenet"));
-  Rescaler rescale(255.0);
-  loop_->Train(epochs_, train_ds_.get(), std::vector<TrainLoopCallBack *>{&rescale, &lm, &cs, &am, &step_lr_sched});
+  mindspore::LossMonitor lm(kPrintTimes);
+  mindspore::TrainAccuracy am(1);
+
+  mindspore::CkptSaver cs(kSaveEpochs, std::string("lenet"));
+  Rescaler rescale(kScalePoint);
+  Measurement measure(epochs_);
+
+  if (virtual_batch_ > 0) {
+    model_->Train(epochs_, train_ds_, {&rescale, &lm, &cs, &measure});
+  } else {
+    struct mindspore::StepLRLambda step_lr_lambda(1, kGammaFactor);
+    mindspore::LRScheduler step_lr_sched(mindspore::StepLRLambda, static_cast<void *>(&step_lr_lambda), 1);
+    model_->Train(epochs_, train_ds_, {&rescale, &lm, &cs, &am, &step_lr_sched, &measure});
+  }
+
   return 0;
 }
 ```
 
 ### 推理
 
-同样，我们调用`TrainLoop`类的`Eval`函数进行推理：
+同样，我们调用`Model`类的`Evaluate`函数进行推理：
 
 ```cpp
-float Eval() {
-    test_ds_ = Mnist(data_dir_ + "/test", "all");
-    TypeCast typecast_f("float32");
-    Resize resize({h_, w_});
-    test_ds_ = test_ds_->Map({&resize, &typecast_f}, {"image"});
-    TypeCast typecast("int32");
-    test_ds_ = test_ds_->Map({&typecast}, {"label"});
-    test_ds_ = test_ds_->Batch(batch_size_, true);
-    Rescaler rescale(255.0);
-    loop_->Eval(test_ds_.get(), std::vector<TrainLoopCallBack *>{&rescale});
-    std::cout << "Eval Accuracy is " << acc_metrics_->Eval() << std::endl;
-    return 0.0;
+float Evaluate() {
+  test_ds_ = Mnist(data_dir_ + "/test", "all");
+  TypeCast typecast_f(mindspore::DataType::kNumberTypeFloat32);
+  Resize resize({h_, w_});
+  test_ds_ = test_ds_->Map({&resize, &typecast_f}, {"image"});
+
+  TypeCast typecast(mindspore::DataType::kNumberTypeInt32);
+  test_ds_ = test_ds_->Map({&typecast}, {"label"});
+  test_ds_ = test_ds_->Batch(batch_size_, true);
+
+  model_->Evaluate(test_ds_, {});
+  std::cout << "Accuracy is " << acc_metrics_->Eval() << std::endl;
+
+  return 0.0;
 }
 ```
 
@@ -221,40 +200,57 @@ float Eval() {
 
 ### 会话模式切换
 
-`TrainLoop`类中的`Train`和`Eval`函数实际上调用的是`TrainSession`类中的`Train`和`Eval`函数，用户也可以直接调用`TrainSession`的方法来切换模型训练和验证模式，函数原型如下：
+`Model`类中的`Train`和`Evaluate`的函数原型如下：
 
 ```cpp
 /// \brief Set model to train mode
 /// \return STATUS as an error code of compiling graph, STATUS is defined in errorcode.h
-virtual int Train() = 0;
+Status Train(int epochs, std::shared_ptr<dataset::Dataset> ds, std::vector<TrainCallBack *> cbs);
 
-/// \brief Set model to eval mode
+/// \brief Set model to Evaluate mode
 /// \return STATUS as an error code of compiling graph, STATUS is defined in errorcode.h
-virtual int Eval() = 0;
+Status Evaluate(std::shared_ptr<dataset::Dataset> ds, std::vector<TrainCallBack *> cbs);
 ```
 
 下述代码展示了如何将一个当前训练会话设置为训练或验证模式：
 
 ```cpp
-// Assuming session is a valid instance of TrainSession
-auto ret = session->Train();
+auto ret = model->Train();
 if (ret != RET_OK) {
-    std::cerr << "Could not set session to train mode" << std::endl;
+    std::cerr << "Could not set to train mode" << std::endl;
     return -1;
 }
 
-auto ret = session->Eval();
+auto ret = model->Evaluate();
 if (ret != RET_OK) {
-    std::cerr << "Could not set session to eval mode" << std::endl;
+    std::cerr << "Could not set to evaluate mode" << std::endl;
     return -1;
 }
+```
+
+### 输入维度Resize
+
+使用MindSpore Lite进行推理时，如果需要对输入的shape进行Resize，则可以在已完成创建[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)与模型编译[Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build)之后调用Model的[Resize](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#resize)接口，对输入的Tensor重新设置shape。
+
+> 某些网络不支持可变维度，会提示错误信息后异常退出，比如，模型中有MatMul算子，并且MatMul的一个输入Tensor是权重，另一个输入Tensor是变量时，调用可变维度接口可能会导致输入Tensor和权重Tensor的Shape不匹配，最终导致训练失败。
+
+下面示例代码演示训练时如何对MindSpore Lite的输入Tensor进行Resize：
+
+```cpp
+// Assume we have created a Model instance named model.
+auto inputs = model->GetInputs();
+std::vector<int64_t> resize_shape = {16, 32, 32, 1};
+// Assume the model has only one input,resize input shape to [16, 32, 32, 1]
+std::vector<std::vector<int64_t>> new_shapes;
+new_shapes.push_back(resize_shape);
+return model->Resize(inputs, new_shapes);
 ```
 
 ### 获取输入张量
 
 在图执行之前，无论执行训练或推理，输入数据必须载入模型的输入张量。MindSpore Lite提供了以下函数来获取模型的输入张量：
 
-1. 使用[`GetInputsByTensorName`](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/session.html#getinputsbytensorname)方法，获取连接到基于张量名称的模型输入节点模型输入张量。
+1. 使用[GetInputByTensorName](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getinputbytensorname)方法，获取连接到基于张量名称的模型输入节点模型输入张量。
 
     ```cpp
     /// \brief  Get input MindSpore Lite MSTensors of model by tensor    name.
@@ -262,61 +258,52 @@ if (ret != RET_OK) {
     /// \param[in] tensor_name  Define tensor name.
     ///
     /// \return  MindSpore Lite MSTensor.
-    virtual mindspore::tensor::MSTensor *GetInputsByTensorName(const std::string &tensor_name) const = 0;
+    inline MSTensor GetInputByTensorName(const std::string &tensor_name);
     ```
 
-2. 使用[`GetInputs`](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/session.html#getinputs)方法，直接获取所有模型输入张量的向量。
+2. 使用[GetInputs](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getinputs)方法，直接获取所有模型输入张量的向量。
 
     ```cpp
     /// \brief  Get input MindSpore Lite MSTensors of model.
     ///
     /// \return  The vector of MindSpore Lite MSTensor.
-    virtual std::vector<tensor::MSTensor *> GetInputs() const = 0;
+    std::vector<MSTensor> GetInputs();
     ```
 
     如果模型需要1个以上的输入张量（例如训练过程中，数据和标签都作为网络的输入），用户有必要知道输入顺序和张量名称，这些信息可以从Python对应的模型中获取。此外，用户也根据输入张量的大小推导出这些信息。
 
 3. 拷贝数据
 
-    一旦获取到了模型的输入张量，数据需要拷贝到张量中。下列方法可以获取数据字节大小、数据维度、元素个数、数据类型和写指针。详见 [MSTensor](https://www.mindspore.cn/lite/api/en/master/api_cpp/tensor.html#mstensor) API 文档。
+    一旦获取到了模型的输入张量，数据需要拷贝到张量中。下列方法可以获取数据字节大小、数据维度、元素个数、数据类型和写指针。详见 [MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor) API 文档。
 
     ```cpp
-    /// \brief  Get byte size of data in MSTensor.
+    /// \brief Obtains the length of the data of the MSTensor, in bytes.
     ///
-    /// \return  Byte size of data in MSTensor.
-    virtual size_t Size() const = 0;
+    /// \return The length of the data of the MSTensor, in bytes.
+    size_t DataSize() const;
 
-    /// \brief Get shape of the MindSpore Lite MSTensor.
+    /// \brief Obtains the number of elements of the MSTensor.
     ///
-    /// \return A vector of int as the shape of the MindSpore Lite MSTensor.
-    virtual std::vector<int> shape() const = 0;
+    /// \return The number of elements of the MSTensor.
+    int64_t ElementNum() const;
 
-    /// \brief Get number of element in MSTensor.
+    /// \brief Obtains the data type of the MSTensor.
     ///
-    /// \return Number of element in MSTensor.
-    virtual int ElementsNum() const = 0;
+    /// \return The data type of the MSTensor.
+    enum DataType DataType() const;
 
-    /// \brief Get data type of the MindSpore Lite MSTensor.
+    /// \brief Obtains the pointer to the data of the MSTensor. If the MSTensor is a device tensor, the data cannot be
+    /// accessed directly on host.
     ///
-    /// \note TypeId is defined in mindspore/mindspore/core/ir/dtype/type_id.h. Only number types in TypeId enum are
-    /// suitable for MSTensor.
-    ///
-    /// \return MindSpore Lite TypeId of the MindSpore Lite MSTensor.
-    virtual TypeId data_type() const = 0;
-
-    /// \brief  Get the pointer of data in MSTensor.
-    ///
-    /// \note  The data pointer can be used to both write and read data in MSTensor.
-    ///
-    /// \return  The pointer points to data in MSTensor.
-    virtual void *MutableData() const = 0;
+    /// \return A pointer to the data of the MSTensor.
+    void *MutableData();
     ```
 
-    以下示例代码展示了如何从`LiteSession`中获取完整的图输入张量和如何将模型输入数据转换为`MSTensor`类型。
+    以下示例代码展示了如何从`Model`中获取完整的图输入张量和如何将模型输入数据转换为`MSTensor`类型。
 
     ```cpp
-    // Assuming session is a valid instance of TrainSession
-    auto inputs = session->GetInputs();
+    // Assuming model is a valid instance of Model
+    auto inputs = model->GetInputs();
 
     // Assuming the model has two input tensors, the first is for data and the second for labels
     int data_index = 0;
@@ -336,7 +323,7 @@ if (ret != RET_OK) {
     }
 
     // Assuming data_ptr is the pointer to a batch of data tensors
-    // and iassuming label_ptr is a pointer to a batch of label indices (obtained by the DataLoder)
+    // and assuming label_ptr is a pointer to a batch of label indices (obtained by the DataLoder)
     auto *in_data = inputs.at(data_index)->MutableData();
     auto *in_labels = inputs.at(label_index)->MutableData();
     if ((in_data == nullptr)|| (in_labels == nullptr)) {
@@ -351,29 +338,31 @@ if (ret != RET_OK) {
     ```
 
     > - MindSpore Lite模型输入张量的数据维度必须为NHWC（批次数，高度，宽度和通道数）。
-    > - 用户不能主动释放`GetInputs`和`GetInputsByTensorName`函数返回的张量。
+    > - 用户不能主动释放`GetInputs`和`GetInputByTensorName`函数返回的张量。
 
 ### 获取输出张量
 
 MindSpore Lite提供下列方法来获取模型的输出张量：
 
-1. 使用[`GetOutputByNodeName`](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/session.html#getoutputbynodename)方法获取一个确定节点的输出张量。
+1. 使用[GetOutputsByNodeName](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getoutputsbynodename)方法获取一个确定节点的输出张量。
 
     ```cpp
-    /// \brief  Get output MindSpore Lite MSTensors of model by node name.
+    /// \brief Get output MSTensors of model by node name.
     ///
     /// \param[in] node_name Define node name.
     ///
-    /// \return  The vector of MindSpore Lite MSTensor.
-    virtual std::vector<tensor::MSTensor *> GetOutputsByNodeName(const std::string &node_name) const = 0;
+    /// \note Deprecated, replace with GetOutputByTensorName
+    ///
+    /// \return The vector of output MSTensor.
+    inline std::vector<MSTensor> GetOutputsByNodeName(const std::string &node_name);
     ```
 
     下列代码为使用`GetOutputsByNodeName`方法从当前会话中获取输出张量：
 
     ```cpp
-    // Assume that session is a vlaid TrainSession instance
+    // Assume that model is a vlaid model instance
     // Assume that model has a output node named output_node_name_0.
-    auto output_vec = session->GetOutputsByNodeName("output_node_name_0");
+    auto output_vec = model->GetOutputsByNodeName("output_node_name_0");
     // Assume that output node named output_node_name_0 has only one output tensor.
     auto out_tensor = output_vec.front();
     if (out_tensor == nullptr) {
@@ -382,26 +371,24 @@ MindSpore Lite提供下列方法来获取模型的输出张量：
     }
     ```
 
-2. 使用[`GetOutputByTensorName`](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/session.html#getoutputbytensorname)方法，依据张量名称获取输出张量。
+2. 使用[GetOutputByTensorName](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getoutputbytensorname)方法，依据张量名称获取输出张量。
 
     ```cpp
-    /// \brief  Get output MindSpore Lite MSTensors of model by tensor name.
+    /// \brief Obtains the output tensor of the model by name.
     ///
-    /// \param[in] tensor_name  Define tensor name.
-    ///
-    /// \return  Pointer of MindSpore Lite MSTensor.
-    virtual mindspore::tensor::MSTensor *GetOutputByTensorName(const std::string &tensor_name) const = 0;
+    /// \return The output tensor with the given name, if the name is not found, an invalid tensor is returned.
+    inline MSTensor GetOutputByTensorName(const std::string &tensor_name);
     ```
 
-    下列代码为使用`GetOutputsByTensorName`方法从当前会话中获取输出张量：
+    下列代码为使用`GetOutputByTensorName`方法从当前会话中获取输出张量：
 
     ```cpp
-    // Assume that session is a vlaid TrainSession instance
-    // We can use GetOutputTensorNames method to get the names of all the output tensors of the model
-    auto tensor_names = session->GetOutputTensorNames();
+    // Assume that model is a vlaid model instance
+    // We can use GetOutputByTensorName method to get the names of all the output tensors of the model
+    auto tensor_names = model->GetOutputTensorNames();
     // Use output tensor name returned by GetOutputTensorNames as key
     for (auto tensor_name : tensor_names) {
-        auto out_tensor = session->GetOutputByTensorName(tensor_name);
+        auto out_tensor = model->GetOutputByTensorName(tensor_name);
         if (out_tensor == nullptr) {
             std::cerr << "Output tensor is nullptr" << std::endl;
             return -1;
@@ -409,95 +396,59 @@ MindSpore Lite提供下列方法来获取模型的输出张量：
     }
     ```
 
-3. 使用[`GetOutputs`](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/session.html#getoutputs)方法，根据张量名称排序的所有输出张量。
+3. 使用[GetOutputs](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getoutputs)方法，根据张量名称排序的所有输出张量。
 
     ```cpp
-    /// \brief  Get output MindSpore Lite MSTensors of model mapped by tensor name.
+    /// \brief Obtains all output tensors of the model.
     ///
-    /// \return  The map of output tensor name and MindSpore Lite MSTensor.
-    virtual std::unordered_map<std::string, mindspore::tensor::MSTensor *> GetOutputs() const = 0;
-    ```
+    /// \return The vector that includes all output tensors.
+    std::vector<MSTensor> GetOutputs();
 
-    获取模型输出张量后，用户需要将数据导入张量中。使用`MSTensor`的`Size`方法获取将要导入张量中的数据大小，使用`data_type`方法获取 `MSTensor`的数据类型，并且使用`MutableData`方法写指针。
+    /// \brief Obtains the number of elements of the MSTensor.
+    ///
+    /// \return The number of elements of the MSTensor.
+    int64_t ElementNum() const;
 
-    ```cpp
-    /// \brief  Get byte size of data in MSTensor.
+    /// \brief Obtains the data type of the MSTensor.
     ///
-    /// \return  Byte size of data in MSTensor.
-    virtual size_t Size() const = 0;
+    /// \return The data type of the MSTensor.
+    enum DataType DataType() const;
 
-    /// \brief  Get data type of the MindSpore Lite MSTensor.
+    /// \brief Obtains the pointer to the data of the MSTensor. If the MSTensor is a device tensor, the data cannot be
+    /// accessed directly on host.
     ///
-    /// \note  TypeId is defined in mindspore/mindspore/core/ir/dtype/type_id.h. Only number types in TypeId enum are
-    /// suitable for MSTensor.
-    ///
-    /// \return  MindSpore Lite TypeId of the MindSpore Lite MSTensor.
-    virtual TypeId data_type() const = 0;
-
-    /// \brief  Get the pointer of data in MSTensor.
-    ///
-    /// \note The data pointer can be used to both write and read data in MSTensor.
-    ///
-    /// \return  The pointer points to data in MSTensor.
-    virtual void *MutableData() const = 0;
+    /// \return A pointer to the data of the MSTensor.
+    void *MutableData();
     ```
 
     下列代码展示了如何使用`GetOutputs`方法从会话中获取输出张量，并打印前10个数据或每个输出张量的数据记录。
 
     ```cpp
-    // Assume that session is a vlaid TrainSession object
-    auto output_map = session->GetOutputs();
-    // Assume that the model has only one output node.
-    auto out_node_iter = output_map.begin();
-    std::string name = out_node_iter->first;
-    // Assume that the unique output node has only one output tensor.
-    auto out_tensor = out_node_iter->second;
-    if (out_tensor == nullptr) {
-        std::cerr << "Output tensor is nullptr" << std::endl;
-        return -1;
-    }
-    // Assume that the data format of output data is float 32.
-    if (out_tensor->data_type() != mindspore::TypeId::kNumberTypeFloat32) {
-        std::cerr << "Output of lenet should in float32" << std::endl;
-        return -1;
-    }
-    auto *out_data = reinterpret_cast<float *>(out_tensor->MutableData());
-    if (out_data == nullptr) {
+    auto out_tensors = model->GetOutputs();
+    for (auto out_tensor : out_tensors) {
+      std::cout << "tensor name is:" << out_tensor.Name() << " tensor size is:" << out_tensor.DataSize()
+                << " tensor elements num is:" << out_tensor.ElementNum() << std::endl;
+      // The model output data is float 32.
+      if (out_tensor.DataType() != mindspore::DataType::kNumberTypeFloat32) {
+        std::cerr << "Output should in float32" << std::endl;
+        return;
+      }
+      auto out_data = reinterpret_cast<float *>(out_tensor.MutableData());
+      if (out_data == nullptr) {
         std::cerr << "Data of out_tensor is nullptr" << std::endl;
         return -1;
+      }
+      std::cout << "output data is:";
+      for (int i = 0; i < out_tensor.ElementNum() && i < 10; i++) {
+        std::cout << out_data[i] << " ";
+      }
+      std::cout << std::endl;
     }
-    // Print the first 10 float data or all output data of the output tensor.
-    std::cout << "Output data: ";
-    for (size_t i = 0; i < 10 && i < out_tensor->ElementsNum(); i++) {
-        std::cout << " " << out_data[i];
-    }
-    std::cout << std::endl;
-    // The elements in outputs do not need to be free by users, because outputs are managed by the MindSpore Lite.
     ```
 
     > 用户无需手动释放 `GetOutputsByNodeName`、`GetOutputByTensorName`和`GetOutputs`函数返回的数组或是哈希表。
 
-### 执行训练或推理
-
-#### 执行会话
-
-无论`TrainSession`对象是训练或推理模式，图计算都是调用`RunGraph`方法。
-
-```cpp
-/// \brief Run session with callbacks.
-///
-/// \param[in] before Define a call_back_function to be called before running each node.
-/// \param[in] after Define a call_back_function called after running each node.
-///
-/// \note RunGraph should be called after CompileGraph.
-///
-/// \return STATUS as an error code of running graph, STATUS is defined in errorcode.h.
-virtual int RunGraph(const KernelCallBack &before = nullptr, const KernelCallBack &after = nullptr) = 0;
-```
-
-在执行图计算前，用户需要确保数据被正确地导入了输入张量中。
-
-#### 执行回调
+### 执行回调
 
 MindSpore Lite框架允许用户设置两个在每个节点计算前后调用的回调函数。这两个函数能够帮助用户跟踪、调试网络，并测量各节点的计算时间。回调参数如下：
 
@@ -522,12 +473,12 @@ using KernelCallBack = std::function<bool(std::vector<tensor::MSTensor *> inputs
 以下代码为如何在执行训练前后使用回调函数：
 
 ```cpp
-// Assuming session is a valid instance of TrainSession and that data was assigned to the input tensors
+// Assuming model is a valid instance of Model and that data was assigned to the input tensors
 
 // Definition of a callback function that will be called before forwarding operator
 bool before_callback(const std::vector<mindspore::tensor::MSTensor *> &inputs,
  const std::vector<mindspore::tensor::MSTensor *> &outputs,
- const mindspore::CallBackParam &call_param) {
+ const mindspore::MSCallBackParam &call_param) {
     std::cout << call_param.node_name << std::endl;
     std::cout << "Before forwarding: input size is " << inputs.size() << std::endl;
     return true;
@@ -535,13 +486,13 @@ bool before_callback(const std::vector<mindspore::tensor::MSTensor *> &inputs,
 // Definition of callback function that will be called after forwarding operator
 bool after_callback(const std::vector<mindspore::tensor::MSTensor *> &inputs,
  const std::vector<mindspore::tensor::MSTensor *> &outputs,
- const mindspore::CallBackParam &call_param) {
+ const mindspore::MSCallBackParam &call_param) {
     std::cout << "After forwarding: output size is " << outputs.size() << std::endl;
     return true;
 };
 
 // Hand over the callback functions to RunGraph when performing the training or inference
-ret = session_->RunGraph(before_callback, after_callback);
+ret = model_->Train(epochs_, train_ds_, {&before_callback, &after_callback});
 if (ret != RET_OK) {
   MS_LOG(ERROR) << "Run graph failed.";
   return RET_ERROR;
@@ -550,21 +501,12 @@ if (ret != RET_OK) {
 
 ### 保存模型
 
-MindSpore的`CkptSaver`类实际调用的是`Export`函数，当然你也可以直接调用`SaveToFile`来保存模型，`Export`原型如下：
+MindSpore的`Serialization`类实际调用的是`ExportModel`函数，`ExportModel`原型如下：
 
 ```cpp
-  /// \brief Save the trained model into a flatbuffer file
-  ///
-  /// \param[in] file_name Filename to save flatbuffer to
-  ///
-  /// \param[in] model_type ModelType to save train or inference
-  ///
-  /// \param[in] quant_type QuantizationType to save
-  ///
-  /// \param[in] format FormatType to save
-  ///
-  /// \return 0 on success or -1 in case of error
-  virtual int Export(const std::string &file_name, lite::ModelType model_type = lite::MT_TRAIN, lite::QuantizationType quant_type = lite::QT_DEFAULT,lite::FormatType format= lite::FT_FLATBUFFERS) const = 0;
+  static Status ExportModel(const Model &model, ModelType model_type, const std::string &model_file,
+                            QuantizationType quantization_type = kNoQuant, bool export_inference_only = true,
+                            std::vector<std::string> output_tensor_name = {});
 ```
 
 保存的模型可继续用于训练或推理。

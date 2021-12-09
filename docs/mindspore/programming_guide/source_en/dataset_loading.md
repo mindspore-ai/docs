@@ -1,5 +1,7 @@
 # Loading Dataset Overview
 
+`Ascend` `GPU` `CPU` `Data Preparation`
+
 <!-- TOC -->
 
 - [Loading Dataset Overview](#loading-dataset-overview)
@@ -21,7 +23,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/dataset_loading.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/dataset_loading.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -63,16 +65,48 @@ The following describes how to load common datasets.
 
 ### CIFAR-10/100 Dataset
 
-Download [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz) and decompress it, the directory structure is as follows, execute the following code in jupyter notebook:
+Download [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz) and decompress it, the directory structure is as follows, The following example code downloads and unzips the dataset to the specified location:
 
-```bash
-wget -N https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cifar-10-binary.tar.gz --no-check-certificate
-mkdir -p datasets
-tar -xzf cifar-10-binary.tar.gz -C datasets
-mkdir -p datasets/cifar-10-batches-bin/train datasets/cifar-10-batches-bin/test
-mv -f datasets/cifar-10-batches-bin/test_batch.bin datasets/cifar-10-batches-bin/test
-mv -f datasets/cifar-10-batches-bin/data_batch*.bin datasets/cifar-10-batches-bin/batches.meta.txt datasets/cifar-10-batches-bin/train
-tree ./datasets/cifar-10-batches-bin
+```python
+import os
+import requests
+import tarfile
+import zipfile
+import shutil
+
+def download_dataset(url, target_path):
+    """download and decompress dataset"""
+    if not os.path.exists(target_path):
+        os.makedirs(target_path)
+    download_file = url.split("/")[-1]
+    if not os.path.exists(download_file):
+        res = requests.get(url, stream=True, verify=False)
+        if download_file.split(".")[-1] not in ["tgz", "zip", "tar", "gz"]:
+            download_file = os.path.join(target_path, download_file)
+        with open(download_file, "wb") as f:
+            for chunk in res.iter_content(chunk_size=512):
+                if chunk:
+                    f.write(chunk)
+    if download_file.endswith("zip"):
+        z = zipfile.ZipFile(download_file, "r")
+        z.extractall(path=target_path)
+        z.close()
+    if download_file.endswith(".tar.gz") or download_file.endswith(".tar") or download_file.endswith(".tgz"):
+        t = tarfile.open(download_file)
+        names = t.getnames()
+        for name in names:
+            t.extract(name, target_path)
+        t.close()
+
+download_dataset("https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cifar-10-binary.tar.gz", "./datasets")
+test_path = "./datasets/cifar-10-batches-bin/test"
+train_path = "./datasets/cifar-10-batches-bin/train"
+if not os.path.exists(test_path):
+    os.makedirs(test_path)
+if not os.path.exists(train_path):
+    os.makedirs(train_path)
+shutil.move("./datasets/cifar-10-batches-bin/test_batch.bin", test_path)
+[shutil.move("./datasets/cifar-10-batches-bin/"+i, train_path) for i in os.listdir("./datasets/cifar-10-batches-bin/") if os.path.isfile("./datasets/cifar-10-batches-bin/"+i) and not i.endswith(".html")]
 ```
 
 ```text
@@ -226,12 +260,10 @@ MindRecord is a data format defined by MindSpore. Using MindRecord can improve p
 
 > For details about how to convert a dataset into the MindRecord data format, see [Data Format Conversion](https://www.mindspore.cn/docs/programming_guide/en/master/dataset_conversion.html).
 
-Before executing this example, you need to download the corresponding test data `test_mindrecord.zip` and unzip it to the specified location, execute the following command in jupyter notebook:
+Before executing this example, you need to download the corresponding test data `test_mindrecord.zip` and unzip it to the specified location, The following example code downloads and unzips the dataset to the specified location.
 
-```bash
-wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/test_mindrecord.zip --no-check-certificate
-unzip -o ./test_mindrecord.zip -d ./datasets/mindspore_dataset_loading/
-tree ./datasets/mindspore_dataset_loading/
+```python
+download_dataset("https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/test_mindrecord.zip", "./datasets/mindspore_dataset_loading/")
 ```
 
 ```text
@@ -266,10 +298,8 @@ Manifest is a data format file supported by Huawei ModelArts. For details, see [
 
 In this example, you need to download the test data `test_manifest.zip` and unzip it to the specified location, and execute the following command:
 
-```bash
-wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/test_manifest.zip --no-check-certificate
-unzip -o ./test_manifest.zip -d ./datasets/mindspore_dataset_loading/test_manifest/
-tree ./datasets/mindspore_dataset_loading/test_manifest/
+```python
+download_dataset("https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/test_manifest.zip", "./datasets/mindspore_dataset_loading/test_manifest/")
 ```
 
 ```text
@@ -310,10 +340,8 @@ The following example uses the `TFRecordDataset` API to load TFRecord files and 
 
 Download the `tfrecord` test data `test_tftext.zip` and unzip it to the specified location, execute the following command:
 
-```bash
-wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/test_tftext.zip --no-check-certificate
-unzip -o ./test_tftext.zip -d ./datasets/mindspore_dataset_loading/test_tfrecord/
-tree ./datasets/mindspore_dataset_loading/test_tfrecord/
+```python
+download_dataset("https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/test_tftext.zip", "./datasets/mindspore_dataset_loading/test_tfrecord/")
 ```
 
 ```text
@@ -507,10 +535,8 @@ The following example uses `CSVDataset` to load CSV dataset files, and displays 
 
 Download the test data `test_csv.zip` and unzip it to the specified location, execute the following command:
 
-```bash
-wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/test_csv.zip --no-check-certificate
-unzip -o ./test_csv.zip -d ./datasets/mindspore_dataset_loading/test_csv/
-tree ./datasets/mindspore_dataset_loading/test_csv/
+```python
+download_dataset("https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/test_csv.zip", "./datasets/mindspore_dataset_loading/test_csv/")
 ```
 
 ```text
@@ -542,7 +568,12 @@ dict_keys(['a', 'b', 'c', 'd'])
 
 ## Loading User-defined Dataset
 
-For the datasets that cannot be directly loaded by MindSpore, you can construct the `GeneratorDataset` object to load them in a customized method or convert them into the MindRecord data format. The following demonstrates some different methods to load user-defined datasets. For comparison, keep the generated random data the same.
+For the datasets that cannot be directly loaded by MindSpore, you can construct the `GeneratorDataset` object to load them in a customized method or convert them into the MindRecord data format.  The `GeneratorDataset` object receives a randomly accessible object or iterable object, and the method of data reading is defined in the object.
+
+> 1. Compared with iterable objects, random access objects with `__getitem__` function do not need to perform operations such as index increment. The logic is more streamlined and easy to use.
+> 2. In distributed training scenarios, dataset need to be sliced. `GeneratorDataset` can receive the `sampler` parameter, or receive `num_shards` and `shard_id` to specify the number of slices and the index of slice. The latter method is easier to use.
+
+The following demonstrates some different methods to load user-defined datasets. For comparison, keep the generated random data remains the same.
 
 ### Constructing Dataset Generator Function
 

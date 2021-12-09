@@ -1,7 +1,5 @@
 # MindSpore Implicit Type Conversion Operator List
 
-`Linux` `Ascend` `GPU` `CPU` `Model Development` `Beginner` `Intermediate` `Expert`
-
 <!-- TOC -->
 
 - [MindSpore Implicit Type Conversion Operator List](#mindspore-implicit-type-conversion-operator-list)
@@ -12,7 +10,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/note/source_en/operator_list_implicit.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/note/source_en/operator_list_implicit.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Implicit Type Conversion
 

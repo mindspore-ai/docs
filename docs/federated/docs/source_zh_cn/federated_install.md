@@ -1,7 +1,5 @@
 # 获取MindSpore Federated
 
-`安装`
-
 <!-- TOC -->
 
 - [获取MindSpore Federated](#获取mindspore-federated)
@@ -17,7 +15,7 @@ MindSpore Federated框架代码分别集成在云侧MindSpore和端侧Lite框架
 
 ## 获取MindSpore whl包
 
-包括源码和下载发布版两种方式，支持CPU、GPU硬件平台，根据硬件平台选择安装即可。MindSpore从1.3.0版本开始支持联邦学习。安装步骤可参考[MindSpore安装指南](https://www.mindspore.cn/install)。
+包括源码和下载发布版两种方式，支持x86的CPU、GPU硬件平台，根据硬件平台选择安装即可。MindSpore从1.3.0版本开始支持联邦学习。安装步骤可参考[MindSpore安装指南](https://www.mindspore.cn/install)。
 
 ## 获取MindSpore Lite java包
 

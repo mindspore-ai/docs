@@ -1,6 +1,6 @@
 # Using MobileNetV2 to Implement Fine-Tuning
 
-`Linux` `Windows` `Ascend` `GPU` `CPU` `Model Development` `Intermediate` `Expert`
+`Ascend` `GPU` `CPU` `Whole Peocess`
 
 <!-- TOC -->
 
@@ -26,7 +26,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/cv_mobilenetv2_fine_tune.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/cv_mobilenetv2_fine_tune.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
 ## Overview
 
@@ -36,7 +36,7 @@ MindSpore is a diversified machine learning framework. It can run on devices suc
 
 Currently, only the CPU is supported on Windows, and the CPU, GPU, and Ascend AI Processor are supported on Ubuntu and EulerOS.
 
-> You can obtain the complete executable sample code at <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/mobilenetv2>.
+> You can obtain the complete executable sample code at <https://gitee.com/mindspore/models/tree/master/official/cv/mobilenetv2>.
 
 ## Task Description and Preparations
 

@@ -9,10 +9,11 @@
     - [Environment Preparation](#environment-preparation)
     - [Parameter Description](#parameter-description)
     - [Example](#example)
+    - [Compiling Static Library Into Dynamic Library (Optional)](#Compiling-Static-Library-Into-Dynamic-Library-Optional)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/cropper_tool.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/cropper_tool.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -86,3 +87,37 @@ This example will read all the `ms` models contained in the `/model` folder, cro
 ```
 
 In this example, the `libmindspore-lite.a` static library of arm64-gpu will be cropped according to the `ms` model passed by `modelFile`, and the cropped `libmindspore-lite.a` static library will be saved to `/mindspore-lite/lib/` directory.
+
+## Compiling Static Library Into Dynamic Library (Optional)
+
+After cropping the static library, if necessary, the cropped static library can be compiled into a dynamic library.
+The compilation environment requirements refer to the compilation requirements of MindSpore Lite .
+The compilation commands used for packages under different architectures are different.
+The specific commands can be obtained through the commands printed during the compilation of MindSpore Lite .
+Refer to the example steps below.
+
+1. Add the following command to `lite/Cmakelist.txt` to enable the compilation process to print.
+
+    ```text
+    set(CMAKE_VERBOSE_MAKEFILE on)
+    ```
+
+2. Refer to the [MindSpore Lite compilation](https://www.mindspore.cn/lite/docs/en/master/use/build.html) to compile the runtime package on the specific architecture required.
+
+3. After the compilation is completed, find the command for compiling libminspore-lite.so in the printed compilation information. The following is the print command when compiling the runtime package of arm64 architecture, where `/home/android-ndk-r20b` is the path of the installed Android SDK.
+
+    ```bash
+    /home/android-ndk-r20b/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=aarch64-none-linux-android21 --gcc-toolchain=/home/android-ndk-r20b/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/android-ndk-r20b/toolchains/llvm/prebuilt/linux-x86_64/sysroot -fPIC -D_FORTIFY_SOURCE=2 -O2 -Wall -Werror -Wno-attributes -Wno-deprecated-declarations         -Wno-missing-braces -Wno-overloaded-virtual -std=c++17 -fPIC -fPIE -fstack-protector-strong  -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -Wa,--noexecstack -Wformat -Werror=format-security    -fomit-frame-pointer -fstrict-aliasing -ffunction-sections         -fdata-sections -ffast-math -fno-rtti -fno-exceptions -Wno-unused-private-field -O2 -DNDEBUG  -Wl,-z,relro -Wl,-z,now -Wl,-z,noexecstack -s  -Wl,--exclude-libs,libgcc.a -Wl,--exclude-libs,libatomic.a -static-libstdc++ -Wl,--build-id -Wl,--warn-shared-textrel -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments -Wl,-z,noexecstack  -shared -Wl,-soname,libmindspore-lite.so -o libmindspore-lite.so @CMakeFiles/mindspore-lite.dir/objects1.rsp  -llog -ldl -latomic -lm
+    ```
+
+4. Modify the command, replace the object to be compiled, and compile the cropped static library into a dynamic library.
+
+    Take the above print command as an example to find the object `@CMakeFiles/mindspore-lite.dir/objects1.rsp` to be compiled in the command, replace with the cropped static library object `-Wl,--whole-archive ./libmindspore-lite.a -Wl,--no-whole-archive`, Where `./libmindspore-lite.a` is the cropped static library path. You can replace it with the path of your own library. The modified command is as follows.
+
+    ```bash
+    /home/android-ndk-r20b/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=aarch64-none-linux-android21 --gcc-toolchain=/home/android-ndk-r20b/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/android-ndk-r20b/toolchains/llvm/prebuilt/linux-x86_64/sysroot -fPIC -D_FORTIFY_SOURCE=2 -O2 -Wall -Werror -Wno-attributes -Wno-deprecated-declarations         -Wno-missing-braces -Wno-overloaded-virtual -std=c++17 -fPIC -fPIE -fstack-protector-strong  -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -Wa,--noexecstack -Wformat -Werror=format-security    -fomit-frame-pointer -fstrict-aliasing -ffunction-sections         -fdata-sections -ffast-math -fno-rtti -fno-exceptions -Wno-unused-private-field -O2 -DNDEBUG  -Wl,-z,relro -Wl,-z,now -Wl,-z,noexecstack -s  -Wl,--exclude-libs,libgcc.a -Wl,--exclude-libs,libatomic.a -static-libstdc++ -Wl,--build-id -Wl,--warn-shared-textrel -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments -Wl,-z,noexecstack  -shared -Wl,-soname,libmindspore-lite.so -o libmindspore-lite.so -Wl,--whole-archive ./libmindspore-lite.a -Wl,--no-whole-archive  -llog -ldl -latomic -lm
+    ```
+
+    Use this command to compile the clipped static library into a dynamic library and generate 'libminspore-lite.so' in the current directory.
+
+> - In the command example, `-static-libstdc++` indicates the integration of static STD library. You can delete the command and link the dynamic STD library instead to reduce the package size.

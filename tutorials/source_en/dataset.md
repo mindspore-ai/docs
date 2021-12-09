@@ -1,8 +1,48 @@
 # Loading and Processing Data
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/dataset.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+`Ascend` `GPU` `CPU` `Beginner` `Data Preparation`
+
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/dataset.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 MindSpore provides APIs for loading common datasets and datasets in standard formats. You can directly use the corresponding dataset loading class in mindspore.dataset to load data. The dataset class provides common data processing APIs for users to quickly process data.
+
+## Data Preparation
+
+Execute the following command to download and decompress the dataset to the specified location.
+
+```python
+import os
+import requests
+import tarfile
+import zipfile
+
+def download_dataset(url, target_path):
+    """下载并解压数据集"""
+    if not os.path.exists(target_path):
+        os.makedirs(target_path)
+    download_file = url.split("/")[-1]
+    if not os.path.exists(download_file):
+        res = requests.get(url, stream=True, verify=False)
+        if download_file.split(".")[-1] not in ["tgz","zip","tar","gz"]:
+            download_file = os.path.join(target_path, download_file)
+        with open(download_file, "wb") as f:
+            for chunk in res.iter_content(chunk_size=512):
+                if chunk:
+                    f.write(chunk)
+    if download_file.endswith("zip"):
+        z = zipfile.ZipFile(download_file, "r")
+        z.extractall(path=target_path)
+        z.close()
+    if download_file.endswith(".tar.gz") or download_file.endswith(".tar") or download_file.endswith(".tgz"):
+        t = tarfile.open(download_file)
+        names = t.getnames()
+        for name in names:
+            t.extract(name, target_path)
+        t.close()
+
+download_dataset("https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cifar-10-binary.tar.gz", "./datasets")
+download_dataset("https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/MNIST_Data.zip", "./datasets")
+```
 
 ## Loading the Dataset
 
@@ -11,7 +51,7 @@ In the following example, the CIFAR-10 dataset is loaded through the `Cifar10Dat
 ```python
 import mindspore.dataset as ds
 
-DATA_DIR = "./datasets/cifar-10-batches-bin/train"
+DATA_DIR = "./datasets/cifar-10-batches-bin"
 sampler = ds.SequentialSampler(num_samples=5)
 dataset = ds.Cifar10Dataset(DATA_DIR, sampler=sampler)
 ```
@@ -69,6 +109,8 @@ You need to customize the following class functions:
 - **\_\_getitem\_\_**
 
     Define the `__getitem__` function of the dataset class to support random access and obtain and return data in the dataset based on the specified `index` value.
+
+    The return value of the `__getitem__` function needs to be a tuple of numpy arrays. When returning a single numpy array, it can be written as `return (np_array_1,)`.
 
     ```python
     def __getitem__(self, index):

@@ -1,7 +1,5 @@
 # Tensor Visualization Design
 
-`Linux` `Ascend` `GPU` `CPU` `Model Development` `Model Optimization` `Framework Development` `Intermediate` `Expert` `Contributor`
-
 <!-- TOC -->
 
 - [Tensor Visualization Design](#tensor-visualization-design)
@@ -14,7 +12,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/tensor_visual_design.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/tensor_visual_design.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Background
 

@@ -369,13 +369,11 @@ app
             String idsFile = parentPath + "/data/vocab_map_ids.txt";
             String testDataset = parentPath + "/data/eval.txt";
             String trainModelPath = parentPath + "/model/albert_supervise.mindir.ms";
-            String inferModelPath = parentPath + "/model/albert_inference.mindir.ms";
+            String inferModelPath = parentPath + "/model/albert_supervise.mindir.ms";
             String flName = "albert";
-            // server ip address，请保证Android能够访问到server，否则会出现connection failed
-            String ip = "http://127.0.0.1:";
-            int port = 6668;
-            String clientID = UUID.randomUUID().toString();
             boolean useSSL = false;
+            // 端云通信url，请保证Android能够访问到server，否则会出现connection failed
+            String domainName = "http://10.113.216.106:6668";
             FLParameter flParameter = FLParameter.getInstance();
             flParameter.setTrainDataset(trainDataset);
             flParameter.setVocabFile(vocal_file);
@@ -384,10 +382,8 @@ app
             flParameter.setFlName(flName);
             flParameter.setTrainModelPath(trainModelPath);
             flParameter.setInferModelPath(inferModelPath);
-            flParameter.setClientID(clientID);
-            flParameter.setIp(ip);
-            flParameter.setPort(port);
             flParameter.setUseSSL(useSSL);
+            flParameter.setDomainName(domainName);
             SyncFLJob syncFLJob = new SyncFLJob();
             syncFLJob.flJobRun();
         }
@@ -397,9 +393,15 @@ app
             String dataPath = parentPath + "/data/eval_no_label.txt";
             String vocal_file = parentPath + "/data/vocab.txt";
             String idsFile = parentPath + "/data/vocab_map_ids.txt";
-            String modelPath = parentPath + "/model/albert_inference.mindir.ms";
+            String modelPath = parentPath + "/model/albert_supervise.mindir.ms";
+            FLParameter flParameter = FLParameter.getInstance();
+            flParameter.setFlName(flName);
+            flParameter.setTestDataset(dataPath);
+            flParameter.setVocabFile(vocabFile);
+            flParameter.setIdsFile(idsFile);
+            flParameter.setInferModelPath(modelPath);
             SyncFLJob syncFLJob = new SyncFLJob();
-            int[] labels = syncFLJob.modelInference(flName, dataPath, vocal_file, idsFile, modelPath);
+            int[] labels = syncFLJob.modelInference();
             LOGGER.info("labels = " + Arrays.toString(labels));
         }
     }
@@ -517,6 +519,11 @@ app
         androidTestImplementation 'androidx.test.ext:junit:1.1.1'
         androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
         implementation 'com.android.support:multidex:1.0.3'
+
+        //添加联邦学习所依赖的第三方开源软件
+        implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.14.9'
+        implementation group: 'com.google.flatbuffers', name: 'flatbuffers-java', version: '2.0.0'
+        implementation(group: 'org.bouncycastle',name: 'bcprov-jdk15on', version: '1.68')
     }
     ```
 
