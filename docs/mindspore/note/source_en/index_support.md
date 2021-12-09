@@ -30,6 +30,8 @@ The index value can be `int`, `bool`, `None`, `ellipsis`, `slice`, `Tensor`, `Li
     For example:
 
     ```python
+    from mindspore import Tensor
+    import mindspore.numpy as np
     tensor_x = Tensor(np.arange(2 * 3 * 2).reshape((2, 3, 2)))
     data_single = tensor_x[0]
     data_multi = tensor_x[0][1]

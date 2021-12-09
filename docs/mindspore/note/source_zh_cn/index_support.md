@@ -30,6 +30,8 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
     示例如下：
 
     ```python
+    from mindspore import Tensor
+    import mindspore.numpy as np
     tensor_x = Tensor(np.arange(2 * 3 * 2).reshape((2, 3, 2)))
     data_single = tensor_x[0]
     data_multi = tensor_x[0][1]

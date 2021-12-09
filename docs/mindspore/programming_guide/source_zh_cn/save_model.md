@@ -119,7 +119,7 @@ ckpoint_cb = ModelCheckpoint(prefix='resnet50', directory=None, config=config_ck
 model.train(epoch_num, dataset, callbacks=ckpoint_cb)
 ```
 
-如果在训练过程中发生了异常，那么会自动保存临终CheckPoint，假如在训练中的第10个epoch的第10个step中发生异常，保存的临终CheckPoint文件如下:
+如果在训练过程中发生了异常，那么会自动保存临终CheckPoint，假如在训练中的第10个epoch的第10个step中发生异常，保存的临终CheckPoint文件如下：
 
 ```text
 resnet50-10_10_breakpoint.ckpt  # 临终CheckPoint文件名最后会加上'_breakpoint'与正常流程CheckPoint区分开。
