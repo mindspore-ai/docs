@@ -208,12 +208,12 @@ def _random_choice_with_mask_aicpu():
 
 ### 示例
 
-下面以`ResizeBilinear`算子的AICPU调用实现为例进行介绍，我们会经历算子实现、算子原语注册、算子信息库、算子调用四个步骤：
+下面以`Dropout2D`算子的AICPU调用实现为例进行介绍，我们会经历算子实现、算子原语注册、算子信息库、算子调用四个步骤：
 
 1. 算子实现：参考[实现AICPU算子](#实现AICPU算子)的相关内容，我们将算子编译成`libmindspore_aicpu_kernels.so`。
-2. 算子原语注册：参考[注册算子原语](#注册算子原语)的相关内容，我们将定义一个ResizeBilinear的算子。
-3. 算子信息库：参考[注册AICPU自定义算子信息](#注册AICPU自定义算子信息)的相关内容，我们将实现ResizeBilinear的信息库，并且添加`"cust_aicpu"`的属性。
-4. 算子调用：我们可以正常按照单算子网络的形式调用ResizeBilinear算子，同时可以配置`"cust_aicpu"`的属性值为`mindspore_aicpu_kernels`。
+2. 算子原语注册：参考[注册算子原语](#注册算子原语)的相关内容，我们将定义一个Dropout2D的算子。
+3. 算子信息库：参考[注册AICPU自定义算子信息](#注册AICPU自定义算子信息)的相关内容，我们将实现Dropout2D的信息库，并且添加`"cust_aicpu"`的属性。
+4. 算子调用：我们可以正常按照单算子网络的形式调用Dropout2D算子，同时可以配置`"cust_aicpu"`的属性值为`mindspore_aicpu_kernels`。
 
 ```python
 import numpy as np
@@ -226,52 +226,60 @@ import mindspore.context as context
 from mindspore import Tensor
 context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
 
-class ResizeBilinear(PrimitiveWithInfer):
+class Dropout2D(PrimitiveWithInfer):
     @prim_attr_register
-    def __init__(self, size, align_corners=False):
+    def __init__(self, keep_prob=0.5):
+        """Initialize Dropout2D."""
         pass
 
-    def infer_shape(self, input_shape):
-        input_shape = list(input_shape)
-        batch, channel, _, _ = input_shape
-        out_shape = [batch, channel]
-        for i in self.size:
-            out_shape.append(int(i))
-        return out_shape
+    def infer_shape(self, x_shape):
+        return x_shape, x_shape
 
-    def infer_dtype(self, input_dtype):
-        return input_dtype
+    def infer_dtype(self, x_dtype):
+        mask_dtype = mstype.tensor_type(mstype.bool_)
+        return x_dtype, mask_dtype
 
-resize_bilinear_op_info = AiCPURegOp("ResizeBilinear") \
+dropout2d_op_info = AiCPURegOp("Dropout2D") \
     .fusion_type("OPAQUE") \
-    .input(0, "input", "required") \
-    .output(1, "output", "required") \
-    .attr("align_corners", "bool") \
+    .input(0, "x", "required") \
+    .output(0, "y", "required") \
+    .output(1, "mask", "required") \
+    .attr("keep_prob", "float") \
     .attr("cust_aicpu", "str") \
-    .dtype_format(DataType.F16_Default, DataType.F32_Default) \
-    .dtype_format(DataType.F32_Default, DataType.F32_Default) \
+    .dtype_format(DataType.BOOL_Default, DataType.BOOL_Default, DataType.BOOL_Default) \
+    .dtype_format(DataType.I8_Default, DataType.I8_Default, DataType.BOOL_Default) \
+    .dtype_format(DataType.I16_Default, DataType.I16_Default, DataType.BOOL_Default) \
+    .dtype_format(DataType.I32_Default, DataType.I32_Default, DataType.BOOL_Default) \
+    .dtype_format(DataType.I64_Default, DataType.I64_Default, DataType.BOOL_Default) \
+    .dtype_format(DataType.U8_Default, DataType.U8_Default, DataType.BOOL_Default) \
+    .dtype_format(DataType.U16_Default, DataType.U16_Default, DataType.BOOL_Default) \
+    .dtype_format(DataType.U32_Default, DataType.U32_Default, DataType.BOOL_Default) \
+    .dtype_format(DataType.U64_Default, DataType.U64_Default, DataType.BOOL_Default) \
+    .dtype_format(DataType.F16_Default, DataType.F16_Default, DataType.BOOL_Default) \
+    .dtype_format(DataType.F32_Default, DataType.F32_Default, DataType.BOOL_Default) \
+    .dtype_format(DataType.F64_Default, DataType.F64_Default, DataType.BOOL_Default) \
     .get_op_info()
 
-@op_info_register(resize_bilinear_op_info)
-def _resize_bilinear_aicpu():
-    """ResizeBilinear AiCPU register"""
+@op_info_register(dropout2d_op_info)
+def _dropout2d_aicpu():
+    """Dropout2D AiCPU register"""
     return
 
-class NetResizeBilinear(nn.Cell):
-    def __init__(self, size=None, align_corner=False):
-        super(NetResizeBilinear, self).__init__()
-        self.op = ops.ResizeBilinear(size=size, align_corners=align_corner)
+class NetDropout2D(nn.Cell):
+    def __init__(self, keep_prob=0.5):
+        super(NetDropout2D, self).__init__()
+        self.op = Dropout2D(keep_prob)
         self.op.add_prim_attr("cust_aicpu", "mindspore_aicpu_kernels")
 
     def construct(self, inputs):
         return self.op(inputs)
 
-def test_net():
-    input_tensor = Tensor(np.array(
-        [[[[0.1, 0.2, 0.3], [0.4, 0.5, 0.6], [0.7, 0.8, 0.9]]]]).astype(np.float32))
-    resize_nn = NetResizeBilinear((6, 3))
-    output = resize_nn(input_tensor)
+if __name__ == "__main__":
+    input_tensor = Tensor(np.ones([1, 1, 2, 3]), mstype.float32)
+    dropout2d_nn = NetDropout2D(0.5)
+    output, mask = dropout2d_nn(input_tensor)
     print("output: ", output)
+    print("mask: ", mask)
 ```
 
 ## 使用自定义算子

@@ -31,13 +31,13 @@
 
 与传统的训练方式不同，梯度累积引入Mini-batch的概念，首先对每个Mini-batch的数据计算loss和梯度，但不立即更新模型参数，而是先对所得梯度进行累加，然后在指定数量（N）个Mini-batch之后，用累积后的梯度更新网络参数。下次训练前清空过往累积梯度后重新累加，如此往复。最终目的是为了达到跟直接用N*Mini-batch数据训练几乎同样的效果。
 
-本篇教程将分别介绍在单机模式和并行模式下如何实现梯度累积训练。
+本篇教程将分别介绍在单机模式、Boost模式、并行模式下如何实现梯度累积训练。
 
 ## 单机模式
 
 在单机模式下，主要通过将训练流程拆分为正向反向训练、参数更新和累积梯度清理三个部分实现梯度累积。这里以MNIST作为示范数据集，自定义简单模型实现梯度累积需要如下几个步骤。
 
-> 你可以在这里下载主要的训练样例代码：<https://gitee.com/mindspore/docs/tree/master/docs/sample_code/gradient_accumulation>
+> 你可以在这里下载主要的训练样例代码：<https://gitee.com/mindspore/docs/tree/master/docs/sample_code/gradient_accumulation/train.py>
 >
 > `auto_parallel`以及`semi_auto_parallel`模式下尚不支持梯度累积的训练方式。
 
@@ -61,11 +61,11 @@ from model_zoo.official.cv.lenet.src.lenet import LeNet5
 
 ### 加载数据集
 
-利用MindSpore的`dataset`提供的`MnistDataset`接口加载MNIST数据集，此部分代码由`model_zoo`中`lenet`目录下的[dataset.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/dataset.py)导入。
+利用MindSpore的`dataset`提供的`MnistDataset`接口加载MNIST数据集，此部分代码由ModelZoo中`lenet`目录下的[dataset.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/dataset.py)导入。
 
 ### 定义网络
 
-这里以LeNet网络为例进行介绍，当然也可以使用其它的网络，如ResNet-50、BERT等, 此部分代码由`model_zoo`中`lenet`目录下的[lenet.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/lenet.py)导入。
+这里以LeNet网络为例进行介绍，当然也可以使用其它的网络，如ResNet-50、BERT等, 此部分代码由ModelZoo中`lenet`目录下的[lenet.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/lenet.py)导入。
 
 ### 定义训练流程
 
@@ -263,7 +263,7 @@ if __name__ == "__main__":
 
 **验证模型:**
 
-通过`model_zoo`中`lenet`目录下的[eval.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/train.py)，使用保存的CheckPoint文件，加载验证数据集，进行验证。
+通过ModelZoo中`lenet`目录下的[eval.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/train.py)，使用保存的CheckPoint文件，加载验证数据集，进行验证。
 
 ```bash
 python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt --device_target=GPU
@@ -275,3 +275,124 @@ python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt
 ============== Starting Testing ==============
 ============== {'Accuracy': 0.9631730769230769} ==============
 ```
+
+## Boost模式
+
+在Boost模式下，我们只要简单调用Boost的梯度累积接口，即可实现梯度累积的功能。这里同样以MNIST作为示范数据集，展示如何调用Boost接口来实现梯度累积功能。
+
+> 你可以在这里下载主要的训练样例代码：<https://gitee.com/mindspore/docs/tree/master/docs/sample_code/gradient_accumulation/train_and_eval_boost.py>
+
+### 导入需要的库文件
+
+下列是我们所需要的公共模块及MindSpore的模块及库文件。
+
+```python
+import argparse
+import os
+
+import mindspore.nn as nn
+from mindspore import Model, context
+from mindspore.nn import WithLossCell, TrainOneStepCell, Accuracy
+from mindspore.boost import GradientAccumulation
+import mindspore.ops as ops
+from mindspore.train.callback import LossMonitor, TimeMonitor
+from mindspore import load_checkpoint, load_param_into_net
+
+from model_zoo.official.cv.lenet.src.dataset import create_dataset
+from model_zoo.official.cv.lenet.src.lenet import LeNet5
+```
+
+### 加载数据集
+
+利用MindSpore的`dataset`提供的`MnistDataset`接口加载MNIST数据集，此部分代码由ModelZoo中`lenet`目录下的[dataset.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/dataset.py)导入。
+
+### 定义网络
+
+这里以LeNet网络为例进行介绍，当然也可以使用其它的网络，如ResNet-50、BERT等, 此部分代码由ModelZoo中`lenet`目录下的[lenet.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/lenet.py)导入。
+
+### 定义训练模型
+
+我们可以调用MindSpore Boost下的`GradientAccumulation`来使能梯度累积，通过max_accumulation_step控制每次更新参数前的累加次数。达到累加次数后进行参数更新和累加梯度变量清零，我们只需要基于`TrainOneStepCell`定义`TrainGradAccumulationStepsCell`来调用该接口即可。
+
+```python
+class TrainGradAccumulationStepsCell(TrainOneStepCell):
+    """construct train accu step cell"""
+    def __init__(self, network, optimizer, sens=1.0, max_accumulation_step=1):
+        super(TrainGradAccumulationStepsCell, self).__init__(network, optimizer, sens)
+        self.max_accumulation_step = max_accumulation_step
+        self.grad_accumulation = GradientAccumulation(self.max_accumulation_step, self.optimizer)
+
+    def construct(self, *inputs):
+        loss = self.network(*inputs)
+        sens = ops.fill(loss.dtype, loss.shape, self.sens)
+        grads = self.grad(self.network, self.weights)(*inputs, sens)
+        grads = self.grad_reducer(grads)
+        loss = self.grad_accumulation(loss, grads)
+        return loss
+```
+
+### 训练模型并进行推理
+
+我们定义好网络后即可进行训练，训练结束后加载训练过程中保存的ckpt文件进行推理，可以得到模型的精度。
+
+```python
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='MindSpore Grad Cumulative Example')
+    parser.add_argument('--device_target', type=str, default="Ascend", choices=['Ascend', 'GPU'],
+                        help='device where the code will be implemented (default: Ascend)')
+    parser.add_argument('--data_path', type=str, default="./Data",
+                        help='path where the dataset is saved')
+    args = parser.parse_args()
+
+    context.set_context(mode=context.GRAPH_MODE, device_target=args.device_target)
+    ds_train = create_dataset(os.path.join(args.data_path, "train"), 32)
+
+    net = LeNet5(10)
+    net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
+    net_opt = nn.Momentum(net.trainable_params(), 0.01, 0.9)
+    time_cb = TimeMonitor(data_size=ds_train.get_dataset_size())
+
+    train_net = nn.WithLossCell(net, net_loss)
+    train_net = TrainGradAccumulationStepsCell(train_net, net_opt, 1.0, 5)
+    model = Model(train_net)
+
+    print("============== Starting Training ==============")
+    model.train(10, ds_train, callbacks=[time_cb, LossMonitor()])
+
+     print("============== Starting Testing ==============")
+    model = Model(net, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
+    ds_eval = create_dataset(os.path.join(args.data_path, "test"), 32, 1)
+    if ds_eval.get_dataset_size() == 0:
+        raise ValueError("Please check dataset size > 0 and batch_size <= dataset size")
+
+    acc = model.eval(ds_eval)
+    print("============== {} ==============".format(acc))
+
+```
+
+### 实验结果
+
+在经历了10轮epoch之后，在测试集上的精度约为98.30%。
+
+1. 运行训练与推理代码，查看运行结果。
+
+   ```bash
+   python train_and_eval_boost.py --data_path=./MNIST_Data
+   ```
+
+   输出如下，可以看到loss值随着训练逐步降低：
+
+   ```text
+   epoch: 1 step: 1875 loss is  0.1889342879
+   ...
+   epoch: 5 step: 1875 loss is  0.11749879342
+   ...
+   epoch: 10 step: 1875 loss is  0.00029468764328
+   ```
+
+2. 查看推理精度，代码中会将checkpoint保存到当前目录，随后会加载该checkpoint推理。
+
+    ```text
+    ============== Starting Testing ==============
+    ============== {'Accuracy': 0.983072916666} ==============
+    ```
