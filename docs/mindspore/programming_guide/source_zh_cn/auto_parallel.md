@@ -24,6 +24,7 @@
             - [full_batch](#full_batch)
             - [pipeline_stages](#pipeline_stages)
             - [grad_accumulation_step](#grad_accumulation_step)
+            - [parallel_optimizer_config](#parallel_optimizer_config)
     - [分布式通信接口](#分布式通信接口)
         - [init](#init)
         - [get_group_size](#get_group_size)
@@ -301,6 +302,18 @@ context.get_auto_parallel_context("pipeline_stages")
 from mindspore import context
 context.set_auto_parallel_context(grad_accumulation_step=4)
 context.get_auto_parallel_context("grad_accumulation_step")
+```
+
+#### parallel_optimizer_config
+
+`parallel_optimizer_config`是一个字典。当启用优化器并行时，该配置提供了有关优化器并行训练的优化选项。
+当我们设置context.set_auto_parallel_context(enable_parallel_optimizer=True)时，`parallel_optimizer_config`配置才会生效。它目前支持如下键值。
+
+- gradient_accumulation_shard:如果为True，则累积梯度变量将在数据并行度上进行分片。在累积梯度时，每个累积迭代中将会引入额外的通信(ReduceScatter)以保证计算的一致性，但节省了大量的计算设备内存(例如GPU显存)，因此可以使模型以更大的批量进行训练。仅当模型在流水线并行训练或梯度累积中设置此配置，并且具有数据并行维度时，此配置才会有效。默认值为True。
+
+```python
+from mindspore import context
+context.set_auto_parallel_context(parallel_optimizer_config={"gradient_accumulation_shard": True}, enable_parallel_optimizer=True)
 ```
 
 ## 分布式通信接口
