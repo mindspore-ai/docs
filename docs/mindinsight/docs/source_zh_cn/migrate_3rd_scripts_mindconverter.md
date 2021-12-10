@@ -190,9 +190,11 @@ git clone https://gitee.com/mindspore/mindinsight.git
 
    ```python
    import torch
-   from project.model import Model as PyTorchModel
 
-   model = PyTorchModel()
+   # 根据实际情况替换以下类路径
+   from customized.path.to.pytorch.model import PyTorchNetwork
+
+   model = PyTorchNetwork()
    param_dict = torch.load('/path/to/weights.pth')
    model.load_state_dict(param_dict)
 
@@ -228,7 +230,7 @@ mindconverter --model_file /path/to/model.onnx
 ```python
 import mindspore
 import numpy as np
-from project.model import Network as MindSporeNetwork
+from customized.path.to.mindspore.model import MindSporeNetwork
 
 network = MindSporeNetwork()
 param_dict = mindspore.load_checkpoint('network.ckpt')
@@ -321,7 +323,9 @@ PyTorch源码如下：
 
 ```python
 import torch
-from project.model import Network as PyTorchNetwork
+
+# 根据实际情况替换以下类路径
+from customized.path.to.pytorch.model import PyTorchNetwork
 
 # 创建网络模型实例
 network = PyTorchNetwork()
@@ -345,7 +349,9 @@ for i in range(EPOCH_SIZE):
 
 ```python
 from mindspore import nn
-from project.model import Network as MindSporeNetwork
+
+# 根据实际情况替换以下类路径
+from customized.path.to.mindspore.model import MindSporeNetwork
 
 # 创建网络模型实例
 network = MindSporeNetwork()
@@ -369,7 +375,9 @@ for i in range(EPOCH_SIZE):
 ```python
 from mindspore import nn
 from mindspore import Model
-from project.model import Network as MindSporeNetwork
+
+# 根据实际情况替换以下类路径
+from customized.path.to.mindspore.model import MindSporeNetwork
 
 # 创建网络模型实例
 network = MindSporeNetwork()
@@ -393,7 +401,9 @@ PyTorch源码如下：
 
 ```python
 import torch
-from project.model import Network as PyTorchNetwork
+
+# 根据实际情况替换以下类路径
+from customized.path.to.pytorch.model import PyTorchNetwork
 
 network = PyTorchNetwork()
 param_dict = torch.load('/path/to/weights.path')
@@ -410,7 +420,9 @@ for data, label in data_loader:
 
 ```python
 import mindspore
-from project.model import Network as MindSporeNetwork
+
+# 根据实际情况替换以下类路径
+from customized.path.to.mindspore.model import MindSporeNetwork
 
 network = MindSporeNetwork()
 param_dict = mindspore.load_checkpoint('/path/to/weights.ckpt')
@@ -429,7 +441,9 @@ for data, label in data_iterator:
 ```python
 import mindspore
 from mindspore import Model
-from project.model import Network as MindSporeNetwork
+
+# 根据实际情况替换以下类路径
+from customized.path.to.mindspore.model import MindSporeNetwork
 
 network = MindSporeNetwork()
 param_dict = mindspore.load_checkpoint('/path/to/weights.ckpt')
@@ -615,10 +629,12 @@ class Model(nn.Cell):
 将MindSpore的模型内嵌到PyTorch脚本中，结合权重信息，验证转换的等价性。
 
 ```python
+import mindspore
 import torch
 from torch.utils.data import DataLoader
-import mindspore
-from project.model import Network as MindSporeNetwork
+
+# 根据实际情况替换以下类路径
+from customized.path.to.mindspore.model import MindSporeNetwork
 
 network = MindSporeNetwork()
 param_dict = mindspore.load_checkpoint('network.ckpt')

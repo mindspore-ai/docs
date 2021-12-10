@@ -191,9 +191,11 @@ Exporting ONNX model file from PyTorch model(refer to [FAQ](#export-the-model-fi
 
    ```python
    import torch
-   from project.model import Model as PyTorchModel
 
-   model = PyTorchModel()
+   # Replace the following classpath according to the actual situation.
+   from customized.path.to.pytorch.model import PyTorchNetwork
+
+   model = PyTorchNetwork()
    param_dict = torch.load('/path/to/weights.pth')
    model.load_state_dict(param_dict)
 
@@ -230,7 +232,9 @@ Model scripts(`model.py`) and weights information(`ckpt`) can be used not only t
 ```python
 import mindspore
 import numpy as np
-from project.model import Network as MindSporeNetwork
+
+# Replace the following classpath according to the actual situation.
+from customized.path.to.mindspore.model import MindSporeNetwork
 
 network = MindSporeNetwork()
 param_dict = mindspore.load_checkpoint('network.ckpt')
@@ -323,7 +327,9 @@ Source codes with PyTorch framework are as follows:
 
 ```python
 import torch
-from project.model import Network as PyTorchNetwork
+
+# Replace the following classpath according to the actual situation.
+from customized.path.to.pytorch.model import PyTorchNetwork
 
 # Create a instance of network model.
 network = PyTorchNetwork()
@@ -347,7 +353,9 @@ Corresponding generated codes(Low-Level API) with MindSpore framework are as fol
 
 ```python
 from mindspore import nn
-from project.model import Network as MindSporeNetwork
+
+# Replace the following classpath according to the actual situation.
+from customized.path.to.mindspore.model import MindSporeNetwork
 
 # Create a instance of network model.
 network = MindSporeNetwork()
@@ -371,7 +379,9 @@ Corresponding generated codes(High-Level API) with MindSpore framework are as fo
 ```python
 from mindspore import nn
 from mindspore import Model
-from project.model import Network as MindSporeNetwork
+
+# Replace the following classpath according to the actual situation.
+from customized.path.to.mindspore.model import MindSporeNetwork
 
 # Create a instance of network model.
 network = MindSporeNetwork()
@@ -395,7 +405,9 @@ Source codes with PyTorch framework are as follows:
 
 ```python
 import torch
-from project.model import Network as PyTorchNetwork
+
+# Replace the following classpath according to the actual situation.
+from customized.path.to.pytorch.model import PyTorchNetwork
 
 network = PyTorchNetwork()
 param_dict = torch.load('/path/to/weights.path')
@@ -413,7 +425,9 @@ Corresponding generated codes(Low-Level API) with MindSpore framework are as fol
 
 ```python
 import mindspore
-from project.model import Network as MindSporeNetwork
+
+# Replace the following classpath according to the actual situation.
+from customized.path.to.mindspore.model import MindSporeNetwork
 
 network = MindSporeNetwork()
 param_dict = mindspore.load_checkpoint('/path/to/weights.ckpt')
@@ -432,7 +446,9 @@ Corresponding generated codes(High-Level API) with MindSpore framework are as fo
 ```python
 import mindspore
 from mindspore import Model
-from project.model import Network as MindSporeNetwork
+
+# Replace the following classpath according to the actual situation.
+from customized.path.to.mindspore.model import MindSporeNetwork
 
 network = MindSporeNetwork()
 param_dict = mindspore.load_checkpoint('/path/to/weights.ckpt')
@@ -618,10 +634,12 @@ class Model(nn.Cell):
 Validate the equivalence of migration by mixing the MindSpore model and weights with the PyTorch training scripts.
 
 ```python
+import mindspore
 import torch
 from torch.utils.data import DataLoader
-import mindspore
-from project.model import Network as MindSporeNetwork
+
+# Replace the following classpath according to the actual situation.
+from customized.path.to.mindspore.model import MindSporeNetwork
 
 network = MindSporeNetwork()
 param_dict = mindspore.load_checkpoint('network.ckpt')
