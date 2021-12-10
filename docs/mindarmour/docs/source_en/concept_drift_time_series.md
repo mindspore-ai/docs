@@ -1,4 +1,4 @@
-﻿# Implementing the Concept Drift Detection Application of Time Series Data
+# Implementing the Concept Drift Detection Application of Time Series Data
 
 <!-- TOC -->
 
