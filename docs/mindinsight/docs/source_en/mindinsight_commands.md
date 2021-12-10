@@ -45,7 +45,7 @@ Optional parameters are as follows:
 |Name|Argument|Description|Type|Default|Scope|Specifications|
 |---|---|---|---|---|---|---|
 |`-h, --help`|Optional|Displays the help information about the start command.|-|-|-|-|
-|`--workspace <WORKSPACE>`|Optional|Specifies the working directory.|String|$HOME/mindinsight|-|-|
+|`--workspace <WORKSPACE>`|Optional|Specifies the path for storing MindInsight logs.|String|$HOME/mindinsight|-|-|
 |`--port <PORT>`|Optional|Specifies the port number of the web visualization service.|Integer|8080|1~65535|-|
 |`--url-path-prefix <URL_PATH_PREFIX>`|Optional|Specifies the URL path prefix of the web visualization service.|String|Empty string|-|URL path prefix consists of segments separated by slashes. Each segment supports alphabets / digits / underscores / dashes / dots, but not single dot or double dots.|
 |`--reload-interval <RELOAD_INTERVAL>`|Optional|Specifies the interval (unit: second) for loading data.|Integer|3|0~300|The value 0 indicates that data is loaded only once.|
@@ -54,6 +54,25 @@ Optional parameters are as follows:
 |`--debugger-port <DEBUGGER_PORT>`|Optional|Specifies the port number of the debugger server.|Integer|50051|1~65535|-|
 |`--offline-debugger-mem-limit <OFFLINE_DEBUGGER_MEMORY_LIMIT>`|Optional|Specifies the maximum memory limit of a single offline debugger session. When the offline debugger cannot be executed due to insufficient memory, set it according to the device memory.|Integer|16*1024|6*1024~The upper limit of int32|-|
 |`--max-offline-debugger-session-num <MAX_OFFLINE_DEBUGGER_SESSION_NUMBER>`|Optional|Specifies the maximum session number of the offline debugger. The session number refers to the amount of training jobs that can be debugged at the same time.|Integer|2|1~2|-|
+
+`--workspace` log directory description：
+
+| Module name   | Log directory description                                    | Log format                                |
+| ------------- | ------------------------------------------------------------ | ----------------------------------------- |
+| datavisual    | Training kanban module, it records all the logs of training Kanban module. | `datavisual.<PORT>.log`                   |
+| debugger      | Debugger module, it records all logs of the debugger module. | `debugger.<PORT>.log`                     |
+| explainer     | Explain the AI module, it records all logs that explain the data parsed by the AI module. | `explainer.<PORT>.log`                    |
+| gunicorn      | Web service module, it records all logs of the Web service module. | `access.<PORT>.log`<br>`error.<PORT>.log` |
+| lineage       | Traceability module, it records all logs of the traceability module. | `lineage.<PORT>.log`                      |
+| mindconverter | MindConverter module, it records all network migrations using MindConverter. | `mindconverter.<PORT>.log`                |
+| optimizer     | Optimizer module, it records all optimizer module logs.      | `optimizer.<PORT>.log`                    |
+| parse_summary | Summary file parsing module, it records all logs when using the summary file parsing module. | `parse_summary.<PORT>.log`                |
+| profiler      | Performance analysis module, it records all logs of the performance analysis module. | `profiler.<PORT>.log`                     |
+| restful_api   | RESTFul API module, it records all RESTFul API interaction logs. | `restful_api.<PORT>.log`                  |
+| scripts       | Start and stop the MindInsight module, it records all MindInsight starts and stops. | `start.<PORT>.log`<br>`stop.<PORT>.log`   |
+| utils         | Public module, it records all logs of the public module.  | `utils.<PORT>.log`                        |
+
+Note: There is one log file for each module, but when a log file exceeds 50M, it will be renamed and archived in the format of `<module name>_<PORT>.log.<id>` ,`module name` indicates the module name, `PORT` indicates the PORT number, and `ID` indicates the number of file renaming and archiving times.
 
 > When the service is started, the parameter values of the command line are saved as the environment variables of the process and start with `MINDINSIGHT_`, for example, `MINDINSIGHT_PORT`, `MINDINSIGHT_WORKSPACE`, etc.
 
