@@ -211,13 +211,19 @@ with four buttons: `CONTINUE`, `PAUSE`, `TERMINATE` and `OK`:
 
 ### Tensor Check View
 
-![debugger_tensor_view](images/debugger_tensor_view.png)
-
-Figure 8: Viewing tensors value
-
 Some `tensors` have too many dimensions and cannot be directly displayed on the home page. You can click the corresponding `View` button to view the detailed information about the `tensor` value on the displayed tensor check view.
 
-As shown in Figure 8, the tensor check view displays the `tensor` values in the upper part of the UI. You can set the `Dimension Selection` and click `Current Step`, `Previous step`, and `Comparison Result` to display and compare tensors. (Currently, the parameter node can be compared only with the previous one step.) In addition, you can set shards in `Dimension Selection` to display a `tensor` in the specified dimension.
+![debugger_tensor_view_heatmap](images/debugger_tensor_view_heatmap.png)
+
+Figure 8: Viewing tensors value heatmap
+
+As shown in Figure 8, the tensor check view displays the `tensor` values in the upper part of the UI，the default is in chart mode, which can display the distribution of current values. When the mouse moves to a position on the chart, the specific value of current coordinates will be displayed. Select `Table Mode` in the `Mode` pull box below the thermodynamic diagram, the `tensor` value in the form of table would be displayed, as shown in Figure 9.
+
+![debugger_tensor_view](images/debugger_tensor_view.png)
+
+Figure 9: Viewing tensors value
+
+At the tensor check view, you can set the `Dimension Selection` and click `Current Step`, `Previous step`, and `Comparison Result` to display and compare tensors. (Currently, the parameter node can be compared only with the previous one step.) In addition, you can set shards in `Dimension Selection` to display a `tensor` in the specified dimension.
 
 The `node information`, `current step`, and `statistics` are displayed on the top of the view. The optimization guide is displayed on the left of the view. When a watchpoint is hit, the hit information and optimization suggestions are displayed. The tensor relationship diagram and detailed `node information` are displayed on the lower part of the view.
 
@@ -231,7 +237,7 @@ Tensors can be downloaded in tensor check view. Users can download the desired t
 
     ![debugger_waiting](./images/debugger_waiting.png)
 
-    Figure 9: Debugger Start and Waiting for the Training
+    Figure 10: Debugger Start and Waiting for the Training
 
     The Debugger server is launched and waiting for the training to connect.
 
@@ -241,7 +247,7 @@ Tensors can be downloaded in tensor check view. Users can download the desired t
 
     ![debugger_ask_recommend](images/debugger_ask_recommend.png)
 
-    Figure 10: Debugger ask whether to use the recommended watchpoints
+    Figure 11: Debugger ask whether to use the recommended watchpoints
 
 4. Later, you can see that the computational graph is displayed on the Debugger UI, as shown in Figure 1.
 
