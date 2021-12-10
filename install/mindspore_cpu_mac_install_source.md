@@ -29,7 +29,7 @@
     sudo xcode-select -switch /Library/Developer/CommandLineTools
     ```
 
-- 确认安装Python 3.9版本。如果未安装或者已安装其他版本的Python，可以选择下载并安装：
+- 确认安装Python 3.7或Python 3.9版本（M1芯片的macOS不支持Python 3.7版本）。如果未安装或者已安装其他版本的Python，可以选择下载并安装：
 
     - Python 64位，下载地址：[官网](https://www.python.org/downloads/macos/)或[华为云](https://repo.huaweicloud.com/python/)。
 
@@ -79,7 +79,7 @@ pip install --pre -i https://pypi.anaconda.org/scipy-wheels-nightly/simple scipy
 - `{version}`表示MindSpore版本号，例如安装1.6.0版本MindSpore时，`{version}`应写为1.6.0。
 - `{platform_version}`表示系统版本，例如系统版本为macOS 10.15时，`{platform_version}`应写为`10_15`。
 - `{arch}`表示系统架构，例如使用的macOS系统是x86架构64位时，`{arch}`应写为`x86_64`。如果系统是ARM架构64位，则写为`arm64`。
-- `{python_version}`表示用户的Python版本，Python版本为3.9.0时，则写为`cp39-cp39`。
+- `{python_version}`表示用户的Python版本，Python版本为3.7.5时，`{python_version}`应写为`cp37-cp37m`。Python版本为3.9.0时，则写为`cp39-cp39`。
 
 ## 验证安装是否成功
 

@@ -29,7 +29,7 @@ This document describes how to quickly install MindSpore by compiling source cod
     sudo xcode-select -switch /Library/Developer/CommandLineTools
     ```
 
-- Ensure that Python 3.9 is installed. If not installed, download and install Python from:
+- Ensure that Python 3.7 or Python 3.9 is installed(macOS with M1 chip does not support Python 3.7). If not installed, download and install Python from:
 
     - Python (64-bit)：[Python official website](https://www.python.org/downloads/macos/) or [HUAWEI CLOUD](https://repo.huaweicloud.com/python/).
 
@@ -80,7 +80,7 @@ Of which,
 - `{version}` specifies the MindSpore version number. For example, when installing MindSpore 1.6.0, set `{version}` to 1.6.0.
 - `{platform_version}` specifies the macOS version number. For example, when installing macOS 10.15, set `{platform_version}` to `10_15`.
 - `{arch}` denotes the system architecture. For example, the macOS you are using is x86 architecture 64-bit, `{arch}` should be `x86_64`. If the system is ARM architecture 64-bit, then it should be `arm64`.
-- `{python_version}` spcecifies the python version for which MindSpore is built. If Python3.9.0 is used, it should be `cp39-cp39`.
+- `{python_version}` spcecifies the python version for which MindSpore is built. If you wish to use Python3.7.5, `{python_version}` should be `cp37-cp37m`. If Python3.9.0 is used, it should be `cp39-cp39`.
 
 ## Installation Verification
 
