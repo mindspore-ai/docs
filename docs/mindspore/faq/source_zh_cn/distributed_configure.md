@@ -66,3 +66,59 @@ A：此场景下，异常进程由于各种问题退出，其余进程由于GPU�
 ```
 
 A：`mindspore.communication.init`接口只有在执行分布式训练时建议调用，详细作用请参考[Python API文档](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.communication.html#mindspore.communication.init)。在单机单卡模式下，调用此接口会让MindSpore加载分布式相关的配置以及环境变量，导致报错。
+
+<br/>
+
+<font size=3>**Q：在通过OpenMPI执行多机多卡训练时，提示由于MPI_Allgather失败。**</font>
+
+```text
+pml_ucx.c:175 Error: Failed to receive UCX worker address: Not found (-13)
+pml_ucx.c:452 Error: Failed to resolve UCX endpoint for rank X
+```
+
+A：此问题是`OpenMPI`在Host侧通信时，无法和对端地址进行通信，一般是机器之间的网卡配置不同导致的，可以通过手动设置网卡名或者子网的方式解决：
+
+```text
+mpirun -n process_num --mca btl tcp --mca btl_tcp_if_include eth0 ./run.sh
+```
+
+以上指令启动了`process_num`个`run.sh`进程，并且选择Host侧通信方式为`tcp`，网卡选择了`eth0`，这样就能保证在每台机器上使用的网卡相同，进而解决通信异常问题。
+
+还可以选择子网来进行匹配：
+
+```text
+mpirun -n process_num --mca btl tcp --mca btl_tcp_if_include 192.168.1.0/24 ./run.sh
+```
+
+子网范围需要包括所有机器所用的IP地址。
+
+<br/>
+
+<font size=3>**Q：在通过OpenMPI执行分布式训练时，单机多卡训练正常，但在多机多卡训练时，某些机器提示GPU device id设置失败。**</font>
+
+```text
+[ERROR] DEVICE [mindspore/ccsrc/runtime/device/gpu/cuda_driver.cc:245] SetDevice] SetDevice for id:7 failed, ret[101], invalid device ordinal. Please make sure that the 'device_id' set in context is in the range:[0, total number of GPU). If the environment variable 'CUDA_VISIBLE_DEVICES' is set, the total number of GPU will be the number set in the environment variable 'CUDA_VISIBLE_DEVICES'. For example, if export CUDA_VISIBLE_DEVICES=4,5,6, the 'device_id' can be 0,1,2 at the moment, 'device_id' starts from 0, and 'device_id'=0 means using GPU of number 4.
+[ERROR] DEVICE [mindspore/ccsrc/runtime/device/gpu/gpu_device_manager.cc:27] InitDevice] Op Error: Failed to set current device id | Error Number: 0
+```
+
+A：在多机场景下，各进程卡号需要通过在Host侧`AllGather` `HOSTNAME`后计算得到，如果机器间有使用相同的`HOSTNAME`，则进程卡号会计算出错，导致卡号越界而设置失败。可以在执行脚本中设置每台机器的HOSTNAME为各自的IP地址来解决：
+
+```text
+export HOSTNAME=node_ip_address
+```
+
+<br/>
+
+<font size=3>**Q：在通过OpenMPI执行多机多卡训练时，NCCL报错提示网络不通。**</font>
+
+```text
+include/socket.h:403 NCCL WARN Connect to XXX failed: Network is unreachable
+```
+
+A：此问题是`NCCL`在Host侧同步进程信息或者初始化通信域时，无法和对端地址进行通信，一般是机器之间的网卡配置不同导致的，可以通过设置`NCCL`环境变量`NCCL_SOCKET_IFNAME`，进行网卡选择：
+
+```text
+export NCCL_SOCKET_IFNAME=eth
+```
+
+以上指令设置了`NCCL`在Host侧选择网卡名中带有`eth`的网卡进行通信。
