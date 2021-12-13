@@ -32,6 +32,7 @@ MindArmour Documents
    :caption: AI Reliability
 
    concept_drift_time_series
+   model_fault_injection
 
 .. toctree::
    :glob:
