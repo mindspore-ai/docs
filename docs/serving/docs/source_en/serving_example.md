@@ -4,13 +4,13 @@
 
 - [MindSpore Serving-based Inference Service Deployment](#mindspore-serving-based-inference-service-deployment)
     - [Overview](#overview)
-        - [Preparing the Environment](#preparing-the-environment)
-        - [Downloading the Example](#downloading-the-example)
-        - [Exporting the Model](#exporting-the-model)
-        - [Deploying the Serving Inference Service](#deploying-the-serving-inference-service)
-            - [Configuring the Service](#configuring-the-service)
-            - [Starting the Service](#starting-the-service)
-        - [Inference Execution](#inference-execution)
+    - [Preparing the Environment](#preparing-the-environment)
+    - [Downloading the Example](#downloading-the-example)
+    - [Exporting the Model](#exporting-the-model)
+    - [Deploying the Serving Inference Service](#deploying-the-serving-inference-service)
+        - [Configuring the Service](#configuring-the-service)
+        - [Starting the Service](#starting-the-service)
+    - [Inference Execution](#inference-execution)
 
 <!-- /TOC -->
 
@@ -22,15 +22,15 @@ MindSpore Serving is a lightweight and high-performance service module that help
 
 The following uses a simple `Add` network as an example to describe how to use MindSpore Serving.
 
-### Preparing the Environment
+## Preparing the Environment
 
 Before running the sample network, ensure that MindSpore Serving has been properly installed and the environment variables are configured. To install and configure MindSpore Serving on your PC, go to the [MindSpore Serving installation page](https://www.mindspore.cn/serving/docs/en/r1.5/serving_install.html).
 
-### Downloading the Example
+## Downloading the Example
 
 Please download the [add example](https://gitee.com/mindspore/serving/blob/r1.5/example/tensor_add/) first.
 
-### Exporting the Model
+## Exporting the Model
 
 In the directory `export_model`, use [add_model.py](https://gitee.com/mindspore/serving/blob/r1.5/example/tensor_add/export_model/add_model.py) to build a network with only the Add operator and export the MindSpore inference deployment model.
 
@@ -85,9 +85,9 @@ For more detailed examples, see [Quick Start for Beginners](https://www.mindspor
 
 Execute the `add_model.py` script to generate the `tensor_add.mindir` file. The input of the model is two 2D tensors with shape [2,2], and the output is the sum of the two input tensors.
 
-### Deploying the Serving Inference Service
+## Deploying the Serving Inference Service
 
-#### Configuring the Service
+### Configuring the Service
 
 Start Serving with the following files:
 
@@ -140,7 +140,7 @@ def add_cast(x1, x2):
     return y
 ```
 
-#### Starting the Service
+### Starting the Service
 
 Run the [serving_server.py](https://gitee.com/mindspore/serving/blob/r1.5/example/tensor_add/serving_server.py) script to start the Serving server:
 
@@ -165,11 +165,16 @@ if __name__ == "__main__":
     start()
 ```
 
-The above startup script will load and run two inference copies of `add` on devices 0 and 1, and the inference requests from the client will be split to the two inference copies.
+The `start_servables` in the above startup script will load and run two inference copies of `add` on devices 0 and 1, and the inference requests from the client will be split to the two inference copies.
 
-If the server prints the `Serving RESTful server start success, listening on 127.0.0.1:1500` log, the Serving RESTful service has started successfully and the inference model has already loaded successfully.
+If the following log information is displayed on the server, the gRPC and RESTful services are started successfully.
 
-### Inference Execution
+```text
+Serving gRPC server start success, listening on 127.0.0.1:5500
+Serving RESTful server start success, listening on 127.0.0.1:1500
+```
+
+## Inference Execution
 
 The client can access the inference service through either [gRPC](https://www.mindspore.cn/serving/docs/en/r1.5/serving_grpc.html) or [RESTful](https://www.mindspore.cn/serving/docs/en/r1.5/serving_restful.html). The following uses gRPC as an example.
 Execute [serving_client.py](https://gitee.com/mindspore/serving/blob/r1.5/example/tensor_add/serving_client.py) to start the Python client.

@@ -4,13 +4,13 @@
 
 - [基于MindSpore Serving部署推理服务](#基于mindspore-serving部署推理服务)
     - [概述](#概述)
-        - [环境准备](#环境准备)
-        - [下载样例](#下载样例)
-        - [导出模型](#导出模型)
-        - [部署Serving推理服务](#部署serving推理服务)
-            - [配置服务](#配置服务)
-            - [启动服务](#启动服务)
-        - [执行推理](#执行推理)
+    - [环境准备](#环境准备)
+    - [下载样例](#下载样例)
+    - [导出模型](#导出模型)
+    - [部署Serving推理服务](#部署serving推理服务)
+        - [配置服务](#配置服务)
+        - [启动服务](#启动服务)
+    - [执行推理](#执行推理)
 
 <!-- /TOC -->
 
@@ -22,15 +22,15 @@ MindSpore Serving是一个轻量级、高性能的服务模块，旨在帮助Min
 
 本文以一个简单的Add网络为例，演示MindSpore Serving如何使用。
 
-### 环境准备
+## 环境准备
 
 运行示例前，需确保已经正确安装了MindSpore Serving，并配置了环境变量。MindSpore Serving安装和配置可以参考[MindSpore Serving安装页面](https://www.mindspore.cn/serving/docs/zh-CN/r1.5/serving_install.html)。
 
-### 下载样例
+## 下载样例
 
 请先[下载样例](https://gitee.com/mindspore/serving/blob/r1.5/example/tensor_add/)。
 
-### 导出模型
+## 导出模型
 
 在`export_model`目录下，使用[add_model.py](https://gitee.com/mindspore/serving/blob/r1.5/example/tensor_add/export_model/add_model.py)，构造一个只有Add算子的网络，并导出MindSpore推理部署模型。
 
@@ -85,9 +85,9 @@ if __name__ == "__main__":
 
 执行`add_model.py`脚本，生成`tensor_add.mindir`文件，该模型的输入为两个shape为[2,2]的二维Tensor，输出结果是两个输入Tensor之和。
 
-### 部署Serving推理服务
+## 部署Serving推理服务
 
-#### 配置服务
+### 配置服务
 
 启动Serving服务，以Add用例为例，需要如下文件列表：
 
@@ -140,7 +140,7 @@ def add_cast(x1, x2):
     return y
 ```
 
-#### 启动服务
+### 启动服务
 
 执行[serving_server.py](https://gitee.com/mindspore/serving/blob/r1.5/example/tensor_add/serving_server.py)，完成服务启动：
 
@@ -165,11 +165,16 @@ if __name__ == "__main__":
     start()
 ```
 
-上述启动脚本将在设备0和1上共加载和运行两个`add`推理副本，来自客户端的推理请求将被切割分流到两个推理副本。
+上述启动脚本中`start_servables`将在设备0和1上共加载和运行两个`add`推理副本，来自客户端的推理请求将被切割分流到两个推理副本。
 
-当服务端打印日志`Serving RESTful server start success, listening on 127.0.0.1:1500`时，表示Serving RESTful服务启动成功，推理模型已成功加载。
+当服务端打印如下日志时，表示Serving gRPC服务和RESTful服务启动成功。
 
-### 执行推理
+```text
+Serving gRPC server start success, listening on 127.0.0.1:5500
+Serving RESTful server start success, listening on 127.0.0.1:1500
+```
+
+## 执行推理
 
 客户端提供两种方式访问推理服务，一种是通过[gRPC方式](https://www.mindspore.cn/serving/docs/zh-CN/r1.5/serving_grpc.html)，一种是通过[RESTful方式](https://www.mindspore.cn/serving/docs/zh-CN/r1.5/serving_restful.html)，本文以gRPC方式为例。
 使用[serving_client.py](https://gitee.com/mindspore/serving/blob/r1.5/example/tensor_add/serving_client.py)，启动Python客户端。

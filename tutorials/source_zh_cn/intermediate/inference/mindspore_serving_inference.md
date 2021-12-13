@@ -6,6 +6,8 @@
 
 - [基于MindSpore Serving部署推理服务](#基于mindspore-serving部署推理服务)
     - [环境准备](#环境准备)
+    - [下载样例](#下载样例)
+    - [导出模型](#导出模型)
     - [部署Serving推理服务](#部署serving推理服务)
         - [配置服务](#配置服务)
         - [启动服务](#启动服务)
@@ -30,7 +32,15 @@ MindSpore Serving提供如下功能：
 
 ## 环境准备
 
-用户在使用MindSpore Serving前，可参考[安装指南](https://gitee.com/mindspore/serving/blob/r1.5/README_CN.md#%E5%AE%89%E8%A3%85)，与[MindSpore Serving环境变量配置](https://gitee.com/mindspore/serving/blob/r1.5/README_CN.md#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)部署MindSpore Serving环境。
+运行示例前，需确保已经正确安装了MindSpore Serving，并配置了环境变量。MindSpore Serving安装和配置可以参考[MindSpore Serving安装页面](https://www.mindspore.cn/serving/docs/zh-CN/r1.5/serving_install.html)。
+
+## 下载样例
+
+请先[下载样例](https://gitee.com/mindspore/serving/blob/r1.5/example/tensor_add/)。
+
+## 导出模型
+
+在`export_model`目录下，使用[add_model.py](https://gitee.com/mindspore/serving/blob/r1.5/example/tensor_add/export_model/add_model.py)，构造一个只有Add算子的网络，并导出MindSpore推理部署模型`tensor_add.mindir`文件。更为详细完整的模型定义示例可以参考[初学入门](https://www.mindspore.cn/tutorials/zh-CN/r1.5/quick_start.html)。
 
 ## 部署Serving推理服务
 
@@ -50,7 +60,7 @@ tensor_add
 - `tensor_add.mindir`为模型文件，放置在文件夹1下，1为版本号。不同的版本放置在不同的文件夹下，版本号需以纯数字串命名，默认配置下启动最大数值的版本号的模型文件。
 - `servable_config.py`为模型配置文件，定义了模型的处理函数，包括`add_common`和`add_cast`两个方法，`add_common`定义了输入为两个普通float32类型的加法操作，`add_cast`定义输入类型为其他类型，经过输入类型转换float32后的加法操作。
 
-模型配置文件内容如下：
+模型配置文件`servable_config.py`内容如下：
 
 ```python
 import numpy as np
@@ -87,7 +97,7 @@ def add_cast(x1, x2):
 
 ### 启动服务
 
-执行[serving_server.py](https://gitee.com/mindspore/serving/blob/r1.5/example/tensor_add/serving_server.py)，完成服务启动：
+执行`serving_server.py`，完成服务启动：
 
 ```python
 import os
@@ -110,13 +120,18 @@ if __name__ == "__main__":
 
 ```
 
-上述启动脚本将在设备0和1上共加载和运行两个`add`推理副本，来自客户端的推理请求将被切割分流到两个推理副本。
+上述启动脚本中`start_servables`将在设备0和1上共加载和运行两个`add`推理副本，来自客户端的推理请求将被切割分流到两个推理副本。
 
-当服务端打印日志`Serving RESTful server start success, listening on 127.0.0.1:1500`时，表示Serving RESTful服务启动成功，推理模型已成功加载。
+当服务端打印如下日志时，表示Serving gRPC服务和RESTful服务启动成功。
+
+```text
+Serving gRPC server start success, listening on 127.0.0.1:5500
+Serving RESTful server start success, listening on 127.0.0.1:1500
+```
 
 ## 执行推理
 
-客户端提供两种方式访问推理服务，一种是通过[gRPC方式](https://www.mindspore.cn/serving/docs/en/r1.5/serving_grpc.html)，一种是通过[RESTful方式](https://www.mindspore.cn/serving/docs/zh-CN/r1.5/serving_restful.html)。本文以gRPC方式为例，通过`client.py`执行推理。
+客户端提供两种方式访问推理服务，一种是通过[gRPC方式](https://www.mindspore.cn/serving/docs/zh-CN/r1.5/serving_grpc.html)，一种是通过[RESTful方式](https://www.mindspore.cn/serving/docs/zh-CN/r1.5/serving_restful.html)。本文以gRPC方式为例，通过`serving_client.py`执行推理。
 
 ```python
 import numpy as np
