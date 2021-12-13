@@ -57,7 +57,7 @@ from mindarmour.utils import LogUtil
 from mindspore import Model, nn, context
 from examples.common.networks.lenet5.lenet5_net_for_fuzzing import LeNet5
 from mindspore import load_checkpoint, load_param_into_net
-from mindarmour.reliability.concept_drift.concept_drift_check_images import OodDetectorFeatureCluster
+from mindarmour.reliability import OodDetectorFeatureCluster
 ```
 
 ## 加载数据
@@ -98,6 +98,96 @@ model = Model(net)
 
 `ckpt_path(str)`: 模型文件路径。
 
+需要重点说明的是，为了利用神经网络提取特定层的特征输出，需要在神经网络构建过程中增加特征提取和命名神经层的功能。
+`layer`用于命名神经网络层，可以通过下述方法改造神经网络模型，命名各层神经网络，并获取特征输出值。
+1. 导入`TensorSummary`模块；  
+2. 初始化函数`__init__`中增加 `self.summary = TensorSummary()`；  
+3. 在神经网络各层构造函数之后，增加`self.summary('name', x)`。
+
+以LeNet为例，神经网络构造过程如下：
+
+
+```python
+from mindspore import nn
+from mindspore.common.initializer import TruncatedNormal
+from mindspore.ops import TensorSummary
+
+def conv(in_channels, out_channels, kernel_size, stride=1, padding=0):
+    """Wrap conv."""
+    weight = weight_variable()
+    return nn.Conv2d(in_channels, out_channels, kernel_size=kernel_size, stride=stride, padding=padding,
+                     weight_init=weight, has_bias=False, pad_mode="valid")
+
+def fc_with_initialize(input_channels, out_channels):
+    """Wrap initialize method of full connection layer."""
+    weight = weight_variable()
+    bias = weight_variable()
+    return nn.Dense(input_channels, out_channels, weight, bias)
+
+def weight_variable():
+    """Wrap initialize variable."""
+    return TruncatedNormal(0.05)
+
+class LeNet5(nn.Cell):
+    """
+    Lenet network
+    """
+    def __init__(self):
+        super(LeNet5, self).__init__()
+        self.conv1 = conv(1, 6, 5)
+        self.conv2 = conv(6, 16, 5)
+        self.fc1 = fc_with_initialize(16*5*5, 120)
+        self.fc2 = fc_with_initialize(120, 84)
+        self.fc3 = fc_with_initialize(84, 10)
+        self.relu = nn.ReLU()
+        self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
+        self.flatten = nn.Flatten()
+        self.summary = TensorSummary()
+
+    def construct(self, x):
+        """
+        construct the network architecture
+        Returns:
+            x (tensor): network output
+        """
+        x = self.conv1(x)
+        self.summary('1', x)
+
+        x = self.relu(x)
+        self.summary('2', x)
+
+        x = self.max_pool2d(x)
+        self.summary('3', x)
+
+        x = self.conv2(x)
+        self.summary('4', x)
+
+        x = self.relu(x)
+        self.summary('5', x)
+
+        x = self.max_pool2d(x)
+        self.summary('6', x)
+
+        x = self.flatten(x)
+        self.summary('7', x)
+
+        x = self.fc1(x)
+        self.summary('8', x)
+
+        x = self.relu(x)
+        self.summary('9', x)
+
+        x = self.fc2(x)
+        self.summary('10', x)
+
+        x = self.relu(x)
+        self.summary('11', x)
+
+        x = self.fc3(x)
+        self.summary('output', x)
+        return x
+
+```
 
 ## 初始化图像概念漂移检测模块
 
@@ -111,6 +201,8 @@ detector = OodDetectorFeatureCluster(model, ds_train, n_cluster=10, layer='outpu
 `ds_train(numpy.ndarray)`: 训练集，只包含image数据。   
 `n_cluster(int)`: 特征聚类数目。  
 `layer(str)`: 神经网络用于提取特征的层的名称。
+
+
 
 ## 获取最优概念漂移检测阈值
 
