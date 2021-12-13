@@ -22,6 +22,7 @@ The composite operators are the pre-defined combination of operators.
     mindspore.ops.clip_by_value
     mindspore.ops.core
     mindspore.ops.count_nonzero
+    mindspore.ops.cummin
     mindspore.ops.dot
     mindspore.ops.gamma
     mindspore.ops.GradOperation
