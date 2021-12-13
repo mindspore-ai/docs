@@ -135,6 +135,7 @@ Math Operators
     mindspore.ops.BitwiseAnd
     mindspore.ops.BitwiseOr
     mindspore.ops.BitwiseXor
+    mindspore.ops.Cdist
     mindspore.ops.Ceil
     mindspore.ops.Cos
     mindspore.ops.Conj
@@ -154,6 +155,7 @@ Math Operators
     mindspore.ops.FloatStatus
     mindspore.ops.Floor
     mindspore.ops.FloorDiv
+    mindspore.ops.Ger
     mindspore.ops.Greater
     mindspore.ops.GreaterEqual
     mindspore.ops.HistogramFixedWidth
@@ -174,6 +176,7 @@ Math Operators
     mindspore.ops.LogicalAnd
     mindspore.ops.LogicalNot
     mindspore.ops.LogicalOr
+    mindspore.ops.LpNorm
     mindspore.ops.MatMul
     mindspore.ops.MatrixInverse
     mindspore.ops.Maximum
@@ -238,6 +241,7 @@ Array Operators
     mindspore.ops.EditDistance
     mindspore.ops.EmbeddingLookup
     mindspore.ops.ExpandDims
+    mindspore.ops.ExtractVolumePatches
     mindspore.ops.Eye
     mindspore.ops.Fill
     mindspore.ops.FusedSparseFtrl
