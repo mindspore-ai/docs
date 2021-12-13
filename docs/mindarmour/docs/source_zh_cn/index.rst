@@ -33,6 +33,7 @@ MindArmour 文档
 
    concept_drift_time_series
    concept_drift_images
+   model_fault_injection
 
 .. toctree::
    :glob:
