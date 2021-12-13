@@ -1,6 +1,6 @@
 # Optimizing Model Parameters
 
-`Ascend` `GPU` `Beginner` `Model Development`
+`Ascend` `GPU` `Beginner` `Model Optimization`
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/optimization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
@@ -45,7 +45,7 @@ print(loss(output_data, target_data))
 
 ## Optimizer
 
-An optimizer is used to compute and update the gradient. The selection of the model optimization algorithm directly affects the performance of the final model. A poor effect may be caused by the optimization algorithm instead of the feature or model design. All optimization logic of MindSpore is encapsulated in the `Optimizer` object. Here, the SGD optimizer is used. `mindspore.nn` provides many common optimizers, such as `ADAM` and `Momentum`.
+An optimizer is used to compute and update the gradient. The selection of the model optimization algorithm directly affects the performance of the final model. A poor effect may be caused by the optimization algorithm instead of the feature or model design. All optimization logic of MindSpore is encapsulated in the `Optimizer` object. Here, the SGD optimizer is used. `mindspore.nn` provides many common optimizers, such as `Adam` and `Momentum`.
 
 You need to build an `Optimizer` object. This object can retain the current parameter status and update parameters based on the computed gradient.
 
