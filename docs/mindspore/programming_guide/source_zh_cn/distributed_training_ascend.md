@@ -46,19 +46,14 @@
     │      rank_table_16pcs.json
     │      rank_table_8pcs.json
     │      rank_table_2pcs.json
-    │      cell_wrapper.py
-    │      model_accu.py
     │      resnet.py
     │      resnet50_distributed_training.py
-    │      resnet50_distributed_training_gpu.py
-    │      resnet50_distributed_training_grad_accu.py
     │      run.sh
-    │      run_gpu.sh
-    │      run_grad_accu.sh
     │      run_cluster.sh
+    ...
 ```
 
-其中，`rank_table_16pcs.json`、`rank_table_8pcs.json`、`rank_table_2pcs.json`是配置当前多卡环境的组网信息文件。`resnet.py`、`resnet50_distributed_training.py`、`resnet50_distributed_training_gpu.py`和`resnet50_distributed_training_grad_accu.py`几个文件是定义网络结构的脚本。`run.sh`、`run_gpu.sh`、`run_grad_accu.sh`、`run_cluster.sh`是执行脚本。
+其中，`rank_table_16pcs.json`、`rank_table_8pcs.json`、`rank_table_2pcs.json`是配置当前多卡环境的组网信息文件。`resnet.py`、`resnet50_distributed_training.py`等文件是定义网络结构的脚本。`run.sh`、`run_cluster.sh`是执行脚本。
 
 此外在[定义网络](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_ascend.html#id7)和[分布式训练模型参数保存和加载](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_ascend.html#id13)小节中我们针对手动混合并行模式和半自动并行模式的使用做了特殊说明。
 
@@ -294,6 +289,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
         self.sparse = sparse
         self.max = ops.ReduceMax(keep_dims=True)
         self.sub = ops.Sub()
+        self.eps = Tensor(1e-24, mstype.float32)
 
     def construct(self, logit, label):
         logit_max = self.max(logit, -1)
@@ -302,7 +298,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
         softmax_result = self.div(exp, exp_sum)
         if self.sparse:
             label = self.onehot(label, ops.shape(logit)[1], self.on_value, self.off_value)
-        softmax_result_log = self.log(softmax_result)
+        softmax_result_log = self.log(softmax_result+self.eps)
         loss = self.sum_cross_entropy((self.mul(softmax_result_log, label)), -1)
         loss = self.mul2(ops.scalar_to_array(-1.0), loss)
         loss = self.mean(loss, -1)
@@ -434,7 +430,7 @@ cd ../
 - `DEVICE_ID`：当前卡在机器上的实际序号。
 - `RANK_ID`：当前卡的逻辑序号。
 
-其余环境变量请参考安装教程中的配置项。
+其余环境变量请参考[安装教程](https://www.mindspore.cn/install)中的配置项。
 
 运行时间大约在5分钟内，主要时间是用于算子的编译，实际训练时间在20秒内。用户可以通过`ps -ef | grep pytest`来监控任务进程。
 
@@ -566,6 +562,7 @@ from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
 def test_train_cifar(epoch_size=10):
     context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
     loss_cb = LossMonitor()
+    data_path = os.getenv('DATA_PATH')
     dataset = create_dataset(data_path)
     batch_size = 32
     num_classes = 10
