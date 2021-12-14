@@ -16,7 +16,7 @@ class tf.keras.optimizers.Adam(
 )
 ```
 
-For more information, see [tf.keras.optimizers.Adam](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/optimizers/Adam).
+For more information, see [tf.keras.optimizers.Adam](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/optimizers/Adam).
 
 ## mindspore.nn.Adam
 

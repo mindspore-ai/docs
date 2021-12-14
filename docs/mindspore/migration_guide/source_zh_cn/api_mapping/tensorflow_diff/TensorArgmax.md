@@ -8,7 +8,7 @@
 tf.arg_max(input, dimension, output_type=tf.dtypes.int64, name=None)
 ```
 
-更多内容详见[tf.arg_max](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/arg_max)。
+更多内容详见[tf.arg_max](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/arg_max)。
 
 ## mindspore.Tensor.argmax
 

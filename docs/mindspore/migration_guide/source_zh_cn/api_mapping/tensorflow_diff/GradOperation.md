@@ -18,7 +18,7 @@ tf.gradients(
 )
 ```
 
-更多内容详见[tf.gradients](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/gradients)。
+更多内容详见[tf.gradients](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/gradients)。
 
 ## mindspore.ops.GradOperation
 

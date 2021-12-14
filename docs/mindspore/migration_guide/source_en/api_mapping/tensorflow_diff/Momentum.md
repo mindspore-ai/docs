@@ -14,7 +14,7 @@ class tf.train.MomentumOptimizer(
 )
 ```
 
-For more information, see [tf.train.MomentumOptimizer](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/train/MomentumOptimizer).
+For more information, see [tf.train.MomentumOptimizer](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/train/MomentumOptimizer).
 
 ## mindspore.nn.Momentum
 
