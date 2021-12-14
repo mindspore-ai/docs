@@ -15,7 +15,9 @@
 
 ## Installation
 
-MindSpore Serving supports the Ascend 310, Ascend 910 and Nvidia GPU environments.
+When [MindSpore](#https://www.mindspore.cn/) is used as the inference backend, MindSpore Serving supports the Ascend 910/710/310 and Nvidia GPU environments. The Ascend 710/310 environment supports both `OM` and `MindIR` model formats, and the Ascend 910 and GPU environment only supports the `MindIR` model format.
+
+When [MindSpore Lite](#https://www.mindspore.cn/lite) is used as the inference backend, MindSpore Serving supports Ascend 310, Nvidia GPU and CPU environments. Only the `MindIR_Opt` model format is supported. Currently, models in `MindIR` format exported from MindSpore and models exported from other frameworks need to be converted to `MindIR_Opt` format using MindSpore Lite conversion tool. During model conversion, if the target device is set to `Ascend310`, the generated `MindIR_Opt` model can be used only in the Ascend 310 environment. Otherwise, the generated `MindIR_Opt` model can be used only in the Nvidia GPU and CPU environments.
 
 MindSpore Serving depends on the MindSpore training and inference framework. Therefore, install [MindSpore](https://gitee.com/mindspore/mindspore/blob/master/README.md#installation) and then MindSpore Serving. You can install MindInsight either by pip or by source code.
 
@@ -50,7 +52,7 @@ Method 2: Directly build Serving. The MindSpore package is built together with S
 ```shell
 # GPU
 sh build.sh -e gpu
-# Ascend 310 and Ascend 910
+# Ascend 910/710/310
 sh build.sh -e ascend
 ```
 

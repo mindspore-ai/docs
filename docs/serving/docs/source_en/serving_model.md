@@ -20,7 +20,9 @@
 
 ## Overview
 
-When the inference backend is MindSpore, MindSpore Serving supports the Ascend 710, Ascend 310, Ascend 910 and Nvidia GPU environments. When MindSpore Lite is used as the inference backend, MindSpore Serving supports Nvidia GPU and CPU environments.
+When [MindSpore](#https://www.mindspore.cn/) is used as the inference backend, MindSpore Serving supports the Ascend 910/710/310 and Nvidia GPU environments. The Ascend 710/310 environment supports both `OM` and `MindIR` model formats, and the Ascend 910 and GPU environment only supports the `MindIR` model format.
+
+When [MindSpore Lite](#https://www.mindspore.cn/lite) is used as the inference backend, MindSpore Serving supports Ascend 310, Nvidia GPU and CPU environments. Only the `MindIR_Opt` model format is supported. Currently, models in `MindIR` format exported from MindSpore and models exported from other frameworks need to be converted to `MindIR_Opt` format using MindSpore Lite conversion tool. During model conversion, if the target device is set to `Ascend310`, the generated `MindIR_Opt` model can be used only in the Ascend 310 environment. Otherwise, the generated `MindIR_Opt` model can be used only in the Nvidia GPU and CPU environments.
 
 MindSpore Serving Servable provides the inference services of the following types: One inference service comes from a single model, and the other one comes from a combination of multiple models. The two types of sevices are configured through the same interface. Models need to be configured to provide the Serving inference service.
 
@@ -141,8 +143,7 @@ resnet_model = register.declare_model(model_file="resnet50_1b_cifar10.mindir", m
 In the preceding code:
 
 1. The input parameter `model_file` indicates the model file name.
-2. The input parameter `model_format` indicates the model format. Currently, when MindSpore is used as the inference backend, the Ascend 310 and Ascend 710 environment supports both `OM` and `MindIR` model formats, and the Ascend 910 and GPU environment only supports the `MindIR` model tformatspe. When the inference backend is MindSpore Lite, only the `MindIR_Opt` model format is supported. Currently, models in `MindIR` format exported from MindSpore and models exported from other frameworks need to be converted to `MindIR_Opt` format using MindSpore Lite conversion tool.
-
+2. The input parameter `model_format` indicates the model format.
 3. If the first dimension of the model input and output is not the `batch` dimension, you need to change the value of `with_batch_dim` from the default value `True` to `False`.
 
     Set `with_batch_dim` to `True` if models contain the `batch` dimension, such as image and text processing models. Assume that `batch_size=2` and the current request has three instances of images which will be split into two batches for model inference. For the first batch, two images are inferred to return two results. For the second batch, the remaining image is copied and inferred to return one result. Finally, three results are returned.
