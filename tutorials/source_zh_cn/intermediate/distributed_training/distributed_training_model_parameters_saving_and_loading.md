@@ -24,6 +24,7 @@ from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
 def test_train_cifar(epoch_size=10):
     context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
     loss_cb = LossMonitor()
+    data_path = os.getenv('DATA_PATH')
     dataset = create_dataset(data_path)
     batch_size = 32
     num_classes = 10
@@ -43,7 +44,7 @@ from mindspore import load_checkpoint, load_param_into_net
 
 net = resnet50(batch_size=32, num_classes=10)
 # The parameter for load_checkpoint is a .ckpt file which has been successfully saved
-param_dict = load_checkpoint('...')
+param_dict = load_checkpoint('path/to/ckpt_file.ckpt')
 load_param_into_net(net, param_dict)
 ```
 
@@ -63,4 +64,4 @@ context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, grad
 context.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
 ```
 
-> 数据并行场景下加载模型参数时建议每卡加载相同的checkpoint文件，避免造成计算误差，或者可以打开`parameter_broadcast`开关将0号卡的参数广播到其他卡上。
+> 数据并行场景下加载模型参数时建议每卡加载相同的checkpoint文件，避免造成计算误差，或者可以打开`context.set_context()`中的`parameter_broadcast`开关将0号卡的参数广播到其他卡上。
