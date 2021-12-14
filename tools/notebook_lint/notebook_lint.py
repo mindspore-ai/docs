@@ -94,9 +94,14 @@ def get_notebook_cells(path):
 def check_notebook(path):
     """检测空白单元格"""
     cells = get_notebook_cells(path)
-    for num, cell in enumerate(cells):
+    for cell_num, cell in enumerate(cells, 1):
         if not cell["source"]:
-            print("{}:cell_{}:empty cell need to delete".format(path, num+1))
+            print("{}:cell_{}:empty cell need to delete".format(path, cell_num))
+        else:
+            for line_num, line_content in enumerate(cell["source"], 1):
+                if not line_content.endswith("\n") and line_content != cell["source"][-1]:
+                    print(print("{}:cell_{}:{}:The end of the line in the source\
+                     code should end with \\n".format(path, cell_num, line_num)))
 
 def find_file(path, files=None):
     """递归遍历path中的所有文件"""
@@ -228,6 +233,8 @@ def print_info(check_info, location_info):
             detail_content = cells[cell_count-1]["source"][line-1]
             if len(detail_content) > 30:
                 detail_content = detail_content[:30] + "..."
+            else:
+                detail_content = detail_content.rstrip("\n")
             error_code = re.findall(r"([A-Z]+\d+)", error_info)[0]
             infos = "{}:{}:{}:{} \"{}\"".format(file, cell_num, line, error_info, detail_content)
         except IndexError:
@@ -245,7 +252,7 @@ def white_code():
         'R1723', 'R1725', 'R1732', 'W0106', 'W0221', 'W0613', 'W0622', 'W0632',
         'E1129', 'E0602', 'E1136', 'E0401', 'E0611', 'E1101', 'W0511', 'W0603',
         'W0201', 'R0201', 'R0801', 'R0902', 'R0913', 'R0901', 'R0916', 'R0914',
-        'R0904', 'R0911', 'R0915', 'W0621',
+        'R0904', 'R0911', 'R0915', 'W0621', "W0104"
     ]
     ignore_code = []
     for arg in sys.argv[1:]:
