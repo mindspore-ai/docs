@@ -218,7 +218,7 @@ MindSpore提供了同步Dump与异步Dump两种模式：
 
 可以用Numpy的`numpy.load`接口读取数据。
 
-同步Dump生成的统计数据文件名为`statistic.csv`，此文件存有相同目录下所有落盘张量（文件名为`{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy`）的统计信息。每个张量一行，每行有张量的 Op Type，Op Name，Task ID，Stream ID，Timestamp，IO，Slot，Data Size，Data Type，Shape，Max Value，Min Value，Avg Value，Count，Negative Zero Count，Positive Zero Count，NaN Count，Negative Inf Count，Positive Inf Count，Zero Count。
+同步Dump生成的统计数据文件名为`statistic.csv`，此文件存有相同目录下所有落盘张量（文件名为`{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy`）的统计信息。每个张量一行，每行有张量的 Op Type，Op Name，Task ID，Stream ID，Timestamp，IO，Slot，Data Size，Data Type，Shape，Max Value，Min Value，Avg Value，Count，Negative Zero Count，Positive Zero Count，NaN Count，Negative Inf Count，Positive Inf Count，Zero Count。注意，如果用Excel来打开此文件，数据可能无法正确显示。请用`vi`、`cat`等命令查看，或者使用Excel自文本导入csv查看。
 
 同步Dump生成的最终执行图文件后缀名分别为`.pb`和`.ir`，文件命名格式为：
 
