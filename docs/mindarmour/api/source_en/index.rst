@@ -17,5 +17,5 @@ MindArmour API
    mindarmour.privacy.diff_privacy
    mindarmour.privacy.evaluation
    mindarmour.privacy.sup_privacy
+   mindarmour.reliability
    mindarmour.utils
-   mindarmour.reliability.concept_drift
