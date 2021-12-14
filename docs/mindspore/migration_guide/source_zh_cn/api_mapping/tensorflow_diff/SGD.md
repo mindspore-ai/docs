@@ -14,7 +14,7 @@ class tf.keras.optimizers.SGD(
 )
 ```
 
-更多内容详见[tf.keras.optimizers.SGD](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/optimizers/SGD)。
+更多内容详见[tf.keras.optimizers.SGD](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/optimizers/SGD)。
 
 ## mindspore.nn.SGD
 

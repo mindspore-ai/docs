@@ -14,7 +14,7 @@ class tf.keras.optimizers.Adagrad(
 )
 ```
 
-For more information, see [tf.keras.optimizers.Adagrad](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/optimizers/Adagrad).
+For more information, see [tf.keras.optimizers.Adagrad](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/optimizers/Adagrad).
 
 ## mindspore.nn.Adagrad
 
