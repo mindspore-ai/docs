@@ -100,8 +100,8 @@ def check_notebook(path):
         else:
             for line_num, line_content in enumerate(cell["source"], 1):
                 if not line_content.endswith("\n") and line_content != cell["source"][-1]:
-                    print(print("{}:cell_{}:{}:The end of the line in the source\
-                     code should end with \\n".format(path, cell_num, line_num)))
+                    print("{}:cell_{}:{}:The end of the line in the source\
+                     code should end with \\n".format(path, cell_num, line_num))
 
 def find_file(path, files=None):
     """递归遍历path中的所有文件"""
