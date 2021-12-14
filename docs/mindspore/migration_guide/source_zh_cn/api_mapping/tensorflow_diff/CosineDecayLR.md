@@ -16,7 +16,7 @@ class tf.train.linear_cosine_decay(
 )
 ```
 
-更多内容详见[tf.train.linear_cosine_decay](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/train/linear_cosine_decay)。
+更多内容详见[tf.train.linear_cosine_decay](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/train/linear_cosine_decay)。
 
 ## mindspore.nn.CosineDecayLR
 
