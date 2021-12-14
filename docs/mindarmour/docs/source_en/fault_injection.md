@@ -117,7 +117,7 @@ fi = FaultInjector(model=model, data=ds_eval, fi_type=fi_type, fi_mode=fi_mode, 
 The initialization parameters are described as follows:
 
 - `model(Model)`: The model needs to be evaluated.
-- `data(Dataset)`: The data for testing. The evaluation is based on this data.
+- `data(Dataset)`: The data for testing. The fault tolerance of the model will be evaluated on this data.
 - `fi_type(list)`: The type of the fault injection which includes `bitflips_random`(flip randomly),
             `bitflips_designated`(flip the key bit), `random`, `zeros`, `NaN`, `INF`, `anti_activation` `precision_loss` etc.
     - `bitflips_random`: Bits are flipped randomly in the chosen value.

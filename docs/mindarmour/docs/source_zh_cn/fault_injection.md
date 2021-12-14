@@ -114,7 +114,7 @@ fi = FaultInjector(model=model, data=ds_eval, fi_type=fi_type, fi_mode=fi_mode, 
 参数含义：
 
 - `model(Model)`：需要评估的模型。
-- `data(Dataset)`：使用的测试数据，模型将在此数据上进行评估。
+- `data(Dataset)`：测试数据集，将在此数据集上评估模型对于注入故障的容错性。
 - `fi_type(list)`: 注入的故障类型，目前支持8种故障类型，分别为`bitflips_random`、 `bitflips_designated`、 `random`、 `zeros`、 `NaN`、 `INF`、 `anti_activation`和`precision_loss`。
     - `bitflips_random`: 随机反转一位比特位。
     - `bitflips_designated`: 反转关键比特位，关键比特位指对数值影响最大的比特位。
@@ -125,7 +125,7 @@ fi = FaultInjector(model=model, data=ds_eval, fi_type=fi_type, fi_mode=fi_mode, 
     - `anti_activation`: 反激活，反转原始数值符号。
     - `precision_loss`: 原始数值保留一位小数。
 - `fi_mode(list)`：故障注入的模式，有两种可选模式，分别是`single_layer` 随机一层注入故障或者`all_layer`每层都注入故障。
-- `fi_size(list)`：每次注入故障的具体数量，对于`zeros`, `anti_activation` and `precision_loss` 类型故障则代表为张量元素总量的百分比。
+- `fi_size(list)`：每次注入故障的具体数量，对于`zeros`, `anti_activation` 和 `precision_loss` 类型故障则代表为张量元素总量的百分比。
 
 ## 评估模型的容错性
 
