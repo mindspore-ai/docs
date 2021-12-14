@@ -13,7 +13,7 @@ class tfp.bijectors.Softplus(
 )
 ```
 
-更多内容详见[tfp.bijectors.Softplus](http://www.tensorflow.org/probability/api_docs/python/tfp/bijectors/Softplus)。
+更多内容详见[tfp.bijectors.Softplus](https://www.tensorflow.org/probability/api_docs/python/tfp/bijectors/Softplus)。
 
 ## mindspore.nn.probability.bijector.Softplus
 

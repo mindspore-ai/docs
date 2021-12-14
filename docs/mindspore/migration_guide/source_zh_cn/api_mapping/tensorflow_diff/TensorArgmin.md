@@ -8,7 +8,7 @@
 tf.arg_min(input, dimension, output_type=tf.dtypes.int64, name=None)
 ```
 
-更多内容详见[tf.arg_min](http://www.tensorflow.org/versions/r1.15/api_docs/python/tf/arg_min)。
+更多内容详见[tf.arg_min](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/arg_min)。
 
 ## mindspore.Tensor.argmin
 
