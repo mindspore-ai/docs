@@ -41,21 +41,21 @@ if __name__ == "__main__":
 
 ```text
 .
-├──00_parse_0000.dot
-├──00_parse_0001.ir
-├──00_parse_0002.dat
-├──01_symbol_resolve_0003.dot
-├──01_symbol_resolve_0004.ir
-├──01_symbol_resolve_0005.dat
-├──02_combine_like_graphs_0006.dot
-├──02_combine_like_graphs_0007.ir
-├──02_combine_like_graphs_0008.dat
-├──03_inference_opt_prepare_0009.dot
-├──03_inference_opt_prepare_0010.ir
-├──03_inference_opt_prepare_0011.dat
-├──04_abstract_specialize_0012.dot
-├──04_abstract_specialize_0013.ir
-├──04_abstract_specialize_0014.dat
+├──00_parse_0000.ir
+├──00_parse_0001.dat
+├──00_parse_0002.dot
+├──01_symbol_resolve_0003.ir
+├──01_symbol_resolve_0004.dat
+├──01_symbol_resolve_0005.dot
+├──02_combine_like_graphs_0006.ir
+├──02_combine_like_graphs_0007.dat
+├──02_combine_like_graphs_0008.dot
+├──03_inference_opt_prepare_0009.ir
+├──03_inference_opt_prepare_0010.dat
+├──03_inference_opt_prepare_0011.dot
+├──04_abstract_specialize_0012.ir
+├──04_abstract_specialize_0013.dat
+├──04_abstract_specialize_0014.dot
 ...
 ```
 
@@ -77,7 +77,7 @@ if __name__ == "__main__":
 
 ## IR文件解读
 
-下面以一个简单的例子来说明IR文件的内容，运行该脚本：
+下面以一个简单的例子来说明IR文件的内容（内容可能随着MindSpore的版本升级而出现一些变化），运行该脚本：
 
 ```python
 import mindspore.context as context
@@ -115,7 +115,7 @@ print(out)
 
 ### ir文件介绍
 
-使用文本编辑软件（例如`vi`）打开执行完后输出的IR文件`04_abstract_specialize_0013.ir`，内容如下所示：
+使用文本编辑软件（例如`vi`）打开执行完后输出的IR文件`04_abstract_specialize_0012.ir`，内容如下所示：
 
 ```text
   1 #IR entry      : @1_construct_wrapper.21
@@ -187,8 +187,8 @@ print(out)
 
 关于关联代码行的说明：
 
-- 代码行展示有两种模式，第一种是显示完整的调用栈，前端或后端最后生成的IR文件(如前端的`15_execute_0142.ir`和后端的`graph_build_0_136.ir`)
-  按此模式展示代码行；第二种为了减小文件的体积，只显示第一行，即省去了调用过程。
+- 代码行展示有两种模式，第一种是显示完整的调用栈，前端或后端最后生成的IR文件(如前端的`15_execute_0141.ir`和后端的`graph_build_0_136.ir`)
+  按此模式展示代码行；第二种为了减小文件的体积，只显示第一行，即省去了调用过程（如`04_abstract_specialize_0012.ir`）。
 - 如果算子是反向传播算子，关联代码行除了会显示本身的代码，还会显示对应的正向代码，通过“Corresponding forward node candidate:”标识。
 - 如果算子是融合算子，关联代码行会显示出融合的相关代码，通过“Corresponding code candidate:”标识，其中用分隔符“-”区分不同的代码。
 

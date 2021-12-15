@@ -763,6 +763,41 @@ A: MindSpore编译网络时通过`inspect.getsourcelines(self.fn)`获取网络�
 
 A: “Corresponding forward node candidate:”为关联的正向网络中的代码，表示该反向传播算子与该正向代码对应。“Corresponding code candidate:”表示该算子是由这些代码融合而来，其中分符“-”用以区分不同的代码。
 
+例如：
+
+- 算子FusionOp_BNTrainingUpdate_ReLUV2报错，打印了如下的代码行：
+
+    ```text
+    Corresponding code candidate:
+     - In file /home/workspace/mindspore/build/package/mindspore/nn/layer/normalization.py(212)/                return self.bn_train(x,/
+       In file /home/workspace/mindspore/tests/st/tbe_networks/resnet.py(265)/        x = self.bn1(x)/
+       In file /home/workspace/mindspore/build/package/mindspore/nn/wrap/cell_wrapper.py(109)/        out = self._backbone(data)/
+       In file /home/workspace/mindspore/build/package/mindspore/nn/wrap/cell_wrapper.py(356)/        loss = self.network(*inputs)/
+       In file /home/workspace/mindspore/build/package/mindspore/train/dataset_helper.py(98)/        return self.network(*outputs)/
+     - In file /home/workspace/mindspore/tests/st/tbe_networks/resnet.py(266)/        x = self.relu(x)/
+       In file /home/workspace/mindspore/build/package/mindspore/nn/wrap/cell_wrapper.py(109)/        out = self._backbone(data)/
+       In file /home/workspace/mindspore/build/package/mindspore/nn/wrap/cell_wrapper.py(356)/        loss = self.network(*inputs)/
+       In file /home/workspace/mindspore/build/package/mindspore/train/dataset_helper.py(98)/        return self.network(*outputs)/
+    ```
+
+    第一个分隔符的代码调用栈指向了网络脚本文件中第265行的“x = self.bn1(x)”，第二个分隔符的代码调用栈指向了网络脚本文件中第266行的“x = self.relu(x)”。可知，该算子FusionOp_BNTrainingUpdate_ReLUV2由这两行代码融合而来。
+
+- 算子Conv2DBackpropFilter报错，打印了如下的代码行：
+
+    ```text
+    In file /home/workspace/mindspore/build/package/mindspore/ops/_grad/grad_nn_ops.py(65)/        dw = filter_grad(dout, x, w_shape)/
+    Corresponding forward node candidate:
+     - In file /home/workspace/mindspore/build/package/mindspore/nn/layer/conv.py(266)/        output = self.conv2d(x, self.weight)/
+       In file /home/workspace/mindspore/tests/st/tbe_networks/resnet.py(149)/        out = self.conv1(x)/
+       In file /home/workspace/mindspore/tests/st/tbe_networks/resnet.py(195)/        x = self.a(x)/
+       In file /home/workspace/mindspore/tests/st/tbe_networks/resnet.py(270)/        x = self.layer2(x)/
+       In file /home/workspace/mindspore/build/package/mindspore/nn/wrap/cell_wrapper.py(109)/        out = self._backbone(data)/
+       In file /home/workspace/mindspore/build/package/mindspore/nn/wrap/cell_wrapper.py(356)/        loss = self.network(*inputs)/
+       In file /home/workspace/mindspore/build/package/mindspore/train/dataset_helper.py(98)/        return self.network(*outputs)/
+    ```
+
+    第一行是该算子的相应源码，该算子是反向算子，故由MindSpore实现。第二行提示此算子有关联的正向节点，第四行则指向了网络脚本文件第149行的“out = self.conv1(x)”。综上可知，算子Conv2DBackpropFilter是一个反向算子，相应的正向节点是一个卷积算子。
+
 <br/>
 
 <font size=3>**Q: 什么是“JIT Fallback”？编译时报错“Should not use Python object in runtime”怎么办？**</font>
