@@ -63,21 +63,25 @@ Figure 3 shows the scalar synthesis of the Accuracy and Loss curves. The functio
 
 The parameter distribution in a form of a histogram displays tensors specified by a user.
 
-![histogram.png](./images/histogram.png)
-
-Figure 4: Histogram
-
-Figure 4 shows tensors recorded by a user in a form of a histogram. Click the upper right corner to zoom in the histogram.
-
 ![histogram_func.png](./images/histogram_func.png)
 
-Figure 5: Function area of the parameter distribution histogram
+Figure 4: Function area of the parameter distribution histogram
 
-Figure 5 shows the function area of the parameter distribution histogram, including:
+Figure 4 shows the function area of the parameter distribution histogram, including:
 
 - Tag selection: Select the required tags to view the corresponding histogram.
 - Vertical axis: Select any of `Step`, `Relative time`, and `Absolute time` as the data displayed on the vertical axis of the histogram.
 - Angle of view: Select either `Front` or `Top`. `Front` view refers to viewing the histogram from the front view. In this case, data between different steps is overlapped. `Top` view refers to viewing the histogram at an angle of 45 degrees. In this case, data between different steps can be presented.  
+
+![histogram.png](./images/histogram.png)
+
+Figure 5: Histogram
+
+Figure 5 shows the numerical distribution [histogram](https://baike.baidu.com/item/%E7%9B%B4%E6%96%B9%E5%9B%BE/1103834?fr=aladdin) of `conv1.weight` by a `Top` view.
+
+The x-axis is the value range, y-axis is any one of `Step`, `Relative time`, and `Absolute time`, and z-axis is the probability distribution of the corresponding value range.
+For example, in step 4, the value of `conv1.weight` are mainly distributed around 0 and 0.015, and in step 7, it's mainly distributed around -0.01.
+Click the upper right corner to zoom in the histogram.
 
 ## Computational Graph Visualization
 
@@ -101,15 +105,22 @@ Figure 7 shows the function area of the computational graph, including:
 - Node information: Display the basic information of the selected node, including the node name, properties, input node, and output node.
 - Legend: Display the meaning of each icon in the computational graph.
 
+![graph_sidebar.png](./images/computation_graph.png)
+
+Figure 8: Computational graph optimization
+
+Figure 8 shows the readability optimization feature, which optimizes the readability of the graph and reduces the complexity of the graph, and removes most of the gradient and optimizer operators.
+To get the clearest visualization of computational graph, please set `jit_level` to `o0` when collecting the computational graph, please refer to the API [mindspore.Model.build](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore/mindspore.Model.html#mindspore.Model.build).
+
 ## Dataset Graph Visualization
 
 Dataset graph visualization is used to display data processing and augmentation information of a single model training.
 
 ![data_function.png](./images/data_function.png)
 
-Figure 8: Dataset graph function area
+Figure 9: Dataset graph function area
 
-Figure 8 shows the dataset graph function area which includes the following content:
+Figure 9 shows the dataset graph function area which includes the following content:
 
 - Legend: Display the meaning of each icon in the data lineage graph.
 - Data processing pipeline: Display the data processing pipeline used for training. Select a single node in the graph to view details.
@@ -121,15 +132,15 @@ Image visualization is used to display images specified by users.
 
 ![image.png](./images/image_vi.png)
 
-Figure 9: Image visualization
+Figure 10: Image visualization
 
-Figure 9 shows how to view images of different steps by sliding the Step slider.
+Figure 10 shows how to view images of different steps by sliding the Step slider.
 
 ![image_function.png](./images/image_function.png)
 
-Figure 10: Image visualization function area
+Figure 11: Image visualization function area
 
-Figure 10 shows the function area of image visualization. You can view image information by selecting different tags, brightness, and contrast.
+Figure 11 shows the function area of image visualization. You can view image information by selecting different tags, brightness, and contrast.
 
 - Tag: Select the required tags to view the corresponding image information.
 - Brightness adjustment: Adjust the brightness of all displayed images.
@@ -141,9 +152,9 @@ Tensor visualization is used to display tensors in the form of table and histogr
 
 ![tensor_function.png](./images/tensor_function.png)
 
-Figure 11: Tensor visualization function area
+Figure 12: Tensor visualization function area
 
-Figure 11 shows the function area of tensor visualization.
+Figure 12 shows the function area of tensor visualization.
 
 - Tag selection: Select the required tags to view the corresponding table data or histogram.
 - View: Select `Table` or `Histogram` to display tensor data. In the `Histogram` view, there are the options of `Vertical axis` and `Angle of view`.
@@ -152,9 +163,9 @@ Figure 11 shows the function area of tensor visualization.
 
 ![tensor_table.png](./images/tensor_table.png)
 
-Figure 12: Table display
+Figure 13: Table display
 
-Figure 12 shows tensors recorded by a user in a form of a table which includes the following function:
+Figure 13 shows tensors recorded by a user in a form of a table which includes the following function:
 
 - Click the small square button on the right side of the table to zoom in the table.
 - The white box in the table shows the tensor data under which dimension is currently displayed. The colon `:` indicates index range of the current dimension which is basically the same as the meaning of Python index. If no specific index is specified, it indicates all the values of the current dimension and `2:5` indicates the value of index from 2 to 5 (not including 5). you can enter the corresponding index or index range containing `:` in the box and press `Enter` or click the button of tick on the back to query tensor data for specific dimensions. Assuming a certain dimension is 32, the index range is -32 to 31. Note: tensor data from 0 to 2 dimensions can be queried. Tensor data of more than two dimensions is not supported, in other word, the query conditions of more than two colons `:` cannot be set.
@@ -162,9 +173,9 @@ Figure 12 shows tensors recorded by a user in a form of a table which includes t
 
 ![tensor_histogram.png](./images/tensor_histogram.png)
 
-Figure 13: Histogram display
+Figure 14: Histogram display
 
-Figure 13 shows tensors recorded by a user in a form of a histogram. Click the upper right corner to zoom in the histogram.
+Figure 14 shows tensors recorded by a user in a form of a histogram. Click the upper right corner to zoom in the histogram.
 
 ## Notices
 
