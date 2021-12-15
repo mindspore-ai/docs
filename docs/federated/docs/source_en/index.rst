@@ -25,4 +25,5 @@ MindSpore Federated Documents
    :maxdepth: 1
    :caption: Security and Privacy
 
-   security_and_privacy_protection
+   local_differential_privacy_training
+   pairwise_encryption_training

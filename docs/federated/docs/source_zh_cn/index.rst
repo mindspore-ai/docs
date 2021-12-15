@@ -27,4 +27,5 @@ MindSpore Federated 文档
    :maxdepth: 1
    :caption: 安全和隐私
 
-   security_and_privacy_protection
+   local_differential_privacy_training
+   pairwise_encryption_training
