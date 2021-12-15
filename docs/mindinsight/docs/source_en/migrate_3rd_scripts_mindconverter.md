@@ -214,7 +214,7 @@ Exporting ONNX model file from PyTorch model(refer to [FAQ](#export-the-model-fi
    session = onnxruntime.InferenceSession('/path/to/model.onnx')
    input_node = session.get_inputs()[0]
    output = session.run(None, {input_node.name: np.load('/path/to/input.npy')})
-   np.allclose(output, np.load('/path/to/output.npy'))
+   assert np.allclose(output, np.load('/path/to/output.npy'))
    ```
 
 ### Step 1:Migrate the model definition
@@ -240,15 +240,15 @@ network = MindSporeNetwork()
 param_dict = mindspore.load_checkpoint('network.ckpt')
 mindspore.load_param_into_net(network, param_dict)
 
-input_data = mindspore.Tensor(np.load('/path/to/input.npy'))
-output_benchmark = mindspore.Tensor(np.load('/path/to/output.npy'))
+input_data = np.load('/path/to/input.npy')
+output_benchmark = np.load('/path/to/output.npy')
 
 # Validate the equivalence of migration.
-output_data = network(input_data)
-np.allclose(output_data, output_benchmark)
+output_data = network(mindspore.Tensor(input_data))
+assert np.allclose(output_data.asnumpy(), output_benchmark)
 
 # Generate the MindIR file.
-mindspore.export(network, input_data, file_name='network_name', file_format='MINDIR')
+mindspore.export(network, mindspore.Tensor(input_data)), file_name='your_network_name', file_format='MINDIR')
 ```
 
 Notes:
@@ -293,7 +293,7 @@ Corresponding generated codes with MindSpore framework are as follows:
 
 ```python
 from mindspore.dataset import GeneratorDataset
-from mindspore.dataset.vision import py_transforms as transforms
+from mindspore.dataset import py_transforms as transforms
 
 class CustomGenerator:
     def __init__(self, *args, **kwargs):
@@ -336,7 +336,7 @@ network = PyTorchNetwork()
 
 # Define optimizer and learning rate.
 optimizer = torch.optim.SGD(network.parameters(), lr=LEARNING_RATE)
-scheduler = torch.optim.lr_scheduler.ExponentialLR(optimizer)
+scheduler = torch.optim.lr_scheduler.ExponentialLR(optimizer, gamma=DECAY_RATE)
 
 # Launch the model training.
 for i in range(EPOCH_SIZE):
@@ -361,7 +361,7 @@ from customized.path.to.mindspore.model import MindSporeNetwork
 network = MindSporeNetwork()
 
 # Define learning rate and optimizer.
-scheduler = nn.ExponentialDecayLR(LEARNING_RATE)
+scheduler = nn.ExponentialDecayLR(LEARNING_RATE, decay_rate=DECAY_RATE, decay_steps=1)
 optimizer = nn.SGD(params=network.trainable_params(), learning_rate=scheduler)
 
 # Launch the model training.
@@ -387,7 +387,7 @@ from customized.path.to.mindspore.model import MindSporeNetwork
 network = MindSporeNetwork()
 
 # Define learning rate and optimizer.
-scheduler = nn.ExponentialDecayLR(LEARNING_RATE)
+scheduler = nn.ExponentialDecayLR(LEARNING_RATE, decay_rate=DECAY_RATE, decay_steps=1)
 optimizer = nn.SGD(params=network.trainable_params(), learning_rate=scheduler)
 
 # Launch the model training.
