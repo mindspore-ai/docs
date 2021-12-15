@@ -312,6 +312,8 @@ load_param_into_net(net, param_dict)
 
 Use the generated model to predict the classification of a single image. The procedure is as follows:
 
+> The predicted images will be generated randomly, and the results may be different each time.
+
 ```python
 import numpy as np
 from mindspore import Tensor
