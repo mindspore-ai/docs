@@ -41,21 +41,21 @@ After the training command is executed, some files are generated in the path of 
 
 ```text
 .
-├──00_parse_0000.dot
-├──00_parse_0001.ir
-├──00_parse_0002.dat
-├──01_symbol_resolve_0003.dot
-├──01_symbol_resolve_0004.ir
-├──01_symbol_resolve_0005.dat
-├──02_combine_like_graphs_0006.dot
-├──02_combine_like_graphs_0007.ir
-├──02_combine_like_graphs_0008.dat
-├──03_inference_opt_prepare_0009.dot
-├──03_inference_opt_prepare_0010.ir
-├──03_inference_opt_prepare_0011.dat
-├──04_abstract_specialize_0012.dot
-├──04_abstract_specialize_0013.ir
-├──04_abstract_specialize_0014.dat
+├──00_parse_0000.ir
+├──00_parse_0001.dat
+├──00_parse_0002.dot
+├──01_symbol_resolve_0003.ir
+├──01_symbol_resolve_0004.dat
+├──01_symbol_resolve_0005.dot
+├──02_combine_like_graphs_0006.ir
+├──02_combine_like_graphs_0007.dat
+├──02_combine_like_graphs_0008.dot
+├──03_inference_opt_prepare_0009.ir
+├──03_inference_opt_prepare_0010.dat
+├──03_inference_opt_prepare_0011.dot
+├──04_abstract_specialize_0012.ir
+├──04_abstract_specialize_0013.dat
+├──04_abstract_specialize_0014.dot
 ...
 ```
 
@@ -85,7 +85,7 @@ file `graph_build_[graph_id]_[IR_id].ir`. It is the MindIR after the frontend an
 
 ## IR File Contents Introduction
 
-The following is an example to describe the contents of the IR file.
+The following is an example to describe the contents of the IR file. The content may have some changes with the version upgrade of MindSpore.
 
 ```python
 import mindspore.context as context
@@ -123,7 +123,7 @@ print(out)
 
 ### ir Introduction
 
-Use a text editing software (for example, vi) to open the `04_abstract_specialize_0013.ir` file. The file contents are as follows:
+Use a text editing software (for example, vi) to open the `04_abstract_specialize_0012.ir` file. The file contents are as follows:
 
 ```text
   1 #IR entry      : @1_construct_wrapper.21
@@ -194,7 +194,7 @@ The ]`CNode`](https://www.mindspore.cn/docs/programming_guide/en/master/design/m
 
 About the corresponding source code:
 
-- There are two mode for the corresponding source code displaying. The first mode is to display the complete call stack, such as `15_execute_0142.ir` on the frontend and `graph_build_0_136.ir` on the backend. The second mode only displays one code line for reducing the size of the IR file, which eliminates the call stack.
+- There are two mode for the corresponding source code displaying. The first mode is to display the complete call stack, such as `15_execute_0141.ir` on the frontend and `graph_build_0_136.ir` on the backend. The second mode only displays one code line for reducing the size of the IR file, which eliminates the call stack, such as `04_abstract_specialize_0012.ir`.
 - If the operator is a back propagation operator, the associated code line will not only display its own code, but also the corresponding forward code, identified by "Corresponding forward node candidate:".
 - If the operator is a fusion operator, the associated code line will display the fusion related code, identified by "Corresponding code candidate:", where the separator "-" is used to distinguish different codes.
 
@@ -203,7 +203,7 @@ About the corresponding source code:
 
 ### dat Introduction
 
-Use a text editing software (for example, vi) to open the `04_abstract_specialize_0014.dat` file. The file contents are as follows:
+Use a text editing software (for example, vi) to open the `04_abstract_specialize_0013.dat` file. The file contents are as follows:
 
 ```text
   1 # [No.1] 1_construct_wrapper.21
