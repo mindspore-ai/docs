@@ -33,7 +33,7 @@
 3. 调用故障注入模块。
 4. 查看结果。
 
-> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/mindarmour/blob/master/examples/reliability/model_fault_injection/> 。
+> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/mindarmour/blob/master/examples/reliability/model_fault_injection.py> 。
 
 ## 准备环节
 
