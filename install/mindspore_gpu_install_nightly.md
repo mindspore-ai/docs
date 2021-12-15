@@ -35,8 +35,6 @@ MindSpore Nightly是包含当前最新功能与bugfix的预览版本，但是可
     - Python 3.7.5版本 64位，下载地址：[官网](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz)或[华为云](https://mirrors.huaweicloud.com/python/3.7.5/Python-3.7.5.tgz)。
     - Python 3.9.0版本 64位，下载地址：[官网](https://www.python.org/ftp/python/3.9.0/Python-3.9.0.tgz)或[华为云](https://mirrors.huaweicloud.com/python/3.9.0/Python-3.9.0.tgz)。
 
-- 如果您的环境为ARM架构，请确认当前使用的Python配套的pip版本>=19.3。
-
 ## 下载安装MindSpore
 
 CUDA 11.1 版本：
