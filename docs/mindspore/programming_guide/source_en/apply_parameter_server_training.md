@@ -61,6 +61,8 @@ Learn how to train a LeNet using the [MNIST dataset](http://yann.lecun.com/exdb/
     network.set_param_ps()
     ```
 
+> In `Parameter Server` mode, control flow is not supported. So we need to change `model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O2")` to `model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})` in `train.py`. This will unset `amp_level` and eliminate the impact of control flow.
+
 4. [optional configuration] For a large shape `embedding_table`, because the device can not store a full amount of `embedding_table`. You can configure the `vocab_cache_size` of [EmbeddingLookup operator](https://www.mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.EmbeddingLookup.html) to enable the cache function of `EmbeddingLookup` in the Parameter Server training mode. The `vocab_cache_size` of `embedding_table` is trained on device, and a full amount of `embedding_table` is stored in the Server. The `embedding_table` of the next batch is swapped to the cache in advance, and the expired `embedding_table` is put back to the Server when the cache cannot be placed, to achieve the purpose of improving the training performance. Each Server could save a checkpoint containing the trained `embedding_table` after the training. Detailed network training script can be referred to <https://gitee.com/mindspore/models/tree/master/official/recommend/wide_and_deep>.
 
     ```python
