@@ -37,7 +37,7 @@
 
 在单机模式下，主要通过将训练流程拆分为正向反向训练、参数更新和累积梯度清理三个部分实现梯度累积。这里以MNIST作为示范数据集，自定义简单模型实现梯度累积需要如下几个步骤。
 
-> 你可以在这里下载主要的训练样例代码：<https://gitee.com/mindspore/docs/tree/master/docs/sample_code/gradient_accumulation/train.py>
+> 你可以在这里下载主要的训练样例代码：<https://gitee.com/mindspore/docs/blob/master/docs/sample_code/gradient_accumulation/train.py>
 >
 > `auto_parallel`以及`semi_auto_parallel`模式下尚不支持梯度累积的训练方式。
 
@@ -280,7 +280,7 @@ python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt
 
 在Boost模式下，我们只要简单调用Boost的梯度累积接口，即可实现梯度累积的功能。这里同样以MNIST作为示范数据集，展示如何调用Boost接口来实现梯度累积功能。
 
-> 你可以在这里下载主要的训练样例代码：<https://gitee.com/mindspore/docs/tree/master/docs/sample_code/gradient_accumulation/train_and_eval_boost.py>
+> 你可以在这里下载主要的训练样例代码：<https://gitee.com/mindspore/docs/blob/master/docs/sample_code/gradient_accumulation/train_and_eval_boost.py>
 
 ### 导入需要的库文件
 
