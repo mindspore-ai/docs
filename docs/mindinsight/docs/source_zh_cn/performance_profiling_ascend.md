@@ -100,7 +100,7 @@ if __name__ == '__main__':
 - 对于非数据下沉，需要基于step开启
 
     ```python
-    from mindspore.profiler.callback import Callback
+    from mindspore.train.callback import Callback
     class StopAtStep(Callback):
         def __init__(self, start_step, stop_step):
             super(StopAtStep, self).__init__()
