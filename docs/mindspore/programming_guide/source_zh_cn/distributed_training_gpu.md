@@ -20,6 +20,9 @@
         - [单机多卡训练](#单机多卡训练)
         - [多机多卡训练](#多机多卡训练)
     - [分布式训练模型参数保存和加载](#分布式训练模型参数保存和加载)
+    - [不依赖OpenMPI进行训练](#不依赖OpenMPI进行训练)
+        - [运行脚本](#运行脚本)
+        - [安全认证](#安全认证)
 
 <!-- /TOC -->
 
@@ -466,9 +469,8 @@ if __name__ == "__main__":
 
 - `mode=context.GRAPH_MODE`：使用分布式训练需要指定运行模式为图模式（PyNative模式不支持并行）。
 - `init("nccl")`：使能NCCL通信，并完成分布式训练初始化操作。
-- 默认情况下，安全加密通道是开启的，需要通过`set_ps_context`正确配置安全加密通道或者关闭安全加密通道后，才能调用init("nccl")，否则初始化组网会失败。
-- 若不想使用安全加密通道，请设置`mindspore.context.set_ps_context(enable_ssl=False)`。
-- 详细参数配置说明请参考Python API `mindspore.context.set_ps_context`，以及本文档`安全认证`章节。
+- 默认情况下，安全加密通道是关闭的，需要通过`set_ps_context`正确配置安全加密通道或者关闭安全加密通道后，才能调用init("nccl")，否则初始化组网会失败。
+- 若想使用安全加密通道，请设置`context.set_ps_context(config_file_path="/path/to/config_file.json", enable_ssl=True, client_password="123456", server_password="123456")`等配置，详细参数配置说明请参考Python API `mindspore.context.set_ps_context`，以及本文档`安全认证`章节。
 
 脚本内容`run_gpu_cluster.sh`如下，在启动Worker和Scheduler之前，需要添加相关环境变量设置：
 
@@ -494,19 +496,108 @@ echo "start training"
 for((i=0;i<8;i++));
 do
     export MS_WORKER_NUM=8
-    export MS_SCHED_HOST=127.0.0.1
-    export MS_SCHED_PORT=6667
+    export MS_SCHED_HOST=XXX.XXX.XXX.XXX  # Scheduler IP address
+    export MS_SCHED_PORT=XXXX             # Scheduler port
     export MS_ROLE=MS_WORKER
     pytest -s -v ./resnet50_distributed_training_gpu.py > worker_$i.log 2>&1 &
 done
 
 # Launch 1 scheduler.
 export MS_WORKER_NUM=8
-export MS_SCHED_HOST=127.0.0.1
-export MS_SCHED_PORT=6667
+export MS_SCHED_HOST=XXX.XXX.XXX.XXX  # Scheduler IP address
+export MS_SCHED_PORT=XXXX             # Scheduler port
 export MS_ROLE=MS_SCHED
 pytest -s -v ./resnet50_distributed_training_gpu.py > scheduler.log 2>&1 &
 ```
+
+执行如下指令：
+
+```bash
+./run_gpu_cluster.sh DATA_PATH
+```
+
+即可单机内部执行8卡分布式训练，若希望执行跨机训练，则需要将脚本拆分，如执行2机8卡训练，每台机器执行启动4Worker：
+
+脚本`run_gpu_cluster_1.sh`在机器1上启动1`Scheduler`和`Worker1`到`Worker4`：
+
+```bash
+#!/bin/bash
+
+echo "=========================================="
+echo "Please run the script as: "
+echo "bash run_gpu_cluster.sh DATA_PATH"
+echo "For example: bash run_gpu_cluster.sh /path/dataset"
+echo "It is better to use the absolute path."
+echo "==========================================="
+DATA_PATH=$1
+export DATA_PATH=${DATA_PATH}
+
+rm -rf device
+mkdir device
+cp ./resnet50_distributed_training_gpu.py ./resnet.py ./device
+cd ./device
+echo "start training"
+
+# Launch 1-4 workers.
+for((i=0;i<4;i++));
+do
+    export MS_WORKER_NUM=8
+    export MS_SCHED_HOST=XXX.XXX.XXX.XXX  # Scheduler IP address
+    export MS_SCHED_PORT=XXXX             # Scheduler port
+    export MS_ROLE=MS_WORKER
+    pytest -s -v ./resnet50_distributed_training_gpu.py > worker_$i.log 2>&1 &
+done
+
+# Launch 1 scheduler.
+export MS_WORKER_NUM=8
+export MS_SCHED_HOST=XXX.XXX.XXX.XXX  # Scheduler IP address
+export MS_SCHED_PORT=XXXX             # Scheduler port
+export MS_ROLE=MS_SCHED
+pytest -s -v ./resnet50_distributed_training_gpu.py > scheduler.log 2>&1 &
+```
+
+脚本`run_gpu_cluster_2.sh`在机器2上启动`Worker5`到`Worker8`(无需再执行Scheduler)：
+
+```bash
+#!/bin/bash
+
+echo "=========================================="
+echo "Please run the script as: "
+echo "bash run_gpu_cluster.sh DATA_PATH"
+echo "For example: bash run_gpu_cluster.sh /path/dataset"
+echo "It is better to use the absolute path."
+echo "==========================================="
+DATA_PATH=$1
+export DATA_PATH=${DATA_PATH}
+
+rm -rf device
+mkdir device
+cp ./resnet50_distributed_training_gpu.py ./resnet.py ./device
+cd ./device
+echo "start training"
+
+# Launch 5-8 workers.
+for((i=4;i<8;i++));
+do
+    export MS_WORKER_NUM=8
+    export MS_SCHED_HOST=XXX.XXX.XXX.XXX  # Scheduler IP address
+    export MS_SCHED_PORT=XXXX             # Scheduler port
+    export MS_ROLE=MS_WORKER
+    pytest -s -v ./resnet50_distributed_training_gpu.py > worker_$i.log 2>&1 &
+done
+```
+
+在两台主机分别执行：
+
+```bash
+./run_gpu_cluster_1.sh DATA_PATH
+```
+
+```bash
+./run_gpu_cluster_2.sh DATA_PATH
+```
+
+即可执行2机8卡分布式训练任务。
 
 若希望启动数据并行模式训练，脚本`resnet50_distributed_training_gpu.py`中需要将`set_auto_parallel_context`入参并行模式改为`DATA_PARALLEL`:
 
@@ -529,7 +620,7 @@ epoch: 1 step: 1, loss is 2.3025854
 
 ### 安全认证
 
-要支持节点/进程间的SSL安全认证，要开启安全认证，需要在启动命令加上`enable_ssl=True`(默认开启)，config_file_path指定的config.json配置文件需要添加如下字段：
+要支持节点/进程间的SSL安全认证，要开启安全认证，需要在启动命令加上`enable_ssl=True`(默认关闭)，config_file_path指定的config.json配置文件需要添加如下字段：
 
 ```json
 {
