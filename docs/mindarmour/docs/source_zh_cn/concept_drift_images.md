@@ -202,6 +202,10 @@ detector = OodDetectorFeatureCluster(model, ds_train, n_cluster=10, layer='outpu
 `n_cluster(int)`: 特征聚类数目。  
 `layer(str)`: 神经网络用于提取特征的层的名称。
 
+需要注意的是，`OodDetectorFeatureCluster`初始化时，参数`layer`后需要加上`[:Tensor]`后缀。
+例如，某神经网络层命名为`name`，那么`layer='name[:Tensor]'`。实例`layer='output[:Tensor]'`中使用的是LeNet最后一层layer`output`的特征，
+即`layer='output[:Tensor]'`。
+
 
 
 ## 获取最优概念漂移检测阈值
