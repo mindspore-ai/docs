@@ -27,6 +27,28 @@ class mindspore.parallel.nn.TransformerEncoder(*args, **kwargs)(
 
 mindspore.parallel.nn.TransformerEncoder在初始化参数和torch.nn.TransformerEncoder并不完全相同，但是基本功能保持一致。torch.nn.TransformerEncoder采用了组合的方式，即将实例化的TransformerEncoderLayer作为torch.nn.TransformerEncoder的入参。而mindspore.nn.parallel.TransformerEncoder通过传入层的相关参数即可，跟TransformerEncoderLayer保持独立。具体的区别如下说明：
 
+| mindspore.parallel.nn.TransformerEncoder | torch.nn.TransformerEncoder | 说明                                                      |
+| ---------------------------------------- | --------------------------- | --------------------------------------------------------- |
+| batch_size                               |                             | MindSpore需要传入额外的batch size以作校验和增量推理使用。 |
+| num_layers                               | num_layers                  | 含义相同。                                                |
+| hidden_size                              | d_model                     | 参数名称不一致，含义相同。                                |
+| ffn_hidden_size                          |                             |                                                           |
+| seq_length                               |                             | encoder输入序列长度。                                     |
+| num_heads                                |                             |                                                           |
+| hidden_dropout_rate                      |                             | hidden_dropout_rate表示在隐藏层处的dropout。              |
+| attention_dropout_rate                   |                             | attention_dropout_rate表示在softmax处的dropout。          |
+| post_layernorm_residual                  |                             | MindSpore的该参数表示残差相加时对输入是否应用layernorm。  |
+| hidden_act                               | activation                  | 激活层的类型，含义相同。MindSpore仅支持字符串。           |
+| layernorm_compute_type                   |                             | 控制layernorm的计算类型。                                 |
+| softmax_compute_type                     |                             | 控制attention中softmax的计算类型。                        |
+| param_init_type                          |                             | 控制参数初始化的类型。                                    |
+| use_past                                 |                             | 是否使用增量推理。                                        |
+| lambda_func                              |                             | 控制并行的相关配置，详见API文档。                         |
+| offset                                   |                             | encoder用来计算fusion标记的初始值。                       |
+| moe_config                               |                             | MoE并行的配置参数。                                       |
+| parallel_config                          |                             | 并行设置的配置参数。                                      |
+|                                          | norm                        | 在encoder的输出是否应用传入的norm cell。                  |
+
 - mindspore.parallel.nn.TransformerEncoder缺少src_key_padding_mask的输入。
 - mindspore.parallel.nn.TransformerEncoder提供了静态图的增量推理功能。
 - mindspore.parallel.nn.TransformerEncoder默认采用fp16进行矩阵运算。
@@ -35,7 +57,7 @@ mindspore.parallel.nn.TransformerEncoder在初始化参数和torch.nn.Transforme
 - mindspore.parallel.nn.TransformerEncoder的初始化参数中缺少torch.nn.Transformer中的norm入参。
 - mindspore.parallel.nn.TransformerEncoder提供了并行配置parallel_config入参，可以实现混合并行和流水线并行。
 
-PyTorch：实例化Transformer时需要提供的参数较少。
+PyTorch：实例化TransformerEncoder时需要提供的参数较少。
 
 MindSpore：在类初始化的时候，需要提供batch_size、源序列长度等额外信息，并且在计算时需要输入encoder_mask。
 

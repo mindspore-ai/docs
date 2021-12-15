@@ -29,6 +29,28 @@ class mindspore.parallel.nn.TransformerDecoderLayer(*args, **kwargs)(
 
 mindspore.parallel.nn.TransformerDecoderLayer在初始化参数和torch.nn.TransformerDecoderLayer并不完全相同，但是基本功能保持一致。具体的区别如下说明：
 
+| mindspore.parallel.nn.TransformerDecoderLayer | torch.nn.TransformerDecoderLayer | 说明                                                         |
+| --------------------------------------------- | -------------------------------- | ------------------------------------------------------------ |
+| hidden_size                                   | d_model                          | 参数名称不一致，含义相同。                                   |
+| ffn_hidden_size                               | dim_feedforward                  | 参数名称不一致，含义相同。                                   |
+| num_heads                                     | nhead                            | Attention的head数目，含义相同。                              |
+| batch_size                                    |                                  | MindSpore需要传入额外的batch size以作校验和增量推理使用。    |
+| src_seq_length                                |                                  | encoder输入序列长度。                                        |
+| tgt_seq_length                                |                                  | decoder输入序列长度。                                        |
+| attention_dropout_rate                        | dropout                          | 含义不同。attention_dropout_rate表示在softmax处的dropout，而PyTorch的dropout参数额外控制了隐藏层的dropout rate。 |
+| hidden_dropout_rate                           | dropout                          | 含义不同。hidden_dropout_rate表示在隐藏层处的dropout，而PyTorch的dropout参数额外控制了softmax处的dropout rate。 |
+| post_layernorm_residual                       | norm_first                       | 含义不同。MindSpore的该参数表示残差相加时对输入是否应用layernorm，而PyTorch表示输入子层时是否先输入layernorm。 |
+| use_past                                      |                                  | 是否使用增量推理。                                           |
+| layernorm_compute_type                        |                                  | 控制layernorm的计算类型。                                    |
+| softmax_compute_type                          |                                  | 控制attention中softmax的计算类型。                           |
+| param_init_type                               |                                  | 控制参数初始化的类型。                                       |
+| hidden_act                                    | activation                       | 激活层的类型，含义相同。MindSpore仅支持字符串。              |
+| lambda_func                                   |                                  | 控制并行的相关配置，详见API文档。                            |
+| moe_config                                    |                                  | MoE并行的配置参数。                                          |
+| parallel_config                               |                                  | 并行设置的配置参数。                                         |
+|                                               | layer_norm_eps                   | layernorm计算时防止初零的数值。                              |
+|                                               | batch_first                      | 输入输出Tensor中batch是否为第0维度。MindSpore以第0个维度为batch维度，对应于torch.nn.TransformerDecoderLayer中设置bathc_first=True。 |
+
 - mindspore.parallel.nn.TransformerDecoderLayer缺少tgt_key_padding_mask和emory_key_padding_mask的输入。
 - mindspore.parallel.nn.TransformerDecoderLayer提供了静态图的增量推理功能。
 - mindspore.parallel.nn.TransformerDecoderLayer默认采用fp16进行矩阵运算。
