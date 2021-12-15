@@ -212,7 +212,7 @@ git clone https://gitee.com/mindspore/mindinsight.git
    session = onnxruntime.InferenceSession('/path/to/model.onnx')
    input_node = session.get_inputs()[0]
    output = session.run(None, {input_node.name: np.load('/path/to/input.npy')})
-   np.allclose(output, np.load('/path/to/output.npy'))
+   assert np.allclose(output, np.load('/path/to/output.npy'))
    ```
 
 ### 第1步：转换模型定义
@@ -230,21 +230,23 @@ mindconverter --model_file /path/to/model.onnx
 ```python
 import mindspore
 import numpy as np
+
+# 根据实际情况替换以下类路径
 from customized.path.to.mindspore.model import MindSporeNetwork
 
 network = MindSporeNetwork()
 param_dict = mindspore.load_checkpoint('network.ckpt')
 mindspore.load_param_into_net(network, param_dict)
 
-input_data = mindspore.Tensor(np.load('/path/to/input.npy'))
-output_benchmark = mindspore.Tensor(np.load('/path/to/output.npy'))
+input_data = np.load('/path/to/input.npy')
+output_benchmark = np.load('/path/to/output.npy')
 
 # 验证迁移等价性
-output_data = network(input_data)
-np.allclose(output_data, output_benchmark)
+output_data = network(mindspore.Tensor(input_data))
+assert np.allclose(output_data.asnumpy(), output_benchmark)
 
 # 导出MindIR文件
-mindspore.export(network, input_data, file_name='network_name', file_format='MINDIR')
+mindspore.export(network, mindspore.Tensor(input_data)), file_name='your_network_name', file_format='MINDIR')
 ```
 
 注意事项：
@@ -289,7 +291,7 @@ data_loader = DataLoader(dataset, batch_size=BATCH_SIZE)
 
 ```python
 from mindspore.dataset import GeneratorDataset
-from mindspore.dataset.vision import py_transforms as transforms
+from mindspore.dataset import py_transforms as transforms
 
 class CustomGenerator:
     def __init__(self, *args, **kwargs):
@@ -332,7 +334,7 @@ network = PyTorchNetwork()
 
 # 定义优化器与学习率
 optimizer = torch.optim.SGD(network.parameters(), lr=LEARNING_RATE)
-scheduler = torch.optim.lr_scheduler.ExponentialLR(optimizer)
+scheduler = torch.optim.lr_scheduler.ExponentialLR(optimizer, gamma=DECAY_RATE)
 
 # 执行模型训练
 for i in range(EPOCH_SIZE):
@@ -357,7 +359,7 @@ from customized.path.to.mindspore.model import MindSporeNetwork
 network = MindSporeNetwork()
 
 # 定义学习率与优化器
-scheduler = nn.ExponentialDecayLR(LEARNING_RATE)
+scheduler = nn.ExponentialDecayLR(LEARNING_RATE, decay_rate=DECAY_RATE, decay_steps=1)
 optimizer = nn.SGD(params=network.trainable_params(), learning_rate=scheduler)
 
 # 执行模型训练
@@ -383,7 +385,7 @@ from customized.path.to.mindspore.model import MindSporeNetwork
 network = MindSporeNetwork()
 
 # 定义学习率与优化器
-scheduler = nn.ExponentialDecayLR(LEARNING_RATE)
+scheduler = nn.ExponentialDecayLR(LEARNING_RATE, decay_rate=DECAY_RATE, decay_steps=1)
 optimizer = nn.SGD(params=network.trainable_params(), learning_rate=scheduler)
 
 # 执行模型训练
