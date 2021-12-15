@@ -97,7 +97,7 @@ Graph mode:
 - When dataset_sink_mode is set to False, it needs to be enabled based on step.
 
     ```python
-    from mindspore.profiler.callback import Callback
+    from mindspore.train.callback import Callback
     class StopAtStep(Callback):
         def __init__(self, start_step, stop_step):
             super(StopAtStep, self).__init__()
