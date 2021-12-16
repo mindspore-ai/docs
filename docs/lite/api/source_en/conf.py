@@ -89,6 +89,7 @@ def specificationsForKind(kind):
     if kind == "class":
         return [
             ":members:",
+            ":no-link:",
             # ":protected-members:",
             # ":private-members:"
         ]
@@ -255,7 +256,7 @@ with open("./SourceFileNames.json") as f:
             logger.warning("头文件{} 没有找到,!".format(file_))
 
 # Remove "MS_API" in classes.
-files_copyed = glob.glob("../include/**/*.h")
+files_copyed = glob.glob("../include/**/*.h", recursive=True)
 for file in files_copyed:
     with open(file, "r+", encoding="utf8") as f:
         content = f.read()

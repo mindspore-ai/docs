@@ -1,12 +1,3 @@
-:gitee_url: https://gitee.com/mindspore/docs
-
-
-.. _namespace_mindspore:
-
-mindspore
-===================
-
-
 Classes
 -------
 
@@ -28,6 +19,8 @@ Classes
 - :doc:`../generate/structmindspore_CNodeIndexEqual`
 
 - :doc:`../generate/structmindspore_CNodeIndexHasher`
+
+- :doc:`../generate/structmindspore_DebugInfoCompare`
 
 - :doc:`../generate/structmindspore_EffectInfo`
 
@@ -57,6 +50,8 @@ Classes
 
 - :doc:`../generate/structmindspore_OrderedMap_KeyPtrHash`
 
+- :doc:`../generate/structmindspore_Parameter_FormatAttr`
+
 - :doc:`../generate/structmindspore_PointerHash`
 
 - :doc:`../generate/structmindspore_PointerHash_3_01std_shared_ptr_3_01T_01_4_01_4`
@@ -85,6 +80,8 @@ Classes
 
 - :doc:`../generate/structmindspore_TypeListHasher`
 
+- :doc:`../generate/structmindspore_UpdateInfo`
+
 - :doc:`../generate/structmindspore_VectorRefHash`
 
 - :doc:`../generate/classmindspore_AccuracyMetrics`
@@ -99,15 +96,15 @@ Classes
 
 - :doc:`../generate/classmindspore_AnyValue`
 
-- :doc:`../generate/classmindspore_Ascend310DeviceInfo`
-
-- :doc:`../generate/classmindspore_Ascend910DeviceInfo`
+- :doc:`../generate/classmindspore_AscendDeviceInfo`
 
 - :doc:`../generate/classmindspore_Base`
 
 - :doc:`../generate/classmindspore_BaseRef`
 
 - :doc:`../generate/classmindspore_BoolImm`
+
+- :doc:`../generate/classmindspore_Buffer`
 
 - :doc:`../generate/classmindspore_CheckAndConvertUtils`
 
@@ -215,6 +212,8 @@ Classes
 
 - :doc:`../generate/classmindspore_MsException`
 
+- :doc:`../generate/classmindspore_MSTensor`
+
 - :doc:`../generate/classmindspore_Named`
 
 - :doc:`../generate/classmindspore_NodeDebugInfo`
@@ -254,6 +253,8 @@ Classes
 - :doc:`../generate/classmindspore_RefKey`
 
 - :doc:`../generate/classmindspore_RunFunctionRef`
+
+- :doc:`../generate/classmindspore_RuntimeCache`
 
 - :doc:`../generate/classmindspore_Scalar`
 
@@ -353,6 +354,8 @@ Classes
 
 - :doc:`../generate/classmindspore_TraceManager`
 
+- :doc:`../generate/classmindspore_TraceMixedPrecision`
+
 - :doc:`../generate/classmindspore_TraceOpt`
 
 - :doc:`../generate/classmindspore_TracePartialTransform`
@@ -362,6 +365,8 @@ Classes
 - :doc:`../generate/classmindspore_TraceResolve`
 
 - :doc:`../generate/classmindspore_TraceSegmentTransform`
+
+- :doc:`../generate/classmindspore_TraceShard`
 
 - :doc:`../generate/classmindspore_TraceSpecialize`
 
@@ -403,7 +408,7 @@ Classes
 
 - :doc:`../generate/classmindspore_ValueNode`
 
-- :doc:`../generate/classmindspore_ValueSequeue`
+- :doc:`../generate/classmindspore_ValueSequence`
 
 - :doc:`../generate/classmindspore_ValueSlice`
 
@@ -419,6 +424,8 @@ Enums
 - :doc:`../generate/enum_mindspore_ActivationType-1`
 
 - :doc:`../generate/enum_mindspore_Axis-1`
+
+- :doc:`../generate/enum_mindspore_CacheBool-1`
 
 - :doc:`../generate/enum_mindspore_CallbackRetValue-1`
 
@@ -497,8 +504,6 @@ Functions
 ---------
 
 
-- :doc:`../generate/function_mindspore__attribute_-1`
-
 - :doc:`../generate/function_mindspore_AddressOffset-1`
 
 - :doc:`../generate/function_mindspore_AlwaysInclude-1`
@@ -575,9 +580,11 @@ Functions
 
 - :doc:`../generate/function_mindspore_GetTimeString-1`
 
-- :doc:`../generate/function_mindspore_GetValue-1`
-
 - :doc:`../generate/function_mindspore_GetValue-2`
+
+- :doc:`../generate/function_mindspore_GetValue-3`
+
+- :doc:`../generate/function_mindspore_GetValue-1`
 
 - :doc:`../generate/function_mindspore_GetValueNode-1`
 
@@ -597,9 +604,9 @@ Functions
 
 - :doc:`../generate/function_mindspore_IMM_TRAITS-3`
 
-- :doc:`../generate/function_mindspore_IMM_TRAITS-4`
-
 - :doc:`../generate/function_mindspore_IMM_TRAITS-5`
+
+- :doc:`../generate/function_mindspore_IMM_TRAITS-4`
 
 - :doc:`../generate/function_mindspore_IncludeBelongGraph-1`
 
@@ -616,6 +623,10 @@ Functions
 - :doc:`../generate/function_mindspore_IntToUint-1`
 
 - :doc:`../generate/function_mindspore_IsIdentidityOrSubclass-1`
+
+- :doc:`../generate/function_mindspore_IsOneOfPrimitive-1`
+
+- :doc:`../generate/function_mindspore_IsOneOfPrimitiveCNode-1`
 
 - :doc:`../generate/function_mindspore_IsPrimitive-1`
 
@@ -634,6 +645,8 @@ Functions
 - :doc:`../generate/function_mindspore_IsValueNode-1`
 
 - :doc:`../generate/function_mindspore_Key-2`
+
+- :doc:`../generate/function_mindspore_Key-3`
 
 - :doc:`../generate/function_mindspore_LiftingClone-1`
 
@@ -663,15 +676,15 @@ Functions
 
 - :doc:`../generate/function_mindspore_MakeNode-7`
 
-- :doc:`../generate/function_mindspore_MakeValue-1`
-
-- :doc:`../generate/function_mindspore_MakeValue-2`
+- :doc:`../generate/function_mindspore_MakeValue-5`
 
 - :doc:`../generate/function_mindspore_MakeValue-3`
 
 - :doc:`../generate/function_mindspore_MakeValue-4`
 
-- :doc:`../generate/function_mindspore_MakeValue-5`
+- :doc:`../generate/function_mindspore_MakeValue-1`
+
+- :doc:`../generate/function_mindspore_MakeValue-2`
 
 - :doc:`../generate/function_mindspore_Manage-1`
 
@@ -751,6 +764,8 @@ Functions
 
 - :doc:`../generate/function_mindspore_UlongToUint-1`
 
+- :doc:`../generate/function_mindspore_UpdateDebugInfo-1`
+
 - :doc:`../generate/function_mindspore_Version-1`
 
 
@@ -776,6 +791,10 @@ Typedefs
 
 - :doc:`../generate/typedef_mindspore_AnyPtr-1`
 
+- :doc:`../generate/typedef_mindspore_Ascend310DeviceInfo-1`
+
+- :doc:`../generate/typedef_mindspore_Ascend910DeviceInfo-1`
+
 - :doc:`../generate/typedef_mindspore_AttrConverterPair-1`
 
 - :doc:`../generate/typedef_mindspore_BasePtr-1`
@@ -789,6 +808,8 @@ Typedefs
 - :doc:`../generate/typedef_mindspore_BaseWeakPtr-1`
 
 - :doc:`../generate/typedef_mindspore_BoolImmPtr-1`
+
+- :doc:`../generate/typedef_mindspore_CacheBool-2`
 
 - :doc:`../generate/typedef_mindspore_ClonerPtr-1`
 
@@ -860,6 +881,10 @@ Typedefs
 
 - :doc:`../generate/typedef_mindspore_GraphSegmentPtr-1`
 
+- :doc:`../generate/typedef_mindspore_HashMap-1`
+
+- :doc:`../generate/typedef_mindspore_HashSet-1`
+
 - :doc:`../generate/typedef_mindspore_IncludeFunc-1`
 
 - :doc:`../generate/typedef_mindspore_Int16ImmPtr-1`
@@ -904,6 +929,8 @@ Typedefs
 
 - :doc:`../generate/typedef_mindspore_NodeDebugInfoPtr-1`
 
+- :doc:`../generate/typedef_mindspore_NodeDebugInfoSet-1`
+
 - :doc:`../generate/typedef_mindspore_NodeToNodeMap-1`
 
 - :doc:`../generate/typedef_mindspore_NodeUsersMap-1`
@@ -915,6 +942,8 @@ Typedefs
 - :doc:`../generate/typedef_mindspore_ParamInfoPtr-1`
 
 - :doc:`../generate/typedef_mindspore_PrimitivePtr-1`
+
+- :doc:`../generate/typedef_mindspore_PrimitiveSet-1`
 
 - :doc:`../generate/typedef_mindspore_ProblemPtr-1`
 
@@ -972,6 +1001,8 @@ Typedefs
 
 - :doc:`../generate/typedef_mindspore_UMonadPtr-1`
 
+- :doc:`../generate/typedef_mindspore_UpdateInfoPtr-1`
+
 - :doc:`../generate/typedef_mindspore_ValueDictionaryPtr-1`
 
 - :doc:`../generate/typedef_mindspore_ValueListPtr-1`
@@ -981,6 +1012,10 @@ Typedefs
 - :doc:`../generate/typedef_mindspore_ValuePtr-1`
 
 - :doc:`../generate/typedef_mindspore_ValuePtrList-1`
+
+- :doc:`../generate/typedef_mindspore_ValueSequencePtr-1`
+
+- :doc:`../generate/typedef_mindspore_ValueSequeue-1`
 
 - :doc:`../generate/typedef_mindspore_ValueSequeuePtr-1`
 
@@ -1078,6 +1113,8 @@ Variables
 
 - :doc:`../generate/variable_mindspore_kCompareToString-1`
 
+- :doc:`../generate/variable_mindspore_kCSRTensorType-1`
+
 - :doc:`../generate/variable_mindspore_kDecModeAesGcm-1`
 
 - :doc:`../generate/variable_mindspore_kDefaultScope-1`
@@ -1096,6 +1133,8 @@ Variables
 
 - :doc:`../generate/variable_mindspore_kFuncGraphFlagUndetermined-1`
 
+- :doc:`../generate/variable_mindspore_kGBToByte-1`
+
 - :doc:`../generate/variable_mindspore_kIOMonad-1`
 
 - :doc:`../generate/variable_mindspore_kKeyword-1`
@@ -1103,6 +1142,8 @@ Variables
 - :doc:`../generate/variable_mindspore_kList-1`
 
 - :doc:`../generate/variable_mindspore_kMaxShape-1`
+
+- :doc:`../generate/variable_mindspore_kMBToByte-1`
 
 - :doc:`../generate/variable_mindspore_kMinShape-1`
 

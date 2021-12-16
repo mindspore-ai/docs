@@ -21,7 +21,6 @@ MindSpore Lite API
   api_cpp/mindspore_registry_opencl
   api_cpp/mindspore_converter
   api_cpp/mindspore_abstract
-  api_cpp/mindspore_api
   api_cpp/mindspore_change
   api_cpp/mindspore_common
   api_cpp/mindspore_id_generator

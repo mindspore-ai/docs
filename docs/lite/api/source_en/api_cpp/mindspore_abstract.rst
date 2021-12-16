@@ -7,7 +7,6 @@ mindspore::abstract
 =============================
 
 
-
 Classes
 -------
 
@@ -19,6 +18,8 @@ Classes
 - :doc:`../generate/structmindspore_abstract_ReportNameTraits`
 
 - :doc:`../generate/structmindspore_abstract_ReportNameTraits_3_01AbstractClass_01_4`
+
+- :doc:`../generate/structmindspore_abstract_ReportNameTraits_3_01AbstractCSRTensor_01_4`
 
 - :doc:`../generate/structmindspore_abstract_ReportNameTraits_3_01AbstractDictionary_01_4`
 
@@ -32,7 +33,7 @@ Classes
 
 - :doc:`../generate/structmindspore_abstract_ReportNameTraits_3_01AbstractScalar_01_4`
 
-- :doc:`../generate/structmindspore_abstract_ReportNameTraits_3_01AbstractSequeue_01_4`
+- :doc:`../generate/structmindspore_abstract_ReportNameTraits_3_01AbstractSequence_01_4`
 
 - :doc:`../generate/structmindspore_abstract_ReportNameTraits_3_01AbstractSlice_01_4`
 
@@ -49,6 +50,8 @@ Classes
 - :doc:`../generate/classmindspore_abstract_AbstractBase`
 
 - :doc:`../generate/classmindspore_abstract_AbstractClass`
+
+- :doc:`../generate/classmindspore_abstract_AbstractCSRTensor`
 
 - :doc:`../generate/classmindspore_abstract_AbstractDictionary`
 
@@ -82,7 +85,7 @@ Classes
 
 - :doc:`../generate/classmindspore_abstract_AbstractScript`
 
-- :doc:`../generate/classmindspore_abstract_AbstractSequeue`
+- :doc:`../generate/classmindspore_abstract_AbstractSequence`
 
 - :doc:`../generate/classmindspore_abstract_AbstractSlice`
 
@@ -108,7 +111,7 @@ Classes
 
 - :doc:`../generate/classmindspore_abstract_RegisterStandardPrimitiveEvalHelper`
 
-- :doc:`../generate/classmindspore_abstract_SequeueShape`
+- :doc:`../generate/classmindspore_abstract_SequenceShape`
 
 - :doc:`../generate/classmindspore_abstract_Shape`
 
@@ -137,8 +140,6 @@ Functions
 
 - :doc:`../generate/function_mindspore_abstract_CheckAttrIntOrTuple-1`
 
-- :doc:`../generate/function_mindspore_abstract_CheckAttrPositiveInt64-1`
-
 - :doc:`../generate/function_mindspore_abstract_CheckAttrStringSet-1`
 
 - :doc:`../generate/function_mindspore_abstract_CheckAxis-1`
@@ -161,19 +162,11 @@ Functions
 
 - :doc:`../generate/function_mindspore_abstract_CheckTensorsDTypeSame-1`
 
-- :doc:`../generate/function_mindspore_abstract_CheckType-2`
-
 - :doc:`../generate/function_mindspore_abstract_CheckType-1`
-
-- :doc:`../generate/function_mindspore_abstract_CheckTypeList-1`
 
 - :doc:`../generate/function_mindspore_abstract_ExtractLoggingInfo-1`
 
-- :doc:`../generate/function_mindspore_abstract_GetBroadcastShape-1`
-
 - :doc:`../generate/function_mindspore_abstract_GetDependsFormMap-1`
-
-- :doc:`../generate/function_mindspore_abstract_GetPositiveAxis-1`
 
 - :doc:`../generate/function_mindspore_abstract_GetPrimitiveInferImpl-1`
 
@@ -182,8 +175,6 @@ Functions
 - :doc:`../generate/function_mindspore_abstract_GetPrimitiveToEvalImplMap-1`
 
 - :doc:`../generate/function_mindspore_abstract_GetTraceNode-1`
-
-- :doc:`../generate/function_mindspore_abstract_GetUnsortedSegmentOpScalarArg-1`
 
 - :doc:`../generate/function_mindspore_abstract_MakeAbstract-1`
 
@@ -217,6 +208,8 @@ Typedefs
 - :doc:`../generate/typedef_mindspore_abstract_AbstractBasePtrList-1`
 
 - :doc:`../generate/typedef_mindspore_abstract_AbstractClassPtr-1`
+
+- :doc:`../generate/typedef_mindspore_abstract_AbstractCSRTensorPtr-1`
 
 - :doc:`../generate/typedef_mindspore_abstract_AbstractDictionaryPtr-1`
 
@@ -252,7 +245,7 @@ Typedefs
 
 - :doc:`../generate/typedef_mindspore_abstract_AbstractScriptPtr-1`
 
-- :doc:`../generate/typedef_mindspore_abstract_AbstractSequeuePtr-1`
+- :doc:`../generate/typedef_mindspore_abstract_AbstractSequencePtr-1`
 
 - :doc:`../generate/typedef_mindspore_abstract_AbstractSlicePtr-1`
 
@@ -286,7 +279,7 @@ Typedefs
 
 - :doc:`../generate/typedef_mindspore_abstract_PrimitiveEvalImplMap-1`
 
-- :doc:`../generate/typedef_mindspore_abstract_SequeueShapePtr-1`
+- :doc:`../generate/typedef_mindspore_abstract_SequenceShapePtr-1`
 
 - :doc:`../generate/typedef_mindspore_abstract_ShapePtr-1`
 
