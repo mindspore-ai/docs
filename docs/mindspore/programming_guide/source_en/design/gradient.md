@@ -25,7 +25,7 @@ Modern AI algorithm, such as deep learning, uses huge amount of data to train a 
 
 Automatic differentiation is a method between neumerical differentiation and symbolic differentiation. The key concept of AD is to divide the calculation of the computer program into a finite set with basic operations. The gradients of all the basic operations are known. After calculating the gradient of all the basic operations, AD uses chain rule to combine them and gets the final gradient.
 
-The formula of chain rule is: $(f\cdot g)^{'}(x)=f^{'}(g(x))g^{'}(x)$
+The formula of chain rule is: $(f\circ g)^{'}(x)=f^{'}(g(x))g^{'}(x)$
 
 Based on how to connect the gradient of basic components, AD can be divided into forward mode AD and reverse mode AD.
 
