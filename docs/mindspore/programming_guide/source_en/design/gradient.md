@@ -30,7 +30,7 @@ The formula of chain rule is: $(f\cdot g)^{'}(x)=f^{'}(g(x))g^{'}(x)$
 Based on how to connect the gradient of basic components, AD can be divided into forward mode AD and reverse mode AD.
 
 For example, if we define function $f$
-$$y=f(x_{1},x_{2})=ln(x_{1})+x_{1}x_{2}$$and  we want to use forward mode AD to calculate $\frac{\partial y}{\partial x_{1}}$ when $x_{1}=2,x_{2}=5$.
+$$y=f(x_{1},x_{2})=ln(x_{1})+x_{1}x_{2}-sin(x_{2})$$and  we want to use forward mode AD to calculate $\frac{\partial y}{\partial x_{1}}$ when $x_{1}=2,x_{2}=5$.
 
 ![image](./images/forward_ad.png)
 
