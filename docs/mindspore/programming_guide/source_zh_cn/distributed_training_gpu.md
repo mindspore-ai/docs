@@ -381,6 +381,8 @@ epoch: 1 step: 1, loss is 2.3025854
 
 ### 多机多卡训练
 
+在运行多机多卡训练前，需要保证每个节点上都有相同的OpenMPI、NCCL、Python以及MindSpore版本。
+
 #### mpirun -H
 
 若训练涉及多机，则需要额外在`mpirun`命令中设置多机配置。你可以直接在`mpirun`命令中用`-H`选项进行设置，比如
@@ -393,16 +395,16 @@ mpirun -n 16 -H DEVICE1_IP:8,DEVICE2_IP:8 python hello.py
 
 #### mpirun --hostfile
 
-GPU的多机多卡的执行也可以通过构造hostfile文件来进行。 为方便调试，多建议用这种方法来执行多机多卡脚本。 之后使用`mpirun --hostfile $HOST_FILE`的形式来执行。
+GPU的多机多卡的执行也可以通过构造hostfile文件来进行。 为方便调试，多建议用这种方法来执行多机多卡脚本。 之后使用`mpirun --hostfile $HOST_FILE`的形式来执行。下面我们以hostfile启动方式来给出详细的多机多卡配置。
 
-hostfile文件每一行格式为`[hostname] slots=[slotnum]`，hostname可以是ip或者主机名。 如下，表示在DEVICE1上有8张卡；ip为192.168.0.1的机器上也有8张卡：
+hostfile文件每一行格式为`[hostname] slots=[slotnum]`，hostname可以是ip或者主机名。需要注意的是，不同机器上的用户名需要相同，但是hostname不可以相同。如下，表示在DEVICE1上有8张卡；ip为192.168.0.1的机器上也有8张卡：
 
 ```text
 DEVICE1 slots=8
 192.168.0.1 slots=8
 ```
 
-两机十六卡的执行脚本如下，需要传入变量`DATA_PATH`和`HOSTFILE`，表示数据集的路径和hostfile文件的路径。 更多mpirun的选项设置可见OpenMPI的官网。
+两机十六卡的执行脚本如下，需要传入变量`DATA_PATH`和`HOSTFILE`，表示数据集的路径和hostfile文件的路径。我们需要设置mpi中mca的btl参数来指定进行mpi通信的网卡，否则可能会在调用mpi接口时初始化失败。btl参数指定了节点间采用tcp协议，节点内采用环路进行通信。btl_tcp_if_include指定节点间通信所经过的网卡的ip地址需要在给定的子网中。 更多mpirun的选项设置可见OpenMPI的官网。
 
 ```bash
 #!/bin/bash
@@ -415,7 +417,18 @@ mkdir device
 cp ./resnet50_distributed_training_gpu.py ./resnet.py ./device
 cd ./device
 echo "start training"
-mpirun -n 16 --hostfile $HOSTFILE -x DATA_PATH=$DATA_PATH -x PATH -mca pml ob1 pytest -s -v ./resnet50_distributed_training_gpu.py > train.log 2>&1 &
+mpirun -n 16 --mca btl tcp,self --mca btl_tcp_if_include 192.168.0.0/24 --hostfile $HOSTFILE -x DATA_PATH=$DATA_PATH -x PATH -mca pml ob1 mpirun_gpu_clusher.sh &
+```
+
+考虑到不同机器上的一些环境变量可能会不一样，我们采用mpirun启动一个`mpirun_gpu_cluster.sh`的形式，在不同机器上的该脚本文件中指定所需的环境变量。此处我们配置了`NCCL_SOCKET_IFNAME`，来指定NCCL进行通信时的网卡。
+
+```bash
+#!/bin/bash
+# mpirun_gpu_clusher.sh
+# 你可以在这里设置每台机器上不同的环境变量，如下面的网卡名字
+
+NCCL_SOCKET_IFNAME="en5" # 需进行节点间通信的网卡的名字，不同机器上可能不一致，使用ifconfig查看。
+pytest -s -v ./resnet50_distributed_training_gpu.py > train.log 2>&1 &
 ```
 
 ## 分布式训练模型参数保存与加载
@@ -470,7 +483,9 @@ if __name__ == "__main__":
 - `mode=context.GRAPH_MODE`：使用分布式训练需要指定运行模式为图模式（PyNative模式不支持并行）。
 - `init("nccl")`：使能NCCL通信，并完成分布式训练初始化操作。
 - 默认情况下，安全加密通道是关闭的，需要通过`set_ps_context`正确配置安全加密通道或者关闭安全加密通道后，才能调用init("nccl")，否则初始化组网会失败。
-- 若想使用安全加密通道，请设置`context.set_ps_context(config_file_path="/path/to/config_file.json", enable_ssl=True, client_password="123456", server_password="123456")`等配置，详细参数配置说明请参考Python API `mindspore.context.set_ps_context`，以及本文档`安全认证`章节。
+
+若想使用安全加密通道，请设置`context.set_ps_context(config_file_path="/path/to/config_file.json", enable_ssl=True, client_password="123456", server_password="123456")`
+等配置，详细参数配置说明请参考Python API `mindspore.context.set_ps_context`，以及本文档`安全认证`章节。
 
 脚本内容`run_gpu_cluster.sh`如下，在启动Worker和Scheduler之前，需要添加相关环境变量设置：
 
@@ -624,12 +639,12 @@ epoch: 1 step: 1, loss is 2.3025854
 
 ```json
 {
-    "server_cert_path": "server.p12",
-    "crl_path": "",
-    "client_cert_path": "client.p12",
-    "ca_cert_path": "ca.crt",
-    "cipher_list": "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:DHE-DSS-AES256-GCM-SHA384:DHE-PSK-AES128-GCM-SHA256:DHE-PSK-AES256-GCM-SHA384:DHE-PSK-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-PSK-CHACHA20-POLY1305:DHE-RSA-AES128-CCM:DHE-RSA-AES256-CCM:DHE-RSA-CHACHA20-POLY1305:DHE-PSK-AES128-CCM:DHE-PSK-AES256-CCM:ECDHE-ECDSA-AES128-CCM:ECDHE-ECDSA-AES256-CCM:ECDHE-ECDSA-CHACHA20-POLY1305",
-    "cert_expire_warning_time_in_day": 90,
+  "server_cert_path": "server.p12",
+  "crl_path": "",
+  "client_cert_path": "client.p12",
+  "ca_cert_path": "ca.crt",
+  "cipher_list": "ECDHE-R SA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:DHE-DSS-AES256-GCM-SHA384:DHE-PSK-AES128-GCM-SHA256:DHE-PSK-AES256-GCM-SHA384:DHE-PSK-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-PSK-CHACHA20-POLY1305:DHE-RSA-AES128-CCM:DHE-RSA-AES256-CCM:DHE-RSA-CHACHA20-POLY1305:DHE-PSK-AES128-CCM:DHE-PSK-AES256-CCM:ECDHE-ECDSA-AES128-CCM:ECDHE-ECDSA-AES256-CCM:ECDHE-ECDSA-CHACHA20-POLY1305",
+  "cert_expire_warning_time_in_day": 90
 }
 ```
 
