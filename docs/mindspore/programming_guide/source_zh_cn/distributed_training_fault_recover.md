@@ -102,7 +102,7 @@ epoch: 1 step: 77, loss is 6.271424
 
 ```python
 
-from mindspore.train.serialization import restore_group_info_list
+from mindspore import restore_group_info_list
 rank_list = restore_group_info_list("./ckpt_dir0/group_info.pb")
 print(rank_list) // [0, 4]
 ```

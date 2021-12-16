@@ -202,6 +202,7 @@ Serialization
     mindspore.merge_sliced_parameter
     mindspore.load_distributed_checkpoint
     mindspore.async_ckpt_thread_status
+    mindspore.restore_group_info_list
 
 JIT
 ---
