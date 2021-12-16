@@ -18,7 +18,7 @@
 
 在混合精度中，会使用float16类型来替代float32类型存储数据，从而达到减少内存和提高计算速度的效果。但是由于float16类型要比float32类型表示的范围小很多，所以当某些参数（比如说梯度）在训练过程中变得很小时，就会发生数据下溢的情况。而LossScale正是为了解决float16类型数据下溢问题的，LossScale的主要思想是在计算loss时，将loss扩大一定的倍数，由于链式法则的存在，梯度也会相应扩大，然后在优化器更新权重时再缩小相应的倍数，从而避免了数据下溢的情况又不影响计算结果。
 
-MindSpore中提供了两种LossScale的方式，分别是`FixedLossScaleManager`和`DynamicLossScaleManager`，一般需要和Model配合使用。
+MindSpore中提供了两种LossScale的方式，分别是`FixedLossScaleManager`和`DynamicLossScaleManager`，一般需要和Model配合使用。在使用Model构建模型时，可配置混合精度等级`amp_level`和LossScale方式`loss_scale_manager`。
 
 ## FixedLossScaleManager
 
