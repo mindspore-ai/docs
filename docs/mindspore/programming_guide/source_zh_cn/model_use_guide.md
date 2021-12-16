@@ -45,9 +45,11 @@
 
 - eval_indexes (List)：用于指示评估网络输出的含义，配合`eval_network`使用，该参数的功能可通过`nn.Metric`的`set_indexes`代替，建议使用`set_indexes`。
 
-- amp_level (str)：用于指定混合精度级别。
+- amp_level (str)：用于指定混合精度级别。设置为"O0"或"O3"级别时，默认不使用LossScale，设置为"O2"级别时，默认使用动态LossScale策略。通过kwargs可修改LossScale策略。
 
-- kwargs：可配置溢出检测和混合精度策略。
+- boost_level (str)：用于指定Boost级别。
+
+- kwargs：用于指定混合精度、LossScale、Boost相关策略。
 
 `Model`提供了以下接口用于模型训练、评估和推理：
 
@@ -56,6 +58,10 @@
 - eval：用于在验证集上进行模型评估。
 
 - predict：用于对输入的一组数据进行推理，输出预测结果。
+
+混合精度原理及LossScale策略详见文档：<https://mindspore.cn/docs/programming_guide/zh-CN/master/enable_mixed_precision.html>和<https://mindspore.cn/docs/programming_guide/zh-CN/master/lossscale.html>。
+Boost功能详见文档：<https://mindspore.cn/docs/programming_guide/zh-CN/master/apply_gradient_accumulation.html#boost>。
+分布式功能详见文档：<https://mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training.html>。
 
 ## 模型训练、评估和推理
 
