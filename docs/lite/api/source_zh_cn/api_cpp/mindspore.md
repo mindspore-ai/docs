@@ -837,7 +837,7 @@ MSTensor *CreateTensor(const std::string &name, DataType type, const std::vector
     - `type`：数据类型。
     - `shape`：形状。
     - `data`：数据指针，指向一段已开辟的内存。
-    - `data`：数据长度，以字节为单位。
+    - `data_len`：数据长度，以字节为单位。
 
 - 返回值
 
@@ -858,7 +858,7 @@ MSTensor *CreateRefTensor(const std::string &name, DataType type, const std::vec
     - `type`：数据类型。
     - `shape`：形状。
     - `data`：数据指针，指向一段已开辟的内存。
-    - `data`：数据长度，以字节为单位。
+    - `data_len`：数据长度，以字节为单位。
 
 - 返回值
 
