@@ -77,7 +77,7 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 
 ![debugger_init_page](images/debugger_init_page.png)
 
-图1： 调试器初始页面
+*图1： 调试器初始页面*
 
 ### 计算图
 
@@ -92,7 +92,7 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 
 ![debugger_search_node_type](images/debugger_search_node_type.png)
 
-图2： 节点列表按节点类型过滤
+*图2： 节点列表按节点类型过滤*
 
 如图1所示，在UI的左侧会展示计算图`节点列表`，可以将计算图中的节点按`scope`分层展开。点击`节点列表`中的节点，计算图也会联动展开到选中节点的位置。
 用户也可以使用`节点列表`上方的`图文件`以及`节点类型`对节点按图文件和类型进行过滤，如图2所示。用户还可以使用`节点类型`下方的搜索框按名称进行节点的搜索。
@@ -109,7 +109,7 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 
 ![debugger_set_watch_point](images/debugger_watch_point_list.png)
 
-图3： 异常现象检查列表
+*图3： 异常现象检查列表*
 
 如图3所示，异常现象检查列表位于页面的左下方。监测点列表上方的三个按钮从左到右依次为`重新检查`、`清空监测点`和`创建监测点`。
 
@@ -117,7 +117,7 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 
 ![debugger_set_watch_point](images/debugger_set_watch_point.png)
 
-图4： 创建监测点
+*图4： 创建监测点*
 
 为了方便地对节点的计算结果进行监测分析，用户可以给计算图中的节点设置监测点。图4展示了监测点的设置方法，用户首先点击监测点列表右上角的 `+` 按钮新增监测点并选择检查条件，比如检查过大张量，选择一个要检查的条件并输入阈值，点击“确定”以创建监测点。
 监测点创建后，请手动勾选要检查的节点，最后点击监测点旁边的`√`确认。如果创建监测点时，选择的检查对象为“检查权重”、“检查梯度”、“检查激活”，则监测点创建时，会自动勾选权重、梯度、激活节点，用户可以在点击“确定”后手动修改节点勾选状态。
@@ -156,7 +156,7 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 
 ![debugger_watch_point_hit](images/debugger_watch_point_hit.png)
 
-图5： 查看触发的监测节点
+*图5： 查看触发的监测节点*
 
 图5展示了触发了监测点的节点列表，该页面和`节点列表`所在位置相同。如果设置了多个监测点，可以在监测点的下拉框中选择监测点id号，就会只展示触发了选中监测点的节点列表。
 如果是多子图的网络，还可以在图文件的下拉框中选择图名称，就会只展示选中的子图中触发了监测点的节点列表。
@@ -175,7 +175,7 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 
 ![debugger_stack_list](images/debugger_stack_list.png)
 
-图6： 堆栈列表
+*图6： 堆栈列表*
 
 ### 堆栈信息
 
@@ -185,7 +185,7 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 
 ![debugger_stack_info](images/debugger_stack_info.png)
 
-图7： 堆栈信息
+*图7： 堆栈信息*
 
 注意：有部分算子由框架生成，例如`TupleGetItem`、`Depend`、`UpdateState`等，可能关联到框架本身的代码，或者没有代码可以关联，均为正常现象。
 
@@ -208,13 +208,13 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 
 ![debugger_tensor_view_heatmap](images/debugger_tensor_view_heatmap.png)
 
-图8：查看张量热力图
+*图8：查看张量热力图*
 
 如图8所示，张量检查视图将`张量`值展示在UI的中上位置，默认显示热力图，可以显示当前数值的分布情况。鼠标移动到图上某一个位置时，会显示当前坐标的具体值。在热力图下方的`模式`下拉框选择`表格模式`，即以表格的形式展示`张量`值，如图9所示。
 
 ![debugger_tensor_view](images/debugger_tensor_view.png)
 
-图9： 查看张量值
+*图9： 查看张量值*
 
 在张量检查视图，用户可以进行`维度选择`，点击`显示当前step`，`显示上一step`和`显示对比结果`对张量进行显示和对比（当前仅支持参数节点与上一轮次对比）。此外，用户可以设置切片进行`维度选择`来显示相应维度的`张量`。
 
@@ -230,7 +230,7 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 
     ![debugger_waiting](images/debugger_waiting.png)
 
-    图10： 调试器等待训练连接
+    *图10： 调试器等待训练连接*
 
     此时，调试器处于等待训练启动和连接的状态。
 
@@ -240,7 +240,7 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 
     ![debugger_ask_recommend](images/debugger_ask_recommend.png)
 
-    图11： 等待用户选择是否使用推荐监测点
+    *图11： 等待用户选择是否使用推荐监测点*
 
 4. 稍后可以看到计算图显示在调试器界面，见图1。
 
