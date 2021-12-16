@@ -74,7 +74,7 @@ NPU库（目录为`mindspore-lite-{version}-android-{arch}/runtime/third_party/h
 
 ## 芯片支持
 
-NPU芯片支持见[芯片与HUAWEI HiAI Version版本映射关系](https://developer.huawei.com/consumer/cn/doc/development/hiai-Guides/mapping-relationship-0000001052830507#ZH-CN_TOPIC_0000001052830507__section94427279718)。
+NPU芯片支持见[芯片与HUAWEI HiAI Version版本映射关系](https://developer.huawei.com/consumer/cn/doc/development/hiai-Guides/supported-platforms-0000001052830507#section94427279718)。
 
 ## 算子支持
 
