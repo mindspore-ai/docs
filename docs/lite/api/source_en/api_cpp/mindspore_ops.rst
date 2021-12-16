@@ -7,6 +7,12 @@ Classes
 
 - :doc:`../generate/classmindspore_ops_Abs`
 
+- :doc:`../generate/classmindspore_ops_AccumulateNV2`
+
+- :doc:`../generate/classmindspore_ops_ACos`
+
+- :doc:`../generate/classmindspore_ops_Acosh`
+
 - :doc:`../generate/classmindspore_ops_Activation`
 
 - :doc:`../generate/classmindspore_ops_Adam`
@@ -25,7 +31,23 @@ Classes
 
 - :doc:`../generate/classmindspore_ops_All`
 
+- :doc:`../generate/classmindspore_ops_AllGather`
+
+- :doc:`../generate/classmindspore_ops_ApplyAdadelta`
+
+- :doc:`../generate/classmindspore_ops_ApplyAdagrad`
+
 - :doc:`../generate/classmindspore_ops_ApplyAdagradDA`
+
+- :doc:`../generate/classmindspore_ops_ApplyAdagradV2`
+
+- :doc:`../generate/classmindspore_ops_ApplyAdaMax`
+
+- :doc:`../generate/classmindspore_ops_ApplyAddSign`
+
+- :doc:`../generate/classmindspore_ops_ApplyCenteredRMSProp`
+
+- :doc:`../generate/classmindspore_ops_ApplyGradientDescent`
 
 - :doc:`../generate/classmindspore_ops_ApplyKerasMomentum`
 
@@ -47,7 +69,11 @@ Classes
 
 - :doc:`../generate/classmindspore_ops_AssignAdd`
 
+- :doc:`../generate/classmindspore_ops_AssignSub`
+
 - :doc:`../generate/classmindspore_ops_Atan`
+
+- :doc:`../generate/classmindspore_ops_Atanh`
 
 - :doc:`../generate/classmindspore_ops_Attention`
 
@@ -66,6 +92,10 @@ Classes
 - :doc:`../generate/classmindspore_ops_BatchToSpace`
 
 - :doc:`../generate/classmindspore_ops_BatchToSpaceND`
+
+- :doc:`../generate/classmindspore_ops_BesselI0e`
+
+- :doc:`../generate/classmindspore_ops_BesselI1e`
 
 - :doc:`../generate/classmindspore_ops_BiasAdd`
 
@@ -119,6 +149,8 @@ Classes
 
 - :doc:`../generate/classmindspore_ops_CTCLossV2Grad`
 
+- :doc:`../generate/classmindspore_ops_Cummin`
+
 - :doc:`../generate/classmindspore_ops_CumSum`
 
 - :doc:`../generate/classmindspore_ops_Custom`
@@ -167,6 +199,8 @@ Classes
 
 - :doc:`../generate/classmindspore_ops_Erf`
 
+- :doc:`../generate/classmindspore_ops_Erfc`
+
 - :doc:`../generate/classmindspore_ops_Erfinv`
 
 - :doc:`../generate/classmindspore_ops_Exp`
@@ -180,6 +214,8 @@ Classes
 - :doc:`../generate/classmindspore_ops_FakeQuantWithMinMaxVars`
 
 - :doc:`../generate/classmindspore_ops_FakeQuantWithMinMaxVarsPerChannel`
+
+- :doc:`../generate/classmindspore_ops_FastGeLU`
 
 - :doc:`../generate/classmindspore_ops_FftImag`
 
@@ -230,6 +266,10 @@ Classes
 - :doc:`../generate/classmindspore_ops_IndexAdd`
 
 - :doc:`../generate/classmindspore_ops_InstanceNorm`
+
+- :doc:`../generate/classmindspore_ops_Inv`
+
+- :doc:`../generate/classmindspore_ops_Invert`
 
 - :doc:`../generate/classmindspore_ops_InvertPermutation`
 
@@ -284,6 +324,8 @@ Classes
 - :doc:`../generate/classmindspore_ops_LogicalXor`
 
 - :doc:`../generate/classmindspore_ops_LogSoftmax`
+
+- :doc:`../generate/classmindspore_ops_LpNorm`
 
 - :doc:`../generate/classmindspore_ops_LpNormalization`
 
@@ -391,6 +433,8 @@ Classes
 
 - :doc:`../generate/classmindspore_ops_ReduceProd`
 
+- :doc:`../generate/classmindspore_ops_ReduceScatter`
+
 - :doc:`../generate/classmindspore_ops_ReduceSum`
 
 - :doc:`../generate/classmindspore_ops_ReduceSumSquare`
@@ -415,6 +459,8 @@ Classes
 
 - :doc:`../generate/classmindspore_ops_Rfft`
 
+- :doc:`../generate/classmindspore_ops_Rint`
+
 - :doc:`../generate/classmindspore_ops_ROIPooling`
 
 - :doc:`../generate/classmindspore_ops_Roll`
@@ -431,6 +477,8 @@ Classes
 
 - :doc:`../generate/classmindspore_ops_ScatterNd`
 
+- :doc:`../generate/classmindspore_ops_ScatterNdAdd`
+
 - :doc:`../generate/classmindspore_ops_ScatterNdUpdate`
 
 - :doc:`../generate/classmindspore_ops_Select`
@@ -443,7 +491,11 @@ Classes
 
 - :doc:`../generate/classmindspore_ops_SigmoidCrossEntropyWithLogits`
 
+- :doc:`../generate/classmindspore_ops_Sign`
+
 - :doc:`../generate/classmindspore_ops_Sin`
+
+- :doc:`../generate/classmindspore_ops_Sinh`
 
 - :doc:`../generate/classmindspore_ops_Size`
 
@@ -557,6 +609,8 @@ Classes
 
 - :doc:`../generate/classmindspore_ops_Where`
 
+- :doc:`../generate/classmindspore_ops_Xdivy`
+
 - :doc:`../generate/classmindspore_ops_Zeros`
 
 - :doc:`../generate/classmindspore_ops_ZerosLike`
@@ -655,6 +709,8 @@ Variables
 - :doc:`../generate/variable_mindspore_ops_all_types-1`
 
 - :doc:`../generate/variable_mindspore_ops_common_valid_types-1`
+
+- :doc:`../generate/variable_mindspore_ops_common_valid_types_with_complex-1`
 
 - :doc:`../generate/variable_mindspore_ops_kActivation-1`
 
@@ -858,7 +914,7 @@ Variables
 
 - :doc:`../generate/variable_mindspore_ops_kIsGrad-1`
 
-- :doc:`../generate/variable_mindspore_ops_kIsOriPadMode-1`
+- :doc:`../generate/variable_mindspore_ops_kIsOriginalPadMode-1`
 
 - :doc:`../generate/variable_mindspore_ops_kIsScale-1`
 
@@ -906,6 +962,12 @@ Variables
 
 - :doc:`../generate/variable_mindspore_ops_kN-1`
 
+- :doc:`../generate/variable_mindspore_ops_kNameAccumulateNV2-1`
+
+- :doc:`../generate/variable_mindspore_ops_kNameACos-1`
+
+- :doc:`../generate/variable_mindspore_ops_kNameAcosh-1`
+
 - :doc:`../generate/variable_mindspore_ops_kNameActivation-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameAdam-1`
@@ -924,7 +986,23 @@ Variables
 
 - :doc:`../generate/variable_mindspore_ops_kNameAll-1`
 
+- :doc:`../generate/variable_mindspore_ops_kNameAllGather-1`
+
+- :doc:`../generate/variable_mindspore_ops_kNameApplyAdadelta-1`
+
+- :doc:`../generate/variable_mindspore_ops_kNameApplyAdagrad-1`
+
 - :doc:`../generate/variable_mindspore_ops_kNameApplyAdagradDA-1`
+
+- :doc:`../generate/variable_mindspore_ops_kNameApplyAdagradV2-1`
+
+- :doc:`../generate/variable_mindspore_ops_kNameApplyAdaMax-1`
+
+- :doc:`../generate/variable_mindspore_ops_kNameApplyAddSign-1`
+
+- :doc:`../generate/variable_mindspore_ops_kNameApplyCenteredRMSProp-1`
+
+- :doc:`../generate/variable_mindspore_ops_kNameApplyGradientDescent-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameApplyKerasMomentum-1`
 
@@ -946,7 +1024,11 @@ Variables
 
 - :doc:`../generate/variable_mindspore_ops_kNameAssignAdd-1`
 
+- :doc:`../generate/variable_mindspore_ops_kNameAssignSub-1`
+
 - :doc:`../generate/variable_mindspore_ops_kNameAtan-1`
+
+- :doc:`../generate/variable_mindspore_ops_kNameAtanh-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameAttention-1`
 
@@ -961,6 +1043,10 @@ Variables
 - :doc:`../generate/variable_mindspore_ops_kNameBatchToSpace-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameBatchToSpaceND-1`
+
+- :doc:`../generate/variable_mindspore_ops_kNameBesselI0e-1`
+
+- :doc:`../generate/variable_mindspore_ops_kNameBesselI1e-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameBiasAdd-1`
 
@@ -1006,6 +1092,8 @@ Variables
 
 - :doc:`../generate/variable_mindspore_ops_kNameCTCLossV2Grad-1`
 
+- :doc:`../generate/variable_mindspore_ops_kNameCummin-1`
+
 - :doc:`../generate/variable_mindspore_ops_kNameCumSum-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameCustom-1`
@@ -1040,6 +1128,8 @@ Variables
 
 - :doc:`../generate/variable_mindspore_ops_kNameErf-1`
 
+- :doc:`../generate/variable_mindspore_ops_kNameErfc-1`
+
 - :doc:`../generate/variable_mindspore_ops_kNameErfinv-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameExp-1`
@@ -1053,6 +1143,8 @@ Variables
 - :doc:`../generate/variable_mindspore_ops_kNameFakeQuantWithMinMaxVars-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameFakeQuantWithMinMaxVarsPerChannel-1`
+
+- :doc:`../generate/variable_mindspore_ops_kNameFastGeLU-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameFftImag-1`
 
@@ -1102,6 +1194,10 @@ Variables
 
 - :doc:`../generate/variable_mindspore_ops_kNameInstanceNorm-1`
 
+- :doc:`../generate/variable_mindspore_ops_kNameInv-1`
+
+- :doc:`../generate/variable_mindspore_ops_kNameInvert-1`
+
 - :doc:`../generate/variable_mindspore_ops_kNameInvertPermutation-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameIsFinite-1`
@@ -1143,6 +1239,8 @@ Variables
 - :doc:`../generate/variable_mindspore_ops_kNameLogicalXor-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameLogSoftmax-1`
+
+- :doc:`../generate/variable_mindspore_ops_kNameLpNorm-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameLpNormalization-1`
 
@@ -1238,6 +1336,8 @@ Variables
 
 - :doc:`../generate/variable_mindspore_ops_kNameReduceProd-1`
 
+- :doc:`../generate/variable_mindspore_ops_kNameReduceScatter-1`
+
 - :doc:`../generate/variable_mindspore_ops_kNameReduceSum-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameReduceSumSquare-1`
@@ -1262,6 +1362,8 @@ Variables
 
 - :doc:`../generate/variable_mindspore_ops_kNameRfft-1`
 
+- :doc:`../generate/variable_mindspore_ops_kNameRint-1`
+
 - :doc:`../generate/variable_mindspore_ops_kNameROIPooling-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameRoll-1`
@@ -1276,6 +1378,8 @@ Variables
 
 - :doc:`../generate/variable_mindspore_ops_kNameScatterNd-1`
 
+- :doc:`../generate/variable_mindspore_ops_kNameScatterNdAdd-1`
+
 - :doc:`../generate/variable_mindspore_ops_kNameScatterNdUpdate-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameSelect-1`
@@ -1286,7 +1390,11 @@ Variables
 
 - :doc:`../generate/variable_mindspore_ops_kNameSigmoidCrossEntropyWithLogits-1`
 
+- :doc:`../generate/variable_mindspore_ops_kNameSign-1`
+
 - :doc:`../generate/variable_mindspore_ops_kNameSin-1`
+
+- :doc:`../generate/variable_mindspore_ops_kNameSinh-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNameSize-1`
 
@@ -1394,6 +1502,8 @@ Variables
 
 - :doc:`../generate/variable_mindspore_ops_kNameWhere-1`
 
+- :doc:`../generate/variable_mindspore_ops_kNameXdivy-1`
+
 - :doc:`../generate/variable_mindspore_ops_kNarrowRange-1`
 
 - :doc:`../generate/variable_mindspore_ops_kNearestMode-1`
@@ -1443,6 +1553,8 @@ Variables
 - :doc:`../generate/variable_mindspore_ops_kOrder-1`
 
 - :doc:`../generate/variable_mindspore_ops_kOriginalFormat-1`
+
+- :doc:`../generate/variable_mindspore_ops_kOriginalOpName-1`
 
 - :doc:`../generate/variable_mindspore_ops_kOutChannel-1`
 
@@ -1497,6 +1609,8 @@ Variables
 - :doc:`../generate/variable_mindspore_ops_kPreNmsTopn-1`
 
 - :doc:`../generate/variable_mindspore_ops_kPreserveAspectRatio-1`
+
+- :doc:`../generate/variable_mindspore_ops_kRankSize-1`
 
 - :doc:`../generate/variable_mindspore_ops_kRatio-1`
 
