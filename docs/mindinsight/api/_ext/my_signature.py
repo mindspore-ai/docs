@@ -26,9 +26,9 @@ def get_anotation(func):
     pos_count = func_code.co_argcount
     arg_names = func_code.co_varnames
     karg_pos = func_code.co_kwonlyargcount
-    all_params = re.findall(r"def [\w_\d\-]+\(([\S\s]*?)\):", source_code)[0].replace("\n", "").replace("'", "\"")
-    if "->" in all_params:
-        all_params = re.findall(r"def [\w_\d\-]+\(([\S\s]*?)\) ->", source_code)[0].replace("\n", "").replace("'", "\"")
+    all_params_str = re.findall(r"def [\w_\d\-]+\(([\S\s]*?)(\):|\) ->.*?:)", source_code)
+    all_params = all_params_str[0][0].replace("\n", "").replace("'", "\"")
+    if "->" in all_params_str[0][1]:
         return_anotation = re.findall(r"->(.*?):\n", source_code)[0]
         anotation_dict["return"] = return_anotation
     kwargs_num = all_params.count("*") - all_params.count("**")
@@ -65,9 +65,8 @@ def get_default_params(func):
     pos_count = func_code.co_argcount
     arg_names = func_code.co_varnames
     karg_pos = func_code.co_kwonlyargcount
-    all_params = re.findall(r"def [\w_\d\-]+\(([\S\s]*?)\):", source_code)[0].replace("\n", "").replace("'", "\"")
-    if "->" in all_params:
-        all_params = re.findall(r"def [\w_\d\-]+\(([\S\s]*?)\) ->", source_code)[0].replace("\n", "").replace("'", "\"")
+    all_params_str = re.findall(r"def [\w_\d\-]+\(([\S\s]*?)(\):|\) ->.*?:)", source_code)
+    all_params = all_params_str[0][0].replace("\n", "").replace("'", "\"")
     kwargs_num = all_params.count("*") - all_params.count("**")
     all_param_names = list(arg_names[:pos_count+karg_pos+kwargs_num])
 

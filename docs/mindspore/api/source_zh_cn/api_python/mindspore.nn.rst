@@ -90,7 +90,7 @@ Non-linear Activations
     :nosignatures:
     :template: classtemplate.rst
 
-    mindspore.nn.CeLU
+    mindspore.nn.CELU
     mindspore.nn.ELU
     mindspore.nn.FastGelu
     mindspore.nn.GELU
