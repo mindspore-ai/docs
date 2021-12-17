@@ -5,10 +5,7 @@
 ## torch.nn.TransformerEncoderLayer
 
 ```python
-import torch
-encoder_layer = torch.nn.TransformerEncoderLayer(d_model=512, nhead=8, batch_first=True)
-src = torch.rand(32, 10, 512)
-out = encoder_layer(src)
+torch.nn.TransformerEncoderLayer(d_model, nhead, dim_feedforward=2048, dropout=0.1, activation=<function relu>, layer_norm_eps=1e-05, batch_first=False, norm_first=False, device=None, dtype=None)
 ```
 
 更多内容详见[torch.nn.TransformerEncoderLayer](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.TransformerEncoderLayer)。
@@ -16,7 +13,7 @@ out = encoder_layer(src)
 ## mindspore.parallel.nn.TransformerEncoderLayer
 
 ```python
-class mindspore.parallel.nn.TransformerEncoderLayer(*args, **kwargs)(
+class mindspore.parallel.nn.TransformerEncoderLayer(batch_size, hidden_size, ffn_hidden_size, num_heads, seq_length, attention_dropout_rate=0.1, hidden_dropout_rate=0.1, post_layernorm_residual=False, layernorm_compute_type=mstype.float32, softmax_compute_type=mstype.float32, param_init_type=mstype.float32, hidden_act="gelu", use_past=False, moe_config=default_moe_config, parallel_config=default_dpmp_config)(
     x, input_mask, init_reset=True, batch_valid_length=None
 )
 ```
@@ -68,6 +65,7 @@ model = TransformerEncoderLayer(batch_size=32, hidden_size=512,
 encoder_input_value = Tensor(np.random.rand(32, 10, 512), mstype.float32)
 encoder_input_mask = Tensor(np.ones((32, 10, 10)), mstype.float16)
 output, past = model(encoder_input_value, encoder_input_mask)
+print(output.shape)
 # output:
 # (32, 10, 512)
 
@@ -75,7 +73,8 @@ import torch
 encoder_layer = torch.nn.TransformerEncoderLayerLayer(d_model=512, nhead=8)
 transformer_encoder = torch.nn.TransformerEncoder(encoder_layer, num_layers=2)
 src = torch.rand(10, 32, 512)
-out = transformer_encoder(src)
-# Out：
+output = transformer_encoder(src)
+print(output.shape)
+# output:
 # torch.Size([10, 32, 512])
 ```

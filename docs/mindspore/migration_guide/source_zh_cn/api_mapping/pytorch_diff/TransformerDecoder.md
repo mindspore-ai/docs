@@ -5,11 +5,7 @@
 ## torch.nn.TransformerDecoder
 
 ```python
-decoder_layer = nn.TransformerDecoderLayer(d_model=512, nhead=8)
-transformer_decoder = nn.TransformerDecoder(decoder_layer, num_layers=2)
-memory = torch.rand(10, 32, 512)
-tgt = torch.rand(20, 32, 512)
-out = transformer_decoder(tgt, memory)
+torch.nn.TransformerDecoder(decoder_layer, num_layers, norm=None)
 ```
 
 更多内容详见[torch.nn.TransformerDecoder](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.TransformerDecoder)。
@@ -17,7 +13,7 @@ out = transformer_decoder(tgt, memory)
 ## mindspore.parallel.nn.TransformerDecoder
 
 ```python
-class mindspore.parallel.nn.TransformerDecoder(*args, **kwargs)(
+class mindspore.parallel.nn.TransformerDecoder(num_layers, batch_size, hidden_size, ffn_hidden_size, src_seq_length, tgt_seq_length, num_heads, attention_dropout_rate=0.1, hidden_dropout_rate=0.1, post_layernorm_residual=False, layernorm_compute_type=mstype.float32, softmax_compute_type=mstype.float32, param_init_type=mstype.float32, hidden_act="gelu", lambda_func=None, use_past=False, offset=0, moe_config=default_moe_config, parallel_config=default_transformer_config)(
     hidden_stats, decoder_mask, encoder_output=None,
     memory_mask=None, init_reset=True, batch_valid_length=None
 )
@@ -79,6 +75,7 @@ decoder_input_value = Tensor(np.ones((32, 20, 512)), mstype.float32)
 decoder_input_mask = Tensor(np.ones((32, 20, 20)), mstype.float16)
 memory_mask = Tensor(np.ones((32, 20, 10)), mstype.float16)
 output, past = model(decoder_input_value, decoder_input_mask, encoder_input_value, memory_mask)
+print(output.shape)
 # output:
 # (32, 10, 512)
 
@@ -87,7 +84,8 @@ decoder_layer = torch.nn.TransformerDecoderLayer(d_model=512, nhead=8)
 transformer_decoder = torch.nn.TransformerDecoder(decoder_layer, num_layers=2)
 memory = torch.rand(10, 32, 512)
 tgt = torch.rand(20, 32, 512)
-out = transformer_decoder(tgt, memory)
-# Out：
+output = transformer_decoder(tgt, memory)
+print(output.shape)
+# output
 # torch.Size([10, 32, 512])
 ```
