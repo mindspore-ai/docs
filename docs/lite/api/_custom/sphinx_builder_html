@@ -1059,8 +1059,8 @@ class StandaloneHTMLBuilder(Builder):
                     doc_node.append(example_code[0])
                     output = lhtml.tostring(output_html, method='html').decode('utf-8')
 
-            # Add a space between "<a>" and "<em>" for c++ api.
-            space_re = re.compile(r"(\w)(</a> <em>)")
+            # Add a space between "<a>" and "<em>|<code>" for c++ api.
+            space_re = re.compile(r"(\w)(</a> (<code|<em>))")
             output = space_re.sub(r"\g<1> \g<2>", output)
 
             # Remove extra comma in sig-paren for c++ api.
