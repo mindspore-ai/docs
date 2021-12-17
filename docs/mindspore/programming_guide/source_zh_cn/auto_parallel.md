@@ -23,7 +23,6 @@
             - [strategy_ckpt_save_file](#strategy_ckpt_save_file)
             - [full_batch](#full_batch)
             - [pipeline_stages](#pipeline_stages)
-            - [grad_accumulation_step](#grad_accumulation_step)
             - [parallel_optimizer_config](#parallel_optimizer_config)
     - [分布式通信接口](#分布式通信接口)
         - [init](#init)
@@ -290,18 +289,6 @@ context.get_auto_parallel_context("full_batch")
 from mindspore import context
 context.set_auto_parallel_context(pipeline_stages=4)
 context.get_auto_parallel_context("pipeline_stages")
-```
-
-#### grad_accumulation_step
-
-`grad_accumulation_step`指梯度累积步数。具体用法请参考[指导教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/apply_gradient_accumulation.html)
-
-代码样例如下：
-
-```python
-from mindspore import context
-context.set_auto_parallel_context(grad_accumulation_step=4)
-context.get_auto_parallel_context("grad_accumulation_step")
 ```
 
 #### parallel_optimizer_config
