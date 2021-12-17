@@ -20,7 +20,7 @@ The Differential-Privacy module of MindArmour implements the differential privac
 
 ![dp_arch](./images/dp_arch.png)
 
-<center>Figure 1 Overall design of differential privacy</center>
+*<center>Figure 1 Overall design of differential privacy</center>*
 
 Figure 1 shows an overall design of differential privacy training, and mainly including differential privacy noise mechanisms (DP mechanisms), a differential privacy optimizer (DP optimizer), and a privacy monitor.
 

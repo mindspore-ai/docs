@@ -92,7 +92,7 @@ Users can access the Training Performance by selecting a specific training from 
 
 ![performance_overall.png](./images/performance_overall.png)
 
-Figure 1: Overall Performance
+*Figure 1: Overall Performance*
 
 Figure 1 displays the overall performance of the training, including the overall data of Step Trace, Operator Performance, Data Preparation Performance and Timeline:  
 
@@ -109,7 +109,7 @@ The operator performance analysis component is used to display the execution tim
 
 ![gpu_op_ui_profiler.png](./images/gpu_op_ui_profiler.png)
 
-Figure 2: Statistics for Operator Types
+*Figure 2: Statistics for Operator Types*
 
 Figure 2 displays the statistics for the operator types, including:  
 
@@ -124,7 +124,7 @@ The bottom half of Figure 2 displays the statistics table for the operators' det
 
 ![gpu_activity_profiler.png](./images/gpu_activity_profiler.png)
 
-Figure 3: Statistics for Kernel Activities
+*Figure 3: Statistics for Kernel Activities*
 
 Figure 3 displays the statistics for the Kernel, including:  
 
@@ -162,7 +162,7 @@ Resource utilization includes cpu usage analysis.
 
 ![resource_visibility_gpu.png](./images/resource_visibility_gpu.png)
 
-Figure 4：Overview of resource utilization
+*Figure 4：Overview of resource utilization*
 
 Overview of resource utilization：Including CPU utilization analysis. You can view the details by clicking the View Details button in the upper right corner.
 

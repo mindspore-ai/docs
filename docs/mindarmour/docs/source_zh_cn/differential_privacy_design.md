@@ -20,7 +20,7 @@ MindArmour的Differential-Privacy模块实现了差分隐私训练的能力。�
 
 ![dp_arch](./images/dp_arch.png)
 
-<center>图1  差分隐私总体设计</center>
+*<center>图1  差分隐私总体设计</center>*
 
 图1是差分隐私训练的总体设计，主要由差分隐私噪声机制(DP Mechanisms)、差分隐私优化器(DP Optimizer)、差分隐私监控器(Privacy Monitor)组成。
 

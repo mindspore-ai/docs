@@ -92,7 +92,7 @@ class StopAtStep(Callback):
 
 ![performance_overall.png](./images/performance_overall.png)
 
-图1：性能数据总览
+*图1：性能数据总览*
 
 图1展示了性能数据总览页面，包含了迭代轨迹（Step Trace）、算子性能、数据准备性能和Timeline等组件的数据总体呈现：  
 
@@ -109,7 +109,7 @@ class StopAtStep(Callback):
 
 ![gpu_op_ui_profiler.png](./images/gpu_op_ui_profiler.png)
 
-图2：算子类别统计分析
+*图2：算子类别统计分析*
 
 图2展示了按算子类别进行统计分析的结果，包含以下内容：  
 
@@ -124,7 +124,7 @@ class StopAtStep(Callback):
 
 ![gpu_activity_profiler.png](./images/gpu_activity_profiler.png)
 
-图3：内核信息分析
+*图3：内核信息分析*
 
 图3展示了CUDA activity信息统计，包含以下内容：
 
@@ -156,7 +156,7 @@ GPU场景下，数据准备性能分析的使用方法和Ascend场景相同。
 
 ![resource_visibility_gpu.png](./images/resource_visibility_gpu.png)
 
-图4：资源利用总览
+*图4：资源利用总览*
 
 图4展示了资源利用总览页面，展示了CPU利用率的情况。通过点击右上角的`查看详情`按钮可以查看详细信息。
 

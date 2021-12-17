@@ -198,7 +198,7 @@
 
     ![reason_for_accuracy_problem](./images/reason_for_accuracy_problem.png)
 
-    图1：相同现象存在多个可能原因导致精度问题定位难
+    *图1：相同现象存在多个可能原因导致精度问题定位难*
 
 #### 精度问题checklist
 
@@ -232,7 +232,7 @@
 
 ![accuracy_thought](./images/accuracy_thought.png)
 
-图2 精度问题定位思路及MindInsight对应能力
+*图2 精度问题定位思路及MindInsight对应能力*
 
 下面将分别介绍这些思路。
 
@@ -263,7 +263,7 @@
 
     ![mindinsight_dashboard](./images/mindinsight_dashboard.png)
 
-    图3 训练看板
+    *图3 训练看板*
 
     需要在线调试模型时，参考[使用调试器](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger.html)功能。
 
@@ -281,7 +281,7 @@ MindInsight可以辅助用户对超参做检查，大多数情况下，`SummaryC
 
 ![model_hyper_param](./images/model_hyper_param.png)
 
-图4 通过MindInsight训练参数详情查看模型超参
+*图4 通过MindInsight训练参数详情查看模型超参*
 
 #### 检查模型结构
 
@@ -298,7 +298,7 @@ MindInsight可以辅助用户对超参做检查，大多数情况下，`SummaryC
 
 ![graph](./images/graph.png)
 
-图5 通过MindInsight训练看板中的计算图模块查看模型结构
+*图5 通过MindInsight训练看板中的计算图模块查看模型结构*
 
 模型脚本运行后，建议使用MindInsight计算图可视模块查看模型结构，加深对计算图的理解，确认模型结构符合预期。若有标杆脚本，还可以同标杆脚本对照查看计算图，检查当前脚本和标杆脚本的计算图是否存在重要的差异。
 
@@ -330,11 +330,11 @@ MindInsight可以辅助用户对输入数据、数据处理流水线进行检查
 
 ![data_input](./images/data_input.png)
 
-图6 通过MindInsight训练看板中的数据抽样模块查看输入模型的数据
+*图6 通过MindInsight训练看板中的数据抽样模块查看输入模型的数据*
 
 ![data_pipeline](./images/data_pipeline.png)
 
-图7 通过MindInsight训练看板中的数据图查看数据处理流水线
+*图7 通过MindInsight训练看板中的数据图查看数据处理流水线*
 
 如果有标杆脚本，还可以同标杆脚本对照，检查数据处理流水线输出的数据是否和当前脚本的数据相同。例如，将数据处理流水线输出的数据保存为`npy`文件，然后使用`numpy.allclose`方法对标杆脚本和当前脚本的数据进行对比。如果发现不同，则数据处理阶段可能存在精度问题。
 
@@ -363,19 +363,19 @@ MindInsight可以辅助用户对输入数据、数据处理流水线进行检查
 
 ![loss](./images/loss.png)
 
-图8 通过MindInsight训练看板中的标量可视模块查看loss曲线
+*图8 通过MindInsight训练看板中的标量可视模块查看loss曲线*
 
 大多数情况下，`SummaryCollector`会自动记录模型的loss曲线，可以通过MindInsight的标量可视模块查看。loss曲线能够反映网络训练的动态趋势，通过观察loss曲线，可以得到模型是否收敛、是否过拟合等信息。
 
 ![histogram](./images/histogram_example.png)
 
-图9 通过MindInsight参数分布图可以查看训练过程中的权重变化情况
+*图9 通过MindInsight参数分布图可以查看训练过程中的权重变化情况*
 
 大多数情况下，`SummaryCollector`会自动记录模型参数变化情况（默认记录5个参数），可以通过MindInsight的参数分布图模块查看。如果想要记录更多参数的参数分布图，请参考[SummaryCollector](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.train.html#mindspore.train.callback.SummaryCollector)的`histogram_regular`参数，或参考[HistogramSummary](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/summary_record.html#summarysummarycollector)算子。
 
 ![tensor](./images/tensor.png)
 
-图10 通过MindInsight训练看板中的张量可视模块查看特定张量的具体取值
+*图10 通过MindInsight训练看板中的张量可视模块查看特定张量的具体取值*
 
 张量不会被自动记录，如果想要通过MindInsight查看张量的具体取值，请使用[TensorSummary](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/summary_record.html#summarysummarycollector)算子。
 
@@ -431,7 +431,7 @@ MindInsight可以为用户记录每次训练的精度结果。在`model.train`�
 
 ![lineage_model_chart](./images/lineage_model_chart.png)
 
-图11 通过MindInsight溯源分析功能查看模型评估信息
+*图11 通过MindInsight溯源分析功能查看模型评估信息*
 
 - 检查训练集上的精度。
 
@@ -451,11 +451,11 @@ MindInsight可以为用户记录每次训练的精度结果。在`model.train`�
 
         ![lineage_model_chart_1](./images/lineage_model_chart_1.png)
 
-        图12 通过MindInsight溯源分析查看参数重要性
+        *图12 通过MindInsight溯源分析查看参数重要性*
 
         ![lineage_model_chart_2](./images/lineage_model_chart_2.png)
 
-        图13 通过MindInsight溯源分析以散点图形式查看参数和优化目标的关系
+        *图13 通过MindInsight溯源分析以散点图形式查看参数和优化目标的关系*
 
     3. 尝试使用[MindInsight调参器](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/hyper_parameters_auto_tuning.html)优化超参。请注意，调参器通过执行多次完整训练的方式进行超参搜索，消耗的时间为网络一次训练用时的若干倍，如果网络一次训练耗时较长，则超参搜索将需要很长的时间。
     4. 尝试使用[MindInsight模型解释](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/model_explanation.html)功能优化模型和数据集。模型解释功能可以通过显著图可视化展示对分类结果最重要的区域，还可以通过评分体系提示应该对哪类标签进行优化。
@@ -578,7 +578,7 @@ MindInsight可以为用户记录每次训练的精度结果。在`model.train`�
 
 ![learning rate](images/learning_rate_and_accuracy.png)
 
-图14 学习率与准确率的关系。此曲线通过8个epoch的训练得到。图片引用自(Smith, 2017)。
+*图14 学习率与准确率的关系。此曲线通过8个epoch的训练得到。图片引用自(Smith, 2017)。*
 
 以上文所述的合理学习率为起点，每个网络的最优值都需要根据具体情况（网络类型、batch size、优化器、其他相关超参等）实验和调整。
 

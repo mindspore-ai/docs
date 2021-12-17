@@ -30,7 +30,7 @@
 
 ![MindInsight训练可视逻辑架构](./images/training_visualization_architecture.png)
 
-图1 MindInsight训练可视逻辑架构
+*图1 MindInsight训练可视逻辑架构*
 
 ### 训练信息收集架构
 
@@ -87,7 +87,7 @@
 
 ![训练信息数据流](./images/training_visualization_data_flow.png)
 
-图2 训练信息数据流
+*图2 训练信息数据流*
 
 ### 数据模型
 
@@ -95,7 +95,7 @@ MindInsight的简要数据模型如图3所示。一个训练日志目录会被Mi
 
 ![数据模型](./images/training_visualization_data_model.png)
 
-图3 以UML类图表示的数据模型
+*图3 以UML类图表示的数据模型*
 
 #### 训练作业
 

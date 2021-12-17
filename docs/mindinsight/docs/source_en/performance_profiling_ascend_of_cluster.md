@@ -197,7 +197,7 @@ The user can select the specified training from the training list, click perform
 
 ![cluster_summary.png](./images/cluster_summary.png)
 
-Figure 1: overview of cluster training performance
+*Figure 1: overview of cluster training performance*
 
 Figure 1 is the overview of cluster training performance, which is the overall presentation of cluster iterative trajectory component and cluster communication performance component. The display contents of each component are as follows:
 
@@ -211,13 +211,13 @@ Using the cluster iterative trajectory analysis component, we can find out the s
 
 ![cluster_iterative_trajectory.png](./images/cluster_iterative_trajectory.png)
 
-Figure 2: cluster iteration trajectory analysis
+*Figure 2: cluster iteration trajectory analysis*
 
 Figure 2 shows the cluster iteration trajectory analysis page. By default, it shows the average performance of the device. It supports querying the iteration trajectory information of the device under a specific step. By clicking the details link in the single device, you can also jump to the detailed performance display page of the single device to query the detailed performance data of the single device.
 
 ![single_car_performance_overall.png](./images/single_car_performance_overall.png)
 
-Figure 3: single device details
+*Figure 3: single device details*
 
 Figure 3 shows the performance information of a single device in the cluster. Please refer to [single device performance information](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html) for the performance information of a single device.
 
@@ -235,13 +235,13 @@ The cluster communication and computation overlap time analysis components add f
 
 ![cluster_pipeline-parallel_analyse.png](./images/cluster_pipeline-parallel_analyse_en.png)
 
-Figure 4: pipeline parallel mode analysis
+*Figure 4: pipeline parallel mode analysis*
 
 Figure 4 shows the information in pipeline parallel scene, showing the average value of all step by default. The page shows step interval time, pure receive time, stage time, pure communication time, calculation time, pure collection communication time. Because the computation graph of the whole network is divided into subgraph of multiple stages, the stage time can be used to locate the slow stage, and the device of the same stage can be filtered out by selecting the stage number, and the idea of model parallel mode can be used to locate the bottleneck within the stage.
 
 ![cluster_model-parallel_analyse.png](./images/cluster_model-parallel_analyse_en.png)
 
-Figure 5: model parallel mode analysis
+*Figure 5: model parallel mode analysis*
 
 Figure 5 shows the information in model parallel scene(here refers to the in-layer model parallel), showing the average value of all step by default. The page shows step interval time, pure communication time, and calculation time. Computation time can be used to locate slow devices. If there is no slow device, observe the communication time and computation time ratio, if the communication time is relatively large, consider whether there is a slow link.
 
@@ -251,7 +251,7 @@ The cluster communication performance component displays the cluster communicati
 
 ![cluster_communication_info.png](./images/cluster_communication_info.png)
 
-Figure 6: cluster communication performance analysis
+*Figure 6: cluster communication performance analysis*
 
 Figure 6 shows the analysis page of cluster communication performance, including the communication performance of logic device and the link information of the whole network (all logic device link information).
 
@@ -264,17 +264,17 @@ Logic device communication performance tab page is mainly used to show the commu
 
 ![operator_performance.png](./images/operator_performance.png)
 
-Figure 7: Operator performance information
+*Figure 7: Operator performance information*
 
 ![rank_id_link_info.png](./images/rank_id_link_info.png)
 
-Figure 8: link information of logic device
+*Figure 8: link information of logic device*
 
 The whole network link information tab page displays the link information of all logic devices, and provides the selection of source device, destination device and link type.
 
 ![rank_ids_link_info.png](./images/rank_ids_link_info.png)
 
-Figure 9: link information of the whole network
+*Figure 9: link information of the whole network*
 
 By default, communication performance data is not collected. You need to use the `profile_communication` parameter in `mindspore.profiler.Profiler` like `Profiler(profile_communication=True)` to turn on the communication performance data switch. It should be noted that only multi devices training can generate communication operator performance data. Setting this parameter in single device training scenario does not work.
 
@@ -298,7 +298,7 @@ This page shows the memory usage of the model on the **device side** in the para
 
 ![cluster_memory.png](./images/cluster_memory.png)
 
-Figure 10: The page of cluster memory analysis
+*Figure 10: The page of cluster memory analysis*
 
 ### Cluster FLOPs Analysis
 
@@ -310,7 +310,7 @@ This page shows the FLOPs data for each device in the parallel mode. The content
 
 ![cluster_flops.png](./images/cluster_flops.png)
 
-Figure 11: The page of cluster FLOPs analysis
+*Figure 11: The page of cluster FLOPs analysis*
 
 ## Strategy Perception
 
@@ -322,7 +322,7 @@ Strategy Perception includes Computational Graph Exploration module, Parallel St
 
 ![image-20211118132511452](./images/profiler_strategy_graph_en.png)
 
-Figure 12: The Page of Strategy Perception
+*Figure 12: The Page of Strategy Perception*
 
 The upper right corner of the page will show the parallel mode of this training. The figure above shows that the parallel mode in the current training is auto parallel.
 
@@ -340,7 +340,7 @@ By clicking a certain node (operator or aggregation node), the node attributes p
 
 ![image-20211118133144763](./images/profiler_strategy_graph_stack.png)
 
-Figure 13: Operator Strategy Matrix
+*Figure 13: Operator Strategy Matrix*
 
 If an input node of the operator has shard methods, a strategy matrix will be presented below the operator. One row represents the shard method of a certain input node. The number in the small grid cell represents the number of slices of the input node in the corresponding dimension.
 
@@ -352,7 +352,7 @@ It is important to note that constants are not plotted in the computational grap
 
 ![image-20211122180619886](./images/profiler_strategy_graph_pipeline.png)
 
-Figure 14: Training Pipeline
+*Figure 14: Training Pipeline*
 
 When the pipeline parallel strategy is adopted, click the button in the upper left corner to expand the training pipeline panel. This panel shows the send operators (red rectangles) and receive operators (green rectangles) in each stage and their correspondences between different stages. The rectangles (operators) can be clicked and the corresponding operator will be focused in the computational graph.
 
@@ -362,13 +362,13 @@ With the training pipeline panel, users can evaluate the rationality of stage se
 
 ![image-20211118125032089](./images/profiler_strategy_graph_stack.png)
 
-Figure 14: Operator Stacking
+*Figure 15: Operator Stacking*
 
 In the computational graph, if there are too many operators of the same type in the aggregation node, they will be stacked and displayed. Double-click to expand the operator.
 
 ![image-20211118125032089](./images/profiler_strategy_hideline.png)
 
-Figure 14: View Hidden Edges
+*Figure 16: View Hidden Edges*
 
 In order to prevent the lines from being too messy and some unimportant edges will be hidden, move the mouse over the circle of the aggregation node to see the hidden edges.
 

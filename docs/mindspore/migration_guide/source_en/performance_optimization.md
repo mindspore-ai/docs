@@ -35,19 +35,19 @@ As we observed on the MindInsight UI page, the step interval in the step trace i
 
 ![long_step_interval](images/profiler_case1_long_step_interval.png)
 
-Figure 1: Long Step Interval in Step Trace
+*Figure 1: Long Step Interval in Step Trace*
 
 Looking at the ```Step Interval``` tab in ```Data Preparation details``` page, we can see that the ratio of full queues in ```Host Queue``` is low, which can be preliminarily determined that the performance related to dataset processing can be improved.
 
 ![dataset_process_step_interval](images/profiler_case1_data_processing_step_interval.png)
 
-Figure 2: Data Preparation Details -- Step Interval
+*Figure 2: Data Preparation Details -- Step Interval*
 
 Switch to the ```Data Processing``` tab to find which operator is slower.
 
 ![data_processing](images/profiler_case1_dataset_processing.png)
 
-Figure 3: Data Preparation Details -- Data Processing
+*Figure 3: Data Preparation Details -- Data Processing*
 
 By observing the ```Queue relationship between operators```, we find that the average usage of ```Queue_3``` is relatively inefficient.
 
@@ -86,7 +86,7 @@ We see on the MindInsight UI page that step interval is shorten from 72.8ms to 0
 
 ![short_step_interval](images/profiler_case1_short_step_interval.png)
 
-Figure 4: Step Interval is Shorten
+*Figure 4: Step Interval is Shorten*
 
 ### Case 2: Long Forward Propagation Interval
 
@@ -96,13 +96,13 @@ As we observed on the MindInsight UI page, the forward propagation in the step t
 
 ![long_fp_bp](images/profiler_case2_long_fp_bp.png)
 
-Figure 5: Long FP interval in Step Trace
+*Figure 5: Long FP interval in Step Trace*
 
 From the details page of ```Operator Time Consumption Ranking``` we find that ```MatMul``` operator is time-consuming.
 
 ![operator_details](images/profiler_case2_operator_details.png)
 
-Figure 6: Finding operators that can be optimized via the details page of Operator Time Consumption Ranking
+*Figure 6: Finding operators that can be optimized via the details page of Operator Time Consumption Ranking*
 
 Usually float16 type can be used to improve operator performance if there is no difference in accuracy between float16 and float32 type. We can refer to
 [Enabling Mixed Precision](https://www.mindspore.cn/docs/programming_guide/en/master/enable_mixed_precision.html ) to improve operators performance.
@@ -120,7 +120,7 @@ We run eval script again after set ```fp16``` flag, and the forward propagation 
 
 ![short_fp](images/profiler_case2_short_fp.png)
 
-Figure 7: FP interval is shorten from 82.45ms to 16.89ms
+*Figure 7: FP interval is shorten from 82.45ms to 16.89ms*
 
 ### Case 3: Optimize The Step Tail
 
@@ -131,7 +131,7 @@ As we observed on the MindInsight UI page, step interval and FP/BP interval can 
 
 ![long_step_tail](images/profiler_case3_long_step_tail.png)
 
-Figure 8: Step Trace with Long Step Tail
+*Figure 8: Step Trace with Long Step Tail*
 
 Step Tail is the duration for performing parameter aggregation and update operations in parallel training.
 Normally, AllReduce gradient synchronization waits until all the inverse operators are finished, i.e., all the gradients of all weights are computed before synchronizing the gradients of all machines at once, but with AllReduce tangent,
@@ -160,7 +160,7 @@ We run ResNet50 8P script again after set the ```all_reduce_fusion_config``` par
 
 ![short_step_tail](images/profiler_case3_short_step_tail.png)
 
-Figure 9: Step Tail is shorten from 6.15ms to 4.20ms
+*Figure 9: Step Tail is shorten from 6.15ms to 4.20ms*
 
 ## FAQ
 

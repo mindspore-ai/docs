@@ -32,7 +32,7 @@
 
 ![scalar.png](./images/scalar.png)
 
-图1：标量趋势图
+*图1：标量趋势图*
 
 图1展示了神经网络在训练过程中损失值的变化过程。横坐标是训练步骤，纵坐标是损失值。
 
@@ -48,7 +48,7 @@
 
 ![scalar_select.png](./images/scalar_select.png)
 
-图2：标量可视化功能区
+*图2：标量可视化功能区*
 
 图2展示的标量可视化的功能区，提供了根据选择不同标签，水平轴的不同维度和平滑度来查看标量信息的功能。
 
@@ -59,7 +59,7 @@
 
 ![scalar_compound.png](./images/scalar_compound.png)
 
-图3：Accuracy和Loss的标量合成图
+*图3：Accuracy和Loss的标量合成图*
 
 图3展示Accuracy曲线和Loss曲线的标量合成图。标量合成的功能区与标量可视化的功能区相似。其中与标量可视化功能区不一样的地方，在于标签选择时，标量合成功能最多只能同时选择两个标签，将其曲线合成并展示。
 
@@ -69,7 +69,7 @@
 
 ![histogram_func.png](./images/histogram_func.png)
 
-图4：参数分布图功能区
+*图4：参数分布图功能区*
 
 图4展示参数分布图的功能区，包含以下内容:
 
@@ -79,7 +79,7 @@
 
 ![histogram.png](./images/histogram.png)
 
-图5：直方图展示
+*图5：直方图展示*
 
 图5以`俯视`视角展示了`conv1.weight`张量中的数值分布[直方图](https://en.m.wikipedia.org/wiki/Histogram)
 其中x轴为取值区间，y轴为`步骤`、`相对时间`、`绝对时间`中的任意一项，z轴为在对应取值区间的概率分布。例如在step 4，`conv1.weight`中的值主要分布在0和0.015附近，在step 7，该张量的值主要分布在-0.01附近。点击图中右上角，可以将图放大。
@@ -90,13 +90,13 @@
 
 ![graph.png](./images/graph.png)
 
-图6：计算图展示区
+*图6：计算图展示区*
 
 图6展示了计算图的网络结构。如图中所展示的，在展示区中，选中其中一个算子（图中圈红算子），可以看到该算子有两个输入和一个输出（实线代表算子的数据流走向）。
 
 ![graph_sidebar.png](./images/graph_sidebar.png)
 
-图7：计算图功能区
+*图7：计算图功能区*
 
 图7展示了计算图可视化的功能区，包含以下内容：
 
@@ -108,7 +108,7 @@
 
 ![graph_sidebar.png](./images/computation_graph.png)
 
-图8：计算图优化
+*图8：计算图优化*
 
 图8展示了优化可读性功能，该功能优化了计算图的可读性，降低计算图的复杂度，图中大部分的梯度计算逻辑和优化器计算逻辑将会被移除。
 为达到最清晰的计算图可视化效果，请在收集计算图时设置`jit_level`为`o0`，请参考[mindspore.Model.build接口定义](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.Model.html?highlight=jit_config#mindspore.Model.build) 。
@@ -119,7 +119,7 @@
 
 ![data_function.png](./images/data_function.png)
 
-图9：数据图功能区
+*图9：数据图功能区*
 
 图9展示的数据图功能区包含以下内容：
 
@@ -133,13 +133,13 @@
 
 ![image.png](./images/image_vi.png)
 
-图10：图像可视化
+*图10：图像可视化*
 
 图10展示通过滑动图中“步骤”滑条，查看不同步骤的图片。
 
 ![image_function.png](./images/image_function.png)
 
-图11：图像可视化功能区
+*图11：图像可视化功能区*
 
 图11展示图像可视化的功能区，提供了选择查看不同标签，不同亮度和不同对比度来查看图片信息。
 
@@ -153,7 +153,7 @@
 
 ![tensor_function.png](./images/tensor_function.png)
 
-图12：张量可视化功能区
+*图12：张量可视化功能区*
 
 图12展示张量可视化的功能区，包含以下内容：
 
@@ -164,7 +164,7 @@
 
 ![tensor_table.png](./images/tensor_table.png)
 
-图13：表格展示
+*图13：表格展示*
 
 图13将用户所记录的张量以表格的形式展示，包含以下功能：
 
@@ -174,7 +174,7 @@
 
 ![tensor_histogram.png](./images/tensor_histogram.png)
 
-图14：直方图展示
+*图14：直方图展示*
 
 图14将用户所记录的张量以直方图的形式进行展示。点击图中右上角，可以将图放大。
 

@@ -37,7 +37,7 @@ Profiler的功能介绍及使用说明请参见教程：
 
 ![long_step_interval](images/profiler_case1_long_step_interval.png)
 
-图1： 迭代轨迹中的迭代间隙过长
+*图1： 迭代轨迹中的迭代间隙过长*
 
 查看数据准备详情页面中的迭代间隙标签页，我们观察到，数据队列在前期有较多的数据，后期数据的个数变为0，原因是前期在图编译阶段已经开始了数据集的加载和增强，队列中随即缓存了多条数据；
 而后期正常训练开始后，队列中的数据被消费的速度要快于被生产的速度，因此数据队列逐渐变为空，说明此时数据变成了瓶颈。观察主机队列也是同样的情况。综合分析，正常训练过程中，
@@ -45,13 +45,13 @@ Profiler的功能介绍及使用说明请参见教程：
 
 ![dataset_process_step_interval](images/profiler_case1_dataset_process_step_interval.png)
 
-图2：数据准备详情页面——迭代间隙
+*图2：数据准备详情页面——迭代间隙*
 
 通过观察数据处理标签页的```算子间队列关系```，我们发现，```Queue_3```及其之后的队列使用率较低，即```MapOp_3```作为生产者生产数据的速度较慢，因此可以判定```MapOp_3```的性能还有优化空间，尝试对该算子进行性能优化。
 
 ![data_processing](images/profiler_case1_data_processing.png)
 
-图3：数据准备详情页面——数据处理
+*图3：数据准备详情页面——数据处理*
 
 针对数据处理算子的性能优化，可以参考[优化数据处理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/optimize_data_processing.html )页面。
 查看ResNet50网络中数据处理的代码部分，发现map算子的num_parallel_workers参数没有设置，默认为1，代码如下：
@@ -86,7 +86,7 @@ data_set = data_set.map(operations=trans, input_columns="image", num_parallel_wo
 
 ![short_step_interval](images/profiler_case1_short_step_interval.png)
 
-图4：迭代轨迹中迭代间隙缩短
+*图4：迭代轨迹中迭代间隙缩短*
 
 ### 案例二：前向运行时间长
 
@@ -95,13 +95,13 @@ data_set = data_set.map(operations=trans, input_columns="image", num_parallel_wo
 
 ![long_fp_bp](images/profiler_case2_long_fpbp.png)
 
-图5：迭代轨迹中，前向运行时间过长
+*图5：迭代轨迹中，前向运行时间过长*
 
 打开算子耗时统计详情页面，在算子详情页面中发现MatMul算子耗时占比较高。
 
 ![operator_details](images/profiler_case2_operator_details.png)
 
-图6：通过算子耗时详情页面寻找可优化算子
+*图6：通过算子耗时详情页面寻找可优化算子*
 
 对于算子耗时优化，在float16和float32格式精度无明显差别的前提下，通常可使用计算量更小的float16格式來提高性能，参考[使能混合精度](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/enable_mixed_precision.html )页面。
 
@@ -118,7 +118,7 @@ network.add_flags_recursive(fp16=True)
 
 ![short_fp_bp](images/profiler_case2_short_fpbp.png)
 
-图7：迭代轨迹中前向耗时缩短
+*图7：迭代轨迹中前向耗时缩短*
 
 ### 案例三： 优化迭代拖尾
 
@@ -127,7 +127,7 @@ network.add_flags_recursive(fp16=True)
 
 ![long_tail](images/profiler_case3_long_tail.png)
 
-图8：迭代轨迹中迭代拖尾耗时情况
+*图8：迭代轨迹中迭代拖尾耗时情况*
 
 迭代拖尾时间包含AllReduce梯度同步、参数更新等操作。正常情况下，AllReduce梯度同步会等所有反向算子执行结束，也就是对所有权重都计算出梯度后再一次性同步所有机器的梯度，
 而使用AllReduce切分，我们可以在计算出一部分权重的梯度后，立刻进行这部分权重的梯度同步，这样梯度同步和剩余算子的梯度计算可以并行执行，也就隐藏了这部分AllReduce梯度同步的时间。
@@ -151,7 +151,7 @@ init()
 
 ![short_tail](images/profiler_case3_short_tail.png)
 
-图9：迭代拖尾耗时变短
+*图9：迭代拖尾耗时变短*
 
 ## 常见问题
 

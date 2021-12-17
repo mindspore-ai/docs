@@ -85,7 +85,7 @@ The fusion of this graph is shown in Figure 1, the left graph is without graph k
 
 ![fuse basic example](images/graph_kernel_example_fuse_basic.png)
 
-Figure 1 Graph kernel fusion on computational graph
+*Figure 1 Graph kernel fusion on computational graph*
 
 ## Custom Combination Operators
 
@@ -154,4 +154,4 @@ The fusion of this graph is shown in Figure 2, the left graph is without graph k
 
 ![cusom op example](images/graph_kernel_example_custom_op.png)
 
-Figure 2 Custom combination operator on computational graph
+*Figure 2 Custom combination operator on computational graph*

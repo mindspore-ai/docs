@@ -25,19 +25,19 @@ Model lineage visualization is used to display the parameter information of all 
 
 ![image.png](./images/lineage_label.png)
 
-Figure 1: Model parameter selection area
+*Figure 1: Model parameter selection area*
 
 Figure 1 shows the model parameter selection area, which lists the model parameter tags that can be viewed. You can select required tags to view the corresponding model parameters.
 
 ![image.png](./images/lineage_model_chart.png)
 
-Figure 2: Model lineage function area
+*Figure 2: Model lineage function area*
 
 Figure 2 shows the model lineage function area, which visualizes the model parameter information. You can select a specific area in the column to display the model information within the area.
 
 ![image.png](./images/lineage_model_table.png)
 
-Figure 3: Model list
+*Figure 3: Model list*
 
 Figure 3 shows all model information in groups. You can sort the model information in ascending or descending order by the specified column.
 
@@ -45,7 +45,7 @@ The overview page on the left shows information about optimization objective and
 
 ![targets.png](./images/targets.png)
 
-Figure 4: Overview page
+*Figure 4: Overview page*
 
 Figure 4 shows the optimization objective distribution, parameter importance, and scatter plots. You can select the optimization objective to view the importance of the parameters, and then click the histogram to view the scatter plot of the parameters and optimization objective.
 
@@ -55,19 +55,19 @@ Dataset lineage visualization is used to display data processing and augmentatio
 
 ![data_label.png](./images/data_label.png)
 
-Figure 5: Data processing and augmentation operator selection area
+*Figure 5: Data processing and augmentation operator selection area*
 
 Figure 5 shows the data processing and augmentation operator selection area, which lists names of data processing and augmentation operators that can be viewed. You can select required tags to view related parameters.
 
 ![data_chart.png](./images/data_chart.png)
 
-Figure 6: Dataset lineage function area
+*Figure 6: Dataset lineage function area*
 
 Figure 6 shows the dataset lineage function area, which visualizes the parameter information used for data processing and augmentation. You can select a specific area in the column to display the parameter information within the area.
 
 ![data_table.png](./images/data_table.png)
 
-Figure 7: Dataset lineage list
+*Figure 7: Dataset lineage list*
 
 Figure 7 shows the data processing and augmentation information of all model trainings.
 
@@ -79,7 +79,7 @@ Scalars Comparison can be used to compare scalar curves between multiple trainin
 
 ![multi_scalars.png](./images/multi_scalars.png)
 
-Figure 8: Scalars comparison curve area
+*Figure 8: Scalars comparison curve area*
 
 Figure 8 shows the scalar curve comparison between multiple trainings. The horizontal coordinate indicates the training step, and the vertical coordinate indicates the scalar value.
 
@@ -93,7 +93,7 @@ Buttons from left to right in the upper right corner of the figure are used to d
 
 ![multi_scalars_select.png](./images/multi_scalars_select.png)
 
-Figure 9: Scalars comparison function area
+*Figure 9: Scalars comparison function area*
 
 Figure 9 shows the scalars comparison function area, which allows you to view scalar information by selecting different trainings or tags, different dimensions of the horizontal axis, and smoothness.
 

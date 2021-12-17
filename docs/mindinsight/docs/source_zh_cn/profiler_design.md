@@ -40,7 +40,7 @@ Profiler是MindSpore调试调优工具的一部分，在整个使用过程中的
 
 ![context_profiler.png](./images/context_profiler.png)
 
-图1：上下文关系图
+*图1：上下文关系图*
 
 如上图所示，Profiler与其他部分的交互包括：
 
@@ -56,7 +56,7 @@ Profiler是MindSpore调试调优工具的一部分，在整个使用过程中的
 
 ![module_profiler.png](./images/module_profiler.png)
 
-图2：层级模块关系图
+*图2：层级模块关系图*
 
 如上图所示，各个模块功能介绍如下：
 
@@ -72,7 +72,7 @@ Profiler是MindSpore调试调优工具的一部分，在整个使用过程中的
 
 ![time_order_profiler.png](./images/time_order_profiler.png)
 
-图3：模块交互图
+*图3：模块交互图*
 
 如上图所示，各个模块交互流程如下：
 
@@ -124,7 +124,7 @@ Parser是原始性能数据解析模块，由于原始性能数据是在设备�
 
 ![parser_module_profiler.png](./images/parser_module_profiler.png)
 
-图4：Parser模块图
+*图4：Parser模块图*
 
 如上图所示，Parser模块主要由HWTS Parser、AI CPU Parser、Framework Parser、Step Trace Parser组成，每个模块对应解析一种原始数据，通过解析原始数据得到用户能读懂的中间文件。其中
 Ascend主要用到HWTS Parser、AI CPU Parser、Framework Parser、Step Trace Parser，GPU主要用到Step Trace Parser。
@@ -152,7 +152,7 @@ GPU:
 
 ![analyser_class_profiler.png](./images/analyser_class_profiler.png)
 
-图5：Analyser类图
+*图5：Analyser类图*
 
 如上图所示，针对期望查询的不同内容，实现多个Analyser，每个Analyser可以定义筛选、排序、分页条件。每个Analyser知道自己需要哪些中间文件来进行数据的合并、筛选、排序。Analyser与Parser是通过Parser生成的中间文件关联起来的，本身不存在函数调用的情况，这样对两个模块进行了解耦。Ascend和GPU分别支持不同的Analyser类。
 
@@ -175,7 +175,7 @@ Proposer是Profiler性能优化建议模块，Proposer调用Analyser模块获取
 
 ![proposer_module_profiler.png](./images/proposer_module_profiler.png)
 
-图6：Proposer模块图
+*图6：Proposer模块图*
 
 模块设计如上图所示：
 
@@ -189,7 +189,7 @@ Proposer是Profiler性能优化建议模块，Proposer调用Analyser模块获取
 
 ![proposer_class_profiler.png](./images/proposer_class_profiler.png)
 
-图7：Proposer类图
+*图7：Proposer类图*
 
 如上模块类图所示：
 

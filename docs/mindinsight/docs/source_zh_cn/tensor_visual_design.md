@@ -38,7 +38,7 @@ Tensor可视支持1-N维的Tensor以表格或直方图的形式展示，对于0�
 
 ![tensor_table.png](./images/tensor_table.png)
 
-图1：表格展示
+*图1：表格展示*
 
 图1将用户所记录的张量以表格的形式展示，包含以下功能：
 
@@ -47,7 +47,7 @@ Tensor可视支持1-N维的Tensor以表格或直方图的形式展示，对于0�
 
 ![tensor_histogram.png](./images/tensor_histogram.png)
 
-图2：直方图展示
+*图2：直方图展示*
 
 图2将用户所记录的张量以直方图的形式进行展示。
 
