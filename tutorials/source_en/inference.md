@@ -4,15 +4,13 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/tutorials/source_en/inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
-This is the last tutorial. To better adapt to different inference devices, inference is classified into Ascend AI Processor inference and mobile device inference.
-
-## Ascend AI Processor Inference
+This is the last tutorial. Introduction to inference is classified into Ascend AI Processor.
 
 An Ascend AI Processor is an energy-efficient and highly integrated AI processor oriented to edge scenarios. It can implement multiple data analysis and inference computing, such as image and video analysis, and can be widely used in scenarios such as intelligent surveillance, robots, drones, and video servers. The following describes how to use MindSpore to perform inference on the Ascend AI Processors.
 
-### Inference Code
+## Inference Code
 
-Create a directory to store the inference code project, for example, `/home/HwHiAiUser/mindspore_sample/ascend910_resnet50_preprocess_sample`. You can download the [sample code](https://gitee.com/mindspore/docs/tree/r1.5/docs/sample_code/ascend910_resnet50_preprocess_sample) from the official website. The `model` directory is used to store the exported `MindIR` model file, and the `test_data` directory is used to store the images to be classified. The directory structure of the inference code project is as follows:
+Create a directory to store the inference code project, for example, `/home/HwHiAiUser/mindspore_sample/ascend910_resnet50_preprocess_sample`. You can download the [sample code](https://gitee.com/mindspore/docs/tree/r1.5/docs/sample_code/ascend910_resnet50_preprocess_sample) from the official website. The `model` directory is used to store the exported [MindIR model file](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet.mindir), and the `test_data` directory is used to store the images to be classified, the images can be selected in [ImageNet2012](http://image-net.org/download-images) validation dataset. The directory structure of the inference code project is as follows:
 
 ```text
 └─ascend910_resnet50_preprocess_sample
@@ -114,7 +112,7 @@ Obtain the inference result.
 std::cout << "Image: " << image_file << " infer result: " << GetMax(outputs[0]) << std::endl;
 ```
 
-### Build Script
+## Build Script
 
 Add the header file search path for the compiler:
 
@@ -141,7 +139,7 @@ target_link_libraries(resnet50_sample ${MS_LIB} ${MD_LIB})
 >For details, see
 ><https://gitee.com/mindspore/docs/blob/r1.5/docs/sample_code/ascend910_resnet50_preprocess_sample/CMakeLists.txt>
 
-### Building Inference Code
+## Building Inference Code
 
 Go to the project directory `ascend910_resnet50_preprocess_sample` and set the following environment variables:
 
@@ -181,7 +179,7 @@ make
 
 After building, the executable `main` file is generated in `ascend910_resnet50_preprocess_sample`.
 
-### Performing Inference and Viewing the Result
+## Performing Inference and Viewing the Result
 
 After the preceding operations are complete, you can learn how to perform inference.
 
@@ -198,215 +196,4 @@ Inference is performed on all images stored in the `test_data` directory. For ex
 ```text
 Image: ./test_data/ILSVRC2012_val_00002138.JPEG infer result: 0
 Image: ./test_data/ILSVRC2012_val_00003014.JPEG infer result: 0
-```
-
-## Mobile Device Inference
-
-MindSpore Lite is the device part of the device-edge-cloud AI framework MindSpore and can implement intelligent applications on mobile devices such as phones. MindSpore Lite provides a high-performance inference engine and ultra-lightweight solution. It supports mobile phone operating systems such as iOS and Android, LiteOS-embedded operating systems, various intelligent devices such as mobile phones, large screens, tablets, and IoT devices, and MindSpore/TensorFlow Lite/Caffe/ONNX model applications.
-
-The following provides a demo that runs on the Windows and Linux operating systems and is built based on the C++ API to help users get familiar with the on-device inference process. The demo uses the shuffled data as the input data, performs the inference on the MobileNetV2 model, and directly displays the output data on the computer.
-
-> For details about the complete instance running on the mobile phone, see [Android Application Development Based on JNI](https://www.mindspore.cn/lite/docs/en/r1.5/quick_start/quick_start.html).
-
-### Model Conversion
-
-The format of a model needs to be converted before the model is used for inference on the device. Currently, MindSpore Lite supports four types of AI frameworks: MindSpore, TensorFlow Lite, Caffe, and ONNX.
-
-The following uses the [mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2.mindir) model trained by MindSpore as an example to describe how to generate the `mobilenetv2.ms` model used in the demo.
-
-> The following describes the conversion process. Skip it if you only need to run the demo.
->
-> The following describes only the model used by the demo. For details about how to use the conversion tool, see [Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/r1.5/use/converter_tool.html#).
-
-- Download the conversion tool.
-
-  Download the [conversion tool package](https://www.mindspore.cn/lite/docs/en/r1.5/use/downloads.html) based on the OS in use, decompress the package to a local directory, obtain the `converter` tool, and configure environment variables.
-
-- Use the conversion tool.
-
-    - For Linux
-
-        Go to the directory where the `converter_lite` executable file is located, place the downloaded `mobilenetv2.mindir` model in the same path, and run the following command on the PC to convert the model:
-
-        ```cpp
-        ./converter_lite --fmk=MINDIR --modelFile=mobilenetv2.mindir --outputFile=mobilenetv2
-        ```
-
-    - For Windows
-
-        Go to the directory where the `converter_lite` executable file is located, place the downloaded `mobilenetv2.mindir` model in the same path, and run the following command on the PC to convert the model:
-
-        ```cpp
-        call converter_lite --fmk=MINDIR --modelFile=mobilenetv2.mindir --outputFile=mobilenetv2
-        ```
-
-    - Parameter description
-
-        During the command execution, three parameters are set. `--fmk` indicates the original format of the input model. In this example, this parameter is set to `MINDIR`, which is the export format of the MindSpore framework training model. `--modelFile` indicates the path of the input model. `--outputFile` indicates the output path of the model. The suffix `.ms` is automatically added to the converted model.
-
-### Environment Building and Running
-
-#### Building and Running the Linux System
-
-- Build
-
-  Run the build script in the `mindspore/lite/examples/quick_start_cpp` directory to automatically download related files and build the demo.
-
-  ```bash
-  bash build.sh
-  ```
-
-- Inference
-
-  After the build is complete, go to the `mindspore/lite/examples/quick_start_cpp/build` directory and run the following command to perform MindSpore Lite inference on the MobileNetV2 model.
-
-  ```bash
-  ./mindspore_quick_start_cpp ../model/mobilenetv2.ms
-  ```
-
-  After the execution is complete, the following information is displayed, including the tensor name, tensor size, number of output tensors, and the first 50 pieces of data:
-
-  ```text
-  tensor name is:Default/head-MobileNetV2Head/Softmax-op204 tensor size is:4000 tensor elements num is:1000
-  output data is:5.26823e-05 0.00049752 0.000296722 0.000377607 0.000177048 .......
-  ```
-
-#### Building and Running the Windows System
-
-- Build
-
-    - Download the library: Manually download the MindSpore Lite model inference framework [mindspore-lite-{version}-win-x64.zip](https://www.mindspore.cn/lite/docs/en/r1.5/use/downloads.html) whose hardware platform is CPU and operating system is Windows-x64. Copy the `libmindspore-lite.a` file in the decompressed `inference/lib` directory to the `mindspore/lite/examples/quick_start_cpp/lib` directory. Copy the `inference/include` directory to the `mindspore/lite/examples/quick_start_cpp/include` directory.
-
-    - Download the model: Manually download the model file [mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_imagenet/mobilenetv2.ms) and copy it to the `mindspore/lite/examples/quick_start_cpp/model` directory.
-
-        > You can use the mobilenetv2.ms model file obtained in "Model Conversion".
-
-    - Build: Run the build script in the `mindspore/lite/examples/quick_start_cpp` directory to automatically download related files and build the demo.
-
-        ```bash
-        call build.bat
-        ```
-
-- Inference
-
-  After the build is complete, go to the `mindspore/lite/examples/quick_start_cpp/build` directory and run the following command to perform MindSpore Lite inference on the MobileNetV2 model.
-
-  ```bash
-  call ./mindspore_quick_start_cpp.exe ../model/mobilenetv2.ms
-  ```
-
-  After the execution is complete, the following information is displayed, including the tensor name, tensor size, number of output tensors, and the first 50 pieces of data:
-
-  ```text
-  tensor name is:Default/head-MobileNetV2Head/Softmax-op204 tensor size is:4000 tensor elements num is:1000
-  output data is:5.26823e-05 0.00049752 0.000296722 0.000377607 0.000177048 .......
-  ```
-
-### Inference Code Parsing
-
-The following analyzes the inference process in the demo source code and shows how to use the C++ API.
-
-#### Model Loading
-
-Read the MindSpore Lite model from the file system and use the `mindspore::lite::Model::Import` function to import the model for parsing.
-
-```c++
-// Read the model file.
-size_t size = 0;
-char *model_buf = ReadFile(model_path, &size);
-if (model_buf == nullptr) {
-  std::cerr << "Read model file failed." << std::endl;
-  return RET_ERROR;
-}
-// Load the model.
-auto model = mindspore::lite::Model::Import(model_buf, size);
-delete[](model_buf);
-if (model == nullptr) {
-  std::cerr << "Import model file failed." << std::endl;
-  return RET_ERROR;
-}
-```
-
-#### Model Build
-
-Model build includes configuration context creation, session creation, and graph build.
-
-```c++
-mindspore::session::LiteSession *Compile(mindspore::lite::Model *model) {
-  // Initialize the context.
-  auto context = std::make_shared<mindspore::lite::Context>();
-  if (context == nullptr) {
-    std::cerr << "New context failed while." << std::endl;
-    return nullptr;
-  }
-
-  // Create a session.
-  mindspore::session::LiteSession *session = mindspore::session::LiteSession::CreateSession(context.get());
-  if (session == nullptr) {
-    std::cerr << "CreateSession failed while running." << std::endl;
-    return nullptr;
-  }
-
-  // Graph build.
-  auto ret = session->CompileGraph(model);
-  if (ret != mindspore::lite::RET_OK) {
-    delete session;
-    std::cerr << "Compile failed while running." << std::endl;
-    return nullptr;
-  }
-
-  // Note: If model->Free() is used, the model cannot be built again.
-  if (model != nullptr) {
-    model->Free();
-  }
-  return session;
-}
-```
-
-#### Model Inference
-
-Model inference includes data input, inference execution, and output obtaining. In this example, the input data is generated from randomly built data, and the output result after inference is displayed.
-
-```c++
-int Run(mindspore::session::LiteSession *session) {
-  // Obtain the input data.
-  auto inputs = session->GetInputs();
-  auto ret = GenerateInputDataWithRandom(inputs);
-  if (ret != mindspore::lite::RET_OK) {
-    std::cerr << "Generate Random Input Data failed." << std::endl;
-    return ret;
-  }
-
-  // Run.
-  ret = session->RunGraph();
-  if (ret != mindspore::lite::RET_OK) {
-    std::cerr << "Inference error " << ret << std::endl;
-    return ret;
-  }
-
-  // Obtain the output data.
-  auto out_tensors = session->GetOutputs();
-  for (auto tensor : out_tensors) {
-    std::cout << "tensor name is:" << tensor.first << " tensor size is:" << tensor.second->Size()
-              << " tensor elements num is:" << tensor.second->ElementsNum() << std::endl;
-    auto out_data = reinterpret_cast<float *>(tensor.second->MutableData());
-    std::cout << "output data is:";
-    for (int i = 0; i < tensor.second->ElementsNum() && i <= 50; i++) {
-      std::cout << out_data[i] << " ";
-    }
-    std::cout << std::endl;
-  }
-  return mindspore::lite::RET_OK;
-}
-```
-
-#### Releasing Memory
-
-If the MindSpore Lite inference framework is not required, you need to release the created `LiteSession` and `Model`.
-
-```c++
-// Delete the model cache.
-delete model;
-// Delete the session cache.
-delete session;
 ```
