@@ -61,7 +61,6 @@ MindSpore Tutorial
                               <button class="doc-filter-btn doc-btn" id="stage-Whole-Process">Whole Process</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Data-Preparation">Data Preparation</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Model-Development">Model Development</button>
-                              <button class="doc-filter-btn doc-btn" id="stage-Model-Development">Model Optimization</button>
                               <button class="doc-filter-btn doc-btn" id="stage-Model-Running">Model Running</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Model-Export">Model Export</button>
                               <button class="doc-filter-btn doc-btn" id="stage-Inference">stage Inference</button>
@@ -170,7 +169,7 @@ MindSpore Tutorial
                            </div>
                         </a>
                      </div>
-                     <div class="doc-article-item all hardware-ascend hardware-gpu stage-Beginner stage-Model-Optimization experience-local hidden">
+                     <div class="doc-article-item all hardware-ascend hardware-gpu stage-Beginner stage-Model-Development experience-local hidden">
                         <a href="https://www.mindspore.cn/tutorials/en/master/optimization.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">

@@ -76,7 +76,6 @@ MindSpore教程
                               <button class="doc-filter-btn doc-btn" id="stage-Whole-Process">全流程</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Data-Preparation">数据准备</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Model-Development">模型开发</button>
-                              <button class="doc-filter-btn doc-btn" id="stage-Model-Optimization">模型优化</button>
                               <button class="doc-filter-btn doc-btn" id="stage-Model-Running">模型运行</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Model-Export">模型导出</button>
                               <button class="doc-filter-btn doc-btn" id="stage-Inference">推理应用</button>
@@ -185,7 +184,7 @@ MindSpore教程
                            </div>
                         </a>
                      </div>
-                     <div class="doc-article-item all hardware-ascend hardware-gpu stage-Beginner stage-Model-Optimization experience-local experience-online hidden">
+                     <div class="doc-article-item all hardware-ascend hardware-gpu stage-Beginner stage-Model-Development experience-local experience-online hidden">
                         <a href="https://www.mindspore.cn/tutorials/zh-CN/master/optimization.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
