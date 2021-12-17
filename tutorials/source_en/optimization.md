@@ -1,6 +1,6 @@
 # Training the Model
 
-`Ascend` `GPU` `Beginner` `Model Development`
+`Ascend` `GPU` `CPU` `Beginner` `Model Development`
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/optimization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
@@ -45,7 +45,7 @@ print(loss(output_data, target_data))
 
 ## Optimizer
 
-An optimizer is used to compute and update the gradient. The selection of the model optimization algorithm directly affects the performance of the final model. A poor effect may be caused by the optimization algorithm instead of the feature or model design. All optimization logic of MindSpore is encapsulated in the `Optimizer` object. Here, the SGD optimizer is used. `mindspore.nn` provides many common optimizers, such as `Adam` and `Momentum`.
+An optimizer is used to compute and update the gradient. The selection of the model optimization algorithm directly affects the performance of the final model. A poor effect may be caused by the optimization algorithm instead of the feature or model design. All optimization logic of MindSpore is encapsulated in the `Optimizer` object. Here, the Momentum optimizer is used. `mindspore.nn` provides many common optimizers, such as `Adam` and `Momentum`.
 
 You need to build an `Optimizer` object. This object can retain the current parameter status and update parameters based on the computed gradient.
 
@@ -56,7 +56,7 @@ A code example is as follows:
 ```python
 from mindspore import nn
 
-optim = nn.SGD(params=net.trainable_params(), learning_rate=0.1, weight_decay=0.0)
+optim = nn.Momentum(net.trainable_params(), 0.1, 0.9)
 ```
 
 ## Training
@@ -160,7 +160,7 @@ dataset = dataset.map(operations=type_cast_op_label, input_columns="label")
 dataset = dataset.batch(batch_size)
 
 # Define hyperparameters, a loss function, and an optimizer.
-optim = nn.SGD(params=net.trainable_params(), learning_rate=learning_rate)
+optim = nn.Momentum(net.trainable_params(), learning_rate, 0.9)
 loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
 
 # Enter the epoch and dataset for training.
