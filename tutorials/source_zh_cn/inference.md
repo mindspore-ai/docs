@@ -145,7 +145,7 @@ target_link_libraries(resnet50_sample ${MS_LIB} ${MD_LIB})
 
 接下来编译推理的代码，首先要进入工程目录`ascend910_resnet50_preprocess_sample`，设置如下环境变量：
 
-> 如果是Ascend 310设备，则进入工程目录`ascend310_resnet50_preprocess_sample`，以下代码均用Ascend 910为例。
+> 如果是Ascend 310设备，则进入工程目录`ascend310_resnet50_preprocess_sample`，以下代码均用Ascend 910为例。此外，在Ascend 310平台上MindSpore正在支持将数据处理导出至MindIR，并在推理阶段一键完成数据预处理+模型推理，如果你感兴趣可以参阅[详细指导](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/multi_platform_inference_ascend_310_mindir.html)。
 
 ```bash
 # 控制log的打印级别. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, 默认是WARNING级别.

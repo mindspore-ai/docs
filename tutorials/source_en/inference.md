@@ -143,7 +143,7 @@ target_link_libraries(resnet50_sample ${MS_LIB} ${MD_LIB})
 
 Go to the project directory `ascend910_resnet50_preprocess_sample` and set the following environment variables:
 
-> If the device is Ascend 310, go to the project directory `ascend310_resnet50_preprocess_sample`. The following code uses Ascend 910 as an example.
+> If the device is Ascend 310, go to the project directory `ascend310_resnet50_preprocess_sample`. The following code uses Ascend 910 as an example. By the way, MindSpore is supporting data preprocess + model inference in one key on Ascend 310 platform. If you are interented in it, kindly refer to [more details](https://www.mindspore.cn/docs/programming_guide/en/master/multi_platform_inference_ascend_310_mindir.html).
 
 ```bash
 # Control the log print level. 0 indicates DEBUG, 1 indicates INFO, 2 indicates WARNING (default value), 3 indicates ERROR, and 4 indicates CRITICAL.
