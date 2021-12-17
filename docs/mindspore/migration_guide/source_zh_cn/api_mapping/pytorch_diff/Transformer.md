@@ -5,10 +5,7 @@
 ## torch.nn.Transformer
 
 ```python
-transformer_model = nn.Transformer(nhead=16, num_encoder_layers=12)
-src = torch.rand((10, 32, 512))
-tgt = torch.rand((20, 32, 512))
-out = transformer_model(src, tgt)
+torch.nn.Transformer(d_model=512, nhead=8, num_encoder_layers=6, num_decoder_layers=6, dim_feedforward=2048, dropout=0.1, activation=<function relu>, custom_encoder=None, custom_decoder=None, layer_norm_eps=1e-05, batch_first=False, norm_first=False, device=None, dtype=None)
 ```
 
 更多内容详见[torch.nn.Transformer](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.Transformer)。
@@ -16,7 +13,7 @@ out = transformer_model(src, tgt)
 ## mindspore.parallel.nn.Transformer
 
 ```python
-class mindspore.parallel.nn.Transformer(*args, **kwargs)(
+class mindspore.parallel.nn.Transformer(hidden_size, batch_size, ffn_hidden_size, src_seq_length, tgt_seq_length, encoder_layers=3, decoder_layers=3, num_heads=2, attention_dropout_rate=0.1, hidden_dropout_rate=0.1, hidden_act="gelu", post_layernorm_residual=False, layernorm_compute_type=mstype.float32, softmax_compute_type=mstype.float32, param_init_type=mstype.float32, lambda_func=None, use_past=False, moe_config=default_moe_config, parallel_config=default_transformer_config)(
     encoder_inputs, encoder_masks, decoder_inputs=None,
     decoder_masks=None, memory_mask=None, init_reset=True, batch_valid_length=None
 )
@@ -104,6 +101,7 @@ decoder_input_mask = Tensor(np.ones((32, 20, 20)), mstype.float16)
 memory_mask = Tensor(np.ones((32, 20, 10)), mstype.float16)
 output, en_past, de_past = model(encoder_input_value, encoder_input_mask, decoder_input_value,
                                  decoder_input_mask, memory_mask)
+print(output.shape)
 # output:
 # (32, 20, 512)
 
@@ -112,7 +110,8 @@ transformer_model = torch.nn.Transformer(nhead=16, num_encoder_layers=12,
                                          num_encoder_layers=1, num_decoder_layers=1)
 src = torch.rand((10, 32, 512))
 tgt = torch.rand((20, 32, 512))
-out = transformer_model(src, tgt)
-# Out：
+output = transformer_model(src, tgt)
+print(output.shape)
+# output:
 # torch.Size([20, 32, 512])
 ```
