@@ -41,9 +41,12 @@ while True:
         s = ''
     start_time = time.time()
     predictions = predict(s, types)
-    end_to_end_delay = (time.time() - start_time) * 1000
-    a = re.findall(r'[\u4e00-\u9fa5]*[\uff0c\u3002]', predictions)
-    print("\n")
-    for poem in a:
-        print(poem)
-    print("\ncost time: {:.1f} ms".format(end_to_end_delay))
+    if "'" in predictions:
+        print(predictions)
+    else:
+        end_to_end_delay = (time.time() - start_time) * 1000
+        a = re.findall(r'[\u4e00-\u9fa5]*[\uff0c\u3002]', predictions)
+        print("\n")
+        for poem in a:
+            print(poem)
+        print("\ncost time: {:.1f} ms".format(end_to_end_delay))

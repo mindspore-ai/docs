@@ -167,14 +167,17 @@ def test_eval(model_ckpt_path):
     s = "人工智能"
     start_time = time.time()
     output = generate_hidden(poetrymodel, head=s)
-    end_to_end_delay = (time.time()-start_time)*1000
-    a = re.findall(r'[\u4e00-\u9fa5]*[\uff0c\u3002]', output)
-    print("\n**********************************")
-    print("藏头诗 【{}】: \n".format(s))
-    for poem in a:
-        print(poem)
-    print("\ncost time: {:.1f} ms".format(end_to_end_delay))
-    print("\n")
+    if "'" in output:
+        print(output)
+    else:
+        end_to_end_delay = (time.time()-start_time)*1000
+        a = re.findall(r'[\u4e00-\u9fa5]*[\uff0c\u3002]', output)
+        print("\n**********************************")
+        print("藏头诗 【{}】: \n".format(s))
+        for poem in a:
+            print(poem)
+        print("\ncost time: {:.1f} ms".format(end_to_end_delay))
+        print("\n")
 
 
 def export_net(model_ckpt_path):
@@ -189,7 +192,7 @@ def export_net(model_ckpt_path):
     export(poetrymodel, Tensor(input_id, mstype.int32),\
             Tensor(token_type_id, mstype.int32),\
             Tensor(pad_mask, mstype.float32),\
-            file_name='poetry.pb', file_format='MINDIR')
+            file_name='./serving/bert/1/poetry', file_format='MINDIR')
 
 parser = argparse.ArgumentParser(description='Bert finetune')
 parser.add_argument('--device_target', type=str, default='Ascend', help='Device target')
