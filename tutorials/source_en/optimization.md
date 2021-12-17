@@ -1,4 +1,4 @@
-# Optimizing Model Parameters
+# Training the Model
 
 `Ascend` `GPU` `Beginner` `Model Development`
 
