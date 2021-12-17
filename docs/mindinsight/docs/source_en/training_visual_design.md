@@ -30,7 +30,7 @@ The logical architecture of training visualization is divided into two parts: ar
 
 ![Logical architecture of MindInsight training visualization](./images/training_visualization_architecture.png)
 
-Figure 1 Logical architecture of MindInsight training visualization
+*Figure 1 Logical architecture of MindInsight training visualization*
 
 ### Architecture of Training Information Collection
 
@@ -87,7 +87,7 @@ The training information is generated during training process. You can use the t
 
 ![Training information data flow](./images/training_visualization_data_flow.png)
 
-Figure 2 Training information data flow
+*Figure 2 Training information data flow*
 
 ### Data Model
 
@@ -95,7 +95,7 @@ Figure 3 shows a brief data model of MindInsight. MindInsight identifies a train
 
 ![Data model](./images/training_visualization_data_model.png)
 
-Figure 3 Data model represented by a UML class diagram
+*Figure 3 Data model represented by a UML class diagram*
 
 #### Training Job
 

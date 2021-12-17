@@ -108,7 +108,7 @@ First, data is loaded from the seamount data for initializing model variables. A
 
 ![GOMO](images/gomo.png)
 
-Figure 1: GOMO model flowchart
+*Figure 1: GOMO model flowchart*
 
 ### Initializing Variables
 

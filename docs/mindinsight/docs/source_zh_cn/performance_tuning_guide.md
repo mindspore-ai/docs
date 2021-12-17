@@ -50,7 +50,7 @@ MindInsight在性能调优的单卡页面为用户提供了`迭代轨迹`标签�
 
 ![step_trace.png](./images/step_trace.png)
 
-图1：迭代轨迹页面
+*图1：迭代轨迹页面*
 
 ### 迭代间隙耗时长
 
@@ -58,7 +58,7 @@ MindInsight在性能调优的单卡页面为用户提供了`迭代轨迹`标签�
 
 ![minddata_profile.png](images/data_profile.png)
 
-图2： 数据准备页面
+*图2： 数据准备页面*
 
 #### 非数据下沉模式
 
@@ -170,7 +170,7 @@ MindInsight在性能调优的单卡页面为用户提供了`迭代轨迹`标签�
 
     ![timeline.png](./images/timeline.png)
 
-    图3：纯通信时间
+    *图3：纯通信时间*
 
     分析过程中，用户只需要关注纯通信时间段即可，重点分析通信算子的插入是否合理（可通过观察通信算子的位置确认其插入原因，并分析其插入是否合理）、通信算子耗时是否正常等。
 
@@ -182,13 +182,13 @@ MindInsight在性能调优的单卡页面为用户提供了`迭代轨迹`标签�
 
 ![operator_performance.png](./images/operator_performance.png)
 
-图4：通信算子耗时分析
+*图4：通信算子耗时分析*
 
 - 若通信时长较长，说明该通信算子大部分时间在做通信，用户可以到链路信息页面观察带宽确认是否有慢链路导致了通信耗时长，若发现某条链路带宽有问题，用户需要针对该链路进行排查，修复链路问题。如下图：
 
     ![rank_id_link_info.png](./images/rank_id_link_info.png)
 
-    图5：逻辑卡链路信息
+    *图5：逻辑卡链路信息*
 
 - 若等待时长较长，说明集群中存在慢节点，用户可通过步骤1和步骤2确认并修复慢节点。
 - 除了通信和等待时长，对于AllReduce通信算子还会存在Reduce时长（查看单机迭代轨迹），若该时间段较长，说明执行Reduce的逻辑存在异常，请到[MindSpore社区](https://gitee.com/mindspore/mindspore/issues) 反馈。

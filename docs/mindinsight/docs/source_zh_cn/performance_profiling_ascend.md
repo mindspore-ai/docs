@@ -170,7 +170,7 @@ profiler.analyse()
 
 ![performance_overall.png](./images/performance_overall.png)
 
-图1：性能数据总览
+*图1：性能数据总览*
 
 图1展示了性能数据总览页面，包含了迭代轨迹（Step Trace）、算子性能、数据准备性能和Timeline等组件的数据总体呈现。各组件展示的数据如下：  
 
@@ -187,7 +187,7 @@ profiler.analyse()
 
 ![step_trace.png](./images/step_trace.png)
 
-图2：迭代轨迹分析
+*图2：迭代轨迹分析*
 
 图2展示了迭代轨迹分析页面。在迭代轨迹详情中，会展示各阶段在训练step中的起止时间，默认显示的是各step的平均值，用户也可以在下拉菜单选择某个step查看该step的迭代轨迹情况。  
 
@@ -215,7 +215,7 @@ profiler.analyse()
 
 ![op_type_statistics.png](./images/op_type_statistics.PNG)
 
-图3：算子类别统计分析
+*图3：算子类别统计分析*
 
 图3展示了按算子类别进行统计分析的结果，包含以下内容：  
 
@@ -224,7 +224,7 @@ profiler.analyse()
 
 ![op_statistics.png](./images/op_statistics.PNG)
 
-图4：算子统计分析
+*图4：算子统计分析*
 
 图4展示了算子性能统计表，包含以下内容：  
 
@@ -243,13 +243,13 @@ profiler.analyse()
 
 ![flops_statistics.png](./images/flops-single-card.png)
 
-图5：计算量统计分析
+*图5：计算量统计分析*
 
 图5的红框中包括了算子粒度、scope层级粒度、模型粒度的计算量数据。其中点击查看详情可以看到scope层级粒度的计算量。
 
 ![flops_scope_statistics.png](./images/flops-scope.png)
 
-图6：Scope层级FLOPs
+*图6：Scope层级FLOPs*
 
 图6是一个桑基图，以一种树的结构展示数据，其中光标选中某个scope能看到具体的FLOPs值。
 
@@ -259,7 +259,7 @@ profiler.analyse()
 
 ![minddata_profile.png](images/data_profile.png)
 
-图7：数据准备性能分析
+*图7：数据准备性能分析*
 
 图7展示了数据准备性能分析页面，包含迭代间隙、数据处理两个TAB页面。
 
@@ -271,7 +271,7 @@ profiler.analyse()
 
 ![data_op_profile.png](./images/data_op_profile.png)
 
-图8：数据处理pipeline分析
+*图8：数据处理pipeline分析*
 
 图8展示了数据处理TAB页面，可以对数据处理pipeline做进一步分析。不同的数据算子之间使用队列进行数据交换，队列的长度可以反映出算子处理数据的快慢，进而推断出pipeline中的瓶颈算子所在。
 
@@ -307,7 +307,7 @@ Timeline组件可以展示：
 
 ![timeline.png](./images/timeline.png)
 
-图9：Timeline分析
+*图9：Timeline分析*
 
 Timeline主要包含如下几个部分：  
 
@@ -337,7 +337,7 @@ Timeline主要包含如下几个部分：
 
 ![resource_visibility.png](./images/resource_visibility.png)
 
-图10：资源利用总览
+*图10：资源利用总览*
 
 图10展示了资源利用总览页面，包括CPU利用率分析与内存使用情况分析。通过点击右上角的`查看详情`按钮可以查看详细信息。
 
@@ -348,19 +348,19 @@ CPU利用率包含整机CPU利用率、进程CPU利用率、Data pipeline算子C
 
 ![device_cpu_utilization.png](./images/device_cpu_utilization.png)
 
-图11: 整机CPU利用率
+*图11: 整机CPU利用率*
 
 整机CPU利用率：展示设备在训练过程中整体的CPU使用情况，包含用户利用率、系统利用率、空闲利用率、IO利用率、当前活跃进程数、上下文切换次数。如果用户利用率较低，可以尝试增大算子线程数，增加CPU使用情况；如果系统利用率较大，同时上下文切换次数、CPU等待处理的进程较大，说明需要相应减少线程个数。
 
 ![process_cpu_utilization.png](./images/process_cpu_utilizaton.png)
 
-图12: 进程利用率
+*图12: 进程利用率*
 
 进程利用率：展示单个进程的CPU占用情况。整机利用率和进程利用率结合，可以确定训练过程中是否有其他进程影响训练。
 
 ![data_op_cpu_utilization.png](./images/data_op_utilization.png)
 
-图13: 算子利用率
+*图13: 算子利用率*
 
 算子利用率：展示Data pipeline单个算子占用的CPU利用率。可以根据实际情况，调整对应算子的线程数。如果线程数不大，占用CPU较多，可以考虑优化代码。
 
@@ -385,7 +385,7 @@ CPU利用率常用场景:
 
 ![memory.png](./images/memory.png)
 
-图14：内存使用情况页面
+*图14：内存使用情况页面*
 
 用户可以结合```内存分配概览```提供的信息以及折线图的变化趋势来了解内存使用的大致情况，除此之外，从折线图里还可以获得更多细节信息，包括：
 
@@ -396,7 +396,7 @@ CPU利用率常用场景:
 
 ![memory_graphics.png](./images/memory_graphics.png)
 
-图15：内存使用折线图
+*图15：内存使用折线图*
 
 ## 规格
 

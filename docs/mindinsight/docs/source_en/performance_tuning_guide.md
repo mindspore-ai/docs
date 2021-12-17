@@ -48,7 +48,7 @@ MindInsight provides Step Trace as the performance analyse entry. Step Trace has
 
 ![step_trace.png](./images/step_trace.png)
 
-Figure 1: Step Trace
+*Figure 1: Step Trace*
 
 The user determines which phase takes the most time based on the time distribution of the step trace and further analyzes it in the corresponding section below.
 
@@ -59,7 +59,7 @@ Users need to go to the data preparation page to further confirm whether there i
 
 ![minddata_profile.png](./images/minddata_profile.png)
 
-Figure 2: Data Preparation Page
+*Figure 2: Data Preparation Page*
 
 #### Feed Mode
 
@@ -163,7 +163,7 @@ Users need to have a certain understanding of the principle of model parallelism
 
     ![timeline.png](./images/timeline.png)
 
-    Figure 3：Pure communication Op
+    *Figure 3: Pure communication Op*
 
     In the process of analysis, users only need to pay attention to the pure communication time period, focusing on whether the insertion of the communication operator is reasonable, whether the time consumption of the communication operator is normal and so on.
 
@@ -175,13 +175,13 @@ Step 4：Users can go to the `cluster communication` page to check each time-con
 
 ![operator_performance.png](./images/operator_performance.png)
 
-Figure 4：Communication Operator Stage
+*Figure 4: Communication Operator Stage*
 
 - If the communication duration is long, it means that the communication operator is communicating most of the time. Users can go to the `Link Information page` to observe the bandwidth to confirm whether there is a slow link that causes the communication time to be long. If there is a problem with the bandwidth of a link, users need to check the link and repair the link problem.
 
 ![rank_id_link_info.png](./images/rank_id_link_info.png)
 
-Figure 5: Link Information
+*Figure 5: Link Information*
 
 - If the waiting duration is long, it means that there are slow nodes in the cluster, and users can confirm and repair the slow nodes through steps 1 and 2.
 - In addition to the communication and waiting time, there will be a Reduce time for AllReduce communication operators. If the time period is long, it means that the operator performing Reduce is abnormal. Please feedback to the [MindSpore Community](https://gitee.com/mindspore/mindspore/issues) .

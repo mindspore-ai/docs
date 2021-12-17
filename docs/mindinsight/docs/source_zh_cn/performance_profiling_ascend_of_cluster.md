@@ -196,7 +196,7 @@ done
 
 ![cluster_summary.png](./images/cluster_summary.png)
 
-图1：集群训练性能总览
+*图1：集群训练性能总览*
 
 图1为集群训练性能总揽，是对集群迭代轨迹组件、集群通信性能组件的总体呈现。各组件展示内容如下：
 
@@ -211,13 +211,13 @@ done
 
 ![cluster_iterative_trajectory.png](./images/cluster_iterative_trajectory.png)
 
-图2：集群迭代轨迹
+*图2：集群迭代轨迹*
 
 图2展示了集群迭代轨迹分析页面，默认展示卡的性能平均值，支持查询特定step下的卡的迭代轨迹信息。通过点击单卡中的详情连接，也可以跳转到单卡的详细性能展示页面，查询详细的单卡性能数据。
 
 ![single_car_performance_overall.png](./images/single_car_performance_overall.png)
 
-图3：单卡性能信息
+*图3：单卡性能信息*
 
 图3展示集群中单卡性能信息，单卡性能信息请参考[单卡性能信息](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html)。
 
@@ -235,13 +235,13 @@ done
 
 ![cluster_pipeline-parallel_analyse.png](./images/cluster_pipeline-parallel_analyse_zh.png)
 
-图4：流水并行模式分析
+*图4：流水并行模式分析*
 
 图4展示了流水并行场景下页面展示的内容，默认展示所有step的平均数值。页面中展示了迭代间隙时间、纯接收时间、阶段时间、纯通信时间、计算时间、纯集合通信时间。由于整个网络的计算图被切分为多个阶段的子图，阶段时间可用于定位慢的阶段，通过选择阶段编号可以筛选出同一阶段的卡，在阶段内部可用模型并行场景的思路定位瓶颈。
 
 ![cluster_model-parallel_analyse.png](./images/cluster_model-parallel_analyse_zh.png)
 
-图5：模型并行模式分析
+*图5：模型并行模式分析*
 
 图5展示了模型并行场景（此处指层内模型并行）下页面展示的内容，默认展示所有step的平均数值。页面中展示了迭代间隙时间、纯通信时间、计算时间。计算时间可用于定位慢卡，如果没有慢卡，查看通信时间与计算时间占比，若通信时间占比较大，考虑是否有慢链路。
 
@@ -251,7 +251,7 @@ done
 
 ![cluster_communication_info.png](./images/cluster_communication_info.png)
 
-图6：集群通信性能分析
+*图6：集群通信性能分析*
 
 图6展示了集群通信性能分析页面，包含逻辑卡通信性能以及全网链路信息（所有逻辑卡链路信息）。
 
@@ -264,17 +264,17 @@ done
 
 ![operator_performance.png](./images/operator_performance.png)
 
-图7：算子性能信息
+*图7：算子性能信息*
 
 ![rank_id_link_info.png](./images/rank_id_link_info.png)
 
-图8:逻辑卡链路信息
+*图8:逻辑卡链路信息*
 
 全网链路信息TAB页面展示所有逻辑卡的链路信息，提供源卡、目的卡、链路类型的选择。
 
 ![rank_ids_link_info.png](./images/rank_ids_link_info.png)
 
-图9：全网链路信息
+*图9：全网链路信息*
 
 默认不收集通信性能数据，需要通过`mindspore.profiler.Profiler`中的`profile_communication`参数像`Profiler(profile_communication=True)`一样打开通信性能数据开关。只有多卡训练才能产生通信算子性能数据，在单卡训练场景中设置该参数是无效的。
 
@@ -296,7 +296,7 @@ pip install /usr/local/Ascend/tools/hccl_parser-{version}-py3-none-any.whl
 
 ![cluster_memory.png](./images/cluster_memory.png)
 
-图10：集群内存概览页面
+*图10：集群内存概览页面*
 
 > 内存使用情况分析暂不支持异构训练场景。
 
@@ -310,7 +310,7 @@ pip install /usr/local/Ascend/tools/hccl_parser-{version}-py3-none-any.whl
 
 ![cluster_flops.png](./images/cluster_flops.png)
 
-图11：集群FLOPs概览页面
+*图11：集群FLOPs概览页面*
 
 ## 策略感知
 
@@ -322,7 +322,7 @@ pip install /usr/local/Ascend/tools/hccl_parser-{version}-py3-none-any.whl
 
 ![image-20211118132511452](./images/profiler_strategy_graph_zh.png)
 
-图12：策略感知视图页面
+*图12：策略感知视图页面*
 
 页面右上角会显示本次训练的并行方式，上图展示出本次训练采用的并行方式是自动并行。
 
@@ -340,7 +340,7 @@ pip install /usr/local/Ascend/tools/hccl_parser-{version}-py3-none-any.whl
 
 ![image-20211118133144763](./images/profiler_strategy_graph_strategy.png)
 
-图13：算子策略矩阵
+*图13：算子策略矩阵*
 
 算子的某项输入存在切分策略时，会在该算子下方呈现一个策略矩阵，一行表示一项输入，小格子中的数字表示算子在对应维度上的切分份数。
 
@@ -352,7 +352,7 @@ pip install /usr/local/Ascend/tools/hccl_parser-{version}-py3-none-any.whl
 
 ![image-20211118125032089](./images/profiler_strategy_graph_pipeline.png)
 
-图14：流水线并行视图
+*图14：流水线并行视图*
 
 采用了流水线并行策略时，点击页面左上角的按钮，即可展开流水线并行视图。该视图展示了流水线并行中，每个stage的Send（红色矩形）和Receive算子（绿色矩形）及不同stage之间Send、Receive算子的对应关系。视图中的算子支持点击操作，在计算图中定位。
 
@@ -362,13 +362,13 @@ pip install /usr/local/Ascend/tools/hccl_parser-{version}-py3-none-any.whl
 
 ![image-20211118125032089](./images/profiler_strategy_graph_stack.png)
 
-图15：算子堆叠
+*图15：算子堆叠*
 
 在计算图中，在聚合结点中如果同类型的算子数量过多，则会对其进行堆叠展示，双击可以展开查看算子。
 
 ![image-20211118125032089](./images/profiler_strategy_hideline.png)
 
-图16：查看被隐藏边
+*图16：查看被隐藏边*
 
 为了避免线过于零乱，部分不重要的边会被隐藏，鼠标悬浮在聚合结点周围的圆圈上面，可以看到被隐藏的边。
 

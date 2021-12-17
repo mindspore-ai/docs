@@ -27,7 +27,7 @@
 
 ![The process of deeplearning training](./images/deeplearning_train_process.png)
 
-图1 深度学习训练过程模拟
+*图1 深度学习训练过程模拟*
 
 而优化器就是在做这件事情，业界的优化算法可分为一阶优化算法和二阶优化算法。下面简单介绍下业界的优化器情况。
 
@@ -47,7 +47,7 @@
 
 ![The different process of deeplearning training](./images/different_train_process.png)
 
-图2 不同优化器下降路径
+*图2 不同优化器下降路径*
 
 从数学公式上来看，与一阶优化算法相比，二阶优化算法则是先将$\nabla L_{\theta}$与一个矩阵$G^{-1}$相乘，产生如下的更新规则：$\theta = \theta -\eta G^{-1}\nabla L_{\theta}$，其中G即为二阶信息矩阵，不同的二阶优化算法中的G定义是不同的，常见的二阶优化算法有牛顿法，自然梯度法等，分别对应的二阶信息矩阵G为海森矩阵，费雪矩阵。
 
@@ -100,7 +100,7 @@ $$L=1-\sqrt{\frac{\lambda_{max}\ \ (\hat{A}\hat{A}^T)}{\lambda_{max}\ \ (AA^T)}}
 
 ![The split dimension of matrix](./images/split_dimension.png)
 
-图3 切分维度确定示意图
+*图3 切分维度确定示意图*
 
 ### 实验结果
 
@@ -108,7 +108,7 @@ $$L=1-\sqrt{\frac{\lambda_{max}\ \ (\hat{A}\hat{A}^T)}{\lambda_{max}\ \ (AA^T)}}
 
 ![The result of ResNet50](./images/thor_in_resnet.png)
 
-图4 THOR在ResNet50上的实验结果
+*图4 THOR在ResNet50上的实验结果*
 
 图4中的THOR，THOR_stop，THOR_NT分别表示($w_1$,$w_2$)=(0.01,0)，($w_1$,$w_2$)=(0.01,0.001)，($w_1$,$w_2$)=(0,0)，从图中可以看到THOR收敛所需迭代数大约是一阶的一半，且单step的时间与一阶相差也不大。相比一阶算法需要117min，二阶优化器端到端时间提速约40%。
 
@@ -116,10 +116,10 @@ THOR还测试了在不同batchsize下ResNet50+ImageNet的收敛结果，结果�
 
 ![The large batchsize result of ResNet50](./images/thor_largebs_in_resnet.png)
 
-图5 大batchsize下THOR在ResNet50上的实验结果
+*图5 大batchsize下THOR在ResNet50上的实验结果*
 
 在BERT+WIkipedia中，THOR也有不错的表现效果，以MLPerf为标准，精度达到71.2%，与一阶相比端到端提升30%，实验结果见图6，图中横坐标表示训练时间，纵坐标表示测试精度，上升较快的曲线是THOR的训练曲线，另一条为Lamb的训练曲线。
 
 ![The result of BERT](./images/thor_in_bert.png)
 
-图6 THOR在BERT上的实验结果
+*图6 THOR在BERT上的实验结果*

@@ -38,7 +38,7 @@ The `TensorContainer`, `Histogram`, and `TensorProcessor` classes are involved i
 
 ![tensor_table.png](./images/tensor_table.png)
 
-Figure 1: Table view
+*Figure 1: Table view*
 
 Figure 1 displays tensors recorded by a user in a form of a table. The following functions are included:
 
@@ -47,7 +47,7 @@ Figure 1 displays tensors recorded by a user in a form of a table. The following
 
 ![tensor_histogram.png](./images/tensor_histogram.png)
 
-Figure 2: Histogram view
+*Figure 2: Histogram view*
 
 Figure 2 shows tensors recorded by a user in a form of a histogram.
 

@@ -45,7 +45,7 @@ $$ F(R) = -\frac{\partial U}{\partial R}$$
 
 ![image](./images/methods.png)
 
-图1: 势能函数获取方法
+*图1: 势能函数获取方法*
 
 可以说在传统的计算化学（computational chemistry）领域，“速度”和“精度”总是一对矛盾体，选择更高精度的算法必然意味着计算速度的急剧下降。而通过使用深度学习（deep learning）技术则有可能突破“速度”和“精度”的矛盾，由于人工神经网络（artificial neural network）具备强大的拟合能力，如果使用其用于拟合高精度QM方法计算得到的势能，就有可能以相对较低的计算代价实现较高精度的分子力场。
 
@@ -57,7 +57,7 @@ $$ F(R) = -\frac{\partial U}{\partial R}$$
 
 ![image](./images/mct.png)
 
-图2: 模型结构图
+*图2: 模型结构图*
 
 2021年8月，高毅勤教授课题组开源了基于MindSpore的GNN深度分子模型框架Cybertron，支持分子CT模型、SchNet模型以及PhysNet模型，且用户可以基于该架构实现自己的GNN深度分子模型。而MindSPONGE则是高毅勤教授课题组同华为MindSpore团队合作开发的全新一代人工智能分子动力学模拟软件， 其原生支持基于深度学习的相关算法。MindSPONGE和Cybertron相配合，可以使用Cybertron训练分子力场，在MindSPONGE中进行分子动力学模拟。
 
@@ -67,7 +67,7 @@ $$ F(R) = -\frac{\partial U}{\partial R}$$
 
 ![image](./images/claisen.png)
 
-图3: 分子内可逆克莱森重排反应
+*图3: 分子内可逆克莱森重排反应*
 
 如上图所示，该反应是一个典型的在分子内可逆克莱森重排反应，体系可以在七元环（以下简称A分子）和三元环（以下简称B分子）之间进行转化。如果要建立该反应的分子力场，首先需要对该体系的构象进行充足的抽样。在这里我们选择使用半经验的DFTB方法，对该体系进行快速地构想搜索。由于目前版本的MindSPONGE中暂时不支持基于QM的方法，这里我们使用免费的分子动力学模拟软件包`AmberTools`中的`sander`程序运行基于DFTB的MD模拟。运行该程序需要的参数文件为`cba.prmtop`，坐标文件为`cba.rst7`，输入文件为：
 
@@ -161,7 +161,7 @@ mpirun -np 4 sander.MPI -groupfile group.dat -ng 4
 
 ![image](./images/colvardata.png)
 
-图4: d3和d6两个距离随模拟时间的变化
+*图4: d3和d6两个距离随模拟时间的变化*
 
 ## 高精度量子化学计算
 
@@ -345,4 +345,4 @@ _steps_ _TEMP_ _TOT_POT_ENE_ _CVariable_ _Bias_Potential_
 
 ![image](./images/result.png)
 
-图5: 分子内可逆克莱森重排反应仿真结果
+*图5: 分子内可逆克莱森重排反应仿真结果*

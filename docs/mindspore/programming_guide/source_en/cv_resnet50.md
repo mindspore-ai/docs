@@ -46,7 +46,7 @@ MindSpore supports the following image classification networks: LeNet, AlexNet, 
 
 ![cifar10](images/cifar10.png)
 
-Figure 1: CIFAR-10 dataset [1]
+*Figure 1: CIFAR-10 dataset [1]*
 
 The CIFAR-10 dataset contains 10 classes of 60,000 images. Each class contains 6000 images. 50,000 images are for training and 10,000 images are for testing. The size of each image is 32 x 32 pixels.
 

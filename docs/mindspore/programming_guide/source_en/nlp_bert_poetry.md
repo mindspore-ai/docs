@@ -30,7 +30,7 @@ Use MindSpore to train an intelligent poem writing model and deploy the predicti
 
 ![introduce image](images/introduce.PNG)
 
-Figure 1: Case flowchart
+*Figure 1: Case flowchart*
 
 The following skips the process of pre-training BERT and directly describes the process of fine-tuning a pre-trained BERT-base model of MindSpore.
 
@@ -60,7 +60,7 @@ The following figure shows the BERT model structure. If you enter two sentences 
 
 ![Teaser image](images/bert_model.PNG)
 
-Figure 2: BERT model structure [1]
+*Figure 2: BERT model structure [1]*
 
 ### Fine-tuning
 
@@ -78,7 +78,7 @@ The data used for fine-tuning is more than 40,000 poems without labels. The outp
 
 ![Teaser image](images/finetune.PNG)
 
-Figure 3 Training process
+*Figure 3 Training process*
 
 ## Sample Code
 

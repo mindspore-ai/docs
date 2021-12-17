@@ -28,7 +28,7 @@ Scalar visualization is used to display the change trend of scalars during train
 
 ![scalar.png](./images/scalar.png)
 
-Figure 1: Scalar trend chart
+*Figure 1: Scalar trend chart*
 
 Figure 1 shows a change process of loss values during the neural network training. The horizontal coordinate indicates the training step, and the vertical coordinate indicates the loss value.
 
@@ -44,7 +44,7 @@ The threshold value can be set to highlight the value. You can also delete the t
 
 ![scalar_select.png](./images/scalar_select.png)
 
-Figure 2: Scalar visualization function area
+*Figure 2: Scalar visualization function area*
 
 Figure 2 shows the scalar visualization function area, which allows you to view scalar information by selecting different tags, different dimensions of the horizontal axis, and smoothness.
 
@@ -55,7 +55,7 @@ Figure 2 shows the scalar visualization function area, which allows you to view 
 
 ![scalar_compound.png](./images/scalar_compound.png)
 
-Figure 3: Scalar synthesis of Accuracy and Loss curves
+*Figure 3: Scalar synthesis of Accuracy and Loss curves*
 
 Figure 3 shows the scalar synthesis of the Accuracy and Loss curves. The function area of scalar synthesis is similar to that of scalar visualization. Differing from the scalar visualization function area, the scalar synthesis function allows you to select the maximum of two tags at a time to synthesize and display their curves.
 
@@ -65,7 +65,7 @@ The parameter distribution in a form of a histogram displays tensors specified b
 
 ![histogram_func.png](./images/histogram_func.png)
 
-Figure 4: Function area of the parameter distribution histogram
+*Figure 4: Function area of the parameter distribution histogram*
 
 Figure 4 shows the function area of the parameter distribution histogram, including:
 
@@ -75,7 +75,7 @@ Figure 4 shows the function area of the parameter distribution histogram, includ
 
 ![histogram.png](./images/histogram.png)
 
-Figure 5: Histogram
+*Figure 5: Histogram*
 
 Figure 5 shows the numerical distribution [histogram](https://baike.baidu.com/item/%E7%9B%B4%E6%96%B9%E5%9B%BE/1103834?fr=aladdin) of `conv1.weight` by a `Top` view.
 
@@ -89,13 +89,13 @@ Computational graph visualization is used to display the graph structure, data f
 
 ![graph.png](./images/graph.png)
 
-Figure 6: Computational graph display area
+*Figure 6: Computational graph display area*
 
 Figure 6 shows the network structure of a computational graph. As shown in the figure, select an operator in the area of the display area. The operator has two inputs and one outputs (the solid line indicates the data flow direction of the operator).
 
 ![graph_sidebar.png](./images/graph_sidebar.png)
 
-Figure 7: Computational graph function area
+*Figure 7: Computational graph function area*
 
 Figure 7 shows the function area of the computational graph, including:
 
@@ -107,7 +107,7 @@ Figure 7 shows the function area of the computational graph, including:
 
 ![graph_sidebar.png](./images/computation_graph.png)
 
-Figure 8: Computational graph optimization
+*Figure 8: Computational graph optimization*
 
 Figure 8 shows the readability optimization feature, which optimizes the readability of the graph and reduces the complexity of the graph, and removes most of the gradient and optimizer operators.
 To get the clearest visualization of computational graph, please set `jit_level` to `o0` when collecting the computational graph, please refer to the API [mindspore.Model.build](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore/mindspore.Model.html#mindspore.Model.build).
@@ -118,7 +118,7 @@ Dataset graph visualization is used to display data processing and augmentation 
 
 ![data_function.png](./images/data_function.png)
 
-Figure 9: Dataset graph function area
+*Figure 9: Dataset graph function area*
 
 Figure 9 shows the dataset graph function area which includes the following content:
 
@@ -132,13 +132,13 @@ Image visualization is used to display images specified by users.
 
 ![image.png](./images/image_vi.png)
 
-Figure 10: Image visualization
+*Figure 10: Image visualization*
 
 Figure 10 shows how to view images of different steps by sliding the Step slider.
 
 ![image_function.png](./images/image_function.png)
 
-Figure 11: Image visualization function area
+*Figure 11: Image visualization function area*
 
 Figure 11 shows the function area of image visualization. You can view image information by selecting different tags, brightness, and contrast.
 
@@ -152,7 +152,7 @@ Tensor visualization is used to display tensors in the form of table and histogr
 
 ![tensor_function.png](./images/tensor_function.png)
 
-Figure 12: Tensor visualization function area
+*Figure 12: Tensor visualization function area*
 
 Figure 12 shows the function area of tensor visualization.
 
@@ -163,7 +163,7 @@ Figure 12 shows the function area of tensor visualization.
 
 ![tensor_table.png](./images/tensor_table.png)
 
-Figure 13: Table display
+*Figure 13: Table display*
 
 Figure 13 shows tensors recorded by a user in a form of a table which includes the following function:
 
@@ -173,7 +173,7 @@ Figure 13 shows tensors recorded by a user in a form of a table which includes t
 
 ![tensor_histogram.png](./images/tensor_histogram.png)
 
-Figure 14: Histogram display
+*Figure 14: Histogram display*
 
 Figure 14 shows tensors recorded by a user in a form of a histogram. Click the upper right corner to zoom in the histogram.
 

@@ -52,15 +52,15 @@
 
 ![image](./images/covid_structure.png)
 
-图1: 新型冠状病毒结构示意图 (图片来源：<https://www.sciencenewsforstudents.org/article/explainer-what-is-a-spike-protein>)
+*图1: 新型冠状病毒结构示意图* (图片来源：<https://www.sciencenewsforstudents.org/article/explainer-what-is-a-spike-protein>)
 
 ![image](./images/s1.png)
 
-图2: 新冠病毒棘突蛋白结构 (图片来源：<https://www.nature.com/articles/d41586-021-02039-y>)
+*图2: 新冠病毒棘突蛋白结构* (图片来源：<https://www.nature.com/articles/d41586-021-02039-y>)
 
 ![image](./images/s1toace2.png)
 
-图3: 新冠病毒通过与受体蛋白ACE2结合实现入侵 (图片来源：Mihalopoulos M ,  Dogra N ,  Mohamed N , et al. COVID-19 and Kidney Disease: Molecular Determinants and Clinical Implications in Renal Cancer[J]. European Urology Focus, 2020, 6(5).)
+*图3: 新冠病毒通过与受体蛋白ACE2结合实现入侵* (图片来源：Mihalopoulos M ,  Dogra N ,  Mohamed N , et al. COVID-19 and Kidney Disease: Molecular Determinants and Clinical Implications in Renal Cancer[J]. European Urology Focus, 2020, 6(5).)
 
 由于新冠病毒是一种RNA病毒（正链单股），其遗传物质是RNA。与DNA病毒相比，RNA病毒的稳定性更低，在复制过程中更容易出错，所以新冠病毒会发生大量遗传变异。如果RNA病毒的传播没有被有效控制，那么大量传播的病毒因其自身的不稳定性会发生大量的变异，从而会有很大概率通过自然选择产生出有更强的传播力或者具备强大免疫逃逸的能力的超级毒株。例如，2020年以来印度的新冠疫情一直没有得到很好控制，因此印度出现了新冠病毒变异毒株B.1.617.2，也就是现在正肆虐全球的新冠病毒“德尔塔（Delta）”毒株。德尔塔变异株的传播能力明显增强，潜伏期和隔代间期缩短，并可能导致疾病严重程度增加，迅速成为了目前全球流行的优势毒株。
 
@@ -76,7 +76,7 @@
 
 ![image](./images/pdb.png)
 
-图4: 野生型新冠病毒S1蛋白的RBD与ACE2的复合物pdb
+*图4: 野生型新冠病毒S1蛋白的RBD与ACE2的复合物pdb*
 
 #### pdb文件预处理
 
@@ -94,13 +94,13 @@ pdb4amber -i 6lzg.pdb -o yourname.pdb  --reduce  --dry
 
 ![image](./images/h++web.png)
 
-图5：H++网站的初始界面
+*图5：H++网站的初始界面*
 
 H++网站免费注册、使用，建议先在H++网站进行注册，否则能处理的蛋白质体系的大小将受到限制。注册完成后，在H++网站上传上一步生成的`yourname.pdb`文件，并选择`Process File`按钮，随后出现参数选择界面如下图：
 
 ![image](./images/h++choose.png)
 
-图6：H++网站的参数选择界面
+*图6：H++网站的参数选择界面*
 
 判定离子化基团质子化状态，主要需要设定体系离子浓度和pH值等几个参数，如果已知实验条件可以填入实验中的相应参数值，如不确定实验条件一般可保持网站给出的缺省值。确定好参数后，点击`PROCESS`按钮，等待一定时间后网站显示出结果页面。在结果页面上点击下载生成的`Amber (implicit solvent) Topology File: XXX.top`和`Amber (implicit solvent) Coordinate File: XXX.crd`，然后使用`AmberTools`中的`ambpdb`工具从这两个文件生成pdb文件：
 
@@ -200,7 +200,7 @@ ambpdb -p XXX.top < XXX.crd > 6lzg_HPP.pdb
 
 ![image](./images/ditan.png)
 
-图7：新冠病毒样本中鉴定出的发生寄主内单点突变的位点
+*图7：新冠病毒样本中鉴定出的发生寄主内单点突变的位点*
 
 因为对比野生型毒株，L452Q突变唯一的区别就是将残基序号为452的亮氨酸（Leucine）突变为谷氨酰胺（Glutamine），所以该体系的建模过程与上一节中描述的过程基本相同，只需用文本编辑器将`6lzg_HPP.pdb`文件打开，找到L452残基，将其侧链删除，只保留主链的C, CA, N, O四个原子，同时将这四个原子的残基名改为GLN（后续步骤中leap程序会按照力场中残基的模板将GLN的侧链补上）。体系建模的其他步骤与2.1中野生型蛋白的建模完全相同，这里就不再赘述。
 
@@ -336,7 +336,7 @@ python3 dat2nc.py -n 103351 -box mdbox.txt -x mdcrd.dat -nc 0.nc
 
 ![image](./images/allnumbers.png)
 
-图8：体系的总原子数
+*图8：体系的总原子数*
 
 #### 分析模拟结构变化
 
@@ -355,7 +355,7 @@ quit
 
 ![image](./images/CalphaRMSD.png)
 
-图9：野生型新冠病毒S1 RBD+ACE2复合物模拟的Cα RMSD (500-600 ns)
+*图9：野生型新冠病毒S1 RBD+ACE2复合物模拟的Cα RMSD (500-600 ns)*
 
 #### 分析氢键
 
@@ -373,7 +373,7 @@ hbond指令行中的`out`用来指定包含轨迹每一帧氢键数目的输出�
 
 ![image](./images/qingjian.png)
 
-图10：野生型新冠病毒S1 RBD+ACE2复合物模拟中氢键数目变化 (500-600 ns)
+*图10：野生型新冠病毒S1 RBD+ACE2复合物模拟中氢键数目变化 (500-600 ns)*
 
 #### 分析接触面积
 
@@ -397,7 +397,7 @@ paste SAs1.dat SAace2.dat Sacomplex.dat | awk ‘{print $1,$2+$4-$6}’ >contact
 
 ![image](./images/contactarea.png)
 
-图11：野生型新冠病毒S1 RBD+ACE2复合物模拟中蛋白接触面积变化 (500-600 ns)
+*图11：野生型新冠病毒S1 RBD+ACE2复合物模拟中蛋白接触面积变化 (500-600 ns)*
 
 #### 结构分析
 
@@ -405,7 +405,7 @@ paste SAs1.dat SAace2.dat Sacomplex.dat | awk ‘{print $1,$2+$4-$6}’ >contact
 
 ![image](./images/datacompare.png)
 
-图12：L452Q和德尔塔毒株与野生型毒株模拟数据的比较
+*图12：L452Q和德尔塔毒株与野生型毒株模拟数据的比较*
 
 表1：L452Q突变和德尔塔毒株与野生型毒株模拟的比较
 
@@ -421,4 +421,4 @@ paste SAs1.dat SAace2.dat Sacomplex.dat | awk ‘{print $1,$2+$4-$6}’ >contact
 
 ![image](./images/resultcovid.png)
 
-图13：用VMD绘制的L452Q和德尔塔毒株结构图
+*图13：用VMD绘制的L452Q和德尔塔毒株结构图*
