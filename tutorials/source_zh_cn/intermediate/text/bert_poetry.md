@@ -26,7 +26,7 @@
 
 ## 案例简介
 
-通过MindSpore训练出智能写诗模型及部署预测服务，具体流程如下图所示：
+通过MindSpore训练出智能写诗模型，具体流程如下图所示：
 
 ![introduce image](images/introduce.PNG)
 
