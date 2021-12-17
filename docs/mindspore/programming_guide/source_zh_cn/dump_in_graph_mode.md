@@ -181,6 +181,8 @@ MindSpore提供了同步Dump与异步Dump两种模式：
                 - {iteration_id}/
                     statistic.csv
                     {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy
+                - constants/
+                    Parameter.data-{data_id}.0.0.{timestamp}.output.0.DefaultFormat.npy
             ...
         - graphs/
             ms_output_trace_code_graph_{graph_id}.pb
@@ -203,6 +205,7 @@ MindSpore提供了同步Dump与异步Dump两种模式：
 - `input_output_index`：输入或输出标号，例如`output.0`表示该文件是该算子的第1个输出Tensor的数据。
 - `slot`：slot标号。
 - `format`: 数据格式。
+- `data_id`: 常量数据标号。
 
 对于多图网络，由于存在控制流，某些子图可能不会被执行，Dump只保存执行过的节点，所以graphs目录下`.pb`文件名中的{graph_id}并不一定在{net_name}下存在对应的{graph_id}目录。
 
@@ -211,6 +214,12 @@ MindSpore提供了同步Dump与异步Dump两种模式：
 ### 同步Dump数据文件介绍
 
 同步Dump生成的数据文件是后缀名为`.npy`的文件，文件命名格式为：
+
+```text
+{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy
+```
+
+同步Dump生成的常量数据文件与其他数据文件格式相同，而所有常量数据的{op_type}，{task_id}，{stream_id}，{input_output_index}，{slot}，{format}不变。注意，非Tensor类型数据不会被生成数据文件。
 
 ```text
 {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy
@@ -465,6 +474,8 @@ numpy.load("Conv2D.Conv2D-op107.2.2.1623124369613540.output.0.DefaultFormat.npy"
                 - {iteration_id}/
                     statistic.csv
                     {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}
+                - constants/
+                    Parameter.data-{data_id}.0.0.{timestamp}.output.0.DefaultFormat.npy
             ...
         - graphs/
             ms_output_trace_code_graph_{graph_id}.pb
@@ -484,6 +495,7 @@ numpy.load("Conv2D.Conv2D-op107.2.2.1623124369613540.output.0.DefaultFormat.npy"
 - `task_id`：任务标号。
 - `stream_id`：流标号。
 - `timestamp`：时间戳。
+- `data_id`: 常量数据标号。
 
 由于存在控制流，某些子图可能不会被执行，Dump只保存执行过的节点，所以graphs目录下`.pb`文件名中的{graph_id}并不一定在{net_name}下存在对应的{graph_id}目录。
 
@@ -510,7 +522,7 @@ Dump生成的原始数据文件也可以使用MindInsight的数据解析工具Du
 
 选项`saved_data`只有在`file_format`为"npy"的时候生效。如`saved_data`是"statistic"或者"full"。张量统计数据会落盘到`statistic.csv`。如`saved_data`是"tensor"或者"full"完整张量数据会落盘到`{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy`。`statistic.csv`的格式与同步Dump相同，可以参考[同步Dump数据文件介绍](#id9)
 
-异步Dump生成的最终执行图文件和执行序文件命名规则与同步Dump相同，可以参考[同步Dump数据文件介绍](#id9)。
+异步Dump生成的常量数据文件，最终执行图文件和执行序文件命名规则与同步Dump相同，可以参考[同步Dump数据文件介绍](#id9)。
 
 ### 异步Dump数据分析样例
 
