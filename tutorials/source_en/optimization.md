@@ -1,6 +1,6 @@
 # Optimizing Model Parameters
 
-`Ascend` `GPU` `Beginner` `Model Optimization`
+`Ascend` `GPU` `Beginner` `Model Development`
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.5/tutorials/source_en/optimization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.5/resource/_static/logo_source_en.png"></a>
 
