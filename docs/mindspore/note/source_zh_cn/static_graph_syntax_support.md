@@ -592,8 +592,7 @@ ret:[[3. 3. 3. 3.]]
 | `**=`      | `Number` \*\*= `Number`、`Tensor` \*\*= `Tensor`、`Number` \*\*= `Tensor`、`Tensor` \*\*= `Number`、`Tuple` \*\*= `Tensor`、`Tensor` \*\*= `Tuple`、 `List` \*\*= `Tensor`、`Tensor` \*\*= `List`。 |
 | `//=`      | `Number` //= `Number`、`Tensor` //= `Tensor`、`Number` //= `Tensor`、`Tensor` //= `Number`、`Tuple` //= `Tensor`、`Tensor` //= `Tuple`、`List` //= `Tensor`、`Tensor` //= `List`。 |
 
-限制：ret:[1 2]
-ret:[0 3]
+限制：
 
 - 对于 `=`来说，不支持下列场景:
 
@@ -1599,7 +1598,7 @@ ret:(Tensor(shape=[2, 3], dtype=Float32, value=
 
    结果报错如下：
 
-  ```Text
+   ```Text
    TypeError: mindspore/ccsrc/pipeline/jit/parse/parse.cc:1740 HandleAssignClassMember] 'self.x' should be initialized as a 'Parameter' in the '__init__' function before assigning.
    ```
 
