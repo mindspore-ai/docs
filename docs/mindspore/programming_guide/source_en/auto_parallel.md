@@ -23,7 +23,6 @@
             - [strategy_ckpt_save_file](#strategy_ckpt_save_file)
             - [full_batch](#full_batch)
             - [pipeline_stages](#pipeline_stages)
-            - [grad_accumulation_step](#grad_accumulation_step)
             - [parallel_optimizer_config](#parallel_optimizer_config)
     - [Distributed Communication Interface](#distributed-communication-interface)
         - [init](#init)
@@ -291,18 +290,6 @@ from mindspore import context
 
 context.set_auto_parallel_context(pipeline_stages=4)
 context.get_auto_parallel_context("pipeline_stages")
-```
-
-#### grad_accumulation_step
-
-`grad_accumulation_step` means the steps where the gradients are accumulated.
-
-The following is a code example:
-
-```python
-from mindspore import context
-context.set_auto_parallel_context(grad_accumulation_step=4)
-context.get_auto_parallel_context("grad_accumulation_step")
 ```
 
 #### parallel_optimizer_config
