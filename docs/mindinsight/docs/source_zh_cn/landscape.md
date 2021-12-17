@@ -6,7 +6,7 @@
     - [概述](#概述)
     - [使用步骤](#使用步骤)
     - [损失函数多维分析](#损失函数多维分析)
-    - [Loss图形对比](#Loss图形对比)
+    - [损失函数图形对比](#损失函数图形对比)
     - [使用示例分析](#使用示例分析)
     - [注意事项](#注意事项)
 
@@ -161,13 +161,13 @@
 
    summary_dir设置了参数的保存路径。summary_collector为初始化的SummaryCollector实例。其中collector_specified_data中的collect_landscape以字典的形式包含了绘制地形图所需要的所有参数设置：
 
-   - `landscape_size`： 表示地形图的分辨率。40表示地形图的分辨率是40*40。分辨率越大，地形图纹理越细致，同时计算消耗时间也会越久。
+   - `landscape_size`： 表示地形图的分辨率。40表示地形图的分辨率是40*40。分辨率越大，地形图纹理越细致，同时计算消耗时间也会越久。默认为40。
 
-   - `unit`: 表示训练过程中保存参数的间隔单位，分为`epoch`/`step`。使用`step`时，须在`model.train`中设置`dataset_sink_model=False`。
+   - `unit`: 表示训练过程中保存参数的间隔单位，分为`epoch`/`step`。使用`step`时，须在`model.train`中设置`dataset_sink_model=False`。默认为`step`。
 
-   - `create_landscape`: 表示绘制地形图的方式，目前支持训练过程地形图(带训练轨迹)与训练结果地形图(不带轨迹)。
+   - `create_landscape`: 表示绘制地形图的方式，目前支持训练过程地形图(带训练轨迹)与训练结果地形图(不带轨迹)。默认`{’train‘: True, ’result‘: True}`
 
-   - `num_samples`:  表示绘制地形图数据集的样本数量。512表示地形图所需样本是512。样本数越大，地形图越精确，同时计算消耗时间也会越久。
+   - `num_samples`:  表示绘制地形图数据集的样本数量。512表示地形图所需样本是512。样本数越大，地形图越精确，同时计算消耗时间也会越久。默认为2048。
 
    - `intervals`: 表示绘制地形图的区间。如`interval_1`表示绘制带训练轨迹1-5epoch地形图。
 
@@ -198,14 +198,12 @@
                                                                               "num_samples": 512,
                                                                               "intervals": [interval_1, interval_2
                                                                                            ]},
-                                                           device_ids=[1, 2],
-                                                           device_target="GPU")
+                                                           device_ids=[1, 2])
    ```
 
    - `callback_fn`: 用户需要定义函数`callback_fn`，该函数没有输入，返回`model(mindspore.train.Model)`，`network(mindspore.nn.Cell)`，`dataset(mindspore.dataset)`，`metrics(mindspore.nn.Metrics)` 。
    - `collect_landscape`: 参数定义与`SummaryCollector`一致，这里用户可以自由修改绘图参数。
    - `device_ids`: 指定地形图绘制所需要`device_ids`，支持单机多卡计算。
-   - `device_target`: 指定`device`的类型，如`GPU`、`Ascend`或`CPU`。
 
 绘制结束后，启动MindInsight，具体命令参照[MindInsight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_commands.html)界面。
 
@@ -225,11 +223,11 @@
 
 图3 训练看板
 
-点击图3损失多维函数分析，进入如下界面：
+点击图3损失函数多维分析，进入如下界面：
 
 ![loss_landscape_train.png](./images/loss_landscape_train.png)
 
-图4 损失多维函数分析-3D图
+图4 损失函数多维分析-3D图
 
 图4展示了损失函数多维分析的功能区，包含以下信息：
 
@@ -240,19 +238,19 @@
 
 ![loss_landscape_train_2](./images/loss_landscape_train_2.png)
 
-图5 损失多维函数分析-等值线图
+图5 损失函数多维分析-等值线图
 
-## Loss图形对比
+## 损失函数图形对比
 
-Loss图形对比描述了训练结束时收敛点周围的情况，用户可以通过Loss图形对比观察训练结束时收敛点周围的地形，并进行比较。
+损失函数图形对比描述了训练结束时收敛点周围的情况，用户可以通过损失函数图形对比观察训练结束时收敛点周围的地形，并进行比较。
 
-点击图2的对比分析，选择loss图形对比，进入如图6所示页面：
+点击图2的对比分析，选择损失函数图形对比，进入如图6所示页面：
 
 ![loss_landscape_result](./images/loss_landscape_result.png)
 
-图6 loss图形对比-3D图-平铺
+图6 损失函数图形对比-3D图-平铺
 
-图6展示了loss图形对比的功能区，包含以下信息：
+图6展示了损失函数图形对比的功能区，包含以下信息：
 
 1. 训练选择：用户通过选择不同的标签查看不同的图像。
 2. 可视化：等值线图、地形图、3D图分别表示同一组数据的不同展示形式，用户可自由选择查看。
@@ -260,33 +258,33 @@ Loss图形对比描述了训练结束时收敛点周围的情况，用户可以�
 
 ![loss_landscape_result_4](./images/loss_landscape_result_4.png)
 
-图7 loss图形对比-3D图-叠加
+图7 损失函数图形对比-3D图-叠加
 
 ## 使用示例分析
 
-这里以ResNet-50为例，分类任务，数据集为CIFAR-10，分析损失函数多维分析与loss图形对比。
+这里以ResNet-50为例，分类任务，数据集为CIFAR-10，分析损失函数多维分析与损失函数图形对比。
 
 ![landscape_analysis_train_1.png](./images/landscape_analysis_train_1.png)
 
-图8 ResNet-50网络1-5epoch等值线图
+图8 ResNet-50网络1-25epoch等值线图
 
 ![landscape_analysis_train_2.png](./images/landscape_analysis_train_2.png)
 
-图9 ResNet-50网络80-90epoch等值线图
+图9 ResNet-50网络26-40epoch等值线图
 
-从图8中可以看出，在训练初期，当loss标量曲线迅速下降时，loss轨迹与等值线几乎垂直；从图9中可以看出在训练结束阶段，此时loss曲线平滑，等值线图存在多个局部最优点。
+从图8中可以看出，在训练初期，当loss标量曲线迅速下降时，loss轨迹与等值线几乎垂直；从图9中可以看出在训练中期阶段，此时loss曲线下降趋于平缓，等值线图存在多个局部最优点。想要达到教程展示效果，选择区间尽可能多才能更好展示效果。
 
 论文[Visualizing the Loss Landscape of Neural Nets](https://papers.nips.cc/paper/2018/file/a41b3bb3e6b050b6c9067c67f663b915-Paper.pdf)中提到，模型收敛点附近越平缓，模型泛化能力越强，针对不同宽度的ResNet网络（这里的宽度指的是网络每个block的输入输出的通道数的大小，通道数越大，模型越宽。）
 
 ![loss_landscape_result_2](./images/loss_landscape_result_2.png)
 
-图10 loss图形对比-3D图-叠加-ResNet网络不同宽度叠加（下（resnet_interval_1）-宽度4，上（resnet_interval_2）-宽度1）
+图10 损失函数图形对比-3D图-叠加-ResNet网络不同宽度叠加（上（resnet_interval_1）-宽度4，下（resnet_interval_2）-宽度1）
 
 ![loss_landscape_result_3](./images/loss_landscape_result_3.png)
 
-图11 loss图形对比-等值线图-ResNet网络不同宽度对比（左-宽度4，右-宽度1）
+图11 损失函数图形对比-等值线图-ResNet网络不同宽度对比（左-宽度4，右-宽度1）
 
-通过图10与图11的loss图形对比可以看出，训练同样的epoch，宽度较宽的网络收敛点周围更平缓，广阔，实验证明泛化能力也更强。
+通过图10与图11的损失函数图形对比可以看出，训练同样的epoch，宽度较宽的网络收敛点周围更平缓，广阔，实验证明泛化能力也更强。
 
 ## 注意事项
 
