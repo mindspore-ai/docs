@@ -39,7 +39,7 @@ def generate_random_poetry(model, s=''):
         target_ids.append(target)
         if target == 3:
             break
-    return tokenizer.decode(token_ids + target_ids)
+    return s + tokenizer.decode(target_ids)
 
 def generate_hidden(model, head=""):
     """generate hidden"""
@@ -47,13 +47,16 @@ def generate_hidden(model, head=""):
     token_ids = token_ids[:-1]
     segment_ids = segment_ids[:-1]
     punctuations = ['，', '。']
-    punctuation_ids = [tokenizer._token_to_id[token] for token in punctuations]
+    punctuation_ids = [tokenizer.token_to_id[token] for token in punctuations]
     poetry = []
     length = 128
 
     for ch in head:
         poetry.append(ch)
-        token_id = tokenizer._token_to_id[ch]
+        try:
+            token_id = tokenizer.token_to_id[ch]
+        except KeyError:
+            return "'{}'不在词表中，请换一个字试试。".format(ch)
         token_ids.append(token_id)
         segment_ids.append(0)
         while True:
@@ -76,7 +79,7 @@ def generate_hidden(model, head=""):
             token_ids.append(target)
             segment_ids.append(0)
             if target > 3:
-                poetry.append(tokenizer._id_to_token[target])
+                poetry.append(tokenizer.id_to_token[target])
             if target in punctuation_ids:
                 break
     return ''.join(poetry)

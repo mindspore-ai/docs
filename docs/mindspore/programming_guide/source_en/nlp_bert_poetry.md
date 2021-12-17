@@ -207,7 +207,7 @@ Use MindSpore Serving to deploy the trained model as an inference service. Serve
     python poetry.py --export=True --ckpt_path=/your/ckpt/path
     ```
 
-    The `poetry.mindir` file is generated in the current path. You need to move the generated file to `serving/bert/1`.
+    The `poetry.mindir` file is generated in the path of `serving/bert/1`.
 
 - Serving server startup
 

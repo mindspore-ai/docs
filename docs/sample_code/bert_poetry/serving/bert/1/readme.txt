@@ -1,1 +1,1 @@
-You need to move the exported poetry.mindir file to thie directory
+You need to guarantee the exported poetry.mindir file lies in this directory.

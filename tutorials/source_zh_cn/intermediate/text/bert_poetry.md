@@ -210,7 +210,7 @@ python poetry.py --train=False  --ckpt_path=/your/ckpt/path
     python poetry.py --export=True --ckpt_path=/your/ckpt/path
     ```
 
-    会在当前路径下生成poetry.mindir文件，需要手动将此文件移动到`serving/bert/1`中。
+    会在`serving/bert/1`路径下生成poetry.mindir文件。
 
 - Serving服务端启动
 
