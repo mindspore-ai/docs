@@ -161,10 +161,10 @@ The specific use steps are divided into two steps. Taking the classification tas
 
    summary_dir sets the path to save the parameters. summary_collector is the initialized SummaryCollector instance, where collect_landscape in collector_specified_data contains all the parameter settings required for drawing landscape in the form of dictionary:
 
-   - `landscape_size`: It represents the resolution of the landscape. 40 indicates that the resolution of the landscape is 40 * 40. The higher the resolution, the finer the texture of the landscape, and the longer the calculation time will be.
-   - `unit`: It represents the interval unit of parameters saved during training, which is divided into `epoch`/`step`. When using `step`, you must set `dataset_sink_model=False` in  `model.train`.
-   - `create_landscape`: It represents the way of drawing landscape. At present, it supports training process landscape (with training track) and training result landscape (without track).
-   - `num_samples`: It represents the number of samples in the landscape dataset. 512 indicates that the required sample for the landscape is 512. The larger the number of samples, the more accurate the landscape is, and the longer the calculation time will be.
+   - `landscape_size`: It represents the resolution of the landscape. 40 indicates that the resolution of the landscape is 40 * 40. The higher the resolution, the finer the texture of the landscape, and the longer the calculation time will be. Default: 40.
+   - `unit`: It represents the interval unit of parameters saved during training, which is divided into `epoch`/`step`. When using `step`, you must set `dataset_sink_model=False` in  `model.train`. Default: `step`
+   - `create_landscape`: It represents the way of drawing landscape. At present, it supports training process landscape (with training track) and training result landscape (without track). Default: `{’train‘: True, ’result‘: True}`.
+   - `num_samples`: It represents the number of samples in the landscape dataset. 512 indicates that the required sample for the landscape is 512. The larger the number of samples, the more accurate the landscape is, and the longer the calculation time will be. Default: 2048.
    - `intervals`: It represents the section where the landscape is drawn. Such as `interval_1` indicates drawing 1-5epoch landscape with training track.
 
 2. Landscape drawing: using the model parameters saved in the training process, the model and data set are consistent with the training, start a new script, and generate landscape information through forward calculation without re-training. (applicable to drawing landscape by single device or multi devices Parallel Computing)
@@ -194,14 +194,12 @@ The specific use steps are divided into two steps. Taking the classification tas
                                                                               "num_samples": 512,
                                                                               "intervals": [interval_1, interval_2
                                                                                            ]},
-                                                           device_ids=[1, 2],
-                                                           device_target="GPU")
+                                                           device_ids=[1, 2])
    ```
 
    - `callback_fn`: User needs to define the function `callback_fn`, the function has no input, and returns `model(mindspore.train.Model)`, `network(mindspore.nn.Cell)`, `dataset(mindspore.dataset)`, `metrics(mindspore.nn.Metrics)`.
    - `collect_landscape`: The parameter definition is consistent with the `SummaryCollector`, where user can freely modify drawing parameters.
    - `device_ids`: Specify `device_ids` for landscape drawing, which supports single machine multi-device computing.
-   - `device_target`: Specify the type of `device`, such as `GPU`, `Ascend` or `CPU`。
 
 After drawing, start MindInsight. Refer to [MindInsight Commands](https://www.mindspore.cn/mindinsight/docs/en/master/mindinsight_commands.html) for specific commands.
 
@@ -264,19 +262,19 @@ Here, taking the classification task as an example, the network is ResNet-50 and
 
 ![landscape_analysis_train_1.png](./images/landscape_analysis_train_1.png)
 
-Figure 8: ResNet-50 Network 1-5 epoch Isoline Map
+Figure 8: ResNet-50 Network 1-25 epoch Isoline Map
 
 ![landscape_analysis_train_2.png](./images/landscape_analysis_train_2.png)
 
-Figure 9: ResNet-50 Network 80-90 epoch Isoline Map
+Figure 9: ResNet-50 Network 26-40 epoch Isoline Map
 
-As can be seen from Figure 8, at the beginning of training, when the loss scalar curve drops rapidly, the loss trajectory is almost perpendicular to the isoline; As can be seen from Figure 9, at the end of training, the loss curve is smooth, and there are multiple local best points in the Isoline Map.
+As can be seen from Figure 8, at the beginning of training, when the loss scalar curve drops rapidly, the loss trajectory is almost perpendicular to the isoline; As can be seen from Figure 9, at the middle stage of training, the loss curve tends to decline gently, and there are multiple local best points in the Isoline Map. To achieve the tutorial display effect, select as many intervals as possible to better display the effect.
 
 It is mentioned in the paper ([Visualizing the Loss Landscape of Neural Nets](https://papers.nips.cc/paper/2018/file/a41b3bb3e6b050b6c9067c67f663b915-Paper.pdf)) that the smoother the convergence point of the model, the stronger the generalization ability of the model. For ResNet networks with different widths (the width here refers to the number of input and output channels of each block of the network. The larger the number of channels, the wider the model.)
 
 ![loss_landscape_result_2](./images/loss_landscape_result_2.png)
 
-Figure 10: Loss Graphic Comparison-3D Map-Overlay-ResNet network overlapped by different widths (bottom (resnet_interval_1)-widths 4，top (resnet_interval_2)-widths 1)
+Figure 10: Loss Graphic Comparison-3D Map-Overlay-ResNet network overlapped by different widths (top (resnet_interval_1)-widths 4，bottom (resnet_interval_2)-widths 1)
 
 ![loss_landscape_result_3](./images/loss_landscape_result_3.png)
 
