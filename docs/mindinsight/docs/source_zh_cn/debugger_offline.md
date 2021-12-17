@@ -66,11 +66,31 @@ mindinsight start --port {PORT} --summary-base-dir {SUMMARY_BASE_DIR} --offline-
 
 ![debugger_offline_entry](images/debugger_offline_entry.png)
 
-图1： 离线调试器入口
+*图1： 离线调试器入口*
 
 ## 离线调试器页面介绍
 
-离线调试器界面与在线调试器相同。在线调试器的页面介绍详见[调试器页面介绍](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_online.html#id6) 。
+离线调试器界面与在线调试器大致相同。在线调试器的页面介绍详见[在线调试器页面介绍](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_online.html#id6) 。不同的是，离线调试器会在计算图的上方显示图执行历史，并且可以重置训练轮次。
+
+### 图执行历史
+
+离线调试器在计算图的上方显示图执行历史，显示离线数据情况和轮次信息，如图2所示。在`是否有数据`下拉框可以选择展示全部图执行历史或者只展示有数据的执行历史。在`图名称`下拉框可以选择只展示对应图名称的执行历史。
+
+![debugger_offline_graph_excution_history](images/debugger_offline_graph_excution_histry.png)
+
+*图2：图执行历史*
+
+### 训练轮次重置
+
+如图3所示，点击当前轮次右边的编辑图标，就会出现一个编辑框，如图4所示，输入需要重置的轮次，点击对钩符号即可。重置之后，可以查看新轮次的`张量`值、对已设置的监测点`重新检查`等。
+
+![debugger_offline_reset](images/debugger_offline_reset.png)
+
+*图3： 重置训练轮次*
+
+![debugger_offline_edit](images/debugger_offline_edit.png)
+
+*图4：重置训练轮次编辑状态*
 
 ## 使用离线调试器进行调试
 
@@ -78,27 +98,13 @@ mindinsight start --port {PORT} --summary-base-dir {SUMMARY_BASE_DIR} --offline-
 
     ![debugger_offline_waiting](images/debugger_offline_waiting.png)
 
-    图2： 调试器等待训练连接
+    *图5： 调试器等待训练连接*
 
     此时，调试器处于加载离线数据的状态。
 
 2. 稍等片刻，在MindInsight UI上可以看到弹窗，提示选择是否使用推荐监测点，接下来的使用步骤与在线调试相同。[使用调试器进行调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_online.html#id17) 。
 
-3. 与在线调试器相比，离线调试器可以重置训练轮次。如图3所示，点击右边的编辑图标，就会出现一个编辑框，如图4所示，输入需要重置的轮次，点击对钩符号即可。
-
-   ![debugger_offline_reset](images/debugger_offline_reset.png)
-
-   图3： 重置训练轮次
-
-   ![debugger_offline_edit](images/debugger_offline_edit.png)
-
-   图4：重置训练轮次编辑状态
-
-   另外，离线调试器在计算图的上方显示图执行历史，显示离线数据情况和轮次信息，如图5所示。
-
-   ![debugger_offline_graph_excution_history](images/debugger_offline_graph_excution_histry.png)
-
-   图5：图执行历史
+3. 如果需要重置训练轮次，可以参考[训练轮次重置](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_offline.html#id7) 来重置训练轮次。每个轮次的数据保存情况可以参考[图执行历史](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_offline.html#id6) 来查看。
 
 ## 离线调试器API使用样例
 

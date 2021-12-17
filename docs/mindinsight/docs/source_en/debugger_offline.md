@@ -66,11 +66,31 @@ Open MindInsight and access the debugger UI from the offline debugger entry.
 
 ![debugger_offline_entry](images/debugger_offline_entry.png)
 
-Figure 1: Offline debugger entry
+*Figure 1: Offline debugger entry*
 
 ## UI Introduction
 
-The UI of the offline debugger is the same as that of the online debugger. For details about the online debugger UI, see [Debugger UI Introduction](https://www.mindspore.cn/mindinsight/docs/en/master/debugger_online.html#debugger-ui-introduction).
+The UI of the offline debugger is almost the same as that of the online debugger. For details about the online debugger UI, see [Debugger UI Introduction](https://www.mindspore.cn/mindinsight/docs/en/master/debugger_online.html#debugger-ui-introduction). The difference is that the offline debugger will display the graph execution history above the calculation graph, and can reset the training rounds.
+
+### Graph Execution History
+
+Offline debugger displays the graph execution history above the calculation diagram, and displays the offline data and round information, as shown in Figure 2. In `Containing Data` drop-down box, you can choose to display all the graph execution history or only the execution history with data. In the `Graph Name` drop-down box, you can select to display all the execution history or only the execution history of the corresponding graph name.
+
+![debugger_offline_graph_execution_graph](images/debugger_offline_graph_excution_history.png)
+
+*Figure 2: Graph execution history*
+
+### Training Rounds Resetting
+
+As shown in Figure 3, click the edit icon on the right of current round, an edit box will appear, as shown in Figure 4. Enter the step id to be reset and click the tick icon. After reset, you can view the tensor value of the new round, recheck the set watchpoints, etc.
+
+![debugger_offline_reset](images/debugger_offline_reset.png)
+
+*Figure 3: Resetting the training step*
+
+![debugger_offline_edit](images/debugger_offline_edit.png)
+
+*Figure 4: Resetting the trainning step in edit status*
 
 ## Usage Example
 
@@ -78,27 +98,13 @@ The UI of the offline debugger is the same as that of the online debugger. For d
 
     ![debugger_waiting](images/debugger_offline_waiting.png)
 
-    Figure 2: Debugger waiting for training connection
+    *Figure 5: Debugger waiting for training connection*
 
     At this point, the debugger is in a state of loading offline data.
 
 2. Wait for a moment. A dialog box is displayed on the MindInsight UI, asking you whether to use the recommended watchpoints. The following procedures are the same as that for online debugging. [Debugger Usage Example](https://www.mindspore.cn/mindinsight/docs/en/master/debugger_online.html#debugger-usage-example).
 
-3. Compared with the online debugger, the offline debugger can reset the training step. As shown in Figure 3, click the edit icon on the right, and an edit box will appear, as shown in Figure 4. Enter the step id to be reset and click the tick icon.
-
-   ![debugger_offline_reset](images/debugger_offline_reset.png)
-
-   Figure 3: Resetting the training step
-
-   ![debugger_offline_edit](images/debugger_offline_edit.png)
-
-   Figure 4: Resetting the trainning step in edit status
-
-   In addition, the offline debugger displays the graph execution history above the calculation diagram, and displays the offline data and round information, as shown in Figure 5.
-
-   ![debugger_offline_graph_execution_graph](images/debugger_offline_graph_excution_history.png)
-
-   Figure 5: Graph execution history
+3. If you need to reset the training round, you can refer to [Training Rounds Resetting](https://www.mindspore.cn/mindinsight/docs/en/master/debugger_offline.html#training-rounds-resetting) to reset the training rounds. Refer to [Graph Execution History](https://www.mindspore.cn/mindinsight/docs/en/master/debugger_offline.html#graph-execution-history) for data saving of each round.
 
 ## Offline Debugger API example
 
