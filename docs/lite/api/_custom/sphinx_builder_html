@@ -1036,8 +1036,8 @@ class StandaloneHTMLBuilder(Builder):
             if Return_re in output and Param_re in output:
                 output = re_output.sub(r"\g<2>\n\g<1>", output)
 
-            # Add a space between "<a>" and "<em>" for c++ api.
-            space_re = re.compile(r"(\w)(</a> <em>)")
+            # Add a space between "<a>" and "<em>|<code>" for c++ api.
+            space_re = re.compile(r"(\w)(</a> (<code|<em>))")
             output = space_re.sub(r"\g<1> \g<2>", output)
 
             # Remove extra comma in sig-paren for c++ api.

@@ -89,6 +89,7 @@ def specificationsForKind(kind):
     if kind == "class":
         return [
             ":members:",
+            ":no-link:",
             # ":protected-members:",
             # ":private-members:"
         ]
@@ -191,13 +192,13 @@ with open("./SourceFileNames.txt") as f:
         else:
             shutil.copy(os.path.join(ms_path, name), "../include/")
 
-# Remove "MS_API" in classes. 
-files_copyed = glob.glob("../include/*.h")
+# Remove "MS_API".
+files_copyed = glob.glob("../include/**/*.h", recursive=True)
 for file in files_copyed:
     with open(file, "r+", encoding="utf8") as f:
         content = f.read()
-        if "class MS_API " in content:
-            content_new = content.replace("class MS_API", "class")
+        if "MS_API" in content:
+            content_new = content.replace("MS_API", "")
             f.seek(0)
             f.truncate()
             f.write(content_new)
