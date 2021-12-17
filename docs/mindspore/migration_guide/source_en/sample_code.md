@@ -86,7 +86,7 @@ MindSpore already supports most of the common [functions](https://www.mindspore.
 
 If missing operators and functions are found, we can first consider combining the missing operators and functions based on the current operators or functions, and for mainstream CV and NLP networks, new missing operators can generally be solved by combining existing operators.
 
-The combined operator can be implemented by means of a cell, which is the case in MindSpore for [nn class operator](https://gitee.com/mindspore/mindspore/tree/master/mindspore/nn). For example, the following `ReduceSumExp` operator is a combination of the existing `Exp`, `ReduceSum`, and `Log` suboperators.
+The combined operator can be implemented by means of a cell, which is the case in MindSpore for [nn class operator](https://gitee.com/mindspore/mindspore/tree/master/mindspore/python/mindspore/nn). For example, the following `ReduceSumExp` operator is a combination of the existing `Exp`, `ReduceSum`, and `Log` suboperators.
 
 ```python
 class ReduceLogSumExp(Cell):

@@ -275,7 +275,7 @@ As shown in the parameter update formula, THOR needs to additionally compute an 
 
 For more introduction of THOR optimizer, please see [THOR paper](https://www.aaai.org/AAAI21Papers/AAAI-6611.ChenM.pdf).
 
-When calling the second-order optimizer THOR provided by MindSpore, THOR will automatically call the conversion interface to convert the Conv2d and Dense layers in the original network model into corresponding [Conv2dThor](https://gitee.com/mindspore/mindspore/blob/master/mindspore/nn/layer/thor_layer.py) and [DenseThor](https://gitee.com/mindspore/mindspore/blob/master/mindspore/nn/layer/thor_layer.py).
+When calling the second-order optimizer THOR provided by MindSpore, THOR will automatically call the conversion interface to convert the Conv2d and Dense layers in the original network model into corresponding [Conv2dThor](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/nn/layer/thor_layer.py) and [DenseThor](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/nn/layer/thor_layer.py).
 And the FIM of each layer is computed and saved in Conv2dThor and DenseThor.
 
 > Compared to the original network model, conversion network model has the same backbone and weights.
@@ -325,7 +325,7 @@ if __name__ == "__main__":
 
 ### Configuring the Network Training
 
-Use the `model.train` API provided by MindSpore to easily train the network. THOR reduces the computation workload and improves the computation speed by reducing the frequency of updating the second-order matrix. Therefore, the [ModelThor](https://gitee.com/mindspore/mindspore/blob/master/mindspore/train/train_thor/model_thor.py) class is redefined to inherit the Model class provided by MindSpore. The parameter of THOR for controlling the frequency of updating the second-order matrix can be obtained by the ModelThor class. You can adjust this parameter to optimize the overall performance.
+Use the `model.train` API provided by MindSpore to easily train the network. THOR reduces the computation workload and improves the computation speed by reducing the frequency of updating the second-order matrix. Therefore, the [ModelThor](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/train/train_thor/model_thor.py) class is redefined to inherit the Model class provided by MindSpore. The parameter of THOR for controlling the frequency of updating the second-order matrix can be obtained by the ModelThor class. You can adjust this parameter to optimize the overall performance.
 MindSpore provides a one-click conversion interface from Model class to ModelThor class.
 
 ```python

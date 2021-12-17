@@ -400,4 +400,4 @@ loss = F.depend(loss, self.optimizer(grads))
 
 当我们使用  `TrainOneStepCell` 添加反向网络结构后，仍可以使用 `Model` 类进行封装，但此时不需要再给 `Model` 传入 loss、优化器这两个参数了，因为传入的网络已经包含了正向+反向结构。最后，通过调用  `model.train()` ，开始正常的训练流程。
 
-参考链接： [TrainOneStepCell](https://gitee.com/mindspore/mindspore/blob/master/mindspore/nn/wrap/cell_wrapper.py) 、 [TrainOneStepWithLossScale](https://gitee.com/mindspore/mindspore/blob/master/mindspore/nn/wrap/loss_scale.py)
+参考链接： [TrainOneStepCell](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/nn/wrap/cell_wrapper.py) 、 [TrainOneStepWithLossScale](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/nn/wrap/loss_scale.py)

@@ -84,7 +84,7 @@ MindSpore 已支持绝大多数常用 [功能](https://www.mindspore.cn/docs/pro
 
 如果发现有缺失的算子和功能，首先可考虑基于当前算子或功能来组合出缺失的算子和功能，对于主流的 CV 和 NLP 类网络，新的缺失算子一般都可以通过组合已有算子的方式来解决。
 
-组合的算子可以通过 Cell 的方式实现，在 MindSpore 中，[nn类算子](https://gitee.com/mindspore/mindspore/tree/master/mindspore/nn) 就是通过这种方式实现的。例如下面的 `ReduceSumExp` 算子，它是由已有的`Exp`、`ReduceSum`、`Log`小算子组合而成：
+组合的算子可以通过 Cell 的方式实现，在 MindSpore 中，[nn类算子](https://gitee.com/mindspore/mindspore/tree/master/mindspore/python/mindspore/nn) 就是通过这种方式实现的。例如下面的 `ReduceSumExp` 算子，它是由已有的`Exp`、`ReduceSum`、`Log`小算子组合而成：
 
 ```python
 class ReduceLogSumExp(Cell):
