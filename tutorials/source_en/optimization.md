@@ -56,7 +56,7 @@ A code example is as follows:
 ```python
 from mindspore import nn
 
-optim = nn.Momentum(params=net.trainable_params(), learning_rate=0.1, 0.9)
+optim = nn.Momentum(net.trainable_params(), 0.1, 0.9)
 ```
 
 ## Training
@@ -133,7 +133,7 @@ dataset = dataset.map(operations=type_cast_op_label, input_columns="label")
 dataset = dataset.batch(batch_size)
 
 # Define hyperparameters, a loss function, and an optimizer.
-optim = nn.Momentum(params=net.trainable_params(), learning_rate, 0.9)
+optim = nn.Momentum(net.trainable_params(), learning_rate, 0.9)
 loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
 
 # Enter the epoch and dataset for training.
