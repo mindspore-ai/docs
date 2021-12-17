@@ -389,4 +389,4 @@ The output is as follows:
  [5. 5. 5.]]
 ```
 
-Specific usage methods can refer to the implementation of [start_overflow_check functions](https://gitee.com/mindspore/mindspore/blob/master/mindspore/nn/wrap/loss_scale.py) in the overflow detection logic.
+Specific usage methods can refer to the implementation of [start_overflow_check functions](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/python/mindspore/nn/wrap/loss_scale.py) in the overflow detection logic.
