@@ -188,7 +188,7 @@ cmake . -DMINDSPORE_PATH=`pip3 show mindspore-ascend | grep Location | awk '{pri
 make
 ```
 
-编译完成后，在`ascend910_resnet50_preprocess_sample`下会生成可执行`main`文件。
+编译完成后，在`ascend910_resnet50_preprocess_sample`下会生成可执行文件。
 
 ## 执行推理并查看结果
 

@@ -10,7 +10,7 @@
     - [导出MindIR模型文件](#导出mindir模型文件)
     - [推理目录结构介绍](#推理目录结构介绍)
     - [推理代码介绍](#推理代码介绍)
-        - [需要手动定义预处理的模型推理方式：main.cc](#需要手动定义预处理的模型推理方式maincc)
+        - [需要手动定义预处理的模型推理方式：main.cc](#需要手动定义预处理的模型推理方式main.cc)
             - [使用CPU算子数据预处理](#使用cpu算子数据预处理)
             - [使用Ascend 310算子数据预处理](#使用ascend-310算子数据预处理)
         - [免手动定义预处理的模型推理方式：main_hide_preprocess.cc](#免手动定义预处理的模型推理方式main_hide_preprocesscc)
@@ -28,7 +28,7 @@ Ascend 310是面向边缘场景的高能效高集成度AI处理器，本教程�
 
 1. 导出MindIR模型文件，这里以ResNet-50模型为例。
 
-2. 编译推理代码，生成可执行`main`文件。
+2. 编译推理代码，生成可执行文件。
 
 3. 加载保存的MindIR模型，执行推理并查看结果。
 
@@ -368,7 +368,7 @@ cmake . -DMINDSPORE_PATH=`pip3 show mindspore-ascend | grep Location | awk '{pri
 make
 ```
 
-编译完成后，在`ascend310_resnet50_preprocess_sample`下会生成可执行`main`文件。
+编译完成后，在`ascend310_resnet50_preprocess_sample`下会生成可执行文件。
 
 ## 执行推理并查看结果
 
