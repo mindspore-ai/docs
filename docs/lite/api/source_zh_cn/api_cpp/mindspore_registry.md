@@ -7,22 +7,22 @@
 | 类名 | 描述 |
 | --- | --- |
 | [NodeParserRegistry](#nodeparserregistry) | 扩展Node解析的注册类。|
-| [REG_NODE_PARSER](#reg_node_parser) | 注册扩展Node解析。|
+| [REG_NODE_PARSER](#reg-node-parser) | 注册扩展Node解析。|
 | [ModelParserRegistry](#modelparserregistry) | 扩展Model解析的注册类。|
-| [REG_MODEL_PARSER](#reg_model_parser) | 注册扩展Model解析。|
+| [REG_MODEL_PARSER](#reg-model-parser) | 注册扩展Model解析。|
 | [PassBase](#passbase) | Pass的基类。|
 | [PassPosition](#passposition) | 扩展Pass的运行位置。|
 | [PassRegistry](#passregistry) | 扩展Pass注册构造类。|
-| [REG_PASS](#reg_pass) | 注册扩展Pass。|
-| [REG_SCHEDULED_PASS](#reg_scheduled_pass) | 注册扩展Pass的调度顺序。|
+| [REG_PASS](#reg-pass) | 注册扩展Pass。|
+| [REG_SCHEDULED_PASS](#reg-scheduled-pass) | 注册扩展Pass的调度顺序。|
 | [RegisterKernel](#registerkernel) | 算子注册实现类。|
 | [KernelReg](#kernelreg) | 算子注册构造类。|
-| [REGISTER_KERNEL](#register_kernel) | 注册算子。|
-| [REGISTER_CUSTOM_KERNEL](#register_custom_kernel) | 注册Custom算子注册。|
+| [REGISTER_KERNEL](#register-kernel) | 注册算子。|
+| [REGISTER_CUSTOM_KERNEL](#register-custom-kernel) | 注册Custom算子注册。|
 | [RegisterKernelInterface](#registerkernelinterface) | 算子扩展能力注册实现类。|
 | [KernelInterfaceReg](#kernelinterfacereg) | 算子扩展能力注册构造类。|
-| [REGISTER_KERNEL_INTERFACE](#register_kernel_interface) | 注册算子扩展能力。|
-| [REGISTER_CUSTOM_KERNEL_INTERFACE](#register_custom_kernel_interface) | 注册Custom算子扩展能力。|
+| [REGISTER_KERNEL_INTERFACE](#register-kernel-interface) | 注册算子扩展能力。|
+| [REGISTER_CUSTOM_KERNEL_INTERFACE](#register-custom-kernel-interface) | 注册Custom算子扩展能力。|
 
 ## NodeParserRegistry
 
@@ -55,9 +55,9 @@ NodeParserRegistry(converter::FmkType fmk_type, const std::string &node_type,
 
 析构函数。
 
-## 公有成员函数
+### 公有成员函数
 
-### GetNodeParser
+#### GetNodeParser
 
 ```c++
 static converter::NodeParserPtr GetNodeParser(converter::FmkType fmk_type, const std::string &node_type);
@@ -396,7 +396,7 @@ static Status RegKernel(const std::string &arch, const std::string &provider, Da
 #### RegCustomKernel
 
 ``` c++
-static Status RegCustomKernel(const std::string &arch, const std::string &provider, DataType data_type, const std::string &op_type, const CreateKernel creator)
+static Status RegCustomKernel(const std::string &arch, const std::string &provider, DataType data_type, const std::string &type, const CreateKernel creator)
 ```
 
 Custom算子注册。
@@ -409,7 +409,7 @@ Custom算子注册。
 
     - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_datatype.html)。
 
-    - `op_type`: 算子类型，由用户自定义，确保唯一即可。
+    - `type`: 算子类型，由用户自定义，确保唯一即可。
 
     - `creator`: 创建算子的函数指针，具体见[CreateKernel](#createkernel)的说明。
 
