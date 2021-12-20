@@ -24,7 +24,7 @@ Ascend 310 is a highly efficient and integrated AI processor oriented to edge sc
 
 1. Export the MindIR model file. The ResNet-50 model is used as an example.
 
-2. Build the inference code to generate an executable `main` file.
+2. Build the inference code to generate an executable file.
 
 3. Load the saved MindIR model, perform inference, and view the result.
 
@@ -380,7 +380,7 @@ Run the `make` command for building.
 make
 ```
 
-After building, the executable `main` file is generated in `ascend310_resnet50_preprocess_sample`.
+After building, the executable file is generated in `ascend310_resnet50_preprocess_sample`.
 
 ## Performing Inference and Viewing the Result
 

@@ -188,7 +188,7 @@ Run the `make` command for building.
 make
 ```
 
-After building, the executable `main` file is generated in `ascend910_resnet50_preprocess_sample`.
+After building, the executable file is generated in `ascend910_resnet50_preprocess_sample`.
 
 ## Performing Inference and Viewing the Result
 
