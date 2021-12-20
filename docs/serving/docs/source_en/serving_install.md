@@ -9,17 +9,34 @@
         - [Installation by pip](#installation-by-pip)
         - [Installation by Source Code](#installation-by-source-code)
     - [Installation Verification](#installation-verification)
-    - [Configuring Environment Variables](#configuring-environment-variables)
 
 <!-- /TOC -->
 
 ## Installation
 
+MindSpore Serving depends on the MindSpore or MindSpore Lite inference framework. We need to select one of them as the Serving Inference backend.
+
+MindSpore and MindSpore Lite have different build packages for different hardware platforms. The following table lists the target devices and model formats supported by each build package.
+
+|Inference backend|Build platform|Target device|Supported model formats|
+|---------| --- | --- | -------- |
+|MindSpore| Nvidia GPU | Nvidia GPU | `MindIR` |
+|  | Ascend | Ascend 910 | `MindIR` |
+|  |  | Ascend 710/310 | `MindIR`, `OM` |
+|MindSpore Lite| Nvidia GPU | Nvidia GPU, CPU | `MindIR_Opt` |
+|  | Ascend | Ascend 310, CPU | `MindIR_Opt` |
+|  | CPU | CPU | `MindIR_Opt` |
+
 When [MindSpore](#https://www.mindspore.cn/) is used as the inference backend, MindSpore Serving supports the Ascend 910/710/310 and Nvidia GPU environments. The Ascend 710/310 environment supports both `OM` and `MindIR` model formats, and the Ascend 910 and GPU environment only supports the `MindIR` model format.
+
+For details about how to install and configure MindSpore, see [Installing MindSpore](https://gitee.com/mindspore/mindspore/blob/master/README.md#installation) and [Configuring MindSpore](https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend_install_source_en.md#configuring-environment-variables).
 
 When [MindSpore Lite](#https://www.mindspore.cn/lite) is used as the inference backend, MindSpore Serving supports Ascend 310, Nvidia GPU and CPU environments. Only the `MindIR_Opt` model format is supported. Currently, models in `MindIR` format exported from MindSpore and models exported from other frameworks need to be converted to `MindIR_Opt` format using MindSpore Lite conversion tool. During model conversion, if the target device is set to `Ascend310`, the generated `MindIR_Opt` model can be used only in the Ascend 310 environment. Otherwise, the generated `MindIR_Opt` model can be used only in the Nvidia GPU and CPU environments.
 
-MindSpore Serving depends on the MindSpore training and inference framework. Therefore, install [MindSpore](https://gitee.com/mindspore/mindspore/blob/master/README.md#installation) and then MindSpore Serving. You can install MindInsight either by pip or by source code.
+For details about how to compile and install MindSpore Lite, see the [MindSpore Lite Documentation](https://www.mindspore.cn/lite/docs/en/master/index.html).
+We should configure the environment variable `LD_LIBRARY_PATH` to indicates the installation path of `libmindspore-lite.so`.
+
+We can install MindSpore Serving either by pip or by source code.
 
 ### Installation by pip
 
@@ -33,38 +50,25 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/Servin
 
 > - `{version}` denotes the version of MindSpore Serving. For example, when you are downloading MindSpore Serving 1.1.0, `{version}` should be 1.1.0.
 > - `{arch}` denotes the system architecture. For example, the Linux system you are using is x86 architecture 64-bit, `{arch}` should be `x86_64`. If the system is ARM architecture 64-bit, then it should be `aarch64`.
-> - `{python_version}` spcecifies the python version for which MindSpore is built. If you wish to use Python3.7.5,`{python_version}` should be `cp37-cp37m`. If Python3.9.0 is used, it should be `cp39-cp39`. Please use the same Python environment whereby MindSpore is installed.
+> - `{python_version}` spcecifies the python version for which MindSpore Serving is built. If you wish to use Python3.7.5,`{python_version}` should be `cp37-cp37m`. If Python3.9.0 is used, it should be `cp39-cp39`. Please use the same Python environment whereby MindSpore Serving is installed.
 
 ### Installation by Source Code
 
-Download the [source code](https://gitee.com/mindspore/serving) and go to the `serving` directory.
-
-Method 1: Specify the path of the installed or built MindSpore package on which Serving depends and install Serving.
+Install Serving using the [source code](https://gitee.com/mindspore/serving).
 
 ```shell
-sh build.sh -p $MINDSPORE_LIB_PATH
+git clone https://gitee.com/mindspore/serving.git -b master
+cd serving
+bash build.sh
 ```
 
-In the preceding information, `build.sh` is the build script file in the `serving` directory, and `$MINDSPORE_LIB_PATH` is the `lib` directory in the installation path of the MindSpore software package, for example, `softwarepath/mindspore/lib`. This path contains the library files on which MindSpore depends.
+For the `bash build.sh` above, we can add `-jn`, for example `-j16`, to accelerate compilation. By adding `-S on`
+option, third-party dependencies can be downloaded from gitee instead of github.
 
-Method 2: Directly build Serving. The MindSpore package is built together with Serving. You need to configure the [environment variables](https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend_install_source_en.md#configuring-environment-variables) for MindSpore building.
+After the build is complete, find the .whl installation package of Serving in the `serving/build/package/` directory
+and install it.
 
-```shell
-# GPU
-sh build.sh -e gpu
-# Ascend 910/710/310
-sh build.sh -e ascend
-```
-
-In the preceding information, `build.sh` is the build script file in the `serving` directory. After the build is complete, find the .whl installation package of MindSpore in the `serving/third_party/mindspore/build/package/` directory and install it.
-
-```shell
-pip install mindspore_ascend-{version}-{python_version}-linux_{arch}.whl
-```
-
-Find the .whl installation package of Serving in the `serving/build/package/` directory and install it.
-
-```shell
+```python
 pip install mindspore_serving-{version}-{python_version}-linux_{arch}.whl
 ```
 
@@ -75,9 +79,3 @@ Run the following commands to verify the installation. Import the Python module.
 ```python
 from mindspore_serving import server
 ```
-
-### Configuring Environment Variables
-
-To run MindSpore Serving, configure the following environment variables:
-
-- MindSpore Serving depends on MindSpore. You need to configure [environment variables](https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend_install_source_en.md#configuring-environment-variables) to run MindSpore.
