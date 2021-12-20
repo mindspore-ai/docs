@@ -16,8 +16,10 @@
 | [Ascend910DeviceInfo](#ascend910deviceinfo) | 模型运行在Ascend910上的配置，MindSpore Lite不支持。 |
 | [Ascend310DeviceInfo](#ascend310deviceinfo) | 模型运行在Ascend310上的配置，MindSpore Lite不支持。 |
 | [Serialization](#serialization) | 汇总了模型文件读写的方法。 |
+| [Buffer](#buffer) | Buff数据类。 |
 | [Model](#model) | MindSpore中的模型，便于计算图管理。 |
 | [MSTensor](#mstensor) | MindSpore中的张量。 |
+| [QuantParam](#quantparam) | MSTensor中的一组量化参数。 |
 | [MSKernelCallBack](#mskernelcallback) | MindSpore回调函数包装器，仅MindSpore Lite支持。 |
 | [MSCallBackParam](#mscallbackparam) | MindSpore回调函数的参数，仅MindSpore Lite支持。 |
 | [Delegate](#delegate) | MindSpore Lite接入第三方AI框架的代理，仅MindSpore Lite支持。 |
@@ -29,13 +31,22 @@
 | [AccuracyMetrics](#accuracymetrics) | MindSpore Lite训练精度类，仅MindSpore Lite支持。 |
 | [Metrics](#metrics) | MindSpore Lite训练指标类，仅MindSpore Lite支持。 |
 | [TrainCallBack](#traincallback) | MindSpore Lite训练回调类，仅MindSpore Lite支持。 |
+| [TrainCallBackData](#traincallbackdata) | 定义了训练回调的一组参数，仅MindSpore Lite支持。 |
 | [CkptSaver](#ckptsaver) | MindSpore Lite训练模型文件保存类，仅MindSpore Lite支持。 |
 | [LossMonitor](#lossmonitor) | MindSpore Lite训练学习率调度类，仅MindSpore Lite支持。 |
 | [LRScheduler](#lrscheduler) | MindSpore Lite训练配置类，仅MindSpore Lite支持。 |
+| [StepLRLambda](#steplrlambda) | MindSpore Lite训练学习率的一组参数，仅MindSpore Lite支持。 |
+| [MultiplicativeLRLambda](#multiplicativelrlambda) | 每个epoch将学习率乘以一个因子，仅MindSpore Lite支持。 |
 | [TimeMonitor](#timemonitor) | MindSpore Lite训练时间监测类，仅MindSpore Lite支持。 |
 | [TrainAccuracy](#trainaccuracy) | MindSpore Lite训练学习率调度类，仅MindSpore Lite支持。 |
+| [CharVersion](#charversion) | 获取当前版本号，仅MindSpore Lite支持。 |
 | [Version](#version) | 获取当前版本号，仅MindSpore Lite支持。 |
-| [Allocator](#id59) | 内存管理基类。 |
+| [Allocator](#allocator) | 内存管理基类。 |
+| [Status](#status) | 返回状态类。 |
+| [Graph](#graph) | 图类。 |
+| [CellBase](#cellbase) | 容器基类。 |
+| [Cell](#cell) | 容器类。 |
+| [GraphCell](#graphcell) | 图容器类。 |
 
 ### 枚举
 
@@ -44,11 +55,41 @@
 | [mindspore::DataType](https://www.mindspore.cn/lite/api/zh-CN/r1.5/api_cpp/mindspore_datatype.html) | MindSpore MSTensor保存的数据支持的类型。 |
 | [mindspore::Format](https://www.mindspore.cn/lite/api/zh-CN/r1.5/api_cpp/mindspore_format.html) | MindSpore MSTensor保存的数据支持的排列格式。 |
 
+### 全局方法
+
+| 方法名 | 描述 |
+| --- | --- |
+| StringToChar | 将std::string转换成std::vector<char\>。 |
+| CharToString | 将std::vector<char\>转换成std::string。 |
+| PairStringToChar | 将std::pair<std::string, int32_t\>转换成std::pair<std::vector<char\>, int32_t\>。 |
+| PairCharToString | 将std::pair<std::vector<char\>, int32_t\>转换成std::pair<std::string, int32_t\>。 |
+| VectorStringToChar | 将std::vector<std::string\>转换成std::vector<std::vector<char\>\>。 |
+| VectorCharToString | 将std::vector<std::vector<char\>\>转换成std::vector<std::string\>。 |
+| SetStringToChar | 将std::set<std::string\>转换成std::set<std::vector<char\>\>。 |
+| SetCharToString | 将std::set<std::vector<char\>\>转换成std::set<std::string\>。 |
+| MapStringToChar | 将std::map<std::string, int32_t\>转换成std::map<std::vector<char\>, int32_t\>。 |
+| MapCharToString | 将std::map<std::vector<char\>, int32_t\>转换成std::map<std::string, int32_t\>。 |
+| UnorderedMapStringToChar | 将std::unordered_map<std::string, std::string\>转换成std::map<std::vector<char\>, std::vector<char\>\>。 |
+| UnorderedMapCharToString | 将std::map<std::vector<char\>, std::vector<char\>\>转换成std::unordered_map<std::string, std::string\>。 |
+| ClassIndexStringToChar | 将std::vector<std::pair<std::string, std::vector<int32_t\>\>\>转换成std::vector<std::pair<std::vector<char\>, std::vector<int32_t\>\>\>。 |
+| ClassIndexCharToString | 将std::vector<std::pair<std::vector<char\>, std::vector<int32_t\>\>\>转换成std::vector<std::pair<std::string, std::vector<int32_t\>\>\>。 |
+| PairStringInt64ToPairCharInt64 | 将std::vector<std::pair<std::string, int64_t\>\>转换成std::vector<std::pair<std::vector<char\>, int64_t\>\>。 |
+| PadInfoStringToChar | 将std::map<std::string, T\>转换成std::map<std::vector<char\>, T\>。 |
+| PadInfoCharToString | 将std::map<std::vector<char\>, T\>转换成std::map<std::string, T\>。 |
+| TensorMapCharToString | 将std::map<std::vector<char\>, T\>转换成std::unordered_map<std::string, T\>。 |
+
 ## Context
 
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r1.5/include/api/context.h)&gt;
 
 Context类用于保存执行中的环境变量。
+
+### 构造函数和析构函数
+
+```cpp
+Context();
+~Context() = default;
+```
 
 ### 公有成员函数
 
@@ -190,6 +231,13 @@ std::vector<std::shared_ptr<DeviceInfoContext>> &MutableDeviceInfo();
 
 DeviceInfoContext类定义不同硬件设备的环境信息。
 
+### 构造函数和析构函数
+
+```cpp
+DeviceInfoContext();
+virtual ~DeviceInfoContext() = default;
+```
+
 ### 公有成员函数
 
 #### GetDeviceType
@@ -296,10 +344,11 @@ std::shared_ptr<Allocator> GetAllocator() const;
 
 ### 公有成员函数
 
-| 函数                                                                                                        | 说明                                                                                                                                                                                                                                                   |
-| ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `void SetEnableFP16(bool is_fp16)`                   | 用于指定是否以FP16精度进行推理<br><br> - `is_fp16`: 是否以FP16精度进行推理                                                                                                                                                            |
-| `bool GetEnableFP16() const`                                       | - 返回值: 已配置的精度模式                                                                                                                                                                                                                               |
+|     函数     |     说明      |
+| ------------ | ------------ |
+| `enum DeviceType GetDeviceType() const` | - 返回值: DeviceType::kCPU |
+| `void SetEnableFP16(bool is_fp16)`      | 用于指定是否以FP16精度进行推理<br><br> - `is_fp16`: 是否以FP16精度进行推理 |
+| `bool GetEnableFP16() const`            | - 返回值: 已配置的精度模式 |
 
 ## GPUDeviceInfo
 
@@ -309,12 +358,15 @@ std::shared_ptr<Allocator> GetAllocator() const;
 
 ### 公有成员函数
 
-| 函数                                                                                                        | 说明                                                                                                                                                                                                                                                   |
-| ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `void SetDeviceID(uint32_t device_id)`                   | 用于指定设备ID<br><br> - `device_id`: 设备ID                                                                                                                                                            |
-| `uint32_t GetDeviceID() const`                                       | - 返回值: 已配置的设备ID                                                                                                                                                                                                                               |
-| `void SetPrecisionMode(const std::string &precision_mode)`                   | 用于指定推理时算子精度<br><br> - `precision_mode`: 可选值`origin`(以模型中指定精度进行推理), `fp16`(以FP16精度进行推理)，默认值: `origin`                                                                                                                                                     |
-| `std::string GetPrecisionMode() const`                                       | - 返回值: 已配置的精度模式                                                                                                                                                                                                                               |
+|     函数     |     说明      |
+| ------------ | ------------ |
+| `enum DeviceType GetDeviceType() const` | - 返回值: DeviceType::kGPU |
+| `void SetDeviceID(uint32_t device_id)`  | 用于指定设备ID<br><br> - `device_id`: 设备ID |
+| `uint32_t GetDeviceID() const`          | - 返回值: 已配置的设备ID |
+| `void SetPrecisionMode(const std::string &precision_mode)` | 用于指定推理时算子精度<br><br> - `precision_mode`: 可选值`origin`(以模型中指定精度进行推理), `fp16`(以FP16精度进行推理)，默认值: `origin` |
+| `std::string GetPrecisionMode() const`  | - 返回值: 已配置的精度模式 |
+| `void SetEnableFP16(bool is_fp16)`      | 用于指定是否以FP16精度进行推理<br><br> - `is_fp16`: 是否以FP16精度进行推理 |
+| `bool GetEnableFP16() const`            | - 返回值: 已配置的精度模式 |
 
 ## KirinNPUDeviceInfo
 
@@ -324,10 +376,11 @@ std::shared_ptr<Allocator> GetAllocator() const;
 
 ### 公有成员函数
 
-| 函数                                                                                                        | 说明                                                                                                                                                                                                                                                   |
-| ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `void SetFrequency(int frequency)`                   | 用于指定NPU频率<br><br> - `frequency`: 设置为1（低功耗）、2（均衡）、3（高性能）、4（极致性能），默认为3                                                                                                                                                            |
-| `int GetFrequency() const`                                       | - 返回值: 已配置的NPU频率模式                                                                                                                                                                                                                               |
+|     函数     |     说明      |
+| ------------ | ------------ |
+| `enum DeviceType GetDeviceType() const` | - 返回值: DeviceType::kGPU |
+| `void SetFrequency(int frequency)`      | 用于指定NPU频率<br><br> - `frequency`: 设置为1（低功耗）、2（均衡）、3（高性能）、4（极致性能），默认为3 |
+| `int GetFrequency() const`              | - 返回值: 已配置的NPU频率模式 |
 
 ## Ascend910DeviceInfo
 
@@ -439,6 +492,41 @@ Status Load(const void *model_data, size_t data_size, ModelType model_type, Grap
 
   状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
 
+#### SetParameters
+
+配置模型参数。
+
+```cpp
+static Status SetParameters(const std::map<std::string, Buffer> &parameters, Model *model);
+```
+
+- 参数
+
+    - `parameters`：参数。
+    - `model`：模型。
+
+- 返回值
+
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
+#### ExportModel
+
+导出训练模型，MindSpore Lite训练使用。
+
+```cpp
+static Status ExportModel(const Model &model, ModelType model_type, Buffer *model_data);
+```
+
+- 参数
+
+    - `model`：模型数据。
+    - `model_type`：模型文件类型。
+    - `model_data`：模型参数数据。
+
+ - 返回值
+
+    状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
 #### ExportModel
 
 导出训练模型，MindSpore Lite训练使用。
@@ -461,6 +549,103 @@ static Status ExportModel(const Model &model, ModelType model_type, const std::s
 - 返回值
 
   状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
+## Buffer
+
+\#include &lt;types.h&gt;
+
+Buffer定义了MindSpore中Buffer数据的结构。
+
+### 构造函数和析构函数
+
+```cpp
+  Buffer();
+  Buffer(const void *data, size_t data_len);
+  ~Buffer();
+```
+
+### 公有成员函数
+
+#### Data
+
+```cpp
+const void *Data() const;
+```
+
+获取只读的数据地址。
+
+- 返回值
+
+  const void指针。
+
+#### MutableData
+
+```cpp
+void *MutableData();
+```
+
+获取可写的数据地址。
+
+- 返回值
+
+  void指针。
+
+#### DataSize
+
+```cpp
+size_t DataSize() const;
+```
+
+获取data大小。
+
+- 返回值
+
+  当前data大小。
+
+#### ResizeData
+
+```cpp
+bool ResizeData(size_t data_len);
+```
+
+重置data大小。
+
+- 参数
+
+    - `data_len`: data大小
+
+- 返回值
+
+  是否配置成功。
+
+#### SetData
+
+```cpp
+bool SetData(const void *data, size_t data_len);
+```
+
+配置Data和大小。
+
+- 参数
+
+    - `data`: data地址
+    - `data_len`: data大小
+
+- 返回值
+
+  是否配置成功。
+
+#### Clone
+
+```cpp
+Buffer Clone() const;
+```
+
+拷贝一份自身的副本。
+
+- 返回值
+
+  指向副本的指针。
 
 ## Model
 
@@ -609,6 +794,54 @@ MSTensor GetInputByTensorName(const std::string &tensor_name);
 - 返回值
 
   指定名字的输入张量，如果该名字不存在则返回非法张量。
+
+#### GetGradients
+
+```cpp
+std::vector<MSTensor> GetGradients() const;
+```
+
+获取所有Tensor的梯度。
+
+- 返回值
+
+  获取所有Tensor的梯度。
+
+#### ApplyGradients
+
+```cpp
+Status ApplyGradients(const std::vector<MSTensor> &gradients);
+```
+
+应用所有Tensor的梯度。
+
+- 返回值
+
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
+#### GetOptimizerParams
+
+```cpp
+std::vector<MSTensor> GetOptimizerParams() const;
+```
+
+获取optimizer参数MSTensor。
+
+- 返回值
+
+  所有optimizer参数MSTensor。
+
+#### SetOptimizerParams
+
+```cpp
+Status SetOptimizerParams(const std::vector<MSTensor> &params);
+```
+
+更新optimizer参数。
+
+- 返回值
+
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
 
 #### GetOutputs
 
@@ -799,6 +1032,7 @@ static bool CheckModelSupport(enum DeviceType device_type, ModelType model_type)
 MSTensor();
 explicit MSTensor(const std::shared_ptr<Impl> &impl);
 MSTensor(const std::string &name, DataType type, const std::vector<int64_t> &shape, const void *data, size_t data_len);
+explicit MSTensor(std::nullptr_t);
 ~MSTensor();
 ```
 
@@ -840,6 +1074,27 @@ MSTensor *CreateRefTensor(const std::string &name, DataType type, const std::vec
     - `type`：数据类型。
     - `shape`：形状。
     - `data`：数据指针，指向一段已开辟的内存。
+    - `data_len`：数据长度，以字节为单位。
+
+- 返回值
+
+  `MStensor`指针。
+
+#### CreateDevTensor
+
+```cpp
+static inline MSTensor *CreateDevTensor(const std::string &name, DataType type, const std::vector<int64_t> &shape,
+                                        const void *data, size_t data_len) noexcept;
+```
+
+创建一个`MSTensor`对象，其device数据可以直接由`Model`访问，必须与`DestroyTensorPtr`成对使用。
+
+- 参数
+
+    - `name`: 名称。
+    - `type`：数据类型。
+    - `shape`：形状。
+    - `data`：数据指针，指向一段已开辟的device内存。
     - `data_len`：数据长度，以字节为单位。
 
 - 返回值
@@ -1013,6 +1268,18 @@ bool operator==(std::nullptr_t) const;
 
   `MSTensor`是否合法。
 
+#### operator!=(std::nullptr_t)
+
+```cpp
+bool operator!=(std::nullptr_t) const;
+```
+
+判断`MSTensor`是否合法。
+
+- 返回值
+
+  `MSTensor`是否合法。
+
 #### operator==(const MSTensor &tensor)
 
 ```cpp
@@ -1112,6 +1379,14 @@ void SetQuantParams(std::vector<QuantParam> quant_params);
 ```
 
 设置`MSTensor`的量化参数，仅MindSpore Lite支持，目前在[Delegate](#delegate)机制使用。
+
+#### impl
+
+```cpp
+const std::shared_ptr<Impl> impl()
+```
+
+获取实现类的指针，仅MindSpore Lite支持。
 
 ## QuantParam
 
@@ -1380,7 +1655,7 @@ const std::vector<mindspore::MSTensor> &inputs();
 
   [**MSTensor**](https://www.mindspore.cn/lite/api/zh-CN/r1.5/api_cpp/mindspore.html#mstensor)的列表。
 
-#### inputs
+#### outputs
 
 ```cpp
 const std::vector<mindspore::MSTensor> &outputs();
@@ -1446,6 +1721,12 @@ MixPrecisionCfg mix_precision_cfg_;
 
 混合精度配置。
 
+```cpp
+bool accumulate_gradients_;
+```
+
+是否累积梯度。
+
 ## MixPrecisionCfg
 
 \#include &lt;[cfg.h](https://gitee.com/mindspore/mindspore/blob/r1.5/include/api/cfg.h)&gt;
@@ -1481,6 +1762,12 @@ uint32_t num_of_not_nan_iter_th_;
 ```
 
 动态损失阈值。
+
+```cpp
+bool is_raw_mix_precision_;
+```
+
+原始模型是否是原生混合精度模型。
 
 ## AccuracyMetrics
 
@@ -1856,7 +2143,7 @@ int MultiplicativeLRLambda(float *lr, int epoch, void *multiplication);
 
 ## TrainAccuracy
 
-\#include &lt;[lr_scheduler.h](https://gitee.com/mindspore/mindspore/blob/r1.5/include/api/callback/lr_scheduler.h)&gt;
+\#include &lt;[train_accuracy.h](https://gitee.com/mindspore/mindspore/blob/r1.5/include/api/callback/train_accuracy.h)&gt;
 
 `Metrics`MindSpore Lite训练学习率调度类。
 
@@ -1890,6 +2177,20 @@ constexpr int METRICS_MULTILABEL = 1;
 - 返回值
 
   包含`GraphPoint`的`vector`，训练精度数据。
+
+## CharVersion
+
+\#include &lt;types.h&gt;
+
+```cpp
+std::vector<char> CharVersion();
+```
+
+全局方法，用于获取版本的字符vector。
+
+- 返回值
+
+  MindSpore Lite版本的字符vector。
 
 ## Version
 
@@ -2024,3 +2325,345 @@ virtual void *Prepare(void *ptr)
 #### aligned_size_
 
 内存对齐的字节数。
+
+## Status
+
+\#include &lt;status.h&gt;
+
+### 构造函数和析构函数
+
+```cpp
+Status();
+inline Status(enum StatusCode status_code, const std::string &status_msg = "");
+inline Status(const StatusCode code, int line_of_code, const char *file_name, const std::string &extra = "");
+~Status() = default;
+```
+
+#### Prepare
+
+```cpp
+enum StatusCode StatusCode() const;
+```
+
+获取状态码。
+
+- 返回值
+
+    状态码。
+
+#### ToString
+
+```cpp
+inline std::string ToString() const;
+```
+
+状态码转成字符串。
+
+- 返回值
+
+    状态码的字符串。
+
+#### GetLineOfCode
+
+```cpp
+int GetLineOfCode() const;
+```
+
+获取代码行数。
+
+- 返回值
+
+    代码行数。
+
+#### GetErrDescription
+
+```cpp
+inline std::string GetErrDescription() const;
+```
+
+获取错误描述字符串。
+
+- 返回值
+
+    错误描述字符串。
+
+#### SetErrDescription
+
+```cpp
+inline std::string SetErrDescription(const std::string &err_description);
+```
+
+配置错误描述字符串。
+
+- 参数
+
+    - `err_description`: 错误描述字符串。
+
+- 返回值
+
+    状态信息字符串。
+
+#### operator<<(std::ostream &os, const Status &s)
+
+```cpp
+friend std::ostream &operator<<(std::ostream &os, const Status &s);
+```
+
+状态信息写到输出流。
+
+- 参数
+
+    - `os`: 输出流。
+    - `s`: 状态类。
+
+- 返回值
+
+    输出流。
+
+#### operator==(const Status &other)
+
+```cpp
+bool operator==(const Status &other) const;
+```
+
+判断是否与另一个Status相等。
+
+- 参数
+
+    - `other`: 另一个Status。
+
+- 返回值
+
+    是否与另一个Status相等。
+
+#### operator==(enum StatusCode other_code)
+
+```cpp
+bool operator==(enum StatusCode other_code) const;
+```
+
+判断是否与一个StatusCode相等。
+
+- 参数
+
+    - `other_code`: 一个StatusCode。
+
+- 返回值
+
+    是否与一个StatusCode相等。
+
+#### operator!=(enum StatusCode other_code)
+
+```cpp
+bool operator!=(enum StatusCode other_code) const;
+```
+
+判断是否与一个StatusCode不等。
+
+- 参数
+
+    - `other_code`: 一个StatusCode。
+
+- 返回值
+
+    是否与一个StatusCode不等。
+
+#### operator bool()
+
+```cpp
+explicit operator bool() const;
+```
+
+重载bool操作。
+
+#### explicit operator int() const
+
+```cpp
+explicit operator int() const;
+```
+
+重载int操作。
+
+#### OK
+
+```cpp
+static Status OK();
+```
+
+获取kSuccess的状态码。
+
+- 返回值
+
+    StatusCode::kSuccess。
+
+#### IsOk
+
+```cpp
+bool IsOk() const;
+```
+
+判断是否是kSuccess的状态码。
+
+- 返回值
+
+    是否是kSuccess。
+
+#### IsError
+
+```cpp
+bool IsError() const;
+```
+
+判断是否不是kSuccess的状态码。
+
+- 返回值
+
+    是否不是kSuccess。
+#### CodeAsString
+
+```cpp
+static inline std::string CodeAsString(enum StatusCode c);
+```
+
+获取StatusCode对应的字符串。
+
+- 参数
+
+    - `c`: 状态码枚举值。
+
+- 返回值
+
+    状态码对应的字符串。
+
+## Graph
+
+\#include &lt;[graph.h](https://gitee.com/mindspore/mindspore/blob/r1.5/include/api/graph.h)&gt;
+
+### 构造函数和析构函数
+
+```cpp
+  Graph();
+  explicit Graph(const std::shared_ptr<GraphData> &graph_data);
+  explicit Graph(std::shared_ptr<GraphData> &&graph_data);
+  explicit Graph(std::nullptr_t);
+  ~Graph();
+```
+
+- 参数
+
+    - `graph_data`: 输出通道数。
+
+### 公有成员函数
+
+#### ModelType
+
+```cpp
+  enum ModelType ModelType() const;
+```
+
+获取模型类型。
+
+- 返回值
+
+  模型类型。
+
+#### operator==(std::nullptr_t)
+
+```cpp
+  bool operator==(std::nullptr_t) const;
+```
+
+判断是否为空指针。
+
+- 返回值
+
+  是否为空指针。
+
+#### operator!=(std::nullptr_t)
+
+```cpp
+  bool operator!=(std::nullptr_t) const;
+```
+
+判断是否为非空指针。
+
+- 返回值
+
+  是否为非空指针。
+
+## CellBase
+
+\#include &lt;[cell.h](https://gitee.com/mindspore/mindspore/blob/r1.5/include/api/cell.h)&gt;
+
+### 构造函数和析构函数
+
+```cpp
+  CellBase() = default;
+  virtual ~CellBase() = default;
+```
+
+### 公有成员函数
+
+#### Clone
+
+```cpp
+  virtual std::shared_ptr<CellBase> Clone() const = 0;
+```
+
+拷贝一份自身的副本。
+
+- 返回值
+
+  指向副本的指针。
+
+## Cell
+
+\#include &lt;[cell.h](https://gitee.com/mindspore/mindspore/blob/r1.5/include/api/cell.h)&gt;
+
+### 析构函数
+
+```cpp
+  virtual ~Cell() = default;
+```
+
+### 公有成员函数
+
+#### Clone
+
+```cpp
+  std::shared_ptr<CellBase> Clone() const;
+```
+
+拷贝一份自身的副本。
+
+- 返回值
+
+  指向副本的指针。
+
+## GraphCell
+
+\#include &lt;[cell.h](https://gitee.com/mindspore/mindspore/blob/r1.5/include/api/cell.h)&gt;
+
+### 构造函数和析构函数
+
+```cpp
+  GraphCell() = default;
+  ~GraphCell() override = default;
+  explicit GraphCell(const Graph &);
+  explicit GraphCell(Graph &&);
+  explicit GraphCell(const std::shared_ptr<Graph> &);
+```
+
+### 公有成员函数
+
+#### GetGraph
+
+```cpp
+  const std::shared_ptr<Graph> &GetGraph() const { return graph_; }
+```
+
+获取Graph指针。
+
+- 返回值
+
+  指向Graph的指针。
