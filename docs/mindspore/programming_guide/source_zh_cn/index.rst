@@ -94,6 +94,7 @@ MindSpore编程指南
    context
    run
    ms_function
+   jit_fallback
    save_and_load_models
    model
 
@@ -1009,6 +1010,18 @@ MindSpore编程指南
 										</div>
 										<div class="doc-article-desc">
 										ms_function的作用是在PyNative模式下提升执行性能。在MindSpore框架中，PyNative模式（即动态图模式）下，用户可以使用完整的Python语法，更加简单方便地使用MindSpore进行网络调优。与此同时，PyNative模式也会导致一部分性能的损失。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Running experience-local hidden">
+								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/jit_fallback.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">JIT Fallback</span>
+										</div>
+										<div class="doc-article-desc">
+										通过JIT Fallback，用户可以灵活地进行静态图和动态图的切换。
 										</div>
 									</div>
 								</a>
