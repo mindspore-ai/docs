@@ -216,11 +216,27 @@ export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='MINDIR')
 若希望在MindIR中保存模型推理时需要的预处理操作信息，可以将数据集对象传入export接口：
 
 ```python
-de_dataset = create_dataset_for_renset(mode="eval")
-export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='MINDIR', dataset=de_dataset)
+import mindspore.dataset as ds
+import mindspore.dataset.vision.c_transforms as C
+from mindspore import export, load_checkpoint
+
+def create_dataset_for_renset():
+    data_set = ds.ImageFolderDataset(dataset_path)
+    mean = [0.485 * 255, 0.456 * 255, 0.406 * 255]
+    std = [0.229 * 255, 0.224 * 255, 0.225 * 255]
+    data_set = data_set.map(operations=[C.Decode(), C.Resize(256), C.CenterCrop(224),
+                            C.Normalize(mean=mean,std=std), C.HWC2CHW()], input_columns="image")
+
+# create Dataset with preprocess operations
+de_dataset = create_dataset_for_renset()
+# load the parameter into net
+resnet = ResNet50()
+load_checkpoint("resnet50-2_32.ckpt", net=resnet)
+export(resnet, de_dataset, file_name='resnet50-2_32', file_format='MINDIR')
 ```
 
-> - `input`为`export`方法的入参，代表网络的输入，如果网络有多个输入，需要一同传进`export`方法。 例如：`export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='MINDIR')`
+> - `input`为`export`方法的入参，代表网络的输入，如果网络有多个输入，需要一同传进`export`方法。 例如：`export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='MINDIR')`。
+> - 当`input`是Tensor类型，则代表网络的输入，注意Tensor的维度需要与网络的输入维度一致；有多个输入时，需要将Tensor组成元组传入。当`input`是Dataset类型，网络的输入将由Dataset自动推导，且定义在Dataset中的数据预处理行为将同时导出到文件中（仅支持MindIR）。
 > - 如果`file_name`没有包含".mindir"后缀，系统会为其自动添加".mindir"后缀。
 > - 需要确保数据集对象处于evaluation的状态，即正在使用推理相关的算子，否则可能无法达到预期的结果。
 

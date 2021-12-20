@@ -24,13 +24,13 @@
 #include "include/api/context.h"
 #include "include/api/model.h"
 #include "include/api/serialization.h"
+#include "include/api/types.h"
 
 namespace ms = mindspore;
-constexpr auto resnet_file = "./model/resnet50_imagenet.mindir";
-constexpr auto image_path = "./test_data/ILSVRC2012_val_00002138.JPEG";
+constexpr auto resnet_file = "./model/resnet50_imagenet_preprocess.mindir";
+constexpr auto image_file = "./test_data/ILSVRC2012_val_00002138.JPEG";
 
 size_t GetMax(ms::MSTensor data);
-ms::MSTensor ReadFile(const std::string &file);
 
 int main() {
   // set context
@@ -61,10 +61,16 @@ int main() {
     std::cout << "Invalid model, inputs is empty." << std::endl;
     return 1;
   }
+  if (!resnet50.HasPreprocess()) {
+    std::cout << "data preprocess not exists in MindIR" << std::endl;
+    return 1;
+  }
 
   // infer
-  std::vector<MSTensor> inputs = {ReadFile(image_path)};
-  std::vector<MSTensor> outputs;
+  std::vector<std::vector<ms::MSTensor>> inputs;
+  ms::MSTensor *t1 = ms::MSTensor::CreateTensorFromFile(image_file);
+  inputs = {{*t1}};
+  std::vector<ms::MSTensor> outputs;
   ret = resnet50.PredictWithPreprocess(inputs, &outputs);
   if (ret.IsError()) {
     std::cout << "ERROR: PredictWithPreprocess failed." << std::endl;
@@ -73,6 +79,7 @@ int main() {
 
   // print infer result
   std::cout << "Image: " << image_file << " infer result: " << GetMax(outputs[0]) << std::endl;
+  ms::MSTensor::DestroyTensorPtr(t1);
 
   return 0;
 }
@@ -88,32 +95,4 @@ size_t GetMax(ms::MSTensor data) {
     }
   }
   return max_idx;
-}
-
-ms::MSTensor ReadFile(const std::string &file) {
-  if (file.empty()) {
-    std::cout << "Pointer file is nullptr" << std::endl;
-    return ms::MSTensor();
-  }
-
-  std::ifstream ifs(file);
-  if (!ifs.good()) {
-    std::cout << "File: " << file << " is not exist" << std::endl;
-    return ms::MSTensor();
-  }
-
-  if (!ifs.is_open()) {
-    std::cout << "File: " << file << "open failed" << std::endl;
-    return ms::MSTensor();
-  }
-
-  ifs.seekg(0, std::ios::end);
-  size_t size = ifs.tellg();
-  ms::MSTensor buffer(file, ms::DataType::kNumberTypeUInt8, {static_cast<int64_t>(size)}, nullptr, size);
-
-  ifs.seekg(0, std::ios::beg);
-  ifs.read(reinterpret_cast<char *>(buffer.MutableData()), size);
-  ifs.close();
-
-  return buffer;
 }

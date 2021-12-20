@@ -42,7 +42,7 @@ Ascend 310是面向边缘场景的高能效高集成度AI处理器，本教程�
 
 在CPU/GPU/Ascend 910的机器上训练好目标网络，并保存为CheckPoint文件，通过网络和CheckPoint文件导出对应的MindIR格式模型文件，导出流程参见[导出MindIR格式文件](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/save_model.html#mindir)。
 
-> 这里提供使用BatchSize为1的ResNet-50模型导出的示例MindIR文件[resnet50_imagenet.mindir](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet.mindir)。
+> 这里提供使用BatchSize为1的ResNet-50模型导出的示例MindIR文件[resnet50_imagenet.mindir](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet.mindir)，以及带数据预处理的ResNet-50模型MindIR文件[resnet50_imagenet_preprocess.mindir](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet_preprocess.mindir)。
 
 ## 推理目录结构介绍
 
@@ -50,16 +50,17 @@ Ascend 310是面向边缘场景的高能效高集成度AI处理器，本教程�
 
 ```text
 └─ascend310_resnet50_preprocess_sample
-    ├── CMakeLists.txt                    // 构建脚本
-    ├── README.md                         // 使用说明
-    ├── main.cc                           // 主函数
-    ├── main_hide_preprocess.cc           // 主函数2，免预处理代码的推理方式（已嵌入到MindIR中）
+    ├── CMakeLists.txt                           // 构建脚本
+    ├── README.md                                // 使用说明
+    ├── main.cc                                  // 主函数1，手动定义预处理的模型推理方式
+    ├── main_hide_preprocess.cc                  // 主函数2，免预处理代码的推理方式
     ├── model
-    │   └── resnet50_imagenet.mindir      // MindIR模型文件
+    │   ├── resnet50_imagenet.mindir             // MindIR模型文件
+    │   └── resnet50_imagenet_preprocess.mindir  // 带预处理的MindIR模型文件
     └── test_data
-        ├── ILSVRC2012_val_00002138.JPEG  // 输入样本图片1
-        ├── ILSVRC2012_val_00003014.JPEG  // 输入样本图片2
-        ├── ...                           // 输入样本图片n
+        ├── ILSVRC2012_val_00002138.JPEG          // 输入样本图片1
+        ├── ILSVRC2012_val_00003014.JPEG          // 输入样本图片2
+        ├── ...                                   // 输入样本图片n
 ```
 
 ## 推理代码介绍
@@ -269,7 +270,7 @@ ascend310_info->SetDeviceID(0);
 context->MutableDeviceInfo().push_back(ascend310_info);
 ```
 
-加载模型文件:
+加载模型文件：当MindIR中存在数据预处理的定义时，将自动加载。
 
 ```c++
 // Load MindIR model
@@ -280,18 +281,29 @@ ms::Model resnet50;
 ret = resnet50.Build(ms::GraphCell(graph), context);
 ```
 
-获取模型所需输入信息：
+获取模型所需输入信息，并测试加载的模型是否存在预处理：
 
 ```c++
 std::vector<ms::MSTensor> model_inputs = resnet50.GetInputs();
+if (!resnet50.HasPreprocess()) {
+    std::cout << "data preprocess not exists in MindIR" << std::endl;
+    return 1;
+}
 ```
 
 提供图片文件，一键执行预处理与模型推理：
 
 ```c++
-std::vector<MSTensor> inputs = {ReadFile(image_path)};
-std::vector<MSTensor> outputs;
+std::vector<std::vector<ms::MSTensor>> inputs;
+ms::MSTensor *t1 = ms::MSTensor::CreateTensorFromFile(image_file);
+inputs = {{*t1}};
+
+std::vector<ms::MSTensor> outputs;
 ret = resnet50.PredictWithPreprocess(inputs, &outputs);
+if (ret.IsError()) {
+    std::cout << "ERROR: PredictWithPreprocess failed." << std::endl;
+    return 1;
+}
 ```
 
 获取推理结果：
@@ -299,6 +311,9 @@ ret = resnet50.PredictWithPreprocess(inputs, &outputs);
 ```c++
 // 获取推理结果的最大概率
 std::cout << "Image: " << image_file << " infer result: " << GetMax(outputs[0]) << std::endl;
+
+// 注意需要在最后释放指针资源t1
+ms::MSTensor::DestroyTensorPtr(t1);
 ```
 
 ## 构建脚本介绍

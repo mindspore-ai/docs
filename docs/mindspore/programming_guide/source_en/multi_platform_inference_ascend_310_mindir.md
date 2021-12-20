@@ -38,7 +38,7 @@ Refer to [Installation Guide](https://www.mindspore.cn/install/en) to install As
 
 Train the target network on the CPU/GPU/Ascend 910 AI Processor, save it as a checkpoint file, and export the model file in MindIR format through the network and checkpoint file. For details about the export process, see [Export MindIR Model](https://www.mindspore.cn/docs/programming_guide/en/master/save_model.html#export-mindir-model).
 
-> The [resnet50_imagenet.mindir](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet.mindir) is a sample MindIR file exported using the ResNet-50 model, whose BatchSize is 1.
+> The [resnet50_imagenet.mindir](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet.mindir) is a sample MindIR file exported using the ResNet-50 model, whose BatchSize is 1. We also provide a ResNet-50 MindIR with data preprocess [resnet50_imagenet_preprocess.mindir](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet_preprocess.mindir).
 
 ## Inference Directory Structure
 
@@ -46,16 +46,17 @@ Create a directory to store the inference code project, for example, `/home/HwHi
 
 ```text
 └─ascend310_resnet50_preprocess_sample
-    ├── CMakeLists.txt                    // Build script
-    ├── README.md                         // Usage description
-    ├── main.cc                           // Main function
-    ├── main_hide_preprocess.cc           // Main function2，infer without defining preprocess(since defined in MindIR)
+    ├── CMakeLists.txt                           // Build script
+    ├── README.md                                // Usage description
+    ├── main.cc                                  // Main function, infer with defining preprocess manually
+    ├── main_hide_preprocess.cc                  // Main function2, infer without defining preprocess
     ├── model
-    │   └── resnet50_imagenet.mindir      // MindIR model file
+    │   ├── resnet50_imagenet.mindir             // MindIR model file
+    │   └── resnet50_imagenet_preprocess.mindir  // MindIR model file with data preprocess
     └── test_data
-        ├── ILSVRC2012_val_00002138.JPEG  // Input sample image 1
-        ├── ILSVRC2012_val_00003014.JPEG  // Input sample image 2
-        ├── ...                           // Input sample image n
+        ├── ILSVRC2012_val_00002138.JPEG          // Input sample image 1
+        ├── ILSVRC2012_val_00003014.JPEG          // Input sample image 2
+        ├── ...                                   // Input sample image n
 ```
 
 ## Inference Code
@@ -278,18 +279,29 @@ ms::Model resnet50;
 ret = resnet50.Build(ms::GraphCell(graph), context);
 ```
 
-Get information of this model:
+Get information of this model and check if model has preprocess:
 
 ```c++
 std::vector<ms::MSTensor> model_inputs = resnet50.GetInputs();
+if (!resnet50.HasPreprocess()) {
+    std::cout << "data preprocess not exists in MindIR" << std::endl;
+    return 1;
+}
 ```
 
 Read image and start data preprocessing and prediction:
 
 ```c++
-std::vector<MSTensor> inputs = {ReadFile(image_path)};
-std::vector<MSTensor> outputs;
+std::vector<std::vector<ms::MSTensor>> inputs;
+ms::MSTensor *t1 = ms::MSTensor::CreateTensorFromFile(image_file);
+inputs = {{*t1}};
+
+std::vector<ms::MSTensor> outputs;
 ret = resnet50.PredictWithPreprocess(inputs, &outputs);
+if (ret.IsError()) {
+    std::cout << "ERROR: PredictWithPreprocess failed." << std::endl;
+    return 1;
+}
 ```
 
 Print the result:
@@ -297,6 +309,8 @@ Print the result:
 ```c++
 // Output the maximum probability to the screen
 std::cout << "Image: " << image_file << " infer result: " << GetMax(outputs[0]) << std::endl;
+// Destroy the tensor pointer
+ms::MSTensor::DestroyTensorPtr(t1);
 ```
 
 ## Introduce to Building Script

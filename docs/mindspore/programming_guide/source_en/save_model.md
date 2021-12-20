@@ -215,11 +215,27 @@ If you wish to save the data preprocess operations into MindIR and use them to p
 you can pass the Dataset object into export method:
 
 ```python
-de_dataset = create_dataset_for_renset(mode="eval")
-export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='MINDIR', dataset=de_dataset)
+import mindspore.dataset as ds
+import mindspore.dataset.vision.c_transforms as C
+from mindspore import export, load_checkpoint
+
+def create_dataset_for_renset():
+    data_set = ds.ImageFolderDataset(dataset_path)
+    mean = [0.485 * 255, 0.456 * 255, 0.406 * 255]
+    std = [0.229 * 255, 0.224 * 255, 0.225 * 255]
+    data_set = data_set.map(operations=[C.Decode(), C.Resize(256), C.CenterCrop(224),
+                            C.Normalize(mean=mean,std=std), C.HWC2CHW()], input_columns="image")
+
+# create Dataset with preprocess operations
+de_dataset = create_dataset_for_renset()
+# load the parameter into net
+resnet = ResNet50()
+load_checkpoint("resnet50-2_32.ckpt", net=resnet)
+export(resnet, de_dataset, file_name='resnet50-2_32', file_format='MINDIR')
 ```
 
 > - `input` is the input parameter of the `export` method, representing the input of the network. If the network has multiple inputs, they need to be passed into the `export` method together. eg: `export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='MINDIR')`.
+> - When `input` is a Tensor, it represents the input of network, the shape of `input` need to be consistent with input of network. In case of network with multiple inputs, `input` should be a tuple of Tensor. When `input` is a Dataset, the input shape of network will be infer by Dataset object and the data preprocess operations will be also exported to file(Only MindIR).
 > - If `file_name` does not contain the ".mindir" suffix, the system will automatically add the ".mindir" suffix to it.
 > - Make sure that the Dataset object is using the preprocess operations of evaluation, otherwise you may can not get the
 expected preprocess results in inference.
