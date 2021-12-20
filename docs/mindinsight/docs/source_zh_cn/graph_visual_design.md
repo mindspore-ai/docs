@@ -51,12 +51,14 @@
 
 数据将通过Web UI进行绘图并展示，前端采用d3-graph-viz 3.x插件进行绘图辅助。
 
-![输入图片说明](./images/graph_visual_right_side.png)  
+![输入图片说明](./images/graph_visual_right_side.png)
+
 *图1：辅助功能*
 
 如图1所示，提供选择文件、查询节点、查看节点信息、节点输入输出等辅助功能。
 
-![计算图主体展示](./images/graph_visual_main.png)  
+![计算图主体展示](./images/graph_visual_main.png)
+
 *图2：计算图主体展示*
 
 计算图中，根据斜线（/）对节点的名称划分层次，并逐层展示，参考图2计算图主体展示。双击一个作用域节点后，将会展示它的子节点。
