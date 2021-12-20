@@ -60,7 +60,9 @@
 - predict：用于对输入的一组数据进行推理，输出预测结果。
 
 混合精度原理及LossScale策略详见文档：<https://mindspore.cn/docs/programming_guide/zh-CN/master/enable_mixed_precision.html>和<https://mindspore.cn/docs/programming_guide/zh-CN/master/lossscale.html>。
+
 Boost功能详见文档：<https://mindspore.cn/docs/programming_guide/zh-CN/master/apply_gradient_accumulation.html#boost>。
+
 分布式功能详见文档：<https://mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training.html>。
 
 ## 模型训练、评估和推理
