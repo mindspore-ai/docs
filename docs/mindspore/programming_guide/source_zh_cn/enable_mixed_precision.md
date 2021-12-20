@@ -1,6 +1,6 @@
 # 混合精度
 
-`Ascend` `GPU`
+`Ascend` `GPU` `模型调优`
 
 感谢：[ZOMI酱](https://www.zhihu.com/people/ZOMI)
 
@@ -32,7 +32,7 @@
 
 根据IEEE二进制浮点数算术标准（IEEE 754）的定义，浮点数据类型分为双精度（FP64）、单精度（FP32）、半精度（FP16）三种，其中每一种都有三个不同的位来表示。FP64表示采用8个字节共64位，来进行的编码存储的一种数据类型；同理，FP32表示采用4个字节共32位来表示；FP16则是采用2字节共16位来表示。如图所示：
 
-![fp16_vs_FP32](./images/fp16_vs_FP32.png)
+![fp16_vs_fp32](./images/fp16_vs_fp32.png)
 
 从图中可以看出，与FP32相比，FP16的存储空间是FP32的一半，FP32则是FP64的一半。主要分为三个部分：
 
@@ -243,9 +243,9 @@ class Net(nn.Cell):
         x = self.relu(x)
         return x
 
-# 初始化网络模型
+# Initialize network
 net = Net(512, 128)
-# 设置混合精度
+# Set mixing precision
 net.dense.to_float(mstype.float16)
 
 # Define training data, label
