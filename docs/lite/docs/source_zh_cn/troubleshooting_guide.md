@@ -2,19 +2,20 @@
 
 <!-- TOC -->
 
-- [概述](#概述)
-- [模型转换失败](#模型转换失败)
-- [模型推理失败](#模型推理失败)
-    - [图加载失败](#图加载失败)
-    - [CPU推理问题](#CPU推理问题)
-        - [图编译失败](#图编译失败)
-        - [图执行失败](#图执行失败)
-    - [NPU推理问题](#NPU推理问题)
-        - [图编译失败](#图编译失败)
-        - [图执行失败](#图执行失败)
-- [模型推理精度问题](#模型推理精度问题)
-- [模型推理性能问题](#模型推理性能问题)
-- [其他问题](#其他问题)
+- [问题定位指南](#问题定位指南)
+    - [概述](#概述)
+    - [模型转换失败](#模型转换失败)
+    - [模型推理失败](#模型推理失败)
+        - [图加载失败](#图加载失败)
+        - [CPU推理问题](#cpu推理问题)
+            - [图编译失败](#图编译失败)
+        - [NPU推理问题](#npu推理问题)
+            - [图编译失败](#图编译失败-1)
+            - [图执行失败](#图执行失败)
+    - [模型推理精度问题](#模型推理精度问题)
+    - [模型推理性能问题](#模型推理性能问题)
+    - [使用Visual Studio相关问题](#使用visual-studio相关问题)
+    - [其他问题](#其他问题)
 
 <!-- /TOC -->
 
@@ -70,7 +71,9 @@
     - 问题分析：转换工具支持该算子转换，但是不支持该算子的某种特殊属性或参数导致模型转换失败（示例日志以caffe为例，其他框架日志信息相同）。
     - 解决方法：可以尝试通过继承API接口[NodeParser](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_converter.html#nodeparser) 添加自定义算子parser并通过[NodeParserRegistry](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#nodeparserregistry) 进行Parser注册；或者在社区提[ISSUE](https://gitee.com/mindspore/mindspore/issues) 给MindSpore Lite开发人员处理。
 
-## 图加载失败
+## 模型推理失败
+
+### 图加载失败
 
 1. 模型文件错误，日志报错信息：
 
@@ -92,9 +95,9 @@
     - 问题分析：该ms模型文件所使用的转换工具版本较低，导致图加载失败。
     - 解决方法：请使用MindSpore Lite 1.1.0 以上的版本重新转出ms模型。
 
-## CPU推理问题
+### CPU推理问题
 
-### 图编译失败
+#### 图编译失败
 
 1. 模型文件和推理包版本不兼容，日志报错信息：
 
@@ -122,9 +125,9 @@
     - 问题分析：ms模型的输入shape包含-1，即模型输入为动态shape，直接推理时由于shape无效导致推理失败。
     - 解决方法：MindSpore Lite在对包含动态shape输入的模型推理时要求指定合理的shape，使用benchmark工具时可通过设置[inputShapes](https://mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html#id3) 参数指定，使用MindSpore Lite集成开发时可通过调用[Resize](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#resize) 方法设置。
 
-## NPU推理问题
+### NPU推理问题
 
-### 图编译失败
+#### 图编译失败
 
 1. NPU图编译失败，通过工具抓取后台日志，并在日志中搜索“**MS_LITE**”关键字，得到报错提示如下：
 
@@ -157,7 +160,7 @@
 
     说明HiAI ROM和当前MindSpore Lite使用的HiAI DDK版本存在算子兼容性问题，报错信息中提示的算子不支持。您可以尝试通过更新手机系统来升级HiAI ROM、替换当前不支持的算子来规避，或在开源社区进行反馈。
 
-### 图执行失败
+#### 图执行失败
 
 1. NPU推理失败，通过工具抓取后台日志，并在日志中搜索“**MS_LITE**”关键字，得到报错提示如下：
 
@@ -248,4 +251,35 @@
     （1）检查模型中是否存在大量Pad或StridedSlice等算子，由于NPU中的数组格式与CPU有所不同，这类算子在NPU中运算时涉及数组的重排，因此相较CPU不存在任何优势，甚至劣于CPU。若确实需要在NPU上运行，建议尝试去除或替换此类算子。
     （2）通过工具（如adb logcat）抓取后台日志，搜索所有“**BuildIRModel build successfully**”关键字，发现相关日志出现了多次，说明模型在线构图时切分为了多张NPU子图，子图的切分一般都是由图中存在Transpose或/和当前不支持的NPU算子引起。目前我们支持最多20张子图的切分，子图数量越多，NPU的整体耗时增加越明显。建议比对MindSpore Lite当前支持的NPU[算子列表](https://www.mindspore.cn/lite/docs/zh-CN/master/operator_list_lite.html#lite)，在模型搭建时规避不支持的算子，或在MindSpore社区[提ISSUE](https://gitee.com/mindspore/mindspore/issues) 询问MindSpore Lite的开发人员。
 
+## 使用Visual Studio相关问题
+
+1. 使用静态库，运行时报Parameter的Creator函数找不到的错，日志报错信息：
+
+    ```cpp
+    ERROR [mindspore\lite\src\ops\populate\populate_register.h:**] GetParameterCreator] Unsupported parameter type in Create : **
+    ERROR [mindspore\lite\src\scheduler.cc:**] InferNodeShape] parameter generator is nullptr.
+    ERROR [mindspore\lite\src\scheduler.cc:**] InferSubGraphShape] InferShape failed, name: **, type: **
+    ERROR [mindspore\lite\src\scheduler.cc:**] SchedulePreProcess] op infer shape failed.
+    ERROR [mindspore\lite\src\lite_session.cc:**] CompileGraph] Schedule kernels failed: -500
+    ```
+
+    - 问题分析：链接静态库，默认不会导入静态库中的所有符号，Parameter的Creator函数是通过全局静态对象注册到单例对象去的。
+
+    - 解决方法：链接 Visual Studio 编译出的静态库时，需要在“属性->链接器->命令行->其它选项”中，加/WHOLEARCHIVE:libmindspore-lite.lib。
+
+2. 模型校验失败，日志报错信息：
+
+    ```cpp
+    ERROR [mindspore\lite\src\lite_model.cc:**] ModelVerify] Model does not have inputs.
+    ERROR [mindspore\lite\src\lite_model.cc:**] ConstructModel] ModelVerify failed.
+    ERROR [mindspore\lite\src\lite_model.cc:**] ImportFromBuffer] construct model failed.
+    ```
+
+    - 问题分析：读取的模型文件不完整的。
+
+    - 解决方法：使用 Visual Studio 编译器时，读入 model 流必须加 std::ios::binary。
+
 ## 其他问题
+
+1. 为何将设备指定为GPU/NPU后，并没有起作用？
+   Device的优先级取决于配置的先后顺序，请确保Context里面GPU/NPU的配置在CPU前面。
