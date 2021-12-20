@@ -28,14 +28,9 @@ The following describes how to quickly install MindSpore by Conda on Linux in th
     - If you prefer the complete capabilities provided by Conda, you can choose to download [Anaconda3](https://repo.anaconda.com/archive/).
     - If you want to save disk space or prefer custom Conda installation, you can choose to download [Miniconda3](https://repo.anaconda.com/miniconda/).
 
-- Ensure that the Ascend 310 AI processor software package (Ascend Data Center Solution 21.0.3) are installed.
+- Ensure that the Ascend AI processor software package (Ascend Data Center Solution 21.0.3) are installed, please refer to the [Installation Guide](https://support.huawei.com/enterprise/zh/doc/EDOC1100226552?section=j003).
 
-    - For the installation of software package,  please refer to the [CANN Software Installation Guide](https://support.huawei.com/enterprise/en/doc/EDOC1100219213).
-    - The software packages include Driver and Firmware and CANN.
-        - [A300-3000 1.0.12 ARM platform](https://support.huawei.com/enterprise/zh/ascend-computing/a300-3000-pid-250702915/software/253845265) or [A300-3010 1.0.12 x86 platform](https://support.huawei.com/enterprise/zh/ascend-computing/a300-3010-pid-251560253/software/253845285)
-        - [CANN 5.0.3](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252806307)
-
-    - Ensure that you have permissions to access the installation path `/usr/local/Ascend` of the Ascend 310 AI Processor software package. If not, ask the user root to add you to a user group to which `/usr/local/Ascend` belongs. For details about the configuration, see the description document in the software package.
+    - Ensure that you have permissions to access the installation path `/usr/local/Ascend` of the Ascend AI Processor software package. If not, ask the user root to add you to a user group to which `/usr/local/Ascend` belongs. For details about the configuration, see the description document in the software package.
 
 ## Creating and Accessing the Conda Virtual Environment
 
@@ -54,7 +49,7 @@ conda create -n mindspore_py39 -c conda-forge python=3.9.0
 conda activate mindspore_py39
 ```
 
-Install the .whl package provided with the Ascend 310 AI Processor software package in the virtual environment. The .whl package is released with the software package. After the software package is upgraded, you need to reinstall the .whl package.
+Install the .whl package provided with the Ascend AI Processor software package in the virtual environment. The .whl package is released with the software package. After the software package is upgraded, you need to reinstall the .whl package.
 
 ```bash
 pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/topi-{version}-py3-none-any.whl

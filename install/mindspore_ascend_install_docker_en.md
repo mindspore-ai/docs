@@ -33,14 +33,9 @@ The current support for containerized build options is as follows:
 
 - Ensure that [Docker 18.03 or later](https://docs.docker.com/get-docker/) is installed.
 
-- Ensure that the Ascend 910 AI processor software package (Ascend Data Center Solution 21.0.3) are installed.
+- Ensure that the Ascend AI processor software package (Ascend Data Center Solution 21.0.3) are installed, please refer to the [Installation Guide](https://support.huawei.com/enterprise/zh/doc/EDOC1100226552?section=j003).
 
-    - For the installation of software package,  please refer to the [CANN Software Installation Guide](https://support.huawei.com/enterprise/en/doc/EDOC1100219213).
-    - The software packages include Driver and Firmware and CANN.
-        - [A800-9000 1.0.12 ARM platform](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9000-pid-250702818/software/253845425) or [A800-9010 1.0.12 x86 platform](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9010-pid-250702809/software/253845445)
-        - [CANN 5.0.3](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252806307)
-
-    - Ensure that the current user has the right to access the installation path `/usr/local/Ascend`of Ascend 910 AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located. For the specific configuration, please refer to the software package instruction document.
+    - Ensure that the current user has the right to access the installation path `/usr/local/Ascend`of Ascend AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located. For the specific configuration, please refer to the software package instruction document.
     - After installing basic driver and corresponding software packages, ensure that the toolbox utility package in the CANN software package is installed, namely Ascend-cann-toolbox-{version}.run. The toolbox provides Ascend Docker runtime tools supported by Ascend NPU containerization.
 
 ## Obtaining MindSpore Image
@@ -168,7 +163,7 @@ Enter ```mindinsight start --port 8080```, if it prompts that the startup status
 
 When you need to update the MindSpore version:
 
-- update Ascend 910 AI processor software package according to MindSpore package version of which you wish to update.
+- update Ascend AI processor software package according to MindSpore package version of which you wish to update.
 - log in to [Ascend Hub Image Center](https://ascend.huawei.com/ascendhub/#/home) again to obtain the download command of the latest docker version and execute:
 
     ```bash
