@@ -89,10 +89,14 @@ Others
     :nosignatures:
     :template: classtemplate_inherited.rst
 
+    mindspore.dataset.BatchInfo
     mindspore.dataset.DatasetCache
     mindspore.dataset.DSCallback
+    mindspore.dataset.SamplingStrategy
     mindspore.dataset.Schema
+    mindspore.dataset.Shuffle
     mindspore.dataset.WaitedDSCallback
+    mindspore.dataset.OutputFormat
     mindspore.dataset.compare
     mindspore.dataset.deserialize
     mindspore.dataset.serialize
