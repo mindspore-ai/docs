@@ -242,11 +242,13 @@ Only calculation quantity on AICORE devices is supported currently. The informat
 - FLOPS utilization: obtained by dividing the FLOPS by the peak FLOPS of the AICORE device.
 
 ![flops_statistics.png](./images/flops-single-card.png)
+
 *Figure 5: Calculation Quantity Analysis*
 
 The red box in Figure 5 includes calculation quantity data on operator granularity, scope level granularity, and model granularity. Click the "details" to see the scope level calculation quantity data.
 
 ![flops_scope_statistics.png](./images/flops-scope.png)
+
 *Figure 6: Scope Level FLOPs*
 
 Figure 6 is a sankey diagram that presents data in the structure of a tree where the cursor selects a scope to see the specific FLOPs value.

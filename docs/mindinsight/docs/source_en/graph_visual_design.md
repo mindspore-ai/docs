@@ -51,12 +51,14 @@ The following figure shows a class diagram of a backend, which consists of the b
 
 The data is drawn and displayed on the WebUI. The frontend uses the `d3-graph-viz 3.x` plug-in to assist in drawing.
 
-![Input image description](./images/graph_visual_right_side.png)  
+![Input image description](./images/graph_visual_right_side.png)
+
 *Figure 1 Auxiliary functions*
 
 As shown in Figure 1, auxiliary functions such as selecting files, querying nodes, viewing node information, and node input and output are provided.
 
-![Main part of the computational graph](./images/graph_visual_main.png)  
+![Main part of the computational graph](./images/graph_visual_main.png)
+
 *Figure 2 Main part of the computational graph*
 
 In the computational graph, nodes are divided into layers based on slashes (/) in names and are displayed layer by layer. For details, see Figure 2. When you double-click a scope node, its subnodes are displayed.

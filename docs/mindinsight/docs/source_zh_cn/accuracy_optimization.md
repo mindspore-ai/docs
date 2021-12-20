@@ -578,7 +578,7 @@ MindInsight可以为用户记录每次训练的精度结果。在`model.train`�
 
 ![learning rate](images/learning_rate_and_accuracy.png)
 
-*图14 学习率与准确率的关系。此曲线通过8个epoch的训练得到。图片引用自(Smith, 2017)。*
+*图14 学习率与准确率的关系 此曲线通过8个epoch的训练得到 图片引用自(Smith, 2017)*
 
 以上文所述的合理学习率为起点，每个网络的最优值都需要根据具体情况（网络类型、batch size、优化器、其他相关超参等）实验和调整。
 

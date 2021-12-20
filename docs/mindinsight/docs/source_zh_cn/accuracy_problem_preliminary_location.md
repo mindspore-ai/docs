@@ -218,7 +218,7 @@
 
 ![学习率与准确率的关系](images/check_learning_rate.png)
 
-*图1 学习率与准确率的关系。此曲线通过8个epoch的训练得到。图片引用自(Smith, 2017)*
+*图1 学习率与准确率的关系 此曲线通过8个epoch的训练得到 图片引用自(Smith, 2017)*
 
 检查结论：
 
@@ -232,7 +232,7 @@
 
 ![检查epoch](images/check_epoch.png)
 
-*图2 epoch和loss的关系。图中蓝色曲线为训练集上的loss曲线，绿色曲线为验证集上的loss曲线。*
+*图2 epoch和loss的关系 图中蓝色曲线为训练集上的loss曲线 绿色曲线为验证集上的loss曲线 *
 
 检查结论：
 
