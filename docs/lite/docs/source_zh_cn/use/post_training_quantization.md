@@ -97,11 +97,10 @@ auto_tune=false
 
 全量化参数主要包括`activation_quant_method`及`bias_correction`。参数的详细介绍如下所示：
 
-| 参数                    | 属性 | 功能描述                                                     | 参数类型 | 默认值  | 取值范围                                                     |
-| ----------------------- | ---- | ------------------------------------------------------------ | -------- | ------- | ------------------------------------------------------------ |
-| activation_quant_method | 可选 | 激活值量化算法                                               | String   | MAX_MIN | KL，MAX_MIN，RemovalOutlier。 <br>KL：基于[KL散度](http://on-demand.gputechconf.com/gtc/2017/presentation/s7310-8-bit-inference-with-tensorrt.pdf)对数据范围作量化校准。 <br>MAX_MIN：基于最大值、最小值计算数据的量化参数。 <br>RemovalOutlier：按照一定比例剔除数据的极大极小值，再计算量化参数。 <br>在校准数据集与实际推理时的输入数据相吻合的情况下，推荐使用MAX_MIN；而在校准数据集噪声比较大的情况下，推荐使用KL或者REMOVAL_OUTLIER |
-| bias_correction         | 可选 | 是否对量化误差进行校正                                       | Boolean  | True    | True，False。使能后，将能提升量化模型的精度。                |
-| target_device           | 可选 | 全量化支持多硬件后端。设置特定硬件后，转换的量化模型可执行专有硬件量化算子库；不设置可执行通用硬件量化算子库。 | String   | -       | KIRIN：转换后的量化模型可以在KIRIN NPU上执行量化推理。       |
+| 参数                    | 属性 | 功能描述               | 参数类型 | 默认值  | 取值范围                                                     |
+| ----------------------- | ---- | ---------------------- | -------- | ------- | ------------------------------------------------------------ |
+| activation_quant_method | 可选 | 激活值量化算法         | String   | MAX_MIN | KL，MAX_MIN，RemovalOutlier。 <br>KL：基于[KL散度](http://on-demand.gputechconf.com/gtc/2017/presentation/s7310-8-bit-inference-with-tensorrt.pdf)对数据范围作量化校准。 <br>MAX_MIN：基于最大值、最小值计算数据的量化参数。 <br>RemovalOutlier：按照一定比例剔除数据的极大极小值，再计算量化参数。 <br>在校准数据集与实际推理时的输入数据相吻合的情况下，推荐使用MAX_MIN；而在校准数据集噪声比较大的情况下，推荐使用KL或者REMOVAL_OUTLIER |
+| bias_correction         | 可选 | 是否对量化误差进行校正 | Boolean  | True    | True，False。使能后，将能提升量化模型的精度。                |
 
 通用全量化参数配置如下所示：
 
@@ -111,16 +110,6 @@ auto_tune=false
 activation_quant_method=MAX_MIN
 # Whether to correct the quantization error. Recommended to set to true.
 bias_correction=true
-```
-
-Kirin NPU全量化参数配置如下所示，转换后的量化模型在推理时需要[配置使用NPU后端](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html#npu)：
-
-```ini
-[full_quant_param]
-# Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
-activation_quant_method=MAX_MIN
-# Supports specific hardware backends
-target_device=KIRIN
 ```
 
 ### 数据预处理
