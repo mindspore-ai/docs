@@ -66,6 +66,7 @@ MNIST手写数据集包含60,000个样本的训练集和10,000个样本的测试
 在使用前，需要导入需要的Python库。
 
 ```python
+import numpy as np
 from mindspore import Model, context
 from mindspore import load_checkpoint, load_param_into_net
 
@@ -83,6 +84,15 @@ from examples.common.dataset.data_processing import generate_mnist_dataset
 ```python
 DATA_FILE = 'PATH_TO_MNIST/'
 ds_eval = generate_mnist_dataset(DATA_FILE, batch_size=64)
+test_images = []
+test_labels = []
+for data in ds_eval.create_tuple_iterator(output_numpy=True):
+    images = data[0].astype(np.float32)
+    labels = data[1]
+    test_images.append(images)
+    test_labels.append(labels)
+ds_data = np.concatenate(test_images, axis=0)
+ds_label = np.concatenate(test_labels, axis=0)
 ```
 
 构建LeNet5网络：
@@ -108,13 +118,12 @@ fi_size = [1, 2]
 初始化故障注入模块：
 
 ```python
-fi = FaultInjector(model=model, data=ds_eval, fi_type=fi_type, fi_mode=fi_mode, fi_size=fi_size)
+fi = FaultInjector(model=model, fi_type=fi_type, fi_mode=fi_mode, fi_size=fi_size)
 ```
 
 参数含义：
 
 - `model(Model)`：需要评估的模型。
-- `data(Dataset)`：测试数据集，将在此数据集上评估模型对于注入故障的容错性。
 - `fi_type(list)`: 注入的故障类型，目前支持8种故障类型，分别为`bitflips_random`、 `bitflips_designated`、 `random`、 `zeros`、 `NaN`、 `INF`、 `anti_activation`和`precision_loss`。
     - `bitflips_random`: 随机反转一位比特位。
     - `bitflips_designated`: 反转关键比特位，关键比特位指对数值影响最大的比特位。
@@ -132,8 +141,12 @@ fi = FaultInjector(model=model, data=ds_eval, fi_type=fi_type, fi_mode=fi_mode, 
 完成模块初始化后，调用故障注入方法`kick_off`评估模型：
 
 ```python
-results = fi.kick_off()
+results = fi.kick_off(ds_data, ds_label, iter_times=100)
 ```
+
+- `ds_data(numpy.ndarray)`：测试数据，将在此数据集上评估模型对于注入故障的容错性。
+- `ds_label(numpy.ndarray)`：数据标签，与测试数据对应。
+- `iter_times(int)`：每种故障参数评估次数，决定数据批大小。
 
 调用方法`metrics`统计结果：
 
@@ -157,16 +170,16 @@ for result in result_summary:
 
 结果如下所示：
 
-```bash
+```text
 {'original_acc': 0.9797676282051282}
-{'type': '_bitflips_designated', 'mode': 'single_layer', 'size': 1, 'acc': 0.7028245192307693, 'SDC': 0.2769431089743589}
-{'type': '_bitflips_designated', 'mode': 'single_layer', 'size': 2, 'acc': 0.5052083333333334, 'SDC': 0.4745592948717948}
-{'type': '_bitflips_designated', 'mode': 'all_layer', 'size': 1, 'acc': 0.2077323717948718, 'SDC': 0.7720352564102564}
-{'type': '_bitflips_designated', 'mode': 'all_layer', 'size': 2, 'acc': 0.15745192307692307, 'SDC': 0.8223157051282051}
-{'type': '_precision_loss', 'mode': 'single_layer', 'size': 1, 'acc': 0.9795673076923077, 'SDC': 0.00020032051282048435}
-{'type': '_precision_loss', 'mode': 'single_layer', 'size': 2, 'acc': 0.9797676282051282, 'SDC': 0.0}
-{'type': '_precision_loss', 'mode': 'all_layer', 'size': 1, 'acc': 0.9794671474358975, 'SDC': 0.00030048076923072653}
-{'type': '_precision_loss', 'mode': 'all_layer', 'size': 2, 'acc': 0.9795673076923077, 'SDC': 0.00020032051282048435}
+{'type': 'bitflips_designated', 'mode': 'single_layer', 'size': 1, 'acc': 0.7028245192307693, 'SDC': 0.2769431089743589}
+{'type': 'bitflips_designated', 'mode': 'single_layer', 'size': 2, 'acc': 0.5052083333333334, 'SDC': 0.4745592948717948}
+{'type': 'bitflips_designated', 'mode': 'all_layer', 'size': 1, 'acc': 0.2077323717948718, 'SDC': 0.7720352564102564}
+{'type': 'bitflips_designated', 'mode': 'all_layer', 'size': 2, 'acc': 0.15745192307692307, 'SDC': 0.8223157051282051}
+{'type': 'precision_loss', 'mode': 'single_layer', 'size': 1, 'acc': 0.9795673076923077, 'SDC': 0.00020032051282048435}
+{'type': 'precision_loss', 'mode': 'single_layer', 'size': 2, 'acc': 0.9797676282051282, 'SDC': 0.0}
+{'type': 'precision_loss', 'mode': 'all_layer', 'size': 1, 'acc': 0.9794671474358975, 'SDC': 0.00030048076923072653}
+{'type': 'precision_loss', 'mode': 'all_layer', 'size': 2, 'acc': 0.9795673076923077, 'SDC': 0.00020032051282048435}
 single_layer_acc_mean:0.791842 single_layer_acc_max:0.979768 single_layer_acc_min:0.505208
 single_layer_SDC_mean:0.187926 single_layer_SDC_max:0.474559 single_layer_SDC_min:0.000000
 all_layer_acc_mean:0.581055 all_layer_acc_max:0.979567 all_layer_acc_min:0.157452
