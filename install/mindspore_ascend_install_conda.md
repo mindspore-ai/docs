@@ -33,16 +33,11 @@
     - 如果您喜欢Conda提供的完整能力，可以选择下载[Anaconda3](https://repo.anaconda.com/archive/)。
     - 如果您需要节省磁盘空间，或者喜欢自定义安装Conda软件包，可以选择下载[Miniconda3](https://repo.anaconda.com/miniconda/)。
 
-- 确认安装Ascend 910 AI处理器配套软件包（Ascend Data Center Solution 21.0.3）。
+- 确认安装Ascend AI处理器配套软件包（Ascend Data Center Solution 21.0.3），安装方式请参考[配套指南](https://support.huawei.com/enterprise/zh/doc/EDOC1100226552?section=j003)。
 
-    - 软件包安装方式请参考[CANN软件安装指南](https://support.huawei.com/enterprise/zh/doc/EDOC1100219211)。
-    - 配套软件包包括驱动和固件和CANN。
-        - [A800-9000 1.0.12 ARM平台](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9000-pid-250702818/software/253845425) 或 [A800-9010 1.0.12 x86平台](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9010-pid-250702809/software/253845445)
-        - [CANN 5.0.3](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252806307)
+    - 确认当前用户有权限访问Ascend AI处理器配套软件包的安装路径`/usr/local/Ascend`，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
 
-    - 确认当前用户有权限访问Ascend 910 AI处理器配套软件包的安装路径`/usr/local/Ascend`，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
-
-    - 安装Ascend 910 AI处理器配套软件包提供的whl包，whl包随配套软件包发布，参考如下命令完成安装。
+    - 安装Ascend AI处理器配套软件包提供的whl包，whl包随配套软件包发布，参考如下命令完成安装。
 
         ```bash
         pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/topi-{version}-py3-none-any.whl
@@ -50,7 +45,7 @@
         pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/hccl-{version}-py3-none-any.whl
         ```
 
-    - 如果升级了Ascend 910 AI处理器配套软件包，配套的whl包也需要重新安装，先将原来的安装包卸载，再参考上述命令重新安装。
+    - 如果升级了Ascend AI处理器配套软件包，配套的whl包也需要重新安装，先将原来的安装包卸载，再参考上述命令重新安装。
 
         ```bash
         pip uninstall te topi hccl -y
@@ -73,7 +68,7 @@ conda create -n mindspore_py39 -c conda-forge python=3.9.0
 conda activate mindspore_py39
 ```
 
-在虚拟环境中安装Ascend 910 AI处理器配套软件包提供的whl包，whl包随配套软件包发布，升级配套软件包之后需要重新安装。
+在虚拟环境中安装Ascend AI处理器配套软件包提供的whl包，whl包随配套软件包发布，升级配套软件包之后需要重新安装。
 
 ```bash
 pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/topi-{version}-py3-none-any.whl
@@ -81,7 +76,7 @@ pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/te-{version}
 pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/hccl-{version}-py3-none-any.whl
 ```
 
-如果升级了Ascend 910 AI处理器配套软件包，配套的whl包也需要重新安装，先将原来的安装包卸载，再参考上述命令重新安装。
+如果升级了Ascend AI处理器配套软件包，配套的whl包也需要重新安装，先将原来的安装包卸载，再参考上述命令重新安装。
 
 ```bash
 pip uninstall te topi hccl -y
@@ -102,7 +97,7 @@ conda install mindspore-ascend={version} -c mindspore -c conda-forge
 
 ## 配置环境变量
 
-**如果Ascend 910 AI处理器配套软件包没有安装在默认路径**，安装好MindSpore之后，需要导出Runtime相关环境变量，下述命令中`LOCAL_ASCEND=/usr/local/Ascend`的`/usr/local/Ascend`表示配套软件包的安装路径，需注意将其改为配套软件包的实际安装路径。
+**如果Ascend AI处理器配套软件包没有安装在默认路径**，安装好MindSpore之后，需要导出Runtime相关环境变量，下述命令中`LOCAL_ASCEND=/usr/local/Ascend`的`/usr/local/Ascend`表示配套软件包的安装路径，需注意将其改为配套软件包的实际安装路径。
 
 ```bash
 # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, default level is WARNING.
