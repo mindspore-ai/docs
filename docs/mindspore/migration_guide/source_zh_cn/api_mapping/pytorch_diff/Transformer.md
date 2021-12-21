@@ -106,8 +106,7 @@ print(output.shape)
 # (32, 20, 512)
 
 import torch
-transformer_model = torch.nn.Transformer(nhead=16, num_encoder_layers=12,
-                                         num_encoder_layers=1, num_decoder_layers=1)
+transformer_model = torch.nn.Transformer(nhead=16, num_encoder_layers=1, num_decoder_layers=1)
 src = torch.rand((10, 32, 512))
 tgt = torch.rand((20, 32, 512))
 output = transformer_model(src, tgt)
