@@ -271,7 +271,7 @@ if __name__ == "__main__":
 python test_dropout_aicpu.py
 ```
 
-执行结果：
+执行结果（由于dropout算子具有随机性，多次运行结果存在差异）：
 
 ```text
 output : [[[[2.  2.  2.] [2.  2.  2.]]]]
