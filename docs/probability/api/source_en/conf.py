@@ -75,8 +75,6 @@ autosummary_generate = True
 #
 html_theme = 'sphinx_rtd_theme'
 
-html_static_path = ['_static']
-
 # -- Options for Texinfo output -------------------------------------------
 
 # Example configuration for intersphinx: refer to the Python standard library.
