@@ -215,7 +215,7 @@ MindSpore Lite是端边云全场景AI框架MindSpore的端侧部分，可以在�
 
 模型在用于端侧推理之前需要先进行格式的转换。当前，MindSpore Lite支持MindSpore、TensorFlow Lite、Caffe和ONNX 4类AI框架。
 
-下面以MindSpore训练得到的[mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/r1.5/mobilenetv2.mindir)模型为例，说明Demo中所使用的`mobilenetv2.ms`模型是如何生成的。
+下面以MindSpore训练得到的[mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/1.5/mobilenetv2.mindir)模型为例，说明Demo中所使用的`mobilenetv2.ms`模型是如何生成的。
 
 > 本小节展开说明了转换的操作过程，仅实现Demo运行可跳过本小节。
 >
@@ -280,7 +280,7 @@ MindSpore Lite是端边云全场景AI框架MindSpore的端侧部分，可以在�
 
     - 库下载：请手动下载硬件平台为CPU、操作系统为Windows-x64的MindSpore Lite模型推理框架[mindspore-lite-{version}-win-x64.zip](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，将解压后`inference/lib`目录下的`libmindspore-lite.a`拷贝到`mindspore/lite/examples/quick_start_cpp/lib`目录、`inference/include`目录拷贝到`mindspore/lite/examples/quick_start_cpp/include`目录。
 
-    - 模型下载：请手动下载相关模型文件[mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_imagenet/r1.5/mobilenetv2.ms)，并将其拷贝到`mindspore/lite/examples/quick_start_cpp/model`目录。
+    - 模型下载：请手动下载相关模型文件[mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_imagenet/1.5/mobilenetv2.ms)，并将其拷贝到`mindspore/lite/examples/quick_start_cpp/model`目录。
 
         > 可选择使用模型转换小节所获得的mobilenetv2.ms模型文件。
 
