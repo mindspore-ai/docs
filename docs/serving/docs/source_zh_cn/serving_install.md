@@ -14,7 +14,7 @@
 
 ## 安装
 
-MindSpore Serving依赖MindSpore或MindSpore Lite推理框架，我们需要选择一个作为Serving推理后端。
+MindSpore Serving包在各类硬件平台（Nvidia GPU, Ascend 910/710/310, CPU）上通用，推理任务依赖MindSpore或MindSpore Lite推理框架，我们需要选择一个作为Serving推理后端。当这两个推理后端同时存在的时候，优先使用MindSpore Lite推理框架。
 
 MindSpore和MindSpore Lite针对不同的硬件平台有不同的构建包，每个不同的构建包支持的运行目标设备和模型格式如下表所示：
 

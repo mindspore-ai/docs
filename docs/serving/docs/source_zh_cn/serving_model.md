@@ -165,6 +165,8 @@ resnet_model = register.declare_model(model_file="resnet50_1b_cifar10.mindir", m
                                          with_batch_dim=True, without_batch_dim_inputs=1)
     ```
 
+5. 如果想要配置模型运行时的参数以及设备信息，可以使用`declare_model`的`context`和`config_file`入参。具体可以参考相关[API文档](https://www.mindspore.cn/serving/api/zh-CN/master/server.html#mindspore_serving.server.register.declare_model)。
+
 对于分布式模型，与非分布式单模型配置相比仅声明方法不同，需要使用`mindspore_serving.server.distributed.declare_servable`，其中入参`rank_size`表示模型推理使用的device个数，`stage_size`表示流水线的段数，可以参考[部署分布式推理服务](https://www.mindspore.cn/serving/docs/zh-CN/master/serving_distributed_example.html)。
 
 ```python
