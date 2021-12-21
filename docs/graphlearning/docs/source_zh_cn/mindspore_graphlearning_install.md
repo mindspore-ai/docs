@@ -44,7 +44,7 @@ MindSpore Graph Learning是一个基于MindSpore的高效易用的图学习框�
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/GraphLearning/any/mindspore_gl_gpu-{version}-cp37-cp37m-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-> - 在联网状态下，安装whl包时会自动下载MindSpore Graph Learning安装包的依赖项（依赖项详情参见[requirements.txt ](https://gitee.com/mindspore/graphlearning/blob/master/requirements.txt），其余情况需自行安装。
+> - 在联网状态下，安装whl包时会自动下载MindSpore Graph Learning安装包的依赖项（依赖项详情参见[requirements.txt](https://gitee.com/mindspore/graphlearning/blob/master/requirements.txt)），其余情况需自行安装。
 > - `{version}`表示MindSpore Graph Learning版本号，例如下载0.1版本MindSpore Graph Learning时，`{version}`应写为0.1。
 
 #### 源码安装
