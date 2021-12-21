@@ -212,7 +212,7 @@ The following provides a demo that runs on the Windows and Linux operating syste
 
 The format of a model needs to be converted before the model is used for inference on the device. Currently, MindSpore Lite supports four types of AI frameworks: MindSpore, TensorFlow Lite, Caffe, and ONNX.
 
-The following uses the [mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/r1.5/mobilenetv2.mindir) model trained by MindSpore as an example to describe how to generate the `mobilenetv2.ms` model used in the demo.
+The following uses the [mobilenetv2.mindir](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/1.5/mobilenetv2.mindir) model trained by MindSpore as an example to describe how to generate the `mobilenetv2.ms` model used in the demo.
 
 > The following describes the conversion process. Skip it if you only need to run the demo.
 >
@@ -277,7 +277,7 @@ The following uses the [mobilenetv2.mindir](https://download.mindspore.cn/model_
 
     - Download the library: Manually download the MindSpore Lite model inference framework [mindspore-lite-{version}-win-x64.zip](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) whose hardware platform is CPU and operating system is Windows-x64. Copy the `libmindspore-lite.a` file in the decompressed `inference/lib` directory to the `mindspore/lite/examples/quick_start_cpp/lib` directory. Copy the `inference/include` directory to the `mindspore/lite/examples/quick_start_cpp/include` directory.
 
-    - Download the model: Manually download the model file [mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_imagenet/r1.5/mobilenetv2.ms) and copy it to the `mindspore/lite/examples/quick_start_cpp/model` directory.
+    - Download the model: Manually download the model file [mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_imagenet/1.5/mobilenetv2.ms) and copy it to the `mindspore/lite/examples/quick_start_cpp/model` directory.
 
         > You can use the mobilenetv2.ms model file obtained in "Model Conversion".
 
