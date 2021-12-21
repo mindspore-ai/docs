@@ -255,7 +255,7 @@
 
 1. 使用静态库，运行时报Parameter的Creator函数找不到的错，日志报错信息：
 
-    ```cpp
+    ```text
     ERROR [mindspore\lite\src\ops\populate\populate_register.h:**] GetParameterCreator] Unsupported parameter type in Create : **
     ERROR [mindspore\lite\src\scheduler.cc:**] InferNodeShape] parameter generator is nullptr.
     ERROR [mindspore\lite\src\scheduler.cc:**] InferSubGraphShape] InferShape failed, name: **, type: **
@@ -269,7 +269,7 @@
 
 2. 模型校验失败，日志报错信息：
 
-    ```cpp
+    ```text
     ERROR [mindspore\lite\src\lite_model.cc:**] ModelVerify] Model does not have inputs.
     ERROR [mindspore\lite\src\lite_model.cc:**] ConstructModel] ModelVerify failed.
     ERROR [mindspore\lite\src\lite_model.cc:**] ImportFromBuffer] construct model failed.
