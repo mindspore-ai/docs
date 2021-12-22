@@ -793,7 +793,31 @@ MindSpore编程指南
 											<span class="doc-head-content">使能算子调优工具</span>
 										</div>
 										<div class="doc-article-desc">
-										。本文档主要介绍AutoTune的在线调优使用方法。
+										本文档主要介绍AutoTune的在线调优使用方法。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all hardware-ascend hardware-gpu stage-Model-Optimization stage-Data-Preparation experience-local hidden">
+								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/enable_dataset_autotune.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">使能自动数据加速</span>
+										</div>
+										<div class="doc-article-desc">
+										MindSpore提供了一种自动数据调优的工具——Dataset AutoTune，用于在训练过程中根据环境资源的情况自动调整数据处理管道的并行度，最大化利用系统资源加速数据处理管道的处理速度。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local hidden">
+								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/enable_dataset_offload.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">数据准备异构加速</span>
+										</div>
+										<div class="doc-article-desc">
+										MindSpore提供了一种运算负载均衡的技术，可以将MindSpore的算子计算分配到不同的异构硬件上，一方面均衡不同硬件之间的运算开销，另一方面利用异构硬件的优势对算子的运算进行加速。
 										</div>
 									</div>
 								</a>
@@ -826,7 +850,7 @@ MindSpore编程指南
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/enable_mixed_precision.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">使能混合精度</span>
+											<span class="doc-head-content">混合精度</span>
 										</div>
 										<div class="doc-article-desc">
 										混合精度训练方法是通过混合使用单精度和半精度数据格式来加速深度神经网络训练的过程，同时保持了单精度训练所能达到的网络精度。
@@ -1426,7 +1450,7 @@ MindSpore编程指南
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/design/dynamic_graph_and_static_graph.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">动态图和静态图</span>
+											<span class="doc-head-content">静态图和动态图</span>
 										</div>
 										<div class="doc-article-desc">
 										目前主流的深度学习框架的执行模式有两种，分别为静态图模式和动态图模式。
