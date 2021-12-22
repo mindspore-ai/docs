@@ -15,6 +15,7 @@
     - [模型推理精度问题](#模型推理精度问题)
     - [模型推理性能问题](#模型推理性能问题)
     - [使用Visual Studio相关问题](#使用visual-studio相关问题)
+    - [使用Xcode构建APP相关问题](#使用Xcode构建APP相关问题)
     - [其他问题](#其他问题)
 
 <!-- /TOC -->
@@ -278,6 +279,33 @@
     - 问题分析：读取的模型文件不完整的。
 
     - 解决方法：使用 Visual Studio 编译器时，读入 model 流必须加 std::ios::binary。
+
+## 使用Xcode构建APP相关问题
+
+1. 利用Xcode使用framework包构建APP，运行GetParameterCreator函数报错不支持某种parameter，日志如下：
+
+    ```text
+    ERROR [mindspore/lite/src/ops/populate/populate_register.h:46] GetParameterCreator] Unsupported parameter type in Create : **
+    ERROR [mindspore/lite/src/scheduler.cc:208] InferNodeShape] parameter generator is nullptr.
+    ERROR [mindspore/lite/src/scheduler.cc:266] InferSubGraphShape] InferShape failed, name: **, type: **
+    ERROR [mindspore/lite/src/scheduler.cc:78] SchedulePreProcess] op infer shape failed.
+    ERROR [mindspore/lite/src/lite_session.cc:508] CompileGraph] Schedule kernels failed: -500
+    ```
+
+    - 问题分析：链接framework中的静态库，不会导入静态库中的所有符号，Parameter的Creator函数是通过全局静态对象注册到单例对象去的。
+
+    - 解决方法：使用framework包在Xcode中构建APP时，需要在“Build Settings->Linking->Other Linker Flags”中，添加“mindspore_lite.framework/mindspore_lite”路径。
+
+2. 利用Xcode使用framework包构建APP时，报错如下：
+
+    ```text
+    Undefined symbol:
+    mindspore::session::LiteSession::CreateSession(**);
+    ```
+
+    - 问题分析：没有找到对应的符号，在Xcode工程中没有正确的导入framework包。
+
+    - 解决方法：使用framework包在Xcode中构建APP时，需要在“Build Settings->Search Paths->Framework Search Paths”中，添加“mindspore_lite.framework”路径。同时在“Build Settings->Search Paths->User Header Search Paths”中，添加“mindspore_lite.framework/Headers”路径。
 
 ## 其他问题
 
