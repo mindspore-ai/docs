@@ -28,15 +28,15 @@ Import relevant dependencies of the tutorial.
 ```python
 import numpy as np
 import time
-from mindquantum.ops import QubitOperator
+from mindquantum.core import QubitOperator
 import mindspore.ops as ops
 import mindspore.dataset as ds
 from mindspore import nn
 from mindspore.train.callback import LossMonitor
 from mindspore import Model
-from mindquantum.nn import MindQuantumLayer
-from mindquantum.gate import Hamiltonian, RX, RY, X, H
-from mindquantum.circuit import Circuit, UN
+from mindquantum.framework import MQLayer
+from mindquantum.core import Hamiltonian, RX, RY, X, H
+from mindquantum.core import Circuit, UN
 ```
 
 This tutorial implements a [CBOW model](https://blog.csdn.net/u010665216/article/details/78724856), which predicts a word based on its position. For example, "I love natural language processing", this sentence can be divided by five words, which are \["I", "love", "natural", "language", "processing"\]. When the selected window is 2, the task to be completed would be to predict the word "natural" given \[“I”, “love”, “language”, “processing”\]. In the following, we will build a quantum neural network for word embedding to deal with the this task.
@@ -105,9 +105,11 @@ GenerateEncoderCircuit(3,prefix='e')
 ```
 
 ```text
-    RX(e_0|0)
-    RX(e_1|1)
-    RX(e_2|2)
+    q0: ──RX(e_0)──
+
+    q1: ──RX(e_1)──
+
+    q2: ──RX(e_2)──
 ```
 
 $\left|0\right>$ and $\left|1\right>$ are used to mark the two states of a two-level qubit. According to the state superposition theory, qubit can also be in the superposition of these two states:
@@ -119,7 +121,7 @@ For the quantum state of a $n$ bits, it can be in a $2^n$ Hilbert space. For the
 For example. given the word "love" in the above dictionary, its corresponding label is 2, represented by `010` in the binary format. We only need to set `e_0`, `e_1`, and `e_2` to $0$, $\pi$, and $0$ respectively. In the following, we use the `Evolution` operator for verification.
 
 ```python
-from mindquantum.nn import generate_evolution_operator
+from mindquantum.simulator import Simulator
 from mindspore import context
 from mindspore import Tensor
 
@@ -128,18 +130,17 @@ label = 2 # label need to encode
 label_bin = bin(label)[-1:1:-1].ljust(n_qubits,'0') # binary form of label
 label_array = np.array([int(i)*np.pi for i in label_bin]).astype(np.float32) # parameter value of encoder
 encoder = GenerateEncoderCircuit(n_qubits, prefix='e') # encoder circuit
-encoder_para_names = encoder.para_name # parameter names of encoder
+encoder_params_name = encoder.params_name # parameter names of encoder
 
 print("Label is: ", label)
 print("Binary label is: ", label_bin)
 print("Parameters of encoder is: \n", np.round(label_array, 5))
 print("Encoder circuit is: \n", encoder)
-print("Encoder parameter names are: \n", encoder_para_names)
+print("Encoder parameter names are: \n", encoder_params_name)
 
-context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
-# quantum state evolution operator
-evol = generate_evolution_operator(param_names=encoder_para_names, circuit=encoder)
-state = evol(Tensor(label_array))
+context.set_context(mode=context.PYNATIVE_MODE, device_target="CPU")
+
+state = encoder.get_qs(pr=label_array)
 amp = np.round(np.abs(state)**2, 3)
 
 print("Amplitude of quantum state is: \n", amp)
@@ -220,20 +221,15 @@ GenerateAnsatzCircuit(5, 2, 'a')
 ```
 
 ```text
-    RY(a_0_0|0)
-    RY(a_0_1|1)
-    RY(a_0_2|2)
-    RY(a_0_3|3)
-    RY(a_0_4|4)
-    X(1 <-: 0)
-    X(3 <-: 2)
-    RY(a_1_0|0)
-    RY(a_1_1|1)
-    RY(a_1_2|2)
-    RY(a_1_3|3)
-    RY(a_1_4|4)
-    X(2 <-: 1)
-    X(4 <-: 3)
+q0: ──RY(a_0_0)────────●────────RY(a_1_0)───────
+                       │
+q1: ──RY(a_0_1)────────X────────RY(a_1_1)────●──
+                                             │
+q2: ──RY(a_0_2)────────●────────RY(a_1_2)────X──
+                       │
+q3: ──RY(a_0_3)────────X────────RY(a_1_3)────●──
+                                             │
+q4: ──RY(a_0_4)────RY(a_1_4)─────────────────X──
 ```
 
 ## Measurement
@@ -277,21 +273,23 @@ def QEmbedding(num_embedding, embedding_dim, window, layers, n_threads):
     hams = GenerateEmbeddingHamiltonian(embedding_dim, n_qubits)
     circ = Circuit()
     circ = UN(H, n_qubits)
-    encoder_param_name = []
-    ansatz_param_name = []
+    encoder_params_name = []
+    ansatz_params_name = []
     for w in range(2 * window):
         encoder = GenerateEncoderCircuit(n_qubits, 'Encoder_' + str(w))
         ansatz = GenerateAnsatzCircuit(n_qubits, layers, 'Ansatz_' + str(w))
         encoder.no_grad()
         circ += encoder
         circ += ansatz
-        encoder_param_name.extend(encoder.para_name)
-        ansatz_param_name.extend(ansatz.para_name)
-    net = MindQuantumLayer(encoder_param_name,
-                           ansatz_param_name,
-                           circ,
-                           hams,
-                           n_threads=n_threads)
+        encoder_params_name.extend(encoder.params_name)
+        ansatz_params_name.extend(ansatz.params_name)
+    sim = Simulator('projectq', circ.n_qubits)
+    grad_ops = sim.get_expectation_with_grad(hams,
+                                             circ,
+                                             encoder_params_name=encoder_params_name,
+                                             ansatz_params_name=ansatz_params_name,
+                                             parallel_worker=n_threads)
+    net = MQLayer(grad_ops)
     return net
 ```
 
@@ -368,7 +366,7 @@ Next, embed a long setence by using the quantum `CBOW`. Please execute this comm
 import mindspore as ms
 from mindspore import context
 from mindspore import Tensor
-context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
+context.set_context(mode=context.PYNATIVE_MODE, device_target="CPU")
 corpus = """We are about to study the idea of a computational process.
 Computational processes are abstract beings that inhabit computers.
 As they evolve, processes manipulate other abstract things called data.

@@ -41,15 +41,15 @@ from openfermion.chem import MolecularData
 from openfermionpyscf import run_pyscf
 import mindquantum as mq
 from mindquantum import Hamiltonian
-from mindquantum.gate import X, RX
-from mindquantum.circuit import Circuit, generate_uccsd
-from mindquantum.nn import generate_pqc_operator
+from mindquantum.core import X, RX
+from mindquantum.core import Circuit
+from mindquantum.algorithm.nisq.chem import generate_uccsd
 import mindspore as ms
 import mindspore.context as context
 from mindspore.common.parameter import Parameter
 from mindspore.common.initializer import initializer
 
-context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
+context.set_context(mode=context.PYNATIVE_MODE, device_target="CPU")
 ```
 
 ## Quantum Chemistry Computing Method
@@ -196,10 +196,6 @@ molecule_file = molecule_of.filename
 print(molecule_file)
 ```
 
-```bash
-/home/xuxs/anaconda3/envs/p37/lib/python3.7/site-packages/openfermion/testing/data/H1-Li1_sto3g_singlet
-```
-
 One of the major obstacles to quantum chemistry is the volume of computation. As the system size (electron number and atomic number) increases, the time required for solving the FCI wave function and ground state energy increases by about $2^{N}$. Even for small molecules such as ethylene molecules, FCI computing is not easy. Quantum computers provide a possible solution to this problem. Research shows that quantum computers can simulate the time-dependent evolution of Hamiltonian in terms of polynomial time complexity. Compared with classical computers, quantum computers exponentially accelerate the chemical simulation on quantum processors. This tutorial introduces one of the quantum algorithms: VQE.
 
 ## Variational Quantum Eigensolver (VQE)
@@ -234,10 +230,13 @@ print(hartreefock_wfn_circuit)
 ```
 
 ```bash
-X(0)
-X(1)
-X(2)
-X(3)
+q0: ──X──
+
+q1: ──X──
+
+q2: ──X──
+
+q3: ──X──
 ```
 
 We can build a probe wave function in the following form:
@@ -299,7 +298,7 @@ The procedure for solving the molecular ground state by using the VQE is as foll
 
 1. Prepare the HF initial state: $| 00\dots11\dots \rangle$.
 2. Define the wave function ansatz, such as UCCSD.
-3. Convert the wave function into a parameterized quantum circuit.
+3. Convert the wave function into a variational quantum circuit.
 4. Initialize the variational parameters, for example, set all parameters to 0.
 5. Obtain the energy $E(\theta)$ of the molecular Hamiltonian under the set of variational parameters and the derivative $\{ {\partial E} / {\partial \theta_{i}} \}$ of the energy about the parameters by means of multiple measurements on the quantum computer.
 6. Use optimization algorithms, such as gradient descent and BFGS, to update variational parameters on classical computers.
@@ -307,38 +306,34 @@ The procedure for solving the molecular ground state by using the VQE is as foll
 8. Repeat steps 5 to 7 until the convergence criteria are met.
 9. End.
 
-In step 5, the derivative $\{ {\partial E} / {\partial \theta_{i}} \}$ of the energy about the parameter may be computed by using a parameter-shift rule on a quantum computer, or may be computed by simulating a parameter-shift rule or a finite difference method in a simulator. This is a relatively time-consuming process. Based on the MindSpore framework, MindQuantum provides the automatic derivation function similar to machine learning, which can efficiently compute the derivatives of parameterized quantum circuits in simulation. The following uses MindQuantum to build a parameterized UCCSD quantum circuit with an automatic derivation function:
+In step 5, the derivative $\{ {\partial E} / {\partial \theta_{i}} \}$ of the energy about the parameter may be computed by using a parameter-shift rule on a quantum computer, or may be computed by simulating a parameter-shift rule or a finite difference method in a simulator. This is a relatively time-consuming process. Based on the MindSpore framework, MindQuantum provides the automatic derivation function similar to machine learning, which can efficiently compute the derivatives of variational quantum circuits in simulation. The following uses MindQuantum to build a parameterized UCCSD quantum circuit with an automatic derivation function:
 
 ```python
-molecule_pqc = generate_pqc_operator(
-    ["null"], ansatz_parameter_names,
-    RX("null").on(0) + total_circuit,
-    Hamiltonian(hamiltonian_QubitOp))
+from mindquantum.simulator import Simulator
+sim = Simulator('projectq', total_circuit.n_qubits)
+molecule_pqc = sim.get_expectation_with_grad(Hamiltonian(hamiltonian_QubitOp),
+                                             total_circuit)
 ```
 
-MindQuantum needs to provide two sets of circuits (and parameters) as the encoding circuit and Ansatz circuit. Here, `RX("null")` is used as an encoding circuit, and invalidate `null` by setting it to 0. You can obtain the energy $E(\theta)=\langle \Psi_{UCC}(\theta) | \hat{H} | \Psi_{UCC}(\theta) \rangle$ corresponding to the variational parameter and the derivative of each variational parameter by transferring a specific value of the parameter to `molecule_pqc`.
+You can obtain the energy $E(\theta)=\langle \Psi_{UCC}(\theta) | \hat{H} | \Psi_{UCC}(\theta) \rangle$ corresponding to the variational parameter and the derivative of each variational parameter by transferring a specific value of the parameter to `molecule_pqc`.
 
 Next, steps 5 to 7 in VQE optimization need to be performed, that is, parameterized quantum circuits need to be optimized. Based on the MindSpore framework, you can use the parameterized quantum circuit operator `molecule_pqc` to build a neural network model, and then optimize the variational parameters by using a method similar to training the neural network.
 
 ```python
+from mindquantum.framework import MQAnsatzOnlyLayer
 class PQCNet(ms.nn.Cell):
     def __init__(self, pqc):
         super(PQCNet, self).__init__()
         self.pqc = pqc
-        self.weight =  Parameter(initializer("Zeros",
-            len(self.pqc.ansatz_params_names)),
-            name="weight")
-        self.encoder_data_dummy = ms.Tensor([[0]],
-            self.weight.dtype)
+        self.net = MQAnsatzOnlyLayer(self.pqc, weight='Zeros')
 
     def construct(self):
-        energy, _, grads = self.pqc(self.encoder_data_dummy, self.weight)
-        return energy
+        return self.net()
 
 molecule_pqcnet = PQCNet(molecule_pqc)
 ```
 
-Here, we manually build a basic `PQCNet` as a model example. This model can be used similar to a conventional machine learning model, for example, optimizing weights and calculating derivatives. A better choice is to use `MindQuantumAnsatzOnlyLayer` encapsulated in MindQuantum, which will be demonstrated later.
+Here, we manually build a basic `PQCNet` as a model example. This model can be used similar to a conventional machine learning model, for example, optimizing weights and calculating derivatives. A better choice is to use `MQAnsatzOnlyLayer` encapsulated in MindQuantum, which will be demonstrated later.
 
 The built `PQCNet` uses the `"Zeros"` keyword to initialize all variational parameters to 0. The computing result of CCSD or second order Møller-Plesset perturbation theory (MP2) can also be used as the initial value of the variational parameters of unitary coupled-clusters. In this case, $E(\vec{0})=\langle \Psi_{UCC}(\vec{0}) | \hat{H} | \Psi_{UCC}(\vec{0}) \rangle = E_{HF}$.
 
@@ -371,7 +366,7 @@ while abs(energy_diff) > eps:
 
 print("Optimization completed at step %3d" % (iter_idx - 1))
 print("Optimized energy: %20.16f" % (energy_i))
-print("Optimized amplitudes: \n", molecule_pqcnet.weight.asnumpy())
+print("Optimized amplitudes: \n", molecule_pqcnet.net.weight.asnumpy())
 ```
 
 ```bash
@@ -415,11 +410,11 @@ In the preceding part, the `generate_uccsd` is used to build all the content req
 First, import some extra dependencies, including the related functions of the HiQfermion module in MindQuantum.
 
 ```python
-from mindquantum.hiqfermion.transforms import Transform
-from mindquantum.hiqfermion.ucc import get_qubit_hamiltonian
-from mindquantum.hiqfermion.ucc import uccsd_singlet_generator, uccsd_singlet_get_packed_amplitudes
-from mindquantum.circuit import TimeEvolution
-from mindquantum.nn import MindQuantumAnsatzOnlyLayer
+from mindquantum.algorithm.nisq.chem import Transform
+from mindquantum.algorithm.nisq.chem import get_qubit_hamiltonian
+from mindquantum.algorithm.nisq.chem import uccsd_singlet_generator, uccsd_singlet_get_packed_amplitudes
+from mindquantum.core import TimeEvolution
+from mindquantum.framework import MQAnsatzOnlyLayer
 ```
 
 The molecule Hamiltonian uses `get_qubit_hamiltonian` to read the previous computing result. The result is as follows:
@@ -445,7 +440,7 @@ Next, we need to obtain the quantum circuit corresponding to the unitary operato
 
 ```python
 ansatz_circuit = TimeEvolution(ucc_qubit_ops.imag, 1.0).circuit
-ansatz_parameter_names = ansatz_circuit.para_name
+ansatz_parameter_names = ansatz_circuit.params_name
 ```
 
 `ansatz_parameter_names` is used to record the parameter names in the circuit. So far, we have obtained the contents required by the VQE quantum circuit, including the Hamiltonian `hamiltonian_QubitOp` and the parameterized wave function ansatz `ansatz_circuit`. By referring to the preceding steps, we can obtain a complete state preparation circuit. `hartreefock_wfn_circuit` mentioned above is used as the Hartree-Fock reference state:
@@ -472,11 +467,13 @@ init_amplitudes_ccsd = uccsd_singlet_get_packed_amplitudes(
 init_amplitudes_ccsd = [init_amplitudes_ccsd[param_i] for param_i in ansatz_parameter_names]
 ```
 
-`MindQuantumAnsatzOnlyLayer` can be used to easily obtain a machine learning model based on a parameterized quantum circuit by using a parameter and a quantum circuit:
+`MQAnsatzOnlyLayer` can be used to easily obtain a machine learning model based on a variational quantum circuit by using a parameter and a quantum circuit:
 
 ```python
-molecule_pqcnet = MindQuantumAnsatzOnlyLayer(
-    ansatz_parameter_names, total_circuit, Hamiltonian(hamiltonian_QubitOp.real))
+sim = Simulator('projectq', total_circuit.n_qubits)
+grad_ops = sim.get_expectation_with_grad(Hamiltonian(hamiltonian_QubitOp.real),
+                                         total_circuit)
+molecule_pqcnet = MQAnsatzOnlyLayer(grad_ops)
 ```
 
 `init_amplitudes_ccsd` (coupled-cluster coefficient computed by CCSD) is used as an initial variational parameter:
