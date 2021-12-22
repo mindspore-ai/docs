@@ -35,6 +35,7 @@ MindSpore Lite文档
    :hidden:
 
    use/converter_tool
+   use/converter_advance
    use/post_training_quantization
    use/data_preprocessing
    use/runtime
@@ -291,6 +292,18 @@ MindSpore Lite文档
 										</div>
 										<div class="doc-article-desc">
 											MindSpore Lite提供离线转换模型功能的工具，支持多种类型的模型转换，转换后的模型可用于推理。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux stage-Model-Converting user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_advance.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">推理模型转换进阶</span>
+										</div>
+										<div class="doc-article-desc">
+                      MindSpore Lite提供一个具有高度灵活性的离线模型转换工具，支持用户基于该工具进行扩展，比如，可将用户特有硬件与MindSpore Lite推理引擎结合。
 										</div>
 									</div>
 								</a>

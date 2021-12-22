@@ -35,6 +35,7 @@ MindSpore Lite Documentation
    :hidden:
 
    use/converter_tool
+   use/converter_advance
    use/post_training_quantization
    use/data_preprocessing
    use/runtime
@@ -295,6 +296,18 @@ MindSpore Lite Documentation
 									</div>
 								</a>
 							</div>
+							<div class="doc-article-item all os-Linux stage-Model-Converting user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/use/converter_advance.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Advanced Model Converter</span>
+										</div>
+										<div class="doc-article-desc">
+                      MindSpore Lite provides a highly flexible tool for offline model conversion. It supports users to expand such as combining your own specific hardware with MindSpore Lite Inference Engine.
+										</div>
+									</div>
+								</a>
+							</div>
 							<div class="doc-article-item all os-Windows os-Linux stage-Model-Converting stage-Model-Optimization user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/lite/docs/en/master/use/post_training_quantization.html" class="article-link">
 									<div>
@@ -485,4 +498,4 @@ MindSpore Lite Documentation
 				</div>
 			</div>
 		</div>
-	
+
