@@ -273,9 +273,9 @@ print(out)
 
 JIT Fallback是从静态图的角度出发考虑静态图和动态图的统一，希望静态图模式能够尽量多的支持动态图模式的语法，其借鉴了传统JIT编译的Fallback的思路。MindSpore默认使用静态图模式即Graph模式，不是所有的Python语法都能支持，用户在编写程序时容易遇到语法约束限制。通过JIT Fallback，用户可以灵活地进行静态图和动态图的切换。
 
-当前JIT Fallback有条件地支持Graph模式的部分常量场景。编译静态图时，如果遇到不支持的语法，将会记录相关语句并生成解释节点，在后续处理中将相关语句Fallback到Python解释器进行解释执行，从而支持该语法。
+当前JIT Fallback有条件地支持Graph模式的部分常量场景。常量场景是指值明确且保持不变，不因外界影响而修改，不以参数形式传入的场景。编译静态图时，如果遇到不支持的语法，将会记录相关语句并生成解释节点，在后续处理中将相关语句Fallback到Python解释器进行解释执行，从而支持该语法。当前支持Tensor的构建和部分运算，支持NumPy对象的运算。更多JIT Fallback的使用可参考[JIT Fallback文档](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/jit_fallback.html)。
 
-代码用例如下：
+代码用例如下，其中NumPy和Tensor是MindSpore图模式construct中不支持的语法，所以用例中的x和y在Fallback特性中被解析成解释节点，通过Python解释器进行解释执行。
 
 ```python
 import numpy as np
