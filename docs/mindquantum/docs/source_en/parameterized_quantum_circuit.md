@@ -1,10 +1,10 @@
-﻿# Parameterized Quantum Circuit
+﻿# Variational Quantum Circuit
 
 Translator: [Wei_zz](https://gitee.com/wei-zz)
 
 <!-- TOC -->
 
-- [Parameterized Quantum Circuit](#parameterized-quantum-circuit)
+- [Variational Quantum Circuit](#variational-quantum-circuit)
     - [Summary](#summary)
     - [Preparing Environment](#preparing-environment)
     - [Quantum Gate](#quantum-gate)
@@ -19,7 +19,7 @@ Translator: [Wei_zz](https://gitee.com/wei-zz)
 
 ## Summary
 
-Parameterized quantum circuit(PQC), is an approach for Quantum Machine Learning. The MindQuantum (mixing framework of quantum and classic machine learning) can process parameterized quantum circuit and get the derivation of all observation to every parameter respectively by auto differentiating the circuit using quantum neural network.
+Variational quantum circuit(VQC), is an approach for Quantum Machine Learning. The MindQuantum (mixing framework of quantum and classic machine learning) can process variational quantum circuit and get the derivation of all observation to every parameter respectively by auto differentiating the circuit using quantum neural network.
 The process of constructing a quantum circuit and circuit evolution by parameterized simulator operators is as follows:
 
 1. Initialize a quantum circuit.
@@ -33,7 +33,7 @@ Import required modules.
 ```python
 import numpy as np
 import mindquantum as mq
-from mindquantum.gate import H, X, Y, RY, RX
+from mindquantum.core import H, X, Y, RY, RX
 ```
 
 ## Quantum Gate
@@ -76,9 +76,7 @@ Quantum circuit is a structure used to effectively organize various quantum logi
 
 ![quantum circuit](./images/quantum_circuit.png)
 
-### HiQsimulator Compatible Quantum Circuit Building Format
-
-For the introduction of HiQsimulator, please visit: <https://hiq.huaweicloud.com/en/index.html>.
+### [HiQsimulator](https://hiq.huaweicloud.com/doc/index.html) Compatible Quantum Circuit Building Format
 
 1. Constructing a quantum circuit by `CircuitEngine`
 
@@ -96,9 +94,11 @@ For the introduction of HiQsimulator, please visit: <https://hiq.huaweicloud.com
     ```
 
     ```text
-    H(0)
-    X(1 <-: 0)
-    RY(p1|2)
+    q0: ────H───────●──
+                    │
+    q1: ────────────X──
+
+    q2: ──RY(p1)───────
     ========Circuit Summary========
     |Total number of gates  : 3.  |
     |Parameter gates        : 1.  |
@@ -127,9 +127,11 @@ For the introduction of HiQsimulator, please visit: <https://hiq.huaweicloud.com
     ```
 
     ```text
-    H(0)
-    X(1 <-: 0)
-    RY(p1|2)
+    q0: ────H───────●──
+                    │
+    q1: ────────────X──
+
+    q2: ──RY(p1)───────
     ========Circuit Summary========
     |Total number of gates  : 3.  |
     |Parameter gates        : 1.  |
@@ -152,9 +154,11 @@ For the introduction of HiQsimulator, please visit: <https://hiq.huaweicloud.com
     ```
 
     ```text
-    H(0)
-    X(1 <-: 0)
-    RY(encoder_1|2)
+    q0: ────────H──────────●──
+                           │
+    q1: ───────────────────X──
+
+    q2: ──RY(encoder_1)───────
     ===========Circuit Summary===========
     |Total number of gates  : 3.        |
     |Parameter gates        : 1.        |
@@ -168,7 +172,7 @@ For the introduction of HiQsimulator, please visit: <https://hiq.huaweicloud.com
 By continuously adding quantum gates acting on different bits to the quantum circuit, the construction of the quantum circuit can be completed quickly.
 
 ```python
-from mindquantum.circuit import Circuit
+from mindquantum.core import Circuit
 
 encoder = Circuit()
 encoder += H.on(0)
@@ -179,9 +183,11 @@ encoder.summary()
 ```
 
 ```text
-H(0)
-X(1 <-: 0)
-RY(p1|2)
+q0: ────H───────●──
+                │
+q1: ────────────X──
+
+q2: ──RY(p1)───────
 ========Circuit Summary========
 |Total number of gates  : 3.  |
 |Parameter gates        : 1.  |
@@ -203,7 +209,7 @@ In the following, we will construct a quantum neural network, whose encoder cons
 ![simple qnn](./images/simple_qnn.png)
 
 ```python
-from mindquantum.ops import QubitOperator
+from mindquantum.core import QubitOperator
 
 @circuit_generator(2)
 def encoder(qubits):
@@ -221,21 +227,22 @@ encoder_names = ['a', 'b']
 ansatz_names = ['p1', 'p2']
 ```
 
-We generate an Encoder circuit and an Ansatz circuit through the decorator. We also generate a circuit simulation operator by `generate_pqc_operator`, and get the gradients of the quantum neural network output of each parameter respectively by processing simulation computation of quantum circuit. In `generate_pqc_operator`, we need to provide parameter names of the Encoder circuit and Ansatz circuit, the whole quantum circuit and physical quantity for measurement.
+We generate an Encoder circuit and an Ansatz circuit through the decorator. We also generate a circuit simulation operator by `get_expectation_with_grad` within `Simulator`, and get the gradients of the quantum neural network output of each parameter respectively by processing simulation computation of quantum circuit. In `get_expectation_with_grad`, we need to provide parameter names of the Encoder circuit and Ansatz circuit, the whole quantum circuit and physical quantity for measurement.
 
 ```python
-from mindquantum.nn import generate_pqc_operator
-from mindspore import Tensor
-from mindspore import context
-context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
-
-pqc = generate_pqc_operator(encoder_names, ansatz_names, encoder+ansatz, ham)
-encoder_data = Tensor(np.array([[0.1,0.2]]).astype(np.float32))
-ansatz_data = Tensor(np.array([0.3,0.4]).astype(np.float32))
-measure_result, encoder_grad, ansatz_grad = pqc(encoder_data, ansatz_data)
-print('Measurement result: ', measure_result.asnumpy())
-print('Gradient of encoder parameters: ', encoder_grad.asnumpy())
-print('Gradient of ansatz parameters: ', ansatz_grad.asnumpy())
+from mindquantum.simulator import Simulator
+total_circuit = encoder + ansatz
+sim = Simulator('projectq', total_circuit.n_qubits)
+grad_ops = sim.get_expectation_with_grad(ham,
+                                         total_circuit,
+                                         encoder_params_name=encoder_names,
+                                         ansatz_params_name=ansatz_names)
+encoder_data = np.array([[0.1,0.2]])
+ansatz_data = np.array([0.3,0.4])
+measure_result, encoder_grad, ansatz_grad = grad_ops(encoder_data, ansatz_data)
+print('Measurement result: ', measure_result)
+print('Gradient of encoder parameters: ', encoder_grad)
+print('Gradient of ansatz parameters: ', ansatz_grad)
 ```
 
 ```text
@@ -248,11 +255,14 @@ The above three results respectively represent the output value of the quantum n
 
 ```python
 encoder.no_grad()
-pqc = generate_pqc_operator(encoder_names, ansatz_names, encoder+ansatz, ham)
-measure_result, encoder_grad, ansatz_grad = pqc(encoder_data, ansatz_data)
-print('Measurement result: ', measure_result.asnumpy())
-print('Gradient of encoder parameters: ', encoder_grad.asnumpy())
-print('Gradient of ansatz parameters: ', ansatz_grad.asnumpy())
+grad_ops = sim.get_expectation_with_grad(ham,
+                                         encoder+ansatz,
+                                         encoder_params_name=encoder_names,
+                                         ansatz_params_name=ansatz_names)
+measure_result, encoder_grad, ansatz_grad = grad_ops(encoder_data, ansatz_data)
+print('Measurement result: ', measure_result)
+print('Gradient of encoder parameters: ', encoder_grad)
+print('Gradient of ansatz parameters: ', ansatz_grad)
 ```
 
 ```text

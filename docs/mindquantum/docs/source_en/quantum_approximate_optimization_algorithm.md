@@ -6,9 +6,6 @@
 
 Quantum approximate optimization algorithm (QAOA) is a quantum algorithm that uses quantum computers to solve combination optimization problems. It was first proposed by Farhi et al. in 2014. In this tutorial, we will use QAOA to solve the Max-Cut problem and get familiar with the construction and training of quantum circuits in MindQuantum.
 
-> This document applies to the CPU environment.
-> You can obtain the complete executable sample code at <https://gitee.com/mindspore/mindquantum/blob/master/tutorials/source/5.quantum_approximate_optimization_algorithm.py>.
-
 ## Environment Preparation
 
 This tutorial requires the following library:
@@ -40,11 +37,12 @@ $$H=\sum_{(i,j)\in C}(Z_iZ_j-1)/2$$
 ## Importing Dependencies
 
 ```python
-from mindquantum.circuit import Circuit,StateEvolution
-from mindquantum import Hamiltonian, UN
-from mindquantum.gate import H, ZZ, RX
-from mindquantum.nn import MindQuantumAnsatzOnlyLayer
-from mindquantum.ops import QubitOperator
+from mindquantum.simulator import Simulator
+from mindquantum.core import Circuit
+from mindquantum.core import Hamiltonian, UN
+from mindquantum.core import H, ZZ, RX
+from mindquantum.framework import MQAnsatzOnlyLayer
+from mindquantum.core import QubitOperator
 import networkx as nx
 import mindspore.nn as nn
 import numpy as np
@@ -131,10 +129,16 @@ init_state_circ = UN(H, g.nodes)
 
 ### Building a Quantum Neural Network to Be Trained
 
-This problem does not require a coding-layer quantum circuit, so we use `MindQuantumAnsatzOnlyLayer` as a quantum neural network to be trained and an `Adam` optimizer.
+This problem does not require a coding-layer quantum circuit, so we use `MQAnsatzOnlyLayer` as a quantum neural network to be trained and an `Adam` optimizer.
 
 ```python
-net = MindQuantumAnsatzOnlyLayer(ansatz.para_name, init_state_circ+ansatz, ham)
+import mindspore as ms
+ms.context.set_context(mode=ms.context.PYNATIVE_MODE, device_target="CPU")
+
+total_circuit = init_state_circ + ansatz
+sim = Simulator('projectq', total_circuit.n_qubits)
+grad_ops = sim.get_expectation_with_grad(ham, total_circuit)
+net = MQAnsatzOnlyLayer(grad_ops)
 opti = nn.Adam(net.trainable_params(), learning_rate=0.05)
 train_net = nn.TrainOneStepCell(net, opti)
 ```
@@ -217,8 +221,8 @@ Based on the above training results, we find that the number of cut edges corres
 We have obtained the optimal values of the parameters in the quantum circuit through training. Next, we use the `final_state` of the `StateEvolution` class to output the quantum state of the quantum circuit in the case of optimal parameters. The `ket` parameter indicates whether to represent the final quantum state as the right vector.
 
 ```python
-pr = dict(zip(ansatz.para_name, net.weight.asnumpy()))
-print(StateEvolution(init_state_circ+ansatz).final_state(pr, ket=True))
+pr = dict(zip(ansatz.params_name, net.weight.asnumpy()))
+print(total_circuit.get_qs(pr=pr, ket=True))
 ```
 
 ```bash
@@ -268,7 +272,7 @@ def show_amp(state):
     plt.bar(labels, amp)
     plt.xticks(rotation=45)
     plt.show()
-state = StateEvolution(init_state_circ+ansatz).final_state(pr)
+state = total_circuit.get_qs(pr=pr)
 show_amp(state)
 ```
 
