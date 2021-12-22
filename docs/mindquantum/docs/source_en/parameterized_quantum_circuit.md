@@ -9,7 +9,7 @@ Translator: [Wei_zz](https://gitee.com/wei-zz)
     - [Preparing Environment](#preparing-environment)
     - [Quantum Gate](#quantum-gate)
     - [Quantum Circuit](#quantum-circuit)
-        - [[HiQsimulator](https://hiq.huaweicloud.com/doc/index.html) Compatible Quantum Circuit Building Format](#hiqsimulatorhttpshiqhuaweicloudcomdocindexhtml-compatible-quantum-circuit-building-format)
+        - [HiQsimulator Compatible Quantum Circuit Building Format](#hiqsimulator-compatible-quantum-circuit-building-format)
         - [A More Convenient Circuit Generation](#a-more-convenient-circuit-generation)
     - [Simulate Quantum Circuit by MindSpore Operator](#simulate-quantum-circuit-by-mindspore-operator)
 
@@ -76,7 +76,9 @@ Quantum circuit is a structure used to effectively organize various quantum logi
 
 ![quantum circuit](./images/quantum_circuit.png)
 
-### [HiQsimulator](https://hiq.huaweicloud.com/doc/index.html) Compatible Quantum Circuit Building Format
+### HiQsimulator Compatible Quantum Circuit Building Format
+
+For the introduction of HiQsimulator, please visit: <https://hiq.huaweicloud.com/en/index.html>.
 
 1. Constructing a quantum circuit by `CircuitEngine`
 
