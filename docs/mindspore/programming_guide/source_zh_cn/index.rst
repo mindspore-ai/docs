@@ -94,7 +94,6 @@ MindSpore编程指南
    context
    run
    ms_function
-   jit_fallback
    save_and_load_models
    model
 
@@ -117,6 +116,14 @@ MindSpore编程指南
    distributed_training
    distributed_advanced
    distributed_example
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: JIT Fallback
+   :hidden:
+
+   jit_fallback
 
 .. toctree::
    :glob:
@@ -235,6 +242,7 @@ MindSpore编程指南
 										<button class="doc-filter-btn doc-btn" id="stage-Model-Evaluation">模型评估</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Model-Loading">模型加载</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Distributed-Parallel">分布式并行</button>
+										<button class="doc-filter-btn doc-btn" id="stage-JIT-Fallback">JIT Fallback</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Function-Extension">扩展功能</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Design">设计</button>
 									</div>
@@ -326,6 +334,18 @@ MindSpore编程指南
 										</div>
 										<div class="doc-article-desc">
 										流水线并行能够将模型在空间上按 <em>stage</em> 进行切分，每个 <em>stage</em> 只需执行网络的一部分，大大节省了内存开销，同时缩小了通信域，缩短了通信时间。MindSpore能够根据用户的配置，将单机模型自动地转换成流水线并行模式去执行。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Running stage-JIT-Fallback experience-local hidden">
+								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/jit_fallback.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">JIT Fallback</span>
+										</div>
+										<div class="doc-article-desc">
+										通过JIT Fallback，用户可以灵活地进行静态图和动态图的切换。
 										</div>
 									</div>
 								</a>
@@ -1010,18 +1030,6 @@ MindSpore编程指南
 										</div>
 										<div class="doc-article-desc">
 										ms_function的作用是在PyNative模式下提升执行性能。在MindSpore框架中，PyNative模式（即动态图模式）下，用户可以使用完整的Python语法，更加简单方便地使用MindSpore进行网络调优。与此同时，PyNative模式也会导致一部分性能的损失。
-										</div>
-									</div>
-								</a>
-							</div>
-							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Running experience-local hidden">
-								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/jit_fallback.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">JIT Fallback</span>
-										</div>
-										<div class="doc-article-desc">
-										通过JIT Fallback，用户可以灵活地进行静态图和动态图的切换。
 										</div>
 									</div>
 								</a>
