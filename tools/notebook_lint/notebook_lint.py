@@ -5,6 +5,7 @@ import subprocess
 import sys
 import os
 
+# pylint: disable=R1719
 
 def py_rule_generator():
     """生成py检测规则到本地"""
@@ -103,6 +104,26 @@ def check_notebook(path):
                     print("{}:cell_{}:{}:The end of the line in the source\
                      code should end with \\n".format(path, cell_num, line_num))
 
+def check_mathematical_formula(path):
+    """检测notebook中的数学公式空行问题"""
+    error_info = []
+    error_report = "MD099 Mathematical formulas should be surrounded by blank lines"
+    with open(path, "r", encoding="utf-8") as f:
+        data = f.read()
+    math_f = re.findall(r"\$\$([\S\s]*?)\$\$", data)
+    for i in math_f:
+        left = "\n\n$$"+i
+        right = i+"$$\n\n"
+        left_error = False if left.replace(" ", "") in data.replace(" ", "") else True
+        right_error = False if right.replace(" ", "") in data.replace(" ", "") else True
+        if left_error:
+            left_error_line = data.split(i)[0].count("\n") + 1
+            error_info.append((path.replace("_lint.md", ".ipynb"), left_error_line, error_report))
+        if right_error:
+            right_error_line = data.split(i)[0].count("\n") + left.count("\n") - 1
+            error_info.append((path.replace("_lint.md", ".ipynb"), right_error_line, error_report))
+    return error_info
+
 def find_file(path, files=None):
     """递归遍历path中的所有文件"""
     file_name = os.listdir(path)
@@ -180,6 +201,9 @@ def check_lint(path, lint_name="md"):
     if lint_name == "py":
         convert_to_py(path)
     check_path = path.replace(".ipynb", lint_ext)
+    if lint_ext == "_lint.md":
+        math_f_info = check_mathematical_formula(check_path)
+        error_infos.extend(math_f_info)
     cmd = "{} {}".format(check_command, check_path)
     res = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding="utf-8",)
     info = res.stdout.read()
