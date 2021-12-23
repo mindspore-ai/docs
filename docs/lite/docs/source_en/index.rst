@@ -334,6 +334,18 @@ MindSpore Lite Documentation
 									</div>
 								</a>
 							</div>
+							<div class="doc-article-item all os-Linux user-Expert hidden">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/use/delegate.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Using Delegate to Support Third-party AI Framework</span>
+										</div>
+										<div class="doc-article-desc">
+											Delegate of MindSpore Lite is used to support third-party AI frameworks (such as NPU, TensorRT) to quickly access to the inference process in MindSpore Lite. 
+										</div>
+									</div>
+								</a>
+							</div>
 							<div class="doc-article-item all os-Windows os-Linux language-cpp stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/lite/docs/en/master/use/image_processing.html" class="article-link">
 									<div>
@@ -410,7 +422,7 @@ MindSpore Lite Documentation
 								<a href="https://www.mindspore.cn/lite/docs/en/master/use/benchmark_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Performing Benchmark Testing</span>
+											<span class="doc-head-content">benchmark</span>
 										</div>
 										<div class="doc-article-desc">
 											After model conversion and before inference, you can use the Benchmark tool to perform benchmark testing on a MindSpore Lite model. 
@@ -435,7 +447,7 @@ MindSpore Lite Documentation
 								<a href="https://www.mindspore.cn/lite/docs/en/master/use/converter_train.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Converting MindSpore ToD Models</span>
+											<span class="doc-head-content">Creating MindSpore Lite Models</span>
 										</div>
 										<div class="doc-article-desc">
 											This tutorial introduces that how to convert your MindSpore ToD(Train on Device) model.
@@ -459,7 +471,7 @@ MindSpore Lite Documentation
 								<a href="https://www.mindspore.cn/lite/docs/en/master/use/benchmark_train_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Performing Benchmark Testing of MindSpore ToD</span>
+											<span class="doc-head-content">benchmark_train</span>
 										</div>
 										<div class="doc-article-desc">
 											You can use the net_train tool to perform benchmark testing on a MindSpore ToD (Train on Device) model. It can not only perform quantitative analysis (performance) on the execution duration the model, but also perform comparative error analysis (accuracy) based on the output of the specified model.

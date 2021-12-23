@@ -732,6 +732,30 @@ MindSpore Programming Guide
                         </div>
                      </a>
                   </div>
+                  <div class="doc-article-item all hardware-ascend hardware-gpu stage-Data-Preparation experience-local hidden">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/enable_dataset_autotune.html" class="article-link">
+                        <div>
+                              <div class="doc-article-head">
+                                 <span class="doc-head-content">Enabling Dataset AutoTune for Dataset Pipeline</span>
+                              </div>
+                              <div class="doc-article-desc">
+                              MindSpore provides a tool named Dataset AutoTune for optimizing dataset.
+                              </div>
+                        </div>
+                     </a>
+                  </div>
+                  <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local hidden">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/enable_dataset_offload.html" class="article-link">
+                        <div>
+                              <div class="doc-article-head">
+                                 <span class="doc-head-content">Enabling Offload for Dataset</span>
+                              </div>
+                              <div class="doc-article-desc">
+                              The offload feature may speed up data processing by moving dataset operations from dataset pipeline to computation graph, allowing these operations to be run by the hardware accelerator.
+                              </div>
+                        </div>
+                     </a>
+                  </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local hidden">
                      <a href="https://www.mindspore.cn/docs/programming_guide/en/master/enable_cache.html" class="article-link">
                         <div>
