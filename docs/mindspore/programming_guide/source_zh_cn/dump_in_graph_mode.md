@@ -151,7 +151,7 @@ MindSpore提供了同步Dump与异步Dump两种模式：
    export MS_DIAGNOSTIC_DATA_PATH=${yyy}
    ```
 
-   则"$MS_DIAGNOSTIC_DATA_PATH/debug_dump"就会被当做`path`的值。若Dump配置文件中设置了`path`字段，则仍以该字段的实际取值为准。
+   则“$MS_DIAGNOSTIC_DATA_PATH/debug_dump”就会被当做`path`的值。若Dump配置文件中设置了`path`字段，则仍以该字段的实际取值为准。
 
     注意：
 
@@ -445,7 +445,7 @@ numpy.load("Conv2D.Conv2D-op107.2.2.1623124369613540.output.0.DefaultFormat.npy"
    export MS_DIAGNOSTIC_DATA_PATH=${yyy}
    ```
 
-   则"$MS_DIAGNOSTIC_DATA_PATH/debug_dump"就会被当做'path'的值。若Dump配置文件中设置了'path'字段，则仍以该字段的实际取值为准。
+   则“$MS_DIAGNOSTIC_DATA_PATH/debug_dump”就会被当做`path`的值。若Dump配置文件中设置了`path`字段，则仍以该字段的实际取值为准。
 
     - 在网络脚本执行前，设置好环境变量；网络脚本执行过程中设置将会不生效。
     - 在分布式场景下，Dump环境变量需要在调用`mindspore.communication.init`之前配置。
