@@ -173,7 +173,7 @@ MindSpore Tutorial
                         <a href="https://www.mindspore.cn/tutorials/en/master/optimization.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
-                                    <span class="doc-head-content">Optimizing Model Parameters</span>
+                                    <span class="doc-head-content">Training the Model</span>
                                  </div>
                                  <div class="doc-article-desc">
                                  After learning how to create a model and build a dataset in the preceding tutorials, you can start to learn how to set hyperparameters and optimize model parameters.

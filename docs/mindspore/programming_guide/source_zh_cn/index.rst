@@ -242,7 +242,6 @@ MindSpore编程指南
 										<button class="doc-filter-btn doc-btn" id="stage-Model-Evaluation">模型评估</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Model-Loading">模型加载</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Distributed-Parallel">分布式并行</button>
-										<button class="doc-filter-btn doc-btn" id="stage-JIT-Fallback">JIT Fallback</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Function-Extension">扩展功能</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Design">设计</button>
 									</div>
@@ -674,6 +673,18 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
+							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Running experience-local hidden">
+								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/apply_recompute.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">重计算</span>
+										</div>
+										<div class="doc-article-desc">
+										MindSpore采用反向模式的自动微分，根据正向图计算流程来自动推导出反向图，正向图和反向图一起构成了完整的计算图。
+										</div>
+									</div>
+								</a>
+							</div>
 							<div class="doc-article-item all hardware-ascend stage-Distributed-Parallel stage-Whole-Process experience-local hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_ascend.html" class="article-link">
 									<div>
@@ -754,6 +765,18 @@ MindSpore编程指南
 										</div>
 										<div class="doc-article-desc">
 										MindSpore提供了一个分布式的Transformer接口 <em>mindspore.parallel.nn.transformer</em> ，将Transformer内部用到的每个算子都配置了并行策略，而用户只需要配置全局的 <em>data_parallel</em> 和 <em>model_parallel</em> 属性，即可完成分布式并行策略的配置。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all hardware-ascend stage-Distributed-Parallel experience-local hidden">
+								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_fault_recover.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">分布式故障恢复</span>
+										</div>
+										<div class="doc-article-desc">
+										在进行分布式训练时，遇到故障是非常普遍的，类似于单卡训练，可以通过加载训练过程中保存的权重信息继续进行训练。
 										</div>
 									</div>
 								</a>
@@ -854,6 +877,18 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
+							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Function-Extension experience-local hidden">
+								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/graph_kernel_fusion_engine.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">图算融合加速引擎介绍</span>
+										</div>
+										<div class="doc-article-desc">
+										本文主要介绍了图算融合加速引擎。
+										</div>
+									</div>
+								</a>
+							</div>
 							<div class="doc-article-item all hardware-ascend hardware-gpu stage-Model-Optimization experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/enable_graph_kernel_fusion.html" class="article-link">
 									<div>
@@ -938,6 +973,18 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
+							<div class="doc-article-item all hardware-ascend stage-Model-Running experience-local hidden">
+								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/fixing_randomness.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">固定随机性以复现脚本运行结果</span>
+										</div>
+										<div class="doc-article-desc">
+										固定随机性的目的是复现脚本运行结果，辅助定位问题。
+										</div>
+									</div>
+								</a>
+							</div>
 							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Development experience-local hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/indefinite_parameter.html" class="article-link">
 									<div>
@@ -994,6 +1041,18 @@ MindSpore编程指南
 										</div>
 										<div class="doc-article-desc">
 										MindSpore提供的 <em>mindspore.dataset</em> 模块可以帮助用户构建数据集对象，分批次地读取文本数据。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local experience-online hidden">
+								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/load_dataset_gnn.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">加载图数据集</span>
+										</div>
+										<div class="doc-article-desc">
+										本文将简要演示如何使用MindSpore加载和处理图数据。
 										</div>
 									</div>
 								</a>
