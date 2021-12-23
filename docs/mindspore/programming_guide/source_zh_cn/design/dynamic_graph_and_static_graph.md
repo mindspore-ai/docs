@@ -271,11 +271,13 @@ print(out)
 
 ### JIT Fallback
 
-JIT Fallback是从静态图的角度出发考虑静态图和动态图的统一，希望静态图模式能够尽量多的支持动态图模式的语法，其借鉴了传统JIT编译的Fallback的思路。MindSpore默认使用静态图模式即Graph模式，不是所有的Python语法都能支持，用户在编写程序时容易遇到语法约束限制。通过JIT Fallback，用户可以灵活地进行静态图和动态图的切换。
+JIT Fallback是为了实现动静统一提出的功能特性。通过JIT Fallback等特性，静态图可以支持尽量多的动态图语法，使得静态图提供接近动态图的语法使用体验。
 
-当前JIT Fallback有条件地支持Graph模式的部分常量场景。常量场景是指值明确且保持不变，不因外界影响而修改，不以参数形式传入的场景。编译静态图时，如果遇到不支持的语法，将会记录相关语句并生成解释节点，在后续处理中将相关语句Fallback到Python解释器进行解释执行，从而支持该语法。当前支持Tensor的构建和部分运算，支持NumPy对象的运算。更多JIT Fallback的使用可参考[JIT Fallback文档](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/jit_fallback.html)。
+JIT Fallback是从静态图的角度出发考虑静态图和动态图的统一。MindSpore默认使用静态图模式，用户编写程序时需要遵循MindSpore[静态图语法支持](https://www.mindspore.cn/docs/note/zh-CN/master/static_graph_syntax_support.html)，语法使用存在约束限制。而在动态图模式下，Python脚本代码会根据Python语法进行执行，用户可以使用任意Python语法。可以看出，静态图和动态图的语法约束限制是不同的。JIT Fallback特性可以使得静态图支持尽量多的动态图语法，用户能够灵活地进行静态图和动态图的切换。
 
-代码用例如下，其中NumPy和Tensor是MindSpore图模式construct中不支持的语法，所以用例中的x = np.array([1, 2, 3])和y = Tensor(x)在Fallback特性中被解析成解释节点，通过Python解释器进行解释执行。
+当前JIT Fallback支持静态图模式的部分常量场景，包括在construct/ms_function中调用第三方库、创建及使用Tensor、调用Python的print打印等。更多JIT Fallback的说明和使用，请参考[JIT Fallback文档](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/jit_fallback.html)。
+
+代码用例如下，其中，MindSpore静态图模式不支持在construct中调用NumPy第三方库和创建Tensor对象，因此用例中的`x = np.array([1, 2, 3])`和`y = Tensor(x)`将会通过JIT Fallback特性使用Python解释器进行解释执行，从而实现对这些语法的支持。
 
 ```python
 import numpy as np
