@@ -23,15 +23,13 @@
 ```python
 network = LeNet5(cfg.num_classes)
 net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
-net_opt = nn.Momentum(network.trainable_params(), cfg.lr, cfg.momentum)
-model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
+model = Model(network, net_loss, metrics={"Accuracy": Accuracy()})
 
 print("============== Starting Testing ==============")
 param_dict = load_checkpoint(args.ckpt_path)
 load_param_into_net(network, param_dict)
 dataset = create_dataset(os.path.join(args.data_path, "test"),
-                            cfg.batch_size,
-                            1)
+                            cfg.batch_size,)
 acc = model.eval(dataset, dataset_sink_mode=args.dataset_sink_mode)
 print("============== {} ==============".format(acc))
 ```
@@ -49,13 +47,11 @@ print("============== {} ==============".format(acc))
 model_uid = "mindspore/ascend/0.7/googlenet_v1_cifar10"  # using GoogleNet as an example.
 network = mindspore_hub.load(model_uid, num_classes=10)
 net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
-net_opt = nn.Momentum(network.trainable_params(), cfg.lr, cfg.momentum)
-model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
+model = Model(network, net_loss, metrics={"Accuracy": Accuracy()})
 
 print("============== Starting Testing ==============")
 dataset = create_dataset(os.path.join(args.data_path, "test"),
-                            cfg.batch_size,
-                            1)
+                            cfg.batch_size,)
 acc = model.eval(dataset, dataset_sink_mode=args.dataset_sink_mode)
 print("============== {} ==============".format(acc))
 ```
