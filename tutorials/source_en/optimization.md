@@ -77,7 +77,7 @@ import tarfile
 import zipfile
 
 def download_dataset(url, target_path):
-    """下载并解压数据集"""
+    """download dataset"""
     if not os.path.exists(target_path):
         os.makedirs(target_path)
     download_file = url.split("/")[-1]
@@ -111,6 +111,7 @@ import mindspore.dataset.transforms.c_transforms as C
 import mindspore.dataset.vision.c_transforms as CV
 from mindspore import nn, Tensor, Model
 from mindspore import dtype as mstype
+from mindspore.train.callback import LossMonitor
 
 DATA_DIR = "./datasets/cifar-10-batches-bin"
 
@@ -162,8 +163,24 @@ dataset = dataset.batch(batch_size)
 # Define hyperparameters, a loss function, and an optimizer.
 optim = nn.Momentum(net.trainable_params(), learning_rate, 0.9)
 loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
+cb = LossMonitor()
 
 # Enter the epoch and dataset for training.
 model = Model(net, loss_fn=loss, optimizer=optim)
-model.train(epoch=epochs, train_dataset=dataset)
+model.train(epoch=epochs, train_dataset=dataset, callbacks=cb)
+```
+
+The output is as follows:
+
+```text
+epoch: 1 step: 1, loss is 2.3025818
+epoch: 1 step: 2, loss is 2.3025775
+epoch: 2 step: 1, loss is 2.3025408
+epoch: 2 step: 2, loss is 2.3025331
+epoch: 3 step: 1, loss is 2.3024616
+epoch: 3 step: 2, loss is 2.302457
+epoch: 4 step: 1, loss is 2.3023522
+epoch: 4 step: 2, loss is 2.3023558
+epoch: 5 step: 1, loss is 2.3022182
+epoch: 5 step: 2, loss is 2.3022337
 ```
