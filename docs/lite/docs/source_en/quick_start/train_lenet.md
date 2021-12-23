@@ -89,11 +89,11 @@ MindSpore can be installed by source code or using `pip`. Refer [MindSpore insta
 Use `git` to clone the source code, the command in `Linux` is as follows:
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
+git clone https://gitee.com/mindspore/mindspore.git -b {version}
 cd ./mindspore
 ```
 
-The `mindspore/lite/examples/unified_api` directory relative to the MindSpore Lite source code contains this demo's source code.
+The `mindspore/lite/examples/unified_api` directory relative to the MindSpore Lite source code contains this demo's source code. The version is consistent with that of [MindSpore Lite Download Page](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html) below. If -b the master is specified, you need to obtain the corresponding installation package through [compile from source](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html).
 
 Go to the [MindSpore Lite Download Page](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html) to download the mindspore-lite-{version}-linux-x64.tar.gz and mindspore-lite-{version}-android-aarch64.tar.gz. The mindspore-lite-{version}-linux-x64.tar.gz is the MindSpore Lite install package for x86 platform, it contains the converter tool `converter_lite`, this demo uses it to converte `MIDIR` model to `.ms` which is supported by MindSpore Lite; The mindspore-lite-{version}-android-aarch64.tar.gz is the MindSpore Lite install package for Android, it contains training runtime library `libmindspore-lite.so`, this demo uses it to train model. Then put the files to the `output` directory relative to MindSpore Lite source code（if there is no `output` directory，you should create it).
 
