@@ -188,7 +188,7 @@ MindSpore教程
                         <a href="https://www.mindspore.cn/tutorials/zh-CN/master/optimization.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
-                                    <span class="doc-head-content">优化模型参数</span>
+                                    <span class="doc-head-content">训练模型</span>
                                  </div>
                                  <div class="doc-article-desc">
                                  通过上面章节的学习，我们已经学会如何创建模型和构建数据集，现在开始学习如何设置超参和优化模型参数。

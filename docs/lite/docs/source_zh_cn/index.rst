@@ -324,7 +324,7 @@ MindSpore Lite文档
 								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/micro.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">在微控制器上执行推理</span>
+											<span class="doc-head-content">在轻量和小型系统上执行推理</span>
 										</div>
 										<div class="doc-article-desc">
 										MindSpore Lite提供代码生成工具codegen，将运行时编译、解释计算图，移至离线编译阶段。仅保留推理所必须的信息，生成极简的推理代码。
@@ -408,10 +408,22 @@ MindSpore Lite文档
 								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/register_kernel.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">自定义南向算子</span>
+											<span class="doc-head-content">自定义算子</span>
 										</div>
 										<div class="doc-article-desc">
 											MindSpore Lite当前提供了一套南向算子的注册机制，南向算子可以理解为用户自己的算子实现，如果用户想通过MindSpore Lite框架调度到自己的算子实现上，可参考本文。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux user-Expert hidden">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/delegate.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">使用Delegate支持第三方AI框架接入</span>
+										</div>
+										<div class="doc-article-desc">
+											如果用户想通过MindSpore Lite框架调度到其他框架的推理流程，可参考本文。
 										</div>
 									</div>
 								</a>
@@ -420,7 +432,7 @@ MindSpore Lite文档
 								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">使用Benchmark进行基准测试</span>
+											<span class="doc-head-content">benchmark</span>
 										</div>
 										<div class="doc-article-desc">
 											转换模型后执行推理前，你可以使用Benchmark工具对MindSpore Lite模型进行基准测试。它不仅可以对MindSpore Lite模型前向推理执行耗时进行定量分析（性能），还可以通过指定模型输出进行可对比的误差分析（精度）。
@@ -468,7 +480,7 @@ MindSpore Lite文档
 								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/benchmark_train_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">使用benchmark_train进行基准测试</span>
+											<span class="doc-head-content">benchmark_train</span>
 										</div>
 										<div class="doc-article-desc">
 										与benchmark工具类似，MindSpore端侧训练为你提供了benchmark_train工具对训练后的模型进行基准测试。它不仅可以对模型前向推理执行耗时进行定量分析（性能），还可以通过指定模型输出进行可对比的误差分析（精度）。
