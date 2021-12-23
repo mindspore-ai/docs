@@ -1,4 +1,4 @@
-# Optimizing the Model (Quantization After Training)
+# Optimizing the Model (Post Training Quantization)
 
 `Windows` `Linux` `Model Converting` `Model Optimization` `Intermediate` `Expert`
 
@@ -50,6 +50,7 @@ common quantization parameters are the basic settings for post training quantiza
 | `min_quant_weight_channel` | Optional  | Set the threshold of the number of weight channels for quantization. If the number of weight channels is greater than this value, the weight will be quantized. | Integer        | 16            | [0, 65535]                                  |
 | `skip_quant_node`          | Optional | Set the name of the operator that does not need to be quantified, and use `,` to split between multiple operators. | String   | -      | -                                     |
 | `debug_info_save_path`     | Optional | Set the folder path where the quantized debug information file is saved. | String   | -      | -                                     |
+
 The common quantization parameter configuration is as follows:
 
 ```ini
