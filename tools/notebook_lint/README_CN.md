@@ -104,6 +104,65 @@ docs/tutorials/source_zh_cn/intermediate/text/sentimentnet.ipynb:cell_4:11:MD009
 
 报错码以`MD`开头：
 
+MD099: 数学公式与文档内容之间应有空行隔开。
+
+错误举例一：
+
+```text
+表示为一个关于输入$x$的函数$f(x)$，其中$x$为$0$到$N-1$之间的整数。那么，函数$f$定义为：
+$$
+\begin{equation}
+f(x)=\begin{cases}0,x\neq x_{target}\\\\
+1,x=x_{target}
+\end{cases}
+\end{equation}.
+$$
+
+其中f(x)表示...
+```
+
+错误举例二：
+
+```text
+表示为一个关于输入$x$的函数$f(x)$，其中$x$为$0$到$N-1$之间的整数。那么，函数$f$定义为：
+
+$$
+\begin{equation}
+f(x)=\begin{cases}0,x\neq x_{target}\\\\
+1,x=x_{target}
+\end{cases}
+\end{equation}.
+$$
+其中f(x)表示...
+```
+
+错误举例三：
+
+```text
+表示为一个关于输入$x$的函数$f(x)$，其中$x$为$0$到$N-1$之间的整数。那么，函数$f$定义为：$$\begin{equation}
+f(x)=\begin{cases}0,x\neq x_{target}\\\\
+1,x=x_{target}
+\end{cases}
+\end{equation}.$$
+其中f(x)表示...
+```
+
+正确示例：
+
+```text
+表示为一个关于输入$x$的函数$f(x)$，其中$x$为$0$到$N-1$之间的整数。那么，函数$f$定义为：
+
+$$
+\begin{equation}
+f(x)=\begin{cases}0,x\neq x_{target}\\\\
+1,x=x_{target}
+\end{cases}
+\end{equation}.
+$$
+
+其中f(x)表示...
+```
+
 可参考链接：<https://github.com/DavidAnson/markdownlint>
 
 ### pylint的检测规则
