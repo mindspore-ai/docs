@@ -248,7 +248,7 @@ The following uses the [mobilenetv2.mindir](https://download.mindspore.cn/model_
 
 #### Building and Running the Linux System
 
-- Build
+- Build. Renference [Building MindSpore Lite](https://mindspore.cn/lite/docs/en/master/use/build.html#environment-requirements) to get the Environment Requirements.
 
   Run the build script in the `mindspore/lite/examples/quick_start_cpp` directory to automatically download related files and build the demo.
 
@@ -267,13 +267,13 @@ The following uses the [mobilenetv2.mindir](https://download.mindspore.cn/model_
   After the execution is complete, the following information is displayed, including the tensor name, tensor size, number of output tensors, and the first 50 pieces of data:
 
   ```text
-  tensor name is:Default/head-MobileNetV2Head/Softmax-op204 tensor size is:4000 tensor elements num is:1000
-  output data is:5.26823e-05 0.00049752 0.000296722 0.000377607 0.000177048 .......
+  tensor name is: Softmax-65 tensor size is: 4004 tensor elements num is: 1001
+  output data is: 1.74225e-05 1.15919e-05 2.02728e-05 0.000106485 0.000124295 0.00140576 0.000185107 0.000762011 1.50996e-05 5.91942e-06 6.61469e-06 3.72883e-06 4.30761e-06 2.38897e-06 1.5163e-05 0.000192663 1.03767e-05 1.31953e-05 6.69638e-06 3.17411e-05 4.00895e-06 9.9641e-06 3.85127e-06 6.25101e-06 9.08853e-06 1.25043e-05 1.71761e-05 4.92751e-06 2.87637e-05 7.46446e-06 1.39375e-05 2.18824e-05 1.08861e-05 2.5007e-06 3.49876e-05 0.000384547 5.70778e-06 1.28909e-05 1.11038e-05 3.53906e-06 5.478e-06 9.76608e-06 5.32172e-06 1.10386e-05 5.35474e-06 1.35796e-05 7.12652e-06 3.10017e-05 4.34154e-06 7.89482e-05 1.79441e-05
   ```
 
 #### Building and Running the Windows System
 
-- Build
+- Build. Renference [Building MindSpore Lite](https://mindspore.cn/lite/docs/en/master/use/build.html#id1) to get the Environment Requirements.
 
     - Download the library: Manually download the MindSpore Lite model inference framework [mindspore-lite-{version}-win-x64.zip](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) whose hardware platform is CPU and operating system is Windows-x64. Copy the `libmindspore-lite.a` file in the decompressed `inference/lib` directory to the `mindspore/lite/examples/quick_start_cpp/lib` directory. Copy the `inference/include` directory to the `mindspore/lite/examples/quick_start_cpp/include` directory.
 
@@ -298,115 +298,136 @@ The following uses the [mobilenetv2.mindir](https://download.mindspore.cn/model_
   After the execution is complete, the following information is displayed, including the tensor name, tensor size, number of output tensors, and the first 50 pieces of data:
 
   ```text
-  tensor name is:Default/head-MobileNetV2Head/Softmax-op204 tensor size is:4000 tensor elements num is:1000
-  output data is:5.26823e-05 0.00049752 0.000296722 0.000377607 0.000177048 .......
+  tensor name is: Softmax-65 tensor size is: 4004 tensor elements num is: 1001
+  output data is: 1.74225e-05 1.15919e-05 2.02728e-05 0.000106485 0.000124295 0.00140576 0.000185107 0.000762011 1.50996e-05 5.91942e-06 6.61469e-06 3.72883e-06 4.30761e-06 2.38897e-06 1.5163e-05 0.000192663 1.03767e-05 1.31953e-05 6.69638e-06 3.17411e-05 4.00895e-06 9.9641e-06 3.85127e-06 6.25101e-06 9.08853e-06 1.25043e-05 1.71761e-05 4.92751e-06 2.87637e-05 7.46446e-06 1.39375e-05 2.18824e-05 1.08861e-05 2.5007e-06 3.49876e-05 0.000384547 5.70778e-06 1.28909e-05 1.11038e-05 3.53906e-06 5.478e-06 9.76608e-06 5.32172e-06 1.10386e-05 5.35474e-06 1.35796e-05 7.12652e-06 3.10017e-05 4.34154e-06 7.89482e-05 1.79441e-05
   ```
 
 ### Inference Code Parsing
 
 The following analyzes the inference process in the demo source code and shows how to use the C++ API.
 
-#### Model Loading
+#### Model Reading
 
-Read the MindSpore Lite model from the file system and use the `mindspore::lite::Model::Import` function to import the model for parsing.
+Read the MindSpore Lite model from the file system and store it in the memory buffer.
 
 ```c++
-// Read the model file.
+// Read model file.
 size_t size = 0;
 char *model_buf = ReadFile(model_path, &size);
 if (model_buf == nullptr) {
   std::cerr << "Read model file failed." << std::endl;
-  return RET_ERROR;
-}
-// Load the model.
-auto model = mindspore::lite::Model::Import(model_buf, size);
-delete[](model_buf);
-if (model == nullptr) {
-  std::cerr << "Import model file failed." << std::endl;
-  return RET_ERROR;
+  return -1;
 }
 ```
 
-#### Model Build
-
-Model build includes configuration context creation, session creation, and graph build.
+#### Creating and Configuring Context
 
 ```c++
-mindspore::session::LiteSession *Compile(mindspore::lite::Model *model) {
-  // Initialize the context.
-  auto context = std::make_shared<mindspore::lite::Context>();
-  if (context == nullptr) {
-    std::cerr << "New context failed while." << std::endl;
-    return nullptr;
-  }
+// Create and init context, add CPU device info
+auto context = std::make_shared<mindspore::Context>();
+if (context == nullptr) {
+  std::cerr << "New context failed." << std::endl;
+  return -1;
+}
+auto &device_list = context->MutableDeviceInfo();
+auto device_info = std::make_shared<mindspore::CPUDeviceInfo>();
+if (device_info == nullptr) {
+  std::cerr << "New CPUDeviceInfo failed." << std::endl;
+  return -1;
+}
+device_list.push_back(device_info);
+```
 
-  // Create a session.
-  mindspore::session::LiteSession *session = mindspore::session::LiteSession::CreateSession(context.get());
-  if (session == nullptr) {
-    std::cerr << "CreateSession failed while running." << std::endl;
-    return nullptr;
-  }
+#### Model Creating Loading and Building
 
-  // Graph build.
-  auto ret = session->CompileGraph(model);
-  if (ret != mindspore::lite::RET_OK) {
-    delete session;
-    std::cerr << "Compile failed while running." << std::endl;
-    return nullptr;
-  }
+Use Build of [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model) to load the model directly from the memory buffer and build the model.
 
-  // Note: If model->Free() is used, the model cannot be built again.
-  if (model != nullptr) {
-    model->Free();
-  }
-  return session;
+```c++
+// Create model
+auto model = new (std::nothrow) mindspore::Model();
+if (model == nullptr) {
+  std::cerr << "New Model failed." << std::endl;
+  return -1;
+}
+// Build model
+auto build_ret = model->Build(model_buf, size, mindspore::kMindIR, context);
+delete[](model_buf);
+if (build_ret != mindspore::kSuccess) {
+  std::cerr << "Build model error " << build_ret << std::endl;
+  return -1;
+}
+```
+
+There is another method that uses Load of [Serialization](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Serialization.html#class-serialization) to load [Graph](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Graph.html#class-graph) and use Build of [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model) to build the model.
+
+```c++
+// Load graph.
+mindspore::Graph graph;
+auto load_ret = mindspore::Serialization::Load(model_buf, size, mindspore::kMindIR, &graph);
+delete[](model_buf);
+if (load_ret != mindspore::kSuccess) {
+  std::cerr << "Load graph file failed." << std::endl;
+  return -1;
+}
+
+// Create model
+auto model = new (std::nothrow) mindspore::Model();
+if (model == nullptr) {
+  std::cerr << "New Model failed." << std::endl;
+  return -1;
+}
+// Build model
+mindspore::GraphCell graph_cell(graph);
+auto build_ret = model->Build(graph_cell, context);
+if (build_ret != mindspore::kSuccess) {
+  delete model;
+  std::cerr << "Build model error " << build_ret << std::endl;
+  return -1;
 }
 ```
 
 #### Model Inference
 
-Model inference includes data input, inference execution, and output obtaining. In this example, the input data is generated from randomly built data, and the output result after inference is displayed.
+Model inference includes input data injection, inference execution, and output obtaining. In this example, the input data is randomly generated, and the output result is printed after inference.
 
 ```c++
-int Run(mindspore::session::LiteSession *session) {
-  // Obtain the input data.
-  auto inputs = session->GetInputs();
-  auto ret = GenerateInputDataWithRandom(inputs);
-  if (ret != mindspore::lite::RET_OK) {
-    std::cerr << "Generate Random Input Data failed." << std::endl;
-    return ret;
-  }
+auto inputs = model->GetInputs();
+// Generate random data as input data.
+auto ret = GenerateInputDataWithRandom(inputs);
+if (ret != mindspore::kSuccess) {
+  delete model;
+  std::cerr << "Generate Random Input Data failed." << std::endl;
+  return -1;
+}
+// Get Output
+auto outputs = model->GetOutputs();
 
-  // Run.
-  ret = session->RunGraph();
-  if (ret != mindspore::lite::RET_OK) {
-    std::cerr << "Inference error " << ret << std::endl;
-    return ret;
-  }
+// Model Predict
+auto predict_ret = model->Predict(inputs, &outputs);
+if (predict_ret != mindspore::kSuccess) {
+  delete model;
+  std::cerr << "Predict model error " << predict_ret << std::endl;
+  return -1;
+}
 
-  // Obtain the output data.
-  auto out_tensors = session->GetOutputs();
-  for (auto tensor : out_tensors) {
-    std::cout << "tensor name is:" << tensor.first << " tensor size is:" << tensor.second->Size()
-              << " tensor elements num is:" << tensor.second->ElementsNum() << std::endl;
-    auto out_data = reinterpret_cast<float *>(tensor.second->MutableData());
-    std::cout << "output data is:";
-    for (int i = 0; i < tensor.second->ElementsNum() && i <= 50; i++) {
-      std::cout << out_data[i] << " ";
-    }
-    std::cout << std::endl;
+// Print Output Tensor Data.
+for (auto tensor : outputs) {
+  std::cout << "tensor name is:" << tensor.Name() << " tensor size is:" << tensor.DataSize()
+            << " tensor elements num is:" << tensor.ElementNum() << std::endl;
+  auto out_data = reinterpret_cast<const float *>(tensor.Data().get());
+  std::cout << "output data is:";
+  for (int i = 0; i < tensor.ElementNum() && i <= 50; i++) {
+    std::cout << out_data[i] << " ";
   }
-  return mindspore::lite::RET_OK;
+  std::cout << std::endl;
 }
 ```
 
-#### Releasing Memory
+#### Memory Release
 
-If the MindSpore Lite inference framework is not required, you need to release the created `LiteSession` and `Model`.
+If the inference process of MindSpore Lite is complete, release the created `Model`.
 
 ```c++
-// Delete the model cache.
+// Delete model.
 delete model;
-// Delete the session cache.
-delete session;
 ```
