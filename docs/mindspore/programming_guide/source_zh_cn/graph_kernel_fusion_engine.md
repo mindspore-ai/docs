@@ -37,7 +37,7 @@ MindSpore在过去几年的技术实践中，采用了图算融合的技术来�
 
 前文提到，在HPC、深度神经网络训练等场景中，图算融合优化可带来成倍的性能提升。但随着图算融合能力的不断增强，融合算子的开发成为了继续提升图算融合能力的瓶颈点。融合算子的自动生成技术可以解决基于DSA开发融合算子编程门槛较高的问题，让程序员在算子开发过程中能够聚焦于算子的实现逻辑，无需关注后端优化，极大提高其开发效率。尤其对于后端硬件架构复杂以及存在复杂算子和融合算子的场景，算子自动生成技术更加关键。
 
-因此，我们基于**多面体编译技术**（Polyhedral Model），开发了**MindSpore AKG进行融合算子的加速优化与自动生成**，能够帮助MindSpore的图算融合模块优化后的融合算子在**异构硬件平台**（GPU/Ascend）上自动生成高性能的kernel，提升MindSpore的训练性能。
+因此，**MindSpore AKG基于多面体编译技术（Polyhedral Model），对融合算子的加速优化与自动生成**，能够帮助MindSpore的图算融合模块优化后的融合算子在**异构硬件平台**（GPU/Ascend）上自动生成高性能的kernel，提升MindSpore的训练性能。
 
 ### 架构及整体流程
 
@@ -152,5 +152,178 @@ MindSpore AKG基于**Polyhedral技术**来实现**基于多层Buffer结构的DMA
   2. 在Poly模块中进行针对性调度优化，包含多次切分、Warp层级映射，多层级内存提升（共享内存上进行数据复用，寄存器上使用TensorCore进行高速的乘加运算）等；对于卷积算子，进行多次切分以及计算切分参数时，也需要考虑多出来的两个维度H、W；
   3. 基于Halide IR执行后端优化pass，包括数据预取——节省搬运与计算间的等待时间、数据补齐与重排——消除bank conflicts、向量化指令——提升数据加载和写入的效率等；
   4. 调用akg::wmma高性能接口（包含PTX层级的更细粒度的优化），生成最终的CUDA Kernel。
+
+  用户和开发者可以通过运行MindSpore AKG的测试用例了解融合算子或复杂算子的优化流程，以卷积算子的相关代码为例：
+
+  四维卷积（不含Pad操作）的计算公式如下，其中$N = 32, H = W = 28, Co = 128, Ci = 64, Hk = Hw = 5$。
+    $$Output(n, h, w, o)=\sum_{c=1}^{Ci}
+      \sum_{rh=1}^{Hk}
+          \sum_{rw=1}^{Wk}
+              (Image(n, h+rh, w+rw, c)*Filter(o, rh, rw, c))$$
+
+  根据其计算公式，可以使用tvm.compute编写出算子DSL：
+
+  ```python
+  n, in_h, in_w, in_c = data.shape
+  out_c, k_h, k_w, in_c = weight.shape
+  _, _, s_h, s_w = stride
+  o_h = (in_h - k_h) // s_h + 1
+  o_w = (in_w - k_w) // s_w + 1
+  rc = tvm.reduce_axis((0, in_c), name="rc")
+  rh = tvm.reduce_axis((0, k_h), name="rh")
+  rw = tvm.reduce_axis((0, k_w), name="rw")
+  output = tvm.compute(
+      (n, o_h, o_w, out_c),
+      lambda n, h, w, o: tvm.sum(
+          data[n, (h * s_h + rh), (w * s_w + rw), rc]
+          * weight[o, rh, rw, rc],
+          axis=[rc, rh, rw]),
+      name=output_name
+  )
+  return output
+  ```
+
+  生成出的初始调度如下，包含7个for循环，计算效率较低：
+
+  ```c++
+  // attr [compute(out, 0x55c9185ce710)] realize_scope = ""
+  realize out<float16>([0, 32], [0, 28], [0, 28], [0, 128]) {
+      produce out {
+          for (n, 0, 32) {
+              for (h, 0, 28) {
+                  for (w, 0, 28) {
+                      for (o, 0, 128) {
+                          out(n, h, w, o) = 0h
+                          for (rc, 0, 64) {
+                              for (rh, 0, 5) {
+                                  for (rw, 0, 5) {
+                                      // attr [[iter_var(rc, range(min=0, ext=64)), iter_var(rh, range(min=0, ext=5)), iter_var(rw, range(min=0, ext=5))]] reduce_update = ""
+                                      out(n, h, w, o) = (out(n, h, w, o) + (input_1(n, (h + rh), (w + rw), rc)*input_2(o, rh, rw, rc)))
+                                  }
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      }
+  }
+  ```
+
+  经过Poly模块调度优化、多个后端优化pass和代码生成后，大大提高了算子的程序并行性和数据局部性，得到的最终在GPU上执行的CUDA kernel如下：
+
+  ```c++
+  // 引入akg_mma_lib高性能库
+  #include "akg_mma_lib/wmma.hpp"
+  extern "C" __global__ void conv_tc_auto_float16_32_32_32_64_float16_128_5_5_64_1_1_0_0_0_0_1_1_float16_kernel0( half* __restrict__ input_1,  half* __restrict__ input_2,  half* __restrict__ out) {
+      // 缓冲区分配
+      akg::wmma::fragment<nvcuda::wmma::accumulator, 16, 16, 8, float> out_local[4];
+      half input_2_shared_transfer[32];
+      __shared__ half input_2_shared[13056];
+      half input_1_shared_transfer[16];
+      akg::wmma::fragment<nvcuda::wmma::matrix_b, 16, 16, 8, half, nvcuda::wmma::col_major> input_2_local[2];
+      akg::wmma::fragment<nvcuda::wmma::matrix_a, 16, 16, 8, half, nvcuda::wmma::row_major> input_1_local[2];
+      #pragma unroll
+      for (int cc5 = 0; cc5 < 5; ++cc5) {
+          // 将本次计算要用的数据从全局内存预先加载到共享内存中
+          // 用float4指针进行向量化读取
+          #pragma unroll
+          for (int cc7 = 0; cc7 < 4; ++cc7) {
+              ((float4*)input_2_shared_transfer)[((cc7 * 8) + 0) / 8] = ((float4*)input_2)[(((((cc7 * 51200) + ((((int)threadIdx.x) / 8) * 1600)) + (cc5 * 320)) + ((((int)threadIdx.x) % 8) * 8)) + 0) / 8];
+          }
+          #pragma unroll
+          for (int cc71 = 0; cc71 < 4; ++cc71) {
+              ((float4*)input_2_shared)[(((((cc71 * 2176) + ((((int)threadIdx.x) / 128) * 1088)) + ((((int)threadIdx.x) % 8) * 136)) + (((((int)threadIdx.x) % 128) / 8) * 8)) + 0) / 8] = ((float4*)input_2_shared_transfer)[((cc71 * 8) + 0) / 8];
+          }
+          #pragma unroll
+          for (int cc72 = 0; cc72 < 2; ++cc72) {
+              ((float4*)input_1_shared_transfer)[((cc72 * 8) + 0) / 8] = ((float4*)input_1)[(((((((cc72 * 1048576) + ((((int)threadIdx.x) / 16) * 65536)) + ((((int)blockIdx.y) / 14) * 2048)) + (cc5 * 2048)) + ((((int)blockIdx.y) % 14) * 128)) + ((((int)threadIdx.x) % 16) * 8)) + 0) / 8];
+          }
+          #pragma unroll
+          for (int cc73 = 0; cc73 < 2; ++cc73) {
+              ((float4*)input_2_shared)[(((((cc73 * 2176) + ((((int)threadIdx.x) % 16) * 136)) + ((((int)threadIdx.x) / 16) * 8)) + 0) + 8704) / 8] = ((float4*)input_1_shared_transfer)[((cc73 * 8) + 0) / 8];
+          }
+          __syncthreads();
+          #pragma unroll
+          for (int cc6_outer = 0; cc6_outer < 4; ++cc6_outer) {
+              // 将下次计算要用的数据从全局内存预先加载到寄存器中
+              #pragma unroll
+              for (int cc74 = 0; cc74 < 4; ++cc74) {
+                  ((float4*)input_2_shared_transfer)[((cc74 * 8) + 0) / 8] = ((float4*)input_2)[(((((((cc74 * 51200) + ((((int)threadIdx.x) / 8) * 1600)) + (cc5 * 320)) + (cc6_outer * 64)) + ((((int)threadIdx.x) % 8) * 8)) + 0) + 64) / 8];
+              }
+              #pragma unroll
+              for (int cc75 = 0; cc75 < 2; ++cc75) {
+                  ((float4*)input_1_shared_transfer)[((cc75 * 8) + 0) / 8] = ((float4*)input_1)[(((((((((cc75 * 1048576) + ((((int)threadIdx.x) / 16) * 65536)) + ((((int)blockIdx.y) / 14) * 2048)) + (cc5 * 2048)) + ((((int)blockIdx.y) % 14) * 128)) + (cc6_outer * 64)) + ((((int)threadIdx.x) % 16) * 8)) + 0) + 64) / 8];
+              }
+              // 调用高性能接口进行数据搬移、初始化和mma计算
+              #pragma unroll
+              for (int cc11 = 0; cc11 < 8; ++cc11) {
+                  #pragma unroll
+                  for (int cc123 = 0; cc123 < 2; ++cc123) {
+                      (void)akg::wmma::load_matrix_sync(input_2_local[cc123], &(input_2_shared[((((((int)threadIdx.x) / 64) * 2176) + (cc123 * 1088)) + (cc11 * 136))]), 8);
+                  }
+                  #pragma unroll
+                  for (int cc124 = 0; cc124 < 2; ++cc124) {
+                      (void)akg::wmma::load_matrix_sync(input_1_local[cc124], &(input_2_shared[((((((((int)threadIdx.x) % 64) / 32) * 2176) + (cc124 * 1088)) + (cc11 * 136)) + 8704)]), 8);
+                  }
+                  #pragma unroll
+                  for (int cc21 = 0; cc21 < 2; ++cc21) {
+                      #pragma unroll
+                      for (int cc22 = 0; cc22 < 2; ++cc22) {
+                          if (((cc5 == 0) && (cc6_outer == 0)) && (cc11 == 0)) {
+                              (void)akg::wmma::fill_fragment(out_local[((cc21 * 2) + cc22)], 0.000000e+00f);
+                          }
+                          (void)akg::wmma::mma_sync(out_local[((cc21 * 2) + cc22)], input_1_local[cc21], input_2_local[cc22], out_local[((cc21 * 2) + cc22)]);
+                      }
+                  }
+              }
+              //  将下次计算要用的数据从寄存器搬到共享内存中
+              __syncthreads();
+              #pragma unroll
+              for (int cc76 = 0; cc76 < 4; ++cc76) {
+                  ((float4*)input_2_shared)[(((((cc76 * 2176) + ((((int)threadIdx.x) / 128) * 1088)) + ((((int)threadIdx.x) % 8) * 136)) + (((((int)threadIdx.x) % 128) / 8) * 8)) + 0) / 8] = ((float4*)input_2_shared_transfer)[((cc76 * 8) + 0) / 8];
+              }
+              #pragma unroll
+              for (int cc77 = 0; cc77 < 2; ++cc77) {
+                  ((float4*)input_2_shared)[(((((cc77 * 2176) + ((((int)threadIdx.x) % 16) * 136)) + ((((int)threadIdx.x) / 16) * 8)) + 0) + 8704) / 8] = ((float4*)input_1_shared_transfer)[((cc77 * 8) + 0) / 8];
+              }
+              __syncthreads();
+          }
+          #pragma unroll
+          for (int cc111 = 0; cc111 < 8; ++cc111) {
+              #pragma unroll
+              for (int cc126 = 0; cc126 < 2; ++cc126) {
+                  (void)akg::wmma::load_matrix_sync(input_2_local[cc126], &(input_2_shared[((((((int)threadIdx.x) / 64) * 2176) + (cc126 * 1088)) + (cc111 * 136))]), 8);
+              }
+              #pragma unroll
+              for (int cc127 = 0; cc127 < 2; ++cc127) {
+                  (void)akg::wmma::load_matrix_sync(input_1_local[cc127], &(input_2_shared[((((((((int)threadIdx.x) % 64) / 32) * 2176) + (cc127 * 1088)) + (cc111 * 136)) + 8704)]), 8);
+              }
+              #pragma unroll
+              for (int cc211 = 0; cc211 < 2; ++cc211) {
+                  #pragma unroll
+                  for (int cc221 = 0; cc221 < 2; ++cc221) {
+                  (void)akg::wmma::mma_sync(out_local[((cc211 * 2) + cc221)], input_1_local[cc211], input_2_local[cc221], out_local[((cc211 * 2) + cc221)]);
+                  }
+              }
+          }
+          __syncthreads();
+      }
+      #pragma unroll
+      for (int cc4 = 0; cc4 < 2; ++cc4) {
+          #pragma unroll
+          for (int cc6 = 0; cc6 < 2; ++cc6) {
+              (void)akg::wmma::store_matrix_sync(&(input_2_shared[((((((((int)threadIdx.x) % 64) / 32) * 4352) + (cc4 * 136)) + ((((int)threadIdx.x) / 64) * 32)) + (cc6 * 16))]), out_local[((cc4 * 2) + cc6)], 272, nvcuda::wmma::mem_row_major);
+          }
+      }
+      // 将计算结果搬出到全局内存的输出缓冲区
+      __syncthreads();
+      #pragma unroll
+      for (int cc41 = 0; cc41 < 4; ++cc41) {
+              ((float4*)out)[(((((cc41 * 802816) + ((((int)threadIdx.x) / 32) * 100352)) + (((int)blockIdx.y) * 256)) + ((((int)threadIdx.x) % 32) * 8)) + 0) / 8] = ((float4*)input_2_shared)[((((cc41 * 2176) + ((((int)threadIdx.x) / 16) * 136)) + ((((int)threadIdx.x) % 16) * 8)) + 0) / 8];
+      }
+      __syncthreads();
+  }
+  ```
 
 MindSpore AKG支持规约、矩阵乘和卷积等算子的前向、后向融合场景的生成，保证融合算子性能的同时节省算子间的I/O和内存消耗。
