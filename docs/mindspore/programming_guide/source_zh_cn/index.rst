@@ -120,7 +120,7 @@ MindSpore编程指南
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: JIT Fallback
+   :caption: 图编译
    :hidden:
 
    jit_fallback
