@@ -278,7 +278,9 @@ where `L0` >> `D0`, and `D0` is the number of non-zero elements.
 ```python
 import mindspore as ms
 import mindspore.nn as nn
+from mindspore import Tensor
 from mindspore import RowTensor
+
 class Net(nn.Cell):
     def __init__(self, dense_shape):
         super(Net, self).__init__()
@@ -320,7 +322,9 @@ is `N` and the dense shape of the sparse tensor is `ndims`：
 ```python
 import mindspore as ms
 import mindspore.nn as nn
+from mindspore import Tensor
 from mindspore import SparseTensor
+
 class Net(nn.Cell):
     def __init__(self, dense_shape):
         super(Net, self).__init__()
