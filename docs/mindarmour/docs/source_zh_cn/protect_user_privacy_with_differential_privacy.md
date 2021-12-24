@@ -43,7 +43,8 @@ MindArmour的差分隐私模块Differential-Privacy，实现了差分隐私优�
 
 这里以LeNet模型，MNIST 数据集为例，说明如何在MindSpore上使用差分隐私优化器训练神经网络模型。
 
-> 本例面向Ascend 910 AI处理器，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/diff_privacy/lenet5_dp.py>
+> 由于算子支持的限制，差分隐私训练目前只支持在GPU或者Ascend服务器上面进行，不支持CPU。
+本例面向Ascend 910 AI处理器，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/diff_privacy/lenet5_dp.py>
 
 ## 实现阶段
 
