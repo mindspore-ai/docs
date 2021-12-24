@@ -44,7 +44,7 @@ This example runs in graph mode. You can configure hardware information as requi
 
 The MNIST dataset used in this example consists of 10 classes of 28 x 28 pixels grayscale images. It has a training set of 60,000 examples, and a test set of 10,000 examples.
 
-Click [here](http://yann.lecun.com/exdb/mnist/) to download the MNIST dataset and place the dataset according to the following directory structure. If the operating environment is Linux, you can also run the following command to download and place the dataset:
+Click [here](http://yann.lecun.com/exdb/mnist/) to download and unzip the MNIST dataset and place the dataset according to the following directory structure. If the operating environment is Linux, you can also run the following command to download and place the dataset:
 
 ```bash
 mkdir -p ./datasets/MNIST_Data/train ./datasets/MNIST_Data/test
