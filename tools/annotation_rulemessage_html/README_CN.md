@@ -2,7 +2,7 @@
 
 ## 简介
 
-此工具可以遍历指定目录里所有的py文件，导出所有的注释内容，并用LanguageTool软件进行扫描，给出违反规则的txt格式的扫描结果，最终把txt格式转化为html格式，放入原来的目录下。
+此工具可以遍历指定目录里所有的py文件，导出所有的注释内容，并用LanguageTool软件进行扫描，给出违反规则的txt格式的扫描结果，把txt格式转化为html格式，最终把所有的html整合成一个总的html页面，放入原来的目录下。
 
 ## 使用说明
 
@@ -19,4 +19,4 @@
 
    例如：`python annotation_rulemessage_html.py input /home/LanguageTool-5.4/languagetool-commandline.jar`(input为文件夹)。
 
-2. 如果是检测目录内容，跑完上述代码后，会在原来目录下生成对应py文件的-annotation.txt为后缀的txt文件和-annotation-rulemessage.txt为后缀的txt文件和.html为后缀的html文件。
+2. 如果是检测目录内容，跑完上述代码后，会在原来目录下生成对应py文件的-annotation.txt为后缀的txt文件和-annotation-rulemessage.txt为后缀的txt文件和.html为后缀的html文件还有总的allrule.html。

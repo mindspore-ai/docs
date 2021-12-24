@@ -41,4 +41,17 @@ if __name__ == "__main__":
             all_f = [file for file in find_files(check_f, []) if file.endswith("-rulemessage.txt")]
             for one_f in all_f:
                 tth.run(one_f)
+    for check_f in sys.argv[1:]:
+        if os.path.isfile(check_f) & check_f.endswith(".html"):
+            with open(check_f, "r", encoding="utf-8") as f:
+                data = f.read()
+            with open("./allrule.html", "a", encoding="utf-8") as p:
+                p.writelines(data)
+        elif os.path.isdir(check_f):
+            all_f = [file for file in find_files(check_f, []) if file.endswith(".html")]
+            for one_f in all_f:
+                with open(one_f, "r", encoding="utf-8") as f:
+                    data = f.read()
+                with open("./allrule.html", "a", encoding="utf-8") as p:
+                    p.writelines(data)
                 
