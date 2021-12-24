@@ -13,7 +13,7 @@
         - [Configuring the Parallelization](#configuring-the-parallelization)
         - [Configuring the GPU Backend](#configuring-the-gpu-backend)
         - [Configuring the NPU Backend](#configuring-the-npu-backend)
-        - [Configuring the TensorRT Backend](#configuring-the-tensorrt-backend)
+        - [Configuring the NNIE Backend](#configuring-the-nnie-backend)
     - [Model Creating Loading and Building](#model-creating-loading-and-building)
     - [Inputting Data](#inputting-data)
     - [Executing Inference](#executing-inference)
@@ -22,6 +22,9 @@
     - [Advanced Usage](#advanced-usage)
         - [Resizing the Input Dimension](#resizing-the-input-dimension)
         - [Parallel Models](#parallel-models)
+        - [Mixed Precision Inference](#mixed-precision-inference)
+        - [Multiple Heterogeneous Devices Inference](#multiple-heterogeneous-devices-inference)
+        - [OpenGL Texture Data Input](#opengl-texture-data-input)
         - [Sharing a Memory Pool](#sharing-a-memory-pool)
         - [Calling Back a Model During the Running Process](#calling-back-a-model-during-the-running-process)
         - [Separating Graph Loading and Model Build](#separating-graph-loading-and-model-build)
@@ -526,6 +529,91 @@ if (predict_ret != mindspore::kSuccess) {
 }
 ```
 
+### OpenGL Texture Data Input
+
+MindSpore Lite supports OpenGL texture input, performs end-to-end GPU isomorphic inference, and the inference result is returned as OpenGL texture data. This function needs to be configured in the Context during use, and OpenGL texture data is bound to it during inference. These two processes.
+
+1. Configured Context
+
+    The user needs to set the SetEnableGLTexture property in dev.gpu_device_info_ in Context to true, and configure the user's current OpenGL EGLContext and EGLDisplay through the SetGLContext interface and SetGLDisplay interface respectively.
+
+    ```cpp
+    const std::shared_ptr<mindspore::Context> context;
+    auto &device_list = context->MutableDeviceInfo();
+
+    // 1. Set EnableGLTexture true
+    gpu_device_info->SetEnableGLTexture(true);
+
+    // 2. Set GLContext
+    EGLContext *gl_context = new (std::nothrow) EGLContext();
+    if (gl_context == nullptr) {
+      MS_LOG(ERROR) << "new EGLContext failed";
+      return RET_ERROR;
+    } else {
+      *gl_context = eglGetCurrentContext();
+    }
+    gpu_device_info->SetGLContext(gl_context);
+
+    // 3. Set GLDisplay
+    EGLDisplay *gl_display = new (std::nothrow) EGLDisplay();
+    if (gl_display == nullptr) {
+      MS_LOG(ERROR) << "new EGLDisplay failed";
+      return RET_ERROR;
+    } else {
+      *gl_display = eglGetCurrentDisplay();
+    }
+    gpu_device_info->SetGLDisplay(gl_display);
+    ```
+
+ 2. Bind OpenGL Texture Data
+
+    After the model is compiled and before the model runs, the user needs to call BindGLTexture2DMemory(const std::map<std::string, GLuint> &inputGlTexture, std::map<std::string, GLuint> *outputGLTexture;) function to bind the input Output texture, instead of the original input data step. Because MindSpore Lite itself does not allocate OpenGL memory, the user is required to create the input and output texture memory in advance according to the tensor size of the model input and output, and the texture memory corresponding to the texture ID Bind to the input and output of the model, the sample code is as follows:
+
+    ```cpp
+    std::map<std::string, GLuint> input_gl_texture;
+    std::map<std::string, GLuint> output_gl_texture;
+
+    ... // Write OpenGL Texture data(GLuint) into input_gl_texture and output_gl_texture
+
+    // Bind texture data with input and output tensors
+    auto status = ms_model_.BindGLTexture2DMemory(input_gl_texture, &output_gl_texture);
+    if (status != kSuccess) {
+      MS_LOG(ERROR) << "BindGLTexture2DMemory failed";
+      return RET_ERROR;
+    }
+    return RET_OK;
+    ```
+
+    In std::map<std::string, GLuint> input_gl_texture, the key is the model input tensor name, and the value is the corresponding GLuint texture; std::map<std::string, GLuint> the key in the output_gl_texture variable is the model output tensor name, Value is the corresponding GLuint texture. The model input and output tensor name can be obtained through the tensor.Name() interface. The sample code is as follows:
+
+    ```cpp
+    std::vector<mindspore::MSTensor> inputs;
+    vector<GLuint> inTextureIDs;
+    for (auto i; i < inputs.size(); i++) {
+      inputGlTexture.insert(std::pair<std::string, GLuint>(inputs.at(i).Name(), inTextureIDs.at(i));
+    }
+
+    std::vector<mindspore::MSTensor> outputs;
+    vector<GLuint> outTextureIDs;
+    for (auto i; i < inputs.size(); i++) {
+      outputGlTexture.insert(std::pair<std::string, GLuint>(inputs.at(i).Name(), outTextureIDs.at(i));
+    }
+    ```
+
+3. Predict
+
+    After the binding is completed, you can directly call the Predict interface of ms_model_ for inference. The model output will be copied to the memory corresponding to the bound output texture ID, and the user can obtain the inference result from the outputs.
+
+    ```cpp
+    std::vector<MSTensor> outputs;
+    auto ret = ms_model_.Predict(ms_inputs_for_api_, &outputs, ms_before_call_back_, ms_after_call_back_);
+    if (ret != kSuccess) {
+      MS_LOG(ERROR) << "Inference error ";
+      std::cerr << "Inference error " << std::endl;
+      return RET_ERROR;
+    }
+    ```
+
 ### Sharing a Memory Pool
 
 If there are multiple [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model), you can configure the same [Allocator](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Allocator.html#class-allocator) in [DeviceInfoContext](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_DeviceInfoContext.html#class-deviceinfocontext) to share the memory pool and reduce the memory size during running. The maximum memory size of the memory pool is `3 GB`, and the maximum memory size allocated each time is `2 GB`.
@@ -672,7 +760,7 @@ std::string version = mindspore::Version();
 
 ### Extension Usage
 
-In this chapter, we will show the users an example of extending Mindspore Lite inference, covering the whole process of creation and registration of custom operator. The example will help the users understand the extension usage as soon as possible. The chapter takes a simple model that consists of a single operator `Add` as an example. The code related to the example can be obtained from the directory [mindspore/lite/examples/runtime_extend](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/runtime_extend).
+In this chapter, we will show the users an example of extending MindSpore Lite inference, covering the whole process of creation and registration of custom operator. The example will help the users understand the extension usage as soon as possible. The chapter takes a simple model that consists of a single operator `Add` as an example. The code related to the example can be obtained from the directory [mindspore/lite/examples/runtime_extend](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/runtime_extend).
 
 The chapter only provides instruction in the Linux System.
 
@@ -775,7 +863,7 @@ REGISTER_CUSTOM_KERNEL_INTERFACE(CustomOpTutorial, Custom_Add, CustomAddInferCre
 
    - Compilation and Build
 
-     Execute the script [build.sh](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_extend/build.sh) in the directory of `mindspore/lite/examples/runtime_extend`, And then, the released package of Mindspore Lite will be downloaded and the demo will be compiled automatically.
+     Execute the script [build.sh](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_extend/build.sh) in the directory of `mindspore/lite/examples/runtime_extend`, And then, the released package of MindSpore Lite will be downloaded and the demo will be compiled automatically.
 
      ```bash
      bash build.sh

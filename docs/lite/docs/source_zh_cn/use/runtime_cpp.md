@@ -13,7 +13,7 @@
         - [配置并行策略](#配置并行策略)
         - [配置使用GPU后端](#配置使用gpu后端)
         - [配置使用NPU后端](#配置使用npu后端)
-        - [配置使用NNIE后端](#配置使用NNIE后端)
+        - [配置使用NNIE后端](#配置使用nnie后端)
     - [模型创建加载与编译](#模型创建加载与编译)
     - [输入数据](#输入数据)
     - [执行推理](#执行推理)
@@ -21,7 +21,10 @@
     - [内存释放](#内存释放)
     - [高级用法](#高级用法)
         - [输入维度Resize](#输入维度resize)
-        - [Model并行](#Model并行)
+        - [Model并行](#model并行)
+        - [混合精度运行](#混合精度运行)
+        - [多硬件异构运行](#多硬件异构运行)
+        - [OpenGL纹理输入](#opengl纹理输入)
         - [共享内存池](#共享内存池)
         - [回调运行](#回调运行)
         - [模型加载与编译独立调用流程](#模型加载与编译独立调用流程)
@@ -524,6 +527,91 @@ if (predict_ret != mindspore::kSuccess) {
   return -1;
 }
 ```
+
+### OpenGL纹理输入
+
+MindSpore Lite 支持 OpenGL纹理输入，进行端到端的GPU同构推理，推理结果以OpenGL纹理数据返回。该功能在使用过程中需要配置到Context中，和在运行推理时绑定OpenGL纹理数据，这两个过程。
+
+1. 配置 Context
+
+    用户需要将 Context 中的 devgpu_device_info_中的 SetEnableGLTexture 属性设置为 true，并且将用户当前的OpenGL EGLContext 、EGLDisplay分别通过SetGLContext接口和SetGLDisplay接口进行配置。
+
+    ```cpp
+    const std::shared_ptr<mindspore::Context> context;
+    auto &device_list = context->MutableDeviceInfo();
+
+    // 1. Set EnableGLTexture true
+    gpu_device_info->SetEnableGLTexture(true);
+
+    // 2. Set GLContext
+    EGLContext *gl_context = new (std::nothrow) EGLContext();
+    if (gl_context == nullptr) {
+      MS_LOG(ERROR) << "new EGLContext failed";
+      return RET_ERROR;
+    } else {
+      *gl_context = eglGetCurrentContext();
+    }
+    gpu_device_info->SetGLContext(gl_context);
+
+    // 3. Set GLDisplay
+    EGLDisplay *gl_display = new (std::nothrow) EGLDisplay();
+    if (gl_display == nullptr) {
+      MS_LOG(ERROR) << "new EGLDisplay failed";
+      return RET_ERROR;
+    } else {
+      *gl_display = eglGetCurrentDisplay();
+    }
+    gpu_device_info->SetGLDisplay(gl_display);
+    ```
+
+2. 绑定OpenGL纹理数据
+
+    在模型编译阶段后，模型运行前，用户需要调用 BindGLTexture2DMemory(const std::map<std::string, GLuint> &inputGlTexture, std::map<std::string, GLuint> *outputGLTexture;) 函数绑定输入输出纹理，代替原有输入数据的步骤，因为 MindSpore Lite 本身并没有分配 OpenGL 内存的功能，所以要求用户根据模型输入输出的 tensor size 事先创建好输入输出纹理的内存，并将纹理内存对应的纹理 ID 绑定到模型的输入输出，示例代码如下
+
+    ```cpp
+    std::map<std::string, GLuint> input_gl_texture;
+    std::map<std::string, GLuint> output_gl_texture;
+
+    ... // Write OpenGL Texture data(GLuint) into input_gl_texture and output_gl_texture
+
+    // Bind texture data with input and output tensors
+    auto status = ms_model_.BindGLTexture2DMemory(input_gl_texture, &output_gl_texture);
+    if (status != kSuccess) {
+      MS_LOG(ERROR) << "BindGLTexture2DMemory failed";
+      return RET_ERROR;
+    }
+    return RET_OK;
+    ```
+
+    std::map<std::string, GLuint>  input_gl_texture 变量中key为模型输入tensor name，value为对应的GLuint 纹理；std::map<std::string, GLuint>  output_gl_texture 变量中key为模型输出tensor name，value为对应的GLuint 纹理。模型输入输出tensor name可以通过tensor.Name()接口获取，示例代码如下：
+
+    ```cpp
+    std::vector<mindspore::MSTensor> inputs;
+    vector<GLuint> inTextureIDs;
+    for (auto i; i < inputs.size(); i++) {
+      inputGlTexture.insert(std::pair<std::string, GLuint>(inputs.at(i).Name(), inTextureIDs.at(i));
+    }
+
+    std::vector<mindspore::MSTensor> outputs;
+    vector<GLuint> outTextureIDs;
+    for (auto i; i < inputs.size(); i++) {
+      outputGlTexture.insert(std::pair<std::string, GLuint>(inputs.at(i).Name(), outTextureIDs.at(i));
+    }
+    ```
+
+3. Predict结果
+
+    绑定完成后直接调用ms_model_的 Predict 接口进行推理即可，模型输出会被拷贝到绑定的输出纹理 ID 对应的内存上，用户可从outputs上面获取推理结果
+
+    ```cpp
+    std::vector<MSTensor> outputs;
+    auto ret = ms_model_.Predict(ms_inputs_for_api_, &outputs, ms_before_call_back_, ms_after_call_back_);
+    if (ret != kSuccess) {
+      MS_LOG(ERROR) << "Inference error ";
+      std::cerr << "Inference error " << std::endl;
+      return RET_ERROR;
+    }
+    ```
 
 ### 共享内存池
 
