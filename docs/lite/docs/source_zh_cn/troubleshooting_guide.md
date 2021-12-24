@@ -9,9 +9,12 @@
         - [图加载失败](#图加载失败)
         - [CPU推理问题](#cpu推理问题)
             - [图编译失败](#图编译失败)
-        - [NPU推理问题](#npu推理问题)
+        - [GPU推理问题](#gpu推理问题)
             - [图编译失败](#图编译失败-1)
             - [图执行失败](#图执行失败)
+        - [NPU推理问题](#npu推理问题)
+            - [图编译失败](#图编译失败-2)
+            - [图执行失败](#图执行失败-1)
     - [模型推理精度问题](#模型推理精度问题)
     - [模型推理性能问题](#模型推理性能问题)
     - [使用Visual Studio相关问题](#使用visual-studio相关问题)
@@ -125,6 +128,60 @@
 
     - 问题分析：ms模型的输入shape包含-1，即模型输入为动态shape，直接推理时由于shape无效导致推理失败。
     - 解决方法：MindSpore Lite在对包含动态shape输入的模型推理时要求指定合理的shape，使用benchmark工具时可通过设置[inputShapes](https://mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html#id3) 参数指定，使用MindSpore Lite集成开发时可通过调用[Resize](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#resize) 方法设置。
+
+### GPU推理问题
+
+#### 图编译失败
+
+1. 模型文件和推理包版本不兼容，日志报错信息：
+
+    ```cpp
+    ERROR [mindspore/lite/src/lite_session.cc:1539] LoadModelByBuff] Please enable runtime convert.
+    ERROR [mindspore/lite/src/lite_session.cc:1598] LoadModelAndCompileByPath] Read model file failed
+    ERROR [mindspore/lite/src/cxx_api/model/model_impl.cc:93] Build] Init session failed
+    ERROR [mindspore/lite/tools/benchmark/benchmark_unified_api.cc:845] RunBenchmark] ms_model_.Build failed while running
+    ERROR [mindspore/lite/tools/benchmark/run_benchmark.cc:80] RunBenchmark] Run Benchmark Q888_CV_new_detect.pb.ms Failed : -1
+    ms_model_.Build failed while running Run Benchmark Q888_CV_new_detect.pb.ms Failed : -1
+    ```
+
+    - 问题分析：没有使用模型转换工具对原始模型进行转换，或者推理使用的MindSpore Lite版本高于模型转换使用的转换工具版本，导致存在兼容性问题：版本升级可能会新增或移除某些算子，推理时缺少算子的实现。
+    - 解决方法：使用和转换模型使用的转换工具版本相同的MindSpore Lite进行推理。通常情况下，MindSpore Lite推理兼容较低版本ms模型，但是版本差异过大的情况下可能存在兼容性问题；同时，MindSpore Lite推理不保证向后兼容较高版本转换出的ms模型。
+
+#### 图执行失败
+
+1. 模型输入为动态shape，日志报错信息：
+
+    ```cpp
+    WARNING [mindspore/lite/src/runtime/kernel/opencl/kernel/arithmetic_self.cc:40] CheckSpecs]  only support dim = 4 or 2 but your dim = 3
+    ERROR [mindspore/lite/src/runtime/kernel/opencl/opencl_kernel.cc:222] ReSize] ReSize failed for check kernel specs!
+    ERROR [mindspore/lite/src/inner_kernel.cc:81] Execute] run kernel PreProcess failed, name: Exp_1234
+    ERROR [mindspore/lite/src/runtime/gpu/opencl/opencl_executor.cc:70] RunOrTune] run kernel failed, name: Exp_1234
+    ERROR [mindspore/lite/src/runtime/kernel/opencl/opencl_subgraph.cc:574] Execute] Run opencl executor failed: -1
+    ERROR [mindspore/lite/src/lite_mindrt.h:58] RunKernel] run kernel failed, name: GpuSubGraph4_8
+    WARNING [mindspore/lite/src/runtime/gpu/opencl/opencl_allocator.cc:475] MapBuffer] Host ptr no need map
+    WARNING [mindspore/lite/src/runtime/gpu/opencl/opencl_allocator.cc:525] UnmapBuffer] Host ptr do not mapped
+    ```
+
+    - 问题分析：ms模型的输入shape包含-1，即模型输入为动态shape，GPU推理时在图编译阶段会跳过和Shape相关的算子规格检查，默认GPU支持该算子，并在Predict阶段会再次进行算子规格检查，如果算子规格检查为不支持，则报错退出。
+    - 解决方法：由于存在不支持的GPU算子，部分报错用户可根据提示修改模型中的算子类型或参数类型来进行规避，但大部分可能需要通过在MindSpore社区[提ISSUE](https://gitee.com/mindspore/mindspore/issues) 来通知开发人员进行代码修复和适配。
+
+2. Map buffer类错误
+
+    ```cpp
+    WARNING [mindspore/lite/src/runtime/gpu/opencl/opencl_allocator.cc:494] MapBuffer] Map buffer failed, can not found buffer or already mapped, dev_ptr=0x7244929ff0, host_ptr=0x722fbacd80
+    ERROR [mindspore/lite/src/runtime/kernel/arm/base/strided_slice.cc:179] FastRun] input_ptr_ must not be null!
+    ERROR [mindspore/lite/src/inner_kernel.cc:88] Execute] run kernel failed, name: Slice_1147
+    ERROR [mindspore/lite/src/sub_graph_kernel.cc:223] Execute] run kernel failed, name: Slice_1147
+    ERROR [mindspore/lite/src/lite_mindrt.h:56] RunKernel] run kernel failed, name: CpuFP32SubGraph0_1
+    ERROR [mindspore/lite/src/mindrt_executor.cc:193] Run] MindrtRun failed
+    ERROR [mindspore/lite/src/lite_session.cc:709] RunGraph] RunGraph failed : -1
+    ERROR [mindspore/lite/src/cxx_api/model/model_impl.cc:294] Predict] Run graph failed.
+    ERROR [mindspore/lite/tools/benchmark/benchmark_unified_api.cc:721] MarkAccuracy] Inference error
+    Inference error Run MarkAccuracy error: -1
+    ```
+
+    - 问题分析：推理阶段为了提升性能会忽略OpenCL算子执行结束后的Event检查，而OpenCL中Enqueue类函数会默认插入Event检查，如果有OpenCL算子执行出错，会在Map阶段返回错误。
+    - 解决办法：由于OpenCL算子存在BUG，建议通过在MindSpore社区[提ISSUE](https://gitee.com/mindspore/mindspore/issues) 来通知开发人员进行代码修复和适配。
 
 ### NPU推理问题
 
