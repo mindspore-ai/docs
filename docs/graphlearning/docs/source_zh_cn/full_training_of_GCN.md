@@ -89,7 +89,6 @@ LossNet和GCNNet一样继承自GNNCell。
 ## 构造数据集
 
 在mindspore_gl.dataset目录下提供了一些dataset类定义的参考。可以直接读入一些研究常用数据集，这里用cora数据集为例， 输入数据路径data_path即可构建数据类。
-也可以调用mindspore_gl.temp.GraphDataset读入通用数据。
 
 ```python
 from mindspore_gl.dataset import CoraV2
