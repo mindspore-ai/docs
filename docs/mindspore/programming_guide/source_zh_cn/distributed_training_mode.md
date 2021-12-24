@@ -201,7 +201,8 @@ context.set_auto_parallel_context(parallel_mode=context.ParallelMode.AUTO_PARALL
 context.set_auto_parallel_context(parallel_mode=context.ParallelMode.AUTO_PARALLEL, search_mode="sharding_propagation")
 ```
 
-> 在`sharding_propagation`模式下，算法根据用户设置的`shard`策略传播到整个模型，在`dynamic_programming`模式下，用户设置的`shard`策略也会生效，不会被搜索出来的策略覆盖掉。
+> - 在`sharding_propagation`模式下，算法根据用户设置的`shard`策略传播到整个模型，在`dynamic_programming`模式下，用户设置的`shard`策略也会生效，不会被搜索出来的策略覆盖掉。
+> - 在全自动并行模式下，如果需要对某个Cell里的所有算子手动配置数据并行策略，可用Cell.set_data_parallel()统一设置。
 
 ### 混合并行
 
