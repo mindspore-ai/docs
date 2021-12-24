@@ -13,6 +13,7 @@ MindInsight provides the following functions:
 - `Model migration <https://www.mindspore.cn/mindinsight/docs/en/master/migrate_3rd_scripts_mindconverter.html>`_
 
 .. image:: ./images/mindinsight_en.png
+  :width: 700px
 
 Using MindInsight to Visualize the Training Process
 ----------------------------------------------------
@@ -23,7 +24,7 @@ Using MindInsight to Visualize the Training Process
 
 2. `Starting MindInsight for Visualization <https://www.mindspore.cn/mindinsight/docs/en/master/mindinsight_commands.html#start-the-service>`_
 
-   Start the MindInsight service and set the --summary-base-dir parameter to specify the directory for storing the summary log file.
+   Start the MindInsight service and set the `--summary-base-dir` parameter to specify the directory for storing the summary log file.
 
 3. `Viewing Training Dashboard <https://www.mindspore.cn/mindinsight/docs/en/master/dashboard.html>`_
 
@@ -38,7 +39,7 @@ Using MindInsight to Analyze the Model Performance
 
 2. `Starting MindInsight for Analysis <https://www.mindspore.cn/mindinsight/docs/en/master/mindinsight_commands.html>`_
 
-   Start the MindInsight service and set the --summary-base-dir parameter to specify the directory for storing the performance data.
+   Start the MindInsight service and set the `--summary-base-dir` parameter to specify the directory for storing the performance data.
 
 3. `Analyzing Performance Data <https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#training-performance>`_
 
@@ -49,11 +50,11 @@ Using MindInsight to Debug the Model Accuracy
 
 1. `Starting MindInsight in Debugger Mode <https://www.mindspore.cn/mindinsight/docs/en/master/debugger_online.html#launch-mindinsight-in-debugger-mode>`_
 
-   Configure the --enable-debugger True --debugger-port 50051 parameter to start MindInsight in debugger mode.
+   Configure the `--enable-debugger True` `--debugger-port 50051` parameter to start MindInsight in debugger mode.
 
 2. `Running the Training Script in Debugger Mode <https://www.mindspore.cn/mindinsight/docs/en/master/debugger_online.html#run-the-training-script-in-debug-mode>`_
 
-   Set the environment variable export ENABLE_MS_DEBUGGER to True to specify the debugger mode for training. Set the debugging service and port to be connected for training: export MS_DEBUGGER_HOST=127.0.0.1. export MS_DEBUGGER_PORT=50051.Run the training script.
+   Set the environment variable `export ENABLE_MS_DEBUGGER` to True to specify the debugger mode for training. Set the debugging service and port to be connected for training: `export MS_DEBUGGER_HOST=127.0.0.1` . `export MS_DEBUGGER_PORT=50051` .Run the training script.
 
 3. `Setting and Analyzing Watchpoints in MindInsight <https://www.mindspore.cn/mindinsight/docs/en/master/debugger_online.html#debugger-ui-introduction>`_
 
