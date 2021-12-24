@@ -155,7 +155,7 @@ print(output)
 
 #### 通信算子
 
-通信算子主要是针对多卡训练时对各个卡进行通信的算子，比如收集算子AllGather、广播算子Broadcast等，参见[通信算子](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.ops.html#communication-operators)。
+通信算子主要是针对[多卡训练](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training.html)时对各个卡进行通信的算子，比如收集算子AllGather、广播算子Broadcast等，参见[通信算子](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.ops.html#communication-operators)。
 
 以下代码展示了收集算子AllGather的使用：
 
@@ -197,7 +197,7 @@ print(output)
 
 `MultitypeFuncGraph`用于定义一组重载的函数，用户可以使用该算子，根据不同类型，采用不同实现，参见[MultitypeFuncGraph](https://mindspore.cn/docs/programming_guide/zh-CN/master/hypermap.html#multitypefuncgraph)。
 
-`HyperMap`可以对一组或多组输入做指定的运算，可以配合`MultitypeFuncGraph`一起使用，参见[HyperMap](https://mindspore.cn/docs/programming_guide/zh-CN/master/hypermap.html#id2)。
+`HyperMap`可以对一组或多组输入做指定的运算，可以配合`MultitypeFuncGraph`一起使用，参见[HyperMap](https://mindspore.cn/docs/programming_guide/zh-CN/master/hypermap.html#hypermap)。
 
 `GradOperation`用于生成输入函数的梯度，利用get_all、get_by_list和sens_param参数控制梯度的计算方式，参见[GradOperation](https://mindspore.cn/docs/programming_guide/zh-CN/master/grad_operation.html)。
 
@@ -289,6 +289,7 @@ print(output)
 
 ```python
 import mindspore.nn as nn
+from mindspore import Model
 
 net = Net()
 #1) All parameters use the same learning rate and weight decay
