@@ -368,6 +368,10 @@ std::shared_ptr<Allocator> GetAllocator() const;
 | `int GetRankID() const`                                       | - 返回值: 当前运行的RANK ID                                                                                                                                                                                                                               |
 | `void SetEnableFP16(bool is_fp16)`      | 用于指定是否以FP16精度进行推理<br><br> - `is_fp16`: 是否以FP16精度进行推理 |
 | `bool GetEnableFP16() const`            | - 返回值: 已配置的精度模式 |
+| `void SetGLContext(void *gl_context)`   | 用于指定OpenGL EGLContext<br><br> - `*gl_context`: 指向OpenGL EGLContext的指针 |
+| `void *GetGLContext() const`            | - 返回值: 已配置的指向OpenGL EGLContext的指针 |
+| `void SetGLDisplay(void *gl_display)`   | 用于指定OpenGL EGLDisplay<br><br> - `*gl_display`: 指向OpenGL EGLDisplay的指针 |
+| `void *GetGLDisplay() const`            | - 返回值: 已配置的指向OpenGL EGLDisplay的指针 |
 
 ## KirinNPUDeviceInfo
 
@@ -912,6 +916,24 @@ std::vector<MSTensor> GetOutputsByNodeName(const std::string &node_name);
 - 返回值
 
     包含在模型输出Tensor中的该节点输出Tensor的vector。
+
+#### BindGLTexture2DMemory
+
+```cpp
+  Status BindGLTexture2DMemory(const std::map<std::string, unsigned int> &inputGLTexture,
+                               std::map<std::string, unsigned int> *outputGLTexture);
+```
+
+将OpenGL纹理数据与模型的输入和输出进行绑定。
+
+- 参数
+
+    - `inputGLTexture`: 模型输入的OpenGL纹理数据, key为输入Tensor的名称，value为OpenGL纹理。
+    - `outputGLTexture`: 模型输出的OpenGL纹理数据，key为输出Tensor的名称，value为OpenGL纹理。
+
+- 返回值
+
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
 
 #### InitMetrics
 
