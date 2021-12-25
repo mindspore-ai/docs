@@ -42,6 +42,9 @@ if __name__ == "__main__":
             for one_f in all_f:
                 tth.run(one_f)
     for check_f in sys.argv[1:]:
+        result = '<p>规则参考链接：https://community.languagetool.org/rule/list?offset=0</p>\n'
+        with open("./allrule.html", "a", encoding="utf-8") as p:
+            p.writelines(result)
         if os.path.isfile(check_f) & check_f.endswith(".html"):
             with open(check_f, "r", encoding="utf-8") as f:
                 data = f.read()
