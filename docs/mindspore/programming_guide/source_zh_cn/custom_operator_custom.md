@@ -48,7 +48,7 @@
 
 | 算子开发方式 | 开发语言 | 编译方式 | 支持平台 | 推荐场景 |
 | :------: | :------: |:------: | ------ | ------ |
-| akg | MindAKG DSL | JIT | `Ascend` `GPU` | Ascend/GPU平台普通场景 |
+| akg | MindSpore AKG DSL | JIT | `Ascend` `GPU` | Ascend/GPU平台普通场景 |
 | tbe | TBE DSL | JIT | `Ascend` | Ascend平台场景 |
 | aicpu | C/C++ | AOT | `Ascend` | Ascend平台场景 |
 | aot | C/C++/CUDA | AOT | `GPU` `CPU` | GPU/CPU平台高性能场景 |
@@ -63,7 +63,7 @@
 
 ### akg类型的自定义算子开发
 
-akg类型的自定义算子使用[MindAKG](https://gitee.com/mindspore/akg)算子DSL，描述算子内部计算逻辑的实现。MindAKG是基于TVM（Tensor Virtual Machine）和Polyhedral技术的算子开发和编译框架，支持Hybrid、IR builder和TVM compute等多种类型的算子DSL。
+akg类型的自定义算子使用[MindSpore AKG](https://gitee.com/mindspore/akg)算子DSL，描述算子内部计算逻辑的实现。MindSpore AKG是基于TVM（Tensor Virtual Machine）和Polyhedral技术的算子开发和编译框架，支持Hybrid、IR builder和TVM compute等多种类型的算子DSL。
 
 算子输出shape和数据类型推理可以通过定义Python函数实现，描述算子输出shape和数据类型的推导逻辑。
 

@@ -775,7 +775,7 @@ MindSpore Programming Guide
                                  <span class="doc-head-content">Enabling Graph Kernel Fusion</span>
                               </div>
                               <div class="doc-article-desc">
-                              The graph kernel fusion is used to optimize network performance by cooperating with MindAKG which is a operator compiler based on polyhedral technology.
+                              The graph kernel fusion is used to optimize network performance by cooperating with MindSpore AKG which is a operator compiler based on polyhedral technology.
                               </div>
                         </div>
                      </a>
