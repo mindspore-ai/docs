@@ -76,7 +76,7 @@ However, using FP16 also brings some problems, the most important of which are p
 
 The following figure shows the typical computation process of mixed precision in MindSpore.
 
-![mix precision](./images/mix_precision.PNG)
+![mix precision](./images/mix_precision_fp16.png)
 
 1. Parameters are stored in FP32 format.
 2. During the forward computation, if an FP16 operator is involved, the operator input and parameters need to be cast from FP32 to FP16.
