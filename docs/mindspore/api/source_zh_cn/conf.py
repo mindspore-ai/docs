@@ -171,8 +171,8 @@ import shutil
 from sphinx.util import logging
 logger = logging.getLogger(__name__)
 
-image_specified = {"docs/api_img/*.png": "./api_python/ops/api_img"}
-
+image_specified = {"docs/api_img/*.png": "./api_python/ops/api_img",
+                   "docs/api_img/dataset/*.png": "./api_python/dataset/api_image"}
 
 for img in image_specified.keys():
     des_dir = os.path.normpath(image_specified[img])
