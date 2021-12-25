@@ -354,12 +354,14 @@ b = B(y)                --->        y = Depend(y, a)
                         --->        b = B(y)
 ```
 
-Please note that a special set of operators for floating point overflow state detection have hidden side effects, but are not IO side effects or memory side effects. In addition, there are strict sequencing requirements for use, i.e., before using the NPUClearFloatStatus operator, you need to ensure that the NPU AllocFloatStatus has been executed, and before using the NPUGetFloatStatus operator, you need to ensure that the NPUClearFlotStatus has been executed. Because these operators are used less, the current scenario is to keep them defined as side-effect-free in the form of Depend ensuring execution order. Examples are as follows:
+Please note that a special set of operators for floating point overflow state detection have hidden side effects, but are not IO side effects or memory side effects. In addition, there are strict sequencing requirements for use, i.e., before using the NPUClearFloatStatus operator, you need to ensure that the NPU AllocFloatStatus has been executed, and before using the NPUGetFloatStatus operator, you need to ensure that the NPUClearFlotStatus has been executed. Because these operators are used less, the current scenario is to keep them defined as side-effect-free in the form of Depend ensuring execution order. These operators are only supported on Ascend. Examples are as follows:
 
 ```python
 import numpy as np
 from mindspore.common.tensor import Tensor
-from mindspore import ops
+from mindspore import ops, context
+
+context.set_context(device_target="Ascend")
 
 npu_alloc_status = ops.NPUAllocFloatStatus()
 npu_get_status = ops.NPUGetFloatStatus()
