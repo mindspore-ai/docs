@@ -718,3 +718,27 @@ def test_endless():
 <font size=3>**Q: 编译时报错“could not get source code”以及“Mindspore can not compile temporary source code in terminal. Please write source code to a python file and run the file.”是什么原因？**</font>
 
 A: MindSpore编译网络时通过`inspect.getsourcelines(self.fn)`获取网络代码所在的文件，如果网络是编辑在命令行中的临时代码，那么会出现如标题所示的报错，需要将网络写在Python文件中去执行才能避免该错误。
+
+<br/>
+
+<font size=3>**运行文档示例代码的过程中，遇到`matplotlib.pyplot.show()`或`plt.show()`无法执行怎么处理？**</font>
+
+A: 首先确认是否安装`matplotlib`，如果没有安装，可以在命令行中执行`pip install matplotlib`进行安装。
+
+其次由于`matplotlib.pyplot.show()`的作用是以图形化方式展示，所以需要运行系统支持图形展示功能，如果系统不能支持图形展示，需要将该图形展示的命令行注释后再运行，不影响整体代码的运行结果。
+
+<br/>
+
+<font size=3>**Q: 使用文档中提供的在线运行时，遇到运行失败该如何处理？**</font>
+
+A: 需要确认有做以下准备工作。
+
+- 首先，需要通过华为云账号登录ModelArts。
+- 其次，注意教程文档的标签中列举的硬件环境，以及样例代码中配置的硬件环境，是Ascend、GPU还是CPU，由于登录后默认使用的硬件环境是CPU，Ascend环境和GPU环境需要用户手动点击切换。
+- 最后，确保当前`Kernel`为MindSpore。
+
+完成上述步骤后，就可以运行文档了。
+
+具体的操作过程可以参考[基于ModelArts在线体验MindSpore](https://bbs.huaweicloud.com/forum/thread-168982-1-1.html)。
+
+<br/>
