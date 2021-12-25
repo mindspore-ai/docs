@@ -47,7 +47,7 @@ The difference of these operator defining methods are as follows:
 
 | Defining Methods | Development Language | Compilation Method | Supported Platforms | Recommended Scenarios |
 | :------: | :------: | :------: | ------ | ------ |
-| akg | MindAKG DSL | JIT | `Ascend` `GPU` | Ascend/GPU platform general scenarios |
+| akg | MindSpore AKG DSL | JIT | `Ascend` `GPU` | Ascend/GPU platform general scenarios |
 | tbe | TBE DSL | JIT | `Ascend` | Ascend platform scenarios |
 | aot | C/C++/CUDA | AOT | `GPU` `CPU` | GPU/CPU platform high-performance scenarios |
 | pyfunc | Python | JIT | `CPU` | Fast algorithm verification, need to interact with Python and other scenarios |
@@ -61,7 +61,7 @@ Different custom operator defining methods use different development language to
 
 ### Defining Custom Operator of akg Type
 
-The custom operator of akg type uses the [MindAKG](https://gitee.com/mindspore/akg) operator DSL to describe the internal calculation logic of the operator. MindAKG is an operator development and compilation framework based on TVM(Tensor Virtual Machine) and Polyhedral technology, it supports multiple types of operator DSL, such as Hybrid, IR builder and TVM compute.
+The custom operator of akg type uses the [MindSpore AKG](https://gitee.com/mindspore/akg) operator DSL to describe the internal calculation logic of the operator. MindSpore AKG is an operator development and compilation framework based on TVM(Tensor Virtual Machine) and Polyhedral technology, it supports multiple types of operator DSL, such as Hybrid, IR builder and TVM compute.
 
 Operator output shape and data type inference can be realized by defining Python functions to describe the inference logic.
 
