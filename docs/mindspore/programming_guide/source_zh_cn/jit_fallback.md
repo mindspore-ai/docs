@@ -187,3 +187,24 @@ JIT Fallback借鉴了传统JIT编译的Fallback的思路。传统的JIT编译经
 4. 当前有限支持控制流场景，将逐步在后续版本中打通。
 
 5. 当前暂不支持自定义Class的attr/method，将逐步在后续版本中打通。
+
+6. MindSpore提供的NumPy中的方法是由框架的算子能力实现，并不是通过JIT Fallback来支持的，在使用时需要注意该场景。使用Python解释器推导不出MindSpore提供的NumPy中的average方法结果，得到的值为None。例如下面的用例将报错。
+
+    ```python
+    import mindspore.numpy as mnp
+    from mindspore import Tensor, ms_function
+
+    @ms_function
+    def test_mnp_average():
+        x = mnp.array([1, 2], [3, 4])
+        x_average = mnp.average(x)
+        return Tensor(x_average)
+
+    mnp_average = test_mnp_average()
+    ```
+
+   输出结果如下:
+
+   ```text
+   input_data and init can not be None at the same time.
+   ```
