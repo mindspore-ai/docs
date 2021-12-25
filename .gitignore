@@ -5,3 +5,7 @@
 # Workspace
 .idea/
 .vscode/
+
+# MAC
+*.DS_Store
+*.swp

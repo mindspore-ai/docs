@@ -79,7 +79,7 @@ $$ (-1)^{1}\times2^{1-15}=2^{-14}=6.104×10^{-5}=-65504$$
 
 MindSpore混合精度典型的计算流程如下图所示：
 
-![mix precision](./images/mix_precision.PNG)
+![mix precision](./images/mix_precision_fp16.png)
 
 1. 参数以FP32存储；
 2. 正向计算过程中，遇到FP16算子，需要把算子输入和参数从FP32 cast成FP16进行计算；
