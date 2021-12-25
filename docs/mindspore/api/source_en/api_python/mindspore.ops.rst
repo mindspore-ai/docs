@@ -359,6 +359,7 @@ The functional operators are the pre-instantiated Primitive operators, which can
 
     mindspore.ops.grad
     mindspore.ops.jvp
+    mindspore.ops.narrow
     mindspore.ops.vjp
 
 primitive
