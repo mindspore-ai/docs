@@ -35,14 +35,11 @@ MindSpore Lite Documentation
    :hidden:
 
    use/converter_tool
-   use/converter_advance
    use/post_training_quantization
    use/data_preprocessing
    use/runtime
    use/micro
    use/asic
-   use/register_kernel
-   use/delegate
 
 .. toctree::
    :glob:
@@ -52,6 +49,17 @@ MindSpore Lite Documentation
 
    use/converter_train
    use/runtime_train
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: Third-party hardware docking
+
+
+   :hidden:
+
+   use/register
+   use/delegate
 
 .. toctree::
    :glob:

@@ -1,4 +1,4 @@
-# 模型转换进阶
+# 离线构建自定义算子
 
 `Linux` `模型转换` `中级` `高级`
 
@@ -16,7 +16,9 @@
 
 ## 概述
 
-MindSpore Lite的[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)是一个具有高度灵活性的工具，除了基本的模型转换功能之外，我们设计了一整套注册机制，允许用户基于转换工具进行扩展，包括节点解析扩展、模型解析扩展以及图优化扩展。用户可以按需任意组合，以实现自己的需求。
+MindSpore Lite的[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)除了基本的模型转换功能之外，还支持用户对模型进行自定义的优化与构建，生成用户自定义算子的模型。
+
+我们提供了一套注册机制，允许用户基于转换工具进行能力扩展：包括节点解析扩展、模型解析扩展以及图优化扩展，用户可以根据自身的需要对模型实现自定义的解析与融合优化。
 
 节点解析扩展：用户自定义模型中某一节点的解析过程，支持ONNX、CAFFE、TF、TFLITE。接口可参考[NodeParser](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_converter.html#nodeparser)、[NodeParserRegistry](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#nodeparserregistry)。
 模型解析扩展：用户自定义模型的整个解析过程，支持ONNX、CAFFE、TF、TFLITE。接口可参考[ModelParser](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_converter.html#modelparser)、[ModelParserRegistry](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#modelparserregistry)。
