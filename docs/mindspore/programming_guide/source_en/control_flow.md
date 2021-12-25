@@ -13,6 +13,9 @@
     - [Using the while Statement](#using-the-while-statement)
         - [Using a while Statement with a Constant Condition](#using-a-while-statement-with-a-constant-condition)
         - [Using a while Statement with a Variable Condition](#using-a-while-statement-with-a-variable-condition)
+    - [Using a while Statement instead of a for Statement](#using-a-while-statement-instead-of-a-for-statement)
+        - [A simple example](#a-simple-example)
+        - [Weight in the loop body](#weight-in-the-loop-body)
     - [Constraints](#constraints)
         - [Side Effect](#side-effect)
         - [Dead Cycle](#dead-cycle)
@@ -121,7 +124,7 @@ output = forward_net(z)
 
 ## Using the for Statement
 
-The `for` statement expands the loop body. In example 3, `for` is cycled for three times, which is the same as the structure of the execution graph generated in example 4. Therefore, the number of subgraphs and operators of the network using the `for` statement depends on the number of `for` iterations. If there are too many operators or subgraphs, hardware resources are limited. If there are too many subgraphs due to the `for` statement, you can refer to the `while` writing mode and try to convert the `for` statement to the `while` statement whose condition is variable.
+The `for` statement expands the loop body. In example 3, `for` is cycled for three times, which is the same as the structure of the execution graph generated in example 4. Therefore, the number of subgraphs and operators of the network using the `for` statement depends on the number of `for` iterations. If there are too many operators or subgraphs, hardware resources are limited. If there are too many subgraphs due to the `for` statement, you can refer to the `while` writing mode and try to [convert the `for` statement to the `while` statement](#using-a-while-statement-instead-of-a-for-statement) whose condition is variable.
 
 Example 3:
 
@@ -335,6 +338,179 @@ The error information in example 8 is as follows:
 ValueError: mindspore/ccsrc/pipeline/jit/static_analysis/static_analysis.cc:734 ProcessEvalResults] The return values of different branches do not match. Shape Join Failed: shape1 = (1, 1), shape2 = (1)..
 ```
 
+## Using a while Statement instead of a for Statement
+
+The `for` statement will expand the loop body. While it improves execution performance, it also brings compilation problems, such as increasing compilation time, exceeding function call depth limit, sharing the different weights and son on. In order to solve those problems, the `for` statement needs to be equivalently converted to a `while` statement.
+
+### A simple example
+
+As shown in example 9, the calculation of multiplying two numbers through addition is realized.
+
+Example 9:
+
+```python
+from mindspore import Tensor
+from mindspore import ms_function
+
+one = Tensor(1)
+zero = Tensor(0)
+
+@ms_function
+def mul_by_for(x, y):
+    r = zero
+    for _ in range(y):
+        r = r + x
+    return r
+
+
+a = Tensor(2)
+b = 1000
+out = mul_by_for(a, b)
+print(out)
+```
+
+But, it executes failed.
+
+```text
+RuntimeError: mindspore/ccsrc/pipeline/jit/static_analysis/evaluator.cc:201 Eval] Exceed function call depth limit 1000, (function call depth: 1001, simulate call depth: 998).
+It's always happened with complex construction of code or infinite recursion or loop.
+Please check the code if it's has the infinite recursion or call 'context.set_context(max_call_depth=value)' to adjust this value.
+If max_call_depth is set larger, the system max stack depth should be set larger too to avoid stack overflow.
+```
+
+This is because the loop body in the `for` statement will be expanded. In this example, the loop body will execute 1000 times. The expanded subgraphs are too many, and exceed function call depth limit. In order not to expand the loop body, it can be equivalently replaced with `while` implementation, as shown in Example 10.
+
+Example 10:
+
+```python
+from mindspore import Tensor
+from mindspore import ms_function
+
+one = Tensor(1)
+zero = Tensor(0)
+
+@ms_function
+def mul_by_while(x, y):
+    y = Tensor(y)
+    r = zero
+    while y > 0:
+        y = y - one
+        r = r + x
+    return r
+
+a = Tensor(2)
+b = 1000
+out = mul_by_while(a, b)
+print(out)
+```
+
+And the result is:
+
+```text
+2000
+```
+
+### Weight in the loop body
+
+As shown in Example 11. The calculation of `1+2+3` is realized, and the value of the counter for each iteration in the loop is saved to the weight.
+
+Example 11:
+
+```python
+import mindspore
+from mindspore import nn, Tensor
+from mindspore import Parameter
+
+class AddIndexNet(nn.Cell):
+    def __init__(self, index):
+        super(AddIndexNet, self).__init__()
+        self.weight = Parameter(Tensor(0, mindspore.float32), name="weight")
+        self.idx = Tensor(index)
+
+    def construct(self, x):
+        self.weight = self.weight + self.idx
+        x = x + self.weight
+        return x
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.idx = Tensor(0)
+        self.block_nums = 3
+        self.nets = []
+        for i in range(self.block_nums):
+            self.nets.append(AddIndexNet(i + 1))
+
+    def construct(self, x):
+        for i in range(self.block_nums):
+            x = self.nets[i](x)
+        return x
+
+x = Tensor(0, mindspore.float32)
+net = Net()
+out = net(x)
+print(out)
+```
+
+The execution result is as follows:
+
+```text
+10.0
+```
+
+The result does not match the expectation. The expected result should be `1.0+2.0+3.0=6.0`. This is because after expanding the loop body, the operators in different iterations share the same weight (that is self.weight), which causes the same weight to be updated in each iteration.
+
+To solve this problem, we equivalently replace the `for` statement with the `while` statement, as shown in Example 12.
+
+Example 12:
+
+```python
+import numpy as np
+import mindspore
+from mindspore import nn, Tensor, ops
+from mindspore import Parameter
+
+class AddIndexNet(nn.Cell):
+    def __init__(self, block_nums):
+        super(AddIndexNet, self).__init__()
+        self.weights = Parameter(Tensor(np.zeros((block_nums, 1)), mindspore.float32), name="weights")
+        self.gather = ops.Gather()
+
+    def construct(self, x, index):
+        weight = self.gather(self.weights, index, 0)
+        weight += (index + 1)
+        x = x + weight
+        return x
+
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.idx = Parameter(Tensor(0), name="index")
+        self.iter_num = 3
+        self.add_net = AddIndexNet(self.iter_num)
+
+    def construct(self, x):
+        while self.idx < self.iter_num:
+            x = self.add_net(x, self.idx)
+            self.idx += 1
+        return x
+
+
+x = Tensor([0], mindspore.float32)
+net = Net()
+out = net(x)
+print(out)
+```
+
+The execution result is as follows:
+
+```text
+[6.]
+```
+
+In this example, we expand the dimension of the weight to `[iter_num, 1]`. Even if the same weight is shared in different iterations, the data outside the 0th dimension is relatively independent. We use the `Gather` operator to retrieve the corresponding data to compute. The expected result is `1.0+2.0+3.0=6.0`, and the execution result in this example meets the expectation.
+
 ## Constraints
 
 In addition to the constraints in the conditional variable scenario, the current process statement has constraints in other specific scenarios.
@@ -343,9 +519,9 @@ In addition to the constraints in the conditional variable scenario, the current
 
 When a process control statement with a variable condition is used, the network model generated after graph build contains the control flow operator. In this scenario, the forward graph is executed twice. In this case, if the forward graph contains side effect operators such as `Assign` in a training scenario, the computation result of the backward graph is inconsistent with the expected result.
 
-As shown in example 9, the expected gradient of `x` is 2, but the actual gradient is 3. The reason is that the forward graph is executed twice so that `tmp = self.var + 1` and `self.assign(self.var, tmp)` are executed twice, separately. `out = (self.var + 1) * x` is actually `out = (2 + 1) * x`, so the gradient result is incorrect.
+As shown in example 13, the expected gradient of `x` is 2, but the actual gradient is 3. The reason is that the forward graph is executed twice so that `tmp = self.var + 1` and `self.assign(self.var, tmp)` are executed twice, separately. `out = (self.var + 1) * x` is actually `out = (2 + 1) * x`, so the gradient result is incorrect.
 
-Example 9:
+Example 13:
 
 ```python
 import numpy as np

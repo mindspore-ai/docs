@@ -13,6 +13,9 @@
     - [使用while语句](#使用while语句)
         - [使用条件为常量的while语句](#使用条件为常量的while语句)
         - [使用条件为变量的while语句](#使用条件为变量的while语句)
+    - [使用while语句等价替换for语句](#使用while语句等价替换for语句)
+        - [简单示例](#简单示例)
+        - [循环体内有权重](#循环体内有权重)
     - [约束](#约束)
         - [副作用约束](#副作用约束)
         - [死循环约束](#死循环约束)
@@ -121,7 +124,7 @@ output = forward_net(z)
 
 ## 使用for语句
 
-`for`语句会展开循环体内容。在例3中，`for`循环了3次，与例4最终生成的执行图结构是完全一致的，因此使用`for`语句的网络的子图数量、算子数量取决于`for`的迭代次数，算子数量过多或者子图过多会导致硬件资源受限。`for`语句导致出现子图过多的问题时，可参考`while`写作方式，尝试将`for`语句等价转换为条件是变量的`while`语句。
+`for`语句会展开循环体内容。在例3中，`for`循环了3次，与例4最终生成的执行图结构是完全一致的，因此使用`for`语句的网络的子图数量、算子数量取决于`for`的迭代次数，算子数量过多或者子图过多会导致硬件资源受限。`for`语句导致出现子图过多的问题时，可参考`while`写作方式，尝试将[`for`语句等价转换为条件是变量的`while`语句](#使用while语句等价替换for语句)。
 
 例3：
 
@@ -335,6 +338,179 @@ output = forward_net(x, y, i)
 ValueError: mindspore/ccsrc/pipeline/jit/static_analysis/static_analysis.cc:734 ProcessEvalResults] The return values of different branches do not match. Shape Join Failed: shape1 = (1, 1), shape2 = (1)..
 ```
 
+## 使用while语句等价替换for语句
+
+`for`语句会展开循环体内容，带来执行性能提升的同时，也会带来编译问题，如增加编译时间、函数调用深度溢出、不同的权重被共享等等。为了解决该类问题，需要将`for`语句等价转换为`while`语句。
+
+### 简单示例
+
+如例9所示，实现了通过加法来完成两数相乘的计算。
+
+例9：
+
+```python
+from mindspore import Tensor
+from mindspore import ms_function
+
+one = Tensor(1)
+zero = Tensor(0)
+
+@ms_function
+def mul_by_for(x, y):
+    r = zero
+    for _ in range(y):
+        r = r + x
+    return r
+
+
+a = Tensor(2)
+b = 1000
+out = mul_by_for(a, b)
+print(out)
+```
+
+执行出错，报错信息如下所示：
+
+```text
+RuntimeError: mindspore/ccsrc/pipeline/jit/static_analysis/evaluator.cc:201 Eval] Exceed function call depth limit 1000, (function call depth: 1001, simulate call depth: 998).
+It's always happened with complex construction of code or infinite recursion or loop.
+Please check the code if it's has the infinite recursion or call 'context.set_context(max_call_depth=value)' to adjust this value.
+If max_call_depth is set larger, the system max stack depth should be set larger too to avoid stack overflow.
+```
+
+这是因为`for`语句内的循环体会被展开。该例子中循环了1000次，展开后的子图过多，函数调用深度超出了允许的限制。为了不让子图数量展开太多，可等价替换成`while`实现，实现方式如例10所示。
+
+例10：
+
+```python
+from mindspore import Tensor
+from mindspore import ms_function
+
+one = Tensor(1)
+zero = Tensor(0)
+
+@ms_function
+def mul_by_while(x, y):
+    y = Tensor(y)
+    r = zero
+    while y > 0:
+        y = y - one
+        r = r + x
+    return r
+
+a = Tensor(2)
+b = 1000
+out = mul_by_while(a, b)
+print(out)
+```
+
+执行结果正确，如下：
+
+```text
+2000
+```
+
+### 循环体内有权重
+
+如例11所示，实现了`1+2+3`的计算，同时用权重保存循环中每次迭代的计数器的值。
+
+例11：
+
+```python
+import mindspore
+from mindspore import nn, Tensor
+from mindspore import Parameter
+
+class AddIndexNet(nn.Cell):
+    def __init__(self, index):
+        super(AddIndexNet, self).__init__()
+        self.weight = Parameter(Tensor(0, mindspore.float32), name="weight")
+        self.idx = Tensor(index)
+
+    def construct(self, x):
+        self.weight = self.weight + self.idx
+        x = x + self.weight
+        return x
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.idx = Tensor(0)
+        self.block_nums = 3
+        self.nets = []
+        for i in range(self.block_nums):
+            self.nets.append(AddIndexNet(i + 1))
+
+    def construct(self, x):
+        for i in range(self.block_nums):
+            x = self.nets[i](x)
+        return x
+
+x = Tensor(0, mindspore.float32)
+net = Net()
+out = net(x)
+print(out)
+```
+
+执行结果：
+
+```text
+10.0
+```
+
+结果和预期不符，预期结果应该是`1.0+2.0+3.0=6.0`。这是因为循环体展开后，不同迭代中的算子共享了同一个权重（即self.weight），导致每次迭代，更新的都是同一个权重。
+
+为了解决该问题，我们使用`while`语句等价替换该`for`语句，如例12所示。
+
+例12：
+
+```python
+import numpy as np
+import mindspore
+from mindspore import nn, Tensor, ops
+from mindspore import Parameter
+
+class AddIndexNet(nn.Cell):
+    def __init__(self, block_nums):
+        super(AddIndexNet, self).__init__()
+        self.weights = Parameter(Tensor(np.zeros((block_nums, 1)), mindspore.float32), name="weights")
+        self.gather = ops.Gather()
+
+    def construct(self, x, index):
+        weight = self.gather(self.weights, index, 0)
+        weight += (index + 1)
+        x = x + weight
+        return x
+
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.idx = Parameter(Tensor(0), name="index")
+        self.iter_num = 3
+        self.add_net = AddIndexNet(self.iter_num)
+
+    def construct(self, x):
+        while self.idx < self.iter_num:
+            x = self.add_net(x, self.idx)
+            self.idx += 1
+        return x
+
+
+x = Tensor([0], mindspore.float32)
+net = Net()
+out = net(x)
+print(out)
+```
+
+执行结果如下：
+
+```text
+[6.]
+```
+
+在该例中，拓展了权重的维度为`[iter_num, 1]`，不同迭代中即使共享同一个权重，但第0维之外的数据相对独立，使用时再通过`Gather`算子取出对应的数据，完成相应的计算。预期的结果是`1+2+3=6`，本例中打印的结果值符合预期。
+
 ## 约束
 
 当前使用流程语句除了条件变量场景下的约束，还有一些其他特定场景下的约束。
@@ -343,9 +519,9 @@ ValueError: mindspore/ccsrc/pipeline/jit/static_analysis/static_analysis.cc:734 
 
 在使用条件为变量的流程控制语句时，图编译生成的网络模型中会包含控制流算子，在此场景下，正向图会执行两次。如果此时正向图中存在`Assign`等副作用算子并且是训练场景时，会导致反向图计算结果与预期不符。
 
-如例9所示，期望x的梯度为2，但是实际执行得到的梯度为3，原因是正向图执行了两次，`tmp = self.var + 1`和`self.assign(self.var, tmp)`被执行了两次，`out = (self.var + 1) * x`实际上是`out = (2 + 1) * x`，最终导致梯度结果出错。
+如例13所示，期望x的梯度为2，但是实际执行得到的梯度为3，原因是正向图执行了两次，`tmp = self.var + 1`和`self.assign(self.var, tmp)`被执行了两次，`out = (self.var + 1) * x`实际上是`out = (2 + 1) * x`，最终导致梯度结果出错。
 
-例9：
+例13：
 
 ```python
 import numpy as np
