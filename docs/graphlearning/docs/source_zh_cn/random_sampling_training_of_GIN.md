@@ -1,6 +1,6 @@
 # 图采样训练GIN网络
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/Graph Learning/docs/source_zh_cn/random_sampling_training_of_GIN.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/graphlearning/docs/source_zh_cn/random_sampling_training_of_GIN.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 &nbsp;&nbsp;
 
 ## 概述
