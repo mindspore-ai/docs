@@ -764,7 +764,7 @@ MindSpore编程指南
 											<span class="doc-head-content">分布式并行训练Transformer模型</span>
 										</div>
 										<div class="doc-article-desc">
-										MindSpore提供了一个分布式的Transformer接口 <em>mindspore.parallel.nn.transformer</em> ，将Transformer内部用到的每个算子都配置了并行策略，而用户只需要配置全局的 <em>data_parallel</em> 和 <em>model_parallel</em> 属性，即可完成分布式并行策略的配置。
+										MindSpore提供了一个分布式的Transformer接口 <em>mindspore.nn.transformer.transformer</em> ，将Transformer内部用到的每个算子都配置了并行策略，而用户只需要配置全局的 <em>data_parallel</em> 和 <em>model_parallel</em> 属性，即可完成分布式并行策略的配置。
 										</div>
 									</div>
 								</a>
