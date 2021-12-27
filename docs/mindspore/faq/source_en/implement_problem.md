@@ -453,3 +453,25 @@ Method 1: Reinstall the Numpy and Gensim and run the following commands: `pip un
 Method 2: If the problem persists, delete the cache file of the wheel installation package and then perform method 1. (The cache directory of the wheel installation package is `~/.cache/pip/wheels`)
 
 <br/>
+
+<font size=3>**Q: What should I do if I encounter `matplotlib.pyplot.show()` (most often plt.show()) cannot be executed during the tutorial is running?**</font>
+
+A: First confirm whether `matplotlib` is installed. If it is not installed, you can execute `pip install matplotlib` on the command line to install it.
+
+Secondly, because the function of `matplotlib.pyplot.show()` is to display graph data graphically, it is necessary to run the system to support the graph display function. If the system cannot support graph display, the reader needs to comment out the command line of the graph display. Operation will not affect the results of the overall code.
+
+<br/>
+
+<font size=3>**Q: What issues should be paid attention to when using the *Run in ModelArts* in tutorials?**</font>
+
+A: Need to confirm that the following preparations have been done.
+
+- First, you need to log in to ModelArts through your HUAWEI CLOUD account.
+- Secondly, note that the hardware environment supported by the tags in the tutorial document is Ascend, GPU or CPU. Since the hardware environment used by default after login is CPU, the Ascend environment and GPU environment need to be switched manually by the user.
+- Finally, confirm that the current `Kernel` of Jupyter Notebook is MindSpore.
+
+After completing the above steps, you can run the tutorial.
+
+For the specific operation process, please refer to [Based on ModelArts Online Experience MindSpore](https://bbs.huaweicloud.com/forum/thread-168982-1-1.html).
+
+<br/>
