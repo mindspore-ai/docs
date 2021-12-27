@@ -39,6 +39,17 @@
     mindspore-lite-maven-{version}.zip
     ```
 
+4. 由于端侧框架和模型是解耦的，我们提供的Android AAR包不包含模型相关脚本，因此需要用户自行生成模型脚本对应的jar包，我们提供了两个类型的模型脚本供大家参考（[有监督情感分类任务](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert)、[LeNet图片分类任务](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet)，这些模型脚本对应jar包可采用如下方式获取：
+
+    下载[开源仓](https://gitee.com/mindspore/mindspore)上最新代码后，进行以下操作：
+
+    ```sh
+    cd mindspore/mindspore/lite/examples/quick_start_flclient
+    sh build.sh -r "mindspore-lite-{version}-linux-x64.tar.gz"   // -r 后需给出最新x86版本架构包绝对路径（可参考章节x86环境中编译出包部分）
+    ```
+
+    运行以上指令后生成jar包路径为：`mindspore/mindspore/lite/examples/quick_start_flclient/target/quick_start_flclient.jar`。
+
 ### 运行依赖
 
 - [Android Studio](https://developer.android.google.cn/studio) >= 4.0
@@ -109,7 +120,7 @@ implementation(group: 'org.bouncycastle',name: 'bcprov-jdk15on', version: '1.68'
 android.jetifier.blacklist=bcprov
 ```
 
-在Android工程中设置好了如上所示依赖之后，只需依赖 AAR包即可调用联邦学习提供的相关接口，接口的具体调用和运行方式可参考[联邦学习接口介绍部分](https://www.mindspore.cn/federated/api/zh-CN/master/index.html)。
+在Android工程中设置好了如上所示依赖之后，只需依赖 AAR包和模型脚本对应的jar包`quick_start_flclient.jar`即可调用联邦学习提供的相关接口，接口的具体调用和运行方式可参考[联邦学习接口介绍部分](https://www.mindspore.cn/federated/api/zh-CN/master/index.html)。
 
 ## x86环境
 
@@ -130,6 +141,17 @@ android.jetifier.blacklist=bcprov
     ```text
     mindspore/output/mindspore-lite-{version}-linux-x64.tar.gz
     ```
+
+4. 由于端侧框架和模型是解耦的，我们提供的x86架构包`mindspore-lite-{version}-linux-x64.tar.gz`不包含模型相关脚本，因此需要用户自行生成模型脚本对应的jar包，我们提供了两个类型的模型脚本供大家参考（[有监督情感分类任务](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert)、[LeNet图片分类任务](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet)。同时，用户可参考这两个类型的模型脚本，自定义模型脚本后生成对应的jar包（假设命名为`quick_start_flclient.jar`）。我们提供的模型脚本对应jar包可采用如下方式获取：
+
+    下载[开源仓](https://gitee.com/mindspore/mindspore)上最新代码后，进行以下操作：
+
+    ```sh
+    cd mindspore/mindspore/lite/examples/quick_start_flclient
+    sh build.sh -r "mindspore-lite-{version}-linux-x64.tar.gz"   // -r 后需给出最新x86架构包绝对路径
+    ```
+
+    运行以上指令后生成jar包路径为：`mindspore/mindspore/lite/examples/quick_start_flclient/target/quick_start_flclient.jar`。
 
 ### 运行依赖
 
@@ -180,6 +202,7 @@ libmindspore-lite-train.so  # MindSpore Lite训练框架依赖的动态库
 libmindspore-lite-train-jni.so # MindSpore Lite训练框架的jni动态库
 libturbojpeg.so.0  # 图像处理动态库文件
 mindspore-lite-java-flclient.jar  # 联邦学习框架jar包
+quick_start_flclient.jar   # 模型脚本对应的jar包
 ```
 
 可将路径`mindspore/output/mindspore-lite-{version}-linux-x64/runtime/lib/`以及`mindspore/output/mindspore-lite-{version}-linux-x64/runtime/third_party/libjpeg-turbo/lib`中联邦学习所依赖的so文件（共7个）放入一个文件夹，比如`/resource/x86libs/`。然后在x86中设置环境变量(下面需给绝对路径)：

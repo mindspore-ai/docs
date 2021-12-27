@@ -344,68 +344,108 @@ app
 
 2. FlJob.java：该代码文件作用是定义训练与推理任务的内容，具体的联邦学习接口含义请参考[联邦学习接口介绍](https://www.mindspore.cn/federated/api/zh-CN/master/interface_description_federated_client.html)。
 
-    ```java
-    import android.annotation.SuppressLint;
-    import android.os.Build;
-    import androidx.annotation.RequiresApi;
-    import com.mindspore.flAndroid.utils.AssetCopyer;
-    import com.mindspore.flclient.FLParameter;
-    import com.mindspore.flclient.SyncFLJob;
-    import java.util.Arrays;
-    import java.util.UUID;
-    import java.util.logging.Logger;
-    public class FlJob {
-        private static final Logger LOGGER = Logger.getLogger(AssetCopyer.class.toString());
-        private final String parentPath;
-        public FlJob(String parentPath) {
-            this.parentPath = parentPath;
-        }
-        // Android的联邦学习训练任务
-        @SuppressLint("NewApi")
-        @RequiresApi(api = Build.VERSION_CODES.M)
-        public void syncJobTrain() {
-            String trainDataset = parentPath + "/data/0.txt";
-            String vocal_file = parentPath + "/data/vocab.txt";
-            String idsFile = parentPath + "/data/vocab_map_ids.txt";
-            String testDataset = parentPath + "/data/eval.txt";
-            String trainModelPath = parentPath + "/model/albert_supervise.mindir.ms";
-            String inferModelPath = parentPath + "/model/albert_supervise.mindir.ms";
-            String flName = "albert";
-            boolean useSSL = false;
-            // 端云通信url，请保证Android能够访问到server，否则会出现connection failed
-            String domainName = "http://10.113.216.106:6668";
-            FLParameter flParameter = FLParameter.getInstance();
-            flParameter.setTrainDataset(trainDataset);
-            flParameter.setVocabFile(vocal_file);
-            flParameter.setIdsFile(idsFile);
-            flParameter.setTestDataset(testDataset);
-            flParameter.setFlName(flName);
-            flParameter.setTrainModelPath(trainModelPath);
-            flParameter.setInferModelPath(inferModelPath);
-            flParameter.setUseSSL(useSSL);
-            flParameter.setDomainName(domainName);
-            SyncFLJob syncFLJob = new SyncFLJob();
-            syncFLJob.flJobRun();
-        }
-        // Android的联邦学习推理任务
-        public void syncJobPredict() {
-            String flName = "albert";
-            String dataPath = parentPath + "/data/eval_no_label.txt";
-            String vocal_file = parentPath + "/data/vocab.txt";
-            String idsFile = parentPath + "/data/vocab_map_ids.txt";
-            String modelPath = parentPath + "/model/albert_supervise.mindir.ms";
-            FLParameter flParameter = FLParameter.getInstance();
-            flParameter.setFlName(flName);
-            flParameter.setTestDataset(dataPath);
-            flParameter.setVocabFile(vocabFile);
-            flParameter.setIdsFile(idsFile);
-            flParameter.setInferModelPath(modelPath);
-            SyncFLJob syncFLJob = new SyncFLJob();
-            int[] labels = syncFLJob.modelInference();
-            LOGGER.info("labels = " + Arrays.toString(labels));
-        }
-    }
-    ```
+   ```java
+   import android.annotation.SuppressLint;
+   import android.os.Build;
+   import androidx.annotation.RequiresApi;
+   import com.mindspore.flAndroid.utils.AssetCopyer;
+   import com.mindspore.flclient.FLParameter;
+   import com.mindspore.flclient.SyncFLJob;
+   import java.util.Arrays;
+   import java.util.UUID;
+   import java.util.logging.Logger;
+   public class FlJob {
+       private static final Logger LOGGER = Logger.getLogger(AssetCopyer.class.toString());
+       private final String parentPath;
+       public FlJob(String parentPath) {
+           this.parentPath = parentPath;
+       }
+       // Android的联邦学习训练任务
+       @SuppressLint("NewApi")
+       @RequiresApi(api = Build.VERSION_CODES.M)
+       public void syncJobTrain() {
+           // 构造dataMap
+           String trainTxtPath = "data/albert/supervise/client/1.txt";
+           String evalTxtPath = "data/albert/supervise/eval/eval.txt";      // 非必须，getModel之后不进行验证可不设置
+           String vocabFile = "data/albert/supervise/vocab.txt";                // 数据预处理的词典文件路径
+           String idsFile = "data/albert/supervise/vocab_map_ids.txt"   // 词典的映射id文件路径
+           Map<RunType, List<String>> dataMap = new HashMap<>();
+           List<String> trainPath = new ArrayList<>();
+           trainPath.add(trainTxtPath);
+           trainPath.add(vocabFile);
+           trainPath.add(idsFile);
+           List<String> evalPath = new ArrayList<>();    // 非必须，getModel之后不进行验证可不设置
+           evalPath.add(evalTxtPath);                  // 非必须，getModel之后不进行验证可不设置
+           evalPath.add(vocabFile);                  // 非必须，getModel之后不进行验证可不设置
+           evalPath.add(idsFile);                  // 非必须，getModel之后不进行验证可不设置
+           dataMap.put(RunType.TRAINMODE, trainPath);
+           dataMap.put(RunType.EVALMODE, evalPath);      // 非必须，getModel之后不进行验证可不设置
+
+           String flName = "com.mindspore.flclient.demo.albert.AlbertClient";                             // AlBertClient.java 包路径
+           String trainModelPath = "ms/albert/train/albert_ad_train.mindir0.ms";                      // 绝对路径
+           String inferModelPath = "ms/albert/train/albert_ad_train.mindir0.ms";                      // 绝对路径, 和trainModelPath保持一致
+           String sslProtocol = "TLSv1.2";
+           String deployEnv = "android";
+
+           // 端云通信url，请保证Android能够访问到server，否则会出现connection failed
+           String domainName = "http://10.113.216.106:6668";
+           boolean ifUseElb = true;
+           int serverNum = 4;
+           int threadNum = 4;
+           BindMode cpuBindMode = BindMode.NOT_BINDING_CORE;
+           int batchSize = 32;
+
+           FLParameter flParameter = FLParameter.getInstance();
+           flParameter.setFlName(flName);
+           flParameter.setDataMap(dataMap);
+           flParameter.setTrainModelPath(trainModelPath);
+           flParameter.setInferModelPath(inferModelPath);
+           flParameter.setSslProtocol(sslProtocol);
+           flParameter.setDeployEnv(deployEnv);
+           flParameter.setDomainName(domainName);
+           flParameter.setUseElb(useElb);
+           flParameter.setServerNum(serverNum);
+           flParameter.setThreadNum(threadNum);
+           flParameter.setCpuBindMode(BindMode.valueOf(cpuBindMode));
+
+           // start FLJob
+           SyncFLJob syncFLJob = new SyncFLJob();
+           syncFLJob.flJobRun();
+       }
+       // Android的联邦学习推理任务
+       public void syncJobPredict() {
+           // 构造dataMap
+           String inferTxtPath = "data/albert/supervise/eval/eval.txt";
+           String vocabFile = "data/albert/supervise/vocab.txt";
+           String idsFile = "data/albert/supervise/vocab_map_ids.txt"
+           Map<RunType, List<String>> dataMap = new HashMap<>();
+           List<String> inferPath = new ArrayList<>();
+           inferPath.add(inferTxtPath);
+           inferPath.add(vocabFile);
+           inferPath.add(idsFile);
+           dataMap.put(RunType.INFERMODE, inferPath);
+
+           String flName = "com.mindspore.flclient.demo.albert.AlbertClient";                             // AlBertClient.java 包路径
+           String inferModelPath = "ms/albert/train/albert_ad_train.mindir0.ms";                      // 绝对路径, 和trainModelPath保持一致;
+           int threadNum = 4;
+           BindMode cpuBindMode = BindMode.NOT_BINDING_CORE;
+           int batchSize = 32;
+
+           FLParameter flParameter = FLParameter.getInstance();
+           flParameter.setFlName(flName);
+           flParameter.setDataMap(dataMap);
+           flParameter.setInferModelPath(inferModelPath);
+           flParameter.setThreadNum(threadNum);
+           flParameter.setCpuBindMode(BindMode.valueOf(cpuBindMode));
+           flParameter.setBatchSize(batchSize);
+
+           // inference
+           SyncFLJob syncFLJob = new SyncFLJob();
+           int[] labels = syncFLJob.modelInference();
+           LOGGER.info("labels = " + Arrays.toString(labels));
+       }
+   }
+   ```
 
    上面的eval_no_label.txt是指不存在标签的文件，每一行为一条语句，格式参考如下，用户可自由设置：
 
