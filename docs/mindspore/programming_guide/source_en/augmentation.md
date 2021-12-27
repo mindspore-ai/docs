@@ -60,7 +60,7 @@ Crops the input image at a random position.
 - `fill_value`: fill value used in the constant fill mode.
 - `padding_mode`: padding mode.
 
-The following example uses a sequential sampler to load the CIFAR-10 dataset [1], randomly crops the loaded image to 10 in both length and width, outputs the image shapes and labels before and after cropping, and displays the cropped image.
+The following example uses a sequential sampler to load the [CIFAR-10 dataset[1]](#references), randomly crops the loaded image to 10 in both length and width, outputs the image shapes and labels before and after cropping, and displays the cropped image.
 
 Download [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz) and decompress it to the specified path, execute the following command:
 
@@ -187,7 +187,7 @@ Randomly flips the input image horizontally.
 
 - `prob`: probability of flipping a single image.
 
-The following example uses a random sampler to load the CIFAR-10 dataset [1], randomly flips the loaded image in the horizontal direction with a probability of 0.8, outputs the image shapes and labels before and after the flipping, and displays the flipped image.
+The following example uses a random sampler to load the [CIFAR-10 dataset[1]](#references), randomly flips the loaded image in the horizontal direction with a probability of 0.8, outputs the image shapes and labels before and after the flipping, and displays the flipped image.
 
 Follow the steps above to download the CIFAR-10 dataset and store it as required.
 
@@ -261,7 +261,7 @@ Resizes the input image.
 - `size`: target size of the image.
 - `interpolation`: interpolation mode used during resizing.
 
-The following example loads the MNIST dataset [2], resizes the loaded image to (101, 101), outputs the image shapes and labels before and after the resizing, and displays the resized image.
+The following example loads the [MNIST dataset[2]](#references), resizes the loaded image to (101, 101), outputs the image shapes and labels before and after the resizing, and displays the resized image.
 
 Download and decompress the MNIST dataset, store it in the `./datasets/MNIST_data/` path, execute the following command:
 
@@ -364,7 +364,7 @@ The following shows the resized image.
 
 Inverts the input image.
 
-The following example loads the CIFAR-10 dataset [1], defines and performs the resizing and inverting operations on the loaded image, outputs the image shapes and labels before and after the resizing and inverting operations, and displays the inverted image.
+The following example loads the [CIFAR-10 dataset[1]](#references), defines and performs the resizing and inverting operations on the loaded image, outputs the image shapes and labels before and after the resizing and inverting operations, and displays the inverted image.
 
 Follow the steps above to download the CIFAR-10 data set and store it as required.
 
@@ -436,7 +436,7 @@ The following describes how to use common data augmentation operators of the `py
 
 Receives a `transforms` list and applies the data augmentation operations in the list to dataset images in sequence.
 
-The following example loads the CIFAR-10 dataset [1], defines the decoding, resizing, and data type conversion operations, applies the operations to the loaded image, outputs the image shapes and labels before and after the processing, and displays the processed image.
+The following example loads the [CIFAR-10 dataset[1]](#references), defines the decoding, resizing, and data type conversion operations, applies the operations to the loaded image, outputs the image shapes and labels before and after the processing, and displays the processed image.
 
 Follow the steps above to download the CIFAR-10 dataset and store it as required.
 
