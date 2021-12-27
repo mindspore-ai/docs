@@ -72,6 +72,8 @@ download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datas
 download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-images-idx3-ubyte", test_path)
 ```
 
+The directory structure of the dataset file is as follows:
+
 ```text
     ./datasets/MNIST_Data
     ├── test
