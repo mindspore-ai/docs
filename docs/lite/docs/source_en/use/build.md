@@ -53,7 +53,7 @@ Modules in MindSpore Lite:
         - Configure environment variables: `export ANDROID_NDK=NDK path`.
 - Additional compilation dependencies of Java:
     - [Gradle](https://gradle.org/releases/) >= 6.6.1
-        - Configure environment variables: `export GRADLE_HOME=GRADLE path`.
+        - Configure environment variables: `export GRADLE_HOME=GRADLE path` and `export GRADLE_USER_HOME=GRADLE path`.
         - Add the bin directory to the PATH: `export PATH=${GRADLE_HOME}/bin:$PATH`.
     - [OpenJDK](https://openjdk.java.net/install/) >= 1.8
         - Configure environment variables: `export JAVA_HOME=JDK path`.
@@ -63,6 +63,8 @@ Modules in MindSpore Lite:
         - Download `SDK Tools`, create SDK through `sdkmanager`: `./sdkmanager --sdk_root=${ANDROID_SDK_ROOT} "cmdline-tools;latest"`.
         - Accept the license through `sdkmanager` under the `${ANDROID_SDK_ROOT}` directory: `yes | ./sdkmanager --licenses`.
 
+> Gradle is recommended to use the [gradle-6.6.1-complete](https://gradle.org/next-steps/?version=6.6.1&format=all) version. If you configure other versions, gradle will automatically download  `gradle-6.6.1-complete` by gradle wrapper mechanism.
+>
 > You can also directly use the Docker compilation image that has been configured with the above dependencies.
 >
 > - Download the docker image: `docker pull swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210530`
