@@ -98,12 +98,11 @@ def download_dataset(url, target_path):
 download_dataset("https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cifar-10-binary.tar.gz", "./datasets")
 test_path = "./datasets/cifar-10-batches-bin/test"
 train_path = "./datasets/cifar-10-batches-bin/train"
-if not os.path.exists(test_path):
-    os.makedirs(test_path)
-if not os.path.exists(train_path):
-    os.makedirs(train_path)
-shutil.move("./datasets/cifar-10-batches-bin/test_batch.bin", test_path)
-[shutil.move("./datasets/cifar-10-batches-bin/"+i, train_path) for i in os.listdir("./datasets/cifar-10-batches-bin/") if os.path.isfile("./datasets/cifar-10-batches-bin/"+i) and not i.endswith(".html")]
+os.makedirs(test_path, exist_ok=True)
+os.makedirs(train_path, exist_ok=True)
+if not os.path.exists(os.path.join(test_path, "test_batch.bin")):
+    shutil.move("./datasets/cifar-10-batches-bin/test_batch.bin", test_path)
+[shutil.move("./datasets/cifar-10-batches-bin/"+i, train_path) for i in os.listdir("./datasets/cifar-10-batches-bin/") if os.path.isfile("./datasets/cifar-10-batches-bin/"+i) and not i.endswith(".html") and not os.path.exists(os.path.join(train_path, i))]
 ```
 
 ```text
