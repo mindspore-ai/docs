@@ -78,7 +78,7 @@ The output is as follows:
 
 Applies a specified function or operator to specified columns in a dataset to implement data mapping. You can customize the mapping function or use operators in `c_transforms` or `py_transforms` to augment image and text data.
 
-> For details about how to use data augmentation, see [Data Augmentation](https://www.mindspore.cn/docs/programming_guide/en/master/augmentation.html) in the Programming Guide.
+> For details about how to use data augmentation, see [Image Data Processing and Enhancement](https://www.mindspore.cn/docs/programming_guide/en/master/augmentation.html) in the Programming Guide.
 
 ![map](./images/map.png)
 
