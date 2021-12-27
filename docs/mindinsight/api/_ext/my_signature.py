@@ -52,7 +52,7 @@ def get_anotation(func):
             if ":" not in i:
                 continue
             key, value = i.split("=")[0].split(":")
-            value = value.rstrip(',')
+            value = value.rstrip(', ')
             anotation_dict[key] = value
 
     return anotation_dict
@@ -84,7 +84,7 @@ def get_default_params(func):
         defaults_params_list = []
         for i in defaults_params:
             if "=" in i and i:
-                i = "".join(i.split('=')[-1]).strip(",")
+                i = "".join(i.split('=')[-1]).strip(", ")
                 if i[:6] == "lambda":
                     i = "<" + i + ">"
                 defaults_params_list.append(i)

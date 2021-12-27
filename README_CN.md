@@ -59,20 +59,26 @@ docs
 
 MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/master/)工具生成，构建MindSpore、MindSpore Hub、MindArmour或MindQuantum的API文档之前需完成对应模块的安装。下面以MindSpore Python API文档为例介绍具体步骤，操作前需完成MindSpore的安装。
 
-1. 下载MindSpore Docs仓代码。
+1. 使用pip安裝MindSpore模块，API文档需要根据安装后的MindSpore模块生成，参考[安装](https://www.mindspore.cn/install)。
+
+   ```bash
+   pip install mindspore-1.5.0-cp37-cp37m-linux_x86_64.whl
+   ```
+
+2. 下载MindSpore Docs仓代码。
 
    ```bash
    git clone https://gitee.com/mindspore/docs.git
    ```
 
-2. 进入api目录，安装该目录下`requirements.txt`文件中的依赖项。
+3. 进入api目录，安装该目录下`requirements.txt`文件中的依赖项。
 
    ```bash
    cd docs/mindspore/api
    pip install -r requirements.txt
    ```
 
-3. 在api目录下执行如下命令，完成后会新建`build_zh_cn/html`目录，该目录中存放了生成后的文档网页，打开`build_zh_cn/html/index.html`即可查看API文档内容。
+4. 在api目录下执行如下命令，完成后会新建`build_zh_cn/html`目录，该目录中存放了生成后的文档网页，打开`build_zh_cn/html/index.html`即可查看API文档内容。
 
    ```bash
    make html
@@ -80,7 +86,7 @@ MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/ma
 
 > - 构建[MindSpore教程](https://gitee.com/mindspore/docs/tree/master/tutorials)、[编程指南文档](https://gitee.com/mindspore/docs/tree/master/docs/mindspore/programming_guide)、[迁移指南文档](https://gitee.com/mindspore/docs/tree/master/docs/mindspore/migration_guide)、[深度概率编程文档](https://gitee.com/mindspore/docs/tree/master/docs/probability/docs)和[MindQuantum文档](https://gitee.com/mindspore/docs/tree/master/docs/mindquantum/docs)时还需安装[pandoc](https://pandoc.org/)，下载和安装pandoc请参考<https://pandoc.org/installing.html>。
 >
-> - 构建MindSpore和Lite的API时，需要先克隆`mindspore`仓，并加入环境变量`MS_PATH`，构建Lite的API时还需要安装Doxygen：
+> - 构建MindSpore和Lite的API时，由于需要使用到一些`mindspore`仓的资源文件，先克隆`mindspore`仓，并加入环境变量`MS_PATH`，构建Lite的API时还需要安装Doxygen：
 >
 >   ```bash
 >   git clone https://gitee.com/mindspore/mindspore.git {MS_REPO PATH}
