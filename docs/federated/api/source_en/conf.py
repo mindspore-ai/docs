@@ -17,9 +17,6 @@ import sys
 sys.path.append(os.path.abspath('../_ext'))
 import sphinx.ext.autosummary.generate as g
 from sphinx.ext import autodoc as sphinx_autodoc
-from sphinx.util import inspect as sphinx_inspect
-from sphinx.domains import python as sphinx_domain_python
-from textwrap import dedent
 
 import mindspore
 
@@ -85,46 +82,34 @@ intersphinx_mapping = {
 
 # Modify default signatures for autodoc.
 autodoc_source_path = os.path.abspath(sphinx_autodoc.__file__)
-inspect_source_path = os.path.abspath(sphinx_inspect.__file__)
-autodoc_source_re = re.compile(r"(\s+)args = self\.format_args\(\*\*kwargs\)")
-inspect_source_code_str = """signature = inspect.signature(subject)"""
-inspect_target_code_str = """signature = my_signature.signature(subject)"""
-autodoc_source_code_str = """args = self.format_args(**kwargs)"""
-is_autodoc_code_str = """args = args.replace("'", "")"""
+autodoc_source_re = re.compile(r'stringify_signature\(.*?\)')
+get_param_func_str = r"""\
+import re
+import inspect as inspect_
+
+def get_param_func(func):
+    try:
+        source_code = inspect_.getsource(func)
+        if func.__doc__:
+            source_code = source_code.replace(func.__doc__, '')
+        all_params_str = re.findall(r"def [\w_\d\-]+\(([\S\s]*?)(\):|\) ->.*?:)", source_code)
+        all_params = re.sub("(self|cls)(,|, )?", '', all_params_str[0][0].replace("\n", "").replace("'", "\""))
+        return all_params
+    except:
+        return ''
+
+def get_obj(obj):
+    if isinstance(obj, type):
+        return obj.__init__
+
+    return obj
+"""
+
 with open(autodoc_source_path, "r+", encoding="utf8") as f:
     code_str = f.read()
-    if is_autodoc_code_str not in code_str:
-        code_str_lines = code_str.split("\n")
-        autodoc_target_code_str = None
-        for line in code_str_lines:
-            re_matched_str = autodoc_source_re.search(line)
-            if re_matched_str:
-                space_num = re_matched_str.group(1)
-                autodoc_target_code_str = dedent("""\
-                    {0}
-                    {1}if type(args) != type(None):
-                    {1}    {2}""".format(autodoc_source_code_str, space_num, is_autodoc_code_str))
-                break
-        if autodoc_target_code_str:
-            code_str = code_str.replace(autodoc_source_code_str, autodoc_target_code_str)
-            exec(code_str, sphinx_autodoc.__dict__)
-with open(inspect_source_path, "r+", encoding="utf8") as g:
-    code_str = g.read()
-    if inspect_target_code_str not in code_str:
-        code_str = code_str.replace(inspect_source_code_str, inspect_target_code_str)
-        if "import my_signature" not in code_str:
-            code_str = code_str.replace("import sys", "import sys\nimport my_signature")
-        exec(code_str, sphinx_inspect.__dict__)
-
-# remove extra space for default params for autodoc.
-sphinx_domain_python_source_path = os.path.abspath(sphinx_domain_python.__file__)
-python_code_source = """for argument in arglist.split(','):"""
-python_code_target = """for argument in [" " + i if num > 1 else i for num,i in enumerate(arglist.split(", "))]:"""
-with open(sphinx_domain_python_source_path, "r+", encoding="utf8") as f:
-    code_str = f.read()
-    if python_code_target not in code_str:
-        code_str = code_str.replace(python_code_source, python_code_target)
-        exec(code_str, sphinx_domain_python.__dict__)
+    code_str = autodoc_source_re.sub('"(" + get_param_func(get_obj(self.object)) + ")"', code_str, count=0)
+    exec(get_param_func_str, sphinx_autodoc.__dict__)
+    exec(code_str, sphinx_autodoc.__dict__)
 
 sys.path.append(os.path.abspath('../../../../resource/search'))
 import search_code
