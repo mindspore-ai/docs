@@ -13,6 +13,7 @@ MindSpore FAQ
   installation
   data_processing
   implement_problem
+  network_compilation
   operators_compile
   usage_migrate_3rd
   performance_tuning
