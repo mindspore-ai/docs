@@ -124,7 +124,7 @@ output = forward_net(z)
 
 ## Using the for Statement
 
-The `for` statement expands the loop body. In example 3, `for` is cycled for three times, which is the same as the structure of the execution graph generated in example 4. Therefore, the number of subgraphs and operators of the network using the `for` statement depends on the number of `for` iterations. If there are too many operators or subgraphs, hardware resources are limited. If there are too many subgraphs due to the `for` statement, you can refer to the `while` writing mode and try to [convert the `for` statement to the `while` statement](#using-a-while-statement-instead-of-a-for-statement) whose condition is variable.
+The `for` statement expands the loop body. In example 3, `for` is cycled for three times, which is the same as the structure of the execution graph generated in example 4. Therefore, the number of subgraphs and operators of the network using the `for` statement depends on the number of `for` iterations. If there are too many operators or subgraphs, hardware resources are limited. If there are too many subgraphs due to the `for` statement, you can refer to the `while` writing mode and try to convert the `for` statement to the `while` statement whose condition is variable, seeing [Using a while Statement instead of a for Statement](#using-a-while-statement-instead-of-a-for-statement).
 
 Example 3:
 
