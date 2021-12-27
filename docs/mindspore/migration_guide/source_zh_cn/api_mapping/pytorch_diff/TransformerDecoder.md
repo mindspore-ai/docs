@@ -10,22 +10,22 @@ torch.nn.TransformerDecoder(decoder_layer, num_layers, norm=None)
 
 更多内容详见[torch.nn.TransformerDecoder](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.TransformerDecoder)。
 
-## mindspore.parallel.nn.TransformerDecoder
+## mindspore.nn.transformer.TransformerDecoder
 
 ```python
-class mindspore.parallel.nn.TransformerDecoder(num_layers, batch_size, hidden_size, ffn_hidden_size, src_seq_length, tgt_seq_length, num_heads, attention_dropout_rate=0.1, hidden_dropout_rate=0.1, post_layernorm_residual=False, layernorm_compute_type=mstype.float32, softmax_compute_type=mstype.float32, param_init_type=mstype.float32, hidden_act="gelu", lambda_func=None, use_past=False, offset=0, moe_config=default_moe_config, parallel_config=default_transformer_config)(
+class mindspore.nn.transformer.TransformerDecoder(num_layers, batch_size, hidden_size, ffn_hidden_size, src_seq_length, tgt_seq_length, num_heads, attention_dropout_rate=0.1, hidden_dropout_rate=0.1, post_layernorm_residual=False, layernorm_compute_type=mstype.float32, softmax_compute_type=mstype.float32, param_init_type=mstype.float32, hidden_act="gelu", lambda_func=None, use_past=False, offset=0, moe_config=default_moe_config, parallel_config=default_transformer_config)(
     hidden_stats, decoder_mask, encoder_output=None,
     memory_mask=None, init_reset=True, batch_valid_length=None
 )
 ```
 
-更多内容详见[mindspore.parallel.nn.TransformerDecoder](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.parallel.nn.html#mindspore.parallel.nn.TransformerDecoder)。
+更多内容详见[mindspore.nn.transformer.TransformerDecoder](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.nn.transformer.html#mindspore.nn.transformer.TransformerDecoder)。
 
 ## 使用方式
 
-mindspore.parallel.nn.TransformerDecoder在初始化参数和torch.nn.TransformerDecoder并不完全相同，但是基本功能保持一致。torch.nn.TransformerDecoder采用了组合的方式，即将实例化的TransformerDecoderLayer作为torch.nn.TransformerDecoder的入参。而mindspore.nn.parallel.TransformerDecoder通过传入层的相关参数即可，跟TransformerDecoderLayer保持独立。具体的区别如下说明：
+mindspore.nn.transformer.TransformerDecoder在初始化参数和torch.nn.TransformerDecoder并不完全相同，但是基本功能保持一致。torch.nn.TransformerDecoder采用了组合的方式，即将实例化的TransformerDecoderLayer作为torch.nn.TransformerDecoder的入参。而mindspore.nn.parallel.TransformerDecoder通过传入层的相关参数即可，跟TransformerDecoderLayer保持独立。具体的区别如下说明：
 
-| mindspore.parallel.nn.TransformerDecoder | torch.nn.TransformerDecoder | 说明                                                      |
+| mindspore.nn.transformer.TransformerDecoder | torch.nn.TransformerDecoder | 说明                                                      |
 | ---------------------------------------- | --------------------------- | --------------------------------------------------------- |
 | num_layers                               | num_layers                  | 含义相同。                                                |
 | batch_size                               |                             | MindSpore需要传入额外的batch size以作校验和增量推理使用。 |
@@ -49,13 +49,13 @@ mindspore.parallel.nn.TransformerDecoder在初始化参数和torch.nn.Transforme
 |                                          | decoder_layer               | decoder的实例化参数                                       |
 |                                          | norm                        | 在decoder的输出是否应用传入的norm cell。                  |
 
-- mindspore.parallel.nn.TransformerDecoder缺少tgt_key_padding_mask和emory_key_padding_mask的输入。
-- mindspore.parallel.nn.TransformerDecoder提供了静态图的增量推理功能。
-- mindspore.parallel.nn.TransformerDecoder默认采用fp16进行矩阵运算。
-- mindspore.parallel.nn.TransformerDecoder的输入中attention_mask是必须输入的。
-- mindspore.parallel.nn.TransformerDecoder会返回以及encoder、decoder中每层attention的key,value的历史值。
-- mindspore.parallel.nn.TransformerDecoder的初始化参数中缺少torch.nn.Transformer中的norm入参。
-- mindspore.parallel.nn.TransformerDecoder提供了并行配置parallel_config入参，可以实现混合并行和流水线并行。
+- mindspore.nn.transformer.TransformerDecoder缺少tgt_key_padding_mask和emory_key_padding_mask的输入。
+- mindspore.nn.transformer.TransformerDecoder提供了静态图的增量推理功能。
+- mindspore.nn.transformer.TransformerDecoder默认采用fp16进行矩阵运算。
+- mindspore.nn.transformer.TransformerDecoder的输入中attention_mask是必须输入的。
+- mindspore.nn.transformer.TransformerDecoder会返回以及encoder、decoder中每层attention的key,value的历史值。
+- mindspore.nn.transformer.TransformerDecoder的初始化参数中缺少torch.nn.Transformer中的norm入参。
+- mindspore.nn.transformer.TransformerDecoder提供了并行配置parallel_config入参，可以实现混合并行和流水线并行。
 
 PyTorch：实例化Transformer时需要提供的参数较少。
 
@@ -66,7 +66,7 @@ MindSpore：在类初始化的时候，需要提供batch_size、源序列和目�
 ```python
 import numpy as np
 from mindspore import dtype as mstype
-from mindspore.parallel.nn import TransformerDecoderLayer
+from mindspore.nn.transformer import TransformerDecoderLayer
 from mindspore import Tensor
 model = TransformerDecoderLayer(batch_size=32, hidden_size=512, ffn_hidden_size=2048,
                                 num_heads=8, src_seq_length=10, tgt_seq_length=20)

@@ -10,21 +10,21 @@ torch.nn.TransformerEncoderLayer(d_model, nhead, dim_feedforward=2048, dropout=0
 
 更多内容详见[torch.nn.TransformerEncoderLayer](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.TransformerEncoderLayer)。
 
-## mindspore.parallel.nn.TransformerEncoderLayer
+## mindspore.nn.transformer.TransformerEncoderLayer
 
 ```python
-class mindspore.parallel.nn.TransformerEncoderLayer(batch_size, hidden_size, ffn_hidden_size, num_heads, seq_length, attention_dropout_rate=0.1, hidden_dropout_rate=0.1, post_layernorm_residual=False, layernorm_compute_type=mstype.float32, softmax_compute_type=mstype.float32, param_init_type=mstype.float32, hidden_act="gelu", use_past=False, moe_config=default_moe_config, parallel_config=default_dpmp_config)(
+class mindspore.nn.transformer.TransformerEncoderLayer(batch_size, hidden_size, ffn_hidden_size, num_heads, seq_length, attention_dropout_rate=0.1, hidden_dropout_rate=0.1, post_layernorm_residual=False, layernorm_compute_type=mstype.float32, softmax_compute_type=mstype.float32, param_init_type=mstype.float32, hidden_act="gelu", use_past=False, moe_config=default_moe_config, parallel_config=default_dpmp_config)(
     x, input_mask, init_reset=True, batch_valid_length=None
 )
 ```
 
-更多内容详见[mindspore.parallel.nn.TransformerEncoderLayer](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.parallel.nn.html#mindspore.parallel.nn.TransformerEncoderLayer)。
+更多内容详见[mindspore.nn.transformer.TransformerEncoderLayer](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.nn.transformer.html#mindspore.nn.transformer.TransformerEncoderLayer)。
 
 ## 使用方式
 
-mindspore.parallel.nn.TransformerEncoderLayer在初始化参数和torch.nn.TransformerEncoderLayer并不完全相同，但是基本功能保持一致。具体的区别如下说明：
+mindspore.nn.transformer.TransformerEncoderLayer在初始化参数和torch.nn.TransformerEncoderLayer并不完全相同，但是基本功能保持一致。具体的区别如下说明：
 
-| mindspore.parallel.nn.TransformerEncoderLayer | torch.nn.TransformerEncoderLayer | 说明                                                         |
+| mindspore.nn.transformer.TransformerEncoderLayer | torch.nn.TransformerEncoderLayer | 说明                                                         |
 | --------------------------------------------- | -------------------------------- | ------------------------------------------------------------ |
 | batch_size                                    |                                  | MindSpore需要传入额外的batch size以作校验和增量推理使用。    |
 | hidden_size                                   | d_model                          | 参数名称不一致，含义相同。                                   |
@@ -42,12 +42,12 @@ mindspore.parallel.nn.TransformerEncoderLayer在初始化参数和torch.nn.Trans
 | moe_config                                    |                                  | MoE并行的配置参数。                                          |
 | parallel_config                               |                                  | 并行设置的配置参数。                                         |
 
-- mindspore.parallel.nn.TransformerEncoderLayer缺少src_key_padding_mask的输入。
-- mindspore.parallel.nn.TransformerEncoderLayer提供了静态图的增量推理功能。
-- mindspore.parallel.nn.TransformerEncoderLayer默认采用fp16进行矩阵运算。
-- mindspore.parallel.nn.TransformerEncoderLayer的输入中encoder_mask是必须输入的。
-- mindspore.parallel.nn.TransformerEncoderLayer会返回attention的key和value的计算结果。
-- mindspore.parallel.nn.TransformerEncoderLayer提供了并行配置parallel_config入参，可以实现混合并行。
+- mindspore.nn.transformer.TransformerEncoderLayer缺少src_key_padding_mask的输入。
+- mindspore.nn.transformer.TransformerEncoderLayer提供了静态图的增量推理功能。
+- mindspore.nn.transformer.TransformerEncoderLayer默认采用fp16进行矩阵运算。
+- mindspore.nn.transformer.TransformerEncoderLayer的输入中encoder_mask是必须输入的。
+- mindspore.nn.transformer.TransformerEncoderLayer会返回attention的key和value的计算结果。
+- mindspore.nn.transformer.TransformerEncoderLayer提供了并行配置parallel_config入参，可以实现混合并行。
 
 PyTorch：实例化Transformer时需要提供的参数较少。
 
@@ -58,7 +58,7 @@ MindSpore：在类初始化的时候，需要提供batch_size、源序列长度�
 ```python
 import numpy as np
 from mindspore import dtype as mstype
-from mindspore.parallel.nn import TransformerEncoderLayer
+from mindspore.nn.transformer import TransformerEncoderLayer
 from mindspore import Tensor
 model = TransformerEncoderLayer(batch_size=32, hidden_size=512,
                                 ffn_hidden_size=2048, seq_length=10, num_heads=8)

@@ -10,22 +10,22 @@ torch.nn.Transformer(d_model=512, nhead=8, num_encoder_layers=6, num_decoder_lay
 
 更多内容详见[torch.nn.Transformer](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.Transformer)。
 
-## mindspore.parallel.nn.Transformer
+## mindspore.nn.transformer.Transformer
 
 ```python
-class mindspore.parallel.nn.Transformer(hidden_size, batch_size, ffn_hidden_size, src_seq_length, tgt_seq_length, encoder_layers=3, decoder_layers=3, num_heads=2, attention_dropout_rate=0.1, hidden_dropout_rate=0.1, hidden_act="gelu", post_layernorm_residual=False, layernorm_compute_type=mstype.float32, softmax_compute_type=mstype.float32, param_init_type=mstype.float32, lambda_func=None, use_past=False, moe_config=default_moe_config, parallel_config=default_transformer_config)(
+class mindspore.nn.transformer.Transformer(hidden_size, batch_size, ffn_hidden_size, src_seq_length, tgt_seq_length, encoder_layers=3, decoder_layers=3, num_heads=2, attention_dropout_rate=0.1, hidden_dropout_rate=0.1, hidden_act="gelu", post_layernorm_residual=False, layernorm_compute_type=mstype.float32, softmax_compute_type=mstype.float32, param_init_type=mstype.float32, lambda_func=None, use_past=False, moe_config=default_moe_config, parallel_config=default_transformer_config)(
     encoder_inputs, encoder_masks, decoder_inputs=None,
     decoder_masks=None, memory_mask=None, init_reset=True, batch_valid_length=None
 )
 ```
 
-更多内容详见[mindspore.parallel.nn.Transformer](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.parallel.nn.html#mindspore.parallel.nn.Transformer)。
+更多内容详见[mindspore.nn.transformer.Transformer](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.nn.transformer.html#mindspore.nn.transformer.Transformer)。
 
 ## 使用方式
 
-mindspore.parallel.nn.Transformer在初始化参数和torch.nn.Transformer并不完全相同，但是基本功能保持一致。是因为mindspore.nn.Transformer提供了更多细粒度的控制以及并行配置，可以轻松的实现并行训练。其中的主要区别概括如下：
+mindspore.nn.transformer.Transformer在初始化参数和torch.nn.Transformer并不完全相同，但是基本功能保持一致。是因为mindspore.nn.Transformer提供了更多细粒度的控制以及并行配置，可以轻松的实现并行训练。其中的主要区别概括如下：
 
-| mindspore.parallel.nn.Transformer | torch.nn.Transformer | 说明                                                         |
+| mindspore.nn.transformer.Transformer | torch.nn.Transformer | 说明                                                         |
 | --------------------------------- | -------------------- | ------------------------------------------------------------ |
 | hidden_size                       | d_model              | 参数名称不一致，含义相同。                                   |
 | batch_size                        |                      | MindSpore需要传入额外的batch size以作校验和增量推理使用。    |
@@ -53,13 +53,13 @@ mindspore.parallel.nn.Transformer在初始化参数和torch.nn.Transformer并不
 
 除了以上初始化参数不同之外，还有一些前向执行的输入和输出差异如下：
 
-- mindspore.parallel.nn.Transformer缺少src_key_padding_mask、tgt_key_padding_mask和memory_key_padding_mask输入。
+- mindspore.nn.transformer.Transformer缺少src_key_padding_mask、tgt_key_padding_mask和memory_key_padding_mask输入。
 
-- mindspore.parallel.nn.Transformer的输入中encoder_mask,decoder_mask是必须输入的。
+- mindspore.nn.transformer.Transformer的输入中encoder_mask,decoder_mask是必须输入的。
 
-- mindspore.parallel.nn.Transformer会额外返回encoder和decoder中每层attention的key,value的历史值。
+- mindspore.nn.transformer.Transformer会额外返回encoder和decoder中每层attention的key,value的历史值。
 
-- mindspore.parallel.nn.Transformer中的post_layernorm_residual和torch.nn.transformer中的norm_first的参数对比如下：
+- mindspore.nn.transformer.Transformer中的post_layernorm_residual和torch.nn.transformer中的norm_first的参数对比如下：
 
   ```python
   # PyTorch
@@ -75,10 +75,10 @@ mindspore.parallel.nn.Transformer在初始化参数和torch.nn.Transformer并不
       x = x + attention(norm(x))
   ```
 
-另外mindspore.parallel.nn.Transformer在功能上存在如下的差异：
+另外mindspore.nn.transformer.Transformer在功能上存在如下的差异：
 
-- mindspore.parallel.nn.Transformer提供了静态图的增量推理功能。
-- mindspore.parallel.nn.Transformer默认采用fp16进行矩阵运算。
+- mindspore.nn.transformer.Transformer提供了静态图的增量推理功能。
+- mindspore.nn.transformer.Transformer默认采用fp16进行矩阵运算。
 
 PyTorch：实例化Transformer时需要提供的参数较少。
 
@@ -89,7 +89,7 @@ MindSpore：在类初始化的时候，需要提供batch_size、源序列和目�
 ```python
 import numpy as np
 from mindspore import dtype as mstype
-from mindspore.parallel.nn import Transformer
+from mindspore.nn.transformer import Transformer
 from mindspore import Tensor
 model = Transformer(batch_size=32, encoder_layers=1,
                     decoder_layers=1, hidden_size=512, ffn_hidden_size=2048,

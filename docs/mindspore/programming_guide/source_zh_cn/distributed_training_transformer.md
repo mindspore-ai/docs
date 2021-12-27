@@ -25,7 +25,7 @@
 
 ## 概述
 
-近年来，基于Transformer的预训练模型参数量越来越大，而Ascend 910、GPU等设备内存的增长显著小于模型大小增长的速度。因此，将Transformer模型进行并行训练已经一个非常迫切的需求。MindSpore提供了一个分布式的Transformer接口`mindspore.parallel.nn.transformer`，将Transformer内部用到的每个算子都配置了并行策略，而用户只需要配置全局的`data_parallel`和`model_parallel`属性，即可完成分布式并行策略的配置。可以极大地方便用户应用Transformer进行分布式训练。目前分布式训练支持Ascend 910和GPU环境，总结如下：
+近年来，基于Transformer的预训练模型参数量越来越大，而Ascend 910、GPU等设备内存的增长显著小于模型大小增长的速度。因此，将Transformer模型进行并行训练已经一个非常迫切的需求。MindSpore提供了一个分布式的Transformer接口`mindspore.nn.transformer.transformer`，将Transformer内部用到的每个算子都配置了并行策略，而用户只需要配置全局的`data_parallel`和`model_parallel`属性，即可完成分布式并行策略的配置。可以极大地方便用户应用Transformer进行分布式训练。目前分布式训练支持Ascend 910和GPU环境，总结如下：
 
 - `Transformer`提供了简单的并行配置，即可实现算子级别并行和流水线并行。
 
@@ -55,7 +55,7 @@
 
 ## 并行配置定义
 
-针对`Transformer`中网络的定义和实现，我们为每个算子设置了对应的切分策略。用户根据自己的需求，设置全局的并行配置可以实现`Transformer`网络的并行配置。`Transformer`目前定义的并行配置主要有三个类别`TransformerOpParallelConfig`、`OpParallelConfig`和`EmbeddingOpParallelConfig`。`TransformerOpParallelConfig`的导入路径为`mindspore.parallel.nn`，它可以配置的属性如下所示：
+针对`Transformer`中网络的定义和实现，我们为每个算子设置了对应的切分策略。用户根据自己的需求，设置全局的并行配置可以实现`Transformer`网络的并行配置。`Transformer`目前定义的并行配置主要有三个类别`TransformerOpParallelConfig`、`OpParallelConfig`和`EmbeddingOpParallelConfig`。`TransformerOpParallelConfig`的导入路径为`mindspore.nn.transformer`，它可以配置的属性如下所示：
 
 - data_parallel (int): # 设置数据并行数，默认值为1。
 - model_parallel (int): # 设置模型并行数，默认值为1。
@@ -93,7 +93,7 @@ Tranformer中的Embeding层主要由词向量嵌入和位置向量嵌入两部�
 ```python
 import mindspore.nn as nn
 import mindspore.ops as ops
-from mindspore.parallel.nn import VocabEmbedding
+from mindspore.nn.transformer import VocabEmbedding
 class EmbeddingLayer(nn.Cell):
     def __init__(self, vocab_size, position_size, embedding_size,
                  parallel_config, dropout_rate=0.1):
@@ -137,7 +137,7 @@ def pipeline_func(network, layer_id, offset, parallel_config, layers):
 ```python
 import mindspore.nn as nn
 import mindspore.ops as ops
-from mindspore.parallel.nn import Transformer, AttentionMask, CrossEntropyLoss
+from mindspore.nn.transformer import Transformer, AttentionMask, CrossEntropyLoss
 from mindspore.nn import Dense as Linear
 class Net(nn.Cell):
     """
@@ -190,7 +190,7 @@ class Net(nn.Cell):
 
 ### 定义损失函数
 
-MindSpore还提供了一个支持并行的交叉商损失函数`mindspore.parallel.nn.CrossEntroyLoss`。这个函数接收一个`OpParallelConfig`来配置并行属性。`OpParallelConfig`实际包含了两个属性`data_parallel`和`model_parallel`。通过将模型的输出和真实标签输入损失函数，我们即可计算当前数据对应的损失值。
+MindSpore还提供了一个支持并行的交叉商损失函数`mindspore.nn.transformer.CrossEntroyLoss`。这个函数接收一个`OpParallelConfig`来配置并行属性。`OpParallelConfig`实际包含了两个属性`data_parallel`和`model_parallel`。通过将模型的输出和真实标签输入损失函数，我们即可计算当前数据对应的损失值。
 
 ```python
 self.loss = CrossEntropyLoss(parallel_config=parallel_config.dp_mp_config)
@@ -213,7 +213,7 @@ context.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL,
 整合后的主文件代码如下。
 
 ```python
-from mindspore.parallel.nn import TransformerOpParallelConfig
+from mindspore.nn.transformer import TransformerOpParallelConfig
 from mindspore import Model
 import mindspore.communication as D
 from mindspore.context import ParallelMode
