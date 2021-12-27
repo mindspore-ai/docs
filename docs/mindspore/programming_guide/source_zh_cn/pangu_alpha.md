@@ -28,7 +28,7 @@
 
 ## Embedding层
 
-在语言类模型训练中，输入的数据是由单词组成的句子，我们通常使用embedding算法实现词的向量化，将单词及其位置信息映射为`config.hidden_size`大小维度的词向量。盘古模型中的Embedding层由位置编码和词嵌入两个部分组成，通过`mindspore.parallel.nn.VocabEmbedding`实现基本的数据并行和模型并行逻辑。
+在语言类模型训练中，输入的数据是由单词组成的句子，我们通常使用embedding算法实现词的向量化，将单词及其位置信息映射为`config.hidden_size`大小维度的词向量。盘古模型中的Embedding层由位置编码和词嵌入两个部分组成，通过`mindspore.nn.transformer.VocabEmbedding`实现基本的数据并行和模型并行逻辑。
 
 如下代码所示，其中`Gather`算子接收两个输入，根据索引`input_ids`在查找表`embedding_table`中查找对应向量。查找表是在训练中需要学习的参数，静态占用卡上内存资源，我们可以根据查找表的大小决定对`Gather`算子采用数据并行策略`gather.shard(((1, 1), (parallel_config.data_parallel, 1)))`切分索引batch维度，或者模型并行策略`gather.shard(((parallel_config.model_parallel, 1), (1, 1)))`对查找表进行行切。当词表范围`config.vocab_size`较大时，建议对`word_embedding`选择模型并行策略，框架会自动引入计算和通信算子处理越界查找情况。
 
@@ -39,7 +39,7 @@ from mindspore import Parameter
 from mindspore.common.initializer import initializer
 import mindspore.ops as ops
 from mindspore.nn import Cell
-from mindspore.parallel.nn import EmbeddingOpParallelConfig
+from mindspore.nn.transformer import EmbeddingOpParallelConfig
 default_embedding_parallel_config = EmbeddingOpParallelConfig()
 class VocabEmbedding(Cell):
     def __init__(self, vocab_size, hidden_size, parallel_config=default_embedding_parallel_config,
@@ -58,13 +58,13 @@ class VocabEmbedding(Cell):
         return output, self.embedding_table
 ```
 
-基于`mindspore.parallel.nn.VocabEmbedding`，我们可以实现词嵌入向量和位置嵌入向量的求和。我们定义了`Add`和`Dropout`算子，并且设置这两个算子对应的策略为数据并行。
+基于`mindspore.nn.transformer.VocabEmbedding`，我们可以实现词嵌入向量和位置嵌入向量的求和。我们定义了`Add`和`Dropout`算子，并且设置这两个算子对应的策略为数据并行。
 
 ```python
 from mindspore.common.initializer import initializer
 import mindspore.ops as ops
 from mindspore import nn
-from mindspore.parallel.nn import VocabEmbedding
+from mindspore.nn.transformer import VocabEmbedding
 class EmbeddingLayer(nn.Cell):
     """Embedding layer of the PanGUAlpha Model"""
     def __init__(self, config):
@@ -107,7 +107,7 @@ class EmbeddingLayer(nn.Cell):
 
 ### Self-Attention
 
-Self-Attention可以直接通过`mindspore.parallel.nn.MultiHeadAttention`实现。在计算Attention的过程中，需要将输入向量投影到Query、Key、Value三个向量，然后在attention计算完成之后，需要将attention的输出再经过Dense层。下面分别介绍这三个部分的策略配置。
+Self-Attention可以直接通过`mindspore.nn.transformer.MultiHeadAttention`实现。在计算Attention的过程中，需要将输入向量投影到Query、Key、Value三个向量，然后在attention计算完成之后，需要将attention的输出再经过Dense层。下面分别介绍这三个部分的策略配置。
 
 - 三个Dense矩阵乘法
 
@@ -144,7 +144,7 @@ Self-Attention可以直接通过`mindspore.parallel.nn.MultiHeadAttention`实现
 
 ### FeedForward
 
-FeedForward可以直接调用`mindspore.parallel.nn.FeedForward`实现。FeedForward网络层由两个矩阵乘组成，第一个矩阵乘切分方式和attention一致，输出矩阵行、列均切，即在`batch`维度和`输出维度`进行切分。为了避免引入算子间的重排布通信，第二个矩阵乘对权重的input_channel维度切分，即`matmul.shard(((parallel_config.data_parallel, parallel_config.model_parallel), (parallel_config.model_parallel, 1)))`，相关维切分时框架会自动插入`AllReduce`算子在模型并行维度设备间累加切片。输出矩阵仅在`batch`维度切分，再加上偏置项`add.shard(((parallel_config.data_parallel, 1), (1,)))`。
+FeedForward可以直接调用`mindspore.nn.transformer.FeedForward`实现。FeedForward网络层由两个矩阵乘组成，第一个矩阵乘切分方式和attention一致，输出矩阵行、列均切，即在`batch`维度和`输出维度`进行切分。为了避免引入算子间的重排布通信，第二个矩阵乘对权重的input_channel维度切分，即`matmul.shard(((parallel_config.data_parallel, parallel_config.model_parallel), (parallel_config.model_parallel, 1)))`，相关维切分时框架会自动插入`AllReduce`算子在模型并行维度设备间累加切片。输出矩阵仅在`batch`维度切分，再加上偏置项`add.shard(((parallel_config.data_parallel, 1), (1,)))`。
 
 ```python
 from mindspore.common.initializer import initializer
@@ -152,7 +152,7 @@ import mindspore.ops as ops
 from mindspore import nn, Tensor, Parameter
 from mindspore import dtype as mstype
 from mindspore.nn import get_activation
-from mindspore.parallel.nn import OpParallelConfig
+from mindspore.nn.transformer import OpParallelConfig
 
 default_dpmp_config = OpParallelConfig()
 class Linear(nn.Cell):

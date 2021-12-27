@@ -18,7 +18,7 @@ Model for training transformers
 import mindspore.nn as nn
 import mindspore.ops as ops
 from mindspore import dtype as mstype
-from mindspore.parallel.nn import Transformer, VocabEmbedding, AttentionMask, CrossEntropyLoss
+from mindspore.nn.transformer import Transformer, VocabEmbedding, AttentionMask, CrossEntropyLoss
 from mindspore.nn import Dense as Linear
 
 class EmbeddingLayer(nn.Cell):

@@ -16,7 +16,7 @@
 Train file for training transformers
 """
 import argparse
-from mindspore.parallel.nn import TransformerOpParallelConfig
+from mindspore.nn.transformer import TransformerOpParallelConfig
 from mindspore import Model
 import mindspore.communication as D
 from mindspore.context import ParallelMode

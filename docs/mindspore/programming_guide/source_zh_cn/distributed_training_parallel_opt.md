@@ -60,7 +60,7 @@ from mindspore import Parameter
 from mindspore.common import initializer
 from mindspore.nn import Cell
 from mindspore import ops
-from mindspore.parallel.nn import EmbeddingOpParallelConfig
+from mindspore.nn.transformer import EmbeddingOpParallelConfig
 default_embedding_parallel_config = EmbeddingOpParallelConfig()
 class VocabEmbedding(Cell):
     def __init__(self, vocab_size, embedding_size, parallel_config=default_embedding_parallel_config,
@@ -86,9 +86,9 @@ context.set_auto_parallel_context(enable_parallel_optimizer=True)
 在[设置参数优化器并行](#设置参数优化器并行)一节中，我们阐述了如何配置每个参数的优化器并行属性。在全/半自动模式下，每个参数都会产生一个对应的AllGather操作和ReduceScatter操作。然而，随着参数量增多，对应的通信算子也会增多，通信操作产生的算子调度和启动都会产生更多的开销。因此，可以通过cell提供的`set_comm_fusion`方法，对每个cell内的参数对应的AllGather和ReduceScatter操作配置融合标记。在编译图的流程中，相同融合标记并且是相同的通信操作，会被融合成一个通信操作。从而减少通信操作的数量。例如下述的代码中，通过设置`src_embedding`和`tgt_embedding`的`set_comm_fusion`方法，将Encoder和Decoder的embedding层由于优化器产生的通信算子设置融合标记为0，将`Transformer`设置的融合标记为1。
 
 ```python
-from mindspore.parallel.nn import Transformer, AttentionMask, CrossEntropyLoss
+from mindspore.nn.transformer import Transformer, AttentionMask, CrossEntropyLoss
 from mindspore import nn, ops
-from mindspore.parallel.nn import VocabEmbedding
+from mindspore.nn.transformer import VocabEmbedding
 class EmbeddingLayer(nn.Cell):
     def __init__(self, vocab_size, position_size, embedding_size,
                  parallel_config, dropout_rate=0.1):
@@ -149,7 +149,7 @@ class TransformerModel(nn.Cell):
 正常情况下，将整个网络因为优化器切分产生的通信算子融合成一个，是最有效减少通信算子个数的办法。然而这样会导致计算资源的浪费。例如，参数规模巨大的模型会导致对应的通信耗时也很大，并且网络的前向计算需要等待通信完成后才能获取完整shape的参数进行前向计算。因此可以将网络参数进行分组融合，在上一组参数进行的计算的同时，进行下组参数的融合。`Transformer`接口提供了`lambda_func`参数来自定义每层的分组融合标记，如下代码所示，将融合的算子个数定义为4个，然后去计算每层对应的融合标记。
 
 ```python
-from mindspore.parallel.nn import Transformer, TransformerOpParallelConfig
+from mindspore.nn.transformer import Transformer, TransformerOpParallelConfig
 layers_per_stage = 2
 en_layer = 2
 de_layer = 2
