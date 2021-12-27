@@ -340,7 +340,7 @@ ValueError: mindspore/ccsrc/pipeline/jit/static_analysis/static_analysis.cc:734 
 
 ## Using a while Statement instead of a for Statement
 
-The `for` statement will expand the loop body. While it improves execution performance, it also brings compilation problems, such as increasing compilation time, exceeding function call depth limit, sharing the different weights and son on. In order to solve those problems, the `for` statement needs to be equivalently converted to a `while` statement.
+The `for` statement will expand the loop body. While it improves execution performance, it also brings compilation problems, such as increasing compilation time, exceeding function call depth limit, sharing the different weights and so on. In order to solve those problems, the `for` statement needs to be equivalently converted to a `while` statement.
 
 ### A simple example
 
