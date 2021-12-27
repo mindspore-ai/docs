@@ -17,7 +17,7 @@ context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
 
 ## Initializing a Tensor
 
-There are multiple methods for initializing tensors. When building a tensor, you can pass the `Tensor`, `float`, `int`, `bool`, `tuple`, `list`, and `NumPy.array` types.
+There are multiple methods for initializing tensors. When building a tensor, you can pass the [Tensor](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore/mindspore.Tensor.html), `float`, `int`, `bool`, `tuple`, `list`, and `NumPy.array` types.
 
 - **Generate a tensor based on data.**
 
@@ -42,9 +42,9 @@ If the initial value is `NumPy.array`, the generated `Tensor` data type correspo
 
 You can create a tensor with the `init`, `shape` and `dtype`.
 
-- `init`: Supported subclasses of incoming Subclass of `Initializer`.
+- `init`: Supported subclasses of incoming Subclass of [initializer](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.common.initializer.html).
 - `shape`: Supported subclasses of incoming `list`, `tuple`, `int`.
-- `dtype`: Supported subclasses of incoming `mindspore.dtype`.
+- `dtype`: Supported subclasses of incoming [mindspore.dtype](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.html#mindspore.dtype).
 
 ```python
 from mindspore import Tensor
