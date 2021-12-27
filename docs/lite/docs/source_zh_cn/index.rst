@@ -35,14 +35,11 @@ MindSpore Lite文档
    :hidden:
 
    use/converter_tool
-   use/converter_advance
    use/post_training_quantization
    use/data_preprocessing
    use/runtime
    use/micro
    use/asic
-   use/register_kernel
-   use/delegate
 
 .. toctree::
    :glob:
@@ -52,6 +49,15 @@ MindSpore Lite文档
 
    use/converter_train
    use/runtime_train
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 第三方接入
+   :hidden:
+
+   use/register
+   use/delegate
 
 .. toctree::
    :glob:
