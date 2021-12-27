@@ -8,7 +8,23 @@ MindSpore provides APIs for loading common datasets and datasets in standard for
 
 ## Data Preparation
 
-Execute the following command to download and decompress the dataset to the specified location.
+Execute the following command to download and decompress the CIFAR-10 and MNIST dataset to the specified location.
+
+The directory structure of the CIFAR-10 dataset file is as follows:
+
+```text
+./datasets/cifar-10-batches-bin
+├── batches.meta.txt
+├── data_batch_1.bin
+├── data_batch_2.bin
+├── data_batch_3.bin
+├── data_batch_4.bin
+├── data_batch_5.bin
+├── readme.html
+└── test_batch.bin
+```
+
+Refer to [Quick Start](https://www.mindspore.cn/tutorials/en/master/quick_start.html#downloading-the-dataset) for the directory structure of MINIST dataset files.
 
 ```python
 import os
@@ -17,7 +33,7 @@ import tarfile
 import zipfile
 
 def download_dataset(url, target_path):
-    """下载并解压数据集"""
+    """download and decompress dataset"""
     if not os.path.exists(target_path):
         os.makedirs(target_path)
     download_file = url.split("/")[-1]
