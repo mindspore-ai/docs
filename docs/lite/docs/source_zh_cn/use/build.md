@@ -53,7 +53,7 @@ MindSpore Lite包含模块：
         - 配置环境变量：`export ANDROID_NDK=NDK路径`
 - Java编译需要的额外依赖
     - [Gradle](https://gradle.org/releases/) >= 6.6.1
-        - 配置环境变量：`export GRADLE_HOME=GRADLE路径`
+        - 配置环境变量：`export GRADLE_HOME=GRADLE路径`和`export GRADLE_USER_HOME=GRADLE路径`
         - 将bin目录添加到PATH中：`export PATH=${GRADLE_HOME}/bin:$PATH`
     - [OpenJDK](https://openjdk.java.net/install/) >= 1.8
         - 配置环境变量：`export JAVA_HOME=JDK路径`
@@ -63,6 +63,8 @@ MindSpore Lite包含模块：
         - 下载`SDK Tools`，通过`sdkmanager`创建SDK：`./sdkmanager --sdk_root=${ANDROID_SDK_ROOT} "cmdline-tools;latest"`
         - 通过`${ANDROID_SDK_ROOT}`目录下的`sdkmanager`接受许可证：`yes | ./sdkmanager --licenses`
 
+> Gradle建议采用[gradle-6.6.1-complete](https://gradle.org/next-steps/?version=6.6.1&format=all)版本，配置其他版本gradle将会采用gradle wrapper机制自动下载`gradle-6.6.1-complete`。
+>
 > 也可直接使用已配置好上述依赖的Docker编译镜像。
 >
 > - 下载镜像：`docker pull swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210530`
