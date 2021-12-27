@@ -28,11 +28,13 @@ MindSpore支持在Ascend、CPU、GPU环境安装并使用，支持EulerOS-arm、
 
 ### 使用pip安装
 
-从官网下载MindSpore安装包后，得到`mindspore_{device}-{version}-cp37-cp37m-linux_{arch}.whl`文件，请使用pip安装。
+从官网下载MindSpore安装包后，得到`mindspore_{device}-{version}-{python_version}-linux_{arch}.whl`文件，请使用pip安装。
 
 ```bash
-pip install mindspore_{device}-{version}-cp37-cp37m-linux_{arch}.whl
+pip install mindspore_{device}-{version}-{python_version}-linux_{arch}.whl
 ```
+
+- `{python_version}`表示用户的Python版本，Python版本为3.7.5时，`{python_version}`应写为`cp37-cp37m`。Python版本为3.9.0时，则写为`cp39-cp39`。
 
 若环境已安装旧版本MindSpore，当前需要更新MindSpore，请在安装前卸载旧版本。
 
