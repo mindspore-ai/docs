@@ -6,17 +6,17 @@
 
 在本教程中，我们将使用COCO数据集当中book分类下的部分图片，对Mask R-CNN模型进行微调，最终实现图像分割的效果。教程通过终端运行，点击下载[数据集](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/source-codes/maskrcnn_fine_tune.zip)。相关源码可参考链接：<https://gitee.com/mindspore/docs/tree/r1.5/docs/sample_code/maskrcnn_fine_tune>。
 
-> 本篇基于Ascend环境运行。
->
-> 运行本案例需要安装以下依赖项：
->
-> Cython
->
-> pycocotools
->
-> mmcv==0.2.14
->
-> 可通过`pip install`命令执行代码文件夹中的`requirements.txt`完成。
+本篇基于Ascend环境运行。
+
+运行本案例需要安装以下依赖项：
+
+- Cython
+- pycocotools
+- mmcv==0.2.14
+
+可通过`pip install`命令执行代码文件夹中的`requirements.txt`完成。
+
+在Arm环境上使用Python3.7安装mmcv，可能会获取不到0.2.14版本，建议使用Python3.9或手工编译[mmcv0.2.14版本](https://github.com/open-mmlab/mmcv/tree/v0.2.14)。
 
 图像分割功能可以定位图片中的物体，识别物体的边界轮廓。实际效果大致如下图所示：
 
