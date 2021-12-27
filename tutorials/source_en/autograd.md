@@ -4,7 +4,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/autograd.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
-Backward propagation is the commonly used algorithm for training neural networks. In this algorithm, parameters (model weights) are adjusted based on a gradient of a loss function for a given parameter.
+Automatic differentiation is commonly used when implementing machine learning algorithms such as backpropagation for training neural networks. By using automatic differentiation, multi-layer composite functions could be divided into several simple computational steps, thereby helping users avoid implementing complex derivation codes. As a result, automatic differentiation enables ease of use of MindSpore.
 
 The first-order derivative method of MindSpore is `mindspore.ops.GradOperation (get_all=False, get_by_list=False, sens_param=False)`. When `get_all` is set to `False`, the first input derivative is computed. When `get_all` is set to `True`, all input derivatives are computed. When `get_by_list` is set to `False`, weight derivatives are not computed. When `get_by_list` is set to `True`, the weight derivative is computed. `sens_param` scales the output value of the network to change the final gradient. The following uses the MatMul operator derivative for in-depth analysis.
 
