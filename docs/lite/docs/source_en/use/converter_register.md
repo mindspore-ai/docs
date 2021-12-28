@@ -12,7 +12,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/converter_advance.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/converter_register.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -102,7 +102,7 @@ The sample code, please refer to [pass](https://gitee.com/mindspore/mindspore/tr
 
 - Compilation preparation
 
-  The release package of MindSpore Lite doesn't provide serialized files of other frameworks, therefore, users need to compile and obtain by yourselves. Here, please refer to [Overview](https://www.mindspore.cn/lite/docs/en/master/use/converter_advance.html#id1).
+  The release package of MindSpore Lite doesn't provide serialized files of other frameworks, therefore, users need to compile and obtain by yourselves. Here, please refer to [Overview](https://www.mindspore.cn/lite/docs/en/master/use/converter_register.html#id1).
 
   The case is a tflite model, users need to compile [flatbuffers](https://gitee.com/mindspore/mindspore/blob/master/cmake/external_libs/flatbuffers.cmake) and combine the [TFLITE Proto File](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/tools/converter/parser/tflite/schema.fbs) to generate the serialized file.
 
