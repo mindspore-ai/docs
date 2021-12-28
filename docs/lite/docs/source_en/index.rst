@@ -305,7 +305,7 @@ MindSpore Lite Documentation
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux stage-Model-Converting user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/en/master/use/converter_advance.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/en/master/use/converter_register.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Advanced Model Converter</span>

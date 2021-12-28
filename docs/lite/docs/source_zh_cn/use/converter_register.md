@@ -12,7 +12,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/converter_advance.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/converter_register.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -104,7 +104,7 @@ REG_SCHEDULED_PASS(POSITION_BEGIN, {"PassTutorial"})  // 注册调度逻辑
 
 - 编译准备
 
-  MindSpore Lite的发布件不会提供其他框架下的序列化文件，因此，用户需自行编译获得，请参考[概述](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_advance.html#id1)。
+  MindSpore Lite的发布件不会提供其他框架下的序列化文件，因此，用户需自行编译获得，请参考[概述](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_register.html#id1)。
 
   本示例采用的是tflite模型，用户需编译[flatbuffers](https://gitee.com/mindspore/mindspore/blob/master/cmake/external_libs/flatbuffers.cmake)，从[MindSpore仓](https://gitee.com/mindspore/mindspore/tree/master)中获取[TFLITE原型文件](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/tools/converter/parser/tflite/schema.fbs)，最终生成tflite的序列化文件。
 
