@@ -45,7 +45,7 @@ Find the network structure and the Python file that implements the training func
 
 If the corresponding ME operator cannot be found on this webpage, you can continue to search for the operator name in [MindSpore API List](https://www.mindspore.cn/docs/api/en/master/index.html).
 
-If the source code is a PyTorch script, you can directly query [MindSpore and PyTorch operator mapping](https://www.mindspore.cn/docs/note/en/master/index.html#operator_api) to find the corresponding MindSpore operator. Note that for operators with the same function, MindSpore may define a name for this operator differing from other frameworks, and the parameters and functions of operators with the same name may also be different from other frameworks. Please refer to the official description for checking the names.
+If the source code is a PyTorch script, you can directly query [MindSpore and PyTorch operator mapping](https://www.mindspore.cn/docs/note/en/master/index.html#operator_api) to find the corresponding MindSpore operator. For the mapping of other frame operators, please refer to the operator naming and function description. Note that for operators with the same function, MindSpore may define a name for this operator differing from other frameworks, and the parameters and functions of operators with the same name may also be different from other frameworks. Please refer to the official description for checking the names.
 
 ### Missing Operator Processing Strategy
 
