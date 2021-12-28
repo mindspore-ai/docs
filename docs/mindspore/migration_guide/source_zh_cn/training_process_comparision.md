@@ -40,7 +40,7 @@ MindSpore 的模型训练和推理的总体执行流程，基本与主流的 AI 
     context.set_context(mode=context.GRAPH_MODE, device_target=config.device_target)
     # 1. define dataset object
     ds_train = create_dataset(data_path, batch_size)
-    # 2. define farward network
+    # 2. define forward network
     network = LeNet(num_classes)
     # 3. define loss
     net_loss = SoftmaxCrossEntropyWithLogits()
@@ -68,7 +68,7 @@ MindSpore 的模型训练和推理的总体执行流程，基本与主流的 AI 
     # 1. define dataset object and DataLoader
     train_set = torchvision.datasets.CIFAR10(root='./data', train=True)
     train_loader = torch.utils.data.DataLoader(train_set, batch_size)
-    # 2. define farword network
+    # 2. define forward network
     net = LeNet()
     # 3. define loss
     net_loss = torch.nn.CrossEntropyLoss()
@@ -187,7 +187,7 @@ MindSpore 的模型训练和推理的总体执行流程，基本与主流的 AI 
 
 对于 PyTorch 中额外的四个参数  `batch_size`、`batch_sampler`、`collate_fn` 和  `drop_last`，考虑到它们均与批处理有关，MindSpore 将这四个参数全部移动到了成员函数 `batch` 中，这种设计使得参数分组更加清晰。
 
-需要注意的是，MindSpore 的 GeneratorDataset 和 PyTorch 的 Dataloader 并不是同一个概念。GenerateDataset 加载数据集后生成最基本的数据流，输出为单个样本数据，我们还可以继续使用 MindData 提供的接口进行其他预处理的数据增强操作，例如 map、batch、shuffle、repeat 等，。而 Dataloader 通常是数据处理的最终出口，输出 batch size 个样本，然后直接送入网络。
+需要注意的是，MindSpore 的 GeneratorDataset 和 PyTorch 的 Dataloader 并不是同一个概念。GenerateDataset 加载数据集后生成最基本的数据流，输出为单个样本数据，我们还可以继续使用 MindData 提供的接口进行其他预处理的数据增强操作，例如 map、batch、shuffle、repeat 等。而 Dataloader 通常是数据处理的最终出口，输出 batch size 个样本，然后直接送入网络。
 
 3. 迭代 Dataset
 
@@ -280,7 +280,7 @@ MindSpore 和 PyTorch 都提供了自动微分功能，让我们在定义了正�
 当我们定义的网络结构比较简单，只需要基本的反向传播流程，且无需对梯度做额外操作时，直接使用 MindSpore 封装的高级接口  `mindspore.Model`  即可，代码如下：
 
 ```python
-# define farward network
+# define forward network
 network = LeNet(num_classes)
 # define loss
 net_loss = SoftmaxCrossEntropyWithLogits()
