@@ -4,7 +4,20 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/intermediate/image_and_video/fine_tune.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-在本教程中，我们将使用COCO数据集当中book分类下的部分图片，对Mask R-CNN模型进行微调，最终实现图像分割的效果。教程通过终端运行，点击下载[数据集](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/source-codes/maskrcnn_fine_tune.zip)，相关源码可参考链接：<https://gitee.com/mindspore/docs/tree/master/docs/sample_code/maskrcnn_fine_tune>。
+在本教程中，我们将使用[COCO数据集](https://cocodataset.org/#hom)当中book分类下的部分图片，对Mask R-CNN模型进行微调，最终实现图像分割的效果。
+
+教程通过终端运行，点击下载[数据集](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/source-codes/maskrcnn_fine_tune.zip)。下载解压后数据集结构如下：
+
+```text
+├── bookcoco
+     ├── instances_train2017.json
+     └── train2017
+            ├── 000000129492.jpg
+            ├── 000000134882.jpg
+            ...
+```
+
+相关源码可参考链接：<https://gitee.com/mindspore/docs/tree/master/docs/sample_code/maskrcnn_fine_tune>。
 
 本篇基于Ascend环境运行。
 
