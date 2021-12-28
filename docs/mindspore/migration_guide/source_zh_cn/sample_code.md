@@ -128,7 +128,7 @@ PyTorch 实现的 ResNet50 脚本参考 [torchvision model](https://github.com/p
 | `nn.Linear`            | `nn.Dense`         | 是                     |
 | `torch.flatten`        | `nn.Flatten`       | 是                     |
 
-注：对于 PyTorch 脚本，MindSpore 提供了 [PyTorch 算子映射工具](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/index.html#operator_api)，可直接查询该算子是否支持。
+注：对于 PyTorch 脚本，MindSpore 提供了 [PyTorch 算子映射工具](https://mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html)，可直接查询该算子是否支持。
 
 - 功能分析
 
@@ -601,7 +601,6 @@ from mindspore import dtype as mstype
 from mindspore.nn import LossBase
 import mindspore.ops as ops
 
-
 # define cross entropy loss
 class CrossEntropySmooth(LossBase):
     """CrossEntropy"""
@@ -893,13 +892,13 @@ profiler = Profiler()
 # start training
 Model.train()
 
-# end training，parse profiling data to readable text
+# end training, parse profiling data to readable text
 profiler.analyse()
 ```
 
 关于Profiling更详细的使用方法，可以参考 [Profiling 性能分析方法](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling.html)。
 
-获取到 Profiling 数据后，我们可以分析出性能瓶颈阶段和算子，然后进行性能优化，可以参考 [性能调优指导](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/performance_optimization.html)。
+获取到 Profiling 数据后，我们需要分析出性能瓶颈的阶段和算子，然后对其进行优化，分析的过程可以参考 [性能调优指导](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/performance_optimization.html)。
 
 ### 常见问题及相应优化方法
 
