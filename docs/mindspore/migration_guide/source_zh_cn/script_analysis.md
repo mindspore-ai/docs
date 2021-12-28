@@ -45,7 +45,7 @@ MindSpore API由各种Python/C++ API算子组成，可以大致分为：
 
 若该网页均未能找到对应的ME算子，则可继续在[MindSpore API列表](https://www.mindspore.cn/docs/api/zh-CN/master/index.html)中搜索算子名称。
 
-若源码为PyTorch脚本，则可以直接查询[MindSpore与PyTorch的算子映射](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html)找到对应的MindSpore算子。注意，针对相同功能的算子，MindSpore的命名可能与其他框架不同，同名算子参数与功能也可能与其他框架有区别，均以官方描述为准。
+若源码为PyTorch脚本，则可以直接查询[MindSpore与PyTorch的算子映射](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html)找到对应的MindSpore算子。其他框架算子的映射可以参考算子命名与功能描述。注意，针对相同功能的算子，MindSpore的命名可能与其他框架不同，同名算子参数与功能也可能与其他框架有区别，均以官方描述为准。
 
 ### 缺失算子处理策略
 
@@ -67,7 +67,7 @@ PyNative模式下模型进行**推理**的行为与一般Python代码无异。
 
 - 构图时不要调用其他Python库，例如numpy、scipy，相关的处理应该前移到`__init__`阶段。
 - 构图时不要使用自定义类型，而应该使用MindSpore提供的数据类型和Python基础类型，可以使用基于这些类型的tuple/list组合。
-- 构图时不要处理多线程、多进程数据。
+- 构图时不要对数据进行多线程或多进程处理。
 
 ### 常见处理策略
 
