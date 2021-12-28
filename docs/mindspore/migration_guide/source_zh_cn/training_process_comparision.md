@@ -40,7 +40,7 @@ MindSpore 的模型训练和推理的总体执行流程，基本与主流的 AI 
     context.set_context(mode=context.GRAPH_MODE, device_target=config.device_target)
     # 1. define dataset object
     ds_train = create_dataset(data_path, batch_size)
-    # 2. define farward network
+    # 2. define forward network
     network = LeNet(num_classes)
     # 3. define loss
     net_loss = SoftmaxCrossEntropyWithLogits()
@@ -280,7 +280,7 @@ MindSpore 和 PyTorch 都提供了自动微分功能，让我们在定义了正�
 当我们定义的网络结构比较简单，只需要基本的反向传播流程，且无需对梯度做额外操作时，直接使用 MindSpore 封装的高级接口  `mindspore.Model`  即可，代码如下：
 
 ```python
-# define farward network
+# define forward network
 network = LeNet(num_classes)
 # define loss
 net_loss = SoftmaxCrossEntropyWithLogits()
