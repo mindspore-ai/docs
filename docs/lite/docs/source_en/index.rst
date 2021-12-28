@@ -54,8 +54,6 @@ MindSpore Lite Documentation
    :glob:
    :maxdepth: 1
    :caption: Third-party hardware docking
-
-
    :hidden:
 
    use/register
