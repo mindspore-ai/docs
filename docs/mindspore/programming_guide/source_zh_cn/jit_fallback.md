@@ -184,9 +184,9 @@ JIT Fallback借鉴了传统JIT编译的Fallback的思路。传统的JIT编译经
     Should not use Python object in runtime, node: ValueNode<InterpretedObject> InterpretedObject: '[2 4 6 8 10]'
     ```
 
-4. 当前有限支持控制流场景，将逐步在后续版本中打通。
+4. 当前有限支持控制流场景，将逐步在后续版本中支持。
 
-5. 当前暂不支持自定义Class的attr/method，将逐步在后续版本中打通。
+5. 当前暂不支持自定义Class的attr/method，将逐步在后续版本中支持。
 
 6. MindSpore提供的NumPy中的方法是由框架的算子能力实现，并不是通过JIT Fallback来支持的，在使用时需要注意该场景。使用Python解释器推导不出MindSpore提供的NumPy中的average方法结果，得到的值为None。例如下面的用例将报错。
 
@@ -208,3 +208,25 @@ JIT Fallback借鉴了传统JIT编译的Fallback的思路。传统的JIT编译经
    ```text
    input_data and init can not be None at the same time.
    ```
+
+7. 在图模式下，对于NumPy具有返回值的方法，需要使用变量来保存其结果。如果没有变量保存，当前不支持该语法，会在后续版本中支持。
+
+    ```python
+    import numpy as np
+    from mindspore import Tensor, ms_function
+
+    @ms_function
+    def test_np_vdot():
+        x = np.array([1, 2], [3, 4])
+        y = x.T
+        np.vdot(x, y)
+        return Tensor(y)
+
+    res = test_np_vdot()
+    ```
+
+    输出结果如下:
+
+    ```text
+    TypeError: module, class, method, function, traceback, frame, or code object was expected, got builtin_function_or_method.
+    ```
