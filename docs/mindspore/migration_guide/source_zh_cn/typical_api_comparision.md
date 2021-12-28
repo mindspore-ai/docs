@@ -35,7 +35,7 @@ PyTorch 在构建模型时，通常会利用 torch.device 指定模型和数据�
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu") # 单 GPU 或者 CPU
 # deploy model to specified hardware
 model.to(device)
-# deploy data ot specified hardware
+# deploy data to specified hardware
 data.to(device)
 
 # distribute training on multiple GPUs
@@ -66,7 +66,7 @@ Model.train(1, dataset)
 
 ### nn.Module
 
-使用 PyTorch 构建网络结构时，我们会用到  `nn.Module` 类，通常将网络中的元素定义在  `__init__` 函数中并对齐初始化，将网络的图结构表达定义在  `forward` 函数中，通过调用这些类的对象完成整个模型的构建和训练。`nn.Module` 不仅为我们提供了构建图接口，它还为我们提供了一些常用的 [API](https://pytorch.org/docs/stable/generated/torch.nn.Module.html) ，来帮助我们执行更复杂逻辑。
+使用 PyTorch 构建网络结构时，我们会用到  `nn.Module` 类，通常将网络中的元素定义在  `__init__` 函数中并对其初始化，将网络的图结构表达定义在  `forward` 函数中，通过调用这些类的对象完成整个模型的构建和训练。`nn.Module` 不仅为我们提供了构建图接口，它还为我们提供了一些常用的 [API](https://pytorch.org/docs/stable/generated/torch.nn.Module.html) ，来帮助我们执行更复杂逻辑。
 
 MindSpore 中的 `nn.Cell` 类发挥着和 PyTorch 中 `nn.Module` 相同的作用，都是用来构建图结构的模块，MindSpore 也同样提供了丰富的 [API](https://www.mindspore.cn/docs/api/zh-CN/r1.5/api_python/nn/mindspore.nn.Cell.html) 供开发者使用，虽然名字不能一一对应，但 `nn.Module` 中常用的功能都可以在  `nn.Cell` 中找到映射。
 
@@ -102,7 +102,7 @@ MindSpore 优化了数据对象的设计逻辑，仅保留了两种数据对象�
 
 #### 高阶导数
 
-基于计算图的自动微分还有一个好处，我们可以很方便的实现高阶求导。第一次对正向图执行   `GradOperation` 操作后，我们可以得到一阶段导，此时计算图被更新为正向图+一阶导的反向图结构，但我们再次对更新后的计算图执行 `GradOperation`  后，我们就可以得到二阶导，以此类推，通过基于计算图的自动微分，我们很容易求得一个网络的高阶导数。
+基于计算图的自动微分还有一个好处，我们可以很方便的实现高阶求导。第一次对正向图执行   `GradOperation` 操作后，我们可以得到一阶导，此时计算图被更新为正向图+一阶导的反向图结构，但我们再次对更新后的计算图执行 `GradOperation`  后，我们就可以得到二阶导，以此类推，通过基于计算图的自动微分，我们很容易求得一个网络的高阶导数。
 
 ## 算子类
 
@@ -193,7 +193,7 @@ ret.shape # (4, 3, 2, 1)
 
 ![图片](images/conv_formula.png)
 
-如果 pad_mode（对应 PyTorch 中的属性为 padding，与属性 pad_mode 含义并不相同） 设置为  `same` 时，有时需要对输入特征图进行自动的 padding 操作，当自 padding 的元素为偶数时，padding 的元素会均匀分布在特征图的上下左右，此时 MindSpore、PyTorch 和 TensorFlow 中该类算子行为一致。
+如果 pad_mode（对应 PyTorch 中的属性为 padding，与属性 pad_mode 含义并不相同） 设置为  `same` 时，有时需要对输入特征图进行自动的 padding 操作，当padding 的元素为偶数时，padding 的元素会均匀分布在特征图的上下左右，此时 MindSpore、PyTorch 和 TensorFlow 中该类算子行为一致。
 
 但当 padding 的元素为奇数时，PyTorch 会优先填充在输入特征图的左侧和上侧：
 
@@ -212,7 +212,7 @@ import mindspore as ms
 from mindspore import Tensor, ops
 ms.context.set_context(device_target="Ascend")
 data = np.arange(9).reshape(1,1,3,3).astype(np.float32)
-data
+# data
 # [[[[0. 1. 2.]
 #    [3. 4. 5.]
 #    [6. 7. 8.]]]]
