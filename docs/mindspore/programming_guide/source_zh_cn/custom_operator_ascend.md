@@ -338,6 +338,9 @@ output: [1. 16. 81.]
 例如，增加bprop后的`CusSquare`原语为：
 
 ```python
+from mindspore.ops import prim_attr_register, PrimitiveWithInfer
+import mindspore.ops as ops
+
 class CusSquare(PrimitiveWithInfer):
     @prim_attr_register
     def __init__(self):
