@@ -230,16 +230,18 @@ The following points should be paid attention to when defining operators' bprop 
 For example, the bprop primitives of `Transpose` are:
 
 ```python
+import mindspore as ms
 import mindspore.ops as ops
+from mindspore.ops._grad.grad_base import bprop_getters
+fill = ops.Fill()
 invert_permutation = ops.InvertPermutation()
 transpose = ops.Transpose()
-zeros_like = ops.ZerosLike()
 @bprop_getters.register(ops.Transpose)
 def get_bprop_transpose(self):
     """Generate bprop for Transpose"""
 
     def bprop(x, perm, out, dout):
-        return transpose(dout, invert_permutation(perm)), zeros_like(perm)
+        return transpose(dout, invert_permutation(perm)), fill(ms.int32, (len(perm), ), 0)
 
     return bprop
 ```
