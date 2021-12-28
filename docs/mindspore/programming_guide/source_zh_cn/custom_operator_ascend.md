@@ -162,6 +162,48 @@ def CusSquareImpl(input_x, output_y, kernel_name="CusSquareImpl"):
     te.lang.cce.cce_build_code(sch, config)
 ```
 
+自定义算子与内置算子在网络中的使用方法一样，通过导入原语直接使用。下面以`CusSquare`的单算子网络测试为例进行说明。
+
+在`test_square.py`文件中定义网络。
+
+```python
+import numpy as np
+import mindspore.nn as nn
+import mindspore.context as context
+from mindspore import Tensor
+# Import the definition of the CusSquare primitive.
+from cus_square import CusSquare
+context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.square = CusSquare()
+
+    def construct(self, data):
+        return self.square(data)
+
+def test_net():
+    x = np.array([1.0, 4.0, 9.0]).astype(np.float32)
+    square = Net()
+    output = square(Tensor(x))
+    print("x: ", x)
+    print("output: ", output)
+```
+
+执行用例:
+
+```bash
+pytest -s tests/st/ops/custom_ops_tbe/test_square.py::test_net
+```
+
+执行结果:
+
+```text
+x: [1. 4. 9.]
+output: [1. 16. 81.]
+```
+
 ## 实现AICPU算子和注册算子信息
 
 ### 实现AICPU算子
@@ -280,50 +322,6 @@ if __name__ == "__main__":
     output, mask = dropout2d_nn(input_tensor)
     print("output: ", output)
     print("mask: ", mask)
-```
-
-## 使用自定义算子
-
-自定义算子与内置算子在网络中的使用方法一样，通过导入原语直接使用。下面以`CusSquare`的单算子网络测试为例进行说明。
-
-在`test_square.py`文件中定义网络。
-
-```python
-import numpy as np
-import mindspore.nn as nn
-import mindspore.context as context
-from mindspore import Tensor
-# Import the definition of the CusSquare primitive.
-from cus_square import CusSquare
-context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
-
-class Net(nn.Cell):
-    def __init__(self):
-        super(Net, self).__init__()
-        self.square = CusSquare()
-
-    def construct(self, data):
-        return self.square(data)
-
-def test_net():
-    x = np.array([1.0, 4.0, 9.0]).astype(np.float32)
-    square = Net()
-    output = square(Tensor(x))
-    print("x: ", x)
-    print("output: ", output)
-```
-
-执行用例:
-
-```bash
-pytest -s tests/st/ops/custom_ops_tbe/test_square.py::test_net
-```
-
-执行结果:
-
-```text
-x: [1. 4. 9.]
-output: [1. 16. 81.]
 ```
 
 ## 定义算子反向传播函数
