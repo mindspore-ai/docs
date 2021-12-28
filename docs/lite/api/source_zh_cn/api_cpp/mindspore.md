@@ -14,7 +14,7 @@
 | [GPUDeviceInfo](#gpudeviceinfo) | 模型运行在GPU上的配置。 |
 | [KirinNPUDeviceInfo](#kirinnpudeviceinfo) | 模型运行在NPU上的配置，仅MindSpore Lite支持。 |
 | [Ascend910DeviceInfo](#ascend910deviceinfo) | 模型运行在Ascend910上的配置，MindSpore Lite不支持。 |
-| [Ascend310DeviceInfo](#ascend310deviceinfo) | 模型运行在Ascend310上的配置，MindSpore Lite不支持。 |
+| [Ascend310DeviceInfo](#ascend310deviceinfo) | 模型运行在Ascend310上的配置。 |
 | [Serialization](#serialization) | 汇总了模型文件读写的方法。 |
 | [Buffer](#buffer) | Buff数据类。 |
 | [Model](#model) | MindSpore中的模型，便于计算图管理。 |
@@ -404,7 +404,7 @@ std::shared_ptr<Allocator> GetAllocator() const;
 
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
 
-派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在Ascend310上的配置，MindSpore Lite不支持该选项。
+派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在Ascend310上的配置。
 
 ### 公有成员函数
 
