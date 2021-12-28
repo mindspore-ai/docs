@@ -233,7 +233,7 @@ For example, the bprop primitives of `Transpose` are:
 import mindspore.ops as ops
 invert_permutation = ops.InvertPermutation()
 transpose = ops.Transpose()
-zeros_like = ops.zeros_like()
+zeros_like = ops.ZerosLike()
 @bprop_getters.register(ops.Transpose)
 def get_bprop_transpose(self):
     """Generate bprop for Transpose"""
