@@ -24,6 +24,7 @@ MindSpore API
    api_python/mindspore.mindrecord
    api_python/mindspore.nn
    api_python/mindspore.nn.probability
+   api_python/mindspore.nn.transformer
    api_python/mindspore.numpy
    api_python/mindspore.ops
    api_python/mindspore.parallel
