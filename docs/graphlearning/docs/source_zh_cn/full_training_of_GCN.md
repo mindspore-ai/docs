@@ -1,6 +1,6 @@
 # 整图训练GCN网络
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/ Graph Learning/docs/source_zh_cn/full_training_of_GCN.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/graphlearning/docs/source_zh_cn/full_training_of_GCN.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 &nbsp;&nbsp;
 
 ## 概述

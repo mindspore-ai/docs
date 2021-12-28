@@ -48,7 +48,8 @@ class Net(nn.Cell):
         super(Net, self).__init__()
         self.conv2d = ops.Conv2D(out_channels, kernel_size)
         self.bias_add = ops.BiasAdd()
-        self.weight = Parameter(initializer('normal', [out_channels, in_channels, kernel_size, kernel_size]))
+        self.weight = Parameter(initializer('normal', [out_channels, in_channels, kernel_size, kernel_size]), name='conv.weight')
+        self.bias = Parameter(initializer('normal', [out_channels]), name='conv.bias')
 
     def construct(self, x):
         output = self.conv2d(x, self.weight)
@@ -68,14 +69,14 @@ A code example is as follows:
 net = Net()
 result = net.parameters_dict()
 print(result.keys())
-print(result['weight'])
+print(result['conv.weight'])
 ```
 
 The following information is displayed:
 
 ```text
-odict_keys(['weight'])
-Parameter (name=weight, shape=(20, 10, 3, 3), dtype=Float32, requires_grad=True)
+odict_keys(['conv.weight', 'conv.bias'])
+Parameter (name=conv.weight, shape=(20, 10, 3, 3), dtype=Float32, requires_grad=True)
 ```
 
 In the example, `Net` uses the preceding network building case to print names of all parameters on the network and the result of the `weight` parameter.
