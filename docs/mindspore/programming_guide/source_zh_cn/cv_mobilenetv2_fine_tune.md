@@ -118,7 +118,7 @@ Windows操作系统中使用`\`，Linux操作系统中使用`/`分割路径地�
 
 ```bash
 git clone https://gitee.com/mindspore/models.git
-cd ./mindspore/models/official/cv/mobilenetv2
+cd ./models/official/cv/mobilenetv2
 ```
 
 代码结构如下：
