@@ -1,6 +1,34 @@
 MindSpore Serving Documents
 ===========================
 
+MindSpore Serving is a lightweight and high-performance service module that helps MindSpore developers efficiently deploy online inference services in the production environment. After completing model training on MindSpore, you can export the MindSpore model and use MindSpore Serving to create an inference service for the model.
+
+MindSpore Serving provides the following functions:
+
+- Customization of model preprocessing and postprocessing, simplifying model release and deployment
+- The batch function used to split and combine requests containing multiple instances to meet the batch size requirements of the model
+- Distributed model inference
+- The gRPC APIs and easy-to-use Python encapsulation APIs on the client
+- The RESTful APIs on the client
+
+.. image:: ./images/serving_en.png
+  :width: 700px
+
+Typical MindSpore Serving Application Scenarios
+------------------------------------------------
+
+1. `Quick Start <https://www.mindspore.cn/serving/docs/en/master/serving_example.html>`_
+
+   Use a simple Add network as an example to describe how to use MindSpore Serving to deploy an inference service.
+
+2. `Using the gRPC APIs to Access Services <https://www.mindspore.cn/serving/docs/en/master/serving_grpc.html>`_
+
+   Easily access services with high performance.
+
+3. `Using the RESTful APIs to Access Services <https://www.mindspore.cn/serving/docs/en/master/serving_restful.html>`_
+
+   Access services based on HTTP.
+
 .. toctree::
    :glob:
    :maxdepth: 1

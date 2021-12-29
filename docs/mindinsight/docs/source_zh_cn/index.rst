@@ -24,7 +24,7 @@ MindInsight包括以下内容：
 
 2. `启动MindInsight可视化训练 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_commands.html#id3>`_
 
-   启动MindInsight，并通过 `--summary-base-dir` 参数指定summary日志文件目录。
+   启动MindInsight，并通过 ``--summary-base-dir`` 参数指定summary日志文件目录。
 
 3. `查看训练看板 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_commands.html#id3>`_
 
@@ -39,7 +39,7 @@ MindInsight包括以下内容：
 
 2. `启动MindInsight分析模型 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_commands.html>`_
 
-   启动MindInsight服务，并通过 `--summary-base-dir` 参数指定性能数据目录。
+   启动MindInsight服务，并通过 ``--summary-base-dir`` 参数指定性能数据目录。
 
 3. `分析性能数据 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#id4>`_
 
@@ -50,11 +50,11 @@ MindInsight包括以下内容：
 
 1. `以调试模式启动MindInsight <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_online.html#mindinsight>`_
 
-   通过配置 `--enable-debugger True` `--debugger-port 50051` 参数使MindInsight以调试模式启动。
+   通过配置 ``--enable-debugger True`` ``--debugger-port 50051`` 参数使MindInsight以调试模式启动。
 
 2. `以调试模式运行训练脚本 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_online.html#id5>`_
 
-   设置环境变量 `export ENABLE_MS_DEBUGGER=True` ，将训练指定为调试模式，并设置训练要连接的调试服务和端口： `export MS_DEBUGGER_HOST=127.0.0.1；` `export MS_DEBUGGER_PORT=50051` ，然后执行训练脚本。
+   设置环境变量 ``export ENABLE_MS_DEBUGGER=True`` ，将训练指定为调试模式，并设置训练要连接的调试服务和端口： ``export MS_DEBUGGER_HOST=127.0.0.1；`` ``export MS_DEBUGGER_PORT=50051`` ，然后执行训练脚本。
 
 3. `在MindInsight界面设置监测点并分析 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_online.html#id11>`_
 
