@@ -6,6 +6,7 @@
 
 - [Text Data Processing and Enhancement](#text-data-processing-and-enhancement)
     - [Overview](#overview)
+    - [Vocab build and usage](#vocab-build-and-usage)
     - [MindSpore Tokenizers](#mindspore-tokenizers)
         - [BertTokenizer](#berttokenizer)
         - [JiebaTokenizer](#jiebatokenizer)
@@ -19,6 +20,60 @@
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/tokenizer.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
+
+With the gradual increase of available text data, it is more urgent to preprocess the text data in order to obtain clean data that can be used for network training. The preprocessing of text data usually includes two parts: loading text data and data enhancement.
+
+There are several ways to load text data:
+
+- Load text data with specific dataset API, such as [ClueDataset](https://www.mindspore.cn/docs/api/en/master/api_python/dataset/mindspore.dataset.CLUEDataset.html#mindspore.dataset.CLUEDataset), [TextFileDataset](https://www.mindspore.cn/docs/api/en/master/api_python/dataset/mindspore.dataset.TextFileDataset.html#mindspore.dataset.TextFileDataset).
+- Convert the data into a standard format (such as MindRecord format), and then load it with corresponding interface (such as [MindDataset](https://www.mindspore.cn/docs/api/en/master/api_python/dataset/mindspore.dataset.MindDataset.html#mindspore.dataset.MindDataset)).
+- Use GeneratorDataset interface to load data, here the user-defined dataset loading function is required as input. For detail, please refer to chapter of [loading-user-defined-dataset](https://www.mindspore.cn/docs/programming_guide/en/master/dataset_loading.html#loading-user-defined-dataset).
+
+As for text data enhancement, common operations include text segmentation, vocabulary lookup, etc.
+
+- After loading the text data, word segmentation is usually required, that is, the original sentences is continuously divided into multiple basic words.
+- Furthermore, it is necessary to build a vocabulary, in order to find the id corresponding to each word after segmentation, and pass the id contained in the sentence into the network for training.
+
+Following is an introduction to the word segmentation function and vocabulary lookup function used in the data enhancement process. For the usage of the text processing API, please refer to the [API document](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.dataset.text.html).
+
+## Vocab build and usage
+
+The vocab provides the mapping relationship between words and id. With the vocab, the corresponding word id can be found by inputting the word, and vice versa, the corresponding word can also be obtained according to the word id.
+
+MindSpore provides several methods for constructing a vocabulary, which can obtain raw data from dictionaries, files, lists, and Dataset objects for constructing a vocabulary. The corresponding interface is: [from_dict](https://www.mindspore.cn/docs/api/en/master/api_python/dataset_text/mindspore.dataset.text.Vocab.html#mindspore.dataset.text.Vocab.from_dict), [from_file](https://www.mindspore.cn/docs/api/en/master/api_python/dataset_text/mindspore.dataset.text.Vocab.html#mindspore.dataset.text.Vocab.from_file), [from_list](https://www.mindspore.cn/docs/api/en/master/api_python/dataset_text/mindspore.dataset.text.Vocab.html#mindspore.dataset.text.Vocab.from_list), [from_dataset](https://www.mindspore.cn/docs/api/en/master/api_python/dataset_text/mindspore.dataset.text.Vocab.html#mindspore.dataset.text.Vocab.from_dataset).
+
+Taking `from_dict` as an example, the way to construct Vocab is as follows. The incoming dict contains multiple sets of words and id pairs.
+
+```python
+from mindspore.dataset import text
+
+vocab = text.Vocab.from_dict({"home": 3, "behind": 2, "the": 4, "world": 5, "<unk>": 6})
+```
+
+Vocab provides methods for querying each other between words and ids, namely: [tokens_to_ids]() and [ids_to_tokens] methods, the usage is as follows:
+
+```python
+from mindspore.dataset import text
+
+vocab = text.Vocab.from_dict({"home": 3, "behind": 2, "the": 4, "world": 5, "<unk>": 6})
+
+ids = vocab.tokens_to_ids(["home", "world"])
+print("ids: ", ids)
+
+tokens = vocab.ids_to_tokens([2, 5])
+print("tokens: ", tokens)
+```
+
+The output is as follows:
+
+```text
+ids:  [3, 5]
+tokens:  ['behind', 'world']
+```
+
+In addition, Vocab is also a necessary input parameter for various tokenizers (such as WordpieceTokenizer). During word segmentation, the word that exists in the vocabulary in the sentence will be divided into a single word, and then the corresponding word id can be obtained by looking up the vocabulary.
+
+## MindSpore Tokenizers
 
 Tokenization is a process of re-combining continuous character sequences into word sequences according to certain specifications. Reasonable tokenization is helpful for semantic comprehension.
 
@@ -39,8 +94,6 @@ MindSpore provides the following tokenizers. In addition, you can customize toke
 | WordpieceTokenizer | Performs tokenization on scalar text data based on the word set.  |
 
 For details about tokenizers, see [MindSpore API](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.dataset.text.html).
-
-## MindSpore Tokenizers
 
 The following describes how to use common tokenizers.
 
