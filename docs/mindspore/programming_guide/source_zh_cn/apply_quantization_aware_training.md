@@ -272,13 +272,11 @@ if __name__ == "__main__":
     export(network, inputs, file_name="lenet_quant", file_format='MINDIR', quant_mode='QUANT', mean=127.5, std_dev=127.5)
 ```
 
-导出量化模型后，请[使用MindSpore进行推理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/index.html)。
+导出量化模型后，请[使用MindSpore进行推理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/offline_inference.html)。
 
 > - 导出的模型格式支持MindIR和AIR。
-> - 感知量化训练后导出的模型支持[端侧推理](https://www.mindspore.cn/lite/docs/zh-CN/master/index.html)和[Ascend 310 AI处理器上推理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/multi_platform_inference_ascend_310.html)。
+> - 感知量化训练后导出的模型支持[端侧推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime.html)和[Ascend 310 AI处理器上推理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/multi_platform_inference_ascend_310.html)。
 
 ## 参考文献
 
 [1] Jacob B, Kligys S, Chen B, et al. Quantization and training of neural networks for efficient integer-arithmetic-only inference[C]//Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2018: 2704-2713.
-
-[2] Krishnamoorthi R. Quantizing deep convolutional networks for efficient inference: A whitepaper[J]. arXiv preprint arXiv:1806.08342, 2018.
