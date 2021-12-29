@@ -114,11 +114,11 @@ Windows操作系统中使用`\`，Linux操作系统中使用`/`分割路径地�
 
 ### 下载代码
 
-在Gitee中克隆[MindSpore开源项目仓库](https://gitee.com/mindspore/mindspore.git)，进入`./model_zoo/official/cv/mobilenetv2/`。
+在Gitee中克隆[MindSpore开源项目仓库](https://gitee.com/mindspore/models.git)，进入`./models/official/cv/mobilenetv2/`。
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git -b r1.5
-cd ./mindspore/model_zoo/official/cv/mobilenetv2
+git clone https://gitee.com/mindspore/models.git -b r1.5
+cd ./models/official/cv/mobilenetv2
 ```
 
 代码结构如下：
