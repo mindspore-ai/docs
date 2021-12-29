@@ -23,7 +23,11 @@ In the previous tutorial, you learn how to train the network. In this tutorial, 
 
 ## Saving the Model
 
-There are two main ways to save the interface of the model: 1) One is to simply save the network model, which can be saved before and after training. The advantage is that the interface is simple and easy to use, but only the state of the network model when the command is executed is retained; 2) The other one is to save the interface during network model training. In the process of network model training, MindSpore automatically saves the parameters of the epoch number and step number set during training, that is, the intermediate weight parameters generated during the model training process are also saved to facilitate network fine-tuning and stop training.
+There are two main ways to save the interface of the model:
+
+1. One is to simply save the network model, which can be saved before and after training. The advantage is that the interface is simple and easy to use, but only the state of the network model when the command is executed is retained;
+
+2. The other one is to save the interface during networkmodel training. In the process of network model training,MindSpore automatically saves the parameters of the epochnumber and step number set during training, that is, theintermediate weight parameters generated during the modeltraining process are also saved to facilitate networkfine-tuning and stop training.
 
 ### Saving the Model Directly
 
