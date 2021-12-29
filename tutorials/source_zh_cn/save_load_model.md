@@ -25,6 +25,8 @@ import mindspore as ms
 ms.save_checkpoint(net, "./MyNet.ckpt")
 ```
 
+其中，`net`为训练网络，定义方法可参考[建立神经网络](https://www.mindspore.cn/tutorials/zh-CN/master/model.html)。
+
 ### 训练过程中保存模型
 
 在模型训练的过程中，使用`model.train`里面的`callbacks`参数传入保存模型的对象 `ModelCheckpoint`，可以保存模型参数，生成CheckPoint(简称ckpt)文件。
@@ -35,6 +37,8 @@ from mindspore.train.callback import ModelCheckpoint
 ckpt_cb = ModelCheckpoint()
 model.train(epoch_num, dataset, callbacks=ckpt_cb)
 ```
+
+其中，`epoch_num`为训练轮次，定义方法可参考[训练模型](https://www.mindspore.cn/tutorials/zh-CN/master/optimization.html)。`dataset`为加载的数据集，定义方法可参考[数据加载及处理](https://www.mindspore.cn/tutorials/zh-CN/master/dataset.html)。
 
 用户可以根据具体需求对CheckPoint策略进行配置。具体用法如下：
 
