@@ -40,6 +40,8 @@ import mindspore as ms
 ms.save_checkpoint(net, "./MyNet.ckpt")
 ```
 
+Here, `net` is the training network, and the definition method can be referred to [Building a Neural Network](https://www.mindspore.cn/tutorials/en/master/model.html).
+
 ### Saving the Model During Training
 
 In the process of model training, use the `callbacks` parameter in `model.train` to pass in the object `ModelCheckpoint` that saves the model, which can save the model parameters and generate CheckPoint (abbreviated as ckpt) files.
@@ -50,6 +52,8 @@ from mindspore.train.callback import ModelCheckpoint
 ckpt_cb = ModelCheckpoint()
 model.train(epoch_num, dataset, callbacks=ckpt_cb)
 ```
+
+Here, `epoch_num` is the number of times that the dataset is traversed during training. The definition method can be referred to [Training the Model](https://www.mindspore.cn/tutorials/en/master/optimization.html). `dataset` is the dataset to be loaded. The definition method can be referred to [Loading and Processing Data](https://www.mindspore.cn/tutorials/en/master/dataset.html).
 
 You can configure the checkpoint policies as required. The following describes the usage:
 
