@@ -6,20 +6,9 @@
 
 在本教程中，我们将使用[COCO数据集](https://cocodataset.org/#hom)当中book分类下的部分图片，对Mask R-CNN模型进行微调，最终实现图像分割的效果。
 
-教程通过终端运行，点击下载[数据集](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/source-codes/maskrcnn_fine_tune.zip)。下载解压后数据集结构如下：
-
-```text
-├── bookcoco
-     ├── instances_train2017.json
-     └── train2017
-            ├── 000000129492.jpg
-            ├── 000000134882.jpg
-            ...
-```
-
 相关源码可参考链接：<https://gitee.com/mindspore/docs/tree/master/docs/sample_code/maskrcnn_fine_tune>。
 
-本篇基于Ascend环境运行。
+> 本篇基于Ascend环境运行。
 
 运行本案例需要安装以下依赖项：
 
@@ -47,12 +36,12 @@ COCO2017数据集的结构如下，其中`annotations`文件夹为标注信息js
 
 ```text
 ├── annotations # 储存图片标注信息，分为三种类型
-│   ├── captions_train2017.json             # 看图说话，描述图片的内容
-│   ├── captions_val2017.json
-│   ├── instances_train2017.json            # 目标实例，为本例中使用的类型
-│   ├── instances_val2017.json
-│   ├── person_keypoints_train2017.json     # 人体关键点检测
-│   └── person_keypoints_val2017.json
+│   ├── captions_train2017.json             # 看图说话，描述图片的内容
+│   ├── captions_val2017.json
+│   ├── instances_train2017.json            # 目标实例，为本例中使用的类型
+│   ├── instances_val2017.json
+│   ├── person_keypoints_train2017.json     # 人体关键点检测
+│   └── person_keypoints_val2017.json
 ├── train2017                               # 用于训练的图片
 ├── test2017                                # 用于测试的图片
 ├── val2017                                 # 用于验证的图片
@@ -88,7 +77,20 @@ annotation{
 
 ### 编写自定义数据集
 
-数据集由180张包含书籍的图片组成，图像与标注均来自于COCO。案例中采用自定义数据集的方式加载，完整数据处理代码可参考`src/dataset.py`。
+数据集由180张包含书籍的图片组成，图像与标注均来自于COCO。
+
+点击下载[数据集](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/source-codes/maskrcnn_fine_tune.zip)。下载解压后数据集结构如下：
+
+```text
+├── bookcoco
+     ├── instances_train2017.json
+     └── train2017
+            ├── 000000129492.jpg
+            ├── 000000134882.jpg
+            ...
+```
+
+案例中采用自定义数据集的方式加载，完整数据处理代码可参考`src/dataset.py`。
 
 案例中，构造的自定义数据集类为`COCOSubDataset`，在训练过程中会通过`GeneratorDataset`接口加载并访问数据集。
 
