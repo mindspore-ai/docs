@@ -2,6 +2,7 @@
 # pylint: disable=W0106, W0612
 import os
 import subprocess
+import sys
 
 def run(file_path):
     """export result"""
