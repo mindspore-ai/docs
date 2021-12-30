@@ -14,6 +14,7 @@
         - [Defining the Loss Function and Optimizer](#defining-the-loss-function-and-optimizer)
         - [Calling the High-level `Model` API To Train and Save the Model File](#calling-the-high-level-model-api-to-train-and-save-the-model-file)
         - [Loading and Validating the Saved Model](#loading-and-validating-the-saved-model)
+    - [Project execution](#project-execution)
     - [References](#references)
 
 <!-- /TOC -->
@@ -77,6 +78,22 @@ Run the following command to decompress the dataset:
 
 ```bash
 tar -zvxf cifar-10-binary.tar.gz
+```
+
+After downloading and decompressing the sample code and dataset, the document directory structure is as follows:
+
+```text
+.
+├── resnet.py
+├── cifar_resnet50.py
+└── cifar-10-batches-bin
+    ├── test_batch.bin
+    ├── batches.meta.txt
+    ├── data_batch_1.bin
+    ├── data_batch_2.bin
+    ├── data_batch_3.bin
+    ├── data_batch_4.bin
+    └── data_batch_5.bin
 ```
 
 ### Data Preloading and Preprocessing
@@ -203,6 +220,19 @@ eval_dataset = create_dataset(training=False)
 res = model.eval(eval_dataset)
 print("result: ", res)
 ```
+
+## Project execution
+
+In `cifar_resnet50.py` directory, enter the following code to start model training.
+
+```bash
+python cifar_resnet50.py --dataset_path=cifar-10-batches-bin --device_target=GPU
+```
+
+Parameter interpretation:
+
+- `--dataset_path`：When setting the project to run, this document sets the path to read the dataset as `cifar-10-batches-bin`
+- `--device_target`：Set the device of training. Currently, Set as `GPU` in this article, the optional configurations are `CPU`, `GPU` and `Ascend`.
 
 ## References
 
