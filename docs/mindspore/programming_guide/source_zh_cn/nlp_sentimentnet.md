@@ -65,7 +65,7 @@ $垂直极性词 = 通用极性词 + 领域特有极性词$
 | "Quitting" may be as much about exiting a pre-ordained identity as about drug withdrawal. As a rural guy coming to Beijing, class and success must have struck this young artist face on as an appeal to separate from his roots and far surpass his peasant parents' acting success. Troubles arise, however, when the new man is too new, when it demands too big a departure from family, history, nature, and personal identity. The ensuing splits, and confusion between the imaginary and the real and the dissonance between the ordinary and the heroic are the stuff of a gut check on the one hand or a complete escape from self on the other.  |  Negative |  
 | This movie is amazing because the fact that the real people portray themselves and their real life experience and do such a good job it's like they're almost living the past over again. Jia Hongsheng plays himself an actor who quit everything except music and drugs struggling with depression and searching for the meaning of life while being angry at everyone especially the people who care for him most.  | Positive  |
 
-同时，我们要下载GloVe文件，并在文件开头处添加新的一行，意思是总共读取400000个单词，每个单词用300纬度的词向量表示。
+同时，我们要下载GloVe文件并解压，在每个解压后的文件开头处添加新的一行，意思是总共读取400000个单词，每个单词用300纬度的词向量表示。
 
 ```text
 400000 300
@@ -301,7 +301,7 @@ print("============== {} ==============".format(acc))
    训练过程中保存了CheckPoint文件，即模型文件，我们可以查看文件保存的路径下的所有保存文件。
 
     ```bash
-    ls ./*.ckpt
+    ls ./ckpt_lstm/*.ckpt
     ```
 
     输出如下：
@@ -317,6 +317,14 @@ print("============== {} ==============".format(acc))
 ```bash
 python eval.py --config_path=$CONFIG_FILE --device_target="Ascend" --preprocess=false --preprocess_path=$PREPROCESS_DIR --ckpt_file=$CKPT_FILE > log.txt 2>&1 &
 ```
+
+参数解释：
+
+- `--config_path`：参数文件的路径，即源代码文件中的`default_config.yaml`文件。
+- `--device_target`：模型训练使用的硬件。本文选用的是`Ascend`。可选`CPU`、`GPU`和`Ascend`。
+- `--preprocess`：是否对数据进行预处理。选择`false`。
+- `--preprocess_path`：预处理后的数据集路径。
+- `--ckpt_file`：载入模型权重文件的路径。（可选用`./ckpt_lstm/lstm-20_390.ckpt`）。
 
 输出如下，可以看到使用验证的数据集，对文本的情感分析正确率在84.19%左右，达到一个基本满意的结果。
 

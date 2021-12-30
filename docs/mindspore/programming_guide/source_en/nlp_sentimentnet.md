@@ -60,7 +60,7 @@ The following are cases of negative and positive reviews.
 | "Quitting" may be as much about exiting a pre-ordained identity as about drug withdrawal. As a rural guy coming to Beijing, class and success must have struck this young artist face on as an appeal to separate from his roots and far surpass his peasant parents' acting success. Troubles arise, however, when the new man is too new, when it demands too big a departure from family, history, nature, and personal identity. The ensuing splits, and confusion between the imaginary and the real and the dissonance between the ordinary and the heroic are the stuff of a gut check on the one hand or a complete escape from self on the other.  |  Negative |  
 | This movie is amazing because the fact that the real people portray themselves and their real life experience and do such a good job it's like they're almost living the past over again. Jia Hongsheng plays himself an actor who quit everything except music and drugs struggling with depression and searching for the meaning of life while being angry at everyone especially the people who care for him most.  | Positive  |
 
-Download the GloVe file and add the following line at the beginning of the file, which means that a total of 400,000 words are read, and each word is represented by a word vector of 300 latitudes.
+Download and unzip the Glove file, add a new line at the beginning of each unzipped file, which means that a total of 400,000 words are read, and each word is represented by a word vector of 300 latitudes.
 
 ```text
 400000 300
@@ -297,7 +297,7 @@ After 20 epochs, the accuracy on the test set is about 84.19%.
    CheckPoint files (model files) are saved during the training. You can view all saved files in the file path.
 
     ```bash
-    ls ./*.ckpt
+    ls ./ckpt_lstm/*.ckpt
     ```
 
     The output is as follows:
@@ -313,6 +313,14 @@ Use the last saved CheckPoint file to load and validate the dataset.
 ```bash
 python eval.py --config_path=$CONFIG_FILE --device_target="Ascend" --preprocess=false --preprocess_path=$PREPROCESS_DIR --ckpt_file=$CKPT_FILE > log.txt 2>&1 &
 ```
+
+Parameter interpretation:
+
+- `--config_path`: The path of the parameter file, i.e. the source code `default_config.yaml` file.
+- `--device_target`: The device used for model training, `Ascend` is selected in this article, The options are `CPU`、`GPU` and `Ascend`
+- `--preprocess`: Preprocess data or not.
+- `--preprocess_path`: Preprocessed dataset path.
+- `--ckpt_file`: The path to load the model weights file. (use `./ckpt_lstm/lstm-20_390.ckpt`)
 
 As shown in the following output, the sentiment analysis accuracy of the text is about 84.19%, which is basically satisfactory.
 
