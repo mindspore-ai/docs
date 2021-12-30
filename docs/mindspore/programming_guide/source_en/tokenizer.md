@@ -50,7 +50,7 @@ from mindspore.dataset import text
 vocab = text.Vocab.from_dict({"home": 3, "behind": 2, "the": 4, "world": 5, "<unk>": 6})
 ```
 
-Vocab provides methods for querying each other between words and ids, namely: [tokens_to_ids]() and [ids_to_tokens] methods, the usage is as follows:
+Vocab provides methods for querying each other between words and ids, namely: [tokens_to_ids](https://www.mindspore.cn/docs/api/en/master/api_python/dataset_text/mindspore.dataset.text.Vocab.html#mindspore.dataset.text.Vocab.tokens_to_ids) and [ids_to_tokens](https://www.mindspore.cn/docs/api/en/master/api_python/dataset_text/mindspore.dataset.text.Vocab.html#mindspore.dataset.text.Vocab.ids_to_tokens) methods, the usage is as follows:
 
 ```python
 from mindspore.dataset import text
