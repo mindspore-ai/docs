@@ -108,6 +108,7 @@ MindSpore根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
 | MSLITE_ENABLE_TESTCASES | 是否编译测试用例 | on、off | off |
 
 > - TensorRT 和 NPU 的编译环境配置，参考[专用芯片集成说明](https://www.mindspore.cn/lite/docs/zh-CN/master/use/asic.html)。
+> - 启用AVX指令集时，需要运行环境的CPU同时支持avx特性和fma特性。
 
 - runtime功能裁减编译选项
 
