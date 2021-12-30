@@ -14,6 +14,7 @@
     - [定义损失函数和优化器](#定义损失函数和优化器)
     - [调用`Model`高阶API进行训练和保存模型文件](#调用model高阶api进行训练和保存模型文件)
     - [加载保存的模型，并进行验证](#加载保存的模型并进行验证)
+    - [执行工程](#执行工程)
     - [参考文献](#参考文献)
 
 <!-- /TOC -->
@@ -81,6 +82,22 @@ wget https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz --no-check-certific
 
 ```bash
 tar -zvxf cifar-10-binary.tar.gz
+```
+
+完成样例代码和数据集的下载解压后，文档目录结构如下：
+
+```text
+.
+├── resnet.py
+├── cifar_resnet50.py
+└── cifar-10-batches-bin
+    ├── test_batch.bin
+    ├── batches.meta.txt
+    ├── data_batch_1.bin
+    ├── data_batch_2.bin
+    ├── data_batch_3.bin
+    ├── data_batch_4.bin
+    └── data_batch_5.bin
 ```
 
 ## 数据预加载和预处理
@@ -207,6 +224,21 @@ eval_dataset = create_dataset(training=False)
 res = model.eval(eval_dataset)
 print("result: ", res)
 ```
+
+## 执行工程
+
+在`cifar_resnet50.py`所在的目录，输入以下代码即可以进行模型训练。
+
+```bash
+python cifar_resnet50.py --dataset_path=cifar-10-batches-bin --device_target=GPU
+```
+
+参数解释：
+
+- `--dataset_path`：设置工程运行时读取数据集的路径，本文档设置为`cifar-10-batches-bin`。
+- `--device_target`：设置训练时使用的硬件，本文设置为`GPU`，可选择的配置为`CPU`、`GPU`和`Ascend`。
+
+训练完成后会生成`train_resnet_cifar10-1_1875.ckpt`模型权重文件。
 
 ## 参考文献
 
