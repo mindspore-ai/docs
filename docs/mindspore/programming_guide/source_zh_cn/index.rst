@@ -1357,7 +1357,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Running experience-local experience-online hidden">
+							<div class="doc-article-item all hardware-ascend hardware-gpu stage-Model-Running experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/run.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
