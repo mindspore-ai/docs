@@ -658,8 +658,8 @@ class Net(nn.Cell):
 x = Tensor(np.array([[1, 2], [3, 4]]).astype(np.float32))
 y = Tensor(np.array([[1, 2], [3, 4]]).astype(np.float32))
 v = Tensor(np.array([[1, 1], [1, 1]]).astype(np.float32))
-output, grads = jvp(Net(), (x, y), (v, v))
-print(grads)
+output = jvp(Net(), (x, y), (v, v))
+print(output)
 ```
 
 输出结果为：
@@ -692,8 +692,8 @@ class Net(nn.Cell):
 x = Tensor(np.array([[1, 2], [3, 4]]).astype(np.float32))
 y = Tensor(np.array([[1, 2], [3, 4]]).astype(np.float32))
 v = Tensor(np.array([[1, 1], [1, 1]]).astype(np.float32))
-output, grads = vjp(Net(), (x, y), v)
-print(grads)
+output = vjp(Net(), (x, y), v)
+print(output)
 ```
 
 输出结果为：
