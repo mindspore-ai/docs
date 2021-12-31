@@ -519,57 +519,6 @@ In addition to the constraints in the conditional variable scenario, the current
 
 When a process control statement with a variable condition is used, the network model generated after graph build contains the control flow operator. In this scenario, the forward graph is executed twice. In this case, if the forward graph contains side effect operators such as `Assign` in a training scenario, the computation result of the backward graph is inconsistent with the expected result.
 
-As shown in example 13, the expected gradient of `x` is 2, but the actual gradient is 3. The reason is that the forward graph is executed twice so that `tmp = self.var + 1` and `self.assign(self.var, tmp)` are executed twice, separately. `out = (self.var + 1) * x` is actually `out = (2 + 1) * x`, so the gradient result is incorrect.
-
-Example 13:
-
-```python
-import numpy as np
-from mindspore import context
-from mindspore import Tensor, nn
-from mindspore import dtype as ms
-from mindspore import ops
-from mindspore.ops import composite
-from mindspore import Parameter
-
-class ForwardNet(nn.Cell):
-    def __init__(self):
-        super().__init__()
-        self.var = Parameter(Tensor(np.array(0), ms.int32))
-        self.assign = ops.Assign()
-
-    def construct(self, x, y):
-        if x < y:
-            tmp = self.var + 1
-            self.assign(self.var, tmp)
-        out = (self.var + 1) * x
-        out = out + 1
-        return out
-
-class BackwardNet(nn.Cell):
-    def __init__(self, net):
-        super(BackwardNet, self).__init__(auto_prefix=False)
-        self.forward_net = net
-        self.grad = composite.GradOperation()
-
-    def construct(self, *inputs):
-        grads = self.grad(self.forward_net)(*inputs)
-        return grads
-
-forward_net = ForwardNet()
-backward_net = BackwardNet(forward_net)
-x = Tensor(np.array(0), dtype=ms.int32)
-y = Tensor(np.array(1), dtype=ms.int32)
-output = backward_net(x, y)
-print("output:", output)
-```
-
-The execution result is as follows:
-
-```text
-output: 3
-```
-
 The following table lists the side effect operators that are not supported in the control flow training scenario.
 
 | Side Effect List      |

@@ -519,57 +519,6 @@ print(out)
 
 在使用条件为变量的流程控制语句时，图编译生成的网络模型中会包含控制流算子，在此场景下，正向图会执行两次。如果此时正向图中存在`Assign`等副作用算子并且是训练场景时，会导致反向图计算结果与预期不符。
 
-如例13所示，期望x的梯度为2，但是实际执行得到的梯度为3，原因是正向图执行了两次，`tmp = self.var + 1`和`self.assign(self.var, tmp)`被执行了两次，`out = (self.var + 1) * x`实际上是`out = (2 + 1) * x`，最终导致梯度结果出错。
-
-例13：
-
-```python
-import numpy as np
-from mindspore import context
-from mindspore import Tensor, nn
-from mindspore import dtype as ms
-from mindspore import ops
-from mindspore.ops import composite
-from mindspore import Parameter
-
-class ForwardNet(nn.Cell):
-    def __init__(self):
-        super().__init__()
-        self.var = Parameter(Tensor(np.array(0), ms.int32))
-        self.assign = ops.Assign()
-
-    def construct(self, x, y):
-        if x < y:
-            tmp = self.var + 1
-            self.assign(self.var, tmp)
-        out = (self.var + 1) * x
-        out = out + 1
-        return out
-
-class BackwardNet(nn.Cell):
-    def __init__(self, net):
-        super(BackwardNet, self).__init__(auto_prefix=False)
-        self.forward_net = net
-        self.grad = composite.GradOperation()
-
-    def construct(self, *inputs):
-        grads = self.grad(self.forward_net)(*inputs)
-        return grads
-
-forward_net = ForwardNet()
-backward_net = BackwardNet(forward_net)
-x = Tensor(np.array(0), dtype=ms.int32)
-y = Tensor(np.array(1), dtype=ms.int32)
-output = backward_net(x, y)
-print("output:", output)
-```
-
-执行结果:
-
-```text
-output: 3
-```
-
 控制流训练场景不支持的副作用算子列表如下：
 
 | Side Effect List      |
