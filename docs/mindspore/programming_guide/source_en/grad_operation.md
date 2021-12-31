@@ -16,6 +16,13 @@
         - [Single-input Multi-output High-order Derivative](#single-input-multi-output-high-order-derivative)
         - [Multiple-Input Multiple-Output High-Order Derivative](#multiple-input-multiple-output-high-order-derivative)
     - [Support for Second-order Differential Operators](#support-for-second-order-differential-operators)
+    - [Jvp and Vjp Interface](#jvp-and-vjp-interface)
+        - [Jvp](#jvp)
+        - [Vjp](#vjp)
+    - [Functional Interfaces: grad, jvp and vjp](#functional-interfaces-grad-jvp-and-vjp)
+        - [functional grad](#functional-grad)
+        - [functional jvp](#functional-jvp)
+        - [functional vjp](#functional-vjp)
     - [References](#references)
 
 <!-- /TOC -->
@@ -454,11 +461,115 @@ GPU supports the following operators: [Pow](https://www.mindspore.cn/docs/api/en
 
 Ascend supports the following operators: [Pow](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Pow.html#mindspore.ops.Pow), [Log](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Log.html#mindspore.ops.Log), [Square](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Square.html#mindspore.ops.Square), [Exp](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Exp.html#mindspore.ops.Exp), [Neg](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Neg.html#mindspore.ops.Neg), [Mul](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Mul.html#mindspore.ops.Mul), [Div](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Div.html#mindspore.ops.Div), [MatMul](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.MatMul.html#mindspore.ops.MatMul), [Sin](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Sin.html#mindspore.ops.Sin), [Cos](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Cos.html#mindspore.ops.Cos), [Tan](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Tan.html#mindspore.ops.Tan), [Sinh](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Sinh.html#mindspore.ops.Sinh), [Cosh](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Cosh.html#mindspore.ops.Cosh) and [Atanh](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Atanh.html#mindspore.ops.Atanh).
 
-## Functional Interfaces: grad, jvp和vjp
+## Jvp and Vjp Interface
+
+Besides GradOperation interface which is based on backward auto differentiation, MindSpore also provides two new gradient interfaces: Jvp and Vjp. Jvp is for forward mode AD and Vjp is for backward mode AD.
+
+### Jvp
+
+Jvp(Jacobian-vector-product), uses forward mode AD, it is more suitable for network with smaller input dimension compared to output dimension. Different from backward mode AD, forward mode AD can get the output of network and the gradient at the same time. So, compared to backward AD, forward mode AD requires less memory. More information about the difference between forward mode AD and backward mode AD can be found in [MindSpore Automatic Differentiation](https://www.mindspore.cn/docs/programming_guide/en/master/design/gradient.html).
+
+The example code is as follow:
+
+```python
+import numpy as np
+import mindspore.context as context
+import mindspore.nn as nn
+import mindspore.ops as ops
+from mindspore import Tensor
+from mindspore import dtype as mstype
+context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.sin = ops.Sin()
+        self.cos = ops.Cos()
+
+    def construct(self, x, y):
+        a = self.sin(x)
+        b = self.cos(y)
+        out = a + b
+        return out
+
+class GradNet(nn.Cell):
+    def __init__(self, net):
+        super(GradNet, self).__init__()
+        self.net = net
+        self.grad_op = nn.Jvp(net)
+
+    def construct(self, x, y, v):
+        output = self.grad_op(x, y, (v, v))
+        return output
+
+x = Tensor([0.8, 0.6, 0.2], dtype=mstype.float32)
+y = Tensor([0.7, 0.4, 0.3], dtype=mstype.float32)
+v = Tensor([1, 1, 1], dtype=mstype.float32)
+output = GradNet(Net())(x, y, v)
+print(output)
+```
+
+The output is:
+
+```text
+(Tensor(shape=[3], dtype=Float32, value= [ 1.48219836e+00, 1.48570347e+00, 1.15400589e+00]), Tensor(shape=[3], dtype=Float32, value= [ 5.24890423e-02,
+4.35917288e-01, 6.84546351e-01]))
+```
+
+### Vjp
+
+Vjp(Vector-jacobian-product), uses backward mode AD. The output of Vjp will be the network output and forward mode gradient output. It is more suitable for network with greater input dimension compared to output dimension. More information about the difference between forward mode AD and backward mode AD can be found in [MindSpore Automatic Differentiation](https://www.mindspore.cn/docs/programming_guide/en/master/design/gradient.html).
+
+The example code is as follow:
+
+```python
+import numpy as np
+import mindspore.context as context
+import mindspore.nn as nn
+import mindspore.ops as ops
+from mindspore import Tensor
+from mindspore import dtype as mstype
+context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.sin = ops.Sin()
+        self.cos = ops.Cos()
+
+    def construct(self, x, y):
+        a = self.sin(x)
+        b = self.cos(y)
+        out = a + b
+        return out
+
+class GradNet(nn.Cell):
+    def __init__(self, net):
+        super(GradNet, self).__init__()
+        self.net = net
+        self.grad_op = nn.Vjp(net)
+
+    def construct(self, x, y, v):
+        output = self.grad_op(x, y, v)
+        return output
+
+x = Tensor([0.8, 0.6, 0.2], dtype=mstype.float32)
+y = Tensor([0.7, 0.4, 0.3], dtype=mstype.float32)
+v = Tensor([1, 1, 1], dtype=mstype.float32)
+output = GradNet(Net())(x, y, v)
+print(output)
+```
+
+The output is:
+
+```text
+(Tensor(shape=[3], dtype=Float32, value= [ 1.48219836e+00, 1.48570347e+00, 1.15400589e+00]), (Tensor(shape=[3], dtype=Float32, value= [ 6.96706712e-01,
+8.25335622e-01, 9.80066597e-01]), Tensor(shape=[3], dtype=Float32, value= [-6.44217670e-01, -3.89418334e-01, -2.95520216e-01])))
+```
+
+## Functional Interfaces grad, jvp and vjp
 
 The automatic differentiation plays an important role in the field of scientific computing, and functional interfaces are generally used in this field. In order to improve the usability of the automatic differentiation function, MindSpore provides functional interfaces of GradOperation, Jvp and Vjp: grad, jvp and vjp. The functional interface does not need object initialization, which fits the user's habits.
 
-### grad
+### functional grad
 
 `grad` is used to generate the gradient of the input function. The `grad_position`, and `sens_param` parameters are used to control the gradient calculation method. The default value of `grad_position` is `0`, which means the derivative of first input will be computed. When `grad_position` is set to int or tuple type, the derivative of corresponding inputs indexed by `grad_position` will be computed. `sens_param` scales the output value of the network to change the final gradient. The default value of `sens_param` is `False`.
 
@@ -529,9 +640,9 @@ result：
  [ 1.40000000e+01,  6.00000000e+00]]))
 ```
 
-### jvp
+### functional jvp
 
-`jvp` corresponds to the automatic differentiation of the forward mode, and returns the result of the network and the differentiation of the network.
+`jvp` corresponds to the automatic differentiation of the forward mode, and returns the result of the network and the differentiation of the network. The first element of tuple output is the result of the network and the second is the forward mode gradient output.
 
 Example：
 
@@ -549,20 +660,23 @@ class Net(nn.Cell):
 x = Tensor(np.array([[1, 2], [3, 4]]).astype(np.float32))
 y = Tensor(np.array([[1, 2], [3, 4]]).astype(np.float32))
 v = Tensor(np.array([[1, 1], [1, 1]]).astype(np.float32))
-output, grads = jvp(Net(), (x, y), (v, v))
-print(grads)
+output = jvp(Net(), (x, y), (v, v))
+print(output)
 ```
 
 results：
 
 ```text
-[[ 4. 13.],
- [28. 49.]]
+(Tensor(shape=[2, 2], dtype=Float32, value=
+[[ 2.00000000e+00, 1.00000000e+01],
+[ 3.00000000e+01, 6.80000000e+01]]), Tensor(shape=[2, 2], dtype=Float32, value=
+[[ 4.00000000e+00, 1.30000000e+01],
+[ 2.80000000e+01, 4.90000000e+01]]))
 ```
 
-### vjp
+### functional vjp
 
-`vjp` corresponds to the automatic differentiation of the reverse mode, and returns the result of the network and the differentiation of the network.
+`vjp` corresponds to the automatic differentiation of the reverse mode, and returns the result of the network and the differentiation of the network. The first element of tuple output is the result of the network and the second is the backward mode gradient output.
 
 Example：
 
@@ -580,18 +694,20 @@ class Net(nn.Cell):
 x = Tensor(np.array([[1, 2], [3, 4]]).astype(np.float32))
 y = Tensor(np.array([[1, 2], [3, 4]]).astype(np.float32))
 v = Tensor(np.array([[1, 1], [1, 1]]).astype(np.float32))
-output, grads = vjp(Net(), (x, y), v)
-print(grads)
+output = vjp(Net(), (x, y), v)
+print(output)
 ```
 
 results：
 
 ```text
 (Tensor(shape=[2, 2], dtype=Float32, value=
-[[ 3.00000000e+00,  1.20000000e+01],
- [ 2.70000000e+01,  4.80000000e+01]]), Tensor(shape=[2, 2], dtype=Float32, value=
-[[ 1.00000000e+00,  1.00000000e+00],
- [ 1.00000000e+00,  1.00000000e+00]]))
+[[ 2.00000000e+00, 1.00000000e+01],
+[ 3.00000000e+01, 6.80000000e+01]]), (Tensor(shape=[2, 2], dtype=Float32, value=
+[[ 3.00000000e+00, 1.20000000e+01],
+[ 2.70000000e+01, 4.80000000e+01]]), Tensor(shape=[2, 2], dtype=Float32, value=
+[[ 1.00000000e+00, 1.00000000e+00],
+[ 1.00000000e+00, 1.00000000e+00]])))
 ```
 
 ## References
