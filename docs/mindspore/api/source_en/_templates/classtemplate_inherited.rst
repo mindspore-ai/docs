@@ -12,6 +12,13 @@
     :exclude-members: bucket_batch_by_length, build_sentencepiece_vocab, build_vocab, parse_tree, create_ir_tree, create_runtime_obj
     :members:
 
+{% elif fullname=="mindspore.dataset.WaitedDSCallback" %}
+
+{{ fullname | underline }}
+
+.. autoclass:: {{ name }}
+    :members: sync_epoch_begin, sync_step_begin
+
 {% elif objname[0].istitle() %}
 
 {{ fullname | underline }}
