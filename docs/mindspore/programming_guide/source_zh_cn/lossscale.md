@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `模型调优`
 
-> 感谢：[ZOMI酱](https://www.zhihu.com/people/ZOMI) 提供编辑
+感谢：[ZOMI酱](https://www.zhihu.com/people/ZOMI) 提供编辑
 
 <!-- TOC -->
 
@@ -34,7 +34,7 @@ MindSpore中提供了两种Loss Scale的方式，分别是`FixedLossScaleManager
 - **加快通讯效率**：针对分布式训练，特别是在大模型训练的过程中，通讯的开销制约了网络模型训练的整体性能，通讯的位宽少了意味着可以提升通讯性能，减少等待时间，加快数据的流通。
 - **计算效率更高**：在特殊的AI加速芯片如华为Ascend 910和310系列，或者NVIDIA VOLTA架构的Titan V and Tesla V100的GPU上，使用FP16的执行运算性能比FP32更加快。
 
-但是使用FP16同样会带来一些问题，其中最重要的是1）精度溢出和2）舍入误差，Loss Scale就是为了解决精度溢出而提出的。
+但是使用FP16同样会带来一些问题，其中最重要的是精度溢出和舍入误差，Loss Scale就是为了解决精度溢出而提出的。
 
 ## 损失缩放原理
 
@@ -80,105 +80,105 @@ MindSpore中提供了两种Loss Scale的方式，分别是`FixedLossScaleManager
 
 1. import必要的库，并声明使用图模式下执行。
 
-```python
-import numpy as np
-import mindspore
-import mindspore.nn as nn
-from mindspore.nn import Accuracy
-from mindspore import context, Model, FixedLossScaleManager, DynamicLossScaleManager, Tensor
-from mindspore.train.callback import LossMonitor
-from mindspore.common.initializer import Normal
-from mindspore import dataset as ds
+    ```python
+    import numpy as np
+    import mindspore
+    import mindspore.nn as nn
+    from mindspore.nn import Accuracy
+    from mindspore import context, Model, FixedLossScaleManager, DynamicLossScaleManager, Tensor
+    from mindspore.train.callback import LossMonitor
+    from mindspore.common.initializer import Normal
+    from mindspore import dataset as ds
 
-mindspore.set_seed(0)
-context.set_context(mode=context.GRAPH_MODE)
-```
+    mindspore.set_seed(0)
+    context.set_context(mode=context.GRAPH_MODE)
+    ```
 
 2. 定义LeNet5网络模型，任何网络模型都可以使用Loss Scale机制。
 
-```python
-class LeNet5(nn.Cell):
-    """
-    Lenet network
+    ```python
+    class LeNet5(nn.Cell):
+        """
+        Lenet network
 
-    Args:
-        num_class (int): Number of classes. Default: 10.
-        num_channel (int): Number of channels. Default: 1.
+        Args:
+            num_class (int): Number of classes. Default: 10.
+            num_channel (int): Number of channels. Default: 1.
 
-    Returns:
-        Tensor, output tensor
+        Returns:
+            Tensor, output tensor
 
 
-    """
-    def __init__(self, num_class=10, num_channel=1):
-        super(LeNet5, self).__init__()
-        self.conv1 = nn.Conv2d(num_channel, 6, 5, pad_mode='valid')
-        self.conv2 = nn.Conv2d(6, 16, 5, pad_mode='valid')
-        self.fc1 = nn.Dense(16 * 5 * 5, 120, weight_init=Normal(0.02))
-        self.fc2 = nn.Dense(120, 84, weight_init=Normal(0.02))
-        self.fc3 = nn.Dense(84, num_class, weight_init=Normal(0.02))
-        self.relu = nn.ReLU()
-        self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
-        self.flatten = nn.Flatten()
+        """
+        def __init__(self, num_class=10, num_channel=1):
+            super(LeNet5, self).__init__()
+            self.conv1 = nn.Conv2d(num_channel, 6, 5, pad_mode='valid')
+            self.conv2 = nn.Conv2d(6, 16, 5, pad_mode='valid')
+            self.fc1 = nn.Dense(16 * 5 * 5, 120, weight_init=Normal(0.02))
+            self.fc2 = nn.Dense(120, 84, weight_init=Normal(0.02))
+            self.fc3 = nn.Dense(84, num_class, weight_init=Normal(0.02))
+            self.relu = nn.ReLU()
+            self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
+            self.flatten = nn.Flatten()
 
-    def construct(self, x):
-        x = self.max_pool2d(self.relu(self.conv1(x)))
-        x = self.max_pool2d(self.relu(self.conv2(x)))
-        x = self.flatten(x)
-        x = self.relu(self.fc1(x))
-        x = self.relu(self.fc2(x))
-        x = self.fc3(x)
-        return x
-```
+        def construct(self, x):
+            x = self.max_pool2d(self.relu(self.conv1(x)))
+            x = self.max_pool2d(self.relu(self.conv2(x)))
+            x = self.flatten(x)
+            x = self.relu(self.fc1(x))
+            x = self.relu(self.fc2(x))
+            x = self.fc3(x)
+            return x
+    ```
 
 3. 定义数据集和训练流程中常用的接口。
 
-```python
-# create dataset
-def get_data(num, img_size=(1, 32, 32), num_classes=10, is_onehot=True):
-    for _ in range(num):
-        img = np.random.randn(*img_size)
-        target = np.random.randint(0, num_classes)
-        target_ret = np.array([target]).astype(np.float32)
-        if is_onehot:
-            target_onehot = np.zeros(shape=(num_classes,))
-            target_onehot[target] = 1
-            target_ret = target_onehot.astype(np.float32)
-        yield img.astype(np.float32), target_ret
+    ```python
+    # create dataset
+    def get_data(num, img_size=(1, 32, 32), num_classes=10, is_onehot=True):
+        for _ in range(num):
+            img = np.random.randn(*img_size)
+            target = np.random.randint(0, num_classes)
+            target_ret = np.array([target]).astype(np.float32)
+            if is_onehot:
+                target_onehot = np.zeros(shape=(num_classes,))
+                target_onehot[target] = 1
+                target_ret = target_onehot.astype(np.float32)
+            yield img.astype(np.float32), target_ret
 
-def create_dataset(num_data=1024, batch_size=32, repeat_size=1):
-    input_data = ds.GeneratorDataset(list(get_data(num_data)), column_names=['data','label'])
-    input_data = input_data.batch(batch_size, drop_remainder=True)
-    input_data = input_data.repeat(repeat_size)
-    return input_data
+    def create_dataset(num_data=1024, batch_size=32, repeat_size=1):
+        input_data = ds.GeneratorDataset(list(get_data(num_data)), column_names=['data','label'])
+        input_data = input_data.batch(batch_size, drop_remainder=True)
+        input_data = input_data.repeat(repeat_size)
+        return input_data
 
-ds_train = create_dataset()
+    ds_train = create_dataset()
 
-# Initialize network
-network = LeNet5(10)
+    # Initialize network
+    network = LeNet5(10)
 
-# Define Loss and Optimizer
-net_loss = nn.SoftmaxCrossEntropyWithLogits(reduction="mean")
-```
+    # Define Loss and Optimizer
+    net_loss = nn.SoftmaxCrossEntropyWithLogits(reduction="mean")
+    ```
 
 4. 真正使用Loss Scale的API接口，作用于优化器和模型中。
 
-```python
-# Define Loss Scale, optimizer and model
-#1) Drop the parameter update if there is an overflow
-loss_scale_manager = FixedLossScaleManager()
-net_opt = nn.Momentum(network.trainable_params(),learning_rate=0.01, momentum=0.9)
-model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O0", loss_scale_manager=loss_scale_manager)
+    ```python
+    # Define Loss Scale, optimizer and model
+    #1) Drop the parameter update if there is an overflow
+    loss_scale_manager = FixedLossScaleManager()
+    net_opt = nn.Momentum(network.trainable_params(),learning_rate=0.01, momentum=0.9)
+    model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O0", loss_scale_manager=loss_scale_manager)
 
-#2) Execute parameter update even if overflow occurs
-loss_scale = 1024.0
-loss_scale_manager = FixedLossScaleManager(loss_scale, False)
-net_opt = nn.Momentum(network.trainable_params(),learning_rate=0.01, momentum=0.9, loss_scale=loss_scale)
-model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O0", loss_scale_manager=loss_scale_manager)
+    #2) Execute parameter update even if overflow occurs
+    loss_scale = 1024.0
+    loss_scale_manager = FixedLossScaleManager(loss_scale, False)
+    net_opt = nn.Momentum(network.trainable_params(),learning_rate=0.01, momentum=0.9, loss_scale=loss_scale)
+    model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O0", loss_scale_manager=loss_scale_manager)
 
-# Run training
-model.train(epoch=10, train_dataset=ds_train, callbacks=[LossMonitor()])
-```
+    # Run training
+    model.train(epoch=10, train_dataset=ds_train, callbacks=[LossMonitor()])
+    ```
 
 ### LossScale与优化器
 
