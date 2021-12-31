@@ -175,6 +175,8 @@ MindSpore编程指南
    enable_dataset_offload
    apply_gradient_accumulation
    使用Profiler调试性能↗ <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling.html>
+   apply_adaptive_summation
+   apply_dimention_reduce_training
 
 .. toctree::
    :glob:
@@ -289,7 +291,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-gpu stage-Model-Optimization experience-local experience-local experience-online hidden">
+							<div class="doc-article-item all hardware-gpu stage-Model-Optimization experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/apply_gradient_accumulation.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -297,6 +299,30 @@ MindSpore编程指南
 										</div>
 										<div class="doc-article-desc">
 										本教程介绍梯度累积的训练方式，目的是为了解决由于内存不足导致某些大型网络无法训练大Batch_size的问题。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all hardware-ascend stage-Model-Optimization stage-Distributed-Parallel experience-local experience-local experience-online hidden">
+								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/apply_adaptive_summation.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">应用自适应梯度求和算法</span>
+										</div>
+										<div class="doc-article-desc">
+										本教程介绍在分布式训练中，如何使用自适应梯度求和算法提升网络训练的临界批量（critical batch size），并加快网络收敛。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all hardware-ascend stage-Model-Optimization stage-Distributed-Parallel experience-local hidden">
+								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/apply_dimention_reduce_training.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">应用降维训练算法</span>
+										</div>
+										<div class="doc-article-desc">
+										本教程介绍降维训练的训练方式，目的是为了解决网络在训练后期收敛缓慢的问题。
 										</div>
 									</div>
 								</a>
