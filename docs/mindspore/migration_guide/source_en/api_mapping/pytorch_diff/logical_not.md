@@ -34,7 +34,7 @@ import torch
 print(np.logical_not(np.array([True, False])))
 # Tensor(shape=[2], dtype=Bool, value= [False,  True])
 print(np.logical_not(np.array([0, 1, -10])))
-# TypeError: For 'LogicalNot or '~' operator', the type of `x` should be subclass of Tensor[Bool], but got Tensor[Int32].
+# TypeError: For primitive[LogicalNot], the input argument[x] must be a type of {Tensor[Bool],}, but got Int32.
 
 # PyTorch
 print(torch.logical_not(torch.tensor([True, False])))
