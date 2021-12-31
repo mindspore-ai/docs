@@ -20,7 +20,7 @@
 
 MindSpore的Cell类是构建所有网络的基类，也是网络的基本单元。定义网络时，可以继承Cell类，并重写`__init__`方法和`construct`方法。MindSpore的ops模块提供了基础算子的实现，nn模块实现了对基础算子的进一步封装，用户可以根据需要，灵活使用不同的算子。
 
-Cell本身具备模块管理能力，一个Cell可以由多个Cell组成，便于组成更复杂的网络。同时，为了更好得构建和管理复杂的网络，`mindspore.nn`提供了容器对网络中的子模块或模型层进行管理，分为CellList和SequentialCell两种方式。
+Cell本身具备模块管理能力，一个Cell可以由多个Cell组成，便于组成更复杂的网络。同时，为了更好地构建和管理复杂的网络，`mindspore.nn`提供了容器对网络中的子模块或模型层进行管理，分为CellList和SequentialCell两种方式。
 
 ## 运行基础算子
 
