@@ -230,3 +230,35 @@ JIT Fallback借鉴了传统JIT编译的Fallback的思路。传统的JIT编译经
     ```text
     TypeError: module, class, method, function, traceback, frame, or code object was expected, got builtin_function_or_method.
     ```
+
+8. 暂不支持在解释执行的语句中调用`self`的属性和方法，将逐步在后续版本中支持。
+
+    ```python
+    import numpy as np
+    import mindspore.nn as nn
+    from mindspore import Tensor
+
+    class Network(nn.Cell):
+        def __init__(self):
+            super(Network, self).__init__()
+            self.value = 1
+
+        def construct(self):
+            x = np.array([1, 2, 3])
+            y = np.array([3, 4, 5])
+            z = self.fn(x, y)
+            out = Tensor(z)
+            return out
+
+        def fn(self, x, y):
+            return x + y
+
+    net = Network()
+    out = net()
+    ```
+
+    输出结果如下：
+
+    ```
+    RuntimeError: The 'add' operation does not support the type [kMetaTypeExternal, kMetaTypeExternal]
+    ```
