@@ -114,11 +114,11 @@ On the Windows operating system, backslashes `\` are used to separate directorie
 
 ### Downloading Code
 
-Run the following command to clone [MindSpore open-source project repository](https://gitee.com/mindspore/mindspore.git) in Gitee and go to `./model_zoo/official/cv/mobilenetv2/`.
+Run the following command to clone [MindSpore open-source project repository](https://gitee.com/mindspore/models.git) in Gitee and go to `./models/official/cv/mobilenetv2/`.
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
-cd ./mindspore/model_zoo/official/cv/mobilenetv2
+git clone https://gitee.com/mindspore/models.git
+cd ./models/official/cv/mobilenetv2
 ```
 
 The code structure is as follows:
@@ -161,7 +161,7 @@ If the script file `run_train.sh` is used, it runs `launch.py` and inputs parame
 
 ### Preparing a Pre-Trained Model
 
-Download a [CPU/GPU pre-trained model](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2_cpu_gpu.ckpt) or [Ascend pre-trained model](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2_ascend.ckpt) to the following directories based on the processor type:  
+Download a [CPU/GPU pre-trained model](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2_cpu_gpu.ckpt) or [Ascend pre-trained model](https://download.mindspore.cn/model_zoo/r1.2/mobilenetv2_ascend_v120_imagenet2012_official_cv_bs256_acc71/mobilenetv2_ascend_v120_imagenet2012_official_cv_bs256_acc71.ckpt) to the following directories based on the processor type:  
 `./pretrain_checkpoint/`
 
 - CPU/GPU
@@ -175,7 +175,7 @@ Download a [CPU/GPU pre-trained model](https://download.mindspore.cn/model_zoo/o
 
     ```bash
     mkdir pretrain_checkpoint
-    wget -P ./pretrain_checkpoint https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2_ascend.ckpt --no-check-certificate
+    wget -P ./pretrain_checkpoint https://download.mindspore.cn/model_zoo/r1.2/mobilenetv2_ascend_v120_imagenet2012_official_cv_bs256_acc71/mobilenetv2_ascend_v120_imagenet2012_official_cv_bs256_acc71.ckpt --no-check-certificate
     ```
 
 ### Preparing Data
@@ -344,21 +344,21 @@ The Windows system outputs information to an interactive command line. When runn
 
         ```bash
         # Windows or Linux with Python
-        python train.py --config_path ./default_config.yaml --platform Ascend --dataset_path <TRAIN_DATASET_PATH>  --pretrain_ckpt  ./pretrain_checkpoint mobilenetv2_ascend.ckpt --freeze_layer backbone
+        python train.py --config_path ./default_config.yaml --platform Ascend --dataset_path <TRAIN_DATASET_PATH>  --pretrain_ckpt  ./pretrain_checkpoint/mobilenetv2_ascend_v120_imagenet2012_official_cv_bs256_acc71.ckpt --freeze_layer backbone
         ```
 
     - Example 2: Use the shell script to call an Ascend AI Processor whose device ID is `0`.
 
         ```bash
         # Linux with Shell
-        sh run_train.sh Ascend 1 0 ~/rank_table.json <TRAIN_DATASET_PATH> ../pretrain_checkpoint/mobilenetv2_ascend.ckpt backbone
+        sh run_train.sh Ascend 1 0 ~/rank_table.json <TRAIN_DATASET_PATH> ../pretrain_checkpoint/mobilenetv2_ascend_v120_imagenet2012_official_cv_bs256_acc71.ckpt backbone
         ```
 
     - Example 3: Use the shell script to call eight Ascend AI Processors whose device IDs are `0,1,2,3,4,5,6,7`.
 
         ```bash
         # Linux with Shell
-        sh run_train.sh Ascend 8 0,1,2,3,4,5,6,7 ~/rank_table.json <TRAIN_DATASET_PATH> ../pretrain_checkpoint/mobilenetv2_ascend.ckpt backbone
+        sh run_train.sh Ascend 8 0,1,2,3,4,5,6,7 ~/rank_table.json <TRAIN_DATASET_PATH> ../pretrain_checkpoint/mobilenetv2_ascend_v120_imagenet2012_official_cv_bs256_acc71.ckpt backbone
         ```
 
 ### Fine-Tuning Training Result
