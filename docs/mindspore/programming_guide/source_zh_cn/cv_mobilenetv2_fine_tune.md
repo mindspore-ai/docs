@@ -162,7 +162,7 @@ cd ./models/official/cv/mobilenetv2
 
 ### 准备预训练模型
 
-用户需要根据不同处理器种类[下载CPU/GPU预训练模型](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2_cpu_gpu.ckpt)或[下载Ascend预训练模型](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2_ascend.ckpt)到以下目录：  
+用户需要根据不同处理器种类[下载CPU/GPU预训练模型](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2_cpu_gpu.ckpt)或[下载Ascend预训练模型](https://download.mindspore.cn/model_zoo/r1.2/mobilenetv2_ascend_v120_imagenet2012_official_cv_bs256_acc71/mobilenetv2_ascend_v120_imagenet2012_official_cv_bs256_acc71.ckpt)到以下目录：  
 `./pretrain_checkpoint/`
 
 - CPU/GPU 处理器
@@ -176,7 +176,7 @@ cd ./models/official/cv/mobilenetv2
 
     ```bash
     mkdir pretrain_checkpoint
-    wget -P ./pretrain_checkpoint https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2_ascend.ckpt --no-check-certificate
+    wget -P ./pretrain_checkpoint https://download.mindspore.cn/model_zoo/r1.2/mobilenetv2_ascend_v120_imagenet2012_official_cv_bs256_acc71/mobilenetv2_ascend_v120_imagenet2012_official_cv_bs256_acc71.ckpt --no-check-certificate
     ```
 
 ### 准备数据
@@ -345,21 +345,21 @@ Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_
 
         ```bash
         # Windows or Linux with Python
-        python train.py --config_path ./default_config.yaml --platform Ascend --dataset_path <TRAIN_DATASET_PATH>  --pretrain_ckpt  ./pretrain_checkpoint mobilenetv2_ascend.ckpt --freeze_layer backbone
+        python train.py --config_path ./default_config.yaml --platform Ascend --dataset_path <TRAIN_DATASET_PATH>  --pretrain_ckpt  ./pretrain_checkpoint/mobilenetv2_ascend_v120_imagenet2012_official_cv_bs256_acc71.ckpt --freeze_layer backbone
         ```
 
     - 使用样例2：通过Shell脚本调用1个Ascend AI处理器，设备ID为“0”。
 
         ```bash
         # Linux with Shell
-        sh run_train.sh Ascend 1 0 ~/rank_table.json <TRAIN_DATASET_PATH> ../pretrain_checkpoint/mobilenetv2_ascend.ckpt backbone
+        sh run_train.sh Ascend 1 0 ~/rank_table.json <TRAIN_DATASET_PATH> ../pretrain_checkpoint/mobilenetv2_ascend_v120_imagenet2012_official_cv_bs256_acc71.ckpt backbone
         ```
 
     - 使用样例3：通过Shell脚本调用8个Ascend AI处理器，设备ID为”0,1,2,3,4,5,6,7“。
 
         ```bash
         # Linux with Shell
-        sh run_train.sh Ascend 8 0,1,2,3,4,5,6,7 ~/rank_table.json <TRAIN_DATASET_PATH> ../pretrain_checkpoint/mobilenetv2_ascend.ckpt backbone
+        sh run_train.sh Ascend 8 0,1,2,3,4,5,6,7 ~/rank_table.json <TRAIN_DATASET_PATH> ../pretrain_checkpoint/mobilenetv2_ascend_v120_imagenet2012_official_cv_bs256_acc71.ckpt backbone
         ```
 
 ### 微调训练结果
