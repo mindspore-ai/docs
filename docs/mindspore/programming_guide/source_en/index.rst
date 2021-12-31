@@ -1188,7 +1188,7 @@ MindSpore Programming Guide
                         </div>
                      </a>
                   </div>
-                  <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Running experience-local hidden">
+                  <div class="doc-article-item all hardware-ascend hardware-gpu stage-Model-Running experience-local hidden">
                      <a href="https://www.mindspore.cn/docs/programming_guide/en/master/run.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
