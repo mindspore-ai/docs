@@ -1,4 +1,4 @@
-# 优化模型(训练后量化)
+# 训练后量化
 
 `Windows` `Linux` `模型转换` `模型调优` `中级` `高级`
 
@@ -237,7 +237,7 @@ min_quant_weight_channel=16
 
 全量化计算激活值的量化参数，用户需要提供校准数据集。校准数据集最好来自真实推理场景，能表征模型的实际输入情况，数量在100个左右。
 
-针对图片数据，目前支持通道调整、归一化、缩放、裁剪等预处理的功能。用户可以根据推理时所需的预处理操作，设置相应的[参数](#数据预处理)。
+针对图片数据，目前支持通道调整、归一化、缩放、裁剪等预处理的功能。用户可以根据推理时所需的预处理操作，设置相应的[参数](https://www.mindspore.cn/lite/docs/zh-CN/master/use/post_training_quantization.html#data-preprocessing)。
 
 全量化转换命令的一般形式为：
 
@@ -286,9 +286,11 @@ activation_quant_method=MAX_MIN
 bias_correction=true
 ```
 
+> 全量化需要执行推理，等待时间可能较长，如果需要查看日志，可以在执行前设置export GLOG_v=1，用于打印相关Info级别日志。
+
 ### 部分模型精度结果
 
-|  模型                |  测试数据集   | method_x      |  FP32模型精度    |  全量化精度（8bit） | 说明 |
+|  模型                |  测试数据集   | 量化方法    |  FP32模型精度    |  全量化精度（8bit） | 说明 |
 | --------            | -------      | -----          | -----            | -----     | -----  |
 | [Inception_V3](https://storage.googleapis.com/download.tensorflow.org/models/tflite/model_zoo/upload_20180427/inception_v3_2018_04_27.tgz) | [ImageNet](http://image-net.org/) | KL |    77.60%   |   77.40%   | 校准数据集随机选择ImageNet Validation数据集中的100张 |
 | [Mobilenet_V1_1.0_224](https://storage.googleapis.com/download.tensorflow.org/models/mobilenet_v1_2018_02_22/mobilenet_v1_1.0_224.tgz)      | [ImageNet](http://image-net.org/) | KL |    70.96%    |  70.31%  | 校准数据集随机选择ImageNet Validation数据集中的100张 |
@@ -330,20 +332,20 @@ debug_info_save_path=/home/workspace/mindspore/debug_info_save_path
 
 量化参数文件`quant_param.csv`包含所有量化Tensor的量化参数信息，量化参数相关字段如下所示：
 
-| Type          | Name              |
-| ------------- | ----------------- |
-| NodeName      | 节点名            |
-| NodeType      | 节点类型          |
-| TensorName    | Tensor名          |
-| ElementsNum   | Tensor数据量      |
-| Dims          | Tensor维度        |
-| Scale         | 量化参数scale     |
-| ZeroPoint     | 量化参数ZeroPoint |
-| Bits          | 量化比特数        |
-| CorrctionVar  | 误差矫正系数-方差 |
-| CorrctionMean | 误差矫正系数-均值 |
+| Type           | Name              |
+| -------------- | ----------------- |
+| NodeName       | 节点名            |
+| NodeType       | 节点类型          |
+| TensorName     | Tensor名          |
+| ElementsNum    | Tensor数据量      |
+| Dims           | Tensor维度        |
+| Scale          | 量化参数scale     |
+| ZeroPoint      | 量化参数ZeroPoint |
+| Bits           | 量化比特数        |
+| CorrectionVar  | 误差矫正系数-方差 |
+| CorrectionMean | 误差矫正系数-均值 |
 
-> 由于混合比特量化是非标准量化，该量化参数文件可能为空。
+> 由于混合比特量化是非标准量化，该量化参数文件可能不存在。
 
 ### 设置无需量化Node
 

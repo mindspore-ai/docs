@@ -75,6 +75,18 @@
     - 问题分析：转换工具支持该算子转换，但是不支持该算子的某种特殊属性或参数导致模型转换失败（示例日志以caffe为例，其他框架日志信息相同）。
     - 解决方法：可以尝试通过继承API接口[NodeParser](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_converter.html#nodeparser) 添加自定义算子parser并通过[NodeParserRegistry](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#nodeparserregistry) 进行Parser注册；或者在社区提[ISSUE](https://gitee.com/mindspore/mindspore/issues) 给MindSpore Lite开发人员处理。
 
+## 训练后量化转换失败
+
+### 全量化转换失败
+
+1. 针对动态Shape的模型，需要在[转换命令](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html#id5)上设置`--inputShape=<INPUTSHAPE>`，例如
+
+    ```
+    ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/full_quant.cfg --inputShape=intput_1:1,224,224,3;intput_2:1,48;
+    ```
+
+2. 针对多Batch的模型，需要无法直接使用数据预处理的功能，用户需要提前预处理矫正数据集，然后以`BIN`的形式设置校准数据集。
+
 ## 模型推理失败
 
 ### 图加载失败

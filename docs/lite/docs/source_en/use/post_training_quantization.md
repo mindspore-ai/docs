@@ -1,4 +1,4 @@
-# Optimizing the Model (Post Training Quantization)
+# Post Training Quantization
 
 `Windows` `Linux` `Model Converting` `Model Optimization` `Intermediate` `Expert`
 
@@ -130,6 +130,8 @@ To calculate the full quantization activation quantized parameter, the user need
 | center_crop_width  | Optional  | Center crop width                                            | Integer        | -             | [1, 65535]                                                   |
 | center_crop_height | Optional  | Center crop height                                           | Integer        | -             | [1, 65535]                                                   |
 
+> Full quantification needs to inference, and the waiting time may be longer. If you need to view the log, you can set export GLOG_v=1 before execution to print the relevant Info level log.
+
 The data preprocessing parameter configuration is as follows:
 
 ```ini
@@ -236,7 +238,7 @@ In scenarios where the model running speed needs to be improved and the model ru
 
 To calculate a quantization parameter of an activation value, you need to provide a calibration dataset. It is recommended that the calibration dataset be obtained from the actual inference scenario and can represent the actual input of a model. The number of data records is about 100.
 
-For image data, currently supports channel pack, normalization, resize, center crop processing. The user can set the corresponding [parameter](#data-preprocessing) according to the preprocessing operation requirements.
+For image data, currently supports channel pack, normalization, resize, center crop processing. The user can set the corresponding [parameter](https://www.mindspore.cn/lite/docs/en/master/use/post_training_quantization.html#data-preprocessing) according to the preprocessing operation requirements.
 
 The general form of the full quantization conversion command is:
 
@@ -287,7 +289,7 @@ bias_correction=true
 
 ### Partial Model Accuracy Result
 
-| Model                                                        | Test Dataset                      | method_x | FP32 Model Accuracy | Full Quantization Accuracy (8 bits) | Description                                                  |
+| Model                                                        | Test Dataset                      | quant_method | FP32 Model Accuracy | Full Quantization Accuracy (8 bits) | Description                                                  |
 | --------            | -------      | -----          | -----            | -----     | -----  |
 | [Inception_V3](https://storage.googleapis.com/download.tensorflow.org/models/tflite/model_zoo/upload_20180427/inception_v3_2018_04_27.tgz) | [ImageNet](http://image-net.org/) | KL       | 77.60%              | 77.40%                              | Randomly select 100 images from the ImageNet Validation dataset as a calibration dataset. |
 | [Mobilenet_V1_1.0_224](https://storage.googleapis.com/download.tensorflow.org/models/mobilenet_v1_2018_02_22/mobilenet_v1_1.0_224.tgz) | [ImageNet](http://image-net.org/) | KL       | 70.96%              | 70.31%                              | Randomly select 100 images from the ImageNet Validation dataset as a calibration dataset. |
@@ -329,20 +331,20 @@ The data distribution statistics report will count the original data distributio
 
 The quantization parameter file `quant_param.csv` contains the quantization parameter information of all quantized Tensors. The quantization parameter related fields are as follows:
 
-| Type          | Name                                 |
-| ------------- | ------------------------------------ |
-| NodeName      | The node name                        |
-| NodeType      | The node type                        |
-| TensorName    | The tensor name                      |
-| ElementsNum   | The Tensor elements num              |
-| Dims          | The tensor dims                      |
-| Scale         | The quantization parameter scale     |
-| ZeroPoint     | The quantization parameter zeropoint |
-| Bits          | The number of quantization bits      |
-| CorrctionVar  | Bias correction coefficient-variance |
-| CorrctionMean | Bias correction coefficient-mean     |
+| Type           | Name                                 |
+| -------------- | ------------------------------------ |
+| NodeName       | The node name                        |
+| NodeType       | The node type                        |
+| TensorName     | The tensor name                      |
+| ElementsNum    | The Tensor elements num              |
+| Dims           | The tensor dims                      |
+| Scale          | The quantization parameter scale     |
+| ZeroPoint      | The quantization parameter zeropoint |
+| Bits           | The number of quantization bits      |
+| CorrectionVar  | Bias correction coefficient-variance |
+| CorrectionMean | Bias correction coefficient-mean     |
 
-> Mixed bit quantization is non-standard quantization, the quantization parameter file may be empty.
+> Mixed bit quantization is non-standard quantization, the quantization parameter file may not exist.
 
 ### Skip Quantization Node
 
