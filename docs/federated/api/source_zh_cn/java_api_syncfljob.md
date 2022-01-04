@@ -7,6 +7,7 @@
     - [flJobRun](#fljobrun)
     - [modelInference](#modelinference)
     - [getModel](#getmodel)
+    - [stopFLJob](stopFLJob)
 
 <!-- /TOC -->
 
@@ -16,7 +17,7 @@
 import com.mindspore.flclient.SyncFLJob
 ```
 
-SyncFLJob定义了端侧联邦学习启动接口flJobRun()、端侧推理接口modelInference()、获取云侧最新模型的接口getModel()。
+SyncFLJob定义了端侧联邦学习启动接口flJobRun()、端侧推理接口modelInference()、获取云侧最新模型的接口getModel()、停止联邦学习训练任务的接口stopFLJob()。
 
 ## 公有成员函数
 
@@ -25,6 +26,7 @@ SyncFLJob定义了端侧联邦学习启动接口flJobRun()、端侧推理接口m
 | public FLClientStatus flJobRun() |
 | public int[] modelInference()    |
 | public FLClientStatus getModel() |
+| public void stopFLJob()          |
 
 ## flJobRun
 
@@ -61,3 +63,13 @@ public FLClientStatus getModel()
 - 返回值
 
   返回getModel请求状态码。
+
+## stopFLJob
+
+```java
+public void stopFLJob()
+```
+
+在联邦学习训练任务中，可通过调用该接口停止训练任务。
+
+当一个线程调用SyncFLJob.flJobRun()时，可在联邦学习训练过程中，使用另外一个线程调用SyncFLJob.stopFLJob()停止联邦学习训练任务。
