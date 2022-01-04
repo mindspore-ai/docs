@@ -16,7 +16,7 @@
 
 > 你可以在这下载完整的样例代码：
 >
-> https://gitee.com/mindspore/docs/tree/master/docs/sample_code/dimension_reduce_training
+> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/dimension_reduce_training>
 
 ### 配置分布式环境变量
 
