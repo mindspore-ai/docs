@@ -229,13 +229,13 @@ print("result: ", res)
 在`cifar_resnet50.py`所在的目录，输入以下代码即可以进行模型训练。
 
 ```bash
-python cifar_resnet50.py --dataset_path=cifar-10-batches-bin --device_target=GPU
+python cifar_resnet50.py --dataset_path=cifar-10-batches-bin --device_target=Ascend
 ```
 
 参数解释：
 
 - `--dataset_path`：设置工程运行时，本文档设置读取数据集的路径为`cifar-10-batches-bin`。
-- `--device_target`：设置训练模型的器件，本文中设置为`GPU`，可选择的配置为`CPU`、`GPU`和`Ascend`。
+- `--device_target`：设置训练模型的器件，本文中设置为`Ascend`，可选择的配置为`CPU`、`GPU`和`Ascend`。
 
 训练完成后会生成`train_resnet_cifar10-1_1875.ckpt`模型权重文件。
 
