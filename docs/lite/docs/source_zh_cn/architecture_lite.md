@@ -4,7 +4,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/architecture_lite.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-MindSpore Lite是一款极速、极智、极简的端侧AI引擎，使能全场景智能应用，为用户提供端到端的解决方案，帮助用户使能AI能力。
+MindSpore Lite是一款极速、极智、极简的AI引擎，使能全场景智能应用，为用户提供端到端的解决方案，帮助用户使能AI能力。
 
 MindSpore Lite 分为离线模块和在线模块两个部分，其框架的总体架构如下所示：
 
