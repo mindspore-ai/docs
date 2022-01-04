@@ -67,6 +67,13 @@ The functional operators are the pre-instantiated Primitive operators, which can
     result_typeof = ops.typeof(input_x)
     print(result_typeof)
 
+# outputs:
+# 1
+# True
+# False
+# True
+# Tensor[Int32]
+
 .. list-table::
    :widths: 50 50
    :header-rows: 1
