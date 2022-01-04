@@ -30,7 +30,7 @@ from mindspore import Tensor
 def construct_tensor(x):
     if x is None:
         raise ValueError("input is an unknown value")
-    return Tensor(np.array(x))
+    return Tensor(np.array(x, dtype=np.float32))
 
 class Net(nn.Cell):
     def __init__(self):
@@ -58,7 +58,7 @@ print(out)
 def construct_tensor(x):
     if x is None:
         raise ValueError("input is an unknown value")
-    return Tensor(np.array(x))
+    return Tensor(np.array(x, dtype=np.float32))
 
 class Net(nn.Cell):
     def __init__(self):
