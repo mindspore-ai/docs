@@ -469,7 +469,7 @@ mindspore-lite-{version}-linux-x64
     打开上一步创建的`CMakeLists.txt`，粘贴如下内容，其中每句话的含义见注释：
 
     ```cpp
-    cmake_minimum_required(VERSION 3.12)  # cmake版本要求最低3.14
+    cmake_minimum_required(VERSION 3.12)  # cmake版本要求最低3.12
     project(Demo)  # 工程名为Demo
 
     # gcc 版本要求大于等于7.3.0
@@ -489,11 +489,6 @@ mindspore-lite-{version}-linux-x64
             mindspore-lite
             pthread
             dl
-    )
-    # 在Windows里编译，链接ssp，在Linux里编译，链接dl
-    target_link_libraries(
-        demo
-        dl
     )
     ```
 
@@ -767,9 +762,11 @@ mindspore-lite-{version}-linux-x64
 
 8. 更详细的集成说明
 
-关于使用C++接口进行集成的更多细节及高级用法，可以参考[使用c++接口执行推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html)。
-关于使用Java接口进行集成开发，可以参考[使用Java接口执行推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_java.html)。
-关于使用C接口进行集成开发，可以参考[使用c接口执行推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_c.html)。
+    关于使用C++接口进行集成的更多细节及高级用法，可以参考[使用C++接口执行推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html)。
+
+    关于使用Java接口进行集成开发，可以参考[使用Java接口执行推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_java.html)。
+
+    关于使用C接口进行集成开发，可以参考[使用C接口执行推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_c.html)。
 
 ## Windows篇
 
@@ -956,12 +953,12 @@ mindspore-lite-{version}-win-x64
 
     在使用`benchmark`执行转换时，需设定相关参数。本例中用到的相关参数定义如下表。
 
-    | 参数名            | 是否必选 | 参数说明                                                     | 参数类型                                                 | 默认值 | 取值范围 |
-    | ----------------- | ---- | ------------------------------------------------------------ | ------ | -------- | ---------------------------------- |
-    | `--modelFile=<MODELPATH>` | 必选 | 指定需要进行基准测试的MindSpore Lite模型文件路径。 | String | null  | -        |
-    | `--numThreads=<NUMTHREADS>` | 可选 | 指定模型推理程序运行的线程数。 | Integer | 2 | - |
-    | `--inDataFile=<INDATAPATH>` | 可选 | 指定测试模型输入数据的文件路径，默认接收二进制格式数据文件。如果未设置，则使用随机输入。 | String | null | - |
-    | `--benchmarkDataFile=<CALIBDATAPATH>` | 可选 | 指定标杆数据（用于精度对比的数据）的文件路径，接收按规定格式排列的字符文本。标杆数据作为该测试模型的对比输出，是该测试模型使用相同输入并由其它深度学习框架前向推理而来。 | String | null | - |
+    | 参数名            | 是否必选 | 参数说明                                                     | 参数类型                                                 | 默认值 |
+    | ----------------- | ---- | ------------------------------------------------------------ | ------ | -------- |
+    | `--modelFile=<MODELPATH>` | 必选 | 指定需要进行基准测试的MindSpore Lite模型文件路径。 | String | null  |
+    | `--numThreads=<NUMTHREADS>` | 可选 | 指定模型推理程序运行的线程数。 | Integer | 2 |
+    | `--inDataFile=<INDATAPATH>` | 可选 | 指定测试模型输入数据的文件路径，默认接收二进制格式数据文件。如果未设置，则使用随机输入。 | String | null |
+    | `--benchmarkDataFile=<CALIBDATAPATH>` | 可选 | 指定标杆数据（用于精度对比的数据）的文件路径，接收按规定格式排列的字符文本。标杆数据作为该测试模型的对比输出，是该测试模型使用相同输入并由其它深度学习框架前向推理而来。 | String | null |
 
     > - 参数名和参数值之间用等号连接，中间不能有空格。
 
@@ -1129,7 +1126,7 @@ mindspore-lite-{version}-win-x64
     打开上一步创建的`CMakeLists.txt`，粘贴如下内容，其中每句话的含义见注释：
 
     ```cpp
-    cmake_minimum_required(VERSION 3.12)  # cmake版本要求最低3.14
+    cmake_minimum_required(VERSION 3.12)  # cmake版本要求最低3.12
     project(Demo)  # 工程名为Demo
 
     # gcc 版本要求大于等于7.3.0
@@ -1427,6 +1424,8 @@ mindspore-lite-{version}-win-x64
 
 8. 更详细的集成说明
 
-关于使用C++接口进行集成的更多细节及高级用法，可以参考[使用c++接口执行推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html)。
-关于使用Java接口进行集成开发，可以参考[使用Java接口执行推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_java.html)。
-关于使用C接口进行集成开发，可以参考[使用c接口执行推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_c.html)。
+    关于使用C++接口进行集成的更多细节及高级用法，可以参考[使用C++接口执行推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html)。
+
+    关于使用Java接口进行集成开发，可以参考[使用Java接口执行推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_java.html)。
+
+    关于使用C接口进行集成开发，可以参考[使用C接口执行推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_c.html)。
