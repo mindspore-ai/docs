@@ -254,3 +254,14 @@ Debugging
     :template: classtemplate.rst
 
     mindspore.set_dump
+
+Memory Recycle
+--------------------------
+
+.. autosummary::
+    :toctree: mindspore
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.ms_memory_recycle
+    
