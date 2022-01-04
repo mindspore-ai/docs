@@ -105,23 +105,23 @@ model = Model(net, loss_fn=loss, optimizer=optim)
 
 #### 预生成学习率列表
 
-`mindspore.nn.dynamic_lr`模块有以下几个类，分别使用不同的数学计算方法对学习率进行计算：
+本模块中的动态学习率为函数，配合优化器使用时，调用函数并将结果列表`lr`传递给优化器。在训练过程中，优化器将 `lr[current_step]`作为当前学习率。
 
-- `piecewise_constant_lr`类：基于得到分段不变的学习速率。
+`mindspore.nn.dynamic_lr`支持以下不同的实现方式：
 
-- `exponential_decay_lr`类：基于指数衰减函数计算学习率。
+- `piecewise_constant_lr`：基于得到分段不变的学习速率。
 
-- `natural_exp_decay_lr`类：基于自然指数衰减函数计算学习率。
+- `exponential_decay_lr`：基于指数衰减函数计算学习率。
 
-- `inverse_decay_lr`类：基于反时间衰减函数计算学习速率。
+- `natural_exp_decay_lr`：基于自然指数衰减函数计算学习率。
 
-- `cosine_decay_lr`类：基于余弦衰减函数计算学习率。
+- `inverse_decay_lr`：基于反时间衰减函数计算学习速率。
 
-- `polynomial_decay_lr`类：基于多项式衰减函数计算学习率。
+- `cosine_decay_lr`：基于余弦衰减函数计算学习率。
 
-- `warmup_lr`类：提高学习率。
+- `polynomial_decay_lr`：基于多项式衰减函数计算学习率。
 
-它们属于`dynamic_lr`的不同实现方式。
+- `warmup_lr`：提高学习率。
 
 以`piecewise_constant_lr`为例：
 
@@ -132,6 +132,9 @@ milestone = [2, 5, 10]
 learning_rates = [0.1, 0.05, 0.01]
 lr = nn.dynamic_lr.piecewise_constant_lr(milestone, learning_rates)
 print(lr)
+
+net = Net()
+optim = nn.SGD(net.trainable_params(), learning_rate=lr)
 ```
 
 输出结果如下：
@@ -142,23 +145,25 @@ print(lr)
 
 #### 定义学习率计算图
 
-`mindspore.nn.learning_rate_schedule`模块下有以下几个：`ExponentialDecayLR`类、`NaturalExpDecayLR`类、`InverseDecayLR`类、`CosineDecayLR`类、`PolynomialDecayLR`类和`WarmUpLR`类。它们都属于`learning_rate_schedule`，只是实现方式不同，各自含义如下：
+本模块中的动态学习率为`LearningRateSchedule` 的子类，配合优化器使用时，将对应的`LearningRateSchedule`子类的实例传递给优化器。在训练过程中，优化器调用以`current_step`为输入的实例，以获得当前的学习率。
 
-- `ExponentialDecayLR`类：基于指数衰减函数计算学习率。
+`mindspore.nn.learning_rate_schedule`模块包含以下实现方式：
 
-- `NaturalExpDecayLR`类：基于自然指数衰减函数计算学习率。
+- `ExponentialDecayLR`：基于指数衰减函数计算学习率。
 
-- `InverseDecayLR`类：基于反时间衰减函数计算学习速率。
+- `NaturalExpDecayLR`：基于自然指数衰减函数计算学习率。
 
-- `CosineDecayLR`类：基于余弦衰减函数计算学习率。
+- `InverseDecayLR`：基于反时间衰减函数计算学习速率。
 
-- `PolynomialDecayLR`类：基于多项式衰减函数计算学习率。
+- `CosineDecayLR`：基于余弦衰减函数计算学习率。
 
-- `WarmUpLR`类：提高学习率。
+- `PolynomialDecayLR`：基于多项式衰减函数计算学习率。
 
-它们属于`learning_rate_schedule`的不同实现方式。
+- `WarmUpLR`：提高学习率。
 
-例如`ExponentialDecayLR`类代码样例如下：
+以`ExponentialDecayLR`为例：
+
+> ExponentialDecayLR仅支持GPU和Ascend后端。
 
 ```python
 from mindspore import nn
@@ -170,15 +175,8 @@ polynomial_decay_lr = nn.learning_rate_schedule.PolynomialDecayLR(learning_rate=
                                    decay_steps=4,
                                    power=0.5 )
 
-global_step = Tensor(2, mstype.int32)
-result = polynomial_decay_lr(global_step)
-print(result)
-```
-
-输出结果如下：
-
-```text
-0.0736396
+net = Net()
+optim = nn.SGD(net.trainable_params(), learning_rate=polynomial_decay_lr)
 ```
 
 ## 权重衰减
