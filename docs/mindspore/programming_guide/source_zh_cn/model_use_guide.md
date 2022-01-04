@@ -59,11 +59,13 @@
 
 - predict：用于对输入的一组数据进行推理，输出预测结果。
 
-混合精度原理及LossScale策略详见文档：<https://mindspore.cn/docs/programming_guide/zh-CN/master/enable_mixed_precision.html>和<https://mindspore.cn/docs/programming_guide/zh-CN/master/lossscale.html>。
+相关特性如下：
 
-Boost功能详见文档：<https://mindspore.cn/docs/programming_guide/zh-CN/master/apply_gradient_accumulation.html#boost>。
-
-分布式功能详见文档：<https://mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training.html>。
+- [混合精度](https://mindspore.cn/docs/programming_guide/zh-CN/master/enable_mixed_precision.html)
+- [损失缩放](https://mindspore.cn/docs/programming_guide/zh-CN/master/lossscale.html)
+- [分布式并行](https://mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training.html)
+- [自适应梯度求和](https://mindspore.cn/docs/programming_guide/zh-CN/master/apply_adaptive_summation.html)
+- [降维训练](https://mindspore.cn/docs/programming_guide/zh-CN/master/apply_dimention_reduce_training.html)
 
 ## 模型训练、评估和推理
 
@@ -211,7 +213,7 @@ print(output)
 
 在有多个数据或者多个标签的场景下，可以手动将前向网络和自定义的损失函数链接起来作为`Model`的`network`，`loss_fn`使用默认值`None`，此时`Model`内部便会直接使用`nn.TrainOneStepCell`将`network`与`optimizer`组成训练网络，而不会经过`nn.WithLossCell`。
 
-这里使用`损失函数`<https://www.mindspore.cn/docs/programming_guide/zh-CN/master/loss.html>文档中的例子：
+这里使用[损失函数](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/loss.html)文档中的例子：
 
 1. 定义多标签数据集
 
