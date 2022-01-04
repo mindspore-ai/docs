@@ -387,9 +387,11 @@ allreduce2 = ops.AllReduce().add_prim_attr("fusion", 1)
 
 `allreduce1` and `allreduce2` will be fused into one operator during execution.
 
-In `AUTO_PARALLEL` and `SEMI_AUTO_PARALLEL` mode, some communication operators used for parameters or gradients aggregation are inserted automatically. So the attribute should be added on a `Cell` or a `Parameter`. For example:
+In `auto_parallel` and `semi_auto_parallel` mode, some communication operators used for parameters or gradients aggregation are inserted automatically. So the attribute should be added on a `Cell` or a `Parameter`. For example:
 
 ```python
+import numpy as np
+from mindspore import ops
 import mindspore.nn as nn
 from mindspore import Tensor, Parameter
 from mindspore import context
@@ -420,7 +422,7 @@ Here the `comm_fusion` of parameter `Net.p1` is 2, which means the attribute `fu
 
 ### layerwise_parallel
 
-In `HYBRID_PARALLEL` mode, you need to manually split the model. You need to manually add the `layerwise_parallel` flag to the parallel parameters of the model. The framework filters out the gradient aggregation operation for the parallel parameters of the model based on the flag.
+In `hybrid_parallel` mode, you need to manually split the model. You need to manually add the `layerwise_parallel` flag to the parallel parameters of the model. The framework filters out the gradient aggregation operation for the parallel parameters of the model based on the flag.
 
 The following is a code example:
 
@@ -428,5 +430,5 @@ The following is a code example:
 import numpy as np
 from mindspore import Parameter, Tensor
 
-x = Parameter(Tensor(np.ones([2, 2])), layerwise_parallel=True)
+x = Parameter(Tensor(np.ones([2, 2])), name='weight1', layerwise_parallel=True)
 ```

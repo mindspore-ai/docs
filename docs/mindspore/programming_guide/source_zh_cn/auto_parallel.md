@@ -385,9 +385,11 @@ allreduce2 = ops.AllReduce().add_prim_attr("fusion", 1)
 
 样例中的`allreduce1`和`allreduce2`将在执行时被融合为一个算子。
 
-在`AUTO_PARALLEL`和`SEMI_AUTO_PARALLEL`模式下自动插入的用于参数或者梯度聚合的通信算子，需要通过对`Cell`或者`Parameter`设置属性的方式间接添加。例如：
+在`auto_parallel`和`semi_auto_parallel`模式下自动插入的用于参数或者梯度聚合的通信算子，需要通过对`Cell`或者`Parameter`设置属性的方式间接添加。例如：
 
 ```python
+import numpy as np
+from mindspore import ops
 import mindspore.nn as nn
 from mindspore import Tensor, Parameter
 from mindspore import context
@@ -412,13 +414,13 @@ context.set_auto_parallel_context(parallel_mode="auto_parallel", device_num=8)
 net = Net().set_comm_fusion(2)
 ```
 
-样例中对参数`Net.p1`设置`comm_fusion`为2，表示作用于该参数的通信算子`fusion`属性为2。当需要批量对参数进行操作时，可以调用`set_comm_fusion`方法将网络`Net`中包含的全部参数设置`comm_fusion`属性。如果多次调用的话，属性值会被覆盖。
+样例中将参数`Net.p1`设置`comm_fusion`为2，表示作用于该参数的通信算子`fusion`属性为2。当需要批量对参数进行操作时，可以调用`set_comm_fusion`方法将网络`Net`中包含的全部参数设置`comm_fusion`属性。如果多次调用的话，属性值会被覆盖。
 
 > 当参数被共享时，需要保证连接参数的多个算子混合精度一致，否则融合会失败。
 
 ### layerwise_parallel
 
-在`HYBRID_PARALLEL`模式下用户需要手动切分模型，其中对于模型并行的参数用户需要手动打上标记`layerwise_parallel`，框架会根据此标记为模型并行参数过滤掉梯度聚合操作。
+在`hybrid_parallel`模式下用户需要手动切分模型，其中对于模型并行的参数，用户需要手动打上标记`layerwise_parallel`，框架会根据此标记为模型并行参数过滤掉梯度聚合操作。
 
 代码样例如下：
 
@@ -426,5 +428,5 @@ net = Net().set_comm_fusion(2)
 import numpy as np
 from mindspore import Parameter, Tensor
 
-x = Parameter(Tensor(np.ones([2, 2])), layerwise_parallel=True)
+x = Parameter(Tensor(np.ones([2, 2])), name='weight1', layerwise_parallel=True)
 ```
