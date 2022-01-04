@@ -118,17 +118,7 @@ mindspore-lite-{version}-linux-x64
 
 3. 转换参数说明
 
-    在使用converter_lite执行转换时，需设定相关参数。本例中用到的相关参数定义如下表。
-
-    | 参数  |  是否必选   |  参数说明  | 取值范围 |
-    | -------- | ------- | ----- | --- |
-    | `--fmk=<FMK>`  | 是 | 待转换模型的原始格式。 | MINDIR、CAFFE、TFLITE、TF、ONNX |
-    | `--modelFile=<MODELFILE>` | 是 | 待转换模型的路径。 | - |
-    | `--outputFile=<OUTPUTFILE>` | 是 | 转换后模型的路径及模型名，不需加后缀，可自动生成`.ms`后缀。 | - |
-    | `--weightFile=<WEIGHTFILE>` | 转换Caffe模型时必选 | 输入模型weight文件的路径。 | - |
-
-    > - 参数名和参数值之间用等号连接，中间不能有空格。
-    > - Caffe模型一般分为两个文件：`*.prototxt`模型结构，对应`--modelFile`参数；`*.caffemodel`模型权值，对应`--weightFile`参数。
+    在使用converter_lite执行转换时，需设定相关参数。本例中用到的相关参数定义如下表1所示。
 
     下面以各种类型模型的转换命令为例，说明各参数的使用方法。
 
@@ -192,6 +182,18 @@ mindspore-lite-{version}-linux-x64
     关于如何使用转换工具实现模型训练后量化，可参考[训练后量化](https://www.mindspore.cn/lite/docs/zh-CN/master/use/post_training_quantization.html)。
 
     如果用户希望转换后的模型能进行训练，需进行训练模型转换，详细可参考[训练模型转换](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_train.html)。
+
+表1：converter_lite参数定义
+
+| 参数                        | 是否必选            | 参数说明                                                    | 取值范围                        |
+| --------------------------- | ------------------- | ----------------------------------------------------------- | ------------------------------- |
+| `--fmk=<FMK>`               | 是                  | 待转换模型的原始格式。                                      | MINDIR、CAFFE、TFLITE、TF、ONNX |
+| `--modelFile=<MODELFILE>`   | 是                  | 待转换模型的路径。                                          | -                               |
+| `--outputFile=<OUTPUTFILE>` | 是                  | 转换后模型的路径及模型名，不需加后缀，可自动生成`.ms`后缀。 | -                               |
+| `--weightFile=<WEIGHTFILE>` | 转换Caffe模型时必选 | 输入模型weight文件的路径。                                  | -                               |
+
+> - 参数名和参数值之间用等号连接，中间不能有空格。
+> - Caffe模型一般分为两个文件：`*.prototxt`模型结构，对应`--modelFile`参数；`*.caffemodel`模型权值，对应`--weightFile`参数。
 
 #### Netron可视化
 
@@ -301,16 +303,7 @@ mindspore-lite-{version}-linux-x64
 
 3. `benchmark`参数说明
 
-    在使用`benchmark`执行转换时，需设定相关参数。本例中用到的相关参数定义如下表。
-
-    | 参数名            | 是否必选 | 参数说明                                                     | 参数类型                                                 | 默认值 |
-    | ----------------- | ---- | ------------------------------------------------------------ | ------ | -------- |
-    | `--modelFile=<MODELPATH>` | 必选 | 指定需要进行基准测试的MindSpore Lite模型文件路径。 | String | null  |
-    | `--numThreads=<NUMTHREADS>` | 可选 | 指定模型推理程序运行的线程数。 | Integer | 2 |
-    | `--inDataFile=<INDATAPATH>` | 可选 | 指定测试模型输入数据的文件路径，默认接收二进制格式数据文件。如果未设置，则使用随机输入。 | String | null |
-    | `--benchmarkDataFile=<CALIBDATAPATH>` | 可选 | 指定标杆数据（用于精度对比的数据）的文件路径，接收按规定格式排列的字符文本。标杆数据作为该测试模型的对比输出，是该测试模型使用相同输入并由其它深度学习框架前向推理而来。 | String | null |
-
-    > - 参数名和参数值之间用等号连接，中间不能有空格。
+    在使用`benchmark`执行转换时，需设定相关参数。本例中用到的相关参数定义如下表2所示。
 
 4. 执行推理，分析推理性能
 
@@ -355,7 +348,7 @@ mindspore-lite-{version}-linux-x64
     我们提供的标杆数据也必须拥有相同的数据大小，才能跟模型输出进行对比，得到推理精度误差量。
     `benchmark.exe`的`benchmarkDataFile`选项接收特定格式的字符文本文件，它的格式如下：
 
-    ```txt
+    ```text
     [输出节点1名称] [输出节点1形状的维度长度] [输出节点1形状的第1维值] ... [输出节点1形状的第n维值]
     [节点1数据1]  [节点1数据2] ...
     [输出节点2名称] [输出节点2形状的维度长度] [输出节点2形状的第1维值] ... [输出节点2形状的第n维值]
@@ -365,7 +358,7 @@ mindspore-lite-{version}-linux-x64
     在之前的`Netron`打开模型章节，我们已经知道`add.ms`模型，输出的节点名为`Add`，该节点输出的形状为`10x10`，节点形状的维度长度为2，节点形状的第1维值为10，节点形状的第2维值为10。
     输出节点值应全为2。故本例标杆数据如下：
 
-    ```txt
+    ```text
     Add 2 10 10
     2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0
     ```
@@ -385,7 +378,7 @@ mindspore-lite-{version}-linux-x64
 
     在执行命令后，若推理成功，则会输出类似如下统计信息，在输出信息的最后，可以看到本例中，推理的精度误差为0%。
 
-    ```
+    ```text
     ModelPath = add.ms
     InDataPath = add.bin
     ConfigFilePath =
@@ -417,6 +410,17 @@ mindspore-lite-{version}-linux-x64
 6. 高级功能
 
     关于`benchmark`的更详细说明，以及关于如何使用`benchmark`来进行基准测试、耗时定量分析、误差分析、Dump数据等，可以参考[benchmark](https://www.mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html)。
+
+表2：benchmark参数定义
+
+| 参数名                                | 是否必选 | 参数说明                                                                                                                                                                 | 参数类型 | 默认值 |
+| ------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- | ------ |
+| `--modelFile=<MODELPATH>`             | 必选     | 指定需要进行基准测试的MindSpore Lite模型文件路径。                                                                                                                       | String   | null   |
+| `--numThreads=<NUMTHREADS>`           | 可选     | 指定模型推理程序运行的线程数。                                                                                                                                           | Integer  | 2      |
+| `--inDataFile=<INDATAPATH>`           | 可选     | 指定测试模型输入数据的文件路径，默认接收二进制格式数据文件。如果未设置，则使用随机输入。                                                                                 | String   | null   |
+| `--benchmarkDataFile=<CALIBDATAPATH>` | 可选     | 指定标杆数据（用于精度对比的数据）的文件路径，接收按规定格式排列的字符文本。标杆数据作为该测试模型的对比输出，是该测试模型使用相同输入并由其它深度学习框架前向推理而来。 | String   | null   |
+
+> - 参数名和参数值之间用等号连接，中间不能有空格。
 
 #### 集成推理
 
@@ -628,7 +632,7 @@ mindspore-lite-{version}-linux-x64
 
     代码功能解析如下：
 
-    1) 读取模型文件到buf
+    (1) 读取模型文件到buf
 
     通过调用`ReadFile`函数，将模型文件读入到`model_buf`内存，用`size`变量保存模型的大小。
 
@@ -636,7 +640,7 @@ mindspore-lite-{version}-linux-x64
     char *model_buf = ReadFile(model_path.c_str(), &size);
     ```
 
-    2) 初始化Context配置
+    (2) 初始化Context配置
 
     Context保存了模型推理时所需的相关配置，包括算子偏好、线程数、自动并发以及推理处理器相关的其他配置。
     关于Context的详细说明，请参考Context的[API接口说明](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)。
@@ -664,7 +668,7 @@ mindspore-lite-{version}-linux-x64
     device_list.push_back(device_info);
     ```
 
-    3) 加载模型
+    (3) 加载模型
 
     首先创建一个`Model`类对象`model`，`Model`类定义了MindSpore中的模型，用于计算图管理。
     关于`Model`类的详细说明，可参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)。
@@ -682,7 +686,7 @@ mindspore-lite-{version}-linux-x64
     delete[](model_buf);
     ```
 
-    4) 传入数据
+    (4) 传入数据
 
     在执行模型推理前，需要设置推理的输入数据。
     此例，通过`Model.GetInputs`接口，获取模型的所有输入张量。单个张量的格式为`MSTensor`。
@@ -709,7 +713,7 @@ mindspore-lite-{version}-linux-x64
     }
     ```
 
-    5) 执行推理
+    (5) 执行推理
 
     首先申请一个放置模型推理输出张量的数组`outputs`，然后调用模型推理接口`Predict`，将输入张量和输出张量作它的参数。
     在推理成功后，输出张量被保存在`outputs`内。
@@ -719,7 +723,7 @@ mindspore-lite-{version}-linux-x64
     auto status = model->Predict(inputs, &outputs);
     ```
 
-    6) 推理结果核验
+    (6) 推理结果核验
 
     通过`MutableData`得到输出张量的数据指针。
     本例中，将它强转为浮点指针，用户可以根据自己模型的数据类型进行对应类型的转换，也可通过张量的`DataType`接口得到数据类型。
@@ -736,10 +740,10 @@ mindspore-lite-{version}-linux-x64
     }
     ```
 
-    7) 释放model对象
+    (7) 释放model对象
 
-    ```
-      delete model;
+    ```cpp
+    delete model;
     ```
 
 6. 编译
@@ -751,7 +755,7 @@ mindspore-lite-{version}-linux-x64
     输入`./demo`执行`demo`程序，根据上文，我们知道`demo`程序将加载`add.ms`模型，并将全为1的输入张量传递给模型进行推理，将推理后的输出张量的值进行打印。
     推理成功，得到如下输出，可以看到输出张量的值全为2，这和我们在[Netron可视化](#Netron可视化)中得到的模型理解相一致的，在本例中，模型值将输入为1的张量加上1之后传递给了输出张量：
 
-    ```txt
+    ```text
     ------- print outputs ----------
     out tensor name is:Add
     out tensor size is:400
@@ -837,17 +841,7 @@ mindspore-lite-{version}-win-x64
 
 3. 转换参数说明
 
-    在使用converter_lite.exe执行转换时，需设定相关参数。本例中用到的相关参数定义如下表。
-
-    | 参数  |  是否必选   |  参数说明  | 取值范围 |
-    | -------- | ------- | ----- | --- |
-    | `--fmk=<FMK>`  | 是 | 待转换模型的原始格式。 | MINDIR、CAFFE、TFLITE、TF、ONNX |
-    | `--modelFile=<MODELFILE>` | 是 | 待转换模型的路径。 | - |
-    | `--outputFile=<OUTPUTFILE>` | 是 | 转换后模型的路径及模型名，不需加后缀，可自动生成`.ms`后缀。 | - |
-    | `--weightFile=<WEIGHTFILE>` | 转换Caffe模型时必选 | 输入模型weight文件的路径。 | - |
-
-    > - 参数名和参数值之间用等号连接，中间不能有空格。
-    > - Caffe模型一般分为两个文件：`*.prototxt`模型结构，对应`--modelFile`参数；`*.caffemodel`模型权值，对应`--weightFile`参数。
+    在使用converter_lite.exe执行转换时，需设定相关参数。本例中用到的相关参数定义如下表3所示。
 
     下面以各种类型模型的转换命令为例，说明各参数的使用方法。
 
@@ -912,6 +906,18 @@ mindspore-lite-{version}-win-x64
 
     如果用户希望转换后的模型能进行训练，需进行训练模型转换，详细可参考[训练模型转换](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_train.html)。
 
+表3：converter_lite.exe参数定义
+
+| 参数                        | 是否必选            | 参数说明                                                    | 取值范围                        |
+| --------------------------- | ------------------- | ----------------------------------------------------------- | ------------------------------- |
+| `--fmk=<FMK>`               | 是                  | 待转换模型的原始格式。                                      | MINDIR、CAFFE、TFLITE、TF、ONNX |
+| `--modelFile=<MODELFILE>`   | 是                  | 待转换模型的路径。                                          | -                               |
+| `--outputFile=<OUTPUTFILE>` | 是                  | 转换后模型的路径及模型名，不需加后缀，可自动生成`.ms`后缀。 | -                               |
+| `--weightFile=<WEIGHTFILE>` | 转换Caffe模型时必选 | 输入模型weight文件的路径。                                  | -                               |
+
+> - 参数名和参数值之间用等号连接，中间不能有空格。
+> - Caffe模型一般分为两个文件：`*.prototxt`模型结构，对应`--modelFile`参数；`*.caffemodel`模型权值，对应`--weightFile`参数。
+
 #### Netron可视化
 
 参考Linux篇的[Netron可视化](#id3)。
@@ -951,16 +957,7 @@ mindspore-lite-{version}-win-x64
 
 3. `benchmark`参数说明
 
-    在使用`benchmark`执行转换时，需设定相关参数。本例中用到的相关参数定义如下表。
-
-    | 参数名            | 是否必选 | 参数说明                                                     | 参数类型                                                 | 默认值 |
-    | ----------------- | ---- | ------------------------------------------------------------ | ------ | -------- |
-    | `--modelFile=<MODELPATH>` | 必选 | 指定需要进行基准测试的MindSpore Lite模型文件路径。 | String | null  |
-    | `--numThreads=<NUMTHREADS>` | 可选 | 指定模型推理程序运行的线程数。 | Integer | 2 |
-    | `--inDataFile=<INDATAPATH>` | 可选 | 指定测试模型输入数据的文件路径，默认接收二进制格式数据文件。如果未设置，则使用随机输入。 | String | null |
-    | `--benchmarkDataFile=<CALIBDATAPATH>` | 可选 | 指定标杆数据（用于精度对比的数据）的文件路径，接收按规定格式排列的字符文本。标杆数据作为该测试模型的对比输出，是该测试模型使用相同输入并由其它深度学习框架前向推理而来。 | String | null |
-
-    > - 参数名和参数值之间用等号连接，中间不能有空格。
+    在使用`benchmark`执行转换时，需设定相关参数。本例中用到的相关参数定义如下表4所示。
 
 4. 执行推理，分析推理性能
 
@@ -1005,7 +1002,7 @@ mindspore-lite-{version}-win-x64
     我们提供的标杆数据也必须拥有相同的数据大小，才能跟模型输出进行对比，得到推理精度误差量。
     `benchmark.exe`的`benchmarkDataFile`选项接收特定格式的字符文本文件，它的格式如下：
 
-    ```txt
+    ```text
     [输出节点1名称] [输出节点1形状的维度长度] [输出节点1形状的第1维值] ... [输出节点1形状的第n维值]
     [节点1数据1]  [节点1数据2] ...
     [输出节点2名称] [输出节点2形状的维度长度] [输出节点2形状的第1维值] ... [输出节点2形状的第n维值]
@@ -1015,7 +1012,7 @@ mindspore-lite-{version}-win-x64
     在之前的`Netron`打开模型章节，我们已经知道`add.ms`模型，输出的节点名为`Add`，该节点输出的形状为`10x10`，节点形状的维度长度为2，节点形状的第1维值为10，节点形状的第2维值为10。
     输出节点值应全为2。故本例标杆数据如下：
 
-    ```txt
+    ```text
     Add 2 10 10
     2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0
     ```
@@ -1035,7 +1032,7 @@ mindspore-lite-{version}-win-x64
 
     在执行命令后，若推理成功，则会输出类似如下统计信息，在输出信息的最后，可以看到本例中，推理的精度误差为0%。
 
-    ```
+    ```text
     ModelPath = add.ms
     InDataPath = add.bin
     ConfigFilePath =
@@ -1067,6 +1064,17 @@ mindspore-lite-{version}-win-x64
 6. 高级功能
 
     关于`benchmark`的更详细说明，以及关于如何使用`benchmark`来进行基准测试、耗时定量分析、误差分析、Dump数据等，可以参考[benchmark](https://www.mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html)。
+
+表4：benchmark参数定义
+
+| 参数名            | 是否必选 | 参数说明                                                     | 参数类型                                                 | 默认值 |
+| ----------------- | ---- | ------------------------------------------------------------ | ------ | -------- |
+| `--modelFile=<MODELPATH>` | 必选 | 指定需要进行基准测试的MindSpore Lite模型文件路径。 | String | null  |
+| `--numThreads=<NUMTHREADS>` | 可选 | 指定模型推理程序运行的线程数。 | Integer | 2 |
+| `--inDataFile=<INDATAPATH>` | 可选 | 指定测试模型输入数据的文件路径，默认接收二进制格式数据文件。如果未设置，则使用随机输入。 | String | null |
+| `--benchmarkDataFile=<CALIBDATAPATH>` | 可选 | 指定标杆数据（用于精度对比的数据）的文件路径，接收按规定格式排列的字符文本。标杆数据作为该测试模型的对比输出，是该测试模型使用相同输入并由其它深度学习框架前向推理而来。 | String | null |
+
+> - 参数名和参数值之间用等号连接，中间不能有空格。
 
 #### 集成推理
 
@@ -1290,7 +1298,7 @@ mindspore-lite-{version}-win-x64
 
     代码功能解析如下：
 
-    1) 读取模型文件到buf
+    (1) 读取模型文件到buf
 
     通过调用`ReadFile`函数，将模型文件读入到`model_buf`内存，用`size`变量保存模型的大小。
 
@@ -1298,7 +1306,7 @@ mindspore-lite-{version}-win-x64
     char *model_buf = ReadFile(model_path.c_str(), &size);
     ```
 
-    2) 初始化Context配置
+    (2) 初始化Context配置
 
     Context保存了模型推理时所需的相关配置，包括算子偏好、线程数、自动并发以及推理处理器相关的其他配置。
     关于Context的详细说明，请参考Context的[API接口说明](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)。
@@ -1326,7 +1334,7 @@ mindspore-lite-{version}-win-x64
     device_list.push_back(device_info);
     ```
 
-    3) 加载模型
+    (3) 加载模型
 
     首先创建一个`Model`类对象`model`，`Model`类定义了MindSpore中的模型，用于计算图管理。
     关于`Model`类的详细说明，可参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)。
@@ -1344,7 +1352,7 @@ mindspore-lite-{version}-win-x64
     delete[](model_buf);
     ```
 
-    4) 传入数据
+    (4) 传入数据
 
     在执行模型推理前，需要设置推理的输入数据。
     此例，通过`Model.GetInputs`接口，获取模型的所有输入张量。单个张量的格式为`MSTensor`。
@@ -1371,7 +1379,7 @@ mindspore-lite-{version}-win-x64
     }
     ```
 
-    5) 执行推理
+    (5) 执行推理
 
     首先申请一个放置模型推理输出张量的数组`outputs`，然后调用模型推理接口`Predict`，将输入张量和输出张量作它的参数。
     在推理成功后，输出张量被保存在`outputs`内。
@@ -1381,7 +1389,7 @@ mindspore-lite-{version}-win-x64
     auto status = model->Predict(inputs, &outputs);
     ```
 
-    6) 推理结果核验
+    (6) 推理结果核验
 
     通过`MutableData`得到输出张量的数据指针。
     本例中，将它强转为浮点指针，用户可以根据自己模型的数据类型进行对应类型的转换，也可通过张量的`DataType`接口得到数据类型。
@@ -1398,9 +1406,9 @@ mindspore-lite-{version}-win-x64
     }
     ```
 
-    7) 释放model对象
+    (7) 释放model对象
 
-    ```
+    ```cpp
     delete model;
     ```
 
@@ -1413,7 +1421,7 @@ mindspore-lite-{version}-win-x64
     输入`call demo`执行`demo`程序，根据上文，我们知道`demo`程序将加载`add.ms`模型，并将全为1的输入张量传递给模型进行推理，将推理后的输出张量的值进行打印。
     推理成功，得到如下输出，可以看到输出张量的值全为2，这和我们在[Netron可视化](#Netron可视化)中得到的模型理解相一致的，在本例中，模型值将输入为1的张量加上1之后传递给了输出张量：
 
-    ```txt
+    ```text
     ------- print outputs ----------
     out tensor name is:Add
     out tensor size is:400
