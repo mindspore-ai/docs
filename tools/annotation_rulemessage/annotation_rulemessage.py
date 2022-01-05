@@ -1,9 +1,9 @@
-'''pyfile extract annotation annotation_txt, commandline annotation_txt rulemessage_txt, rulemessage_txt to html'''
+'''python exe ext, cer, tth'''
 import os
 import sys
 import extract_annotation as ext
 import commandline_extract_rulemessage as cer
-import txttohtml as tth
+import txtoutput as tth
 
 def find_files(path, files=None):
     file_name = os.listdir(path)
@@ -42,19 +42,17 @@ if __name__ == "__main__":
             for one_f in all_f:
                 tth.run(one_f)
     for check_f in sys.argv[1:]:
-        result = '<p>规则参考链接：https://community.languagetool.org/rule/list?offset=0</p>\n'
-        with open("./allrule.html", "a", encoding="utf-8") as p:
-            p.writelines(result)
-        if os.path.isfile(check_f) & check_f.endswith(".html"):
+        result = '规则参考链接：https://community.languagetool.org/rule/list?offset=0\n'
+        if os.path.isfile(check_f) & check_f.endswith("-outputrule.txt"):
             with open(check_f, "r", encoding="utf-8") as f:
                 data = f.read()
-            with open("./allrule.html", "a", encoding="utf-8") as p:
+            with open("./allrule.txt", "a", encoding="utf-8") as p:
                 p.writelines(data)
         elif os.path.isdir(check_f):
-            all_f = [file for file in find_files(check_f, []) if file.endswith(".html")]
+            all_f = [file for file in find_files(check_f, []) if file.endswith("-outputrule.txt")]
             for one_f in all_f:
                 with open(one_f, "r", encoding="utf-8") as f:
                     data = f.read()
-                with open("./allrule.html", "a", encoding="utf-8") as p:
+                with open("./allrule.txt", "a", encoding="utf-8") as p:
                     p.writelines(data)
-                
+            
