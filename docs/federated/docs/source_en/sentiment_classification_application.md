@@ -261,42 +261,82 @@ app
         @SuppressLint("NewApi")
         @RequiresApi(api = Build.VERSION_CODES.M)
         public void syncJobTrain() {
-            String trainDataset = parentPath + "/data/0.txt";
-            String vocal_file = parentPath + "/data/vocab.txt";
-            String idsFile = parentPath + "/data/vocab_map_ids.txt";
-            String testDataset = parentPath + "/data/eval.txt";
-            String trainModelPath = parentPath + "/model/albert_supervise.mindir.ms";
-            String inferModelPath = parentPath + "/model/albert_supervise.mindir.ms";
-            String flName = "albert";
-            boolean useSSL = false;
+            // create dataMap
+            String trainTxtPath = "data/albert/supervise/client/1.txt";
+            String evalTxtPath = "data/albert/supervise/eval/eval.txt";      // Not necessary, if you don't need verify model accuracy after getModel, you don't need to set this parameter
+            String vocabFile = "data/albert/supervise/vocab.txt";                // Path of the dictionary file for data preprocessing.
+            String idsFile = "data/albert/supervise/vocab_map_ids.txt"   // Path of the mapping ID file of a dictionary.
+            Map<RunType, List<String>> dataMap = new HashMap<>();
+            List<String> trainPath = new ArrayList<>();
+            trainPath.add(trainTxtPath);
+            trainPath.add(vocabFile);
+            trainPath.add(idsFile);
+            List<String> evalPath = new ArrayList<>();    // Not necessary, if you don't need verify model accuracy after getModel, you don't need to set this parameter
+            evalPath.add(evalTxtPath);                  // Not necessary, if you don't need verify model accuracy after getModel, you don't need to set this parameter
+            evalPath.add(vocabFile);                  // Not necessary, if you don't need verify model accuracy after getModel, you don't need to set this parameter
+            evalPath.add(idsFile);                  // Not necessary, if you don't need verify model accuracy after getModel, you don't need to set this parameter
+            dataMap.put(RunType.TRAINMODE, trainPath);
+            dataMap.put(RunType.EVALMODE, evalPath);      // Not necessary, if you don't need verify model accuracy after getModel, you don't need to set this parameter
+
+            String flName = "com.mindspore.flclient.demo.albert.AlbertClient";                             // The package path of AlBertClient.java
+            String trainModelPath = "ms/albert/train/albert_ad_train.mindir0.ms";                      // Absolute path
+            String inferModelPath = "ms/albert/train/albert_ad_train.mindir0.ms";                      // Absolute path, consistent with trainModelPath
+            String sslProtocol = "TLSv1.2";
+            String deployEnv = "android";
+
             // The url for device-cloud communication. Ensure that the Android device can access the server. Otherwise, the message "connection failed" is displayed.
             String domainName = "http://10.113.216.106:6668";
+            boolean ifUseElb = true;
+            int serverNum = 4;
+            int threadNum = 4;
+            BindMode cpuBindMode = BindMode.NOT_BINDING_CORE;
+            int batchSize = 32;
+
             FLParameter flParameter = FLParameter.getInstance();
-            flParameter.setTrainDataset(trainDataset);
-            flParameter.setVocabFile(vocal_file);
-            flParameter.setIdsFile(idsFile);
-            flParameter.setTestDataset(testDataset);
             flParameter.setFlName(flName);
+            flParameter.setDataMap(dataMap);
             flParameter.setTrainModelPath(trainModelPath);
             flParameter.setInferModelPath(inferModelPath);
-            flParameter.setUseSSL(useSSL);
+            flParameter.setSslProtocol(sslProtocol);
+            flParameter.setDeployEnv(deployEnv);
             flParameter.setDomainName(domainName);
+            flParameter.setUseElb(useElb);
+            flParameter.setServerNum(serverNum);
+            flParameter.setThreadNum(threadNum);
+            flParameter.setCpuBindMode(BindMode.valueOf(cpuBindMode));
+
+            // start FLJob
             SyncFLJob syncFLJob = new SyncFLJob();
             syncFLJob.flJobRun();
         }
         // Android federated learning inference task
         public void syncJobPredict() {
-            String flName = "albert";
-            String dataPath = parentPath + "/data/eval_no_label.txt";
-            String vocal_file = parentPath + "/data/vocab.txt";
-            String idsFile = parentPath + "/data/vocab_map_ids.txt";
-            String modelPath = parentPath + "/model/albert_supervise.mindir.ms";
+            // create dataMap
+            String inferTxtPath = "data/albert/supervise/eval/eval.txt";
+            String vocabFile = "data/albert/supervise/vocab.txt";
+            String idsFile = "data/albert/supervise/vocab_map_ids.txt"
+            Map<RunType, List<String>> dataMap = new HashMap<>();
+            List<String> inferPath = new ArrayList<>();
+            inferPath.add(inferTxtPath);
+            inferPath.add(vocabFile);
+            inferPath.add(idsFile);
+            dataMap.put(RunType.INFERMODE, inferPath);
+
+            String flName = "com.mindspore.flclient.demo.albert.AlbertClient";                             // The package path of AlBertClient.java
+            String inferModelPath = "ms/albert/train/albert_ad_train.mindir0.ms";                      // Absolute path, consistent with trainModelPath
+            int threadNum = 4;
+            BindMode cpuBindMode = BindMode.NOT_BINDING_CORE;
+            int batchSize = 32;
+
             FLParameter flParameter = FLParameter.getInstance();
             flParameter.setFlName(flName);
-            flParameter.setTestDataset(dataPath);
-            flParameter.setVocabFile(vocabFile);
-            flParameter.setIdsFile(idsFile);
-            flParameter.setInferModelPath(modelPath);
+            flParameter.setDataMap(dataMap);
+            flParameter.setInferModelPath(inferModelPath);
+            flParameter.setThreadNum(threadNum);
+            flParameter.setCpuBindMode(BindMode.valueOf(cpuBindMode));
+            flParameter.setBatchSize(batchSize);
+
+            // inference
             SyncFLJob syncFLJob = new SyncFLJob();
             int[] labels = syncFLJob.modelInference();
             LOGGER.info("labels = " + Arrays.toString(labels));

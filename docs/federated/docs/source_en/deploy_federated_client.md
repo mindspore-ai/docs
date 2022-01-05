@@ -39,6 +39,17 @@ The following describes how to deploy the Federated-Client in the Android and x8
     mindspore-lite-maven-{version}.zip
     ```
 
+- Since the device-side framework and the model are decoupled, the Android AAR package provided by us does not contain model-related scripts, so the user needs to generate the jar corresponding to the model script. We provide two types of model scripts for your reference ([Supervised sentiment Classification Task](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert), [LeNet image classification task](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet)). At the same time, users can refer to these two types of model scripts, customize the model script and generate the corresponding jar package (assuming the name is `quick_start_flclient.jar`). The jar packages corresponding to the model scripts we provide can be obtained in the following ways:
+
+    After downloading the latest code on [MindSpore Open Source Warehouse](https://gitee.com/mindspore/mindspore), perform the following operations:
+
+    ```sh
+    cd mindspore/mindspore/lite/examples/quick_start_flclient
+    sh build.sh -r "mindspore-lite-{version}-linux-x64.tar.gz"   // -r need be followed by the absolute path of the latest x86 architecture package
+    ```
+
+    After running the above command, the path of the jar package generated is: `mindspore/mindspore/lite/examples/quick_start_flclient/target/quick_start_flclient.jar`
+
 ### Running Dependencies
 
 - [Android Studio](https://developer.android.google.cn/studio) >= 4.0
@@ -109,7 +120,7 @@ Note 2: since the third-party open source software `bcprov-jdk15on` that Federat
 android.jetifier.blacklist=bcprov
 ```
 
-After setting up the dependencies shown above in the Android project, you only need to rely on the AAR package to call APIs provided by federated learning. For details about how to call and run the APIs, see the API description of federated learning.
+After setting up the dependencies shown above in the Android project, you only need to rely on the AAR package and the jar package corresponding to the model script `quick_start_flclient.jar` to call APIs provided by federated learning. For details about how to call and run the APIs, see the API description of federated learning.
 
 ## x86
 
@@ -130,6 +141,17 @@ After setting up the dependencies shown above in the Android project, you only n
     ```sh
     mindspore/output/mindspore-lite-{version}-linux-x64.tar.gz
     ```
+
+- Since the device-side framework and the model are decoupled, the x86 architecture package `mindspore-lite-{version}-linux-x64.tar.gz` provided by us does not contain model-related scripts, so the user needs to generate the jar corresponding to the model script. We provide two types of model scripts for your reference ([Supervised sentiment Classification Task](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert), [LeNet image classification task](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet)). At the same time, users can refer to these two types of model scripts, customize the model script and generate the corresponding jar package (assuming the name is `quick_start_flclient.jar`). The jar packages corresponding to the model scripts we provide can be obtained in the following ways:
+
+    After downloading the latest code on [MindSpore Open Source Warehouse](https://gitee.com/mindspore/mindspore), perform the following operations:
+
+    ```sh
+    cd mindspore/mindspore/lite/examples/quick_start_flclient
+    sh build.sh -r "mindspore-lite-{version}-linux-x64.tar.gz"   // -r need be followed by the absolute path of the latest x86 architecture package
+    ```
+
+    After running the above command, the path of the jar package generated is: `mindspore/mindspore/lite/examples/quick_start_flclient/target/quick_start_flclient.jar`
 
 ### Running Dependencies
 
@@ -180,6 +202,7 @@ libmindspore-lite-train.so  # Dynamic library on which the MindSpore Lite traini
 libmindspore-lite-train-jni.so # JNI dynamic library on which the MindSpore Lite training framework depends
 libturbojpeg.so.0  # Dynamic library file for image processing
 mindspore-lite-java-flclient.jar  # Federated learning framework JAR package
+quick_start_flclient.jar  # The jar package corresponding to the model script
 ```
 
 Find the seven  .so files on which federated learning depends in the directories `mindspore/output/mindspore-lite-{version}-linux-x64/runtime/lib/` and `mindspore/output/mindspore-lite-{version}-linux-x64/runtime/third_party/libjpeg-turbo/lib`. Then, place these .so files in a folder, for example, `/resource/x86libs/`.
