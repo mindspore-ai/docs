@@ -7,3 +7,4 @@
    npu_info
    nnie
    tensorrt_info
+   ascend_info
