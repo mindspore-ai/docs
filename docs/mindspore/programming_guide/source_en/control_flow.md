@@ -19,6 +19,7 @@
     - [Constraints](#constraints)
         - [Side Effect](#side-effect)
         - [Dead Cycle](#dead-cycle)
+        - [Dynamic Shape](#dynamic-shape)
 
 <!-- /TOC -->
 
@@ -546,3 +547,7 @@ The following table lists the side effect operators that are not supported in th
 ### Dead Cycle
 
 If the value of `cond` in expression `while cond:` is always a scalar `True`, no matter whether there is a `break` or `return` in while body, an unexpected exception may be raised.
+
+### Dynamic Shape
+
+If dynamic shape exists in network model, process control statements are forbidden to use, otherwise an unexpected expcetion may be raised.
