@@ -280,8 +280,6 @@ The functional operators are the pre-instantiated Primitive operators, which can
      - Refer to :class:`mindspore.ops.ScatterNdUpdate`.
    * - mindspore.ops.scatter_update
      - Refer to :class:`mindspore.ops.ScatterUpdate`.
-   * - mindspore.ops.select
-     - Refer to :class:`mindspore.ops.Select`.
    * - mindspore.ops.shape
      - Refer to :class:`mindspore.ops.Shape`.
    * - mindspore.ops.shape_mul
@@ -367,6 +365,7 @@ The functional operators are the pre-instantiated Primitive operators, which can
     mindspore.ops.grad
     mindspore.ops.jvp
     mindspore.ops.narrow
+    mindspore.ops.select
     mindspore.ops.vjp
 
 primitive
