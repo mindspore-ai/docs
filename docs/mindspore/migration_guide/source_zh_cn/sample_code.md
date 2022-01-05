@@ -128,7 +128,7 @@ PyTorch 实现的 ResNet50 脚本参考 [torchvision model](https://github.com/p
 | `nn.Linear`            | `nn.Dense`         | 是                     |
 | `torch.flatten`        | `nn.Flatten`       | 是                     |
 
-注：对于 PyTorch 脚本，MindSpore 提供了 [PyTorch 算子映射工具](https://mindspore.cn/docs/migration_guide/zh-CN/r1.5/api_mapping/pytorch_api_mapping.html)，可直接查询该算子是否支持。
+注：对于 PyTorch 脚本，MindSpore 提供了 [PyTorch 算子映射工具](https://www.mindspore.cn/docs/migration_guide/zh-CN/r1.5/api_mapping/pytorch_api_mapping.html)，可直接查询该算子是否支持。
 
 - 功能分析
 
