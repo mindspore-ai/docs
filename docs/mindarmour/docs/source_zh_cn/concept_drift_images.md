@@ -44,7 +44,6 @@
 示例中用到公开图像数据集MNIST和CIFAR-10。
 > 数据集下载页面：<http://yann.lecun.com/exdb/mnist/>，<http://www.cs.toronto.edu/~kriz/cifar.html>。
 
-
 ### 导入Python库&模块
 
 在使用前，需要导入需要的Python库。
@@ -62,12 +61,11 @@ from mindarmour.reliability import OodDetectorFeatureCluster
 
 ## 加载数据
 
-1. 将MNIST数据集作为训练集`ds_train`，这里`ds_train`只包含image数据，不包含label。 
+1. 将MNIST数据集作为训练集`ds_train`，这里`ds_train`只包含image数据，不包含label。
 
 2. 将MNIST和CIFAR-10的混合数据集作为测试集`ds_test`，这里`ds_test`只包含image数据，不包含label。
 
-3. 将另一组MNIST和CIFAR-10的混合数据集作为验证样本，记作`ds_eval`，这里`ds_eval`只包含image数据，不包含label。
-`ds_eval`另行标记，其中非OOD样本标记为0，OOD样本标记为1，`ds_eval`的标记单独记作`ood_label`。
+3. 将另一组MNIST和CIFAR-10的混合数据集作为验证样本，记作`ds_eval`，这里`ds_eval`只包含image数据，不包含label。`ds_eval`另行标记，其中非OOD样本标记为0，OOD样本标记为1，`ds_eval`的标记单独记作`ood_label`。
 
 ```python
 ds_train = np.load('/dataset/concept_train_lenet.npy')
@@ -75,11 +73,11 @@ ds_test = np.load('/dataset/concept_test_lenet2.npy')
 ds_eval = np.load('/dataset/concept_test_lenet1.npy')
 ```
 
-`ds_train(numpy.ndarray)`: 训练集，只包含image数据。   
-`ds_test(numpy.ndarray)`: 测试集，只包含image数据。  
-`ds_eval(numpy.ndarray)`: 验证集，只包含image数据。  
+`ds_train(numpy.ndarray)`: 训练集，只包含image数据。
 
+`ds_test(numpy.ndarray)`: 测试集，只包含image数据。
 
+`ds_eval(numpy.ndarray)`: 验证集，只包含image数据。
 
 ## 加载神经网络模型
 
@@ -95,17 +93,18 @@ load_param_into_net(net, load_dict)
 model = Model(net)
 ```
 
-
 `ckpt_path(str)`: 模型文件路径。
 
 需要重点说明的是，为了利用神经网络提取特定层的特征输出，需要在神经网络构建过程中增加特征提取和命名神经层的功能。
 `layer`用于命名神经网络层，可以通过下述方法改造神经网络模型，命名各层神经网络，并获取特征输出值。
+
 1. 导入`TensorSummary`模块；  
 2. 初始化函数`__init__`中增加 `self.summary = TensorSummary()`；  
 3. 在神经网络各层构造函数之后，增加`self.summary('name', x)`。
 
-以LeNet为例，神经网络构造过程如下：
+由于本用例算法内部使用sklearn中的KMeans函数进一步进行特征聚类分析，要求KMeans的输入数据维度为二维。因此，以LeNet为例，我们提取倒数五层的full-connection层和relu层的特征，其数据维度满足KMeans要求。
 
+LeNet神经网络构造过程如下：
 
 ```python
 from mindspore import nn
@@ -197,16 +196,18 @@ class LeNet5(nn.Cell):
 detector = OodDetectorFeatureCluster(model, ds_train, n_cluster=10, layer='output[:Tensor]')
 ```
 
-`model(Model)`: 神经网络模型，由训练集`ds_train`和其分类标签训练所得。   
-`ds_train(numpy.ndarray)`: 训练集，只包含image数据。   
+`model(Model)`: 神经网络模型，由训练集`ds_train`和其分类标签训练所得。
+
+`ds_train(numpy.ndarray)`: 训练集，只包含image数据。
+
 `n_cluster(int)`: 特征聚类数目。  
+
 `layer(str)`: 神经网络用于提取特征的层的名称。
 
 需要注意的是，`OodDetectorFeatureCluster`初始化时，参数`layer`后需要加上`[:Tensor]`后缀。
 例如，某神经网络层命名为`name`，那么`layer='name[:Tensor]'`。实例`layer='output[:Tensor]'`中使用的是LeNet最后一层layer`output`的特征，
-即`layer='output[:Tensor]'`。
-
-
+即`layer='output[:Tensor]'`。另外，由于算法内部使用到sklearn中的KMeans函数进行特征聚类分析，要求KMeans的输入数据维度为二维，
+因此`layer`提取到的特征需要是二维数据，如上文LeNet示例中的full-connection层和relu层。
 
 ## 获取最优概念漂移检测阈值
 
@@ -220,26 +221,20 @@ ood_label = np.concatenate((np.zeros(num), np.ones(num)), axis=0)  # ID data = 0
 optimal_threshold = detector.get_optimal_threshold(ood_label, ds_eval)
 ```
 
-
 `ds_eval(numpy.ndarray)`: 验证集，只包含image数据。  
-`ood_label(numpy.ndarray)`: 验证集`ds_eval`的OOD标签，非OOD样本标记为0，OOD样本标记为1。   
-
+`ood_label(numpy.ndarray)`: 验证集`ds_eval`的OOD标签，非OOD样本标记为0，OOD样本标记为1。
 
 当然，如果用户很难获得`ds_eval`和OOD标签`ood_label`，`optimal_threshold`值可以人为灵活设定，`optimal_threshold`值是[0，1]之间的浮点数。
 
-
 ## 执行概念漂移检测
-
 
 ```python
 result = detector.ood_predict(optimal_threshold, ds_test)
 ```
 
-
 `ds_test(numpy.ndarray)`: 测试集，只包含image数据。  
 `optimal_threshold(float)`: 最优阈值。可通过执行`detector.get_optimal_threshold(ood_label, ds_eval)`获得。
 但如果用户很难获得ds_eval和OOD标签`ood_label`，`optimal_threshold`值可以人为灵活设定，`optimal_threshold`值是[0，1]之间的浮点数。
-
 
 ## 查看结果
 
