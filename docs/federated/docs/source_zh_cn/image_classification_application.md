@@ -16,7 +16,7 @@
 
 ## 准备工作
 
-我们提供了可直接使用的联邦学习图像分类[数据集FEMNIST](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/federated/3500_clients_bin.zip)，以及`.ms`格式的[端侧模型文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/lenet_train.ms)。用户也可以根据实际需求，参考以下教程自行生成数据集和模型。
+我们提供了可供用户直接使用的[联邦学习图像分类数据集FEMNIST](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/federated/3500_clients_bin.zip)，以及`.ms`格式的[端侧模型文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/lenet_train.ms)。用户也可以根据实际需求，参考以下教程自行生成数据集和模型。
 
 ### 数据处理
 
@@ -255,7 +255,7 @@
 
     - 启动获取云侧最新模型任务SyncFLJob.getModel()
 
-        当`基本启动指令`中 `--task`设置为`inference`时代表启动该任务。
+        当`基本启动指令`中 `--task`设置为`getModel`时代表启动该任务。
 
         在日志文件中若有如下内容代表获取云侧最新模型成功：
 
