@@ -101,21 +101,7 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
 
 5. 配置configFile(可选)
 
-    用户可以通过此选项配置用于转模型时的Ascend Option选项， 配置文件采用INI的风格，针对Ascend场景，可配置的参数为[acl_option_cfg_param]，参数的详细介绍如下：
-
-    | 参数                        | 属性  | 功能描述                                                       | 参数类型 | 取值说明 |
-    | -------------------------- | ---- | ------------------------------------------------------------ | -------- | ------ |
-    | `device_id`                | 可选 | 用于指定设备ID。 | Uint32  | 设备ID,默认值为0      |
-    | `output_type`              | 可选 | 指定模型输出type。 | DataType | 仅支持uint8、fp16和fp32 |
-    | `input_format`             | 可选 | 指定模型输入format。 | String | 可选有`"NCHW"`，`"NHWC"` |
-    | `input_shape_vector`       | 可选 | 指定模型输入Shape， 按模型输入次序排列，用`；`隔开。 | String | 例如: `"[1,2,3,4];[4,3,2,1]"` |
-    | `precision_mode`           | 可选 | 配置模型精度模式。    | String | 可选有`"force_fp16"`，`"allow_fp32_to_fp16"`，`"must_keep_origin_dtype"`或者`"allow_mix_precision"`，默认为`"force_fp16"`|
-    | `op_select_impl_mode`      | 可选 | 配置算子选择模式。    | String | 可选有`"high_performance"`和`"high_precision"`，默认为`"high_performance"` |
-    | `dynamic_batch_size`       | 可选 | 指定[动态BatchSize](#动态Batch size)参数。 | String | `"2,4"`|
-    | `dynamic_image_size`       | 可选 | 指定[动态分辨率](#动态分辨率)参数。  | String | `"96,96;32,32"` |
-    | `fusion_switch_config_file_path` | 可选 | 配置[融合规则开关配置](https://support.huaweicloud.com/atctool-cann504alpha2infer/atlasatc_16_0077.html)文件路径及文件名。 | String   | -      |
-    | `op_select_implmode`       | 可选 | 配置算子选择模式。 | String   | 可选有`"high_performance"`和`"high_precision"`，默认为`"high_performance"` |
-    | `insert_op_config_file_path` | 可选 | 模型插入[AIPP](https://support.huaweicloud.com/adevg-ms-atlas200dkappc32/atlasadm_01_0023.html)算子 | String  | [AIPP](https://support.huaweicloud.com/adevg-ms-atlas200dkappc32/atlasadm_01_0023.html)配置文件路径 |
+    用户可以通过此选项配置用于转模型时的Ascend Option选项， 配置文件采用INI的风格，针对Ascend场景，可配置的参数为[acl_option_cfg_param]，参数的详细介绍如下表1所示。
 
 6. 执行converter，生成Ascend`ms`模型
 
@@ -137,12 +123,28 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
     ./converter_lite --fmk=ONNX --modelFile=${model_name}.onnx --device=Ascend310 --outputFile=${model_name} --inputShape="input:1,64,64,1" --configFile="./config.txt"
     ```
 
-    其中,config.txt内容如下:
+    其中，config.txt内容如下:
 
     ```cpp
     [acl_option_cfg_param]
     input_shape_vector="1,64,64,1"
     ```
+
+表1：配置[acl_option_cfg_param]参数
+
+| 参数                        | 属性  | 功能描述                                                       | 参数类型 | 取值说明 |
+| -------------------------- | ---- | ------------------------------------------------------------ | -------- | ------ |
+| `device_id`                | 可选 | 用于指定设备ID。 | Uint32  | 设备ID,默认值为0      |
+| `output_type`              | 可选 | 指定模型输出type。 | DataType | 仅支持uint8、fp16和fp32 |
+| `input_format`             | 可选 | 指定模型输入format。 | String | 可选有`"NCHW"`，`"NHWC"` |
+| `input_shape_vector`       | 可选 | 指定模型输入Shape， 按模型输入次序排列，用`；`隔开。 | String | 例如: `"[1,2,3,4];[4,3,2,1]"` |
+| `precision_mode`           | 可选 | 配置模型精度模式。    | String | 可选有`"force_fp16"`，`"allow_fp32_to_fp16"`，`"must_keep_origin_dtype"`或者`"allow_mix_precision"`，默认为`"force_fp16"`|
+| `op_select_impl_mode`      | 可选 | 配置算子选择模式。    | String | 可选有`"high_performance"`和`"high_precision"`，默认为`"high_performance"` |
+| `dynamic_batch_size`       | 可选 | 指定[动态BatchSize](#动态Batch size)参数。 | String | `"2,4"`|
+| `dynamic_image_size`       | 可选 | 指定[动态分辨率](#动态分辨率)参数。  | String | `"96,96;32,32"` |
+| `fusion_switch_config_file_path` | 可选 | 配置[融合规则开关配置](https://support.huaweicloud.com/atctool-cann504alpha2infer/atlasatc_16_0077.html)文件路径及文件名。 | String   | -      |
+| `op_select_implmode`       | 可选 | 配置算子选择模式。 | String   | 可选有`"high_performance"`和`"high_precision"`，默认为`"high_performance"` |
+| `insert_op_config_file_path` | 可选 | 模型插入[AIPP](https://support.huaweicloud.com/adevg-ms-atlas200dkappc32/atlasadm_01_0023.html)算子 | String  | [AIPP](https://support.huaweicloud.com/adevg-ms-atlas200dkappc32/atlasadm_01_0023.html)配置文件路径 |
 
 ## 推理工具runtime
 
@@ -171,7 +173,7 @@ MindSpore Lite提供benchmark基准测试工具，它可以对MindSpore Lite模�
 
 ### 动态shape特性
 
-在某些推理场景，如检测出人脸后再执行人脸识别网络，由于人脸个数不固定导致人脸识别网络输入BatchSize不固定。如果每次推理都按照最大的BatchSize或最大分辨率进行计算，会造成计算资源浪费。因此，推理需要支持动态BatchSize和动态分辨率的场景，Lite在Ascend310上推理支持动态BatchSize和动态分辨率场景，在convert阶段通过congFile配置[acl_option_cfg_para](https://www.mindspore.cn/lite/docs/zh-CN/master/use/ascend_info.html#L102)动态参数，转成`ms`模型，推理时使用model的[resize](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html#resize)功能，改变输入shape。
+在某些推理场景，如检测出人脸后再执行人脸识别网络，由于人脸个数不固定导致人脸识别网络输入BatchSize不固定。如果每次推理都按照最大的BatchSize或最大分辨率进行计算，会造成计算资源浪费。因此，推理需要支持动态BatchSize和动态分辨率的场景，Lite在Ascend310上推理支持动态BatchSize和动态分辨率场景，在convert阶段通过congFile配置[acl_option_cfg_param]动态参数，转成`ms`模型，推理时使用model的[resize](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html#resize)功能，改变输入shape。
 
 #### 动态Batch size
 
@@ -191,7 +193,7 @@ MindSpore Lite提供benchmark基准测试工具，它可以对MindSpore Lite模�
     [acl_option_cfg_para]
     input_shape_vector="[-1,32,32,4]"
     dynamic_batch_size="2,4"
-    其中, input_shape中的"-1"表示设置动态batch, 档位可取值为"2,4", 即支持档位0: [2,32,32,4], 档位1: [4,32,32,4].
+    其中，input_shape中的"-1"表示设置动态batch，档位可取值为"2,4"，即支持档位0: [2,32,32,4]，档位1: [4,32,32,4].
     ```
 
 - converter
@@ -231,7 +233,7 @@ MindSpore Lite提供benchmark基准测试工具，它可以对MindSpore Lite模�
     input_format="NHWC"
     input_shape_vector="[2,3,-1,-1]"
     dynamic_image_size="64,64;96,96"
-    其中, input_shape中的"-1"表示设置动态分辨率, 即支持档位0: [2,3,64,64], 档位1: [2,3,96,96].
+    其中，input_shape中的"-1"表示设置动态分辨率，即支持档位0: [2,3,64,64]，档位1: [2,3,96,96].
     ```
 
 - converter
