@@ -43,6 +43,8 @@ if __name__ == "__main__":
                 tth.run(one_f)
     for check_f in sys.argv[1:]:
         result = '规则参考链接：https://community.languagetool.org/rule/list?offset=0\n'
+        with open("./allrule.txt", "a", encoding="utf-8") as p:
+            p.writelines(result)
         if os.path.isfile(check_f) & check_f.endswith("-outputrule.txt"):
             with open(check_f, "r", encoding="utf-8") as f:
                 data = f.read()
