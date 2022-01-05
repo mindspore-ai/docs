@@ -328,6 +328,8 @@ context.set_context(device_target='GPU')
 init()
 ```
 
+> Under the GPU processor platform, MindSpore also supports starting distributed training without relying on 'OpenMPI', and also uses this interface for distributed training initialization. For specific usage, please refer to [not using OpenMPI training](https://www.mindspore.cn/docs/programming_guide/en/master/distributed_training_gpu.html#openmpi). In this case, when the user does not use 'mpirun' to start the process, but still calls the 'init()' method, MindSpore requires the user to follow [not using OpenMPI training](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_gpu.html#openmpi) to configure several environment variables. If not configured, MindSpore will give a reasonable error prompt. Therefore, it is recommended to call this method only when executing distributed training, and when trying to start distributed training without using 'mpirun', please configure the correct environment variables according to the document.
+
 ### get_group_size
 
 `get_group_size` allows users to obtain the number of clusters. Invoke `init` before using the `get_group_size` interface.

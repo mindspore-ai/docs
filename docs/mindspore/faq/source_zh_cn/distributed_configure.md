@@ -59,13 +59,13 @@ A：此场景下，异常进程由于各种问题退出，其余进程由于GPU�
 
 <br/>
 
-<font size=3>**Q：在执行单机单卡的脚本时，调用mindspore.communication.init方法可能会报错导致执行失败。**</font>
+<font size=3>**Q：在执行GPU单机单卡的脚本时，不使用mpirun启动进程时，调用mindspore.communication.init方法可能会报错,导致执行失败，该如何处理？**</font>
 
 ```text
-[CRITICAL] DISTRIBUTED [mindspore/ccsrc/distributed/cluster/cluster_context.cc:130] InitNodeRole] Role name is invalid.
+[CRITICAL] DISTRIBUTED [mindspore/ccsrc/distributed/cluster/cluster_context.cc:130] InitNodeRole] Role name is invalid...
 ```
 
-A：`mindspore.communication.init`接口只有在执行分布式训练时建议调用，详细作用请参考[Python API文档](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.communication.html#mindspore.communication.init)。在单机单卡模式下，调用此接口会让MindSpore加载分布式相关的配置以及环境变量，导致报错。
+A：在用户不使用`mpirun`启动进程，但是依然调用了`init()`方法的情况下，MindSpore要求用户按照[不依赖OpenMPI进行训练](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_gpu.html#openmpi)配置若干环境变量并进行校验，若没有配置，MindSpore会给出以上报错提示。因此建议只有在执行分布式训练时调用`mindspore.communication.init`，并在不使用`mpirun`的场景下，根据文档配置正确的环境变量以启动分布式训练。
 
 <br/>
 
