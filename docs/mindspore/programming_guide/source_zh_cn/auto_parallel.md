@@ -326,6 +326,8 @@ context.set_context(device_target='GPU')
 init()
 ```
 
+> 在GPU处理器平台下，MindSpore还支持不依赖`OpenMPI`来启动分布式训练，也使用本接口进行分布式训练初始化，具体方法可参考[不依赖OpenMPI进行训练](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_gpu.html#openmpi)。在此场景下，即用户不使用'mpirun'启动进程，但是依然调用了`init()`方法的情况下，MindSpore要求用户按照[不依赖OpenMPI进行训练](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_gpu.html#openmpi)配置若干环境变量，若没有配置，MindSpore会给出合理的报错提示。因此建议只有在执行分布式训练时调用此方法，并在不使用`mpirun`的场景下，根据文档配置正确的环境变量以启动分布式训练。
+
 ### get_group_size
 
 `get_group_size`可让用户获取集群数量。在用`get_group_size`接口之前，要先调用`init`。
