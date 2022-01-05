@@ -30,13 +30,15 @@ MindSpore supports installing and running in EulerOS-arm, CentOS-arm, CentOS-x86
 
 ### Installing by pip
 
-After downloading the package `mindspore_{device}-{version}-{python_version}-linux_{arch}.whl` from the official website, please install it by pip.
-
-- `{python_version}` spcecifies the python version for which MindSpore is built. If you wish to use Python3.7.5,`{python_version}` should be `cp37-cp37m`. If Python3.9.0 is used, it should be `cp39-cp39`.
+After downloading the package `mindspore_{device}-{version}-{python_version}-{os}_{arch}.whl` from the official website, please install it by pip.
 
 ```bash
-pip install mindspore_{device}-{version}-{python_version}-linux_{arch}.whl
+pip install mindspore_{device}-{version}-{python_version}-{os}_{arch}.whl
 ```
+
+- `{python_version}` spcecifies the python version for which MindSpore is built. If you wish to use Python3.7.5,`{python_version}` should be `cp37-cp37m`. If Python3.9.0 is used, it should be `cp39-cp39`.
+- `{os` spcecifies the operation system, such as `linux` or `win`.
+- `{arch}` spcecifies the system architecture, such as `x86_64` or `amd64`.
 
 If an old version of MindSpore exists in the environment, please uninstall it before updating a new version of MindSpore.
 

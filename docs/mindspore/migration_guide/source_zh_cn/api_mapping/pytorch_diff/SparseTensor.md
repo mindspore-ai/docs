@@ -57,7 +57,12 @@ out = Net((3, 4))(indices, values)
 print(out[0])
 print(out[1])
 print(out[2])
-# Out:
+# Linux Out:
+# [[0 1]
+#  [1 2]]
+# [1. 2.]
+# (3, 4)
+# Windows Out:
 # [[0 1]
 #  [1 2]]
 # [1. 2.]

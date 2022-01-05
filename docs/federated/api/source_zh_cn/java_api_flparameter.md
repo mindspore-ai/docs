@@ -37,7 +37,7 @@
     - [setServerNum](#setservernum)
     - [isPkiVerify](#isPkiVerify)
     - [setPkiVerify](#setPkiVerify)
-    - [getEquipCrlPath](#)
+    - [getEquipCrlPath](#getequipcrlpath)
     - [setEquipCrlPath](#setEquipCrlPath)
     - [getValidInterval](#getValidInterval)
     - [setValidInterval](#setValidInterval)
