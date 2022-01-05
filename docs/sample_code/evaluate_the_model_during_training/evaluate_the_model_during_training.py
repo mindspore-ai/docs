@@ -12,9 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ============================================================================
+# pylint: disable=C0301
 """Evaluate the model during training tutorial
 This sample code is applicable to CPU, GPU and Ascend.
 """
+import os
+import requests
 import mindspore.dataset as ds
 import mindspore.dataset.vision.c_transforms as CV
 import mindspore.dataset.transforms.c_transforms as C
@@ -26,6 +29,7 @@ from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMoni
 from mindspore.nn import Accuracy
 from mindspore.nn import SoftmaxCrossEntropyWithLogits
 
+requests.packages.urllib3.disable_warnings()
 
 def create_dataset(data_path, batch_size=32, repeat_size=1, num_parallel_workers=1):
     """ create dataset for train or test
@@ -113,11 +117,31 @@ class EvalCallBack(Callback):
             print(acc)
 
 
+
+def download_dataset(dataset_url, path):
+    """download dataset"""
+    filename = dataset_url.split("/")[-1]
+    save_path = os.path.join(path, filename)
+    if os.path.exists(save_path):
+        return
+    os.makedirs(path, exist_ok=True)
+    res = requests.get(dataset_url, stream=True, verify=False)
+    with open(save_path, "wb") as f:
+        for chunk in res.iter_content(chunk_size=512):
+            if chunk:
+                f.write(chunk)
+    print("The {} file is downloaded and saved in the path {} after processing".format(os.path.basename(dataset_url), path))
+
 if __name__ == "__main__":
     # set args, train it
     context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
     train_data_path = "./datasets/MNIST_Data/train"
     eval_data_path = "./datasets/MNIST_Data/test"
+    download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-labels-idx1-ubyte", train_data_path)
+    download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-images-idx3-ubyte", train_data_path)
+    download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-labels-idx1-ubyte", eval_data_path)
+    download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-images-idx3-ubyte", eval_data_path)
+
     ckpt_save_dir = "./lenet_ckpt"
     epoch_size = 10
     eval_per_epoch = 2
