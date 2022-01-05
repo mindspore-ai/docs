@@ -770,7 +770,7 @@ mindspore-lite-{version}-linux-x64
 
     关于使用Java接口进行集成开发，可以参考[使用Java接口执行推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_java.html)。
 
-    关于使用C接口进行集成开发，可以参考[使用C接口执行推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_c.html)。
+    关于使用C接口进行集成开发，可以参考[使用C接口执行推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html)。
 
 ## Windows篇
 
@@ -1436,4 +1436,4 @@ mindspore-lite-{version}-win-x64
 
     关于使用Java接口进行集成开发，可以参考[使用Java接口执行推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_java.html)。
 
-    关于使用C接口进行集成开发，可以参考[使用C接口执行推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_c.html)。
+    关于使用C接口进行集成开发，可以参考[使用C接口执行推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html)。

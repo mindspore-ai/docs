@@ -40,16 +40,15 @@ parser.add_argument("--dataset", type=str, default="coco", help="Dataset, defaul
 parser.add_argument("--pre_trained", type=str, default="resnet50_backbone.ckpt",
                     help="Pretrain file path.")
 parser.add_argument("--device_id", type=int, default=0, help="Device id, default is 0.")
-parser.add_argument("--device_num", type=int, default=1, help="Use device nums, default is 1.")
 parser.add_argument("--rank_id", type=int, default=0, help="Rank id, default is 0.")
 args_opt = parser.parse_args()
 
 
-context.set_context(mode=context.GRAPH_MODE, device_target="Ascend", device_id=0)
+context.set_context(mode=context.GRAPH_MODE, device_target="Ascend", device_id=args_opt.device_id)
+
 if __name__ == '__main__':
     print("Start train for maskrcnn!")
-    rank = 0
-    device_num = 1
+    rank = args_opt.rank_id
 
     print("Start create dataset!")
 
