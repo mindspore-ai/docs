@@ -138,7 +138,7 @@ step_size = ds_train.get_dataset_size()
 
 ## 定义网络
 
-ResNet-50网络的构建代码由[resnet.py](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/adasum/resnet.py)导入。
+ResNet-50网络的构建代码由[resnet.py](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/adasum/resnet.py)导入。
 
 ```python
 # define net
