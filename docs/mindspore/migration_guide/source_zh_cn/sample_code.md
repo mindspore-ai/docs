@@ -186,52 +186,50 @@ input_batch = input_tensor.unsqueeze(0) # create a mini-batch as expected by the
 以下是基于 MindData 开发的数据处理函数：
 
 ```python
-def create_dataset(dataset_path, do_train, repeat_num=1, batch_size=32, target="Ascend", distribute=False):
-    # device number: total number of devices of training
-    # rank_id: the sequence of current device of training
-    device_num, rank_id = _get_rank_info()
-    if distribute:
-        init()
-        rank_id = get_rank()
-        device_num = get_group_size()
-    else:
-        device_num = 1
-    if device_num == 1:
-        # standalone training
-        # num_paralel_workers: parallel degree of data process
-        # shuffle: whether shuffle data or not
-        data_set = ds.ImageFolderDataset(dataset_path, num_parallel_workers=8, shuffle=True)
-    else:
-        # distributing traing (meaning of num_parallel_workers and shuffle is same as above)
-        # num_shards: total number devices for distribute training, which equals number shard of data
-        # shard_id: the sequence of current device in all distribute training devices, which equals the data shard sequence for current device
-        data_set = ds.ImageFolderDataset(dataset_path, num_parallel_workers=8, shuffle=True, num_shards=device_num, shard_id=rank)
+import os
+from mindspore import dtype as mstype
+import mindspore.dataset as ds
+import mindspore.dataset.vision.c_transforms as C
+import mindspore.dataset.transforms.c_transforms as C2
 
-    # define data operations
-    trans = []
-    if do_train:
-        trans += [
-            C.RandomHorizontalFlip(prob=0.5)
-        ]
 
-    trans += [
-        C.Resize((256, 256)),
+def create_dataset(dataset_path, batch_size=32, rank_size=1, rank_id=0, do_train=True):
+    """
+    create a train or eval imagenet2012 dataset for resnet50
+
+    Args:
+        dataset_path(string): the path of dataset.
+        batch_size(int): the batch size of dataset. Default: 32
+        rank_size(int): total num of devices for training. Default: 1,
+                        greater than 1 in distributed training
+        rank_id(int): logical sequence in all devices. Default: 1,
+                      can be greater than i in distributed training
+
+    Returns:
+        dataset
+    """
+    data_set = ds.ImageFolderDataset(dataset_path, num_parallel_workers=8, shuffle=do_train,
+                                     num_shards=rank_size, shard_id=rank_id)
+
+    mean = [0.485 * 255, 0.456 * 255, 0.406 * 255]
+    std = [0.229 * 255, 0.224 * 255, 0.225 * 255]
+
+    # define map operations
+    trans = [
+        C.Decode(),
+        C.Resize(256),
         C.CenterCrop(224),
-        C.Rescale(1.0 / 255.0, 0.0),
-        C.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
+        C.Normalize(mean=mean, std=std),
         C.HWC2CHW()
     ]
 
     type_cast_op = C2.TypeCast(mstype.int32)
 
-    # call data operations by map
-    data_set = data_set.map(operations=type_cast_op, input_columns="label", num_parallel_workers=8)
     data_set = data_set.map(operations=trans, input_columns="image", num_parallel_workers=8)
+    data_set = data_set.map(operations=type_cast_op, input_columns="label", num_parallel_workers=8)
 
-    # batchinng data
-    data_set = data_set.batch(batch_size, drop_remainder=True)
-    # repeat data, usually repeat_num equals epoch_size
-    data_set = data_set.repeat(repeat_num)
+    # apply batch operations
+    data_set = data_set.batch(batch_size, drop_remainder=do_train)
 
     return data_set
 ```
@@ -255,112 +253,31 @@ def create_dataset(dataset_path, do_train, repeat_num=1, batch_size=32, target="
 
 基于以上子网划分，我们结合 MindSpore 语法，重新完成上述开发。
 
-重新开发权重初始化（也可以直接使用 [MindSpore 已定义的权重初始化方法](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.common.initializer.html?highlight=common%20initializer#)）：
+权重初始化可参考 [MindSpore 已定义的权重初始化方法](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.common.initializer.html?highlight=common%20initializer#)）：
+
+重新开发 conv3x3 和 conv1x1
 
 ```python
-def _conv_variance_scaling_initializer(in_channel, out_channel, kernel_size):
-    fan_in = in_channel * kernel_size * kernel_size
-    scale = 1.0
-    scale /= max(1., fan_in)
-    stddev = (scale ** 0.5) / .87962566103423978
-    mu, sigma = 0, stddev
-    weight = truncnorm(-2, 2, loc=mu, scale=sigma).rvs(out_channel * in_channel * kernel_size * kernel_size)
-    weight = np.reshape(weight, (out_channel, in_channel, kernel_size, kernel_size))
-    return Tensor(weight, dtype=mstype.float32)
+import mindspore.nn as nn
 
-
-def _weight_variable(shape, factor=0.01):
-    init_value = np.random.randn(*shape).astype(np.float32) * factor
-    return Tensor(init_value)
-
-
-def calculate_gain(nonlinearity, param=None):
-    """calculate_gain"""
-    linear_fns = ['linear', 'conv1d', 'conv2d', 'conv3d', 'conv_transpose1d', 'conv_transpose2d', 'conv_transpose3d']
-    res = 0
-    if nonlinearity in linear_fns or nonlinearity == 'sigmoid':
-        res = 1
-    elif nonlinearity == 'tanh':
-        res = 5.0 / 3
-    elif nonlinearity == 'relu':
-        res = math.sqrt(2.0)
-    elif nonlinearity == 'leaky_relu':
-        if param is None:
-            negative_slope = 0.01
-        elif not isinstance(param, bool) and isinstance(param, int) or isinstance(param, float):
-            # True/False are instances of int, hence check above
-            negative_slope = param
-        else:
-            raise ValueError("negative_slope {} not a valid number".format(param))
-        res = math.sqrt(2.0 / (1 + negative_slope ** 2))
-    else:
-        raise ValueError("Unsupported nonlinearity {}".format(nonlinearity))
-    return res
-
-
-def _calculate_fan_in_and_fan_out(tensor):
-    """_calculate_fan_in_and_fan_out"""
-    dimensions = len(tensor)
-    if dimensions < 2:
-        raise ValueError("Fan in and fan out can not be computed for tensor with fewer than 2 dimensions")
-    if dimensions == 2:  # Linear
-        fan_in = tensor[1]
-        fan_out = tensor[0]
-    else:
-        num_input_fmaps = tensor[1]
-        num_output_fmaps = tensor[0]
-        receptive_field_size = 1
-        if dimensions > 2:
-            receptive_field_size = tensor[2] * tensor[3]
-        fan_in = num_input_fmaps * receptive_field_size
-        fan_out = num_output_fmaps * receptive_field_size
-    return fan_in, fan_out
-
-
-def _calculate_correct_fan(tensor, mode):
-    mode = mode.lower()
-    valid_modes = ['fan_in', 'fan_out']
-    if mode not in valid_modes:
-        raise ValueError("Mode {} not supported, please use one of {}".format(mode, valid_modes))
-    fan_in, fan_out = _calculate_fan_in_and_fan_out(tensor)
-    return fan_in if mode == 'fan_in' else fan_out
-
-
-def kaiming_normal(inputs_shape, a=0, mode='fan_in', nonlinearity='leaky_relu'):
-    fan = _calculate_correct_fan(inputs_shape, mode)
-    gain = calculate_gain(nonlinearity, a)
-    std = gain / math.sqrt(fan)
-    return np.random.normal(0, std, size=inputs_shape).astype(np.float32)
-```
-
-重新开发卷积核为 3x3 和 1x1 的卷积算子：
-
-```python
-# conv3x3 and conv1x1
-def _conv3x3(in_channel, out_channel, stride=1):  
-    weight_shape = (out_channel, in_channel, 3, 3)
-    # unlike pytorch, weight initialization is introduced when define conv2d
-    weight = Tensor(kaiming_normal(weight_shape, mode="fan_out", nonlinearity='relu'))
-    return nn.Conv2d(in_channel, out_channel, kernel_size=3, stride=stride, padding=0, pad_mode='same', weight_init=weight)
-
+def _conv3x3(in_channel, out_channel, stride=1):
+    return nn.Conv2d(in_channel, out_channel, kernel_size=3, stride=stride,
+                     padding=0, pad_mode='same')
 
 def _conv1x1(in_channel, out_channel, stride=1):
-    # unlike pytorch, weight initialization is introduced when define conv2d
-    weight_shape = (out_channel, in_channel, 1, 1)
-    weight = Tensor(kaiming_normal(weight_shape, mode="fan_out", nonlinearity='relu'))
     return nn.Conv2d(in_channel, out_channel, kernel_size=1, stride=stride,
-                     padding=0, pad_mode='same', weight_init=weight)
+                     padding=0, pad_mode='same')
 ```
 
 重新开发 BasicBlock 和 BottleNeck：
 
 ```python
-class BasicBlock(nn.Cell):
+class ResidualBlockBase(nn.Cell):
     def __init__(self,
                  in_channel,
                  out_channel,
                  stride=1):
-        super(BasicBlock, self).__init__()
+        super(ResidualBlockBase, self).__init__()
         self.conv1 = _conv3x3(in_channel, out_channel, stride=stride)
         self.bn1d = _bn(out_channel)
         self.conv2 = _conv3x3(out_channel, out_channel, stride=1)
@@ -373,7 +290,8 @@ class BasicBlock(nn.Cell):
 
         self.down_sample_layer = None
         if self.down_sample:
-            self.down_sample_layer = nn.SequentialCell([_conv1x1(in_channel, out_channel, stride,), _bn(out_channel)])
+            self.down_sample_layer = nn.SequentialCell([_conv1x1(in_channel, out_channel, stride),
+                                                        _bn(out_channel)])
 
     def construct(self, x):
         identity = x
@@ -394,20 +312,25 @@ class BasicBlock(nn.Cell):
         return out
 
 
-class BottleNeck(nn.Cell):
+class ResidualBlock(nn.Cell):
     expansion = 4
 
     def __init__(self,
                  in_channel,
                  out_channel,
                  stride=1):
-        super(BottleNeck, self).__init__()
+        super(ResidualBlock, self).__init__()
         self.stride = stride
         channel = out_channel // self.expansion
         self.conv1 = _conv1x1(in_channel, channel, stride=1)
         self.bn1 = _bn(channel)
-        self.conv2 = _conv3x3(channel, channel, stride=stride)
-        self.bn2 = _bn(channel)
+        if self.stride != 1:
+            self.e2 = nn.SequentialCell([_conv3x3(channel, channel, stride=1), _bn(channel),
+                                         nn.ReLU(), nn.MaxPool2d(kernel_size=2, stride=2, pad_mode='same')])
+        else:
+            self.conv2 = _conv3x3(channel, channel, stride=stride)
+            self.bn2 = _bn(channel)
+
         self.conv3 = _conv1x1(channel, out_channel, stride=1)
         self.bn3 = _bn_last(out_channel)
         self.relu = nn.ReLU()
@@ -422,9 +345,12 @@ class BottleNeck(nn.Cell):
         out = self.conv1(x)
         out = self.bn1(out)
         out = self.relu(out)
-        out = self.conv2(out)
-        out = self.bn2(out)
-        out = self.relu(out)
+        if self.stride != 1:
+            out = self.e2(out)
+        else:
+            out = self.conv2(out)
+            out = self.bn2(out)
+            out = self.relu(out)
         out = self.conv3(out)
         out = self.bn3(out)
         if self.down_sample:
@@ -439,6 +365,29 @@ class BottleNeck(nn.Cell):
 
 ```python
 class ResNet(nn.Cell):
+    """
+    ResNet architecture.
+
+    Args:
+        block (Cell): Block for network.
+        layer_nums (list): Numbers of block in different layers.
+        in_channels (list): Input channel in each layer.
+        out_channels (list): Output channel in each layer.
+        strides (list):  Stride size in each layer.
+        num_classes (int): The number of classes that the training images are belonging to.
+
+    Returns:
+        Tensor, output tensor.
+
+    Examples:
+        >>> ResNet(ResidualBlock,
+        >>>        [3, 4, 6, 3],
+        >>>        [64, 256, 512, 1024],
+        >>>        [256, 512, 1024, 2048],
+        >>>        [1, 2, 2, 2],
+        >>>        10)
+    """
+
     def __init__(self,
                  block,
                  layer_nums,
@@ -450,10 +399,10 @@ class ResNet(nn.Cell):
 
         if not len(layer_nums) == len(in_channels) == len(out_channels) == 4:
             raise ValueError("the length of layer_num, in_channels, out_channels list must be 4!")
-
         self.conv1 = _conv7x7(3, 64, stride=2)
         self.bn1 = _bn(64)
         self.relu = ops.ReLU()
+
         self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, pad_mode="same")
 
         self.layer1 = self._make_layer(block,
@@ -482,6 +431,21 @@ class ResNet(nn.Cell):
         self.end_point = _fc(out_channels[3], num_classes)
 
     def _make_layer(self, block, layer_num, in_channel, out_channel, stride):
+        """
+        Make stage network of ResNet.
+
+        Args:
+            block (Cell): Resnet block.
+            layer_num (int): Layer number.
+            in_channel (int): Input channel.
+            out_channel (int): Output channel.
+            stride (int): Stride size for the first convolutional layer.
+        Returns:
+            SequentialCell, the output layer.
+
+        Examples:
+            >>> _make_layer(ResidualBlock, 3, 128, 256, 2)
+        """
         layers = []
 
         resnet_block = block(in_channel, out_channel, stride=stride)
@@ -512,7 +476,19 @@ class ResNet(nn.Cell):
 传入 ResNet50 层数信息，构造 ResNet50 整网：
 
 ```python
-def resnet50(class_num=1000):
+def resnet50(class_num=10):
+    """
+    Get ResNet50 neural network.
+
+    Args:
+        class_num (int): Class number.
+
+    Returns:
+        Cell, cell instance of ResNet50 neural network.
+
+    Examples:
+        >>> net = resnet50(10)
+    """
     return ResNet(ResidualBlock,
                   [3, 4, 6, 3],
                   [64, 256, 512, 1024],
@@ -536,48 +512,10 @@ def resnet50(class_num=1000):
 - 使用了 cosine LR schedule
 - 使用了 Label Smoothing
 
-实现 cosine LR schedule：
-
-```python
-def _generate_cosine_lr(lr_init, lr_end, lr_max, total_steps, warmup_steps):
-    """
-    Applies cosine decay to generate learning rate array.
-
-    Args:
-       lr_init(float): init learning rate.
-       lr_end(float): end learning rate
-       lr_max(float): max learning rate.
-       total_steps(int): all steps in training.
-       warmup_steps(int): all steps in warmup epochs.
-
-    Returns:
-       np.array, learning rate array.
-    """
-    decay_steps = total_steps - warmup_steps
-    lr_each_step = []
-    for i in range(total_steps):
-        if i < warmup_steps:
-            lr_inc = (float(lr_max) - float(lr_init)) / float(warmup_steps)
-            lr = float(lr_init) + lr_inc * (i + 1)
-        else:
-            linear_decay = (total_steps - i) / decay_steps
-            cosine_decay = 0.5 * (1 + math.cos(math.pi * 2 * 0.47 * i / decay_steps))
-            decayed = linear_decay * cosine_decay + 0.00001
-            lr = lr_max * decayed
-        lr_each_step.append(lr)
-    return lr_each_step
-```
-
 实现带 Momentum 的 SGD 优化器，除 BN 的 gamma 和 bias 外，其他权重应用 WeightDecay ：
 
 ```python
-from mindspore.nn import Momentum
-
-net = resnet50(class_num=1000)
-lr = _generate_cosine_lr()
-momentum = 0.875
-weight_decay = 1/32768
-
+# define opt
 decayed_params = []
 no_decayed_params = []
 for param in net.trainable_params():
@@ -591,6 +529,8 @@ group_params = [{'params': decayed_params, 'weight_decay': weight_decay},
                 {'order_params': net.trainable_params()}]
 opt = Momentum(group_params, lr, momentum)
 ```
+
+实现 cosine LR schedule，可以参考 [MindSpore Cosine Decay LR](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.cosine_decay_lr.html)
 
 定义 Loss 函数和实现 Label Smoothing：
 
@@ -651,81 +591,84 @@ loss = CrossEntropySmooth(sparse=True, reduction="mean",smooth_factor=label_smoo
 
 ```text
 .
-└──resnet
-  ├── README.md
-  ├── scripts
-    ├── run_distribute_train.sh            # 启动Ascend分布式训练（8卡）
-    ├── run_eval.sh                        # 启动Ascend评估
-    ├── run_standalone_train.sh            # 启动Ascend单机训练（单卡）
-  ├── src
-    ├── resnet18_cifar10_config.yaml         # resnet18_cifar10参数配置
-    ├── resnet18_imagenet2012_config.yaml    # resnet18_imagenet2012参数配置
-    ├── resnet34_imagenet2012_config.yaml    # resnet34_imagenet2012参数配置
-    ├── resnet50_cifar10_config.yaml         # resnet50_cifar10参数配置
-    ├── resnet50_imagenet2012_Ascend_config.yaml # resnet50_imagenet2012参数配置
-    ├── resnet50_imagenet2012_config.yaml    # resnet50_imagenet2012参数配置
-    ├── resnet50_imagenet2012_GPU_config.yaml # resnet50_imagenet2012参数配置
-    ├── resnet101_imagenet2012_config.yaml   # resnet101_imagenet2012参数配置
-    ├── se-resnet50_imagenet2012_config.yaml # se-resnet50_imagenet2012参数配置
-    ├── dataset.py                         # 数据预处理
-    ├── CrossEntropySmooth.py              # ImageNet2012数据集的损失定义
-    ├── lr_generator.py                    # 生成每个步骤的学习率
-    └── resnet.py                          # ResNet骨干网络
-  ├── eval.py                              # 评估网络
-  └── train.py                             # 训练网络
+├── scripts
+│   ├── run_distribute_train.sh    # 启动Ascend分布式训练（8卡）
+│   ├── run_eval.sh                # 启动Ascend评估
+│   └── run_standalone_train.sh    # 启动Ascend单机训练（单卡）
+├── src
+│   ├── config.py                  # 配置文件
+│   ├── cross_entropy_smooth.py    # 损失定义
+│   ├── dataset.py                 # 数据预处理
+│   └── resnet.py                  # 网络结构
+├── eval.py                        # 推理流程
+└── train.py                       # 训练流程
+
+2 directories, 9 files
 ```
 
 其中 train.py 定义如下：
 
 ```python
+"""train resnet."""
 import os
 import argparse
 import ast
 from mindspore import context
-from mindspore import Tensor
-from mindspore.nn import Momentum
-from mindspore import Model
+from mindspore.common import set_seed
+from mindspore.nn.optim import Momentum
+from mindspore.train.model import Model
+from mindspore.context import ParallelMode
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
-from mindspore import FixedLossScaleManager
-from mindspore import load_checkpoint, load_param_into_net
-from mindspore.communication import init, get_rank, get_group_size
-from mindspore import set_seed
+from mindspore.communication.management import init
+from mindspore.common import initializer
 import mindspore.nn as nn
-import mindspore.common.initializer as weight_init
-from src.lr_generator import get_lr
-from src.CrossEntropySmooth import CrossEntropySmooth
-from resnet50_imagenet2012_config.yaml import config
+
+from src.config import config
+from src.dataset import create_dataset
+from src.resnet import resnet50
+from src.cross_entropy_smooth import CrossEntropySmooth
 
 set_seed(1)
 
-from src.resnet import resnet50 as resnet
-from src.dataset import create_dataset as create_dataset
+parser = argparse.ArgumentParser(description='Image classification')
+parser.add_argument('--run_distribute', type=ast.literal_eval, default=False, help='Run distribute')
+parser.add_argument('--dataset_path', type=str, default=None, help='Dataset path')
+args_opt = parser.parse_args()
+
 
 if __name__ == '__main__':
-    ckpt_save_dir = config.checkpoint_path
+    device_id = int(os.getenv('DEVICE_ID', '0'))
+    rank_size = int(os.getenv('RANK_SIZE', '1'))
+    rank_id = int(os.getenv('RANK_ID', '0'))
 
     # init context
-    context.set_context(mode=context.GRAPH_MODE, save_graphs=False)
+    context.set_context(mode=context.GRAPH_MODE, device_target='Ascend', device_id=device_id)
+    if rank_size > 1:
+       context.set_auto_parallel_context(device_num=rank_size, parallel_mode=ParallelMode.DATA_PARALLEL,
+                                         gradients_mean=True)
+       context.set_auto_parallel_context(all_reduce_fusion_config=[85, 160])
+       init()
+
     # create dataset
-    dataset = create_dataset(dataset_path=config.data_path, do_train=True, repeat_num=1,
-                             batch_size=config.batch_size)
+    dataset = create_dataset(args_opt.dataset_path, config.batch_size, rank_size, rank_id)
     step_size = dataset.get_dataset_size()
 
     # define net
-    net = resnet(class_num=config.class_num)
+    net = resnet50(class_num=config.class_num)
+
+    # init weight
     for _, cell in net.cells_and_names():
         if isinstance(cell, nn.Conv2d):
-           cell.weight.set_data(weight_init.initializer(weight_init.XavierUniform(),
-                                                        cell.weight.shape,
-                                                        cell.weight.dtype))
+            cell.weight.set_data(initializer.initializer(initializer.XavierUniform(),
+                                                         cell.weight.shape,
+                                                         cell.weight.dtype))
         if isinstance(cell, nn.Dense):
-           cell.weight.set_data(weight_init.initializer(weight_init.TruncatedNormal(),
-                                                        cell.weight.shape,
-                                                        cell.weight.dtype))
-    lr = get_lr(lr_init=config.lr_init, lr_end=config.lr_end, lr_max=config.lr_max,
-                warmup_epochs=config.warmup_epochs, total_epochs=config.epoch_size,
-                steps_per_epoch=step_size, lr_decay_mode=config.lr_decay_mode)
-    lr = Tensor(lr)
+            cell.weight.set_data(initializer.initializer(initializer.TruncatedNormal(),
+                                                         cell.weight.shape,
+                                                         cell.weight.dtype))
+
+    lr = nn.dynamic_lr.cosine_decay_lr(config.lr_end, config.lr, config.epoch_size * step_size,
+                                       step_size, config.warmup)
 
     # define opt
     decayed_params = []
@@ -739,25 +682,25 @@ if __name__ == '__main__':
     group_params = [{'params': decayed_params, 'weight_decay': config.weight_decay},
                     {'params': no_decayed_params},
                     {'order_params': net.trainable_params()}]
-    opt = Momentum(group_params, lr, config.momentum, loss_scale=config.loss_scale)
-    # define loss, model
-    loss = CrossEntropySmooth(sparse=True, reduction="mean", smooth_factor=config.label_smooth_factor, num_classes=config.class_num)
-    loss_scale = FixedLossScaleManager(config.loss_scale, drop_overflow_update=False)
-    model = Model(net, loss_fn=loss, optimizer=opt, loss_scale_manager=loss_scale, metrics={'acc'},
-                  amp_level="O2", keep_batchnorm_fp32=False)
+    opt = Momentum(group_params, lr, config.momentum)
+    # define loss
+    loss = CrossEntropySmooth(sparse=True, reduction="mean", smooth_factor=config.label_smooth_factor,
+                              num_classes=config.class_num)
+    # define model
+    model = Model(net, loss_fn=loss, optimizer=opt, metrics={'acc'})
+
     # define callbacks
     time_cb = TimeMonitor(data_size=step_size)
     loss_cb = LossMonitor()
     cb = [time_cb, loss_cb]
     if config.save_checkpoint:
-        config_ck = CheckpointConfig(save_checkpoint_steps=config.save_checkpoint_epochs * step_size, keep_checkpoint_max=config.keep_checkpoint_max)
-        ckpt_cb = ModelCheckpoint(prefix="resnet", directory=ckpt_save_dir, config=config_ck)
+        #config_ck = CheckpointConfig(save_checkpoint_steps=config.save_checkpoint_epochs * step_size,
+        config_ck = CheckpointConfig(save_checkpoint_steps=5,
+                                     keep_checkpoint_max=config.keep_checkpoint_max)
+        ckpt_cb = ModelCheckpoint(prefix="resnet", directory=config.save_checkpoint_path, config=config_ck)
         cb += [ckpt_cb]
 
-    # train model
-    dataset_sink_mode = True
-    model.train(config.epoch_size, dataset, callbacks=cb, sink_size=dataset.get_dataset_size(),
-                dataset_sink_mode=dataset_sink_mode)
+    model.train(config.epoch_size, dataset, callbacks=cb, sink_size=step_size, dataset_sink_mode=False)
 ```
 
 注意：关于目录中其他文件的代码，可以参考 MindSpore ModelZoo 的 [ResNet50 实现](https://gitee.com/mindspore/models/tree/master/official/cv/resnet)（该脚本融合了其他 ResNet 系列网络及ResNet-SE 网络，具体实现可能和对标脚本有差异）。
@@ -772,36 +715,35 @@ if __name__ == '__main__':
 
 ```python
 import os
-import argparse
-import ast
 from mindspore import context
-from mindspore.communication import init, get_rank, get_group_size
-from resnet50_imagenet2012_config.yaml import config
+from mindspore.communication import init
 
-# ...
-device_id = int(os.getenv('DEVICE_ID')) # get the current device id
-context.set_context(device_id=device_id)
-# enable distribute training
-context.set_auto_parallel_context(device_num=config.device_num,
-                                  parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
-# init distribute training
-init()
+device_id = int(os.getenv('DEVICE_ID', '0'))
+rank_size = int(os.getenv('RANK_SIZE', '1'))
+rank_id = int(os.getenv('RANK_ID', '0'))
+
+# init context
+context.set_context(mode=context.GRAPH_MODE, device_target='Ascend', device_id=device_id)
+if rank_size > 1:
+   context.set_auto_parallel_context(device_num=rank_size, parallel_mode=ParallelMode.DATA_PARALLEL,
+                                     gradients_mean=True)
+   context.set_auto_parallel_context(all_reduce_fusion_config=[85, 160])
+   # init distribute training
+   init()
 ```
 
 修改 create_dataset 接口，使数据加载时对数据进行 shard 操作以支持分布式训练：
 
 ```python
+import os
 import mindspore.dataset as ds
-from mindspore.communication import init, get_rank, get_group_size
-# ....
-device_num, rank_id = _get_rank_info()
-if device_num == 1:
-    # standalone training
-    data_set = ds.Cifar10Dataset(config.data_path, num_parallel_workers=8, shuffle=True)
-else:
-    # distribute training
-    data_set = ds.Cifar10Dataset(config.data_path, num_parallel_workers=8, shuffle=True,
-                                 num_shards=device_num, shard_id=rank_id)
+
+device_id = int(os.getenv('DEVICE_ID', '0'))
+rank_size = int(os.getenv('RANK_SIZE', '1'))
+rank_id = int(os.getenv('RANK_ID', '0'))
+
+# rank_size is greater than 1 for distributed training
+dataset = create_dataset(args_opt.dataset_path, config.batch_size, rank_size, rank_id)
 # ...
 ```
 
@@ -809,8 +751,8 @@ else:
 
 推理流程与训练相比有以下不同：
 
-- 无需定义loss 和 优化器
-- 无需在构造数据集时进行 repeat 操作
+- 无需定义优化器
+- 无需进行权重初始化
 - 网络定义后需要加载已训练好的 CheckPoint
 - 定义计算推理精度的 metric
 
@@ -819,46 +761,56 @@ else:
 修改后的推理脚本：
 
 ```python
+"""train resnet."""
 import os
 import argparse
 from mindspore import context
-from mindspore import set_seed
-from mindspore import Model
+from mindspore.common import set_seed
+from mindspore.nn import SoftmaxCrossEntropyWithLogits
+from mindspore.train import Model
 from mindspore import load_checkpoint, load_param_into_net
+
+from src.config import config
+from src.dataset import create_dataset
+from src.resnet import resnet50
+from src.cross_entropy_smooth import CrossEntropySmooth
+
+parser = argparse.ArgumentParser(description='Image classification')
+parser.add_argument('--checkpoint_path', type=str, default=None, help='Checkpoint file path')
+parser.add_argument('--dataset_path', type=str, default=None, help='Dataset path')
+args_opt = parser.parse_args()
 
 set_seed(1)
 
-from src.resnet import resnet50 as resnet
-from src.dataset import create_dataset
-from resnet50_imagenet2012_config.yaml import config
 
 
 if __name__ == '__main__':
-    target = config.device_target
-
+    device_id = int(os.getenv('DEVICE_ID', '0'))
     # init context
-    context.set_context(mode=context.GRAPH_MODE, device_target=target, save_graphs=False)
-    device_id = int(os.getenv('DEVICE_ID'))
-    context.set_context(device_id=device_id)
+    context.set_context(mode=context.GRAPH_MODE, device_target='Ascend', device_id=device_id)
 
     # create dataset
-    dataset = create_dataset(dataset_path=config.data_path, do_train=False, batch_size=config.batch_size)
+    dataset = create_dataset(args_opt.dataset_path, config.batch_size, do_train=False)
     step_size = dataset.get_dataset_size()
 
     # define net
-    net = resnet(class_num=config.class_num)
+    net = resnet50(class_num=config.class_num)
 
     # load checkpoint
-    param_dict = load_checkpoint(config.checkpoint_path)
+    param_dict = load_checkpoint(args_opt.checkpoint_path)
     load_param_into_net(net, param_dict)
     net.set_train(False)
 
+    # define loss, model
+    loss = CrossEntropySmooth(sparse=True, reduction='mean', smooth_factor=config.label_smooth_factor,
+                              num_classes=config.class_num)
+
     # define model
-    model = Model(net, metrics={'top_1_accuracy', 'top_5_accuracy'})
+    model = Model(net, loss_fn=loss, metrics={'top_1_accuracy', 'top_5_accuracy'})
 
     # eval model
     res = model.eval(dataset)
-    print("result:", res, "ckpt=", config.checkpoint_path)
+    print("result:", res, "ckpt=", args_opt.checkpoint_path)
 ```
 
 ### 问题定位
@@ -889,6 +841,8 @@ context.set_context(mode=context.GRAPH_MODE, device_target='Ascend', device_id=i
 # init profiler, profiling data will be stored under folder ./data by default
 profiler = Profiler()
 
+# ...
+
 # start training
 Model.train()
 
@@ -908,6 +862,8 @@ profiler.analyse()
 
 当数据处理速度较慢时，队列从最开始的满队列情况逐渐消耗为空队列，训练进程会开始等待空队列填入数据，一旦有新的数据填入，网络才会继续进行单Step训练。由于数据处理没有队列作为缓冲，数据处理的性能抖动直接体现在单Step的性能上，因此还会造成单Step性能抖动。
 
+关于MindData的性能问题，可以参考 MindInsight 组件的 [数据准备性能分析](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#id8)，其给出了MindData 性能的常见问题及解决方法。
+
 #### 多机同步性能问题
 
 当进行分布式训练时，在一个Step的训练过程中，完成前向传播和梯度计算后，各个机器开始进行AllReduce梯度同步，AllReduce同步时间主要受权重数量、机器数量影响，对于越复杂、机器规模越大的网络，其 AllReduce 梯度更新时间也越久，此时我们可以进行AllReduce 切分来优化这部分耗时。
@@ -916,22 +872,17 @@ profiler.analyse()
 以 [ResNet50网络](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/train.py) 为例，该网络共有 160  个 权重，  [85, 160] 表示第 0 至 85个权重计算完梯度后立刻进行梯度同步，第 86 至 160 个 权重计算完后再进行梯度同步，这里共切分两段，因此需要进行两次梯度同步。代码实现如下：
 
 ```python
-from mindspore import context
-from resnet50_imagenet2012_config.yaml import config
-...
+device_id = int(os.getenv('DEVICE_ID', '0'))
+rank_size = int(os.getenv('RANK_SIZE', '1'))
+rank_id = int(os.getenv('RANK_ID', '0'))
 
-device_id = int(os.getenv('DEVICE_ID'))
-context.set_context(device_id=device_id)
-context.set_auto_parallel_context(device_num=config.device_num,
-                                  parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
-set_algo_parameters(elementwise_op_strategy_follow=True)
-if config.net_name == "resnet50" or config.net_name == "se-resnet50":
-    # AllReduce split
-    context.set_auto_parallel_context(all_reduce_fusion_config=[85, 160])
-else:
-    # Another split stratety
-    context.set_auto_parallel_context(all_reduce_fusion_config=[180, 313])
-init()
+# init context
+context.set_context(mode=context.GRAPH_MODE, device_target='Ascend', device_id=device_id)
+if rank_size > 1:
+   context.set_auto_parallel_context(device_num=rank_size, parallel_mode=ParallelMode.DATA_PARALLEL,
+                                     gradients_mean=True)
+   context.set_auto_parallel_context(all_reduce_fusion_config=[85, 160])
+   init()
 ```
 
 #### 算子性能问题
