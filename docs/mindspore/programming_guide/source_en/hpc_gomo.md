@@ -207,7 +207,7 @@ sh run_distribute_train.sh <im> <jm> <kb> <step> <DATASET_PATH>
 
 Pass the variables `im`, `jm`, `kb`, `step` and `DATASET_PATH` to the script, where:
 
-- `im`, `jm`, `kb`: resolution of the simulated ocean region, which is related to the used data.
+- `im`, `jm`, `kb`: resolution of the simulated ocean region, which is related to the used data (the data resolution `im`, `jm` and `kb` given in the example are 65, 49 and 21, respectively).
 - `step`: number of time steps during training (corresponding to `iend` in Figure 1).
 - `DATASET_PATH`: training data path.
 

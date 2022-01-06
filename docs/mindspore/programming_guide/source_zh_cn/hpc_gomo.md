@@ -207,7 +207,7 @@ sh run_distribute_train.sh <im> <jm> <kb> <step> <DATASET_PATH>
 
 脚本需要传入变量`im`、`jm`、`kb`、`step`、`DATASET_PATH`，其中：
 
-- `im`,`jm`,`kb`：模拟的海洋区域分辨率，与使用的数据相关；
+- `im`, `jm`, `kb`：模拟的海洋区域分辨率，与使用的数据相关（示例中给出的数据分辨率`im`, `jm`, `kb`分别是65, 49, 21）；
 - `step`：训练的时间步数（与图1中的`iend`对应）；
 - `DATASET_PATH`：训练数据路径。
 
