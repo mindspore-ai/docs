@@ -435,3 +435,154 @@ Traceback (most recent call last):
     output = real_run_op(obj, op_name, args)
 RuntimeError: mindspore/ccsrc/runtime/device/kernel_runtime.cc:1006 DebugStreamSync] Op Default/GetNext-op0 run failed!
 ```
+
+## Hook
+
+Debugging deep learning network is a task that practitioners in every field of deep learning need to face and invest a lot of energy. Because the deep learning network hides the input and output gradients of the middle layer operator and only provides the gradients of the input data (feature data and weight), developers can not accurately perceive the gradient changes of the middle layer operator, which affects the debugging efficiency. In order to facilitate developers to accurately and quickly debug the deep learning network, MindSpore designed the hook function in PyNative mode. Developers can use the hook function to capture the input and output gradients of the middle layer operator. At present, PyNative mode provides two forms of hook functions: HookBackward operator and the register_backward interface for nn.Cell object.
+
+### HookBackward operator
+
+HookBackward implements the hook function as an operator. The user initializes a HookBackward operator and inserts it into the position where the gradient needs to be captured in the deep learning network. When the network is executing forward process, the HookBackward operator outputs the input data as it is without any modification; When the network back propagates gradient, the hook function registered on HookBackward operator will capture the gradient back propagated to this point. You can customize the gradient operation in the hook function, such as printing the gradient or returning a new gradient.
+
+Example Code:
+
+```python
+import mindspore
+from mindspore import ops
+from mindspore import Tensor
+from mindspore import context
+from mindspore.ops import GradOperation
+
+context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
+
+def hook_fn(grad_out):
+    print(grad_out)
+
+grad_all = GradOperation(get_all=True)
+hook = ops.HookBackward(hook_fn)
+def hook_test(x, y):
+    z = x * y
+    z = hook(z)
+    z = z * y
+    return z
+
+def net(x, y):
+    return grad_all(hook_test)(x, y)
+
+output = net(Tensor(1, mindspore.float32), Tensor(2, mindspore.float32))
+print(output)
+```
+
+Output：
+
+```python
+(Tensor(shape=[], dtype=Float32, value= 2),)
+(Tensor(shape=[], dtype=Float32, value= 4), Tensor(shape=[], dtype=Float32, value= 4))
+```
+
+For more descriptions of HookBackward operator, please refer to [API document](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.HookBackward.html).
+
+### The register_backward interface for nn.Cell object
+
+Users can use the register_backward interface for nn.Cell object. The register_backward interface registers a user-defined hook function, which is used to capture the gradients about the nn.Cell object. Different from the HookBackward operator, the input parameters of the hook function registered in register_backward interface contains the incoming gradient and the output gradient of nn.Cell object.
+
+Example Code:
+
+```python
+def cell_hook_function(cell_id, grad_input, grad_output):
+    print(grad_input)
+    print(grad_output)
+```
+
+The `grad_input` is the input gradient of the nn.Cell object, which corresponds to the output gradient of the next operator in the forward process. The `grad_output` is the output gradient of the nn.Cell object. Therefore, users can use register_backward interface to capture the input gradient and output gradient of the nn.Cell object. Users can customize the gradient operation in the hook function, such as printing gradient or returning a new output gradient.
+
+Example Code:
+
+```python
+import numpy as np
+import mindspore
+import mindspore.nn as nn
+from mindspore import Tensor
+from mindspore import context
+from mindspore.ops import GradOperation
+
+context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
+
+def cell_hook_function(cell_id, grad_input, grad_output):
+    print(grad_input)
+    print(grad_output)
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.conv = nn.Conv2d(1, 2, kernel_size=2, stride=1, padding=0, weight_init="ones", pad_mode="valid")
+        self.bn = nn.BatchNorm2d(2, momentum=0.99, eps=0.00001, gamma_init="ones")
+        self.bn.register_backward_hook(cell_hook_function)
+        self.relu = nn.ReLU()
+
+    def construct(self, x):
+        x = self.conv(x)
+        x = self.bn(x)
+        x = self.relu(x)
+        return x
+
+grad_all = GradOperation(get_all=True)
+output = grad_all(Net())(Tensor(np.ones([1, 1, 2, 2]).astype(np.float32)))
+print(output)
+```
+
+Output：
+
+```python
+(Tensor(shape=[1, 2, 1, 1], dtype=Float32, value=
+[[[[ 1.00000000e+00]],
+  [[ 1.00000000e+00]]]]),)
+(Tensor(shape=[1, 2, 1, 1], dtype=Float32, value=
+[[[[ 9.99994993e-01]],
+  [[ 9.99994993e-01]]]]),)
+(Tensor(shape=[1, 1, 2, 2], dtype=Float32, value=
+[[[[ 1.99998999e+00, 1.99998999e+00],
+   [ 1.99998999e+00, 1.99998999e+00]]]]),)
+```
+
+More about the register_backward interface, please refer to [API Document](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_backward_hook).
+
+## Custom bprop
+
+Users can customize the back propagation (calculation) function of the nn.cell object to control the gradient calculation process and positioning gradient problem. The custom bprop is implemented by defining a `bprop function` for nn.Cell object. During the back propagation process, the custom bprop function will run.
+
+Example Code:
+
+```python
+import mindspore
+import mindspore.nn as nn
+from mindspore import Tensor
+from mindspore import context
+from mindspore.ops import GradOperation
+
+context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+
+    def construct(self, x, y):
+        z = x * y
+        z = z * y
+        return z
+
+    def bprop(self, x, y, out, dout):
+        x_dout = x + y
+        y_dout = x * y
+        return x_dout, y_dout
+
+grad_all = GradOperation(get_all=True)
+output = grad_all(Net())(Tensor(1, mindspore.float32), Tensor(2, mindspore.float32))
+print(output)
+```
+
+Output：
+
+```python
+(Tensor(shape=[], dtype=Float32, value= 3), Tensor(shape=[], dtype=Float32, value= 2))
+```

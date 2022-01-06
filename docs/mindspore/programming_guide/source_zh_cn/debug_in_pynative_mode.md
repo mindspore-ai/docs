@@ -405,3 +405,154 @@ Traceback (most recent call last):
     output = real_run_op(obj, op_name, args)
 RuntimeError: mindspore/ccsrc/runtime/device/kernel_runtime.cc:1006 DebugStreamSync] Op Default/GetNext-op0 run failed!
 ```
+
+## Hook功能
+
+调试深度学习网络是每一个深度学习领域的从业者需要面对，且投入大量精力的工作。由于深度学习网络隐藏了中间层算子的输入、输出梯度，只提供输入数据（特征量、权重）的梯度，导致无法准确地感知中间层算子的梯度变化，从而影响调试效率。为了方便用户准确、快速地对深度学习网络进行调试，MindSpore在PyNative模式下设计了Hook功能，使用Hook功能可以捕获中间层算子的输入、输出梯度。目前，PyNative模式下提供了两种形式的Hook功能，分别是：HookBackward算子和在nn.Cell对象上进行注册的register_backward功能。
+
+### HookBackward算子
+
+HookBackward将Hook功能以算子的形式实现。用户初始化一个HookBackward算子，将其安插到深度学习网络中需要捕获梯度的位置。在网络正向执行时，HookBackward算子将输入数据不做任何修改地原样输出；在网络反向传播梯度时，在HookBackward上注册的Hook函数将会捕获反向传播至此的梯度。用户可以在Hook函数中自定义对梯度的操作，比如打印梯度，或者返回新的梯度。
+
+示例代码:
+
+```python
+import mindspore
+from mindspore import ops
+from mindspore import Tensor
+from mindspore import context
+from mindspore.ops import GradOperation
+
+context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
+
+def hook_fn(grad_out):
+    print(grad_out)
+
+grad_all = GradOperation(get_all=True)
+hook = ops.HookBackward(hook_fn)
+def hook_test(x, y):
+    z = x * y
+    z = hook(z)
+    z = z * y
+    return z
+
+def net(x, y):
+    return grad_all(hook_test)(x, y)
+
+output = net(Tensor(1, mindspore.float32), Tensor(2, mindspore.float32))
+print(output)
+```
+
+输出：
+
+```python
+(Tensor(shape=[], dtype=Float32, value= 2),)
+(Tensor(shape=[], dtype=Float32, value= 4), Tensor(shape=[], dtype=Float32, value= 4))
+```
+
+更多HookBackward算子的说明可以参考[API文档](https://mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.HookBackward.html)。
+
+### nn.Cell对象的register_backward功能
+
+用户可以在nn.Cell对象上使用register_backward接口，注册一个自定义的Hook函数，用来捕获网络反向传播时，与该nn.Cell对象相关联的梯度。与HookBackward算子所使用的自定义Hook函数有所不同，register_backward接口使用的Hook函数的入参中包含了注册nn.Cell对象的id信息，反向传入的梯度以及反向输出的梯度。
+
+示例代码:
+
+```python
+def cell_hook_function(cell_id, grad_input, grad_output):
+    print(grad_input)
+    print(grad_output)
+```
+
+这里的`grad_input`是梯度反向传播时，传入到nn.Cell对象的梯度，它对应正向过程中下一个算子的反向输出梯度；`grad_output`是nn.Cell对象反向输出的梯度。因此，用户可以使用register_backward接口捕获网络中某一个nn.Cell对象的反向传入和反向输出梯度。用户可以在自定义的Hook函数中，自定义对梯度的操作，比如打印梯度，或者返回新的输出梯度。
+
+示例代码:
+
+```python
+import numpy as np
+import mindspore
+import mindspore.nn as nn
+from mindspore import Tensor
+from mindspore import context
+from mindspore.ops import GradOperation
+
+context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
+
+def cell_hook_function(cell_id, grad_input, grad_output):
+    print(grad_input)
+    print(grad_output)
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.conv = nn.Conv2d(1, 2, kernel_size=2, stride=1, padding=0, weight_init="ones", pad_mode="valid")
+        self.bn = nn.BatchNorm2d(2, momentum=0.99, eps=0.00001, gamma_init="ones")
+        self.bn.register_backward_hook(cell_hook_function)
+        self.relu = nn.ReLU()
+
+    def construct(self, x):
+        x = self.conv(x)
+        x = self.bn(x)
+        x = self.relu(x)
+        return x
+
+grad_all = GradOperation(get_all=True)
+output = grad_all(Net())(Tensor(np.ones([1, 1, 2, 2]).astype(np.float32)))
+print(output)
+```
+
+输出：
+
+```python
+(Tensor(shape=[1, 2, 1, 1], dtype=Float32, value=
+[[[[ 1.00000000e+00]],
+  [[ 1.00000000e+00]]]]),)
+(Tensor(shape=[1, 2, 1, 1], dtype=Float32, value=
+[[[[ 9.99994993e-01]],
+  [[ 9.99994993e-01]]]]),)
+(Tensor(shape=[1, 1, 2, 2], dtype=Float32, value=
+[[[[ 1.99998999e+00, 1.99998999e+00],
+   [ 1.99998999e+00, 1.99998999e+00]]]]),)
+```
+
+更多关于nn.Cell对象的register_backward功能的说明可以参考[API文档](https://mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_backward_hook)。
+
+## 自定义bprop功能
+
+用户可以自定义nn.Cell对象的反向传播（计算）函数，从而控制nn.Cell对象梯度计算的过程，定位梯度问题。自定义bprop函数的使用方法是：在定义的nn.Cell对象里面增加一个用户自定义的bprop函数。训练的过程中会使用用户自定义的bprop函数来生成反向图。
+
+示例代码:
+
+```python
+import mindspore
+import mindspore.nn as nn
+from mindspore import Tensor
+from mindspore import context
+from mindspore.ops import GradOperation
+
+context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+
+    def construct(self, x, y):
+        z = x * y
+        z = z * y
+        return z
+
+    def bprop(self, x, y, out, dout):
+        x_dout = x + y
+        y_dout = x * y
+        return x_dout, y_dout
+
+grad_all = GradOperation(get_all=True)
+output = grad_all(Net())(Tensor(1, mindspore.float32), Tensor(2, mindspore.float32))
+print(output)
+```
+
+输出：
+
+```python
+(Tensor(shape=[], dtype=Float32, value= 3), Tensor(shape=[], dtype=Float32, value= 2))
+```
