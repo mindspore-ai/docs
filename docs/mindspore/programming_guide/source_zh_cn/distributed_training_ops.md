@@ -12,6 +12,7 @@
     - [NeighborExchange](#neighborexchange)
     - [NeighborExchangeV2](#neighborexchangev2)
     - [AlltoAll](#alltoall)
+    - [注意事项](#注意事项)
 
 <!-- /TOC -->
 
@@ -46,10 +47,10 @@ init()
 class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
-        self.allreduce_sum = ops.AllReduce(ops.ReduceOp.SUM, group="nccl_world_group")
+        self.all_reduce_sum = ops.AllReduce(ops.ReduceOp.SUM, group="nccl_world_group")
 
     def construct(self, x):
-        return self.allreduce_sum(x)
+        return self.all_reduce_sum(x)
 
 value = get_rank()
 input_x = Tensor(np.array([[value]]).astype(np.float32))
@@ -84,10 +85,10 @@ init()
 class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
-        self.allgather = ops.AllGather()
+        self.all_gather = ops.AllGather()
 
     def construct(self, x):
-        return self.allgather(x)
+        return self.all_gather(x)
 
 value = get_rank()
 input_x = Tensor(np.array([[value]]).astype(np.float32))
@@ -125,10 +126,10 @@ init()
 class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
-        self.reducescatter = ops.ReduceScatter(ops.ReduceOp.SUM)
+        self.reduce_scatter = ops.ReduceScatter(ops.ReduceOp.SUM)
 
     def construct(self, x):
-        return self.reducescatter(x)
+        return self.reduce_scatter(x)
 
 input_x = Tensor(np.array([[0], [1], [2], [3]]).astype(np.float32))
 net = Net()
@@ -148,7 +149,7 @@ print(output)
 
 `Broadcast`操作是将某张卡的输入广播到其他卡上，常见于参数的初始化。例如上图中，将0卡大小为1x1的Tensor进行广播，最终每张卡输出均为[[0]]。
 
-示例代码如下：我们将`Broadcast`算子的根节点设置为0号卡，表示将从0号卡广播数据到其他卡上。同时申请了一个1x1大小，数值为0的输入。然后调用`Broadcast`算子，在通信域为`0-1-2-3`的卡(所有卡的通信范围即nccl_world_group)中进行通信，最终每张卡都会输出来自卡0的并且打印输出结果。
+示例代码如下：我们将`Broadcast`算子的根节点设置为0号卡，表示将从0号卡广播数据到其他卡上。同时申请了一个1x1大小，数值为0的输入。然后调用`Broadcast`算子，在通信域为`0-1-2-3`的卡(所有卡的通信范围即nccl_world_group)中进行通信，最终每张卡的输出数值来自卡0。
 
 ```python
 from mindspore import Tensor
@@ -201,19 +202,19 @@ import numpy as np
 class Net0(nn.Cell):
     def __init__(self):
         super(Net0, self).__init__()
-        self.neighborexchange = ops.NeighborExchange(send_rank_ids=[1], recv_rank_ids=[1], recv_shapes=([2, 2],), send_shapes=([3, 3],), recv_type=ms.float32)
+        self.neighbor_exchange = ops.NeighborExchange(send_rank_ids=[1], recv_rank_ids=[1], recv_shapes=([2, 2],), send_shapes=([3, 3],), recv_type=ms.float32)
 
     def construct(self, x):
-        out = self.neighborexchange((x,))
+        out = self.neighbor_exchange((x,))
         return out[0]
 
 class Net1(nn.Cell):
     def __init__(self):
         super(Net1, self).__init__()
-        self.neighborexchange = ops.NeighborExchange(send_rank_ids=[0], recv_rank_ids=[0], recv_shapes=([3, 3],), send_shapes=([2, 2],), recv_type=ms.float32)
+        self.neighbor_exchange = ops.NeighborExchange(send_rank_ids=[0], recv_rank_ids=[0], recv_shapes=([3, 3],), send_shapes=([2, 2],), recv_type=ms.float32)
 
     def construct(self, x):
-        out = self.neighborexchange((x,))
+        out = self.neighbor_exchange((x,))
         return out[0]
 
 context.set_context(mode=context.GRAPH_MODE, device_target='Ascend')
@@ -231,10 +232,10 @@ else:
     print(output)
 ```
 
-使用shell脚本启动2卡脚本，示例shell脚本如下：
+使用shell脚本启动2卡脚本，下述中的`rank_table_file`文件可以使用[models](https://gitee.com/mindspore/models)下面的hccl_tools.py生成，对应的目录文件为`models/utils/hccl_tools`。示例shell脚本如下：
 
 ```shell
-export MINDSPORE_HCCL_CONFIG_PATH=absolute path of hccl_config_json
+export MINDSPORE_HCCL_CONFIG_PATH=rank_table_file
 export DEVICE_NUM=2
 BASE_PATH=$(cd "$(dirname $0)"; pwd)
 for((i=0; i<$DEVICE_NUM; i++)); do
@@ -285,19 +286,19 @@ import numpy as np
 class Net0(nn.Cell):
     def __init__(self):
         super(Net0, self).__init__()
-        self.neighborexchangev2 = ops.NeighborExchangeV2(send_rank_ids=[-1, -1, -1, -1, 1, -1, -1, -1], send_lens=[0, 1, 0, 0], recv_rank_ids=[-1, -1, -1, -1, 1, -1, -1, -1], recv_lens=[0, 1, 0, 0], data_format="NCHW")
+        self.neighbor_exchangev2 = ops.NeighborExchangeV2(send_rank_ids=[-1, -1, -1, -1, 1, -1, -1, -1], send_lens=[0, 1, 0, 0], recv_rank_ids=[-1, -1, -1, -1, 1, -1, -1, -1], recv_lens=[0, 1, 0, 0], data_format="NCHW")
 
     def construct(self, x):
-        out = self.neighborexchangev2(x)
+        out = self.neighbor_exchangev2(x)
         return out
 
 class Net1(nn.Cell):
     def __init__(self):
         super(Net1, self).__init__()
-        self.neighborexchangev2 = ops.NeighborExchangeV2(send_rank_ids=[0, -1, -1, -1, -1, -1, -1, -1], send_lens=[1, 0, 0, 0], recv_rank_ids=[0, -1, -1, -1, -1, -1, -1, -1], recv_lens=[1, 0, 0, 0], data_format="NCHW")
+        self.neighbor_exchangev2 = ops.NeighborExchangeV2(send_rank_ids=[0, -1, -1, -1, -1, -1, -1, -1], send_lens=[1, 0, 0, 0], recv_rank_ids=[0, -1, -1, -1, -1, -1, -1, -1], recv_lens=[1, 0, 0, 0], data_format="NCHW")
 
     def construct(self, x):
-        out = self.neighborexchangev2(x)
+        out = self.neighbor_exchangev2(x)
         return out
 
 context.set_context(mode=context.GRAPH_MODE, device_target='Ascend')
@@ -315,10 +316,10 @@ else:
     print(output)
 ```
 
-使用shell脚本启动2卡脚本，示例shell脚本如下：
+使用shell脚本启动2卡脚本，下述中的`rank_table_file`文件可以使用[models](https://gitee.com/mindspore/models)下面的hccl_tools.py生成，对应的目录文件为`models/utils/hccl_tools`。示例shell脚本如下：
 
 ```shell
-export MINDSPORE_HCCL_CONFIG_PATH=absolute path of hccl_config_json
+export MINDSPORE_HCCL_CONFIG_PATH=rank_table_file
 export DEVICE_NUM=2
 BASE_PATH=$(cd "$(dirname $0)"; pwd)
 for((i=0; i<$DEVICE_NUM; i++)); do
@@ -370,10 +371,10 @@ import numpy as np
 class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
-        self.alltoall = ops.AlltoAll(split_count = 8, split_dim = -2, concat_dim = -1)
+        self.all_to_all = ops.AlltoAll(split_count = 8, split_dim = -2, concat_dim = -1)
 
     def construct(self, x):
-        out = self.alltoall(x)
+        out = self.all_to_all(x)
         return out
 
 context.set_context(mode=context.GRAPH_MODE, device_target='Ascend')
@@ -385,10 +386,10 @@ output = net(input_x)
 print(output)
 ```
 
-使用shell脚本启动8卡脚本，示例shell脚本如下：
+使用shell脚本启动8卡脚本，下述中的`rank_table_file`文件可以使用[models](https://gitee.com/mindspore/models)下面的hccl_tools.py生成，对应的目录文件为`models/utils/hccl_tools`。示例shell脚本如下：
 
 ```shell
-export MINDSPORE_HCCL_CONFIG_PATH=absolute path of hccl_config_json
+export MINDSPORE_HCCL_CONFIG_PATH=rank_table_file
 export DEVICE_NUM=8
 BASE_PATH=$(cd "$(dirname $0)"; pwd)
 for((i=0; i<$DEVICE_NUM; i++)); do
@@ -413,10 +414,10 @@ rank0~rank7的结果为：
 
 在昇腾芯片上，NeighborExchange、NeighborExchangeV2、AlltoAll这三个算子需要进行全连接配网。
 
-全连接配网支持任意卡之间进行通信，没有数量限制。全连接配网方式可参考[HCCN Tool 接口参考](https://support.huawei.com/enterprise/zh/ascend-computing/a300t-9000-pid-250702906?category=developer-documents)进行配置。全连接配网时，所有卡需要VLan ID相同、IP和子网掩码在同一网段，配置到其他卡的静态路由表和ARP。其中，**VLan ID需要在交换机上进行配置**，其他IP等改动的单机8卡配置参考样例如下：
+全连接配网支持任意卡之间进行通信，没有数量限制。全连接配网方式可参考[HCCN Tool 接口参考](https://support.huawei.com/enterprise/zh/ascend-computing/a300t-9000-pid-250702906?category=developer-documents)进行配置。全连接配网时，所有卡需要VLan ID相同、IP在同一网段，配置到其他卡的静态路由表和ARP。其中，**VLan ID需要在交换机上进行配置**，其他IP等改动的单机8卡配置参考样例如下：
 
 ```shell
-# 配置IP与子网掩码到同一网段
+# 配置IP到同一网段
 hccn_tool -i 0 -ip -s address 192.98.92.100 netmask 255.255.255.0
 hccn_tool -i 1 -ip -s address 192.98.92.101 netmask 255.255.255.0
 hccn_tool -i 2 -ip -s address 192.98.92.102 netmask 255.255.255.0
