@@ -23,7 +23,7 @@
 
 深度学习等现代AI算法通过使用大量的数据来学习拟合出一个优化后带参模型，其中使用的学习算法多是基于现实数据自模型中的经验误差来反向传播以更新模型的参数，自动微分技术（Automatic Differentiation， AD）正是其中的关键技术。
 
-自动微分是一种介于数值微分与符号微分之间的一种求导方法。自动微分的核心思想是将计算机程序中的运算操作分解为一个有限的基本操作合集，且集合中基本操作的求导规则均为已知的。 在完成每一个基本操作的求导后，使用链式求导法则将结果组合得到整体程序的求导结果。
+自动微分是一种介于数值微分与符号微分之间的一种求导方法。自动微分的核心思想是将计算机程序中的运算操作分解为一个有限的基本操作合集，且合集中基本操作的求导规则均为已知的。 在完成每一个基本操作的求导后，使用链式求导法则将结果组合得到整体程序的求导结果。
 
 链式求导法则： $(f\circ g)^{'}(x)=f^{'}(g(x))g^{'}(x)$
 
@@ -181,7 +181,7 @@ MapParamObject(); // 参数节点的映射
 MapValueObject(); // ValueNode的映射
 ```
 
-`MapFvObject`是对自由变量的映射， `MapParameter`是对参数节点的映射。 `MapValueObject`中主要对`Primitive`以及`FuncGraph`对象进行映射。其中，对`FuncGraph`进行的映射同样需要为该子图创造相应的`DFunctor`，是一个递归的过程。 `Primitive`表明了算子的种类，为了支持自动微分，需要为每一种`Primitive`定义其对应的反向微分函数。 MindSpore将这些定义放在了Python侧，以`sin`算子为例：
+`MapFvObject`是对自由变量的映射， `MapParamObject`是对参数节点的映射。 `MapValueObject`中主要对`Primitive`以及`FuncGraph`对象进行映射。其中，对`FuncGraph`进行的映射同样需要为该子图创造相应的`DFunctor`，是一个递归的过程。 `Primitive`表明了算子的种类，为了支持自动微分，需要为每一种`Primitive`定义其对应的反向微分函数。 MindSpore将这些定义放在了Python侧，以`sin`算子为例：
 
 ```python
 @bprop_getters.register(P.Sin)
