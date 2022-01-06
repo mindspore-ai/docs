@@ -340,18 +340,6 @@ MindSpore教程
                            </div>
                         </a>
                      </div>
-                     <div class="doc-article-item all hardware-ascend stage-Whole-Process stage-Advanced experience-local hidden">
-                        <a href="https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/image_and_video/fine_tune.html" class="article-link">
-                           <div>
-                                 <div class="doc-article-head">
-                                    <span class="doc-head-content">图像分割模型微调</span>
-                                 </div>
-                                 <div class="doc-article-desc">
-                                 在本教程中，我们将使用COCO数据集当中book分类下的部分图片，对Mask R-CNN模型进行微调，最终实现图像分割的效果。
-                                 </div>
-                           </div>
-                        </a>
-                     </div>
                      <div class="doc-article-item all hardware-ascend hardware-gpu stage-Whole-Process stage-Advanced experience-local hidden">
                         <a href="https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/image_and_video/transfer_learning.html" class="article-link">
                            <div>
