@@ -141,7 +141,7 @@
     - 问题分析：ms模型的输入shape包含-1，即模型输入为动态shape，直接推理时由于shape无效导致推理失败。
     - 解决方法：MindSpore Lite在对包含动态shape输入的模型推理时要求指定合理的shape，使用benchmark工具时可通过设置[inputShapes](https://mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html#id3) 参数指定，使用MindSpore Lite集成开发时可通过调用[Resize](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#resize) 方法设置。
 
-### GPU推理问题
+### OpenCL GPU 推理问题
 
 #### 图编译失败
 
@@ -194,6 +194,35 @@
 
     - 问题分析：推理阶段为了提升性能会忽略OpenCL算子执行结束后的Event检查，而OpenCL中Enqueue类函数会默认插入Event检查，如果有OpenCL算子执行出错，会在Map阶段返回错误。
     - 解决办法：由于OpenCL算子存在BUG，建议通过在MindSpore社区[提ISSUE](https://gitee.com/mindspore/mindspore/issues) 来通知开发人员进行代码修复和适配。
+
+### TensorRT GPU 推理问题
+
+#### 图编译失败
+
+1. 模型输入为动态 shape，或者模型有 shape 算子，会有 Dimensions 相关日志报错信息：
+
+    ```cpp
+    ERROR [mindspore/lite/src/delegate/tensorrt/tensorrt_runtime.h:31] log] Parameter check failed at: optimizationProfile.cpp::setDimensions::119, condition: std::all_of(dims.d, dims.d + dims.nbDims, [](int x) { return x >= 0; })
+    ERROR [mindspore/lite/src/delegate/tensorrt/tensorrt_subgraph.cc:219] ParseInputDimsProfile] setDimensions of kMIN failed for input
+    ERROR [mindspore/lite/src/delegate/tensorrt/tensorrt_runtime.h:31] log] xxx: xxx size cannot have negative dimension, size = [-1]
+    ```
+
+    - 问题分析：TensorRT GPU 构图暂不支持有动态 shape 的模型，具体情况为模型的输入 shape 包含-1，或者模型中包含 shape 算子。
+    - 解决方法：在使用 converter 将模型转换成ms时，需要在[转换命令](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html#id5)上设置`--inputShape=<INPUTSHAPE>`，指定输入 tensor 的 shape 信息。如需在推理时改变输入 shape，使用 benchmark 工具时可通过设置[inputShapes](https://mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html#id3) 参数指定，使用 MindSpore Lite 集成开发时可通过调用[Resize](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#resize) 方法设置。注意： [Resize](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#resize)输入的 shape 维度必须要小于等于 [Build](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build)模型的维度。
+
+#### 图执行失败
+
+1. 离线 broadcast 类型算子，不支持 resize，日志现象会报错在某个算子的输入维度不匹配，例如：
+
+    ```cpp
+    ERROR [mindspore/lite/src/delegate/tensorrt/tensorrt_runtime.h:31] log] xxx: dimensions not compatible for xxx
+    ERROR [mindspore/lite/src/delegate/tensorrt/tensorrt_runtime.h:31] log] shapeMachine.cpp (252) - Shape Error in operator(): broadcast with incompatible Dimensions
+    ERROR [mindspore/lite/src/delegate/tensorrt/tensorrt_runtime.h:31] log] Instruction: CHECK_BROADCAST xx xx
+    ERROR [mindspore/lite/src/delegate/tensorrt/tensorrt_subgraph.cc:500] Execute] TensorRT execute failed.
+    ```
+
+    - 问题分析：有算子在离线 converter 时，通过指定`--inputShape=<INPUTSHAPE>`自动做了离线 broadcast。例如 ones like，会依据输入的 shape 信息，将1 broadcast 成对应的常量tensor，此时再将输入 resize 成不同维度时，网络中对输入 tensor 维度敏感的算子（例如concat、matmul等）就会出现报错。
+    - 解决方法：将此类算子替换为一个模型的输入，推理时通过内存拷贝的方式赋值，并在 resize 的时候指定对应的 shape 信息。
 
 ### NPU推理问题
 
