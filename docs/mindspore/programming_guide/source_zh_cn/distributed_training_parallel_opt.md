@@ -41,10 +41,15 @@
     ├─distribute_training_transformer
         ├── dataset.py
         ├── model.py
+        ├── parallel_recover_train.py
+        ├── parallel_save_ckpt_train.py
+        ├── preprocess.py
         ├── rank_table_16pcs.json
         ├── rank_table_2pcs.json
         ├── rank_table_8pcs.json
         ├── run_cluster.sh
+        ├── run_parallel_recover_ckpt.sh
+        ├── run_parallel_save_ckpt.sh
         ├── run.sh
         └── train.py
 ```
@@ -56,6 +61,7 @@
 此外，用户还可以自定义某些参数是否优化器切分。Parameter提供了一个`parallel_optimizer`的参数，用来配置当前的参数是否进行优化器切分。如下述的代码进行了一个embedding_table的查表操作，我们对其配置了优化器并行属性为`True`。例如在8卡机器上进行数据并行训练时，用户定义了一个查表操作，其中embedding_table参数shape为[80, 200]，那么每卡在参数初始化时得到的参数分片大小为[10, 200]。然后在正向计算开始时，MindSpore会执行一个AllGather通信操作，将每卡切片参数汇聚为一个完整shape[80, 200]的全量参数参与到网络的计算中。这个AllGather操作是用户不感知的操作。在计算反向梯度时，根据自动微分，AllGather的反向对应的是ReduceScatter操作，将梯度求和之后取对应设备的切片，shape即为[10, 200]的梯度分片到每张卡上。
 
 ```python
+from mindspore import context
 from mindspore import Parameter
 from mindspore.common import initializer
 from mindspore.nn import Cell
@@ -83,7 +89,7 @@ context.set_auto_parallel_context(enable_parallel_optimizer=True)
 
 ## 配置通信融合
 
-在[设置参数优化器并行](#设置参数优化器并行)一节中，我们阐述了如何配置每个参数的优化器并行属性。在全/半自动模式下，每个参数都会产生一个对应的AllGather操作和ReduceScatter操作。然而，随着参数量增多，对应的通信算子也会增多，通信操作产生的算子调度和启动都会产生更多的开销。因此，可以通过cell提供的`set_comm_fusion`方法，对每个cell内的参数对应的AllGather和ReduceScatter操作配置融合标记。在编译图的流程中，相同融合标记并且是相同的通信操作，会被融合成一个通信操作。从而减少通信操作的数量。例如下述的代码中，通过设置`src_embedding`和`tgt_embedding`的`set_comm_fusion`方法，将Encoder和Decoder的embedding层由于优化器产生的通信算子设置融合标记为0，将`Transformer`设置的融合标记为1。
+在[设置参数优化器并行](#设置参数优化器并行)一节中，我们阐述了如何配置每个参数的优化器并行属性。在全/半自动模式下，每个参数都会产生一个对应的AllGather操作和ReduceScatter操作。然而，随着参数量增多，对应的通信算子也会增多，通信操作产生的算子调度和启动都会产生更多的开销。因此，可以通过cell提供的`set_comm_fusion`方法，对每个cell内的参数对应的AllGather和ReduceScatter操作配置融合标记。在编译图的流程中，相同融合标记并且是相同的通信操作，会被融合成一个通信操作。从而减少通信操作的数量。例如下述的代码中，通过设置`src_embedding`和`tgt_embedding`的`set_comm_fusion`方法，设置Encoder和Decoder的embedding层的融合标记为0，设置`Transformer`的融合标记为1。将融合标记设置为0时，表示此组通信算子不进行融合。
 
 ```python
 from mindspore.nn.transformer import Transformer, AttentionMask, CrossEntropyLoss
@@ -156,7 +162,7 @@ de_layer = 2
 src_len = 10
 batch = 4
 tgt_len = 10
-hidden_size = 20
+hidden_size = 24
 def set_parallel_configure_for_layer(network, layer_id, offset, parallel_config, layers):
     pp_id = max(int(layer_id + offset) / layers_per_stage, 1)
     network.pipeline_stage = int(pp_id)

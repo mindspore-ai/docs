@@ -12,7 +12,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/distributed_inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-分布式推理是指推理阶段采用多卡进行推理。如果训练时采用数据并行或者模型参数是合并保存，那么推理方式与上述一致，只需要注意每卡加载同样的checkpoint文件进行推理。
+分布式推理是指推理阶段采用多卡进行推理。如果训练时采用数据并行或者模型参数是合并保存，那么推理方式与上述一致，只需要注意每卡加载同样的CheckPoint文件进行推理。
 
 ## 分布式推理流程
 
@@ -24,7 +24,7 @@
 
 分布式推理流程如下：
 
-1. 执行训练，生成checkpoint文件和模型参数切分策略文件。
+1. 执行训练，生成CheckPoint文件和模型参数切分策略文件。
 
     > - 分布式训练教程和样例代码可参考链接：<https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_ascend.html>。
     > - 在分布式推理场景中，训练阶段的`CheckpointConfig`接口的`integrated_save`参数需设定为`False`，表示每卡仅保存模型切片而不是全量模型。
@@ -50,7 +50,7 @@
     - `create_predict_data`：用户需自定义的接口，返回推理数据。与训练阶段不同的是，分布式推理场景中返回类型必须为`Tensor`。
     - `infer_predict_layout`：根据推理数据生成推理策略。
 
-3. 导入checkpoint文件，根据推理策略加载相应的模型切片至每张卡中。
+3. 导入CheckPoint文件，根据推理策略加载相应的模型切片至每张卡中。
 
     ```python
     ckpt_file_list = create_ckpt_file_list()
@@ -64,8 +64,7 @@
 
     > 对于流水线并行推理，每个`stage`只需要加载本`stage`的CheckPoint文件。
     >
-    > `load_distributed_checkpoint`接口支持predict_strategy为`None`，此时为单卡推理，其过程与分布式推理有所不同，详细用法请参考链接：
-    > <https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.html#mindspore.load_distributed_checkpoint>。
+    > `load_distributed_checkpoint`接口支持predict_strategy为`None`，此时为单卡推理，其过程与分布式推理有所不同，详细用法请[参考链接](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.load_distributed_checkpoint.html?highlight=load_distributed_checkpoint#mindspore.load_distributed_checkpoint)。
 
 4. 进行推理，得到推理结果。
 
@@ -75,23 +74,22 @@
 
 ## 分布式场景导出MindIR文件
 
-针对超大规模神经网络模型参数过多的情况，MindIR格式的模型无法完全加载至单卡中进行推理的问题，可采用多卡进行分布式推理，此时在进行推理任务前就需要导出多个MindIR文件。
-针对多卡训练，分布式推理的情况，需要分布式导出MindIR文件，具体方法如下：
+在超大规模神经网络模型的场景中，针对因为参数量过大，导致模型无法进行单卡推理的问题，可以采用分布式推理方案。此时在运行推理任务前，需要导出多个MindIR文件。具体方法如下：
 
-首先，需要准备checkpoint文件和训练策略文件。
+首先，需要准备CheckPoint文件和训练策略文件。
 
-checkpoint文件在训练过程中产生。checkpoint具体用法可参考: [checkpoint用法](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/save_model.html#checkpoint)。
+CheckPoint文件在训练过程中产生。CheckPoint具体用法可参考: [CheckPoint用法](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/save_model.html#checkpoint)。
 
 训练策略文件，需要在训练时通过设置context生成，context配置项如下：
 `context.set_auto_parallel_context(strategy_ckpt_save_file='train_strategy.ckpt')`
 
 这样在训练后，就会在设置的目录下产生名为`train_strategy.ckpt`的训练策略文件。
 
-由于导出MindIR文件前，一般需要加载checkpoint文件，而加载分布式训练的checkpoint文件，需要结合训练策略和推理策略，所以还需生成推理策略文件。
+由于导出MindIR文件前，一般需要加载CheckPoint文件，而加载分布式训练的CheckPoint文件，需要结合训练策略和推理策略，所以还需生成推理策略文件。
 产生推理策略的代码如下：
 `predict_strategy = model.infer_predict_layout(predict_data)`
 
-然后，使用加载分布式checkpoint的方法，把之前训练好的参数，加载到网络中。
+然后，使用加载分布式CheckPoint的方法，把之前训练好的参数，加载到网络中。
 代码如下：
 `load_distributed_checkpoint(model, ckpt_file_list, predict_strategy)`
 
@@ -117,7 +115,7 @@ load_distributed_checkpoint(model, ckpt_file_list, predict_strategy)
 export(net, Tensor(input), file_name='net', file_format='MINDIR')
 ```
 
-多卡训练、单卡推理的情况，导出MindIR的用法与单机相同，加载checkpoint用法可参考：[分布式推理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/multi_platform_inference_ascend_910.html#ascend-910-ai)。
+多卡训练、单卡推理的情况，导出MindIR的用法与单机相同，加载CheckPoint用法可参考：[分布式推理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/multi_platform_inference_ascend_910.html#ascend-910-ai)。
 
 > 分布式场景导出MindIR文件样例代码：
 >
