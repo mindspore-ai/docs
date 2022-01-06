@@ -7,7 +7,7 @@
     - [flJobRun](#fljobrun)
     - [modelInference](#modelinference)
     - [getModel](#getmodel)
-    - [stopFLJob](stopfljob)
+    - [stopFLJob](#stopfljob)
 
 <!-- /TOC -->
 
