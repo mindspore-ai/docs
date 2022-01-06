@@ -66,7 +66,7 @@ MindSpore中提供了两种Loss Scale的方式，分别是`FixedLossScaleManager
 
 ## MindSpore中使用损失缩放
 
-下面将会分别介绍MindSpore中，使用损失缩放算法的主要两个API[FixedLossScaleManager](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.FixedLossScaleManager.html)和[DynamicLossScaleManager](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.DynamicLossScaleManager.html)。
+下面将会分别介绍MindSpore中，使用损失缩放算法的主要两个API [FixedLossScaleManager](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.FixedLossScaleManager.html)和[DynamicLossScaleManager](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.DynamicLossScaleManager.html)。
 
 ### FixedLossScaleManager
 
