@@ -180,7 +180,7 @@ MapParamObject(); // map parameters
 MapValueObject(); // map ValueNodes
 ```
 
-`MapFvObject` maps free variables, `MapParameter` maps parameter nodes. `MapValueObject` mainly maps `Primitive` and `FuncGraph` objects. For `FuncGraph`, we need to create another `DFunctor` object and perform the mapping. This is a recursion process. `Primitive` defines the type of the operator. We need to define gradient function for every `Primitive`. MindSpore defines these gradient functions in Python, for example:
+`MapFvObject` maps free variables, `MapParamObject` maps parameter nodes. `MapValueObject` mainly maps `Primitive` and `FuncGraph` objects. For `FuncGraph`, we need to create another `DFunctor` object and perform the mapping. This is a recursion process. `Primitive` defines the type of the operator. We need to define gradient function for every `Primitive`. MindSpore defines these gradient functions in Python, for example:
 
 ```python
 @bprop_getters.register(P.Sin)
