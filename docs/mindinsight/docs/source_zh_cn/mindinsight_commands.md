@@ -63,7 +63,6 @@ mindinsight start [-h] [--workspace <WORKSPACE>] [--port <PORT>]
 | explainer     | 可解释AI模块，记录可解释AI模块解析数据的所有日志             | `explainer.<PORT>.log`                    |
 | gunicorn      | web服务模块，记录web服务模块的所有日志                       | `access.<PORT>.log`<br>`error.<PORT>.log` |
 | lineage       | 溯源模块，记录溯源模块的所有日志                             | `lineage.<PORT>.log`                      |
-| mindconverter | 脚本转换模块，记录使用MindConverter进行网络迁移的所有日志    | `mindconverter.<PORT>.log`                |
 | optimizer     | 优化器模块，记录优化器模块的所有日志                         | `optimizer.<PORT>.log`                    |
 | parse_summary | summary文件解析模块，记录summary文件解析模块的所有日志 | `parse_summary.<PORT>.log`                |
 | profiler      | 性能分析模块，记录性能分析模块的所有日志                     | `profiler.<PORT>.log`                     |

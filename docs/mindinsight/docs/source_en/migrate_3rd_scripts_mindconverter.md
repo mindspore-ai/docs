@@ -479,7 +479,6 @@ Arguments are as follows：
 | --input_nodes  |  Y  | Specify the input names of model. Multiple inputs are separated by space. | String |   -    |       input_1:0       |
 | --output_nodes |  Y  | Specify the output names of model. Multiple outputs are separated by space.  | String |   -    | output_1:0 output_2:0 |
 | --output       |  N  | Specify the directory path for generated files.    | String |  $PWD  |  /path/to/output/dir  |
-| --report       |  N  | Specify the directory path for migration reports.  | String |  $PWD  |  /path/to/report/dir  |
 
 ## Model List Supported by MindConverter
 

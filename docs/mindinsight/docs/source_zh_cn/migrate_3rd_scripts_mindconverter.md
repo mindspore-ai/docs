@@ -476,7 +476,6 @@ usage: mindconverter [-h] [--version]
 | --input_nodes  |  是  | 指定模型输入节点名称，多输入场景以空格分隔  | String |   -    |       input_1:0       |
 | --output_nodes |  是  | 指定模型输出节点名称，多输出场景以空格分隔  | String |   -    | output_1:0 output_2:0 |
 | --output       |  否  | 指定转换生成文件的保存目录                  | String |  $PWD  |  /path/to/output/dir  |
-| --report       |  否  | 指定转换报告文件的保存目录                  | String |  $PWD  |  /path/to/report/dir  |
 
 ## 模型支持列表
 
