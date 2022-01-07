@@ -2,18 +2,6 @@
 
 `Ascend` `GPU` `CPU` `入门`
 
-<!-- TOC -->
-
-- [Dataset](#dataset)
-    - [数据集](#数据集)
-    - [数据集加载](#数据集加载)
-    - [数据处理](#数据处理)
-        - [Shuffle操作](#shuffle操作)
-        - [Map操作](#map操作)
-        - [Batch操作](#batch操作)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/dataset_introduction.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 数据是深度学习的基础，高质量数据输入会在整个深度神经网络中起到积极作用。

@@ -1,18 +1,5 @@
 # 使用MindSpore Reinforcement实现深度Q学习（DQN）
 
-<!-- TOC -->
-
-- [使用MindSpore Reinforcement实现深度Q学习（DQN）](#使用mindspore-reinforcement实现深度q学习dqn)
-    - [摘要](#摘要)
-    - [指定DQN的Actor-Learner-Environment抽象](#指定dqn的actor-learner-environment抽象)
-        - [定义DQNTrainer类](#定义dqntrainer类)
-        - [定义DQNPolicy类](#定义dqnpolicy类)
-        - [定义DQNActor类](#定义dqnactor类)
-        - [定义DQNLearner类](#定义dqnlearner类)
-    - [执行并查看结果](#执行并查看结果)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/reinforcement/docs/source_zh_cn/dqn.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 &nbsp;&nbsp;
 

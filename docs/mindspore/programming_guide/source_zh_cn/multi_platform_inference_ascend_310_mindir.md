@@ -2,24 +2,6 @@
 
 `Ascend` `推理应用`
 
-<!-- TOC -->
-
-- [Ascend 310 AI处理器上使用MindIR模型进行推理](#ascend-310-ai处理器上使用mindir模型进行推理)
-    - [概述](#概述)
-    - [开发环境准备](#开发环境准备)
-    - [导出MindIR模型文件](#导出mindir模型文件)
-    - [推理目录结构介绍](#推理目录结构介绍)
-    - [推理代码介绍](#推理代码介绍)
-        - [需要手动定义预处理的模型推理方式：main.cc](#需要手动定义预处理的模型推理方式main.cc)
-            - [使用CPU算子数据预处理](#使用cpu算子数据预处理)
-            - [使用Ascend 310算子数据预处理](#使用ascend-310算子数据预处理)
-        - [免手动定义预处理的模型推理方式：main_hide_preprocess.cc](#免手动定义预处理的模型推理方式main_hide_preprocesscc)
-    - [构建脚本介绍](#构建脚本介绍)
-    - [编译推理代码](#编译推理代码)
-    - [执行推理并查看结果](#执行推理并查看结果)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/multi_platform_inference_ascend_310_mindir.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

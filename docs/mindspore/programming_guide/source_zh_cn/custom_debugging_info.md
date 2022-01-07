@@ -2,29 +2,6 @@
 
 `Ascend` `GPU` `CPU` `模型调优`
 
-<!-- TOC -->
-
-- [自定义调试信息](#自定义调试信息)
-    - [概述](#概述)
-    - [Callback介绍](#callback介绍)
-        - [MindSpore的Callback能力](#mindspore的callback能力)
-        - [自定义Callback](#自定义callback)
-    - [MindSpore metrics功能介绍](#mindspore-metrics功能介绍)
-    - [Print算子功能介绍](#print算子功能介绍)
-    - [数据Dump功能介绍](#数据dump功能介绍)
-        - [同步Dump功能使用方法](#同步dump功能使用方法)
-        - [异步Dump功能使用方法](#异步dump功能使用方法)
-    - [Running Data Recorder](#running-data-recorder)
-        - [使用方法](#使用方法)
-            - [通过配置文件配置RDR](#通过配置文件配置rdr)
-            - [通过环境变量配置RDR](#通过环境变量配置rdr)
-            - [异常处理](#异常处理)
-    - [内存复用](#内存复用)
-        - [使用方法](#使用方法-1)
-    - [日志相关的环境变量和配置](#日志相关的环境变量和配置)
-
-<!-- /TOC -->
-
 <a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbWFzdGVyL21pbmRzcG9yZV9jdXN0b21fZGVidWdnaW5nX2luZm8uaXB5bmI=&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_modelarts.png"></a>
 &nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/notebook/mindspore_custom_debugging_info.ipynb"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_notebook.png"></a>

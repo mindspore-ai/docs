@@ -2,20 +2,6 @@
 
 `GPU` `模型调优`
 
-<!-- TOC -->
-
-- [应用梯度累积算法](#应用梯度累积算法)
-    - [概述](#概述)
-    - [单机模式](#单机模式)
-        - [导入需要的库文件](#导入需要的库文件)
-        - [加载数据集](#加载数据集)
-        - [定义网络](#定义网络)
-        - [定义训练流程](#定义训练流程)
-        - [定义训练模型](#定义训练模型)
-        - [训练并保存模型](#训练并保存模型)
-        - [实验结果](#实验结果)
-
-<!-- /TOC -->
 <a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9hcHBseV9ncmFkaWVudF9hY2N1bXVsYXRpb24uaXB5bmI=&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_modelarts.png"></a>
 &nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/notebook/mindspore_apply_gradient_accumulation.ipynb"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_notebook.png"></a>

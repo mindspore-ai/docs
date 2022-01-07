@@ -2,18 +2,6 @@
 
 `GPU` `模型开发`
 
-<!-- TOC -->
-
-- [自定义算子（GPU）](#自定义算子gpu)
-    - [概述](#概述)
-    - [注册算子原语](#注册算子原语)
-    - [GPU算子开发](#gpu算子开发)
-    - [GPU算子注册](#gpu算子注册)
-    - [编译MindSpore](#编译mindspore)
-    - [算子验证](#算子验证)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/custom_operator_gpu.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

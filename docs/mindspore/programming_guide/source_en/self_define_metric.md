@@ -2,15 +2,6 @@
 
 `Ascend` `GPU` `CPU` `Model Evaluation`
 
-<!-- TOC -->
-
-- [Customize Metrics to Verify Model Evaluation Accuracy](#custom-metrics-to-verify-model-evaluation-accuracy)
-    - [Overview](#overview)
-    - [Steps of Customizing Metrics](#steps-of-customizing-metrics)
-    - [Using Metrics in Model](#using-metrics-in-model)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/self_define_metric.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 &nbsp;&nbsp;
 

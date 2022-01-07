@@ -2,30 +2,6 @@
 
 `Ascend` `GPU` `CPU` `全流程`
 
-<!-- TOC -->
-
-- [使用MobileNetV2网络实现微调（Fine Tune）](#使用mobilenetv2网络实现微调fine-tune)
-    - [概述](#概述)
-    - [任务描述及准备](#任务描述及准备)
-        - [环境配置](#环境配置)
-        - [下载代码](#下载代码)
-        - [准备预训练模型](#准备预训练模型)
-        - [准备数据](#准备数据)
-    - [预训练模型加载代码详解](#预训练模型加载代码详解)
-    - [参数简介](#参数简介)
-        - [运行Python文件](#运行python文件)
-        - [运行Shell脚本](#运行shell脚本)
-    - [加载微调训练](#加载微调训练)
-        - [CPU加载训练](#cpu加载训练)
-        - [GPU加载训练](#gpu加载训练)
-        - [Ascend加载训练](#ascend加载训练)
-        - [微调训练结果](#微调训练结果)
-    - [验证微调训练模型](#验证微调训练模型)
-        - [验证模型](#验证模型)
-        - [验证结果](#验证结果)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/cv_mobilenetv2_fine_tune.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述

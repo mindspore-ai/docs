@@ -1,14 +1,5 @@
 # 安装MindSpore Reinforcement
 
-<!-- TOC -->
-
-- [安装MindSpore Reinforcement](#安装mindspore-reinforcement)
-    - [pip安装](#pip安装)
-    - [源码编译安装](#源码编译安装)
-    - [验证安装是否成功](#验证安装是否成功)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/reinforcement/docs/source_zh_cn/reinforcement_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 MindSpore Reinforcement依赖MindSpore训练推理框架，安装完[MindSpore](https://gitee.com/mindspore/mindspore#%E5%AE%89%E8%A3%85)，再安装MindSpore Reinforcement。可以采用pip安装或者源码编译安装两种方式。

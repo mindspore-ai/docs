@@ -1,20 +1,5 @@
 # Using the VAE
 
-<!-- TOC -->
-
-- [Using the VAE](#using-the-vae)
-    - [Data Preparation](#data-preparation)
-        - [Downloading the Dataset](#downloading-the-dataset)
-        - [Data Enhancement](#data-enhancement)
-        - [Defining the VAE](#defining-the-vae)
-        - [Defining the Loss Function and Optimizer](#defining-the-loss-function-and-optimizer-1)
-        - [Training the Generated Model](#training-the-generated-model)
-        - [Building an Image Visualization Function](#building-an-image-visualization-function)
-        - [Randomly Generating Pictures](#randomly-generating-pictures)
-        - [Rebuilding Input Samples](#rebuilding-input-samples)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/probability/docs/source_en/using_the_vae.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 The following describes how to use the variational and dpn modules in MDP to implement VAE. VAE is a typical depth probabilistic model that applies variational inference to learn the representation of latent variables. The model can not only compress input data, but also generate new images of this type. The overall process is as follows:

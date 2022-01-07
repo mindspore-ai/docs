@@ -4,16 +4,6 @@
 
 感谢：[ZOMI酱](https://www.zhihu.com/people/ZOMI) 提供编辑
 
-<!-- TOC -->
-
-- [损失缩放](#损失缩放)
-    - [概述](#概述)
-    - [FixedLossScaleManager](#fixedlossscalemanager)
-        - [LossScale与优化器](#lossscale与优化器)
-    - [DynamicLossScaleManager](#dynamiclossscalemanager)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/lossscale.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

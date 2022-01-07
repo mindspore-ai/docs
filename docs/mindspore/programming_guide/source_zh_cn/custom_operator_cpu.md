@@ -2,20 +2,6 @@
 
 `CPU` `模型开发`
 
-<!-- TOC -->
-
-- [自定义算子（CPU）](#自定义算子cpu)
-    - [概述](#概述)
-    - [注册算子原语](#注册算子原语)
-    - [实现CPU算子和注册算子信息](#实现cpu算子和注册算子信息)
-        - [实现CPU算子](#实现cpu算子)
-        - [注册算子信息](#注册算子信息)
-    - [编译MindSpore](#编译mindspore)
-    - [使用自定义CPU算子](#使用自定义cpu算子)
-    - [定义算子反向传播函数](#定义算子反向传播函数)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/custom_operator_cpu.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

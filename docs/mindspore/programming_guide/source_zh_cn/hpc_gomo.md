@@ -2,22 +2,6 @@
 
 `GPU` `高性能计算` `全流程`
 
-<!-- TOC -->
-
-- [实现区域海洋模型GOMO](#实现区域海洋模型gomo)
-    - [概述](#概述)
-    - [准备环节](#准备环节)
-        - [安装软件依赖](#安装软件依赖)
-        - [准备数据](#准备数据)
-    - [加载数据](#加载数据)
-    - [定义GOMO网络](#定义gomo网络)
-        - [初始化变量](#初始化变量)
-        - [定义GOMO模型](#定义gomo模型)
-    - [训练网络](#训练网络)
-        - [运行脚本](#运行脚本)
-    - [引用](#引用)
-
-<!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/hpc_gomo.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述

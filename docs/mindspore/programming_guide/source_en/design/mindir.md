@@ -3,20 +3,6 @@
 
 `Ascend` `GPU` `Design` `Model Development`
 
-<!-- TOC -->
-
-- [MindSpore IR (MindIR)](#mindspore-ir-mindir)
-    - [Overview](#overview)
-    - [Syntax](#syntax)
-    - [Example](#example)
-    - [Function-style Semantics](#function-style-semantics)
-        - [Higher-Order Functions](#higher-order-functions)
-        - [Control Flows](#control-flows)
-        - [Free Variables and Closures](#free-variables-and-closures)
-    - [References](#references)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/design/mindir.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

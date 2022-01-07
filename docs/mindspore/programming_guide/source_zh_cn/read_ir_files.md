@@ -2,18 +2,6 @@
 
 `Ascend` `GPU` `CPU` `模型调试`
 
-<!-- TOC -->
-
-- [如何查看IR文件](#如何查看ir文件)
-    - [概述](#概述)
-    - [如何保存IR](#如何保存ir)
-    - [IR文件解读](#ir文件解读)
-        - [ir文件介绍](#ir文件介绍)
-        - [dat文件介绍](#dat文件介绍)
-    - [如何根据analyze_fail.dat文件分析图推导失败的原因](#如何根据analyze_faildat文件分析图推导失败的原因)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/read_ir_files.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

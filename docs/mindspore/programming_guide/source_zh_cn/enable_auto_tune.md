@@ -2,19 +2,6 @@
 
 `Ascend` `模型调优`
 
-<!-- TOC -->
-
-- [使能算子调优工具](#使能算子调优工具)
-    - [概述](#概述)
-    - [调优模式](#调优模式)
-    - [环境变量](#环境变量)
-    - [开启调优](#开启调优)
-    - [调优结果](#调优结果)
-    - [知识库合并](#知识库合并)
-    - [使用须知](#使用须知)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/enable_auto_tune.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述

@@ -2,17 +2,6 @@
 
 `Ascend` `GPU` `分布式并行` `全流程`
 
-<!-- TOC -->
-
-- [Host&Device异构](#hostdevice异构)
-    - [概述](#概述)
-    - [准备工作](#准备工作)
-    - [配置混合执行](#配置混合执行)
-    - [训练模型](#训练模型)
-    - [参考文献](#参考文献)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/apply_host_device_training.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

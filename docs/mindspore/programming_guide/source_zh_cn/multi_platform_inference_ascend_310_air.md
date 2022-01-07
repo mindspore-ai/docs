@@ -2,25 +2,6 @@
 
 `Ascend` `推理应用`
 
-<!-- TOC -->
-
-- [Ascend 310 AI处理器上使用AIR模型进行推理](#ascend-310-ai处理器上使用air模型进行推理)
-    - [概述](#概述)
-    - [开发环境准备](#开发环境准备)
-        - [硬件准备](#硬件准备)
-        - [软件包准备](#软件包准备)
-        - [制作SD卡](#制作sd卡)
-        - [连接Atlas 200 DK开发板与Ubuntu服务器](#连接atlas-200-dk开发板与ubuntu服务器)
-        - [配置Python环境](#配置python环境)
-        - [安装开发套件包](#安装开发套件包)
-    - [推理目录结构介绍](#推理目录结构介绍)
-    - [导出AIR模型文件](#导出air模型文件)
-    - [将AIR模型文件转成OM模型](#将air模型文件转成om模型)
-    - [编译推理代码](#编译推理代码)
-    - [执行推理并查看结果](#执行推理并查看结果)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/multi_platform_inference_ascend_310_air.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

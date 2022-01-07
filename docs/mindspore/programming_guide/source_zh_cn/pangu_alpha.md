@@ -2,20 +2,6 @@
 
 `Ascend` `GPU` `分布式并行`
 
-<!-- TOC -->
-
-- [鹏程·盘古模型网络多维度混合并行解析](#鹏程·盘古模型网络多维度混合并行解析)
-    - [概述](#概述)
-    - [Embedding层](#embedding层)
-    - [Decoder层](#decoder层)
-        - [Self-Attention](#self-attention)
-        - [FeedForward](#feedforward)
-    - [Residual层](#residual层)
-    - [预测层](#预测层)
-    - [参考文献](#参考文献)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/pangu_alpha.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

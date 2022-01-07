@@ -2,17 +2,6 @@
 
 `Ascend` `分布式并行`
 
-<!-- TOC -->
-
-- [优化器并行](#优化器并行)
-    - [概述](#概述)
-    - [设置参数优化器并行](#设置参数优化器并行)
-    - [配置通信融合](#配置通信融合)
-        - [通信优化](#通信优化)
-    - [运行代码](#运行代码)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/distributed_training_parallel_opt.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

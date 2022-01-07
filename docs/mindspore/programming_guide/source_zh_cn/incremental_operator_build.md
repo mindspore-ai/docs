@@ -2,15 +2,6 @@
 
 `Ascend` `模型调试`
 
-<!-- TOC -->
-
-- [算子增量编译](#算子增量编译)
-    - [概述](#概述)
-    - [使用方法](#使用方法)
-    - [常见问题](#常见问题)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/incremental_operator_build.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

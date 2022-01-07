@@ -2,17 +2,6 @@
 
 `Ascend` `GPU` `CPU` `模型调优`
 
-<!-- TOC -->
-
-- [使能图算融合](#使能图算融合)
-    - [概述](#概述)
-    - [使用方法](#使用方法)
-        - [样例脚本](#样例脚本)
-    - [自定义组合算子](#自定义组合算子)
-        - [样例脚本](#样例脚本-1)
-
-<!-- /TOC -->
-
 <a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbWFzdGVyL25vdGVib29rL21pbmRzcG9yZV9lbmFibGVfZ3JhcGhfa2VybmVsX2Z1c2lvbi5pcHluYg==&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_modelarts.png"></a>&nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/notebook/mindspore_enable_graph_kernel_fusion.ipynb"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_notebook.png"></a>
 &nbsp;&nbsp;

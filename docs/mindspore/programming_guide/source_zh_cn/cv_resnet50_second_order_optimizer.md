@@ -2,33 +2,6 @@
 
 `Ascend` `GPU` `扩展功能` `全流程`
 
-<!-- TOC -->
-
-- [在ResNet-50网络上应用二阶优化实践](#在resnet-50网络上应用二阶优化实践)
-    - [概述](#概述)
-    - [准备环节](#准备环节)
-        - [准备数据集](#准备数据集)
-        - [配置分布式环境变量](#配置分布式环境变量)
-            - [Ascend 910](#ascend-910)
-            - [GPU](#gpu)
-    - [加载处理数据集](#加载处理数据集)
-    - [定义网络](#定义网络)
-    - [定义损失函数及THOR优化器](#定义损失函数及thor优化器)
-        - [定义损失函数](#定义损失函数)
-        - [定义优化器](#定义优化器)
-    - [训练网络](#训练网络)
-        - [配置模型保存](#配置模型保存)
-        - [配置训练网络](#配置训练网络)
-        - [运行脚本](#运行脚本)
-            - [Ascend 910](#ascend-910-1)
-            - [GPU](#gpu-1)
-    - [模型推理](#模型推理)
-        - [定义推理网络](#定义推理网络)
-        - [执行推理](#执行推理)
-            - [Ascend 910](#ascend-910-2)
-            - [GPU](#gpu-2)
-
-<!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/cv_resnet50_second_order_optimizer.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述

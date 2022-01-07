@@ -2,16 +2,6 @@
 
 `Ascend` `推理应用`
 
-<!-- TOC -->
-
-- [加载Checkpoint在线推理](#加载checkpoint在线推理)
-    - [使用`model.eval`接口进行模型验证](#使用modeleval接口进行模型验证)
-        - [模型已保存在本地](#模型已保存在本地)
-        - [使用MindSpore Hub从华为云加载模型](#使用mindspore-hub从华为云加载模型)
-    - [使用`model.predict`接口进行推理操作](#使用modelpredict接口进行推理操作)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/online_inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 使用`model.eval`接口进行模型验证

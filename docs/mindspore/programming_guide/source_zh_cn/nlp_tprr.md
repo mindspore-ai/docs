@@ -1,23 +1,6 @@
 # 多跳知识推理问答模型TPRR
 
 `Ascend` `自然语言处理` `全流程`
-
-<!-- TOC -->
-
-- [多跳知识推理问答模型TPRR](#多跳知识推理问答模型tprr)
-    - [概述](#概述)
-    - [准备环节](#准备环节)
-        - [安装软件依赖](#安装软件依赖)
-        - [准备数据](#准备数据)
-    - [加载数据](#加载数据)
-    - [定义网络](#定义网络)
-        - [设置模型参数](#设置模型参数)
-        - [定义模型](#定义模型)
-    - [推理网络](#推理网络)
-        - [运行脚本](#运行脚本)
-    - [引用](#引用)
-
-<!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/nlp_tprr.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述

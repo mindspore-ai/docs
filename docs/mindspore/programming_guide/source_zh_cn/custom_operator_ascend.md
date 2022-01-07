@@ -2,24 +2,6 @@
 
 `Ascend` `模型开发`
 
-<!-- TOC -->
-
-- [自定义算子（Ascend）](#自定义算子ascend)
-    - [概述](#概述)
-    - [注册算子原语](#注册算子原语)
-    - [实现TBE算子和注册算子信息](#实现tbe算子和注册算子信息)
-        - [实现TBE算子](#实现tbe算子)
-        - [注册算子信息](#注册算子信息)
-        - [示例](#示例)
-     - [实现AICPU算子和注册算子信息](#实现AICPU算子和注册算子信息)
-       - [实现AICPU算子](#实现AICPU算子)
-       - [注册AICPU自定义算子信息](#注册AICPU自定义算子信息)
-       - [示例](#示例)
-    - [使用自定义算子](#使用自定义算子)
-    - [定义算子反向传播函数](#定义算子反向传播函数)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/custom_operator_ascend.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

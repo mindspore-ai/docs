@@ -2,22 +2,6 @@
 
 `Ascend` `GPU` `设计` `分布式并行`
 
-<!-- TOC -->
-
-- [分布式训练](#分布式训练)
-    - [背景](#背景)
-    - [概念](#概念)
-        - [集合通信](#集合通信)
-        - [同步模式](#同步模式)
-    - [数据并行](#数据并行)
-        - [数据并行原理](#数据并行原理)
-        - [数据并行代码](#数据并行代码)
-    - [自动并行](#自动并行)
-        - [自动并行原理](#自动并行原理)
-        - [自动并行代码](#自动并行代码)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/design/distributed_training_design.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 背景

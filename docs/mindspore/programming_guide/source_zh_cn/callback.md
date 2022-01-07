@@ -2,15 +2,6 @@
 
 `Ascend` `GPU` `CPU` `模型开发`
 
-<!-- TOC -->
-
-- [Callback机制](#callback机制)
-    - [概述](#概述)
-    - [MindSpore内置回调函数](#mindspore内置回调函数)
-    - [MindSpore自定义回调函数](#mindspore自定义回调函数)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/callback.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

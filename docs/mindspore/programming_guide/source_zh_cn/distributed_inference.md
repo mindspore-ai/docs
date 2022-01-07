@@ -2,14 +2,6 @@
 
 `Ascend` `推理应用`
 
-<!-- TOC -->
-
-- [分布式推理](#分布式推理)
-    - [分布式推理流程](#分布式推理流程)
-    - [分布式场景导出MindIR文件](#分布式场景导出mindir文件)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/distributed_inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 分布式推理是指推理阶段采用多卡进行推理。如果训练时采用数据并行或者模型参数是合并保存，那么推理方式与上述一致，只需要注意每卡加载同样的checkpoint文件进行推理。

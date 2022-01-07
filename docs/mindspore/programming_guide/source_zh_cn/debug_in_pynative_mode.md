@@ -2,23 +2,6 @@
 
 `Ascend` `GPU` `CPU` `模型运行`
 
-<!-- TOC -->
-
-- [PyNative模式应用](#pynative模式应用)
-    - [概述](#概述)
-    - [设置模式](#设置模式)
-    - [执行单算子](#执行单算子)
-    - [执行函数](#执行函数)
-    - [执行网络](#执行网络)
-    - [构建网络](#构建网络)
-    - [设置Loss函数及优化器](#设置loss函数及优化器)
-    - [保存模型参数](#保存模型参数)
-    - [训练网络](#训练网络)
-    - [提升PyNative性能](#提升pynative性能)
-    - [PyNative下同步执行](#pynative下同步执行)
-
-<!-- /TOC -->
-
 <a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9kZWJ1Z2dpbmdfaW5fcHluYXRpdmVfbW9kZS5pcHluYg==&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_modelarts.png"></a>&nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/notebook/mindspore_debugging_in_pynative_mode.ipynb"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_notebook.png"></a>
 &nbsp;&nbsp;

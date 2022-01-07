@@ -2,16 +2,6 @@
 
 `Ascend` `GPU` `CPU` `数据准备`
 
-<!-- TOC -->
-
-- [使用数据准备异构加速](#使用数据准备异构加速)
-    - [概述](#概述)
-    - [流程](#流程)
-    - [如何使用数据准备异构加速](#如何使用数据准备异构加速)
-    - [约束条件](#约束条件)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/enable_dataset_offload.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

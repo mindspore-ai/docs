@@ -2,17 +2,6 @@
 
 `Ascend` `GPU` `CPU` `模型运行`
 
-<!-- TOC -->
-
-- [ForwardValueAndGrad](#forward-value-and-grad)
-    - [概述](#概述)
-    - [用例](#一阶求导)
-        - [对输入求导](#对输入求导)
-        - [对权重求导](#对权重求导)
-        - [梯度值缩放](#梯度值缩放)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/forward_value_and_grad.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

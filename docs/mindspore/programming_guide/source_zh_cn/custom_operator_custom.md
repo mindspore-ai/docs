@@ -2,24 +2,6 @@
 
 `Ascend` `GPU` `CPU` `模型开发`
 
-<!-- TOC -->
-
-- [自定义算子（基于Custom表达）](#自定义算子基于custom表达)
-    - [概述](#概述)
-    - [基本用法](#基本用法)
-        - [akg类型的自定义算子开发](#akg类型的自定义算子开发)
-        - [tbe类型的自定义算子开发](#tbe类型的自定义算子开发)
-        - [aicpu类型的自定义算子开发](#aicpu类型的自定义算子开发)
-        - [aot类型的自定义算子开发](#aot类型的自定义算子开发)
-            - [GPU示例](#cpu示例)
-            - [CPU示例](#gpu示例)
-        - [pyfunc类型的自定义算子开发](#pyfunc类型的自定义算子开发)
-    - [进阶用法](#进阶用法)
-        - [算子信息注册](#算子信息注册)
-        - [定义算子反向传播函数](#定义算子反向传播函数)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/custom_operator_custom.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

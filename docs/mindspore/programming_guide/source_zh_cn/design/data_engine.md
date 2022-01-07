@@ -2,18 +2,6 @@
 
 `Ascend` `GPU` `CPU` `设计` `数据准备`
 
-<!-- TOC -->
-
-- [高性能数据处理引擎](#高性能数据处理引擎)
-    - [背景介绍](#背景介绍)
-    - [数据处理引擎设计](#数据处理引擎设计)
-        - [设计目标与思路](#设计目标与思路)
-        - [极致的处理性能](#极致的处理性能)
-        - [灵活的定制能力](#灵活的定制能力)
-        - [端云统一架构](#端云统一架构)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/design/data_engine.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 背景介绍

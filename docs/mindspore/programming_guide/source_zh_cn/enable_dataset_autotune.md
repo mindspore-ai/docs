@@ -2,20 +2,6 @@
 
 `Ascend` `GPU` `数据处理` `性能调优`
 
-<!-- TOC -->
-
-- [使能自动数据加速](#使能自动数据加速)
-    - [概述](#概述)
-    - [如何使能自动数据加速](#如何使能自动数据加速)
-    - [如何调整自动数据加速的采样间隔](#如何调整自动数据加速的采样间隔)
-    - [约束](#约束)
-    - [样例](#样例)
-        - [自动数据加速配置](#自动数据加速配置)
-        - [开始训练](#开始训练)
-        - [在进行下一次训练之前](#在进行下一次训练之前)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/enable_dataset_autotune.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

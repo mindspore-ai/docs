@@ -2,15 +2,6 @@
 
 `Ascend` `GPU` `CPU` `模型开发`
 
-<!-- TOC -->
-
-- [参数传递](#参数传递)
-    - [概述](#概述)
-    - [传入tuple类型的参数](#传入tuple类型的参数)
-    - [传入Python的可变参数](#传入python的可变参数)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/indefinite_parameter.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

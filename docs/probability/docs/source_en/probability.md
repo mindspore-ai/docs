@@ -1,52 +1,5 @@
 ﻿# Deep Probabilistic Programming Library
 
-<!-- TOC -->
-
-- [Deep Probabilistic Programming Library](#deep-probabilistic-programming-library)
-    - [Probability Distribution](#probability-distribution)
-        - [Probability Distribution Class](#probability-distribution-class)
-            - [Distribution Base Class](#distribution-base-class)
-            - [Bernoulli Distribution](#bernoulli-distribution)
-            - [Exponential Distribution](#exponential-distribution)
-            - [Geometric Distribution](#geometric-distribution)
-            - [Normal Distribution](#normal-distribution)
-            - [Uniform Distribution](#uniform-distribution)
-            - [Categorical Distribution](#categorical-distribution)
-            - [Cauchy Distribution](#cauchy-distribution)
-            - [LogNormal Distribution](#lognormal-distribution)
-            - [Gumbel Distribution](#gumbel-distribution)
-            - [Logistic Distribution](#logistic-distribution)
-            - [Poisson Distribution](#poisson-distribution)
-            - [Gamma Distribution](#gamma-distribution)
-            - [Beta Distribution](#beta-distribution)
-        - [Probability Distribution Class Application in PyNative Mode](#probability-distribution-class-application-in-pynative-mode)
-        - [Probability Distribution Class Application in Graph Mode](#probability-distribution-class-application-in-graph-mode)
-        - [TransformedDistribution Class API Design](#transformeddistribution-class-api-design)
-        - [Invoking a TransformedDistribution Instance in PyNative Mode](#invoking-a-transformeddistribution-instance-in-pynative-mode)
-        - [Invoking a TransformedDistribution Instance in Graph Mode](#invoking-a-transformeddistribution-instance-in-graph-mode)
-    - [Probability Distribution Mapping](#probability-distribution-mapping)
-        - [Bijector API Design](#bijector-api-design)
-            - [Bijector Base Class](#bijector-base-class)
-            - [PowerTransform](#powertransform)
-            - [Exp](#exp)
-            - [ScalarAffine](#scalaraffine)
-            - [Softplus](#softplus)
-            - [GumbelCDF](#gumbelcdf)
-            - [Invert](#invert)
-        - [Invoking the Bijector Instance in PyNative Mode](#invoking-the-bijector-instance-in-pynative-mode)
-        - [Invoking a Bijector Instance in Graph Mode](#invoking-a-bijector-instance-in-graph-mode)
-    - [Deep Probabilistic Network](#deep-probabilistic-network)
-        - [VAE](#vae)
-        - [ConditionalVAE](#conditionalvae)
-    - [Probability Inference Algorithm](#probability-inference-algorithm)
-    - [Bayesian Layer](#bayesian-layer)
-    - [Bayesian Conversion](#bayesian-conversion)
-    - [Bayesian Toolbox](#bayesian-toolbox)
-        - [Uncertainty Estimation](#uncertainty-estimation)
-        - [Anomaly Detection](#anomaly-detection)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/probability/docs/source_en/probability.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 MindSpore deep probabilistic programming is to combine Bayesian learning with deep learning, including probability distribution, probability distribution mapping, deep probability network, probability inference algorithm, Bayesian layer, Bayesian conversion, and Bayesian toolkit. For professional Bayesian learning users, it provides probability sampling, inference algorithms, and model build libraries. On the other hand, advanced APIs are provided for users who are unfamiliar with Bayesian deep learning, so that they can use Bayesian models without changing the deep learning programming logic.

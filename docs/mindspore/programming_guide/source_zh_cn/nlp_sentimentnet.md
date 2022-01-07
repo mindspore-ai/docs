@@ -2,29 +2,6 @@
 
 `GPU` `CPU` `自然语言处理` `全流程`
 
-<!-- TOC -->
-
-- [使用SentimentNet实现情感分类](#使用sentimentnet实现情感分类)
-    - [概述](#概述)
-    - [准备及设计](#准备及设计)
-        - [下载数据集](#下载数据集)
-        - [确定评价标准](#确定评价标准)
-        - [确定网络及流程](#确定网络及流程)
-    - [实现阶段](#实现阶段)
-        - [导入需要的库文件](#导入需要的库文件)
-        - [配置环境信息](#配置环境信息)
-        - [预处理数据集](#预处理数据集)
-        - [定义网络](#定义网络)
-        - [预训练模型](#预训练模型)
-        - [定义优化器及损失函数](#定义优化器及损失函数)
-        - [训练并保存模型](#训练并保存模型)
-        - [模型验证](#模型验证)
-    - [实验结果](#实验结果)
-        - [执行训练](#执行训练)
-        - [验证模型](#验证模型)
-
-<!-- /TOC -->
-
 <a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9ubHBfYXBwbGljYXRpb24uaXB5bmI=&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_modelarts.png"></a>&nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/notebook/mindspore_nlp_application.ipynb"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_notebook.png"></a>&nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/notebook/mindspore_nlp_application.py"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_download_code.png"></a>&nbsp;&nbsp;

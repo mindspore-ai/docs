@@ -1,19 +1,5 @@
 # Using BNN to Implement an Image Classification Application
 
-<!-- TOC -->
-
-- [Using BNN to Implement an Image Classification Application](#using-bnn-to-implement-an-image-classification-application)
-    - [Using BNN](#using-bnn)
-    - [Environment Preparation](#environment-preparation)
-    - [Data Preparation](#data-preparation)
-        - [Downloading the Dataset](#downloading-the-dataset)
-        - [Defining the Dataset Enhancement Method](#defining-the-dataset-enhancement-method)
-        - [Defining the BNN](#defining-the-bnn)
-        - [Defining the Loss Function and Optimizer](#defining-the-loss-function-and-optimizer)
-        - [Training the Network](#training-the-network)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/probability/docs/source_en/using_bnn.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 Deep learning models have a strong fitting capability, while Bayesian theory has a good explainable capability. MindSpore Deep Probability Programming combines deep learning and Bayesian learning. By setting the network weight to distribution, introducing hidden space distribution, etc., the distribution can be sampled forward propagation, which introduces uncertainty and enhances The robustness and interpretability of the model are improved.

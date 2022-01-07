@@ -2,20 +2,6 @@
 
 `Ascend` `GPU` `CPU` `Data Preparation`
 
-<!-- TOC -->
-
-- [Data Sampling](#data-sampling)
-    - [Overview](#overview)
-    - [MindSpore Samplers](#mindspore-samplers)
-        - [RandomSampler](#randomsampler)
-        - [WeightedRandomSampler](#weightedrandomsampler)
-        - [SubsetRandomSampler](#subsetrandomsampler)
-        - [PKSampler](#pksampler)
-        - [DistributedSampler](#distributedsampler)
-    - [User-defined Sampler](#user-defined-sampler)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/sampler.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

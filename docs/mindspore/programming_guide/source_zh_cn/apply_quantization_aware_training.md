@@ -2,23 +2,6 @@
 
 `Ascend` `GPU` `扩展功能`
 
-<!-- TOC -->
-
-- [应用感知量化训练](#应用感知量化训练)
-    - [背景](#背景)
-    - [概念](#概念)
-        - [量化](#量化)
-        - [伪量化节点](#伪量化节点)
-    - [感知量化训练](#感知量化训练)
-    - [感知量化训练示例](#感知量化训练示例)
-        - [定义量化网络](#定义量化网络)
-            - [自动构建量化网络](#自动构建量化网络)
-            - [手动构建量化网络](#手动构建量化网络)
-        - [导出量化模型](#导出量化模型)
-    - [参考文献](#参考文献)
-
-<!-- /TOC -->
-
 <a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbWFzdGVyL25vdGVib29rL21pbmRzcG9yZV9hcHBseV9xdWFudGl6YXRpb25fYXdhcmVfdHJhaW5pbmcuaXB5bmI=&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_modelarts.png"></a>&nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/notebook/mindspore_apply_quantization_aware_training.ipynb"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_notebook.png"></a>
 &nbsp;&nbsp;

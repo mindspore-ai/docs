@@ -2,39 +2,6 @@
 
 `Ascend` `GPU` `分布式并行`
 
-<!-- TOC -->
-
-- [分布式并行接口说明](#分布式并行接口说明)
-    - [概述](#概述)
-    - [分布式并行配置](#分布式并行配置)
-        - [通用配置](#通用配置)
-            - [device_num](#device_num)
-            - [global_rank](#global_rank)
-            - [gradients_mean](#gradients_mean)
-            - [parallel_mode](#parallel_mode)
-            - [all_reduce_fusion_config](#all_reduce_fusion_config)
-            - [enable_parallel_optimizer](#enable_parallel_optimizer)
-            - [parameter_broadcast](#parameter_broadcast)
-            - [comm_fusion](#comm_fusion)
-        - [自动并行配置](#自动并行配置)
-            - [gradient_fp32_sync](#gradient_fp32_sync)
-            - [search_mode](#search_mode)
-            - [strategy_ckpt_load_file](#strategy_ckpt_load_file)
-            - [strategy_ckpt_save_file](#strategy_ckpt_save_file)
-            - [full_batch](#full_batch)
-            - [pipeline_stages](#pipeline_stages)
-            - [parallel_optimizer_config](#parallel_optimizer_config)
-    - [分布式通信接口](#分布式通信接口)
-        - [init](#init)
-        - [get_group_size](#get_group_size)
-        - [get_rank](#get_rank)
-    - [分布式属性配置](#分布式属性配置)
-        - [cross_batch](#cross_batch)
-        - [fusion](#fusion)
-        - [layerwise_parallel](#layerwise_parallel)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/auto_parallel.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

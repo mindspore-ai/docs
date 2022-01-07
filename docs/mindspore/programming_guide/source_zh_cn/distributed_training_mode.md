@@ -2,18 +2,6 @@
 
 `Ascend` `GPU` `分布式并行`
 
-<!-- TOC -->
-
-- [分布式并行训练模式](#分布式并行训练模式)
-    - [并行模式](#并行模式)
-        - [数据并行](#数据并行)
-        - [半自动并行](#半自动并行)
-        - [全自动并行](#全自动并行)
-        - [混合并行](#混合并行)
-    - [数据导入方式](#数据导入方式)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/distributed_training_mode.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 目前MindSpore支持下述的四种并行模式：
