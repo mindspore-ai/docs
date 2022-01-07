@@ -2,21 +2,6 @@
 
 `Ascend` `GPU` `CPU` `Beginner` `Model Export` `Model Loading`
 
-<!-- TOC -->
-
-- [Saving and Loading the Model](#saving-and-loading-the-model)
-    - [Saving the Model](#saving-the-model)
-    - [Loading the Model](#loading-the-model)
-        - [Validating the Model](#validating-the-model)
-        - [For Transfer Learning](#for-transfer-learning)
-    - [Exporting the Model](#exporting-the-model)
-        - [Exporting a MindIR File](#exporting-a-mindir-file)
-        - [Exporting in Other Formats](#exporting-in-other-formats)
-            - [Exporting an AIR File](#exporting-an-air-file)
-            - [Exporting an ONNX File](#exporting-an-onnx-file)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/save_load_model.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 In the previous tutorial, you learn how to train the network. In this tutorial, you will learn how to save and load a model, and how to export a saved model in a specified format to different platforms for inference.

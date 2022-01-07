@@ -2,16 +2,6 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/serving/docs/source_zh_cn/serving_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-<!-- TOC -->
-
-- [安装MindSpore Serving](安装#mindspore-serving)
-    - [安装](#安装)
-        - [pip安装](#pip安装)
-        - [源码编译安装](#源码编译安装)
-    - [验证是否成功安装](#验证是否成功安装)
-
-<!-- /TOC -->
-
 ## 安装
 
 MindSpore Serving包在各类硬件平台（Nvidia GPU, Ascend 910/710/310, CPU）上通用，推理任务依赖MindSpore或MindSpore Lite推理框架，我们需要选择一个作为Serving推理后端。当这两个推理后端同时存在的时候，优先使用MindSpore Lite推理框架。

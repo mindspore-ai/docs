@@ -1,21 +1,5 @@
 # 通过配置模型提供Servable
 
-<!-- TOC -->
-
-- [通过配置模型提供Servable](#通过配置模型提供servable)
-    - [概述](#概述)
-    - [相关概念](#相关概念)
-        - [方法](#方法)
-        - [实例](#实例)
-    - [单模型服务](#单模型服务)
-        - [预处理和后处理定义](#预处理和后处理定义)
-        - [模型声明](#模型声明)
-        - [方法定义](#方法定义)
-    - [多模型组合](#多模型组合)
-    - [多进程并发](#多进程并发)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/serving/docs/source_zh_cn/serving_model.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

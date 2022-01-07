@@ -2,17 +2,6 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_zh_cn/installation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-<!-- TOC -->
-
-- [安装 MindSpore XAI](#安装-mindspore-xai)
-    - [系统要求](#系统要求)
-    - [pip安装](#pip安装)
-    - [从源码安装](#从源码安装)
-    - [验证是否安装成功](#验证是否安装成功)
-    - [注意事项](#注意事项)
-
-<!-- /TOC -->
-
 ## 系統要求
 
 - 操作系統: EulerOS-aarch64、CentOS-aarch64、CentOS-x86、Ubuntu-aarch64 或 Ubuntu-x86

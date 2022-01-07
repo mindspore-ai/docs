@@ -2,17 +2,6 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_zh_cn/using_benchmarks.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-<!-- TOC -->
-
-- [使用度量方法](#使用度量方法)
-    - [什么是度量方法](#什么是度量方法)
-    - [准备](#准备)
-    - [使用 Robustness](#使用-robustness)
-    - [使用 Faithfulness 及 ClassSensitivity](#使用-faithfulness-及-classsensitivity)
-    - [使用 Localization](#使用-localization)
-
-<!-- /TOC -->
-
 ## 什么是度量方法
 
 度量方法是用来为热力图好坏评分的一些算法，目前 MindSpore XAI 为图片分类场景提供四个度量方法：`Robustness`、`Faithfulness`、`ClassSensitivity`和`Localization`。

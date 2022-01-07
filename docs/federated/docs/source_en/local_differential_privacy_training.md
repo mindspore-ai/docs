@@ -1,14 +1,5 @@
 ﻿# Differential privacy training for privacy protection
 
-<!-- TOC -->
-
-- [Differential privacy training for privacy protection](#Differential-privacy-training-for-privacy-protection)
-    - [Principles](#principles)
-    - [Usage](#usage)
-    - [References](#references)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/local_differential_privacy_training.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 During federated learning, user data is used only for local device training and does not need to be uploaded to the central server. This prevents personal data leakage.

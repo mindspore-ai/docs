@@ -2,16 +2,6 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/serving/docs/source_en/serving_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
-<!-- TOC -->
-
-- [MindSpore Serving Installation](#mindspore-serving-installation)
-    - [Installation](#installation)
-        - [Installation by pip](#installation-by-pip)
-        - [Installation by Source Code](#installation-by-source-code)
-    - [Installation Verification](#installation-verification)
-
-<!-- /TOC -->
-
 ## Installation
 
 MindSpore Serving wheel packages are common to various hardware platforms(Nvidia GPU, Ascend 910/710/310, CPU). The inference task depends on the MindSpore or MindSpore Lite inference framework. We need to select one of them as the Serving Inference backend. When these two inference backend both exist, Mindspore Lite inference framework will be used.

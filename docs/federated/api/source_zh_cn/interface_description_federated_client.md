@@ -1,14 +1,5 @@
 # 使用示例
 
-<!-- TOC -->
-
-- [使用示例](#使用示例)
-    - [联邦学习启动接口flJobRun()](#联邦学习启动接口fljobrun)
-    - [多条数据输入推理接口modelInference()](#多条数据输入推理接口modelinference)
-    - [获取云侧最新模型接口getModel ()](#获取云侧最新模型接口getmodel-)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/api/source_zh_cn/interface_description_federated_client.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 注意，在使用以下接口前，可先参照文档[端侧部署](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)进行相关环境的部署。

@@ -4,28 +4,6 @@
 
 You are welcome to contribute MindSpore documents. Documents that meet requirements will be displayed on the [MindSpore website](https://www.mindspore.cn/en).
 
-<!-- TOC -->
-
-- [Contributing Documents](#contributing-documents)
-    - [Document](#document)
-        - [Updating or Adding a Document](#updating-or-adding-a-document)
-            - [Updating a Document](#updating-a-document)
-            - [Adding a Document](#adding-a-document)
-        - [Checking a Document](#checking-a-document)
-        - [Confirming the Content](#confirming-the-content)
-    - [API](#api)
-        - [Updating or Adding an API](#updating or adding an-api)
-            - [Updating a Python API](#updating-a-python-api)
-            - [Adding a Python API](#adding-a-python-api)
-        - [Checking the Python API](#checking-the-python-api)
-        - [Confirming the Content](#confirming-the-content-1)
-    - [Image](#image)
-        - [Updating or Adding an Image](#updating-or-adding-an-image)
-        - [Image Citation](#image-citation)
-        - [Confirming the Content](#confirming-the-content-2)
-
-<!-- /TOC -->
-
 This project supports contribution documents in markdown and reStructuredText formats. You can create the `.md` or `.rst` files or modify existing files.
 
 ## Document

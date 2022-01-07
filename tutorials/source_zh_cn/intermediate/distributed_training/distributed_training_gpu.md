@@ -2,19 +2,6 @@
 
 `GPU` `进阶` `分布式并行`
 
-<!-- TOC -->
-
-- [分布式并行训练 （GPU）](#分布式并行训练-gpu)
-    - [准备环节](#准备环节)
-        - [下载数据集](#下载数据集)
-        - [配置分布式环境](#配置分布式环境)
-        - [调用集合通信库](#调用集合通信库)
-    - [定义网络](#定义网络)
-    - [运行脚本](#运行脚本)
-    - [运行多机脚本](#运行多机脚本)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/intermediate/distributed_training/distributed_training_gpu.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 本篇教程我们主要讲解，如何在GPU硬件平台上，利用MindSpore的数据并行及自动并行模式训练ResNet-50网络。

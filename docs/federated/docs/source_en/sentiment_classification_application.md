@@ -1,28 +1,5 @@
 ﻿# Implementing a Sentiment Classification Application (Android)
 
-<!-- TOC -->
-
-- [Implementing a Sentiment Classification Application (Android)](#implementing-a-sentiment-classification-application-android)
-    - [Preparations](#preparations)
-        - [Environment](#environment)
-        - [Data](#data)
-        - [Model-related Files](#model-related-files)
-    - [Defining the Network](#defining-the-network)
-        - [Generating a Device Model File](#generating-a-device-model-file)
-            - [Exporting a Model as a MindIR File](#exporting-a-model-as-a-mindir-file)
-            - [Converting the MindIR File into an MS File that Can Be Used by the Federated Learning Framework on the Device](#converting-the-mindir-file-into-an-ms-file-that-can-be-used-by-the-federated-learning-framework-on-the-device)
-    - [Starting the Federated Learning Process](#starting-the-federated-learning-process)
-        - [Creating an Android Project](#creating-an-android-project)
-        - [Building the MindSpore Lite AAR Package](#building-the-mindspore-lite-aar-package)
-        - [Android Instance Program Structure](#android-instance-program-structure)
-        - [Writing Code](#writing-code)
-        - [Configuring Android Project Dependencies](#configuring-android-project-dependencies)
-        - [Building and Running on Android](#building-and-running-on-android)
-    - [Experiment Result](#experiment-result)
-    - [References](#references)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/sentiment_classification_application.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 In privacy compliance scenarios, the federated learning modeling mode based on device-cloud synergy can make full use of the advantages of device data and prevent sensitive user data from being directly reported to the cloud. When exploring the application scenarios of federated learning, we notice the input method scenario. Users attach great importance to their text privacy and intelligent functions on the input method. Therefore, federated learning is naturally applicable to the input method scenario. MindSpore Federated applies the federated language model to the emoji prediction function of the input method. The federated language model recommends emojis suitable for the current context based on the chat text data. During federated learning modeling, each emoji is defined as a sentiment label category, and each chat phrase corresponds to an emoji. MindSpore Federated defines the emoji prediction task as a federated sentiment classification task.

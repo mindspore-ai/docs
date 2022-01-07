@@ -1,17 +1,5 @@
 # 基于RESTful接口访问MindSpore Serving服务
 
-<!-- TOC -->
-
-- [基于RESTful接口访问MindSpore Serving服务](#基于restful接口访问mindspore-serving服务)
-    - [概述](#概述)
-    - [请求方式](#请求方式)
-    - [请求输入格式](#请求输入格式)
-        - [base64数据编码](#base64数据编码)
-    - [请求应答格式](#请求应答格式)
-    - [访问开启SSL/TLS的RESTful服务](#访问开启ssltls的restful服务)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/serving/docs/source_zh_cn/serving_restful.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

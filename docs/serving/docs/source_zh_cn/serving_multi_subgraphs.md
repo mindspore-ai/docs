@@ -1,19 +1,5 @@
 # 实现多子图和有状态模型的服务部署
 
-<!-- TOC -->
-
-- [实现多子图和有状态模型的服务部署](#实现多子图和有状态模型的服务部署)
-    - [概述](#概述)
-        - [环境准备](#环境准备)
-        - [下载样例](#下载样例)
-        - [导出多图模型](#导出多图模型)
-        - [部署推理服务](#部署推理服务)
-            - [配置服务](#配置服务)
-            - [启动Serving服务器](#启动serving服务器)
-        - [执行推理](#执行推理)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/serving/docs/source_zh_cn/serving_multi_subgraphs.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

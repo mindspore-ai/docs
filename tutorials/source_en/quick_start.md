@@ -2,20 +2,6 @@
 
 `Ascend` `GPU` `CPU` `Beginner` `Whole Process`
 
-<!-- TOC -->
-
-- [Quick Start for Beginners](#quick-start-for-beginners)
-    - [Configuring the Running Information](#configuring-the-running-information)
-    - [Downloading the Dataset](#downloading-the-dataset)
-    - [Data Processing](#data-processing)
-    - [Creating a Model](#creating-a-model)
-    - [Optimizing Model Parameters](#optimizing-model-parameters)
-    - [Training and Saving the Model](#training-and-saving-the-model)
-    - [Loading the Model](#loading-the-model)
-    - [Validating the Model](#validating-the-model)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/quick_start.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 The following describes the basic functions of MindSpore to implement common tasks in deep learning. For details, see links in each section.

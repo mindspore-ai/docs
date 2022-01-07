@@ -1,18 +1,5 @@
 # 基于gRPC接口访问MindSpore Serving服务
 
-<!-- TOC -->
-
-- [基于gRPC接口访问MindSpore Serving服务](#基于grpc接口访问mindspore-serving服务)
-    - [概述](#概述)
-    - [add样例](#add样例)
-    - [ResNet-50样例](#resnet-50样例)
-    - [通过Unix domain socket访问Serving服务器](#通过unix-domain-socket访问serving服务器)
-    - [访问开启SSL/TLS的Serving服务](#访问开启ssltls的serving服务)
-        - [单向认证](#单向认证)
-        - [双向认证](#双向认证)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/serving/docs/source_zh_cn/serving_grpc.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述
