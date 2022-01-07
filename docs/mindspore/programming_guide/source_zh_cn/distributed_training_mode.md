@@ -61,7 +61,7 @@ context.set_auto_parallel_context(parallel_mode=context.ParallelMode.DATA_PARALL
 
 ### 数据并行
 
-在数据并行中，用户定义网络的方式和单机脚本一样，但是在网络定义之前调用`D.init()`去初始化设备通信状态。
+在数据并行中，用户定义网络的方式和单机脚本一样，但是在网络定义之前调用[init()](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.communication.html?highlight=init#mindspore.communication.init)去初始化设备通信状态。
 
 ```python
 import numpy as np
@@ -72,7 +72,7 @@ from mindspore import ops, nn
 class DataParallelNet(nn.Cell):
     def __init__(self):
         super(DataParallelNet, self).__init__()
-        # initialize full tensor weight
+        # 初始化权重
         weight_init = np.random.rand(512, 128).astype(np.float32)
         self.weight = Parameter(Tensor(weight_init))
         self.fc = ops.MatMul()
@@ -88,19 +88,19 @@ init()
 context.set_auto_parallel_context(parallel_mode=context.ParallelMode.DATA_PARALLEL)
 net = DataParallelNet()
 model = Model(net)
-model.train(...)
+model.train(*args, **kwargs)
 ```
 
 ### 半自动并行
 
 相较于自动并行，半自动并行模式需要用户对算子手动配置切分**策略**实现并行。关于算子并行策略的定义可以参考这篇[设计文档](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/design/distributed_training_design.html#id10)。
 
-- 启动半自动和自动模式进行训练时，**必须**通过`model.train(...)`接口进行训练，不支持自定义循环进行网络训练。
+- 启动半自动和自动模式进行训练时，**必须**通过`model.train(*args, **kwargs)`接口进行训练，不支持自定义循环进行网络训练。
 
   ```python
   # 训练方式一：通过Model接口调用，仅支持这种方式
-  model = Model(net, ...)
-  model.train(...)
+  model = Model(net, *args, **kwargs)
+  model.train(*args, **kwargs)
 
   # 训练方式二：自定义循环，这种方式不支持
   for d in dataset.create_dict_iterator():
@@ -109,7 +109,7 @@ model.train(...)
           print(net_with_criterion(d["data"], d["label"]))
   ```
 
-- 半自动并行模式相较于自动并行模式需要用户**手动配置**每个算子的**shard**接口对并行策略进行调优。
+- 半自动并行模式相较于自动并行模式，需要用户**手动配置**每个算子的**shard**接口对并行策略进行调优。
 
     以`SemiAutoParallelNet`为例，在半自动并行模式下的脚本代码如下，`MatMul`的切分策略为`((1, 1),(1, 2))`，指定`self.weight`在第二维度上被切分两份。
 
@@ -122,20 +122,22 @@ model.train(...)
     class SemiAutoParallelNet(nn.Cell):
         def __init__(self):
             super(SemiAutoParallelNet, self).__init__()
-            # initialize full tensor weight
+            # 初始化权重
             weight_init = np.random.rand(128, 128).astype(np.float32)
             self.weight = Parameter(Tensor(weight_init))
             self.weight2 = Parameter(Tensor(weight_init))
-            # set shard strategy
+            # 设置切分策略。在construct中fc的输入有两个，第一个输入是x，第二个输入是权重self.weight
+            # 因此shard需要提供一个tuple元组，分别对应每个输入tensor在对应维度的切分份数
+            # (1,1)表示输入x的每一维度都没有切分
+            # (1,2)表示在self.weight的第二维度上切成了两份
+            # 切分的过程是在图编译的过程中，在编译完成后，self.weight的shape就会发生改变
             self.fc = ops.MatMul().shard(((1, 1),(1, 2)))
-            # 在construct函数中去初始化并行调用operation算子时，相当于用户没有设置matmul算子的策略。那么默认的策略会自动配置数据并行
-            # 即((8, 1), (1, 1))
-            self.fc2 = ops.MatMul()
             self.reduce = ops.ReduceSum()
 
         def construct(self, x):
             x = self.fc(x, self.weight)
-            x = self.fc2(x, self.weight2)
+            # 在construct函数中去初始化并行调用operation算子时，相当于用户没有设置matmul算子的策略。那么默认的策略会自动配置数据并行，即((8, 1), (1, 1))。其中8表示用户此次运行的卡数
+            x = ops.MatMul()(x, self.weight2)
             x = self.reduce(x, -1)
             return x
 
@@ -143,7 +145,7 @@ model.train(...)
     context.set_auto_parallel_context(parallel_mode=context.ParallelMode.SEMI_AUTO_PARALLEL)
     net = SemiAutoParallelNet()
     model = Model(net)
-    model.train(...)
+    model.train(*args, **kwargs)
     ```
 
 在前后算子的设备矩阵不一致时，会自动插入[重排布](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/design/distributed_training_design.html?highlight=%E9%87%8D%E6%8E%92%E5%B8%83#id4), 确保`tensor`的切分状态符合下一个算子输入要求。例如在单机八卡的训练中，有下述的示例代码：
@@ -155,25 +157,31 @@ from mindspore import ops, nn
 class SemiAutoParallelNet(nn.Cell):
     def __init__(self):
         super(SemiAutoParallelNet, self).__init__()
-        # initialize full tensor weight
+        # 初始化权重
         weight_init = np.random.rand(128, 128).astype(np.float32)
         self.weight = Parameter(Tensor(weight_init))
         self.weight2 = Parameter(Tensor(weight_init))
-        # set shard strategy
-        self.fc = ops.MatMul().shard(((1, 1),(1, 2))
-        self.fc2 = ops.MatMul().shard(((8, 1),(1, 1))
+        # 设置切分策略
+        self.fc = ops.MatMul().shard(((1, 1),(1, 2)))
+        self.fc2 = ops.MatMul().shard(((8, 1),(1, 1)))
         self.reduce = ops.ReduceSum()
 
     def construct(self, x):
+        # 在__init__中我们对fc的第二个输入配置为(1,2)
+        # 所以经过fc的输出的tensor在输出第二维度上被切成了两份，从128变成了64，所以它的输出shape为 [batch, 64]，
         x = self.fc(x, self.weight)
-        # 在实际运行中，经过fc的输出的tensor shape为 [batch, 64] (在最后一维度切分)
-        # 而fc2配置x的第0维度切分为8个分片，所以在实际执行上，此处会插入用户脚本中没有申明的StrideSlice算子，将x进行取切片操作
+        # 在__init__中我们通过shard的方式，对fc2第0个输入配置了(8,1)，表示要求此输入的第0维度切分成了8份
+        # 而上一个算子fc的输出还是[batch,64]，第0维度并没有发生切分，因此存在一个tensor shape不一致的问题
+        # 所以自动并行框架会在此处插入用户脚本中没有声明的StrideSlice算子，将x进行取切片操作
+        # 以保证前后tensor shape的一致性。
+        # 另外，fc的输出第1维度切分成了2份，但是fc2第0个输入的第1维度切分成了1份，因此还会插入allgather算子
         x = self.fc2(x, self.weight2)
+        # 框架在此自动会插入一个AllGather算子和StridedSlice操作
         x = self.reduce(x, -1)
         return x
 ```
 
-因此，如果前后的算子对输入的切分要求不一样，插入的重排布算子可能会有`AllGather`、`Split`、`Concat`和`StridedSlice`等算子。因此会增加网络的计算和通信耗时。用户可以[保存ir图](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/design/mindir.html)查看整张网络的算子状态。其中自动并行流程产生的`ir`图名为`step_parallel_begin_xxxx.ir`和`step_parallel_end_xxxx.ir`。前者表示在进入并行流程之前图状态，后者表示经过自动并行流程处理后的图状态，用户可以查看后者这个文件查找自动并行插入的算子。
+因此，如果前后的算子对输入的切分要求不一样，插入的重排布算子可能会有`AllGather`、`Split`、`Concat`和`StridedSlice`等算子。因此会增加网络的计算和通信耗时。用户可以[保存ir图](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/design/mindir.html)查看整张网络的算子状态。其中自动并行流程产生的`ir`图名为`step_parallel_begin_xxxx.ir`和`step_parallel_end_xxxx.ir`。前者表示在进入并行流程之前图状态，后者表示经过自动并行流程处理后的图状态，用户可以查看后者这个文件，查找自动并行插入的算子。
 
 > - 半自动并行模式时，未配置策略的算子默认以数据并行方式执行，对应的数据并行度为所有卡。
 > - 自动并行模式支持通过策略搜索算法自动获取高效的算子并行策略，同时也支持用户对算子手动配置特定的并行策略。
@@ -206,7 +214,7 @@ context.set_auto_parallel_context(parallel_mode=context.ParallelMode.AUTO_PARALL
 
 ### 混合并行
 
-在MindSpore中特指用户通过手动切分模型实现混合并行的场景，用户可以在网络结构中定义通信算子原语`AllReduce`和`AllGather`等，手动的执行并行流程，例如下面的代码示例：
+在MindSpore中特指用户通过手动切分模型实现混合并行的场景，用户可以在网络结构中定义通信算子原语`AllReduce`和`AllGather`等，手动执行并行流程。此时，用户需要自己实现参数的切分，算子切分后的通信等操作。例如下面的代码示例：
 
 ```python
 import numpy as np
@@ -217,12 +225,20 @@ from mindspore import ops, nn, Parameter
 class HybridParallelNet(nn.Cell):
     def __init__(self):
         super(HybridParallelNet, self).__init__()
-        # 初始化权重的切片，假设原始shape为[512, 128]，我们需要手动的指定当前权重的切片
-        # 假设卡数为2卡，我们希望在matmul的相关维度进行切分。相关维度切分的情况下
+        # 以下2卡运行的场景为例子，实现分布式矩阵乘法来模拟单卡矩阵乘的结果。
+        # 即原始的逻辑
+        #        输入x,weight的shape分别为(32, 512), (512, 128)
+        #        经过计算：matmul(x, weight)
+        #        输出结果shape为(32, 128)的tensor
+        # 下面我们手动实现上面的矩阵乘法逻辑
+        # 我们需要手动的指定当前权重的切片的shape,我们希望在matmul的相关维度进行切分。相关维度切分的情况下
         # 需要对matmul的结果进行AllReduce操作，确保数值和单机的保持一致
-        # 原始的逻辑  matmul(x, weight) (32, 512), (512, 128) --> (32, 128)
-        # 切分后的逻辑 matmul(x, weight) (32, 256), (256, 128) --> (32, 128)
-        #                              allreduce([32,128])   --> (32, 128)
+        #
+        # 分布式逻辑
+        #         输入x,weight的shape分别为(32, 256), (256, 128)
+        #         经过计算  output = matmul(x, weight)
+        #                  output = allreduce(output)
+        #         输出结果shape为(32, 128)的tensor
         weight_init = np.random.rand(256, 128).astype(np.float32)
         self.weight = Parameter(Tensor(weight_init))
         self.fc = ops.MatMul()
@@ -237,7 +253,7 @@ init()
 context.set_auto_parallel_context(parallel_mode=context.ParallelMode.HYBRID_PARALLEL)
 net = HybridParallelNet()
 model = Model(net)
-model.train(...)
+model.train(*args, **kwargs)
 ```
 
 ## 数据导入方式
