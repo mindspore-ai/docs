@@ -2,25 +2,6 @@
 
 `Windows` `Linux` `C++` `数据准备` `初级` `中级` `高级`
 
-<!-- TOC -->
-
-- [预处理图像数据](#预处理图像数据)
-    - [概述](#概述)
-    - [导入图像预处理函数的库](#导入图像预处理函数的库)
-    - [对图像进行初始化](#对图像进行初始化)
-        - [使用示例](#使用示例)
-    - [可选的图像预处理算子](#可选的图像预处理算子)
-        - [对图像进行缩放操作](#对图像进行缩放操作)
-            - [使用示例](#使用示例-1)
-        - [对图像数据类型进行转换](#对图像数据类型进行转换)
-            - [使用示例](#使用示例-2)
-        - [对图像数据进行裁剪](#对图像数据进行裁剪)
-            - [使用示例](#使用示例-3)
-        - [对图像数据进行归一化处理](#对图像数据进行归一化处理)
-            - [使用示例](#使用示例-4)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/image_processing.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

@@ -1,18 +1,5 @@
 # Computational Graph Visualization Design
 
-<!-- TOC -->
-
-- [Computational Graph Visualization Design](#computational-graph-visualization-design)
-    - [Background](#background)
-    - [Overall Design](#overall-design)
-        - [Concept Design](#concept-design)
-        - [Backend Design](#backend-design)
-        - [Frontend Design](#frontend-design)
-        - [API Design](#api-design)
-            - [File API Design](#file-api-design)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/graph_visual_design.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Background

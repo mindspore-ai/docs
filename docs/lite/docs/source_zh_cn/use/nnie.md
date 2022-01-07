@@ -2,40 +2,6 @@
 
 `NNIE` `Linux` `环境准备` `中级` `高级`
 
-<!-- TOC -->
-
-- [集成NNIE使用说明](#集成NNIE使用说明)
-    - [目录结构](#目录结构)
-        - [模型转换工具converter目录结构说明](#模型转换工具converter目录结构说明)
-        - [模型推理工具runtime目录结构说明](#模型推理工具Runtime目录结构说明)
-    - [工具使用](#工具使用)
-        - [转换工具converter](#转换工具converter)
-            - [概述](#概述)
-            - [环境准备](#环境准备)
-            - [扩展配置](#扩展配置)
-            - [NNIE配置](#nnie配置)
-            - [执行converter](#执行converter)
-        - [推理工具runtime](#推理工具runtime)
-            - [概述](#概述)
-            - [环境准备](#环境准备)
-            - [执行benchmark](#执行benchmark)
-    - [集成使用](#集成使用)
-    - [SVP工具链相关功能支持及注意事项（可选）](#SVP工具链相关功能支持及注意事项（可选）)
-        - [image_list说明](#image_list说明)
-        - [image_type限制](#image_type限制)
-        - [板端运行输入Format须是NHWC](#板端运行输入Format须是NHWC)
-        - [image_list和roi_coordinate_file个数说明](#image_list和roi_coordinate_file个数说明)
-        - [prototxt中节点名_cpu后缀支持](#prototxt中节点名_cpu后缀支持)
-        - [prototxt中Custom算子支持](#prototxt中Custom算子支持)
-        - [prototxt中top域的_report后缀支持](#prototxt中top域的_report后缀支持)
-        - [inplace机制](#inplace机制)
-        - [多图片batch运行及多step运行](#多图片batch运行及多step运行)
-        - [节点名称的变动](#节点名称的变动)
-        - [proposal算子使用说明](#proposal算子使用说明)
-        - [分段机制说明及8段限制](#分段机制说明及8段限制)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/nnie.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 目录结构

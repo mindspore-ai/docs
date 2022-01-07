@@ -1,38 +1,5 @@
 # 使用MindConverter迁移模型定义脚本
 
-<!-- TOC -->
-
-- [使用MindConverter迁移模型定义脚本](#使用mindconverter迁移模型定义脚本)
-    - [工具概述](#工具概述)
-    - [快速开始](#快速开始)
-        - [使用命令行](#使用命令行)
-        - [使用API](#使用api)
-    - [工具安装](#工具安装)
-        - [环境依赖](#环境依赖)
-            - [使用命令行](#使用命令行)
-            - [使用API](#使用api)
-        - [安装方式](#安装方式)
-    - [迁移方案](#迁移方案)
-    - [实践步骤](#实践步骤)
-        - [第0步：导出模型文件](#第0步导出模型文件)
-        - [第1步：转换模型定义](#第1步转换模型定义)
-        - [第2步：转换数据处理](#第2步转换数据处理)
-        - [第3步：转换模型训练](#第3步转换模型训练)
-        - [第4步：转换模型推理](#第4步转换模型推理)
-    - [命令行参数说明](#命令行参数说明)
-    - [模型支持列表](#模型支持列表)
-    - [错误码速查表](#错误码速查表)
-    - [常见问题](#常见问题)
-        - [ARM环境安装依赖组件](#arm环境安装依赖组件)
-        - [判断模型输入shape的形式](#判断模型输入shape的形式)
-        - [TensorFlow模型导出](#tensorflow模型导出)
-        - [整改forward参数列表](#整改forward参数列表)
-        - [MindSpore模型内嵌到原框架](#mindspore模型内嵌到原框架)
-        - [转换报告与权重映射表](#转换报告与权重映射表)
-        - [基于AST转换脚本](#基于ast转换脚本)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/migrate_3rd_scripts_mindconverter.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 工具概述

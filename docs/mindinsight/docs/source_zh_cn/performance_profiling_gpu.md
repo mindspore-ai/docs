@@ -1,23 +1,5 @@
 # 性能调试（GPU）
 
-<!-- TOC -->
-
-- [性能调试（GPU）](#性能调试gpu)
-    - [概述](#概述)
-    - [操作流程](#操作流程)
-    - [准备训练脚本](#准备训练脚本)
-    - [启动MindInsight](#启动mindinsight)
-    - [训练性能](#训练性能)
-        - [算子性能分析](#算子性能分析)
-        - [Timeline分析](#timeline分析)
-        - [迭代轨迹分析](#迭代轨迹分析)
-        - [数据准备性能分析](#数据准备性能分析)
-    - [资源利用](#资源利用)
-        - [CPU利用率分析](#cpu利用率分析)
-    - [注意事项](#注意事项)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/performance_profiling_gpu.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

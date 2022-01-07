@@ -1,17 +1,5 @@
 # 差分隐私设计
 
-<!-- TOC -->
-
-- [差分隐私设计](#差分隐私设计)
-    - [总体设计](#总体设计)
-        - [差分隐私优化器](#差分隐私优化器)
-        - [差分隐私的噪声机制](#差分隐私的噪声机制)
-        - [Monitor](#monitor)
-    - [代码实现](#代码实现)
-    - [参考文献](#参考文献)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_zh_cn/differential_privacy_design.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 总体设计

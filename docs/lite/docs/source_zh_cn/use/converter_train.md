@@ -2,17 +2,6 @@
 
 `Linux` `环境准备` `模型导出` `模型转换` `中级` `高级`
 
-<!-- TOC -->
-
-- [训练模型转换](#训练模型转换)
-    - [概述](#概述)
-    - [Linux环境](#linux环境)
-        - [环境准备](#环境准备)
-        - [参数说明](#参数说明)
-        - [模型转换示例](#模型转换示例)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/converter_train.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

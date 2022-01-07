@@ -2,21 +2,6 @@
 
 `Ascend` `Linux` `环境准备` `算子支持` `中级` `高级`
 
-<!-- TOC -->
-
-- [集成Ascend使用说明](#集成Ascend使用说明)
-    - [环境准备](#环境准备)
-        - [确认系统环境信息](#确认系统环境信息)
-        - [配置环境变量](#配置环境变量)
-    - [执行converter工具](#执行converter工具)
-    - [执行推理runtime](#执行推理runtime)
-    - [执行benchmark](#执行benchmark)
-    - [高级特性](#高级特性)
-        - [动态shape](#动态shape)
-    - [算子支持](#算子支持)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/ascend_info.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 本文档介绍如何在Ascend环境的Linux系统上，使用MindSpore Lite 进行推理，以及动态shape功能的使用。目前，MindSpore Lite仅支持Ascend310芯片。

@@ -1,19 +1,5 @@
 # 实现时序数据概念漂移检测应用
 
-<!-- TOC -->
-
-- [实现时序数据概念漂移检测应用](#实现时序数据概念漂移检测应用)
-    - [概述](#概述)
-    - [准备环节](#准备环节)
-        - [下载数据集](#下载数据集)
-        - [导入Python库&模块](#导入python库模块)
-    - [数据处理](#数据处理)
-    - [初始化概念漂移检测模块](#初始化概念漂移检测模块)
-    - [启动概念漂移检测](#启动概念漂移检测)
-    - [查看结果](#查看结果)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_zh_cn/concept_drift_time_series.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

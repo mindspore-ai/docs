@@ -1,17 +1,5 @@
 ﻿# Differential Privacy Design
 
-<!-- TOC -->
-
-- [Differential Privacy Design](#differential-privacy-design)
-    - [Overall Design](#overall-design)
-        - [DP Optimizer](#dp-optimizer)
-        - [DP Mechanisms](#dp-mechanisms)
-        - [Monitor](#monitor)
-    - [Code Implementation](#code-implementation)
-    - [References](#references)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_en/differential_privacy_design.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overall Design

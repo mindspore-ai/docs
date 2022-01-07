@@ -1,16 +1,5 @@
 ﻿# AI Model Security Testing Design
 
-<!-- TOC -->
-
-- [AI Model Security Testing Design](#ai-model-security-testing-design)
-    - [Background](#background)
-    - [Fuzz Testing Design](#fuzz-testing-design)
-    - [Fuzz Testing Process](#fuzz-testing-process)
-    - [Code Implementation](#code-implementation)
-    - [References](#references)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_en/fuzzer_design.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Background

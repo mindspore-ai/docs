@@ -1,18 +1,5 @@
 # MindElec Introduction and Installation
 
-<!-- TOC -->
-
-- [MindElec Introduction and Installation](#mindelec-introduction-and-installation)
-    - [MindElec Overview](#mindelec-overview)
-    - [MindElec Installation](#mindelec-installation)
-        - [System Environment Information Confirmation](#system-environment-information-confirmation)
-        - [Installation](#installation)
-            - [Installation by pip](#installation-by-pip)
-            - [Installation by Source Code](#installation-by-source-code)
-        - [Installation Verification](#installation-verification)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindscience/docs/source_en/mindelec/intro_and_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
 ## MindElec Overview

@@ -1,15 +1,5 @@
 # 使用fuzz testing模块测试模型安全性
 
-<!-- TOC -->
-
-- [使用fuzz testing模块测试模型安全性](#使用fuzz-testing模块测试模型安全性)
-    - [概述](#概述)
-    - [实现阶段](#实现阶段)
-        - [导入需要的库文件](#导入需要的库文件)
-        - [参数配置](#参数配置)
-        - [运用Fuzz Testing](#运用fuzz-testing)
-
-<!-- /TOC -->
 <a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbWFzdGVyL25vdGVib29rL21pbmRzcG9yZV90ZXN0X21vZGVsX3NlY3VyaXR5X2Z1enppbmcuaXB5bmI=&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_modelarts.png"></a>
 &nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/notebook/mindspore_test_model_security_fuzzing.ipynb"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_notebook.png"></a>

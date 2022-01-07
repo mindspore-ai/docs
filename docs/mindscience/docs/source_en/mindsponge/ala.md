@@ -2,22 +2,6 @@
 
 Translator: [LiangRio](https://gitee.com/liangrio)
 
-<!-- TOC -->
-
-- [MindSPONGE Molecular Simulation Practice](#mindsponge-molecular-simulation-practice)
-    - [Overview](#overview)
-    - [Overall Execution](#overall-execution)
-    - [Preparation](#preparation)
-    - [Example of Simulated Polypeptide Aqueous Solution System](#example-of-simulated-polypeptide-aqueous-solution-system)
-        - [Preparing Input Files](#preparing-input-files)
-        - [Loading Data](#loading-data)
-        - [Constructing Simulation Process](#constructing-simulation-process)
-        - [Running Script](#running-script)
-        - [Running Result](#running-result)
-    - [Performance](#performance)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindscience/docs/source_zh_cn/mindsponge/ala.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

@@ -2,25 +2,6 @@
 
 `Linux` `代理` `第三方接入` `自定义框架` `高级`
 
-<!-- TOC -->
-
-- [使用Delegate支持第三方AI框架接入](#使用Delegate支持第三方AI框架接入)
-    - [概述](#概述)
-    - [Delegate使用](#Delegate使用)
-        - [新增自定义Delegate类](#新增自定义Delegate类)
-        - [实现初始化接口](#实现初始化接口)
-        - [实现构图接口](#实现构图接口)
-        - [实现子图Kernel](#实现子图Kernel)
-    - [Lite框架调度](#Lite框架调度)
-    - [NPUDelegate示例](#NPUDelegate示例)
-        - [新增NPUDelegate类](#新增NPUDelegate类)
-        - [实现Init接口](#实现Init接口)
-        - [实现Build接口](#实现Build接口)
-        - [实现构图代码](#实现构图代码)
-        - [实现NPUGraph](#实现NPUGraph)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/delegate.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

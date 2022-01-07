@@ -1,19 +1,5 @@
 # Implementing the Concept Drift Detection Application of Time Series Data
 
-<!-- TOC -->
-
-- [Implementing the Concept Drift Detection Application of Time Series Data](#implementing-the-concept-drift-detection-application-of-time-series-data)
-    - [Overview](#overview)
-    - [Preparations](#preparations)
-        - [Downloading the Dataset](#downloading-the-dataset)
-        - [Importing the Python Library and Modules](#importing-the-python-library-and-modules)
-    - [Processing Data](#processing-data)
-    - [Initializing the Concept Drift Detection Module](#initializing-the-concept-drift-detection-module)
-    - [Starting the Concept Drift Detection](#starting-the-concept-drift-detection)
-    - [Viewing the Result](#viewing-the-result)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_en/concept_drift_time_series.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

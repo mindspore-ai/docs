@@ -2,41 +2,6 @@
 
 `Windows` `macOS` `Linux` `iOS` `Android` `C++` `推理应用` `模型加载` `数据准备` `中级` `高级`
 
-<!-- TOC -->
-
-- [使用C++接口执行推理](#使用c接口执行推理)
-    - [概述](#概述)
-    - [模型读取](#模型读取)
-    - [创建配置上下文](#创建配置上下文)
-        - [配置线程数](#配置线程数)
-        - [配置线程亲和性](#配置线程亲和性)
-        - [配置并行策略](#配置并行策略)
-        - [配置使用GPU后端](#配置使用gpu后端)
-        - [配置使用NPU后端](#配置使用npu后端)
-        - [配置使用NNIE后端](#配置使用nnie后端)
-    - [模型创建加载与编译](#模型创建加载与编译)
-    - [输入数据](#输入数据)
-    - [执行推理](#执行推理)
-    - [获取输出](#获取输出)
-    - [内存释放](#内存释放)
-    - [高级用法](#高级用法)
-        - [输入维度Resize](#输入维度resize)
-        - [Model并行](#model并行)
-        - [混合精度运行](#混合精度运行)
-        - [多硬件异构运行](#多硬件异构运行)
-        - [OpenGL纹理输入](#opengl纹理输入)
-        - [共享内存池](#共享内存池)
-        - [回调运行](#回调运行)
-        - [模型加载与编译独立调用流程](#模型加载与编译独立调用流程)
-        - [查看日志](#查看日志)
-        - [获取版本号](#获取版本号)
-        - [扩展使用](#扩展使用)
-            - [算子InferShape扩展](#算子infershape扩展)
-            - [算子扩展](#算子扩展)
-            - [示例演示](#示例演示)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/runtime_cpp.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 > MindSpore已经统一了端边云推理API，如您想继续使用MindSpore Lite独立API进行端侧推理，可以参考[此文档](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/runtime_cpp.html)。

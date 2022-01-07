@@ -1,17 +1,5 @@
 # Tensor Visualization Design
 
-<!-- TOC -->
-
-- [Tensor Visualization Design](#tensor-visualization-design)
-    - [Background](#background)
-    - [Overall Design](#overall-design)
-        - [Backend Design](#backend-design)
-        - [Frontend Design](#frontend-design)
-        - [API Design](#api-design)
-            - [File API Design](#file-api-design)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/tensor_visual_design.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Background

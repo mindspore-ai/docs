@@ -2,34 +2,6 @@
 
 `Windows` `Linux` `Android` `C++` `推理应用` `高级`
 
-<!-- TOC -->
-
-- [在线构建自定义算子](#在线构建自定义算子)
-    - [如何实现自定义算子](#如何实现自定义算子)
-        - [确定算子类型](#确定算子类型)
-        - [通用算子](#通用算子)
-            - [通用算子实现](#通用算子实现)
-            - [通用算子注册](#通用算子注册)
-            - [通用算子InferShape](#通用算子infershape)
-            - [通用算子InferShape注册](#通用算子infershape注册)
-        - [Custom算子](#custom算子)
-            - [Custom算子定义](#custom算子定义)
-            - [Custom算子实现](#custom算子实现)
-            - [Custom算子注册](#custom算子注册)
-            - [Custom算子InferShape](#custom算子infershape)
-            - [Custom算子InferShape注册](#custom算子infershape注册)
-    - [自定义GPU算子](#自定义GPU算子)
-        - [算子注册](#算子注册)
-            - [实现创建算子实例的函数](#实现创建算子实例的函数)
-            - [注册算子](#注册算子)
-        - [算子实现](#算子实现)
-            - [构造及析构函数说明](#构造及析构函数说明)
-            - [类成员变量说明](#类成员变量说明)
-            - [Prepare实现代码与说明](#Prepare实现代码与说明)
-            - [ReSize及Execute实现代码与说明](#ReSize及Execute实现代码与说明)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/register_kernel.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 如何实现自定义算子

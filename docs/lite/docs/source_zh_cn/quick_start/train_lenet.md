@@ -2,25 +2,6 @@
 
 `Linux` `C++` `Android` `全流程` `模型导出` `模型转换` `模型训练` `初级` `中级` `高级`
 
-<!-- TOC -->
-
-- [基于C++接口实现端侧训练](#基于c接口实现端侧训练)
-    - [概述](#概述)
-    - [准备](#准备)
-        - [环境要求](#环境要求)
-        - [下载数据集](#下载数据集)
-        - [安装MindSpore](#安装MindSpore)
-        - [下载并安装MindSpore Lite](#下载并安装MindSpore-Lite)
-        - [连接安卓设备](#连接安卓设备)
-    - [模型训练和验证](#模型训练和验证)
-    - [示例程序详解](#示例程序详解)
-        - [示例程序结构](#示例程序结构)
-        - [定义并导出模型](#定义并导出模型)
-        - [转换模型](#转换模型)
-        - [训练模型](#训练模型)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/quick_start/train_lenet.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 > 注意：MindSpore已经统一端边云推理API，如您想继续使用MindSpore Lite独立API进行端侧训练，可以参考[此文档](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/quick_start/train_lenet.html)。

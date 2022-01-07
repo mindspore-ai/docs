@@ -1,24 +1,5 @@
 # 性能调优指南
 
-<!-- TOC -->
-
-- [性能调优指南](#性能调优指南)
-    - [概述](#概述)
-    - [单卡性能调优](#单卡性能调优)
-        - [分析入口](#分析入口)
-        - [迭代间隙耗时长](#迭代间隙耗时长)
-            - [非数据下沉模式](#非数据下沉模式)
-            - [图模式](#图模式)
-        - [前反向耗时长](#前反向耗时长)
-        - [迭代拖尾耗时长](#迭代拖尾耗时长)
-    - [集群性能调优](#集群性能调优)
-        - [分析入口](#分析入口)
-        - [数据并行](#数据并行)
-        - [模型并行](#模型并行)
-        - [流水线并行](#流水线并行)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/performance_tuning_guide.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

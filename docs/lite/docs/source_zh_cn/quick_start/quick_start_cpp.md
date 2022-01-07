@@ -2,22 +2,6 @@
 
 `Linux` `Windows` `X86` `C++` `全流程` `推理应用` `数据准备` `初级`
 
-<!-- TOC -->
-
-- [体验C++极简推理Demo](#体验c极简推理demo)
-    - [概述](#概述)
-    - [构建与运行](#构建与运行)
-        - [Linux x86](#linux-x86)
-        - [Windows](#windows)
-    - [配置CMake](#配置CMake)
-    - [模型读取](#模型读取)
-    - [创建配置上下文](#创建配置上下文)
-    - [模型创建加载与编译](#模型创建加载与编译)
-    - [模型推理](#模型推理)
-    - [内存释放](#内存释放)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/quick_start/quick_start_cpp.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 > MindSpore已经统一了端边云推理API，如您想继续使用MindSpore Lite独立API进行端侧推理，可以参考[此文档](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/quick_start/quick_start_cpp.html)。

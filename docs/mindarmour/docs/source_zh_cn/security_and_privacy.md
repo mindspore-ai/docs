@@ -1,22 +1,5 @@
 # MindArmour模块介绍
 
-<!-- TOC -->
-
-- [MindArmour模块介绍](#mindarmour模块介绍)
-    - [概述](#概述)
-    - [对抗鲁棒性](#对抗鲁棒性)
-        - [Attack](#attack)
-        - [Defense](#defense)
-        - [Detector](#detector)
-    - [模型安全测试](#模型安全测试)
-        - [Fuzzer](#fuzzer)
-    - [差分隐私训练](#差分隐私训练)
-        - [DPModel](#dpmodel)
-    - [隐私泄露风险评估](#隐私泄露风险评估)
-        - [MembershipInference](#membershipinference)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_zh_cn/security_and_privacy.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述
