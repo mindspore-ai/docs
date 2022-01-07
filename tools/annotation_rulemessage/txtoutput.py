@@ -23,7 +23,9 @@ def run(txtinput_filepath):
                 + line + '\tRuleID：' + id_ + '\tMessage：' \
                 + msg + '\tSuggestion：' + sug + '\tContext：' \
                 + text + '\n'
-    txtoutput_path = "/".join(str(txtinput_filepath).split("/")[:-1])+"/{}-outputrule.txt".format(txtinput_name)
+    txtoutput_path = "formatrule/" \
+    +"/".join(str(txtinput_filepath).split("/")[:-1]) \
+    + "/{}-outputrule.txt".format(txtinput_name)
     txtoutput_dir = "/".join(txtoutput_path.split("/")[:-1])
     if not os.path.exists(txtoutput_dir):
         os.makedirs(txtoutput_dir)
