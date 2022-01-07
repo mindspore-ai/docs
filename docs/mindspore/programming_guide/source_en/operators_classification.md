@@ -2,35 +2,6 @@
 
 `Ascend` `GPU` `CPU` `Beginner`
 
-<!-- TOC -->
-
-- [Operators Classification](#operators-classification)
-    - [Overview](#overview)
-    - [Tensor Operations](#tensor-operations)
-        - [Mathematical Operators](#mathematical-operators)
-            - [Scalar Operations](#scalar-operations)
-            - [Vector Operations](#vector-operations)
-            - [Matrix Operations](#matrix-operations)
-        - [Broadcast Mechanism](#broadcast-mechanism)
-    - [Network Operations](#network-operations)
-        - [Feature Extraction](#feature-extraction)
-        - [Activation Function](#activation-function)
-        - [Loss Function](#loss-function)
-        - [Optimization Algorithm](#optimization-algorithm)
-    - [Array Operations](#array-operations)
-        - [DType](#dtype)
-        - [Cast](#cast)
-        - [Shape](#shape)
-    - [Image Operations](#image-operations)
-    - [Encoding Operations](#encoding-operations)
-        - [BoundingBoxEncode](#boundingboxencode)
-        - [BoundingBoxDecode](#boundingboxdecode)
-        - [IOU Computing](#iou-computing)
-    - [Debugging Operations](#debugging-operations)
-        - [HookBackward](#hookbackward)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/operators_classification.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

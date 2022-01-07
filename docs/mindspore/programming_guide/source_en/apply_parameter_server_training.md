@@ -2,18 +2,6 @@
 
 `Ascend` `GPU` `Distributed Parallel` `Whole Process`
 
-<!-- TOC -->
-
-- [Parameter Server Mode](#parameter-server-mode)
-    - [Overview](#overview)
-    - [Preparations](#preparations)
-        - [Training Script Preparation](#training-script-preparation)
-        - [Parameter Setting](#parameter-setting)
-        - [Environment Variable Setting](#environment-variable-setting)
-    - [Training](#training)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/apply_parameter_server_training.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

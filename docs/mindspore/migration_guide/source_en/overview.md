@@ -1,20 +1,5 @@
 # Overview
 
-<!-- TOC -->
-
-- [Overview](#overview)
-    - [Preparations](#preparations)
-    - [Network Script Analysis](#network-script-analysis)
-    - [Network Script Development](#network-script-development)
-    - [Operator Development and Debugging](#operator-development-and-debugging)
-    - [Network Debugging](#network-debugging)
-    - [Accuracy and Performance Tuning](#accuracy-and-performance-tuning)
-    - [Inference Execution](#inference-execution)
-    - [Network Migration Debugging Example](#network-migration-debugging-example)
-    - [FAQs](#faqs)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/overview.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 This migration guide describes the complete steps for migrating neural networks from other machine learning frameworks to MindSpore.

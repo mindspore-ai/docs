@@ -2,19 +2,6 @@
 
 `Ascend` `GPU` `CPU` `Model Development`
 
-<!-- TOC -->
-
-- [Optimization Algorithms](#optimization-algorithms)
-    - [Overview](#overview)
-    - [Learning Rates](#learning-rates)
-        - [dynamic_lr](#dynamic_lr)
-        - [learning_rate_schedule](#learning_rate_schedule)
-    - [Optimzers](#optimzers)
-        - [Usage](#usage)
-        - [Built-in Optimizers](#built-in-optimizers)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/optim.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

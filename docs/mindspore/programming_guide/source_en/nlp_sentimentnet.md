@@ -2,27 +2,6 @@
 
 `CPU` `CPU` `Natural Language Processing` `Whole Process`
 
-<!-- TOC -->
-
-- [Realizing Sentiment Classification With SentimentNet](#realizing-sentiment-classification-with-sentimentnet)
-    - [Overview](#overview)
-    - [Preparation and Design](#preparation-and-design)
-        - [Downloading the Dataset](#downloading-the-dataset)
-        - [Determining Evaluation Criteria](#determining-evaluation-criteria)
-        - [Determining the Network and Process](#determining-the-network-and-process)
-    - [Implementation](#implementation)
-        - [Importing Library Files](#importing-library-files)
-        - [Configuring Environment Information](#configuring-environment-information)
-        - [Preprocessing the Dataset](#preprocessing-the-dataset)
-        - [Defining the Network](#defining-the-network)
-        - [Pre-Training](#pre-training)
-        - [Defining the Optimizer and Loss Function](#defining-the-optimizer-and-loss-function)
-        - [Training and Saving the Model](#training-and-saving-the-model)
-        - [Validating the Model](#validating-the-model)
-    - [Experimental Result](#experimental-result)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/nlp_sentimentnet.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

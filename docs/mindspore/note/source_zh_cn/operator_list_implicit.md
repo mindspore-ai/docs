@@ -1,15 +1,5 @@
 # MindSpore隐式类型转换的算子支持
 
-<!-- TOC -->
-
-- [MindSpore隐式类型转换的算子支持](#mindspore隐式类型转换的算子支持)
-    - [隐式类型转换](#隐式类型转换)
-        - [转换规则](#转换规则)
-        - [参与转换的数据类型](#参与转换的数据类型)
-        - [支持算子](#支持算子)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/note/source_zh_cn/operator_list_implicit.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 隐式类型转换

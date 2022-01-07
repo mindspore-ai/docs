@@ -4,19 +4,6 @@ Translator: [Soleil](https://gitee.com/deng-zhihua)
 
 `Ascend` `GPU` `CPU` `Model Development`
 
-<!-- TOC -->
-
-- [Basic Use Of Model](#basic-use-of-model)
-    - [Overview](#overview)
-    - [Basic Introduction of Model](#basic-introduction-of-model)
-    - [Model Training, Evaluation and Inference](#model-training-evaluation-and-inference)
-    - [Model Applications for Custom Scenarios](#model-applications-for-custom-scenarios)
-        - [Connect Forward Network with Loss Function Manually](#connect-forward-network-with-loss-function-manually)
-        - [Custom Training Network](#custom-training-network)
-        - [Weight Sharing of Custom Network](#weight-sharing-of-custom-network)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/model_use_guide.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

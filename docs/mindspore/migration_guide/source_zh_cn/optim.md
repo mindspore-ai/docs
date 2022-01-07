@@ -1,25 +1,5 @@
 # 优化器迁移指南
 
-<!-- TOC -->
-
-- [优化器迁移指南](#优化器迁移指南)
-    - [概述](#概述)
-    - [基本用法](#基本用法)
-    - [基类入参设置及支持的方法](#基类入参设置及支持的方法)
-        - [基类入参](#基类入参)
-            - [网络中需要被训练的参数](#网络中需要被训练的参数)
-            - [学习率](#学习率)
-            - [weight decay](#weight-decay)
-            - [参数分组](#参数分组)
-            - [混合精度](#混合精度)
-        - [基类支持的方法](#基类支持的方法)
-            - [获取LR](#获取lr)
-            - [获取优化器的状态](#获取优化器的状态)
-    - [自定义优化器](#自定义优化器)
-    - [API映射](#api映射)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_zh_cn/optim.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

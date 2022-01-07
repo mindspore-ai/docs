@@ -2,23 +2,6 @@
 
 `Ascend` `GPU` `CPU` `Model Development`
 
-<!-- TOC -->
-
-- [Network Parameters](#network-parameters)
-    - [Overview](#overview)
-    - [Use of parameters](#use-of-parameters)
-        - [Declaration](#declaration)
-        - [Attributes](#attributes)
-        - [Methods](#methods)
-    - [Using Encapsulation Operator to Initialize Parameters](#using-encapsulation-operator-to-initialize-parameters)
-        - [Character String](#character-string)
-        - [Initializer Subclass](#initializer-subclass)
-        - [The Custom of the Tensor](#the-custom-of-the-tensor)
-    - [ParameterTuple](#parametertuple)
-    - [Dependency Control](#dependency-control)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/parameter.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

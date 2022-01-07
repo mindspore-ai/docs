@@ -2,18 +2,6 @@
 
 `Ascend` `Inference Application`
 
-<!-- TOC -->
-
-- [Inference on the Ascend 910 AI processor](#inference-on-the-ascend-910-ai-processor)
-    - [Overview](#overview)
-    - [Inference Directory Structure](#inference-directory-structure)
-    - [Inference Code](#inference-code)
-    - [Introduce to Building Script](#introduce-to-building-script)
-    - [Building Inference Code](#building-inference-code)
-    - [Performing Inference and Viewing the Result](#performing-inference-and-viewing-the-result)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/multi_platform_inference_ascend_910.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

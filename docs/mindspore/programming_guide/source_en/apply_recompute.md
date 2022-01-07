@@ -2,16 +2,6 @@
 
  `Ascend` `GPU` `CPU` `Model Running` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Recomputation](#Recomputation)
-    - [Overview](#overview)
-    - [Preliminaries](#preliminaries)
-    - [Configuring for Recomputation](#configuring-for-recomputation)
-    - [Training the Model](#training-the-model)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/apply_recompute.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

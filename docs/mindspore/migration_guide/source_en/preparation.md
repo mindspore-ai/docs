@@ -2,22 +2,6 @@
 
 Translator: [Misaka19998](https://gitee.com/Misaka19998/docs/tree/master)
 
-<!-- TOC -->
-
-- [Preparation](#preparation)
-    - [Overview](#overview)
-    - [Installing MindSpore](#installing-mindspore)
-        - [Installing by pip](#installing-by-pip)
-        - [Installing by Source Code](#installing-by-source-code)
-        - [Configuring Environment Variables (only for Ascend)](#configuring-environment-variables-(only-for-ascend))
-        - [MindSpore Verification](#mindspore-verification)
-    - [Knowledge Preparation](#knowledge-preparation)
-        - [MindSpore Programming Guide](#mindspore-programming-guide)
-        - [ModelZoo and Hub](#modelzoo-and-hub)
-        - [Training on the Cloud](#training-on-the-cloud)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/preparation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

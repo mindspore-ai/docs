@@ -2,14 +2,6 @@
 
 `Ascend` `GPU` `CPU` `Beginner`
 
-<!-- TOC -->
-
-- [DataType](#dtype)
-    - [Overview](#overview)
-    - [Data Type Conversion API](#data-type-conversion-api)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/dtype.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

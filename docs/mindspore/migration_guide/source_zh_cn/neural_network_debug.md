@@ -1,24 +1,5 @@
 # 网络调试
 
-<!-- TOC -->
-
-- [网络调试](#网络调试)
-    - [网络调试的基本流程](#网络调试的基本流程)
-    - [网络调试中的常用方法](#网络调试中的常用方法)
-        - [流程调试](#流程调试)
-            - [用PyNative模式进行流程调试](#用pynative模式进行流程调试)
-            - [获取更多报错信息](#获取更多报错信息)
-            - [常见错误](#常见错误)
-        - [loss值对比检查](#loss值对比检查)
-            - [主要步骤](#主要步骤)
-            - [相关问题定位](#相关问题定位)
-        - [精度调试工具](#精度调试工具)
-            - [自定义调试信息](#自定义调试信息)
-            - [使用MindOptimizer进行超参调优](#使用mindoptimizer进行超参调优)
-            - [loss值异常定位](#loss值异常定位)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_zh_cn/neural_network_debug.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 本章将介绍网络调试的基本思路、常用工具，以及一些常见问题处理。

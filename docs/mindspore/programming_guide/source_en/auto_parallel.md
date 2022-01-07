@@ -2,39 +2,6 @@
 
 `Ascend` `GPU` `Distributed Parallel`
 
-<!-- TOC -->
-
-- [Parallel Distributed Training Interfaces](#parallel-distributed-training-interfaces)
-    - [Overview](#overview)
-    - [Parallel Distributed Training Configuration](#parallel-distributed-training-configuration)
-        - [General Configuration](#general-configuration)
-            - [device_num](#device_num)
-            - [global_rank](#global_rank)
-            - [gradients_mean](#gradients_mean)
-            - [parallel_mode](#parallel_mode)
-            - [all_reduce_fusion_config](#all_reduce_fusion_config)
-            - [enable_parallel_optimizer](#enable_parallel_optimizer)
-            - [parameter_broadcast](#parameter_broadcast)
-            - [comm_fusion](#comm_fusion)
-        - [Automatic Parallel Configuration](#automatic-parallel-configuration)
-            - [gradient_fp32_sync](#gradient_fp32_sync)
-            - [search_mode](#search_mode)
-            - [strategy_ckpt_load_file](#strategy_ckpt_load_file)
-            - [strategy_ckpt_save_file](#strategy_ckpt_save_file)
-            - [full_batch](#full_batch)
-            - [pipeline_stages](#pipeline_stages)
-            - [parallel_optimizer_config](#parallel_optimizer_config)
-    - [Distributed Communication Interface](#distributed-communication-interface)
-        - [init](#init)
-        - [get_group_size](#get_group_size)
-        - [get_rank](#get_rank)
-    - [Distributed Attribute Configuration](#distributed-attribute-configuration)
-        - [cross_batch](#cross_batch)
-        - [fusion](#fusion)
-        - [layerwise_parallel](#layerwise_parallel)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/auto_parallel.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

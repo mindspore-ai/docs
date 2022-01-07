@@ -2,21 +2,6 @@
 
 `Ascend` `GPU` `CPU` `Beginner`
 
-<!-- TOC -->
-
-- [Cell](#cell)
-    - [Overview](#overview)
-    - [Key Member Functions](#key-member-functions)
-        - [construct](#construct)
-        - [parameters_dict](#parameters_dict)
-        - [cells_and_names](#cells_and_names)
-        - [set_grad](#set_grad)
-        - [set_train](#set_train)
-        - [to_float](#to_float)
-    - [Relationship Between the nn Module and the ops Module](#relationship-between-the-nn-module-and-the-ops-module)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/cell.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

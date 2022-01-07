@@ -2,21 +2,6 @@
 
 `GPU` `Model Optimization`
 
-<!-- TOC -->
-
-- [Applying a Gradient Accumulation Algorithm](#applying-a-gradient-accumulation-algorithm)
-    - [Overview](#overview)
-    - [Standalone Mode](#standalone-mode)
-        - [Importing Library Files](#importing-library-files)
-        - [Loading the Dataset](#loading-the-dataset)
-        - [Defining the Network](#defining-the-network)
-        - [Defining the Training Process](#defining-the-training-process)
-        - [Defining the Training Model](#defining-the-training-model)
-        - [Training and Saving the Model](#training-and-saving-the-model)
-    - [Experiment Result](#experiment-result)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/apply_gradient_accumulation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

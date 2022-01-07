@@ -2,17 +2,6 @@
 
 `Ascend` `GPU` `CPU` `Model Running`
 
-<!-- TOC -->
-
-- [Forward Value And Grad](#forward-value-and-grad)
-    - [Overview](#overview)
-    - [Examples](#first-order-derivation)
-        - [Input Derivation](#input-derivation)
-        - [Weight Derivation](#weight-derivation)
-        - [Gradient Value Scaling](#gradient-value-scaling)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/forward_value_and_grad.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

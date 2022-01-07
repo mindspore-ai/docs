@@ -2,16 +2,6 @@
 
 `Ascend` `GPU` `CPU` `Inference Application`
 
-<!-- TOC -->
-
-- [Inference Model Overview](#inference-model-overview)
-    - [Model Files](#model-files)
-    - [Inference Execution](#inference-execution)
-    - [Introduction to MindIR](#introduction-to-mindir)
-        - [Networks Supported by MindIR](#networks-supported-by-mindir)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/multi_platform_inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 MindSpore can execute inference tasks on different hardware platforms based on trained models.

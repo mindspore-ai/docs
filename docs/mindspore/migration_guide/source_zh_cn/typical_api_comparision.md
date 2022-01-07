@@ -1,27 +1,5 @@
 # 典型算子或接口区别介绍
 
-<!-- TOC -->
-
-- [典型算子或接口区别介绍](#典型算子或接口区别介绍)
-    - [接口类](#接口类)
-        - [torch.device](#torchdevice)
-        - [nn.Module](#nnmodule)
-        - [数据对象](#数据对象)
-        - [梯度求导](#梯度求导)
-            - [torch.nograd](#torchnograd)
-            - [retaingraph](#retaingraph)
-            - [高阶导数](#高阶导数)
-    - [算子类](#算子类)
-        - [参数意义不同](#参数意义不同)
-            - [nn.Dropout](#nndropout)
-            - [nn.BatchNorm2d](#nnbatchnorm2d)
-        - [算子行为不同](#算子行为不同)
-            - [ops.Transpose](#opstranspose)
-            - [Conv 和 Pooling](#conv-和-pooling)
-        - [默认权重初始化不同](#默认权重初始化不同)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_zh_cn/typical_api_comparision.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 接口类

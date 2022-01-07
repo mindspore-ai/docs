@@ -2,17 +2,6 @@
 
 `Ascend` `GPU` `CPU` `Data Preparation`
 
-<!-- TOC -->
-
-- [Application of Single-Node Tensor Cache](#application-of-single-node-tensor-cache)
-    - [Overview](#overview)
-    - [Quick Start](#quick-start)
-    - [Best Practices](#best-practices)
-        - [Using Cache to Speed Up ResNet Evaluation During Training](#using-cache-to-speed-up-resnet-evaluation-during-training)
-        - [Using Cache to Speed Up Training with Datasets on NFS](#using-cache-to-speed-up-training-with-datasets-on-nfs)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/enable_cache.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

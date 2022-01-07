@@ -4,23 +4,6 @@
 
 Translator: [Misaka19998](https://gitee.com/Misaka19998)
 
-<!-- TOC -->
-
-- [Loss Function](#loss-function)
-    - [Overview](#overview)
-        - [Built-in Loss Functions](#built-in-loss-functions)
-        - [Built-in Loss Functions Application Cases](#built-in-loss-functions-application-cases)
-    - [Defining Loss Function](#defining-loss-function)
-    - [Loss Function and Model Training](#loss-function-and-model-training)
-        - [Defining Dataset and Network](#defining-dataset-and-network)
-        - [Training Model](#training-model)
-    - [Multilabel Loss Function and Model Training](#multilabel-loss-function-and-model-training)
-        - [Defining Multilabel Dataset](#defining-multilabel-dataset)
-        - [Defining Multilabel Loss Function](#defining-multilabel-loss-function)
-        - [Training Multilabel Model](#training-multilabel-model)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/loss.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

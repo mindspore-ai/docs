@@ -1,21 +1,5 @@
 # 准备工作
 
-<!-- TOC -->
-
-- [准备工作](#准备工作)
-    - [概述](#概述)
-    - [安装MindSpore](#安装mindspore)
-        - [使用pip安装](#使用pip安装)
-        - [使用源码安装](#使用源码安装)
-        - [设置环境变量（仅用于Ascend环境）](#设置环境变量仅用于ascend环境)
-        - [MindSpore验证](#mindspore验证)
-    - [知识准备](#知识准备)
-        - [MindSpore编程指南](#mindspore编程指南)
-        - [ModelZoo和Hub](#modelzoo和hub)
-        - [云上训练](#云上训练)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_zh_cn/preparation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

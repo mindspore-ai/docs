@@ -4,18 +4,6 @@ Translator: [Leon_02](https://gitee.com/Leon_02)
 
 `GPU` `Model Development`
 
-<!-- TOC -->
-
-- [Custom Operators (GPU)](#custom-operators-gpu)
-    - [Overview](#overview)
-    - [Registering the Operator Primitive](#registering-the-operator-primitive)
-    - [Implementing a GPU operator](#implementing-a-GPU-operator)
-    - [Registering the Operator Information](#registering-the-operator-information)
-    - [Compiling Mindspore](#compiling-for-mindspore)
-    - [Operator verification](#operator-verification)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/custom_operator_gpu.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

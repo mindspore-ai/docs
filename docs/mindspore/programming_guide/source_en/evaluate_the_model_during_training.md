@@ -2,17 +2,6 @@
 
 `Ascend` `GPU` `CPU` `Model Running`
 
-<!-- TOC -->
-
-- [Evaluating the Model during Training](#evaluating-the-model-during-training)
-    - [Overview](#overview)
-    - [Defining the Callback Function EvalCallBack](#defining-the-callback-function-evalcallback)
-    - [Defining and Executing the Training Network](#defining-and-executing-the-training-network)
-    - [Defining the Function to Obtain the Model Accuracy in Different Epochs](#defining-the-function-to-obtain-the-model-accuracy-in-different-epochs)
-    - [Summary](#summary)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/evaluate_the_model_during_training.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

@@ -1,20 +1,5 @@
 # 概述
 
-<!-- TOC -->
-
-- [概述](#概述)
-    - [准备工作](#准备工作)
-    - [网络脚本分析](#网络脚本分析)
-    - [网络脚本开发](#网络脚本开发)
-    - [算子开发&调试](#算子开发调试)
-    - [网络调试](#网络调试)
-    - [精度&性能调优](#精度性能调优)
-    - [推理执行](#推理执行)
-    - [网络迁移调试实例](#网络迁移调试实例)
-    - [常见问题](#常见问题)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_zh_cn/overview.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 本迁移指导包含从其他机器学习框架将神经网络迁移到MindSpore的完整步骤。

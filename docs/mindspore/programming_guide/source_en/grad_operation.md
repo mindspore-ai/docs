@@ -2,31 +2,6 @@
 
 `Ascend` `GPU` `CPU` `Model Development`
 
-<!-- TOC -->
-
-- [Gradient Operation](#gradient-operation)
-    - [Overview](#overview)
-    - [First-order Derivation](#first-order-derivation)
-        - [Input Derivation](#input-derivation)
-        - [Weight Derivation](#weight-derivation)
-        - [Gradient Value Scaling](#gradient-value-scaling)
-    - [Stop Gradient](#stop-gradient)
-    - [High-order Derivation](#high-order-derivation)
-        - [Single-input Single-output High-order Derivative](#single-input-single-output-high-order-derivative)
-        - [Single-input Multi-output High-order Derivative](#single-input-multi-output-high-order-derivative)
-        - [Multiple-Input Multiple-Output High-Order Derivative](#multiple-input-multiple-output-high-order-derivative)
-    - [Support for Second-order Differential Operators](#support-for-second-order-differential-operators)
-    - [Jvp and Vjp Interface](#jvp-and-vjp-interface)
-        - [Jvp](#jvp)
-        - [Vjp](#vjp)
-    - [Functional Interfaces: grad, jvp and vjp](#functional-interfaces-grad-jvp-and-vjp)
-        - [functional grad](#functional-grad)
-        - [functional jvp](#functional-jvp)
-        - [functional vjp](#functional-vjp)
-    - [References](#references)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/grad_operation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

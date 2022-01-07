@@ -2,21 +2,6 @@
 
 `Ascend` `GPU` `CPU` `Data Preparation`
 
-<!-- TOC -->
-
-- [MindSpore Data Format Conversion](#mindspore-data-format-conversion)
-    - [Overview](#overview)
-    - [Converting Non-Standard Dataset to MindRecord](#converting-non-standard-dataset-to-mindrecord)
-        - [Converting CV Dataset](#converting-cv-dataset)
-        - [Converting NLP Dataset](#converting-nlp-dataset)
-    - [Converting Common Dataset to MindRecord](#converting-common-dataset-to-mindrecord)
-        - [Converting the CIFAR-10 Dataset](#converting-the-cifar-10-dataset)
-        - [Converting the ImageNet Dataset](#converting-the-imagenet-dataset)
-        - [Converting CSV Dataset](#converting-csv-dataset)
-        - [Converting TFRecord Dataset](#converting-tfrecord-dataset)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/dataset_conversion.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

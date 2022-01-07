@@ -2,23 +2,6 @@
 
 `Ascend` `GPU` `Whole Process` `Computer Vision`
 
-<!-- TOC -->
-
-- [Image Classification Using ResNet-50 Network](#image-classification-using-resnet-50-network)
-    - [Overview](#overview)
-    - [Image Classification](#image-classification)
-    - [Task Description and Preparation](#task-description-and-preparation)
-        - [Downloading the CIFAR-10 Dataset](#downloading-the-cifar-10-dataset)
-        - [Data Preloading and Preprocessing](#data-preloading-and-preprocessing)
-        - [Defining the CNN](#defining-the-cnn)
-        - [Defining the Loss Function and Optimizer](#defining-the-loss-function-and-optimizer)
-        - [Calling the High-level `Model` API To Train and Save the Model File](#calling-the-high-level-model-api-to-train-and-save-the-model-file)
-        - [Loading and Validating the Saved Model](#loading-and-validating-the-saved-model)
-    - [Project Execution](#project-execution)
-    - [References](#references)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/cv_resnet50.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

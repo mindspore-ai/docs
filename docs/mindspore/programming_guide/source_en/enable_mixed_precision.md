@@ -2,19 +2,6 @@
 
 `Ascend` `GPU` `Model Optimization`
 
-<!-- TOC -->
-
-- [Enabling Mixed Precision](#enabling-mixed-precision)
-    - [Overview](#overview)
-    - [Computation Process](#computation-process)
-    - [FP16 Training Issues](#fp16-training-issues)
-    - [Mixed-precision Computing Process](#mixed-precision-computing-process)
-    - [MindSpore Mixed-precision](#mindSpore-mixed-precision)
-        - [Automatic Mixed Precision](#automatic-mixed-precision)
-    - [Manual Mixed Precision](#manual-mixed-precision)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/enable_mixed_precision.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

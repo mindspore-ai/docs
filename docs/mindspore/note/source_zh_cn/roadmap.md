@@ -1,18 +1,5 @@
 # 路标
 
-<!-- TOC -->
-
-- [路标](#路标)
-    - [预置模型](#预置模型)
-    - [易用性](#易用性)
-    - [性能优化](#性能优化)
-    - [架构演进](#架构演进)
-    - [MindInsight调试调优](#mindinsight调试调优)
-    - [MindArmour安全增强包](#mindarmour安全增强包)
-    - [推理框架](#推理框架)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/note/source_zh_cn/roadmap.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 以下将展示MindSpore近一年的高阶计划，我们会根据用户的反馈诉求，持续调整计划的优先级。

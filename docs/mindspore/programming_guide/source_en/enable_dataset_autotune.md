@@ -2,20 +2,6 @@
 
 `Ascend` `GPU` `Data Preparation`
 
-<!-- TOC -->
-
-- [Enabling Dataset AutoTune for Dataset Pipeline](#enabling-dataset-autotune-for-dataset)
-    - [Overview](#overview)
-    - [Enable Dataset AutoTune](#enable-dataset-autotune)
-    - [Time Interval for Dataset AutoTune](#time-interval-for-dataset-autotune)
-    - [Constraints](#constraints)
-    - [Example](#example)
-        - [Dataset AutoTune Config](#dataset-autotune-config)
-        - [Start Training](#start-training)
-        - [Before Next Training](#before-next-training)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/enable_dataset_autotune.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
