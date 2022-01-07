@@ -9,8 +9,7 @@ def run(file_path):
 
     all_data = re.findall(r'"""([\s\S]*?)"""', data)
     file_name = file_path.split("/")[-1].split(".")[0]
-    print(file_path)
-    out_path = "/".join(str(file_path).split("/")[:-1])+"/{}-annotation.txt".format(file_name)
+    out_path = "annotation/"+"/".join(str(file_path).split("/")[:-1])+"/{}-annotation.txt".format(file_name)
     out_dir = "/".join(out_path.split("/")[:-1])
     if not os.path.exists(out_dir):
         os.makedirs(out_dir)
