@@ -34,3 +34,10 @@ Typical MindScience Application Scenarios
    mindelec/physics_driven
    mindelec/data_driven
    mindelec/visualization
+
+.. toctree::
+   :maxdepth: 1
+   :caption: API References
+
+   mindsponge
+   mindelec

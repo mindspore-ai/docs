@@ -56,3 +56,8 @@ MindSpore Hub包含以下功能：
    loading_model_from_hub
    publish_model
 
+.. toctree::
+   :maxdepth: 1
+   :caption: API参考
+
+   hub

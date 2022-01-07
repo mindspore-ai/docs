@@ -56,4 +56,8 @@ Typical MindSpore Hub Application Scenarios
    loading_model_from_hub
    publish_model
 
+.. toctree::
+   :maxdepth: 1
+   :caption: API References
 
+   hub

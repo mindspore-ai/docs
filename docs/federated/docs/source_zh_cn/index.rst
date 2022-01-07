@@ -89,3 +89,16 @@ MindSpore Federated是一款开源联邦学习框架，支持千万级无状态�
 
    local_differential_privacy_training
    pairwise_encryption_training
+
+.. toctree::
+   :maxdepth: 1
+   :caption: API参考
+
+   federated_server
+   federated_client
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 参考文档
+
+   faq

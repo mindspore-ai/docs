@@ -112,6 +112,13 @@ MindInsight包括以下内容：
    performance_tuning_guide
 
 .. toctree::
+   :maxdepth: 1
+   :caption: API参考
+
+   mindinsight.debugger
+   mindconverter
+
+.. toctree::
    :glob:
    :maxdepth: 1
    :caption: 参考文档
@@ -120,3 +127,4 @@ MindInsight包括以下内容：
    graph_visual_design
    tensor_visual_design
    profiler_design
+   faq

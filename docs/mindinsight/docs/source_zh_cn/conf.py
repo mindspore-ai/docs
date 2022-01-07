@@ -16,6 +16,11 @@ import re
 import sys
 import nbsphinx as nbs
 
+from sphinx.ext import autodoc as sphinx_autodoc
+
+import mindinsight
+import mindconverter
+
 # -- Project information -----------------------------------------------------
 
 project = 'MindSpore'
@@ -32,6 +37,13 @@ release = 'master'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'sphinx.ext.autodoc',
+    'sphinx.ext.doctest',
+    'sphinx.ext.intersphinx',
+    'sphinx.ext.todo',
+    'sphinx.ext.coverage',
+    'sphinx.ext.napoleon',
+    'sphinx.ext.viewcode',
     'sphinx_markdown_tables',
     'myst_parser',
     'nbsphinx',
@@ -54,6 +66,8 @@ exclude_patterns = []
 
 pygments_style = 'sphinx'
 
+autodoc_inherit_docstrings = False
+
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
@@ -64,6 +78,12 @@ html_theme = 'sphinx_rtd_theme'
 html_search_language = 'zh'
 
 html_search_options = {'dict': '../../../resource/jieba.txt'}
+
+# Example configuration for intersphinx: refer to the Python standard library.
+intersphinx_mapping = {
+    'python': ('https://docs.python.org/', '../../../../resource/python_objects.inv'),
+    'numpy': ('https://docs.scipy.org/doc/numpy/', '../../../../resource/numpy_objects.inv'),
+}
 
 # Remove extra outputs for nbsphinx extension.
 nbsphinx_source_re = re.compile(r"(app\.connect\('html-collect-pages', html_collect_pages\))")
@@ -80,7 +100,36 @@ with open(mod_path, "r+", encoding="utf8") as f:
             break
     exec("".join(contents), nbs.__dict__)
 
+# Modify default signatures for autodoc.
+autodoc_source_path = os.path.abspath(sphinx_autodoc.__file__)
+autodoc_source_re = re.compile(r'stringify_signature\(.*?\)')
+get_param_func_str = r"""\
+import re
+import inspect as inspect_
 
+def get_param_func(func):
+    try:
+        source_code = inspect_.getsource(func)
+        if func.__doc__:
+            source_code = source_code.replace(func.__doc__, '')
+        all_params_str = re.findall(r"def [\w_\d\-]+\(([\S\s]*?)(\):|\) ->.*?:)", source_code)
+        all_params = re.sub("(self|cls)(,|, )?", '', all_params_str[0][0].replace("\n", "").replace("'", "\""))
+        return all_params
+    except:
+        return ''
+
+def get_obj(obj):
+    if isinstance(obj, type):
+        return obj.__init__
+
+    return obj
+"""
+
+with open(autodoc_source_path, "r+", encoding="utf8") as f:
+    code_str = f.read()
+    code_str = autodoc_source_re.sub('"(" + get_param_func(get_obj(self.object)) + ")"', code_str, count=0)
+    exec(get_param_func_str, sphinx_autodoc.__dict__)
+    exec(code_str, sphinx_autodoc.__dict__)
 
 sys.path.append(os.path.abspath('../../../../resource/search'))
 import search_code

@@ -47,3 +47,9 @@ Typical MindSpore Reinforcement Application Scenarios
 
    custom_config_info
    dqn
+
+.. toctree::
+   :maxdepth: 1
+   :caption: API References
+
+   reinforcement

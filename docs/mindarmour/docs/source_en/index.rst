@@ -63,6 +63,22 @@ Typical MindArmour Application Scenarios
    fault_injection
 
 .. toctree::
+   :maxdepth: 1
+   :caption: API References
+
+   mindarmour
+   mindarmour.adv_robustness.attacks
+   mindarmour.adv_robustness.defenses
+   mindarmour.adv_robustness.detectors
+   mindarmour.adv_robustness.evaluations
+   mindarmour.fuzz_testing
+   mindarmour.privacy.diff_privacy
+   mindarmour.privacy.evaluation
+   mindarmour.privacy.sup_privacy
+   mindarmour.reliability
+   mindarmour.utils
+
+.. toctree::
    :glob:
    :maxdepth: 1
    :caption: References
@@ -70,3 +86,4 @@ Typical MindArmour Application Scenarios
    differential_privacy_design
    fuzzer_design
    security_and_privacy
+   faq

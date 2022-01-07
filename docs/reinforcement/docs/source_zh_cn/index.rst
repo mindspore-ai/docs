@@ -47,3 +47,9 @@ MindSpore Reinforcement是一个开源的强化学习框架，支持使用强化
 
    custom_config_info
    dqn
+
+.. toctree::
+   :maxdepth: 1
+   :caption: API参考
+
+   reinforcement

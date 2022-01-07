@@ -37,3 +37,11 @@ Typical MindSpore XAI Application Scenarios
    using_explainers
    using_benchmarks
    using_mindinsight
+
+.. toctree::
+   :maxdepth: 1
+   :caption: API References
+
+   mindspore_xai.runner
+   mindspore_xai.explanation
+   mindspore_xai.benchmark
