@@ -6,7 +6,7 @@
 
 ## Overview
 
-A parameter server is a widely used architecture in distributed training. Compared with the synchronous AllReduce training method, a parameter server has better flexibility, scalability, and node failover capabilities. Specifically, the parameter server supports both synchronous and asynchronous SGD training algorithms. In terms of scalability, model computing and update are separately deployed in the worker and server processes, so that resources of the worker and server can be independently scaled out and in horizontally. In addition, in an environment of a large-scale data center, various failures often occur in a computing device, a network, and a storage device, and consequently some nodes are abnormal. However, in an architecture of a parameter server, such a failure can be relatively easily handled without affecting a training job.
+A parameter server is a widely used architecture in distributed training. Compared with the synchronous AllReduce training method, a parameter server has better flexibility, scalability, and node failover capabilities. Specifically, the parameter server supports both synchronous and asynchronous SGD(Stochastic Gradient Descent) training algorithms. In terms of scalability, model computing and update are separately deployed in the worker and server processes, so that resources of the worker and server can be independently scaled out and in horizontally. In addition, in an environment of a large-scale data center, various failures often occur in a computing device, a network, and a storage device, and consequently some nodes are abnormal. However, in an architecture of a parameter server, such a failure can be relatively easily handled without affecting a training job.
 
 In the parameter server implementation of MindSpore, the self-developed communication framework (core) is used as the basic architecture. Based on the remote communication capability provided by the core and abstract Send/Broadcast primitives, the distributed training algorithm of the synchronous SGD is implemented. In addition, with the high-performance collective communication library in Ascend and GPU(HCCL and NCCL), MindSpore also provides the hybrid training mode of parameter server and AllReduce. Some weights can be stored and updated through the parameter server, and other weights are still trained through the AllReduce algorithm.
 
@@ -49,8 +49,6 @@ Learn how to train a LeNet using the [MNIST dataset](http://yann.lecun.com/exdb/
     network.set_param_ps()
     ```
 
-> In `Parameter Server` mode, control flow is not supported. So we need to change `model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O2")` to `model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})` in `train.py`. This will unset `amp_level` and eliminate the impact of control flow.
-
 4. [optional configuration] For a large shape `embedding_table`, because the device can not store a full amount of `embedding_table`. You can configure the `vocab_cache_size` of [EmbeddingLookup operator](https://www.mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.EmbeddingLookup.html) to enable the cache function of `EmbeddingLookup` in the Parameter Server training mode. The `vocab_cache_size` of `embedding_table` is trained on device, and a full amount of `embedding_table` is stored in the Server. The `embedding_table` of the next batch is swapped to the cache in advance, and the expired `embedding_table` is put back to the Server when the cache cannot be placed, to achieve the purpose of improving the training performance. Each Server could save a checkpoint containing the trained `embedding_table` after the training. Detailed network training script can be referred to <https://gitee.com/mindspore/models/tree/master/official/recommend/wide_and_deep>.
 
     ```python
@@ -68,6 +66,8 @@ Learn how to train a LeNet using the [MNIST dataset](http://yann.lecun.com/exdb/
     - `full_batch`: whether to load the dataset in full or not. When `True`, it indicates fully load, and data of each device is the same. It must be set to `True` in the multi-workers scenario.
     - `parallel_mode`:parallel mode, auto parallel mode must be enabled in the multi-workers scenario, please set `parallel_mode`=`ParallelMode.AUTO_PARALLEL`.
     - `enable_sparse`: whether to enable sparse training, default: `False`. `enable_sparse`=`True` indicates enabling sparse training. The parameter `sparse` of all `EmbeddingLookup` kernels which enable cache must be equal to the value of `enable_sparse` in the parameter server mode.
+
+> In `Parameter Server` mode, control flow is not supported. So we need to change `model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O2")` to `model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})` in `train.py`. This will unset `amp_level` and eliminate the impact of control flow.
 
 ### Environment Variable Setting
 
