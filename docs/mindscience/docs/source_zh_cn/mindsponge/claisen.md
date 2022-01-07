@@ -1,19 +1,5 @@
 # 基于AI分子力场模拟分子动力学
 
-<!-- TOC -->
-
-- [基于AI分子力场模拟分子动力学](#基于ai分子力场模拟分子动力学)
-    - [概述](#概述)
-    - [准备环节](#准备环节)
-    - [背景介绍](#背景介绍)
-    - [分子构象的抽样](#分子构象的抽样)
-    - [高精度量子化学计算](#高精度量子化学计算)
-    - [模型训练](#模型训练)
-    - [脚本介绍](#脚本介绍)
-    - [结果可视化](#结果可视化)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindscience/docs/source_zh_cn/mindsponge/claisen.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

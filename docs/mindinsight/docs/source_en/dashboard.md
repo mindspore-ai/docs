@@ -1,19 +1,5 @@
 # Viewing Dashboard
 
-<!-- TOC -->
-
-- [Viewing Dashboard](#viewing-dashboard)
-    - [Overview](#overview)
-    - [Scalar Visualization](#scalar-visualization)
-    - [Parameter Distribution Visualization](#parameter-distribution-visualization)
-    - [Computational Graph Visualization](#computational-graph-visualization)
-    - [Dataset Graph Visualization](#dataset-graph-visualization)
-    - [Image Visualization](#image-visualization)
-    - [Tensor Visualization](#tensor-visualization)
-    - [Notices](#notices)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/dashboard.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

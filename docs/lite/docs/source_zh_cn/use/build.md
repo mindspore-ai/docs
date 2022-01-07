@@ -2,27 +2,6 @@
 
 `Windows` `Linux` `Mac` `Android` `iOS` `环境准备` `中级` `高级`
 
-<!-- TOC -->
-
-- [编译MindSpore Lite](#编译mindspore-lite)
-    - [Linux环境编译](#linux环境编译)
-        - [环境要求](#环境要求)
-        - [编译选项](#编译选项)
-        - [编译示例](#编译示例)
-        - [目录结构](#目录结构)
-    - [Windows环境编译](#windows环境编译)
-        - [环境要求](#环境要求-1)
-        - [编译选项](#编译选项-1)
-        - [编译示例](#编译示例-1)
-        - [目录结构](#目录结构-1)
-    - [macOS环境编译](#macOS环境编译)
-        - [环境要求](#环境要求-2)
-        - [编译选项](#编译选项-2)
-        - [编译示例](#编译示例-2)
-        - [目录结构](#目录结构-2)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/build.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 本章节介绍如何快速编译出MindSpore Lite。

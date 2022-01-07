@@ -2,19 +2,6 @@
 
 `Linux` `环境准备` `基准测试` `中级` `高级`
 
-<!-- TOC -->
-
-- [使用benchmark_train进行基准测试](#使用benchmark进行基准测试)
-    - [概述](#概述)
-    - [Linux环境使用说明](#Linux环境使用说明)
-        - [环境准备](#环境准备)
-        - [参数说明](#参数说明)
-        - [使用示例](#使用示例)
-            - [性能测试](#性能测试)
-            - [精度测试](#精度测试)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/benchmark_train_tool.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

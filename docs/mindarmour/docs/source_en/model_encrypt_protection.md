@@ -1,17 +1,5 @@
 # Model Encryption Protection
 
-<!-- TOC -->
-
-- [Model Encryption Protection](#model-encryption-protection)
-    - [Overview](#overview)
-    - [Safely Exporting a Checkpoint File](#safely-exporting-a-checkpoint-file)
-    - [Loading the Ciphertext Checkpoint File](#loading-the-ciphertext-checkpoint-file)
-    - [Safely Exporting a MindIR File](#safely-exporting-a-mindir-file)
-    - [Loading the Ciphertext MindIR File](#loading-the-ciphertext-mindir-file)
-    - [On-Device Model Protection](#on-device-model-protection)
-        - [Model Converter](#model-converter)
-
-<!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_en/model_encrypt_protection.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
 ## Overview

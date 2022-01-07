@@ -2,33 +2,6 @@
 
 `Android` `Java` `推理应用` `模型加载` `数据准备` `中级` `高级`
 
-<!-- TOC -->
-
-- [使用Java接口执行推理](#使用java接口执行推理)
-    - [概述](#概述)
-    - [引用MindSpore Lite Java库](#引用mindspore-lite-java库)
-        - [Linux X86项目引用JAR库](#linux-x86项目引用jar库)
-        - [Android项目引用AAR库](#android项目引用aar库)
-    - [加载模型](#加载模型)
-    - [创建配置上下文](#创建配置上下文)
-        - [配置使用CPU后端](#配置使用cpu后端)
-        - [配置使用GPU后端](#配置使用gpu后端)
-    - [创建会话](#创建会话)
-    - [图编译](#图编译)
-    - [输入数据](#输入数据)
-    - [执行推理](#执行推理)
-    - [获得输出](#获得输出)
-    - [释放内存](#释放内存)
-    - [高级用法](#高级用法)
-        - [优化运行内存大小](#优化运行内存大小)
-        - [绑核操作](#绑核操作)
-        - [输入维度Resize](#输入维度resize)
-        - [Session并行](#session并行)
-        - [查看日志](#查看日志)
-        - [获取版本号](#获取版本号)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/runtime_java.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

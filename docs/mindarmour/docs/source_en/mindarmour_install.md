@@ -1,16 +1,5 @@
 # MindArmour Installation
 
-<!-- TOC -->
-
-- [MindArmour Installation](#mindarmour-installation)
-    - [System Environment Information Confirmation](#system-environment-information-confirmation)
-    - [Installation](#installation)
-        - [Installation by pip](#installation-by-pip)
-        - [Installation by Source Code](#installation-by-source-code)
-    - [Installation Verification](#installation-verification)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_en/mindarmour_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
 ## System Environment Information Confirmation

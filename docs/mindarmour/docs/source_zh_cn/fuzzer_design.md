@@ -1,16 +1,5 @@
 # AI模型安全测试设计
 
-<!-- TOC -->
-
-- [AI模型安全测试设计](#ai模型安全测试设计)
-    - [背景](#背景)
-    - [Fuzz Testing设计图](#fuzz-testing设计图)
-    - [Fuzz Testing流程](#fuzz-testing流程)
-    - [代码实现](#代码实现)
-    - [参考文献](#参考文献)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_zh_cn/fuzzer_design.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 背景

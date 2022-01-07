@@ -2,16 +2,6 @@
 
 `Windows` `Linux` `Mac` `可视化`
 
-<!-- TOC -->
-
-- [可视化工具](#可视化工具)
-    - [概述](#概述)
-    - [功能列表](#功能列表)
-    - [使用方式](#使用方式)
-    - [开发调试](#开发调试)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/visual_tool.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

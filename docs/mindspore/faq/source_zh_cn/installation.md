@@ -1,16 +1,5 @@
 ﻿# 安装
 
-<!-- TOC -->
-
-- [安装](#安装)
-    - [pip安装](#pip安装)
-    - [源码编译安装](#源码编译安装)
-    - [卸载](#卸载)
-    - [环境变量](#环境变量)
-    - [安装验证](#安装验证)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_zh_cn/installation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## pip安装

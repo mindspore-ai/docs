@@ -1,29 +1,5 @@
 # 性能调试设计
 
-<!-- TOC -->
-
-- [性能调试设计](#性能调试设计)
-    - [背景](#背景)
-    - [Profiler架构设计](#profiler架构设计)
-        - [上下文](#上下文)
-        - [模块层级结构](#模块层级结构)
-        - [内部模块交互](#内部模块交互)
-    - [子模块设计](#子模块设计)
-        - [ProfilerAPI和Controller](#profilerapi和controller)
-            - [ProfilerAPI和Controller模块说明](#profilerapi和controller模块说明)
-            - [ProfilerAPI和Controller模块设计](#profilerapi和controller模块设计)
-        - [Parser](#parser)
-            - [Parser模块介绍](#parser模块介绍)
-            - [Parser模块设计](#parser模块设计)
-        - [Analyser](#analyser)
-            - [Analyser模块介绍](#analyser模块介绍)
-            - [Analyser模块设计](#analyser模块设计)
-        - [Proposer](#proposer)
-            - [Proposer模块介绍](#proposer模块介绍)
-            - [Proposer模块设计](#proposer模块设计)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/profiler_design.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 背景

@@ -1,21 +1,5 @@
 # 应用抑制隐私机制保护用户隐私
 
-<!-- TOC -->
-
-- [应用抑制隐私机制保护用户隐私](#应用抑制隐私机制保护用户隐私)
-    - [概述](#概述)
-        - [MindArmour实现的抑制隐私](#mindarmour实现的抑制隐私)
-    - [实现阶段](#实现阶段)
-        - [导入需要的库文件](#导入需要的库文件)
-        - [参数配置](#参数配置)
-        - [预处理数据集](#预处理数据集)
-        - [建立模型](#建立模型)
-        - [引入抑制隐私训练](#引入抑制隐私训练)
-        - [隐私保护效果测试](#隐私保护效果测试)
-        - [引用](#引用)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_zh_cn/protect_user_privacy_with_suppress_privacy.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

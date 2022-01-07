@@ -1,17 +1,5 @@
 # 训练优化过程可视化
 
-<!-- TOC -->
-
-- [训练优化过程可视化](#训练优化过程可视化)
-    - [概述](#概述)
-    - [使用步骤](#使用步骤)
-    - [损失函数多维分析](#损失函数多维分析)
-    - [损失函数图形对比](#损失函数图形对比)
-    - [使用示例分析](#使用示例分析)
-    - [注意事项](#注意事项)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/landscape.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述

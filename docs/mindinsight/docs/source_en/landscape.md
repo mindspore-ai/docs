@@ -1,17 +1,5 @@
 # Visualization of Training Optimization Process
 
-<!-- TOC -->
-
-- [Visualization of Training Optimization Process](#visualization-of-training-optimization-process)
-    - [Overview](#overview)
-    - [Practice Guidance](#practice-guidance)
-    - [Loss Function Multidimensional Analysis](#loss-function-multidimensional-analysis)
-    - [Loss Graph Comparison](#loss-graph-comparison)
-    - [Usage Examples Analysis](#usage-examples-analysis)
-    - [Notices](#notices)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/landscape.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
 ## Overview

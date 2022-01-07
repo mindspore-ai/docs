@@ -2,22 +2,6 @@
 
 Translator: [翁炜华](https://gitee.com/weng-weihua)
 
-<!-- TOC -->
-
-- [Protecting User Privacy with Suppress Privacy](#protecting-user-privacy-with-suppress-privacy)
-    - [Overview](#overview)
-        - [MindArmour's Implementation of Privacy Suppression](#mindarmours-implementation-of-privacy-suppression)
-    - [Implementation](#implementation)
-        - [Importing Library Files](#importing-library-files)
-        - [Parameter Configuration](#parameter-configuration)
-        - [Preprocessed Datasets](#preprocessed-datasets)
-        - [Building the Model](#building-the-model)
-        - [Introduction of Privacy Suppression](#introduction-of-privacy-suppression)
-        - [Privacy Protection Effect Test](#privacy-protection-effect-test)
-        - [Citation](#citation)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_en/protect_user_privacy_with_suppress_privacy.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

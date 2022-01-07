@@ -2,17 +2,6 @@
 
 `TensorRT` `NVIDIA` `Linux` `环境准备` `算子支持` `中级` `高级`
 
-<!-- TOC -->
-
-- [集成TensorRT使用说明](#集成TensorRT使用说明)
-    - [使用步骤](#使用步骤)
-        - [环境准备](#环境准备)
-        - [编译构建](#编译构建)
-        - [集成使用](#集成使用)
-    - [算子支持](#算子支持)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/tensorrt_info.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 使用步骤

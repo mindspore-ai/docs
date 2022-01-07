@@ -1,20 +1,5 @@
 # Improving Model Security with NAD Algorithm
 
-<!-- TOC -->
-
-- [Improving Model Security with NAD Algorithm](#improving-model-security-with-nad-algorithm)
-    - [Overview](#overview)
-    - [Creating an Target Model](#creating-an-target-model)
-        - [Importing Related Packages](#importing-related-packages)
-        - [Loading the Dataset](#loading-the-dataset)
-        - [Creating the Model](#creating-the-model)
-    - [Adversarial Attack](#adversarial-attack)
-    - [Adversarial Defense](#adversarial-defense)
-        - [Defense Implementation](#defense-implementation)
-        - [Defense Effect](#defense-effect)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_en/improve_model_security_nad.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

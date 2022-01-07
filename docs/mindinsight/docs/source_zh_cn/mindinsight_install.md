@@ -1,18 +1,5 @@
 # 安装MindInsight
 
-<!-- TOC -->
-
-- [安装MindInsight](#安装mindinsight)
-    - [确认系统环境信息](#确认系统环境信息)
-    - [安装方式](#安装方式)
-        - [pip安装](#pip安装)
-        - [源码编译安装](#源码编译安装)
-            - [从代码仓下载源码](#从代码仓下载源码)
-            - [编译安装MindInsight](#编译安装mindinsight)
-    - [验证是否成功安装](#验证是否成功安装)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/mindinsight_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 确认系统环境信息

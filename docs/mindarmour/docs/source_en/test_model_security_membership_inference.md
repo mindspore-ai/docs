@@ -1,18 +1,5 @@
 # Using Membership Inference to Test Model Security
 
-<!-- TOC -->
-
-- [Using Membership Inference to Test Model Security](#using-membership-inference-to-test-model-security)
-    - [Overview](#overview)
-    - [Implementation](#implementation)
-        - [Importing Library Files](#importing-library-files)
-            - [Importing Related Packages](#importing-related-packages)
-        - [Loading the Dataset](#loading-the-dataset)
-        - [Creating the Model](#creating-the-model)
-        - [Using Membership Inference for Privacy Security Evaluation](#using-membership-inference-for-privacy-security-evaluation)
-    - [References](#references)
-
-<!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_en/test_model_security_membership_inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
 ## Overview

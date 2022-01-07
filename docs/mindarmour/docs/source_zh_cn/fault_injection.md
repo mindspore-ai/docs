@@ -1,20 +1,5 @@
 # 实现模型故障注入评估模型容错性
 
-<!-- TOC -->
-
-- [实现模型故障注入评估模型容错性](#实现模型故障注入评估模型容错性)
-    - [概述](#概述)
-    - [准备环节](#准备环节)
-        - [下载数据集](#下载数据集)
-        - [下载模型参数文件](#下载模型参数文件)
-        - [导入Python库&模块](#导入Python库&模块)
-    - [构建数据集和模型](#构建数据集和模型)
-    - [设置参数及初始化故障注入模块](#设置参数及初始化故障注入模块)
-    - [评估模型的容错性](#评估模型的容错性)
-    - [查看结果](#查看结果)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_zh_cn/fault_injection.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

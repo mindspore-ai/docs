@@ -1,19 +1,5 @@
 # MindInsight Installation
 
-<!-- TOC -->
-
-- [MindInsight Installation](#mindinsight-installation)
-    - [System Environment Information Confirmation](#system-environment-information-confirmation)
-    - [Installation Methods](#installation-methods)
-        - [Installation by pip](#installation-by-pip)
-        - [Installation by Source Code](#installation-by-source-code)
-            - [Downloading Source Code from Gitee](#downloading-source-code-from-gitee)
-            - [Compiling MindInsight](#compiling-mindInsight)
-    - [Installation by Docker](#installation-by-docker)
-    - [Installation Verification](#installation-verification)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/mindinsight_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## System Environment Information Confirmation

@@ -1,29 +1,5 @@
 # Using Online Debugger
 
-<!-- TOC -->
-
-- [Using Online Debugger](#using-online-debugger)
-    - [Overview](#overview)
-    - [Operation Process](#operation-process)
-    - [Debugger Environment Preparation](#debugger-environment-preparation)
-        - [Launch MindInsight in Debugger Mode](#launch-mindinsight-in-debugger-mode)
-        - [Run the Training Script in Debug Mode](#run-the-training-script-in-debug-mode)
-    - [Debugger UI Introduction](#debugger-ui-introduction)
-        - [Computational Graph](#computational-graph)
-        - [Node List](#node-list)
-        - [Graph Node Details](#graph-node-details)
-        - [Watchpoint List](#watchpoint-list)
-        - [Setting Watchpoints](#setting-watchpoints)
-        - [Stack List](#stack-list)
-        - [Stack Information](#stack-information)
-        - [Recheck](#recheck)
-        - [Training Control](#training-control)
-        - [Tensor Check View](#tensor-check-view)
-    - [Debugger Usage Example](#debugger-usage-example)
-    - [Notices](#notices)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/debugger_online.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

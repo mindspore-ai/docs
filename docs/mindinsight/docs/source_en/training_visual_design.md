@@ -1,21 +1,5 @@
 ﻿# Overall Design of Training Visualization
 
-<!-- TOC -->
-
-- [Overall Design of Training Visualization](#overall-design-of-training-visualization)
-    - [Logical Architecture of Training Visualization](#logical-architecture-of-training-visualization)
-        - [Architecture of Training Information Collection](#architecture-of-training-information-collection)
-        - [Architecture of Training Information Analysis and Display](#architecture-of-training-information-analysis-and-display)
-    - [Code Organization](#code-organization)
-    - [Training Visualization Data Model](#training-visualization-data-model)
-        - [Training Information Data Flow](#training-information-data-flow)
-        - [Data Model](#data-model)
-            - [Training Job](#training-job)
-            - [Lineage Data](#lineage-data)
-            - [Training Process Data](#training-process-data)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/training_visual_design.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 [MindInsight](https://gitee.com/mindspore/mindinsight) is a visualized debugging and tuning component of MindSpore. MindInsight can be used to complete tasks such as training visualization, performance tuning, and precision tuning.

@@ -2,18 +2,6 @@
 
 `Linux` `模型混淆` `高级`
 
-<!-- TOC -->
-
-- [模型混淆工具](#模型混淆工具)
-    - [概述](#概述)
-    - [Linux环境使用说明](#linux环境使用说明)
-        - [环境准备](#环境准备)
-        - [目录结构](#目录结构)
-        - [参数说明](#参数说明)
-        - [使用示例](#使用示例)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/obfuscator_tool.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

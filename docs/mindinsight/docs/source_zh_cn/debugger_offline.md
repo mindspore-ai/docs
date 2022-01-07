@@ -1,17 +1,5 @@
 # 使用离线调试器
 
-<!-- TOC -->
-
-- [使用离线调试器](#使用离线调试器)
-    - [概述](#概述)
-    - [操作流程](#操作流程)
-    - [离线调试器环境准备](#离线调试器环境准备)
-    - [离线调试器页面介绍](#离线调试器页面介绍)
-    - [使用离线调试器进行调试](#使用离线调试器进行调试)
-    - [注意事项](#注意事项)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/debugger_offline.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

@@ -1,24 +1,5 @@
 # Performance Tuning Guide
 
-<!-- TOC -->
-
-- [Performance Tuning Guide](#performance-tuning-guide)
-    - [Overview](#overview)
-    - [Single Device Performance Tuning](#single-device-performance-tuning)
-        - [Analyse Entry](#analyse-entry)
-        - [Long Step Interval](#long-step-interval)
-            - [Feed Mode](#feed-mode)
-            - [Graph Mode](#graph-mode)
-        - [Long Forward And Backward Propagation](#long-forward-and-backwoard-propagation)
-        - [Long Step Tail](#long-step-tail)
-    - [Cluster Performance Tuning](#cluster-performance-tuning)
-        - [Analyse Entry](#analyse-entry)
-        - [Data Parallel](#data-parallel)
-        - [Model Parallel](#model-parallel)
-        - [Pipeline Parallel](#pipeline-parallel)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/performance_tuning_guide.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

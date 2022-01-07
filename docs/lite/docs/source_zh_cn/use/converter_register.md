@@ -2,16 +2,6 @@
 
 `Linux` `模型转换` `中级` `高级`
 
-<!-- TOC -->
-
-- [概述](#概述)
-- [节点扩展](#节点扩展)
-- [模型扩展](#模型扩展)
-- [优化扩展](#优化扩展)
-- [示例演示](#示例演示)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/converter_register.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

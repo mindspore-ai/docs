@@ -1,20 +1,5 @@
 # Implementing the Model Fault Injection and Evaluation
 
-<!-- TOC -->
-
-- [Implementing the Model Fault Injection and Evaluation](#implementing-the-model-fault-injection-and-evaluation)
-    - [Overview](#overview)
-    - [Preparations](#preparations)
-        - [Downloading the Dataset](#downloading-the-dataset)
-        - [Downloading the Checkpoint File](#downloading-the-checkpoint-file)
-        - [Importing the Python Library and Modules](#importing-the-python-library-and-modules)
-    - [Construct the Dataset and Model](#construct-the-dataset-and-model)
-    - [Setup Parameters and Initialize Fault Injection Module](#setup-parameters-and-initialize-fault-injection-module)
-    - [Evaluation](#evaluation)
-    - [View the Result](#view-the-result)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_en/fault_injection.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

@@ -2,23 +2,6 @@
 
 `Android` `Java` `全流程` `模型加载` `模型训练` `数据准备` `初级` `中级` `高级`
 
-<!-- TOC -->
-
-- [基于Java接口实现端侧训练](#基于java接口实现端侧训练)
-    - [概述](#概述)
-    - [准备](#准备)
-        - [环境要求](#环境要求)
-        - [下载MindSpore并编译端侧训练Java包](#下载MindSpore并编译端侧训练Java包)
-        - [下载数据集](#下载数据集)
-    - [部署应用](#部署应用)
-        - [运行依赖](#运行依赖)
-        - [构建与运行](#构建与运行)
-    - [示例程序详细说明](#示例程序详细说明)
-        - [示例程序结构](#示例程序结构)
-        - [编写端侧训练代码](#编写端侧训练代码)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/quick_start/train_lenet_java.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

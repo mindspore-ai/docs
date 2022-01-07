@@ -1,18 +1,5 @@
 # MindInsight Commands
 
-<!-- TOC -->
-
-- [MindInsight Commands](#mindinsight-commands)
-    - [View the Command Help Information](#view-the-command-help-information)
-    - [View the Version Information](#view-the-version-information)
-    - [Start the Service](#start-the-service)
-    - [View the Service Process Information](#view-the-service-process-information)
-    - [Stop the Service](#stop-the-service)
-    - [Parse Summary](#parse-summary)
-    - [Use Mindoptimizer to Tune Hyperparameters](#use-mindoptimizer-to-tune-hyperparameters)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/mindinsight_commands.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## View the Command Help Information

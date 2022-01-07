@@ -1,24 +1,5 @@
 ﻿# MindArmour Module Introduction
 
-<!-- TOC -->
-
-- [MindArmour Module Introduction](#mindArmour-module-introduction)
-    - [Overview](#overview)
-    - [Adversarial Robustness](#adversarial-robustness)
-        - [Attack](#attack)
-        - [Defense](#defense)
-        - [Detector](#detector)
-    - [Model Security Test](#model-security-test)
-        - [Fuzzer](#fuzzer)
-    - [Differential Privacy Training](#differential-privacy-training)
-        - [DPModel](#dpmodel)
-    - [Suppress Privacy Training](#suppress-privacy-training)
-        - [SuppressModel](#suppressmodel)
-    - [Privacy Breach Risk Assessment](#privacy-breach-risk-assessment)
-        - [Membership Inference](#membership-inference)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_en/security_and_privacy.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

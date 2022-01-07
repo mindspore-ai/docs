@@ -1,21 +1,5 @@
 # 模拟丙氨酸三肽水溶液体系
 
-<!-- TOC -->
-
-- [模拟丙氨酸三肽水溶液体系](#模拟丙氨酸三肽水溶液体系)
-    - [概述](#概述)
-    - [整体执行](#整体执行)
-    - [准备环节](#准备环节)
-    - [模拟多肽水溶液体系示例](#模拟多肽水溶液体系示例)
-        - [准备输入文件](#准备输入文件)
-        - [加载数据](#加载数据)
-        - [构建模拟流程](#构建模拟流程)
-        - [运行脚本](#运行脚本)
-        - [运行结果](#运行结果)
-    - [性能描述](#性能描述)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindscience/docs/source_zh_cn/mindsponge/ala.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

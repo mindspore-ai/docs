@@ -2,29 +2,6 @@
 
 `Android` `C++` `全流程` `模型转换` `模型加载` `推理应用` `数据准备` `初级` `中级` `高级`
 
-<!-- TOC -->
-
-- [一小时入门](#一小时入门)
-    - [概述](#概述)
-    - [Linux篇](#Linux篇)
-        - [下载发布件](#下载发布件)
-        - [模型转换](#模型转换)
-            - [转换模型](#转换模型)
-            - [Netron可视化](#Netron可视化)
-        - [模型推理](#模型推理)
-            - [使用发布件进行模型推理测试](#使用发布件进行模型推理测试)
-            - [集成推理](#集成推理)
-    - [Windows篇](#Windows篇)
-        - [下载发布件](#下载发布件)
-        - [模型转换](#模型转换篇)
-            - [转换模型](#转换模型)
-            - [Netron可视化](#Netron可视化)
-        - [模型推理](#模型推理篇)
-            - [使用发布件进行模型推理测试](#使用发布件进行模型推理测试)
-            - [集成推理](#集成推理)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/quick_start/one_hour_introduction.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

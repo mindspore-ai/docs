@@ -1,22 +1,5 @@
 # Collecting Summary Record
 
-<!-- TOC -->
-
-- [Collecting Summary Record](#collecting-summary-record)
-    - [Overview](#overview)
-    - [Operation Process](#operation-process)
-    - [Preparing The Training Script](#preparing-the-training-script)
-        - [Method one: Automatically collected through SummaryCollector](#method-one-automatically-collected-through-summarycollector)
-        - [Method two: Custom collection of network data with summary operators and SummaryCollector](#method-two-custom-collection-of-network-data-with-summary-operators-and-summarycollector)
-        - [Method three: Custom callback recording data](#method-three-custom-callback-recording-data)
-        - [Method four: Advanced usage, custom training cycle](#method-four-advanced-usage-custom-training-cycle)
-        - [Distributed Training Scene](#distributed-training-scene)
-        - [Tip: Recording gradients](#tip-recording-gradients)
-    - [Run MindInsight](#run-mindinsight)
-    - [Notices](#notices)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/summary_record.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

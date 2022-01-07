@@ -1,21 +1,5 @@
 # 训练可视总体设计
 
-<!-- TOC -->
-
-- [训练可视总体设计](#训练可视总体设计)
-    - [训练可视逻辑架构](#训练可视逻辑架构)
-        - [训练信息收集架构](#训练信息收集架构)
-        - [训练信息分析及展示架构](#训练信息分析及展示架构)
-    - [代码组织](#代码组织)
-    - [训练可视数据模型](#训练可视数据模型)
-        - [训练信息数据流](#训练信息数据流)
-        - [数据模型](#数据模型)
-            - [训练作业](#训练作业)
-            - [溯源数据](#溯源数据)
-            - [训练过程数据](#训练过程数据)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/training_visual_design.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 [MindInsight](https://gitee.com/mindspore/mindinsight)是MindSpore的可视化调试调优组件。通过MindInsight可以完成训练可视、性能调优、精度调优等任务。

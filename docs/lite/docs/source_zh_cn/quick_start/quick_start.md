@@ -2,23 +2,6 @@
 
 `Android` `C++` `全流程` `模型转换` `模型加载` `推理应用` `数据准备` `初级` `中级` `高级`
 
-<!-- TOC -->
-
-- [基于JNI接口的Android应用开发](#基于jni接口的android应用开发)
-    - [概述](#概述)
-    - [选择模型](#选择模型)
-    - [转换模型](#转换模型)
-    - [部署应用](#部署应用)
-        - [运行依赖](#运行依赖)
-        - [构建与运行](#构建与运行)
-    - [示例程序详细说明](#示例程序详细说明)
-        - [示例程序结构](#示例程序结构)
-        - [配置MindSpore Lite依赖项](#配置mindspore-lite依赖项)
-        - [下载及部署模型文件](#下载及部署模型文件)
-        - [编写端侧推理代码](#编写端侧推理代码)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/quick_start/quick_start.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

@@ -2,20 +2,6 @@
 
  `Linux` `IoT` `C++` `模型代码生成` `推理应用` `初级` `中级`
 
-<!-- TOC -->
-
-- [在轻量和小型系统上执行推理](#在轻量和小型系统上执行推理)
-    - [概述](#概述)
-    - [获取codegen工具](#获取codegen工具)
-    - [codegen目录结构](#codegen目录结构)
-    - [codegen运行参数说明](#codegen运行参数说明)
-    - [如何使用codegen](#如何使用codegen)
-    - [在STM开发板上执行推理](#在STM开发板上执行推理)
-    - [在轻鸿蒙设备上执行推理](#在轻鸿蒙设备上执行推理)
-    - [更多详情](#更多详情)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/micro.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

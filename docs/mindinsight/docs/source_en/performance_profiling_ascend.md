@@ -1,26 +1,5 @@
 # Performance Profiling (Ascend)
 
-<!-- TOC -->
-
-- [Performance Profiling (Ascend)](#performance-profiling-ascend)
-    - [Overview](#overview)
-    - [Operation Process](#operation-process)
-    - [Preparing the Training Script](#preparing-the-training-script)
-    - [Launch MindInsight](#launch-mindinsight)
-    - [Training Performance](#training-performance)
-        - [Step Trace Analysis](#step-trace-analysis)
-        - [Operator Performance Analysis](#operator-performance-analysis)
-        - [Calculation quantity analysis](#calculation-quantity-analysis)
-        - [Data Preparation Performance Analysis](#data-preparation-performance-analysis)
-        - [Timeline Analysis](#timeline-analysis)
-    - [Resource Utilization](#resource-utilization)
-        - [CPU Utilization Analysis](#cpu-utilization-analysis)
-        - [Memory Analysis](#memory-analysis)
-    - [Specifications](#specifications)
-    - [Notices](#notices)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/performance_profiling_ascend.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

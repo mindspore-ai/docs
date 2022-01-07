@@ -1,16 +1,5 @@
 # Installation
 
-<!-- TOC -->
-
-- [Installation](#installation)
-    - [Installing Using pip](#installing-using-pip)
-    - [Source Code Compilation Installation](#source-code-compilation-installation)
-    - [Uninstall](#uninstall)
-    - [Environment Variables](#environment-variables)
-    - [Verifying the Installation](#verifying-the-installation)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_en/installation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Installing Using pip

@@ -1,20 +1,5 @@
 # 使用NAD算法提升模型安全性
 
-<!-- TOC -->
-
-- [使用NAD算法提升模型安全性](#使用nad算法提升模型安全性)
-    - [概述](#概述)
-    - [建立被攻击模型](#建立被攻击模型)
-        - [引入相关包](#引入相关包)
-        - [加载数据集](#加载数据集)
-        - [建立模型](#建立模型)
-    - [对抗性攻击](#对抗性攻击)
-    - [对抗性防御](#对抗性防御)
-        - [防御实现](#防御实现)
-        - [防御效果](#防御效果)
-
-<!-- /TOC -->
-
 <a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9pbXByb3ZlX21vZGVsX3NlY3VyaXR5X25hZC5pcHluYg==&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_modelarts.png"></a>
 &nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/notebook/mindspore_improve_model_security_nad.ipynb"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_notebook.png"></a>

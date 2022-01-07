@@ -1,29 +1,5 @@
 # 使用在线调试器
 
-<!-- TOC -->
-
-- [使用在线调试器](#使用在线调试器)
-    - [概述](#概述)
-    - [操作流程](#操作流程)
-    - [调试器环境准备](#调试器环境准备)
-        - [以调试模式启动MindInsight](#以调试模式启动mindinsight)
-        - [以调试模式运行训练脚本](#以调试模式运行训练脚本)
-    - [调试器页面介绍](#调试器页面介绍)
-        - [计算图](#计算图)
-        - [节点列表](#节点列表)
-        - [节点信息](#节点信息)
-        - [监测点列表](#监测点列表)
-        - [设置监测点](#设置监测点)
-        - [堆栈列表](#堆栈列表)
-        - [堆栈信息](#堆栈信息)
-        - [重新检查](#重新检查)
-        - [训练控制](#训练控制)
-        - [张量检查视图](#张量检查视图)
-    - [使用调试器进行调试](#使用调试器进行调试)
-    - [注意事项](#注意事项)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/debugger_online.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述
