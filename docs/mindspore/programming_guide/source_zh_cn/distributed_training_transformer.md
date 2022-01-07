@@ -21,13 +21,17 @@
     ├─distribute_training_transformer
         ├── dataset.py
         ├── model.py
+        ├── parallel_recover_train.py
+        ├── parallel_save_ckpt_train.py
+        ├── preprocess.py
         ├── rank_table_16pcs.json
         ├── rank_table_2pcs.json
         ├── rank_table_8pcs.json
         ├── run_cluster.sh
+        ├── run_parallel_recover_ckpt.sh
+        ├── run_parallel_save_ckpt.sh
         ├── run.sh
         └── train.py
-
 ```
 
 其中，`rank_table_8pcs.json`和`rank_table_2pcs.json`是配置当前多卡环境的组网信息文件。`model.py`、`dataset.py`和`train.py`三个文件是定义数据导入，网络结构的脚本和训练文件。`run.sh`是执行脚本。
@@ -51,6 +55,7 @@
 
 ```python
 from mindspore import context
+from mindspore.nn.transformer import TransformerOpParalllelConfig
 context.set_auto_parallel_context(parallel_mode=context.ParallelMode.SEMI_AUTO_PARALLEL)
 parallel_config = TransformerOpParalllelConfig(data_parallel=1, model_parallel=8)
 ```
@@ -174,6 +179,7 @@ class Net(nn.Cell):
 MindSpore还提供了一个支持并行的交叉商损失函数`mindspore.nn.transformer.CrossEntroyLoss`。这个函数接收一个`OpParallelConfig`来配置并行属性。`OpParallelConfig`实际包含了两个属性`data_parallel`和`model_parallel`。通过将模型的输出和真实标签输入损失函数，我们即可计算当前数据对应的损失值。
 
 ```python
+from mindspore.nn.transformer import CrossEntropyLoss
 self.loss = CrossEntropyLoss(parallel_config=parallel_config.dp_mp_config)
 ```
 
@@ -183,6 +189,8 @@ self.loss = CrossEntropyLoss(parallel_config=parallel_config.dp_mp_config)
 通过设置`parallel_optimizer_config= {"gradient_accumulation_shard":True}`可以将流水线并行训练时的累积变量进一步切分，以达到节省内存的目的，同时会在每个`micro_step`之间引入通信以保证每卡梯度的一致性。
 
 ```python
+from mindspore import context
+from mindspore.context import ParallelMode
 context.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, gradients_mean=False, full_batch=True, loss_repeated_mean=True, device_num=device_num, enable_parallel_optimizer=True, parallel_optimizer_config = {"gradient_accumulation_shard": gradient_accumulation_shard})
 ```
 
