@@ -51,7 +51,7 @@ A: 推荐使用`c_transforms`，因为纯C层执行，所以性能会更好。
 
 <br/>
 
-<font size=3>**Q: 由于我一条数据包含多个图像，并且每个图像的宽高都不一致，我需要对转成mindrecord的格式进行`map`操作来进行数据处理。可是我从`record`读取的数据是`np.ndarray`格式的数据，我的数据处理的`operations`是针对图像格式的。我应该怎么样才能对所生成的mindrecord的格式的数据进行预处理呢？**</font>
+<font size=3>**Q: 由于我一条数据包含多个图像，并且每个图像的宽高都不一致，需要对转成mindrecord格式的数据进行`map`操作。可是我从`record`读取的数据是`np.ndarray`格式的数据，我的数据处理的`operations`是针对图像格式的。我应该怎么样才能对所生成的mindrecord的格式的数据进行预处理呢？**</font>
 
 A: 建议你按照如下操作进行:
 
