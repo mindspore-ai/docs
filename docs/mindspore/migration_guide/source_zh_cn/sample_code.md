@@ -574,13 +574,11 @@ loss = CrossEntropySmooth(sparse=True, reduction="mean",smooth_factor=label_smoo
 import os
 import argparse
 import ast
-from mindspore import context
-from mindspore.common import set_seed
-from mindspore.nn.optim import Momentum
-from mindspore.train.model import Model
+from mindspore import context, set_seed, Model
+from mindspore.nn import Momentum
 from mindspore.context import ParallelMode
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
-from mindspore.communication.management import init
+from mindspore.communication import init
 from mindspore.common import initializer
 import mindspore.nn as nn
 
@@ -725,10 +723,8 @@ dataset = create_dataset(args_opt.dataset_path, config.batch_size, rank_size, ra
 """train resnet."""
 import os
 import argparse
-from mindspore import context
-from mindspore.common import set_seed
+from mindspore import context, set_seed, Model
 from mindspore.nn import SoftmaxCrossEntropyWithLogits
-from mindspore.train import Model
 from mindspore import load_checkpoint, load_param_into_net
 
 from src.config import config
