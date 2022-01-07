@@ -114,15 +114,15 @@ Retriever模块加载wiki和HotpotQA预处理的数据文件，通过给定的�
 def load_data(self):
     """load data"""
     print('**********************  loading data  ********************** ')
-    # wiki data
     f_wiki = open(self.wiki_path, 'rb')
-    # hotpotqa dev data
     f_train = open(self.dev_path, 'rb')
-    # doc data
     f_doc = open(self.dev_data_path, 'rb')
     data_db = pkl.load(f_wiki, encoding="gbk")
     dev_data = json.load(f_train)
     q_doc_text = pkl.load(f_doc, encoding='gbk')
+    f_wiki.close()
+    f_train.close()
+    f_doc.close()
     return data_db, dev_data, q_doc_text
 ```
 
@@ -154,7 +154,7 @@ class DataGenerator:
 
 ### 设置模型参数
 
-模型参数中用户可以自定义设置topk及onehop_num等参数。topk表示Retriever排序后候选一跳文档个数，topk越大，候选文档越多，召回率提高但会引入更多噪声，准确率下降；onehop_num表示一跳候选文档作为二跳待选文档的数目，onehop_num越大，二跳待选文档越多，召回率提高但会引入更多噪声，准确率下降。
+模型参数配置类ThinkRetrieverConfig在源码的`src/config.py`脚本中，用户可以自定义设置topk及onehop_num等参数。topk表示Retriever排序后候选一跳文档个数，topk越大，候选文档越多，召回率提高但会引入更多噪声，准确率下降；onehop_num表示一跳候选文档作为二跳待选文档的数目，onehop_num越大，二跳待选文档越多，召回率提高但会引入更多噪声，准确率下降。
 
 ```python
 def ThinkRetrieverConfig():
@@ -185,7 +185,7 @@ def ThinkRetrieverConfig():
 
 ### 定义模型
 
-定义Retriever模块并加载模型参数。
+定义Retriever模块并加载模型参数， 如下示例代码在`retriever_eval.py`脚本中。
 
 ```python
 def evaluation():
@@ -199,7 +199,7 @@ def evaluation():
     twohop = TwoHopBert(config, model_twohop_bert)
 ```
 
-定义Reranker模块并加载模型参数。
+定义Reranker模块并加载模型参数，Reranker类在源码中的`src/reranker.py`脚本中。
 
 ```python
     reranker = Reranker(batch_size=batch_size,
@@ -207,7 +207,7 @@ def evaluation():
                         downstream_ck_file=downstream_ck_file)
 ```
 
-定义Reader模块并加载模型参数。
+定义Reader模块并加载模型参数，该模型类在源码中的`src/reader.py`脚本中。
 
 ```python
     reader = Reader(batch_size=batch_size,
