@@ -22,7 +22,7 @@
 
 算子的原语是一个继承于`PrimitiveWithInfer`的子类，其类型名称即是算子名称。
 
-CPU算子原语定义在`mindspore/ops/operations`路径下，根据算子类型选择适合的文件，接口定义如下：
+CPU算子原语定义在`mindspore/python/mindspore/ops/operations`路径下，根据算子类型选择相应的文件，算子名需要加入对外接口列表中，接口列表在operations目录下的__init__.py文件中。算字接口定义如下：
 
 - 属性由构造函数`__init__`的入参定义。本用例的算子没有init属性，因此`__init__`没有额外的入参。
 - 输入输出的名称通过`init_prim_io_names`函数定义。

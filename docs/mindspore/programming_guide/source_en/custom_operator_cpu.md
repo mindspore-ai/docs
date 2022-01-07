@@ -23,7 +23,7 @@ This paper will take the custom `Transpose` operator as an example to introduce 
 
 Each operator's primitive is a subclass inherited from the class `PrimitiveWithCheck`, whose type name is the operator's name.
 
-The CPU operator primitives are defined under the path `mindspore/ops/operations`, and the appropriate file is selected according to the operator type. Definition of CPU operators' primitives' interface is as follows:
+The CPU operator primitives are defined under the path `mindspore/python/mindspore/ops/operations`, and the appropriate file is selected according to the operator type. Primitives need be added to export list as external interfaces in `/operations/__init__.py`. Definition of CPU operators' primitives' interface is as follows:
 
 - Attributes are defined by the input parameters of construction function `__init__`. Operators in this use case have no init attributes, thus `__init__` has no additional input parameters.
 - The input and output names are defined by the function `init_prim_io_names`.
