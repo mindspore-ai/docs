@@ -29,7 +29,7 @@ A: pip会通过wheel安装包的文件名来判断该安装包是否与当前Pyt
 2. 当前操作系统为Linux
 3. 操作系统架构为arm64
 
-因此，如果出现is not a supported wheel on this platform问题，请检查当前环境是否满足MindSpore安装要求，以及该MindSpore安装包版本是否正确。
+因此，如果出现 `is not a supported wheel on this platform` 问题，请检查当前环境是否满足MindSpore安装要求，以及该MindSpore安装包版本是否正确。
 
 <br/>
 
