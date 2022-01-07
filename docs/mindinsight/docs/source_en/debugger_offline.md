@@ -125,7 +125,6 @@ for hit in hits:
     - The offline debugger does not support the CPU scenario currently.
     - The offline debugger supports the single-node multi-device scenario. To analyze the multi-node multi-device scenario, you need to summarize the data of multiple nodes.
     - The offline debugger does not support checking the initial weight and operator overflow currently.
-    - The offline debugger does not support checking watchpoints in multi-graph scenario.
     - The offline debugger does not support PyNative mode.
 
 - GPU scenario:
