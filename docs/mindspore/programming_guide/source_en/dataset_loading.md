@@ -2,27 +2,6 @@
 
 `Ascend` `GPU` `CPU` `Data Preparation`
 
-<!-- TOC -->
-
-- [Loading Dataset Overview](#loading-dataset-overview)
-    - [Overview](#overview)
-    - [Loading Common Dataset](#loading-common-dataset)
-        - [CIFAR-10/100 Dataset](#cifar-10100-dataset)
-        - [VOC Dataset](#voc-dataset)
-        - [COCO Dataset](#coco-dataset)
-    - [Loading Datasets in Specific Format](#loading-datasets-in-specific-format)
-        - [MindRecord](#mindrecord)
-        - [Manifest](#manifest)
-        - [TFRecord](#tfrecord)
-        - [NumPy](#numpy)
-        - [CSV](#csv)
-    - [Loading User-defined Dataset](#loading-user-defined-dataset)
-        - [Constructing Dataset Generator Function](#constructing-dataset-generator-function)
-        - [Constructing Iterable Dataset Class](#constructing-iterable-dataset-class)
-        - [Constructing Random Accessible Dataset Class](#constructing-random-accessible-dataset-class)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/dataset_loading.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

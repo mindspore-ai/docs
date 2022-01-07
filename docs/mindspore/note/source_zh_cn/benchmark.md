@@ -1,16 +1,5 @@
 # 基准性能
 
-<!-- TOC -->
-
-- [基准性能](#基准性能)
-    - [训练性能](#训练性能)
-        - [ResNet](#resnet)
-        - [BERT](#bert)
-        - [Wide & Deep (数据并行)](#wide--deep-数据并行)
-        - [Wide & Deep (Host-Device混合计算模型并行)](#wide--deep-host-device混合计算模型并行)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/note/source_zh_cn/benchmark.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 本文介绍MindSpore的基准性能。MindSpore网络定义可参考[ModelZoo](https://gitee.com/mindspore/models/tree/master)。

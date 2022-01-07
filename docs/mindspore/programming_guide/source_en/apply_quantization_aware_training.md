@@ -2,23 +2,6 @@
 
 `Ascend` `GPU` `Function Extension`
 
-<!-- TOC -->
-
-- [Applying Quantization Aware Training](#applying-quantization-aware-training)
-    - [Background](#background)
-    - [Concepts](#concepts)
-        - [Quantization](#quantization)
-        - [Fake Quantization Node](#fake-quantization-node)
-    - [Quantization Aware Training](#quantization-aware-training)
-    - [Quantization Aware Training Example](#quantization-aware-training-example)
-        - [Defining a Quantization Network](#defining-a-quantization-network)
-            - [Automatically Building a Quantization Network](#automatically-building-a-quantization-network)
-            - [Manually Building a Quantization Network](#manually-building-a-quantization-network)
-        - [Exporting a Quantization Model](#exporting-a-quantization-model)
-    - [References](#references)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/apply_quantization_aware_training.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Background

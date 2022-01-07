@@ -2,23 +2,6 @@
 
 `Ascend` `GPU` `CPU` `Model Development`
 
-<!-- TOC -->
-
-- [Custom Operators (Custom based)](#custom-operators-custom-based)
-    - [Overview](#overview)
-    - [Basic Usage](#basic-usage)
-        - [Defining Custom Operator of akg Type](#defining-custom-operator-of-akg-type)
-        - [Defining Custom Operator of tbe Type](#defining-custom-operator-of-tbe-type)
-        - [Defining Custom Operator of aot Type](#defining-custom-operator-of-aot-type)
-            - [A GPU Example](#a-gpu-example)
-            - [A CPU Example](#a-cpu-example)
-        - [Defining Custom Operator of pyfunc Type](#defining-custom-operator-of-pyfunc-type)
-    - [Advanced Usage](#advanced-usage)
-        - [Registering the Operator Information](#registering-the-operator-information)
-        - [Defining the bprop Function for Operators](#defining-the-bprop-function-for-operators)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/custom_operator_custom.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

@@ -1,16 +1,5 @@
 # Benchmarks
 
-<!-- TOC -->
-
-- [Benchmarks](#benchmarks)
-    - [Training Performance](#training-performance)
-        - [ResNet](#resnet)
-        - [BERT](#bert)
-        - [Wide & Deep (data parallel)](#wide--deep-data-parallel)
-        - [Wide & Deep (Host-Device model parallel)](#wide--deep-host-device-model-parallel)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/note/source_en/benchmark.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 This document describes the MindSpore benchmarks.

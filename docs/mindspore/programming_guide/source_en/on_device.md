@@ -2,15 +2,6 @@
 
 `Ascend` `GPU` `CPU` `Model Running`
 
-<!-- TOC -->
-
-- [On-Device Execution](#on-device-execution)
-    - [Overview](#overview)
-        - [Computational Graphs on Devices](#computational-graphs-on-devices)
-        - [Data Sinking](#data-sinking)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/on_device.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

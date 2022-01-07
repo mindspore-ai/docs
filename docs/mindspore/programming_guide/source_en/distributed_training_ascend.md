@@ -2,33 +2,6 @@
 
 `Ascend` `Distributed Parallel` `Whole Process`
 
-<!-- TOC -->
-
-- [Parallel Distributed Training Example (Ascend)](#parallel-distributed-training-example-ascend)
-    - [Overview](#overview)
-    - [Preparations](#preparations)
-        - [Downloading the Dataset](#downloading-the-dataset)
-        - [Configuring Distributed Environment Variables](#configuring-distributed-environment-variables)
-        - [Calling the Collective Communication Library](#calling-the-collective-communication-library)
-    - [Loading the Dataset in Data Parallel Mode](#loading-the-dataset-in-data-parallel-mode)
-    - [Defining the Network](#defining-the-network)
-        - [Hybrid Parallel Mode](#hybrid-parallel-mode)
-        - [Semi Auto Parallel Mode](#semi-auto-parallel-mode)
-    - [Defining the Loss Function and Optimizer](#defining-the-loss-function-and-optimizer)
-        - [Defining the Loss Function](#defining-the-loss-function)
-        - [Defining the Optimizer](#defining-the-optimizer)
-    - [Training the Network](#training-the-network)
-    - [Running the Script](#running-the-script)
-        - [Single-host Training](#single-host-training)
-        - [Multi-host Training](#multi-host-training)
-    - [Distributed Training Model Parameters Saving and Loading](#distributed-training-model-parameters-saving-and-loading)
-        - [Auto Parallel Mode](#auto-parallel-mode)
-        - [Data Parallel Mode](#data-parallel-mode)
-        - [Semi Auto Parallel Mode](#semi-auto-parallel-mode-1)
-        - [Hybrid Parallel Mode](#hybrid-parallel-mode-1)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/distributed_training_ascend.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

@@ -1,15 +1,5 @@
 # Using Performance Profiling Tool
 
-<!-- TOC -->
-
-- [Quick Start](#quick-start)
-    - [Case 1: Long Step Interval](#case-1-long-step-interval)
-    - [Case 2: Long Forward Propagation Interval](#case-2-long-forward-propagation-interval)
-    - [Case 3: Optimize The Step Tail](#case-3-optimize-the-step-tail)
-- [FAQ](#faq)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/performance_optimization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 Profiler provides performance tuning ability for MindSpore, and provides easy-to-use and rich debugging functions in operator performance, data processing performance, etc., helping users quickly locate and solve performance problems.

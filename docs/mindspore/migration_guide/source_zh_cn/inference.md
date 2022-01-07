@@ -1,15 +1,5 @@
 # 推理执行
 
-<!-- TOC -->
-
-- [推理执行](#推理执行)
-    - [基于模型推理服务](#基于模型推理服务)
-        - [总览](#总览)
-        - [不同硬件平台执行推理](#不同硬件平台执行推理)
-    - [基于MindSpore Serving部署在线推理服务](#基于mindspore-serving部署在线推理服务)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_zh_cn/inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 MindSpore可以基于训练好的模型，在不同的硬件平台上执行推理任务，还可以基于MindSpore Serving部署在线推理服务。

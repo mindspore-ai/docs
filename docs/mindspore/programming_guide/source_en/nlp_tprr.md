@@ -4,22 +4,6 @@
 
 Translator: [longvoyage](https://gitee.com/yuanyanglv)
 
-<!-- TOC -->
-
-- [Multi-hop Knowledge Reasoning Question-answering Model TPRR](#multi-hop-knowledge-reasoning-question-answering-model-tprr)
-    - [Overview](#overview)
-    - [Preparation](#preparation)
-        - [Installing Dependent Software](#installing-dependent-software)
-        - [Preparing Data](#preparing-data)
-    - [Loading Data](#loading-data)
-    - [Defining the Network](#defining-the-network)
-        - [Setting Model Parameters](#setting-model-parameters)
-        - [Defining the Model](#defining-the-model)
-    - [Inference Network](#inference-network)
-        - [Running Script](#running-script)
-    - [Reference](#reference)
-
-<!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/nlp_tprr.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
 ## Overview

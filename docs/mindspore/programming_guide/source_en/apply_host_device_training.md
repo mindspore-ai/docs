@@ -2,17 +2,6 @@
 
 `Ascend` `GPU` `Distributed Parallel` `Whole Process`
 
-<!-- TOC -->
-
-- [Host&Device Heterogeneous](#hostdevice-heterogeneous)
-    - [Overview](#overview)
-    - [Preliminaries](#preliminaries)
-    - [Configuring for Hybrid Training](#configuring-for-hybrid-training)
-    - [Training the Model](#training-the-model)
-    - [Reference](#reference)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/apply_host_device_training.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

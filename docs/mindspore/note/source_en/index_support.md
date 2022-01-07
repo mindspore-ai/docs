@@ -1,14 +1,5 @@
 # Tensor Index Support
 
-<!-- TOC -->
-
-- [Tensor Index Support](#tensor-index-support)
-    - [Index values](#index-values)
-    - [Index value assignment](#index-value-assignment)
-    - [Index value augmented-assignment](#index-value-augmented-assignment)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/note/source_en/index_support.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 Single-level and multi-level Tensor indexing is supported on both PyNative and Graph mode.

@@ -2,15 +2,6 @@
 
 `Ascend` `Model Optimization`
 
-<!-- TOC -->
-
-- [Incremental Operator Build](#incremental-operator-build)
-    - [Overview](#overview)
-    - [Usage](#usage)
-    - [FAQs](#faqs)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/incremental_operator_build.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

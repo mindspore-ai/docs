@@ -1,17 +1,5 @@
 # 性能调试
 
-<!-- TOC -->
-
-- [性能调试](#性能调试)
-    - [快速入门](#快速入门)
-        - [案例一：迭代间隙过长](#案例一迭代间隙过长)
-        - [案例二：前向运行时间长](#案例二前向运行时间长)
-        - [案例三：优化迭代拖尾](#案例三优化迭代拖尾)
-    - [常见问题](#常见问题)
-        - [启动失败](#启动失败)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_zh_cn/performance_optimization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 Profiler为MindSpore提供了性能调优能力，针对算子性能、数据处理性能等提供了易用、丰富的调试功能，帮助用户快速定位、解决性能问题。

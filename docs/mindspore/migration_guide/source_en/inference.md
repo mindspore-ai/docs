@@ -2,16 +2,6 @@
 
 Translator: [Dongdong92](https://gitee.com/zy179280)
 
-<!-- TOC -->
-
-- [Inference Execution](#inference-execution)
-    - [Inference Service Based on Models](#inference-service-based-on-models)
-        - [Overview](#overview)
-        - [Executing Inference on Different Platforms](#executing-inference-on-different-platforms)
-    - [On-line Inference Service Deployment Based on MindSpore Serving](#On-line-inference-service-deployment-based-on-mindspore-serving)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 For trained models, MindSpore can execute inference tasks on different hardware platforms. MindSpore also provides online inference services based on MindSpore Serving.

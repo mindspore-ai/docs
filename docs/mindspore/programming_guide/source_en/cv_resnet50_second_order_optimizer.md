@@ -2,33 +2,6 @@
 
 `Ascend` `GPU` `Function Extension` `Whole Process`
 
-<!-- TOC -->
-
-- [ResNet-50 Second-Order Optimization Practice](#resnet-50-second-order-optimization-practice)
-    - [Overview](#overview)
-    - [Preparation](#preparation)
-        - [Preparing the Dataset](#preparing-the-dataset)
-        - [Configuring Distributed Environment Variables](#configuring-distributed-environment-variables)
-            - [Ascend 910](#ascend-910)
-            - [GPU](#gpu)
-    - [Loading the Dataset](#loading-the-dataset)
-    - [Defining the Network](#defining-the-network)
-    - [Defining the Loss Function and Optimizer THOR](#defining-the-loss-function-and-optimizer-thor)
-        - [Defining the Loss Function](#defining-the-loss-function)
-        - [Defining the Optimizer](#defining-the-optimizer)
-    - [Training the Network](#training-the-network)
-        - [Saving the Configured Model](#saving-the-configured-model)
-        - [Configuring the Network Training](#configuring-the-network-training)
-        - [Running the Script](#running-the-script)
-            - [Ascend 910](#ascend-910-1)
-            - [GPU](#gpu-1)
-    - [Model Inference](#model-inference)
-        - [Defining the Inference Network](#defining-the-inference-network)
-        - [Inference](#inference)
-            - [Ascend 910](#ascend-910-2)
-            - [GPU](#gpu-2)
-
-<!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/cv_resnet50_second_order_optimizer.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
 ## Overview

@@ -2,45 +2,6 @@
 
 Translator: [AQUA](https://gitee.com/Liu-HongYe)
 
-<!-- TOC -->
-
-- [Network Migration Debugging Example](#network-migration-debugging-example)
-    - [Analysis and Reproduce of the Network](#analysis-and-reproduce-of-the-network)
-        - [Determine the Migration Target](#determine-the-migration-target)
-            - [ResNet50 Migration Example](#resnet50-migration-example)
-        - [Reproduce the Migration Target](#reproduce-the-migration-target)
-        - [Reproduce the Single Step Results](#reproduce-the-single-step-results)
-    - [Script Development](#script-development)
-        - [Pre-script Development Analysis](#pre-script-development-analysis)
-            - [ResNet50 Migration Example](#resnet50-migration-example-1)
-        - [Data Preprocessing](#data-preprocessing)
-            - [ResNet50 Migration Example](#resnet50-migration-example-2)
-        - [Subnet Development](#subnet-development)
-            - [ResNet50 Migration Example](#resnet50-migration-example-3)
-        - [Other Modules](#other-modules)
-            - [ResNet50 migration example](#resnet50-migration-example)
-        - [Hyperparameters Comparison](#hyperparameters-comparison)
-            - [ResNet50 Migration Example](#resnet50-migration-example-4)
-    - [Process Hitting](#process-hitting)
-        - [Stand-alone Training](#stand-alone-training)
-            - [ResNet50 Migration Example](#resnet50-migration-example-5)
-        - [Distributed training](#distributed-training)
-            - [ResNet50 Migration Example](#resnet50-migration-example-6)
-        - [Inference](#inference)
-            - [ResNet50 Migration Example](#resnet50-migration-example-7)
-        - [Problem Location](#problem-location)
-    - [Precision tuning](#precision-tuning)
-    - [Performance Tuning](#performance-tuning)
-        - [Analyzing Profiling Data](#analyzing-profiling-data)
-        - [Common Problems and Corresponding Optimization Methods](#common-problems-and-corresponding-optimization-methods)
-            - [MindData Performance](#minddata-performance)
-            - [Multi-machine Synchronization Performance](#multi-machine-synchronization-performance)
-            - [Operator Performance](#operator-performance)
-            - [Framework Performance](#framework-performance)
-            - [Other General Optimization Methods](#other-general-optimization-methods)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/sample_code.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 This chapter will introduce the basic steps of network migration, common tools, ideas for locating problems and solutions with use cases.

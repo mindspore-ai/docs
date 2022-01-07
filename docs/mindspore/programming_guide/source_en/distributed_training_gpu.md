@@ -2,21 +2,6 @@
 
 `GPU` `Distributed Parallel` `Whole Process`
 
-<!-- TOC -->
-
-- [Distributed Parallel Training Example (GPU)](#distributed-parallel-training-example-gpu)
-    - [Overview](#overview)
-    - [Preparation](#preparation)
-        - [Downloading the Dataset](#downloading-the-dataset)
-        - [Configuring Distributed Environment](#configuring-distributed-environment)
-        - [Calling the Collective Communication Library](#calling-the-collective-communication-library)
-    - [Defining the Network](#defining-the-network)
-    - [Running the Script](#running-the-script)
-        - [Single-host Training](#single-host-training)
-        - [Multi-host Training](#multi-host-training)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/distributed_training_gpu.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

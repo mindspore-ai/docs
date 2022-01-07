@@ -4,20 +4,6 @@ Translator: [JuLyAi](https://gitee.com/julyai)
 
 `CPU` `Model Development`
 
-<!-- TOC -->
-
-- [Custom Operators (CPU)](#custom-operators-cpu)
-    - [Overview](#overview)
-    - [Registration Operator's Primitives](#registration-operators-primitives)
-    - [Implementing CPU Operators and Registration Operators Information](#implementing-cpu-operators-and-registration-operators-information)
-        - [Implementing CPU Operators](#implementing-cpu-operators)
-        - [Registration Operators Information](#registration-operators-information)
-    - [Editing MindSpore](#editing-mindspore)
-    - [Using Custom CPU Operators](#using-custom-cpu-operators)
-    - [Defining Operators' BProp Functions](#defining-operators-bprop-functions)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/custom_operator_cpu.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

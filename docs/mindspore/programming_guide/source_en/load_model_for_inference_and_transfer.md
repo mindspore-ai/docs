@@ -2,17 +2,6 @@
 
 `Ascend` `GPU` `CPU` `Model Loading`
 
-<!-- TOC -->
-
-- [Loading a Model for Inference and Transfer Learning](#loading-a-model-for-inference-and-transfer-learning)
-    - [Overview](#overview)
-    - [Loading the local Model](#loading-the-local-model)
-        - [For Inference Validation](#for-inference-validation)
-        - [For Transfer Training](#for-transfer-training)
-    - [Modify and Saving the Checkpoint File](#modify-and-saving-the-checkpoint-file)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/load_model_for_inference_and_transfer.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

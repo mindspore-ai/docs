@@ -2,19 +2,6 @@
 
 `Ascend` `GPU` `Distributed Parallel` `Whole Process`
 
-<!-- TOC -->
-
-- [Pipeline Parallelism](#pipeline-parallelism)
-    - [Overview](#overview)
-    - [Preparations](#preparations)
-        - [Downloading the Dataset](#downloading-the-dataset)
-        - [Configuring the Distributed Environment](#configuring-the-distributed-environment)
-    - [Defining the Network](#defining-the-network)
-    - [Training the Network](#training-the-network)
-    - [Running the Multi-node Script](#running-the-multi-node-script)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/apply_pipeline_parallel.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

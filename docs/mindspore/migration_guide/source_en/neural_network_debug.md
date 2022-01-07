@@ -2,25 +2,6 @@
 
 Translator: [Soleil](https://gitee.com/deng-zhihua)
 
-<!-- TOC -->
-
-- [Network Debugging](#network-debugging)
-    - [The Basic Process of Network Debugging](#the-basic-process-of-network-debugging)
-    - [Common Methods Used in Network Debugging](#common-methods-used-in-network-debugging)
-        - [Process Debugging](#process-debugging)
-            - [Process Debugging with PyNative Mode](#process-debugging-with-pynative-mode)
-            - [Getting More Error Messages](#getting-more-error-messages)
-            - [Common Errors](#common-errors)
-        - [Loss Value Comparison](#loss-value-comparison)
-            - [Main Steps](#main-steps)
-            - [Related Issues Locating](#related-issues-locating)
-        - [Precision Debugging Tools](#precision-debugging-tools)
-            - [Customized Debugging Information](#customized-debugging-information)
-            - [Hyper-Parameter Optimization with MindOptimizer](#hyper-parameter-optimization-with-mindoptimizer)
-            - [Loss Value Anomaly Locating](#loss-value-anomaly-locating)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/neural_network_debug.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 This chapter introduces the basic principles and common tools of Network Debugging, as well as some solutions to some common problems.

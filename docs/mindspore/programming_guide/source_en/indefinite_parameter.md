@@ -4,15 +4,6 @@
 
 Translator: [lamuxiaoyu](https://gitee.com/xiaoxinniuniu)
 
-<!-- TOC -->
-
-- [Parameter Passing](#parameter-passing)
-    - [Overview](#overview)
-    - [Passing in Parameters of Tuple Type](#passing-in-parameters-of-tuple-type)
-    - [Passing in Python Variable Parameters](#passing-in-python-variable-parameters)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/indefinite_parameter.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

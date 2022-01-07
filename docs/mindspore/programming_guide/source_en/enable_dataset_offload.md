@@ -2,16 +2,6 @@
 
 `Ascend` `GPU` `CPU` `Data Preparation`
 
-<!-- TOC -->
-
-- [Enabling Offload for Dataset Pipeline](#enabling-offload-for-dataset)
-    - [Overview](#overview)
-    - [Offload Process](#offload-process)
-    - [Enable Offload](#enable-offload)
-    - [Constraints](#constraints)
-
-<!-- /TOC -->
-
 ## Overview
 
 The offload feature may speed up data processing by moving dataset operations from dataset pipeline to computation graph, allowing these operations to be run by the hardware accelerator. It will offload only the supported dataset operations at the end of the pipeline to the accelerator. This includes consecutive data augmentation operators which are used in the map data processing operator, granted they come at the end of the dataset pipeline. It can also split individual map data processing operator to allow for more of the individual dataset operations to be offloaded.

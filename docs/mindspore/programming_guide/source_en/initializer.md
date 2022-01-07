@@ -4,17 +4,6 @@
 
 Translator: [Karlos Ma](https://gitee.com/Mavendetta985)
 
-<!-- TOC -->
-
-- [Initializer](#initializer)
-    - [Overview](#overview)
-    - [Using the Initializer Method to Initialize Parameters](#using-the-initializer-method-to-initialize-parameters)
-        - [The Parameter of Init is Tensor](#the-parameter-of-init-is-tensor)
-        - [The Parameter of Init is Str](#the-parameter-of-init-is-str)
-        - [The Parameter of Init is the Subclass of Initializer](#the-parameter-of-init-is-the-subclass-of-initializer)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/initializer.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

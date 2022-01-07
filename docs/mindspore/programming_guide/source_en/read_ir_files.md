@@ -2,18 +2,6 @@
 
 `Ascend` `GPU` `CPU` `Model Optimization`
 
-<!-- TOC -->
-
-- [Reading IR](#reading-ir)
-    - [Overview](#overview)
-    - [Saving IR](#saving-ir)
-    - [IR File Contents Introduction](#ir-file-contents-introduction)
-        - [ir Introduction](#ir-introduction)
-        - [dat Introduction](#dat-introduction)
-    - [Reading analyze_fail.dat](#reading-analyze-fail-dat)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/read_ir_files.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

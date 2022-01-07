@@ -1,16 +1,5 @@
 ﻿# Operators Usage
 
-<!-- TOC -->
-
-- [Operators Usage](#operators-usage)
-    - [Overview](#overview)
-    - [mindspore.ops.operations](#mindsporeopsoperations)
-    - [mindspore.ops.functional](#mindsporeopsfunctional)
-    - [mindspore.ops.composite](#mindsporeopscomposite)
-    - [Combination usage of operations, functional and composite three types of operators](#combination-usage-of-operations-functional-and-composite-three-types-of-operators)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/operators_usage.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

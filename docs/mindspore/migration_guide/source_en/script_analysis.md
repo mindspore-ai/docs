@@ -1,18 +1,5 @@
 # Network Script Analysis
 
-<!-- TOC -->
-
-- [Network Script Analysis](#network-script_analysis)
-    - [Operator Evaluation](#operator-evaluation)
-        - [MindSpore Operator Design](#mindspore-operator-design)
-        - [Query Operator Mapping Table](#query-operator-mapping-table)
-        - [Missing Operator Processing Strategy](#missing-operator-processing-strategy)
-    - [Grammar Assessment](#grammar-assessment)
-        - [Common Restriction Principles](#common-restriction-principles)
-        - [Common Processing Strategies](#common-processing-strategies)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/script_analysis.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Operator Evaluation

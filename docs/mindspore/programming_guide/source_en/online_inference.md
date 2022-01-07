@@ -2,16 +2,6 @@
 
 `Ascend` `Inference Application`
 
-<!-- TOC -->
-
-- [Online Inference with Checkpoint](#online-inference-with-checkpoint)
-    - [Use the `model.eval` interface for model validation](#use-the-modeleval-interface-for-model-validation)
-        - [Local Storage](#local-storage)
-        - [Remote Storage](#remote-storage)
-    - [Use the `model.predict` API to perform inference](#use-the-modelpredict-api-to-perform-inference)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/online_inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Use the `model.eval` interface for model validation

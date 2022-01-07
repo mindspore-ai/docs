@@ -1,18 +1,5 @@
 # 网络脚本分析
 
-<!-- TOC -->
-
-- [网络脚本分析](#网络脚本分析)
-    - [算子评估](#算子评估)
-        - [MindSpore算子设计](#mindspore算子设计)
-        - [查询算子映射表](#查询算子映射表)
-        - [缺失算子处理策略](#缺失算子处理策略)
-    - [语法评估](#语法评估)
-        - [常见限制原则](#常见限制原则)
-        - [常见处理策略](#常见处理策略)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_zh_cn/script_analysis.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 算子评估
