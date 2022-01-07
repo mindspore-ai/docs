@@ -2,23 +2,6 @@
 
 `Android` `C++` `Whole Process` `Model Converting` `Model Loading` `Inference` `Data Preparation` `Beginner` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Implementing an Image Classification Application](#implementing-an-image-classification-application)
-    - [Overview](#overview)
-    - [Selecting a Model](#selecting-a-model)
-    - [Converting a Model](#converting-a-model)
-    - [Deploying an Application](#deploying-an-application)
-        - [Running Dependencies](#running-dependencies)
-        - [Building and Running](#building-and-running)
-    - [Detailed Description of the Sample Program](#detailed-description-of-the-sample-program)
-        - [Sample Program Structure](#sample-program-structure)
-        - [Configuring MindSpore Lite Dependencies](#configuring-mindspore-lite-dependencies)
-        - [Downloading and Deploying a Model File](#downloading-and-deploying-a-model-file)
-        - [Writing On-Device Inference Code](#writing-on-device-inference-code)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/quick_start/quick_start.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

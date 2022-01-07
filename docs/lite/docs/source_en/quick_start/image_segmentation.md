@@ -2,22 +2,6 @@
 
 `Android` `Java` `Whole Process` `Model Conversion` `Model Loading` `Inference Application` `Data Preparation` `Beginner` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Android Application Development Based on Java Interface](#android-application-development-based-on-java-interface)
-    - [Overview](#overview)
-    - [Selecting a Model](#selecting-a-model)
-    - [Deploying an Application](#deploying-an-application)
-        - [Running Dependencies](#running-dependencies)
-        - [Building and Running](#building-and-running)
-    - [Detailed Demo Description](#detailed-demo-description)
-        - [Demo Structure](#demo-structure)
-        - [Configuring MindSpore Lite Dependencies](#configuring-mindspore-lite-dependencies)
-        - [Downloading and Deploying the Model File](#downloading-and-deploying-the-model-file)
-        - [Writing On-Device Inference Code](#writing-on-device-inference-code)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/quick_start/image_segmentation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

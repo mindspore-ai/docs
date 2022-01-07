@@ -2,25 +2,6 @@
 
 `Linux` `Delegate` `Third-party` `Custom Framework` `Advanced`
 
-<!-- TOC -->
-
-- [Using Delegate to Support Third-party AI Framework](#using-delegate-to-support-third-party-ai-framework)
-    - [Overview](#overview)
-    - [Usage of Delegate](#usage-of-delegate)
-        - [Adding a Custom Delegate Class](#adding-a-custom-delegate-class)
-        - [Implementing the Init](#implementing-the-init)
-        - [Implementing the Build](#implementing-the-build)
-        - [Implementing the Sub-graph Kernel](#implementing-the-sub-graph-kernel)
-    - [Calling Delegate by Lite Framework](#calling-delegate-by-lite-framework)
-    - [Example of NPUDelegate](#example-of-npudelegate)
-        - [Adding the NPUDelegate Class](#adding-the-npudelegate-class)
-        - [Implementing the Init of NPUDelegate](#implementing-the-init-of-npudelegate)
-        - [Implementing the Build of NPUDelegate](#implementing-the-build-of-npudelegate)
-        - [Creating NPUGraph](#creating-npugraph)
-        - [Adding the NPUGraph Class](#adding-the-npugraph-class)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/delegate.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

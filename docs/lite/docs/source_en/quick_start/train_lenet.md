@@ -2,28 +2,6 @@
 
 `Linux` `C++` `Android` `Whole Process` `Model Export` `Model Converting` `Model Training` `Beginner` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Overview](#overview)
-- [Environment Preparing](#environment-preparing)
-    - [Environment Requirements](#environment-requirements)
-    - [Dataset](#dataset)
-    - [Install MindSpore](#install-mindspore)
-    - [Download and Install MindSpore Lite](#download-and-install-mindspore-lite)
-    - [Connect Android Device](#connect-android-device)
-- [Train and Eval](#train-and-eval)
-- [Details](#details)
-    - [Folder Structure](#folder-structure)
-    - [Model Exporting](#model-exporting)
-    - [Model Transferring](#model-transferring)
-    - [Model Training](#model-training)
-        - [Loading Model](#loading-model)
-        - [Dataset Processing](#dataset-processing)
-        - [Execute Training](#execute-training)
-        - [Execute Evaluating](#execute-evaluating)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/quick_start/train_lenet.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 > MindSpore has unified the end-to-side cloud inference API. If you want to continue to use the MindSpore Lite independent API for training, you can refer to [here](https://www.mindspore.cn/lite/docs/en/r1.3/quick_start/train_lenet.html).

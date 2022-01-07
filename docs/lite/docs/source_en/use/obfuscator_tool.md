@@ -2,18 +2,6 @@
 
 `Linux` `Model Obfuscation` `Expert`
 
-<!-- TOC -->
-
-- [Model Obfuscation Tool](#model-obfuscation-tool)
-    - [Overview](#overview)
-    - [Usage in the Linux Environment](#usage-in-the-linux-environment)
-        - [Environment Preparation](#environment-preparation)
-        - [Directory Structure](#directory-structure)
-        - [Parameter Description](#parameter-description)
-        - [Examples](#examples)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/obfuscator_tool.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

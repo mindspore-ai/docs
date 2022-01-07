@@ -1,28 +1,5 @@
 # 问题定位指南
 
-<!-- TOC -->
-
-- [问题定位指南](#问题定位指南)
-    - [概述](#概述)
-    - [模型转换失败](#模型转换失败)
-    - [模型推理失败](#模型推理失败)
-        - [图加载失败](#图加载失败)
-        - [CPU推理问题](#cpu推理问题)
-            - [图编译失败](#图编译失败)
-        - [GPU推理问题](#gpu推理问题)
-            - [图编译失败](#图编译失败-1)
-            - [图执行失败](#图执行失败)
-        - [NPU推理问题](#npu推理问题)
-            - [图编译失败](#图编译失败-2)
-            - [图执行失败](#图执行失败-1)
-    - [模型推理精度问题](#模型推理精度问题)
-    - [模型推理性能问题](#模型推理性能问题)
-    - [使用Visual Studio相关问题](#使用visual-studio相关问题)
-    - [使用Xcode构建APP相关问题](#使用Xcode构建APP相关问题)
-    - [其他问题](#其他问题)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/troubleshooting_guide.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

@@ -2,18 +2,6 @@
 
 `Windows` `Linux` `Mac` `Visualization`
 
-<!-- TOC -->
-
-- [Visualization Tool](#visualization-tool)
-    - [Overview](#overview)
-    - [Functions](#functions)
-    - [Usage](#usage)
-    - [Development and Debugging](#development-and-debugging)
-        - [Using the Development Version](#using-the-development-version)
-        - [Debugging a Model Using Javascript](#debugging-a-model-using-javascript)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/visual_tool.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

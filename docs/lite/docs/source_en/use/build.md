@@ -2,27 +2,6 @@
 
 `Windows` `macOS` `Linux` `iOS` `Android` `Environment Preparation` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Building MindSpore Lite](#building-mindspore-lite)
-    - [Linux Environment Compilation](#linux-environment-compilation)
-        - [Environment Requirements](#environment-requirements)
-        - [Compilation Options](#compilation-options)
-        - [Compilation Example](#compilation-example)
-        - [Directory Structure](#directory-structure)
-    - [Windows Environment Compilation](#windows-environment-compilation)
-        - [Environment Requirements](#environment-requirements-1)
-        - [Compilation Options](#compilation-options-1)
-        - [Compilation Example](#compilation-example-1)
-        - [Directory Structure](#directory-structure-1)
-    - [macOS Environment Compilation](#macOS-environment-compilation)
-        - [Environment Requirements](#environment-requirements)
-        - [Compilation Options](#compilation-options-2)
-        - [Compilation Example](#compilation-example-2)
-        - [Directory Structure](#directory-structure-2)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/build.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 This chapter introduces how to quickly compile MindSpore Lite, which includes the following modules:

@@ -1,13 +1,5 @@
 # Publishing Models using MindSpore Hub
 
-<!-- TOC -->
-
-- [Publishing Models using MindSpore Hub](#publishing-models-using-mindspore-hub)
-    - [Overview](#overview)
-    - [How to publish models](#how-to-publish-models)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/hub/docs/source_en/publish_model.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

@@ -1,19 +1,5 @@
 # 端侧部署
 
-<!-- TOC -->
-
-- [端侧部署](#端侧部署)
-    - [Android环境](#android环境)
-        - [编译出包](#编译出包)
-        - [运行依赖](#运行依赖)
-        - [构建依赖环境](#构建依赖环境)
-    - [x86环境](#x86环境)
-        - [编译出包](#编译出包-1)
-        - [运行依赖](#运行依赖-1)
-        - [构建依赖环境](#构建依赖环境-1)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/deploy_federated_client.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 下面分别介绍如何在Android环境和x86环境部署Federated-Client。

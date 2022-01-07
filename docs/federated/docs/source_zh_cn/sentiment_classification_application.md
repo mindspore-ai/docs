@@ -1,28 +1,5 @@
 # 实现一个情感分类应用(Android)
 
-<!-- TOC -->
-
-- [实现一个情感分类应用(Android)](#实现一个情感分类应用android)
-    - [准备环节](#准备环节)
-        - [环境](#环境)
-        - [数据](#数据)
-        - [模型相关文件](#模型相关文件)
-    - [定义网络](#定义网络)
-        - [生成端侧模型文件](#生成端侧模型文件)
-            - [将模型导出为MindIR格式文件](#将模型导出为mindir格式文件)
-            - [将MindIR文件转化为联邦学习端侧框架可用的ms文件](#将mindir文件转化为联邦学习端侧框架可用的ms文件)
-    - [启动联邦学习流程](#启动联邦学习流程)
-        - [Android新建工程](#android新建工程)
-        - [编译MindSpore Lite AAR包](#编译mindspore-lite-aar包)
-        - [Android实例程序结构说明](#android实例程序结构说明)
-        - [编写代码](#编写代码)
-        - [Android工程配置依赖项](#android工程配置依赖项)
-        - [Android构建与运行](#android构建与运行)
-    - [实验结果](#实验结果)
-    - [参考文献](#参考文献)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/sentiment_classification_application.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 通过端云协同的联邦学习建模方式，可以充分发挥端侧数据的优势，避免用户敏感数据直接上报云侧。由于用户在使用输入法时对自己的文字隐私十分看重，并且输入法上的智慧功能也是用户非常需要的。因此，联邦学习天然适用在输入法场景中。

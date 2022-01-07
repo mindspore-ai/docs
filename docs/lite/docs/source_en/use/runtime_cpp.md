@@ -2,41 +2,6 @@
 
 `Windows` `macOS` `Linux` `iOS` `Android` `C++` `Inference Application` `Model Loading` `Data Preparation` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Using C++ Interface to Perform Inference](#using-c-interface-to-perform-inference)
-    - [Overview](#overview)
-    - [Model Reading](#model-reading)
-    - [Creating and Configuring Context](#creating-and-configuring-context)
-        - [Configuring the Number of Threads](#configuring-the-number-of-threads)
-        - [Configuring the Thread Affinity](#configuring-the-thread-affinity)
-        - [Configuring the Parallelization](#configuring-the-parallelization)
-        - [Configuring the GPU Backend](#configuring-the-gpu-backend)
-        - [Configuring the NPU Backend](#configuring-the-npu-backend)
-        - [Configuring the NNIE Backend](#configuring-the-nnie-backend)
-    - [Model Creating Loading and Building](#model-creating-loading-and-building)
-    - [Inputting Data](#inputting-data)
-    - [Executing Inference](#executing-inference)
-    - [Obtaining Output](#obtaining-output)
-    - [Releasing Memory](#releasing-memory)
-    - [Advanced Usage](#advanced-usage)
-        - [Resizing the Input Dimension](#resizing-the-input-dimension)
-        - [Parallel Models](#parallel-models)
-        - [Mixed Precision Inference](#mixed-precision-inference)
-        - [Multiple Heterogeneous Devices Inference](#multiple-heterogeneous-devices-inference)
-        - [OpenGL Texture Data Input](#opengl-texture-data-input)
-        - [Sharing a Memory Pool](#sharing-a-memory-pool)
-        - [Calling Back a Model During the Running Process](#calling-back-a-model-during-the-running-process)
-        - [Separating Graph Loading and Model Build](#separating-graph-loading-and-model-build)
-        - [Viewing Logs](#viewing-logs)
-        - [Obtaining the Version Number](#obtaining-the-version-number)
-        - [Extension Usage](#extension-usage)
-            - [Operator InferShape Extension](#operator-infershape-extension)
-            - [Operator Extension](#operator-extension)
-            - [Example](#example)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/runtime_cpp.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 > MindSpore has unified the inference API. If you want to continue to use the MindSpore Lite independent API for inference, you can refer to the [document](https://www.mindspore.cn/lite/docs/en/r1.3/use/runtime_cpp.html).

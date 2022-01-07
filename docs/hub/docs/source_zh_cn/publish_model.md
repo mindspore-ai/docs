@@ -1,13 +1,5 @@
 # 发布模型
 
-<!-- TOC -->
-
-- [发布模型](#发布模型)
-    - [概述](#概述)
-    - [发布模型到MindSpore Hub](#发布模型到mindspore-hub)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/hub/docs/source_zh_cn/publish_model.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

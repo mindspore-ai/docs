@@ -2,17 +2,6 @@
 
 `TensorRT` `NVIDIA` `Linux` `Environment Preparation` `Operators Supported` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [TensorRT Integration Information](#tensorrt-integration-information)
-    - [Steps](#steps)
-        - [Environment Preparation](#environment-preparation)
-        - [Build](#build)
-        - [Integration](#integration)
-    - [Supported Operators](#supported-operators)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/tensorrt_info.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Steps

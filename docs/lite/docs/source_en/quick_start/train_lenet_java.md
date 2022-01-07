@@ -2,23 +2,6 @@
 
 `Android` `Java` `Whole Process` `Model Loading` `Model Training` `Data Preparation` `Beginner` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Training a LeNet Model (Java)](#training-a-lenet-model-java)
-    - [Overview](#overview)
-    - [Preparation](#preparation)
-        - [Environment Requirements](#environment-requirements)
-        - [Downloading MindSpore and Building the Java Package for On-device Training](#downloading-mindspore-and-building-the-java-package-for-on-device-training)
-        - [Downloading the Dataset](#downloading-the-dataset)
-    - [Deploying an Application](#deploying-an-application)
-        - [Running Dependencies](#running-dependencies)
-        - [Building and Running](#building-and-running)
-    - [Detailed Demo Description](#detailed-demo-description)
-        - [Demo Structure](#demo-structure)
-        - [Writing On-Device Inference Code](#writing-on-device-inference-code)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/quick_start/train_lenet_java.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

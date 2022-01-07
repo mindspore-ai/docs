@@ -2,20 +2,6 @@
 
  `Linux` `IoT` `C++` `codegen` `Beginner` `Intermediate`
 
-<!-- TOC -->
-
-- [Perform Inference on the Microcontroller](#perform-inference-on-the-microcontroller)
-    - [Overview](#overview)
-    - [Obtaining codegen](#obtaining-codegen)
-    - [Directory Structure](#directory-structure)
-    - [Parameter Description](#parameter-description)
-    - [Run codegen](#run-codegen)
-    - [Perform inference on STM Boards](#perform-inference-on-stm-boards)
-    - [Perform inference on HarmonyOS Lite](#perform-inference-on-harmonyos-lite)
-    - [More Details](#more-details)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/micro.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

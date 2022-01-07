@@ -2,22 +2,6 @@
 
 `Linux` `Windows` `x86` `C++` `Whole Process` `Inference Application` `Data Preparation` `Beginner`
 
-<!-- TOC -->
-
-- [Experience C++ Simple Inference Demo](#experience-c-simple-inference-demo)
-    - [Overview](#overview)
-    - [Building and Running](#building-and-running)
-        - [Linux x86](#linux-x86)
-        - [Windows](#windows)
-    - [CMake Integration](#cmake-integration)
-    - [Model Reading](#model-reading)
-    - [Creating and Configuring Context](#creating-and-configuring-context)
-    - [Model Creating Loading and Building](#model-creating-loading-and-building)
-    - [Model Inference](#model-inference)
-    - [Memory Release](#memory-release)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/quick_start/quick_start_cpp.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 > MindSpore has unified the inference API. If you want to continue to use the MindSpore Lite independent API for inference, you can refer to the [document](https://www.mindspore.cn/lite/docs/en/r1.3/quick_start/quick_start_cpp.html).
