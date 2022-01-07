@@ -2,15 +2,6 @@
 
 `Ascend` `GPU` `CPU` `模型开发`
 
-<!-- TOC -->
-
-- [运算重载](#运算重载)
-    - [概述](#概述)
-    - [MultitypeFuncGraph](#multitypefuncgraph)
-    - [HyperMap](#hypermap)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/hypermap.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

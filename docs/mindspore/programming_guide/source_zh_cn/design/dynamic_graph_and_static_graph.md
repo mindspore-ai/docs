@@ -2,24 +2,6 @@
 
 `Ascend` `GPU` `CPU` `设计` `模型运行`
 
-<!-- TOC -->
-
-- [静态图和动态图](#静态图和动态图)
-    - [静态图和动态图的概念](#静态图和动态图的概念)
-    - [MindSpore静态图](#mindspore静态图)
-        - [Graph模式执行原理](#graph模式执行原理)
-        - [Graph模式自动微分原理](#graph模式自动微分原理)
-    - [MindSpore动态图](#mindspore动态图)
-        - [PyNative模式执行原理](#pynative模式执行原理)
-        - [PyNative模式自动微分原理](#pynative模式自动微分原理)
-    - [动静统一](#动静统一)
-        - [概述](#概述)
-        - [动态图和静态图互相转换](#动态图和静态图互相转换)
-        - [动静结合](#动静结合)
-        - [JIT Fallback](#jit-fallback)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/design/dynamic_graph_and_static_graph.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 静态图和动态图的概念

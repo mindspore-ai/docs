@@ -2,18 +2,6 @@
 
 `Ascend` `推理应用`
 
-<!-- TOC -->
-
-- [Ascend 910 AI处理器上推理](#ascend-910-ai处理器上推理)
-    - [概述](#概述)
-    - [推理目录结构介绍](#推理目录结构介绍)
-    - [推理代码介绍](#推理代码介绍)
-    - [构建脚本介绍](#构建脚本介绍)
-    - [编译推理代码](#编译推理代码)
-    - [执行推理并查看结果](#执行推理并查看结果)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/multi_platform_inference_ascend_910.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

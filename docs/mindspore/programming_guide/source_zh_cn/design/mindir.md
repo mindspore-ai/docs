@@ -2,20 +2,6 @@
 
 `Ascend` `GPU` `设计` `模型开发`
 
-<!-- TOC -->
-
-- [MindSpore IR（MindIR）](#mindspore-irmindir)
-    - [简介](#简介)
-    - [文法定义](#文法定义)
-    - [示例](#示例)
-    - [函数式语义](#函数式语义)
-        - [高阶函数](#高阶函数)
-        - [控制流](#控制流)
-        - [自由变量和闭包](#自由变量和闭包)
-    - [参考文献](#参考文献)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/design/mindir.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 简介

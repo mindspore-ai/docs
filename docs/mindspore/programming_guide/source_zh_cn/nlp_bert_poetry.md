@@ -2,24 +2,6 @@
 
 `Ascend` `自然语言处理` `全流程`
 
-<!-- TOC -->
-
-- [使用BERT网络实现智能写诗](#使用bert网络实现智能写诗)
-    - [案例简介](#案例简介)
-    - [模型介绍](#模型介绍)
-    - [模型训练](#模型训练)
-        - [Pre-training](#pre-training)
-        - [Fine-tuning](#fine-tuning)
-        - [模型修改](#模型修改)
-    - [样例代码](#样例代码)
-    - [实现步骤](#实现步骤)
-        - [基础信息](#基础信息)
-        - [数据准备](#数据准备)
-        - [训练](#训练)
-        - [推理验证](#推理验证)
-    - [参考文献](#参考文献)
-
-<!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/nlp_bert_poetry.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 五千年历史孕育了深厚的中华文化，而诗词是中华文化不可或缺的一部分，欣赏过诗词就可以感受到当中纯净、辽阔的意境，极致的感性，恰恰弥补了节奏紧迫的现代生活带给我们的拥挤感、浮躁感，古语曰：熟读唐诗三百首，不会作诗也会吟，今天理科生MindSpore也来秀一秀文艺范儿！

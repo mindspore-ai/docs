@@ -1,21 +1,5 @@
 # Using the Uncertainty Evaluation Toolbox
 
-<!-- TOC -->
-
-- [Using the Uncertainty Evaluation Toolbox](#using-the-uncertainty-evaluation-toolbox)
-    - [Data Preparation](#data-preparation)
-        - [Downloading the Dataset](#downloading-the-dataset)
-        - [Data Enhancement](#data-enhancement)
-    - [Defining a Deep Learning Network](#defining-a-deep-learning-network)
-    - [Initializing the Uncertainty Toolbox](#initializing-the-uncertainty-toolbox)
-        - [Preparing the Model Weight Parameter File](#preparing-the-model-weight-parameter-file)
-        - [Completing the Initialization](#completing-the-initialization)
-    - [Cognitive Uncertainty Assessment](#cognitive-uncertainty-assessment)
-        - [Converting to Bayesian Training Measurement](#converting-to-bayesian-training-measurement)
-        - [Printing the Cognitive Uncertainty](#printing-the-cognitive-uncertainty)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/probability/docs/source_en/using_the_uncertainty_toolbox.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 One of advantages of BNN is that uncertainty can be obtained. MDP provides a toolbox for uncertainty evaluation at the upper layer. Users can easily use the toolbox to compute uncertainty. Uncertainty means an uncertain degree of a prediction result of a deep learning model. Currently, most deep learning algorithm can only provide prediction results but cannot determine the result reliability. There are two types of uncertainties: aleatoric uncertainty and epistemic uncertainty.

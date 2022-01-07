@@ -2,25 +2,6 @@
 
 `Ascend` `GPU` `CPU` `模型导出`
 
-<!-- TOC -->
-
-- [保存模型](#保存模型)
-    - [概述](#概述)
-    - [保存CheckPoint格式文件](#保存checkpoint格式文件)
-        - [使用callback机制](#使用callback机制)
-            - [CheckPoint配置策略](#checkpoint配置策略)
-            - [断点续训](#断点续训)
-        - [使用save_checkpoint方法](#使用save_checkpoint方法)
-            - [`save_obj`和`ckpt_file_name`参数](#save_obj和ckpt_file_name参数)
-            - [`integrated_save`参数](#integrated_save参数)
-            - [`async_save`参数](#async_save参数)
-            - [`append_dict`参数](#append_dict参数)
-    - [导出MindIR格式文件](#导出mindir格式文件)
-    - [导出AIR格式文件](#导出air格式文件)
-    - [导出ONNX格式文件](#导出onnx格式文件)
-
-<!-- /TOC -->
-
 <a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9zYXZlX21vZGVsLmlweW5i&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_modelarts.png"></a>
 &nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/notebook/mindspore_save_model.ipynb"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_notebook.png"></a>

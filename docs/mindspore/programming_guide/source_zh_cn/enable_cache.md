@@ -2,17 +2,6 @@
 
 `Ascend` `GPU` `CPU` `数据准备`
 
-<!-- TOC -->
-
-- [应用单节点数据缓存](#应用单节点数据缓存)
-    - [概述](#概述)
-    - [缓存使用入门](#缓存使用入门)
-    - [最佳实践](#最佳实践)
-        - [使用缓存加速ResNet训练时推理的性能](#使用缓存加速resnet训练时推理的性能)
-        - [使用缓存加速NFS数据集的训练性能](#使用缓存加速nfs数据集的训练性能)
-
-<!-- /TOC -->
-
 <a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9lbmFibGVfY2FjaGUuaXB5bmI=&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_modelarts.png"></a>&nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/notebook/mindspore_enable_cache.ipynb"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_notebook.png"></a>&nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/notebook/mindspore_enable_cache.py"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_download_code.png"></a>&nbsp;&nbsp;

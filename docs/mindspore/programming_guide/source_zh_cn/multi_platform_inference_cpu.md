@@ -2,13 +2,6 @@
 
 `CPU` `推理应用`
 
-<!-- TOC -->
-
-- [CPU上推理](#cpu上推理)
-    - [使用ONNX格式文件推理](#使用onnx格式文件推理)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/multi_platform_inference_cpu.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 使用ONNX格式文件推理

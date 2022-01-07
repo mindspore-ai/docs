@@ -1,14 +1,5 @@
 # MindSpore Reinforcement Installation
 
-<!-- TOC -->
-
-- [MindSpore Reinforcement Installation](#mindspore-reinforcement-installation)
-    - [Installation by pip](#installation-by-pip)
-    - [Installation by Source Code](#installation-by-source-code)  
-    - [Installation Verification](#installation-verification)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/reinforcement/docs/source_en/reinforcement_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 MindSpore Reinforcement depends on the MindSpore training and inference framework. Therefore, install [MindSpore](https://gitee.com/mindspore/mindspore#%E5%AE%89%E8%A3%85) and then MindSpore Reinforcement. You can install MindSpore Reinforcement either by pip or by source code.

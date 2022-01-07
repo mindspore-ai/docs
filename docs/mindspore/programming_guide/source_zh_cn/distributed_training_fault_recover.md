@@ -2,16 +2,6 @@
 
 `Ascend` `分布式并行`
 
-<!-- TOC -->
-
-- [分布式故障恢复](#分布式故障恢复)
-    - [概述](#概述)
-    - [切片保存权重](#切片保存权重)
-    - [加载权重继续训练](#加载权重继续训练)
-    - [运行代码](#运行代码)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/distributed_training_fault_recover.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

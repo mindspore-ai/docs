@@ -2,30 +2,6 @@
 
 `Ascend` `GPU` `Distributed Parallel` `Model Export` `Model Loading`
 
-<!-- TOC -->
-
-- [Saving and Loading Models in Hybrid Parallel Mode](#saving-and-loading-models-in-hybrid-parallel-mode)
-    - [Overview](#overview)
-        - [Background](#background)
-        - [Application Scenario](#application-scenario)
-    - [Integrating the Saved Checkpoint Files](#integrating-the-saved-checkpoint-files)
-        - [Overall Process](#overall-process)
-        - [Preparations](#preparations)
-            - [Importing the Checkpoint Files in rank id order](#importing-the-checkpoint-files-in-rank-id-order)
-            - [Obtaining a List of All Parameters on the Network](#obtaining-a-list-of-all-parameters-on-the-network)
-        - [Integrate the Model Parallel Parameters](#integrate-the-model-parallel-parameters)
-        - [Saving the Data and Generating a New Checkpoint File](#saving-the-data-and-generating-a-new-checkpoint-file)
-    - [Loading the Integrated and Saved Checkpoint File](#loading-the-integrated-and-saved-checkpoint-file)
-        - [Overall Process](#overall-process-1)
-        - [Step 1: Loading the Checkpoint File](#step-1-loading-the-checkpoint-file)
-        - [Step 2: Dividing a Model Parallel Parameter](#step-2-dividing-a-model-parallel-parameter)
-        - [Step 3: Loading the Modified Parameter Data to the Network](#step-3-loading-the-modified-parameter-data-to-the-network)
-    - [Example](#example)
-        - [Scenario Description](#scenario-description)
-        - [Example Code](#example-code)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/save_load_model_hybrid_parallel.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

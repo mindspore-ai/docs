@@ -2,16 +2,6 @@
 
 `Ascend` `分布式并行`
 
-<!-- TOC -->
-
-- [大幅面数据集切分](#大幅面数据集切分)
-    - [概述](#概述)
-    - [创建数据集](#创建数据集)
-    - [配置数据集切分策略](#配置数据集切分策略)
-    - [运行代码](#运行代码)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/distributed_training_dataset_slice.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

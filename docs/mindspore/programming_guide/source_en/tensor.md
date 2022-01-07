@@ -2,21 +2,6 @@
 
 `Ascend` `GPU` `CPU` `Beginner`
 
-<!-- TOC -->
-
-- [Tensor](#tensor)
-    - [Overview](#overview)
-    - [Tensor Structure](#tensor-structure)
-    - [Tensor Operations, Attributes and Methods](#tensor-operations-attributes-and-methods)
-        - [Operations](#operations)
-        - [Attributes](#attributes)
-        - [Methods](#methods)
-    - [Sparse tensor](#Sparse-tensor)
-        - [RowTensor](#RowTensor)
-        - [SparseTensor](#SparseTensor)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/tensor.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

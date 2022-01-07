@@ -2,18 +2,6 @@
 
 `Ascend` `GPU` `Model Running`
 
-<!-- TOC -->
-
-- [Running Mode](#running-mode)
-    - [Overview](#overview)
-    - [Executing a Single Operator](#executing-a-single-operator)
-    - [Executing a Common Function](#executing-a-common-function)
-    - [Executing a Network Model](#executing-a-network-model)
-        - [Executing a Training Model](#executing-a-training-model)
-        - [Executing an Inference Model](#executing-an-inference-model)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/run.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

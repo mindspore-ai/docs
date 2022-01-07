@@ -2,21 +2,6 @@
 
 `Ascend` `GPU` `CPU` `Model Export`
 
-<!-- TOC -->
-
-- [Saving Models](#saving-models)
-    - [Overview](#overview)
-    - [Saving CheckPoint files](#saving-checkpoint-files)
-        - [Using Callback Mechanism](#use-callback-mechanism)
-            - [CheckPoint Configuration Strategy](#checkpoint-configuration-policies)
-            - [Resume Training At The Breakpoint](#resume-training-at-the-breakpoint)
-        - [Using Save Checkpoint Method](#use-save-checkpoint-method)
-    - [Export MindIR Model](#export-mindir-model)
-    - [Export AIR Model](#export-air-model)
-    - [Export ONNX Model](#export-onnx-model)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/save_model.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

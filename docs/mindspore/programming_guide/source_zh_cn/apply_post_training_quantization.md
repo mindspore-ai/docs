@@ -2,16 +2,6 @@
 
 `端侧` `Ascend` `推理应用`
 
-<!-- TOC -->
-
-- [应用训练后量化](#应用训练后量化)
-    - [概念](#概念)
-        - [权重量化](#权重量化)
-        - [全量化](#全量化)
-    - [训练后量化工具](#训练后量化工具)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/apply_post_training_quantization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概念

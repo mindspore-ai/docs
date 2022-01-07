@@ -2,14 +2,6 @@
 
 `Ascend` `GPU` `CPU` `设计`
 
-<!-- TOC -->
-
-- [技术白皮书](#技术白皮书)
-    - [引言](#引言)
-    - [简介](#简介)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/design/technical_white_paper.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 引言

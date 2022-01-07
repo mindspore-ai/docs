@@ -2,28 +2,6 @@
 
 `Ascend` `GPU` `CPU` `模型调优`
 
-<!-- TOC -->
-
-- [使用Dump功能在Graph模式调试](#使用dump功能在graph模式调试)
-    - [概述](#概述)
-        - [调试过程](#调试过程)
-            - [数据准备](#数据准备)
-            - [数据分析](#数据分析)
-        - [适用场景](#适用场景)
-    - [Dump功能说明](#dump功能说明)
-    - [同步Dump](#同步dump)
-        - [同步Dump操作步骤](#同步dump操作步骤)
-        - [同步Dump数据对象目录](#同步dump数据对象目录)
-        - [同步Dump数据文件介绍](#同步dump数据文件介绍)
-        - [同步Dump数据分析样例](#同步dump数据分析样例)
-    - [异步Dump](#异步dump)
-        - [异步Dump操作步骤](#异步dump操作步骤)
-        - [异步Dump数据对象目录](#异步dump数据对象目录)
-        - [异步Dump数据文件介绍](#异步dump数据文件介绍)
-        - [异步Dump数据分析样例](#异步dump数据分析样例)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/dump_in_graph_mode.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

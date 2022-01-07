@@ -1,16 +1,5 @@
 # One-click Conversion from DNN to BNN
 
-<!-- TOC -->
-
-- [One-click Conversion from DNN to BNN](#one-click-conversion-from-dnn-to-bnn)
-    - [One-click Conversion from DNN to BNN](#one-click-conversion-from-dnn-to-bnn)
-        - [Defining the DNN Model](#defining-the-dnn-model)
-        - [Defining the Loss Function and Optimizer](#defining-the-loss-function-and-optimizer-2)
-        - [Function 1: Converting the Entire Model](#function-1-converting-the-entire-model)
-        - [Function 2: Converting a Layer of a Specified Type](#function-2-converting-a-layer-of-a-specified-type)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/probability/docs/source_en/one_click_conversion_from_dnn_to_bnn.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## One-click Conversion from DNN to BNN

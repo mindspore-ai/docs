@@ -2,16 +2,6 @@
 
 `Ascend` `GPU` `CPU` `推理应用`
 
-<!-- TOC -->
-
-- [推理模型总览](#推理模型总览)
-    - [模型文件](#模型文件)
-    - [执行推理](#执行推理)
-    - [MindIR介绍](#mindir介绍)
-        - [MindIR支持的网络列表](#mindir支持的网络列表)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/multi_platform_inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 MindSpore可以基于训练好的模型，在不同的硬件平台上执行推理任务。

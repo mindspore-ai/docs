@@ -2,21 +2,6 @@
 
 `Ascend` `GPU` `CPU` `设计` `模型开发`
 
-<!-- TOC -->
-
-- [函数式可微分编程](#函数式可微分编程)
-    - [自动微分简介](#自动微分简介)
-        - [前向自动微分](#前向自动微分)
-        - [反向自动微分](#反向自动微分)
-    - [GradOperation实现](#gradoperation实现)
-        - [GradOperation算法设计](#gradoperation算法设计)
-        - [GradOperation算法实现](#gradoperation算法实现)
-        - [GradOperation示例](#gradoperation示例)
-    - [前向自动微分实现](#前向自动微分实现)
-        - [参考文献](#参考文献)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/design/gradient.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 自动微分简介

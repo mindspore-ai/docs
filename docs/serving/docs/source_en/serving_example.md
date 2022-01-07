@@ -1,19 +1,5 @@
 # MindSpore Serving-based Inference Service Deployment
 
-<!-- TOC -->
-
-- [MindSpore Serving-based Inference Service Deployment](#mindspore-serving-based-inference-service-deployment)
-    - [Overview](#overview)
-    - [Preparing the Environment](#preparing-the-environment)
-    - [Downloading the Example](#downloading-the-example)
-    - [Exporting the Model](#exporting-the-model)
-    - [Deploying the Serving Inference Service](#deploying-the-serving-inference-service)
-        - [Configuring the Service](#configuring-the-service)
-        - [Starting the Service](#starting-the-service)
-    - [Inference Execution](#inference-execution)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/serving/docs/source_en/serving_example.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

@@ -2,22 +2,6 @@
 
 `Ascend` `GPU` `Design` `Distributed Parallel`
 
-<!-- TOC -->
-
-- [Distributed Training Design](#distributed-training-design)
-    - [Background](#background)
-    - [Concepts](#concepts)
-        - [Collective Communication](#collective-communication)
-        - [Synchronization Mode](#synchronization-mode)
-    - [Data Parallelism](#data-parallelism)
-        - [Principle of Data Parallelism](#principle-of-data-parallelism)
-        - [Data Parallel Code](#data-parallel-code)
-    - [Automatic Parallelism](#automatic-parallelism)
-        - [Principle of Automatic Parallelism](#principle-of-automatic-parallelism)
-        - [Automatic Parallel Code](#automatic-parallel-code)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/design/distributed_training_design.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Background

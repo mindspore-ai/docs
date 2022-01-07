@@ -2,30 +2,6 @@
 
 `GPU` `分布式并行` `全流程`
 
-<!-- TOC -->
-
-- [分布式并行训练基础样例（GPU）](#分布式并行训练基础样例gpu)
-    - [概述](#概述)
-    - [准备环节](#准备环节)
-        - [配置分布式环境](#配置分布式环境)
-        - [调用集合通信库](#调用集合通信库)
-        - [下载数据集](#下载数据集)
-    - [数据并行模式加载数据集](#数据并行模式加载数据集)
-    - [定义网络](#定义网络)
-    - [定义损失函数及优化器](#定义损失函数及优化器)
-        - [定义损失函数](#定义损失函数)
-        - [定义优化器](#定义优化器)
-    - [训练网络](#训练网络)
-    - [运行脚本](#运行脚本)
-        - [单机多卡训练](#单机多卡训练)
-        - [多机多卡训练](#多机多卡训练)
-    - [分布式训练模型参数保存和加载](#分布式训练模型参数保存和加载)
-    - [不依赖OpenMPI进行训练](#不依赖OpenMPI进行训练)
-        - [运行脚本](#运行脚本)
-        - [安全认证](#安全认证)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/distributed_training_gpu.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

@@ -2,31 +2,6 @@
 
 `Ascend` `GPU` `CPU` `模型开发`
 
-<!-- TOC -->
-
-- [求导](#求导)
-    - [概述](#概述)
-    - [一阶求导](#一阶求导)
-        - [输入求导](#输入求导)
-        - [权重求导](#权重求导)
-        - [梯度值缩放](#梯度值缩放)
-    - [停止计算梯度](#停止计算梯度)
-    - [高阶求导](#高阶求导)
-        - [单输入单输出高阶导数](#单输入单输出高阶导数)
-        - [单输入多输出高阶导数](#单输入多输出高阶导数)
-        - [多输入多输出高阶导数](#多输入多输出高阶导数)
-    - [二阶微分算子支持情况](#二阶微分算子支持情况)
-    - [Jvp与Vjp接口](#jvp与vjp接口)
-        - [Jvp](#Jvp)
-        - [Vjp](#Vjp)
-    - [函数式接口grad、jvp和vjp](#函数式接口grad、jvp和vjp)
-        - [函数式grad](#函数式grad)
-        - [函数式jvp](#函数式jvp)
-        - [函数式vjp](#函数式vjp)
-    - [引用](#引用)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/grad_operation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述
