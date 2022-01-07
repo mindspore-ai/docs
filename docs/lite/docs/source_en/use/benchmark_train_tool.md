@@ -2,19 +2,6 @@
 
 `Linux` `Environment Preparation` `Benchmark Testing` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Performing Benchmark Testing](#performing-benchmark-testing)
-    - [Overview](#overview)
-    - [Linux Environment Usage](#linux-environment-usage)
-        - [Environment Preparation](#environment-preparation)
-        - [Parameter Description](#parameter-description)
-        - [Example](#example)
-            - [Performance Test](#performance-test)
-            - [Accuracy Test](#accuracy-test)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/benchmark_train_tool.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

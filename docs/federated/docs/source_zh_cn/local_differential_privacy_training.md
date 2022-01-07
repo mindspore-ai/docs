@@ -1,14 +1,5 @@
 # 隐私安全保护算法之差分隐私训练
 
-<!-- TOC -->
-
-- [隐私安全保护算法之差分隐私训练](#隐私安全保护算法之差分隐私训练)
-    - [原理概述](#原理概述)
-    - [使用方式](#使用方式)
-    - [参考文献](#参考文献)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/local_differential_privacy_training.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 联邦学习过程中，用户数据仅用于本地设备训练，不需要上传至中心服务器，可以避免用户个人数据的直接泄露。然而传统联邦学习框架中，模型以明文形式上云，仍然存在间接泄露用户隐私的风险。敌手获取到用户上传的明文模型后，可以通过重构、模型逆向等攻击恢复用户的个人训练数据，导致用户隐私泄露。

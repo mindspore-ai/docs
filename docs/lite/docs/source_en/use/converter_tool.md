@@ -2,23 +2,6 @@
 
 `Windows` `Linux` `Model Converting` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Converting Models for Inference](#converting-models-for-inference)
-    - [Overview](#overview)
-    - [Linux Environment Instructions](#linux-environment-instructions)
-        - [Environment Preparation](#environment-preparation)
-        - [Directory Structure](#directory-structure)
-        - [Parameter Description](#parameter-description)
-        - [Example](#example)
-    - [Windows Environment Instructions](#windows-environment-instructions)
-        - [Environment Preparation](#environment-preparation-1)
-        - [Directory Structure](#directory-structure-1)
-        - [Parameter Description](#parameter-description-1)
-        - [Example](#example-1)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/converter_tool.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

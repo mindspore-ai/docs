@@ -2,25 +2,6 @@
 
 `Windows` `Linux` `C++` `Data Preparation` `Beginner` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Preprocessing Image Data](#preprocess-image-data)
-    - [Overview](#Overview)
-    - [Import image preprocessing function library](#import-image-preprocessing-function-library)
-    - [Initialize the image](#initialize-the-image)
-        - [Usage example](#usage-example)
-    - [Optional image preprocessing operator](#optional-image-preprocessing-operator)
-        - [Resize image](#resize-image)
-            - [Usage example](#usage-example-1)
-        - [Convert the image data type](#convert-the-image-data-type)
-            - [Usage example](#usage-example-2)
-        - [Crop image data](#crop-image-data)
-            - [Usage example](#usage-example-3)
-        - [Normalize image data](#normalize-image-data)
-            - [Usage example](#usage-example-4)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/image_processing.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

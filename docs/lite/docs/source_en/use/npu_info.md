@@ -2,18 +2,6 @@
 
 `NPU` `Android` `Linux` `Environment Preparation` `Operators Supported` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [NPU Integration Information](#NPU-Integration-Information)
-    - [Steps](#Steps)
-        - [Environment Preparation](#Environment-Preparation)
-        - [Build](#Build)
-        - [Integration](#Integration)
-    - [Supported Chips](#Supported-Chips)
-    - [Supported Operators](#Supported-Operators)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/npu_info.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Steps

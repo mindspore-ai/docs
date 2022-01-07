@@ -2,16 +2,6 @@
 
 `Linux` `Model Converting` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Overview](#overview)
-- [Node Extension](#node-extension)
-- [Model Extension](#model-extension)
-- [Optimization Extension](#optimization-extension)
-- [Example](#example)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/converter_register.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

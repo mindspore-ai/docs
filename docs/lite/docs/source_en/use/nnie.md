@@ -2,40 +2,6 @@
 
 `NNIE` `Linux` `Environment Preparation` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Usage Description of the Integrated NNIE](#usage-description-of-the-integrated-nnie)
-    - [Directory Structures](#directory-structures)
-        - [The converter Directory Structure of the Model Conversion Tool](#the-converter-directory-structure-of-the-model-conversion-tool)
-        - [The runtime Directory Structure of the Model Inference Tool](#the-runtime-directory-structure-of-the-model-inference-tool)
-    - [Using Tools](#using-tools)
-        - [Converter](#converter)
-            - [Overview](#overview)
-            - [Environment Preparation](#environment-preparation)
-            - [Extension Configuration](#extension-configuration)
-            - [NNIE Configuration](#nnie-configuration)
-            - [Executing Converter](#executing-converter)
-        - [Runtime](#runtime)
-            - [Overview](#overview-1)
-            - [Environment Preparation](#environment-preparation-1)
-            - [Executing the Benchmark](#executing-the-benchmark)
-    - [Integration](#integration)
-    - [SVP Tool Chain-related Functions and Precautions (Advanced Options)](#svp-tool-chain-related-functions-and-precautions-advanced-options)
-        - [NHWC, the Format of the Running Input on the Board](#nhwc-the-format-of-the-running-input-on-the-board)
-        - [image_list Description](#image_list-description)
-        - [image_type Restrictions](#image_type-restrictions)
-        - [image_list and roi_coordinate_file Quantity](#image_list-and-roi_coordinate_file-quantity)
-        - [Suffix _cpu of the Node Name in the .prototxt File](#suffix-_cpu-of-the-node-name-in-the-prototxt-file)
-        - [Custom Operator in the .prototxt File](#custom-operator-in-the-prototxt-file)
-        - [Suffix _report of the Top Domain in the .prototxt File](#suffix-_report-of-the-top-domain-in-the-prototxt-file)
-        - [Inplace Mechanism](#inplace-mechanism)
-        - [Multi-image Batch Running and Multi-step Running](#multi-image-batch-running-and-multi-step-running)
-        - [Node Name Change](#node-name-change)
-        - [Proposal Operator Usage Description](#proposal-operator-usage-description)
-        - [Segmentation Mechanism and Restrictions](#segmentation-mechanism-and-restrictions)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/nnie.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Directory Structures

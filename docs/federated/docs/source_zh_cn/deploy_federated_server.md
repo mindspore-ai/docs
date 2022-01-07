@@ -2,20 +2,6 @@
 
 `Linux` `模型训练` `中级` `高级`
 
-<!-- TOC -->
-
-- [云侧部署](#云侧部署)
-    - [准备环节](#准备环节)
-        - [安装MindSpore](#安装mindspore)
-    - [定义模型](#定义模型)
-    - [参数配置](#参数配置)
-    - [启动集群](#启动集群)
-    - [弹性伸缩](#弹性伸缩)
-    - [容灾](#容灾)
-    - [安全](#安全)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/deploy_federated_server.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 本文档以LeNet网络为例，讲解如何使用MindSpore来部署联邦学习集群。

@@ -1,14 +1,5 @@
 ﻿# 从Hub加载模型
 
-<!-- TOC -->
-
-- [从Hub加载模型](#从hub加载模型)
-    - [概述](#概述)
-    - [用于推理验证](#用于推理验证)
-    - [用于迁移学习](#用于迁移学习)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/hub/docs/source_zh_cn/loading_model_from_hub.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述

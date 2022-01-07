@@ -2,32 +2,6 @@
 
 `Linux` `Android` `C++` `Model Training` `Model Loading` `Data Preparation` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Using C++ Interface to Perform Training](#using-c-interface-to-perform-training)
-    - [Overview](#overview)
-    - [Model Creating Loading and Building](#model-creating-loading-and-building)
-        - [Reading Models](#reading-models)
-        - [Creating Contexts](#creating-contexts)
-        - [Creating TrainLoop](#creating-trainloop)
-        - [Example](#example-1)
-    - [Data Processing](#data-processing)
-        - [Data Reading Pipeline](#data-reading-pipeline)
-        - [Data Preprocessing Pipeline](#data-preprocessing-pipeline)
-        - [Example](#example-2)
-    - [Execute Training](#execute-training)
-        - [Training](#training)
-        - [Evaluating](#evaluating)
-    - [Others](#others)
-        - [Session Mode Switching](#session-mode-switching)
-        - [Resizing the Input Dimension](#resizing-the-input-dimension)
-        - [Obtaining Input Tensors](#obtaining-input-tensors)
-        - [Obtaining Output Tensors](#obtaining-output-tensors)
-        - [Execute Callback](#execute-callback)
-        - [Saving Model](#saving-model)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/runtime_train_cpp.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

@@ -2,17 +2,6 @@
 
 `Linux` `Environment Preparation` `Static Library Cropping` `Intermediate` `Expert`
 
-<!-- TOC -->
-
-- [Use Cropper Tool To Reduce Library File Size](#use-cropper-tool-to-reduce-library-file-size)
-    - [Overview](#overview)
-    - [Environment Preparation](#environment-preparation)
-    - [Parameter Description](#parameter-description)
-    - [Example](#example)
-    - [Compiling Static Library Into Dynamic Library (Optional)](#Compiling-Static-Library-Into-Dynamic-Library-Optional)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/cropper_tool.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
