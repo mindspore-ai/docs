@@ -453,6 +453,7 @@ The data objects saved by asynchronous Dump include the final execution graph (`
                 - {iteration_id}/
                     statistic.csv
                     {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}
+                    mapping.csv
                 - constants/
                     Parameter.data-{data_id}.0.0.{timestamp}.output.0.DefaultFormat.npy
             ...
@@ -479,6 +480,8 @@ The data objects saved by asynchronous Dump include the final execution graph (`
 Due to the control flow, some sub-graphs may not be executed, but Dump only saves the executed nodes, so the {graph_id} in the `.pb` file name under the 'graphs' directory may not always have a corresponding {graph_id} directory in {net_name} directory.
 
 For multi-graph networks, such as dynamic shape scenario, the iterations of all graphs on each device are counted uniformly.
+
+If the length of the tensor file name defined according to the naming rules exceeds the OS file name length limit (usually 255 characters), the tensor file will be renamed to a string of random numbers. The mapping relationship will be written to the file 'mapping.csv' in the same directory.
 
 ### Introduction to Asynchronous Dump Data File
 

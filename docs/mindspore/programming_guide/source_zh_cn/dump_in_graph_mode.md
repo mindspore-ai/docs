@@ -452,6 +452,7 @@ numpy.load("Conv2D.Conv2D-op107.2.2.1623124369613540.output.0.DefaultFormat.npy"
                 - {iteration_id}/
                     statistic.csv
                     {op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}
+                    mapping.csv
                 - constants/
                     Parameter.data-{data_id}.0.0.{timestamp}.output.0.DefaultFormat.npy
             ...
@@ -478,6 +479,8 @@ numpy.load("Conv2D.Conv2D-op107.2.2.1623124369613540.output.0.DefaultFormat.npy"
 由于存在控制流，某些子图可能不会被执行，Dump只保存执行过的节点，所以graphs目录下`.pb`文件名中的{graph_id}并不一定在{net_name}下存在对应的{graph_id}目录。
 
 对于多图网络，例如动态shape的场景，每张卡上所有计算图的轮次统一计数。
+
+如果按命名规则定义的张量文件名称长度超过了OS文件名称长度限制（一般是255个字符），则会将该张量文件重命名为一串随机数字，映射关系会保存在同目录下的“mapping.csv”。
 
 ### 异步Dump数据文件介绍
 
