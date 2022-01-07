@@ -2,14 +2,6 @@
 
 `Ascend` `GPU` `进阶` `分布式并行` `模型导出`
 
-<!-- TOC -->
-
-- [分布式训练模型参数保存和加载](#分布式训练模型参数保存和加载)
-    - [自动并行模式](#自动并行模式)
-    - [数据并行模式](#数据并行模式)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/intermediate/distributed_training/distributed_training_model_parameters_saving_and_loading.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 本章将会讲解在Ascend与GPU环境中进行分布式训练时，如何进行参数的保存与加载。涵盖的分布式训练模式包括自动并行（Auto Parallel）与数据并行（Data Parallel）。分布式训练进行模型参数的保存之前，需要先按照[Ascend分布式训练](https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/distributed_training/distributed_training_ascend.html)、[GPU分布式训练](https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/distributed_training/distributed_training_gpu.html)教程配置分布式环境变量和集合通信库。

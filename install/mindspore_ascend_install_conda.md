@@ -1,17 +1,5 @@
 # Conda方式安装MindSpore Ascend 910版本
 
-<!-- TOC -->
-
-- [Conda方式安装MindSpore Ascend 910版本](#conda方式安装mindspore-ascend-910版本)
-    - [确认系统环境信息](#确认系统环境信息)
-    - [创建并进入Conda虚拟环境](#创建并进入conda虚拟环境)
-    - [安装MindSpore](#安装mindspore)
-    - [配置环境变量](#配置环境变量)
-    - [验证是否成功安装](#验证是否成功安装)
-    - [升级MindSpore版本](#升级mindspore版本)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend_install_conda.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 [Conda](https://docs.conda.io/en/latest/)是一个开源跨平台语言无关的包管理与环境管理系统，允许用户方便地安装不同版本的二进制软件包与该计算平台需要的所有库。

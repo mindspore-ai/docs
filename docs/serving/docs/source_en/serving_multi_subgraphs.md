@@ -1,18 +1,5 @@
 ﻿# Service Deployment with Multiple Subgraphs and Stateful Model
 
-<!-- TOC -->
-
-- [Service Deployment with Multiple Subgraphs and Stateful Model](#service-deployment-with-multiple-subgraphs-and-stateful-model)
-    - [Overview](#overview)
-        - [Environment Preparation](#environment-preparation)
-        - [Downloading the Example](#downloading-the-example)
-        - [Exporting a Multi-Graph Model](#exporting-a-multi-graph-model)
-            - [Configuring the Service](#configuring-the-service)
-            - [Starting the Service](#starting-the-service)
-        - [Executing Inference](#executing-inference)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/serving/docs/source_en/serving_multi_subgraphs.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

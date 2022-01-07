@@ -1,19 +1,5 @@
 ﻿# On-Device Deployment
 
-<!-- TOC -->
-
-- [On-Device Deployment](#on-device-deployment)
-    - [Android](#android)
-        - [Building a Package](#building-a-package)
-        - [Running Dependencies](#running-dependencies)
-        - [Building a Dependency Environment](#building-a-dependency-environment)
-    - [x86](#x86)
-        - [Building a Package](#building-a-package-1)
-        - [Running Dependencies](#running-dependencies-1)
-        - [Building a Dependency Environment](#building-a-dependency-environment-1)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/deploy_federated_client.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 The following describes how to deploy the Federated-Client in the Android and x86 environments:

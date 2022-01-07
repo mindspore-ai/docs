@@ -1,16 +1,5 @@
 ﻿# Pairwise encryption training for privacy protection
 
-<!-- TOC -->
-
-- [Pairwise encryption training for privacy protection](#Pairwise-encryption-training-for-privacy-protection)
-    - [Principles](#principles)
-    - [Usage](#usage)
-        - [Cross device scenario](#cross-device-scenario)
-        - [Cross silo scenario](#cross-silo-scenario)
-    - [References](#references)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/pairwise_encryption_training.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 During federated learning, user data is used only for local device training and does not need to be uploaded to the central server. This prevents personal data leakage.

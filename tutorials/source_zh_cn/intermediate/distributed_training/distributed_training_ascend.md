@@ -2,24 +2,6 @@
 
 `Ascend` `进阶` `分布式并行`
 
-<!-- TOC -->
-
-- [分布式并行训练 （Ascend）](#分布式并行训练-ascend)
-    - [准备环节](#准备环节)
-        - [下载数据集](#下载数据集)
-        - [配置分布式环境变量](#配置分布式环境变量)
-        - [调用集合通信库](#调用集合通信库)
-    - [数据并行模式加载数据集](#数据并行模式加载数据集)
-    - [定义网络](#定义网络)
-    - [定义损失函数及优化器](#定义损失函数及优化器)
-        - [定义损失函数](#定义损失函数)
-        - [定义优化器](#定义优化器)
-    - [训练网络](#训练网络)
-    - [运行脚本](#运行脚本)
-    - [多机多卡训练](#多机多卡训练)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/intermediate/distributed_training/distributed_training_ascend.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 在深度学习中，当数据集和参数量的规模越来越大，训练所需的时间和硬件资源会随之增加，最后会变成制约训练的瓶颈。分布式并行训练，可以降低对内存、计算性能等硬件的需求，是进行训练的重要优化手段。根据并行的原理及模式不同，业界主流的并行类型有以下几种：

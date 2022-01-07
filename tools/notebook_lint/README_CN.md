@@ -1,17 +1,5 @@
 # notebook检测
 
-<!-- TOC -->
-
-- [notebook检测](#notebook检测)
-    - [环境准备](#环境准备)
-    - [执行检测](#执行检测)
-    - [检测结果](#检测结果)
-    - [检测规则](#检测规则)
-        - [markdown的报错码](#markdown的报错码)
-        - [pylint的检测规则](#pylint的检测规则)
-
-<!-- /TOC -->
-
 ## 环境准备
 
 - 安装markdownlint

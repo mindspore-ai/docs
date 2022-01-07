@@ -2,20 +2,6 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_en/using_explainers.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
-<!-- TOC -->
-
-- [Using Explainers](#using-explainers)
-    - [What are Explainers](#what-are-explainers)
-    - [Preparations](#preparations)
-        - [Downloading Data Package](#downloading-data-package)
-        - [Preparing Python Environment](#preparing-python-environment)
-    - [Using GradCAM](#using-gradcam)
-        - [Batch Explanation](#batch-explanation)
-        - [Using Other Explainers](#using-other-explainers)
-    - [Using RISEPlus](#using-riseplus)
-
-<!-- /TOC -->
-
 ## What are Explainers
 
 Explainers are algorithms explaining the decisions made by AI models. MindSpore XAI currently provides 7 explainers for image classification scenario. Saliency maps (or heatmaps) are the outputs, their brightness represents the importance of the corresponding regions on the original image.

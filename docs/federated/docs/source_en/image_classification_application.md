@@ -1,13 +1,5 @@
 ﻿# Implementing an Image Classification Application of Cross-device Federated Learning (x86)
 
-<!-- TOC -->
-
-- [Implementing an Image Classification Application of Cross-device Federated Learning (x86)](#implementing-an-image-classification-application-of-cross-device-federated-learning-x86)
-    - [Preparatory Work](#preparatory-work)
-    - [Simulating Multi-client Participation in Federated Learning](#simulating-multi-client-participation-in-federated-learning)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/image_classification_application.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 Federated learning can be divided into cross-silo federated learning and cross-device federated learning according to different participating customers. In the cross-silo federation learning scenario, the customers participating in federated learning are different organizations (for example, medical or financial) or geographically distributed data centers, that is, training models on multiple data islands. The clients participating in the cross-device federation learning scenario are a large number of mobiles or IoT devices. This framework will introduce how to use the network LeNet to implement an image classification application on the MindSpore cross-silo federation framework, and provides related tutorials for simulating to start multi-client participation in federated learning in the x86 environment.

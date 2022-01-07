@@ -2,17 +2,6 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_en/using_benchmarks.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
-<!-- TOC -->
-
-- [Using Benchmarks](#using-benchmarks)
-    - [What are Benchmarks](#what-are-benchmarks)
-    - [Preparations](#preparations)
-    - [Using Robustness](#using-robustness)
-    - [Using Faithfulness and ClassSensitivity](#using-faithfulness-and-classsensitivity)
-    - [Using Localization](#using-localization)
-
-<!-- /TOC -->
-
 ## What are Benchmarks
 
 Benchmarks are algorithms evaluating the goodness of saliency maps from explainers. MindSpore XAI currently provides 4 benchmarks for image classification scenario: `Robustness`, `Faithfulness`, `ClassSensitivity` and `Localization`.

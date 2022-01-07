@@ -2,20 +2,6 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_zh_cn/using_explainers.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-<!-- TOC -->
-
-- [使用解释器](#使用解释器)
-    - [什么是解释器](#什么是解释器)
-    - [准备](#准备)
-        - [下载教程数据集及模型](#下载教程数据集及模型)
-        - [准备 Python 环境](#准备-python-环境)
-    - [使用 GradCAM](#使用-gradcam)
-        - [批次解释](#批次解释)
-        - [使用其他解释器](#使用其他解释器)
-    - [使用 RISEPlus](#使用-riseplus)
-
-<!-- /TOC -->
-
 ## 什么是解释器
 
 解释器是一些用来解释AI模型决策的算法，目前 MindSpore XAI 为图片分类场景提供7个解释器算法。解释器输出热力图作为解释，它们代表了每个原图象素的重要性，其中高亮区域为对模型决策起重要作用的部分。

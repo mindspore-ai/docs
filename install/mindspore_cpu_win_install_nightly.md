@@ -1,15 +1,5 @@
 # pip方式安装MindSpore CPU Nightly版本（Windows）
 
-<!-- TOC -->
-
-- [pip方式安装MindSpore CPU Nightly版本（Windows）](#pip方式安装mindspore-cpu-nightly版本windows)
-    - [确认系统环境信息](#确认系统环境信息)
-    - [下载安装MindSpore](#下载安装mindspore)
-    - [验证是否成功安装](#验证是否成功安装)
-    - [升级MindSpore版本](#升级mindspore版本)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_win_install_nightly.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 MindSpore Nightly是包含当前最新功能与bugfix的预览版本，但是可能未经完整的测试与验证，希望体验最新功能或者问题修复的用户可以使用该版本。

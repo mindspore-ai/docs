@@ -2,17 +2,6 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_en/installation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
-<!-- TOC -->
-
-- [MindSpore XAI Installation](#mindspore-xai-installation)
-    - [System Requirements](#system-requirements)
-    - [Installing by pip](#installing-by-pip)
-    - [Installing from Source Code](#installing-from-source-code)
-    - [Installation Verification](#installation-verification)
-    - [Note](#note)
-
-<!-- /TOC -->
-
 ## System Requirements
 
 - OS: EulerOS-aarch64, CentOS-aarch64, CentOS-x86, Ubuntu-aarch64 or Ubuntu-x86
