@@ -115,15 +115,15 @@ Store the downloaded data in the scripts directory. The Retriever module loads t
 def load_data(self):
     """load data"""
     print('**********************  loading data  ********************** ')
-    # wiki data
     f_wiki = open(self.wiki_path, 'rb')
-    # hotpotqa dev data
     f_train = open(self.dev_path, 'rb')
-    # doc data
     f_doc = open(self.dev_data_path, 'rb')
     data_db = pkl.load(f_wiki, encoding="gbk")
     dev_data = json.load(f_train)
     q_doc_text = pkl.load(f_doc, encoding='gbk')
+    f_wiki.close()
+    f_train.close()
+    f_doc.close()
     return data_db, dev_data, q_doc_text
 ```
 
@@ -155,7 +155,7 @@ class DataGenerator:
 
 ### Setting Model Parameters
 
-The user can customize parameters such as topk and onehop_num in the model. Topk represents the number of candidate one-hop documents after Retriever sorting. The larger the topk, the more candidate documents. The recall rate will increase and more noise will be introduced, the accuracy rate will decrease; Onehop_num represents the number of one-hop candidate documents as two-hop candidate documents. The larger onehop_num, the more documents to be selected for the second hop. The recall rate will increase and more noise will be introduced, the accuracy rate will decrease.
+The class ThinkRetrieverConfig for customizing parameters of model is in the script `src/config.py`. The user can customize parameters such as topk and onehop_num in the model. Topk represents the number of candidate one-hop documents after Retriever sorting. The larger the topk, the more candidate documents. The recall rate will increase and more noise will be introduced, the accuracy rate will decrease; Onehop_num represents the number of one-hop candidate documents as two-hop candidate documents. The larger onehop_num, the more documents to be selected for the second hop. The recall rate will increase and more noise will be introduced, the accuracy rate will decrease.
 
 ```python
 def ThinkRetrieverConfig():
@@ -186,7 +186,7 @@ def ThinkRetrieverConfig():
 
 ### Defining the Model
 
-Define the Retriever module and load the model parameters.
+Define the Retriever module and load the model parameters, the following example code is in the script `retriever_eval.py`.
 
 ```python
 def evaluation():
@@ -200,7 +200,7 @@ def evaluation():
     twohop = TwoHopBert(config, model_twohop_bert)
 ```
 
-Define the Reranker module and load the model parameters.
+Define the Reranker module and load the model parameters, class Reranker is in the script `src/reranker.py`.
 
 ```python
     reranker = Reranker(batch_size=batch_size,
@@ -208,7 +208,7 @@ Define the Reranker module and load the model parameters.
                         downstream_ck_file=downstream_ck_file)
 ```
 
-Define the Reader module and load the model parameters.
+Define the Reader module and load the model parameters, class Reader is in the script `src/reader.py`.
 
 ```python
     reader = Reader(batch_size=batch_size,
