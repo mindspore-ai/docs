@@ -46,3 +46,9 @@ MindSpore Probability文档
    one_click_conversion_from_dnn_to_bnn
    using_the_uncertainty_toolbox
    probability
+
+.. toctree::
+   :maxdepth: 1
+   :caption: API参考
+
+   mindspore.nn.probability

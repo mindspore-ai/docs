@@ -87,3 +87,16 @@ Common Scenarios
 
    local_differential_privacy_training
    pairwise_encryption_training
+
+.. toctree::
+   :maxdepth: 1
+   :caption: API References
+
+   federated_server
+   federated_client
+
+.. toctree::
+   :maxdepth: 1
+   :caption: References
+
+   faq

@@ -105,6 +105,13 @@ Using MindConverter to Migrate Models
    performance_tuning_guide
 
 .. toctree::
+   :maxdepth: 1
+   :caption: API References
+
+   mindinsight.debugger
+   mindconverter
+
+.. toctree::
    :glob:
    :maxdepth: 1
    :caption: References
@@ -113,3 +120,4 @@ Using MindConverter to Migrate Models
    graph_visual_design
    tensor_visual_design   
    profiler_design
+   faq

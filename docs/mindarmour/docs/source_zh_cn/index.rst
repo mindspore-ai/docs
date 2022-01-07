@@ -68,6 +68,22 @@ AI作为一种通用技术，在带来巨大机遇和效益的同时也面临着
    fault_injection
 
 .. toctree::
+   :maxdepth: 1
+   :caption: API参考
+
+   mindarmour
+   mindarmour.adv_robustness.attacks
+   mindarmour.adv_robustness.defenses
+   mindarmour.adv_robustness.detectors
+   mindarmour.adv_robustness.evaluations
+   mindarmour.fuzz_testing
+   mindarmour.privacy.diff_privacy
+   mindarmour.privacy.evaluation
+   mindarmour.privacy.sup_privacy
+   mindarmour.reliability
+   mindarmour.utils
+
+.. toctree::
    :glob:
    :maxdepth: 1
    :caption: 参考文档
@@ -76,3 +92,4 @@ AI作为一种通用技术，在带来巨大机遇和效益的同时也面临着
    differential_privacy_design
    fuzzer_design
    security_and_privacy
+   faq

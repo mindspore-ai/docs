@@ -49,3 +49,16 @@ MindSpore Serving包含以下功能：
    serving_restful
    serving_model
    serving_multi_subgraphs
+
+.. toctree::
+   :maxdepth: 1
+   :caption: API参考
+
+   server
+   client
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 参考文档
+
+   faq

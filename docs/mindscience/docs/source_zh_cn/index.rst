@@ -37,3 +37,9 @@ MindScience是基于昇思MindSpore融合架构打造的科学计算行业套件
    mindelec/data_driven
    mindelec/visualization
  
+.. toctree::
+   :maxdepth: 1
+   :caption: API参考
+
+   mindsponge
+   mindelec

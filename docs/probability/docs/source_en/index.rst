@@ -47,3 +47,9 @@ Typical MindSpore Probability Application Scenarios
    one_click_conversion_from_dnn_to_bnn
    using_the_uncertainty_toolbox
    probability
+
+.. toctree::
+   :maxdepth: 1
+   :caption: API References
+
+   mindspore.nn.probability

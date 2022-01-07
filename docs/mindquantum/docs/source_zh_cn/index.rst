@@ -56,3 +56,15 @@ MindQuantum是基于昇思MindSpore开源深度学习框架和HiQ量子计算云
    quantum_phase_estimation
    grover_search_algorithm
    shor_algorithm
+
+.. toctree::
+   :maxdepth: 1
+   :caption: API参考
+
+   mindquantum.core
+   mindquantum.simulator
+   mindquantum.framework
+   mindquantum.algorithm
+   mindquantum.io
+   mindquantum.engine
+   mindquantum.utils

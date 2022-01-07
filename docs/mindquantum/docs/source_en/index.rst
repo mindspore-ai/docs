@@ -38,3 +38,15 @@ Typical MindQuantum Application Scenarios
    qnn_for_nlp
    vqe_for_quantum_chemistry
    quantum_approximate_optimization_algorithm
+
+.. toctree::
+   :maxdepth: 1
+   :caption: API References
+
+   mindquantum.core
+   mindquantum.simulator
+   mindquantum.framework
+   mindquantum.algorithm
+   mindquantum.io
+   mindquantum.engine
+   mindquantum.utils

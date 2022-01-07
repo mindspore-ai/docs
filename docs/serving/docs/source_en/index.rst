@@ -48,3 +48,16 @@ Typical MindSpore Serving Application Scenarios
    serving_restful
    serving_model
    serving_multi_subgraphs
+
+.. toctree::
+   :maxdepth: 1
+   :caption: API References
+
+   server
+   client
+
+.. toctree::
+   :maxdepth: 1
+   :caption: References
+
+   faq
