@@ -25,7 +25,7 @@ if __name__ == "__main__":
         os.mkdir('formatrule')
     print("first argument" + sys.argv[1])
     print("last bit of argument" + './'+ sys.argv[1].split("/")[-1])
-    for check_f in os.listdir('./' + sys.argv[1].split("/")[-1]):
+    for check_f in os.listdir(sys.argv[1].split("/")[-1]):
         check_f = sys.argv[1].split("/")[-1] + '/' + check_f
         print("check document" + check_f)
         if os.path.isfile(check_f) & check_f.endswith(".py"):
