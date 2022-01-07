@@ -4,7 +4,7 @@
 
 Translator: [longvoyage](https://gitee.com/yuanyanglv)
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/nlp_tprr.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/nlp_tprr.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -53,9 +53,10 @@ The sample code directory structure is as follows:
 The overall execution process is as follows:
 
 1. Prepare HotpotQA Development dataset, load processing data;
-2. Set TPRR model parameters;
-3. Initialize the TPRR model;
-4. Load the dataset and model CheckPoint and perform inference, check the results and save the output.
+2. Prepare checkpoint for model;
+3. Set TPRR model parameters;
+4. Initialize the TPRR model;
+5. Load the dataset and model CheckPoint and perform inference, check the results and save the output.
 
 ## Preparation
 
@@ -63,17 +64,48 @@ The overall execution process is as follows:
 
 1. Install MindSpore
 
-    Before practicing, make sure that MindSpore has been installed correctly.If not, you can install it through [the MindSpore installation page](https://www.mindspore.cn/install/en).
+   Before practicing, make sure that MindSpore has been installed correctly.If not, you can install it through [the MindSpore installation page](https://www.mindspore.cn/install/en).
 
-2. Install transformers
+2. Install transformers(recommended version is 3.4.0)
 
     ```bash
-    pip install transformers
+    pip install transformers==3.4.0
     ```
 
 ### Preparing Data
 
-The data used in this tutorial is the preprocessed [en-Wikipedia](https://github.com/AkariAsai/learning_to_retrieve_reasoning_paths/tree/master/retriever) and [HotpotQA Development datasets](https://hotpotqa.github.io/). Please download the [preprocessed data](https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/tprr/data.zip) first.
+The data used in this tutorial is the preprocessed [en-Wikipedia](https://github.com/AkariAsai/learning_to_retrieve_reasoning_paths/tree/master/retriever) and [HotpotQA Development datasets](https://hotpotqa.github.io/). Please download the [preprocessed data](https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/tprr/data.zip) first, then decompress it and place it in '/scripts'.
+
+### Preparing checkpoint
+
+Please download [checkpoint](https://download.mindspore.cn/model_zoo/research/nlp/tprr/), then make directory '/ckpt' in 'scripts' and place downloaded checkpoint files in '/ckpt', directory structure is as following:
+
+```text
+.
+└─tprr
+  ├─README.md
+  |
+  ├─scripts
+  | ├─data
+  | ├─ckpt
+  | | ├─onehop_new.ckpt
+  | | ├─onehop_mlp.ckpt
+  | | ├─twohop_new.ckpt
+  | | ├─twohop_mlp.ckpt
+  | | ├─rerank_alberet.ckpt
+  | | ├─rerank_downstream.ckpt
+  | | ├─reader_alberet.ckpt
+  | | ├─reader_downstream.ckpt
+  | | |
+  | | ├─albert-xxlarge
+  | | | ├─config.json
+  | | | └─spiece.model
+  | | └─
+  | ├─run_eval_ascend.sh                      # Launch retriever evaluation in ascend
+  | └─run_eval_ascend_reranker_reader.sh      # Launch re-ranker and reader evaluation in ascend
+  |
+  └─src
+```
 
 ## Loading Data
 
@@ -95,11 +127,12 @@ def load_data(self):
     return data_db, dev_data, q_doc_text
 ```
 
-Retrieved results of the Retriever module are saved in the scripts directory. According to the results, the Reranker module uses a custom DataGenerator class loading the data files preprocessed by wiki and HotpotQA to generator the reordering results and save them in the scripts directory. According to the reordering results, the Reader module also uses a custom DataGenerator class loading data files preprocessed by wiki and HotpotQA to extract answers and evidence. The source code of custom DataGenerator class is in the file `src/rerank_and_reader_data_generator.py`.
+Retrieved results of the Retriever module are saved in the scripts directory. According to the results, the Reranker  module uses a custom DataGenerator class loading the data files preprocessed by wiki and HotpotQA to generator the reordering results and save them in the scripts directory. According to the reordering results, the Reader module also uses a custom DataGenerator class loading data files preprocessed by wiki and HotpotQA to extract answers and evidence. The source code of custom DataGenerator class is in the file `src/rerank_and_reader_data_generator.py`.
 
 ```python
 class DataGenerator:
     """data generator for reranker and reader"""
+
     def __init__(self, feature_file_path, example_file_path, batch_size, seq_len,
                  para_limit=None, sent_limit=None, task_type=None):
         """init function"""
@@ -187,10 +220,15 @@ Define the Reader module and load the model parameters.
 
 ### Running Script
 
-Run the shell script in the scripts directory to start the inference process. Run the script with the following command:
+Run the shell script in the scripts directory to start the inference process. Run the script with the following command for the Retriever module, retriever result file 'doc_path' will be saved in '/scripts':
 
 ```bash
 sh run_eval_ascend.sh
+```
+
+After retrieving is completed, run the script with the following command for the Reranker module and Reader module:
+
+```bash
 sh run_eval_ascend_reranker_reader.sh
 ```
 

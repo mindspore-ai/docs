@@ -1,11 +1,13 @@
 # 多跳知识推理问答模型TPRR
 
 `Ascend` `自然语言处理` `全流程`
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/nlp_tprr.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/nlp_tprr.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
-TPRR(Thinking Path Re-Ranker)是由华为提出的基于开放域多跳问答的通用模型，用以实现多跳知识推理问答。传统问答中，模型只需要找到与原文中问题相关的句子就可以找到答案。多跳知识推理问答中的问题，需要多次“跳转”才能找到答案。具体来说，给定一个问题，模型需要通过知识从多个相关的文档中推理得到正确回答。TPRR模型分为三个模块：Retriever(检索器)、Reranker(重排器)、Reader(阅读器)。其中Retriever根据给定多跳问题，在百万wiki文档中筛选出包含答案的候选文档序列，Reranker从候选文档序列中筛选出最佳文档序列，最后Reader从最佳文档的多个句子中解析出答案，完成多跳知识推理问答。TPRR模型利用条件概率对完整的推理路径进行建模，并且在训练中引入“思考”的负样本选择策略，在国际权威的HotpotQA评测Fullwiki Setting中荣登榜首，并且在联合准确率、线索准确率等四项指标均达到第一。相比于传统的多跳问答模型，TPRR仅利用纯文本信息而不需要额外的实体抽取等技术，使用MindSpore混合精度特性对TPRR模型进行框架加速，结合Ascend，能获得显著的性能提升。
+TPRR(Thinking Path Re-Ranker)
+是由华为提出的基于开放域多跳问答的通用模型，用以实现多跳知识推理问答。传统问答中，模型只需要找到与原文中问题相关的句子就可以找到答案。多跳知识推理问答中的问题，需要多次“跳转”才能找到答案。具体来说，给定一个问题，模型需要通过知识从多个相关的文档中推理得到正确回答。TPRR模型分为三个模块：Retriever(检索器)、Reranker(重排器)、Reader(阅读器)。其中Retriever根据给定多跳问题，在百万wiki文档中筛选出包含答案的候选文档序列，Reranker从候选文档序列中筛选出最佳文档序列，最后Reader从最佳文档的多个句子中解析出答案，完成多跳知识推理问答。TPRR模型利用条件概率对完整的推理路径进行建模，并且在训练中引入“思考”的负样本选择策略，在国际权威的HotpotQA评测Fullwiki Setting中荣登榜首，并且在联合准确率、线索准确率等四项指标均达到第一。相比于传统的多跳问答模型，TPRR仅利用纯文本信息而不需要额外的实体抽取等技术，使用MindSpore混合精度特性对TPRR模型进行框架加速，结合Ascend，能获得显著的性能提升。
 
 本篇教程将主要介绍如何在Ascend上，使用MindSpore构建并运行多跳知识推理问答模型TPRR。
 > 你可以在这里下载完整的示例代码：
@@ -49,9 +51,10 @@ TPRR(Thinking Path Re-Ranker)是由华为提出的基于开放域多跳问答的
 整体执行流程如下：
 
 1. 准备HotpotQA Development数据集，加载处理数据；
-2. 设置TPRR模型参数；
-3. 初始化TPRR模型；
-4. 加载数据集和模型CheckPoint并进行推理，查看结果及保存输出。
+2. 下载训练好的模型文件；
+3. 设置TPRR模型参数；
+4. 初始化TPRR模型；
+5. 加载数据集和模型CheckPoint并进行推理，查看结果及保存输出。
 
 ## 准备环节
 
@@ -59,21 +62,53 @@ TPRR(Thinking Path Re-Ranker)是由华为提出的基于开放域多跳问答的
 
 1. 安装MindSpore
 
-    实践前，确保已经正确安装MindSpore。如果没有，可以通过[MindSpore安装页面](https://www.mindspore.cn/install)安装。
+   实践前，确保已经正确安装MindSpore。如果没有，可以通过[MindSpore安装页面](https://www.mindspore.cn/install)安装。
 
-2. 安装transformers
+2. 安装transformers（建议版本3.4.0）
 
     ```bash
-    pip install transformers
+    pip install transformers==3.4.0
     ```
 
 ### 准备数据
 
-本教程使用的数据是预处理过的[en-Wikipedia](https://github.com/AkariAsai/learning_to_retrieve_reasoning_paths/tree/master/retriever)和[HotpotQA Development数据集](https://hotpotqa.github.io/)。请先下载[预处理数据](https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/tprr/data.zip)。
+本教程使用的数据是预处理过的[en-Wikipedia](https://github.com/AkariAsai/learning_to_retrieve_reasoning_paths/tree/master/retriever)和[HotpotQA
+Development数据集](https://hotpotqa.github.io/)。请先下载[预处理数据](https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/tprr/data.zip)，解压后放到scripts目录下。
+
+### 准备模型文件
+
+下载模型文件(https://download.mindspore.cn/model_zoo/research/nlp/tprr/)，在scripts文件夹下创建ckpt文件夹，并将下载的模型文件放在ckpt文件夹下，文件目录结构如下：
+
+```text
+.
+└─tprr
+  ├─README.md
+  |
+  ├─scripts
+  | ├─data
+  | ├─ckpt
+  | | ├─onehop_new.ckpt
+  | | ├─onehop_mlp.ckpt
+  | | ├─twohop_new.ckpt
+  | | ├─twohop_mlp.ckpt
+  | | ├─rerank_alberet.ckpt
+  | | ├─rerank_downstream.ckpt
+  | | ├─reader_alberet.ckpt
+  | | ├─reader_downstream.ckpt
+  | | |
+  | | ├─albert-xxlarge
+  | | | ├─config.json
+  | | | └─spiece.model
+  | | └─
+  | ├─run_eval_ascend.sh                      # Launch retriever evaluation in ascend
+  | └─run_eval_ascend_reranker_reader.sh      # Launch re-ranker and reader evaluation in ascend
+  |
+  └─src
+```
 
 ## 加载数据
 
-下载后的数据放到scripts目录下。Retriever模块加载wiki和HotpotQA预处理的数据文件，通过给定的多跳问题从文档数据中检索出相关文档，加载数据部分在源码的`src/process_data.py`脚本中。
+Retriever模块加载wiki和HotpotQA预处理的数据文件，通过给定的多跳问题从文档数据中检索出相关文档，加载数据部分在源码的`src/process_data.py`脚本中。
 
 ```python
 def load_data(self):
@@ -96,6 +131,7 @@ Retriever检索得到的结果保存在scripts目录下，Reranker模块根据�
 ```python
 class DataGenerator:
     """data generator for reranker and reader"""
+
     def __init__(self, feature_file_path, example_file_path, batch_size, seq_len,
                  para_limit=None, sent_limit=None, task_type=None):
         """init function"""
@@ -183,10 +219,15 @@ def evaluation():
 
 ### 运行脚本
 
-调用scripts目录下的shell脚本，启动推理进程。使用以下命令运行脚本：
+调用scripts目录下的shell脚本，启动推理进程。 使用以下命令运行Retriever模块推理脚本，得到的检索结果文件doc_path保存在scripts目录下：
 
 ```bash
 sh run_eval_ascend.sh
+```
+
+Retriever模块推理脚本运行完成后，使用以下命令运行Reranker和Reader模块推理脚本：
+
+```bash
 sh run_eval_ascend_reranker_reader.sh
 ```
 
@@ -209,7 +250,8 @@ true top8 PEM: 0.9784870641169854
 evaluation time (h): 1.819070938428243
 ```
 
-Reranker和Reader模块测评结果，其中total_top1_pem表示重排序之后top-1路径的精确匹配的准确率，joint_em表示预测的答案和证据的精确匹配的联合准确率，joint_f1表示预测的答案和证据的联合f1 score。
+Reranker和Reader模块测评结果，其中total_top1_pem表示重排序之后top-1路径的精确匹配的准确率，joint_em表示预测的答案和证据的精确匹配的联合准确率，joint_f1表示预测的答案和证据的联合f1
+score。
 
 ```text
 # top8 paragraph exact match
@@ -244,5 +286,5 @@ joint_recall: 0.7250240424067661
 
 ## 引用
 
-1. Yang Z , Qi P , Zhang S , et al. HotpotQA: A Dataset for Diverse, Explainable Multi-hop Question Answering[C]// Proceedings of the 2018 Conference on Empirical Methods in Natural Language Processing. 2018.
+1. Yang Z , Qi P , Zhang S , et al. HotpotQA: A Dataset for Diverse, Explainable Multi-hop Question Answering[C]//Proceedings of the 2018 Conference on Empirical Methods in Natural Language Processing. 2018.
 2. Asai A , Hashimoto K , Hajishirzi H , et al. Learning to Retrieve Reasoning Paths over Wikipedia Graph for Question Answering[J]. 2019.
