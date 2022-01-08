@@ -37,8 +37,8 @@ MindSpore Lite API
    :caption: JAVA API
 
    api_java/class_list
-   api_java/lite_session
    api_java/model
-   api_java/msconfig
+   api_java/mscontext
    api_java/mstensor
+   api_java/graph
    api_java/lite_java_example

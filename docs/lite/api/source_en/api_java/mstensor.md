@@ -3,15 +3,16 @@
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/api/source_en/api_java/mstensor.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ```java
-import com.mindspore.lite.MSTensor;
+import com.mindspore.MSTensor;
 ```
 
-MSTensor defined tensor in MindSpore Lite.
+MSTensor defined tensor in MindSpore.
 
 ## Public Member Functions
 
 | function                                   |
 | ------------------------------------------ |
+| [MSTensor createTensor(String tensorName, int dataType, int[] tensorShape, ByteBuffer buffer)](#createtensor)  |
 | [int[] getShape()](#getshape)             |
 | [int getDataType()](#getdatatype)        |
 | [byte[] getByteData()](#getbytedata)     |
@@ -26,17 +27,29 @@ MSTensor defined tensor in MindSpore Lite.
 | [String tensorName()](#tensorname)         |
 | [DataType](#datatype)                      |
 
-## getShape
+## createTensor
+
+```java
+public MSTensor createTensor(String tensorName, int dataType, int[] tensorShape, ByteBuffer buffer)
+```
+
+Create MindSpore MSTensor。
+
+- Returns
+
+  MindSpore MSTensor.
+
+## getshape
 
 ```java
 public int[] getShape()
 ```
 
-Get the shape of the MindSpore Lite MSTensor.
+Get the shape of the MindSpore MSTensor.
 
 - Returns
 
-  A array of int as the shape of the MindSpore Lite MSTensor.
+  A array of int as the shape of the MindSpore MSTensor.
 
 ## getDataType
 
@@ -44,11 +57,11 @@ Get the shape of the MindSpore Lite MSTensor.
 public int getDataType()
 ```
 
-DataType is defined in [com.mindspore.lite.DataType](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/common/src/main/java/com/mindspore/lite/DataType.java).
+DataType is defined in [com.mindspore.DataType](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/src/main/java/com/mindspore/config/DataType.java).
 
 - Returns
 
-  The MindSpore Lite data type of the MindSpore Lite MSTensor class.
+  The MindSpore data type of the MindSpore MSTensor class.
 
 ## getByteData
 
@@ -150,7 +163,7 @@ Get the number of elements in MSTensor.
 public void free()
 ```
 
-Free all temporary memory in MindSpore Lite MSTensor.
+Free all temporary memory in MindSpore MSTensor.
 
 ## tensorName
 
@@ -167,7 +180,7 @@ Get tensor name.
 ## DataType
 
 ```java
-import com.mindspore.lite.DataType;
+import com.mindspore.config.DataType;
 ```
 
 Define tensor data type.
