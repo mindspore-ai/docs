@@ -44,8 +44,8 @@ from mindspore import dtype as mstype
 
 context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
 init()
-ds.config.set_seed(1000) # set dataset seed to make sure than all cards read the same data
-def create_dataset(data_path, repeat_num=1, batch_size=32, slice_h_num=1, slice_w_num=1):     # pylint: disable=missing-docstring
+ds.config.set_seed(1000) # set dataset seed to make sure that all cards read the same data
+def create_dataset(data_path, repeat_num=1, batch_size=32, slice_h_num=1, slice_w_num=1):
     resize_height = 224
     resize_width = 224
     rescale = 1.0 / 255.0
@@ -53,7 +53,7 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, slice_h_num=1, slice_
 
     rank_id = get_rank()
 
-    # create a full dataset before slice
+    # create a full dataset before slicing
     data_set = ds.Cifar10Dataset(data_path, shuffle=True)
 
     # define map operations
@@ -70,7 +70,7 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, slice_h_num=1, slice_
 
     # apply map operations on images
     data_set = data_set.map(operations=type_cast_op, input_columns="label")
-    # in random map func, using num_parallel_workers=1 to avoid the dataset random seed not work.
+    # in random map function, using num_parallel_workers=1 to avoid the dataset random seed not working.
     data_set = data_set.map(operations=c_trans, input_columns="image", num_parallel_workers=1)
     # slice image
     slice_patchs_img_op = vision.SlicePatchs(slice_h_num, slice_w_num)
@@ -92,13 +92,13 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, slice_h_num=1, slice_
 
 > 数据集切分仅支持全/半自动模式，在数据并行模式下不涉及。
 
-在`mindspore.context.auto_parallel_context`中提供了`dataset_strategy`选项，对数据集配置切分策略。
+在`mindspore.context.auto_parallel_context`中提供了`dataset_strategy`选项，为数据集配置切分策略。
 
 dataset_strategy接口还有以下几点限制：
 
-1. 每个输入至多允许在一维进行切分。如`context.set_auto_parallel_context(dataset_strategy=((1, 1, 1, 8), (8,))))`或者`dataset_strategy=((1, 1, 1, 8), (1,)))`，但是`dataset_strategy=((1, 1, 4, 2), (1,))`不支持。
+1. 每个输入至多允许在一维进行切分。如支持`context.set_auto_parallel_context(dataset_strategy=((1, 1, 1, 8), (8,))))`或者`dataset_strategy=((1, 1, 1, 8), (1,)))`，每个输入都仅仅切分了一维；但是不支持`dataset_strategy=((1, 1, 4, 2), (1,))`，其第一个输入切分了两维。
 
-2. 维度最高的一个输入，切分的数目，一定要比其他维度的多。如`dataset_strategy=((1, 1, 1, 8), (8,)))`或者`dataset_strategy=((1, 1, 1, 1), (1,)))`，但是`dataset_strategy=((1, 1, 1, 1), (8,))`不支持。
+2. 维度最高的一个输入，切分的数目，一定要比其他维度的多。如支持`dataset_strategy=((1, 1, 1, 8), (8,)))`或者`dataset_strategy=((1, 1, 1, 1), (1,)))`，其维度最多的输入为第一个输入，切分份数为8，其余输入切分均不超过8；但是不支持`dataset_strategy=((1, 1, 1, 1), (8,))`，其维度最多的输入为第一维，切分份数为1，但是其第二个输入切分份数却为8，超过了第一个输入的切分份数。
 
 ```python
 import os
