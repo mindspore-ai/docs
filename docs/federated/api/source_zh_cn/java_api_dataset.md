@@ -14,7 +14,7 @@ DataSet定义了端侧联邦学习数据集对象。
 | -------------------------------- |
 | [abstract void fillInputBuffer(List<ByteBuffer\> var1, int var2)](#fillinputbuffer) |
 | [abstract void shuffle()](#shuffle)    |
-| [abstract void padding()])(#padding) |
+| [abstract void padding()](#padding) |
 | [abstract Status dataPreprocess(List<String\> var1)](#datapreprocess) |
 
 ## fillInputBuffer

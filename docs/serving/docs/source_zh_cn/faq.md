@@ -1,58 +1,60 @@
 ﻿# FAQ
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/serving/docs/source_en/faq.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/serving/faq/source_zh_cn/faq.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-<font size=3>**Q: Does MindSpore Serving support hot update to avoid inference service interruption?**</font>
+<font size=3>**Q：MindSpore Serving是否支持热更新，避免推理服务中断？**</font>
 
-A: MindSpore Serving does not support hot update. You need to restart MindSpore Serving. You are advised to run multiple Serving services. When updating a model, restart some services to avoid service interruption.
-
-<br/>
-
-<font size=3>**Q: Does MindSpore Serving allow multiple workers to be started for one model to support multi-device and single-model concurrency?**</font>
-
-A: After MindSpore Serving version 1.3, it supports the deployment of multiple copies of a model in multiple cards to achieve concurrent execution of multiple cards and single models. For details, please refer to [Add Sample](https://gitee.com/mindspore/serving/blob/master/example/tensor_add/serving_server.py).
+A：MindSpore Serving当前不支持热更新，需要用户重启；当前建议跑多个Serving服务，升级模型版本时，重启部分服务以避免服务中断。
 
 <br/>
 
-<font size=3>**Q: How does the MindSpore Serving version match the MindSpore version?**</font>
+<font size=3>**Q：MindSpore Serving是否支持一个模型启动多个Worker，以支持多卡单模型并发？**</font>
 
-A: MindSpore Serving matches MindSpore in the same version. For example, Serving `1.1.1` matches MindSpore `1.1.1`.
-
-<br/>
-
-<font size=3>**Q: What is the difference between using `bash -p` method and `bash -e` method when compiling?**</font>
-
-A: MindSpore Serving build and running depend on MindSpore. Serving provides two build modes: 1. Use `bash -p {python site-packages}/mindspore/lib` to specify an installed MindSpore path to avoid building MindSpore when building Serving. 2. Build Serving and the corresponding MindSpore. Serving passes the `-e`, `-V`, and `-j` options to MindSpore.
-For example, use `bash -e ascend -V 910 -j32` in the Serving directory as follows:
-
-- Build MindSpore in the `third_party/mindspore` directory using `bash -e ascend -V 910 -j32`.
-- Use the MindSpore build result as the Serving build dependency.
+A：MindSpore Serving1.3版本后支持一个模型在多卡部署多个副本，实现多卡单模型并发执行。详细可以参考[Add样例](https://gitee.com/mindspore/serving/blob/master/example/tensor_add/serving_server.py)。
 
 <br/>
 
-<font size=3>**Q: What can I do if an error `libmindspore.so: cannot open shared object file: No such file or directory` is reported during application running?**</font>
+<font size=3>**Q：MindSpore Serving的版本和MindSpore的版本如何配套？**</font>
 
-A: Check whether MindSpore that MindSpore Serving depends on is installed. In Serving 1.1, `LD_LIBRARY_PATH` needs to be configured to explicitly specify the path of `libmindspore.so`. `libmindspore.so` is in the `lib` directory of the MindSpore Python installation path. In Serving 1.2 or later, the path of `libmindspore.so` does not need to be specified. Serving searches for and adds `LD_LIBRARY_PATH` based on the MindSpore installation path, which does not need to be perceived by users.
+A：MindSpore Serving配套相同版本号的MindSpore的版本，比如Serving `1.1.1`版本配套 MindSpore `1.1.1`版本。
 
-<font size=3>**Q：How to control the output of Serving log?**</font>
+<br/>
 
-A：MindSpore Serving uses glog to output logs, for more details, please refer to [Log-related Environment Variables and Configurations](https://www.mindspore.cn/docs/programming_guide/en/master/custom_debugging_info.html#log-related-environment-variables-and-configurations). On this basis, additional supplementary contents are as follows:
+<font size=3>**Q：编译时使用`bash -p`方式和 `bash -e`方式有什么区别？**</font>
+
+A：MindSpore Serving的编译和运行依赖MindSpore，Serving提供两种编译方式：一种指定已安装的MindSpore路径，即`bash -p {python site-packages}/mindspore/lib`，避免编译Serving时再编译MindSpore；另一种，编译Serving时，编译配套的MindSpore，Serving会将`-e`、`-V`和`-j`选项透传给MindSpore。
+比如，在Serving目录下，`bash -e ascend -V 910 -j32`：
+
+- 首先将会以`bash -e ascend -V 910 -j32`方式编译`third_party/mindspore`目录下的MindSpore；
+- 其次，编译脚本将MindSpore编译结果作为Serving的编译依赖。
+
+<br/>
+
+<font size=3>**Q：运行应用时报错`libmindspore.so: cannot open shared object file: No such file or directory`怎么办？**</font>
+
+A：首先，需要确认是否安装MindSpore Serving所依赖的MindSpore；其次，Serving 1.1需要配置`LD_LIBRARY_PATH`，显式指定`libmindspore.so`所在路径，`libmindspore.so`当前在MindSpore Python安装路径的`lib`目录下；Serving 1.2后不再需要显示指定`libmindspore.so`所在路径，Serving会基于MindSpore安装路径查找并追加配置`LD_LIBRARY_PATH`，用户不再需要感知。
+
+<br/>
+
+<font size=3>**Q：如何控制Serving日志输出？**</font>
+
+A：MindSpore Serving采用glog来输出日志，详细可参考[日志相关的环境变量和配置](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#id11)，在此基础上，额外补充的内容：
 
 - MS_SUBMODULE_LOG_v
 
-This environment variable can also be used to control the log level of MindSpore Serving in addition to specifying the log level of each sub module of MindSpore C++.
+该环境变量除了指定MindSpore C++各子模块日志级别，也可用于控制MindSpore Serving的日志级别。
 
-We can use GLOG_v=2 MS_SUBMODULE_LOG_v="{SERVING:1}" to set the log level of the Serving module to INFO, and the log level of other modules to WARNING.
+可以通过GLOG_v=2 MS_SUBMODULE_LOG_v="{SERVING:1}"把Serving模块的日志级别设为INFO，其他模块的日志级别设为WARNING。
 
 <br/>
 
-<font size=3>**Q: What can I do if an error `libmindspore.so: cannot open shared object file: No such file or directory` is reported during application running?**</font>
+<font size=3>**Q: 运行应用时报错`libmindspore.so: cannot open shared object file: No such file or directory`怎么办？**</font>
 
-A: Check whether MindSpore that MindSpore Serving depends on is installed. In Serving 1.1, `LD_LIBRARY_PATH` needs to be configured to explicitly specify the path of `libmindspore.so`. `libmindspore.so` is in the `lib` directory of the MindSpore Python installation path. In Serving 1.2 or later, the path of `libmindspore.so` does not need to be specified. Serving searches for and adds `LD_LIBRARY_PATH` based on the MindSpore installation path, which does not need to be perceived by users.
+A: 首先，需要确认是否安装MindSpore Serving所依赖的MindSpore；其次，Serving 1.1需要配置`LD_LIBRARY_PATH`，显式指定`libmindspore.so`所在路径，`libmindspore.so`当前在MindSpore Python安装路径的`lib`目录下；Serving 1.2后不再需要显示指定`libmindspore.so`所在路径，Serving会基于MindSpore安装路径查找并追加配置`LD_LIBRARY_PATH`，用户不再需要感知。
 
-<font size=3>**Q: Error 'assertion failed: slice_buffer->length <= UINT32_MAX' is reported when an extra large meesage is send through the MindSpore Serving gPRC Client.**</font>
+<font size=3>**Q: 通过MindSpore Serving gRPC客户端发送超大消息报'assertion failed: slice_buffer->length <= UINT32_MAX'，什么原因?**</font>
 
-Detailed error information:
+具体报错信息：
 
 ```text
 test_serving_client_grpc.py::test_serving_grpc_pressure_big_message E0413 20:03:08.764913058 122601 byte_stream.cc:40] assertion failed: slice_buffer->length <= UINT32_MAX
@@ -63,11 +65,11 @@ File ".../python3.7/site-packages/grpc/_channel.py", line 922 in call
 File ".../python3.7/site-packages/mindspore_serving/client/python/client.py", line 217 in infer
 ```
 
-A: MindSpore Serving provides Python Client to encapsulate gRPC communication. According to the error information above, the message size exceeds 4GB(UINT32_MAX).
+A: MindSpore Serving提供Python Client封装gRPC消息通信，根据报错信息可知，gRPC底层校验发现消息大小大于4G（UINT32_MAX）。
 
-Further, MindSpore Serving sets the size of the message accepted by the server to 100MB by default. Parameter `max_msg_mb_size` can be configured in `def start_grpc_server(address, max_msg_mb_size=100, ssl_config=None)` and `def start_restful_server(address, max_msg_mb_size=100, ssl_config=None)` interfaces to set the maximum message accepted by the server.
+进一步，MindSpore Serving默认设置了服务器接受消息大小为100MB，在接口`def start_grpc_server(address, max_msg_mb_size=100, ssl_config=None)`和`def start_restful_server(address, max_msg_mb_size=100, ssl_config=None)`可配置`max_msg_mb_size`参数设置服务器可接受的最大消息。
 
-Parameter `max_msg_mb_size` accepts an integer ranging from 1 to 512 to control the maximum size of a received message. If the message size exceeds the value, the client reports an error similar to the following, 104857600 indicates the default limit of 100MB on the server:
+max_msg_mb_size接受[1,512]范围的整数数值，即可控制最大接收到的消息大小为1~512MB。如果超过了服务器的限定值，客户端将报类似以下错误，其中104857600即是服务器默认的限定100MB：
 
 ```text
 Received message larger than max (419429033 vs. 104857600)
@@ -75,7 +77,7 @@ RESOURCE_EXHAUSTED
 (8, 'resource exhausted')
 ```
 
-The maximum size of a message sent by the client is limited to 512MB. If the maximum size is exceeded, the client reports an error similar to the following:
+客户端已通过参数限定最大发送消息大小为512MB。如果超过这个数值，客户端将会报类似这个错误：
 
 ```text
 Sent message larger than max (838858033 vs. 536870912)
