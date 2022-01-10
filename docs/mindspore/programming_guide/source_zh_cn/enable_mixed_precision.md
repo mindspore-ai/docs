@@ -184,7 +184,7 @@ model.train(epoch=10, train_dataset=ds_train)
 
 ### 手动混合精度
 
-MindSpore目前还支持手动混合精度（当然，除非想自己定制特殊的网络和特性开发，否则不建议使用手动混合精度哦）。
+MindSpore目前还支持手动混合精度（一般不建议使用手动混合精度，除非自定义特殊网络和特性开发）。
 
 假定在网络中只有一个Dense Layer使用FP16计算，其他Layer都用FP32计算。
 
