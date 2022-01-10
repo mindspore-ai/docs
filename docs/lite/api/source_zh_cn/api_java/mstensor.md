@@ -3,15 +3,16 @@
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/api/source_zh_cn/api_java/mstensor.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ```java
-import com.mindspore.lite.MSTensor;
+import com.mindspore.MSTensor;
 ```
 
-MSTensor定义了MindSpore Lite中的张量。
+MSTensor定义了MindSpore中的张量。
 
 ## 公有成员函数
 
 | function                                   |
 | ------------------------------------------ |
+| [MSTensor createTensor(String tensorName, int dataType, int[] tensorShape, ByteBuffer buffer)](#createtensor)             |
 | [int[] getShape()](#getshape)             |
 | [int getDataType()](#getdatatype)        |
 | [byte[] getByteData()](#getbytedata)     |
@@ -26,17 +27,29 @@ MSTensor定义了MindSpore Lite中的张量。
 | [String tensorName()](#tensorname)         |
 | [DataType](#datatype)                      |
 
+## createTensor
+
+```java
+public MSTensor createTensor(String tensorName, int dataType, int[] tensorShape, ByteBuffer buffer)
+```
+
+生成MindSpore MSTensor。
+
+- 返回值
+
+  MindSpore MSTensor。
+
 ## getShape
 
 ```java
 public int[] getShape()
 ```
 
-获取MindSpore Lite MSTensor的形状。
+获取MindSpore MSTensor的形状。
 
 - 返回值
 
-  一个包含MindSpore Lite MSTensor形状数值的整型数组。
+  一个包含MindSpore MSTensor形状数值的整型数组。
 
 ## getDataType
 
@@ -44,11 +57,11 @@ public int[] getShape()
 public int getDataType()
 ```
 
-DataType在[com.mindspore.lite.DataType](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/common/src/main/java/com/mindspore/lite/DataType.java)中定义。
+DataType在[com.mindspore.DataType](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/src/main/java/com/mindspore/config/DataType.java)中定义。
 
 - 返回值
 
-  MindSpore Lite MSTensor类的MindSpore Lite DataType。
+  MindSpore MSTensor类的MindSpore DataType。
 
 ## getByteData
 
@@ -167,10 +180,10 @@ public String tensorName()
 ## DataType
 
 ```java
-import com.mindspore.lite.DataType;
+import com.mindspore.config.DataType;
 ```
 
-DataType定义了MindSpore Lite中的张量的数据类型。
+DataType定义了MindSpore中的张量的数据类型。
 
 ### 公有成员变量
 

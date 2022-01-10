@@ -4,11 +4,12 @@
 
 | Package                   | Class Name | Description                                              |
 | ------------------------- | -------------- | ------------------------------------------------------------ |
-| com.mindspore.lite.config | [MSConfig](https://www.mindspore.cn/lite/api/en/master/api_java/msconfig.html) | MSConfig defines for holding environment variables during runtime. |
-| com.mindspore.lite.config | [CpuBindMode](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/common/src/main/java/com/mindspore/lite/config/CpuBindMode.java) | CpuBindMode defines the CPU binding mode.                    |
-| com.mindspore.lite.config | [DeviceType](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/common/src/main/java/com/mindspore/lite/config/DeviceType.java) | DeviceType defines the back-end device type.                 |
-| com.mindspore.lite        | [LiteSession](https://www.mindspore.cn/lite/api/en/master/api_java/lite_session.html) | LiteSession defines session in MindSpore Lite for compiling Model and forwarding model. |
-| com.mindspore.lite        | [Model](https://www.mindspore.cn/lite/api/en/master/api_java/model.html) | Model defines the model in MindSpore Lite for managing graph.    |
-| com.mindspore.lite        | [MSTensor](https://www.mindspore.cn/lite/api/en/master/api_java/mstensor.html) | MSTensor defines the tensor in MindSpore Lite.                   |
-| com.mindspore.lite        | [DataType](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/common/src/main/java/com/mindspore/lite/DataType.java) | DataType defines the supported data types.                   |
-| com.mindspore.lite        | [Version](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/common/src/main/java/com/mindspore/lite/Version.java) | Version is used to obtain the version information of MindSpore Lite. |
+| com.mindspore.config | [MSContext](https://www.mindspore.cn/lite/api/en/master/api_java/mscontext.html) | MSContext defines for holding environment variables during runtime. |
+| com.mindspore.config | [CpuBindMode](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/src/main/java/com/mindspore/config/CpuBindMode.java) | CpuBindMode defines the CPU binding mode.                    |
+| com.mindspore.config | [DeviceType](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/src/main/java/com/mindspore/config/DeviceType.java) | DeviceType defines the back-end device type.                 |
+| com.mindspore        | [Model](https://www.mindspore.cn/lite/api/en/master/api_java/model.html) | Model defines model in MindSpore for compiling and running compute graph. |
+| com.mindspore       | [Graph](https://www.mindspore.cn/lite/api/en/master/api_java/graph.html) | Graph defines the compute graph in MindSpore.    |
+| com.mindspore        | [MSTensor](https://www.mindspore.cn/lite/api/en/master/api_java/mstensor.html) | MSTensor defines the tensor in MindSpore.                   |
+| com.mindspore.config        | [DataType](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/src/main/java/com/mindspore/config/DataType.java) | DataType defines the supported data types.                   |
+| com.mindspore.config        | [Version](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/src/main/java/com/mindspore/config/Version.java) | Version is used to obtain the version information of MindSpore. |
+| com.mindspore.config   | [ModelType](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/src/main/java/com/mindspore/config/ModelType.java) | ModelType defines the model file type.
