@@ -263,7 +263,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 1. MindSpore的[Conv2d](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d)算子，默认没有bias（has_bias=False），而PyTorch的Conv2d算子，默认有bias。Conv2d算子的weight默认使用 Normal(0.0, 0.01)，这一初始化方式和PyTorch（Uniform）、TensorFlow（Uniform）均不同。与PyTorch的[差异对比](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_diff/nn_Conv2d.html)。
 2. MindSpore的[DropOut](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Dropout.html#mindspore.nn.Dropout)算子，参数含义为保留的概率（keep_prob），而PyTorch的DropOut算子，参数含义为丢弃的概率。
-3. MindSpore的[BatchNorm](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.BatchNorm2d.html#mindspore.nn.BatchNorm2d)中的动量默认值和PyTorch不同。PyTorch默认是0.1，MindSpore中默认值是0.9。与PyTorch的[差异对比](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_diff/BatchNorm2d.html)。
+3. MindSpore的[BatchNorm2d](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.BatchNorm2d.html#mindspore.nn.BatchNorm2d)中的动量默认值和PyTorch不同。PyTorch默认是0.1，MindSpore中默认值是0.9。与PyTorch的[差异对比](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_diff/BatchNorm2d.html)。
 
 较完整的API差异列表请参考 <https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html>。
 
