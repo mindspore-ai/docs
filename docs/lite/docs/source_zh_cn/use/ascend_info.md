@@ -91,7 +91,7 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
 6. 执行converter，生成Ascend`ms`模型
 
     ```bash
-    ./converter_lite --fmk=ONNX --modelFile=${model_name}.onnx --device=Ascend310 --outputFile=${model_name}
+    ./converter_lite --fmk=ONNX --modelFile=${model_name}.onnx --outputFile=${model_name}
     ```
 
     ${model_name}为模型文件名称，运行后的结果显示为：
@@ -105,7 +105,7 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
     说明：当原始模型输入shape不确定时，converter工具转换模型时要指定inputShape，同时configFile配置acl_option_cfg_param中input_shape_vector参数，取值相同，命令如下：
 
     ```bash
-    ./converter_lite --fmk=ONNX --modelFile=${model_name}.onnx --device=Ascend310 --outputFile=${model_name} --inputShape="input:1,64,64,1" --configFile="./config.txt"
+    ./converter_lite --fmk=ONNX --modelFile=${model_name}.onnx --outputFile=${model_name} --inputShape="input:1,64,64,1" --configFile="./config.txt"
     ```
 
     其中，config.txt内容如下:
@@ -119,7 +119,6 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
 
 | 参数                        | 属性  | 功能描述                                                       | 参数类型 | 取值说明 |
 | -------------------------- | ---- | ------------------------------------------------------------ | -------- | ------ |
-| `device_id`                | 可选 | 用于指定设备ID。 | Uint32  | 设备ID,默认值为0      |
 | `output_type`              | 可选 | 指定模型输出type。 | DataType | 仅支持uint8、fp16和fp32 |
 | `input_format`             | 可选 | 指定模型输入format。 | String | 可选有`"NCHW"`，`"NHWC"` |
 | `input_shape_vector`       | 可选 | 指定模型输入Shape， 按模型输入次序排列，用`；`隔开。 | String | 例如: `"[1,2,3,4];[4,3,2,1]"` |
@@ -184,7 +183,7 @@ MindSpore Lite提供benchmark基准测试工具，它可以对MindSpore Lite模�
 - converter
 
     ```bash
-    ./converter_lite --fmk=ONNX --modelFile=${model_name}.onnx --inputShape="input:4,32,32,4" --configFile=./config.txt --device=Ascend310 --outputFile=${model_name}
+    ./converter_lite --fmk=ONNX --modelFile=${model_name}.onnx --inputShape="input:4,32,32,4" --configFile=./config.txt --outputFile=${model_name}
     ```
 
     说明：使能动态BatchSize时，需要指定inputShape，值为最大档位对应的shape，即上节中档位1的值；同时通过configFile配置[acl_option_cfg_para]动态batch size，即上节示例中配置内容。
@@ -215,7 +214,7 @@ MindSpore Lite提供benchmark基准测试工具，它可以对MindSpore Lite模�
 
     ```cpp
     [acl_option_cfg_para]
-    input_format="NHWC"
+    input_format="NCHW"
     input_shape_vector="[2,3,-1,-1]"
     dynamic_image_size="64,64;96,96"
     其中，input_shape中的"-1"表示设置动态分辨率，即支持档位0: [2,3,64,64]，档位1: [2,3,96,96].
@@ -224,7 +223,7 @@ MindSpore Lite提供benchmark基准测试工具，它可以对MindSpore Lite模�
 - converter
 
     ```bash
-    ./converter_lite --fmk=ONNX --modelFile=${model_name}.onnx --inputShape="input:2,3,96,96" --configFile=./config.txt --device=Ascend310 --outputFile=${model_name}
+    ./converter_lite --fmk=ONNX --modelFile=${model_name}.onnx --inputShape="input:2,3,96,96" --configFile=./config.txt --outputFile=${model_name}
     ```
 
     说明： 使能动态BatchSize时， 需要指定inputShape，值为最大档位对应的shape，即上节中档位1的值；同时通过configFile配置[acl_option_cfg_para]动态分辨率，即上节示例中配置内容。
