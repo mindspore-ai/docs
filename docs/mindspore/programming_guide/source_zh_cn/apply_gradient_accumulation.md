@@ -1,6 +1,6 @@
 # 应用梯度累积算法
 
-`GPU` `模型调优`
+`GPU` `内存优化` `静态图`
 
 <a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9hcHBseV9ncmFkaWVudF9hY2N1bXVsYXRpb24uaXB5bmI=&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_modelarts.png"></a>
 &nbsp;&nbsp;
@@ -11,25 +11,65 @@
 
 ## 概述
 
-本教程介绍梯度累积的训练方式，目的是为了解决由于内存不足导致某些大型网络无法训练大Batch_size的问题。
+本教程介绍梯度累积的训练算法，目的是为了解决由于内存不足，导致神经网络无法训练Batch size过大或者网络模型过大无法加载的OOM（Out Of Memory）问题。
 
-传统的训练方式是每次计算得到loss和梯度后，直接用所得梯度对参数进行更新。
+## 梯度累积原理
 
-与传统的训练方式不同，梯度累积引入Mini-batch的概念，首先对每个Mini-batch的数据计算loss和梯度，但不立即更新模型参数，而是先对所得梯度进行累加，然后在指定数量（N）个Mini-batch之后，用累积后的梯度更新网络参数。下次训练前清空过往累积梯度后重新累加，如此往复。最终目的是为了达到跟直接用N*Mini-batch数据训练几乎同样的效果。
+梯度累积是一种训练神经网络的数据样本按Batch拆分为几个小Batch的方式，然后按顺序计算。
 
-本篇教程将分别介绍在单机模式、Boost模式、并行模式下如何实现梯度累积训练。
+在进一步讨论梯度累积之前，我们来看看神经网络的计算过程。
 
-## 单机模式
+深度学习模型由许多相互连接的神经网络单元所组成，在所有神经网络层中，样本数据会不断向前传播。在通过所有层后，网络模型会输出样本的预测值，通过损失函数然后计算每个样本的损失值（误差）。神经网络通过反向传播，去计算损失值相对于模型参数的梯度。最后这些梯度信息用于对网络模型中的参数进行更新。
 
-在单机模式下，主要通过将训练流程拆分为正向反向训练、参数更新和累积梯度清理三个部分实现梯度累积。这里以MNIST作为示范数据集，自定义简单模型实现梯度累积需要如下几个步骤。
+优化器用于对网络模型模型权重参数更新的数学公式。以一个简单随机梯度下降(SGD)算法为例。
 
-> 你可以在这里下载主要的训练样例代码：<https://gitee.com/mindspore/docs/blob/master/docs/sample_code/gradient_accumulation/train.py>
->
-> `auto_parallel`以及`semi_auto_parallel`模式下尚不支持梯度累积的训练方式。
+假设Loss Function函数公式为：
 
-### 导入需要的库文件
+$$Loss(\theta)=\frac{1}{2}\left(h(x^{k})-y^{k}\right)^{2}$$
 
-下列是我们所需要的公共模块及MindSpore的模块及库文件。
+在构建模型时，优化器用于计算最小化损失的算法。这里SGD算法利用Loss函数来更新权重参数公式为：
+
+$$\theta{i}=\theta_{i-1}-lr * grad_{i}$$
+
+其中$\theta$是网络模型中的可训练参数（权重或偏差），lr是学习率，$grad_{i}$是相对于网络模型参数的损失。
+
+梯度累积只计算神经网络模型，并不及时更新网络模型的参数，同时在计算的时候累积得到的梯度信息，最后统一使用累积的梯度来对参数进行更新。
+
+$$accumulated=\sum_{i=0}^{N} grad_{i}$$
+
+在不更新模型变量的时候，实际上是把原来的数据Batch分成几个小的Mini-Batch，每个step中使用的样本实际上是更小的数据集。
+
+在N个step内不更新变量，使所有Mini-Batch使用相同的模型变量来计算梯度，以确保计算出来得到相同的梯度和权重信息，算法上等价于使用原来没有切分的Batch size大小一样。即：
+
+$$\theta{i}=\theta_{i-1}-lr * \sum_{i=0}^{N} grad_{i}$$
+
+最终在上面步骤中累积梯度会产生与使用全局Batch size大小相同的梯度总和。
+
+![](images/GradientAccumulation1.png)
+
+当然在实际工程当中，关于调参和算法上有两点需要注意的：
+
+1. **学习率 learning rate**：一定条件下，Batch size越大训练效果越好，梯度累积则模拟了Batch size增大的效果，如果accumulation steps为4，则Batch size增大了4倍，根据经验，使用梯度累积的时候需要把学习率适当放大。
+
+2. **归一化 Batch Norm**：accumulation steps为4时进行Batch size模拟放大的效果，与真实Batch size相比，数据的分布其实并不完全相同，4倍Batch size的BN计算出来的均值和方差与实际数据均值和方差不太相同，因此有些实现中会使用Group Norm来代替Batch Norm。
+
+## 梯度累积实现
+
+下面教程内容将分别介绍在单机模式、Boost模式下实现梯度累积训练。
+
+> 注意：`auto_parallel`以及`semi_auto_parallel`并行模式下不支持梯度累积的训练方式。
+
+### 单机模式
+
+单机模式下，主要通过将训练流程拆分为1)正向反向训练、2)参数更新和3)累积梯度清理，三个部分实现梯度累积。
+
+下面以MNIST作为示范数据集，自定义简单模型实现梯度累积需要如下个步骤。
+
+> 您可以在这里下载主要的训练样例代码：[train.py](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/gradient_accumulation/train.py)
+
+#### 导入需要的库文件
+
+下列是所需要的公共模块及MindSpore的模块及库文件。
 
 ```python
 import argparse
@@ -45,26 +85,25 @@ from model_zoo.official.cv.lenet.src.dataset import create_dataset
 from model_zoo.official.cv.lenet.src.lenet import LeNet5
 ```
 
-### 加载数据集
+#### 加载数据集
 
 利用MindSpore的`dataset`提供的`MnistDataset`接口加载MNIST数据集，此部分代码由ModelZoo中`lenet`目录下的[dataset.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/dataset.py)导入。
 
-### 定义网络
+#### 定义网络
 
 这里以LeNet网络为例进行介绍，当然也可以使用其它的网络，如ResNet-50、BERT等, 此部分代码由ModelZoo中`lenet`目录下的[lenet.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/lenet.py)导入。
 
-### 定义训练流程
+#### 定义训练流程
 
 将训练流程拆分为正向反向训练、参数更新和累积梯度清理三个部分：
 
-- `TrainForwardBackward`计算loss和梯度，利用grad_sum实现梯度累加。
-- `TrainOptim`实现参数更新。
-- `TrainClear`实现对梯度累加变量grad_sum清零。
+- `TrainForwardBackward` 计算loss和梯度，利用grad_sum实现梯度累加。
+- `TrainOptim` 实现参数更新。
+- `TrainClear` 实现对梯度累加变量grad_sum清零。
 
 ```python
 _sum_op = ops.MultitypeFuncGraph("grad_sum_op")
 _clear_op = ops.MultitypeFuncGraph("clear_op")
-
 
 @_sum_op.register("Tensor", "Tensor")
 def _cumulative_grad(grad_sum, grad):
@@ -72,14 +111,12 @@ def _cumulative_grad(grad_sum, grad):
     add = ops.AssignAdd()
     return add(grad_sum, grad)
 
-
 @_clear_op.register("Tensor", "Tensor")
 def _clear_grad_sum(grad_sum, zero):
     """Apply zero to clear grad_sum."""
     success = True
     success = ops.depend(success, ops.assign(grad_sum, zero))
     return success
-
 
 class TrainForwardBackward(Cell):
     def __init__(self, network, optimizer, grad_sum, sens=1.0):
@@ -101,7 +138,6 @@ class TrainForwardBackward(Cell):
         grads = self.grad(self.network, weights)(*inputs, sens)
         return ops.depend(loss, self.hyper_map(ops.partial(_sum_op), self.grad_sum, grads))
 
-
 class TrainOptim(Cell):
     def __init__(self, optimizer, grad_sum):
         super(TrainOptim, self).__init__(auto_prefix=False)
@@ -110,7 +146,6 @@ class TrainOptim(Cell):
 
     def construct(self):
         return self.optimizer(self.grad_sum)
-
 
 class TrainClear(Cell):
     def __init__(self, grad_sum, zeros):
@@ -124,10 +159,9 @@ class TrainClear(Cell):
         return success
 ```
 
-### 定义训练模型
+#### 定义训练模型
 
-每个Mini-batch通过正反向训练计算loss和梯度，通过mini_steps控制每次更新参数前的累加次数。达到累加次数后进行参数更新和
-累加梯度变量清零。
+每个Mini-Batch通过正反向训练计算损失loss和梯度grad，通过mini_steps控制每次更新参数前的累加次数。达到累加次数后进行参数更新和累加梯度变量清零。
 
 ```python
 class GradientAccumulation:
@@ -193,7 +227,7 @@ class GradientAccumulation:
         save_checkpoint(self._train_forward_backward, "gradient_accumulation.ckpt", )
 ```
 
-### 训练并保存模型
+#### 训练并保存模型
 
 调用网络、优化器及损失函数，然后自定义`GradientAccumulation`的`train_process`接口，进行模型训练。
 
@@ -218,7 +252,7 @@ if __name__ == "__main__":
     model.train_process(10, ds_train, mini_steps=4)
 ```
 
-### 实验结果
+#### 实验结果
 
 在经历了10轮epoch之后，在测试集上的精度约为96.31%。
 
@@ -262,15 +296,15 @@ python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt
 ============== {'Accuracy': 0.9631730769230769} ==============
 ```
 
-## Boost模式
+### Boost模式
 
-在Boost模式下，我们只要简单调用Boost的梯度累积接口，即可实现梯度累积的功能。这里同样以MNIST作为示范数据集，展示如何调用Boost接口来实现梯度累积功能。
+在Boost模式下，只要简单调用Boost的梯度累积接口，即可实现梯度累积的功能。这里同样以MNIST作为示范数据集，展示如何调用Boost接口来实现梯度累积功能。
 
-> 你可以在这里下载主要的训练样例代码：<https://gitee.com/mindspore/docs/blob/master/docs/sample_code/gradient_accumulation/train_and_eval_boost.py>
+> 你可以在这里下载主要的训练样例代码：[train_and_eval_boost.py](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/gradient_accumulation/train_and_eval_boost.py)
 
-### 导入需要的库文件
+#### 导入需要的库文件
 
-下列是我们所需要的公共模块及MindSpore的模块及库文件。
+下列是所需要的公共模块及MindSpore的模块及库文件。
 
 ```python
 import argparse
@@ -288,17 +322,19 @@ from model_zoo.official.cv.lenet.src.dataset import create_dataset
 from model_zoo.official.cv.lenet.src.lenet import LeNet5
 ```
 
-### 加载数据集
+#### 加载数据集
 
 利用MindSpore的`dataset`提供的`MnistDataset`接口加载MNIST数据集，此部分代码由ModelZoo中`lenet`目录下的[dataset.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/dataset.py)导入。
 
-### 定义网络
+#### 定义网络
 
 这里以LeNet网络为例进行介绍，当然也可以使用其它的网络，如ResNet-50、BERT等, 此部分代码由ModelZoo中`lenet`目录下的[lenet.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/lenet.py)导入。
 
-### 定义训练模型
+#### 定义训练模型
 
-我们可以调用MindSpore Boost下的`GradientAccumulation`来使能梯度累积，通过max_accumulation_step控制每次更新参数前的累加次数。达到累加次数后进行参数更新和累加梯度变量清零，我们只需要基于`TrainOneStepCell`定义`TrainGradAccumulationStepsCell`来调用该接口即可。
+我们可以调用MindSpore Boost下的`GradientAccumulation`来使能梯度累积，通过max_accumulation_step控制每次更新参数前的累加次数。
+
+达到累加次数后进行参数更新和累加梯度变量清零，只需要基于`TrainOneStepCell`定义`TrainGradAccumulationStepsCell`来调用该接口即可。
 
 ```python
 class TrainGradAccumulationStepsCell(TrainOneStepCell):
@@ -317,9 +353,9 @@ class TrainGradAccumulationStepsCell(TrainOneStepCell):
         return loss
 ```
 
-### 训练模型并进行推理
+#### 训练模型并进行推理
 
-我们定义好网络后即可进行训练，训练结束后加载训练过程中保存的ckpt文件进行推理，可以得到模型的精度。
+定义好网络后即可进行训练，训练结束后加载训练过程中保存的ckpt文件进行推理，可以得到模型的精度。
 
 ```python
 if __name__ == "__main__":
@@ -345,7 +381,7 @@ if __name__ == "__main__":
     print("============== Starting Training ==============")
     model.train(10, ds_train, callbacks=[time_cb, LossMonitor()])
 
-     print("============== Starting Testing ==============")
+    print("============== Starting Testing ==============")
     model = Model(net, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
     ds_eval = create_dataset(os.path.join(args.data_path, "test"), 32, 1)
     if ds_eval.get_dataset_size() == 0:
@@ -356,7 +392,7 @@ if __name__ == "__main__":
 
 ```
 
-### 实验结果
+#### 实验结果
 
 在经历了10轮epoch之后，在测试集上的精度约为98.30%。
 
@@ -382,3 +418,10 @@ if __name__ == "__main__":
     ============== Starting Testing ==============
     ============== {'Accuracy': 0.983072916666} ==============
     ```
+
+## 参考文献
+
+- [1] Hermans, Joeri R., Gerasimos Spanakis, and Rico Möckel. "Accumulated gradient normalization." Asian Conference on Machine Learning. PMLR, 2017.
+- [2] Lin, Yujun, et al. "Deep gradient compression: Reducing the communication bandwidth for distributed training." arXiv preprint arXiv:1712.01887 (2017).
+- [3] [how-to-break-gpu-memory-boundaries-even-with-large-batch-sizes](https://towardsdatascience.com/how-to-break-gpu-memory-boundaries-even-with-large-batch-sizes-7a9c27a400ce)
+- [4] [what-is-gradient-accumulation-in-deep-learning](https://towardsdatascience.com/what-is-gradient-accumulation-in-deep-learning-ec034122cfa)
