@@ -16,13 +16,11 @@
 import os
 import argparse
 import ast
-from mindspore import context
-from mindspore.common import set_seed
+from mindspore import context, set_seed, Model
 from mindspore.nn import Momentum
-from mindspore.train.model import Model
 from mindspore.context import ParallelMode
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
-from mindspore.communication.management import init
+from mindspore.communication import init
 from mindspore.common import initializer
 import mindspore.nn as nn
 
