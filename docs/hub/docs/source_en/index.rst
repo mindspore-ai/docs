@@ -61,3 +61,9 @@ Typical MindSpore Hub Application Scenarios
    :caption: API References
 
    hub
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Models
+
+   MindSpore Hub↗ <https://www.mindspore.cn/resources/hub/>

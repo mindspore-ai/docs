@@ -61,3 +61,9 @@ MindSpore Hub包含以下功能：
    :caption: API参考
 
    hub
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 模型
+
+   MindSpore Hub↗ <https://www.mindspore.cn/resources/hub/>

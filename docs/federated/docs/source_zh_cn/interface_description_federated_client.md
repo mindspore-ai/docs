@@ -340,7 +340,7 @@ flParameter.setCertPath(certPath);
    String domainName = "http://10.113.216.106:6668";
    boolean ifUseElb = true;
    int serverNum = 4;
-ServerMod serverMod = ServerMod.FEDERATED_LEARNING;
+   ServerMod serverMod = ServerMod.FEDERATED_LEARNING;
 
    FLParameter flParameter = FLParameter.getInstance();
    flParameter.setFlName(flName);
@@ -349,7 +349,7 @@ ServerMod serverMod = ServerMod.FEDERATED_LEARNING;
    flParameter.setSslProtocol(sslProtocol);
    flParameter.setDeployEnv(deployEnv);
    flParameter.setDomainName(domainName);
-flParameter.setUseElb(useElb);
+   flParameter.setUseElb(useElb);
    flParameter.setServerNum(serverNum);
    flParameter.setServerMod(ServerMod.valueOf(serverMod));
 
