@@ -216,7 +216,7 @@ Analyzing the ResNet50 network code, it can be divided into the following main s
 
 Based on the above subnetwork division, we redevelop the above development in conjunction with MindSpore syntax.
 
-Weight initialization directly using [MindSpore's defined weight initialization methods](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.common.initializer.html)).
+Weight initialization directly using [MindSpore's defined weight initialization methods](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.common.initializer.html).
 
 Redeveloping conv3x3 and conv1x1
 
@@ -810,6 +810,10 @@ if __name__ == '__main__':
 ### Problem Location
 
 You may encounter some interruptions in the training during the process, you can refer to the [Network Training Debug Tutorial](https://www.mindspore.cn/docs/migration_guide/en/master/neural_network_debug.html) to locate and solve them.
+
+### Full Example
+
+For full example, you can refer to the link: <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/migration_sample>
 
 ## Precision tuning
 
