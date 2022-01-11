@@ -123,49 +123,29 @@ Android调用MindSpore Android AAR时，需要相关库文件支持。可通过M
 
 1. 加载MindSpore Lite模型文件，构建上下文、会话以及用于推理的计算图。  
 
-    - 加载模型文件：创建并配置用于模型推理的上下文。
-
-      ```java
-      // Load the .ms model.
-      Model model = new Model();
-      if (!model.loadModel(Context, "segment_model.ms")) {
-        Log.e(TAG, "Load Model failed");
-         return;
-      }
-      ```
-
     - 创建会话。
 
       ```java
       // Create and init config.
-      MSConfig msConfig = new MSConfig();
-      if (!msConfig.init(DeviceType.DT_CPU, threadNum, CpuBindMode.MID_CPU)) {
-        Log.e(TAG, "Init context failed");
-        return;
+      MSContext context = new MSContext();
+      context.init(2, CpuBindMode.HIGHER_CPU, false);
+      boolean ret = context.addDeviceInfo(com.mindspore.config.DeviceType.DT_CPU, false, 0);
+      if (!ret) {
+          Log.e(TAG, "Create CPU Config failed.");
+          return null;
       }
-
-      // Create the MindSpore lite session.
-      LiteSession session = new LiteSession();
-      if (!session.init(msConfig)) {
-        Log.e(TAG, "Create session failed");
-        msConfig.free();
-        return;
-      }
-      msConfig.free();
       ```
 
     - 加载模型文件并构建用于推理的计算图。
 
       ```java
-      // Compile graph.
-      if (!session.compileGraph(model)) {
-        Log.e(TAG, "Compile graph failed");
-        model.freeBuffer();
-        return;
+      // build model.
+      boolean ret = model.build(filePath, ModelType.MT_MINDIR, msContext);
+      if (!ret) {
+          model.free();
+          Log.e(TAG, "Compile graph failed");
+          return null;
       }
-
-      // Note: when use model.freeBuffer(), the model can not be compile graph again.
-      model.freeBuffer();
       ```
 
 2. 将输入图片转换为传入MindSpore模型的Tensor格式。
@@ -173,7 +153,7 @@ Android调用MindSpore Android AAR时，需要相关库文件支持。可通过M
       将待检测图片数据转换为输入MindSpore模型的Tensor。
 
       ```java
-      List<MSTensor> inputs = session.getInputs();
+      List<MSTensor> inputs = model.getInputs();
       if (inputs.size() != 1) {
         Log.e(TAG, "inputs.size() != 1");
         return null;
@@ -192,9 +172,10 @@ Android调用MindSpore Android AAR时，需要相关库文件支持。可通过M
 
     ```java
     // Run graph to infer results.
-    if (!session.runGraph()) {
-        Log.e(TAG, "Run graph failed");
-        return null;
+    boolean ret = model.predict();
+    if (!ret) {
+        Log.e(TAG, "MindSpore Lite run failed.");
+        return false;
     }
      ```
 
@@ -204,10 +185,8 @@ Android调用MindSpore Android AAR时，需要相关库文件支持。可通过M
 
       ```java
       // Get output tensor values.
-      List<String> tensorNames = session.getOutputTensorNames();
-      Map<String, MSTensor> outputs = session.getOutputMapByTensor();
-      for (String tensorName : tensorNames) {
-        MSTensor output = outputs.get(tensorName);
+      List<MSTensor> outTensors = model.getOutputs();
+      for (MSTensor output : outTensors) {
         if (output == null) {
             Log.e(TAG, "Can not find output " + tensorName);
             return null;
