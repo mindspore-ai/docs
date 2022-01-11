@@ -475,3 +475,44 @@ After completing the above steps, you can run the tutorial.
 For the specific operation process, please refer to [Based on ModelArts Online Experience MindSpore](https://bbs.huaweicloud.com/forum/thread-168982-1-1.html).
 
 <br/>
+
+<font size=3>**Q: No error is reported when using result of division in GRAPH mode, but an error is reported when using result of division in PYNATIVE mode？**</font>
+
+A: In GRAPH mode, the data type of the output result of the operator is determined at the graph compilation stage.
+
+For example, the following code is executed in GRAPH mode, the type of input data is int type, so the output result is also int type according to graph compiler.
+
+```python
+from mindspore import context
+from mindspore import nn
+
+context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
+
+class MyTest(nn.Cell):
+    def __init__(self):
+        super(MyTest, self).__init__()
+
+    def construct(self, x, y):
+        return x / y
+x = 16
+y = 4
+net = MyTest()
+output = net(x, y)
+print(output, type(output))
+```
+
+output：
+
+```text
+4 <class 'int'>
+```
+
+Change GRAPH_MODE to PYNATIVE_MODE. Since the Python syntax is used in PyNative mode, the type of any division output is float type, so the execution result is as follows.
+
+```text
+4.0 <class 'float'>
+```
+
+Therefore, in the scenario where the subsequent operator clearly needs to use int, it is recommended to use Python's divisibility symbol `//`.
+
+<br/>
