@@ -482,9 +482,9 @@ Output：
 
 For more descriptions of HookBackward operator, please refer to [API document](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.HookBackward.html).
 
-### The register_backward interface for nn.Cell object
+### The register_backward_hook interface for nn.Cell object
 
-Users can use the register_backward interface for nn.Cell object. The register_backward interface registers a user-defined hook function, which is used to capture the gradients about the nn.Cell object. Different from the HookBackward operator, the input parameters of the hook function registered in register_backward interface contains the incoming gradient and the output gradient of nn.Cell object.
+Users can use the register_backward_hook interface for nn.Cell object. The register_backward_hook interface registers a user-defined hook function, which is used to capture the gradients about the nn.Cell object. Different from the HookBackward operator, the input parameters of the hook function registered in register_backward_hook interface contains the incoming gradient and the output gradient of nn.Cell object.
 
 Example Code:
 
@@ -494,7 +494,7 @@ def cell_hook_function(cell_id, grad_input, grad_output):
     print(grad_output)
 ```
 
-The `grad_input` is the input gradient of the nn.Cell object, which corresponds to the output gradient of the next operator in the forward process. The `grad_output` is the output gradient of the nn.Cell object. Therefore, users can use register_backward interface to capture the input gradient and output gradient of the nn.Cell object. Users can customize the gradient operation in the hook function, such as printing gradient or returning a new output gradient.
+The `grad_input` is the input gradient of the nn.Cell object, which corresponds to the output gradient of the next operator in the forward process. The `grad_output` is the output gradient of the nn.Cell object. Therefore, users can use register_backward_hook interface to capture the input gradient and output gradient of the nn.Cell object. Users can customize the gradient operation in the hook function, such as printing gradient or returning a new output gradient.
 
 Example Code:
 
@@ -545,7 +545,7 @@ Output：
    [ 1.99998999e+00, 1.99998999e+00]]]]),)
 ```
 
-More about the register_backward interface, please refer to [API Document](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_backward_hook).
+More about the register_backward_hook interface, please refer to [API Document](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_backward_hook).
 
 ## Custom bprop
 

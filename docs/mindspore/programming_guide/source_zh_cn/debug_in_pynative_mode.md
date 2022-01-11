@@ -452,9 +452,9 @@ print(output)
 
 更多HookBackward算子的说明可以参考[API文档](https://mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.HookBackward.html)。
 
-### nn.Cell对象的register_backward功能
+### nn.Cell对象的register_backward_hook功能
 
-用户可以在nn.Cell对象上使用register_backward接口，注册一个自定义的Hook函数，用来捕获网络反向传播时，与该nn.Cell对象相关联的梯度。与HookBackward算子所使用的自定义Hook函数有所不同，register_backward接口使用的Hook函数的入参中包含了注册nn.Cell对象的id信息，反向传入的梯度以及反向输出的梯度。
+用户可以在nn.Cell对象上使用register_backward_hook接口，注册一个自定义的Hook函数，用来捕获网络反向传播时，与该nn.Cell对象相关联的梯度。与HookBackward算子所使用的自定义Hook函数有所不同，register_backward_hook接口使用的Hook函数的入参中包含了注册nn.Cell对象的id信息，反向传入的梯度以及反向输出的梯度。
 
 示例代码:
 
@@ -464,7 +464,7 @@ def cell_hook_function(cell_id, grad_input, grad_output):
     print(grad_output)
 ```
 
-这里的`grad_input`是梯度反向传播时，传入到nn.Cell对象的梯度，它对应正向过程中下一个算子的反向输出梯度；`grad_output`是nn.Cell对象反向输出的梯度。因此，用户可以使用register_backward接口捕获网络中某一个nn.Cell对象的反向传入和反向输出梯度。用户可以在自定义的Hook函数中，自定义对梯度的操作，比如打印梯度，或者返回新的输出梯度。
+这里的`grad_input`是梯度反向传播时，传入到nn.Cell对象的梯度，它对应正向过程中下一个算子的反向输出梯度；`grad_output`是nn.Cell对象反向输出的梯度。因此，用户可以使用register_backward_hook接口捕获网络中某一个nn.Cell对象的反向传入和反向输出梯度。用户可以在自定义的Hook函数中，自定义对梯度的操作，比如打印梯度，或者返回新的输出梯度。
 
 示例代码:
 
@@ -515,7 +515,7 @@ print(output)
    [ 1.99998999e+00, 1.99998999e+00]]]]),)
 ```
 
-更多关于nn.Cell对象的register_backward功能的说明可以参考[API文档](https://mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_backward_hook)。
+更多关于nn.Cell对象的register_backward_hook功能的说明可以参考[API文档](https://mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_backward_hook)。
 
 ## 自定义bprop功能
 
