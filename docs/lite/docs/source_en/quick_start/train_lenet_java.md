@@ -73,22 +73,20 @@ MNIST_Data/
     The command output is as follows:
 
     ```text
-    MindSpore Lite 1.3.0
+    ......
     ==========Loading Model, Create Train Session=============
     Model path is ../model/lenet_tod.ms
     batch_size: 4
-    virtual batch multiplier: 16
+    virtual batch multiplier: 1
     ==========Initing DataSet================
     train data cnt: 60000
     test data cnt: 10000
     ==========Training Model===================
-    step_500: Loss is 0.05553353 [min=0.010149269] max_accc=0.9543269
-    step_1000: Loss is 0.15295759 [min=0.0018140086] max_accc=0.96594554
-    step_1500: Loss is 0.018035552 [min=0.0018140086] max_accc=0.9704527
-    step_2000: Loss is 0.029250022 [min=0.0010245014] max_accc=0.9765625
-    step_2500: Loss is 0.11875624 [min=7.5288175E-4] max_accc=0.9765625
-    step_3000: Loss is 0.046675075 [min=7.5288175E-4] max_accc=0.9765625
-    step_3500: Loss is 0.034442786 [min=4.3545474E-4] max_accc=0.97686297
+    step_500: Loss is 0.05553353 [min=0.010149269] max_acc=0.9543269
+    step_1000: Loss is 0.15295759 [min=0.0018140086] max_acc=0.96594554
+    step_1500: Loss is 0.018035552 [min=0.0018140086] max_acc=0.9704527
+    step_2000: Loss is 0.029250022 [min=0.0010245014] max_acc=0.9765625
+    ......
     ==========Evaluating The Trained Model============
     accuracy = 0.9770633
     Trained model successfully saved: ../model/lenet_tod_trained.ms
@@ -131,53 +129,55 @@ For details about how to use Java APIs, visit <https://www.mindspore.cn/lite/api
 1. Load the MindSpore Lite model file and build a session.
 
     ```java
-    // arg 0: DeviceType:DT_CPU -> 0
-    // arg 1: ThreadNum -> 2
-    // arg 2: cpuBindMode:NO_BIND ->  0
-    // arg 3: enable_fp16 -> false
-    msConfig.init(0, 2, 0, false);
-    session = new LiteSession();
-    System.out.println("Model path is " + modelPath);
-    session = session.createTrainSession(modelPath, msConfig, false);
-    session.setupVirtualBatch(virtualBatch, 0.01f, 1.00f);
+        MSContext context = new MSContext();
+        // use default param init context
+        context.init();
+        boolean isSuccess = context.addDeviceInfo(DeviceType.DT_CPU, false, 0);
+        TrainCfg trainCfg = new TrainCfg();
+        trainCfg.init();
+        model = new Model();
+        Graph graph = new Graph();
+        graph.load(modelPath);
+        model.build(graph, context, trainCfg);
+        model.setupVirtualBatch(virtualBatch, 0.01f, 1.00f);
     ```
 
 2. Switch to training mode, perform cyclic iteration, and train the model.
 
     ```java
-    session.train();
+    model.setTrainMode(true)
     float min_loss = 1000;
     float max_acc = 0;
     for (int i = 0; i < cycles; i++) {
         for (int b = 0; b < virtualBatch; b++) {
-        fillInputData(ds.getTrainData(), false);
-        session.runGraph();
-        float loss = getLoss();
-        if (min_loss > loss) {
-            min_loss = loss;
-        }
-        if ((b == 0) && ((i + 1) % 500 == 0)) {
-            float acc = calculateAccuracy(10); // only test 10 batch size
-            if (max_acc < acc) {
-                max_acc = acc;
+            fillInputData(ds.getTrainData(), false);
+            model.runStep();
+            float loss = getLoss();
+            if (min_loss > loss) {
+                min_loss = loss;
             }
-            System.out.println("step_" + (i + 1) + ": \tLoss is " + loss + " [min=" + min_loss + "]" + " max_accc=" + max_acc);
+            if ((b == 0) && ((i + 1) % 500 == 0)) {
+                float acc = calculateAccuracy(10); // only test 10 batch size
+                if (max_acc < acc) {
+                    max_acc = acc;
+                }
+                System.out.println("step_" + (i + 1) + ": \tLoss is " + loss + " [min=" + min_loss + "]" + " max_acc=" + max_acc);
+            }
         }
     }
-}
     ```
 
 3. Switch to inference mode, perform inference, and evaluate the model accuracy.
 
     ```java
-    session.eval();
+    model.setTrainMode(false);
     for (long i = 0; i < tests; i++) {
         Vector<Integer> labels = fillInputData(test_set, (maxTests == -1));
         if (labels.size() != batchSize) {
             System.err.println("unexpected labels size: " + labels.size() + " batch_size size: " + batchSize);
             System.exit(1);
         }
-        session.runGraph();
+        model.predict();
         MSTensor outputsv = searchOutputsForSize((int) (batchSize * numOfClasses));
         if (outputsv == null) {
             System.err.println("can not find output tensor with size: " + batchSize * numOfClasses);
@@ -206,9 +206,10 @@ For details about how to use Java APIs, visit <https://www.mindspore.cn/lite/api
 
     ```java
     // arg 0: FileName
-    // arg 1: model type MT_TRAIN -> 0
-    // arg 2: quantization type QT_DEFAULT -> 0
-    session.export(trainedFilePath, 0, 0)
+    // arg 1: quantization type QT_DEFAULT -> 0
+    // arg 2: model type MT_TRAIN -> 0
+    // arg 3: use default output tensor names
+    model.export(trainedFilePath, 0, false, null);
     ```
 
     After the model training is complete, save the model to the specified path. Then, you can continue to load and run the model.

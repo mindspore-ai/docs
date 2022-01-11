@@ -123,49 +123,29 @@ The inference code and process are as follows. For details about the complete co
 
 1. Load the MindSpore Lite model file and build the context, session, and computational graph for inference.
 
-    - Load a model file. Create and configure the context for model inference.
-
-      ```java
-      // Load the .ms model.
-      Model model = new Model();
-      if (!model.loadModel(Context, "segment_model.ms")) {
-        Log.e(TAG, "Load Model failed");
-         return;
-      }
-      ```
-
     - Create a session.
 
       ```java
       // Create and init config.
-      MSConfig msConfig = new MSConfig();
-      if (!msConfig.init(DeviceType.DT_CPU, threadNum, CpuBindMode.MID_CPU)) {
-        Log.e(TAG, "Init context failed");
-        return;
+      MSContext context = new MSContext();
+      context.init(2, CpuBindMode.HIGHER_CPU, false);
+      boolean ret = context.addDeviceInfo(com.mindspore.config.DeviceType.DT_CPU, false, 0);
+      if (!ret) {
+          Log.e(TAG, "Create CPU Config failed.");
+          return null;
       }
-
-      // Create the MindSpore lite session.
-      LiteSession session = new LiteSession();
-      if (!session.init(msConfig)) {
-        Log.e(TAG, "Create session failed");
-        msConfig.free();
-        return;
-      }
-      msConfig.free();
       ```
 
     - Load the model file and build a computational graph for inference.
 
       ```java
-      // Compile graph.
-      if (!session.compileGraph(model)) {
-        Log.e(TAG, "Compile graph failed");
-        model.freeBuffer();
-        return;
+      // build model.
+      boolean ret = model.build(filePath, ModelType.MT_MINDIR, msContext);
+      if (!ret) {
+          model.free();
+          Log.e(TAG, "Compile graph failed");
+          return null;
       }
-
-      // Note: when use model.freeBuffer(), the model cannot be compile graph again.
-      model.freeBuffer();
       ```
 
 2. Convert the input image into the Tensor format that is input to the MindSpore model.
@@ -173,7 +153,7 @@ The inference code and process are as follows. For details about the complete co
       Convert the image data to be detected into the Tensor format that is input to the MindSpore model.
 
       ```java
-      List<MSTensor> inputs = session.getInputs();
+      List<MSTensor> inputs = model.getInputs();
       if (inputs.size() != 1) {
         Log.e(TAG, "inputs.size() != 1");
         return null;
@@ -192,9 +172,10 @@ The inference code and process are as follows. For details about the complete co
 
     ```java
     // Run graph to infer results.
-    if (!session.runGraph()) {
-        Log.e(TAG, "Run graph failed");
-        return null;
+    boolean ret = model.predict();
+    if (!ret) {
+        Log.e(TAG, "MindSpore Lite run failed.");
+        return false;
     }
      ```
 
@@ -204,10 +185,8 @@ The inference code and process are as follows. For details about the complete co
 
       ```java
       // Get output tensor values.
-      List<String> tensorNames = session.getOutputTensorNames();
-      Map<String, MSTensor> outputs = session.getOutputMapByTensor();
-      for (String tensorName : tensorNames) {
-        MSTensor output = outputs.get(tensorName);
+      List<MSTensor> outTensors = model.getOutputs();
+      for (MSTensor output : outTensors) {
         if (output == null) {
             Log.e(TAG, "Can not find output " + tensorName);
             return null;

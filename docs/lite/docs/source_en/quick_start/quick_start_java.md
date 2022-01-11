@@ -10,14 +10,13 @@ This tutorial provides an example program for MindSpore Lite to perform inferenc
 
 The MindSpore Lite inference steps are as follows:
 
-1. Load the model: Read the `.ms` model converted by the [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html) from the file system and import the model using the [loadModel](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#loadmodel).
-2. Create and configure context: Create a configuration context [MSConfig](https://www.mindspore.cn/lite/api/en/master/api_java/msconfig.html#msconfig) to save some basic configuration parameters required by a session to guide graph build and execution. including `deviceType` (device type), `threadNum` (number of threads), `cpuBindMode` (CPU binding mode), and `enable_float16` (whether to preferentially use the float16 operator).
-3. Create a session: Create [LiteSession](https://www.mindspore.cn/lite/api/en/master/api_java/lite_session.html#litesession) and call the [init](https://www.mindspore.cn/lite/api/en/master/api_java/lite_session.html#init) method to configure the [MSConfig](https://www.mindspore.cn/lite/api/en/master/api_java/msconfig.html#msconfig) obtained in the previous step in the session.
-4. Build a graph: Before building a graph, the [compileGraph](https://www.mindspore.cn/lite/api/en/master/api_java/lite_session.html#compilegraph) interface of [LiteSession](https://www.mindspore.cn/lite/api/en/master/api_java/lite_session.html#litesession) needs to be called to build the graph, including subgraph partition and operator selection and scheduling. This takes a long time. Therefore, it is recommended that with one [LiteSession](https://www.mindspore.cn/lite/api/en/master/api_java/lite_session.html#litesession) created, one graph be built. In this case, the inference will be performed for multiple times.
-5. Input data: Before the graph is executed, data needs to be filled in the `Input Tensor`.
-6. Perform inference: Use the [runGraph](https://www.mindspore.cn/lite/api/en/master/api_java/lite_session.html#rungraph) of the [LiteSession](https://www.mindspore.cn/lite/api/en/master/api_java/lite_session.html#litesession) to perform model inference.
- Obtain the output: After the graph execution is complete, you can obtain the inference result by `outputting the tensor`.
-8. Release the memory: If the MindSpore Lite inference framework is not required, release the created [LiteSession](https://www.mindspore.cn/lite/api/en/master/api_java/lite_session.html#litesession) and [Model](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#model).
+1. Load the model(optional): Read the `.ms` model converted by the [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html) from the file system.
+2. Create and configure context: Create a configuration context [MSContext](https://www.mindspore.cn/lite/api/en/master/api_java/mscontext.html#mscontext) to save some basic configuration parameters required by a session to guide graph build and execution. including `deviceType` (device type), `threadNum` (number of threads), `cpuBindMode` (CPU binding mode), and `enable_float16` (whether to preferentially use the float16 operator).
+3. Build a graph: Before building a graph, the [compileGraph](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#compilegraph) interface of [model](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#model) needs to be called to build the graph, including subgraph partition and operator selection and scheduling. This takes a long time. Therefore, it is recommended that with one [model](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#model) created, one graph be built. In this case, the inference will be performed for multiple times.
+4. Input data: Before the graph is executed, data needs to be filled in the `Input Tensor`.
+5. Perform inference: Use the [predict](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#predict) of the [model](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#model) to perform model inference.
+6. Obtain the output: After the graph execution is complete, you can obtain the inference result by `outputting the tensor`.
+7. Release the memory: If the MindSpore Lite inference framework is not required, release the created [model](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#model).
 
 ![img](../images/lite_runtime.png)
 
@@ -61,45 +60,40 @@ The MindSpore Lite inference steps are as follows:
   out tensor shape: [1,1000,] and out data: 5.4091015E-5 4.030303E-4 3.032344E-4 4.0029243E-4 2.2730739E-4 8.366581E-5 2.629827E-4 3.512394E-4 2.879536E-4 1.9557697E-4xxxxxxxxxx MindSpore Lite 1.1.0out tensor shape: [1,1000,] and out data: 5.4091015E-5 4.030303E-4 3.032344E-4 4.0029243E-4 2.2730739E-4 8.366581E-5 2.629827E-4 3.512394E-4 2.879536E-4 1.9557697E-4tensor name is:Default/Sigmoid-op204 tensor size is:2000 tensor elements num is:500output data is:3.31223e-05 1.99382e-05 3.01624e-05 0.000108345 1.19685e-05 4.25282e-06 0.00049955 0.000340809 0.00199094 0.000997094 0.00013585 1.57605e-05 4.34131e-05 1.56114e-05 0.000550819 2.9839e-05 4.70447e-06 6.91601e-06 0.000134483 2.06795e-06 4.11612e-05 2.4667e-05 7.26248e-06 2.37974e-05 0.000134513 0.00142482 0.00011707 0.000161848 0.000395011 3.01961e-05 3.95325e-05 3.12398e-06 3.57709e-05 1.36277e-06 1.01068e-05 0.000350805 5.09019e-05 0.000805241 6.60321e-05 2.13734e-05 9.88654e-05 2.1991e-06 3.24065e-05 3.9479e-05 4.45178e-05 0.00205024 0.000780899 2.0633e-05 1.89997e-05 0.00197261 0.000259391
   ```
 
-## Model Loading
+## Model Loading(optional)
 
-Read the MindSpore Lite model from the file system and use the `model.loadModel` function to import the model for parsing.
+Read the MindSpore Lite model from the file system.
 
 ```java
-boolean ret = model.loadModel(modelPath);
-if (!ret) {
-    System.err.println("Load model failed, model path is " + modelPath);
-    return;
+// Load the .ms model.
+MappedByteBuffer byteBuffer = null;
+try {
+    fc = new RandomAccessFile(fileName, "r").getChannel();
+    byteBuffer = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size()).load();
+} catch (IOException e) {
+    e.printStackTrace();
 }
 ```
 
 ## Model Build
 
-Model build includes context configuration creation, session creation, and graph build.
+Model build includes context configuration creation and model compilation. current graph build support file and mappedbytebuffer format. The following [sample code] describes model compilation by reading from a file.
 
 ```java
-private static boolean compile() {
-    MSConfig msConfig = new MSConfig();
-    // You can set config through Init Api or use the default parameters directly.
-    // The default parameter is that the backend type is DeviceType.DT_CPU, and the number of threads is 2.
-    boolean ret = msConfig.init(DeviceType.DT_CPU, 2);
+private static boolean compile(String modelPath) {
+    MSContext context = new MSContext();
+    // use default param init context
+    context.init();
+    boolean ret = context.addDeviceInfo(DeviceType.DT_CPU, false, 0);
     if (!ret) {
-        System.err.println("Init context failed");
+        System.err.println("Compile graph failed");
+        context.free();
         return false;
     }
-
     // Create the MindSpore lite session.
-    session = new LiteSession();
-    ret = session.init(msConfig);
-    msConfig.free();
-    if (!ret) {
-        System.err.println("Create session failed");
-        model.free();
-        return false;
-    }
-
+    model = new Model();
     // Compile graph.
-    ret = session.compileGraph(model);
+    ret = model.build(modelPath, ModelType.MT_MINDIR, context);
     if (!ret) {
         System.err.println("Compile graph failed");
         model.free();
@@ -115,7 +109,7 @@ Model inference includes data input, inference execution, and output obtaining. 
 
 ```java
 private static boolean run() {
-    MSTensor inputTensor = session.getInputsByTensorName("graph_input-173");
+    MSTensor inputTensor = model.getInputByTensorName("graph_input-173");
     if (inputTensor.getDataType() != DataType.kNumberTypeFloat32) {
         System.err.println("Input tensor shape do not float, the data type is " + inputTensor.getDataType());
         return false;
@@ -123,20 +117,20 @@ private static boolean run() {
     // Generator Random Data.
     int elementNums = inputTensor.elementsNum();
     float[] randomData = generateArray(elementNums);
-    byte[] inputData = floatArrayToByteArray(randomData);
+    ByteBuffer inputData = floatArrayToByteBuffer(randomData);
 
     // Set Input Data.
     inputTensor.setData(inputData);
 
     // Run Inference.
-    boolean ret = session.runGraph();
+    boolean ret = model.predict();
     if (!ret) {
         System.err.println("MindSpore Lite run failed.");
         return false;
     }
 
     // Get Output Tensor Data.
-    MSTensor outTensor = session.getOutputByTensorName("Softmax-65");
+    MSTensor outTensor = model.getOutputByTensorName("Softmax-65");
 
     // Print out Tensor Data.
     StringBuilder msgSb = new StringBuilder();
@@ -156,7 +150,7 @@ private static boolean run() {
         return false;
     }
     msgSb.append(" and out data:");
-    for (int i = 0; i < 10 && i < outTensor.elementsNum(); i++) {
+    for (int i = 0; i < 50 && i < outTensor.elementsNum(); i++) {
         msgSb.append(" ").append(result[i]);
     }
     System.out.println(msgSb.toString());
@@ -166,11 +160,9 @@ private static boolean run() {
 
 ## Memory Release
 
-If the MindSpore Lite inference framework is not required, release the created `LiteSession` and `Model`.
+If the MindSpore Lite inference framework is not required, release the created `model`.
 
 ```java
-// Delete session buffer.
-session.free();
 // Delete model buffer.
 model.free();
 ```

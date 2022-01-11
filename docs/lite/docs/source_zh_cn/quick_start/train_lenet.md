@@ -228,7 +228,7 @@ from train_utils import TrainWrap
 
 n = LeNet5()
 n.set_train()
-context.set_context(mode=context.PYNATIVE_MODE, device_target="CPU", save_graphs=False)
+context.set_context(mode=context.GRAPH_MODE, device_target="CPU", save_graphs=False)
 ```
 
 然后定义输入和标签张量大小：
@@ -302,9 +302,9 @@ int NetRunner::Main() {
 
   if (epochs_ > 0) {
     auto trained_fn = ms_file_.substr(0, ms_file_.find_last_of('.')) + "_trained.ms";
-    mindspore::Serialization::ExportModel(*model_, mindspore::kFlatBuffer, trained_fn, mindspore::kNoQuant, false);
+    mindspore::Serialization::ExportModel(*model_, mindspore::kMindIR, trained_fn, mindspore::kNoQuant, false);
     trained_fn = ms_file_.substr(0, ms_file_.find_last_of('.')) + "_infer.ms";
-    mindspore::Serialization::ExportModel(*model_, mindspore::kFlatBuffer, trained_fn, mindspore::kNoQuant, true);
+    mindspore::Serialization::ExportModel(*model_, mindspore::kMindIR, trained_fn, mindspore::kNoQuant, true);
   }
   return 0;
 }
@@ -322,7 +322,7 @@ int NetRunner::Main() {
       context->MutableDeviceInfo().push_back(cpu_context);
 
       graph_ = new mindspore::Graph();
-      auto status = mindspore::Serialization::Load(ms_file_, mindspore::kFlatBuffer, graph_);
+      auto status = mindspore::Serialization::Load(ms_file_, mindspore::kMindIR, graph_);
       if (status != mindspore::kSuccess) {
         std::cout << "Error " << status << " during serialization of graph " << ms_file_;
         MS_ASSERT(status != mindspore::kSuccess);
