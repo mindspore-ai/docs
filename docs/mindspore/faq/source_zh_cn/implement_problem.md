@@ -541,3 +541,44 @@ A: 需要确认有做以下准备工作。
 具体的操作过程可以参考[基于ModelArts在线体验MindSpore](https://bbs.huaweicloud.com/forum/thread-168982-1-1.html)。
 
 <br/>
+
+<font size=3>**Q: 静态图下使用除法结果未报错，动态图下使用除法结果却报错？**</font>
+
+A: 在静态图模式下，由于使用的是静态编译，对于算子输出结果的数据类型是在图编译阶段确定的。
+
+例如如下代码在静态图模式下执行，输入数据的类型都为int类型，根据静态图编译，其输出结果也是int类型。
+
+```python
+from mindspore import context
+from mindspore import nn
+
+context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
+
+class MyTest(nn.Cell):
+    def __init__(self):
+        super(MyTest, self).__init__()
+
+    def construct(self, x, y):
+        return x / y
+x = 16
+y = 4
+net = MyTest()
+output = net(x, y)
+print(output, type(output))
+```
+
+输出结果：
+
+```text
+4 <class 'int'>
+```
+
+修改执行模式，将GRAPH_MODE修改成PYNATIVE_MODE，由于在动态图模式下使用的Python语法执行，Python语法对任意除法输出的类型都是float类型，因此执行结果如下：
+
+```text
+4.0 <class 'float'>
+```
+
+因此在后续算子明确需要使用int的场景下，建议使用Python的整除符号`//`。
+
+<br/>
