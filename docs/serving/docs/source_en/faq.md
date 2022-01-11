@@ -1,6 +1,6 @@
 ﻿# FAQ
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/serving/docs/source_en/faq.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/serving/docs/source_en/faq.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 <font size=3>**Q: Does MindSpore Serving support hot update to avoid inference service interruption?**</font>
 
@@ -10,7 +10,7 @@ A: MindSpore Serving does not support hot update. You need to restart MindSpore 
 
 <font size=3>**Q: Does MindSpore Serving allow multiple workers to be started for one model to support multi-device and single-model concurrency?**</font>
 
-A: After MindSpore Serving version 1.3, it supports the deployment of multiple copies of a model in multiple cards to achieve concurrent execution of multiple cards and single models. For details, please refer to [Add Sample](https://gitee.com/mindspore/serving/blob/master/example/tensor_add/serving_server.py).
+A: After MindSpore Serving version 1.3, it supports the deployment of multiple copies of a model in multiple cards to achieve concurrent execution of multiple cards and single models. For details, please refer to [Add Sample](https://gitee.com/mindspore/serving/blob/r1.6/example/tensor_add/serving_server.py).
 
 <br/>
 
@@ -36,7 +36,7 @@ A: Check whether MindSpore that MindSpore Serving depends on is installed. In Se
 
 <font size=3>**Q：How to control the output of Serving log?**</font>
 
-A：MindSpore Serving uses glog to output logs, for more details, please refer to [Log-related Environment Variables and Configurations](https://www.mindspore.cn/docs/programming_guide/en/master/custom_debugging_info.html#log-related-environment-variables-and-configurations). On this basis, additional supplementary contents are as follows:
+A：MindSpore Serving uses glog to output logs, for more details, please refer to [Log-related Environment Variables and Configurations](https://www.mindspore.cn/docs/programming_guide/en/r1.6/custom_debugging_info.html#log-related-environment-variables-and-configurations). On this basis, additional supplementary contents are as follows:
 
 - MS_SUBMODULE_LOG_v
 

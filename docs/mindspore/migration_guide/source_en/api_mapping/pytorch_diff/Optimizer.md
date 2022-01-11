@@ -1,6 +1,6 @@
 # The differences of inputs setting with torch.optim.optimizer
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/Optimizer.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/Optimizer.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## torch.optim.optimizer()
 
@@ -24,7 +24,7 @@ class mindspore.nn.Optimizer(
 )
 ```
 
-For more information, see [mindspore.nn.Optimizer](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Optimizer.html#mindspore.nn.Optimizer).
+For more information, see [mindspore.nn.Optimizer](https://mindspore.cn/docs/api/en/r1.6/api_python/nn/mindspore.nn.Optimizer.html#mindspore.nn.Optimizer).
 
 ## Differences
 

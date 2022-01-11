@@ -1,6 +1,6 @@
 # MindInsight相关命令
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/mindinsight_commands.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindinsight/docs/source_zh_cn/mindinsight_commands.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## 查看命令帮助信息
 

@@ -1,16 +1,16 @@
 ﻿# Data Processing
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_en/data_processing.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/faq/source_en/data_processing.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 <font size=3>**Q: How do I offload data if I do not use high-level APIs?**</font>
 
-A: You can refer to the [test_tdt_data_transfer.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/data_transfer/test_tdt_data_transfer.py) example of the manual offloading mode without using the `model.train` API. Currently, the GPU-based and Ascend-based hardware is supported.
+A: You can refer to the [test_tdt_data_transfer.py](https://gitee.com/mindspore/mindspore/blob/r1.6/tests/st/data_transfer/test_tdt_data_transfer.py) example of the manual offloading mode without using the `model.train` API. Currently, the GPU-based and Ascend-based hardware is supported.
 
 <br/>
 
 <font size=3>**Q: Why is there no difference between `shuffle=True` and `shuffle=False` in `GeneratorDataset`?**</font>
 
-A: If `shuffle` is enabled, the input `Dataset` must support random access (for example, the user-defined `Dataset` has the `getitem` method). If data is returned in `yeild` mode in the user-defined `Dataset`, random access is not supported. For details, see section [Loading Dataset Overview](https://www.mindspore.cn/docs/programming_guide/en/master/dataset_loading.html#id5).
+A: If `shuffle` is enabled, the input `Dataset` must support random access (for example, the user-defined `Dataset` has the `getitem` method). If data is returned in `yeild` mode in the user-defined `Dataset`, random access is not supported. For details, see section [Loading Dataset Overview](https://www.mindspore.cn/docs/programming_guide/en/r1.6/dataset_loading.html#id5).
 
 <br/>
 
@@ -122,17 +122,17 @@ When `dataset_sink_mode` is set to `False`, data processing and network computin
 
 <font size=3>**Q: Can MindSpore train image data of different sizes by batch?**</font>
 
-A: You can refer to the usage of YOLOv3 which contains the resizing of different images. For details about the script, see [yolo_dataset](https://gitee.com/mindspore/models/blob/master/official/cv/yolov3_darknet53/src/yolo_dataset.py).
+A: You can refer to the usage of YOLOv3 which contains the resizing of different images. For details about the script, see [yolo_dataset](https://gitee.com/mindspore/models/blob/r1.6/official/cv/yolov3_darknet53/src/yolo_dataset.py).
 
 <br/>
 
 <font size=3>**Q: Must data be converted into MindRecords when MindSpore is used for segmentation training?**</font>
 
-A: [build_seg_data.py](https://gitee.com/mindspore/models/blob/master/official/cv/deeplabv3/src/data/build_seg_data.py) is used to generate MindRecords based on a dataset. You can directly use or adapt it to your dataset. Alternatively, you can use `GeneratorDataset` if you want to read the dataset by yourself.
+A: [build_seg_data.py](https://gitee.com/mindspore/models/blob/r1.6/official/cv/deeplabv3/src/data/build_seg_data.py) is used to generate MindRecords based on a dataset. You can directly use or adapt it to your dataset. Alternatively, you can use `GeneratorDataset` if you want to read the dataset by yourself.
 
-[GenratorDataset example](https://www.mindspore.cn/docs/programming_guide/en/master/dataset_loading.html#loading-user-defined-dataset)
+[GenratorDataset example](https://www.mindspore.cn/docs/programming_guide/en/r1.6/dataset_loading.html#loading-user-defined-dataset)
 
-[GeneratorDataset API description](https://www.mindspore.cn/docs/api/en/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)
+[GeneratorDataset API description](https://www.mindspore.cn/docs/api/en/r1.6/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)
 
 <br/>
 
@@ -161,7 +161,7 @@ ds.GeneratorDataset(..., num_shards=8, shard_id=7, ...)
 A: The data schema can be defined as follows:`cv_schema_json = {"label": {"type": "int32", "shape": [-1]}, "data": {"type": "bytes"}}`
 
 Note: A label is an array of the numpy type, where label values 1, 1, 0, 1, 0, 1 are stored. These label values correspond to the same data, that is, the binary value of the same image.
-For details, see [Converting Dataset to MindRecord](https://www.mindspore.cn/docs/programming_guide/en/master/convert_dataset.html#id3).
+For details, see [Converting Dataset to MindRecord](https://www.mindspore.cn/docs/programming_guide/en/r1.6/convert_dataset.html#id3).
 
 <br/>
 
@@ -173,7 +173,7 @@ A: The MNIST gray scale image dataset is used for MindSpore training. Therefore,
 
 <font size=3>**Q: Can you introduce the dedicated data processing framework?**</font>
 
-A: MindData provides the heterogeneous hardware acceleration function for data processing. The high-concurrency data processing `pipeline` supports `Ascend`, `GPU` and `CPU`. The `CPU` usage is reduced by 30%. For details, see [Optimizing Data Processing](https://www.mindspore.cn/docs/programming_guide/en/master/optimize_data_processing.html).
+A: MindData provides the heterogeneous hardware acceleration function for data processing. The high-concurrency data processing `pipeline` supports `Ascend`, `GPU` and `CPU`. The `CPU` usage is reduced by 30%. For details, see [Optimizing Data Processing](https://www.mindspore.cn/docs/programming_guide/en/r1.6/optimize_data_processing.html).
 
 <br/>
 
@@ -207,7 +207,7 @@ A: Firstly, above error refers failed sending data to the device through the tra
 
 <font size=3>**Q: Can the py_transforms and c_transforms operators be used together? If yes, how should I use them?**</font>
 
-A: To ensure high performance, you are not advised to use the py_transforms and c_transforms operators together. For details, see [Image Data Processing and Enhancement](https://www.mindspore.cn/docs/programming_guide/en/master/augmentation.html#usage-instructions). However, if the main consideration is to streamline the process, the performance can be compromised more or less. If you cannot use all the c_transforms operators, that is, certain c_transforms operators are not available, the py_transforms operators can be used instead. In this case, the two operators are used together.
+A: To ensure high performance, you are not advised to use the py_transforms and c_transforms operators together. For details, see [Image Data Processing and Enhancement](https://www.mindspore.cn/docs/programming_guide/en/r1.6/augmentation.html#usage-instructions). However, if the main consideration is to streamline the process, the performance can be compromised more or less. If you cannot use all the c_transforms operators, that is, certain c_transforms operators are not available, the py_transforms operators can be used instead. In this case, the two operators are used together.
 Note that the c_transforms operator usually outputs numpy array, and the py_transforms operator outputs PIL Image. For details, check the operator description. The common method to use them together is as follows:
 
 - c_transforms operator + ToPIL operator + py_transforms operator + ToTensor operator
@@ -252,7 +252,7 @@ A: The preceding error is usually caused by incorrect script writing. In normal 
 
 <font size=3>**Q: What is the operator corresponding to dataloader in MindSpore?**</font>
 
-A: If the dataloader is considered as an API for receiving user-defined datasets, the GeneratorDataset in the MindSpore data processing API is similar to that in the dataloader and can receive user-defined datasets. For details about how to use the GeneratorDataset, see the [Loading Dataset Overview](https://www.mindspore.cn/docs/programming_guide/en/master/dataset_loading.html#loading-user-defined-dataset), and for details about the differences, see the [API Mapping](https://www.mindspore.cn/docs/note/en/master/index.html#operator_api).
+A: If the dataloader is considered as an API for receiving user-defined datasets, the GeneratorDataset in the MindSpore data processing API is similar to that in the dataloader and can receive user-defined datasets. For details about how to use the GeneratorDataset, see the [Loading Dataset Overview](https://www.mindspore.cn/docs/programming_guide/en/r1.6/dataset_loading.html#loading-user-defined-dataset), and for details about the differences, see the [API Mapping](https://www.mindspore.cn/docs/note/en/r1.6/index.html#operator_api).
 
 <br/>
 

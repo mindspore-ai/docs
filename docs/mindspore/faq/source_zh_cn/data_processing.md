@@ -1,16 +1,16 @@
 ﻿# 数据处理
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_zh_cn/data_processing.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/faq/source_zh_cn/data_processing.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 <font size=3>**Q: 请问如果不使用高阶API，怎么实现数据下沉？**</font>
 
-A: 可以参考此手动下沉方式的[test_tdt_data_transfer.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/data_transfer/test_tdt_data_transfer.py)示例实现，不用借助`model.train`接口，目前支持：GPU和Ascend硬件使用。
+A: 可以参考此手动下沉方式的[test_tdt_data_transfer.py](https://gitee.com/mindspore/mindspore/blob/r1.6/tests/st/data_transfer/test_tdt_data_transfer.py)示例实现，不用借助`model.train`接口，目前支持：GPU和Ascend硬件使用。
 
 <br/>
 
 <font size=3>**Q: 在`GeneratorDataset`中，看到有参数`shuffle`，在跑任务时发现`shuffle=True`和`shuffle=False`，两者没有区别，这是为什么？**</font>
 
-A: 开启`shuffle`,需要传入的`Dataset`是支持随机访问的（例如自定义的`Dataset`有`getitem`方法），如果是在自定义的`Dataset`里面通过`yeild`方式返回回来的数据，是不支持随机访问的，具体可查看教程中的[数据集加载](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dataset_loading.html#id5)章节。
+A: 开启`shuffle`,需要传入的`Dataset`是支持随机访问的（例如自定义的`Dataset`有`getitem`方法），如果是在自定义的`Dataset`里面通过`yeild`方式返回回来的数据，是不支持随机访问的，具体可查看教程中的[数据集加载](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/dataset_loading.html#id5)章节。
 
 <br/>
 
@@ -122,17 +122,17 @@ A: 当`dataset_sink_mode=True`时，数据处理会和网络计算构成Pipeline
 
 <font size=3>**Q: MindSpore能否支持按批次对不同尺寸的图片数据进行训练？**</font>
 
-A: 你可以参考yolov3对于此场景的使用，里面有对于图像的不同缩放,脚本见[yolo_dataset](https://gitee.com/mindspore/models/blob/master/official/cv/yolov3_darknet53/src/yolo_dataset.py)。
+A: 你可以参考yolov3对于此场景的使用，里面有对于图像的不同缩放,脚本见[yolo_dataset](https://gitee.com/mindspore/models/blob/r1.6/official/cv/yolov3_darknet53/src/yolo_dataset.py)。
 
 <br/>
 
 <font size=3>**Q: 使用MindSpore做分割训练，必须将数据转为MindRecord吗？**</font>
 
-A: [build_seg_data.py](https://gitee.com/mindspore/models/blob/master/official/cv/deeplabv3/src/data/build_seg_data.py)是将数据集生成MindRecord的脚本，可以直接使用/适配下你的数据集。或者如果你想尝试自己实现数据集的读取，可以使用`GeneratorDataset`自定义数据集加载。
+A: [build_seg_data.py](https://gitee.com/mindspore/models/blob/r1.6/official/cv/deeplabv3/src/data/build_seg_data.py)是将数据集生成MindRecord的脚本，可以直接使用/适配下你的数据集。或者如果你想尝试自己实现数据集的读取，可以使用`GeneratorDataset`自定义数据集加载。
 
-[GenratorDataset 示例](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dataset_loading.html#id5)
+[GenratorDataset 示例](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/dataset_loading.html#id5)
 
-[GenratorDataset API说明](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)
+[GenratorDataset API说明](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)
 
 <br/>
 
@@ -161,7 +161,7 @@ ds.GeneratorDataset(..., num_shards=8, shard_id=7, ...)
 A: 数据Schema可以按如下方式定义: `cv_schema_json = {"label": {"type": "int32", "shape": [-1]}, "data": {"type": "bytes"}}`
 
 说明: label是一个数组，numpy类型，这里面可以存 1， 1，0，1， 0， 1 这么多label值，这些label值对应同一个data，即: 同一个图像的二进制值。
-可以参考[将数据集转换为MindRecord](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/convert_dataset.html#将数据集转换为MindRecord)教程。
+可以参考[将数据集转换为MindRecord](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/convert_dataset.html#将数据集转换为MindRecord)教程。
 
 <br/>
 
@@ -173,7 +173,7 @@ A: 首先MindSpore训练使用的灰度图MNIST数据集。所以模型使用时
 
 <font size=3>**Q: 第一次看到有专门的数据处理框架，能介绍下么？**</font>
 
-A: MindData提供数据处理异构硬件加速功能，高并发数据处理`pipeline`同时支持`Ascend/GPU/CPU`，`CPU`占用降低30%，点击查询[优化数据处理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/optimize_data_processing.html)。
+A: MindData提供数据处理异构硬件加速功能，高并发数据处理`pipeline`同时支持`Ascend/GPU/CPU`，`CPU`占用降低30%，点击查询[优化数据处理](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/optimize_data_processing.html)。
 
 <br/>
 
@@ -207,7 +207,7 @@ A: 首先上述报错指的是通过训练数据下发通道（TDT，train data 
 
 <font size=3>**Q: py_transforms 和 c_transforms 算子能否混合使用，如果混合使用具体需要怎么使用？**</font>
 
-A: 出于高性能考虑，通常不建议将py_transforms 与 c_transforms算子混合使用，[文档](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/augmentation.html#%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9)也对此进行了说明。但若不追求极致的性能，主要考虑打通流程，在无法全部使用c_transforms算子（缺少对应的c_transforms算子）的情况下，可使用py_transforms算子替代，此时即存在混合使用。
+A: 出于高性能考虑，通常不建议将py_transforms 与 c_transforms算子混合使用，[文档](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/augmentation.html#%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9)也对此进行了说明。但若不追求极致的性能，主要考虑打通流程，在无法全部使用c_transforms算子（缺少对应的c_transforms算子）的情况下，可使用py_transforms算子替代，此时即存在混合使用。
 对此我们需要注意c_transforms 算子的输出通常是numpy array，py_transforms算子的输出是PIL Image，具体可查看算子说明，为此通常的混合使用方法为：
 
 - c_transforms 算子 + ToPIL 算子 + py_transforms 算子 + ToTensor算子
@@ -252,7 +252,7 @@ A: 上述错误通常是脚本书写错误导致，具体发生在下面这种�
 
 <font size=3>**Q: MindSpore中和Dataloader对应的算子是什么？**</font>
 
-A：如果将Dataloader考虑为接收自定义Dataset的API接口，MindSpore数据处理API中和Dataloader较为相似的是GeneratorDataset，可接收用户自定义的Dataset，具体使用方式参考[GeneratorDataset 文档](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dataset_loading.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86%E5%8A%A0%E8%BD%BD)，差异对比也可查看[API算子映射表](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html)。
+A：如果将Dataloader考虑为接收自定义Dataset的API接口，MindSpore数据处理API中和Dataloader较为相似的是GeneratorDataset，可接收用户自定义的Dataset，具体使用方式参考[GeneratorDataset 文档](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/dataset_loading.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86%E5%8A%A0%E8%BD%BD)，差异对比也可查看[API算子映射表](https://www.mindspore.cn/docs/migration_guide/zh-CN/r1.6/api_mapping/pytorch_api_mapping.html)。
 
 <br/>
 

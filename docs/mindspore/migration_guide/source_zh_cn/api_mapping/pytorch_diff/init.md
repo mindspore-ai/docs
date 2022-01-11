@@ -1,6 +1,6 @@
 ﻿# 比较与torch.distributed.init_process_group的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_zh_cn/api_mapping/pytorch_diff/init.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_zh_cn/api_mapping/pytorch_diff/init.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## torch.distributed.init_process_group
 
@@ -24,7 +24,7 @@ torch.distributed.init_process_group(
 mindspore.communication.init(backend_name=None)
 ```
 
-更多内容详见[mindspore.communication.init](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.communication.html#mindspore.communication.init)。
+更多内容详见[mindspore.communication.init](https://mindspore.cn/docs/api/zh-CN/r1.6/api_python/mindspore.communication.html#mindspore.communication.init)。
 
 ## 使用方式
 

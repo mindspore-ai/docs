@@ -2,7 +2,7 @@
 
 `Windows` `Linux` `模型转换` `模型调优` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/post_training_quantization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/lite/docs/source_zh_cn/use/post_training_quantization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -15,7 +15,7 @@ MindSpore Lite训练后量化分为两类：
 
 ## 配置参数
 
-训练后量化可通过[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)配置`configFile`的方式启用训练后量化。配置文件采用`INI`的风格，针对量化场景，目前可配置的参数包括`通用量化参数[common_quant_param]`、`混合比特权重量化参数[mixed_bit_weight_quant_param]`、`全量化参数[full_quant_param]`和`数据预处理参数[data_preprocess_param]`。
+训练后量化可通过[转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/converter_tool.html)配置`configFile`的方式启用训练后量化。配置文件采用`INI`的风格，针对量化场景，目前可配置的参数包括`通用量化参数[common_quant_param]`、`混合比特权重量化参数[mixed_bit_weight_quant_param]`、`全量化参数[full_quant_param]`和`数据预处理参数[data_preprocess_param]`。
 
 ### 通用量化参数
 
@@ -216,7 +216,7 @@ min_quant_weight_channel=16
 
 全量化计算激活值的量化参数，用户需要提供校准数据集。校准数据集最好来自真实推理场景，能表征模型的实际输入情况，数量在100个左右。
 
-针对图片数据，目前支持通道调整、归一化、缩放、裁剪等预处理的功能。用户可以根据推理时所需的预处理操作，设置相应的[参数](https://www.mindspore.cn/lite/docs/zh-CN/master/use/post_training_quantization.html#id7)。
+针对图片数据，目前支持通道调整、归一化、缩放、裁剪等预处理的功能。用户可以根据推理时所需的预处理操作，设置相应的[参数](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/post_training_quantization.html#id7)。
 
 全量化转换命令的一般形式为：
 

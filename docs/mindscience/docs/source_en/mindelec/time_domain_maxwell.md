@@ -1,12 +1,12 @@
 # AI Method for Solving Point Source Maxwell's Equations
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindscience/docs/source_en/mindelec/time_domain_maxwell.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindscience/docs/source_en/mindelec/time_domain_maxwell.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
 ## Overview
 
 The rapid development of AI technology provides a new computing paradigm for scientific computing. The MindElec toolkit supports both data-driven and physics-driven AI methods to handle typical problems in the scientific computing field. The physics-driven AI method combines physical equations and initial boundary conditions to train the model. Compared with the data-driven method, the physics-driven method doesn’t require any labeled data. This tutorial focuses on physics-driven AI methods for solving point source time-domain Maxwell’s equations.
 > This current sample is for Ascend 910 AI processor. You can find the complete executable code at
-> <https://gitee.com/mindspore/mindscience/tree/master/MindElec/examples/physics_driven/time_domain_maxwell>
+> <https://gitee.com/mindspore/mindscience/tree/r0.5/MindElec/examples/physics_driven/time_domain_maxwell>
 
 ## Maxwell's Equations
 

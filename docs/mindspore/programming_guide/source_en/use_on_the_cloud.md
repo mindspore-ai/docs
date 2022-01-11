@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `Model Development` `Model Running` `Model Evaluation`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/use_on_the_cloud.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_en/use_on_the_cloud.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ModelArts is a one-stop AI development platform provided by HUAWEI CLOUD. It integrates the Ascend AI Processor resource pool. Developers can experience MindSpore on this platform.
 

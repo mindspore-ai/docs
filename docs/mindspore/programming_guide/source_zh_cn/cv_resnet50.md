@@ -2,11 +2,11 @@
 
 `Ascend` `GPU` `全流程` `计算机视觉`
 
-<a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9jb21wdXRlcl92aXNpb25fYXBwbGljYXRpb24uaXB5bmI=&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_modelarts.png"></a>
+<a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9jb21wdXRlcl92aXNpb25fYXBwbGljYXRpb24uaXB5bmI=&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_modelarts.png"></a>
 &nbsp;&nbsp;
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/notebook/mindspore_computer_vision_application.ipynb"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_notebook.png"></a>&nbsp;&nbsp;
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/notebook/mindspore_computer_vision_application.py"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_download_code.png"></a>&nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/cv_resnet50.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.6/notebook/mindspore_computer_vision_application.ipynb"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_notebook.png"></a>&nbsp;&nbsp;
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.6/notebook/mindspore_computer_vision_application.py"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_download_code.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_zh_cn/cv_resnet50.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -26,7 +26,7 @@ def classify(image):
 
 选择合适的model是关键。这里的model一般指的是深度卷积神经网络，如AlexNet、VGG、GoogLeNet、ResNet等等。
 
-MindSpore实现了典型的卷积神经网络，开发者可以参考[ModelZoo](https://gitee.com/mindspore/models/tree/master/official)。
+MindSpore实现了典型的卷积神经网络，开发者可以参考[ModelZoo](https://gitee.com/mindspore/models/tree/r1.6/official)。
 
 MindSpore当前支持的图像分类网络包括：典型网络LeNet、AlexNet、ResNet。
 
@@ -49,7 +49,7 @@ MindSpore当前支持的图像分类网络包括：典型网络LeNet、AlexNet�
 5. 调用`Model`高阶API进行训练和保存模型文件
 6. 加载保存的模型进行推理
 
-> 本例面向Ascend 910 AI处理器硬件平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/tree/master/docs/sample_code/resnet>
+> 本例面向Ascend 910 AI处理器硬件平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/tree/r1.6/docs/sample_code/resnet>
 
 下面对任务流程中各个环节及代码关键片段进行解释说明。
 
@@ -146,7 +146,7 @@ tar -zvxf cifar-10-binary.tar.gz
 
 ResNet通常是较好的选择。首先，它足够深，常见的有34层，50层，101层。通常层次越深，表征能力越强，分类准确率越高。其次，可学习，采用了残差结构，通过shortcut连接把低层直接跟高层相连，解决了反向传播过程中因为网络太深造成的梯度消失问题。此外，ResNet网络的性能很好，既表现为识别的准确率，也包括它本身模型的大小和参数量。
 
-MindSpore Model Zoo中已经实现了ResNet模型，可以采用[ResNet-50](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/src/resnet.py)。调用方法如下：
+MindSpore Model Zoo中已经实现了ResNet模型，可以采用[ResNet-50](https://gitee.com/mindspore/models/blob/r1.6/official/cv/resnet/src/resnet.py)。调用方法如下：
 
 ```python
 network = resnet50(class_num=10)

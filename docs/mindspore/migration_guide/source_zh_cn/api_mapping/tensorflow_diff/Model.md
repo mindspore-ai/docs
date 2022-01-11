@@ -1,6 +1,6 @@
 # 比较与tf.keras.Model的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_zh_cn/api_mapping/tensorflow_diff/Model.md " target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_zh_cn/api_mapping/tensorflow_diff/Model.md " target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## tf.keras.Model
 
@@ -16,7 +16,7 @@ tf.keras.Model(*args, **kwargs)
 mindspore.Model(network, loss_fn=None, optimizer=None, metrics=None, eval_network=None, eval_indexes=None, amp_level="O0", boost_level="O0", **kwargs)
 ```
 
-更多内容详见[mindspore.Model](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.Model.html#mindspore.Model)。
+更多内容详见[mindspore.Model](https://mindspore.cn/docs/api/zh-CN/r1.6/api_python/mindspore/mindspore.Model.html#mindspore.Model)。
 
 ## 使用方式
 

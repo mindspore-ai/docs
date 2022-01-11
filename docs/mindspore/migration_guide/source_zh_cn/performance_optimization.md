@@ -1,6 +1,6 @@
 # 性能调试
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_zh_cn/performance_optimization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_zh_cn/performance_optimization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 Profiler为MindSpore提供了性能调优能力，针对算子性能、数据处理性能等提供了易用、丰富的调试功能，帮助用户快速定位、解决性能问题。
 
@@ -10,11 +10,11 @@ Profiler为MindSpore提供了性能调优能力，针对算子性能、数据处
 
 Profiler的功能介绍及使用说明请参见教程：
 
-[性能调试（Ascend）](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html)
+[性能调试（Ascend）](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.6/performance_profiling_ascend.html)
 
-[性能调试（GPU）](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_gpu.html)
+[性能调试（GPU）](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.6/performance_profiling_gpu.html)
 
-[集群性能调试（Ascend）](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend_of_cluster.html)
+[集群性能调试（Ascend）](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.6/performance_profiling_ascend_of_cluster.html)
 
 本节将通过三个典型案例介绍Profiler工具的常见使用方式。
 
@@ -41,7 +41,7 @@ Profiler的功能介绍及使用说明请参见教程：
 
 *图3：数据准备详情页面——数据处理*
 
-针对数据处理算子的性能优化，可以参考[优化数据处理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/optimize_data_processing.html )页面。
+针对数据处理算子的性能优化，可以参考[优化数据处理](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/optimize_data_processing.html )页面。
 查看ResNet50网络中数据处理的代码部分，发现map算子的num_parallel_workers参数没有设置，默认为1，代码如下：
 
 ```python
@@ -91,7 +91,7 @@ data_set = data_set.map(operations=trans, input_columns="image", num_parallel_wo
 
 *图6：通过算子耗时详情页面寻找可优化算子*
 
-对于算子耗时优化，在float16和float32格式精度无明显差别的前提下，通常可使用计算量更小的float16格式來提高性能，参考[使能混合精度](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/enable_mixed_precision.html )页面。
+对于算子耗时优化，在float16和float32格式精度无明显差别的前提下，通常可使用计算量更小的float16格式來提高性能，参考[使能混合精度](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/enable_mixed_precision.html )页面。
 
 优化参考代码如下：
 

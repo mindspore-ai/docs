@@ -1,6 +1,6 @@
 # Viewing Dashboard
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/dashboard.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindinsight/docs/source_en/dashboard.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -97,7 +97,7 @@ Figure 7 shows the function area of the computational graph, including:
 
 Figure 8 shows the readability optimization feature, which optimizes the readability of the graph and reduces the complexity of the graph, and removes most of the gradient and optimizer operators.
 
-Note: to get the clearest visualization of computational graph, please avoid to use public methods which cross cell and set `jit_level` to `o0` when collecting the computational graph, please refer to the API [mindspore.Model.build](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore/mindspore.Model.html#mindspore.Model.build).
+Note: to get the clearest visualization of computational graph, please avoid to use public methods which cross cell and set `jit_level` to `o0` when collecting the computational graph, please refer to the API [mindspore.Model.build](https://www.mindspore.cn/docs/api/en/r1.6/api_python/mindspore/mindspore.Model.html#mindspore.Model.build).
 
 ## Dataset Graph Visualization
 

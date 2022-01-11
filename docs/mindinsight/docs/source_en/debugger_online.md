@@ -1,6 +1,6 @@
 # Using Online Debugger
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/debugger_online.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindinsight/docs/source_en/debugger_online.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -33,7 +33,7 @@ The Debugger related parameters:
 |`--enable-debugger {ENABLE_DEBUGGER}`|Optional|Should be set to `True` or `1`, this will launch the MindInsight debugger server; Default is `False`, not launch.|Boolean|False|True/False/1/0|
 |`--debugger-port {DEBUGGER_PORT}`|Optional|Specifies the port number of the debugger server.|Integer|50051|1~65535|
 
-For more launch parameters, please refer to [MindInsight Commands](https://www.mindspore.cn/mindinsight/docs/en/master/mindinsight_commands.html).
+For more launch parameters, please refer to [MindInsight Commands](https://www.mindspore.cn/mindinsight/docs/en/r1.6/mindinsight_commands.html).
 
 ### Run the Training Script in Debug Mode
 
@@ -256,7 +256,7 @@ Tensors can be downloaded in tensor check view. Users can download the desired t
 
 - When using the debugger, make sure that the version numbers of MindInsight and MindSpore are the same.
 - Recheck only watchpoints that have tensor values.
-- To check overflow during computation, you need to enable the overflow detection function of the asynchronous dump. For details about how to enable the function, see [Asynchronous Dump](https://www.mindspore.cn/docs/programming_guide/en/master/custom_debugging_info.html#asynchronous-dump).
+- To check overflow during computation, you need to enable the overflow detection function of the asynchronous dump. For details about how to enable the function, see [Asynchronous Dump](https://www.mindspore.cn/docs/programming_guide/en/r1.6/custom_debugging_info.html#asynchronous-dump).
 - The graph displayed by the debugger is the finally optimized execution graph. The called operator may have been integrated with other operators, or the name of the called operator is changed after optimization.
 - Enabling the debugger will turn off memory reuse mode, which may lead to an 'out of memory' error when the training network is too large.
 

@@ -29,7 +29,7 @@ Future Roadmap
 Typical MindSpore Reinforcement Application Scenarios
 ------------------------------------------------------
 
-- `Train a deep Q network <https://www.mindspore.cn/reinforcement/docs/en/master/dqn.html>`_
+- `Train a deep Q network <https://www.mindspore.cn/reinforcement/docs/en/r0.2/dqn.html>`_
 
   The DQN algorithm uses an experience replay technique to maintain previous observations for off-policylearning.
 

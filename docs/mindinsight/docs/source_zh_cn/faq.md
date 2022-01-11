@@ -1,6 +1,6 @@
 ﻿# FAQ
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/faq.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindinsight/docs/source_zh_cn/faq.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 <font size=3>**Q: 请问在做神经网络中间特征可视化时，输入给模型一张图片，如何获取中间层的各个输出，并进行可视化？**</font>
 
@@ -29,7 +29,7 @@ class Net(nn.Cell):
         return out
 ```
 
-详细教程请参考[可视化调试调优](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/summary_record.html#summarysummarycollector)。
+详细教程请参考[可视化调试调优](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.6/summary_record.html#summarysummarycollector)。
 
 <br/>
 

@@ -8,6 +8,6 @@
 
 **更多内容**：
 
-<https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html>
+<https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/converter_tool.html>
 
-<https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_train.html>
+<https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/converter_train.html>

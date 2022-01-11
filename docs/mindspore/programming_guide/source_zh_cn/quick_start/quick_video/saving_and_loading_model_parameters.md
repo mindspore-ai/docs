@@ -6,4 +6,4 @@
 <source id="mp45" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/%E6%A8%A1%E5%9E%8B%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%9D%E5%AD%98%E5%92%8C%E5%8A%A0%E8%BD%BD.mp4" type="video/mp4">
 </video>
 
-**查看完整教程**：<https://www.mindspore.cn/docs/programming_guide/zh-CN/master/save_model.html>
+**查看完整教程**：<https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/save_model.html>

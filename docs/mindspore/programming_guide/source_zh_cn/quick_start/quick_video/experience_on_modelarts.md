@@ -6,6 +6,6 @@
 <source id="mp44" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/%E4%BA%91%E5%B9%B3%E5%8F%B0-ModelArts%E4%B8%8A%E4%BD%BF%E7%94%A8.mp4" type="video/mp4">
 </video>
 
-**查看更多内容**：<https://www.mindspore.cn/docs/programming_guide/zh-CN/master/use_on_the_cloud.html>
+**查看更多内容**：<https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/use_on_the_cloud.html>
 
 **查看course代码仓**：<https://gitee.com/mindspore/course>

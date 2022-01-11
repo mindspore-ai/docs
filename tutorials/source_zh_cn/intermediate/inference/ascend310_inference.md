@@ -2,9 +2,9 @@
 
 `Ascend` `进阶` `推理应用`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/intermediate/inference/ascend310_inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/tutorials/source_zh_cn/intermediate/inference/ascend310_inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
-本文介绍如何在Ascend310处理器中推理MindIR模型。Ascend环境配置可参考[Ascend安装指南](https://www.mindspore.cn/install/)，完整推理代码可参考[ascend310_resnet50_preprocess_sample](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/ascend310_resnet50_preprocess_sample)。
+本文介绍如何在Ascend310处理器中推理MindIR模型。Ascend环境配置可参考[Ascend安装指南](https://www.mindspore.cn/install/)，完整推理代码可参考[ascend310_resnet50_preprocess_sample](https://gitee.com/mindspore/docs/tree/r1.6/docs/sample_code/ascend310_resnet50_preprocess_sample)。
 
 ## 推理代码介绍
 
@@ -118,7 +118,7 @@ target_link_libraries(resnet50_sample ${MS_LIB} ${MD_LIB})
 
 ## 编译并执行推理代码
 
-若运行完整推理代码[ascend310_resnet50_preprocess_sample](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/ascend310_resnet50_preprocess_sample)，可将实验的脚本下载至Ascend310环境中编译并执行。
+若运行完整推理代码[ascend310_resnet50_preprocess_sample](https://gitee.com/mindspore/docs/tree/r1.6/docs/sample_code/ascend310_resnet50_preprocess_sample)，可将实验的脚本下载至Ascend310环境中编译并执行。
 
 创建并进入工程目录`ascend310_resnet50_preprocess_sample`，执行`cmake`命令，其中`pip3`需要按照实际情况修改：
 

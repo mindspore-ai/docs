@@ -113,7 +113,7 @@ MindSpore教程
 
                   <div class="doc-article-list">
                      <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner stage-Model-Development experience-local experience-online hidden">
-                        <a href="https://www.mindspore.cn/tutorials/zh-CN/master/autograd.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/zh-CN/r1.6/autograd.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">自动微分</span>
@@ -125,7 +125,7 @@ MindSpore教程
                         </a>
                      </div>
                      <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner stage-Data-Preparation experience-local experience-online hidden">
-                        <a href="https://www.mindspore.cn/tutorials/zh-CN/master/dataset.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/zh-CN/r1.6/dataset.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">数据加载及处理</span>
@@ -137,7 +137,7 @@ MindSpore教程
                         </a>
                      </div>
                      <div class="doc-article-item all hardware-ascend hardware-device stage-Beginner stage-Inference experience-local hidden">
-                        <a href="https://www.mindspore.cn/tutorials/zh-CN/master/inference.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/zh-CN/r1.6/inference.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">推理</span>
@@ -149,7 +149,7 @@ MindSpore教程
                         </a>
                      </div>
                      <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu hardware-device stage-Beginner experience-local hidden">
-                        <a href="https://www.mindspore.cn/tutorials/zh-CN/master/introduction.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/zh-CN/r1.6/introduction.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">基本介绍</span>
@@ -161,7 +161,7 @@ MindSpore教程
                         </a>
                      </div>
                      <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner stage-Whole-Process experience-local experience-online hidden">
-                        <a href="https://www.mindspore.cn/tutorials/zh-CN/master/linear_regression.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/zh-CN/r1.6/linear_regression.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">简单线性函数拟合</span>
@@ -173,7 +173,7 @@ MindSpore教程
                         </a>
                      </div>
                      <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner stage-Model-Development experience-local experience-online hidden">
-                        <a href="https://www.mindspore.cn/tutorials/zh-CN/master/model.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/zh-CN/r1.6/model.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">建立神经网络</span>
@@ -185,7 +185,7 @@ MindSpore教程
                         </a>
                      </div>
                      <div class="doc-article-item all hardware-ascend hardware-gpu stage-Beginner stage-Model-Development experience-local experience-online hidden">
-                        <a href="https://www.mindspore.cn/tutorials/zh-CN/master/optimization.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/zh-CN/r1.6/optimization.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">训练模型</span>
@@ -197,7 +197,7 @@ MindSpore教程
                         </a>
                      </div>
                      <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner stage-Whole-Process experience-local experience-online hidden">
-                        <a href="https://www.mindspore.cn/tutorials/zh-CN/master/quick_start.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/zh-CN/r1.6/quick_start.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">初学入门</span>
@@ -209,7 +209,7 @@ MindSpore教程
                         </a>
                      </div>
                      <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner stage-Model-Export stage-Model-Loading experience-local hidden">
-                        <a href="https://www.mindspore.cn/tutorials/zh-CN/master/save_load_model.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/zh-CN/r1.6/save_load_model.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">保存及加载模型</span>
@@ -221,7 +221,7 @@ MindSpore教程
                         </a>
                      </div>
                      <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner experience-local experience-online hidden">
-                        <a href="https://www.mindspore.cn/tutorials/zh-CN/master/tensor.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/zh-CN/r1.6/tensor.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">张量</span>
@@ -233,7 +233,7 @@ MindSpore教程
                         </a>
                      </div>
                      <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation stage-Advanced experience-local experience-online hidden">
-                        <a href="https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/data.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/zh-CN/r1.6/intermediate/data.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">高级数据集管理</span>
@@ -245,7 +245,7 @@ MindSpore教程
                         </a>
                      </div>
                      <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Whole-Process stage-Advanced experience-local hidden">
-                        <a href="https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/mid_low_level_api.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/zh-CN/r1.6/intermediate/mid_low_level_api.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">中低阶API实现深度学习</span>
@@ -257,7 +257,7 @@ MindSpore教程
                         </a>
                      </div>
                      <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Running stage-Advanced experience-local experience-online hidden">
-                        <a href="https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/pynative_mode_and_graph_mode.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/zh-CN/r1.6/intermediate/pynative_mode_and_graph_mode.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">动态图与静态图</span>
@@ -269,7 +269,7 @@ MindSpore教程
                         </a>
                      </div>
                      <div class="doc-article-item all hardware-ascend stage-Distributed-Parallel stage-Advanced experience-local hidden">
-                        <a href="https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/distributed_training/apply_parameter_server_training.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/zh-CN/r1.6/intermediate/distributed_training/apply_parameter_server_training.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">使用Parameter Server训练</span>
@@ -281,7 +281,7 @@ MindSpore教程
                         </a>
                      </div>
                      <div class="doc-article-item all hardware-ascend stage-Distributed-Parallel stage-Advanced experience-local hidden">
-                        <a href="https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/distributed_training/distributed_training_ascend.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/zh-CN/r1.6/intermediate/distributed_training/distributed_training_ascend.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">分布式并行训练 （Ascend）</span>
@@ -293,7 +293,7 @@ MindSpore教程
                         </a>
                      </div>
                      <div class="doc-article-item all hardware-gpu stage-Distributed-Parallel stage-Advanced experience-local hidden">
-                        <a href="https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/distributed_training/distributed_training_gpu.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/zh-CN/r1.6/intermediate/distributed_training/distributed_training_gpu.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">分布式并行训练 （GPU）</span>
@@ -305,7 +305,7 @@ MindSpore教程
                         </a>
                      </div>
                      <div class="doc-article-item all hardware-ascend hardware-gpu stage-Distributed-Parallel stage-Model-Export stage-Advanced experience-local hidden">
-                        <a href="https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/distributed_training/distributed_training_model_parameters_saving_and_loading.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/zh-CN/r1.6/intermediate/distributed_training/distributed_training_model_parameters_saving_and_loading.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">分布式训练模型参数保存和加载</span>
@@ -317,7 +317,7 @@ MindSpore教程
                         </a>
                      </div>
                      <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Whole-Process stage-Advanced experience-local experience-online hidden">
-                        <a href="https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/image_and_video/adversarial_example_generation.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/zh-CN/r1.6/intermediate/image_and_video/adversarial_example_generation.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">对抗示例生成</span>
@@ -329,7 +329,7 @@ MindSpore教程
                         </a>
                      </div>
                      <div class="doc-article-item all hardware-ascend hardware-gpu stage-Whole-Process stage-Advanced experience-local experience-online hidden">
-                        <a href="https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/image_and_video/dcgan.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/zh-CN/r1.6/intermediate/image_and_video/dcgan.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">深度卷积对抗生成网络</span>
@@ -341,7 +341,7 @@ MindSpore教程
                         </a>
                      </div>
                      <div class="doc-article-item all hardware-ascend hardware-gpu stage-Whole-Process stage-Advanced experience-local hidden">
-                        <a href="https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/image_and_video/transfer_learning.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/zh-CN/r1.6/intermediate/image_and_video/transfer_learning.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">图像分类迁移学习</span>
@@ -353,7 +353,7 @@ MindSpore教程
                         </a>
                      </div>
                      <div class="doc-article-item all hardware-ascend stage-Inference stage-Advanced experience-local hidden">
-                        <a href="https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/inference/ascend310_inference.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/zh-CN/r1.6/intermediate/inference/ascend310_inference.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">Ascend310处理器上推理MindIR模型</span>
@@ -365,7 +365,7 @@ MindSpore教程
                         </a>
                      </div>
                      <div class="doc-article-item all hardware-ascend hardware-gpu stage-Inference stage-Advanced experience-local experience-online hidden">
-                        <a href="https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/inference/ascend910_and_gpu_inference.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/zh-CN/r1.6/intermediate/inference/ascend910_and_gpu_inference.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">Ascend910与GPU推理</span>
@@ -377,7 +377,7 @@ MindSpore教程
                         </a>
                      </div>
                      <div class="doc-article-item all hardware-device stage-Inference stage-Advanced experience-local hidden">
-                        <a href="https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/inference/mindspore_lite_inference.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/zh-CN/r1.6/intermediate/inference/mindspore_lite_inference.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">MindSpore Lite推理流程</span>
@@ -389,7 +389,7 @@ MindSpore教程
                         </a>
                      </div>
                      <div class="doc-article-item all hardware-ascend hardware-gpu stage-Inference stage-Advanced experience-local hidden">
-                        <a href="https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/inference/mindspore_serving_inference.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/zh-CN/r1.6/intermediate/inference/mindspore_serving_inference.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">基于MindSpore Serving部署推理服务</span>
@@ -401,7 +401,7 @@ MindSpore教程
                         </a>
                      </div>
                      <div class="doc-article-item all hardware-ascend stage-Whole-Process stage-Advanced experience-local hidden">
-                        <a href="https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/text/bert_poetry.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/zh-CN/r1.6/intermediate/text/bert_poetry.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">使用BERT网络实现智能写诗</span>
@@ -413,7 +413,7 @@ MindSpore教程
                         </a>
                      </div>
                      <div class="doc-article-item all hardware-ascend hardware-gpu stage-Whole-Process stage-Advanced experience-local experience-online hidden">
-                        <a href="https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/text/rnn_classification.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/zh-CN/r1.6/intermediate/text/rnn_classification.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">使用字符级RNN分类名称</span>
@@ -425,7 +425,7 @@ MindSpore教程
                         </a>
                      </div>
                      <div class="doc-article-item all hardware-ascend hardware-gpu stage-Whole-Process stage-Advanced experience-local experience-online hidden">
-                        <a href="https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/text/rnn_generation.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/zh-CN/r1.6/intermediate/text/rnn_generation.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">使用字符级RNN生成名称</span>
@@ -437,7 +437,7 @@ MindSpore教程
                         </a>
                      </div>
                      <div class="doc-article-item all hardware-gpu hardware-cpu stage-Whole-Process stage-Advanced experience-local experience-online hidden">
-                        <a href="https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/text/sentimentnet.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/zh-CN/r1.6/intermediate/text/sentimentnet.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">使用SentimentNet实现情感分类</span>

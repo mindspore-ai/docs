@@ -43,26 +43,26 @@ Advantages of the MindSpore Federated
 MindSpore Federated Working Process
 ------------------------------------
 
-1. `Scenario Identification and Data Accumulation <https://www.mindspore.cn/federated/docs/en/master/image_classification_application.html#defining-the-network>`_
+1. `Scenario Identification and Data Accumulation <https://www.mindspore.cn/federated/docs/en/r1.6/image_classification_application.html#defining-the-network>`_
 
    Identify scenarios where federated learning is used and accumulate local data for federated tasks on the client.
 
-2. `Model Selection and Client Deployment <https://www.mindspore.cn/federated/docs/en/master/image_classification_application.html#generating-a-device-model-file>`_
+2. `Model Selection and Client Deployment <https://www.mindspore.cn/federated/docs/en/r1.6/image_classification_application.html#generating-a-device-model-file>`_
 
    Select or develop a model prototype and use a tool to generate a device model that is easy to deploy.
 
-3. `Application Deployment <https://www.mindspore.cn/federated/docs/en/master/image_classification_application.html#simulating-multi-client-participation-in-federated-learning>`_
+3. `Application Deployment <https://www.mindspore.cn/federated/docs/en/r1.6/image_classification_application.html#simulating-multi-client-participation-in-federated-learning>`_
 
    Deploy the Federated-Client to the device application, and set the federated configuration task and deployment script on the cloud.
 
 Common Scenarios
 -----------------
 
-1. `Image Classification <https://www.mindspore.cn/federated/docs/en/master/image_classification_application.html>`_
+1. `Image Classification <https://www.mindspore.cn/federated/docs/en/r1.6/image_classification_application.html>`_
 
    Use the federated learning to implement image classification applications.
 
-2. `Text Classification <https://www.mindspore.cn/federated/docs/en/master/sentiment_classification_application.html>`_
+2. `Text Classification <https://www.mindspore.cn/federated/docs/en/r1.6/sentiment_classification_application.html>`_
 
    Use the federated learning to implement text classification applications.
 

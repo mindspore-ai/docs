@@ -1,19 +1,19 @@
 # 性能调优指南
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/performance_tuning_guide.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindinsight/docs/source_zh_cn/performance_tuning_guide.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## 概述
 
 MindInsight从单机和集群的角度分别提供了多项指标，用于帮助用户进行性能调优。本文侧重于方法论的讲解，目的是指导用户运用这些指标逐层递进地分析，从而快速找到网络中存在的性能瓶颈点。
 对于各项指标的具体含义，用户可参考如下文档：
 
-[性能调试（Ascend）](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html)
+[性能调试（Ascend）](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.6/performance_profiling_ascend.html)
 
-[性能调试（GPU）](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_gpu.html)
+[性能调试（GPU）](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.6/performance_profiling_gpu.html)
 
-[集群性能调试（Ascend）](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend_of_cluster.html)
+[集群性能调试（Ascend）](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.6/performance_profiling_ascend_of_cluster.html)
 
-用户可以结合实际的[调优案例](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/performance_optimization.html) 阅读本文，理解起来更加直观。
+用户可以结合实际的[调优案例](https://www.mindspore.cn/docs/migration_guide/zh-CN/r1.6/performance_optimization.html) 阅读本文，理解起来更加直观。
 
 ## 单卡性能调优
 
@@ -60,7 +60,7 @@ MindInsight在性能调优的单卡页面为用户提供了`迭代轨迹`标签�
 
 - 若用户脚本中不存在耗时的自定义逻辑，说明框架将数据从Host侧发送到Device侧耗时较长，请到[MindSpore社区](https://gitee.com/mindspore/mindspore/issues) 进行反馈。
 
-步骤2：跳转到`数据准备详情`页的`数据处理`标签页，观察算子间队列，确定数据处理具体哪个算子存在性能瓶颈。判断原则请见[性能调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#id8) 页面的`数据处理pipeline分析`部分。找到存在性能问题的算子后，可参考[优化数据处理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/optimize_data_processing.html) 页面尝试提高数据处理算子的性能。
+步骤2：跳转到`数据准备详情`页的`数据处理`标签页，观察算子间队列，确定数据处理具体哪个算子存在性能瓶颈。判断原则请见[性能调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.6/performance_profiling_ascend.html#id8) 页面的`数据处理pipeline分析`部分。找到存在性能问题的算子后，可参考[优化数据处理](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/optimize_data_processing.html) 页面尝试提高数据处理算子的性能。
 
 #### 数据下沉模式
 
@@ -71,7 +71,7 @@ MindInsight在性能调优的单卡页面为用户提供了`迭代轨迹`标签�
 
 步骤2：查看主机队列Size曲线的变化情况。若该队列Size都不是0，说明训练数据从Host发往Device的流程为性能瓶颈点，请到[MindSpore社区](https://gitee.com/mindspore/mindspore/issues) 反馈；否则说明数据处理流程是性能瓶颈点，请参照步骤3继续定位数据处理哪个算子存在性能问题。
 
-步骤3：跳转到`数据准备详情页的数据处理标签页`观察算子间队列，确定数据处理具体哪个算子存在性能瓶颈。判断原则请见[性能调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#id8) 页面的`数据处理pipeline分析`部分。找到存在性能问题的算子后，可参考[优化数据处理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/optimize_data_processing.html) 页面尝试提高数据处理算子的性能。
+步骤3：跳转到`数据准备详情页的数据处理标签页`观察算子间队列，确定数据处理具体哪个算子存在性能瓶颈。判断原则请见[性能调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.6/performance_profiling_ascend.html#id8) 页面的`数据处理pipeline分析`部分。找到存在性能问题的算子后，可参考[优化数据处理](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/optimize_data_processing.html) 页面尝试提高数据处理算子的性能。
 
 ### 前反向耗时长
 
@@ -99,7 +99,7 @@ MindInsight在性能调优的单卡页面为用户提供了`迭代轨迹`标签�
 - 慢节点：由于集合通信算子是同步执行的，若集群中存在慢节点，则会由于木桶效应，拖累整个集群的性能。
 - 慢链路：若集群中某些链路存在问题，带宽较小，会影响集群通信的时长从而拖累整个集群的性能。
 - 切分不合理：主要针对模型并行和流水线并行。
-    - 对于模型并行，如果前后两个算子切分策略不一致会导致自动插入[重排布](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/design/distributed_training_design.html) ，此时会增加通信算子以完成数据转换，而过多的通信是影响集群性能的主要因素。理想情况下，通信耗时越短越好，当纯通信时长(只有通信算子执行的时间段，通信算子与计算算子并行执行的时间段由于通信时间隐藏在了计算算子执行的时间内可不用关注)占据总时长的比例较大时，用户需要考虑优化算子切分策略，避免引入重排布，从而使得通信耗时增加。
+    - 对于模型并行，如果前后两个算子切分策略不一致会导致自动插入[重排布](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/design/distributed_training_design.html) ，此时会增加通信算子以完成数据转换，而过多的通信是影响集群性能的主要因素。理想情况下，通信耗时越短越好，当纯通信时长(只有通信算子执行的时间段，通信算子与计算算子并行执行的时间段由于通信时间隐藏在了计算算子执行的时间内可不用关注)占据总时长的比例较大时，用户需要考虑优化算子切分策略，避免引入重排布，从而使得通信耗时增加。
     - 对于流水线并行，由于会将不同的层切分到不同的stage里，如果stage切分不合理会使得各stage上的计算量不均衡，最终导致stage间由于不同步而产生额外的数据等待时间（表现为Receive通信算子的耗时长，该通信算子用于接收其他stage发送的数据），因此需要调整每个stage的计算量到尽量接近平均值。
 
 针对如上影响集群性能的主要因素，MindInsight为数据并行、模型并行、流水线并行分别提供了不同的指标，以帮助用户快速发现集群中的性能瓶颈点。影响集群性能的还可能包括卡的性能、节点网络结构、CPU资源、内存资源等硬件因素，请结合训练场景具体分析原因。
@@ -127,7 +127,7 @@ MindInsight在性能调优的单卡页面为用户提供了`迭代轨迹`标签�
 步骤3：观察集群页面的迭代拖尾耗时
 
 - 观察是否有某张卡的迭代拖尾耗时明显比其它卡长，通常该情况是由于集群中存在慢节点导致，用户可参考步骤1和步骤2确定是否有慢节点并修复。
-- 若所有卡的迭代拖尾耗时基本相同，且该阶段耗时较长，通常是由于AllReduce集合通信算子耗时长导致。用户可尝试通过修改all_reduce_fusion_config参数，改变[AllReduce融合切分策略](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/auto_parallel.html?highlight=all_reduce_fusion_config) 降低该阶段的耗时。
+- 若所有卡的迭代拖尾耗时基本相同，且该阶段耗时较长，通常是由于AllReduce集合通信算子耗时长导致。用户可尝试通过修改all_reduce_fusion_config参数，改变[AllReduce融合切分策略](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/auto_parallel.html?highlight=all_reduce_fusion_config) 降低该阶段的耗时。
 
 ### 模型并行
 
@@ -145,7 +145,7 @@ MindInsight在性能调优的单卡页面为用户提供了`迭代轨迹`标签�
 步骤3：观察集群页面的纯通信时间
 
 在通过步骤1和步骤2确认没有慢节点的前提下，集群中各卡的纯通信时间应该基本相同。如果该阶段耗时较短，说明由于算子重排布导致的通信时间对性能的影响较小，用户无需考虑对算子切分策略进行优化。否则，用户需要重点分析算子的切分策略是否可以优化。
-在参考如下步骤继续分析前，用户需要对模型并行原理有一定的了解，请参考[分布式训练](https://www.mindspore.cn/tutorials/zh-CN/master/distributed_training.html) 了解其基本原理，如下步骤只是辅助用户进行合理性分析，算子切分策略是否有优化空间、如何优化需要用户了解模型并行原理后，结合各自的网络具体分析进行判断。
+在参考如下步骤继续分析前，用户需要对模型并行原理有一定的了解，请参考[分布式训练](https://www.mindspore.cn/tutorials/zh-CN/r1.6/distributed_training.html) 了解其基本原理，如下步骤只是辅助用户进行合理性分析，算子切分策略是否有优化空间、如何优化需要用户了解模型并行原理后，结合各自的网络具体分析进行判断。
 
 - 若该阶段耗时较长，用户可任意选其中的一张卡，观察其时间线。在时间线中，MindInsight对纯通信时间做了标记，参考下图中的`Pure Communication Op`:
 

@@ -6,4 +6,4 @@
 <source id="mp46" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/teaching_video/video/%E4%BD%BF%E7%94%A8PyNative%E6%A8%A1%E5%BC%8F%E8%B0%83%E8%AF%95EN.mp4" type="video/mp4">
 </video>
 
-**View the full tutorial**: <https://www.mindspore.cn/docs/programming_guide/en/master/debug_in_pynative_mode.html>
+**View the full tutorial**: <https://www.mindspore.cn/docs/programming_guide/en/r1.6/debug_in_pynative_mode.html>

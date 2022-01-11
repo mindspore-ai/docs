@@ -4,7 +4,7 @@
 
 Translator: [longvoyage](https://gitee.com/yuanyanglv)
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/nlp_tprr.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_en/nlp_tprr.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -13,7 +13,7 @@ TPRR(Thinking Path Re-Ranker) is an open-domain knowledge based multi-hop questi
 This tutorial will mainly introduce how to build and run a multi-hop knowledge reasoning question-answering model TPRR with MindSpore on Ascend.
 
 > You can download the complete sample code here:
-<https://gitee.com/mindspore/models/tree/master/research/nlp/tprr>.
+<https://gitee.com/mindspore/models/tree/r1.6/research/nlp/tprr>.
 
 The sample code directory structure is as follows:
 

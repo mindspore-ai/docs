@@ -2,12 +2,12 @@
 
 `Ascend` `GPU` `CPU` `Model Evaluation`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/self_define_metric.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_en/self_define_metric.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 &nbsp;&nbsp;
 
 ## Overview
 
-After training, it is necessary to use Metrics for model evaluation. Different tasks usually needs different Metrics. For example, precision and recall are often employed as the Metrics for binary classification task, and for multi-class classification tasks, we can use Metrics like Macro or Micro. MindSpore has provided many different Metrics such as `nn.Accuracy`,`nn.Pecision`,`nn.MAE`, `nn.Topk`, `nn.MSE`, etc. For more information, one can refer to [Metrics](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.nn.html#metrics). Although MindSpore has provided Mstrics for most common tasks, it cannot satisfy all need. Therefore, for some specific tasks, one can define his own Metrics to evaluate the model.
+After training, it is necessary to use Metrics for model evaluation. Different tasks usually needs different Metrics. For example, precision and recall are often employed as the Metrics for binary classification task, and for multi-class classification tasks, we can use Metrics like Macro or Micro. MindSpore has provided many different Metrics such as `nn.Accuracy`,`nn.Pecision`,`nn.MAE`, `nn.Topk`, `nn.MSE`, etc. For more information, one can refer to [Metrics](https://www.mindspore.cn/docs/api/en/r1.6/api_python/mindspore.nn.html#metrics). Although MindSpore has provided Mstrics for most common tasks, it cannot satisfy all need. Therefore, for some specific tasks, one can define his own Metrics to evaluate the model.
 
 Next, we will introduce how to customize Metrics and use it in `nn.Model`.
 
@@ -92,7 +92,7 @@ print(result)
 
 ## Using Metrics in Model
 
-`mindspore.Model` is high-level API for training or testing. The custom Metrics can be passed to Model, Model will automatically call it to evaluate the trained model. The example code is as follows. More information about `mindspore.Model`, please refer to [Model](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore/mindspore.Model.html#mindspore.Model).
+`mindspore.Model` is high-level API for training or testing. The custom Metrics can be passed to Model, Model will automatically call it to evaluate the trained model. The example code is as follows. More information about `mindspore.Model`, please refer to [Model](https://www.mindspore.cn/docs/api/en/r1.6/api_python/mindspore/mindspore.Model.html#mindspore.Model).
 
 ```python
 model = Model(network, loss, metrics={"MyMAE":MyMAE()})

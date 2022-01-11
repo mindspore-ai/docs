@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `进阶` `推理应用`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/intermediate/inference/mindspore_serving_inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/tutorials/source_zh_cn/intermediate/inference/mindspore_serving_inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 MindSpore Serving是一个轻量级、高性能的推理服务模块，旨在帮助MindSpore开发者在生产环境中高效部署在线推理服务。当用户使用MindSpore完成模型训练后，导出MindSpore模型，即可使用MindSpore Serving创建该模型的推理服务。
 
@@ -15,19 +15,19 @@ MindSpore Serving提供如下功能：
 - 服务的生命周期管理；
 - 多模型多版本的管理。
 
-本文以一个简单的Add网络为例，演示MindSpore Serving的基础使用方法。可通过链接查看[Add网络推理源码](https://gitee.com/mindspore/serving/tree/master/example/tensor_add)。
+本文以一个简单的Add网络为例，演示MindSpore Serving的基础使用方法。可通过链接查看[Add网络推理源码](https://gitee.com/mindspore/serving/tree/r1.6/example/tensor_add)。
 
 ## 环境准备
 
-运行示例前，需确保已经正确安装了MindSpore Serving，并配置了环境变量。MindSpore Serving安装和配置可以参考[MindSpore Serving安装页面](https://www.mindspore.cn/serving/docs/zh-CN/master/serving_install.html)。
+运行示例前，需确保已经正确安装了MindSpore Serving，并配置了环境变量。MindSpore Serving安装和配置可以参考[MindSpore Serving安装页面](https://www.mindspore.cn/serving/docs/zh-CN/r1.6/serving_install.html)。
 
 ## 下载样例
 
-请先[下载样例](https://gitee.com/mindspore/serving/blob/master/example/tensor_add/)。
+请先[下载样例](https://gitee.com/mindspore/serving/blob/r1.6/example/tensor_add/)。
 
 ## 导出模型
 
-在`export_model`目录下，使用[add_model.py](https://gitee.com/mindspore/serving/blob/master/example/tensor_add/export_model/add_model.py)，构造一个只有Add算子的网络，并导出MindSpore推理部署模型`tensor_add.mindir`文件。更为详细完整的模型定义示例可以参考[初学入门](https://www.mindspore.cn/tutorials/zh-CN/master/quick_start.html)。
+在`export_model`目录下，使用[add_model.py](https://gitee.com/mindspore/serving/blob/r1.6/example/tensor_add/export_model/add_model.py)，构造一个只有Add算子的网络，并导出MindSpore推理部署模型`tensor_add.mindir`文件。更为详细完整的模型定义示例可以参考[初学入门](https://www.mindspore.cn/tutorials/zh-CN/r1.6/quick_start.html)。
 
 ## 部署Serving推理服务
 
@@ -118,7 +118,7 @@ Serving RESTful server start success, listening on 127.0.0.1:1500
 
 ## 执行推理
 
-客户端提供两种方式访问推理服务，一种是通过[gRPC方式](https://www.mindspore.cn/serving/docs/zh-CN/master/serving_grpc.html)，一种是通过[RESTful方式](https://www.mindspore.cn/serving/docs/zh-CN/master/serving_restful.html)。本文以gRPC方式为例，通过`serving_client.py`执行推理。
+客户端提供两种方式访问推理服务，一种是通过[gRPC方式](https://www.mindspore.cn/serving/docs/zh-CN/r1.6/serving_grpc.html)，一种是通过[RESTful方式](https://www.mindspore.cn/serving/docs/zh-CN/r1.6/serving_restful.html)。本文以gRPC方式为例，通过`serving_client.py`执行推理。
 
 ```python
 import numpy as np

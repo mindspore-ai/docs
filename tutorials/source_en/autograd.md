@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `Beginner` `Model Development`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/autograd.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/tutorials/source_en/autograd.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 Automatic differentiation is commonly used when implementing machine learning algorithms such as backpropagation for training neural networks. By using automatic differentiation, multi-layer composite functions could be divided into several simple computational steps, thereby helping users avoid implementing complex derivation codes. As a result, automatic differentiation enables ease of use of MindSpore.
 

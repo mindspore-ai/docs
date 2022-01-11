@@ -16,7 +16,7 @@ Translator: [Wei_zz](https://gitee.com/wei-zz)
 
 <!-- TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/dataset_introduction.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_en/dataset_introduction.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 Data is the foundation of deep learning, and high-quality data input will play a positive role in the entire deep neural network.
 In the network training and inference process, the original data is generally stored in a disk or a database, and it needs to be first read into the memory space through the data loading step, converted into the framework's common tensor (Tensor) format, and then processed and enhanced by the data step, map it to a feature space that is easier to learn, while increasing the number of samples and generalization, and finally input to the network for calculation.
@@ -33,9 +33,9 @@ This chapter introduces some basic concepts involved in data loading, data proce
 
 A dataset is a collection of samples. A row of the dataset is a sample that contains one or more features, and may also contain a label. The dataset needs to meet certain specifications to facilitate the evaluation of the model's effect.
 
-Dataset supports multiple format data sets, including MindSpore self-developed data format MindRecord, commonly used public image data sets and text data sets, user-defined data sets, etc. For detailed data sets supported by Mindspore, please refer to: [MindSpore Support Data Sets](https://www.mindspore.cn/docs/programming_guide/en/master/dataset_loading.html).
+Dataset supports multiple format data sets, including MindSpore self-developed data format MindRecord, commonly used public image data sets and text data sets, user-defined data sets, etc. For detailed data sets supported by Mindspore, please refer to: [MindSpore Support Data Sets](https://www.mindspore.cn/docs/programming_guide/en/r1.6/dataset_loading.html).
 
-Dataset also supports the conversion of commonly used data sets and user-defined data sets to MindSpore data format (MindRecord). For details, please refer to: [Converting Data Sets to MindRecord](https://www.mindspore.cn/docs/programming_guide/en/master/convert_dataset.html).
+Dataset also supports the conversion of commonly used data sets and user-defined data sets to MindSpore data format (MindRecord). For details, please refer to: [Converting Data Sets to MindRecord](https://www.mindspore.cn/docs/programming_guide/en/r1.6/convert_dataset.html).
 
 ## Dataset Loading
 
@@ -43,11 +43,11 @@ Dataset also supports the conversion of commonly used data sets and user-defined
 
 The dataset loading makes the model training continuously obtain data for training.
 
-Dataset provides corresponding classes for a variety of commonly used data sets to load data sets. At the same time, for data files in different storage formats, Dataset also has corresponding classes for data loading. For loading of MindSpore dataset, please refer to: [loading of MindSpore dataset](https://www.mindspore.cn/docs/programming_guide/en/master/dataset_loading.html).
+Dataset provides corresponding classes for a variety of commonly used data sets to load data sets. At the same time, for data files in different storage formats, Dataset also has corresponding classes for data loading. For loading of MindSpore dataset, please refer to: [loading of MindSpore dataset](https://www.mindspore.cn/docs/programming_guide/en/r1.6/dataset_loading.html).
 
 Dataset provides a sampler for multiple purposes (Sampler), the sampler is responsible for generating the read index sequence, the Dataset is responsible for reading the corresponding data according to the index, and helping users to sample the dataset in different forms to meet training needs and solve problems such as the dataset is too large or the sample category distribution is uneven. Note that the sampler is responsible for filtering and reordering the samples, and will not perform the batch operation.
 
-For the introduction of Mindspore data sampling, please refer to: [MindSpore data sampling](https://www.mindspore.cn/docs/programming_guide/en/master/sampler.html).
+For the introduction of Mindspore data sampling, please refer to: [MindSpore data sampling](https://www.mindspore.cn/docs/programming_guide/en/r1.6/sampler.html).
 
 ## Data Processing
 
@@ -70,7 +70,7 @@ Dataset provides multiple ways to implement global shuffle operations.
     dataset = ds.NumpySlicesDataset(data=data, column_names=["column_1"], shuffle=True)
     ```
 
-    For details, please refer to: [NumpySlicesDataset](https://www.mindspore.cn/docs/api/en/master/api_python/dataset/mindspore.dataset.NumpySlicesDataset.html).
+    For details, please refer to: [NumpySlicesDataset](https://www.mindspore.cn/docs/api/en/r1.6/api_python/dataset/mindspore.dataset.NumpySlicesDataset.html).
 
 2. shuffle operator
 
@@ -83,7 +83,7 @@ Dataset provides multiple ways to implement global shuffle operations.
     dataset = dataset.shuffle(4)
     ```
 
-    For details, please refer to: [shuffle API](https://www.mindspore.cn/docs/api/en/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset.shuffle).
+    For details, please refer to: [shuffle API](https://www.mindspore.cn/docs/api/en/r1.6/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset.shuffle).
 
 3. Random sampling
 
@@ -95,7 +95,7 @@ Dataset provides multiple ways to implement global shuffle operations.
     dataset = ds.NumpySlicesDataset(data=data, column_names=["column_1"],sampler=sampler)
     ```
 
-    For details, please refer to: [RandomSampler](https://www.mindspore.cn/docs/api/en/master/api_python/dataset/mindspore.dataset.RandomSampler.html#mindspore-dataset-randomsampler).
+    For details, please refer to: [RandomSampler](https://www.mindspore.cn/docs/api/en/r1.6/api_python/dataset/mindspore.dataset.RandomSampler.html#mindspore-dataset-randomsampler).
 
 ### Map Operation
 
@@ -105,11 +105,11 @@ The Map operation performs data enhancement on all kinds of data, is responsible
 
 Dataset's `c_transforms` and `py_transforms` modules provide implementations of data enhancement operators based on `C++` and `Python` respectively, and users can customize functions for data enhancement.
 
-For image data enhancement operations, please refer to: [image data enhancement](https://www.mindspore.cn/docs/programming_guide/en/master/augmentation.html).
+For image data enhancement operations, please refer to: [image data enhancement](https://www.mindspore.cn/docs/programming_guide/en/r1.6/augmentation.html).
 
-For text data enhancement operations, please refer to: [[text data enhancement](https://www.mindspore.cn/docs/programming_guide/en/master/tokenizer.html).
+For text data enhancement operations, please refer to: [[text data enhancement](https://www.mindspore.cn/docs/programming_guide/en/r1.6/tokenizer.html).
 
-For Map operation, please refer to: [Map operation](https://www.mindspore.cn/docs/api/en/master/api_python/dataset/mindspore.dataset.CelebADataset.html#mindspore.dataset.CelebADataset.map).
+For Map operation, please refer to: [Map operation](https://www.mindspore.cn/docs/api/en/r1.6/api_python/dataset/mindspore.dataset.CelebADataset.html#mindspore.dataset.CelebADataset.map).
 
 ### Batch Operation
 
@@ -164,4 +164,4 @@ Before the "packing" action, Batch supports `Tensors` with inconsistent `shapes`
     dataset = ds.GeneratorDataset((lambda: gen_3_cols(4)), ["col1", "col2", "col3"]).batch (batch_size=batch_func, input_columns=["col1", "col2"], per_batch_map=map_func)
     ```
 
-For Batch operation, please refer to: [Batch operation](https://www.mindspore.cn/docs/api/en/master/api_python/dataset/mindspore.dataset.CelebADataset.html#mindspore.dataset.CelebADataset.batch).
+For Batch operation, please refer to: [Batch operation](https://www.mindspore.cn/docs/api/en/r1.6/api_python/dataset/mindspore.dataset.CelebADataset.html#mindspore.dataset.CelebADataset.batch).

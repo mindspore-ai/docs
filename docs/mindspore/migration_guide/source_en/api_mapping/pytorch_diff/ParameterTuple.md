@@ -1,6 +1,6 @@
 # Function Differences with torch.nn.ParameterList
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/ParameterTuple.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/ParameterTuple.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## torch.nn.ParameterList
 
@@ -16,7 +16,7 @@ For more information, see [torch.nn.ParameterList](https://pytorch.org/docs/1.5.
 class mindspore.ParameterTuple()
 ```
 
-For more information, see [mindspore.ParameterTuple](https://mindspore.cn/docs/api/en/master/api_python/mindspore/mindspore.ParameterTuple.html#mindspore.ParameterTuple).
+For more information, see [mindspore.ParameterTuple](https://mindspore.cn/docs/api/en/r1.6/api_python/mindspore/mindspore.ParameterTuple.html#mindspore.ParameterTuple).
 
 ## Differences
 

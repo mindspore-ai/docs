@@ -2,7 +2,7 @@
 
  `Ascend` `GPU` `CPU` `模型运行` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/apply_recompute.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_zh_cn/apply_recompute.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -12,14 +12,14 @@ MindSpore采用反向模式的自动微分，根据正向图计算流程来自�
 
 ## 准备工作
 
-1. 准备模型代码。ResNet-50模型的代码可参见：<https://gitee.com/mindspore/models/tree/master/official/cv/resnet>，其中，`train.py`为训练的主函数所在，`src/`目录中包含ResNet-50模型的定义和配置信息等，`script/`目录中包含一些训练和推理脚本。
-2. 准备数据集。本样例采用`CIFAR-10`数据集，数据集的下载和加载方式可参考：<https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_ascend.html>。
+1. 准备模型代码。ResNet-50模型的代码可参见：<https://gitee.com/mindspore/models/tree/r1.6/official/cv/resnet>，其中，`train.py`为训练的主函数所在，`src/`目录中包含ResNet-50模型的定义和配置信息等，`script/`目录中包含一些训练和推理脚本。
+2. 准备数据集。本样例采用`CIFAR-10`数据集，数据集的下载和加载方式可参考：<https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/distributed_training_ascend.html>。
 
 ## 配置重计算
 
 我们可以通过调用两种接口去配置重计算，以`src/resnet.py`为例：
 
-1. 调用`Primitive`的[recompute接口](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.recompute)，调用该接口之后，在计算反向部分时，该算子会被重新计算。
+1. 调用`Primitive`的[recompute接口](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.recompute)，调用该接口之后，在计算反向部分时，该算子会被重新计算。
 
    ```python
    class ResNet(nn.Cell):
@@ -40,7 +40,7 @@ MindSpore采用反向模式的自动微分，根据正向图计算流程来自�
            ...
    ```
 
-2. 调用`Cell`的[recompute接口](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.recompute)，调用该接口之后，在计算反向部分时，除了该Cell的输出算子，Cell里面其他的所有算子以及子Cell里面的所有算子都会被重新计算。
+2. 调用`Cell`的[recompute接口](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.recompute)，调用该接口之后，在计算反向部分时，除了该Cell的输出算子，Cell里面其他的所有算子以及子Cell里面的所有算子都会被重新计算。
 
    ```python
    class ResNet(nn.Cell):

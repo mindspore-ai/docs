@@ -188,7 +188,7 @@ MindSpore Lite文档
 
 						<div class="doc-article-list">
 						    <div class="doc-article-item all os-Windows os-Linux os-Android stage-Environment-Preparation user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/downloads.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">下载MindSpore Lite</span>
@@ -201,7 +201,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux os-Android os-mac os-ios stage-Environment-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/build.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">编译MindSpore Lite</span>
@@ -214,7 +214,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux language-cpp stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/quick_start_cpp.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r1.6/quick_start/quick_start_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">体验C++极简推理Demo</span>
@@ -227,7 +227,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux language-java stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/quick_start_java.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r1.6/quick_start/quick_start_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">体验Java极简推理Demo</span>
@@ -240,7 +240,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux os-Android language-cpp stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Inference stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/quick_start.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r1.6/quick_start/quick_start.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">基于JNI接口的Android应用开发</span>
@@ -253,7 +253,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Android language-java stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Inference stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/image_segmentation.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r1.6/quick_start/image_segmentation.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">基于Java接口的Android应用开发</span>
@@ -266,7 +266,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux os-Android language-cpp stage-Whole-Process stage-Model-Export stage-Model-Converting stage-Model-Training user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/train_lenet.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r1.6/quick_start/train_lenet.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">基于C++接口实现端侧训练</span>
@@ -279,7 +279,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux os-Android stage-Whole-Process stage-Model-Loading stage-Model-Training stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/train_lenet_java.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r1.6/quick_start/train_lenet_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">基于Java接口实现端侧训练</span>
@@ -292,7 +292,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux stage-Model-Converting user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/converter_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">推理模型转换</span>
@@ -304,7 +304,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux stage-Model-Converting user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_register.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/converter_register.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">推理模型转换进阶</span>
@@ -316,7 +316,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux stage-Model-Converting stage-Model-Optimization user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/post_training_quantization.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/post_training_quantization.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">优化模型(训练后量化)</span>
@@ -328,7 +328,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux os-iot language-cpp stage-Model-Code-Generation stage-Inference user-Beginner user-Intermediate hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/micro.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/micro.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">在轻量和小型系统上执行推理</span>
@@ -340,7 +340,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux language-cpp stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/image_processing.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/image_processing.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">预处理图像数据</span>
@@ -352,7 +352,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux os-Android os-mac os-ios language-cpp stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/runtime_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">使用C++接口执行推理</span>
@@ -364,7 +364,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Android language-java stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_java.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/runtime_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">使用Java接口执行推理</span>
@@ -376,7 +376,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all hardware-NPU os-Android os-Linux stage-Environment-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/npu_info.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/npu_info.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">集成NPU使用说明</span>
@@ -388,7 +388,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all hardware-NNIE os-Linux stage-Environment-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/nnie.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/nnie.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">集成NNIE使用说明</span>
@@ -400,7 +400,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all hardware-TensorRT os-Linux stage-Environment-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/tensorrt_info.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/tensorrt_info.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">集成TensorRT使用说明</span>
@@ -412,7 +412,7 @@ MindSpore Lite文档
 								</a>
 							</div>  
                             <div class="doc-article-item all os-Windows os-Linux os-Android language-cpp stage-Inference user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/register_kernel.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/register_kernel.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">自定义算子</span>
@@ -424,7 +424,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/delegate.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/delegate.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">使用Delegate支持第三方AI框架接入</span>
@@ -436,7 +436,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux os-Windows stage-Environment-Preparation stage-Benchmark-Testing user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/benchmark_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">benchmark</span>
@@ -448,7 +448,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux stage-Environment-Preparation stage-Static-Library-Cropping user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/cropper_tool.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/cropper_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">静态库剪裁工具</span>
@@ -460,7 +460,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux stage-Environment-Preparation stage-Model-Export stage-Model-Converting user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_train.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/converter_train.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">训练模型转换</span>
@@ -472,7 +472,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux os-Android language-cpp stage-Model-Training stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_train_cpp.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/runtime_train_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">使用C++接口执行训练</span>
@@ -484,7 +484,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux stage-Data-Preparation stage-Benchmark-Testing user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/benchmark_train_tool.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/benchmark_train_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">benchmark_train</span>
@@ -496,7 +496,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux os-mac stage-Visualization">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/visual_tool.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/visual_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">可视化工具</span>
@@ -508,7 +508,7 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux stage-Model-Obfuscator user-Expert">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/obfuscator_tool.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/obfuscator_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">模型混淆工具</span>

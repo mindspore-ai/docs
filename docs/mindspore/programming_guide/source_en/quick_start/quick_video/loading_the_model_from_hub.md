@@ -6,4 +6,4 @@
 <source id="mp45" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/loading%20the%20model%20from%20hub.mp4" type="video/mp4">
 </video>
 
-**See more**: <https://www.mindspore.cn/docs/programming_guide/en/master/load_model_for_inference_and_transfer.html>
+**See more**: <https://www.mindspore.cn/docs/programming_guide/en/r1.6/load_model_for_inference_and_transfer.html>

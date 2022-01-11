@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `Data Preparation`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/enable_dataset_autotune.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_en/enable_dataset_autotune.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -78,7 +78,7 @@ def create_dataset(...)
 
 ### Start Training
 
-Start the training process as described in [resnet/README.md](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/README.md). Dataset AutoTune will display its analysis result through LOG messages.
+Start the training process as described in [resnet/README.md](https://gitee.com/mindspore/models/blob/r1.6/official/cv/resnet/README.md). Dataset AutoTune will display its analysis result through LOG messages.
 
 ```text
 [INFO] [auto_tune.cc:73 LaunchThread] Launching Dataset AutoTune thread
@@ -173,8 +173,8 @@ This allows the dataset pipeline to be run at an improved speed from the beginni
 
 By the way, MindSpore also provides APIs to set the global value of num_parallel_workers and prefetch_size.
 
-Please refer to [mindspore.dataset.config](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.dataset.config.html):
+Please refer to [mindspore.dataset.config](https://www.mindspore.cn/docs/api/en/r1.6/api_python/mindspore.dataset.config.html):
 
-- [mindspore.dataset.config.set_num_parallel_workers](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.dataset.config.html#mindspore.dataset.config.set_num_parallel_workers)
-- [mindspore.dataset.config.set_prefetch_size](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.dataset.config.html#mindspore.dataset.config.set_prefetch_size)
+- [mindspore.dataset.config.set_num_parallel_workers](https://www.mindspore.cn/docs/api/en/r1.6/api_python/mindspore.dataset.config.html#mindspore.dataset.config.set_num_parallel_workers)
+- [mindspore.dataset.config.set_prefetch_size](https://www.mindspore.cn/docs/api/en/r1.6/api_python/mindspore.dataset.config.html#mindspore.dataset.config.set_prefetch_size)
 

@@ -2,13 +2,13 @@
 
 `Ascend` `GPU` `进阶` `分布式并行` `模型导出`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/intermediate/distributed_training/distributed_training_model_parameters_saving_and_loading.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/tutorials/source_zh_cn/intermediate/distributed_training/distributed_training_model_parameters_saving_and_loading.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
-本章将会讲解在Ascend与GPU环境中进行分布式训练时，如何进行参数的保存与加载。涵盖的分布式训练模式包括自动并行（Auto Parallel）与数据并行（Data Parallel）。分布式训练进行模型参数的保存之前，需要先按照[Ascend分布式训练](https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/distributed_training/distributed_training_ascend.html)、[GPU分布式训练](https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/distributed_training/distributed_training_gpu.html)教程配置分布式环境变量和集合通信库。
+本章将会讲解在Ascend与GPU环境中进行分布式训练时，如何进行参数的保存与加载。涵盖的分布式训练模式包括自动并行（Auto Parallel）与数据并行（Data Parallel）。分布式训练进行模型参数的保存之前，需要先按照[Ascend分布式训练](https://www.mindspore.cn/tutorials/zh-CN/r1.6/intermediate/distributed_training/distributed_training_ascend.html)、[GPU分布式训练](https://www.mindspore.cn/tutorials/zh-CN/r1.6/intermediate/distributed_training/distributed_training_gpu.html)教程配置分布式环境变量和集合通信库。
 
 ## 自动并行模式
 
-自动并行模式（Auto Parallel）下模型参数的保存和加载与非分布式训练的模型参数保存和加载用法相同，以[Ascend分布式训练](https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/distributed_training/distributed_training_ascend.html)为例，只需在Ascend训练网络步骤中的`test_train_cifar`方法中添加配置`CheckpointConfig`和`ModelCheckpoint`，即可实现模型参数的保存。需要注意的是，并行模式下需要对每张卡上运行的脚本指定不同的checkpoint保存路径，防止读写文件时发生冲突，具体代码如下：
+自动并行模式（Auto Parallel）下模型参数的保存和加载与非分布式训练的模型参数保存和加载用法相同，以[Ascend分布式训练](https://www.mindspore.cn/tutorials/zh-CN/r1.6/intermediate/distributed_training/distributed_training_ascend.html)为例，只需在Ascend训练网络步骤中的`test_train_cifar`方法中添加配置`CheckpointConfig`和`ModelCheckpoint`，即可实现模型参数的保存。需要注意的是，并行模式下需要对每张卡上运行的脚本指定不同的checkpoint保存路径，防止读写文件时发生冲突，具体代码如下：
 
 ```python
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
@@ -40,7 +40,7 @@ param_dict = load_checkpoint('path/to/ckpt_file.ckpt')
 load_param_into_net(net, param_dict)
 ```
 
-checkpoint配置策略和保存方法可以参考[保存及加载模型](https://www.mindspore.cn/tutorials/zh-CN/master/save_load_model.html)。
+checkpoint配置策略和保存方法可以参考[保存及加载模型](https://www.mindspore.cn/tutorials/zh-CN/r1.6/save_load_model.html)。
 
 ## 数据并行模式
 

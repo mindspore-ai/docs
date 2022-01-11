@@ -2,7 +2,7 @@
 
 `Ascend` `自然语言处理` `全流程`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/nlp_bert_poetry.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_zh_cn/nlp_bert_poetry.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 五千年历史孕育了深厚的中华文化，而诗词是中华文化不可或缺的一部分，欣赏过诗词就可以感受到当中纯净、辽阔的意境，极致的感性，恰恰弥补了节奏紧迫的现代生活带给我们的拥挤感、浮躁感，古语曰：熟读唐诗三百首，不会作诗也会吟，今天理科生MindSpore也来秀一秀文艺范儿！
 
@@ -64,7 +64,7 @@ BERT采用了Encoder结构，`attention_mask`为全1的向量，即每个token�
 
 ## 样例代码
 
-可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/tree/master/docs/sample_code/bert_poetry>，直接运行体验实现写诗效果，代码结构如下:
+可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/tree/r1.6/docs/sample_code/bert_poetry>，直接运行体验实现写诗效果，代码结构如下:
 
 ```text
 └─bert_poetry

@@ -1,6 +1,6 @@
 ﻿# Network Compilation
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_en/network_compilation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/faq/source_en/network_compilation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 <font size=3>**Q: What can I do if an error "Create python object \`<class 'mindspore.common.tensor.Tensor'>\` failed, only support create Cell or Primitive object." is reported?**</font>
 
@@ -8,7 +8,7 @@ A: Currently in graph mode, the `construct` function (or the function decorated 
 
 If it is a constant tensor, please define it in the function `__init__`. If not, you can use the `@constexpr` decorator to modify the function and generate the `Tensor` in the function.
 
-Please see the usage of `@constexpr` in <https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.constexpr.html>.
+Please see the usage of `@constexpr` in <https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.constexpr.html>.
 
 The constant `Tensor` used on the network can be used as a network attribute and defined in `init`, that is, `self.x = Tensor(args...)`. Then the constant can be used in the `construct` function (or the function decorated by the `@ms_function` decorator).
 
@@ -24,7 +24,7 @@ def generate_tensor():
 
 <font size=3>**Q: What can I do if an error "'self.xx' should be defined in the class '__init__' function." is reported?**</font>
 
-A: If you want to assign for a class member such as `self.xx` in the function `construct`, `self.xx` must have been defined to a [Parameter](<https://www.mindspore.cn/docs/api/en/master/api_python/mindspore/mindspore.Parameter.html>) type firstly while the other types are not supported. But the local variable `xx` is not under the regulation.
+A: If you want to assign for a class member such as `self.xx` in the function `construct`, `self.xx` must have been defined to a [Parameter](<https://www.mindspore.cn/docs/api/en/r1.6/api_python/mindspore/mindspore.Parameter.html>) type firstly while the other types are not supported. But the local variable `xx` is not under the regulation.
 
 <br/>
 
@@ -51,7 +51,7 @@ Please check your code to make sure they are equal.
 
 A: In the inference stage of front-end compilation, the abstract types of nodes, including `type` and `shape`, will be inferred. Common abstract types include `AbstractScalar`, `AbstractTensor`, `AbstractFunction`, `AbstractTuple`, `AbstractList`, etc. In some scenarios, such as multi-branch scenarios, the abstract types of the return values of different branches will be joined to infer the abstract type of the returned result. If these abstract types do not match, or `type`/`shape` are inconsistent, the above exception will be thrown.
 
-When an error similar to "Type Join Failed: dtype1 = Float32, dtype2 = Float16" appears, it means that the data types are inconsistent, resulting in an exception when joining abstract. According to the provided data types and code line, the error can be quickly located. In addition, the specific abstract information and node information are provided in the error message. You can view the MindIR information through the `analyze_fail.dat` file to locate and solve the problem. For specific introduction of MindIR, please refer to [MindSpore IR (MindIR)](https://www.mindspore.cn/docs/programming_guide/en/master/design/mindir.html). The code sample is as follows:
+When an error similar to "Type Join Failed: dtype1 = Float32, dtype2 = Float16" appears, it means that the data types are inconsistent, resulting in an exception when joining abstract. According to the provided data types and code line, the error can be quickly located. In addition, the specific abstract information and node information are provided in the error message. You can view the MindIR information through the `analyze_fail.dat` file to locate and solve the problem. For specific introduction of MindIR, please refer to [MindSpore IR (MindIR)](https://www.mindspore.cn/docs/programming_guide/en/r1.6/design/mindir.html). The code sample is as follows:
 
 ```python
 import numpy as np
@@ -288,7 +288,7 @@ For example：
 
 A: JIT Fallback is to realize the unification of static graph mode and dynamic graph mode from the perspective of static graph, so that the static graph mode can support the syntax of the dynamic mode as much as possible. It draws on the fallback idea of traditional JIT compilation. When compiling a static graph, if the syntax is not supported, the relevant sentence will be recorded and an interpret node will be generated. In the subsequent processing, the relevant sentence will be fallbacked to the Python interpreter for interpretation and execution, so that the syntax can be supported. The environment variable switch of JIT Fallback is `DEV_ENV_ENABLE_FALLBACK`, and JIT Fallback is enabled by default.
 
-When the errors "Should not use Python object in runtime" and "We suppose all nodes generated by JIT Fallback would not return to outside of graph" appear, it means that there is an incorrect syntax in the code. The generated interpret node cannot be executed normally during the compilation phase, resulting in an error. The current JIT Fallback conditionally supports some constant scenes in Graph mode, and it also needs to conform to MindSpore's programming syntax. Please refer to [Static Graph Syntax Support](https://www.mindspore.cn/docs/note/en/master/static_graph_syntax_support.html).
+When the errors "Should not use Python object in runtime" and "We suppose all nodes generated by JIT Fallback would not return to outside of graph" appear, it means that there is an incorrect syntax in the code. The generated interpret node cannot be executed normally during the compilation phase, resulting in an error. The current JIT Fallback conditionally supports some constant scenes in Graph mode, and it also needs to conform to MindSpore's programming syntax. Please refer to [Static Graph Syntax Support](https://www.mindspore.cn/docs/note/en/r1.6/static_graph_syntax_support.html).
 
 For example, when calling the third-party library NumPy, JIT Fallback supports the syntax of `np.add(x, y)` and `Tensor(np.add(x, y))`, but MindSpore does not support returning the NumPy type. Therefore, the program will report an error. The code sample is as follows:
 
@@ -320,7 +320,7 @@ We suppose all nodes generated by JIT Fallback not return to outside of graph.
         ^
 ```
 
-When there is an error related to JIT Fallback, please review the code syntax and modify it according to [Static Graph Syntax Support](https://www.mindspore.cn/docs/note/en/master/static_graph_syntax_support.html) and the provided code line. If you need to turn off JIT Fallback, you can use `export DEV_ENV_ENABLE_FALLBACK=0`.
+When there is an error related to JIT Fallback, please review the code syntax and modify it according to [Static Graph Syntax Support](https://www.mindspore.cn/docs/note/en/r1.6/static_graph_syntax_support.html) and the provided code line. If you need to turn off JIT Fallback, you can use `export DEV_ENV_ENABLE_FALLBACK=0`.
 
 <font size=3>**Q: What can I do if an error  "Operator[AddN]  input(kNumberTypeBool,kNumberTypeBool) output(kNumberTypeBool) is not support. This error means the current input type is not supported, please refer to the MindSpore doc for supported types."**</font>
 

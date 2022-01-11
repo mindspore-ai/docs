@@ -21,17 +21,17 @@
 
 <!--/ TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_zh_cn/using_mindinsight.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/xai/docs/source_zh_cn/using_mindinsight.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## 操作流程
 
 ### 下载教程数据集及模型
 
-请参阅 [下载教程数据集及模型](https://www.mindspore.cn/xai/docs/zh-CN/master/using_explainers.html#id4) 以下载所有本教程所需的文件。
+请参阅 [下载教程数据集及模型](https://www.mindspore.cn/xai/docs/zh-CN/r1.6/using_explainers.html#id4) 以下载所有本教程所需的文件。
 
 ### 准备脚本
 
-以下教程参考了 [using_mindinsight.py](https://gitee.com/mindspore/xai/blob/master/examples/using_mindinsight.py) 。
+以下教程参考了 [using_mindinsight.py](https://gitee.com/mindspore/xai/blob/r1.6/examples/using_mindinsight.py) 。
 
 当前[MindSpore XAI](https://www.mindspore.cn/xai)提供解释方法及给解释方法进行评估的度量Python API，已提供的解释方法可以通过`mindspore_xai.explanation`包获取，度量方法可以通过`mindspore_xai.benchmark`包获取。用户准备好待解释的黑盒模型和数据，在脚本中根据需要实例化解释方法及度量方法，调用API用于收集解释结果和解释度量结果。
 
@@ -163,7 +163,7 @@ runner2.run()
 
 ## 不确定性
 
-模型决策结果存有不确定性，名为 [Epistemic Uncertainty](https://www.mindspore.cn/probability/api/zh-CN/master/nn_probability/mindspore.nn.probability.toolbox.UncertaintyEvaluation.html#mindspore.nn.probability.toolbox.UncertaintyEvaluation) 。计算方法是在模型中插入dropout层再多次重复推理，最后得出输出概率的标准偏差和95%置信区间：
+模型决策结果存有不确定性，名为 [Epistemic Uncertainty](https://www.mindspore.cn/probability/docszh-CN/r1.6/nn_probability/mindspore.nn.probability.toolbox.UncertaintyEvaluation.html#mindspore.nn.probability.toolbox.UncertaintyEvaluation) 。计算方法是在模型中插入dropout层再多次重复推理，最后得出输出概率的标准偏差和95%置信区间：
 
 ![mi_saliency_map](./images/mi_uncertainty.png)
 

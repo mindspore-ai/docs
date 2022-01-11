@@ -6,4 +6,4 @@
 <source id="mp46" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/Customized%20Debugging.mp4" type="video/mp4">
 </video>
 
-**View the full tutorial**: <https://www.mindspore.cn/docs/programming_guide/en/master/custom_debugging_info.html>
+**View the full tutorial**: <https://www.mindspore.cn/docs/programming_guide/en/r1.6/custom_debugging_info.html>

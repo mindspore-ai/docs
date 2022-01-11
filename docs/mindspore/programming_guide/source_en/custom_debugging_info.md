@@ -2,7 +2,7 @@
 
 `Ascend` `Model Optimization`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/custom_debugging_info.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_en/custom_debugging_info.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -95,7 +95,7 @@ Here are two examples to further explain the usage of custom Callback.
 
 > custom `Callback` sample code：
 >
-> <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/debugging_info/custom_callback.py>
+> <https://gitee.com/mindspore/docs/blob/r1.6/docs/sample_code/debugging_info/custom_callback.py>
 
 - Terminate training within the specified time.
 
@@ -166,7 +166,7 @@ You can define a metrics dictionary object that contains multiple metrics and tr
 
 > `metrics` sample code：
 >
-> <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/debugging_info/custom_metrics.py>
+> <https://gitee.com/mindspore/docs/blob/r1.6/docs/sample_code/debugging_info/custom_metrics.py>
 
 ```python
 from mindspore import Model
@@ -264,15 +264,15 @@ Tensor(shape=[2, 2], dtype=Int32, value=
 
 ## Data Dump Introduction
 
-When training the network, if the training result deviates from the expectation, the input and output of the operator can be saved for debugging through the data dump function. For detailed Dump function introduction, please refer to [Dump Mode](https://www.mindspore.cn/docs/programming_guide/en/master/dump_in_graph_mode.html#dump-introduction).
+When training the network, if the training result deviates from the expectation, the input and output of the operator can be saved for debugging through the data dump function. For detailed Dump function introduction, please refer to [Dump Mode](https://www.mindspore.cn/docs/programming_guide/en/r1.6/dump_in_graph_mode.html#dump-introduction).
 
 ### Synchronous Dump
 
-Synchronous Dump function usage reference [Synchronous Dump Step](https://www.mindspore.cn/docs/programming_guide/en/master/dump_in_graph_mode.html#synchronous-dump-step).
+Synchronous Dump function usage reference [Synchronous Dump Step](https://www.mindspore.cn/docs/programming_guide/en/r1.6/dump_in_graph_mode.html#synchronous-dump-step).
 
 ### Asynchronous Dump
 
-Asynchronous Dump function usage reference [Asynchronous Dump Step](https://www.mindspore.cn/docs/programming_guide/en/master/dump_in_graph_mode.html#asynchronous-dump-step)。
+Asynchronous Dump function usage reference [Asynchronous Dump Step](https://www.mindspore.cn/docs/programming_guide/en/r1.6/dump_in_graph_mode.html#asynchronous-dump-step)。
 
 ## Running Data Recorder
 

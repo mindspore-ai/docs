@@ -1,6 +1,6 @@
 # Obtaining MindSpore Federated
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/federated_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/federated/docs/source_en/federated_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## Installation Overview
 
@@ -12,8 +12,8 @@ You can use the source code or download the release version to install MindSpore
 
 ### Obtaining the MindSpore Lite Java Package
 
-You can use the source code or download the release version. Currently, only the x86 and Android platforms are supported, and only the CPU hardware architecture is supported. For details about the installation process, see [Downloading MindSpore Lite](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) and [Building MindSpore Lite](https://www.mindspore.cn/lite/docs/en/master/use/build.html). For details, see "Deploying Federated-Client."
+You can use the source code or download the release version. Currently, only the x86 and Android platforms are supported, and only the CPU hardware architecture is supported. For details about the installation process, see [Downloading MindSpore Lite](https://www.mindspore.cn/lite/docs/en/r1.6/use/downloads.html) and [Building MindSpore Lite](https://www.mindspore.cn/lite/docs/en/r1.6/use/build.html). For details, see "Deploying Federated-Client."
 
 ### Requirements for Building the Linux Environment
 
-Currently, the source code build is supported only in the Linux environment. For details about the environment requirements, see [MindSpore Source Code Build](https://www.mindspore.cn/install/en) and [MindSpore Lite Source Code Build](https://www.mindspore.cn/lite/docs/en/master/use/build.html).
+Currently, the source code build is supported only in the Linux environment. For details about the environment requirements, see [MindSpore Source Code Build](https://www.mindspore.cn/install/en) and [MindSpore Lite Source Code Build](https://www.mindspore.cn/lite/docs/en/r1.6/use/build.html).

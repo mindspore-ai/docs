@@ -17,15 +17,15 @@ MindSpore Serving provides the following functions:
 Typical MindSpore Serving Application Scenarios
 ------------------------------------------------
 
-1. `Quick Start <https://www.mindspore.cn/serving/docs/en/master/serving_example.html>`_
+1. `Quick Start <https://www.mindspore.cn/serving/docs/en/r1.6/serving_example.html>`_
 
    Use a simple Add network as an example to describe how to use MindSpore Serving to deploy an inference service.
 
-2. `Using the gRPC APIs to Access Services <https://www.mindspore.cn/serving/docs/en/master/serving_grpc.html>`_
+2. `Using the gRPC APIs to Access Services <https://www.mindspore.cn/serving/docs/en/r1.6/serving_grpc.html>`_
 
    Easily access services with high performance.
 
-3. `Using the RESTful APIs to Access Services <https://www.mindspore.cn/serving/docs/en/master/serving_restful.html>`_
+3. `Using the RESTful APIs to Access Services <https://www.mindspore.cn/serving/docs/en/r1.6/serving_restful.html>`_
 
    Access services based on HTTP.
 

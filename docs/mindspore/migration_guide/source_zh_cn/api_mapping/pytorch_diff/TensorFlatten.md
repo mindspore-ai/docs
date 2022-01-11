@@ -1,6 +1,6 @@
 # 比较与torch.Tensor.flatten的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_zh_cn/api_mapping/pytorch_diff/TensorFlatten.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_zh_cn/api_mapping/pytorch_diff/TensorFlatten.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## torch.Tensor.flatten
 
@@ -16,7 +16,7 @@ torch.Tensor.flatten(input, start_dim=0, end_dim=-1)
 mindspore.Tensor.flatten(order="C")
 ```
 
-更多内容详见[mindspore.Tensor.flatten](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore/mindspore.Tensor.html#mindspore.Tensor.flatten)。
+更多内容详见[mindspore.Tensor.flatten](https://www.mindspore.cn/docs/api/en/r1.6/api_python/mindspore/mindspore.Tensor.html#mindspore.Tensor.flatten)。
 
 ## 使用方式
 

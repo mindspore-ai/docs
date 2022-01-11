@@ -1,6 +1,6 @@
 # 基于RESTful接口访问MindSpore Serving服务
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/serving/docs/source_zh_cn/serving_restful.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/serving/docs/source_zh_cn/serving_restful.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -8,7 +8,7 @@ MindSpore Serving支持`gPRC`和`RESTful`两种请求方式。本章节介绍`RE
 
 `RESTful`是一种基于`HTTP`协议的网络应用程序的设计风格和开发方式，通过`URI`实现对资源的管理及访问，具有扩展性强、结构清晰的特点。基于其轻量级以及通过`HTTP`直接传输数据的特性，`RESTful`已经成为最常见的`Web`服务访问方式。用户通过`RESTful`方式，能够简单直接的与服务进行交互。
 
-部署`Serving`参考[快速入门](https://www.mindspore.cn/serving/docs/zh-CN/master/serving_example.html) 章节。
+部署`Serving`参考[快速入门](https://www.mindspore.cn/serving/docs/zh-CN/r1.6/serving_example.html) 章节。
 
 我们可以通过`mindspore_serving.server.start_restful_server`接口启动`RESTful`服务。
 
@@ -237,7 +237,7 @@ RESTful支持`Json`请求格式，`key`固定为`instances`，`value`表示多�
 
 MindSpore Serving支持开启`SSL/TLS`的`RESTful`服务，下面以单向认证为例展示如何启动并访问开启`SSL/TLS`的`Restful`服务。
 
-`verify_client`设置为`False`表示单向认证，开启`SSL/TLS`需要把`mindspore_serving.server.SSLConfig`对象传入`start_restful_server`的`ssl_config`参数。其他内容可以参考[访问开启SSL/TLS的Serving服务](https://www.mindspore.cn/serving/docs/zh-CN/master/serving_grpc.html#ssl-tlsserving)。
+`verify_client`设置为`False`表示单向认证，开启`SSL/TLS`需要把`mindspore_serving.server.SSLConfig`对象传入`start_restful_server`的`ssl_config`参数。其他内容可以参考[访问开启SSL/TLS的Serving服务](https://www.mindspore.cn/serving/docs/zh-CN/r1.6/serving_grpc.html#ssl-tlsserving)。
 
 ```python
 import os

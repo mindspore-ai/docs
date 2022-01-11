@@ -1,6 +1,6 @@
 # 比较与torch.max的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_zh_cn/api_mapping/pytorch_diff/ArgMaxWithValue.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_zh_cn/api_mapping/pytorch_diff/ArgMaxWithValue.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## torch.max
 
@@ -24,7 +24,7 @@ class mindspore.ops.ArgMaxWithValue(
 )(input_x)
 ```
 
-更多内容详见[mindspore.ops.ArgMaxWithValue](https://mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.ArgMaxWithValue.html#mindspore.ops.ArgMaxWithValue)。
+更多内容详见[mindspore.ops.ArgMaxWithValue](https://mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.ArgMaxWithValue.html#mindspore.ops.ArgMaxWithValue)。
 
 ## 使用方式
 

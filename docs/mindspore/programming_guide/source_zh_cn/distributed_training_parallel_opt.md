@@ -2,7 +2,7 @@
 
 `Ascend` `分布式并行`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/distributed_training_parallel_opt.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_zh_cn/distributed_training_parallel_opt.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -21,7 +21,7 @@
 
 >你可以在这里下载完整的样例代码：
 >
-><https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training_transformer>。
+><https://gitee.com/mindspore/docs/tree/r1.6/docs/sample_code/distributed_training_transformer>。
 
 目录结构如下：
 
@@ -175,4 +175,4 @@ base1 = Transformer(encoder_layers=en_layer, decoder_layers=de_layer,
 
 ## 运行代码
 
-上述流程的数据，代码和执行过程，可以参考：<https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_transformer.html>。
+上述流程的数据，代码和执行过程，可以参考：<https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/distributed_training_transformer.html>。

@@ -9,15 +9,15 @@ MindSpore XAI is an explainable AI toolbox based on MindSpore. Currently, most d
 Typical MindSpore XAI Application Scenarios
 --------------------------------------------
 
-1. `Using Explainers <https://www.mindspore.cn/xai/docs/en/master/using_explainers.html>`_
+1. `Using Explainers <https://www.mindspore.cn/xai/docs/en/r1.6/using_explainers.html>`_
 
    Explain image classification models by saliency maps.
 
-2. `Using Benchmarks <https://www.mindspore.cn/xai/docs/en/master/using_benchmarks.html>`_
+2. `Using Benchmarks <https://www.mindspore.cn/xai/docs/en/r1.6/using_benchmarks.html>`_
 
    Score the goodness of explainers.
 
-3. `Using MindInsight <https://www.mindspore.cn/xai/docs/en/master/using_mindinsight.html>`_
+3. `Using MindInsight <https://www.mindspore.cn/xai/docs/en/r1.6/using_mindinsight.html>`_
 
    Visualize the results from explainers and benchmarks.
 

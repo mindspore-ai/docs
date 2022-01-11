@@ -2,7 +2,7 @@
 
 `Windows` `Linux` `Android` `Environment Preparation` `Beginner` `Intermediate` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/downloads.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/lite/docs/source_en/use/downloads.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 Welcome to MindSpore Lite. We provide functions such as model conversion, model inference, image processing, etc. that support multiple operating systems and hardware platforms. You can download the version package suitable for the local environment and use it directly.
 
@@ -80,5 +80,5 @@ Welcome to MindSpore Lite. We provide functions such as model conversion, model 
 
 > - Ubuntu-x64 Package is compiled in an environment where the GCC version is greater than or equal to 7.3.0, so the deployment environment requires the GLIBC version to be greater than or equal to 2.27.
 > - Android-aarch32 does not support GPU and NPU.
-> - MindSpore Lite also provides `libmindspore-lite.a` static library [cropper tool](https://www.mindspore.cn/lite/docs/en/master/use/cropper_tool.html#) for Runtime, which can crop the static library files, and effectively reduce the size of the library files.
+> - MindSpore Lite also provides `libmindspore-lite.a` static library [cropper tool](https://www.mindspore.cn/lite/docs/en/r1.6/use/cropper_tool.html#) for Runtime, which can crop the static library files, and effectively reduce the size of the library files.
 > - After the download of MindSpore Lite is completed, SHA-256 integrity verification is required.

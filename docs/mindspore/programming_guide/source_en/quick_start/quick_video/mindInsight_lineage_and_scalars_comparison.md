@@ -6,4 +6,4 @@
 <source id="mp47" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/MindInsight%20Lineage%20and%20Comparision%20Dashboard.mp4" type="video/mp4">
 </video>
 
-**See more**: <https://www.mindspore.cn/mindinsight/docs/en/master/lineage_and_scalars_comparison.html>
+**See more**: <https://www.mindspore.cn/mindinsight/docs/en/r1.6/lineage_and_scalars_comparison.html>

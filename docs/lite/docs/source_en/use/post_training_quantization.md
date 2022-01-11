@@ -2,7 +2,7 @@
 
 `Windows` `Linux` `Model Converting` `Model Optimization` `Intermediate` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/post_training_quantization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/lite/docs/source_en/use/post_training_quantization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -15,7 +15,7 @@ MindSpore Lite quantization after training is classified into two types:
 
 ## Configuration Parameter
 
-Post training quantization can be enabled by configuring `configFile` through [Conversion Tool](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html). The configuration file adopts the style of `INI`, For quantization, configurable parameters include `common quantization parameter [common_quant_param]`, `mixed bit weight quantization parameter [mixed_bit_weight_quant_param]`,`full quantization parameter [full_quant_param]`, and `data preprocess parameter [data_preprocess_param]`.
+Post training quantization can be enabled by configuring `configFile` through [Conversion Tool](https://www.mindspore.cn/lite/docs/en/r1.6/use/converter_tool.html). The configuration file adopts the style of `INI`, For quantization, configurable parameters include `common quantization parameter [common_quant_param]`, `mixed bit weight quantization parameter [mixed_bit_weight_quant_param]`,`full quantization parameter [full_quant_param]`, and `data preprocess parameter [data_preprocess_param]`.
 
 ### Common Quantization Parameter
 
@@ -217,7 +217,7 @@ In scenarios where the model running speed needs to be improved and the model ru
 
 To calculate a quantization parameter of an activation value, you need to provide a calibration dataset. It is recommended that the calibration dataset be obtained from the actual inference scenario and can represent the actual input of a model. The number of data records is about 100.
 
-For image data, currently supports channel pack, normalization, resize, center crop processing. The user can set the corresponding [parameter](https://www.mindspore.cn/lite/docs/en/master/use/post_training_quantization.html#data-preprocessing) according to the preprocessing operation requirements.
+For image data, currently supports channel pack, normalization, resize, center crop processing. The user can set the corresponding [parameter](https://www.mindspore.cn/lite/docs/en/r1.6/use/post_training_quantization.html#data-preprocessing) according to the preprocessing operation requirements.
 
 The general form of the full quantization conversion command is:
 

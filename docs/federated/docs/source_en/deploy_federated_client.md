@@ -1,6 +1,6 @@
 ﻿# On-Device Deployment
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/deploy_federated_client.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/federated/docs/source_en/deploy_federated_client.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 The following describes how to deploy the Federated-Client in the Android and x86 environments:
 
@@ -10,7 +10,7 @@ The following describes how to deploy the Federated-Client in the Android and x8
 
 - Configure the build environment.
 
-    Currently, only the Linux build environment is supported. For details about how to configure the Linux build environment, click [here](https://www.mindspore.cn/lite/docs/en/master/use/build.html#linux).
+    Currently, only the Linux build environment is supported. For details about how to configure the Linux build environment, click [here](https://www.mindspore.cn/lite/docs/en/r1.6/use/build.html#linux).
 
 - Turn on Federated-Client compile option and build the AAR package that contains aarch64 and aarch32 in the mindspore home directory.
 
@@ -25,7 +25,7 @@ The following describes how to deploy the Federated-Client in the Android and x8
     mindspore-lite-maven-{version}.zip
     ```
 
-- Since the device-side framework and the model are decoupled, the Android AAR package provided by us does not contain model-related scripts, so the user needs to generate the jar corresponding to the model script. We provide two types of model scripts for your reference ([Supervised sentiment Classification Task](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert), [LeNet image classification task](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet)). At the same time, users can refer to these two types of model scripts, customize the model script and generate the corresponding jar package (assuming the name is `quick_start_flclient.jar`). The jar packages corresponding to the model scripts we provide can be obtained in the following ways:
+- Since the device-side framework and the model are decoupled, the Android AAR package provided by us does not contain model-related scripts, so the user needs to generate the jar corresponding to the model script. We provide two types of model scripts for your reference ([Supervised sentiment Classification Task](https://gitee.com/mindspore/mindspore/tree/r1.6/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert), [LeNet image classification task](https://gitee.com/mindspore/mindspore/tree/r1.6/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet)). At the same time, users can refer to these two types of model scripts, customize the model script and generate the corresponding jar package (assuming the name is `quick_start_flclient.jar`). The jar packages corresponding to the model scripts we provide can be obtained in the following ways:
 
     After downloading the latest code on [MindSpore Open Source Warehouse](https://gitee.com/mindspore/mindspore), perform the following operations:
 
@@ -98,7 +98,7 @@ implementation(group: 'org.bouncycastle',name: 'bcprov-jdk15on', version: '1.68'
 }
 ```
 
-For specific implementation, please refer to the example of `app/build.gradle` provided in the `Android project configuration dependencies` section in the document [sentiment classification application](https://www.mindspore.cn/federated/docs/en/master/sentiment_classification_application.html).
+For specific implementation, please refer to the example of `app/build.gradle` provided in the `Android project configuration dependencies` section in the document [sentiment classification application](https://www.mindspore.cn/federated/docs/en/r1.6/sentiment_classification_application.html).
 
 Note 2: since the third-party open source software `bcprov-jdk15on` that Federated Learning relies on contains multi-version class files, in order to prevent errors in compiling high-version class files with lower version jdk, the following setting statement can be added to the `gradle.properties` file of the Android project:
 
@@ -114,7 +114,7 @@ After setting up the dependencies shown above in the Android project, you only n
 
 - Configure the build environment.
 
-    Currently, only the Linux build environment is supported. For details about how to configure the Linux build environment, click [here](https://www.mindspore.cn/lite/docs/en/master/use/build.html#linux).
+    Currently, only the Linux build environment is supported. For details about how to configure the Linux build environment, click [here](https://www.mindspore.cn/lite/docs/en/r1.6/use/build.html#linux).
 
 - Build the x86-related architecture package in the mindspore home directory.
 
@@ -128,7 +128,7 @@ After setting up the dependencies shown above in the Android project, you only n
     mindspore/output/mindspore-lite-{version}-linux-x64.tar.gz
     ```
 
-- Since the device-side framework and the model are decoupled, the x86 architecture package `mindspore-lite-{version}-linux-x64.tar.gz` provided by us does not contain model-related scripts, so the user needs to generate the jar corresponding to the model script. We provide two types of model scripts for your reference ([Supervised sentiment Classification Task](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert), [LeNet image classification task](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet)). At the same time, users can refer to these two types of model scripts, customize the model script and generate the corresponding jar package (assuming the name is `quick_start_flclient.jar`). The jar packages corresponding to the model scripts we provide can be obtained in the following ways:
+- Since the device-side framework and the model are decoupled, the x86 architecture package `mindspore-lite-{version}-linux-x64.tar.gz` provided by us does not contain model-related scripts, so the user needs to generate the jar corresponding to the model script. We provide two types of model scripts for your reference ([Supervised sentiment Classification Task](https://gitee.com/mindspore/mindspore/tree/r1.6/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert), [LeNet image classification task](https://gitee.com/mindspore/mindspore/tree/r1.6/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet)). At the same time, users can refer to these two types of model scripts, customize the model script and generate the corresponding jar package (assuming the name is `quick_start_flclient.jar`). The jar packages corresponding to the model scripts we provide can be obtained in the following ways:
 
     After downloading the latest code on [MindSpore Open Source Warehouse](https://gitee.com/mindspore/mindspore), perform the following operations:
 
@@ -199,4 +199,4 @@ Set environment variables in the x86 system (an absolute path must be provided):
 export LD_LIBRARY_PATH=/resource/x86libs/:$LD_LIBRARY_PATH
 ```
 
-After the dependency environment is set, you can simulate the startup of multiple clients in the x86 environment for federated learning. For details, click [here](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/image_classification_application.md).
+After the dependency environment is set, you can simulate the startup of multiple clients in the x86 environment for federated learning. For details, click [here](https://gitee.com/mindspore/docs/blob/r1.6/docs/federated/docs/source_en/image_classification_application.md).

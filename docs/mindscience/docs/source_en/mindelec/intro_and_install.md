@@ -1,6 +1,6 @@
 # MindElec Introduction and Installation
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindscience/docs/source_en/mindelec/intro_and_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindscience/docs/source_en/mindelec/intro_and_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
 ## MindElec Overview
 
@@ -10,7 +10,7 @@ MindElec is an AI electromagnetic simulation toolkit developed based on MindSpor
 
 This tutorial mainly introduces how to use MindElec, which is built in MindSpore, to perform high performance electromagnetic simulation using AI method.
 
-> Here you can download the complete sample code: <https://gitee.com/mindspore/mindscience/tree/master/MindElec/examples>.
+> Here you can download the complete sample code: <https://gitee.com/mindspore/mindscience/tree/r0.5/MindElec/examples>.
 
 In the future, MindElec will implement more simulation cases, and your contribution is welcome.
 
@@ -21,7 +21,7 @@ In the future, MindElec will implement more simulation cases, and your contribut
 - The hardware platform should be Ascend, GPU or CPU.
 - See our [MindSpore Installation Guide](https://www.mindspore.cn/install/en) to install MindSpore.  
     The versions of MindElec and MindSpore must be consistent.
-- All other dependencies are included in [requirements.txt](https://gitee.com/mindspore/mindscience/blob/master/MindElec/requirements.txt).
+- All other dependencies are included in [requirements.txt](https://gitee.com/mindspore/mindscience/blob/r0.5/MindElec/requirements.txt).
 
 ### Installation
 
@@ -33,7 +33,7 @@ You can install MindElec either by pip or by source code.
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{ms_version}/mindscience/{arch}/mindscience_mindelec_ascend-{me_version}-{python_version}-linux_{arch}.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-> - When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about other dependency items, see [setup.py](https://gitee.com/mindspore/mindscience/blob/master/MindElec/setup.py)），point cloud data sampling depends on [pythonocc](https://github.com/tpaviot/pythonocc-core), which you need to install manually.
+> - When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about other dependency items, see [setup.py](https://gitee.com/mindspore/mindscience/blob/r0.5/MindElec/setup.py)），point cloud data sampling depends on [pythonocc](https://github.com/tpaviot/pythonocc-core), which you need to install manually.
 > - `{arch}` specifies system architecture，for example, when using x86-64 Linux，`{arch}` should be x86_64, and aarch64 for ARM system(64-bit).
 > - `{ms_version}` refers to the MindSpore version that matches with MindElec. For example, if you want to install MindElec 0.1.0, then,`{ms_version}` should be 1.5.0。
 > - `{me_version}` refers to the version of MindElec. For example, when you are downloading MindElec 0.1.0, `{me_version}` should be 0.1.0.

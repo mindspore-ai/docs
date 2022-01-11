@@ -4,7 +4,7 @@
 
 Translator: [Misaka19998](https://gitee.com/Misaka19998)
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/loss.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_en/loss.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -136,7 +136,7 @@ Now we train model by the defined L1Loss.
 
 Taking the simple linear function fitting as an example. The dataset and network structure is defined as follows:
 
-> For a detailed introduction of linear fitting, please refer to the tutorial [Implementing Simple Linear Function Fitting](https://www.mindspore.cn/tutorials/en/master/linear_regression.html).
+> For a detailed introduction of linear fitting, please refer to the tutorial [Implementing Simple Linear Function Fitting](https://www.mindspore.cn/tutorials/en/r1.6/linear_regression.html).
 
 1. Defining the Dataset
 
@@ -215,7 +215,7 @@ Taking the simple linear function fitting as an example. The dataset and network
 
 The complete code is as follows:
 
-> In the following example, the parameter initialization uses random values, and the output results in specific execution may be different from the results of local execution; if you need to stabilize the output of a fixed value, you can set a fixed random seed. For the setting method, please refer to [mindspore.set_seed()](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore/mindspore.set_seed.html).
+> In the following example, the parameter initialization uses random values, and the output results in specific execution may be different from the results of local execution; if you need to stabilize the output of a fixed value, you can set a fixed random seed. For the setting method, please refer to [mindspore.set_seed()](https://www.mindspore.cn/docs/api/en/r1.6/api_python/mindspore/mindspore.set_seed.html).
 
 ```python
 import numpy as np
@@ -407,7 +407,7 @@ It should be noted that the default `nn.WithLossCell` of normal `Model` only has
 
 The complete code is as follows:
 
-> In the following example, the parameter initialization uses random values, and the output results in specific execution may be different from the results of local execution; if you need to stabilize the output of a fixed value, you can set a fixed random seed. For the setting method, please refer to [mindspore.set_seed()](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore/mindspore.set_seed.html).
+> In the following example, the parameter initialization uses random values, and the output results in specific execution may be different from the results of local execution; if you need to stabilize the output of a fixed value, you can set a fixed random seed. For the setting method, please refer to [mindspore.set_seed()](https://www.mindspore.cn/docs/api/en/r1.6/api_python/mindspore/mindspore.set_seed.html).
 
 ```python
 import numpy as np

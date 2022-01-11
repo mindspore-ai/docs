@@ -2,7 +2,7 @@
 
 `Windows` `macOS` `Linux` `iOS` `Android` `Environment Preparation` `Intermediate` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/build.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/lite/docs/source_en/use/build.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 This chapter introduces how to quickly compile MindSpore Lite, which includes the following modules:
 
@@ -86,11 +86,11 @@ The construction of modules is controlled by environment variables. Users can co
 | MSLITE_ENABLE_TOOLS | Whether to compile supporting tools | on, off | on |
 | MSLITE_ENABLE_TESTCASES | Whether to compile test cases | on, off | off |
 
-> - For TensorRT and NPU compilation environment configuration, refer to [Application Specific Integrated Circuit Integration Instructions](https://www.mindspore.cn/lite/docs/en/master/use/asic.html).
+> - For TensorRT and NPU compilation environment configuration, refer to [Application Specific Integrated Circuit Integration Instructions](https://www.mindspore.cn/lite/docs/en/r1.6/use/asic.html).
 
 - Runtime feature compilation options
 
-If the user is sensitive to the package size of the framework, the following options can be configured to reduce the package size by reducing the function of the runtime model reasoning framework. Then, the user can further reduce the package size by operator reduction through the [reduction tool](https://www.mindspore.cn/lite/docs/en/master/use/build.html) or [download](https://www.mindspore.cn/lite/docs/en/master/use/cropper_tool.html).
+If the user is sensitive to the package size of the framework, the following options can be configured to reduce the package size by reducing the function of the runtime model reasoning framework. Then, the user can further reduce the package size by operator reduction through the [reduction tool](https://www.mindspore.cn/lite/docs/en/r1.6/use/build.html) or [download](https://www.mindspore.cn/lite/docs/en/r1.6/use/cropper_tool.html).
 
 | Option  |  Parameter Description  | Value Range | Defaults |
 | -------- | ----- | ---- | ---- |

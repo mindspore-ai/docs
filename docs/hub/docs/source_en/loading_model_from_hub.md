@@ -1,6 +1,6 @@
 ﻿# Loading the Model from Hub
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/hub/docs/source_en/loading_model_from_hub.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/hub/docs/source_en/loading_model_from_hub.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## For Inference Validation
 
@@ -34,7 +34,7 @@
 
    ```
 
-3. After loading the model, you can use MindSpore to do inference. You can refer to [Multi-Platform Inference Overview](https://www.mindspore.cn/docs/programming_guide/en/master/multi_platform_inference.html).
+3. After loading the model, you can use MindSpore to do inference. You can refer to [Multi-Platform Inference Overview](https://www.mindspore.cn/docs/programming_guide/en/r1.6/multi_platform_inference.html).
 
 ## For Transfer Training
 

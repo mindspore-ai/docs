@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `Model Loading`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/load_model_for_inference_and_transfer.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_en/load_model_for_inference_and_transfer.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -12,7 +12,7 @@ The following uses examples to describe how to load models from local.
 
 > You can view the definition of the network and dataset here:
 >
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/save_model>
+> <https://gitee.com/mindspore/docs/tree/r1.6/docs/sample_code/save_model>
 
 ## Loading the local Model
 

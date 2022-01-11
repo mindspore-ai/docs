@@ -1,6 +1,6 @@
 ﻿# 比较与torch.cuda.set_device的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_zh_cn/api_mapping/pytorch_diff/set_context.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_zh_cn/api_mapping/pytorch_diff/set_context.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## torch.cuda.set_device
 
@@ -16,7 +16,7 @@ torch.cuda.set_device(device)
 mindspore.context.set_context(**kwargs)
 ```
 
-更多内容详见[mindspore.context.set_context](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.context.html#mindspore.context.set_context)。
+更多内容详见[mindspore.context.set_context](https://mindspore.cn/docs/api/zh-CN/r1.6/api_python/mindspore.context.html#mindspore.context.set_context)。
 
 ## 使用方式
 

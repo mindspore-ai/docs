@@ -6,6 +6,6 @@
 <source id="mp44" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/Quick%20Start.mp4" type="video/mp4">
 </video>
 
-**View code**: <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/lenet/lenet.py>
+**View code**: <https://gitee.com/mindspore/docs/blob/r1.6/docs/sample_code/lenet/lenet.py>
 
-**View the full tutorial**: <https://www.mindspore.cn/tutorials/en/master/quick_start.html>
+**View the full tutorial**: <https://www.mindspore.cn/tutorials/en/r1.6/quick_start.html>

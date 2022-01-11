@@ -1,6 +1,6 @@
 # 安装 MindSpore XAI
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_zh_cn/installation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/xai/docs/source_zh_cn/installation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## 系統要求
 
@@ -56,4 +56,4 @@ print(mindspore_xai.__version__)
 
 ## 注意事项
 
-[MindInsight](https://www.mindspore.cn/mindinsight) 是一个可选的XAI可视化工具，请参阅[安裝教程](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_install.html) 。
+[MindInsight](https://www.mindspore.cn/mindinsight) 是一个可选的XAI可视化工具，请参阅[安裝教程](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.6/mindinsight_install.html) 。

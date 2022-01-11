@@ -1,6 +1,6 @@
 # Function Differences with torch.randperm
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/Randperm.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/Randperm.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## torch.randperm
 
@@ -27,7 +27,7 @@ class mindspore.ops.Randperm(
 )(n)
 ```
 
-For more information, see  [mindspore.ops.Randperm](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Randperm.html#mindspore.ops.Randperm).
+For more information, see  [mindspore.ops.Randperm](https://mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.Randperm.html#mindspore.ops.Randperm).
 
 ## Differences
 

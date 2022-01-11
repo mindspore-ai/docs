@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `Whole Peocess`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/cv_mobilenetv2_fine_tune.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_en/cv_mobilenetv2_fine_tune.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
 ## Overview
 
@@ -12,7 +12,7 @@ MindSpore is a diversified machine learning framework. It can run on devices suc
 
 Currently, only the CPU is supported on Windows, and the CPU, GPU, and Ascend AI Processor are supported on Ubuntu and EulerOS.
 
-> You can obtain the complete executable sample code at <https://gitee.com/mindspore/models/tree/master/official/cv/mobilenetv2>.
+> You can obtain the complete executable sample code at <https://gitee.com/mindspore/models/tree/r1.6/official/cv/mobilenetv2>.
 
 ## Task Description and Preparations
 
@@ -253,7 +253,7 @@ sh run_eval.sh [PLATFORM] [DATASET_PATH] [PRETRAIN_CKPT_PATH]
 
 ## Loading Fine-Tuning Training
 
-Only `train.py` can be run on Windows when MobileNetV2 is used for fine-tuning training. You can run the shell script `run_train.sh` and input [parameters](https://www.mindspore.cn/docs/programming_guide/en/master/cv_mobilenetv2_fine_tune.html#id8) on Linux when MobileNetV2 is used for fine-tuning training.
+Only `train.py` can be run on Windows when MobileNetV2 is used for fine-tuning training. You can run the shell script `run_train.sh` and input [parameters](https://www.mindspore.cn/docs/programming_guide/en/r1.6/cv_mobilenetv2_fine_tune.html#id8) on Linux when MobileNetV2 is used for fine-tuning training.
 
 The Windows system outputs information to an interactive command line. When running `run_train.sh` on the Linux system, use `&> <log_file_path>` at the end of the command line to write the standard output and error output to the log file. After the fine-tuning is successful, training starts. The training time and loss of each epoch are continuously written into the `./train/rank*/log*.log` file. If the fine-tuning fails, an error message is recorded in the preceding log file.
 
@@ -383,7 +383,7 @@ The Windows system outputs information to an interactive command line. When runn
 
 ### Validating the Model
 
-Set mandatory [parameters](https://www.mindspore.cn/docs/programming_guide/en/master/cv_mobilenetv2_fine_tune.html#id8) when using the validation set to test model performance. The default value of `--platform` is `Ascend`. You can set it to `CPU` or `GPU`. Finally, the standard output and error output are displayed in the interactive command line or written to the `eval.log` file.
+Set mandatory [parameters](https://www.mindspore.cn/docs/programming_guide/en/r1.6/cv_mobilenetv2_fine_tune.html#id8) when using the validation set to test model performance. The default value of `--platform` is `Ascend`. You can set it to `CPU` or `GPU`. Finally, the standard output and error output are displayed in the interactive command line or written to the `eval.log` file.
 
 ```bash
 # Windows/Linux with Python

@@ -2,13 +2,13 @@
 
 `Ascend` `GPU` `CPU` `Model Optimization`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/dump_in_graph_mode.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_en/dump_in_graph_mode.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
 The input and output of the operator can be saved for debugging through the data dump when the training result deviates from the expectation.
 
-- For the dynamic graph mode, MindSpore provides native Python execution capabilities. Users can view and record the corresponding input and output during the running of the network script. For details, see [Use PyNative Mode to Debug](https://www.mindspore.cn/docs/programming_guide/en/master/debug_in_pynative_mode.html).
+- For the dynamic graph mode, MindSpore provides native Python execution capabilities. Users can view and record the corresponding input and output during the running of the network script. For details, see [Use PyNative Mode to Debug](https://www.mindspore.cn/docs/programming_guide/en/r1.6/debug_in_pynative_mode.html).
 
 - For the static graph mode, MindSpore provides the Dump function to save the graph and the input and output data of the operator during model training to a disk file.
 
@@ -25,11 +25,11 @@ The data preparation phase uses synchronous dump or asynchronous dump to generat
 When preparing data, you can refer to the following best practices:
 
 1. Set the `iteration` parameter to save only the data of the iteration with the problem and the previous iteration. For example, if the problem to be analyzed will appear in the 10th iteration (counting from 1), you can set it as follows: `"iteration": "8 | 9"`. Note that the `iteration` parameter evaluates iterations from 0. Saving the data of the above two iterations can help problem analysis under most scenarios.
-2. After the iteration with problems is completed, it is recommended that you use [run_context.request_stop()](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.train.html#mindspore.train.callback.RunContext.request_stop) or other methods to stop the training.
+2. After the iteration with problems is completed, it is recommended that you use [run_context.request_stop()](https://www.mindspore.cn/docs/api/en/r1.6/api_python/mindspore.train.html#mindspore.train.callback.RunContext.request_stop) or other methods to stop the training.
 
 #### Data analysis
 
-If you have installed MindInsight, you can use offline debugger of MindInsight to analyze it. See [Using the Offline Debugger](https://www.mindspore.cn/mindinsight/docs/en/master/debugger_offline.html) for the usage of offline debugger.
+If you have installed MindInsight, you can use offline debugger of MindInsight to analyze it. See [Using the Offline Debugger](https://www.mindspore.cn/mindinsight/docs/en/r1.6/debugger_offline.html) for the usage of offline debugger.
 
 If MindInsight is not installed, you need to analyze the data through the following steps.
 
@@ -49,7 +49,7 @@ If MindInsight is not installed, you need to analyze the data through the follow
 
 1. Analysis of static graph operator results.
 
-   Through the IR diagram obtained by the Dump function, you can understand the mapping relationship between the script code and the execution operator (for details, see [MindSpore IR Introduction](https://www.mindspore.cn/docs/programming_guide/en/master/design/mindir.html#overview)). Combining the input and output data of the execution operator, it is possible to analyze possible overflow, gradient explosion and disappearance during the training process, and backtrack to the code that may have problems in the script.
+   Through the IR diagram obtained by the Dump function, you can understand the mapping relationship between the script code and the execution operator (for details, see [MindSpore IR Introduction](https://www.mindspore.cn/docs/programming_guide/en/r1.6/design/mindir.html#overview)). Combining the input and output data of the execution operator, it is possible to analyze possible overflow, gradient explosion and disappearance during the training process, and backtrack to the code that may have problems in the script.
 
 2. Analysis of the feature map.
 
@@ -104,7 +104,7 @@ The configuration files required for different modes and the data format of dump
     - `iteration`: Specify the iterations to dump, type is string. Use "|" to separate the step data of different intervals to be saved. For example, "0 | 5-8 | 100-120" represents dump the data of the 1st, 6th to 9th, and 101st to 121st steps. If iteration set to "all", data of every iteration will be dumped.
     - `saved_data`: Specify what data is to be dumped, type is string. Use "tensor" to dump tensor data, use "statistic" to dump tensor statistics, use "full" to dump both tensor data and statistics. Default setting is "tensor". Synchronous statistics dump is only supported on GPU, using "statistic" or "full" on CPU or Ascend will result in exception.
     - `input_output`: 0: dump input and output of kernel, 1:dump input of kernel, 2:dump output of kernel. This configuration parameter only supports Ascend and CPU, and GPU can only dump the output of operator.
-    - `kernels`: List of operator names. Turn on the IR save switch `context.set_context(save_graphs=True)` and execute the network to obtain the operator name from the generated `trace_code_graph_{graph_id}`IR file. For details, please refer to [Saving IR](https://www.mindspore.cn/docs/programming_guide/en/master/design/mindir.html#saving-ir).
+    - `kernels`: List of operator names. Turn on the IR save switch `context.set_context(save_graphs=True)` and execute the network to obtain the operator name from the generated `trace_code_graph_{graph_id}`IR file. For details, please refer to [Saving IR](https://www.mindspore.cn/docs/programming_guide/en/r1.6/design/mindir.html#saving-ir).
     - `support_device`: Supported devices, default setting is `[0,1,2,3,4,5,6,7]`. You can specify specific device ids to dump specific device data. This configuration parameter is invalid on the CPU, because there is no concept of device on the CPU, but it is still need to reserve this parameter in the json file.
     - `enable`: When set to true, enable Synchronous Dump. When set to false, asynchronous dump will be used on Ascend and synchronous dump will still be used on GPU.
     - `trans_flag`: Enable trans flag. Transform the device data format into NCHW. If it is `True`, the data will be saved in the 4D format (NCHW) format on the Host side; if it is `False`, the data format on the Device side will be retained. This configuration parameter is invalid on the CPU, because there is no format conversion on the CPU, but it is still need to reserve this parameter in the json file.
@@ -236,7 +236,7 @@ Since sub-graphs share the same graph execution history with root graph, only ro
 
 For the Ascend scene, after the graph corresponding to the script is saved to the disk through the Dump function, the final execution graph file `ms_output_trace_code_graph_{graph_id}.ir` will be generated. This file saves the stack information of each operator in the corresponding graph, and records the generation script corresponding to the operator.
 
-Take [AlexNet script](https://gitee.com/mindspore/models/blob/master/official/cv/alexnet/src/alexnet.py) as an example:
+Take [AlexNet script](https://gitee.com/mindspore/models/blob/r1.6/official/cv/alexnet/src/alexnet.py) as an example:
 
 ```python
 import mindspore.nn as nn
@@ -400,13 +400,13 @@ Large networks (such as Bert Large) will cause memory overflow when using synchr
     }
     ```
 
-    - `dump_mode`: 0: dump all kernels data in graph, 1: dump kernels data in kernels list, 2: dump the kernels data specified by `set_dump` in the scripts, see [mindspore.dump](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore/mindspore.set_dump.html) for the usage of `set_dump`.
+    - `dump_mode`: 0: dump all kernels data in graph, 1: dump kernels data in kernels list, 2: dump the kernels data specified by `set_dump` in the scripts, see [mindspore.dump](https://www.mindspore.cn/docs/api/en/r1.6/api_python/mindspore/mindspore.set_dump.html) for the usage of `set_dump`.
     - `path`: The absolute path to save dump data. It is not a mandatory option and can be left unset or set to an empty string.
     - `net_name`: The net name eg:ResNet50.
     - `iteration`: Specify the iterations to dump, type is string. Use "|" to separate the step data of different intervals to be saved. For example, "0 | 5-8 | 100-120" represents dump the data of the 1st, 6th to 9th, and 101st to 121st steps. If iteration set to "all", data of every iteration will be dumped.
     - `saved_data`: Specify what data is to be dumped, type is string. Use "tensor" to dump tensor data, use "statistic" to dump tensor statistics, use "full" to dump both tensor data and statistics. Default setting is "tensor". Asynchronous statistics dump is only supported when `file_format` is set to `npy`, using "statistic" or "full" when `file_format` is set to `bin` will result in exception.
     - `input_output`: When set to 0, it means to Dump the operator's input and output; setting it to 1 means to Dump the operator's input; setting it to 2 means to Dump the output of the operator.
-    - `kernels`: List of operator names. Turn on the IR save switch `context.set_context(save_graphs=True)` and execute the network to obtain the operator name from the generated `trace_code_graph_{graph_id}`IR file. `kernels` only supports TBE operator, AiCPU operator and communication operator. The data of communication operation input operator will be dumped if `kernels` is set to the name of communication operator. For details, please refer to [Saving IR](https://www.mindspore.cn/docs/programming_guide/en/master/design/mindir.html#saving-ir).
+    - `kernels`: List of operator names. Turn on the IR save switch `context.set_context(save_graphs=True)` and execute the network to obtain the operator name from the generated `trace_code_graph_{graph_id}`IR file. `kernels` only supports TBE operator, AiCPU operator and communication operator. The data of communication operation input operator will be dumped if `kernels` is set to the name of communication operator. For details, please refer to [Saving IR](https://www.mindspore.cn/docs/programming_guide/en/r1.6/design/mindir.html#saving-ir).
     - `support_device`: Supported devices, default setting is `[0,1,2,3,4,5,6,7]`. You can specify specific device ids to dump specific device data.
     - `enable`: Enable Asynchronous Dump. If synchronous dump and asynchronous dump are enabled at the same time, only synchronous dump will take effect.
     - `op_debug_mode`: 0: disable overflow check function; 1: enable AiCore overflow check; 2: enable Atomic overflow check; 3: enable all overflow check function. If it is not set to 0, only the data of the overflow operator will be dumped.
@@ -498,7 +498,7 @@ Take the Dump result of a simple network as an example: `Add.Default_Add-op1.2.1
 
 If ".", "/", "\", and spaces appear in `op_type` and `op_name`, they will be converted to underscores.
 
-The original data file generated by dump can also be parsed by using the data parsing tool DumpParser of MindInsight. Please refer to [DumpParser Introduction](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/parser/README.md) for the usage of DumpParser.
+The original data file generated by dump can also be parsed by using the data parsing tool DumpParser of MindInsight. Please refer to [DumpParser Introduction](https://gitee.com/mindspore/mindinsight/blob/r1.6/mindinsight/parser/README.md) for the usage of DumpParser.
 The data format parsed by MindInsight is exactly the same as that of synchronous dump.
 
 If setting `file_format` to `npy`, the naming convention of data files generated by asynchronous dump is the same as those of synchronous dump. Please refer to [Introduction to Synchronous Dump Data File](#introduction-to-synchronous-dump-data-file).

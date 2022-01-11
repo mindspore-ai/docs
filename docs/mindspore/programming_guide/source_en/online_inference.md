@@ -2,7 +2,7 @@
 
 `Ascend` `Inference Application`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/online_inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_en/online_inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## Use the `model.eval` interface for model validation
 
@@ -25,8 +25,8 @@ print("============== {} ==============".format(acc))
 ```
 
 In the preceding information:  
-`model.eval` is an API for model validation. For details about the API, see <https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.html#mindspore.Model.eval>.
-> Inference sample code: <https://gitee.com/mindspore/models/blob/master/official/cv/lenet/eval.py>.
+`model.eval` is an API for model validation. For details about the API, see <https://www.mindspore.cn/docs/api/en/r1.6/api_python/mindspore.html#mindspore.Model.eval>.
+> Inference sample code: <https://gitee.com/mindspore/models/blob/r1.6/official/cv/lenet/eval.py>.
 
 ### Remote Storage
 
@@ -47,7 +47,7 @@ print("============== {} ==============".format(acc))
 
 In the preceding information:
 
-`mindspore_hub.load` is an API for loading model parameters. Please check the details in <https://www.mindspore.cn/hub/api/en/master/index.html#module-mindspore_hub>.
+`mindspore_hub.load` is an API for loading model parameters. Please check the details in <https://www.mindspore.cn/hub/docs/en/r1.6/hub.html#module-mindspore_hub>.
 
 ## Use the `model.predict` API to perform inference
 
@@ -56,4 +56,4 @@ In the preceding information:
    ```
 
    In the preceding information:  
-   `model.predict` is an API for inference. For details about the API, see <https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.html#mindspore.Model.predict>.
+   `model.predict` is an API for inference. For details about the API, see <https://www.mindspore.cn/docs/api/en/r1.6/api_python/mindspore.html#mindspore.Model.predict>.

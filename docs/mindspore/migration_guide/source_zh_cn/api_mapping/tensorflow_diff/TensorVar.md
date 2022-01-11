@@ -1,6 +1,6 @@
 # 比较与tf.math.reduce_variance的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_zh_cn/api_mapping/tensorflow_diff/TensorVar.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_zh_cn/api_mapping/tensorflow_diff/TensorVar.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## tf.math.reduce_variance
 
@@ -16,7 +16,7 @@ tf.math.reduce_variance(input_tensor, axis=None, keepdims=False, name=None)
  mindspore.Tensor.var(axis=None, ddof=0, keepdims=False)
 ```
 
-更多内容详见[mindspore.Tensor.var](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.Tensor.html#mindspore.Tensor.var)。
+更多内容详见[mindspore.Tensor.var](https://mindspore.cn/docs/api/zh-CN/r1.6/api_python/mindspore/mindspore.Tensor.html#mindspore.Tensor.var)。
 
 ## 使用方式
 

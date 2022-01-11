@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `Beginner`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/cell.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_en/cell.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -46,7 +46,7 @@ class Net(nn.Cell):
 
 The `parameters_dict` method is used to identify all parameters in the network structure and return `OrderedDict` with key as the parameter name and value as the parameter value.
 
-There are many other methods for returning parameters in the `Cell` class, such as `get_parameters` and `trainable_params`. For details, see [mindspore API](https://www.mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Cell.html).
+There are many other methods for returning parameters in the `Cell` class, such as `get_parameters` and `trainable_params`. For details, see [mindspore API](https://www.mindspore.cn/docs/api/en/r1.6/api_python/nn/mindspore.nn.Cell.html).
 
 A code example is as follows:
 
@@ -169,7 +169,7 @@ net.set_train(False)
 
 The `to_float` interface recursively configures the coercion type of the current `Cell` and all sub-`Cell` so that the current network structure runs with a specific float type. Usually used in mixed precision scenes.
 
-For details of `to_float` and mixed precision, please refer to [Enabling Mixed Precision](https://www.mindspore.cn/docs/programming_guide/en/master/enable_mixed_precision.html).
+For details of `to_float` and mixed precision, please refer to [Enabling Mixed Precision](https://www.mindspore.cn/docs/programming_guide/en/r1.6/enable_mixed_precision.html).
 
 ## Relationship Between the nn Module and the ops Module
 

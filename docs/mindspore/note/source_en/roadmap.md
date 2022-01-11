@@ -1,6 +1,6 @@
 # RoadMap
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/note/source_en/roadmap.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/note/source_en/roadmap.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 MindSpore's top priority plans in the year are displayed as follows. We will continuously adjust the priority based on user feedback.
 

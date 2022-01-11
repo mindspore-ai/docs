@@ -1,6 +1,6 @@
 # 比较与tf.keras.optimizers.Ftrl的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_zh_cn/api_mapping/tensorflow_diff/Ftrl.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_zh_cn/api_mapping/tensorflow_diff/Ftrl.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## tf.keras.optimizers.Ftrl
 
@@ -22,13 +22,13 @@ mindspore.nn.FTRL(params, initial_accum=0.1, learning_rate=0.001,
     loss_scale=1.0, weight_decay=0.0)
 ```
 
-更多内容详见[mindspore.nn.FTRL](https://mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.FTRL.html)。
+更多内容详见[mindspore.nn.FTRL](https://mindspore.cn/docs/api/zh-CN/r1.6/api_python/nn/mindspore.nn.FTRL.html)。
 
 ## 使用方式
 
 一般使用场景：
 
-- MindSpore：一般情况下，在实例化一个优化器子类之后，将其作为`mindspore.model`高阶API的入参参与训练，用法请参考代码示例；或使用`mindspore.nn.TrainOneStepCell`，通过传入优化器和一个`mindspore.nn.WithLossCell`的实例，自定义训练网络，具体实现方式可以参考[官网教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/train_and_eval.html#id5)。
+- MindSpore：一般情况下，在实例化一个优化器子类之后，将其作为`mindspore.model`高阶API的入参参与训练，用法请参考代码示例；或使用`mindspore.nn.TrainOneStepCell`，通过传入优化器和一个`mindspore.nn.WithLossCell`的实例，自定义训练网络，具体实现方式可以参考[官网教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/train_and_eval.html#id5)。
 
 - TensorFlow：一般情况下，在实例化一个优化器子类之后，将其作为`tf.keras.models.Model`高阶API的入参参与训练；或调用`minimize()`（包含`compute_gradients()`和`apply_gradients()`）方法单步执行。
 

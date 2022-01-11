@@ -6,4 +6,4 @@
 <source id="mp47" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/MindArmour%E6%B5%8B%E8%AF%95%E6%A8%A1%E5%9E%8B%E5%AE%89%E5%85%A8%E6%80%A7-%E6%88%90%E5%91%98%E6%8E%A8%E7%90%86.mp4" type="video/mp4">
 </video>
 
-**更多内容**：<https://www.mindspore.cn/mindarmour/docs/zh-CN/master/test_model_security_membership_inference.html>
+**更多内容**：<https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.6/test_model_security_membership_inference.html>

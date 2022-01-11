@@ -21,17 +21,17 @@
 
 <!--/ TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/model_explanation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindinsight/docs/source_en/model_explanation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## Operation Process
 
 ### Downloading Data Package
 
-Please follow the [Downloading Data Package](https://www.mindspore.cn/xai/docs/en/master/using_explainers.html#id4) instructions to download the necessary files for the tutorial.
+Please follow the [Downloading Data Package](https://www.mindspore.cn/xai/docs/en/r1.6/using_explainers.html#id4) instructions to download the necessary files for the tutorial.
 
 ### Preparing the Script
 
-The tutorial below is referencing [using_mindinsight.py](https://gitee.com/mindspore/xai/blob/master/examples/using_mindinsight.py).
+The tutorial below is referencing [using_mindinsight.py](https://gitee.com/mindspore/xai/blob/r1.6/examples/using_mindinsight.py).
 
 Currently, [MindSpore XAI](https://www.mindspore.cn/xai/en) provides the explanation methods and explanation evaluation Python API. You can use the provided explanation methods by  `mindspore_xai.explanation` and the provided explanation evaluation by `mindspore_xai.benchmark`. You need to prepare the black-box model and data to be explained, instantiate explanation methods or explanation evaluation according to your need and call the explanation API in your script to collect the explanation result and explanation evaluation result.
 
@@ -163,7 +163,7 @@ The classification assessment page provides two types of comparison. One is to c
 
 ## Uncertainty
 
-The model predictions come with uncertainty, which is called [Epistemic Uncertainty](https://www.mindspore.cn/probability/api/en/master/nn_probability/mindspore.nn.probability.toolbox.UncertaintyEvaluation.html#mindspore.nn.probability.toolbox.UncertaintyEvaluation). It inserts a dropout layer to the network and inferences multiple times. The results are standard deviation and 95% confidence interval of the model output predictions:
+The model predictions come with uncertainty, which is called [Epistemic Uncertainty](https://www.mindspore.cn/probability/docsen/r1.6/nn_probability/mindspore.nn.probability.toolbox.UncertaintyEvaluation.html#mindspore.nn.probability.toolbox.UncertaintyEvaluation). It inserts a dropout layer to the network and inferences multiple times. The results are standard deviation and 95% confidence interval of the model output predictions:
 
 ![mi_saliency_map](./images/mi_uncertainty.png)
 

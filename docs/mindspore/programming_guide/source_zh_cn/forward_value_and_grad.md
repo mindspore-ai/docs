@@ -2,11 +2,11 @@
 
 `Ascend` `GPU` `CPU` `模型运行`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/forward_value_and_grad.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_zh_cn/forward_value_and_grad.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## 概述
 
-`ForwardValueAndGrad` 用来返回输入网络或者函数的正向计算结果和参数的反向梯度值。`get_all`, `get_by_list`, 和 `sens_param` 参数用来控制梯度的计算范围。详细说明可见 [mindspore API](https://www.mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.ForwardValueAndGrad.html).
+`ForwardValueAndGrad` 用来返回输入网络或者函数的正向计算结果和参数的反向梯度值。`get_all`, `get_by_list`, 和 `sens_param` 参数用来控制梯度的计算范围。详细说明可见 [mindspore API](https://www.mindspore.cn/docs/api/en/r1.6/api_python/nn/mindspore.nn.ForwardValueAndGrad.html).
 
 下面是使用`ForwardValueAndGrad`的用例说明.
 

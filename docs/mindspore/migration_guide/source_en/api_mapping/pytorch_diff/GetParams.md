@@ -1,6 +1,6 @@
 # Comparing the function difference with torch.nn.Module.parameters
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/GetParams.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/GetParams.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## torch.nn.Module.parameters
 
@@ -16,7 +16,7 @@ For more information, see [torch.nn.Module.parameters](https://pytorch.org/docs/
 mindspore.nn.Cell.get_parameters(expand=True)
 ```
 
-For more information, see [mindspore.nn.Cell.get_parameters](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.get_parameters).
+For more information, see [mindspore.nn.Cell.get_parameters](https://mindspore.cn/docs/api/en/r1.6/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.get_parameters).
 
 ## Differences
 

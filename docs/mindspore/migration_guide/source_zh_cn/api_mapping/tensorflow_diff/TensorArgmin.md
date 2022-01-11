@@ -1,6 +1,6 @@
 # 比较与tf.arg_min的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_zh_cn/api_mapping/tensorflow_diff/TensorArgmin.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_zh_cn/api_mapping/tensorflow_diff/TensorArgmin.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## tf.arg_min
 
@@ -16,7 +16,7 @@ tf.arg_min(input, dimension, output_type=tf.dtypes.int64, name=None)
  mindspore.Tensor.argmin(axis=None)
 ```
 
-更多内容详见[mindspore.Tensor.argmin](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.Tensor.html#mindspore.Tensor.argmin)。
+更多内容详见[mindspore.Tensor.argmin](https://mindspore.cn/docs/api/zh-CN/r1.6/api_python/mindspore/mindspore.Tensor.html#mindspore.Tensor.argmin)。
 
 ## 使用方式
 

@@ -1,6 +1,6 @@
 # Function Differences with torch.nn.BatchNorm1d
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/BatchNorm1d.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/BatchNorm1d.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## torch.nn.BatchNorm1d
 
@@ -32,7 +32,7 @@ class mindspore.nn.BatchNorm1d(
 )
 ```
 
-For more information, see [mindspore.nn.BatchNorm1d](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.BatchNorm1d.html#mindspore.nn.BatchNorm1d).
+For more information, see [mindspore.nn.BatchNorm1d](https://mindspore.cn/docs/api/en/r1.6/api_python/nn/mindspore.nn.BatchNorm1d.html#mindspore.nn.BatchNorm1d).
 
 ## Differences
 

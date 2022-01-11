@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `分布式并行`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/distributed_training_mode.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_zh_cn/distributed_training_mode.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 目前MindSpore支持下述的四种并行模式：
 
@@ -38,7 +38,7 @@ context.set_auto_parallel_context(parallel_mode=context.ParallelMode.DATA_PARALL
 # context.set_auto_parallel_context(parallel_mode=context.ParallelMode.HYBRID_PARALLEL)
 ```
 
-下述涉及的自动并行接口，例如`context.set_auto_parallel_context`中的接口配置，可以在[分布式并行接口](https://mindspore.cn/docs/programming_guide/zh-CN/master/auto_parallel.html)进行查看。分布式并行训练在各场景的支持情况如下表。
+下述涉及的自动并行接口，例如`context.set_auto_parallel_context`中的接口配置，可以在[分布式并行接口](https://mindspore.cn/docs/programming_guide/zh-CN/r1.6/auto_parallel.html)进行查看。分布式并行训练在各场景的支持情况如下表。
 
 | 并行模式 | 配置 | 动态图 | 静态图 | 支持设备 |
 | ---------- | ------ | ------ | ---------- | ---------- |
@@ -49,7 +49,7 @@ context.set_auto_parallel_context(parallel_mode=context.ParallelMode.DATA_PARALL
 
 ### 数据并行
 
-在数据并行中，用户定义网络的方式和单机脚本一样，但是在网络定义之前调用[init()](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.communication.html?highlight=init#mindspore.communication.init)去初始化设备通信状态。
+在数据并行中，用户定义网络的方式和单机脚本一样，但是在网络定义之前调用[init()](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/mindspore.communication.html?highlight=init#mindspore.communication.init)去初始化设备通信状态。
 
 ```python
 import numpy as np
@@ -81,7 +81,7 @@ model.train(*args, **kwargs)
 
 ### 半自动并行
 
-相较于自动并行，半自动并行模式需要用户对算子手动配置切分**策略**实现并行。关于算子并行策略的定义可以参考这篇[设计文档](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/design/distributed_training_design.html#id10)。
+相较于自动并行，半自动并行模式需要用户对算子手动配置切分**策略**实现并行。关于算子并行策略的定义可以参考这篇[设计文档](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/design/distributed_training_design.html#id10)。
 
 - 启动半自动和自动模式进行训练时，**必须**通过`model.train(*args, **kwargs)`接口进行训练，不支持自定义循环进行网络训练。
 
@@ -136,7 +136,7 @@ model.train(*args, **kwargs)
     model.train(*args, **kwargs)
     ```
 
-在前后算子的设备矩阵不一致时，会自动插入[重排布](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/design/distributed_training_design.html?highlight=%E9%87%8D%E6%8E%92%E5%B8%83#id4), 确保`tensor`的切分状态符合下一个算子输入要求。例如在单机八卡的训练中，有下述的示例代码：
+在前后算子的设备矩阵不一致时，会自动插入[重排布](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/design/distributed_training_design.html?highlight=%E9%87%8D%E6%8E%92%E5%B8%83#id4), 确保`tensor`的切分状态符合下一个算子输入要求。例如在单机八卡的训练中，有下述的示例代码：
 
 ```python
 import numpy as np
@@ -169,13 +169,13 @@ class SemiAutoParallelNet(nn.Cell):
         return x
 ```
 
-因此，如果前后的算子对输入的切分要求不一样，插入的重排布算子可能会有`AllGather`、`Split`、`Concat`和`StridedSlice`等算子。因此会增加网络的计算和通信耗时。用户可以[保存ir图](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/design/mindir.html)查看整张网络的算子状态。其中自动并行流程产生的`ir`图名为`step_parallel_begin_xxxx.ir`和`step_parallel_end_xxxx.ir`。前者表示在进入并行流程之前图状态，后者表示经过自动并行流程处理后的图状态，用户可以查看后者这个文件，查找自动并行插入的算子。
+因此，如果前后的算子对输入的切分要求不一样，插入的重排布算子可能会有`AllGather`、`Split`、`Concat`和`StridedSlice`等算子。因此会增加网络的计算和通信耗时。用户可以[保存ir图](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/design/mindir.html)查看整张网络的算子状态。其中自动并行流程产生的`ir`图名为`step_parallel_begin_xxxx.ir`和`step_parallel_end_xxxx.ir`。前者表示在进入并行流程之前图状态，后者表示经过自动并行流程处理后的图状态，用户可以查看后者这个文件，查找自动并行插入的算子。
 
 > - 半自动并行模式时，未配置策略的算子默认以数据并行方式执行，对应的数据并行度为所有卡。
 > - 自动并行模式支持通过策略搜索算法自动获取高效的算子并行策略，同时也支持用户对算子手动配置特定的并行策略。
 > - 如果某个`parameter`被多个算子使用，则每个算子对这个`parameter`的切分策略需要保持一致，否则将报错。
 
-自动和半自动模式中还可以通过对`Cell`配置`pipeline_stage`属性进行流水线并行，对应的流水线并行教程可以参考[应用流水线并行](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/apply_pipeline_parallel.html)。
+自动和半自动模式中还可以通过对`Cell`配置`pipeline_stage`属性进行流水线并行，对应的流水线并行教程可以参考[应用流水线并行](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/apply_pipeline_parallel.html)。
 
 ### 全自动并行
 

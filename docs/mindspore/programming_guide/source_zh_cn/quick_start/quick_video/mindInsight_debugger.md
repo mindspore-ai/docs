@@ -6,4 +6,4 @@
 <source id="mp47" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/%E4%BD%BF%E7%94%A8%E8%B0%83%E8%AF%95%E5%99%A8.mp4" type="video/mp4">
 </video>
 
-**查看更多内容**：<https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger.html>
+**查看更多内容**：<https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.6/debugger.html>

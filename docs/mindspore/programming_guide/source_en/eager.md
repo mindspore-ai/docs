@@ -7,7 +7,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/eager.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_en/eager.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 When resources permit, in order to purse higher performance, data pipeline mode is generally used for data augmentation. That is, we have to define a `map` operator which helps us to start and execute the given data augmentation operator, and to transform the data in the data pipeline, for example:
 
@@ -93,4 +93,4 @@ The following shows the processed image.
 
 ![eager_mode](./images/eager_mode.png)
 
-Augmentation operators that support to be run in Eager Mode are listed as follows: [mindspore.dataset.transforms](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.dataset.transforms.html), [mindspore.dataset.vision](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.dataset.vision.html), [mindspore.dataset.text.transforms](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.dataset.text.html#mindspore-dataset-text-transforms).
+Augmentation operators that support to be run in Eager Mode are listed as follows: [mindspore.dataset.transforms](https://www.mindspore.cn/docs/api/en/r1.6/api_python/mindspore.dataset.transforms.html), [mindspore.dataset.vision](https://www.mindspore.cn/docs/api/en/r1.6/api_python/mindspore.dataset.vision.html), [mindspore.dataset.text.transforms](https://www.mindspore.cn/docs/api/en/r1.6/api_python/mindspore.dataset.text.html#mindspore-dataset-text-transforms).

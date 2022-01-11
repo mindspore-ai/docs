@@ -1,8 +1,8 @@
 # 查看训练看板
 
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/notebook/mindspore_mindinsight_dashboard.ipynb" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_notebook.png"></a>&nbsp;&nbsp;
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/notebook/mindspore_mindinsight_dashboard.py" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_download_code.png"></a>&nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/dashboard.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.6/notebook/mindspore_mindinsight_dashboard.ipynb" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_notebook.png"></a>&nbsp;&nbsp;
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.6/notebook/mindspore_mindinsight_dashboard.py" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_download_code.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindinsight/docs/source_zh_cn/dashboard.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -10,7 +10,7 @@
 
 用户从训练列表中选择指定的训练，进入训练看板。
 
-> 收集可视化数据及进入训练看板方法可参考《[收集Summary数据](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/summary_record.html)》。
+> 收集可视化数据及进入训练看板方法可参考《[收集Summary数据](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.6/summary_record.html)》。
 
 ## 标量可视化
 
@@ -98,7 +98,7 @@
 
 图8展示了优化可读性功能，该功能优化了计算图的可读性，降低计算图的复杂度，图中大部分的梯度计算逻辑和优化器计算逻辑将会被移除。
 
-注意：为达到最清晰的计算图可视化效果，请勿使用跨cell的公共函数，并在收集计算图时设置`jit_level`为`o0`，请参考[mindspore.Model.build接口定义](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.Model.html?highlight=jit_config#mindspore.Model.build) 。
+注意：为达到最清晰的计算图可视化效果，请勿使用跨cell的公共函数，并在收集计算图时设置`jit_level`为`o0`，请参考[mindspore.Model.build接口定义](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/mindspore/mindspore.Model.html?highlight=jit_config#mindspore.Model.build) 。
 
 ## 数据图可视化
 

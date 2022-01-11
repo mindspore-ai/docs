@@ -1,6 +1,6 @@
 # 差分隐私设计
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_zh_cn/differential_privacy_design.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindarmour/docs/source_zh_cn/differential_privacy_design.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## 总体设计
 
@@ -40,10 +40,10 @@ Monitor提供RDP、ZCDP等回调函数，用于监测模型的差分隐私预算
 
 ## 代码实现
 
-- [mechanisms.py](https://gitee.com/mindspore/mindarmour/blob/master/mindarmour/privacy/diff_privacy/mechanisms/mechanisms.py)：这个文件实现了差分隐私训练所需的噪声生成机制，包括简单高斯噪声、自适应高斯噪声、自适应裁剪高斯噪声等。
-- [optimizer.py](https://gitee.com/mindspore/mindarmour/blob/master/mindarmour/privacy/diff_privacy/optimizer/optimizer.py)：这个文件实现了使用噪声生成机制在反向传播时添加噪声的根本逻辑。
-- [monitor.py](https://gitee.com/mindspore/mindarmour/blob/master/mindarmour/privacy/diff_privacy/monitor/monitor.py)：实现了计算差分隐私预算的回调函数，模型训练过程中，会反馈当前的差分隐私预算。
-- [model.py](https://gitee.com/mindspore/mindarmour/blob/master/mindarmour/privacy/diff_privacy/train/model.py)：这个文件实现了计算损失和梯度的逻辑，差分隐私训练的梯度截断逻辑在此文件中实现，且model.py是用户使用差分隐私训练能力的入口。
+- [mechanisms.py](https://gitee.com/mindspore/mindarmour/blob/r1.6/mindarmour/privacy/diff_privacy/mechanisms/mechanisms.py)：这个文件实现了差分隐私训练所需的噪声生成机制，包括简单高斯噪声、自适应高斯噪声、自适应裁剪高斯噪声等。
+- [optimizer.py](https://gitee.com/mindspore/mindarmour/blob/r1.6/mindarmour/privacy/diff_privacy/optimizer/optimizer.py)：这个文件实现了使用噪声生成机制在反向传播时添加噪声的根本逻辑。
+- [monitor.py](https://gitee.com/mindspore/mindarmour/blob/r1.6/mindarmour/privacy/diff_privacy/monitor/monitor.py)：实现了计算差分隐私预算的回调函数，模型训练过程中，会反馈当前的差分隐私预算。
+- [model.py](https://gitee.com/mindspore/mindarmour/blob/r1.6/mindarmour/privacy/diff_privacy/train/model.py)：这个文件实现了计算损失和梯度的逻辑，差分隐私训练的梯度截断逻辑在此文件中实现，且model.py是用户使用差分隐私训练能力的入口。
 
 ## 参考文献
 

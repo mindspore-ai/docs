@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `入门` `模型导出` `模型加载`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/save_load_model.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/tutorials/source_zh_cn/save_load_model.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 上一节我们训练完网络，本节将会学习如何保存模型和加载模型，以及如何将保存的模型导出成特定格式到不同平台进行推理。
 
@@ -25,7 +25,7 @@ import mindspore as ms
 ms.save_checkpoint(net, "./MyNet.ckpt")
 ```
 
-其中，`net`为训练网络，定义方法可参考[建立神经网络](https://www.mindspore.cn/tutorials/zh-CN/master/model.html)。
+其中，`net`为训练网络，定义方法可参考[建立神经网络](https://www.mindspore.cn/tutorials/zh-CN/r1.6/model.html)。
 
 ### 训练过程中保存模型
 
@@ -38,7 +38,7 @@ ckpt_cb = ModelCheckpoint()
 model.train(epoch_num, dataset, callbacks=ckpt_cb)
 ```
 
-其中，`epoch_num`为训练轮次，定义方法可参考[训练模型](https://www.mindspore.cn/tutorials/zh-CN/master/optimization.html)。`dataset`为加载的数据集，定义方法可参考[数据加载及处理](https://www.mindspore.cn/tutorials/zh-CN/master/dataset.html)。
+其中，`epoch_num`为训练轮次，定义方法可参考[训练模型](https://www.mindspore.cn/tutorials/zh-CN/r1.6/optimization.html)。`dataset`为加载的数据集，定义方法可参考[数据加载及处理](https://www.mindspore.cn/tutorials/zh-CN/r1.6/dataset.html)。
 
 用户可以根据具体需求对CheckPoint策略进行配置。具体用法如下：
 

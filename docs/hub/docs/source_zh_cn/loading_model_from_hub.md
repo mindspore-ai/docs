@@ -1,6 +1,6 @@
 ﻿# 从Hub加载模型
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/hub/docs/source_zh_cn/loading_model_from_hub.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/hub/docs/source_zh_cn/loading_model_from_hub.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -39,7 +39,7 @@
 
     ```
 
-3. 完成模型加载后，可以使用MindSpore进行推理，参考[推理模型总览](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/multi_platform_inference.html)。
+3. 完成模型加载后，可以使用MindSpore进行推理，参考[推理模型总览](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/multi_platform_inference.html)。
 
 ## 用于迁移学习
 

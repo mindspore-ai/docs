@@ -1,6 +1,6 @@
 ﻿# FAQ
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/serving/faq/source_zh_cn/faq.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/serving/faq/source_zh_cn/faq.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 <font size=3>**Q：MindSpore Serving是否支持热更新，避免推理服务中断？**</font>
 
@@ -10,7 +10,7 @@ A：MindSpore Serving当前不支持热更新，需要用户重启；当前建�
 
 <font size=3>**Q：MindSpore Serving是否支持一个模型启动多个Worker，以支持多卡单模型并发？**</font>
 
-A：MindSpore Serving1.3版本后支持一个模型在多卡部署多个副本，实现多卡单模型并发执行。详细可以参考[Add样例](https://gitee.com/mindspore/serving/blob/master/example/tensor_add/serving_server.py)。
+A：MindSpore Serving1.3版本后支持一个模型在多卡部署多个副本，实现多卡单模型并发执行。详细可以参考[Add样例](https://gitee.com/mindspore/serving/blob/r1.6/example/tensor_add/serving_server.py)。
 
 <br/>
 
@@ -38,7 +38,7 @@ A：首先，需要确认是否安装MindSpore Serving所依赖的MindSpore；�
 
 <font size=3>**Q：如何控制Serving日志输出？**</font>
 
-A：MindSpore Serving采用glog来输出日志，详细可参考[日志相关的环境变量和配置](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#id11)，在此基础上，额外补充的内容：
+A：MindSpore Serving采用glog来输出日志，详细可参考[日志相关的环境变量和配置](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/custom_debugging_info.html#id11)，在此基础上，额外补充的内容：
 
 - MS_SUBMODULE_LOG_v
 

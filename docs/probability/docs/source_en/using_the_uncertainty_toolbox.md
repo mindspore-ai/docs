@@ -1,6 +1,6 @@
 # Using the Uncertainty Evaluation Toolbox
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/probability/docs/source_en/using_the_uncertainty_toolbox.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/probability/docs/source_en/using_the_uncertainty_toolbox.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 One of advantages of BNN is that uncertainty can be obtained. MDP provides a toolbox for uncertainty evaluation at the upper layer. Users can easily use the toolbox to compute uncertainty. Uncertainty means an uncertain degree of a prediction result of a deep learning model. Currently, most deep learning algorithm can only provide prediction results but cannot determine the result reliability. There are two types of uncertainties: aleatoric uncertainty and epistemic uncertainty.
 
@@ -16,7 +16,7 @@ This example will use the MNIST data set and the LeNet5 network model example fo
 3. Initialize the uncertainty assessment toolbox.
 4. Assess cognitive uncertainty.
 
-> This example is for the GPU or Ascend 910 AI processor platform. You can download the complete sample code from <https://gitee.com/mindspore/mindspore/tree/master/tests/st/probability/toolbox>.
+> This example is for the GPU or Ascend 910 AI processor platform. You can download the complete sample code from <https://gitee.com/mindspore/mindspore/tree/r1.6/tests/st/probability/toolbox>.
 
 ## Data Preparation
 
@@ -152,11 +152,11 @@ Initialize the `UncertaintyEvaluation` function of the Uncertainty Toolbox and p
 3. Enhance the training data set into data suitable for neural networks.
 4. Load the above network and data set into UncertaintyEvaluation.
 
-MindSpore uses the Uncertainty Toolbox `UncertaintyEvaluation` interface to measure model accidental uncertainty and cognitive uncertainty. For more usage methods, please refer to [API](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.nn.probability.html#module-mindspore.nn.probability.toolbox).
+MindSpore uses the Uncertainty Toolbox `UncertaintyEvaluation` interface to measure model accidental uncertainty and cognitive uncertainty. For more usage methods, please refer to [API](https://www.mindspore.cn/docs/api/en/r1.6/api_python/mindspore.nn.probability.html#module-mindspore.nn.probability.toolbox).
 
 ### Preparing the Model Weight Parameter File
 
-In this example, the corresponding model weight parameter file `checkpoint_lenet.ckpt` has been prepared. This parameter file is the weight parameter file saved after training for 5 epochs in [Quick Start for Beginners](https://www.mindspore.cn/tutorials/en/master/quick_start.html), execute the following command to download:
+In this example, the corresponding model weight parameter file `checkpoint_lenet.ckpt` has been prepared. This parameter file is the weight parameter file saved after training for 5 epochs in [Quick Start for Beginners](https://www.mindspore.cn/tutorials/en/r1.6/quick_start.html), execute the following command to download:
 
 ```bash
 download_dataset("https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/models/checkpoint_lenet.ckpt", ".")

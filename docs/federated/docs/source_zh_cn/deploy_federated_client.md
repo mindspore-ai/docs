@@ -1,6 +1,6 @@
 # 端侧部署
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/deploy_federated_client.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/federated/docs/source_zh_cn/deploy_federated_client.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 下面分别介绍如何在Android环境和x86环境部署Federated-Client。
 
@@ -10,7 +10,7 @@
 
 1. 配置编译环境。
 
-    目前只支持Linux环境编译，Linux编译环境配置可参考[这里](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html#linux)。
+    目前只支持Linux环境编译，Linux编译环境配置可参考[这里](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/build.html#linux)。
 
 2. 开启联邦编译选项，在mindspore根目录进行编译，编译包含aarch64和aarch32的AAR包。
 
@@ -25,7 +25,7 @@
     mindspore-lite-maven-{version}.zip
     ```
 
-4. 由于端侧框架和模型是解耦的，我们提供的Android AAR包不包含模型相关脚本，因此需要用户自行生成模型脚本对应的jar包，我们提供了两个类型的模型脚本供大家参考（[有监督情感分类任务](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert)、[LeNet图片分类任务](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet)）。同时，用户可参考这两个类型的模型脚本，自定义模型脚本后生成对应的jar包（假设命名为`quick_start_flclient.jar`）。我们提供的模型脚本对应jar包可采用如下方式获取：
+4. 由于端侧框架和模型是解耦的，我们提供的Android AAR包不包含模型相关脚本，因此需要用户自行生成模型脚本对应的jar包，我们提供了两个类型的模型脚本供大家参考（[有监督情感分类任务](https://gitee.com/mindspore/mindspore/tree/r1.6/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert)、[LeNet图片分类任务](https://gitee.com/mindspore/mindspore/tree/r1.6/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet)）。同时，用户可参考这两个类型的模型脚本，自定义模型脚本后生成对应的jar包（假设命名为`quick_start_flclient.jar`）。我们提供的模型脚本对应jar包可采用如下方式获取：
 
     下载[MindSpore开源仓](https://gitee.com/mindspore/mindspore)上最新代码后，进行以下操作：
 
@@ -98,7 +98,7 @@ implementation(group: 'org.bouncycastle',name: 'bcprov-jdk15on', version: '1.68'
 }
 ```
 
-具体实现可参考文档[情感分类应用](https://www.mindspore.cn/federated/docs/zh-CN/master/sentiment_classification_application.html)中 `Android工程配置依赖项`部分提供的`app/build.gradle` 文件示例。
+具体实现可参考文档[情感分类应用](https://www.mindspore.cn/federated/docs/zh-CN/r1.6/sentiment_classification_application.html)中 `Android工程配置依赖项`部分提供的`app/build.gradle` 文件示例。
 
 注意2，由于联邦学习依赖的第三方开源软件`bcprov-jdk15on`包含多版本class文件，为防止低版本jdk编译高版本class文件出错，在Android工程的`gradle.properties`文件中可添加如下设置语句：
 
@@ -106,7 +106,7 @@ implementation(group: 'org.bouncycastle',name: 'bcprov-jdk15on', version: '1.68'
 android.jetifier.blacklist=bcprov
 ```
 
-在Android工程中设置好了如上所示依赖之后，只需依赖 AAR包和模型脚本对应的jar包`quick_start_flclient.jar`即可调用联邦学习提供的相关接口，接口的具体调用和运行方式可参考[联邦学习接口介绍部分](https://www.mindspore.cn/federated/api/zh-CN/master/index.html)。
+在Android工程中设置好了如上所示依赖之后，只需依赖 AAR包和模型脚本对应的jar包`quick_start_flclient.jar`即可调用联邦学习提供的相关接口，接口的具体调用和运行方式可参考[联邦学习接口介绍部分](https://www.mindspore.cn/federated/docszh-CN/r1.6/index.html)。
 
 ## x86环境
 
@@ -114,7 +114,7 @@ android.jetifier.blacklist=bcprov
 
 1. 配置编译环境。
 
-    目前只支持Linux环境编译，Linux编译环境配置可参考[这里](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html#linux)。
+    目前只支持Linux环境编译，Linux编译环境配置可参考[这里](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/build.html#linux)。
 
 2. 在mindspore根目录进行编译，编译x86架构相关包。
 
@@ -128,7 +128,7 @@ android.jetifier.blacklist=bcprov
     mindspore/output/mindspore-lite-{version}-linux-x64.tar.gz
     ```
 
-4. 由于端侧框架和模型是解耦的，我们提供的x86架构包`mindspore-lite-{version}-linux-x64.tar.gz`不包含模型相关脚本，因此需要用户自行生成模型脚本对应的jar包，我们提供了两个类型的模型脚本供大家参考（[有监督情感分类任务](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert)、[LeNet图片分类任务](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet)）。同时，用户可参考这两个类型的模型脚本，自定义模型脚本后生成对应的jar包（假设命名为`quick_start_flclient.jar`）。我们提供的模型脚本对应jar包可采用如下方式获取：
+4. 由于端侧框架和模型是解耦的，我们提供的x86架构包`mindspore-lite-{version}-linux-x64.tar.gz`不包含模型相关脚本，因此需要用户自行生成模型脚本对应的jar包，我们提供了两个类型的模型脚本供大家参考（[有监督情感分类任务](https://gitee.com/mindspore/mindspore/tree/r1.6/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert)、[LeNet图片分类任务](https://gitee.com/mindspore/mindspore/tree/r1.6/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet)）。同时，用户可参考这两个类型的模型脚本，自定义模型脚本后生成对应的jar包（假设命名为`quick_start_flclient.jar`）。我们提供的模型脚本对应jar包可采用如下方式获取：
 
     下载[MindSpore开源仓](https://gitee.com/mindspore/mindspore)上最新代码后，进行以下操作：
 
@@ -197,4 +197,4 @@ quick_start_flclient.jar   # 模型脚本对应的jar包
 export LD_LIBRARY_PATH=/resource/x86libs/:$LD_LIBRARY_PATH
 ```
 
-设置好依赖环境之后，可参考[这里](https://www.mindspore.cn/federated/docs/zh-CN/master/image_classification_application.html)教程在x86环境中模拟启动多个客户端进行联邦学习。
+设置好依赖环境之后，可参考[这里](https://www.mindspore.cn/federated/docs/zh-CN/r1.6/image_classification_application.html)教程在x86环境中模拟启动多个客户端进行联邦学习。

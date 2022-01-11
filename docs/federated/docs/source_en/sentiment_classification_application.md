@@ -1,6 +1,6 @@
 ﻿# Implementing a Sentiment Classification Application (Android)
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/sentiment_classification_application.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/federated/docs/source_en/sentiment_classification_application.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 In privacy compliance scenarios, the federated learning modeling mode based on device-cloud synergy can make full use of the advantages of device data and prevent sensitive user data from being directly reported to the cloud. When exploring the application scenarios of federated learning, we notice the input method scenario. Users attach great importance to their text privacy and intelligent functions on the input method. Therefore, federated learning is naturally applicable to the input method scenario. MindSpore Federated applies the federated language model to the emoji prediction function of the input method. The federated language model recommends emojis suitable for the current context based on the chat text data. During federated learning modeling, each emoji is defined as a sentiment label category, and each chat phrase corresponds to an emoji. MindSpore Federated defines the emoji prediction task as a federated sentiment classification task.
 
@@ -8,7 +8,7 @@ In privacy compliance scenarios, the federated learning modeling mode based on d
 
 ### Environment
 
-For details, see [Server Environment Configuration](https://www.mindspore.cn/federated/docs/en/master/deploy_federated_server.html) and [Client Environment Configuration](https://www.mindspore.cn/federated/docs/en/master/deploy_federated_client.html).
+For details, see [Server Environment Configuration](https://www.mindspore.cn/federated/docs/en/r1.6/deploy_federated_server.html) and [Client Environment Configuration](https://www.mindspore.cn/federated/docs/en/r1.6/deploy_federated_client.html).
 
 ### Data
 
@@ -57,7 +57,7 @@ mobile/models/
 
 The ALBERT language model[1] is used in federated learning. The ALBERT model on the client includes the embedding layer, encoder layer, and classifier layer.
 
-For details about the network definition, see [source code](https://gitee.com/mindspore/mindspore/tree/master/tests/st/fl/mobile/src/model.py).
+For details about the network definition, see [source code](https://gitee.com/mindspore/mindspore/tree/r1.6/tests/st/fl/mobile/src/model.py).
 
 ### Generating a Device Model File
 
@@ -90,7 +90,7 @@ For details about how to generate a model file on the device, see [Implementing 
 
 ## Starting the Federated Learning Process
 
-Start the script on the server. For details, see [Cloud-based Deployment](https://www.mindspore.cn/federated/docs/en/master/deploy_federated_server.html)
+Start the script on the server. For details, see [Cloud-based Deployment](https://www.mindspore.cn/federated/docs/en/r1.6/deploy_federated_server.html)
 
 Based on the training and inference tasks of the ALBERT model, the overall process is as follows:
 
@@ -216,7 +216,7 @@ app
     }
     ```
 
-2. FlJob.java: This code file is used to define training and inference tasks. For details about federated learning APIs, see [Federal Learning APIs](https://www.mindspore.cn/federated/api/en/master/interface_description_federated_client.html).
+2. FlJob.java: This code file is used to define training and inference tasks. For details about federated learning APIs, see [Federal Learning APIs](https://www.mindspore.cn/federated/docsen/r1.6/interface_description_federated_client.html).
 
     ```java
     import android.annotation.SuppressLint;

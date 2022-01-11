@@ -6,4 +6,4 @@
 <source id="mp47" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/MindArmour%E5%B7%AE%E5%88%86%E9%9A%90%E7%A7%81.mp4" type="video/mp4">
 </video>
 
-**更多内容**：<https://www.mindspore.cn/mindarmour/docs/zh-CN/master/protect_user_privacy_with_differential_privacy.html>
+**更多内容**：<https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.6/protect_user_privacy_with_differential_privacy.html>

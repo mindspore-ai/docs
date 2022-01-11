@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `Data Preparation`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/augmentation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_en/augmentation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -15,7 +15,7 @@ MindSpore provides the `c_transforms` and `py_transforms` modules for data augme
 | c_transforms  | Implemented based on C++.       | This module provides high performance.                                                               |
 | py_transforms | Implemented based on Python PIL | This module provides multiple image augmentation methods and can convert PIL images to NumPy arrays. |
 
-The following table lists the common data augmentation operators supported by MindSpore. For details about more data augmentation operators, see [MindSpore API](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.dataset.vision.html).
+The following table lists the common data augmentation operators supported by MindSpore. For details about more data augmentation operators, see [MindSpore API](https://www.mindspore.cn/docs/api/en/r1.6/api_python/mindspore.dataset.vision.html).
 
 | Module        | Operator             | Description                                                        |
 | ------------- | -------------------- | ------------------------------------------------------------------ |

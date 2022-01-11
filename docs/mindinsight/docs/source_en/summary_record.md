@@ -1,6 +1,6 @@
 # Collecting Summary Record
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/summary_record.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindinsight/docs/source_en/summary_record.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -103,7 +103,7 @@ def train():
     model = Model(network, loss, opt, metrics={"Accuracy": Accuracy()})
 
     # How to create a valid dataset instance,
-    # for details, see the https://www.mindspore.cn/tutorials/en/master/quick_start.html document.
+    # for details, see the https://www.mindspore.cn/tutorials/en/r1.6/quick_start.html document.
     ds_train = create_dataset('./dataset_path')
 
     # Initialize a SummaryCollector callback instance, and use it in model.train or model.eval
@@ -128,10 +128,10 @@ In addition to providing the `SummaryCollector` that automatically collects some
 
 The following summary operators are currently supported:
 
-- [ScalarSummary](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.ScalarSummary.html): Record a scalar data.
-- [TensorSummary](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.TensorSummary.html): Record a tensor data.
-- [ImageSummary](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.ImageSummary.html): Record a image data.
-- [HistogramSummary](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.HistogramSummary.html): Convert tensor data into histogram data records.
+- [ScalarSummary](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.ScalarSummary.html): Record a scalar data.
+- [TensorSummary](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.TensorSummary.html): Record a tensor data.
+- [ImageSummary](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.ImageSummary.html): Record a image data.
+- [HistogramSummary](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.HistogramSummary.html): Convert tensor data into histogram data records.
 
 The recording method is shown in the following steps.
 
@@ -296,7 +296,7 @@ In the saved files, `ms_output_after_hwopt.pb` is the computational graph after 
 
 If you are not using the `Model` interface provided by MindSpore, you can implement a method by imitating `train` method of `Model` interface to control the number of iterations. You can imitate the `SummaryCollector` and record the summary operator data in the following manner.
 
-The following example demonstrates how to record data in a custom training cycle using the summary operator and the `add_value` interface of `SummaryRecord`. For more tutorials about `SummaryRecord`, [refer to the Python API documentation](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.train.html#mindspore.train.summary.SummaryRecord). Please note that `SummaryRecord` will not record computational graph automatically. If you need to record the computational graph, please manually pass the instance of network that inherits from Cell. The recorded computational graph only includes the code and functions used in the construct method.
+The following example demonstrates how to record data in a custom training cycle using the summary operator and the `add_value` interface of `SummaryRecord`. For more tutorials about `SummaryRecord`, [refer to the Python API documentation](https://www.mindspore.cn/docs/api/en/r1.6/api_python/mindspore.train.html#mindspore.train.summary.SummaryRecord). Please note that `SummaryRecord` will not record computational graph automatically. If you need to record the computational graph, please manually pass the instance of network that inherits from Cell. The recorded computational graph only includes the code and functions used in the construct method.
 
 ```python
 from mindspore import nn
@@ -454,7 +454,7 @@ Stop MindInsight command:
 mindinsight stop
 ```
 
-For more parameter Settings, see the [MindInsight related commands](https://www.mindspore.cn/mindinsight/docs/en/master/mindinsight_commands.html) page.
+For more parameter Settings, see the [MindInsight related commands](https://www.mindspore.cn/mindinsight/docs/en/r1.6/mindinsight_commands.html) page.
 
 ## Notices
 

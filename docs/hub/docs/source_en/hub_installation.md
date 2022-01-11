@@ -7,7 +7,7 @@
         - [Installation by Source Code](#installation-by-source-code)
     - [Installation Verification](#installation-verification)
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/hub/docs/source_en/hub_installation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/hub/docs/source_en/hub_installation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## System Environment Information Confirmation
 
@@ -61,7 +61,7 @@ model = mshub.load("mindspore/cpu/1.0/lenet_v1_mnist", num_class = 10)
 If it prompts the following information, the installation is successful:
 
 ```text
-Downloading data from url https://gitee.com/mindspore/hub/raw/master/mshub_res/assets/mindspore/cpu/1.0/lenet_v1_mnist.md
+Downloading data from url https://gitee.com/mindspore/hub/raw/r1.6/mshub_res/assets/mindspore/cpu/1.0/lenet_v1_mnist.md
 
 Download finished!
 File size = 0.00 Mb

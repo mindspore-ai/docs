@@ -6,6 +6,6 @@
 <source id="mp47" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/MindInsight%E7%AC%AC%E4%B8%80%E7%AF%87.mp4" type="video/mp4">
 </video>
 
-**Install now**: <https://gitee.com/mindspore/mindinsight/blob/master/README.md#>
+**Install now**: <https://gitee.com/mindspore/mindinsight/blob/r1.6/README.md#>
 
-**More commands**: <https://www.mindspore.cn/mindinsight/docs/en/master/mindinsight_commands.html>
+**More commands**: <https://www.mindspore.cn/mindinsight/docs/en/r1.6/mindinsight_commands.html>

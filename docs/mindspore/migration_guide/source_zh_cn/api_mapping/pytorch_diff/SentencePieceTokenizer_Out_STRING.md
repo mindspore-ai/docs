@@ -1,6 +1,6 @@
 ﻿# 比较与torchtext.data.functional.sentencepiece_tokenizer的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_zh_cn/api_mapping/pytorch_diff/SentencePieceTokenizer_Out_STRING.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_zh_cn/api_mapping/pytorch_diff/SentencePieceTokenizer_Out_STRING.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## torchtext.data.functional.sentencepiece_tokenizer
 
@@ -21,7 +21,7 @@ class mindspore.dataset.text.transforms.SentencePieceTokenizer(
 )
 ```
 
-更多内容详见[mindspore.dataset.text.transforms.SentencePieceTokenizer](https://mindspore.cn/docs/api/zh-CN/master/api_python/dataset_text/mindspore.dataset.text.transforms.SentencePieceTokenizer.html#mindspore.dataset.text.transforms.SentencePieceTokenizer)。
+更多内容详见[mindspore.dataset.text.transforms.SentencePieceTokenizer](https://mindspore.cn/docs/api/zh-CN/r1.6/api_python/dataset_text/mindspore.dataset.text.transforms.SentencePieceTokenizer.html#mindspore.dataset.text.transforms.SentencePieceTokenizer)。
 
 ## 使用方式
 

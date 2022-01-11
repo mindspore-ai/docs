@@ -1,6 +1,6 @@
 ﻿# Operators Usage
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/operators_usage.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_en/operators_usage.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -12,7 +12,7 @@ APIs related to operators include operations, functional, and composite. Operato
 
 ## mindspore.ops.operations
 
-The operations API provides all primitive operator APIs, which are the lowest-order operator APIs open to users. For details about the supported operators, see [Operator List](https://www.mindspore.cn/docs/note/en/master/operator_list.html).
+The operations API provides all primitive operator APIs, which are the lowest-order operator APIs open to users. For details about the supported operators, see [Operator List](https://www.mindspore.cn/docs/note/en/r1.6/operator_list.html).
 
 Primitive operators directly encapsulate the implementation of operators at bottom layers such as Ascend, GPU, AICPU, and CPU, providing basic operator capabilities for users.
 
@@ -41,7 +41,7 @@ output = [ 1.  8. 64.]
 
 ## mindspore.ops.functional
 
-To simplify the calling process of operators without attributes, MindSpore provides the functional version of some operators. For details about the input parameter requirements, see the input and output requirements of the original operator. For details about the supported operators, see [Operator List](https://www.mindspore.cn/docs/note/en/master/operator_list_ms.html#mindspore-ops-functional).
+To simplify the calling process of operators without attributes, MindSpore provides the functional version of some operators. For details about the input parameter requirements, see the input and output requirements of the original operator. For details about the supported operators, see [Operator List](https://www.mindspore.cn/docs/note/en/r1.6/operator_list_ms.html#mindspore-ops-functional).
 
 For example, the functional version of the `P.Pow` operator is `F.tensor_pow`.
 

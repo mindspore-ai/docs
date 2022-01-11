@@ -8,7 +8,7 @@
     - [Overview](#overview)
 
 <!-- /TOC -->
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/constexpr.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_en/constexpr.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 Overview
 
 A @constexpr python decorator is provided in `mindspore.ops.constexpr`,which can be used to decorate a function.The

@@ -1,6 +1,6 @@
 ﻿# Function differences with torchvision.transforms.ConvertImageDtype
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/ToType.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/ToType.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## torchvision.transforms.ConvertImageDtype
 
@@ -20,7 +20,7 @@ class mindspore.dataset.vision.py_transforms.ToType(
     )
 ```
 
-For more information, see [mindspore.dataset.vision.py_transforms.ToType](https://mindspore.cn/docs/api/en/master/api_python/dataset_vision/mindspore.dataset.vision.py_transforms.ToType.html#mindspore.dataset.vision.py_transforms.ToType).
+For more information, see [mindspore.dataset.vision.py_transforms.ToType](https://mindspore.cn/docs/api/en/r1.6/api_python/dataset_vision/mindspore.dataset.vision.py_transforms.ToType.html#mindspore.dataset.vision.py_transforms.ToType).
 
 ## Differences
 

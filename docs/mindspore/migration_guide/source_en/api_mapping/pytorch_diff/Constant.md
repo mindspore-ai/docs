@@ -1,6 +1,6 @@
 # Function Differences with torch.nn.init.constant_
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/Constant.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/Constant.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## torch.nn.init.constant_
 
@@ -19,7 +19,7 @@ For more information, see [torch.nn.init.constant_](https://pytorch.org/docs/1.5
 class mindspore.common.initializer.Constant(value)(arr)
 ```
 
-For more information, see [mindspore.common.initializer.Constant](https://mindspore.cn/docs/api/en/master/api_python/mindspore.common.initializer.html#mindspore.common.initializer.Constant).
+For more information, see [mindspore.common.initializer.Constant](https://mindspore.cn/docs/api/en/r1.6/api_python/mindspore.common.initializer.html#mindspore.common.initializer.Constant).
 
 ## Differences
 

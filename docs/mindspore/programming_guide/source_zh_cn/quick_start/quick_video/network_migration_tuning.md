@@ -6,4 +6,4 @@
 <source id="mp48" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/teaching_video/video/%E7%BD%91%E7%BB%9C%E8%BF%81%E7%A7%BB%E8%B0%83%E4%BC%98.mp4" type="video/mp4">
 </video>
 
-**更多内容**: <https://www.mindspore.cn/docs/migration_guide/zh-CN/master/sample_code.html>
+**更多内容**: <https://www.mindspore.cn/docs/migration_guide/zh-CN/r1.6/sample_code.html>

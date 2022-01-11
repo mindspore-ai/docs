@@ -6,6 +6,6 @@
 <source id="mp44" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/teaching_video/video/%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.mp4" type="video/mp4">
 </video>
 
-**查看代码**：<https://gitee.com/mindspore/docs/blob/master/docs/sample_code/lenet/lenet.py>
+**查看代码**：<https://gitee.com/mindspore/docs/blob/r1.6/docs/sample_code/lenet/lenet.py>
 
-**查看完整教程**：<https://www.mindspore.cn/tutorials/zh-CN/master/quick_start.html>
+**查看完整教程**：<https://www.mindspore.cn/tutorials/zh-CN/r1.6/quick_start.html>

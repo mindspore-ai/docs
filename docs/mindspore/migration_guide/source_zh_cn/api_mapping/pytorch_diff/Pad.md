@@ -1,6 +1,6 @@
 # 比较与torch.nn.functional.pad的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_zh_cn/api_mapping/pytorch_diff/Pad.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_zh_cn/api_mapping/pytorch_diff/Pad.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## torch.nn.functional.pad
 
@@ -24,7 +24,7 @@ class mindspore.nn.Pad(
 )(x)
 ```
 
-更多内容详见[mindspore.nn.Pad](https://mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Pad.html#mindspore.nn.Pad)。
+更多内容详见[mindspore.nn.Pad](https://mindspore.cn/docs/api/zh-CN/r1.6/api_python/nn/mindspore.nn.Pad.html#mindspore.nn.Pad)。
 
 ## 使用方式
 

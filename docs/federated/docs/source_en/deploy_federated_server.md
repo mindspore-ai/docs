@@ -1,10 +1,10 @@
 ﻿# Cloud-based Deployment
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/deploy_federated_server.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/federated/docs/source_en/deploy_federated_server.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 The following uses LeNet as an example to describe how to use MindSpore to deploy a federated learning cluster.
 
-> You can download the complete demo from [here](https://gitee.com/mindspore/mindspore/tree/master/tests/st/fl/mobile).
+> You can download the complete demo from [here](https://gitee.com/mindspore/mindspore/tree/r1.6/tests/st/fl/mobile).
 
 The following figure shows the physical architecture of the MindSpore Federated Learning Server cluster:
 
@@ -39,11 +39,11 @@ The MindSpore federated learning cloud cluster supports deployment on x86 CPU an
 
 To facilitate deployment, the `Scheduler` and `Server` processes of MindSpore federated learning can reuse the training script. You can select different startup modes by referring to [Configuring Parameters](#configuring-parameters).
 
-This tutorial uses LeNet as an example. For details about the network structure, loss function, and optimizer definition, see [LeNet sample code](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/lenet/lenet.py).
+This tutorial uses LeNet as an example. For details about the network structure, loss function, and optimizer definition, see [LeNet sample code](https://gitee.com/mindspore/docs/blob/r1.6/docs/sample_code/lenet/lenet.py).
 
 ## Configuring Parameters
 
-The MindSpore federated learning task process reuses the training script. You only need to use the same script to transfer different parameters through the Python API `set_fl_context` and start different MindSpore process roles. For details about the parameter configuration, see [MindSpore API](https://www.mindspore.cn/federated/api/en/master/federated_server.html#mindspore.context.set_fl_context).
+The MindSpore federated learning task process reuses the training script. You only need to use the same script to transfer different parameters through the Python API `set_fl_context` and start different MindSpore process roles. For details about the parameter configuration, see [MindSpore API](https://www.mindspore.cn/federated/docsen/r1.6/federated_server.html#mindspore.context.set_fl_context).
 
 After parameter configuration and before training, call the `set_fl_context` API as follows:
 
@@ -111,13 +111,13 @@ scheduler_manage_port = args.scheduler_manage_port
 config_file_path = args.config_file_path
 ```
 
-> Each Python script corresponds to a process. If multiple `Server` roles need to be deployed on different hosts, you can use shell commands and Python to quickly start multiple `Server` processes. You can refer to the [examples](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile).
+> Each Python script corresponds to a process. If multiple `Server` roles need to be deployed on different hosts, you can use shell commands and Python to quickly start multiple `Server` processes. You can refer to the [examples](https://gitee.com/mindspore/mindspore/blob/r1.6/tests/st/fl/mobile).
 >
-> Each `Server` process needs a unique identifier `MS_NODE_ID` which should be set by environment variable. In this tutorial, this environment variable has been set in the script [run_mobile_server.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/run_mobile_server.py).
+> Each `Server` process needs a unique identifier `MS_NODE_ID` which should be set by environment variable. In this tutorial, this environment variable has been set in the script [run_mobile_server.py](https://gitee.com/mindspore/mindspore/blob/r1.6/tests/st/fl/mobile/run_mobile_server.py).
 
 ## Starting a Cluster
 
-Start the cluster by referring to the [examples](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile). An example directory structure is as follows:
+Start the cluster by referring to the [examples](https://gitee.com/mindspore/mindspore/blob/r1.6/tests/st/fl/mobile). An example directory structure is as follows:
 
 ```text
 mobile/
@@ -155,7 +155,7 @@ Descriptions of the documents:
     python run_mobile_server.py --scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6668 --server_num=4 --start_fl_job_threshold=8
     ```
 
-    The preceding command is equivalent to starting four `Server` processes, of which the federated learning service port numbers are `6668`, `6669`, `6670`, and `6671`. For details, see [run_mobile_server.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/run_mobile_server.py).
+    The preceding command is equivalent to starting four `Server` processes, of which the federated learning service port numbers are `6668`, `6669`, `6670`, and `6671`. For details, see [run_mobile_server.py](https://gitee.com/mindspore/mindspore/blob/r1.6/tests/st/fl/mobile/run_mobile_server.py).
 
     > If you only want to deploy `Scheduler` and `Server` in a standalone system, change the `scheduler_ip` to `127.0.0.1`.
 

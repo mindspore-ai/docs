@@ -8,7 +8,7 @@
         - [Installation by Source Code](#installation-by-source-code)
     - [Installation Verification](#installation-verification)
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/graphlearning/docs/source_en/mindspore_graphlearning_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/graphlearning/docs/source_en/mindspore_graphlearning_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
 ## MindSpore Graph Learning Introduction
 
@@ -20,7 +20,7 @@ Compared to the normal model, a graph neural network model transfers and aggrega
 
 Meanwhile, MindSpore Graph Learning combines the features of MindSpore graph kernel fusion and auto kernel generator (AKG) to automatically identify the specific execution pattern of graph neural network tasks for fusion and kernel-level optimization, covering the fusion of existing operators and new combined operators in the existing framework. The performance is improved by 3 to 4 times compared with that of the existing popular frameworks.
 
-Combined with the MindSpore deep learning framework, the framework can basically cover most graph neural network applications. For more details, please refer to <https://gitee.com/mindspore/graphlearning/tree/master/model_zoo>.
+Combined with the MindSpore deep learning framework, the framework can basically cover most graph neural network applications. For more details, please refer to <https://gitee.com/mindspore/graphlearning/tree/r0.5/model_zoo>.
 
 ## Installation
 
@@ -28,7 +28,7 @@ Combined with the MindSpore deep learning framework, the framework can basically
 
 - Ensure that the hardware platform is GPU under the Linux system.
 - Refer to [MindSpore Installation Guide](https://www.mindspore.cn/install/en) to complete the installation of MindSpore, which requires at least version 1.6.0.
-- For other dependencies, please refer to [requirements.txt](https://gitee.com/mindspore/graphlearning/blob/master/requirements.txt).
+- For other dependencies, please refer to [requirements.txt](https://gitee.com/mindspore/graphlearning/blob/r0.5/requirements.txt).
 
 ### Installation Methods
 
@@ -40,7 +40,7 @@ You can install MindSpore Graph Learning either by pip or by source code.
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/GraphLearning/any/mindspore_gl_gpu-{version}-cp37-cp37m-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-> - When the network is connected, dependency items are automatically downloaded during .whl package installation. For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/graphlearning/blob/master/requirements.txt). In other cases, you need to manually install dependency items.
+> - When the network is connected, dependency items are automatically downloaded during .whl package installation. For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/graphlearning/blob/r0.5/requirements.txt). In other cases, you need to manually install dependency items.
 > - `{version}` denotes the version of MindSpore Graph Learning. For example, when you are downloading MindSpore Graph Learning 0.1, `{version}` should be 0.1.
 
 #### Installation by Source Code

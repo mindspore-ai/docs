@@ -2,7 +2,7 @@
 
  `Ascend` `模型调优` `分布式并行`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/apply_dimention_reduce_training.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_zh_cn/apply_dimention_reduce_training.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -16,11 +16,11 @@
 
 > 你可以在这下载完整的样例代码：
 >
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/dimension_reduce_training>
+> <https://gitee.com/mindspore/docs/tree/r1.6/docs/sample_code/dimension_reduce_training>
 
 ### 配置分布式环境变量
 
-在本地Ascend处理器上进行分布式训练时，需要配置当前多卡环境的组网信息文件，1个8卡环境的json文件配置如下，本样例将该配置文件命名为rank_table_8pcs.json。rank_table可以使用models下面的[hccl_tools.py](https://gitee.com/mindspore/models/blob/master/utils/hccl_tools/hccl_tools.py)生成。
+在本地Ascend处理器上进行分布式训练时，需要配置当前多卡环境的组网信息文件，1个8卡环境的json文件配置如下，本样例将该配置文件命名为rank_table_8pcs.json。rank_table可以使用models下面的[hccl_tools.py](https://gitee.com/mindspore/models/blob/r1.6/utils/hccl_tools/hccl_tools.py)生成。
 
 ```json
 {
@@ -65,7 +65,7 @@
 
 > 第一阶段主要的训练样例代码：
 >
-> <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/dimension_reduce_training/train_stage_1.py>
+> <https://gitee.com/mindspore/docs/blob/r1.6/docs/sample_code/dimension_reduce_training/train_stage_1.py>
 
 ### 运行模式和后端设备设置
 
@@ -84,7 +84,7 @@ init()
 
 ### 加载数据集
 
-利用MindSpore提供图片加载接口ImageFolderDataset加载ImageNet 2012数据集，同时通过MindSpore提供的数据增强接口对数据集进行处理，此部分代码由models中`resnet`目录下的[dataset.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/src/dataset.py)导入。
+利用MindSpore提供图片加载接口ImageFolderDataset加载ImageNet 2012数据集，同时通过MindSpore提供的数据增强接口对数据集进行处理，此部分代码由models中`resnet`目录下的[dataset.py](https://gitee.com/mindspore/models/blob/r1.6/official/cv/resnet/src/dataset.py)导入。
 
 ```python
 # define train dataset
@@ -96,7 +96,7 @@ step_size = ds_train.get_dataset_size()
 
 ### 定义网络
 
-ResNet-50网络的构建代码由[resnet.py](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/dimension_reduce_training/resnet.py)导入。
+ResNet-50网络的构建代码由[resnet.py](https://gitee.com/mindspore/docs/blob/r1.6/docs/sample_code/dimension_reduce_training/resnet.py)导入。
 
 ```python
 # define net
@@ -108,9 +108,9 @@ init_weight(net=net)
 
 定义模型所需的损失函数loss、optimizer等。
 
-loss使用CrossEntropySmooth，由ModelZoo中`resnet`目录下的[CrossEntropySmooth.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/src/CrossEntropySmooth.py)导入。
+loss使用CrossEntropySmooth，由ModelZoo中`resnet`目录下的[CrossEntropySmooth.py](https://gitee.com/mindspore/models/blob/r1.6/official/cv/resnet/src/CrossEntropySmooth.py)导入。
 
-学习率lr的构建代码由models中`resnet`目录下的[lr_generator.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/src/lr_generator.py)导入。
+学习率lr的构建代码由models中`resnet`目录下的[lr_generator.py](https://gitee.com/mindspore/models/blob/r1.6/official/cv/resnet/src/lr_generator.py)导入。
 
 ```python
 # define loss
@@ -168,7 +168,7 @@ if get_rank_id() == 0:
 
 在经历了70轮epoch之后，在测试集上的精度约为66.05%。
 
-1. 调用运行脚本[run_stage_1.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/dimension_reduce_training/run_stage_1.sh)，查看运行结果。运行脚本需要给定数据集路径，模型默认保存在device0_stage_1/checkpoint_stage_1下。
+1. 调用运行脚本[run_stage_1.sh](https://gitee.com/mindspore/docs/blob/r1.6/docs/sample_code/dimension_reduce_training/run_stage_1.sh)，查看运行结果。运行脚本需要给定数据集路径，模型默认保存在device0_stage_1/checkpoint_stage_1下。
 
    ```bash
    bash run_stage_1.sh ./imagenet
@@ -201,7 +201,7 @@ if get_rank_id() == 0:
 
 > 第二阶段主要的训练样例代码：
 >
-> <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/dimension_reduce_training/train_boost_stage_2.py>
+> <https://gitee.com/mindspore/docs/blob/r1.6/docs/sample_code/dimension_reduce_training/train_boost_stage_2.py>
 
 第二阶段和第一阶段的代码基本相同，下面仅说明不一致的地方。
 
@@ -279,7 +279,7 @@ model.train(2, ds_train, callbacks=cb, sink_size=step_size, dataset_sink_mode=Tr
 
 在经历了2轮epoch之后，在测试集上的精度约为74.31%。
 
-1. 调用运行脚本[run_stage_2.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/dimension_reduce_training/run_stage_2.sh)，查看运行结果。运行脚本需要给定数据集路径，第一阶段训练结束时的权重文件，第二阶段保存的权重文件默认保存在device0_stage_2/checkpoint_stage_2下。
+1. 调用运行脚本[run_stage_2.sh](https://gitee.com/mindspore/docs/blob/r1.6/docs/sample_code/dimension_reduce_training/run_stage_2.sh)，查看运行结果。运行脚本需要给定数据集路径，第一阶段训练结束时的权重文件，第二阶段保存的权重文件默认保存在device0_stage_2/checkpoint_stage_2下。
 
    ```bash
    bash run_stage_2.py ./imagenet ./device0_stage_1/checkpoint_stage_1/resnet-70_625.ckpt

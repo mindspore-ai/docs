@@ -6,4 +6,4 @@
 <source id="mp47" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/MindSpore%2BLite%E6%A8%A1%E5%9E%8B%E9%87%8F%E5%8C%96.mp4" type="video/mp4">
 </video>
 
-**更多内容**：<https://www.mindspore.cn/lite/docs/zh-CN/master/use/post_training_quantization.html>
+**更多内容**：<https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/post_training_quantization.html>

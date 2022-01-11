@@ -2,7 +2,7 @@
 
 `Android` `C++` `全流程` `模型转换` `模型加载` `推理应用` `数据准备` `初级` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/quick_start/one_hour_introduction.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/lite/docs/source_zh_cn/quick_start/one_hour_introduction.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -38,7 +38,7 @@
 
 #### 下载发布件
 
-用户可在MindSpore官网[下载页面](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，得到各版本的MindSpore Lite发布件。
+用户可在MindSpore官网[下载页面](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/downloads.html)，得到各版本的MindSpore Lite发布件。
 在本例中，我们选择的是软件系统为Linux、底层架构为x86_64的CPU发布件，以1.5.0版本为例，用户可点击此处直接[下载](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0/MindSpore/lite/release/linux/mindspore-lite-1.5.0-linux-x64.tar.gz)。
 每个发布件的包结构会有不同，本例中，Linux发布件的包结构如下（随着用户对MindSpore Lite各个功能的学习，我们将逐步讲解发布件中文件的作用，在此处，用户对发布件结构有个简略印象即可）：
 
@@ -154,11 +154,11 @@ mindspore-lite-{version}-linux-x64
 
 5. 高级功能
 
-    关于转换工具的更详细说明，可参考[推理模型转换](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)。
+    关于转换工具的更详细说明，可参考[推理模型转换](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/converter_tool.html)。
 
-    关于如何使用转换工具实现模型训练后量化，可参考[训练后量化](https://www.mindspore.cn/lite/docs/zh-CN/master/use/post_training_quantization.html)。
+    关于如何使用转换工具实现模型训练后量化，可参考[训练后量化](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/post_training_quantization.html)。
 
-    如果用户希望转换后的模型能进行训练，需进行训练模型转换，详细可参考[训练模型转换](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_train.html)。
+    如果用户希望转换后的模型能进行训练，需进行训练模型转换，详细可参考[训练模型转换](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/converter_train.html)。
 
 表1：converter_lite参数定义
 
@@ -386,7 +386,7 @@ mindspore-lite-{version}-linux-x64
 
 6. 高级功能
 
-    关于`benchmark`的更详细说明，以及关于如何使用`benchmark`来进行基准测试、耗时定量分析、误差分析、Dump数据等，可以参考[benchmark](https://www.mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html)。
+    关于`benchmark`的更详细说明，以及关于如何使用`benchmark`来进行基准测试、耗时定量分析、误差分析、Dump数据等，可以参考[benchmark](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/benchmark_tool.html)。
 
 表2：benchmark参数定义
 
@@ -412,7 +412,7 @@ mindspore-lite-{version}-linux-x64
 
 2. 得到版本发布件
 
-    用户可通过MindSpore官网，获得MindSpore Lite发布件，点击[此处](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)查看各版本。
+    用户可通过MindSpore官网，获得MindSpore Lite发布件，点击[此处](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/downloads.html)查看各版本。
     在本例中，仍然采用了和前几节一样的发布件，用于本节集成开发，点击此处可直接[下载](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0/MindSpore/lite/release/linux/mindspore-lite-1.5.0-linux-x64.tar.gz)。
     在本节简单的推理集成例子中，需要用到的发布件内容如下：
 
@@ -620,7 +620,7 @@ mindspore-lite-{version}-linux-x64
     (2) 初始化Context配置
 
     Context保存了模型推理时所需的相关配置，包括算子偏好、线程数、自动并发以及推理处理器相关的其他配置。
-    关于Context的详细说明，请参考Context的[API接口说明](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)。
+    关于Context的详细说明，请参考Context的[API接口说明](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_cpp/mindspore.html#context)。
     在MindSpore Lite加载模型时，必须提供一个`Context`类的对象，所以在本例中，首先申请了一个`Context`类的对象`context`。
 
     ```cpp
@@ -648,7 +648,7 @@ mindspore-lite-{version}-linux-x64
     (3) 加载模型
 
     首先创建一个`Model`类对象`model`，`Model`类定义了MindSpore中的模型，用于计算图管理。
-    关于`Model`类的详细说明，可参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)。
+    关于`Model`类的详细说明，可参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_cpp/mindspore.html#model)。
 
     ```cpp
     auto model = new (std::nothrow) mindspore::Model();
@@ -667,7 +667,7 @@ mindspore-lite-{version}-linux-x64
 
     在执行模型推理前，需要设置推理的输入数据。
     此例，通过`Model.GetInputs`接口，获取模型的所有输入张量。单个张量的格式为`MSTensor`。
-    关于`MSTensor`张量的详细说明，请参考`MSTensor`的[API说明](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)。
+    关于`MSTensor`张量的详细说明，请参考`MSTensor`的[API说明](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_cpp/mindspore.html#mstensor)。
 
     ```cpp
     auto inputs = model->GetInputs();
@@ -743,11 +743,11 @@ mindspore-lite-{version}-linux-x64
 
 8. 更详细的集成说明
 
-    关于使用C++接口进行集成的更多细节及高级用法，可以参考[使用C++接口执行推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html)。
+    关于使用C++接口进行集成的更多细节及高级用法，可以参考[使用C++接口执行推理](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/runtime_cpp.html)。
 
-    关于使用Java接口进行集成开发，可以参考[使用Java接口执行推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_java.html)。
+    关于使用Java接口进行集成开发，可以参考[使用Java接口执行推理](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/runtime_java.html)。
 
-    关于使用C接口进行集成开发，可以参考[使用C接口执行推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html)。
+    关于使用C接口进行集成开发，可以参考[使用C接口执行推理](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/runtime_cpp.html)。
 
 ## Windows篇
 
@@ -769,7 +769,7 @@ mindspore-lite-{version}-linux-x64
 
 #### 下载发布件
 
-用户可在MindSpore官网[下载页面](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，得到各版本的MindSpore Lite发布件。
+用户可在MindSpore官网[下载页面](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/downloads.html)，得到各版本的MindSpore Lite发布件。
 在本例中，我们选择的是软件系统为Windows、底层架构为x86_64的CPU发布件，以1.5.0版本为例，用户可点击此处直接[下载](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0/MindSpore/lite/release/windows/mindspore-lite-1.5.0-win-x64.zip)。
 每个发布件的包结构会有不同，本例中，Windows发布件的包结构如下：
 
@@ -877,11 +877,11 @@ mindspore-lite-{version}-win-x64
 
 5. 高级功能
 
-    关于转换工具的更详细说明，可参考[推理模型转换](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)。
+    关于转换工具的更详细说明，可参考[推理模型转换](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/converter_tool.html)。
 
-    关于如何使用转换工具实现模型训练后量化，可参考[训练后量化](https://www.mindspore.cn/lite/docs/zh-CN/master/use/post_training_quantization.html)。
+    关于如何使用转换工具实现模型训练后量化，可参考[训练后量化](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/post_training_quantization.html)。
 
-    如果用户希望转换后的模型能进行训练，需进行训练模型转换，详细可参考[训练模型转换](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_train.html)。
+    如果用户希望转换后的模型能进行训练，需进行训练模型转换，详细可参考[训练模型转换](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/converter_train.html)。
 
 表3：converter_lite.exe参数定义
 
@@ -1040,7 +1040,7 @@ mindspore-lite-{version}-win-x64
 
 6. 高级功能
 
-    关于`benchmark`的更详细说明，以及关于如何使用`benchmark`来进行基准测试、耗时定量分析、误差分析、Dump数据等，可以参考[benchmark](https://www.mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html)。
+    关于`benchmark`的更详细说明，以及关于如何使用`benchmark`来进行基准测试、耗时定量分析、误差分析、Dump数据等，可以参考[benchmark](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/benchmark_tool.html)。
 
 表4：benchmark参数定义
 
@@ -1068,7 +1068,7 @@ mindspore-lite-{version}-win-x64
 
 2. 得到版本发布件
 
-    用户可通过MindSpore官网，获得MindSpore Lite发布件，点击[此处](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)查看各版本。
+    用户可通过MindSpore官网，获得MindSpore Lite发布件，点击[此处](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/downloads.html)查看各版本。
     在本例中，仍然采用了和前几节一样的发布件，用于本节集成开发，点击此处可直接[下载](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0/MindSpore/lite/release/windows/mindspore-lite-1.5.0-win-x64.zip)。
     在本节简单的推理集成例子中，需要用到的发布件内容如下：
 
@@ -1286,7 +1286,7 @@ mindspore-lite-{version}-win-x64
     (2) 初始化Context配置
 
     Context保存了模型推理时所需的相关配置，包括算子偏好、线程数、自动并发以及推理处理器相关的其他配置。
-    关于Context的详细说明，请参考Context的[API接口说明](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)。
+    关于Context的详细说明，请参考Context的[API接口说明](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_cpp/mindspore.html#context)。
     在MindSpore Lite加载模型时，必须提供一个`Context`类的对象，所以在本例中，首先申请了一个`Context`类的对象`context`。
 
     ```cpp
@@ -1314,7 +1314,7 @@ mindspore-lite-{version}-win-x64
     (3) 加载模型
 
     首先创建一个`Model`类对象`model`，`Model`类定义了MindSpore中的模型，用于计算图管理。
-    关于`Model`类的详细说明，可参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)。
+    关于`Model`类的详细说明，可参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_cpp/mindspore.html#model)。
 
     ```cpp
     auto model = new (std::nothrow) mindspore::Model();
@@ -1333,7 +1333,7 @@ mindspore-lite-{version}-win-x64
 
     在执行模型推理前，需要设置推理的输入数据。
     此例，通过`Model.GetInputs`接口，获取模型的所有输入张量。单个张量的格式为`MSTensor`。
-    关于`MSTensor`张量的详细说明，请参考`MSTensor`的[API说明](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor)。
+    关于`MSTensor`张量的详细说明，请参考`MSTensor`的[API说明](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_cpp/mindspore.html#mstensor)。
 
     ```cpp
     auto inputs = model->GetInputs();
@@ -1409,8 +1409,8 @@ mindspore-lite-{version}-win-x64
 
 8. 更详细的集成说明
 
-    关于使用C++接口进行集成的更多细节及高级用法，可以参考[使用C++接口执行推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html)。
+    关于使用C++接口进行集成的更多细节及高级用法，可以参考[使用C++接口执行推理](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/runtime_cpp.html)。
 
-    关于使用Java接口进行集成开发，可以参考[使用Java接口执行推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_java.html)。
+    关于使用Java接口进行集成开发，可以参考[使用Java接口执行推理](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/runtime_java.html)。
 
-    关于使用C接口进行集成开发，可以参考[使用C接口执行推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html)。
+    关于使用C接口进行集成开发，可以参考[使用C接口执行推理](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/runtime_cpp.html)。

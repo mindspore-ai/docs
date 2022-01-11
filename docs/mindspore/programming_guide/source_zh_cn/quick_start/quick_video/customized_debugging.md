@@ -6,4 +6,4 @@
 <source id="mp46" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%B0%83%E8%AF%95.mp4" type="video/mp4">
 </video>
 
-**查看完整教程**：<https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html>
+**查看完整教程**：<https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/custom_debugging_info.html>

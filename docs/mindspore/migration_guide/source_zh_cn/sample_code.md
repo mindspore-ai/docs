@@ -1,6 +1,6 @@
 # 网络迁移调试实例
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_zh_cn/sample_code.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_zh_cn/sample_code.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 本章将结合用例来介绍网络迁移的基本步骤、常用工具、定位问题的思路及解决方法。
 
@@ -39,13 +39,13 @@ PyTorch 官方实现脚本可参考 [torchvision model](https://github.com/pytor
 
 ### 脚本开发前分析
 
-在开始真正的开发脚本前，需要进行对标脚本分析。脚本分析的目的是识别出 MindSpore 与对标框架相比缺失的算子或功能。具体方法可以参考[脚本评估教程](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/script_analysis.html)。
+在开始真正的开发脚本前，需要进行对标脚本分析。脚本分析的目的是识别出 MindSpore 与对标框架相比缺失的算子或功能。具体方法可以参考[脚本评估教程](https://www.mindspore.cn/docs/migration_guide/zh-CN/r1.6/script_analysis.html)。
 
-MindSpore 已支持绝大多数常用 [功能](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/index.html) 和 [算子](https://www.mindspore.cn/docs/note/zh-CN/master/operator_list.html)。MindSpore 既支持动态图（PyNative）模式，又支持静态图（Graph）模式，动态图模式灵活、易于调试，因此动态图模式主要用于网络调试，静态图模式性能好，主要用于整网训练，在分析缺失算子和功能时，要分别分析这两种模式。
+MindSpore 已支持绝大多数常用 [功能](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/index.html) 和 [算子](https://www.mindspore.cn/docs/note/zh-CN/r1.6/operator_list.html)。MindSpore 既支持动态图（PyNative）模式，又支持静态图（Graph）模式，动态图模式灵活、易于调试，因此动态图模式主要用于网络调试，静态图模式性能好，主要用于整网训练，在分析缺失算子和功能时，要分别分析这两种模式。
 
 如果发现有缺失的算子和功能，首先可考虑基于当前算子或功能来组合出缺失的算子和功能，对于主流的 CV 和 NLP 类网络，新的缺失算子一般都可以通过组合已有算子的方式来解决。
 
-组合的算子可以通过 Cell 的方式实现，在 MindSpore 中，[nn类算子](https://gitee.com/mindspore/mindspore/tree/master/mindspore/python/mindspore/nn) 就是通过这种方式实现的。例如下面的 `ReduceSumExp` 算子，它是由已有的`Exp`、`ReduceSum`、`Log`小算子组合而成：
+组合的算子可以通过 Cell 的方式实现，在 MindSpore 中，[nn类算子](https://gitee.com/mindspore/mindspore/tree/r1.6/mindspore/python/mindspore/nn) 就是通过这种方式实现的。例如下面的 `ReduceSumExp` 算子，它是由已有的`Exp`、`ReduceSum`、`Log`小算子组合而成：
 
 ```python
 class ReduceLogSumExp(Cell):
@@ -89,7 +89,7 @@ PyTorch 实现的 ResNet50 脚本参考 [torchvision model](https://github.com/p
 | `nn.Linear`            | `nn.Dense`         | 是                     |
 | `torch.flatten`        | `nn.Flatten`       | 是                     |
 
-注：对于 PyTorch 脚本，MindSpore 提供了 [PyTorch 算子映射工具](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html)，可直接查询该算子是否支持。
+注：对于 PyTorch 脚本，MindSpore 提供了 [PyTorch 算子映射工具](https://www.mindspore.cn/docs/migration_guide/zh-CN/r1.6/api_mapping/pytorch_api_mapping.html)，可直接查询该算子是否支持。
 
 - 功能分析
 
@@ -115,9 +115,9 @@ PyTorch 实现的 ResNet50 脚本参考 [torchvision model](https://github.com/p
 3. 数据处理（如常见数据切分、shuffle、数据增强等操作）。
 4. 数据分发（以 batch_size 为单位分发数据，分布式训练涉及多机分发）。
 
-在读取和解析数据过程中，MindSpore 提供了一种更友好的数据格式 - [MindRecord](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/convert_dataset.html)。用户可以将常规格式的数据集转换为 MindSpore数据格式，即 MindRecord，从而方便地加载到 MindSpore 中进行训练。同时，MindSpore 在部分场景做了性能优化，使用 MindRecord 数据格式可以获得更好的性能。
+在读取和解析数据过程中，MindSpore 提供了一种更友好的数据格式 - [MindRecord](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/convert_dataset.html)。用户可以将常规格式的数据集转换为 MindSpore数据格式，即 MindRecord，从而方便地加载到 MindSpore 中进行训练。同时，MindSpore 在部分场景做了性能优化，使用 MindRecord 数据格式可以获得更好的性能。
 
-数据处理通常是数据准备中最耗时的阶段，大部分对数据的操作都被包含在这一步骤里，例如 CV 类网络中的Resize、Rescale、Crop 等操作。MindSpore 提供了一套常用的数据处理集成接口，用户可以不用自己实现而直接调用这些接口，这些集成接口不仅可以提升用户的易用性，还可以提升数据预处理的性能，减少训练过程中数据准备的耗时。具体可以参考[数据预处理教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/optimize_data_processing.html)。
+数据处理通常是数据准备中最耗时的阶段，大部分对数据的操作都被包含在这一步骤里，例如 CV 类网络中的Resize、Rescale、Crop 等操作。MindSpore 提供了一套常用的数据处理集成接口，用户可以不用自己实现而直接调用这些接口，这些集成接口不仅可以提升用户的易用性，还可以提升数据预处理的性能，减少训练过程中数据准备的耗时。具体可以参考[数据预处理教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/optimize_data_processing.html)。
 
 在数据分发环节，MindData 提供了极为简洁的 API，可以通过直接调用 batch、repeat 等操作完成数据的 batch 组合、重复等操作。
 
@@ -142,7 +142,7 @@ input_tensor = preprocess(input_image)
 input_batch = input_tensor.unsqueeze(0) # create a mini-batch as expected by the model
 ```
 
-通过观察以上代码，我们发现 ResNet50 的数据预处理主要做了 Resize、CenterCrop、Normalize 操作，在 MindSpore 中实现这些操作有两种方式，一是使用 MindSpore 的数据处理模块 MindData 来调用已封装好的数据预处理接口，二是通过 [自定义数据集](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dataset_loading.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86%E5%8A%A0%E8%BD%BD) 进行加载。这里更建议开发者选择第一种方式，这样不仅可以减少重复代码的开发，减少错误的引入，还可以得到更好的数据处理性能。更多关于MindData数据处理的介绍，可参考 [编程指南](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/index.html)中的数据管道部分。
+通过观察以上代码，我们发现 ResNet50 的数据预处理主要做了 Resize、CenterCrop、Normalize 操作，在 MindSpore 中实现这些操作有两种方式，一是使用 MindSpore 的数据处理模块 MindData 来调用已封装好的数据预处理接口，二是通过 [自定义数据集](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/dataset_loading.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86%E5%8A%A0%E8%BD%BD) 进行加载。这里更建议开发者选择第一种方式，这样不仅可以减少重复代码的开发，减少错误的引入，还可以得到更好的数据处理性能。更多关于MindData数据处理的介绍，可参考 [编程指南](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/index.html)中的数据管道部分。
 
 以下是基于 MindData 开发的数据处理函数：
 
@@ -214,7 +214,7 @@ def create_dataset(dataset_path, batch_size=32, rank_size=1, rank_id=0, do_train
 
 基于以上子网划分，我们结合 MindSpore 语法，重新完成上述开发。
 
-权重初始化可参考 [MindSpore 已定义的权重初始化方法](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.common.initializer.html?highlight=common%20initializer#)：
+权重初始化可参考 [MindSpore 已定义的权重初始化方法](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/mindspore.common.initializer.html?highlight=common%20initializer#)：
 
 重新开发 conv3x3 和 conv1x1
 
@@ -491,7 +491,7 @@ group_params = [{'params': decayed_params, 'weight_decay': weight_decay},
 opt = Momentum(group_params, lr, momentum)
 ```
 
-实现 cosine LR schedule，可以参考 [MindSpore Cosine Decay LR](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.cosine_decay_lr.html)
+实现 cosine LR schedule，可以参考 [MindSpore Cosine Decay LR](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/nn/mindspore.nn.cosine_decay_lr.html)
 
 定义 Loss 函数和实现 Label Smoothing：
 
@@ -662,11 +662,11 @@ if __name__ == '__main__':
     model.train(config.epoch_size, dataset, callbacks=cb, sink_size=step_size, dataset_sink_mode=False)
 ```
 
-注意：关于目录中其他文件的代码，可以参考 MindSpore ModelZoo 的 [ResNet50 实现](https://gitee.com/mindspore/models/tree/master/official/cv/resnet)（该脚本融合了其他 ResNet 系列网络及ResNet-SE 网络，具体实现可能和对标脚本有差异）。
+注意：关于目录中其他文件的代码，可以参考 MindSpore ModelZoo 的 [ResNet50 实现](https://gitee.com/mindspore/models/tree/r1.6/official/cv/resnet)（该脚本融合了其他 ResNet 系列网络及ResNet-SE 网络，具体实现可能和对标脚本有差异）。
 
 ### 分布式训练
 
-分布式训练相比单机训练对网络结构没有影响，可以通过调用 MindSpore 提供的分布式训练接口改造单机脚本即可完成分布式训练，具体可参考 [分布式训练教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training.html)。
+分布式训练相比单机训练对网络结构没有影响，可以通过调用 MindSpore 提供的分布式训练接口改造单机脚本即可完成分布式训练，具体可参考 [分布式训练教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/distributed_training.html)。
 
 #### ResNet50 迁移示例
 
@@ -772,11 +772,11 @@ if __name__ == '__main__':
 
 ### 问题定位
 
-在流程打通中可能会遇到一些中断训练的问题，可以参考 [网络训练调试教程](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/neural_network_debug.html) 定位和解决。
+在流程打通中可能会遇到一些中断训练的问题，可以参考 [网络训练调试教程](https://www.mindspore.cn/docs/migration_guide/zh-CN/r1.6/neural_network_debug.html) 定位和解决。
 
 ### 完整示例
 
-完整示例请参考链接：<https://gitee.com/mindspore/docs/tree/master/docs/sample_code/migration_sample>
+完整示例请参考链接：<https://gitee.com/mindspore/docs/tree/r1.6/docs/sample_code/migration_sample>
 
 ## 精度调优
 
@@ -790,7 +790,7 @@ if __name__ == '__main__':
 
 ### 分析Profiling数据
 
-分析Profiling数据是性能调优阶段必不可少的步骤，MindSpore 的性能和精度调优工具 [MindInsight](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/index.html) 提供了丰富的性能和精度调优方法，对于性能调优，最重要的信息就是Profiling数据。Profiling可以收集整网训练过程中端到端的详细性能数据，包含数据准备和迭代轨迹。在迭代轨迹中，你可以看到每个算子的起始运行时间、结束运行时间、调用次数和调用顺序等非常详细的信息，这对我们性能调优非常有帮助。生成Profiling数据的方式如下：
+分析Profiling数据是性能调优阶段必不可少的步骤，MindSpore 的性能和精度调优工具 [MindInsight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.6/index.html) 提供了丰富的性能和精度调优方法，对于性能调优，最重要的信息就是Profiling数据。Profiling可以收集整网训练过程中端到端的详细性能数据，包含数据准备和迭代轨迹。在迭代轨迹中，你可以看到每个算子的起始运行时间、结束运行时间、调用次数和调用顺序等非常详细的信息，这对我们性能调优非常有帮助。生成Profiling数据的方式如下：
 
 ```python
 from mindspore.profiler import Profiler
@@ -811,9 +811,9 @@ Model.train()
 profiler.analyse()
 ```
 
-关于Profiling更详细的使用方法，可以参考 [Profiling 性能分析方法](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling.html)。
+关于Profiling更详细的使用方法，可以参考 [Profiling 性能分析方法](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.6/performance_profiling.html)。
 
-获取到 Profiling 数据后，我们需要分析出性能瓶颈的阶段和算子，然后对其进行优化，分析的过程可以参考 [性能调优指导](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/performance_optimization.html)。
+获取到 Profiling 数据后，我们需要分析出性能瓶颈的阶段和算子，然后对其进行优化，分析的过程可以参考 [性能调优指导](https://www.mindspore.cn/docs/migration_guide/zh-CN/r1.6/performance_optimization.html)。
 
 ### 常见问题及相应优化方法
 
@@ -823,14 +823,14 @@ profiler.analyse()
 
 当数据处理速度较慢时，队列从最开始的满队列情况逐渐消耗为空队列，训练进程会开始等待空队列填入数据，一旦有新的数据填入，网络才会继续进行单Step训练。由于数据处理没有队列作为缓冲，数据处理的性能抖动直接体现在单Step的性能上，因此还会造成单Step性能抖动。
 
-关于MindData的性能问题，可以参考 MindInsight 组件的 [数据准备性能分析](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#id8)，其给出了MindData 性能的常见问题及解决方法。
+关于MindData的性能问题，可以参考 MindInsight 组件的 [数据准备性能分析](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.6/performance_profiling_ascend.html#id8)，其给出了MindData 性能的常见问题及解决方法。
 
 #### 多机同步性能问题
 
 当进行分布式训练时，在一个Step的训练过程中，完成前向传播和梯度计算后，各个机器开始进行AllReduce梯度同步，AllReduce同步时间主要受权重数量、机器数量影响，对于越复杂、机器规模越大的网络，其 AllReduce 梯度更新时间也越久，此时我们可以进行AllReduce 切分来优化这部分耗时。
 
 正常情况下，AllReduce 梯度同步会等所有反向算子执行结束，也就是对所有权重都计算出梯度后再一次性同步所有机器的梯度，而使用AllReduce切分后，我们可以在计算出一部分权重的梯度后，就立刻进行这部分权重的梯度同步，这样梯度同步和剩余算子的梯度计算可以并行执行，也就隐藏了这部分 AllReduce 梯度同步时间。切分策略通常是手动尝试，寻找一个最优的方案（支持切分大于两段）。
-以 [ResNet50网络](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/train.py) 为例，该网络共有 160  个 权重，  [85, 160] 表示第 0 至 85个权重计算完梯度后立刻进行梯度同步，第 86 至 160 个 权重计算完后再进行梯度同步，这里共切分两段，因此需要进行两次梯度同步。代码实现如下：
+以 [ResNet50网络](https://gitee.com/mindspore/models/blob/r1.6/official/cv/resnet/train.py) 为例，该网络共有 160  个 权重，  [85, 160] 表示第 0 至 85个权重计算完梯度后立刻进行梯度同步，第 86 至 160 个 权重计算完后再进行梯度同步，这里共切分两段，因此需要进行两次梯度同步。代码实现如下：
 
 ```python
 device_id = int(os.getenv('DEVICE_ID', '0'))
@@ -867,7 +867,7 @@ if rank_size > 1:
 
     混合精度训练方法是通过混合使用单精度和半精度数据格式来加速深度神经网络训练的过程，同时保持了单精度训练所能达到的网络精度。混合精度训练能够加速计算过程，同时减少内存使用和存取，并使得在特定的硬件上可以训练更大的模型或 batch size。
 
-    具体可参考 [混合精度教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/enable_mixed_precision.html)。
+    具体可参考 [混合精度教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/enable_mixed_precision.html)。
 
 - 使能图算融合
 
@@ -875,4 +875,4 @@ if rank_size > 1:
 
     图算融合的适用场景包括：对网络执行时间具有较高性能要求的场景；通过拼接基本算子实现自定义组合算子，并希望对这些基本算子进行自动融合，以提升自定义组合算子性能的场景。
 
-    具体可参考 [图算融合教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/enable_graph_kernel_fusion.html)。
+    具体可参考 [图算融合教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/enable_graph_kernel_fusion.html)。

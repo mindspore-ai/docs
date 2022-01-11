@@ -1,6 +1,6 @@
 # 应用差分隐私机制保护用户隐私
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_zh_cn/protect_user_privacy_with_differential_privacy.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindarmour/docs/source_zh_cn/protect_user_privacy_with_differential_privacy.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -30,7 +30,7 @@ MindArmour的差分隐私模块Differential-Privacy，实现了差分隐私优�
 这里以LeNet模型，MNIST 数据集为例，说明如何在MindSpore上使用差分隐私优化器训练神经网络模型。
 
 > 由于算子支持的限制，差分隐私训练目前只支持在GPU或者Ascend服务器上面进行，不支持CPU。
-本例面向Ascend 910 AI处理器，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/diff_privacy/lenet5_dp.py>
+本例面向Ascend 910 AI处理器，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindarmour/blob/r1.6/examples/privacy/diff_privacy/lenet5_dp.py>
 
 ## 实现阶段
 
@@ -67,7 +67,7 @@ TAG = 'Lenet5_train'
 
 ### 参数配置
 
-1. 设置运行环境、数据集路径、模型训练参数、checkpoint存储参数、差分隐私参数，`data_path`数据路径替换成你的数据集所在路径。更多配置可以参考<https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/diff_privacy/lenet5_config.py>。
+1. 设置运行环境、数据集路径、模型训练参数、checkpoint存储参数、差分隐私参数，`data_path`数据路径替换成你的数据集所在路径。更多配置可以参考<https://gitee.com/mindspore/mindarmour/blob/r1.6/examples/privacy/diff_privacy/lenet5_config.py>。
 
    ```python
    cfg = edict({
