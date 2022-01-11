@@ -10,14 +10,13 @@
 
 使用MindSpore Lite执行推理主要包括以下步骤：
 
-1. 模型加载：从文件系统中读取由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)转换得到的`.ms`模型，通过Model的[loadModel](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#loadmodel)导入模型。
-2. 创建配置上下文：创建配置上下文[MSConfig](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/msconfig.html#msconfig)，保存会话所需的一些基本配置参数，用于指导图编译和图执行。主要包括`deviceType`：设备类型、`threadNum`：线程数、`cpuBindMode`：CPU绑定模式、`enable_float16`：是否优先使用float16算子。
-3. 创建会话：创建[LiteSession](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/lite_session.html#litesession)，并调用[init](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/lite_session.html#init)方法将上一步得到的[MSConfig](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/msconfig.html#msconfig)配置到会话中。
-4. 图编译：在图执行前，需要调用[LiteSession](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/lite_session.html#litesession)的[compileGraph](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/lite_session.html#compilegraph)接口进行图编译，主要进行子图切分、算子选型调度。这部分会耗费较多时间，所以建议[LiteSession](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/lite_session.html#litesession)创建一次，编译一次，多次执行。
-5. 输入数据：图执行之前需要向输入Tensor中填充数据。
-6. 执行推理：使用[LiteSession](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/lite_session.html#litesession)的[runGraph](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/lite_session.html#rungraph)进行模型推理。
-7. 获得输出：图执行结束之后，可以通过输出Tensor得到推理结果。
-8. 释放内存：无需使用MindSpore Lite推理框架的时候，需要释放已创建的[LiteSession](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/lite_session.html#litesession)和[model](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#model)。
+1. 模型加载(可选)：从文件系统中读取由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)转换得到的`.ms`模型。
+2. 创建配置上下文：创建配置上下文[MSContext](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/mscontext.html#mscontext)，保存会话所需的一些基本配置参数，用于指导图编译和图执行。主要包括`deviceType`：设备类型、`threadNum`：线程数、`cpuBindMode`：CPU绑定模式、`enable_float16`：是否优先使用float16算子。
+3. 图编译：在图执行前，需要调用[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#model)的[build](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#compilegraph)接口进行图编译，主要进行子图切分、算子选型调度。这部分会耗费较多时间，所以建议[model](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#model)创建一次，编译一次，多次执行。
+4. 输入数据：图执行之前需要向输入Tensor中填充数据。
+5. 执行推理：使用[model](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#model)的[predict](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#predict)进行模型推理。
+6. 获得输出：图执行结束之后，可以通过输出Tensor得到推理结果。
+7. 释放内存：无需使用MindSpore Lite推理框架的时候，需要释放已创建的[model](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#model)。
 
 ![img](../images/lite_runtime.png)
 
@@ -58,48 +57,43 @@
   执行完成后将能得到如下结果，打印输出Tensor的名称、输出Tensor的大小，输出Tensor的数量以及前50个数据：
 
   ```text
-  out tensor shape: [1,1000,] and out data: 5.4091015E-5 4.030303E-4 3.032344E-4 4.0029243E-4 2.2730739E-4 8.366581E-5 2.629827E-4 3.512394E-4 2.879536E-4 1.9557697E-4xxxxxxxxxx MindSpore Lite 1.1.0out tensor shape: [1,1000,] and out data: 5.4091015E-5 4.030303E-4 3.032344E-4 4.0029243E-4 2.2730739E-4 8.366581E-5 2.629827E-4 3.512394E-4 2.879536E-4 1.9557697E-4tensor name is:Default/Sigmoid-op204 tensor size is:2000 tensor elements num is:500output data is:3.31223e-05 1.99382e-05 3.01624e-05 0.000108345 1.19685e-05 4.25282e-06 0.00049955 0.000340809 0.00199094 0.000997094 0.00013585 1.57605e-05 4.34131e-05 1.56114e-05 0.000550819 2.9839e-05 4.70447e-06 6.91601e-06 0.000134483 2.06795e-06 4.11612e-05 2.4667e-05 7.26248e-06 2.37974e-05 0.000134513 0.00142482 0.00011707 0.000161848 0.000395011 3.01961e-05 3.95325e-05 3.12398e-06 3.57709e-05 1.36277e-06 1.01068e-05 0.000350805 5.09019e-05 0.000805241 6.60321e-05 2.13734e-05 9.88654e-05 2.1991e-06 3.24065e-05 3.9479e-05 4.45178e-05 0.00205024 0.000780899 2.0633e-05 1.89997e-05 0.00197261 0.000259391
+  out tensor shape: [1,1000,] and out data: 5.4091015E-5 4.030303E-4 3.032344E-4 4.0029243E-4 2.2730739E-4 8.366581E-5 2.629827E-4 3.512394E-4 2.879536E-4 1.9557697E-4xxxxxxxxxx MindSpore Lite 1.1.0out tensor shape: [1,1000,] and out data: 5.4091015E-5 4.030303E-4 3.032344E-4 4.0029243E-4 2.2730739E-4 8.366581E-5 2.629827E-4 3.512394E-4 2.879536E-4 1.9557697E-4tensor name is:Default/Sigmoid-op204 tensor size is:2000 tensor elements num is:500output data is:3.31223e-05 1.99382e-05 3.01624e-05 0.000108345 1.19685e-05 4.25282e-06 0.00049955 0.000340809 0.00199094 0.000997094 0.00013585 1.57605e-05 4.34131e-05 1.56114e-05 0.000550819 2.9839e-05 4.70447e-06 6.91601e-06 0.000134483 2.06795e-06 4.11612e-05 2.4667e-05 7.26248e-06 2.37974e-05 0.000134513 0.00142482 0.00011707 0.000161848 0.000395011 3.01961e-05 3.95325e-05 3.12398e-06 3.57709e-05 1.36277e-06 1.01068e-05 0.000350805 5.09019e-05 0.000805241 6.60321e-05 2.13734e-05 9.88654e-05 2.1991e-06 3.24065e-05 3.9479e-05 4.45178e-05 0.00205024 0.000780899 2.0633e-05 1.89997e-05 0.00197261 0.000259391
   ```
 
-## 模型加载
+## 模型加载(可选)
 
-首先从文件系统中读取MindSpore Lite模型，并通过`model.loadModel`函数导入模型进行解析。
+首先从文件系统中读取MindSpore Lite模型。
 
 ```java
-boolean ret = model.loadModel(modelPath);
-if (!ret) {
-    System.err.println("Load model failed, model path is " + modelPath);
-    return;
+// Load the .ms model.
+MappedByteBuffer byteBuffer = null;
+try {
+    fc = new RandomAccessFile(fileName, "r").getChannel();
+    byteBuffer = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size()).load();
+} catch (IOException e) {
+    e.printStackTrace();
 }
 ```
 
 ## 模型编译
 
-模型编译主要包括创建配置上下文、创建会话、图编译等步骤。
+模型编译主要包括创建配置上下文、编译等步骤。编译接口支持文件和mappedbytebuffer两种格式。下面[示例代码]描述的是从文件读取进行模型编译。
 
 ```java
-private static boolean compile() {
-    MSConfig msConfig = new MSConfig();
-    // You can set config through Init Api or use the default parameters directly.
-    // The default parameter is that the backend type is DeviceType.DT_CPU, and the number of threads is 2.
-    boolean ret = msConfig.init(DeviceType.DT_CPU, 2);
+private static boolean compile(String modelPath) {
+    MSContext context = new MSContext();
+    // use default param init context
+    context.init();
+    boolean ret = context.addDeviceInfo(DeviceType.DT_CPU, false, 0);
     if (!ret) {
-        System.err.println("Init context failed");
+        System.err.println("Compile graph failed");
+        context.free();
         return false;
     }
-
     // Create the MindSpore lite session.
-    session = new LiteSession();
-    ret = session.init(msConfig);
-    msConfig.free();
-    if (!ret) {
-        System.err.println("Create session failed");
-        model.free();
-        return false;
-    }
-
+    model = new Model();
     // Compile graph.
-    ret = session.compileGraph(model);
+    ret = model.build(modelPath, ModelType.MT_MINDIR, context);
     if (!ret) {
         System.err.println("Compile graph failed");
         model.free();
@@ -115,7 +109,7 @@ private static boolean compile() {
 
 ```java
 private static boolean run() {
-    MSTensor inputTensor = session.getInputsByTensorName("graph_input-173");
+    MSTensor inputTensor = model.getInputByTensorName("graph_input-173");
     if (inputTensor.getDataType() != DataType.kNumberTypeFloat32) {
         System.err.println("Input tensor shape do not float, the data type is " + inputTensor.getDataType());
         return false;
@@ -123,20 +117,20 @@ private static boolean run() {
     // Generator Random Data.
     int elementNums = inputTensor.elementsNum();
     float[] randomData = generateArray(elementNums);
-    byte[] inputData = floatArrayToByteArray(randomData);
+    ByteBuffer inputData = floatArrayToByteBuffer(randomData);
 
     // Set Input Data.
     inputTensor.setData(inputData);
 
     // Run Inference.
-    boolean ret = session.runGraph();
+    boolean ret = model.predict();
     if (!ret) {
         System.err.println("MindSpore Lite run failed.");
         return false;
     }
 
     // Get Output Tensor Data.
-    MSTensor outTensor = session.getOutputByTensorName("Softmax-65");
+    MSTensor outTensor = model.getOutputByTensorName("Softmax-65");
 
     // Print out Tensor Data.
     StringBuilder msgSb = new StringBuilder();
@@ -156,7 +150,7 @@ private static boolean run() {
         return false;
     }
     msgSb.append(" and out data:");
-    for (int i = 0; i < 10 && i < outTensor.elementsNum(); i++) {
+    for (int i = 0; i < 50 && i < outTensor.elementsNum(); i++) {
         msgSb.append(" ").append(result[i]);
     }
     System.out.println(msgSb.toString());
@@ -166,11 +160,9 @@ private static boolean run() {
 
 ## 内存释放
 
-无需使用MindSpore Lite推理框架时，需要释放已经创建的`LiteSession`和`Model`。
+无需使用MindSpore Lite推理框架时，需要释放已经创建的`model`。
 
 ```java
-// Delete session buffer.
-session.free();
 // Delete model buffer.
 model.free();
 ```
