@@ -295,7 +295,7 @@ MindSpore编程指南
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/apply_gradient_accumulation.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">应用梯度累积算法</span>
+											<span class="doc-head-content">梯度累积算法</span>
 										</div>
 										<div class="doc-article-desc">
 										本教程介绍梯度累积的训练方式，目的是为了解决由于内存不足导致某些大型网络无法训练大Batch_size的问题。
@@ -307,7 +307,7 @@ MindSpore编程指南
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/apply_adaptive_summation.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">应用自适应梯度求和算法</span>
+											<span class="doc-head-content">自适应梯度求和算法</span>
 										</div>
 										<div class="doc-article-desc">
 										本教程介绍在分布式训练中，如何使用自适应梯度求和算法提升网络训练的临界批量（critical batch size），并加快网络收敛。
@@ -319,7 +319,7 @@ MindSpore编程指南
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/apply_dimention_reduce_training.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">应用降维训练算法</span>
+											<span class="doc-head-content">降维训练算法</span>
 										</div>
 										<div class="doc-article-desc">
 										本教程介绍降维训练的训练方式，目的是为了解决网络在训练后期收敛缓慢的问题。
@@ -391,7 +391,7 @@ MindSpore编程指南
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/apply_quantization_aware_training.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">应用感知量化训练</span>
+											<span class="doc-head-content">感知量化训练</span>
 										</div>
 										<div class="doc-article-desc">
 										量化（Quantization）技术是应对移动设备、边缘设备的硬件资源有限的问题衍生出的技术之一。
@@ -859,7 +859,7 @@ MindSpore编程指南
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/enable_auto_tune.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">使能算子调优工具</span>
+											<span class="doc-head-content">算子调优工具</span>
 										</div>
 										<div class="doc-article-desc">
 										本文档主要介绍AutoTune的在线调优使用方法。
@@ -871,7 +871,7 @@ MindSpore编程指南
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/enable_dataset_autotune.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">使能自动数据加速</span>
+											<span class="doc-head-content">自动数据加速</span>
 										</div>
 										<div class="doc-article-desc">
 										MindSpore提供了一种自动数据调优的工具——Dataset AutoTune，用于在训练过程中根据环境资源的情况自动调整数据处理管道的并行度，最大化利用系统资源加速数据处理管道的处理速度。
