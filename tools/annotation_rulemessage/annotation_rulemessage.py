@@ -25,9 +25,8 @@ if __name__ == "__main__":
         os.mkdir('formatrule')
     print("first argument" + sys.argv[1])
     print("last bit of argument" + './'+ sys.argv[1].split("/")[-1])
-    for check_f in os.listdir(sys.argv[1].split("/")[-1] + '/'):
+    for check_f in sys.argv[1:]:
         print("checkdoc", check_f)
-        check_f = sys.argv[1].split("/")[-1] + '/' + check_f
         print("check document" + check_f)
         if os.path.isfile(check_f) & check_f.endswith(".py"):
             ext.run(check_f)
@@ -52,7 +51,7 @@ if __name__ == "__main__":
             for one_f in all_f:
                 tth.run(one_f)
     for check_f in os.listdir('./formatrule'):
-        result = 'Rule reference link：https://community.languagetool.org/rule/list?offset=0\n'
+        result = 'Rule reference link `https://community.languagetool.org/rule/list?offset=0` \n'
         with open("./allrule.txt", "w", encoding="utf-8") as p:
             p.writelines(result)
         check_f = 'formatrule/' + check_f
