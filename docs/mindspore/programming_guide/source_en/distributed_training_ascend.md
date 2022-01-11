@@ -514,9 +514,9 @@ When executing, the two hosts execute the following commands respectively, among
 
 ```bash
 # server0
-bash run.sh /path/dataset /path/rank_table.json 16 0
+bash run_cluster.sh /path/dataset /path/rank_table.json 16 0
 # server1
-bash run.sh /path/dataset /path/rank_table.json 16 8
+bash run_cluster.sh /path/dataset /path/rank_table.json 16 8
 ```
 
 ### Non-sink Mode Training
