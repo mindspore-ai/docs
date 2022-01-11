@@ -278,7 +278,7 @@ bias_correction=true
 
 ## Quantization Debug
 
-Turn on the quantization Debug function, you can get the data distribution statistics report, which is used to evaluate the quantization error and assist the decision-making model (operator) whether it is suitable for quantization. For full quantification, N data distribution statistics reports will be generated according to the number of correction data sets provided, that is, one report will be generated for each round; for weighting, only one data distribution statistics report will be generated.
+Turn on the quantization Debug function, you can get the data distribution statistics report, which is used to evaluate the quantization error and assist the decision-making model (operator) whether it is suitable for quantization. For full quantification, N data distribution statistics reports will be generated according to the number of correction datasets provided, that is, one report will be generated for each round; for weighting, only one data distribution statistics report will be generated.
 
 When setting the `debug_info_save_path` parameter, the relevant debug report will be generated in the `/home/workspace/mindspore/debug_info_save_path` folder:
 

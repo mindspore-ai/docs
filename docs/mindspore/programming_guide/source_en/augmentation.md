@@ -350,7 +350,7 @@ Inverts the input image.
 
 The following example loads the [CIFAR-10 dataset[1]](#references), defines and performs the resizing and inverting operations on the loaded image, outputs the image shapes and labels before and after the resizing and inverting operations, and displays the inverted image.
 
-Follow the steps above to download the CIFAR-10 data set and store it as required.
+Follow the steps above to download the CIFAR-10 dataset and store it as required.
 
 ```python
 import matplotlib.pyplot as plt

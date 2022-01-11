@@ -9,7 +9,7 @@ One of advantages of BNN is that uncertainty can be obtained. MDP provides a too
 
 The uncertainty evaluation toolbox is applicable to mainstream deep learning models, such as regression and classification. During inference, developers can use the toolbox to obtain any aleatoric uncertainty and epistemic uncertainty by training models and training datasets and specifying tasks and samples to be evaluated. Developers can understand models and datasets based on uncertainty information.
 
-This example will use the MNIST data set and the LeNet5 network model example for this experience.
+This example will use the MNIST dataset and the LeNet5 network model example for this experience.
 
 1. Data preparation.
 2. Define a deep learning network.
@@ -22,7 +22,7 @@ This example will use the MNIST data set and the LeNet5 network model example fo
 
 ### Downloading the Dataset
 
-Download the MNIST_Data data set, execute the following command to complete the download of the data set and unzip it to the specified location:
+Download the MNIST_Data dataset, execute the following command to complete the download of the dataset and unzip it to the specified location:
 
 ```python
 import os
@@ -149,8 +149,8 @@ Initialize the `UncertaintyEvaluation` function of the Uncertainty Toolbox and p
 
 1. Prepare the model weight parameter file.
 2. Load the model weight parameter file into the neural network.
-3. Enhance the training data set into data suitable for neural networks.
-4. Load the above network and data set into UncertaintyEvaluation.
+3. Enhance the training dataset into data suitable for neural networks.
+4. Load the above network and dataset into UncertaintyEvaluation.
 
 MindSpore uses the Uncertainty Toolbox `UncertaintyEvaluation` interface to measure model accidental uncertainty and cognitive uncertainty. For more usage methods, please refer to [API](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.nn.probability.html#module-mindspore.nn.probability.toolbox).
 
