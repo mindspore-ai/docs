@@ -67,6 +67,19 @@ $$\theta{i}=\theta_{i-1}-lr * \sum_{i=0}^{N} grad_{i}$$
 
 > 您可以在这里下载主要的训练样例代码：[train.py](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/gradient_accumulation/train.py)
 
+由于需要使用models仓中的LeNet网络，请先执行如下命令拉取models仓的代码：
+
+```bash
+git clone https://gitee.com/mindspore/models.git -b r1.6
+```
+
+如果models仓不在系统路径中，需要在`train.py`代码起始部分添加以下两段代码。
+
+```python
+import sys
+sys.path.append(models仓的路径)
+```
+
 #### 导入需要的库文件
 
 下列是所需要的公共模块及MindSpore的模块及库文件。
@@ -81,17 +94,17 @@ from mindspore import ParameterTuple
 from mindspore import context, DatasetHelper, save_checkpoint
 from mindspore.nn import Cell
 import mindspore.ops as ops
-from model_zoo.official.cv.lenet.src.dataset import create_dataset
-from model_zoo.official.cv.lenet.src.lenet import LeNet5
+from models.official.cv.lenet.src.dataset import create_dataset
+from models.official.cv.lenet.src.lenet import LeNet5
 ```
 
 #### 加载数据集
 
-利用MindSpore的`dataset`提供的`MnistDataset`接口加载MNIST数据集，此部分代码由ModelZoo中`lenet`目录下的[dataset.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/dataset.py)导入。
+利用MindSpore的`dataset`提供的`MnistDataset`接口加载MNIST数据集，此部分代码由models中`lenet`目录下的[dataset.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/dataset.py)导入。
 
 #### 定义网络
 
-这里以LeNet网络为例进行介绍，当然也可以使用其它的网络，如ResNet-50、BERT等, 此部分代码由ModelZoo中`lenet`目录下的[lenet.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/lenet.py)导入。
+这里以LeNet网络为例进行介绍，当然也可以使用其它的网络，如ResNet-50、BERT等, 此部分代码由models中`lenet`目录下的[lenet.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/lenet.py)导入。
 
 #### 定义训练流程
 
@@ -283,7 +296,7 @@ if __name__ == "__main__":
 
 **验证模型:**
 
-通过ModelZoo中`lenet`目录下的[eval.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/train.py)，使用保存的CheckPoint文件，加载验证数据集，进行验证。
+通过models中`lenet`目录下的[eval.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/train.py)，使用保存的CheckPoint文件，加载验证数据集，进行验证。
 
 ```bash
 python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt --device_target=GPU
@@ -318,17 +331,17 @@ import mindspore.ops as ops
 from mindspore.train.callback import LossMonitor, TimeMonitor
 from mindspore import load_checkpoint, load_param_into_net
 
-from model_zoo.official.cv.lenet.src.dataset import create_dataset
-from model_zoo.official.cv.lenet.src.lenet import LeNet5
+from models.official.cv.lenet.src.dataset import create_dataset
+from models.official.cv.lenet.src.lenet import LeNet5
 ```
 
 #### 加载数据集
 
-利用MindSpore的`dataset`提供的`MnistDataset`接口加载MNIST数据集，此部分代码由ModelZoo中`lenet`目录下的[dataset.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/dataset.py)导入。
+利用MindSpore的`dataset`提供的`MnistDataset`接口加载MNIST数据集，此部分代码由models中`lenet`目录下的[dataset.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/dataset.py)导入。
 
 #### 定义网络
 
-这里以LeNet网络为例进行介绍，当然也可以使用其它的网络，如ResNet-50、BERT等, 此部分代码由ModelZoo中`lenet`目录下的[lenet.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/lenet.py)导入。
+这里以LeNet网络为例进行介绍，当然也可以使用其它的网络，如ResNet-50、BERT等, 此部分代码由models中`lenet`目录下的[lenet.py](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/lenet.py)导入。
 
 #### 定义训练模型
 
