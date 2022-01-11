@@ -34,8 +34,8 @@ Typical MindSpore Graph Learning Application Scenarios
    If the input graph is too large, random batch training can be used. During each random batch training, the graph is sampled so as to train the graph in batches. The GIN is used as an example.
 
 .. toctree::
-   :glob:
    :maxdepth: 1
+   :caption: Deployment
 
    mindspore_graphlearning_install
 

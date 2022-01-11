@@ -1,6 +1,5 @@
 # MindSpore Graph Learning
 
-- [MindSpore Graph Learning介绍](#mindspore-graph-learning介绍)
 - [安装教程](#安装教程)
     - [确认系统环境信息](#确认系统环境信息)
     - [安装方式](#安装方式)
@@ -13,18 +12,6 @@
 - [许可证](#许可证)
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/graphlearning/docs/source_zh_cn/mindspore_graphlearning_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
-
-## MindSpore Graph Learning介绍
-
-MindSpore Graph Learning是一个基于MindSpore的高效易用的图学习框架。
-
-![GraphLearning_architecture](./images/MindSpore_GraphLearning_architecture.PNG)
-
-相较于一般模型，图神经网络模型需要在给定的图结构上做信息的传递和聚合，现有系统无法直观表达这些操作。MindSpore Graph Learning创新提出以点为中心的编程范式，更符合图学习算法逻辑和Python语言风格，减少算法设计和实现间的差距。
-
-同时，结合MindSpore的图算融合和自动算子编译技术（AKG）特性，自动识别图神经网络任务特有执行pattern进行融合和kernel level优化，能够覆盖现有框架中已有的算子和新组合算子的融合优化，获得相比现有流行框架平均3到4倍的性能提升。
-
-结合MindSpore深度学习框架，框架基本能够覆盖大部分的图神经网络应用，详情请参考<https://gitee.com/mindspore/graphlearning/tree/r0.5/model_zoo>。
 
 ## 安装指南
 
