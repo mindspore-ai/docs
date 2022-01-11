@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-MindSpore Reinforcement API
+mindspore_rl
 ============================
 
 .. automodule:: mindspore_rl

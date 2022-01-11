@@ -1,4 +1,4 @@
-MindSpore Probability Python API
+mindspore.nn.probability
 ================================
 
 .. automodule:: mindspore.nn.probability

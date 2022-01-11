@@ -34,10 +34,15 @@ MindSpore Graph Learning初始版本包含以点为中心的编程范式，并�
    当输入的图过大，可以采用随机批次训练。随机批次训练会每次在图中进行采样，将图分批次进行训练。这里以GIN网络为例。
 
 .. toctree::
-   :glob:
    :maxdepth: 1
+   :caption: 安装部署
 
    mindspore_graphlearning_install
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 使用指南
+
    full_training_of_GCN
    random_sampling_training_of_GIN
 
