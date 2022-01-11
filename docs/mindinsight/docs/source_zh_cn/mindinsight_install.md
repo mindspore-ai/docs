@@ -41,7 +41,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindIn
 #### 从代码仓下载源码
 
 ```bash
-git clone https://gitee.com/mindspore/mindinsight.git
+git clone https://gitee.com/mindspore/mindinsight.git -b r1.6
 ```
 
 #### 编译安装MindInsight

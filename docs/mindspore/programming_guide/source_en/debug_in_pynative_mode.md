@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `Model Running`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/debug_in_pynative_mode.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_en/debug_in_pynative_mode.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -17,7 +17,7 @@ In PyNative mode, single operators, common functions, network inference, and sep
 
 > In PyNative mode, operators are executed asynchronously on the device to improve performance. Therefore, when an error occurs during operator execution, the error information may be displayed after the program is executed. Therefore, in PyNative mode, a pynative_synchronize setting is added to control whether operators are executed asynchronously on the device.
 >
-> In the following example, the parameter initialization uses random values, and the output results in specific execution may be different from the results of local execution; if you need to stabilize the output of a fixed value, you can set a fixed random seed. For the setting method, please refer to [mindspore.set_seed()](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore/mindspore.set_seed.html).
+> In the following example, the parameter initialization uses random values, and the output results in specific execution may be different from the results of local execution; if you need to stabilize the output of a fixed value, you can set a fixed random seed. For the setting method, please refer to [mindspore.set_seed()](https://www.mindspore.cn/docs/api/en/r1.6/api_python/mindspore/mindspore.set_seed.html).
 
 ## Executing a Single Operator
 
@@ -480,7 +480,7 @@ Output：
 (Tensor(shape=[], dtype=Float32, value= 4), Tensor(shape=[], dtype=Float32, value= 4))
 ```
 
-For more descriptions of HookBackward operator, please refer to [API document](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.HookBackward.html).
+For more descriptions of HookBackward operator, please refer to [API document](https://mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.HookBackward.html).
 
 ### The register_backward_hook interface for nn.Cell object
 
@@ -545,7 +545,7 @@ Output：
    [ 1.99998999e+00, 1.99998999e+00]]]]),)
 ```
 
-More about the register_backward_hook interface, please refer to [API Document](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_backward_hook).
+More about the register_backward_hook interface, please refer to [API Document](https://mindspore.cn/docs/api/en/r1.6/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_backward_hook).
 
 ## Custom bprop
 

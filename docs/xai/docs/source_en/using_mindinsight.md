@@ -163,7 +163,7 @@ The classification assessment page provides two types of comparison. One is to c
 
 ## Uncertainty
 
-The model predictions come with uncertainty, which is called [Epistemic Uncertainty](https://www.mindspore.cn/probability/docsen/r1.6/nn_probability/mindspore.nn.probability.toolbox.UncertaintyEvaluation.html#mindspore.nn.probability.toolbox.UncertaintyEvaluation). It inserts a dropout layer to the network and inferences multiple times. The results are standard deviation and 95% confidence interval of the model output predictions:
+The model predictions come with uncertainty, which is called [Epistemic Uncertainty](https://www.mindspore.cn/probability/docs/en/r1.6/nn_probability/mindspore.nn.probability.toolbox.UncertaintyEvaluation.html#mindspore.nn.probability.toolbox.UncertaintyEvaluation). It inserts a dropout layer to the network and inferences multiple times. The results are standard deviation and 95% confidence interval of the model output predictions:
 
 ![mi_saliency_map](./images/mi_uncertainty.png)
 

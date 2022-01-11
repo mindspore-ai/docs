@@ -27,7 +27,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindAr
 1. 从Gitee下载源码。
 
     ```bash
-    git clone https://gitee.com/mindspore/mindarmour.git
+    git clone https://gitee.com/mindspore/mindarmour.git -b r1.6
     ```
 
 2. 在源码根目录下，执行如下命令编译并安装MindArmour。

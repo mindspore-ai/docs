@@ -2,11 +2,11 @@
 
 `Ascend` `GPU` `CPU` `模型运行`
 
-<a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9kZWJ1Z2dpbmdfaW5fcHluYXRpdmVfbW9kZS5pcHluYg==&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_modelarts.png"></a>&nbsp;&nbsp;
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/notebook/mindspore_debugging_in_pynative_mode.ipynb"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_notebook.png"></a>
+<a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9kZWJ1Z2dpbmdfaW5fcHluYXRpdmVfbW9kZS5pcHluYg==&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_modelarts.png"></a>&nbsp;&nbsp;
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.6/notebook/mindspore_debugging_in_pynative_mode.ipynb"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_notebook.png"></a>
 &nbsp;&nbsp;
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/notebook/mindspore_debugging_in_pynative_mode.py"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_download_code.png"></a>&nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/debug_in_pynative_mode.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.6/notebook/mindspore_debugging_in_pynative_mode.py"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_download_code.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_zh_cn/debug_in_pynative_mode.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -21,7 +21,7 @@ PyNative模式下，支持执行单算子、普通函数和网络，以及单独
 
 > PyNative模式下为了提升性能，算子在device上使用了异步执行方式，因此在算子执行错误的时候，错误信息可能会在程序执行到最后才显示。因此在PyNative模式下，增加了一个pynative_synchronize的设置来控制算子device上是否使用异步执行。
 >
-> 下述例子中，参数初始化使用了随机值，在具体执行中输出的结果可能与本地执行输出的结果不同；如果需要稳定输出固定的值，可以设置固定的随机种子，设置方法请参考[mindspore.set_seed()](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.set_seed.html)。
+> 下述例子中，参数初始化使用了随机值，在具体执行中输出的结果可能与本地执行输出的结果不同；如果需要稳定输出固定的值，可以设置固定的随机种子，设置方法请参考[mindspore.set_seed()](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/mindspore/mindspore.set_seed.html)。
 
 ## 设置模式
 
@@ -179,7 +179,7 @@ net_opt = nn.Momentum(network.trainable_params(), config.lr, config.momentum)
 
 保存模型可以通过定义CheckpointConfig来指定模型保存的参数。
 
-save_checkpoint_steps：每多少个step保存一下参数；keep_checkpoint_max：最多保存多少份模型参数。详细使用方式请参考[保存模型](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/save_model.html)。
+save_checkpoint_steps：每多少个step保存一下参数；keep_checkpoint_max：最多保存多少份模型参数。详细使用方式请参考[保存模型](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/save_model.html)。
 
 ```python
 config_ck = CheckpointConfig(save_checkpoint_steps=config.save_checkpoint_steps,
@@ -203,7 +203,7 @@ ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet", directory=config.ckpt_pa
 model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O2")
 ```
 
-完整的运行代码可以到ModelZoo下载[lenet](https://gitee.com/mindspore/models/tree/master/official/cv/lenet)，在train.py中修改为context.set_context(mode=context.PYNATIVE_MODE, device_target=config.device_target)。
+完整的运行代码可以到ModelZoo下载[lenet](https://gitee.com/mindspore/models/tree/r1.6/official/cv/lenet)，在train.py中修改为context.set_context(mode=context.PYNATIVE_MODE, device_target=config.device_target)。
 
 ## 提升PyNative性能
 
@@ -344,7 +344,7 @@ print(z.asnumpy())
 [ 0.0377498 -0.06117418 0.00546303]]]]
 ```
 
-更多ms_function的功能可以参考[ms_function文档](https://mindspore.cn/docs/programming_guide/zh-CN/master/ms_function.html)
+更多ms_function的功能可以参考[ms_function文档](https://mindspore.cn/docs/programming_guide/zh-CN/r1.6/ms_function.html)
 
 ## PyNative下同步执行
 
@@ -450,7 +450,7 @@ print(output)
 (Tensor(shape=[], dtype=Float32, value= 4), Tensor(shape=[], dtype=Float32, value= 4))
 ```
 
-更多HookBackward算子的说明可以参考[API文档](https://mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.HookBackward.html)。
+更多HookBackward算子的说明可以参考[API文档](https://mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.HookBackward.html)。
 
 ### nn.Cell对象的register_backward_hook功能
 
@@ -515,7 +515,7 @@ print(output)
    [ 1.99998999e+00, 1.99998999e+00]]]]),)
 ```
 
-更多关于nn.Cell对象的register_backward_hook功能的说明可以参考[API文档](https://mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_backward_hook)。
+更多关于nn.Cell对象的register_backward_hook功能的说明可以参考[API文档](https://mindspore.cn/docs/api/zh-CN/r1.6/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_backward_hook)。
 
 ## 自定义bprop功能
 

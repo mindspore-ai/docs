@@ -17,7 +17,7 @@ This article describes how to use Debugger in offline mode.
 
     2) Find the offline debugger entry from the Summary list, and click Offline Debugger. The debugger UI is displayed, and debugging analysis starts.
 
-   If UI page is not needed, it can also be analyzed through the API interface of the offline debugger. See [mindinsight.debugger](https://www.mindspore.cn/mindinsight/docsen/r1.6/mindinsight.debugger.html) for the API of offline debugger. The operation process is:
+   If UI page is not needed, it can also be analyzed through the API interface of the offline debugger. See [mindinsight.debugger](https://www.mindspore.cn/mindinsight/docs/en/r1.6/mindinsight.debugger.html) for the API of offline debugger. The operation process is:
 
     1) Instantiate the offline debugger through 'mindinsight.debugger.Dumpanalyzer' to dump_dir is specified as the dump path of a training ({path} in dump configuration);
 

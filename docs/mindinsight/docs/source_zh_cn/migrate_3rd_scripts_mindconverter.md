@@ -42,7 +42,7 @@ from mindconverter import pytorch2mindspore
 pytorch2mindspore(model, dummy_inputs)
 ```
 
-API使用方法请参考[MindConvrter API描述](https://www.mindspore.cn/mindinsight/docszh-CN/r1.6/mindconverter.html)。
+API使用方法请参考[MindConvrter API描述](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.6/mindconverter.html)。
 
 ## 工具安装
 
@@ -101,7 +101,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindIn
 从代码仓下载源码
 
 ```bash
-git clone https://gitee.com/mindspore/mindinsight.git
+git clone https://gitee.com/mindspore/mindinsight.git -b r1.6
 ```
 
 编译安装MindConverter，可选择以下任意一种安装方式：

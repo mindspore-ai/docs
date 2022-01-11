@@ -216,7 +216,7 @@ app
     }
     ```
 
-2. FlJob.java: This code file is used to define training and inference tasks. For details about federated learning APIs, see [Federal Learning APIs](https://www.mindspore.cn/federated/docsen/r1.6/interface_description_federated_client.html).
+2. FlJob.java: This code file is used to define training and inference tasks. For details about federated learning APIs, see [Federal Learning APIs](https://www.mindspore.cn/federated/docs/en/r1.6/interface_description_federated_client.html).
 
     ```java
     import android.annotation.SuppressLint;

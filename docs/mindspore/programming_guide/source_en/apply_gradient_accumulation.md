@@ -2,7 +2,7 @@
 
 `GPU` `Model Optimization`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/apply_gradient_accumulation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_en/apply_gradient_accumulation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -18,7 +18,7 @@ This tutorial describes how to implement gradient accumulation training in stand
 
 In standalone mode, the training process consists of three parts: forward and backward training, parameter update, and accumulated gradient clearance. MNIST is used as an example dataset. To customize a simple model to implement gradient accumulation, perform the following steps:
 
-> Download the main training sample code: <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/gradient_accumulation>
+> Download the main training sample code: <https://gitee.com/mindspore/docs/tree/r1.6/docs/sample_code/gradient_accumulation>
 >
 > `auto_parallel` and `semi_auto_parallel` mode don't support gradient accumulation now.
 
@@ -55,11 +55,11 @@ from models.official.cv.lenet.src.lenet import LeNet5
 
 ### Loading the Dataset
 
-Use the `MnistDataset` API provided by `dataset` of MindSpore to load the MNIST dataset. The code is imported from [dataset.py](<https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/dataset.py>) in the `lenet` directory of `models`.
+Use the `MnistDataset` API provided by `dataset` of MindSpore to load the MNIST dataset. The code is imported from [dataset.py](<https://gitee.com/mindspore/models/blob/r1.6/official/cv/lenet/src/dataset.py>) in the `lenet` directory of `models`.
 
 ### Defining the Network
 
-LeNet is used as an example network. You can also use other networks, such as ResNet-50 and BERT. The code is imported from [lenet.py](<https://gitee.com/mindspore/models/blob/master/official/cv/lenet/src/lenet.py>) in the `lenet` directory of `models`.
+LeNet is used as an example network. You can also use other networks, such as ResNet-50 and BERT. The code is imported from [lenet.py](<https://gitee.com/mindspore/models/blob/r1.6/official/cv/lenet/src/lenet.py>) in the `lenet` directory of `models`.
 
 ### Defining the Training Process
 
@@ -257,7 +257,7 @@ After 10 epochs, the accuracy on the test set is about 96.31%.
 
 **Validate the model.**
 
-Use the saved checkpoint file to load the validation dataset through [eval.py](<https://gitee.com/mindspore/models/blob/master/official/cv/lenet/train.py>) in the lenet directory of models.
+Use the saved checkpoint file to load the validation dataset through [eval.py](<https://gitee.com/mindspore/models/blob/r1.6/official/cv/lenet/train.py>) in the lenet directory of models.
 
 ```bash
 python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt --device_target=GPU

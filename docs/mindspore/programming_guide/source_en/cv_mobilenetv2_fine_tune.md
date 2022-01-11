@@ -93,7 +93,7 @@ On the Windows operating system, backslashes `\` are used to separate directorie
 Run the following command to clone [MindSpore open-source project repository](https://gitee.com/mindspore/models.git) in Gitee and go to `./models/official/cv/mobilenetv2/`.
 
 ```bash
-git clone https://gitee.com/mindspore/models.git
+git clone https://gitee.com/mindspore/models.git -b r1.6
 cd ./models/official/cv/mobilenetv2
 ```
 

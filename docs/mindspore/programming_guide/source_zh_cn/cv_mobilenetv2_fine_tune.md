@@ -93,7 +93,7 @@ Windows操作系统中使用`\`，Linux操作系统中使用`/`分割路径地�
 在Gitee中克隆[Models开源项目仓库](https://gitee.com/mindspore/models.git)，进入`./models/official/cv/mobilenetv2/`。
 
 ```bash
-git clone https://gitee.com/mindspore/models.git
+git clone https://gitee.com/mindspore/models.git -b r1.6
 cd ./models/official/cv/mobilenetv2
 ```
 

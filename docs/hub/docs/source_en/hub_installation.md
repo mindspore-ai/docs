@@ -38,7 +38,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/Hub/an
 1. Download source code from Gitee.
 
    ```bash
-   git clone https://gitee.com/mindspore/hub.git
+   git clone https://gitee.com/mindspore/hub.git -b r1.6
    ```
 
 2. Compile and install in MindSpore Hub directory.
