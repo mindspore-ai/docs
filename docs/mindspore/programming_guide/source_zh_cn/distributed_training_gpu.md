@@ -371,7 +371,7 @@ mpirun -n 16 -H DEVICE1_IP:8,DEVICE2_IP:8 python hello.py
 
 #### mpirun --hostfile
 
-GPU的多机多卡的执行也可以通过构造hostfile文件来进行。 为方便调试，多建议用这种方法来执行多机多卡脚本。 之后使用`mpirun --hostfile $HOST_FILE`的形式来执行。下面我们以hostfile启动方式来给出详细的多机多卡配置。
+GPU的多机多卡的执行也可以通过构造hostfile文件来进行。 为方便调试，建议用这种方法来执行多机多卡脚本。 之后使用`mpirun --hostfile $HOST_FILE`的形式来执行。下面我们以hostfile启动方式来给出详细的多机多卡配置。
 
 hostfile文件每一行格式为`[hostname] slots=[slotnum]`，hostname可以是ip或者主机名。需要注意的是，不同机器上的用户名需要相同，但是hostname不可以相同。如下，表示在DEVICE1上有8张卡；ip为192.168.0.1的机器上也有8张卡：
 
@@ -416,11 +416,11 @@ pytest -s -v ./resnet50_distributed_training_gpu.py > train.log 2>&1 &
 
 出于训练时的安全及可靠性要求，MindSpore GPU还支持**不依赖OpenMPI的分布式训练**。
 
-OpenMPI在分布式训练的场景中，起到在Host侧同步数据以及进程间组网的功能；MindSpore通过**复用PS模式训练架构**，取代了OpenMPI能力。
+OpenMPI在分布式训练的场景中，起到在Host侧同步数据以及进程间组网的功能；MindSpore通过**复用Parameter Server模式训练架构**，取代了OpenMPI能力。
 
-参考[PS模式](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/apply_parameter_server_training.html)训练教程，将多个MindSpore训练进程作为`Worker`启动，并且额外启动一个`Scheduler`，对脚本做少量修改，即可执行**不依赖OpenMPI的分布式训练**。
+参考[Parameter Server模式](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/apply_parameter_server_training.html)训练教程，将多个MindSpore训练进程作为`Worker`启动，并且额外启动一个`Scheduler`，对脚本做少量修改，即可执行**不依赖OpenMPI的分布式训练**。
 
-执行Worker脚本前需要导出环境变量，如[PS设置环境变量](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/apply_parameter_server_training.html#id5):
+执行Worker脚本前需要导出环境变量，如[环境变量设置](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/apply_parameter_server_training.html#id5):
 
 ```text
 export MS_SERVER_NUM=0                # Server number
@@ -430,7 +430,7 @@ export MS_SCHED_PORT=6667             # Scheduler port
 export MS_ROLE=MS_WORKER              # The role of this process: MS_SCHED represents the scheduler, MS_WORKER represents the worker, MS_PSERVER represents the Server
 ```
 
-> 在此模式下，不建议启动MS_SERVER角色的进程，因为此角色在数据并行训练中无影响。
+> 在此模式下，不建议启动MS_PSERVER角色的进程，因为此角色在数据并行训练中无影响。
 
 ### 运行脚本
 
@@ -440,7 +440,7 @@ export MS_ROLE=MS_WORKER              # The role of this process: MS_SCHED repre
 >
 > <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training>。
 
-相比OpenMPI方式启动，此模式需要调用[PS模式](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/apply_parameter_server_training.html)中的`set_ps_context`接口，告诉MindSpore此次任务使用了PS模式训练架构:
+相比OpenMPI方式启动，此模式需要调用[Parameter Server模式](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/apply_parameter_server_training.html)中的`set_ps_context`接口，告诉MindSpore此次任务使用了PS模式训练架构:
 
 ```python
 from mindspore import context
@@ -461,7 +461,7 @@ if __name__ == "__main__":
 - 默认情况下，安全加密通道是关闭的，需要通过`set_ps_context`正确配置安全加密通道或者关闭安全加密通道后，才能调用init("nccl")，否则初始化组网会失败。
 
 若想使用安全加密通道，请设置`context.set_ps_context(config_file_path="/path/to/config_file.json", enable_ssl=True, client_password="123456", server_password="123456")`
-等配置，详细参数配置说明请参考Python API `mindspore.context.set_ps_context`，以及本文档`安全认证`章节。
+等配置，详细参数配置说明请参考Python API [mindspore.context.set_ps_context](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.context.html#mindspore.context.set_ps_context)，以及本文档[安全认证](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_gpu.html#id17)章节。
 
 脚本内容`run_gpu_cluster.sh`如下，在启动Worker和Scheduler之前，需要添加相关环境变量设置：
 
