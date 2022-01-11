@@ -6,4 +6,4 @@
 <source id="mp47" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/MindInsight%E6%A8%A1%E5%9E%8B%E8%A7%A3%E9%87%8A.mp4" type="video/mp4">
 </video>
 
-**查看更多内容**：<https://www.mindspore.cn/mindinsight/docs/zh-CN/master/model_explanation.html>
+**查看更多内容**：<https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.6/model_explanation.html>

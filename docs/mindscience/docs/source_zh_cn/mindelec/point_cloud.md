@@ -1,6 +1,6 @@
 # 基于点云方案的AI电磁仿真
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindscience/docs/source_zh_cn/mindelec/point_cloud.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindscience/docs/source_zh_cn/mindelec/point_cloud.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述
 
@@ -9,7 +9,7 @@
 传统电磁仿真计算通常使用基于有限元或有限差分的方法计算电磁场，这些方法需要复杂的网格剖分与迭代计算，整体流程耗时长，影响产品研发效率。MindElec提供一种新的电磁场端到端AI计算方法，该方法基于点云数据，跳过网格剖分与迭代求解，直接计算仿真区域内电磁场，大幅提升整体仿真速度，助力产品高效研发。
 
 > 本例面向Ascend 910 AI处理器，你可以在这里下载完整的样例代码：
-> <https://gitee.com/mindspore/mindscience/tree/master/MindElec/examples/data_driven/pointcloud>
+> <https://gitee.com/mindspore/mindscience/tree/r0.5/MindElec/examples/data_driven/pointcloud>
 
 ## 整体流程
 

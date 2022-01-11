@@ -2,7 +2,7 @@
 
 `Linux` `模型混淆` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/obfuscator_tool.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/lite/docs/source_zh_cn/use/obfuscator_tool.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -14,7 +14,7 @@ MindSpore Lite提供一个轻量级的离线模型混淆工具，可用于保护
 
 使用MindSpore Lite模型混淆工具，需要进行如下环境准备工作。
 
-- 参考构建文档中的[环境要求](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html#id1)和[编译示例](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html#id3)编译x86_64版本。
+- 参考构建文档中的[环境要求](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/build.html#id1)和[编译示例](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/build.html#id3)编译x86_64版本。
 
 ### 目录结构
 

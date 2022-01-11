@@ -1,6 +1,6 @@
 ﻿# Function Differences with torch.cuda.set_device
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/cuda.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/cuda.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## torch.Tensor.cuda
 
@@ -16,7 +16,7 @@ For more information, see [torch.Tensor.cuda](https://pytorch.org/docs/1.5.0/ten
 mindspore.context.set_context(**kwargs)
 ```
 
-For more information, see [mindspore.context.set_context](https://mindspore.cn/docs/api/en/master/api_python/mindspore.context.html#mindspore.context.set_context).
+For more information, see [mindspore.context.set_context](https://mindspore.cn/docs/api/en/r1.6/api_python/mindspore.context.html#mindspore.context.set_context).
 
 ## Differences
 

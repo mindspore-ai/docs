@@ -1,6 +1,6 @@
 # 比较与torch.nn.TransformerEncoder的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_zh_cn/api_mapping/pytorch_diff/TransformerEncoder.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_zh_cn/api_mapping/pytorch_diff/TransformerEncoder.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## torch.nn.TransformerEncoder
 
@@ -18,7 +18,7 @@ class mindspore.nn.transformer.TransformerEncoder(batch_size, num_layers, hidden
 )
 ```
 
-更多内容详见[mindspore.nn.transformer.TransformerEncoder](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.nn.transformer.html#mindspore.nn.transformer.TransformerEncoder)。
+更多内容详见[mindspore.nn.transformer.TransformerEncoder](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/mindspore.nn.transformer.html#mindspore.nn.transformer.TransformerEncoder)。
 
 ## 使用方式
 

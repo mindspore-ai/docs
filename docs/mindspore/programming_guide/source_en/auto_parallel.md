@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `Distributed Parallel`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/auto_parallel.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_en/auto_parallel.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -70,7 +70,7 @@ context.get_auto_parallel_context("gradients_mean")
 - `semi_auto_parallel`: semi-automatic parallel mode. In this mode, you can use the `shard` method to configure a segmentation policy for an operator. If no policy is configured, the data parallel policy is used by default.
 - `auto_parallel`: automatic parallel mode. In this mode, the framework automatically creates a cost model and selects the optimal segmentation policy for users.
 
-The complete examples of `auto_parallel` and `data_parallel` are provided in [Distributed Training](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training.html).
+The complete examples of `auto_parallel` and `data_parallel` are provided in [Distributed Training](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/distributed_training.html).
 
 The following is a code example:
 
@@ -196,7 +196,7 @@ context.get_auto_parallel_context("gradient_fp32_sync")
 `auto_parallel_search_mode` is replaced by `search_mode`. `auto_parallel_search_mode` will be deleted in the future MindSpore version. This attribute indicates the algorithm chosen for searching op-level parallelism: `dynamic_programming`, `recursive_programming`, and `sharding_propagation`.
 
 `dynamic_programming` can search for the optimal policy depicted by the cost model, but it takes a long time to search on a huge network model.
-`recursive_programming` can quickly search out parallel policies, but the found policies may not have the optimal running performance. `shardin_propagation` requires users to configure sharding strategies for some operators, and the algorithm will then propagate the strategies from configured ops to non-configured ops, with the goal of minimizing [tensor redistribution](https://www.mindspore.cn/docs/programming_guide/en/master/design/distributed_training_design.html#id10) communication. MindSpore allows users to select a search algorithm. The default value is `dynamic_programming`.
+`recursive_programming` can quickly search out parallel policies, but the found policies may not have the optimal running performance. `shardin_propagation` requires users to configure sharding strategies for some operators, and the algorithm will then propagate the strategies from configured ops to non-configured ops, with the goal of minimizing [tensor redistribution](https://www.mindspore.cn/docs/programming_guide/en/r1.6/design/distributed_training_design.html#id10) communication. MindSpore allows users to select a search algorithm. The default value is `dynamic_programming`.
 
 The following is a code example:
 
@@ -295,7 +295,7 @@ context.set_context(device_target='GPU')
 init()
 ```
 
-> Under the GPU processor platform, MindSpore also supports starting distributed training without relying on 'OpenMPI', and also uses this interface for distributed training initialization. For specific usage, please refer to [not using OpenMPI training](https://www.mindspore.cn/docs/programming_guide/en/master/distributed_training_gpu.html#openmpi). In this case, when the user does not use 'mpirun' to start the process, but still calls the 'init()' method, MindSpore requires the user to follow [not using OpenMPI training](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_gpu.html#openmpi) to configure several environment variables. If not configured, MindSpore will give a reasonable error prompt. Therefore, it is recommended to call this method only when executing distributed training, and when trying to start distributed training without using 'mpirun', please configure the correct environment variables according to the document.
+> Under the GPU processor platform, MindSpore also supports starting distributed training without relying on 'OpenMPI', and also uses this interface for distributed training initialization. For specific usage, please refer to [not using OpenMPI training](https://www.mindspore.cn/docs/programming_guide/en/r1.6/distributed_training_gpu.html#openmpi). In this case, when the user does not use 'mpirun' to start the process, but still calls the 'init()' method, MindSpore requires the user to follow [not using OpenMPI training](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/distributed_training_gpu.html#openmpi) to configure several environment variables. If not configured, MindSpore will give a reasonable error prompt. Therefore, it is recommended to call this method only when executing distributed training, and when trying to start distributed training without using 'mpirun', please configure the correct environment variables according to the document.
 
 ### get_group_size
 

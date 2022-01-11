@@ -1,6 +1,6 @@
 # MindSPONGE Introduction and Installation
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindscience/docs/source_en/mindsponge/intro_and_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindscience/docs/source_en/mindsponge/intro_and_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## MindSPONGE Overview
 
@@ -12,7 +12,7 @@ MindSPONGE is molecular simulation library jointly developed by the `Gao Yiqin` 
 
 This tutorial mainly introduces how to use SPONGE, which is built in MindSpore, to perform high performance molecular simulation on the GPU.
 
-> Here you can download the complete sample code: <https://gitee.com/mindspore/mindscience/tree/master/MindSPONGE/examples>.
+> Here you can download the complete sample code: <https://gitee.com/mindspore/mindscience/tree/r0.5/MindSPONGE/examples>.
 
 In the future, MindSPONGE will implement more simulation cases, and your contribution is welcome.
 
@@ -37,7 +37,7 @@ pip install mindspore-gpu
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{ms_version}/mindscience/x86_64/mindscience_mindsponge_gpu-{msp_version}-py3-none-any.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-> - When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about other dependency items, see [setup.py](https://gitee.com/mindspore/mindscience/blob/master/MindSPONGE/setup.py)). In other cases, you need to manually install dependency items.
+> - When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about other dependency items, see [setup.py](https://gitee.com/mindspore/mindscience/blob/r0.5/MindSPONGE/setup.py)). In other cases, you need to manually install dependency items.
 > - `{ms_version}` refers to the MindSpore version that matches with MindSPONGE. For example, if you want to install MindSPONGE 0.1.0, then,`{ms_version}` should be 1.5.0。
 > - `{msp_version}` refers to the version of MindSPONGE. For example, when you are downloading MindSPONGE 0.1.0, `{msp_version}` should be 0.1.0.
 

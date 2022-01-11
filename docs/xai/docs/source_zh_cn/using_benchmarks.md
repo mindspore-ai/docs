@@ -1,6 +1,6 @@
 # 使用度量方法
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_zh_cn/using_benchmarks.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/xai/docs/source_zh_cn/using_benchmarks.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## 什么是度量方法
 
@@ -8,9 +8,9 @@
 
 ## 准备
 
-以下教程参考了 [using_benchmarks.py](https://gitee.com/mindspore/xai/blob/master/examples/using_benchmarks.py) 。
+以下教程参考了 [using_benchmarks.py](https://gitee.com/mindspore/xai/blob/r1.6/examples/using_benchmarks.py) 。
 
-请参阅 [下载教程数据集及模型](https://www.mindspore.cn/xai/docs/zh-CN/master/using_explainers.html#id4) 以下载所有本教程所需的文件。
+请参阅 [下载教程数据集及模型](https://www.mindspore.cn/xai/docs/zh-CN/r1.6/using_explainers.html#id4) 以下载所有本教程所需的文件。
 
 下载教程数据集及模型后，我们要加载一张样本图片，一个训练好的分类器，一个解释器和一张热力图(可选)：
 

@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `Beginner` `Data Preparation`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/dataset.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/tutorials/source_en/dataset.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 MindSpore provides APIs for loading common datasets and datasets in standard formats. You can directly use the corresponding dataset loading class in mindspore.dataset to load data. The dataset class provides common data processing APIs for users to quickly process data.
 
@@ -58,7 +58,7 @@ The directory structure of the CIFAR-10 dataset file is as follows:
 └── test_batch.bin
 ```
 
-Refer to [Quick Start](https://www.mindspore.cn/tutorials/en/master/quick_start.html#downloading-the-dataset) for the directory structure of MINIST dataset files.
+Refer to [Quick Start](https://www.mindspore.cn/tutorials/en/r1.6/quick_start.html#downloading-the-dataset) for the directory structure of MINIST dataset files.
 
 ## Loading the Dataset
 
@@ -249,4 +249,4 @@ plt.show()
 
 ![png](./images/output_17_0.PNG)
 
-For more information, see [Data augmentation](https://www.mindspore.cn/docs/programming_guide/en/master/augmentation.html).
+For more information, see [Data augmentation](https://www.mindspore.cn/docs/programming_guide/en/r1.6/augmentation.html).

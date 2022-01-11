@@ -1,6 +1,6 @@
 # Using Performance Profiling Tool
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/performance_optimization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_en/performance_optimization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 Profiler provides performance tuning ability for MindSpore, and provides easy-to-use and rich debugging functions in operator performance, data processing performance, etc., helping users quickly locate and solve performance problems.
 
@@ -10,11 +10,11 @@ This chapter introduces the common methods and cases of performance tuning in ne
 
 Please refer to the tutorials for the function introduction and instructions of MindSpore Profiler.
 
-[Performance Profiling（Ascend）](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html)
+[Performance Profiling（Ascend）](https://www.mindspore.cn/mindinsight/docs/en/r1.6/performance_profiling_ascend.html)
 
-[Performance Profiling（GPU）](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_gpu.html)
+[Performance Profiling（GPU）](https://www.mindspore.cn/mindinsight/docs/en/r1.6/performance_profiling_gpu.html)
 
-[Cluster Performance Profiling (Ascend)](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend_of_cluster.html)
+[Cluster Performance Profiling (Ascend)](https://www.mindspore.cn/mindinsight/docs/en/r1.6/performance_profiling_ascend_of_cluster.html)
 
 This section will introduce the common use of MindSpore Profiler through three typical cases.
 
@@ -42,7 +42,7 @@ Switch to the ```Data Processing``` tab to find which operator is slower.
 By observing the ```Queue relationship between operators```, we find that the average usage of ```Queue_3``` is relatively inefficient.
 
 Therefore, it can be determined that we can adjust the corresponding dataset operators, ```MapOp_3```, to achieve better performance.
-We can refer to [Optimizing the Data Processing](https://www.mindspore.cn/docs/programming_guide/en/master/optimize_data_processing.html ) to adjust dataset operators to improve dataset performance.
+We can refer to [Optimizing the Data Processing](https://www.mindspore.cn/docs/programming_guide/en/r1.6/optimize_data_processing.html ) to adjust dataset operators to improve dataset performance.
 
 We observe that the ```num_parallel_workers``` parameter of map operator is 1(default value) in ResNet50 training script, code is shown below:
 
@@ -95,7 +95,7 @@ From the details page of ```Operator Time Consumption Ranking``` we find that ``
 *Figure 6: Finding operators that can be optimized via the details page of Operator Time Consumption Ranking*
 
 Usually float16 type can be used to improve operator performance if there is no difference in accuracy between float16 and float32 type. We can refer to
-[Enabling Mixed Precision](https://www.mindspore.cn/docs/programming_guide/en/master/enable_mixed_precision.html ) to improve operators performance.
+[Enabling Mixed Precision](https://www.mindspore.cn/docs/programming_guide/en/r1.6/enable_mixed_precision.html ) to improve operators performance.
 
 Optimization code is shown below:
 

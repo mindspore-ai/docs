@@ -2,7 +2,7 @@
 
 `Ascend` `端侧` `入门` `推理应用`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/tutorials/source_zh_cn/inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 本节是初级教程的最后一节，为了更好地适配不同推理设备，因此推理分为 1）昇腾AI处理器推理和 2）移动设备推理。
 
@@ -12,7 +12,7 @@
 
 ### 推理代码介绍
 
-首先创建目录放置推理代码工程，例如`/home/HwHiAiUser/mindspore_sample/ascend910_resnet50_preprocess_sample`，可以从官网示例下载[样例代码](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/ascend910_resnet50_preprocess_sample)，`model`目录用于存放[MindIR模型文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet.mindir)，`test_data`目录用于存放待分类的图片，待分类图片可以从[ImageNet2012](http://image-net.org/download-images)验证集中选取，推理代码工程目录结构如下：
+首先创建目录放置推理代码工程，例如`/home/HwHiAiUser/mindspore_sample/ascend910_resnet50_preprocess_sample`，可以从官网示例下载[样例代码](https://gitee.com/mindspore/docs/tree/r1.6/docs/sample_code/ascend910_resnet50_preprocess_sample)，`model`目录用于存放[MindIR模型文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet.mindir)，`test_data`目录用于存放待分类的图片，待分类图片可以从[ImageNet2012](http://image-net.org/download-images)验证集中选取，推理代码工程目录结构如下：
 
 ```text
 └─ascend910_resnet50_preprocess_sample
@@ -141,13 +141,13 @@ target_link_libraries(resnet50_sample ${MS_LIB} ${MD_LIB})
 ```
 
 >详细样例请参考：
-><https://gitee.com/mindspore/docs/blob/master/docs/sample_code/ascend910_resnet50_preprocess_sample/CMakeLists.txt>
+><https://gitee.com/mindspore/docs/blob/r1.6/docs/sample_code/ascend910_resnet50_preprocess_sample/CMakeLists.txt>
 
 ### 编译推理代码
 
 接下来编译推理的代码，首先要进入工程目录`ascend910_resnet50_preprocess_sample`，设置如下环境变量：
 
-> 如果是Ascend 310设备，则进入工程目录`ascend310_resnet50_preprocess_sample`，以下代码均用Ascend 910为例。此外，在Ascend 310平台上MindSpore正在支持将数据处理导出至MindIR，并在推理阶段一键完成数据预处理+模型推理，如果你感兴趣可以参阅[详细指导](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/multi_platform_inference_ascend_310_mindir.html)。
+> 如果是Ascend 310设备，则进入工程目录`ascend310_resnet50_preprocess_sample`，以下代码均用Ascend 910为例。此外，在Ascend 310平台上MindSpore正在支持将数据处理导出至MindIR，并在推理阶段一键完成数据预处理+模型推理，如果你感兴趣可以参阅[详细指导](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/multi_platform_inference_ascend_310_mindir.html)。
 
 ```bash
 # 控制log的打印级别. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, 默认是WARNING级别.
@@ -209,7 +209,7 @@ MindSpore Lite是端边云全场景AI框架MindSpore的端侧部分，可以在�
 
 在本环节中，提供了运行在Windows和Linux操作系统下，基于C++ API编写的Demo，帮助用户熟悉端侧推理流程。Demo通过随机生成的数据作为输入数据，执行MobileNetV2模型的推理，直接在电脑中打印获得输出数据。
 
-> 运行在手机中的完整实例可以参考官网示例：[基于JNI接口的Android应用开发]( https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/quick_start.html)。
+> 运行在手机中的完整实例可以参考官网示例：[基于JNI接口的Android应用开发]( https://www.mindspore.cn/lite/docs/zh-CN/r1.6/quick_start/quick_start.html)。
 
 ### 模型转换
 
@@ -219,11 +219,11 @@ MindSpore Lite是端边云全场景AI框架MindSpore的端侧部分，可以在�
 
 > 本小节展开说明了转换的操作过程，仅实现Demo运行可跳过本小节。
 >
-> 本小节仅针对Demo所用模型，详细的转换工具使用说明请参考官网[推理模型转换](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html#)章节。
+> 本小节仅针对Demo所用模型，详细的转换工具使用说明请参考官网[推理模型转换](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/converter_tool.html#)章节。
 
 - 转换工具下载
 
-  根据所使用的操作系统，下载转换工具的[压缩包](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)并解压至本地目录，获得`converter`工具，并配置环境变量。
+  根据所使用的操作系统，下载转换工具的[压缩包](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/downloads.html)并解压至本地目录，获得`converter`工具，并配置环境变量。
 
 - 转换工具使用
 
@@ -251,7 +251,7 @@ MindSpore Lite是端边云全场景AI框架MindSpore的端侧部分，可以在�
 
 #### Linux系统构建与运行
 
-- 编译构建，环境要求请参考[编译MindSpore Lite](https://mindspore.cn/lite/docs/zh-CN/master/use/build.html#id1) 。
+- 编译构建，环境要求请参考[编译MindSpore Lite](https://mindspore.cn/lite/docs/zh-CN/r1.6/use/build.html#id1) 。
 
   在`mindspore/lite/examples/quick_start_cpp`目录下执行build脚本，将能够自动下载相关文件并编译Demo。
 
@@ -276,9 +276,9 @@ MindSpore Lite是端边云全场景AI框架MindSpore的端侧部分，可以在�
 
 #### Windows系统构建与运行
 
-- 编译构建，环境要求请参考[编译MindSpore Lite](https://mindspore.cn/lite/docs/zh-CN/master/use/build.html#id6) 。
+- 编译构建，环境要求请参考[编译MindSpore Lite](https://mindspore.cn/lite/docs/zh-CN/r1.6/use/build.html#id6) 。
 
-    - 库下载：请手动下载硬件平台为CPU、操作系统为Windows-x64的MindSpore Lite模型推理框架[mindspore-lite-{version}-win-x64.zip](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，将解压后`inference/lib`目录下的`libmindspore-lite.a`拷贝到`mindspore/lite/examples/quick_start_cpp/lib`目录、`inference/include`目录拷贝到`mindspore/lite/examples/quick_start_cpp/include`目录。
+    - 库下载：请手动下载硬件平台为CPU、操作系统为Windows-x64的MindSpore Lite模型推理框架[mindspore-lite-{version}-win-x64.zip](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/downloads.html)，将解压后`inference/lib`目录下的`libmindspore-lite.a`拷贝到`mindspore/lite/examples/quick_start_cpp/lib`目录、`inference/include`目录拷贝到`mindspore/lite/examples/quick_start_cpp/include`目录。
 
     - 模型下载：请手动下载相关模型文件[mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/1.5/mobilenetv2.ms)，并将其拷贝到`mindspore/lite/examples/quick_start_cpp/model`目录。
 
@@ -343,7 +343,7 @@ device_list.push_back(device_info);
 
 #### 模型创建加载与编译
 
-模型加载与编译可以调用[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)的复合[Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build)接口，直接从文件缓存加载、编译得到运行时的模型。
+模型加载与编译可以调用[Model](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_cpp/mindspore.html#model)的复合[Build](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_cpp/mindspore.html#build)接口，直接从文件缓存加载、编译得到运行时的模型。
 
 ```c++
 // Create model
@@ -361,7 +361,7 @@ if (build_ret != mindspore::kSuccess) {
 }
 ```
 
-也可以分别调用[Serialization](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#serialization)的[Load](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#load)接口去加载模型得到[Graph](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#graph)，调用[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)的[Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build)去构建模型。
+也可以分别调用[Serialization](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_cpp/mindspore.html#serialization)的[Load](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_cpp/mindspore.html#load)接口去加载模型得到[Graph](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_cpp/mindspore.html#graph)，调用[Model](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_cpp/mindspore.html#model)的[Build](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_cpp/mindspore.html#build)去构建模型。
 
 ```c++
 // Load graph.

@@ -1,6 +1,6 @@
 # 集群性能调试（Ascend）
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/performance_profiling_ascend_of_cluster.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindinsight/docs/source_zh_cn/performance_profiling_ascend_of_cluster.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -15,7 +15,7 @@
 
 ## 分布式训练
 
-分布式训练请参考[分布式训练教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_ascend.html)。
+分布式训练请参考[分布式训练教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/distributed_training_ascend.html)。
 
 ## 收集集群性能数据
 
@@ -184,11 +184,11 @@ done
         |       |-- step_trace_raw_0_detail_time.csv
 ```
 
-通过数据转换脚本，可以将用户使用MindInsight r1.3以及之前的版本创建的集群性能目录转换为当前支持的集群性能目录。可以从官网下载[集群目录转换脚本](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/transform_cluster_profiler_data.py)。
+通过数据转换脚本，可以将用户使用MindInsight r1.3以及之前的版本创建的集群性能目录转换为当前支持的集群性能目录。可以从官网下载[集群目录转换脚本](https://gitee.com/mindspore/docs/blob/r1.6/docs/sample_code/transform_cluster_profiler_data.py)。
 
 ## 启动MindInsight
 
-启动命令请参考[MindInsight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_commands.html)。
+启动命令请参考[MindInsight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.6/mindinsight_commands.html)。
 
 ## 训练性能
 
@@ -219,7 +219,7 @@ done
 
 *图3：单卡性能信息*
 
-图3展示集群中单卡性能信息，单卡性能信息请参考[单卡性能信息](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html)。
+图3展示集群中单卡性能信息，单卡性能信息请参考[单卡性能信息](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.6/performance_profiling_ascend.html)。
 
 ### 集群通信与计算重叠时间分析
 
@@ -378,7 +378,7 @@ pip install /usr/local/Ascend/tools/hccl_parser-{version}-py3-none-any.whl
 
   > 控制step数目可以通过控制训练数据集的大小来实现，如`mindspore.dataset.MindDataset`类中的`num_samples`参数可以控制数据集大小，详情参考：
   >
-  > <https://www.mindspore.cn/docs/api/zh-CN/master/api_python/dataset/mindspore.dataset.MindDataset.html>
+  > <https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/dataset/mindspore.dataset.MindDataset.html>
 
 ## 注意事项
 

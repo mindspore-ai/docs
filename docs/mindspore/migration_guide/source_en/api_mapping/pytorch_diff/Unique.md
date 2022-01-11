@@ -1,6 +1,6 @@
 # Function Differences with torch.unique
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/Unique.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/Unique.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## torch.unique
 
@@ -22,7 +22,7 @@ For more information, see [torch.unique](https://pytorch.org/docs/1.5.0/torch.ht
 class mindspore.ops.Unique(*args, **kwargs)(x)
 ```
 
-For more information, see [mindspore.ops.Unique](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Unique.html#mindspore.ops.Unique).
+For more information, see [mindspore.ops.Unique](https://mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.Unique.html#mindspore.ops.Unique).
 
 ## Differences
 

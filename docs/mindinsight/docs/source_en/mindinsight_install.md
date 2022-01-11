@@ -1,6 +1,6 @@
 # MindInsight Installation
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/mindinsight_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindinsight/docs/source_en/mindinsight_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## System Environment Information Confirmation
 
@@ -12,7 +12,7 @@
 - If you use source code to compile and install, the following dependencies also need to be installed:
     - Confirm that [node.js](https://nodejs.org/en/download/) 10.19.0 or later is installed.
     - Confirm that [wheel](https://pypi.org/project/wheel/) 0.32.0 or later is installed.
-- All other dependencies are included in [requirements.txt](https://gitee.com/mindspore/mindinsight/blob/master/requirements.txt).
+- All other dependencies are included in [requirements.txt](https://gitee.com/mindspore/mindinsight/blob/r1.6/requirements.txt).
 
 ## Installation Methods
 
@@ -32,7 +32,7 @@ Install with customized version:
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindInsight/any/mindinsight-{version}-py3-none-any.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-> - When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindinsight/blob/master/requirements.txt)). In other cases, you need to manually install dependency items.
+> - When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindinsight/blob/r1.6/requirements.txt)). In other cases, you need to manually install dependency items.
 > - `{version}` denotes the version of MindInsight. For example, when you are downloading MindInsight 1.3.0, `{version}` should be 1.3.0.
 > - MindInsight supports only Linux distro with x86 architecture 64-bit or ARM architecture 64-bit.
 

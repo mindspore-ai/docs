@@ -1,6 +1,6 @@
 # Improving Model Security with NAD Algorithm
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_en/improve_model_security_nad.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindarmour/docs/source_en/improve_model_security_nad.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -15,7 +15,7 @@ At the beginning of AI algorithm design, related security threats are sometimes 
 This section describes how to use MindArmour in adversarial attack and defense by taking the Fast Gradient Sign Method (FGSM) attack algorithm and Natural Adversarial Defense (NAD) algorithm as examples.
 
 > The current sample is for CPU, GPU and Ascend 910 AI processor. You can find the complete executable sample code at
-> <https://gitee.com/mindspore/mindarmour/blob/master/examples/model_security/model_defenses/mnist_defense_nad.py>
+> <https://gitee.com/mindspore/mindarmour/blob/r1.6/examples/model_security/model_defenses/mnist_defense_nad.py>
 
 ## Creating an Target Model
 

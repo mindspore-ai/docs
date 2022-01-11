@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `Beginner` `Model Export` `Model Loading`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/save_load_model.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/tutorials/source_en/save_load_model.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 In the previous tutorial, you learn how to train the network. In this tutorial, you will learn how to save and load a model, and how to export a saved model in a specified format to different platforms for inference.
 
@@ -25,7 +25,7 @@ import mindspore as ms
 ms.save_checkpoint(net, "./MyNet.ckpt")
 ```
 
-Here, `net` is the training network, and the definition method can be referred to [Building a Neural Network](https://www.mindspore.cn/tutorials/en/master/model.html).
+Here, `net` is the training network, and the definition method can be referred to [Building a Neural Network](https://www.mindspore.cn/tutorials/en/r1.6/model.html).
 
 ### Saving the Model During Training
 
@@ -38,7 +38,7 @@ ckpt_cb = ModelCheckpoint()
 model.train(epoch_num, dataset, callbacks=ckpt_cb)
 ```
 
-Here, `epoch_num` is the number of times that the dataset is traversed during training. The definition method can be referred to [Training the Model](https://www.mindspore.cn/tutorials/en/master/optimization.html). `dataset` is the dataset to be loaded. The definition method can be referred to [Loading and Processing Data](https://www.mindspore.cn/tutorials/en/master/dataset.html).
+Here, `epoch_num` is the number of times that the dataset is traversed during training. The definition method can be referred to [Training the Model](https://www.mindspore.cn/tutorials/en/r1.6/optimization.html). `dataset` is the dataset to be loaded. The definition method can be referred to [Loading and Processing Data](https://www.mindspore.cn/tutorials/en/r1.6/dataset.html).
 
 You can configure the checkpoint policies as required. The following describes the usage:
 

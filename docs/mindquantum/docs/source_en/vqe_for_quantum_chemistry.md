@@ -1,6 +1,6 @@
 # VQE Application in Quantum Chemistry Computing
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindquantum/docs/source_en/vqe_for_quantum_chemistry.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindquantum/docs/source_en/vqe_for_quantum_chemistry.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -15,7 +15,7 @@ This tutorial consists of the following parts:
 3. Using MindQuantum to perform VQE simulation with efficient and automatic derivation
 
 > This document applies to the CPU environment.
-> You can obtain the complete executable sample code at <https://gitee.com/mindspore/mindquantum/blob/master/tutorials/source/7.vqe_for_quantum_chemistry.py>.
+> You can obtain the complete executable sample code at <https://gitee.com/mindspore/mindquantum/blob/r0.5/tutorials/source/7.vqe_for_quantum_chemistry.py>.
 
 ## Environment Preparation
 

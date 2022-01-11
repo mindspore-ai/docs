@@ -1,6 +1,6 @@
 # Model Encryption Protection
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_en/model_encrypt_protection.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindarmour/docs/source_en/model_encrypt_protection.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
 ## Overview
 
@@ -9,7 +9,7 @@ Currently, the encryption solution protects checkpoint and MindIR model files on
 
 The following uses an example to describe how to encrypt, export, decrypt, and load data.
 
-> Download address of the complete sample code: <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/model_encrypt_protection/encrypt_checkpoint.py>
+> Download address of the complete sample code: <https://gitee.com/mindspore/docs/blob/r1.6/docs/sample_code/model_encrypt_protection/encrypt_checkpoint.py>
 
 ## Safely Exporting a Checkpoint File
 
@@ -78,7 +78,7 @@ from mindspore import load
 graph = load('lenet_enc.mindir', dec_key=b'0123456789ABCDEF', dec_mode='AES-GCM')
 ```
 
-For C++ scripts, MindSpore also provides the `Load` API to load MindIR models. For details about the API definition, see [MindSpore API](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html?highlight=load).
+For C++ scripts, MindSpore also provides the `Load` API to load MindIR models. For details about the API definition, see [MindSpore API](https://www.mindspore.cn/lite/api/en/r1.6/api_cpp/mindspore.html?highlight=load).
 
 When loading a ciphertext model, you can specify `dec_key` and `dec_mode` to decrypt the model.
 

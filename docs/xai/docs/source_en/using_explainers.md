@@ -1,6 +1,6 @@
 # Using Explainers
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_en/using_explainers.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/xai/docs/source_en/using_explainers.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## What are Explainers
 
@@ -67,7 +67,7 @@ xai/examples/
 
 ### Preparing Python Environment
 
-The tutorial below is referencing [using_explainers.py](https://gitee.com/mindspore/xai/blob/master/examples/using_explainers.py).
+The tutorial below is referencing [using_explainers.py](https://gitee.com/mindspore/xai/blob/r1.6/examples/using_explainers.py).
 
 In order to explain an image classification predication, we have to have a trained CNN network (`nn.Cell`) and an image to be examined:
 
@@ -132,7 +132,7 @@ The ways of using other explainers are very similar to `GradCAM`, except `RISEPl
 
 ## Using RISEPlus
 
-The tutorial below is referencing [using_rise_plus.py](https://gitee.com/mindspore/xai/blob/master/examples/using_rise_plus.py).
+The tutorial below is referencing [using_rise_plus.py](https://gitee.com/mindspore/xai/blob/r1.6/examples/using_rise_plus.py).
 
 `RISEPlus` is based on `RISE` with an introduction of Out-of-Distribution(OoD) detector. It solves the degeneration problem of `RISE` on samples that the classifier had never seem the similar in training.
 

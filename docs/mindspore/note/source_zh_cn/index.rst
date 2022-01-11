@@ -17,7 +17,7 @@ MindSpore规格和说明
    syntax_list
    env_var_list
 
-API映射已迁移至 https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping.html。
+API映射已迁移至 https://www.mindspore.cn/docs/migration_guide/zh-CN/r1.6/api_mapping.html。
 
 .. toctree::
    :glob:

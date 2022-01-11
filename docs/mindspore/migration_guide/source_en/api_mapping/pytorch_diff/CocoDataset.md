@@ -1,6 +1,6 @@
 ﻿# Function differences with torch.torchvision.datasets.CocoDetection
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/CocoDataset.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/CocoDataset.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## torchvision.datasets.CocoDetection
 
@@ -35,7 +35,7 @@ class mindspore.dataset.CocoDataset(
     )
 ```
 
-For more information, see [mindspore.dataset.CocoDataset](https://mindspore.cn/docs/api/en/master/api_python/dataset/mindspore.dataset.CocoDataset.html#mindspore.dataset.CocoDataset).
+For more information, see [mindspore.dataset.CocoDataset](https://mindspore.cn/docs/api/en/r1.6/api_python/dataset/mindspore.dataset.CocoDataset.html#mindspore.dataset.CocoDataset).
 
 ## Differences
 

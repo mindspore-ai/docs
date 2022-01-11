@@ -1,6 +1,6 @@
 # SyncFLJob
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/api/source_en/java_api_syncfljob.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/federated/api/source_en/java_api_syncfljob.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ```java
 import com.mindspore.flclient.SyncFLJob
@@ -23,7 +23,7 @@ SyncFLJob defines the API flJobRun() for starting federated learning on the devi
 public FLClientStatus flJobRun()
 ```
 
-Starts a federated learning task on the device, for specific usage, please refer to the [interface introduction document](https://www.mindspore.cn/federated/api/en/master/interface_description_federated_client.html).
+Starts a federated learning task on the device, for specific usage, please refer to the [interface introduction document](https://www.mindspore.cn/federated/docsen/r1.6/interface_description_federated_client.html).
 
 - Return value
 
@@ -35,7 +35,7 @@ Starts a federated learning task on the device, for specific usage, please refer
 public int[] modelInference()
 ```
 
-Starts an inference task on the device, for specific usage, please refer to the [interface introduction document](https://www.mindspore.cn/federated/api/en/master/interface_description_federated_client.html).
+Starts an inference task on the device, for specific usage, please refer to the [interface introduction document](https://www.mindspore.cn/federated/docsen/r1.6/interface_description_federated_client.html).
 
 - Return value
 
@@ -47,7 +47,7 @@ Starts an inference task on the device, for specific usage, please refer to the 
 public FLClientStatus getModel()
 ```
 
-Obtains the latest model on the cloud, for specific usage, please refer to the [interface introduction document](https://www.mindspore.cn/federated/api/en/master/interface_description_federated_client.html).
+Obtains the latest model on the cloud, for specific usage, please refer to the [interface introduction document](https://www.mindspore.cn/federated/docsen/r1.6/interface_description_federated_client.html).
 
 - Return value
 

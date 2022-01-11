@@ -1,6 +1,6 @@
 ﻿# 比较与torch.broadcast_tensors的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_zh_cn/api_mapping/pytorch_diff/BroadcastTo.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_zh_cn/api_mapping/pytorch_diff/BroadcastTo.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## torch.broadcast_tensors
 
@@ -18,7 +18,7 @@ torch.broadcast_tensors(
 class mindspore.ops.BroadcastTo(shape)(input_x)
 ```
 
-更多内容详见[mindspore.ops.BroadcastTo](https://mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.BroadcastTo.html#mindspore.ops.BroadcastTo)。
+更多内容详见[mindspore.ops.BroadcastTo](https://mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.BroadcastTo.html#mindspore.ops.BroadcastTo)。
 
 ## 使用方式
 

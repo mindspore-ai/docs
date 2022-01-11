@@ -1,6 +1,6 @@
 # Deep Q Learning (DQN) with MindSpore Reinforcement
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/reinforcement/docs/source_en/dqn.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/reinforcement/docs/source_en/dqn.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## summary
 
@@ -10,7 +10,7 @@ To implement an reinforcement learning algorithm with MindSpore Reinforcement, a
 - implement the algorithm based on an actor-learner-environment abstraction;
 - create a session object that executes the implemented algorithm.
 
-This tutorial shows the use of the MindSpore Reinforcement API to implement the Deep Q Learning (DQN) algorithm. Note that, for clarity and readability, only API-related code sections are presented, and irrelevant code is omitted. The source code of the full DQN implementation for MindSpore Reinforcement can be found [here](https://gitee.com/mindspore/reinforcement/tree/master/example/dqn).
+This tutorial shows the use of the MindSpore Reinforcement API to implement the Deep Q Learning (DQN) algorithm. Note that, for clarity and readability, only API-related code sections are presented, and irrelevant code is omitted. The source code of the full DQN implementation for MindSpore Reinforcement can be found [here](https://gitee.com/mindspore/reinforcement/tree/r0.5/example/dqn).
 
 ## Specifying the Actor-Learner-Environment Abstraction for DQN
 
@@ -62,7 +62,7 @@ For the DQN algorithm, we configure one actor `'number': 1`, three behaviour pol
 
 The replay buffer's capacity is set to 100,000, and its sample size is 64. It stores data of a tensor type with shape `[(4,), (1,), (1,), (4,)]`. The second dimension has the type int32 and other dimensions are of the float32 type and. Both types are provided by MindSpore: `'type': [mindspore.float32, mindspore.int32, mindspore.float32, mindspore.float32]}`.
 
-Other components are defined in a similar way -- please refer to the  [complete DQN code example](https://gitee.com/mindspore/reinforcement/tree/master/example/dqn) and the [MindSpore Reinforcement API documentation](https://www.mindspore.cn/reinforcement/api/en/master/index.html) for more details.
+Other components are defined in a similar way -- please refer to the  [complete DQN code example](https://gitee.com/mindspore/reinforcement/tree/r0.5/example/dqn) and the [MindSpore Reinforcement API documentation](https://www.mindspore.cn/reinforcement/docs/en/r0.2/reinforcement.html) for more details.
 
 Note that MindSpore Reinforcement uses a single *policy* class to define all policies and neural networks used by the algorithm. In this way, it hides the complexity of data sharing and communication between policies and neural networks.
 
@@ -87,7 +87,7 @@ from mindspore import context
 context.set_context(mode=context.GRAPH_MODE)
 ```
 
-The `GRAPH_MODE` enables functions and methods that are annotated with `@ms_function` to be compiled into the [MindSpore computational graph](https://www.mindspore.cn/docs/programming_guide/en/master/api_structure.html) for auto-parallelisation and acceleration. In this tutorial, we use this feature to implement an efficient `DQNTrainer` class.
+The `GRAPH_MODE` enables functions and methods that are annotated with `@ms_function` to be compiled into the [MindSpore computational graph](https://www.mindspore.cn/docs/programming_guide/en/r1.6/api_structure.html) for auto-parallelisation and acceleration. In this tutorial, we use this feature to implement an efficient `DQNTrainer` class.
 
 ### Defining the DQNTrainer class
 
@@ -136,7 +136,7 @@ The `train_one_episode` method first calls the `msrl.agent_reset` function (prov
 
 The replay buffer class, `ReplayBuffer`, is provided by MindSpore Reinforcement. It defines `insert` and `sample` methods to store and sample the experience data in a replay buffer, respectively.
 
-The `init_training` and the `evaluation` methods are implemented analogously -- please refer to the [complete DQN code example](https://gitee.com/mindspore/reinforcement/tree/master/example/dqn) for details.
+The `init_training` and the `evaluation` methods are implemented analogously -- please refer to the [complete DQN code example](https://gitee.com/mindspore/reinforcement/tree/r0.5/example/dqn) for details.
 
 ### Defining the DQNPolicy class
 

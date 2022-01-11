@@ -1,6 +1,6 @@
 # Incremental Training for Solving a Family of Maxwell's Equation
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindscience/docs/source_en/mindelec/incremental_learning.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindscience/docs/source_en/mindelec/incremental_learning.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
 ## Overview
 
@@ -9,11 +9,11 @@ The Physics-Informed Neural Networks (PINNs) is unable to solve parametric Parti
 This tutorial focuses on how to use Physics-Informed Auto-Decoder (PIAD) based on the MindElec toolkit to solve the parametric Maxwell’s equations with incremental training, which reduces the training time significantly.
 
 > This current sample is for Ascend 910 AI processor. You can find the complete executable code at
-> <https://gitee.com/mindspore/mindscience/tree/master/MindElec/examples/physics_driven/incremental_learning>
+> <https://gitee.com/mindspore/mindscience/tree/r0.5/MindElec/examples/physics_driven/incremental_learning>
 
 ## Problem Description
 
-This tutorial deals with the generalization of the medium parameters for the point source Maxwell's equations. For the specific form of the governing equation, the domain and the configuration of the excitation source, please refer to the [tutorial of the point source Maxwell problem](https://www.mindspore.cn/mindscience/docs/en/master/mindelec/time_domain_maxwell.html).
+This tutorial deals with the generalization of the medium parameters for the point source Maxwell's equations. For the specific form of the governing equation, the domain and the configuration of the excitation source, please refer to the [tutorial of the point source Maxwell problem](https://www.mindspore.cn/mindscience/docs/en/r0.2/mindelec/time_domain_maxwell.html).
 
 ## Physics-Informed Auto-Decoder
 

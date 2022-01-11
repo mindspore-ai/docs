@@ -1,6 +1,6 @@
 # MSContext
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/api/source_en/api_java/mscontext.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/lite/api/source_en/api_java/mscontext.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ```java
 import com.mindspore.config.MSContext;
@@ -43,7 +43,7 @@ Initialize MSContext for cpu.
 - Parameters
 
     - `threadNum`: Thread number config for thread pool.
-    - `cpuBindMode`: A **[CpuBindMode](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/src/main/java/com/mindspore/config/CpuBindMode.java)** **enum** variable.
+    - `cpuBindMode`: A **[CpuBindMode](https://gitee.com/mindspore/mindspore/blob/r1.6/mindspore/lite/java/src/main/java/com/mindspore/config/CpuBindMode.java)** **enum** variable.
 
 - Returns
 
@@ -58,7 +58,7 @@ Initialize MSContext.
 - Parameters
 
     - `threadNum`: Thread number config for thread pool.
-    - `cpuBindMode`: A **[CpuBindMode](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/src/main/java/com/mindspore/config/CpuBindMode.java)** **enum** variable.
+    - `cpuBindMode`: A **[CpuBindMode](https://gitee.com/mindspore/mindspore/blob/r1.6/mindspore/lite/java/src/main/java/com/mindspore/config/CpuBindMode.java)** **enum** variable.
     - `isEnableParallel`: Is enable parallel in different device.
 
 - Returns
@@ -75,7 +75,7 @@ Add device info for mscontext.
 
 - Parameters
 
-    - `deviceType`: A **[DeviceType](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/src/main/java/com/mindspore/config/DeviceType.java)** **enum** type.
+    - `deviceType`: A **[DeviceType](https://gitee.com/mindspore/mindspore/blob/r1.6/mindspore/lite/java/src/main/java/com/mindspore/config/DeviceType.java)** **enum** type.
     - `isEnableFloat16`: Is enable fp16.
 
 - Returns
@@ -90,7 +90,7 @@ Add device info for mscontext.
 
 - Parameters
 
-    - `deviceType`: A **[DeviceType](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/src/main/java/com/mindspore/config/DeviceType.java)** **enum** type.
+    - `deviceType`: A **[DeviceType](https://gitee.com/mindspore/mindspore/blob/r1.6/mindspore/lite/java/src/main/java/com/mindspore/config/DeviceType.java)** **enum** type.
     - `isEnableFloat16`: is enable fp16.
     - `npuFreq`: Npu frequency.
 

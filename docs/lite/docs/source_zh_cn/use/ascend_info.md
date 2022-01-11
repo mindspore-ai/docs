@@ -2,7 +2,7 @@
 
 `Ascend` `Linux` `环境准备` `算子支持` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/ascend_info.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/lite/docs/source_zh_cn/use/ascend_info.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 本文档介绍如何在Ascend环境的Linux系统上，使用MindSpore Lite 进行推理，以及动态shape功能的使用。目前，MindSpore Lite仅支持Ascend310芯片。
 
@@ -60,7 +60,7 @@ export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}                                
 MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型（Caffe、ONNX、TensorFlow、MindIR）转换为可在Ascend硬件上推理的模型。
 首先，通过转换工具转换成的`ms`模型；然后，使用转换工具配套的Runtime推理框架执行推理，具体流程如下：
 
-1. [下载](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)Ascend专用converter工具，当前仅支持Linux
+1. [下载](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/downloads.html)Ascend专用converter工具，当前仅支持Linux
 
 2. 解压下载的包
 
@@ -100,7 +100,7 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
     CONVERTER RESULT SUCCESS:0
     ```
 
-    用户若想了解converter_lite转换工具的相关参数，可参考[参数说明](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html#id4)。
+    用户若想了解converter_lite转换工具的相关参数，可参考[参数说明](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/converter_tool.html#id4)。
 
     说明：当原始模型输入shape不确定时，converter工具转换模型时要指定inputShape，同时configFile配置acl_option_cfg_param中input_shape_vector参数，取值相同，命令如下：
 
@@ -132,12 +132,12 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
 
 ## 推理工具runtime
 
-converter得到转换模型后，使用配套的Runtime推理框架执行推理， 有关使用Runtime执行推理详情见[使用Runtime执行推理（C++）](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html)。
+converter得到转换模型后，使用配套的Runtime推理框架执行推理， 有关使用Runtime执行推理详情见[使用Runtime执行推理（C++）](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/runtime_cpp.html)。
 
 ## 执行benchmark
 
 MindSpore Lite提供benchmark基准测试工具，它可以对MindSpore Lite模型前向推理的执行耗时进行定量分析（性能），还可以通过指定模型输出进行可对比的误差分析（精度）。
-关于推理工具的一般说明，可参考[benchmark](https://www.mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html)。
+关于推理工具的一般说明，可参考[benchmark](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/benchmark_tool.html)。
 
 - 测性能
 
@@ -157,7 +157,7 @@ MindSpore Lite提供benchmark基准测试工具，它可以对MindSpore Lite模�
 
 ### 动态shape特性
 
-在某些推理场景，如检测出人脸后再执行人脸识别网络，由于人脸个数不固定导致人脸识别网络输入BatchSize不固定。如果每次推理都按照最大的BatchSize或最大分辨率进行计算，会造成计算资源浪费。因此，推理需要支持动态BatchSize和动态分辨率的场景，Lite在Ascend310上推理支持动态BatchSize和动态分辨率场景，在convert阶段通过congFile配置[acl_option_cfg_param]动态参数，转成`ms`模型，推理时使用model的[resize](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html#resize)功能，改变输入shape。
+在某些推理场景，如检测出人脸后再执行人脸识别网络，由于人脸个数不固定导致人脸识别网络输入BatchSize不固定。如果每次推理都按照最大的BatchSize或最大分辨率进行计算，会造成计算资源浪费。因此，推理需要支持动态BatchSize和动态分辨率的场景，Lite在Ascend310上推理支持动态BatchSize和动态分辨率场景，在convert阶段通过congFile配置[acl_option_cfg_param]动态参数，转成`ms`模型，推理时使用model的[resize](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/runtime_cpp.html#resize)功能，改变输入shape。
 
 #### 动态Batch size
 
@@ -190,7 +190,7 @@ MindSpore Lite提供benchmark基准测试工具，它可以对MindSpore Lite模�
 
 - 推理
 
-    使能动态BatchSize，进行模型推理时，输入shape只能选择converter时设置的档位值，想切换到其他档位对应的输入shape，使用model [resize](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html#resize)功能。
+    使能动态BatchSize，进行模型推理时，输入shape只能选择converter时设置的档位值，想切换到其他档位对应的输入shape，使用model [resize](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/runtime_cpp.html#resize)功能。
 
 - 注意事项
 
@@ -230,7 +230,7 @@ MindSpore Lite提供benchmark基准测试工具，它可以对MindSpore Lite模�
 
 - 推理
 
-    使能动态分辨率， 进行模型推理时，输入shape只能选择converter时设置的档位值，想切换到其他档位对应的输入shape，使用model的[resize](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html#resize)功能。
+    使能动态分辨率， 进行模型推理时，输入shape只能选择converter时设置的档位值，想切换到其他档位对应的输入shape，使用model的[resize](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/runtime_cpp.html#resize)功能。
 
 - 注意事项
 
@@ -240,4 +240,4 @@ MindSpore Lite提供benchmark基准测试工具，它可以对MindSpore Lite模�
 
 ## 算子支持
 
-算子支持见[Lite 算子支持](https://www.mindspore.cn/lite/docs/zh-CN/master/operator_list_lite.html)。
+算子支持见[Lite 算子支持](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/operator_list_lite.html)。

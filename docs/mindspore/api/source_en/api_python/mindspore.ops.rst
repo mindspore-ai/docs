@@ -3,7 +3,7 @@ mindspore.ops
 
 .. automodule:: mindspore.ops
 
-Compared with the previous version, the added, deleted and supported platforms change information of `mindspore.ops` operators in MindSpore, please refer to the link `<https://gitee.com/mindspore/docs/blob/master/resource/api_updates/ops_api_updates.md>`_.
+Compared with the previous version, the added, deleted and supported platforms change information of `mindspore.ops` operators in MindSpore, please refer to the link `<https://gitee.com/mindspore/docs/blob/r1.6/resource/api_updates/ops_api_updates.md>`_.
 
 .. include:: operations.rst
 
@@ -301,7 +301,7 @@ The functional operators are the pre-instantiated Primitive operators, which can
    * - mindspore.ops.stack
      - Refer to :class:`mindspore.ops.Stack`.
    * - mindspore.ops.stop_gradient
-     - Disable update during back propagation. (`stop_gradient <https://www.mindspore.cn/tutorials/en/master/autograd.html#stop-gradient>`_)
+     - Disable update during back propagation. (`stop_gradient <https://www.mindspore.cn/tutorials/en/r1.6/autograd.html#stop-gradient>`_)
    * - mindspore.ops.strided_slice
      - Refer to :class:`mindspore.ops.StridedSlice`.
    * - mindspore.ops.string_concat

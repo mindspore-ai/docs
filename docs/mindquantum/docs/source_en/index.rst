@@ -9,15 +9,15 @@ MindQuantum is a general quantum computing library developed by MindSpore and Hi
 Typical MindQuantum Application Scenarios
 ------------------------------------------
 
-1. `Quantum Machine Learning <https://www.mindspore.cn/mindquantum/docs/en/master/qnn_for_nlp.html>`_
+1. `Quantum Machine Learning <https://www.mindspore.cn/mindquantum/docs/en/r0.5/qnn_for_nlp.html>`_
 
    Add the quantum neural network to the training process to improve the convergence accuracy.
 
-2. `Quantum Chemical Simulation <https://www.mindspore.cn/mindquantum/docs/en/master/vqe_for_quantum_chemistry.html>`_
+2. `Quantum Chemical Simulation <https://www.mindspore.cn/mindquantum/docs/en/r0.5/vqe_for_quantum_chemistry.html>`_
 
    Use VQE to solve the ground state energy of molecular system.
 
-3. `Quantum Combinatorial Optimization <https://www.mindspore.cn/mindquantum/docs/en/master/quantum_approximate_optimization_algorithm.html>`_
+3. `Quantum Combinatorial Optimization <https://www.mindspore.cn/mindquantum/docs/en/r0.5/quantum_approximate_optimization_algorithm.html>`_
 
    Use QAOA to solve the Max-Cut problem.
 

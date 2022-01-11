@@ -1,6 +1,6 @@
 # Computational Graph Visualization Design
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/graph_visual_design.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindinsight/docs/source_en/graph_visual_design.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## Background
 
@@ -58,4 +58,4 @@ RESTful API is used for data interaction between the MindInsight frontend and ba
 #### File API Design
 
 Data interaction between MindSpore and MindInsight uses the data format defined by [Protocol Buffer](https://developers.google.cn/protocol-buffers/docs/pythontutorial).
-The main entry is the [summary.proto file](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/datavisual/proto_files/mindinsight_summary.proto). A message object of a computational graph is defined as `GraphProto`. For details about `GraphProto`, see the [anf_ir.proto file](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/datavisual/proto_files/mindinsight_anf_ir.proto).
+The main entry is the [summary.proto file](https://gitee.com/mindspore/mindinsight/blob/r1.6/mindinsight/datavisual/proto_files/mindinsight_summary.proto). A message object of a computational graph is defined as `GraphProto`. For details about `GraphProto`, see the [anf_ir.proto file](https://gitee.com/mindspore/mindinsight/blob/r1.6/mindinsight/datavisual/proto_files/mindinsight_anf_ir.proto).

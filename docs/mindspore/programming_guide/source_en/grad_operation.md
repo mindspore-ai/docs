@@ -2,11 +2,11 @@
 
 `Ascend` `GPU` `CPU` `Model Development`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/grad_operation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_en/grad_operation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
-GradOperation is used to generate the gradient of the input function. The `get_all`, `get_by_list`, and `sens_param` parameters are used to control the gradient calculation method. For details, see [mindspore API](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.GradOperation.html).
+GradOperation is used to generate the gradient of the input function. The `get_all`, `get_by_list`, and `sens_param` parameters are used to control the gradient calculation method. For details, see [mindspore API](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.GradOperation.html).
 
 The following is an example of using GradOperation.
 
@@ -14,7 +14,7 @@ The following is an example of using GradOperation.
 
 The first-order derivative method of MindSpore is `mindspore.ops.GradOperation (get_all=False, get_by_list=False, sens_param=False)`. When `get_all` is set to `False`, the first input derivative is computed. When `get_all` is set to `True`, all input derivatives are computed. When `get_by_list` is set to `False`, weight derivation is not performed. When `get_by_list` is set to `True`, weight derivation is performed. `sens_param` scales the output value of the network to change the final gradient. Therefore, its dimension is consistent with the output dimension. The following uses the first-order derivation of the MatMul operator for in-depth analysis.
 
-For details about the complete sample code, see [First-order Derivation Sample Code](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/high_order_differentiation/first_order).
+For details about the complete sample code, see [First-order Derivation Sample Code](https://gitee.com/mindspore/docs/tree/r1.6/docs/sample_code/high_order_differentiation/first_order).
 
 ### Input Derivation
 
@@ -263,7 +263,7 @@ High-order differentiation is used in domains such as AI-supported scientific co
 
 MindSpore can support high-order derivatives by computing derivatives for multiple times. The following uses several examples to describe how to compute derivatives.
 
-For details about the complete sample code, see [High-order Derivation Sample Code](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/high_order_differentiation/second_order).
+For details about the complete sample code, see [High-order Derivation Sample Code](https://gitee.com/mindspore/docs/tree/r1.6/docs/sample_code/high_order_differentiation/second_order).
 
 ### Single-input Single-output High-order Derivative
 
@@ -429,12 +429,12 @@ Specifically, results of computing the first-order derivatives are `dx` and `dy`
 
 ## Support for Second-order Differential Operators
 
-CPU supports the following operators: [Square](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Square.html#mindspore.ops.Square),
-[Exp](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Exp.html#mindspore.ops.Exp), [Neg](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Neg.html#mindspore.ops.Neg), [Mul](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Mul.html#mindspore.ops.Mul), and [MatMul](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.MatMul.html#mindspore.ops.MatMul).
+CPU supports the following operators: [Square](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.Square.html#mindspore.ops.Square),
+[Exp](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.Exp.html#mindspore.ops.Exp), [Neg](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.Neg.html#mindspore.ops.Neg), [Mul](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.Mul.html#mindspore.ops.Mul), and [MatMul](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.MatMul.html#mindspore.ops.MatMul).
 
-GPU supports the following operators: [Pow](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Pow.html#mindspore.ops.Pow), [Log](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Log.html#mindspore.ops.Log), [Square](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Square.html#mindspore.ops.Square), [Exp](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Exp.html#mindspore.ops.Exp), [Neg](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Neg.html#mindspore.ops.Neg), [Mul](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Mul.html#mindspore.ops.Mul), [Div](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Div.html#mindspore.ops.Div), [MatMul](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.MatMul.html#mindspore.ops.MatMul), [Sin](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Sin.html#mindspore.ops.Sin), [Cos](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Cos.html#mindspore.ops.Cos), [Tan](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Tan.html#mindspore.ops.Tan) and [Atanh](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Atanh.html#mindspore.ops.Atanh).
+GPU supports the following operators: [Pow](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.Pow.html#mindspore.ops.Pow), [Log](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.Log.html#mindspore.ops.Log), [Square](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.Square.html#mindspore.ops.Square), [Exp](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.Exp.html#mindspore.ops.Exp), [Neg](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.Neg.html#mindspore.ops.Neg), [Mul](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.Mul.html#mindspore.ops.Mul), [Div](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.Div.html#mindspore.ops.Div), [MatMul](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.MatMul.html#mindspore.ops.MatMul), [Sin](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.Sin.html#mindspore.ops.Sin), [Cos](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.Cos.html#mindspore.ops.Cos), [Tan](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.Tan.html#mindspore.ops.Tan) and [Atanh](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.Atanh.html#mindspore.ops.Atanh).
 
-Ascend supports the following operators: [Pow](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Pow.html#mindspore.ops.Pow), [Log](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Log.html#mindspore.ops.Log), [Square](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Square.html#mindspore.ops.Square), [Exp](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Exp.html#mindspore.ops.Exp), [Neg](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Neg.html#mindspore.ops.Neg), [Mul](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Mul.html#mindspore.ops.Mul), [Div](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Div.html#mindspore.ops.Div), [MatMul](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.MatMul.html#mindspore.ops.MatMul), [Sin](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Sin.html#mindspore.ops.Sin), [Cos](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Cos.html#mindspore.ops.Cos), [Tan](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Tan.html#mindspore.ops.Tan), [Sinh](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Sinh.html#mindspore.ops.Sinh), [Cosh](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Cosh.html#mindspore.ops.Cosh) and [Atanh](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Atanh.html#mindspore.ops.Atanh).
+Ascend supports the following operators: [Pow](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.Pow.html#mindspore.ops.Pow), [Log](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.Log.html#mindspore.ops.Log), [Square](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.Square.html#mindspore.ops.Square), [Exp](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.Exp.html#mindspore.ops.Exp), [Neg](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.Neg.html#mindspore.ops.Neg), [Mul](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.Mul.html#mindspore.ops.Mul), [Div](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.Div.html#mindspore.ops.Div), [MatMul](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.MatMul.html#mindspore.ops.MatMul), [Sin](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.Sin.html#mindspore.ops.Sin), [Cos](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.Cos.html#mindspore.ops.Cos), [Tan](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.Tan.html#mindspore.ops.Tan), [Sinh](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.Sinh.html#mindspore.ops.Sinh), [Cosh](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.Cosh.html#mindspore.ops.Cosh) and [Atanh](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.Atanh.html#mindspore.ops.Atanh).
 
 ## Jvp and Vjp Interface
 
@@ -442,7 +442,7 @@ Besides GradOperation interface which is based on backward auto differentiation,
 
 ### Jvp
 
-Jvp(Jacobian-vector-product), uses forward mode AD, it is more suitable for network with smaller input dimension compared to output dimension. Different from backward mode AD, forward mode AD can get the output of network and the gradient at the same time. So, compared to backward AD, forward mode AD requires less memory. More information about the difference between forward mode AD and backward mode AD can be found in [MindSpore Automatic Differentiation](https://www.mindspore.cn/docs/programming_guide/en/master/design/gradient.html).
+Jvp(Jacobian-vector-product), uses forward mode AD, it is more suitable for network with smaller input dimension compared to output dimension. Different from backward mode AD, forward mode AD can get the output of network and the gradient at the same time. So, compared to backward AD, forward mode AD requires less memory. More information about the difference between forward mode AD and backward mode AD can be found in [MindSpore Automatic Differentiation](https://www.mindspore.cn/docs/programming_guide/en/r1.6/design/gradient.html).
 
 The example code is as follow:
 
@@ -492,7 +492,7 @@ The output is:
 
 ### Vjp
 
-Vjp(Vector-jacobian-product), uses backward mode AD. The output of Vjp will be the network output and forward mode gradient output. It is more suitable for network with greater input dimension compared to output dimension. More information about the difference between forward mode AD and backward mode AD can be found in [MindSpore Automatic Differentiation](https://www.mindspore.cn/docs/programming_guide/en/master/design/gradient.html).
+Vjp(Vector-jacobian-product), uses backward mode AD. The output of Vjp will be the network output and forward mode gradient output. It is more suitable for network with greater input dimension compared to output dimension. More information about the difference between forward mode AD and backward mode AD can be found in [MindSpore Automatic Differentiation](https://www.mindspore.cn/docs/programming_guide/en/r1.6/design/gradient.html).
 
 The example code is as follow:
 

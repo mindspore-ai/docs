@@ -1,6 +1,6 @@
 ﻿# Function differences with torchvision.datasets.VOCDetection
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/VOCDetection.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/VOCDetection.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## torchvision.datasets.VOCDetection
 
@@ -38,7 +38,7 @@ class mindspore.dataset.VOCDataset(
     )
 ```
 
-For more information, see [mindspore.dataset.VOCDataset](https://mindspore.cn/docs/api/en/master/api_python/dataset/mindspore.dataset.VOCDataset.html#mindspore.dataset.VOCDataset).
+For more information, see [mindspore.dataset.VOCDataset](https://mindspore.cn/docs/api/en/r1.6/api_python/dataset/mindspore.dataset.VOCDataset.html#mindspore.dataset.VOCDataset).
 
 ## Differences
 

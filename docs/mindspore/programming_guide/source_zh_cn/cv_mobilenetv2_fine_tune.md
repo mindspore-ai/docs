@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `全流程`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/cv_mobilenetv2_fine_tune.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_zh_cn/cv_mobilenetv2_fine_tune.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述
 
@@ -12,7 +12,7 @@ MindSpore是一个多元化的机器学习框架。既可以在手机等端侧�
 
 目前，Window上暂只支持支持CPU，Ubuntu与EulerOS上支持CPU、GPU与Ascend AI处理器三种处理器。
 
-> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/models/tree/master/official/cv/mobilenetv2>
+> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/models/tree/r1.6/official/cv/mobilenetv2>
 
 ## 任务描述及准备
 
@@ -256,7 +256,7 @@ sh run_eval.sh [PLATFORM] [DATASET_PATH] [PRETRAIN_CKPT_PATH]
 
 ## 加载微调训练
 
-Windows系统上，MobileNetV2做微调训练时，只能运行`train.py`。Linux系统上，使用MobileNetV2做微调训练时，可以选择运行`run_train.sh`， 并在运行Shell脚本文件时传入[参数](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/cv_mobilenetv2_fine_tune.html#id8)。
+Windows系统上，MobileNetV2做微调训练时，只能运行`train.py`。Linux系统上，使用MobileNetV2做微调训练时，可以选择运行`run_train.sh`， 并在运行Shell脚本文件时传入[参数](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/cv_mobilenetv2_fine_tune.html#id8)。
 
 Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_train.sh`时，命令行结尾使用`&> <log_file_path>`将标准输出与错误输出写入log文件。微调成功开始训练，`./train/rank*/log*.log`中会持续写入每一个epoch的训练时间与Loss等信息。若未成功，上述log文件会写入失败报错信息。
 
@@ -386,7 +386,7 @@ Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_
 
 ### 验证模型
 
-使用验证集测试模型性能，需要输入必要[参数](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/cv_mobilenetv2_fine_tune.html#id8)，`--platform`默认为“Ascend”，可自行设置为"CPU"或"GPU"。最终在交互式命令行中展示标准输出与错误输出，或者将其写入`eval.log`文件。
+使用验证集测试模型性能，需要输入必要[参数](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/cv_mobilenetv2_fine_tune.html#id8)，`--platform`默认为“Ascend”，可自行设置为"CPU"或"GPU"。最终在交互式命令行中展示标准输出与错误输出，或者将其写入`eval.log`文件。
 
 ```bash
 # Windows/Linux with Python

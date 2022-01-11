@@ -1,6 +1,6 @@
 ﻿# Function Differences with torch.nn.MaxPool1d
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/MaxPool1d.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/MaxPool1d.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## torch.nn.MaxPool1d
 
@@ -27,7 +27,7 @@ class mindspore.nn.MaxPool1d(
 )
 ```
 
-For more information, see [mindspore.nn.MaxPool1d](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.MaxPool1d.html#mindspore.nn.MaxPool1d).
+For more information, see [mindspore.nn.MaxPool1d](https://mindspore.cn/docs/api/en/r1.6/api_python/nn/mindspore.nn.MaxPool1d.html#mindspore.nn.MaxPool1d).
 
 ## Differences
 

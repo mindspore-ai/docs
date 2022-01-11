@@ -2,13 +2,13 @@
 
 `Ascend` `GPU` `CPU` `Model Running`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/context.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_en/context.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
 Before initializing the network, configure the context parameter to control the policy executed by the program. For example, you can select an execution mode and backend, and configure distributed parameters. Different context parameter configurations implement different functions, including execution mode management, hardware management, distributed management, and maintenance and test management.
 
-> For details about the context API, see [mindspore.context](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.context.html).
+> For details about the context API, see [mindspore.context](https://www.mindspore.cn/docs/api/en/r1.6/api_python/mindspore.context.html).
 
 ## Execution Mode Management
 
@@ -86,7 +86,7 @@ context.set_context(device_target="Ascend", device_id=6)
 
 The context contains the context.set_auto_parallel_context API that is used to configure parallel training parameters. This API must be called before the network is initialized.
 
-> For details about distributed management, see [Parallel Distributed Training](https://www.mindspore.cn/docs/programming_guide/en/master/auto_parallel.html).
+> For details about distributed management, see [Parallel Distributed Training](https://www.mindspore.cn/docs/programming_guide/en/r1.6/auto_parallel.html).
 
 ## Maintenance and Test Management
 
@@ -107,13 +107,13 @@ from mindspore import context
 context.set_context(save_graphs=True)
 ```
 
-> For a detailed introduction of MindIR, please refer to [MindSpore IR(MindIR)](https://www.mindspore.cn/docs/programming_guide/en/master/design/mindir.html).
+> For a detailed introduction of MindIR, please refer to [MindSpore IR(MindIR)](https://www.mindspore.cn/docs/programming_guide/en/r1.6/design/mindir.html).
 
 ### Print Operator Disk Flushing
 
 By default, the MindSpore self-developed print operator can output the tensor or character string information entered by users. Multiple character string inputs, multiple tensor inputs, and hybrid inputs of character strings and tensors are supported. The input parameters are separated by commas (,).
 
-> For details about the print function, see [MindSpore Print Operator](https://www.mindspore.cn/docs/programming_guide/en/master/custom_debugging_info.html#mindspore-print-operator).
+> For details about the print function, see [MindSpore Print Operator](https://www.mindspore.cn/docs/programming_guide/en/r1.6/custom_debugging_info.html#mindspore-print-operator).
 
 - `print_file_path`: saves the print operator data to a file and disables the screen printing function. If the file to be saved exists, a timestamp suffix is added to the file. Saving data to a file can solve the problem that the data displayed on the screen is lost when the data volume is large.
 

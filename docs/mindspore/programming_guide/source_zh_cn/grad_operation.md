@@ -2,19 +2,19 @@
 
 `Ascend` `GPU` `CPU` `模型开发`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/grad_operation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_zh_cn/grad_operation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## 概述
 
 MindSpore的GradOperation接口用于生成输入函数的梯度，利用get_all、get_by_list和sens_param参数控制梯度的计算方式。
 
-本文主要介绍如何进行一阶、二阶求导，以及如何停止计算梯度。更多内容可参见[API文档](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.GradOperation.html) 。
+本文主要介绍如何进行一阶、二阶求导，以及如何停止计算梯度。更多内容可参见[API文档](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.GradOperation.html) 。
 
 ## 一阶求导
 
 MindSpore计算一阶导数方法`mindspore.ops.GradOperation (get_all=False, get_by_list=False, sens_param=False)`，其中`get_all`为`False`时，只会对第一个输入求导，为`True`时，会对所有输入求导；`get_by_list`为`False`时，不会对权重求导，为`True`时，会对权重求导；`sens_param`对网络的输出值做缩放以改变最终梯度，故其维度与输出维度保持一致。下面用MatMul算子的一阶求导做深入分析。
 
-完整样例代码见：[一阶求导样例代码](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/high_order_differentiation/first_order)
+完整样例代码见：[一阶求导样例代码](https://gitee.com/mindspore/docs/tree/r1.6/docs/sample_code/high_order_differentiation/first_order)
 
 ### 输入求导
 
@@ -263,7 +263,7 @@ print(output)
 
 MindSpore可通过多次求导的方式支持高阶导数，下面通过几类例子展开阐述。
 
-完整样例代码见：[高阶求导样例代码](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/high_order_differentiation/second_order)
+完整样例代码见：[高阶求导样例代码](https://gitee.com/mindspore/docs/tree/r1.6/docs/sample_code/high_order_differentiation/second_order)
 
 ### 单输入单输出高阶导数
 
@@ -429,12 +429,12 @@ print(dxdx, dxdy, dydx, dydy)
 
 ## 二阶微分算子支持情况
 
-CPU支持算子：[Square](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Square.html#mindspore.ops.Square)、
-[Exp](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Exp.html#mindspore.ops.Exp)、[Neg](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Neg.html#mindspore.ops.Neg)、[Mul](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Mul.html#mindspore.ops.Mul)、[MatMul](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.MatMul.html#mindspore.ops.MatMul)；
+CPU支持算子：[Square](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.Square.html#mindspore.ops.Square)、
+[Exp](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.Exp.html#mindspore.ops.Exp)、[Neg](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.Neg.html#mindspore.ops.Neg)、[Mul](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.Mul.html#mindspore.ops.Mul)、[MatMul](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.MatMul.html#mindspore.ops.MatMul)；
 
-GPU支持算子：[Pow](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Pow.html#mindspore.ops.Pow)、[Log](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Log.html#mindspore.ops.Log)、[Square](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Square.html#mindspore.ops.Square)、[Exp](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Exp.html#mindspore.ops.Exp)、[Neg](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Neg.html#mindspore.ops.Neg)、[Mul](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Mul.html#mindspore.ops.Mul)、[Div](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Div.html#mindspore.ops.Div)、[MatMul](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.MatMul.html#mindspore.ops.MatMul)、[Sin](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Sin.html#mindspore.ops.Sin)、[Cos](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Cos.html#mindspore.ops.Cos)、[Tan](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Tan.html#mindspore.ops.Tan)、[Atanh](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Atanh.html#mindspore.ops.Atanh)；
+GPU支持算子：[Pow](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.Pow.html#mindspore.ops.Pow)、[Log](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.Log.html#mindspore.ops.Log)、[Square](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.Square.html#mindspore.ops.Square)、[Exp](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.Exp.html#mindspore.ops.Exp)、[Neg](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.Neg.html#mindspore.ops.Neg)、[Mul](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.Mul.html#mindspore.ops.Mul)、[Div](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.Div.html#mindspore.ops.Div)、[MatMul](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.MatMul.html#mindspore.ops.MatMul)、[Sin](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.Sin.html#mindspore.ops.Sin)、[Cos](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.Cos.html#mindspore.ops.Cos)、[Tan](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.Tan.html#mindspore.ops.Tan)、[Atanh](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.Atanh.html#mindspore.ops.Atanh)；
 
-Ascend支持算子：[Pow](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Pow.html#mindspore.ops.Pow)、[Log](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Log.html#mindspore.ops.Log)、[Square](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Square.html#mindspore.ops.Square)、[Exp](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Exp.html#mindspore.ops.Exp)、[Neg](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Neg.html#mindspore.ops.Neg)、[Mul](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Mul.html#mindspore.ops.Mul)、[Div](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Div.html#mindspore.ops.Div)、[MatMul](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.MatMul.html#mindspore.ops.MatMul)、[Sin](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Sin.html#mindspore.ops.Sin)、[Cos](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Cos.html#mindspore.ops.Cos)、[Tan](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Tan.html#mindspore.ops.Tan)、[Sinh](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Sinh.html#mindspore.ops.Sinh)、[Cosh](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Cosh.html#mindspore.ops.Cosh)、[Atanh](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Atanh.html#mindspore.ops.Atanh)。
+Ascend支持算子：[Pow](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.Pow.html#mindspore.ops.Pow)、[Log](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.Log.html#mindspore.ops.Log)、[Square](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.Square.html#mindspore.ops.Square)、[Exp](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.Exp.html#mindspore.ops.Exp)、[Neg](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.Neg.html#mindspore.ops.Neg)、[Mul](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.Mul.html#mindspore.ops.Mul)、[Div](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.Div.html#mindspore.ops.Div)、[MatMul](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.MatMul.html#mindspore.ops.MatMul)、[Sin](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.Sin.html#mindspore.ops.Sin)、[Cos](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.Cos.html#mindspore.ops.Cos)、[Tan](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.Tan.html#mindspore.ops.Tan)、[Sinh](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.Sinh.html#mindspore.ops.Sinh)、[Cosh](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.Cosh.html#mindspore.ops.Cosh)、[Atanh](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.Atanh.html#mindspore.ops.Atanh)。
 
 ## Jvp与Vjp接口
 
@@ -442,7 +442,7 @@ Ascend支持算子：[Pow](https://www.mindspore.cn/docs/api/zh-CN/master/api_py
 
 ### Jvp
 
-Jvp(Jacobian-vector-product)对应的是前向模式的自动微分，适用在输入的维度小于输出的维度的网络中。Jvp会将输入网络的正向运行结果以及微分结果返回出来。不同于反向自动微分，前向自动微分可以在求取网络的原本输出的同时求取其梯度，不需要像反向微分一样保存太多的中间结果，因此前向自动微分相比于反向自动微分往往会节省一定的内存。反向微分与正向微分的区别可以详见[自动微分设计](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/design/gradient.html)。
+Jvp(Jacobian-vector-product)对应的是前向模式的自动微分，适用在输入的维度小于输出的维度的网络中。Jvp会将输入网络的正向运行结果以及微分结果返回出来。不同于反向自动微分，前向自动微分可以在求取网络的原本输出的同时求取其梯度，不需要像反向微分一样保存太多的中间结果，因此前向自动微分相比于反向自动微分往往会节省一定的内存。反向微分与正向微分的区别可以详见[自动微分设计](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/design/gradient.html)。
 
 样例代码如下：
 
@@ -492,7 +492,7 @@ print(output)
 
 ### Vjp
 
-Vjp(Vector-jacobian-product), 运行的是反向模式的自动微分。Vjp会将输入网络的前向结果以及微分结果一并输出出来。 反向微分更加适用在输入的维度大于输出维度的网络中，具体内容详见[自动微分设计](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/design/gradient.html)。
+Vjp(Vector-jacobian-product), 运行的是反向模式的自动微分。Vjp会将输入网络的前向结果以及微分结果一并输出出来。 反向微分更加适用在输入的维度大于输出维度的网络中，具体内容详见[自动微分设计](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/design/gradient.html)。
 
 样例代码如下：
 

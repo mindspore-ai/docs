@@ -1,6 +1,6 @@
 # 通过配置模型提供Servable
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/serving/docs/source_zh_cn/serving_model.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/serving/docs/source_zh_cn/serving_model.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -10,7 +10,7 @@
 
 MindSpore Serving的Servable提供推理服务，包含两种类型，一种是推理服务来源于单模型，一种是推理服务来源于多模型组合，它们使用相同的接口进行定义。模型需要进行配置以提供Serving推理服务。
 
-本文将说明如何对模型进行配置以提供Servable，单个模型以ResNet-50作为样例，样例代码可参考[ResNet-50样例](https://gitee.com/mindspore/serving/tree/master/example/resnet/) 。Serving客户端简称客户端。
+本文将说明如何对模型进行配置以提供Servable，单个模型以ResNet-50作为样例，样例代码可参考[ResNet-50样例](https://gitee.com/mindspore/serving/tree/r1.6/example/resnet/) 。Serving客户端简称客户端。
 
 ## 相关概念
 
@@ -149,9 +149,9 @@ resnet_model = register.declare_model(model_file="resnet50_1b_cifar10.mindir", m
                                          with_batch_dim=True, without_batch_dim_inputs=1)
     ```
 
-5. 如果想要配置模型运行时的参数以及设备信息，可以使用`declare_model`的`context`和`config_file`入参。具体可以参考相关[API文档](https://www.mindspore.cn/serving/api/zh-CN/master/server.html#mindspore_serving.server.register.declare_model)。
+5. 如果想要配置模型运行时的参数以及设备信息，可以使用`declare_model`的`context`和`config_file`入参。具体可以参考相关[API文档](https://www.mindspore.cn/serving/docszh-CN/r1.6/server.html#mindspore_serving.server.register.declare_model)。
 
-对于分布式模型，与非分布式单模型配置相比仅声明方法不同，需要使用`mindspore_serving.server.distributed.declare_servable`，其中入参`rank_size`表示模型推理使用的device个数，`stage_size`表示流水线的段数，可以参考[部署分布式推理服务](https://www.mindspore.cn/serving/docs/zh-CN/master/serving_distributed_example.html)。
+对于分布式模型，与非分布式单模型配置相比仅声明方法不同，需要使用`mindspore_serving.server.distributed.declare_servable`，其中入参`rank_size`表示模型推理使用的device个数，`stage_size`表示流水线的段数，可以参考[部署分布式推理服务](https://www.mindspore.cn/serving/docs/zh-CN/r1.6/serving_distributed_example.html)。
 
 ```python
 from mindspore_serving.server import distributed
@@ -234,7 +234,7 @@ if __name__ == '__main__':
     run_classify_top5()
 ```
 
-另外，一次请求可包括多个实例，且多个排队处理的请求也将有多个实例，如果需要在自定义的预处理或后处理中通过多线程等并发方式处理多个实例，比如在预处理中使用MindData并发能力处理多个输入图片，MindSpore Serving在接口`add_stage`中提供了入参`batch_size`用于注册此类预处理和后处理。详情可参考[ResNet-50样例的模型配置](https://gitee.com/mindspore/serving/blob/master/example/resnet/resnet50/servable_config.py) 。
+另外，一次请求可包括多个实例，且多个排队处理的请求也将有多个实例，如果需要在自定义的预处理或后处理中通过多线程等并发方式处理多个实例，比如在预处理中使用MindData并发能力处理多个输入图片，MindSpore Serving在接口`add_stage`中提供了入参`batch_size`用于注册此类预处理和后处理。详情可参考[ResNet-50样例的模型配置](https://gitee.com/mindspore/serving/blob/r1.6/example/resnet/resnet50/servable_config.py) 。
 
 ## 多模型组合
 

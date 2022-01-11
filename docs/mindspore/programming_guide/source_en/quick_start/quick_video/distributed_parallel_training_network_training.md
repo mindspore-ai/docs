@@ -6,4 +6,4 @@
 <source id="mp43" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/teaching_video/video/%E5%88%86%E5%B8%83%E5%BC%8F%E5%B9%B6%E8%A1%8C%E8%AE%AD%E7%BB%83-%E7%BD%91%E7%BB%9C%E8%AE%AD%E7%BB%83%20EN.mp4" type="video/mp4">
 </video>
 
-**查看更多内容**：<https://www.mindspore.cn/docs/programming_guide/en/master/distributed_training_ascend.html>
+**查看更多内容**：<https://www.mindspore.cn/docs/programming_guide/en/r1.6/distributed_training_ascend.html>

@@ -1,6 +1,6 @@
 ﻿# 比较与torch.flatten的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_zh_cn/api_mapping/pytorch_diff/Flatten.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_zh_cn/api_mapping/pytorch_diff/Flatten.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## torch.flatten
 
@@ -20,7 +20,7 @@ torch.flatten(
 class mindspore.ops.Flatten(*args, **kwargs)(input_x)
 ```
 
-更多内容详见[mindspore.ops.Flatten](https://mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Flatten.html#mindspore.ops.Flatten)。
+更多内容详见[mindspore.ops.Flatten](https://mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.Flatten.html#mindspore.ops.Flatten)。
 
 ## 使用方式
 

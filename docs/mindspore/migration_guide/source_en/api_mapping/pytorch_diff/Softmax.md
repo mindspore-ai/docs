@@ -1,6 +1,6 @@
 # Function Differences with torch.nn.functional.softmax
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/Softmax.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/Softmax.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## torch.nn.functional.softmax
 
@@ -23,7 +23,7 @@ class mindspore.ops.Softmax(
 )(logits)
 ```
 
-For more information, see [mindspore.ops.Softmax](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Softmax.html#mindspore.ops.Softmax).
+For more information, see [mindspore.ops.Softmax](https://mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.Softmax.html#mindspore.ops.Softmax).
 
 ## Differences
 

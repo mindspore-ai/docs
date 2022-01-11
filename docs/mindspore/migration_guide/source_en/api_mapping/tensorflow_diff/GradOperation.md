@@ -1,6 +1,6 @@
 # Function Differences with tf.gradients
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/api_mapping/tensorflow_diff/GradOperation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_en/api_mapping/tensorflow_diff/GradOperation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## tf.gradients
 
@@ -30,7 +30,7 @@ class mindspore.ops.GradOperation(
 )
 ```
 
-For more information, see [mindspore.ops.GradOperation](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.GradOperation.html).
+For more information, see [mindspore.ops.GradOperation](https://mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.GradOperation.html).
 
 ## Differences
 

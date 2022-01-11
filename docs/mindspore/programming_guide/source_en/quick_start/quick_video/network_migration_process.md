@@ -6,4 +6,4 @@
 <source id="mp47" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/Network%20Migration%20Process.mp4" type="video/mp4">
 </video>
 
-**See more**: <https://www.mindspore.cn/docs/migration_guide/en/master/sample_code.html>
+**See more**: <https://www.mindspore.cn/docs/migration_guide/en/r1.6/sample_code.html>

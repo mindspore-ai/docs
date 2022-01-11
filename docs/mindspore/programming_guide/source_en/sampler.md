@@ -2,13 +2,13 @@
 
 `Ascend` `GPU` `CPU` `Data Preparation`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/sampler.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_en/sampler.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
 MindSpore provides multiple samplers to help you sample datasets for various purposes to meet training requirements and solve problems such as oversized datasets and uneven distribution of sample categories. You only need to import the sampler object when loading the dataset for sampling the data.
 
-The following table lists part of the common samplers supported by MindSpore. In addition, you can define your own sampler class as required. For more samplers, see [MindSpore API](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.dataset.html).
+The following table lists part of the common samplers supported by MindSpore. In addition, you can define your own sampler class as required. For more samplers, see [MindSpore API](https://www.mindspore.cn/docs/api/en/r1.6/api_python/mindspore.dataset.html).
 
 | Sampler | Description |
 | ----  | ----           |

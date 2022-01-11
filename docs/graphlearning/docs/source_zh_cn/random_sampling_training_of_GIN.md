@@ -1,6 +1,6 @@
 # 图采样训练GIN网络
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/graphlearning/docs/source_zh_cn/random_sampling_training_of_GIN.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/graphlearning/docs/source_zh_cn/random_sampling_training_of_GIN.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 &nbsp;&nbsp;
 
 ## 概述
@@ -13,7 +13,7 @@ Learning也提供了图采样的接口并支持随机批次训练，用户使用
 3. 生成batch图数据，这里提供了一个构造图采样数据的示例。
 4. 图采样网络训练和验证。
 
-本文档展示了使用MindSpore Graph Learning实现GIN在IMDBBinary数据集下图采样随机批次训练。完整代码详见<https://gitee.com/mindspore/graphlearning/blob/master/examples/vc_gin.py>。
+本文档展示了使用MindSpore Graph Learning实现GIN在IMDBBinary数据集下图采样随机批次训练。完整代码详见<https://gitee.com/mindspore/graphlearning/blob/r0.5/examples/vc_gin.py>。
 
 ## GIN原理
 
@@ -504,5 +504,5 @@ Epoch 40, Train loss 0.5511463, Test acc 0.714
 
 在IMDBBinary上验证精度：0.734 (论文：0.75)
 
-以上就是图采样随机批次训练的使用指南。更多样例可参考[examples目录](<https://gitee.com/mindspore/graphlearning/tree/master/examples>)。
+以上就是图采样随机批次训练的使用指南。更多样例可参考[examples目录](<https://gitee.com/mindspore/graphlearning/tree/r0.5/examples>)。
 

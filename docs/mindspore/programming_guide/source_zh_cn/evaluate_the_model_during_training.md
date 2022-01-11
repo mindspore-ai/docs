@@ -2,11 +2,11 @@
 
 `Ascend` `GPU` `CPU` `模型运行`
 
-<a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9ldmFsdWF0ZV90aGVfbW9kZWxfZHVyaW5nX3RyYWluaW5nLmlweW5i&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_modelarts.png"></a>&nbsp;&nbsp;
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/notebook/mindspore_evaluate_the_model_during_training.ipynb"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_notebook.png"></a>
+<a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9ldmFsdWF0ZV90aGVfbW9kZWxfZHVyaW5nX3RyYWluaW5nLmlweW5i&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_modelarts.png"></a>&nbsp;&nbsp;
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.6/notebook/mindspore_evaluate_the_model_during_training.ipynb"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_notebook.png"></a>
 &nbsp;&nbsp;
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/notebook/mindspore_evaluate_the_model_during_training.py"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_download_code.png"></a>&nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/evaluate_the_model_during_training.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.6/notebook/mindspore_evaluate_the_model_during_training.py"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_download_code.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_zh_cn/evaluate_the_model_during_training.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -18,11 +18,11 @@
 2. 定义训练网络并执行。
 3. 将不同epoch下的模型精度绘制出折线图并挑选最优模型。
 
-完整示例请参源代码：<https://gitee.com/mindspore/docs/blob/master/docs/sample_code/evaluate_the_model_during_training/evaluate_the_model_during_training.py>。
+完整示例请参源代码：<https://gitee.com/mindspore/docs/blob/r1.6/docs/sample_code/evaluate_the_model_during_training/evaluate_the_model_during_training.py>。
 
 ## 定义回调函数EvalCallBack
 
-实现思想：每隔n个epoch验证一次模型精度，需要在自定义回调函数中实现，如需了解详细用法，请参考[API说明](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.train.html#mindspore.train.callback.Callback)；
+实现思想：每隔n个epoch验证一次模型精度，需要在自定义回调函数中实现，如需了解详细用法，请参考[API说明](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/mindspore.train.html#mindspore.train.callback.Callback)；
 
 核心实现：回调函数的`epoch_end`内设置验证点，如下：
 

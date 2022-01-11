@@ -1,6 +1,6 @@
 # Function Differences with torch.sparse_coo_tensor
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/SparseTensor.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/SparseTensor.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## torch.sparse_coo_tensor
 
@@ -27,7 +27,7 @@ class mindspore.SparseTensor(
 )
 ```
 
-For more information, see [mindspore.SparseTensor](https://mindspore.cn/docs/api/en/master/api_python/mindspore/mindspore.SparseTensor.html#mindspore.SparseTensor).
+For more information, see [mindspore.SparseTensor](https://mindspore.cn/docs/api/en/r1.6/api_python/mindspore/mindspore.SparseTensor.html#mindspore.SparseTensor).
 
 ## Differences
 

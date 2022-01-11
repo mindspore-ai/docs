@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `入门`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/dataset_introduction.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_zh_cn/dataset_introduction.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 数据是深度学习的基础，高质量数据输入会在整个深度神经网络中起到积极作用。
 
@@ -21,9 +21,9 @@
 数据集为一组样本的集合，数据集的一行即为一个样本包含一个或多个特征，此外还可能包含一个标签。数据集都需要符合一定规范要求，便于评估模型的效果。
 
 Dataset支持多种格式数据集，包括MindSpore自研数据格式MindRecord，常用的公开图像数据集和文本数据集，用户自定义的数据集等。
-详细的Mindspore支持的数据集请参考: [MindSpore支持数据集](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dataset_loading.html#%E6%A6%82%E8%BF%B0)。
+详细的Mindspore支持的数据集请参考: [MindSpore支持数据集](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/dataset_loading.html#%E6%A6%82%E8%BF%B0)。
 
-Dataset也支持将常用的数据集和用户自定义的数据集转为MindSpore数据格式（MindRecord），详情可参考： [转换数据集为MindRecord](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/convert_dataset.html#%E8%BD%AC%E6%8D%A2%E6%95%B0%E6%8D%AE%E9%9B%86%E4%B8%BAMindRecord)。
+Dataset也支持将常用的数据集和用户自定义的数据集转为MindSpore数据格式（MindRecord），详情可参考： [转换数据集为MindRecord](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/convert_dataset.html#%E8%BD%AC%E6%8D%A2%E6%95%B0%E6%8D%AE%E9%9B%86%E4%B8%BAMindRecord)。
 
 ## 数据集加载
 
@@ -31,11 +31,11 @@ Dataset也支持将常用的数据集和用户自定义的数据集转为MindSpo
 
 数据集加载使得模型训练时能源源不断地获取数据进行训练。
 
-Dataset对多种常用的数据集提供对应的类来实现数据集的加载，同时对于不同存储格式的数据文件，Dataset也有对应的类来进行数据加载。MindSpore数据集加载请参考：[MindSpore数据集加载](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dataset_loading.html#%E6%95%B0%E6%8D%AE%E9%9B%86%E5%8A%A0%E8%BD%BD%E6%80%BB%E8%A7%88)。
+Dataset对多种常用的数据集提供对应的类来实现数据集的加载，同时对于不同存储格式的数据文件，Dataset也有对应的类来进行数据加载。MindSpore数据集加载请参考：[MindSpore数据集加载](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/dataset_loading.html#%E6%95%B0%E6%8D%AE%E9%9B%86%E5%8A%A0%E8%BD%BD%E6%80%BB%E8%A7%88)。
 
 Dataset提供了多种用途的采样器（Sampler），采样器负责生成读取的index序列，Dataset负责根据index读取相应数据，帮助用户对数据集进行不同形式的采样，以满足训练需求，解决诸如数据集过大或样本类别分布不均等问题，注意，采样器负责对样本做filter和reorder操作，不会执行Batch操作。
 
-Mindspore的数据采样介绍请参考：[MindSpore数据采样](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/sampler.html#%E6%95%B0%E6%8D%AE%E9%87%87%E6%A0%B7)。
+Mindspore的数据采样介绍请参考：[MindSpore数据采样](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/sampler.html#%E6%95%B0%E6%8D%AE%E9%87%87%E6%A0%B7)。
 
 ## 数据处理
 
@@ -58,7 +58,7 @@ Dataset提供多种方式来实现全局shuffle操作。
    dataset = ds.NumpySlicesDataset(data=data, column_names=["column_1"], shuffle=True)
    ```
 
-   详情请参考：[NumpySlicesDataset](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/dataset/mindspore.dataset.NumpySlicesDataset.html#mindspore-dataset-numpyslicesdataset)。
+   详情请参考：[NumpySlicesDataset](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/dataset/mindspore.dataset.NumpySlicesDataset.html#mindspore-dataset-numpyslicesdataset)。
 
 2. shuffle算子
 
@@ -71,7 +71,7 @@ Dataset提供多种方式来实现全局shuffle操作。
    dataset = dataset.shuffle(4)
    ```
 
-   详情请参考：[shuffle API](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset.shuffle)。
+   详情请参考：[shuffle API](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset.shuffle)。
 
 3. 随机采样
 
@@ -83,7 +83,7 @@ Dataset提供多种方式来实现全局shuffle操作。
    dataset = ds.NumpySlicesDataset(data=data, column_names=["column_1"],sampler=sampler)
    ```
 
-   详情请参考：[RandomSampler](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/dataset/mindspore.dataset.RandomSampler.html#mindspore-dataset-randomsampler)。
+   详情请参考：[RandomSampler](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/dataset/mindspore.dataset.RandomSampler.html#mindspore-dataset-randomsampler)。
 
 ### Map操作
 
@@ -93,11 +93,11 @@ Map操作对各类数据做数据增强，负责启动和执行Dataset提供或�
 
 Dataset的`c_transforms`和`py_transforms`模块分别提供了基于`C++`和`Python`的数据增强算子实现，同时用户可以自定义函数来进行数据增强。
 
-图像类数据增强操作请参考：[图像类数据增强](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/augmentation.html#%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E4%B8%8E%E5%A2%9E%E5%BC%BA)。
+图像类数据增强操作请参考：[图像类数据增强](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/augmentation.html#%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E4%B8%8E%E5%A2%9E%E5%BC%BA)。
 
-文本类数据增强操作请参考：[文本类数据增强](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/tokenizer.html#%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E4%B8%8E%E5%A2%9E%E5%BC%BA)。
+文本类数据增强操作请参考：[文本类数据增强](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/tokenizer.html#%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E4%B8%8E%E5%A2%9E%E5%BC%BA)。
 
-Map操作请参考：[Map操作](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/dataset/mindspore.dataset.CelebADataset.html#mindspore.dataset.CelebADataset.map)。
+Map操作请参考：[Map操作](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/dataset/mindspore.dataset.CelebADataset.html#mindspore.dataset.CelebADataset.map)。
 
 ### Batch操作
 
@@ -154,4 +154,4 @@ Batch 操作负责将多个`shape`相同的`Tensor`“打包”到一起，以�
    dataset = ds.GeneratorDataset((lambda: gen_3_cols(4)), ["col1", "col2", "col3"]).batch (batch_size=batch_func, input_columns=["col1", "col2"], per_batch_map=map_func)
    ```
 
-Batch操作请参考：[Batch操作](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/dataset/mindspore.dataset.CelebADataset.html#mindspore.dataset.CelebADataset.batch)。
+Batch操作请参考：[Batch操作](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/dataset/mindspore.dataset.CelebADataset.html#mindspore.dataset.CelebADataset.batch)。

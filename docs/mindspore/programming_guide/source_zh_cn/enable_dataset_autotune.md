@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `数据处理` `性能调优`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/enable_dataset_autotune.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_zh_cn/enable_dataset_autotune.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -80,7 +80,7 @@ def create_dataset(...)
 
 ### 开始训练
 
-根据[resnet/README.md](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/README_CN.md)所描述的步骤
+根据[resnet/README.md](https://gitee.com/mindspore/models/blob/r1.6/official/cv/resnet/README_CN.md)所描述的步骤
 启动CIFAR10数据集的训练，随后自动数据加速模块会通过LOG的形式展示其对于性能瓶颈的分析情况：
 
 ```text
@@ -175,8 +175,8 @@ epoch time: 17116.234 ms, per step time: 9.129 ms
 在进行下一次训练之前，用户可以根据自动数据加速模块输出的推荐配置，对数据集脚本进行调整，
 以便在下一次训练的开始时就可以在较优性能水平下运行数据处理管道。
 
-另外，MindSpore也提供了相关的API用于全局调整数据处理管道算子的并行度与内部队列深度，请参考[mindspore.dataset.config](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.dataset.config.html):
+另外，MindSpore也提供了相关的API用于全局调整数据处理管道算子的并行度与内部队列深度，请参考[mindspore.dataset.config](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/mindspore.dataset.config.html):
 
-- [mindspore.dataset.config.set_num_parallel_workers](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.dataset.config.html#mindspore.dataset.config.set_num_parallel_workers)
-- [mindspore.dataset.config.set_prefetch_size](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.dataset.config.html#mindspore.dataset.config.set_prefetch_size)
+- [mindspore.dataset.config.set_num_parallel_workers](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/mindspore.dataset.config.html#mindspore.dataset.config.set_num_parallel_workers)
+- [mindspore.dataset.config.set_prefetch_size](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/mindspore.dataset.config.html#mindspore.dataset.config.set_prefetch_size)
 

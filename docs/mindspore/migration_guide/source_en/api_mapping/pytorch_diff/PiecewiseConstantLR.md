@@ -1,6 +1,6 @@
 # Comparing the function differences between torch.optim.lr_scheduler.StepLR and torch.optim.lr_scheduler.MultiStepLR
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/PiecewiseConstantLR.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/PiecewiseConstantLR.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## torch.optim.lr_scheduler.StepLR
 
@@ -37,7 +37,7 @@ mindspore.nn.piecewise_constant_lr(
 )
 ```
 
-For more information, see [mindspore.nn.piecewise_constant_lr](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.piecewise_constant_lr.html#mindspore.nn.piecewise_constant_lr).
+For more information, see [mindspore.nn.piecewise_constant_lr](https://mindspore.cn/docs/api/en/r1.6/api_python/nn/mindspore.nn.piecewise_constant_lr.html#mindspore.nn.piecewise_constant_lr).
 
 ## Differences
 

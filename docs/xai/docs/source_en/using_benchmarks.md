@@ -1,6 +1,6 @@
 # Using Benchmarks
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_en/using_benchmarks.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/xai/docs/source_en/using_benchmarks.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## What are Benchmarks
 
@@ -8,9 +8,9 @@ Benchmarks are algorithms evaluating the goodness of saliency maps from explaine
 
 ## Preparations
 
-The tutorial below is referencing [using_benchmarks.py](https://gitee.com/mindspore/xai/blob/master/examples/using_benchmarks.py).
+The tutorial below is referencing [using_benchmarks.py](https://gitee.com/mindspore/xai/blob/r1.6/examples/using_benchmarks.py).
 
-Please follow the [Downloading Data Package](https://www.mindspore.cn/xai/docs/en/master/using_explainers.html#id4) instructions to download the necessary files for the tutorial.
+Please follow the [Downloading Data Package](https://www.mindspore.cn/xai/docs/en/r1.6/using_explainers.html#id4) instructions to download the necessary files for the tutorial.
 
 With the tutorial package, we have to get the sample image, trained classifier, explainer and optionally the saliency map ready:
 

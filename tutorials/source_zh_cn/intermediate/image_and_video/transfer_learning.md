@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `进阶` `计算机视觉` `全流程`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/intermediate/image_and_video/transfer_learning.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/tutorials/source_zh_cn/intermediate/image_and_video/transfer_learning.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 在实际场景中，为了减少从头开始训练所带来的时间成本，大多数情况下会基于已有的模型来进行迁移学习。本章将会以狗和狼的图像分类为例，讲解如何在MindSpore中加载预训练模型，并通过固定权重来实现迁移学习的目的。
 
@@ -154,7 +154,7 @@ Labels: [0 0 1 0 0 1 0 1 1 1 0 0 1 0 1 0 0 0 1 0 0 1 0 1]
 
 ## 定义网络
 
-本教程使用的[ResNet50](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/src/resnet.py)网络位于Model Zoo中，可直接使用。
+本教程使用的[ResNet50](https://gitee.com/mindspore/models/blob/r1.6/official/cv/resnet/src/resnet.py)网络位于Model Zoo中，可直接使用。
 
 ## 训练模型
 

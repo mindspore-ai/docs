@@ -2,7 +2,7 @@
 
 `GPU` `高性能计算` `全流程`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/hpc_gomo.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_zh_cn/hpc_gomo.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述
 
@@ -10,7 +10,7 @@ GOMO（Generalized Operator Modelling of the Ocean）是基于 OpenArray 的三�
 
 本篇教程将主要介绍如何在GPU上，使用MindSpore构建并运行三维海洋模型GOMO。
 > 你可以在这里下载完整的示例代码：
-<https://gitee.com/mindspore/models/tree/master/research/hpc/ocean_model> 。
+<https://gitee.com/mindspore/models/tree/r1.6/research/hpc/ocean_model> 。
 
 示例代码目录结构如下：
 

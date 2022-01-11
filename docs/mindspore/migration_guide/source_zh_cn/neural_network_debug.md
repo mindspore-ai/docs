@@ -1,6 +1,6 @@
 # 网络调试
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_zh_cn/neural_network_debug.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_zh_cn/neural_network_debug.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 本章将介绍网络调试的基本思路、常用工具，以及一些常见问题处理。
 
@@ -35,15 +35,15 @@
 
 在脚本开发和网络流程调试中，我们推荐使用PyNative模式进行调试。PyNative模式支持执行单算子、普通函数和网络，以及单独求梯度的操作。在PyNative模式下，可以方便地设置断点，获取网络执行的中间结果，也可以通过pdb的方式对网络进行调试。
 
-在默认情况下，MindSpore处于Graph模式，可以通过`context.set_context(mode=context.PYNATIVE_MODE)`设置为PyNative模式，相关示例可参考[使用PyNative模式调试](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/debug_in_pynative_mode.html#pynative)。
+在默认情况下，MindSpore处于Graph模式，可以通过`context.set_context(mode=context.PYNATIVE_MODE)`设置为PyNative模式，相关示例可参考[使用PyNative模式调试](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/debug_in_pynative_mode.html#pynative)。
 
 #### 获取更多报错信息
 
 在网络流程调试过程中，如果需要获取更多的报错信息，可通过以下方式获得：
 
 - 在PyNative模式下可使用pdb进行调试，利用pdb打印相关堆栈和上下文信息帮助问题定位。
-- 使用Print算子打印更多上下文信息，具体示例可参考[Print算子功能介绍](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#print)。
-- 调整日志级别获取更多报错信息，MindSpore可通过环境变量方便地调整日志级别，具体可参考[日志相关的环境变量和配置](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#id6)。
+- 使用Print算子打印更多上下文信息，具体示例可参考[Print算子功能介绍](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/custom_debugging_info.html#print)。
+- 调整日志级别获取更多报错信息，MindSpore可通过环境变量方便地调整日志级别，具体可参考[日志相关的环境变量和配置](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/custom_debugging_info.html#id6)。
 
 #### 常见错误
 
@@ -53,15 +53,15 @@
 
   网络流程调试过程中，常出现shape不匹配、dtype不支持等算子执行报错，此时应根据报错信息检查是否正确使用算子，以及算子输入数据的shape是否与预期相符，并进行相应修改。
 
-  相关算子支持和API介绍可参考[算子支持列表](https://www.mindspore.cn/docs/note/zh-CN/master/operator_list.html)和[算子Python API](https://www.mindspore.cn/docs/api/zh-CN/master/index.html)。
+  相关算子支持和API介绍可参考[算子支持列表](https://www.mindspore.cn/docs/note/zh-CN/r1.6/operator_list.html)和[算子Python API](https://www.mindspore.cn/docs/api/zh-CN/r1.6/index.html)。
 
 - 相同脚本，在PyNative模式下能跑通，但Graph模式下报错
 
-  MindSpore的Graph模式下，`construct`函数中的代码由MindSpore框架进行解析，有一些Python语法还未支持，因此导致报错。此时应当根据报错信息按照[MindSpore的语法说明](https://www.mindspore.cn/docs/note/zh-CN/master/static_graph_syntax_support.html)修改相关代码。
+  MindSpore的Graph模式下，`construct`函数中的代码由MindSpore框架进行解析，有一些Python语法还未支持，因此导致报错。此时应当根据报错信息按照[MindSpore的语法说明](https://www.mindspore.cn/docs/note/zh-CN/r1.6/static_graph_syntax_support.html)修改相关代码。
 
 - 分布式并行训练脚本配置错误
 
-  分布式并行训练脚本及环境配置可参考[分布式并行训练教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training.html)。
+  分布式并行训练脚本及环境配置可参考[分布式并行训练教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/distributed_training.html)。
 
 ### loss值对比检查
 
@@ -115,31 +115,31 @@
 
 - MindSpore提供了丰富的工具获取网络中间数据，可根据实际情况选用。
 
-    - [数据Dump功能](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#dump)
-    - [使用Print算子打印相关信息](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#print)
-    - [使用可视化组件MindInsight](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/index.html)
+    - [数据Dump功能](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/custom_debugging_info.html#dump)
+    - [使用Print算子打印相关信息](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/custom_debugging_info.html#print)
+    - [使用可视化组件MindInsight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.6/index.html)
 
 ### 精度调试工具
 
 #### 自定义调试信息
 
-- [Callback功能](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#callback)
+- [Callback功能](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/custom_debugging_info.html#callback)
 
-   MindSpore已提供ModelCheckpoint、LossMonitor、SummaryCollector等Callback类用于保存模型参数、监控loss值、保存训练过程信息等功能，用户也可自定义Callback函数用于实现在每个epoch和step的开始和结束运行相关功能，具体示例可参考[自定义Callback](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#id3)。
+   MindSpore已提供ModelCheckpoint、LossMonitor、SummaryCollector等Callback类用于保存模型参数、监控loss值、保存训练过程信息等功能，用户也可自定义Callback函数用于实现在每个epoch和step的开始和结束运行相关功能，具体示例可参考[自定义Callback](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/custom_debugging_info.html#id3)。
 
-- [MindSpore metrics功能](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#mindspore-metrics)
+- [MindSpore metrics功能](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/custom_debugging_info.html#mindspore-metrics)
 
    当训练结束后，可以使用metrics评估训练结果的好坏。MindSpore提供了多种metrics评估指标，如：`accuracy`、`loss`、`precision`、`recall`、`F1`等。
 
-- [边训练边推理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/evaluate_the_model_during_training.html)
+- [边训练边推理](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/evaluate_the_model_during_training.html)
 
    可通过定义推理的CallBack函数的方式在训练时进行推理。
 
-- [自定义训练](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/train_and_eval.html)
+- [自定义训练](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/train_and_eval.html)
 
 - 自定义学习率
 
-   MindSpore提供了一些常见的动态学习率实现以及一些常见的具有自适应学习率调整功能的优化器，可参考API文档中的[Dynamic Learning Rate](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.nn.html#dynamic-learning-rate)和[Optimizer Functions](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.nn.html#optimizer-functions)。
+   MindSpore提供了一些常见的动态学习率实现以及一些常见的具有自适应学习率调整功能的优化器，可参考API文档中的[Dynamic Learning Rate](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/mindspore.nn.html#dynamic-learning-rate)和[Optimizer Functions](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/mindspore.nn.html#optimizer-functions)。
 
    同时，用户可实现自定义的动态学习率，以WarmUpLR为例：
 
@@ -166,7 +166,7 @@
 
 #### 使用MindOptimizer进行超参调优
 
-MindSpore提供了MindOptimizer工具帮助用户进行更便捷的超参调优，详细示例和使用方法可参考[使用MindOptimizer进行超参调优](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/hyper_parameters_auto_tuning.html)。
+MindSpore提供了MindOptimizer工具帮助用户进行更便捷的超参调优，详细示例和使用方法可参考[使用MindOptimizer进行超参调优](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.6/hyper_parameters_auto_tuning.html)。
 
 #### loss值异常定位
 
@@ -180,7 +180,7 @@ MindSpore提供了MindOptimizer工具帮助用户进行更便捷的超参调优�
 
 2. 造成loss值异常的原因可能由输入数据异常、算子溢出、梯度消失、梯度爆炸等原因造成。
 
-   排查算子溢出、梯度为0、权重异常、梯度消失和梯度爆炸等网络中间值情况，推荐使用[MindInsight调试器](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger.html)设置相应检测点进行检测和调试，这种方式可较为全面地进行问题定位，可调试性也比较强。
+   排查算子溢出、梯度为0、权重异常、梯度消失和梯度爆炸等网络中间值情况，推荐使用[MindInsight调试器](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.6/debugger.html)设置相应检测点进行检测和调试，这种方式可较为全面地进行问题定位，可调试性也比较强。
 
    下面介绍几种简单的初步排查方法：
 

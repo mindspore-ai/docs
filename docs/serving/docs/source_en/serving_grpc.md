@@ -1,14 +1,14 @@
 # gRPC-based MindSpore Serving Access
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/serving/docs/source_en/serving_grpc.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/serving/docs/source_en/serving_grpc.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
-The gRPC API is provided to access the MindSpore Serving. In the Python environment, the [mindspore_serving.client](https://gitee.com/mindspore/serving/blob/master/mindspore_serving/client/python/client.py) module is provided to fill in requests and parse responses. The gRPC server supports the Ascend and Nvidia GPU platform. The client running does not depend on a specific hardware environment. The following uses `add` and `ResNet-50` as examples to describe how to use the gRPC Python API on clients.
+The gRPC API is provided to access the MindSpore Serving. In the Python environment, the [mindspore_serving.client](https://gitee.com/mindspore/serving/blob/r1.6/mindspore_serving/client/python/client.py) module is provided to fill in requests and parse responses. The gRPC server supports the Ascend and Nvidia GPU platform. The client running does not depend on a specific hardware environment. The following uses `add` and `ResNet-50` as examples to describe how to use the gRPC Python API on clients.
 
 ## add
 
-This example comes from [add example](https://gitee.com/mindspore/serving/blob/master/example/tensor_add/serving_client.py). The `add` Servable provides the `add_common` method to add up two 2x2 tensors. The code of the gRPC Python client is as follows. One gRPC request includes three pairs of independent 2x2 tensors.
+This example comes from [add example](https://gitee.com/mindspore/serving/blob/r1.6/example/tensor_add/serving_client.py). The `add` Servable provides the `add_common` method to add up two 2x2 tensors. The code of the gRPC Python client is as follows. One gRPC request includes three pairs of independent 2x2 tensors.
 
 ```python
 from mindspore_serving.client import Client
@@ -43,7 +43,7 @@ if __name__ == '__main__':
     run_add_common()
 ```
 
-Export the model, start the Serving server, and run the preceding client code by referring to the [MindSpore Serving-based Inference Service Deployment](https://www.mindspore.cn/serving/docs/en/master/serving_example.html). After the code runs properly, the following information is displayed. To facilitate display, the format is adjusted.
+Export the model, start the Serving server, and run the preceding client code by referring to the [MindSpore Serving-based Inference Service Deployment](https://www.mindspore.cn/serving/docs/en/r1.6/serving_example.html). After the code runs properly, the following information is displayed. To facilitate display, the format is adjusted.
 
 ```text
 [{'y': array([[2., 2.], [2., 2.]], dtype=float32)},
@@ -113,7 +113,7 @@ Details are described as follows:
 
 ## ResNet-50
 
-This example comes from [ResNet-50 example](https://gitee.com/mindspore/serving/blob/master/example/resnet/serving_client.py). `ResNet-50` Servable provides the `classify_top1` method to recognize images. In the `classify_top1` method, input the image data to obtain the output character string, perform operations such as decoding and resizing on images, and then perform inference. The classification label with the highest score is returned through post-processing.
+This example comes from [ResNet-50 example](https://gitee.com/mindspore/serving/blob/r1.6/example/resnet/serving_client.py). `ResNet-50` Servable provides the `classify_top1` method to recognize images. In the `classify_top1` method, input the image data to obtain the output character string, perform operations such as decoding and resizing on images, and then perform inference. The classification label with the highest score is returned through post-processing.
 
 ```python
 import os

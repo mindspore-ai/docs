@@ -6,6 +6,6 @@
 <source id="mp44" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/MindSpore%20Lite%20Quick%20Start.mp4" type="video/mp4">
 </video>
 
-**See More**: <https://www.mindspore.cn/lite/docs/en/master/quick_start/quick_start.html>
+**See More**: <https://www.mindspore.cn/lite/docs/en/r1.6/quick_start/quick_start.html>
 
-**Use MindSpore Lite**: <https://www.mindspore.cn/lite/docs/en/master/use/downloads.html>
+**Use MindSpore Lite**: <https://www.mindspore.cn/lite/docs/en/r1.6/use/downloads.html>

@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `分布式并行`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/auto_parallel.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_zh_cn/auto_parallel.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -72,7 +72,7 @@ context.get_auto_parallel_context("gradients_mean")
 
 其中`auto_parallel`和`data_parallel`在MindSpore教程中有完整样例：
 
-<https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training.html>。
+<https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/distributed_training.html>。
 
 代码样例如下：
 
@@ -197,7 +197,7 @@ context.get_auto_parallel_context("gradient_fp32_sync")
 
 `auto_parallel_search_mode`字段现已替换为`search_mode`，`auto_parallel_search_mode`将会在未来版本中删除。该字段用于指示并行策略搜索使用的算法。当前，MindSpore提供了`dynamic_programming`，`recursive_programming`和`sharding_propagation`三种搜索策略的算法用于搜索算子级并行策略，默认是`dynamic_programming`。
 
-`dynamic_programming`能够搜索出代价模型刻画的最优策略，但在搜索巨大网络模型的并行策略时耗时较长；而`recursive_programming`能瞬间搜索出并行策略，同时在已验证的常用网络中搜索出来的策略是最优策略，但在未经验证的某些特殊网络中可能找到次优策略。`sharding_propagation`要求用户配置一些算子的并行策略，并以此为基础向整个网络传播。在传播时，算法会尽量选取引发张量[重排布](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/design/distributed_training_design.html#id10)通信最少的策略。MindSpore提供了参数，让用户自由选择搜索算法。
+`dynamic_programming`能够搜索出代价模型刻画的最优策略，但在搜索巨大网络模型的并行策略时耗时较长；而`recursive_programming`能瞬间搜索出并行策略，同时在已验证的常用网络中搜索出来的策略是最优策略，但在未经验证的某些特殊网络中可能找到次优策略。`sharding_propagation`要求用户配置一些算子的并行策略，并以此为基础向整个网络传播。在传播时，算法会尽量选取引发张量[重排布](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/design/distributed_training_design.html#id10)通信最少的策略。MindSpore提供了参数，让用户自由选择搜索算法。
 
 代码样例如下：
 
@@ -293,7 +293,7 @@ context.set_context(device_target='GPU')
 init()
 ```
 
-> 在GPU处理器平台下，MindSpore还支持不依赖`OpenMPI`来启动分布式训练，也使用本接口进行分布式训练初始化，具体方法可参考[不依赖OpenMPI进行训练](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_gpu.html#openmpi)。在此场景下，即用户不使用'mpirun'启动进程，但是依然调用了`init()`方法的情况下，MindSpore要求用户按照[不依赖OpenMPI进行训练](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_gpu.html#openmpi)配置若干环境变量，若没有配置，MindSpore会给出合理的报错提示。因此建议只有在执行分布式训练时调用此方法，并在不使用`mpirun`的场景下，根据文档配置正确的环境变量以启动分布式训练。
+> 在GPU处理器平台下，MindSpore还支持不依赖`OpenMPI`来启动分布式训练，也使用本接口进行分布式训练初始化，具体方法可参考[不依赖OpenMPI进行训练](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/distributed_training_gpu.html#openmpi)。在此场景下，即用户不使用'mpirun'启动进程，但是依然调用了`init()`方法的情况下，MindSpore要求用户按照[不依赖OpenMPI进行训练](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/distributed_training_gpu.html#openmpi)配置若干环境变量，若没有配置，MindSpore会给出合理的报错提示。因此建议只有在执行分布式训练时调用此方法，并在不使用`mpirun`的场景下，根据文档配置正确的环境变量以启动分布式训练。
 
 ### get_group_size
 

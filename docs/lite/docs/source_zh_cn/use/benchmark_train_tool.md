@@ -2,7 +2,7 @@
 
 `Linux` `环境准备` `基准测试` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/benchmark_train_tool.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/lite/docs/source_zh_cn/use/benchmark_train_tool.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -14,9 +14,9 @@
 
 使用`benchmark_train`工具，需要进行如下环境准备工作。
 
-- 编译：`benchmark_train`工具代码在MindSpore源码的`mindspore/lite/tools/benchmark_train`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html#id1)和[编译示例](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html#id3)编译端侧训练框架。
+- 编译：`benchmark_train`工具代码在MindSpore源码的`mindspore/lite/tools/benchmark_train`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/build.html#id1)和[编译示例](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/build.html#id3)编译端侧训练框架。
 
-- 配置环境变量：参考构建文档中的[编译输出](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html#id5)，获得`benchmark_train`工具，并配置环境变量。假设您编译出的端侧训练框架压缩包所在完整路径为`/path/mindspore-lite-{version}-{os}-{arch}.tar.gz`，解压并配置环境变量的命令如下：
+- 配置环境变量：参考构建文档中的[编译输出](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/build.html#id5)，获得`benchmark_train`工具，并配置环境变量。假设您编译出的端侧训练框架压缩包所在完整路径为`/path/mindspore-lite-{version}-{os}-{arch}.tar.gz`，解压并配置环境变量的命令如下：
 
     ```bash
     cd /path

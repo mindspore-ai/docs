@@ -2,7 +2,7 @@
 
 Translator: [Soleil](https://gitee.com/deng-zhihua)
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/neural_network_debug.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_en/neural_network_debug.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 This chapter introduces the basic principles and common tools of Network Debugging, as well as some solutions to some common problems.
 
@@ -37,15 +37,15 @@ This section introduces the problems and solutions during Network Debugging proc
 
 For script development and network process debugging, we recommend using the PyNative mode for debugging. The PyNative mode supports executing single operators, normal functions and networks, as well as separate operations for computing gradients. In PyNative mode, you can easily set breakpoints and get intermediate results of network execution, and you can also debug the network by means of pdb.
 
-By default, MindSpore is in PyNative mode, which can also be defined explicitly via `context.set_context(mode=context.PYNATIVE_MODE)`. Related examples can be found in [Debugging With PyNative Mode](https://www.mindspore.cn/docs/programming_guide/en/master/debug_in_pynative_mode.html#pynative).
+By default, MindSpore is in PyNative mode, which can also be defined explicitly via `context.set_context(mode=context.PYNATIVE_MODE)`. Related examples can be found in [Debugging With PyNative Mode](https://www.mindspore.cn/docs/programming_guide/en/r1.6/debug_in_pynative_mode.html#pynative).
 
 #### Getting More Error Messages
 
 During the network process debugging, if you need to get more information about error reports, you can get it by the following ways:
 
 - Using pdb for debugging in PyNative mode, and using pdb to print relevant stack and contextual information to help locate problems.
-- Using Print operator to print more contextual information. Related examples can be found in [Print Operator Features](https://www.mindspore.cn/docs/programming_guide/en/master/custom_debugging_info.html#print).
-- Adjusting the log level to get more error information, MindSpore can easily adjust the log level through environment variables. Related examples can be found in [Logging-related Environment Variables And Configurations](https://www.mindspore.cn/docs/programming_guide/en/master/custom_debugging_info.html#id6).
+- Using Print operator to print more contextual information. Related examples can be found in [Print Operator Features](https://www.mindspore.cn/docs/programming_guide/en/r1.6/custom_debugging_info.html#print).
+- Adjusting the log level to get more error information, MindSpore can easily adjust the log level through environment variables. Related examples can be found in [Logging-related Environment Variables And Configurations](https://www.mindspore.cn/docs/programming_guide/en/r1.6/custom_debugging_info.html#id6).
 
 #### Common Errors
 
@@ -55,15 +55,15 @@ During network process debugging, the common errors are as follows:
 
   During the network process debugging, errors are often reported in the execution of arithmetic such as shape mismatch and unsupported dtype. Then, according to the error message, you should check whether the arithmetic is used correctly and whether the shape of the input data is consistent with the expectation and make corresponding modifications.
 
-  Supports for related operators and API introductions can be found in [Operator Support List](https://www.mindspore.cn/docs/note/en/master/operator_list.html) and [Operators Python API](https://www.mindspore.cn/docs/api/en/master/index.html).
+  Supports for related operators and API introductions can be found in [Operator Support List](https://www.mindspore.cn/docs/note/en/r1.6/operator_list.html) and [Operators Python API](https://www.mindspore.cn/docs/api/en/r1.6/index.html).
 
 - The same script works in PyNative mode, but reports bugs in Graph mode.
 
-  In MindSpore's Graph mode, the code in the `construct` function is parsed by the MindSpore framework, and there is some Python syntax that is not yet supported which results in errors. In this case, you should follow [MindSpore's Syntax Description](https://www.mindspore.cn/docs/note/en/master/static_graph_syntax_support.html) according to the error message.
+  In MindSpore's Graph mode, the code in the `construct` function is parsed by the MindSpore framework, and there is some Python syntax that is not yet supported which results in errors. In this case, you should follow [MindSpore's Syntax Description](https://www.mindspore.cn/docs/note/en/r1.6/static_graph_syntax_support.html) according to the error message.
 
 - Distributed parallel training script is misconfigured.
 
-  Distributed parallel training scripts and environment configuration can be found in [Distributed Parallel Training Tutorial](https://www.mindspore.cn/docs/programming_guide/en/master/distributed_training.html).
+  Distributed parallel training scripts and environment configuration can be found in [Distributed Parallel Training Tutorial](https://www.mindspore.cn/docs/programming_guide/en/r1.6/distributed_training.html).
 
 ### Loss Value Comparison
 
@@ -117,29 +117,29 @@ If the loss errors are large, the problem locating can be done using following w
 
 - MindSpore provides various tools for acquiring intermediate network data, which can be used according to the actual situation.
 
-    - [Data Dump function](https://www.mindspore.cn/docs/programming_guide/en/master/custom_debugging_info.html#dump)
-    - [Use Print Operator To Print Related Information](https://www.mindspore.cn/docs/programming_guide/en/master/custom_debugging_info.html#print)
-    - [Using The Visualization Component MindInsight](https://www.mindspore.cn/mindinsight/docs/en/master/index.html)
+    - [Data Dump function](https://www.mindspore.cn/docs/programming_guide/en/r1.6/custom_debugging_info.html#dump)
+    - [Use Print Operator To Print Related Information](https://www.mindspore.cn/docs/programming_guide/en/r1.6/custom_debugging_info.html#print)
+    - [Using The Visualization Component MindInsight](https://www.mindspore.cn/mindinsight/docs/en/r1.6/index.html)
 
 ### Precision Debugging Tools
 
 #### Customized Debugging Information
 
-- [Callback Function](https://www.mindspore.cn/docs/programming_guide/en/master/custom_debugging_info.html#callback)
+- [Callback Function](https://www.mindspore.cn/docs/programming_guide/en/r1.6/custom_debugging_info.html#callback)
 
-   MindSpore has provided ModelCheckpoint, LossMonitor, SummaryCollector and other Callback classes for saving model parameters, monitoring loss values, saving training process information, etc. Users can also customize Callback functions like starting and ending runs at each epoch and step, please refer to [Custom Callback](https://www.mindspore.cn/docs/programming_guide/en/master/custom_debugging_info.html#id3) for specific examples.
+   MindSpore has provided ModelCheckpoint, LossMonitor, SummaryCollector and other Callback classes for saving model parameters, monitoring loss values, saving training process information, etc. Users can also customize Callback functions like starting and ending runs at each epoch and step, please refer to [Custom Callback](https://www.mindspore.cn/docs/programming_guide/en/r1.6/custom_debugging_info.html#id3) for specific examples.
 
-- [MindSpore Metrics Function](https://www.mindspore.cn/docs/programming_guide/en/master/custom_debugging_info.html#mindspore-metrics)
+- [MindSpore Metrics Function](https://www.mindspore.cn/docs/programming_guide/en/r1.6/custom_debugging_info.html#mindspore-metrics)
 
    When the training is finished, metrics can be used to evaluate the training results. MindSpore provides various metrics for evaluation, such as: `accuracy`, `loss`, `precision`, `recall`, `F1`, etc.
 
-- [Reasoning With Training](https://www.mindspore.cn/docs/programming_guide/en/master/evaluate_the_model_during_training.html)
+- [Reasoning With Training](https://www.mindspore.cn/docs/programming_guide/en/r1.6/evaluate_the_model_during_training.html)
 
    Inference can be performed at training time by defining a CallBack function for inference.
 
 - Customized Learning Rate
 
-   MindSpore provides some common implementations of dynamic learning rate and some common optimizers with adaptive learning rate adjustment functions, referring to [Dynamic Learning Rate](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.nn.html#dynamic-learning-rate) and [Optimizer Functions](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.nn.html#optimizer-functions) in the API documentation.
+   MindSpore provides some common implementations of dynamic learning rate and some common optimizers with adaptive learning rate adjustment functions, referring to [Dynamic Learning Rate](https://www.mindspore.cn/docs/api/en/r1.6/api_python/mindspore.nn.html#dynamic-learning-rate) and [Optimizer Functions](https://www.mindspore.cn/docs/api/en/r1.6/api_python/mindspore.nn.html#optimizer-functions) in the API documentation.
 
    At the same time, the user can implement a customized dynamic learning rate, as exemplified by WarmUpLR:
 
@@ -166,7 +166,7 @@ If the loss errors are large, the problem locating can be done using following w
 
 #### Hyper-Parameter Optimization with MindOptimizer
 
-MindSpore provides MindOptimizer tools to help users perform hyper-parameter optimization conveniently, please refer to [Hyper-Parameter Optimization With MindOptimizer](https://www.mindspore.cn/mindinsight/docs/en/master/hyper_parameters_auto_tuning.html) for detailed examples and usage methods.
+MindSpore provides MindOptimizer tools to help users perform hyper-parameter optimization conveniently, please refer to [Hyper-Parameter Optimization With MindOptimizer](https://www.mindspore.cn/mindinsight/docs/en/r1.6/hyper_parameters_auto_tuning.html) for detailed examples and usage methods.
 
 #### Loss Value Anomaly Locating
 
@@ -180,7 +180,7 @@ For cases where the loss value is INF, NAN, or the loss value does not converge,
 
 2. The causes of abnormal loss values may be caused by abnormal input data, operator overflow, gradient disappearance, gradient explosion, etc.
 
-   To check the intermediate value of the network such as operator overflow, gradient of 0, abnormal weight, gradient disappearance and gradient explosion, it is recommended to use [MindInsight Debugger](https://www.mindspore.cn/mindinsight/docs/en/master/debugger.html) to set the corresponding detection points for detection and debugging, which can locate the problem in a more comprehensive way with stronger debuggability.
+   To check the intermediate value of the network such as operator overflow, gradient of 0, abnormal weight, gradient disappearance and gradient explosion, it is recommended to use [MindInsight Debugger](https://www.mindspore.cn/mindinsight/docs/en/r1.6/debugger.html) to set the corresponding detection points for detection and debugging, which can locate the problem in a more comprehensive way with stronger debuggability.
 
    The following are a few simple initial troubleshooting methods:
 

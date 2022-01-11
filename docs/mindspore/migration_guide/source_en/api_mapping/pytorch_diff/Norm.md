@@ -1,6 +1,6 @@
 # Function Differences with torch.norm
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/Norm.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/Norm.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## torch.norm
 
@@ -26,7 +26,7 @@ class mindspore.nn.Norm(
 )(input)
 ```
 
-For more information, see [mindspore.nn.Norm](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Norm.html#mindspore.nn.Norm).
+For more information, see [mindspore.nn.Norm](https://mindspore.cn/docs/api/en/r1.6/api_python/nn/mindspore.nn.Norm.html#mindspore.nn.Norm).
 
 ## Differences
 

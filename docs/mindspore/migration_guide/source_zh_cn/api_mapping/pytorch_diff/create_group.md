@@ -1,6 +1,6 @@
 # 比较与torch.distributed.new_group的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_zh_cn/api_mapping/pytorch_diff/create_group.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_zh_cn/api_mapping/pytorch_diff/create_group.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## torch.distributed.new_group
 
@@ -20,7 +20,7 @@ torch.distributed.new_group(
 mindspore.communication.create_group(group, rank_ids)
 ```
 
-更多内容详见[mindspore.communication.create_group](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.communication.html#mindspore.communication.create_group)。
+更多内容详见[mindspore.communication.create_group](https://mindspore.cn/docs/api/zh-CN/r1.6/api_python/mindspore.communication.html#mindspore.communication.create_group)。
 
 ## 使用方式
 

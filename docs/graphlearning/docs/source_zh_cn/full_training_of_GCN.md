@@ -1,6 +1,6 @@
 # 整图训练GCN网络
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/graphlearning/docs/source_zh_cn/full_training_of_GCN.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/graphlearning/docs/source_zh_cn/full_training_of_GCN.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 &nbsp;&nbsp;
 
 ## 概述
@@ -15,7 +15,7 @@ MindSpore  Graph Learning为用户提供了丰富的数据读入、图操作和�
 此外MindSpore  Graph Learning提供了以点为中心的GNN网络编程范式，内置将以点为中心的计算表达翻译为图数据的计算操作的代码解析函数，为了方便用户调试解析过程将打印出用户输入代码与计算代码的翻译对比图。
 
 本文档展示了使用MindSpore  Graph Learning训练GCN网络以及验证。当用户的图节点和边特征都能存入GPU时，可以不用采样进行整图训练。
-具体代码参见<https://gitee.com/mindspore/graphlearning/blob/master/examples/vc_gcn_datanet.py>。
+具体代码参见<https://gitee.com/mindspore/graphlearning/blob/r0.5/examples/vc_gcn_datanet.py>。
 
 下面为GCN整图训练的示范：
 
@@ -54,7 +54,7 @@ class GCNNet(GNNCell):
 其中定义的GCNNet继承于GNNCell。GNNCell中construct函数的最后一项输入必须为Graph或者BatchedGraph，也就是MindSpore Graph Learning内置支持的图结构类。此外必须在文件的头部导入
 mindspore便于代码翻译时识别执行后端。
 GCNConv的参数data_feat_size为输入节点特征维度，hidden_dim_size为隐层特征维度，n_classes为输出分类的维度，in_deg和out_deg分别为图数据中节点的入度和出度。
-具体GCN的实现可以参考mindspore_gl.nn.GCNConv的接口代码<https://gitee.com/mindspore/graphlearning/blob/master/mindspore_gl/nn/conv/gcnconv.py>。
+具体GCN的实现可以参考mindspore_gl.nn.GCNConv的接口代码<https://gitee.com/mindspore/graphlearning/blob/r0.5/mindspore_gl/nn/conv/gcnconv.py>。
 
 ## 定义loss函数
 
@@ -234,4 +234,4 @@ Epoch 200, Train loss 0.27628058, Test acc 0.819
 
 在cora上验证精度：0.82 (论文：0.815)
 
-以上就是整图训练的使用指南。更多样例可参考[examples目录](<https://gitee.com/mindspore/graphlearning/tree/master/examples>)。
+以上就是整图训练的使用指南。更多样例可参考[examples目录](<https://gitee.com/mindspore/graphlearning/tree/r0.5/examples>)。

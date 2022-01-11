@@ -1,6 +1,6 @@
 # Function Differences with torch.cat
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/Concat.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/Concat.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## torch.cat
 
@@ -22,7 +22,7 @@ class mindspore.ops.Concat(
 )(input_x)
 ```
 
-For more information, see [mindspore.ops.Concat](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Concat.html#mindspore.ops.Concat).
+For more information, see [mindspore.ops.Concat](https://mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.Concat.html#mindspore.ops.Concat).
 
 ## Differences
 

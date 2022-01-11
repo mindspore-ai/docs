@@ -1,6 +1,6 @@
 # Visualization of Training Optimization Process
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/landscape.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindinsight/docs/source_en/landscape.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
 ## Overview
 
@@ -14,7 +14,7 @@ Figure1: Gradient Descent Method（Picture Source<https://www.pianshen.com/artic
 
 The specific use steps are divided into two steps. Taking the classification task as an example, the network is LeNet and the data set is MNIST. The sample code is as follows:
 
-1. Training data collection: in the training process, use the SummaryCollector to collect the forward network weights of multiple models, the parameters required for landscape drawing (expected drawing interval, landscape resolution, etc.), and other specific use methods of SummaryCollector can be referred to [Collecting Summary Record](https://www.mindspore.cn/mindinsight/docs/en/master/summary_record.html).
+1. Training data collection: in the training process, use the SummaryCollector to collect the forward network weights of multiple models, the parameters required for landscape drawing (expected drawing interval, landscape resolution, etc.), and other specific use methods of SummaryCollector can be referred to [Collecting Summary Record](https://www.mindspore.cn/mindinsight/docs/en/r1.6/summary_record.html).
 
    ```python
    import mindspore.dataset as ds
@@ -189,7 +189,7 @@ The specific use steps are divided into two steps. Taking the classification tas
    - `collect_landscape`: The parameter definition is consistent with the `SummaryCollector`, where user can freely modify drawing parameters.
    - `device_ids`: Specify `device_ids` for landscape drawing, which supports single machine multi-device computing.
 
-After drawing, start MindInsight. Refer to [MindInsight Commands](https://www.mindspore.cn/mindinsight/docs/en/master/mindinsight_commands.html) for specific commands.
+After drawing, start MindInsight. Refer to [MindInsight Commands](https://www.mindspore.cn/mindinsight/docs/en/r1.6/mindinsight_commands.html) for specific commands.
 
 As shown in Figure 2, the Summary List and corresponding information are displayed:
 

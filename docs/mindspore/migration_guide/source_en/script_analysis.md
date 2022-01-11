@@ -1,6 +1,6 @@
 # Network Script Analysis
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/script_analysis.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_en/script_analysis.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## Operator Evaluation
 
@@ -28,11 +28,11 @@ When counting missing ME operators, you need to find out the corresponding opera
 
 ### Query Operator Mapping Table
 
-Find the network structure and the Python file that implements the training function in the code library (the name is generally train.py model.py, etc.), and find all relevant operators in the script file (including data framework classes, data preprocessing, network structure operators, etc.), and compare with [MindSpore Operator API](https://www.mindspore.cn/docs/note/en/master/operator_list_ms.html) , to find the platform support status of the operator under `mindspore.nn` or `mindspore.ops`.
+Find the network structure and the Python file that implements the training function in the code library (the name is generally train.py model.py, etc.), and find all relevant operators in the script file (including data framework classes, data preprocessing, network structure operators, etc.), and compare with [MindSpore Operator API](https://www.mindspore.cn/docs/note/en/r1.6/operator_list_ms.html) , to find the platform support status of the operator under `mindspore.nn` or `mindspore.ops`.
 
-If the corresponding ME operator cannot be found on this webpage, you can continue to search for the operator name in [MindSpore API List](https://www.mindspore.cn/docs/api/en/master/index.html).
+If the corresponding ME operator cannot be found on this webpage, you can continue to search for the operator name in [MindSpore API List](https://www.mindspore.cn/docs/api/en/r1.6/index.html).
 
-If the source code is a PyTorch script, you can directly query [MindSpore and PyTorch operator mapping](https://www.mindspore.cn/docs/note/en/master/index.html#operator_api) to find the corresponding MindSpore operator. For the mapping of other frame operators, please refer to the operator naming and function description. Note that for operators with the same function, MindSpore may define a name for this operator differing from other frameworks, and the parameters and functions of operators with the same name may also be different from other frameworks. Please refer to the official description for checking the names.
+If the source code is a PyTorch script, you can directly query [MindSpore and PyTorch operator mapping](https://www.mindspore.cn/docs/note/en/r1.6/index.html#operator_api) to find the corresponding MindSpore operator. For the mapping of other frame operators, please refer to the operator naming and function description. Note that for operators with the same function, MindSpore may define a name for this operator differing from other frameworks, and the parameters and functions of operators with the same name may also be different from other frameworks. Please refer to the official description for checking the names.
 
 ### Missing Operator Processing Strategy
 
@@ -46,7 +46,7 @@ MindSpore provides two modes: `GRAPH_MODE` and `PYNATIVE_MODE`.
 
 In PyNative mode, the behavior of the model for **Evaluation** is same as that of in the general Python code.
 
-When using `GRAPH_MODE`, or when using `PYNATIVE_MODE` for **Training**, there are usually grammatical restrictions. In these two cases, it is necessary to perform graph compilation operations on the Python code. In this step, MindSpore has not yet been able to support the complete set of Python syntax, so there will be some restrictions on the implementation of the `construct` function. For specific restrictions, please refer to [MindSpore static graph syntax support](https://www.mindspore.cn/docs/note/en/master/static_graph_syntax_support.html).
+When using `GRAPH_MODE`, or when using `PYNATIVE_MODE` for **Training**, there are usually grammatical restrictions. In these two cases, it is necessary to perform graph compilation operations on the Python code. In this step, MindSpore has not yet been able to support the complete set of Python syntax, so there will be some restrictions on the implementation of the `construct` function. For specific restrictions, please refer to [MindSpore static graph syntax support](https://www.mindspore.cn/docs/note/en/r1.6/static_graph_syntax_support.html).
 
 ### Common Restriction Principles
 

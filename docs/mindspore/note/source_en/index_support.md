@@ -1,6 +1,6 @@
 # Tensor Index Support
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/note/source_en/index_support.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/note/source_en/index_support.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 Single-level and multi-level Tensor indexing is supported on both PyNative and Graph mode.
 
@@ -224,7 +224,7 @@ When `value` is `Tuple` or `List`, and contains `Tensor`, all the `non-Tensor` e
 
 Index value assignment can be understood as assigning values to indexed position elements based on certain rules. All index value assignment does not change the original `shape` of `Tensor`.
 
-> If there are multiple index elements in indices that correspond to the same position, the value of that position in the output will be nondeterministic. For more details, please see:[TensorScatterUpdate](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.TensorScatterUpdate.html)
+> If there are multiple index elements in indices that correspond to the same position, the value of that position in the output will be nondeterministic. For more details, please see:[TensorScatterUpdate](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.TensorScatterUpdate.html)
 >
 > Only single-bracket indexing is supported (`tensor_x[index] = value`)， multi-bracket(`tensor_x[index1][index2]... = value`) is not supported.
 
@@ -435,7 +435,7 @@ Index value augmented-assignment supports seven augmented_assignment operations:
 
 Index value augmented-assignment can be regarded as taking the value of the position elements to be indexed according to certain rules, and then performing operator operation with `value`. Finally, assign the operation result to the origin `Tensor`. All index augmented-assignments will not change the `shape` of the original `Tensor`.
 
-> If there are multiple index elements in indices that correspond to the same position, the value of that position in the output will be nondeterministic. For more details, please see:[TensorScatterUpdate](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.TensorScatterUpdate.html)
+> If there are multiple index elements in indices that correspond to the same position, the value of that position in the output will be nondeterministic. For more details, please see:[TensorScatterUpdate](https://www.mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.TensorScatterUpdate.html)
 >
 > Currently indices that contain `True`, `False` and `None` are not supported.
 

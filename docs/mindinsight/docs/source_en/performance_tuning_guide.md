@@ -1,19 +1,19 @@
 # Performance Tuning Guide
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/performance_tuning_guide.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindinsight/docs/source_en/performance_tuning_guide.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
 MindInsight provides a number of indicators from the perspective of single device and cluster to help users find performance bottlenecks. This paper focuses on the explanation of methodology. The purpose is to guide users how to use these indicators to find the performance bottlenecks in the network step by step.
 For the meaning of each indicator, users can refer to the following tutorials:
 
-[Performance Profiling（Ascend）](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html)
+[Performance Profiling（Ascend）](https://www.mindspore.cn/mindinsight/docs/en/r1.6/performance_profiling_ascend.html)
 
-[Performance Profiling（GPU）](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_gpu.html)
+[Performance Profiling（GPU）](https://www.mindspore.cn/mindinsight/docs/en/r1.6/performance_profiling_gpu.html)
 
-[Cluster Performance Profiling (Ascend)](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend_of_cluster.html)
+[Cluster Performance Profiling (Ascend)](https://www.mindspore.cn/mindinsight/docs/en/r1.6/performance_profiling_ascend_of_cluster.html)
 
-Users can read this article in combination with the [tuning case](https://www.mindspore.cn/docs/migration_guide/en/master/performance_optimization.html), which is more intuitive to understand.
+Users can read this article in combination with the [tuning case](https://www.mindspore.cn/docs/migration_guide/en/r1.6/performance_optimization.html), which is more intuitive to understand.
 
 ## Single Device Performance Tuning
 
@@ -61,7 +61,7 @@ Step 1：Please jump to the `step interval` tab on the `data preparation details
 
 - If there is no time-consuming customized logic in the script, it indicates that sending data from host to device is time-consuming, please feedback to the [MindSpore Community](https://gitee.com/mindspore/mindspore/issues) .
 
-Step 2：Please jump to the `data processing` tab on the `data preparation details` page, observe the inter-operator queue, and determine which operator has a performance bottleneck in the data processing. Principles of judgment can be found in the [Performance Profiling](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#data-preparation-performance-analysis) page. Users can reference [Optimizing the Data Processing](https://www.mindspore.cn/docs/programming_guide/en/master/optimize_data_processing.html) and try to optimize the data processing performance.
+Step 2：Please jump to the `data processing` tab on the `data preparation details` page, observe the inter-operator queue, and determine which operator has a performance bottleneck in the data processing. Principles of judgment can be found in the [Performance Profiling](https://www.mindspore.cn/mindinsight/docs/en/r1.6/performance_profiling_ascend.html#data-preparation-performance-analysis) page. Users can reference [Optimizing the Data Processing](https://www.mindspore.cn/docs/programming_guide/en/r1.6/optimize_data_processing.html) and try to optimize the data processing performance.
 
 #### Graph Mode
 
@@ -73,7 +73,7 @@ Step 1：Please jump to the `step interval` tab on the `data preparation details
 Step 2: See how the size curve changes in the host queue. If none of the size in the queue is 0, it indicates that the process by which training data is sent from host to device is a performance bottleneck, please feedback to the [MindSpore Community](https://gitee.com/mindspore/mindspore/issues) .
 Otherwise it indicates that the data processing process is the performance bottleneck, please refer to Step 3 to continue to locate which operator of data processing has performance problems.
 
-Step 3：Please jump to the `data processing` tab on the `data preparation details` page, observe the inter-operator queue, and determine which operator has a performance bottleneck in the data processing. Principles of judgment can be found in the [Performance Profiling](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#data-preparation-performance-analysis) page. Users can reference [Optimizing the Data Processing](https://www.mindspore.cn/docs/programming_guide/en/master/optimize_data_processing.html) and try to optimize the data processing performance.
+Step 3：Please jump to the `data processing` tab on the `data preparation details` page, observe the inter-operator queue, and determine which operator has a performance bottleneck in the data processing. Principles of judgment can be found in the [Performance Profiling](https://www.mindspore.cn/mindinsight/docs/en/r1.6/performance_profiling_ascend.html#data-preparation-performance-analysis) page. Users can reference [Optimizing the Data Processing](https://www.mindspore.cn/docs/programming_guide/en/r1.6/optimize_data_processing.html) and try to optimize the data processing performance.
 
 ### Long Forward And Backward Propagation
 

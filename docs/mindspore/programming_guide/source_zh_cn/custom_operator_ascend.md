@@ -2,7 +2,7 @@
 
 `Ascend` `模型开发`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/custom_operator_ascend.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_zh_cn/custom_operator_ascend.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -18,7 +18,7 @@
 
 本文将以自定义Square算子为例，介绍自定义算子的步骤。
 
-> 更多详细内容可参考MindSpore源码中[tests/st/ops/custom_ops_tbe](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/custom_ops_tbe)下的用例。
+> 更多详细内容可参考MindSpore源码中[tests/st/ops/custom_ops_tbe](https://gitee.com/mindspore/mindspore/tree/r1.6/tests/st/ops/custom_ops_tbe)下的用例。
 
 ## 注册算子原语
 
@@ -26,7 +26,7 @@
 
 自定义算子原语与内置算子原语的接口定义完全一致：  
 
-- 属性由构造函数`__init__`的入参定义。本用例的算子没有属性，因此`__init__`没有额外的入参。带属性的用例可参考MindSpore源码中的[custom add3](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/custom_ops_tbe/cus_add3.py)用例。
+- 属性由构造函数`__init__`的入参定义。本用例的算子没有属性，因此`__init__`没有额外的入参。带属性的用例可参考MindSpore源码中的[custom add3](https://gitee.com/mindspore/mindspore/blob/r1.6/tests/st/ops/custom_ops_tbe/cus_add3.py)用例。
 - 输入输出的名称通过`init_prim_io_names`函数定义。
 - 输出Tensor的shape推理方法在`infer_shape`函数中定义，输出Tensor的dtype推理方法在`infer_dtype`函数中定义。
 

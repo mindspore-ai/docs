@@ -1,6 +1,6 @@
 # Function Differences with torch.topk
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/TopK.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/TopK.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## torch.topk
 
@@ -25,7 +25,7 @@ class mindspore.ops.TopK(
 )(input_x, k)
 ```
 
-For more information, see [mindspore.ops.TopK](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.TopK.html#mindspore.ops.TopK).
+For more information, see [mindspore.ops.TopK](https://mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.TopK.html#mindspore.ops.TopK).
 
 ## Differences
 

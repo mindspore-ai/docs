@@ -1,6 +1,6 @@
 # 比较与torch.Tensor.sum的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_zh_cn/api_mapping/pytorch_diff/TensorSum.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_zh_cn/api_mapping/pytorch_diff/TensorSum.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## torch.Tensor.sum
 
@@ -16,7 +16,7 @@ torch.Tensor.sum(dim=None, keepdim=False, dtype=None)
 mindspore.Tensor.sum(axis=None, dtype=None, keepdims=False, initial=None)
 ```
 
-更多内容详见[mindspore.Tensor.sum](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore/mindspore.Tensor.html#mindspore.Tensor.sum)。
+更多内容详见[mindspore.Tensor.sum](https://www.mindspore.cn/docs/api/en/r1.6/api_python/mindspore/mindspore.Tensor.html#mindspore.Tensor.sum)。
 
 ## 使用方式
 

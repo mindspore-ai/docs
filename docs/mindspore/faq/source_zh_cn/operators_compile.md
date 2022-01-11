@@ -1,6 +1,6 @@
 ﻿# 算子编译
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_zh_cn/operators_compile.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/faq/source_zh_cn/operators_compile.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 <font size=3>**Q: 在使用`ops.concat`算子时，因为数据规模有点大，导致报错`Error:Input and (output + workspace) num should <=192!`，可以怎么处理？**</font>
 
@@ -40,13 +40,13 @@ A: `Conv2D`算子是有这个约束条件的: 当`group`大于1 时，其值必
 
 <font size=3>**Q: MindSpore支持矩阵转置吗？**</font>
 
-A: 支持，请参考`mindspore.ops.Transpose`的[算子教程](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Transpose.html#mindspore.ops.Transpose)。
+A: 支持，请参考`mindspore.ops.Transpose`的[算子教程](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.Transpose.html#mindspore.ops.Transpose)。
 
 <br/>
 
 <font size=3>**Q: 请问MindSpore能算给定任意一个`tensor`的方差吗？**</font>
 
-A: mindspore目前暂无可以直接求出`tensor`方差的算子或接口。不过MindSpore有足够多的小算子可以支持用户实现这样的操作，你可以参考[class Moments(Cell)](https://www.mindspore.cn/docs/api/zh-CN/master/_modules/mindspore/nn/layer/math.html#Moments)来实现。
+A: mindspore目前暂无可以直接求出`tensor`方差的算子或接口。不过MindSpore有足够多的小算子可以支持用户实现这样的操作，你可以参考[class Moments(Cell)](https://www.mindspore.cn/docs/api/zh-CN/r1.6/_modules/mindspore/nn/layer/math.html#Moments)来实现。
 
 <br/>
 
@@ -59,7 +59,7 @@ A: 在PyTorch中`padding_idx`的作用是将embedding矩阵中`padding_idx`位�
 <font size=3>**Q: Operations中`Tile`算子执行到`__infer__`时`value`值为`None`，丢失了数值是怎么回事？**</font>
 
 A: `Tile`算子的`multiples input`必须是一个常量（该值不能直接或间接来自于图的输入）。否则构图的时候会拿到一个`None`的数据，因为图的输入是在图执行的时候才传下去的，构图的时候拿不到图的输入数据。
-相关的资料可以看[静态图语法支持](https://www.mindspore.cn/docs/note/zh-CN/master/static_graph_syntax_support.html)。
+相关的资料可以看[静态图语法支持](https://www.mindspore.cn/docs/note/zh-CN/r1.6/static_graph_syntax_support.html)。
 
 <br/>
 
@@ -71,7 +71,7 @@ A: TBE(Tensor Boost Engine)算子是华为自研的Ascend算子开发工具，�
 
 <font size=3>**Q: 请问MindSpore实现了反池化操作了吗？类似于`nn.MaxUnpool2d` 这个反池化操作？**</font>
 
-A: 目前 MindSpore 还没有反池化相关的接口。用户可以通过自定义算子的方式自行开发算子，详情请见[自定义算子](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_operator.html)。
+A: 目前 MindSpore 还没有反池化相关的接口。用户可以通过自定义算子的方式自行开发算子，详情请见[自定义算子](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/custom_operator.html)。
 
 <br/>
 
@@ -99,4 +99,4 @@ A: Ascend后端，算子有AI CORE算子和AI CPU算子之分，部分算子AI C
 1. 如果`AI CORE`候选算子信息为空，则可能是在算子`check support`阶段，所有的算子信息均校验未通过。可以在日志中搜索关键字`CheckSupport`找到未通过的原因，根据具体信息修改shape或data type, 或者找开发人员进一步定位；
 2. 如果`AI CPU`候选算子信息不为空，或者`AI CORE`和`AI CPU`候选算子信息都不为空，则可能是用户给到该算子的输入数据类型不在候选列表中，在选择阶段被过滤掉导致，可以根据候选列表尝试修改该算子的输入data type。
 
-用户可以参考[官网教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/debug_in_pynative_mode.html)选择合适、统一的模式和写法来完成训练。
+用户可以参考[官网教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/debug_in_pynative_mode.html)选择合适、统一的模式和写法来完成训练。

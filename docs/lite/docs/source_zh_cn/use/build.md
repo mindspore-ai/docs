@@ -2,7 +2,7 @@
 
 `Windows` `Linux` `Mac` `Android` `iOS` `环境准备` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/build.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/lite/docs/source_zh_cn/use/build.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 本章节介绍如何快速编译出MindSpore Lite。
 
@@ -86,12 +86,12 @@ MindSpore根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
 | MSLITE_ENABLE_TOOLS | 是否编译配套工具 | on、off | on |
 | MSLITE_ENABLE_TESTCASES | 是否编译测试用例 | on、off | off |
 
-> - TensorRT 和 NPU 的编译环境配置，参考[专用芯片集成说明](https://www.mindspore.cn/lite/docs/zh-CN/master/use/asic.html)。
+> - TensorRT 和 NPU 的编译环境配置，参考[专用芯片集成说明](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/asic.html)。
 > - 启用AVX指令集时，需要运行环境的CPU同时支持avx特性和fma特性。
 
 - runtime功能裁减编译选项
 
-若用户对框架包大小敏感，可通过配置以下选项，对runtime模型推理框架进行功能裁减，以减少包大小，之后，用户可再通过[裁减工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cropper_tool.html)进行算子裁减以进一步减少包大小。
+若用户对框架包大小敏感，可通过配置以下选项，对runtime模型推理框架进行功能裁减，以减少包大小，之后，用户可再通过[裁减工具](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/cropper_tool.html)进行算子裁减以进一步减少包大小。
 
 | 选项  |  参数说明  | 取值范围 | 默认值 |
 | -------- | ----- | ---- | ---- |

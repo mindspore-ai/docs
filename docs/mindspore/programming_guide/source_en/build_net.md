@@ -16,7 +16,7 @@ Translator: [ChanJiatao](https://gitee.com/ChanJiatao)
 
 <!-- TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/build_net.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_en/build_net.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -34,7 +34,7 @@ The construction of network is inseparable from the use of basic operators. The 
 
 - nn_ops: The operators associated with networks.
 
-> For more information about operator usage, please refer to the documentation [operator](https://www.mindspore.cn/docs/programming_guide/en/master/operators.html).
+> For more information about operator usage, please refer to the documentation [operator](https://www.mindspore.cn/docs/programming_guide/en/r1.6/operators.html).
 
 Running two basic operators directly, `ops.Mul()` and `ops.Add()`:
 

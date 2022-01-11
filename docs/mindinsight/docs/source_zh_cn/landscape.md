@@ -1,6 +1,6 @@
 # 训练优化过程可视化
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/landscape.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindinsight/docs/source_zh_cn/landscape.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述
 
@@ -14,7 +14,7 @@
 
 具体使用步骤共分为两步，以LeNet为例，分类任务，数据集为MNIST，样例代码如下：
 
-1. 训练数据收集：在训练过程中，利用SummaryCollector的形式收集多个模型前向网络权重，地形图绘制所需参数（如期望绘制区间，地形图分辨率等），SummaryCollector的其他具体使用方法可参考[收集Summary数据](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/summary_record.html)。
+1. 训练数据收集：在训练过程中，利用SummaryCollector的形式收集多个模型前向网络权重，地形图绘制所需参数（如期望绘制区间，地形图分辨率等），SummaryCollector的其他具体使用方法可参考[收集Summary数据](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.6/summary_record.html)。
 
    ```python
    import mindspore.dataset as ds
@@ -193,7 +193,7 @@
    - `collect_landscape`: 参数定义与`SummaryCollector`一致，这里用户可以自由修改绘图参数。
    - `device_ids`: 指定地形图绘制所需要`device_ids`，支持单机多卡计算。
 
-绘制结束后，启动MindInsight，具体命令参照[MindInsight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_commands.html)界面。
+绘制结束后，启动MindInsight，具体命令参照[MindInsight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.6/mindinsight_commands.html)界面。
 
 出现如图2所示，展示训练列表及相应信息：
 

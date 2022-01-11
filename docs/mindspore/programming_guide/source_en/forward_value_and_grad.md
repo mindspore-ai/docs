@@ -2,11 +2,11 @@
 
 `Ascend` `GPU` `CPU` `Model Running`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/forward_value_and_grad.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_en/forward_value_and_grad.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
-ForwardValueAndGrad is used to generate the forward value and backend gradient of the input network. The `get_all`, `get_by_list`, and `sens_param` parameters are used to control the gradient calculation method. For details, see [mindspore API](https://www.mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.ForwardValueAndGrad.html).
+ForwardValueAndGrad is used to generate the forward value and backend gradient of the input network. The `get_all`, `get_by_list`, and `sens_param` parameters are used to control the gradient calculation method. For details, see [mindspore API](https://www.mindspore.cn/docs/api/en/r1.6/api_python/nn/mindspore.nn.ForwardValueAndGrad.html).
 
 The following is an example of using ForwardValueAndGrad.
 
@@ -14,7 +14,7 @@ The following is an example of using ForwardValueAndGrad.
 
 The first-order derivative method of MindSpore is `mindspore.nn.ForwardValueAndGrad (network, weights=None, get_all=False, get_by_list=False, sens_param=False)`. When `get_all` is set to `False`, the first input derivative is computed. When `get_all` is set to `True`, all input derivatives are computed. When `get_by_list` is set to `False`, weight derivation is not performed. When `get_by_list` is set to `True`, weight derivation is performed. `sens_param` scales the output value of the network to change the final gradient. Therefore, its dimension is consistent with the output dimension. The following uses the first-order derivation of the MatMul operator for in-depth analysis.
 
-For details about the complete sample code, see [First-order Derivation Sample Code](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/high_order_differentiation/first_order).
+For details about the complete sample code, see [First-order Derivation Sample Code](https://gitee.com/mindspore/docs/tree/r1.6/docs/sample_code/high_order_differentiation/first_order).
 
 ### Input Derivation
 

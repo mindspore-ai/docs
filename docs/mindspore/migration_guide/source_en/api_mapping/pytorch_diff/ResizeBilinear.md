@@ -1,6 +1,6 @@
 # Function Differences with torch.nn.Upsample
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/ResizeBilinear.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/ResizeBilinear.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## torch.nn.Upsample
 
@@ -21,7 +21,7 @@ For more information, see [torch.nn.Upsample](https://pytorch.org/docs/1.5.0/nn.
 class mindspore.nn.ResizeBilinear()(x, size=None, scale_factor=None, align_corners=False)
 ```
 
-For more information, see [mindspore.nn.ResizeBilinear](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.ResizeBilinear.html#mindspore.nn.ResizeBilinear).
+For more information, see [mindspore.nn.ResizeBilinear](https://mindspore.cn/docs/api/en/r1.6/api_python/nn/mindspore.nn.ResizeBilinear.html#mindspore.nn.ResizeBilinear).
 
 ## Differences
 

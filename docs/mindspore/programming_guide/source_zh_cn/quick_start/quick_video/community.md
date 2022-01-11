@@ -6,4 +6,4 @@
 <source id="mp41" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/%E5%8F%82%E4%B8%8E%E7%A4%BE%E5%8C%BA.mp4" type="video/mp4">
 </video>
 
-**更多内容**：<https://www.mindspore.cn/docs/note/zh-CN/master/community.html>
+**更多内容**：<https://www.mindspore.cn/docs/note/zh-CN/r1.6/community.html>

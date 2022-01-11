@@ -98,7 +98,7 @@ MindSpore Tutorial
 
                   <div class="doc-article-list">
                      <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner stage-Model-Development experience-local hidden">
-                        <a href="https://www.mindspore.cn/tutorials/en/master/autograd.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/en/r1.6/autograd.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">Automatic Differentiation</span>
@@ -110,7 +110,7 @@ MindSpore Tutorial
                         </a>
                      </div>
                      <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner stage-Data-Preparation experience-local hidden">
-                        <a href="https://www.mindspore.cn/tutorials/en/master/dataset.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/en/r1.6/dataset.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">Loading and Processing Data</span>
@@ -122,7 +122,7 @@ MindSpore Tutorial
                         </a>
                      </div>
                      <div class="doc-article-item all hardware-ascend stage-Beginner experience-local hidden">
-                        <a href="https://www.mindspore.cn/tutorials/en/master/inference.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/en/r1.6/inference.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">Inference</span>
@@ -134,7 +134,7 @@ MindSpore Tutorial
                         </a>
                      </div>
                      <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner experience-local hidden">
-                        <a href="https://www.mindspore.cn/tutorials/en/master/introduction.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/en/r1.6/introduction.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">Overview</span>
@@ -146,7 +146,7 @@ MindSpore Tutorial
                         </a>
                      </div>
                      <div class="doc-article-item all experience-local hidden">
-                        <a href="https://www.mindspore.cn/tutorials/en/master/linear_regression.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/en/r1.6/linear_regression.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">Simple Linear Function Fitting</span>
@@ -158,7 +158,7 @@ MindSpore Tutorial
                         </a>
                      </div>
                      <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner stage-Model-Development experience-local hidden">
-                        <a href="https://www.mindspore.cn/tutorials/en/master/model.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/en/r1.6/model.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">Building a Neural Network</span>
@@ -170,7 +170,7 @@ MindSpore Tutorial
                         </a>
                      </div>
                      <div class="doc-article-item all hardware-ascend hardware-gpu stage-Beginner stage-Model-Development experience-local hidden">
-                        <a href="https://www.mindspore.cn/tutorials/en/master/optimization.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/en/r1.6/optimization.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">Training the Model</span>
@@ -182,7 +182,7 @@ MindSpore Tutorial
                         </a>
                      </div>
                      <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner stage-Whole-Process experience-local hidden">
-                        <a href="https://www.mindspore.cn/tutorials/en/master/quick_start.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/en/r1.6/quick_start.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">Quick Start for Beginners</span>
@@ -194,7 +194,7 @@ MindSpore Tutorial
                         </a>
                      </div>
                      <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner stage-Model-Export stage-Model-Loading experience-local hidden">
-                        <a href="https://www.mindspore.cn/tutorials/en/master/save_load_model.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/en/r1.6/save_load_model.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">Saving and Loading the Model</span>
@@ -206,7 +206,7 @@ MindSpore Tutorial
                         </a>
                      </div>
                      <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner experience-local hidden">
-                        <a href="https://www.mindspore.cn/tutorials/en/master/tensor.html" class="article-link">
+                        <a href="https://www.mindspore.cn/tutorials/en/r1.6/tensor.html" class="article-link">
                            <div>
                                  <div class="doc-article-head">
                                     <span class="doc-head-content">Tensor</span>

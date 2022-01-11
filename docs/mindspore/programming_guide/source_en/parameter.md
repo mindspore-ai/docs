@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `Model Development`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/parameter.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_en/parameter.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -26,7 +26,7 @@ mindspore.Parameter(default_input, name=None, requires_grad=True, layerwise_para
 
 - `layerwise_parallel`: When `layerwise_parallel` is set to True, this parameter will be filtered out during parameter broadcast and parameter gradient aggregation.
 
-For details about the configuration of distributed parallelism, see <https://www.mindspore.cn/docs/programming_guide/en/master/auto_parallel.html>.
+For details about the configuration of distributed parallelism, see <https://www.mindspore.cn/docs/programming_guide/en/r1.6/auto_parallel.html>.
 
 In the following example, `Parameter` objects are built using three different data types. All the three `Parameter` objects need to be updated, and layerwise parallelism is not used.
 
@@ -112,7 +112,7 @@ data:  Parameter (name=Parameter, shape=(2, 3), dtype=Int64, requires_grad=True)
 - `set_data`: sets the data saved by `Parameter`. `Tensor`, `Initializer`, `int`, and `float` can be input for setting.
   When the input parameter `slice_shape` of the method is set to True, the shape of `Parameter` can be changed. Otherwise, the configured shape must be the same as the original shape of `Parameter`.
 
-- `set_param_ps`: controls whether training parameters are trained by using the [Parameter Server](https://www.mindspore.cn/docs/programming_guide/en/master/apply_parameter_server_training.html).
+- `set_param_ps`: controls whether training parameters are trained by using the [Parameter Server](https://www.mindspore.cn/docs/programming_guide/en/r1.6/apply_parameter_server_training.html).
 
 - `clone`: clones `Parameter`. You can specify the parameter name after cloning.
 
@@ -374,4 +374,4 @@ The output is as follows:
  [5. 5. 5.]]
 ```
 
-Specific usage methods can refer to the implementation of [start_overflow_check functions](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/nn/wrap/loss_scale.py) in the overflow detection logic.
+Specific usage methods can refer to the implementation of [start_overflow_check functions](https://gitee.com/mindspore/mindspore/blob/r1.6/mindspore/python/mindspore/nn/wrap/loss_scale.py) in the overflow detection logic.

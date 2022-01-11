@@ -2,7 +2,7 @@
 
 `Linux` `Model Obfuscation` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/obfuscator_tool.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/lite/docs/source_zh_cn/use/obfuscator_tool.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -14,7 +14,7 @@ MindSpore Lite provides a lightweight offline model obfuscator to protect the co
 
 To use the MindSpore Lite model obfuscator, you need to prepare the environment as follows:
 
-- Build the x86_64 version by referring to [Environment Requirements](https://www.mindspore.cn/lite/docs/en/master/use/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/lite/docs/en/master/use/build.html#compilation-example).
+- Build the x86_64 version by referring to [Environment Requirements](https://www.mindspore.cn/lite/docs/en/r1.6/use/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/lite/docs/en/r1.6/use/build.html#compilation-example).
 
 ### Directory Structure
 

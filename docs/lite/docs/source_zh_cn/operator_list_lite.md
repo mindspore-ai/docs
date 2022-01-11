@@ -2,7 +2,7 @@
 
 `Linux` `Ascend` `端侧` `推理应用` `初级` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/operator_list_lite.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/lite/docs/source_zh_cn/operator_list_lite.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 本文列举MindSpore Lite支持的算子。
 
@@ -194,4 +194,4 @@
 
 [3] Sum与Max：仅支持输入个数为2。
 
-[4] [转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)支持，但不需要具体实现的算子，一般这类算子在转化工具中被优化而消失，如被融合掉或者使用其他算子代替。
+[4] [转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/converter_tool.html)支持，但不需要具体实现的算子，一般这类算子在转化工具中被优化而消失，如被融合掉或者使用其他算子代替。

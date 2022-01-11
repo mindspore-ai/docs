@@ -1,6 +1,6 @@
 # Function Differences with torch.optim.Optimizer.step
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/TrainOneStepCell.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/migration_guide/source_en/api_mapping/pytorch_diff/TrainOneStepCell.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## torch.optim.Optimizer.step
 
@@ -20,7 +20,7 @@ class mindspore.nn.TrainOneStepCell(
 )((*inputs))
 ```
 
-For more information, see [mindspore.nn.TrainOneStepCell](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.TrainOneStepCell.html#mindspore.nn.TrainOneStepCell).
+For more information, see [mindspore.nn.TrainOneStepCell](https://mindspore.cn/docs/api/en/r1.6/api_python/nn/mindspore.nn.TrainOneStepCell.html#mindspore.nn.TrainOneStepCell).
 
 ## Differences
 

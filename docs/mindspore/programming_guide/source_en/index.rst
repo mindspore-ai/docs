@@ -25,7 +25,7 @@ MindSpore Programming Guide
    design/gradient
    design/distributed_training_design
    design/mindir
-   Design of Visualization↗ <https://www.mindspore.cn/mindinsight/docs/en/master/training_visual_design.html>
+   Design of Visualization↗ <https://www.mindspore.cn/mindinsight/docs/en/r1.6/training_visual_design.html>
    design/glossary
 
 .. toctree::
@@ -34,8 +34,8 @@ MindSpore Programming Guide
    :caption: Quickstart
    :hidden:
 
-   Implementing Simple Linear Function Fitting↗ <https://www.mindspore.cn/tutorials/en/master/linear_regression.html>
-   Implementing an Image Classification Application↗ <https://www.mindspore.cn/tutorials/en/master/quick_start.html>
+   Implementing Simple Linear Function Fitting↗ <https://www.mindspore.cn/tutorials/en/r1.6/linear_regression.html>
+   Implementing an Image Classification Application↗ <https://www.mindspore.cn/tutorials/en/r1.6/quick_start.html>
 
 .. toctree::
    :glob:
@@ -133,7 +133,7 @@ MindSpore Programming Guide
    :hidden:
 
    read_ir_files
-   Debugging in PyNative Mode↗ <https://www.mindspore.cn/docs/programming_guide/en/master/debug_in_pynative_mode.html>
+   Debugging in PyNative Mode↗ <https://www.mindspore.cn/docs/programming_guide/en/r1.6/debug_in_pynative_mode.html>
    dump_in_graph_mode
    custom_debugging_info
    incremental_operator_build
@@ -149,7 +149,7 @@ MindSpore Programming Guide
    enable_dataset_autotune
    enable_dataset_offload
    apply_gradient_accumulation
-   Debugging performance with Profiler↗ <https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling.html>
+   Debugging performance with Profiler↗ <https://www.mindspore.cn/mindinsight/docs/en/r1.6/performance_profiling.html>
 
 .. toctree::
    :glob:
@@ -253,7 +253,7 @@ MindSpore Programming Guide
 
                   <div class="doc-article-list">
 						<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner experience-local experience-online hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/api_structure.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/api_structure.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">MindSpore API Overview</span>
@@ -265,7 +265,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-gpu stage-Model-Optimization experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/apply_gradient_accumulation.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/apply_gradient_accumulation.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Gradient Accumulation Algorithm</span>
@@ -277,7 +277,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu stage-Distributed-Parallel stage-Whole-Process experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/apply_host_device_training.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/apply_host_device_training.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Host&Device Heterogeneous</span>
@@ -289,7 +289,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-device stage-Distributed-Parallel stage-Whole-Process experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/apply_parameter_server_training.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/apply_parameter_server_training.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Parameter Server Mode</span>
@@ -301,7 +301,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend stage-Distributed-Parallel stage-Whole-Process experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/apply_pipeline_parallel.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/apply_pipeline_parallel.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Pipeline Parallelism</span>
@@ -313,7 +313,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-device experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/apply_post_training_quantization.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/apply_post_training_quantization.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Applying Post Training Quantization</span>
@@ -325,7 +325,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu stage-Function-Extension experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/apply_quantization_aware_training.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/apply_quantization_aware_training.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Quantization Aware Training</span>
@@ -337,7 +337,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/apply_recompute.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/apply_recompute.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Recomputation</span>
@@ -349,7 +349,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/architecture.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/architecture.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Overall Architecture</span>
@@ -361,7 +361,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/augmentation.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/augmentation.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Image Data Processing and Enhancement</span>
@@ -373,7 +373,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/auto_augmentation.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/auto_augmentation.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Auto Augmentation</span>
@@ -385,7 +385,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu stage-Distributed-Parallel experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/auto_parallel.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/auto_parallel.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Parallel Distributed Training Interfaces</span>
@@ -397,7 +397,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Development experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/build_net.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/build_net.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Constructing Single Operator Network and Multi-layer Network</span>
@@ -409,7 +409,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/cache.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/cache.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Single-Node Tensor Cache</span>
@@ -421,7 +421,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Development experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/callback.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/callback.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Callback Mechanism</span>
@@ -433,7 +433,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/cell.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/cell.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Cell</span>
@@ -445,7 +445,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Development experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/constexpr.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/constexpr.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Construct Constants In the Network</span>
@@ -457,7 +457,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Running experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/context.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/context.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Configuring Running Information</span>
@@ -469,7 +469,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Development experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/control_flow.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/control_flow.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Using the Process Control Statement</span>
@@ -481,7 +481,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local experience-online hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/convert_dataset.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/convert_dataset.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Converting Dataset to MindRecord</span>
@@ -493,7 +493,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend stage-Model-Optimization experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/custom_debugging_info.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/custom_debugging_info.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Custom Debugging Information</span>
@@ -505,7 +505,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend stage-Model-Development experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/custom_operator_ascend.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/custom_operator_ascend.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Custom Operators (Ascend)</span>
@@ -517,7 +517,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-cpu stage-Model-Development experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/custom_operator_cpu.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/custom_operator_cpu.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Custom Operators (CPU)</span>
@@ -529,7 +529,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-gpu stage-Model-Development experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/custom_operator_gpu.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/custom_operator_gpu.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Custom Operators (GPU)</span>
@@ -541,7 +541,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/cv_mobilenetv2_fine_tune.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/cv_mobilenetv2_fine_tune.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Using MobileNetV2 to Implement Fine-Tuning</span>
@@ -553,7 +553,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu stage-Whole-Process experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/cv_resnet50.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/cv_resnet50.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Image Classification Using ResNet-50 Network</span>
@@ -565,7 +565,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu stage-Function-Extension stage-Whole-Process experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/cv_resnet50_second_order_optimizer.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/cv_resnet50_second_order_optimizer.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">ResNet-50 Second-Order Optimization Practice</span>
@@ -577,7 +577,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/dataset_conversion.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/dataset_conversion.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">MindSpore Data Format Conversion</span>
@@ -589,7 +589,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/dataset_introduction.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/dataset_introduction.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Dataset</span>
@@ -601,7 +601,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/dataset_loading.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/dataset_loading.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Loading Dataset Overview</span>
@@ -613,7 +613,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/dataset_usage.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/dataset_usage.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Data Iteration</span>
@@ -625,7 +625,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Running experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/debug_in_pynative_mode.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/debug_in_pynative_mode.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Debugging in PyNative Mode</span>
@@ -637,7 +637,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/distributed_inference.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/distributed_inference.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Distributed Inference</span>
@@ -649,7 +649,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend stage-Distributed-Parallel stage-Whole-Process experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/distributed_training_ascend.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/distributed_training_ascend.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Parallel Distributed Training Example (Ascend)</span>
@@ -661,7 +661,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-gpu stage-Distributed-Parallel stage-Whole-Process experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/distributed_training_gpu.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/distributed_training_gpu.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Distributed Parallel Training Example (GPU)</span>
@@ -673,7 +673,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/dtype.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/dtype.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">DataType</span>
@@ -685,7 +685,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Optimization experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/dump_in_graph_mode.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/dump_in_graph_mode.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Using Dump in the Graph Mode</span>
@@ -697,7 +697,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/eager.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/eager.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Lightweight Data Processing</span>
@@ -709,7 +709,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/enable_auto_augmentation.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/enable_auto_augmentation.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Application of Auto Augmentation</span>
@@ -721,7 +721,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend stage-Model-Optimization experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/enable_auto_tune.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/enable_auto_tune.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">AutoTune</span>
@@ -733,7 +733,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu stage-Data-Preparation experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/enable_dataset_autotune.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/enable_dataset_autotune.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Dataset AutoTune for Dataset Pipeline</span>
@@ -745,7 +745,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/enable_dataset_offload.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/enable_dataset_offload.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Enabling Offload for Dataset</span>
@@ -757,7 +757,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/enable_cache.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/enable_cache.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Application of Single-Node Tensor Cache</span>
@@ -769,7 +769,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu stage-Model-Optimization experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/enable_graph_kernel_fusion.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/enable_graph_kernel_fusion.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Enabling Graph Kernel Fusion</span>
@@ -781,7 +781,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu stage-Model-Optimization experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/enable_mixed_precision.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/enable_mixed_precision.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Enabling Mixed Precision</span>
@@ -793,7 +793,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Running experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/evaluate_the_model_during_training.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/evaluate_the_model_during_training.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Evaluating the Model during Training</span>
@@ -805,7 +805,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Running experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/forward_value_and_grad.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/forward_value_and_grad.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Forward Value And Grad</span>
@@ -817,7 +817,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Development experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/grad_operation.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/grad_operation.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Gradient Operation</span>
@@ -829,7 +829,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-gpu stage-Whole-Process experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/hpc_gomo.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/hpc_gomo.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Implementing Regional Ocean Model GOMO</span>
@@ -841,7 +841,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Development experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/hypermap.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/hypermap.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Operation Overloading</span>
@@ -853,7 +853,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend stage-Model-Optimization experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/incremental_operator_build.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/incremental_operator_build.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Incremental Operator Build</span>
@@ -865,7 +865,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Development experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/indefinite_parameter.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/indefinite_parameter.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Parameter Passing</span>
@@ -877,7 +877,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Development experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/initializer.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/initializer.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Initializer</span>
@@ -889,7 +889,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local experience-online hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/load_dataset_image.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/load_dataset_image.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Loading Image Dataset</span>
@@ -901,7 +901,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/load_dataset_networks.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/load_dataset_networks.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Dataset in Model Zoo Networks</span>
@@ -913,7 +913,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local experience-online hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/load_dataset_text.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/load_dataset_text.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Loading Text Dataset</span>
@@ -925,7 +925,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Loading experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/load_model_for_inference_and_transfer.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/load_model_for_inference_and_transfer.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Loading a Model for Inference and Transfer Learning</span>
@@ -937,7 +937,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Development experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/loss.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/loss.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Loss Function</span>
@@ -949,7 +949,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/multi_platform_inference.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/multi_platform_inference.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Inference Model Overview</span>
@@ -961,7 +961,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/multi_platform_inference_ascend_310_air.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/multi_platform_inference_ascend_310_air.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Inference on the Ascend 310 AI Processor</span>
@@ -973,7 +973,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/multi_platform_inference_ascend_310_mindir.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/multi_platform_inference_ascend_310_mindir.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Inference Using the MindIR Model on Ascend 310 AI Processors</span>
@@ -985,7 +985,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/multi_platform_inference_ascend_910.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/multi_platform_inference_ascend_910.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Inference on the Ascend 910 AI processor</span>
@@ -997,7 +997,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-cpu experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/multi_platform_inference_cpu.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/multi_platform_inference_cpu.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Inference on a CPU</span>
@@ -1009,7 +1009,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-gpu experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/multi_platform_inference_gpu.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/multi_platform_inference_gpu.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Inference on a GPU</span>
@@ -1021,7 +1021,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend stage-Whole-Process experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/nlp_bert_poetry.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/nlp_bert_poetry.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Using the BERT Network to Implement Intelligent Poem Writing</span>
@@ -1033,7 +1033,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-cpu stage-Whole-Process experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/nlp_sentimentnet.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/nlp_sentimentnet.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Realizing Sentiment Classification With SentimentNet</span>
@@ -1045,7 +1045,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend stage-Whole-Process experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/nlp_tprr.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/nlp_tprr.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Multi-hop Knowledge Reasoning Question-answering Model TPRR</span>
@@ -1057,7 +1057,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Development experience-local experience-online hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/numpy.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/numpy.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">NumPy Interfaces in MindSpore</span>
@@ -1069,7 +1069,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/online_inference.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/online_inference.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Online Inference with Checkpoint</span>
@@ -1081,7 +1081,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Running experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/on_device.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/on_device.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">On-Device Execution</span>
@@ -1093,7 +1093,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/operators_classification.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/operators_classification.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Operators Classification</span>
@@ -1105,7 +1105,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/operators_usage.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/operators_usage.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Operators Usage</span>
@@ -1117,7 +1117,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Development experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/optim.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/optim.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Optimization Algorithms</span>
@@ -1129,7 +1129,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local experience-online hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/optimize_data_processing.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/optimize_data_processing.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Optimizing the Data Processing</span>
@@ -1141,7 +1141,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Development experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/parameter.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/parameter.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Network Parameters</span>
@@ -1153,7 +1153,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/parameter_introduction.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/parameter_introduction.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Parameter</span>
@@ -1165,7 +1165,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/pipeline_common.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/pipeline_common.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">General Data Processing</span>
@@ -1177,7 +1177,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Optimization experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/read_ir_files.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/read_ir_files.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Reading IR</span>
@@ -1189,7 +1189,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu stage-Model-Running experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/run.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/run.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Running Mode</span>
@@ -1201,7 +1201,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/sampler.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/sampler.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Data Sampling</span>
@@ -1213,7 +1213,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu stage-Distributed-Parallel stage-Model-Export stage-Model-Loading experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/save_load_model_hybrid_parallel.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/save_load_model_hybrid_parallel.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Saving and Loading Models in Hybrid Parallel Mode</span>
@@ -1225,7 +1225,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Export experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/save_model.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/save_model.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Saving Models</span>
@@ -1237,7 +1237,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Evaluation experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/self_define_metric.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/self_define_metric.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Customize Metrics to Verify Model Evaluation Accuracy</span>
@@ -1249,7 +1249,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Beginner experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/tensor.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/tensor.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Tensor</span>
@@ -1261,7 +1261,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Data-Preparation experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/tokenizer.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/tokenizer.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Text Data Processing and Enhancement</span>
@@ -1273,7 +1273,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Development stage-Model-Running stage-Model-Evaluation experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/use_on_the_cloud.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/use_on_the_cloud.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Using MindSpore on the Cloud</span>
@@ -1285,7 +1285,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu stage-Design stage-Distributed-Parallel experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/design/distributed_training_design.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/design/distributed_training_design.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Distributed Training Design</span>
@@ -1297,7 +1297,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Design experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/design/glossary.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/design/glossary.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Glossary</span>
@@ -1309,7 +1309,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Design stage-Model-Development experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/design/gradient.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/design/gradient.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">MindSpore Automatic Differentiation</span>
@@ -1321,7 +1321,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu stage-Design stage-Model-Development experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/design/mindir.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/design/mindir.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">MindSpore IR (MindIR)</span>
@@ -1333,7 +1333,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Design experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/design/technical_white_paper.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/design/technical_white_paper.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Technical White Paper</span>
@@ -1345,7 +1345,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_video.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/quick_start/quick_video.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Hands-on Installation and Experience</span>
@@ -1357,7 +1357,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_video/ascend310.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/quick_start/quick_video/ascend310.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">MindSpore Installation on Ascend 310</span>
@@ -1369,7 +1369,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_video/ascend910.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/quick_start/quick_video/ascend910.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">MindSpore Installation on Ascend 910</span>
@@ -1381,7 +1381,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_video/community.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/quick_start/quick_video/community.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Participate in community building</span>
@@ -1393,7 +1393,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_video/cpu_operator_development.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/quick_start/quick_video/cpu_operator_development.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">CPU Operators Development</span>
@@ -1405,7 +1405,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_video/cpu_ubuntu.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/quick_start/quick_video/cpu_ubuntu.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">MindSpore Installation on CPU-Ubuntu</span>
@@ -1417,7 +1417,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_video/cpu_windows.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/quick_start/quick_video/cpu_windows.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">MindSpore Installation on CPU-Windows</span>
@@ -1429,7 +1429,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_video/customized_debugging.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/quick_start/quick_video/customized_debugging.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Customized Debugging</span>
@@ -1441,7 +1441,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_video/debug_in_pynative_mode.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/quick_start/quick_video/debug_in_pynative_mode.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Debug in PyNative mode</span>
@@ -1453,7 +1453,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_video/distributed_parallel_training_network_training.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/quick_start/quick_video/distributed_parallel_training_network_training.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Distributed Parallel Training-Network Training</span>
@@ -1465,7 +1465,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_video/distributed_parallel_training_preparation.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/quick_start/quick_video/distributed_parallel_training_preparation.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Distributed Parallel Training-Preparation</span>
@@ -1477,7 +1477,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_video/dump_in_graph_mode.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/quick_start/quick_video/dump_in_graph_mode.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Using Dump in the Graph Mode</span>
@@ -1489,7 +1489,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_video/gpu.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/quick_start/quick_video/gpu.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">MindSpore Installation on GPU</span>
@@ -1501,7 +1501,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_video/gpu_operator_development.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/quick_start/quick_video/gpu_operator_development.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">GPU Operators Development</span>
@@ -1513,7 +1513,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_video/inference.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/quick_start/quick_video/inference.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Inference on Different Platforms</span>
@@ -1525,7 +1525,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_video/loading_the_dataset_and_converting_data_format.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/quick_start/quick_video/loading_the_dataset_and_converting_data_format.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Loading the Dataset and Converting Data Format</span>
@@ -1537,7 +1537,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_video/loading_the_model_from_hub.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/quick_start/quick_video/loading_the_model_from_hub.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Loading the Model from Hub</span>
@@ -1549,7 +1549,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_video/mindArmour_differential_privacy.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/quick_start/quick_video/mindArmour_differential_privacy.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">MindArmour Differential Privacy</span>
@@ -1561,7 +1561,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_video/mindArmour_fuzzing.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/quick_start/quick_video/mindArmour_fuzzing.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">MindArmour Model Security-AI Fuzzer</span>
@@ -1573,7 +1573,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_video/mindArmour_installation_and_adversarial_attack_and_defense.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/quick_start/quick_video/mindArmour_installation_and_adversarial_attack_and_defense.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">MindArmour Installation and Adversarial attack and defense</span>
@@ -1585,7 +1585,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_video/mindArmour_membership_inference.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/quick_start/quick_video/mindArmour_membership_inference.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">MindArmour Model Security-Membership Inference</span>
@@ -1597,7 +1597,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_video/mindInsight_dashboard.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/quick_start/quick_video/mindInsight_dashboard.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">MindInsight Training Dashboard</span>
@@ -1609,7 +1609,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_video/mindInsight_debugger.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/quick_start/quick_video/mindInsight_debugger.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">MindInsight Debugger</span>
@@ -1621,7 +1621,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_video/mindInsight_installation_and_common_commands.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/quick_start/quick_video/mindInsight_installation_and_common_commands.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">MindInsight Installation and Common Commands</span>
@@ -1633,7 +1633,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_video/mindInsight_lineage_and_scalars_comparison.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/quick_start/quick_video/mindInsight_lineage_and_scalars_comparison.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">MindInsight Lineage and Comparison Dashboard</span>
@@ -1645,7 +1645,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_video/mindInsight_model_explanation.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/quick_start/quick_video/mindInsight_model_explanation.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">MindInsight Model Explanation</span>
@@ -1657,7 +1657,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_video/mindInsight_performance_profiling.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/quick_start/quick_video/mindInsight_performance_profiling.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">MindInsight Performance Profiling</span>
@@ -1669,7 +1669,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_video/mindspore_lite_converter.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/quick_start/quick_video/mindspore_lite_converter.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">MindSpore Lite converter</span>
@@ -1681,7 +1681,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_video/mindspore_lite_quantization.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/quick_start/quick_video/mindspore_lite_quantization.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">MindSpore Lite Quantization</span>
@@ -1693,7 +1693,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_video/mindspore_lite_quick_start.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/quick_start/quick_video/mindspore_lite_quick_start.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">MindSpore Lite Quick Start</span>
@@ -1705,7 +1705,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_video/network_migration_process.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/quick_start/quick_video/network_migration_process.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Network Migration Process</span>
@@ -1717,7 +1717,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_video/network_migration_tuning.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/quick_start/quick_video/network_migration_tuning.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Network Migration Tuning</span>
@@ -1729,7 +1729,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_video/optimize_data_processing.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/quick_start/quick_video/optimize_data_processing.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Optimize Data Processing</span>
@@ -1741,7 +1741,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_video/quick_start_video.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/quick_start/quick_video/quick_start_video.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Quick Start</span>
@@ -1753,7 +1753,7 @@ MindSpore Programming Guide
                      </a>
                   </div>
                   <div class="doc-article-item all experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/quick_start/quick_video/saving_and_loading_model_parameters.html" class="article-link">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/r1.6/quick_start/quick_video/saving_and_loading_model_parameters.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
                                  <span class="doc-head-content">Saving and Loading Model Parameters</span>

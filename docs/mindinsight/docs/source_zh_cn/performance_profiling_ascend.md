@@ -1,6 +1,6 @@
 # 性能调试（Ascend）
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/performance_profiling_ascend.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindinsight/docs/source_zh_cn/performance_profiling_ascend.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -20,7 +20,7 @@
 
   > Profiler支持的参数可以参考：
   >
-  > <https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.profiler.html>
+  > <https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/mindspore.profiler.html>
 
 - 在训练结束后，调用`Profiler.analyse()`停止性能数据收集并生成性能分析结果。
 
@@ -142,7 +142,7 @@ profiler.analyse()
 
 ## 启动MindInsight
 
-启动命令请参考[MindInsight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_commands.html)。
+启动命令请参考[MindInsight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.6/mindinsight_commands.html)。
 
 ## 训练性能
 
@@ -351,7 +351,7 @@ CPU利用率常用场景:
 
 > 默认采样间隔为1000ms，用户可以通过`mindspore.dataset.config.get_monitor_sampling_interval()`来改变采样间隔。详情参考：
 >
-> <https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.dataset.config.html#mindspore.dataset.config.set_monitor_sampling_interval>
+> <https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/mindspore.dataset.config.html#mindspore.dataset.config.set_monitor_sampling_interval>
 
 ### 内存使用情况分析
 
@@ -384,7 +384,7 @@ CPU利用率常用场景:
 
   > 控制step数目可以通过控制训练数据集的大小来实现，如`mindspore.dataset.MindDataset`类中的`num_samples`参数可以控制数据集大小，详情参考：
   >
-  > <https://www.mindspore.cn/docs/api/zh-CN/master/api_python/dataset/mindspore.dataset.MindDataset.html>
+  > <https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/dataset/mindspore.dataset.MindDataset.html>
 
 - Timeline数据的解析比较耗时，且一般几个step的数据即足够分析出结果。出于数据解析和UI展示性能的考虑，Profiler最多展示20M数据（对大型网络20M可以显示10+条step的信息）。
 
