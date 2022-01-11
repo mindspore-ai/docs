@@ -2,15 +2,17 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_mac_install_pip_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
-This document describes how to quickly install MindSpore by pip in a macOS system with a CPU environment.
+This document describes how to quickly install MindSpore on macOS by pip.
 
 ## System Environment Information Confirmation
 
-- Ensure macOS is installed, currently support both X86 and ARM64 architecture with 10.15(Catalina) and 11.3(Big Sur) verified.
+- Ensure macOS version between 10.15 and 11.3, for M1 chip currently only support 11.3.
 
-- Ensure that Python 3.7 or Python 3.9 is installed(macOS with M1 chip does not support Python 3.7). If not installed, download and install Python from:
+- Ensure that Python 3.7 or Python 3.9 is installed. If not installed, download and install Python from:
 
-    - Python (64-bit)：[Python official website](https://www.python.org/downloads/macos/) or [HUAWEI CLOUD](https://repo.huaweicloud.com/python/).
+    - Python 3.7.5 (64-bit for macOS 10.15)：[Python official website](https://www.python.org/ftp/python/3.7.5/python-3.7.5-macosx10.9.pkg) or [HUAWEI CLOUD](https://repo.huaweicloud.com/python/3.7.5/python-3.7.5-macosx10.9.pkg).
+    - Python 3.9.0 (64-bit for macOS 10.15)：[Python official website](https://www.python.org/ftp/python/3.9.0/python-3.9.0-macosx10.9.pkg) or [HUAWEI CLOUD](https://repo.huaweicloud.com/python/3.9.0/python-3.9.0-macosx10.9.pkg).
+    - Python 3.9.1 (64-bit for macOS 11.3)：[Python official website](https://www.python.org/ftp/python/3.9.1/python-3.9.1-macos11.0.pkg) or [HUAWEI CLOUD](https://www.python.org/ftp/python/3.9.1/python-3.9.1-macos11.0.pkg).
 
 ## Installing MindSpore
 

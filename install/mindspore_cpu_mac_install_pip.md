@@ -2,15 +2,16 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_mac_install_pip.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-本文档介绍如何在CPU环境的macOS系统上，使用pip方式快速安装MindSpore。
+本文档介绍如何在macOS系统上使用pip方式快速安装MindSpore。
 
 ## 确认系统环境信息
 
-- 确认安装macOS，支持x64和ARM64架构，其中macOS 10.15、macOS 11.3是经过验证的。
+- 确认macOS版本在10.15和11.3之间，其中M1芯片当前只支持11.3。
 
-- 确认安装Python 3.7或Python 3.9版本（M1芯片的macOS不支持Python 3.7版本）。如果未安装或者已安装其他版本的Python，可以选择下载并安装：
-
-    - Python 64位，下载地址：[官网](https://www.python.org/downloads/macos/)或[华为云](https://repo.huaweicloud.com/python/)。
+- 确认安装Python 3.7或Python 3.9版本。如果未安装或者已安装其他版本的Python，可以选择下载并安装：
+    - Python 3.7.5 (64-bit macOS 10.15)：[Python官网](https://www.python.org/ftp/python/3.7.5/python-3.7.5-macosx10.9.pkg) or [华为云](https://repo.huaweicloud.com/python/3.7.5/python-3.7.5-macosx10.9.pkg)。
+    - Python 3.9.0 (64-bit macOS 10.15)：[Python官网](https://www.python.org/ftp/python/3.9.0/python-3.9.0-macosx10.9.pkg) or [华为云](https://repo.huaweicloud.com/python/3.9.0/python-3.9.0-macosx10.9.pkg)。
+    - Python 3.9.1 (64-bit macOS 11.3)：[Python官网](https://www.python.org/ftp/python/3.9.1/python-3.9.1-macos11.0.pkg) or [华为云](https://www.python.org/ftp/python/3.9.1/python-3.9.1-macos11.0.pkg)。
 
 ## 安装MindSpore
 
