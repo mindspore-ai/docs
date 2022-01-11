@@ -129,7 +129,7 @@ Users can also define the dataset by themselves. Note that the dataset must be a
 
     Before starting the client, please refer to the section [x86](https://www.mindspore.cn/federated/docs/en/master/deploy_federated_client.html) in the Federated-Client deployment tutorial for deployment of device environment.
 
-    Our framework provides three types of federated learning interfaces for users to call. For specific interface introduction, please refer to [API file](https://www.mindspore.cn/federated/api/en/master/java_api_syncfljob.html) :
+    Our framework provides three types of federated learning interfaces for users to call. For specific interface introduction, please refer to [API file](https://www.mindspore.cn/federated/docs/en/master/java_api_syncfljob.html) :
 
     - `SyncFLJob.flJobRun()`
 

@@ -47,7 +47,7 @@ print("============== {} ==============".format(acc))
 
 In the preceding information:
 
-`mindspore_hub.load` is an API for loading model parameters. Please check the details in <https://www.mindspore.cn/hub/api/en/master/index.html#module-mindspore_hub>.
+`mindspore_hub.load` is an API for loading model parameters. Please check the details in <https://www.mindspore.cn/hub/docs/en/master/index.html#module-mindspore_hub>.
 
 ## Use the `model.predict` API to perform inference
 
