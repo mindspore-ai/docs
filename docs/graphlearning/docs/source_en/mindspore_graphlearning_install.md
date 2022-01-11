@@ -1,6 +1,5 @@
 # MindSpore Graph Learning
 
-- [MindSpore Graph Learning Introduction](#mindspore-graph-learning-introduction)
 - [Installation](#installation)
     - [System Environment Information Confirmation](#system-environment-information-confirmation)
     - [Installation Methods](#installation-methods)
@@ -9,18 +8,6 @@
     - [Installation Verification](#installation-verification)
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/graphlearning/docs/source_en/mindspore_graphlearning_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
-
-## MindSpore Graph Learning Introduction
-
-MindSpore Graph Learning is an efficient and easy-to-use graph learning framework.
-
-![GraphLearning_architecture](./images/MindSpore_GraphLearning_architecture.PNG)
-
-Compared to the normal model, a graph neural network model transfers and aggregates information on a given graph structure, which cannot be intuitively expressed through entire graph computing. MindSpore Graph Learning provides a point-centric programming paradigm that better complies with the graph learning algorithm logic and Python language style. It can directly translate formulas into code, reducing the gap between algorithm design and implementation.
-
-Meanwhile, MindSpore Graph Learning combines the features of MindSpore graph kernel fusion and auto kernel generator (AKG) to automatically identify the specific execution pattern of graph neural network tasks for fusion and kernel-level optimization, covering the fusion of existing operators and new combined operators in the existing framework. The performance is improved by 3 to 4 times compared with that of the existing popular frameworks.
-
-Combined with the MindSpore deep learning framework, the framework can basically cover most graph neural network applications. For more details, please refer to <https://gitee.com/mindspore/graphlearning/tree/r0.5/model_zoo>.
 
 ## Installation
 
