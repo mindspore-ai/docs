@@ -22,8 +22,8 @@ import mindspore.nn as nn
 from mindspore import ParameterTuple, context, DatasetHelper, save_checkpoint
 from mindspore.nn import Cell
 import mindspore.ops as ops
-from model_zoo.official.cv.lenet.src.dataset import create_dataset
-from model_zoo.official.cv.lenet.src.lenet import LeNet5
+from models.official.cv.lenet.src.dataset import create_dataset
+from models.official.cv.lenet.src.lenet import LeNet5
 
 _sum_op = ops.MultitypeFuncGraph("grad_sum_op")
 _clear_op = ops.MultitypeFuncGraph("clear_op")

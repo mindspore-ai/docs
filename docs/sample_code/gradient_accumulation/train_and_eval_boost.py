@@ -25,8 +25,8 @@ from mindspore.boost import GradientAccumulation
 import mindspore.ops as ops
 from mindspore.train.callback import LossMonitor, TimeMonitor
 
-from model_zoo.official.cv.lenet.src.dataset import create_dataset
-from model_zoo.official.cv.lenet.src.lenet import LeNet5
+from models.official.cv.lenet.src.dataset import create_dataset
+from models.official.cv.lenet.src.lenet import LeNet5
 
 class TrainGradAccumulationStepsCell(TrainOneStepCell):
     """construct train accu step cell"""
