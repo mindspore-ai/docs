@@ -150,25 +150,18 @@ class LeNet5(nn.Cell):
             x (tensor): network output
         """
         x = self.conv1(x)
-        self.summary('1', x)
 
         x = self.relu(x)
-        self.summary('2', x)
 
         x = self.max_pool2d(x)
-        self.summary('3', x)
 
         x = self.conv2(x)
-        self.summary('4', x)
 
         x = self.relu(x)
-        self.summary('5', x)
 
         x = self.max_pool2d(x)
-        self.summary('6', x)
 
         x = self.flatten(x)
-        self.summary('7', x)
 
         x = self.fc1(x)
         self.summary('8', x)
