@@ -6,7 +6,7 @@
 import com.mindspore.flclient.model.DataSet
 ```
 
-DataSet defines end-side federated learning data set object.
+DataSet defines end-side federated learning dataset object.
 
 ## Public Member Functions
 
