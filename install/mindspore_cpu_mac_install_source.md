@@ -2,33 +2,27 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_mac_install_source.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-本文档介绍如何在CPU环境的macOS系统上，使用源码编译方式快速安装MindSpore。
+本文档介绍如何在macOS系统上使用源码编译方式快速安装MindSpore。
 
 ## 确认系统环境信息
 
-- 确认安装macOS，支持x64和ARM64架构，其中macOS 10.15、macOS 11.3是经过验证的。
+- 确认macOS版本在10.15和11.3之间，其中M1芯片当前只支持11.3。
 
-- 确认安装[Xcode](https://developer.apple.com/xcode/)，其中Xcode 10.2、Xcode 12.5是经过验证的。
+- 确认安装[Xcode](https://xcodereleases.com/) (>=12.4 and <= 13.0) ，12.4(X86)及13.0(M1) 已测试。
 
-- 确认安装Command Line Tools for Xcode。
-    如果未安装，使用如下命令下载安装Command Line Tools：
+- 确认安装`Command Line Tools for Xcode`。如果未安装，使用命令`sudo xcode-select --install`安装Command Line Tools。
 
-    ```bash
-    xcode-select --install
-    sudo xcode-select -switch /Library/Developer/CommandLineTools
-    ```
+- 确认安装Python 3.7或Python 3.9版本。如果未安装或者已安装其他版本的Python，可以选择下载并安装：
 
-- 确认安装Python 3.7或Python 3.9版本（M1芯片的macOS不支持Python 3.7版本）。如果未安装或者已安装其他版本的Python，可以选择下载并安装：
+    - Python 3.7.5 (64-bit macOS 10.15)：[Python官网](https://www.python.org/ftp/python/3.7.5/python-3.7.5-macosx10.9.pkg) or [华为云](https://repo.huaweicloud.com/python/3.7.5/python-3.7.5-macosx10.9.pkg)。
+    - Python 3.9.0 (64-bit macOS 10.15)：[Python官网](https://www.python.org/ftp/python/3.9.0/python-3.9.0-macosx10.9.pkg) or [华为云](https://repo.huaweicloud.com/python/3.9.0/python-3.9.0-macosx10.9.pkg)。
+    - Python 3.9.1 (64-bit macOS 11.3)：[Python官网](https://www.python.org/ftp/python/3.9.1/python-3.9.1-macos11.0.pkg) or [华为云](https://www.python.org/ftp/python/3.9.1/python-3.9.1-macos11.0.pkg)。
 
-    - Python 64位，下载地址：[官网](https://www.python.org/downloads/macos/)或[华为云](https://repo.huaweicloud.com/python/)。
+- 确认安装[CMake 3.18.3及以上版本](https://cmake.org/download/) . 如果没有安装，可以使用`brew install cmake`进行安装。
 
-- 确认安装[wheel 0.32.0及以上版本](https://pypi.org/project/wheel/)。
+- 确认安装[patch 2.5](http://ftp.gnu.org/gnu/patch/) . 如果没有安装，可以使用`brew install patch`进行安装。
 
-- 确认安装[CMake 3.18.3及以上版本](https://cmake.org/download/)。
-    - 安装完成后需将CMake所在路径添加到系统环境变量。
-
-- 确认安装[patch 2.5及以上版本](http://ftp.gnu.org/gnu/patch/)。
-    - 安装完成后需将patch所在路径添加到系统环境变量中。
+- 确认安装[wheel 0.32.0及以上版本](https://pypi.org/project/wheel/). 如果没有安装，可以使用`pip install wheel` 进行安装。
 
 ## 从代码仓下载源码
 
@@ -43,17 +37,13 @@ git clone https://gitee.com/mindspore/mindspore.git
 ```bash
 export CC=/usr/bin/clang
 export CXX=/usr/bin/clang++
-export SDKROOT="`xcrun --show-sdk-path`"
-bash build.sh -e cpu -S on -j4
+bash build.sh -e cpu -S on -j4  # -j 为编译时线程配置，如果CPU性能较好，使用多线程方式编译，参数通常为CPU核数的两倍
 ```
-
-其中：  
-如果编译机性能较好，可在执行中增加-j{线程数}来增加线程数量。如`bash build.sh -e cpu -S on -j12`。
 
 ## 安装MindSpore
 
 ```bash
-pip install output/mindspore-{version}-{python_version}-macosx_{platform_version}_{arch}.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install output/mindspore-*.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 如果在安装scipy包时出现编译错误，可以尝试先使用下面的命令安装scipy包，再安装MindSpore包。
@@ -61,14 +51,6 @@ pip install output/mindspore-{version}-{python_version}-macosx_{platform_version
 ```bash
 pip install --pre -i https://pypi.anaconda.org/scipy-wheels-nightly/simple scipy
 ```
-
-其中：
-
-- 在联网状态下，安装whl包时会自动下载mindspore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装。运行模型时，需要根据[ModelZoo](https://gitee.com/mindspore/models/tree/master/)中不同模型指定的requirements.txt安装额外依赖，常见依赖可以参考[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)。
-- `{version}`表示MindSpore版本号，例如安装1.6.0版本MindSpore时，`{version}`应写为1.6.0。
-- `{platform_version}`表示系统版本，例如系统版本为macOS 10.15时，`{platform_version}`应写为`10_15`。
-- `{arch}`表示系统架构，例如使用的macOS系统是x86架构64位时，`{arch}`应写为`x86_64`。如果系统是ARM架构64位，则写为`arm64`。
-- `{python_version}`表示用户的Python版本，Python版本为3.7.5时，`{python_version}`应写为`cp37-cp37m`。Python版本为3.9.0时，则写为`cp39-cp39`。
 
 ## 验证安装是否成功
 
@@ -100,5 +82,5 @@ The result of multiplication calculation is correct, MindSpore has been installe
     在源码根目录下执行编译脚本`build.sh`成功后，在`output`目录下找到编译生成的whl安装包，然后执行命令进行升级。
 
     ```bash
-    pip install --upgrade mindspore-{version}-{python_version}-macosx_{platform_version}_{arch}.whl
+    pip install --upgrade mindspore-*.whl
     ```
