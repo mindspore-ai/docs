@@ -56,7 +56,7 @@
 
 其中，`rank_table_16pcs.json`、`rank_table_8pcs.json`、`rank_table_2pcs.json`是配置当前多卡环境的组网信息文件。`resnet.py`、`resnet50_distributed_training.py`等文件是定义网络结构的脚本。`run.sh`、`run_cluster.sh`是执行脚本。
 
-此外在[定义网络](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/distributed_training_ascend.html#id7)和[分布式训练模型参数保存和加载](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/distributed_training_ascend.html#id13)小节中我们针对手动混合并行模式和半自动并行模式的使用做了特殊说明。
+此外在[定义网络](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/distributed_training_ascend.html#id7)和[分布式训练模型参数保存和加载](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.5/distributed_training_ascend.html#id18)小节中我们针对手动混合并行模式和半自动并行模式的使用做了特殊说明。
 
 ## 准备环节
 
