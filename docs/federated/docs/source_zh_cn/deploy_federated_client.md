@@ -106,7 +106,7 @@ implementation(group: 'org.bouncycastle',name: 'bcprov-jdk15on', version: '1.68'
 android.jetifier.blacklist=bcprov
 ```
 
-在Android工程中设置好了如上所示依赖之后，只需依赖 AAR包和模型脚本对应的jar包`quick_start_flclient.jar`即可调用联邦学习提供的相关接口，接口的具体调用和运行方式可参考[联邦学习接口介绍部分](https://www.mindspore.cn/federated/api/zh-CN/master/index.html)。
+在Android工程中设置好了如上所示依赖之后，只需依赖 AAR包和模型脚本对应的jar包`quick_start_flclient.jar`即可调用联邦学习提供的相关接口，接口的具体调用和运行方式可参考[联邦学习接口介绍部分](https://www.mindspore.cn/federated/docs/zh-CN/master/index.html)。
 
 ## x86环境
 

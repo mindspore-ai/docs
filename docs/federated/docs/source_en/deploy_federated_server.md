@@ -43,7 +43,7 @@ This tutorial uses LeNet as an example. For details about the network structure,
 
 ## Configuring Parameters
 
-The MindSpore federated learning task process reuses the training script. You only need to use the same script to transfer different parameters through the Python API `set_fl_context` and start different MindSpore process roles. For details about the parameter configuration, see [MindSpore API](https://www.mindspore.cn/federated/api/en/master/federated_server.html#mindspore.context.set_fl_context).
+The MindSpore federated learning task process reuses the training script. You only need to use the same script to transfer different parameters through the Python API `set_fl_context` and start different MindSpore process roles. For details about the parameter configuration, see [MindSpore API](https://www.mindspore.cn/federated/docs/en/master/federated_server.html#mindspore.context.set_fl_context).
 
 After parameter configuration and before training, call the `set_fl_context` API as follows:
 

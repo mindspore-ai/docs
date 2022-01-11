@@ -129,7 +129,7 @@
 
     启动客户端之前请先参照端侧部署教程中[x86环境部分](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_client.html)进行端侧环境部署。
 
-    我们框架提供了三个类型的联邦学习接口供用户调用，具体的接口介绍可参考[API文件](https://www.mindspore.cn/federated/api/zh-CN/master/java_api_syncfljob.html)：
+    我们框架提供了三个类型的联邦学习接口供用户调用，具体的接口介绍可参考[API文件](https://www.mindspore.cn/federated/docs/zh-CN/master/java_api_syncfljob.html)：
 
     - `SyncFLJob.flJobRun()`
 
