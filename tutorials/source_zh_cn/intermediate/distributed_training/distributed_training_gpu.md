@@ -4,7 +4,24 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/intermediate/distributed_training/distributed_training_gpu.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-本篇教程我们主要讲解，如何在GPU硬件平台上，利用MindSpore的数据并行及自动并行模式训练ResNet-50网络。
+本篇教程我们主要讲解，如何在GPU硬件平台上，利用MindSpore的数据并行及自动并行模式训练ResNet-50网络。如需了解并行模型等相关背景和概念，可参考[分布式并行训练（Ascend）](https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/distributed_training/distributed_training_ascend.html)。
+
+> 你可以在这里下载完整的样例代码：
+>
+> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training>
+
+目录结构如下：
+
+```text
+└─sample_code
+    ├─distributed_training
+    │      resnet.py
+    │      resnet50_distributed_training_gpu.py
+    │      run_gpu.sh
+    ...
+```
+
+其中，`resnet.py`、`resnet50_distributed_training.py`等文件是定义网络结构的脚本。`run_gpu.sh`是执行脚本。
 
 ## 准备环节
 
@@ -62,11 +79,64 @@ if __name__ == "__main__":
 - `mode=context.GRAPH_MODE`：使用分布式训练需要指定运行模式为图模式。
 - `init("nccl")`：使能NCCL通信，并完成分布式训练初始化操作。
 
+## 数据并行模式加载数据集
+
+在GPU硬件平台上，加载数据集的处理流程和Ascend 910 AI处理器一致。可参考[数据并行模式加载数据集](https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/distributed_training/distributed_training_ascend.html#id5)。
+
 ## 定义网络
 
-在GPU硬件平台上，网络的定义和Ascend 910 AI处理器一致。
+在GPU硬件平台上，网络的定义和Ascend 910 AI处理器一致，可以参考[ResNet网络样例脚本](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/resnet/resnet.py)。
 
-可以参考[ResNet网络样例脚本](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/resnet/resnet.py)
+## 定义损失函数及优化器
+
+### 定义损失函数
+
+在GPU硬件平台上，损失函数的定义和Ascend 910 AI处理器一致。可参考[定义损失函数](https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/distributed_training/distributed_training_ascend.html#id8)。
+
+### 定义优化器
+
+采用`Momentum`优化器作为参数更新工具，这里定义与单机一致，不再展开，具体可以参考样例代码中的实现。
+
+## 训练网络
+
+`context.set_auto_parallel_context`是配置并行训练参数的接口，必须在初始化网络之前调用。常用参数包括：
+
+- `parallel_mode`：分布式并行模式，默认为单机模式`ParallelMode.STAND_ALONE`。可选数据并行`ParallelMode.DATA_PARALLEL`及自动并行`ParallelMode.AUTO_PARALLEL`。
+- `parameter_broadcast`：训练开始前自动广播0号卡上数据并行的参数权值到其他卡上，默认值为`False`。
+- `gradients_mean`：反向计算时，框架内部会将数据并行参数分散在多台机器的梯度值进行收集，得到全局梯度值后再传入优化器中更新。默认值为`False`，设置为True对应`allreduce_mean`操作，False对应`allreduce_sum`操作。
+- `device_num`和`global_rank`建议采用默认值，框架内会调用HCCL接口获取。
+
+如脚本中存在多个网络用例，请在执行下个用例前调用`context.reset_auto_parallel_context`将所有参数还原到默认值。
+
+在下面的样例中我们指定并行模式为自动并行，用户如需切换为数据并行模式只需将`parallel_mode`改为`DATA_PARALLEL`。
+
+```python
+from mindspore import context, Model
+from mindspore.nn import Momentum
+from mindspore.train.callback import LossMonitor
+from mindspore.context import ParallelMode
+from resnet import resnet50
+
+context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
+
+def test_train_cifar(epoch_size=10):
+    context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
+    loss_cb = LossMonitor()
+    data_path = os.getenv('DATA_PATH')
+    dataset = create_dataset(data_path)
+    batch_size = 32
+    num_classes = 10
+    net = resnet50(batch_size, num_classes)
+    loss = SoftmaxCrossEntropyExpand(sparse=True)
+    opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), 0.01, 0.9)
+    model = Model(net, loss_fn=loss, optimizer=opt)
+    model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=False)
+```
+
+其中，
+
+- `dataset_sink_mode=True`：表示采用数据集的下沉模式，即训练的计算下沉到硬件平台中执行。
+- `LossMonitor`：能够通过回调函数返回Loss值，用于监控损失函数。
 
 ## 运行脚本
 
