@@ -268,7 +268,7 @@ MindSpore Programming Guide
                      <a href="https://www.mindspore.cn/docs/programming_guide/en/master/apply_gradient_accumulation.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
-                                 <span class="doc-head-content">Applying a Gradient Accumulation Algorithm</span>
+                                 <span class="doc-head-content">Gradient Accumulation Algorithm</span>
                               </div>
                               <div class="doc-article-desc">
                               This tutorial describes the gradient accumulation training methods to solve the problem that some large-scale networks cannot train large batch_size due to insufficient memory.
@@ -328,7 +328,7 @@ MindSpore Programming Guide
                      <a href="https://www.mindspore.cn/docs/programming_guide/en/master/apply_quantization_aware_training.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
-                                 <span class="doc-head-content">Applying Quantization Aware Training</span>
+                                 <span class="doc-head-content">Quantization Aware Training</span>
                               </div>
                               <div class="doc-article-desc">
                               Due to limited hardware resources of a mobile or edge device, a model needs to be simplified and the quantization technology is used to solve this problem.
@@ -724,7 +724,7 @@ MindSpore Programming Guide
                      <a href="https://www.mindspore.cn/docs/programming_guide/en/master/enable_auto_tune.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
-                                 <span class="doc-head-content">Enabling AutoTune</span>
+                                 <span class="doc-head-content">AutoTune</span>
                               </div>
                               <div class="doc-article-desc">
                               AutoTune is a tool that uses hardware resources and automatically tune the performance of TBE operators. This document mainly introduces how to use the AutoTune tool to Online tune.
@@ -736,7 +736,7 @@ MindSpore Programming Guide
                      <a href="https://www.mindspore.cn/docs/programming_guide/en/master/enable_dataset_autotune.html" class="article-link">
                         <div>
                               <div class="doc-article-head">
-                                 <span class="doc-head-content">Enabling Dataset AutoTune for Dataset Pipeline</span>
+                                 <span class="doc-head-content">Dataset AutoTune for Dataset Pipeline</span>
                               </div>
                               <div class="doc-article-desc">
                               MindSpore provides a tool named Dataset AutoTune for optimizing dataset.
