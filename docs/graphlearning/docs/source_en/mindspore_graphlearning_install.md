@@ -48,7 +48,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/GraphL
 1. Download source code from Gitee.
 
     ```bash
-    git clone https://gitee.com/mindspore/graphlearning.git
+    git clone https://gitee.com/mindspore/graphlearning.git -b r0.1
     ```
 
 2. Compile and install in MindSpore Graph Learning directory.

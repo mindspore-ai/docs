@@ -163,7 +163,7 @@ runner2.run()
 
 ## 不确定性
 
-模型决策结果存有不确定性，名为 [Epistemic Uncertainty](https://www.mindspore.cn/probability/docszh-CN/r1.6/nn_probability/mindspore.nn.probability.toolbox.UncertaintyEvaluation.html#mindspore.nn.probability.toolbox.UncertaintyEvaluation) 。计算方法是在模型中插入dropout层再多次重复推理，最后得出输出概率的标准偏差和95%置信区间：
+模型决策结果存有不确定性，名为 [Epistemic Uncertainty](https://www.mindspore.cn/probability/docs/zh-CN/r1.6/nn_probability/mindspore.nn.probability.toolbox.UncertaintyEvaluation.html#mindspore.nn.probability.toolbox.UncertaintyEvaluation) 。计算方法是在模型中插入dropout层再多次重复推理，最后得出输出概率的标准偏差和95%置信区间：
 
 ![mi_saliency_map](./images/mi_uncertainty.png)
 

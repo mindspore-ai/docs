@@ -17,7 +17,7 @@
 
     2）从训练列表中找到离线调试器入口，点击“离线调试器”，进入调试器页面，开始进行调试分析。
 
-   如果不需要UI页面，也可以通过离线调试器的API接口来分析。离线调试器的API详见[mindinsight.debugger](https://www.mindspore.cn/mindinsight/docszh-CN/r1.6/mindinsight.debugger.html) 。操作流程为：
+   如果不需要UI页面，也可以通过离线调试器的API接口来分析。离线调试器的API详见[mindinsight.debugger](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.6/mindinsight.debugger.html) 。操作流程为：
 
     1）通过`mindinsight.debugger.DumpAnalyzer`实例化离线调试器，将dump_dir指定为某一次训练的dump路径（dump配置中的{path}）；
 

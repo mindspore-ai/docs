@@ -52,7 +52,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/GraphL
 1. 从代码仓下载源码
 
     ```bash
-    git clone https://gitee.com/mindspore/graphlearning.git
+    git clone https://gitee.com/mindspore/graphlearning.git -b r0.1
     ```
 
 2. 编译安装MindSpore Graph Learning

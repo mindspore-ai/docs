@@ -34,7 +34,7 @@ SyncFLJob定义了端侧联邦学习启动接口flJobRun()、端侧推理接口m
 public FLClientStatus flJobRun()
 ```
 
-启动端侧联邦学习任务，具体使用方法可参考[接口介绍文档](https://www.mindspore.cn/federated/docszh-CN/r1.6/interface_description_federated_client.html)。
+启动端侧联邦学习任务，具体使用方法可参考[接口介绍文档](https://www.mindspore.cn/federated/docs/zh-CN/r1.6/interface_description_federated_client.html)。
 
 - 返回值
 
@@ -46,7 +46,7 @@ public FLClientStatus flJobRun()
 public int[] modelInference()
 ```
 
-启动端侧推理任务，具体使用方法可参考[接口介绍文档](https://www.mindspore.cn/federated/docszh-CN/r1.6/interface_description_federated_client.html)。
+启动端侧推理任务，具体使用方法可参考[接口介绍文档](https://www.mindspore.cn/federated/docs/zh-CN/r1.6/interface_description_federated_client.html)。
 
 - 返回值
 
@@ -58,7 +58,7 @@ public int[] modelInference()
 public FLClientStatus getModel()
 ```
 
-获取云侧最新模型，具体使用方法可参考[接口介绍文档](https://www.mindspore.cn/federated/docszh-CN/r1.6/interface_description_federated_client.html)。
+获取云侧最新模型，具体使用方法可参考[接口介绍文档](https://www.mindspore.cn/federated/docs/zh-CN/r1.6/interface_description_federated_client.html)。
 
 - 返回值
 

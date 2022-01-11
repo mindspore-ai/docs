@@ -22,7 +22,7 @@ pip install mindspore_xai-{version}-py3-none-any.whl
 1. 从gitee.com下载源码：
 
     ```bash
-    git clone https://gitee.com/mindspore/xai.git
+    git clone https://gitee.com/mindspore/xai.git -b r1.6
     ```
 
 2. 安装所有依赖的Python包：
