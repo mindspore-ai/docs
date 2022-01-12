@@ -301,7 +301,7 @@ mindspore-lite-{version}-linux-x64
 
 5. 执行推理，分析推理精度
 
-    使用如下命令测试模型的推理精度：
+    用户可以使用`benchmark`工具测试MindSpore Lite的推理精度，使用如下命令测试模型的推理精度：
 
     ```bash
     ./benchmark --modelFile=add.ms --inDataFile=add.bin --benchmarkDataFile=add.out
@@ -311,7 +311,7 @@ mindspore-lite-{version}-linux-x64
 
     通过`inDataFile`指定模型的输入数据文件`add.bin`。
     在之前的`Netron`打开模型，我们已经知道`add.ms`模型接收`float32`的`10x10`张量。
-    `benchmark.exe`的`inDataFile`选项默认接收二进制格式数据文件，`add.bin`文件按顺保存了100个`float32`的二进制数值，跟模型要求的`10x10`数据量一致，且格式均为`float32`。
+    `benchmark`的`inDataFile`选项默认接收二进制格式数据文件，`add.bin`文件按顺保存了100个`float32`的二进制数值，跟模型要求的`10x10`数据量一致，且格式均为`float32`。
     用户可以通过运行以下Python脚本，或点击此处下载本例中的[add.bin文件](https://download.mindspore.cn/model_zoo/official/lite/quick_start/add.bin)，并将它放到benchmark目录内。
 
     ```python
@@ -320,10 +320,8 @@ mindspore-lite-{version}-linux-x64
     t.tofile("add.bin")
     ```
 
-    通过`benchmarkDataFile`指定模型的输出标杆文件`add.out`。
-    在之前的`Netron`打开模型章节，我们已经知道`add.ms`模型输出`float32`的`10x10`张量。
-    我们提供的标杆数据也必须拥有相同的数据大小，才能跟模型输出进行对比，得到推理精度误差量。
-    `benchmark.exe`的`benchmarkDataFile`选项接收特定格式的字符文本文件，它的格式如下：
+    在提供了输入数据之后，用户还需提供用于跟推理结果进行对比的标杆数据，以进行精度误差分析。
+    本例通过`benchmarkDataFile`指定模型的输出标杆文件`add.out`。标杆文件的格式需如下所示：
 
     ```text
     [输出节点1名称] [输出节点1形状的维度长度] [输出节点1形状的第1维值] ... [输出节点1形状的第n维值]
@@ -332,7 +330,8 @@ mindspore-lite-{version}-linux-x64
     [节点2数据1]  [节点2数据2] ...
     ```
 
-    在之前的`Netron`打开模型章节，我们已经知道`add.ms`模型，输出的节点名为`Add`，该节点输出的形状为`10x10`，节点形状的维度长度为2，节点形状的第1维值为10，节点形状的第2维值为10。
+    提供的标杆数据必须和模型输出拥有相同的数据大小，才能跟模型输出进行对比，以得到推理精度误差量。
+    在之前的`Netron`打开模型章节，我们已经知道`add.ms`模型，输出的节点名为`Add`，该节点输出的形状为`10x10`，故节点形状的维度长度为2，节点形状的第1维值为10，节点形状的第2维值为10。
     输出节点值应全为2。故本例标杆数据如下：
 
     ```text
@@ -340,7 +339,15 @@ mindspore-lite-{version}-linux-x64
     2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0
     ```
 
-    用户可以通过运行以下Python脚本，或点击此处下载本例中的[add.out文件](https://download.mindspore.cn/model_zoo/official/lite/quick_start/add.out)，并将它放到benchmark目录内。
+    通常标杆文件可以采用以下方式生成：
+
+    - 使用其它深度学习模型推理框架，并使用相同输入，将推理结果按照上面的要求格式保存。
+
+    - 在模型训练时，将经过前处理后的数据保存作为`inDataFile`指定的输入数据。并将模型推理后，还未经过后处理的输出数据按标杆格式进行保存，作为标杆。
+
+    - 针对一些简单模型，用户也可以根据对模型的理解，手动构造对应输入的输出标杆。
+
+    本例采用手动构造标杆的方式，用户可以通过运行以下Python脚本，或点击此处下载本例中的[add.out文件](https://download.mindspore.cn/model_zoo/official/lite/quick_start/add.out)，并将它放到benchmark目录内。
 
     ```python
     import numpy as np
@@ -353,7 +360,7 @@ mindspore-lite-{version}-linux-x64
        t.tofile(f, " ")
     ```
 
-    在执行命令后，若推理成功，则会输出类似如下统计信息，在输出信息的最后，可以看到本例中，推理的精度误差为0%。
+    在执行命令后，若推理成功，则会输出类似如下统计信息：
 
     ```text
     ModelPath = add.ms
@@ -384,6 +391,10 @@ mindspore-lite-{version}-linux-x64
     Run Benchmark add.ms Success.
     ```
 
+    在输出信息中，`InData0`行打印的是该次推理的输入数据（只打印了前20个），`Data of node Add`行打印的是推理结果数据（`Add`输出张量的值，只打印前50个值），可以看到，推理结果是全为2的数据，跟我们的预期一致。
+    `Mean bias of node/tensor Add`行，给出了`Add`输出张量与标杆数据对比的平均误差，该误差计算方法为`benchmark`工具自带的比较算法。
+    在最后，`Mean bias of all nodes/tensors`给出了所有张量与标杆对比的平均误差，在本例中，只有1个输出张量，故总平均误差和`Add`张量误差一致。可以观察到，推理的总平均误差为0%。
+
 6. 高级功能
 
     关于`benchmark`的更详细说明，以及关于如何使用`benchmark`来进行基准测试、耗时定量分析、误差分析、Dump数据等，可以参考[benchmark](https://www.mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html)。
@@ -394,8 +405,8 @@ mindspore-lite-{version}-linux-x64
 | ------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- | ------ |
 | `--modelFile=<MODELPATH>`             | 必选     | 指定需要进行基准测试的MindSpore Lite模型文件路径。                                                                                                                       | String   | null   |
 | `--numThreads=<NUMTHREADS>`           | 可选     | 指定模型推理程序运行的线程数。                                                                                                                                           | Integer  | 2      |
-| `--inDataFile=<INDATAPATH>`           | 可选     | 指定测试模型输入数据的文件路径，默认接收二进制格式数据文件。如果未设置，则使用随机输入。                                                                                 | String   | null   |
-| `--benchmarkDataFile=<CALIBDATAPATH>` | 可选     | 指定标杆数据（用于精度对比的数据）的文件路径，接收按规定格式排列的字符文本。标杆数据作为该测试模型的对比输出，是该测试模型使用相同输入并由其它深度学习框架前向推理而来。 | String   | null   |
+| `--inDataFile=<INDATAPATH>`           | 可选     | 指定测试模型输入数据的文件路径，默认接收二进制格式数据文件。在精度测试中，该输入作为标杆输入。如果未设置，则使用随机输入。                                                                                 | String   | null   |
+| `--benchmarkDataFile=<CALIBDATAPATH>` | 可选     | 指定对比标杆数据（用于精度对比的数据）的文件路径，接收按规定格式排列的字符文本。 | String | null |
 
 > - 参数名和参数值之间用等号连接，中间不能有空格。
 
@@ -473,7 +484,7 @@ mindspore-lite-{version}-linux-x64
     )
     ```
 
-    > 如果想要集成`libmindspore-lite.a`静态库，则使用`-Wl,--whole-archive mindspore-lite -Wl,--no-whole-archive`的选项。
+    > 如果想要集成`libmindspore-lite.a`静态库，则使用`-Wl,--whole-archive mindspore-lite -Wl,--no-whole-archive`的选项来替换`mindspore-lite`。
 
 5. 编写代码
 
@@ -908,7 +919,7 @@ mindspore-lite-{version}-win-x64
 #### 下载发布件
 
 用户根据模型推理时的系统环境，下载对应的发布件。
-在本例中，我们选择的是软件系统为Linux、底层架构为x86_64的CPU发布件，以1.5.0版本为例，用户可点击此处直接[下载](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0/MindSpore/lite/release/windows/mindspore-lite-1.5.0-win-x64.zip)。
+在本例中，我们选择的是软件系统为Windows、底层架构为x86_64的CPU发布件，以1.5.0版本为例，用户可点击此处直接[下载](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.5.0/MindSpore/lite/release/windows/mindspore-lite-1.5.0-win-x64.zip)。
 
 #### benchmark推理测试
 
@@ -955,7 +966,7 @@ mindspore-lite-{version}-win-x64
 
 5. 执行推理，分析推理精度
 
-    使用如下命令测试模型的推理精度：
+    用户可以使用`benchmark.exe`工具测试MindSpore Lite的推理精度，使用如下命令测试模型的推理精度：
 
     ```bash
     call benchmark.exe --modelFile=add.ms --inDataFile=add.bin --benchmarkDataFile=add.out
@@ -966,7 +977,7 @@ mindspore-lite-{version}-win-x64
     通过`inDataFile`指定模型的输入数据文件`add.bin`。
     在之前的`Netron`打开模型，我们已经知道`add.ms`模型接收`float32`的`10x10`张量。
     `benchmark.exe`的`inDataFile`选项默认接收二进制格式数据文件，`add.bin`文件按顺保存了100个`float32`的二进制数值，跟模型要求的`10x10`数据量一致，且格式均为`float32`。
-    用户可以通过运行以下Python脚本，或点击此处可下载本例中的[add.bin文件](https://download.mindspore.cn/model_zoo/official/lite/quick_start/add.bin)，并将它放到benchmark目录内。
+    用户可以通过运行以下Python脚本，或点击此处下载本例中的[add.bin文件](https://download.mindspore.cn/model_zoo/official/lite/quick_start/add.bin)，并将它放到benchmark目录内。
 
     ```python
     import numpy as np
@@ -974,10 +985,8 @@ mindspore-lite-{version}-win-x64
     t.tofile("add.bin")
     ```
 
-    通过`benchmarkDataFile`指定模型的输出标杆文件`add.out`。
-    在之前的`Netron`打开模型章节，我们已经知道`add.ms`模型输出`float32`的`10x10`张量。
-    我们提供的标杆数据也必须拥有相同的数据大小，才能跟模型输出进行对比，得到推理精度误差量。
-    `benchmark.exe`的`benchmarkDataFile`选项接收特定格式的字符文本文件，它的格式如下：
+    在提供了输入数据之后，用户还需提供用于跟推理结果进行对比的标杆数据，以进行精度误差分析。
+    本例通过`benchmarkDataFile`指定模型的输出标杆文件`add.out`。标杆文件的格式需如下所示：
 
     ```text
     [输出节点1名称] [输出节点1形状的维度长度] [输出节点1形状的第1维值] ... [输出节点1形状的第n维值]
@@ -986,7 +995,8 @@ mindspore-lite-{version}-win-x64
     [节点2数据1]  [节点2数据2] ...
     ```
 
-    在之前的`Netron`打开模型章节，我们已经知道`add.ms`模型，输出的节点名为`Add`，该节点输出的形状为`10x10`，节点形状的维度长度为2，节点形状的第1维值为10，节点形状的第2维值为10。
+    提供的标杆数据必须和模型输出拥有相同的数据大小，才能跟模型输出进行对比，以得到推理精度误差量。
+    在之前的`Netron`打开模型章节，我们已经知道`add.ms`模型，输出的节点名为`Add`，该节点输出的形状为`10x10`，故节点形状的维度长度为2，节点形状的第1维值为10，节点形状的第2维值为10。
     输出节点值应全为2。故本例标杆数据如下：
 
     ```text
@@ -994,7 +1004,15 @@ mindspore-lite-{version}-win-x64
     2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0 2.0
     ```
 
-    用户可以通过运行以下Python脚本，或点击此处可下载本例中的[add.out文件](https://download.mindspore.cn/model_zoo/official/lite/quick_start/add.out)，并放到benchmark目录内。
+    通常标杆文件可以采用以下方式生成：
+
+    - 使用其它深度学习模型推理框架，并使用相同输入，将推理结果按照上面的要求格式保存。
+
+    - 在模型训练时，将经过前处理后的数据保存作为`inDataFile`指定的输入数据。并将模型推理后，还未经过后处理的输出数据按标杆格式进行保存，作为标杆。
+
+    - 针对一些简单模型，用户也可以根据对模型的理解，手动构造对应输入的输出标杆。
+
+    本例采用手动构造标杆的方式，用户可以通过运行以下Python脚本，或点击此处下载本例中的[add.out文件](https://download.mindspore.cn/model_zoo/official/lite/quick_start/add.out)，并将它放到benchmark目录内。
 
     ```python
     import numpy as np
@@ -1007,7 +1025,7 @@ mindspore-lite-{version}-win-x64
        t.tofile(f, " ")
     ```
 
-    在执行命令后，若推理成功，则会输出类似如下统计信息，在输出信息的最后，可以看到本例中，推理的精度误差为0%。
+    在执行命令后，若推理成功，则会输出类似如下统计信息：
 
     ```text
     ModelPath = add.ms
@@ -1038,6 +1056,10 @@ mindspore-lite-{version}-win-x64
     Run Benchmark add.ms Success.
     ```
 
+    在输出信息中，`InData0`行打印的是该次推理的输入数据（只打印了前20个），`Data of node Add`行打印的是推理结果数据（`Add`输出张量的值，只打印前50个值），可以看到，推理结果是全为2的数据，跟我们的预期一致。
+    `Mean bias of node/tensor Add`行，给出了`Add`输出张量与标杆数据对比的平均误差，该误差计算方法为`benchmark`工具自带的比较算法。
+    在最后，`Mean bias of all nodes/tensors`给出了所有张量与标杆对比的平均误差，在本例中，只有1个输出张量，故总平均误差和`Add`张量误差一致。可以观察到，推理的总平均误差为0%。
+
 6. 高级功能
 
     关于`benchmark`的更详细说明，以及关于如何使用`benchmark`来进行基准测试、耗时定量分析、误差分析、Dump数据等，可以参考[benchmark](https://www.mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html)。
@@ -1049,7 +1071,7 @@ mindspore-lite-{version}-win-x64
 | `--modelFile=<MODELPATH>` | 必选 | 指定需要进行基准测试的MindSpore Lite模型文件路径。 | String | null  |
 | `--numThreads=<NUMTHREADS>` | 可选 | 指定模型推理程序运行的线程数。 | Integer | 2 |
 | `--inDataFile=<INDATAPATH>` | 可选 | 指定测试模型输入数据的文件路径，默认接收二进制格式数据文件。如果未设置，则使用随机输入。 | String | null |
-| `--benchmarkDataFile=<CALIBDATAPATH>` | 可选 | 指定标杆数据（用于精度对比的数据）的文件路径，接收按规定格式排列的字符文本。标杆数据作为该测试模型的对比输出，是该测试模型使用相同输入并由其它深度学习框架前向推理而来。 | String | null |
+| `--benchmarkDataFile=<CALIBDATAPATH>` | 可选 | 指定对比标杆数据（用于精度对比的数据）的文件路径，接收按规定格式排列的字符文本。 | String | null |
 
 > - 参数名和参数值之间用等号连接，中间不能有空格。
 
@@ -1130,16 +1152,11 @@ mindspore-lite-{version}-win-x64
             demo
             mindspore-lite
             pthread
-            dl
-    )
-    # 链接ssp
-    target_link_libraries(
-        demo
-        ssp
+            ssp
     )
     ```
 
-    > 如果想要集成`libmindspore-lite.a`静态库，则使用`-Wl,--whole-archive mindspore-lite -Wl,--no-whole-archive`的选项。
+    > 如果想要集成`libmindspore-lite.a`静态库，则使用`-Wl,--whole-archive mindspore-lite -Wl,--no-whole-archive`的选项来替换`mindspore-lite`。
 
 5. 编写代码
 
@@ -1391,7 +1408,7 @@ mindspore-lite-{version}-win-x64
 
 6. 编译
 
-    进入`build`目录，输入`cmake ..`生成makefile文件，然后输入`make`编译工程。在编译成功后，可以在`build`目录下得到`demo`可执行程序。
+    进入`build`目录，输入`cmake -G "CodeBlocks - MinGW Makefiles" ..`生成makefile文件，然后输入`make`编译工程。在编译成功后，可以在`build`目录下得到`demo`可执行程序。
 
 7. 运行推理程序
 
