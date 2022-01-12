@@ -15,12 +15,6 @@ mindspore_gl.dataset
 .. automodule:: mindspore_gl.dataset
     :members:
 
-mindspore_gl.extensions
------------------------
-
-.. automodule:: mindspore_gl.extensions
-    :members:
-
 mindspore_gl.graph
 -------------------
 
