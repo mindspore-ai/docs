@@ -101,15 +101,15 @@ Graph mode:
 
     ```python
     class StopAtEpoch(Callback):
-        def init(self, start_epoch, stop_epoch):
-            super(StopAtStep, self).init()
+        def __init__(self, start_epoch, stop_epoch):
+            super(StopAtEpoch, self).__init__()
             self.start_epoch = start_epoch
             self.stop_epoch = stop_epoch
             self.profiler = Profiler(start_profile=False)
         def epoch_begin(self, run_context):
             cb_params = run_context.original_args()
             epoch_num = cb_params.cur_epoch_num
-            if step_num == self.start_epoch:
+            if epoch_num == self.start_epoch:
                 self.profiler.start()
         def epoch_end(self, run_context):
             cb_params = run_context.original_args()
