@@ -1,4 +1,4 @@
-MindSpore Graph Learning API
+mindspore_gl
 ============================
 
 .. automodule:: mindspore_gl
