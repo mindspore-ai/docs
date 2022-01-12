@@ -604,7 +604,7 @@ public List<String> getHybridWeightName(RunType runType)
 
 - 参数
 
-- `runType`: RunType枚举类型，只支持设置为RunType.TRAINMODE（代表获取训练权重名）、RunType.INFERMODE（代表获取推理权重名）。
+    - `runType`: RunType枚举类型，只支持设置为RunType.TRAINMODE（代表获取训练权重名）、RunType.INFERMODE（代表获取推理权重名）。
 
 - 返回值
 
