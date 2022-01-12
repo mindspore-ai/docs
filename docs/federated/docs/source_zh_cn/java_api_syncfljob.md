@@ -1,16 +1,5 @@
 # SyncFLJob
 
-<!-- TOC -->
-
-- [SyncFLJob](#syncfljob)
-    - [公有成员函数](#公有成员函数)
-    - [flJobRun](#fljobrun)
-    - [modelInference](#modelinference)
-    - [getModel](#getmodel)
-    - [stopFLJob](#stopfljob)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/federated/docs/source_zh_cn/java_api_syncfljob.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ```java

@@ -2,27 +2,6 @@
 
 `Ascend` `GPU` `CPU` `Model Development`
 
-<!-- TOC -->
-
-- [Using the Process Control Statement](#using-the-process-control-statement)
-    - [Overview](#overview)
-    - [Using the if Statement](#using-the-if-statement)
-        - [Using an if Statement with a Variable Condition](#using-an-if-statement-with-a-variable-condition)
-        - [Using an if Statement with a Constant Condition](#using-an-if-statement-with-a-constant-condition)
-    - [Using the for Statement](#using-the-for-statement)
-    - [Using the while Statement](#using-the-while-statement)
-        - [Using a while Statement with a Constant Condition](#using-a-while-statement-with-a-constant-condition)
-        - [Using a while Statement with a Variable Condition](#using-a-while-statement-with-a-variable-condition)
-    - [Using a while Statement instead of a for Statement](#using-a-while-statement-instead-of-a-for-statement)
-        - [A simple example](#a-simple-example)
-        - [Weight in the loop body](#weight-in-the-loop-body)
-    - [Constraints](#constraints)
-        - [Side Effect](#side-effect)
-        - [Dead Cycle](#dead-cycle)
-        - [Dynamic Shape](#dynamic-shape)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_en/control_flow.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## Overview
