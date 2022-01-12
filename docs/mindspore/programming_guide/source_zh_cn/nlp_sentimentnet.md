@@ -1,6 +1,6 @@
 # 使用SentimentNet实现情感分类
 
-`GPU` `CPU` `自然语言处理` `全流程`
+`Ascend` `GPU` `CPU` `自然语言处理` `全流程`
 
 <a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9ubHBfYXBwbGljYXRpb24uaXB5bmI=&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_modelarts.png"></a>&nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/notebook/mindspore_nlp_application.ipynb"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_notebook.png"></a>&nbsp;&nbsp;
@@ -73,7 +73,7 @@ $F1分数 = (2 \times Precision \times Recall) / (Precision + Recall)$
     > LSTM（Long short-term memory，长短期记忆）网络是一种时间循环神经网络，适合于处理和预测时间序列中间隔和延迟非常长的重要事件。具体介绍可参考网上资料，在此不再赘述。
 3. 得到模型之后，使用验证数据集，查看模型精度情况。
 
-> 本例面向GPU或CPU硬件平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/models/tree/master/official/nlp/lstm>
+> 可以在这里下载完整的样例代码：<https://gitee.com/mindspore/models/tree/master/official/nlp/lstm>
 >
 > - `default_config.yaml、config_ascend.yaml`：网络中的一些配置，包括`batch size`、进行几次epoch训练等。
 > - `src/dataset.py`：数据集相关，包括转换成MindRecord文件，数据预处理等。

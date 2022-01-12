@@ -1227,7 +1227,7 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hardware-gpu hardware-cpu stage-Whole-Process experience-local experience-online hidden">
+							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Whole-Process experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/nlp_sentimentnet.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
