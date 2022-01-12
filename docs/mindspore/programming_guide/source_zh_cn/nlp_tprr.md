@@ -77,7 +77,7 @@ Development数据集](https://hotpotqa.github.io/)。请先下载[预处理数�
 
 ### 准备模型文件
 
-下载模型文件(https://download.mindspore.cn/model_zoo/research/nlp/tprr/)，在scripts文件夹下创建ckpt文件夹，并将下载的模型文件放在ckpt文件夹下，文件目录结构如下：
+下载[模型文件](https://download.mindspore.cn/model_zoo/research/nlp/tprr/)，在scripts文件夹下创建ckpt文件夹，并将下载的模型文件放在ckpt文件夹下，文件目录结构如下：
 
 ```text
 .
@@ -188,11 +188,24 @@ def ThinkRetrieverConfig():
 定义Retriever模块并加载模型参数， 如下示例代码在`retriever_eval.py`脚本中。
 
 ```python
-def evaluation():
-    model_onehop_bert = ModelOneHop()
+def evaluation(d_id):
+    """evaluation"""
+    context.set_context(mode=context.GRAPH_MODE,
+                        device_target='Ascend',
+                        device_id=d_id,
+                        save_graphs=False)
+    print('********************** loading corpus ********************** ')
+    s_lc = time.time()
+    data_generator = DataGen(config)
+    queries = read_query(config, d_id)
+    print("loading corpus time (h):", (time.time() - s_lc) / 3600)
+    print('********************** loading model ********************** ')
+
+    s_lm = time.time()
+    model_onehop_bert = ModelOneHop(256)
     param_dict = load_checkpoint(config.onehop_bert_path)
     load_param_into_net(model_onehop_bert, param_dict)
-    model_twohop_bert = ModelTwoHop()
+    model_twohop_bert = ModelOneHop(448)
     param_dict2 = load_checkpoint(config.twohop_bert_path)
     load_param_into_net(model_twohop_bert, param_dict2)
     onehop = OneHopBert(config, model_onehop_bert)
