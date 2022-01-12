@@ -6,7 +6,7 @@
 
 ## 概述
 
-在MindSpore发布的鹏程·盘古模型模型[1]中，我们看到借助多维度自动混合并行可以实现超大规模Transformer网络的分布式训练。这篇文章将从网络脚本出发，详解模型各个组成部分的切分方式。
+在MindSpore发布的鹏程·盘古模型[1]中，我们看到借助多维度自动混合并行可以实现超大规模Transformer网络的分布式训练。这篇文章将从网络脚本出发，详解模型各个组成部分的切分方式。
 
 > 完整代码可以参考：https://gitee.com/mindspore/models/tree/r1.6/official/nlp/pangu_alpha
 
@@ -130,7 +130,7 @@ Self-Attention可以直接通过`mindspore.nn.transformer.MultiHeadAttention`实
 
 ### FeedForward
 
-FeedForward可以直接调用`mindspore.nn.transformer.FeedForward`实现。FeedForward网络层由两个矩阵乘组成，第一个矩阵乘切分方式和attention一致，输出矩阵行、列均切，即在`batch`维度和`输出维度`进行切分。为了避免引入算子间的重排布通信，第二个矩阵乘对权重的input_channel维度切分，即`matmul.shard(((parallel_config.data_parallel, parallel_config.model_parallel), (parallel_config.model_parallel, 1)))`，相关维切分时框架会自动插入`AllReduce`算子在模型并行维度设备间累加切片。输出矩阵仅在`batch`维度切分，再加上偏置项`add.shard(((parallel_config.data_parallel, 1), (1,)))`。
+FeedForward可以直接调用`mindspore.nn.transformer.FeedForward`实现。FeedForward网络层由两个矩阵乘组成，第一个矩阵乘切分方式和attention一致，输出矩阵行、列均切，即在`batch`维度和`输出维度`进行切分。为了避免引入算子间的重排布通信，第二个矩阵乘对权重的input_channel维度切分，即`matmul.shard(((parallel_config.data_parallel, parallel_config.model_parallel), (parallel_config.model_parallel, 1)))`，相关维切分时框架会自动插入`AllReduce`算子，在模型并行维度上累加切片结果。输出矩阵仅在`batch`维度切分，再加上偏置项`add.shard(((parallel_config.data_parallel, 1), (1,)))`。
 
 ```python
 from mindspore.common.initializer import initializer
@@ -144,7 +144,7 @@ default_dpmp_config = OpParallelConfig()
 class Linear(nn.Cell):
     """
     The dense connected layer. Once the parallel mode is enabled, the input shape should be
-    3-D tensor.
+    a 3-D tensor.
     """
     def __init__(self,
                  in_channels,
@@ -216,7 +216,7 @@ class FeedForward(nn.Cell):
     The multilayer perceptron with two linear layers with dropout applied at final output. The first linear
     will project the input dimension from hidden_size to ffn_hidden_size, the second linear will project the
     dimension from ffn_hidden_size to hidden_size. The first linear is sharded on the relative dimension,
-    the second linear is sharded on the output dimension. The overview process can be
+    the second linear is sharded on the output dimension.
     """
     def __init__(self, hidden_size,
                  ffn_hidden_size,
@@ -313,7 +313,7 @@ class PanguAlpha_Head(nn.Cell):
         return logits
 ```
 
-在这篇文章中，我们了解到如何通过配置算子切分策略的方式在单机脚本基础上快速实现Transformer类网络的分布式训练。具体到网络结构，embedding层、decorder层、residual层、linear层都有各自的切分特点，用户可以通过掌握算子策略配置方法，提升分布式训练、调优效率。
+在这篇文章中，我们了解到如何通过配置算子切分策略的方式在单机脚本基础上快速实现Transformer类网络的分布式训练。具体到网络结构，embedding层、decorder层、residual层和linear层都有各自的切分特点，用户可以通过掌握算子策略配置方法，提升分布式训练、调优效率。
 
 ## 参考文献
 
