@@ -55,14 +55,14 @@
 
 ```python
 from mindspore import context
-from mindspore.nn.transformer import TransformerOpParalllelConfig
+from mindspore.nn.transformer import TransformerOpParallelConfig
 context.set_auto_parallel_context(parallel_mode=context.ParallelMode.SEMI_AUTO_PARALLEL)
-parallel_config = TransformerOpParalllelConfig(data_parallel=1, model_parallel=8)
+parallel_config = TransformerOpParallelConfig(data_parallel=1, model_parallel=8)
 ```
 
 ## 模型定义
 
-在定义好配置之后，我们可以开始构造一个网络。由于MindSpore已经提供了`Transformer`的使用，用户只需要额外增加`Embedding`层，输出层和损失函数即可。下面依次介绍各个模块的配置。
+在定义好配置之后，我们可以开始构造一个网络。由于MindSpore已经提供了`Transformer`，用户只需要额外增加`Embedding`层、输出层和损失函数即可。下面依次介绍各个模块的配置。
 
 ### Embedding层
 
@@ -74,7 +74,7 @@ Tranformer中的Embeding层主要由词向量嵌入和位置向量嵌入两部�
 
 `vocab_emb_dp`用来区分`embedding_lookup`操作的两种并行模式`数据并行`和`行切分并行`。当`vocab_emb_dp`为`True`时，embedding查找的过程将会被设置为并行度为`data_parallel`的数据并行。当`vocab_emb_dp`为`False`时，embedding的权重将会在第0维度按`model_parallel`进行均分，可以减少变量的存储。
 
-在此我们定义了一个`EmbeddingLayer`，将查询的词向量和位置向量进行相加求和。注意，我们在此设置了`add`和`dorpout`操作。由于输入的tensor大小为`[batch_size, seq_length, hidden_szie]`，并且词向量的查找过程为数据并行，所以我们根据`OpParallelConfig`中的数据并行值`data_parallel`，调用算子的`shard`方法分别设置这两个算子的并行策略。如果用户不进行设置`shard`方法，那么默认的算子并行策略为**并行度为卡数的数据并行**。那么完成对应的代码如下所示:
+在此我们定义了一个`EmbeddingLayer`，将查询的词向量和位置向量进行相加求和。注意，我们在此设置了`add`和`dropout`操作。由于输入的tensor大小为`[batch_size, seq_length, hidden_size]`，并且词向量的查找过程为数据并行，所以我们根据`OpParallelConfig`中的数据并行值`data_parallel`，调用算子的`shard`方法分别设置这两个算子的并行策略。如果用户不设置`shard`方法，那么默认的算子并行策略为**并行度为卡数的数据并行**。对应的代码如下所示:
 
 ```python
 import mindspore.nn as nn
@@ -176,17 +176,19 @@ class Net(nn.Cell):
 
 ### 定义损失函数
 
-MindSpore还提供了一个支持并行的交叉商损失函数`mindspore.nn.transformer.CrossEntroyLoss`。这个函数接收一个`OpParallelConfig`来配置并行属性。`OpParallelConfig`实际包含了两个属性`data_parallel`和`model_parallel`。通过将模型的输出和真实标签输入损失函数，我们即可计算当前数据对应的损失值。
+MindSpore还提供了一个支持并行的交叉商损失函数`mindspore.nn.transformer.CrossEntroyLoss`。这个函数接收一个`OpParallelConfig`来配置并行属性。`OpParallelConfig`实际包含了两个属性`data_parallel`和`model_parallel`。
+通过这两个属性可以配置损失函数的并行配置。
 
 ```python
-from mindspore.nn.transformer import CrossEntropyLoss
-self.loss = CrossEntropyLoss(parallel_config=parallel_config.dp_mp_config)
+from mindspore.nn.transformer import CrossEntropyLoss, TransformerOpParallelConfig
+parallel_config = TransformerOpParallelConfig()
+loss = CrossEntropyLoss(parallel_config=parallel_config.dp_mp_config)
 ```
 
 ## 端到端流程
 
-在定义并行配置、模型和损失函数之后，我们可以将上述代码整合完成训练过程。在启动训练之前，我们调用`auto_parallel_context`设置并行选项，设置并行模式为`SEMI_AUTO_PARALLEL`。在流水线并行的情况下，MindSpore提供了额外的配置可以通信为代价额外节省内存。其过程如下：在含有数据并行维度的并且开启优化器切分的情况下(`enable_parallel_optimizer=True`)，
-通过设置`parallel_optimizer_config= {"gradient_accumulation_shard":True}`可以将流水线并行训练时的累积变量进一步切分，以达到节省内存的目的，同时会在每个`micro_step`之间引入通信以保证每卡梯度的一致性。
+在定义并行配置、模型和损失函数之后，我们将上述代码进一步整合。在启动训练之前，我们调用`auto_parallel_context`设置并行选项，设置并行模式为`SEMI_AUTO_PARALLEL`。在流水线并行的情况下，MindSpore提供了额外的配置，将梯度累积变量进一步切分到数据并行维度的卡上，以节省内存占用。其过程如下：首先开启优化器切分(`enable_parallel_optimizer=True`)，
+然后设置`parallel_optimizer_config= {"gradient_accumulation_shard":True}`将流水线并行训练时的累积变量进一步切分，以达到节省内存的目的，同时会在每个`micro_step`之间引入通信算子进行梯度的同步。注意`gradient_accumulation_shard`默认对应的值为True，如果用户为了提高性能，可以将此参数设置为False。
 
 ```python
 from mindspore import context
@@ -196,12 +198,13 @@ context.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL,
 
 关于`stage_num`的说明如下，MindSpore通过`stage_num`来判断是否进入流水线并行训练。
 
-- 在设置`stage_num=1`的情况下，进行算子级别的并行。用户可以通过设置`TransformerOpParallelConfig`中的`model_parallel`和`data_parallel`属性进行配置并行训练。
-- 在设置`stage_num>1`的情况下，会进入流水线并行模式。流水线的配置就是设置每个`cell`对应的`pipeline_stage`属性，另外，在实例化网络中后，我们需要再调用`PipelineCell`来封装定义好的网络。这个`Cell`的作用是将输入切分成`mirco_batch_num`个数的小数据，以最大利用计算资源。值得注意的是，我们需要调用`net.infer_param_pipeline_stage()`而不是`net.trainable_params()`来获取当前`stage`对应的训练权重。注意，pipeline的stage内的卡数至少为8。pipeline的详细教程可以参考[这里](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/apply_pipeline_parallel.html)。
+- 在设置`stage_num=1`的情况下，进行算子级别的并行。用户可以通过设置`TransformerOpParallelConfig`中的`model_parallel`和`data_parallel`属性配置并行策略。
+- 在设置`stage_num>1`的情况下，会进入流水线并行模式。流水线并行模式下，需要设置每个`cell`的`pipeline_stage`属性，将`cell`指定到对应的设备上执行。另外，在实例化网络后，我们需要再调用`PipelineCell`来封装定义好的网络。这个`Cell`的作用是将网络的输入切分成`mirco_batch_num`个数的小数据，以最大利用计算资源。值得注意的是，我们需要调用`net.infer_param_pipeline_stage()`而不是`net.trainable_params()`来获取当前设备`stage`对应的训练权重。注意，pipeline的stage内的卡数至少为8。pipeline的详细教程可以参考[这里](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/apply_pipeline_parallel.html)。
 
-整合后的主文件代码如下。
+整合后的主文件代码如下。注意在此省略一些参数的定义，完整的参数列表可以参考用例源代码，代码地址在本文开始的部分已经给出。
 
 ```python
+import argparse
 from mindspore.nn.transformer import TransformerOpParallelConfig
 from mindspore import Model
 import mindspore.communication as D
@@ -215,9 +218,6 @@ from model import Net
 
 
 def set_weight_decay(params):
-    """
-    Set weight decay coefficient, zero for bias and layernorm, 1e-1 for rest
-    """
     decay_filter = lambda x: 'layernorm' not in x.name.lower() and "bias" not in x.name.lower()
     decay_params = list(filter(decay_filter, params))
     other_params = list(filter(lambda x: not decay_filter(x), params))
@@ -234,10 +234,27 @@ def set_weight_decay(params):
 
 
 def main():
-    # Run the total forward model
-    ...
+    parser = argparse.ArgumentParser(description="Transformer training")
+    parser.add_argument("--distribute",
+                        type=str,
+                        default="false",
+                        choices=["true", "false"],
+                        help="Run distribute, default is true.")
+    parser.add_argument("--micro_batch_num",
+                        type=int,
+                        default=1,
+                        help="The micro batch num.")
+    parser.add_argument('--pipeline_stage',
+                        required=False,
+                        type=int,
+                        default=1,
+                        help='The pipeline stage number.')
+    parser.add_argument('--mp',
+                        required=False,
+                        type=int,
+                        default=1,
+                        help='The model parallel way.')
     args_opt = parser.parse_args()
-    ...
 
     if args_opt.distribute == 'true':
         D.init()
@@ -290,7 +307,6 @@ def main():
         model = Model(net, optimizer=opt)
 
     callback_size = 1
-    # single vs pipeline (save a slice of the model)
     ckpt_config = CheckpointConfig(save_checkpoint_steps=callback_size, keep_checkpoint_max=4,
                                    integrated_save=False)
     ckpoint_cb = ModelCheckpoint(prefix="test",
@@ -312,7 +328,7 @@ if __name__ == "__main__":
 
 ### 预处理流程
 
-执行下述代码进行数据的预处理过程，将会在当前目录下产生`output`目录，目录下将会生成`wmt14.en_ft.txt`和`wmt14.fr_en.txt`两个文件，文件中每行是一个法语和英语的句子对。我们将采用`wmt14.fr_en.txt`作为训练数据。
+执行下述代码进行数据的预处理过程，将会在当前目录下产生`output`目录，目录下将会生成`wmt14.en_fr.txt`和`wmt14.fr_en.txt`两个文件，文件中每行是一个法语和英语的句子对。我们将采用`wmt14.fr_en.txt`作为训练数据。
 
 ```python
 python preprocess.py
@@ -460,7 +476,7 @@ cd ../
 - `DEVICE_ID`：当前卡在机器上的实际序号。
 - `RANK_ID`：当前卡的逻辑序号。
 
-其余环境变量请参考安装教程中的配置项。
+其余环境变量请参考[安装教程](https://www.mindspore.cn/install)中的配置项。
 
 运行时间大约在5分钟内，主要时间是用于算子的编译，实际训练时间在20秒内。用户可以通过`ps -ef | grep python`来监控任务进程。
 
