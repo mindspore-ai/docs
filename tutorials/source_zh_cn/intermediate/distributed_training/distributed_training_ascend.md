@@ -57,13 +57,20 @@
 ```text
 └─sample_code
     ├─distributed_training
-    │      rank_table_16pcs.json
-    │      rank_table_8pcs.json
-    │      rank_table_2pcs.json
-    │      resnet.py
-    │      resnet50_distributed_training.py
-    │      run.sh
-    │      run_cluster.sh
+        ├── cell_wrapper.py
+        ├── rank_table_16pcs.json
+        ├── rank_table_2pcs.json
+        ├── rank_table_8pcs.json
+        ├── resnet50_distributed_training_dataset_slice.py
+        ├── resnet50_distributed_training_gpu.py
+        ├── resnet50_distributed_training_pipeline.py
+        ├── resnet50_distributed_training.py
+        ├── resnet.py
+        ├── run_cluster.sh
+        ├── run_dataset_slice.sh
+        ├── run_gpu.sh
+        ├── run_pipeline.sh
+        └── run.sh
     ...
 ```
 
@@ -440,8 +447,8 @@ epoch: 10 step: 156, loss is 1.1533381
 
 echo "=============================================================================================================="
 echo "Please run the script as: "
-echo "bash run.sh DATA_PATH RANK_TABLE_FILE RANK_SIZE RANK_START"
-echo "For example: bash run.sh /path/dataset /path/rank_table.json 16 0"
+echo "bash run_cluster.sh DATA_PATH RANK_TABLE_FILE RANK_SIZE RANK_START"
+echo "For example: bash run_cluster.sh /path/dataset /path/rank_table.json 16 0"
 echo "It is better to use the absolute path."
 echo "=============================================================================================================="
 
@@ -480,7 +487,7 @@ done
 
 ```bash
 # server0
-bash run.sh /path/dataset /path/rank_table.json 16 0
+bash run_cluster.sh /path/dataset /path/rank_table.json 16 0
 # server1
-bash run.sh /path/dataset /path/rank_table.json 16 8
+bash run_cluster.sh /path/dataset /path/rank_table.json 16 8
 ```
