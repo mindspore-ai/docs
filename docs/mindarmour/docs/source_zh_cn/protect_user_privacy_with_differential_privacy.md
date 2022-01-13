@@ -81,7 +81,7 @@ TAG = 'Lenet5_train'
         'save_checkpoint_steps': 234,  # the interval steps for saving checkpoint file of the model
         'keep_checkpoint_max': 10,  # the maximum number of checkpoint files would be saved
         'device_target': 'Ascend',  # device used
-        'data_path': '../../common/dataset/MNIST',  # the path of training and testing data set
+        'data_path': '../../common/dataset/MNIST',  # the path of training and testing dataset
         'dataset_sink_mode': False,  # whether deliver all training data to device one time
         'micro_batches': 32,  # the number of small batches split from an original batch
         'norm_bound': 1.0,  # the clip bound of the gradients of model's training parameters

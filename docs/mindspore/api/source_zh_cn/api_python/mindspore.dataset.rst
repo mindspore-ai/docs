@@ -11,13 +11,34 @@ Vision
     :nosignatures:
     :template: classtemplate_inherited.rst
 
+    mindspore.dataset.Caltech101Dataset
+    mindspore.dataset.Caltech256Dataset
     mindspore.dataset.CelebADataset
-    mindspore.dataset.Cifar100Dataset
     mindspore.dataset.Cifar10Dataset
+    mindspore.dataset.Cifar100Dataset
+    mindspore.dataset.CityscapesDataset
     mindspore.dataset.CocoDataset
+    mindspore.dataset.DIV2KDataset
+    mindspore.dataset.EMnistDataset
+    mindspore.dataset.FakeImageDataset
+    mindspore.dataset.FashionMnistDataset
+    mindspore.dataset.FlickrDataset
+    mindspore.dataset.Flowers102Dataset
     mindspore.dataset.ImageFolderDataset
+    mindspore.dataset.KMnistDataset
+    mindspore.dataset.ManifestDataset
     mindspore.dataset.MnistDataset
+    mindspore.dataset.PhotoTourDataset
+    mindspore.dataset.Places365Dataset
+    mindspore.dataset.QMnistDataset
+    mindspore.dataset.SBDataset
+    mindspore.dataset.SBUDataset
+    mindspore.dataset.SemeionDataset
+    mindspore.dataset.STL10Dataset
+    mindspore.dataset.SVHNDataset
+    mindspore.dataset.USPSDataset
     mindspore.dataset.VOCDataset
+    mindspore.dataset.WIDERFaceDataset
 
 Text
 -----
@@ -27,9 +48,25 @@ Text
     :nosignatures:
     :template: classtemplate_inherited.rst
 
+    mindspore.dataset.AGNewsDataset
+    mindspore.dataset.AmazonReviewDataset
     mindspore.dataset.CLUEDataset
+    mindspore.dataset.CoNLL2000Dataset
+    mindspore.dataset.CSVDataset
+    mindspore.dataset.DBpediaDataset
+    mindspore.dataset.EnWik9Dataset
+    mindspore.dataset.IMDBDataset
+    mindspore.dataset.IWSLT2016Dataset
+    mindspore.dataset.IWSLT2017Dataset
+    mindspore.dataset.PennTreebankDataset
+    mindspore.dataset.SogouNewsDataset
+    mindspore.dataset.TextFileDataset
+    mindspore.dataset.UDPOSDataset
+    mindspore.dataset.WikiTextDataset
+    mindspore.dataset.YahooAnswersDataset
+    mindspore.dataset.YelpReviewDataset
 
-Graph
+Audio
 ------
 
 .. autosummary::
@@ -37,7 +74,10 @@ Graph
     :nosignatures:
     :template: classtemplate_inherited.rst
 
-    mindspore.dataset.GraphData
+    mindspore.dataset.LJSpeechDataset
+    mindspore.dataset.SpeechCommandsDataset
+    mindspore.dataset.TedliumDataset
+    mindspore.dataset.YesNoDataset
 
 Standard Format
 ----------------
@@ -48,9 +88,7 @@ Standard Format
     :template: classtemplate_inherited.rst
 
     mindspore.dataset.CSVDataset
-    mindspore.dataset.ManifestDataset
     mindspore.dataset.MindDataset
-    mindspore.dataset.TextFileDataset
     mindspore.dataset.TFRecordDataset
 
 User Defined
@@ -64,6 +102,17 @@ User Defined
     mindspore.dataset.GeneratorDataset
     mindspore.dataset.NumpySlicesDataset
     mindspore.dataset.PaddedDataset
+    mindspore.dataset.RandomDataset
+
+Graph
+------
+
+.. autosummary::
+    :toctree: dataset
+    :nosignatures:
+    :template: classtemplate_inherited.rst
+
+    mindspore.dataset.GraphData
 
 Sampler
 --------

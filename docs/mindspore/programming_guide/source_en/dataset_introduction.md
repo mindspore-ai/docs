@@ -33,9 +33,9 @@ This chapter introduces some basic concepts involved in data loading, data proce
 
 A dataset is a collection of samples. A row of the dataset is a sample that contains one or more features, and may also contain a label. The dataset needs to meet certain specifications to facilitate the evaluation of the model's effect.
 
-Dataset supports multiple format data sets, including MindSpore self-developed data format MindRecord, commonly used public image data sets and text data sets, user-defined data sets, etc. For detailed data sets supported by Mindspore, please refer to: [MindSpore Support Data Sets](https://www.mindspore.cn/docs/programming_guide/en/master/dataset_loading.html).
+Dataset supports multiple format datasets, including MindSpore self-developed data format MindRecord, commonly used public image datasets and text datasets, user-defined datasets, etc. For detailed datasets supported by Mindspore, please refer to: [MindSpore Support Data Sets](https://www.mindspore.cn/docs/programming_guide/en/master/dataset_loading.html).
 
-Dataset also supports the conversion of commonly used data sets and user-defined data sets to MindSpore data format (MindRecord). For details, please refer to: [Converting Data Sets to MindRecord](https://www.mindspore.cn/docs/programming_guide/en/master/convert_dataset.html).
+Dataset also supports the conversion of commonly used datasets and user-defined datasets to MindSpore data format (MindRecord). For details, please refer to: [Converting Data Sets to MindRecord](https://www.mindspore.cn/docs/programming_guide/en/master/convert_dataset.html).
 
 ## Dataset Loading
 
@@ -43,7 +43,7 @@ Dataset also supports the conversion of commonly used data sets and user-defined
 
 The dataset loading makes the model training continuously obtain data for training.
 
-Dataset provides corresponding classes for a variety of commonly used data sets to load data sets. At the same time, for data files in different storage formats, Dataset also has corresponding classes for data loading. For loading of MindSpore dataset, please refer to: [loading of MindSpore dataset](https://www.mindspore.cn/docs/programming_guide/en/master/dataset_loading.html).
+Dataset provides corresponding classes for a variety of commonly used datasets to load datasets. At the same time, for data files in different storage formats, Dataset also has corresponding classes for data loading. For loading of MindSpore dataset, please refer to: [loading of MindSpore dataset](https://www.mindspore.cn/docs/programming_guide/en/master/dataset_loading.html).
 
 Dataset provides a sampler for multiple purposes (Sampler), the sampler is responsible for generating the read index sequence, the Dataset is responsible for reading the corresponding data according to the index, and helping users to sample the dataset in different forms to meet training needs and solve problems such as the dataset is too large or the sample category distribution is uneven. Note that the sampler is responsible for filtering and reordering the samples, and will not perform the batch operation.
 
