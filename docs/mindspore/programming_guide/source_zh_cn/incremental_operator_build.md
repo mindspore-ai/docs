@@ -12,12 +12,7 @@
 
 ## 使用方法
 
-算子增量编译在MindSpore中默认开启，用户无需对其进行控制。下面我们在`src`目录下构造一个简单的网络用例`test_square.py`。当前目录结构为：
-
-```text
-└─src
-    └── test_square.py
-```
+算子增量编译在MindSpore中默认开启，用户无需对其进行控制。下面以一个简单的网络用例`test_square.py`进行介绍。
 
 执行如下用例：
 
@@ -46,6 +41,9 @@ def test_net():
     print("output: ", output)
 
 
+if __name__ == "__main__":
+    test_net()
+
 ```
 
 该网络由一个单算子`Square`构成，输出为输入的平方值。执行结果如下：
@@ -55,226 +53,15 @@ x: [1. 4. 9.]
 output: [1. 16. 81.]
 ```
 
-在执行目录下，生成了`rank_0/kernel_meta`文件夹，其中包含Square算子的`.o`文件，`.json`文件以及`.info`文件，当前目录结构为：
-
-```text
-└─src
-    ├── test_square.py
-    └── rank_0
-        └──kernel_meta
-           ├── square_12484080525657478220_2.info
-           ├── square_12484080525657478220_2.json
-           └── square_12484080525657478220_2.o
-```
-
-对于一个算子来说：
+在当前执行目录下，会生成`rank_0/kernel_meta`文件夹，其中包含Square算子的`.o`文件、`.json`文件、`.info`文件以及其他文件。对于一个算子来说：
 
 `.o`文件即MindSpore在网络执行过程中对该算子生成的可执行文件。
 
-`.info`文件记录了该算子的所有有效信息，包括算子名称、算子属性、输入输出格式、输入输出数据类型等等。`.info`文件用于查找并确定算子的`.o`文件是否可复用。详细内容如下：
+`.info`文件记录了该算子的所有有效信息，包括算子名称、算子属性、输入输出格式、输入输出数据类型等等。`.info`文件用于查找并确定算子的`.o`文件是否可复用。
 
-```text
-{
-    "job_content": {
-        "SocInfo": {
-            "autoTilingMode": "NO_TUNE",
-            "coreNum": "",
-            "coreType": "",
-            "deviceId": "2",
-            "l1Fusion": "false",
-            "l2Fusion": "false",
-            "l2Mode": "2",
-            "mdl_bank_path": "",
-            "offlineTune": false,
-            "op_bank_path": "",
-            "op_bank_update": false,
-            "op_debug_dir": "./rank_0/",
-            "op_debug_level": "0",
-            "op_impl_mode": "",
-            "op_impl_mode_list": [],
-            "socVersion": "Ascend910A",
-            "vector_fp_ceiling": ""
-        },
-        "full_name": "Default/Square-op1",
-        "fusion_op_name": "square_12484080525657478220_2",
-        "graph_name": "",
-        "l1_size": -1,
-        "op_list": [
-            {
-                "name": "x_0",
-                "output_desc": [
-                    {
-                        "L1_addr_offset": 0,
-                        "L1_fusion_type": -1,
-                        "L1_workspace_size": -1,
-                        "addr_type": 0,
-                        "data_type": "float32",
-                        "dtype": "float32",
-                        "format": "ND",
-                        "name": "x_0",
-                        "ori_format": "NCHW",
-                        "ori_shape": [
-                            3
-                        ],
-                        "param_type": "required",
-                        "range": [
-                            [
-                                3,
-                                3
-                            ]
-                        ],
-                        "shape": [
-                            3
-                        ],
-                        "slice_offset": [],
-                        "split_index": 0,
-                        "total_shape": [],
-                        "valid": true,
-                        "valid_shape": []
-                    }
-                ],
-                "type": "Data"
-            },
-            {
-                "build_type": "accurately_build",
-                "dynamic_compile_static": false,
-                "func_name": "square",
-                "input_desc": [
-                    {
-                        "L1_addr_offset": 0,
-                        "L1_fusion_type": -1,
-                        "L1_workspace_size": -1,
-                        "addr_type": 0,
-                        "data_type": "float32",
-                        "dtype": "float32",
-                        "format": "ND",
-                        "name": "x_0",
-                        "ori_format": "NCHW",
-                        "ori_shape": [
-                            3
-                        ],
-                        "param_type": "required",
-                        "range": [
-                            [
-                                3,
-                                3
-                            ]
-                        ],
-                        "shape": [
-                            3
-                        ],
-                        "slice_offset": [],
-                        "split_index": 0,
-                        "total_shape": [],
-                        "valid": true,
-                        "valid_shape": []
-                    }
-                ],
-                "int64mode": false,
-                "max_kernel_id": 10,
-                "miss_support_info": "",
-                "module_name": "impl.square",
-                "name": "Default/Square-op1",
-                "op_name": "square_12484080525657478220_2",
-                "ori_name": [
-                    "Default/Square-op1"
-                ],
-                "output_data_desc": [
-                    {
-                        "L1_addr_offset": 0,
-                        "L1_fusion_type": -1,
-                        "L1_workspace_size": -1,
-                        "addr_type": 0,
-                        "data_type": "float32",
-                        "dtype": "float32",
-                        "format": "ND",
-                        "ori_format": "NCHW",
-                        "ori_shape": [
-                            3
-                        ],
-                        "param_type": "required",
-                        "range": [
-                            [
-                                3,
-                                3
-                            ]
-                        ],
-                        "shape": [
-                            3
-                        ],
-                        "slice_offset": [],
-                        "split_index": 0,
-                        "total_shape": [],
-                        "valid": true,
-                        "valid_shape": []
-                    }
-                ],
-                "output_desc": [
-                    {
-                        "L1_addr_offset": 0,
-                        "L1_fusion_type": -1,
-                        "L1_workspace_size": -1,
-                        "addr_type": 0,
-                        "data_type": "float32",
-                        "dtype": "float32",
-                        "format": "ND",
-                        "name": "y",
-                        "ori_format": "NCHW",
-                        "ori_shape": [
-                            3
-                        ],
-                        "param_type": "required",
-                        "range": [
-                            [
-                                3,
-                                3
-                            ]
-                        ],
-                        "shape": [
-                            3
-                        ],
-                        "slice_offset": [],
-                        "split_index": 0,
-                        "total_shape": [],
-                        "valid": true,
-                        "valid_shape": []
-                    }
-                ],
-                "pattern": "Opaque",
-                "py_module_path": "/usr/local/Ascend/opp/op_impl/built-in/ai_core/tbe",
-                "type": "Square",
-                "unknown_shape": false
-            }
-        ],
-        "scope_id": -1
-    },
-    "job_id": 1,
-    "job_type": "Compile",
-    "source_id": 2
-}
-```
+`.json`文件存放了算子编译结果，在运行时将会使用到。
 
-`.json`文件存放了算子编译结果，在运行时将会使用到。详细内容如下：
-
-```text
-{
-    "batchBindOnly": 1,
-    "binFileName": "square_12484080525657478220_2",
-    "binFileSuffix": ".o",
-    "blockDim": 1,
-    "build_result": "",
-    "kernelName": "square_12484080525657478220_2__kernel0",
-    "magic": "RT_DEV_BINARY_MAGIC_ELF",
-    "opParaSize": 0,
-    "parameters": [
-        0,
-        0
-    ],
-    "sha256": "38ec670e4536958a70a653a0f3bbc7a5aadf66b5fd2b6cfe5379964668929797"
-}
-```
-
-在生成如上的三种算子缓存文件之后，用户在执行网络模型时即可进行算子增量编译，即仅编译新增或者有改动的算子，大幅提升网络编译性能。
+在生成如上的三种算子缓存文件之后，用户在后续执行网络模型时就可以进行算子增量编译，即仅编译新增或者有改动的算子，大幅提升网络编译性能。
 
 ## 常见问题
 
