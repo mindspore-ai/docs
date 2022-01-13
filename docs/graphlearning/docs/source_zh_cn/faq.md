@@ -29,3 +29,9 @@ A：MindSpore Graph Learning前端提供的dot接口为针对图节点的点乘�
 <font size=3>**Q：调用图接口'topk_nodes,topk_edges'时`TypeError: For 'tensor getitem', the types only support 'Slice', 'Ellipsis', 'None', 'Tensor', 'int', 'List', 'Tuple', 'bool', but got String.`怎么办？**</font>
 
 A：MindSpore Graph Learning前端提供的topk_nodes接口为针对图节点/边特征排序取k个节点/边的操作，后端包含获取节点/边特征、排序sort和slice取k个三步，前端翻译过程不涉及编译无法判断输入数据类型，输入类型必须符合sort和slice算子的排序维度sortby和取值范围k的类型要求，否则会报错类型不支持。
+
+<br/>
+
+<font size=3>**Q：construct的输入graph传入非GraphField实例或等价tensor时`TypeError: For 'Cell', the function construct need 5 positional argument, but got 2.'`怎么办？**</font>
+
+A：MindSpore Graph Learning前端提供的GNNCell为写以点为中心编程GNN模型的基类，必须包含Graph类为最后一个输入参数，翻译后对应的输入为4个Tensor参数，分别为src_idx, dst_idx, n_nodes, n_edges, 如果仅传入非GraphField实例或等价的4个tensor，就会报参数输入不对的错误。
