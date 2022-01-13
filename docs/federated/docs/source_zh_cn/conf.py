@@ -57,8 +57,6 @@ source_suffix = {
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = []
 
-highlight_language = 'none'
-
 pygments_style = 'sphinx'
 
 # -- Options for HTML output -------------------------------------------------
