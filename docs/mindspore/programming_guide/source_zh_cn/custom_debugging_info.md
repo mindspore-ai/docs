@@ -267,11 +267,11 @@ Tensor(shape=[2, 2], dtype=Int32, value=
 
 ### 同步Dump功能使用方法
 
-同步Dump功能使用参考[同步Dump操作步骤](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dump_in_graph_mode.html#id5)。
+同步Dump功能使用参考[同步Dump操作步骤](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dump_in_graph_mode.html#id6)。
 
 ### 异步Dump功能使用方法
 
-异步Dump功能使用参考[异步Dump操作步骤](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dump_in_graph_mode.html#id10)。
+异步Dump功能使用参考[异步Dump操作步骤](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dump_in_graph_mode.html#id11)。
 
 ## Running Data Recorder
 
