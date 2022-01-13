@@ -9,7 +9,7 @@
 
 本文以DQN算法为例介绍如何使用MindSpore Reinforcement算法和训练参数配置接口，帮助用户快速定制和调整强化学习算法。
 
-您可以从[https://gitee.com/mindspore/reinforcement/tree/r0.5/example/dqn](https://gitee.com/mindspore/reinforcement/tree/r0.5/example/dqn)获取DQN算法代码。
+您可以从[https://gitee.com/mindspore/reinforcement/tree/r0.2/example/dqn](https://gitee.com/mindspore/reinforcement/tree/r0.2/example/dqn)获取DQN算法代码。
 
 ## 算法相关参数配置
 
