@@ -1,5 +1,18 @@
 # 源码编译方式安装MindSpore Ascend 910版本
 
+<!-- TOC -->
+
+- [源码编译方式安装MindSpore Ascend 910版本](#源码编译方式安装mindspore-ascend-910版本)
+    - [确认系统环境信息](#确认系统环境信息)
+    - [从代码仓下载源码](#从代码仓下载源码)
+    - [编译MindSpore](#编译mindspore)
+    - [安装MindSpore](#安装mindspore)
+    - [配置环境变量](#配置环境变量)
+    - [验证是否成功安装](#验证是否成功安装)
+    - [升级MindSpore版本](#升级mindspore版本)
+
+<!-- /TOC -->
+
 <a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend_install_source.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 本文档介绍如何在Ascend 910环境的Linux系统上，使用源码编译方式快速安装MindSpore。

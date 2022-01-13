@@ -1,5 +1,15 @@
 # Installing MindSpore GPU Nightly by pip
 
+<!-- TOC -->
+
+- [Installing MindSpore GPU Nightly by pip](#installing-mindspore-gpu-nightly-by-pip)
+    - [System Environment Information Confirmation](#system-environment-information-confirmation)
+    - [Installing MindSpore](#installing-mindspore)
+    - [Installation Verification](#installation-verification)
+    - [Version Update](#version-update)
+
+<!-- /TOC -->
+
 <a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_gpu_install_pip_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 MindSpore Nightly is a preview version which includes latest features and bugfixes, not fully supported and tested. Install MindSpore Nightly version if you wish to try out the latest changes on MindSpore.
