@@ -30,10 +30,17 @@ MSTensor defined tensor in MindSpore.
 ## createTensor
 
 ```java
-public MSTensor createTensor(String tensorName, int dataType, int[] tensorShape, ByteBuffer buffer)
+public static MSTensor createTensor(String tensorName, int dataType, int[] tensorShape, ByteBuffer buffer)
 ```
 
-Create MindSpore MSTensor。
+Create MindSpore MSTensor.
+
+- Parameters
+
+    - `tensorName`: tensor name.
+    - `dataType`: tensor data type.
+    - `tensorShape`: tensor shape.
+    - `buffer`: tensor data buffer.
 
 - Returns
 

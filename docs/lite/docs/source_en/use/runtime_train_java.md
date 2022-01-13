@@ -30,7 +30,7 @@ A Model file is flatbuffer-serialized file which was converted using the [MindSp
 
 ### Creating Contexts
 
-[Context](https://www.mindspore.cn/lite/api/en/master/api_java/context.html#context) is a MindSpore Lite Object which contains basic configuration parameters required by the sessions to guide graph compilation and execution. It allows to define the device to run the model, e.g., CPU or GPU, the number of threads used for training and inference and the memory allocation scheme.
+[MSContext](https://www.mindspore.cn/lite/api/en/master/api_java/mscontext.html) is a MindSpore Lite Object which contains basic configuration parameters required by the sessions to guide graph compilation and execution. It allows to define the device to run the model, e.g., CPU or GPU, the number of threads used for training and inference and the memory allocation scheme.
 Currently, only CPU device is supported in training.
 
 ### Creating TrainLoop
@@ -52,7 +52,7 @@ Model liteModel = new Model();
 liteModel.build(g, context, cfg);
 ```
 
-> Refer [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java) for more details.
+> Refer [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java) for more details.
 
 ## Data Processing
 
@@ -102,7 +102,7 @@ Currently, java does not provide data processing API such as C++ `Dataset` class
     }
 ```
 
-> Refer [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java) for more details.
+> Refer [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java) for more details.
 
 ## Execute Training
 
@@ -139,7 +139,7 @@ for (int i = 0; i < cycles; i++) {
 }
 ```
 
-> Refer [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java) for more details.
+> Refer [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet_java/src/main/java/com/mindspore/lite/train_lenet/NetRunner.java) for more details.
 
 ### Evaluating
 
@@ -185,7 +185,7 @@ bool ret = model.resize(inputs, dims);
 Before graph execution, whether it is during training or inference, the input data must be filled-in into the model input tensors.
 MindSpore Lite provides the following methods to obtain model input tensors:
 
-1. Use the `GetInputByTensorName` method to obtain model input tensors that are connected to the model input node based on the tensor name.
+1. Use the `getInputByTensorName` method to obtain model input tensors that are connected to the model input node based on the tensor name.
 
     ```java
      /**
@@ -197,7 +197,7 @@ MindSpore Lite provides the following methods to obtain model input tensors:
     public MSTensor getInputByTensorName(String tensorName);
     ```
 
-2. Use the `GetInputs` method to directly obtain the vectors of all model input tensors.
+2. Use the `getInputs` method to directly obtain the vectors of all model input tensors.
 
     ```java
     /**
@@ -229,7 +229,7 @@ After each execution of the graph, the user might want to read the model's outpu
 
 MindSpore Lite provides the following methods to obtain the model's output `MSTensor`.
 
-1. Use the `GetOutputsByNodeName` method to obtain the output tensors that belong to a certain node:
+1. Use the `getOutputsByNodeName` method to obtain the output tensors that belong to a certain node:
 
     ```java
     /**
@@ -241,7 +241,7 @@ MindSpore Lite provides the following methods to obtain the model's output `MSTe
     public List<MSTensor> getOutputsByNodeName(String nodeName);
     ```
 
-2. Use the `GetOutputByTensorName` method to obtain an output tensor, based on the tensor name.
+2. Use the `getOutputByTensorName` method to obtain an output tensor, based on the tensor name.
 
     ```java
           /**
@@ -249,10 +249,10 @@ MindSpore Lite provides the following methods to obtain the model's output `MSTe
         *
         * @return output tensor name list.
         */
-        public List<String> getOutputTensorNames();
+        public MSTensor getOutputByTensorName(String tensorName);
     ```
 
-3. Use the `GetOutputs` method to obtain all the output tensors, ordered by their tensor names:
+3. Use the `getOutputs` method to obtain all the output tensors, ordered by their tensor names.
 
     ```java
         /**
