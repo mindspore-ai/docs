@@ -1,6 +1,17 @@
 # Installing MindSpore in CPU by Source Code (macOS)
 
-<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_mac_install_source_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<!-- TOC -->
+
+- [Installing MindSpore in CPU by Source Code (macOS)](#installing-mindspore-in-cpu-by-source-code-macos)
+    - [System Environment Information Confirmation](#system-environment-information-confirmation)
+    - [Downloading Source Code from Code Repository](#downloading-source-code-from-code-repository)
+    - [Compiling MindSpore](#compiling-mindspore)
+    - [Installing MindSpore](#installing-mindspore)
+    - [Installation Verification](#installation-verification)
+
+<!-- /TOC -->
+
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/install/mindspore_cpu_mac_install_source_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 This document describes how to quickly install MindSpore by compiling source code on macOS.
 

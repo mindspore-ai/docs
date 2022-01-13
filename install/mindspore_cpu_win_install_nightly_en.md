@@ -1,6 +1,16 @@
 # Installing MindSpore CPU Nightly by pip (Windows)
 
-<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_win_install_nightly_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<!-- TOC -->
+
+- [Installing MindSpore CPU Nightly by pip (Windows)](#installing-mindspore-cpu-nightly-by-pip-windows)
+    - [System Environment Information Confirmation](#system-environment-information-confirmation)
+    - [Installing MindSpore](#installing-mindspore)
+    - [Installation Verification](#installation-verification)
+    - [Version Update](#version-update)
+
+<!-- /TOC -->
+
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/install/mindspore_cpu_win_install_nightly_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 MindSpore Nightly is a preview version which includes latest features and bugfixes, not fully supported and tested. Install MindSpore Nightly version if you wish to try out the latest changes on MindSpore.
 

@@ -1,6 +1,16 @@
 # Installing MindSpore in Ascend 310 by binary package
 
-<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend310_install_binary_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<!-- TOC -->
+
+- [Installing MindSpore in Ascend 310 by binary package](#installing-mindspore-in-ascend-310-by-binary-package)
+    - [Checking System Environment Information](#checking-system-environment-information)
+    - [Installing MindSpore](#installing-mindspore)
+    - [Configuring Environment Variables](#configuring-environment-variables)
+    - [Verifying the Installation](#verifying-the-installation)
+
+<!-- /TOC -->
+
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/install/mindspore_ascend310_install_binary_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 The following describes how to quickly install MindSpore by pip on Linux in the Ascend 310 environment, MindSpore in Ascend 310 only supports inference.
 

@@ -1,6 +1,17 @@
 # Installing MindSpore in GPU by Source Code
 
-<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_gpu_install_source_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<!-- TOC -->
+
+- [Installing MindSpore in GPU by Source Code](#installing-mindspore-in-gpu-by-source-code)
+    - [System Environment Information Confirmation](#system-environment-information-confirmation)
+    - [Downloading Source Code from Code Repository](#downloading-source-code-from-code-repository)
+    - [Compiling MindSpore](#compiling-mindspore)
+    - [Installing MindSpore](#installing-mindspore)
+    - [Installation Verification](#installation-verification)
+
+<!-- /TOC -->
+
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/install/mindspore_gpu_install_source_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 This document describes how to quickly install MindSpore by source code in a Linux system with a GPU environment.
 
@@ -87,7 +98,7 @@ pip install output/mindspore_gpu-{version}-{python_version}-linux_x86_64.whl -i 
 
 Of which,
 
-- When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
+- When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/r1.6/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
 - `{version}` specifies the MindSpore version number. For example, when installing MindSpore 1.5.0-rc1, set `{version}` to 1.5.0rc1.
 - `{python_version}` spcecifies the python version for which MindSpore is built. If you wish to use Python3.7.5,`{python_version}` should be `cp37-cp37m`. If Python3.9.0 is used, it should be `cp39-cp39`.
 
