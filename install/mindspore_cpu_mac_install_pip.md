@@ -1,6 +1,16 @@
 # pip方式安装MindSpore CPU版本（macOS）
 
-<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_mac_install_pip.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<!-- TOC -->
+
+- [pip方式安装MindSpore CPU版本（macOS）](#pip方式安装mindspore-cpu版本macos)
+    - [确认系统环境信息](#确认系统环境信息)
+    - [安装MindSpore](#安装mindspore)
+    - [验证是否成功安装](#验证是否成功安装)
+    - [升级MindSpore版本](#升级mindspore版本)
+
+<!-- /TOC -->
+
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/install/mindspore_cpu_mac_install_pip.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 本文档介绍如何在macOS系统上使用pip方式快速安装MindSpore。
 

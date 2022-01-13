@@ -1,6 +1,16 @@
 # Docker方式安装MindSpore CPU版本
 
-<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_install_docker.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<!-- TOC -->
+
+- [Docker方式安装MindSpore CPU版本](#docker方式安装mindspore-cpu版本)
+    - [确认系统环境信息](#确认系统环境信息)
+    - [获取MindSpore镜像](#获取mindspore镜像)
+    - [运行MindSpore镜像](#运行mindspore镜像)
+    - [验证是否安装成功](#验证是否安装成功)
+
+<!-- /TOC -->
+
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/install/mindspore_cpu_install_docker.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 [Docker](https://docs.docker.com/get-docker/)是一个开源的应用容器引擎，让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中。通过使用Docker，可以实现MindSpore的快速部署，并与系统环境隔离。
 

@@ -1,6 +1,16 @@
 # 二进制包方式安装MindSpore Ascend 310版本
 
-<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend310_install_binary.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<!-- TOC -->
+
+- [二进制包方式安装MindSpore Ascend 310版本](#二进制包方式安装mindspore-ascend-310版本)
+    - [确认系统环境信息](#确认系统环境信息)
+    - [安装MindSpore](#安装mindspore)
+    - [配置环境变量](#配置环境变量)
+    - [验证是否成功安装](#验证是否成功安装)
+
+<!-- /TOC -->
+
+<a href="https://gitee.com/mindspore/docs/blob/r1.6/install/mindspore_ascend310_install_binary.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 本文档介绍如何在Ascend 310环境的Linux系统上，使用二进制包方式快速安装MindSpore，Ascend 310版本仅支持推理。
 
