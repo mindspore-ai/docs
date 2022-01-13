@@ -119,7 +119,6 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
 
 | 参数                        | 属性  | 功能描述                                                       | 参数类型 | 取值说明 |
 | -------------------------- | ---- | ------------------------------------------------------------ | -------- | ------ |
-| `output_type`              | 可选 | 指定模型输出type。 | DataType | 仅支持uint8、fp16和fp32 |
 | `input_format`             | 可选 | 指定模型输入format。 | String | 可选有`"NCHW"`，`"NHWC"` |
 | `input_shape_vector`       | 可选 | 指定模型输入Shape， 按模型输入次序排列，用`；`隔开。 | String | 例如: `"[1,2,3,4];[4,3,2,1]"` |
 | `precision_mode`           | 可选 | 配置模型精度模式。    | String | 可选有`"force_fp16"`，`"allow_fp32_to_fp16"`，`"must_keep_origin_dtype"`或者`"allow_mix_precision"`，默认为`"force_fp16"`|
