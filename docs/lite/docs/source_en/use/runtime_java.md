@@ -14,7 +14,7 @@ If MindSpore Lite is used in an Android project, you can use [C++ API](https://w
 2. Create a configuration context: Create a configuration context [MSContext](https://www.mindspore.cn/lite/api/en/r1.6/api_java/mscontext.html#mscontext) to save some basic configuration parameters required by a model to guide graph build and execution, including `deviceType` (device type), `threadNum` (number of threads), `cpuBindMode` (CPU core binding mode), and `enable_float16` (whether to preferentially use the float16 operator).
 3. Build a graph: Before building a graph, the [build](https://www.mindspore.cn/lite/api/en/r1.6/api_java/model.html#compilegraph) API of [Model](https://www.mindspore.cn/lite/api/en/r1.6/api_java/model.html#model) needs to be called to build the graph, including graph partition and operator selection and scheduling. This takes a long time. Therefore, it is recommended that with [Model](https://www.mindspore.cn/lite/api/en/r1.6/api_java/model.html#model) created each time, one graph be built. In this case, the inference will be performed for multiple times.
 4. Input data: Before the graph is performed, data needs to be filled in to the `Input Tensor`.
-5. Perform inference: Use the [Model](https://www.mindspore.cn/lite/api/en/r1.6/api_java/model.html#rungraph) of the [Predict](https://www.mindspore.cn/lite/api/en/r1.6/api_java/model.html#predict) to perform model inference.
+5. Perform inference: Use the [Model](https://www.mindspore.cn/lite/api/en/r1.6/api_java/model.html#rungraph) of the [predict](https://www.mindspore.cn/lite/api/en/r1.6/api_java/model.html#predict) to perform model inference.
 6. Obtain the output: After the graph execution is complete, you can obtain the inference result by `outputting the tensor`.
 7. Release the memory: If the MindSpore Lite inference framework is not required, release the created [Model](https://www.mindspore.cn/lite/api/en/r1.6/api_java/model.html#model).
 
@@ -99,7 +99,7 @@ context.addDeviceInfo(DeviceType.DT_CPU, true);
 
 ### Configuring the GPU Backend
 
-If the backend to be performed is heterogeneous inference based on CPU and GPU, you need to add successively [GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_cpp/mindspore.html#gpudeviceinfo) and [CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_cpp/mindspore.html#cpudeviceinfo) when call [addDeviceInfo](https://www.mindspore.cn/lite/api/en/r1.6/api_java/mscontext.html#adddeviceinfo), GPU inference will be used first after configuration. In addition, if enable_float16 is set to true, both the GPU and CPU preferentially use the float16 operator.
+If the backend to be performed is heterogeneous inference based on CPU and GPU, you need to add successively [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r1.6/api_cpp/mindspore.html#gpudeviceinfo) and [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r1.6/api_cpp/mindspore.html#cpudeviceinfo) when call [addDeviceInfo](https://www.mindspore.cn/lite/api/en/r1.6/api_java/mscontext.html#adddeviceinfo), GPU inference will be used first after configuration. In addition, if enable_float16 is set to true, both the GPU and CPU preferentially use the float16 operator.
 
 The following sample code demonstrates how to create the CPU and GPU heterogeneous inference backend and how to enable float16 inference for the GPU.
 
@@ -114,7 +114,7 @@ context.addDeviceInfo(DeviceType.DT_CPU, true);
 
 ### Configuring the NPU Backend
 
-If the backend to be performed is heterogeneous inference based on CPU and GPU, you need to add successively [KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_cpp/mindspore.html#kirinnpudeviceinfo) and [CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_cpp/mindspore.html#cpudeviceinfo) when call [addDeviceInfo](https://www.mindspore.cn/lite/api/en/r1.6/api_java/mscontext.html#adddeviceinfo), NPU inference will be used first after configuration. In addition, if enable_float16 is set to true, both the NPU and CPU preferentially use the float16 operator.
+If the backend to be performed is heterogeneous inference based on CPU and GPU, you need to add successively [KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r1.6/api_cpp/mindspore.html#kirinnpudeviceinfo) and [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r1.6/api_cpp/mindspore.html#cpudeviceinfo) when call [addDeviceInfo](https://www.mindspore.cn/lite/api/en/r1.6/api_java/mscontext.html#adddeviceinfo), NPU inference will be used first after configuration. In addition, if enable_float16 is set to true, both the NPU and CPU preferentially use the float16 operator.
 
 The following sample code demonstrates how to create the CPU and NPU heterogeneous inference backend and how to enable float16 inference for the NPU.KirinNPUDeviceInfo frequency can be set by `NPUFrequency`.
 
@@ -127,7 +127,7 @@ context.addDeviceInfo(DeviceType.DT_CPU, true);
 
 ## Loading and compilation a Model
 
-When using MindSpore Lite to perform inference, [Model](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/model.html#model) is the main entrance of inference, and the model can be realized through Model Loading, model compilation and model execution. Using the [MSContext](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/mscontext.html#init) created in the previous step, call the composite [Build](https://www.mindspore.cn/lite/api/en/r1.6/api_java/model.html#build) interface to implement model loading and model compilation.
+When using MindSpore Lite to perform inference, [Model](https://www.mindspore.cn/lite/api/en/r1.6/api_java/model.html#model) is the main entrance of inference, and the model can be realized through Model Loading, model compilation and model execution. Using the [MSContext](https://www.mindspore.cn/lite/api/en/r1.6/api_java/mscontext.html#init) created in the previous step, call the composite [build](https://www.mindspore.cn/lite/api/en/r1.6/api_java/model.html#build) interface to implement model loading and model compilation.
 
 The following sample code demonstrates how to call `Build` to  loading and compilation a model.
 
@@ -178,7 +178,7 @@ After performing inference, MindSpore Lite can output a tensor to obtain the inf
     List<MSTensor> outTensors = model.getOutputs();
     ```
 
-2. Use the [getOutputByNodeName](https://www.mindspore.cn/lite/api/en/r1.6/api_java/model.html#getoutputsbynodename) method to obtain the vector of the tensor connected to the model output [MSTensor](https://www.mindspore.cn/lite/api/en/r1.6/api_java/mstensor.html#mstensor) based on the name of the model output node. The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/r1.6/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L175) demonstrates how to call `getOutputByTensorName` to obtain the output tensor.
+2. Use the [getOutputsByNodeName](https://www.mindspore.cn/lite/api/en/r1.6/api_java/model.html#getoutputsbynodename) method to obtain the vector of the tensor connected to the model output [MSTensor](https://www.mindspore.cn/lite/api/en/r1.6/api_java/mstensor.html#mstensor) based on the name of the model output node. The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/r1.6/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L175) demonstrates how to call `getOutputByTensorName` to obtain the output tensor.
 
     ```java
     MSTensor outTensor = model.getOutputsByNodeName("Default/head-MobileNetV2Head/Softmax-op204");
@@ -218,7 +218,7 @@ bool ret = model.resize(inputs, dims);
 
 ### Parallel Models
 
-MindSpore Lite supports parallel inference of multiple [Model](https://www.mindspore.cn/lite/api/en/r1.6/api_java/model.html). The thread pool and memory pool of each [Model](https://www.mindspore.cn/lite/api/en/r1.6/api_java/model.html#model) are independent. However, multiple threads cannot call the [Predict](https://www.mindspore.cn/lite/api/en/r1.6/api_java/model.html#rungraph) API of a single [Model](https://www.mindspore.cn/lite/api/en/r1.6/api_java/model.html#litesession) at the same time.
+MindSpore Lite supports parallel inference of multiple [Model](https://www.mindspore.cn/lite/api/en/r1.6/api_java/model.html). The thread pool and memory pool of each [Model](https://www.mindspore.cn/lite/api/en/r1.6/api_java/model.html#model) are independent. However, multiple threads cannot call the [predict](https://www.mindspore.cn/lite/api/en/r1.6/api_java/model.html#rungraph) API of a single [Model](https://www.mindspore.cn/lite/api/en/r1.6/api_java/model.html#litesession) at the same time.
 
 The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/r1.6/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L220) demonstrates how to infer multiple [Model](https://www.mindspore.cn/lite/api/en/r1.6/api_java/model.html) in parallel:
 
