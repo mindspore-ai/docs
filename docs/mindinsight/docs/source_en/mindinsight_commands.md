@@ -51,7 +51,7 @@ Optional parameters are as follows:
 | explainer     | Explain the AI module, it records all logs that explain the data parsed by the AI module. | `explainer.<PORT>.log`                    |
 | gunicorn      | Web service module, it records all logs of the Web service module. | `access.<PORT>.log`<br>`error.<PORT>.log` |
 | lineage       | Traceability module, it records all logs of the traceability module. | `lineage.<PORT>.log`               |
-| notebook      | Record all logs using MindInsight in the ModelArts notebook  | `notebook.<PORT>.log`                      |
+| notebook      | Record all logs using MindInsight in the ModelArts notebook.  | `notebook.<PORT>.log`                      |
 | optimizer     | Optimizer module, it records all optimizer module logs.      | `optimizer.<PORT>.log`                    |
 | parse_summary | Summary file parsing module, it records all logs when using the summary file parsing module. | `parse_summary.<PORT>.log`                |
 | profiler      | Performance analysis module, it records all logs of the performance analysis module. | `profiler.<PORT>.log`                     |
