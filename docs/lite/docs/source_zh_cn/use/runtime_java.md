@@ -12,9 +12,9 @@ Android项目中使用MindSpore Lite，可以选择采用[C++ API](https://www.m
 
 1. 模型读取(可选)：从文件系统中读取由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/converter_tool.html)转换得到的`.ms`模型。
 2. 创建配置上下文：创建配置上下文[MSContext](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/mscontext.html#mscontext)，保存需要的一些基本配置参数，用于指导模型编译和模型执行，包括设备类型、线程数、绑核模式和使能fp16混合精度推理。
-3. 模型创建、加载与编译：执行推理之前，需要调用[Model](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/model.html#model)的[Build](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/build.html#build)接口进行模型加载和模型编译，目前支持加载文件和MappedByteBuffer两种方式。模型加载阶段将文件或者buffer解析成运行时的模型。模型编译阶段主要进行算子选型调度、子图切分等过程，该阶段会耗费较多时间所以建议Model创建一次，编译一次，多次推理。
+3. 模型创建、加载与编译：执行推理之前，需要调用[Model](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/model.html#model)的[build](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/model.html#build)接口进行模型加载和模型编译，目前支持加载文件和MappedByteBuffer两种方式。模型加载阶段将文件或者buffer解析成运行时的模型。模型编译阶段主要进行算子选型调度、子图切分等过程，该阶段会耗费较多时间所以建议Model创建一次，编译一次，多次推理。
 4. 输入数据：模型执行之前需要向`输入Tensor`中填充数据。
-5. 执行推理：使用[Model](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/model.html#model)的[Predict](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/model.html#predict)进行模型推理。
+5. 执行推理：使用[Model](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/model.html#model)的[predict](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/model.html#predict)进行模型推理。
 6. 获得输出：图执行结束之后，可以通过`输出Tensor`得到推理结果。
 7. 释放内存：无需使用MindSpore Lite推理框架的时候，需要释放已创建的[Model](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/model.html#model)
 
@@ -101,7 +101,7 @@ context.addDeviceInfo(DeviceType.DT_CPU, true);
 
 当需要执行的后端为CPU和GPU的异构推理时，`MSContext`创建后需要在[addDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/mscontext.html#adddeviceinfo)中先后添加[GPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_cpp/mindspore.html#gpudeviceinfo)和[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_cpp/mindspore.html#cpudeviceinfo)，配置后将会优先使用GPU推理。如果使能Float16推理，GPU和CPU都会优先使用Float16算子。
 
-下面[示例代码](https://gitee.com/mindspore/mindspore/blob/r1.6/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L69)演示如何创建CPU与GPU异构推理后端，同时GPU也设定使能Float16推理：
+下面代码演示了如何创建CPU与GPU异构推理后端，同时GPU也设定使能Float16推理：
 
 ```java
 MSContext context = new MSContext();
@@ -116,7 +116,7 @@ context.addDeviceInfo(DeviceType.DT_CPU, true);
 
 当需要执行的后端为CPU和GPU的异构推理时，`MSContext`创建后需要在[addDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/mscontext.html#adddeviceinfo)中先后添加[KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_cpp/mindspore.html#kirinnpudeviceinfo)和[CPUDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_cpp/mindspore.html#cpudeviceinfo)，配置后将会优先使用NPU推理。如果使能Float16推理，NPU和CPU都会优先使用Float16算子。
 
-下面[示例代码]演示如何创建CPU与GPU异构推理后端，其中KirinNPUDeviceInfo可通过`NPUFrequency`来设置NPU频率。
+下面代码演示了如何创建CPU与GPU异构推理后端，其中KirinNPUDeviceInfo可通过`NPUFrequency`来设置NPU频率。
 
 ```java
 MSContext context = new MSContext();
@@ -127,7 +127,7 @@ context.addDeviceInfo(DeviceType.DT_CPU, true);
 
 ## 模型创建加载与编译
 
-使用MindSpore Lite执行推理时，[Model](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/model.html#model)是推理的主入口，通过Model可以实现模型加载、模型编译和模型执行。采用上一步创建得到的[MSContext](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/mscontext.html#init)，调用Model的复合[Build](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/model.html#build)接口来实现模型加载与模型编译。
+使用MindSpore Lite执行推理时，[Model](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/model.html#model)是推理的主入口，通过Model可以实现模型加载、模型编译和模型执行。采用上一步创建得到的[MSContext](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/mscontext.html#init)，调用Model的复合[build](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/model.html#build)接口来实现模型加载与模型编译。
 
 下面[示例代码]演示了Model创建、加载与编译的过程：
 
@@ -178,7 +178,7 @@ MindSpore Lite在执行完推理后，可以通过输出Tensor得到推理结果
     List<MSTensor> outTensors = model.getOutputs();
     ```
 
-2. 使用[getOutputByNodeName](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/model.html#getoutputsbynodename)方法，根据模型输出节点的名称来获取模型输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/mstensor.html#mstensor)中连接到该节点的Tensor的vector。下面[示例代码](https://gitee.com/mindspore/mindspore/blob/r1.6/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L175)演示如何调用`getOutputByTensorName`获得输出Tensor。
+2. 使用[getOutputsByNodeName](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/model.html#getoutputsbynodename)方法，根据模型输出节点的名称来获取模型输出[MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/mstensor.html#mstensor)中连接到该节点的Tensor的vector。下面[示例代码](https://gitee.com/mindspore/mindspore/blob/r1.6/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L175)演示如何调用`getOutputByTensorName`获得输出Tensor。
 
     ```java
     MSTensor outTensor = model.getOutputsByNodeName("Default/head-MobileNetV2Head/Softmax-op204");
@@ -220,7 +220,7 @@ bool ret = model.resize(inputs, dims);
 
 ### Model并行
 
-MindSpore Lite支持多个[Model](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/model.html)并行推理，每个[Model](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/model#model)的线程池和内存池都是独立的。但不支持多个线程同时调用单个[Model](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/model.html#model)的[Predict](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/model.html#predict)接口。
+MindSpore Lite支持多个[Model](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/model.html)并行推理，每个[Model](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/model#model)的线程池和内存池都是独立的。但不支持多个线程同时调用单个[Model](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/model.html#model)的[predict](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/model.html#predict)接口。
 
 下面[示例代码](https://gitee.com/mindspore/mindspore/blob/r1.6/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L220)演示如何并行执行推理多个[model](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/model.html)的过程：
 
