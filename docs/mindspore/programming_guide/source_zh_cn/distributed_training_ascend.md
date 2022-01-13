@@ -16,13 +16,20 @@
 ```text
 └─sample_code
     ├─distributed_training
-    │      rank_table_16pcs.json
-    │      rank_table_8pcs.json
-    │      rank_table_2pcs.json
-    │      resnet.py
-    │      resnet50_distributed_training.py
-    │      run.sh
-    │      run_cluster.sh
+        ├── cell_wrapper.py
+        ├── rank_table_16pcs.json
+        ├── rank_table_2pcs.json
+        ├── rank_table_8pcs.json
+        ├── resnet50_distributed_training_dataset_slice.py
+        ├── resnet50_distributed_training_gpu.py
+        ├── resnet50_distributed_training_pipeline.py
+        ├── resnet50_distributed_training.py
+        ├── resnet.py
+        ├── run_cluster.sh
+        ├── run_dataset_slice.sh
+        ├── run_gpu.sh
+        ├── run_pipeline.sh
+        └── run.sh
     ...
 ```
 
@@ -425,7 +432,48 @@ epoch: 10 step: 156, loss is 1.1533381
 ### 多机多卡训练
 
 前面的章节，对MindSpore的分布式训练进行了介绍，都是基于单机多卡的Ascend环境，使用多机进行分布式训练，可以更大地提升训练速度。
-在Ascend环境下，跨机器的NPU单元的通信与单机内各个NPU单元的通信一样，依旧是通过HCCL进行通信，区别在于，单机内的NPU单元天然的是互通的，而跨机器的则需要保证两台机器的网络是互通的。
+在Ascend环境下，跨机器的NPU单元的通信与单机内各个NPU单元的通信一样，依旧是通过HCCL进行通信，区别在于，单机内的NPU单元天然的是互通的，而跨机器的则需要保证两台机器的网络是互通的。确认的方法如下：
+
+在1号服务器执行下述命令，会为每个设备配置2号服务器对应设备的`devier ip`。例如将1号服务器卡0的目标IP配置为2号服务器的卡0的ip。配置命令需要使用`hccn_tool`工具。`hccn_tool`是一个[HCCL的工具](https://support.huawei.com/enterprise/zh/ascend-computing/a300t-9000-pid-250702906?category=developer-documents)，由CANN包自带。
+
+```bash
+hccn_tool -i 0 -netdetect -s address 192.98.92.131
+hccn_tool -i 1 -netdetect -s address 192.98.93.131
+hccn_tool -i 2 -netdetect -s address 192.98.94.131
+hccn_tool -i 3 -netdetect -s address 192.98.95.131
+hccn_tool -i 4 -netdetect -s address 192.98.92.141
+hccn_tool -i 5 -netdetect -s address 192.98.93.141
+hccn_tool -i 6 -netdetect -s address 192.98.94.141
+hccn_tool -i 7 -netdetect -s address 192.98.95.141
+```
+
+`-i 0`指定设备ID。`-netdetect`指定网络检测对象IP属性。`-s address`表示设置属性为IP地址。`192.98.92.131`表示2号服务器的设备0的ip地址。接口命令可以[参考此处](https://support.huawei.com/enterprise/zh/doc/EDOC1100221413/c715a52a)。
+
+在1号服务器上面执行完上述命令后，通过下述命令开始检测网络链接状态。在此使用`hccn_tool`的另一个功能，此功能的含义可以[参考此处](https://support.huawei.com/enterprise/zh/doc/EDOC1100221413/7620ee2)。
+
+```bash
+hccn_tool -i 0 -net_health -g
+hccn_tool -i 1 -net_health -g
+hccn_tool -i 2 -net_health -g
+hccn_tool -i 3 -net_health -g
+hccn_tool -i 4 -net_health -g
+hccn_tool -i 5 -net_health -g
+hccn_tool -i 6 -net_health -g
+hccn_tool -i 7 -net_health -g
+```
+
+如果连接正常，对应的输出如下：
+
+```bash
+net health status: Success
+```
+
+如果连接失败，对应的输出如下：
+
+```bash
+net health status: Fault
+```
+
 在确认了机器之间的NPU单元的网络是通畅后，配置多机的json配置文件，本教程以16卡的配置文件为例，详细的配置文件说明可以参照本教程单机多卡部分的介绍。需要注意的是，在多机的json文件配置中，要求rank_id的排序，与server_id的字典序一致。
 
 ```json
@@ -497,15 +545,6 @@ do
   cd ${execute_path}/device_$RANK_ID || exit
   pytest -s ${self_path}/resnet50_distributed_training.py >train$RANK_ID.log 2>&1 &
 done
-```
-
-上面列出的参考脚本，所要求的代码组织结构如下，脚本中会获取脚本所在路径以及命令执行的路径，并且将所有任务都置于后台执行，完整的代码链接请于本教程置顶处获取。
-
-```text
-└─sample_code
-    ├─distributed_training
-    │      resnet50_distributed_training.py
-    │      run_cluster.sh
 ```
 
 执行时，两台机器分别执行如下命令，其中rank_table.json按照本章节展示的16卡的分布式json文件参考配置。

@@ -426,9 +426,51 @@ epoch: 10 step: 156, loss is 1.1533381
 
 ### Multi-host Training
 
-The previous chapters introduced the distributed training of MindSpore, which is based on the Ascend environment of a single host with multiple cards. Using multiple hosts for distributed training can greatly improve the training speed.
+The previous chapters introduced the distributed training of MindSpore, which is based on the Ascend environment of a single host with multiple devices. Using multiple hosts for distributed training can greatly improve the training speed.
 In the Ascend environment, the communication between NPU units across hosts is the same as the communication between each NPU unit in a single host. It is still communicated through HCCL. The difference is that the NPU units in a single host are naturally interoperable, while cross-host communication needs to be guaranteed that the networks of the two hosts are interoperable.
-After confirming that the network of the NPU unit between the hosts is smooth, configure the json configuration file of multiple hosts. This tutorial takes the configuration file of 16 cards as an example. The detailed configuration file description can refer to the introduction of the single-host multi-card part of this tutorial. It should be noted that in the json file configuration of multiple hosts, the order of rank_id is required to be consistent with the lexicographic order of server_id.
+
+Execute the following command on server 1 to configure the target connect IP as the `device ip` on the server 2. For example, configure the target IP of device 0 of server 1 as the IP of device 0 of server 2. Configuration command requires the `hccn_tool` tool.
+[HCCL tool](https://support.huawei.com/enterprise/en/ascend-computing/a300t-9000-pid-250702906?category=developer-documents) comes with the CANN package.
+
+```bash
+hccn_tool -i 0 -netdetect -s address 192.98.92.131
+hccn_tool -i 1 -netdetect -s address 192.98.93.131
+hccn_tool -i 2 -netdetect -s address 192.98.94.131
+hccn_tool -i 3 -netdetect -s address 192.98.95.131
+hccn_tool -i 4 -netdetect -s address 192.98.92.141
+hccn_tool -i 5 -netdetect -s address 192.98.93.141
+hccn_tool -i 6 -netdetect -s address 192.98.94.141
+hccn_tool -i 7 -netdetect -s address 192.98.95.141
+```
+
+`-i 0` specifies the device ID. `-netdetect` specifies the IP attribute of the network detection. `-s address` means to set the property to an IP address. `192.98.92.131` represents the ip address of device 0 on the server 2. Interface commands can be found [here](https://support.huawei.com/enterprise/en/doc/EDOC1100207443/efde9769/sets-the-ip-address-of-the-network-detection-object).
+
+After executing the above command on server 1, run the following command to start the detection of the network link status. The corresponding command can be found [here](https://support.huawei.com/enterprise/en/doc/EDOC1100207443/f6c5a628/obtains-the-status-of-a-link).
+
+```bash
+hccn_tool -i 0 -net_health -g
+hccn_tool -i 1 -net_health -g
+hccn_tool -i 2 -net_health -g
+hccn_tool -i 3 -net_health -g
+hccn_tool -i 4 -net_health -g
+hccn_tool -i 5 -net_health -g
+hccn_tool -i 6 -net_health -g
+hccn_tool -i 7 -net_health -g
+```
+
+If the connection is normal, the corresponding output is as follows:
+
+```bash
+net health status: Success
+```
+
+If the connection fails, the corresponding output is as follows:
+
+```bash
+net health status: Fault
+```
+
+After confirming that the network of the NPU unit between the hosts is connected, configure the json configuration file of multiple hosts. This tutorial takes the configuration file of 16 devices as an example. The detailed configuration file description can refer to the introduction of the single-host multi-device part of this tutorial. It should be noted that in the json file configuration of multiple hosts, the order of rank_id is required to be consistent with the lexicographic order of server_id.
 
 ```json
 {
@@ -466,7 +508,7 @@ After confirming that the network of the NPU unit between the hosts is smooth, c
 }
 ```
 
-After preparing the configuration file, you can organize distributed multi-host training scripts. Taking 2 hosts with 16 cards as an example, the scripts written on the two hosts are similar to the running scripts of a single host with multiple cards. The difference is that different rank_id variables are specified.
+After preparing the configuration file, you can organize distributed multi-host training scripts. Taking 2 hosts with 16 devices as an example, the scripts written on the two hosts are similar to the running scripts of a single host with multiple devices. The difference is that different rank_id variables are specified.
 
 ```bash
 #!/bin/bash
@@ -501,16 +543,7 @@ do
 done
 ```
 
-For the reference scripts listed above, the required code organization structure is as follows. The script will get the path of the script and the path of the command execution, and put all tasks in the background for execution, the code link can be obtained at the top of this tutorial.
-
-```text
-└─sample_code
-    ├─distributed_training
-    │      resnet50_distributed_training.py
-    │      run_cluster.sh
-```
-
-When executing, the two hosts execute the following commands respectively, among which rank_table.json is configured according to the 16-card distributed json file reference configuration shown in this chapter.
+When executing, the two hosts execute the following commands respectively, among which rank_table.json is configured according to the 16-device distributed json file reference configuration shown in this chapter.
 
 ```bash
 # server0
@@ -529,7 +562,7 @@ The below content introduced how to save and load models under the four distribu
 
 ### Auto Parallel Mode
 
-It is convenient to save and load the model parameters in auto parallel mode. Just add configuration `CheckpointConfig` and `ModelCheckpoint` to `test_train_cifar` method in the training network steps of this tutorial, and the model parameters can be saved. It should be noted that in parallel mode, you need to specify a different checkpoint save path for the scripts running on each card to prevent conflicts when reading and writing files, The code is as follows:
+It is convenient to save and load the model parameters in auto parallel mode. Just add configuration `CheckpointConfig` and `ModelCheckpoint` to `test_train_cifar` method in the training network steps of this tutorial, and the model parameters can be saved. It should be noted that in parallel mode, you need to specify a different checkpoint save path for the scripts running on each device to prevent conflicts when reading and writing files, The code is as follows:
 
 ```python
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
@@ -629,9 +662,9 @@ param_dict = load_checkpoint('...')
 load_param_into_net(net, param_dict)
 ```
 
-For the three parallel training modes described above, the checkpoint file is saved in a complete way on each card. Users also can save only the checkpoint file of this card on each card, take Semi Auto parallel Mode as an example for explanation.
+For the three parallel training modes described above, the checkpoint file is saved in a complete way on each device. Users also can save only the checkpoint file of this device on each device, take Semi Auto parallel Mode as an example for explanation.
 
-Only by changing the code that sets the checkpoint saving policy, the checkpoint file of each card can be saved by itself. The specific changes are as follows:
+Only by changing the code that sets the checkpoint saving policy, the checkpoint file of each device can be saved by itself. The specific changes are as follows:
 
 Change the checkpoint configuration policy from:
 
