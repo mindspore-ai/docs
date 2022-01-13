@@ -12,27 +12,11 @@
 
 ## 准备工作
 
-1. 准备模型代码。Wide&Deep的代码可参见：<https://gitee.com/mindspore/models/tree/master/official/recommend/wide_and_deep>，其中，`train_and_eval_auto_parallel.py`为训练的主函数所在，`src/`目录中包含Wide&Deep模型的定义、数据处理和配置信息等，`script/`目录中包含不同配置下的训练脚本。
+1. 准备模型代码。Wide&Deep的代码可参见：<https://gitee.com/mindspore/models/tree/master/official/recommend/wide_and_deep>，其中，`train_and_eval_auto_parallel.py`脚本定义了模型训练的主流程，`src/`目录中包含Wide&Deep模型的定义、数据处理和配置信息等，`script/`目录中包含不同配置下的训练脚本。
 
 2. 准备数据集。请参考[1]中的链接下载数据集，并利用脚本`src/preprocess_data.py`将数据集转换为MindRecord格式。
 
-3. 配置处理器信息。在裸机环境（即本地有Ascend 910 AI 处理器）进行分布式训练时，需要配置加速器信息文件。此样例只使用一个加速器，故只需配置包含0号卡的`rank_table_1p_0.json`文件（每台机器的具体的IP信息不同，需要查看网络配置来设定，此为示例），如下所示：
-
-    ```json
-    {
-         "version": "1.0",
-         "server_count": "1",
-         "server_list": [
-             {
-                 "server_id":"10.155.170.16",
-                 "device": [
-                          {"device_id":"0","device_ip":"192.1.113.246","rank_id":"0"}],
-                 "host_nic_ip":"reserve"
-             }
-         ],
-         "status": "completed"
-     }
-    ```
+3. 配置处理器信息。在裸机环境（即本地有Ascend 910 AI 处理器）进行分布式训练时，需要配置加速器信息文件。此样例只使用一个加速器，故只需配置包含0号卡的`rank_table_1p_0.json`文件。MindSpore提供了生成该配置文件的自动化生成脚本及相关说明，可参考[HCCL_TOOL](https://gitee.com/mindspore/models/tree/master/utils/hccl_tools)。
 
 ## 配置混合执行
 
@@ -58,10 +42,12 @@
 
 ## 训练模型
 
-使用训练脚本`script/run_auto_parallel_train.sh`。执行命令：`bash run_auto_parallel_train.sh 1 1 DATASET RANK_TABLE_FILE`，
-其中第一个`1`表示用例使用的卡数，第二`1`表示训练的epoch数，`DATASET`是数据集所在路径，`RANK_TABLE_FILE`为上述`rank_table_1p_0.json`文件所在路径。
+为了保存足够的日志信息，需在执行脚本前使用命令`export GLOG_v=1`将日志级别设置为INFO，且在MindSpore编译时添加-p on选项。如需了解MindSpore编译流程，可参考[编译MindSpore](https://www.mindspore.cn/install/detail?path=install/master/mindspore_ascend_install_source.md&highlight=%E7%BC%96%E8%AF%91mindspore)。
 
-运行日志保存在`device_0`目录下，其中`loss.log`保存一个epoch内中多个loss值，其值类似如下：
+使用训练脚本`script/run_auto_parallel_train.sh`。执行命令：`bash run_auto_parallel_train.sh 1 1 <DATASET_PATH> <RANK_TABLE_FILE>`。
+其中第一个`1`表示用例使用的卡数，第二`1`表示训练的epoch数，`DATASET_PATH`是数据集所在路径，`RANK_TABLE_FILE`为上述`rank_table_1p_0.json`文件所在路径。
+
+运行日志保存在`device_0`目录下，其中`loss.log`保存一个epoch内多个loss值，其值类似如下：
 
 ```text
 epoch: 1 step: 1, wide_loss is 0.6873926, deep_loss is 0.8878349
@@ -76,7 +62,7 @@ epoch: 1 step: 9, wide_loss is 0.5733629, deep_loss is 0.70278376
 epoch: 1 step: 10, wide_loss is 0.566089, deep_loss is 0.6884129
 ```
 
-`test_deep0.log`保存pytest进程输出的详细的运行时日志（需要将日志级别设置为INFO，且在MindSpore编译时加上-p on选项），搜索关键字`EmbeddingLookup`，可找到如下信息：
+`test_deep0.log`保存pytest进程输出的详细的运行时日志，搜索关键字`EmbeddingLookup`，可找到如下信息：
 
 ```text
 [INFO] DEVICE(109904,python3.7):2020-06-27-12:42:34.928.275 [mindspore/ccsrc/device/cpu/cpu_kernel_runtime.cc:324] Run] cpu kernel: Default/network-VirtualDatasetCellTriple/_backbone-NetWithLossClass/network-WideDeepModel/EmbeddingLookup-op297 costs 3066 us.
