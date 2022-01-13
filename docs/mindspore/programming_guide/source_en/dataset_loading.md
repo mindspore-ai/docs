@@ -6,7 +6,7 @@
 
 ## Overview
 
-MindSpore can load common image datasets. You can directly use the classes in `mindspore.dataset` to load datasets. The following table lists the supported common datasets and corresponding classes.
+MindSpore can load common image datasets. You can directly use the classes in `mindspore.dataset` to load datasets. The following table lists the supported common datasets and corresponding classes. For more supported dataset, please refer to the API document.
 
 | Image Dataset | Dataset Class | Description |
 |  ----                    | ----  | ----           |
@@ -17,21 +17,36 @@ MindSpore can load common image datasets. You can directly use the classes in `m
 | PASCAL-VOC | VOCDataset | PASCAL-VOC is a common image dataset, which is widely used in computer vision fields such as object detection and image segmentation. |
 | COCO | CocoDataset | COCO is a large dataset for object detection, image segmentation, and pose estimation. |
 | CLUE | CLUEDataset | CLUE is a large Chinese semantic comprehension dataset. |
+| Manifest | ManifestDataset | Manifest is a data format supported by Huawei ModelArts. It describes the original files and labeling information and can be used for labeling, training, and inference. |
+
+MindSpore can load common text datasets. You can directly use the classes in `mindspore.dataset` to load datasets. The following table lists the supported common datasets and corresponding classes. For more supported dataset, please refer to the API document.
+
+| Text Dataset | Dataset Class | Description |
+|  ----                    | ----  | ----           |
+| IMDB          | IMDBDataset          |  IMDB dataset has 50K movie reviews for natural language processing or Text analytics. This is a dataset for binary sentiment classification containing substantially more data than previous benchmark datasets. |
+| Wiki Text     | WikiTextDataset      |  The WikiText language modeling dataset is a collection of over 100 million tokens extracted from the set of verified Good and Featured articles on Wikipedia.                                                       |
+| Yahoo Answers | YahooAnswersDataset  |  There are 10 main classification data of the dataset. Each category contains 140000 training samples and 5000 test samples.                                                                                        |
+| Text File     | TextFileDataset      |  A text file dataset in which each line of text is a sample.                                                                                                                                                         |
+
+MindSpore can load common audio datasets. You can directly use the classes in `mindspore.dataset` to load datasets. The following table lists the supported common datasets and corresponding classes. For more supported dataset, please refer to the API document.
+
+| Audio Dataset | Dataset Class | Description |
+|  ----                    | ----  | ----           |
+| LJSpeech        | LJSpeechDataset       | This is a public domain speech dataset consisting of 13,100 short audio clips of a single speaker reading passages from 7 non-fiction books. A transcription is provided for each clip. Clips vary in length from 1 to 10 seconds and have a total length of approximately 24 hours. |
+| Speech Commands | SpeechCommandsDataset | It's an audio dataset of spoken words designed to help train and evaluate keyword recognition systems.                 |
+| Ted-Lium        | TedliumDataset        | Ted-lium corpus is an English Ted speech with transcription. The sampling frequency is 16KHz. It contains about 118 hours of speech time.                                                                                                                                            |
 
 MindSpore can also load datasets in different data storage formats. You can directly use the corresponding classes in `mindspore.dataset` to load data files in the disk. The following table lists the supported data formats and corresponding classes.
 
 | Data Format | Dataset Class | Description |
 |  ----                    | ----  | ----           |
 | MindRecord | MindDataset | MindRecord is a self-developed data format of MindSpore. It features efficient read/write and easy distributed processing. |
-| Manifest | ManifestDataset | Manifest is a data format supported by Huawei ModelArts. It describes the original files and labeling information and can be used for labeling, training, and inference. |
 | TFRecord | TFRecordDataset | TFRecord is a binary data file format defined by TensorFlow. |
-| NumPy | NumpySlicesDataset | NumPy data source refers to the NumPy array dataset that has been read into the memory. |
-| Text File | TextFileDataset | Text File refers to common data in text format. |
 | CSV File | CSVDataset | CSV refers to comma-separated values. Files in this format store tabular data in plain text. |
 
 MindSpore also supports user-defined dataset loading using `GeneratorDataset`. You can implement your own dataset classes as required.
 
-| Dataset Class | Description |
+| User Defined Dataset | Description |
 | ----          | ----        |
 | GeneratorDataset | User defined class or function to load and process dataset. |
 | NumpySlicesDataset | User defined data source to construct dataset using NumPy. |
@@ -228,6 +243,46 @@ Keypoint: dict_keys(['image', 'keypoints', 'num_keypoints'])
 Panoptic: dict_keys(['image', 'bbox', 'category_id', 'iscrowd', 'area'])
 ```
 
+### Manifest
+
+Manifest is a data format file supported by Huawei ModelArts. For details, see [Specifications for Importing the Manifest File](https://support.huaweicloud.com/en-us/engineers-modelarts/modelarts_23_0009.html).
+
+In this example, you need to download the test data `test_manifest.zip` and unzip it to the specified location, and execute the following command:
+
+```python
+download_dataset("https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/test_manifest.zip", "./datasets/mindspore_dataset_loading/test_manifest/")
+```
+
+```text
+./datasets/mindspore_dataset_loading/test_manifest/
+├── eval
+│   ├── 1.JPEG
+│   └── 2.JPEG
+├── test_manifest.json
+└── train
+    ├── 1.JPEG
+    └── 2.JPEG
+
+2 directories, 5 files
+```
+
+The following example uses the `ManifestDataset` API to load a Manifest file, and displays labels of the loaded data.
+
+```python
+import mindspore.dataset as ds
+
+DATA_FILE = "./datasets/mindspore_dataset_loading/test_manifest/test_manifest.json"
+manifest_dataset = ds.ManifestDataset(DATA_FILE)
+
+for data in manifest_dataset.create_dict_iterator():
+    print(data["label"])
+```
+
+```text
+0
+1
+```
+
 ## Loading Datasets in Specific Format
 
 The following describes how to load dataset files in specific formats.
@@ -268,46 +323,6 @@ for data in mindrecord_dataset.create_dict_iterator(output_numpy=True):
 dict_keys(['chinese', 'english'])
 dict_keys(['chinese', 'english'])
 dict_keys(['chinese', 'english'])
-```
-
-### Manifest
-
-Manifest is a data format file supported by Huawei ModelArts. For details, see [Specifications for Importing the Manifest File](https://support.huaweicloud.com/en-us/engineers-modelarts/modelarts_23_0009.html).
-
-In this example, you need to download the test data `test_manifest.zip` and unzip it to the specified location, and execute the following command:
-
-```python
-download_dataset("https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/test_manifest.zip", "./datasets/mindspore_dataset_loading/test_manifest/")
-```
-
-```text
-./datasets/mindspore_dataset_loading/test_manifest/
-├── eval
-│   ├── 1.JPEG
-│   └── 2.JPEG
-├── test_manifest.json
-└── train
-    ├── 1.JPEG
-    └── 2.JPEG
-
-2 directories, 5 files
-```
-
-The following example uses the `ManifestDataset` API to load a Manifest file, and displays labels of the loaded data.
-
-```python
-import mindspore.dataset as ds
-
-DATA_FILE = "./datasets/mindspore_dataset_loading/test_manifest/test_manifest.json"
-manifest_dataset = ds.ManifestDataset(DATA_FILE)
-
-for data in manifest_dataset.create_dict_iterator():
-    print(data["label"])
-```
-
-```text
-0
-1
 ```
 
 ### TFRecord
@@ -434,78 +449,6 @@ Comparing step compile and step create above, we can see:
 | create|UInt8 |UInt8|
 
 The data in the columns in the example step compile has changed from chinese (UInt8), line (Int8) and words (UInt8) to the chinese (UInt8) and line (UInt8) in the example step create. Through the Schema object, set the data type and characteristics of the dataset, so that the data type and characteristics in the column are changed accordingly.
-
-### NumPy
-
-If all data has been read into the memory, you can directly use the `NumpySlicesDataset` class to load the data.
-
-The following examples describe how to use `NumpySlicesDataset` to load array, list, and dict data.
-
-- Load NumPy array data.
-
-    ```python
-    import numpy as np
-    import mindspore.dataset as ds
-
-    np.random.seed(6)
-    features, labels = np.random.sample((4, 2)), np.random.sample((4, 1))
-
-    data = (features, labels)
-    dataset = ds.NumpySlicesDataset(data, column_names=["col1", "col2"], shuffle=False)
-
-    for data in dataset:
-        print(data[0], data[1])
-    ```
-
-    The output is as follows:
-
-    ```text
-    [0.89286015 0.33197981] [0.33540785]
-    [0.82122912 0.04169663] [0.62251943]
-    [0.10765668 0.59505206] [0.43814143]
-    [0.52981736 0.41880743] [0.73588211]
-    ```
-
-- Load Python list data.
-
-    ```python
-
-    import mindspore.dataset as ds
-
-    data1 = [[1, 2], [3, 4]]
-
-    dataset = ds.NumpySlicesDataset(data1, column_names=["col1"], shuffle=False)
-
-    for data in dataset:
-        print(data[0])
-    ```
-
-    The output is as follows:
-
-    ```text
-    [1 2]
-    [3 4]
-    ```
-
-- Load Python dict data.
-
-    ```python
-    import mindspore.dataset as ds
-
-    data1 = {"a": [1, 2], "b": [3, 4]}
-
-    dataset = ds.NumpySlicesDataset(data1, column_names=["col1", "col2"], shuffle=False)
-
-    for np_dic_data in dataset.create_dict_iterator():
-        print(np_dic_data)
-    ```
-
-    The output is as follows:
-
-    ```text
-    {'col1': Tensor(shape=[], dtype=Int64, value= 1), 'col2': Tensor(shape=[], dtype=Int64, value= 3)}
-    {'col1': Tensor(shape=[], dtype=Int64, value= 2), 'col2': Tensor(shape=[], dtype=Int64, value= 4)}
-    ```
 
 ### CSV
 
@@ -706,3 +649,75 @@ The output is as follows:
 [0.57176158 0.28963401] [0.16271622]
 [0.81585667 0.96883469] [0.77994068]
 ```
+
+### NumPy
+
+If all data has been read into the memory, you can directly use the `NumpySlicesDataset` class to load the data.
+
+The following examples describe how to use `NumpySlicesDataset` to load array, list, and dict data.
+
+- Load NumPy array data.
+
+    ```python
+    import numpy as np
+    import mindspore.dataset as ds
+
+    np.random.seed(6)
+    features, labels = np.random.sample((4, 2)), np.random.sample((4, 1))
+
+    data = (features, labels)
+    dataset = ds.NumpySlicesDataset(data, column_names=["col1", "col2"], shuffle=False)
+
+    for data in dataset:
+        print(data[0], data[1])
+    ```
+
+    The output is as follows:
+
+    ```text
+    [0.89286015 0.33197981] [0.33540785]
+    [0.82122912 0.04169663] [0.62251943]
+    [0.10765668 0.59505206] [0.43814143]
+    [0.52981736 0.41880743] [0.73588211]
+    ```
+
+- Load Python list data.
+
+    ```python
+
+    import mindspore.dataset as ds
+
+    data1 = [[1, 2], [3, 4]]
+
+    dataset = ds.NumpySlicesDataset(data1, column_names=["col1"], shuffle=False)
+
+    for data in dataset:
+        print(data[0])
+    ```
+
+    The output is as follows:
+
+    ```text
+    [1 2]
+    [3 4]
+    ```
+
+- Load Python dict data.
+
+    ```python
+    import mindspore.dataset as ds
+
+    data1 = {"a": [1, 2], "b": [3, 4]}
+
+    dataset = ds.NumpySlicesDataset(data1, column_names=["col1", "col2"], shuffle=False)
+
+    for np_dic_data in dataset.create_dict_iterator():
+        print(np_dic_data)
+    ```
+
+    The output is as follows:
+
+    ```text
+    {'col1': Tensor(shape=[], dtype=Int64, value= 1), 'col2': Tensor(shape=[], dtype=Int64, value= 3)}
+    {'col1': Tensor(shape=[], dtype=Int64, value= 2), 'col2': Tensor(shape=[], dtype=Int64, value= 4)}
+    ```

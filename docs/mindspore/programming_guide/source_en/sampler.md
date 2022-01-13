@@ -22,7 +22,7 @@ The following table lists part of the common samplers supported by MindSpore. In
 
 The following uses the CIFAR-10 as an example to introduce several common MindSpore samplers.
 
-Download the CIFAR-10 data set and unzip it to the specified path, execute the following command:
+Download the CIFAR-10 dataset and unzip it to the specified path, execute the following command:
 
 ```python
 import os

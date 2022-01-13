@@ -44,7 +44,7 @@ The `Model` contains the following input parameters:
 
 - eval：It is used for model evaluation on the validation set.
 
-- predict：It is used to inference over the input data set and output the prediction result.
+- predict：It is used to inference over the input dataset and output the prediction result.
 
 ## Model Training, Evaluation and Inference
 

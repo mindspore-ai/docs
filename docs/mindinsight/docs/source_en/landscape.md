@@ -12,7 +12,7 @@ Figure1: Gradient Descent Method（Picture Source<https://www.pianshen.com/artic
 
 ## Practice Guidance
 
-The specific use steps are divided into two steps. Taking the classification task as an example, the network is LeNet and the data set is MNIST. The sample code is as follows:
+The specific use steps are divided into two steps. Taking the classification task as an example, the network is LeNet and the dataset is MNIST. The sample code is as follows:
 
 1. Training data collection: in the training process, use the SummaryCollector to collect the forward network weights of multiple models, the parameters required for landscape drawing (expected drawing interval, landscape resolution, etc.), and other specific use methods of SummaryCollector can be referred to [Collecting Summary Record](https://www.mindspore.cn/mindinsight/docs/en/r1.6/summary_record.html).
 
@@ -155,7 +155,7 @@ The specific use steps are divided into two steps. Taking the classification tas
    - `num_samples`: It represents the number of samples in the landscape dataset. 512 indicates that the required sample for the landscape is 512. The larger the number of samples, the more accurate the landscape is, and the longer the calculation time will be. Default: 2048.
    - `intervals`: It represents the section where the landscape is drawn. Such as `interval_1` indicates drawing 1-5epoch landscape with training track.
 
-2. Landscape drawing: using the model parameters saved in the training process, the model and data set are consistent with the training, start a new script, and generate landscape information through forward calculation without re-training. (applicable to drawing landscape by single device or multi devices Parallel Computing)
+2. Landscape drawing: using the model parameters saved in the training process, the model and dataset are consistent with the training, start a new script, and generate landscape information through forward calculation without re-training. (applicable to drawing landscape by single device or multi devices Parallel Computing)
 
    ```python
    from mindspore.nn import Loss
@@ -246,7 +246,7 @@ Figure 7: Loss Graphic Comparison-3D Map-Overlay
 
 ## Usage Examples Analysis
 
-Here, taking the classification task as an example, the network is ResNet-50 and the data set is CIFAR-10. Analyse Loss Function Multidimensional Analysis and Loss Graphic Comparison.
+Here, taking the classification task as an example, the network is ResNet-50 and the dataset is CIFAR-10. Analyse Loss Function Multidimensional Analysis and Loss Graphic Comparison.
 
 ![landscape_analysis_train_1.png](./images/landscape_analysis_train_1.png)
 
@@ -272,7 +272,7 @@ By comparing the Loss Graph in Figure 10 with that in Figure 11, it can be seen 
 
 ## Notices
 
-1. During landscape drawing, the drawing time is directly related to the size of model parameters, data set `num_sample` and resolution `landscape_size`. The larger model, `num_sample` and `landscape_size`, the longer it takes. For example, for a LeNet network with a resolution of 40 * 40, a landscape takes 4 minutes. When using two devices, the time of a landscape can be reduced to 2 minutes. ResNet-50 network, under the same resolution, 4 devices are used for drawing and calculation, and one landscape takes 20 minutes.
+1. During landscape drawing, the drawing time is directly related to the size of model parameters, dataset `num_sample` and resolution `landscape_size`. The larger model, `num_sample` and `landscape_size`, the longer it takes. For example, for a LeNet network with a resolution of 40 * 40, a landscape takes 4 minutes. When using two devices, the time of a landscape can be reduced to 2 minutes. ResNet-50 network, under the same resolution, 4 devices are used for drawing and calculation, and one landscape takes 20 minutes.
 2. In the MindInsight startup interface, the training log file is large. Mindinsight needs more time to parse the training log file. Please wait patiently.
 3. This function currently only supports models defined through mindspore.Model.
 4. At present, it only supports: Backend: Ascend / GPU / CPU, Mode: Static Graph Mode, and Platform: Linux.
