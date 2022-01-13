@@ -287,5 +287,3 @@ After the preceding three types of operator cache files are generated, you can p
 - When multiple devices are running, the `rank_{ID}/kernel_meta` folder is generated in multiple `device` directories when the network model is executed(The `ID`is the value of environment variable `RANK_ID`).
 
   Note that when multiple devices are running, if the operator cache files in `rank_{ID}/kernel_meta` of some devices are deleted and the same network model is executed again, devices that do not need to be rebuilt may time out. As a result, the execution fails. In this case, you can set the environment variable `HCCL_CONNECT_TIMEOUT`, that is, the waiting time between multiple devices, to avoid failure. However, this method takes a long time, which is equivalent to deleting and rebuilding all devices(The `ID`is the value of environment variable `RANK_ID`).
-
-- If the process is interrupted during the network building process, there is a possibility that an error occurs when the cache files in `rank_0/kernel_meta` are generated. As a result, the subsequent re-execution fails. In this case, you need to delete the `rank_0/kernel_meta` folder and rebuild the network.
