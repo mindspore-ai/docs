@@ -30,10 +30,17 @@ MSTensor定义了MindSpore中的张量。
 ## createTensor
 
 ```java
-public MSTensor createTensor(String tensorName, int dataType, int[] tensorShape, ByteBuffer buffer)
+public static MSTensor createTensor(String tensorName, int dataType, int[] tensorShape, ByteBuffer buffer)
 ```
 
 生成MindSpore MSTensor。
+
+- 参数
+
+    - `tensorName`: 张量名称。
+    - `dataType`: 张量数据类型。
+    - `tensorShape`: 张量形状。
+    - `buffer`: 张量数据。
 
 - 返回值
 
