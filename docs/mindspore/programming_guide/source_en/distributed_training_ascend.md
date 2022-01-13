@@ -291,7 +291,7 @@ The `Momentum` optimizer is used as the parameter update tool. The definition is
 
 - `parallel_mode`: parallel distributed mode. The default value is `ParallelMode.STAND_ALONE`. The other options are `ParallelMode.DATA_PARALLEL` and `ParallelMode.AUTO_PARALLEL`.
 - `parameter_broadcast`: the data parallel weights on the first device would be broadcast to other devices. The default value is `False`,
-- `gradients_mean`: During backward computation, the framework collects gradients of parameters in data parallel mode across multiple hosts, obtains the global gradient value, and transfers the global gradient value to the optimizer for update. The default value is `False`, which indicates that the `allreduce_sum` operation is applied. The value `True` indicates that the `allreduce_mean` operation is applied.
+- `gradients_mean`: During backward computation, the framework collects gradients of parameters in data parallel mode across multiple hosts, obtains the global gradient value, and transfers the global gradient value to the optimizer for update. The default value is `False`, which indicates that the `AllReduce.Sum` operation is applied. The value `True` indicates that the `AllReduce.Mean` operation is applied.
 - You are advised to set `device_num` and `global_rank` to their default values. The framework calls the HCCL API to obtain the values.
 
 > More about the distributed training configurations please refer to the [programming guide](https://www.mindspore.cn/docs/programming_guide/en/master/auto_parallel.html).
@@ -556,7 +556,7 @@ from mindspore import load_checkpoint, load_param_into_net
 
 net = resnet50(batch_size=32, num_classes=10)
 # The parameter for load_checkpoint is a .ckpt file which has been successfully saved
-param_dict = load_checkpoint('...')
+param_dict = load_checkpoint(pretrain_ckpt_path)
 load_param_into_net(net, param_dict)
 ```
 
@@ -625,7 +625,7 @@ To load the model, you can use the following code:
 ```python
 net = SemiAutoParallelNet()
 # The parameter for load_checkpoint is a .ckpt file which has been successfully saved
-param_dict = load_checkpoint('...')
+param_dict = load_checkpoint(pretrain_ckpt_path)
 load_param_into_net(net, param_dict)
 ```
 

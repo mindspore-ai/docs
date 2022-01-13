@@ -289,7 +289,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
 
 - `parallel_mode`：分布式并行模式，默认为单机模式`ParallelMode.STAND_ALONE`。可选数据并行`ParallelMode.DATA_PARALLEL`及自动并行`ParallelMode.AUTO_PARALLEL`。
 - `parameter_broadcast`：训练开始前自动广播0号卡上数据并行的参数权值到其他卡上，默认值为`False`。
-- `gradients_mean`：反向计算时，框架内部会将数据并行参数分散在多台机器的梯度值进行收集，得到全局梯度值后再传入优化器中更新。默认值为`False`，设置为True对应`allreduce_mean`操作，False对应`allreduce_sum`操作。
+- `gradients_mean`：反向计算时，框架内部会将数据并行参数分散在多台机器的梯度值进行收集，得到全局梯度值后再传入优化器中更新。默认值为`False`，设置为True对应`AllReduce.Mean`操作，False对应`AllReduce.Sum`操作。
 - `device_num`和`global_rank`建议采用默认值，框架内会调用HCCL接口获取。
 
 > 更多分布式并行配置项用户请参考[编程指南](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/auto_parallel.html)。
@@ -407,7 +407,7 @@ cd ../
 
 运行时间大约在5分钟内，主要时间是用于算子的编译，实际训练时间在20秒内。用户可以通过`ps -ef | grep pytest`来监控任务进程。
 
-日志文件保存到`rank`所对应的`device0`、 `device1`......目录下，`env.log`中记录了环境变量的相关信息，关于Loss部分结果保存在`train.log`中，示例如下：
+日志文件保存到`rank`所对应的`device0`、 `device1`等目录下，`env.log`中记录了环境变量的相关信息，关于Loss部分结果保存在`train.log`中，示例如下：
 
 ```text
 epoch: 1 step: 156, loss is 2.0084016
@@ -555,7 +555,7 @@ from mindspore import load_checkpoint, load_param_into_net
 
 net = resnet50(batch_size=32, num_classes=10)
 # The parameter for load_checkpoint is a .ckpt file which has been successfully saved
-param_dict = load_checkpoint('...')
+param_dict = load_checkpoint(pretrain_ckpt_path)
 load_param_into_net(net, param_dict)
 ```
 
@@ -624,7 +624,7 @@ ckpt_callback = ModelCheckpoint(prefix='semi_auto_parallel', directory="./ckpt_"
 ```python
 net = SemiAutoParallelNet()
 # The parameter for load_checkpoint is a .ckpt file which has been successfully saved
-param_dict = load_checkpoint('...')
+param_dict = load_checkpoint(pretrain_ckpt_path)
 load_param_into_net(net, param_dict)
 ```
 
@@ -646,8 +646,8 @@ ckpt_config = CheckpointConfig(keep_checkpoint_max=1)
 ckpt_config = CheckpointConfig(keep_checkpoint_max=1, integrated_save=False)
 ```
 
-需要注意的是，如果用户选择了这种checkpoint保存方式，那么就需要用户自己对切分的checkpoint进行保存和加载，以便进行后续的推理或再训练。具体用法可参考[对保存的checkpoint文件做合并处理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/save_load_model_hybrid_parallel.html#checkpoint)。
+需要注意的是，如果用户选择了这种checkpoint保存方式，那么就需要用户自己对切分的checkpoint进行保存和加载，以便进行后续的推理或再训练。具体用法可参考[对保存的CheckPoint文件做合并处理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/save_load_model_hybrid_parallel.html#checkpoint)。
 
 ### 手动混合并行模式
 
-手动混合并行模式（Hybrid Parallel）的模型参数保存和加载请参考[手动设置并行场景模型参数的保存和加载](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/save_load_model_hybrid_parallel.html)。
+手动混合并行模式（Hybrid Parallel）的模型参数保存和加载请参考[保存和加载模型（HyBrid Parallel模式）](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/save_load_model_hybrid_parallel.html)。
