@@ -18,6 +18,22 @@ pipeline parallel mode based on user configurations.
 >
 > <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training>.
 
+The directory structure is as follows:
+
+```text
+└─sample_code
+    ├─distributed_training
+    │      rank_table_16pcs.json
+    │      rank_table_8pcs.json
+    │      rank_table_2pcs.json
+    │      resnet.py
+    │      resnet50_distributed_training_pipeline.py
+    │      run_pipeline.sh
+    ...
+```
+
+`rank_table_16pcs.json`, `rank_table_8pcs.json` and `rank_table_2pcs.json` are the networking information files. `resnet.py` and `resnet50_distributed_training_pipeline.py` are the network structure files. `run_pipeline.sh` are the execute scripts.
+
 ## Preparations
 
 ### Downloading the Dataset
