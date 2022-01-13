@@ -13,6 +13,22 @@
 >
 > <https://gitee.com/mindspore/docs/tree/r1.6/docs/sample_code/distributed_training>。
 
+目录结构如下：
+
+```text
+└─sample_code
+    ├─distributed_training
+    │      rank_table_16pcs.json
+    │      rank_table_8pcs.json
+    │      rank_table_2pcs.json
+    │      resnet.py
+    │      resnet50_distributed_training_pipeline.py
+    │      run_pipeline.sh
+    ...
+```
+
+其中，`rank_table_16pcs.json`、`rank_table_8pcs.json`、`rank_table_2pcs.json`是配置Ascend多卡环境的组网信息文件。`resnet.py`、`resnet50_distributed_training_pipeline.py`等文件是定义网络结构的脚本。`run_pipeline.sh`是执行脚本。
+
 ## 准备环节
 
 ### 下载数据集
@@ -88,7 +104,7 @@ class ResNet(nn.Cell):
 - 优化器需要传入本`stage`用到的`parameters`。若有多个`stage`共用了一个参数，则需要调用`Parameter`的`add_pipeline_stage`方法，将所有`stage`信息传给`Parameter`
   。随后，可以调用`Cell`的`infer_param_pipeline_stage`接口来获取本`stage`的训练参数。
 - 最后，需要在LossCell外包一层`PipelineCell`
-  ，并指定Micro_batch的size。为了提升机器的利用率，MindSpore将Mini_batch切分成了更细粒度的Micro_batch，从而能够使整个集群流水线起来，最终的loss则是所有Micro_batch计算的loss值的加和。其中，Micro_batch的size必须大于等于`stage`
+  ，并指定Micro_batch的size。为了提升机器的利用率，MindSpore将Mini_batch切分成了更细粒度的Micro_batch，最终的loss则是所有Micro_batch计算的loss值累加。其中，Micro_batch的size必须大于等于`stage`
   的数量。
 
 ```python
