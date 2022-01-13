@@ -11,7 +11,7 @@
 实践前，确保已经正确安装最新版本的MindSpore与MindSPONGE。如果没有，可以通过：
 
 - [MindSpore安装页面](https://www.mindspore.cn/install)安装MindSpore。
-- [MindSPONGE安装页面](https://gitee.com/mindspore/mindscience/tree/r0.5/MindSPONGE)安装MindSPONGE。
+- [MindSPONGE安装页面](https://gitee.com/mindspore/mindscience/tree/r0.2/MindSPONGE)安装MindSPONGE。
 
 教程中的体系结构文件建模由AmberTools中自带的tleap工具（下载地址<http://ambermd.org/GetAmber.php>， 遵守GPL协议）完成。
 
@@ -298,7 +298,7 @@ print(dataname)
 np.savez(dataname,scale=scale,shift=shift,force_scale=force_scale,Z=Z,R=R[valid_idx],F=F[valid_idx],E=E[valid_idx])
 ```
 
-现在，就可以是使用[训练脚本](https://gitee.com/mindspore/mindscience/tree/r0.5/MindSPONGE/examples/claisen_rearrangement/src)进行训练了。
+现在，就可以是使用[训练脚本](https://gitee.com/mindspore/mindscience/tree/r0.2/MindSPONGE/examples/claisen_rearrangement/src)进行训练了。
 
 ## 脚本介绍
 

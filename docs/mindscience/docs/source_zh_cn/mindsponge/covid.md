@@ -11,7 +11,7 @@
 实践前，确保已经正确安装最新版本的MindSpore与MindSPONGE。如果没有，可以通过：
 
 - [MindSpore安装页面](https://www.mindspore.cn/install)安装MindSpore。
-- [MindSPONGE安装页面](https://gitee.com/mindspore/mindscience/tree/r0.5/MindSPONGE)安装MindSPONGE。
+- [MindSPONGE安装页面](https://gitee.com/mindspore/mindscience/tree/r0.2/MindSPONGE)安装MindSPONGE。
 
 教程中的体系结构文件建模由AmberTools中自带的tleap工具（下载地址<http://ambermd.org/GetAmber.php>， 遵守GPL协议）完成。
 
@@ -181,7 +181,7 @@ ambpdb -p XXX.top < XXX.crd > 6lzg_HPP.pdb
 
 ## 模拟流程
 
-体系建模完成后，分子动力学模拟一般可分为四个阶段：能量最小化、体系升温、体系预平衡和生产阶段，已经放置完整的[运行脚本](https://gitee.com/mindspore/mindscience/blob/r0.5/MindSPONGE/examples/covid/scripts/run_covid.sh)中。下面我们逐一介绍各个过程。
+体系建模完成后，分子动力学模拟一般可分为四个阶段：能量最小化、体系升温、体系预平衡和生产阶段，已经放置完整的[运行脚本](https://gitee.com/mindspore/mindscience/blob/r0.2/MindSPONGE/examples/covid/scripts/run_covid.sh)中。下面我们逐一介绍各个过程。
 
 ### 能量最小化
 
@@ -194,7 +194,7 @@ step_limit = 5000,
 dt = 1e-7,
 ```
 
-其中第一行为注释行，mode 代表 MD 模式，其中 Minimization 代表的是能量梯度下降，在这一模式下，dt 为下降率的平方，step_limit 为梯度下降的总步长。`amber_parm7`和`amber_rst7`指定读入的拓扑结构和坐标文件，`rst`指定最小化后输出的坐标文件。执行能量最小化的命令可以参考完整[运行脚本](https://gitee.com/mindspore/mindscience/blob/r0.5/MindSPONGE/examples/covid/scripts/run_covid.sh)。
+其中第一行为注释行，mode 代表 MD 模式，其中 Minimization 代表的是能量梯度下降，在这一模式下，dt 为下降率的平方，step_limit 为梯度下降的总步长。`amber_parm7`和`amber_rst7`指定读入的拓扑结构和坐标文件，`rst`指定最小化后输出的坐标文件。执行能量最小化的命令可以参考完整[运行脚本](https://gitee.com/mindspore/mindscience/blob/r0.2/MindSPONGE/examples/covid/scripts/run_covid.sh)。
 
 第二步和第三步的最小化则分别使用`dt = 1e-5`和`dt = 1e-3`的下降率，而读入的坐标分别为上一步输出的坐标。`min2.in`和`min3.in`，如下：
 
@@ -285,7 +285,7 @@ cutoff = 10.0,
 
 因为我们修改了体系中氢原子的质量，因此可以注意到以上输入文件中我们使用了4fs的模拟步长（dt=4e-3），总共模拟了40 ns的轨迹。在迭代到达指定步数时，SPONGE会自动终止运行并输出运行时间和模拟的速度。完成本次模拟后，可以继续修改md.in文件，读入上一次输出的坐标，这样就可以将模拟持续进行到需要的时间尺度。
 
-运行完整的[运行脚本](https://gitee.com/mindspore/mindscience/blob/r0.5/MindSPONGE/examples/covid/scripts/run_covid.sh)后，就可以进行下面的分析步骤。完整运行脚本执行指令如下：
+运行完整的[运行脚本](https://gitee.com/mindspore/mindscience/blob/r0.2/MindSPONGE/examples/covid/scripts/run_covid.sh)后，就可以进行下面的分析步骤。完整运行脚本执行指令如下：
 
 ```bash
 bash run_covid.sh s1ace2

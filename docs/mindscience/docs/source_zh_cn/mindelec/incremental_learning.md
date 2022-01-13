@@ -9,7 +9,7 @@
 本教程重点介绍基于MindElec套件的物理信息自解码器（Physics-Informed Auto-Decoder）增量训练方法，该方法可以快速求解同一类方程，极大减少重新训练的时间。
 
 > 本例面向Ascend 910 AI处理器，你可以在这里下载完整的样例代码：
-> <https://gitee.com/mindspore/mindscience/tree/r0.5/MindElec/examples/physics_driven/incremental_learning>
+> <https://gitee.com/mindspore/mindscience/tree/r0.2/MindElec/examples/physics_driven/incremental_learning>
 
 ## 问题描述
 

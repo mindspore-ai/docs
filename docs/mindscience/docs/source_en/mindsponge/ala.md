@@ -14,7 +14,7 @@ MindSPONGE in MindSpore is molecular simulation library jointly developed by the
 
 This tutorial mainly introduces how to use MindSPONGE, which is built in MindSpore, to perform high performance molecular simulation on the GPU.
 
-> Here you can download the complete sample code: <https://gitee.com/mindspore/mindscience/tree/r0.5/MindSPONGE/examples/polypeptide>.
+> Here you can download the complete sample code: <https://gitee.com/mindspore/mindscience/tree/r0.2/MindSPONGE/examples/polypeptide>.
 
 ## Overall Execution
 
@@ -199,4 +199,4 @@ Types of energy output in the simulation process are recorded, namely iterations
 | Output                    | numpy file
 | Speed                      | 15.0 ms/step
 | Total time                 | 5.7 s
-| Script                    | [Link](https://gitee.com/mindspore/mindscience/tree/r0.5/MindSPONGE/examples/polypeptide/scripts)
+| Script                    | [Link](https://gitee.com/mindspore/mindscience/tree/r0.2/MindSPONGE/examples/polypeptide/scripts)

@@ -191,4 +191,4 @@ _steps_ _TEMP_ _TOT_POT_ENE_ _BOND_ENE_ _ANGLE_ENE_ _DIHEDRAL_ENE_ _14LJ_ENE_ _1
 | Output                    | numpy file
 | Speed                      | 15.0 ms/step
 | Total time                 | 5.7 s
-| Script                    | [Link](https://gitee.com/mindspore/mindscience/tree/r0.5/MindSPONGE/examples/polypeptide/scripts)
+| Script                    | [Link](https://gitee.com/mindspore/mindscience/tree/r0.2/MindSPONGE/examples/polypeptide/scripts)

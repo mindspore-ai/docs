@@ -7,7 +7,7 @@
 人工智能技术的蓬勃发展为科学计算提供了新的范式。MindElec套件提供了物理驱动和数据驱动的AI方法。物理驱动的AI方法结合物理方程和初边界条件进行模型的训练，相比于数据驱动而言，其优势在于无需监督数据。本案例教程重点介绍物理驱动的AI方法求解点源时域麦克斯韦方程。
 
 > 本例面向Ascend 910 AI处理器，你可以在这里下载完整的样例代码：
-> <https://gitee.com/mindspore/mindscience/tree/r0.5/MindElec/examples/physics_driven/time_domain_maxwell>
+> <https://gitee.com/mindspore/mindscience/tree/r0.2/MindElec/examples/physics_driven/time_domain_maxwell>
 
 ## 麦克斯韦方程组
 
