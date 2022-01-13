@@ -200,7 +200,7 @@ MindSpore提供了同步Dump与异步Dump两种模式：
 同步Dump生成的常量数据文件与其他数据文件格式相同，而所有常量数据的{op_type}，{task_id}，{stream_id}，{input_output_index}，{slot}，{format}不变。注意，非Tensor类型数据不会被生成数据文件。
 
 ```text
-{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy
+Parameter.data-{data_id}.0.0.{timestamp}.output.0.DefaultFormat.npy
 ```
 
 可以用Numpy的`numpy.load`接口读取数据。
@@ -441,6 +441,10 @@ numpy.load("Conv2D.Conv2D-op107.2.2.1623124369613540.output.0.DefaultFormat.npy"
 
 ### 异步Dump数据对象目录
 
+若配置文件中`file_format`值设置为`npy`，则数据对象目录参考[同步Dump数据对象目录](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dump_in_graph_mode.html#id8) 。
+
+若未配置`file_format`值或`file_format`值为`bin`，数据对象目录为以下结构。
+
 异步Dump保存的数据对象包括了最终执行图（`ms_output_trace_code_graph_{graph_id}.ir`文件）以及图中算子的输入和输出数据，目录结构如下所示：
 
 ```text
@@ -484,14 +488,17 @@ numpy.load("Conv2D.Conv2D-op107.2.2.1623124369613540.output.0.DefaultFormat.npy"
 
 ### 异步Dump数据文件介绍
 
+若配置文件中`file_format`值设置为`npy`，则数据文件介绍参考[同步Dump数据文件介绍](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dump_in_graph_mode.html#id9) 。
+
 若未配置`file_format`值或`file_format`值为`bin`，启动训练后，异步Dump生成的原始数据文件是protobuf格式的文件，需要用到海思Run包中自带的数据解析工具进行解析，详见[如何查看dump数据文件](https://support.huawei.com/enterprise/zh/doc/EDOC1100206690/640e796d) 。
 
 数据在Device侧的格式可能和Host侧计算图中的定义不同，异步Dump的数据格式为Device侧格式，如果想要转为Host侧格式，可以参考[如何进行dump数据文件Format转换](https://support.huawei.com/enterprise/zh/doc/EDOC1100206690/130949fb) 。
 
-异步Dump生成的数据文件命名规则如下：
+异步Dump生成的数据文件是`bin`文件时，文件命名格式为：
 
-- Dump路径的命名规则为：`{path}/{device_id}/{net_name}_graph_{graph_id}/{graph_id}/{iteration}`。
-- Dump文件的命名规则为：`{op_type}.{op_name}.{task_id}.{timestamp}`。
+```text
+{op_type}.{op_name}.{task_id}.{timestamp}
+```
 
 以一个简单网络的Dump结果为例：`Add.Default_Add-op1.2.161243956333802`，其中`Add`是`{op_type}`，`Default_Add-op1`是`{op_name}`，`2`是`{task_id}`，`161243956333802`是`{timestamp}`。
 
