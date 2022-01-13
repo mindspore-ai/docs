@@ -1,5 +1,17 @@
 ﻿# Installing MindSpore in Ascend 310 by Source Code
 
+<!-- TOC -->
+
+- [Installing MindSpore in Ascend 310 by Source Code Compilation](#installing-mindspore-in-ascend-310-by-source-code-compilation)
+    - [Checking System Environment Information](#checking-system-environment-information)
+    - [Downloading Source Code from the Code Repository](#downloading-source-code-from-the-code-repository)
+    - [Building MindSpore](#building-mindspore)
+    - [Installing MindSpore](#installing-mindspore)
+    - [Configuring Environment Variables](#configuring-environment-variables)
+    - [Verifying the Installation](#verifying-the-installation)
+
+<!-- /TOC -->
+
 <a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend310_install_source_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 The following describes how to quickly install MindSpore by compiling the source code on Linux in the Ascend 310 environment, MindSpore in Ascend 310 only supports inference.

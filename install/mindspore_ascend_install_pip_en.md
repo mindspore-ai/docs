@@ -1,5 +1,16 @@
 ﻿# Installing MindSpore in Ascend 910 by pip
 
+<!-- TOC -->
+
+- [Installing MindSpore in Ascend 910 by pip](#installing-mindspore-in-ascend-910-by-pip)
+    - [System Environment Information Confirmation](#system-environment-information-confirmation)
+    - [Installing MindSpore](#installing-mindspore)
+    - [Configuring Environment Variables](#configuring-environment-variables)
+    - [Installation Verification](#installation-verification)
+    - [Version Update](#version-update)
+
+<!-- /TOC -->
+
 <a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend_install_pip_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 This document describes how to quickly install MindSpore in a Linux system with an Ascend 910 environment by pip.

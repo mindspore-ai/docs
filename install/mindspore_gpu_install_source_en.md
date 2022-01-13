@@ -1,5 +1,16 @@
 # Installing MindSpore in GPU by Source Code
 
+<!-- TOC -->
+
+- [Installing MindSpore in GPU by Source Code](#installing-mindspore-in-gpu-by-source-code)
+    - [System Environment Information Confirmation](#system-environment-information-confirmation)
+    - [Downloading Source Code from Code Repository](#downloading-source-code-from-code-repository)
+    - [Compiling MindSpore](#compiling-mindspore)
+    - [Installing MindSpore](#installing-mindspore)
+    - [Installation Verification](#installation-verification)
+
+<!-- /TOC -->
+
 <a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_gpu_install_source_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 This document describes how to quickly install MindSpore by source code in a Linux system with a GPU environment.

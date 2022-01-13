@@ -1,5 +1,16 @@
 # Installing MindSpore Ascend 310 by Conda
 
+<!-- TOC -->
+
+- [Installing MindSpore Ascend 310 by Conda](#installing-mindspore-ascend-310-by-conda)
+    - [Checking System Environment Information](#checking-system-environment-information)
+    - [Creating and Accessing the Conda Virtual Environment](#creating-and-accessing-the-conda-virtual-environment)
+    - [Installing MindSpore](#installing-mindspore)
+    - [Configuring Environment Variables](#configuring-environment-variables)
+    - [Verifying the Installation](#verifying-the-installation)
+
+<!-- /TOC -->
+
 <a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend310_install_conda_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 [Conda](https://docs.conda.io/en/latest/) is an open-source, cross-platform, language-agnostic package manager and environment management system. It allows users to easily install different versions of binary software packages and any required libraries appropriate for their computing platform.
