@@ -19,23 +19,7 @@ This tutorial introduces how to train [Wide&Deep](https://gitee.com/mindspore/mo
 
 2. Prepare the dataset. Please refer the link in [1] to download the dataset, and use the script `src/preprocess_data.py` to transform dataset into MindRecord format.
 
-3. Configure the device information. When performing training in the bare-metal environment, the network information file needs to be configured. This example only employs one accelerator, thus `rank_table_1p_0.json` containing #0 accelerator is configured as follows (you need to check the server's IP first):
-
-    ```json
-    {
-         "version": "1.0",
-         "server_count": "1",
-         "server_list": [
-             {
-                 "server_id":"10.155.170.16",
-                 "device": [
-                          {"device_id":"0","device_ip":"192.1.113.246","rank_id":"0"}],
-                 "host_nic_ip":"reserve"
-             }
-         ],
-         "status": "completed"
-     }
-    ```
+3. Configure the device information. When performing training in the bare-metal environment, the network information file needs to be configured. This example only employs one accelerator, thus `rank_table_1p_0.json` containing #0 accelerator is configured (about the rank table file, you can refer to [HCCL_TOOL](https://gitee.com/mindspore/models/tree/r1.6/utils/hccl_tools)).
 
 ## Configuring for Hybrid Training
 
@@ -61,8 +45,10 @@ This tutorial introduces how to train [Wide&Deep](https://gitee.com/mindspore/mo
 
 ## Training the Model
 
-Use the script `script/run_auto_parallel_train.sh`. Run the command `bash run_auto_parallel_train.sh 1 1 DATASET RANK_TABLE_FILE`,
-where the first `1` is the number of accelerators, the second `1` is the number of epochs, `DATASET` is the path of dataset,
+In order to save enough log information, use the command `export GLOG_v=1` to set the log level to INFO before executing the script, and add the `-p on` option when compiling MindSpore. For the details about compiling MindSpore, refer to [Compiling MindSpore](https://www.mindspore.cn/install/detail/en?path=install/r1.6/mindspore_ascend_install_source_en.md&highlight=%E7%BC%96%E8%AF%91mindspore).
+
+Use the script `script/run_auto_parallel_train.sh`. Run the command `bash run_auto_parallel_train.sh 1 1 <DATASET_PATH> <RANK_TABLE_FILE>`,
+where the first `1` is the number of accelerators, the second `1` is the number of epochs, `DATASET_PATH` is the path of dataset,
 and `RANK_TABLE_FILE` is the path of the above `rank_table_1p_0.json` file.
 
 The running log is in the directory of `device_0`, where `loss.log` contains every loss value of every step in the epoch. Here is an example:
@@ -81,7 +67,7 @@ epoch: 1 step: 10, wide_loss is 0.566089, deep_loss is 0.6884129
 ...
 ```
 
-`test_deep0.log` contains the runtime log (This needs to adjust the log level to INFO, and add the `-p on` option when compiling MindSpore).
+`test_deep0.log` contains the runtime log.
 Search `EmbeddingLookup` in `test_deep0.log`, the following can be found:
 
 ```text
