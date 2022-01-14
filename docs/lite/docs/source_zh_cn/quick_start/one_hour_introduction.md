@@ -237,11 +237,11 @@ mindspore-lite-{version}-linux-x64
 
 4. `mobilenetv2.ms`模型的理解。
 
-    通过仔细对模型的查看，可以知道`mobilenetv2.ms`模型定义了如下计算：
+    通过对模型的查看，可以知道`mobilenetv2.ms`模型定义了如下计算：
     对格式为`float32[1,224,224,3]`的输入张量`x`进行不断卷积，最后通过`MatMulFusion`全连接层的矩阵乘法操作，并执行Softmax运算，得到`1x1000`的输出张量，该输出张量名为`Default/head-MobileNetV2Head/Softmax-op204`。
 
-    本例我们提供的`mobilenetv2.ms`模型为1000分类的图片分类模型，具体的分类类别本处不做叙述，但通过对模型的查看，我们可以知道该模型不包含对图片的前处理操作，接收1x224x224x3的float32数值，并得到1x1000的float32输出。
-    故在使用该模型进行推理时，我们需自行编码完成图片的前处理操作，将处理后的数据，传递给推理框架，进行前向推理，并对推理得到的1x1000的输出进行后处理。
+    本例提供的`mobilenetv2.ms`模型为1000分类的图片分类模型，具体的分类类别本处不做叙述，但通过对模型的查看，可以知道该模型不包含对图片的前处理操作，接收1x224x224x3的float32数值，并得到1x1000的float32输出。
+    故在使用该模型进行推理时，用户需自行编码完成图片的前处理操作，将处理后的数据，传递给推理框架，进行前向推理，并对推理得到的1x1000的输出进行后处理。
 
 ### 模型推理
 
@@ -252,7 +252,7 @@ mindspore-lite-{version}-linux-x64
 #### 下载发布件
 
 用户根据模型推理时的系统环境，下载对应的发布件。
-在本例中，我们选择的是软件系统为Linux、底层架构为x86_64的CPU发布件，以1.6.0版本为例，用户可点击此处直接[下载](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.0/MindSpore/lite/release/linux/x86_64/mindspore-lite-1.6.0-linux-x64.tar.gz)。
+在本例中，选择的是软件系统为Linux、底层架构为x86_64的CPU发布件，以1.6.0版本为例，用户可点击此处直接[下载](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.0/MindSpore/lite/release/linux/x86_64/mindspore-lite-1.6.0-linux-x64.tar.gz)。
 
 #### benchmark推理测试
 
@@ -380,8 +380,8 @@ mindspore-lite-{version}-linux-x64
 
     ```python
     import numpy as np
-    #设inference_output为推理输出
-    t = np.aaray(inference_output) #将推理输出转为numpy array格式。根据框架不同，这一步的操作也将不同，此处语句仅供参考
+    # 设inference_output为推理输出
+    t = np.aaray(inference_output) # 将推理输出转为numpy array格式。根据框架不同，这一步的操作也将不同，此处语句仅供参考
     with open("output.txt", "w") as f:
        f.write("Default/head-MobileNetV2Head/Softmax-op204 " + str(len(t.shape)) + " ")
        f.write(" ".join([str(dat) for dat in t.shape]) + "\n")
@@ -1091,8 +1091,8 @@ mindspore-lite-{version}-win-x64
 
     ```python
     import numpy as np
-    #设inference_output为推理输出
-    t = np.aaray(inference_output) #将推理输出转为numpy array格式。根据框架不同，这一步的操作也将不同，此处语句仅供参考
+    # 设inference_output为推理输出
+    t = np.aaray(inference_output) # 将推理输出转为numpy array格式。根据框架不同，这一步的操作也将不同，此处语句仅供参考
     with open("output.txt", "w") as f:
        f.write("Default/head-MobileNetV2Head/Softmax-op204 " + str(len(t.shape)) + " ")
        f.write(" ".join([str(dat) for dat in t.shape]) + "\n")
