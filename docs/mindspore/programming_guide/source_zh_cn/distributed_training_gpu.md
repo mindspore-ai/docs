@@ -590,7 +590,7 @@ done
 
 即可执行2机8卡分布式训练任务。
 
-若希望启动数据并行模式训练，脚本`resnet50_distributed_training_gpu.py`中需要将`set_auto_parallel_context`入参并行模式改为`DATA_PARALLEL`:
+若希望启动数据并行模式训练，需要将脚本`resnet50_distributed_training_gpu.py`中`set_auto_parallel_context`入参并行模式改为`DATA_PARALLEL`:
 
 ```python
 context.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
@@ -611,7 +611,7 @@ epoch: 1 step: 1, loss is 2.3025854
 
 ### 安全认证
 
-要支持节点/进程间的SSL安全认证，要开启安全认证，需要在启动命令加上`enable_ssl=True`(默认关闭)，config_file_path指定的config.json配置文件需要添加如下字段：
+要支持节点/进程间的SSL安全认证，要开启安全认证，通过Python API `mindspore.context.set_ps_context`配置`enable_ssl=True`(不传入时默认为False，表示不启用SSL安全认证)，config_file_path指定的config.json配置文件需要添加如下字段：
 
 ```json
 {
@@ -624,11 +624,11 @@ epoch: 1 step: 1, loss is 2.3025854
 }
 ```
 
-- server_cert_path: 服务端包含了证书和秘钥的密文的p12文件。
-- crl_path: 吊销列表的文件。
-- client_cert_path: 客户端包含了证书和秘钥的密文的p12文件。
-- ca_cert_path: 根证书。
-- cipher_list: 密码套件。
+- server_cert_path: 服务端包含了证书和秘钥的密文的p12文件（SSL专用证书文件）路径。
+- crl_path: 吊销列表（用于区分无效不可信证书和有效可信证书）的文件路径。
+- client_cert_path: 客户端包含了证书和秘钥的密文的p12文件（SSL专用证书文件）路径。
+- ca_cert_path: 根证书路径。
+- cipher_list: 密码套件（支持的SSL加密类型列表）。
 - cert_expire_warning_time_in_day: 证书过期的告警时间。
 
 p12文件中的秘钥为密文存储，在启动时需要传入密码，具体参数请参考Python API `mindspore.context.set_ps_context`中的`client_password`以及`server_password`字段。
