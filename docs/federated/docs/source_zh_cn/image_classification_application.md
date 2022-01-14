@@ -165,6 +165,10 @@
 
         训练数据集root路径，LeNet图片分类任务在该root路径中存放的是每个客户端的训练data.bin文件与label.bin文件，例如`leaf/data/femnist/3500_clients_bin/`。
 
+    - `--flName`
+
+        联邦学习使用的模型脚本包路径。我们提供了两个类型的模型脚本供大家参考（[有监督情感分类任务](https://gitee.com/mindspore/mindspore/tree/r1.6/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert)、[LeNet图片分类任务](https://gitee.com/mindspore/mindspore/tree/r1.6/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet)），对于有监督情感分类任务，该参数可设置为所提供的脚本文件[AlBertClient.java](https://gitee.com/mindspore/mindspore/blob/r1.6/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert/AlbertClient.java) 的包路径`com.mindspore.flclient.demo.albert.AlbertClient`；对于LeNet图片分类任务，该参数可设置为所提供的脚本文件[LenetClient.java](https://gitee.com/mindspore/mindspore/blob/r1.6/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet/LenetClient.java) 的包路径`com.mindspore.flclient.demo.lenet.LenetClient`。同时，用户可参考这两个类型的模型脚本，自定义模型脚本，然后将该参数设置为自定义的模型文件ModelClient.java（需继承于类[Client.java](https://gitee.com/mindspore/mindspore/blob/r1.6/mindspore/lite/java/java/fl_client/src/main/java/com/mindspore/flclient/model/Client.java)）的包路径即可。
+
     - `--train_model_path`
 
         设置联邦学习使用的训练模型路径，为上面教程中拷贝的多份.ms文件所存放的目录，比如`ms/lenet`，必须为绝对路径。
