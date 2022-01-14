@@ -220,7 +220,7 @@ bool ret = model.resize(inputs, dims);
 
 ### Model并行
 
-MindSpore Lite支持多个[Model](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/model.html)并行推理，每个[Model](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/model#model)的线程池和内存池都是独立的。但不支持多个线程同时调用单个[Model](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/model.html#model)的[predict](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/model.html#predict)接口。
+MindSpore Lite支持多个[Model](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/model.html)并行推理，每个[Model](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/model.html#model)的线程池和内存池都是独立的。但不支持多个线程同时调用单个[Model](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/model.html#model)的[predict](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/model.html#predict)接口。
 
 下面[示例代码](https://gitee.com/mindspore/mindspore/blob/r1.6/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L220)演示如何并行执行推理多个[model](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/model.html)的过程：
 
