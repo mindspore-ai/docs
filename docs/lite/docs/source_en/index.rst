@@ -1,4 +1,4 @@
-.. MindSpore documentation master file, created by
+.. MindSpore documentation r1.6 file, created by
    sphinx-quickstart on Thu Aug 17 09:00:00 2020.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
@@ -159,6 +159,7 @@ MindSpore Lite Documentation
 									<button class="doc-filter-btn doc-btn" id="hardware-NPU">NPU</button>
 									<button class="doc-filter-btn doc-btn" id="hardware-NNIE">NNIE</button>
 									<button class="doc-filter-btn doc-btn" id="hardware-TensorRT">TensorRT</button>
+									<button class="doc-filter-btn doc-btn" id="hardware-Ascend">Ascend</button>
 								</div>
 							</div>
 							</div>
@@ -186,7 +187,7 @@ MindSpore Lite Documentation
 						</div>
 
 						<div class="doc-article-list">
-							<div class="doc-article-item all os-Windows os-Linux os-Android stage-Environment-Preparation user-Beginner user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Windows os-Linux os-Android os-ios stage-Environment-Preparation user-Beginner user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/lite/docs/en/r1.6/use/downloads.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -469,6 +470,18 @@ MindSpore Lite Documentation
 										</div>
 										<div class="doc-article-desc">
 											After model conversion using MindSpore Lite, the model training process needs to be completed in Runtime. This tutorial introduces how to use C++ API to write training code.
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux os-Android language-java stage-Model-Training stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/lite/docs/en/r1.6/use/runtime_train_java.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Using Java Interface to Perform Training</span>
+										</div>
+										<div class="doc-article-desc">
+											After model conversion using MindSpore Lite, the model training process needs to be completed in Runtime. This tutorial introduces how to use Java API to write training code.
 										</div>
 									</div>
 								</a>

@@ -1,6 +1,6 @@
 # Downloading MindSpore Lite
 
-`Windows` `Linux` `Android` `Environment Preparation` `Beginner` `Intermediate` `Expert`
+`Windows` `Linux` `Android` `iOS` `Environment Preparation` `Beginner` `Intermediate` `Expert`
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/lite/docs/source_en/use/downloads.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
