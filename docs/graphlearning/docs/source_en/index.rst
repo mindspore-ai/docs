@@ -50,4 +50,9 @@ Typical MindSpore Graph Learning Application Scenarios
    :maxdepth: 1
    :caption: API References
 
-   graphlearning
+   mindspore_gl.dataloader
+   mindspore_gl.dataset
+   mindspore_gl.graph
+   mindspore_gl.nn
+   mindspore_gl.parser
+   mindspore_gl.samplinggraphlearning
