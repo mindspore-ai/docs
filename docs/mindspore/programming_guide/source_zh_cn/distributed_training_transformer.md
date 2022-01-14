@@ -42,14 +42,14 @@
 
 针对`Transformer`中网络的定义和实现，我们为每个算子设置了对应的切分策略。用户根据自己的需求，设置全局的并行配置可以实现`Transformer`网络的并行配置。`Transformer`目前定义的并行配置主要有三个类别`TransformerOpParallelConfig`、`OpParallelConfig`和`EmbeddingOpParallelConfig`。`TransformerOpParallelConfig`的导入路径为`mindspore.nn.transformer`，它可以配置的属性如下所示：
 
-- data_parallel (int): # 设置数据并行数，默认值为1。
-- model_parallel (int): # 设置模型并行数，默认值为1。
-- pipeline_stage (int): # 设置Pipeline Stage数目，默认值为 1。
-- micro_batch_num (int): # 设置输入Batch的切分个数，即将一个Batch切分成多个小batch，默认值为1。
-- optimizer_shard (bool): # 是否开启优化器并行，默认值为False。
-- gradient_aggregation_group (int): # 优化器并行对应梯度聚合个数，默认值为4。
-- recompute (bool): # 是否开启重计算，默认值为False。
-- vocab_emb_dp (bool): # 是否配置Embedding为数据并行，默认值为True。
+- `data_parallel (int)`: 设置数据并行数，默认值为1。
+- `model_parallel (int)`: 设置模型并行数，默认值为1。
+- `pipeline_stage (int)`: 设置Pipeline Stage数目，默认值为 1。
+- `micro_batch_num (int)`: 设置输入Batch的切分个数，即将一个Batch切分成多个小batch，默认值为1。
+- `optimizer_shard (bool)`: 是否开启优化器并行，默认值为False。
+- `gradient_aggregation_group (int)`: 优化器并行对应梯度聚合个数，默认值为4。
+- `recompute (bool)`: 是否开启重计算，默认值为False。
+- `vocab_emb_dp (bool)`: 是否配置Embedding为数据并行，默认值为True。
 
 我们会在接下来讨论他们的区别。现在以单机八卡训练一个`Transformer`模型为例，我们根据目前的卡数8设置`Transformer`模型的并行配置。我们可以设置`data_parallel`=1，`model_parallel`=8作为并行的基本配置。注意并行配置的情况下，`data_parallel`\*`model_parallel`\*`pipeline_stages`<=总卡数。对应的代码中的**并行配置**如下。
 
