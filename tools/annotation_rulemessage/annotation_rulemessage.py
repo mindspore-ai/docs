@@ -63,4 +63,8 @@ if __name__ == "__main__":
                     data = f.read()
                 with open("./tools/annotation_rulemessage/allrule.txt", "a", encoding="utf-8") as p:
                     p.writelines(data)
-            
+    with open("./tools/annotation_rulemessage/allrule.txt", "r", encoding="utf-8") as f:
+        data = f.read()
+        data2 = data.replace('‘', '"').replace('’', '"').replace('“', '"').replace('”', '"')
+    with open("./tools/annotation_rulemessage/allrule.txt", "w", encoding="utf-8") as p:
+        p.writelines(data2)
