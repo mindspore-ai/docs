@@ -1,6 +1,6 @@
 # 下载MindSpore Lite
 
-`Windows` `Linux` `Android` `环境准备` `初级` `中级` `高级`
+`Windows` `Linux` `Android` `iOS` `环境准备` `初级` `中级` `高级`
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/lite/docs/source_zh_cn/use/downloads.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
