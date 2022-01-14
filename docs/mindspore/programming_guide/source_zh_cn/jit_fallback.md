@@ -143,7 +143,7 @@ JIT Fallback借鉴了传统JIT编译的Fallback的思路。传统的JIT编译经
 
 ![JIT Fallback](./design/images/fallback.png)
 
-首先，用户编写程序代码后，`Cell.construct()`或者`@ms_function`函数作为编译输入。然后，MindCompiler在编译阶段检测不支持的语法，并且根据不支持的语法表达式生成解释节点。最后，在编译时（Compiler Time）阶段或运行时（Runtime）阶段，推导和执行解释节点。对于常量场景，可以在类型推导阶段完成常量的推导，并通过Python解释器进行执行。
+首先，用户编写程序代码后，`Cell.construct()`或者`@ms_function`函数作为编译输入。然后，MindCompiler在编译阶段检测不支持的语法，并且根据不支持的语法表达式生成解释节点。最后，在编译时（Compiler Time）阶段或运行时（Runtime）阶段，推导和执行解释节点。对于常量场景，可以在类型推导阶段完成常量的推导，并通过Python解释器进行执行。注意：运行时(Runtime)阶段的JIT Fallback暂不支持。
 
 ## 使用须知
 
@@ -153,7 +153,7 @@ JIT Fallback借鉴了传统JIT编译的Fallback的思路。传统的JIT编译经
 
 2. JIT Fallback对标动态图的支持能力，须在动态图语法范围内，包括但不限于数据类型等。
 
-3. JIT Fallback引入的解释节点，仅用于Python解释器执行，不能传递到后端执行。为了便于理解，举例如下。由于`np.add(x, y)`是图模式下不支持的语法，即会在编译阶段解析成为解释节点。如果解释节点作为函数的返回值，则将传递到后端执行，当前后端不支持解释节点。所以该类场景当前不支持。
+3. 运行时(Runtime)阶段的JIT Fallback暂不支持。当前运行时不支持解释节点，如果JIT Fallback引入的解释节点传递到运行时，将会出现报错。示例代码如下，`np.add(x, y)`是静态图模式下不支持的语法，将会生成解释节点，作为函数的返回值传递到运行时，从而引发报错。
 
     ```python
     import numpy as np
@@ -200,7 +200,7 @@ JIT Fallback借鉴了传统JIT编译的Fallback的思路。传统的JIT编译经
    input_data and init can not be None at the same time.
    ```
 
-7. 在图模式下，对于NumPy具有返回值的方法，需要使用变量来保存其结果。如果没有变量保存，当前不支持该语法，会在后续版本中支持。
+7. 在静态图模式下，对于NumPy具有返回值的方法，需要使用变量来保存其结果。如果没有变量保存，当前不支持该语法，会在后续版本中支持。
 
     ```python
     import numpy as np
