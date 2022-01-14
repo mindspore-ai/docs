@@ -19,9 +19,9 @@ def run(txtinput_filepath):
                     num, line, id_, msg, sug, text = i[1], i[2], i[3], i[4], i[6], i[7]
                 else:
                     num, line, id_, msg, text = i[1], i[2], i[3], i[4], i[7]
-                result = result + 'Num：' + num + '\tLine：' \
-                + line + '\tRuleID：' + id_ + '\tMessage：' \
-                + msg + '\tSuggestion：' + sug + '\tContext：' \
+                result = result + 'Num:' + num + '\tLine:' \
+                + line + '\tRuleID:' + id_ + '\tMessage:' \
+                + msg + '\tSuggestion:' + sug + '\tContext:' \
                 + text + '\n'
     txtoutput_path = "formatrule/" \
     +"/".join(str(txtinput_filepath).split("/")[:-1]) \
