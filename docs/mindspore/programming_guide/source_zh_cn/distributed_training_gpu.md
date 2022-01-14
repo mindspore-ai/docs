@@ -631,4 +631,4 @@ epoch: 1 step: 1, loss is 2.3025854
 - cipher_list: 密码套件（支持的SSL加密类型列表）。
 - cert_expire_warning_time_in_day: 证书过期的告警时间。
 
-p12文件中的秘钥为密文存储，在启动时需要传入密码，具体参数请参考Python API `mindspore.context.set_ps_context`中的`client_password`以及`server_password`字段。
+p12文件中的秘钥为密文存储，在启动时需要传入密码，具体参数请参考Python API [mindspore.context.set_ps_context](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.context.html#mindspore.context.set_ps_context)中的`client_password`以及`server_password`字段。
