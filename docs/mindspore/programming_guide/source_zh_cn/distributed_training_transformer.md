@@ -201,7 +201,7 @@ context.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL,
 - 在设置`stage_num=1`的情况下，进行算子级别的并行。用户可以通过设置`TransformerOpParallelConfig`中的`model_parallel`和`data_parallel`属性配置并行策略。
 - 在设置`stage_num>1`的情况下，会进入流水线并行模式。流水线并行模式下，需要设置每个`cell`的`pipeline_stage`属性，将`cell`指定到对应的设备上执行。另外，在实例化网络后，我们需要再调用`PipelineCell`来封装定义好的网络。这个`Cell`的作用是将网络的输入切分成`mirco_batch_num`个数的小数据，以最大利用计算资源。值得注意的是，我们需要调用`net.infer_param_pipeline_stage()`而不是`net.trainable_params()`来获取当前设备`stage`对应的训练权重。注意，pipeline的stage内的卡数至少为8。pipeline的详细教程可以参考[这里](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/apply_pipeline_parallel.html)。
 
-整合后的主文件代码如下。注意在此省略一些参数的定义，完整的参数列表可以参考用例源代码，代码地址在本文开始的部分已经给出。
+整合后的主文件代码如下。注意在此省略一些参数的定义，完整的参数列表可以参考[用例源代码](https://gitee.com/mindspore/docs/blob/r1.6/docs/sample_code/distributed_training_transformer/train.py)，代码地址在本文开始的部分已经给出。
 
 ```python
 import argparse
