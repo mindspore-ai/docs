@@ -10,6 +10,6 @@
 | com.mindspore        | [Model](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/model.html) | Model定义了MindSpore中的模型，用于计算图的编译和执行。 |
 | com.mindspore        | [Graph](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/graph.html) | Model定义了MindSpore中的计算图。          |
 | com.mindspore        | [MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/mstensor.html) | MSTensor定义了MindSpore中的张量。                       |
-| com.mindspore.config  | [DataType](https://gitee.com/mindspore/mindspore/blob/r1.6/mindspore/lite/java/java/common/src/main/java/com/mindspore/config/DataType.java) | DataType定义了所支持的数据类型。                             |
+| com.mindspore.config  | [DataType](https://gitee.com/mindspore/mindspore/blob/r1.6/mindspore/lite/java/src/main/java/com/mindspore/config/DataType.java) | DataType定义了所支持的数据类型。                             |
 | com.mindspore.config   | [Version](https://gitee.com/mindspore/mindspore/blob/r1.6/mindspore/lite/java/src/main/java/com/mindspore/config/Version.java) | Version用于获取MindSpore的版本信息。                    |
 | com.mindspore.config   | [ModelType](https://gitee.com/mindspore/mindspore/blob/r1.6/mindspore/lite/java/src/main/java/com/mindspore/config/ModelType.java) | ModelType 定义了模型文件的类型。                    |
