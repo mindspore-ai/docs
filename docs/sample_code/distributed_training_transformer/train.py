@@ -49,7 +49,7 @@ def set_weight_decay(params):
 
 def main():
     # Run the total forward model
-    parser = argparse.ArgumentParser(description="PanguAlpha training")
+    parser = argparse.ArgumentParser(description="Transformer training")
     parser.add_argument('--train',
                         type=int,
                         default=1,
