@@ -130,8 +130,6 @@ To calculate the full quantization activation quantized parameter, the user need
 | center_crop_width  | Optional  | Center crop width                                            | Integer        | -             | [1, 65535]                                                   |
 | center_crop_height | Optional  | Center crop height                                           | Integer        | -             | [1, 65535]                                                   |
 
-> Full quantification needs to inference, and the waiting time may be longer. If you need to view the log, you can set export GLOG_v=1 before execution to print the relevant Info level log.
-
 The data preprocessing parameter configuration is as follows:
 
 ```ini
@@ -198,6 +196,7 @@ Users can adjust the weighted parameters according to the model and their own ne
 
 > The init_scale default value is 0.02, and the compression rate is equivalent to the compression effect of 6-7 fixed bits quantization.
 >
+> Mixed bits need to search for the best bit, and the waiting time may be longer. If you need to view the log, you can set export GLOG_v=1 before the execution to print the relevant Info level log.
 
 ### Fixed Bit Weight Quantization
 
@@ -286,6 +285,8 @@ activation_quant_method=MAX_MIN
 # Whether to correct the quantization error. Recommended to set to true.
 bias_correction=true
 ```
+
+> Full quantification needs to perform inference, and the waiting time may be longer. If you need to view the log, you can set export GLOG_v=1 before the execution to print the relevant Info level log.
 
 ### Partial Model Accuracy Result
 
