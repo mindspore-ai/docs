@@ -38,6 +38,10 @@ $$
 > 你可以在这里下载完整的样例代码：
 >
 > <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/adasum>
+>
+> 代码中引用到的models库链接：
+>
+> <https://gitee.com/mindspore/models>
 
 目录结构如下：
 
@@ -207,6 +211,17 @@ model.train(90, ds_train, callbacks=cb, sink_size=step_size, dataset_sink_mode=T
 
 ```basH
 bash run_node{i}.sh ./imagenet
+```
+
+运行脚本的核心配置如下，当运行机器扩增时，需要进行修改。其中RANK_TABLE_FILE是卡环境配置文件，RANK_SIZE是总的卡数，DEVICE_NUM是每台机器的卡数，SERVER_ID是当前机器的序号。
+
+```bash
+export RANK_TABLE_FILE=${EXEC_PATH}/rank_table_16pcs.json
+export RANK_SIZE=16
+export DEVICE_NUM=8
+
+export SERVER_ID=0
+rank_start=$((DEVICE_NUM * SERVER_ID))
 ```
 
 输出如下，可以看到loss值随着训练逐步降低：
