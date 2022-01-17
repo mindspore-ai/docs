@@ -48,7 +48,7 @@ ms-sd@mssd:~$ sudo apt-get install gcc
 
 （3）本地编译安装7.3.0，下载文件
 
-[点此下载GCC7.3.0](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz)
+[点此下载GCC7.3.0](https://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz)
 
 （4）解压并进入目录
 

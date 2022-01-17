@@ -19,7 +19,7 @@ This document describes how to quickly install MindSpore by source code in a Lin
 
 - Ensure that the 64-bit operating system is installed, where Ubuntu 18.04 is verified.
 
-- Ensure that [GCC 7.3.0](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) is installed.
+- Ensure that [GCC 7.3.0](https://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) is installed.
 
 - Ensure that [gmp 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
 
@@ -33,7 +33,7 @@ This document describes how to quickly install MindSpore by source code in a Lin
 - Ensure that [CMake 3.18.3 or later](https://cmake.org/download/) is installed.
     - After installing, add the path of `cmake` to the environment variable PATH.
 
-- Ensure that [patch 2.5 or later](http://ftp.gnu.org/gnu/patch/) is installed.
+- Ensure that [patch 2.5 or later](https://ftp.gnu.org/gnu/patch/) is installed.
     - After installing, add the path of `patch` to the environment variable PATH.
 
 - Ensure that [Autoconf 2.69 or later](https://www.gnu.org/software/autoconf) is installed. (Default versions of these tools built in their systems are supported.)
