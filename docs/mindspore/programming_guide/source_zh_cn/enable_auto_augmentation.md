@@ -4,9 +4,6 @@
 
 <a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9lbmFibGVfYXV0b19hdWdtZW50YXRpb24uaXB5bmI=&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_modelarts.png"></a>
 &nbsp;&nbsp;
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.6/notebook/mindspore_enable_auto_augmentation.ipynb"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_notebook.png"></a>
-&nbsp;&nbsp;
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.6/notebook/mindspore_enable_auto_augmentation.py"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_download_code.png"></a>&nbsp;&nbsp;
 <a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/mindspore/programming_guide/source_zh_cn/enable_auto_augmentation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
 ## 概述
