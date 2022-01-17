@@ -188,6 +188,8 @@ mindspore-lite-{version}-linux-x64
 
     ![img](../images/netron_model.png)
 
+    *图1 模型加载后页面*
+
     可以观察到，模型由一系列序列连接的算子节点构成，在本模型中，出现最多的为`Conv2DFusion`算子。
 
     - 查看模型输入和输出
@@ -195,6 +197,8 @@ mindspore-lite-{version}-linux-x64
         点击图中的输入节点0或者输出节点0，可以看到下图所示：
 
         ![img](../images/netron_model_input.png)
+
+        *图2 模型输入与输出节点*
 
         最上栏`MODEL PROPERTIES`为模型属性栏，可以观察到该模型的格式为`MindSpore Lite v1.6.0`，表明这是由1.6版本转换工具转换的模型。
 
@@ -209,6 +213,8 @@ mindspore-lite-{version}-linux-x64
         点击图中的`Conv2DFusion`算子，可以看到下图所示：
 
         ![img](../images/netron_model_op.png)
+
+        *图3 `Conv2DFusion`算子*
 
         通过该图，我们可以观察到：
 
@@ -357,37 +363,27 @@ mindspore-lite-{version}-linux-x64
     [节点2数据1]  [节点2数据2] ...
     ```
 
-    提供的标杆数据必须和模型输出拥有相同的数据大小，才能跟模型输出进行对比，以得到推理精度误差量。
-    在之前的`Netron`打开模型章节，我们已经知道`mobilenetv2.ms`模型，输出的节点名为`Default/head-MobileNetV2Head/Softmax-op204`，该节点输出的形状为`1x1000`，故节点形状的维度长度为2，节点形状的第1维值为1，节点形状的第2维值为1000。
-    故本例标杆数据格式应如下所示：
-
-    ```text
-    Default/head-MobileNetV2Head/Softmax-op204 2 1 1000
-    [节点数据1]  [节点数据2] ...
-    ```
-
     通常标杆文件可以采用以下方式生成：
 
     - 跟其他框架进行对比：使用其它深度学习模型推理框架，并使用相同输入，将推理结果按照上面的要求格式保存。
 
     - 跟模型训练时进行对比：在训练框架中，将经过前处理后的数据保存作为`inDataFile`指定的输入数据。并将模型推理后，还未经过后处理的输出数据按标杆格式进行保存，作为标杆。
 
+    - 跟不同设备或数据类型推理对比：使用不同的数据类型（例如FP16）或者设备（例如GPU/NPU）进行推理，得到该环境下标杆。
+
     - 跟理论值进行对比：针对一些简单模型，用户也可以根据对模型的理解，手动构造对应输入的输出标杆。
 
+    提供的标杆数据必须和模型输出拥有相同的数据大小，才能跟模型输出进行对比，以得到推理精度误差量。
+    在之前的`Netron`打开模型章节，我们已经知道`mobilenetv2.ms`模型，输出的节点名为`Default/head-MobileNetV2Head/Softmax-op204`，该节点输出的形状为`1x1000`（如图2中所示），故节点形状的维度长度为2，节点形状的第1维值为1，节点形状的第2维值为1000。
     本例采用跟其他框架进行对比的方式生成标杆，将之前得到的`input.bin`文件，通过其他框架生成推理后的数据，并按照标杆格式保存文件。
-    用户可以点击此处下载本例中的[output.txt文件](https://download.mindspore.cn/model_zoo/official/lite/quick_start/output.txt)，并将它放到benchmark目录内。
-    如果用户想自己动手生成标杆或是跟特定框架进行精度对比，可通过以下Python脚本将推理输出保存为标杆文件：
+    得到标杆数据如下所示：
 
-    ```python
-    import numpy as np
-    # 设inference_output为推理输出
-    t = np.aaray(inference_output) # 将推理输出转为numpy array格式。根据框架不同，这一步的操作也将不同，此处语句仅供参考
-    with open("output.txt", "w") as f:
-       f.write("Default/head-MobileNetV2Head/Softmax-op204 " + str(len(t.shape)) + " ")
-       f.write(" ".join([str(dat) for dat in t.shape]) + "\n")
-       t.tofile(f, " ")
+    ```text
+    Default/head-MobileNetV2Head/Softmax-op204 2 1 1000
+    4.75662418466527e-05 0.00044544308912009 ...
     ```
 
+    标杆中第二行的数据，就是采用其他框架对相同的输入（`input.bin`）得到的推理输出，用户可以点击此处下载本例中的[output.txt文件](https://download.mindspore.cn/model_zoo/official/lite/quick_start/output.txt)，并将它放到benchmark目录内。
     在执行`benchmark`命令后，若推理成功，则会输出类似如下统计信息：
 
     ```text
@@ -847,7 +843,7 @@ mindspore-lite-{version}-win-x64
 
 #### 转换模型
 
-解压刚刚下载的发布件，在位于`mindspore-lite-{version}-win-x64/tools/converter/converter`目录，可以找到`converter_lite.exe`工具。
+解压刚刚下载的发布件，在位于`mindspore-lite-{version}-win-x64\tools\converter\converter`目录，可以找到`converter_lite.exe`工具。
 `converter_lite.exe`模型转换工具提供了离线转换模型功能，支持MindSpore、CAFFE、TensorFlow Lite、TensorFlow、ONNX类型的模型转换。
 模型转换步骤如下：
 
@@ -866,7 +862,7 @@ mindspore-lite-{version}-win-x64
     执行如下命令，进入转换工具所在目录。
 
     ```bash
-    cd %PACKAGE_ROOT_PATH%/tools/converter/converter
+    cd %PACKAGE_ROOT_PATH%\tools\converter\converter
     ```
 
     %PACKAGE_ROOT_PATH%是发布件解压后的路径。
@@ -982,7 +978,7 @@ mindspore-lite-{version}-win-x64
     执行如下命令，进入`benchmark`工具所在目录
 
     ```bash
-    cd %PACKAGE_ROOT_PATH%/tools/benchmark
+    cd %PACKAGE_ROOT_PATH%\tools\benchmark
     ```
 
     %PACKAGE_ROOT_PATH%是发布件解压后的路径。
@@ -1068,38 +1064,28 @@ mindspore-lite-{version}-win-x64
     [节点2数据1]  [节点2数据2] ...
     ```
 
-    提供的标杆数据必须和模型输出拥有相同的数据大小，才能跟模型输出进行对比，以得到推理精度误差量。
-    在之前的`Netron`打开模型章节，我们已经知道`mobilenetv2.ms`模型，输出的节点名为`Default/head-MobileNetV2Head/Softmax-op204`，该节点输出的形状为`1x1000`，故节点形状的维度长度为2，节点形状的第1维值为1，节点形状的第2维值为1000。
-    故本例标杆数据格式应如下所示：
-
-    ```text
-    Default/head-MobileNetV2Head/Softmax-op204 2 1 1000
-    [节点数据1]  [节点数据2] ...
-    ```
-
     通常标杆文件可以采用以下方式生成：
 
     - 跟其他框架进行对比：使用其它深度学习模型推理框架，并使用相同输入，将推理结果按照上面的要求格式保存。
 
     - 跟模型训练时进行对比：在训练框架中，将经过前处理后的数据保存作为`inDataFile`指定的输入数据。并将模型推理后，还未经过后处理的输出数据按标杆格式进行保存，作为标杆。
 
+    - 跟不同设备或数据类型推理对比：使用不同的数据类型（例如FP16）或者设备（例如GPU/NPU）进行推理，得到该环境下标杆。
+
     - 跟理论值进行对比：针对一些简单模型，用户也可以根据对模型的理解，手动构造对应输入的输出标杆。
 
+    提供的标杆数据必须和模型输出拥有相同的数据大小，才能跟模型输出进行对比，以得到推理精度误差量。
+    在之前的`Netron`打开模型章节，我们已经知道`mobilenetv2.ms`模型，输出的节点名为`Default/head-MobileNetV2Head/Softmax-op204`，该节点输出的形状为`1x1000`（如图2中所示），故节点形状的维度长度为2，节点形状的第1维值为1，节点形状的第2维值为1000。
     本例采用跟其他框架进行对比的方式生成标杆，将之前得到的`input.bin`文件，通过其他框架生成推理后的数据，并按照标杆格式保存文件。
-    用户可以点击此处下载本例中的[output.txt文件](https://download.mindspore.cn/model_zoo/official/lite/quick_start/output.txt)，并将它放到benchmark目录内。
-    如果用户想自己动手生成标杆或是跟特定框架进行精度对比，可通过以下Python脚本将推理输出保存为标杆文件：
+    得到标杆数据如下所示：
 
-    ```python
-    import numpy as np
-    # 设inference_output为推理输出
-    t = np.aaray(inference_output) # 将推理输出转为numpy array格式。根据框架不同，这一步的操作也将不同，此处语句仅供参考
-    with open("output.txt", "w") as f:
-       f.write("Default/head-MobileNetV2Head/Softmax-op204 " + str(len(t.shape)) + " ")
-       f.write(" ".join([str(dat) for dat in t.shape]) + "\n")
-       t.tofile(f, " ")
+    ```text
+    Default/head-MobileNetV2Head/Softmax-op204 2 1 1000
+    4.75662418466527e-05 0.00044544308912009 ...
     ```
 
-    在执行`benchmark.exe`后，若推理成功，则会输出类似如下统计信息：
+    标杆中第二行的数据，就是采用其他框架对相同的输入（`input.bin`）得到的推理输出，用户可以点击此处下载本例中的[output.txt文件](https://download.mindspore.cn/model_zoo/official/lite/quick_start/output.txt)，并将它放到benchmark目录内。
+    在执行`benchmark`命令后，若推理成功，则会输出类似如下统计信息：
 
     ```text
     ModelPath = mobilenetv2.ms
