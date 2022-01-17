@@ -143,7 +143,7 @@ A: 可以自定义`callback`方法实现早停功能。
 ```python
 class EarlyStop(Callback):
     def __init__(self, control_loss=1):
-        super(EarlyStep, self).__init__()
+        super(EarlyStop, self).__init__()
         self._control_loss = control_loss
 
     def step_end(self, run_context):
