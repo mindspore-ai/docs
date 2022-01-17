@@ -111,7 +111,7 @@ private static boolean compile(String modelPath) {
 private static boolean run() {
     MSTensor inputTensor = model.getInputByTensorName("graph_input-173");
     if (inputTensor.getDataType() != DataType.kNumberTypeFloat32) {
-        System.err.println("Input tensor shape do not float, the data type is " + inputTensor.getDataType());
+        System.err.println("Input tensor data type is not float, the data type is " + inputTensor.getDataType());
         return false;
     }
     // Generator Random Data.
@@ -141,7 +141,7 @@ private static boolean run() {
     }
     msgSb.append("]");
     if (outTensor.getDataType() != DataType.kNumberTypeFloat32) {
-        System.err.println("output tensor shape do not float, the data type is " + outTensor.getDataType());
+        System.err.println("output tensor data type is not float, the data type is " + outTensor.getDataType());
         return false;
     }
     float[] result = outTensor.getFloatData();
