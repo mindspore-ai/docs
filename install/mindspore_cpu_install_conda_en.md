@@ -22,7 +22,7 @@ For details about how to install third-party dependency software when confirming
 ## System Environment Information Confirmation
 
 - Ensure that a 64-bit operating system is installed and the [glibc](https://www.gnu.org/software/libc/) version is 2.17 or later, where Ubuntu 18.04 is verified.
-- Ensure that [GCC 7.3.0](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) is installed.
+- Ensure that [GCC 7.3.0](https://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) is installed.
 - Ensure that [gmp 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
 - Ensure that the Conda version is compatible with the current system.
     - If you prefer the complete capabilities provided by Conda, you can choose to download [Anaconda3](https://repo.anaconda.com/archive/).
