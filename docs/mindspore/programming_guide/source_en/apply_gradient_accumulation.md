@@ -1,4 +1,4 @@
-# Applying a Gradient Accumulation Algorithm
+# Gradient Accumulation Algorithm
 
 `GPU` `Model Optimization`
 

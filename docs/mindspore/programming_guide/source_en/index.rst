@@ -276,6 +276,18 @@ MindSpore Programming Guide
                         </div>
                      </a>
                   </div>
+                  <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Development hidden">
+                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/model_use_guide.html" class="article-link">
+                        <div>
+                              <div class="doc-article-head">
+                                 <span class="doc-head-content">Basic Use of Model</span>
+                              </div>
+                              <div class="doc-article-desc">
+                              This document describes how to use high-level API models for model training and evaluation.
+                              </div>
+                        </div>
+                     </a>
+                  </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu stage-Distributed-Parallel stage-Whole-Process experience-local hidden">
                      <a href="https://www.mindspore.cn/docs/programming_guide/en/master/apply_host_device_training.html" class="article-link">
                         <div>
