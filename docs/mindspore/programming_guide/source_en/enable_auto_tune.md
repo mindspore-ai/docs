@@ -1,4 +1,4 @@
-# Enabling AutoTune
+# AutoTune
 
 `Ascend` `Model Optimization`
 

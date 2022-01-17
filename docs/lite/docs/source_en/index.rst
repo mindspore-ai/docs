@@ -318,7 +318,7 @@ MindSpore Lite Documentation
 								<a href="https://www.mindspore.cn/lite/docs/en/r1.6/use/post_training_quantization.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Optimizing the Model (Quantization After Training)</span>
+											<span class="doc-head-content">Post Training Quantization</span>
 										</div>
 										<div class="doc-article-desc">
 											Converting a trained `float32` model into an `int8` model through quantization after training can reduce the model size and improve the inference performance.

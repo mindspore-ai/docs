@@ -1,4 +1,4 @@
-# Applying Quantization Aware Training
+# Quantization Aware Training
 
 `Ascend` `GPU` `Function Extension`
 
