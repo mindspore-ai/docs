@@ -4,9 +4,7 @@
 
 ## Overview
 
-When [MindSpore](#https://www.mindspore.cn/) is used as the inference backend, MindSpore Serving supports the Ascend 910/710/310 and Nvidia GPU environments. The Ascend 710/310 environment supports both `OM` and `MindIR` model formats, and the Ascend 910 and GPU environment only supports the `MindIR` model format.
-
-When [MindSpore Lite](#https://www.mindspore.cn/lite) is used as the inference backend, MindSpore Serving supports Ascend 310, Nvidia GPU and CPU environments. Only the `MindIR_Opt` model format is supported. Currently, models in `MindIR` format exported from MindSpore and models exported from other frameworks need to be converted to `MindIR_Opt` format using MindSpore Lite conversion tool. During model conversion, if the target device is set to `Ascend310`, the generated `MindIR_Opt` model can be used only in the Ascend 310 environment. Otherwise, the generated `MindIR_Opt` model can be used only in the Nvidia GPU and CPU environments.
+Before running the sample network, ensure that MindSpore Serving has been properly installed and the environment variables are configured. To install and configure MindSpore Serving on your PC, go to the [MindSpore Serving installation page](https://www.mindspore.cn/serving/docs/en/r1.6/serving_install.html).
 
 MindSpore Serving Servable provides the inference services of the following types: One inference service comes from a single model, and the other one comes from a combination of multiple models. The two types of sevices are configured through the same interface. Models need to be configured to provide the Serving inference service.
 
