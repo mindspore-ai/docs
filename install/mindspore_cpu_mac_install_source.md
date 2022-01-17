@@ -31,7 +31,7 @@
 
 - 确认安装[CMake 3.18.3及以上版本](https://cmake.org/download/) . 如果没有安装，可以使用`brew install cmake`进行安装。
 
-- 确认安装[patch 2.5](http://ftp.gnu.org/gnu/patch/) . 如果没有安装，可以使用`brew install patch`进行安装。
+- 确认安装[patch 2.5](https://ftp.gnu.org/gnu/patch/) . 如果没有安装，可以使用`brew install patch`进行安装。
 
 - 确认安装[wheel 0.32.0及以上版本](https://pypi.org/project/wheel/). 如果没有安装，可以使用`pip install wheel` 进行安装。
 
