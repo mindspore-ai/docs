@@ -320,7 +320,7 @@ MindSpore Lite文档
 								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/post_training_quantization.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">优化模型(训练后量化)</span>
+											<span class="doc-head-content">训练后量化</span>
 										</div>
 										<div class="doc-article-desc">
 											对于已经训练好的float32模型，通过训练后量化将其转为int8，不仅能减小模型大小，而且能显著提高推理性能。本教程介绍了模型训练后量化的具体方法。
@@ -416,7 +416,7 @@ MindSpore Lite文档
 								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/register_kernel.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">自定义算子</span>
+											<span class="doc-head-content">在线构建自定义算子</span>
 										</div>
 										<div class="doc-article-desc">
 											MindSpore Lite当前提供了一套南向算子的注册机制，南向算子可以理解为用户自己的算子实现，如果用户想通过MindSpore Lite框架调度到自己的算子实现上，可参考本文。
@@ -528,6 +528,31 @@ MindSpore Lite文档
 										</div>
 										<div class="doc-article-desc">
 										MindSpore Lite提供一个轻量级的离线模型混淆工具，可用于保护IOT或端侧设备上部署的模型文件的机密性。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Android language-cpp stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Data-Preparation stage-Inference user-Beginner user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/one_hour_introduction.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">一小时入门</span>
+										</div>
+							
+										<div class="doc-article-desc">
+										本文通过使用MindSpore Lite对一个模型执行推理为例，向大家介绍MindSpore Lite的基础功能和用法。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux hardware-Ascend stage-Environment-Preparation user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/ascend_info.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">集成Ascend使用说明</span>
+										</div>
+										<div class="doc-article-desc">
+										本文档介绍如何在Ascend环境的Linux系统上，使用MindSpore Lite 进行推理，以及动态shape功能的使用。
 										</div>
 									</div>
 								</a>

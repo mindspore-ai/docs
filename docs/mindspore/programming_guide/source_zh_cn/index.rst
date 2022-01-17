@@ -1111,7 +1111,7 @@ MindSpore编程指南
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/lossscale.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">LossScale</span>
+											<span class="doc-head-content">损失缩放</span>
 										</div>
 										<div class="doc-article-desc">
 										LossScale的主要思想是在计算loss时，将loss扩大一定的倍数，由于链式法则的存在，梯度也会相应扩大，然后在优化器更新权重时再缩小相应的倍数，从而避免了数据下溢的情况又不影响计算结果。
