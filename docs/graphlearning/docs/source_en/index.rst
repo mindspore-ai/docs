@@ -55,4 +55,4 @@ Typical MindSpore Graph Learning Application Scenarios
    mindspore_gl.graph
    mindspore_gl.nn
    mindspore_gl.parser
-   mindspore_gl.samplinggraphlearning
+   mindspore_gl.sampling
