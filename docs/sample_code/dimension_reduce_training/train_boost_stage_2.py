@@ -100,14 +100,14 @@ if __name__ == '__main__':
             "device_num": 8
         },
         "dim_reduce": {
-            "ls_weight_decay": 0.0001,
             "rho": 0.55,
             "gamma": 0.9,
             "alpha": 0.001,
             "sigma": 0.4,
             "n_component": 32,
             "pca_mat_path": args.pca_mat_path,
-            "weight_load_dir": "../device0_stage_1/checkpoint_stage_1"
+            "weight_load_dir": "../device0_stage_1/checkpoint_stage_1/checkpoint_pca",
+            "timeout": 1200
         }
     }
 

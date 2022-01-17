@@ -111,11 +111,18 @@ if __name__ == '__main__':
     model = Model(net, loss_fn=loss, optimizer=opt, loss_scale_manager=loss_scale, metrics=metrics, amp_level="O2",
                   boost_level="O0", keep_batchnorm_fp32=False)
 
-    # define callback
+    # define callback_1
     cb = [TimeMonitor(data_size=step_size), LossMonitor()]
     if get_rank_id() == 0:
-        config_ck = CheckpointConfig(save_checkpoint_steps=step_size, keep_checkpoint_max=40)
+        config_ck = CheckpointConfig(save_checkpoint_steps=step_size * 10, keep_checkpoint_max=10)
         ck_cb = ModelCheckpoint(prefix="resnet", directory="./checkpoint_stage_1", config=config_ck)
+        cb += [ck_cb]
+
+    # define callback_2: save weights for stage 2
+    if get_rank_id() == 0:
+        config_ck = CheckpointConfig(save_checkpoint_steps=step_size, keep_checkpoint_max=40,
+                                     saved_network=net)
+        ck_cb = ModelCheckpoint(prefix="resnet", directory="./checkpoint_stage_1/checkpoint_pca", config=config_ck)
         cb += [ck_cb]
 
     print("============== Starting Training ==============")
