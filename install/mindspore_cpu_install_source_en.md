@@ -20,7 +20,7 @@ This document describes how to quickly install MindSpore by source code in a Lin
 
 - Ensure that the 64-bit operating system is installed, where Ubuntu 18.04 are verified.
 
-- Ensure that [GCC 7.3.0](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) is installed.
+- Ensure that [GCC 7.3.0](https://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) is installed.
 
 - Ensure that [gmp 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
 
@@ -36,7 +36,7 @@ This document describes how to quickly install MindSpore by source code in a Lin
 
 - Ensure that [wheel 0.32.0 or later](https://pypi.org/project/wheel/) is installed.
 
-- Ensure that [patch 2.5 or later](http://ftp.gnu.org/gnu/patch/) is installed.
+- Ensure that [patch 2.5 or later](https://ftp.gnu.org/gnu/patch/) is installed.
     - Add the path where the executable file `patch` stores to the environment variable PATH.
 
 - Ensure that [NUMA 2.0.11 or later](https://github.com/numactl/numactl) is installed.

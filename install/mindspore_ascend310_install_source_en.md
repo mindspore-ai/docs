@@ -20,7 +20,7 @@ The following describes how to quickly install MindSpore by compiling the source
 
 - Ensure that the 64-bit operating system is installed, where Ubuntu 18.04/CentOS 7.6/EulerOS 2.8 are verified.
 
-- Ensure that right version [GCC 7.3.0](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) is installed.
+- Ensure that right version [GCC 7.3.0](https://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) is installed.
 
 - Ensure that [GMP 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
 
@@ -34,7 +34,7 @@ The following describes how to quickly install MindSpore by compiling the source
 - Ensure that [CMake 3.18.3 or later](https://cmake.org/download/) is installed.
     - After installation, add the path of CMake to the system environment variables.
 
-- Ensure that [patch 2.5 or later](http://ftp.gnu.org/gnu/patch/) is installed.
+- Ensure that [patch 2.5 or later](https://ftp.gnu.org/gnu/patch/) is installed.
     - After installation, add the patch path to the system environment variables.
 
 - Ensure that the Ascend AI processor software package (Ascend Data Center Solution 21.0.3) are installed, please refer to the [Installation Guide](https://support.huawei.com/enterprise/zh/doc/EDOC1100226552?section=j003).

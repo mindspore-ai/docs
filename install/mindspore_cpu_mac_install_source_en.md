@@ -31,7 +31,7 @@ This document describes how to quickly install MindSpore by compiling source cod
 
 - Ensure that [CMake](https://cmake.org/download/) > `3.18.3` is installed. Use `brew install cmake` if it's not installed.
 
-- Ensure that [patch 2.5](http://ftp.gnu.org/gnu/patch/) is installed. Use `brew install patch` if it's not installed.
+- Ensure that [patch 2.5](https://ftp.gnu.org/gnu/patch/) is installed. Use `brew install patch` if it's not installed.
 
 - Ensure that [wheel 0.32.0 or later](https://pypi.org/project/wheel/) is installed. Use `pip install wheel` if it's not installed.
 

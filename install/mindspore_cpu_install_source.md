@@ -22,7 +22,7 @@
 
 - 确认安装64位操作系统，其中Ubuntu 18.04是经过验证的。
 
-- 确认安装[GCC 7.3.0版本](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz)。
+- 确认安装[GCC 7.3.0版本](https://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz)。
 
 - 确认安装[gmp 6.1.2版本](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz)。
 
@@ -38,7 +38,7 @@
 
 - 确认安装[wheel 0.32.0及以上版本](https://pypi.org/project/wheel/)。
 
-- 确认安装[patch 2.5及以上版本](http://ftp.gnu.org/gnu/patch/)。
+- 确认安装[patch 2.5及以上版本](https://ftp.gnu.org/gnu/patch/)。
     - 安装完成后需将patch所在路径添加到系统环境变量中。
 
 - 确认安装[NUMA 2.0.11及以上版本](https://github.com/numactl/numactl)。
