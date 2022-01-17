@@ -286,7 +286,7 @@ Math Functions
 Metrics
 --------
 
-.. autosummary::
+.. msplatformautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst
@@ -341,7 +341,7 @@ as input to get the current learning rate.
     net = Net()
     optim = nn.Momentum(net.trainable_params(), learning_rate=cosine_decay_lr, momentum=0.9)
 
-.. autosummary::
+.. msplatformautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst
