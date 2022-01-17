@@ -291,18 +291,6 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hidden">
-								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_operator.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">自定义算子</span>
-										</div>
-										<div class="doc-article-desc">
-										分为Ascend自定义算子、GPU自定义算子、CPU自定义算子、基于Custom表达的自定义算子。
-										</div>
-									</div>
-								</a>
-							</div>
 							<div class="doc-article-item all hardware-gpu stage-Model-Optimization experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/apply_gradient_accumulation.html" class="article-link">
 									<div>
@@ -875,18 +863,6 @@ MindSpore编程指南
 										</div>
 										<div class="doc-article-desc">
 										本文档主要介绍AutoTune的在线调优使用方法。
-										</div>
-									</div>
-								</a>
-							</div>
-							<div class="doc-article-item all hardware-ascend stage-Inference hidden">
-								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/multi_platform_inference_ascend_310.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">Ascend 310 AI处理器上推理</span>
-										</div>
-										<div class="doc-article-desc">
-										用户可以创建C++应用程序，调用MindSpore的C++接口推理MindIR模型。
 										</div>
 									</div>
 								</a>

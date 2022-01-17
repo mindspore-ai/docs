@@ -1,4 +1,4 @@
-# Enabling Dataset AutoTune for Dataset Pipeline
+# Dataset AutoTune for Dataset Pipeline
 
 `Ascend` `GPU` `Data Preparation`
 

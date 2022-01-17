@@ -214,123 +214,6 @@ MindSpore Lite文档
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/object_detection_lite.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">目标检测模型</span>
-										</div>
-							
-										<div class="doc-article-desc">
-										目标检测可以识别出图片中的对象和该对象在图片中的位置。
-										</div>
-									</div>
-								</a>
-							</div>
-							<div class="doc-article-item all hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/image_classification_lite.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">图像分类模型</span>
-										</div>
-							
-										<div class="doc-article-desc">
-										图像分类模型可以预测图片中出现哪些物体，识别出图片中出现物体列表及其概率。
-										</div>
-									</div>
-								</a>
-							</div>
-							<div class="doc-article-item all hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/style_transfer_lite.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">风格迁移模型</span>
-										</div>
-							
-										<div class="doc-article-desc">
-										风格迁移模型可以根据demo内置的标准图片改变用户目标图片的艺术风格，并在App图像预览界面中显示出来。
-										</div>
-									</div>
-								</a>
-							</div>
-							<div class="doc-article-item all hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/posenet_lite.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">骨骼检测模型</span>
-										</div>
-							
-										<div class="doc-article-desc">
-										骨骼检测可以识别摄像头中，不同姿势下人体的面部五官与肢体姿势。
-										</div>
-									</div>
-								</a>
-							</div>
-							<div class="doc-article-item all hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/troubleshooting_guide.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">问题定位指南</span>
-										</div>
-							
-										<div class="doc-article-desc">
-										在MindSpore Lite使用中遇到问题时，可首先查看日志，多数场景下的问题可以通过日志报错信息直接定位。
-										</div>
-									</div>
-								</a>
-							</div>
-							<div class="doc-article-item all os-Windows os-Linux stage-Inference user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/architecture_lite.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">总体架构</span>
-										</div>
-							
-										<div class="doc-article-desc">
-										MindSpore Lite是一款极速、极智、极简的AI引擎，使能全场景智能应用，为用户提供端到端的解决方案，帮助用户使能AI能力。
-										</div>
-									</div>
-								</a>
-							</div>
-							<div class="doc-article-item all os-Linux hardware-Ascend stage-Inference user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/operator_list_codegen.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">Codegen算子支持</span>
-										</div>
-							
-										<div class="doc-article-desc">
-										本文列举MindSpore Lite Codegen支持的算子。
-										</div>
-									</div>
-								</a>
-							</div>
-							<div class="doc-article-item all os-Linux hardware-Ascend stage-Inference user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/operator_list_lite.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">Lite算子支持</span>
-										</div>
-							
-										<div class="doc-article-desc">
-										本文列举MindSpore Lite支持的算子。
-										</div>
-									</div>
-								</a>
-							</div>
-							<div class="doc-article-item all hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/image_segmentation_lite.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">图像分割模型</span>
-										</div>
-							
-										<div class="doc-article-desc">
-										图像分割是用于检测目标在图片中的位置或者图片中某一像素是输入何种对象的。
-										</div>
-									</div>
-								</a>
-							</div>
 							<div class="doc-article-item all os-Windows os-Linux os-Android os-mac os-ios stage-Environment-Preparation user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html" class="article-link">
 									<div>
@@ -627,13 +510,13 @@ MindSpore Lite文档
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend stage-Environment-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/ascend_info.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/ascend_info.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">集成Ascend使用说明</span>
 										</div>
 										<div class="doc-article-desc">
-											通过MindSpore Lite模型转换后，需在Runtime中完成模型的训练执行流程。本教程介绍如何使用Java接口编写训练代码。
+										本文档介绍如何在Ascend环境的Linux系统上，使用MindSpore Lite 进行推理，以及动态shape功能的使用。
 										</div>
 									</div>
 								</a>
