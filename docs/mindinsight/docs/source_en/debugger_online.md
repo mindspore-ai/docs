@@ -128,7 +128,6 @@ After a watchpoint is created, manually select the node to be checked and click 
 The following conditions are supported (abbreviations in parentheses):
 
 - Tensor check
-    - Operator overflow (OO): Check whether overflow occurs during operator computation. Only the Ascend AI Processor is supported.
     - Whether tensor values are all 0 (TZ): Set the threshold to `Percentage of 0 values ≥` to check the percentage of 0 tensor values.
     - Tensor overflow (TO): Check whether a tensor value overflow occurs.
     - Tensor value range (TR): Set a threshold to check the tensor value range. The options are `Percentage of the value in the range >`, `Percentage of the value in the range <`, `MAX-MIN>` and `MAX-MIN<`. If setting the threshold to `Percentage of the value in the range >` or `Percentage of the value in the range <`, you need to set the `Upper limit of the range (inclusive)` or `Lower limit of the range (inclusive)` at the same time.
@@ -270,6 +269,5 @@ Tensors can be downloaded in tensor check view. Users can download the desired t
 
 - When using the debugger, make sure that the version numbers of MindInsight and MindSpore are the same.
 - Recheck only watchpoints that have tensor values.
-- To check overflow during computation, you need to enable the overflow detection function of the asynchronous dump. For details about how to enable the function, see [Asynchronous Dump](https://www.mindspore.cn/docs/programming_guide/en/r1.5/custom_debugging_info.html#asynchronous-dump).
 - The graph displayed by the debugger is the finally optimized execution graph. The called operator may have been integrated with other operators, or the name of the called operator is changed after optimization.
 - Enabling the debugger will turn off memory reuse mode, which may lead to an 'out of memory' error when the training network is too large.
