@@ -17,6 +17,10 @@
 > 你可以在这下载完整的样例代码：
 >
 > <https://gitee.com/mindspore/docs/tree/r1.6/docs/sample_code/dimension_reduce_training>
+>
+> 代码中引用到的models库链接：
+>
+> <https://gitee.com/mindspore/models>
 
 ### 配置分布式环境变量
 
@@ -136,12 +140,21 @@ model = Model(net, loss_fn=loss, optimizer=opt, loss_scale_manager=loss_scale, m
 
 训练开始前，定义回调函数callback，添加训练时间信息输出、loss信息输出，权重保存等，其中模型权重只在0卡上保存。
 
+callback_1保存网络的所有权重和优化器的状态，callback_2仅保存网络中参加更新的权重，用于第二阶段的PCA。
+
 ```python
-# define callback
+# define callback_1
 cb = [TimeMonitor(data_size=step_size), LossMonitor()]
 if get_rank_id() == 0:
-    config_ck = CheckpointConfig(save_checkpoint_steps=step_size, keep_checkpoint_max=40)
+    config_ck = CheckpointConfig(save_checkpoint_steps=step_size * 10, keep_checkpoint_max=10)
     ck_cb = ModelCheckpoint(prefix="resnet", directory="./checkpoint_stage_1", config=config_ck)
+    cb += [ck_cb]
+
+# define callback_2: save weights for stage 2
+if get_rank_id() == 0:
+    config_ck = CheckpointConfig(save_checkpoint_steps=step_size, keep_checkpoint_max=40,
+                                 saved_network=net)
+    ck_cb = ModelCheckpoint(prefix="resnet", directory="./checkpoint_stage_1/checkpoint_pca", config=config_ck)
     cb += [ck_cb]
 
 print("============== Starting Training ==============")
@@ -243,14 +256,14 @@ boost_dict = {
         "device_num": 8
     },
     "dim_reduce": {
-        "ls_weight_decay": 0.0001,
         "rho": 0.55,
         "gamma": 0.9,
         "alpha": 0.001,
         "sigma": 0.4,
-        "n_component": 32,                                  # PCA component
-        "pca_mat_path": args.pca_mat_path,                  # the path to load pca mat
-        "weight_load_dir": "./checkpoint_stage_1"           # the directory to load weight file saved as ckpt.
+        "n_component": 32,                                                 # PCA component
+        "pca_mat_path": args.pca_mat_path,                                 # the path to load pca mat
+        "weight_load_dir": "./checkpoint_stage_1/checkpoint_pca",          # the directory to load weight file saved as ckpt.
+        "timeout": 1200
     }
 }
 
@@ -282,13 +295,13 @@ model.train(2, ds_train, callbacks=cb, sink_size=step_size, dataset_sink_mode=Tr
 1. 调用运行脚本[run_stage_2.sh](https://gitee.com/mindspore/docs/blob/r1.6/docs/sample_code/dimension_reduce_training/run_stage_2.sh)，查看运行结果。运行脚本需要给定数据集路径，第一阶段训练结束时的权重文件，第二阶段保存的权重文件默认保存在device0_stage_2/checkpoint_stage_2下。
 
    ```bash
-   bash run_stage_2.py ./imagenet ./device0_stage_1/checkpoint_stage_1/resnet-70_625.ckpt
+   bash run_stage_2.sh ./imagenet ./device0_stage_1/checkpoint_stage_1/resnet-70_625.ckpt
    ```
 
    如果已经对第一阶段的权重做了PCA，并保存了特征转换矩阵，则可以给定特征转换矩阵文件路径，省去求特征转换矩阵的过程。
 
    ```bash
-   bash run_stage_2.py ./imagenet ./device0_stage_1/checkpoint_stage_1/resnet-70_625.ckpt /path/pca_mat.npy
+   bash run_stage_2.sh ./imagenet ./device0_stage_1/checkpoint_stage_1/resnet-70_625.ckpt /path/pca_mat.npy
    ```
 
    输出如下，可以看到loss值随着训练逐步降低：
