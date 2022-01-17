@@ -1,7 +1,5 @@
 # 查看训练看板
 
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/notebook/mindspore_mindinsight_dashboard.ipynb" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_notebook.png"></a>&nbsp;&nbsp;
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/notebook/mindspore_mindinsight_dashboard.py" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_download_code.png"></a>&nbsp;&nbsp;
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/dashboard.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述
