@@ -12,7 +12,7 @@
 
 - 确认安装64位操作系统，[glibc](https://www.gnu.org/software/libc/)>=2.17，其中Ubuntu 18.04/CentOS 7.6/EulerOS 2.8是经过验证的。
 
-- 确认安装[GCC 7.3.0版本](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz)。
+- 确认安装[GCC 7.3.0版本](https://gcc.gnu.org/releases.html)。
 
 - 确认安装[CMake 3.18.3及以上版本](https://cmake.org/download/)。
     - 安装完成后将CMake所在路径添加到系统环境变量。
@@ -173,7 +173,7 @@ MindSpore Lite提供benchmark基准测试工具，它可以对MindSpore Lite模�
     最多支持100档配置，每一档通过英文逗号分隔，每个档位数值限制为：[1~2048]。 例如配置文件中参数配置如下：
 
     ```cpp
-    [acl_option_cfg_para]
+    [acl_option_cfg_param]
     input_shape_vector="[-1,32,32,4]"
     dynamic_batch_size="2,4"
     其中，input_shape中的"-1"表示设置动态batch，档位可取值为"2,4"，即支持档位0: [2,32,32,4]，档位1: [4,32,32,4].
@@ -185,7 +185,7 @@ MindSpore Lite提供benchmark基准测试工具，它可以对MindSpore Lite模�
     ./converter_lite --fmk=ONNX --modelFile=${model_name}.onnx --inputShape="input:4,32,32,4" --configFile=./config.txt --outputFile=${model_name}
     ```
 
-    说明：使能动态BatchSize时，需要指定inputShape，值为最大档位对应的shape，即上节中档位1的值；同时通过configFile配置[acl_option_cfg_para]动态batch size，即上节示例中配置内容。
+    说明：使能动态BatchSize时，需要指定inputShape，值为最大档位对应的shape，即上节中档位1的值；同时通过configFile配置[acl_option_cfg_param]动态batch size，即上节示例中配置内容。
 
 - 推理
 
@@ -212,7 +212,7 @@ MindSpore Lite提供benchmark基准测试工具，它可以对MindSpore Lite模�
     最多支持100档配置，每一档通过英文分号分隔。 例如： "imagesize1_height,imagesize1_width;imagesize2_height,imagesize2_width"，指定的参数必须放在双引号中，每一组参数中间使用英文分号分隔。 例如配置文件中参数配置如下：
 
     ```cpp
-    [acl_option_cfg_para]
+    [acl_option_cfg_param]
     input_format="NCHW"
     input_shape_vector="[2,3,-1,-1]"
     dynamic_image_size="64,64;96,96"
@@ -225,7 +225,7 @@ MindSpore Lite提供benchmark基准测试工具，它可以对MindSpore Lite模�
     ./converter_lite --fmk=ONNX --modelFile=${model_name}.onnx --inputShape="input:2,3,96,96" --configFile=./config.txt --outputFile=${model_name}
     ```
 
-    说明： 使能动态BatchSize时， 需要指定inputShape，值为最大档位对应的shape，即上节中档位1的值；同时通过configFile配置[acl_option_cfg_para]动态分辨率，即上节示例中配置内容。
+    说明： 使能动态BatchSize时， 需要指定inputShape，值为最大档位对应的shape，即上节中档位1的值；同时通过configFile配置[acl_option_cfg_param]动态分辨率，即上节示例中配置内容。
 
 - 推理
 
