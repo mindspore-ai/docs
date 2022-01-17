@@ -16,7 +16,7 @@
 - 数据并行 + 开启优化器并行 + 优化器并行切满所有数据并行维度：并行通信域内的rank持有不同权重切片。
 - 数据并行 + 开启优化器并行 + 优化器并行不切满所有数据并行维度：并行通信域内，优化器切分的通信域内的rank持有不同的权重切片，每个优化器切分的通信域之间持有相同的权重切片。
 
-另外，需要注意的是，本文档介绍分布式故障恢复方案，需要在[下沉模式](https://mindspore.cn/docs/programming_guide/zh-CN/r1.6/on_device.html) 下使用。本文档将以[分布式并行训练transformer模型](https://mindspore.cn/docs/programming_guide/zh-CN/r1.6/distributed_training_transformer.html) 为例介绍该方案，关于transformer的详细了解，请参考该教程。
+另外，需要注意的是，本文档介绍分布式故障恢复方案，需要在[下沉模式](https://mindspore.cn/docs/programming_guide/zh-CN/r1.6/on_device.html) 下使用。本文档将以[分布式并行训练Transformer模型](https://mindspore.cn/docs/programming_guide/zh-CN/r1.6/distributed_training_transformer.html) 为例介绍该方案，关于transformer的详细了解，请参考该教程。
 
 >你可以在这里下载完整的样例代码：
 >
@@ -52,7 +52,7 @@ from mindspore.context import ParallelMode
 from mindspore.nn import PipelineCell
 from mindspore.train.callback import TimeMonitor, LossMonitor, CheckpointConfig, ModelCheckpoint
 def train():
-    # model create...
+    # model create
     # checkpoint save
     ckpt_config = CheckpointConfig(save_ckpt_steps=callback_size, keep_ckpt_max=4,
                                    integrated_save=False)
@@ -82,7 +82,7 @@ epoch: 1 step: 77, loss is 6.271424
 ```
 
 读取group_info.pb，可以获取到权重的冗余信息，该文件解析出来后将得到一个列表，该列表中的值为rank_id，表示这些列表中的rank_id对应的权重切片都是相同的，可以相互替换。
-如下面的例子，0卡的group_inf0.pb解析出来后，发现0卡和4卡的权重切分是完全一致的，当0卡的checkpoint丢失时，可以直接复制4卡checkpoint作为0卡的checkpoint，进行恢复。
+如下面的例子，0卡的group_info.pb解析出来后，发现0卡和4卡的权重切分是完全一致的，当0卡的checkpoint丢失时，可以直接复制4卡checkpoint作为0卡的checkpoint，进行恢复。
 
 ```python
 
@@ -98,7 +98,7 @@ import os
 from mindspore.context import ParallelMode
 from mindspore import context
 def recover_train():
-    # model create...
+    # model create
     # checkpoint load
     if args_opt.ckpt_file:
         param_dict = load_checkpoint(args_opt.ckpt_file)
@@ -109,7 +109,7 @@ def recover_train():
 
 ## 运行代码
 
-首先，请参考分布式并行训练transformer模型教程中的[准备环节](https://mindspore.cn/docs/programming_guide/zh-CN/r1.6/distributed_training_transformer.html#id7) 准备好数据集。
+首先，请参考分布式并行训练Transformer模型教程中的[准备环节](https://mindspore.cn/docs/programming_guide/zh-CN/r1.6/distributed_training_transformer.html#id7) 准备好数据集。
 进入代码目录后，执行保存切片权重的训练脚本。
 
 ```bash
