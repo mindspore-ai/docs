@@ -408,7 +408,7 @@ numpy.load("Conv2D.Conv2D-op107.2.2.1623124369613540.output.0.DefaultFormat.npy"
     - `input_output`：设置成0，表示Dump出算子的输入和算子的输出；设置成1，表示Dump出算子的输入；设置成2，表示Dump出算子的输出。
     - `kernels`：算子的名称列表。开启IR保存开关`context.set_context(save_graphs=True)`并执行用例，从生成的`trace_code_graph_{graph_id}`IR文件中获取算子名称。`kernels`仅支持TBE算子、AiCPU算子、通信算子，若设置成通信算子的名称，将会Dump出通信算子的输入算子的数据。详细说明可以参照教程：[如何保存IR](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/read_ir_files.html#id2)。
     - `support_device`：支持的设备，默认设置成0到7即可；在分布式训练场景下，需要dump个别设备上的数据，可以只在`support_device`中指定需要Dump的设备Id。
-    - `op_debug_mode`：该属性用于算子溢出调试，设置成0，表示不开启溢出；设置成1，表示开启AiCore溢出检测；设置成2，表示开启Atomic溢出检测；设置成3，表示开启全部溢出检测功能。在Dump数据的时候请设置成0，若设置成其他值，则只会Dump溢出算子的数据。
+    - `op_debug_mode`：预留字段，设置为0。
     - `file_format`: dump数据的文件类型，只支持`npy`和`bin`两种取值。设置成`npy`，则dump出的算子张量数据将为host侧格式的npy文件；设置成`bin`，则dump出的数据将为device侧格式的protobuf文件，需要借助转换工具进行处理，详细步骤请参考[异步Dump数据分析样例](#id15)。默认取值为`bin`。
 
 2. 设置数据Dump的环境变量。

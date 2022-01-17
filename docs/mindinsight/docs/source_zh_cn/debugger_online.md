@@ -101,7 +101,6 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 支持的条件包括（括号中为缩写）：
 
 - 检查张量
-    - 检查计算过程溢出（OO）：检查算子计算过程中是否存在溢出现象，仅支持昇腾AI处理器。
     - 检查张量是否全为0（TZ）：通过对条件参数设置阈值来检查张量的0值比例，可选参数为`0值比例>=`。
     - 检查张量溢出（TO）：检查张量值是否存在溢出现象。
     - 检查张量值范围（TR）：通过对条件参数设置阈值来检查张量值的范围，可选参数为`在范围中的值所占百分比>`、`在范围中的值所占百分比<`、`MAX-MIN>`和`MAX-MIN<`。其中在设置`在范围中的值所占百分比>`和`在范围中的值所占百分比<`时需要同时设置支持参数`范围上界（含）`和`范围下界（含）`。
@@ -249,6 +248,5 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 
 - 使用调试器时要保证MindInsight和MindSpore的版本号相同。
 - 重新检查只检查当前有张量值的监测点。
-- 检查计算过程溢出需要用户开启异步Dump的全部溢出检测功能，开启方式请参照[异步Dump功能介绍](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/custom_debugging_info.html#id5)
 - 调试器展示的图是优化后的最终执行图。调用的算子可能已经与其它算子融合，或者在优化后改变了名称。
 - 开启调试器会关闭内存复用，在训练网络过大时有可能导致'out of memory'错误。
