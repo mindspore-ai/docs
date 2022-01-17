@@ -4,7 +4,9 @@
 
 ## 概述
 
-MindSpore Serving提供gRPC接口访问Serving服务。在Python环境下，我们提供[mindspore_serving.client](https://gitee.com/mindspore/serving/blob/master/mindspore_serving/client/python/client.py) 模块用于填写请求、解析回复。gRPC服务端当前支持Ascend和Nvidia GPU平台，客户端运行不依赖特定硬件环境。接下来我们通过`add`和`ResNet-50`样例来详细说明gRPC Python客户端接口的使用。
+运行示例前，需确保已经正确安装了MindSpore Serving，并配置了环境变量。MindSpore Serving安装和配置可以参考[MindSpore Serving安装页面](https://www.mindspore.cn/serving/docs/zh-CN/master/serving_install.html)。
+
+MindSpore Serving提供gRPC接口访问Serving服务。在Python环境下，我们提供[mindspore_serving.client](https://gitee.com/mindspore/serving/blob/master/mindspore_serving/client/python/client.py) 模块用于填写请求、解析回复。Serving服务端运行依赖具体的推理硬件环境，gRPC客户端运行不依赖特定硬件环境。接下来我们通过`add`和`ResNet-50`样例来详细说明gRPC Python客户端接口的使用。
 
 ## add样例
 

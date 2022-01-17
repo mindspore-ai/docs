@@ -4,7 +4,9 @@
 
 ## Overview
 
-The gRPC API is provided to access the MindSpore Serving. In the Python environment, the [mindspore_serving.client](https://gitee.com/mindspore/serving/blob/master/mindspore_serving/client/python/client.py) module is provided to fill in requests and parse responses. The gRPC server supports the Ascend and Nvidia GPU platform. The client running does not depend on a specific hardware environment. The following uses `add` and `ResNet-50` as examples to describe how to use the gRPC Python API on clients.
+Before running the sample network, ensure that MindSpore Serving has been properly installed and the environment variables are configured. To install and configure MindSpore Serving on your PC, go to the [MindSpore Serving installation page](https://www.mindspore.cn/serving/docs/en/master/serving_install.html).
+
+The gRPC API is provided to access the MindSpore Serving. In the Python environment, the [mindspore_serving.client](https://gitee.com/mindspore/serving/blob/master/mindspore_serving/client/python/client.py) module is provided to fill in requests and parse responses. The Serving server depends on the specific inference hardware environment, and the client running does not depend on a specific hardware environment. The following uses `add` and `ResNet-50` as examples to describe how to use the gRPC Python API on clients.
 
 ## add
 

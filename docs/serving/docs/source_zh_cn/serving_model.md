@@ -4,9 +4,7 @@
 
 ## 概述
 
-当以[MindSpore](#https://www.mindspore.cn/)作为推理后端时，MindSpore Serving当前支持Ascend 910/710/310和Nvidia GPU环境。其中Ascend 710/310环境支持`OM`和`MindIR`两种模型格式，Ascend 910和GPU环境仅支持`MindIR`模型格式。
-
-当以[MindSpore Lite](#https://www.mindspore.cn/lite)作为推理后端时，MindSpore Serving当前支持Ascend 310、Nvidia GPU和CPU。当前仅支持`MindIR_Opt`模型格式，MindSpore的`MindIR`或其他框架的模型文件需要通过Lite转换工具转换成`MindIR_Opt`模型格式。模型转换时，如果目标设备为`Ascend310`，产生的`MindIR_Opt`模型仅能在Ascend 310使用；否则产生的`MindIR_Opt`模型仅能在Nvidia GPU和CPU使用。
+运行示例前，需确保已经正确安装了MindSpore Serving，并配置了环境变量。MindSpore Serving安装和配置可以参考[MindSpore Serving安装页面](https://www.mindspore.cn/serving/docs/zh-CN/master/serving_install.html)。
 
 MindSpore Serving的Servable提供推理服务，包含两种类型，一种是推理服务来源于单模型，一种是推理服务来源于多模型组合，它们使用相同的接口进行定义。模型需要进行配置以提供Serving推理服务。
 
