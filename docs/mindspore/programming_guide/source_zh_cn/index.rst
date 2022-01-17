@@ -291,6 +291,18 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
+							<div class="doc-article-item all hidden">
+								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_operator.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">自定义算子</span>
+										</div>
+										<div class="doc-article-desc">
+										分为Ascend自定义算子、GPU自定义算子、CPU自定义算子、基于Custom表达的自定义算子。
+										</div>
+									</div>
+								</a>
+							</div>
 							<div class="doc-article-item all hardware-gpu stage-Model-Optimization experience-local experience-online hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/apply_gradient_accumulation.html" class="article-link">
 									<div>
@@ -867,6 +879,18 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
+							<div class="doc-article-item all hardware-ascend stage-Inference hidden">
+								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/multi_platform_inference_ascend_310.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Ascend 310 AI处理器上推理</span>
+										</div>
+										<div class="doc-article-desc">
+										用户可以创建C++应用程序，调用MindSpore的C++接口推理MindIR模型。
+										</div>
+									</div>
+								</a>
+							</div>
 							<div class="doc-article-item all hardware-ascend hardware-gpu stage-Model-Optimization stage-Data-Preparation experience-local hidden">
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/enable_dataset_autotune.html" class="article-link">
 									<div>
@@ -1111,7 +1135,7 @@ MindSpore编程指南
 								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/lossscale.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">LossScale</span>
+											<span class="doc-head-content">损失缩放</span>
 										</div>
 										<div class="doc-article-desc">
 										LossScale的主要思想是在计算loss时，将loss扩大一定的倍数，由于链式法则的存在，梯度也会相应扩大，然后在优化器更新权重时再缩小相应的倍数，从而避免了数据下溢的情况又不影响计算结果。
