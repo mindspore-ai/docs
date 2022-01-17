@@ -70,10 +70,10 @@ class Callback():
         pass
 ```
 
-The callback can record important information during training and transfer the information to the callback object through a dictionary variable `cb_params`,
-You can obtain related attributes from each custom callback and perform customized operations. You can also customize other variables and transfer them to the `cb_params` object.
+The callback can record important information during training and transfer the information to the callback object through a dictionary variable `RunContext.original_args()`,
+You can obtain related attributes from each custom callback and perform customized operations. You can also customize other variables and transfer them to the `RunContext.original_args()` object.
 
-The main attributes of `cb_params` are as follows:
+The main attributes of `RunContext.original_args()` are as follows:
 
 - loss_fn: Loss function
 - optimizer: Optimizer

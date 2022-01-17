@@ -143,7 +143,7 @@ Example: When the loss value decreases to a certain value, the training stops.
 ```python
 class EarlyStop(Callback):
     def __init__(self, control_loss=1):
-        super(EarlyStep, self).__init__()
+        super(EarlyStop, self).__init__()
         self._control_loss = control_loss
 
     def step_end(self, run_context):

@@ -75,10 +75,10 @@ class Callback():
         pass
 ```
 
-`Callback`可以把训练过程中的重要信息记录下来，通过一个字典类型变量`cb_params`传递给`Callback`对象，
-用户可以在各个自定义的`Callback`中获取到相关属性，执行自定义操作。也可以自定义其他变量传递给`cb_params`对象。
+`Callback`可以把训练过程中的重要信息记录下来，通过把一个字典类型变量`RunContext.original_args()`传递给`Callback`对象，
+用户可以在各个自定义的`Callback`中获取到相关属性，执行自定义操作。也可以自定义其他变量传递给`RunContext.original_args()`对象。
 
-`cb_params`中的主要属性包括：
+`RunContext.original_args()`中的主要属性包括：
 
 - `loss_fn`：损失函数
 - `optimizer`：优化器
