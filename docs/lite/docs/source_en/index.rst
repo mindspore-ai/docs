@@ -306,7 +306,7 @@ MindSpore Lite Documentation
 								<a href="https://www.mindspore.cn/lite/docs/en/r1.6/use/converter_register.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Advanced Model Converter</span>
+											<span class="doc-head-content">Construct custom kernel by registering conversion tool</span>
 										</div>
 										<div class="doc-article-desc">
                       MindSpore Lite provides a highly flexible tool for offline model conversion. It supports users to expand such as combining your own specific hardware with MindSpore Lite Inference Engine.
