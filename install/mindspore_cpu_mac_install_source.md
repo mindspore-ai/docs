@@ -8,6 +8,7 @@
     - [编译MindSpore](#编译mindspore)
     - [安装MindSpore](#安装mindspore)
     - [验证安装是否成功](#验证安装是否成功)
+    - [升级MindSpore版本](#升级mindspore版本)
 
 <!-- /TOC -->
 
@@ -17,23 +18,28 @@
 
 ## 确认系统环境信息
 
-- 确认macOS版本在10.15和11.3之间，其中M1芯片当前只支持11.3。
+- 根据下表中的系统及芯片情况确定合适的Python版本，macOS版本及芯片信息可点击桌面左上角苹果标志->`关于本机`获悉：
+
+    |芯片|计算架构|macOS版本|支持Python版本|
+    |-|-|-|-|
+    |M1|ARM|11.3|Python 3.9.1+（M1当前不支持3.7, 3.9支持最低版本为3.9.1）|
+    |Intel|x86_64|10.15/11.3|Python 3.7.5/Python 3.9.0|
+
+- 确认安装对应的Python版本。如果未安装或者已安装其他版本的Python，可以选择下载并安装：
+
+    - Python 3.7.5 (64-bit)：[官网](https://www.python.org/ftp/python/3.7.5/python-3.7.5-macosx10.9.pkg) 或者 [华为云](https://repo.huaweicloud.com/python/3.7.5/python-3.7.5-macosx10.9.pkg)。
+    - Python 3.9.0 (64-bit)：[官网](https://www.python.org/ftp/python/3.9.0/python-3.9.0-macosx10.9.pkg) 或者 [华为云](https://repo.huaweicloud.com/python/3.9.0/python-3.9.0-macosx10.9.pkg)。
+    - Python 3.9.1 (64-bit)：[官网](https://www.python.org/ftp/python/3.9.1/python-3.9.1-macos11.0.pkg) 或者 [华为云](https://www.python.org/ftp/python/3.9.1/python-3.9.1-macos11.0.pkg)。
 
 - 确认安装[Xcode](https://xcodereleases.com/) (>=12.4 and <= 13.0) ，12.4(X86)及13.0(M1) 已测试。
 
 - 确认安装`Command Line Tools for Xcode`。如果未安装，使用命令`sudo xcode-select --install`安装Command Line Tools。
 
-- 确认安装Python 3.7或Python 3.9版本。如果未安装或者已安装其他版本的Python，可以选择下载并安装：
+- 确认安装[CMake 3.18.3及以上版本](https://cmake.org/download/)。如果没有安装，可以使用`brew install cmake`进行安装。
 
-    - Python 3.7.5 (64-bit macOS 10.15)：[Python官网](https://www.python.org/ftp/python/3.7.5/python-3.7.5-macosx10.9.pkg) or [华为云](https://repo.huaweicloud.com/python/3.7.5/python-3.7.5-macosx10.9.pkg)。
-    - Python 3.9.0 (64-bit macOS 10.15)：[Python官网](https://www.python.org/ftp/python/3.9.0/python-3.9.0-macosx10.9.pkg) or [华为云](https://repo.huaweicloud.com/python/3.9.0/python-3.9.0-macosx10.9.pkg)。
-    - Python 3.9.1 (64-bit macOS 11.3)：[Python官网](https://www.python.org/ftp/python/3.9.1/python-3.9.1-macos11.0.pkg) or [华为云](https://www.python.org/ftp/python/3.9.1/python-3.9.1-macos11.0.pkg)。
+- 确认安装[patch 2.5](https://ftp.gnu.org/gnu/patch/)。如果没有安装，可以使用`brew install patch`进行安装。
 
-- 确认安装[CMake 3.18.3及以上版本](https://cmake.org/download/) . 如果没有安装，可以使用`brew install cmake`进行安装。
-
-- 确认安装[patch 2.5](https://ftp.gnu.org/gnu/patch/) . 如果没有安装，可以使用`brew install patch`进行安装。
-
-- 确认安装[wheel 0.32.0及以上版本](https://pypi.org/project/wheel/). 如果没有安装，可以使用`pip install wheel` 进行安装。
+- 确认安装[wheel 0.32.0及以上版本](https://pypi.org/project/wheel/)。如果没有安装，可以使用`pip install wheel` 进行安装。
 
 ## 从代码仓下载源码
 
@@ -93,5 +99,5 @@ The result of multiplication calculation is correct, MindSpore has been installe
     在源码根目录下执行编译脚本`build.sh`成功后，在`output`目录下找到编译生成的whl安装包，然后执行命令进行升级。
 
     ```bash
-    pip install --upgrade mindspore-*.whl
+    pip install --upgrade mindspore-{version}-{python_version}-macosx_{platform_version}_{arch}.whl
     ```

@@ -19,9 +19,15 @@ This document describes how to quickly install MindSpore by Conda in a macOS sys
 
 ## System Environment Information Confirmation
 
-- Ensure that your macOS version is between 10.15 and 11.3, for M1 chips, 11.3 is the only version supported currently.
+- According to your Macbook configuration(click `About This Mac` to get chip/arch info),choose the right Python version based on following table:
+
+    |Chip|Architecture|macOS Version|Supported Python Version|
+    |-|-|-|-|
+    |M1|ARM|11.3|Python 3.9.1+(3.7.x is not supported with M1, 3.9.1 is the least supported version)|
+    |Intel|x86_64|10.15/11.3|Python 3.7.5/Python 3.9.0|
 
 - Ensure that the Conda version is compatible with the current system.
+
     - If you prefer the complete capabilities provided by Conda. For Intel chips you may download [Anaconda3](https://repo.anaconda.com/archive/); For M1 chips, download [Mambaforge](https://github.com/conda-forge/miniforge).
     - If you want to save disk space or prefer custom Conda installation. For Intel chips you can choose to download [Miniconda3](https://repo.anaconda.com/miniconda/); For M1 chips, download [Miniforge](https://github.com/conda-forge/miniforge).
 
