@@ -513,7 +513,7 @@ mindspore-lite-{version}-linux-x64
 
 5. 编写代码
 
-    打开刚才创建的`mian.cc`，粘贴如下内容：
+    打开刚才创建的`main.cc`，粘贴如下内容：
 
     ```cpp
     #include <iostream>
@@ -1221,7 +1221,7 @@ mindspore-lite-{version}-win-x64
 
 5. 编写代码
 
-    打开刚才创建的`mian.cc`，粘贴如下内容：
+    打开刚才创建的`main.cc`，粘贴如下内容：
 
     ```cpp
     #include <iostream>
