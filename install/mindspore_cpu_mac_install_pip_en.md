@@ -16,7 +16,7 @@ This document describes how to quickly install MindSpore on macOS by pip.
 
 ## System Environment Information Confirmation
 
-- Ensure macOS version between 10.15 and 11.3, for M1 chip currently only support 11.3.
+- Ensure that your macOS version is between 10.15 and 11.3, for M1 chips, 11.3 is the only version supported currently.
 
 - Ensure that Python 3.7 or Python 3.9 is installed. If not installed, download and install Python from:
 
