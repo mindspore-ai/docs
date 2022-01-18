@@ -109,6 +109,7 @@ mindspore.dataset.vision.utils
     :template: classtemplate.rst
 
     mindspore.dataset.vision.Border
+    mindspore.dataset.vision.ConvertMode
     mindspore.dataset.vision.ImageBatchFormat
     mindspore.dataset.vision.Inter
     mindspore.dataset.vision.SliceMode
