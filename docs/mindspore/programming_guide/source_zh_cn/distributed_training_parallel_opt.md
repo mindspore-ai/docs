@@ -59,7 +59,7 @@ import numpy as np
 from mindspore import Parameter, Tensor
 param = Parameter(Tensor(np.ones((10, 2))), name='weight1', parallel_optimizer=True)
 
-# 或者通过下述的方式配置
+# Another way to set the parallel_optimizer attribute
 param2 = Parameter(Tensor(np.ones((10, 2))), name='weight2')
 param2.parallel_optimizer = False
 ```
@@ -68,52 +68,69 @@ param2.parallel_optimizer = False
 
 在设置参数优化器并行一节中，我们阐述了如何配置每个参数的优化器并行属性。在全/半自动模式下，每个参数都会产生一个对应的AllGather操作和ReduceScatter操作。这些通信算子是自动并行框架自动插入的。然而，随着参数量增多，对应的通信算子也会增多，通信操作产生的算子调度和启动都会产生更多的开销。因此，可以通过`cell`提供的`set_comm_fusion`方法，对每个`cell`内的参数对应的AllGather和ReduceScatter操作配置融合标记。
 
-`Transformer`接口提供了`lambda_func`参数来自定义每层的分组融合标记。如下代码所示，通过此接口将Transformer中每一层的参数配置了fusion值，融合的通信算子个数设置为2个。
+如下述的代码所示，针对实例化后的DenseLayer，调用`set_comm_fusion`方法，为每一层设置fusion值。
 
 ```python
 """Parallel Optimizer Fusion Example"""
 from mindspore.communication import init
+from mindspore import nn
 from mindspore import context, ParallelMode
-from mindspore.nn.transformer import Transformer, TransformerOpParallelConfig
-
 init()
 context.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, enable_parallel_optimizer=True)
-def set_parallel_configure_for_layer(network, layer_id, offset, parallel_config, layers):
 
-    # 将transformer的融合层数设置为4个
-    gradient_aggregation_group = 4
-    dis = max(int((layers + offset) / gradient_aggregation_group), 1)
-    # 此处的network是一个cell，用户可以针对自己的网络层调用set_comm_fusion方法
-    network.set_comm_fusion(int((layer_id + offset) / dis) + 1)
+class DenseLayer(nn.Cell):
+    """A base layer with two dense layer"""
+    def __init__(self):
+        super().__init__()
+        self.input_mapping = nn.Dense(10, 10)
+        self.output_mapping = nn.Dense(10, 10)
+    def construct(self, x):
+        x = self.input_mapping(x)
+        return self.output_mapping(x)
 
-model_parallel_config = TransformerOpParallelConfig()
-net = Transformer(encoder_layers=1, decoder_layers=1,
-                  batch_size=4, src_seq_length=10,
-                  tgt_seq_length=10, hidden_size=24,
-                  num_heads=8, attention_dropout_rate=0.0,
-                  hidden_dropout_rate=0.0, lambda_func=set_parallel_configure_for_layer,
-                  ffn_hidden_size=24, parallel_config=model_parallel_config)
+class Net(nn.Cell):
+    """An network with many dense layers"""
+    def __init__(self):
+        super().__init__()
+        self.layer1 = DenseLayer()
+        self.layer2 = DenseLayer()
+        self.layer3 = DenseLayer()
+        self.layer1.set_comm_fusion(0)
+        self.layer2.set_comm_fusion(1)
+        self.layer3.set_comm_fusion(2)
+    def construct(self, x):
+        x = self.layer1(x)
+        x = self.layer2(x)
+        x = self.layer3(x)
+        return x
+
+net = Net()
 for item in net.trainable_params():
-    if 'dense1' in item.name:
-        print(f"The parameter {item.name}'s fusion id is {item.comm_fusion}")
+    print(f"The parameter {item.name}'s fusion id is {item.comm_fusion}")
 ```
 
 对应的输出如下，表示了每层特定dense的funsion值：
 
 ```text
-The parameter encoder.blocks.0.attention.dense1.weight's fusion id is 1
-The parameter encoder.blocks.0.attention.dense1.bias's fusion id is 1
-The parameter decoder.blocks.0.attention.dense1.weight's fusion id is 2
-The parameter decoder.blocks.0.attention.dense1.bias's fusion id is 2
-The parameter decoder.blocks.0.cross_attention.dense1.weight's fusion id is 2
-The parameter decoder.blocks.0.cross_attention.dense1.bias's fusion id is 2
+The parameter layer1.input_mapping.weight's fusion id is 0
+The parameter layer1.input_mapping.bias's fusion id is 0
+The parameter layer1.output_mapping.weight's fusion id is 0
+The parameter layer1.output_mapping.bias's fusion id is 0
+The parameter layer2.input_mapping.weight's fusion id is 1
+The parameter layer2.input_mapping.bias's fusion id is 1
+The parameter layer2.output_mapping.weight's fusion id is 1
+The parameter layer2.output_mapping.bias's fusion id is 1
+The parameter layer3.input_mapping.weight's fusion id is 2
+The parameter layer3.input_mapping.bias's fusion id is 2
+The parameter layer3.output_mapping.weight's fusion id is 2
+The parameter layer3.output_mapping.bias's fusion id is 2
 ```
 
 >在编译图的流程中，相同融合标记并且是相同的通信操作，会被融合成一个通信操作。从而减少通信操作的数量。对于融合标记为0的通信算子时，优化流程中不会对它们进行融合。
 
 开启优化器切分时，网络中每个参数都会产生一个相应的通信算子，然而频繁地调用通信算子将造成较多的算子启动消耗。将这些通信算子融合成一个通信算子，是最有效减少通信算子个数的办法。MindSpore提供了但这样会导致计算资源的浪费。例如，将所有的通信算子融合成一个算子后，在当前训练迭代中，NPU需要等待切分的参数汇聚完成后才能进行网络的前向计算。这样会造成设备的等待。
 
-为了避免上述问题，可以将网络参数进行分组融合：在上一组参数进行的计算的同时，进行下组参数的通信，使得计算和通信能够互相隐藏。这就是上述代码将通信算子个数融合成2个而不是1个的原因。
+为了避免上述问题，可以将网络参数进行分组融合：在上一组参数进行的计算的同时，进行下组参数的通信，使得计算和通信能够互相隐藏。这就是上述代码将`layer2`和`layer3`设置不同fusion值的原因。
 
 ## 运行代码
 
