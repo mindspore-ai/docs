@@ -1,6 +1,6 @@
 # 一小时入门
 
-`Android` `C++` `全流程` `模型转换` `模型加载` `推理应用` `数据准备` `初级` `中级` `高级`
+`Windows` `Linux` `Android` `C++` `全流程` `模型转换` `模型加载` `推理应用` `数据准备` `初级` `中级` `高级`
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/lite/docs/source_zh_cn/quick_start/one_hour_introduction.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
