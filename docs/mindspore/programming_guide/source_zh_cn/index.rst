@@ -1611,18 +1611,6 @@ MindSpore编程指南
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Linux hardware-Ascend stage-Whole-Process user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/r1.2/advanced_use/use_on_the_cloud.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">在云上使用MindSpore</span>
-										</div>
-										<div class="doc-article-desc">
-											ModelArts是华为云提供的面向开发者的一站式AI开发平台，集成了昇腾AI处理器资源池，用户可以在该平台下体验MindSpore。本教程以ResNet-50为例，简要介绍如何在ModelArts使用MindSpore完成训练任务。
-										</div>
-									</div>
-								</a>
-							</div>
 						</div>
 				
 					</div>
