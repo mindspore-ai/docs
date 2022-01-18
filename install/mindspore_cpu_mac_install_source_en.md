@@ -8,6 +8,7 @@
     - [Compiling MindSpore](#compiling-mindspore)
     - [Installing MindSpore](#installing-mindspore)
     - [Installation Verification](#installation-verification)
+    - [Version Update](#version-update)
 
 <!-- /TOC -->
 
@@ -17,17 +18,22 @@ This document describes how to quickly install MindSpore by compiling source cod
 
 ## System Environment Information Confirmation
 
-- Ensure macOS version between 10.15 and 11.3, for M1 chip currently only support 11.3.
+- According to your Macbook configuration(click `About This Mac` to get chip/arch info),choose the right Python version based on following table:
 
-- Ensure [Xcode](https://xcodereleases.com/) (>=12.4 and <= 13.0) is installed, where 12.4(X86) and 13.0(m1) are verified.
+    |Chip|Architecture|macOS Version|Supported Python Version|
+    |-|-|-|-|
+    |M1|ARM|11.3|Python 3.9.1+(3.7.x is not supported with M1, 3.9.1 is the least supported version)|
+    |Intel|x86_64|10.15/11.3|Python 3.7.5/Python 3.9.0|
 
-- Ensure Command Line Tools for Xcode is installed. If not, use `sudo xcode-select --install` command to install it.
+- Ensure that right Python version is installed. If not installed, download and install Python from:
 
-- Ensure that Python 3.7 or 3.9 is installed. If not installed, download and install Python from:
+    - Python 3.7.5 (64-bit)：[Python official website](https://www.python.org/ftp/python/3.7.5/python-3.7.5-macosx10.9.pkg) or [HUAWEI CLOUD](https://repo.huaweicloud.com/python/3.7.5/python-3.7.5-macosx10.9.pkg).
+    - Python 3.9.0 (64-bit)：[Python official website](https://www.python.org/ftp/python/3.9.0/python-3.9.0-macosx10.9.pkg) or [HUAWEI CLOUD](https://repo.huaweicloud.com/python/3.9.0/python-3.9.0-macosx10.9.pkg).
+    - Python 3.9.1 (64-bit)：[Python official website](https://www.python.org/ftp/python/3.9.1/python-3.9.1-macos11.0.pkg) or [HUAWEI CLOUD](https://www.python.org/ftp/python/3.9.1/python-3.9.1-macos11.0.pkg).
 
-    - Python 3.7.5 (64-bit for macOS 10.15)：[Python official website](https://www.python.org/ftp/python/3.7.5/python-3.7.5-macosx10.9.pkg) or [HUAWEI CLOUD](https://repo.huaweicloud.com/python/3.7.5/python-3.7.5-macosx10.9.pkg).
-    - Python 3.9.0 (64-bit for macOS 10.15)：[Python official website](https://www.python.org/ftp/python/3.9.0/python-3.9.0-macosx10.9.pkg) or [HUAWEI CLOUD](https://repo.huaweicloud.com/python/3.9.0/python-3.9.0-macosx10.9.pkg).
-    - Python 3.9.1 (64-bit for macOS 11.3)：[Python official website](https://www.python.org/ftp/python/3.9.1/python-3.9.1-macos11.0.pkg) or [HUAWEI CLOUD](https://www.python.org/ftp/python/3.9.1/python-3.9.1-macos11.0.pkg).
+- Ensure that [Xcode](https://xcodereleases.com/) (>=12.4 and <= 13.0) is installed, where 12.4(X86) and 13.0(m1) are verified.
+
+- Ensure that `Command Line Tools` for Xcode is installed. If not, use `sudo xcode-select --install` command to install it.
 
 - Ensure that [CMake](https://cmake.org/download/) > `3.18.3` is installed. Use `brew install cmake` if it's not installed.
 
