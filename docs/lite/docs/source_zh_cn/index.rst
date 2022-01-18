@@ -308,7 +308,7 @@ MindSpore Lite文档
 								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r1.6/use/converter_register.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">推理模型转换进阶</span>
+											<span class="doc-head-content">离线构建自定义算子</span>
 										</div>
 										<div class="doc-article-desc">
                       MindSpore Lite提供一个具有高度灵活性的离线模型转换工具，支持用户基于该工具进行扩展，比如，可将用户特有硬件与MindSpore Lite推理引擎结合。
@@ -359,7 +359,7 @@ MindSpore Lite文档
 											<span class="doc-head-content">使用C++接口执行推理</span>
 										</div>
 										<div class="doc-article-desc">
-											通过MindSpore Lite模型转换后，需在Runtime中完成模型的推理执行流程。本教程介绍如何使用Java接口编写推理代码。
+											通过MindSpore Lite模型转换后，需在Runtime中完成模型的推理执行流程。本教程介绍如何使用C++接口编写推理代码。
 										</div>
 									</div>
 								</a>
@@ -371,7 +371,7 @@ MindSpore Lite文档
 											<span class="doc-head-content">使用Java接口执行推理</span>
 										</div>
 										<div class="doc-article-desc">
-											通过MindSpore Lite模型转换后，需在Runtime中完成模型的推理执行流程。本教程介绍如何使用C++接口编写推理代码。
+											通过MindSpore Lite模型转换后，需在Runtime中完成模型的推理执行流程。本教程介绍如何使用Java接口编写推理代码。
 										</div>
 									</div>
 								</a>
