@@ -1,5 +1,31 @@
 # Release List
 
+- [Release List](#release-list)
+    - [Related Documents](#related-documents)
+    - [Ascend Supporting Software Package](#ascend-supporting-software-package)
+    - [Downloads](#downloads)
+        - [1.5.2](#152)
+        - [1.5.1](#151)
+        - [1.5.0](#150)
+        - [1.5.0-rc1](#150-rc1)
+        - [1.4.1](#141)
+        - [1.4.0](#140)
+        - [1.3.0](#130)
+        - [1.2.1](#121)
+        - [1.2.0](#120)
+        - [1.2.0-rc1](#120-rc1)
+        - [1.1.1](#111)
+        - [1.1.0](#110)
+        - [1.0.1](#101)
+        - [1.0.0](#100)
+        - [0.7.0-beta](#070-beta)
+        - [0.6.0-beta](#060-beta)
+        - [0.5.2-beta](#052-beta)
+        - [0.5.0-beta](#050-beta)
+        - [0.3.0-alpha](#030-alpha)
+        - [0.2.0-alpha](#020-alpha)
+        - [0.1.0-alpha](#010-alpha)
+
 <a href="https://gitee.com/mindspore/docs/blob/r1.6/resource/release/release_list_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
 ## Related Documents
