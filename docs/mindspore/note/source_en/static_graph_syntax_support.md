@@ -380,7 +380,7 @@ Currently, `Cell` and its subclass instances can be constructed on the network. 
 
 However, during construction, the parameter can be specified only in position parameter mode, and cannot be specified in the key-value pair mode. That is, the syntax `cell = Cell(arg_name=value)` is not supported.
 
-Currently, the attributes and APIs related to `Cell` and its subclasses cannot be called on the network unless they are called through `self` in `contrcut` of `Cell`.
+Currently, the attributes and APIs related to `Cell` and its subclasses cannot be called on the network unless they are called through `self` in `constrcut` of `Cell`.
 
 For details about the definition of `Cell`, click <https://www.mindspore.cn/docs/programming_guide/en/r1.6/cell.html>.
 
