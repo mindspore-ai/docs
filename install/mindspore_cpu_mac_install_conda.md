@@ -19,8 +19,15 @@
 
 ## 确认系统环境信息
 
-- 确认macOS版本在10.15和11.3之间，其中M1芯片当前只支持11.3。
+- 根据下表中的系统及芯片情况确定合适的Python版本，macOS版本及芯片信息可点击桌面左上角苹果标志->`关于本机`获悉：
+
+    |芯片|计算架构|macOS版本|支持Python版本|
+    |-|-|-|-|
+    |M1|ARM|11.3|Python 3.9.1+（M1当前不支持3.7, 3.9支持最低版本为3.9.1）|
+    |Intel|x86_64|10.15/11.3|Python 3.7.5/Python 3.9.0|
+
 - 确认安装与当前系统兼容的Conda版本。
+
     - 如果您喜欢Conda提供的完整能力，Intel芯片可以选择下载[Anaconda3](https://repo.anaconda.com/archive/)；M1芯片可以选择下载[Mambaforge](https://github.com/conda-forge/miniforge)。
     - 如果您需要节省磁盘空间，或者喜欢自定义安装Conda软件包，Intel芯片可以选择下载[Miniconda3](https://repo.anaconda.com/miniconda/)；M1芯片可以选择下载[Miniforge](https://github.com/conda-forge/miniforge)。
 
