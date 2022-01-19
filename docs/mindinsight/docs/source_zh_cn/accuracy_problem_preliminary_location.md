@@ -386,8 +386,6 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 使用GPU时，通过[调试器](https://mindspore.cn/mindinsight/docs/zh-CN/master/debugger_online.html#id10)中的“检查张量溢出”监测点可以进行溢出检查。
 
-使用Ascend AI处理器时，使能溢出检查的详细方法请见[异步Dump文档](https://mindspore.cn/docs/programming_guide/zh-CN/master/dump_in_graph_mode.html#id11)。使能溢出检查时，注意设置op_debug_mode为3，开启全部溢出检测功能。若在指定的目录存在算子溢出信息文件，则说明存在溢出问题，反之，则说明不存在溢出问题。
-
 发现溢出问题后，应首先找到并分析第一个出现溢出的节点（对于Ascend的溢出数据，可以按文件名中的时间戳，找时间戳最小的一个；对于GPU上的溢出，只要找执行序中最靠前的一个），结合算子的输入输出数据确定溢出原因。
 
 出现溢出问题后常见的解决措施如下：
