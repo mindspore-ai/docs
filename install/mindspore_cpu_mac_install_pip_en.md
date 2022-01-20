@@ -16,13 +16,18 @@ This document describes how to quickly install MindSpore on macOS by pip.
 
 ## System Environment Information Confirmation
 
-- Ensure that your macOS version is between 10.15 and 11.3, for M1 chips, 11.3 is the only version supported currently.
+- According to your Macbook configuration(click "About This Mac" to get chip/arch info),choose the right Python version based on following table:
 
-- Ensure that Python 3.7 or Python 3.9 is installed. If not installed, download and install Python from:
+    |Chip|Architecture|macOS Version|Supported Python Version|
+    |-|-|-|-|
+    |M1|ARM|11.3|Python 3.9.1+(3.7.x is not supported with M1, 3.9.1 is the least supported version)|
+    |Intel|x86_64|10.15/11.3|Python 3.7.5/Python 3.9.0|
 
-    - Python 3.7.5 (64-bit for macOS 10.15)：[Python official website](https://www.python.org/ftp/python/3.7.5/python-3.7.5-macosx10.9.pkg) or [HUAWEI CLOUD](https://repo.huaweicloud.com/python/3.7.5/python-3.7.5-macosx10.9.pkg).
-    - Python 3.9.0 (64-bit for macOS 10.15)：[Python official website](https://www.python.org/ftp/python/3.9.0/python-3.9.0-macosx10.9.pkg) or [HUAWEI CLOUD](https://repo.huaweicloud.com/python/3.9.0/python-3.9.0-macosx10.9.pkg).
-    - Python 3.9.1 (64-bit for macOS 11.3)：[Python official website](https://www.python.org/ftp/python/3.9.1/python-3.9.1-macos11.0.pkg) or [HUAWEI CLOUD](https://www.python.org/ftp/python/3.9.1/python-3.9.1-macos11.0.pkg).
+- Ensure that right Python version is installed. If not installed, download and install Python from:
+
+    - Python 3.7.5 (64-bit)：[Python official website](https://www.python.org/ftp/python/3.7.5/python-3.7.5-macosx10.9.pkg) or [HUAWEI CLOUD](https://repo.huaweicloud.com/python/3.7.5/python-3.7.5-macosx10.9.pkg).
+    - Python 3.9.0 (64-bit)：[Python official website](https://www.python.org/ftp/python/3.9.0/python-3.9.0-macosx10.9.pkg) or [HUAWEI CLOUD](https://repo.huaweicloud.com/python/3.9.0/python-3.9.0-macosx10.9.pkg).
+    - Python 3.9.1 (64-bit)：[Python official website](https://www.python.org/ftp/python/3.9.1/python-3.9.1-macos11.0.pkg) or [HUAWEI CLOUD](https://www.python.org/ftp/python/3.9.1/python-3.9.1-macos11.0.pkg).
 
 ## Installing MindSpore
 
@@ -34,8 +39,8 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindSp
 
 Of which,
 
-- When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/r1.6/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/r1.6/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/r1.6/requirements.txt).
-- `{version}` specifies the MindSpore version number. For example, when installing MindSpore 1.6.0, set `{version}` to 1.6.0, when installing MindSpore 1.6.0-rc1, the first `{version}` which represents download path should be written as 1.6.0-rc1, and the second `{version}` which represents file name should be 1.6.0rc1.
+- When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
+- `{version}` specifies the MindSpore version number. For example, when installing MindSpore 1.5.0, set `{version}` to 1.5.0, when installing MindSpore 1.5.0-rc1, the first `{version}` which represents download path should be written as 1.5.0-rc1, and the second `{version}` which represents file name should be 1.5.0rc1.
 - `{python_version}` spcecifies the python version for which MindSpore is built. If you wish to use Python3.7.5,`{python_version}` should be `cp37-cp37m`. If Python3.9.0 is used, it should be `cp39-cp39`.
 - `{platform_version}` specifies the macOS version number. For example, when installing macOS 10.15, set `{platform_version}` to `10_15`.
 - `{arch}` denotes the system architecture. For example, the macOS you are using is x86 architecture 64-bit, `{arch}` should be `x86_64`. If the system is ARM architecture 64-bit, then it should be `arm64`.
@@ -65,4 +70,4 @@ pip install --upgrade mindspore=={version}
 
 Of which,
 
-- When updating to a standard release, `=={version}` could be removed.
+- When updating to a release candidate (rc) version, `{version}` should be specified, e.g. 1.5.0rc1; When updating to a standard release, `=={version}` could be removed.
