@@ -1,9 +1,7 @@
 """Modify docutils.nodes."""
-import os
 import inspect
 from docutils import nodes as docu_node
 from docutils.nodes import document
-import nbsphinx as nbs
 
 
 short_title_define = '''\
@@ -45,15 +43,3 @@ document_content = document_content.replace(before, after)
 exec(short_title_define, docu_node.__dict__)
 exec(document_content, docu_node.__dict__)
 exec(dupname_rewrite, docu_node.__dict__)
-
-# Remove extra outputs for nbsphinx extension.
-nbsphinx_source = r"    app.connect('html-collect-pages', html_collect_pages)\n"
-before2 = "link_id = title.replace(' ', '-')"
-after2 = "link_id = short_title(title)"
-mod_path = os.path.abspath(nbs.__file__)
-with open(mod_path, "r+", encoding="utf8") as f:
-    contents = f.read()
-    contents.replace(nbsphinx_source, '')
-    contents = contents.replace(before2, after2)
-    exec(short_title_define, nbs.__dict__)
-    exec(contents, nbs.__dict__)
