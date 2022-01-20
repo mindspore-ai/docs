@@ -14,6 +14,7 @@ import os
 import sys
 import IPython
 import re
+import nbsphinx as nbs
 sys.path.append(os.path.abspath('../_ext'))
 from sphinx.ext import autodoc as sphinx_autodoc
 
@@ -114,9 +115,20 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
 
-sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
-import anchor_mod
-import nbsphinx_mod
+# Remove extra outputs for nbsphinx extension.
+nbsphinx_source_re = re.compile(r"(app\.connect\('html-collect-pages', html_collect_pages\))")
+nbsphinx_math_re = re.compile(r"(\S.*$)")
+mod_path = os.path.abspath(nbs.__file__)
+with open(mod_path, "r+", encoding="utf8") as f:
+    contents = f.readlines()
+    for num, line in enumerate(contents):
+        _content_re = nbsphinx_source_re.search(line)
+        if _content_re and "#" not in line:
+            contents[num] = nbsphinx_source_re.sub(r"# \g<1>", line)
+        if "mathjax_config = app.config" in line and "#" not in line:
+            contents[num:num+10] = [nbsphinx_math_re.sub(r"# \g<1>", i) for i in contents[num:num+10]]
+            break
+    exec("".join(contents), nbs.__dict__)
 
 
 sys.path.append(os.path.abspath('../../../../resource/search'))
