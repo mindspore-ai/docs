@@ -21,9 +21,11 @@
 |GLOG_v|MindSpore|[日志功能与用法](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#id11)|Integer|0-DEBUG <br>1-INFO <br>2-WARNING <br>3-ERROR|无|可选|2|
 |GLOG_logtostderr|MindSpore|[日志功能与用法](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#id11)|Integer|1:日志输出到屏幕 <br> 0:日志输出到文件|与GLOG_log_dir一起使用|可选|1|
 |GLOG_log_dir|MindSpore|[日志功能与用法](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#id11)|String|文件路径，支持相对路径与绝对路径|与GLOG_logtostderr一起使用|可选|无|
-|GLOG_log_max|MindSpore|[日志功能与用法](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#id11)|Integer|正整数|无|可选|50|
-|MS_SUBMODULE_LOG_v|MindSpore|[日志功能与用法](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#id11)|Dict{String:Integer...}|LogLevel: 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR<br>SubModual: COMMON, MD, DEBUG, DEVICE, COMMON, IR...|无|可选|无|
 |GLOG_stderrthreshold|MindSpore|[日志功能与用法](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#id11)|Integer|0-DEBUG <br>1-INFO <br>2-WARNING <br>3-ERROR|无|可选|2
+|MS_SUBMODULE_LOG_v|MindSpore|[日志功能与用法](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#id11)|Dict{String:Integer...}|LogLevel: 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR<br>SubModual: COMMON, MD, DEBUG, DEVICE, COMMON, IR...|无|可选|无|
+|GLOG_log_max|MindSpore|[日志功能与用法](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#id11)|Integer|正整数|无|可选|50|
+|logger_maxBytes|MindSpore|[日志功能与用法](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#id11)|Integer|无|无|可选|52428800|
+|logger_backupCount|MindSpore|[日志功能与用法](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#id11)|Integer|无|无|可选|30
 |OPTION_PROTO_LIB_PATH|MindSpore|RPOTO依赖库库路径|String|目录路径，支持相对路径与绝对路径|无|可选|无|
 |MS_OM_PATH|MindSpore|配置task异常时dump数据路径以及图编译出错时dump的analyze_fail.dat文件的保存目录，保存路径为：指定的路径/rank_${rand_id}/om|String|文件路径，支持相对路径与绝对路径|无|可选|无|
 |MINDSPORE_DUMP_CONFIG|MindSpore|指定[云侧Dump功能](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dump_in_graph_mode.html#id6)或[端侧Dump功能](https://www.mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html#dump)所依赖的配置文件的路径|String|文件路径，支持相对路径与绝对路径|无|可选|无|

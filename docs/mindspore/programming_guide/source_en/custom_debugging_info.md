@@ -344,8 +344,10 @@ MindSpore uses glog to output logs. The following environment variables are comm
     Logs of C++ and Python will be output to different files. The file name of C++ log complies with the naming rule of `GLOG` log file. Here, the name is `mindspore.MachineName.UserName.log.LogLevel.Timestamp`. The file name of Python log is `mindspore.log`.  
     `GLOG_log_dir` can only contains characters such as uppercase letters, lowercase letters, digits, "-", "_" and "/".
 
-- `GLOG_log_max`
-    Each log file's max size is 50 MB by default. But we can change it by set this environment variable. When the log file reaches the max size, the next logs will be written to the new log file.
+- `GLOG_stderrthreshold`
+
+    The log module will print logs to the screen when these logs are output to a file. This environment variable is used to control the log level printed to the screen in this scenario.
+    The default value is 2, indicating the WARNING level. The values are as follows: 0: DEBUG; 1: INFO; 2: WARNING; 3: ERROR; 4: CRITICAL.
 
 - `MS_SUBMODULE_LOG_v`
 
@@ -353,11 +355,6 @@ MindSpore uses glog to output logs. The following environment variables are comm
     The environment variable is assigned as: `MS_SUBMODULE_LOG_v="{SubModule1:LogLevel1,SubModule2:LogLevel2,...}"`.  
     The specified sub module log level will overwrite the global log level. The meaning of sub module log level is the same as `GLOG_v`, the sub modules of MindSpore are categorized by source directory is shown in the below table.  
     E.g. when set `GLOG_v=1 MS_SUBMODULE_LOG_v="{PARSER:2,ANALYZER:2}"` then log levels of `PARSER` and `ANALYZER` are WARNING, other modules' log levels are INFO.
-
-- `GLOG_stderrthreshold`
-
-    The log module will print logs to the screen when these logs are output to a file. This environment variable is used to control the log level printed to the screen in this scenario.
-    The default value is 2, indicating the WARNING level. The values are as follows: 0: DEBUG; 1: INFO; 2: WARNING; 3: ERROR; 4: CRITICAL.
 
 Sub modules of MindSpore grouped by source directory:
 
@@ -387,5 +384,17 @@ Sub modules of MindSpore grouped by source directory:
 | mindspore/ccsrc | ME |
 | mindspore/core/gvar | COMMON |
 | mindspore/core/ | CORE |
+
+- `GLOG_log_max`
+
+    It is used to control the size of the mindspire C + + module log file. The default maximum is 50MB. You can change the default maximum value of the log file through this environment variable. If the currently written log file exceeds the maximum value, the newly output log content will be written to the new log file.
+
+- `logger_maxBytes`
+
+    It is used to control the size of the mindspire Python module log file. The default is 52428800 bytes.
+
+- `logger_backupCount`
+
+    Used to control the number of mindspire Python module log files. The default is 30.
 
 > The glog does not support log rotate. To control the disk space occupied by log files, use the log file management tool provided by the operating system, such as: logrotate of Linux.
