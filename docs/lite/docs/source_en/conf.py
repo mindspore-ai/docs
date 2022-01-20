@@ -58,9 +58,6 @@ html_theme = 'sphinx_rtd_theme'
 
 html_static_path = ['_static']
 
-sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
-import anchor_mod
-
 sys.path.append(os.path.abspath('../../../../resource/custom_directives'))
 from custom_directives import IncludeCodeDirective
 
