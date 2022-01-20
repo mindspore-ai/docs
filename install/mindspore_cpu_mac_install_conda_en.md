@@ -19,17 +19,17 @@ This document describes how to quickly install MindSpore by Conda in a macOS sys
 
 ## System Environment Information Confirmation
 
-- According to your Macbook configuration(click `About This Mac` to get chip/arch info),choose the right Python version based on following table:
+- According to your Macbook configuration(click `About This Mac` to get chip/arch info), choose the right Python and Conda version based on following table:
 
-    |Chip|Architecture|macOS Version|Supported Python Version|
-    |-|-|-|-|
-    |M1|ARM|11.3|Python 3.9.1+(3.7.x is not supported with M1, 3.9.1 is the least supported version)|
-    |Intel|x86_64|10.15/11.3|Python 3.7.5/Python 3.9.0|
+    |Chip|Architecture|macOS Version|Supported Python Version|Supported Conda Version|
+    |-|-|-|-|-|
+    |M1|ARM|11.3|Python 3.9.1+(3.7.x is not supported with M1, 3.9.1 is the least supported version)|Mambaforge or Miniforge|
+    |Intel|x86_64|10.15/11.3|Python 3.7.5/Python 3.9.0|Anaconda or Miniconda|
 
-- Ensure that the Conda version is compatible with the current system.
+- Ensure that the Conda version is compatible with the current system and chip.
 
-    - If you prefer the complete capabilities provided by Conda. For Intel chips you may download [Anaconda3](https://repo.anaconda.com/archive/); For M1 chips, download [Mambaforge](https://github.com/conda-forge/miniforge).
-    - If you want to save disk space or prefer custom Conda installation. For Intel chips you can choose to download [Miniconda3](https://repo.anaconda.com/miniconda/); For M1 chips, download [Miniforge](https://github.com/conda-forge/miniforge).
+    - If you prefer the complete capabilities provided by Conda. You may download [Anaconda3](https://repo.anaconda.com/archive/) or [Mambaforge](https://github.com/conda-forge/miniforge).
+    - If you want to save disk space or prefer custom Conda installation. You may download [Miniconda3](https://repo.anaconda.com/miniconda/) or [Miniforge](https://github.com/conda-forge/miniforge).
 
 ## Creating and Accessing the Conda Virtual Environment
 

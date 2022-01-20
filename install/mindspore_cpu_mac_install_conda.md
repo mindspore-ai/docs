@@ -19,17 +19,17 @@
 
 ## 确认系统环境信息
 
-- 根据下表中的系统及芯片情况确定合适的Python版本，macOS版本及芯片信息可点击桌面左上角苹果标志->`关于本机`获悉：
+- 根据下表中的系统及芯片情况确定合适的Python与Conda版本，macOS版本及芯片信息可点击桌面左上角苹果标志->`关于本机`获悉：
 
-    |芯片|计算架构|macOS版本|支持Python版本|
-    |-|-|-|-|
-    |M1|ARM|11.3|Python 3.9.1+（M1当前不支持3.7, 3.9支持最低版本为3.9.1）|
-    |Intel|x86_64|10.15/11.3|Python 3.7.5/Python 3.9.0|
+    |芯片|计算架构|macOS版本|支持Python版本|支持Conda版本|
+    |-|-|-|-|-|
+    |M1|ARM|11.3|Python 3.9.1+（M1当前不支持3.7, 3.9支持最低版本为3.9.1）|Mambaforge 或 Miniforge|
+    |Intel|x86_64|10.15/11.3|Python 3.7.5/Python 3.9.0|Anaconda 或 MiniConda|
 
-- 确认安装与当前系统兼容的Conda版本。
+- 确认安装与当前系统及芯片型号兼容的Conda版本。
 
-    - 如果您喜欢Conda提供的完整能力，Intel芯片可以选择下载[Anaconda3](https://repo.anaconda.com/archive/)；M1芯片可以选择下载[Mambaforge](https://github.com/conda-forge/miniforge)。
-    - 如果您需要节省磁盘空间，或者喜欢自定义安装Conda软件包，Intel芯片可以选择下载[Miniconda3](https://repo.anaconda.com/miniconda/)；M1芯片可以选择下载[Miniforge](https://github.com/conda-forge/miniforge)。
+    - 如果您喜欢Conda提供的完整能力，可以选择下载[Anaconda3](https://repo.anaconda.com/archive/)或[Mambaforge](https://github.com/conda-forge/miniforge)。
+    - 如果您需要节省磁盘空间，或者喜欢自定义安装Conda软件包，可以选择下载[Miniconda3](https://repo.anaconda.com/miniconda/)或[Miniforge](https://github.com/conda-forge/miniforge)。
 
 ## 创建并进入Conda虚拟环境
 
