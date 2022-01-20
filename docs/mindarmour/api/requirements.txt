@@ -1,4 +1,5 @@
 sphinx >= 2.2.1, <= 2.4.4
+docutils == 0.17
 sphinx_rtd_theme
 numpy
 opencv-python
