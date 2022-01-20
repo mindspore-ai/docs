@@ -126,7 +126,6 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
 | `dynamic_batch_size`       | 可选 | 指定[动态BatchSize](#动态Batch size)参数。 | String | `"2,4"`|
 | `dynamic_image_size`       | 可选 | 指定[动态分辨率](#动态分辨率)参数。  | String | `"96,96;32,32"` |
 | `fusion_switch_config_file_path` | 可选 | 配置[融合规则开关配置](https://support.huaweicloud.com/atctool-cann504alpha2infer/atlasatc_16_0077.html)文件路径及文件名。 | String   | -      |
-| `op_select_implmode`       | 可选 | 配置算子选择模式。 | String   | 可选有`"high_performance"`和`"high_precision"`，默认为`"high_performance"` |
 | `insert_op_config_file_path` | 可选 | 模型插入[AIPP](https://support.huaweicloud.com/adevg-ms-atlas200dkappc32/atlasadm_01_0023.html)算子 | String  | [AIPP](https://support.huaweicloud.com/adevg-ms-atlas200dkappc32/atlasadm_01_0023.html)配置文件路径 |
 
 ## 推理工具runtime
