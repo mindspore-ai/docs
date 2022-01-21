@@ -80,11 +80,7 @@ The Android demo for on-device image segmentation uses the Java layer. Therefore
 app
 ├── src/main
 │   ├── assets # Resource file
-|   |   └── model # Model file
-|   |       └── segment_model.ms # Stored model file
-│   |
-│   ├── libs # Binary archive file of the Android library project
-|   |   └── mindspore-lite-version.aar # MindSpore Lite archive file of the Android version
+|   |   └── segment_model.ms # Stored model file
 │   |
 │   ├── java # Application code at the Java layer
 │   │   └── com.mindspore.imagesegmentation
@@ -95,7 +91,9 @@ app
 │   ├── res # Resource files related to Android
 │   └── AndroidManifest.xml # Android configuration file
 │
-│
+├── libs # Binary archive file of the Android library project
+|     └── mindspore-lite-version.aar # MindSpore Lite archive file of the Android version
+|
 ├── build.gradle # Other Android configuration file
 ├── download.gradle # Downloading the files that the project depends on
 └── ...
