@@ -200,7 +200,7 @@ ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet", directory=config.ckpt_pa
 model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O2")
 ```
 
-完整的运行代码可以到ModelZoo下载[lenet](https://gitee.com/mindspore/models/tree/r1.6/official/cv/lenet)，在train.py中修改为context.set_context(mode=context.PYNATIVE_MODE, device_target=config.device_target)。
+完整的运行代码可以到ModelZoo下载[lenet](https://gitee.com/mindspore/models/tree/master/official/cv/lenet)，在train.py中修改为context.set_context(mode=context.PYNATIVE_MODE, device_target=config.device_target)。
 
 ## 提升PyNative性能
 

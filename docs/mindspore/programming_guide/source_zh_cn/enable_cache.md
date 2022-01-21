@@ -148,7 +148,7 @@
 
 由于推理的数据处理流程中通常不包含具有随机性的操作，如ResNet50的数据处理流程仅包含`Decode`、`Resize`、`CenterCrop`、`Normalize`、`HWC2CHW`、`TypeCast`等操作，因此通常可以在数据处理的最后一个步骤之后插入缓存，直接缓存经过所有数据增强操作之后的数据，以最大限度的避免重复的计算，获得更好的性能提升。本节将采用这种方法，以ResNet网络为样本，进行示例。
 
-完整示例代码请参考ModelZoo的[ResNet](https://gitee.com/mindspore/models/tree/r1.6/official/cv/resnet)。
+完整示例代码请参考ModelZoo的[ResNet](https://gitee.com/mindspore/models/tree/master/official/cv/resnet)。
 
 1. 创建管理缓存的Shell脚本`cache_util.sh`：
 
@@ -272,7 +272,7 @@
 
 需要注意的是，在训练过程的数据处理流程中，数据集经加载后通常还需要进行一些带有随机性的增强操作，如`RandomCropDecodeResize`，若将缓存添加到该具有随机性的操作之后，将会导致第一次的增强操作结果被缓存下来，后序从缓存服务器中读取的结果均为第一次已缓存的数据，导致数据的随机性丢失，影响训练网络的精度。因此我们可以选择直接在数据集读取算子之后添加缓存。本节将采用这种方法，以MobileNetV2网络为样本，进行示例。
 
-完整示例代码请参考ModelZoo的[MobileNetV2](https://gitee.com/mindspore/models/tree/r1.6/official/cv/mobilenetv2)。
+完整示例代码请参考ModelZoo的[MobileNetV2](https://gitee.com/mindspore/models/tree/master/official/cv/mobilenetv2)。
 
 1. 创建管理缓存的Shell脚本`cache_util.sh`：
 

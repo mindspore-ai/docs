@@ -97,7 +97,7 @@ $$
 }
 ```
 
-rank_table可以使用models下面的[hccl_tools.py](https://gitee.com/mindspore/models/blob/r1.6/utils/hccl_tools/hccl_tools.py)生成，[merge_hccl.py](https://gitee.com/mindspore/models/blob/r1.6/utils/hccl_tools/merge_hccl.py)可将多个rank_table文件进行拼接。脚本使用方法可见[README.md](https://gitee.com/mindspore/models/blob/r1.6/utils/hccl_tools/README.md)。
+rank_table可以使用models下面的[hccl_tools.py](https://gitee.com/mindspore/models/blob/master/utils/hccl_tools/hccl_tools.py)生成，[merge_hccl.py](https://gitee.com/mindspore/models/blob/master/utils/hccl_tools/merge_hccl.py)可将多个rank_table文件进行拼接。脚本使用方法可见[README.md](https://gitee.com/mindspore/models/blob/master/utils/hccl_tools/README.md)。
 
 ### 数据集准备
 
@@ -130,7 +130,7 @@ init()
 
 ## 数据并行模式加载数据集
 
-分布式训练时，数据以数据并行的方式导入。利用MindSpore提供图片加载接口ImageFolderDataset加载ImageNet 2012数据集，同时通过MindSpore提供的数据增强接口对数据集进行处理，此部分代码由models中`resnet`目录下的[dataset.py](https://gitee.com/mindspore/models/blob/r1.6/official/cv/resnet/src/dataset.py)导入。
+分布式训练时，数据以数据并行的方式导入。利用MindSpore提供图片加载接口ImageFolderDataset加载ImageNet 2012数据集，同时通过MindSpore提供的数据增强接口对数据集进行处理，此部分代码由models中`resnet`目录下的[dataset.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/src/dataset.py)导入。
 
 ```python
 # define train dataset

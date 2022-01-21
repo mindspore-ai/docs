@@ -15,7 +15,7 @@
 | tree       | 0.8584 |
 | houseplant | 0.7867 |
 
-使用MindSpore Lite实现图像分类的[示例代码](https://gitee.com/mindspore/models/tree/r1.6/official/lite/image_classification)。
+使用MindSpore Lite实现图像分类的[示例代码](https://gitee.com/mindspore/models/tree/master/official/lite/image_classification)。
 
 ## 图像分类模型列表
 
