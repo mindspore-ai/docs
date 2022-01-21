@@ -409,12 +409,12 @@ target_link_libraries( # Specifies the target library.
         for (size_t i = 0; i < RET_CATEGORY_SUM; ++i) {
              float threshold = g_thres_map[i];
              float tmpProb = scores[i];
-        if (tmpProb < threshold) {
-            tmpProb = tmpProb / threshold * unifiedThre;
-        } else {
-            tmpProb = (tmpProb - threshold) / (probMax - threshold) * unifiedThre + unifiedThre;
-        }
-        scores[i] = tmpProb;
+             if (tmpProb < threshold) {
+                 tmpProb = tmpProb / threshold * unifiedThre;
+             } else {
+                 tmpProb = (tmpProb - threshold) / (probMax - threshold) * unifiedThre + unifiedThre;
+             }
+             scores[i] = tmpProb;
         }
 
          // Score for each category.
