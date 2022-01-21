@@ -80,11 +80,7 @@
 app
 ├── src/main
 │   ├── assets # 资源文件
-|   |   └── model # 模型文件
-|   |       └── segment_model.ms # 存放的模型文件
-│   |
-│   ├── libs # Android库项目的二进制归档文件
-|   |   └── mindspore-lite-version.aar #  MindSpore Lite针对Android版本的归档文件
+|   |   └── segment_model.ms # 存放的模型文件
 │   |
 │   ├── java # java层应用代码
 │   │   └── com.mindspore.imagesegmentation
@@ -95,7 +91,9 @@ app
 │   ├── res # 存放Android相关的资源文件
 │   └── AndroidManifest.xml # Android配置文件
 │
-│
+├── libs # Android库项目的二进制归档文件
+|     └── mindspore-lite-version.aar #  MindSpore Lite针对Android版本的归档文件
+|
 ├── build.gradle # 其他Android配置文件
 ├── download.gradle # 工程依赖文件下载
 └── ...
