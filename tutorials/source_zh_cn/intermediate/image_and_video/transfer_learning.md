@@ -154,7 +154,7 @@ Labels: [0 0 1 0 0 1 0 1 1 1 0 0 1 0 1 0 0 0 1 0 0 1 0 1]
 
 ## 定义网络
 
-本教程使用的[ResNet50](https://gitee.com/mindspore/models/blob/r1.6/official/cv/resnet/src/resnet.py)网络位于Model Zoo中，可直接使用。
+本教程使用的[ResNet50](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/src/resnet.py)网络位于Model Zoo中，可直接使用。
 
 ## 训练模型
 

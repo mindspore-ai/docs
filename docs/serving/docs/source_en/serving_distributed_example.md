@@ -44,7 +44,7 @@ export_model
 - `net.py` contains the definition of MatMul network.
 - `distributed_inference.py` is used to configure distributed parameters.
 - `export_model.sh` creates `device` directory on the current host and exports model files corresponding to `device`.
-- `rank_table_8pcs.json` is a json file for configuring the multi-cards network. For details, see [rank_table](https://gitee.com/mindspore/models/tree/r1.6/utils/hccl_tools).
+- `rank_table_8pcs.json` is a json file for configuring the multi-cards network. For details, see [rank_table](https://gitee.com/mindspore/models/tree/master/utils/hccl_tools).
 
 Use [net.py](https://gitee.com/mindspore/serving/blob/r1.6/example/matmul_distributed/export_model/net.py) to construct a network that contains the MatMul and Neg operators.
 

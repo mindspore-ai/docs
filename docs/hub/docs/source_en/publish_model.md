@@ -14,7 +14,7 @@ You can publish models to MindSpore Hub via PR in [hub](https://gitee.com/mindsp
 
 1. Host your pre-trained model in a storage location where we are able to access.
 
-2. Add a model generation python file called `mindspore_hub_conf.py` in your own repo using this [template](https://gitee.com/mindspore/models/blob/r1.6/official/cv/googlenet/mindspore_hub_conf.py). The location of the `mindspore_hub_conf.py` file is shown below:
+2. Add a model generation python file called `mindspore_hub_conf.py` in your own repo using this [template](https://gitee.com/mindspore/models/blob/master/official/cv/googlenet/mindspore_hub_conf.py). The location of the `mindspore_hub_conf.py` file is shown below:
 
    ```text
    googlenet

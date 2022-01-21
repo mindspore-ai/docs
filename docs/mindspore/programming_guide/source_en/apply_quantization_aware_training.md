@@ -53,7 +53,7 @@ The procedure of quantization aware training is the same as that of common train
 
 Compared with common training, the quantization aware training requires additional steps which are steps 2 and 6 in the preceding process. Next, the LeNet network is used as an example to describe quantization-related steps.
 
-> You can obtain the complete executable sample code at <https://gitee.com/mindspore/models/tree/r1.6/official/cv/lenet_quant>.
+> You can obtain the complete executable sample code at <https://gitee.com/mindspore/models/tree/master/official/cv/lenet_quant>.
 
 ### Defining a Quantization Network
 
