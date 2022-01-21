@@ -269,6 +269,20 @@ The [CNode](https://www.mindspore.cn/docs/programming_guide/en/master/design/min
   # Corresponding source code/#debug_name
 ```
 
+### dot Introduction
+
+We can use this file by [graphviz](http://graphviz.org/) as the input to generate images for users to view the model structure. For example, under the Linux operating system, we can convert a PNG image by the following command.
+
+```shell
+dot -Tpng -o 04_abstract_specialize_0014.png 04_abstract_specialize_0014.dot
+```
+
+The transformed image is shown below, and we can visually see the model structure. The Different black boxes distinguish different subgraphs, and the blue arrows between graphs represent calling another graph. The blue area represents the parameter, the rectangle represents the parameter list of the graph, the hexagon and the black arrow represent the parameter as the input of the CNode to participate in the calculation process. The yellow rectangle represents the CNode. As can be seen from the picture, the CNode input starts from index 0, and the 0th input (that is, the purple or green area) represents what calculation the operator will perform, which is connected by a dotted arrow. The type is usually an operator primitive, or it can also be another graph. The rest inputs are the parameters required for the calculation.
+
+![04_abstract_specialize_0014.png](./images/dot_to_png.png)
+
+For models with multiple operators, the picture will be very large. It is recommended using the visualization component [MindInsight](https://www.mindspore.cn/mindinsight/docs/en/master/dashboard.html#computational-graph-visualization) to visualize computing graphs.
+
 ## Reading analyze_fail.dat
 
 In the process of `MindSpore` compiling a graph, the exceptions about graph evaluating fail usually happen. But we can find
