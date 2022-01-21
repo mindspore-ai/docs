@@ -381,7 +381,7 @@ x:[[1. 1. 1. 1.]
 
 但在构造时，参数只能通过位置参数方式传入，不支持通过键值对方式传入，即不支持在语法`cell = Cell(arg_name=value)`。
 
-当前不支持在网络调用`Cell`及其子类相关属性和接口，除非是在`Cell`自己的`constrcut`中通过`self`调用。
+当前不支持在网络调用`Cell`及其子类相关属性和接口，除非是在`Cell`自己的`construct`中通过`self`调用。
 
 `Cell`定义可参考文档：<https://www.mindspore.cn/docs/programming_guide/zh-CN/master/cell.html>
 
