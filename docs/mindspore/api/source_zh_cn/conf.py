@@ -150,29 +150,38 @@ import mindspore
 sys.path.append(os.path.abspath('../../../../resource/search'))
 import search_code
 
-# Copy images from mindspore repository to sphinx workdir before running.
-import glob
+# Copy images from mindspore repo.
+import imghdr
 import shutil
 from sphinx.util import logging
+
 logger = logging.getLogger(__name__)
+src_dir = os.path.join(os.getenv("MS_PATH"), 'docs/api/api_python')
+des_dir = "./api_python"
+image_specified = {"train/": ""}
 
-image_specified = {"docs/api_img/*.png": "./api_python/ops/api_img",
-                   "docs/api_img/dataset/*.png": "./api_python/dataset/api_img"}
+if not os.path.exists(src_dir):
+    logger.warning(f"不存在目录：{src_dir}！")
 
-for img in image_specified.keys():
-    des_dir = os.path.normpath(image_specified[img])
-    try:
-        if "*" in img:
-            imgs = glob.glob(os.path.join(os.getenv("MS_PATH"), os.path.normpath(img)))
-            if not imgs:
-                continue
-            if not os.path.exists(des_dir):
-                os.makedirs(des_dir)
-            for i in imgs:
-                shutil.copy(i, des_dir)
-        else:
-            img_fullpath = os.path.join(os.getenv("MS_PATH"), des_dir)
-            if os.path.exists(img_fullpath):
-                shutil.copy(img_fullpath, des_dir)
-    except:
-        logger.warning(f"{img} deal failed!")
+def copy_image(sourcedir, des_dir):
+    """
+    Copy all images from sourcedir to workdir.
+    """
+    for cur, _, files in os.walk(sourcedir, topdown=True):
+        for i in files:
+            if imghdr.what(os.path.join(cur, i)):
+                try:
+                    rel_path = os.path.relpath(cur, sourcedir)
+                    targetdir = os.path.join(des_dir, rel_path)
+                    for j in image_specified.keys():
+                        if rel_path.startswith(j):
+                            value = image_specified[j]
+                            targetdir = os.path.join(des_dir,  re.sub(rf'^{j}', rf'{value}', rel_path))
+                            break
+                    if not os.path.exists(targetdir):
+                        os.makedirs(targetdir, exist_ok=True)
+                    shutil.copy(os.path.join(cur, i), targetdir)
+                except:
+                    logger.warning(f'picture {os.path.join(os.path.relpath(cur, sourcedir), i)} copy failed.')
+
+copy_image(src_dir, des_dir)
