@@ -237,11 +237,10 @@ load_param_into_net(net, weight_dict)
 ```python
 # define loss
 loss = CrossEntropySmooth(sparse=True, reduction="mean", smooth_factor=0.1, num_classes=1001)
-loss_scale = FixedLossScaleManager(1024, drop_overflow_update=False)
 
 # define optimizer
 group_params = init_group_params(net)
-opt = SGD(group_params, learning_rate=1, loss_scale=loss_scale)
+opt = SGD(group_params, learning_rate=1)
 
 # define metrics
 metrics = {"acc"}
@@ -268,8 +267,7 @@ boost_dict = {
 }
 
 # define model
-model = Model(net, loss_fn=loss, optimizer=opt, loss_scale_manager=loss_scale, metrics=metrics,
-              amp_level="O2", boost_level="O1", keep_batchnorm_fp32=False, boost_config_dict=boost_dict)
+model = Model(net, loss_fn=loss, optimizer=opt, metrics=metrics, boost_level="O1", boost_config_dict=boost_dict)
 ```
 
 ### 训练模型
