@@ -119,18 +119,20 @@ Note: If the download fails, manually download the model file [segment_model.ms]
 
 The inference code and process are as follows. For details about the complete code, see [src/java/com/mindspore/imagesegmentation/TrackingMobile](https://gitee.com/mindspore/models/blob/master/official/lite/image_segmentation/app/src/main/java/com/mindspore/imagesegmentation/help/TrackingMobile.java).
 
-1. Load the MindSpore Lite model file and build the context, session, and computational graph for inference.
+1. Load the MindSpore Lite model file and build the context, model, and computational graph for inference.
 
-    - Create a session.
+    - Create a model.
 
       ```java
       // Create and init config.
       MSContext context = new MSContext();
-      context.init(2, CpuBindMode.HIGHER_CPU, false);
-      boolean ret = context.addDeviceInfo(com.mindspore.config.DeviceType.DT_CPU, false, 0);
-      if (!ret) {
-          Log.e(TAG, "Create CPU Config failed.");
-          return null;
+      if (!context.init(2, CpuBindMode.MID_CPU, false)) {
+          Log.e(TAG, "Init context failed");
+          return;
+      }
+      if (!context.addDeviceInfo(DeviceType.DT_CPU, false, 0)) {
+          Log.e(TAG, "Add device info failed");
+          return;
       }
       ```
 
@@ -138,11 +140,15 @@ The inference code and process are as follows. For details about the complete co
 
       ```java
       // build model.
-      boolean ret = model.build(filePath, ModelType.MT_MINDIR, msContext);
-      if (!ret) {
-          model.free();
-          Log.e(TAG, "Compile graph failed");
-          return null;
+      MappedByteBuffer modelBuffer = loadModel(mContext, IMAGESEGMENTATIONMODEL);
+      if(modelBuffer == null) {
+          Log.e(TAG, "Load model failed");
+          return;
+      }
+      // build model.
+      boolean ret = model.build(modelBuffer, ModelType.MT_MINDIR,context);
+      if(!ret) {
+          Log.e(TAG, "Build model failed");
       }
       ```
 
@@ -166,16 +172,15 @@ The inference code and process are as follows. For details about the complete co
       inTensor.setData(contentArray);
       ```
 
-3. Run the session and execute the computational graph.
+3. Run the model and execute the computational graph.
 
     ```java
     // Run graph to infer results.
-    boolean ret = model.predict();
-    if (!ret) {
-        Log.e(TAG, "MindSpore Lite run failed.");
-        return false;
+    if (!model.predict()) {
+        Log.e(TAG, "Run graph failed");
+        return null;
     }
-     ```
+    ```
 
 4. Process the output data.
 
