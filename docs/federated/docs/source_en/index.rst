@@ -85,7 +85,7 @@ Common Scenarios
    :maxdepth: 1
    :caption: Security and Privacy
 
-   local_differential_privacy_training
+   local_differential_privacy_training_noise
    pairwise_encryption_training
 
 .. toctree::
