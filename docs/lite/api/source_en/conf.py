@@ -66,6 +66,9 @@ html_theme = 'sphinx_rtd_theme'
 
 html_search_language = 'en'
 
+sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
+import anchor_mod
+
 # Tell sphinx what the primary language being documented is.
 # primary_domain = 'cpp'
 

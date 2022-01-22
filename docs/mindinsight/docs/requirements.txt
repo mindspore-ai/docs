@@ -2,7 +2,7 @@ sphinx >= 2.2.1, <= 2.4.4
 docutils == 0.16
 myst_parser == 0.14.0
 sphinx-markdown-tables
-sphinx_rtd_theme
+sphinx_rtd_theme == 0.5.2
 numpy
 nbsphinx
 IPython

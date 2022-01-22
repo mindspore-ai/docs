@@ -63,6 +63,8 @@ pygments_style = 'sphinx'
 #
 html_theme = 'sphinx_rtd_theme'
 
+sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
+import anchor_mod
 
 sys.path.append(os.path.abspath('../../../../resource/search'))
 import search_code
@@ -189,7 +191,7 @@ with open("./SourceFileNames.txt") as f:
         else:
             shutil.copy(os.path.join(ms_path, name), "../include/")
 
-#Remove "MS_API" in classes. 
+#Remove "MS_API" in classes.
 files_copyed = glob.glob("../include/*.h")
 for file in files_copyed:
     with open(file, "r+", encoding="utf8") as f:
@@ -198,4 +200,4 @@ for file in files_copyed:
             content_new = content.replace("MS_API", "")
             f.seek(0)
             f.truncate()
-            f.write(content_new) 
+            f.write(content_new)
