@@ -21,7 +21,6 @@ from mindspore.nn import SGD
 from mindspore import Model
 from mindspore import ParallelMode
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
-from mindspore.train import FixedLossScaleManager
 from mindspore.communication import init
 from mindspore import set_seed
 from mindspore.parallel import set_algo_parameters
@@ -81,11 +80,10 @@ if __name__ == '__main__':
 
     # define loss
     loss = CrossEntropySmooth(sparse=True, reduction="mean", smooth_factor=0.1, num_classes=1001)
-    loss_scale = FixedLossScaleManager(1024, drop_overflow_update=False)
 
     # define optimizer
     group_params = init_group_params(net)
-    opt = SGD(group_params, learning_rate=1, loss_scale=1024)
+    opt = SGD(group_params, learning_rate=1)
 
     # define metrics
     metrics = {"acc"}
@@ -112,8 +110,7 @@ if __name__ == '__main__':
     }
 
     # define model
-    model = Model(net, loss_fn=loss, optimizer=opt, loss_scale_manager=loss_scale, metrics=metrics,
-                  amp_level="O2", boost_level="O1", keep_batchnorm_fp32=False, boost_config_dict=boost_dict)
+    model = Model(net, loss_fn=loss, optimizer=opt, metrics=metrics, boost_level="O1", boost_config_dict=boost_dict)
 
     # define callback
     cb = [TimeMonitor(data_size=step_size), LossMonitor()]
