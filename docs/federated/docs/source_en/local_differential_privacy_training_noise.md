@@ -1,4 +1,4 @@
-﻿# Differential privacy training for privacy protection
+﻿# Local differential privacy perturbation training
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/federated/docs/source_en/local_differential_privacy_training.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source_en.png"></a>
 
