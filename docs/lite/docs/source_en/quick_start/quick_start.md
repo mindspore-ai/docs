@@ -208,7 +208,7 @@ Call MindSpore Lite C++ APIs at the JNI layer to implement on-device inference.
 
 The inference process code is as follows. For details about the complete code, see [MindSporeNetnative.cpp](https://gitee.com/mindspore/models/blob/master/official/lite/image_classification/app/src/main/cpp/MindSporeNetnative.cpp).
 
-1. Load the MindSpore Lite model file and build the context, session, and computational graph for inference.  
+1. Load the MindSpore Lite model file and build the context, model, and computational graph for inference.  
 
     - Load model file:
 
@@ -229,9 +229,9 @@ The inference process code is as follows. For details about the complete code, s
         }
         ```
 
-    - Build context, session, and computational graph for inference:
+    - Build context, model, and computational graph for inference:
 
-        Build context and set session parameters. Create a session from context and model data.
+        Build context and set model parameters. Create a model from context and model data.
 
         ```cpp
         // To create a Mindspore network inference environment.
@@ -239,139 +239,119 @@ The inference process code is as follows. For details about the complete code, s
         MSNetWork *labelNet = new MSNetWork;
         *labelEnv = labelNet;
 
-        mindspore::lite::Context *context = new mindspore::lite::Context;
-        context->thread_num_ = num_thread;
-        context->device_list_[0].device_info_.cpu_device_info_.cpu_bind_mode_ = mindspore::lite::NO_BIND;
-        context->device_list_[0].device_info_.cpu_device_info_.enable_float16_ = false;
-        context->device_list_[0].device_type_ = mindspore::lite::DT_CPU;
+        auto context = std::make_shared<mindspore::Context>();
+        if (context == nullptr) {
+            MS_PRINT("context create failed!");
+            delete labelNet;
+            delete labelEnv;
+            return (jlong) nullptr;
+        }
 
-        labelNet->CreateSessionMS(modelBuffer, bufferLen, context);
-        delete context;
+        context->SetThreadNum(num_thread);
+        context->SetThreadAffinity(0);
+        auto &device_list = context->MutableDeviceInfo();
+        auto cpuDeviceInfo = std::make_shared<mindspore::CPUDeviceInfo>();
+        cpuDeviceInfo->SetEnableFP16(false);
+        device_list.push_back(cpuDeviceInfo);
         ```
 
     - Based on the model file `modelBuffer`, the computational graph for inference is constructed.
 
         ```cpp
-       void MSNetWork::CreateSessionMS(char *modelBuffer, size_t bufferLen, mindspore::lite::Context *ctx) {
-           session_ = mindspore::session::LiteSession::CreateSession(ctx);
-           if (session_ == nullptr) {
-               MS_PRINT("Create Session failed.");
-               return;
-           }
-
-           // Compile model.
-           model_ = mindspore::lite::Model::Import(modelBuffer, bufferLen);
-           if (model_ == nullptr) {
-               ReleaseNets();
-               MS_PRINT("Import model failed.");
-               return;
-           }
-
-           int ret = session_->CompileGraph(model_);
-           if (ret != mindspore::lite::RET_OK) {
-                ReleaseNets();
-                MS_PRINT("CompileGraph failed.");
-                return;
-           }
-         }
+        bool MSNetWork::BuildModel(char *modelBuffer, size_t bufferLen,
+                                   std::shared_ptr<mindspore::Context> ctx) {
+        model_ = std::make_shared<mindspore::Model>();
+        if (model_ == nullptr) {
+            MS_PRINT("MindSpore build model failed!.");
+            return false;
+        }
+        auto ret = model_->Build(modelBuffer, bufferLen, mindspore::ModelType::kMindIR, ctx);
+        return ret.IsOk();
+        }
         ```
 
 2. Convert the input image into the Tensor format of the MindSpore model.
 
-    Cut the size of the image `srcbitmap` to be detected and convert it to LiteMat format `lite_norm_mat_cut`. The width, height and channel number information are converted into float format data `dataHWC`. Finally, copy the `dataHWC` to the input `inTensor` of MindSpore model.
+    - Cut the size of the image `srcbitmap` to be detected and convert it to LiteMat format `lite_norm_mat_cut`. The width, height and channel number information are converted into float format data `dataHWC`. Finally, copy the `dataHWC` to the input `inTensor` of MindSpore model.
 
-    ```cpp
-    if (!BitmapToLiteMat(env, srcBitmap, &lite_mat_bgr)) {
-          MS_PRINT("BitmapToLiteMat error");
-          return NULL;
-       }
-      if (!PreProcessImageData(lite_mat_bgr, &lite_norm_mat_cut)) {
-          MS_PRINT("PreProcessImageData error");
-          return NULL;
-       }
-
-      ImgDims inputDims;
-      inputDims.channel = lite_norm_mat_cut.channel_;
-      inputDims.width = lite_norm_mat_cut.width_;
-      inputDims.height = lite_norm_mat_cut.height_;
-
-      // Get the MindSpore inference environment which created in loadModel().
-      void **labelEnv = reinterpret_cast<void **>(netEnv);
-      if (labelEnv == nullptr) {
-          MS_PRINT("MindSpore error, labelEnv is a nullptr.");
-          return NULL;
-       }
-      MSNetWork *labelNet = static_cast<MSNetWork *>(*labelEnv);
-
-      auto mSession = labelNet->session();
-      if (mSession == nullptr) {
-          MS_PRINT("MindSpore error, Session is a nullptr.");
-          return NULL;
+        ```cpp
+        void **labelEnv = reinterpret_cast<void **>(netEnv);
+        if (labelEnv == nullptr) {
+            MS_PRINT("MindSpore error, labelEnv is a nullptr.");
+            return NULL;
         }
-       MS_PRINT("MindSpore get session.");
+        MSNetWork *labelNet = static_cast<MSNetWork *>(*labelEnv);
 
-       auto msInputs = mSession->GetInputs();
-       if (msInputs.size() == 0) {
-          MS_PRINT("MindSpore error, msInputs.size() equals 0.");
-          return NULL;
+        auto mModel = labelNet->model();
+        if (mModel == nullptr) {
+            MS_PRINT("MindSpore error, Model is a nullptr.");
+            return NULL;
+        }
+        MS_PRINT("MindSpore get model.");
+
+        auto msInputs = mModel->GetInputs();
+        if (msInputs.empty()) {
+            MS_PRINT("MindSpore error, msInputs.size() equals 0.");
+            return NULL;
         }
         auto inTensor = msInputs.front();
 
         float *dataHWC = reinterpret_cast<float *>(lite_norm_mat_cut.data_ptr_);
         // Copy dataHWC to the model input tensor.
-        memcpy(inTensor->MutableData(), dataHWC,
-           inputDims.channel * inputDims.width * inputDims.height * sizeof(float));
-   ```
+        memcpy(inTensor.MutableData(), dataHWC,
+                inputDims.channel * inputDims.width * inputDims.height * sizeof(float));
+        ```
 
-   Adjust the size of the input image, as well as the detailed algorithm of data processing.
+    - Adjust the size of the input image, as well as the detailed algorithm of data processing.
 
-   ```cpp
-   bool PreProcessImageData(const LiteMat &lite_mat_bgr, LiteMat *lite_norm_mat_ptr) {
-         bool ret = false;
-         LiteMat lite_mat_resize;
-         LiteMat &lite_norm_mat_cut = *lite_norm_mat_ptr;
-         ret = ResizeBilinear(lite_mat_bgr, lite_mat_resize, 256, 256);
-         if (!ret) {
+        ```cpp
+        bool PreProcessImageData(const LiteMat &lite_mat_bgr, LiteMat *lite_norm_mat_ptr) {
+            bool ret = false;
+            LiteMat lite_mat_resize;
+            LiteMat &lite_norm_mat_cut = *lite_norm_mat_ptr;
+            ret = ResizeBilinear(lite_mat_bgr, lite_mat_resize, 256, 256);
+            if (!ret) {
             MS_PRINT("ResizeBilinear error");
             return false;
-         }
-         LiteMat lite_mat_convert_float;
-         ret = ConvertTo(lite_mat_resize, lite_mat_convert_float, 1.0 / 255.0);
-         if (!ret) {
-             MS_PRINT("ConvertTo error");
-             return false;
-         }
-         LiteMat lite_mat_cut;
-         ret = Crop(lite_mat_convert_float, lite_mat_cut, 16, 16, 224, 224);
-         if (!ret) {
-             MS_PRINT("Crop error");
-             return false;
-         }
-         std::vector<float> means = {0.485, 0.456, 0.406};
-         std::vector<float> stds = {0.229, 0.224, 0.225};
-         SubStractMeanNormalize(lite_mat_cut, lite_norm_mat_cut, means, stds);
-         return true;
+            }
+            LiteMat lite_mat_convert_float;
+            ret = ConvertTo(lite_mat_resize, lite_mat_convert_float, 1.0 / 255.0);
+            if (!ret) {
+                MS_PRINT("ConvertTo error");
+                return false;
+            }
+            LiteMat lite_mat_cut;
+            ret = Crop(lite_mat_convert_float, lite_mat_cut, 16, 16, 224, 224);
+            if (!ret) {
+                MS_PRINT("Crop error");
+                return false;
+            }
+            std::vector<float> means = {0.485, 0.456, 0.406};
+            std::vector<float> stds = {0.229, 0.224, 0.225};
+            SubStractMeanNormalize(lite_mat_cut, lite_norm_mat_cut, means, stds);
+            return true;
         }
-   ```
+        ```
 
 3. The input tensor is inferred according to the model, and the output tensor is obtained and post processed.
 
    - The graph and model are loaded and on device inference is performed.
 
         ```cpp
+        std::vector<mindspore::MSTensor> outputs;
         // After the model and image tensor data is loaded, run inference.
-        auto status = mSession->RunGraph();
+        auto status = mModel->Predict(msInputs, &outputs);
         ```
 
    - Get the tensor output `msOutputs` of MindSpore model. The text information `resultCharData` displayed in the APP is calculated through `msOutputs` and classification array information.
 
         ```cpp
-       auto names = mSession->GetOutputTensorNames();
-        std::unordered_map<std::string, mindspore::tensor::MSTensor *> msOutputs;
+        auto names = mModel->GetOutputTensorNames();
+        std::unordered_map<std::string, mindspore::MSTensor> msOutputs;
         for (const auto &name : names) {
-            auto temp_dat =mSession->GetOutputByTensorName(name);
-            msOutputs.insert(std::pair<std::string, mindspore::tensor::MSTensor *> {name, temp_dat});
-          }
+            auto temp_dat = mModel->GetOutputByTensorName(name);
+            msOutputs.insert(std::pair<std::string, mindspore::MSTensor>{name, temp_dat});
+        }
         std::string resultStr = ProcessRunnetResult(::RET_CATEGORY_SUM,::labels_name_map, msOutputs);
 
         const char *resultCharData = resultStr.c_str();
@@ -381,50 +361,55 @@ The inference process code is as follows. For details about the complete code, s
    - Perform post-processing of the output data. Obtain the output object `outputTensor` through `msOutputs`, and parse it with the thing category array `labels_name_map` to obtain the training score array `scores[]` of each element. Set the credibility threshold value to `unifiedThre`, and count the credibility threshold value according to the training data. Above the threshold, it belongs to this type. On the contrary, it is not. Finally, a corresponding category name and corresponding score data `categoryScore` are returned.
 
         ```cpp
-         std::string ProcessRunnetResult(const int RET_CATEGORY_SUM, const char *const labels_name_map[], std::unordered_map<std::string, mindspore::tensor::MSTensor *> msOutputs) {
+        std::string ProcessRunnetResult(const int RET_CATEGORY_SUM, const char *const labels_name_map[],
+                                        std::unordered_map<std::string, mindspore::MSTensor> msOutputs) {
         // Get the branch of the model output.
         // Use iterators to get map elements.
-        std::unordered_map<std::string, mindspore::tensor::MSTensor *>::iterator iter;
+        std::unordered_map<std::string, mindspore::MSTensor>::iterator iter;
         iter = msOutputs.begin();
 
         // The mobilenetv2.ms model output just one branch.
         auto outputTensor = iter->second;
 
-        int tensorNum = outputTensor->ElementsNum();
+        int tensorNum = outputTensor.ElementNum();
         MS_PRINT("Number of tensor elements:%d", tensorNum);
 
         // Get a pointer to the first score.
-        float *temp_scores = static_cast<float *>(outputTensor->MutableData());
+        float *temp_scores = static_cast<float *>(outputTensor.MutableData());
         float scores[RET_CATEGORY_SUM];
         for (int i = 0; i < RET_CATEGORY_SUM; ++i) {
-             scores[i] = temp_scores[i];
+            scores[i] = temp_scores[i];
         }
 
         const float unifiedThre = 0.5;
         const float probMax = 1.0;
         for (size_t i = 0; i < RET_CATEGORY_SUM; ++i) {
-             float threshold = g_thres_map[i];
-             float tmpProb = scores[i];
-             if (tmpProb < threshold) {
-                 tmpProb = tmpProb / threshold * unifiedThre;
-             } else {
-                 tmpProb = (tmpProb - threshold) / (probMax - threshold) * unifiedThre + unifiedThre;
-             }
-             scores[i] = tmpProb;
+            float threshold = g_thres_map[i];
+            float tmpProb = scores[i];
+            if (tmpProb < threshold) {
+            tmpProb = tmpProb / threshold * unifiedThre;
+            } else {
+            tmpProb = (tmpProb - threshold) / (probMax - threshold) * unifiedThre + unifiedThre;
+            }
+            scores[i] = tmpProb;
         }
 
-         // Score for each category.
-         // Converted to text information that needs to be displayed in the APP.
-         std::string categoryScore = "";
-         for (int i = 0; i < RET_CATEGORY_SUM; ++i) {
-             categoryScore += labels_name_map[i];
-             categoryScore += ":";
-             std::string score_str = std::to_string(scores[i]);
-             categoryScore += score_str;
-             categoryScore += ";";
-          }
-         return categoryScore;
-      }
-       ```
+        for (int i = 0; i < RET_CATEGORY_SUM; ++i) {
+            if (scores[i] > 0.5) {
+            MS_PRINT("MindSpore scores[%d] : [%f]", i, scores[i]);
+            }
+        }
 
-   ​
+        // Score for each category.
+        // Converted to text information that needs to be displayed in the APP.
+        std::string categoryScore = "";
+        for (int i = 0; i < RET_CATEGORY_SUM; ++i) {
+            categoryScore += labels_name_map[i];
+            categoryScore += ":";
+            std::string score_str = std::to_string(scores[i]);
+            categoryScore += score_str;
+            categoryScore += ";";
+        }
+        return categoryScore;
+        }
+        ```

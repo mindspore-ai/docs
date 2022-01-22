@@ -119,30 +119,35 @@ Android调用MindSpore Android AAR时，需要相关库文件支持。可通过M
 
 推理代码流程如下，完整代码请参见 [src/java/com/mindspore/imagesegmentation/TrackingMobile](https://gitee.com/mindspore/models/blob/master/official/lite/image_segmentation/app/src/main/java/com/mindspore/imagesegmentation/help/TrackingMobile.java)。
 
-1. 加载MindSpore Lite模型文件，构建上下文、会话以及用于推理的计算图。  
+1. 加载MindSpore Lite模型，构建上下文、会话以及用于推理的计算图。  
 
     - 创建会话。
 
       ```java
       // Create and init config.
       MSContext context = new MSContext();
-      context.init(2, CpuBindMode.HIGHER_CPU, false);
-      boolean ret = context.addDeviceInfo(com.mindspore.config.DeviceType.DT_CPU, false, 0);
-      if (!ret) {
-          Log.e(TAG, "Create CPU Config failed.");
-          return null;
+      if (!context.init(2, CpuBindMode.MID_CPU, false)) {
+          Log.e(TAG, "Init context failed");
+          return;
+      }
+      if (!context.addDeviceInfo(DeviceType.DT_CPU, false, 0)) {
+          Log.e(TAG, "Add device info failed");
+          return;
       }
       ```
 
-    - 加载模型文件并构建用于推理的计算图。
+    - 加载模型并构建用于推理的计算图。
 
       ```java
+      MappedByteBuffer modelBuffer = loadModel(mContext, IMAGESEGMENTATIONMODEL);
+      if(modelBuffer == null) {
+          Log.e(TAG, "Load model failed");
+          return;
+      }
       // build model.
-      boolean ret = model.build(filePath, ModelType.MT_MINDIR, msContext);
-      if (!ret) {
-          model.free();
-          Log.e(TAG, "Compile graph failed");
-          return null;
+      boolean ret = model.build(modelBuffer, ModelType.MT_MINDIR,context);
+      if(!ret) {
+          Log.e(TAG, "Build model failed");
       }
       ```
 
@@ -170,12 +175,11 @@ Android调用MindSpore Android AAR时，需要相关库文件支持。可通过M
 
     ```java
     // Run graph to infer results.
-    boolean ret = model.predict();
-    if (!ret) {
-        Log.e(TAG, "MindSpore Lite run failed.");
-        return false;
+    if (!model.predict()) {
+        Log.e(TAG, "Run graph failed");
+        return null;
     }
-     ```
+    ```
 
 4. 对输出数据进行处理。
 
