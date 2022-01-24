@@ -66,6 +66,9 @@ shutil.copy(layout_src, layout_target)
 
 html_static_path = ['_static']
 
+sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
+import anchor_mod
+
 sys.path.append(os.path.abspath('../../../../resource/custom_directives'))
 from custom_directives import IncludeCodeDirective
 

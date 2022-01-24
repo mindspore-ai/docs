@@ -52,6 +52,8 @@ pygments_style = 'sphinx'
 #
 html_theme = 'sphinx_rtd_theme'
 
+sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
+import anchor_mod
 
 sys.path.append(os.path.abspath('../../../../resource/search'))
 import search_code

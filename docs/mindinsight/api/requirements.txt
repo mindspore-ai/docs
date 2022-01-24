@@ -1,5 +1,5 @@
 sphinx >= 2.2.1, <= 2.4.4
 docutils == 0.16
-sphinx_rtd_theme
+sphinx_rtd_theme == 0.5.2
 numpy
 torch>=1.8.2
