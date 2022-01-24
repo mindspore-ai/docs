@@ -33,7 +33,7 @@
     - 如果您喜欢Conda提供的完整能力，可以选择下载[Anaconda3](https://repo.anaconda.com/archive/)。
     - 如果您需要节省磁盘空间，或者喜欢自定义安装Conda软件包，可以选择下载[Miniconda3](https://repo.anaconda.com/miniconda/)。
 
-- 确认安装Ascend AI处理器配套软件包（Ascend Data Center Solution 21.0.3），安装方式请参考[配套指南](https://support.huawei.com/enterprise/zh/doc/EDOC1100226552?section=j003)。
+- 确认安装Ascend AI处理器配套软件包（Ascend Data Center Solution 21.0.4），安装方式请参考[配套指南]。
 
     - 确认当前用户有权限访问Ascend AI处理器配套软件包的安装路径`/usr/local/Ascend`，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
 
