@@ -518,7 +518,7 @@ The following table lists the side effect operators that are not supported in th
 | ScatterMul            |
 | ScatterNdAdd          |
 | ScatterNdSub          |
-| ScatterNdUpadte       |
+| ScatterNdUpdate       |
 | ScatterNonAliasingAdd |
 | ScatterSub            |
 | ScatterUpdate         |
