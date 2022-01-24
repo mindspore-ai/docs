@@ -30,7 +30,7 @@ This document describes how to quickly install MindSpore in a Linux system with 
     - If you prefer the complete capabilities provided by Conda, you can choose to download [Anaconda3](https://repo.anaconda.com/archive/).
     - If you want to save disk space or prefer custom Conda installation, you can choose to download [Miniconda3](https://repo.anaconda.com/miniconda/).
 
-- Ensure that the Ascend AI processor software package (Ascend Data Center Solution 21.0.3) are installed, please refer to the [Installation Guide](https://support.huawei.com/enterprise/zh/doc/EDOC1100226552?section=j003).
+- Ensure that the Ascend AI processor software package (Ascend Data Center Solution 21.0.4) are installed, please refer to the [Installation Guide].
 
     - Ensure that the current user has the right to access the installation path `/usr/local/Ascend`of Ascend AI processor software package, If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located. For the specific configuration, please refer to the software package instruction document.
 
