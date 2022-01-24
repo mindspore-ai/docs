@@ -32,7 +32,7 @@
 
 - 如果您的环境为ARM架构，请确认当前使用的Python配套的pip版本>=19.3。
 
-- 确认安装Ascend AI处理器配套软件包（Ascend Data Center Solution 21.0.3），安装方式请参考[配套指南](https://support.huawei.com/enterprise/zh/doc/EDOC1100226552?section=j003)。
+- 确认安装Ascend AI处理器配套软件包（Ascend Data Center Solution 21.0.4），安装方式请参考[配套指南]。
 
     - 确认当前用户有权限访问Ascend AI处理器配套软件包的安装路径`/usr/local/Ascend`，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
     - 安装Ascend AI处理器配套软件包提供的whl包，whl包随配套软件包发布，参考如下命令完成安装。
