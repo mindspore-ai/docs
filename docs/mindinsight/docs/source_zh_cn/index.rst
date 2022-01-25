@@ -26,7 +26,7 @@ MindInsight包括以下内容：
 
    启动MindInsight，并通过 ``--summary-base-dir`` 参数指定summary日志文件目录。
 
-3. `查看训练看板 <https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.6/mindinsight_commands.html#id3>`_
+3. `查看训练看板 <https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.6/dashboard.html>`_
 
    在浏览器中打开MindInsight访问地址，点击“训练看板”按钮查看详细信息。
 
