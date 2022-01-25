@@ -50,9 +50,7 @@ MindSpore Graph Learning初始版本包含以点为中心的编程范式，并�
    :maxdepth: 1
    :caption: API参考
 
-   mindspore_gl.dataloader
    mindspore_gl.dataset
-   mindspore_gl.graph
    mindspore_gl.nn
    mindspore_gl.parser
    mindspore_gl.sampling

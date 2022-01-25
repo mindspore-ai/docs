@@ -10,11 +10,11 @@ Design Features
 ----------------
 
 1. Point-centric programming paradigm
-   
+
    A graph neural network model transfers and aggregates information on a given graph structure, which cannot be intuitively expressed through entire graph computing. MindSpore Graph Learning provides a point-centric programming paradigm that better complies with the graph learning algorithm logic and Python language style. It can directly translate formulas into code, reducing the gap between algorithm design and implementation.
 
 2. Accelerated graph models
-   
+
    MindSpore Graph Learning combines the features of MindSpore graph kernel fusion and auto kernel generator (AKG) to automatically identify the specific execution pattern of graph neural network tasks for fusion and kernel-level optimization, covering the fusion of existing operators and new combined operators in the existing framework. The performance is improved by 3 to 4 times compared with that of the existing popular frameworks.
 
 Future Roadmap
@@ -26,7 +26,7 @@ Typical MindSpore Graph Learning Application Scenarios
 -------------------------------------------------------
 
 1. Graph convolutional neural network (GCN) for entire graph training
-   
+
    Entire graph training requires that the graph nodes and edge features of the user be stored in the GPU. The GCN is a type of graph neural network that uses convolution operations.
 
 2. Graph isomorphism network (GIN) for graph sampling training
@@ -50,9 +50,7 @@ Typical MindSpore Graph Learning Application Scenarios
    :maxdepth: 1
    :caption: API References
 
-   mindspore_gl.dataloader
    mindspore_gl.dataset
-   mindspore_gl.graph
    mindspore_gl.nn
    mindspore_gl.parser
    mindspore_gl.sampling
