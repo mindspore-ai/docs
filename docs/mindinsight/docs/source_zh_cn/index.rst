@@ -22,18 +22,18 @@ MindInsight包括以下内容：
 
    在训练脚本中使用SummaryCollector记录训练信息，再执行训练。
 
-2. `启动MindInsight可视化训练 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_commands.html#id3>`_
+2. `启动MindInsight可视化训练 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_commands.html#启动服务>`_
 
    启动MindInsight，并通过 ``--summary-base-dir`` 参数指定summary日志文件目录。
 
-3. `查看训练看板 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_commands.html#id3>`_
+3. `查看训练看板 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/dashboard.html>`_
 
    在浏览器中打开MindInsight访问地址，点击“训练看板”按钮查看详细信息。
 
 使用MindInsight分析模型性能
 ---------------------------
 
-1. `收集模型分析数据 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#id3>`_
+1. `收集模型分析数据 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#准备训练脚本>`_
 
    在训练脚本中调用MindSpore Profiler相关接口，再执行训练。
 

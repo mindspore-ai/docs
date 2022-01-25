@@ -144,7 +144,7 @@ A: TensorFlow的对象检测Pipeline接口属于TensorFlow Model模块。待Mind
 
 <font size=3>**Q: 使用PyNative模式能够进行迁移学习？**</font>
 
-A: PyNative模式是兼容迁移学习的，更多的教程信息，可以参考[预训练模型加载代码详解](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/cv_mobilenetv2_fine_tune.html#id7)。
+A: PyNative模式是兼容迁移学习的，更多的教程信息，可以参考[预训练模型加载代码详解](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/cv_mobilenetv2_fine_tune.html#预训练模型加载代码详解)。
 
 <br/>
 

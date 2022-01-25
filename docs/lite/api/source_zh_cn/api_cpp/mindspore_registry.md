@@ -322,7 +322,7 @@ static PassBasePtr GetPassFromStoreRoom(const std::string &pass_name)
 
 > MindSpore Lite开放了部分内置Pass，请见以下说明。用户可以在`names`参数中添加内置Pass的命名标识，以在指定运行处调用内置Pass。
 >
-> - `ConstFoldPass`: 将输入均是常量的节点进行离线计算，导出的模型将不含该节点。特别地，针对shape算子，在[inputShape](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html#id5)给定的情形下，也会触发预计算。
+> - `ConstFoldPass`: 将输入均是常量的节点进行离线计算，导出的模型将不含该节点。特别地，针对shape算子，在[inputShape](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html#参数说明)给定的情形下，也会触发预计算。
 > - `DumpGraph`: 导出当前状态下的模型。请确保当前模型为NHWC或者NCHW格式的模型，例如卷积算子等。
 > - `ToNCHWFormat`: 将当前状态下的模型转换为NCHW的格式，例如，四维的图输入、卷积算子等。
 > - `ToNHWCFormat`: 将当前状态下的模型转换为NHWC的格式，例如，四维的图输入、卷积算子等。

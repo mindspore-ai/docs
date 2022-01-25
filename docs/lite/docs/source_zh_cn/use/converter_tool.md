@@ -71,7 +71,7 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 > - Caffe模型一般分为两个文件：`*.prototxt`模型结构，对应`--modelFile`参数；`*.caffemodel`模型权值，对应`--weightFile`参数。
 > - `--fp16`的优先级很低，比如如果开启了量化，那么对于已经量化的权重，`--fp16`不会再次生效。总而言之，该选项只会在序列化时对模型中的Float32的权重生效。
 > - `inputDataFormat`：一般在集成NCHW规格的三方硬件场景下(例如[集成NNIE使用说明](https://www.mindspore.cn/lite/docs/zh-CN/master/use/nnie.html#nnie))，设为NCHW比NHWC会有较明显的性能提升。在其他场景下，用户也可按需设置。
-> - `configFile`配置文件采用`key=value`的方式定义相关参数，量化相关的配置参数详见[训练后量化](https://www.mindspore.cn/lite/docs/zh-CN/master/use/post_training_quantization.html)，扩展功能相关的配置参数详见[扩展配置](https://www.mindspore.cn/lite/docs/zh-CN/master/use/nnie.html#id6)。
+> - `configFile`配置文件采用`key=value`的方式定义相关参数，量化相关的配置参数详见[训练后量化](https://www.mindspore.cn/lite/docs/zh-CN/master/use/post_training_quantization.html)，扩展功能相关的配置参数详见[扩展配置](https://www.mindspore.cn/lite/docs/zh-CN/master/use/nnie.html#扩展配置)。
 
 ### 使用示例
 
@@ -164,7 +164,7 @@ mindspore-lite-{version}-win-x64
 
 ### 参数说明
 
-参考Linux环境模型转换工具的[参数说明](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html#id3)。
+参考Linux环境模型转换工具的[参数说明](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html#参数说明)。
 
 ### 使用示例
 

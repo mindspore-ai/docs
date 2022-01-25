@@ -303,7 +303,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 ### 常见计算图结构问题
 
-为了检查计算图结构问题，请读者首先参考[收集Summary数据](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/summary_record.html)，将计算图保存到summary文件中，然后使用MindInsight[可视化查看计算图](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/dashboard.html#id5)。
+为了检查计算图结构问题，请读者首先参考[收集Summary数据](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/summary_record.html)，将计算图保存到summary文件中，然后使用MindInsight[可视化查看计算图](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/dashboard.html#计算图可视化)。
 
 检查结论：
 
@@ -384,7 +384,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 检查方法：
 当使用[混合精度](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/enable_mixed_precision.html)训练，或者是使用Ascend AI处理器训练时，建议检查是否存在溢出问题。
 
-使用GPU时，通过[调试器](https://mindspore.cn/mindinsight/docs/zh-CN/master/debugger_online.html#id10)中的“检查张量溢出”监测点可以进行溢出检查。
+使用GPU时，通过[调试器](https://mindspore.cn/mindinsight/docs/zh-CN/master/debugger_online.html#异常现象检查列表)中的“检查张量溢出”监测点可以进行溢出检查。
 
 发现溢出问题后，应首先找到并分析第一个出现溢出的节点（对于Ascend的溢出数据，可以按文件名中的时间戳，找时间戳最小的一个；对于GPU上的溢出，只要找执行序中最靠前的一个），结合算子的输入输出数据确定溢出原因。
 
@@ -475,7 +475,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 ## 求助方式
 
-参考上面两种初步定位方法的任意一种进行操作。若未发现可疑点，一般说明脚本不存在明显的问题，此时请参考[精度调优建议](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_optimization.html#id12)进行调优。若使用基于现象对比的定位方法发现了疑点，请依据定位方法中的提示判断是需要自行定位的问题还是向MindSpore求助。若使用checklist发现了疑点或问题，请参考[精度问题详细定位和调优指南](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_optimization.html)进行详细定位。
+参考上面两种初步定位方法的任意一种进行操作。若未发现可疑点，一般说明脚本不存在明显的问题，此时请参考[精度调优建议](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_optimization.html#常用调优建议)进行调优。若使用基于现象对比的定位方法发现了疑点，请依据定位方法中的提示判断是需要自行定位的问题还是向MindSpore求助。若使用checklist发现了疑点或问题，请参考[精度问题详细定位和调优指南](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_optimization.html)进行详细定位。
 
 当您遇到精度问题，要向MindSpore求助时，提供相关材料将有助于我们更好地判断和解决您的问题。建议您提供的材料包括但不限于：
 

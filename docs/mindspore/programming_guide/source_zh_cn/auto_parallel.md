@@ -197,7 +197,7 @@ context.get_auto_parallel_context("gradient_fp32_sync")
 
 `auto_parallel_search_mode`字段现已替换为`search_mode`，`auto_parallel_search_mode`将会在未来版本中删除。该字段用于指示并行策略搜索使用的算法。当前，MindSpore提供了`dynamic_programming`，`recursive_programming`和`sharding_propagation`三种搜索策略的算法用于搜索算子级并行策略，默认是`dynamic_programming`。
 
-`dynamic_programming`能够搜索出代价模型刻画的最优策略，但在搜索巨大网络模型的并行策略时耗时较长；而`recursive_programming`能瞬间搜索出并行策略，同时在已验证的常用网络中搜索出来的策略是最优策略，但在未经验证的某些特殊网络中可能找到次优策略。`sharding_propagation`要求用户配置一些算子的并行策略，并以此为基础向整个网络传播。在传播时，算法会尽量选取引发张量[重排布](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/design/distributed_training_design.html#id10)通信最少的策略。MindSpore提供了参数，让用户自由选择搜索算法。
+`dynamic_programming`能够搜索出代价模型刻画的最优策略，但在搜索巨大网络模型的并行策略时耗时较长；而`recursive_programming`能瞬间搜索出并行策略，同时在已验证的常用网络中搜索出来的策略是最优策略，但在未经验证的某些特殊网络中可能找到次优策略。`sharding_propagation`要求用户配置一些算子的并行策略，并以此为基础向整个网络传播。在传播时，算法会尽量选取引发张量[重排布](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/design/distributed_training_design.html#自动并行原理)通信最少的策略。MindSpore提供了参数，让用户自由选择搜索算法。
 
 代码样例如下：
 

@@ -100,7 +100,7 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
     CONVERTER RESULT SUCCESS:0
     ```
 
-    用户若想了解converter_lite转换工具的相关参数，可参考[参数说明](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html#id4)。
+    用户若想了解converter_lite转换工具的相关参数，可参考[参数说明](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html#参数说明)。
 
     说明：当原始模型输入shape不确定时，converter工具转换模型时要指定inputShape，同时configFile配置acl_option_cfg_param中input_shape_vector参数，取值相同，命令如下：
 

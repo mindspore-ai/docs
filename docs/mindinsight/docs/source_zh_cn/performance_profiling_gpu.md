@@ -30,7 +30,7 @@
 
 - 在训练结束后，调用`Profiler.analyse`停止性能数据收集并生成性能分析结果。
 
-样例代码与Ascend使用方式一致，可以参考：<https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#id3>
+样例代码与Ascend使用方式一致，可以参考：<https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#准备训练脚本>
 
 GPU场景可自定义callback方式收集性能，但数据准备阶段、数据下沉模式不支持该方式收集性能数据。
 
@@ -124,13 +124,13 @@ GPU场景下，Timeline分析的使用方法和Ascend场景相同，不同之处
 
 GPU场景下，迭代轨迹分析的使用方法和Ascend场景相同。（注意：**迭代轨迹暂不支持异构训练场景**）
 
-使用方法可参考：<https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#id5>
+使用方法可参考：<https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#迭代轨迹分析>
 
 ### 数据准备性能分析
 
 GPU场景下，数据准备性能分析的使用方法和Ascend场景相同。
 
-使用方法可参考：<https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#id7>
+使用方法可参考：<https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#数据准备性能分析>
 
 ## 资源利用
 

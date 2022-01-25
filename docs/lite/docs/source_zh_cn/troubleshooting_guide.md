@@ -4,7 +4,7 @@
 
 ## 概述
 
-在MindSpore Lite使用中遇到问题时，可首先查看日志，多数场景下的问题可以通过日志报错信息直接定位（通过设置环境变量[GLOG_v](https://mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#id11) 调整日志等级可以打印更多调试日志），这里简单介绍几种常见报错场景的问题定位与解决方法。
+在MindSpore Lite使用中遇到问题时，可首先查看日志，多数场景下的问题可以通过日志报错信息直接定位（通过设置环境变量[GLOG_v](https://mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#日志相关的环境变量和配置) 调整日志等级可以打印更多调试日志），这里简单介绍几种常见报错场景的问题定位与解决方法。
 
 > 1. 因不同版本中日志行号可能存在差异，下述示例日志报错信息中的行号信息均用”**”表示；
 > 2. 示例日志中只列出了通用信息，其他涉及具体场景的信息均用“****”表示。
@@ -56,7 +56,7 @@
 
 ### 全量化转换失败
 
-1. 针对动态Shape的模型，需要在[转换命令](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html#id5)上设置`--inputShape=<INPUTSHAPE>`，例如
+1. 针对动态Shape的模型，需要在[转换命令](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html#参数说明)上设置`--inputShape=<INPUTSHAPE>`，例如
 
     ```
     ./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/full_quant.cfg --inputShape=intput_1:1,224,224,3;intput_2:1,48;
@@ -116,7 +116,7 @@
     ```
 
     - 问题分析：ms模型的输入shape包含-1，即模型输入为动态shape，直接推理时由于shape无效导致推理失败。
-    - 解决方法：MindSpore Lite在对包含动态shape输入的模型推理时要求指定合理的shape，使用benchmark工具时可通过设置[inputShapes](https://mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html#id3) 参数指定，使用MindSpore Lite集成开发时可通过调用[Resize](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#resize) 方法设置。
+    - 解决方法：MindSpore Lite在对包含动态shape输入的模型推理时要求指定合理的shape，使用benchmark工具时可通过设置[inputShapes](https://mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html#参数说明) 参数指定，使用MindSpore Lite集成开发时可通过调用[Resize](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#resize) 方法设置。
 
 ### OpenCL GPU 推理问题
 
@@ -185,7 +185,7 @@
     ```
 
     - 问题分析：TensorRT GPU 构图暂不支持有动态 shape 的模型，具体情况为模型的输入 shape 包含-1，或者模型中包含 shape 算子。
-    - 解决方法：在使用 converter 将模型转换成ms时，需要在[转换命令](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html#id5)上设置`--inputShape=<INPUTSHAPE>`，指定输入 tensor 的 shape 信息。如需在推理时改变输入 shape，使用 benchmark 工具时可通过设置[inputShapes](https://mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html#id3) 参数指定，使用 MindSpore Lite 集成开发时可通过调用[Resize](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#resize) 方法设置。注意： [Resize](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#resize)输入的 shape 维度必须要小于等于 [Build](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build)模型的维度。
+    - 解决方法：在使用 converter 将模型转换成ms时，需要在[转换命令](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html#参数说明)上设置`--inputShape=<INPUTSHAPE>`，指定输入 tensor 的 shape 信息。如需在推理时改变输入 shape，使用 benchmark 工具时可通过设置[inputShapes](https://mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html#参数说明) 参数指定，使用 MindSpore Lite 集成开发时可通过调用[Resize](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#resize) 方法设置。注意： [Resize](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#resize)输入的 shape 维度必须要小于等于 [Build](https://mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build)模型的维度。
 
 #### 图执行失败
 
@@ -280,7 +280,7 @@
 
 2. MindSpore Lite使用fp32推理结果正确，但是fp16推理结果出现NaN或者Inf值怎么办？
     - 结果出现NaN或者Inf值一般为推理过程中出现数值溢出，可以查看模型结构，筛选可能出数值溢出的算子层，然后通过benchmark工具的[Dump功能](https://mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html#dump) 保存算子层输出确认出现数值溢出的算子。
-    - MindSpore Lite 1.5.0之后版本提供混合精度推理能力，在整网推理优先使用fp16时支持设置某一层算子进行fp32推理，具体使用方法可参考官网文档[混合精度运行](https://mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html#id13) ，通过将溢出层设置为fp32避免在fp16推理时出现的整网推理精度问题。
+    - MindSpore Lite 1.5.0之后版本提供混合精度推理能力，在整网推理优先使用fp16时支持设置某一层算子进行fp32推理，具体使用方法可参考官网文档[混合精度运行](https://mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html#混合精度运行) ，通过将溢出层设置为fp32避免在fp16推理时出现的整网推理精度问题。
 
 3. MindSpore Lite使用fp32和fp16推理结果同时出现NaN或者Inf值怎么办？
     - 问题分析：检查整个网络存在做除法操作的算子。在做推理时如果执行了除法操作，且除数是0时容易出现NaN值。比如下面的网络结构，如果该网络用于输入数据不做归一化的场景，输入数据在0-255范围，则会出现NaN值，原因在于不做归一化时，输入数据比较大，导致matmul的输出值会很大，导致Tanh激活函数输出等于1，最终导致Div算子除0。但如果网络输入数据做了归一化，Tanh激活函数不等于1，网络推理数据不存在NaN值。

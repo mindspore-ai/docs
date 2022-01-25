@@ -58,7 +58,7 @@ mindinsight start --port {PORT} --summary-base-dir {SUMMARY_BASE_DIR} --offline-
 
 ## 离线调试器页面介绍
 
-离线调试器界面与在线调试器大致相同。在线调试器的页面介绍详见[在线调试器页面介绍](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_online.html#id6) 。不同的是，离线调试器会在计算图的上方显示图执行历史，并且可以重置训练轮次。
+离线调试器界面与在线调试器大致相同。在线调试器的页面介绍详见[在线调试器页面介绍](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_online.html#调试器页面介绍) 。不同的是，离线调试器会在计算图的上方显示图执行历史，并且可以重置训练轮次。
 
 ### 图执行历史
 
@@ -90,9 +90,9 @@ mindinsight start --port {PORT} --summary-base-dir {SUMMARY_BASE_DIR} --offline-
 
     此时，调试器处于加载离线数据的状态。
 
-2. 稍等片刻，在MindInsight UI上可以看到弹窗，提示选择是否使用推荐监测点，接下来的使用步骤与在线调试相同。[使用调试器进行调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_online.html#id17) 。
+2. 稍等片刻，在MindInsight UI上可以看到弹窗，提示选择是否使用推荐监测点，接下来的使用步骤与在线调试相同。[使用调试器进行调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_online.html#使用调试器进行调试) 。
 
-3. 如果需要重置训练轮次，可以参考[训练轮次重置](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_offline.html#id7) 来重置训练轮次。每个轮次的数据保存情况可以参考[图执行历史](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_offline.html#id6) 来查看。
+3. 如果需要重置训练轮次，可以参考[训练轮次重置](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_offline.html#训练轮次重置) 来重置训练轮次。每个轮次的数据保存情况可以参考[图执行历史](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_offline.html#图执行历史) 来查看。
 
 ## 离线调试器API使用样例
 

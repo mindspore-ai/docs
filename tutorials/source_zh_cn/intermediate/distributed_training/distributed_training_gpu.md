@@ -81,7 +81,7 @@ if __name__ == "__main__":
 
 ## 数据并行模式加载数据集
 
-在GPU硬件平台上，加载数据集的处理流程和Ascend 910 AI处理器一致。可参考[数据并行模式加载数据集](https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/distributed_training/distributed_training_ascend.html#id5)。
+在GPU硬件平台上，加载数据集的处理流程和Ascend 910 AI处理器一致。可参考[数据并行模式加载数据集](https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/distributed_training/distributed_training_ascend.html#数据并行模式加载数据集)。
 
 ## 定义网络
 
@@ -91,7 +91,7 @@ if __name__ == "__main__":
 
 ### 定义损失函数
 
-在GPU硬件平台上，损失函数的定义和Ascend 910 AI处理器一致。可参考[定义损失函数](https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/distributed_training/distributed_training_ascend.html#id8)。
+在GPU硬件平台上，损失函数的定义和Ascend 910 AI处理器一致。可参考[定义损失函数](https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/distributed_training/distributed_training_ascend.html#定义损失函数)。
 
 ### 定义优化器
 

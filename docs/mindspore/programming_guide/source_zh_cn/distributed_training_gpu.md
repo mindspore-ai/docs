@@ -409,7 +409,7 @@ pytest -s -v ./resnet50_distributed_training_gpu.py > train.log 2>&1 &
 
 ## 分布式训练模型参数保存与加载
 
-在GPU上进行分布式训练时，模型参数的保存和加载的方法与Ascend上一致，可参考[分布式训练模型参数保存和加载](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_ascend.html#id18)
+在GPU上进行分布式训练时，模型参数的保存和加载的方法与Ascend上一致，可参考[分布式训练模型参数保存和加载](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_ascend.html#分布式训练模型参数保存和加载)
 。
 
 ## 不依赖OpenMPI进行训练
@@ -420,7 +420,7 @@ OpenMPI在分布式训练的场景中，起到在Host侧同步数据以及进程
 
 参考[Parameter Server模式](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/apply_parameter_server_training.html)训练教程，将多个MindSpore训练进程作为`Worker`启动，并且额外启动一个`Scheduler`，对脚本做少量修改，即可执行**不依赖OpenMPI的分布式训练**。
 
-执行Worker脚本前需要导出环境变量，如[环境变量设置](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/apply_parameter_server_training.html#id5):
+执行Worker脚本前需要导出环境变量，如[环境变量设置](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/apply_parameter_server_training.html#环境变量设置):
 
 ```text
 export MS_SERVER_NUM=0                # Server number
@@ -461,7 +461,7 @@ if __name__ == "__main__":
 - 默认情况下，安全加密通道是关闭的，需要通过`set_ps_context`正确配置安全加密通道或者关闭安全加密通道后，才能调用init("nccl")，否则初始化组网会失败。
 
 若想使用安全加密通道，请设置`context.set_ps_context(config_file_path="/path/to/config_file.json", enable_ssl=True, client_password="123456", server_password="123456")`
-等配置，详细参数配置说明请参考Python API [mindspore.context.set_ps_context](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.context.html#mindspore.context.set_ps_context)，以及本文档[安全认证](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_gpu.html#id17)章节。
+等配置，详细参数配置说明请参考Python API [mindspore.context.set_ps_context](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.context.html#mindspore.context.set_ps_context)，以及本文档[安全认证](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_gpu.html#安全认证)章节。
 
 脚本内容`run_gpu_cluster.sh`如下，在启动Worker和Scheduler之前，需要添加相关环境变量设置：
 

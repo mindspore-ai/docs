@@ -18,18 +18,18 @@
 |MS_RDR_ENABLE|MindSpore|是否开启程序运行数据记录器（RDR），如果MindSpore出现了运行异常，会自动导出MindSpore中预先记录的数据以辅助定位运行异常的原因|Integer|1：开启RDR功能 <br>0：关闭RDR功能|配合`MS_RDR_MODE`与`MS_RDR_PATH`使用|可选|无|
 |MS_RDR_MODE|MindSpore|指定运行数据记录器（RDR）导出数据的模式|Integer|1：仅在训练进程异常终止时导出数据 <br>2：训练进程异常终止或正常结束时导出数据|配合`MS_RDR_ENABLE=1`使用|可选|1|
 |MS_RDR_PATH|MindSpore|配置程序运行数据记录器（RDR）的文件导出的根目录路径|String|目录路径，仅支持绝对路径|配合`MS_RDR_ENABLE=1`使用，最终RDR文件将保存在`${MS_RDR_PATH}/rank_${RANK_ID}/rdr/`目录下。其中`RANK_ID`为多卡训练场景中的卡号，单卡场景默认`RANK_ID=0`。|可选|无|
-|GLOG_v|MindSpore|[日志功能与用法](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#id11)|Integer|0-DEBUG <br>1-INFO <br>2-WARNING <br>3-ERROR|无|可选|2|
-|GLOG_logtostderr|MindSpore|[日志功能与用法](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#id11)|Integer|1:日志输出到屏幕 <br> 0:日志输出到文件|与GLOG_log_dir一起使用|可选|1|
-|GLOG_log_dir|MindSpore|[日志功能与用法](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#id11)|String|文件路径，支持相对路径与绝对路径|与GLOG_logtostderr一起使用|可选|无|
-|GLOG_stderrthreshold|MindSpore|[日志功能与用法](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#id11)|Integer|0-DEBUG <br>1-INFO <br>2-WARNING <br>3-ERROR|无|可选|2
-|MS_SUBMODULE_LOG_v|MindSpore|[日志功能与用法](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#id11)|Dict{String:Integer...}|LogLevel: 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR<br>SubModual: COMMON, MD, DEBUG, DEVICE, COMMON, IR...|无|可选|无|
-|GLOG_log_max|MindSpore|[日志功能与用法](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#id11)|Integer|正整数|无|可选|50|
-|logger_maxBytes|MindSpore|[日志功能与用法](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#id11)|Integer|无|无|可选|52428800|
-|logger_backupCount|MindSpore|[日志功能与用法](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#id11)|Integer|无|无|可选|30
+|GLOG_v|MindSpore|[日志功能与用法](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#日志相关的环境变量和配置)|Integer|0-DEBUG <br>1-INFO <br>2-WARNING <br>3-ERROR|无|可选|2|
+|GLOG_logtostderr|MindSpore|[日志功能与用法](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#日志相关的环境变量和配置)|Integer|1:日志输出到屏幕 <br> 0:日志输出到文件|与GLOG_log_dir一起使用|可选|1|
+|GLOG_log_dir|MindSpore|[日志功能与用法](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#日志相关的环境变量和配置)|String|文件路径，支持相对路径与绝对路径|与GLOG_logtostderr一起使用|可选|无|
+|GLOG_stderrthreshold|MindSpore|[日志功能与用法](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#日志相关的环境变量和配置)|Integer|0-DEBUG <br>1-INFO <br>2-WARNING <br>3-ERROR|无|可选|2
+|MS_SUBMODULE_LOG_v|MindSpore|[日志功能与用法](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#日志相关的环境变量和配置)|Dict{String:Integer...}|LogLevel: 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR<br>SubModual: COMMON, MD, DEBUG, DEVICE, COMMON, IR...|无|可选|无|
+|GLOG_log_max|MindSpore|[日志功能与用法](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#日志相关的环境变量和配置)|Integer|正整数|无|可选|50|
+|logger_maxBytes|MindSpore|[日志功能与用法](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#日志相关的环境变量和配置)|Integer|无|无|可选|52428800|
+|logger_backupCount|MindSpore|[日志功能与用法](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#日志相关的环境变量和配置)|Integer|无|无|可选|30
 |OPTION_PROTO_LIB_PATH|MindSpore|RPOTO依赖库库路径|String|目录路径，支持相对路径与绝对路径|无|可选|无|
 |MS_OM_PATH|MindSpore|配置task异常时dump数据路径以及图编译出错时dump的analyze_fail.dat文件的保存目录，保存路径为：指定的路径/rank_${rand_id}/om|String|文件路径，支持相对路径与绝对路径|无|可选|无|
-|MINDSPORE_DUMP_CONFIG|MindSpore|指定[云侧Dump功能](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dump_in_graph_mode.html#id6)或[端侧Dump功能](https://www.mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html#dump)所依赖的配置文件的路径|String|文件路径，支持相对路径与绝对路径|无|可选|无|
-|MS_DIAGNOSTIC_DATA_PATH|MindSpore|使用[云侧Dump功能](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dump_in_graph_mode.html#id6)时，如果Dump配置文件没有设置`path`字段或者设置为空字符串，则“$MS_DIAGNOSTIC_DATA_PATH/debug_dump”就会被当做path的值。若Dump配置文件中设置了`path`字段，则仍以该字段的实际取值为准。|String|文件路径，只支持绝对路径|与MINDSPORE_DUMP_CONFIG配合使用|可选|无|
+|MINDSPORE_DUMP_CONFIG|MindSpore|指定[云侧Dump功能](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dump_in_graph_mode.html#同步dump)或[端侧Dump功能](https://www.mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html#dump)所依赖的配置文件的路径|String|文件路径，支持相对路径与绝对路径|无|可选|无|
+|MS_DIAGNOSTIC_DATA_PATH|MindSpore|使用[云侧Dump功能](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dump_in_graph_mode.html#同步dump)时，如果Dump配置文件没有设置`path`字段或者设置为空字符串，则“$MS_DIAGNOSTIC_DATA_PATH/debug_dump”就会被当做path的值。若Dump配置文件中设置了`path`字段，则仍以该字段的实际取值为准。|String|文件路径，只支持绝对路径|与MINDSPORE_DUMP_CONFIG配合使用|可选|无|
 |MS_ENABLE_CACHE|MindData|是否开启dataset数据处理cache功能，可以实现数据处理过程中数据的cache能力，加速数据集读取及增强处理|String|TRUE：开启数据处理cache功能 <br>FALSE：关闭数据处理cache功能|与MS_CACHE_HOST、MS_CACHE_PORT一起使用|可选|无|
 |MS_CACHE_HOST|MindData|开启cache时，cache服务所在的IP|String|Cache Server所在机器的IP|与MS_ENABLE_CACHE=TRUE、MS_CACHE_PORT一起使用|可选|无|
 |MS_CACHE_PORT|MindData|开启cache时，cache服务所在的端口|String|Cache Server所在机器的端口|与MS_ENABLE_CACHE=TRUE、MS_CACHE_HOST一起使用|可选|无|

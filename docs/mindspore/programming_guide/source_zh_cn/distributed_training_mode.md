@@ -17,7 +17,7 @@
 
 当前MindSpore提供分布式并行训练的功能。它支持了上述的多种模式，可以通过`context.set_auto_parallel_context()`接口设置对应的并行模式。
 
-在用户调用分布式训练流程时，需要调用如下代码进行通信的初始化，并且配置对应的rank_table_file，可以参考[分布式训练(Ascend)](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/distributed_training_ascend.html#id20)的**多机多卡训练**章节。
+在用户调用分布式训练流程时，需要调用如下代码进行通信的初始化，并且配置对应的rank_table_file，可以参考[分布式训练(Ascend)](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/distributed_training_ascend.html#多机多卡训练)的**多机多卡训练**章节。
 
 ```python
 from mindspore.communication import init, get_rank, get_group_size
@@ -81,7 +81,7 @@ model.train(*args, **kwargs)
 
 ### 半自动并行
 
-相较于自动并行，半自动并行模式需要用户对算子手动配置切分**策略**实现并行。关于算子并行策略的定义可以参考这篇[设计文档](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/design/distributed_training_design.html#id10)。
+相较于自动并行，半自动并行模式需要用户对算子手动配置切分**策略**实现并行。关于算子并行策略的定义可以参考这篇[设计文档](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/design/distributed_training_design.html#自动并行原理)。
 
 - 启动半自动和自动模式进行训练时，**必须**通过`model.train(*args, **kwargs)`接口进行训练，不支持自定义循环进行网络训练。
 

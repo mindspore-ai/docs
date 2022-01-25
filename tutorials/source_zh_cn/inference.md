@@ -251,7 +251,7 @@ MindSpore Lite是端边云全场景AI框架MindSpore的端侧部分，可以在�
 
 #### Linux系统构建与运行
 
-- 编译构建，环境要求请参考[编译MindSpore Lite](https://mindspore.cn/lite/docs/zh-CN/master/use/build.html#id1) 。
+- 编译构建，环境要求请参考[编译MindSpore Lite](https://mindspore.cn/lite/docs/zh-CN/master/use/build.html#环境要求) 。
 
   在`mindspore/lite/examples/quick_start_cpp`目录下执行build脚本，将能够自动下载相关文件并编译Demo。
 
@@ -276,7 +276,7 @@ MindSpore Lite是端边云全场景AI框架MindSpore的端侧部分，可以在�
 
 #### Windows系统构建与运行
 
-- 编译构建，环境要求请参考[编译MindSpore Lite](https://mindspore.cn/lite/docs/zh-CN/master/use/build.html#id6) 。
+- 编译构建，环境要求请参考[编译MindSpore Lite](https://mindspore.cn/lite/docs/zh-CN/master/use/build.html#环境要求-1) 。
 
     - 库下载：请手动下载硬件平台为CPU、操作系统为Windows-x64的MindSpore Lite模型推理框架[mindspore-lite-{version}-win-x64.zip](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，将解压后`inference/lib`目录下的`libmindspore-lite.a`拷贝到`mindspore/lite/examples/quick_start_cpp/lib`目录、`inference/include`目录拷贝到`mindspore/lite/examples/quick_start_cpp/include`目录。
 
