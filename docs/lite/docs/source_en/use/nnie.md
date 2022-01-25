@@ -37,7 +37,7 @@ mindspore-lite-{version}-linux-aarch32
         └── libmslite_proposal.so  # Sample dynamic library of the integrated proposal
 ```
 
-The preceding shows the integration directory structure of the NNIE. For details about other directory structures of the inference tool runtime, see [Directory Structure](https://www.mindspore.cn/lite/docs/en/master/use/build.html#id4).
+The preceding shows the integration directory structure of the NNIE. For details about other directory structures of the inference tool runtime, see [Directory Structure](https://www.mindspore.cn/lite/docs/en/master/use/build.html#directory-structure).
 
 ## Using Tools
 
@@ -142,7 +142,7 @@ The following is an example of the `nnie.cfg` file:
      CONVERTER RESULT SUCCESS:0
      ```
 
-     For details about the parameters of the converter_lite conversion tool, see ["Parameter Description" in Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html#id4).
+     For details about the parameters of the converter_lite conversion tool, see ["Parameter Description" in Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html#example).
 
 ### Runtime
 

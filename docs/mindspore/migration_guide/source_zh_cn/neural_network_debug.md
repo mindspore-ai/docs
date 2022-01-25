@@ -43,7 +43,7 @@
 
 - 在PyNative模式下可使用pdb进行调试，利用pdb打印相关堆栈和上下文信息帮助问题定位。
 - 使用Print算子打印更多上下文信息，具体示例可参考[Print算子功能介绍](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#print)。
-- 调整日志级别获取更多报错信息，MindSpore可通过环境变量方便地调整日志级别，具体可参考[日志相关的环境变量和配置](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#id6)。
+- 调整日志级别获取更多报错信息，MindSpore可通过环境变量方便地调整日志级别，具体可参考[日志相关的环境变量和配置](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#日志相关的环境变量和配置)。
 
 #### 常见错误
 
@@ -125,7 +125,7 @@
 
 - [Callback功能](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#callback)
 
-   MindSpore已提供ModelCheckpoint、LossMonitor、SummaryCollector等Callback类用于保存模型参数、监控loss值、保存训练过程信息等功能，用户也可自定义Callback函数用于实现在每个epoch和step的开始和结束运行相关功能，具体示例可参考[自定义Callback](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#id3)。
+   MindSpore已提供ModelCheckpoint、LossMonitor、SummaryCollector等Callback类用于保存模型参数、监控loss值、保存训练过程信息等功能，用户也可自定义Callback函数用于实现在每个epoch和step的开始和结束运行相关功能，具体示例可参考[自定义Callback](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#自定义callback)。
 
 - [MindSpore metrics功能](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#mindspore-metrics)
 

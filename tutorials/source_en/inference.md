@@ -273,7 +273,7 @@ The following uses the [mobilenetv2.mindir](https://download.mindspore.cn/model_
 
 #### Building and Running the Windows System
 
-- Build. Renference [Building MindSpore Lite](https://mindspore.cn/lite/docs/en/master/use/build.html#id1) to get the Environment Requirements.
+- Build. Renference [Building MindSpore Lite](https://mindspore.cn/lite/docs/en/master/use/build.html#environment-requirements) to get the Environment Requirements.
 
     - Download the library: Manually download the MindSpore Lite model inference framework [mindspore-lite-{version}-win-x64.zip](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) whose hardware platform is CPU and operating system is Windows-x64. Copy the `libmindspore-lite.a` file in the decompressed `inference/lib` directory to the `mindspore/lite/examples/quick_start_cpp/lib` directory. Copy the `inference/include` directory to the `mindspore/lite/examples/quick_start_cpp/include` directory.
 

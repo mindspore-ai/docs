@@ -823,7 +823,7 @@ profiler.analyse()
 
 当数据处理速度较慢时，队列从最开始的满队列情况逐渐消耗为空队列，训练进程会开始等待空队列填入数据，一旦有新的数据填入，网络才会继续进行单Step训练。由于数据处理没有队列作为缓冲，数据处理的性能抖动直接体现在单Step的性能上，因此还会造成单Step性能抖动。
 
-关于MindData的性能问题，可以参考 MindInsight 组件的 [数据准备性能分析](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#id8)，其给出了MindData 性能的常见问题及解决方法。
+关于MindData的性能问题，可以参考 MindInsight 组件的 [数据准备性能分析](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#数据准备性能分析)，其给出了MindData 性能的常见问题及解决方法。
 
 #### 多机同步性能问题
 

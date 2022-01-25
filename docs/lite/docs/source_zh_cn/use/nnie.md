@@ -37,7 +37,7 @@ mindspore-lite-{version}-linux-aarch32
         └── libmslite_proposal.so  # 集成proposal的样例动态库
 ```
 
-上述是NNIE的集成目录结构，推理工具runtime的其余目录结构详情，见[目录结构](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html#id4)。
+上述是NNIE的集成目录结构，推理工具runtime的其余目录结构详情，见[目录结构](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html#目录结构)。
 
 ## 工具使用
 
@@ -142,7 +142,7 @@ nnie.cfg文件的示例参考如下：
      CONVERTER RESULT SUCCESS:0
      ```
 
-     用户若想了解converter_lite转换工具的相关参数，可参考[参数说明](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html#id4)。
+     用户若想了解converter_lite转换工具的相关参数，可参考[参数说明](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html#参数说明)。
 
 ### 推理工具runtime
 
@@ -337,7 +337,7 @@ ${model_path}为转换后ms模型文件路径
 
   MindSpore Lite在转换NNIE模型时，会将大部分的算子融合为NNIE运行的二进制文件，用户无法观察到中间算子的输出，通过在top域上添加”_report“后缀，转换构图时会将中间算子的输出添加到融合后的层输出中，若原先该算子便有输出（未被融合），则维持不变。
 
-  在推理运行时，用户可通过[回调运行](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html#id15)得到中间算子输出。
+  在推理运行时，用户可通过[回调运行](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html#回调运行)得到中间算子输出。
 
   MindSpore Lite解析_report的相应规则，及与[inplace机制](#inplace机制)的冲突解决，参照《HiSVP 开发指南》中的定义说明。
 

@@ -85,7 +85,7 @@ CheckPoint文件在训练过程中产生。CheckPoint具体用法可参考: [Che
 代码如下：
 `load_distributed_checkpoint(model, ckpt_file_list, predict_strategy)`
 
-`load_distributed_checkpoint`的具体用法可参考：[分布式推理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/multi_platform_inference_ascend_910.html#id1)。
+`load_distributed_checkpoint`的具体用法可参考：[分布式推理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/multi_platform_inference_ascend_910.html#概述)。
 
 最后，就可以导出在分布式推理场景下的MindIR文件。
 

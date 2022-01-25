@@ -10,7 +10,7 @@
 
 以下教程参考了 [using_benchmarks.py](https://gitee.com/mindspore/xai/blob/master/examples/using_benchmarks.py) 。
 
-请参阅 [下载教程数据集及模型](https://www.mindspore.cn/xai/docs/zh-CN/master/using_explainers.html#id4) 以下载所有本教程所需的文件。
+请参阅 [下载教程数据集及模型](https://www.mindspore.cn/xai/docs/zh-CN/master/using_explainers.html#下载教程数据集及模型) 以下载所有本教程所需的文件。
 
 下载教程数据集及模型后，我们要加载一张样本图片，一个训练好的分类器，一个解释器和一张热力图(可选)：
 

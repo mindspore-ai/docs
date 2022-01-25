@@ -8,11 +8,11 @@ MindSpore可以基于训练好的模型，在不同的硬件平台上执行推�
 
 ### 总览
 
-MindSpore支持保存为CheckPoint格式的[训练参数文件](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/multi_platform_inference.html#id2)和MindIR、AIR、ONNX格式的[网络模型文件](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/multi_platform_inference.html#id2)。
+MindSpore支持保存为CheckPoint格式的[训练参数文件](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/multi_platform_inference.html#模型文件)和MindIR、AIR、ONNX格式的[网络模型文件](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/multi_platform_inference.html#模型文件)。
 
-参考[执行推理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/multi_platform_inference.html#id3)，不仅可以直接通过`mindspore.model.predict`接口执行本机推理，还可以通过`mindspore.export`导出MindIR、AIR、ONNX格式的网络模型文件，以便于跨平台执行推理。
+参考[执行推理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/multi_platform_inference.html#执行推理)，不仅可以直接通过`mindspore.model.predict`接口执行本机推理，还可以通过`mindspore.export`导出MindIR、AIR、ONNX格式的网络模型文件，以便于跨平台执行推理。
 
-使用[MindIR格式](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/multi_platform_inference.html#id3)的模型文件消除了不同后端模型的差异，可以用于执行跨硬件平台推理，支持部署到云端Serving和端侧Lite平台。
+使用[MindIR格式](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/multi_platform_inference.html#mindir介绍)的模型文件消除了不同后端模型的差异，可以用于执行跨硬件平台推理，支持部署到云端Serving和端侧Lite平台。
 
 ### 不同硬件平台执行推理
 

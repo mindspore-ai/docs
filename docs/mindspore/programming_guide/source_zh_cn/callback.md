@@ -44,6 +44,6 @@ MindSpore不但有功能强大的内置回调函数，还可以支持用户自�
 
 2. 实现保存训练过程中精度最高的checkpoint文件，用户可以自定义在每一轮迭代后都保存当前精度最高的模型。
 
-详细内容，请参考[自定义Callback官网教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#id3)。
+详细内容，请参考[自定义Callback官网教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#自定义callback)。
 
 根据教程，用户可以很容易实现具有其他功能的自定义回调函数，如实现在每一轮训练结束后都输出相应的详细训练信息，包括训练进度、训练轮次、训练名称、loss值等；如实现在loss或模型精度达到一定值后停止训练，用户可以设定loss或模型精度的阈值，当loss或模型精度达到该阈值后就提前终止训练等。

@@ -256,7 +256,7 @@ sh run_eval.sh [PLATFORM] [DATASET_PATH] [PRETRAIN_CKPT_PATH]
 
 ## 加载微调训练
 
-Windows系统上，MobileNetV2做微调训练时，只能运行`train.py`。Linux系统上，使用MobileNetV2做微调训练时，可以选择运行`run_train.sh`， 并在运行Shell脚本文件时传入[参数](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/cv_mobilenetv2_fine_tune.html#id8)。
+Windows系统上，MobileNetV2做微调训练时，只能运行`train.py`。Linux系统上，使用MobileNetV2做微调训练时，可以选择运行`run_train.sh`， 并在运行Shell脚本文件时传入[参数](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/cv_mobilenetv2_fine_tune.html#参数简介)。
 
 Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_train.sh`时，命令行结尾使用`&> <log_file_path>`将标准输出与错误输出写入log文件。微调成功开始训练，`./train/rank*/log*.log`中会持续写入每一个epoch的训练时间与Loss等信息。若未成功，上述log文件会写入失败报错信息。
 
@@ -386,7 +386,7 @@ Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_
 
 ### 验证模型
 
-使用验证集测试模型性能，需要输入必要[参数](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/cv_mobilenetv2_fine_tune.html#id8)，`--platform`默认为“Ascend”，可自行设置为"CPU"或"GPU"。最终在交互式命令行中展示标准输出与错误输出，或者将其写入`eval.log`文件。
+使用验证集测试模型性能，需要输入必要[参数](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/cv_mobilenetv2_fine_tune.html#参数简介)，`--platform`默认为“Ascend”，可自行设置为"CPU"或"GPU"。最终在交互式命令行中展示标准输出与错误输出，或者将其写入`eval.log`文件。
 
 ```bash
 # Windows/Linux with Python

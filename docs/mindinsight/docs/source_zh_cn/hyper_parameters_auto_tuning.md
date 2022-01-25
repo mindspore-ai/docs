@@ -189,7 +189,7 @@ optional arguments:
 
 4. 可视化
 
-    基于config.yaml里面配置的summary_base_dir来启动MindInsight，启动方法可以查看[MindInsight启动命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_commands.html#id3)。
+    基于config.yaml里面配置的summary_base_dir来启动MindInsight，启动方法可以查看[MindInsight启动命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_commands.html#启动服务)。
 
 ## 注意事项
 
