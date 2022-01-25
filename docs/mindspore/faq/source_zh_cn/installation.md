@@ -304,3 +304,9 @@ $make
 $make check
 $sudo make install
 ```
+
+<br/>
+
+<font size=3>**Q: 运行MindSpore时出现告警 `UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.` 应该怎么解决？**</font>
+
+A: 上述问题出现在安装了较新版本的numpy(>=1.22.0)版本的ARM python3.9环境上。告警来自numpy而非MindSpore。如果告警影响到了代码的正常调测，可以考虑手动安装较低版本的numpy(<=1.21.2)来规避。

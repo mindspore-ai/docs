@@ -286,3 +286,9 @@ $make
 $make check
 $sudo make install
 ```
+
+<br/>
+
+<font size=3>**What should I do if an warning message `UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.` is displayed when running Mindspore?**</font>
+
+A: We observed such warnings on ARM environment, with python 3.9 and numpy >=1.22.0 installed. These wharnings come from numpy instead of MindSpore, if you wish to suppress these warnings, please consider manually switching to a lower version of numpy (<=1.21.2).
