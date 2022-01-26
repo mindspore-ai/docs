@@ -49,18 +49,8 @@ opt = nn.Momentum(net.trainable_params(), learning_rate=0.005, momentum=0.9)
 train_net = nn.TrainOneStepCell(net_with_criterion, opt)
 # Set the network to training mode
 train_net.set_train()
+```
 
-```python
-    TrainOneStepCell<
-      (network): WithLossCell<
-        (_backbone): LinearNet<
-          (fc): Dense<input_channels=1, output_channels=1, has_bias=True>
-          >
-        (_loss_fn): MSELoss<>
-        >
-      (optimizer): Momentum<>
-      >
-      
 `set_train` recursively configures the `training` attribute of a `Cell`. When implementing networks with different training and inference structures, the training and inference scenarios can be distinguished by the `training` attribute, such as `BatchNorm`, `Dropout`.
 
 The previous chapter [Loss Function](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/loss.html) has introduced how to define the loss function and use `WithLossCell` to convert the forward network connected with the loss function, here is how to obtain gradients and update weights to form a complete training network. The specific implementation of `nn.TrainOneStepCell` provided by MindSpore is as follows:
@@ -163,28 +153,7 @@ for epoch in range(epochs):
     for d in train_dataset.create_dict_iterator():
         result = train_net(d["data"], d["label"])
         print(result)
-```python
-
-    145.24876
-    70.20597
-    14.140765
-    39.922314
-    115.094505
-    44.916664
-    61.667316
-    14.272891
-    6.810166
-    20.222588
-    33.35916
-    38.416348
-    11.631884
-    5.031072
-    6.032862
-    18.471722
-    19.095896
-    5.288643
-    4.173666
-    1.0577652
+```
 
 ### Customize a network training wrapper function
 
