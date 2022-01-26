@@ -34,6 +34,10 @@ after = """\
         if node['names']:
             id = node['names'][0]
             id = short_title(id)
+            self.id_counter[id] += 1
+            if self.id_counter[id] > 1:
+                id = '{}-{}'.format(id, self.id_counter[id]-1)
+                self.id_counter[id] += 1
         node['ids'].append(id)"""
 
 # Mod nodes for docutils.
