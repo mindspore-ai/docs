@@ -60,6 +60,7 @@ train_net.set_train()
         >
       (optimizer): Momentum<>
       >
+      
 `set_train` recursively configures the `training` attribute of a `Cell`. When implementing networks with different training and inference structures, the training and inference scenarios can be distinguished by the `training` attribute, such as `BatchNorm`, `Dropout`.
 
 The previous chapter [Loss Function](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/loss.html) has introduced how to define the loss function and use `WithLossCell` to convert the forward network connected with the loss function, here is how to obtain gradients and update weights to form a complete training network. The specific implementation of `nn.TrainOneStepCell` provided by MindSpore is as follows:
