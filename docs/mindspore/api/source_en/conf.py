@@ -130,7 +130,10 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
 try:
     decorator_list = [("mindspore/common/_decorator.py", "deprecated",
                        "    def decorate(func):",
-                       "    def decorate(func):\n\n        import functools\n\n        @functools.wraps(func)")]
+                       "    def decorate(func):\n\n        import functools\n\n        @functools.wraps(func)"),
+                       ("mindspore/ops/operations/nn_ops.py", "modify math error.",
+                       ": math:`(", ":math:`(")
+                     ]
 
     base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
     for i in decorator_list:
