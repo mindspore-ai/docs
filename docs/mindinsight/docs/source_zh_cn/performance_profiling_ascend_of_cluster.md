@@ -284,6 +284,10 @@ done
 pip install /usr/local/Ascend/tools/hccl_parser-{version}-py3-none-any.whl
 ```
 
+### 规格
+
+出于对数据解析性能的考虑，当前对开启集群通信生成的文件数量进行了限制，目前MindSpore侧生成的原始通信性能文件（.trace后缀命名）数量上限为500。当通信原始数据超出上限，可能出现集群通信step数与集群迭代轨迹step数不一致的情况。
+
 ## 资源利用
 
 ### 集群内存使用情况分析
