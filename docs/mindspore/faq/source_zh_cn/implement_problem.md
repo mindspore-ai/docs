@@ -519,7 +519,7 @@ ValueError: numpy.ndarray size changed, may indicate binary incompatibility. Exp
 
 <br/>
 
-<font size=3>**运行文档示例代码的过程中，遇到`matplotlib.pyplot.show()`或`plt.show()`无法执行怎么处理？**</font>
+<font size=3>**Q：运行文档示例代码的过程中，遇到`matplotlib.pyplot.show()`或`plt.show()`无法执行怎么处理？**</font>
 
 A: 首先确认是否安装`matplotlib`，如果没有安装，可以在命令行中执行`pip install matplotlib`进行安装。
 
