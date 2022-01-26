@@ -372,9 +372,6 @@ print("mae: ", mae_result)
 print("loss: ", loss_result)
 ```
 
-    mae:  1.8630892157554626
-    loss:  4.745016288757324
-
 `nn.WithEvalCell` outputs the value of the loss function to facilitate the calculation of the evaluation index `Loss`, if not needed, this output can be ignored.
 
 Since the data and weights are random, the training results are also random.
