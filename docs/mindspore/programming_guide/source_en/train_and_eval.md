@@ -370,7 +370,7 @@ mae_result = mae.eval()
 loss_result = loss.eval()
 print("mae: ", mae_result)
 print("loss: ", loss_result)
-```python
+```
 
     mae:  1.8630892157554626
     loss:  4.745016288757324
