@@ -15,7 +15,6 @@ You can use Cell to build a forward pass network, we construct a simple linear r
 > For more details about Cell
 <https://www.mindspore.cn/docs/programming_guide/zh-CN/master/build_net.html>
 
-
 ```python
 import numpy as np
 import mindspore.nn as nn
@@ -38,7 +37,6 @@ Building a training network requires stacking a loss function, backpropagation, 
 
 MindSpore's nn module provides a training network encapsulation function `TrainOneStepCell`. Next, we will  encapsulate the previously defined LinearNet into a training network using `nn.TrainOneStepCell`. The specific process is as follows:
 
-
 ```python
 # Instantiate the forward pass network
 net = LinearNet()
@@ -52,10 +50,6 @@ train_net = nn.TrainOneStepCell(net_with_criterion, opt)
 # Set the network to training mode
 train_net.set_train()
 ```
-
-
-
-
     TrainOneStepCell<
       (network): WithLossCell<
         (_backbone): LinearNet<
@@ -65,13 +59,9 @@ train_net.set_train()
         >
       (optimizer): Momentum<>
       >
-
-
-
 `set_train` recursively configures the `training` attribute of a `Cell`. When implementing networks with different training and inference structures, the training and inference scenarios can be distinguished by the `training` attribute, such as `BatchNorm`, `Dropout`.
 
 The previous chapter [Loss Function](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/loss.html) has introduced how to define the loss function and use `WithLossCell` to convert the forward network connected with the loss function, here is how to obtain gradients and update weights to form a complete training network. The specific implementation of `nn.TrainOneStepCell` provided by MindSpore is as follows:
-
 
 ```python
 import mindspore.ops as ops
@@ -143,8 +133,6 @@ The training execution process defined by `construct` includes 4 main steps:
 
 Generate the dataset and perform data preprocessing:
 
-
-
 ```python
 import mindspore.dataset as ds
 import numpy as np
@@ -165,7 +153,6 @@ train_dataset = create_dataset(num_data=160)
 ```
 
 Train the model using the the loss function output value of the training network encapsulated by `nn.TrainOneStepCell`:
-
 
 ```python
 # Get training data generated during the process
@@ -197,7 +184,6 @@ for epoch in range(epochs):
     4.173666
     1.0577652
 
-
 ### Customize a network training wrapper function
 
 In general, users can use the `nn.TrainOneStepCell` provided by the framework to encapsulate the training network. When the `nn.TrainOneStepCell` cannot meet the requirements, you need to customize the `TrainOneStepCell` that meets the actual situation. For example:
@@ -205,7 +191,6 @@ In general, users can use the `nn.TrainOneStepCell` provided by the framework to
 1. Based on `nn.TrainOneStepCell`, Bert in ModelZoo adds truncated gradient operation to obtain better training effect. The code snippet of the training wrapper function defined by Bert is as follows:
 
 > For more details about Bert network : https://gitee.com/mindspore/models/tree/master/official/nlp/bert
-
 
 ```python
 GRADIENT_CLIP_TYPE = 1
@@ -247,7 +232,6 @@ class BertTrainOneStepCell(nn.TrainOneStepCell):
 2. Wide&Deep outputs two loss function values, and performs back-propagation and parameter update for the Wide and Deep parts of the network respectively, while `nn.TrainOneStep` is only suitable to one loss function value, so Wide&Deep in ModelZoo has a customized trainning wrapper function, the code snippet is as follows:
 
 > For more Wide&Deep network details: <https://gitee.com/mindspore/models/tree/master/official/recommend/wide_and_deep>.
-
 
 ```python
 class IthOutputCell(nn.Cell):
@@ -348,7 +332,6 @@ The function of the evaluation network is to output predicted values and true la
 
 Build an evaluation network using the previously defined forward network and loss function:
 
-
 ```python
 # Build an evaluation network
 eval_net = nn.WithEvalCell(net, crit)
@@ -356,7 +339,6 @@ eval_net.set_train(False)
 ```
 
 You can obtain the model evaluation results by executing `eval_net` to output predicted values and labels, processing them with evaluation metrics. The specific definition of `nn.WithEvalCell` is as follows:
-
 
 ```python
 class WithEvalCell(nn.Cell):
@@ -392,7 +374,6 @@ The training execution process defined by `construct` includes 2 main steps:
 
 Define model evaluation metrics:
 
-
 ```python
 mae = nn.MAE()
 loss = nn.Loss()
@@ -400,13 +381,11 @@ loss = nn.Loss()
 
 Create a validation set using the `DatasetGenerator` defined earlier:
 
-
 ```python
 eval_dataset = create_dataset(num_data=160)
 ```
 
 Iterate through the dataset, execute `eval_net`, and use the output of `eval_net` to calculate evaluation metrics:
-
 
 ```python
 mae.clear()
@@ -436,7 +415,6 @@ Earlier we explained the computation logic of `nn.WithEvalCell`, and noticed tha
 
 Taking the input of three inputs `data`, `label1`, `label2` as an example, you can customize `WithEvalCell`:
 
-
 ```python
 class CustomWithEvalCell(nn.Cell):
     def __init__(self, network):
@@ -465,7 +443,6 @@ When using MindSpore to build different network structures, as long as these net
 
 In this document, the weight sharing mechanism is used when defining the training and evaluation network:
 
-
 ```python
 # Instantiate the forward network
 net = LinearNet()
@@ -485,7 +462,6 @@ eval_net.set_train(False)
 Both `train_net` and `eval_net` are encapsulated basded on `net` instance, so during model evaluation the weights of `train_net` do not need to be loaded.
 
 If the forward network is redefined when `eval_net` is constructed, there will be no shared weights between `train_net` and `eval_net`:
-
 
 ```python
 # Instantiate the forward network
