@@ -174,3 +174,5 @@ MindSpore通过统一IR定义了网络的逻辑结构和算子的属性，将Min
   <td>YOLOv5</td>
 </tr>
 </table>
+
+> 除了上述表格中的网络外，用户自定义网络中使用到的算子，如果能被[导出到MindIR模型文件](https://mindspore.cn/docs/programming_guide/zh-CN/master/save_model.html#导出mindir格式文件)中，也能使用该MindIR模型文件执行推理任务。
