@@ -174,3 +174,5 @@ MindSpore defines logical network structures and operator attributes through a u
   <td>YOLOv5</td>
 </tr>
 </table>
+
+> In addition to the network in the above table, if the operator used in the user-defined network can be [exported to the MindIR model file](https://mindspore.cn/docs/programming_guide/en/r1.6/save_model.html#export-mindir-model), the MindIR model file can also be used to execute inference tasks.
