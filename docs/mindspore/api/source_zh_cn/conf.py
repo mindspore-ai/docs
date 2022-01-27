@@ -131,8 +131,8 @@ try:
     decorator_list = [("mindspore/common/_decorator.py", "deprecated",
                        "    def decorate(func):",
                        "    def decorate(func):\n\n        import functools\n\n        @functools.wraps(func)"),
-                      ("mindspore/ops/operations/nn_ops.py", "modify math error.",
-                       ": math:`(", ":math:`(")
+                      ("mindspore/ops/operations/nn_ops.py", "modify math error.", ": math:`(", ":math:`("),
+                      ("mindspore/common/initializer.py", "modify math error.", "text{fan_in}", "text{fan\_in}")
                      ]
 
     base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
