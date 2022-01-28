@@ -212,6 +212,8 @@
     model.eval(ds_eval, callbacks=[summary_collector])
     ```
 
+    > dataset_path为用户本地的训练数据集路径。
+
     使用训练看板[可视化功能](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.6/dashboard.html)查看训练过程数据：
 
     ![mindinsight_dashboard](./images/mindinsight_dashboard.png)
