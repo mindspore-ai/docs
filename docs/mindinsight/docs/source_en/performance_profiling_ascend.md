@@ -232,6 +232,8 @@ The red box in Figure 5 includes calculation quantity data on operator granulari
 
 Figure 6 is a sankey diagram that presents data in the structure of a tree where the cursor selects a scope to see the specific FLOPs value.
 
+> This figure only draws the Scope hierarchy structure of the operator (the specific name of the operator at the last layer is not shown). Since the depth of each operator's hierarchy is not equal in the training process, it may occur that the sum of time of adjacent levels is not equal.
+
 ### Data Preparation Performance Analysis
 
 The Data preparation performance analysis component is used to analyse the execution of data input pipeline for the training. The data input pipeline can be divided into three stages:  
