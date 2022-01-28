@@ -112,7 +112,7 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
 
     ```cpp
     [acl_option_cfg_param]
-    input_shape_vector="1,64,64,1"
+    input_shape_vector="[1,64,64,1]"
     ```
 
 表1：配置[acl_option_cfg_param]参数
