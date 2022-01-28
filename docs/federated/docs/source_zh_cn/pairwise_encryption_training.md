@@ -1,4 +1,4 @@
-# 隐私安全保护算法之安全聚合训练
+# 安全聚合训练
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/pairwise_encryption_training.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
