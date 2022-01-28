@@ -120,7 +120,8 @@ if __name__ == '__main__':
 ```
 
 > 1. When using summary, it is recommended that you set `dataset_sink_mode` argument of `model.train` to `False`. Please see notices for more information.
-> 2. When using summary, you need to run the code in `if __name__ == "__main__"`. For more detail, refer to [Python tutorial](https://docs.python.org/3.7/library/multiprocessing.html#multiprocessing-programming)
+> 2. When using summary, you need to run the code in `if __name__ == "__main__"`. For more detail, refer to [Python tutorial](https://docs.python.org/3.7/library/multiprocessing.html#multiprocessing-programming).
+> 3. dataset_path is the path to the user's local training dataset.
 
 ### Method two: Custom collection of network data with summary operators and SummaryCollector
 

@@ -125,6 +125,7 @@ if __name__ == '__main__':
 
 > 1. 使用summary功能时，建议将`model.train`的`dataset_sink_mode`参数设置为`False`。请参考文末的注意事项。
 > 2. 使用summary功能时，需要将代码放置到`if __name__ == "__main__"`中运行。详情请[参考Python官网介绍](https://docs.python.org/zh-cn/3.7/library/multiprocessing.html#multiprocessing-programming)。
+> 3. dataset_path为用户本地的训练数据集路径。
 
 ### 方式二：结合Summary算子和SummaryCollector，自定义收集网络中的数据
 
