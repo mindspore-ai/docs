@@ -78,6 +78,7 @@ MindSpore Programming Guide
    constexpr
    hypermap
    optim
+   train_and_eval
 
 .. toctree::
    :glob:
