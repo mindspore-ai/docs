@@ -1,4 +1,4 @@
-# 隐私安全保护算法之差分隐私训练
+# 局部差分隐私加噪训练
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/federated/docs/source_zh_cn/local_differential_privacy_training.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
