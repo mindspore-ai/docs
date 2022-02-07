@@ -6,6 +6,22 @@
 
 欢迎使用MindSpore Lite，我们提供了支持多种操作系统和硬件平台的模型转换、模型推理、图像处理等功能，你可以下载适用于本地环境的版本包直接使用。
 
+其中Linux-x86_64目标运行系统为Linux，底层架构为x86-64，已在Linux发行版Euleros2.0、Centos7.8、Ubuntu18.04版本上经过测试验证。
+
+## 1.6.0
+
+|   组件   | 硬件平台 |   操作系统   |   链接   |   SHA-256   |
+|   ---   |   ---   |     ---     |   ---   |     ---     |
+| 推理/训练runtime、推理/训练aar包、以及benchmark工具 | CPU     | Android-aarch32 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.0/MindSpore/lite/release/android/cpu/mindspore-lite-1.6.0-android-aarch32.tar.gz> | d043803cffc8a0b75409aab3e4039f1e86756cf618af1538a76865e9fa4fd481 |
+| 推理/训练runtime、推理/训练aar包、以及benchmark工具 | CPU/GPU | Android-aarch64 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.0/MindSpore/lite/release/android/gpu/mindspore-lite-1.6.0-android-aarch64.tar.gz> | 25188266621f4cfedb24970a9a98ef6190fe02c9d034b7285f360da425ffe9d6 |
+| 推理/训练runtime、推理/训练jar包、以及benchmark/codegen/converter/cropper工具 | CPU     | Linux-x86_64 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.0/MindSpore/lite/release/linux/x86_64/mindspore-lite-1.6.0-linux-x64.tar.gz> | 90472996359f64509f38036ed8100605c76dcdc42453c2fc7156048eb981708c |
+| 推理runtime以及benchmark/codegen/converter工具 | CPU     | Windows-x86_64 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.0/MindSpore/lite/release/windows/mindspore-lite-1.6.0-win-x64.zip> | 4460b8f1bf321eca005074dccffb54d6d3164ba3f78ce34530ec20db4dbc9980 |
+| iOS 推理runtime | CPU | iOS-aarch32 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.0/MindSpore/lite/release/ios/mindspore-lite-1.6.0-ios-aarch32.tar.gz> | 72fe007660abe9c51d0a1852b094fb52d8bbd1610c989e79c9858937102aa59f |
+| iOS 推理runtime | CPU | iOS-aarch64 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.0/MindSpore/lite/release/ios/mindspore-lite-1.6.0-ios-aarch64.tar.gz> | 51bd5f7c21477d7856bea33d31e059f578b6b964a7c43e440e97c44b186db4a4 |
+| NNIE converter工具 | CPU     | Linux-x86_64 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.0/MindSpore/lite/release/linux/nnie/mindspore-lite-1.6.0-linux-x64.tar.gz> | 81c2a5dadf51978d1c80f75c63fde4edefa2897792ac571fd33ffd35e338736b |
+| NNIE 推理runtime及benchmark工具 | Hi3516D | Linux-aarch32 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.0/MindSpore/lite/release/linux/nnie/Hi3516D/mindspore-lite-1.6.0-linux-aarch32.tar.gz> | 8133c2326e2defa3614f86592d5691fdb410a4296898e254a33cd33a7e519b16 |
+| 轻鸿蒙推理runtime | Hi3516D | OpenHarmony-aarch32 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.0/MindSpore/lite/ohos_aarch32/mindspore-lite-1.6.0-ohos-aarch32.tar.gz> | d5daafac4bdcd0d03158e2a7cd3f881869b49cfb77d9654a24ddd967edbe5e91 |
+
 ## 1.5.0
 
 |   组件   | 硬件平台 |   操作系统   |   链接   |   SHA-256   |
