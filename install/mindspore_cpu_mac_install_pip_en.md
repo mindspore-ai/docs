@@ -34,16 +34,17 @@ This document describes how to quickly install MindSpore on macOS by pip.
 It is recommended to refer to [Version List](https://www.mindspore.cn/versions/en) to perform SHA-256 integrity verification, and then execute the following command to install MindSpore after the verification is consistent.
 
 ```bash
-pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindSpore/cpu/{arch}/mindspore-{version}-{python_version}-macosx_{platform_version}_{arch}.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindSpore/cpu/{arch}/mindspore-{version}-{python_version}-macosx_{platform_version}_{platform_arch}.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 Of which,
 
 - When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
 - `{version}` specifies the MindSpore version number. For example, when installing MindSpore 1.5.0, set `{version}` to 1.5.0, when installing MindSpore 1.5.0-rc1, the first `{version}` which represents download path should be written as 1.5.0-rc1, and the second `{version}` which represents file name should be 1.5.0rc1.
+- `{arch}` denotes the architecture. For example, the macOS you are using is x86 architecture 64-bit, `{arch}` should be `x86_64`. If you use M1 chip, then it should be `aarch64`.
 - `{python_version}` spcecifies the python version for which MindSpore is built. If you wish to use Python3.7.5,`{python_version}` should be `cp37-cp37m`. If Python3.9.0 is used, it should be `cp39-cp39`.
-- `{platform_version}` specifies the macOS version number. For example, when installing macOS 10.15, set `{platform_version}` to `10_15`.
-- `{arch}` denotes the system architecture. For example, the macOS you are using is x86 architecture 64-bit, `{arch}` should be `x86_64`. If the system is ARM architecture 64-bit, then it should be `arm64`.
+- `{platform_version}` specifies the macOS version number. If you use M1 chip, set `{platform_version}` to `11_0`, otherwise set `{platform_version}` to `10_15`.
+- `{platform_arch}` denotes the system architecture. For example, the macOS you are using is x86 architecture 64-bit, `{platform_arch}` should be `x86_64`. If you use M1 chip, then it should be `arm64`.
 
 ## Installation Verification
 
