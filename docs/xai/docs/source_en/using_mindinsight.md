@@ -27,11 +27,11 @@
 
 ### Downloading Data Package
 
-Please follow the [Downloading Data Package](https://www.mindspore.cn/xai/docs/en/r1.6/using_explainers.html#id4) instructions to download the necessary files for the tutorial.
+Please follow the [Downloading Data Package](https://www.mindspore.cn/xai/docs/en/r1.5/using_explainers.html#id4) instructions to download the necessary files for the tutorial.
 
 ### Preparing the Script
 
-The tutorial below is referencing [using_mindinsight.py](https://gitee.com/mindspore/xai/blob/r1.6/examples/using_mindinsight.py).
+The tutorial below is referencing [using_mindinsight.py](https://gitee.com/mindspore/xai/blob/r1.5/examples/using_mindinsight.py).
 
 Currently, [MindSpore XAI](https://www.mindspore.cn/xai/en) provides the explanation methods and explanation evaluation Python API. You can use the provided explanation methods by  `mindspore_xai.explanation` and the provided explanation evaluation by `mindspore_xai.benchmark`. You need to prepare the black-box model and data to be explained, instantiate explanation methods or explanation evaluation according to your need and call the explanation API in your script to collect the explanation result and explanation evaluation result.
 

@@ -9,15 +9,15 @@ MindSpore XAI是一个基于昇思MindSpore的可解释AI工具箱。当前深�
 使用MindSpore XAI的典型场景
 ---------------------------
 
-1. `使用解释器 <https://www.mindspore.cn/xai/docs/zh-CN/r1.6/using_explainers.html>`_
+1. `使用解释器 <https://www.mindspore.cn/xai/docs/zh-CN/r1.5/using_explainers.html>`_
 
    为图片分类模型输出热力图解释。
 
-2. `使用度量方法 <https://www.mindspore.cn/xai/docs/zh-CN/r1.6/using_benchmarks.html>`_
+2. `使用度量方法 <https://www.mindspore.cn/xai/docs/zh-CN/r1.5/using_benchmarks.html>`_
 
    为解释器作出优劣评估。
 
-3. `使用MindInsight <https://www.mindspore.cn/xai/docs/zh-CN/r1.6/using_mindinsight.html>`_
+3. `使用MindInsight <https://www.mindspore.cn/xai/docs/zh-CN/r1.5/using_mindinsight.html>`_
 
    可视化解释器及度量方法输出的结果。
 
