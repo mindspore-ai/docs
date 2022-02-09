@@ -3,8 +3,9 @@ MindSpore XAI Documents
 
 MindSpore XAI is an explainable AI toolbox based on MindSpore. Currently, most deep learning models are black-box models with good performance but poor explainability. XAI aims to provide users decision explanations of the model, help users better understand the model, trust the model, and improve the model when an error occurs. Besides a variety of explanation methods, we also provide a set of evaluation methods to evaluate the explanation methods from various dimensions. It helps users compare and select the explanation methods that are most suitable for a particular scenario.
 
-.. image:: ./images/xai_en.png
-  :width: 700px
+.. raw:: html
+
+   <img src="https://gitee.com/mindspore/docs/raw/master/docs/xai/docs/source_en/images/xai_en.png" width="700px" alt="" >
 
 Typical MindSpore XAI Application Scenarios
 --------------------------------------------

@@ -11,8 +11,9 @@ MindSpore Serving包含以下功能：
 - 支持客户端gRPC接口，提供简单易用的客户端Python封装接口。
 - 支持客户端RESTful接口。
 
-.. image:: ./images/serving_cn.png
-  :width: 700px
+.. raw:: html
+
+   <img src="https://gitee.com/mindspore/docs/raw/master/docs/serving/docs/source_zh_cn/images/serving_cn.png" width="700px" alt="" >
 
 使用MindSpore Serving的典型场景
 --------------------------------

@@ -12,8 +12,9 @@ MindInsight provides the following functions:
 - `Hyperparameter optimization <https://www.mindspore.cn/mindinsight/docs/en/master/hyper_parameters_auto_tuning.html>`_
 - `Model migration <https://www.mindspore.cn/mindinsight/docs/en/master/migrate_3rd_scripts_mindconverter.html>`_
 
-.. image:: ./images/mindinsight_en.png
-  :width: 700px
+.. raw:: html
+
+   <img src="https://gitee.com/mindspore/docs/raw/master/docs/mindinsight/docs/source_en/images/mindinsight_en.png" width="700px" alt="" >
 
 Using MindInsight to Visualize the Training Process
 ----------------------------------------------------
