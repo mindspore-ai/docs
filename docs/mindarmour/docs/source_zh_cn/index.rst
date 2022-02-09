@@ -3,8 +3,9 @@ MindArmour 文档
 
 AI作为一种通用技术，在带来巨大机遇和效益的同时也面临着新的安全与隐私保护的挑战。MindArmour是昇思MindSpore的一个子项目，为昇思MindSpore提供安全与隐私保护能力，主要包括对抗鲁棒性、模型安全测试、差分隐私训练、隐私泄露风险评估、数据漂移检测等技术。
 
-.. image:: ./images/mindarmour_cn.png
-  :width: 700px
+.. raw:: html
+
+   <img src="https://gitee.com/mindspore/docs/raw/master/docs/mindarmour/docs/source_zh_cn/images/mindarmour_cn.png" width="700px" alt="" >
 
 使用MindArmour的典型场景
 ------------------------------

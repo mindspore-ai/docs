@@ -3,8 +3,9 @@ MindArmour Documents
 
 As a general technology, AI brings great opportunities and benefits, but also faces new security and privacy protection challenges. MindArmour is a subsystem of MindSpore. It provides security and privacy protection for MindSpore, including adversarial robustness, model security test, differential privacy training, privacy risk assessment, and data drift detection.
 
-.. image:: ./images/mindarmour.png
-  :width: 700px
+.. raw:: html
+
+   <img src="https://gitee.com/mindspore/docs/raw/master/docs/mindarmour/docs/source_en/images/mindarmour.png" width="700px" alt="" >
 
 Typical MindArmour Application Scenarios
 -----------------------------------------

@@ -9,8 +9,9 @@ MindSpore Probability文档
 - 提供可组合的概率编程模块，让开发者可以用开发深度学习模型的逻辑来构造深度概率模型。
 - 提供不确定估计和异常检测的工具箱，拓展贝叶斯应用功能。
 
-.. image:: ./probability_cn.png
-  :width: 700px
+.. raw:: html
+
+   <img src="https://gitee.com/mindspore/docs/raw/master/docs/probability/docs/source_zh_cn/probability_cn.png" width="700px" alt="" >
 
 使用概率编程的典型场景
 -----------------------

@@ -3,8 +3,9 @@ MindQuantum文档
 
 MindQuantum是基于昇思MindSpore开源深度学习框架和HiQ量子计算云平台开发的通用量子计算框架，支持多种量子神经网络的训练和推理。得益于华为HiQ团队的量子计算模拟器和昇思MindSpore高性能自动微分能力，MindQuantum能够高效处理量子机器学习、量子化学模拟和量子优化等问题，为广大的科研人员、老师和学生提供快速设计和验证量子机器学习算法的高效平台。
 
-.. image:: ./images/mindquantum_cn.png
-  :width: 700px
+.. raw:: html
+
+   <img src="https://gitee.com/mindspore/docs/blob/master/docs/mindquantum/docs/source_zh_cn/images/mindquantum_cn.png" width="700px" alt="" >
 
 使用MindQuantum的典型场景
 ------------------------------
