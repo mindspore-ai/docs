@@ -43,7 +43,7 @@ This document describes how to quickly install MindSpore by source code in a Win
 ## Downloading Source Code from Code Repository
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
+git clone https://gitee.com/mindspore/mindspore.git -b r1.6
 ```
 
 ## Compiling MindSpore
