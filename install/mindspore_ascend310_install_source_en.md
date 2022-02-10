@@ -58,7 +58,7 @@ The following describes how to quickly install MindSpore by compiling the source
 ## Downloading Source Code from the Code Repository
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
+git clone https://gitee.com/mindspore/mindspore.git -b r1.6
 ```
 
 ## Building MindSpore
