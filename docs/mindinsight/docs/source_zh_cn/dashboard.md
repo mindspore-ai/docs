@@ -96,7 +96,12 @@
 
 图8展示了优化可读性功能，该功能优化了计算图的可读性，降低计算图的复杂度，图中大部分的梯度计算逻辑和优化器计算逻辑将会被移除。
 
-注意：为达到最清晰的计算图可视化效果，请勿使用跨cell的公共函数，并在收集计算图时设置`jit_level`为`o0`，请参考[mindspore.Model.build接口定义](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.Model.html?highlight=jit_config#mindspore.Model.build) 。
+注意：
+
+- 为达到最清晰的计算图可视化效果，请勿使用跨Cell的公共函数。
+- 收集计算图时设置`jit_level`为`o0`，详细请参考[mindspore.Model.build接口定义](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.Model.html#mindspore.Model.build) 。
+- 在计算图优化时，不同命名空间中的多个算子可能会因为功能一致而融合，这种情况会导致命名空间之间的连线成环，影响可读性。
+- 暂不支持展示完整的控制流，如需展示请在脚本中指定控制分支。
 
 ## 数据图可视化
 
