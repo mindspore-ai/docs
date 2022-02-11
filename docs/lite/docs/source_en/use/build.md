@@ -82,6 +82,7 @@ The construction of modules is controlled by environment variables. Users can co
 | MSLITE_ENABLE_TRAIN | Whether to compile the training version | on, off | on |
 | MSLITE_ENABLE_SSE | Whether to enable SSE instruction set, only valid when `-I x86_64` | on, off | off |
 | MSLITE_ENABLE_AVX | Whether to enable AVX instruction set, only valid when `-I x86_64` | on, off | off |
+| MSLITE_ENABLE_AVX512 | Whether to enable AVX512 instruction set, only valid when `-I x86_64` | on, off | off |
 | MSLITE_ENABLE_CONVERTER | Whether to compile the model conversion tool, only valid when `-I x86_64` | on, off | on |
 | MSLITE_ENABLE_TOOLS | Whether to compile supporting tools | on, off | on |
 | MSLITE_ENABLE_TESTCASES | Whether to compile test cases | on, off | off |
@@ -247,6 +248,7 @@ The script `build.bat` in the root directory of MindSpore can be used to compile
 | -------- | ----- | ---- | ---- |
 | MSLITE_ENABLE_SSE | Whether to enable SSE instruction set | on, off | off |
 | MSLITE_ENABLE_AVX | Whether to enable AVX instruction set (This option does not currently support the Visual Studio compiler) | on, off | off |
+| MSLITE_ENABLE_AVX512 | Whether to enable AVX512 instruction set (This option does not currently support the Visual Studio compiler) | on, off | off |
 | MSLITE_ENABLE_CONVERTER | Whether to compile the model conversion tool (This option does not currently support the Visual Studio compiler) | on, off | on |
 | MSLITE_ENABLE_TOOLS | Whether to compile supporting tools | on, off | on |
 | MSLITE_ENABLE_TESTCASES | Whether to compile test cases | on, off | off |
