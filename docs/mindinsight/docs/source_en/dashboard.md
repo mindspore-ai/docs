@@ -4,7 +4,7 @@
 
 ## Overview
 
-Training dashboard is an important part of mindinsight's visualization component, and its tags include scalar visualization, parameter distribution visualization, computational graph visualization, data graph visualization, image visualization and tensor visualization.
+Training dashboard is an important part of mindinsight's visualization component, and its tags include scalar visualization, parameter distribution visualization, computational graph visualization, data graph visualization, image visualization, tensor visualization and training optimization process visualization.
 
 Access the Training Dashboard by selecting a specific training from the training list.
 
@@ -168,6 +168,10 @@ Figure 13 shows tensors recorded by a user in a form of a table which includes t
 *Figure 14: Histogram display*
 
 Figure 14 shows tensors recorded by a user in a form of a histogram. Click the upper right corner to zoom in the histogram.
+
+## Training Optimization Process Visualization
+
+The training optimization process visualization can show the optimization space around the neural network training path. For more information, please refer to  [Training Optimization Process Visualization](https://www.mindspore.cn/mindinsight/docs/en/master/landscape.html).
 
 ## Notices
 

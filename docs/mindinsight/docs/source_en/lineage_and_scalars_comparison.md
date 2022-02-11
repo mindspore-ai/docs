@@ -64,7 +64,7 @@ Figure 7 shows the data processing and augmentation information of all model tra
 
 ## Scalars Comparison
 
-Scalars Comparison can be used to compare scalar curves between multiple trainings
+Scalars Comparison can be used to compare scalar curves and loss graph between multiple trainings. For the detailed information of loss graph comparison, please refer to [Training Optimization Process Visualization](https://www.mindspore.cn/mindinsight/docs/en/master/landscape.html).
 
 ![multi_scalars.png](./images/multi_scalars.png)
 
