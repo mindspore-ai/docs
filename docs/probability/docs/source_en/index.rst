@@ -9,8 +9,9 @@ Probabilistic programming provides the following functions:
 - Combinable probabilistic programming modules for developers to use the logic of the deep learning model to build a deep probabilistic model
 - A toolbox for uncertainty estimation and anomaly detection to extend Bayesian applications
 
-.. image:: ./probability_en.png
-  :width: 700px
+.. raw:: html
+
+   <img src="https://gitee.com/mindspore/docs/raw/r1.6/docs/probability/docs/source_en/probability_en.png" width="700px" alt="" >
 
 Typical MindSpore Probability Application Scenarios
 ----------------------------------------------------
