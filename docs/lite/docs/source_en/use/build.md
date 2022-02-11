@@ -85,6 +85,7 @@ The construction of modules is controlled by environment variables. Users can co
 | MSLITE_ENABLE_CONVERTER | Whether to compile the model conversion tool, only valid when `-I x86_64` | on, off | on |
 | MSLITE_ENABLE_TOOLS | Whether to compile supporting tools | on, off | on |
 | MSLITE_ENABLE_TESTCASES | Whether to compile test cases | on, off | off |
+| MSLITE_ENABLE_SERVER_INFERENCE | Whether to enable inference interfaces on server | on, off | off |
 
 > - For TensorRT and NPU compilation environment configuration, refer to [Application Specific Integrated Circuit Integration Instructions](https://www.mindspore.cn/lite/docs/en/r1.6/use/asic.html).
 
