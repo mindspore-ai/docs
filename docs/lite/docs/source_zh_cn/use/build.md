@@ -86,6 +86,7 @@ MindSpore根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
 | MSLITE_ENABLE_CONVERTER | 是否编译模型转换工具，仅在`-I x86_64`时有效 | on、off | on |
 | MSLITE_ENABLE_TOOLS | 是否编译配套工具 | on、off | on |
 | MSLITE_ENABLE_TESTCASES | 是否编译测试用例 | on、off | off |
+| MSLITE_ENABLE_SERVER_INFERENCE | 是否启动服务端推理接口 | on、off | off |
 
 > - TensorRT 和 NPU 的编译环境配置，参考[专用芯片集成说明](https://www.mindspore.cn/lite/docs/zh-CN/master/use/asic.html)。
 > - 启用AVX指令集时，需要运行环境的CPU同时支持avx特性和fma特性。
