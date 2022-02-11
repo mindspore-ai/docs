@@ -4,17 +4,17 @@
 
 ## Overview
 
-Scalars, images, computational graphs, and model hyperparameters during training are recorded in files and can be viewed on the web page.
+Scalars, images, computational graphs, training optimization process, and model hyperparameters during training are recorded in files and can be viewed on the web page.
 
 ## Operation Process
 
-- Prepare a training script, specify scalars, images, computational graphs, and model hyperparameters in the training script, record them in the summary log file, and run the training script.
+- Prepare a training script, specify scalars, images, computational graphs, training optimization process, and model hyperparameters in the training script, record them in the summary log file, and run the training script.
 - Start MindInsight and specify the summary log file directory using startup parameters. After MindInsight is started, access the visualization page based on the IP address and port number. The default access IP address is `http://127.0.0.1:8080`.
 - During the training, when data is written into the summary log file, you can view the data on the web page.
 
 ## Preparing The Training Script
 
-Currently, MindSpore supports to save scalars, images, computational graph, and model hyperparameters to summary log file and display them on the web page. The computational graph can only be recorded in the graph mode.
+Currently, MindSpore supports to save scalars, images, computational graph, training optimization process, and model hyperparameters to summary log file and display them on the web page. The computational graph can only be recorded in the graph mode. The detailed process of data collection and landscape drawing in the training optimization process can be referred to  [Training Optimization Process Visualization](https://www.mindspore.cn/mindinsight/docs/en/master/landscape.html).
 
 MindSpore currently supports multiple ways to record data into summary log files.
 

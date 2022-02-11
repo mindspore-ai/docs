@@ -64,7 +64,7 @@ MindInsight中的模型溯源、数据溯源和对比看板同训练看板一样
 
 ## 对比看板
 
-对比看板可视用于多个训练之间的标量曲线对比。
+对比看板可视用于多个训练之间的标量曲线对比以及损失函数图形对比，其中损失函数图形对比的详细信息可查阅[训练优化过程可视化](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/landscape.html)。
 
 ![multi_scalars.png](./images/multi_scalars.png)
 
