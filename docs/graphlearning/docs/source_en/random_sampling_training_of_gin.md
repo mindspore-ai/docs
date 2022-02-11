@@ -13,7 +13,7 @@ MindSpore Graph Learning also provides graph sampling APIs and supports random b
 3. Generate batch graph data. The following provides an example of constructing graph sampling data.
 4. Train and validate the graph sampling network.
 
-The following shows how to use MindSpore Graph Learning to implement GIN random batch training with the IMDBinary dataset. For details about the complete code, see <https://gitee.com/mindspore/graphlearning/blob/master/examples/vc_gin.py>.
+The following shows how to use MindSpore Graph Learning to implement GIN random batch training with the IMDBinary dataset. For details about the complete code, see <https://gitee.com/mindspore/graphlearning/tree/research/examples/vc_gin.py>.
 
 ## GIN Principles
 
@@ -504,4 +504,4 @@ Epoch 40, Train loss 0.5511463, Test acc 0.714
 
 Accuracy validated on IMDB-BINARY: 0.734 (paper: 0.75)
 
-This is the usage guide of random batch training by graph sampling. For more examples, see [examples](<https://gitee.com/mindspore/graphlearning/tree/master/examples>).
+This is the usage guide of random batch training by graph sampling. For more examples, see [examples](<https://gitee.com/mindspore/graphlearning/tree/research/examples>).
