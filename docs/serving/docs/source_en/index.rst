@@ -11,8 +11,9 @@ MindSpore Serving provides the following functions:
 - The gRPC APIs and easy-to-use Python encapsulation APIs on the client
 - The RESTful APIs on the client
 
-.. image:: ./images/serving_en.png
-  :width: 700px
+.. raw:: html
+
+   <img src="https://gitee.com/mindspore/docs/raw/r1.6/docs/serving/docs/source_en/images/serving_en.png" width="700px" alt="" >
 
 Typical MindSpore Serving Application Scenarios
 ------------------------------------------------

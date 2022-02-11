@@ -3,8 +3,9 @@ MindSpore Reinforcement Documents
 
 MindSpore Reinforcement is an open-source reinforcement learning framework that supports the distributed training of agents using reinforcement learning algorithms. MindSpore Reinforcement offers a clean API abstraction for writing reinforcement learning algorithms, which decouples the algorithm from deployment and execution considerations, including the use of accelerators, the level of parallelism and the distribution of computation across a cluster of workers. MindSpore Reinforcement translates the reinforcement learning algorithm into a series of compiled computational graphs, which are then run efficiently by the MindSpore framework on CPUs, GPUs, and Ascend AI processors.
 
-.. image:: ./reinforcement_en.png
-  :width: 700px
+.. raw:: html
+
+   <img src="https://gitee.com/mindspore/docs/raw/r1.6/docs/reinforcement/docs/source_en/reinforcement_en.png" width="700px" alt="" >
 
 Unique Design Features
 -----------------------

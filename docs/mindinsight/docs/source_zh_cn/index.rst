@@ -12,8 +12,9 @@ MindInsight包括以下内容：
 - `超参调优 <https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.6/hyper_parameters_auto_tuning.html>`_
 - `模型迁移 <https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.6/migrate_3rd_scripts_mindconverter.html>`_
 
-.. image:: ./images/mindinsight.png
-  :width: 700px
+.. raw:: html
+
+   <img src="https://gitee.com/mindspore/docs/raw/r1.6/docs/mindinsight/docs/source_zh_cn/images/mindinsight.png" width="700px" alt="" >
 
 使用MindInsight可视化训练过程
 ------------------------------

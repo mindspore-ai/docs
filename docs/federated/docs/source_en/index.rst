@@ -10,8 +10,9 @@ MindSpore Federated is an open-source federated learning framework that supports
 
 The federated learning is an encrypted distributed machine learning technology that allows users participating in federated learning to build AI models without sharing local data. MindSpore Federated preferentially focuses on the large-scale participants in the horizontal federated learning scenarios.
 
-.. image:: ./images/federated_en.png
-  :width: 700px
+.. raw:: html
+
+   <img src="https://gitee.com/mindspore/docs/raw/r1.6/docs/federated/docs/source_en/images/federated_en.png" width="700px" alt="" >
 
 Advantages of the MindSpore Federated
 ---------------------------------------
