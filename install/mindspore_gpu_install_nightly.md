@@ -27,7 +27,6 @@ MindSpore Nightly是包含当前最新功能与bugfix的预览版本，但是可
 - 确认安装[OpenMPI 4.0.3版本](https://www.open-mpi.org/faq/?category=building#easy-build)（可选，单机多卡/多机多卡训练需要）。
 - 确认安装[OpenSSL 1.1.1及以上版本](https://github.com/openssl/openssl.git)。
     - 安装完成后设置环境变量`export OPENSSL_ROOT_DIR=“OpenSSL安装目录”`。
-- 确认安装配套CUDA 11.1[NCCL 2.7.8版本](https://docs.nvidia.com/deeplearning/sdk/nccl-install-guide/index.html#debian)（可选，单机多卡/多机多卡训练需要）。
 - 确认安装[TensorRT-7.2.2](https://developer.nvidia.com/nvidia-tensorrt-download)（可选，Serving推理需要）。
 - 确认安装[gmp 6.1.2版本](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz)。
 - 确认安装Python 3.7.5或3.9.0版本。如果未安装或者已安装其他版本的Python，可以选择下载并安装：
