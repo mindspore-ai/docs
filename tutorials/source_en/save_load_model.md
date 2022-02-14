@@ -171,4 +171,4 @@ export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='ONNX')
 
 > - `input` specifies the input shape and data type of the exported model. If the network has multiple inputs, you need to pass them to the `export` method. Example: `export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='ONNX')`
 > - If `file_name` does not contain the ".onnx" suffix, the system will automatically add the ".onnx" suffix to it.
-> - Currently, only the ONNX format export of ResNet series networks and BERT are supported.
+> - Currently, only the ONNX format export of ResNet50 and BERT[CLS] networks are supported.
