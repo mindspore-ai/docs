@@ -45,12 +45,6 @@
 
   参考OpenMPI官网教程安装：<https://www.open-mpi.org/faq/?category=building#easy-build>。
 
-- `NCCL-2.7.6`：Nvidia集合通信库。
-
-  NCCL-2.7.6下载地址：<https://developer.nvidia.com/nccl/nccl-legacy-downloads>。
-
-  参考NCCL官网教程安装：<https://docs.nvidia.com/deeplearning/nccl/install-guide/index.html#debian>。
-
 - 主机间免密登陆（涉及多机训练时需要）。若训练涉及多机，则需要配置多机间免密登陆，可参考以下步骤进行配置：
     1. 每台主机确定同一个用户作为登陆用户（不推荐root）；
     2. 执行`ssh-keygen -t rsa -P ""`生成密钥；

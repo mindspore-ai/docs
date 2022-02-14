@@ -27,7 +27,6 @@ For details about how to install third-party dependency software when confirming
 - Ensure that [OpenMPI 4.0.3](https://www.open-mpi.org/faq/?category=building#easy-build) is installed. (optional, required for single-node/multi-GPU and multi-node/multi-GPU training)
 - Ensure that [OpenSSL 1.1.1 or later](https://github.com/openssl/openssl.git) is installed.
     - Ensure that [OpenSSL](https://github.com/openssl/openssl) is installed and set system variable `export OPENSSL_ROOT_DIR="OpenSSL installation directory"`.
-- Ensure that [NCCL 2.7.6](https://docs.nvidia.com/deeplearning/sdk/nccl-install-guide/index.html#debian) for CUDA 10.1 or [NCCL 2.7.8](https://docs.nvidia.com/deeplearning/sdk/nccl-install-guide/index.html#debian) for CUDA 11.1 is installed. (optional, required for single-node/multi-GPU and multi-node/multi-GPU training)
 - Ensure that [TensorRT-7.2.2](https://developer.nvidia.com/nvidia-tensorrt-download) is installed. (optional, required for Serving inference).
 - Ensure that [gmp 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
 - Ensure that the Conda version is compatible with the current system.

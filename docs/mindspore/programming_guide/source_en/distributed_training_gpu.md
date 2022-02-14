@@ -24,12 +24,6 @@ The method of downloading and loading the dataset: <https://www.mindspore.cn/doc
 
   For details about how to install OpenMPI, see the official tutorial: <https://www.open-mpi.org/faq/?category=building#easy-build>.
 
-- `NCCL-2.7.6`: Nvidia collective communication library.
-
-  Download NCCL-2.7.6 from <https://developer.nvidia.com/nccl/nccl-legacy-downloads>.
-
-  For details about how to install NCCL, see the official tutorial: <https://docs.nvidia.com/deeplearning/nccl/install-guide/index.html#debian>.
-
 - Password-free login between hosts (required for multi-host training). If multiple hosts are involved in the training, you need to configure password-free login between them. The procedure is as follows:
   1. Ensure that the same user is used to log in to each host. (The root user is not recommended.)
   2. Run the `ssh-keygen -t rsa -P ""` command to generate a key.
