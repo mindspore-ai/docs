@@ -1,34 +1,53 @@
-﻿# 链接检查工具
+# 链接检测
 
-## 简介
+## 环境准备
 
-此工具可以检查用户指定目录里所有文件的链接，将所有链接分为三类，并且将检查结果分别写入三个文件，如下所示：
+安装第三方依赖
 
-1. 响应的状态码不是200的链接，写入`400.txt`文件中。
-2. 脚本执行过程中请求出现异常的链接，写入`exception.txt`文件中。
-3. 对于安装包的链接，因为请求非常耗时，所以不发请求，直接写入`slow.txt`文件中。
+```bash
+pip install requests
+```
 
-## 使用说明
+## 执行检测
 
-该工具所依赖的操作系统为Windows操作系统，执行环境为Python环境，具体使用步骤如下所示：
+执行检测可以对单个文件进行检测，也可以对目录进行检测
 
-1. 打开Git Bash，下载MindSpore Docs仓代码。
+- 对文件检测
 
-   ```bash
-   git clone https://gitee.com/mindspore/docs.git
-   ```
+    如果需要对文件进行检测，可以输入如下命令：
 
-2. 进入`tools/link_detection`目录，安装执行所需的第三方库。
+    ```bash
+    /user1/check_tool# python link_lint.py {文件1的路径} {文件2的路径}
+    ```
 
-   ```bash
-   cd tools/link_detection
-   pip install requests
-   ```
+- 对目录进行检测
 
-3. 在`link_detection`目录下执行如下命令，在输入需要检测目录的绝对路径后，开始进行检测，完成后会在当前目录下新建`404.txt`、`exception.txt`、`slow.txt`三个文件。
+    如果需要对`docs`仓的所有notebook进行检测，可以输入如下命令：
 
-   ```bash
-   python link_detection.py
-   ```
+    ```bash
+    /user1/check_tool# python link_lint.py {docs仓的路径} {文件的路径}
+    ```
 
-   > 检测目录的绝对路径全使用英文，并且使用Linux的绝对路径方式，例如：`/d/master/docs`。
+## 检测结果
+
+检测结果的打印信息经过了部分调整。报错信息的组成如下：
+
+```text
+{检测文件}：{报错的行}：{报错内容}
+```
+
+详细报错内容举例如下：
+
+```text
+docs/tutorials/source_zh_cn/intermediate/text/sentimentnet.ipynb:line_22:404: Error links in the line
+```
+
+以报错信息内容举例：
+
+`docs/tutorials/source_zh_cn/intermediate/text/sentimentnet.ipynb:line_22:404: Error link in the line.`
+
+- 检测文件：`docs/tutorials/source_zh_cn/intermediate/text/sentimentnet.ipynb`
+
+- 报错的行数：`line_22`。即检测文件中第22行报错。
+
+- 报错代码：`404`。即该行中存在状态码是404的链接，即不存在该网址。
