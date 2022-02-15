@@ -3,7 +3,7 @@
 <!-- TOC -->
 
 - [源码编译方式安装MindSpore CPU版本](#源码编译方式安装mindspore-cpu版本)
-    - [确认系统环境信息](#确认系统环境信息)
+    - [环境准备](#环境准备)
     - [从代码仓下载源码](#从代码仓下载源码)
     - [编译MindSpore](#编译mindspore)
     - [安装MindSpore](#安装mindspore)
@@ -14,49 +14,144 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_install_source.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-本文档介绍如何在CPU环境的Linux系统上，使用源码编译方式快速安装MindSpore。
+本文档介绍如何在CPU环境的Linux系统上，使用源码编译方式快速安装MindSpore。下面以Ubuntu 18.04为例说明MindSpore编译安装步骤。
 
-详细步骤可以参考社区提供的实践——[在Ubuntu（CPU）上进行源码编译安装MindSpore](https://www.mindspore.cn/news/newschildren?id=365)，在此感谢社区成员[damon0626](https://gitee.com/damon0626)的分享。
+- 如果您想在一个全新的Ubuntu 18.04上配置一个可以编译MindSpore的环境，可以使用[自动安装脚本](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-source.sh)进行一键式配置。自动安装脚本会安装编译MindSpore所需的依赖。
 
-## 确认系统环境信息
-
-- 确认安装64位操作系统，其中Ubuntu 18.04是经过验证的。
-
-- 确认安装[GCC 7.3.0版本](https://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz)。
-
-- 确认安装[gmp 6.1.2版本](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz)。
-
-- 确认安装[llvm 12.0.1版本](https://github.com/llvm/llvm-project/archive/refs/tags/llvmorg-12.0.1.tar.gz)（可选，图算融合需要）。
-
-- 确认安装Python 3.7.5或3.9.0版本。如果未安装或者已安装其他版本的Python，可以选择下载并安装：
-
-    - Python 3.7.5版本 64位，下载地址：[官网](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz)或[华为云](https://mirrors.huaweicloud.com/python/3.7.5/Python-3.7.5.tgz)。
-    - Python 3.9.0版本 64位，下载地址：[官网](https://www.python.org/ftp/python/3.9.0/Python-3.9.0.tgz)或[华为云](https://mirrors.huaweicloud.com/python/3.9.0/Python-3.9.0.tgz)。
-
-- 确认安装[CMake 3.18.3及以上版本](https://cmake.org/download/)。
-    - 安装完成后需将CMake所在路径添加到系统环境变量。
-
-- 确认安装[wheel 0.32.0及以上版本](https://pypi.org/project/wheel/)。
-
-- 确认安装[tclsh](https://www.tcl.tk/software/tcltk/)。
-
-- 确认安装[patch 2.5及以上版本](https://ftp.gnu.org/gnu/patch/)。
-    - 安装完成后需将patch所在路径添加到系统环境变量中。
-
-- 确认安装[NUMA 2.0.11及以上版本](https://github.com/numactl/numactl)。
-    如果未安装，使用如下命令下载安装：
+    自动安装脚本需要更改软件源配置以及通过APT安装依赖，所以需要root权限执行。使用以下命令获取自动安装脚本并执行。
 
     ```bash
-    apt-get install libnuma-dev
+    wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-source.sh
+    # 默认安装Python 3.7
+    sudo bash ./ubuntu-cpu-source.sh
+    # 如需指定Python版本，以Python 3.9为例，使用以下方式
+    # sudo PYTHON_VERSION=3.9 bash ./ubuntu-cpu-source.sh
     ```
 
-- 确认安装git工具。
-    如果未安装，使用如下命令下载安装：
+    该脚本会执行以下操作：
+
+    - 更改软件源配置为华为云源。
+    - 安装MindSpore所需的编译依赖，如GCC，CMake等。
+    - 通过APT安装Python3和pip3，并设为默认。
+
+    更多的用法请参看脚本头部的说明。
+
+- 如果您的系统已经安装了部分依赖，如Python，GCC等，则推荐参照下面的安装步骤手动安装。
+
+## 环境准备
+
+下表列出了编译安装MindSpore所需的系统环境和第三方依赖。
+
+|软件名称|版本|作用|
+|-|-|-|
+|Ubuntu|18.04|编译和运行MindSpore的操作系统|
+|[Python](#安装python)|3.7.5或3.9.0|MindSpore的使用依赖Python环境|
+|[wheel](#安装wheel和setuptools)|0.32.0及以上|MindSpore使用的Python打包工具|
+|[setuptools](#安装wheel和setuptools)|44.0及以上|MindSpore使用的Python包管理工具|
+|[GCC](#安装gccgitgmptclshpatchnuma)|7.3.0|用于编译MindSpore的C++编译器|
+|[git](#安装gccgitgmptclshpatchnuma)|-|MindSpore使用的源代码管理工具|
+|[CMake](#安装cmake)|3.18.3及以上|编译构建MindSpore的工具|
+|[gmp](#安装gccgitgmptclshpatchnuma)|6.1.2|MindSpore使用的多精度算术库|
+|[tclsh](#安装gccgitgmptclshpatchnuma)|-|MindSpore sqlite编译依赖|
+|[patch](#安装gccgitgmptclshpatchnuma)|2.5及以上|MindSpore使用的源代码补丁工具|
+|[NUMA](#安装gccgitgmptclshpatchnuma)|2.0.11及以上|MindSpore使用的非一致性内存访问库|
+|[LLVM](#安装llvm可选)|12.0.1|MindSpore使用的编译器框架（可选，图算融合需要）|
+
+下面给出第三方依赖的安装方法。
+
+### 安装Python
+
+[Python](https://www.python.org/)可通过多种方式进行安装。
+
+- 通过Conda安装Python。
+
+    安装Miniconda：
 
     ```bash
-    apt-get install git # for linux distributions using apt, e.g. ubuntu
-    yum install git     # for linux distributions using yum, e.g. centos
+    cd /tmp
+    curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py37_4.10.3-Linux-x86_64.sh
+    bash Miniconda3-py37_4.10.3-Linux-x86_64.sh -b
+    cd -
+    . ~/miniconda3/etc/profile.d/conda.sh
+    conda init bash
     ```
+
+    安装完成后，可以为Conda设置清华源加速下载，参考[此处](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/)。
+
+    创建Python 3.7.5环境：
+
+    ```bash
+    conda create -n mindspore_py37 python=3.7.5 -y
+    conda activate mindspore_py37
+    ```
+
+    或者创建Python 3.9.0环境：
+
+    ```bash
+    conda create -n mindspore_py39 python=3.9.0 -y
+    conda activate mindspore_py39
+    ```
+
+- 通过APT安装Python，命令如下。
+
+    ```bash
+    sudo apt-get update
+    sudo apt-get install software-properties-common -y
+    sudo add-apt-repository ppa:deadsnakes/ppa -y
+    sudo apt-get install python3.7 python3.7-dev python3.7-distutils python3-pip -y
+    # 将新安装的Python设为默认
+    sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.7 100
+    # 安装pip
+    python -m pip install pip -i https://repo.huaweicloud.com/repository/pypi/simple
+    sudo update-alternatives --install /usr/bin/pip pip ~/.local/bin/pip3.7 100
+    pip config set global.index-url https://repo.huaweicloud.com/repository/pypi/simple
+    ```
+
+    若要安装Python 3.9版本，只需将命令中的`3.7`替换为`3.9`。
+
+可以通过以下命令查看Python版本。
+
+```bash
+python --version
+```
+
+### 安装wheel和setuptools
+
+在安装完成Python后，使用以下命令安装。
+
+```bash
+pip install wheel
+pip install -U setuptools
+```
+
+### 安装GCC/git/gmp/tclsh/patch/NUMA
+
+可以通过以下命令安装GCC，git，gmp，tclsh，patch，NUMA。
+
+```bash
+sudo apt-get install gcc-7 git libgmp-dev tcl patch libnuma-dev -y
+```
+
+### 安装CMake
+
+可以通过以下命令安装[CMake](https://cmake.org/)。
+
+```bash
+wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | sudo apt-key add -
+sudo apt-add-repository "deb https://apt.kitware.com/ubuntu/ $(lsb_release -cs) main"
+sudo apt-get install cmake -y
+```
+
+### 安装LLVM（可选）
+
+可以通过以下命令安装[LLVM](https://llvm.org/)。
+
+```bash
+wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+sudo add-apt-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-12 main"
+sudo apt-get update
+sudo apt-get install llvm-12-dev -y
+```
 
 ## 从代码仓下载源码
 
@@ -66,27 +161,27 @@ git clone https://gitee.com/mindspore/mindspore.git
 
 ## 编译MindSpore
 
-在源码根目录下执行如下命令。
+进入mindspore根目录并检出到想要编译的版本，最后执行编译脚本。
 
 ```bash
-bash build.sh -e cpu -j4
-```
-
-其中：  
-如果编译机性能较好，可在执行中增加-j{线程数}来增加线程数量。如`bash build.sh -e cpu -j12`。
-
-## 安装MindSpore
-
-```bash
-pip install output/mindspore-{version}-{python_version}-linux_{arch}.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
+cd mindspore
+git checkout v1.6.0
+bash build.sh -e cpu -j4 -S on
 ```
 
 其中：
 
-- 在联网状态下，安装whl包时会自动下载mindspore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装。运行模型时，需要根据[ModelZoo](https://gitee.com/mindspore/models/tree/master/)中不同模型指定的requirements.txt安装额外依赖，常见依赖可以参考[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)。
-- `{version}`表示MindSpore版本号，例如安装1.5.0-rc1版本MindSpore时，`{version}`应写为1.5.0rc1。
-- `{arch}`表示系统架构，例如使用的Linux系统是x86架构64位时，`{arch}`应写为`x86_64`。如果系统是ARMv8架构64位，则写为`aarch64`。
-- `{python_version}`表示用户的Python版本，Python版本为3.7.5时，`{python_version}`应写为`cp37-cp37m`。Python版本为3.9.0时，则写为`cp39-cp39`。
+- 如果编译机性能较好，可在执行中增加-j{线程数}来增加线程数量。如`bash build.sh -e cpu -j12`。
+- 默认从github下载依赖源码，当-S选项设置为`on`时，从对应的gitee镜像下载。
+- 关于`build.sh`更多用法请参看脚本头部的说明。
+
+## 安装MindSpore
+
+```bash
+pip install output/mindspore-*.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
+```
+
+在联网状态下，安装whl包时会自动下载mindspore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装。运行模型时，需要根据[ModelZoo](https://gitee.com/mindspore/models/tree/master/)中不同模型指定的requirements.txt安装额外依赖，常见依赖可以参考[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)。
 
 ## 验证安装是否成功
 
@@ -118,5 +213,5 @@ The result of multiplication calculation is correct, MindSpore has been installe
     在源码根目录下执行编译脚本`build.sh`成功后，在`output`目录下找到编译生成的whl安装包，然后执行命令进行升级。
 
     ```bash
-    pip install --upgrade mindspore-{version}-{python_version}-linux_{arch}.whl
+    pip install --upgrade mindspore-*.whl
     ```
