@@ -105,7 +105,7 @@ void TransposeCPUFwdKernel::InitKernel(const CNodePtr &kernel_node) {
 - The functions in the class `AnfRuntimeAlgorithm` implement various operations on operator nodes. `shape_` represents the shape of the first input of the operator. `axis_` represents the attribute "perm" of the operator.
 - The parameter "perm" of the`Transpose` operator's primitive is as an input, but "perm" is actually considered as the attribute of the operation when parsing.
 
-> For details of the class `AnfRuntimeAlgorithm`, please refer to the declaration in MindSpore source codes under [mindspore/ccsrc/backend/session/anf_runtime_algorithm.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/backend/session/anf_runtime_algorithm.h).
+> For details of the class `AnfRuntimeAlgorithm`, please refer to the declaration in MindSpore source codes under [mindspore/ccsrc/backend/common/session/anf_runtime_algorithm.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/backend/common/session/anf_runtime_algorithm.h).
 
 The definition of the function `Launch` in the source file is as follows: First, get the address of each input and output in turn, and then transform the dimension according to `axis_`, and assign the value to the space pointed to by the output address.
 
