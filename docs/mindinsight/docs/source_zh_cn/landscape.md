@@ -162,8 +162,95 @@
 2. 地形图绘制：利用训练过程中保存的模型参数，模型与数据集与训练一致，启动新的脚本，正向计算生成地形图信息，不用再次进行训练。（适用于单卡或多卡并行计算绘制地形图）
 
    ```python
+   import mindspore.dataset as ds
+   import mindspore.dataset.vision.c_transforms as CV
+   import mindspore.dataset.transforms.c_transforms as C
+   from mindspore.dataset.vision import Inter
+   from mindspore import dtype as mstype
+   import mindspore.nn as nn
+
+   from mindspore.common.initializer import Normal
+   from mindspore import Model
    from mindspore.nn import Loss
    from mindspore.train.callback import SummaryLandscape
+
+   def create_dataset(data_path, batch_size=32, repeat_size=1,
+                      num_parallel_workers=1):
+       """
+       create dataset for train or test
+       """
+       # define dataset
+       mnist_ds = ds.MnistDataset(data_path, shuffle=False)
+
+       resize_height, resize_width = 32, 32
+       rescale = 1.0 / 255.0
+       shift = 0.0
+       rescale_nml = 1 / 0.3081
+       shift_nml = -1 * 0.1307 / 0.3081
+
+       # define map operations
+       resize_op = CV.Resize((resize_height, resize_width), interpolation=Inter.LINEAR)  # Bilinear mode
+       rescale_nml_op = CV.Rescale(rescale_nml, shift_nml)
+       rescale_op = CV.Rescale(rescale, shift)
+       hwc2chw_op = CV.HWC2CHW()
+       type_cast_op = C.TypeCast(mstype.int32)
+
+       # apply map operations on images
+       mnist_ds = mnist_ds.map(operations=type_cast_op, input_columns="label", num_parallel_workers=num_parallel_workers)
+       mnist_ds = mnist_ds.map(operations=resize_op, input_columns="image", num_parallel_workers=num_parallel_workers)
+       mnist_ds = mnist_ds.map(operations=rescale_op, input_columns="image", num_parallel_workers=num_parallel_workers)
+       mnist_ds = mnist_ds.map(operations=rescale_nml_op, input_columns="image", num_parallel_workers=num_parallel_workers)
+       mnist_ds = mnist_ds.map(operations=hwc2chw_op, input_columns="image", num_parallel_workers=num_parallel_workers)
+
+       # apply DatasetOps
+       buffer_size = 10000
+       mnist_ds = mnist_ds.shuffle(buffer_size=buffer_size)  # 10000 as in LeNet train script
+       mnist_ds = mnist_ds.batch(batch_size, drop_remainder=True)
+       mnist_ds = mnist_ds.repeat(repeat_size)
+
+       return mnist_ds
+
+   class LeNet5(nn.Cell):
+       """
+       Lenet network
+
+       Args:
+           num_class (int): Number of classes. Default: 10.
+           num_channel (int): Number of channels. Default: 1.
+
+       Returns:
+           Tensor, output tensor
+       Examples:
+           >>> LeNet(num_class=10)
+
+       """
+       def __init__(self, num_class=10, num_channel=1, include_top=True):
+           super(LeNet5, self).__init__()
+           self.conv1 = nn.Conv2d(num_channel, 6, 5, pad_mode='valid', weight_init=Normal(0.02))
+           self.conv2 = nn.Conv2d(6, 16, 5, pad_mode='valid', weight_init=Normal(0.02))
+           self.relu = nn.ReLU()
+           self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
+           self.include_top = include_top
+           if self.include_top:
+               self.flatten = nn.Flatten()
+               self.fc1 = nn.Dense(16 * 5 * 5, 120)
+               self.fc2 = nn.Dense(120, 84)
+               self.fc3 = nn.Dense(84, num_class)
+
+       def construct(self, x):
+           x = self.conv1(x)
+           x = self.relu(x)
+           x = self.max_pool2d(x)
+           x = self.conv2(x)
+           x = self.relu(x)
+           x = self.max_pool2d(x)
+           if not self.include_top:
+               return x
+           x = self.flatten(x)
+           x = self.relu(self.fc1(x))
+           x = self.relu(self.fc2(x))
+           x = self.fc3(x)
+           return x
 
    def callback_fn():
        network = LeNet5(10)
