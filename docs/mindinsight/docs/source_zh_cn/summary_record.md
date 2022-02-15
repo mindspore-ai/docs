@@ -1,4 +1,4 @@
-﻿﻿# 收集Summary数据
+﻿# 收集Summary数据
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/summary_record.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
