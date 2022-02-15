@@ -817,18 +817,6 @@ MindSpore Programming Guide
                         </div>
                      </a>
                   </div>
-                  <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Running experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/forward_value_and_grad.html" class="article-link">
-                        <div>
-                              <div class="doc-article-head">
-                                 <span class="doc-head-content">Forward Value And Grad</span>
-                              </div>
-                              <div class="doc-article-desc">
-                              Forward Value And Grad is used to generate the forward value and backend gradient of the input network.
-                              </div>
-                        </div>
-                     </a>
-                  </div>
                   <div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Development experience-local hidden">
                      <a href="https://www.mindspore.cn/docs/programming_guide/en/master/grad_operation.html" class="article-link">
                         <div>
