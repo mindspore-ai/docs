@@ -171,4 +171,4 @@ export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='ONNX')
 
 > - `input`用来指定导出模型的输入shape以及数据类型，如果网络有多个输入，需要一同传进`export`方法。 例如：`export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='ONNX')`
 > - 如果`file_name`没有包含".onnx"后缀，系统会为其自动添加".onnx"后缀。
-> - 目前ONNX格式导出仅支持ResNet系列、BERT网络。
+> - 目前ONNX格式导出仅支持ResNet50、BERT[CLS]网络。
