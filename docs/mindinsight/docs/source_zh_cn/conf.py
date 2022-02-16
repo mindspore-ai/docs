@@ -15,6 +15,16 @@ import IPython
 import re
 import sys
 
+from sphinx import directives
+with open('../_ext/overwriteobjectiondirective.txt', 'r') as f:
+    exec(f.read(), directives.__dict__)
+
+from docutils import statemachine
+
+with open(statemachine.__file__, 'r') as g:
+    code = g.read().replace("assert len(self.data) == len(self.items), 'data mismatch'", "#assert len(self.data) == len(self.items), 'data mismatch'")
+    exec(code, statemachine.__dict__)
+
 from sphinx.ext import autodoc as sphinx_autodoc
 
 import mindinsight
@@ -124,6 +134,25 @@ import search_code
 
 sys.path.append(os.path.abspath('../../../../resource/custom_directives'))
 from custom_directives import IncludeCodeDirective
+
+# Copy source files of chinese python api from mindinsight repository.
+import shutil
+from sphinx.util import logging
+logger = logging.getLogger(__name__)
+
+src_dir = os.path.join(os.getenv("MI_PATH"), 'docs/api_python/')
+
+if not os.path.exists(src_dir):
+    logger.warning("There is no source dir in mindinsight repository.")
+else:
+    src_files = os.listdir(src_dir)
+    for i in src_files:
+        src_path = os.path.join(src_dir, i)
+        if os.path.exists(i):
+            os.remove(i)
+        if os.path.isdir(src_path):
+            shutil.copytree(src_path, i)
+        shutil.copy(src_path, i)
 
 def setup(app):
     app.add_directive('includecode', IncludeCodeDirective)

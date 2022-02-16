@@ -1,5 +1,0 @@
-mindconverter
-=============
-
-.. automodule:: mindconverter
-    :members:
