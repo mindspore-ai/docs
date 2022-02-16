@@ -7,6 +7,7 @@
 {{ fullname | underline }}
 
 .. autofunction:: {{ fullname }}
+
 {% elif objname[0].istitle() %}
 {{ fullname | underline }}
 
@@ -18,6 +19,7 @@
 {{ fullname | underline }}
 
 .. autofunction:: {{ fullname }}
+
 {% endif %}
 
 ..
