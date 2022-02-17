@@ -7,38 +7,6 @@ Compared with the previous version, the added, deleted and supported platforms c
 
 .. include:: operations.rst
 
-composite
----------
-
-The composite operators are the pre-defined combination of operators.
-
-.. msplatformautosummary::
-    :toctree: ops
-    :nosignatures:
-    :template: classtemplate.rst
-
-    mindspore.ops.batch_dot
-    mindspore.ops.clip_by_global_norm
-    mindspore.ops.clip_by_value
-    mindspore.ops.core
-    mindspore.ops.count_nonzero
-    mindspore.ops.cummin
-    mindspore.ops.dot
-    mindspore.ops.gamma
-    mindspore.ops.GradOperation
-    mindspore.ops.HyperMap
-    mindspore.ops.laplace
-    mindspore.ops.Map
-    mindspore.ops.matmul
-    mindspore.ops.multinomial
-    mindspore.ops.MultitypeFuncGraph
-    mindspore.ops.normal
-    mindspore.ops.poisson
-    mindspore.ops.repeat_elements
-    mindspore.ops.sequence_mask
-    mindspore.ops.tensor_dot
-    mindspore.ops.uniform
-
 functional
 ----------
 
@@ -362,10 +330,31 @@ The functional operators are the pre-instantiated Primitive operators, which can
     :nosignatures:
     :template: classtemplate.rst
 
+    mindspore.ops.batch_dot
+    mindspore.ops.clip_by_global_norm
+    mindspore.ops.clip_by_value
+    mindspore.ops.core
+    mindspore.ops.count_nonzero
+    mindspore.ops.cummin
+    mindspore.ops.dot
+    mindspore.ops.gamma
     mindspore.ops.grad
+    mindspore.ops.GradOperation
+    mindspore.ops.HyperMap
     mindspore.ops.jvp
+    mindspore.ops.laplace
+    mindspore.ops.Map
+    mindspore.ops.matmul
+    mindspore.ops.multinomial
+    mindspore.ops.MultitypeFuncGraph
     mindspore.ops.narrow
+    mindspore.ops.normal
+    mindspore.ops.poisson
+    mindspore.ops.repeat_elements
     mindspore.ops.select
+    mindspore.ops.sequence_mask
+    mindspore.ops.tensor_dot
+    mindspore.ops.uniform
     mindspore.ops.vjp
 
 primitive
