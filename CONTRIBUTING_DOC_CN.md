@@ -91,7 +91,7 @@ MindSpore docs仓提供了[API注释写作要求](https://gitee.com/mindspore/do
 
 如果不清楚所在文件，可点击“source”，并参考跳转的链接地址中`_modules`后的内容，找到该文件。
 
-以Tensor为例，点击“source”后得到地址<https://www.mindspore.cn/docs/api/zh-CN/master/_modules/mindspore/common/tensor.html#Tensor>，源文件地址即为<https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/common/tensor.py>。
+以Tensor为例，点击“source”后得到地址<https://www.mindspore.cn/docs/api/en/master/_modules/mindspore/common/tensor.html#Tensor>，源文件地址即为<https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/common/tensor.py>。
 
 ![API Source](./resource/_static/api_source.png)
 
@@ -105,16 +105,16 @@ MindSpore docs仓提供了[API注释写作要求](https://gitee.com/mindspore/do
 
     如果属于以下模块，还需更新MindSpore docs仓的接口列表，请按字母序添加API。
 
-    - `mindspore.dataset`：[中文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_zh_cn/api_python/mindspore.dataset.rst) | [英文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_en/api_python/mindspore.dataset.rst)
-    - `mindspore.dataset.text`：[中文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_zh_cn/api_python/mindspore.dataset.text.rst) | [英文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_en/api_python/mindspore.dataset.text.rst)
-    - `mindspore.dataset.transforms`：[中文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_zh_cn/api_python/mindspore.dataset.transforms.rst) | [英文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_en/api_python/mindspore.dataset.transforms.rst)
-    - `mindspore.dataset.vision`：[中文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_zh_cn/api_python/mindspore.dataset.vision.rst) | [英文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_en/api_python/mindspore.dataset.vision.rst)
-    - `mindspore.nn`：[中文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_zh_cn/api_python/mindspore.nn.rst) | [英文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_en/api_python/mindspore.nn.rst)
-    - `mindspore.nn.probability`：[中文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_zh_cn/api_python/mindspore.nn.probability.rst) | [英文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_en/api_python/mindspore.nn.probability.rst)
-    - `mindspore.ops`：[中文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_zh_cn/api_python/mindspore.ops.rst) | [英文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_en/api_python/mindspore.ops.rst)
-    - `mindspore.ops.operations`：[中文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_zh_cn/api_python/operations.rst) | [英文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_en/api_python/operations.rst)
+    - `mindspore.dataset`：[中文页面列表](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.dataset.rst) | [英文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_en/api_python/mindspore.dataset.rst)
+    - `mindspore.dataset.text`：[中文页面列表](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.dataset.text.rst) | [英文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_en/api_python/mindspore.dataset.text.rst)
+    - `mindspore.dataset.transforms`：[中文页面列表](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.dataset.transforms.rst) | [英文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_en/api_python/mindspore.dataset.transforms.rst)
+    - `mindspore.dataset.vision`：[中文页面列表](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.dataset.vision.rst) | [英文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_en/api_python/mindspore.dataset.vision.rst)
+    - `mindspore.nn`：[中文页面列表](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.nn.rst) | [英文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_en/api_python/mindspore.nn.rst)
+    - `mindspore.nn.probability`：[中文页面列表](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.nn.probability.rst) | [英文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_en/api_python/mindspore.nn.probability.rst)
+    - `mindspore.ops`：[中文页面列表](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.ops.rst) | [英文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_en/api_python/mindspore.ops.rst)
+    - `mindspore.ops.operations`：[中文页面列表](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/operations.rst) | [英文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_en/api_python/operations.rst)
 
-- 如果不属于已有模块，需新增MindSpore docs仓的接口工程文件，并按字母序添加模块到[目录结构](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_zh_cn/index.rst)中。如需新增`mindspore.context`模块接口，需在`docs/docs/api_python/source_zh_cn/mindspore`目录下新增[mindspore.context.rst](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_zh_cn/api_python/mindspore.context.rst)文件，并将其添加到目录结构中。同时，在`docs/docs/api_python/source_en/mindspore`目录下做相应修改，即可生成英文页面内容。
+- 如果不属于已有模块，需新增MindSpore docs仓的接口工程文件，并按字母序添加模块到[目录结构](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/api/source_zh_cn/index.rst)中。如需新增`mindspore.context`模块接口，需在`docs/docs/api_python/source_zh_cn/mindspore`目录下新增[mindspore.context.rst](https://gitee.com/mindspore/mindspore/blob/master/docs/api/api_python/mindspore.context.rst)文件，并将其添加到目录结构中。同时，在`docs/docs/api_python/source_en/mindspore`目录下做相应修改，即可生成英文页面内容。
 
     ```rst
     .. toctree::
