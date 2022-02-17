@@ -254,6 +254,7 @@ circuit # Draw a circuit diagram
 </pre>
 
 As shown in the quantum circuit, it includes four parts in the order-finding subroutine,
+
 1.  superposition states generation
 2.  functional operation
 3.  inverse Fourier transform
