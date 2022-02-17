@@ -54,3 +54,9 @@ Typical MindSpore Graph Learning Application Scenarios
    mindspore_gl.nn
    mindspore_gl.parser
    mindspore_gl.sampling
+
+.. toctree::
+   :maxdepth: 1
+   :caption: References
+
+   faq
