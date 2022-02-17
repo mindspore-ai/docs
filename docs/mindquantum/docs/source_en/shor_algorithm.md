@@ -8,35 +8,35 @@ The time complexity of Shor's algorithm to decompose an integer $N$ on a quantum
 
 ## Basic idea of Shor's algorithm
 
-The main problem Shor's algorithm aim to solve is: given an integer $N$, find its prime factors. That is, for a given large number $N$, determine two prime factors $p1$ and $p2$ in polynomial time to satisfy $p1\cdot p2=N$. Before introducing the Shor's algorithm, let's learn some basic knowledge of number theory.
+Shor's algorithm aims to solve the problem: given an integer $N$, find its prime factors. That is, for a given large number $N$, determine two prime factors $p1$ and $p2$ in polynomial time to satisfy $p1\cdot p2=N$. Before introducing the Shor's algorithm, let's learn some basic knowledge of number theory.
 
-We need some basic knowledge in number theory to understand the factorization problem. We can simplified the problem by finding the period of $a$ in the following function:
+We need to learn some basic number theory in order to understand the factorization problem. We can simplified the problem by finding the period of $a$ in the following function:
 
 $$
-f(x)=a^x\ mod\ N
+f(x) = a^x \mod N
 $$
 
 where $a$ and $N$ are relatively prime, otherwise a factor can be obtained immediately by calling $gcd(a,N)$. Since the function $f(x)$ has a period of $r$, $f(x)=f(x+r)$ is satisfied. In this case, we can get
 
 $$
-a^x=a^{x+r}\ mod\ N\ \ \forall x
+a^x = a^{x+r} \mod N \forall x
 $$
 
-Let $x=0$, we can get $a^r=1+qN$, where $q$ is an integer,
+Set $x=0$, we can get $a^r=1+qN$, where $q$ is an integer,
 
 $$
 a^r-1=(a^{r/2}-1)(a^{r/2}+1)=qN
 $$
 
-This also shows that the factors of $N$ can be found using $gcd$.
+It indicates that the factors of $N$ can be found through finding greatest common divisor.
 
 Therefore, the main idea of Shor's algorithm is to transform the problem of factoring large numbers into the problem of finding the function's period. Since we can use the superposition principle to perform parallel computing in quantum computing, we can quickly find the period $r$ of the function $f(x)$ through quantum algorithms (for specific principles and steps, please refer to the `period finding algorithm` in this document ). In general, we need to implement the function: $f(|x\rangle)=a^{|x\rangle}\ mod\ N$ in the quantum circuit. We can construct a unitary matrix $U_{a,N} $ where $U_{a,N}|x\rangle |y\rangle \rightarrow |x\rangle |y \oplus f(x) \rangle$, and then using Quantum Fourier Transform to find the period $r$ which satisfies $ a^r\equiv 1(\ mod\ N)$.
 
-We take $N=15$ as an example to introduce the factorization steps of Shor's algorithm :
+Taking $N=15$ as an example, the steps of Shor's algorithm is introduced as follows,
 
-1. Choose an arbitrary number, such as $a=2(<15)$
+1. Randomly choose a number, such as $a=2(<15)$
 
-2. Find the greatest common divisor, $gcd(a,N)=gcd(2,15)=1$
+2. Find the greatest common divisor, $\rm gcd(a,N)=gcd(2,15)=1$
 
 3. Find the period of the function $f(x)=a^x\ mod\ N$, so that $f(x+r)=f(x)$
 
@@ -46,9 +46,9 @@ We take $N=15$ as an example to introduce the factorization steps of Shor's algo
 
 6. Find the greatest common divisor, $\gcd(a^{r/2}-1,N)=\gcd(3,15)=3$
 
-7. Hence, the prime factor of $N=15$ are 3 and 5, and the decomposition operation is complete.
+7. Hence, the prime factor of 15 are 3 and 5, and the decomposition operation is complete.
 
-The quantum circuit of Shor's algorithm is shown in the following figure:
+The quantum circuit of Shor's algorithm is shown as follows,
 
 ![shor's algorithm circuit](https://gitee.com/mindspore/docs/raw/r1.6/docs/mindquantum/docs/source_zh_cn/images/shor_algorithm_circuit.png)
 
@@ -67,11 +67,11 @@ from mindquantum.algorithm.library import qft
 from mindquantum.simulator import Simulator
 ```
 
-From the basic idea of Shor's algorithm, we can see that the main part of Shor's algorithm is the period search algorithm processed by quantum computers, and the most difficult part of the period search algorithm is the operator $U$ which convert the state $|x\rangle |y\rangle$ into $|x\rangle |y \oplus f(x) \rangle$. The quantum circuit structure of this operator is more complicated. Therefore, we will first calculate the operator $U$ through a classical computer and use it as Make an Oracle so that this document can demonstrate Shor's algorithm as a whole and intuitively.
+From the basic idea of Shor's algorithm, we can see that the main part of Shor's algorithm is period finding subroutine processed by quantum computers, and the most difficult part of the period search algorithm is the operator $U$ which convert the state $|x\rangle |y\rangle$ into $|x\rangle |y \oplus f(x) \rangle$. The quantum circuit structure of this operator is more complicated. Therefore, we will first calculate the operator $U$ through a classical computer and use it as Make an Oracle so that this document can demonstrate Shor's algorithm as a whole and intuitively.
 
 ### Construct the Oracle
 
-The construction method of the Oracle is very simple, just 3 steps:
+The construction of Oracle is merely 3 steps,
 
 1. Exhaustively enumerate all possible $x$ before the transformation ($N$ times from $0$ to $N-1$), and calculate the corresponding $f(x)=a^x\ mod\ N$.
 2. For each $x$, we can write the matrix representation of the state before transformation $|x\rangle |0\rangle$ and the state after transformation $|x\rangle |f(x)\rangle$, we can get the transformation matrix corresponding to each $x$ by there tensor product, and then sum all the matrices to get the matrix representation of the operator $U$, that is:
@@ -82,7 +82,7 @@ $$
 
 3. Use the matrix $U$ to generate the custom gate.
 
-For example: in the case of $N=15, a=2$, we can get $x$ and $f(x)$:
+Example: $N=15, a=2$, we can obtain $x$ and $f(x)$:
 
 ```python
 q = 4  # number of qubits
@@ -191,13 +191,13 @@ circuit # Print circuit
 <span style="color: #000080; text-decoration-color: #000080; font-weight: bold">q7: ─────‖───────</span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">f</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">)───────‖───────</span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">f</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">)───────‖───────</span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">f</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">)───────‖───────</span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">f</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">)───────‖───────</span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">f</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">4</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">)───────‖───────</span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">f</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">5</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">)───────‖───────</span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">f</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">6</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">)───────‖───────</span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">f</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">7</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">)───────‖───────</span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">f</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">8</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">)───────‖───────</span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">f</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">9</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">)───────‖───────</span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">f</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">10</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">)───────‖───────</span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">f</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">11</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">)───────‖───────</span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">f</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">12</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">)───────‖───────</span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">f</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">13</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">)───────‖───────</span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">f</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">14</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">)───────‖──</span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">f</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">15</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">)──</span>
 </pre>
 
-The result in register 1 is 0100, and the result in register 2 is 0001. We have previously calculated $f(8)=2^8\ mod\ 15=1$, so the output is correct. Although the circuit looks complicated, it is actually just 16 controlled 4-bit gates that act in sequence. The `X` gate on the first four bits is used to flip the control bit.
+The result in register 1 is 0100 or |0100⟩, and the result in register 2 is 0001 or |0001⟩. We have previously calculated $f(8)=2^8\ mod\ 15=1$, so the output is correct. Although the circuit looks complicated, it is actually just 16 controlled 4-bit gates that act in sequence. The `X` gate on the first four bits is used to flip the control bit.
 
 Next we need to implement the period finding algorithm.
 
 ### Period Finding Subroutine
 
-1. In register 1, we need $q>log_2 N$ bits to record the binary number of the variable $x \in [0,N-1]$, and we also need $q$ bits in register 2 to record $f (x)=a^x\ mod\ N\ \in [0,N-1]$ binary number. At this time, register 1 and register 2 can respectively record the integers of $[0, Q-1]$, where $Q=2^q>N$.
+1. In register 1, we need $q>log_2 N$ qubits to record the binary number of the variable $x \in [0,N-1]$, and we also need $q$ qubits in register 2 to record $f (x)=a^x\ mod\ N\ \in [0,N-1]$ binary form. At this time, register 1 and register 2 can respectively record the integers of $[0, Q-1]$, where $Q=2^q>N$.
 2. The `Hadamard` gate is applied to all bits in register 1, and the bits in register 1 are in a uniform superposition state of all integers in $[0,Q-1]$
 
 $$
@@ -213,7 +213,7 @@ $$
 4. Perform an inverse Fourier transform on register 1. This transform uses a $Q$-order unit root $\omega^{2\pi i/Q}$, which evenly distributes the amplitude of any given state $|x\rangle$ on $Q$ states of $|y\rangle$. As shown in step 3, the equivalent states of $|i\rangle$ and $|i+r\rangle$ in register 1 are both entangled with the same state $|f(i)\rangle$ in register 2, with the Quantum interference effect, and finally, when the unit vector $\omega^{2\pi iry/Q}$ is closer to 1 (pointing to the positive real number axis), the probability of measuring the state $|y\rangle$ is greater. In other words, our measured state $|y\rangle$ has a high probability to make $\frac{ry}{Q}$ close to a certain integer $c$. For a more detailed mathematical description, please refer to the link: https://en.wikipedia.org/wiki/Shor%27s_algorithm Algorithm "Quantum Part: Period Finding Subroutine".
 5. Measure register 1 to get the binary string. Convert the binary string to the decimal number $y$, at this time $\frac{y}{Q}\sim\frac{c}{r}$, where $c$ is an unknown integer. Calculate the irreducible fraction (the denominator is not greater than $N$) approximated by $\frac{y}{Q}$ using the continued fraction factorization method, the period $r$ is its denominator. However, among irreducible fractions which denominator is less than $N$, there may be fractions that are closer to $\frac{y}{Q}$ than $\frac{c}{r}$, or $c$ and $r$ have a common factor, the obtained $r$ will be the factor of the real function period. At this time, the calculation fails, we need to recalculate.
 
-Example: We are using the example of $N=15, a=2$ again, in `constructing Oracle`, we calculated each $f(x)$, from which we can directly see that the function period is 4. Now we can build the corresponding period-finding subroutine and run 100 simulations to see what we get.
+Taking the example of $N=15, a=2$ again, in `constructing Oracle`, we calculated each $f(x)$, from which we can directly see that the function period is 4. Now we can build the corresponding period-finding subroutine and run 100 simulations to see what we get.
 
 ```python
 # pylint: disable=W0104
@@ -253,9 +253,13 @@ circuit # Draw a circuit diagram
 <span style="color: #000080; text-decoration-color: #000080; font-weight: bold">q7: ─────‖───────</span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">f</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">)───────‖───────</span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">f</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">)───────‖───────</span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">f</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">)───────‖───────</span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">f</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">)───────‖───────</span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">f</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">4</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">)───────‖───────</span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">f</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">5</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">)───────‖───────</span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">f</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">6</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">)───────‖───────</span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">f</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">7</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">)───────‖───────</span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">f</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">8</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">)───────‖───────</span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">f</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">9</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">)───────‖───────</span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">f</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">10</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">)───────‖───────</span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">f</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">11</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">)───────‖───────</span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">f</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">12</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">)───────‖───────</span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">f</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">13</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">)───────‖───────</span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">f</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">14</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">)───────‖──</span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">f</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">15</span><span style="color: #000080; text-decoration-color: #000080; font-weight: bold">)──‖──────────────────────────────────────────────────────────────────────────────────────────────────────‖─────────</span>
 </pre>
 
-From the circuit diagram, we can visually see that the entire period search circuit consists of four parts: the construction of superposition $\rightarrow$ function operation $\rightarrow$ inverse Fourier transform $\rightarrow$ measurement.
+As shown in the quantum circuit, it includes four parts in the order-finding subroutine,
+1.  superposition states generation
+2.  functional operation
+3.  inverse Fourier transform
+4.  measurement
 
-Next we will run the circuit 100 times and observe the measurements.
+Next, execute the circuit for 100 times and record the results.
 
 ```python
 # pylint: disable=W0104
@@ -323,7 +327,7 @@ def period_finder(N, a, q):
     return None
 ```
 
-### Classic Computer Section
+### Classic Computer Part
 
 The classical computer part is responsible for transforming the factorization problem into the problem of finding function period. The specific steps are as follows:
 
@@ -369,7 +373,7 @@ def shor(N):
         return d, int(N / d)
 ```
 
-Since classical computer simulation of quantum algorithms requires a lot of memory, and the previously mentioned simulator in MindQuantum cannot run custom gates with more than 5 bits for the time being, we cannot use Shor's algorithm to calculate the case of $N>21$ for the time being. Finally let's try to decompose $N=15$ using the written Shor's algorithm.
+Since classical computer simulation of quantum algorithms requires a lot of memory, and the previously mentioned simulator in MindQuantum cannot implement multi-qubit gates, such as 5 qubit gates so far. We cannot use Shor's algorithm to calculate the case of $N>21$ for the time being. Finally let's try to decompose $N=15$ using the written Shor's algorithm.
 
 ```python
 N = 15
@@ -386,9 +390,9 @@ print("q =", q)
     q = 3
 ```
 
-As we can see from the running results, we successfully decomposed two prime factors of 15: 3 and 5.
+As we can see from the results, we successfully decomposed 15 into two prime factors 3 and 5.
 
-So far, we have successfully implemented the Shor algorithm using MindQuantum.
+So far, we have successfully implemented the Shor's algorithm using MindQuantum.
 
 For more information about MindQuantum API, please click: [https://mindspore.cn/mindquantum/](https://mindspore.cn/mindquantum/).
 
