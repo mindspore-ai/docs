@@ -199,7 +199,7 @@
 
 ![apk](./images/segmentation_apk.png)
 
-如果已经安装了前面所说的运行依赖，可以通过Android Studio编译并运行[图像分割Demo](https://gitee.com/mindspore/models/tree/master/official/lite/image_segmentation)。
+如果已经安装了前面所说的运行依赖，可以通过Android Studio编译并运行[图像分割Demo](https://gitee.com/mindspore/models/tree/r1.6/official/lite/image_segmentation)。
 
 运行结果如下图所示（以选取相册某张头像图片为例）。
 

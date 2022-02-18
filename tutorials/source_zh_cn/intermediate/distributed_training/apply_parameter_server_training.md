@@ -22,7 +22,7 @@ Parameter Server(参数服务器)是分布式训练中一种广泛使用的架�
 
 ### 训练脚本准备
 
-参考<https://gitee.com/mindspore/models/tree/master/official/cv/lenet>，使用[MNIST数据集](http://yann.lecun.com/exdb/mnist/)，了解如何训练一个LeNet网络。
+参考<https://gitee.com/mindspore/models/tree/r1.6/official/cv/lenet>，使用[MNIST数据集](http://yann.lecun.com/exdb/mnist/)，了解如何训练一个LeNet网络。
 
 ### 参数设置
 
@@ -49,7 +49,7 @@ Parameter Server(参数服务器)是分布式训练中一种广泛使用的架�
 
 > 在`Parameter Server`模式下暂时不支持控制流，因此在`train.py`中，需要将`model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O2")`修改为`model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})`，将混合精度`amp_level`选项关闭，消除控制流的影响。
 
-4. [可选配置]针对超大shape的`embedding_table`，由于设备上存放不下全量的`embedding_table`，可以配置[EmbeddingLookup算子](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/nn/mindspore.nn.EmbeddingLookup.html)的`vocab_cache_size`，用于开启Parameter Server训练模式下`EmbeddingLookup`的cache功能，该功能使用`vocab_cache_size`大小的`embedding_table`在设备上训练，全量`embedding_table`存储在Server，将下批次训练用到的`embedding_table`提前换入到cache上，当cache放不下时则将过期的`embedding_table`放回到Server，以达到提升训练性能的目的；训练结束后，可在Server上导出CheckPoint，保存训练后的全量`embedding_table`。详细网络训练脚本参考<https://gitee.com/mindspore/models/tree/master/official/recommend/wide_and_deep>。
+4. [可选配置]针对超大shape的`embedding_table`，由于设备上存放不下全量的`embedding_table`，可以配置[EmbeddingLookup算子](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/nn/mindspore.nn.EmbeddingLookup.html)的`vocab_cache_size`，用于开启Parameter Server训练模式下`EmbeddingLookup`的cache功能，该功能使用`vocab_cache_size`大小的`embedding_table`在设备上训练，全量`embedding_table`存储在Server，将下批次训练用到的`embedding_table`提前换入到cache上，当cache放不下时则将过期的`embedding_table`放回到Server，以达到提升训练性能的目的；训练结束后，可在Server上导出CheckPoint，保存训练后的全量`embedding_table`。详细网络训练脚本参考<https://gitee.com/mindspore/models/tree/r1.6/official/recommend/wide_and_deep>。
 
     ```python
     context.set_auto_parallel_context(full_batch=True, parallel_mode=ParallelMode.AUTO_PARALLEL)

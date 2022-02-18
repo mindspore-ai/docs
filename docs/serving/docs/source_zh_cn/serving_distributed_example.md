@@ -42,7 +42,7 @@ export_model
 - `net.py`为MatMul网络定义。
 - `distributed_inference.py`配置分布式相关的参数。
 - `export_model.sh`在当前机器上创建`device`目录并且导出每个`device`对应的模型文件。
-- `rank_table_8pcs.json`为配置当前多卡环境的组网信息的json文件，可以参考[rank_table](https://gitee.com/mindspore/models/tree/master/utils/hccl_tools)。
+- `rank_table_8pcs.json`为配置当前多卡环境的组网信息的json文件，可以参考[rank_table](https://gitee.com/mindspore/models/tree/r1.6/utils/hccl_tools)。
 
 使用[net.py](https://gitee.com/mindspore/serving/blob/r1.6/example/matmul_distributed/export_model/net.py)，构造一个包含MatMul、Neg算子的网络。
 
