@@ -32,6 +32,7 @@
 
 ```text
 ./benchmark [--modelFile=<MODELFILE>] [--accuracyThreshold=<ACCURACYTHRESHOLD>]
+   [--cosineDistanceThreshold=<COSINEDISTANCETHRESHOLD>]
    [--benchmarkDataFile=<BENCHMARKDATAFILE>] [--benchmarkDataType=<BENCHMARKDATATYPE>]
    [--cpuBindMode=<CPUBINDMODE>] [--device=<DEVICE>] [--help]
    [--inDataFile=<INDATAFILE>] [--loopCount=<LOOPCOUNT>]
@@ -47,6 +48,7 @@
 | ----------------- | ---- | ------------------------------------------------------------ | ------ | -------- | ---------------------------------- |
 | `--modelFile=<MODELPATH>` | 必选 | 指定需要进行基准测试的MindSpore Lite模型文件路径。 | String | null  | -        |
 | `--accuracyThreshold=<ACCURACYTHRESHOLD>` | 可选 | 指定准确度阈值。 | Float           | 0.5    | -        |
+| `--cosineDistanceThreshold=<COSINEDISTANCETHRESHOLD>` | 可选 | 指定余弦距离阈值，只有指定该参数并且其值大于-1时，才会计算余弦距离。 | Float           | -1.1    | -        |
 | `--benchmarkDataFile=<CALIBDATAPATH>` | 可选 | 指定标杆数据的文件路径。标杆数据作为该测试模型的对比输出，是该测试模型使用相同输入并由其它深度学习框架前向推理而来。 | String | null | - |
 | `--benchmarkDataType=<CALIBDATATYPE>` | 可选 | 指定标杆数据类型。 | String | FLOAT | FLOAT、INT32、INT8、UINT8 |
 | `--cpuBindMode=<CPUBINDMODE>` | 可选 | 指定模型推理程序运行时绑定的CPU核类型。 | Integer | 1      | 2：表示中核<br/>1：表示大核<br/>0：表示不绑定 |
@@ -283,6 +285,7 @@ np.fromfile("/path/to/dump.bin", np.float32)
 
 ```text
 call benchmark.exe [--modelFile=<MODELFILE>] [--accuracyThreshold=<ACCURACYTHRESHOLD>]
+   [--cosineDistanceThreshold=<COSINEDISTANCETHRESHOLD>]
    [--benchmarkDataFile=<BENCHMARKDATAFILE>] [--benchmarkDataType=<BENCHMARKDATATYPE>]
    [--cpuBindMode=<CPUBINDMODE>] [--device=<DEVICE>] [--help]
    [--inDataFile=<INDATAFILE>] [--loopCount=<LOOPCOUNT>]
