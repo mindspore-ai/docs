@@ -32,6 +32,7 @@ The command used for benchmark testing based on the compiled Benchmark tool is a
 
 ```text
 ./benchmark [--modelFile=<MODELFILE>] [--accuracyThreshold=<ACCURACYTHRESHOLD>]
+   [--cosineDistanceThreshold=<COSINEDISTANCETHRESHOLD>]
    [--benchmarkDataFile=<BENCHMARKDATAFILE>] [--benchmarkDataType=<BENCHMARKDATATYPE>]
    [--cpuBindMode=<CPUBINDMODE>] [--device=<DEVICE>] [--help]
    [--inDataFile=<INDATAFILE>] [--loopCount=<LOOPCOUNT>]
@@ -47,6 +48,7 @@ The following describes the parameters in detail.
 | ----------------- | ---- | ------------------------------------------------------------ | ------ | -------- | ---------------------------------- |
 | `--modelFile=<MODELFILE>` | Mandatory | Specifies the file path of the MindSpore Lite model for benchmark testing. | String | Null  | -        |
 | `--accuracyThreshold=<ACCURACYTHRESHOLD>` | Optional | Specifies the accuracy threshold. | Float           | 0.5    | -        |
+| `--cosineDistanceThreshold=<COSINEDISTANCETHRESHOLD>` | Optional | Specifies the cosine distance threshold, only when the parameter is specified and it's value is bigger than -1, the cosine distance is computed. | Float           | -1.1    | -        |
 | `--benchmarkDataFile=<BENCHMARKDATAFILE>` | Optional | Specifies the file path of the benchmark data. The benchmark data, as the comparison output of the tested model, is output from the forward inference of the tested model under other deep learning frameworks using the same input. | String | Null | - |
 | `--benchmarkDataType=<BENCHMARKDATATYPE>` | Optional | Specifies the calibration data type. | String | FLOAT | FLOAT, INT32, INT8 or UINT8|
 | `--cpuBindMode=<CPUBINDMODE>` | Optional | Specifies the type of the CPU core bound to the model inference program. | Integer | 1      | 2: medium core<br/>1: large core<br/>0: not bound |
@@ -283,6 +285,7 @@ The command used for benchmark testing based on the compiled Benchmark tool is a
 
 ```text
 call benchmark.exe [--modelFile=<MODELFILE>] [--accuracyThreshold=<ACCURACYTHRESHOLD>]
+   [--cosineDistanceThreshold=<COSINEDISTANCETHRESHOLD>]
    [--benchmarkDataFile=<BENCHMARKDATAFILE>] [--benchmarkDataType=<BENCHMARKDATATYPE>]
    [--cpuBindMode=<CPUBINDMODE>] [--device=<DEVICE>] [--help]
    [--inDataFile=<INDATAFILE>] [--loopCount=<LOOPCOUNT>]
