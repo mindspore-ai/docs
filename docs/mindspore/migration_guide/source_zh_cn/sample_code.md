@@ -662,7 +662,7 @@ if __name__ == '__main__':
     model.train(config.epoch_size, dataset, callbacks=cb, sink_size=step_size, dataset_sink_mode=False)
 ```
 
-注意：关于目录中其他文件的代码，可以参考 MindSpore ModelZoo 的 [ResNet50 实现](https://gitee.com/mindspore/models/tree/master/official/cv/resnet)（该脚本融合了其他 ResNet 系列网络及ResNet-SE 网络，具体实现可能和对标脚本有差异）。
+注意：关于目录中其他文件的代码，可以参考 MindSpore ModelZoo 的 [ResNet50 实现](https://gitee.com/mindspore/models/tree/r1.6/official/cv/resnet)（该脚本融合了其他 ResNet 系列网络及ResNet-SE 网络，具体实现可能和对标脚本有差异）。
 
 ### 分布式训练
 

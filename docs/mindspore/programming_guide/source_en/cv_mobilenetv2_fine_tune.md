@@ -12,7 +12,7 @@ MindSpore is a diversified machine learning framework. It can run on devices suc
 
 Currently, only the CPU is supported on Windows, and the CPU, GPU, and Ascend AI Processor are supported on Ubuntu and EulerOS.
 
-> You can obtain the complete executable sample code at <https://gitee.com/mindspore/models/tree/master/official/cv/mobilenetv2>.
+> You can obtain the complete executable sample code at <https://gitee.com/mindspore/models/tree/r1.6/official/cv/mobilenetv2>.
 
 ## Task Description and Preparations
 

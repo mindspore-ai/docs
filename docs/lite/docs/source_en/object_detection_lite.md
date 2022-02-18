@@ -12,7 +12,7 @@ Object detection can identify the object in the image and its position in the im
 | -------- | ----------- | ---------------- |
 | mouse    | 0.78        | [10, 25, 35, 43] |
 
-Using MindSpore Lite to implement object detection [example](https://gitee.com/mindspore/models/tree/master/official/lite/object_detection).
+Using MindSpore Lite to implement object detection [example](https://gitee.com/mindspore/models/tree/r1.6/official/lite/object_detection).
 
 ## Object detection model list
 

@@ -8,7 +8,7 @@ MindSpore allows a model to generate multiple subgraphs. Such a model is general
 
 MindSpore Serving supports scheduling multi-subgraph model, improving the inference service performance in specific scenarios.
 
-The following uses a simple single-chip model scenario as an example to describe the multi-subgraph model deployment process. For the detail about the distributed scenario, see [Pengcheng·Pangu Model model Serving deployment](https://gitee.com/mindspore/models/tree/master/official/nlp/pangu_alpha#serving)
+The following uses a simple single-chip model scenario as an example to describe the multi-subgraph model deployment process. For the detail about the distributed scenario, see [Pengcheng·Pangu Model model Serving deployment](https://gitee.com/mindspore/models/tree/r1.6/official/nlp/pangu_alpha#serving)
 
 ### Environment Preparation
 

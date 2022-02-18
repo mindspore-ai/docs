@@ -8,7 +8,7 @@
 
 ## 任务前准备
 
-本教程基于MindSpore model_zoo中提供的的faster_rcnn网络部署云云联邦目标检测任务，请先根据官方[faster_rcnn教程及代码](https://gitee.com/mindspore/models/tree/master/official/cv/faster_rcnn)先了解COCO数据集、faster_rcnn网络结构、训练过程以及评估过程。由于COCO数据集已开源，请根据其[官网](https://cocodataset.org/#home)自行下载好数据集，并作好数据集切分（例如模拟100个客户端，可将数据集切分成100份，每份代表一个用户）。
+本教程基于MindSpore model_zoo中提供的的faster_rcnn网络部署云云联邦目标检测任务，请先根据官方[faster_rcnn教程及代码](https://gitee.com/mindspore/models/tree/r1.6/official/cv/faster_rcnn)先了解COCO数据集、faster_rcnn网络结构、训练过程以及评估过程。由于COCO数据集已开源，请根据其[官网](https://cocodataset.org/#home)自行下载好数据集，并作好数据集切分（例如模拟100个客户端，可将数据集切分成100份，每份代表一个用户）。
 
 由于原始COCO数据集为json文件格式，云云联邦学习框架提供的目标检测脚本暂时只支持MindRecord格式输入数据，可根据以下步骤将json文件转换为MindRecord格式文件：
 
@@ -96,7 +96,7 @@ cross_silo_faster_rcnn
 
      用于设置预训练模型路径（.ckpt 格式）
 
-     本教程中实验的预训练模型是在ImageNet2012上训练的ResNet-50检查点。你可以使用ModelZoo中 [resnet50](https://gitee.com/mindspore/models/tree/master/official/cv/resnet) 脚本来训练，然后使用src/convert_checkpoint.py把训练好的resnet50的权重文件转换为可加载的权重文件。
+     本教程中实验的预训练模型是在ImageNet2012上训练的ResNet-50检查点。你可以使用ModelZoo中 [resnet50](https://gitee.com/mindspore/models/tree/r1.6/official/cv/resnet) 脚本来训练，然后使用src/convert_checkpoint.py把训练好的resnet50的权重文件转换为可加载的权重文件。
 
 3. 启动Scheduler
 

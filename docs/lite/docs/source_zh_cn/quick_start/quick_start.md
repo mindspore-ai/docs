@@ -14,9 +14,9 @@
 2. 将模型转换成MindSpore Lite模型格式。
 3. 在端侧使用MindSpore Lite推理模型。详细说明如何在端侧利用MindSpore Lite C++ API（Android JNI）和MindSpore Lite图像分类模型完成端侧推理，实现对设备摄像头捕获的内容进行分类，并在APP图像预览界面中，显示出最可能的分类结果。
 
-> 你可以在这里找到[Android图像分类模型](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/1.5)和[图像分类示例代码](https://gitee.com/mindspore/models/tree/master/official/lite/image_classification)。
+> 你可以在这里找到[Android图像分类模型](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/1.5)和[图像分类示例代码](https://gitee.com/mindspore/models/tree/r1.6/official/lite/image_classification)。
 >
-> 本示例中讲述了C++ API的应用方法，此外MindSpore Lite还支持Java API。关于Java API的使用请参考[图像分割demo](https://gitee.com/mindspore/models/tree/master/official/lite/image_segmentation)。
+> 本示例中讲述了C++ API的应用方法，此外MindSpore Lite还支持Java API。关于Java API的使用请参考[图像分割demo](https://gitee.com/mindspore/models/tree/r1.6/official/lite/image_segmentation)。
 
 我们提供了本示例对应的APK文件，你可扫描下方的二维码或直接下载[APK文件](https://download.mindspore.cn/model_zoo/official/lite/apk/label/Classification.apk)，并部署到Android设备后使用。
 
@@ -52,7 +52,7 @@ call converter_lite --fmk=MINDIR --modelFile=mobilenetv2.mindir --outputFile=mob
 
 ### 构建与运行
 
-1. 在Android Studio中加载本[示例源码](https://gitee.com/mindspore/models/tree/master/official/lite/image_classification)，并安装相应的SDK（指定SDK版本后，由Android Studio自动安装）。
+1. 在Android Studio中加载本[示例源码](https://gitee.com/mindspore/models/tree/r1.6/official/lite/image_classification)，并安装相应的SDK（指定SDK版本后，由Android Studio自动安装）。
 
     ![start_home](../images/lite_quick_start_home.png)
 

@@ -12,7 +12,7 @@ MindSpore采用反向模式的自动微分，根据正向图计算流程来自�
 
 ## 准备工作
 
-1. 准备模型代码。ResNet-50模型的代码可参见：<https://gitee.com/mindspore/models/tree/master/official/cv/resnet>，其中，`train.py`为训练的主函数所在，`src/`目录中包含ResNet-50模型的定义和配置信息等，`script/`目录中包含一些训练和推理脚本。
+1. 准备模型代码。ResNet-50模型的代码可参见：<https://gitee.com/mindspore/models/tree/r1.6/official/cv/resnet>，其中，`train.py`为训练的主函数所在，`src/`目录中包含ResNet-50模型的定义和配置信息等，`script/`目录中包含一些训练和推理脚本。
 2. 准备数据集。本样例采用`CIFAR-10`数据集，数据集的下载和加载方式可参考：<https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.6/distributed_training_ascend.html>。
 
 ## 配置重计算
