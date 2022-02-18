@@ -39,6 +39,7 @@ Typical MindQuantum Application Scenarios
    qnn_for_nlp
    vqe_for_quantum_chemistry
    quantum_approximate_optimization_algorithm
+   shor_algorithm
 
 .. toctree::
    :maxdepth: 1
