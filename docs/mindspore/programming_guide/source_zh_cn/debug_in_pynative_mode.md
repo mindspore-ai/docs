@@ -405,7 +405,7 @@ RuntimeError: mindspore/ccsrc/runtime/device/kernel_runtime.cc:1006 DebugStreamS
 
 ## Hook功能
 
-调试深度学习网络是每一个深度学习领域的从业者需要面对，且投入大量精力的工作。由于深度学习网络隐藏了中间层算子的输入、输出梯度，只提供输入数据（特征量、权重）的梯度，导致无法准确地感知中间层算子的梯度变化，从而影响调试效率。为了方便用户准确、快速地对深度学习网络进行调试，MindSpore在PyNative模式下设计了Hook功能，使用Hook功能可以捕获中间层算子的输入、输出梯度。目前，PyNative模式下提供了两种形式的Hook功能，分别是：HookBackward算子和在nn.Cell对象上进行注册的register_backward功能。
+调试深度学习网络是每一个深度学习领域的从业者需要面对，且投入大量精力的工作。由于深度学习网络隐藏了中间层算子的输入、输出数据以及反向梯度，只提供网络输入数据（特征量、权重）的梯度，导致无法准确地感知中间层算子的数据变化，从而影响调试效率。为了方便用户准确、快速地对深度学习网络进行调试，MindSpore在PyNative模式下设计了Hook功能。使用Hook功能可以捕获中间层算子的输入、输出数据以及反向梯度。目前，PyNative模式下提供了四种形式的Hook功能，分别是：HookBackward算子和在Cell对象上进行注册的register_forward_pre_hook、register_forward_hook、register_backward_hook功能。
 
 ### HookBackward算子
 
@@ -420,7 +420,7 @@ from mindspore import Tensor
 from mindspore import context
 from mindspore.ops import GradOperation
 
-context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
+context.set_context(mode=context.PYNATIVE_MODE)
 
 def hook_fn(grad_out):
     print(grad_out)
@@ -449,19 +449,19 @@ print(output)
 
 更多HookBackward算子的说明可以参考[API文档](https://mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.HookBackward.html)。
 
-### nn.Cell对象的register_backward_hook功能
+### Cell对象的register_forward_pre_hook功能
 
-用户可以在nn.Cell对象上使用register_backward_hook接口，注册一个自定义的Hook函数，用来捕获网络反向传播时，与该nn.Cell对象相关联的梯度。与HookBackward算子所使用的自定义Hook函数有所不同，register_backward_hook接口使用的Hook函数的入参中包含了注册nn.Cell对象的id信息，反向传入的梯度以及反向输出的梯度。
+用户可以在Cell对象上使用register_forward_pre_hook函数来注册一个自定义的Hook函数，用来捕获正向传入该Cell对象的数据。register_forward_pre_hook函数接收Hook函数作为入参，并返回一个与Hook函数一一对应的`handle`对象。用户可以通过调用`handle`对象的`remove()`函数来删除与之对应的Hook函数。
+Hook函数应该按照以下的方式进行定义。
 
 示例代码:
 
 ```python
-def cell_hook_function(cell_id, grad_input, grad_output):
-    print(grad_input)
-    print(grad_output)
+def forward_pre_hook_fn(cell_id, inputs):
+    print("forward inputs: ", inputs)
 ```
 
-这里的`grad_input`是梯度反向传播时，传入到nn.Cell对象的梯度，它对应正向过程中下一个算子的反向输出梯度；`grad_output`是nn.Cell对象反向输出的梯度。因此，用户可以使用register_backward_hook接口捕获网络中某一个nn.Cell对象的反向传入和反向输出梯度。用户可以在自定义的Hook函数中，自定义对梯度的操作，比如打印梯度，或者返回新的输出梯度。
+这里的`cell_id`是Cell对象的名称以及ID信息，`inputs`是正向传入到Cell对象的数据。因此，用户可以使用register_forward_pre_hook函数来捕获网络中某一个Cell对象的正向输入数据。用户可以在Hook函数中自定义对输入数据的操作，比如打印数据，或者返回新的输入数据给当前的Cell对象。
 
 示例代码:
 
@@ -473,9 +473,132 @@ from mindspore import Tensor
 from mindspore import context
 from mindspore.ops import GradOperation
 
-context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
+context.set_context(mode=context.PYNATIVE_MODE)
 
-def cell_hook_function(cell_id, grad_input, grad_output):
+def forward_pre_hook_fn(cell_id, inputs):
+    print("forward inputs: ", inputs)
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.mul = nn.MatMul()
+        self.handle = self.mul.register_forward_pre_hook(forward_pre_hook_fn)
+
+    def construct(self, x, y):
+        x = x + x
+        x = self.mul(x, y)
+        return x
+
+grad = GradOperation(get_all=True)
+net = Net()
+output = grad(net)(Tensor(np.ones([1]).astype(np.float32)), Tensor(np.ones([1]).astype(np.float32)))
+print(output)
+net.handle.remove()
+output = grad(net)(Tensor(np.ones([1]).astype(np.float32)), Tensor(np.ones([1]).astype(np.float32)))
+print(output)
+```
+
+输出：
+
+```python
+forward inputs: (Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00]), Tensor(shape=[1], dtype=Float32, value= [ 1.00000000e+00]))
+(Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00]), Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00]))
+(Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00]), Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00]))
+```
+
+为了避免切换到图模式时脚本运行失败，不建议将register_forward_pre_hook函数直接写在Cell对象的`construct`函数中。
+
+### Cell对象的register_forward_hook功能
+
+用户可以在Cell对象上使用register_forward_hook函数来注册一个自定义的Hook函数，用来捕获正向传入Cell对象的数据和Cell对象的输出数据。register_forward_hook函数接收Hook函数作为入参，并返回一个与Hook函数一一对应的`handle`对象。用户可以通过调用`handle`对象的`remove()`函数来删除与之对应的Hook函数。
+Hook函数应该按照以下的方式进行定义。
+
+示例代码:
+
+```python
+def forward_hook_fn(cell_id, inputs, outputs):
+    print("forward inputs: ", inputs)
+    print("forward outputs: ", outputs)
+```
+
+这里的`cell_id`是Cell对象的名称以及ID信息，`inputs`是正向传入到Cell对象的数据，`outputs`是Cell对象的正向输出数据。因此，用户可以使用register_forward_hook函数来捕获网络中某一个Cell对象的正向输入数据和输出数据。用户可以在Hook函数中自定义对输入、输出数据的操作，比如打印数据，或者返回新的输出数据。
+
+示例代码:
+
+```python
+import numpy as np
+import mindspore
+import mindspore.nn as nn
+from mindspore import Tensor
+from mindspore import context
+from mindspore.ops import GradOperation
+
+context.set_context(mode=context.PYNATIVE_MODE)
+
+def forward_hook_fn(cell_id, inputs, outputs):
+    print("forward inputs: ", inputs)
+    print("forward outputs: ", outputs)
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.mul = nn.MatMul()
+        self.handle = self.mul.register_forward_hook(forward_hook_fn)
+
+    def construct(self, x, y):
+        x = x + x
+        x = self.mul(x, y)
+        return x
+
+grad = GradOperation(get_all=True)
+net = Net()
+output = grad(net)(Tensor(np.ones([1]).astype(np.float32)), Tensor(np.ones([1]).astype(np.float32)))
+print(output)
+net.handle.remove()
+output = grad(net)(Tensor(np.ones([1]).astype(np.float32)), Tensor(np.ones([1]).astype(np.float32)))
+print(output)
+```
+
+输出：
+
+```python
+forward inputs: (Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00]), Tensor(shape=[1], dtype=Float32, value= [ 1.00000000e+00]))
+forward outputs: 2.0
+(Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00]), Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00]))
+(Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00]), Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00]))
+```
+
+为了避免切换到图模式时脚本运行失败，不建议将register_forward_hook函数直接写在Cell对象的`construct`函数中。
+
+### Cell对象的register_backward_hook功能
+
+用户可以在Cell对象上使用register_backward_hook接口来注册一个自定义的Hook函数，用来捕获网络反向传播时与Cell对象相关联的梯度。register_backward_hook函数接收Hook函数作为入参，并返回一个与Hook函数一一对应的`handle`对象。用户可以通过调用`handle`对象的`remove()`函数来删除与之对应的Hook函数。
+
+与HookBackward算子所使用的自定义Hook函数有所不同，register_backward_hook使用的Hook函数的入参中包含了表示Cell对象名称与id信息的cell_id、反向传入到Cell对象的梯度、以及Cell对象的反向输出的梯度。
+
+示例代码:
+
+```python
+def backward_hook_function(cell_id, grad_input, grad_output):
+    print(grad_input)
+    print(grad_output)
+```
+
+这里的`grad_input`是网络反向传播时，传入到Cell对象的梯度，它对应于正向过程中下一个算子的反向输出梯度；`grad_output`是Cell对象反向输出的梯度。因此，用户可以使用register_backward_hook函数来捕获网络中某一个Cell对象的反向传入和反向输出梯度。用户可以在Hook函数中自定义对梯度的操作，比如打印梯度，或者返回新的输出梯度。
+
+示例代码:
+
+```python
+import numpy as np
+import mindspore
+import mindspore.nn as nn
+from mindspore import Tensor
+from mindspore import context
+from mindspore.ops import GradOperation
+
+context.set_context(mode=context.PYNATIVE_MODE)
+
+def backward_hook_function(cell_id, grad_input, grad_output):
     print(grad_input)
     print(grad_output)
 
@@ -484,7 +607,7 @@ class Net(nn.Cell):
         super(Net, self).__init__()
         self.conv = nn.Conv2d(1, 2, kernel_size=2, stride=1, padding=0, weight_init="ones", pad_mode="valid")
         self.bn = nn.BatchNorm2d(2, momentum=0.99, eps=0.00001, gamma_init="ones")
-        self.bn.register_backward_hook(cell_hook_function)
+        self.handle = self.bn.register_backward_hook(backward_hook_function)
         self.relu = nn.ReLU()
 
     def construct(self, x):
@@ -493,8 +616,12 @@ class Net(nn.Cell):
         x = self.relu(x)
         return x
 
+net = Net()
 grad_all = GradOperation(get_all=True)
-output = grad_all(Net())(Tensor(np.ones([1, 1, 2, 2]).astype(np.float32)))
+output = grad_all(net)(Tensor(np.ones([1, 1, 2, 2]).astype(np.float32)))
+print(output)
+net.handle.remove()
+output = grad_all(net)(Tensor(np.ones([1, 1, 2, 2]).astype(np.float32)))
 print(output)
 ```
 
@@ -510,13 +637,16 @@ print(output)
 (Tensor(shape=[1, 1, 2, 2], dtype=Float32, value=
 [[[[ 1.99998999e+00, 1.99998999e+00],
    [ 1.99998999e+00, 1.99998999e+00]]]]),)
+(Tensor(shape=[1, 1, 2, 2], dtype=Float32, value=
+[[[[ 1.99998999e+00, 1.99998999e+00],
+   [ 1.99998999e+00, 1.99998999e+00]]]]),)
 ```
 
-更多关于nn.Cell对象的register_backward_hook功能的说明可以参考[API文档](https://mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_backward_hook)。
+为了避免切换到图模式时脚本运行失败，不建议将register_backward_hook函数直接写在Cell对象的`construct`函数中。更多关于Cell对象的register_backward_hook功能的说明可以参考[API文档](https://mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_backward_hook)。
 
 ## 自定义bprop功能
 
-用户可以自定义nn.Cell对象的反向传播（计算）函数，从而控制nn.Cell对象梯度计算的过程，定位梯度问题。自定义bprop函数的使用方法是：在定义的nn.Cell对象里面增加一个用户自定义的bprop函数。训练的过程中会使用用户自定义的bprop函数来生成反向图。
+用户可以自定义Cell对象的反向传播（计算）函数，从而控制Cell对象梯度计算的过程，定位梯度问题。自定义bprop函数的使用方法是：在定义的Cell对象里面增加一个用户自定义的bprop函数。训练的过程中会使用用户自定义的bprop函数来生成反向图。
 
 示例代码:
 

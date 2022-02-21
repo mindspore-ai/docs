@@ -438,7 +438,7 @@ RuntimeError: mindspore/ccsrc/runtime/device/kernel_runtime.cc:1006 DebugStreamS
 
 ## Hook
 
-Debugging deep learning network is a task that practitioners in every field of deep learning need to face and invest a lot of energy. Because the deep learning network hides the input and output gradients of the middle layer operator and only provides the gradients of the input data (feature data and weight), developers can not accurately perceive the gradient changes of the middle layer operator, which affects the debugging efficiency. In order to facilitate developers to accurately and quickly debug the deep learning network, MindSpore designed the hook function in PyNative mode. Developers can use the hook function to capture the input and output gradients of the middle layer operator. At present, PyNative mode provides two forms of hook functions: HookBackward operator and the register_backward interface for nn.Cell object.
+Debugging deep learning network is a task that practitioners in every field of deep learning need to face and invest a lot of energy. Because the deep learning network hides the input, output data and gradients of the middle layer operator and only provides the gradients of the network input data (feature data and weight), developers can not accurately perceive the data changes of the middle layer operator, which affects the debugging efficiency. In order to facilitate developers to accurately and quickly debug the deep learning network, MindSpore designed the hook function in PyNative mode. Developers can use the hook function to capture the input, output data and gradients of the middle layer operator. At present, PyNative mode provides four forms of hook functions: HookBackward operator and the register_forward_pre_hook function, the register_forward_hook function, the register_backward_hook function for Cell object.
 
 ### HookBackward operator
 
@@ -453,7 +453,7 @@ from mindspore import Tensor
 from mindspore import context
 from mindspore.ops import GradOperation
 
-context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
+context.set_context(mode=context.PYNATIVE_MODE)
 
 def hook_fn(grad_out):
     print(grad_out)
@@ -482,19 +482,19 @@ Output：
 
 For more descriptions of HookBackward operator, please refer to [API document](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.HookBackward.html).
 
-### The register_backward_hook interface for nn.Cell object
+### The register_forward_pre_hook function for Cell object
 
-Users can use the register_backward_hook interface for nn.Cell object. The register_backward_hook interface registers a user-defined hook function, which is used to capture the gradients about the nn.Cell object. Different from the HookBackward operator, the input parameters of the hook function registered in register_backward_hook interface contains the incoming gradient and the output gradient of nn.Cell object.
+Users can register a custom hook function by using the register_forward_pre_hook function on the Cell object, which is used to capture the forward data passed to this Cell object. The register_forward_pre_hook function receives an user-defined hook function as the input parameter and returns a `handle` object corresponding to the hook function. Users can delete the corresponding hook function by calling the `remove()` function of the `handle` object.
+The hook function should be defined as follows.
 
 Example Code:
 
 ```python
-def cell_hook_function(cell_id, grad_input, grad_output):
-    print(grad_input)
-    print(grad_output)
+def forward_pre_hook_fn(cell_id, inputs):
+    print("forward inputs: ", inputs)
 ```
 
-The `grad_input` is the input gradient of the nn.Cell object, which corresponds to the output gradient of the next operator in the forward process. The `grad_output` is the output gradient of the nn.Cell object. Therefore, users can use register_backward_hook interface to capture the input gradient and output gradient of the nn.Cell object. Users can customize the gradient operation in the hook function, such as printing gradient or returning a new output gradient.
+The `cell_id` is the name and ID information of the Cell object, the `inputs` are the forward data passed to the Cell object. Therefore, users can use the register_forward_pre_hook function to capture the forward input data of a Cell object in the network. You can customize the operation of input data in the hook function, such as printing data, or returning new input data to the current Cell object.
 
 Example Code:
 
@@ -506,9 +506,132 @@ from mindspore import Tensor
 from mindspore import context
 from mindspore.ops import GradOperation
 
-context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
+context.set_context(mode=context.PYNATIVE_MODE)
 
-def cell_hook_function(cell_id, grad_input, grad_output):
+def forward_pre_hook_fn(cell_id, inputs):
+    print("forward inputs: ", inputs)
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.mul = nn.MatMul()
+        self.handle = self.mul.register_forward_pre_hook(forward_pre_hook_fn)
+
+    def construct(self, x, y):
+        x = x + x
+        x = self.mul(x, y)
+        return x
+
+grad = GradOperation(get_all=True)
+net = Net()
+output = grad(net)(Tensor(np.ones([1]).astype(np.float32)), Tensor(np.ones([1]).astype(np.float32)))
+print(output)
+net.handle.remove()
+output = grad(net)(Tensor(np.ones([1]).astype(np.float32)), Tensor(np.ones([1]).astype(np.float32)))
+print(output)
+```
+
+Output：
+
+```python
+forward inputs: (Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00]), Tensor(shape=[1], dtype=Float32, value= [ 1.00000000e+00]))
+(Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00]), Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00]))
+(Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00]), Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00]))
+```
+
+In order to avoid script failure when switching to graph mode, it is not recommended to write the register_forward_pre_hook function in the `construct` function of the Cell object.
+
+### The register_forward_hook function for Cell object
+
+Users can register a custom hook function by using the register_forward_hook function on the Cell object, which is used to capture the forward input and output data passed to this Cell object. The register_forward_hook function receives an user-defined hook function as the input parameter and returns a `handle` object corresponding to the hook function. Users can delete the corresponding hook function by calling the `remove()` function of the `handle` object.
+The hook function should be defined as follows.
+
+Example Code:
+
+```python
+def forward_hook_fn(cell_id, inputs, outputs):
+    print("forward inputs: ", inputs)
+    print("forward outputs: ", outputs)
+```
+
+The `cell_id` is the name and ID information of the Cell object, the `inputs` are the forward data passed to the Cell object, the `outputs` are the forward output data of the Cell object. Therefore, users can use the register_forward_hook function to capture the forward input and output data of a Cell object in the network. You can customize the operation of the input and output data in the hook function, such as printing data, or returning new output data.
+
+Example Code:
+
+```python
+import numpy as np
+import mindspore
+import mindspore.nn as nn
+from mindspore import Tensor
+from mindspore import context
+from mindspore.ops import GradOperation
+
+context.set_context(mode=context.PYNATIVE_MODE)
+
+def forward_hook_fn(cell_id, inputs, outputs):
+    print("forward inputs: ", inputs)
+    print("forward outputs: ", outputs)
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.mul = nn.MatMul()
+        self.handle = self.mul.register_forward_hook(forward_hook_fn)
+
+    def construct(self, x, y):
+        x = x + x
+        x = self.mul(x, y)
+        return x
+
+grad = GradOperation(get_all=True)
+net = Net()
+output = grad(net)(Tensor(np.ones([1]).astype(np.float32)), Tensor(np.ones([1]).astype(np.float32)))
+print(output)
+net.handle.remove()
+output = grad(net)(Tensor(np.ones([1]).astype(np.float32)), Tensor(np.ones([1]).astype(np.float32)))
+print(output)
+```
+
+Output：
+
+```python
+forward inputs: (Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00]), Tensor(shape=[1], dtype=Float32, value= [ 1.00000000e+00]))
+forward output: 2.0
+(Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00]), Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00]))
+(Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00]), Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00]))
+```
+
+In order to avoid script failure when switching to graph mode, it is not recommended to write the register_forward_hook function in the `construct` function of the Cell object.
+
+### The register_backward_hook function for Cell object
+
+Users can register a custom hook function by using the register_backward_hook function on the Cell object, which is used to capture the gradients associated with the Cell object during network back propagation. The register_backward_hook function receives an user-defined hook function as the input parameter and returns a `handle` object corresponding to the hook function. Users can delete the corresponding hook function by calling the `remove()` function of the `handle` object.
+
+Different from the HookBackward operator, the input parameters of the hook function registered in register_backward_hook function contain the `cell_id` representing name and ID information of the Cell object, the incoming gradient and the output gradient of Cell object.
+
+Example Code:
+
+```python
+def backward_hook_function(cell_id, grad_input, grad_output):
+    print(grad_input)
+    print(grad_output)
+```
+
+The `cell_id` is the name and ID information of the Cell object. The `grad_input` is the input gradient of the Cell object, which corresponds to the output gradient of the next operator in the forward process. The `grad_output` is the output gradient of the Cell object. Therefore, users can use register_backward_hook interface to capture the input gradient and output gradient of the Cell object. Users can customize the gradient operation in the hook function, such as printing gradient or returning new output gradient.
+
+Example Code:
+
+```python
+import numpy as np
+import mindspore
+import mindspore.nn as nn
+from mindspore import Tensor
+from mindspore import context
+from mindspore.ops import GradOperation
+
+context.set_context(mode=context.PYNATIVE_MODE)
+
+def backward_hook_function(cell_id, grad_input, grad_output):
     print(grad_input)
     print(grad_output)
 
@@ -517,7 +640,7 @@ class Net(nn.Cell):
         super(Net, self).__init__()
         self.conv = nn.Conv2d(1, 2, kernel_size=2, stride=1, padding=0, weight_init="ones", pad_mode="valid")
         self.bn = nn.BatchNorm2d(2, momentum=0.99, eps=0.00001, gamma_init="ones")
-        self.bn.register_backward_hook(cell_hook_function)
+        self.handle = self.bn.register_backward_hook(backward_hook_function)
         self.relu = nn.ReLU()
 
     def construct(self, x):
@@ -526,8 +649,12 @@ class Net(nn.Cell):
         x = self.relu(x)
         return x
 
+net = Net()
 grad_all = GradOperation(get_all=True)
-output = grad_all(Net())(Tensor(np.ones([1, 1, 2, 2]).astype(np.float32)))
+output = grad_all(net)(Tensor(np.ones([1, 1, 2, 2]).astype(np.float32)))
+print(output)
+net.handle.remove()
+output = grad_all(net)(Tensor(np.ones([1, 1, 2, 2]).astype(np.float32)))
 print(output)
 ```
 
@@ -543,13 +670,16 @@ Output：
 (Tensor(shape=[1, 1, 2, 2], dtype=Float32, value=
 [[[[ 1.99998999e+00, 1.99998999e+00],
    [ 1.99998999e+00, 1.99998999e+00]]]]),)
+(Tensor(shape=[1, 1, 2, 2], dtype=Float32, value=
+[[[[ 1.99998999e+00, 1.99998999e+00],
+   [ 1.99998999e+00, 1.99998999e+00]]]]),)
 ```
 
-More about the register_backward_hook interface, please refer to [API Document](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_backward_hook).
+In order to avoid script failure when switching to graph mode, it is not recommended to write the register_backward_hook function in the `construct` function of the Cell object. More about the register_backward_hook interface, please refer to [API Document](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_backward_hook).
 
 ## Custom bprop
 
-Users can customize the back propagation (calculation) function of the nn.cell object to control the gradient calculation process and positioning gradient problem. The custom bprop is implemented by defining a `bprop function` for nn.Cell object. During the back propagation process, the custom bprop function will run.
+Users can customize the back propagation (calculation) function of the Cell object to control the gradient calculation process and positioning gradient problem. The custom bprop is implemented by defining a `bprop function` for Cell object. During the back propagation process, the custom bprop function will run.
 
 Example Code:
 
