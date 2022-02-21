@@ -77,8 +77,8 @@
 
   支持单层和多层索引取值以及赋值。
 
-  取值和赋值的索引值仅支持`int`。
-
+  索引值仅支持`int`和`slice`。
+  `slice`内部数据必须为编译时能够确定的常量，即不能为计算后的`Tensor`。且不支持对`slice`进行赋值。
   赋值时，所赋的值支持`Number`、`String`、`Tuple`、`List`、`Tensor`。
 
   示例如下：
@@ -93,15 +93,17 @@
   def test_index():
       x = [[1, 2], 2, 3, 4]
       m = x[0][1]
+      z = x[1::2]
       x[1] = t
       x[2] = "ok"
       x[3] = (1, 2, 3)
       x[0][1] = 88
       n = x[-3]
-      return m, x, n
+      return m, z, x, n
 
-  m, x, n = test_index()
+  m, z, x, n = test_index()
   print('m:{}'.format(m))
+  print('z:{}'.format(z))
   print('x:{}'.format(x))
   print('n:{}'.format(n))
   ```
@@ -110,6 +112,7 @@
 
   ```text
   m:2
+  z:[2, 4]
   x:[[1, 88], Tensor(shape=[3], dtype=Int64, value= [1, 2, 3]), 'ok', (1, 2, 3)]
   n:[1 2 3]
   ```

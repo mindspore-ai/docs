@@ -77,7 +77,9 @@ Forcible conversion to `List` is not supported on the network. That is, the synt
 
   Single-level and multi-level index values and value assignment are supported.
 
-  The index value supports only `int`.
+  The index value supports only `int` and `slice`.
+
+  The element of `slice` data should be constant that can be deduced in the state of compiling graph.And not Supported to assign value to a result of list slice.
 
   The assigned value can be `Number`, `String`, `Tuple`, `List`, or `Tensor`.
 
@@ -93,15 +95,17 @@ Forcible conversion to `List` is not supported on the network. That is, the synt
   def test_index():
       x = [[1, 2], 2, 3, 4]
       m = x[0][1]
+      z = x[1::2]
       x[1] = t
       x[2] = "ok"
       x[3] = (1, 2, 3)
       x[0][1] = 88
       n = x[-3]
-      return m, x, n
+      return m, z, x, n
 
-  m, x, n = test_index()
+  m, z, x, n = test_index()
   print('m:{}'.format(m))
+  print('z:{}'.format(z))
   print('x:{}'.format(x))
   print('n:{}'.format(n))
   ```
@@ -110,6 +114,7 @@ Forcible conversion to `List` is not supported on the network. That is, the synt
 
   ```text
   m:2
+  z:[2, 4]
   x:[[1, 88], Tensor(shape=[3], dtype=Int64, value= [1, 2, 3]), 'ok', (1, 2, 3)]
   n:[1 2 3]
   ```
