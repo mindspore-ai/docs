@@ -237,7 +237,7 @@ class ObjectDescription(SphinxDirective):
         except IndexError:
             example = ''
             platforms = ''
-            logger.Warning(f'Error API names in {self.arguments[0]}.')
+            logger.warning(f'Error API names in {self.arguments[0]}.')
         extra = platforms + example
         if extra:
             if self.objtype == "method":
