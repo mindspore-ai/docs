@@ -1,0 +1,14 @@
+https://
+https://xxx
+http://127.0.0.1:8080
+https://127.0.0.0:6666
+https://127.0.0.0
+http://127.0.0.1:1500/model/lenet/version/1:predict
+http://localhost:%d
+http://xxx/v1/mindinsight/profile/cluster-flops
+http://xxxx/v1/mindinsight/debugger/sessions/xxxx/update-watchpoint
+http://%s:%s%s
+http://localhost:5500/x/:add_common
+http://xxxx/v1/mindinsight/profile/memory-graphics
+https://gitee.com/mindspore/docs/blob/xxx
+http://192.168.216.124:11202/scaleout
