@@ -36,7 +36,7 @@ def get_urls(content):
     url_list = []
     urls = re.findall(re_url, content)
     for url in urls:
-        url_list.append(url[0]+url[1].replace("\n", ""))
+        url_list.append(url[0]+url[1].split("\n\n")[0].replace("\n", ""))
     return url_list
 
 def check_url_status(url):
@@ -94,7 +94,9 @@ def run_check(file):
     检测文件中的urls链接
     """
     data = get_content(file)
-    urls = get_urls(data)
+    file_urls = get_urls(data)
+    white_urls = get_white_urls()
+    urls = set(file_urls) - set(white_urls)
     pool = []
     for url in urls:
         k = threading.Thread(target=update_url_status_to_json, args=(url,))
@@ -104,16 +106,40 @@ def run_check(file):
         j.join()
 
     generate_info(file)
-    os.remove("url_status.json")
+    if os.path.exists("url_status.json"):
+        os.remove("url_status.json")
+
+def get_white_urls(white_file="filter_linklint.txt"):
+    """获取白名单中的链接"""
+    for i in sys.argv[1:]:
+        if "--white_path=" in i:
+            white_file = i.split("=")[-1]
+    if os.path.exists(white_file):
+        try:
+            with open(white_file, "r", encoding="utf-8") as f:
+                urls = f.readlines()
+        except Exception:
+            with open(white_file, "r", encoding="GBK") as f:
+                urls = f.readlines()
+    else:
+        urls = []
+    return urls
 
 def generate_info(file):
     """
     输出404链接的信息
     """
-    with open("url_status.json", "r") as f:
-        url_status = json.load(f)
-    with open(file, "r", encoding="utf-8") as f:
-        lines = f.readlines()
+    if os.path.exists("url_status.json"):
+        with open("url_status.json", "r") as f:
+            url_status = json.load(f)
+    else:
+        url_status = {"https://www.mindspore.cn": 200}
+    try:
+        with open(file, "r", encoding="utf-8") as f:
+            lines = f.readlines()
+    except Exception:
+        with open("filter_linklint.txt", "r", encoding="GBK") as f:
+            lines = f.readlines()
     for line_num, line_content in enumerate(lines, 1):
         for i in get_urls(line_content):
             if url_status[i] == 404:
@@ -125,9 +151,10 @@ def generate_info(file):
 
 if __name__ == "__main__":
     for check_path_ in sys.argv[1:]:
-        if os.path.isfile(check_path_):
+        extension = ["md", "py", "rst", "ipynb", "js", "html", "c", "cc", "txt"]
+        if os.path.isfile(check_path_) and check_path_.split(".")[-1] in extension:
             run_check(check_path_)
         elif os.path.isdir(check_path_):
-            check_f_ = [file for file in find_file(check_path_, files=[])]
+            check_f_ = [file for file in find_file(check_path_, files=[]) if file.split(".")[-1] in extension]
             for one_f in check_f_:
                 run_check(one_f)
