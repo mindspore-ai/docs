@@ -226,8 +226,6 @@ Lite-CV
 - :doc:`../generate/function_mindspore_dataset_ApplyNms-1`
 - :doc:`../generate/function_mindspore_dataset_Canny-1`
 - :doc:`../generate/function_mindspore_dataset_Conv2D-1`
-- :doc:`../generate/function_mindspore_dataset_ConvRowCol-1`
-- :doc:`../generate/function_mindspore_dataset_ConvertBoxes-1`
 - :doc:`../generate/function_mindspore_dataset_ConvertRgbToGray-1`
 - :doc:`../generate/function_mindspore_dataset_ConvertTo-1`
 - :doc:`../generate/function_mindspore_dataset_Crop-1`
@@ -235,7 +233,6 @@ Lite-CV
 - :doc:`../generate/function_mindspore_dataset_ExtractChannel-1`
 - :doc:`../generate/function_mindspore_dataset_GaussianBlur-1`
 - :doc:`../generate/function_mindspore_dataset_GetAffineTransform-1`
-- :doc:`../generate/function_mindspore_dataset_GetDefaultBoxes-1`
 - :doc:`../generate/function_mindspore_dataset_GetPerspectiveTransform-1`
 - :doc:`../generate/function_mindspore_dataset_GetRotationMatrix2D-1`
 - :doc:`../generate/function_mindspore_dataset_InitFromPixel-1`
