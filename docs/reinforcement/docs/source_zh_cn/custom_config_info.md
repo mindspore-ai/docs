@@ -13,7 +13,7 @@
 
 ## 算法相关参数配置
 
-MindSpore-RL使用`algorithm_config`定义逻辑组件和相应的超参配置。`algorithm_config`是一个Python字典，分别描述actor、learner、policy和environment。框架可以基于配置执行算法，用户仅需聚焦算法设计。
+MindSpore-RL使用`algorithm_config`定义逻辑组件和相应的超参配置。`algorithm_config`是一个Python字典，分别描述actor、learner、policy_and_network、collect_environment、eval_environment和replaybuffer。框架可以基于配置执行算法，用户仅需聚焦算法设计。
 
 下述代码定义了一组算法配置，并使用algorithm_config创建`Session`，`Session`负责分配资源并执行计算图编译和执行。
 
@@ -23,8 +23,9 @@ algorithm_config = {
     'actor': {...},
     'learner': {...},
     'policy_and_network': {...},
-    'environment': {...},
-    'eval_environment': {...}
+    'collect_environment': {...},
+    'eval_environment': {...},
+    'replay_buffer': {...}
 }
 
 session = Session(algorithm_config)
@@ -49,7 +50,6 @@ policy_params = {
     'epsi_high': 0.1,        # epsi_high/epsi_low/decay共同控制探索-利用比例
     'epsi_low': 0.1,         # epsi_high：最大探索比例，epsi_low：最低探索比例，decay：衰减步长
     'decay': 200,
-    'lr': 0.001,             # 学习率
     'state_space_dim': 0,    # 状态空间维度大小，0表示从外部环境中读取状态空间信息
     'action_space_dim': 0,   # 动作空间维度大小，0表示从外部环境中获取动作空间信息
     'hidden_size': 100,      # 隐层维度
@@ -67,37 +67,47 @@ algorithm_config = {
 
 |  键值  |        类型        |             范围              |                             说明                             |
 | :----: | :----------------: | :---------------------------: | :----------------------------------------------------------: |
- |   type   |       Class        | 用户定义的继承learner并实现虚函数的类 |        和用户定义的继承learner并实现虚函数的类名相同         |
- |  params  | Dictionary或者None |     任意key value形式的值或者None     | 自定义参数，用户可以通过key value的形式传入任何值。如果没有则填None |
- | networks |   List of String   |        和定义的网络名变量相同         | 列表中的所有String都应该和用户定义的策略类中初始化的网络变量名一一对应 |
+|   type   |       Class        | 用户定义的继承learner并实现虚函数的类 |        和用户定义的继承learner并实现虚函数的类名相同         |
+|  params(可选)  | Dictionary |     任意key value形式的值或者None     | 自定义参数，用户可以通过key value的形式传入任何值 |
 
 ### Environment配置参数
 
-`Env`表示外部环境，算法中需要指定类型名`type`和和参数`params`：
+`collect_environment`和`eval_environment`分别表示运行过程中收集数据的环境和用来评估模型的环境，算法中需要指定类型名`number`，`type`和参数`params`：
+
+- `number`：在算法中所需要的环境数量。
 
 - `type`：指定环境的类型名，这里可以是Reinforcement内置的环境，例如`Environment`，也可以是用户自定义的环境类型。
+
 - `params`：指定实例化相应外部环境的参数。需要注意的是，`params`和`type`需要匹配。
 
-以下样例中定义了外部环境配置，框架会采用`Environment(name='CartPole-v0')`方式创建`CartPole-v0`外部环境。
+以下样例中定义了外部环境配置，框架会采用`Environment(name='CartPole-v0')`方式创建`CartPole-v0`外部环境。`collect_environment`和`eval_environment`的配置参数是一样的。
 
 ```python
-from mindspore_rl.environment import Environment
-env_params = {'name': 'CartPole-v0'}
+from mindspore_rl.environment import GymEnvironment
+collect_env_params = {'name': 'CartPole-v0'}
+eval_env_params = {'name': 'CartPole-v0'}
 algorithm_config = {
     ...
-    'environment': {
+    'collect_environment': {
+        'number': 1,
         'type': GymEnvironment,            # 外部环境类名
-        'params': env_params               # 环境参数
-    }
+        'params': collect_env_params       # 环境参数
+    },
+    'eval_environment': {
+        'number': 1,
+        'type': GymEnvironment,            # 外部环境类名
+        'params': eval_env_params          # 环境参数
+    },
     ...
 }
 ```
 
-|     键值     |        类型        |                 范围                  |                             说明                             |
-| :----------: | :----------------: | :-----------------------------------: | :----------------------------------------------------------: |
-| number(可选) |      Integer       |                [1, +∞)                | 如果type中选择的是MultiGymEnvironment，则需要输入环境的数量。如果type中选择的是GymEnvironment则不需要填环境数量。 |
-|     type     |       Class        | GymEnvironment 或 MultiGymEnvironment |                         外部环境类名                         |
-|    params    | Dictionary或者None |     任意key value形式的值或者None     | 自定义参数，用户可以通过key value的形式传入任何值。如果没有则填None |
+|      键值      |    类型    |             范围              |                             说明                             |
+| :------------: | :--------: | :---------------------------: | :----------------------------------------------------------: |
+|  number(可选)  |  Integer   |            [1, +∞)            | 当用户选择填写number这项时，填入的环境数量至少为1个。当用户不选择填入number这项时，框架会直接创建环境实例而不会调用`MultiEnvironmentWrapper`类来包装环境 |
+| num_proc(可选) |  Integer   |          [1, number]          | 如果在配置中给出num_proc，则会调用Python多进程来与多个环境集交互。num_proc的最大值为环境的数量。不填则会串行与环境交互 |
+|      type      |   Class    |      Environment类的子类      |                         外部环境类名                         |
+|  params(可选)  | Dictionary | 任意key value形式的值或者None |      自定义参数，用户可以通过key value的形式传入任何值       |
 
 ### Actor配置参数
 
@@ -111,33 +121,47 @@ algorithm_config = {
     'actor': {
         'number': 1,                                                        # Actor个数
         'type': DQNActor,                                                   # Actor类名
-        'params': None,                                                     # Actor配置参数
         'policies': ['init_policy', 'collect_policy', 'eval_policy'],       # 从Policy中提取名为init_policy/collect_policy/eval_policy成员对象，用于构建Actor
-        'networks': ['policy_net', 'target_net'],                           # 从Policy中提取policy_net/target_net成员对象，用于构建Actor
-        'environment': True,                                                # 提取env对象，用于构建Actor对象
-        'eval_environment': True,                                           # 是否使用eval_environment
-        'replay_buffer': {'capacity': 100000,                               # ReplayBuffer容量
-                   'sample_size': 64,                                       # 采样Batch Size
-                   'shape': [(4,), (1,), (1,), (4,)],                       # ReplayBuffer的维度信息
-                   'type': [ms.float32, ms.int32, ms.float32, ms.float32]}, # ReplayBuffer数据类型
+        'pass_environment': True                                            # 是否把环境作为成员变量传入到actor中
     }
     ...
 }
 ```
 
-|            键值            |            类型             |                范围                 |                             说明                             |
-| :------------------------: | :-------------------------: | :---------------------------------: | :----------------------------------------------------------: |
-|           number           |           Integer           |               [1, +∞)               |              目前actor数量暂时不支持1以外的数值              |
-|            type            |            Class            | 用户定义的继承actor并实现虚函数的类 |         和用户定义的继承actor并实现虚函数的类名相同          |
-|           params           |     Dictionary或者None      |    任意key value形式的值或者None    | 自定义参数，用户可以通过key value的形式传入任何值。如果没有则填None |
-|          policies          |       List of String        |     和用户定义的策略变量名相同      | 列表中的所有String都应该和用户定义的策略类中初始化的策略变量名一一对应 |
-|          networks          |       List of String        |       和定义的网络变量名相同        | 列表中的所有String都应该和用户定义的策略类中初始化的网络变量名一一对应 |
-|        environment         |           Boolean           |            True or False            |     如果值为False，将不能从actor中获得environment的实例      |
-|      eval_environment      |           Boolean           |            True or False            |   如果值为False，将不能从actor中获得eval_environment的实例   |
-|  replay_buffer::capacity   |           Integer           |               [0, +∞)               |                       ReplayBuffer容量                       |
-|    replay_buffer::shape    |    List of Integer Tuple    |               [0, +∞)               |    Tuple中的第一个值需要和环境数量相等，如是单环境则不填     |
-|    replay_buffer::type     | List of mindspore data type |      需要是MindSpore的数据类型      |       type list的长度和replay_buffer::shape的长度相同        |
-| replay_buffer::sample_size |           Integer           |            [0, capacity]            |              值必须小于replay_buffer::capacity               |
+|       键值       |      类型      |                范围                 |                             说明                             |
+| :--------------: | :------------: | :---------------------------------: | :----------------------------------------------------------: |
+|      number      |    Integer     |               [1, +∞)               |              目前actor数量暂时不支持1以外的数值              |
+|       type       |     Class      | 用户定义的继承actor并实现虚函数的类 |         和用户定义的继承actor并实现虚函数的类名相同          |
+|   params(可选)   |   Dictionary   |    任意key value形式的值或者None    |      自定义参数，用户可以通过key value的形式传入任何值       |
+|     policies     | List of String |     和用户定义的策略变量名相同      | 列表中的所有String都应该和用户定义的策略类中初始化的策略变量名一一对应 |
+|  networks(可选)  | List of String |       和定义的网络变量名相同        | 列表中的所有String都应该和用户定义的策略类中初始化的网络变量名一一对应 |
+| pass_environment |    Boolean     |            True 或 False            | 如果值为False，将不能从actor中获得collect_environment和eval_evironment的实例 |
+
+### ReplayBuffer配置参数
+
+在部分算法中，`ReplayBuffer`用于储存Actor和环境交互的经验。之后会从`ReplayBuffer`中取出数据，用于网络训练。
+
+```python
+from mindspore_rl.core.replay_buffer import ReplayBuffer
+algorithm_config = {
+    ...
+    'replay_buffer': {'number': 1,
+                      'type': ReplayBuffer,
+                      'capacity': 100000,                                           # ReplayBuffer容量
+                      'sample_size': 64,                                            # 采样Batch Size
+                      'data_shape': [(4,), (1,), (1,), (4,)],                       # ReplayBuffer的维度信息
+                      'data_type': [ms.float32, ms.int32, ms.float32, ms.float32]}, # ReplayBuffer数据类型
+}
+```
+
+|       键值        |            类型             |                 范围                 |                         说明                          |
+| :---------------: | :-------------------------: | :----------------------------------: | :---------------------------------------------------: |
+|      number       |           Integer           |               [1, +∞)                |                   需要的Buffer数量                    |
+|       type        |            Class            | 用户定义或者框架提供的ReplayBuffer类 |     用户定义或者框架提供的ReplayBuffer的类名相同      |
+|     capacity      |           Integer           |               [0, +∞)                |                   ReplayBuffer容量                    |
+|    data_shape     |    List of Integer Tuple    |               [0, +∞)                | Tuple中的第一个值需要和环境数量相等，如是单环境则不填 |
+|     data_type     | List of mindspore data type |      需要是MindSpore的数据类型       |         data_type的长度和data_shape的长度相同         |
+| sample_size(可选) |           Integer           |            [0, capacity]             |          值必须小于capacity。不填时，默认为1          |
 
 ### Learner配置参数
 
@@ -147,23 +171,24 @@ algorithm_config = {
 
 ```python
 from dqn.src.dqn import DQNLearner
-learner_params = {'gamma': 0.99}  
+learner_params = {'gamma': 0.99,
+                  'lr': 0.001,             # 学习率
+                 }  
 algorithm_config = {
     ...
     'learner': {
-        'number': 1,                                    # Learner个数
-        'type': DQNLearner,                             # Learner类名
-        'params': learner_params                        # 未来期望衰减值
-        'networks': ['target_net', 'policy_network_train']  # Learner从Policy中提取名为target_net/policy_net_train成员对象，用于更新
+        'number': 1,                                      # Learner个数
+        'type': DQNLearner,                               # Learner类名
+        'params': learner_params,                         # Learner 需要的参数
+        'networks': ['policy_network', 'target_network']  # Learner从Policy中提取名为target_net/policy_network成员对象，用于更新
     },
     ...
 }
 ```
 
-|   键值   |        类型        |                 范围                  |                             说明                             |
-| :------: | :----------------: | :-----------------------------------: | :----------------------------------------------------------: |
-|  number  |      Integer       |                [1, +∞)                |             目前learner数量暂时不支持1以外的数值             |
-|   type   |       Class        | 用户定义的继承learner并实现虚函数的类 |        和用户定义的继承learner并实现虚函数的类名相同         |
-|  params  | Dictionary或者None |     任意key value形式的值或者None     | 自定义参数，用户可以通过key value的形式传入任何值。如果没有则填None |
-| networks |   List of String   |        和定义的网络名变量相同         | 列表中的所有String都应该和用户定义的策略类中初始化的网络变量名一一对应 |
-
+|     键值     |      类型      |                 范围                  |                             说明                             |
+| :----------: | :------------: | :-----------------------------------: | :----------------------------------------------------------: |
+|    number    |    Integer     |                [1, +∞)                |             目前learner数量暂时不支持1以外的数值             |
+|     type     |     Class      | 用户定义的继承learner并实现虚函数的类 |        和用户定义的继承learner并实现虚函数的类名相同         |
+| params(可选) |   Dictionary   |     任意key value形式的值或者None     |      自定义参数，用户可以通过key value的形式传入任何值       |
+|   networks   | List of String |        和定义的网络名变量相同         | 列表中的所有String都应该和用户定义的策略类中初始化的网络变量名一一对应 |
