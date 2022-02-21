@@ -189,10 +189,3 @@ for root, dirs, files in os.walk(api_file_dir, topdown=True):
     for file_ in files:
         if '.rst' in file_ or '.txt' in file_:
             convert2utf8(os.path.join(root, file_))
-        if '.txt' in file_:
-            name_ = file_.split('.')[0]
-            full_name_ = name_ + '.rst'
-            try:
-                os.rename(os.path.join(root, file_), os.path.join(root, full_name_))
-            except:
-                logger.warning(f'{name_} rename failed!!')
