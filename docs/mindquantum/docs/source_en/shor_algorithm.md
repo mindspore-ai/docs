@@ -168,7 +168,7 @@ print(circuit.get_qs(ket=True))  # Print the final state
 circuit # Print circuit
 ```
 
-```python
+```text
     1¦00010100⟩
 ```
 
@@ -200,15 +200,15 @@ Next we need to implement the period finding algorithm.
 1. In register 1, we need $q>log_2 N$ qubits to record the binary number of the variable $x \in [0,N-1]$, and we also need $q$ qubits in register 2 to record $f (x)=a^x\ mod\ N\ \in [0,N-1]$ binary form. At this time, register 1 and register 2 can respectively record the integers of $[0, Q-1]$, where $Q=2^q>N$.
 2. The `Hadamard` gate is applied to all bits in register 1, and the bits in register 1 are in a uniform superposition state of all integers in $[0,Q-1]$
 
-$$
-|\psi\rangle=\sum_{x=0}^{Q-1}|x\rangle
-$$
+    $$
+    |\psi\rangle=\sum_{x=0}^{Q-1}|x\rangle
+    $$
 
 3. Perform function operation $a^{|\psi\rangle}\ mod\ N$ on the state $|\psi\rangle$ stored in register 1, and store the result in register 2. This step is completed by the previously constructed U_operator . Due to the direct operation on the superposition state $|\psi\rangle$, this step can completed in one step, which shows the Quantum Advantage - parallel computing. At this time, the state stored in the circuit is an entangled state, which can be expressed as
 
-$$
-\sum_{x=0}^{Q-1}|x\rangle|f(x)\rangle=\sum_{i=0}^{r-1}(|i\rangle+|i+r\rangle+| i+2r\rangle+...)\ |f(i)\rangle
-$$
+    $$
+    \sum_{x=0}^{Q-1}|x\rangle|f(x)\rangle=\sum_{i=0}^{r-1}(|i\rangle+|i+r\rangle+| i+2r\rangle+...)\ |f(i)\rangle
+    $$
 
 4. Perform an inverse Fourier transform on register 1. This transform uses a $Q$-order unit root $\omega^{2\pi i/Q}$, which evenly distributes the amplitude of any given state $|x\rangle$ on $Q$ states of $|y\rangle$. As shown in step 3, the equivalent states of $|i\rangle$ and $|i+r\rangle$ in register 1 are both entangled with the same state $|f(i)\rangle$ in register 2, with the Quantum interference effect, and finally, when the unit vector $\omega^{2\pi iry/Q}$ is closer to 1 (pointing to the positive real number axis), the probability of measuring the state $|y\rangle$ is greater. In other words, our measured state $|y\rangle$ has a high probability to make $\frac{ry}{Q}$ close to a certain integer $c$. For a more detailed mathematical description, please refer to the link: https://en.wikipedia.org/wiki/Shor%27s_algorithm Algorithm "Quantum Part: Period Finding Subroutine".
 5. Measure register 1 to get the binary string. Convert the binary string to the decimal number $y$, at this time $\frac{y}{Q}\sim\frac{c}{r}$, where $c$ is an unknown integer. Calculate the irreducible fraction (the denominator is not greater than $N$) approximated by $\frac{y}{Q}$ using the continued fraction factorization method, the period $r$ is its denominator. However, among irreducible fractions which denominator is less than $N$, there may be fractions that are closer to $\frac{y}{Q}$ than $\frac{c}{r}$, or $c$ and $r$ have a common factor, the obtained $r$ will be the factor of the real function period. At this time, the calculation fails, we need to recalculate.
