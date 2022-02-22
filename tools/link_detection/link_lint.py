@@ -121,6 +121,7 @@ def get_white_urls(white_file="filter_linklint.txt"):
         except Exception:
             with open(white_file, "r", encoding="GBK") as f:
                 urls = f.readlines()
+        urls = [u.replace("\n", "") for u in urls]
     else:
         urls = []
     return urls
