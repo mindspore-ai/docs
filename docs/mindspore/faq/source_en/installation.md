@@ -219,6 +219,18 @@ Add the library directory of the program corresponding to the current `python` c
 
 <br/>
 
+<font size=3>**Q: What should I do when error `error while loading shared libraries: libpython3.so: cannot open shared object file: No such file or directory` prompts during application running?**</font>
+
+A: This error usually occurs in an environment where multiple Python versions are installed. First, confirm whether the `lib` directory of Python is in the environment variable `LD_LIBRARY_PATH`, this command can set it:
+
+```bash
+export LD_LIBRARY_PATH=`python -c "import distutils.sysconfig as sysconfig ; print(sysconfig.get_config_var('LIBDIR'))"`:$LD_LIBRARY_PATH
+```
+
+Then, if Python 3.7.6 or lower does not contain this dynamic library in the Conda virtual environment, you can run the command to upgrade the Python version in Conda, such as: `conda install python=3.7.11`.
+
+<br/>
+
 <font size=3>**Q: Ascend AI processor software package and other prerequisites have been installed, but executing MindSpore failed with error message `Cannot open shared objectfile: No such file or directory`, what should I do?**</font>
 
 A: There are 2 common reasons: an incorrect version of Ascend AI processor software package is installed, or the packages are installed in customized paths, yet the environment varialbes are not set accordingly.
