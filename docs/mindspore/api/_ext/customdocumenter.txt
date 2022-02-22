@@ -35,7 +35,7 @@ class CustomDocumenter(Documenter):
                 for i in rst_included:
                     include_path = os.path.join(os.path.dirname(file_path), i)
                     if os.path.exists(include_path):
-                        with open(include_path, 'r') as g:
+                        with open(include_path, 'r', encoding='utf8') as g:
                             content_ = g.read()
                             excluded_member_ = exclude_re.findall(content_)
                             if excluded_member_:

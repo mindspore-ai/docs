@@ -18,7 +18,7 @@ import sys
 import glob
 
 from sphinx import directives
-with open('../_ext/overwriteobjectiondirective.txt', 'r') as f:
+with open('../_ext/overwriteobjectiondirective.txt', 'r', encoding="utf8") as f:
     exec(f.read(), directives.__dict__)
 
 from docutils import statemachine
@@ -62,7 +62,7 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
 
-with open("../_ext/customdocumenter.txt", "r") as f:
+with open("../_ext/customdocumenter.txt", "r", encoding="utf8") as f:
     code_str = f.read()
     exec(code_str, sphinx_autodoc.__dict__)
 

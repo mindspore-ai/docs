@@ -171,7 +171,7 @@ def train_one_episode(self):
 
 ```python
 class DQNPolicy():
-     def __init__(self, params):
+    def __init__(self, params):
         self.policy_network = FullyConnectedNet(
             params['state_space_dim'],
             params['hidden_size'],
