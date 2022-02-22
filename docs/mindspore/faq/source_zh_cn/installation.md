@@ -238,6 +238,18 @@ export LD_LIBRARY_PATH=`python -c "import distutils.sysconfig as sysconfig; prin
 
 <br/>
 
+<font size=3>**Q: 运行应用时出现`error while loading shared libraries: libpython3.so: cannot open shared object file: No such file or directory`怎么办？**</font>
+
+A: 该报错通常出现在装有多个Python版本的环境中，首先确认Python的`lib`目录是否在环境变量`LD_LIBRARY_PATH`中，可执行以下命令进行设置：
+
+```bash
+export LD_LIBRARY_PATH=`python -c "import distutils.sysconfig as sysconfig; print(sysconfig.get_config_var('LIBDIR'))"`:$LD_LIBRARY_PATH
+```
+
+另外如果在Conda虚拟环境中，Python 3.7.6以下版本不含该动态库，可以执行命令升级Conda中Python的版本，如：`conda install python=3.7.11`。
+
+<br/>
+
 <font size=3>**Q: Ascend AI处理器配套软件包与其他依赖软件已安装，但是执行MindSpore时提示`Cannot open shared objectfile: No such file or directory`该怎么办？**</font>
 
 A: 常见原因有两种: Ascend AI处理器配套软件包或固件/驱动包版本不正确，或没有安装在默认位置且未配置相应的环境变量。
