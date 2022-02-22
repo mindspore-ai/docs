@@ -322,6 +322,10 @@ If MindSpore is used for training on Ascend 910, there is an exception `Run task
 
 When we go to the directory for recording data, we can see several files appear in this directory, each file represents a kind of data. For example, `hwopt_d_before_graph_0.ir` is a computational graph file. You can use a text tool to open this file to view the calculational graph and analyze whether the calculational graph meets your expectations.
 
+#### Diagnosis Handling
+
+When enable RDR and set `export MS_RDR_MODE=2`, it is diagnostic mode. After Compiling graph, we also can see several files in above `MS_RDR_PATH` directory. the files are same with exception handling's.
+
 ## Log-related Environment Variables and Configurations
 
 MindSpore uses glog to output logs. The following environment variables are commonly used:
