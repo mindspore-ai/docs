@@ -170,7 +170,7 @@ To implement the neural networks and define the policies, a user defines the `DQ
 
 ```python
 class DQNPolicy():
-     def __init__(self, params):
+    def __init__(self, params):
         self.policy_network = FullyConnectedNet(
             params['state_space_dim'],
             params['hidden_size'],
