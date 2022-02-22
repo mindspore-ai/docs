@@ -7,9 +7,16 @@ import re
 import json
 import threading
 import logging
+import argparse
 import requests
 
 # pylint: disable=W0150,W0703
+
+parser = argparse.ArgumentParser(description="link ci")
+parser.add_argument("-c", "--check-list", type=str, default="./check_list.txt",
+                    help="List of files that need to be checked for Link validity")
+parser.add_argument("-w", "--white-list", type=str, default="./filter_linklint.txt", help="Whitelisted link list")
+args = parser.parse_args()
 
 logging.basicConfig(level=logging.WARNING)
 requests.packages.urllib3.disable_warnings()
@@ -89,13 +96,12 @@ def update_url_status_to_json(url):
     update_json(data, "url_status.json")
     lock.release()
 
-def run_check(file):
+def run_check(file, white_urls):
     """
     检测文件中的urls链接
     """
     data = get_content(file)
     file_urls = get_urls(data)
-    white_urls = get_white_urls()
     urls = set(file_urls) - set(white_urls)
     pool = []
     for url in urls:
@@ -105,28 +111,29 @@ def run_check(file):
     for j in pool:
         j.join()
 
-    generate_info(file)
+    generate_info(file, white_urls)
     if os.path.exists("url_status.json"):
         os.remove("url_status.json")
 
-def get_white_urls(white_file="filter_linklint.txt"):
-    """获取白名单中的链接"""
-    for i in sys.argv[1:]:
-        if "--white_path=" in i:
-            white_file = i.split("=")[-1]
-    if os.path.exists(white_file):
-        try:
-            with open(white_file, "r", encoding="utf-8") as f:
-                urls = f.readlines()
-        except Exception:
-            with open(white_file, "r", encoding="GBK") as f:
-                urls = f.readlines()
-        urls = [u.replace("\n", "") for u in urls]
+def get_check_info(info_type="check_list"):
+    """获取需要检测的信息"""
+    if info_type == "white_list":
+        info_file = args.white_list
     else:
-        urls = []
-    return urls
+        info_file = args.check_list
+    if os.path.exists(info_file):
+        try:
+            with open(info_file, "r", encoding="utf-8") as f:
+                infos = f.readlines()
+        except Exception:
+            with open(info_file, "r", encoding="GBK") as f:
+                infos = f.readlines()
+        infos_list = [info.replace("\n", "") for info in infos]
+    else:
+        infos_list = []
+    return infos_list
 
-def generate_info(file):
+def generate_info(file_1, white_urls_1):
     """
     输出404链接的信息
     """
@@ -136,26 +143,39 @@ def generate_info(file):
     else:
         url_status = {"https://www.mindspore.cn": 200}
     try:
-        with open(file, "r", encoding="utf-8") as f:
+        with open(file_1, "r", encoding="utf-8") as f:
             lines = f.readlines()
     except Exception:
-        with open("filter_linklint.txt", "r", encoding="GBK") as f:
+        with open(file_1, "r", encoding="GBK") as f:
             lines = f.readlines()
     for line_num, line_content in enumerate(lines, 1):
         for i in get_urls(line_content):
-            if url_status[i] == 404:
-                msg = "{}:line_{}:{}: Error link in the line! {}".format(file, line_num, url_status[i], i)
-                if "gitee.com" in i:
-                    logging.warning(msg)
-                else:
-                    logging.error(msg)
+            if i in white_urls_1:
+                continue
+            try:
+                if url_status[i] == 404:
+                    msg = "{}:line_{}:{}: Error link in the line! {}".format(file_1, line_num, url_status[i], i)
+                    if "gitee.com" in i:
+                        logging.warning(msg)
+                    else:
+                        logging.error(msg)
+            except Exception:
+                pass
 
 if __name__ == "__main__":
-    for check_path_ in sys.argv[1:]:
-        extension = ["md", "py", "rst", "ipynb", "js", "html", "c", "cc", "txt"]
+    white_urls_info = get_check_info(info_type="white_list")
+    check_list_info = get_check_info(info_type="check_list")
+    files1 = sys.argv[1:]
+    files2 = check_list_info
+    files_list = files1 + files2
+    filter_words = ["-c", "-w", "--check-list", "--white-list", args.check_list, args.white_list]
+    extension = ["md", "py", "rst", "ipynb", "js", "html", "c", "cc", "txt"]
+    files_list = [i for i in files_list if i not in filter_words]
+
+    for check_path_ in files_list:
         if os.path.isfile(check_path_) and check_path_.split(".")[-1] in extension:
-            run_check(check_path_)
+            run_check(check_path_, white_urls_info)
         elif os.path.isdir(check_path_):
             check_f_ = [file for file in find_file(check_path_, files=[]) if file.split(".")[-1] in extension]
             for one_f in check_f_:
-                run_check(one_f)
+                run_check(one_f, white_urls_info)
