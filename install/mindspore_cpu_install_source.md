@@ -38,6 +38,8 @@
 
 - 确认安装[wheel 0.32.0及以上版本](https://pypi.org/project/wheel/)。
 
+- 确认安装[tclsh](https://www.tcl.tk/software/tcltk/)。
+
 - 确认安装[patch 2.5及以上版本](https://ftp.gnu.org/gnu/patch/)。
     - 安装完成后需将patch所在路径添加到系统环境变量中。
 
