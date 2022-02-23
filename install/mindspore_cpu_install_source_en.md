@@ -36,6 +36,8 @@ This document describes how to quickly install MindSpore by source code in a Lin
 
 - Ensure that [wheel 0.32.0 or later](https://pypi.org/project/wheel/) is installed.
 
+- Ensure that [tclsh](https://www.tcl.tk/software/tcltk/) is installed.
+
 - Ensure that [patch 2.5 or later](https://ftp.gnu.org/gnu/patch/) is installed.
     - Add the path where the executable file `patch` stores to the environment variable PATH.
 
