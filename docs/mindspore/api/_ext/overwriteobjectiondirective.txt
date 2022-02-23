@@ -254,7 +254,10 @@ class ObjectDescription(SphinxDirective):
                         self.content.data.insert(index_num-count, i)
                 else:
                     self.content.data.extend(extra)
-        self.content.items.extend(self.extend_items(self.content.items[0][0], self.content.items[-1][1], len(extra)))
+        try:
+            self.content.items.extend(self.extend_items(self.content.items[0][0], self.content.items[-1][1], len(extra)))
+        except IndexError:
+            logger.warning(f'{self.names[0][0]} has error format.')
         self.state.nested_parse(self.content, self.content_offset, contentnode)
         self.env.app.emit('object-description-transform',
                           self.domain, self.objtype, contentnode)
