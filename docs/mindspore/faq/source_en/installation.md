@@ -125,12 +125,6 @@ A: At the moment some software might need manual upgrade. (**Note**: MindSpore r
 
 <br/>
 
-<font size=3>**Q: What should I do if there is a prompt `tclsh not found` when I compile MindSpore from source code?**</font>
-
-A: Please install the software manually if there is any suggestion of certain `software not found`.
-
-<br/>
-
 <font size=3>**Q: what should I do when I have installed Python 3.7.5 and set environment variables accordingly, but still failed compiling MindSpore, with error message `Python3 not found`?**</font>
 
 A: It's probably due to the lack of shared libraries in current Python environment. Compiling MindSpore requires linking Python shared libraries, hence you may need to compile and install Python 3.7.5 from source, using command `./configure --enable-shared`.

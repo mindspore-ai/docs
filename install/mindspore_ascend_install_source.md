@@ -42,6 +42,8 @@
 
 - 确认安装[wheel 0.32.0及以上版本](https://pypi.org/project/wheel/)。
 
+- 确认安装[tclsh](https://www.tcl.tk/software/tcltk/)。
+
 - 确认安装Ascend AI处理器配套软件包（Ascend Data Center Solution 21.0.4），安装方式请参考[配套指南]。
 
     - 确认当前用户有权限访问Ascend AI处理器配套软件包的安装路径`/usr/local/Ascend`，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。

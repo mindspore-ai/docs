@@ -37,6 +37,8 @@ The following describes how to quickly install MindSpore by compiling the source
 - Ensure that [patch 2.5 or later](https://ftp.gnu.org/gnu/patch/) is installed.
     - After installation, add the patch path to the system environment variables.
 
+- Ensure that [tclsh](https://www.tcl.tk/software/tcltk/) is installed.
+
 - Ensure that the Ascend AI processor software package (Ascend Data Center Solution 21.0.4) are installed, please refer to the [Installation Guide].
 
     - Ensure that you have permissions to access the installation path `/usr/local/Ascend` of the Ascend AI Processor software package. If not, ask the user root to add you to a user group to which `/usr/local/Ascend` belongs. For details about the configuration, see the description document in the software package.
