@@ -24,7 +24,7 @@ author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
 release = 'master'
-
+import mindspore
 
 # -- General configuration ---------------------------------------------------
 
