@@ -12,6 +12,7 @@ replace = "txt"
 
 include_re = re.compile(r'\.\. include::\s+(.*?)(\.rst|\.txt)')
 include_re_sub = re.compile(rf'(\.\. include::\s+(.*?))\.{origin}')
+whitepaper = ['operations.rst']
 
 def rename_include(api_dir):
     """
@@ -44,7 +45,7 @@ def rename_include(api_dir):
     all_rst = glob.glob(f'{api_dir}/**/*.{origin}', recursive=True)
 
     for i in all_rst:
-        if os.path.dirname(i).endswith("api_python"):
+        if os.path.dirname(i).endswith("api_python") and os.path.basename(i) not in whitepaper:
             continue
         name = os.path.basename(i)
         if name in tar:
