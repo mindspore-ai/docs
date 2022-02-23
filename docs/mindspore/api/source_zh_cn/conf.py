@@ -189,3 +189,8 @@ for root, dirs, files in os.walk(api_file_dir, topdown=True):
     for file_ in files:
         if '.rst' in file_ or '.txt' in file_:
             convert2utf8(os.path.join(root, file_))
+
+# Rename .rst file to .txt file for include directive.
+from rename_include import rename_include
+
+rename_include('api_python')
