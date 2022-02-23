@@ -418,12 +418,6 @@ Variables
 
 - :doc:`../generate/variable_mindspore_prim_kPrimEmbeddingLookupCommGrad-1`
 
-- :doc:`../generate/variable_mindspore_prim_kPrimEnvAdd-1`
-
-- :doc:`../generate/variable_mindspore_prim_kPrimEnvGetItem-1`
-
-- :doc:`../generate/variable_mindspore_prim_kPrimEnvSetItem-1`
-
 - :doc:`../generate/variable_mindspore_prim_kPrimEqual-1`
 
 - :doc:`../generate/variable_mindspore_prim_kPrimEqualCount-1`
@@ -501,8 +495,6 @@ Variables
 - :doc:`../generate/variable_mindspore_prim_kPrimGather-1`
 
 - :doc:`../generate/variable_mindspore_prim_kPrimGatherD-1`
-
-- :doc:`../generate/variable_mindspore_prim_kPrimGatherND-1`
 
 - :doc:`../generate/variable_mindspore_prim_kPrimGatherV2-1`
 
