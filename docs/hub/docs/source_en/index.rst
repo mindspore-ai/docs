@@ -1,9 +1,7 @@
 MindSpore Hub Documents
 =========================
 
-MindSpore Hub provides pre-trained model applications in the MindSpore ecosystem.
-
-MindSpore Hub provides the following functions:
+MindSpore Hub is a pre-trained model application tool of the MindSpore ecosystem. It provides the following functions:
 
 - Plug-and-play model loading
 - Easy-to-use transfer learning
@@ -26,16 +24,16 @@ MindSpore Hub provides the following functions:
    
    # ...
 
-Typical MindSpore Hub Application Scenarios
+Typical Application Scenarios
 --------------------------------------------
 
 1. `Inference Validation <https://www.mindspore.cn/hub/docs/en/master/loading_model_from_hub.html#for-inference-validation>`_
 
-   Use mindspore_hub.load to load the pre-trained model with only a line of code.
+   With only one line of code, use mindspore_hub.load to load the pre-trained model.
 
 2. `Transfer Learning <https://www.mindspore.cn/hub/docs/en/master/loading_model_from_hub.html#for-transfer-training>`_
 
-   After the model is loaded by using mindspore_hub.load, add an extra parameter to load only the feature extraction part of the neural network. In this way, some new layers can be easily added for transfer learning.
+   After loading models using mindspore_hub.load, add an extra argument to load the feature extraction of the neural network. This makes it easier to add new layers for transfer learning.
 
 3. `Model Releasing <https://www.mindspore.cn/hub/docs/en/master/publish_model.html>`_
 

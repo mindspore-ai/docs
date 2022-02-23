@@ -1,14 +1,14 @@
 MindQuantum Documents
 ======================
 
-MindQuantum is a general quantum computing framework developed by MindSpore and HiQ, that can be used to build and train different quantum neural networks. Thanks to the powerful algorithm of quantum software group of Huawei and High-performance automatic differentiation ability of MindSpore, MindQuantum can efficiently handle problems such as quantum machine learning, quantum chemistry simulation, and quantum optimization, which provides an efficient platform for researchers, teachers and students to quickly design and verify quantum machine learning algorithms.
+MindQuantum is a general-purpose quantum computing library designed to train and infer multiple quantum neural networks. Developed by MindSpore and HiQ, it leverages the quantum computing simulator developed by HiQ and high-performance automatic differentiation of MindSpore, ensuring MindQuantum can efficiently solve problems in quantum machine learning, chemistry simulation, and optimization. It provides a platform for researchers, teachers, and students to quickly design and verify quantum machine learning algorithms.
 
 .. raw:: html
 
    <img src="https://gitee.com/mindspore/docs/raw/master/docs/mindquantum/docs/source_en/images/mindquantum_en.png" width="700px" alt="" >
 
-Typical MindQuantum Application Scenarios
-------------------------------------------
+Typical Application Scenarios
+------------------------------
 
 1. `Quantum Machine Learning <https://www.mindspore.cn/mindquantum/docs/en/master/qnn_for_nlp.html>`_
 
