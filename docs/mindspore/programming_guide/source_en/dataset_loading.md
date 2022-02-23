@@ -428,7 +428,7 @@ download_dataset("https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-w
         tfrecord_dataset = ds.TFRecordDataset(DATA_FILE, schema=schema)
 
         for tf_data in tfrecord_dataset.create_dict_iterator():
-        print(tf_data)
+            print(tf_data)
         ```
 
         ```text
