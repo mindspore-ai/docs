@@ -44,7 +44,7 @@ class CustomDocumenter(Documenter):
 
         if excluded_members:
             if self.options.exclude_members:
-                self.options.exclude_members += excluded_members
+                self.options.exclude_members |= set(excluded_members)
             else:
                 self.options.exclude_members = excluded_members
 
