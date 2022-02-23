@@ -55,10 +55,10 @@ docs/tutorials/source_zh_cn/intermediate/text/sentimentnet.ipynb:line_22:404: Er
 ## 检测白名单设置
 
 `filter_linklint.txt`文件中存储着链接检测的白名单，每行可写一个链接列入白名单。
-该文件默认放在与`link_lint.py`同目录。也可以通过命令传入`--white_path={白名单文件地址}`载入指定地址的白名单文件。
+该文件默认放在与`link_lint.py`同目录。也可以通过命令传入`--white-list={白名单文件地址}`载入指定地址的白名单文件。
 
 ```bash
-python link_lint.py --white_path=xxx/xxx/xx.txt xxx xxx
+python link_lint.py --white-list=xxx/xxx/xx.txt xxx xxx
 ```
 
 白名单内容可书写如下：
