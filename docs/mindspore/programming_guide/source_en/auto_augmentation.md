@@ -82,7 +82,6 @@ The following demonstrates the use of automatic data augmentation based on callb
 1. Customize the `Augment` class where `preprocess` is a custom data augmentation function and `update` is a callback function for updating the data augmentation policy.
 
     ```python
-    import mindspore.dataset.vision.py_transforms as transforms
     import mindspore.dataset as ds
     import numpy as np
 
