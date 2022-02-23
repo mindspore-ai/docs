@@ -1,26 +1,26 @@
 MindSpore XAI Documents
 ===========================
 
-MindSpore XAI is an explainable AI toolbox based on MindSpore. Currently, most deep learning models are black-box models with good performance but poor explainability. XAI aims to provide users decision explanations of the model, help users better understand the model, trust the model, and improve the model when an error occurs. Besides a variety of explanation methods, we also provide a set of evaluation methods to evaluate the explanation methods from various dimensions. It helps users compare and select the explanation methods that are most suitable for a particular scenario.
+Currently, most deep learning models are black-box models with good performance but poor explainability. The MindSpore XAI - a MindSpore-based explainable AI toolbox - provides a variety of explanation and decision methods to help you better understand, trust, and improve models. It also evaluates the explanation methods from various dimensions, enabling you to compare and select methods best suited to your environment.
 
 .. raw:: html
 
    <img src="https://gitee.com/mindspore/docs/raw/master/docs/xai/docs/source_en/images/xai_en.png" width="700px" alt="" >
 
-Typical MindSpore XAI Application Scenarios
---------------------------------------------
+Typical Application Scenarios
+------------------------------
 
 1. `Using Explainers <https://www.mindspore.cn/xai/docs/en/master/using_explainers.html>`_
 
-   Explain image classification models by saliency maps.
+   Explain image classification models using saliency maps.
 
-2. `Using Benchmarks <https://www.mindspore.cn/xai/docs/en/master/using_benchmarks.html>`_
+2. `Benchmarks <https://www.mindspore.cn/xai/docs/en/master/using_benchmarks.html>`_
 
-   Score the goodness of explainers.
+   Scores explainers.
 
-3. `Using MindInsight <https://www.mindspore.cn/xai/docs/en/master/using_mindinsight.html>`_
+3. `MindInsight <https://www.mindspore.cn/xai/docs/en/master/using_mindinsight.html>`_
 
-   Visualize the results from explainers and benchmarks.
+   Visualize the results from Explainers and Benchmarks.
 
 .. toctree::
    :glob:
