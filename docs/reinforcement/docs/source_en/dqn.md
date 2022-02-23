@@ -174,7 +174,7 @@ class DQNPolicy():
         self.policy_network = FullyConnectedNet(
             params['state_space_dim'],
             params['hidden_size'],
-            params['action_space_dim']，
+            params['action_space_dim'],
             params['compute_type'])
         self.target_network = FullyConnectedNet(
             params['state_space_dim'],
