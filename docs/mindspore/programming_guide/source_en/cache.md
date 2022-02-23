@@ -41,6 +41,27 @@ Currently, the cache service supports only single-node cache. That is, the clien
     export PATH=$PATH:{path_to_conda}/envs/{your_env_name}/bin
     ```
 
+    You can also set the environment with the following code.
+
+    ```python
+    import os
+    import sys
+    import mindspore
+
+    python_path = "/".join(sys.executable.split("/")[:-1])
+    mindspore_path = "/".join(mindspore.__file__.split("/")[:-1])
+    mindspore_lib_path = os.path.join(mindspore_path, "lib")
+
+    if 'PATH' not in os.environ:
+        os.environ['PATH'] = python_path
+    elif python_path not in os.environ['PATH']:
+        os.environ['PATH'] += ":" + python_path
+    print(os.environ['PATH'])
+
+    os.environ['LD_LIBRARY_PATH'] = "{}:{}:{}".format(mindspore_path, mindspore_lib_path, mindspore_lib_path.split("python3.7")[0])
+    print(os.environ['LD_LIBRARY_PATH'])
+    ```
+
    > When the cache is used, the server memory may be insufficient. Therefore, you are advised to increase the swap memory space of the server to more than 100 GB before using the cache. For details about how to increase the swap memory space on Ubuntu, EulerOS, or CentOS, see [related tutorials](https://help.ubuntu.com/community/SwapFaq#How_do_I_add_a_swap_file.3F).
 
 2. Start the cache server.
@@ -167,10 +188,68 @@ Currently, the cache service supports only single-node cache. That is, the clien
 
     CIFAR-10 dataset is used in the following two examples. Before running the sample, download and store the CIFAR-10 dataset by referring to [Loading Dataset](https://www.mindspore.cn/docs/programming_guide/en/master/dataset_loading.html#cifar-10-100).
 
+    ```text
+    ./datasets/cifar-10-batches-bin
+    ├── readme.html
+    ├── test
+    │   └── test_batch.bin
+    └── train
+        ├── batches.meta.txt
+        ├── data_batch_1.bin
+        ├── data_batch_2.bin
+        ├── data_batch_3.bin
+        ├── data_batch_4.bin
+        └── data_batch_5.bin
+    ```
+
+    ```python
+    import os
+    import requests
+    import tarfile
+    import zipfile
+    import shutil
+
+    requests.packages.urllib3.disable_warnings()
+
+    def download_dataset(url, target_path):
+        """ download and unzip the dataset """
+        if not os.path.exists(target_path):
+            os.makedirs(target_path)
+        download_file = url.split(\"/\")[-1]
+        if not os.path.exists(download_file):
+            res = requests.get(url, stream=True, verify=False)
+            if download_file.split(\".\")[-1] not in [\"tgz\", \"zip\", \"tar\", \"gz\"]:
+                download_file = os.path.join(target_path, download_file)
+            with open(download_file, \"wb\") as f:
+                for chunk in res.iter_content(chunk_size=512):
+                    if chunk:
+                        f.write(chunk)
+        if download_file.endswith(\"zip\"):
+            z = zipfile.ZipFile(download_file, \"r\")
+            z.extractall(path=target_path)
+            z.close()
+        if download_file.endswith(\".tar.gz\") or download_file.endswith(\".tar\") or download_file.endswith(\".tgz\"):
+            t = tarfile.open(download_file)
+            names = t.getnames()
+            for name in names:
+                t.extract(name, target_path)
+            t.close()
+        print(\"The {} file is downloaded and saved in the path {} after processing\".format(os.path.basename(url), target_path))
+
+    download_dataset(\"https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cifar-10-binary.tar.gz\", \"./datasets\")
+    test_path = \"./datasets/cifar-10-batches-bin/test\"
+    train_path = \"./datasets/cifar-10-batches-bin/train\"
+    os.makedirs(test_path, exist_ok=True)
+    os.makedirs(train_path, exist_ok=True)
+    if not os.path.exists(os.path.join(test_path, \"test_batch.bin\")):
+        shutil.move(\"./datasets/cifar-10-batches-bin/test_batch.bin\", test_path)
+    [shutil.move(\"./datasets/cifar-10-batches-bin/\"+i, train_path) for i in os.listdir(\"./datasets/cifar-10-batches-bin/\") if os.path.isfile(\"./datasets/cifar-10-batches-bin/\"+i) and not i.endswith(\".html\") and not os.path.exists(os.path.join(train_path, i))]
+    ```
+
     - Cache the original loaded dataset.
 
         ```python
-        dataset_dir = "cifar-10-batches-bin/"
+        dataset_dir = "./datasets/cifar-10-batches-bin/train"
 
         # apply cache to dataset
         data = ds.Cifar10Dataset(dataset_dir=dataset_dir, num_samples=4, shuffle=False, num_parallel_workers=1, cache=test_cache)
