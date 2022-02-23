@@ -41,8 +41,6 @@ Classes
 
 - :doc:`../generate/structmindspore_LocationInfo`
 
-- :doc:`../generate/structmindspore_MonadState`
-
 - :doc:`../generate/structmindspore_MSCallBackParam`
 
 - :doc:`../generate/structmindspore_NamedEqual`
@@ -157,8 +155,6 @@ Classes
 
 - :doc:`../generate/classmindspore_FuncGraph`
 
-- :doc:`../generate/classmindspore_FuncGraphBase`
-
 - :doc:`../generate/classmindspore_FuncGraphJTotalComputer`
 
 - :doc:`../generate/classmindspore_FuncGraphManager`
@@ -168,8 +164,6 @@ Classes
 - :doc:`../generate/classmindspore_FuncGraphsUsedTotalComputer`
 
 - :doc:`../generate/classmindspore_FuncGraphTransaction`
-
-- :doc:`../generate/classmindspore_FuncGraphTransform`
 
 - :doc:`../generate/classmindspore_Function`
 
@@ -424,8 +418,6 @@ Enums
 -----
 
 
-- :doc:`../generate/enum_mindspore_ActivationType-1`
-
 - :doc:`../generate/enum_mindspore_Axis-1`
 
 - :doc:`../generate/enum_mindspore_CacheBool-1`
@@ -440,35 +432,21 @@ Enums
 
 - :doc:`../generate/enum_mindspore_CompCode-1`
 
-- :doc:`../generate/enum_mindspore_CoordinateTransformMode-1`
-
 - :doc:`../generate/enum_mindspore_DataType-1`
 
 - :doc:`../generate/enum_mindspore_DeviceType-1`
 
-- :doc:`../generate/enum_mindspore_EltwiseMode-1`
-
 - :doc:`../generate/enum_mindspore_ExceptionType-1`
-
-- :doc:`../generate/enum_mindspore_Format-1`
 
 - :doc:`../generate/enum_mindspore_GateOrderMode-1`
 
 - :doc:`../generate/enum_mindspore_IncludeType-1`
 
-- :doc:`../generate/enum_mindspore_LshProjectionType-1`
-
 - :doc:`../generate/enum_mindspore_ModelType-1`
 
 - :doc:`../generate/enum_mindspore_MsLogLevel-1`
 
-- :doc:`../generate/enum_mindspore_NearestMode-1`
-
 - :doc:`../generate/enum_mindspore_OptimizationLevel-1`
-
-- :doc:`../generate/enum_mindspore_PaddingMode-1`
-
-- :doc:`../generate/enum_mindspore_PadMode-1`
 
 - :doc:`../generate/enum_mindspore_PoolMode-1`
 
@@ -476,15 +454,7 @@ Enums
 
 - :doc:`../generate/enum_mindspore_QuantizationType-1`
 
-- :doc:`../generate/enum_mindspore_ReduceMode-1`
-
 - :doc:`../generate/enum_mindspore_ReduceType-1`
-
-- :doc:`../generate/enum_mindspore_Reduction-1`
-
-- :doc:`../generate/enum_mindspore_ResizeMethod-1`
-
-- :doc:`../generate/enum_mindspore_RoundMode-1`
 
 - :doc:`../generate/enum_mindspore_SchemaVersion-1`
 
@@ -571,8 +541,6 @@ Functions
 
 - :doc:`../generate/function_mindspore_GetInputs-1`
 
-- :doc:`../generate/function_mindspore_GetMonadState-1`
-
 - :doc:`../generate/function_mindspore_GetOriginNodeTarget-1`
 
 - :doc:`../generate/function_mindspore_GetPrimEffectInfo-1`
@@ -638,10 +606,6 @@ Functions
 - :doc:`../generate/function_mindspore_IsPrimitiveEquals-1`
 
 - :doc:`../generate/function_mindspore_IsStateEquivalent-1`
-
-- :doc:`../generate/function_mindspore_IsStateEquivalent-2`
-
-- :doc:`../generate/function_mindspore_IsStateStrictEquivalent-1`
 
 - :doc:`../generate/function_mindspore_IsSubType-1`
 
@@ -1029,13 +993,6 @@ Typedefs
 - :doc:`../generate/typedef_mindspore_VarPtr-1`
 
 - :doc:`../generate/typedef_mindspore_VectorRefPtr-1`
-
-
-Unions
-------
-
-
-- :doc:`../generate/union_unionmindspore_Float16_Union32`
 
 
 Variables
