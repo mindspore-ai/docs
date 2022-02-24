@@ -504,6 +504,6 @@ class MsCnNoteAutoSummary(MsCnAutoSummary):
         self.third_name_en = ".. note::"
 
     def get_third_column(self, name=None, content=''):
-        note_re = re.compile(rf'\.\. note::\n\n\s+(.*?)[。\n]')
+        note_re = re.compile(r'\.\. note::\n{,2}\s+(.*?)[。\n]')
         third_str = note_re.findall(content)
         return third_str
