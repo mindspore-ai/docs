@@ -107,9 +107,6 @@ To enable pipeline parallelism, you need to add the following configurations to 
 - Set `pipeline_stages` in `set_auto_parallel_context` to specify the total number of `stages`.
 - Set the `SEMI_AUTO_PARALLEL` mode. Currently, the pipeline parallelism supports only this mode.
 - Define the LossCell. In this example, the `nn.WithLossCell` API is called.
-- Pass the `parameters` used in this `stage` to the optimizer. Call the `add_pipeline_stage` method of `Parameter` to
-  pass all `stage` information to `Parameter` if multiple `stages` share a parameter. Then, call
-  the `infer_param_pipeline_stage` API of the `Cell` to obtain the training parameters of the `stage`.
 - Finally, wrap the LossCell with `PipelineCell`, and specify the Micro_batch size. To improve machine utilization,
   MindSpore divides Mini_batch into finer-grained Micro_batch to streamline the entire cluster. The final loss value is
   the sum of the loss values computed by all Micro_batch. The size of Micro_batch must be greater than or equal to the
@@ -135,7 +132,7 @@ def test_train_cifar(epoch_size=10):
     loss = SoftmaxCrossEntropyExpand(sparse=True)
     net_with_loss = nn.WithLossCell(net, loss)
     net_pipeline = nn.PipelineCell(net_with_loss, 2)
-    opt = Momentum(net.infer_param_pipeline_stage(), 0.01, 0.9)
+    opt = Momentum(net.trainable_params(), 0.01, 0.9)
     model = Model(net_pipeline, optimizer=opt)
     model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=True)
 ```

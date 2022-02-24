@@ -127,6 +127,6 @@ def test_train_cifar(epoch_size=10):
     net = resnet50(batch_size, num_classes)
     loss = SoftmaxCrossEntropyExpand(sparse=True)
     net_with_grads = nn.PipelineCell(nn.WithLossCell(net, loss), 4)
-    opt = Momentum(net.infer_param_pipeline_stage(), 0.01, 0.9)
+    opt = Momentum(net.trainable_params(), 0.01, 0.9)
     model = Model(net_with_grads, optimizer=opt)
     model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=True)

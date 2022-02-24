@@ -101,8 +101,6 @@ class ResNet(nn.Cell):
 - 目前流水线并行只支持`SEMI_AUTO_PARALLEL`模式，数据集要以`full_batch`模式导入。
 - 需要定义LossCell，本例中调用了`nn.WithLossCell`接口。
 - 目前流水线并行不支持自动混合精度特性。
-- 优化器需要传入本`stage`用到的`parameters`。若有多个`stage`共用了一个参数，则需要调用`Parameter`的`add_pipeline_stage`方法，将所有`stage`信息传给`Parameter`
-  。随后，可以调用`Cell`的`infer_param_pipeline_stage`接口来获取本`stage`的训练参数。
 - 最后，需要在LossCell外包一层`PipelineCell`
   ，并指定Micro_batch的size。为了提升机器的利用率，MindSpore将Mini_batch切分成了更细粒度的Micro_batch，最终的loss则是所有Micro_batch计算的loss值累加。其中，Micro_batch的size必须大于等于`stage`
   的数量。
@@ -127,7 +125,7 @@ def test_train_cifar(epoch_size=10):
     loss = SoftmaxCrossEntropyExpand(sparse=True)
     net_with_loss = nn.WithLossCell(net, loss)
     net_pipeline = nn.PipelineCell(net_with_loss, 2)
-    opt = Momentum(net.infer_param_pipeline_stage(), 0.01, 0.9)
+    opt = Momentum(net.trainable_params(), 0.01, 0.9)
     model = Model(net_pipeline, optimizer=opt)
     model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=True)
 ```
