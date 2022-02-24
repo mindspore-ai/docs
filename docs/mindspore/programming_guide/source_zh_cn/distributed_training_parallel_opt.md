@@ -43,7 +43,7 @@
 
 ## 开启优化器并行
 
-在`mindspore.context.set_auto_parallel_context`中提供了`enable_parallel_optimizer`选项，将其配置为True后，即可使能优化器并行，默认对所有参数进行优化器切分。
+在`mindspore.context.set_auto_parallel_context`中提供了`enable_parallel_optimizer`选项，将其配置为True后，即可使能优化器并行，默认对所有**占用内存小于64KB**的参数进行优化器切分。
 
 ```python
 from mindspore import context
@@ -62,6 +62,15 @@ param = Parameter(Tensor(np.ones((10, 2))), name='weight1', parallel_optimizer=T
 # Another way to set the parallel_optimizer attribute
 param2 = Parameter(Tensor(np.ones((10, 2))), name='weight2')
 param2.parallel_optimizer = False
+```
+
+优化器并行特性还提供了配置字典`parallel_optimizer_config`。通过在context中配置不同的键值，可以达到不同的效果：
+
+- `parallel_optimizer_threshold(int)`: 该值表示切分参数时，要求目标参数所占内存的最小值。当目标参数小于该值时，将不会被切分。
+
+```python
+# 小于24KB的参数不会被切分
+context.set_auto_parallel_context(parallel_optimizer_config={"parallel_optimizer_threshold": 24})
 ```
 
 ## 配置通信融合
