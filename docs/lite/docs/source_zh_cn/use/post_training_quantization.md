@@ -24,7 +24,7 @@ MindSpore Lite训练后量化分为两类：
 | 参数                       | 属性 | 功能描述                                                     | 参数类型 | 默认值 | 取值范围                              |
 | -------------------------- | ---- | ------------------------------------------------------------ | -------- | ------ | ------------------------------------- |
 | `quant_type`               | 必选 | 设置量化类型，设置为WEIGHT_QUANT时，启用权重量化；设置为FULL_QUANT时，启用全量化。 | String   | -      | WEIGHT_QUANT、FULL_QUANT              |
-| `bit_num`                  | 可选 | 设置量化的比特数，目前权重量化支持0-16bit量化，设置为1-16bit时为固定比特量化，设置为0bit时，启用混合比特量化。全量化支持1-8bit量化。 | Integer  | 8      | 权重量化：\[0，16]<br/>全量化：[1，8] |
+| `bit_num`                  | 可选 | 设置量化的比特数，目前权重量化支持0-16bit量化，设置为1-16bit时为固定比特量化，设置为0bit时，启用混合比特量化。全量化支持8bit量化。 | Integer  | 8      | 权重量化：\[0，16]<br/>全量化：8 |
 | `min_quant_weight_size`    | 可选 | 设置参与量化的权重尺寸阈值，若权重数大于该值，则对此权重进行量化。 | Integer  | 0      | [0, 65535]                            |
 | `min_quant_weight_channel` | 可选 | 设置参与量化的权重通道数阈值，若权重通道数大于该值，则对此权重进行量化。 | Integer  | 16     | [0, 65535]                            |
 | `skip_quant_node`          | 可选 | 设置无需量化的算子名称，多个算子之间用`,`分割。              | String   | -      | -                                     |
@@ -43,7 +43,7 @@ MindSpore Lite训练后量化分为两类：
 # Supports WEIGHT_QUANT or FULL_QUANT
 quant_type=WEIGHT_QUANT
 # Weight quantization support the number of bits [0,16], Set to 0 is mixed bit quantization, otherwise it is fixed bit quantization
-# Full quantization support the number of bits [1,8]
+# Full quantization support 8bit
 bit_num=8
 # Layers with size of weights exceeds threshold `min_quant_weight_size` will be quantized.
 min_quant_weight_size=0
@@ -160,7 +160,7 @@ center_crop_height=224
 # Supports WEIGHT_QUANT or FULL_QUANT
 quant_type=WEIGHT_QUANT
 # Weight quantization support the number of bits [0,16], Set to 0 is mixed bit quantization, otherwise it is fixed bit quantization
-# Full quantization support the number of bits [1,8]
+# Full quantization support 8bit
 bit_num=0
 # Layers with size of weights exceeds threshold `min_quant_weight_size` will be quantized.
 min_quant_weight_size=5000
@@ -230,7 +230,7 @@ min_quant_weight_channel=16
 ```ini
 [common_quant_param]
 quant_type=FULL_QUANT
-# Full quantization support the number of bits [1,8]
+# Full quantization support 8bit
 bit_num=8
 
 [data_preprocess_param]
@@ -338,7 +338,7 @@ debug_info_save_path=/home/workspace/mindspore/debug_info_save_path
 # Supports WEIGHT_QUANT or FULL_QUANT
 quant_type=FULL_QUANT
 # Weight quantization support the number of bits [0,16], Set to 0 is mixed bit quantization, otherwise it is fixed bit quantization
-# Full quantization support the number of bits [1,8]
+# Full quantization support 8bit
 bit_num=8
 # Set the name of the operator that skips the quantization, and use `,` to split between multiple operators.
 skip_quant_node=conv2d_1,add_8,concat_1
