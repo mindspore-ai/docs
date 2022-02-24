@@ -83,6 +83,14 @@ virtual schema::PrimitiveType type()
 
 返回算子的类型。
 
+### quant_type
+
+``` c++
+virtual schema::QuantType quant_type()
+```
+
+返回算子的量化类型。
+
 ### set_inputs
 
 ``` c++
