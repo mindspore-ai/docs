@@ -671,11 +671,7 @@ Typedefs
 
 - :doc:`../generate/typedef_mindspore_ops_PrimFloorPtr-1`
 
-- :doc:`../generate/typedef_mindspore_ops_PrimGatherNd-1`
-
 - :doc:`../generate/typedef_mindspore_ops_PrimGerPtr-1`
-
-- :doc:`../generate/typedef_mindspore_ops_PrimGreaterEqual-1`
 
 - :doc:`../generate/typedef_mindspore_ops_PrimIsInfPtr-1`
 
