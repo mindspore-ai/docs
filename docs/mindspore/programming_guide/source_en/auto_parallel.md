@@ -155,25 +155,34 @@ context.get_auto_parallel_context("parameter_broadcast")
 
 #### comm_fusion
 
-`comm_fusion` allows user to configure the communication fusion for various communication operators, and for now, only `allreduce` is supported. For `allreduce`, it has three `mode` options:
+`comm_fusion` allows user to configure the communication fusion for various communication operators, and for now, `allreduce`, `allgather`, `reducescatter` are supported. For `allreduce`, it has three `mode` options:
 
 - `auto`：automatic communication operators fusion by gradients size, and another parameter `config` is `None`. The gradients fusion size is automatically set by 64 MB.
 - `size`：manual communication operators fusion by gradients size, and the type of another parameter `config` is `int` and unit is `MB`.
 - `index`：manual communication operators fusion by parameters' index，same as `all_reduce_fusion_config`, and the type of parameter `config` is `list(int)`.
+
+For `allgather` and `reducescatter`, two `mode` options are supported:
+
+- `auto`：same as `allreduce`, parameter `config` is `None`. The gradients fusion size is automatically set by 64 MB.
+- `size`：same as `allreduce`, and the type of another parameter `config` is `int` and unit is `MB`.
 
 The following is a code example:
 
 ```python
 from mindspore import context
 
-# auto
+# allreduce auto
 context.set_auto_parallel_context(comm_fusion={"allreduce": {"mode": "auto", "config": None}})
 
-# size
+# allreduce size
 context.set_auto_parallel_context(comm_fusion={"allreduce": {"mode": "size", "config": 32}})
 
-# index
+# allreduce index
 context.set_auto_parallel_context(comm_fusion={"allreduce": {"mode": "index", "config": [20, 35]}})
+
+# allgather and reducescatter size
+context.set_auto_parallel_context(comm_fusion={"allgather": {"mode": "size", "config": 16},
+                                               "reducescatter": {"mode": "size", "config": 32}})
 ```
 
 ### Automatic Parallel Configuration

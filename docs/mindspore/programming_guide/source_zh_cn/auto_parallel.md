@@ -157,25 +157,35 @@ context.get_auto_parallel_context("parameter_broadcast")
 
 #### comm_fusion
 
-`comm_fusion`通过设置通信算子的融合配置，实现不同通信算子的融合功能，当前仅支持`allreduce`通信算子的配置。对于`allreduce`通信算子的配置，共支持三种不同的`mode`：
+`comm_fusion`通过设置通信算子的融合配置，实现不同通信算子的融合功能，当前支持`allreduce`、`allgather`、`reducescatter`通信算子的配置。
+对于`allreduce`通信算子的配置，共支持三种不同的`mode`：
 
 - `auto`：自动进行`allreduce`通信算子融合，按照梯度数据量阈值64MB进行算子融合，配置参数`config`为`None`。
 - `size`：按照手动设置梯度量阈值的方式进行`allreduce`通信算子融合，配置参数`config`类型为`int`，单位`MB`。
 - `index`：按照通信算子序列号进行融合的方式，与`all_reduce_fusion_config`功能相同，配置参数`config`类型为`list(int)`。
+
+对于`allgather`和`reducescatter`通信算子的配置，支持两种不同的`mode`：
+
+- `auto`：自动进行对应的通信算子融合，按照梯度数据量阈值64MB进行算子融合，配置参数`config`为`None`。
+- `size`：按照手动设置梯度量阈值的方式进行对应的通信算子融合，配置参数`config`类型为`int`，单位`MB`。
 
 代码样例如下：
 
 ```python
 from mindspore import context
 
-# auto
+# allreduce auto
 context.set_auto_parallel_context(comm_fusion={"allreduce": {"mode": "auto", "config": None}})
 
-# size
+# allreduce size
 context.set_auto_parallel_context(comm_fusion={"allreduce": {"mode": "size", "config": 32}})
 
-# index
+# allreduce index
 context.set_auto_parallel_context(comm_fusion={"allreduce": {"mode": "index", "config": [20, 35]}})
+
+# allgather and reducescatter size
+context.set_auto_parallel_context(comm_fusion={"allgather": {"mode": "size", "config": 16},
+                                               "reducescatter": {"mode": "size", "config": 32}})
 ```
 
 ### 自动并行配置
