@@ -374,7 +374,7 @@ During the training process, the optimizer takes result[current step] as current
     net = Net()
     optim = nn.Momentum(net.trainable_params(), learning_rate=lr, momentum=0.9)
 
-.. autosummary::
+.. msplatformautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst
