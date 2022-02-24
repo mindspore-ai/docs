@@ -24,16 +24,17 @@ Compared with traditional custom operator creating methods, creating custom oper
 
 ## Basic Usage
 
-The supported custom operator defining methods based on the [Custom](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom) primitive include: akg, tbe, aot and pyfunc.
+The supported custom operator defining methods based on the [Custom](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom) primitive include: tbe, aot, pyfunc, julia and akg.
 
 The difference of these operator defining methods are as follows:
 
-| Defining Methods | Development Language | Compilation Method | Supported Platforms | Recommended Scenarios |
-| :------: | :------: | :------: | ------ | ------ |
-| akg | MindSpore AKG DSL | JIT | `Ascend` `GPU` | Ascend/GPU platform general scenarios |
-| tbe | TBE DSL | JIT | `Ascend` | Ascend platform scenarios |
-| aot | C/C++/CUDA | AOT | `GPU` `CPU` | GPU/CPU platform high-performance scenarios |
-| pyfunc | Python | JIT | `CPU` | Fast algorithm verification, need to interact with Python and other scenarios |
+| Defining Methods | Development Language | Compilation Method | Supported Platforms | Recommended Scenarios                                                         |
+|:----------------:|:--------------------:| :------: | ------ |-------------------------------------------------------------------------------|
+|       tbe        |       TBE DSL        | JIT | `Ascend` | Ascend AICORE platform scenarios                                              |
+|       aot        |      C/C++/CUDA      | AOT | `GPU` `CPU` | high-performance scenarios / use third-party operators scenarios              |
+|      pyfunc      |        Python        | JIT | `CPU` | Fast algorithm verification, need to interact with Python and other scenarios |
+|      julia       |        Julia         | JIT | `CPU` | Science compute scenarios / use Julia scenarios                               |
+|       akg        |  MindSpore AKG DSL   | JIT | `Ascend` `GPU` | Ascend/GPU platform general scenarios                                         |
 
 > - The full name of DSL is Domain Specific Language.
 > - AOT(Ahead Of Time) compiling means the operator implementation needs to be compiled into a dynamic library in advance, and then automatically called by the framework when the network is running. JIT(Just In Time) compiling does not need to compile the operator implementation in advance, the operator implementation will be directly called by the framework during network compilation or runtime.
@@ -41,62 +42,6 @@ The difference of these operator defining methods are as follows:
 Different custom operator defining methods use different development language to implement the operator, but the development process is the same, including operator implementation, operator output shape and data type inference, and operator information registration (optional). You can choose which one to use base on needs. The defining methods of these custom operators will be introduced here, and examples are provided for each method.
 
 > More examples can be found in the MindSpore source code [tests/st/ops/graph_kernel/custom](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/graph_kernel/custom).
-
-### Defining Custom Operator of akg Type
-
-The custom operator of akg type uses the [MindSpore AKG](https://gitee.com/mindspore/akg) operator DSL to describe the internal calculation logic of the operator. MindSpore AKG is an operator development and compilation framework based on TVM(Tensor Virtual Machine) and Polyhedral technology, it supports multiple types of operator DSL, such as Hybrid, IR builder and TVM compute.
-
-Operator output shape and data type inference can be realized by defining Python functions to describe the inference logic.
-
-If the operator has attributes or only supports specific input and output data types or data formats, the operator information needs to be registered. For the creation of operator information, please refer to [Registering the Operator Information](#registering-the-operator-information). If the operator information is not registered, then the operator information will be derived from the inputs of the current operator during operator selection process.
-
-Takes test_custom_akg.py as an example to introduce how to define a custom operator of akg type, where the custom operator implements the function of adding two input tensors.
-
-Here is the content of test_custom_akg.py:
-
-```python
-import numpy as np
-from mindspore import context, Tensor
-import mindspore.ops as ops
-
-context.set_context(device_target="GPU")
-
-# Operator implementation, Hybrid DSL
-def add(a, b):
-    c = output_tensor(a.shape, a.dtype)
-    for i0 in range(a.shape[0]):
-        for i1 in range(a.shape[1]):
-            c[i0, i1] = a[i0, i1] + b[i0, i1]
-    return c
-
-if __name__ == "__main__":
-    # Define a custom operator of akg type
-    op = ops.Custom(add, out_shape=lambda x, _: x, out_dtype=lambda x, _: x, func_type="akg")
-
-    x0 = np.array([[0.0, 0.0], [1.0, 1.0]]).astype(np.float32)
-    x1 = np.array([[2.0, 2.0], [3.0, 3.0]]).astype(np.float32)
-    output = op(Tensor(x0), Tensor(x1))
-    print(output)
-```
-
-The following points need to be explained in this example:
-
-- `context.set_context(device_target="GPU")` indicates that the operator runs on the GPU platform. To run on the Ascend platform, please compile an Ascend version of MindSpore and set the value of device_target to "Ascend".
-- Use Python lambda functions to infer the output shape and data type, and pass them to the `out_shape` and `out_dtype` parameters of the `Custom` primitive. In this example, the lambda function indicates that the output shape and data type are the same as the information of the first input tensor.
-- The operator information is not registered, so the operator information of the custom operator will be inferred from the inputs.
-
-Running case:
-
-```bash
-python test_custom_akg.py
-```
-
-Running results:
-
-```text
-[[2. 2.]
- [4. 4.]]
-```
 
 ### Defining Custom Operator of tbe Type
 
@@ -386,6 +331,200 @@ Running case:
 
 ```bash
 python test_custom_pyfunc.py
+```
+
+Running results:
+
+```text
+[[2. 2.]
+ [4. 4.]]
+```
+
+### Defining Custom Operator of julia Type
+
+The custom operator of julia type uses Julia to describe the internal calculation logic of the operator. The framework will automatically call this function during the network runtime.
+
+Operator output shape and data type inference can be realized by defining Python functions to describe the inference logic.
+
+If the operator has attributes or only supports specific input and output data types or data formats, the operator information needs to be registered. For the creation of operator information, please refer to [Registering the Operator Information](#registering-the-operator-information). If the operator information is not registered, then the operator information will be derived from the inputs of the current operator during operator selection process.
+
+Takes the function of adding two input tensors as an example to introduce how to define a custom operator of julia type.
+
+Firstly, user should write a Julia function into a Julia file, here is an example of add.jl:
+
+```julia
+# add.jl
+module Add
+# inputs: x, y, output: z, output should use .= to inplace assign
+function add(x, y, z)
+    z .= x + y
+end
+end
+```
+
+Secondly, use `Custom` operator with julia func type in script to call Julia function, here is an example of test_custom_julia.py:
+
+```python
+import numpy as np
+from mindspore import context, Tensor
+import mindspore.ops as ops
+
+context.set_context(device_target="CPU")
+
+if __name__ == "__main__":
+    op = ops.Custom("./add.jl:Add:add", out_shape=lambda x, _: x, out_dtype=lambda x, _: x, func_type="julia")
+    x0 = np.array([[0.0, 0.0], [1.0, 1.0]]).astype(np.float32)
+    x1 = np.array([[2.0, 2.0], [3.0, 3.0]]).astype(np.float32)
+    output = op(Tensor(x0), Tensor(x1))
+    print(output)
+```
+
+The following points need to be explained in this example:
+
+- Use Python lambda functions to infer the output shape and data type, and pass them to the `out_shape` and `out_dtype` parameters of the `Custom` primitive. In this example, the lambda function indicates that the output shape and data type are the same as the information of the first input tensor.
+- The operator information is not registered, so the operator information of the custom operator will be inferred from the inputs.
+
+Running case:
+
+```bash
+python test_custom_julia.py
+```
+
+Running results:
+
+```text
+[[2. 2.]
+ [4. 4.]]
+```
+
+Matters need attention:
+
+1. User should use Julia version >= 1.6.0，
+2. User should add `julia/lib` into `LD_LIBRARY_PATH`，consider julia-1.6.5:
+
+   ```bash
+   # download julia-1.6.5
+   wget https://julialang-s3.julialang.org/bin/linux/x64/1.6/julia-1.6.5-linux-x86_64.tar.gz
+   # extract file
+   tar xvf julia-1.6.5-linux-x86_64.tar.gz
+   # if $JULIA_DIR not exist
+   export LD_LIBRARY_PATH=$PWD/julia-1.6.5/lib:$LD_LIBRARY_PATH
+   # else
+   export LD_LIBRARY_PATH=$JULIA_DIR/lib:$LD_LIBRARY_PATH
+   ```
+
+3. `Custom` operator's first arg `func` should keep format like `file_name:module_name:func_name`, `file_name` should include path, suggest using absolute path.
+4. Julia file should include `module`, `module` include `function`, both ends with `end`.
+5. The Julia function called by kernel should keep inputs and outputs order same with kernel.
+6. The Julia function called by kernel should use `.=` to write function result into output memory.
+7. User should make sure Julia code is runnable.
+8. User should make sure Julia third-party package is exist when using it. Install package when not exist: `import pkg; pkg.add("somepkg")`.
+9. `julia array` is `column major`, and `numpy array` is `row major`, User should consider this when compute an un-elemwise function. User can use the functions to transform layout between `numpy array` and `julia array` as below:
+
+    ```julia
+    function change_input_to_row_major(x)
+        return permutedims(reshape(x, reverse(size(x))), length(size(x)):-1:1)
+    end
+
+    function change_output_to_row_major(x)
+        return reshape(permutedims(x, length(size(x)):-1:1), size(x))
+    end
+    ```
+
+    An example of MatMul:
+
+     ```julia
+     # julia array is column-major, numpy aray is row-major
+     # user should change julia or numpy's layout to keep same behavior
+     #= EXAMPLE
+     A[2,3]               B[3,4]               C[2,4]
+     NUMPY:
+     [[1, 2, 3]       [[1, 2, 3, 4]         [[38, 44, 50,  56]
+      [4, 5, 6]]       [5, 6, 7, 8]          [83, 98, 113,128]]
+                       [9,10,11,12]]
+     JULIA:
+     change_input_to_row_major:
+     1.inputs read numpy data from memory:
+     [[1, 3, 5]       [[1, 4, 7,10]
+      [2, 4, 6]]       [2, 5, 8,11]
+                       [3, 6, 9,12]]
+     2.inputs after reshape(reverse(shape)):
+     [[1, 4]          [[1, 5, 9]
+      [2, 5]           [2, 6,10]
+      [3, 6]]          [3, 7,11]
+                       [4, 8,12]]
+     3.inputs after transpose/permutedims:
+     [[1, 2, 3]       [[1, 2, 3, 4]         [[38, 44, 50,  56]
+      [4, 5, 6]]       [5, 6, 7, 8]          [83, 98, 113,128]]
+                       [9,10,11,12]]
+     change_output_to_row_major:
+     1.output after transpose/permutedims:
+                                            [[38, 83]
+                                             [44, 98]
+                                             [50,113]
+                                             [56,128]
+     2.output after reshape:
+                                            [[38, 50, 83, 113]
+                                             [44, 56, 98, 128]]
+     3.output read numpy data from memory:
+                                            [[38, 44, 50,  56]
+                                             [83, 98,113, 128]]
+     =#
+     function foo!(x, y, z)
+         x = change_input_to_row_major(x)
+         y = change_input_to_row_major(y)
+         z .= gemm(x, y, z)
+         z .= change_output_to_row_major(z)
+     end
+     ```
+
+### Defining Custom Operator of akg Type
+
+The custom operator of akg type uses the [MindSpore AKG](https://gitee.com/mindspore/akg) operator DSL to describe the internal calculation logic of the operator. MindSpore AKG is an operator development and compilation framework based on TVM(Tensor Virtual Machine) and Polyhedral technology, it supports multiple types of operator DSL, such as Hybrid, IR builder and TVM compute.
+
+Operator output shape and data type inference can be realized by defining Python functions to describe the inference logic.
+
+If the operator has attributes or only supports specific input and output data types or data formats, the operator information needs to be registered. For the creation of operator information, please refer to [Registering the Operator Information](#registering-the-operator-information). If the operator information is not registered, then the operator information will be derived from the inputs of the current operator during operator selection process.
+
+Takes test_custom_akg.py as an example to introduce how to define a custom operator of akg type, where the custom operator implements the function of adding two input tensors.
+
+Here is the content of test_custom_akg.py:
+
+```python
+import numpy as np
+from mindspore import context, Tensor
+import mindspore.ops as ops
+
+context.set_context(device_target="GPU")
+
+# Operator implementation, Hybrid DSL
+def add(a, b):
+    c = output_tensor(a.shape, a.dtype)
+    for i0 in range(a.shape[0]):
+        for i1 in range(a.shape[1]):
+            c[i0, i1] = a[i0, i1] + b[i0, i1]
+    return c
+
+if __name__ == "__main__":
+    # Define a custom operator of akg type
+    op = ops.Custom(add, out_shape=lambda x, _: x, out_dtype=lambda x, _: x, func_type="akg")
+
+    x0 = np.array([[0.0, 0.0], [1.0, 1.0]]).astype(np.float32)
+    x1 = np.array([[2.0, 2.0], [3.0, 3.0]]).astype(np.float32)
+    output = op(Tensor(x0), Tensor(x1))
+    print(output)
+```
+
+The following points need to be explained in this example:
+
+- `context.set_context(device_target="GPU")` indicates that the operator runs on the GPU platform. To run on the Ascend platform, please compile an Ascend version of MindSpore and set the value of device_target to "Ascend".
+- Use Python lambda functions to infer the output shape and data type, and pass them to the `out_shape` and `out_dtype` parameters of the `Custom` primitive. In this example, the lambda function indicates that the output shape and data type are the same as the information of the first input tensor.
+- The operator information is not registered, so the operator information of the custom operator will be inferred from the inputs.
+
+Running case:
+
+```bash
+python test_custom_akg.py
 ```
 
 Running results:

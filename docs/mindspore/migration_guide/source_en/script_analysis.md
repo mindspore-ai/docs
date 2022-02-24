@@ -38,7 +38,9 @@ If the source code is a PyTorch script, you can directly query [MindSpore and Py
 
 1. Consider replacing it with other operators: It is necessary to analyze the implementation formula of the operator and examine whether the existing MindSpore operator can be superimposed to achieve the expected goal.
 2. Consider temporary circumvention solutions: For example, if a certain loss is not supported, it can be replaced with a loss operator of the same kind that has been supported.
-3. Submit suggestions in [MindSpore Community](https://gitee.com/mindspore/mindspore/issues) to develop missing operators.
+3. Consider using Custom operators: see [Custom Operators (Custom based)](https://www.mindspore.cn/docs/programming_guide/en/master/custom_operator_custom.html).
+4. Consider using third-party operators by Custom operators: see [Use Third-Party Operators by Custom Operators](https://www.mindspore.cn/docs/migration_guide/en/master/use_third_party_op.html).
+5. Submit suggestions in [MindSpore Community](https://gitee.com/mindspore/mindspore/issues) to develop missing operators.
 
 ## Grammar Assessment
 
