@@ -24,7 +24,7 @@ common quantization parameters are the basic settings for post training quantiza
 | Parameter                  | Attribute | Function Description                                         | Parameter Type | Default Value | Value Range                                 |
 | -------------------------- | --------- | ------------------------------------------------------------ | -------------- | ------------- | ------------------------------------------- |
 | `quant_type`               | Mandatory | The quantization type. When set to WEIGHT_QUANT, weight quantization is enabled; when set to FULL_QUANT, full quantization is enabled. | String         | -             | WEIGHT_QUAN, FULL_QUANT                     |
-| `bit_num`                  | Optional  | The number of quantized bits. Currently, weight quantization supports 0-16bit quantization. When it is set to 1-16bit, it is fixed-bit quantization. When it is set to 0bit, mixed-bit quantization is enabled. Full quantization supports 1-8bit quantization. | Integer        | 8             | WEIGHT_QUAN:\[0，16]<br/>FULL_QUANT:\[1，8] |
+| `bit_num`                  | Optional  | The number of quantized bits. Currently, weight quantization supports 0-16bit quantization. When it is set to 1-16bit, it is fixed-bit quantization. When it is set to 0bit, mixed-bit quantization is enabled. Full quantization supports 8bit quantization. | Integer        | 8             | WEIGHT_QUAN:\[0，16]<br/>FULL_QUANT: 8 |
 | `min_quant_weight_size`    | Optional  | Set the threshold of the weight size for quantization. If the number of weights is greater than this value, the weight will be quantized. | Integer        | 0             | [0, 65535]                                  |
 | `min_quant_weight_channel` | Optional  | Set the threshold of the number of weight channels for quantization. If the number of weight channels is greater than this value, the weight will be quantized. | Integer        | 16            | [0, 65535]                                  |
 | `skip_quant_node`          | Optional | Set the name of the operator that does not need to be quantified, and use `,` to split between multiple operators. | String   | -      | -                                     |
@@ -37,7 +37,7 @@ The common quantization parameter configuration is as follows:
 # Supports WEIGHT_QUANT or FULL_QUANT
 quant_type=WEIGHT_QUANT
 # Weight quantization support the number of bits [0,16], Set to 0 is mixed bit quantization, otherwise it is fixed bit quantization
-# Full quantization support the number of bits [1,8]
+# Full quantization support 8bit
 bit_num=8
 # Layers with size of weights exceeds threshold `min_quant_weight_size` will be quantized.
 min_quant_weight_size=0
@@ -229,7 +229,7 @@ The full quantization profile is as follows:
 ```ini
 [common_quant_param]
 quant_type=FULL_QUANT
-# Full quantization support the number of bits [1,8]
+# Full quantization support 8bit
 bit_num=8
 
 [data_preprocess_param]
@@ -337,7 +337,7 @@ Below is an example of `conv2d_1` `add_8` `concat_1` without quantifying the thr
 # Supports WEIGHT_QUANT or FULL_QUANT
 quant_type=FULL_QUANT
 # Weight quantization support the number of bits [0,16], Set to 0 is mixed bit quantization, otherwise it is fixed bit quantization
-# Full quantization support the number of bits [1,8]
+# Full quantization support 8bit
 bit_num=8
 # Set the name of the operator that skips the quantization, and use `,` to split between multiple operators.
 skip_quant_node=conv2d_1,add_8,concat_1
