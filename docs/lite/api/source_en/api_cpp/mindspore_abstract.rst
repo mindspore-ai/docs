@@ -37,8 +37,6 @@ Classes
 
 - :doc:`../generate/structmindspore_abstract_ReportNameTraits_3_01AbstractSlice_01_4`
 
-- :doc:`../generate/structmindspore_abstract_ReportNameTraits_3_01AbstractSparseTensor_01_4`
-
 - :doc:`../generate/structmindspore_abstract_ReportNameTraits_3_01AbstractTensor_01_4`
 
 - :doc:`../generate/structmindspore_abstract_ReportNameTraits_3_01AbstractTuple_01_4`
@@ -88,8 +86,6 @@ Classes
 - :doc:`../generate/classmindspore_abstract_AbstractSequence`
 
 - :doc:`../generate/classmindspore_abstract_AbstractSlice`
-
-- :doc:`../generate/classmindspore_abstract_AbstractSparseTensor`
 
 - :doc:`../generate/classmindspore_abstract_AbstractTensor`
 
@@ -287,9 +283,3 @@ Typedefs
 
 - :doc:`../generate/typedef_mindspore_abstract_TupleShapePtr-1`
 
-
-Variables
----------
-
-
-- :doc:`../generate/variable_mindspore_abstract_kNoShape-1`

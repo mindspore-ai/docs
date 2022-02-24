@@ -22,5 +22,3 @@ Functions
 - :doc:`../generate/function_mindspore_label_manage_GetGlobalTraceLabelType-1`
 
 - :doc:`../generate/function_mindspore_label_manage_Label-1`
-
-- :doc:`../generate/function_mindspore_label_manage_SetGlobalTraceLabelType-1`
