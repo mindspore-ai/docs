@@ -3,7 +3,7 @@
 <!-- TOC -->
 
 - [Installing MindSpore CPU by Conda](#installing-mindspore-cpu-by-conda)
-    - [System Environment Information Confirmation](#system-environment-information-confirmation)
+    - [Installing Environment Dependencies](#installing-environment-dependencies)
     - [Creating and Accessing the Conda Virtual Environment](#creating-and-accessing-the-conda-virtual-environment)
     - [Installing MindSpore](#installing-mindspore)
     - [Installation Verification](#installation-verification)
@@ -15,48 +15,92 @@
 
 [Conda](https://docs.conda.io/en/latest/) is an open-source, cross-platform, language-agnostic package manager and environment management system. It allows users to easily install different versions of binary software packages and any required libraries appropriate for their computing platform.
 
-This document describes how to quickly install MindSpore by Conda in a Linux system with a CPU environment.
+This document describes how to quickly install MindSpore by Conda in a Linux system with a CPU environment. The following takes Ubuntu 18.04 as an example to illustrate the steps to install MindSpore.
 
-For details about how to install third-party dependency software when confirming the system environment information, see the third-party dependency software installation section in the [Installing MindSpore Using Source Code Build on Ubuntu (CPU)](https://www.mindspore.cn/news/newschildren?id=365) provided by the community. Thank you to the community member [damon0626](https://gitee.com/damon0626) for sharing.
+- If you want to install MindSpore by Conda on a fresh Ubuntu 18.04, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-conda.sh) for one-click installation. The automatic installation script will install MindSpore and its dependencies.
 
-## System Environment Information Confirmation
+    The automatic installation script needs to replace the source list and install dependencies via APT, it will apply for root privileges during execution. Use the following commands to get the automatic installation script and execute.
 
-- Ensure that a 64-bit operating system is installed and the [glibc](https://www.gnu.org/software/libc/) version is 2.17 or later, where Ubuntu 18.04 is verified.
-- Ensure that [GCC 7.3.0](https://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) is installed.
-- Ensure that [gmp 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
-- Ensure that the Conda version is compatible with the current system.
-    - If you prefer the complete capabilities provided by Conda, you can choose to download [Anaconda3](https://repo.anaconda.com/archive/).
-    - If you want to save disk space or prefer custom Conda installation, you can choose to download [Miniconda3](https://repo.anaconda.com/miniconda/).
+    ```bash
+    wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-conda.sh
+    # install Python 3.7 and MindSpore 1.6.0 by default
+    bash ./ubuntu-cpu-conda.sh
+    # to specify Python and MindSpore version, e.g. Python 3.9 and MindSpore 1.5.0
+    # PYTHON_VERSION=3.9 MINDSPORE_VERSION=1.5.0 bash ./ubuntu-cpu-conda.sh
+    ```
+
+    The script will:
+
+    - Set the source list to huaweicloud source.
+    - Install the compilation dependencies required by MindSpore, such as GCC, gmp.
+    - Install Conda and create a virtual environment for MindSpore.
+    - Install MindSpore CPU by Conda.
+
+    For more usage, please refer to the description at the head of the script.
+
+- If your system has already installed some dependencies, such as Conda, GCC, etc., it is recommended to install manually by referring to the following installation steps.
+
+## Installing Environment Dependencies
+
+The following table lists the system environment and third-party dependencies required to install MindSpore.
+
+|software|version|description|
+|-|-|-|
+|Ubuntu|18.04|operating system for compiling and running MindSpore|
+|[Conda](#install-conda)|Anaconda3 or Miniconda3|Python environment management tool|
+|[GCC](#install-gccgmp)|7.3.0|C++ compiler for compiling MindSpore|
+|[gmp](#install-gccgmp)|6.1.2|multiple precision arithmetic library used by MindSpore|
+
+The following are installation methods of third-party dependencies.
+
+### Install Conda
+
+Execute the following command to install Miniconda.
+
+```bash
+cd /tmp
+curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py37_4.10.3-Linux-x86_64.sh
+bash Miniconda3-py37_4.10.3-Linux-x86_64.sh -b
+cd -
+. ~/miniconda3/etc/profile.d/conda.sh
+conda init bash
+```
+
+### Install GCC/gmp
+
+You may install GCC and gmp by the following commands.
+
+```bash
+sudo apt-get install gcc-7 libgmp-dev -y
+```
 
 ## Creating and Accessing the Conda Virtual Environment
 
-Create a Conda virtual environment based on the Python version you want to use and go to the virtual environment.
+Create a Conda virtual environment based on the Python version you want and activate the virtual environment.
+
 If you want to use Python 3.7.5:
 
 ```bash
-conda create -n mindspore_py37 -c conda-forge python=3.7.5
+conda create -n mindspore_py37 python=3.7.5 -y
 conda activate mindspore_py37
 ```
 
 If you want to use Python 3.9.0:
 
 ```bash
-conda create -n mindspore_py39 -c conda-forge python=3.9.0
+conda create -n mindspore_py39 python=3.9.0 -y
 conda activate mindspore_py39
 ```
 
 ## Installing MindSpore
 
-Ensure that you are in the Conda virtual environment and run the following command to install MindSpore:
+Ensure that you are in the Conda virtual environment and run the following command to install MindSpore 1.6.0. To install other versions, please refer to [Version List](https://www.mindspore.cn/versions) and specify the version after `mindspore-cpu=`.
 
 ```bash
-conda install mindspore-cpu={version} -c mindspore -c conda-forge
+conda install mindspore-cpu=1.6.0 -c mindspore -c conda-forge
 ```
 
-In the preceding information:
-
-- When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
-- `{version}` denotes the version of MindSpore. For example, when you are installing MindSpore 1.5.0-rc1, `{version}` should be 1.5.0rc1.
+When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
 
 ## Installation Verification
 
