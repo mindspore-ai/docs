@@ -304,6 +304,7 @@ Array Operators
     mindspore.ops.TensorScatterMin
     mindspore.ops.TensorScatterSub
     mindspore.ops.TensorScatterUpdate
+    mindspore.ops.TensorShape
     mindspore.ops.Tile
     mindspore.ops.Transpose
     mindspore.ops.TupleToArray
