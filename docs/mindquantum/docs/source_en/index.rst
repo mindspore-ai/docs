@@ -36,9 +36,10 @@ Typical Application Scenarios
    :caption: Guide
 
    parameterized_quantum_circuit
+   classification_of_iris_by_qnn
+   quantum_approximate_optimization_algorithm
    qnn_for_nlp
    vqe_for_quantum_chemistry
-   quantum_approximate_optimization_algorithm
    shor_algorithm
 
 .. toctree::
