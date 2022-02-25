@@ -28,15 +28,16 @@ The `train` interface parameter `dataset_sink_mode` of `Model` can be used to co
 
 The `dataset_sink_mode` parameter can be used with `sink_size` to control the amount of data sunk by each `epoch`. When `dataset_sink_mode` is set to True, that is, the data sinking mode is used:
 
-If `sink_size` is set to the default value –1, the amount of data sunk by each `epoch` is the size of the original entire dataset.
+If `sink_size` is set to the default value –1, each `epoch` trains the whole dataset. Ideally, the speed of sinking data is faster than hardware calculation, so as to ensure that the time spent in processing data is hidden in the network calculation time.
 
-If `sink_size` is greater than 0, the raw dataset can be traversed for an unlimited number of times. Each `epoch` sinks the data volume of `sink_size`, and the next `epoch` continues to traverse from the end position of the previous traversal.
+If `sink_size` is greater than 0, the raw dataset can be traversed for an unlimited number of times, sinking data flow is still the same as `sink_size` = -1, except that each `epoch` only trains `sink_size` amount of data. If there is `LossMonitor`, it will train `sink_size` amount of data and print the loss value once, and the next `epoch` continues to traverse from the end position of the previous traversal.
 
 The total sunk data volume is controlled by the `epoch` and `sink_size` variables. That is, the total data volume is calculated as follows: Total data volume = `epoch` x `sink_size`.
 
 When using `LossMonitor`, `TimeMonitor` or other `Callback` interfaces, if the `dataset_sink_mode` is set to False, each `step` between the Host side and the Device side interacts once, so each `step` will return a result. If `dataset_sink_mode` is True, because the data is transmitted through the channel on the Device, there is one data interaction between the Host side and the Device side for each `epoch`, so each `epoch` only returns one result.
 
 > The CPU and pynative mode cannot support dataset sink mode currently.
+> If `fault kernel_name=GetNext` or `GetNext... task error` or `outputs = self.get_next()` error info occurs, it may be that some sample processing in the data processing process is too time-consuming, resulting in the failure of the network computing side to get the data for a long time and report an error. At this time, you can set `dataset_sink_mode` to False to verify again, or use `create_dict_iterator()` interface separate cyclic dataset and refer to [Optimizing the Data Processing](https://www.mindspore.cn/docs/programming_guide/en/r1.6/optimize_data_processing.html) optimize data processing to ensure high performance of data processing.
 
 The following is a code example:
 
