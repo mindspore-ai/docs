@@ -495,34 +495,6 @@ In this example, we expand the dimension of the weight to `[iter_num, 1]`. Even 
 
 In addition to the constraints in the conditional variable scenario, the current process statement has constraints in other specific scenarios.
 
-### Side Effect
-
-When a process control statement with a variable condition is used, the network model generated after graph build contains the control flow operator. In this scenario, the forward graph is executed twice. In this case, if the forward graph contains side effect operators such as `Assign` in a training scenario, the computation result of the backward graph is inconsistent with the expected result.
-
-The following table lists the side effect operators that are not supported in the control flow training scenario.
-
-| Side Effect List      |
-| --------------------- |
-| Print                 |
-| Assign                |
-| AssignAdd             |
-| AssignSub             |
-| ScalarSummary         |
-| ImageSummary          |
-| TensorSummary         |
-| HistogramSummary      |
-| ScatterAdd            |
-| ScatterDiv            |
-| ScatterMax            |
-| ScatterMin            |
-| ScatterMul            |
-| ScatterNdAdd          |
-| ScatterNdSub          |
-| ScatterNdUpdate       |
-| ScatterNonAliasingAdd |
-| ScatterSub            |
-| ScatterUpdate         |
-
 ### Dead Cycle
 
 If the value of `cond` in expression `while cond:` is always a scalar `True`, no matter whether there is a `break` or `return` in while body, an unexpected exception may be raised.
