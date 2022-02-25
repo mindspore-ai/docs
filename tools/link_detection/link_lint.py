@@ -1,12 +1,10 @@
 """
 链接检测工具
 """
-import sys
 import os
 import re
 import json
 import threading
-import logging
 import argparse
 import requests
 
@@ -16,12 +14,44 @@ parser = argparse.ArgumentParser(description="link ci")
 parser.add_argument("-c", "--check-list", type=str, default="./check_list.txt",
                     help="List of files that need to be checked for Link validity")
 parser.add_argument("-w", "--white-list", type=str, default="./filter_linklint.txt", help="Whitelisted link list")
+parser.add_argument("-p", "--path", type=str, default=None, help="check path")
+
+white_example = [
+    "https://gluebenchmark.com/tasks",
+    "https://developer.huawei.com/repo/"
+]
+
 args = parser.parse_args()
 
-logging.basicConfig(level=logging.WARNING)
 requests.packages.urllib3.disable_warnings()
-
 lock = threading.Lock()
+
+
+def get_all_files():
+    """
+    获取所有需要检测的文件
+    """
+    extension = ["md", "py", "ipynb", "c", "cc", "js", "rst"]
+    check_list_info1 = get_check_info(info_type="check_list")
+    check_list_info2 = args.path.split(",") if args.path else []
+    check_list_info = check_list_info1 + check_list_info2
+    file_list = []
+    for i in check_list_info:
+        if os.path.isfile(i):
+            file_list.append(i)
+        elif os.path.isdir(i):
+            file_list1 = [j for j in find_file(i, []) if "/." not in j and j.split(".")[-1] in extension]
+            file_list.extend(file_list1)
+        else:
+            print(f"The {i} is not exist")
+    return file_list
+
+def get_all_urls(file_list):
+    """获取所有文件中的链接并去重"""
+    urls_list = []
+    for i in file_list:
+        urls_list += get_file_urls(i)
+    return list(set(urls_list))
 
 def find_file(path, files=None):
     """递归遍历path中的所有文件"""
@@ -35,15 +65,23 @@ def find_file(path, files=None):
             find_file(path+"/"+k, files)
     return files
 
-def get_urls(content):
+def get_file_urls(file, isfile=True):
     """
     获取字符串中的链接
     """
-    re_url = r"(https:\/\/|http:\/\/|ftp:\/\/)([\w\-\.,@?^=%&amp;\n:\!/~\+#]*[\w\-\@?^=%&amp;/~\+#])?"
+    re_url = r"(https:\/\/|http:\/\/|ftp:\/\/)([\w\-\.@?^=%&amp;:\!/~\+#]*[\w\-\@?^=%&amp;/~\+#])?"
     url_list = []
+    if isfile:
+        content = get_content(file)
+        if file.endswith(".py") or file.endswith(".rst"):
+            lines = content.replace("\\", "").split("\n")
+            lines = [i.strip() for i in lines]
+            content = "\n".join(lines).replace("\n\n", " ").replace("\n", "")
+    else:
+        content = file
     urls = re.findall(re_url, content)
     for url in urls:
-        url_list.append(url[0]+url[1].split("\n\n")[0].replace("\n", ""))
+        url_list.append(url[0]+url[1])
     return url_list
 
 def check_url_status(url):
@@ -51,6 +89,8 @@ def check_url_status(url):
     检查链接的状态码
     """
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0"}
+    if url.startswith("https://pki.consumer.huawei.com/ca/"):
+        return 200
     try:
         res = requests.get(url, stream=True, headers=headers, timeout=5, verify=False)
         status = res.status_code
@@ -96,13 +136,13 @@ def update_url_status_to_json(url):
     update_json(data, "url_status.json")
     lock.release()
 
-def run_check(file, white_urls):
+def run_check(all_files):
     """
     检测文件中的urls链接
     """
-    data = get_content(file)
-    file_urls = get_urls(data)
-    urls = set(file_urls) - set(white_urls)
+    all_urls = get_all_urls(all_files)
+    white_urls = get_check_info(info_type="white_list") + white_example
+    urls = set(all_urls) - set(white_urls)
     pool = []
     for url in urls:
         k = threading.Thread(target=update_url_status_to_json, args=(url,))
@@ -111,9 +151,57 @@ def run_check(file, white_urls):
     for j in pool:
         j.join()
 
-    generate_info(file, white_urls)
-    if os.path.exists("url_status.json"):
-        os.remove("url_status.json")
+def location_error_line(file, url):
+    """
+    定位问题链接在文件中的位置
+    """
+    msg = []
+    try:
+        with open(file, "r", encoding="utf-8") as f:
+            infos = f.readlines()
+    except Exception:
+        with open(file, "r", encoding="GBK") as f:
+            infos = f.readlines()
+
+    if file.endswith(".py") or file.endswith(".rst"):
+        contents = get_content(file)
+        if url in contents:
+            for line_num, line in enumerate(infos, 1):
+                line_urls = get_file_urls(line, isfile=False)
+                if url in line_urls:
+                    msg.append("{}: line_{}: Error link: {}".format(file, line_num, url))
+        else:
+            left = contents.replace("\n", "").replace("\\", "").replace(" ", "").split(url)[0]
+            for line_num, line in enumerate(infos, 1):
+                if line.replace("\n", "").replace("\\", "").replace(" ", "") not in left:
+                    msg.append("{}: line_{}: Link format error: {}".format(file, line_num, url))
+                    break
+    else:
+        for line_num, line in enumerate(infos, 1):
+            line_urls = get_file_urls(line, isfile=False)
+            if url in line_urls:
+                msg.append("{}: line_{}: Error link: {}".format(file, line_num, url))
+    return msg
+
+def generator_report(all_files):
+    """生成报告"""
+    msg_list = []
+    white_urls = get_check_info(info_type="white_list") + white_example
+    with open("url_status.json", "r") as f:
+        url_status = json.load(f)
+    for file_name in all_files:
+        urls = get_file_urls(file_name)
+        urls = list(set(urls))
+        for u in urls:
+            if u not in white_urls:
+                if url_status[u] == 404:
+                    msg_list.extend(location_error_line(file_name, u))
+
+    for msg in msg_list:
+        if "gitee.com" in msg:
+            print(f"WARRING:{msg}")
+        else:
+            print(f"ERROR:{msg}")
 
 def get_check_info(info_type="check_list"):
     """获取需要检测的信息"""
@@ -133,49 +221,9 @@ def get_check_info(info_type="check_list"):
         infos_list = []
     return infos_list
 
-def generate_info(file_1, white_urls_1):
-    """
-    输出404链接的信息
-    """
-    if os.path.exists("url_status.json"):
-        with open("url_status.json", "r") as f:
-            url_status = json.load(f)
-    else:
-        url_status = {"https://www.mindspore.cn": 200}
-    try:
-        with open(file_1, "r", encoding="utf-8") as f:
-            lines = f.readlines()
-    except Exception:
-        with open(file_1, "r", encoding="GBK") as f:
-            lines = f.readlines()
-    for line_num, line_content in enumerate(lines, 1):
-        for i in get_urls(line_content):
-            if i in white_urls_1:
-                continue
-            try:
-                if url_status[i] == 404:
-                    msg = "{}:line_{}:{}: Error link in the line! {}".format(file_1, line_num, url_status[i], i)
-                    if "gitee.com" in i:
-                        logging.warning(msg)
-                    else:
-                        logging.error(msg)
-            except Exception:
-                pass
-
 if __name__ == "__main__":
-    white_urls_info = get_check_info(info_type="white_list")
-    check_list_info = get_check_info(info_type="check_list")
-    files1 = sys.argv[1:]
-    files2 = check_list_info
-    files_list = files1 + files2
-    filter_words = ["-c", "-w", "--check-list", "--white-list", args.check_list, args.white_list]
-    extension = ["md", "py", "rst", "ipynb", "js", "html", "c", "cc", "txt"]
-    files_list = [i for i in files_list if i not in filter_words]
-
-    for check_path_ in files_list:
-        if os.path.isfile(check_path_) and check_path_.split(".")[-1] in extension:
-            run_check(check_path_, white_urls_info)
-        elif os.path.isdir(check_path_):
-            check_f_ = [file for file in find_file(check_path_, files=[]) if file.split(".")[-1] in extension]
-            for one_f in check_f_:
-                run_check(one_f, white_urls_info)
+    all_file = get_all_files()
+    run_check(all_file)
+    if os.path.exists("url_status.json"):
+        generator_report(all_file)
+        os.remove("url_status.json")
