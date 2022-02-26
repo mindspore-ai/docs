@@ -79,7 +79,7 @@ optimizer = nn.SGD(params=net.trainable_params(), learning_rate=0.01)
           success = optimizer(grads)
     ```
 
-PyTorch：PyTorch为`Tensor`建立了`grad`属性和`backward`方法，`tensor.grad`是通过`tensor.backward`方法（本质是`PyTorch.autograd.backward`）计算的，且在计算中进行梯度值累加，因此一般在调用`tensor.backward`方法前，需要手动将`grad`属性清零。MindSpore没有为`Tensor`和`grad`建立直接联系，在使用时不需要手动清零。
+PyTorch：PyTorch为`Tensor`建立了`grad`属性和`backward`方法，`tensor.grad`是通过`tensor.backward`方法（本质是`torch.autograd.backward`）计算的，且在计算中进行梯度值累加，因此一般在调用`tensor.backward`方法前，需要手动将`grad`属性清零。MindSpore没有为`Tensor`和`grad`建立直接联系，在使用时不需要手动清零。
 
 在下面的代码中，初始化了一个优化器实例，每次循环调用`zero_grad`清零梯度，`backward`更新梯度，`step`更新网络参数，返回损失值。
 
@@ -223,7 +223,7 @@ MindSpore和PyTorch的优化器都需要传入网络中需要被训练的参数�
 
 调整策略映射表
 
-| mindspore.nn.dynamic_lr | mindspore.nn.learning_rate_schedule | PyTorch.optim.lr_scheduler |
+| mindspore.nn.dynamic_lr | mindspore.nn.learning_rate_schedule | torch.optim.lr_scheduler |
 |:--|:--|:--|
 | `piecewise_constant_lr`：分段不变 | / |  `StepLR`: 每隔step_size个epoch，学习率乘gamma；`MultiStepLR`: epoch为milestones的时候学习率乘️gamma
 |`exponential_decay_lr`：指数衰减| `ExponentialDecayLR`：指数衰减 | `ExponentialLR`: 指数衰减，lr = lr * (学习率乘gamma^epoch)
@@ -291,9 +291,9 @@ mindspore中没有直接可以按照组别获取对应学习率的功能，但�
 
 #### 获取优化器的状态
 
-`PyTorch.optimizer.param_groups`：获取优化器相关配置参数的状态，返回数据格式为字典的列表，key为参数名，value为参数值。以SGD为例，字典的key为key为'params'、 'lr'、'momentum'、'dampening'、'weight_decay'、 'nesterov'等。
+`torch.optimizer.param_groups`：获取优化器相关配置参数的状态，返回数据格式为字典的列表，key为参数名，value为参数值。以SGD为例，字典的key为key为'params'、 'lr'、'momentum'、'dampening'、'weight_decay'、 'nesterov'等。
 
-`PyTorch.optimizer.state_dict`：获取optimizer的状态，返回一个key为“state”、“param_groups”，value为对应数值的字典。
+`torch.optimizer.state_dict`：获取optimizer的状态，返回一个key为“state”、“param_groups”，value为对应数值的字典。
 
 MindSpore暂无对应功能。
 
@@ -347,8 +347,8 @@ MindSpore和PyTorch的API对应关系和差异可以参考[API映射](https://ww
 
 ```python
 # PyTorch
-PyTorch.optim.ASGD
-PyTorch.optim.LBFGS
+torch.optim.ASGD
+torch.optim.LBFGS
 ```
 
 ```python

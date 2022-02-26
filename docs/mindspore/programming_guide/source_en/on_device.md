@@ -190,4 +190,6 @@ When `batch_size` is 32, the size of the dataset is 1875. When `sink_size` is se
 
 `dataset_sink_mode` is True, so every `epoch` returns a result.
 
+`DatasetHelper` is a class to process the dataset and provide information of the dataset. In sink mode, `mindspore.connect_network_with_dataset` function is used to connect the current training network or evaluate network `network` and `DatasetHelper`, this function wraps the input `network` with `GetNext`  so that the data can be fetched automatically from the data channel with the corresponding name `queue_name` on the device side during forward computation, and pass the data to the input `network`.  In the no-sink mode, the data set is fetched at host side by iterating through the dataset.
+
 > When `dataset_sink_mode` is set to False, the `sink_size` parameter is invalid.
