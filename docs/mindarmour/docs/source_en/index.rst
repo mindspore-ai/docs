@@ -16,7 +16,7 @@ Typical Application Scenarios
 
 2. `Privacy Risk Assessment <https://www.mindspore.cn/mindarmour/docs/en/master/test_model_security_membership_inference.html>`_
 
-   Use algorithms such as membership inference attack and model inversion attack to assess the privacy risk for models.
+   Uses algorithms such as membership inference attack and model inversion attack to assess the privacy risk for models.
 
 3. `Privacy Protection <https://www.mindspore.cn/mindarmour/docs/en/master/protect_user_privacy_with_differential_privacy.html>`_
 
@@ -28,7 +28,7 @@ Typical Application Scenarios
 
 5. `Model Encryption <https://www.mindspore.cn/mindarmour/docs/en/master/model_encrypt_protection.html>`_
 
-   Use the symmetric encryption algorithm to encrypt the parameter files or inference models to protect the model files. Directly loads the ciphertext model to implement inference or incremental training when using the algorithm.
+   Uses the symmetric encryption algorithm to encrypt the parameter files or inference models to protect the model files. Directly loads the ciphertext model to implement inference or incremental training when using the algorithm.
 
 .. toctree::
    :glob:
