@@ -23,7 +23,7 @@ This document describes how to quickly install MindSpore by Conda in a Linux sys
 
     ```bash
     wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-conda.sh
-    # install Python 3.7 and MindSpore 1.6.0 by default
+    # install Python 3.7 and the latest MindSpore by default
     bash ./ubuntu-cpu-conda.sh
     # to specify Python and MindSpore version, e.g. Python 3.9 and MindSpore 1.5.0
     # PYTHON_VERSION=3.9 MINDSPORE_VERSION=1.5.0 bash ./ubuntu-cpu-conda.sh
@@ -32,7 +32,7 @@ This document describes how to quickly install MindSpore by Conda in a Linux sys
     The script will:
 
     - Set the source list to huaweicloud source.
-    - Install the compilation dependencies required by MindSpore, such as GCC, gmp.
+    - Install the dependencies required by MindSpore, such as GCC, gmp.
     - Install Conda and create a virtual environment for MindSpore.
     - Install MindSpore CPU by Conda.
 
@@ -94,10 +94,10 @@ conda activate mindspore_py39
 
 ## Installing MindSpore
 
-Ensure that you are in the Conda virtual environment and run the following command to install MindSpore 1.6.0. To install other versions, please refer to [Version List](https://www.mindspore.cn/versions) and specify the version after `mindspore-cpu=`.
+Ensure that you are in the Conda virtual environment and run the following command to install the latest MindSpore. To install other versions, please refer to [Version List](https://www.mindspore.cn/versions) and specify the version after `mindspore-cpu=`.
 
 ```bash
-conda install mindspore-cpu=1.6.0 -c mindspore -c conda-forge
+conda install mindspore-cpu -c mindspore -c conda-forge
 ```
 
 When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).

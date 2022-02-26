@@ -248,11 +248,10 @@ git clone https://gitee.com/mindspore/mindspore.git
 
 ## 编译MindSpore
 
-进入MindSpore根目录并检出到想要编译的版本，最后执行编译脚本。
+进入MindSpore根目录，然后执行编译脚本。
 
 ```bash
 cd mindspore
-git checkout v1.6.0
 bash build.sh -e gpu -S on
 ```
 

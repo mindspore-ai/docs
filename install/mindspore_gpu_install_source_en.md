@@ -246,11 +246,10 @@ git clone https://gitee.com/mindspore/mindspore.git
 
 ## Compiling MindSpore
 
-Go to the root directory of MindSpore and check out the version you want to compile, then execute the compile script.
+Go to the root directory of MindSpore, then execute the compile script.
 
 ```bash
 cd mindspore
-git checkout v1.6.0
 bash build.sh -e gpu -S on
 ```
 
