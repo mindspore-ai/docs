@@ -3,74 +3,240 @@
 <!-- TOC -->
 
 - [Installing MindSpore in GPU by Source Code](#installing-mindspore-in-gpu-by-source-code)
-    - [System Environment Information Confirmation](#system-environment-information-confirmation)
+    - [Environment Preparation](#environment-preparation)
     - [Downloading Source Code from Code Repository](#downloading-source-code-from-code-repository)
     - [Compiling MindSpore](#compiling-mindspore)
     - [Installing MindSpore](#installing-mindspore)
     - [Installation Verification](#installation-verification)
+    - [Version Update](#version-update)
 
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_gpu_install_source_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
-This document describes how to quickly install MindSpore by source code in a Linux system with a GPU environment.
+This document describes how to quickly install MindSpore by source code in a Linux system with a GPU environment. The following takes Ubuntu 18.04 as an example to illustrate the steps to compile and install MindSpore.
 
-## System Environment Information Confirmation
+- If you want to configure an environment that can compile MindSpore on a fresh Ubuntu 18.04 with a GPU environment, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-source.sh) for one-click configuration. The automatic installation script will install the dependencies required to compile MindSpore.
 
-- Ensure that the 64-bit operating system is installed, where Ubuntu 18.04 is verified.
-
-- Ensure that [GCC 7.3.0](https://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) is installed.
-
-- Ensure that [gmp 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
-
-- Ensure that [llvm 12.0.1](https://github.com/llvm/llvm-project/archive/refs/tags/llvmorg-12.0.1.tar.gz) is installed. (optional, required for graph kernel fusion for CPU backend)
-
-- Ensure that Python 3.7.5 or 3.9.0 is installed. If not installed, download and install Python from:
-
-    - Python 3.7.5 (64-bit): [Python official website](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) or [HUAWEI CLOUD](https://mirrors.huaweicloud.com/python/3.7.5/Python-3.7.5.tgz).
-    - Python 3.9.0 (64-bit): [Python official website](https://www.python.org/ftp/python/3.9.0/Python-3.9.0.tgz) or [HUAWEI CLOUD](https://mirrors.huaweicloud.com/python/3.9.0/Python-3.9.0.tgz).
-
-- Ensure that [CMake 3.18.3 or later](https://cmake.org/download/) is installed.
-    - After installing, add the path of `cmake` to the environment variable PATH.
-
-- Ensure that [patch 2.5 or later](https://ftp.gnu.org/gnu/patch/) is installed.
-    - After installing, add the path of `patch` to the environment variable PATH.
-
-- Ensure that [Autoconf 2.69 or later](https://www.gnu.org/software/autoconf) is installed. (Default versions of these tools built in their systems are supported.)
-
-- Ensure that [Libtool 2.4.6-29.fc30 or later](https://www.gnu.org/software/libtool) is installed. (Default versions of these tools built in their systems are supported.)
-
-- Ensure that [Automake 1.15.1 or later](https://www.gnu.org/software/automake) is installed.(Default versions of these tools built in their systems are supported.)
-
-- Ensure that [Flex 2.5.35 or later](https://github.com/westes/flex/) is installed.
-
-- Ensure that [wheel 0.32.0 or later](https://pypi.org/project/wheel/) is installed.
-
-- Ensure that [tclsh](https://www.tcl.tk/software/tcltk/) is installed.
-
-- Ensure that [CUDA 10.1](https://developer.nvidia.com/cuda-10.1-download-archive-base) with [cuDNN 7.6.X](https://developer.nvidia.com/rdp/cudnn-archive) or [CUDA 11.1](https://developer.nvidia.com/cuda-11.1.0-download-archive) with [cuDNN 8.0.X](https://developer.nvidia.com/rdp/cudnn-archive) is installed as default configuration.
-    - If CUDA is installed in a non-default path, after installing CUDA, environment variable `PATH`(e.g. `export PATH=/usr/local/cuda-${version}/bin:$PATH`) and `LD_LIBRARY_PATH`(e.g. `export LD_LIBRARY_PATH=/usr/local/cuda-${version}/lib64:$LD_LIBRARY_PATH`) need to be set. Please refer to [CUDA installation guide](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#post-installation-actions) for detailed post installation actions.
-
-- Ensure that [OpenMPI 4.0.3](https://www.open-mpi.org/faq/?category=building#easy-build) is installed. (optional, required for single-node/multi-GPU and multi-node/multi-GPU training)
-
-- Ensure that [OpenSSL 1.1.1 or later](https://github.com/openssl/openssl.git) is installed.
-    - Ensure that [OpenSSL](https://github.com/openssl/openssl) is installed and set system variable `export OPENSSL_ROOT_DIR="OpenSSL installation directory"`.
-
-- Ensure that [TensorRT-7.2.2](https://developer.nvidia.com/nvidia-tensorrt-download) is installed. (optional，required for Serving inference)
-
-- Ensure that [NUMA 2.0.11 or later](https://github.com/numactl/numactl) is installed.
-     If not, use the following command to install it:
+    The automatic installation script needs to replace the source list and install dependencies via APT, so it needs root privileges to execute. Use the following commands to get the automatic installation script and execute.
 
     ```bash
-    apt-get install libnuma-dev
+    wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-source.sh
+    # install Python 3.7 and CUDA 10.1 by default
+    sudo bash -i ./ubuntu-gpu-source.sh
+    # to install Python 3.9, CUDA 11.1 and optional dependencies Open MPI
+    # sudo PYTHON_VERSION=3.9 CUDA_VERSION=11.1 OPENMPI=on bash -i ./ubuntu-gpu-source.sh
     ```
 
-- Ensure that the git is installed, otherwise execute the following command to install git:
+    The script will:
+
+    - Set the source list to huaweicloud source.
+    - Install the compilation dependencies required by MindSpore, such as GCC, CMake, etc.
+    - Install Python3 and pip3 via APT and set them as default.
+    - Download and install CUDA and cuDNN.
+    - Install Open MPI if OPENMPI is set to `on`.
+    - Install LLVM if LLVM is set to `on`.
+
+    For more usage, please refer to the description at the head of the script.
+
+- If your system has already installed some dependencies, such as CUDA, Python, GCC, etc., it is recommended to install manually by referring to the following installation steps.
+
+## Environment Preparation
+
+The following table lists the system environment and third-party dependencies required to compile and install MindSpore GPU.
+
+|software|version|description|
+|-|-|-|
+|Ubuntu|18.04|operating system for compiling and running MindSpore|
+|[CUDA](#install-cuda)|10.1 or 11.1|parallel computing architecture for MindSpore GPU|
+|[cuDNN](#install-cudnn)|7.6.x or 8.0.x|deep neural network acceleration library used by MindSpore GPU|
+|[Python](#install-python)|3.7.5 or 3.9.0|Python interface for MindSpore|
+|[wheel](#install-wheel-and-setuptools)|0.32.0 or later|Python packaging tool used by MindSpore|
+|[setuptools](#install-wheel-and-setuptools)|44.0 or later|Python package management tool used by MindSpore|
+|[GCC](#install-gccgitgmptclshpatchnuma)|7.3.0|C++ compiler for compiling MindSpore|
+|[git](#install-gccgitgmptclshpatchnuma)|-|source code management tools used by MindSpore|
+|[CMake](#install-cmake)|3.18.3 or later|build tools for MindSpore|
+|[Autoconf](#install-gccgitautoconflibtoolautomakegmpflextclshpatchnuma)|2.69 or later|build tools for MindSpore|
+|[Libtool](#install-gccgitautoconflibtoolautomakegmpflextclshpatchnuma)|2.4.6-29.fc30 or later|build tools for MindSpore|
+|[Automake](#install-gccgitautoconflibtoolautomakegmpflextclshpatchnuma)|1.15.1 or later|build tools for MindSpore|
+|[gmp](#install-gccgitgmptclshpatchnuma)|6.1.2|multiple precision arithmetic library used by MindSpore|
+|[Flex](#install-gccgitautoconflibtoolautomakegmpflextclshpatchnuma)|2.5.35 or later|lexical analyzer used by MindSpore|
+|[tclsh](#install-gccgitgmptclshpatchnuma)|-|sqlite compilation dependencies for MindSpore|
+|[patch](#install-gccgitgmptclshpatchnuma)|2.5 or later|source code patching tool used by MindSpore|
+|[NUMA](#install-gccgitgmptclshpatchnuma)|2.0.11 or later|non-uniform memory access library used by MindSpore|
+|[Open MPI](#install-open-mpi-optional)|4.0.3|high performance message passing library used by MindSpore (optional, required for single-node/multi-GPU and multi-node/multi-GPU training)|
+|[LLVM](#install-llvm-optional)|12.0.1|compiler framework used by MindSpore (optional, required for graph kernel fusion)|
+|[TensorRT](#install-tensorrt-optional)|7.2.2|high performance deep learning inference SDK used by MindSpore(optional, required for serving inference)|
+
+The following are installation methods of third-party dependencies.
+
+### Install CUDA
+
+MindSpore GPU supports CUDA 10.1 and CUDA 11.1. NVIDIA officially shows a variety of installation methods. For details, please refer to [CUDA download page](https://developer.nvidia.com/cuda-toolkit-archive) and [CUDA installation guide](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html).
+The following only shows instructions for installing by runfile on Linux systems.
+
+Before installing CUDA, you need to execute the following commands to install related dependencies.
+
+```bash
+sudo apt-get install linux-headers-$(uname -r) gcc-7
+```
+
+The minimum required GPU driver version of CUDA 10.1 is 418.39. The minimum required GPU driver version of CUDA 11.1 is 450.80.02. You may execute `nvidia-smi` command to confirm the GPU driver version. If the driver version does not meet the requirements, you should choose to install the driver during the CUDA installation. After installing the driver, you need to reboot your system.
+
+Execute the following command to install CUDA 10.1.
+
+```bash
+wget https://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.243_418.87.00_linux.run
+sudo sh cuda_10.1.243_418.87.00_linux.run
+echo -e "export PATH=/usr/local/cuda-10.1/bin:\$PATH" >> ~/.bashrc
+echo -e "export LD_LIBRARY_PATH=/usr/local/cuda-10.1/lib64:\$LD_LIBRARY_PATH" >> ~/.bashrc
+source ~/.bashrc
+```
+
+Or install CUDA 11.1 with the following command.
+
+```bash
+wget https://developer.download.nvidia.com/compute/cuda/11.1.1/local_installers/cuda_11.1.1_455.32.00_linux.run
+sudo sh cuda_11.1.1_455.32.00_linux.run
+echo -e "export PATH=/usr/local/cuda-11.1/bin:\$PATH" >> ~/.bashrc
+echo -e "export LD_LIBRARY_PATH=/usr/local/cuda-11.1/lib64:\$LD_LIBRARY_PATH" >> ~/.bashrc
+source ~/.bashrc
+```
+
+### Install cuDNN
+
+After completing the installation of CUDA, Log in and download the corresponding cuDNN installation package from [cuDNN page](https://developer.nvidia.com/zh-cn/cudnn). If CUDA 10.1 was previously installed, download cuDNN v7.6.x for CUDA 10.1. If CUDA 11.1 was previously installed, download cuDNN v8.0.x for CUDA 11.1. Note that download the tgz compressed file. Assuming that the downloaded cuDNN package file is named `cudnn.tgz` and the installed CUDA version is 11.1, execute the following command to install cuDNN.
+
+```bash
+tar -zxvf cudnn.tgz
+sudo cp cuda/include/cudnn.h /usr/local/cuda-11.1/include
+sudo cp cuda/lib64/libcudnn* /usr/local/cuda-11.1/lib64
+sudo chmod a+r /usr/local/cuda-11.1/include/cudnn.h /usr/local/cuda-11.1/lib64/libcudnn*
+```
+
+If a different version of CUDA have been installed or the CUDA installation path is different, just replace `/usr/local/cuda-11.1` in the above command with the currently installed CUDA path.
+
+### Install Python
+
+[Python](https://www.python.org/) can be installed in several ways.
+
+- Install Python with Conda.
+
+    Install Miniconda:
 
     ```bash
-    apt-get install git # for linux distributions using apt, e.g. ubuntu
-    yum install git     # for linux distributions using yum, e.g. centos
+    cd /tmp
+    curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py37_4.10.3-Linux-x86_64.sh
+    bash Miniconda3-py37_4.10.3-Linux-x86_64.sh -b
+    cd -
+    . ~/miniconda3/etc/profile.d/conda.sh
+    conda init bash
     ```
+
+    Create a Python 3.7.5 environment:
+
+    ```bash
+    conda create -n mindspore_py37 python=3.7.5 -y
+    conda activate mindspore_py37
+    ```
+
+    Or create a Python 3.9.0 environment:
+
+    ```bash
+    conda create -n mindspore_py39 python=3.9.0 -y
+    conda activate mindspore_py39
+    ```
+
+- Or install Python via APT with the following command.
+
+    ```bash
+    sudo apt-get update
+    sudo apt-get install software-properties-common -y
+    sudo add-apt-repository ppa:deadsnakes/ppa -y
+    sudo apt-get install python3.7 python3.7-dev python3.7-distutils python3-pip -y
+    # set new installed Python as default
+    sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.7 100
+    # install pip
+    python -m pip install pip -i https://repo.huaweicloud.com/repository/pypi/simple
+    sudo update-alternatives --install /usr/bin/pip pip ~/.local/bin/pip3.7 100
+    pip config set global.index-url https://repo.huaweicloud.com/repository/pypi/simple
+    ```
+
+    To install Python 3.9, just replace `3.7` with `3.9` in the command.
+
+You can check the Python version with the following command.
+
+```bash
+python --version
+```
+
+### Install wheel and setuptools
+
+After installing Python, use the following command to install it.
+
+```bash
+pip install wheel
+pip install -U setuptools
+```
+
+### Install GCC/git/Autoconf/Libtool/Automake/gmp/Flex/tclsh/patch/NUMA
+
+You may install GCC, git, Autoconf, Libtool, Automake, gmp, Flex, tclsh, patch, NUMA by the following commands.
+
+```bash
+sudo apt-get install gcc-7 git automake autoconf libtool libgmp-dev tcl patch libnuma-dev flex -y
+```
+
+### Install CMake
+
+You may install [CMake](https://cmake.org/) by the following commands.
+
+```bash
+wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | sudo apt-key add -
+sudo apt-add-repository "deb https://apt.kitware.com/ubuntu/ $(lsb_release -cs) main"
+sudo apt-get install cmake -y
+```
+
+### Install Open MPI (optional)
+
+You may compile and install [Open MPI](https://www.open-mpi.org/) by the following command.
+
+```bash
+curl -O https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.3.tar.gz
+tar xzf openmpi-4.0.3.tar.gz
+cd openmpi-4.0.3
+./configure --prefix=/usr/local/openmpi-4.0.3
+make
+sudo make install
+echo -e "export PATH=/usr/local/openmpi-4.0.3/bin:\$PATH" >> ~/.bashrc
+echo -e "export LD_LIBRARY_PATH=/usr/local/openmpi-4.0.3/lib:\$LD_LIBRARY_PATH" >> ~/.bashrc
+source ~/.bashrc
+cd -
+```
+
+### Install LLVM (optional)
+
+You may install [LLVM](https://llvm.org/) by the following command.
+
+```bash
+wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+sudo add-apt-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-12 main"
+sudo apt-get update
+sudo apt-get install llvm-12-dev -y
+```
+
+### Install TensorRT (optional)
+
+After completing the installation of CUDA and cuDNN, download TensorRT 7.2.2 for CUDA 11.1 from [TensorRT download page](https://developer.nvidia.com/nvidia-tensorrt-7x-download), and note to download installation package in TAR format. Suppose the downloaded file is named `TensorRT-7.2.2.3.Ubuntu-18.04.x86_64-gnu.cuda-11.1.cudnn8.0.tar.gz`. Install TensorRT with the following command.
+
+```bash
+tar xzf TensorRT-7.2.2.3.Ubuntu-18.04.x86_64-gnu.cuda-11.1.cudnn8.0.tar.gz
+cd TensorRT-7.2.2.3
+echo -e "export TENSORRT_HOME=$PWD" >> ~/.bashrc
+echo -e "export LD_LIBRARY_PATH=\$TENSORRT_HOME/lib:\$LD_LIBRARY_PATH" >> ~/.bashrc
+source ~/.bashrc
+cd -
+```
 
 ## Downloading Source Code from Code Repository
 
@@ -80,27 +246,27 @@ git clone https://gitee.com/mindspore/mindspore.git
 
 ## Compiling MindSpore
 
-Run the following command in the root directory of the source code to compile MindSpore:
+Go to the root directory of MindSpore and check out the version you want to compile, then execute the compile script.
 
 ```bash
-bash build.sh -e gpu
+cd mindspore
+git checkout v1.6.0
+bash build.sh -e gpu -S on
 ```
 
 Of which,
 
 - In the `build.sh` script, the default number of compilation threads is 8. If the compiler performance is poor, compilation errors may occur. You can add -j{Number of threads} in to script to reduce the number of threads. For example, `bash build.sh -e ascend -j4`.
+- By default, the dependent source code is downloaded from github. You may set -S option to `on` to download from the corresponding gitee mirror.
+- For more usage of `build.sh`, please refer to the description at the head of the script.
 
 ## Installing MindSpore
 
 ```bash
-pip install output/mindspore_gpu-{version}-{python_version}-linux_x86_64.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install output/mindspore_gpu-*.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-Of which,
-
-- When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
-- `{version}` specifies the MindSpore version number. For example, when installing MindSpore 1.5.0-rc1, set `{version}` to 1.5.0rc1.
-- `{python_version}` spcecifies the python version for which MindSpore is built. If you wish to use Python3.7.5,`{python_version}` should be `cp37-cp37m`. If Python3.9.0 is used, it should be `cp39-cp39`.
+When the network is connected, dependency items are automatically downloaded during MindSpore installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
 
 ## Installation Verification
 
@@ -110,7 +276,7 @@ i:
 python -c "import mindspore;mindspore.run_check()"
 ```
 
-The outputs should be the same as:
+The output should be like:
 
 ```text
 MindSpore version: __version__
@@ -168,5 +334,5 @@ Using the following command if you need to update the MindSpore version.
      After successfully executing the compile script `build.sh` in the root path of the source code, find the whl package in path `output`, use the following command to update your version.
 
     ```bash
-    pip install --upgrade mindspore_gpu-{version}-{python_version}-linux_{arch}.whl
+    pip install --upgrade mindspore_gpu-*.whl
     ```

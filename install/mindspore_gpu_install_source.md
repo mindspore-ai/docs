@@ -3,7 +3,7 @@
 <!-- TOC -->
 
 - [源码编译方式安装MindSpore GPU版本](#源码编译方式安装mindspore-gpu版本)
-    - [确认系统环境信息](#确认系统环境信息)
+    - [环境准备](#环境准备)
     - [从代码仓下载源码](#从代码仓下载源码)
     - [编译MindSpore](#编译mindspore)
     - [安装MindSpore](#安装mindspore)
@@ -14,67 +14,231 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_gpu_install_source.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-本文档介绍如何在GPU环境的Linux系统上，使用源码编译方式快速安装MindSpore。
+本文档介绍如何在GPU环境的Linux系统上，使用源码编译方式快速安装MindSpore。下面以Ubuntu 18.04为例说明MindSpore编译安装步骤。
 
-详细步骤可以参考社区提供的实践——[在Linux上体验源码编译安装MindSpore GPU版本](https://www.mindspore.cn/news/newschildren?id=401)，在此感谢社区成员[飞翔的企鹅](https://gitee.com/zhang_yi2020)的分享。
+- 如果您想在一个全新的带有GPU的Ubuntu 18.04上配置一个可以编译MindSpore的环境，可以使用[自动安装脚本](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-source.sh)进行一键式配置。自动安装脚本会安装编译MindSpore所需的依赖。
 
-## 确认系统环境信息
-
-- 确认安装64位操作系统，其中Ubuntu 18.04是经过验证的。
-
-- 确认安装[GCC 7.3.0版本](https://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz)。
-
-- 确认安装[gmp 6.1.2版本](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz)。
-
-- 确认安装[llvm 12.0.1版本](https://github.com/llvm/llvm-project/archive/refs/tags/llvmorg-12.0.1.tar.gz)（可选，CPU后端图算融合需要）。
-
-- 确认安装Python 3.7.5或3.9.0版本。如果未安装或者已安装其他版本的Python，可以选择下载并安装：
-
-    - Python 3.7.5版本 64位，下载地址：[官网](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz)或[华为云](https://mirrors.huaweicloud.com/python/3.7.5/Python-3.7.5.tgz)。
-    - Python 3.9.0版本 64位，下载地址：[官网](https://www.python.org/ftp/python/3.9.0/Python-3.9.0.tgz)或[华为云](https://mirrors.huaweicloud.com/python/3.9.0/Python-3.9.0.tgz)。
-
-- 确认安装[CMake 3.18.3及以上版本](https://cmake.org/download/)。
-    - 安装完成后将CMake添加到系统环境变量。
-
-- 确认安装[patch 2.5及以上版本](https://ftp.gnu.org/gnu/patch/)。
-    - 安装完成后将patch添加到系统环境变量中。
-
-- 确认安装[Autoconf 2.69及以上版本](https://www.gnu.org/software/autoconf)（可使用系统自带版本）。
-
-- 确认安装[Libtool 2.4.6-29.fc30及以上版本](https://www.gnu.org/software/libtool)（可使用系统自带版本）。
-
-- 确认安装[Automake 1.15.1及以上版本](https://www.gnu.org/software/automake)（可使用系统自带版本）。
-
-- 确认安装[Flex 2.5.35及以上版本](https://github.com/westes/flex/)。
-
-- 确认安装[wheel 0.32.0及以上版本](https://pypi.org/project/wheel/)。
-
-- 确认安装[tclsh](https://www.tcl.tk/software/tcltk/)。
-
-- 确认安装[CUDA 10.1](https://developer.nvidia.com/cuda-10.1-download-archive-base)配套[cuDNN 7.6.X版本](https://developer.nvidia.com/rdp/cudnn-archive) 或者 [CUDA 11.1](https://developer.nvidia.com/cuda-11.1.0-download-archive)配套[cuDNN 8.0.X版本](https://developer.nvidia.com/rdp/cudnn-archive)。
-    - CUDA安装后，若CUDA没有安装在默认位置，需要设置环境变量PATH（如：`export PATH=/usr/local/cuda-${version}/bin:$PATH`）和`LD_LIBRARY_PATH`（如：`export LD_LIBRARY_PATH=/usr/local/cuda-${version}/lib64:$LD_LIBRARY_PATH`），详细安装后的设置可参考[CUDA安装手册](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#post-installation-actions)。
-
-- 确认安装[OpenMPI 4.0.3版本](https://www.open-mpi.org/faq/?category=building#easy-build)（可选，单机多卡/多机多卡训练需要）。
-
-- 确认安装[OpenSSL 1.1.1及以上版本](https://github.com/openssl/openssl.git)。
-    - 安装完成后设置环境变量`export OPENSSL_ROOT_DIR=“OpenSSL安装目录”`。
-
-- 确认安装[TensorRT-7.2.2](https://developer.nvidia.com/nvidia-tensorrt-download)（可选，Serving推理需要）。
-
-- 确认安装[NUMA 2.0.11及以上版本](https://github.com/numactl/numactl)。
-    如果未安装，使用如下命令下载安装：
+    自动安装脚本需要更改软件源配置以及通过APT安装依赖，所以需要root权限执行。使用以下命令获取自动安装脚本并执行。
 
     ```bash
-    apt-get install libnuma-dev
+    wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-source.sh
+    # 默认安装Python 3.7，CUDA 10.1
+    sudo bash -i ./ubuntu-gpu-source.sh
+    # 如需指定安装Python 3.9和CUDA 11.1，并且安装可选依赖Open MPI，使用以下方式
+    # sudo PYTHON_VERSION=3.9 CUDA_VERSION=11.1 OPENMPI=on bash -i ./ubuntu-gpu-source.sh
     ```
 
-- 确认安装git工具。
-    如果未安装，使用如下命令下载安装：
+    该脚本会执行以下操作：
+
+    - 更改软件源配置为华为云源。
+    - 安装MindSpore所需的编译依赖，如GCC，CMake等。
+    - 通过APT安装Python3和pip3，并设为默认。
+    - 下载CUDA和cuDNN并安装。
+    - 如果OPENMPI设置为`on`，则安装Open MPI。
+    - 如果LLVM设置为`on`，则安装LLVM。
+
+    更多的用法请参看脚本头部的说明。
+
+- 如果您的系统已经安装了部分依赖，如CUDA，Python，GCC等，则推荐参照下面的安装步骤手动安装。
+
+## 环境准备
+
+下表列出了编译安装MindSpore GPU所需的系统环境和第三方依赖。
+
+|软件名称|版本|作用|
+|-|-|-|
+|Ubuntu|18.04|编译和运行MindSpore的操作系统|
+|[CUDA](#安装cuda)|10.1或11.1|MindSpore GPU使用的并行计算架构|
+|[cuDNN](#安装cudnn)|7.6.x或8.0.x|MindSpore GPU使用的深度神经网络加速库|
+|[Python](#安装python)|3.7.5或3.9.0|MindSpore的使用依赖Python环境|
+|[wheel](#安装wheel和setuptools)|0.32.0及以上|MindSpore使用的Python打包工具|
+|[setuptools](#安装wheel和setuptools)|44.0及以上|MindSpore使用的Python包管理工具|
+|[GCC](#安装gccgitautoconflibtoolautomakegmpflextclshpatchnuma)|7.3.0|用于编译MindSpore的C++编译器|
+|[git](#安装gccgitautoconflibtoolautomakegmpflextclshpatchnuma)|-|MindSpore使用的源代码管理工具|
+|[CMake](#安装cmake)|3.18.3及以上|编译构建MindSpore的工具|
+|[Autoconf](#安装gccgitautoconflibtoolautomakegmpflextclshpatchnuma)|2.69及以上版本|编译构建MindSpore的工具|
+|[Libtool](#安装gccgitautoconflibtoolautomakegmpflextclshpatchnuma)|2.4.6-29.fc30及以上版本|编译构建MindSpore的工具|
+|[Automake](#安装gccgitautoconflibtoolautomakegmpflextclshpatchnuma)|1.15.1及以上版本|编译构建MindSpore的工具|
+|[gmp](#安装gccgitautoconflibtoolautomakegmpflextclshpatchnuma)|6.1.2|MindSpore使用的多精度算术库|
+|[Flex](#安装gccgitautoconflibtoolautomakegmpflextclshpatchnuma)|2.5.35及以上版本|MindSpore使用的词法分析器|
+|[tclsh](#安装gccgitautoconflibtoolautomakegmpflextclshpatchnuma)|-|MindSpore sqlite编译依赖|
+|[patch](#安装gccgitautoconflibtoolautomakegmpflextclshpatchnuma)|2.5及以上|MindSpore使用的源代码补丁工具|
+|[NUMA](#安装gccgitautoconflibtoolautomakegmpflextclshpatchnuma)|2.0.11及以上|MindSpore使用的非一致性内存访问库|
+|[Open MPI](#安装open-mpi可选)|4.0.3|MindSpore使用的高性能消息传递库（可选，单机多卡/多机多卡训练需要）|
+|[LLVM](#安装llvm可选)|12.0.1|MindSpore使用的编译器框架（可选，图算融合需要）|
+|[TensorRT](#安装tensorrt可选)|7.2.2|MindSpore使用的高性能深度学习推理SDK（可选，Serving推理需要）|
+
+下面给出第三方依赖的安装方法。
+
+### 安装CUDA
+
+MindSpore GPU支持CUDA 10.1和CUDA 11.1。NVIDIA官方给出了多种安装方式和安装指导，详情可查看[CUDA下载页面](https://developer.nvidia.com/cuda-toolkit-archive)和[CUDA安装指南](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html)。
+下面仅给出Linux系统使用runfile方式安装的指导。
+
+在安装CUDA前需要先安装相关依赖，执行以下命令。
+
+```bash
+sudo apt-get install linux-headers-$(uname -r) gcc-7
+```
+
+CUDA 10.1要求最低显卡驱动版本为418.39；CUDA 11.1要求最低显卡驱动版本为450.80.02。可以执行`nvidia-smi`指令确认显卡驱动版本。如果驱动版本不满足要求，CUDA安装过程中可以选择同时安装驱动，安装驱动后需要重启系统。
+
+安装CUDA 10.1可以使用以下命令。
+
+```bash
+wget https://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.243_418.87.00_linux.run
+sudo sh cuda_10.1.243_418.87.00_linux.run
+echo -e "export PATH=/usr/local/cuda-10.1/bin:\$PATH" >> ~/.bashrc
+echo -e "export LD_LIBRARY_PATH=/usr/local/cuda-10.1/lib64:\$LD_LIBRARY_PATH" >> ~/.bashrc
+source ~/.bashrc
+```
+
+或者使用以下命令安装CUDA 11.1。
+
+```bash
+wget https://developer.download.nvidia.com/compute/cuda/11.1.1/local_installers/cuda_11.1.1_455.32.00_linux.run
+sudo sh cuda_11.1.1_455.32.00_linux.run
+echo -e "export PATH=/usr/local/cuda-11.1/bin:\$PATH" >> ~/.bashrc
+echo -e "export LD_LIBRARY_PATH=/usr/local/cuda-11.1/lib64:\$LD_LIBRARY_PATH" >> ~/.bashrc
+source ~/.bashrc
+```
+
+### 安装cuDNN
+
+完成CUDA的安装后，在[cuDNN页面](https://developer.nvidia.com/zh-cn/cudnn)登录并下载对应的cuDNN安装包。如果之前安装了CUDA 10.1，下载配套CUDA 10.1的cuDNN v7.6.x；如果之前安装了CUDA 11.1，下载配套CUDA 11.1的cuDNN v8.0.x。注意下载后缀名为tgz的压缩包。假设下载的cuDNN包名为`cudnn.tgz`，安装的CUDA版本为11.1，执行以下命令安装cuDNN。
+
+```bash
+tar -zxvf cudnn.tgz
+sudo cp cuda/include/cudnn.h /usr/local/cuda-11.1/include
+sudo cp cuda/lib64/libcudnn* /usr/local/cuda-11.1/lib64
+sudo chmod a+r /usr/local/cuda-11.1/include/cudnn.h /usr/local/cuda-11.1/lib64/libcudnn*
+```
+
+如果之前安装了其他CUDA版本或者CUDA安装路径不同，只需替换上述命令中的`/usr/local/cuda-11.1`为当前安装的CUDA路径。
+
+### 安装Python
+
+[Python](https://www.python.org/)可通过多种方式进行安装。
+
+- 通过Conda安装Python。
+
+    安装Miniconda：
 
     ```bash
-    apt-get install git # for linux distributions using apt, e.g. ubuntu
-    yum install git     # for linux distributions using yum, e.g. centos
+    cd /tmp
+    curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py37_4.10.3-Linux-x86_64.sh
+    bash Miniconda3-py37_4.10.3-Linux-x86_64.sh -b
+    cd -
+    . ~/miniconda3/etc/profile.d/conda.sh
+    conda init bash
     ```
+
+    安装完成后，可以为Conda设置清华源加速下载，参考[此处](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/)。
+
+    创建Python 3.7.5环境：
+
+    ```bash
+    conda create -n mindspore_py37 python=3.7.5 -y
+    conda activate mindspore_py37
+    ```
+
+    或者创建Python 3.9.0环境：
+
+    ```bash
+    conda create -n mindspore_py39 python=3.9.0 -y
+    conda activate mindspore_py39
+    ```
+
+- 通过APT安装Python，命令如下。
+
+    ```bash
+    sudo apt-get update
+    sudo apt-get install software-properties-common -y
+    sudo add-apt-repository ppa:deadsnakes/ppa -y
+    sudo apt-get install python3.7 python3.7-dev python3.7-distutils python3-pip -y
+    # 将新安装的Python设为默认
+    sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.7 100
+    # 安装pip
+    python -m pip install pip -i https://repo.huaweicloud.com/repository/pypi/simple
+    sudo update-alternatives --install /usr/bin/pip pip ~/.local/bin/pip3.7 100
+    pip config set global.index-url https://repo.huaweicloud.com/repository/pypi/simple
+    ```
+
+    若要安装Python 3.9版本，只需将命令中的`3.7`替换为`3.9`。
+
+可以通过以下命令查看Python版本。
+
+```bash
+python --version
+```
+
+### 安装wheel和setuptools
+
+在安装完成Python后，使用以下命令安装。
+
+```bash
+pip install wheel
+pip install -U setuptools
+```
+
+### 安装GCC/git/Autoconf/Libtool/Automake/gmp/Flex/tclsh/patch/NUMA
+
+可以通过以下命令安装GCC，git，Autoconf，Libtool，Automake，gmp，Flex，tclsh，patch，NUMA。
+
+```bash
+sudo apt-get install gcc-7 git automake autoconf libtool libgmp-dev tcl patch libnuma-dev flex -y
+```
+
+### 安装CMake
+
+可以通过以下命令安装[CMake](https://cmake.org/)。
+
+```bash
+wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | sudo apt-key add -
+sudo apt-add-repository "deb https://apt.kitware.com/ubuntu/ $(lsb_release -cs) main"
+sudo apt-get install cmake -y
+```
+
+### 安装Open MPI（可选）
+
+可以通过以下命令编译安装[Open MPI](https://www.open-mpi.org/)。
+
+```bash
+curl -O https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.3.tar.gz
+tar xzf openmpi-4.0.3.tar.gz
+cd openmpi-4.0.3
+./configure --prefix=/usr/local/openmpi-4.0.3
+make
+sudo make install
+echo -e "export PATH=/usr/local/openmpi-4.0.3/bin:\$PATH" >> ~/.bashrc
+echo -e "export LD_LIBRARY_PATH=/usr/local/openmpi-4.0.3/lib:\$LD_LIBRARY_PATH" >> ~/.bashrc
+source ~/.bashrc
+cd -
+```
+
+### 安装LLVM（可选）
+
+可以通过以下命令安装[LLVM](https://llvm.org/)。
+
+```bash
+wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+sudo add-apt-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-12 main"
+sudo apt-get update
+sudo apt-get install llvm-12-dev -y
+```
+
+### 安装TensorRT（可选）
+
+完成CUDA和cuDNN的安装后，在[TensorRT下载页面](https://developer.nvidia.com/nvidia-tensorrt-7x-download)下载配套CUDA 11.1的TensorRT 7.2.2，注意选择下载TAR格式的安装包。假设下载的文件名为`TensorRT-7.2.2.3.Ubuntu-18.04.x86_64-gnu.cuda-11.1.cudnn8.0.tar.gz`。使用以下命令安装TensorRT。
+
+```bash
+tar xzf TensorRT-7.2.2.3.Ubuntu-18.04.x86_64-gnu.cuda-11.1.cudnn8.0.tar.gz
+cd TensorRT-7.2.2.3
+echo -e "export TENSORRT_HOME=$PWD" >> ~/.bashrc
+echo -e "export LD_LIBRARY_PATH=\$TENSORRT_HOME/lib:\$LD_LIBRARY_PATH" >> ~/.bashrc
+source ~/.bashrc
+cd -
+```
 
 ## 从代码仓下载源码
 
@@ -84,27 +248,27 @@ git clone https://gitee.com/mindspore/mindspore.git
 
 ## 编译MindSpore
 
-在源码根目录下执行如下命令。
+进入MindSpore根目录并检出到想要编译的版本，最后执行编译脚本。
 
 ```bash
-bash build.sh -e gpu
+cd mindspore
+git checkout v1.6.0
+bash build.sh -e gpu -S on
 ```
 
 其中：
 
-`build.sh`中默认的编译线程数为8，如果编译机性能较差可能会出现编译错误，可在执行中增加-j{线程数}来减少线程数量。如`bash build.sh -e gpu -j4`。
+- `build.sh`中默认的编译线程数为8，如果编译机性能较差可能会出现编译错误，可在执行中增加-j{线程数}来减少线程数量。如`bash build.sh -e gpu -j4`。
+- 默认从github下载依赖源码，当-S选项设置为`on`时，从对应的gitee镜像下载。
+- 关于`build.sh`更多用法请参看脚本头部的说明。
 
 ## 安装MindSpore
 
 ```bash
-pip install output/mindspore_gpu-{version}-{python_version}-linux_x86_64.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install output/mindspore_gpu-*.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-其中：
-
-- 在联网状态下，安装whl包时会自动下载mindspore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装。运行模型时，需要根据[ModelZoo](https://gitee.com/mindspore/models/tree/master/)中不同模型指定的requirements.txt安装额外依赖，常见依赖可以参考[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)。
-- `{version}`表示MindSpore版本号，例如安装1.5.0-rc1版本MindSpore时，`{version}`应写为1.5.0rc1。
-- `{python_version}`表示用户的Python版本，Python版本为3.7.5时，`{python_version}`应写为`cp37-cp37m`。Python版本为3.9.0时，则写为`cp39-cp39`。
+在联网状态下，安装MindSpore时会自动下载MindSpore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装。运行模型时，需要根据[ModelZoo](https://gitee.com/mindspore/models/tree/master/)中不同模型指定的requirements.txt安装额外依赖，常见依赖可以参考[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)。
 
 ## 验证是否成功安装
 
@@ -172,5 +336,5 @@ print(ops.add(x, y))
     在源码根目录下执行编译脚本`build.sh`成功后，在`output`目录下找到编译生成的whl安装包，然后执行命令进行升级。
 
     ```bash
-    pip install --upgrade mindspore_gpu-{version}-{python_version}-linux_{arch}.whl
+    pip install --upgrade mindspore_gpu-*.whl
     ```
