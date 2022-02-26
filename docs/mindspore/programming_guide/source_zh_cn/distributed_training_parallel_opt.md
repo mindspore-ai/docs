@@ -69,7 +69,12 @@ param2.parallel_optimizer = False
 - `parallel_optimizer_threshold(int)`: 该值表示切分参数时，要求目标参数所占内存的最小值。当目标参数小于该值时，将不会被切分。
 
 ```python
-# 小于24KB的参数不会被切分
+import numpy as np
+from mindspore import Parameter, Tensor, context, dtype
+param = Parameter(Tensor(np.ones((10, 2)), dtype=dtype.float32), name='weight1')
+
+# float32类型占用内存4Bytes:
+# param_size = np.prod(list(param.shape)) * 4 = (10 * 2) * 4 = 80B < 24KB, 不会被切分
 context.set_auto_parallel_context(parallel_optimizer_config={"parallel_optimizer_threshold": 24})
 ```
 
