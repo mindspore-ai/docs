@@ -36,6 +36,7 @@ Typical Application Scenarios
    :caption: Guide
 
    parameterized_quantum_circuit
+   get_gradient_of_PQC_with_mindquantum
    classification_of_iris_by_qnn
    quantum_approximate_optimization_algorithm
    qnn_for_nlp
