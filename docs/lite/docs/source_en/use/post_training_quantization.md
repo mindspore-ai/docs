@@ -218,6 +218,10 @@ To calculate a quantization parameter of an activation value, you need to provid
 
 For image data, currently supports channel pack, normalization, resize, center crop processing. The user can set the corresponding [parameter](https://www.mindspore.cn/lite/docs/en/master/use/post_training_quantization.html#data-preprocessing) according to the preprocessing operation requirements.
 
+Note：
+
+- The calibration dataset must have the same distribution as the training data. The calibration dataset is consistent with the format of the model inputs(e.g. NCHW、NHWC).
+
 The general form of the full quantization conversion command is:
 
 ```bash
