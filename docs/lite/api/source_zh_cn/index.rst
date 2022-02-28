@@ -33,4 +33,6 @@ MindSpore Lite API
    api_java/mscontext
    api_java/mstensor
    api_java/graph
+   api_java/runner_config
+   api_java/model_parallel_runner
    api_java/lite_java_example
