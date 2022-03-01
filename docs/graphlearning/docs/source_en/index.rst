@@ -1,7 +1,7 @@
 MindSpore Graph Learning Documents
 ===================================
 
-MindSpore Graph Learning is an efficient and easy-to-use graph learning framework. Thanks to the MindSpore graph kernel fusion, MindSpore Graph Learning can optimize the build of execution patterns specific to graph models, helping developers shorten the training time. MindSpore Graph Learning also proposes an innovative point-centric programming paradigm, which provides native graph neural network expressions and built-in models covering most application scenarios, enabling developers to easily build graph neural networks.
+MindSpore Graph Learning is an efficient and easy-to-use graph learning framework. Thanks to the MindSpore graph kernel fusion, MindSpore Graph Learning can optimize the build of execution patterns specific to graph models, helping developers shorten the training time. MindSpore Graph Learning also proposes an innovative vertex-centric programming paradigm, which provides native graph neural network expressions and built-in models covering most application scenarios, enabling developers to easily build graph neural networks.
 
 .. image:: ./images/graphlearning_en.png
   :width: 700px
@@ -9,9 +9,9 @@ MindSpore Graph Learning is an efficient and easy-to-use graph learning framewor
 Design Features
 ----------------
 
-1. Point-centric programming paradigm
+1. Vertex-centric programming paradigm
 
-   A graph neural network model transfers and aggregates information on a given graph structure, which cannot be intuitively expressed through entire graph computing. MindSpore Graph Learning provides a point-centric programming paradigm that better complies with the graph learning algorithm logic and Python language style. It can directly translate formulas into code, reducing the gap between algorithm design and implementation.
+   A graph neural network model transfers and aggregates information on a given graph structure, which cannot be intuitively expressed through entire graph computing. MindSpore Graph Learning provides a vertex-centric programming paradigm that better complies with the graph learning algorithm logic and Python language style. It can directly translate formulas into code, reducing the gap between algorithm design and implementation.
 
 2. Accelerated graph models
 
@@ -29,10 +29,6 @@ Typical MindSpore Graph Learning Application Scenarios
 
    Entire graph training requires that the graph nodes and edge features of the user be stored in the GPU. The GCN is a type of graph neural network that uses convolution operations.
 
-2. Graph isomorphism network (GIN) for graph sampling training
-
-   If the input graph is too large, random batch training can be used. During each random batch training, the graph is sampled so as to train the graph in batches. The GIN is used as an example.
-
 .. toctree::
    :maxdepth: 1
    :caption: Deployment
@@ -44,7 +40,6 @@ Typical MindSpore Graph Learning Application Scenarios
    :caption: Guide
 
    full_training_of_gcn
-   random_sampling_training_of_gin
 
 .. toctree::
    :maxdepth: 1

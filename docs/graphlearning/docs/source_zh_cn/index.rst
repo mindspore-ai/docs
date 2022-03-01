@@ -29,10 +29,6 @@ MindSpore Graph Learning初始版本包含以点为中心的编程范式，并�
 
    整图训练需要用户的图节点和边特征都能存入GPU，图卷积神经网络(GCN)是采用卷积操作的一类图神经网络。
 
-2. 图采样训练GIN网络
-
-   当输入的图过大，可以采用随机批次训练。随机批次训练会每次在图中进行采样，将图分批次进行训练。这里以GIN网络为例。
-
 .. toctree::
    :maxdepth: 1
    :caption: 安装部署
@@ -44,7 +40,6 @@ MindSpore Graph Learning初始版本包含以点为中心的编程范式，并�
    :caption: 使用指南
 
    full_training_of_GCN
-   random_sampling_training_of_GIN
 
 .. toctree::
    :maxdepth: 1
