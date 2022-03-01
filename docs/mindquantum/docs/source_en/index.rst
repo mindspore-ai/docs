@@ -41,6 +41,7 @@ Typical Application Scenarios
    quantum_approximate_optimization_algorithm
    qnn_for_nlp
    vqe_for_quantum_chemistry
+   quantum_phase_estimation
    shor_algorithm
 
 .. toctree::
