@@ -168,4 +168,4 @@ It can be seen that the estimated phase obtained is approximately equal to $\var
 
 ## Reference
 
-[1] Michael A. Nielsen and Isaac L. Chuang. [Quantum computation and quantum information](www.cambridge.org/9781107002173)
+[1] Michael A. Nielsen and Isaac L. Chuang. [Quantum computation and quantum information](https://www.cambridge.org/9781107002173)
