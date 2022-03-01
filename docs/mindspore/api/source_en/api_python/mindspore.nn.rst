@@ -235,6 +235,8 @@ Optimizer Functions
     mindspore.nn.Adam
     mindspore.nn.AdamOffload
     mindspore.nn.AdamWeightDecay
+    mindspore.nn.AdaSumByGradWrapCell
+    mindspore.nn.AdaSumByDeltaWeightWrapCell
     mindspore.nn.ASGD
     mindspore.nn.FTRL
     mindspore.nn.Lamb
