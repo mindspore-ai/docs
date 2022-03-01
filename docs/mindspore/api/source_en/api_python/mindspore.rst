@@ -10,6 +10,8 @@ Tensor
     :template: classtemplate.rst
 
     mindspore.Tensor
+    mindspore.COOTensor
+    mindspore.CSRTensor
     mindspore.RowTensor
     mindspore.SparseTensor
 
