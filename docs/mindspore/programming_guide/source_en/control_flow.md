@@ -495,10 +495,6 @@ In this example, we expand the dimension of the weight to `[iter_num, 1]`. Even 
 
 In addition to the constraints in the conditional variable scenario, the current process statement has constraints in other specific scenarios.
 
-### Dead Cycle
-
-If the value of `cond` in expression `while cond:` is always a scalar `True`, no matter whether there is a `break` or `return` in while body, an unexpected exception may be raised.
-
 ### Dynamic Shape
 
 If dynamic shape exists in network model, process control statements are forbidden to use, otherwise an unexpected expcetion may be raised.
