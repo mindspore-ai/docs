@@ -22,6 +22,16 @@ Hence, if you run into such a problem, please make sure the current environment 
 
 <br/>
 
+<font size=3>**Q: What should I do if an error message `ERROR: mindspore-{VERSION}.whl is not a supported wheel on this platform` is displayed when I compile MindSpore form source and install it using pip on the macOS system?**</font>
+
+A: First, check the name of the installation package under the output directory, which is similar to mindspore-1.6.0-cp37-cp37m-macosx_11_1_x84_64.whl. The "11_1" in the package name means that the SDK version used when compiling is 11.1. If the SDK version used is 11.x, it may be that the SDK version used during compilation is too high and cannot be installed.
+
+Solution 1: You can rename the installation package and then try to install it. For example, rename the above installation package to mindspore-1.6.0-cp37-cp37m-macosx_10_15_x84_64.whl.
+
+Solution 2: Before compiling the source code, set the environment variable `MACOSX_DEPOLYMENT_TARGET` to `10.15` and recompile.
+
+<br/>
+
 <font size=3>**Q: What should I do if an error message `SSL:CERTIFICATE_VERIFY_FATLED` is displayed when I use pip to install MindSpore?**</font>
 
 A: Add the `--trusted-host=ms-release.obs.cn-north-4.myhuaweicloud.com` parameter to the pip installation command and try again.
