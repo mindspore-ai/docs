@@ -22,6 +22,16 @@ A: pip会通过wheel安装包的文件名来判断该安装包是否与当前Pyt
 
 <br/>
 
+<font size=3>**Q: macOS系统源码编译后使用pip安装报错: `ERROR: mindspore-{VERSION}.whl is not a supported wheel on this platform`应该怎么办？**</font>
+
+A: 首先检查output目录下编译得到的安装包名，类似mindspore-1.6.0-cp37-cp37m-macosx_11_1_x84_64.whl。包名中“11_1”的意思是编译时使用的SDK版本是11.1。如果使用的SDK版本为11.x，则可能是因为编译时使用的SDK版本过高导致无法安装。
+
+解决方法一：可以重命名安装包后再尝试安装，例如将上述安装包重命名为mindspore-1.6.0-cp37-cp37m-macosx_10_15_x84_64.whl。
+
+解决方法二：在源码编译前，设置环境变量`MACOSX_DEPOLYMENT_TARGET`为`10.15`并重新编译。
+
+<br/>
+
 <font size=3>**Q: 使用pip安装时报错: `SSL:CERTIFICATE_VERIFY_FATLED`应该怎么办？**</font>
 
 A: 在pip安装命令后添加参数 `--trusted-host=ms-release.obs.cn-north-4.myhuaweicloud.com`重试即可。
