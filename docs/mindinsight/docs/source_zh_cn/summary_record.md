@@ -25,101 +25,32 @@ MindSpore目前支持多种方式将数据记录到summary日志文件中。
 在MindSpore中通过 `Callback` 机制提供支持快速简易地收集一些常见的信息，包括计算图，损失值，学习率，参数权重等信息的 `Callback`, 叫做 `SummaryCollector`。
 
 在编写训练脚本时，仅需要实例化 `SummaryCollector`，并将其应用到 `model.train` 或者 `model.eval` 中，
-即可自动收集一些常见信息。`SummaryCollector` 详细的用法可以参考 `API` 文档中 `mindspore.train.callback.SummaryCollector`。
+即可自动收集一些常见信息。`SummaryCollector` 详细的用法可以参考 `API` 文档中 [mindspore.train.callback.SummaryCollector](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.train.html#mindspore.train.callback.SummaryCollector) 。
 
-样例代码如下：
+下面仅展示使用SummaryCollector自动收集数据的关键代码，[完整样例代码](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/summary_record/summary_1.py) 可以到gitee下载。
 
 ```python
-import mindspore
-import mindspore.nn as nn
-from mindspore import ops
-from mindspore import context, Tensor, Model
-from mindspore.nn import Accuracy
-from mindspore.train.callback import SummaryCollector
 
-
-def conv(in_channels, out_channels, kernel_size, stride=1, padding=0, pad_mode="valid", has_bias=True):
-    return nn.Conv2d(in_channels, out_channels, kernel_size=kernel_size, stride=stride, padding=padding,
-                     has_bias=has_bias, pad_mode=pad_mode)
-
-
-def fc_with_initialize(input_channels, out_channels, has_bias=True):
-    return nn.Dense(input_channels, out_channels, has_bias=has_bias)
-
-
-class AlexNet(nn.Cell):
-    """AlexNet"""
-    def __init__(self, num_classes=10, channel=3, phase='train', include_top=True):
-        super(AlexNet, self).__init__()
-        self.conv1 = conv(channel, 64, 11, stride=4, pad_mode="same", has_bias=True)
-        self.conv2 = conv(64, 128, 5, pad_mode="same", has_bias=True)
-        self.conv3 = conv(128, 192, 3, pad_mode="same", has_bias=True)
-        self.conv4 = conv(192, 256, 3, pad_mode="same", has_bias=True)
-        self.conv5 = conv(256, 256, 3, pad_mode="same", has_bias=True)
-        self.relu = ops.ReLU()
-        self.max_pool2d = nn.MaxPool2d(kernel_size=3, stride=2, pad_mode='valid')
-        self.include_top = include_top
-        if self.include_top:
-            dropout_ratio = 0.65
-            if phase == 'test':
-                dropout_ratio = 1.0
-            self.flatten = nn.Flatten()
-            self.fc1 = fc_with_initialize(6 * 6 * 256, 4096)
-            self.fc2 = fc_with_initialize(4096, 4096)
-            self.fc3 = fc_with_initialize(4096, num_classes)
-            self.dropout = nn.Dropout(dropout_ratio)
-
-    def construct(self, x):
-        """define network"""
-        x = self.conv1(x)
-        x = self.relu(x)
-        x = self.max_pool2d(x)
-        x = self.conv2(x)
-        x = self.relu(x)
-        x = self.max_pool2d(x)
-        x = self.conv3(x)
-        x = self.relu(x)
-        x = self.conv4(x)
-        x = self.relu(x)
-        x = self.conv5(x)
-        x = self.relu(x)
-        x = self.max_pool2d(x)
-        if not self.include_top:
-            return x
-        x = self.flatten(x)
-        x = self.fc1(x)
-        x = self.relu(x)
-        x = self.dropout(x)
-        x = self.fc2(x)
-        x = self.relu(x)
-        x = self.dropout(x)
-        x = self.fc3(x)
-        return x
-
-def train():
-    context.set_context(mode=context.GRAPH_MODE)
-
-    network = AlexNet(num_classes=10)
-    loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
-    lr = Tensor(0.5, mindspore.float32)
-    opt = nn.Momentum(network.trainable_params(), lr, momentum=0.9)
-    model = Model(network, loss, opt, metrics={"Accuracy": Accuracy()})
-
-    # How to create a valid dataset instance,
-    # for detail, see the https://www.mindspore.cn/tutorials/zh-CN/master/quick_start.html document.
-    ds_train = create_dataset('./dataset_path')
+def train(ds_train, ds_eval):
+    ...
+    model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
 
     # Init a SummaryCollector callback instance, and use it in model.train or model.eval
-    summary_collector = SummaryCollector(summary_dir='./summary_dir', collect_freq=1)
+    specified = {"collect_metric": True, "histogram_regular": "^conv1.*|^conv2.*", "collect_graph": True,
+                 "collect_dataset_graph": True}
 
-    # Note: dataset_sink_mode should be set to False, else you should modify collect freq in SummaryCollector
-    model.train(epoch=1, train_dataset=ds_train, callbacks=[summary_collector], dataset_sink_mode=False)
+    summary_collector = SummaryCollector(summary_dir="./summary_dir/summary_01", collect_specified_data=specified,
+                                         collect_freq=1, keep_default_action=False, collect_tensor_freq=200)
 
-    ds_eval = create_dataset('./dataset_path')
-    model.eval(ds_eval, callbacks=[summary_collector])
+    print("============== Starting Training ==============")
+    model.train(epoch=10, train_dataset=ds_train, callbacks=[time_cb, ckpoint_cb, LossMonitor(), summary_collector],
+                dataset_sink_mode=False)
 
-if __name__ == '__main__':
-    train()
+    print("============== Starting Testing ==============")
+    param_dict = load_checkpoint("./models/ckpt/mindinsight_dashboard/checkpoint_alexnet-10_1562.ckpt")
+    load_param_into_net(network, param_dict)
+    acc = model.eval(ds_eval, callbacks=summary_collector, dataset_sink_mode=True)
+    print("============== {} ==============".format(acc))
 
 ```
 
@@ -138,7 +69,7 @@ MindSpore除了提供 `SummaryCollector` 能够自动收集一些常见数据，
 - [ImageSummary](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.ImageSummary.html)：记录图片数据
 - [HistogramSummary](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.HistogramSummary.html)：将张量数据转为直方图数据记录
 
-记录方式如下面的步骤所示。
+记录方式如下面的步骤所示，[完整样例代码](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/summary_record/summary_2.py) 可以到gitee下载。
 
 步骤一：在继承 `nn.Cell` 的衍生类的 `construct` 函数中调用Summary算子来采集图像或标量数据或者其他数据。
 
@@ -149,74 +80,27 @@ MindSpore除了提供 `SummaryCollector` 能够自动收集一些常见数据，
 样例代码如下：
 
 ```python
-import mindspore
-import mindspore.ops as ops
-from mindspore import Tensor, nn
-from mindspore.nn import Optimizer
-
-
-class CrossEntropyLoss(nn.Cell):
-    """Loss function definition."""
-    def __init__(self):
-        super(CrossEntropyLoss, self).__init__()
-        self.cross_entropy = ops.SoftmaxCrossEntropyWithLogits()
-        self.mean = ops.ReduceMean()
-        self.one_hot = ops.OneHot()
-        self.on_value = Tensor(1.0, mindspore.float32)
-        self.off_value = Tensor(0.0, mindspore.float32)
-
-        # Init ScalarSummary
-        self.scalar_summary = ops.ScalarSummary()
-
-    def construct(self, logits, label):
-        label = self.one_hot(label, ops.shape(logits)[1], self.on_value, self.off_value)
-        loss = self.cross_entropy(logits, label)[0]
-        loss = self.mean(loss, (-1,))
-
-        # Record loss
-        self.scalar_summary("loss", loss)
-        return loss
-
-
-class MyOptimizer(Optimizer):
-    """Optimizer definition."""
-    def __init__(self, learning_rate, params, ...):
+class AlexNet(nn.Cell):
+    """
+    Alexnet
+    """
+    def __init__(self, num_classes=10, channel=3):
+        super(AlexNet, self).__init__()
+        self.conv1 = conv(channel, 96, 11, stride=4)
         ...
-        # Initialize ScalarSummary
-        self.scalar_summary = ops.ScalarSummary()
-        self.histogram_summary = ops.HistogramSummary()
-        self.weight_names = [param.name for param in self.parameters]
-
-    def construct(self, grads):
-        ...
-        # Record learning rate here
-        self.scalar_summary("learning_rate", learning_rate)
-
-        # Record weight
-        self.histogram_summary(self.weight_names[0], self.parameters[0])
-        # Record gradient
-        self.histogram_summary(self.weight_names[0] + ".gradient", grads[0])
-
-        ...
-
-class Net(nn.Cell):
-    """Net definition."""
-    def __init__(self):
-        super(Net, self).__init__()
-        ...
-
-        # Init ImageSummary
-        self.image_summary = ops.ImageSummary()
         # Init TensorSummary
         self.tensor_summary = ops.TensorSummary()
+        # Init ImageSummary
+        self.image_summary = ops.ImageSummary()
 
-    def construct(self, data):
+    def construct(self, x):
         # Record image by Summary operator
-        self.image_summary("image", data)
+        self.image_summary("Image", x)
+        x = self.conv1(x)
         # Record tensor by Summary operator
-        self.tensor_summary("tensor", data)
+        self.tensor_summary("Tensor", x)
         ...
-        return out
+        return x
 ```
 
 > 1. 同一种Summary算子中，给数据设置的名字不能重复，否则数据收集和展示都会出现非预期行为。比如使用两个 `ScalarSummary` 算子收集标量数据，给两个标量设置的名字不能是相同的。
@@ -227,24 +111,25 @@ class Net(nn.Cell):
 样例代码如下：
 
 ```python
-from mindspore import Model, nn, context
-from mindspore.train.callback import SummaryCollector
-...
 
-def train():
-    context.set_context(mode=context.GRAPH_MODE)
-    network = Net()
-    loss_fn = CrossEntropyLoss()
-    optim = MyOptimizer(learning_rate=0.01, params=network.trainable_params())
-    model = Model(network, loss_fn=loss_fn, optimizer=optim, metrics={"Accuracy": Accuracy()})
+def train(ds_train, ds_eval):
+    ...
+    # Init a SummaryCollector callback instance, and use it in model.train or model.eval
+    specified = {"collect_metric": True, "histogram_regular": "^conv1.*|^conv2.*", "collect_graph": True,
+                 "collect_dataset_graph": True}
 
-    ds_train = create_dataset('./dataset_path')
+    summary_collector = SummaryCollector(summary_dir="./summary_dir/summary_02", collect_specified_data=specified,
+                                         collect_freq=1, keep_default_action=False, collect_tensor_freq=200)
 
-    summary_collector = SummaryCollector(summary_dir='./summary_dir', collect_freq=1)
-    model.train(epoch=2, train_dataset=ds_train, callbacks=[summary_collector])
+    print("============== Starting Training ==============")
+    model.train(epoch=10, train_dataset=ds_train, callbacks=[time_cb, ckpoint_cb, LossMonitor(), summary_collector],
+                dataset_sink_mode=False)
 
-if __name__ == '__main__':
-    train()
+    print("============== Starting Testing ==============")
+    param_dict = load_checkpoint("./models/ckpt/mindinsight_dashboard/checkpoint_alexnet-10_1562.ckpt")
+    load_param_into_net(network, param_dict)
+    acc = model.eval(ds_eval, callbacks=summary_collector, dataset_sink_mode=True)
+    print("============== {} ==============".format(acc))
 ```
 
 ### 方式三：自定义Callback记录数据
@@ -252,17 +137,13 @@ if __name__ == '__main__':
 MindSpore支持自定义Callback, 并允许在自定义Callback中将数据记录到summary日志文件中，
 并通过可视化页面进行查看。
 
-下面的伪代码则展示在CNN网络中，开发者可以利用带有原始标签和预测标签的网络输出，生成混淆矩阵的图片,
-然后通过 `SummaryRecord` 模块记录到summary日志文件中。
-`SummaryRecord` 详细的用法可以参考 `API` 文档中 `mindspore.train.summary.SummaryRecord`。
+下面的样例代码则展示在自定义Callback函数中通过 `SummaryRecord` 模块记录网络输入到summary日志文件中。
+`SummaryRecord` 详细的用法可以参考 `API` 文档中 [mindspore.train.summary.SummaryRecord](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.train.html#mindspore.train.summary.SummaryRecord) 。
 
-样例代码如下：
+下面展示了自定义Callback记录数据的关键样例代码，[完整样例代码](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/summary_record/summary_3.py) 可以到gitee下载。
 
 ```python
-from mindspore.train.callback import Callback
-from mindspore.train.summary import SummaryRecord
-
-class ConfusionMatrixCallback(Callback):
+class MyCallback(Callback):
     def __init__(self, summary_dir):
         self._summary_dir = summary_dir
 
@@ -280,15 +161,36 @@ class ConfusionMatrixCallback(Callback):
         cb_params = run_context.original_args()
 
         # create a confusion matric image, and record it to summary file
-        confusion_matrix = create_confusion_matrix(cb_params)
-        self.summary_record.add_value('image', 'confusion_matrix', confusion_matrix)
+        self.summary_record.add_value('image', 'image0', cb_params.train_dataset_element[0])
+        self.summary_record.add_value('scalar', 'loss', cb_params.net_outputs)
         self.summary_record.record(cb_params.cur_step_num)
 
-# init you train script
-...
 
-confusion_matrix = ConfusionMatrixCallback(summary_dir='./summary_dir')
-model.train(epoch=2, train_dataset=ds_train, callbacks=[confusion_matrix])
+def train(ds_train, ds_eval):
+    device_target = "GPU"
+    context.set_context(mode=context.GRAPH_MODE, device_target=device_target)
+    network = AlexNet(num_classes=10)
+    net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
+    lr = Tensor(get_lr(0, 0.002, 10, ds_train.get_dataset_size()))
+    net_opt = nn.Momentum(network.trainable_params(), learning_rate=lr, momentum=0.9)
+    time_cb = TimeMonitor(data_size=ds_train.get_dataset_size())
+    config_ck = CheckpointConfig(save_checkpoint_steps=1562, keep_checkpoint_max=10)
+    ckpoint_cb = ModelCheckpoint(directory="./models/ckpt/mindinsight_dashboard", prefix="checkpoint_alexnet", config=config_ck)
+    model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
+
+
+    # Init a specified callback instance, and use it in model.train or model.eval
+    specified_callback = MyCallback(summary_dir='./summary_dir/summary_03')
+
+    print("============== Starting Training ==============")
+    model.train(epoch=10, train_dataset=ds_train, callbacks=[time_cb, ckpoint_cb, LossMonitor(), specified_callback],
+                dataset_sink_mode=False)
+
+    print("============== Starting Testing ==============")
+    param_dict = load_checkpoint("./models/ckpt/mindinsight_dashboard/checkpoint_alexnet-10_1562.ckpt")
+    load_param_into_net(network, param_dict)
+    acc = model.eval(ds_eval, callbacks=specified_callback, dataset_sink_mode=True)
+    print("============== {} ==============".format(acc))
 ```
 
 上面的三种方式，支持记录计算图, 损失值等多种数据。除此以外，MindSpore还支持保存训练中其他阶段的计算图，通过
@@ -300,45 +202,21 @@ model.train(epoch=2, train_dataset=ds_train, callbacks=[confusion_matrix])
 
 如果训练时不是使用MindSpore提供的 `Model` 接口，而是模仿 `Model` 的 `train` 接口自由控制循环的迭代次数。则可以模拟 `SummaryCollector`，使用下面的方式记录summary算子数据。详细的自定义训练循环教程，请参考[构建训练与评估网络](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/train_and_eval.html)。
 
-下面的例子，将演示如何使用summary算子以及 `SummaryRecord` 的 `add_value` 接口在自定义训练循环中记录数据。更多 `SummaryRecord` 的教程，请[参考Python API文档](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.train.html#mindspore.train.summary.SummaryRecord)。需要说明的是，`SummaryRecord`不会自动记录计算图，您需要手动传入继承了`Cell`的网络实例以记录计算图。此外，生成计算图的内容仅包含您在`construct`方法中使用到的代码和函数。
+下面的例子，将演示如何使用summary算子以及 `SummaryRecord` 的 `add_value` 接口在自定义训练循环中记录数据。[完整样例代码](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/summary_record/summary_4.py) 可以到gitee下载。
+更多 `SummaryRecord` 的教程，请[参考Python API文档](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.train.html#mindspore.train.summary.SummaryRecord)。需要说明的是，`SummaryRecord`不会自动记录计算图，您需要手动传入继承了`Cell`的网络实例以记录计算图。此外，生成计算图的内容仅包含您在`construct`方法中使用到的代码和函数。
 
 ```python
-from mindspore import nn
-from mindspore.train.summary import SummaryRecord
-import mindspore.ops as ops
+def train(ds_train):
+    ...
 
-class LeNet5(nn.Cell):
-    def __init__(self, num_class=10):
-        super(LeNet5, self).__init__()
-        self.num_class = num_class
-        self.batch_size = 32
-        self.conv1 = conv(1, 6, 5)
-        ...
-
-        self.image_summary = ops.ImageSummary()
-        self.tensor_summary = ops.TensorSummary()
-
-    def construct(self, x):
-        self.image_summary('x1', x)
-        x = self.conv1(x)
-        self.tensor_summary('after_conv1', x)
-        x = self.relu(x)
-        ...
-        return x
-
-...
-
-def train():
-    epochs = 10
-    net = LeNet5()
     # Note1: An instance of the network should be passed to SummaryRecord if you want to record
     # computational graph.
-    with SummaryRecord('./summary_dir', network=net) as summary_record:
+    with SummaryRecord('./summary_dir/summary_04', network=train_net) as summary_record:
         for epoch in range(epochs):
             step = 1
-            for inputs in dataset_helper:
-                output = net(*inputs)
-                current_step = epoch * len(dataset_helper) + step
+            for inputs in ds_train:
+                output = train_net(*inputs)
+                current_step = epoch * ds_train.get_dataset_size() + step
                 print("step: {0}, losses: {1}".format(current_step, output.asnumpy()))
 
                 # Note2: The output should be a scalar, and use 'add_value' method to record loss.
@@ -347,9 +225,6 @@ def train():
                 summary_record.record(current_step)
 
                 step += 1
-
-if __name__ == '__main__':
-    train()
 
 ```
 
@@ -384,7 +259,7 @@ model.eval(ds_eval, callbacks=[summary_collector])
 
 除了上述使用方式外，使用summary算子时还有一个记录梯度信息的技巧。请注意此技巧需要和上述的某一种使用方式同时使用。
 
-通过继承原有优化器类的方法可以插入summary算子读取梯度信息。样例代码片段如下：
+通过继承原有优化器类的方法可以插入summary算子读取梯度信息。[完整样例代码](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/summary_record/summary_gradients.py) 可以到gitee下载。样例代码片段如下：
 
 ```python
 import mindspore.nn as nn
@@ -401,13 +276,33 @@ class MyOptimizer(nn.Momentum):
 
     def construct(self, grads):
         # Record gradient.
-        self.histogram_summary(self.gradient_names[0], grads[0])
+        l = len(self.gradient_names)
+        for i in range(l):
+            self.histogram_summary(self.gradient_names[i], grads[i])
         return self._original_construct(grads)
 
 ...
 
-# Initialize your model with the newly defined optimizer.
-model = Model(network, loss_fn=loss_fn, optimizer=MyOptimizer(arg1=arg1value))
+def train(ds_train):
+    device_target = "GPU"
+    context.set_context(mode=context.GRAPH_MODE, device_target=device_target)
+    network = AlexNet(num_classes=10)
+    net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
+    lr = Tensor(get_lr(0, 0.002, 10, ds_train.get_dataset_size()))
+    net_opt = MyOptimizer(network.trainable_params(), learning_rate=lr, momentum=0.9)
+    time_cb = TimeMonitor(data_size=ds_train.get_dataset_size())
+    config_ck = CheckpointConfig(save_checkpoint_steps=1562, keep_checkpoint_max=10)
+    ckpoint_cb = ModelCheckpoint(directory="./models/ckpt/mindinsight_dashboard", prefix="checkpoint_alexnet",
+                                 config=config_ck)
+    model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
+
+    # Init a SummaryCollector callback instance, and use it in model.train or model.eval
+    summary_collector = SummaryCollector(summary_dir="./summary_dir/summary_gradients",
+                                         collect_freq=1, keep_default_action=False, collect_tensor_freq=200)
+
+    print("============== Starting Training ==============")
+    model.train(epoch=10, train_dataset=ds_train, callbacks=[time_cb, ckpoint_cb, LossMonitor(), summary_collector],
+                dataset_sink_mode=False)
 ```
 
 ## 运行MindInsight
