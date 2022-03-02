@@ -2756,8 +2756,7 @@ ModelParallelRunner();
 #### Init
 
 ```cpp
-Status Init(const std::string &model_path, const std::shared_ptr<RunnerConfig> &runner_config = nullptr,
-          const Key &dec_key = {}, const std::string &dec_mode = kDecModeAesGcm);
+Status Init(const std::string &model_path, const std::shared_ptr<RunnerConfig> &runner_config = nullptr);
 ```
 
 根据路径读取加载模型，生成一个或者多个模型，并将所有模型编译至可在Device上运行的状态。
@@ -2766,8 +2765,6 @@ Status Init(const std::string &model_path, const std::shared_ptr<RunnerConfig> &
 
     - `model_path`: 模型文件路径。
     - `runner_config`: 一个[**RunnerConfig**](#runnerconfig) 结构体。定义了并发推理模型的配置参数。
-    - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16、24或32。
-    - `dec_mode`: 解密模式，可选有`AES-GCM`、`AES-CBC`。
 
 - 返回值
 
