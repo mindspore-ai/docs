@@ -23,11 +23,11 @@ init()
 # Run net, the same with stand alone training
 ```
 
-For more information, see [context.set_auto_parallel_context(ParallelMode=ParallelMode.DataParallel)](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.context.html#mindspore.context.set_auto_parallel_context).
+For more information, see [context.set_auto_parallel_context(ParallelMode=ParallelMode.DataParallel)](https://mindspore.cn/docs/api/en/master/api_python/mindspore.context.html#mindspore.context.set_auto_parallel_context).
 
 ## Differences
 
 Tensorflow: Data parallel training is performed through tf.distribute.Strategy, and different strategies specify different data initialization, synchronization.
 
-MindSpore：Specify the data parallel mode through the ParallelMode parameter in 'context.set_auto_parallel_context', and specify the gradient synchronization strategy through the gradients_mean parameter.
+MindSpore: Specify the data parallel mode through the ParallelMode parameter in 'context.set_auto_parallel_context', and specify the gradient synchronization strategy through the gradients_mean parameter.
 The rest of the network script is consistent with the single-card network script.

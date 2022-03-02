@@ -35,7 +35,7 @@ For more information, see [mindspore.nn.Momentum](https://mindspore.cn/docs/api/
 
 TensorFlow: Using the same learning rate for all parameters and it is impossible to use different learning rates for different parameter groups.
 
-MindSpore：Using the same learning rate for all parameters and different values for different parameter groups is supported.
+MindSpore: Using the same learning rate for all parameters and different values for different parameter groups is supported.
 
 ## Code Example
 

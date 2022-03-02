@@ -5,7 +5,7 @@
 ## torch.utils.data.Dataset
 
 ```python
-class torch.utils.data.Dataset
+class torch.utils.data.Dataset(*args, **kwds)
 ```
 
 For more information, see  [torch.utils.data.Dataset](https://pytorch.org/docs/1.9.0/data.html?highlight=torch%20utils%20data%20dataset#torch.utils.data.Dataset).

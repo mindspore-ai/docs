@@ -32,14 +32,14 @@ For more information, see [mindspore.nn.CosineDecayLR](https://mindspore.cn/docs
 
 ## Differences
 
-TensorFlow: The formulas are as follows：
+TensorFlow: The formulas are as follows:
 `global_step = min(global_step, decay_steps)
 linear_decay = (decay_steps - global_step) / decay_steps
 cosine_decay = 0.5 \* (1 + cos(pi \* 2 \* num_periods \* global_step / decay_steps))
 decayed = (alpha + linear_decay) \* cosine_decay + beta
 decayed_learning_rate = learning_rate \* decayed`
 
-MindSpore：The calculation logic is different from Tensorflow, the formulas are as follows：
+MindSpore: The calculation logic is different from Tensorflow, the formulas are as follows:
 `current_step = min(global_step, decay_step)
 decayed_learning_rate = min_lr + 0.5 \* (max_lr - min_lr) \*
         (1 + cos(pi \* current_step / decay_steps))`
@@ -61,7 +61,7 @@ global_steps = Tensor(2, mindspore.int32)
 cosine_decay_lr = nn.CosineDecayLR(min_lr, max_lr, decay_steps)
 result = cosine_decay_lr(global_steps)
 print(result)
-# Out：
+# Out:
 # 0.055
 
 

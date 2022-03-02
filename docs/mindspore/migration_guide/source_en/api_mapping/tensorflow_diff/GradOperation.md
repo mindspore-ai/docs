@@ -36,12 +36,12 @@ For more information, see [mindspore.ops.GradOperation](https://mindspore.cn/doc
 
 TensorFlow: Compute the gradient of `ys` with respect to `xs`, and return a list of the same length as `xs`.
 
-MindSpore：Compute the first derivative. When `get_all` is set to False, the first input derivative is computed. When `get_all` is set to True, all input derivatives are computed. When `get_by_list` is set to False, weight derivatives are not computed. When `get_by_list` is set to True, the weight derivative is computed. `sens_param` scales the output value of the network to change the final gradient.
+MindSpore: Compute the first derivative. When `get_all` is set to False, the first input derivative is computed. When `get_all` is set to True, all input derivatives are computed. When `get_by_list` is set to False, weight derivatives are not computed. When `get_by_list` is set to True, the weight derivative is computed. `sens_param` scales the output value of the network to change the final gradient.
 
 ## Code Example
 
 ```python
-# In MindSpore：
+# In MindSpore:
 import numpy as np
 import mindspore.nn as nn
 from mindspore import dtype as mstype
