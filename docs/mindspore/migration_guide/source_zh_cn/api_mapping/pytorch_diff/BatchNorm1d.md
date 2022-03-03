@@ -38,7 +38,7 @@ class mindspore.nn.BatchNorm1d(
 
 PyTorch：用于running_mean和running_var计算的momentum参数的默认值为0.1。
 
-MindSpore：momentum参数的默认值为0.9，与Pytorch的momentum关系为1-momentum，即当Pytorch的momentum值为0.2时，MindSpore的momemtum应为0.8。
+MindSpore：momentum参数的默认值为0.9，与Pytorch的momentum关系为1-momentum，即当Pytorch的momentum值为0.2时，MindSpore的momemtum应为0.8。其中，beta、gamma、moving_mean和moving_variance参数分别对应Pytorch的bias、weight、running_mean和running_var参数。
 
 ## 代码示例
 
