@@ -116,23 +116,23 @@ sudo apt-get install gcc-7 libgmp-dev -y
 
 ## 下载安装MindSpore
 
-参考[版本列表](https://www.mindspore.cn/versions)先进行SHA-256完整性校验，校验一致后根据系统架构及Python版本执行如下命令安装MindSpore 1.6.0。
-
-如需安装其他版本的MindSpore，请参考[版本列表](https://www.mindspore.cn/versions)，获取对应版本的WHL包地址进行安装。
+首先参考[版本列表](https://www.mindspore.cn/versions)选择想要安装的MindSpore版本，并进行SHA-256完整性校验。以1.6.0版本为例，执行以下命令。
 
 ```bash
-# x86_64/Python3.7
-# SHA-256: b4fe66629150c47397722057c32c806cd3eece5e158a93c62cac0bc03b464e3f
-pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.0/MindSpore/cpu/x86_64/mindspore-1.6.0-cp37-cp37m-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
-# x86_64/Python3.9
-# SHA-256: 87151059854e7388c6b5d6d56a7b75087f171efdcd84896c61d0e9088fcebcc0
-pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.0/MindSpore/cpu/x86_64/mindspore-1.6.0-cp39-cp39-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
-# aarch64/Python3.7
-# SHA-256: 5dc6b9abe668d53960773d6e8ac4dc6f7016c15cce5c9480045c74a3e456e40f
-pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.0/MindSpore/cpu/aarch64/mindspore-1.6.0-cp37-cp37m-linux_aarch64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
-# aarch64/Python3.9
-# SHA-256: 4a8f49587b30b6a0413edba85ebbae07600fc84f8a1fa48c42a2359402bfc852
-pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.0/MindSpore/cpu/aarch64/mindspore-1.6.0-cp39-cp39-linux_aarch64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+export MS_VERSION=1.6.0
+```
+
+然后根据系统架构及Python版本执行如下命令安装MindSpore。
+
+```bash
+# x86_64 + Python3.7
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/cpu/x86_64/mindspore-${MS_VERSION/-/}-cp37-cp37m-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+# x86_64 + Python3.9
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/cpu/x86_64/mindspore-${MS_VERSION/-/}-cp39-cp39-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+# aarch64 + Python3.7
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/cpu/aarch64/mindspore-${MS_VERSION/-/}-cp37-cp37m-linux_aarch64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+# aarch64 + Python3.9
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/cpu/aarch64/mindspore-${MS_VERSION/-/}-cp39-cp39-linux_aarch64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 在联网状态下，安装whl包时会自动下载mindspore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装。运行模型时，需要根据[ModelZoo](https://gitee.com/mindspore/models/tree/master/)中不同模型指定的requirements.txt安装额外依赖，常见依赖可以参考[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)。

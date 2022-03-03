@@ -29,7 +29,7 @@ This document describes how to quickly install MindSpore by pip in a Linux syste
     The script will:
 
     - Set the source list to huaweicloud source.
-    - Install the compilation dependencies required by MindSpore, such as GCC, gmp.
+    - Install the dependencies required by MindSpore, such as GCC, gmp.
     - Install Python3 and pip3 via APT and set them as default.
     - Install MindSpore in CPU by pip.
 
@@ -114,23 +114,23 @@ sudo apt-get install gcc-7 libgmp-dev -y
 
 ## Downloading and Installing MindSpore
 
-It is recommended to refer to [Version List](https://www.mindspore.cn/versions/en) to perform SHA-256 integrity verification, and then run the following command to install MindSpore 1.6.0 according to the system architecture and Python version.
-
-If you need to install other versions of MindSpore, please refer to [Version List](https://www.mindspore.cn/versions) to obtain the corresponding WHL package for installation.
+First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Take version 1.6.0 as an example, execute the following commands.
 
 ```bash
-# x86_64/Python3.7
-# SHA-256: b4fe66629150c47397722057c32c806cd3eece5e158a93c62cac0bc03b464e3f
-pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.0/MindSpore/cpu/x86_64/mindspore-1.6.0-cp37-cp37m-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
-# x86_64/Python3.9
-# SHA-256: 87151059854e7388c6b5d6d56a7b75087f171efdcd84896c61d0e9088fcebcc0
-pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.0/MindSpore/cpu/x86_64/mindspore-1.6.0-cp39-cp39-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
-# aarch64/Python3.7
-# SHA-256: 5dc6b9abe668d53960773d6e8ac4dc6f7016c15cce5c9480045c74a3e456e40f
-pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.0/MindSpore/cpu/aarch64/mindspore-1.6.0-cp37-cp37m-linux_aarch64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
-# aarch64/Python3.9
-# SHA-256: 4a8f49587b30b6a0413edba85ebbae07600fc84f8a1fa48c42a2359402bfc852
-pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.0/MindSpore/cpu/aarch64/mindspore-1.6.0-cp39-cp39-linux_aarch64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+export MS_VERSION=1.6.0
+```
+
+Then run the following commands to install MindSpore according to the system architecture and Python version.
+
+```bash
+# x86_64 + Python3.7
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/cpu/x86_64/mindspore-${MS_VERSION/-/}-cp37-cp37m-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+# x86_64 + Python3.9
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/cpu/x86_64/mindspore-${MS_VERSION/-/}-cp39-cp39-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+# aarch64 + Python3.7
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/cpu/aarch64/mindspore-${MS_VERSION/-/}-cp37-cp37m-linux_aarch64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+# aarch64 + Python3.9
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/cpu/aarch64/mindspore-${MS_VERSION/-/}-cp39-cp39-linux_aarch64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
