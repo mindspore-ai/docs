@@ -38,7 +38,7 @@ For more information, see [mindspore.nn.BatchNorm1d](https://mindspore.cn/docs/a
 
 PyTorch：The default value of the momentum parameter used for running_mean and running_var calculation is 0.1.
 
-MindSpore：The default value of the momentum parameter is 0.9, and the momentum relationship with Pytorch is 1-momentum, that is, when Pytorch’s momentum value is 0.2, MindSpore’s momemtum should be 0.8.
+MindSpore：The default value of the momentum parameter is 0.9, and the momentum relationship with Pytorch is 1-momentum, that is, when Pytorch’s momentum value is 0.2, MindSpore’s momemtum should be 0.8. Parameter beta, gamma, moving_mean and moving_variance correspond to Pytorch's bias, weight, running_mean and running_var parameters respectively.
 
 ## Code Example
 
