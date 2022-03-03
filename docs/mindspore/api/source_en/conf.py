@@ -132,7 +132,7 @@ try:
                        "    def decorate(func):",
                        "    def decorate(func):\n\n        import functools\n\n        @functools.wraps(func)"),
                        ("mindspore/ops/primitive.py", "fix for `shard`",
-                       "    @_LogActionOnce(logger=logger)\n", "")]
+                       "    @_LogActionOnce(logger=logger)", "    # The decorator has been deleted.")]
 
     base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
     for i in decorator_list:

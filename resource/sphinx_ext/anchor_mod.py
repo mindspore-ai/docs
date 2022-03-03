@@ -8,7 +8,7 @@ short_title_define = '''\
 def short_title(titlename):
     titlename = titlename.lower()
     cn_symbol = "。；，“”（）、？《》"
-    en_symbol = ".,=+*()<>[]{}|/"
+    en_symbol = ".,=+*()<>[]{}|/&"
     spec_symbol = "_:："
     for i in cn_symbol:
         titlename = titlename.replace(i, '')
