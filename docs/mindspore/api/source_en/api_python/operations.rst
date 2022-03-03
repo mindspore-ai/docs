@@ -406,6 +406,7 @@ Custom Operators
     :template: classtemplate.rst
 
     mindspore.ops.Custom
+    mindspore.ops.ms_hybrid
 
 Other Operators
 ^^^^^^^^^^^^^^^
