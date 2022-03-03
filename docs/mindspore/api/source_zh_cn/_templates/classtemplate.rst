@@ -3,10 +3,12 @@
 
 .. currentmodule:: {{ module }}
 
-{% if objname in [] %}
+{% if objname in ["AdaSumByDeltaWeightWrapCell", "AdaSumByGradWrapCell", "DistributedGradReducer"] %}
 {{ fullname | underline }}
 
-.. autofunction:: {{ fullname }}
+.. autoclass:: {{ name }}
+    :exclude-members: infer_value, infer_shape, infer_dtype, construct
+    :members:
 
 {% elif objname[0].istitle() %}
 {{ fullname | underline }}
