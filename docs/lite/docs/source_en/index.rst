@@ -21,6 +21,7 @@ MindSpore Lite Documentation
    :caption: Quick Start
    :hidden:
 
+   quick_start/one_hour_introduction
    quick_start/quick_start_cpp
    quick_start/quick_start_java
    quick_start/quick_start
