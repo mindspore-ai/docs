@@ -14,3 +14,4 @@
    training_process_comparision
    typical_api_comparision
    optim
+   use_third_party_op
