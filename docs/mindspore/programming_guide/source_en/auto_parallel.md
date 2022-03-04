@@ -274,12 +274,23 @@ context.get_auto_parallel_context("pipeline_stages")
 when parallel optimizer is enabled. Currently it supports the key `gradient_accumulation_shard`.
 The configuration will be effective when we use context.set_auto_parallel_context(enable_parallel_optimizer=True). It supports the following keys.
 
-- gradient_accumulation_shard: If true, the accumulation gradient parameters will be sharded across the data parallel devices. This will bring in additional communication(ReduceScatter) at each step when accumulate the gradients, but saves a lot of device memory, thus can make model be trained with larger batch size. This configuration is effective only when the model runs on pipeline training or gradient accumulation with data parallel. The default value is True.
+- `gradient_accumulation_shard(bool)`: If true, the accumulation gradient parameters will be sharded across the data parallel devices. This will bring in additional communication(ReduceScatter) at each step when accumulate the gradients, but saves a lot of device memory, thus can make model be trained with larger batch size. This configuration is effective only when the model runs on pipeline training or gradient accumulation with data parallel. The default value is True.
 
-```python
-from mindspore import context
-context.set_auto_parallel_context(parallel_optimizer_config={"gradient_accumulation_shard": True}, enable_parallel_optimizer=True)
-```
+    ```python
+    from mindspore import context
+    context.set_auto_parallel_context(parallel_optimizer_config={"gradient_accumulation_shard": True}, enable_parallel_optimizer=True)
+    ```
+
+- `parallel_optimizer_threshold(int)`: This is the threshold of parameter size when applying parallel optimizer. Parameters with size smaller than this value will not be sharded in parallel optimizer.
+
+    ```python
+    import numpy as np
+    from mindspore import Parameter, Tensor, context, dtype
+    param = Parameter(Tensor(np.ones((10, 2)), dtype=dtype.float32), name='weight1')
+    # float32 data type usually takes 4Bytes:
+    # param_size = np.prod(list(param.shape)) * 4 = (10 * 2) * 4 = 80B < 24KB, thus this param will not be sharded
+    context.set_auto_parallel_context(parallel_optimizer_config={"parallel_optimizer_threshold": 24})
+    ```
 
 ## Distributed Communication Interface
 
