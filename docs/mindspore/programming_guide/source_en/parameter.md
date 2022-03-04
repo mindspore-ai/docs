@@ -341,7 +341,7 @@ Please note that a special set of operators for floating point overflow state de
 
 ```python
 import numpy as np
-from mindspore.common.tensor import Tensor
+from mindspore import Tensor
 from mindspore import ops, context
 
 context.set_context(device_target="Ascend")
