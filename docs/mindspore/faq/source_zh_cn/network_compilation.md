@@ -197,7 +197,7 @@ class BpropUserDefinedNet(nn.Cell):
 
 ```python
 from mindspore import Tensor, ms_function
-from mindspore.common import dtype as mstype
+from mindspore import dtype as mstype
 import mindspore.context as context
 ZERO = Tensor([0], mstype.int32)
 ONE = Tensor([1], mstype.int32)

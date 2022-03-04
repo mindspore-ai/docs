@@ -46,7 +46,7 @@ from mindquantum.core import Circuit
 from mindquantum.algorithm.nisq.chem import generate_uccsd
 import mindspore as ms
 import mindspore.context as context
-from mindspore.common.parameter import Parameter
+from mindspore import Parameter
 from mindspore.common.initializer import initializer
 
 context.set_context(mode=context.PYNATIVE_MODE, device_target="CPU")

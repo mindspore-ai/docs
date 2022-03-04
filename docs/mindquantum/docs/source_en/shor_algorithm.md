@@ -50,7 +50,7 @@ Taking $N=15$ as an example, the steps of Shor's algorithm is introduced as foll
 
 The quantum circuit of Shor's algorithm is shown as follows,
 
-![shor's algorithm circuit](https://gitee.com/mindspore/docs/raw/r1.6/docs/mindquantum/docs/source_zh_cn/images/shor_algorithm_circuit.png)
+![shor's algorithm circuit](https://gitee.com/mindspore/docs/raw/master/docs/mindquantum/docs/source_zh_cn/images/shor_algorithm_circuit.png)
 
 ## Implement Shor's algorithm using MindQuantum
 

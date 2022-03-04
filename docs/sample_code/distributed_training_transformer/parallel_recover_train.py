@@ -23,7 +23,7 @@ from mindspore.context import ParallelMode
 from mindspore.nn import PipelineCell
 from mindspore.train.callback import TimeMonitor, LossMonitor, CheckpointConfig, ModelCheckpoint
 from mindspore.nn import AdamWeightDecay
-from mindspore.train.serialization import load_checkpoint, load_param_into_net
+from mindspore import load_checkpoint, load_param_into_net
 from mindspore import context
 from dataset import ToyDataset, Tokenzier
 from model import Net
