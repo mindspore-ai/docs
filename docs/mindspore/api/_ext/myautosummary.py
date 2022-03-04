@@ -253,7 +253,10 @@ class MsCnAutoSummary(Autosummary):
         for i, piece in enumerate(doc):
             if piece.startswith(self.third_name_en):
                 try:
-                    third_column = doc[i+1][4:]
+                    if "eprecated" in doc[i+1][4:]:
+                        third_column = "弃用"
+                    else:
+                        third_column = doc[i+1][4:]
                 except IndexError:
                     third_column = ''
         return third_column
