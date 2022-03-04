@@ -31,8 +31,7 @@ MindSpore：构造用于单词分割的词汇表，输入可以是数据集对�
 ```python
 import mindspore.dataset as ds
 from mindspore.dataset import text
-from mindspore.dataset.text import SentencePieceModel, SPieceTokenizerOutType
-from mindspore.dataset.text.utils import to_str
+from mindspore.dataset.text import SentencePieceModel, SPieceTokenizerOutType, to_str
 from torchtext.data.functional import load_sp_model
 
 # In MindSpore, return tokenizer from vocab object.

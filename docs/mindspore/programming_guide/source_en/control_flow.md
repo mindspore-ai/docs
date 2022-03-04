@@ -285,7 +285,7 @@ Example 8:
 import numpy as np
 from mindspore import context
 from mindspore import Tensor, nn
-from mindspore.common import dtype as ms
+from mindspore import dtype as ms
 from mindspore import ops
 
 class IfInWhileNet(nn.Cell):
