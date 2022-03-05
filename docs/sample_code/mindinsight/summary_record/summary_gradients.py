@@ -30,7 +30,7 @@ import mindspore.nn as nn
 from mindspore.common.initializer import TruncatedNormal
 import mindspore.ops as ops
 
-from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
+from mindspore.train.callback import LossMonitor, TimeMonitor
 from mindspore.nn import Accuracy
 from mindspore.train.callback import SummaryCollector
 from mindspore import Tensor, context, Model
@@ -247,9 +247,6 @@ def train(ds_train):
     lr = Tensor(get_lr(0, 0.002, 10, ds_train.get_dataset_size()))
     net_opt = MyOptimizer(network.trainable_params(), learning_rate=lr, momentum=0.9)
     time_cb = TimeMonitor(data_size=ds_train.get_dataset_size())
-    config_ck = CheckpointConfig(save_checkpoint_steps=1562, keep_checkpoint_max=10)
-    ckpoint_cb = ModelCheckpoint(directory="./models/ckpt/mindinsight_dashboard", prefix="checkpoint_alexnet",
-                                 config=config_ck)
     model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
 
     # Init a SummaryCollector callback instance, and use it in model.train or model.eval
@@ -257,7 +254,7 @@ def train(ds_train):
                                          collect_freq=1, keep_default_action=False, collect_tensor_freq=200)
 
     print("============== Starting Training ==============")
-    model.train(epoch=10, train_dataset=ds_train, callbacks=[time_cb, ckpoint_cb, LossMonitor(), summary_collector],
+    model.train(epoch=1, train_dataset=ds_train, callbacks=[time_cb, LossMonitor(), summary_collector],
                 dataset_sink_mode=False)
 
 

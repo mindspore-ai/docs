@@ -229,7 +229,7 @@ def train(ds_train):
     """
     device_target = "GPU"
     context.set_context(mode=context.GRAPH_MODE, device_target=device_target)
-    epochs = 10
+    epochs = 1
     network = AlexNet(num_classes=10)
     net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
     net_with_loss = nn.WithLossCell(network, net_loss)
