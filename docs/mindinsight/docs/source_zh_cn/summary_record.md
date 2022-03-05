@@ -31,7 +31,7 @@ MindSpore目前支持多种方式将数据记录到summary日志文件中。
 
 ```python
 
-def train(ds_train, ds_eval):
+def train(ds_train):
     ...
     model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
 
@@ -43,14 +43,8 @@ def train(ds_train, ds_eval):
                                          collect_freq=1, keep_default_action=False, collect_tensor_freq=200)
 
     print("============== Starting Training ==============")
-    model.train(epoch=10, train_dataset=ds_train, callbacks=[time_cb, ckpoint_cb, LossMonitor(), summary_collector],
+    model.train(epoch=1, train_dataset=ds_train, callbacks=[time_cb, LossMonitor(), summary_collector],
                 dataset_sink_mode=False)
-
-    print("============== Starting Testing ==============")
-    param_dict = load_checkpoint("./models/ckpt/mindinsight_dashboard/checkpoint_alexnet-10_1562.ckpt")
-    load_param_into_net(network, param_dict)
-    acc = model.eval(ds_eval, callbacks=summary_collector, dataset_sink_mode=True)
-    print("============== {} ==============".format(acc))
 
 ```
 
@@ -112,7 +106,7 @@ class AlexNet(nn.Cell):
 
 ```python
 
-def train(ds_train, ds_eval):
+def train(ds_train):
     ...
     # Init a SummaryCollector callback instance, and use it in model.train or model.eval
     specified = {"collect_metric": True, "histogram_regular": "^conv1.*|^conv2.*", "collect_graph": True,
@@ -122,14 +116,9 @@ def train(ds_train, ds_eval):
                                          collect_freq=1, keep_default_action=False, collect_tensor_freq=200)
 
     print("============== Starting Training ==============")
-    model.train(epoch=10, train_dataset=ds_train, callbacks=[time_cb, ckpoint_cb, LossMonitor(), summary_collector],
+    model.train(epoch=1, train_dataset=ds_train, callbacks=[time_cb, LossMonitor(), summary_collector],
                 dataset_sink_mode=False)
 
-    print("============== Starting Testing ==============")
-    param_dict = load_checkpoint("./models/ckpt/mindinsight_dashboard/checkpoint_alexnet-10_1562.ckpt")
-    load_param_into_net(network, param_dict)
-    acc = model.eval(ds_eval, callbacks=summary_collector, dataset_sink_mode=True)
-    print("============== {} ==============".format(acc))
 ```
 
 ### 方式三：自定义Callback记录数据
@@ -166,31 +155,17 @@ class MyCallback(Callback):
         self.summary_record.record(cb_params.cur_step_num)
 
 
-def train(ds_train, ds_eval):
-    device_target = "GPU"
-    context.set_context(mode=context.GRAPH_MODE, device_target=device_target)
-    network = AlexNet(num_classes=10)
-    net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
-    lr = Tensor(get_lr(0, 0.002, 10, ds_train.get_dataset_size()))
-    net_opt = nn.Momentum(network.trainable_params(), learning_rate=lr, momentum=0.9)
-    time_cb = TimeMonitor(data_size=ds_train.get_dataset_size())
-    config_ck = CheckpointConfig(save_checkpoint_steps=1562, keep_checkpoint_max=10)
-    ckpoint_cb = ModelCheckpoint(directory="./models/ckpt/mindinsight_dashboard", prefix="checkpoint_alexnet", config=config_ck)
+def train(ds_train):
+    ...
     model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
-
 
     # Init a specified callback instance, and use it in model.train or model.eval
     specified_callback = MyCallback(summary_dir='./summary_dir/summary_03')
 
     print("============== Starting Training ==============")
-    model.train(epoch=10, train_dataset=ds_train, callbacks=[time_cb, ckpoint_cb, LossMonitor(), specified_callback],
+    model.train(epoch=1, train_dataset=ds_train, callbacks=[time_cb, LossMonitor(), specified_callback],
                 dataset_sink_mode=False)
 
-    print("============== Starting Testing ==============")
-    param_dict = load_checkpoint("./models/ckpt/mindinsight_dashboard/checkpoint_alexnet-10_1562.ckpt")
-    load_param_into_net(network, param_dict)
-    acc = model.eval(ds_eval, callbacks=specified_callback, dataset_sink_mode=True)
-    print("============== {} ==============".format(acc))
 ```
 
 上面的三种方式，支持记录计算图, 损失值等多种数据。除此以外，MindSpore还支持保存训练中其他阶段的计算图，通过
@@ -291,9 +266,6 @@ def train(ds_train):
     lr = Tensor(get_lr(0, 0.002, 10, ds_train.get_dataset_size()))
     net_opt = MyOptimizer(network.trainable_params(), learning_rate=lr, momentum=0.9)
     time_cb = TimeMonitor(data_size=ds_train.get_dataset_size())
-    config_ck = CheckpointConfig(save_checkpoint_steps=1562, keep_checkpoint_max=10)
-    ckpoint_cb = ModelCheckpoint(directory="./models/ckpt/mindinsight_dashboard", prefix="checkpoint_alexnet",
-                                 config=config_ck)
     model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
 
     # Init a SummaryCollector callback instance, and use it in model.train or model.eval
@@ -301,7 +273,7 @@ def train(ds_train):
                                          collect_freq=1, keep_default_action=False, collect_tensor_freq=200)
 
     print("============== Starting Training ==============")
-    model.train(epoch=10, train_dataset=ds_train, callbacks=[time_cb, ckpoint_cb, LossMonitor(), summary_collector],
+    model.train(epoch=1, train_dataset=ds_train, callbacks=[time_cb, LossMonitor(), summary_collector],
                 dataset_sink_mode=False)
 ```
 

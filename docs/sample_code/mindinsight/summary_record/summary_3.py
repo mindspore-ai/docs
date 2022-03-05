@@ -25,12 +25,12 @@ import mindspore.dataset as ds
 import mindspore.dataset.transforms.c_transforms as C
 import mindspore.dataset.vision.c_transforms as CV
 from mindspore import dtype as mstype
-from mindspore import load_checkpoint, load_param_into_net, Tensor, context, Model
+from mindspore import Tensor, context, Model
 import mindspore.nn as nn
 from mindspore.common.initializer import TruncatedNormal
 import mindspore.ops as ops
 
-from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor, Callback
+from mindspore.train.callback import LossMonitor, TimeMonitor, Callback
 from mindspore.train.summary import SummaryRecord
 from mindspore.nn import Accuracy
 import numpy as np
@@ -236,13 +236,12 @@ class MyCallback(Callback):
         self.summary_record.record(cb_params.cur_step_num)
 
 
-def train(ds_train, ds_eval):
+def train(ds_train):
     """
     the training and evaluation function.
 
     Args:
        ds_train(mindspore.dataset): The dataset for training.
-       ds_eval(mindspore.dataset): The dataset for evaluation.
 
     Returns:
        None.
@@ -254,27 +253,17 @@ def train(ds_train, ds_eval):
     lr = Tensor(get_lr(0, 0.002, 10, ds_train.get_dataset_size()))
     net_opt = nn.Momentum(network.trainable_params(), learning_rate=lr, momentum=0.9)
     time_cb = TimeMonitor(data_size=ds_train.get_dataset_size())
-    config_ck = CheckpointConfig(save_checkpoint_steps=1562, keep_checkpoint_max=10)
-    ckpoint_cb = ModelCheckpoint(directory="./models/ckpt/mindinsight_dashboard", prefix="checkpoint_alexnet",
-                                 config=config_ck)
     model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
 
     # Init a specified callback instance, and use it in model.train or model.eval
     specified_callback = MyCallback(summary_dir='./summary_dir/summary_03')
 
     print("============== Starting Training ==============")
-    model.train(epoch=10, train_dataset=ds_train, callbacks=[time_cb, ckpoint_cb, LossMonitor(), specified_callback],
+    model.train(epoch=1, train_dataset=ds_train, callbacks=[time_cb, LossMonitor(), specified_callback],
                 dataset_sink_mode=False)
-
-    print("============== Starting Testing ==============")
-    param_dict = load_checkpoint("./models/ckpt/mindinsight_dashboard/checkpoint_alexnet-10_1562.ckpt")
-    load_param_into_net(network, param_dict)
-    acc = model.eval(ds_eval, callbacks=specified_callback, dataset_sink_mode=True)
-    print("============== {} ==============".format(acc))
 
 
 if __name__ == "__main__":
     download_cifar10_dataset()
     data_train = create_dataset_cifar10(data_path="./datasets/cifar10/train")
-    data_eval = create_dataset_cifar10("./datasets/cifar10/test")
-    train(data_train, data_eval)
+    train(data_train)
