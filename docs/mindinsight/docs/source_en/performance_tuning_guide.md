@@ -11,7 +11,7 @@ For the meaning of each indicator, users can refer to the following tutorials:
 
 [Performance Profiling（GPU）](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_gpu.html)
 
-[Cluster Performance Profiling (Ascend)](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend_of_cluster.html)
+[Cluster Performance Profiling](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_of_cluster.html)
 
 Users can read this article in combination with the [tuning case](https://www.mindspore.cn/docs/migration_guide/en/master/performance_optimization.html), which is more intuitive to understand.
 

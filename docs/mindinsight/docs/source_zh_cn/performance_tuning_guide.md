@@ -11,7 +11,7 @@ MindInsight从单机和集群的角度分别提供了多项指标，用于帮助
 
 [性能调试（GPU）](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_gpu.html)
 
-[集群性能调试（Ascend）](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend_of_cluster.html)
+[集群性能调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_of_cluster.html)
 
 用户可以结合实际的[调优案例](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/performance_optimization.html) 阅读本文，理解起来更加直观。
 

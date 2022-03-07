@@ -1,21 +1,33 @@
-# 集群性能调试（Ascend）
+# 集群性能调试
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/performance_profiling_ascend_of_cluster.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/performance_profiling_of_cluster.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
-本教程介绍如何在Ascend AI处理器上使用MindSpore Profiler进行集群训练性能调试。
+本教程介绍如何在（Ascend/GPU） AI处理器上使用MindSpore Profiler进行集群训练性能调试，集群训练数据收集的支持情况如下表：
+
+| 性能数据                   | 支持设备    |
+| -------------------------- | ----------- |
+| 集群迭代轨迹               | Ascend、GPU |
+| 集群通信与计算重叠时间分析 | Ascend、GPU |
+| 集群通信性能分析           | Ascend      |
+| 资源利用                   | Ascend      |
+| 策略感知                   | Ascend      |
 
 ## 操作流程
 
-- 搭建分布式训练环境，准备分布式训练脚本，并在训练脚本中调用性能调试接口，接着运行训练脚本。
-- 收集集群训练性能数据。
-- 启动MindInsight，并通过启动参数指定summary-base-dir目录(summary-base-dir是Profiler所创建目录的父目录)，例如训练时Profiler创建的文件夹绝对路径为`/home/user/code/data`，则summary-base-dir设为`/home/user/code`。启动成功后，根据IP和端口访问可视化界面，默认访问地址为 `http://127.0.0.1:8080`。
-- 在训练列表找到对应集群训练，点击性能分析，即可在页面中查看集群性能数据。
+1. 搭建分布式训练环境，准备分布式训练脚本，并在训练脚本中调用性能调试接口，接着运行训练脚本。
+2. 收集集群训练性能数据。
+3. 启动MindInsight，并通过启动参数指定summary-base-dir目录(summary-base-dir是Profiler所创建目录的父目录)，例如训练时Profiler创建的文件夹绝对路径为`/home/user/code/data`，则summary-base-dir设为`/home/user/code`。启动成功后，根据IP和端口访问可视化界面，默认访问地址为 `http://127.0.0.1:8080`。
+4. 在训练列表找到对应集群训练，点击性能分析，即可在页面中查看集群性能数据。
+
+> 本文图片均来源Ascend AI处理器，不同设备展示有差异之处会另外进行说明。
 
 ## 分布式训练
 
-分布式训练请参考[分布式训练教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_ascend.html)。
+Ascend分布式训练请参考[分布式训练教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_ascend.html)。
+
+GPU分布式训练请参考[分布式训练教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_gpu.html)。
 
 ## 收集集群性能数据
 
@@ -186,6 +198,8 @@ done
 
 通过数据转换脚本，可以将用户使用MindInsight r1.3以及之前的版本创建的集群性能目录转换为当前支持的集群性能目录。可以从官网下载[集群目录转换脚本](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/transform_cluster_profiler_data.py)。
 
+> 以上为Ascend AI处理器关于收集集群性能数据的介绍，GPU集群训练请参考GPU分布式训练教程。
+
 ## 启动MindInsight
 
 启动命令请参考[MindInsight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_commands.html)。
@@ -203,6 +217,8 @@ done
 - 集群迭代轨迹：展示集群中所有卡的迭代轨迹信息；总览页面展示了集群迭代轨迹性能。
 - 集群通信性能: 展示集群中所有卡的通信性能以及全网链路性能；总览页面展示了集群通信性能。
 - 集群性能优化小助手：左侧小助手提供集群训练时可能存在的性能瓶颈点，用户可以根据提示进行训练性能优化。
+
+> GPU上目前仅支持集群迭代轨迹的展示，用户可查看集群迭代轨迹性能，左侧小助手提供一篇关于集群性能调优的文档，用户可点击进一步了解。
 
 ### 集群迭代轨迹分析
 

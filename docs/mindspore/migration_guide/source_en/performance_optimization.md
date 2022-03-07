@@ -14,7 +14,7 @@ Please refer to the tutorials for the function introduction and instructions of 
 
 [Performance Profiling（GPU）](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_gpu.html)
 
-[Cluster Performance Profiling (Ascend)](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend_of_cluster.html)
+[Cluster Performance Profiling](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_of_cluster.html)
 
 This section will introduce the common use of MindSpore Profiler through three typical cases.
 

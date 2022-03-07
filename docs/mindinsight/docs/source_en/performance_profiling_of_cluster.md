@@ -1,21 +1,33 @@
-# Cluster Performance Profiling (Ascend)
+# Cluster Performance Profiling
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/performance_profiling_ascend_of_cluster.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/performance_profiling_of_cluster.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
-This article describes how to use MindSpore Profiler for cluster performance debugging on Ascend AI processors.
+This article describes how to use MindSpore Profiler for cluster performance debugging on Ascend/GPU AI processors, support for cluster training data collection is as follows:
+
+| Profiling Data                                     | Support Device |
+| -------------------------------------------------- | -------------- |
+| Cluster Iterative Trajectory                       | Ascend, GPU    |
+| Cluster Communication and Computation Overlap Time | Ascend, GPU    |
+| Cluster Communication Performance                  | Ascend         |
+| Resource Utilization                               | Ascend         |
+| Strategy Perception                                | Ascend         |
 
 ## Operation Process
 
-- Set up the distributed training environment, prepare a training script, add profiler APIs in the training script and run the training script.
-- Collect Cluster Performance Data.
-- Start MindInsight and specify the summary-base-dir using startup parameters, note that summary-base-dir is the parent directory of the directory created by Profiler. For example, the directory created by Profiler is `/home/user/code/data/`, the summary-base-dir should be `/home/user/code`. After MindInsight is started, access the visualization page based on the IP address and port number. The default access IP address is `http://127.0.0.1:8080`.
-- Find the cluster training in the list, click the cluster performance profiling link and view the data on the web page.
+1. Set up the distributed training environment, prepare a training script, add profiler APIs in the training script and run the training script.
+2. Collect Cluster Performance Data.
+3. Start MindInsight and specify the summary-base-dir using startup parameters, note that summary-base-dir is the parent directory of the directory created by Profiler. For example, the directory created by Profiler is `/home/user/code/data/`, the summary-base-dir should be `/home/user/code`. After MindInsight is started, access the visualization page based on the IP address and port number. The default access IP address is `http://127.0.0.1:8080`.
+4. Find the cluster training in the list, click the cluster performance profiling link and view the data on the web page.
+
+> The images in this article are from the Ascend AI processor, and the differences between devices will be explained separately.
 
 ## Distributed Training
 
-For distributed training, please refer to [Distributed Training](https://www.mindspore.cn/docs/programming_guide/en/master/distributed_training_ascend.html).
+For Ascend distributed training, please refer to [Distributed Training](https://www.mindspore.cn/docs/programming_guide/en/master/distributed_training_ascend.html).
+
+For GPU distributed training, please refer to [Distributed Training](https://www.mindspore.cn/docs/programming_guide/en/master/distributed_training_gpu.html).
 
 ## Collect Cluster Performance Data
 
@@ -187,6 +199,8 @@ In MindInsight r1.3 and earlier versions, the cluster directory structure is as 
 
 Through the data conversion script, you can convert the cluster performance directory created by users using MindInsight r1.3 and earlier versions into the currently supported cluster performance directory. You can download [Cluster directory conversion script](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/transform_cluster_profiler_data.py) from the official website.
 
+> This is the Ascend AI processor's introduction to collecting cluster performance data. For GPU cluster training, see the GPU distributed training tutorial.
+
 ## Launch MindInsight
 
 The MindInsight launch command can refer to [MindInsight Commands](https://www.mindspore.cn/mindinsight/docs/en/master/mindinsight_commands.html).
@@ -204,6 +218,8 @@ Figure 1 is the overview of cluster training performance, which is the overall p
 - Cluster iteration trajectory: The iterative trajectory information of all devices in the cluster is displayed; The overview page shows the cluster iteration trajectory performance.
 - Cluster communication performance: Show the communication performance of all devices in the cluster and the link performance of the whole network; The overview page shows the cluster communication performance.
 - Cluster performance helper: The helper on the left provides possible performance bottlenecks during training, and users can optimize performance according to the prompts.
+
+> Currently, only cluster iteration track can be displayed on GPU. Users can view the performance of cluster iteration track. The left assistant provides a document about cluster performance tuning, which users can click to learn more about.
 
 ### Cluster Iterative Trajectory Analysis
 
