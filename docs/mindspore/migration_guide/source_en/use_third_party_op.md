@@ -1,6 +1,6 @@
 # Use Third-Party Operators by Custom Operators
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/en/use_third_party_op.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/use_third_party_op.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
