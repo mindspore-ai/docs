@@ -3,7 +3,11 @@
 <!-- TOC -->
 
 - [Conda方式安装MindSpore Ascend 310版本](#conda方式安装mindspore-ascend-310版本)
-    - [确认系统环境信息](#确认系统环境信息)
+    - [安装环境依赖](#安装环境依赖)
+        - [安装昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)
+        - [安装Conda](#安装conda)
+        - [安装GCC](#安装gcc)
+        - [安装gmp](#安装gmp)
     - [创建并进入Conda虚拟环境](#创建并进入conda虚拟环境)
     - [安装MindSpore](#安装mindspore)
     - [配置环境变量](#配置环境变量)
@@ -17,60 +21,137 @@
 
 本文档介绍如何在Ascend 310环境的Linux系统上，使用Conda方式快速安装MindSpore，Ascend 310版本仅支持推理。
 
-## 确认系统环境信息
+## 安装环境依赖
 
-- 确认安装64位操作系统，[glibc](https://www.gnu.org/software/libc/)>=2.17，其中Ubuntu 18.04/CentOS 7.6/EulerOS 2.8是经过验证的。
+下表列出了安装MindSpore所需的系统环境和第三方依赖。
 
-- 确认安装[GCC 7.3.0版本](https://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz)。
+|软件名称|版本|作用|
+|-|-|-|
+|Ubuntu 18.04/CentOS 7.6/EulerOS 2.8/OpenEuler 20.03/KylinV10 SP1|-|编译和运行MindSpore的操作系统|
+|[昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)|-|MindSpore使用的Ascend平台AI计算库|
+|[Conda](#安装conda)|Anaconda3或Miniconda3|Python环境管理工具|
+|[GCC](#安装gcc)|7.3.0|用于编译MindSpore的C++编译器|
+|[gmp](#安装gmp)|6.1.2|MindSpore使用的多精度算术库|
 
-- 确认安装[gmp 6.1.2版本](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz)。
+下面给出第三方依赖的安装方法。
 
-- 确认安装与当前系统兼容的Conda版本。
+### 安装昇腾AI处理器配套软件包
 
-    - 如果您喜欢Conda提供的完整能力，可以选择下载[Anaconda3](https://repo.anaconda.com/archive/)。
-    - 如果您需要节省磁盘空间，或者喜欢自定义安装Conda软件包，可以选择下载[Miniconda3](https://repo.anaconda.com/miniconda/)。
+详细安装方法请参考[昇腾软件安装指引文档](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910?category=installation-upgrade&subcategory=software-deployment-guide)。
 
-- 确认安装Ascend AI处理器配套软件包（Ascend Data Center Solution 21.0.4），安装方式请参考[配套指南]。
+安装包默认安装路径为`/usr/local/Ascend`。安装后确认当前用户有权限访问昇腾AI处理器配套软件包的安装路径，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
 
-    - 确认当前用户有权限访问Ascend AI处理器配套软件包的安装路径`/usr/local/Ascend`，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
+安装昇腾AI处理器配套软件包提供的whl包，whl包随配套软件包发布。如果之前安装过昇腾AI处理器配套软件包，需要先使用如下命令卸载相应的包。
+
+```bash
+pip uninstall te topi hccl -y
+```
+
+默认安装路径使用以下指令安装。如果安装路径不是默认路径，需要将命令中的路径替换为安装路径。
+
+```bash
+pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/topi-*-py3-none-any.whl
+pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/te-*-py3-none-any.whl
+pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/hccl-*-py3-none-any.whl
+```
+
+### 安装Conda
+
+执行以下指令安装Miniconda。
+
+```bash
+cd /tmp
+curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py37_4.10.3-Linux-x86_64.sh
+bash Miniconda3-py37_4.10.3-Linux-x86_64.sh -b
+cd -
+. ~/miniconda3/etc/profile.d/conda.sh
+conda init bash
+```
+
+安装完成后，可以为Conda设置清华源加速下载，参考[此处](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/)。
+
+### 安装GCC
+
+- Ubuntu 18.04可以使用以下命令安装。
+
+    ```bash
+    sudo apt-get install gcc-7 -y
+    ```
+
+- CentOS 7可以使用以下命令安装。
+
+    ```bash
+    sudo yum install centos-release-scl
+    sudo yum install devtoolset-7
+    ```
+
+    安装完成后，需要使用如下命令切换到GCC 7。
+
+    ```bash
+    scl enable devtoolset-7 bash
+    ```
+
+- EulerOS可以使用以下命令安装。
+
+    ```bash
+    sudo yum install gcc -y
+    ```
+
+### 安装gmp
+
+- Ubuntu 18.04可以使用以下命令安装。
+
+    ```bash
+    sudo apt-get install libgmp-dev -y
+    ```
+
+- CentOS 7和EulerOS可以使用以下命令安装。
+
+    ```bash
+    sudo yum install gmp-devel -y
+    ```
 
 ## 创建并进入Conda虚拟环境
 
 根据您希望使用的Python版本创建对应的Conda虚拟环境并进入虚拟环境。
+
 如果您希望使用Python3.7.5版本：
 
 ```bash
-conda create -n mindspore_py37 -c conda-forge python=3.7.5
+conda create -n mindspore_py37 python=3.7.5 -y
 conda activate mindspore_py37
 ```
 
 如果您希望使用Python3.9.0版本：
 
 ```bash
-conda create -n mindspore_py39 -c conda-forge python=3.9.0
+conda create -n mindspore_py39 python=3.9.0 -y
 conda activate mindspore_py39
 ```
 
-在虚拟环境中安装Ascend AI处理器配套软件包提供的whl包，whl包随配套软件包发布，升级配套软件包之后需要重新安装。
+在虚拟环境中安装昇腾AI处理器配套软件包提供的whl包，whl包随配套软件包发布，升级配套软件包之后需要重新安装。
 
 ```bash
-pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/hccl-{version}-py3-none-any.whl
-pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/topi-{version}-py3-none-any.whl
-pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/te-{version}-py3-none-any.whl
+pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/topi-*-py3-none-any.whl
+pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/te-*-py3-none-any.whl
+pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/hccl-*-py3-none-any.whl
+```
+
+如果升级了昇腾AI处理器配套软件包，配套的whl包也需要重新安装，先将原来的安装包卸载，再参考上述命令重新安装。
+
+```bash
+pip uninstall te topi hccl -y
 ```
 
 ## 安装MindSpore
 
-执行如下命令安装MindSpore。
+确认您处于Conda虚拟环境中，并执行如下命令安装最新版本的MindSpore。如需安装其他版本，可参考[版本列表](https://www.mindspore.cn/versions)在`mindspore-ascend=`后指定版本号。
 
 ```bash
-conda install mindspore-ascend={version} -c mindspore -c conda-forge
+conda install mindspore-ascend -c mindspore -c conda-forge
 ```
 
-其中：
-
-- 在联网状态下，安装Conda安装包时会自动下载MindSpore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装。运行模型时，需要根据[ModelZoo](https://gitee.com/mindspore/models/tree/master/)中不同模型指定的requirements.txt安装额外依赖，常见依赖可以参考[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)。
-- `{version}`表示MindSpore版本号，例如安装1.5.0-rc1版本MindSpore时，`{version}`应写为1.5.0rc1。
+在联网状态下，安装Conda安装包时会自动下载MindSpore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装。运行模型时，需要根据[ModelZoo](https://gitee.com/mindspore/models/tree/master/)中不同模型指定的requirements.txt安装额外依赖，常见依赖可以参考[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)。
 
 ## 配置环境变量
 
@@ -90,10 +171,14 @@ export LD_LIBRARY_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/fwkacllib/lib64:${L
 export LD_LIBRARY_PATH=`pip3 show mindspore-ascend | grep Location | awk '{print $2"/mindspore/lib"}' | xargs realpath`:${LD_LIBRARY_PATH}
 
 # Environment variables that must be configured
-export TBE_IMPL_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp/op_impl/built-in/ai_core/tbe            # TBE operator implementation tool path
-export ASCEND_OPP_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp                                       # OPP path
-export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/fwkacllib/ccec_compiler/bin/:${PATH}                 # TBE operator compilation tool path
-export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}                                                       # Python library that TBE implementation depends on
+## TBE operator implementation tool path
+export TBE_IMPL_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp/op_impl/built-in/ai_core/tbe
+## OPP path
+export ASCEND_OPP_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp
+## TBE operator compilation tool path
+export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/fwkacllib/ccec_compiler/bin/:${PATH}
+## Python library that TBE implementation depends on
+export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}
 ```
 
 ## 验证是否成功安装

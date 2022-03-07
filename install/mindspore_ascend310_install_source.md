@@ -3,7 +3,13 @@
 <!-- TOC -->
 
 - [源码编译方式安装MindSpore Ascend 310版本](#源码编译方式安装mindspore-ascend-310版本)
-    - [确认系统环境信息](#确认系统环境信息)
+    - [环境准备](#环境准备)
+        - [安装昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)
+        - [安装Python](#安装python)
+        - [安装GCC](#安装gcc)
+        - [安装git，gmp，tclsh，patch，Flex](#安装gitgmptclshpatchflex)
+        - [安装CMake](#安装cmake)
+        - [安装Open MPI（可选）](#安装open-mpi可选)
     - [从代码仓下载源码](#从代码仓下载源码)
     - [编译MindSpore](#编译mindspore)
     - [安装MindSpore](#安装mindspore)
@@ -16,47 +22,174 @@
 
 本文档介绍如何在Ascend 310环境的Linux系统上，使用源码编译方式快速安装MindSpore，Ascend 310版本仅支持推理。
 
-## 确认系统环境信息
+## 环境准备
 
-- 确认安装64位操作系统，其中Ubuntu 18.04/CentOS 7.6/EulerOS 2.8是经过验证的。
+下表列出了编译安装MindSpore所需的系统环境和第三方依赖。
 
-- 确认安装[GCC 7.3.0版本](https://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz)。
+|软件名称|版本|作用|
+|-|-|-|
+|Ubuntu 18.04/CentOS 7.6/EulerOS 2.8|-|编译和运行MindSpore的操作系统|
+|[昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)|-|MindSpore使用的Ascend平台AI计算库|
+|[Python](#安装python)|3.7.5或3.9.0|MindSpore的使用依赖Python环境|
+|[GCC](#安装gcc)|7.3.0|用于编译MindSpore的C++编译器|
+|[git](#安装gitgmptclshpatchflex)|-|MindSpore使用的源代码管理工具|
+|[CMake](#安装cmake)|3.18.3及以上|编译构建MindSpore的工具|
+|[gmp](#安装gitgmptclshpatchflex)|6.1.2|MindSpore使用的多精度算术库|
+|[Flex](#安装gitgmptclshpatchflex)|2.5.35及以上版本|MindSpore使用的词法分析器|
+|[tclsh](#安装gitgmptclshpatchflex)|-|MindSpore sqlite编译依赖|
+|[patch](#安装gitgmptclshpatchflex)|2.5及以上|MindSpore使用的源代码补丁工具|
 
-- 确认安装[gmp 6.1.2版本](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz)。
+下面给出第三方依赖的安装方法。
 
-- 确认安装[Flex 2.5.35及以上版本](https://github.com/westes/flex/)。
+### 安装昇腾AI处理器配套软件包
 
-- 确认安装Python 3.7.5或3.9.0版本。如果未安装或者已安装其他版本的Python，可以选择下载并安装：
+详细安装方法请参考[昇腾软件安装指引文档](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910?category=installation-upgrade&subcategory=software-deployment-guide)。
 
-    - Python 3.7.5版本 64位，下载地址：[官网](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz)或[华为云](https://mirrors.huaweicloud.com/python/3.7.5/Python-3.7.5.tgz)。
-    - Python 3.9.0版本 64位，下载地址：[官网](https://www.python.org/ftp/python/3.9.0/Python-3.9.0.tgz)或[华为云](https://mirrors.huaweicloud.com/python/3.9.0/Python-3.9.0.tgz)。
+安装包默认安装路径为`/usr/local/Ascend`。安装后确认当前用户有权限访问昇腾AI处理器配套软件包的安装路径，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
 
-- 确认安装[CMake 3.18.3及以上版本](https://cmake.org/download/)。
-    - 安装完成后将CMake所在路径添加到系统环境变量。
+安装昇腾AI处理器配套软件包提供的whl包，whl包随配套软件包发布。如果之前安装过昇腾AI处理器配套软件包，需要先使用如下命令卸载相应的包。
 
-- 确认安装[patch 2.5及以上版本](https://ftp.gnu.org/gnu/patch/)。
-    - 安装完成后将patch所在路径添加到系统环境变量中。
+```bash
+pip uninstall te topi hccl -y
+```
 
-- 确认安装[tclsh](https://www.tcl.tk/software/tcltk/)。
+默认安装路径使用以下指令安装。如果安装路径不是默认路径，需要将命令中的路径替换为安装路径。
 
-- 确认安装Ascend AI处理器配套软件包（Ascend Data Center Solution 21.0.4），安装方式请参考[配套指南]。
+```bash
+pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/topi-*-py3-none-any.whl
+pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/te-*-py3-none-any.whl
+pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/hccl-*-py3-none-any.whl
+```
 
-    - 确认当前用户有权限访问Ascend AI处理器配套软件包的安装路径`/usr/local/Ascend`，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
-    - 安装Ascend AI处理器配套软件包提供的whl包，whl包随配套软件包发布，升级配套软件包之后需要重新安装。
+### 安装Python
 
-        ```bash
-        pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/hccl-{version}-py3-none-any.whl
-        pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/topi-{version}-py3-none-any.whl
-        pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/te-{version}-py3-none-any.whl
-        ```
+[Python](https://www.python.org/)可通过Conda进行安装。
 
-- 确认安装git工具。
-    如果未安装，使用如下命令下载安装：
+安装Miniconda：
+
+```bash
+cd /tmp
+curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py37_4.10.3-Linux-x86_64.sh
+bash Miniconda3-py37_4.10.3-Linux-x86_64.sh -b
+cd -
+. ~/miniconda3/etc/profile.d/conda.sh
+conda init bash
+```
+
+安装完成后，可以为Conda设置清华源加速下载，参考[此处](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/)。
+
+创建Python 3.7.5环境：
+
+```bash
+conda create -n mindspore_py37 python=3.7.5 -y
+conda activate mindspore_py37
+```
+
+或者创建Python 3.9.0环境：
+
+```bash
+conda create -n mindspore_py39 python=3.9.0 -y
+conda activate mindspore_py39
+```
+
+可以通过以下命令查看Python版本。
+
+```bash
+python --version
+```
+
+### 安装GCC
+
+- Ubuntu 18.04可以使用以下命令安装。
 
     ```bash
-    apt-get install git # for linux distributions using apt, e.g. ubuntu
-    yum install git     # for linux distributions using yum, e.g. centos
+    sudo apt-get install gcc-7 -y
     ```
+
+- CentOS 7可以使用以下命令安装。
+
+    ```bash
+    sudo yum install centos-release-scl
+    sudo yum install devtoolset-7
+    ```
+
+    安装完成后，需要使用如下命令切换到GCC 7。
+
+    ```bash
+    scl enable devtoolset-7 bash
+    ```
+
+- EulerOS可以使用以下命令安装。
+
+    ```bash
+    sudo yum install gcc -y
+    ```
+
+### 安装git，gmp，tclsh，patch，Flex
+
+- Ubuntu 18.04可以使用以下命令安装。
+
+    ```bash
+    sudo apt-get install git libgmp-dev tcl patch flex -y
+    ```
+
+- CentOS 7和EulerOS可以使用以下命令安装。
+
+    ```bash
+    sudo yum install git gmp-devel tcl patch flex -y
+    ```
+
+### 安装CMake
+
+- Ubuntu 18.04可以通过以下命令安装[CMake](https://cmake.org/)。
+
+    ```bash
+    wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | sudo apt-key add -
+    sudo apt-add-repository "deb https://apt.kitware.com/ubuntu/ $(lsb_release -cs) main"
+    sudo apt-get install cmake -y
+    ```
+
+- 其他Linux系统可以使用以下命令安装。
+
+    根据系统架构选择不同的下载链接。
+
+    ```bash
+    # x86使用
+    curl -O https://cmake.org/files/v3.19/cmake-3.19.8-Linux-x86_64.sh
+    # aarch64使用
+    curl -O https://cmake.org/files/v3.19/cmake-3.19.8-Linux-aarch64.sh
+    ```
+
+    执行安装脚本安装CMake，默认安装到`/usr/local`目录下。
+
+    ```bash
+    sudo mkdir /usr/local/cmake-3.19.8
+    sudo bash cmake-3.19.8-Linux-*.sh --prefix=/usr/local/cmake-3.19.8 --exclude-subdir
+    ```
+
+    最后需要将CMake添加到`PATH`环境变量中。如果使用默认安装目录执行以下命令，其他安装目录需要做相应修改。
+
+    ```bash
+    echo -e "export PATH=/usr/local/cmake-3.19.8/bin:\$PATH" >> ~/.bashrc
+    source ~/.bashrc
+    ```
+
+### 安装Open MPI（可选）
+
+可以通过以下命令编译安装[Open MPI](https://www.open-mpi.org/)。
+
+```bash
+curl -O https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.3.tar.gz
+tar xzf openmpi-4.0.3.tar.gz
+cd openmpi-4.0.3
+./configure --prefix=/usr/local/openmpi-4.0.3
+make
+sudo make install
+echo -e "export PATH=/usr/local/openmpi-4.0.3/bin:\$PATH" >> ~/.bashrc
+echo -e "export LD_LIBRARY_PATH=/usr/local/openmpi-4.0.3/lib:\$LD_LIBRARY_PATH" >> ~/.bashrc
+source ~/.bashrc
+cd -
+```
 
 ## 从代码仓下载源码
 
@@ -66,26 +199,24 @@ git clone https://gitee.com/mindspore/mindspore.git
 
 ## 编译MindSpore
 
-在源码根目录下执行如下命令。
+进入MindSpore根目录，然后执行编译脚本。
 
 ```bash
-bash build.sh -e ascend -V 310
+cd mindspore
+bash build.sh -e ascend -V 310 -S on
 ```
 
 其中：
 
-`build.sh`中默认的编译线程数为8，如果编译机性能较差可能会出现编译错误，可在执行中增加-j{线程数}来减少线程数量。如`bash build.sh -e ascend -V 310 -j4`。
+- `build.sh`中默认的编译线程数为8，如果编译机性能较差可能会出现编译错误，可在执行中增加-j{线程数}来减少线程数量。如`bash build.sh -e ascend -V 310 -j4`。
+- 默认从github下载依赖源码，当-S选项设置为`on`时，从对应的gitee镜像下载。
+- 关于`build.sh`更多用法请参看脚本头部的说明。
 
 ## 安装MindSpore
 
 ```bash
-tar -zxf output/mindspore_ascend-{version}-linux_{arch}.tar.gz
+tar -zxf output/mindspore_ascend-*.tar.gz
 ```
-
-其中：
-
-- `{version}`表示MindSpore版本号，例如安装1.5.0-rc1版本MindSpore时，`{version}`应写为1.5.0rc1。
-- `{arch}`表示系统架构，例如使用的Linux系统是x86架构64位时，`{arch}`应写为`x86_64`。如果系统是ARM架构64位，则写为`aarch64`。
 
 ## 配置环境变量
 
@@ -102,10 +233,14 @@ LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
 export LD_LIBRARY_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/fwkacllib/lib64:${LOCAL_ASCEND}/driver/lib64:${LOCAL_ASCEND}/ascend-toolkit/latest/opp/op_impl/built-in/ai_core/tbe/op_tiling:${LD_LIBRARY_PATH}
 
 # Environment variables that must be configured
-export TBE_IMPL_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp/op_impl/built-in/ai_core/tbe            # TBE operator implementation tool path
-export ASCEND_OPP_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp                                       # OPP path
-export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/fwkacllib/ccec_compiler/bin/:${PATH}                 # TBE operator compilation tool path
-export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}                                                       # Python library that TBE implementation depends on
+## TBE operator implementation tool path
+export TBE_IMPL_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp/op_impl/built-in/ai_core/tbe
+## OPP path
+export ASCEND_OPP_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp
+## TBE operator compilation tool path
+export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/fwkacllib/ccec_compiler/bin/:${PATH}
+## Python library that TBE implementation depends on
+export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}
 
 # Set path to extracted MindSpore accordingly
 export LD_LIBRARY_PATH={mindspore_path}:${LD_LIBRARY_PATH}
