@@ -496,6 +496,9 @@ class MsCnPlatformAutoSummary(MsCnAutoSummary):
             api_doc = inspect.getdoc(get_api(name))
             example_str = re.findall(r'Supported Platforms:\n\s+(.*?)\n\n', api_doc)
             if not example_str:
+                example_str_leak = re.findall(r'Supported Platforms:\n\s+(.*)', api_doc)
+                if example_str_leak:
+                    return example_str_leak
                 return ["开发中"]
             return example_str
         except: #pylint: disable=bare-except
