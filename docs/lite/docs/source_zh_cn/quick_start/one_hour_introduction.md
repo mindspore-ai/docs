@@ -509,7 +509,7 @@ mindspore-lite-{version}-linux-x64
     )
     ```
 
-    > 如果想要集成`libmindspore-lite.a`静态库，则使用`-Wl,--whole-archive mindspore-lite -Wl,--no-whole-archive`的选项来替换`mindspore-lite`。
+    > 如果想要集成`libmindspore-lite.a`静态库，则使用`-Wl,--whole-archive libmindspore-lite.a -Wl,--no-whole-archive`的选项来替换`mindspore-lite`。
 
 5. 编写代码
 
@@ -1161,6 +1161,7 @@ mindspore-lite-{version}-win-x64
         ├── include
         └── lib
             ├── libgcc_s_seh-1.dll      # MinGW动态库
+            ├── libmindspore-lite.a     # MindSpore Lite推理框架的静态库
             ├── libmindspore-lite.dll   # MindSpore Lite推理框架的动态库
             ├── libmindspore-lite.dll.a # MindSpore Lite推理框架的动态库的链接文件
             ├── libssp-0.dll            # MinGW动态库
@@ -1217,7 +1218,7 @@ mindspore-lite-{version}-win-x64
     )
     ```
 
-    > 如果想要集成`libmindspore-lite.a`静态库，则使用`-Wl,--whole-archive mindspore-lite -Wl,--no-whole-archive`的选项来替换`mindspore-lite`。
+    > 如果想要集成`libmindspore-lite.a`静态库，则使用`-Wl,--whole-archive libmindspore-lite.a -Wl,--no-whole-archive`的选项来替换`mindspore-lite`。
 
 5. 编写代码
 
