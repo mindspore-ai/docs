@@ -132,7 +132,10 @@ try:
                        "    def decorate(func):",
                        "    def decorate(func):\n\n        import functools\n\n        @functools.wraps(func)"),
                        ("mindspore/ops/primitive.py", "fix for `shard`",
-                       "    @_LogActionOnce(logger=logger)", "    # The decorator has been deleted.")]
+                       "    @_LogActionOnce(logger=logger)", "    # The decorator has been deleted."),
+                       ("mindspore/train/summary/summary_record.py", "summary_record",
+                       "            value (Union[Tensor, GraphProto, TrainLineage, EvaluationLineage, DatasetGraph, UserDefinedInfo,\n                LossLandscape]): The value to store.\n\n", 
+                       "            value (Union[Tensor, GraphProto, TrainLineage, EvaluationLineage, DatasetGraph, UserDefinedInfo, LossLandscape]): The value to store.\n\n")]
 
     base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
     for i in decorator_list:
