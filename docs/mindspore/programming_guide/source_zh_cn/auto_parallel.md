@@ -25,6 +25,8 @@ MindSpore的分布式并行配置通过`auto_parallel_context`来进行集中管
 
 `device_num`表示可用的机器数，其值为int型，默认值是0，且必须在1~4096范围内。若用户不配置，`Model`接口内部则会通过`get_group_size`方法获取，若用户进行了配置，则遵循用户的配置。这个配置可以在用户不使用`Model`接口的情况下，手动传递`device_num`。
 
+> 在semi_auto_parallel/auto_parallel模式下，device_num只能为1、2、4，或者8的倍数。
+
 代码样例如下：
 
 ```python
@@ -290,6 +292,22 @@ context.get_auto_parallel_context("pipeline_stages")
     # param_size = np.prod(list(param.shape)) * 4 = (10 * 2) * 4 = 80B < 24KB, 不会被切分
     context.set_auto_parallel_context(parallel_optimizer_config={"parallel_optimizer_threshold": 24})
     ```
+
+#### dataset_strategy
+
+在semi_auto_parallel/auto_parallel模式的分布式训练场景下，针对数据集的导入方式有着丰富的切分策略，如数据并行导入、全量导入以及更自由的混合并行导入，可以通过`dataset_strategy`进行配置。
+
+代码样例如下：
+
+```python
+from mindspore import context
+# 设置输入在第1维度上进行切分， 此时要求用户确保dataset返回的输入在第1维度上进行切分
+context.set_auto_parallel_context(dataset_strategy=((1, 8), (1, 8)))
+# 数据集以数据并行导入每一卡
+context.set_auto_parallel_context(dataset_strategy="data_parallel")
+# 数据集以全量导入每一卡
+context.set_auto_parallel_context(dataset_strategy="full_batch")
+```
 
 ## 分布式通信接口
 
