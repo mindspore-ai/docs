@@ -23,7 +23,9 @@ MindSpore Lite文档
 
    quick_start/one_hour_introduction
    quick_start/quick_start_cpp
+   quick_start/quick_start_server_inference_cpp
    quick_start/quick_start_java
+   quick_start/quick_start_server_inference_java
    quick_start/quick_start
    quick_start/image_segmentation
    quick_start/train_lenet
