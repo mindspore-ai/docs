@@ -59,7 +59,7 @@ The output is as follows:
 
 - `inited_param`: returns `Parameter` that stores the actual data.
 
-- `name`: specifies a name for an instantiated `Parameter`.
+- `name`: give each `Parameter` a unique name to facilitate subsequent operations and updates. If there are two or more `Parameter` objects with the same name in a network, will be prompted to set a unique name when defining.
 
 - `sliced`: specifies whether the data stored in `Parameter` is sharded data in the automatic parallel scenario.
 
