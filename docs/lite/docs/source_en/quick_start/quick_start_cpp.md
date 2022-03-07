@@ -130,7 +130,7 @@ add_executable(mindspore_quick_start_cpp ${QUICK_START_CXX})
 
 target_link_libraries(
         mindspore_quick_start_cpp
-        -Wl,--whole-archive mindspore-lite -Wl,--no-whole-archive
+        -Wl,--whole-archive libmindspore-lite.a -Wl,--no-whole-archive
         pthread
 )
 
