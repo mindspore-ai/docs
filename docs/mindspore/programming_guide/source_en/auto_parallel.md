@@ -25,6 +25,8 @@ You can use `context.set_auto_parallel_context` to configure the preceding param
 
 `device_num` indicates the number of available machines. The default value is 0. The value is of the int type and must range from 1 to 4096. If you do not set this parameter, the `Model` interface obtains the value by using the `get_group_size` method. If you set this parameter, your configuration is used. This configuration allows you to manually transfer `device_num` without using the `Model` interface.
 
+> In semi_auto_parallel/auto_parallel mode, constrain device_num to be 1, 2, 4, or a multiple of 8.
+
 The following is a code example:
 
 ```python
@@ -291,6 +293,22 @@ The configuration will be effective when we use context.set_auto_parallel_contex
     # param_size = np.prod(list(param.shape)) * 4 = (10 * 2) * 4 = 80B < 24KB, thus this param will not be sharded
     context.set_auto_parallel_context(parallel_optimizer_config={"parallel_optimizer_threshold": 24})
     ```
+
+#### dataset_strategy
+
+In the distributed training scenario of semi_auto_parallel/auto_parallel mode, there are rich segmentation strategies for the import method of datasets, such as data parallel import, full batch import and more free hybrid parallel import, which can be configured through `dataset_strategy`.
+
+The following is a code example:
+
+```python
+from mindspore import context
+# Set the input to be split on the first dimension. At this time, the user is required to ensure that the input returned by the dataset is split on the first dimension.
+context.set_auto_parallel_context(dataset_strategy=((1, 8), (1, 8)))
+# Datasets are imported into each card in data-parallel
+context.set_auto_parallel_context(dataset_strategy="data_parallel")
+# Datasets are imported into each card in full-bacth
+context.set_auto_parallel_context(dataset_strategy="full_batch")
+```
 
 ## Distributed Communication Interface
 
