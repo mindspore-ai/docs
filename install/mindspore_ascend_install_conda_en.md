@@ -3,7 +3,12 @@
 <!-- TOC -->
 
 - [Installing MindSpore Ascend 910 by Conda](#installing-mindspore-ascend-910-by-conda)
-    - [System Environment Information Confirmation](#system-environment-information-confirmation)
+    - [Installing Environment Dependencies](#installing-environment-dependencies)
+        - [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package)
+        - [Installing Conda](#installing-conda)
+        - [Installing GCC](#installing-gcc)
+        - [Installing gmp](#installing-gmp)
+        - [Installing Open MPI (Optional)](#installing-open-mpi-optional)
     - [Creating and Accessing the Conda Virtual Environment](#creating-and-accessing-the-conda-virtual-environment)
     - [Installing MindSpore](#installing-mindspore)
     - [Configuring Environment Variables](#configuring-environment-variables)
@@ -18,50 +23,127 @@
 
 This document describes how to quickly install MindSpore in a Linux system with an Ascend 910 environment by Conda.
 
-## System Environment Information Confirmation
+## Installing Environment Dependencies
 
-- Ensure that a 64-bit operating system is installed and the [glibc](https://www.gnu.org/software/libc/) version is 2.17 or later, where Ubuntu 18.04, CentOS 7.6, EulerOS 2.8, openEuler 20.03, and Kylin V10 SP1 are verified.
-- Ensure that right version [GCC 7.3.0](https://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) is installed.
-- Ensure that [gmp 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
-- Ensure that [OpenMPI 4.0.3](https://www.open-mpi.org/faq/?category=building#easy-build) is installed. (optional, required for single-node/multi-Ascend and multi-node/multi-Ascend training)
+The following table lists the system environment and third-party dependencies required for installing MindSpore.
 
-- Ensure that the Conda version is compatible with the current system.
+|software|version|description|
+|-|-|-|
+|Ubuntu 18.04/CentOS 7.6/EulerOS 2.8/OpenEuler 20.03/KylinV10 SP1|-|OS for running MindSpore|
+|[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|-|Ascend platform AI computing library used by MindSpore|
+|[Conda](#installing-conda)|Anaconda3 or Miniconda3|Python environment management tool|
+|[GCC](#installing-gcc)|7.3.0|C++ compiler for compiling MindSpore|
+|[gmp](#installing-gmp)|6.1.2|Multiple precision arithmetic library used by MindSpore|
+|[Open MPI](#installing-open-mpi-optional)|4.0.3|high performance message passing library used by MindSpore (optional, required for single-node/multi-GPU and multi-node/multi-GPU training)|
 
-    - If you prefer the complete capabilities provided by Conda, you can choose to download [Anaconda3](https://repo.anaconda.com/archive/).
-    - If you want to save disk space or prefer custom Conda installation, you can choose to download [Miniconda3](https://repo.anaconda.com/miniconda/).
+The following describes how to install the third-party dependencies.
 
-- Ensure that the Ascend AI processor software package (Ascend Data Center Solution 21.0.4) are installed, please refer to the [Installation Guide].
+### Installing Ascend AI processor software package
 
-    - Ensure that the current user has the right to access the installation path `/usr/local/Ascend`of Ascend AI processor software package, If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located. For the specific configuration, please refer to the software package instruction document.
+For detailed installation guide, please refer to [Ascend Software Installation Guide](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910?category=installation-upgrade&subcategory=software-deployment-guide).
 
-    - Install the .whl package provided in Ascend AI processor software package. The .whl package is released with the software package. After software package is upgraded, reinstall the .whl package.
+The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path `/usr/local/Ascend` of Ascend AI processor software package, If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
 
-        ```bash
-        pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/topi-{version}-py3-none-any.whl
-        pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/te-{version}-py3-none-any.whl
-        pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/hccl-{version}-py3-none-any.whl
-        ```
+Install the .whl packages provided in Ascend AI processor software package. The .whl packages are released with the software package. If the .whl packages have been installed before, you need to uninstall the packages by the following command.
 
-    - If the Ascend AI processor software package is upgraded, the .whl package also needs to be reinstalled, first uninstall the original installation package, and then refer to the above command to reinstall.
+```bash
+pip uninstall te topi hccl -y
+```
 
-        ```bash
-        pip uninstall te topi hccl -y
-        ```
+Run the following command to install the .whl packages if the Ascend AI package has been installed in default path. If the installation path is not the default path, you need to replace the path in the command with the installation path.
+
+```bash
+pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/topi-*-py3-none-any.whl
+pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/te-*-py3-none-any.whl
+pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/hccl-*-py3-none-any.whl
+```
+
+### Installing Conda
+
+Run the following command to install Miniconda.
+
+```bash
+cd /tmp
+curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py37_4.10.3-Linux-x86_64.sh
+bash Miniconda3-py37_4.10.3-Linux-x86_64.sh -b
+cd -
+. ~/miniconda3/etc/profile.d/conda.sh
+conda init bash
+```
+
+### Installing GCC
+
+- On Ubuntu 18.04, run the following commands to install.
+
+    ```bash
+    sudo apt-get install gcc-7 -y
+    ```
+
+- On CentOS 7, run the following commands to install.
+
+    ```bash
+    sudo yum install centos-release-scl
+    sudo yum install devtoolset-7
+    ```
+
+    After installation, run the following commands to switch to GCC 7.
+
+    ```bash
+    scl enable devtoolset-7 bash
+    ```
+
+- On EulerOS and OpenEuler, run the following commands to install.
+
+    ```bash
+    sudo yum install gcc -y
+    ```
+
+### Installing gmp
+
+- On Ubuntu 18.04, run the following commands to install.
+
+    ```bash
+    sudo apt-get install libgmp-dev -y
+    ```
+
+- On CentOS 7, EulerOS and OpenEuler, run the following commands to install.
+
+    ```bash
+    sudo yum install gmp-devel -y
+    ```
+
+### Installing Open MPI (optional)
+
+Run the following command to compile and install [Open MPI](https://www.open-mpi.org/).
+
+```bash
+curl -O https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.3.tar.gz
+tar xzf openmpi-4.0.3.tar.gz
+cd openmpi-4.0.3
+./configure --prefix=/usr/local/openmpi-4.0.3
+make
+sudo make install
+echo -e "export PATH=/usr/local/openmpi-4.0.3/bin:\$PATH" >> ~/.bashrc
+echo -e "export LD_LIBRARY_PATH=/usr/local/openmpi-4.0.3/lib:\$LD_LIBRARY_PATH" >> ~/.bashrc
+source ~/.bashrc
+cd -
+```
 
 ## Creating and Accessing the Conda Virtual Environment
 
-Create a Conda virtual environment based on the Python version you want to use and go to the virtual environment.
+Create a Conda virtual environment based on the Python version you want to use and activate the virtual environment.
+
 If you want to use Python 3.7.5:
 
 ```bash
-conda create -n mindspore_py37 -c conda-forge python=3.7.5
+conda create -n mindspore_py37 python=3.7.5 -y
 conda activate mindspore_py37
 ```
 
 If you want to use Python 3.9.0:
 
 ```bash
-conda create -n mindspore_py39 -c conda-forge python=3.9.0
+conda create -n mindspore_py39 python=3.9.0 -y
 conda activate mindspore_py39
 ```
 
@@ -81,16 +163,13 @@ pip uninstall te topi hccl -y
 
 ## Installing MindSpore
 
-Execute the following command to install MindSpore.
+Ensure that you are in the Conda virtual environment and run the following command to install the latest MindSpore. To install other versions, please refer to [Version List](https://www.mindspore.cn/versions) and specify the version after `mindspore-ascend=`.
 
 ```bash
-conda install mindspore-ascend={version} -c mindspore -c conda-forge
+conda install mindspore-ascend -c mindspore -c conda-forge
 ```
 
-In the preceding information:
-
-- When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
-- `{version}` denotes the version of MindSpore. For example, when you are installing MindSpore 1.5.0-rc1, `{version}` should be 1.5.0rc1.
+When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
 
 ## Configuring Environment Variables
 
@@ -107,10 +186,14 @@ LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
 export LD_LIBRARY_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/fwkacllib/lib64:${LOCAL_ASCEND}/driver/lib64:${LOCAL_ASCEND}/ascend-toolkit/latest/opp/op_impl/built-in/ai_core/tbe/op_tiling:${LD_LIBRARY_PATH}
 
 # Environment variables that must be configured
-export TBE_IMPL_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp/op_impl/built-in/ai_core/tbe            # TBE operator implementation tool path
-export ASCEND_OPP_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp                                       # OPP path
-export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/fwkacllib/ccec_compiler/bin/:${PATH}                 # TBE operator compilation tool path
-export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}                                                # Python library that TBE implementation depends on
+## TBE operator implementation tool path
+export TBE_IMPL_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp/op_impl/built-in/ai_core/tbe
+## OPP path
+export ASCEND_OPP_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp
+## TBE operator compilation tool path
+export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/fwkacllib/ccec_compiler/bin/:${PATH}
+## Python library that TBE implementation depends on
+export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}
 ```
 
 ## Installation Verification
@@ -121,7 +204,7 @@ i:
 python -c "import mindspore;mindspore.run_check()"
 ```
 
-- The outputs should be the same as:
+The output should be like:
 
 ```text
 MindSpore version: __version__
@@ -144,7 +227,7 @@ y = Tensor(np.ones([1,3,3,4]).astype(np.float32))
 print(ops.add(x, y))
 ```
 
-- The outputs should be the same as:
+The outputs should be the same as:
 
 ```text
 [[[[2. 2. 2. 2.]

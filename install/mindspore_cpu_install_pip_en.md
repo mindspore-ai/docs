@@ -4,6 +4,8 @@
 
 - [Installing MindSpore in CPU by pip](#installing-mindspore-in-cpu-by-pip)
     - [Environment Preparation](#environment-preparation)
+        - [Installing Python](#installing-python)
+        - [Installing GCC and gmp](#installing-gcc-and-gmp)
     - [Downloading and Installing MindSpore](#downloading-and-installing-mindspore)
     - [Installation Verification](#installation-verification)
     - [Version Update](#version-update)
@@ -12,11 +14,11 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_install_pip_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
-This document describes how to quickly install MindSpore by pip in a Linux system with a CPU environment. The following takes Ubuntu 18.04 as an example to illustrate the steps to install MindSpore.
+This document describes how to quickly install MindSpore by pip in a Linux system with a CPU environment. The following takes Ubuntu 18.04 as an example to describe how to install MindSpore.
 
 - If you want to install MindSpore by pip on a fresh Ubuntu 18.04, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-pip.sh) for one-click installation. The automatic installation script will install MindSpore and its dependencies.
 
-    The automatic installation script needs to replace the source list and install dependencies via APT, so it needs root privileges to execute. Use the following commands to get the automatic installation script and execute.
+    The root permission is required because the script will modify the source list and install dependencies via APT. Run the following command to obtain and run the automatic installation script:
 
     ```bash
     wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-pip.sh
@@ -26,16 +28,16 @@ This document describes how to quickly install MindSpore by pip in a Linux syste
     # sudo PYTHON_VERSION=3.9 MINDSPORE_VERSION=1.5.0 bash ./ubuntu-cpu-pip.sh
     ```
 
-    The script will:
+    This script performs the following operations:
 
-    - Set the source list to huaweicloud source.
+    - Change the source list to HUAWEI CLOUD source.
     - Install the dependencies required by MindSpore, such as GCC, gmp.
     - Install Python3 and pip3 via APT and set them as default.
     - Install MindSpore in CPU by pip.
 
-    For more usage, please refer to the description at the head of the script.
+    For more usage, see the script header description.
 
-- If your system has already installed some dependencies, such as Python, GCC, etc., it is recommended to install manually by referring to the following installation steps.
+- If some dependencies, such as Python and GCC, have been installed in your system, you are advised to perform the following steps to manually install MindSpore.
 
 ## Environment Preparation
 
@@ -43,16 +45,16 @@ The following table lists the system environment and third-party dependencies re
 
 |software|version|description|
 |-|-|-|
-|Ubuntu|18.04|operating system for compiling and running MindSpore|
-|[Python](#install-python)|3.7.5 or 3.9.0|Python interface for MindSpore|
-|[GCC](#install-gccgmp)|7.3.0|C++ compiler for compiling MindSpore|
-|[gmp](#install-gccgmp)|6.1.2|multiple precision arithmetic library used by MindSpore|
+|Ubuntu|18.04|OS for running MindSpore|
+|[Python](#installing-python)|3.7.5 or 3.9.0|Python environment that MindSpore depends on|
+|[GCC](#installing-gcc-and-gmp)|7.3.0|C++ compiler for compiling MindSpore|
+|[gmp](#installing-gcc-and-gmp)|6.1.2|Multiple precision arithmetic library used by MindSpore|
 
-The following are installation methods of third-party dependencies.
+The following describes how to install the third-party dependencies.
 
-### Install Python
+### Installing Python
 
-[Python](https://www.python.org/) can be installed in several ways.
+[Python](https://www.python.org/) can be installed in multiple ways.
 
 - Install Python with Conda.
 
@@ -98,15 +100,15 @@ The following are installation methods of third-party dependencies.
 
     To install Python 3.9, just replace `3.7` with `3.9` in the command.
 
-You can check the Python version with the following command.
+Run the following command to check the Python version.
 
 ```bash
 python --version
 ```
 
-### Install GCC/gmp
+### Installing GCC and gmp
 
-You may install GCC and gmp by the following commands.
+Run the following commands to install GCC and gmp.
 
 ```bash
 sudo apt-get install gcc-7 libgmp-dev -y

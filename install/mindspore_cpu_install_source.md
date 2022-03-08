@@ -4,6 +4,11 @@
 
 - [源码编译方式安装MindSpore CPU版本](#源码编译方式安装mindspore-cpu版本)
     - [环境准备](#环境准备)
+        - [安装Python](#安装python)
+        - [安装wheel和setuptools](#安装wheel和setuptools)
+        - [安装GCC，git，gmp，tclsh，patch和NUMA](#安装gccgitgmptclshpatch和numa)
+        - [安装CMake](#安装cmake)
+        - [安装LLVM（可选）](#安装llvm可选)
     - [从代码仓下载源码](#从代码仓下载源码)
     - [编译MindSpore](#编译mindspore)
     - [安装MindSpore](#安装mindspore)
@@ -48,13 +53,13 @@
 |[Python](#安装python)|3.7.5或3.9.0|MindSpore的使用依赖Python环境|
 |[wheel](#安装wheel和setuptools)|0.32.0及以上|MindSpore使用的Python打包工具|
 |[setuptools](#安装wheel和setuptools)|44.0及以上|MindSpore使用的Python包管理工具|
-|[GCC](#安装gccgitgmptclshpatchnuma)|7.3.0|用于编译MindSpore的C++编译器|
-|[git](#安装gccgitgmptclshpatchnuma)|-|MindSpore使用的源代码管理工具|
+|[GCC](#安装gccgitgmptclshpatch和numa)|7.3.0|用于编译MindSpore的C++编译器|
+|[git](#安装gccgitgmptclshpatch和numa)|-|MindSpore使用的源代码管理工具|
 |[CMake](#安装cmake)|3.18.3及以上|编译构建MindSpore的工具|
-|[gmp](#安装gccgitgmptclshpatchnuma)|6.1.2|MindSpore使用的多精度算术库|
-|[tclsh](#安装gccgitgmptclshpatchnuma)|-|MindSpore sqlite编译依赖|
-|[patch](#安装gccgitgmptclshpatchnuma)|2.5及以上|MindSpore使用的源代码补丁工具|
-|[NUMA](#安装gccgitgmptclshpatchnuma)|2.0.11及以上|MindSpore使用的非一致性内存访问库|
+|[gmp](#安装gccgitgmptclshpatch和numa)|6.1.2|MindSpore使用的多精度算术库|
+|[tclsh](#安装gccgitgmptclshpatch和numa)|-|MindSpore sqlite编译依赖|
+|[patch](#安装gccgitgmptclshpatch和numa)|2.5及以上|MindSpore使用的源代码补丁工具|
+|[NUMA](#安装gccgitgmptclshpatch和numa)|2.0.11及以上|MindSpore使用的非一致性内存访问库|
 |[LLVM](#安装llvm可选)|12.0.1|MindSpore使用的编译器框架（可选，图算融合需要）|
 
 下面给出第三方依赖的安装方法。
@@ -124,9 +129,9 @@ pip install wheel
 pip install -U setuptools
 ```
 
-### 安装GCC/git/gmp/tclsh/patch/NUMA
+### 安装GCC，git，gmp，tclsh，patch和NUMA
 
-可以通过以下命令安装GCC，git，gmp，tclsh，patch，NUMA。
+可以通过以下命令安装GCC，git，gmp，tclsh，patch和NUMA。
 
 ```bash
 sudo apt-get install gcc-7 git libgmp-dev tcl patch libnuma-dev -y

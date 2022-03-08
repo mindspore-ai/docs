@@ -4,6 +4,8 @@
 
 - [Installing MindSpore CPU by Conda](#installing-mindspore-cpu-by-conda)
     - [Installing Environment Dependencies](#installing-environment-dependencies)
+        - [Installing Conda](#installing-conda)
+        - [Installing GCC and gmp](#installing-gcc-and-gmp)
     - [Creating and Accessing the Conda Virtual Environment](#creating-and-accessing-the-conda-virtual-environment)
     - [Installing MindSpore](#installing-mindspore)
     - [Installation Verification](#installation-verification)
@@ -15,11 +17,11 @@
 
 [Conda](https://docs.conda.io/en/latest/) is an open-source, cross-platform, language-agnostic package manager and environment management system. It allows users to easily install different versions of binary software packages and any required libraries appropriate for their computing platform.
 
-This document describes how to quickly install MindSpore by Conda in a Linux system with a CPU environment. The following takes Ubuntu 18.04 as an example to illustrate the steps to install MindSpore.
+This document describes how to quickly install MindSpore by Conda in a Linux system with a CPU environment. The following takes Ubuntu 18.04 as an example to describe how to install MindSpore.
 
 - If you want to install MindSpore by Conda on a fresh Ubuntu 18.04, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-conda.sh) for one-click installation. The automatic installation script will install MindSpore and its dependencies.
 
-    The automatic installation script needs to replace the source list and install dependencies via APT, it will apply for root privileges during execution. Use the following commands to get the automatic installation script and execute.
+    The automatic installation script needs to replace the source list and install dependencies via APT, it will apply for root privileges during execution. Run the following command to obtain and run the automatic installation script:
 
     ```bash
     wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-conda.sh
@@ -29,16 +31,16 @@ This document describes how to quickly install MindSpore by Conda in a Linux sys
     # PYTHON_VERSION=3.9 MINDSPORE_VERSION=1.5.0 bash ./ubuntu-cpu-conda.sh
     ```
 
-    The script will:
+    This script performs the following operations:
 
-    - Set the source list to huaweicloud source.
+    - Change the source list to HUAWEI CLOUD source.
     - Install the dependencies required by MindSpore, such as GCC, gmp.
     - Install Conda and create a virtual environment for MindSpore.
     - Install MindSpore CPU by Conda.
 
-    For more usage, please refer to the description at the head of the script.
+    For more usage, see the script header description.
 
-- If your system has already installed some dependencies, such as Conda, GCC, etc., it is recommended to install manually by referring to the following installation steps.
+- If some dependencies, such as Conda and GCC, have been installed in your system, you are advised to perform the following steps to manually install MindSpore.
 
 ## Installing Environment Dependencies
 
@@ -46,16 +48,16 @@ The following table lists the system environment and third-party dependencies re
 
 |software|version|description|
 |-|-|-|
-|Ubuntu|18.04|operating system for compiling and running MindSpore|
-|[Conda](#install-conda)|Anaconda3 or Miniconda3|Python environment management tool|
-|[GCC](#install-gccgmp)|7.3.0|C++ compiler for compiling MindSpore|
-|[gmp](#install-gccgmp)|6.1.2|multiple precision arithmetic library used by MindSpore|
+|Ubuntu|18.04|OS for running MindSpore|
+|[Conda](#installing-conda)|Anaconda3 or Miniconda3|Python environment management tool|
+|[GCC](#installing-gcc-and-gmp)|7.3.0|C++ compiler for compiling MindSpore|
+|[gmp](#installing-gcc-and-gmp)|6.1.2|Multiple precision arithmetic library used by MindSpore|
 
-The following are installation methods of third-party dependencies.
+The following describes how to install the third-party dependencies.
 
-### Install Conda
+### Installing Conda
 
-Execute the following command to install Miniconda.
+Run the following command to install Miniconda.
 
 ```bash
 cd /tmp
@@ -66,9 +68,9 @@ cd -
 conda init bash
 ```
 
-### Install GCC/gmp
+### Installing GCC and gmp
 
-You may install GCC and gmp by the following commands.
+Run the following commands to install GCC and gmp.
 
 ```bash
 sudo apt-get install gcc-7 libgmp-dev -y

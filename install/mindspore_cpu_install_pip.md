@@ -4,6 +4,8 @@
 
 - [pip方式安装MindSpore CPU版本](#pip方式安装mindspore-cpu版本)
     - [环境准备](#环境准备)
+        - [安装Python](#安装python)
+        - [安装GCC和gmp](#安装gcc和gmp)
     - [下载安装MindSpore](#下载安装mindspore)
     - [验证是否成功安装](#验证是否成功安装)
     - [升级MindSpore版本](#升级mindspore版本)
@@ -45,8 +47,8 @@
 |-|-|-|
 |Ubuntu|18.04|运行MindSpore的操作系统|
 |[Python](#安装python)|3.7.5或3.9.0|MindSpore的使用依赖Python环境|
-|[GCC](#安装gccgmp)|7.3.0|用于编译MindSpore的C++编译器|
-|[gmp](#安装gccgmp)|6.1.2|MindSpore使用的多精度算术库|
+|[GCC](#安装gcc和gmp)|7.3.0|用于编译MindSpore的C++编译器|
+|[gmp](#安装gcc和gmp)|6.1.2|MindSpore使用的多精度算术库|
 
 下面给出第三方依赖的安装方法。
 
@@ -106,7 +108,7 @@
 python --version
 ```
 
-### 安装GCC/gmp
+### 安装GCC和gmp
 
 可以通过以下命令安装GCC和gmp。
 
