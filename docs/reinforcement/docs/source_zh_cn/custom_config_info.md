@@ -102,12 +102,12 @@ algorithm_config = {
 }
 ```
 
-|      键值      |    类型    |             范围              |                             说明                             |
-| :------------: | :--------: | :---------------------------: | :----------------------------------------------------------: |
-|  number(可选)  |  Integer   |            [1, +∞)            | 当用户选择填写number这项时，填入的环境数量至少为1个。当用户不选择填入number这项时，框架会直接创建环境实例而不会调用`MultiEnvironmentWrapper`类来包装环境 |
-| num_proc(可选) |  Integer   |          [1, number]          | 如果在配置中给出num_proc，则会调用Python多进程来与多个环境集交互。num_proc的最大值为环境的数量。不填则会串行与环境交互 |
-|      type      |   Class    |      Environment类的子类      |                         外部环境类名                         |
-|  params(可选)  | Dictionary | 任意key value形式的值或者None |      自定义参数，用户可以通过key value的形式传入任何值       |
+|        键值        |    类型    |             范围              |                             说明                             |
+| :----------------: | :--------: | :---------------------------: | :----------------------------------------------------------: |
+|    number(可选)    |  Integer   |            [1, +∞)            | 当用户选择填写number这项时，填入的环境数量至少为1个。当用户不选择填入number这项时，框架会直接创建环境实例而不会调用`MultiEnvironmentWrapper`类来包装环境 |
+| num_parallel(可选) |  Integer   |          [1, number]          | 不填时默认开启环境并行。用户可通过填写num_parallel: 1来关闭环境并行，或者配置自己需要的并行参数。 |
+|        type        |   Class    |      Environment类的子类      |                         外部环境类名                         |
+|    params(可选)    | Dictionary | 任意key value形式的值或者None |      自定义参数，用户可以通过key value的形式传入任何值       |
 
 ### Actor配置参数
 
