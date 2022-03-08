@@ -135,7 +135,7 @@ Users can also define the dataset by themselves. Note that the dataset must be a
 
         Used to start the client to participate in the federated learning training task, and to obtain the final trained aggregation model.
 
-    - `SyncFLJob.modelInference()`
+    - `SyncFLJob.modelInfer()`
 
         Used to obtain the inference result of a given dataset.
 

@@ -634,3 +634,45 @@ Used to set the number of single-step training samples used in federated learnin
 
 - Parameter
     - `batchSize`:  the number of single-step training samples of int type.
+
+## getInputShape
+
+```java
+public int[][] getInputShape()
+```
+
+Used to obtain the real input shape of the model set by the user When the user uses a dynamic input model.
+
+- Return value
+
+    The input shape of the model of int[\][\] type.
+
+## setInputShape
+
+```java
+public void setInputShape(int[][] inputShape)
+```
+
+This parameter is used to set the real input shape of the model, which is only needed when the user uses a dynamic input model. the `inputShape` is a two-dimensional array of type int, which supports multiple inputs. Refer to the following usage examples:
+
+When the dynamic input model contains only one input, assuming that the input dimension in the model is displayed as [-1, 24], the -1 dimension is a variable dimension, and the user needs to indicate its true dimension when using the model:
+
+```java
+int[][] inputShape = {{32, 24}}      // Specify that the true dimension corresponding to the -1 dimension is 32
+FLParameter flParameter = FLParameter.getInstance();
+flParameter.setInputShape(inputShape)
+```
+
+When the dynamic input model only contains multiple inputs, assume that the dimension of input 1 in the model is displayed as [-1, 24], and the dimension of input 2 is displayed as [-1, -1], then the -1 dimension is a variable dimension , when users use the model, they need to indicate their true dimensions:
+
+```java
+int[][] inputShape = {{32, 24}, {32, 96}}      // Specify that the real dimension of input 1 is {32, 24}, and the real dimension of input 2 is {32, 96}
+FLParameter flParameter = FLParameter.getInstance();
+flParameter.setInputShape(inputShape)
+```
+
+Note that there is usually a dimension in the input shape of the model that represents the batch size, and this value should be consistent with the value set by the `FLParameter.setBatchSize()` interface.
+
+- Parameter
+    - `inputShape`: The input shape of the model of int[\][\] type.
+

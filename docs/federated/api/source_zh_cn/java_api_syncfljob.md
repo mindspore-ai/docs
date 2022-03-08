@@ -6,13 +6,14 @@
 import com.mindspore.flclient.SyncFLJob
 ```
 
-SyncFLJob定义了端侧联邦学习启动接口flJobRun()、端侧推理接口modelInference()、获取云侧最新模型的接口getModel()、停止联邦学习训练任务的接口stopFLJob()。
+SyncFLJob定义了端侧联邦学习启动接口flJobRun()、端侧推理接口modelInfer、获取云侧最新模型的接口getModel()、停止联邦学习训练任务的接口stopFLJob()。
 
 ## 公有成员函数
 
 | **function**                     |
 | -------------------------------- |
 | public FLClientStatus flJobRun() |
+| public List<Object> modelInfer() |
 | public int[] modelInference()    |
 | public FLClientStatus getModel() |
 | public void stopFLJob()          |
@@ -29,17 +30,29 @@ public FLClientStatus flJobRun()
 
     返回flJobRun请求状态码。
 
-## modelInference
+## modelInfer
 
 ```java
-public int[] modelInference()
+public List<Object> modelInfer()
 ```
 
 启动端侧推理任务，具体使用方法可参考[接口介绍文档](https://www.mindspore.cn/federated/docs/zh-CN/master/interface_description_federated_client.html)。
 
 - 返回值
 
-  根据输入推理出的标签组成的int[]。
+  对于给定输入，模型输出的预测值。
+
+## modelInference
+
+```java
+public int[] modelInference()
+```
+
+启动端侧推理任务，请注意，由于该接口的返回值比较单一，将在1.8版本被移除。
+
+- 返回值
+
+    根据输入推理出的标签组成的int[]。
 
 ## getModel
 

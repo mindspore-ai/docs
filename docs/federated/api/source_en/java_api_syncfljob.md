@@ -6,13 +6,14 @@
 import com.mindspore.flclient.SyncFLJob
 ```
 
-SyncFLJob defines the API flJobRun() for starting federated learning on the device, the API modelInference() for inference on the device, the API getModel() for obtaining the latest model on the cloud, and the API stopFLJob() for stopping federated learning training tasks.
+SyncFLJob defines the API flJobRun() for starting federated learning on the device, the API modelInfer() for inference on the device, the API getModel() for obtaining the latest model on the cloud, and the API stopFLJob() for stopping federated learning training tasks.
 
 ## Public Member Functions
 
 | **Function**                     |
 | -------------------------------- |
 | public FLClientStatus flJobRun() |
+| public List<Object> modelInfer() |
 | public int[] modelInference()    |
 | public FLClientStatus getModel() |
 | public void stopFLJob()          |
@@ -29,13 +30,25 @@ Starts a federated learning task on the device, for specific usage, please refer
 
     The status code of the flJobRun request.
 
+## modelInfer
+
+```java
+public List<Object> modelInfer()
+```
+
+Starts an inference task on the device, for specific usage, please refer to the [interface introduction document](https://www.mindspore.cn/federated/docs/en/master/interface_description_federated_client.html).
+
+- Return value
+
+    The predicted value of the model output for a given input.
+
 ## modelInference
 
 ```java
 public int[] modelInference()
 ```
 
-Starts an inference task on the device, for specific usage, please refer to the [interface introduction document](https://www.mindspore.cn/federated/docs/en/master/interface_description_federated_client.html).
+Starts an inference task on the device, please note that due to the single return value of this interface, it will be removed in version 1.8.
 
 - Return value
 

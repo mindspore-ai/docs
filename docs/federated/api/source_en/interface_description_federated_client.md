@@ -165,9 +165,9 @@ The sample code (basic http communication) is as follows:
    syncFLJob.flJobRun();
    ```
 
-## modelInference() for Inferring Multiple Input Data Records
+## modelInfer() for Inferring Multiple Input Data Records
 
-Before calling the modelInference() API, instantiate the parameter class FLParameter and set related parameters as follows:
+Before calling the modelInfer() API, instantiate the parameter class FLParameter and set related parameters as follows:
 
 | Parameter      | Type                         | Mandatory | Description                                                  | Remarks                                                      |
 | -------------- | ---------------------------- | --------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -178,7 +178,7 @@ Before calling the modelInference() API, instantiate the parameter class FLParam
 | cpuBindMode    | BindMode                     | N         | The cpu core that threads need to bind during federated learning training and inference. | It is the enumeration type `BindMode`, where BindMode.NOT_BINDING_CORE represents the unbound core, which is automatically assigned by the system, BindMode.BIND_LARGE_CORE represents the bound large core, and BindMode.BIND_MIDDLE_CORE represents the bound middle core. The default value is BindMode.NOT_BINDING_CORE. |
 | batchSize      | int                          | Y         | The number of single-step training samples used in federated learning training and inference, that is, batch size. | It needs to be consistent with the batch size of the input data of the model. |
 
-Create a SyncFLJob object and use the modelInference() method of the SyncFLJob class to start an inference task on the device. The inferred label array is returned.
+Create a SyncFLJob object and use the modelInfer() method of the SyncFLJob class to start an inference task on the device. The inferred label array is returned.
 
 The sample code is as follows:
 
@@ -212,7 +212,7 @@ The sample code is as follows:
 
    // inference
    SyncFLJob syncFLJob = new SyncFLJob();
-   int[] labels = syncFLJob.modelInference();
+   List<Object/> labels = syncFLJob.modelInfer();
    ```
 
 2. Sample code of a LeNet image classification
@@ -243,7 +243,7 @@ The sample code is as follows:
 
    // inference
    SyncFLJob syncFLJob = new SyncFLJob();
-   int[] labels = syncFLJob.modelInference();
+   List<Object/> labels = syncFLJob.modelInfer();
    ```
 
 ## getModel() for Obtaining the Latest Model on the Cloud

@@ -61,6 +61,8 @@ FLParameter定义联邦学习相关参数，供用户进行设置。
 | public void setServerMod(ServerMod serverMod)                |
 | public int getBatchSize()                                    |
 | public void setBatchSize(int batchSize)                      |
+| public int[][] getInputShape()                               |
+| public void setInputShape(int[][] inputShape)                |
 
 ## getInstance
 
@@ -634,3 +636,45 @@ public void setBatchSize(int batchSize)
 
 - 参数
     - `batchSize`: 单步训练样本数，即batch size。
+
+## getInputShape
+
+```java
+public int[][] getInputShape()
+```
+
+当用户使用动态输入模型时，获取用户设置的模型真实输入shape。
+
+- 返回值
+
+    int\[]\[]类型的型的输入shape。
+
+## setInputShape
+
+```java
+public void setInputShape(int[][] inputShape)
+```
+
+当用户使用动态输入模型时，才需设置该参数，用于设置模型的真实输入shape，其中inputShape为int类型的二维数组，支持多输入。可参考如下使用示例：
+
+当动态输入模型只包含一个输入时，假设模型中输入维度显示为[-1, 24]，则其中-1维度为可变维度，用户使用该模型时，需要指示其真实维度：
+
+```java
+int[][] inputShape = {{32, 24}}      // 指定-1维度对应的真实维度为32
+FLParameter flParameter = FLParameter.getInstance();
+flParameter.setInputShape(inputShape)
+```
+
+当动态输入模型只包含多个输入时，假设模型中输入1的维度显示为[-1, 24]，输入2的维度显示为[-1, -1]，则其中-1维度为可变维度，用户使用该模型时，需要指示其真实维度：
+
+```java
+int[][] inputShape = {{32, 24}, {32, 96}}      // 指定输入1真实维度为{32, 24}，输入2的真实维度为{32, 96}
+FLParameter flParameter = FLParameter.getInstance();
+flParameter.setInputShape(inputShape)
+```
+
+注意，通常模型输入shape中有一个维度代表batch size，该值应与`FLParameter.setBatchSize()`接口所设置的值保持一致。
+
+- 参数
+    - `inputShape`: 模型输入shape，int类型二维数组。
+

@@ -165,9 +165,9 @@ flParameter.setValidInterval(validIterInterval);
    syncFLJob.flJobRun();
    ```
 
-## 多条数据输入推理接口modelInference()
+## 多条数据输入推理接口modelInfer()
 
-调用modelInference()接口前，需先实例化参数类FLParameter，进行相关参数设置， 相关参数如下：
+调用modelInfer()接口前，需先实例化参数类FLParameter，进行相关参数设置， 相关参数如下：
 
 | 参数名称       | 参数类型                   | 是否必须 | 描述信息                                               | 适应API版本                                                  |
 | -------------- | -------------------------- | -------- | ------------------------------------------------------ | ------------------------------------------------------------ |
@@ -178,7 +178,7 @@ flParameter.setValidInterval(validIterInterval);
 | cpuBindMode    | BindMode                   | N        | 联邦学习训练和推理时线程所需绑定的cpu内核              | BindMode枚举类型，其中BindMode.NOT_BINDING_CORE代表不绑定内核，由系统自动分配，BindMode.BIND_LARGE_CORE代表绑定大核，BindMode.BIND_MIDDLE_CORE代表绑定中核。默认值为BindMode.NOT_BINDING_CORE。 |
 | batchSize      | int                        | Y        | 联邦学习训练和推理时使用的单步训练样本数，即batch size | 需与模型的输入数据的batch size保持一致。                     |
 
-创建SyncFLJob对象，并通过SyncFLJob类的modelInference()方法启动端侧推理任务，返回推理的标签数组。
+创建SyncFLJob对象，并通过SyncFLJob类的modelInfer()方法启动端侧推理任务，返回推理的标签数组。
 
 示例代码如下：
 
@@ -212,7 +212,7 @@ flParameter.setValidInterval(validIterInterval);
 
    // inference
    SyncFLJob syncFLJob = new SyncFLJob();
-   int[] labels = syncFLJob.modelInference();
+   List<Object/> labels = syncFLJob.modelInfer();
    ```
 
 2. LeNet图片分类示例代码
@@ -243,7 +243,7 @@ flParameter.setValidInterval(validIterInterval);
 
    // inference
    SyncFLJob syncFLJob = new SyncFLJob();
-   int[] labels = syncFLJob.modelInference();
+   List<Object/> labels = syncFLJob.modelInfer();
    ```
 
 ## 获取云侧最新模型接口getModel ()
