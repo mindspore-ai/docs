@@ -17,6 +17,7 @@ The current supported data augmentation operators which can be offloaded are:
 | RandomSharpness |   mindspore.dataset.vision.c_transforms.py |  Adjust the sharpness of the input PIL Image by a random degree |
 | RandomVerticalFlip |  mindspore.dataset.vision.c_transforms.py |  Randomly flip the input image vertically with a given probability |
 | Rescale |   mindspore.dataset.vision.c_transforms.py |  Rescale the input image with the given rescale and shift |
+| TypeCast |   mindspore.dataset.transforms.c_transforms.py |  Cast tensor to a given MindSpore data type |
 
 ## Offload Process
 
@@ -63,10 +64,8 @@ dataset = dataset.map(operations=image_ops , input_columns="image", offload=True
 
 The offload hardware accelerator feature is still in development phase. The current usage is limited under the following constraints:
 
-1. Dataset should only contain "image" and "label" columns.  
+1. Offload feature does not support concatenated or zipped datasets currently.  
 
-2. Offload feature does not support concatenated or zipped datasets currently.  
+2. The map operation(s) you wish to offload must be the last map operations in the pipeline. This includes map operations done to other dataset columns, for instance, `dataset = dataset.map(operations=type_cast_op, input_columns= "label")` must come before `dataset = dataset.map(operations=image_ops , input_columns="image", offload=True)`.
 
-3. The map operation(s) you wish to offload must be the last map operations in the pipeline. This includes map operations done to other dataset columns, for instance, `dataset = dataset.map(operations=type_cast_op, input_columns= "label")` must come before `dataset = dataset.map(operations=image_ops , input_columns="image", offload=True)`.
-
-4. Offload feature does not support map operations with a user specified `output_columns`.
+3. Offload feature does not support map operations with a user specified `output_columns`.
