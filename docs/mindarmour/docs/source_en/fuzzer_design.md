@@ -20,9 +20,12 @@ Fuzz testting architecture consists of three modules:
 
    Randomly select a mutation method to mutate seed data and generate multiple variants. Mutation policies supporting multiple samples include:
 
-   - Image affine transformation methods: Translate, Rotate, Scale, and Shear.
-   - Methods based on image pixel value changes: Contrast, Brightness, Blur, and Noise.
-   - Methods for generating adversarial examples based on white-box and black-box attacks: FGSM, PGD, and MDIIM.
+   - Natural Robustness Methods
+       - Image affine transformation methods: Translate, Scale, Shear, Rotate, Perspective, Curve;
+       - Image blur methods: GaussianBlur, MotionBlur, GradientBlur;
+       - Luminance adjustment methods: Contrast, GradientLuminance;
+       - Add noise methods: UniformNoise, GaussianNoise, SaltAndPepperNoise, NaturalNoise.
+   - Methods for generating adversarial examples based on white-box and black-box attacks: FGSM(FastGradientSignMethod), PGD(ProjectedGradientDescent), and MDIIM(MomentumDiverseInputIterativeMethod).
 
 2. Fuzzer Moduler:
 
@@ -50,7 +53,7 @@ Through multiple rounds of mutations, you can obtain a series of variant data in
 
 1. [fuzzing.py](https://gitee.com/mindspore/mindarmour/blob/master/mindarmour/fuzz_testing/fuzzing.py): overall fuzz testing process.
 2. [model_coverage_metrics.py](https://gitee.com/mindspore/mindarmour/blob/master/mindarmour/fuzz_testing/model_coverage_metrics.py): neuron coverage rate metrics, including KMNC, NBC, and SNAC.
-3. [image_transform.py](https://gitee.com/mindspore/mindarmour/blob/master/mindarmour/fuzz_testing/image_transform.py): image mutation methods, including methods based on image pixel value changes and affine transformation methods.
+3. [image transform methods](https://gitee.com/mindspore/mindarmour/tree/master/mindarmour/natural_robustness/transform/image): image mutation methods, including a plurality of noise addition, blurring, brightness adjustment and affine transformation methods.
 4. [adversarial attacks](https://gitee.com/mindspore/mindarmour/tree/master/mindarmour/adv_robustness/attacks): methods for generating adversarial examples based on white-box and black-box attacks.
 
 ## References

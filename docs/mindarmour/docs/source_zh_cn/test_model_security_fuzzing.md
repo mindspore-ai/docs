@@ -84,15 +84,18 @@ context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
 
 2. Fuzzer参数配置。
 
-   设置数据变异方法及参数。支持同时配置多种方法，目前支持的数据变异方法包含三类：
+   设置数据变异方法及参数。支持同时配置多种方法，目前支持的数据变异方法包含两类：
 
-   - 图像仿射变换方法：Translate、Scale、Shear、Rotate。
-   - 基于图像像素值变化的方法： Contrast、Brightness、Blur、Noise。
-   - 基于对抗攻击的白盒、黑盒对抗样本生成方法：FGSM、PGD、MDIIM。
+   - 自然扰动样本生成方法：
+       - 仿射变换类方法：Translate、Scale、Shear、Rotate、Perspective、Curve；
+       - 模糊类方法：GaussianBlur、MotionBlur、GradientBlur；
+       - 亮度调整类方法：Contrast、GradientLuminance;
+       - 加噪类方法：UniformNoise、GaussianNoise、SaltAndPepperNoise、NaturalNoise。
+   - 基于对抗攻击的白盒、黑盒对抗样本生成方法：FGSM（FastGradientSignMethod）、PGD（ProjectedGradientDescent）、MDIIM（MomentumDiverseInputIterativeMethod）。
 
    数据变异方法中一定要包含基于图像像素值变化的方法。
 
-   前两种类型的图像变化方法，支持用户自定义配置参数，也支持算法随机选择参数。用户自定义参数配置范围请参考:<https://gitee.com/mindspore/mindarmour/blob/master/mindarmour/fuzz_testing/image_transform.py>
+   前两种类型的图像变化方法，支持用户自定义配置参数，也支持算法随机选择参数。用户自定义参数配置范围请参考:<https://gitee.com/mindspore/mindarmour/tree/master/mindarmour/natural_robustness/transform/image>
    中对应的类方法。算法随机选择参数，则`params`设置为`'auto_param': [True]`，参数将在推荐范围内随机生成。
 
    基于对抗攻击方法的参数配置请参考对应的攻击方法类。
@@ -100,24 +103,50 @@ context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
    下面是变异方法及其参数配置的一个例子：
 
    ```python
-   mutate_config = [{'method': 'Blur',
-                     'params': {'radius': [0.1, 0.2, 0.3],
-                                'auto_param': [True, False]}},
-                    {'method': 'Contrast',
-                     'params': {'auto_param': [True]}},
-                    {'method': 'Translate',
-                     'params': {'auto_param': [True]}},
-                    {'method': 'Brightness',
-                     'params': {'auto_param': [True]}},
-                    {'method': 'Noise',
-                     'params': {'auto_param': [True]}},
-                    {'method': 'Scale',
-                     'params': {'auto_param': [True]}},
-                    {'method': 'Shear',
-                     'params': {'auto_param': [True]}},
-                    {'method': 'FGSM',
-                     'params': {'eps': [0.3, 0.2, 0.4], 'alpha': [0.1]}}
-                   ]
+   mutate_config = [
+        {'method': 'GaussianBlur',
+         'params': {'ksize': [1, 2, 3, 5],
+                    'auto_param': [True, False]}},
+        {'method': 'MotionBlur',
+         'params': {'degree': [1, 2, 5], 'angle': [45, 10, 100, 140, 210, 270, 300], 'auto_param': [True]}},
+        {'method': 'GradientBlur',
+         'params': {'point': [[10, 10]], 'auto_param': [True]}},
+        {'method': 'UniformNoise',
+         'params': {'factor': [0.1, 0.2, 0.3], 'auto_param': [False, True]}},
+        {'method': 'GaussianNoise',
+         'params': {'factor': [0.1, 0.2, 0.3], 'auto_param': [False, True]}},
+        {'method': 'SaltAndPepperNoise',
+         'params': {'factor': [0.1, 0.2, 0.3], 'auto_param': [False, True]}},
+        {'method': 'NaturalNoise',
+         'params': {'ratio': [0.1, 0.2, 0.3], 'k_x_range': [(1, 3), (1, 5)], 'k_y_range': [(1, 5)],
+                    'auto_param': [False, True]}},
+        {'method': 'Contrast',
+         'params': {'alpha': [0.5, 1, 1.5], 'beta': [-10, 0, 10], 'auto_param': [False, True]}},
+        {'method': 'GradientLuminance',
+         'params': {'color_start': [(0, 0, 0)], 'color_end': [(255, 255, 255)], 'start_point': [(10, 10)],
+                    'scope': [0.5], 'pattern': ['light'], 'bright_rate': [0.3], 'mode': ['circle'],
+                    'auto_param': [False, True]}},
+        {'method': 'Translate',
+         'params': {'x_bias': [0, 0.05, -0.05], 'y_bias': [0, -0.05, 0.05], 'auto_param': [False, True]}},
+        {'method': 'Scale',
+         'params': {'factor_x': [1, 0.9], 'factor_y': [1, 0.9], 'auto_param': [False, True]}},
+        {'method': 'Shear',
+         'params': {'factor': [0.2, 0.1], 'direction': ['horizontal', 'vertical'], 'auto_param': [False, True]}},
+        {'method': 'Rotate',
+         'params': {'angle': [20, 90], 'auto_param': [False, True]}},
+        {'method': 'Perspective',
+         'params': {'ori_pos': [[[0, 0], [0, 800], [800, 0], [800, 800]]],
+                    'dst_pos': [[[50, 0], [0, 800], [780, 0], [800, 800]]], 'auto_param': [False, True]}},
+        {'method': 'Curve',
+         'params': {'curves': [5], 'depth': [2], 'mode': ['vertical'], 'auto_param': [False, True]}},
+        {'method': 'FGSM',
+         'params': {'eps': [0.3, 0.2, 0.4], 'alpha': [0.1], 'bounds': [(0, 1)]}},
+        {'method': 'PGD',
+         'params': {'eps': [0.1, 0.2, 0.4], 'eps_iter': [0.05, 0.1], 'nb_iter': [1, 3]}},
+        {'method': 'MDIIM',
+         'params': {'eps': [0.1, 0.2, 0.4], 'prob': [0.5, 0.1],
+                    'norm_level': [1, 2, '1', '2', 'l1', 'l2', 'inf', 'np.inf', 'linf']}}
+       ]
    ```
 
    初始化种子队列，种子队列中的每个种子，包含2个值：原始图片、图片标签。这里取100个样本作为初始种子队列。
