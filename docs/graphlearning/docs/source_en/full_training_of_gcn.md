@@ -15,7 +15,7 @@ MindSpore Graph Learning provides abundant dataset read, graph operation, and ne
 In addition, MindSpore Graph Learning provides a point-centric GNN programming paradigm. Its built-in code parsing functions translate point-centric computing expressions into graph data computing operations. To facilitate debugging, a translation comparison between the user input code and the calculation code is printed during the parsing process.
 
 This document describes how to use MindSpore Graph Learning to train and verify GCN. If graph nodes and edge features can be stored in a GPU, you do not need to sample the entire graph for training.
-For details about the code, see <https://gitee.com/mindspore/graphlearning/blob/r1.6/examples/vc_gcn_datanet.py>.
+For details about the code, see <https://gitee.com/mindspore/graphlearning/blob/r0.1/examples/vc_gcn_datanet.py>.
 
 The following is an example of graph training using GCN:
 
@@ -54,7 +54,7 @@ class GCNNet(GNNCell):
 GCNNet is inherited from GNNCell. The last input of the construct function in GNNCell must be a graph or BatchedGraph, that is, the graph structure class supported by MindSpore Graph Learning. In addition, you must import mindspore at the header of the file to identify the execution backend when the code is translated.
 
 In GCNConv, data_feat_size indicates the feature dimension of the input node, hidden_dim_size indicates the feature dimension of the hidden layer, n_classes indicates the dimension of the output classification, and in_deg and out_deg indicate the indegree and outdegree of the node in the graph data, respectively.
-For details about GCN implementation, see the API code of mindspore_gl.nn.GCNConv: <https://gitee.com/mindspore/graphlearning/blob/r1.6/mindspore_gl/nn/conv/gcnconv.py>.
+For details about GCN implementation, see the API code of mindspore_gl.nn.GCNConv: <https://gitee.com/mindspore/graphlearning/blob/r0.1/mindspore_gl/nn/conv/gcnconv.py>.
 
 ## Defining a Loss Function
 
@@ -234,4 +234,4 @@ Epoch 200, Train loss 0.27628058, Test acc 0.819
 
 Accuracy verified on CORA: 0.82 (thesis: 0.815)
 
-The preceding is the usage guide of the entire graph training. For more examples, see [examples directory](<https://gitee.com/mindspore/graphlearning/tree/r1.6/examples>).
+The preceding is the usage guide of the entire graph training. For more examples, see [examples directory](<https://gitee.com/mindspore/graphlearning/tree/r0.1/examples>).

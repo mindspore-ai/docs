@@ -206,7 +206,7 @@ Note: if the automatic download fails, please manually download the relevant lib
 
 Call MindSpore Lite C++ APIs at the JNI layer to implement on-device inference.
 
-The inference process code is as follows. For details about the complete code, see [MindSporeNetnative.cpp](https://gitee.com/mindspore/models/blob/master/official/lite/image_classification/app/src/main/cpp/MindSporeNetnative.cpp).
+The inference process code is as follows. For details about the complete code, see [MindSporeNetnative.cpp](https://gitee.com/mindspore/models/blob/r1.6/official/lite/image_classification/app/src/main/cpp/MindSporeNetnative.cpp).
 
 1. Load the MindSpore Lite model file and build the context, model, and computational graph for inference.  
 

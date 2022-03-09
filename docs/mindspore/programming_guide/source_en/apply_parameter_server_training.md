@@ -41,7 +41,7 @@ Learn how to train a LeNet using the [MNIST dataset](http://yann.lecun.com/exdb/
     - The size of the weight which is updated by Parameter Server should not exceed INT_MAX(2^31 - 1) bytes.
     - The interface `set_param_ps` can receive a `bool` parameter:`init_in_server`, indicating whether this training parameter is initialized on the Server side. `init_in_server` defaults to `False`, indicating that this training parameter is initialized on Worker. Currently, only the training parameter `embedding_table` of the `EmbeddingLookup` operator is supported to be initialized on Server side to solve the problem of insufficient memory caused by the initialization of a large shape `embedding_table` on Worker. The `EmbeddingLookup` operator's `target` attribute needs to be set to 'CPU'. The training parameter initialized on the Server side will no longer be synchronized to Worker. If it involves multi-Server training and saves CheckPoint, each Server will save a CheckPoint after the training.
 
-3. On the basis of the [original training script](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/train.py), set all LeNet model weights to be trained on the parameter server:
+3. On the basis of the [original training script](https://gitee.com/mindspore/models/blob/r1.6/official/cv/lenet/train.py), set all LeNet model weights to be trained on the parameter server:
 
     ```python
     context.set_ps_context(enable_ps=True)

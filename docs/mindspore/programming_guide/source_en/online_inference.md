@@ -26,7 +26,7 @@ print("============== {} ==============".format(acc))
 
 In the preceding information:  
 `model.eval` is an API for model validation. For details about the API, see <https://www.mindspore.cn/docs/api/en/r1.6/api_python/mindspore.html#mindspore.Model.eval>.
-> Inference sample code: <https://gitee.com/mindspore/models/blob/master/official/cv/lenet/eval.py>.
+> Inference sample code: <https://gitee.com/mindspore/models/blob/r1.6/official/cv/lenet/eval.py>.
 
 ### Remote Storage
 

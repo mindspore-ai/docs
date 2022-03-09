@@ -1,4 +1,4 @@
-# MindSpore Graph Learning
+# 安装 Graph Learning
 
 - [安装教程](#安装教程)
     - [确认系统环境信息](#确认系统环境信息)
@@ -19,7 +19,7 @@
 
 - 硬件平台确认为Linux系统下的GPU。
 - 参考[MindSpore安装指南](https://www.mindspore.cn/install)，完成MindSpore的安装，要求至少1.6.0版本。
-- 其余依赖请参见[requirements.txt](https://gitee.com/mindspore/graphlearning/blob/r0.5/requirements.txt)。
+- 其余依赖请参见[requirements.txt](https://gitee.com/mindspore/graphlearning/blob/r0.1/requirements.txt)。
 
 ### 安装方式
 
@@ -31,7 +31,7 @@
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/GraphLearning/any/mindspore_gl_gpu-{version}-cp37-cp37m-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-> - 在联网状态下，安装whl包时会自动下载MindSpore Graph Learning安装包的依赖项（依赖项详情参见[requirements.txt](https://gitee.com/mindspore/graphlearning/blob/r0.5/requirements.txt)），其余情况需自行安装。
+> - 在联网状态下，安装whl包时会自动下载MindSpore Graph Learning安装包的依赖项（依赖项详情参见[requirements.txt](https://gitee.com/mindspore/graphlearning/blob/r0.1/requirements.txt)），其余情况需自行安装。
 > - `{version}`表示MindSpore Graph Learning版本号，例如下载0.1版本MindSpore Graph Learning时，`{version}`应写为0.1。
 
 #### 源码安装

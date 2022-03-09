@@ -173,7 +173,7 @@ def create_dataset2(dataset_path, do_train, repeat_num=1, batch_size=32, target=
 
 ## Defining the Network
 
-Use the ResNet-50 v1.5 network model as an example. Define the [ResNet-50 network](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/src/resnet.py).
+Use the ResNet-50 v1.5 network model as an example. Define the [ResNet-50 network](https://gitee.com/mindspore/models/blob/r1.6/official/cv/resnet/src/resnet.py).
 
 After the network is built, call the defined ResNet-50 in the `__main__` function.
 
