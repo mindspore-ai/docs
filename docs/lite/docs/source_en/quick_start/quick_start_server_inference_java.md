@@ -1,4 +1,4 @@
-# Experience Java Simple Inference Demo
+# Experience Java Minimalist Concurrent Reasoning Demo
 
 `Linux` `x86` `Java` `Whole Process` `Inference Application` `Data Preparation` `Beginner`
 
