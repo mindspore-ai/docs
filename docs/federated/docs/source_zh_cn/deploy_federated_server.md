@@ -288,7 +288,7 @@ MindSpore联邦学习框架支持`Server`的弹性伸缩，对外通过`Schedule
 >
 > - 可以通过集群管理工具(如Kubernetes)创建或者释放`Server`资源。
 >
-> - 缩容后，被缩容节点进程不会退出，需要集群管理工具(如Kubernetes)释放`Server`资源或者执行`kill -15 $PID`来控制进程退出。
+> - 缩容后，被缩容节点进程不会退出，需要集群管理工具(如Kubernetes)释放`Server`资源或者执行`kill -15 $PID`来控制进程退出。请注意需要向`scheduler`节点查询集群状态，等待集群的状态置为`CLUSTER_READY`，才可以回收被缩容的节点。
 
 ## 容灾
 
