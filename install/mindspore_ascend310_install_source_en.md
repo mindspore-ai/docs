@@ -39,7 +39,7 @@ The following describes how to quickly install MindSpore by compiling the source
 
 - Ensure that [tclsh](https://www.tcl.tk/software/tcltk/) is installed.
 
-- Ensure that the Ascend AI processor software package (Ascend Data Center Solution 21.0.4) are installed, please refer to the [Installation Guide].
+- Ensure that the Ascend AI processor software package (Ascend Data Center Solution 21.0.4) are installed, please refer to the [Installation Guide](https://support.huawei.com/enterprise/zh/doc/EDOC1100235797?section=j003).
 
     - Ensure that you have permissions to access the installation path `/usr/local/Ascend` of the Ascend AI Processor software package. If not, ask the user root to add you to a user group to which `/usr/local/Ascend` belongs. For details about the configuration, see the description document in the software package.
     - Install the .whl package provided with the Ascend AI Processor software package. The .whl package is released with the software package. After the software package is upgraded, you need to reinstall the .whl package.
