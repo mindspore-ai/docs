@@ -235,6 +235,7 @@ Lite-CV
 - :doc:`../generate/function_mindspore_dataset_GetAffineTransform-1`
 - :doc:`../generate/function_mindspore_dataset_GetPerspectiveTransform-1`
 - :doc:`../generate/function_mindspore_dataset_GetRotationMatrix2D-1`
+- :doc:`../generate/function_mindspore_dataset_HWC2CHW-1`
 - :doc:`../generate/function_mindspore_dataset_InitFromPixel-1`
 - :doc:`../generate/function_mindspore_dataset_Merge-1`
 - :doc:`../generate/function_mindspore_dataset_Multiply-1`
