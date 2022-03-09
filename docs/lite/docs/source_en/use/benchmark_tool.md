@@ -63,6 +63,8 @@ The following describes the parameters in detail.
 | `--inputShapes=<INPUTSHAPES>` | Optional | Specifies the shape of input data, the format should be NHWC. Use "," to segregate each dimension of input shape, and for several input shapes, use ":" to segregate. | String | Null | - |
 | `--perfProfiling=<PERFPROFILING>` | Optional | Specifies whether to use PerfProfiler to print every kernel's CPU performance data (PMU readings), it is disabled when timeProfiling is true. Only aarch64 CPU is supported. | Boolean | false | true, false |
 | `--perfEvent=<PERFEVENT>` | Optional | Specifies what CPU performance data to measure when PerfProfiling is true. When set as CYCLE, the number of CPU cycles and instructions will be printed; when set as CACHE, cache reference times and cache miss times will be printed; when set as STALL, CPU front-end stall cycles and back-end stall cycles will be printed. | String | CYCLE | CYCLE/CACHE/STALL |
+| `--decryptKey=<DECRYPTKEY>` | Optional | The key used to decrypt the model, in hexadecimal characters for the key. It only supports AES-GCM, and the key length is only 16Byte. | String | null | Note that the key is a string represented by hexadecimal. For example, if the key is defined as `b'0123456789ABCDEF'`, the corresponding hexadecimal representation is `30313233343536373839414243444546`. Users on the Linux platform can use the `xxd` tool to convert the key represented by the bytes to a hexadecimal representation. |
+| `--cryptoLibPath=<CRYPTOLIBPATH>` | Optional | The path to the OpenSSL encryption library. | String | null | - |
 
 ### Example
 

@@ -692,8 +692,28 @@ Status Build(GraphCell graph, const std::shared_ptr<Context> &model_context = nu
 
 ```cpp
 Status Build(const void *model_data, size_t data_size, ModelType model_type,
+             const std::shared_ptr<Context> &model_context = nullptr);
+```
+
+从内存缓冲区加载模型，并将模型编译至可在Device上运行的状态。
+
+- 参数
+
+    - `model_data`: 指向存储读入模型文件缓冲区的指针。
+    - `data_size`: 缓冲区大小。
+    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Opt`、`ModelType::kOM`。MindSpore Lite支持`ModelType::kMindIR`、`ModelType::kMindIR_Opt`类型。
+    - `model_context`: 模型[Context](#context)。
+
+- 返回值
+
+    状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
+#### Build
+
+```cpp
+Status Build(const void *model_data, size_t data_size, ModelType model_type,
              const std::shared_ptr<Context> &model_context = nullptr, const Key &dec_key = {},
-             const std::string &dec_mode = kDecModeAesGcm);
+             const std::string &dec_mode = kDecModeAesGcm, const std::string &cropto_lib_path);
 ```
 
 从内存缓冲区加载模型，并将模型编译至可在Device上运行的状态。
@@ -704,8 +724,9 @@ Status Build(const void *model_data, size_t data_size, ModelType model_type,
     - `data_size`: 缓冲区大小。
     - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Lite`、`ModelType::kOM`。MindSpore Lite支持`ModelType::kMindIR`、`ModelType::kMindIR_Lite`类型。
     - `model_context`: 模型[Context](#context)。
-    - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16、24或32。
-    - `dec_mode`: 解密模式，可选有`AES-GCM`、`AES-CBC`。
+    - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16。
+    - `dec_mode`: 解密模式，可选有`AES-GCM`。
+    - `cropto_lib_path`: OpenSSL Crypto解密库路径。
 
 - 返回值
 
@@ -715,8 +736,27 @@ Status Build(const void *model_data, size_t data_size, ModelType model_type,
 
 ```cpp
 Status Build(const std::string &model_path, ModelType model_type,
+             const std::shared_ptr<Context> &model_context = nullptr);
+```
+
+根据路径读取加载模型，并将模型编译至可在Device上运行的状态。
+
+- 参数
+
+    - `model_path`: 模型文件路径。
+    - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Opt`、`ModelType::kOM`。MindSpore Lite支持`ModelType::kMindIR`、`ModelType::kMindIR_Opt`类型。
+    - `model_context`: 模型[Context](#context)。
+
+- 返回值
+
+    状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
+#### Build
+
+```cpp
+Status Build(const std::string &model_path, ModelType model_type,
              const std::shared_ptr<Context> &model_context = nullptr, const Key &dec_key = {},
-             const std::string &dec_mode = kDecModeAesGcm);
+             const std::string &dec_mode = kDecModeAesGcm, const std::string &cropto_lib_path);
 ```
 
 根据路径读取加载模型，并将模型编译至可在Device上运行的状态。
@@ -726,8 +766,9 @@ Status Build(const std::string &model_path, ModelType model_type,
     - `model_path`: 模型文件路径。
     - `model_type`: 模型文件类型，可选有`ModelType::kMindIR`、`ModelType::kMindIR_Lite`、`ModelType::kOM`。MindSpore Lite支持`ModelType::kMindIR`、`ModelType::kMindIR_Lite`类型。
     - `model_context`: 模型[Context](#context)。
-    - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16、24或32。
-    - `dec_mode`: 解密模式，可选有`AES-GCM`、`AES-CBC`。
+    - `dec_key`: 解密密钥，用于解密密文模型，密钥长度为16。
+    - `dec_mode`: 解密模式，可选有`AES-GCM`。
+    - `cropto_lib_path`: OpenSSL Crypto解密库路径。
 
 - 返回值
 
