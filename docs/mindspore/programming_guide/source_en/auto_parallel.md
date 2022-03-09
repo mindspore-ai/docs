@@ -6,13 +6,13 @@
 
 ## Overview
 
-In deep learning, as the number of datasets and parameters increases, the time and hardware resources required for training increase, and finally become a bottleneck to the training. Parallel distributed training can reduce the requirements on hardware such as memory and computing performance and is an important optimization method for training.
+In deep learning, as the number of datasets and parameters increases, the time and hardware resources required for training increase, and it finally become a bottleneck to the training. Parallel distributed training can reduce the requirements on hardware such as memory and computing performance and is an important optimization method for training.
 
 MindSpore provides the parallel distributed training function and supports multiple parallel modes, including data parallel and automatic parallel.
 
 ## Parallel Distributed Training Configuration
 
-The parallel distributed training configuration of MindSpore is managed by `auto_parallel_context` in a centralized manner. You can customize the configuration based on the actual situation. These configurations can be classified into three types:
+The parallel distributed training configuration of MindSpore is managed by `auto_parallel_context` in a centralized manner. You can customize the configuration based on the actual situation and your own requirements. These configurations can be classified into three types:
 
 - General configuration: takes effect on both data parallel and automatic parallel, for example, `device_num` and `global_rank` etc.
 - Automatic parallel configuration: takes effect only in automatic parallel mode, for example, `gradient_fp32_sync` etc.
@@ -23,9 +23,9 @@ You can use `context.set_auto_parallel_context` to configure the preceding param
 
 #### device_num
 
-`device_num` indicates the number of available machines. The default value is 0. The value is of the int type and must range from 1 to 4096. If you do not set this parameter, the `Model` interface obtains the value by using the `get_group_size` method. If you set this parameter, your configuration is used. This configuration allows you to manually transfer `device_num` without using the `Model` interface.
+`device_num` indicates the number of available machines. The default value is 0. The value is of the int type and must range from 1 to 4096. If you do not configure this parameter, the `Model` interface obtains the value by using the `get_group_size` method. If you set this parameter, your configuration is used. This configuration allows you to manually transfer `device_num` without using the `Model` interface.
 
-> In semi_auto_parallel/auto_parallel mode, constrain device_num to be 1, 2, 4, or a multiple of 8.
+> In semi_auto_parallel/auto_parallel mode, constrain device_num to be 1, 2, 4, or multiples of 8.
 
 The following is a code example:
 
@@ -85,7 +85,7 @@ mul = ops.Mul().shard(((2, 1), (2, 1)))
 context.get_auto_parallel_context("parallel_mode")
 ```
 
-> In semi_auto_parallel mode, if a parameter is used by multiple operators, please ensure that the parameter layout in each operator is consistent, otherwise an error will be reported during compilation. In the following example, mul1 and mul2 share the weight, but mul1 splits weight into 8 slices by row, however, mul2 splits the weight into 8 slices by column. The layout of weight in the two operators is inconsistent, compilation will be failed.
+> In the semi_auto_parallel mode, if a parameter is used by multiple operators, please ensure that the parameter layout in each operator is consistent, otherwise an error will be reported during compilation. In the following example, mul1 and mul2 share the weight, but mul1 splits weight into 8 slices by row, while mul2 splits the weight into 8 slices by column. The layout of weight in the two operators is inconsistent, compilation will be failed.
 
 ```python
 import numpy as np
@@ -110,7 +110,7 @@ class Net(Cell):
 
 #### all_reduce_fusion_config
 
-`all_reduce_fusion_config` allows users to customize the AllReduce segmentation policy by gradient aggregation. To reduce resource consumption and operator execution gaps, the framework fusions all the reverse gradient aggregation AllReduce operators into one by default. However, when the model is large, the iteration smearing time increases. You can set this parameter based on the actual network to manually tune and find the optimal segmentation policy by gradient aggregation.
+`all_reduce_fusion_config` allows users to customize the AllReduce segmentation policy by gradient aggregation. To reduce resource consumption and operator execution gaps, the framework fusions all the AllReduce operators of reverse gradient aggregation into one by default. However, when the model is large, the iteration smearing time increases. You can manually tune and find the optimal segmentation policy by gradient aggregation by setting this parameter based on the actual network.
 
 The following is a code example:
 
@@ -127,7 +127,7 @@ In the example, the value range of `all_reduce_fusion_config` is [20,35]. The fi
 
 `enable_parallel_optimizer` is a feature under development. The default value is False. In data parallel, weight update has redundant computation among devices. Parallel optimizer shards the computation of optimizer to each device. For large-scale networks like Bert and GPT, this feature could reduce requirements on memory and improve the performance efficiently.
 
-When the `enable_parallel_optimizer` is enabled in the data_parallel mode, MindSpore will split the parameters that need to be updated into different devices, and then use the Broadcast operator to share weights between clusters after each update. It should be noted that the number of parameters should be greater than the number of machines. Currently, only the `Lamb` and `AdamWeightDecay` optimizers are supported.
+The optimizers may parallel in the  `data_parallel` mode, and MindSpore will split the parameters that need to be updated into different devices, and then use the Broadcast operator to share weights between clusters after each update. It should be noted that the number of parameters should be greater than the number of machines. Currently, only the `Lamb` and `AdamWeightDecay` optimizers are supported.
 
 In the `auto_parallel` or `semi_auto_parallel` mode, the optimizer parallel is enabled. If one parameter which has been sliced by shard strategy still has repeated slices among devices, and the highest dimension of the shape can be divided by the number of devices, MindSpore would save parameters and update them by the smallest slice shapes. All optimizers are supported under this two modes.
 
@@ -159,7 +159,7 @@ context.get_auto_parallel_context("parameter_broadcast")
 
 `comm_fusion` allows user to configure the communication fusion for various communication operators, and for now, `allreduce`, `allgather`, `reducescatter` are supported. For `allreduce`, it has three `mode` options:
 
-- `auto`：automatic communication operators fusion by gradients size, and another parameter `config` is `None`. The gradients fusion size is automatically set by 64 MB.
+- `auto`：automatic  `allreduce` communication operators fusion by gradients size, and another parameter `config` is `None`. The gradients fusion size is automatically set by 64 MB.
 - `size`：manual communication operators fusion by gradients size, and the type of another parameter `config` is `int` and unit is `MB`.
 - `index`：manual communication operators fusion by parameters' index，same as `all_reduce_fusion_config`, and the type of parameter `config` is `list(int)`.
 
@@ -233,7 +233,7 @@ context.get_auto_parallel_context("strategy_ckpt_load_file")
 
 #### strategy_ckpt_save_file
 
-Specifies a path for storing the segmentation information of all operators with weights in automatic parallel mode.
+Specify a path for storing the segmentation information of all operators with weights in automatic parallel mode.
 
 The following is a code example:
 
@@ -246,7 +246,7 @@ context.get_auto_parallel_context("strategy_ckpt_save_file")
 
 #### full_batch
 
-`full_batch` allows users to determine whether to import datasets in full mode. The default value is False. That is, datasets are imported in data parallel mode. In special scenarios, the performance of full dataset import is better than that of import in data parallel mode. For example, the WideDeep network is used in uneven segmentation scenarios. Therefore, MindSpore provides the `full_batch` configurable interface.
+`full_batch` allows users to determine whether to import datasets in full mode. The default value is False. That is, datasets are imported in the data parallel mode. In special scenarios, the performance of full dataset import is better than that of import in data parallel mode. For example, the WideDeep network is used in uneven segmentation scenarios. Therefore, MindSpore provides the `full_batch` configurable interface.
 
 The following is a code example:
 
@@ -333,7 +333,7 @@ context.set_context(device_target='GPU')
 init()
 ```
 
-> Under the GPU processor platform, MindSpore also supports starting distributed training without relying on 'OpenMPI', and also uses this interface for distributed training initialization. For specific usage, please refer to [not using OpenMPI training](https://www.mindspore.cn/docs/programming_guide/en/master/distributed_training_gpu.html#openmpi). In this case, when the user does not use 'mpirun' to start the process, but still calls the 'init()' method, MindSpore requires the user to follow [not using OpenMPI training](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_gpu.html#openmpi) to configure several environment variables. If not configured, MindSpore will give a reasonable error prompt. Therefore, it is recommended to call this method only when executing distributed training, and when trying to start distributed training without using 'mpirun', please configure the correct environment variables according to the document.
+> On the GPU processor platform, MindSpore also supports starting distributed training without relying on 'OpenMPI', and also uses this interface for distributed training initialization. For specific usage, please refer to [not using OpenMPI training](https://www.mindspore.cn/docs/programming_guide/en/master/distributed_training_gpu.html#openmpi). In this case, when the user does not use 'mpirun' to start the process, but still calls the 'init()' method, MindSpore requires the user to follow [not using OpenMPI training](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_gpu.html#openmpi) to configure several environment variables. If not configured, MindSpore will give a reasonable error prompt. Therefore, it is recommended to call this method only when executing distributed training, and when trying to start distributed training without using 'mpirun', please configure the correct environment variables according to the document.
 
 ### get_group_size
 
@@ -423,7 +423,7 @@ context.set_auto_parallel_context(parallel_mode="auto_parallel", device_num=8)
 net = Net().set_comm_fusion(2)
 ```
 
-Here the `comm_fusion` of parameter `Net.p1` is 2, which means the attribute `fusion` is 2 for the communication operators generated for this parameter. When you need to manipulate the parameters in batches, it is recommended to call `set_comm_fusion` to set `comm_fusion` for all the parameters in the Net. The value of attribute will be overwritten when the function is called multiply.
+Here the `comm_fusion` of parameter `Net.p1` is 2, which means the attribute `fusion` is 2 for the communication operators generated for this parameter. When you need to manipulate the parameters in batches, it is recommended to call `set_comm_fusion` to set `comm_fusion` for all the parameters in the Net. The value of attribute will be overwritten when the function is invoked for multiple times.
 
 > When a parameter is shared, the operators connected with the parameter should have the same data type. Otherwise, fusion would failed.
 
