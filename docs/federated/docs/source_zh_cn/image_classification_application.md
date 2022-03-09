@@ -135,7 +135,7 @@
 
         用于启动客户端参与到联邦学习训练任务中，并获取最终训练好的聚合模型。
 
-    - `SyncFLJob.modelInference()`
+    - `SyncFLJob.modelInfer()`
 
         用于获取给定数据集的推理结果。
 
