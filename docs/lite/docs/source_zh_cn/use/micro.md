@@ -172,7 +172,7 @@ mnist
 
     以上命令均成功返回值时，表明环境准备已完成，可以继续进入下一步，否则请务必先安装上述环境。
 
-2. 生成STM32F746单板初始化代码（[详情示例代码](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/micro/example/mnist_stm32f746)）
+2. 生成STM32F746单板初始化代码（[详情示例代码](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_micro/mnist_stm32f746)）
 
     - 启动 STM32CubeMX，新建project，选择单板STM32F746IG。
     - 成功以后，选择`Makefile` ，`generator code`。
@@ -205,7 +205,7 @@ mnist
     └── test_stm32f746.ioc
     ```
 
-3. 修改makefile文件，组织算子静态库以及模型推理代码，具体makefile文件内容参见[示例](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/micro/example/mnist_stm32f746)。
+3. 修改makefile文件，组织算子静态库以及模型推理代码，具体makefile文件内容参见[示例](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_micro/mnist_stm32f746)。
 
     ```text
     # C includes
@@ -417,7 +417,7 @@ c                        # 执行模型推理
 
 ### 执行benchmark
 
-将mnist_benchmark、权重文件（mnist/src/net.bin）以及[输入文件](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/micro/example/mnist_x86/mnist_input.bin)拷贝到开发板上，然后执行：
+将mnist_benchmark、权重文件（mnist/src/net.bin）以及[输入文件](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_micro/mnist_x86/mnist_input.bin)拷贝到开发板上，然后执行：
 
    ```text
     OHOS # ./mnist_benchmark mnist_input.bin net.bin 1
@@ -475,6 +475,6 @@ make
 
 ## 其它平台使用说明
 
-### [Linux_x86_64平台编译部署](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/micro/example/mnist_x86)
+### [Linux_x86_64平台编译部署](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_micro/mnist_x86)
 
-### [Android平台编译部署](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/micro/example/mobilenetv2)
+### [Android平台编译部署](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_micro/mobilenetv2_arm64)

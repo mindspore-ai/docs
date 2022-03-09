@@ -174,7 +174,7 @@ The generated program compilation and deployment need to install the following t
 
     If all success, the environment preparation is done.
 
-2. Generate the initialization codes run on the STM32F746 board. ([detailed code example](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/micro/example/mnist_stm32f746))
+2. Generate the initialization codes run on the STM32F746 board. ([detailed code example](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_micro/mnist_stm32f746))
 
     - start STM32CubeMX, new project and choose STM32F746IG.
     - Choose `Makefile` and `generator code`.
@@ -207,7 +207,7 @@ The generated program compilation and deployment need to install the following t
     └── test_stm32f746.ioc
     ```
 
-3. Modify makefile, organize operator library source code and generated inference code, check [example](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/micro/example/mnist_stm32f746) to get detailed information about makefile.
+3. Modify makefile, organize operator library source code and generated inference code, check [example](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_micro/mnist_stm32f746) to get detailed information about makefile.
 
     ```text
     # C includes
@@ -419,7 +419,7 @@ The result file is generated in out/hispark_taurus/ipcamera_hispark_taurus direc
 
 ### Running benchmark
 
-Copy mnist_benchmark, net.bin and [mnist_input.bin](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/micro/example/mnist_x86/mnist_input.bin) to the board, and run:
+Copy mnist_benchmark, net.bin and [mnist_input.bin](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_micro/mnist_x86/mnist_input.bin) to the board, and run:
 
    ```text
     OHOS # ./mnist_benchmark mnist_input.bin net.bin 1
@@ -477,6 +477,6 @@ make
 
 ## More Details
 
-### [Linux_x86_64 platform compile and deploy](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/micro/example/mnist_x86)
+### [Linux_x86_64 platform compile and deploy](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_micro/example/mnist_x86)
 
-### [Android platform compile and deploy](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/micro/example/mobilenetv2)
+### [Android platform compile and deploy](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_micro/mobilenetv2_arm64)
