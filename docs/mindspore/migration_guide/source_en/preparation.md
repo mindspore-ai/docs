@@ -10,21 +10,31 @@ Before developing or migrating networks, you need to install MindSpore and learn
 
 ## Installing MindSpore
 
-MindSpore supports installing and running in EulerOS-arm, CentOS-arm, CentOS-x86, Ubuntu-arm, Ubuntu-x86 or Windows-x86 system with Ascend, CPU or GPU environments. You can download packages form [MindSpore Installationl](https://www.mindspore.cn/install/en), and install MindSpore by following the tutorials.
+Refer to the following figure, to determine the release version and the structure of the system, and the Python version.
 
-### Installing by pip
+| System | Query Content          | Query Command       |
+| ------ | ---------------------- | ------------------- |
+| Linux  | System Release Version | `cat /proc/version` |
+| Linux  | System Architecture    | `name -a`           |
+| Linux  | Python Version         | `python3`           |
 
-After downloading the package `mindspore_{device}-{version}-{python_version}-{os}_{arch}.whl` from the official website, please install it by pip.
+Choose a corresponding MindSpore version based on users own operating system. MindSpore is installed in the manner of Pip, Conda, Docker or source code compilation. It is recommended to visit the MindSpore installation page, and complete the installation by referring to this website for instructions.
+
+### Verifying MindSpore
+
+After the MindSpore is installed, the following commands can be run (taking the MindSpore r1.6 as an example), to test whether the installation of the MindSpore has been completed.
 
 ```bash
-pip install mindspore_{device}-{version}-{python_version}-{os}_{arch}.whl
+import mindspore
+mindspore.run_check()
 ```
 
-- `{python_version}` spcecifies the python version for which MindSpore is built. If you wish to use Python3.7.5,`{python_version}` should be `cp37-cp37m`. If Python3.9.0 is used, it should be `cp39-cp39`.
-- `{os` spcecifies the operation system, such as `linux` or `win`.
-- `{arch}` spcecifies the system architecture, such as `x86_64` or `amd64`.
+Output the result:
 
-If an old version of MindSpore exists in the environment, please uninstall it before updating a new version of MindSpore.
+```text
+MindSpore version: 1.6.0
+The result of multiplication calculation is correct, MindSpore has been installed successfully!
+```
 
 ### Installing by Source Code
 
