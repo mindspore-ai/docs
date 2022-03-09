@@ -3,8 +3,13 @@
 <!-- TOC -->
 
 - [Installing MindSpore in Ascend 310 by Source Code Compilation](#installing-mindspore-in-ascend-310-by-source-code-compilation)
-    - [Checking System Environment Information](#checking-system-environment-information)
-    - [Downloading Source Code from the Code Repository](#downloading-source-code-from-the-code-repository)
+    - [Environment Preparation](#environment-preparation)
+        - [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package)
+        - [Installing Python](#installing-python)
+        - [Installing GCC](#installing-gcc)
+        - [Installing git, gmp, tclsh, patch and Flex](#installing-git-gmp-tclsh-patch-and-flex)
+        - [Installing CMake](#installing-cmake)
+    - [Downloading the Source Code from the Code Repository](#downloading-the-source-code-from-the-code-repository)
     - [Building MindSpore](#building-mindspore)
     - [Installing MindSpore](#installing-mindspore)
     - [Configuring Environment Variables](#configuring-environment-variables)
@@ -16,48 +21,157 @@
 
 The following describes how to quickly install MindSpore by compiling the source code on Linux in the Ascend 310 environment, MindSpore in Ascend 310 only supports inference.
 
-## Checking System Environment Information
+## Environment Preparation
 
-- Ensure that the 64-bit operating system is installed, where Ubuntu 18.04/CentOS 7.6/EulerOS 2.8 are verified.
+The following table lists the system environment and third-party dependencies required for building and installing MindSpore.
 
-- Ensure that right version [GCC 7.3.0](https://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) is installed.
+|software|version|description|
+|-|-|-|
+|Ubuntu 18.04/CentOS 7.6/EulerOS 2.8|-|OS for compiling and running MindSpore|
+|[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|-|Ascend platform AI computing library used by MindSpore|
+|[Python](#installing-python)|3.7.5 or 3.9.0|Python environment that MindSpore depends on|
+|[GCC](#installing-gcc)|7.3.0|C++ compiler for compiling MindSpore|
+|[git](#installing-git-gmp-tclsh-patch-and-flex)|-|Source code management tools used by MindSpore|
+|[CMake](#installing-cmake)|3.18.3 or later|Build tools for MindSpore|
+|[gmp](#installing-git-gmp-tclsh-patch-and-flex)|6.1.2|Multiple precision arithmetic library used by MindSpore|
+|[Flex](#installing-git-gmp-tclsh-patch-and-flex)|2.5.35 or later|lexical analyzer used by MindSpore|
+|[tclsh](#installing-git-gmp-tclsh-patch-and-flex)|-|MindSpore SQLite build dependency|
+|[patch](#installing-git-gmp-tclsh-patch-and-flex)|2.5 or later|Source code patching tool used by MindSpore|
 
-- Ensure that [GMP 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
+The following describes how to install the third-party dependencies.
 
-- Ensure that [Flex 2.5.35 or later](https://github.com/westes/flex/) is installed.
+### Installing Ascend AI processor software package
 
-- Ensure that Python 3.7.5 or 3.9.0 is installed. If not installed, download and install Python from:
+For detailed installation guide, please refer to [Ascend Software Installation Guide](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910?category=installation-upgrade&subcategory=software-deployment-guide).
 
-    - Python 3.7.5 (64-bit): [Python official website](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) or [HUAWEI CLOUD](https://mirrors.huaweicloud.com/python/3.7.5/Python-3.7.5.tgz).
-    - Python 3.9.0 (64-bit): [Python official website](https://www.python.org/ftp/python/3.9.0/Python-3.9.0.tgz) or [HUAWEI CLOUD](https://mirrors.huaweicloud.com/python/3.9.0/Python-3.9.0.tgz).
+The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path `/usr/local/Ascend` of Ascend AI processor software package, If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
 
-- Ensure that [CMake 3.18.3 or later](https://cmake.org/download/) is installed.
-    - After installation, add the path of CMake to the system environment variables.
+Install the .whl packages provided in Ascend AI processor software package. The .whl packages are released with the software package. If the .whl packages have been installed before, you need to uninstall the packages by the following command.
 
-- Ensure that [patch 2.5 or later](https://ftp.gnu.org/gnu/patch/) is installed.
-    - After installation, add the patch path to the system environment variables.
+```bash
+pip uninstall te topi hccl -y
+```
 
-- Ensure that [tclsh](https://www.tcl.tk/software/tcltk/) is installed.
+Run the following command to install the .whl packages if the Ascend AI package has been installed in default path. If the installation path is not the default path, you need to replace the path in the command with the installation path.
 
-- Ensure that the Ascend AI processor software package (Ascend Data Center Solution 21.0.4) are installed, please refer to the [Installation Guide].
+```bash
+pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/topi-*-py3-none-any.whl
+pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/te-*-py3-none-any.whl
+pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/hccl-*-py3-none-any.whl
+```
 
-    - Ensure that you have permissions to access the installation path `/usr/local/Ascend` of the Ascend AI Processor software package. If not, ask the user root to add you to a user group to which `/usr/local/Ascend` belongs. For details about the configuration, see the description document in the software package.
-    - Install the .whl package provided with the Ascend AI Processor software package. The .whl package is released with the software package. After the software package is upgraded, you need to reinstall the .whl package.
+### Installing Python
 
-        ```bash
-        pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/hccl-{version}-py3-none-any.whl
-        pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/topi-{version}-py3-none-any.whl
-        pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/te-{version}-py3-none-any.whl
-        ```
+[Python](https://www.python.org/) can be installed by Conda.
 
-- Ensure that the git is installed, otherwise execute the following command to install git:
+Install Miniconda:
+
+```bash
+cd /tmp
+curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py37_4.10.3-Linux-x86_64.sh
+bash Miniconda3-py37_4.10.3-Linux-x86_64.sh -b
+cd -
+. ~/miniconda3/etc/profile.d/conda.sh
+conda init bash
+```
+
+Create a Python 3.7.5 environment:
+
+```bash
+conda create -n mindspore_py37 python=3.7.5 -y
+conda activate mindspore_py37
+```
+
+Or create a Python 3.9.0 environment:
+
+```bash
+conda create -n mindspore_py39 python=3.9.0 -y
+conda activate mindspore_py39
+```
+
+Run the following command to check the Python version.
+
+```bash
+python --version
+```
+
+### Installing GCC
+
+- On Ubuntu 18.04, run the following commands to install.
 
     ```bash
-    apt-get install git # for linux distributions using apt, e.g. ubuntu
-    yum install git     # for linux distributions using yum, e.g. centos
+    sudo apt-get install gcc-7 -y
     ```
 
-## Downloading Source Code from the Code Repository
+- On CentOS 7, run the following commands to install.
+
+    ```bash
+    sudo yum install centos-release-scl
+    sudo yum install devtoolset-7
+    ```
+
+    After installation, run the following commands to switch to GCC 7.
+
+    ```bash
+    scl enable devtoolset-7 bash
+    ```
+
+- On EulerOS, run the following commands to install.
+
+    ```bash
+    sudo yum install gcc -y
+    ```
+
+### Installing git, gmp, tclsh, patch and Flex
+
+- On Ubuntu 18.04, run the following commands to install.
+
+    ```bash
+    sudo apt-get install git libgmp-dev tcl patch flex -y
+    ```
+
+- On CentOS 7 and EulerOS, run the following commands to install.
+
+    ```bash
+    sudo yum install git gmp-devel tcl patch flex -y
+    ```
+
+### Installing CMake
+
+- On Ubuntu 18.04, run the following commands to install [CMake](https://cmake.org/).
+
+    ```bash
+    wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | sudo apt-key add -
+    sudo apt-add-repository "deb https://apt.kitware.com/ubuntu/ $(lsb_release -cs) main"
+    sudo apt-get install cmake -y
+    ```
+
+- Other Linux systems can be installed with the following commands.
+
+    Choose one download link based on the system architecture.
+
+    ```bash
+    # x86 run
+    curl -O https://cmake.org/files/v3.19/cmake-3.19.8-Linux-x86_64.sh
+    # aarch64 run
+    curl -O https://cmake.org/files/v3.19/cmake-3.19.8-Linux-aarch64.sh
+    ```
+
+    run the script to install CMake, which is installed in the `/usr/local` by default.
+
+    ```bash
+    sudo mkdir /usr/local/cmake-3.19.8
+    sudo bash cmake-3.19.8-Linux-*.sh --prefix=/usr/local/cmake-3.19.8 --exclude-subdir
+    ```
+
+    Finally, add CMake to the `PATH` environment variable. Run the following commands if it is installed in the default path, other installation path need to be modified accordingly.
+
+    ```bash
+    echo -e "export PATH=/usr/local/cmake-3.19.8/bin:\$PATH" >> ~/.bashrc
+    source ~/.bashrc
+    ```
+
+## Downloading the Source Code from the Code Repository
 
 ```bash
 git clone https://gitee.com/mindspore/mindspore.git
@@ -65,26 +179,24 @@ git clone https://gitee.com/mindspore/mindspore.git
 
 ## Building MindSpore
 
-Run the following command in the root directory of the source code.
+Go to the root directory of mindspore, then run the build script.
 
 ```bash
-bash build.sh -e ascend -V 310
+cd mindspore
+bash build.sh -e ascend -V 310 -S on
 ```
 
-In the preceding information:
+Where:
 
-The default number of build threads is 8 in `build.sh`. If the compiler performance is poor, build errors may occur. You can add -j{Number of threads} to script to reduce the number of threads. For example, `bash build.sh -e ascend -V 310 -j4`.
+- The default number of build threads is 8 in `build.sh`. If the compiler performance is poor, build errors may occur. You can add -j{Number of threads} to script to reduce the number of threads. For example, `bash build.sh -e ascend -V 310 -j4`.
+- By default, the dependent source code is downloaded from GitHub. When `-S` is set to `on`, the source code is downloaded from the corresponding Gitee image.
+- For details about how to use `build.sh`, see the script header description.
 
 ## Installing MindSpore
 
 ```bash
-tar -zxf output/mindspore_ascend-{version}-linux_{arch}.tar.gz
+tar -zxf output/mindspore_ascend-*.tar.gz
 ```
-
-In the preceding information:
-
-- `{version}` specifies the MindSpore version number. For example, when installing MindSpore 1.5.0-rc1, set `{version}` to 1.5.0rc1.
-- `{arch}` specifies the system architecture. For example, if a Linux OS architecture is x86_64, set `{arch}` to `x86_64`. If the system architecture is ARM64, set `{arch}` to `aarch64`.
 
 ## Configuring Environment Variables
 
@@ -101,16 +213,20 @@ LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
 export LD_LIBRARY_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/fwkacllib/lib64:${LOCAL_ASCEND}/driver/lib64:${LOCAL_ASCEND}/ascend-toolkit/latest/opp/op_impl/built-in/ai_core/tbe/op_tiling:${LD_LIBRARY_PATH}
 
 # Environment variables that must be configured
-export TBE_IMPL_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp/op_impl/built-in/ai_core/tbe            # TBE operator implementation tool path
-export ASCEND_OPP_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp                                       # OPP path
-export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/fwkacllib/ccec_compiler/bin/:${PATH}                 # TBE operator compilation tool path
-export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}                                                       # Python library that TBE implementation depends on
+## TBE operator implementation tool path
+export TBE_IMPL_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp/op_impl/built-in/ai_core/tbe
+## OPP path
+export ASCEND_OPP_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp
+## TBE operator compilation tool path
+export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/fwkacllib/ccec_compiler/bin/:${PATH}
+## Python library that TBE implementation depends on
+export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}
 
 # Set path to extracted MindSpore accordingly
 export LD_LIBRARY_PATH={mindspore_path}:${LD_LIBRARY_PATH}
 ```
 
-In the preceding information:
+Where:
 
 - `{mindspore_path}` specifies the absolute path to which MindSpore package is extracted.
 

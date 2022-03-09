@@ -4,6 +4,12 @@
 
 - [Installing MindSpore GPU by Conda](#installing-mindspore-gpu-by-conda)
     - [Installing Environment Dependencies](#installing-environment-dependencies)
+        - [Installing CUDA](#installing-cuda)
+        - [Installing cuDNN](#installing-cudnn)
+        - [Installing Conda](#installing-conda)
+        - [Installing GCC and gmp](#installing-gcc-and-gmp)
+        - [Installing Open MPI (optional)](#installing-open-mpi-optional)
+        - [Installing TensorRT (optional)](#installing-tensorrt-optional)
     - [Creating and Accessing the Conda Virtual Environment](#creating-and-accessing-the-conda-virtual-environment)
     - [Installing MindSpore](#installing-mindspore)
     - [Installation Verification](#installation-verification)
@@ -14,7 +20,7 @@
 
 [Conda](https://docs.conda.io/en/latest/) is an open-source, cross-platform, language-agnostic package manager and environment management system. It allows users to easily install different versions of binary software packages and any required libraries appropriate for their computing platform.
 
-This document describes how to quickly install MindSpore by Conda in a Linux system with a GPU environment. The following takes Ubuntu 18.04 as an example to illustrate the steps to install MindSpore.
+This document describes how to quickly install MindSpore by Conda in a Linux system with a GPU environment. The following takes Ubuntu 18.04 as an example to describe how to install MindSpore.
 
 - If you want to install MindSpore by Conda on a fresh Ubuntu 18.04 with a GPU environment, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-conda.sh) for one-click installation. The automatic installation script will install MindSpore and its dependencies.
 
@@ -28,18 +34,18 @@ This document describes how to quickly install MindSpore by Conda in a Linux sys
     # PYTHON_VERSION=3.9 CUDA_VERSION=11.1 MINDSPORE_VERSION=1.5.0 bash -i ./ubuntu-gpu-conda.sh
     ```
 
-    The script will:
+    This script performs the following operations:
 
-    - Set the source list to huaweicloud source.
+    - Change the source list to HUAWEI CLOUD source.
     - Install the dependencies required by MindSpore, such as GCC, gmp.
     - Download and install CUDA and cuDNN.
     - Install Conda and create a virtual environment for MindSpore.
     - Install MindSpore CPU by Conda.
     - Install Open MPI if OPENMPI is set to `on`.
 
-    For more usage, please refer to the description at the head of the script.
+    For more usage, see the script header description.
 
-- If your system has already installed some dependencies, such as CUDA, Conda, GCC, etc., it is recommended to install manually by referring to the following installation steps.
+- If some dependencies, such as CUDA, Conda and GCC, have been installed in your system, you are advised to perform the following steps to manually install MindSpore.
 
 ## Installing Environment Dependencies
 
@@ -47,31 +53,31 @@ The following table lists the system environment and third-party dependencies re
 
 |software|version|description|
 |-|-|-|
-|Ubuntu|18.04|operating system for compiling and running MindSpore|
-|[CUDA](#install-cuda)|10.1 or 11.1|parallel computing architecture for MindSpore GPU|
-|[cuDNN](#install-cudnn)|7.6.x or 8.0.x|deep neural network acceleration library used by MindSpore GPU|
-|[Conda](#install-conda)|Anaconda3 or Miniconda3|Python environment management tool|
-|[GCC](#install-gccgmp)|7.3.0|C++ compiler for compiling MindSpore|
-|[gmp](#install-gccgmp)|6.1.2|multiple precision arithmetic library used by MindSpore|
-|[Open MPI](#install-open-mpi-optional)|4.0.3|high performance message passing library used by MindSpore (optional, required for single-node/multi-GPU and multi-node/multi-GPU training)|
-|[TensorRT](#install-tensorrt-optional)|7.2.2|high performance deep learning inference SDK used by MindSpore(optional, required for serving inference)|
+|Ubuntu|18.04|OS for running MindSpore|
+|[CUDA](#installing-cuda)|10.1 or 11.1|parallel computing architecture for MindSpore GPU|
+|[cuDNN](#installing-cudnn)|7.6.x or 8.0.x|deep neural network acceleration library used by MindSpore GPU|
+|[Conda](#installing-conda)|Anaconda3 or Miniconda3|Python environment management tool|
+|[GCC](#installing-gcc-and-gmp)|7.3.0|C++ compiler for compiling MindSpore|
+|[gmp](#installing-gcc-and-gmp)|6.1.2|multiple precision arithmetic library used by MindSpore|
+|[Open MPI](#installing-open-mpi-optional)|4.0.3|high performance message passing library used by MindSpore (optional, required for single-node/multi-GPU and multi-node/multi-GPU training)|
+|[TensorRT](#installing-tensorrt-optional)|7.2.2|high performance deep learning inference SDK used by MindSpore(optional, required for serving inference)|
 
-The following are installation methods of third-party dependencies.
+The following describes how to install the third-party dependencies.
 
-### Install CUDA
+### Installing CUDA
 
 MindSpore GPU supports CUDA 10.1 and CUDA 11.1. NVIDIA officially shows a variety of installation methods. For details, please refer to [CUDA download page](https://developer.nvidia.com/cuda-toolkit-archive) and [CUDA installation guide](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html).
 The following only shows instructions for installing by runfile on Linux systems.
 
-Before installing CUDA, you need to execute the following commands to install related dependencies.
+Before installing CUDA, you need to run the following commands to install related dependencies.
 
 ```bash
 sudo apt-get install linux-headers-$(uname -r) gcc-7
 ```
 
-The minimum required GPU driver version of CUDA 10.1 is 418.39. The minimum required GPU driver version of CUDA 11.1 is 450.80.02. You may execute `nvidia-smi` command to confirm the GPU driver version. If the driver version does not meet the requirements, you should choose to install the driver during the CUDA installation. After installing the driver, you need to reboot your system.
+The minimum required GPU driver version of CUDA 10.1 is 418.39. The minimum required GPU driver version of CUDA 11.1 is 450.80.02. You may run `nvidia-smi` command to confirm the GPU driver version. If the driver version does not meet the requirements, you should choose to install the driver during the CUDA installation. After installing the driver, you need to reboot your system.
 
-Execute the following command to install CUDA 10.1.
+Run the following command to install CUDA 10.1.
 
 ```bash
 wget https://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.243_418.87.00_linux.run
@@ -91,7 +97,7 @@ echo -e "export LD_LIBRARY_PATH=/usr/local/cuda-11.1/lib64:\$LD_LIBRARY_PATH" >>
 source ~/.bashrc
 ```
 
-### Install cuDNN
+### Installing cuDNN
 
 After completing the installation of CUDA, Log in and download the corresponding cuDNN installation package from [cuDNN page](https://developer.nvidia.com/zh-cn/cudnn). If CUDA 10.1 was previously installed, download cuDNN v7.6.x for CUDA 10.1. If CUDA 11.1 was previously installed, download cuDNN v8.0.x for CUDA 11.1. Note that download the tgz compressed file. Assuming that the downloaded cuDNN package file is named `cudnn.tgz` and the installed CUDA version is 11.1, execute the following command to install cuDNN.
 
@@ -104,9 +110,9 @@ sudo chmod a+r /usr/local/cuda-11.1/include/cudnn.h /usr/local/cuda-11.1/lib64/l
 
 If a different version of CUDA have been installed or the CUDA installation path is different, just replace `/usr/local/cuda-11.1` in the above command with the currently installed CUDA path.
 
-### Install Conda
+### Installing Conda
 
-Execute the following command to install Miniconda.
+Run the following command to install Miniconda.
 
 ```bash
 cd /tmp
@@ -117,15 +123,15 @@ cd -
 conda init bash
 ```
 
-### Install GCC/gmp
+### Installing GCC and gmp
 
-You may install GCC and gmp by the following commands.
+Run the following commands to install GCC and gmp.
 
 ```bash
 sudo apt-get install gcc-7 libgmp-dev -y
 ```
 
-### Install Open MPI (optional)
+### Installing Open MPI (optional)
 
 You may compile and install [Open MPI](https://www.open-mpi.org/) by the following command.
 
@@ -142,7 +148,7 @@ source ~/.bashrc
 cd -
 ```
 
-### Install TensorRT (optional)
+### Installing TensorRT (optional)
 
 After completing the installation of CUDA and cuDNN, download TensorRT 7.2.2 for CUDA 11.1 from [TensorRT download page](https://developer.nvidia.com/nvidia-tensorrt-7x-download), and note to download installation package in TAR format. Suppose the downloaded file is named `TensorRT-7.2.2.3.Ubuntu-18.04.x86_64-gnu.cuda-11.1.cudnn8.0.tar.gz`. Install TensorRT with the following command.
 

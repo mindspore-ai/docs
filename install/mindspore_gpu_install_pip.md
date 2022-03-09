@@ -4,6 +4,12 @@
 
 - [pip方式安装MindSpore GPU版本](#pip方式安装mindspore-gpu版本)
     - [环境准备](#环境准备)
+        - [安装CUDA](#安装cuda)
+        - [安装cuDNN](#安装cudnn)
+        - [安装Python](#安装python)
+        - [安装GCC和gmp](#安装gcc和gmp)
+        - [安装Open MPI（可选）](#安装open-mpi可选)
+        - [安装TensorRT（可选）](#安装tensorrt可选)
     - [安装MindSpore](#安装mindspore)
     - [验证是否成功安装](#验证是否成功安装)
     - [升级MindSpore版本](#升级mindspore版本)
@@ -49,8 +55,8 @@
 |[CUDA](#安装cuda)|10.1或11.1|MindSpore GPU使用的并行计算架构|
 |[cuDNN](#安装cudnn)|7.6.x或8.0.x|MindSpore GPU使用的深度神经网络加速库|
 |[Python](#安装python)|3.7.5或3.9.0|MindSpore的使用依赖Python环境|
-|[GCC](#安装gccgmp)|7.3.0|用于编译MindSpore的C++编译器|
-|[gmp](#安装gccgmp)|6.1.2|MindSpore使用的多精度算术库|
+|[GCC](#安装gcc和gmp)|7.3.0|用于编译MindSpore的C++编译器|
+|[gmp](#安装gcc和gmp)|6.1.2|MindSpore使用的多精度算术库|
 |[Open MPI](#安装open-mpi可选)|4.0.3|MindSpore使用的高性能消息传递库（可选，单机多卡/多机多卡训练需要）|
 |[TensorRT](#安装tensorrt可选)|7.2.2|MindSpore使用的高性能深度学习推理SDK（可选，Serving推理需要）|
 
@@ -158,7 +164,7 @@ sudo chmod a+r /usr/local/cuda-11.1/include/cudnn.h /usr/local/cuda-11.1/lib64/l
 python --version
 ```
 
-### 安装GCC/gmp
+### 安装GCC和gmp
 
 可以通过以下命令安装GCC和gmp。
 

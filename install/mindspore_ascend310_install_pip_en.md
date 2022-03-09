@@ -3,7 +3,12 @@
 <!-- TOC -->
 
 - [Installing MindSpore in Ascend 310 by pip](#installing-mindspore-in-ascend-310-by-pip)
-    - [Checking System Environment Information](#checking-system-environment-information)
+    - [Environment Preparation](#environment-preparation)
+        - [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package)
+        - [Installing Python](#installing-python)
+        - [Installing GCC](#installing-gcc)
+        - [Installing gmp](#installing-gmp)
+        - [Installing CMake](#installing-cmake)
     - [Installing MindSpore](#installing-mindspore)
     - [Configuring Environment Variables](#configuring-environment-variables)
     - [Verifying the Installation](#verifying-the-installation)
@@ -14,48 +19,180 @@
 
 The following describes how to quickly install MindSpore by pip on Linux in the Ascend 310 environment, MindSpore in Ascend 310 only supports inference.
 
-## Checking System Environment Information
+## Environment Preparation
 
-- Ensure that the 64-bit operating system is installed and the [glibc](https://www.gnu.org/software/libc/)>=2.17, where Ubuntu 18.04/CentOS 7.6/EulerOS 2.8 are verified.
+The following table lists the system environment and third-party dependencies required for installing MindSpore.
 
-- Ensure that right version [GCC 7.3.0](https://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) is installed.
+|software|version|description|
+|-|-|-|
+|Ubuntu 18.04/CentOS 7.6/EulerOS 2.8|-|OS for running MindSpore|
+|[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|-|Ascend platform AI computing library used by MindSpore|
+|[Python](#installing-python)|3.7.5 or 3.9.0|Python environment that MindSpore depends on|
+|[GCC](#installing-gcc)|7.3.0|C++ compiler for compiling MindSpore|
+|[gmp](#installing-gmp)|6.1.2|Multiple precision arithmetic library used by MindSpore|
+|[CMake](#installing-cmake)|3.18.3 or later|Build tools for MindSpore|
 
-- Ensure that [GMP 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
+The following describes how to install the third-party dependencies.
 
-- Ensure that [CMake 3.18.3 or later](https://cmake.org/download/) is installed.
-    - After installation, add the path of CMake to the system environment variables.
+### Installing Ascend AI processor software package
 
-- Ensure that Python 3.7.5 or 3.9.0 is installed. If not installed, download and install Python from:
-    - Python 3.7.5 (64-bit): [Python official website](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) or [HUAWEI CLOUD](https://mirrors.huaweicloud.com/python/3.7.5/Python-3.7.5.tgz).
-    - Python 3.9.0 (64-bit): [Python official website](https://www.python.org/ftp/python/3.9.0/Python-3.9.0.tgz) or [HUAWEI CLOUD](https://mirrors.huaweicloud.com/python/3.9.0/Python-3.9.0.tgz).
+For detailed installation guide, please refer to [Ascend Software Installation Guide](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910?category=installation-upgrade&subcategory=software-deployment-guide).
 
-- If you are using a ARM architecture system, please ensure that pip installed for current Python has a version >= 19.3.
+The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path `/usr/local/Ascend` of Ascend AI processor software package, If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
 
-- Ensure that the Ascend AI processor software package (Ascend Data Center Solution 21.0.4) are installed, please refer to the [Installation Guide].
+Install the .whl packages provided in Ascend AI processor software package. The .whl packages are released with the software package. If the .whl packages have been installed before, you need to uninstall the packages by the following command.
 
-    - Ensure that you have permissions to access the installation path `/usr/local/Ascend` of the Ascend AI Processor software package. If not, ask the user root to add you to a user group to which `/usr/local/Ascend` belongs. For details about the configuration, see the description document in the software package.
-    - Install the .whl package provided with the Ascend AI Processor software package. The .whl package is released with the software package. After the software package is upgraded, you need to reinstall the .whl package.
+```bash
+pip uninstall te topi hccl -y
+```
 
-        ```bash
-        pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/hccl-{version}-py3-none-any.whl
-        pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/topi-{version}-py3-none-any.whl
-        pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/te-{version}-py3-none-any.whl
-        ```
+Run the following command to install the .whl packages if the Ascend AI package has been installed in default path. If the installation path is not the default path, you need to replace the path in the command with the installation path.
+
+```bash
+pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/topi-*-py3-none-any.whl
+pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/te-*-py3-none-any.whl
+pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/hccl-*-py3-none-any.whl
+```
+
+### Installing Python
+
+[Python](https://www.python.org/) can be installed by Conda.
+
+Install Miniconda:
+
+```bash
+cd /tmp
+curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py37_4.10.3-Linux-x86_64.sh
+bash Miniconda3-py37_4.10.3-Linux-x86_64.sh -b
+cd -
+. ~/miniconda3/etc/profile.d/conda.sh
+conda init bash
+```
+
+Create a Python 3.7.5 environment:
+
+```bash
+conda create -n mindspore_py37 python=3.7.5 -y
+conda activate mindspore_py37
+```
+
+Or create a Python 3.9.0 environment:
+
+```bash
+conda create -n mindspore_py39 python=3.9.0 -y
+conda activate mindspore_py39
+```
+
+Run the following command to check the Python version.
+
+```bash
+python --version
+```
+
+If you are using a ARM architecture system, please ensure that pip installed for current Python has a version >= 19.3. If not, upgrade pip with the following command.
+
+```bash
+python -m pip install -U pip
+```
+
+### Installing GCC
+
+- On Ubuntu 18.04, run the following commands to install.
+
+    ```bash
+    sudo apt-get install gcc-7 -y
+    ```
+
+- On CentOS 7, run the following commands to install.
+
+    ```bash
+    sudo yum install centos-release-scl
+    sudo yum install devtoolset-7
+    ```
+
+    After installation, run the following commands to switch to GCC 7.
+
+    ```bash
+    scl enable devtoolset-7 bash
+    ```
+
+- On EulerOS, run the following commands to install.
+
+    ```bash
+    sudo yum install gcc -y
+    ```
+
+### Installing gmp
+
+- On Ubuntu 18.04, run the following commands to install.
+
+    ```bash
+    sudo apt-get install libgmp-dev -y
+    ```
+
+- On CentOS 7 and EulerOS, run the following commands to install.
+
+    ```bash
+    sudo yum install gmp-devel -y
+    ```
+
+### Installing CMake
+
+- On Ubuntu 18.04, run the following commands to install [CMake](https://cmake.org/).
+
+    ```bash
+    wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | sudo apt-key add -
+    sudo apt-add-repository "deb https://apt.kitware.com/ubuntu/ $(lsb_release -cs) main"
+    sudo apt-get install cmake -y
+    ```
+
+- Other Linux systems can be installed with the following commands.
+
+    Choose one download link based on the system architecture.
+
+    ```bash
+    # x86 run
+    curl -O https://cmake.org/files/v3.19/cmake-3.19.8-Linux-x86_64.sh
+    # aarch64 run
+    curl -O https://cmake.org/files/v3.19/cmake-3.19.8-Linux-aarch64.sh
+    ```
+
+    run the script to install CMake, which is installed in the `/usr/local` by default.
+
+    ```bash
+    sudo mkdir /usr/local/cmake-3.19.8
+    sudo bash cmake-3.19.8-Linux-*.sh --prefix=/usr/local/cmake-3.19.8 --exclude-subdir
+    ```
+
+    Finally, add CMake to the `PATH` environment variable. Run the following commands if it is installed in the default path, other installation path need to be modified accordingly.
+
+    ```bash
+    echo -e "export PATH=/usr/local/cmake-3.19.8/bin:\$PATH" >> ~/.bashrc
+    source ~/.bashrc
+    ```
 
 ## Installing MindSpore
 
-It is recommended to refer to [Version List](https://www.mindspore.cn/versions/en) to perform SHA-256 integrity verification, and then execute the following command to install MindSpore after the verification is consistent.
+First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Take version 1.6.0 as an example, execute the following commands.
 
 ```bash
-pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindSpore/ascend/{arch}/mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+export MS_VERSION=1.6.0
 ```
 
-In the preceding information:
+Then run the following commands to install MindSpore according to the system architecture and Python version.
 
-- When the network is connected, dependencies of the mindspore installation package are automatically downloaded during the .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
-- `{version}` specifies the MindSpore version number. For example, when installing MindSpore 1.5.0, set `{version}` to 1.5.0, when installing MindSpore 1.5.0-rc1, the first `{version}` which represents download path should be written as 1.5.0-rc1, and the second `{version}` which represents file name should be 1.5.0rc1.
-- `{arch}` specifies the system architecture. For example, if a Linux OS architecture is x86_64, set `{arch}` to `x86_64`. If the system architecture is ARM64, set `{arch}` to `aarch64`.
-- `{python_version}` spcecifies the python version for which MindSpore is built. If you wish to use Python3.7.5,`{python_version}` should be `cp37-cp37m`. If Python3.9.0 is used, it should be `cp39-cp39`.
+```bash
+# x86_64 + Python3.7
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/ascend/x86_64/mindspore_ascend-${MS_VERSION/-/}-cp37-cp37m-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+# x86_64 + Python3.9
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/ascend/x86_64/mindspore_ascend-${MS_VERSION/-/}-cp39-cp39-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+# aarch64 + Python3.7
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/ascend/aarch64/mindspore_ascend-${MS_VERSION/-/}-cp37-cp37m-linux_aarch64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+# aarch64 + Python3.9
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/ascend/aarch64/mindspore_ascend-${MS_VERSION/-/}-cp39-cp39-linux_aarch64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+```
+
+When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. For details about dependencies, see required_package in the [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py). In other cases, install the dependencies by yourself. When running a model, you need to install additional dependencies based on the requirements.txt file specified by different models in the [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
 
 ## Configuring Environment Variables
 
@@ -75,10 +212,14 @@ export LD_LIBRARY_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/fwkacllib/lib64:${L
 export LD_LIBRARY_PATH=`pip3 show mindspore-ascend | grep Location | awk '{print $2"/mindspore/lib"}' | xargs realpath`:${LD_LIBRARY_PATH}
 
 # Environment variables that must be configured
-export TBE_IMPL_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp/op_impl/built-in/ai_core/tbe            # TBE operator implementation tool path
-export ASCEND_OPP_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp                                       # OPP path
-export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/fwkacllib/ccec_compiler/bin/:${PATH}                 # TBE operator compilation tool path
-export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}                                                       # Python library that TBE implementation depends on
+## TBE operator implementation tool path
+export TBE_IMPL_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp/op_impl/built-in/ai_core/tbe
+## OPP path
+export ASCEND_OPP_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp
+## TBE operator compilation tool path
+export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/fwkacllib/ccec_compiler/bin/:${PATH}
+## Python library that TBE implementation depends on
+export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}
 ```
 
 ## Verifying the Installation

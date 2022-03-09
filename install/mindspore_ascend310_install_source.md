@@ -9,7 +9,6 @@
         - [安装GCC](#安装gcc)
         - [安装git，gmp，tclsh，patch，Flex](#安装gitgmptclshpatchflex)
         - [安装CMake](#安装cmake)
-        - [安装Open MPI（可选）](#安装open-mpi可选)
     - [从代码仓下载源码](#从代码仓下载源码)
     - [编译MindSpore](#编译mindspore)
     - [安装MindSpore](#安装mindspore)
@@ -173,23 +172,6 @@ python --version
     echo -e "export PATH=/usr/local/cmake-3.19.8/bin:\$PATH" >> ~/.bashrc
     source ~/.bashrc
     ```
-
-### 安装Open MPI（可选）
-
-可以通过以下命令编译安装[Open MPI](https://www.open-mpi.org/)。
-
-```bash
-curl -O https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.3.tar.gz
-tar xzf openmpi-4.0.3.tar.gz
-cd openmpi-4.0.3
-./configure --prefix=/usr/local/openmpi-4.0.3
-make
-sudo make install
-echo -e "export PATH=/usr/local/openmpi-4.0.3/bin:\$PATH" >> ~/.bashrc
-echo -e "export LD_LIBRARY_PATH=/usr/local/openmpi-4.0.3/lib:\$LD_LIBRARY_PATH" >> ~/.bashrc
-source ~/.bashrc
-cd -
-```
 
 ## 从代码仓下载源码
 

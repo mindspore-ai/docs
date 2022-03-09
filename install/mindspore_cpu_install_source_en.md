@@ -4,7 +4,12 @@
 
 - [Installing MindSpore in CPU by Source Code](#installing-mindspore-in-cpu-by-source-code)
     - [Environment Preparation](#environment-preparation)
-    - [Downloading Source Code from Code Repository](#downloading-source-code-from-code-repository)
+        - [Installing Python](#installing-python)
+        - [Installing wheel and setuptools](#installing-wheel-and-setuptools)
+        - [Installing GCC, git, gmp, tclsh, patch and NUMA](#installing-gcc-git-gmp-tclsh-patch-and-numa)
+        - [Installing CMake](#installing-cmake)
+        - [Installing LLVM (Optional)](#installing-llvm-optional)
+    - [Downloading the Source Code from the Code Repository](#downloading-the-source-code-from-the-code-repository)
     - [Compiling MindSpore](#compiling-mindspore)
     - [Installing MindSpore](#installing-mindspore)
     - [Installation Verification](#installation-verification)
@@ -14,11 +19,11 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_install_source_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
-This document describes how to quickly install MindSpore by source code in a Linux system with a CPU environment. The following takes Ubuntu 18.04 as an example to illustrate the steps to compile and install MindSpore.
+This document describes how to quickly install MindSpore by source code in a Linux system in the CPU environment. The following takes Ubuntu 18.04 as an example to describe how to install MindSpore.
 
-- If you want to configure an environment that can compile MindSpore on a fresh Ubuntu 18.04, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-source.sh) for one-click configuration. The automatic installation script will install the dependencies required to compile MindSpore.
+- If you need to configure an environment for building MindSpore on the Ubuntu 18.04 that never installed MindSpore and its dependencies, you may use the [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-source.sh) for one-click configuration. The script installs the dependencies required for building MindSpore.
 
-    The automatic installation script needs to replace the source list and install dependencies via APT, so it needs root privileges to execute. Use the following commands to get the automatic installation script and execute.
+    The root permission is required because the script will modify the source list and install dependencies via APT. Run the following command to obtain and run the automatic installation script:
 
     ```bash
     wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-source.sh
@@ -28,40 +33,40 @@ This document describes how to quickly install MindSpore by source code in a Lin
     # sudo PYTHON_VERSION=3.9 bash ./ubuntu-cpu-source.sh
     ```
 
-    The script will:
+    This script performs the following operations:
 
-    - Set the source list to huaweicloud source.
+    - Change the source list to HUAWEI CLOUD source.
     - Install the compilation dependencies required by MindSpore, such as GCC, CMake, etc.
     - Install Python3 and pip3 via APT and set them as default.
 
-    For more usage, please refer to the description at the head of the script.
+    For more usage, see the script header description.
 
-- If your system has already installed some dependencies, such as Python, GCC, etc., it is recommended to install manually by referring to the following installation steps.
+- If some dependencies, such as Python and GCC, have been installed in your system, you are advised to perform the following steps to manually install MindSpore.
 
 ## Environment Preparation
 
-The following table lists the system environment and third-party dependencies required to compile and install MindSpore.
+The following table lists the system environment and third-party dependencies required for building and installing MindSpore.
 
 |software|version|description|
 |-|-|-|
-|Ubuntu|18.04|operating system for compiling and running MindSpore|
-|[Python](#install-python)|3.7.5 or 3.9.0|Python interface for MindSpore|
-|[wheel](#install-wheel-and-setuptools)|0.32.0 or later|Python packaging tool used by MindSpore|
-|[setuptools](#install-wheel-and-setuptools)|44.0 or later|Python package management tool used by MindSpore|
-|[GCC](#install-gccgitgmptclshpatchnuma)|7.3.0|C++ compiler for compiling MindSpore|
-|[git](#install-gccgitgmptclshpatchnuma)|-|source code management tools used by MindSpore|
-|[CMake](#install-cmake)|3.18.3 or later|build tools for MindSpore|
-|[gmp](#install-gccgitgmptclshpatchnuma)|6.1.2|multiple precision arithmetic library used by MindSpore|
-|[tclsh](#install-gccgitgmptclshpatchnuma)|-|sqlite compilation dependencies for MindSpore|
-|[patch](#install-gccgitgmptclshpatchnuma)|2.5 or later|source code patching tool used by MindSpore|
-|[NUMA](#install-gccgitgmptclshpatchnuma)|2.0.11 or later|non-uniform memory access library used by MindSpore|
-|[LLVM](#install-llvm-optional)|12.0.1|compiler framework used by MindSpore (optional, required for graph kernel fusion)|
+|Ubuntu|18.04|OS for compiling and running MindSpore|
+|[Python](#installing-python)|3.7.5 or 3.9.0|Python environment that MindSpore depends on|
+|[wheel](#installing-wheel-and-setuptools)|0.32.0 or later|Python packaging tool used by MindSpore|
+|[setuptools](#installing-wheel-and-setuptools)|44.0 or later|Python package management tool used by MindSpore|
+|[GCC](#installing-gcc-git-gmp-tclsh-patch-and-numa)|7.3.0|C++ compiler for compiling MindSpore|
+|[git](#installing-gcc-git-gmp-tclsh-patch-and-numa)|-|Source code management tools used by MindSpore|
+|[CMake](#installing-cmake)|3.18.3 or later|Build tools for MindSpore|
+|[gmp](#installing-gcc-git-gmp-tclsh-patch-and-numa)|6.1.2|Multiple precision arithmetic library used by MindSpore|
+|[tclsh](#installing-gcc-git-gmp-tclsh-patch-and-numa)|-|MindSpore SQLite build dependency|
+|[patch](#installing-gcc-git-gmp-tclsh-patch-and-numa)|2.5 or later|Source code patching tool used by MindSpore|
+|[NUMA](#installing-gcc-git-gmp-tclsh-patch-and-numa)|2.0.11 or later|Non-uniform memory access library used by MindSpore|
+|[LLVM](#installing-llvm-optional)|12.0.1|Compiler framework used by MindSpore (optional, mandatory for graph kernel fusion)|
 
-The following are installation methods of third-party dependencies.
+The following describes how to install the third-party dependencies.
 
-### Install Python
+### Installing Python
 
-[Python](https://www.python.org/) can be installed in several ways.
+[Python](https://www.python.org/) can be installed in multiple ways.
 
 - Install Python with Conda.
 
@@ -107,32 +112,32 @@ The following are installation methods of third-party dependencies.
 
     To install Python 3.9, just replace `3.7` with `3.9` in the command.
 
-You can check the Python version with the following command.
+Run the following command to check the Python version.
 
 ```bash
 python --version
 ```
 
-### Install wheel and setuptools
+### Installing wheel and setuptools
 
-After installing Python, use the following command to install it.
+After installing Python, run the following command to install them.
 
 ```bash
 pip install wheel
 pip install -U setuptools
 ```
 
-### Install GCC/git/gmp/tclsh/patch/NUMA
+### Installing GCC, git, gmp, tclsh, patch and NUMA
 
-You may install GCC, git, gmp, tclsh, patch, NUMA by the following commands.
+Run the following commands to install GCC, git, gmp, tclsh, patch and NUMA.
 
 ```bash
 sudo apt-get install gcc-7 git libgmp-dev tcl patch libnuma-dev -y
 ```
 
-### Install CMake
+### Installing CMake
 
-You may install [CMake](https://cmake.org/) by the following commands.
+Run the following command to install [CMake](https://cmake.org/).
 
 ```bash
 wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | sudo apt-key add -
@@ -140,9 +145,9 @@ sudo apt-add-repository "deb https://apt.kitware.com/ubuntu/ $(lsb_release -cs) 
 sudo apt-get install cmake -y
 ```
 
-### Install LLVM (optional)
+### Installing LLVM (optional)
 
-You may install [LLVM](https://llvm.org/) by the following command.
+Run the following command to install [LLVM](https://llvm.org/).
 
 ```bash
 wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
@@ -151,7 +156,7 @@ sudo apt-get update
 sudo apt-get install llvm-12-dev -y
 ```
 
-## Downloading Source Code from Code Repository
+## Downloading the Source Code from the Code Repository
 
 ```bash
 git clone https://gitee.com/mindspore/mindspore.git
@@ -159,18 +164,18 @@ git clone https://gitee.com/mindspore/mindspore.git
 
 ## Compiling MindSpore
 
-Go to the root directory of mindspore, then execute the compile script.
+Go to the root directory of mindspore, then run the build script.
 
 ```bash
 cd mindspore
 bash build.sh -e cpu -j4 -S on
 ```
 
-Of which,
+Where:
 
-- If the compiler performance is strong, you can add -j{Number of threads} in to script to increase the number of threads. For example, `bash build.sh -e cpu -j12`.
-- By default, the dependent source code is downloaded from github. You may set -S option to `on` to download from the corresponding gitee mirror.
-- For more usage of `build.sh`, please refer to the description at the head of the script.
+- If the compiler performance is good, add `-j{Number of threads}` to increase the number of threads. For example, `bash build.sh -e cpu -j12`.
+- By default, the dependent source code is downloaded from GitHub. When `-S` is set to `on`, the source code is downloaded from the corresponding Gitee image.
+- For details about how to use `build.sh`, see the script header description.
 
 ## Installing MindSpore
 
@@ -178,7 +183,7 @@ Of which,
 pip install output/mindspore-*.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
+When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. For details about dependencies, see required_package in the [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py). In other cases, install the dependencies by yourself. When running a model, you need to install additional dependencies based on the requirements.txt file specified by different models in the [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
 
 ## Installation Verification
 
