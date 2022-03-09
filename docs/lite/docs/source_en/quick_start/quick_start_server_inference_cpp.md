@@ -1,4 +1,4 @@
-# Experience C++ Simple Inference Demo
+# Experience C++ Minimalist Concurrent Reasoning Demo
 
 `Linux` `Windows` `x86` `C++` `Whole Process` `Inference Application` `Data Preparation` `Beginner`
 
