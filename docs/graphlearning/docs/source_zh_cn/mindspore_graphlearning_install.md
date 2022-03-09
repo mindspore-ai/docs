@@ -1,4 +1,4 @@
-# MindSpore Graph Learning
+# 安装 Graph Learning
 
 - [安装教程](#安装教程)
     - [确认系统环境信息](#确认系统环境信息)
