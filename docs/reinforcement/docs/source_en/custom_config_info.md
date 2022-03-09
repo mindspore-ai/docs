@@ -97,12 +97,12 @@ algorithm_config = {
 }
 ```
 
-|        key         |    Type    |                            Range                             |                         Description                          |
-| :----------------: | :--------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
-| number (optional)  |  Integer   |                           [1, +∞)                            | When user fills the number of environment, number must be larger than 0. When user does not fill it, framework will not wrap environment by  `MultiEnvironmentWrapper` |
-| num_proc(optional) |  Integer   |                         [1, number]                          | When user fills num_proc, framework will use Python multiprocessing during interaction with environment. If num_proc is not filled, interaction with environment will be sequential |
-|        type        |   Class    | The subclass of environment that is user-defined and implemented |                The class name of environment                 |
-|       params       | Dictionary |           Any value with key value format or None            | Customized parameter, user can input any value with key value format |
+|          key           |    Type    |                            Range                             |                         Description                          |
+| :--------------------: | :--------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
+|   number (optional)    |  Integer   |                           [1, +∞)                            | When user fills the number of environment, number must be larger than 0. When user does not fill it, framework will not wrap environment by  `MultiEnvironmentWrapper` |
+| num_parallel(optional) |  Integer   |                         [1, number]                          | If user does not fill it, the environment will run in parallel by default. User can fill num_parallel: 1 to turn off the parallel environment, or enter their own parallel configuration |
+|          type          |   Class    | The subclass of environment that is user-defined and implemented |                The class name of environment                 |
+|         params         | Dictionary |           Any value with key value format or None            | Customized parameter, user can input any value with key value format |
 
 ### Actor Configuration
 
