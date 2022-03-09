@@ -20,9 +20,12 @@ Fuzz Testing架构主要包括三个模块：
 
    随机选择变异方法对种子数据变异生成多个变种。支持多种样本的变异策略， 包括：
 
-   - 图像仿射变换方法如：平移、旋转、缩放、错切。
-   - 基于图像像素值变化的方法如：改变对比度、亮度、模糊、加噪。
-   - 基于对抗攻击的白盒、黑盒对抗样本生成方法，如FGSM、PGD、MDIIM。
+   - 自然扰动样本生成方法：
+       - 仿射变换类方法：Translate、Scale、Shear、Rotate、Perspective、Curve；
+       - 模糊类方法：GaussianBlur、MotionBlur、GradientBlur；
+       - 亮度调整类方法：Contrast、GradientLuminance;
+       - 加噪类方法：UniformNoise、GaussianNoise、SaltAndPepperNoise、NaturalNoise。
+   - 基于对抗攻击的白盒、黑盒对抗样本生成方法：FGSM（FastGradientSignMethod）、PGD（ProjectedGradientDescent）、MDIIM（MomentumDiverseInputIterativeMethod）。
 
 2. Fuzzer moduler（变异指导模块）:
 
@@ -50,7 +53,7 @@ Fuzz Testing架构主要包括三个模块：
 
 1. [fuzzing.py](https://gitee.com/mindspore/mindarmour/blob/master/mindarmour/fuzz_testing/fuzzing.py)：Fuzzer总体流程。
 2. [model_coverage_metrics.py](https://gitee.com/mindspore/mindarmour/blob/master/mindarmour/fuzz_testing/model_coverage_metrics.py)：神经元覆盖率指标，包括KMNC，NBC，SNAC。
-3. [image_transform.py](https://gitee.com/mindspore/mindarmour/blob/master/mindarmour/fuzz_testing/image_transform.py)：图像变异方法，包括基于像素值的变化方法和仿射变化方法。
+3. [image transform methods](https://gitee.com/mindspore/mindarmour/tree/master/mindarmour/natural_robustness/transform/image)：图像变异方法，包括多种加噪、模糊、亮度调整、仿射变化方法。
 4. [adversarial attacks](https://gitee.com/mindspore/mindarmour/tree/master/mindarmour/adv_robustness/attacks)：对抗样本攻击方法，包含多种黑盒、白盒攻击方法。
 
 ## 参考文献

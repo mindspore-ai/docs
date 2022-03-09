@@ -84,37 +84,66 @@ For details about the API configuration, see the `context.set_context`.
 
    Set the data mutation method and parameters. Multiple methods can be configured at the same time. Currently, the following data mutation methods are supported:
 
-   - Image affine transformation methods: Translate, Scale, Shear, and Rotate.
-   - Methods based on image pixel value changes: Contrast, Brightness, Blur, and Noise.
-   - Methods for generating adversarial examples based on white-box and black-box attacks: FGSM, PGD, and MDIIM.
+   - Natural Robustness Methods:
+       - Image affine transformation methods: Translate, Scale, Shear, Rotate, Perspective, Curve;
+       - Image blur methods: GaussianBlur, MotionBlur, GradientBlur;
+       - Luminance adjustment methods: Contrast, GradientLuminance;
+       - Add noise methods: UniformNoise, GaussianNoise, SaltAndPepperNoise, NaturalNoise.
+   - Methods for generating adversarial examples based on white-box and black-box attacks: FGSM(FastGradientSignMethod), PGD(ProjectedGradientDescent), and MDIIM(MomentumDiverseInputIterativeMethod).
 
    The data mutation method must include the method based on the image pixel value changes.
 
-   The first two image transform methods support user-defined configuration parameters and randomly generated parameters by algorithms. For user-defined configuration parameters see the class methods corresponding to <https://gitee.com/mindspore/mindarmour/blob/master/mindarmour/fuzz_testing/image_transform.py>. For randomly generated parameters by algorithms you can set method's params to `'auto_param': [True]`. The mutation parameters are randomly generated within the recommended range.
+   The first two image transform methods support user-defined configuration parameters and randomly generated parameters by algorithms. For user-defined configuration parameters see the class methods corresponding to <https://gitee.com/mindspore/mindarmour/tree/master/mindarmour/natural_robustness/transform/image>. For randomly generated parameters by algorithms you can set method's params to `'auto_param': [True]`. The mutation parameters are randomly generated within the recommended range.
 
    For details about how to set parameters based on the attack defense method, see the corresponding attack method class.
 
    The following is an example for configure Fuzzer parameters.
 
    ```python
-   mutate_config = [{'method': 'Blur',
-                     'params': {'radius': [0.1, 0.2, 0.3],
-                                'auto_param': [True, False]}},
-                    {'method': 'Contrast',
-                     'params': {'auto_param': [True]}},
-                    {'method': 'Translate',
-                     'params': {'auto_param': [True]}},
-                    {'method': 'Brightness',
-                     'params': {'auto_param': [True]}},
-                    {'method': 'Noise',
-                     'params': {'auto_param': [True]}},
-                    {'method': 'Scale',
-                     'params': {'auto_param': [True]}},
-                    {'method': 'Shear',
-                     'params': {'auto_param': [True]}},
-                    {'method': 'FGSM',
-                     'params': {'eps': [0.3, 0.2, 0.4], 'alpha': [0.1]}}
-                   ]
+   mutate_config = [
+        {'method': 'GaussianBlur',
+         'params': {'ksize': [1, 2, 3, 5],
+                    'auto_param': [True, False]}},
+        {'method': 'MotionBlur',
+         'params': {'degree': [1, 2, 5], 'angle': [45, 10, 100, 140, 210, 270, 300], 'auto_param': [True]}},
+        {'method': 'GradientBlur',
+         'params': {'point': [[10, 10]], 'auto_param': [True]}},
+        {'method': 'UniformNoise',
+         'params': {'factor': [0.1, 0.2, 0.3], 'auto_param': [False, True]}},
+        {'method': 'GaussianNoise',
+         'params': {'factor': [0.1, 0.2, 0.3], 'auto_param': [False, True]}},
+        {'method': 'SaltAndPepperNoise',
+         'params': {'factor': [0.1, 0.2, 0.3], 'auto_param': [False, True]}},
+        {'method': 'NaturalNoise',
+         'params': {'ratio': [0.1, 0.2, 0.3], 'k_x_range': [(1, 3), (1, 5)], 'k_y_range': [(1, 5)],
+                    'auto_param': [False, True]}},
+        {'method': 'Contrast',
+         'params': {'alpha': [0.5, 1, 1.5], 'beta': [-10, 0, 10], 'auto_param': [False, True]}},
+        {'method': 'GradientLuminance',
+         'params': {'color_start': [(0, 0, 0)], 'color_end': [(255, 255, 255)], 'start_point': [(10, 10)],
+                    'scope': [0.5], 'pattern': ['light'], 'bright_rate': [0.3], 'mode': ['circle'],
+                    'auto_param': [False, True]}},
+        {'method': 'Translate',
+         'params': {'x_bias': [0, 0.05, -0.05], 'y_bias': [0, -0.05, 0.05], 'auto_param': [False, True]}},
+        {'method': 'Scale',
+         'params': {'factor_x': [1, 0.9], 'factor_y': [1, 0.9], 'auto_param': [False, True]}},
+        {'method': 'Shear',
+         'params': {'factor': [0.2, 0.1], 'direction': ['horizontal', 'vertical'], 'auto_param': [False, True]}},
+        {'method': 'Rotate',
+         'params': {'angle': [20, 90], 'auto_param': [False, True]}},
+        {'method': 'Perspective',
+         'params': {'ori_pos': [[[0, 0], [0, 800], [800, 0], [800, 800]]],
+                    'dst_pos': [[[50, 0], [0, 800], [780, 0], [800, 800]]], 'auto_param': [False, True]}},
+        {'method': 'Curve',
+         'params': {'curves': [5], 'depth': [2], 'mode': ['vertical'], 'auto_param': [False, True]}},
+        {'method': 'FGSM',
+         'params': {'eps': [0.3, 0.2, 0.4], 'alpha': [0.1], 'bounds': [(0, 1)]}},
+        {'method': 'PGD',
+         'params': {'eps': [0.1, 0.2, 0.4], 'eps_iter': [0.05, 0.1], 'nb_iter': [1, 3]}},
+        {'method': 'MDIIM',
+         'params': {'eps': [0.1, 0.2, 0.4], 'prob': [0.5, 0.1],
+                    'norm_level': [1, 2, '1', '2', 'l1', 'l2', 'inf', 'np.inf', 'linf']}}
+       ]
    ```
 
    Initialize the seed queue. Each seed in the seed queue has two values: original image and image label. Here we select 100 samples as initial seed queue.
