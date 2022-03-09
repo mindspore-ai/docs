@@ -6,13 +6,18 @@
 
 ## Overview
 
-MindSpore Lite provides a code generator tool, namely codegen, which could have runtime compiling and computational graphs building done offline. Only necessary codes and information are kept in the generated program, thereby minimizing the size of the generated inference program. codegen supports operators in NNACL and CMSIS, and generates inference programs running on x86/ARM64/ARM32A/ARM32M platforms.
+Compared with mobile devices, IOT devices are equipped with MicroControllerUnits(MCUs),
+and are very resource-constrained due to low RAM and computation power.
+Therefore, AI application on IOT devices have strict restrictions on RAM and power consumption of AI model Inference.
 
-Here is the process of using codegen:
+MindSpore Lite provides a light-weight Micro solution for deploying AI models to IOT devices: converter AI
+models to source code of target HW, and don't need parsing model from flatterbuf to database and compiling graph anymore.
+The generated source codes are very intuitive and with very small footprint and code size.
+It is easy to use MindSpore Lite converter tool to generates source codes for x86/ARM64/ARM32A/ARM32M platforms.
+For x86/ARM64/ARM32A, generated source codes call NNACL NN lib to do inference, and call CMSIS-NN lib on ARM32M instead.
 
-1. Use the [MindSpore Lite Converter](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html) to convert the pre-trained model into a `*.ms` file.
-
-2. Use codegen and input the `*.ms` file to automatically generate the inference code.
+1. Use the [MindSpore Lite Converter](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html) to
+   convert the pre-trained model into target device codes with specifying configuration.
 
 ![img](../images/lite_codegen.png)
 
@@ -23,43 +28,49 @@ You can obtain codegen by any of the following ways:
 1. Download pre-compiled [Release Package](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) from MindSpore.
 2. [Build](https://www.mindspore.cn/lite/docs/en/master/use/build.html) from the source.
 
-> Currently the code generator is only available on Linux x86_64.
+With below command, it converters MNIST model into codes of x86 target.
 
-## Directory Structure
-
-```text
-mindspore-lite-{version}-linux-x64
-└── tools
-    └── codegen # Code generation tool
-        ├── codegen          # Executable program
-        ├── include          # Header files of inference framework
-        │   ├── nnacl        # nnacl operator header file
-        │   └── wrapper
-        ├── lib
-        │   └── libwrapper.a # MindSpore Lite codegen generates code dependent operator static library
-        └── third_party
-            ├── include
-            │   └── CMSIS    # ARM CMSIS NN operator header files
-            └── lib
-                └── libcmsis_nn.a # ARM CMSIS NN operator static library
+```shell
+./converter_lite --fmk=TFLITE --modelFile=${model_dir}/mnist.tflite --outputFile=${SOURCE_CODE_DIR} --configFile=${COFIG_FILE}
 ```
 
-## Parameter Description
+The explicit form of configuration file please see below:
+
+```buildoutcfg
+[micro_param]
+
+# enable code-generation for MCU HW
+
+enable_micro=true
+
+# specify HW target, support x86,ARM32M, AMR32A, ARM64 only
+
+target=x86
+
+# code generation for Inference or Train
+
+codegen_mode=Inference
+
+# enable parallel inference or not
+
+support_parallel=false
+
+# enable debug
+
+debug_mode=false
+```
 
 Here is the detailed description of parameters:
 
 | Parameter       | Mandatory or Not | Parameter Description                  | Value Range                | Default value  |
 | --------------- | ---------------- | -------------------------------------- | -------------------------- | -------------- |
-| help            | No               | print help information                 | -                          | -              |
-| codePath        | Yes              | path of the generated code             | -                          | ./(current dir)|
+| enable_micro    | Yes              | enable code generation or not          | true, false                | false          |
 | target          | Yes              | target platform for the generated code | x86, ARM32M, ARM32A, ARM64 | x86            |
-| modelPath       | Yes              | the path to the input model            | -                          | -              |
+| codegen_mode    | No               | generate inference or training codes   | Inference, Train           | Inference      |
 | supportParallel | No               | generate parallel codes or not         | true, false                | false          |
 | debugMode       | No               | generate debug codes or not            | true, false                | false          |
 
-> The input model should be converted into .ms file using MindSpore Lite Converter.
->
-> debugMode is not available when the filesystem is not supported.
+> debugMode is not available when the filesystem is not supported by os.
 >
 > Please check the [API Document](https://www.mindspore.cn/lite/api/en/master/index.html) to get the detailed API description.
 >
@@ -69,29 +80,23 @@ Here is the detailed description of parameters:
 > 2. `virtual Vector<tensor::MSTensor *> GetOutputsByNodeName(const String &node_name) const = 0;`
 > 3. `virtual int Resize(const Vector<tensor::MSTensor *> &inputs, const Vector<Vector<int>> &dims) = 0;`
 
-## Running codegen
-
-The example starts with a pre-trained classification model for the MNIST dataset.
-
-```bash
-./codegen --modelPath=./mnist.ms --codePath=./
-```
+Currently the code generator is only available on Linux x86_64.
 
 After successful execution, codegen would generate a folder named mnist at the specified path. The structure of the project file is shown as follows:
 
 ```text
 mnist
-├── benchmark                  # Benchmark model for debugging
-│   ├── benchmark.cc
-│   ├── calib_output.cc
-│   ├── calib_output.h
-│   ├── load_input.c
-│   └── load_input.h
+├── benchmark                  # 集成调试相关的例程
+│   ├── benchmark.cc
+│   ├── calib_output.cc
+│   ├── calib_output.h
+│   ├── load_input.c
+│   └── load_input.h
 ├── CMakeLists.txt
-└── src                        # source files
+└── src                        # 源文件
     ├── CMakeLists.txt
     ├── mmodel.h
-    ├── net.bin                # binary model weights
+    ├── net.bin                # 二进制形式的模型权重
     ├── net.c
     ├── net.cmake
     ├── net.h
@@ -101,6 +106,24 @@ mnist
     ├── tensor.h
     ├── weight.c
     └── weight.h
+```
+
+## Codegen Directory Structure
+
+```text
+mindspore-lite-{version}-linux-x64
+└── tools
+    └── codegen # dependency header files and library
+        ├── include          # Header files of inference framework
+        │   ├── nnacl        # nnacl operator header file
+        │   └── wrapper
+        ├── lib
+        │   └── libwrapper.a # MindSpore Lite codegen generates code-dependent operator static library
+        └── third_party
+            ├── include
+            │   └── CMSIS    # ARM CMSIS NN operator header files
+            └── lib
+                └── libcmsis_nn.a # ARM CMSIS NN operator static library
 ```
 
 ## Performing Inference on STM Boards
@@ -133,11 +156,13 @@ The generated program compilation and deployment need to install the following t
 >
 > You need to obtain the source code corresponding to the target platform because the pre-compiled static library is not provided since the Cross compilation on Cortex-M platform is complicated. The corresponding project file structure is provided in the example and you could follow the instructions shown below to copy the source code and finish the compilation.
 
-- Use codegen to compile [MNIST handwriting number identification model](https://download.mindspore.cn/model_zoo/official/lite/mnist_lite/mnist.ms), generate corresponding inference codes for STM32F46. The command is as follows:
+- Use codegen to compile [MNIST handwriting number identification model](https://download.mindspore.cn/model_zoo/official/lite/quick_start/micro/mnist.tar.gz), generate corresponding inference codes for STM32F46. The command is as follows:
 
-    ```bash
-    ./codegen --codePath=. --modelPath=mnist.ms --target=ARM32M
-    ```
+```shell
+./converter_lite --fmk=TFLITE --modelFile=mnist.tflite --outputFile=${SOURCE_CODE_DIR} --configFile=${COFIG_FILE}
+```
+
+where target is specified to ARM32M in configure file.
 
 - The generated project file structure is shown below:
 
@@ -300,11 +325,11 @@ For Hardware environment preparation, please refer to the HarmonyOS quick start 
 
 ### Compiling the model
 
-Compile mnist.ms model for HarmonyOS lite using codegen:
+Compile MNIST model for HarmonyOS lite by using codegen:
 
-   ```bash
-   ./codegen --modelPath=./mnist.ms --codePath=./ --target=ARM32A
-   ```
+```shell
+./converter_lite --fmk=TFLITE --modelFile=mnist.tflite --outputFile=${SOURCE_CODE_DIR} --configFile=${COFIG_FILE}
+```
 
 ### Writing build scripts
 
@@ -419,7 +444,7 @@ The result file is generated in out/hispark_taurus/ipcamera_hispark_taurus direc
 
 ### Running benchmark
 
-Copy mnist_benchmark, net.bin and [mnist_input.bin](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_micro/mnist_x86/mnist_input.bin) to the board, and run:
+Copy mnist_benchmark, net.bin and test data(https://download.mindspore.cn/model_zoo/official/lite/quick_start/micro/mnist.tar.gz) to the board, and run:
 
    ```text
     OHOS # ./mnist_benchmark mnist_input.bin net.bin 1
@@ -439,17 +464,17 @@ Copy mnist_benchmark, net.bin and [mnist_input.bin](https://gitee.com/mindspore/
 
 Currently, Users can only register their own kernels for custom operator. We will support registering the built-in operators' kernels in the future. We use Hi3516D board as an example to show you how to use kernel register in codegen.
 
-### Prepare the model file
-
-You need to get a ms model that contains custom operators. Please refer to [Usage Description of the Integrated NNIE](https://www.mindspore.cn/lite/docs/en/master/use/nnie.html).
+For how to register custom operators, please refer to [Usage Description of the Integrated NNIE](https://www.mindspore.cn/lite/docs/en/master/use/nnie.html).
 
 ### Run codegen
 
-Codegen can generate custom kernel's function declaration and reference code if the model has custom operators. Generate source codes for a model named nnie.ms:
+Codegen can generate custom kernel's function declaration and reference code if the model has custom operators.
 
-``` shell
-./codegen --modelPath=./nnie.ms --target=ARM32A
+```shell
+./converter_lite --fmk=TFLITE --modelFile=mnist.tflite --outputFile=${SOURCE_CODE_DIR} --configFile=${COFIG_FILE}
 ```
+
+where target sets to be ARM32A.
 
 ### Implement custom kernel by users
 
