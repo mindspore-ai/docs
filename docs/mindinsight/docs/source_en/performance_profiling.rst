@@ -7,5 +7,6 @@ Performance data like operator's execution time is recorded in files and can be 
    :maxdepth: 1
 
    performance_profiling_ascend
+   performance_profiling_ascend_pynative
    performance_profiling_gpu
    performance_profiling_of_cluster
