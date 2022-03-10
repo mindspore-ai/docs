@@ -124,6 +124,7 @@ MindSpore编程指南
    :hidden:
 
    jit_fallback
+   ms_class
 
 .. toctree::
    :glob:
@@ -1139,6 +1140,18 @@ MindSpore编程指南
 										</div>
 										<div class="doc-article-desc">
 										ms_function的作用是在PyNative模式下提升执行性能。在MindSpore框架中，PyNative模式（即动态图模式）下，用户可以使用完整的Python语法，更加简单方便地使用MindSpore进行网络调优。与此同时，PyNative模式也会导致一部分性能的损失。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all hardware-ascend hardware-gpu hardware-cpu stage-Model-Running experience-local hidden">
+								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/ms_class.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">ms_class</span>
+										</div>
+										<div class="doc-article-desc">
+										通过ms_class，用户可以在静态图模式下调用自定义类的属性和方法。
 										</div>
 									</div>
 								</a>
