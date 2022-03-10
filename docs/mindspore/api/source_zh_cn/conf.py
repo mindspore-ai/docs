@@ -157,6 +157,14 @@ if os.path.exists(des_sir):
     shutil.rmtree(des_sir)
 shutil.copytree(src_dir, des_sir)
 
+target_dir="./api_python/ops/"
+try:
+    for filename in os.listdir(target_dir):
+        newname = filename.replace("func_",'')
+        os.rename(os.path.join(target_dir, filename),os.path.join(target_dir, newname))
+except Exception as e:
+    print(e)
+    
 rst_files = set([i.replace('.rst', '') for i in glob.glob('api_python/**/*.rst', recursive=True)])
 
 def setup(app):
