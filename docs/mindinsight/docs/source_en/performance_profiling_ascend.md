@@ -1,4 +1,4 @@
-# Performance Profiling (Ascend)
+# Performance Profiling (Ascend-Graph)
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/performance_profiling_ascend.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
@@ -393,5 +393,4 @@ Users can obtain the summary of memory usage via the ```Memory Allocation Overvi
 
 ## Notices
 
-- Currently running in PyNative mode is not supported.
 - Currently the training and inference process does not support performance debugging, only individual training or inference is supported.

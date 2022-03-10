@@ -7,5 +7,7 @@
    :maxdepth: 1
 
    performance_profiling_ascend
+   performance_profiling_ascend_pynative
    performance_profiling_gpu
    performance_profiling_of_cluster
+ 

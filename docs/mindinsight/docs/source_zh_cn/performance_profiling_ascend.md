@@ -1,4 +1,4 @@
-# 性能调试（Ascend）
+# 性能调试（Ascend-Graph）
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/performance_profiling_ascend.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
@@ -392,5 +392,4 @@ CPU利用率常用场景:
 
 ## 注意事项
 
-- PyNative模式下暂不支持性能调试。
 - 训练加推理过程暂不支持性能调试，目前支持单独训练或推理的性能调试。
