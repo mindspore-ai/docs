@@ -116,6 +116,7 @@
 |                         |                         |                             | Python3.9.0                 | [mindquantum-0.5.0-cp39-cp39-win_amd64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.1/MindQuantum/x86_64/mindquantum-0.5.0-cp39-cp39-win_amd64.whl) | f1cfdb8dd61632c8c499968babacbe7398c0992d0230eed12d3e8471d1e72c89 |
 | MindSpore Reinforcement |                         | any                         | Python3                     | [mindspore_rl-0.2.1-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.1/Reinforcement/any/mindspore_rl-0.2.1-py3-none-any.whl) | aef9fedb7795448d45d83c8c017b17402aa551000c7d36e7c71c74c99a78330b |
 | Ide-Plugin              |                         | Linux-x86_64<br>Windows-x64 | any                         | [MindSpore_Dev_ToolKit-1.6.1.zip](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.1/IdePlugin/any/MindSpore_Dev_ToolKit-1.6.1.zip) | 1409615e3a92a87faa08e86c4833da7ea025942130b61854e7e2fe3aa29d2dd0 |
+| MindSpore Graph Learning |                         | Linux-x86_64                | Python3.7.5                 | [mindspore_gl_gpu-0.1-cp37-cp37m-linux_x86_64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.1/GraphLearning/any/mindspore_gl_gpu-0.1-cp37-cp37m-linux_x86_64.whl) | c3936bede6ae6b33636c1879e6be984fe3e915b61c644bdce8a75eb707397b4a |
 
 ### 1.6.0
 
