@@ -23,34 +23,42 @@ If not, Dataset AutoTune will also try to reduce the memory usage of the dataset
 
 ## Enable Dataset AutoTune
 
-To enable Dataset AutoTune:
+To enable Dataset AutoTune and not save the optimized dataset pipeline:
 
 ```python
 import mindspore.dataset as ds
 ds.config.set_enable_autotune(True)
 ```
 
-## Time Interval for Dataset AutoTune
+To enable Dataset AutoTune plus save the optimized dataset pipeline in a configuration file:
 
-To set the time interval (in milliseconds) for dataset pipeline autotuning:
+```python
+import mindspore.dataset as ds
+ds.config.set_enable_autotune(True, "/path/to/autotune_out.json")
+```
+
+## Tuning Interval for Dataset AutoTune
+
+The frequency at which Dataset AutoTune will adjust the dataset pipeline can be customized.
+To set the tuning interval in steps:
 
 ```python
 import mindspore.dataset as ds
 ds.config.set_autotune_interval(100)
 ```
 
-To query the time interval (in milliseconds) for dataset pipeline autotuning:
+> To set the tuning interval to be after every epoch, set the tuning interval to 0.
+
+To query the tuning interval for dataset pipeline autotuning:
 
 ```python
 import mindspore.dataset as ds
-print("time interval:", ds.config.get_autotune_interval())
+print("tuning interval:", ds.config.get_autotune_interval())
 ```
 
 ## Constraints
 
-- Dataset AutoTune is currently available for sink mode only (dataset_sink_mode=True).When it is set to enable in non-sink mode (dataset_sink_mode=False), no tuning will be happened.
-
-- Both Dataset Profiling and Dataset Autotune cannot be enabled concurrently,otherwise it will lead to unwork of Dataset AutoTune or Profiling. A warning message will result if you enable Dataset AutoTune first and then Dataset Profiling, or viceversa.Please make sure Profiling is disabled when using Dataset Autotune.
+- Both Dataset Profiling and Dataset Autotune cannot be enabled concurrently, otherwise it will lead to unwork of Dataset AutoTune or Profiling. A warning message will result if users enable Dataset AutoTune first and then Dataset Profiling, or vice versa. Please make sure Profiling is disabled when using Dataset Autotune.
 
 ## Example
 
@@ -169,6 +177,14 @@ Some analysis to explain the meaning of the log information:
 ### Before Next Training
 
 Before starting the next training process, users can apply the recommended configuration changes to the dataset Python scripts.
+
+If Dataset AutoTune generated an optimized pipeline configuration file, use deserialize support to load the dataset pipeline:
+
+```python
+import mindspore.dataset as ds
+ds.deserialize(json_filepath="/path/to/autotune_out.json")
+```
+
 This allows the dataset pipeline to be run at an improved speed from the beginning of the training process.
 
 By the way, MindSpore also provides APIs to set the global value of num_parallel_workers and prefetch_size.
