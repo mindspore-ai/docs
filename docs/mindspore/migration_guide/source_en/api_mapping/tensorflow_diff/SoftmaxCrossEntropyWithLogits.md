@@ -32,7 +32,7 @@ For more information, see [mindspore.nn.SoftmaxCrossEntropyWithLogits](https://m
 
 TensorFlow: The shape of labels and logits must be the same, and the reduction parameter is not provided, which cannot calculate mean or sum for loss.
 
-MindSpore：Sparse matrices for labels are supported and mean or sum for loss can be calculated through the reduction parameter.
+MindSpore: Sparse matrices for labels are supported and mean or sum for loss can be calculated through the reduction parameter.
 
 ## Code Example
 
@@ -50,7 +50,7 @@ labels_np = np.array([1, 0]).astype(np.int32)
 labels = Tensor(labels_np)
 output = loss(logits, labels)
 print(output)
-# Out：
+# Out:
 # 34.068203
 
 
