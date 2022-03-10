@@ -111,7 +111,7 @@ docker run -it -v /dev/shm:/dev/shm --runtime=nvidia swr.cn-south-1.myhuaweiclou
 如需使用可视化调试调优工具MindInsight，需设置`--network`参数为`host`模式，例如:
 
 ```bash
-docker run -it -v /dev/shm:/dev/shm --network host --runtime=nvidia swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu:{tag} /bin/bash
+docker run -it -v /dev/shm:/dev/shm --network host --runtime=nvidia swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu-{cuda_version}:{tag} /bin/bash
 ```
 
 ## 验证是否成功安装

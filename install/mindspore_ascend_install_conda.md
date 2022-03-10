@@ -40,7 +40,7 @@
 
 ### 安装昇腾AI处理器配套软件包
 
-详细安装方法请参考[昇腾软件安装指引文档](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910?category=installation-upgrade&subcategory=software-deployment-guide)。
+详细安装方法请参考[Ascend Data Center Solution 21.0.4安装指引文档](https://support.huawei.com/enterprise/zh/doc/EDOC1100235797?section=j003)。
 
 安装包默认安装路径为`/usr/local/Ascend`。安装后确认当前用户有权限访问昇腾AI处理器配套软件包的安装路径，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
 
