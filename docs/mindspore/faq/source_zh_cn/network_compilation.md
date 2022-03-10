@@ -82,12 +82,18 @@ out_me = net(input_x, input_a, input_b)
 执行结果如下:
 
 ```text
-TypeError: The return values of different branches do not match. Type Join Failed: dtype1 = Float32, dtype2 = Float16. The abstract type of the return value of the current branch is AbstractTensor(shape: (2, 3, 4, 5), element: AbstractScalar(Type: Float16, Value: AnyValue, Shape: NoShape), value_ptr: 0x32ed00e0, value: AnyValue), and that of the previous branch is AbstractTensor(shape: (2, 3, 4, 5), element: AbstractScalar(Type: Float32, Value: AnyValue, Shape: NoShape), value_ptr: 0x32ed00e0, value: AnyValue). Please check the node construct.4:[CNode]5{[0]: [CNode]6}, true branch: ✓construct.2, false branch: ✗construct.3. trace:
-In file test_type_join_failed.py(14)/        if a > b:/
+TypeError: Cannot join the return values of different branches, perhaps you need to make them equal.
+Type Join Failed: dtype1 = Float32, dtype2 = Float16.
+For more details, please refer to the FAQ at https://www.mindspore.cn
+The abstract type of the return value of the current branch is AbstractTensor(shape: (2, 3, 4, 5), element: AbstractScalar(Type: Float16, Value: AnyValue, Shape: NoShape), value_ptr: 0x55b9f289d090, value: AnyValue), and that of the previous branch is AbstractTensor(shape: (2, 3, 4, 5), element: AbstractScalar(Type: Float32, Value: AnyValue, Shape: NoShape), value_ptr: 0x55b9f289d090, value: AnyValue).
+The node is construct.6:[CNode]13{[0]: construct.6:[CNode]12{[0]: ValueNode<Primitive> Switch, [1]: [CNode]11, [2]: ValueNode<FuncGraph> ✓construct.4, [3]: ValueNode<FuncGraph> ✗construct.5}}, true branch: ✓construct.4, false branch: ✗construct.5
+The function call stack:
+In file test.py(14)/        if a > b:
 
 The function call stack (See file 'analyze_fail.dat' for more details):
-# 0 In file test_type_join_failed.py(14)
+# 0 In file test.py(14)
         if a > b:
+        ^
 ```
 
 当出现类似“Shape Join Failed: shape1 = (2, 3, 4, 5), shape2 = ()”的报错时，说明`shape`不一致，导致抽象类型合并失败。代码样例如下:
@@ -121,12 +127,18 @@ out = net(input_x, input_a, input_b)
 执行结果如下:
 
 ```text
-ValueError: The return values of different branches do not match. Shape Join Failed: shape1 = (2, 3, 4, 5), shape2 = (). The abstract type of the return value of the current branch is AbstractTensor(shape: (), element: AbstractScalar(Type: Float32, Value: AnyValue, Shape: NoShape), value_ptr: 0x239b5120, value: AnyValue), and that of the previous branch is AbstractTensor(shape: (2, 3, 4, 5), element: AbstractScalar(Type: Float32, Value: AnyValue, Shape: NoShape), value_ptr: 0x239b5120, value: AnyValue). Please check the node construct.4:[CNode]5{[0]: [CNode]6}, true branch: ✓construct.2, false branch: ✗construct.3. trace:
-In file test_shape_join_failed.py(14)/        if a > b:/
+ValueError: Cannot join the return values of different branches, perhaps you need to make them equal.
+Shape Join Failed: shape1 = (2, 3, 4, 5), shape2 = ().
+For more details, please refer to the FAQ at https://www.mindspore.cn
+The abstract type of the return value of the current branch is AbstractTensor(shape: (), element: AbstractScalar(Type: Float32, Value: AnyValue, Shape: NoShape), value_ptr: 0x55658aa9b090, value: AnyValue), and that of the previous branch is AbstractTensor(shape: (2, 3, 4, 5), element: AbstractScalar(Type: Float32, Value: AnyValue, Shape: NoShape), value_ptr: 0x55658aa9b090, value: AnyValue).
+The node is construct.6:[CNode]13{[0]: construct.6:[CNode]12{[0]: ValueNode<Primitive> Switch, [1]: [CNode]11, [2]: ValueNode<FuncGraph> ✓construct.4, [3]: ValueNode<FuncGraph> ✗construct.5}}, true branch: ✓construct.4, false branch: ✗construct.5
+The function call stack:
+In file test.py(14)/        if a > b:
 
 The function call stack (See file 'analyze_fail.dat' for more details):
-# 0 In file test_shape_join_failed.py(14)
+# 0 In file test.py(14)
         if a > b:
+        ^
 ```
 
 当出现如“Type Join Failed: abstract type AbstractTensor can not join with AbstractTuple”的报错时，说明抽象类型不匹配，导致抽象类型合并失败，代码样例如下：
@@ -156,17 +168,13 @@ join_fail()
 执行结果如下：
 
 ```text
-TypeError: mindspore/core/abstract/abstract_value.cc:48 AbstractTypeJoinLogging] Type Join Failed: abstract type AbstractTensor cannot not join with AbstractTuple. For more details, please refer to the FAQ at https://www.mindspore.cn. this: AbstractTensor(shape: (1), element: AbstractScalar(Type: Float64, Value: AnyValue, Shape: NoShape), value_ptr: 0x55f643f283d0, value: Tensor(shape=[1], dtype=Float64, value= [ 1.00000000e+00])), other: AbstractTuple(element[0]: AbstractTensor(shape: (1), element: AbstractScalar(Type: Float64, Value: AnyValue, Shape: NoShape), value_ptr: 0x55f64473a500, value: Tensor(shape=[1], dtype=Float64, value= [ 1.00000000e+00])), element[1]: AbstractTensor(shape: (1), element: AbstractScalar(Type: Float64, Value: AnyValue, Shape: NoShape), value_ptr: 0x55f6447042c0, value: Tensor(shape=[1], dtype=Float64, value= [ 2.00000000e+00]))). Please check the node test_net.2:test_net{[0]: test_net, [1]: test_net}. trace:
-In file test_shape_join_failed.py(9)/def test_net(a, b):/
-In file test_shape_join_failed.py(15)/ a = grad(test_net)(x, y, sens_i)/
-
+TypeError: Type Join Failed: abstract type AbstractTensor cannot join with AbstractTuple.
+For more details, please refer to the FAQ at https://www.mindspore.cn.
+This: AbstractTensor(shape: (1), element: AbstractScalar(Type: Float32, Value: AnyValue, Shape: NoShape), value_ptr: 0x56458a351ad0, value: Tensor(shape=[1], dtype=Float32, value=[ 1.00000000e+00])), other: AbstractTuple{element[0]: AbstractTensor(shape: (1), element: AbstractScalar(Type: Float32, Value: AnyValue, Shape: NoShape), value_ptr: 0x564583e3fa90, value: Tensor(shape=[1], dtype=Float32, value=[ 1.00000000e+00])), element[1]: AbstractTensor(shape: (1), element: AbstractScalar(Type: Float32, Value: AnyValue, Shape: NoShape), value_ptr: 0x564583cb00b0, value: Tensor(shape=[1], dtype=Float32, value=[ 2.00000000e+00])), sequence_nodes: {test_net.3:[CNode]4{[0]: ValueNode<PrimitivePy> MakeTuple, [1]: a, [2]: b}, elements_use_flags: {ptr: 0x5645cbc500c0, value: [const vector][1, 1]}}}
 The function call stack (See file 'analyze_fail.dat' for more details):
-# 0 In file test_shape_join_failed.py(15)
-a = grad(test_net)(x, y, sens_i)
-^
-# 1 In file test_shape_join_failed.py(9)
-def test_net(a, b):
-^
+# 0 In file test.py(16)
+    a = grad(test_net)(x, y, sens_i)
+        ^
 ```
 
 <br/>
