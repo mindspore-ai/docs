@@ -288,7 +288,7 @@ The following describes how to control cluster scale-in and scale-out using the 
 >
 > - You can use a cluster management tool (such as Kubernetes) to create or release `Server` resources.
 >
-> - After scale-in, the process scaled in will not exit. You need to use the cluster management tool (such as Kubernetes) or command `kill -15 $PID` to control the process to exit.
+> - After scale-in, the process scaled in will not exit. You need to use the cluster management tool (such as Kubernetes) or command `kill -15 $PID` to control the process to exit. Please note that you need to query the cluster status from the 'scheduler' node and wait for the cluster status to be set to `CLUSTER_READY`, the reduced node can be recycled.
 
 ## Disaster Recovery
 
