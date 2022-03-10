@@ -1,4 +1,4 @@
-# MindSpore Graph Learning
+# Install Graph Learning
 
 - [Installation](#installation)
     - [System Environment Information Confirmation](#system-environment-information-confirmation)
