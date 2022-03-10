@@ -87,10 +87,12 @@ The construction of modules is controlled by environment variables. Users can co
 | MSLITE_ENABLE_TOOLS | Whether to compile supporting tools | on, off | on |
 | MSLITE_ENABLE_TESTCASES | Whether to compile test cases | on, off | off |
 | MSLITE_ENABLE_SERVER_INFERENCE | Whether to enable inference interfaces on server | on, off | off |
+| MSLITE_ENABLE_MODEL_ENCRYPTION | Whether to support model encryption and decryption | on, off | off |
 
 > - For TensorRT and NPU compilation environment configuration, refer to [Application Specific Integrated Circuit Integration Instructions](https://www.mindspore.cn/lite/docs/en/master/use/asic.html).
 > - When the AVX instruction set is enabled, the CPU of the running environment needs to support both AVX and FMA features.
 > - The compilation time of the model conversion tool is long. If it is not necessary, it is recommended to use `MSLITE_ENABLE_CONVERTER` to turn off the compilation of the conversion tool to speed up the compilation.
+> - The version supported by the OpenSSL encryption library is 1.1.1k, which needs to be downloaded and compiled by the user. For the compilation, please refer to: <https://github.com/openssl/openssl#build-and-install>
 
 - Runtime feature compilation options
 

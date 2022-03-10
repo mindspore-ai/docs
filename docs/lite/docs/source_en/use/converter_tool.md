@@ -68,12 +68,16 @@ The following describes the parameters in detail.
 | `--decryptMode=<DECRYPTMODE>` | No | Decryption mode for the MindIR file. Only valid when dec_key is set. | AES-GCM, AES-CBC | AES-GCM |
 | `--inputDataType=<INPUTDATATYPE>` | No | Set data type of input tensor of quantized model. Only valid for input tensor which has quantization parameters(scale and zero point). Keep same with the data type of input tensor of origin model by default. | FLOAT32, INT8, UINT8, DEFAULT | DEFAULT |
 | `--outputDataType=<OUTPUTDATATYPE>` | No | Set data type of output tensor of quantized model. Only valid for output tensor which has quantization parameters(scale and zero point). Keep same with the data type of output tensor of origin model by default. | FLOAT32, INT8, UINT8, DEFAULT | DEFAULT |
+| `--encryptKey=<ENCRYPTKEY>` | No              | Set the key for exporting encrypted `ms` models. The key is expressed in hexadecimal. Only AES-GCM is supported, and the key length is only 16Byte. | - | - |
+| `--encryption=<ENCRYPTION>` | No | Set whether to encrypt when exporting the `ms` model. Exporting encryption can protect the integrity of the model, but it will increase the runtime initialization time. | true、false | true |
+| `--infer=<INFER>` | No | Set whether to pre-inference when conversion is complete. | true、false | false |
 
 > - The parameter name and parameter value are separated by an equal sign (=) and no space is allowed between them.
 > - The Caffe model is divided into two files: model structure `*.prototxt`, corresponding to the `--modelFile` parameter; model weight `*.caffemodel`, corresponding to the `--weightFile` parameter.
 > - The priority of `--fp16` option is very low. For example, if quantization is enabled, `--fp16` will no longer take effect on const tensors that have been quantized. All in all, this option only takes effect on const tensors of Float32 when serializing model.
 > - `inputDataFormat`: generally, in the scenario of integrating third-party hardware of NCHW specification([Usage Description of the Integrated NNIE](https://www.mindspore.cn/lite/docs/en/master/use/nnie.html#nnie)), designated as NCHW will have a significant performance improvement over NHWC. In other scenarios, users can also set as needed.
 > - The calibration dataset configuration file uses the `key=value` mode to define related parameters. For the configuration parameters related to quantization, please refer to [post training quantization](https://www.mindspore.cn/lite/docs/en/master/use/post_training_quantization.html). For the configuration parameters related to extension, please refer to [Extension Configuration](https://www.mindspore.cn/lite/docs/en/master/use/nnie.html#extension-configuration).
+> - The encryption and decryption function only takes effect when `MSLITE_ENABLE_MODEL_ENCRYPTION=on` is set at compile time, and the key is a string represented by hexadecimal. For example, if the key is defined as `b'0123456789ABCDEF'`, the corresponding hexadecimal representation is `30313233343536373839414243444546`. Users on the Linux platform can use the `xxd` tool to convert the key represented by the bytes to a hexadecimal representation.
 
 ### Example
 
