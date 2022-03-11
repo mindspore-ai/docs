@@ -25,7 +25,7 @@ The initial version of MindSpore Graph Learning includes the vertex-centric prog
 Typical MindSpore Graph Learning Application Scenarios
 -------------------------------------------------------
 
-1. Graph convolutional neural network (GCN) for entire graph training
+- Graph convolutional neural network (GCN) for entire graph training
 
    Entire graph training requires that the graph nodes and edge features of the user be stored in the GPU. The GCN is a type of graph neural network that uses convolution operations.
 
