@@ -375,3 +375,13 @@ In file /usr/local/python3.7/lib/python3.7/site-packages/mindspore/ops/composite
 ```
 
 If you encounter problems like this one, please remove the use of tensor (bool). In this example, replace tensor (bool) with bool can solve the problem.
+
+<br/>
+
+<font size=3>**Q: What can I do if encountering an error "The 'setitem' operation does not support the type [List[List[Int642],Int643], Slice[Int64 : Int64 : kMetaTypeNone], Tuple[Int64*3]]"?**</font>
+
+A: The MindSpore static graph mode needs to translate the assign operation as the MindSpore operation.
+This assign is implemented by the [HyperMap](https://www.mindspore.cn/docs/programming_guide/en/master/hypermap.html#multitypefuncgraph) in MindSpore.
+The Type is not registered in the HyperMap.
+Since the type inference is an indispensable part of MindSpore, ME Compiler cannot find this type in HyperMap, and this error will be reported, which shows the current supported type.
+The user can use other operators which supported in MindSpore to replace this operation, or can add the needed type in HyperMap manually.

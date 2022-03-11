@@ -371,3 +371,11 @@ In file /usr/local/python3.7/lib/python3.7/site-packages/mindspore/ops/composite
 ```
 
 若遇到这类问题请去除对Tensor(bool)类型的使用，本例中将Tensor(bool)替换为bool即可解决问题。
+
+<br/>
+
+<font size=3>**Q: 出现 "The 'setitem' operation does not support the type [List[List[Int642],Int643], Slice[Int64 : Int64 : kMetaTypeNone], Tuple[Int64*3]]"怎么办**</font>？
+
+A: MindSpore静态图需要将这种切片的赋值操作翻译成相关算子，这种赋值操作是通过HyperMap实现的。HyperMap并没有注册这种类型，由于MindSpore静态图模式编译需要进行类型推导，
+前端编译对这种赋值操作展开成具体类型时，发现这种类型并没有注册就会报错这种错误。一般下面会提示现有的支持类型。
+用户可以考虑使用其他算子进行替换， 或者更改MindSpore源码的方式扩展当前这种MindSpore还不支持的Hypermap类型[运算重载](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/hypermap.html#multitypefuncgraph)。
