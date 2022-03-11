@@ -94,7 +94,7 @@ def count_params(net):
     return total_params
 ```
 
-具体[脚本链接](https://gitee.com/mindspore/models/blob/master/research/cv/tinynet/src/utils.py)。
+具体[脚本链接](https://gitee.com/mindspore/models/blob/r1.6/research/cv/tinynet/src/utils.py)。
 
 <br/>
 

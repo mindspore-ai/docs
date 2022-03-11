@@ -24,7 +24,7 @@
 
 ### 配置分布式环境变量
 
-在本地Ascend处理器上进行分布式训练时，需要配置当前多卡环境的组网信息文件，1个8卡环境的json文件配置如下，本样例将该配置文件命名为rank_table_8pcs.json。rank_table可以使用models下面的[hccl_tools.py](https://gitee.com/mindspore/models/blob/master/utils/hccl_tools/hccl_tools.py)生成。
+在本地Ascend处理器上进行分布式训练时，需要配置当前多卡环境的组网信息文件，1个8卡环境的json文件配置如下，本样例将该配置文件命名为rank_table_8pcs.json。rank_table可以使用models下面的[hccl_tools.py](https://gitee.com/mindspore/models/blob/r1.6/utils/hccl_tools/hccl_tools.py)生成。
 
 ```json
 {
@@ -88,7 +88,7 @@ init()
 
 ### 加载数据集
 
-利用MindSpore提供图片加载接口ImageFolderDataset加载ImageNet 2012数据集，同时通过MindSpore提供的数据增强接口对数据集进行处理，此部分代码由models中`resnet`目录下的[dataset.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/src/dataset.py)导入。
+利用MindSpore提供图片加载接口ImageFolderDataset加载ImageNet 2012数据集，同时通过MindSpore提供的数据增强接口对数据集进行处理，此部分代码由models中`resnet`目录下的[dataset.py](https://gitee.com/mindspore/models/blob/r1.6/official/cv/resnet/src/dataset.py)导入。
 
 ```python
 # define train dataset
@@ -112,9 +112,9 @@ init_weight(net=net)
 
 定义模型所需的损失函数loss、optimizer等。
 
-loss使用CrossEntropySmooth，由ModelZoo中`resnet`目录下的[CrossEntropySmooth.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/src/CrossEntropySmooth.py)导入。
+loss使用CrossEntropySmooth，由ModelZoo中`resnet`目录下的[CrossEntropySmooth.py](https://gitee.com/mindspore/models/blob/r1.6/official/cv/resnet/src/CrossEntropySmooth.py)导入。
 
-学习率lr的构建代码由models中`resnet`目录下的[lr_generator.py](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/src/lr_generator.py)导入。
+学习率lr的构建代码由models中`resnet`目录下的[lr_generator.py](https://gitee.com/mindspore/models/blob/r1.6/official/cv/resnet/src/lr_generator.py)导入。
 
 ```python
 # define loss

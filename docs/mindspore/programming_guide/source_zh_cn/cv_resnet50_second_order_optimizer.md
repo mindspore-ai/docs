@@ -175,7 +175,7 @@ def create_dataset2(dataset_path, do_train, repeat_num=1, batch_size=32, target=
 
 ## 定义网络
 
-本示例中使用的网络模型为ResNet50-v1.5，定义[ResNet50网络](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/src/resnet.py)。
+本示例中使用的网络模型为ResNet50-v1.5，定义[ResNet50网络](https://gitee.com/mindspore/models/blob/r1.6/official/cv/resnet/src/resnet.py)。
 
 网络构建完成以后，在`__main__`函数中调用定义好的ResNet50：
 

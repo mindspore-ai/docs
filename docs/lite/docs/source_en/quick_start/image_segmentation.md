@@ -117,7 +117,7 @@ Note: If the download fails, manually download the model file [segment_model.ms]
 
 ### Writing On-Device Inference Code
 
-The inference code and process are as follows. For details about the complete code, see [src/java/com/mindspore/imagesegmentation/TrackingMobile](https://gitee.com/mindspore/models/blob/master/official/lite/image_segmentation/app/src/main/java/com/mindspore/imagesegmentation/help/TrackingMobile.java).
+The inference code and process are as follows. For details about the complete code, see [src/java/com/mindspore/imagesegmentation/TrackingMobile](https://gitee.com/mindspore/models/blob/r1.6/official/lite/image_segmentation/app/src/main/java/com/mindspore/imagesegmentation/help/TrackingMobile.java).
 
 1. Load the MindSpore Lite model file and build the context, model, and computational graph for inference.
 

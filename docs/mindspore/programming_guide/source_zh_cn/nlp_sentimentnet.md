@@ -159,7 +159,7 @@ if config.preprocess == "true":
 ```
 
 > 转换成功后会在`preprocess_path`路径下生成`mindrecord`文件； 通常该操作在数据集不变的情况下，无需每次训练都执行。
-> `convert_to_mindrecord`函数的具体实现请参考<https://gitee.com/mindspore/models/blob/master/official/nlp/lstm/src/dataset.py>
+> `convert_to_mindrecord`函数的具体实现请参考<https://gitee.com/mindspore/models/blob/r1.6/official/nlp/lstm/src/dataset.py>
 > 其中包含两大步骤：
 >
 > 1. 解析文本数据集，包括编码、分词、对齐、处理GloVe原始数据，使之能够适应网络结构。
@@ -184,7 +184,7 @@ network = SentimentNet(vocab_size=embedding_table.shape[0],
                        batch_size=config.batch_size)
 ```
 
-> `SentimentNet`网络结构的具体实现请参考<https://gitee.com/mindspore/models/blob/master/official/nlp/lstm/src/lstm.py>
+> `SentimentNet`网络结构的具体实现请参考<https://gitee.com/mindspore/models/blob/r1.6/official/nlp/lstm/src/lstm.py>
 
 ### 预训练模型
 
@@ -224,7 +224,7 @@ else:
 print("============== Training Success ==============")
 ```
 
-> `lstm_create_dataset`函数的具体实现请参考<https://gitee.com/mindspore/models/blob/master/official/nlp/lstm/src/dataset.py>
+> `lstm_create_dataset`函数的具体实现请参考<https://gitee.com/mindspore/models/blob/r1.6/official/nlp/lstm/src/dataset.py>
 
 ### 模型验证
 
