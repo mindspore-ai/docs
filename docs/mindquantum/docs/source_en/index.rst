@@ -36,12 +36,26 @@ Typical Application Scenarios
    :caption: Guide
 
    parameterized_quantum_circuit
+   initial_experience_of_quantum_neural_network
    get_gradient_of_PQC_with_mindquantum
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: Variational Quantum Algorithm
+
    classification_of_iris_by_qnn
    quantum_approximate_optimization_algorithm
    qnn_for_nlp
    vqe_for_quantum_chemistry
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: General Quantum Algorithm
+
    quantum_phase_estimation
+   grover_search_algorithm
    shor_algorithm
 
 .. toctree::

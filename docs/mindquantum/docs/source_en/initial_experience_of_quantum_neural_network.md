@@ -1,5 +1,7 @@
 # Initial experience of quantum neural network
 
+Translator: [unseenme](https://gitee.com/unseenme)
+
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindquantum/docs/source_en/initial_experience_of_quantum_neural_network.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Structure of Quantum Neural Network

@@ -1,5 +1,7 @@
 # Classification of iris by quantum neural network
 
+Translator: [unseenme](https://gitee.com/unseenme)
+
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindquantum/docs/source_en/classification_of_iris_by_qnn.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
