@@ -27,7 +27,7 @@
 | [mindspore.ops.BesselI0e](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.BesselI0e.html) | 无                                                           |
 | [mindspore.ops.BesselI1e](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.BesselI1e.html) | 无                                                           |
 | [mindspore.ops.BiasAdd](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.BiasAdd.html) | 无                                                           |
-| [mindspore.ops.BoundingBoxEncode](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.BoundingBoxEncode.html) | 1. 支持对输入（anchor_box）和输入（groundtruth_box）的第0维进行切分； <br /> 2. 输入（anchor_box）和输入（groundtruth_box）的切分策略必须一致 |
+| [mindspore.ops.BoundingBoxEncode](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.BoundingBoxEncode.html) | 1. 支持对输入（anchor_box）和输入（groundtruth_box）的第1维进行切分； <br /> 2. 输入（anchor_box）和输入（groundtruth_box）的切分策略必须一致 |
 | [mindspore.ops.BroadcastTo](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.BroadcastTo.html) | 无                                                           |
 | [mindspore.ops.Cast](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Cast.html) | Auto Parallel和Semi Auto Parallel模式下，配置策略不生效      |
 | [mindspore.ops.Ceil](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Ceil.html) | 无                                                           |
@@ -36,7 +36,7 @@
 | [mindspore.ops.Conv2DBackpropInput](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Conv2DBackpropInput.html) | 1. 数据格式只支持‘NCHW’；<br />2. 如果涉及相邻节点数据交换，只支持Ascend；<br />3. 当group的值不为1时，不支持切分C-in/C-out；<br />4. weight的后两维不支持切分；<br />5. 输出的H/W维的shape必须能被输入的H/W维的切分策略整除；<br />6. valid模式下：不支持切分H/W维；<br />7. same/pad模式下：相邻卡间发送接收的数据长度需大于等于0且小于等于切片大小。 |
 | [mindspore.ops.Cos](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Cos.html) | 无                                                           |
 | [mindspore.ops.Cosh](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Cosh.html) | 无                                                           |
-| [mindspore.ops.CropAndResize](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.CropAndResize.html) | 1. 不支持对输入（x）的H/W维和输入（boxes）的第1维进行切分；<br /> 2. 输入（boxes）和输入（box_index）第0维的切分策略必须一致 |
+| [mindspore.ops.CropAndResize](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.CropAndResize.html) | 1. 不支持对输入（x）的H/W维和输入（boxes）的第2维进行切分；<br /> 2. 输入（boxes）和输入（box_index）第1维的切分策略必须一致 |
 | [mindspore.ops.Div](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Div.html) | 无                                                           |
 | [mindspore.ops.DivNoNan](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.DivNoNan.html) | 无                                                           |
 | [mindspore.ops.Dropout](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Dropout.html) | 无                                                           |
@@ -60,7 +60,7 @@
 | [mindspore.ops.Greater](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Greater.html) | 无                                                           |
 | [mindspore.ops.GreaterEqual](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.GreaterEqual.html) | 无                                                           |
 | [mindspore.ops.Inv](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Inv.html) | 无                                                           |
-| [mindspore.ops.IOU](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/ops/mindspore.ops.IOU.html) | 支持对输入（anchor_boxes）和输入（gt_boxes）的第0维切分 |
+| [mindspore.ops.IOU](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.IOU.html) | 支持对输入（anchor_boxes）和输入（gt_boxes）的第1维切分 |
 | [mindspore.ops.L2Normalize](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.L2Normalize.html) | 输入（input_x）在轴（axis）对应的维度不能切，切分后，在数学逻辑上和单机不等价 |
 | [mindspore.ops.Less](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Less.html) | 无                                                           |
 | [mindspore.ops.LessEqual](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.LessEqual.html) | 无                                                           |
@@ -95,7 +95,7 @@
 | [mindspore.ops.Reshape](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Reshape.html) | 不支持配置切分策略，并且，在自动并行模式下，当reshape算子后接有多个算子，不允许对这些算子配置不同的切分策略 |
 | [mindspore.ops.ResizeBilinear](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.ResizeBilinear.html) | 在GPU平台下，不支持H/W维切分；在Ascend平台下，不支持H维切分，且W维的输出shape要能被切分数整除。 |
 | [mindspore.ops.ResizeNearestNeighbor](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.ResizeNearestNeighbor.html) | 在`align_corners=True`时只支持切分第一维和第二维             |
-| [mindspore.ops.ROIAlign](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.ROIAlign.html) | 不支持对输入（features）的H/W维和输入（rois）的第1维进行切分 |
+| [mindspore.ops.ROIAlign](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.ROIAlign.html) | 1. 不支持对输入（features）的H/W维和输入（rois）的第2维进行切分; <br />2. 切分输入（features）的N维时，输入（rois）不能是Parameter |
 | [mindspore.ops.Round](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Round.html) | 无                                                           |
 | [mindspore.ops.Rsqrt](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Rsqrt.html) | 无                                                           |
 | [mindspore.ops.ScatterUpdate](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.ScatterUpdate.html) | 第一个输入的第一维不能切分，第二个输入不能切分，第三个输入的前n维（n为第二个输入的维度）不能切分；在auto_parallel模式下，不支持双递归算法。 |
