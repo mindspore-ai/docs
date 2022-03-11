@@ -241,9 +241,11 @@ This section contains some predefined classes related to Dataset operations, too
 Classes
 ^^^^^^^
 
-- :doc:`../generate/classmindspore_dataset_TensorTransform`
+- :doc:`../generate/classmindspore_dataset_SentencePieceVocab`
 - :doc:`../generate/classmindspore_dataset_Slice`
 - :doc:`../generate/classmindspore_dataset_SliceOption`
+- :doc:`../generate/classmindspore_dataset_TensorTransform`
+- :doc:`../generate/classmindspore_dataset_Vocab`
 
 Functions
 ^^^^^^^^^

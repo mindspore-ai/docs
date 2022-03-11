@@ -181,9 +181,11 @@ Eager类
 类
 ^^^^^^^
 
-- :doc:`../generate/classmindspore_dataset_TensorTransform`
+- :doc:`../generate/classmindspore_dataset_SentencePieceVocab`
 - :doc:`../generate/classmindspore_dataset_Slice`
 - :doc:`../generate/classmindspore_dataset_SliceOption`
+- :doc:`../generate/classmindspore_dataset_TensorTransform`
+- :doc:`../generate/classmindspore_dataset_Vocab`
 
 函数
 ^^^^^^^^^
