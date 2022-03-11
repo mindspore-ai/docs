@@ -330,6 +330,7 @@ The functional operators are the pre-instantiated Primitive operators, which can
     :nosignatures:
     :template: classtemplate.rst
 
+    mindspore.ops.arange
     mindspore.ops.batch_dot
     mindspore.ops.clip_by_global_norm
     mindspore.ops.clip_by_value

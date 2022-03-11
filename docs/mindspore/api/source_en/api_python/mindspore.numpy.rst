@@ -42,6 +42,9 @@ Array Generation
     mindspore.numpy.ones
     mindspore.numpy.ones_like
     mindspore.numpy.pad
+    mindspore.numpy.rand
+    mindspore.numpy.randint
+    mindspore.numpy.randn
     mindspore.numpy.trace
     mindspore.numpy.tri
     mindspore.numpy.tril
