@@ -186,7 +186,7 @@ JIT Fallback借鉴了传统JIT编译的Fallback的思路。传统的JIT编译经
 
     @ms_function
     def test_mnp_average():
-        x = mnp.array(([1., 2.], [3., 4.]))
+        x = mnp.array(([[1., 2.], [3., 4.]]))
         x_average = mnp.average(x)
         return Tensor(x_average)
 
@@ -208,7 +208,7 @@ JIT Fallback借鉴了传统JIT编译的Fallback的思路。传统的JIT编译经
 
     @ms_function
     def test_np_vdot():
-        x = np.array([1, 2], [3, 4])
+        x = np.array([[1, 2], [3, 4]])
         y = x.T
         np.vdot(x, y)
         return Tensor(y)
