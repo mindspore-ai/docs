@@ -17,8 +17,7 @@
 
 ## 确认系统环境信息
 
-- 硬件平台确认为Linux系统下的CPU，并支持avx指令集。
-- 参考[MindSpore安装指南](https://www.mindspore.cn/install)，完成MindSpore的安装，要求至少1.2.0版本。
+- 参考[MindSpore安装指南](https://www.mindspore.cn/install)，完成MindSpore的安装，要求至少1.4.0版本。
 - 其余依赖请参见[setup.py](https://gitee.com/mindspore/mindquantum/blob/master/setup.py)。
 
 ## 安装方式
@@ -27,13 +26,24 @@
 
 ### pip安装
 
+Linux-x86_64 Python3.7
+
 ```bash
-pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{ms_version}/MindQuantum/any/mindquantum-{mq_version}-py3-none-any.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip insatll https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.1/MindQuantum/x86_64/mindquantum-0.5.0-cp37-cp37m-linux_x86_64.whl
 ```
 
-> - 在联网状态下，安装whl包时会自动下载MindQuantum安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindquantum/blob/master/setup.py)），其余情况需自行安装。
-> - `{ms_version}`表示与MindQuantum匹配的MindSpore版本号，例如下载0.3.0版本MindQuantum时，`{ms_version}`应写为1.5.0。
-> - `{mq_version}`表示MindQuantum版本号，例如下载0.3.0版本MindQuantum时，`{mq_version}`应写为0.3.0。
+Windows-x64 Python3.7
+
+```bash
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.1/MindQuantum/x86_64/mindquantum-0.5.0-cp37-cp37m-win_amd64.whl
+```
+
+Windows-x64 Python3.9
+
+```bash
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.1/MindQuantum/x86_64/mindquantum-0.5.0-cp39-cp39-win_amd64.whl
+```
+
 > - 前往[官网](https://www.mindspore.cn/versions)可查询更多版本安装包。
 
 ### 源码安装
