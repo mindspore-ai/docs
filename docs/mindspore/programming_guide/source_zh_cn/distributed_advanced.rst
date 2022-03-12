@@ -11,3 +11,4 @@
   distributed_training_dataset_slice
   distributed_inference
   apply_recompute
+  sharding_propagation

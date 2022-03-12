@@ -9,3 +9,4 @@ Distributed Parallel Advanced Features
   apply_parameter_server_training
   distributed_inference
   apply_recompute
+  sharding_propagation
