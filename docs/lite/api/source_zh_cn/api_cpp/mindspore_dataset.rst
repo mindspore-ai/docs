@@ -115,7 +115,6 @@ Dataset类
 
 - :doc:`../generate/classmindspore_dataset_Dataset`
 - :doc:`../generate/classmindspore_dataset_Iterator`
-- :doc:`../generate/classmindspore_dataset_Iterator__Iterator`
 - :doc:`../generate/classmindspore_dataset_PullIterator`
 
 Sampler类
@@ -190,9 +189,6 @@ Eager类
 函数
 ^^^^^^^^^
 
-- :doc:`../generate/function_mindspore_dataset_BitClear-1`
-- :doc:`../generate/function_mindspore_dataset_BitSet-1`
-- :doc:`../generate/function_mindspore_dataset_BitTest-1`
 - :doc:`../generate/function_mindspore_dataset_Schema-1`
 - :doc:`../generate/function_mindspore_dataset_SchemaCharIF-1`
 - :doc:`../generate/function_mindspore_dataset_CreateDatasetCache-1`
