@@ -97,9 +97,10 @@ mindinsight start --port {PORT} --summary-base-dir {SUMMARY_BASE_DIR} --offline-
 ## 离线调试器API使用样例
 
 ```python
-import mindinsight.debugger as debugger
-from mindinsight.debugger import DumpAnalyzer as DumpAnalyzer
-from mindinsight.debugger import Watchpoint as Watchpoint
+from mindinsight import debugger
+from mindinsight.debugger import DumpAnalyzer
+from mindinsight.debugger import Watchpoint
+
 
 def test_debugger_offline():
     # Init DumpAnalyzer with the dump_dir
@@ -117,7 +118,8 @@ def test_debugger_offline():
         print("The hit detail is: {}".format(hit.get_hit_detail()))
         tensor = hit.tensor
         print("The hit tensor info is: iteration: {}, graph_name: {}, node_name: {}, rank: {}, slot: {}"
-            .format(tensor.iteration, tensor.node.graph_name, tensor.node.name, tensor.node.name, tensor.rank, tensor.slot))
+            .format(tensor.iteration, tensor.node.graph_name, tensor.node.name, tensor.rank, tensor.slot))
+
 
 if __name__ == "__main__":
     test_debugger_offline()
