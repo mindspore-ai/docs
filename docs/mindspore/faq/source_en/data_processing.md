@@ -8,6 +8,20 @@ A: You can refer to the [test_tdt_data_transfer.py](https://gitee.com/mindspore/
 
 <br/>
 
+<font size=3>**Q: In the process of using `Dataset` to process data, the memory consumption is high. How to optimize it?**</font>
+
+A: You can refer to the following steps to reduce the memory occupation, which may also reduce the efficiency of data processing.
+
+  1. Before defining the dataset object by `**Dataset`, set the prefetch size of `Dataset` processing by `ds.config.set_prefetch_size(2)`.
+
+  2. When defining the `**Dataset` object, set its parameter `num_parallel_workers` is 1.
+
+  3. If you further use `**Dataset` object `.map(...)` operation, you can set `.map(...)` operation's parameter `num_parallel_workers` is 1.
+
+  4. If you further use `**Dataset` object `.batch(...)` operation, you can set `.batch(...)` operation's parameter `num_parallel_workers' is 1.
+
+<br/>
+
 <font size=3>**Q: Why is there no difference between `shuffle=True` and `shuffle=False` in `GeneratorDataset`?**</font>
 
 A: If `shuffle` is enabled, the input `Dataset` must support random access (for example, the user-defined `Dataset` has the `getitem` method). If data is returned in `yeild` mode in the user-defined `Dataset`, random access is not supported. For details, see section [Loading Dataset Overview](https://www.mindspore.cn/docs/programming_guide/en/master/dataset_loading.html#id5).

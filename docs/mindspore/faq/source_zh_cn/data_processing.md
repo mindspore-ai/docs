@@ -8,6 +8,20 @@ A: 可以参考此手动下沉方式的[test_tdt_data_transfer.py](https://gitee
 
 <br/>
 
+<font size=3>**Q: 在使用`Dataset`处理数据过程中内存占用高，怎么优化？**</font>
+
+A: 可以参考如下几个步骤来降低内存占用，同时也可能会降低数据处理的效率。
+
+  1. 在定义数据集`**Dataset`对象前，设置`Dataset`数据处理预取的大小，`ds.config.set_prefetch_size(2)`。
+
+  2. 在定义`**Dataset`对象时，设置其参数`num_parallel_workers`为1。
+
+  3. 如果对`**Dataset`对象进一步使用了`.map(...)`操作，可以设置`.map(...)`的参数`num_parallel_workers`为1。
+
+  4. 如果对`**Dataset`对象进一步使用了`.batch(...)`操作，可以设置`.batch(...)`的参数`num_parallel_workers`为1。
+
+<br/>
+
 <font size=3>**Q: 在`GeneratorDataset`中，看到有参数`shuffle`，在跑任务时发现`shuffle=True`和`shuffle=False`，两者没有区别，这是为什么？**</font>
 
 A: 开启`shuffle`,需要传入的`Dataset`是支持随机访问的（例如自定义的`Dataset`有`getitem`方法），如果是在自定义的`Dataset`里面通过`yeild`方式返回回来的数据，是不支持随机访问的，具体可查看教程中的[数据集加载](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dataset_loading.html#id5)章节。
