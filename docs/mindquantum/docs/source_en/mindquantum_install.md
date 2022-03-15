@@ -17,8 +17,7 @@
 
 ## Confirming System Environment Information
 
-- The hardware platform should be Linux CPU with avx supported.
-- Refer to [MindSpore Installation Guide](https://www.mindspore.cn/install/en), install MindSpore, version 1.2.0 or later is required.
+- Refer to [MindSpore Installation Guide](https://www.mindspore.cn/install/en), install MindSpore, version 1.4.0 or later is required.
 - See [setup.py](https://gitee.com/mindspore/mindquantum/blob/r0.5/setup.py) for the remaining dependencies.
 
 ## Installation Methods
@@ -27,13 +26,24 @@ You can install MindInsight either by pip or by source code.
 
 ### Install by pip
 
+Linux-x86_64 Python3.7
+
 ```bash
-pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{ms_version}/MindQuantum/any/mindquantum-{mq_version}-py3-none-any.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip insatll https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.1/MindQuantum/x86_64/mindquantum-0.5.0-cp37-cp37m-linux_x86_64.whl
 ```
 
-> - When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about other dependency items, see [setup.py](https://gitee.com/mindspore/mindquantum/blob/r0.5/setup.py)). In other cases, you need to manually install dependency items.
-> - `{ms_version}` refers to the MindSpore version that matches with MindQuantum. For example, if you want to install MindQuantum 0.3.0, then,`{ms_version}` should be 1.5.0。
-> - `{mq_version}` denotes the version of MindQuantum. For example, when you are downloading MindQuantum 0.3.0, `{version}` should be 0.3.0.
+Windows-x64 Python3.7
+
+```bash
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.1/MindQuantum/x86_64/mindquantum-0.5.0-cp37-cp37m-win_amd64.whl
+```
+
+Windows-x64 Python3.9
+
+```bash
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.1/MindQuantum/x86_64/mindquantum-0.5.0-cp39-cp39-win_amd64.whl
+```
+
 > - Refers to [MindSpore](https://www.mindspore.cn/versions) to find different version of packages。
 
 ### Install by Source Code
