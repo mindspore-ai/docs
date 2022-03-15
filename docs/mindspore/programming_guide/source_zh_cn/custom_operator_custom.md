@@ -860,8 +860,8 @@ def kernel_func(a):
             # 正常使用scalar
             c[i, j] = d + e
 
-    # Wrong: c[i, 0] = d
-    # 不能在超出Scalar定义域（j loop）之外的范围使用
+    # Wrong: c[0, 0] = d
+    # 不能在超出Scalar d的定义域（j loop）之外的范围使用
 
     return c
 ```

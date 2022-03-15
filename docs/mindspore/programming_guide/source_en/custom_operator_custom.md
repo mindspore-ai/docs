@@ -752,6 +752,7 @@ Scalar variables will regard its first assignment as the declaration. The assign
 Example of using Scalar variable:
 
 ```python
+@ms_hybrid
 def kernel_func(a, b):
     c = output_tensor(a.shape, a.dtype)
 
@@ -764,8 +765,8 @@ def kernel_func(a, b):
             # use scalars
             c[i, j] = d + e
 
-    # Wrong: c[i, 0] = d
-    # Can't use Scalar c outside its scope (j loop)
+    # Wrong: c[0, 0] = d
+    # Can't use Scalar d outside its scope (j loop)
     return c
 ```
 
@@ -792,7 +793,7 @@ Example of dtype casting:
 def kernel_func(a):
     c = output_tensor((2,), "float16")
 
-    # Wrong: c[0, 0] = 0.1 c's dtype is fp16, while 0.1's dtype is fp32
+    # Wrong: c[0] = 0.1 c's dtype is fp16, while 0.1's dtype is fp32
     c[0] = float16(0.1) # float16(0.1) cast the number 0.1 to dtype fp16
     c[1] = float16(a[0, 0]) # float16(a[0, 0])cast the number 0.1 to dtype fp16
     return c
