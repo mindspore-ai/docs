@@ -36,7 +36,7 @@ The total sunk data volume is controlled by the `epoch` and `sink_size` variable
 
 When using `LossMonitor`, `TimeMonitor` or other `Callback` interfaces, if the `dataset_sink_mode` is set to False, each `step` between the Host side and the Device side interacts once, so each `step` will return a result. If `dataset_sink_mode` is True, because the data is transmitted through the channel on the Device, there is one data interaction between the Host side and the Device side for each `epoch`, so each `epoch` only returns one result.
 
-> The CPU and pynative mode cannot support dataset sink mode currently.
+> Currently dataset sink mode is not supported on CPU target.
 > If `fault kernel_name=GetNext` or `GetNext... task error` or `outputs = self.get_next()` error info occurs, it may be that some sample processing in the data processing process is too time-consuming, resulting in the failure of the network computing side to get the data for a long time and report an error. At this time, you can set `dataset_sink_mode` to False to verify again, or use `create_dict_iterator()` interface separate cyclic dataset and refer to [Optimizing the Data Processing](https://www.mindspore.cn/docs/programming_guide/en/master/optimize_data_processing.html) optimize data processing to ensure high performance of data processing.
 
 The following is a code example:
