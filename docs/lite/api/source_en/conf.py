@@ -122,7 +122,7 @@ exhale_args = {
         EXTRACT_ALL = NO
         HIDE_UNDOC_CLASSES = YES
         HIDE_UNDOC_MEMBERS = YES
-        EXCLUDE_SYMBOLS = operator*
+        EXCLUDE_SYMBOLS = operator* GAVR*
     """),
     'contentsDirectives': False,
 
