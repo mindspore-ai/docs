@@ -103,7 +103,7 @@ class DQNTrainer(Trainer):
     ...
     def trainable_variables(self):
         """Trainable variables for saving."""
-        trainable_variables = {"policy_net": self.msrl.actors.policy_network}
+        trainable_variables = {"policy_net": self.msrl.learner.policy_network}
         return trainable_variables
 
     @ms_function
