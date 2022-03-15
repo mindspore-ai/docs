@@ -55,8 +55,8 @@ Hybrid类型的自定义算子使用[MindSpore Hybrid DSL](#mindspore-hybrid语�
 
 ```python
 import numpy as np
-from mindspore import context, Tensor
-import mindspore.ops as ops, ms_hybrid
+from mindspore import context, Tensor, ops
+from mindspore.ops import ms_hybrid
 
 context.set_context(device_target="GPU")
 
@@ -823,6 +823,7 @@ MindSpore Hybrid DSL中的变量包括Tensor和Scalar两种形式。
 Tensor分配的示例代码如下：
 
 ```python
+@ms_script
 def kernel_func(a, b):
     # a和b作为输入tensor，可以直接使用
 
@@ -831,13 +832,11 @@ def kernel_func(a, b):
     # c为一个数据类型与b相同,形状与a相同的Tensor，在下面的code中作为函数输出使用
     c = output_tensor(a.shape, b.dtype)
 
-    ... # some piece of codes here
-
     # d作为中间变量，给c赋值
-    d[0] = a[0, 0]
-    c[0, 0] = d[0]
-
-    ... # another piece of codes here
+    d[0] = b[0, 0]
+    for i in range(4):
+        for j in range(4):
+            c[i, j] = d[0]
 
     # c作为输出
     return c
@@ -848,25 +847,23 @@ def kernel_func(a, b):
 Scalar变量使用的示例代码如下：
 
 ```python
-def kernel_func(a, b):
+@ms_script
+def kernel_func(a):
     c = output_tensor(a.shape, a.dtype)
-
-    ... # some piece of codes here
-
 
     for i in range(10): # i loop
         for j in range(5): # j loop
-        # 用一个立即数给Scalar赋值
-        d = 2.0
-    # 用表达式给Scalar赋值
-        e = a[i, j]
-    # 正常使用scalar
-        c[i, j] = d + e
+            # 用一个立即数给Scalar赋值
+            d = 2.0
+            # 用表达式给Scalar赋值
+            e = a[i, j]
+            # 正常使用scalar
+            c[i, j] = d + e
 
     # Wrong: c[i, 0] = d
     # 不能在超出Scalar定义域（j loop）之外的范围使用
 
-    ... # another piece of codes here
+    return c
 ```
 
 与原生Python语言不同的是，变量一旦创建，`shape`和 `dtype`就不能改变。
@@ -883,21 +880,20 @@ MindSpore Hybrid DSL支持基本的四则运算表达，包括 `+, -, *, /`，�
 - int32
 - float16
 - float32
-- float64
-- (仅gpu后端)int8, int16, int64
+- (仅gpu后端)int8, int16, int64, float64
 
 类型转换代码示例如下：
 
 ```python
-def kernel_func(a, b):
-    c = output_tensor(a.shape, "float16")
+@ms_script
+def kernel_func(a):
+    c = output_tensor((2,), "float16")
 
-    ... # some piece of codes here
+    # Wrong: c[0] = 0.1 此处c的类型为fp16, 而0.1的类型为fp32
+    c[0] = float16(0.1) # float16(0.1)把表达式的类型转化为fp16
+    c[1] = float16(a[0, 0]) # float16(a[0, 0])把表达式的类型转化为fp16
 
-    # Wrong: c[0, 0] = 0.1 此处c的类型为fp16, 而0.1的类型为fp32
-    c[0, 0] = float16(0.1) # float16(0.1)把表达式的类型转化为fp16
-
-    ... # another piece of codes here
+    return c
 ```
 
 #### 循环
@@ -907,10 +903,15 @@ def kernel_func(a, b):
 基本循环的写法和Python一样，循环维度的表达可以使用 `range`和 `grid`关键词。`range`表示一维的循环维度，接受一个参数表示循环的上限，例如：
 
 ```python
-for i in range(3):
-    for j in range(4):
-        for k in range(5):
-            out[i, j, k] = a[i, j, k] + b[i, j, k]
+@ms_script
+def kernel_func(a, b):
+    c = output_tensor((3, 4, 5), "float16")
+
+    for i in range(3):
+        for j in range(4):
+            for k in range(5):
+                out[i, j, k] = a[i, j, k] + b[i, j, k]
+    return  c
 ```
 
 则循环表达的计算空间为 `0 <= i < 3, 0 <= j < 4, 0 <= k < 5`。
@@ -918,15 +919,25 @@ for i in range(3):
 `grid`表示多维网格，接受的输入为 `tuple` ，例如上面的代码用 `grid`表达后如下：
 
 ```python
-for arg in grid((4,5,6)):
-    out[arg] = a[arg] + b[arg]
+@ms_script
+def kernel_func(a, b):
+    c = output_tensor((3, 4, 5), "float16")
+
+    for arg in grid((4,5,6)):
+        out[arg] = a[arg] + b[arg]
+    return  c
 ```
 
 此时，参数 `arg`等价于一个三维index `(i,j,k)`，其上限分别为4，5，6。对参数 `arg`我们可以取其中的某个分量，例如
 
 ```python
-for arg in grid((4,5,6)):
-    out[arg] = a[arg] + b[arg[0]]
+@ms_script
+def kernel_func(a, b):
+    c = output_tensor((3, 4, 5), "float16")
+
+    for arg in grid((4,5,6)):
+        out[arg] = a[arg] + b[arg[0]]
+    return  c
 ```
 
 那么循环内的表达式等价于 `out[i, j, k] = a[i, j, k] + b[i]`。
@@ -940,8 +951,13 @@ for arg in grid((4,5,6)):
 同时，在 `grid`关键词中我们接受某个Tensor对象的 `shape`属性，那么循环的维度由Tensor的维度决定。例如：
 
 ```python
-for arg in grid(a.shape):
-    out[arg] = a[arg] + b[arg[0]]
+@ms_script
+def kernel_func(a, b):
+    c = output_tensor(a.shape, "float16")
+
+    for arg in grid(a.shape):
+        out[arg] = a[arg] + b[arg[0]]
+    return  c
 ```
 
 如果a是一个二维Tensor，那么循环内的表达式等价于 `out[i, j] = a[i, j] + b[i]`。而如果a是一个三维Tensor，那么循环内的表达式等价于 `out[i, j, k] = a[i, j, k] + b[i]`。
