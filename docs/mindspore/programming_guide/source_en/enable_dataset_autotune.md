@@ -59,6 +59,8 @@ print("tuning interval:", ds.config.get_autotune_interval())
 ## Constraints
 
 - Both Dataset Profiling and Dataset Autotune cannot be enabled concurrently, otherwise it will lead to unwork of Dataset AutoTune or Profiling. A warning message will result if users enable Dataset AutoTune first and then Dataset Profiling, or vice versa. Please make sure Profiling is disabled when using Dataset Autotune.
+- When enable [Offload for Dataset](https://www.mindspore.cn/docs/programming_guide/en/master/enable_dataset_offload.html) and Dataset Autotune simultaneously, if any node or nodes have been offloaded for hardware acceleration then the optimized dataset pipeline configuration file will not be written and a warning will be logged.
+- If the Dataset pipeline consists of a node that does not support deserialization(e.g. GeneratorDataset), then any attempt to deserialize the optimized dataset pipeline configuration file will report an error. In this case, it is recommended to open the pipeline configuration file and modify the script of dataset pipeline manually.
 
 ## Example
 

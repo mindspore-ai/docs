@@ -60,6 +60,8 @@ print("tuning interval:", ds.config.get_autotune_interval())
 ## 约束
 
 - Profiling性能分析和自动数据加速无法同时开启，否则会导致Profiling或Dataset AutoTune不生效。如果这样同时开启此两个功能，则会有一条警告信息提示用户检查是否为误操作。因此在使用Dataset AutoTune时，用户需要确保关闭Profiling功能。
+- 如果同时启动了[数据异构加速](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/enable_dataset_offload.html)和自动数据加速，当有数据节点通过异构加速分配至计算网络中时，自动数据加速将不能保存数据管道配置并以警告日志提醒，因为此时实际运行的数据管道并不是预先定义的数据管道。
+- 如果数据处理管道包含不支持反序列化的节点（如GeneratorDataset），则当自动数据加速生成调优配置文件后，再使用调优配置文件进行反序列化时将产生错误。此时推荐用户根据调优配置文件的内容手动修改数据管道的配置已达到加速的目的。
 
 ## 样例
 
