@@ -50,7 +50,7 @@ The following table lists the system environment and third-party dependencies re
 |-|-|-|
 |Ubuntu|18.04|OS for running MindSpore|
 |[Conda](#installing-conda)|Anaconda3 or Miniconda3|Python environment management tool|
-|[GCC](#installing-gcc-and-gmp)|7.3.0|C++ compiler for compiling MindSpore|
+|[GCC](#installing-gcc-and-gmp)|7.3.0~9.4.0|C++ compiler for compiling MindSpore|
 |[gmp](#installing-gcc-and-gmp)|6.1.2|Multiple precision arithmetic library used by MindSpore|
 
 The following describes how to install the third-party dependencies.
@@ -74,6 +74,21 @@ Run the following commands to install GCC and gmp.
 
 ```bash
 sudo apt-get install gcc-7 libgmp-dev -y
+```
+
+To install a later version of GCC, run the following command to install GCC 8.
+
+```bash
+sudo apt-get install gcc-8 -y
+```
+
+Or install GCC 9.
+
+```bash
+sudo apt-get install software-properties-common -y
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt-get update
+sudo apt-get install gcc-9 -y
 ```
 
 ## Creating and Accessing the Conda Virtual Environment

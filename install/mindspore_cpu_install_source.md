@@ -53,7 +53,7 @@
 |[Python](#安装python)|3.7.5或3.9.0|MindSpore的使用依赖Python环境|
 |[wheel](#安装wheel和setuptools)|0.32.0及以上|MindSpore使用的Python打包工具|
 |[setuptools](#安装wheel和setuptools)|44.0及以上|MindSpore使用的Python包管理工具|
-|[GCC](#安装gccgitgmptclshpatch和numa)|7.3.0|用于编译MindSpore的C++编译器|
+|[GCC](#安装gccgitgmptclshpatch和numa)|7.3.0到9.4.0之间|用于编译MindSpore的C++编译器|
 |[git](#安装gccgitgmptclshpatch和numa)|-|MindSpore使用的源代码管理工具|
 |[CMake](#安装cmake)|3.18.3及以上|编译构建MindSpore的工具|
 |[gmp](#安装gccgitgmptclshpatch和numa)|6.1.2|MindSpore使用的多精度算术库|
@@ -135,6 +135,21 @@ pip install -U setuptools
 
 ```bash
 sudo apt-get install gcc-7 git libgmp-dev tcl patch libnuma-dev -y
+```
+
+如果要安装更高版本的GCC，使用以下命令安装GCC 8。
+
+```bash
+sudo apt-get install gcc-8 -y
+```
+
+或者安装GCC 9。
+
+```bash
+sudo apt-get install software-properties-common -y
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt-get update
+sudo apt-get install gcc-9 -y
 ```
 
 ### 安装CMake

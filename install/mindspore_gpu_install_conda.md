@@ -57,7 +57,7 @@
 |[CUDA](#安装cuda)|10.1或11.1|MindSpore GPU使用的并行计算架构|
 |[cuDNN](#安装cudnn)|7.6.x或8.0.x|MindSpore GPU使用的深度神经网络加速库|
 |[Conda](#安装conda)|Anaconda3或Miniconda3|Python环境管理工具|
-|[GCC](#安装gcc和gmp)|7.3.0|用于编译MindSpore的C++编译器|
+|[GCC](#安装gcc和gmp)|7.3.0到9.4.0之间|用于编译MindSpore的C++编译器|
 |[gmp](#安装gcc和gmp)|6.1.2|MindSpore使用的多精度算术库|
 |[Open MPI](#安装open-mpi可选)|4.0.3|MindSpore使用的高性能消息传递库（可选，单机多卡/多机多卡训练需要）|
 |[TensorRT](#安装tensorrt可选)|7.2.2|MindSpore使用的高性能深度学习推理SDK（可选，Serving推理需要）|
@@ -131,6 +131,21 @@ conda init bash
 
 ```bash
 sudo apt-get install gcc-7 libgmp-dev -y
+```
+
+如果要安装更高版本的GCC，使用以下命令安装GCC 8。
+
+```bash
+sudo apt-get install gcc-8 -y
+```
+
+或者安装GCC 9。
+
+```bash
+sudo apt-get install software-properties-common -y
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt-get update
+sudo apt-get install gcc-9 -y
 ```
 
 ### 安装Open MPI（可选）

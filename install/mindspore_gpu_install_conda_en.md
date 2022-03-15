@@ -57,7 +57,7 @@ The following table lists the system environment and third-party dependencies re
 |[CUDA](#installing-cuda)|10.1 or 11.1|parallel computing architecture for MindSpore GPU|
 |[cuDNN](#installing-cudnn)|7.6.x or 8.0.x|deep neural network acceleration library used by MindSpore GPU|
 |[Conda](#installing-conda)|Anaconda3 or Miniconda3|Python environment management tool|
-|[GCC](#installing-gcc-and-gmp)|7.3.0|C++ compiler for compiling MindSpore|
+|[GCC](#installing-gcc-and-gmp)|7.3.0~9.4.0|C++ compiler for compiling MindSpore|
 |[gmp](#installing-gcc-and-gmp)|6.1.2|multiple precision arithmetic library used by MindSpore|
 |[Open MPI](#installing-open-mpi-optional)|4.0.3|high performance message passing library used by MindSpore (optional, required for single-node/multi-GPU and multi-node/multi-GPU training)|
 |[TensorRT](#installing-tensorrt-optional)|7.2.2|high performance deep learning inference SDK used by MindSpore(optional, required for serving inference)|
@@ -129,6 +129,21 @@ Run the following commands to install GCC and gmp.
 
 ```bash
 sudo apt-get install gcc-7 libgmp-dev -y
+```
+
+To install a later version of GCC, run the following command to install GCC 8.
+
+```bash
+sudo apt-get install gcc-8 -y
+```
+
+Or install GCC 9.
+
+```bash
+sudo apt-get install software-properties-common -y
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt-get update
+sudo apt-get install gcc-9 -y
 ```
 
 ### Installing Open MPI (optional)
