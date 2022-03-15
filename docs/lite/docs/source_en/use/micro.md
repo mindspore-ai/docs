@@ -36,7 +36,7 @@ With below command, it converters MNIST model into codes of x86 target.
 
 The explicit form of configuration file please see below:
 
-```buildoutcfg
+```txt
 [micro_param]
 
 # enable code-generation for MCU HW
@@ -86,17 +86,17 @@ After successful execution, codegen would generate a folder named mnist at the s
 
 ```text
 mnist
-├── benchmark                  # 集成调试相关的例程
+├── benchmark                  # integrate debugging-related routines
 │   ├── benchmark.cc
 │   ├── calib_output.cc
 │   ├── calib_output.h
 │   ├── load_input.c
 │   └── load_input.h
 ├── CMakeLists.txt
-└── src                        # 源文件
+└── src                        # source files
     ├── CMakeLists.txt
     ├── mmodel.h
-    ├── net.bin                # 二进制形式的模型权重
+    ├── net.bin                # binary model weights
     ├── net.c
     ├── net.cmake
     ├── net.h
