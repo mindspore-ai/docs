@@ -54,8 +54,8 @@ The following example test_custom_hybrid.py shows how to write a custom operator
 
 ```python
 import numpy as np
-from mindspore import context, Tensor
-import mindspore.ops as ops, ms_hybrid
+from mindspore import context, Tensor, ops
+from mindspore.ops import ms_hybrid
 
 context.set_context(device_target="GPU")
 
@@ -728,6 +728,7 @@ Tensor variables, besides those in the inputs of the function, must be declared 
 Example of Tensor allocation:
 
 ```python
+@ms_hybrid
 def kernel_func(a, b):
     # We can use a and b directly as they are inputs of the function
 
@@ -736,13 +737,11 @@ def kernel_func(a, b):
     # c is a tensor with same dtype and shape as a, and will be used as a output tensor
     c = output_tensor(a.shape, b.dtype)
 
-    ... # some piece of codes here
-
     # assign value to c by d
-    d[0] = a[0, 0]
-    c[0, 0] = d[0]
-
-    ... # another piece of codes here
+    d[0] = b[0, 0]
+    for i in range(4):
+        for j in range(4):
+            c[i, j] = d[0]
 
     # c as output
     return c
@@ -756,22 +755,18 @@ Example of using Scalar variable:
 def kernel_func(a, b):
     c = output_tensor(a.shape, a.dtype)
 
-    ... # some piece of codes here
-
-
     for i in range(10): # i loop
         for j in range(5): # j loop
-        # assign a number to Scalar d
-        d = 2.0
-    # assign an expression to Scalar e
-        e = a[i, j]
-    # use scalars
-        c[i, j] = d + e
+            # assign a number to Scalar d
+            d = 2.0
+            # assign an expression to Scalar e
+            e = a[i, j]
+            # use scalars
+            c[i, j] = d + e
 
     # Wrong: c[i, 0] = d
     # Can't use Scalar c outside its scope (j loop)
-
-    ... # another piece of codes here
+    return c
 ```
 
 Unlike native Python language, once a variable is defined, we can't change its `shape`和 `dtype`.
@@ -788,21 +783,19 @@ When writing assignment expressions, users must take care of the dtype of the ex
 - int32
 - float16
 - float32
-- float64
-- (only on gpu)int8, int16, int64
+- (only on gpu)int8, int16, int64, float64
 
 Example of dtype casting:
 
 ```python
-def kernel_func(a, b):
-    c = output_tensor(a.shape, "float16")
-
-    ... # some piece of codes here
+@ms_script
+def kernel_func(a):
+    c = output_tensor((2,), "float16")
 
     # Wrong: c[0, 0] = 0.1 c's dtype is fp16, while 0.1's dtype is fp32
-    c[0, 0] = float16(0.1) # float16(0.1) cast the number 0.1 to dtype fp16
-
-    ... # another piece of codes here
+    c[0] = float16(0.1) # float16(0.1) cast the number 0.1 to dtype fp16
+    c[1] = float16(a[0, 0]) # float16(a[0, 0])cast the number 0.1 to dtype fp16
+    return c
 ```
 
 #### Loop
@@ -812,10 +805,15 @@ Currently, only the `for` loop is supported. `while`, `break`, and `continue` ar
 Loops are the same as those in Python. `range` and `grid` are supported to express extents of loops. `range` is for one-dimensional loops and accept a number as the upper bound of the loop, such as:
 
 ```python
-for i in range(3):
-    for j in range(4):
-        for k in range(5):
-            out[i, j, k] = a[i, j, k] + b[i, j, k]
+@ms_script
+def kernel_func(a, b):
+    c = output_tensor((3, 4, 5), "float16")
+
+    for i in range(3):
+        for j in range(4):
+            for k in range(5):
+                out[i, j, k] = a[i, j, k] + b[i, j, k]
+    return  c
 ```
 
 The iteration space of the above loops is `0 <= i < 3, 0 <= j < 4, 0 <= k < 5`.
@@ -823,15 +821,25 @@ The iteration space of the above loops is `0 <= i < 3, 0 <= j < 4, 0 <= k < 5`.
 `grid` is for multi-dimensional loops and accepts `tuple` as its input. For example, the above code can be also written as follows in `grid`:
 
 ```python
-for arg in grid((4,5,6)):
-    out[arg] = a[arg] + b[arg]
+@ms_script
+def kernel_func(a, b):
+    c = output_tensor((3, 4, 5), "float16")
+
+    for arg in grid((4,5,6)):
+        out[arg] = a[arg] + b[arg]
+    return  c
 ```
 
 Right now `arg` is equivalent to a three dimensional index `(i,j,k)`, with upper bound 4, 5, 6 respectively. We also have access to each element in `arg`, such as:
 
 ```python
-for arg in grid((4,5,6)):
-    out[arg] = a[arg] + b[arg[0]]
+@ms_script
+def kernel_func(a, b):
+    c = output_tensor(a.shape, "float16")
+
+    for arg in grid(a.shape):
+        out[arg] = a[arg] + b[arg[0]]
+    return  c
 ```
 
 Then the expression inside loops is equivalent to `out[i, j, k] = a[i, j, k] + b[i]`.
@@ -845,8 +853,13 @@ The `shape` attribute of a Tensor variable is a `tuple`. We have access to its e
 Once `grid` accepts one tensor's `shape` attribute as its input, then the dimension of the loops is the same as the dimension of the tensor. For example:
 
 ```python
-for arg in grid(a.shape):
-    out[arg] = a[arg] + b[arg[0]]
+@ms_script
+def kernel_func(a, b):
+    c = output_tensor(a.shape, "float16")
+
+    for arg in grid(a.shape):
+        out[arg] = a[arg] + b[arg[0]]
+    return  c
 ```
 
 If a is a two dimensional tensor, then the expression inside loops is equivalent to `out[i, j] = a[i, j] + b[i]`, while if a is a three dimensional tensor, then the expression inside loops is equivalent to `out[i, j, k] = a[i, j, k] + b[i]`.
