@@ -63,7 +63,7 @@ The following table lists the system environment and third-party dependencies re
 |[Python](#installing-python)|3.7.5 or 3.9.0|Python environment that MindSpore depends on|
 |[wheel](#installing-wheel-and-setuptools)|0.32.0 or later|Python packaging tool used by MindSpore|
 |[setuptools](#installing-wheel-and-setuptools)|44.0 or later|Python package management tool used by MindSpore|
-|[GCC](#installing-gcc-git-and-other-dependencies)|7.3.0|C++ compiler for compiling MindSpore|
+|[GCC](#installing-gcc-git-and-other-dependencies)|7.3.0~9.4.0|C++ compiler for compiling MindSpore|
 |[git](#installing-gcc-git-and-other-dependencies)|-|source code management tools used by MindSpore|
 |[CMake](#installing-cmake)|3.18.3 or later|build tools for MindSpore|
 |[Autoconf](#installing-gcc-git-and-other-dependencies)|2.69 or later|build tools for MindSpore|
@@ -195,6 +195,21 @@ Run the following commands to install GCC, git, Autoconf, Libtool, Automake, gmp
 
 ```bash
 sudo apt-get install gcc-7 git automake autoconf libtool libgmp-dev tcl patch libnuma-dev flex -y
+```
+
+To install a later version of GCC, run the following command to install GCC 8.
+
+```bash
+sudo apt-get install gcc-8 -y
+```
+
+Or install GCC 9.
+
+```bash
+sudo apt-get install software-properties-common -y
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt-get update
+sudo apt-get install gcc-9 -y
 ```
 
 ### Installing CMake

@@ -47,7 +47,7 @@
 |-|-|-|
 |Ubuntu|18.04|运行MindSpore的操作系统|
 |[Python](#安装python)|3.7.5或3.9.0|MindSpore的使用依赖Python环境|
-|[GCC](#安装gcc和gmp)|7.3.0|用于编译MindSpore的C++编译器|
+|[GCC](#安装gcc和gmp)|7.3.0到9.4.0之间|用于编译MindSpore的C++编译器|
 |[gmp](#安装gcc和gmp)|6.1.2|MindSpore使用的多精度算术库|
 
 下面给出第三方依赖的安装方法。
@@ -114,6 +114,21 @@ python --version
 
 ```bash
 sudo apt-get install gcc-7 libgmp-dev -y
+```
+
+如果要安装更高版本的GCC，使用以下命令安装GCC 8。
+
+```bash
+sudo apt-get install gcc-8 -y
+```
+
+或者安装GCC 9。
+
+```bash
+sudo apt-get install software-properties-common -y
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt-get update
+sudo apt-get install gcc-9 -y
 ```
 
 ## 下载安装MindSpore
