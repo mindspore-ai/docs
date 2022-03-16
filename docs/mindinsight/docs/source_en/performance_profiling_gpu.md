@@ -1,4 +1,4 @@
-# Performance Profiling (GPU)
+# Performance Profiling (GPU-Graph)
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/performance_profiling_gpu.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
@@ -158,5 +158,7 @@ The usage is described as follows:
 
 ## Notices
 
-- Currently running in PyNative mode is not supported.
-- Currently the training and inference process does not support performance debugging, only individual training or inference is supported.
+- Currently the performance debugging is not supported in PyNative mode.
+- Currently the training and inference process does not support performance debugging, and only the performance debugging for the individual training or inference is supported.
+- GPU does not support memory performance data collection.
+- To use performance debugging in GPU scenarios, you must use the root permission.
