@@ -49,6 +49,7 @@ AI作为一种通用技术，在带来巨大机遇和效益的同时也面临着
    improve_model_security_nad
    test_model_security_fuzzing
    test_model_security_membership_inference
+   evaluation_of_CNNCTC
 
 .. toctree::
    :glob:
