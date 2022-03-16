@@ -31,6 +31,8 @@ MindSpore Federated Learning Server集群物理架构如图所示：
 
 `Scheduler`和`Server`需部署在单网卡的服务器或者容器中，且处于相同网段。MindSpore自动获取首个可用IP地址作为`Server`地址。
 
+> 服务器会校验客户端携带的时间戳，需要确保服务器定期时间同步，避免服务器出现较大的时间偏移。
+
 ## 准备环节
 
 ### 安装MindSpore
