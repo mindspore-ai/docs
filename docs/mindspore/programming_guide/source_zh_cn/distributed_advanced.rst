@@ -13,3 +13,4 @@
   distributed_inference
   apply_recompute
   sharding_propagation
+  distributed_training_comm_fusion
