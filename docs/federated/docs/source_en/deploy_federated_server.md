@@ -29,6 +29,8 @@ As shown in the preceding figure, in the federated learning cloud cluster, there
 
 `Scheduler` and `Server` must be deployed on a server or container with a single NIC and in the same network segment. MindSpore automatically obtains the first available IP address as the `Server` IP address.
 
+> The servers will verify the timestamp carried by the clients. It is necessary to eunsure the servers are periodically time synchronized to avoid a large time offset.
+
 ## Preparations
 
 ### Installing MindSpore
