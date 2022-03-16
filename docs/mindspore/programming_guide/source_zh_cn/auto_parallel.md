@@ -125,6 +125,21 @@ context.get_auto_parallel_context("all_reduce_fusion_config")
 
 样例中，`all_reduce_fusion_config`的值为[20, 35]，将前20个AllReduce融合成1个，第20～35个AllReduce融合成1个，剩下的AllReduce融合成1个。
 
+#### enable_alltoall
+
+`enable_alltoall`表示在通信时是否允许产生`AllToAll`通信算子，是一个开关，其值为bool型，默认为False。当用户的网络结构满足`AllToAll`通信算子产生的条件时，默认关闭状态下会使用`AllGather`、`Split`和`Concat`等通信算子组合代替`AllToAll`，因此开启它会获得明显的性能提升。
+
+代码样例如下：
+
+```python
+from mindspore import context
+
+context.set_auto_parallel_context(enable_alltoall=True)
+context.get_auto_parallel_context("enable_alltoall")
+```
+
+需要注意的是，开启它对用户的网络环境配置有所要求，具体信息可查看[AllToAll](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_ops.html#alltoall)
+
 #### enable_parallel_optimizer
 
 `enable_parallel_optimizer`是一个开发中特性，参数默认值是False。数据并行时参数更新部分在各卡间存在冗余计算，优化器并行通过将优化器的计算量分散到各个卡上，在大规模网络上（比如Bert、GPT）可以有效减少内存消耗并提升网络性能。
