@@ -35,6 +35,7 @@ import mindconverter
 project = 'MindSpore'
 copyright = '2021, MindSpore'
 author = 'MindSpore'
+language = 'zh_CN'
 
 # The full version, including alpha/beta/rc tags
 release = 'master'
@@ -67,6 +68,8 @@ source_suffix = {
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
+
+locale_dirs = ['locale/']
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
