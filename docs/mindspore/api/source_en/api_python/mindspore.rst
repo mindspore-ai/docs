@@ -215,6 +215,7 @@ JIT
     :template: classtemplate.rst
 
     mindspore.ms_function
+    mindspore.ms_class
 
 Log
 ---
