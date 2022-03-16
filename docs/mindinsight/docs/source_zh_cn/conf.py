@@ -35,7 +35,7 @@ import mindconverter
 project = 'MindSpore'
 copyright = '2021, MindSpore'
 author = 'MindSpore'
-language = 'zh_CN'
+language = 'cn'
 
 # The full version, including alpha/beta/rc tags
 release = 'master'
