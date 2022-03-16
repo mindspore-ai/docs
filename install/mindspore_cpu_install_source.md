@@ -60,7 +60,7 @@
 |[tclsh](#安装gccgitgmptclshpatch和numa)|-|MindSpore sqlite编译依赖|
 |[patch](#安装gccgitgmptclshpatch和numa)|2.5及以上|MindSpore使用的源代码补丁工具|
 |[NUMA](#安装gccgitgmptclshpatch和numa)|2.0.11及以上|MindSpore使用的非一致性内存访问库|
-|[LLVM](#安装llvm可选)|12.0.1|MindSpore使用的编译器框架（可选，图算融合需要）|
+|[LLVM](#安装llvm可选)|12.0.1|MindSpore使用的编译器框架（可选，图算融合以及稀疏计算需要）|
 
 下面给出第三方依赖的安装方法。
 

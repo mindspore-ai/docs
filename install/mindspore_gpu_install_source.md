@@ -74,7 +74,7 @@
 |[patch](#安装gccgit等依赖)|2.5及以上|MindSpore使用的源代码补丁工具|
 |[NUMA](#安装gccgit等依赖)|2.0.11及以上|MindSpore使用的非一致性内存访问库|
 |[Open MPI](#安装open-mpi可选)|4.0.3|MindSpore使用的高性能消息传递库（可选，单机多卡/多机多卡训练需要）|
-|[LLVM](#安装llvm可选)|12.0.1|MindSpore使用的编译器框架（可选，图算融合需要）|
+|[LLVM](#安装llvm可选)|12.0.1|MindSpore使用的编译器框架（可选，图算融合以及稀疏计算需要）|
 |[TensorRT](#安装tensorrt可选)|7.2.2|MindSpore使用的高性能深度学习推理SDK（可选，Serving推理需要）|
 
 下面给出第三方依赖的安装方法。
