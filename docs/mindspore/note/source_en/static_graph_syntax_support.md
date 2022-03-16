@@ -721,8 +721,6 @@ Restrictions:
 
 - The `for...else...` statement is not supported.
 
-- The `while` statement cannot exist in loop body of the `for` statement.
-
 Example:
 
 ```python

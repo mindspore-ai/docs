@@ -717,8 +717,6 @@ ret:xx
 
 - 不支持`for...else...`语句。
 
-- `for`的循环体内部不能包含`while`语句。
-
 示例：
 
 ```python
