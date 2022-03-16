@@ -1,4 +1,4 @@
-# 性能调试（GPU）
+# 性能调试（GPU-Graph）
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/performance_profiling_gpu.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
@@ -152,3 +152,5 @@ GPU场景下，CPU利用率分析的使用方法和Ascend场景相同。
 
 - PyNative模式下暂不支持性能调试。
 - 训练加推理过程暂不支持性能调试，目前支持单独训练或推理的性能调试。
+- GPU暂不支持收集内存性能数据。
+- 在GPU场景下使用性能调试，必须使用root权限。
