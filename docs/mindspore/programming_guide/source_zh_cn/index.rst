@@ -186,7 +186,6 @@ MindSpore编程指南
 
    second_order_optimizer
    graph_kernel_fusion
-   apply_quantization_aware_training
 
 .. toctree::
    :glob:
@@ -383,18 +382,6 @@ MindSpore编程指南
 										</div>
 										<div class="doc-article-desc">
 										训练后量化是指对预训练后的网络进行权重量化或者全量化，以达到减小模型大小和提升推理性能的目的。
-										</div>
-									</div>
-								</a>
-							</div>
-							<div class="doc-article-item all hardware-ascend hardware-gpu stage-Function-Extension experience-local experience-online hidden">
-								<a href="https://www.mindspore.cn/docs/programming_guide/zh-CN/master/apply_quantization_aware_training.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">感知量化训练</span>
-										</div>
-										<div class="doc-article-desc">
-										量化（Quantization）技术是应对移动设备、边缘设备的硬件资源有限的问题衍生出的技术之一。
 										</div>
 									</div>
 								</a>
