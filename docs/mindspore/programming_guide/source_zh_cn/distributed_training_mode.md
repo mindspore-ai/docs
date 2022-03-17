@@ -32,9 +32,9 @@ context.reset_auto_parallel_context()
 context.set_auto_parallel_context(parallel_mode=context.ParallelMode.DATA_PARALLEL)
 # 半自动并行模式
 # context.set_auto_parallel_context(parallel_mode=context.ParallelMode.SEMI_AUTO_PARALLEL)
-# 自动并行
+# 自动并行模式
 # context.set_auto_parallel_context(parallel_mode=context.ParallelMode.AUTO_PARALLEL)
-# 混合并行
+# 混合并行模式
 # context.set_auto_parallel_context(parallel_mode=context.ParallelMode.HYBRID_PARALLEL)
 ```
 
