@@ -135,6 +135,540 @@ np_sum: [2 4 6 8 10]
 tensor_sum: (2, 4, 6, 8, 10)
 ```
 
+### 支持Python的内置函数
+
+在常量场景中，通过JIT Fallback特性可以支持Python的一些内置函数功能。
+
+#### list()
+
+**功能**： 将输入的对象转换为list
+
+**有效输入**： list，tuple， dict，np.array， 常量Tensor
+
+```python
+a = list((1, 2, 3))
+b = list([1, 2, 3])
+c = list({'a':1, 'b':2, 'c':3})
+d = list(Tensor([1, 2, 3]))
+print("a: ", a)
+print("b: ", b)
+print("c: ", c)
+print("d: ", d)
+```
+
+输出结果如下:
+
+```text
+a: [1, 2, 3]
+b: [1, 2, 3]
+c: ['a', 'b', 'c']
+d: [Tensor(1), Tensor(2), Tensor(3)]
+```
+
+MindSpore 支持程度：
+
+| 类型                | 是否支持 |
+| ------------------- | -------- |
+| list                | √        |
+| tuple               | √        |
+| dict(只会转换key值) | √        |
+| np.array            | √        |
+| 常量Tensor          | √        |
+
+#### tuple()
+
+**功能**： 将输入的对象转换为tuple
+
+**有效输入**： list，tuple，dict，np.array, 常量Tensor
+
+```python
+a = tuple((1, 2, 3))
+b = tuple([1, 2, 3])
+c = tuple({'a':1, 'b':2, 'c':3})
+d = tuple(Tensor([1, 2, 3]))
+print("a: ",a)
+print("b: ",b)
+print("c: ",c)
+print("d: ",d)
+```
+
+输出结果如下：
+
+```text
+a: (1, 2, 3)
+b: (1, 2, 3)
+c: ('a', 'b', 'c')
+d: (Tensor(1), Tensor(2), Tensor(3))
+```
+
+MindSpore 支持程度：
+
+| 类型                | 是否支持 |
+| ------------------- | -------- |
+| list                | √        |
+| tuple               | √        |
+| dict(只会转换key值) | √        |
+| np.array            | √        |
+| 常量Tensor          | √        |
+
+#### round()
+
+**功能**： round(x, n=0) 返回输入的四舍五入值
+
+**有效输入**:
+
+**x**: 待四舍五入的值， int, float
+
+**n**: 表示四舍五入的小数点位数， int。 若n存在，则输出为float（即使n值为0），否则输出为int。n可以为负数， 表示在整数位四舍五入，其输出仍为float。
+
+```python
+a = round(10)
+b = round(10.123)
+c = round(10.567)
+d = round(10, 0)
+e = round(10.17, 1)
+f = round(10.12, 1)
+g = round(10.72, -1)
+h = round(17.12, -1)
+print("a: ",a)
+print("b: ",b)
+print("c: ",c)
+print("d: ",d)
+print("e: ",e)
+print("f: ",f)
+print("g: ",g)
+print("h: ",h)
+```
+
+输出结果如下：
+
+```text
+a: 10
+b: 10
+c: 11
+d: 10.0
+e: 10.2
+f: 10.1
+g: 10.0
+h: 20.0
+```
+
+**<注>**Python自身浮点数问题，不同的Python版本可能导致round函数的结果不同。
+
+MindSpore 支持程度：
+
+| 类型(x, n) | 是否支持 |
+| ---------- | -------- |
+| int, int   | √        |
+| float, int | √        |
+
+#### **sum()**
+
+**功能**： sum(x, n=0)对序列进行求和计算
+
+**有效输入**：
+
+**x**: 可迭代对象 list, tuple, dict, numpy.array, 常量Tensor
+
+**n**: 指定相加的参数，如果没有设置这个值，默认为 0
+
+```python
+a = sum([0,1,2])
+b = sum((0,1,2))
+c = sum({1:10, 2:20, 3:30})
+d = sum(np.array([1, 2, 3]))
+e = sum([0,1,2], 10)
+f = sum((0,1,2), 10)
+g = sum({1:10, 2:20, 3:30}, 10)
+h = sum(Tensor([1, 2, 3]), 10)
+print("a: ", a)
+print("b: ", b)
+print("c: ", c)
+print("d: ", d)
+print("e: ", e)
+print("f: ", f)
+print("g: ", g)
+print("h: ", h)
+```
+
+输出结果如下：
+
+```text
+a: 3
+b: 3
+c: 6
+d: np.array(6)
+e: 13
+f: 13
+g: 16
+h: Tensor(16)
+```
+
+MindSpore 支持程度：
+
+| 类型                | 是否支持 |
+| ------------------- | -------- |
+| list                | √        |
+| tuple               | √        |
+| dict(只会转换key值) | √        |
+| np.array            | √        |
+| 常量Tensor          | √        |
+
+#### max(), min()
+
+**功能**： max()输出最大值， min()输出最大值， 两者限制相同，以下均以max()为例。
+
+**有效输入**：max(x, y, z, ...)， 其中每一项为待比较的对象。
+
+若只有单输入则会比较单输入内的各个元素， 若存在多输入，则比较每个输入。 比较的元素必须是可以比较的， 例如：tuple和list就无法在一起比较。
+
+输入可以为数字，list， tuple， dict，np.array, 常量Tensor。 其中dict以及np.array不支持比较，只支持其内部元素的比较， 例如：
+
+```python
+a = max([0,1,2,3])
+b = max((0,1,2,3))
+c = max({1:10, 2:20, 3:3})
+d = max(np.array([1,2,3,4]))
+e = max(('a', 'b', 'c'))
+f = max((1,2,3), (1,4))
+g = max(Tensor(1, 2, 3))
+print("a: ",a)
+print("b: ",b)
+print("c: ",c)
+print("d: ",d)
+print("e: ",e)
+print("f: ",f)
+print("g: ",g)
+```
+
+输出结果如下：
+
+```text
+a: 3
+b: 3
+c: 3
+d: 4
+e: 'c'
+f: (1, 4)
+g: Tensor(3)
+```
+
+多输入与单输入的原则上是一致的，在这里不赘述。
+
+MindSpore 支持程度：
+
+| 类型                | 是否支持 |
+| ------------------- | -------- |
+| list                | √        |
+| tuple               | √        |
+| dict(只会转换key值) | √        |
+| np.array            | √        |
+| 常量Tensor          | √        |
+| str                 | √        |
+| Numbers(多个数字)   | √        |
+
+#### type()
+
+**功能**： type(x)输出x的类型
+
+**有效输入：** 数字， list, tuple, dict, np.array, 常量Tensor
+
+```python
+a = type(1)
+b = type(1.0)
+c = type([1, 2, 3])
+d = type((1, 2, 3))
+e = type({'a':1, 'b':2})
+f = type(np.array([1,2,3]))
+h = type(Tensor([1, 2, 3]))
+print("a: ",a)
+print("b: ",b)
+print("c: ",c)
+print("d: ",d)
+print("e: ",e)
+print("f: ",f)
+print("g: ",g)
+```
+
+输出结果如下：
+
+```text
+a: <class 'int'>
+b: <class 'float'>
+c: <class 'list'>
+d: <class 'tuple'>
+e: <class 'dict'>
+f: <class 'numpy.ndarray'>
+g: <class 'mindspore.common.tensor.Tensor'>
+```
+
+**<注>** type作为Python的原生函数还有另外一种使用方法， 因为该使用方法应用场景较少，因此暂不支持。
+
+该方法为：type(name, bases, dict) #返回name类型的类对象
+**abs()**
+**功能：**
+
+返回一个数的绝对值。 参数可以是整数、浮点数或任何实现了 abs()的对象。 如果参数是一个复数，则返回它的模。
+
+```python
+a = abs(-45)
+b = abs(100.12)
+c = abs(119L)
+print("a: ",a)
+print("b: ",b)
+print("c: ",c)
+```
+
+输出结果如下：
+
+```text
+a: 45
+b: 100.12
+c: 119
+```
+
+MindSpore 支持程度：
+
+| 类型                                                         | 是否支持 |
+| ------------------------------------------------------------ | -------- |
+| int                                                          | √        |
+| float                                                        | √        |
+| complex[复数只能通过函数方式创建不能通过表达式创建比如 1+2j，需要改成 complex(1,2)] | √        |
+| np.array                                                     | √        |
+| 常量Tensor                                                   | √        |
+
+#### all()/any()
+
+**all()功能:**
+
+如果 iterable 的所有元素均为真值（或可迭代对象为空）则返回 True 。 等价于：
+
+```python
+def all(iterable):
+    for element in iterable:
+        if not element:
+        return False
+return True
+```
+
+**any功能：**
+
+如果iterable 的任一元素为真值则返回 True。 如果可迭代对象为空，返回 False。 等价于:
+
+```python
+def any(iterable):
+    for element in iterable:
+        if element:
+            return True
+    return False
+```
+
+all():
+
+```python
+a = all(['a', 'b', 'c', 'd'])  # 列表 list，元素都不为空或 0
+b = all(['a', 'b', '', 'd'])   # 列表 list，存在一个为空的元素
+c = all([0, 1，2, 3])          # 列表 list，存在一个为 0 的元素
+d = all(('a', 'b', 'c', 'd'))  # 元组 tuple，元素都不为空或 0
+e = all(('a', 'b', '', 'd'))   # 元组 tuple，存在一个为空的元素
+f = all((0, 1, 2, 3))          # 元组 tuple，存在一个为 0 的元素
+g = all([])             # 空列表
+h = all(())             # 空元组
+print("a: ",a)
+print("b: ",b)
+print("c: ",c)
+print("d: ",d)
+print("e: ",e)
+print("f: ",f)
+print("g: ",g)
+print("h: ",h)
+```
+
+输出结果如下：
+
+```text
+a: True
+b: False
+c: False
+d: True
+e: False
+f: False
+g: True
+h: True
+```
+
+any():
+
+```python
+a = any(['a', 'b', 'c', 'd'])# 列表 list，元素都不为空或 0
+b = any(['a', 'b', '', 'd'])# 列表 list，存在一个为空的元素**
+c = any([0, '', False])# 列表 list,元素全为 0,'',false**
+d = any(('a', 'b', 'c', 'd'))# 元组 tuple，元素都不为空或 0
+e = any(('a', 'b', '', 'd'))# 元组 tuple，存在一个为空的元素**
+f = any((0, '', False))# 元组 tuple，元素全为 0,'',false**
+g = any([])# 空列表**
+h = any(())# 空元组**
+print("a: ",a)
+print("b: ",b)
+print("c: ",c)
+print("d: ",d)
+print("e: ",e)
+print("f: ",f)
+print("g: ",g)
+print("h: ",h)
+```
+
+输出结果如下：
+
+```text
+a: True
+b: True
+c: False
+d: True
+e: True
+f: False
+g: False
+h: False
+```
+
+**支持类型**
+
+| 类型       | 是否支持 |
+| ---------- | -------- |
+| List/Tuple | √        |
+| np.array   | √        |
+| Tensor     | √        |
+
+#### bool()/float()/int()
+
+**bool(x)** :
+
+返回布尔值，True 或 False。
+
+x 用标准的 真值测试过程 进行转换。如果 x 为 False 或省略，则返回 False；否则返回 True。 bool 类是 int 的子类（见 数字类型 --- int, float, complex ）。它不能再被继承。它唯一的实例就是 False 和 True。
+
+```python
+a = bool()
+b = bool(0)
+c = bool(1)
+d = bool(2)
+print("a: ",a)
+print("b: ",b)
+print("c: ",c)
+print("d: ",d)
+```
+
+输出结果如下：
+
+```text
+a: False
+b: False
+c: True
+d: True
+```
+
+**float(x):**
+
+从数字或字符串 x 生成的浮点数。
+
+参数是个字符串，则应包含一个十进制数字，前面可选带上符号，也可选前后带有空白符。符号可以是 '+' 或 '-'；'+' 符号对值没有影响。参数也可以是一个代表 NaN（非数字）或正负无穷大的字符串。更确切地说，在去除前导和尾部的空白符后，输入参数必须符合以下语法：
+
+```text
+sign           ::=  "+" | "-"
+infinity      ::=  "Infinity" | "inf"
+nan           ::=  "nan"
+numeric_value  ::=  floatnumber | infinity | nan
+numeric_string  ::=  [sign] numeric_value
+```
+
+这里的 loatnumber 是指 Python 的浮点数格式，在 浮点数字面值 中有介绍。大小写没有关系，所以“inf”、“Inf”、“INFINITY”、“iNfINity”都可接受为正无穷的拼写形式。
+
+**<注>**另一方面，如果实参是整数或浮点数，则返回具有相同值（在 Python 浮点精度范围内）的浮点数。如果实参在 Python 浮点精度范围外，则会触发 OverflowError。
+
+```python
+a = float(1)
+b = float(112)
+c = float(-123.6)
+d = float('123') # 字符串
+print("a: ",a)
+print("b: ",b)
+print("c: ",c)
+print("d: ",d)
+```
+
+输出结果如下：
+
+```text
+a: 1.0
+b: 112.0
+c: -123.6
+d: 123.0
+```
+
+**int()**:
+
+返回一个基于数字或字符串 x 构造的整数对象，或者在未给出参数时返回 0。 对于浮点数，它将向零舍入。
+
+如果 x 不是数字，或者有 base 参数，x 必须是字符串、bytes、表示进制为 base 的 整数字面值 的 bytearray 实例。该文字前可以有 + 或 - （中间不能有空格），前后可以有空格。一个进制为 n 的数字包含 0 到 n-1 的数，其中 a 到 z （或 A 到 Z ）表示 10 到 35。默认的 base 为 10 ，允许的进制有 0、2-36。2、8、16 进制的数字可以在代码中用 0b/0B 、 0o/0O 、 0x/0X 前缀来表示。进制为 0 将安照代码的字面量来精确解释，最后的结果会是 2、8、10、16 进制中的一个。所以 int('010', 0) 是非法的，但 int('010') 和 int('010', 8) 是合法的。
+
+```python
+a = int(3)
+b = int(3.6)
+c = int('12',16)# 如果是带参数 base 的话，12 要以字符串的形式进行输入，12 为 16 进制
+d = int('0xa',16)
+e = int('10',8)
+print("a: ",a)
+print("b: ",b)
+print("c: ",c)
+print("d: ",d)
+print("e: ",e)
+```
+
+输出结果如下：
+
+```text
+a: 3
+b: 3
+c: 18
+d: 10
+e: 8
+```
+
+MindSpore支持类型：
+
+| 类型       | 是否支持                           |
+| ---------- | ---------------------------------- |
+| int        | √                                  |
+| np.array   | √                                  |
+| List/Tuple | bool ()支持，float()&&int() 不支持 |
+| Tensor     | √                                  |
+
+#### dict()
+
+dict() 函数：用于创建一个字典。此外 dict 还可以返回对象的有效属性列表，由于涉及一些自定义类别，MindSpore 暂时不支持。
+
+MindSpore 当前 dict 支支持 String 为 key，不支持其他类型为 key。
+
+```python
+a = dict()                        # 创建空字典
+b = dict(a='a', b='b', t='t')     # 传入关键字
+c = dict(zip(['one', 'two', 'three'], [1, 2, 3]))   # 映射函数方式来构造字典
+d = dict([('one', 1), ('two', 2), ('three', 3)])    # 可迭代对象方式来构造字典
+print("a: ",a)
+print("b: ",b)
+print("c: ",c)
+print("d: ",d)
+```
+
+输出结果如下：
+
+```text
+a: {}
+b: {'a': 'a', 'b': 'b', 't': 't'}
+c: {'three': 3, 'two': 2, 'one': 1}  
+d: {'three': 3, 'two': 2, 'one': 1}
+```
+
 ## 实现原理
 
 JIT Fallback借鉴了传统JIT编译的Fallback的思路。传统的JIT编译经常会通过profiling信息，对函数进行多态选择、value推导、分支调度等优化，同时设置guard条件，一旦guard条件发现情况有变，可以去JIT优化，回到原来未优化的函数进行解释执行。在JIT Fallback中，编译静态图时，如果遇到不支持的语法，将会记录相关语句并生成解释节点，在后续处理中将相关语句Fallback到Python解释器进行解释执行。
