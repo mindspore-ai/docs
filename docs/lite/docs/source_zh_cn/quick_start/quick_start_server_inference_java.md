@@ -1,6 +1,6 @@
 # 体验Java极简并发推理Demo
 
-`Linux` `X86` `Java` `全流程` `推理应用` `数据准备` `初级`
+`Linux` `X86` `Java` `全流程` `并发推理应用` `数据准备` `初级`
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/quick_start/quick_start_server_inference_java.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
@@ -10,8 +10,8 @@
 
 使用MindSpore Lite 推理主要包括以下步骤：
 
-1. 模型加载(可选)：从文件系统中读取由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)转换得到的`.ms`模型。
-2. 创建配置选项：创建配置选项[RunnerConfig](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/runner_config.html#runnerconfig)，保存并发推理所需的一些基本配置参数，用于指导并发量以及图编译和图执行。主要包括`[MSContext](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/mscontext.html#mscontext)`：配置上下文、`WorkersNum`：并发模型数量。
+1. 模型加载：从文件系统中读取由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)转换得到的`.ms`模型。
+2. 创建配置选项：创建配置选项[RunnerConfig](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/runner_config.html#runnerconfig)，保存并发推理所需的一些基本配置参数，用于指导并发量以及图编译和图执行。主要包括[MSContext](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/mscontext.html#mscontext)：配置上下文、`WorkersNum`：并发模型数量。
 3. 初始化：在执行并发推理前，需要调用[ModelParallelRunner](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model_parallel_runner.html#modelparallelrunner)的[init](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model_parallel_runner.html#init)接口进行并发推理的初始化，主要进行模型读取，创建并发，以及子图切分、算子选型调度。这部分会耗费较多时间，所以建议[init](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model_parallel_runner.html#init)初始化一次，多次执行并发推理。
 4. 输入数据：图执行之前需要向输入Tensor中填充数据。
 5. 执行推理：使用[ModelParallelRunner](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model_parallel_runner.html#modelparallelrunner)的[predict](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model_parallel_runner.html#predict)进行并发推理。
@@ -60,9 +60,13 @@
 
 ## 初始化
 
-模型编译主要包括创建配置上下文、编译等步骤。编译接口支持文件和mappedbytebuffer两种格式。下面[示例代码]描述的是从文件读取进行模型编译。
+模型编译主要包括创建配置上下文、编译等步骤。
 
 ```java
+private static ModelParallelRunner runner;
+private static List<MSTensor> inputs;
+private static List<MSTensor> outputs;
+
 // use default param init context
 MSContext context = new MSContext();
 context.init(1,0);
@@ -94,7 +98,7 @@ if (!ret) {
 
 ```java
 // init input tensor
-List<MSTensor> inputs = new ArrayList<>();
+inputs = new ArrayList<>();
 MSTensor input = runner.getInputs().get(0);
 if (input.getDataType() != DataType.kNumberTypeFloat32) {
     System.err.println("Input tensor data type is not float, the data type is " + input.getDataType());
@@ -109,16 +113,17 @@ MSTensor inputTensor = MSTensor.createTensor(input.tensorName(), DataType.kNumbe
 inputs.add(inputTensor);
 
 // init output
-List<MSTensor> outputs = new ArrayList<>();
+outputs = new ArrayList<>();
 
 // runner do predict
 ret = runner.predict(inputs,outputs);
 if (!ret) {
     System.err.println("MindSpore Lite predict failed.");
+    freeTensor();
     runner.free();
     return;
 }
-System.err.println("========== model parallel runner predict success ==========");
+System.out.println("========== model parallel runner predict success ==========");
 ```
 
 ## 内存释放
@@ -126,5 +131,14 @@ System.err.println("========== model parallel runner predict success =========="
 无需使用MindSpore Lite推理框架时，需要释放已经创建的`model`。
 
 ```java
+private static void freeTensor(){
+    for (int i = 0; i < inputs.size(); i++) {
+        inputs.get(i).free();
+    }
+    for (int i = 0; i < outputs.size(); i++) {
+        outputs.get(i).free();
+    }
+}
+freeTensor();
 runner.free();
 ```

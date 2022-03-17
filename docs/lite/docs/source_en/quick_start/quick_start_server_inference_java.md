@@ -10,7 +10,7 @@ This tutorial provides an example program for MindSpore Lite to parallel inferen
 
 The MindSpore Lite inference steps are as follows:
 
-1. Load the model(optional): Read the `.ms` model converted by the [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html) from the file system.
+1. Load the model: Read the `.ms` model converted by the [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html) from the file system.
 2. Create and configure context: Create a configuration [RunnerConfig](https://www.mindspore.cn/lite/api/en/master/api_java/runner_config.html#runnerconfig) to save some basic configuration parameters required by a ModelParallelRunner to guide model pool init. including `MSContext`, `threadNum` (number of threads), `WorkersNum`.
 3. Init: Before building a graph, the [ModelParallelRunner](https://www.mindspore.cn/lite/api/en/master/api_java/model_parallel_runner.html#modelparallelrunner) interface of [init](https://www.mindspore.cn/lite/api/en/master/api_java/model_parallel_runner.html#init) needs to be called to init the model parallel runner, including init model pool and subgraph partition and operator selection and scheduling. This takes a long time. Therefore, it is recommended that with one [Init](https://www.mindspore.cn/lite/api/en/master/api_java/model_parallel_runner.html#init) created, one graph be built. In this case, the inference will be performed for multiple times.
 4. Input data: Before the graph is executed, data needs to be filled in the `Input Tensor`.
@@ -63,6 +63,10 @@ The MindSpore Lite inference steps are as follows:
 ModelParallelRunner Init includes context configuration creation and model compilation.
 
 ```java
+private static ModelParallelRunner runner;
+private static List<MSTensor> inputs;
+private static List<MSTensor> outputs;
+
 // use default param init context
 MSContext context = new MSContext();
 context.init(1,0);
@@ -94,7 +98,7 @@ Model inference includes data input, inference execution, and output obtaining. 
 
 ```java
 // init input tensor
-List<MSTensor> inputs = new ArrayList<>();
+inputs = new ArrayList<>();
 MSTensor input = runner.getInputs().get(0);
 if (input.getDataType() != DataType.kNumberTypeFloat32) {
     System.err.println("Input tensor data type is not float, the data type is " + input.getDataType());
@@ -109,16 +113,17 @@ MSTensor inputTensor = MSTensor.createTensor(input.tensorName(), DataType.kNumbe
 inputs.add(inputTensor);
 
 // init output
-List<MSTensor> outputs = new ArrayList<>();
+outputs = new ArrayList<>();
 
 // runner do predict
 ret = runner.predict(inputs,outputs);
 if (!ret) {
     System.err.println("MindSpore Lite predict failed.");
+    freeTensor();
     runner.free();
     return;
 }
-System.err.println("========== model parallel runner predict success ==========");
+System.out.println("========== model parallel runner predict success ==========");
 ```
 
 ## Memory Release
@@ -126,5 +131,14 @@ System.err.println("========== model parallel runner predict success =========="
 If the MindSpore Lite inference framework is not required, release the created `ModelParallelRunner`.
 
 ```java
+private static void freeTensor(){
+    for (int i = 0; i < inputs.size(); i++) {
+        inputs.get(i).free();
+    }
+    for (int i = 0; i < outputs.size(); i++) {
+        outputs.get(i).free();
+    }
+}
+freeTensor();
 runner.free();
 ```
