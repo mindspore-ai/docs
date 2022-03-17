@@ -75,7 +75,7 @@ The following table lists the system environment and third-party dependencies re
 |[patch](#installing-gcc-git-and-other-dependencies)|2.5 or later|source code patching tool used by MindSpore|
 |[NUMA](#installing-gcc-git-and-other-dependencies)|2.0.11 or later|non-uniform memory access library used by MindSpore|
 |[Open MPI](#installing-open-mpi-optional)|4.0.3|high performance message passing library used by MindSpore (optional, required for single-node/multi-GPU and multi-node/multi-GPU training)|
-|[LLVM](#installing-llvm-optional)|12.0.1|compiler framework used by MindSpore (optional, required for graph kernel fusion)|
+|[LLVM](#installing-llvm-optional)|12.0.1|compiler framework used by MindSpore (optional, required for graph kernel fusion and sparse computing)|
 |[TensorRT](#installing-tensorrt-optional)|7.2.2|high performance deep learning inference SDK used by MindSpore(optional, required for serving inference)|
 
 The following describes how to install the third-party dependencies.

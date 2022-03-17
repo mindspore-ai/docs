@@ -60,7 +60,7 @@ The following table lists the system environment and third-party dependencies re
 |[tclsh](#installing-gcc-git-gmp-tclsh-patch-and-numa)|-|MindSpore SQLite build dependency|
 |[patch](#installing-gcc-git-gmp-tclsh-patch-and-numa)|2.5 or later|Source code patching tool used by MindSpore|
 |[NUMA](#installing-gcc-git-gmp-tclsh-patch-and-numa)|2.0.11 or later|Non-uniform memory access library used by MindSpore|
-|[LLVM](#installing-llvm-optional)|12.0.1|Compiler framework used by MindSpore (optional, mandatory for graph kernel fusion)|
+|[LLVM](#installing-llvm-optional)|12.0.1|Compiler framework used by MindSpore (optional, mandatory for graph kernel fusion and sparse computing)|
 
 The following describes how to install the third-party dependencies.
 
