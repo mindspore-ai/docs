@@ -160,7 +160,6 @@ MindSpore Programming Guide
 
    second_order_optimizer
    graph_kernel_fusion
-   apply_quantization_aware_training
 
 .. toctree::
    :glob:
@@ -333,18 +332,6 @@ MindSpore Programming Guide
                               </div>
                               <div class="doc-article-desc">
                               Post training quantization refers to perform weights quantization or full quantization on a pre-trained model. It can reduce model size while also speed up the inference.
-                              </div>
-                        </div>
-                     </a>
-                  </div>
-                  <div class="doc-article-item all hardware-ascend hardware-gpu stage-Function-Extension experience-local hidden">
-                     <a href="https://www.mindspore.cn/docs/programming_guide/en/master/apply_quantization_aware_training.html" class="article-link">
-                        <div>
-                              <div class="doc-article-head">
-                                 <span class="doc-head-content">Quantization Aware Training</span>
-                              </div>
-                              <div class="doc-article-desc">
-                              Due to limited hardware resources of a mobile or edge device, a model needs to be simplified and the quantization technology is used to solve this problem.
                               </div>
                         </div>
                      </a>
