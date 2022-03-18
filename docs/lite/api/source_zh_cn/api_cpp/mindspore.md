@@ -1119,6 +1119,8 @@ explicit MSTensor(std::nullptr_t);
 ~MSTensor();
 ```
 
+注意：MSTensor构造时，若data指针通过malloc生成，用户在构造完成MSTensor后，需自行释放free，否则存在内存泄露。
+
 ### 静态公有成员函数
 
 #### CreateTensor
