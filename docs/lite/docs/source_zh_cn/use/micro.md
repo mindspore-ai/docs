@@ -81,22 +81,22 @@ debug_mode=false
 ```text
 mnist
 ├── benchmark                  # 集成调试相关的例程
-│   ├── benchmark.cc
-│   ├── calib_output.cc
-│   ├── calib_output.h
-│   ├── load_input.c
-│   └── load_input.h
+│   ├── benchmark.c
+│   ├── calib_output.c
+│   ├── calib_output.h
+│   ├── load_input.c
+│   └── load_input.h
 ├── CMakeLists.txt
 └── src                        # 源文件
     ├── CMakeLists.txt
-    ├── mmodel.h
     ├── net.bin                # 二进制形式的模型权重
     ├── net.c
     ├── net.cmake
     ├── net.h
-    ├── session.cc
-    ├── session.h
-    ├── tensor.cc
+    ├── model.c
+    ├── context.c
+    ├── context.h
+    ├── tensor.c
     ├── tensor.h
     ├── weight.c
     └── weight.h
@@ -241,47 +241,55 @@ mindspore-lite-{version}-linux-x64
     ......
     ```
 
-4. 在工程目录的Core/Src的main.c编写模型调用代码，具体代码新增如下：
+4. 在工程目录的Core/Src的main.c编写模型调用代码，参考代码如下：
 
     ```cpp
     while (1) {
         /* USER CODE END WHILE */
         SEGGER_RTT_printf(0, "***********mnist test start***********\n");
-        const char *model_buffer = nullptr;
+        MSContextHandle ms_context_handle = NULL;
+        ms_context_handle = MSContextCreate();
+        if (ms_context_handle) {
+          MSContextSetThreadNum(ms_context_handle, 1);
+          MSContextSetThreadAffinityMode(ms_context_handle, 0);
+        }
         int model_size = 0;
-        session::LiteSession *session = mindspore::session::LiteSession::CreateSession(model_buffer, model_size, nullptr);
-        Vector<tensor::MSTensor *> inputs = session->GetInputs();
-        size_t inputs_num = inputs.size();
+        // read net.bin
+        void *model_buffer = ReadInputData("net.bin", &model_size);
+        MSModelHandle model_handle = MSModelCreate();
+        int ret = MSModelBuild(model_handle, model_buffer, model_size, kMSModelTypeMindIR, ms_context_handle);
+        MSContextDestroy(&ms_context_handle);
+        if (model_buffer) {
+          free(model_buffer);
+          model_buffer = NULL;
+        }
+        // read input_data.bin
+        MSTensorHandleArray inputs_handle = MSModelGetInputs(model_handle);
+        size_t inputs_num = inputs_handle.handle_num;
         void *inputs_binbuf[inputs_num];
         int inputs_size[inputs_num];
         for (size_t i = 0; i < inputs_num; ++i) {
-          inputs_size[i] = inputs[i]->Size();
+          MSTensorHandle tensor = inputs_handle.handle_list[i];
+          inputs_size[i] = (int)MSTensorGetDataSize(tensor);
         }
-        // here mnist only have one input data,just hard code to it's array;
-        inputs_binbuf[0] = mnist_inputs_data;
+        ret = ReadInputsFile("input.bin" inputs_binbuf, inputs_size, (int)inputs_num);
         for (size_t i = 0; i < inputs_num; ++i) {
-          void *input_data = inputs[i]->MutableData();
+          void *input_data = MSTensorGetMutableData(inputs_handle.handle_list[i]);
           memcpy(input_data, inputs_binbuf[i], inputs_size[i]);
+          free(inputs_binbuf[i]);
+          inputs_binbuf[i] = NULL;
         }
-        int ret = session->RunGraph();
-        if (ret != lite::RET_OK) {
-          return lite::RET_ERROR;
+        MSTensorHandleArray outputs_handle = MSModelGetOutputs(model_handle);
+        ret = MSModelPredict(model_handle, inputs_handle, &outputs_handle, NULL, NULL);
+        if (ret != kMSStatusSuccess) {
+          MSModelDestroy(&model_handle);
+          SEGGER_RTT_printf("MSModelPredict failed, ret: %d", kMSStatusSuccess);
+          return ret;
         }
-        Vector<String> outputs_name = session->GetOutputTensorNames();
-        for (int i = 0; i < outputs_name.size(); ++i) {
-          tensor::MSTensor *output_tensor = session->GetOutputByTensorName(outputs_name[i]);
-          if (output_tensor == nullptr) {
-            return -1;
-          }
-          float *casted_data = static_cast<float *>(output_tensor->MutableData());
-          if (casted_data == nullptr) {
-            return -1;
-          }
-          for (size_t j = 0; j < 10 && j < output_tensor->ElementsNum(); j++) {
-            SEGGER_RTT_printf(0, "output: [%d] is : [%d]/100\n", i, casted_data[i] * 100);
-          }
+        for (size_t i = 0; i < outputs_handle.handle_num; i++) {
+          MSTensorHandle output = outputs_handle.handle_list[i];
+          PrintTensorHandle(output);
         }
-        delete session;
         SEGGER_RTT_printf(0, "***********mnist test end***********\n");
     ```
 
