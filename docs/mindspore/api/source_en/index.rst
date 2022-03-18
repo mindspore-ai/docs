@@ -13,7 +13,6 @@ MindSpore API
    api_python/mindspore
    api_python/mindspore.common.initializer
    api_python/mindspore.communication
-   api_python/mindspore.compression
    api_python/mindspore.context
    api_python/mindspore.dataset
    api_python/mindspore.dataset.audio

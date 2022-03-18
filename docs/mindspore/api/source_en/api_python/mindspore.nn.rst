@@ -180,26 +180,6 @@ Pooling layers
     mindspore.nn.MaxPool2d
 
 
-Quantized Functions
--------------------
-
-.. msplatformautosummary::
-    :toctree: nn
-    :nosignatures:
-    :template: classtemplate.rst
-
-    mindspore.nn.ActQuant
-    mindspore.nn.Conv2dBnAct
-    mindspore.nn.Conv2dBnFoldQuant
-    mindspore.nn.Conv2dBnFoldQuantOneConv
-    mindspore.nn.Conv2dBnWithoutFoldQuant
-    mindspore.nn.Conv2dQuant
-    mindspore.nn.DenseBnAct
-    mindspore.nn.DenseQuant
-    mindspore.nn.FakeQuantWithMinMaxObserver
-    mindspore.nn.MulQuant
-    mindspore.nn.TensorAddQuant
-
 Loss Functions
 --------------
 
