@@ -67,6 +67,11 @@ def get_platforms(name: str):
         api_doc = inspect.getdoc(get_api(name))
         example_str = re.findall(r'Supported Platforms:\n\s+(.*?)\n\n', api_doc)
         if not example_str:
+            example_str_leak = re.findall(r'Supported Platforms:\n\s+(.*)', api_doc)
+            if example_str_leak:
+                example_str = example_str_leak[0].strip()
+                example_list = example_str.split('\n')
+                return ["", "**支持平台：**", ""] + example_list + [""]
             return []
         example_str = example_str[0].strip()
         example_list = example_str.split('\n')
