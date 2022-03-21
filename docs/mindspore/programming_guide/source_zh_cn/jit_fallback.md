@@ -26,10 +26,10 @@ from mindspore import Tensor, ms_function
 
 @ms_function
 def np_binop():
-    a = np.array([1, 2, 3])
-    b = np.array([4, 5, 6])
-    c = a + b
-    return Tensor(c)
+   a = np.array([1, 2, 3])
+   b = np.array([4, 5, 6])
+   c = a + b
+   return Tensor(c)
 
 res = np_binop()
 print(res)
@@ -70,13 +70,13 @@ import mindspore.nn as nn
 from mindspore import context, Tensor
 
 class BinOpNet(nn.Cell):
-    def __init__(self):
-        super(BinOpNet, self).__init__()
+   def __init__(self):
+      super(BinOpNet, self).__init__()
 
-    def construct(self):
-        tensor_num = Tensor(np.array(9))
-        res = tensor_num + tensor_num
-        return res
+   def construct(self):
+      tensor_num = Tensor(np.array(9))
+      res = tensor_num + tensor_num
+      return res
 
 context.set_context(mode=context.GRAPH_MODE)
 net = BinOpNet()
@@ -115,15 +115,15 @@ from mindspore import Tensor, ms_function
 
 @ms_function
 def test_print():
-    x = Tensor(np.array([1, 2, 3, 4, 5]))
-    y = Tensor(np.array([1, 2, 3, 4, 5]))
-    tensor_sum = x + y
-    print("tensor_sum: ", tensor_sum)
-    x = np.array([1, 2, 3, 4, 5])
-    y = np.array([1, 2, 3, 4, 5])
-    np_sum = x + y
-    print("np_sum: ", np_sum)
-    return tensor_sum, Tensor(np_sum)
+   x = Tensor(np.array([1, 2, 3, 4, 5]))
+   y = Tensor(np.array([1, 2, 3, 4, 5]))
+   tensor_sum = x + y
+   print("tensor_sum: ", tensor_sum)
+   x = np.array([1, 2, 3, 4, 5])
+   y = np.array([1, 2, 3, 4, 5])
+   np_sum = x + y
+   print("np_sum: ", np_sum)
+   return tensor_sum, Tensor(np_sum)
 
 tensor_sum, np_sum = test_print()
 ```
@@ -146,10 +146,16 @@ tensor_sum: (2, 4, 6, 8, 10)
 **有效输入**： list，tuple， dict，np.array， 常量Tensor
 
 ```python
-a = list((1, 2, 3))
-b = list([1, 2, 3])
-c = list({'a':1, 'b':2, 'c':3})
-d = list(Tensor([1, 2, 3]))
+import mindspore as ms
+from mindspore import Tensor,ms_function
+@ms_function
+def func():
+   a = list((1, 2, 3))
+   b = list([1, 2, 3])
+   c = list({'a':1, 'b':2, 'c':3})
+   d = list(Tensor([1, 2, 3]))
+   return a, b, c, d
+a, b, c, d = func()
 print("a: ", a)
 print("b: ", b)
 print("c: ", c)
@@ -162,7 +168,7 @@ print("d: ", d)
 a: [1, 2, 3]
 b: [1, 2, 3]
 c: ['a', 'b', 'c']
-d: [Tensor(1), Tensor(2), Tensor(3)]
+d: [Tensor(shape=[], dtype=Int64, value= 1), Tensor(shape=[], dtype=Int64, value= 2), Tensor(shape=[], dtype=Int64, value= 3)]
 ```
 
 MindSpore 支持程度：
@@ -182,10 +188,16 @@ MindSpore 支持程度：
 **有效输入**： list，tuple，dict，np.array, 常量Tensor
 
 ```python
-a = tuple((1, 2, 3))
-b = tuple([1, 2, 3])
-c = tuple({'a':1, 'b':2, 'c':3})
-d = tuple(Tensor([1, 2, 3]))
+import mindspore as ms
+from mindspore import Tensor,ms_function
+@ms_function
+def func():
+   a = tuple((1, 2, 3))
+   b = tuple([1, 2, 3])
+   c = tuple({'a':1, 'b':2, 'c':3})
+   d = tuple(Tensor([1, 2, 3]))
+   return a, b, c ,d
+a, b, c ,d = func()
 print("a: ",a)
 print("b: ",b)
 print("c: ",c)
@@ -198,7 +210,7 @@ print("d: ",d)
 a: (1, 2, 3)
 b: (1, 2, 3)
 c: ('a', 'b', 'c')
-d: (Tensor(1), Tensor(2), Tensor(3))
+d: (Tensor(shape=[], dtype=Int64, value= 1), Tensor(shape=[], dtype=Int64, value= 2), Tensor(shape=[], dtype=Int64, value= 3))
 ```
 
 MindSpore 支持程度：
@@ -219,25 +231,31 @@ MindSpore 支持程度：
 
 **x**: 待四舍五入的值， int, float
 
-**n**: 表示四舍五入的小数点位数， int。 若n存在，则输出为float（即使n值为0），否则输出为int。n可以为负数， 表示在整数位四舍五入，其输出仍为float。
+**n**: 表示四舍五入的小数点位数， int。
 
 ```python
-a = round(10)
-b = round(10.123)
-c = round(10.567)
-d = round(10, 0)
-e = round(10.17, 1)
-f = round(10.12, 1)
-g = round(10.72, -1)
-h = round(17.12, -1)
+import mindspore as ms
+from mindspore import ms_function
+@ms_function
+def func():
+   a = round(10)
+   b = round(10.123)
+   c = round(10.567)
+   d = round(10, 0)
+   e = round(10.72, -1)
+   f = round(17.12, -1)
+   g = round(10.17, 1)
+   h = round(10.12, 1)
+   return a, b, c, d, e, f, g ,h
+a, b, c, d, e, f, g, h = func()
 print("a: ",a)
 print("b: ",b)
 print("c: ",c)
 print("d: ",d)
-print("e: ",e)
-print("f: ",f)
-print("g: ",g)
-print("h: ",h)
+print("e: {:.2f}".format(e))
+print("f: {:.2f}".format(f))
+print("g: {:.2f}".format(g))
+print("h: {:.2f}".format(h))
 ```
 
 输出结果如下：
@@ -246,14 +264,15 @@ print("h: ",h)
 a: 10
 b: 10
 c: 11
-d: 10.0
-e: 10.2
-f: 10.1
-g: 10.0
-h: 20.0
+d: 10
+e: 10.00
+f: 20.00
+g: 10.20
+h: 10.10
 ```
 
-**<注>**Python自身浮点数问题，不同的Python版本可能导致round函数的结果不同。
+**<注>**对浮点数执行round()行为可能会令人惊讶：例如，round(2.675, 2)不一定给出期望的 2.68。
+这不是程序错误：这一结果是由于十进制小数实际上不能以浮点数精确表示的结果。
 
 MindSpore 支持程度：
 
@@ -273,14 +292,21 @@ MindSpore 支持程度：
 **n**: 指定相加的参数，如果没有设置这个值，默认为 0
 
 ```python
-a = sum([0,1,2])
-b = sum((0,1,2))
-c = sum({1:10, 2:20, 3:30})
-d = sum(np.array([1, 2, 3]))
-e = sum([0,1,2], 10)
-f = sum((0,1,2), 10)
-g = sum({1:10, 2:20, 3:30}, 10)
-h = sum(Tensor([1, 2, 3]), 10)
+import mindspore as ms
+from mindspore import Tensor,ms_function
+import numpy as np
+@ms_function
+def func():
+   a = sum([0,1,2])
+   b = sum((0,1,2))
+   c = sum({1:10, 2:20, 3:30})
+   d = sum(np.array([1, 2, 3]))
+   e = sum([0,1,2], 10)
+   f = sum((0,1,2), 10)
+   g = sum({1:10, 2:20, 3:30}, 10)
+   h = sum(Tensor([1, 2, 3]), 10)
+   return a, b, c, Tensor(d), e, f, g, h
+a, b, c, d, e, f, g, h = func()
 print("a: ", a)
 print("b: ", b)
 print("c: ", c)
@@ -297,11 +323,11 @@ print("h: ", h)
 a: 3
 b: 3
 c: 6
-d: np.array(6)
+d: 6
 e: 13
 f: 13
 g: 16
-h: Tensor(16)
+h: 16
 ```
 
 MindSpore 支持程度：
@@ -325,20 +351,27 @@ MindSpore 支持程度：
 输入可以为数字，list， tuple， dict，np.array, 常量Tensor。 其中dict以及np.array不支持比较，只支持其内部元素的比较， 例如：
 
 ```python
-a = max([0,1,2,3])
-b = max((0,1,2,3))
-c = max({1:10, 2:20, 3:3})
-d = max(np.array([1,2,3,4]))
-e = max(('a', 'b', 'c'))
-f = max((1,2,3), (1,4))
-g = max(Tensor(1, 2, 3))
-print("a: ",a)
-print("b: ",b)
-print("c: ",c)
-print("d: ",d)
-print("e: ",e)
-print("f: ",f)
-print("g: ",g)
+import mindspore as ms
+from mindspore import Tensor,ms_function
+import numpy as np
+@ms_function
+def func():
+   a = max([0,1,2,3])
+   b = max((0,1,2,3))
+   c = max({1:10, 2:20, 3:3})
+   d = max(np.array([1,2,3,4]))
+   e = max(('a', 'b', 'c'))
+   f = max((1,2,3), (1,4))
+   g = max(Tensor([1, 2, 3]))
+   return a, b, c , Tensor(d), e, f, g
+a, b, c , d, e, f, g = func()
+print("a: ", a)
+print("b: ", b)
+print("c: ", c)
+print("d: ", d)
+print("e: ", e)
+print("f: ", f)
+print("g: ", g)
 ```
 
 输出结果如下：
@@ -348,9 +381,9 @@ a: 3
 b: 3
 c: 3
 d: 4
-e: 'c'
+e: c
 f: (1, 4)
-g: Tensor(3)
+g: 3
 ```
 
 多输入与单输入的原则上是一致的，在这里不赘述。
@@ -374,13 +407,20 @@ MindSpore 支持程度：
 **有效输入：** 数字， list, tuple, dict, np.array, 常量Tensor
 
 ```python
-a = type(1)
-b = type(1.0)
-c = type([1, 2, 3])
-d = type((1, 2, 3))
-e = type({'a':1, 'b':2})
-f = type(np.array([1,2,3]))
-h = type(Tensor([1, 2, 3]))
+import mindspore as ms
+from mindspore import Tensor,ms_function
+import numpy as np
+@ms_function
+def func():
+   a = type(1)
+   b = type(1.0)
+   c = type([1, 2, 3])
+   d = type((1, 2, 3))
+   e = type({'a':1, 'b':2})
+   f = type(np.array([1,2,3]))
+   g = type(Tensor([1, 2, 3]))
+   return a, b, c, d ,e, f, g
+a, b, c, d ,e, f, g = func()
 print("a: ",a)
 print("b: ",b)
 print("c: ",c)
@@ -405,18 +445,24 @@ g: <class 'mindspore.common.tensor.Tensor'>
 **<注>** type作为Python的原生函数还有另外一种使用方法， 因为该使用方法应用场景较少，因此暂不支持。
 
 该方法为：type(name, bases, dict) #返回name类型的类对象
-**abs()**
+
+#### abs()
+
 **功能：**
 
 返回一个数的绝对值。 参数可以是整数、浮点数或任何实现了 abs()的对象。 如果参数是一个复数，则返回它的模。
 
 ```python
-a = abs(-45)
-b = abs(100.12)
-c = abs(119L)
+import mindspore as ms
+from mindspore import Tensor,ms_function
+@ms_function
+def func():
+   a = abs(-45)
+   b = abs(100.12)
+   return a, b
+a, b = func()
 print("a: ",a)
-print("b: ",b)
-print("c: ",c)
+print("b: {:.2f}".format(b))
 ```
 
 输出结果如下：
@@ -424,7 +470,6 @@ print("c: ",c)
 ```text
 a: 45
 b: 100.12
-c: 119
 ```
 
 MindSpore 支持程度：
@@ -445,9 +490,9 @@ MindSpore 支持程度：
 
 ```python
 def all(iterable):
-    for element in iterable:
-        if not element:
-        return False
+   for element in iterable:
+      if not element:
+         return False
 return True
 ```
 
@@ -457,23 +502,29 @@ return True
 
 ```python
 def any(iterable):
-    for element in iterable:
-        if element:
-            return True
-    return False
+   for element in iterable:
+      if element:
+         return True
+   return False
 ```
 
 all():
 
 ```python
-a = all(['a', 'b', 'c', 'd'])  # 列表 list，元素都不为空或 0
-b = all(['a', 'b', '', 'd'])   # 列表 list，存在一个为空的元素
-c = all([0, 1，2, 3])          # 列表 list，存在一个为 0 的元素
-d = all(('a', 'b', 'c', 'd'))  # 元组 tuple，元素都不为空或 0
-e = all(('a', 'b', '', 'd'))   # 元组 tuple，存在一个为空的元素
-f = all((0, 1, 2, 3))          # 元组 tuple，存在一个为 0 的元素
-g = all([])             # 空列表
-h = all(())             # 空元组
+import mindspore as ms
+from mindspore import ms_function
+@ms_function
+def func():
+   a = all(['a', 'b', 'c', 'd'])  # 列表 list，元素都不为空或 0
+   b = all(['a', 'b', '', 'd'])   # 列表 list，存在一个为空的元素
+   c = all([0, 1, 2, 3])          # 列表 list，存在一个为 0 的元素
+   d = all(('a', 'b', 'c', 'd'))  # 元组 tuple，元素都不为空或 0
+   e = all(('a', 'b', '', 'd'))   # 元组 tuple，存在一个为空的元素
+   f = all((0, 1, 2, 3))          # 元组 tuple，存在一个为 0 的元素
+   g = all([])             # 空列表
+   h = all(())             # 空元组
+   return a, b, c, d, e, f, g, h
+a, b, c, d, e, f, g, h = func()
 print("a: ",a)
 print("b: ",b)
 print("c: ",c)
@@ -500,14 +551,20 @@ h: True
 any():
 
 ```python
-a = any(['a', 'b', 'c', 'd'])# 列表 list，元素都不为空或 0
-b = any(['a', 'b', '', 'd'])# 列表 list，存在一个为空的元素**
-c = any([0, '', False])# 列表 list,元素全为 0,'',false**
-d = any(('a', 'b', 'c', 'd'))# 元组 tuple，元素都不为空或 0
-e = any(('a', 'b', '', 'd'))# 元组 tuple，存在一个为空的元素**
-f = any((0, '', False))# 元组 tuple，元素全为 0,'',false**
-g = any([])# 空列表**
-h = any(())# 空元组**
+import mindspore as ms
+from mindspore import ms_function
+@ms_function
+def func():
+   a = any(['a', 'b', 'c', 'd'])# 列表 list，元素都不为空或 0
+   b = any(['a', 'b', '', 'd'])# 列表 list，存在一个为空的元素**
+   c = any([0, '', False])# 列表 list,元素全为 0,'',false**
+   d = any(('a', 'b', 'c', 'd'))# 元组 tuple，元素都不为空或 0
+   e = any(('a', 'b', '', 'd'))# 元组 tuple，存在一个为空的元素**
+   f = any((0, '', False))# 元组 tuple，元素全为 0,'',false**
+   g = any([])# 空列表**
+   h = any(())# 空元组**
+   return a, b, c, d, e, f, g, h
+a, b, c, d, e, f, g, h = func()
 print("a: ",a)
 print("b: ",b)
 print("c: ",c)
@@ -548,10 +605,16 @@ h: False
 x 用标准的 真值测试过程 进行转换。如果 x 为 False 或省略，则返回 False；否则返回 True。 bool 类是 int 的子类（见 数字类型 --- int, float, complex ）。它不能再被继承。它唯一的实例就是 False 和 True。
 
 ```python
-a = bool()
-b = bool(0)
-c = bool(1)
-d = bool(2)
+import mindspore as ms
+from mindspore import ms_function
+@ms_function
+def func():
+   a = bool()
+   b = bool(0)
+   c = bool(1)
+   d = bool(2)
+   return a, b, c, d
+a, b, c, d = func()
 print("a: ",a)
 print("b: ",b)
 print("c: ",c)
@@ -581,15 +644,22 @@ numeric_value  ::=  floatnumber | infinity | nan
 numeric_string  ::=  [sign] numeric_value
 ```
 
-这里的 loatnumber 是指 Python 的浮点数格式，在 浮点数字面值 中有介绍。大小写没有关系，所以“inf”、“Inf”、“INFINITY”、“iNfINity”都可接受为正无穷的拼写形式。
+这里的 floatnumber 是指 Python 的浮点数格式。大小写没有关系，所以“inf”、“Inf”、“INFINITY”、“iNfINity”都可接受为正无穷的拼写形式。
 
 **<注>**另一方面，如果实参是整数或浮点数，则返回具有相同值（在 Python 浮点精度范围内）的浮点数。如果实参在 Python 浮点精度范围外，则会触发 OverflowError。
 
 ```python
-a = float(1)
-b = float(112)
-c = float(-123.6)
-d = float('123') # 字符串
+import mindspore as ms
+from mindspore import ms_function
+@ms_function
+def func():
+   a = float(1)
+   b = float(112)
+   c = float(-123.6)
+   d = float('123')
+   return a, b, c, d
+
+a, b, c, d = func()
 print("a: ",a)
 print("b: ",b)
 print("c: ",c)
@@ -612,11 +682,17 @@ d: 123.0
 如果 x 不是数字，或者有 base 参数，x 必须是字符串、bytes、表示进制为 base 的 整数字面值 的 bytearray 实例。该文字前可以有 + 或 - （中间不能有空格），前后可以有空格。一个进制为 n 的数字包含 0 到 n-1 的数，其中 a 到 z （或 A 到 Z ）表示 10 到 35。默认的 base 为 10 ，允许的进制有 0、2-36。2、8、16 进制的数字可以在代码中用 0b/0B 、 0o/0O 、 0x/0X 前缀来表示。进制为 0 将安照代码的字面量来精确解释，最后的结果会是 2、8、10、16 进制中的一个。所以 int('010', 0) 是非法的，但 int('010') 和 int('010', 8) 是合法的。
 
 ```python
-a = int(3)
-b = int(3.6)
-c = int('12',16)# 如果是带参数 base 的话，12 要以字符串的形式进行输入，12 为 16 进制
-d = int('0xa',16)
-e = int('10',8)
+import mindspore as ms
+from mindspore import ms_function
+@ms_function
+def func():
+   a = int(3)
+   b = int(3.6)
+   c = int('12',16)# 如果是带参数 base 的话，12 要以字符串的形式进行输入，12 为 16 进制
+   d = int('0xa',16)
+   e = int('10',8)
+   return a, b ,c ,d ,e
+a, b, c, d, e = func()
 print("a: ",a)
 print("b: ",b)
 print("c: ",c)
@@ -650,10 +726,16 @@ dict() 函数：用于创建一个字典。此外 dict 还可以返回对象的�
 MindSpore 当前 dict 支支持 String 为 key，不支持其他类型为 key。
 
 ```python
-a = dict()                        # 创建空字典
-b = dict(a='a', b='b', t='t')     # 传入关键字
-c = dict(zip(['one', 'two', 'three'], [1, 2, 3]))   # 映射函数方式来构造字典
-d = dict([('one', 1), ('two', 2), ('three', 3)])    # 可迭代对象方式来构造字典
+import mindspore as ms
+from mindspore import Tensor,ms_function
+@ms_function
+def func():
+   a = dict()                        # 创建空字典
+   b = dict(a='a', b='b', t='t')     # 传入关键字
+   c = dict(zip(['one', 'two', 'three'], [1, 2, 3]))   # 映射函数方式来构造字典
+   d = dict([('one', 1), ('two', 2), ('three', 3)])    # 可迭代对象方式来构造字典
+   return a, b, c ,d
+a, b, c ,d = func()
 print("a: ",a)
 print("b: ",b)
 print("c: ",c)
@@ -702,7 +784,7 @@ JIT Fallback借鉴了传统JIT编译的Fallback的思路。传统的JIT编译经
     np_add_res = test_np_add()
     ```
 
-    输出结果如下:
+   输出结果如下:
 
     ```text
     Should not use Python object in runtime, node: ValueNode<InterpretedObject> InterpretedObject: '[2 4 6 8 10]'
@@ -750,7 +832,7 @@ JIT Fallback借鉴了传统JIT编译的Fallback的思路。传统的JIT编译经
     res = test_np_vdot()
     ```
 
-    输出结果如下:
+   输出结果如下:
 
     ```text
     TypeError: module, class, method, function, traceback, frame, or code object was expected, got builtin_function_or_method.
@@ -782,7 +864,7 @@ JIT Fallback借鉴了传统JIT编译的Fallback的思路。传统的JIT编译经
     out = net()
     ```
 
-    输出结果如下：
+   输出结果如下：
 
     ```
     RuntimeError: The 'add' operation does not support the type [kMetaTypeExternal, kMetaTypeExternal]
