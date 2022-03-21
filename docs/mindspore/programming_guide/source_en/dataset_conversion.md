@@ -78,7 +78,7 @@ Create a MindRecord file containing 100 records, whose samples include the `file
 3. Read MindRecord using `MindDataset`.
 
     ```python
-    data_set = ds.MindDataset(dataset_files=MINDRECORD_FILE)
+    data_set = ds.MindDataset(dataset_file=MINDRECORD_FILE)
     decode_op = vision.Decode()
     data_set = data_set.map(operations=decode_op, input_columns=["data"], num_parallel_workers=2)
     count = 0
@@ -161,7 +161,7 @@ Create a MindRecord file containing 100 records, whose samples include eight fie
 3. Read MindRecord using `MindDataset`.
 
     ```python
-    data_set = ds.MindDataset(dataset_files=MINDRECORD_FILE)
+    data_set = ds.MindDataset(dataset_file=MINDRECORD_FILE)
     count = 0
     for item in data_set.create_dict_iterator():
         count += 1
@@ -273,7 +273,7 @@ You can use the `Cifar10ToMR` class to convert the original CIFAR-10 data to Min
 4. Read MindRecord using `MindDataset`.
 
     ```python
-    data_set = ds.MindDataset(dataset_files=MINDRECORD_FILE)
+    data_set = ds.MindDataset(dataset_file=MINDRECORD_FILE)
     decode_op = vision.Decode()
     data_set = data_set.map(operations=decode_op, input_columns=["data"], num_parallel_workers=2)
     count = 0
@@ -335,7 +335,7 @@ You can use the `ImageNetToMR` class to convert the original ImageNet data (imag
 4. Read MindRecord using `MindDataset`.
 
     ```python
-    data_set = ds.MindDataset(dataset_files=MINDRECORD_FILE)
+    data_set = ds.MindDataset(dataset_file=MINDRECORD_FILE)
     decode_op = vision.Decode()
     data_set = data_set.map(operations=decode_op, input_columns=["image"], num_parallel_workers=2)
     count = 0
@@ -396,7 +396,7 @@ Create a CSV file containing 5 records, convert the CSV file to MindRecord using
 3. Read MindRecord using `MindDataset`.
 
     ```python
-    data_set = ds.MindDataset(dataset_files=MINDRECORD_FILE)
+    data_set = ds.MindDataset(dataset_file=MINDRECORD_FILE)
     count = 0
     for item in data_set.create_dict_iterator(output_numpy=True):
         count += 1
@@ -529,7 +529,7 @@ Use TensorFlow to create a TFRecord file and convert the file to MindRecord usin
 4. Read MindRecord using `MindDataset`.
 
     ```python
-    data_set = ds.MindDataset(dataset_files=MINDRECORD_FILE)
+    data_set = ds.MindDataset(dataset_file=MINDRECORD_FILE)
     decode_op = vision.Decode()
     data_set = data_set.map(operations=decode_op, input_columns=["image_bytes"], num_parallel_workers=2)
     count = 0
