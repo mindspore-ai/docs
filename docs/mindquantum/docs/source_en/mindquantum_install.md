@@ -29,7 +29,7 @@ You can install MindInsight either by pip or by source code.
 Linux-x86_64 Python3.7
 
 ```bash
-pip insatll https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.1/MindQuantum/x86_64/mindquantum-0.5.0-cp37-cp37m-linux_x86_64.whl
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.1/MindQuantum/x86_64/mindquantum-0.5.0-cp37-cp37m-linux_x86_64.whl
 ```
 
 Windows-x64 Python3.7
