@@ -20,7 +20,7 @@
 
 1. 定义网络和训练过程
 
-    具体网络和训练过程的定义可参考[初学入门](https://www.mindspore.cn/tutorials/zh-CN/master/quick_start.html#%E5%88%9B%E5%BB%BA%E6%A8%A1%E5%9E%8B)。
+    具体网络和训练过程的定义可参考[初学入门](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/quick_start.html#创建模型)。
 
     我们提供了网络定义文件[model.py文件](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py)和训练过程定义文件[run_export_lenet](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/cross_device_lenet/cloud/run_export_lenet.py)供大家参考。
 

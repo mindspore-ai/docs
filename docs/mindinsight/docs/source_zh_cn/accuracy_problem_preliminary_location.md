@@ -327,7 +327,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 方法一：设置[Parameter](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter)的requires_grad参数为False。
 
-方法二：使用[stop_gradient](https://www.mindspore.cn/tutorials/zh-CN/master/autograd.html#%E5%81%9C%E6%AD%A2%E8%AE%A1%E7%AE%97%E6%A2%AF%E5%BA%A6)阻止梯度继续向后传播，阻止所有会影响权重的梯度后，该权重的更新也就事实上被阻止了。
+方法二：使用[stop_gradient](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/autograd.html#停止计算梯度)阻止梯度继续向后传播，阻止所有会影响权重的梯度后，该权重的更新也就事实上被阻止了。
 
 检查结论：
 

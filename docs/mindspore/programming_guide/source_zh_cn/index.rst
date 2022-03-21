@@ -39,8 +39,8 @@ MindSpore编程指南
    :caption: 快速入门
    :hidden:
 
-   实现简单线性函数拟合↗ <https://www.mindspore.cn/tutorials/zh-CN/master/linear_regression.html> 
-   实现一个图片分类应用↗ <https://www.mindspore.cn/tutorials/zh-CN/master/quick_start.html>
+   实现简单线性函数拟合↗ <https://www.mindspore.cn/tutorials/zh-CN/r1.6/linear_regression.html> 
+   实现一个图片分类应用↗ <https://www.mindspore.cn/tutorials/zh-CN/master/beginner/quick_start.html>
 
 .. toctree::
    :glob:

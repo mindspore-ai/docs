@@ -8,4 +8,4 @@
 
 **查看代码**：<https://gitee.com/mindspore/docs/blob/master/docs/sample_code/lenet/lenet.py>
 
-**查看完整教程**：<https://www.mindspore.cn/tutorials/zh-CN/master/quick_start.html>
+**查看完整教程**：<https://www.mindspore.cn/tutorials/zh-CN/master/beginner/quick_start.html>
