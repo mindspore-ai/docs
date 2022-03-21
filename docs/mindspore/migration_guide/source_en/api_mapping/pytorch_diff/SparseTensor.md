@@ -44,12 +44,12 @@ import mindspore.nn as nn
 from mindspore import Tensor
 from mindspore import SparseTensor
 class Net(nn.Cell):
-    def __init__(self, dense_shape):
+    def __init__(self, shape):
         super(Net, self).__init__()
-        self.dense_shape = dense_shape
+        self.shape = shape
     def construct(self, indices, values):
-        x = SparseTensor(indices, values, self.dense_shape)
-        return x.indices, x.values, x.dense_shape
+        x = SparseTensor(indices, values, self.shape)
+        return x.indices, x.values, x.shape
 
 indices = Tensor([[0, 1], [1, 2]])
 values = Tensor([1, 2], dtype=ms.float32)
