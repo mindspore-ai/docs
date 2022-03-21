@@ -15,3 +15,4 @@
   distributed_training_comm_fusion
   distributed_training_dataset_slice
   distributed_inference
+  pynative_shard_function_parallel
