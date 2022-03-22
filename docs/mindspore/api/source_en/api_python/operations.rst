@@ -321,10 +321,9 @@ Communication Operators
 ^^^^^^^^^^^^^^^^^^^^^^^
 Note that the APIs in the following list need to preset communication environment variables. For
 the Ascend devices, users need to prepare the rank table, set rank_id and device_id. Please see the `Ascend tutorial \
-<https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/distributed_training/
-distributed_training_ascend.html#id12>`_ for more details.
+<https://www.mindspore.cn/docs/programming_guide/en/master/distributed_training_ascend.html#loading-the-dataset-in-data-parallel-mode>`_ for more details.
 For the GPU device, users need to prepare the host file and mpi, please see the `GPU tutorial \
-<https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/distributed_training/distributed_training_gpu.html#id6>`_.
+<https://www.mindspore.cn/docs/programming_guide/en/master/distributed_training_gpu.html#preparations>`_.
 
 .. msplatformautosummary::
     :toctree: ops
