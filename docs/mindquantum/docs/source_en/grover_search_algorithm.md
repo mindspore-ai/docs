@@ -46,19 +46,19 @@ $$ |\psi_0\rangle=H^{\otimes n}|0\rangle^{\otimes n}=\frac{1}{\sqrt{N}}\sum_{i=0
   Grover iteration can be further decomposed into four steps:  
   1. Execute the Oracle operator $U_{\omega}$​, and flip the phase of the target state $|\omega \rangle$​​​​​
 
-      In order to distinguish the data to be found from other data, the easiest way is to flip the phase of the target state (add a negative sign). At this time, we need to construct an Oracle operator $U_{\omega}$, which works as follows: $$ \begin{equation} U_{\omega}|x\rangle=\begin{cases} &|x\rangle,x\neq \omega&\\\\ -&|x\rangle,x=\omega& \end{cases} \end{equation}. $$  
-  Since when $x=\omega$​, $f(\omega)=1$​, the effect of $U_{\omega}$ can also be expressed as: $$ U_{\omega}|x\rangle=(-1)^{f(x)}|x\rangle, $$
-  Its matrix expression is $$\begin{equation}U_{\omega}=\left[\begin{array}{ccc}     (-1)^{f(0)} & 0           & \dots  & 0            \\\\     0           & (-1)^{f(1)} & \dots  & 0            \\\\     \vdots      & \vdots      & \ddots & \vdots       \\\\     0           & 0           & \dots  & (-1)^{f(N-1)}\end{array}\right]\end{equation}.$$
+      In order to distinguish the data to be found from other data, the easiest way is to flip the phase of the target state (add a negative sign). At this time, we need to construct an Oracle operator $U_{\omega}$, which works as follows: $ \begin{equation} U_{\omega}|x\rangle=\begin{cases} &|x\rangle,x\neq \omega&\\\\ -&|x\rangle,x=\omega& \end{cases} \end{equation}. $  
+  Since when $x=\omega$​, $f(\omega)=1$​, the effect of $U_{\omega}$ can also be expressed as: $ U_{\omega}|x\rangle=(-1)^{f(x)}|x\rangle, $
+  Its matrix expression is $\begin{equation}U_{\omega}=\left[\begin{array}{ccc}     (-1)^{f(0)} & 0           & \dots  & 0            \\\\     0           & (-1)^{f(1)} & \dots  & 0            \\\\     \vdots      & \vdots      & \ddots & \vdots       \\\\     0           & 0           & \dots  & (-1)^{f(N-1)}\end{array}\right]\end{equation}.$
   2. Perform $H^{\otimes n}$ operation
 
       Perform $H^{\otimes n}$ operation on $n$ qubits.
   3. Execute conditional phase shift operator $P$
 
-      The conditional phase shift operator $P$ can reverse the phase of each state except the $|0\rangle$ ​state, and its effect is as follows:   $$\begin{equation}P|x\rangle=\begin{cases}&|0\rangle,x= 0&\\\\-&|x\rangle,x\neq0&\end{cases}\end{equation}.$$
-  Its matrix expression is $$\begin{equation}P = 2(|0\rangle\langle0|)^{\otimes n} - I_n =\left[\begin{array}{ccc}     1      & 0      & \dots  & 0            \\\\     0      & -1     & \dots  & 0            \\\\     \vdots & \vdots & \ddots & \vdots       \\\\     0      & 0      & \dots  & -1\end{array}\right]\end{equation}.$$
+      The conditional phase shift operator $P$ can reverse the phase of each state except the $|0\rangle$ ​state, and its effect is as follows:   $\begin{equation}P|x\rangle=\begin{cases}&|0\rangle,x= 0&\\\\-&|x\rangle,x\neq0&\end{cases}\end{equation}.$
+  Its matrix expression is $\begin{equation}P = 2(|0\rangle\langle0|)^{\otimes n} - I_n =\left[\begin{array}{ccc}     1      & 0      & \dots  & 0            \\\\     0      & -1     & \dots  & 0            \\\\     \vdots & \vdots & \ddots & \vdots       \\\\     0      & 0      & \dots  & -1\end{array}\right]\end{equation}.$
   4. Perform $H^{\otimes n}$ operation again
 
-      So far, the complete $G$ operator can be expressed as $$ G = H^{\otimes n} [2(|0\rangle\langle0|)^{\otimes n} - I_n] H^{\otimes n} U_{\omega}. $$
+      So far, the complete $G$ operator can be expressed as $ G = H^{\otimes n} [2(|0\rangle\langle0|)^{\otimes n} - I_n] H^{\otimes n} U_{\omega}. $
   Note: The number of iterations required for the $G$ operator is r = \left[ \frac{\pi}{4} \sqrt{\frac{N}{M}} \right] \sim O(\sqrt{N}),
   where, M represents the number of target states.
 
@@ -529,7 +529,7 @@ It can be seen from the running results that we successfully search for the $|5\
 
 So far, we have introduced the basic principles of Grover search algorithm, and shown how to use MindQuantum to implement the algorithm by two specific small examples! Hurry up and experience the fun of quantum programming!
 
-To find out more about MindQuantum's API, please click: https://mindspore.cn/mindquantum/
+To find out more about MindQuantum's API, please click: <https://mindspore.cn/mindquantum/>
 
 ## References
 
