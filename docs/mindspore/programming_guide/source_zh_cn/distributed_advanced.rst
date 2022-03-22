@@ -8,9 +8,9 @@
   apply_operator_parallel
   apply_pipeline_parallel
   distributed_training_parallel_opt
+  apply_host_device_training
   apply_recompute
   sharding_propagation
-  apply_host_device_training
   apply_parameter_server_training
   distributed_training_comm_fusion
   distributed_training_dataset_slice

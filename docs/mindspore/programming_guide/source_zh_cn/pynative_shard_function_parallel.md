@@ -1,4 +1,4 @@
-# 动态图下的shard function
+# 函数式算子切分
 
 `Ascend` `分布式并行`
 
@@ -8,6 +8,8 @@
 
 动态图支持语法更丰富，使用更为灵活，但是目前MindSpore的动态图模式不支持自动并行的各种特性。借鉴Jax的pmap的设计理念，即在动态图模式下，指定某一个部分以图模式执行，并进行各种并行操作，我们设计了shard函数，支持在动态图模式下，指定某一部分以图模式执行，并且执行各种并行操作。
 
+## 基本原理
+
 MindSpore的动态图模式下，可以通过ms_function的装饰符，指定某一段以图模式编译执行，在前向执行的同时，会将执行的算子、子图记录下来，前向执行完毕后，会对得到的整图进行自动微分得到反向图，具体流程如下图所示：
 
 ![structure image](images/pynative_ms_funtion.png)
@@ -15,6 +17,10 @@ MindSpore的动态图模式下，可以通过ms_function的装饰符，指定某
 *图1：ms_function执行示意图*
 
 Shard function沿用此模式，不同的是可以在图模式编译执行的环节进行算子级别的模型并行。
+
+## 操作实践
+
+### 样例代码说明
 
 >你可以在这里下载完整的样例代码：
 >
@@ -36,7 +42,7 @@ Shard function沿用此模式，不同的是可以在图模式编译执行的环
 - rank_table_8pcs.json：RANK_TABLE_FILE的8卡配置文件。
 - run_shard_function_example.sh：shard function example的启动脚本。
 
-## 接口介绍
+### 接口介绍
 
 ```python
 def shard(fn, in_axes, out_axes, device="Ascend", level=0):
@@ -51,7 +57,7 @@ def shard(fn, in_axes, out_axes, device="Ascend", level=0):
 
 `level(int)`: 指定全部算子搜索策略，输入输出`Tensor`的切分策略由用户指定，其余算子的切分策略会由框架搜索得到，此参数指定搜索时的目标函数，可选范围为0、1、2，分别代表最大化计算通信比、内存消耗最小、最大化运行速度，默认为0，目前尚未使能，后续会开放。
 
-## 执行模式
+### 执行模式
 
 如前所述，shard function会将动态图模式下某一部分以图模式执行算子级模型并行，因此使用shard function时需要设置模式为
 
@@ -62,7 +68,7 @@ context.set_auto_parallel_context(parallel_mode=context.ParallelMode.AUTO_PARALL
                                   search_mode="sharding_propagation", device_num=8)
 ```
 
-## 使用方法
+### 使用方法
 
 shard function目前有两种使用方法，以下面的网络为例介绍shard function的使用方法。
 
@@ -151,13 +157,13 @@ class Net(nn.Cell):
             return x
     ```
 
-## 使用限制
+### 使用限制
 
 目前由于动态图模式和静态图模式HCCL通信接口不同，对于切分存在限制，即`shard`内部的模型并行产生的通信只能发生在`world group`内部，所以指定的切分策略目前只能支持切一个维度。
 
 会在后续迭代中解决此问题。
 
-## 运行代码
+### 运行代码
 
 上述代码需要在配置分布式变量后才可以运行。Ascend环境需要配置RANK_TABLE_FILE、RANK_ID和DEVICE_ID。配置的过程请参考[此处](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_ascend.html#配置分布式环境变量)。
 

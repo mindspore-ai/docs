@@ -19,6 +19,34 @@
 
 无论是哪种模式，优化器并行不会影响原有正反向网络的计算图，只会影响参数更新的计算量和计算逻辑。
 
+## 基本原理
+
+传统的数据并行模式将模型参数在每台设备上都有保有副本，把训练数据切分，在每次迭代后利用通信算子同步梯度信息，最后通过优化器计算对参数进行更新。数据并行虽然能够有效提升训练吞吐量，但并没有最大限度地利用机器资源。其中优化器会引入冗余内存和计算，消除这些冗余是需关注的优化点。
+
+在一个训练迭代中，数据并行为了收集各卡上不同样本产生的参数梯度，引入通信操作将梯度在多卡间同步。因为不涉及模型并行，每张卡上的优化器运算其实是基于相同的参数、在相同的方向上更新。而消除优化器冗余的根本思想就是将这部分内存和计算量分散到各个卡上，实现内存和性能的收益。
+
+如果要对优化器实现并行运算，有两种实现思路，参数分组(Weights Grouping)和参数切分(Weights Sharding)。其中参数分组是将优化器内的参数及梯度做层间划分，大致的训练流程如图1所示。将参数和梯度分组放到不同卡上更新，再通过通信广播操作在设备间共享更新后的权值。该方案的内存和性能收益取决于参数比例最大的group。当参数均匀划分时，理论上的正收益是N-1/N的优化器运行时间和动态内存，以及N-1/N的优化器状态参数内存大小，其中N表示设备数。而引入的负收益是共享网络权重时带来的通信时间。
+
+![image](images/optimizer_parallel_image_0_zh.png)
+
+*图1：参数分组训练流程示意图*
+
+另一种实现方式参数切分是对参数做层内划分，对每一个参数及梯度根据设备号取其对应切片，各自更新后再调用通信聚合操作在设备间共享参数。这种方案的优点是天然支持负载均衡，即每张卡上参数量和计算量一致，缺点是对参数形状有整除设备数要求。该方案的理论收益与参数分组一致，为了扩大优势，框架做了如下几点改进。
+
+首先，对网络中的权重做切分，可以进一步减少静态内存。但这也需要将迭代末尾的共享权重操作移动到下一轮迭代的正向启动前执行，保证进入正反向运算的依旧是原始张量形状。此外，优化器并行运算带来的主要负收益是共享权重的通信时间，如果我们能够将其减少或隐藏，就可以带来性能上的提升。通信跨迭代执行的一个好处就是，可以通过对通信算子适当分组融合，将通信操作与正向网络交叠执行，从而尽可能隐藏通信耗时。通信耗时还与通信量有关，对于涉及混合精度的网络，如果能够使用fp16通信，通信量相比fp32将减少一半。综合上述特点，参数切分的实现方案如图2所示。
+
+![image](images/optimizer_parallel_image_1_zh.png)
+
+*图2：参数切分训练流程示意图*
+
+在实际网络训练的测试验证中，我们发现参数切分带来的内存收益是显著的。尤其是对于大规模网络模型而言，通常选择当下流行的Adaptive Moment estimation (Adam)和Layer-wise Adaptive Moments optimizer for Batching training (LAMB)训练网络，优化器自身的参数量和计算量不容忽视。经过参数分组，网络中的权重参数和优化器中的两份状态参数都减少了N-1/N倍，极大节省了静态内存空间。这为增大单轮迭代样本数量、提升整体训练吞吐量提供了可能，有效解决了大规模网络训练的内存压力。
+
+MindSpore实现的优化器参数切分还具有与算子级并行混合使用的优势。当算子级模型并行参数未切满时，可以继续在数据并行的维度上进行优化器参数切分，增大机器资源的利用率，从而提升端到端性能。
+
+## 操作实践
+
+### 样例代码说明
+
 >你可以在这里下载完整的样例代码：
 >
 ><https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_optimizer_parallel>。
@@ -41,7 +69,7 @@
 - rank_table_8pcs.json：RANK_TABLE_FILE的8卡配置文件。
 - run_fusion_example.sh：优化器融合代码的启动脚本。
 
-## 开启优化器并行
+### 开启优化器并行
 
 在`mindspore.context.set_auto_parallel_context`中提供了`enable_parallel_optimizer`选项，将其配置为True后，即可使能优化器并行，默认对所有**占用内存小于64KB**的参数进行优化器切分。
 
@@ -50,7 +78,7 @@ from mindspore import context
 context.set_auto_parallel_context(enable_parallel_optimizer=True)
 ```
 
-## 配置参数优化器并行
+### 配置参数优化器并行
 
 此外，用户还可以自定义某些参数是否优化器切分。Parameter提供了一个`parallel_optimizer`的参数，用来配置当前的参数是否进行优化器切分。因此用户单独针对每个参数配置是否开启优化器并行，如下所示
 
@@ -84,7 +112,7 @@ param2.parallel_optimizer = False
     context.set_auto_parallel_context(parallel_optimizer_config={"parallel_optimizer_threshold": 24})
     ```
 
-## 配置通信融合
+### 配置通信融合
 
 在设置参数优化器并行一节中，我们阐述了如何配置每个参数的优化器并行属性。在全/半自动模式下，每个参数都会产生一个对应的AllGather操作和ReduceScatter操作。这些通信算子是自动并行框架自动插入的。然而，随着参数量增多，对应的通信算子也会增多，通信操作产生的算子调度和启动都会产生更多的开销。因此，可以通过`cell`提供的`set_comm_fusion`方法，对每个`cell`内的参数对应的AllGather和ReduceScatter操作配置融合标记。
 
@@ -152,7 +180,7 @@ The parameter layer3.output_mapping.bias's fusion id is 2
 
 为了避免上述问题，可以将网络参数进行分组融合：在上一组参数进行的计算的同时，进行下组参数的通信，使得计算和通信能够互相隐藏。这就是上述代码将`layer2`和`layer3`设置不同fusion值的原因。
 
-## 运行代码
+### 运行代码
 
 上述代码需要在配置分布式变量后才可以运行。Ascend环境需要配置RANK_TABLE_FILE、RANK_ID和DEVICE_ID。配置的过程请参考[此处](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_ascend.html#配置分布式环境变量)，GPU环境需要配置[OpenMPI](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_gpu.html#配置分布式环境)、NCCL和[HOST_FILE](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_gpu.html#多机多卡训练)，配置的过程请参考[此处](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_gpu.html#配置分布式环境)。
 

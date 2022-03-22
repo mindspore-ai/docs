@@ -44,7 +44,7 @@
 
 ![tensor_redistribution](./images/tensor_redistribution_zh.png "配置不同切分策略的单机版程序，和其对应的并行切分后的每台设备的程序")
 
-## 切分策略传播
+## 基本原理
 
 给定计算图，**切分策略传播**（Sharding Propagation）使得策略由配置的算子传播到整张计算图的所有算子。在传播过程中，策略选择的目标是最小化张量重排布产生的通信代价。
 
@@ -58,9 +58,9 @@
 
 ![sharding_propagation](./images/sharding_propagation_zh.png "切分策略传播的流程实例")
 
-## 如何在MindSpore中使用切分策略传播
+## 操作实践
 
-### 准备工作
+### 样例代码说明
 
 > 可以在这里下载完整的样例代码：
 >

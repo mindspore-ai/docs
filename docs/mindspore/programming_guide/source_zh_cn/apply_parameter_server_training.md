@@ -8,6 +8,8 @@
 
 Parameter Server(参数服务器)是分布式训练中一种广泛使用的架构，相较于同步的AllReduce训练方法，Parameter Server具有更好的灵活性、可扩展性以及节点容灾的能力。具体来讲，参数服务器既支持同步SGD(Stochastic Gradient Descent，随机梯度下降)，也支持异步SGD的训练算法；在扩展性上，将模型的计算与模型的更新分别部署在Worker和Server两类进程中，使得Worker和Server的资源可以独立地横向扩缩(新增或者删除Worker和Server资源)；另外，在大规模数据中心的环境下，计算设备、网络以及存储经常会出现各种故障而导致部分节点异常，而在参数服务器的架构下，能够较为容易地处理此类故障而不会对训练中的任务产生影响。
 
+## 基本原理
+
 MindSpore的参数服务器采用了自研的通信框架作为基础架构，基于该框架提供的远程通信能力以及抽象的Send/Broadcast等原语，实现了同步SGD的分布式训练算法，另外结合Ascend和GPU中的高性能集合通信库(HCCL和NCCL)，MindSpore还提供了Parameter Server和AllReduce的混合训练模式，支持将部分权重通过参数服务器进行存储和更新，其余权重仍然通过AllReduce算法进行训练。
 
 在参数服务器的架构设计中，一共包含三个独立的组件，分别是Server、Worker和Scheduler，作用分别是：
@@ -18,7 +20,7 @@ MindSpore的参数服务器采用了自研的通信框架作为基础架构，�
 
 - Scheduler：用于建立Server和Worker的通信关系。
 
-## 准备工作
+## 操作实践
 
 以LeNet在Ascend 910上使用Parameter Server训练为例：
 
@@ -80,7 +82,7 @@ export MS_SCHED_PORT=XXXX             # Scheduler port
 export MS_ROLE=MS_SCHED               # The role of this process: MS_SCHED represents the scheduler, MS_WORKER represents the worker, MS_PSERVER represents the Server
 ```
 
-## 执行训练
+### 执行训练
 
 1. shell脚本
 
