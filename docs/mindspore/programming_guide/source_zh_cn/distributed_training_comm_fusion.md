@@ -10,6 +10,49 @@
 
 MindSpore支持对分布式训练中三种常用通信算子（`AllReduce`, `AllGather`, `ReduceScatter`）的融合，并提供简洁易用的接口方便用户自行配置。在长稳训练任务支撑中，通信融合特性发挥了重要作用。
 
+## 基本原理
+
+本节首先以数据并行为例，介绍分布式训练中计算和通信之间的关系，其次介绍通信融合在分布式训练场景下的必要性。
+
+### 分布式训练中的计算和通信
+
+分布式训练的整个过程可以粗略地分为本地模型计算和跨设备的网络数据交互两个过程，下面以数据并行[2]为例来介绍整体训练流程，其它并行方式，如模型并行[3]，流水线并行[4]等，请读者参考相关论文。
+
+如下图所示，每个节点备份完整的神经网络模型，并利用本地的数据集分区训练一个mini-batch，进行前向和反向计算，反向计算得到的梯度跨节点进行同步，同步后继续下一个mini-batch的训练，如此循环迭代，直到accuracy/loss达到阈值，或者训练完一定数目的epoch。由此可见，在分布式训练过程中，计算和通信交替进行，目前已有工作研究如何将相互不依赖的计算和传输做流水化，以降低跨节点数据同步在整体训练时长中的占比[5-6]，这里不再赘述。
+
+<div align=center><img src="images/data_parallel.png"></div>
+
+### 通信融合的必要性
+
+网络通信的时间开销可以用以下公式衡量，其中，$m$是传输数据的大小，$\alpha$是网络传输速率，$\beta$是网络启动的固有开销。可见，当传输的message数变多，网络启动的固有开销占比会上升，并且传输小message，并不能有效利用网络带宽资源。即便是HPC领域的通信原语，如`AllReduce`, `AllGather`等，也遵循该原则。因此，通信融合技术能够有效提升网络资源利用率，降低网络同步时延。
+
+$$t = \alpha m+\beta$$
+
+### 通信融合的实现
+
+Mindspore通过两种方法为`AllReduce`, `AllGather`和`ReduceScatter`三种常用通信算子分别实现融合：
+
+- 指定index: 给神经网络不同layer的参数指定不同的index，MindSpore将相同index的参数融合在一起进行传输；
+- 融合buffer: 将不同layer的参数积累在一个预先分配好的buffer中，当buffer满时进行传输。
+
+>在编译图的流程中，相同融合标记并且是相同的通信操作，会被融合成一个通信操作。从而减少通信操作的数量。对于融合标记为0的通信算子时，优化流程中不会对它们进行融合。
+
+### 通信融合的使用方法
+
+MindSpore提供两种接口来使能通信融合，下面分别进行介绍。
+
+#### 自动并行场景下的配置
+
+在自动并行或半自动并行场景下，用户在通过`context.set_auto_parallel_context`来配置并行策略时，可以利用该接口提供的`comm_fusion`参数来设置并行策略，用户可以指定用index方法还是fusion buffer的方法。具体参数说明请参照 [分布式并行接口说明](auto_parallel.md)。
+
+#### 利用`Cell`提供的接口
+
+无论在哪种并行模式场景下，用户都可以通过`Cell.set_comm_fusion`接口为模型某layer的参数设置index，MindSpore将融合相同index的参数。在自动并行和半自动并行场景下，推荐优先使用`comm_fusion`参数进行配置。
+
+## 操作实践
+
+### 样例代码说明
+
 >你可以在这里下载完整的样例代码：
 >
 ><https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_comm_fusion>。
@@ -32,50 +75,11 @@ MindSpore支持对分布式训练中三种常用通信算子（`AllReduce`, `All
 - rank_table_8pcs.json：RANK_TABLE_FILE的8卡配置文件。
 - run_fusion_example.sh：通信融合的启动脚本。
 
-## 背景和出发点
+### 配置通信融合
 
-本节首先以数据并行为例，介绍分布式训练中计算和通信之间的关系，其次介绍通信融合在分布式训练场景下的必要性。
+下面通过实际样例，介绍两种使用方法如何进行配置。
 
-### 分布式训练中的计算和通信
-
-分布式训练的整个过程可以粗略地分为本地模型计算和跨设备的网络数据交互两个过程，下面以数据并行[2]为例来介绍整体训练流程，其它并行方式，如模型并行[3]，流水线并行[4]等，请读者参考相关论文。
-
-如下图所示，每个节点备份完整的神经网络模型，并利用本地的数据集分区训练一个mini-batch，进行前向和反向计算，反向计算得到的梯度跨节点进行同步，同步后继续下一个mini-batch的训练，如此循环迭代，直到accuracy/loss达到阈值，或者训练完一定数目的epoch。由此可见，在分布式训练过程中，计算和通信交替进行，目前已有工作研究如何将相互不依赖的计算和传输做流水化，以降低跨节点数据同步在整体训练时长中的占比[5-6]，这里不再赘述。
-
-<div align=center><img src="images/data_parallel.png"></div>
-
-### 通信融合的必要性
-
-网络通信的时间开销可以用以下公式衡量，其中，$m$是传输数据的大小，$\alpha$是网络传输速率，$\beta$是网络启动的固有开销。可见，当传输的message数变多，网络启动的固有开销占比会上升，并且传输小message，并不能有效利用网络带宽资源。即便是HPC领域的通信原语，如`AllReduce`, `AllGather`等，也遵循该原则。因此，通信融合技术能够有效提升网络资源利用率，降低网络同步时延。
-
-$$t = \alpha m+\beta$$
-
-## 通信融合的实现
-
-Mindspore通过两种方法为`AllReduce`, `AllGather`和`ReduceScatter`三种常用通信算子分别实现融合：
-
-- 指定index: 给神经网络不同layer的参数指定不同的index，MindSpore将相同index的参数融合在一起进行传输；
-- 融合buffer: 将不同layer的参数积累在一个预先分配好的buffer中，当buffer满时进行传输。
-
->在编译图的流程中，相同融合标记并且是相同的通信操作，会被融合成一个通信操作。从而减少通信操作的数量。对于融合标记为0的通信算子时，优化流程中不会对它们进行融合。
-
-## 通信融合的使用方法
-
-MindSpore提供两种接口来使能通信融合，下面分别进行介绍。
-
-### 自动并行场景下的配置
-
-在自动并行或半自动并行场景下，用户在通过`context.set_auto_parallel_context`来配置并行策略时，可以利用该接口提供的`comm_fusion`参数来设置并行策略，用户可以指定用index方法还是fusion buffer的方法。具体参数说明请参照 [分布式并行接口说明](auto_parallel.md)。
-
-### 利用`Cell`提供的接口
-
-无论在哪种并行模式场景下，用户都可以通过`Cell.set_comm_fusion`接口为模型某layer的参数设置index，MindSpore将融合相同index的参数。在自动并行和半自动并行场景下，推荐优先使用`comm_fusion`参数进行配置。
-
-## 配置通信融合
-
-上节中介绍了使能通信融合的方法，本节通过实际样例，来介绍两种使用方法如何进行配置。
-
-### `comm_fusion`参数
+#### `comm_fusion`参数
 
 如下述代码所示，使用`context.set_auto_parallel_context`接口的`comm_fusion`参数，为`AllReduce`算子配置融合模式为`auto`，意味着默认设置fusion buffer的大小为64MB。
 
@@ -96,7 +100,7 @@ init()
 
 >用户可以自行尝试`comm_fusion`的size和index模式，本质上都是fusion buffer类的方法。
 
-### `Cell.set_comm_fusion`接口
+#### `Cell.set_comm_fusion`接口
 
 如下述代码所示，针对实例化后的DenseLayer，调用`set_comm_fusion`方法，为每一层设置fusion值。
 
@@ -158,7 +162,7 @@ The parameter layer3.output_mapping.weight's fusion id is 2
 The parameter layer3.output_mapping.bias's fusion id is 2
 ```
 
-## 运行代码
+### 运行代码
 
 上述代码需要在配置分布式变量后才可以运行。Ascend环境需要配置RANK_TABLE_FILE、RANK_ID和DEVICE_ID。配置的过程请参考[此处](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_ascend.html#配置分布式环境变量)，GPU环境需要配置[OpenMPI](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_gpu.html#配置分布式环境)、NCCL和[HOST_FILE](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_gpu.html#多机多卡训练)，配置的过程请参考[此处](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_gpu.html#配置分布式环境)。
 

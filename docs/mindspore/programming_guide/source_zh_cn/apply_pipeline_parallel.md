@@ -9,6 +9,30 @@
 近年来，神经网络的规模几乎是呈指数型增长。受单卡内存的限制，训练这些大模型用到的设备数量也在不断增加。受server间通信带宽低的影响，传统数据并行叠加模型并行的这种混合并行模式的性能表现欠佳，需要引入流水线并行。流水线并行能够将模型在空间上按`stage`
 进行切分，每个`stage`只需执行网络的一部分，大大节省了内存开销，同时缩小了通信域，缩短了通信时间。MindSpore能够根据用户的配置，将单机模型自动地转换成流水线并行模式去执行。
 
+## 基本原理
+
+流水线（Pipeline）并行是将神经网络中的算子切分成多个阶段（Stage），再把阶段映射到不同的设备上，使得不同设备去计算神经网络的不同部分。流水线并行适用于模型是线性的图结构。如图1所示，将4层MatMul的网络切分成4个阶段，分布到4台设备上。正向计算时，每台机器在算完本台机器上的MatMul之后将结果通过通信算子发送（Send）给下一台机器，同时，下一台机器通过通信算子接收（Receive）上一台机器的MatMul结果，同时开始计算本台机器上的MatMul；反向计算时，最后一台机器的梯度算完之后，将结果发送给上一台机器，同时，上一台机器接收最后一台机器的梯度结果，并开始计算本台机器的反向。
+
+![image](images/pipeline_parallel_image_0_zh.png)
+
+*图1：流水线并行的图切分示意图*
+
+简单地将模型切分到多设备上并不会带来性能的提升，因为模型的线性结构到时同一时刻只有一台设备在工作，而其它设备在等待，造成了资源的浪费。为了提升效率，流水线并行进一步将小批次(MiniBatch)切分成更细粒度的微批次(MicroBatch)，在微批次中采用流水线式的执行序，从而达到提升效率的目的，如图2所示。将小批次切分成4个微批次，4个微批次在4个组上执行形成流水线。微批次的梯度汇聚后用来更新参数，其中每台设备只存有并更新对应组的参数。其中白色序号代表微批次的索引。
+
+![image](images/pipeline_parallel_image_1_zh.png)
+
+*图2：带MicroBatch的流水线并行执行时间线示意图*
+
+MindSpore的流水线并行实现中对执行序进行了调整，来达到更优的内存管理。如图3所示，在编号为0的MicroBatch的正向执行完后立即执行其反向，这样做使得编号为0的MicroBatch的中间结果的内存得以更早地（相较于图2）释放，进而确保内存使用的峰值比图2的方式更低。
+
+![image](images/pipeline_parallel_image_2_zh.png)
+
+*图3：MindSpore流水线并行执行时间线示意图*
+
+## 操作实践
+
+### 样例代码说明
+
 > 你可以在这里下载完整的样例代码：
 >
 > <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training>。
@@ -29,8 +53,6 @@
 
 其中，`rank_table_16pcs.json`、`rank_table_8pcs.json`、`rank_table_2pcs.json`是配置Ascend多卡环境的组网信息文件。`resnet.py`、`resnet50_distributed_training_pipeline.py`等文件是定义网络结构的脚本。`run_pipeline.sh`是执行脚本。
 
-## 准备环节
-
 ### 下载数据集
 
 本样例采用`CIFAR-10`
@@ -42,7 +64,7 @@
 
 分布式环境的配置以及集合通信库的调用可参考：<https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_ascend.html>。
 
-## 定义网络
+### 定义网络
 
 网络的定义和Ascend的分布式并行训练基础样例中一致。
 
@@ -93,7 +115,7 @@ class ResNet(nn.Cell):
         return x
 ```
 
-## 训练网络
+### 训练网络
 
 为了使能流水线并行，需要在训练脚本中加一些必要的配置：
 
@@ -102,7 +124,7 @@ class ResNet(nn.Cell):
 - 需要定义LossCell，本例中调用了`nn.WithLossCell`接口。
 - 目前流水线并行不支持自动混合精度特性。
 - 最后，需要在LossCell外包一层`PipelineCell`
-  ，并指定Micro_batch的size。为了提升机器的利用率，MindSpore将Mini_batch切分成了更细粒度的Micro_batch，最终的loss则是所有Micro_batch计算的loss值累加。其中，Micro_batch的size必须大于等于`stage`
+  ，并指定MicroBatch的size。为了提升机器的利用率，MindSpore将MiniBatch切分成了更细粒度的MicroBatch，最终的loss则是所有MicroBatch计算的loss值累加。其中，MicroBatch的size必须大于等于`stage`
   的数量。
 
 ```python
@@ -130,7 +152,7 @@ def test_train_cifar(epoch_size=10):
     model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=True)
 ```
 
-## 运行单机八卡脚本
+### 运行单机八卡脚本
 
 利用样例代码，
 
