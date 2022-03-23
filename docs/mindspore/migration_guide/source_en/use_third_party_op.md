@@ -78,8 +78,8 @@ extern "C" int LeakyRelu(
     auto at_output = tensors[1];
     torch::leaky_relu_out(at_output, at_input);
     // a case which need copy output
-    // torch::Tensor at_output = torch::leaky_relu(at_input);
-    // output_memcpy(params[1], at_output);
+    // torch::Tensor output = torch::leaky_relu(at_input);
+    // at_output.copy_(output);
   return 0;
 }
 
@@ -114,7 +114,7 @@ PyTorch Aten provides 300+ operator APIs with/without output tensors.
 
 `torch::*_out` is with output tensors which do not need memory copy.
 
-The APIs Without output tensors need use `output_memcpy` to copy return value to kernel output.
+The APIs Without output tensors need use `torch.Tensor.copy_` to copy return value to kernel output.
 
 For more details of APIs, see: `python*/site-packages/torch/include/ATen/CPUFunctions_inl.h` and `python*/site-packages/torch/include/ATen/CUDAFunctions_inl.h`.
 
@@ -123,9 +123,6 @@ A brief introduction of project APIs in ms_ext.h:
 ```cpp
 // Convert MindSpore kernel's inputs/outputs to PyTorch Aten's Tensor
 std::vector<at::Tensor> get_torch_tensors(int nparam, void** params, int* ndims, int64_t** shapes, const char** dtypes, c10::Device device) ;
-
-// copy memory of PyTorch Aten's output tensor to kernel output
-void output_memcpy(void* output, const torch::Tensor &t) ;
 ```
 
 ### 3. Use `setup.py` to compile source code into dynamic library

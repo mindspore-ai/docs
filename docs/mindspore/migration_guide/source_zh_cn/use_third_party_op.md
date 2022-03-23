@@ -81,8 +81,8 @@ extern "C" int LeakyRelu(
     auto at_output = tensors[1];
     torch::leaky_relu_out(at_output, at_input);
     // 如果使用不带输出的版本，代码如下：
-    // torch::Tensor at_output = torch::leaky_relu(at_input);
-    // output_memcpy(params[1], at_output);
+    // torch::Tensor output = torch::leaky_relu(at_input);
+    // at_output.copy_(output);
   return 0;
 }
 
@@ -115,7 +115,7 @@ extern "C" int LeakyRelu(
 
 其中，PyTorch Aten提供了带输出的算子函数版本和不带输出的算子函数版本，带输出的算子函数有`_out`后缀，PyTorch Aten提供了300+常用算子的`api`。
 
-当调用`torch::*_out`时，不需要`output`拷贝。当调用不带`_out`后缀的版本，需要调用上述提供的api`output_memcpy`进行结果拷贝。
+当调用`torch::*_out`时，不需要`output`拷贝。当调用不带`_out`后缀的版本，需要调用API`torch.Tensor.copy_`进行结果拷贝。
 
 想查看支持调用PyTorch Aten的哪些函数，`CPU`版本参考PyTorch安装路径下的：`python*/site-packages/torch/include/ATen/CPUFunctions_inl.h` ，相应的`GPU`版本参考`python*/site-packages/torch/include/ATen/CUDAFunctions_inl.h`。
 
@@ -124,9 +124,6 @@ extern "C" int LeakyRelu(
 ```cpp
 // 将 MindSpore kernel 的 inputs/outputs 转换为 PyTorch Aten 的 Tensor
 std::vector<at::Tensor> get_torch_tensors(int nparam, void** params, int* ndims, int64_t** shapes, const char** dtypes, c10::Device device) ;
-
-// 将入参没有输出的PyTorch Aten 算子的计算结果拷贝到kernel的输出内存
-void output_memcpy(void* output, const torch::Tensor &t) ;
 ```
 
 ### 3. 使用编译脚本`setup.py`生成so
