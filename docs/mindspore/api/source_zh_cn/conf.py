@@ -44,7 +44,7 @@ def get_param_func(func):
         if func.__doc__:
             source_code = source_code.replace(func.__doc__, '')
         all_params_str = re.findall(r"def [\w_\d\-]+\(([\S\s]*?)(\):|\) ->.*?:)", source_code)
-        all_params = re.sub("(self|cls)(,|, )?", '', all_params_str[0][0].replace("\n", "").replace("'", "\""))
+        all_params = re.sub("(self|cls)(,|, )?", '', all_params_str[0][0].replace("\n", ""))
         return all_params
     except:
         return ''
