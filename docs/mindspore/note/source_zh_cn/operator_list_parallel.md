@@ -82,7 +82,7 @@
 | [mindspore.ops.OnesLike](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.OnesLike.html) | 无                                                           |
 | [mindspore.ops.Pow](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Pow.html) | 无                                                           |
 | [mindspore.ops.PReLU](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.PReLU.html) | weight的shape在非[1]的情况下，输入（input_x）的Channel维要和weight的切分方式一致 |
-| [mindspore.ops.RandomChoiceWithMask](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.RandomChoiceWithMask.html) | 1. 不支持切分，仅支持全1策略； <br /> 2. 分布式逻辑仅支持GPU平台，Ascend上可能会出现多卡结果不一致的情况 |
+| [mindspore.ops.RandomChoiceWithMask](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.RandomChoiceWithMask.html) | 1. 不支持切分，仅支持全1策略； <br /> 2. 分布式逻辑仅支持GPU平台 |
 | [mindspore.ops.RealDiv](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.RealDiv.html) | 无                                                           |
 | [mindspore.ops.Reciprocal](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Reciprocal.html) | 无                                                           |
 | [mindspore.ops.ReduceMax](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.ReduceMax.html) | 输入在轴（axis）的维度进行切分时，分布式结果可能会和单机不一致 |
@@ -95,7 +95,7 @@
 | [mindspore.ops.Reshape](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Reshape.html) | 不支持配置切分策略，并且，在自动并行模式下，当reshape算子后接有多个算子，不允许对这些算子配置不同的切分策略 |
 | [mindspore.ops.ResizeBilinear](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.ResizeBilinear.html) | 在GPU平台下，不支持H/W维切分；在Ascend平台下，不支持H维切分，且W维的输出shape要能被切分数整除。 |
 | [mindspore.ops.ResizeNearestNeighbor](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.ResizeNearestNeighbor.html) | 在`align_corners=True`时只支持切分第一维和第二维             |
-| [mindspore.ops.ROIAlign](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.ROIAlign.html) | 1. 不支持对输入（features）的H/W维和输入（rois）的第2维进行切分; <br />2. 切分输入（features）的N维时，输入（rois）不能是Parameter |
+| [mindspore.ops.ROIAlign](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.ROIAlign.html) | 不支持对输入（features）的H/W维和输入（rois）的第2维进行切分 |
 | [mindspore.ops.Round](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Round.html) | 无                                                           |
 | [mindspore.ops.Rsqrt](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Rsqrt.html) | 无                                                           |
 | [mindspore.ops.ScatterUpdate](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.ScatterUpdate.html) | 第一个输入的第一维不能切分，第二个输入不能切分，第三个输入的前n维（n为第二个输入的维度）不能切分；在auto_parallel模式下，不支持双递归算法。 |
