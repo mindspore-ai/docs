@@ -93,3 +93,17 @@ print(ops.add(x, y))
 ```
 
 It means MindSpore has been installed successfully.
+
+## Version Update
+
+Using the following command if you need to update the MindSpore version:
+
+```bash
+pip install --upgrade mindspore-cuda11-dev=={version}
+```
+
+Of which,
+
+- When updating to a release candidate (rc) version, `{version}` should be specified, e.g. 1.6.0rc1.dev20211125; When updating to a standard release, `=={version}` could be removed.
+
+Note: MindSpore with CUDA11 is selected by default when upgrading version 1.3.0 and above. If you still want to use MindSpore with CUDA10, please select the corresponding wheel installation package.
