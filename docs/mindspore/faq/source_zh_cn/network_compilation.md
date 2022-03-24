@@ -2,26 +2,6 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_zh_cn/network_compilation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-<font size=3>**Q: 编译时报错“Create python object \`<class 'mindspore.common.tensor.Tensor'>\` failed, only support create Cell or Primitive object.”怎么办？**</font>
-
-A: 当前在图模式下，`construct`函数(或`@ms_function`装饰器修饰的函数)仅支持构造`Cell`和`Primitive object`，不支持构造`Tensor`，即不支持语法`x = Tensor(args...)`。
-
-如果是常量`Tensor`，请在`__init__`函数中定义。如果不是常量`Tensor`，可以通过`@constexpr`装饰器修饰函数，在函数里生成`Tensor`。
-
-关于`@constexpr`的用法可参考: <https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.constexpr.html>。
-
-对于网络中需要用到的常量`Tensor`，可以作为网络的属性，在`init`的时候定义，即`self.x = Tensor(args...)`，然后在`construct`函数(或`@ms_function`装饰器修饰的函数)里使用。
-
-如下示例，通过`@constexpr`生成一个`shape = (3, 4), dtype = int64`的`Tensor`。
-
-```python
-@constexpr
-def generate_tensor():
-    return Tensor(np.ones((3, 4).astype(np.int64)))
-```
-
-<br/>
-
 <font size=3>**Q: 编译时报错“'self.xx' should be defined in the class '__init__' function.”怎么办？**</font>
 
 A: 如果在`construct`函数里，想对类成员`self.xx`赋值，那么`self.xx`必须已经在`__init__`函数中被定义为[Parameter](<https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.Parameter.html>)类型，其他类型则不支持。局部变量`xx`不受这个限制。
