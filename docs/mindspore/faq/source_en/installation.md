@@ -32,6 +32,16 @@ Solution 2: Before compiling the source code, set the environment variable `MACO
 
 <br/>
 
+<font size=3>**Q: What should I do if the macOS system with arm64 architecture reports an error when using pip to install SciPy?**</font>
+
+A: SciPy currently does not have a whl package for the arm64 architecture of the macOS system. You can use a third-party compiled whl package for installation. Run the following commands to install SciPy first, and then reinstall MindSpore.
+
+```bash
+pip install --pre -i https://pypi.anaconda.org/scipy-wheels-nightly/simple scipy
+```
+
+<br/>
+
 <font size=3>**Q: What should I do if an error message `SSL:CERTIFICATE_VERIFY_FATLED` is displayed when I use pip to install MindSpore?**</font>
 
 A: Add the `--trusted-host=ms-release.obs.cn-north-4.myhuaweicloud.com` parameter to the pip installation command and try again.
