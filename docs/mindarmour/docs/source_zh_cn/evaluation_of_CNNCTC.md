@@ -28,7 +28,7 @@
 |-- natural_robustness
     |-- serving                         # 提供自然扰动样本生成的serving服务
     |-- ocr_evaluate
-        |-- cnn_ctc                     # cnn_ctc模型相关：模型的训练、推理、前后处理
+        |-- cnn_ctc                     # cnn_ctc模型目录：模型的训练、推理、前后处理
         |-- data                        # 存储实验分析数据
         |-- default_config.yaml         # 参数配置
         |-- generate_adv_samples.py     # 用于生成自然扰动样本
@@ -40,14 +40,6 @@
 
 在`default_config.yaml`中可以同时配置训练参数、推理参数、鲁棒性评测参数。这里我们重点关注在评测过程中使用到的参数，以及需要用户配置的参数，其余参数说明参考[CNN-CTC教程](https://gitee.com/mindspore/models/tree/master/official/cv/cnnctc)。
 
-训练参数：
-
-- `--TRAIN_DATASET_PATH`：训练数据集的路径。
-- `--TRAIN_DATASET_INDEX_PATH`：决定顺序的训练数据集索引文件的路径。
-- `--SAVE_PATH`：模型检查点文件保存路径。
-
-推理和评估参数：
-
 - `--TEST_DATASET_PATH`：测试数据集路。
 - `--CHECKPOINT_PATH`：checkpoint路径。
 - `--ADV_TEST_DATASET_PATH`：扰动样本数据集路径。
@@ -55,76 +47,19 @@
 
 ### 模型与数据
 
-数据处理与模型训练参考[CNN-CTC教程](https://gitee.com/mindspore/models/tree/master/official/cv/cnnctc)。评测任务需基于该教程获得预处理后的数据集和checkpoint模型文件。
-
-#### 模型
-
-被评测的模型为基于MindSpore实现的OCR模型CNN-CTC，改模型主要针对场景文字识别（Scene Text Recognition）任务，用CNN模型提取特征，用CTC（Connectionist temporal classification）预测输出序列。具体说明和实现参考[CNN-CTC](https://gitee.com/mindspore/models/tree/master/official/cv/cnnctc)。
+被评测的模型为基于MindSpore实现的OCR模型CNN-CTC，该模型主要针对场景文字识别（Scene Text Recognition）任务，用CNN模型提取特征，用CTC（Connectionist temporal classification）预测输出序列。
 
 [论文](https://arxiv.org/abs/1904.01906)： J. Baek, G. Kim, J. Lee, S. Park, D. Han, S. Yun, S. J. Oh, and H. Lee, “What is wrong with scene text recognition model comparisons? dataset and model analysis,” ArXiv, vol. abs/1904.01906, 2019.
 
-#### 数据集
+数据处理与模型训练参考[CNN-CTC教程](https://gitee.com/mindspore/models/tree/master/official/cv/cnnctc)。评测任务需基于该教程获得预处理后的数据集和checkpoint模型文件。
 
-训练数据集：[MJSynth](https://www.robots.ox.ac.uk/~vgg/data/text/)和[SynthText](https://github.com/ankush-me/SynthText)
+预处理后的数据集为.lmdb格式，以键值对方式存储：
 
-测试数据集：[The IIIT 5K-word dataset](https://cvit.iiit.ac.in/research/projects/cvit-projects/the-iiit-5k-word-dataset)
+- label-%09d：图片的真实标签
+- image-%09d：原始图片数据
+- num-samples：lmdb数据集中的样本数量
 
-**数据集处理**
-
-- 步骤1：
-
-  所有数据集均经过预处理，以.lmdb格式存储，点击[**此处**](https://gitee.com/link?target=https%3A%2F%2Fdrive.google.com%2Fdrive%2Ffolders%2F192UfE9agQUMNq6AgU3_E05_FcPZK4hyt)可下载。
-
-- 步骤2：
-
-  解压下载的文件，重命名MJSynth数据集为MJ，SynthText数据集为ST，IIIT数据集为IIIT。
-
-- 步骤3：
-
-  将上述三个数据集移至`cnctc_data`文件夹中，结构如下：
-
-  ```text
-  |--- CNNCTC/
-      |--- cnnctc_data/
-          |--- ST/
-              data.mdb
-              lock.mdb
-          |--- MJ/
-              data.mdb
-              lock.mdb
-          |--- IIIT/
-              data.mdb
-              lock.mdb
-      ......
-  ```
-
-- 步骤4：
-
-  预处理数据集：
-
-  ```bash
-  cd ocr_evaluate/cnn_ctc
-  python src/preprocess_dataset.py
-  ```
-
-  这个过程大概需要75分钟。
-
-  预处理后的数据集为.lmdb格式，以键值对方式存储：
-
-  label-%09d：图片的真实标签
-  image-%09d：原始图片数据
-  num-samples：lmdb数据集中的样本数量
-
-  `%09d`为：长度为9的数字串。形如：label-000000001。
-
-**模型训练**
-
-  训练CNN-CTC模型，得到checkpoint文件：
-
-  ```bash
-  cd ocr_evaluate/cnn_ctc
-  bash scripts/run_standalone_train_gpu.sh
-  ```
+其中，`%09d`为：长度为9的数字串。形如：label-000000001。
 
 ### 基于自然扰动serving生成评测数据集
 
@@ -259,11 +194,11 @@
 
    4. 生成的自然扰动数据为.lmdb格式，包含下列键值对数据项：
 
-      label-%09d：图片的真实标签
-      image-%09d：原始图片数据
-      adv_image-%09d：生成的扰动图片数据
-      adv_info-%09d：扰动信息，包含扰动方法和参数
-      num-samples：lmdb数据集中的样本数量
+    - label-%09d：图片的真实标签
+    - image-%09d：原始图片数据
+    - adv_image-%09d：生成的扰动图片数据
+    - adv_info-%09d：扰动信息，包含扰动方法和参数
+    - num-samples：lmdb数据集中的样本数量
 
 ### CNN-CTC模型在生成扰动数据集上推理
 
@@ -331,8 +266,8 @@
 
    数据集中新增键值对数据项：
 
-   pred-%09d：模型对原始图片数据的预测结果
-   adv_pred-%09d：模型对扰动图片数据的预测结果
+    - pred-%09d：模型对原始图片数据的预测结果
+    - adv_pred-%09d：模型对扰动图片数据的预测结果
 
    模型对于真实样本的预测结果：
 
