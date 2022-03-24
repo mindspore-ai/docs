@@ -22,14 +22,14 @@
 
 - 如果您想在一个全新的带有GPU的Ubuntu 18.04上通过pip安装MindSpore，可以使用[自动安装脚本](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-pip.sh)进行一键式安装。自动安装脚本会安装MindSpore及其所需的依赖。
 
-    自动安装脚本需要更改软件源配置以及通过APT安装依赖，所以需要root权限执行。使用以下命令获取自动安装脚本并执行。
+    自动安装脚本需要更改软件源配置以及通过APT安装依赖，所以需要申请root权限。使用以下命令获取自动安装脚本并执行。
 
     ```bash
     wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-pip.sh
-    # 默认安装Python 3.7，CUDA 10.1以及MindSpore 1.6.0
+    # 默认安装Python 3.7，CUDA 11.1以及MindSpore 1.6.0
     sudo bash -i ./ubuntu-gpu-pip.sh
-    # 如需指定安装Python 3.9，CUDA 11.1以及MindSpore 1.5.0，使用以下方式
-    # sudo PYTHON_VERSION=3.9 CUDA_VERSION=11.1 MINDSPORE_VERSION=1.5.0 bash -i ./ubuntu-gpu-pip.sh
+    # 如需指定安装Python 3.9，CUDA 10.1以及MindSpore 1.5.0，使用以下方式
+    # sudo PYTHON_VERSION=3.9 CUDA_VERSION=10.1 MINDSPORE_VERSION=1.5.0 bash -i ./ubuntu-gpu-pip.sh
     ```
 
     该脚本会执行以下操作：
@@ -75,23 +75,23 @@ sudo apt-get install linux-headers-$(uname -r) gcc-7
 
 CUDA 10.1要求最低显卡驱动版本为418.39；CUDA 11.1要求最低显卡驱动版本为450.80.02。可以执行`nvidia-smi`指令确认显卡驱动版本。如果驱动版本不满足要求，CUDA安装过程中可以选择同时安装驱动，安装驱动后需要重启系统。
 
-安装CUDA 10.1可以使用以下命令。
-
-```bash
-wget https://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.243_418.87.00_linux.run
-sudo sh cuda_10.1.243_418.87.00_linux.run
-echo -e "export PATH=/usr/local/cuda-10.1/bin:\$PATH" >> ~/.bashrc
-echo -e "export LD_LIBRARY_PATH=/usr/local/cuda-10.1/lib64:\$LD_LIBRARY_PATH" >> ~/.bashrc
-source ~/.bashrc
-```
-
-或者使用以下命令安装CUDA 11.1。
+使用以下命令安装CUDA 11.1（推荐）。
 
 ```bash
 wget https://developer.download.nvidia.com/compute/cuda/11.1.1/local_installers/cuda_11.1.1_455.32.00_linux.run
 sudo sh cuda_11.1.1_455.32.00_linux.run
 echo -e "export PATH=/usr/local/cuda-11.1/bin:\$PATH" >> ~/.bashrc
 echo -e "export LD_LIBRARY_PATH=/usr/local/cuda-11.1/lib64:\$LD_LIBRARY_PATH" >> ~/.bashrc
+source ~/.bashrc
+```
+
+或者使用以下命令安装CUDA 10.1。
+
+```bash
+wget https://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.243_418.87.00_linux.run
+sudo sh cuda_10.1.243_418.87.00_linux.run
+echo -e "export PATH=/usr/local/cuda-10.1/bin:\$PATH" >> ~/.bashrc
+echo -e "export LD_LIBRARY_PATH=/usr/local/cuda-10.1/lib64:\$LD_LIBRARY_PATH" >> ~/.bashrc
 source ~/.bashrc
 ```
 

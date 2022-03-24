@@ -26,10 +26,10 @@ This document describes how to quickly install MindSpore by pip in a Linux syste
 
     ```bash
     wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-pip.sh
-    # install Python 3.7, CUDA 10.1 and MindSpore 1.6.0 by default
-    sudo bash -i ./ubuntu-gpu-pip.sh
-    # to install Python 3.9, CUDA 11.1 and MindSpore 1.5.0
-    # sudo PYTHON_VERSION=3.9 CUDA_VERSION=11.1 MINDSPORE_VERSION=1.5.0 bash -i ./ubuntu-gpu-pip.sh
+    # install Python 3.7, CUDA 11.1 and MindSpore 1.6.0 by default
+    bash -i ./ubuntu-gpu-pip.sh
+    # to install Python 3.9, CUDA 10.1 and MindSpore 1.5.0
+    # PYTHON_VERSION=3.9 CUDA_VERSION=10.1 MINDSPORE_VERSION=1.5.0 bash -i ./ubuntu-gpu-pip.sh
     ```
 
     This script performs the following operations:
@@ -75,23 +75,23 @@ sudo apt-get install linux-headers-$(uname -r) gcc-7
 
 The minimum required GPU driver version of CUDA 10.1 is 418.39. The minimum required GPU driver version of CUDA 11.1 is 450.80.02. You may run `nvidia-smi` command to confirm the GPU driver version. If the driver version does not meet the requirements, you should choose to install the driver during the CUDA installation. After installing the driver, you need to reboot your system.
 
-Run the following command to install CUDA 10.1.
-
-```bash
-wget https://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.243_418.87.00_linux.run
-sudo sh cuda_10.1.243_418.87.00_linux.run
-echo -e "export PATH=/usr/local/cuda-10.1/bin:\$PATH" >> ~/.bashrc
-echo -e "export LD_LIBRARY_PATH=/usr/local/cuda-10.1/lib64:\$LD_LIBRARY_PATH" >> ~/.bashrc
-source ~/.bashrc
-```
-
-Or install CUDA 11.1 with the following command.
+Run the following command to install CUDA 11.1 (recommended).
 
 ```bash
 wget https://developer.download.nvidia.com/compute/cuda/11.1.1/local_installers/cuda_11.1.1_455.32.00_linux.run
 sudo sh cuda_11.1.1_455.32.00_linux.run
 echo -e "export PATH=/usr/local/cuda-11.1/bin:\$PATH" >> ~/.bashrc
 echo -e "export LD_LIBRARY_PATH=/usr/local/cuda-11.1/lib64:\$LD_LIBRARY_PATH" >> ~/.bashrc
+source ~/.bashrc
+```
+
+Or install CUDA 10.1 with the following command.
+
+```bash
+wget https://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.243_418.87.00_linux.run
+sudo sh cuda_10.1.243_418.87.00_linux.run
+echo -e "export PATH=/usr/local/cuda-10.1/bin:\$PATH" >> ~/.bashrc
+echo -e "export LD_LIBRARY_PATH=/usr/local/cuda-10.1/lib64:\$LD_LIBRARY_PATH" >> ~/.bashrc
 source ~/.bashrc
 ```
 

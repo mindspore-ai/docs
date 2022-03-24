@@ -18,14 +18,14 @@
 
 - 如果您想在一个全新的Ubuntu 18.04上通过pip安装MindSpore，可以使用[自动安装脚本](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-pip.sh)进行一键式安装。自动安装脚本会安装MindSpore及其所需的依赖。
 
-    自动安装脚本需要更改软件源配置以及通过APT安装依赖，所以需要root权限执行。使用以下命令获取自动安装脚本并执行。
+    自动安装脚本需要更改软件源配置以及通过APT安装依赖，所以需要申请root权限。使用以下命令获取自动安装脚本并执行。
 
     ```bash
     wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-pip.sh
     # 默认安装Python 3.7和MindSpore 1.6.0
-    sudo bash ./ubuntu-cpu-pip.sh
+    bash ./ubuntu-cpu-pip.sh
     # 如需指定Python和MindSpore版本，以Python 3.9和MindSpore 1.5.0为例，使用以下方式
-    # sudo PYTHON_VERSION=3.9 MINDSPORE_VERSION=1.5.0 bash ./ubuntu-cpu-pip.sh
+    # PYTHON_VERSION=3.9 MINDSPORE_VERSION=1.5.0 bash ./ubuntu-cpu-pip.sh
     ```
 
     该脚本会执行以下操作：

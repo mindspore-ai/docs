@@ -23,6 +23,27 @@ The following describes how to quickly install MindSpore by compiling the source
 
 ## Environment Preparation
 
+- If you want to configure an environment that can compile MindSpore on a EulerOS 2.8 with Ascend AI processor software package installed, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-source.sh) for one-click configuration. The automatic installation script will install the dependencies required to compile MindSpore.
+
+    Run the following command to obtain and run the automatic installation script:
+
+    ```bash
+    wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-source.sh
+    # install Python 3.7 by default
+    bash -i ./euleros-ascend-source.sh
+    # to install Python 3.9
+    # PYTHON_VERSION=3.9 bash -i ./euleros-ascend-source.sh
+    ```
+
+    This script performs the following operations:
+
+    - Install the compilation dependencies required by MindSpore, such as GCC, CMake, etc.
+    - Install Python3 and pip3 and set them as default.
+
+    For more usage, see the script header description.
+
+- If some dependencies, such as Python and GCC, have been installed in your system, you are advised to perform the following steps to manually install MindSpore.
+
 The following table lists the system environment and third-party dependencies required for building and installing MindSpore.
 
 |software|version|description|

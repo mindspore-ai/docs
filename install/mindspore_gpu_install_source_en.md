@@ -26,16 +26,18 @@
 
 This document describes how to quickly install MindSpore by source code in a Linux system with a GPU environment. The following takes Ubuntu 18.04 as an example to describe how to install MindSpore.
 
+## Environment Preparation
+
 - If you want to configure an environment that can compile MindSpore on a fresh Ubuntu 18.04 with a GPU environment, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-source.sh) for one-click configuration. The automatic installation script will install the dependencies required to compile MindSpore.
 
     The root permission is required because the script will modify the source list and install dependencies via APT. Run the following command to obtain and run the automatic installation script:
 
     ```bash
     wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-source.sh
-    # install Python 3.7 and CUDA 10.1 by default
-    sudo bash -i ./ubuntu-gpu-source.sh
-    # to install Python 3.9, CUDA 11.1 and optional dependencies Open MPI
-    # sudo PYTHON_VERSION=3.9 CUDA_VERSION=11.1 OPENMPI=on bash -i ./ubuntu-gpu-source.sh
+    # install Python 3.7 and CUDA 11.1 by default
+    bash -i ./ubuntu-gpu-source.sh
+    # to install Python 3.9, CUDA 10.1 and optional dependencies Open MPI
+    # PYTHON_VERSION=3.9 CUDA_VERSION=10.1 OPENMPI=on bash -i ./ubuntu-gpu-source.sh
     ```
 
     This script performs the following operations:
@@ -50,8 +52,6 @@ This document describes how to quickly install MindSpore by source code in a Lin
     For more usage, see the script header description.
 
 - If some dependencies, such as CUDA, Python and GCC, have been installed in your system, you are advised to perform the following steps to manually install MindSpore.
-
-## Environment Preparation
 
 The following table lists the system environment and third-party dependencies required to compile and install MindSpore GPU.
 
@@ -93,23 +93,23 @@ sudo apt-get install linux-headers-$(uname -r) gcc-7
 
 The minimum required GPU driver version of CUDA 10.1 is 418.39. The minimum required GPU driver version of CUDA 11.1 is 450.80.02. You may run `nvidia-smi` command to confirm the GPU driver version. If the driver version does not meet the requirements, you should choose to install the driver during the CUDA installation. After installing the driver, you need to reboot your system.
 
-Run the following command to install CUDA 10.1.
-
-```bash
-wget https://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.243_418.87.00_linux.run
-sudo sh cuda_10.1.243_418.87.00_linux.run
-echo -e "export PATH=/usr/local/cuda-10.1/bin:\$PATH" >> ~/.bashrc
-echo -e "export LD_LIBRARY_PATH=/usr/local/cuda-10.1/lib64:\$LD_LIBRARY_PATH" >> ~/.bashrc
-source ~/.bashrc
-```
-
-Or install CUDA 11.1 with the following command.
+Run the following command to install CUDA 11.1 (recommended).
 
 ```bash
 wget https://developer.download.nvidia.com/compute/cuda/11.1.1/local_installers/cuda_11.1.1_455.32.00_linux.run
 sudo sh cuda_11.1.1_455.32.00_linux.run
 echo -e "export PATH=/usr/local/cuda-11.1/bin:\$PATH" >> ~/.bashrc
 echo -e "export LD_LIBRARY_PATH=/usr/local/cuda-11.1/lib64:\$LD_LIBRARY_PATH" >> ~/.bashrc
+source ~/.bashrc
+```
+
+Or install CUDA 10.1 with the following command.
+
+```bash
+wget https://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.243_418.87.00_linux.run
+sudo sh cuda_10.1.243_418.87.00_linux.run
+echo -e "export PATH=/usr/local/cuda-10.1/bin:\$PATH" >> ~/.bashrc
+echo -e "export LD_LIBRARY_PATH=/usr/local/cuda-10.1/lib64:\$LD_LIBRARY_PATH" >> ~/.bashrc
 source ~/.bashrc
 ```
 

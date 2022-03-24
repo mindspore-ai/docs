@@ -21,6 +21,8 @@
 
 This document describes how to quickly install MindSpore by source code in a Linux system in the CPU environment. The following takes Ubuntu 18.04 as an example to describe how to install MindSpore.
 
+## Environment Preparation
+
 - If you need to configure an environment for building MindSpore on the Ubuntu 18.04 that never installed MindSpore and its dependencies, you may use the [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-source.sh) for one-click configuration. The script installs the dependencies required for building MindSpore.
 
     The root permission is required because the script will modify the source list and install dependencies via APT. Run the following command to obtain and run the automatic installation script:
@@ -28,9 +30,9 @@ This document describes how to quickly install MindSpore by source code in a Lin
     ```bash
     wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-source.sh
     # install Python 3.7 by default
-    sudo bash ./ubuntu-cpu-source.sh
+    bash ./ubuntu-cpu-source.sh
     # to specify Python version
-    # sudo PYTHON_VERSION=3.9 bash ./ubuntu-cpu-source.sh
+    # PYTHON_VERSION=3.9 bash ./ubuntu-cpu-source.sh
     ```
 
     This script performs the following operations:
@@ -42,8 +44,6 @@ This document describes how to quickly install MindSpore by source code in a Lin
     For more usage, see the script header description.
 
 - If some dependencies, such as Python and GCC, have been installed in your system, you are advised to perform the following steps to manually install MindSpore.
-
-## Environment Preparation
 
 The following table lists the system environment and third-party dependencies required for building and installing MindSpore.
 

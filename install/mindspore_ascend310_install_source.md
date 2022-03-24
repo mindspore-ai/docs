@@ -23,6 +23,27 @@
 
 ## 环境准备
 
+- 如果您想在一个已经配置好昇腾AI处理器配套软件包的EulerOS 2.8上配置一个可以编译MindSpore的环境，可以使用[自动安装脚本](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-source.sh)进行一键式配置。自动安装脚本会安装编译MindSpore所需的依赖。
+
+    使用以下命令获取自动安装脚本并执行。
+
+    ```bash
+    wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-source.sh
+    # 默认安装Python 3.7
+    bash -i ./euleros-ascend-source.sh
+    # 如需指定安装Python 3.9，使用以下方式
+    # PYTHON_VERSION=3.9 bash -i ./euleros-ascend-source.sh
+    ```
+
+    该脚本会执行以下操作：
+
+    - 安装MindSpore所需的编译依赖，如GCC，CMake等。
+    - 安装Python3和pip3，并设为默认。
+
+    更多的用法请参看脚本头部的说明。
+
+- 如果您的系统已经安装了部分依赖，如Python，GCC等，则推荐参照下面的安装步骤手动安装。
+
 下表列出了编译安装MindSpore所需的系统环境和第三方依赖。
 
 |软件名称|版本|作用|

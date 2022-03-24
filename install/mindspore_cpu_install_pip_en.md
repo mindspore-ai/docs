@@ -23,9 +23,9 @@ This document describes how to quickly install MindSpore by pip in a Linux syste
     ```bash
     wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-pip.sh
     # install Python 3.7 and MindSpore 1.6.0 by default
-    sudo bash ./ubuntu-cpu-pip.sh
+    bash ./ubuntu-cpu-pip.sh
     # to specify Python and MindSpore version, e.g. Python 3.9 and MindSpore 1.5.0
-    # sudo PYTHON_VERSION=3.9 MINDSPORE_VERSION=1.5.0 bash ./ubuntu-cpu-pip.sh
+    # PYTHON_VERSION=3.9 MINDSPORE_VERSION=1.5.0 bash ./ubuntu-cpu-pip.sh
     ```
 
     This script performs the following operations:
