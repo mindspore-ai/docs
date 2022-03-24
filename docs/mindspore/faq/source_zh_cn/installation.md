@@ -32,6 +32,16 @@ A: 首先检查output目录下编译得到的安装包名，类似mindspore-1.6.
 
 <br/>
 
+<font size=3>**Q: arm64架构的macOS系统使用pip安装SciPy依赖库时报错，应该怎么办？**</font>
+
+A: SciPy当前没有对应macOS系统arm64架构的whl包，可以使用第三方编译的whl包进行安装。执行如下命令先安装SciPy，再重新安装MindSpore。
+
+```bash
+pip install --pre -i https://pypi.anaconda.org/scipy-wheels-nightly/simple scipy
+```
+
+<br/>
+
 <font size=3>**Q: 使用pip安装时报错: `SSL:CERTIFICATE_VERIFY_FATLED`应该怎么办？**</font>
 
 A: 在pip安装命令后添加参数 `--trusted-host=ms-release.obs.cn-north-4.myhuaweicloud.com`重试即可。
