@@ -356,22 +356,22 @@ A: `ut` cases are usually based on the MindSpore package of the debug version, w
 
 <font size=3>**Q: For Ascend users, how to get more detailed logs when the `run task error` is reported?**</font>
 
-A: Use the msnpureport tool to set the on-device log level. The tool is stored in `/usr/local/Ascend/driver/tools/msnpureport`.
+A: Use the msnpureport tool to set the on-device log level. The tool is stored in `/usr/local/Ascend/latest/driver/tools/msnpureport`.
 
 ```bash
-- Global: /usr/local/Ascend/driver/tools/msnpureport -g info
+- Global: /usr/local/Ascend/latest/driver/tools/msnpureport -g info
 ```
 
 ```bash
-- Module-level: /usr/local/Ascend/driver/tools/msnpureport -m SLOG:error
+- Module-level: /usr/local/Ascend/latest/driver/tools/msnpureport -m SLOG:error
 ```
 
 ```bash
-- Event-level: /usr/local/Ascend/driver/tools/msnpureport -e disable/enable
+- Event-level: /usr/local/Ascend/latest/driver/tools/msnpureport -e disable/enable
 ```
 
 ```bash
-- Multi-device ID-level: /usr/local/Ascend/driver/tools/msnpureport -d 1 -g warning
+- Multi-device ID-level: /usr/local/Ascend/latest/driver/tools/msnpureport -d 1 -g warning
 ```
 
 Assume that the value range of deviceID is [0, 7], and `devices 0–3` and `devices 4–7` are on the same OS. `Devices 0–3` share the same log configuration file and `devices 4–7` share the same configuration file. In this way, changing the log level of any device (for example device 0) will change that of other devices (for example `devices 1–3`). This rule also applies to `devices 4–7`.
