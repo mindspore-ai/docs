@@ -231,7 +231,7 @@ MindSpore 支持程度：
 
 **x**: 待四舍五入的值， int, float
 
-**n**: 表示四舍五入的小数点位数， int。
+**n**: 表示四舍五入的小数点位数， int
 
 ```python
 import mindspore as ms
@@ -271,8 +271,8 @@ g: 10.20
 h: 10.10
 ```
 
-**<注>**对浮点数执行round()行为可能会令人惊讶：例如，round(2.675, 2)不一定给出期望的 2.68。
-这不是程序错误：这一结果是由于十进制小数实际上不能以浮点数精确表示的结果。
+对浮点数执行round()行为可能会令人惊讶。例如，round(2.675, 2)不一定给出期望的 2.68。
+这不是程序错误，这一结果是由于十进制小数实际上不能以浮点数精确表示。
 
 MindSpore 支持程度：
 
@@ -404,7 +404,7 @@ MindSpore 支持程度：
 
 **功能**： type(x)输出x的类型
 
-**有效输入：** 数字， list, tuple, dict, np.array, 常量Tensor
+**有效输入：** 数字, list, tuple, dict, np.array, 常量Tensor
 
 ```python
 import mindspore as ms
@@ -444,7 +444,7 @@ g: <class 'mindspore.common.tensor.Tensor'>
 
 **<注>** type作为Python的原生函数还有另外一种使用方法， 因为该使用方法应用场景较少，因此暂不支持。
 
-该方法为：type(name, bases, dict) #返回name类型的类对象
+该方法为：type(name, bases, dict) 返回name类型的类对象。
 
 #### abs()
 
@@ -493,7 +493,7 @@ def all(iterable):
    for element in iterable:
       if not element:
          return False
-return True
+    return True
 ```
 
 **any功能：**
@@ -602,7 +602,7 @@ h: False
 
 返回布尔值，True 或 False。
 
-x 用标准的 真值测试过程 进行转换。如果 x 为 False 或省略，则返回 False；否则返回 True。 bool 类是 int 的子类（见 数字类型 --- int, float, complex ）。它不能再被继承。它唯一的实例就是 False 和 True。
+x 用标准的真值测试过程进行转换。如果 x 为 False 或省略，则返回 False；否则返回 True。 bool 类是 int 的子类。它不能再被继承。它唯一的实例就是 False 和 True。
 
 ```python
 import mindspore as ms
@@ -646,7 +646,7 @@ numeric_string  ::=  [sign] numeric_value
 
 这里的 floatnumber 是指 Python 的浮点数格式。大小写没有关系，所以“inf”、“Inf”、“INFINITY”、“iNfINity”都可接受为正无穷的拼写形式。
 
-**<注>**另一方面，如果实参是整数或浮点数，则返回具有相同值（在 Python 浮点精度范围内）的浮点数。如果实参在 Python 浮点精度范围外，则会触发 OverflowError。
+另一方面，如果实参是整数或浮点数，则返回具有相同值（在 Python 浮点精度范围内）的浮点数。如果实参在 Python 浮点精度范围外，则会触发 OverflowError。
 
 ```python
 import mindspore as ms
@@ -679,7 +679,7 @@ d: 123.0
 
 返回一个基于数字或字符串 x 构造的整数对象，或者在未给出参数时返回 0。 对于浮点数，它将向零舍入。
 
-如果 x 不是数字，或者有 base 参数，x 必须是字符串、bytes、表示进制为 base 的 整数字面值 的 bytearray 实例。该文字前可以有 + 或 - （中间不能有空格），前后可以有空格。一个进制为 n 的数字包含 0 到 n-1 的数，其中 a 到 z （或 A 到 Z ）表示 10 到 35。默认的 base 为 10 ，允许的进制有 0、2-36。2、8、16 进制的数字可以在代码中用 0b/0B 、 0o/0O 、 0x/0X 前缀来表示。进制为 0 将安照代码的字面量来精确解释，最后的结果会是 2、8、10、16 进制中的一个。所以 int('010', 0) 是非法的，但 int('010') 和 int('010', 8) 是合法的。
+如果 x 不是数字，或者有 base 参数，x 必须是字符串、bytes、表示进制为 base 的整数字面值的 bytearray 实例。该文字前可以有 + 或 - （中间不能有空格），前后可以有空格。一个进制为 n 的数字包含 0 到 n-1 的数，其中 a 到 z （或 A 到 Z ）表示 10 到 35。默认的 base 为 10 ，允许的进制有 0、2-36。2、8、16 进制的数字可以在代码中用 0b/0B、 0o/0O、 0x/0X 前缀来表示。进制为 0 将安照代码的字面量来精确解释，最后的结果会是 2、8、10、16 进制中的一个。所以 int('010', 0) 是非法的，但 int('010') 和 int('010', 8) 是合法的。
 
 ```python
 import mindspore as ms
