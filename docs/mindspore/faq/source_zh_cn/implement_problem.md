@@ -401,30 +401,30 @@ A: `ut`用例通常需要基于debug版本的MindSpore包，官网并没有提�
 
 <font size=3>**Q: 在Ascend平台上，执行用例有时候会报错`run task error`，如何获取更详细的日志帮助问题定位？**</font>
 
-A: 使用msnpureport工具设置device侧日志级别，工具位置在: `/usr/local/Ascend/driver/tools/msnpureport`。
+A: 使用msnpureport工具设置device侧日志级别，工具位置在: `/usr/local/Ascend/latest/driver/tools/msnpureport`。
 
 - 全局级别:
 
 ```bash
-/usr/local/Ascend/driver/tools/msnpureport -g info
+/usr/local/Ascend/latest/driver/tools/msnpureport -g info
 ```
 
 - 模块级别:
 
 ```bash
-/usr/local/Ascend/driver/tools/msnpureport -m SLOG:error
+/usr/local/Ascend/latest/driver/tools/msnpureport -m SLOG:error
 ````
 
 - Event级别:
 
 ```bash
-/usr/local/Ascend/driver/tools/msnpureport -e disable/enable
+/usr/local/Ascend/latest/driver/tools/msnpureport -e disable/enable
 ```
 
 - 多device id级别:
 
 ```bash
-/usr/local/Ascend/driver/tools/msnpureport -d 1 -g warning
+/usr/local/Ascend/latest/driver/tools/msnpureport -d 1 -g warning
 ```
 
 假设deviceID的取值范围是[0-7]，`device0`-`device3`和`device4`-`device7`分别在一个os上。其中`device0`-`device3`共用一个日志配置文件；`device4`-`device7`共用一个配置文件。如果修改了`device0`-`device3`中的任意一个日志级别，其他`device`的日志级别也会被修改。如果修改了`device4`-`device7`中的任意一个日志级别，其他device的日志级别也会被修改。

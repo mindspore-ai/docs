@@ -297,7 +297,7 @@ By default, communication performance data is not collected. You need to use the
 To use MindInsight to visualize communication performance data, you need to install the communication performance data parsing WHL package provided by the supporting software package of Ascend 910 AI processor. The WHL package is released with the supporting software package. Refer to the following command to complete the installation.
 
 ```bash
-pip install /usr/local/Ascend/tools/hccl_parser-{version}-py3-none-any.whl
+pip install /usr/local/Ascend/latest/tools/hccl_parser-{version}-py3-none-any.whl
 ```
 
 ### specifications
