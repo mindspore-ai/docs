@@ -10,7 +10,6 @@ MindSpore教程
    :glob:
    :maxdepth: 1
    :caption: 初学教程
-   :hidden:
 
    beginner/introduction
    beginner/quick_start
