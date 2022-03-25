@@ -14,13 +14,13 @@
 
 ## 准备训练脚本
 
-为了收集神经网络的性能数据，需要在训练脚本中添加MindSpore Profiler相关接口。  
+为了收集神经网络的性能数据，需要在训练脚本中添加MindSpore Profiler相关接口。
 
-- `set_context`之后，初始化网络、以及初始化HCCL之前，需要初始化MindSpore `Profiler`对象。
+- 在训练开始前，需要初始化MindSpore `Profiler`对象。
 
-  > Profiler支持的参数可以参考：
-  >
-  > <https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.profiler.html>
+> Profiler支持的参数可以参考：
+>
+> <https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.profiler.html>
 
 - 在训练结束后，调用`Profiler.analyse()`停止性能数据收集并生成性能分析结果。
 
