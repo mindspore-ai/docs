@@ -72,7 +72,7 @@ pip install tf2onnx~=1.7.1
 pip install mindspore~=1.6.0
 
 # 安装Torch (建议使用Torch官方的LTS版本1.8.2)
-pip install torch~=1.8.2+cpu -f https://download.pytorch.org/whl/lts/1.8/torch_lts.html
+pip install torch==1.8.2+cpu -f https://download.pytorch.org/whl/lts/1.8/torch_lts.html
 ```
 
 ### 安装方式
