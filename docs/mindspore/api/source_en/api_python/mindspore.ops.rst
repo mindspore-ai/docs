@@ -1,7 +1,7 @@
 mindspore.ops
 =============
 
-可用于Cell的构造函数的算子。
+operators that can be used for constructor function of Cell
 
 .. code-block::
 
@@ -9,8 +9,8 @@ mindspore.ops
 
 Compared with the previous version, the added, deleted and supported platforms change information of `mindspore.ops` operators in MindSpore, please refer to the link `<https://gitee.com/mindspore/docs/blob/master/resource/api_updates/ops_api_updates.md>`_.
 
-算子原语
-----------
+Operator Primitives
+-------------------
 
 .. autosummary::
     :toctree: ops
@@ -21,8 +21,8 @@ Compared with the previous version, the added, deleted and supported platforms c
     mindspore.ops.PrimitiveWithCheck
     mindspore.ops.PrimitiveWithInfer
 
-装饰器
---------
+Decorators
+----------
 
 .. autosummary::
     :toctree: ops
@@ -35,11 +35,11 @@ Compared with the previous version, the added, deleted and supported platforms c
     mindspore.ops.op_info_register
     mindspore.ops.prim_attr_register
 
-神经网络层算子
-----------------
+Neural Network Layer Operators
+------------------------------
 
-神经网络
-^^^^^^^^^^
+Neural Network
+^^^^^^^^^^^^^^
 
 .. msplatformautosummary::
     :toctree: ops
@@ -78,8 +78,8 @@ Compared with the previous version, the added, deleted and supported platforms c
     mindspore.ops.ResizeNearestNeighbor
     mindspore.ops.ResizeBilinear
 
-损失函数
-^^^^^^^^^^
+Loss Function
+^^^^^^^^^^^^^
 
 .. msplatformautosummary::
     :toctree: ops
@@ -99,8 +99,8 @@ Compared with the previous version, the added, deleted and supported platforms c
     mindspore.ops.SoftmaxCrossEntropyWithLogits
     mindspore.ops.SparseSoftmaxCrossEntropyWithLogits
 
-激活函数
-^^^^^^^^^^
+Activation Function
+^^^^^^^^^^^^^^^^^^^
 
 .. msplatformautosummary::
     :toctree: ops
@@ -127,8 +127,8 @@ Compared with the previous version, the added, deleted and supported platforms c
     mindspore.ops.Softsign
     mindspore.ops.Tanh
 
-优化器
-^^^^^^^^^^
+Optimizer
+^^^^^^^^^
 
 .. msplatformautosummary::
     :toctree: ops
@@ -165,8 +165,8 @@ Compared with the previous version, the added, deleted and supported platforms c
     mindspore.ops.SparseApplyFtrl
     mindspore.ops.SparseApplyFtrlV2
 
-距离函数
-^^^^^^^^^^
+Distance Function
+^^^^^^^^^^^^^^^^^
 
 .. msplatformautosummary::
     :toctree: ops
@@ -177,8 +177,8 @@ Compared with the previous version, the added, deleted and supported platforms c
     mindspore.ops.EditDistance
     mindspore.ops.LpNorm
     
-采样算子
-^^^^^^^^^^
+Sampling Operator
+^^^^^^^^^^^^^^^^^
 
 .. msplatformautosummary::
     :toctree: ops
@@ -189,8 +189,8 @@ Compared with the previous version, the added, deleted and supported platforms c
     mindspore.ops.LogUniformCandidateSampler
     mindspore.ops.UniformCandidateSampler
     
-图像处理
-^^^^^^^^^^
+Image Processing
+^^^^^^^^^^^^^^^^
 
 .. msplatformautosummary::
     :toctree: ops
@@ -207,8 +207,8 @@ Compared with the previous version, the added, deleted and supported platforms c
     mindspore.ops.NMSWithMask
     mindspore.ops.ROIAlign
     
-文本处理
-^^^^^^^^^^
+Text Processing
+^^^^^^^^^^^^^^^
 
 .. msplatformautosummary::
     :toctree: ops
@@ -217,11 +217,11 @@ Compared with the previous version, the added, deleted and supported platforms c
     
     mindspore.ops.NoRepeatNGram
 
-数学运算算子
-----------------
+Mathematical Operators
+----------------------
 
-逐元素运算
-^^^^^^^^^^^^^
+Element-by-Element Operation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. msplatformautosummary::
     :toctree: ops
@@ -293,8 +293,8 @@ Compared with the previous version, the added, deleted and supported platforms c
     mindspore.ops.Xlogy
     
 
-Reduction算子
-^^^^^^^^^^^^^
+Reduction Operator
+^^^^^^^^^^^^^^^^^^
 
 .. msplatformautosummary::
     :toctree: ops
@@ -313,8 +313,8 @@ Reduction算子
     mindspore.ops.ReduceProd
     mindspore.ops.ReduceSum
 
-比较算子
-^^^^^^^^^^^^^
+Comparison Operator
+^^^^^^^^^^^^^^^^^^^
 
 .. msplatformautosummary::
     :toctree: ops
@@ -341,8 +341,8 @@ Reduction算子
     mindspore.ops.SameTypeShape
     mindspore.ops.TopK
 
-线性代数算子
-^^^^^^^^^^^^^
+Linear Algebraic Operator
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. msplatformautosummary::
     :toctree: ops
@@ -355,11 +355,11 @@ Reduction算子
     mindspore.ops.MatMul
     mindspore.ops.MatrixInverse
 
-Tensor操作算子
-----------------
+Tensor Operation Opertor
+------------------------
 
-Tensor创建
-^^^^^^^^^^^^^
+Tensor Construction
+^^^^^^^^^^^^^^^^^^^
 
 .. msplatformautosummary::
     :toctree: ops
@@ -376,8 +376,8 @@ Tensor创建
     mindspore.ops.Zeros
     mindspore.ops.ZerosLike
 
-随机生成算子
-^^^^^^^^^^^^^^^^
+Random Generation Operator
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. msplatformautosummary::
     :toctree: ops
@@ -395,8 +395,8 @@ Tensor创建
     mindspore.ops.UniformInt
     mindspore.ops.UniformReal
 
-Array操作
-^^^^^^^^^^^^^^^^
+Array Operation
+^^^^^^^^^^^^^^^
 
 .. msplatformautosummary::
     :toctree: ops
@@ -466,8 +466,8 @@ Array操作
     mindspore.ops.UnsortedSegmentSum
     mindspore.ops.Unstack
 
-类型转换
-^^^^^^^^^^^^^^^^
+Type Conversion
+^^^^^^^^^^^^^^^
 
 .. msplatformautosummary::
     :toctree: ops
@@ -479,8 +479,8 @@ Array操作
     mindspore.ops.ScalarToTensor
     mindspore.ops.TupleToArray
     
-Parameter操作算子
---------------------
+Parameter Operation Operator
+----------------------------
 
 .. msplatformautosummary::
     :toctree: ops
@@ -502,8 +502,8 @@ Parameter操作算子
     mindspore.ops.ScatterSub
     mindspore.ops.ScatterUpdate
 
-数据操作算子
-----------------
+Data Operation Operator
+-----------------------
 
 .. msplatformautosummary::
     :toctree: ops
@@ -512,8 +512,8 @@ Parameter操作算子
 
     mindspore.ops.GetNext
 
-通信算子
-----------------
+Communication Operator
+----------------------
 
 Note that the APIs in the following list need to preset communication environment variables. For
 the Ascend devices, users need to prepare the rank table, set rank_id and device_id. Please see the `Ascend tutorial \
@@ -536,8 +536,8 @@ For the GPU device, users need to prepare the host file and mpi, please see the 
     mindspore.ops.ReduceOp
     mindspore.ops.ReduceScatter
 
-调试算子
-----------------
+Debugging Operator
+------------------
 
 .. msplatformautosummary::
     :toctree: ops
@@ -550,8 +550,8 @@ For the GPU device, users need to prepare the host file and mpi, please see the 
     mindspore.ops.TensorSummary
     mindspore.ops.Print
 
-稀疏算子
-----------------
+Sparse Operator
+---------------
 
 .. msplatformautosummary::
     :toctree: ops
@@ -561,8 +561,8 @@ For the GPU device, users need to prepare the host file and mpi, please see the 
     mindspore.ops.SparseTensorDenseMatmul
     mindspore.ops.SparseToDense
 
-其他算子
-----------------
+Other Operators
+---------------
 
 .. msplatformautosummary::
     :toctree: ops
@@ -574,8 +574,8 @@ For the GPU device, users need to prepare the host file and mpi, please see the 
     mindspore.ops.InsertGradientOf
     mindspore.ops.Partial
 
-算子信息注册
--------------
+Operator Information Registration
+---------------------------------
 
 .. autosummary::
     :toctree: ops
@@ -588,8 +588,8 @@ For the GPU device, users need to prepare the host file and mpi, please see the 
     mindspore.ops.TBERegOp
     mindspore.ops.get_vm_impl_fn
 
-自定义算子
--------------
+Customizing Operator
+--------------------
 
 .. autosummary::
     :toctree: ops
