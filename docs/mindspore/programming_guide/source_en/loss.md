@@ -136,7 +136,7 @@ Now we train model by the defined L1Loss.
 
 Taking the simple linear function fitting as an example. The dataset and network structure is defined as follows:
 
-> For a detailed introduction of linear fitting, please refer to the tutorial [Implementing Simple Linear Function Fitting](https://www.mindspore.cn/tutorials/en/master/linear_regression.html).
+> For a detailed introduction of linear fitting, please refer to the tutorial [Implementing Simple Linear Function Fitting](https://www.mindspore.cn/tutorials/en/r1.6/linear_regression.html).
 
 1. Defining the Dataset
 

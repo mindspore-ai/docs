@@ -67,7 +67,7 @@ if __name__ == "__main__":
 ```
 
 To use MindSpore for neural network definition, inherit `mindspore.nn.Cell`. (A `Cell` is a base class of all neural networks.) Define each layer of a neural network in the `__init__` method in advance, and then define the `construct` method to complete the forward construction of the neural network. Use `export` of the `mindspore` module to export the model file.
-For more detailed examples, see [Quick Start for Beginners](https://www.mindspore.cn/tutorials/en/master/quick_start.html).
+For more detailed examples, see [Quick Start for Beginners](https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html).
 
 Execute the `add_model.py` script to generate the `tensor_add.mindir` file. The input of the model is two 2D tensors with shape [2,2], and the output is the sum of the two input tensors.
 

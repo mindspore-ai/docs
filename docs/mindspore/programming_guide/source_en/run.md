@@ -264,7 +264,7 @@ epoch: 1 step: 1500, loss is 0.032973606
 epoch: 1 step: 1875, loss is 0.06105463
 ```
 
-> For details about how to obtain the MNIST dataset used in the example, see [Downloading the Dataset](https://www.mindspore.cn/tutorials/en/master/quick_start.html#downloading-the-dataset).
+> For details about how to obtain the MNIST dataset used in the example, see [Downloading the Dataset](https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html#downloading-the-dataset).
 > Use the PyNative mode for debugging, including the execution of single operator, common function, and network training model. For details, see [Debugging in PyNative Mode](https://www.mindspore.cn/docs/programming_guide/en/master/debug_in_pynative_mode.html).
 
 ### Executing an Inference Model
@@ -406,4 +406,4 @@ In the preceding information:
 - `checkpoint_lenet-1_1875.ckpt`: name of the saved checkpoint model file.
 - `load_param_into_net`: loads parameters to the network.
 
-> For details about how to save the `checkpoint_lenet-1_1875.ckpt` file, see [Training the Network](https://www.mindspore.cn/tutorials/en/master/quick_start.html#training-and-saving-the-model).
+> For details about how to save the `checkpoint_lenet-1_1875.ckpt` file, see [Training the Network](https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html#training-and-saving-the-model).
