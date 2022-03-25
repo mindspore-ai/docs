@@ -1,242 +1,39 @@
 mindspore.nn
-============
+=============
 
-.. automodule:: mindspore.nn
+神经网络Cell。
+
+用于构建神经网络中的预定义构建块或计算单元。
 
 Compared with the previous version, the added, deleted and supported platforms change information of `mindspore.nn` operators in MindSpore, please refer to the link `<https://gitee.com/mindspore/docs/blob/master/resource/api_updates/nn_api_updates.md>`_.
 
-Cell
-----
+基本构成单元
+------------
 
-.. msplatformautosummary::
+.. mscnplatformautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst
 
     mindspore.nn.Cell
     mindspore.nn.GraphCell
+    mindspore.nn.LossBase
+    mindspore.nn.Optimizer
 
-Containers
-----------
+容器
+-----------
 
-.. msplatformautosummary::
+.. mscnplatformautosummary::
     :toctree: nn
-    :nosignatures:
-    :template: classtemplate.rst
 
     mindspore.nn.CellList
     mindspore.nn.SequentialCell
 
-Convolution Layers
-------------------
+封装层
+-----------
 
-.. msplatformautosummary::
+.. mscnplatformautosummary::
     :toctree: nn
-    :nosignatures:
-    :template: classtemplate.rst
-
-    mindspore.nn.Conv1d
-    mindspore.nn.Conv1dTranspose
-    mindspore.nn.Conv2d
-    mindspore.nn.Conv2dTranspose
-    mindspore.nn.Conv3d
-    mindspore.nn.Conv3dTranspose
-
-Gradient
-------------------
-
-.. msplatformautosummary::
-    :toctree: nn
-    :nosignatures:
-    :template: classtemplate.rst
-
-    mindspore.nn.Jvp
-    mindspore.nn.Vjp
-
-Recurrent Layers
-----------------
-
-.. msplatformautosummary::
-    :toctree: nn
-    :nosignatures:
-    :template: classtemplate.rst
-
-    mindspore.nn.GRUCell
-    mindspore.nn.GRU
-    mindspore.nn.LSTMCell
-    mindspore.nn.LSTM
-    mindspore.nn.RNNCell
-    mindspore.nn.RNN
-
-Sparse Layers
--------------
-
-.. msplatformautosummary::
-    :toctree: nn
-    :nosignatures:
-    :template: classtemplate.rst
-
-    mindspore.nn.Embedding
-    mindspore.nn.EmbeddingLookup
-    mindspore.nn.MultiFieldEmbeddingLookup
-    mindspore.nn.SparseToDense
-    mindspore.nn.SparseTensorDenseMatmul
-
-Non-linear Activations
-----------------------
-
-.. msplatformautosummary::
-    :toctree: nn
-    :nosignatures:
-    :template: classtemplate.rst
-
-    mindspore.nn.CELU
-    mindspore.nn.ELU
-    mindspore.nn.FastGelu
-    mindspore.nn.GELU
-    mindspore.nn.get_activation
-    mindspore.nn.HShrink
-    mindspore.nn.HSigmoid
-    mindspore.nn.HSwish
-    mindspore.nn.LeakyReLU
-    mindspore.nn.LogSigmoid
-    mindspore.nn.LogSoftmax
-    mindspore.nn.PReLU
-    mindspore.nn.ReLU
-    mindspore.nn.ReLU6
-    mindspore.nn.Sigmoid
-    mindspore.nn.Softmax
-    mindspore.nn.SoftShrink
-    mindspore.nn.Tanh
-
-Utilities
----------
-
-.. msplatformautosummary::
-    :toctree: nn
-    :nosignatures:
-    :template: classtemplate.rst
-
-    mindspore.nn.ClipByNorm
-    mindspore.nn.Dense
-    mindspore.nn.Dropout
-    mindspore.nn.Flatten
-    mindspore.nn.L1Regularizer
-    mindspore.nn.Norm
-    mindspore.nn.OneHot
-    mindspore.nn.Pad
-    mindspore.nn.Range
-    mindspore.nn.ResizeBilinear
-    mindspore.nn.Roll
-    mindspore.nn.Tril
-    mindspore.nn.Triu
-    mindspore.nn.Unfold
-
-Images Functions
-----------------
-
-.. msplatformautosummary::
-    :toctree: nn
-    :nosignatures:
-    :template: classtemplate.rst
-
-    mindspore.nn.CentralCrop
-    mindspore.nn.ImageGradients
-    mindspore.nn.MSSSIM
-    mindspore.nn.PSNR
-    mindspore.nn.SSIM
-
-Normalization Layers
---------------------
-
-.. msplatformautosummary::
-    :toctree: nn
-    :nosignatures:
-    :template: classtemplate.rst
-
-    mindspore.nn.BatchNorm1d
-    mindspore.nn.BatchNorm2d
-    mindspore.nn.BatchNorm3d
-    mindspore.nn.GlobalBatchNorm
-    mindspore.nn.GroupNorm
-    mindspore.nn.InstanceNorm2d
-    mindspore.nn.LayerNorm
-    mindspore.nn.MatrixDiag
-    mindspore.nn.MatrixDiagPart
-    mindspore.nn.MatrixSetDiag
-    mindspore.nn.SyncBatchNorm
-
-Pooling layers
---------------
-
-.. msplatformautosummary::
-    :toctree: nn
-    :nosignatures:
-    :template: classtemplate.rst
-
-    mindspore.nn.AvgPool1d
-    mindspore.nn.AvgPool2d
-    mindspore.nn.MaxPool1d
-    mindspore.nn.MaxPool2d
-
-
-Loss Functions
---------------
-
-.. msplatformautosummary::
-    :toctree: nn
-    :nosignatures:
-    :template: classtemplate.rst
-
-    mindspore.nn.BCELoss
-    mindspore.nn.BCEWithLogitsLoss
-    mindspore.nn.CosineEmbeddingLoss
-    mindspore.nn.DiceLoss
-    mindspore.nn.FocalLoss
-    mindspore.nn.L1Loss
-    mindspore.nn.LossBase
-    mindspore.nn.MSELoss
-    mindspore.nn.MultiClassDiceLoss
-    mindspore.nn.RMSELoss
-    mindspore.nn.SampledSoftmaxLoss
-    mindspore.nn.SmoothL1Loss
-    mindspore.nn.SoftMarginLoss
-    mindspore.nn.SoftmaxCrossEntropyWithLogits
-
-Optimizer Functions
--------------------
-
-.. msplatformautosummary::
-    :toctree: nn
-    :nosignatures:
-    :template: classtemplate.rst
-
-    mindspore.nn.Adagrad
-    mindspore.nn.Adam
-    mindspore.nn.AdamOffload
-    mindspore.nn.AdamWeightDecay
-    mindspore.nn.AdaSumByGradWrapCell
-    mindspore.nn.AdaSumByDeltaWeightWrapCell
-    mindspore.nn.ASGD
-    mindspore.nn.FTRL
-    mindspore.nn.Lamb
-    mindspore.nn.LARS
-    mindspore.nn.LazyAdam
-    mindspore.nn.Momentum
-    mindspore.nn.Optimizer
-    mindspore.nn.ProximalAdagrad
-    mindspore.nn.RMSProp
-    mindspore.nn.Rprop
-    mindspore.nn.SGD
-    mindspore.nn.thor
-
-Wrapper Functions
------------------
-
-.. msplatformautosummary::
-    :toctree: nn
-    :nosignatures:
-    :template: classtemplate.rst
 
     mindspore.nn.DistributedGradReducer
     mindspore.nn.DynamicLossScaleUpdateCell
@@ -253,22 +50,185 @@ Wrapper Functions
     mindspore.nn.WithGradCell
     mindspore.nn.WithLossCell
 
-Math Functions
---------------
+卷积神经网络层
+--------------------
 
-.. msplatformautosummary::
+.. mscnplatformautosummary::
+    :toctree: nn
+
+    mindspore.nn.Conv1d
+    mindspore.nn.Conv1dTranspose
+    mindspore.nn.Conv2d
+    mindspore.nn.Conv2dTranspose
+    mindspore.nn.Conv3d
+    mindspore.nn.Conv3dTranspose
+    mindspore.nn.Unfold
+
+循环神经网络层
+-----------------
+
+.. mscnplatformautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst
 
-    mindspore.nn.MatMul
-    mindspore.nn.Moments
-    mindspore.nn.ReduceLogSumExp
+    mindspore.nn.RNN
+    mindspore.nn.RNNCell
+    mindspore.nn.GRU
+    mindspore.nn.GRUCell
+    mindspore.nn.LSTM
+    mindspore.nn.LSTMCell
+    
+嵌入层
+-----------------
 
-Metrics
+.. mscnplatformautosummary::
+    :toctree: nn
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.nn.Embedding
+    mindspore.nn.EmbeddingLookup
+    mindspore.nn.MultiFieldEmbeddingLookup
+
+非线性激活函数层
+--------------
+
+.. mscnplatformautosummary::
+    :toctree: nn
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.nn.CELU
+    mindspore.nn.ELU
+    mindspore.nn.FastGelu
+    mindspore.nn.GELU
+    mindspore.nn.HShrink
+    mindspore.nn.HSigmoid
+    mindspore.nn.HSwish
+    mindspore.nn.LeakyReLU
+    mindspore.nn.LogSigmoid
+    mindspore.nn.LogSoftmax
+    mindspore.nn.PReLU
+    mindspore.nn.ReLU
+    mindspore.nn.ReLU6
+    mindspore.nn.Sigmoid
+    mindspore.nn.Softmax
+    mindspore.nn.SoftShrink
+    mindspore.nn.Tanh
+    
+线性层
+-----------------
+
+.. mscnplatformautosummary::
+    :toctree: nn
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.nn.Dense
+
+Dropout层
+-----------------
+
+.. mscnplatformautosummary::
+    :toctree: nn
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.nn.Dropout
+
+归一化层
+---------
+
+.. mscnplatformautosummary::
+    :toctree: nn
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.nn.BatchNorm1d
+    mindspore.nn.BatchNorm2d
+    mindspore.nn.BatchNorm3d
+    mindspore.nn.GlobalBatchNorm
+    mindspore.nn.GroupNorm
+    mindspore.nn.InstanceNorm2d
+    mindspore.nn.LayerNorm
+    mindspore.nn.SyncBatchNorm
+
+池化层
+--------------
+
+.. mscnplatformautosummary::
+    :toctree: nn
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.nn.AvgPool1d
+    mindspore.nn.AvgPool2d
+    mindspore.nn.MaxPool1d
+    mindspore.nn.MaxPool2d
+
+填充层
+--------------
+
+.. mscnplatformautosummary::
+    :toctree: nn
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.nn.Pad
+
+损失函数
 --------
 
-.. msplatformautosummary::
+.. mscnplatformautosummary::
+    :toctree: nn
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.nn.BCELoss
+    mindspore.nn.BCEWithLogitsLoss
+    mindspore.nn.CosineEmbeddingLoss
+    mindspore.nn.DiceLoss
+    mindspore.nn.FocalLoss
+    mindspore.nn.L1Loss
+    mindspore.nn.MSELoss
+    mindspore.nn.MultiClassDiceLoss
+    mindspore.nn.RMSELoss
+    mindspore.nn.SampledSoftmaxLoss
+    mindspore.nn.SmoothL1Loss
+    mindspore.nn.SoftMarginLoss
+    mindspore.nn.SoftmaxCrossEntropyWithLogits
+
+优化器
+-------
+
+.. mscnplatformautosummary::
+    :toctree: nn
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.nn.Adagrad
+    mindspore.nn.Adam
+    mindspore.nn.AdamOffload
+    mindspore.nn.AdamWeightDecay
+    mindspore.nn.AdaSumByDeltaWeightWrapCell
+    mindspore.nn.AdaSumByGradWrapCell
+    mindspore.nn.ASGD
+    mindspore.nn.FTRL
+    mindspore.nn.Lamb
+    mindspore.nn.LARS
+    mindspore.nn.LazyAdam
+    mindspore.nn.Momentum
+    mindspore.nn.ProximalAdagrad
+    mindspore.nn.RMSProp
+    mindspore.nn.Rprop
+    mindspore.nn.SGD
+    mindspore.nn.thor
+
+评估指标
+--------
+
+.. mscnplatformautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst
@@ -301,32 +261,30 @@ Metrics
     mindspore.nn.Top5CategoricalAccuracy
     mindspore.nn.TopKCategoricalAccuracy
 
-Dynamic Learning Rate
------------------------
+动态学习率
+-----------
 
-LearningRateSchedule
-^^^^^^^^^^^^^^^^^^^^^^
+LearningRateSchedule类
+^^^^^^^^^^^^^^^^^^^^^^^
 
 The dynamic learning rates in this module are all subclasses of LearningRateSchedule. Pass the instance of
 LearningRateSchedule to an optimizer. During the training process, the optimizer calls the instance taking current step
 as input to get the current learning rate.
 
-.. code-block:: python
+.. code-block::
 
     import mindspore.nn as nn
-
+    
     min_lr = 0.01
     max_lr = 0.1
     decay_steps = 4
     cosine_decay_lr = nn.CosineDecayLR(min_lr, max_lr, decay_steps)
-
+    
     net = Net()
     optim = nn.Momentum(net.trainable_params(), learning_rate=cosine_decay_lr, momentum=0.9)
 
-.. msplatformautosummary::
+.. mscnplatformautosummary::
     :toctree: nn
-    :nosignatures:
-    :template: classtemplate.rst
 
     mindspore.nn.CosineDecayLR
     mindspore.nn.ExponentialDecayLR
@@ -335,31 +293,29 @@ as input to get the current learning rate.
     mindspore.nn.PolynomialDecayLR
     mindspore.nn.WarmUpLR
 
-Dynamic LR
-^^^^^^^^^^^^^^^^^^^^^^
+Dynamic LR函数
+^^^^^^^^^^^^^^
 
 The dynamic learning rates in this module are all functions. Call the function and pass the result to an optimizer.
 During the training process, the optimizer takes result[current step] as current learning rate.
 
-.. code-block:: python
+.. code-block::
 
     import mindspore.nn as nn
-
+    
     min_lr = 0.01
     max_lr = 0.1
     total_step = 6
     step_per_epoch = 1
     decay_epoch = 4
-
+    
     lr= nn.cosine_decay_lr(min_lr, max_lr, total_step, step_per_epoch, decay_epoch)
-
+    
     net = Net()
     optim = nn.Momentum(net.trainable_params(), learning_rate=lr, momentum=0.9)
-
-.. msplatformautosummary::
+    
+.. mscnplatformautosummary::
     :toctree: nn
-    :nosignatures:
-    :template: classtemplate.rst
 
     mindspore.nn.cosine_decay_lr
     mindspore.nn.exponential_decay_lr
@@ -368,3 +324,81 @@ During the training process, the optimizer takes result[current step] as current
     mindspore.nn.piecewise_constant_lr
     mindspore.nn.polynomial_decay_lr
     mindspore.nn.warmup_lr
+
+稀疏层
+-------------
+
+.. mscnplatformautosummary::
+    :toctree: nn
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.nn.SparseTensorDenseMatmul
+    mindspore.nn.SparseToDense
+
+图像处理层
+-----------
+
+.. mscnplatformautosummary::
+    :toctree: nn
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.nn.CentralCrop
+    mindspore.nn.ImageGradients
+    mindspore.nn.MSSSIM
+    mindspore.nn.PSNR
+    mindspore.nn.ResizeBilinear
+    mindspore.nn.SSIM
+
+矩阵处理
+-----------
+
+.. mscnplatformautosummary::
+    :toctree: nn
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.nn.MatrixDiag
+    mindspore.nn.MatrixDiagPart
+    mindspore.nn.MatrixSetDiag
+
+工具
+-----
+
+.. mscnplatformautosummary::
+    :toctree: nn
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.nn.ClipByNorm
+    mindspore.nn.Flatten
+    mindspore.nn.get_activation
+    mindspore.nn.L1Regularizer
+    mindspore.nn.Norm
+    mindspore.nn.OneHot
+    mindspore.nn.Range
+    mindspore.nn.Roll
+    mindspore.nn.Tril
+    mindspore.nn.Triu
+
+数学运算
+----------
+
+.. mscnplatformautosummary::
+    :toctree: nn
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.nn.MatMul
+    mindspore.nn.Moments
+    mindspore.nn.ReduceLogSumExp
+
+梯度
+-----
+
+.. mscnplatformautosummary::
+    :toctree: nn
+
+    mindspore.nn.Jvp
+    mindspore.nn.Vjp
