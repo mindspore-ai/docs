@@ -1,14 +1,14 @@
 mindspore.nn
 =============
 
-神经网络Cell。
+Neural Network Cell
 
-用于构建神经网络中的预定义构建块或计算单元。
+For building predefined building blocks or computational units in neural networks.
 
 Compared with the previous version, the added, deleted and supported platforms change information of `mindspore.nn` operators in MindSpore, please refer to the link `<https://gitee.com/mindspore/docs/blob/master/resource/api_updates/nn_api_updates.md>`_.
 
-基本构成单元
-------------
+Basic Building Block
+--------------------
 
 .. msplatformautosummary::
     :toctree: nn
@@ -20,8 +20,8 @@ Compared with the previous version, the added, deleted and supported platforms c
     mindspore.nn.LossBase
     mindspore.nn.Optimizer
 
-容器
------------
+Container
+---------
 
 .. msplatformautosummary::
     :toctree: nn
@@ -29,8 +29,8 @@ Compared with the previous version, the added, deleted and supported platforms c
     mindspore.nn.CellList
     mindspore.nn.SequentialCell
 
-封装层
------------
+Encapsulation Layer
+-------------------
 
 .. msplatformautosummary::
     :toctree: nn
@@ -50,8 +50,8 @@ Compared with the previous version, the added, deleted and supported platforms c
     mindspore.nn.WithGradCell
     mindspore.nn.WithLossCell
 
-卷积神经网络层
---------------------
+Convolutional Neural Network Layer
+----------------------------------
 
 .. msplatformautosummary::
     :toctree: nn
@@ -64,8 +64,8 @@ Compared with the previous version, the added, deleted and supported platforms c
     mindspore.nn.Conv3dTranspose
     mindspore.nn.Unfold
 
-循环神经网络层
------------------
+Recurrent Neural Network Layer
+------------------------------
 
 .. msplatformautosummary::
     :toctree: nn
@@ -79,8 +79,8 @@ Compared with the previous version, the added, deleted and supported platforms c
     mindspore.nn.LSTM
     mindspore.nn.LSTMCell
     
-嵌入层
------------------
+Embedding Layer
+---------------
 
 .. msplatformautosummary::
     :toctree: nn
@@ -91,8 +91,8 @@ Compared with the previous version, the added, deleted and supported platforms c
     mindspore.nn.EmbeddingLookup
     mindspore.nn.MultiFieldEmbeddingLookup
 
-非线性激活函数层
---------------
+Nonlinear Activation Function Layer
+-----------------------------------
 
 .. msplatformautosummary::
     :toctree: nn
@@ -117,8 +117,8 @@ Compared with the previous version, the added, deleted and supported platforms c
     mindspore.nn.SoftShrink
     mindspore.nn.Tanh
     
-线性层
------------------
+Linear Layer
+------------
 
 .. msplatformautosummary::
     :toctree: nn
@@ -127,8 +127,8 @@ Compared with the previous version, the added, deleted and supported platforms c
 
     mindspore.nn.Dense
 
-Dropout层
------------------
+Dropout Layer
+-------------
 
 .. msplatformautosummary::
     :toctree: nn
@@ -137,8 +137,8 @@ Dropout层
 
     mindspore.nn.Dropout
 
-归一化层
----------
+Normalization Layer
+-------------------
 
 .. msplatformautosummary::
     :toctree: nn
@@ -154,8 +154,8 @@ Dropout层
     mindspore.nn.LayerNorm
     mindspore.nn.SyncBatchNorm
 
-池化层
---------------
+Pooling Layer
+-------------
 
 .. msplatformautosummary::
     :toctree: nn
@@ -167,8 +167,8 @@ Dropout层
     mindspore.nn.MaxPool1d
     mindspore.nn.MaxPool2d
 
-填充层
---------------
+Filling Layer
+-------------
 
 .. msplatformautosummary::
     :toctree: nn
@@ -177,8 +177,8 @@ Dropout层
 
     mindspore.nn.Pad
 
-损失函数
---------
+Loss Function
+-------------
 
 .. msplatformautosummary::
     :toctree: nn
@@ -199,8 +199,8 @@ Dropout层
     mindspore.nn.SoftMarginLoss
     mindspore.nn.SoftmaxCrossEntropyWithLogits
 
-优化器
--------
+Optimizer
+---------
 
 .. msplatformautosummary::
     :toctree: nn
@@ -225,8 +225,8 @@ Dropout层
     mindspore.nn.SGD
     mindspore.nn.thor
 
-评估指标
---------
+Evaluation Metrics
+------------------
 
 .. msplatformautosummary::
     :toctree: nn
@@ -261,11 +261,11 @@ Dropout层
     mindspore.nn.Top5CategoricalAccuracy
     mindspore.nn.TopKCategoricalAccuracy
 
-动态学习率
------------
+Dynamic Learning Rate
+---------------------
 
-LearningRateSchedule类
-^^^^^^^^^^^^^^^^^^^^^^^
+LearningRateSchedule Class
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The dynamic learning rates in this module are all subclasses of LearningRateSchedule. Pass the instance of
 LearningRateSchedule to an optimizer. During the training process, the optimizer calls the instance taking current step
@@ -293,8 +293,8 @@ as input to get the current learning rate.
     mindspore.nn.PolynomialDecayLR
     mindspore.nn.WarmUpLR
 
-Dynamic LR函数
-^^^^^^^^^^^^^^
+Dynamic LR Function
+^^^^^^^^^^^^^^^^^^^
 
 The dynamic learning rates in this module are all functions. Call the function and pass the result to an optimizer.
 During the training process, the optimizer takes result[current step] as current learning rate.
@@ -325,8 +325,8 @@ During the training process, the optimizer takes result[current step] as current
     mindspore.nn.polynomial_decay_lr
     mindspore.nn.warmup_lr
 
-稀疏层
--------------
+Sparse Layer
+------------
 
 .. msplatformautosummary::
     :toctree: nn
@@ -336,8 +336,8 @@ During the training process, the optimizer takes result[current step] as current
     mindspore.nn.SparseTensorDenseMatmul
     mindspore.nn.SparseToDense
 
-图像处理层
------------
+Image Processing Layer
+----------------------
 
 .. msplatformautosummary::
     :toctree: nn
@@ -351,8 +351,8 @@ During the training process, the optimizer takes result[current step] as current
     mindspore.nn.ResizeBilinear
     mindspore.nn.SSIM
 
-矩阵处理
------------
+Matrix Processing
+-----------------
 
 .. msplatformautosummary::
     :toctree: nn
@@ -363,7 +363,7 @@ During the training process, the optimizer takes result[current step] as current
     mindspore.nn.MatrixDiagPart
     mindspore.nn.MatrixSetDiag
 
-工具
+Tools
 -----
 
 .. msplatformautosummary::
@@ -382,8 +382,8 @@ During the training process, the optimizer takes result[current step] as current
     mindspore.nn.Tril
     mindspore.nn.Triu
 
-数学运算
-----------
+Mathematical Operations
+-----------------------
 
 .. msplatformautosummary::
     :toctree: nn
@@ -394,8 +394,8 @@ During the training process, the optimizer takes result[current step] as current
     mindspore.nn.Moments
     mindspore.nn.ReduceLogSumExp
 
-梯度
------
+Gradient
+--------
 
 .. msplatformautosummary::
     :toctree: nn
