@@ -25,16 +25,18 @@
 
 本文档介绍如何在GPU环境的Linux系统上，使用源码编译方式快速安装MindSpore。下面以Ubuntu 18.04为例说明MindSpore编译安装步骤。
 
+## 环境准备
+
 - 如果您想在一个全新的带有GPU的Ubuntu 18.04上配置一个可以编译MindSpore的环境，可以使用[自动安装脚本](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-source.sh)进行一键式配置。自动安装脚本会安装编译MindSpore所需的依赖。
 
-    自动安装脚本需要更改软件源配置以及通过APT安装依赖，所以需要root权限执行。使用以下命令获取自动安装脚本并执行。
+    自动安装脚本需要更改软件源配置以及通过APT安装依赖，所以需要申请root权限。使用以下命令获取自动安装脚本并执行。
 
     ```bash
     wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-source.sh
-    # 默认安装Python 3.7，CUDA 10.1
-    sudo bash -i ./ubuntu-gpu-source.sh
-    # 如需指定安装Python 3.9和CUDA 11.1，并且安装可选依赖Open MPI，使用以下方式
-    # sudo PYTHON_VERSION=3.9 CUDA_VERSION=11.1 OPENMPI=on bash -i ./ubuntu-gpu-source.sh
+    # 默认安装Python 3.7，CUDA 11.1
+    bash -i ./ubuntu-gpu-source.sh
+    # 如需指定安装Python 3.9和CUDA 10.1，并且安装可选依赖Open MPI，使用以下方式
+    # PYTHON_VERSION=3.9 CUDA_VERSION=10.1 OPENMPI=on bash -i ./ubuntu-gpu-source.sh
     ```
 
     该脚本会执行以下操作：
@@ -49,8 +51,6 @@
     更多的用法请参看脚本头部的说明。
 
 - 如果您的系统已经安装了部分依赖，如CUDA，Python，GCC等，则推荐参照下面的安装步骤手动安装。
-
-## 环境准备
 
 下表列出了编译安装MindSpore GPU所需的系统环境和第三方依赖。
 
@@ -92,23 +92,23 @@ sudo apt-get install linux-headers-$(uname -r) gcc-7
 
 CUDA 10.1要求最低显卡驱动版本为418.39；CUDA 11.1要求最低显卡驱动版本为450.80.02。可以执行`nvidia-smi`指令确认显卡驱动版本。如果驱动版本不满足要求，CUDA安装过程中可以选择同时安装驱动，安装驱动后需要重启系统。
 
-安装CUDA 10.1可以使用以下命令。
-
-```bash
-wget https://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.243_418.87.00_linux.run
-sudo sh cuda_10.1.243_418.87.00_linux.run
-echo -e "export PATH=/usr/local/cuda-10.1/bin:\$PATH" >> ~/.bashrc
-echo -e "export LD_LIBRARY_PATH=/usr/local/cuda-10.1/lib64:\$LD_LIBRARY_PATH" >> ~/.bashrc
-source ~/.bashrc
-```
-
-或者使用以下命令安装CUDA 11.1。
+使用以下命令安装CUDA 11.1（推荐）。
 
 ```bash
 wget https://developer.download.nvidia.com/compute/cuda/11.1.1/local_installers/cuda_11.1.1_455.32.00_linux.run
 sudo sh cuda_11.1.1_455.32.00_linux.run
 echo -e "export PATH=/usr/local/cuda-11.1/bin:\$PATH" >> ~/.bashrc
 echo -e "export LD_LIBRARY_PATH=/usr/local/cuda-11.1/lib64:\$LD_LIBRARY_PATH" >> ~/.bashrc
+source ~/.bashrc
+```
+
+或者使用以下命令安装CUDA 10.1。
+
+```bash
+wget https://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.243_418.87.00_linux.run
+sudo sh cuda_10.1.243_418.87.00_linux.run
+echo -e "export PATH=/usr/local/cuda-10.1/bin:\$PATH" >> ~/.bashrc
+echo -e "export LD_LIBRARY_PATH=/usr/local/cuda-10.1/lib64:\$LD_LIBRARY_PATH" >> ~/.bashrc
 source ~/.bashrc
 ```
 

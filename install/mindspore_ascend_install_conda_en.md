@@ -23,6 +23,31 @@
 
 This document describes how to quickly install MindSpore in a Linux system with an Ascend 910 environment by Conda.
 
+- If you want to install MindSpore by Conda on a EulerOS 2.8 with Ascend AI processor software package installed, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-conda.sh) for one-click installation. The automatic installation script will install the dependencies required to compile MindSpore.
+
+    Run the following command to obtain and run the automatic installation script:
+
+    ```bash
+    wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-conda.sh
+    # install Python 3.7 and the latest MindSpore by default
+    bash -i ./euleros-ascend-conda.sh
+    # to specify Python and MindSpore version, e.g. Python 3.9 and MindSpore 1.5.0
+    # PYTHON_VERSION=3.9 MINDSPORE_VERSION=1.5.0 bash -i ./euleros-ascend-conda.sh
+    ```
+
+    This script performs the following operations:
+
+    - Install the dependencies required by MindSpore, such as GCC, gmp.
+    - Install Conda and create a virtual environment for MindSpore.
+    - Install MindSpore Ascend by Conda.
+    - Install Open MPI if OPENMPI is set to `on`.
+
+    After the script is executed, please refer to the instructions in [Configuring Environment Variables](#configuring-environment-variables) to set relevant environment variables.
+
+    For more usage, see the script header description.
+
+- If some dependencies, such as Python and GCC, have been installed in your system, you are advised to perform the following steps to manually install MindSpore.
+
 ## Installing Environment Dependencies
 
 The following table lists the system environment and third-party dependencies required for installing MindSpore.

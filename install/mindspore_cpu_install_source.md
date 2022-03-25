@@ -21,16 +21,20 @@
 
 本文档介绍如何在CPU环境的Linux系统上，使用源码编译方式快速安装MindSpore。下面以Ubuntu 18.04为例说明MindSpore编译安装步骤。
 
+## 环境准备
+
+下表列出了编译安装MindSpore所需的系统环境和第三方依赖。
+
 - 如果您想在一个全新的Ubuntu 18.04上配置一个可以编译MindSpore的环境，可以使用[自动安装脚本](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-source.sh)进行一键式配置。自动安装脚本会安装编译MindSpore所需的依赖。
 
-    自动安装脚本需要更改软件源配置以及通过APT安装依赖，所以需要root权限执行。使用以下命令获取自动安装脚本并执行。
+    自动安装脚本需要更改软件源配置以及通过APT安装依赖，所以需要申请root权限。使用以下命令获取自动安装脚本并执行。
 
     ```bash
     wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-source.sh
     # 默认安装Python 3.7
-    sudo bash ./ubuntu-cpu-source.sh
+    bash ./ubuntu-cpu-source.sh
     # 如需指定Python版本，以Python 3.9为例，使用以下方式
-    # sudo PYTHON_VERSION=3.9 bash ./ubuntu-cpu-source.sh
+    # PYTHON_VERSION=3.9 bash ./ubuntu-cpu-source.sh
     ```
 
     该脚本会执行以下操作：
@@ -42,10 +46,6 @@
     更多的用法请参看脚本头部的说明。
 
 - 如果您的系统已经安装了部分依赖，如Python，GCC等，则推荐参照下面的安装步骤手动安装。
-
-## 环境准备
-
-下表列出了编译安装MindSpore所需的系统环境和第三方依赖。
 
 |软件名称|版本|作用|
 |-|-|-|
