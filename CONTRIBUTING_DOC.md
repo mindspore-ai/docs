@@ -77,7 +77,7 @@ By default, tutorials and documents of the latest version are displayed on the o
 
 ![master_doc_en](./resource/_static/master_doc_en.png)
 
-Take **Quick Start for Beginners** as an example. The document link is <https://www.mindspore.cn/tutorials/en/master/quick_start.html>.
+Take **Quick Start for Beginners** as an example. The document link is <https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html>.
 
 ## API
 

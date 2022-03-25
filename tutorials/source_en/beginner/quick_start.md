@@ -187,7 +187,7 @@ Loss functions supported by MindSpore include `SoftmaxCrossEntropyWithLogits`, `
 net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
 ```
 
-> For more information about using loss functions in mindspore, see [Loss Functions](https://www.mindspore.cn/tutorials/en/master/optimization.html#loss-functions).
+> For more information about using loss functions in mindspore, see [Loss Functions](https://www.mindspore.cn/tutorials/en/master/beginner/train.html#loss-functions).
 
 MindSpore supports the `Adam`, `AdamWeightDecay`, and `Momentum` optimizers. The following uses the `Momentum` optimizer as an example.
 
@@ -196,7 +196,7 @@ MindSpore supports the `Adam`, `AdamWeightDecay`, and `Momentum` optimizers. The
 net_opt = nn.Momentum(net.trainable_params(), learning_rate=0.01, momentum=0.9)
 ```
 
-> For more information about using an optimizer in mindspore, see [Optimizer](https://www.mindspore.cn/tutorials/en/master/optimization.html#optimizer).
+> For more information about using an optimizer in mindspore, see [Optimizer](https://www.mindspore.cn/tutorials/en/master/beginner/train.html#optimizer-functions).
 
 ## Training and Saving the Model
 

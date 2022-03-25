@@ -20,7 +20,7 @@ Users can also define the dataset by themselves. Note that the dataset must be a
 
 1. **Define the network and training process**
 
-    For the definition of the specific network and training process, please refer to [Beginners Getting Started](https://www.mindspore.cn/tutorials/en/master/quick_start.html#%E5%88%9B%E5%BB%BA%E6%20%A8%A1%E5%9E%8B).
+    For the definition of the specific network and training process, please refer to [Beginners Getting Started](https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html).
 
     We provide the network definition file [model.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py) and the training process definition file [run_export_lenet](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/cross_device_lenet/cloud/run_export_lenet.py) for your reference.
 
