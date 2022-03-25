@@ -10,7 +10,7 @@ Compared with the previous version, the added, deleted and supported platforms c
 基本构成单元
 ------------
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst
@@ -23,7 +23,7 @@ Compared with the previous version, the added, deleted and supported platforms c
 容器
 -----------
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: nn
 
     mindspore.nn.CellList
@@ -32,7 +32,7 @@ Compared with the previous version, the added, deleted and supported platforms c
 封装层
 -----------
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: nn
 
     mindspore.nn.DistributedGradReducer
@@ -53,7 +53,7 @@ Compared with the previous version, the added, deleted and supported platforms c
 卷积神经网络层
 --------------------
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: nn
 
     mindspore.nn.Conv1d
@@ -67,7 +67,7 @@ Compared with the previous version, the added, deleted and supported platforms c
 循环神经网络层
 -----------------
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst
@@ -82,7 +82,7 @@ Compared with the previous version, the added, deleted and supported platforms c
 嵌入层
 -----------------
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst
@@ -94,7 +94,7 @@ Compared with the previous version, the added, deleted and supported platforms c
 非线性激活函数层
 --------------
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst
@@ -120,7 +120,7 @@ Compared with the previous version, the added, deleted and supported platforms c
 线性层
 -----------------
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst
@@ -130,7 +130,7 @@ Compared with the previous version, the added, deleted and supported platforms c
 Dropout层
 -----------------
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst
@@ -140,7 +140,7 @@ Dropout层
 归一化层
 ---------
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst
@@ -157,7 +157,7 @@ Dropout层
 池化层
 --------------
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst
@@ -170,7 +170,7 @@ Dropout层
 填充层
 --------------
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst
@@ -180,7 +180,7 @@ Dropout层
 损失函数
 --------
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst
@@ -202,7 +202,7 @@ Dropout层
 优化器
 -------
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst
@@ -228,7 +228,7 @@ Dropout层
 评估指标
 --------
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst
@@ -283,7 +283,7 @@ as input to get the current learning rate.
     net = Net()
     optim = nn.Momentum(net.trainable_params(), learning_rate=cosine_decay_lr, momentum=0.9)
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: nn
 
     mindspore.nn.CosineDecayLR
@@ -314,7 +314,7 @@ During the training process, the optimizer takes result[current step] as current
     net = Net()
     optim = nn.Momentum(net.trainable_params(), learning_rate=lr, momentum=0.9)
     
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: nn
 
     mindspore.nn.cosine_decay_lr
@@ -328,7 +328,7 @@ During the training process, the optimizer takes result[current step] as current
 稀疏层
 -------------
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst
@@ -339,7 +339,7 @@ During the training process, the optimizer takes result[current step] as current
 图像处理层
 -----------
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst
@@ -354,7 +354,7 @@ During the training process, the optimizer takes result[current step] as current
 矩阵处理
 -----------
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst
@@ -366,7 +366,7 @@ During the training process, the optimizer takes result[current step] as current
 工具
 -----
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst
@@ -385,7 +385,7 @@ During the training process, the optimizer takes result[current step] as current
 数学运算
 ----------
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst
@@ -397,7 +397,7 @@ During the training process, the optimizer takes result[current step] as current
 梯度
 -----
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: nn
 
     mindspore.nn.Jvp
