@@ -12,7 +12,7 @@ Compared with the previous version, the added, deleted and supported platforms c
 算子原语
 ----------
 
-.. mscnautosummary::
+.. autosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -24,7 +24,7 @@ Compared with the previous version, the added, deleted and supported platforms c
 装饰器
 --------
 
-.. mscnautosummary::
+.. autosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -35,37 +35,13 @@ Compared with the previous version, the added, deleted and supported platforms c
     mindspore.ops.op_info_register
     mindspore.ops.prim_attr_register
 
-算子信息注册
--------------
-
-.. mscnautosummary::
-    :toctree: ops
-    :nosignatures:
-    :template: classtemplate.rst
-
-    mindspore.ops.AiCPURegOp
-    mindspore.ops.CustomRegOp
-    mindspore.ops.DataType
-    mindspore.ops.get_vm_impl_fn
-    mindspore.ops.TBERegOp
-
-自定义算子
--------------
-
-.. mscnautosummary::
-    :toctree: ops
-    :nosignatures:
-    :template: classtemplate.rst
-
-    mindspore.ops.Custom
-
 神经网络层算子
 ----------------
 
 神经网络
 ^^^^^^^^^^
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -105,7 +81,7 @@ Compared with the previous version, the added, deleted and supported platforms c
 损失函数
 ^^^^^^^^^^
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -126,7 +102,7 @@ Compared with the previous version, the added, deleted and supported platforms c
 激活函数
 ^^^^^^^^^^
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -154,7 +130,7 @@ Compared with the previous version, the added, deleted and supported platforms c
 优化器
 ^^^^^^^^^^
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -192,7 +168,7 @@ Compared with the previous version, the added, deleted and supported platforms c
 距离函数
 ^^^^^^^^^^
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -204,7 +180,7 @@ Compared with the previous version, the added, deleted and supported platforms c
 采样算子
 ^^^^^^^^^^
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -216,7 +192,7 @@ Compared with the previous version, the added, deleted and supported platforms c
 图像处理
 ^^^^^^^^^^
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -234,7 +210,7 @@ Compared with the previous version, the added, deleted and supported platforms c
 文本处理
 ^^^^^^^^^^
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -247,7 +223,7 @@ Compared with the previous version, the added, deleted and supported platforms c
 逐元素运算
 ^^^^^^^^^^^^^
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -320,7 +296,7 @@ Compared with the previous version, the added, deleted and supported platforms c
 Reduction算子
 ^^^^^^^^^^^^^
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -340,7 +316,7 @@ Reduction算子
 比较算子
 ^^^^^^^^^^^^^
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -368,7 +344,7 @@ Reduction算子
 线性代数算子
 ^^^^^^^^^^^^^
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -385,7 +361,7 @@ Tensor操作算子
 Tensor创建
 ^^^^^^^^^^^^^
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -403,7 +379,7 @@ Tensor创建
 随机生成算子
 ^^^^^^^^^^^^^^^^
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -422,7 +398,7 @@ Tensor创建
 Array操作
 ^^^^^^^^^^^^^^^^
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -493,7 +469,7 @@ Array操作
 类型转换
 ^^^^^^^^^^^^^^^^
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -506,7 +482,7 @@ Array操作
 Parameter操作算子
 --------------------
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -529,7 +505,7 @@ Parameter操作算子
 数据操作算子
 ----------------
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -546,7 +522,7 @@ distributed_training_ascend.html#id12>`_ for more details.
 For the GPU device, users need to prepare the host file and mpi, please see the `GPU tutorial \
 <https://www.mindspore.cn/tutorials/zh-CN/master/intermediate/distributed_training/distributed_training_gpu.html#id6>`_.
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -563,7 +539,7 @@ For the GPU device, users need to prepare the host file and mpi, please see the 
 调试算子
 ----------------
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -577,7 +553,7 @@ For the GPU device, users need to prepare the host file and mpi, please see the 
 稀疏算子
 ----------------
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -588,7 +564,7 @@ For the GPU device, users need to prepare the host file and mpi, please see the 
 其他算子
 ----------------
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -597,3 +573,28 @@ For the GPU device, users need to prepare the host file and mpi, please see the 
     mindspore.ops.HookBackward
     mindspore.ops.InsertGradientOf
     mindspore.ops.Partial
+
+算子信息注册
+-------------
+
+.. autosummary::
+    :toctree: ops
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.ops.AiCPURegOp
+    mindspore.ops.CustomRegOp
+    mindspore.ops.DataType
+    mindspore.ops.TBERegOp
+    mindspore.ops.get_vm_impl_fn
+
+自定义算子
+-------------
+
+.. autosummary::
+    :toctree: ops
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.ops.Custom
+
