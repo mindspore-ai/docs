@@ -89,6 +89,7 @@ Standard Format
 
     mindspore.dataset.CSVDataset
     mindspore.dataset.MindDataset
+    mindspore.dataset.OBSMindDataset
     mindspore.dataset.TFRecordDataset
 
 User Defined
