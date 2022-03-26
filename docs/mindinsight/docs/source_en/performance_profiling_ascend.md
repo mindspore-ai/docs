@@ -394,3 +394,4 @@ Users can obtain the summary of memory usage via the ```Memory Allocation Overvi
 ## Notices
 
 - Currently the training and inference process does not support performance debugging, only individual training or inference is supported.
+- Ascend performance debugging does not support dynamic Shape scenarios, multi-subgraph scenarios, and control flow scenarios.
