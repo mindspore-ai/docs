@@ -23,8 +23,8 @@ common quantization parameters are the basic settings for post training quantiza
 
 | Parameter                  | Attribute | Function Description                                         | Parameter Type | Default Value | Value Range                                 |
 | -------------------------- | --------- | ------------------------------------------------------------ | -------------- | ------------- | ------------------------------------------- |
-| `quant_type`               | Mandatory | The quantization type. When set to WEIGHT_QUANT, weight quantization is enabled; when set to FULL_QUANT, full quantization is enabled. | String         | -             | WEIGHT_QUAN, FULL_QUANT                     |
-| `bit_num`                  | Optional  | The number of quantized bits. Currently, weight quantization supports 0-16bit quantization. When it is set to 1-16bit, it is fixed-bit quantization. When it is set to 0bit, mixed-bit quantization is enabled. Full quantization supports 8bit quantization. | Integer        | 8             | WEIGHT_QUAN:\[0，16]<br/>FULL_QUANT: 8 |
+| `quant_type`               | Mandatory | The quantization type. When set to WEIGHT_QUANT, weight quantization is enabled; when set to FULL_QUANT, full quantization is enabled; when set to DYNAMIC_QUANT, dynamic quantization is enabled. | String         | -             | WEIGHT_QUANT,<br/> FULL_QUANT,<br/>DYNAMIC_QUANT |
+| `bit_num`                  | Optional  | The number of quantized bits. Currently, weight quantization supports 0-16bit quantization. When it is set to 1-16bit, it is fixed-bit quantization. When it is set to 0bit, mixed-bit quantization is enabled. Full quantization and Dynamic quantization supports 8bit quantization. | Integer        | 8             | WEIGHT_QUANT:\[0，16]<br/>FULL_QUANT: 8<br/>DYNAMIC_QUANT:8 |
 | `min_quant_weight_size`    | Optional  | Set the threshold of the weight size for quantization. If the number of weights is greater than this value, the weight will be quantized. | Integer        | 0             | [0, 65535]                                  |
 | `min_quant_weight_channel` | Optional  | Set the threshold of the number of weight channels for quantization. If the number of weight channels is greater than this value, the weight will be quantized. | Integer        | 16            | [0, 65535]                                  |
 | `skip_quant_node`          | Optional | Set the name of the operator that does not need to be quantified, and use `,` to split between multiple operators. | String   | -      | -                                     |
@@ -50,8 +50,6 @@ debug_info_save_path=/home/workspace/mindspore/debug_info_save_path
 ```
 
 > `min_quant_weight_size` and `min_quant_weight_channel` are only valid for weight quantization.
->
-> `skip_quant_node` is only valid for full quantization.
 >
 > Recommendation: When the accuracy of full quantization is not satisfied, you can set `debug_info_save_path` to turn on the Debug mode to get the relevant statistical report, and set `skip_quant_node` for operators that are not suitable for quantization to not quantize them.
 
@@ -141,7 +139,7 @@ center_crop_height=224
 
 ## Weight Quantization
 
-Weight quantization supports mixed bit quantization, as well as fixed bit quantization between 1 and 16. The lower the number of bits, the greater the model compression rate, but the accuracy loss is usually larger. The following describes the use and effects of weighting.
+Weight quantization supports mixed bit quantization, as well as fixed bit quantization between 1 and 16. The lower the number of bits, the greater the model compression rate, but the accuracy loss is usually larger. The following describes how to use weight quantization and its effects.
 
 ### Mixed Bit Weight Quantization
 
@@ -212,7 +210,7 @@ min_quant_weight_channel=16
 
 ## Full Quantization
 
-In scenarios where the model running speed needs to be improved and the model running power consumption needs to be reduced, the full quantization after training can be used.
+In CV scenarios where the model running speed needs to be improved and the model running power consumption needs to be reduced, the full quantization after training can be used. The following describes how to use full quantization and its effects.
 
 To calculate a quantization parameter of an activation value, you need to provide a calibration dataset. It is recommended that the calibration dataset be obtained from the actual inference scenario and can represent the actual input of a model. The number of data records is about 100.
 
@@ -280,6 +278,52 @@ bias_correction=true
 | [Mobilenet_V2_1.0_224](https://storage.googleapis.com/download.tensorflow.org/models/tflite_11_05_08/mobilenet_v2_1.0_224.tgz) | [ImageNet](http://image-net.org/) | MAX_MIN  | 71.56%              | 71.16%                              | Randomly select 100 images from the ImageNet Validation dataset as a calibration dataset. |
 
 > All the preceding results are obtained in the x86 environment.
+
+## Dynamic Quantization
+
+In NLP scenarios where the model running speed needs to be improved and the model running power consumption needs to be reduced, the dynamic quantization after training can be used. The following describes how to use dynamic quantization and its effects.
+
+In Dynamic quantization, the weights are quantized at the convert, and the activation are quantized at the runtime. Compared to static quantization, no calibration dataset is required.
+
+The general form of the dynamic quantization conversion command is:
+
+```bash
+./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --configFile=/mindspore/lite/tools/converter/quantizer/config/dynamic_quant.cfg
+```
+
+The dynamic quantization profile is as follows:
+
+```ini
+[common_quant_param]
+quant_type=DYNAMIC_QUANT
+bit_num=8
+```
+
+> In order to ensure the quantization accuracy, the dynamic quantization does not support setting the FP16 mode .
+>
+> The dynamic quantization will have a further acceleration effect on the ARM architecture that supports SDOT instructions.
+
+### Partial model performance results
+
+- tinybert_encoder
+
+| Model Type          | Runtime Mode  | Model Size(M) | RAM(K)     | Latency(ms) | Cos-Similarity | Compression Ratio | Memory compared to FP32 | Latency compared to FP32 |
+| ------------------- | ------------- | ------------- | ---------- | ----------- | -------------- | ----------------- | ----------------------- | ------------------------ |
+| FP32                | FP32          | 20            | 29,029     | 9.916       | 1              |                   |                         |                          |
+| FP32                | FP16          | 20            | 18,208     | 5.75        | 0.99999        | 1                 | -37.28%                 | -42.01%                  |
+| FP16                | FP16          | 12            | 18,105     | 5.924       | 0.99999        | 1.66667           | -37.63%                 | -40.26%                  |
+| Weight Quant(8 Bit) | FP16          | 5.3           | 19,324     | 5.764       | 0.99994        | 3.77358           | -33.43%                 | -41.87%                  |
+| **Dynamic Quant**   | **INT8+FP32** | **5.2**       | **15,709** | **4.517**   | **0.99668**    | **3.84615**       | **-45.89%**             | **-54.45%**              |
+
+- tinybert_decoder
+
+| Model Type          | Runtime Mode  | Model Size(M) | RAM(K)     | Latency(ms) | Cos-Similarity | Compression Ratio | Memory compared to FP32 | Latency compared to FP32 |
+| ------------------- | ------------- | ------------- | ---------- | ----------- | -------------- | ----------------- | ----------------------- | ------------------------ |
+| FP32                | FP32          | 43            | 51,355     | 4.161       | 1              |                   |                         |                          |
+| FP32                | FP16          | 43            | 29,462     | 2.184       | 0.99999        | 1                 | -42.63%                 | -47.51%                  |
+| FP16                | FP16          | 22            | 29,440     | 2.264       | 0.99999        | 1.95455           | -42.67%                 | -45.59%                  |
+| Weight Quant(8 Bit) | FP16          | 12            | 32,285     | 2.307       | 0.99998        | 3.58333           | -37.13%                 | -44.56%                  |
+| **Dynamic Quant**   | **INT8+FP32** | **12**        | **22,181** | **2.074**   | **0.9993**     | **3.58333**       | **-56.81%**             | **-50.16%**              |
 
 ## Quantization Debug
 
