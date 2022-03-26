@@ -1,4 +1,4 @@
-# 静态库剪裁工具
+# 静态库裁剪工具
 
 `Linux` `环境准备` `静态库裁剪` `中级` `高级`
 
@@ -6,9 +6,9 @@
 
 ## 概述
 
-MindSpore Lite提供对Runtime的`libmindspore-lite.a`静态库裁剪工具，能够筛选出`ms`模型中存在的算子，对静态库文件进行算子裁剪。若进行算子裁减之后，仍然不能满足大小要求，可重新[编译](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)推理框架包，在编译时使用`框架功能裁减编译选项`进行框架功能裁减，之后再使用本工具进行算子裁减。
+MindSpore Lite提供对Runtime的`libmindspore-lite.a`静态库裁剪工具，能够筛选出`ms`模型中存在的算子，对静态库文件进行算子裁剪。若进行算子裁剪之后，仍然不能满足大小要求，可重新[编译](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)推理框架包，在编译时使用`框架功能裁剪编译选项`进行框架功能裁剪，之后再使用本工具进行算子裁剪。
 
-裁剪工具运行环境是x86_64，目前支持对CPU、GPU算子的裁剪，其中GPU库支持`lite/Cmakelist.txt`的MSLITE_GPU_BACKEND设置为opencl。在裁减完算子后，可将裁减后的静态库编译为动态库以适应不同需求。
+裁剪工具运行环境是x86_64，目前支持对CPU、GPU算子的裁剪，其中GPU库支持`lite/Cmakelist.txt`的MSLITE_GPU_BACKEND设置为opencl。在裁剪完算子后，可将裁剪后的静态库编译为动态库以适应不同需求。
 
 ## 环境准备
 
@@ -79,7 +79,7 @@ MindSpore Lite提供对Runtime的`libmindspore-lite.a`静态库裁剪工具，�
 
 ## 裁剪后静态库编译为动态库so（可选）
 
-在裁减完静态库后，若有需要，可将裁减后的静态库编译为动态库，编译环境要求参考MindSpore Lite[编译](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)要求，不同架构下的包，所用的编译命令不同，具体命令可通过MindSpore Lite编译过程中打印的命令获取，参考示例步骤如下。
+在裁剪完静态库后，若有需要，可将裁剪后的静态库编译为动态库，编译环境要求参考MindSpore Lite[编译](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)要求，不同架构下的包，所用的编译命令不同，具体命令可通过MindSpore Lite编译过程中打印的命令获取，参考示例步骤如下。
 
 1. 在`lite/Cmakelist.txt`中添加如下命令，以开启编译过程命令打印。
 

@@ -467,7 +467,7 @@ MindSpore Lite文档
 								<a href="https://www.mindspore.cn/lite/docs/zh-CN/master/use/cropper_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">静态库剪裁工具</span>
+											<span class="doc-head-content">静态库裁剪工具</span>
 										</div>
 										<div class="doc-article-desc">
 											MindSpore Lite提供对Runtime的libmindspore-lite.a静态库裁剪工具，能够筛选出ms模型中存在的算子，对静态库文件进行裁剪，有效降低库文件大小。
