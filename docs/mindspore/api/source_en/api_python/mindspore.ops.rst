@@ -570,8 +570,12 @@ Other Operators
     :template: classtemplate.rst
 
     mindspore.ops.Depend
+    mindspore.ops.GradOperation
     mindspore.ops.HookBackward
+    mindspore.ops.HyperMap
     mindspore.ops.InsertGradientOf
+    mindspore.ops.Map
+    mindspore.ops.MultitypeFuncGraph
     mindspore.ops.Partial
 
 Operator Information Registration
