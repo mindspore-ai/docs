@@ -331,14 +331,10 @@ The functional operators are the pre-instantiated Primitive operators, which can
     mindspore.ops.dot
     mindspore.ops.gamma
     mindspore.ops.grad
-    mindspore.ops.GradOperation
-    mindspore.ops.HyperMap
     mindspore.ops.jvp
     mindspore.ops.laplace
-    mindspore.ops.Map
     mindspore.ops.matmul
     mindspore.ops.multinomial
-    mindspore.ops.MultitypeFuncGraph
     mindspore.ops.narrow
     mindspore.ops.normal
     mindspore.ops.poisson
