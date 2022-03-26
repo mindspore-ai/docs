@@ -93,9 +93,9 @@ MindSpore根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
 > - 模型转换工具的编译时间较长，若非必要，建议通过`MSLITE_ENABLE_CONVERTER`关闭转换工具编译，以加快编译速度。
 > - 解密所需的OpenSSL加密库crypto支持的版本为1.1.1k，需要用户自行下载编译，相关方法可参考：<https://github.com/openssl/openssl#build-and-install>
 
-- runtime功能裁减编译选项
+- runtime功能裁剪编译选项
 
-若用户对框架包大小敏感，可通过配置以下选项，对runtime模型推理框架进行功能裁减，以减少包大小，之后，用户可再通过[裁减工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cropper_tool.html)进行算子裁减以进一步减少包大小。
+若用户对框架包大小敏感，可通过配置以下选项，对runtime模型推理框架进行功能裁剪，以减少包大小，之后，用户可再通过[裁剪工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cropper_tool.html)进行算子裁剪以进一步减少包大小。
 
 | 选项  |  参数说明  | 取值范围 | 默认值 |
 | -------- | ----- | ---- | ---- |
