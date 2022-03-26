@@ -397,7 +397,7 @@ mpirun -n 16 --mca btl tcp,self --mca btl_tcp_if_include 192.168.0.0/24 --hostfi
 # mpirun_gpu_clusher.sh
 # 你可以在这里设置每台机器上不同的环境变量，如下面的网卡名字
 
-NCCL_SOCKET_IFNAME="en5" # 需进行节点间通信的网卡的名字，不同机器上可能不一致，使用ifconfig查看。
+export NCCL_SOCKET_IFNAME="en5" # 需进行节点间通信的网卡的名字，不同机器上可能不一致，使用ifconfig查看。
 pytest -s -v ./resnet50_distributed_training_gpu.py > train.log 2>&1 &
 ```
 
