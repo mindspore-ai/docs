@@ -405,3 +405,4 @@ In order to prevent the lines from being too messy and some unimportant edges wi
 
 - Currently running in PyNative mode is not supported.
 - Currently the training and inference process does not support performance debugging, only individual training or inference is supported.
+- Performance debugging does not support dynamic Shape scenarios, multi-subgraph scenarios, and control flow scenarios.
