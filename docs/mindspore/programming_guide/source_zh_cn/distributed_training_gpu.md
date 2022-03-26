@@ -626,3 +626,109 @@ epoch: 1 step: 1, loss is 2.3025854
 - cert_expire_warning_time_in_day: 证书过期的告警时间。
 
 p12文件中的秘钥为密文存储，在启动时需要传入密码，具体参数请参考Python API [mindspore.context.set_ps_context](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.context.html#mindspore.context.set_ps_context)中的`client_password`以及`server_password`字段。
+
+### 容灾恢复
+
+模型训练对分布式训练架构的可靠性、可服务性要求比较高，MindSpore支持数据并行下容灾恢复，多卡数据并行训练场景集群(多个Worker和1个Scheduler)中存在进程异常退出，被重新拉起后，训练任务继续能正常执行；
+
+场景约束：
+在图模式下，采用`MindData`进行数据下沉模式训练，开启数据并行模式，采用上述的非`OpenMPI`的方式拉起Worker进程。
+
+在上述场景下，训练过程中如果有节点挂掉，保证在相同的环境变量（`MS_ENABLE_RECOVERY` 和 `MS_RECOVERY_PATH`）下，重新拉起对应进程对应的脚本后训练可继续，并且不影响精度收敛。
+
+1） 开启容灾：
+
+通过环境变量开启容灾：
+
+```bash
+export MS_ENABLE_RECOVERY=1             #开启容灾
+export MS_RECOVERY_PATH=“/xxx/xxx”      #配置持久化路径文件夹，Worker和Scheduler进程在执行过程中会进行必要的持久化，如用于恢复组网的节点信息以及训练业务中间状态等
+```
+
+2）配置checkpoint保存间隔，样例如下：
+
+```python
+ckptconfig = CheckpointConfig(save_checkpoint_steps=100, keep_checkpoint_max=5)
+ckpoint_cb = ModelCheckpoint(prefix='train', directory="./ckpt_of_rank_/"+str(get_rank()), config=ckptconfig)
+```
+
+每个Worker都开启保存checkpoint，并用不同的路径（如上述样例中的directory的设置使用了rank id，保证路径不会相同），防止同名checkpoint保存冲突。checkpoint用于异常进程恢复和正常进程回滚，训练的回滚是指集群中各个Worker都恢复到最新的checkpoint对应的状态，同时数据侧也回退到对应的step，然后继续训练。保存checkpoint的间隔是可配置的，这个间隔决定了容灾恢复的粒度，间隔越小，恢复到上次保存checkpoint所回退的step数就越小，但保存checkpoint频繁也可能会影响训练效率，间隔越大则效果相反。keep_checkpoint_max至少设置为2(防止checkpoint保存失败)。
+
+> 样例的运行目录：
+>
+> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training>。
+
+涉及到的脚本有`run_gpu_cluster_recovery.sh`, `resnet50_distributed_training_gpu_recovery.py`, `resnet.py`
+脚本内容`run_gpu_cluster_recovery.sh`如下
+
+```bash
+#!/bin/bash
+
+echo "=========================================="
+echo "Please run the script as: "
+echo "bash run_gpu_cluster_recovery.sh DATA_PATH"
+echo "For example: bash run_gpu_cluster_recovery.sh /path/dataset"
+echo "It is better to use the absolute path."
+echo "==========================================="
+DATA_PATH=$1
+export DATA_PATH=${DATA_PATH}
+
+export MS_ENABLE_RECOVERY=1      # Enable recovery
+export MS_RECOVERY_PATH=/XXX/XXX # Set recovery path
+
+rm -rf device
+mkdir device
+cp ./resnet50_distributed_training_gpu_recovery.py ./resnet.py ./device
+cd ./device
+echo "start training"
+
+# Launch 1 scheduler.
+export MS_WORKER_NUM=8
+export MS_SCHED_HOST=XXX.XXX.XXX.XXX  # Scheduler IP address
+export MS_SCHED_PORT=XXXX             # Scheduler port
+export MS_ROLE=MS_SCHED
+export MS_NODE_ID=sched               # The node id for Scheduler
+pytest -s -v ./resnet50_distributed_training_gpu_recovery.py > scheduler.log 2>&1 &
+
+# Launch 8 workers.
+for((i=0;i<8;i++));
+do
+    export MS_WORKER_NUM=8
+    export MS_SCHED_HOST=XXX.XXX.XXX.XXX  # Scheduler IP address
+    export MS_SCHED_PORT=XXXX             # Scheduler port
+    export MS_ROLE=MS_WORKER
+    export MS_NODE_ID=worker_$i           # The node id for Workers
+    pytest -s -v ./resnet50_distributed_training_gpu_recovery.py > worker_$i.log 2>&1 &
+done
+```
+
+在启动Worker和Scheduler之前，需要添加相关环境变量设置, 如Scheduler的IP和Port，当前进程的角色是Worker还是Scheduler。
+
+执行下面的命令即可启动一个单机8卡的数据并行训练
+
+```bash
+bash run_gpu_cluster_recovery.sh YOUR_DATA_PATH"
+```
+
+分布式训练开始，若训练过程中遇到异常，如进程异常退出，然后再重新启动对应的进程，训练流程即可恢复：
+例如训练中途Scheduler进程异常退出，可执行下列命令重新启动Scheduler：
+
+```bash
+export DATA_PATH=YOUR_DATA_PATH
+export MS_ENABLE_RECOVERY=1           # Enable recovery
+export MS_RECOVERY_PATH=/XXX/XXX      # Set recovery path
+
+cd ./device
+
+# Launch 1 scheduler.
+export MS_WORKER_NUM=8
+export MS_SCHED_HOST=XXX.XXX.XXX.XXX  # Scheduler IP address
+export MS_SCHED_PORT=XXXX             # Scheduler port
+export MS_ROLE=MS_SCHED
+export MS_NODE_ID=sched               # The node id for Scheduler
+pytest -s -v ./resnet50_distributed_training_gpu_recovery.py > scheduler.log 2>&1 &
+```
+
+Worker和Scheduler的组网会自动恢复。
+
+Worker进程出现异常退出处理方式类似(注:Worker进程出现异常退出，需要等30s后再拉起才能恢复训练，在这之前，Scheduler为了防止网络抖动和恶意注册，拒绝相同node id的Worker再次注册)。
