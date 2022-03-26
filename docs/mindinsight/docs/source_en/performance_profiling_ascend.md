@@ -14,11 +14,15 @@ This article describes how to use MindSpore Profiler for performance debugging o
 
 ## Preparing the Training Script
 
-To enable the performance profiling of neural networks, MindSpore Profiler APIs should be added into the script. At first, the MindSpore `Profiler` object need to be set after `set_context` is set and before the network and HCCL initialization. Then, at the end of the training, `Profiler.analyse()` should be called to finish profiling and generate the perforamnce analyse results.
+To enable the performance profiling of neural networks, MindSpore Profiler APIs should be added into the script.
+
+- Before training starts, the MindSpore `Profiler` object needs to be initialized.
 
 > The parameters of Profiler are as follows:
 >
 > <https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.profiler.html>
+
+- At the end of the training, `Profiler.analyse()` should be called to finish profiling and generate the perforamnce analyse results.
 
 Profiler can control whether performance data collection is turned on or off based on step (epoch) with the start_profile parameter. For the data sinking mode of graph mode, CANN can only be told to turn on and off after each epoch, so for the data sinking mode, it needs to turn on and off based on the epoch.
 
