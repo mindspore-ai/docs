@@ -384,3 +384,4 @@ pip install /usr/local/Ascend/tools/hccl_parser-{version}-py3-none-any.whl
 
 - PyNative模式下暂不支持性能调试。
 - 训练加推理过程暂不支持性能调试，目前支持单独训练或推理的性能调试。
+- 性能调试暂不支持动态shape场景、多子图场景和控制流场景。
