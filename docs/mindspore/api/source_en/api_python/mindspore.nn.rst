@@ -25,6 +25,8 @@ Container
 
 .. msplatformautosummary::
     :toctree: nn
+    :nosignatures:
+    :template: classtemplate.rst
 
     mindspore.nn.CellList
     mindspore.nn.SequentialCell
@@ -34,6 +36,8 @@ Encapsulation Layer
 
 .. msplatformautosummary::
     :toctree: nn
+    :nosignatures:
+    :template: classtemplate.rst
 
     mindspore.nn.DistributedGradReducer
     mindspore.nn.DynamicLossScaleUpdateCell
@@ -55,6 +59,8 @@ Convolutional Neural Network Layer
 
 .. msplatformautosummary::
     :toctree: nn
+    :nosignatures:
+    :template: classtemplate.rst
 
     mindspore.nn.Conv1d
     mindspore.nn.Conv1dTranspose
