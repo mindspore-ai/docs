@@ -37,29 +37,25 @@ In GPU scenarios, users can customize the callback mode to collect performance d
 The following is the example：
 
 ```python
+from mindspore.train.callback import Callback
 class StopAtStep(Callback):
     def __init__(self, start_step, stop_step):
         super(StopAtStep, self).__init__()
         self.start_step = start_step
         self.stop_step = stop_step
-        self.already_analysed = False
-
+        self.profiler = Profiler(start_profile=False)
     def step_begin(self, run_context):
         cb_params = run_context.original_args()
         step_num = cb_params.cur_step_num
         if step_num == self.start_step:
             self.profiler.start()
-
     def step_end(self, run_context):
         cb_params = run_context.original_args()
         step_num = cb_params.cur_step_num
-        if step_num == self.stop_step and not self.already_analysed:
+        if step_num == self.stop_step:
             self.profiler.stop()
-            self.already_analysed = True
-
     def end(self, run_context):
-        if not self.already_analysed:
-            self.profiler.analyse()
+        self.profiler.analyse()
 ```
 
 The code above is just an example. Users should implement callback by themselves.
@@ -160,3 +156,6 @@ The usage is described as follows:
 
 - Currently running in PyNative mode is not supported.
 - Currently the training and inference process does not support performance debugging, only individual training or inference is supported.
+- GPU does not support memory performance data collection.
+- To use performance debugging in GPU scenarios, you must use the root permission.
+- GPU performance debugging does not support dynamic Shape scenarios, multi-subgraph scenarios, and control flow scenarios.

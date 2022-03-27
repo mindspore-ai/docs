@@ -37,29 +37,25 @@ GPU场景可自定义callback方式收集性能，但数据准备阶段、数据
 示例如下：
 
 ```python
+from mindspore.train.callback import Callback
 class StopAtStep(Callback):
     def __init__(self, start_step, stop_step):
         super(StopAtStep, self).__init__()
         self.start_step = start_step
         self.stop_step = stop_step
-        self.already_analysed = False
-
+        self.profiler = Profiler(start_profile=False)
     def step_begin(self, run_context):
         cb_params = run_context.original_args()
         step_num = cb_params.cur_step_num
         if step_num == self.start_step:
             self.profiler.start()
-
     def step_end(self, run_context):
         cb_params = run_context.original_args()
         step_num = cb_params.cur_step_num
-        if step_num == self.stop_step and not self.already_analysed:
+        if step_num == self.stop_step:
             self.profiler.stop()
-            self.already_analysed = True
-
     def end(self, run_context):
-        if not self.already_analysed:
-            self.profiler.analyse()
+        self.profiler.analyse()
 ```
 
 以上代码仅供参考，用户可根据所需场景自由实现。
@@ -152,3 +148,6 @@ GPU场景下，CPU利用率分析的使用方法和Ascend场景相同。
 
 - PyNative模式下暂不支持性能调试。
 - 训练加推理过程暂不支持性能调试，目前支持单独训练或推理的性能调试。
+- GPU暂不支持收集内存性能数据。
+- 在GPU场景下使用性能调试，必须使用root权限。
+- GPU性能调试暂不支持动态shape场景、多子图场景和控制流场景。
