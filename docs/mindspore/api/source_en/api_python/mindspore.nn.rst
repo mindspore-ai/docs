@@ -291,6 +291,8 @@ as input to get the current learning rate.
 
 .. msplatformautosummary::
     :toctree: nn
+    :nosignatures:
+    :template: classtemplate.rst
 
     mindspore.nn.CosineDecayLR
     mindspore.nn.ExponentialDecayLR
@@ -322,6 +324,8 @@ During the training process, the optimizer takes result[current step] as current
     
 .. msplatformautosummary::
     :toctree: nn
+    :nosignatures:
+    :template: classtemplate.rst
 
     mindspore.nn.cosine_decay_lr
     mindspore.nn.exponential_decay_lr
@@ -405,6 +409,8 @@ Gradient
 
 .. msplatformautosummary::
     :toctree: nn
+    :nosignatures:
+    :template: classtemplate.rst
 
     mindspore.nn.Jvp
     mindspore.nn.Vjp
