@@ -8,6 +8,13 @@ Word embedding plays a key role in natural language processing. It embeds a high
 
 ## Environment Preparation
 
+Set the thread number of cpu in use.
+
+```python
+import os
+os.environ['OMP_NUM_THREADS']=1
+```
+
 Import relevant dependencies of the tutorial.
 
 ```python
