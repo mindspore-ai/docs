@@ -317,4 +317,3 @@ Constants / Structure
 
 - :doc:`../generate/enum_mindspore_dataset_PaddBorderType-1`
 - :doc:`../generate/structmindspore_dataset_Point`
-- :doc:`../generate/structmindspore_dataset_BoxesConfig`
