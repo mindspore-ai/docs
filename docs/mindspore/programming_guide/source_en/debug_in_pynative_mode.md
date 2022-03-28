@@ -671,7 +671,7 @@ def backward_hook_function(cell_id, grad_input, grad_output):
     print(grad_output)
 ```
 
-The `cell_id` is the name and ID information of the Cell object. The `grad_input` is the input gradient of the Cell object, which corresponds to the output gradient of the next operator in the forward process. The `grad_output` is the output gradient of the Cell object. Therefore, users can use `register_backward_hook` interface to capture the input gradient and output gradient of the Cell object. Users can customize the gradient operation in the hook function, such as checking gradient, printing gradient or returning new output gradient. The usage is similar to `register_forward_pre_hook` function and `register_forward_hook` function.
+The `cell_id` is the name and ID information of the Cell object. The `grad_input` is the input gradient of the Cell object, which corresponds to the output gradient of the next operator in the forward process. The `grad_output` is the output gradient of the Cell object. Therefore, users can use `register_backward_hook` interface to capture the input gradient and output gradient of the Cell object. Users can customize the gradient operation in the hook function, such as checking gradient, printing gradient or returning new output gradient. If users need to return new output gradient in the hook function, the return gradient must be in the form of `tuple` .
 
 Example Code:
 
