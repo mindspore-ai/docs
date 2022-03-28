@@ -109,7 +109,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):       # pylint: disable=missing-docstr
 def test_train_cifar(epoch_size=30):        # pylint: disable=missing-docstring
     context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
     init("nccl")
-    context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
+    context.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
 
     loss_cb = LossMonitor()
     data_path = os.getenv('DATA_PATH')
