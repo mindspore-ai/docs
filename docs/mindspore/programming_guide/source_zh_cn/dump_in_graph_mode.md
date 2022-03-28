@@ -72,6 +72,7 @@ MindSpore提供了同步Dump与异步Dump两种模式：
 - 同步Dump目前支持Ascend、GPU和CPU上的图模式，暂不支持PyNative模式。
 - 异步Dump仅支持Ascend上的图模式，不支持PyNative模式。开启异步Dump的时候不会关闭内存复用。
 - 默认使用用异步Dump模式，如果要使用同步Dump模式，需要在配置文件中设置"e2e_dump_settings"。
+- Dump暂不支持异构训练，如果在异构训练场景启用Dump，生成的Dump数据对象目录可能不符合预期的目录结构。
 
 ## 同步Dump
 
@@ -414,7 +415,7 @@ numpy.load("Conv2D.Conv2D-op107.2.2.1623124369613540.output.0.DefaultFormat.npy"
 2. 设置数据Dump的环境变量。
 
     ```bash
-    export MINDSPORE_DUMP_CONFIG={Absolute path of data_dump.json}
+    export MINDSPORE_DUMP_CONFIG=${Absolute path of data_dump.json}
     ```
 
    如果Dump配置文件没有设置`path`字段或者设置为空字符串，还需要配置环境变量`MS_DIAGNOSTIC_DATA_PATH`。
