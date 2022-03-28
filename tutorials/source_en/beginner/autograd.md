@@ -14,7 +14,7 @@ This chapter uses `ops.GradOperation` in MindSpore to find first-order derivativ
 
 ## First-order Derivative of the Input
 
-The formula needs to be defined before the input can be derived: $f(x)=wx+b \tag {1}$
+The formula needs to be defined before the input can be derived:$f(x)=wx+b \tag {1}$
 
 The example code below is an expression of Equation (1), and since MindSpore is functionally programmed, all expressions of computational formulas are represented as functions.
 
@@ -34,7 +34,7 @@ class Net(nn.Cell):
         return f
 ```
 
-Define the derivative class `GradNet`. In the `__init__` function, define the `self.net` and `ops.GradOperation` networks. In the `construct` function, compute the derivative of `self.net`. Its corresponding MindSpore internally produces the following formula (2): $f^{'}(x)=w\tag {2}$
+Define the derivative class `GradNet`. In the `__init__` function, define the `self.net` and `ops.GradOperation` networks. In the `construct` function, compute the derivative of `self.net`. Its corresponding MindSpore internally produces the following formula (2):$f^{'}(x)=w\tag {2}$
 
 ```python
 from mindspore import dtype as mstype
