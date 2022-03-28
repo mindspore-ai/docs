@@ -15,7 +15,7 @@ Refer to the following figure, to determine the release version and the structur
 | System | Query Content          | Query Command       |
 | ------ | ---------------------- | ------------------- |
 | Linux  | System Release Version | `cat /proc/version` |
-| Linux  | System Architecture    | `name -a`           |
+| Linux  | System Architecture    | `uname -m`           |
 | Linux  | Python Version         | `python3`           |
 
 Choose a corresponding MindSpore version based on users own operating system. MindSpore is installed in the manner of Pip, Conda, Docker or source code compilation. It is recommended to visit the MindSpore installation page, and complete the installation by referring to this website for instructions.
