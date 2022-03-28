@@ -71,7 +71,8 @@ output = forward_net(x, y, z)
 The error information in example 1 is as follows:
 
 ```text
-ValueError: mindspore/ccsrc/pipeline/jit/static_analysis/static_analysis.cc:734 ProcessEvalResults] The return values of different branches do not match. Shape Join Failed: shape1 = (2), shape2 = ()..
+Cannot join the return values of different branches, perhaps you need to make them equal.
+Shape Join Failed: shape1 = (), shape2 = (2)
 ```
 
 ### Using an if Statement with a Constant Condition
@@ -315,7 +316,8 @@ output = forward_net(x, y, i)
 The error information in example 8 is as follows:
 
 ```text
-ValueError: mindspore/ccsrc/pipeline/jit/static_analysis/static_analysis.cc:734 ProcessEvalResults] The return values of different branches do not match. Shape Join Failed: shape1 = (1, 1), shape2 = (1)..
+Cannot join the return values of different branches, perhaps you need to make them equal.
+Shape Join Failed: shape1 = (1), shape2 = (1, 1).
 ```
 
 ## Using a while Statement instead of a for Statement
