@@ -60,12 +60,13 @@ print(output)
 
 
 # The following implements BatchNorm1d with torch.
-input_x = torch.randn(2, 4)
+input_x = torch.tensor(np.array([[0.7, 0.5, 0.5, 0.6],
+                                 [0.5, 0.4, 0.6, 0.9]]).astype(np.float32))
 m = torch.nn.BatchNorm1d(4, momentum=0.2)
 output = m(input_x)
 print(output)
 # Out:
-# tensor([[-0.9991, -1.0000, -1.0000,  1.0000],
-#         [ 0.9991,  1.0000,  1.0000, -1.0000]],
+# tensor([[ 0.9995,  0.9980, -0.9980, -0.9998],
+#         [-0.9995, -0.9980,  0.9980,  0.9998]],
 #        grad_fn=<NativeBatchNormBackward>)
 ```
