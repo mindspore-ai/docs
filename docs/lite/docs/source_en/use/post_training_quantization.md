@@ -91,7 +91,11 @@ bias_correction=true
 
 ### Data Preprocessing
 
-To calculate the full quantization activation quantized parameter, the user needs to provide a calibration dataset. For the image calibration dataset, data preprocessing functions such as channel conversion, normalization, resize, and center crop will be provided.
+Full quantization needs to provide 100-500 calibration data sets for pre-inference, which is used to calculate the quantization parameters of full quantization activation values. If there are multiple input Tensors, the calibration dataset for each input Tensor needs to be saved in a separate folder.
+
+For the BIN calibration dataset, the `.bin` file stores the input data buffer, and the format of the input data needs to be consistent with the format of the input data during inference. For 4D data, the default is `NHWC`. If the command parameter `inputDataFormat` of the converter tool is configured, the format of the input Buffer needs to be consistent.
+
+For the image calibration dataset, post training quantization provides data preprocessing functions such as channel conversion, normalization, resize, and center crop.
 
 | Parameter          | Attribute | Function Description                                         | Parameter Type | Default Value | Value Range                                                  |
 | ------------------ | --------- | ------------------------------------------------------------ | -------------- | ------------- | ------------------------------------------------------------ |
@@ -212,7 +216,7 @@ min_quant_weight_channel=16
 
 In CV scenarios where the model running speed needs to be improved and the model running power consumption needs to be reduced, the full quantization after training can be used. The following describes how to use full quantization and its effects.
 
-To calculate a quantization parameter of an activation value, you need to provide a calibration dataset. It is recommended that the calibration dataset be obtained from the actual inference scenario and can represent the actual input of a model. The number of data records is about 100.
+To calculate a quantization parameter of an activation value, you need to provide a calibration dataset. It is recommended that the calibration dataset be obtained from the actual inference scenario and can represent the actual input of a model. The number of data records is about 100 - 500.
 
 For image data, currently supports channel pack, normalization, resize, center crop processing. The user can set the corresponding [parameter](https://www.mindspore.cn/lite/docs/en/master/use/post_training_quantization.html#data-preprocessing) according to the preprocessing operation requirements.
 
