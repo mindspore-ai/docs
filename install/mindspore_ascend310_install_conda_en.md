@@ -21,7 +21,7 @@
 
 The following describes how to quickly install MindSpore by Conda on Linux in the Ascend 310 environment, MindSpore in Ascend 310 only supports inference.
 
-- If you want to install MindSpore by Conda on a EulerOS 2.8 with Ascend AI processor software package installed, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-conda.sh) for one-click installation. The automatic installation script will install the dependencies required to compile MindSpore.
+- If you want to install MindSpore by Conda on a EulerOS 2.8 with Ascend AI processor software package installed, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-conda.sh) for one-click installation. The automatic installation script will install MindSpore and its required dependencies.
 
     Run the following command to obtain and run the automatic installation script:
 
@@ -29,7 +29,7 @@ The following describes how to quickly install MindSpore by Conda on Linux in th
     wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-conda.sh
     # install Python 3.7 and the latest MindSpore by default
     bash -i ./euleros-ascend-conda.sh
-    # to specify Python and MindSpore version, e.g. Python 3.9 and MindSpore 1.5.0
+    # to specify Python and MindSpore version, taking Python 3.9 and MindSpore 1.5.0 as examples, use the following manners
     # PYTHON_VERSION=3.9 MINDSPORE_VERSION=1.5.0 bash -i ./euleros-ascend-conda.sh
     ```
 
@@ -43,7 +43,7 @@ The following describes how to quickly install MindSpore by Conda on Linux in th
 
     For more usage, see the script header description.
 
-- If some dependencies, such as Python and GCC, have been installed in your system, you are advised to perform the following steps to manually install MindSpore.
+- If some dependencies, such as CUDA, Conda and GCC, have been installed in your system, you are advised to perform the following steps to manually install MindSpore.
 
 ## Installing Environment Dependencies
 
@@ -51,7 +51,7 @@ The following table lists the system environment and third-party dependencies re
 
 |software|version|description|
 |-|-|-|
-|Ubuntu 18.04/CentOS 7.6/EulerOS 2.8|-|OS for running MindSpore|
+|Ubuntu 18.04/CentOS 7.6/EulerOS 2.8|-|OS for compiling and running MindSpore|
 |[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|-|Ascend platform AI computing library used by MindSpore|
 |[Conda](#installing-conda)|Anaconda3 or Miniconda3|Python environment management tool|
 |[GCC](#installing-gcc)|7.3.0|C++ compiler for compiling MindSpore|
@@ -63,7 +63,7 @@ The following describes how to install the third-party dependencies.
 
 For detailed installation guide, please refer to [Ascend Data Center Solution 21.0.4 Installation Guide](https://support.huawei.com/enterprise/zh/doc/EDOC1100235797?section=j003).
 
-The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path `/usr/local/Ascend` of Ascend AI processor software package, If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
+The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path of Ascend AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
 
 Install the .whl packages provided in Ascend AI processor software package. The .whl packages are released with the software package. If the .whl packages have been installed before, you need to uninstall the packages by the following command.
 
@@ -91,6 +91,8 @@ cd -
 . ~/miniconda3/etc/profile.d/conda.sh
 conda init bash
 ```
+
+After the installation is complete, you can set up Tsinghua source acceleration download for Conda, and see [here](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/).
 
 ### Installing GCC
 
@@ -167,7 +169,7 @@ pip uninstall te topi hccl -y
 
 ## Installing MindSpore
 
-Ensure that you are in the Conda virtual environment and run the following command to install the latest MindSpore. To install other versions, please refer to [Version List](https://www.mindspore.cn/versions) and specify the version after `mindspore-ascend=`.
+Ensure that you are in the Conda virtual environment and run the following command to install the latest MindSpore. To install other versions, please refer to the specified version number of [Version List](https://www.mindspore.cn/versions) after `mindspore-ascend=`.
 
 ```bash
 conda install mindspore-ascend -c mindspore -c conda-forge
@@ -177,7 +179,7 @@ When the network is connected, dependencies of MindSpore are automatically downl
 
 ## Configuring Environment Variables
 
-After MindSpore is installed, export runtime environment variables. In the following command, `/usr/local/Ascend` in `LOCAL_ASCEND=/usr/local/Ascend` indicates the installation path of the software package. Change it to the actual installation path.
+After MindSpore is installed, export Runtime-related environment variables. In the following command, `/usr/local/Ascend` in `LOCAL_ASCEND=/usr/local/Ascend` indicates the installation path of the software package, and you need to replace it as the actual installation path of the software package.
 
 ```bash
 # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
@@ -210,7 +212,7 @@ Create a directory to store the sample code project, for example, `/home/HwHiAiU
 ```text
 
 └─ascend310_single_op_sample
-    ├── CMakeLists.txt                    // Build script
+    ├── CMakeLists.txt                    // Compile script
     ├── README.md                         // Usage description
     ├── main.cc                           // Main function
     └── tensor_add.mindir                 // MindIR model file
@@ -222,7 +224,7 @@ Go to the directory of the sample project and change the path based on the actua
 cd /home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/ascend310_single_op_sample
 ```
 
-Build a project by referring to `README.md`, modify `pip3` according to the actual situation.
+Build a project by referring to `README.md`, and modify `pip3` according to the actual situation.
 
 ```bash
 cmake . -DMINDSPORE_PATH=`pip3 show mindspore-ascend | grep Location | awk '{print $2"/mindspore"}' | xargs realpath`
@@ -248,7 +250,7 @@ The preceding information indicates that MindSpore is successfully installed.
 
 ## Version Update
 
-Using the following command if you need to update the MindSpore version:
+Use the following command if you need to update the MindSpore version:
 
 ```bash
 conda update mindspore-ascend -c mindspore -c conda-forge

@@ -19,7 +19,7 @@
 
 The following describes how to quickly install MindSpore by pip on Linux in the Ascend 310 environment, MindSpore in Ascend 310 only supports inference.
 
-- If you want to install MindSpore by pip on a EulerOS 2.8 with Ascend AI processor software package installed, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend310-pip.sh) for one-click installation. The automatic installation script will install the dependencies required to compile MindSpore.
+- If you want to install MindSpore by pip on an EulerOS 2.8 with Ascend AI processor software package installed, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend310-pip.sh) for one-click installation. The automatic installation script will install MindSpore and its required dependencies.
 
     Run the following command to obtain and run the automatic installation script:
 
@@ -27,14 +27,14 @@ The following describes how to quickly install MindSpore by pip on Linux in the 
     wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend310-pip.sh
     # install Python 3.7 and MindSpore 1.6.0 by default
     bash -i ./euleros-ascend310-pip.sh
-    # to specify Python and MindSpore version, e.g. Python 3.9 and MindSpore 1.5.0
+    # to specify Python and MindSpore version, taking Python 3.9 and MindSpore 1.5.0 as examples, use the following manners
     # PYTHON_VERSION=3.9 MINDSPORE_VERSION=1.5.0 bash -i ./euleros-ascend310-pip.sh
     ```
 
     This script performs the following operations:
 
-    - Install the dependencies required by MindSpore, such as GCC, gmp.
-    - Install Python3 and pip3 and set them as default.
+    - Install the dependencies required by MindSpore, such as GCC and gmp.
+    - Install Python3 and pip3 by APT and set them as default.
     - Install MindSpore Ascend by pip.
 
     After the script is executed, please refer to the instructions in [Configuring Environment Variables](#configuring-environment-variables) to set relevant environment variables.
@@ -49,12 +49,12 @@ The following table lists the system environment and third-party dependencies re
 
 |software|version|description|
 |-|-|-|
-|Ubuntu 18.04/CentOS 7.6/EulerOS 2.8|-|OS for running MindSpore|
+|Ubuntu 18.04/CentOS 7.6/EulerOS 2.8|-|OS for running and compiling MindSpore|
 |[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|-|Ascend platform AI computing library used by MindSpore|
-|[Python](#installing-python)|3.7.5 or 3.9.0|Python environment that MindSpore depends on|
+|[Python](#installing-python)|3.7.5 or 3.9.0|Python environment on which MindSpore depends|
 |[GCC](#installing-gcc)|7.3.0|C++ compiler for compiling MindSpore|
 |[gmp](#installing-gmp)|6.1.2|Multiple precision arithmetic library used by MindSpore|
-|[CMake](#installing-cmake)|3.18.3 or later|Build tools for MindSpore|
+|[CMake](#installing-cmake)|3.18.3 or later| Compilation tool that builds MindSpore                  |
 
 The following describes how to install the third-party dependencies.
 
@@ -62,7 +62,7 @@ The following describes how to install the third-party dependencies.
 
 For detailed installation guide, please refer to [Ascend Data Center Solution 21.0.4 Installation Guide](https://support.huawei.com/enterprise/zh/doc/EDOC1100235797?section=j003).
 
-The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path `/usr/local/Ascend` of Ascend AI processor software package, If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
+The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path of Ascend AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
 
 Install the .whl packages provided in Ascend AI processor software package. The .whl packages are released with the software package. If the .whl packages have been installed before, you need to uninstall the packages by the following command.
 
@@ -93,6 +93,8 @@ cd -
 conda init bash
 ```
 
+After the installation is complete, you can set up Tsinghua source acceleration download for Conda, and see [here](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/).
+
 Create a Python 3.7.5 environment:
 
 ```bash
@@ -113,7 +115,7 @@ Run the following command to check the Python version.
 python --version
 ```
 
-If you are using a ARM architecture system, please ensure that pip installed for current Python has a version >= 19.3. If not, upgrade pip with the following command.
+If you are using an ARM architecture system, please ensure that pip installed for current Python has a version >= 19.3. If not, upgrade pip with the following command.
 
 ```bash
 python -m pip install -U pip
@@ -172,7 +174,7 @@ python -m pip install -U pip
 
 - Other Linux systems can be installed with the following commands.
 
-    Choose one download link based on the system architecture.
+    Choose different download links based on the system architecture.
 
     ```bash
     # x86 run
@@ -181,14 +183,14 @@ python -m pip install -U pip
     curl -O https://cmake.org/files/v3.19/cmake-3.19.8-Linux-aarch64.sh
     ```
 
-    run the script to install CMake, which is installed in the `/usr/local` by default.
+    Run the script to install CMake, which is installed in the `/usr/local` by default.
 
     ```bash
     sudo mkdir /usr/local/cmake-3.19.8
     sudo bash cmake-3.19.8-Linux-*.sh --prefix=/usr/local/cmake-3.19.8 --exclude-subdir
     ```
 
-    Finally, add CMake to the `PATH` environment variable. Run the following commands if it is installed in the default path, other installation path need to be modified accordingly.
+    Finally, add CMake to the `PATH` environment variable. Run the following commands if it is installed in the default path, and other installation path need to be modified accordingly.
 
     ```bash
     echo -e "export PATH=/usr/local/cmake-3.19.8/bin:\$PATH" >> ~/.bashrc
@@ -197,7 +199,7 @@ python -m pip install -U pip
 
 ## Installing MindSpore
 
-First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Take version 1.6.0 as an example, execute the following commands.
+First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 1.6.0 as an example, execute the following commands.
 
 ```bash
 export MS_VERSION=1.6.0
@@ -265,7 +267,7 @@ Go to the directory of the sample project and change the path based on the actua
 cd /home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/ascend310_single_op_sample
 ```
 
-Build a project by referring to `README.md`, modify `pip3` according to the actual situation.
+Build a project by referring to `README.md`, and modify `pip3` according to the actual situation.
 
 ```bash
 cmake . -DMINDSPORE_PATH=`pip3 show mindspore-ascend | grep Location | awk '{print $2"/mindspore"}' | xargs realpath`

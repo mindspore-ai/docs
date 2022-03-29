@@ -19,25 +19,25 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_install_source_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
-This document describes how to quickly install MindSpore by source code in a Linux system in the CPU environment. The following takes Ubuntu 18.04 as an example to describe how to install MindSpore.
+This document describes how to quickly install MindSpore by source code compilation in a Linux system in the CPU environment. The following takes Ubuntu 18.04 as an example to describe how to compile and install MindSpore.
 
 ## Environment Preparation
 
-- If you need to configure an environment for building MindSpore on the Ubuntu 18.04 that never installed MindSpore and its dependencies, you may use the [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-source.sh) for one-click configuration. The script installs the dependencies required for building MindSpore.
+- If you need to configure an environment for building MindSpore on the Ubuntu 18.04 that never installed MindSpore and its dependencies, you may use the [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-source.sh) for one-click configuration. The automatic installation script will install MindSpore and its required dependencies.
 
-    The root permission is required because the script will modify the source list and install dependencies via APT. Run the following command to obtain and run the automatic installation script:
+    The root permission is required because the script will modify the software source configuration and install dependencies via APT. Run the following command to obtain and run the automatic installation script.
 
     ```bash
     wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-source.sh
     # install Python 3.7 by default
     bash ./ubuntu-cpu-source.sh
-    # to specify Python version
+    # to specify Python version, taking Python 3.9 as an example, use the following manner
     # PYTHON_VERSION=3.9 bash ./ubuntu-cpu-source.sh
     ```
 
     This script performs the following operations:
 
-    - Change the source list to HUAWEI CLOUD source.
+    - Change the software source configuration to a HUAWEI CLOUD source.
     - Install the compilation dependencies required by MindSpore, such as GCC, CMake, etc.
     - Install Python3 and pip3 via APT and set them as default.
 
@@ -45,19 +45,17 @@ This document describes how to quickly install MindSpore by source code in a Lin
 
 - If some dependencies, such as Python and GCC, have been installed in your system, you are advised to perform the following steps to manually install MindSpore.
 
-The following table lists the system environment and third-party dependencies required for building and installing MindSpore.
-
 |software|version|description|
 |-|-|-|
 |Ubuntu|18.04|OS for compiling and running MindSpore|
-|[Python](#installing-python)|3.7.5 or 3.9.0|Python environment that MindSpore depends on|
+|[Python](#installing-python)|3.7.5 or 3.9.0|Python environment on which MindSpore depends|
 |[wheel](#installing-wheel-and-setuptools)|0.32.0 or later|Python packaging tool used by MindSpore|
 |[setuptools](#installing-wheel-and-setuptools)|44.0 or later|Python package management tool used by MindSpore|
 |[GCC](#installing-gcc-git-gmp-tclsh-patch-and-numa)|7.3.0~9.4.0|C++ compiler for compiling MindSpore|
 |[git](#installing-gcc-git-gmp-tclsh-patch-and-numa)|-|Source code management tools used by MindSpore|
-|[CMake](#installing-cmake)|3.18.3 or later|Build tools for MindSpore|
+|[CMake](#installing-cmake)|3.18.3 or later|Compilation tool that builds MindSpore|
 |[gmp](#installing-gcc-git-gmp-tclsh-patch-and-numa)|6.1.2|Multiple precision arithmetic library used by MindSpore|
-|[tclsh](#installing-gcc-git-gmp-tclsh-patch-and-numa)|-|MindSpore SQLite build dependency|
+|[tclsh](#installing-gcc-git-gmp-tclsh-patch-and-numa)|-|MindSpore SQLite compilation dependency|
 |[patch](#installing-gcc-git-gmp-tclsh-patch-and-numa)|2.5 or later|Source code patching tool used by MindSpore|
 |[NUMA](#installing-gcc-git-gmp-tclsh-patch-and-numa)|2.0.11 or later|Non-uniform memory access library used by MindSpore|
 |[LLVM](#installing-llvm-optional)|12.0.1|Compiler framework used by MindSpore (optional, mandatory for graph kernel fusion and sparse computing)|
@@ -80,6 +78,8 @@ The following describes how to install the third-party dependencies.
     . ~/miniconda3/etc/profile.d/conda.sh
     conda init bash
     ```
+
+    After the installation is complete, you can set up Tsinghua source acceleration download for Conda, and see [here](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/).
 
     Create a Python 3.7.5 environment:
 
@@ -179,7 +179,7 @@ git clone https://gitee.com/mindspore/mindspore.git
 
 ## Compiling MindSpore
 
-Go to the root directory of mindspore, then run the build script.
+Go to the root directory of mindspore, then run the compilation script.
 
 ```bash
 cd mindspore
@@ -189,7 +189,7 @@ bash build.sh -e cpu -j4 -S on
 Where:
 
 - If the compiler performance is good, add `-j{Number of threads}` to increase the number of threads. For example, `bash build.sh -e cpu -j12`.
-- By default, the dependent source code is downloaded from GitHub. When `-S` is set to `on`, the source code is downloaded from the corresponding Gitee image.
+- By default, the dependent source code is downloaded from GitHub. When -S is set to `on`, the source code is downloaded from the corresponding Gitee image.
 - For details about how to use `build.sh`, see the script header description.
 
 ## Installing MindSpore
@@ -219,7 +219,7 @@ It means MindSpore has been installed successfully.
 
 Using the following command if you need to update the MindSpore version:
 
-- Update online
+- Update online directly
 
     ```bash
     pip install --upgrade mindspore
@@ -227,7 +227,7 @@ Using the following command if you need to update the MindSpore version:
 
 - Update after source code compilation
 
-    After successfully executing the compile script `build.sh` in the root path of the source code, find the whl package in path `output`, use the following command to update your version.
+    After successfully executing the compilation script `build.sh` in the root path of the source code, find the whl package in path `output`, and use the following command to update your version.
 
     ```bash
     pip install --upgrade mindspore-*.whl
