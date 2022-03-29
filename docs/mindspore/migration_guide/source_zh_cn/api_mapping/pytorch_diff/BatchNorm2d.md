@@ -50,33 +50,27 @@ import torch
 import mindspore.nn as nn
 from mindspore import Tensor
 
-net = nn.BatchNorm2d(num_features=3, momentum=0.8)
-x = Tensor(np.ones([1, 3, 2, 2]).astype(np.float32))
+net = nn.BatchNorm2d(num_features=2, momentum=0.8)
+x = Tensor(np.array([[[[1, 2], [1, 2]], [[3, 4], [3, 4]]]]).astype(np.float32))
 output = net(x)
 print(output)
 # Out:
-# [[[[0.999995   0.999995]
-#    [0.999995   0.999995]]
+# [[[[0.999995   1.99999]
+#    [0.999995   1.99999]]
 #
-#   [[0.999995   0.999995]
-#    [0.999995   0.999995]]
-#
-#   [[0.999995   0.999995]
-#    [0.999995   0.999995]]]]
+#   [[2.999985   3.99998]
+#    [2.999985   3.99998]]]]
 
 
 # The following implements BatchNorm2d with torch.
-input_x = torch.randn(1, 3, 2, 2)
-m = torch.nn.BatchNorm2d(3, momentum=0.2)
+input_x = torch.tensor(np.array([[[[1, 2], [1, 2]], [[3, 4], [3, 4]]]]).astype(np.float32))
+m = torch.nn.BatchNorm2d(2, momentum=0.2)
 output = m(input_x)
 print(output)
 # Out:
-# tensor([[[[ 0.0054,  1.6285],
-#           [-0.8927, -0.7412]],
+# tensor([[[[-1.0000,  1.0000],
+#           [-1.0000,  1.0000]],
 #
-#          [[-0.2833, -0.1956],
-#           [ 1.6118, -1.1329]],
-#
-#          [[-1.3467,  1.4556],
-#           [-0.2303,  0.1214]]]], grad_fn=<NativeBatchNormBackward>)
+#          [[-1.0000,  1.0000],
+#           [-1.0000,  1.0000]]]], grad_fn=<NativeBatchNormBackward>)
 ```
