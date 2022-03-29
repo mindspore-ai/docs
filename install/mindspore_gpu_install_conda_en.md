@@ -30,13 +30,13 @@ This document describes how to quickly install MindSpore by Conda in a Linux sys
     wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-conda.sh
     # install Python 3.7, CUDA 11.1 and the latest MindSpore by default
     bash -i ./ubuntu-gpu-conda.sh
-    # to specify Python, CUDA and MindSpore version, e.g. Python 3.9, CUDA 10.1 and MindSpore 1.5.0
+    # to specify Python, CUDA and MindSpore version, taking Python 3.9, CUDA 10.1 and MindSpore 1.5.0 as examples, use the following manners
     # PYTHON_VERSION=3.9 CUDA_VERSION=10.1 MINDSPORE_VERSION=1.5.0 bash -i ./ubuntu-gpu-conda.sh
     ```
 
     This script performs the following operations:
 
-    - Change the source list to HUAWEI CLOUD source.
+    - Change the software source configuration to a HUAWEI CLOUD source.
     - Install the dependencies required by MindSpore, such as GCC, gmp.
     - Download and install CUDA and cuDNN.
     - Install Conda and create a virtual environment for MindSpore.
@@ -108,7 +108,7 @@ sudo cp cuda/lib64/libcudnn* /usr/local/cuda-11.1/lib64
 sudo chmod a+r /usr/local/cuda-11.1/include/cudnn.h /usr/local/cuda-11.1/lib64/libcudnn*
 ```
 
-If a different version of CUDA have been installed or the CUDA installation path is different, just replace `/usr/local/cuda-11.1` in the above command with the currently installed CUDA path.
+If a different version of CUDA have been installed or the CUDA installation path is different, just replace `/usr/local/cuda-11.1` in the above command with the CUDA path currently installed.
 
 ### Installing Conda
 
@@ -122,6 +122,8 @@ cd -
 . ~/miniconda3/etc/profile.d/conda.sh
 conda init bash
 ```
+
+After the installation is complete, you can set up Tsinghua source acceleration download for Conda, and see [here](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/).
 
 ### Installing GCC and gmp
 
@@ -165,7 +167,7 @@ cd -
 
 ### Installing TensorRT (optional)
 
-After completing the installation of CUDA and cuDNN, download TensorRT 7.2.2 for CUDA 11.1 from [TensorRT download page](https://developer.nvidia.com/nvidia-tensorrt-7x-download), and note to download installation package in TAR format. Suppose the downloaded file is named `TensorRT-7.2.2.3.Ubuntu-18.04.x86_64-gnu.cuda-11.1.cudnn8.0.tar.gz`. Install TensorRT with the following command.
+After completing the installation of CUDA and cuDNN, download TensorRT 7.2.2 for CUDA 11.1 from [TensorRT download page](https://developer.nvidia.com/nvidia-tensorrt-7x-download), and note to download installation package in TAR format. Suppose the downloaded file is named `TensorRT-7.2.2.3.Ubuntu-18.04.x86_64-gnu.cuda-11.1.cudnn8.0.tar.gz`, install TensorRT with the following command.
 
 ```bash
 tar xzf TensorRT-7.2.2.3.Ubuntu-18.04.x86_64-gnu.cuda-11.1.cudnn8.0.tar.gz
@@ -178,7 +180,7 @@ cd -
 
 ## Creating and Accessing the Conda Virtual Environment
 
-Create a Conda virtual environment based on the Python version you want to use and activate the virtual environment.
+Create a Conda virtual environment based on the Python version you want to use and go to the virtual environment.
 
 If you want to use Python 3.7.5:
 
@@ -196,7 +198,7 @@ conda activate mindspore_py39
 
 ## Installing MindSpore
 
-Ensure that you are in the Conda virtual environment and run the following command to install the latest MindSpore. To install other versions, please refer to [Version List](https://www.mindspore.cn/versions) and specify the version after `mindspore-gpu=`.
+Ensure that you are in the Conda virtual environment and run the following command to install the latest MindSpore. To install other versions, please refer to the specified version number of [Version List](https://www.mindspore.cn/versions) after `mindspore-ascend=`.
 
 For CUDA 10.1:
 
@@ -243,7 +245,7 @@ y = Tensor(np.ones([1,3,3,4]).astype(np.float32))
 print(ops.add(x, y))
 ```
 
-- The outputs should be the same as:
+The outputs should be the same as:
 
 ```text
 [[[[2. 2. 2. 2.]

@@ -18,14 +18,14 @@ This document describes how to quickly install MindSpore by compiling source cod
 
 ## System Environment Information Confirmation
 
-- According to your Macbook configuration(click `About This Mac` to get chip/arch info),choose the right Python version based on following table:
+- According to the system and chip situation in the table below to determine the appropriate Python version, macOS version and chip information can be found by clicking on the Apple logo in the upper left corner of the desktop - > `About this mac`:
 
     |Chip|Architecture|macOS Version|Supported Python Version|
     |-|-|-|-|
-    |M1|ARM|11.3|Python 3.9.1+(3.7.x is not supported with M1, 3.9.1 is the least supported version)|
+    |M1|ARM|11.3|Python 3.9.1+(3.7 is not supported with M1, and 3.9.1 is the least version supported by 3.9)|
     |Intel|x86_64|10.15/11.3|Python 3.7.5/Python 3.9.0|
 
-- Ensure that right Python version is installed. If not installed, download and install Python from:
+- Ensure that right Python version is installed. If not installed or been installed Python in other versions, download and install Python from:
 
     - Python 3.7.5 (64-bit)：[Python official website](https://www.python.org/ftp/python/3.7.5/python-3.7.5-macosx10.9.pkg) or [HUAWEI CLOUD](https://repo.huaweicloud.com/python/3.7.5/python-3.7.5-macosx10.9.pkg).
     - Python 3.9.0 (64-bit)：[Python official website](https://www.python.org/ftp/python/3.9.0/python-3.9.0-macosx10.9.pkg) or [HUAWEI CLOUD](https://repo.huaweicloud.com/python/3.9.0/python-3.9.0-macosx10.9.pkg).
@@ -33,9 +33,9 @@ This document describes how to quickly install MindSpore by compiling source cod
 
 - Ensure that [Xcode](https://xcodereleases.com/) (>=12.4 and <= 13.0) is installed, where 12.4(X86) and 13.0(m1) are verified.
 
-- Ensure that `Command Line Tools` for Xcode is installed. If not, use `sudo xcode-select --install` command to install it.
+- Ensure that `Command Line Tools for Xcode` is installed. If not, use `sudo xcode-select --install` command to install Command Line Tools.
 
-- Ensure that [CMake](https://cmake.org/download/) > `3.18.3` is installed. Use `brew install cmake` if it's not installed.
+- Ensure that [CMake 3.18.3 and the later version](https://cmake.org/download/) is installed. Use `brew install cmake` if it's not installed.
 
 - Ensure that [patch 2.5](https://ftp.gnu.org/gnu/patch/) is installed. Use `brew install patch` if it's not installed.
 
@@ -54,10 +54,8 @@ Run the following command in the root directory of the source code to compile Mi
 ```bash
 export CC=/usr/bin/clang
 export CXX=/usr/bin/clang++
-bash build.sh -e cpu -S on -j4   # -j stands for the thread number can be compiling with, can assign twice as much as CPU cores
+bash build.sh -e cpu -S on -j4   # -j is a thread configuration when compiled, and if cpu performance is better, compile using multithreading, with parameters usually twice the number of CPU cores
 ```
-
-The artifact of MindSpore should lie in directory `output/` within the repo directory.
 
 ## Installing MindSpore
 
@@ -65,7 +63,11 @@ The artifact of MindSpore should lie in directory `output/` within the repo dire
 pip install output/mindspore-*.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
->If there is any compile error when installing scipy package, please use `pip install --pre -i https://pypi.anaconda.org/scipy-wheels-nightly/simple scipy` to install scipy package first, then install mindspore package as normal.
+If there is any compile error when installing scipy package, please use the following command to install scipy package first, then install mindspore package.
+
+```bash
+pip install --pre -i https://pypi.anaconda.org/scipy-wheels-nightly/simple scipy
+```
 
 ## Installation Verification
 
@@ -86,7 +88,7 @@ It means MindSpore has been installed successfully.
 
 Using the following command if you need to update the MindSpore version:
 
-- Update online
+- Update online directly
 
     ```bash
     pip install --upgrade mindspore
@@ -94,7 +96,7 @@ Using the following command if you need to update the MindSpore version:
 
 - Update after source code compilation
 
-    After successfully executing the compile script `build.sh` in the root path of the source code, find the whl package in path `output`, use the following command to update your version.
+    After successfully executing the compilation script `build.sh` in the source code root directory, find the generated whl installation package by compilation in the `output` directory, and then execute the command to upgrade.
 
     ```bash
     pip install --upgrade mindspore-{version}-{python_version}-macosx_{platform_version}_{arch}.whl
