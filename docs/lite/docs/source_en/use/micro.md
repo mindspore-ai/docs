@@ -510,6 +510,6 @@ make
 
 ## More Details
 
-### [Linux_x86_64 platform compile and deploy](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_micro/example/mnist_x86)
+### [Linux_x86_64 platform compile and deploy](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_micro/mnist_x86)
 
 ### [Android platform compile and deploy](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_micro/mobilenetv2_arm64)
