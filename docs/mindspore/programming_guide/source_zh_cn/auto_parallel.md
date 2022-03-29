@@ -23,7 +23,7 @@ MindSpore的分布式并行配置通过`auto_parallel_context`来进行集中管
 
 #### device_num
 
-`device_num`表示可用的机器数，其值为int型，默认值是0，且必须在1~4096范围内。若用户不配置，`Model`接口内部则会通过`get_group_size`方法获取，若用户进行了配置，则遵循用户的配置。这个配置可以在用户不使用`Model`接口的情况下，手动传递`device_num`。
+`device_num`表示可用的机器数，其值为int型，默认值是1，且必须在1~4096范围内。若用户不配置，`Model`接口内部则会通过`get_group_size`方法获取，若用户进行了配置，则遵循用户的配置。这个配置可以在用户不使用`Model`接口的情况下，手动传递`device_num`。
 
 代码样例如下：
 
