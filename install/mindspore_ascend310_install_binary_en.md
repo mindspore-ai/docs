@@ -23,6 +23,7 @@ The following describes how to quickly install MindSpore by pip on Linux in the 
 - Ensure that [GMP 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
 
 - Ensure that [CMake 3.18.3 or later](https://cmake.org/download/) is installed.
+
     - After installation, add the path of CMake to the system environment variables.
 
 - Ensure that Python 3.7.5 or 3.9.0 is installed. If not installed, download and install Python from:
@@ -31,7 +32,7 @@ The following describes how to quickly install MindSpore by pip on Linux in the 
 
 - Ensure that the Ascend AI processor software package (Ascend Data Center Solution 21.0.4) are installed, please refer to the [Installation Guide](https://support.huawei.com/enterprise/zh/doc/EDOC1100235797?section=j003).
 
-    - Ensure that you have permissions to access the installation path `/usr/local/Ascend` of the Ascend AI Processor software package. If not, ask the user root to add you to a user group to which `/usr/local/Ascend` belongs. For details about the configuration, see the description document in the software package.
+    - Ensure that you have permissions to access the installation path `/usr/local/Ascend` of the Ascend AI Processor software package. If not, ask the root user to add you to a user group to which `/usr/local/Ascend` belongs.
     - Install the .whl package provided with the Ascend AI Processor software package. The .whl package is released with the software package. After the software package is upgraded, you need to reinstall the .whl package.
 
         ```bash
@@ -51,12 +52,12 @@ tar -zxf mindspore_ascend-{version}-linux_{arch}.tar.gz
 
 In the preceding information:
 
-- `{version}` specifies the MindSpore version number. For example, when installing MindSpore 1.5.0, set `{version}` to 1.5.0, when installing MindSpore 1.5.0-rc1, the first `{version}` which represents download path should be written as 1.5.0-rc1, and the second `{version}` which represents file name should be 1.5.0rc1.
-- `{arch}` specifies the system architecture. For example, if a Linux OS architecture is x86_64, set `{arch}` to `x86_64`. If the system architecture is ARM64, set `{arch}` to `aarch64`.
+- `{version}` specifies the MindSpore version number. For example, when installing MindSpore 1.5.0, set `{version}` to 1.5.0. When installing MindSpore 1.5.0-rc1, the first `{version}` which represents download path should be written as 1.5.0-rc1, and the second `{version}` which represents version number should be 1.5.0rc1.
+- `{arch}` specifies the system architecture. For example, if a Linux OS architecture is x86_64, set `{arch}` to `x86_64`. If the system architecture is ARM_64, set `{arch}` to `aarch64`.
 
 ## Configuring Environment Variables
 
-After MindSpore is installed, export runtime environment variables. In the following command, `/usr/local/Ascend` in `LOCAL_ASCEND=/usr/local/Ascend` indicates the installation path of the software package. Change it to the actual installation path.
+After MindSpore is installed, export runtime environment variables. In the following command, `/usr/local/Ascend` in `LOCAL_ASCEND=/usr/local/Ascend` indicates the installation path of the software package, and you need to replace it as the actual installation path of the software package.
 
 ```bash
 # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
@@ -87,9 +88,8 @@ In the preceding information:
 Create a directory to store the sample code project, for example, `/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/ascend310_single_op_sample`. You can obtain the code from the [official website](https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/sample_resources/ascend310_single_op_sample.zip). A simple example of adding `[1, 2, 3, 4]` to `[2, 3, 4, 5]` is used and the code project directory structure is as follows:
 
 ```text
-
 └─ascend310_single_op_sample
-    ├── CMakeLists.txt                    // Build script
+    ├── CMakeLists.txt                    // Compile script
     ├── README.md                         // Usage description
     ├── main.cc                           // Main function
     └── tensor_add.mindir                 // MindIR model file
@@ -101,7 +101,7 @@ Go to the directory of the sample project and change the path based on the actua
 cd /home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/ascend310_single_op_sample
 ```
 
-Build a project by referring to `README.md`, modify`{mindspore_path}`which specifies the absolute path to MindSpore.
+Build a project by referring to `README.md`, where `{mindspore_path}` represents the absolute path to the location where the MindSpore binary package is located, and is replaced according to the actual situation.
 
 ```bash
 cmake . -DMINDSPORE_PATH={mindspore_path}
@@ -123,4 +123,4 @@ The following information is displayed:
 9
 ```
 
-The preceding information indicates that MindSpore is successfully installed.
+It is indicated that MindSpore is successfully installed.

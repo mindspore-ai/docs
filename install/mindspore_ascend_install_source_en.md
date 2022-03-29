@@ -23,11 +23,11 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend_install_source_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
-This document describes how to quickly install MindSpore in a Linux system with an Ascend 910 environment by source code.
+This document describes how to quickly install MindSpore in a Linux system with an Ascend 910 environment by source code compilation.
 
 ## Environment Preparation
 
-- If you want to configure an environment that can compile MindSpore on a EulerOS 2.8 with Ascend AI processor software package installed, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-source.sh) for one-click configuration. The automatic installation script will install the dependencies required to compile MindSpore.
+- If you want to configure an environment that can compile MindSpore on an EulerOS 2.8 with Ascend AI processor software package installed, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-source.sh) for one-click configuration. The automatic installation script will install the dependencies required to compile MindSpore.
 
     Run the following command to obtain and run the automatic installation script:
 
@@ -35,7 +35,7 @@ This document describes how to quickly install MindSpore in a Linux system with 
     wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-source.sh
     # install Python 3.7 by default
     bash -i ./euleros-ascend-source.sh
-    # to install Python 3.9 and optional dependencies Open MPI
+    # to specify the Python 3.9 installation and install the optional dependencies Open MPI, use the following manner
     # PYTHON_VERSION=3.9 OPENMPI=on bash -i ./euleros-ascend-source.sh
     ```
 
@@ -59,15 +59,15 @@ The following table lists the system environment and third-party dependencies re
 |[wheel](#installing-wheel-and-setuptools)|0.32.0 or later|Python packaging tool used by MindSpore|
 |[setuptools](#installing-wheel-and-setuptools)|44.0 or later|Python package management tool used by MindSpore|
 |[GCC](#installing-gcc)|7.3.0|C++ compiler for compiling MindSpore|
-|[git](#installing-git-gmp-tclsh-patch-numa-and-flex)|-|Source code management tools used by MindSpore|
-|[git-lfs](#installing-git-lfs)|-|Source code management tools used by MindSpore|
-|[CMake](#installing-cmake)|3.18.3 or later|Build tools for MindSpore|
+|[git](#installing-git-gmp-tclsh-patch-numa-and-flex)|-|Source code management tool used by MindSpore|
+|[git-lfs](#installing-git-lfs)|-|Source code management tool used by MindSpore|
+|[CMake](#installing-cmake)|3.18.3 or later|Build tool for MindSpore|
 |[gmp](#installing-git-gmp-tclsh-patch-numa-and-flex)|6.1.2|Multiple precision arithmetic library used by MindSpore|
 |[Flex](#installing-git-gmp-tclsh-patch-numa-and-flex)|2.5.35 or later|lexical analyzer used by MindSpore|
 |[tclsh](#installing-git-gmp-tclsh-patch-numa-and-flex)|-|MindSpore SQLite build dependency|
 |[patch](#installing-git-gmp-tclsh-patch-numa-and-flex)|2.5 or later|Source code patching tool used by MindSpore|
-|[NUMA](#installing-git-gmp-tclsh-patch-numa-and-flex)|2.0.11 or later|non-uniform memory access library used by MindSpore|
-|[Open MPI](#installing-open-mpi-optional)|4.0.3|high performance message passing library used by MindSpore (optional, required for single-node/multi-GPU and multi-node/multi-GPU training)|
+|[NUMA](#installing-git-gmp-tclsh-patch-numa-and-flex)|2.0.11 or later|Non-uniform memory access library used by MindSpore|
+|[Open MPI](#installing-open-mpi-optional)|4.0.3|High performance message passing library used by MindSpore (optional, required for single-node/multi-GPU and multi-node/multi-GPU training)|
 
 The following describes how to install the third-party dependencies.
 
@@ -83,7 +83,7 @@ Install the .whl packages provided in Ascend AI processor software package. The 
 pip uninstall te topi hccl -y
 ```
 
-Run the following command to install the .whl packages if the Ascend AI package has been installed in default path. If the installation path is not the default path, you need to replace the path in the command with the installation path.
+Run the following command to install the .whl packages in the default path. If the installation path is not the default path, you need to replace the path in the command with the installation path.
 
 ```bash
 pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/topi-*-py3-none-any.whl
@@ -105,6 +105,8 @@ cd -
 . ~/miniconda3/etc/profile.d/conda.sh
 conda init bash
 ```
+
+After the installation is complete, you can set up Tsinghua source acceleration download for Conda, and see [here](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/).
 
 Create a Python 3.7.5 environment:
 
@@ -214,7 +216,7 @@ pip install -U setuptools
 
 - Other Linux systems can be installed with the following commands.
 
-    Choose one download link based on the system architecture.
+    Choose different download links based on the system architecture.
 
     ```bash
     # x86 run
@@ -223,14 +225,14 @@ pip install -U setuptools
     curl -O https://cmake.org/files/v3.19/cmake-3.19.8-Linux-aarch64.sh
     ```
 
-    run the script to install CMake, which is installed in the `/usr/local` by default.
+    Run the script to install CMake, which is installed in the `/usr/local` by default.
 
     ```bash
     sudo mkdir /usr/local/cmake-3.19.8
     sudo bash cmake-3.19.8-Linux-*.sh --prefix=/usr/local/cmake-3.19.8 --exclude-subdir
     ```
 
-    Finally, add CMake to the `PATH` environment variable. Run the following commands if it is installed in the default path, other installation path need to be modified accordingly.
+    Finally, add CMake to the `PATH` environment variable. Run the following commands if it is installed in the default path, other installation paths need to be modified accordingly.
 
     ```bash
     echo -e "export PATH=/usr/local/cmake-3.19.8/bin:\$PATH" >> ~/.bashrc
@@ -271,8 +273,8 @@ bash build.sh -e ascend -S on
 
 Where:
 
-- In the `build.sh` script, the default number of compilation threads is 8. If the compiler performance is poor, compilation errors may occur. You can add -j{Number of threads} in to script to reduce the number of threads. For example, `bash build.sh -e ascend -j4`.
-- By default, the dependent source code is downloaded from GitHub. When `-S` is set to `on`, the source code is downloaded from the corresponding Gitee image.
+- In the `build.sh` script, the default number of compilation threads is 8. If the compiler performance is poor, compilation errors may occur. You can add -j{Number of threads} in to script to reduce the number of threads, for example, `bash build.sh -e ascend -j4`.
+- By default, the dependent source code is downloaded from gitHub. When -S is set to `on`, the source code is downloaded from the corresponding gitee image.
 - For details about how to use `build.sh`, see the script header description.
 
 ## Installing MindSpore
@@ -285,7 +287,7 @@ When the network is connected, dependencies of MindSpore are automatically downl
 
 ## Configuring Environment Variables
 
-**If Ascend AI processor software is installed in a non-default path**, after MindSpore is installed, export runtime-related environment variables. `/usr/local/Ascend` in the following command `LOCAL_ASCEND=/usr/local/Ascend` denotes the installation path of the software package, please replace it as your actual installation path.
+**If Ascend AI processor software is installed in a non-default path**, after MindSpore is installed, export Runtime-related environment variables. `/usr/local/Ascend` in the following command `LOCAL_ASCEND=/usr/local/Ascend` denotes the installation path of the software package, and you need to replace it as the actual installation path of the software package.
 
 ```bash
 # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
@@ -359,9 +361,9 @@ It means MindSpore has been installed successfully.
 
 ## Version Update
 
-Using the following command if you need to update the MindSpore version.
+Use the following command if you need to update the MindSpore version.
 
-- Update Online
+- Update Online directly
 
     ```bash
     pip install --upgrade mindspore-ascend
@@ -369,7 +371,7 @@ Using the following command if you need to update the MindSpore version.
 
 - Update after source code compilation
 
-    After successfully executing the compile script `build.sh` in the root path of the source code, find the whl package in path `output`, use the following command to update your version.
+    After successfully executing the compile script `build.sh` in the root path of the source code, find the whl package in path `output`, and use the following command to update your version.
 
     ```bash
     pip install --upgrade mindspore_ascend-*.whl
