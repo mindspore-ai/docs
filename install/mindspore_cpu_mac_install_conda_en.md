@@ -19,7 +19,7 @@ This document describes how to quickly install MindSpore by Conda in a macOS sys
 
 ## System Environment Information Confirmation
 
-- According to your Macbook configuration(click `About This Mac` to get chip/arch info), choose the right Python and Conda version based on following table:
+- According to the system and chip situation in the table below, determine the appropriate Python and Conda versions, and for the macOS version and chip information, click on the Apple logo in the upper left corner of the desktop - > `About this mac`:
 
     |Chip|Architecture|macOS Version|Supported Python Version|Supported Conda Version|
     |-|-|-|-|-|
@@ -28,8 +28,8 @@ This document describes how to quickly install MindSpore by Conda in a macOS sys
 
 - Ensure that the Conda version is compatible with the current system and chip.
 
-    - If you prefer the complete capabilities provided by Conda. You may download [Anaconda3](https://repo.anaconda.com/archive/) or [Mambaforge](https://github.com/conda-forge/miniforge).
-    - If you want to save disk space or prefer custom Conda installation. You may download [Miniconda3](https://repo.anaconda.com/miniconda/) or [Miniforge](https://github.com/conda-forge/miniforge).
+    - If you prefer the complete capabilities provided by Conda, you may download [Anaconda3](https://repo.anaconda.com/archive/) or [Mambaforge](https://github.com/conda-forge/miniforge).
+    - If you want to save disk space or prefer customizing Conda installation package, you may download [Miniconda3](https://repo.anaconda.com/miniconda/) or [Miniforge](https://github.com/conda-forge/miniforge).
 
 ## Creating and Accessing the Conda Virtual Environment
 
@@ -86,7 +86,7 @@ It means MindSpore has been installed successfully.
 
 ## Version Update
 
-Using the following command if you need to update the MindSpore version:
+Use the following command if you need to update the MindSpore version:
 
 ```bash
 conda update mindspore-cpu -c mindspore -c conda-forge

@@ -16,21 +16,21 @@
 
 This document describes how to quickly install MindSpore by pip in a Linux system with a CPU environment. The following takes Ubuntu 18.04 as an example to describe how to install MindSpore.
 
-- If you want to install MindSpore by pip on a fresh Ubuntu 18.04, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-pip.sh) for one-click installation. The automatic installation script will install MindSpore and its dependencies.
+- If you want to install MindSpore by pip on a fresh Ubuntu 18.04, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-pip.sh) for one-click installation. The automatic installation script will install MindSpore and its required dependencies.
 
-    The root permission is required because the script will modify the source list and install dependencies via APT. Run the following command to obtain and run the automatic installation script:
+    The root permission is required because the script will modify the software source configuration and install dependencies via APT. Run the following command to obtain and run the automatic installation script:
 
     ```bash
     wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-pip.sh
     # install Python 3.7 and MindSpore 1.6.0 by default
     bash ./ubuntu-cpu-pip.sh
-    # to specify Python and MindSpore version, e.g. Python 3.9 and MindSpore 1.5.0
+    # to specify Python and MindSpore version, taking Python 3.9 and MindSpore 1.5.0 as examples, use the following manners
     # PYTHON_VERSION=3.9 MINDSPORE_VERSION=1.5.0 bash ./ubuntu-cpu-pip.sh
     ```
 
     This script performs the following operations:
 
-    - Change the source list to HUAWEI CLOUD source.
+    - Change the software source configuration to a HUAWEI CLOUD source
     - Install the dependencies required by MindSpore, such as GCC, gmp.
     - Install Python3 and pip3 via APT and set them as default.
     - Install MindSpore in CPU by pip.
@@ -46,7 +46,7 @@ The following table lists the system environment and third-party dependencies re
 |software|version|description|
 |-|-|-|
 |Ubuntu|18.04|OS for running MindSpore|
-|[Python](#installing-python)|3.7.5 or 3.9.0|Python environment that MindSpore depends on|
+|[Python](#installing-python)|3.7.5 or 3.9.0|Python environment on which MindSpore depends|
 |[GCC](#installing-gcc-and-gmp)|7.3.0~9.4.0|C++ compiler for compiling MindSpore|
 |[gmp](#installing-gcc-and-gmp)|6.1.2|Multiple precision arithmetic library used by MindSpore|
 
@@ -68,6 +68,8 @@ The following describes how to install the third-party dependencies.
     . ~/miniconda3/etc/profile.d/conda.sh
     conda init bash
     ```
+
+    After the installation is complete, you can set up Tsinghua source acceleration download for Conda, and see [here](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/).
 
     Create a Python 3.7.5 environment:
 
@@ -131,7 +133,7 @@ sudo apt-get install gcc-9 -y
 
 ## Downloading and Installing MindSpore
 
-First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Take version 1.6.0 as an example, execute the following commands.
+First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 1.6.0 as an example, execute the following commands.
 
 ```bash
 export MS_VERSION=1.6.0
@@ -169,7 +171,7 @@ It means MindSpore has been installed successfully.
 
 ## Version Update
 
-Using the following command if you need to update the MindSpore version:
+Use the following command if you need to update the MindSpore version:
 
 ```bash
 pip install --upgrade mindspore=={version}
@@ -177,4 +179,4 @@ pip install --upgrade mindspore=={version}
 
 Of which,
 
-- When updating to a release candidate (rc) version, `{version}` should be specified, e.g. 1.5.0rc1; When updating to a standard release, `=={version}` could be removed.
+- When updating to a release candidate (rc) version, `{version}` should be specified as the rc version number, e.g. 1.5.0rc1; When updating to a standard release, `=={version}` could be removed.

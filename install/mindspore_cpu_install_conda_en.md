@@ -19,21 +19,21 @@
 
 This document describes how to quickly install MindSpore by Conda in a Linux system with a CPU environment. The following takes Ubuntu 18.04 as an example to describe how to install MindSpore.
 
-- If you want to install MindSpore by Conda on a fresh Ubuntu 18.04, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-conda.sh) for one-click installation. The automatic installation script will install MindSpore and its dependencies.
+- If you want to install MindSpore by Conda on a fresh Ubuntu 18.04, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-conda.sh) for one-click installation. The automatic installation script will install MindSpore and its required dependencies.
 
-    The automatic installation script needs to replace the source list and install dependencies via APT, it will apply for root privileges during execution. Run the following command to obtain and run the automatic installation script:
+    The automatic installation script needs to replace the source list and install dependencies via APT, it will apply for root permissions during execution. Run the following command to obtain and run the automatic installation script:
 
     ```bash
     wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-conda.sh
     # install Python 3.7 and the latest MindSpore by default
     bash ./ubuntu-cpu-conda.sh
-    # to specify Python and MindSpore version, e.g. Python 3.9 and MindSpore 1.5.0
+    # to specify Python and MindSpore version, taking Python 3.9 and MindSpore 1.5.0 as examples, use the following manners
     # PYTHON_VERSION=3.9 MINDSPORE_VERSION=1.5.0 bash ./ubuntu-cpu-conda.sh
     ```
 
     This script performs the following operations:
 
-    - Change the source list to HUAWEI CLOUD source.
+    - Change the software source configuration to a HUAWEI CLOUD source.
     - Install the dependencies required by MindSpore, such as GCC, gmp.
     - Install Conda and create a virtual environment for MindSpore.
     - Install MindSpore CPU by Conda.
@@ -67,6 +67,8 @@ cd -
 . ~/miniconda3/etc/profile.d/conda.sh
 conda init bash
 ```
+
+After the installation is complete, you can set up Tsinghua source acceleration download for Conda, and see [here](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/).
 
 ### Installing GCC and gmp
 
@@ -111,7 +113,7 @@ conda activate mindspore_py39
 
 ## Installing MindSpore
 
-Ensure that you are in the Conda virtual environment and run the following command to install the latest MindSpore. To install other versions, please refer to [Version List](https://www.mindspore.cn/versions) and specify the version after `mindspore-cpu=`.
+Ensure that you are in the Conda virtual environment and run the following command to install the latest MindSpore. To install other versions, please refer to the specified version number of [Version List](https://www.mindspore.cn/versions) after `mindspore-ascend=`.
 
 ```bash
 conda install mindspore-cpu -c mindspore -c conda-forge
@@ -136,7 +138,7 @@ It means MindSpore has been installed successfully.
 
 ## Version Update
 
-Using the following command if you need to update the MindSpore version:
+Use the following command if you need to update the MindSpore version:
 
 ```bash
 conda update mindspore-cpu -c mindspore -c conda-forge

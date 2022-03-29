@@ -31,7 +31,7 @@ The following describes how to quickly install MindSpore by compiling the source
     wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-source.sh
     # install Python 3.7 by default
     bash -i ./euleros-ascend-source.sh
-    # to install Python 3.9
+    # to specify Python 3.9 installation, use the following manner
     # PYTHON_VERSION=3.9 bash -i ./euleros-ascend-source.sh
     ```
 
@@ -44,19 +44,19 @@ The following describes how to quickly install MindSpore by compiling the source
 
 - If some dependencies, such as Python and GCC, have been installed in your system, you are advised to perform the following steps to manually install MindSpore.
 
-The following table lists the system environment and third-party dependencies required for building and installing MindSpore.
+The following table lists the system environment and third-party dependencies required for compiling and installing MindSpore.
 
 |software|version|description|
 |-|-|-|
 |Ubuntu 18.04/CentOS 7.6/EulerOS 2.8|-|OS for compiling and running MindSpore|
 |[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|-|Ascend platform AI computing library used by MindSpore|
-|[Python](#installing-python)|3.7.5 or 3.9.0|Python environment that MindSpore depends on|
+|[Python](#installing-python)|3.7.5 or 3.9.0|Python environment on which MindSpore depends|
 |[GCC](#installing-gcc)|7.3.0|C++ compiler for compiling MindSpore|
 |[git](#installing-git-gmp-tclsh-patch-and-flex)|-|Source code management tools used by MindSpore|
-|[CMake](#installing-cmake)|3.18.3 or later|Build tools for MindSpore|
+|[CMake](#installing-cmake)|3.18.3 or later|Compilation tool that builds MindSpore|
 |[gmp](#installing-git-gmp-tclsh-patch-and-flex)|6.1.2|Multiple precision arithmetic library used by MindSpore|
 |[Flex](#installing-git-gmp-tclsh-patch-and-flex)|2.5.35 or later|lexical analyzer used by MindSpore|
-|[tclsh](#installing-git-gmp-tclsh-patch-and-flex)|-|MindSpore SQLite build dependency|
+|[tclsh](#installing-git-gmp-tclsh-patch-and-flex)|-|MindSpore SQLite compiling dependency|
 |[patch](#installing-git-gmp-tclsh-patch-and-flex)|2.5 or later|Source code patching tool used by MindSpore|
 
 The following describes how to install the third-party dependencies.
@@ -65,7 +65,7 @@ The following describes how to install the third-party dependencies.
 
 For detailed installation guide, please refer to [Ascend Data Center Solution 21.0.4 Installation Guide](https://support.huawei.com/enterprise/zh/doc/EDOC1100235797?section=j003).
 
-The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path `/usr/local/Ascend` of Ascend AI processor software package, If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
+The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path of Ascend AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
 
 Install the .whl packages provided in Ascend AI processor software package. The .whl packages are released with the software package. If the .whl packages have been installed before, you need to uninstall the packages by the following command.
 
@@ -95,6 +95,8 @@ cd -
 . ~/miniconda3/etc/profile.d/conda.sh
 conda init bash
 ```
+
+After the installation is complete, you can set up Tsinghua source acceleration download for Conda, and see [here](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/).
 
 Create a Python 3.7.5 environment:
 
@@ -169,7 +171,7 @@ python --version
 
 - Other Linux systems can be installed with the following commands.
 
-    Choose one download link based on the system architecture.
+    Choose different download links based on the system architecture.
 
     ```bash
     # x86 run
@@ -185,7 +187,7 @@ python --version
     sudo bash cmake-3.19.8-Linux-*.sh --prefix=/usr/local/cmake-3.19.8 --exclude-subdir
     ```
 
-    Finally, add CMake to the `PATH` environment variable. Run the following commands if it is installed in the default path, other installation path need to be modified accordingly.
+    Finally, add CMake to the `PATH` environment variable. Run the following commands if it is installed in the default path, other installation paths need to be modified accordingly.
 
     ```bash
     echo -e "export PATH=/usr/local/cmake-3.19.8/bin:\$PATH" >> ~/.bashrc
@@ -198,9 +200,9 @@ python --version
 git clone https://gitee.com/mindspore/mindspore.git
 ```
 
-## Building MindSpore
+## Compiling MindSpore
 
-Go to the root directory of mindspore, then run the build script.
+Go to the root directory of MindSpore, then run the compiling script.
 
 ```bash
 cd mindspore
@@ -209,8 +211,8 @@ bash build.sh -e ascend -V 310 -S on
 
 Where:
 
-- The default number of build threads is 8 in `build.sh`. If the compiler performance is poor, build errors may occur. You can add -j{Number of threads} to script to reduce the number of threads. For example, `bash build.sh -e ascend -V 310 -j4`.
-- By default, the dependent source code is downloaded from GitHub. When `-S` is set to `on`, the source code is downloaded from the corresponding Gitee image.
+- The default number of build threads is 8 in `build.sh`. If the compiler performance is poor, compiling errors may occur. You can add -j{Number of threads} to script to reduce the number of threads, for example, `bash build.sh -e ascend -V 310 -j4`.
+- By default, the dependent source code is downloaded from GitHub. When -S is set to `on`, the source code is downloaded from the corresponding Gitee image.
 - For details about how to use `build.sh`, see the script header description.
 
 ## Installing MindSpore
@@ -221,7 +223,7 @@ tar -zxf output/mindspore_ascend-*.tar.gz
 
 ## Configuring Environment Variables
 
-After MindSpore is installed, export runtime environment variables. In the following command, `/usr/local/Ascend` in `LOCAL_ASCEND=/usr/local/Ascend` indicates the installation path of the software package. Change it to the actual installation path.
+After MindSpore is installed, export Runtime-related environment variables. In the following command, `/usr/local/Ascend` in `LOCAL_ASCEND=/usr/local/Ascend` indicates the installation path of the software package, and you need to replace it as the actual installation path of the software package.
 
 ```bash
 # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
@@ -249,7 +251,7 @@ export LD_LIBRARY_PATH={mindspore_path}:${LD_LIBRARY_PATH}
 
 Where:
 
-- `{mindspore_path}` specifies the absolute path to which MindSpore package is extracted.
+- `{mindspore_path}` specifies the absolute path to which MindSpore binary package is extracted.
 
 ## Verifying the Installation
 
@@ -258,7 +260,7 @@ Create a directory to store the sample code project, for example, `/home/HwHiAiU
 ```text
 
 └─ascend310_single_op_sample
-    ├── CMakeLists.txt                    // Build script
+    ├── CMakeLists.txt                    // Compile script
     ├── README.md                         // Usage description
     ├── main.cc                           // Main function
     └── tensor_add.mindir                 // MindIR model file
@@ -270,7 +272,7 @@ Go to the directory of the sample project and change the path based on the actua
 cd /home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/ascend310_single_op_sample
 ```
 
-Build a project by referring to `README.md`, modify`{mindspore_path}`which specifies the absolute path to MindSpore.
+Build a project by referring to `README.md`, and`{mindspore_path}` specifies the absolute path to which MindSpore binary package is extracted, and replaces according to the actual condition.
 
 ```bash
 cmake . -DMINDSPORE_PATH={mindspore_path}
