@@ -23,7 +23,7 @@ You can use `context.set_auto_parallel_context` to configure the preceding param
 
 #### device_num
 
-`device_num` indicates the number of available machines. The default value is 0. The value is of the int type and must range from 1 to 4096. If you do not set this parameter, the `Model` interface obtains the value by using the `get_group_size` method. If you set this parameter, your configuration is used. This configuration allows you to manually transfer `device_num` without using the `Model` interface.
+`device_num` indicates the number of available machines. The default value is 1. The value is of the int type and must range from 1 to 4096. If you do not set this parameter, the `Model` interface obtains the value by using the `get_group_size` method. If you set this parameter, your configuration is used. This configuration allows you to manually transfer `device_num` without using the `Model` interface.
 
 The following is a code example:
 
