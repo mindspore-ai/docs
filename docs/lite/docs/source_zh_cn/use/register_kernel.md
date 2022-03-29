@@ -82,7 +82,7 @@ int TestCustomAdd::Execute() {
 当前有提供现成的宏[REGISTER_KERNEL](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#register-kernel)可以进行算子注册，实现步骤如下：
 
 1. 函数TestCustomAddCreator用来创建Kernel。
-2. 通过宏REGISTER_KERNEL进行Kernel注册，这里产商假定为BuiltInTest。
+2. 通过宏REGISTER_KERNEL进行Kernel注册，这里生产商假定为BuiltInTest。
 
 ```cpp
 using mindspore::schema::PrimitiveType_AddFusion;
@@ -128,7 +128,7 @@ class TestCustomAddInfer : public KernelInterface {
 当前有提供现成的宏[REGISTER_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#register-kernel-interface)可以进行算子InferShape注册，步骤如下：
 
 1. 函数CustomAddInferCreator用来创建KernelInterface实例。
-2. 调用REGISTER_KERNEL_INTERFACE宏对通用算子InferShape进行注册，这里产商假定为BuiltInTest。
+2. 调用REGISTER_KERNEL_INTERFACE宏对通用算子InferShape进行注册，这里生产商假定为BuiltInTest。
 
 ```cpp
 std::shared_ptr<KernelInterface> CustomAddInferCreator() { return std::make_shared<TestCustomAddInfer>(); }
@@ -305,7 +305,7 @@ int TestCustomOp::Execute() {
 当前有提供的现成的宏[REGISTER_CUSTOM_KERNEL](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#register-custom-kernel)可以进行算子注册，步骤如下：
 
 1. TestCustomAddCreator函数用来创建Kernel。
-2. 通过宏REGISTER_CUSTOM_KERNEL进行算子注册，这里假定产商为BuiltInTest，算子类型为Add。
+2. 通过宏REGISTER_CUSTOM_KERNEL进行算子注册，这里假定生产商为BuiltInTest，算子类型为Add。
 
 ```cpp
 using mindspore::schema::PrimitiveType_AddFusion;

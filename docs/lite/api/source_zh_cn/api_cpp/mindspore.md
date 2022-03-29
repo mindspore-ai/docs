@@ -284,7 +284,7 @@ template <class T> std::shared_ptr<T> Cast();
 std::string GetProvider() const;
 ```
 
-获取设备的产商名。
+获取设备的生产商名。
 
 #### SetProvider
 
@@ -292,11 +292,11 @@ std::string GetProvider() const;
 void SetProvider(const std::string &provider);
 ```
 
-设置设备产商名。
+设置设备生产商名。
 
 - 参数
 
-    - `provider`: 产商名。
+    - `provider`: 生产商名。
 
 #### GetProviderDevice
 
@@ -304,7 +304,7 @@ void SetProvider(const std::string &provider);
 std::string GetProviderDevice() const;
 ```
 
-获取产商设备名。
+获取生产商设备名。
 
 #### SetProviderDevice
 
@@ -312,7 +312,7 @@ std::string GetProviderDevice() const;
 void SetProviderDevice(const std::string &device);
 ```
 
-设备产商设备名。
+设备生产商设备名。
 
 - 参数
 

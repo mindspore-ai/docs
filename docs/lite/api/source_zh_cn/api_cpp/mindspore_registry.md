@@ -385,7 +385,7 @@ static Status RegKernel(const std::string &arch, const std::string &provider, Da
 
     - `arch`: 算子运行的平台，由用户自定义，如果算子是运行在CPU平台，或者算子运行完后的output tensor里的内存是在CPU平台上的，则此处也写CPU，MindSpore Lite内部会切成一个子图，在异构并行场景下有助于性能提升。
 
-    - `provider`: 产商名，由用户自定义。
+    - `provider`: 生产商名，由用户自定义。
 
     - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_datatype.html)。
 
@@ -405,7 +405,7 @@ Custom算子注册。
 
     - `arch`: 算子运行的平台，由用户自定义，如果算子是运行在CPU平台，或者算子运行完后的output tensor里的内存是在CPU平台上的，则此处也写CPU，MindSpore Lite内部会切成一个子图，在异构并行场景下有助于性能提升。
 
-    - `provider`: 产商名，由用户自定义。
+    - `provider`: 生产商名，由用户自定义。
 
     - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_datatype.html)。
 
@@ -451,7 +451,7 @@ KernelReg(const std::string &arch, const std::string &provider, DataType data_ty
 
     - `arch`: 算子运行的平台，由用户自定义，如果算子是运行在CPU平台，或者算子运行完后的output tensor里的内存是在CPU平台上的，则此处也写CPU，MindSpore Lite内部会切成一个子图，在异构并行场景下有助于性能提升。
 
-    - `provider`: 产商名，由用户自定义。
+    - `provider`: 生产商名，由用户自定义。
 
     - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_datatype.html)。
 
@@ -469,7 +469,7 @@ KernelReg(const std::string &arch, const std::string &provider, DataType data_ty
 
     - `arch`: 算子运行的平台，由用户自定义，如果算子是运行在CPU平台，或者算子运行完后的output tensor里的内存是在CPU平台上的，则此处也写CPU，MindSpore Lite内部会切成一个子图，在异构并行场景下有助于性能提升。
 
-    - `provider`: 产商名，由用户自定义。
+    - `provider`: 生产商名，由用户自定义。
 
     - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_datatype.html)。
 
@@ -489,7 +489,7 @@ KernelReg(const std::string &arch, const std::string &provider, DataType data_ty
 
     - `arch`: 算子运行的平台，由用户自定义，如果算子是运行在CPU平台，或者算子运行完后的output tensor里的内存是在CPU平台上的，则此处也写CPU，MindSpore Lite内部会切成一个子图，在异构并行场景下有助于性能提升。
 
-    - `provider`: 产商名，由用户自定义。
+    - `provider`: 生产商名，由用户自定义。
 
     - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_datatype.html)。
 
@@ -509,7 +509,7 @@ KernelReg(const std::string &arch, const std::string &provider, DataType data_ty
 
     - `arch`: 算子运行的平台，由用户自定义，如果算子是运行在CPU平台，或者算子运行完后的output tensor里的内存是在CPU平台上的，则此处也写CPU，MindSpore Lite内部会切成一个子图，在异构并行场景下有助于性能提升。
 
-    - `provider`: 产商名，由用户自定义。
+    - `provider`: 生产商名，由用户自定义。
 
     - `data_type`: 算子支持的数据类型，具体见[DataType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_datatype.html)。
 
@@ -545,7 +545,7 @@ Custom算子的扩展能力注册。
 
 - 参数
 
-    - `provider`: 产商，由用户自定义。
+    - `provider`: 生产商，由用户自定义。
 
     - `op_type`: 算子类型，由用户自定义。
 
@@ -561,7 +561,7 @@ static Status Reg(const std::string &provider, int op_type, const KernelInterfac
 
 - 参数
 
-    - `provider`: 产商，由用户自定义。
+    - `provider`: 生产商，由用户自定义。
 
     - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/schema/ops.fbs)中，编绎时会生成到ops_generated.h，该文件可以在发布件中获取。
 
@@ -577,7 +577,7 @@ static std::shared_ptr<kernel::KernelInterface> GetKernelInterface(const std::st
 
 - 参数
 
-    - `provider`：产商名，由用户自定义。
+    - `provider`：生产商名，由用户自定义。
 
     - `primitive`：算子经过flatbuffers反序化后的结果，存储算子属性。
 
@@ -599,7 +599,7 @@ KernelInterfaceReg(const std::string &provider, int op_type, const KernelInterfa
 
 - 参数
 
-    - `provider`: 产商，由用户自定义。
+    - `provider`: 生产商，由用户自定义。
 
     - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/schema/ops.fbs)中，编绎时会生成到ops_generated.h，该文件可以在发布件中获取。
 
@@ -613,7 +613,7 @@ KernelInterfaceReg(const std::string &provider, const std::string &op_type, cons
 
 - 参数
 
-    - `provider`: 产商，由用户自定义。
+    - `provider`: 生产商，由用户自定义。
 
     - `op_type`: 算子类型，由用户自定义。
 
@@ -631,7 +631,7 @@ KernelInterfaceReg(const std::string &provider, const std::string &op_type, cons
 
 - 参数
 
-    - `provider`: 产商，由用户自定义。
+    - `provider`: 生产商，由用户自定义。
 
     - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/schema/ops.fbs)中，编绎时会生成到ops_generated.h，该文件可以在发布件中获取。
 
@@ -649,7 +649,7 @@ KernelInterfaceReg(const std::string &provider, const std::string &op_type, cons
 
 - 参数
 
-    - `provider`: 产商名，由用户自定义。
+    - `provider`: 生产商名，由用户自定义。
 
     - `op_type`: 算子类型，由用户自定义，确保唯一同时要与REGISTER_CUSTOM_KERNEL时注册的op_type保持一致。
 
