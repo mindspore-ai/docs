@@ -39,13 +39,13 @@ Shard function沿用此模式，不同的是可以在图模式编译执行的环
 ## 接口介绍
 
 ```python
-def shard(fn, in_axes, out_axes, device="Ascend", level=0):
-    return shard_fn(fn, in_axes, out_axes, device, level)
+def shard(fn, in_strategy, out_strategy, device="Ascend", level=0):
+    return shard_fn(fn, in_strategy, out_strategy, device, level)
 ```
 
-`in_axes(tuple)`: 指定输入`Tensor`的切分策略，每个元素为元组，表示对应输入`Tensor`的切分策略，每个元组的长度要与对应`Tensor`的维度相等，表示每个维度如何切分，可以传入`None`，表示对应`Tensor`按照数据并行进行切分。
+`in_strategy(tuple)`: 指定输入`Tensor`的切分策略，每个元素为元组，表示对应输入`Tensor`的切分策略，每个元组的长度要与对应`Tensor`的维度相等，表示每个维度如何切分，可以传入`None`，表示对应`Tensor`按照数据并行进行切分。
 
-`out_axes(tuple)`: 指定输出`Tensor`的切分策略，用法和`in_axes`相同。在深度学习模型中，输出策略会被覆盖为数据并行，即高维按卡数均匀切分。
+`out_strategy(tuple)`: 指定输出`Tensor`的切分策略，用法和`in_strategy`相同。在深度学习模型中，输出策略会被覆盖为数据并行，即高维按卡数均匀切分。
 
 `device(string)`: 指定执行的设备，可选范围`Ascend`、`GPU`和`CPU`，默认为`Ascend`，目前尚未使能，后续会开放。
 
@@ -102,7 +102,7 @@ class Net(nn.Cell):
         def __init__(self):
             super(Net1, self).__init__()
             # slice input along the second axis and make output as data-parallel layout
-            self.block1.shard(in_axes=((1, 8),), out_axes=(None,))
+            self.block1.shard(in_strategy=((1, 8),), out_strategy=(None,))
         def construct(self, x):
             # block1 is executed as GRAPH. The inputs/outputs layouts follow the user definition and the slice strategy for inner ops are obtained by auto search
             x = self.block1(x)
@@ -118,7 +118,7 @@ class Net(nn.Cell):
     import mindspore.ops as ops
     class NetError(Net):
         def __init__(self):
-            self.block1 = ops.shard(self.block1, in_axes=((8, 1),), out_axes=(None,))
+            self.block1 = ops.shard(self.block1, in_strategy=((8, 1),), out_strategy=(None,))
         def construct(self, x):
             x = self.block1(x)
             x = self.block2(x)
@@ -139,8 +139,8 @@ class Net(nn.Cell):
     class Net2(Net):
         def __init__(self):
             # set the return function of shard a different name with the Cell instance
-            self.block1_graph = ops.shard(self.block1, in_axes=((8, 1),), out_axes=(None,))
-            self.block2.shard(in_axes=((1, 8),), out_axes=((1, 8),))
+            self.block1_graph = ops.shard(self.block1, in_strategy=((8, 1),), out_strategy=(None,))
+            self.block2.shard(in_strategy=((1, 8),), out_strategy=((1, 8),))
         def construct(self, x):
             # block1 is executed as GRAPH with input sliced along the first dimension
             x = self.block1_graph(x)
@@ -155,7 +155,13 @@ class Net(nn.Cell):
 
 目前由于动态图模式和静态图模式HCCL通信接口不同，对于切分存在限制，即`shard`内部的模型并行产生的通信只能发生在`world group`内部，所以指定的切分策略目前只能支持切一个维度。
 
-会在后续迭代中解决此问题。
+使用时，需设置`Ascend`后端，执行模式需设置为`PYNATIVE_MODE`，并行配置为`AUTO_PARALLEL`，`search_mode`为`sharding_propagation`。
+
+在训练神经网络时，`out_strategy`会被覆盖为数据并行，来适配动态图部分的数据并行。
+
+由于目前的算法实现，不支持在`__init__`中声明不会被使用的参数，定义网络时请注意。
+
+会在后续迭代中解决这些问题。
 
 ## 运行代码
 

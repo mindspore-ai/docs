@@ -44,7 +44,7 @@ class Net1(Net):
     def __init__(self):
         super(Net1, self).__init__()
         # slice input along the second axis and make output as data-parallel layout
-        self.block1.shard(in_axes=((1, 8),), out_axes=(None,))
+        self.block1.shard(in_strategy=((1, 8),), out_strategy=(None,))
 
     def construct(self, x):
         # block1 is executed as GRAPH. The inputs/outputs layouts follow the user definition and the slice strategy for inner ops are obtained by auto search
