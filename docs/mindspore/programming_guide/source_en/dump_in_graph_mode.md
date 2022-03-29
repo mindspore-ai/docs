@@ -72,6 +72,7 @@ The configuration files required for different modes and the data format of dump
 - Synchronous Dump supports the graphics mode both on Ascend, GPU and CPU, and currently does not support PyNative mode.
 - Asynchronous Dump only supports graph mode on Ascend, not PyNative mode. Memory reuse will not be turned off when asynchronous dump is enabled.
 - Default is Asynchronous mode. If synchronous mode is needed, "e2e_dump_settings" should be set in configure file.
+- Dump does not support heterogeneous training. If Dump is enabled for heterogeneous training, the saved dump data object directory maybe not in expected directory structure.
 
 ## Synchronous Dump
 
@@ -417,7 +418,7 @@ Large networks (such as Bert Large) will cause memory overflow when using synchr
    Specify the json configuration file of Dump.
 
     ```bash
-    export MINDSPORE_DUMP_CONFIG={Absolute path of data_dump.json}
+    export MINDSPORE_DUMP_CONFIG=${Absolute path of data_dump.json}
     ```
 
    If the `path` field is not set or set to an empty string in the Dump configuration file, you also need to configure the environment variable `MS_DIAGNOSTIC_DATA_PATH`.
