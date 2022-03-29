@@ -31,7 +31,7 @@ This document describes how to quickly install MindSpore in a Linux system with 
     wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-conda.sh
     # install Python 3.7 and the latest MindSpore by default
     bash -i ./euleros-ascend-conda.sh
-    # to specify Python and MindSpore version, e.g. Python 3.9 and MindSpore 1.5.0
+    # to specify Python and MindSpore version, taking Python 3.9 and MindSpore 1.5.0 as examples, use the following manners
     # PYTHON_VERSION=3.9 MINDSPORE_VERSION=1.5.0 bash -i ./euleros-ascend-conda.sh
     ```
 
@@ -46,7 +46,7 @@ This document describes how to quickly install MindSpore in a Linux system with 
 
     For more usage, see the script header description.
 
-- If some dependencies, such as Python and GCC, have been installed in your system, you are advised to perform the following steps to manually install MindSpore.
+- If some dependencies, such as CUDA, Conda and GCC, have been installed in your system, you are advised to perform the following steps to manually install MindSpore.
 
 ## Installing Environment Dependencies
 
@@ -95,6 +95,8 @@ cd -
 . ~/miniconda3/etc/profile.d/conda.sh
 conda init bash
 ```
+
+After the installation is complete, you can set up Tsinghua Source to accelerate the download for Conda, and refer to [Here](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/).
 
 ### Installing GCC
 
@@ -188,7 +190,7 @@ pip uninstall te topi hccl -y
 
 ## Installing MindSpore
 
-Ensure that you are in the Conda virtual environment and run the following command to install the latest MindSpore. To install other versions, please refer to [Version List](https://www.mindspore.cn/versions) and specify the version after `mindspore-ascend=`.
+Ensure that you are in the Conda virtual environment and run the following command to install the latest MindSpore. To install other versions, please refer to the specified the version of [Version List](https://www.mindspore.cn/versions) after `mindspore-ascend=`.
 
 ```bash
 conda install mindspore-ascend -c mindspore -c conda-forge
@@ -198,7 +200,7 @@ When the network is connected, dependencies of MindSpore are automatically downl
 
 ## Configuring Environment Variables
 
-**If Ascend AI processor software is installed in a non-default path**, after MindSpore is installed, export runtime-related environment variables. `/usr/local/Ascend` in the following command `LOCAL_ASCEND=/usr/local/Ascend` denotes the installation path of the software package, please replace it as your actual installation path.
+**If Ascend AI processor software is installed in a non-default path**, after MindSpore is installed, export Runtime-related environment variables. `/usr/local/Ascend` in the following command `LOCAL_ASCEND=/usr/local/Ascend` denotes the installation path of the software package, and you need to replace it as the actual installation path of the software package.
 
 ```bash
 # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
@@ -272,7 +274,7 @@ It means MindSpore has been installed successfully.
 
 ## Version Update
 
-Using the following command if you need to update the MindSpore version:
+Use the following command if you need to update the MindSpore version:
 
 ```bash
 conda update mindspore-ascend -c mindspore -c conda-forge

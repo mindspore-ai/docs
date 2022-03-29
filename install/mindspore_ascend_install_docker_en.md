@@ -13,7 +13,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend_install_docker_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
-[Docker](https://docs.docker.com/get-docker/) is an open source application container engine, developers can package their applications and dependencies into a lightweight, portable container. By using Docker, MindSpore can be rapidly deployed and separated from the system environment.
+[Docker](https://docs.docker.com/get-docker/) is an open source application container engine, and developers can package their applications and dependencies into a lightweight, portable container. By using Docker, MindSpore can be rapidly deployed and separated from the system environment.
 
 This document describes how to quickly install MindSpore in a Linux system with an Ascend 910 environment by Docker.
 
@@ -40,7 +40,7 @@ The current support for containerized build options is as follows:
 
 ## Obtaining MindSpore Image
 
-1. Log in to [Ascend Hub Image Center](https://ascend.huawei.com/ascendhub/#/home), register and activate an account, get login instructions and download instructions.
+1. Log in to [Ascend Hub Image Center](https://ascend.huawei.com/ascendhub/#/home), and register and activate an account. Get login instructions and download instructions.
 2. After obtaining the download permission, enter the [MindSpore image download page](https://ascendhub.huawei.com/#/detail/mindspore-modelzoo). Get login and download commands and execute:
 
     ```bash
@@ -121,7 +121,7 @@ MindSpore version: __version__
 The result of multiplication calculation is correct, MindSpore has been installed successfully!
 ```
 
-It means MindSpore has been installed by docker successfully.
+So far, it means MindSpore Ascend 910 has been installed by Docker successfully.
 
 ii:
 
@@ -153,7 +153,7 @@ The outputs should be the same as:
    [2. 2. 2. 2.]]]]
 ```
 
-It means MindSpore has been installed by docker successfully.
+So far, it means MindSpore Ascend 910 has been installed by Docker successfully.
 
 If you need to verify the MindInsight installation:
 
@@ -163,8 +163,8 @@ Enter ```mindinsight start --port 8080```, if it prompts that the startup status
 
 When you need to update the MindSpore version:
 
-- update Ascend AI processor software package according to MindSpore package version of which you wish to update.
-- log in to [Ascend Hub Image Center](https://ascend.huawei.com/ascendhub/#/home) again to obtain the download command of the latest docker version and execute:
+- update corresponding Ascend AI processor software package according to MindSpore package version of which you wish to update.
+- log in to [Ascend Hub Image Center](https://ascend.huawei.com/ascendhub/#/home) again to obtain the download command of the latest Docker and execute:
 
     ```bash
     docker pull ascendhub.huawei.com/public-ascendhub/mindspore-modelzoo:{tag}

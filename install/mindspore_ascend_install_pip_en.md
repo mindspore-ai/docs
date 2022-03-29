@@ -20,7 +20,7 @@
 
 This document describes how to quickly install MindSpore in a Linux system with an Ascend 910 environment by pip.
 
-- If you want to install MindSpore by pip on a EulerOS 2.8 with Ascend AI processor software package installed, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-pip.sh) for one-click installation. The automatic installation script will install the dependencies required to compile MindSpore.
+- If you want to install MindSpore by pip on an EulerOS 2.8 with the configured Ascend AI processor software package, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-pip.sh) for one-click installation. The automatic installation script will install MindSpore and its required dependencies.
 
     Run the following command to obtain and run the automatic installation script:
 
@@ -28,7 +28,7 @@ This document describes how to quickly install MindSpore in a Linux system with 
     wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-pip.sh
     # install Python 3.7 and MindSpore 1.6.0 by default
     bash -i ./euleros-ascend-pip.sh
-    # to specify Python and MindSpore version, e.g. Python 3.9 and MindSpore 1.5.0
+    # to specify Python and MindSpore version, taking Python 3.9 and MindSpore 1.5.0 as examples, use the following manners
     # PYTHON_VERSION=3.9 MINDSPORE_VERSION=1.5.0 bash -i ./euleros-ascend-pip.sh
     ```
 
@@ -64,7 +64,7 @@ The following describes how to install the third-party dependencies.
 
 For detailed installation guide, please refer to [Ascend Data Center Solution 21.0.4 Installation Guide](https://support.huawei.com/enterprise/zh/doc/EDOC1100235797?section=j003).
 
-The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path `/usr/local/Ascend` of Ascend AI processor software package, If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
+The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path of Ascend AI processor software package, If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
 
 Install the .whl packages provided in Ascend AI processor software package. The .whl packages are released with the software package. If the .whl packages have been installed before, you need to uninstall the packages by the following command.
 
@@ -95,6 +95,8 @@ cd -
 conda init bash
 ```
 
+After the installation is complete, you can set up Tsinghua source acceleration download for Conda, and see [here](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/).
+
 Create a Python 3.7.5 environment:
 
 ```bash
@@ -115,7 +117,7 @@ Run the following command to check the Python version.
 python --version
 ```
 
-If you are using a ARM architecture system, please ensure that pip installed for current Python has a version >= 19.3. If not, upgrade pip with the following command.
+If you are using an ARM architecture system, please ensure that pip installed for current Python has a version >= 19.3. If not, upgrade pip with the following command.
 
 ```bash
 python -m pip install -U pip
@@ -181,7 +183,7 @@ cd -
 
 ## Installing MindSpore
 
-First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Take version 1.6.0 as an example, execute the following commands.
+First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 1.6.0 as an example, execute the following commands.
 
 ```bash
 export MS_VERSION=1.6.0
@@ -204,7 +206,7 @@ When the network is connected, dependencies of MindSpore are automatically downl
 
 ## Configuring Environment Variables
 
-**If Ascend AI processor software is installed in a non-default path**, after MindSpore is installed, export runtime-related environment variables. `/usr/local/Ascend` in the following command `LOCAL_ASCEND=/usr/local/Ascend` denotes the installation path of the software package, please replace it as your actual installation path.
+**If Ascend AI processor software is installed in a non-default path**, after MindSpore is installed, export runtime-related environment variables. `/usr/local/Ascend` in the following command `LOCAL_ASCEND=/usr/local/Ascend` denotes the installation path of the software package, and you need to replace it as the actual installation path of the software package.
 
 ```bash
 # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
@@ -278,7 +280,7 @@ It means MindSpore has been installed successfully.
 
 ## Version Update
 
-Using the following command if you need to update the MindSpore version:
+Use the following command if you need to update the MindSpore version:
 
 ```bash
 pip install --upgrade mindspore-ascend=={version}
@@ -286,4 +288,4 @@ pip install --upgrade mindspore-ascend=={version}
 
 Of which,
 
-- When updating to a release candidate (rc) version, `{version}` should be specified, e.g. 1.5.0rc1; When updating to a standard release, `=={version}` could be removed.
+- When updating to a release candidate (rc) version, `{version}` should be specified manually as the rc version number, e.g. 1.5.0rc1; When updating to a standard release, `=={version}` could be removed.
