@@ -163,7 +163,7 @@ load_param_into_net(network, param_dict)
 []
 ```
 
-> For more information about loading a model in mindspore, see [Loading the Model](https://www.mindspore.cn/tutorials/en/master/save_load_model.html#loading-the-model).
+> For more information about loading a model in mindspore, see [Loading the Model](https://www.mindspore.cn/tutorials/en/master/beginner/save_load.html#loading-the-model).
 
 ## Validating the Model
 
