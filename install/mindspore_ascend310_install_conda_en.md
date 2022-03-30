@@ -3,13 +3,14 @@
 <!-- TOC -->
 
 - [Installing MindSpore Ascend 310 by Conda](#installing-mindspore-ascend-310-by-conda)
-    - [Installing Environment Dependencies](#installing-environment-dependencies)
+    - [Automatic Installation](#automatic-installation)
+    - [Manual Installation](#manual-installation)
         - [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package)
         - [Installing Conda](#installing-conda)
         - [Installing GCC](#installing-gcc)
         - [Installing gmp](#installing-gmp)
-    - [Creating and Accessing the Conda Virtual Environment](#creating-and-accessing-the-conda-virtual-environment)
-    - [Installing MindSpore](#installing-mindspore)
+        - [Creating and Accessing the Conda Virtual Environment](#creating-and-accessing-the-conda-virtual-environment)
+        - [Installing MindSpore](#installing-mindspore)
     - [Configuring Environment Variables](#configuring-environment-variables)
     - [Verifying the Installation](#verifying-the-installation)
 
@@ -21,31 +22,47 @@
 
 The following describes how to quickly install MindSpore by Conda on Linux in the Ascend 310 environment, MindSpore in Ascend 310 only supports inference.
 
-- If you want to install MindSpore by Conda on a EulerOS 2.8 with Ascend AI processor software package installed, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-conda.sh) for one-click installation. The automatic installation script will install MindSpore and its required dependencies.
+- If you want to install MindSpore by Conda on an EulerOS 2.8 with Ascend AI processor software package installed, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-conda.sh) for one-click installation, see [Automatic Installation](#automatic-installation) section. The automatic installation script will install MindSpore and its required dependencies.
 
-    Run the following command to obtain and run the automatic installation script:
+- If some dependencies, such as Python and GCC, have been installed in your system, it is recommended to install manually by referring to the installation steps in the [Manual Installation](#manual-installation) section.
 
-    ```bash
-    wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-conda.sh
-    # install Python 3.7 and the latest MindSpore by default
-    bash -i ./euleros-ascend-conda.sh
-    # to specify Python and MindSpore version, taking Python 3.9 and MindSpore 1.5.0 as examples, use the following manners
-    # PYTHON_VERSION=3.9 MINDSPORE_VERSION=1.5.0 bash -i ./euleros-ascend-conda.sh
-    ```
+## Automatic Installation
 
-    This script performs the following operations:
+Before running the automatic installation script, you need to make sure that the Ascend AI processor software package is correctly installed on your system. If it is not installed, please refer to the section [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package) to install it.
 
-    - Install the dependencies required by MindSpore, such as GCC, gmp.
-    - Install Conda and create a virtual environment for MindSpore.
-    - Install MindSpore Ascend by Conda.
+Run the following command to obtain and run the automatic installation script. The automatic installation script only supports the installation of MindSpore>=1.6.0.
 
-    After the script is executed, please refer to the instructions in [Configuring Environment Variables](#configuring-environment-variables) to set relevant environment variables.
+```bash
+wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-conda.sh
+# install Python 3.7 and the latest MindSpore by default
+bash -i ./euleros-ascend-conda.sh
+# to specify Python and MindSpore version, taking Python 3.9 and MindSpore 1.6.0 as examples, use the following manners
+# PYTHON_VERSION=3.9 MINDSPORE_VERSION=1.6.0 bash -i ./euleros-ascend-conda.sh
+```
 
-    For more usage, see the script header description.
+This script performs the following operations:
 
-- If some dependencies, such as CUDA, Conda and GCC, have been installed in your system, you are advised to perform the following steps to manually install MindSpore.
+- Install the dependencies required by MindSpore, such as GCC and gmp.
+- Install Conda and create a virtual environment for MindSpore.
+- Install MindSpore Ascend 310 by Conda.
 
-## Installing Environment Dependencies
+After the script is executed, you need to reopen the terminal window, and then set the relevant environment variables according to the instructions in [Configuring Environment Variables](#configuring-environment-variables).
+
+The automatic installation script creates a virtual environment named `mindspore_pyXX` for MindSpore. Where `XX` is the Python version, such as Python 3.7, the virtual environment name is `mindspore_py37`. Run the following command to show all virtual environments.
+
+```bash
+conda env list
+```
+
+To activate the virtual environment, take Python 3.7 as an example, execute the following command.
+
+```bash
+conda activate mindspore_py37
+```
+
+For more usage, see the script header description.
+
+## Manual Installation
 
 The following table lists the system environment and third-party dependencies required for installing MindSpore.
 
@@ -135,7 +152,7 @@ After the installation is complete, you can set up Tsinghua source acceleration 
     sudo yum install gmp-devel -y
     ```
 
-## Creating and Accessing the Conda Virtual Environment
+### Creating and Accessing the Conda Virtual Environment
 
 Create a Conda virtual environment based on the Python version you want to use and go to the virtual environment.
 
@@ -146,12 +163,7 @@ conda create -n mindspore_py37 python=3.7.5 -y
 conda activate mindspore_py37
 ```
 
-If you want to use Python 3.9.0:
-
-```bash
-conda create -n mindspore_py39 python=3.9.0 -y
-conda activate mindspore_py39
-```
+If you wish to use another version of Python, just change the Python version in the above command. Python 3.7, Python 3.8 and Python 3.9 are currently supported.
 
 Install the .whl package provided with the Ascend AI Processor software package in the virtual environment. The .whl package is released with the software package. After the software package is upgraded, you need to reinstall the .whl package.
 
@@ -167,7 +179,7 @@ If the software package of the Ascend AI processor is upgraded, the matching .wh
 pip uninstall te topi hccl -y
 ```
 
-## Installing MindSpore
+### Installing MindSpore
 
 Ensure that you are in the Conda virtual environment and run the following command to install the latest MindSpore. To install other versions, please refer to the specified version number of [Version List](https://www.mindspore.cn/versions) after `mindspore-ascend=`.
 

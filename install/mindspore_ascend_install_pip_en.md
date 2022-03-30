@@ -3,13 +3,14 @@
 <!-- TOC -->
 
 - [Installing MindSpore in Ascend 910 by pip](#installing-mindspore-in-ascend-910-by-pip)
-    - [Environment Preparation](#environment-preparation)
+    - [Automatic Installation](#automatic-installation)
+    - [Manual Installation](#manual-installation)
         - [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package)
         - [Installing Python](#installing-python)
         - [Installing GCC](#installing-gcc)
         - [Installing gmp](#installing-gmp)
         - [Installing Open MPI (Optional)](#installing-open-mpi-optional)
-    - [Installing MindSpore](#installing-mindspore)
+        - [Installing MindSpore](#installing-mindspore)
     - [Configuring Environment Variables](#configuring-environment-variables)
     - [Installation Verification](#installation-verification)
     - [Version Update](#version-update)
@@ -20,32 +21,48 @@
 
 This document describes how to quickly install MindSpore in a Linux system with an Ascend 910 environment by pip.
 
-- If you want to install MindSpore by pip on an EulerOS 2.8 with the configured Ascend AI processor software package, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-pip.sh) for one-click installation. The automatic installation script will install MindSpore and its required dependencies.
+- If you want to install MindSpore by pip on an EulerOS 2.8 with the configured Ascend AI processor software package, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-pip.sh) for one-click installation, see [Automatic Installation](#automatic-installation) section. The automatic installation script will install MindSpore and its required dependencies.
 
-    Run the following command to obtain and run the automatic installation script:
+- If some dependencies, such as Python and GCC, have been installed in your system, it is recommended to install manually by referring to the installation steps in the [Manual Installation](#manual-installation) section.
 
-    ```bash
-    wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-pip.sh
-    # install Python 3.7 and MindSpore 1.6.0 by default
-    bash -i ./euleros-ascend-pip.sh
-    # to specify Python and MindSpore version, taking Python 3.9 and MindSpore 1.5.0 as examples, use the following manners
-    # PYTHON_VERSION=3.9 MINDSPORE_VERSION=1.5.0 bash -i ./euleros-ascend-pip.sh
-    ```
+## Automatic Installation
 
-    This script performs the following operations:
+Before running the automatic installation script, you need to make sure that the Ascend AI processor software package is correctly installed on your system. If it is not installed, please refer to the section [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package) to install it.
 
-    - Install the dependencies required by MindSpore, such as GCC, gmp.
-    - Install Python3 and pip3 and set them as default.
-    - Install MindSpore Ascend by pip.
-    - Install Open MPI if OPENMPI is set to `on`.
+Run the following command to obtain and run the automatic installation script. The automatic installation script only supports the installation of MindSpore>=1.6.0.
 
-    After the script is executed, please refer to the instructions in [Configuring Environment Variables](#configuring-environment-variables) to set relevant environment variables.
+```bash
+wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-pip.sh
+# install MindSpore 1.7.0 and Python 3.7
+MINDSPORE_VERSION=1.7.0 bash -i ./euleros-ascend-pip.sh
+# to specify Python and MindSpore version, taking Python 3.9 and MindSpore 1.6.0 as examples, use the following manners
+# PYTHON_VERSION=3.9 MINDSPORE_VERSION=1.6.0 bash -i ./euleros-ascend-pip.sh
+```
 
-    For more usage, see the script header description.
+This script performs the following operations:
 
-- If some dependencies, such as Python and GCC, have been installed in your system, you are advised to perform the following steps to manually install MindSpore.
+- Install the dependencies required by MindSpore, such as GCC and gmp.
+- Install Python3 and pip3 and set them as default.
+- Install MindSpore Ascend by pip.
+- Install Open MPI if OPENMPI is set to `on`.
 
-## Environment Preparation
+After the script is executed, you need to reopen the terminal window, and then set the relevant environment variables according to the instructions in [Configuring Environment Variables](#configuring-environment-variables).
+
+The automatic installation script creates a virtual environment named `mindspore_pyXX` for MindSpore. Where `XX` is the Python version, such as Python 3.7, the virtual environment name is `mindspore_py37`. Run the following command to show all virtual environments.
+
+```bash
+conda env list
+```
+
+To activate the virtual environment, take Python 3.7 as an example, execute the following command.
+
+```bash
+conda activate mindspore_py37
+```
+
+For more usage, see the script header description.
+
+## Manual Installation
 
 The following table lists the system environment and third-party dependencies required for installing MindSpore.
 
@@ -53,7 +70,7 @@ The following table lists the system environment and third-party dependencies re
 |-|-|-|
 |Ubuntu 18.04/CentOS 7.6/EulerOS 2.8/OpenEuler 20.03/KylinV10 SP1|-|OS for running MindSpore|
 |[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|-|Ascend platform AI computing library used by MindSpore|
-|[Python](#installing-python)|3.7.5 or 3.9.0|Python environment that MindSpore depends on|
+|[Python](#installing-python)|3.7-3.9|Python environment that MindSpore depends on|
 |[GCC](#installing-gcc)|7.3.0|C++ compiler for compiling MindSpore|
 |[gmp](#installing-gmp)|6.1.2|Multiple precision arithmetic library used by MindSpore|
 |[Open MPI](#installing-open-mpi-optional)|4.0.3|high performance message passing library used by MindSpore (optional, required for single-node/multi-GPU and multi-node/multi-GPU training)|
@@ -97,18 +114,11 @@ conda init bash
 
 After the installation is complete, you can set up Tsinghua source acceleration download for Conda, and see [here](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/).
 
-Create a Python 3.7.5 environment:
+Create a virtual environment, taking Python 3.7.5 as an example:
 
 ```bash
 conda create -n mindspore_py37 python=3.7.5 -y
 conda activate mindspore_py37
-```
-
-Or create a Python 3.9.0 environment:
-
-```bash
-conda create -n mindspore_py39 python=3.9.0 -y
-conda activate mindspore_py39
 ```
 
 Run the following command to check the Python version.
@@ -181,12 +191,12 @@ source ~/.bashrc
 cd -
 ```
 
-## Installing MindSpore
+### Installing MindSpore
 
-First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 1.6.0 as an example, execute the following commands.
+First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 1.7.0 as an example, execute the following commands.
 
 ```bash
-export MS_VERSION=1.6.0
+export MS_VERSION=1.7.0
 ```
 
 Then run the following commands to install MindSpore according to the system architecture and Python version.
@@ -194,10 +204,14 @@ Then run the following commands to install MindSpore according to the system arc
 ```bash
 # x86_64 + Python3.7
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/ascend/x86_64/mindspore_ascend-${MS_VERSION/-/}-cp37-cp37m-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+# x86_64 + Python3.8
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/ascend/x86_64/mindspore_ascend-${MS_VERSION/-/}-cp38-cp38-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 # x86_64 + Python3.9
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/ascend/x86_64/mindspore_ascend-${MS_VERSION/-/}-cp39-cp39-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 # aarch64 + Python3.7
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/ascend/aarch64/mindspore_ascend-${MS_VERSION/-/}-cp37-cp37m-linux_aarch64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+# aarch64 + Python3.8
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/ascend/aarch64/mindspore_ascend-${MS_VERSION/-/}-cp38-cp38-linux_aarch64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 # aarch64 + Python3.9
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/ascend/aarch64/mindspore_ascend-${MS_VERSION/-/}-cp39-cp39-linux_aarch64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
@@ -288,4 +302,4 @@ pip install --upgrade mindspore-ascend=={version}
 
 Of which,
 
-- When updating to a release candidate (rc) version, `{version}` should be specified manually as the rc version number, e.g. 1.5.0rc1; When updating to a standard release, `=={version}` could be removed.
+- When updating to a release candidate (rc) version, `{version}` should be specified manually as the rc version number, e.g. 1.6.0rc1; When updating to a standard release, `=={version}` could be removed.

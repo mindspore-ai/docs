@@ -3,7 +3,8 @@
 <!-- TOC -->
 
 - [Installing MindSpore in CPU by Source Code](#installing-mindspore-in-cpu-by-source-code)
-    - [Environment Preparation](#environment-preparation)
+    - [Environment Preparation (automatic, recommended)](#environment-preparation-automatic-recommended)
+    - [Environment Preparation (manual)](#environment-preparation-manual)
         - [Installing Python](#installing-python)
         - [Installing wheel and setuptools](#installing-wheel-and-setuptools)
         - [Installing GCC, git, gmp, tclsh, patch and NUMA](#installing-gcc-git-gmp-tclsh-patch-and-numa)
@@ -21,34 +22,38 @@
 
 This document describes how to quickly install MindSpore by source code compilation in a Linux system in the CPU environment. The following takes Ubuntu 18.04 as an example to describe how to compile and install MindSpore.
 
-## Environment Preparation
+- If you need to configure an environment for building MindSpore on the Ubuntu 18.04 that never installed MindSpore and its dependencies, you may use the [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-source.sh) for one-click configuration, see [Environment Preparation (automatic, recommended)](#environment-preparation-automatic-recommended) section. The script installs the dependencies required for building MindSpore.
 
-- If you need to configure an environment for building MindSpore on the Ubuntu 18.04 that never installed MindSpore and its dependencies, you may use the [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-source.sh) for one-click configuration. The automatic installation script will install MindSpore and its required dependencies.
+- If some dependencies, such as Python and GCC, have been installed in your system, it is recommended to install manually by referring to the installation steps in the [Environment Preparation (manual)](#environment-preparation-manual) section.
 
-    The root permission is required because the script will modify the software source configuration and install dependencies via APT. Run the following command to obtain and run the automatic installation script.
+## Environment Preparation (automatic, recommended)
 
-    ```bash
-    wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-source.sh
-    # install Python 3.7 by default
-    bash ./ubuntu-cpu-source.sh
-    # to specify Python version, taking Python 3.9 as an example, use the following manner
-    # PYTHON_VERSION=3.9 bash ./ubuntu-cpu-source.sh
-    ```
+The root permission is required because the automatic installation script needs to change the software source configuration and install dependencies via APT. Run the following command to obtain and run the automatic installation script. The environment configured by the automatic installation script only supports compiling MindSpore>=1.6.0.
 
-    This script performs the following operations:
+```bash
+wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-source.sh
+# install Python 3.7 by default
+bash ./ubuntu-cpu-source.sh
+# to specify Python version, taking Python 3.9 as an example, use the following manner
+# PYTHON_VERSION=3.9 bash ./ubuntu-cpu-source.sh
+```
 
-    - Change the software source configuration to a HUAWEI CLOUD source.
-    - Install the compilation dependencies required by MindSpore, such as GCC, CMake, etc.
-    - Install Python3 and pip3 via APT and set them as default.
+This script performs the following operations:
 
-    For more usage, see the script header description.
+- Change the software source configuration to a HUAWEI CLOUD source.
+- Install the compilation dependencies required by MindSpore, such as GCC, CMake, etc.
+- Install Python3 and pip3 via APT and set them as default.
 
-- If some dependencies, such as Python and GCC, have been installed in your system, you are advised to perform the following steps to manually install MindSpore.
+After the automatic installation script is executed, you need to reopen the terminal window to make the environment variables take effect, and then you can jump to the [Downloading the Source Code from the Code Repository](#downloading-the-source-code-from-the-code-repository) section to downloading and compiling MindSpore.
+
+For more usage, see the script header description.
+
+## Environment Preparation (manual)
 
 |software|version|description|
 |-|-|-|
 |Ubuntu|18.04|OS for compiling and running MindSpore|
-|[Python](#installing-python)|3.7.5 or 3.9.0|Python environment on which MindSpore depends|
+|[Python](#installing-python)|3.7-3.9|Python environment that MindSpore depends|
 |[wheel](#installing-wheel-and-setuptools)|0.32.0 or later|Python packaging tool used by MindSpore|
 |[setuptools](#installing-wheel-and-setuptools)|44.0 or later|Python package management tool used by MindSpore|
 |[GCC](#installing-gcc-git-gmp-tclsh-patch-and-numa)|7.3.0~9.4.0|C++ compiler for compiling MindSpore|
@@ -81,18 +86,11 @@ The following describes how to install the third-party dependencies.
 
     After the installation is complete, you can set up Tsinghua source acceleration download for Conda, and see [here](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/).
 
-    Create a Python 3.7.5 environment:
+    Create a virtual environment, taking Python 3.7.5 as an example:
 
     ```bash
     conda create -n mindspore_py37 python=3.7.5 -y
     conda activate mindspore_py37
-    ```
-
-    Or create a Python 3.9.0 environment:
-
-    ```bash
-    conda create -n mindspore_py39 python=3.9.0 -y
-    conda activate mindspore_py39
     ```
 
 - Or install Python via APT with the following command.
@@ -110,7 +108,7 @@ The following describes how to install the third-party dependencies.
     pip config set global.index-url https://repo.huaweicloud.com/repository/pypi/simple
     ```
 
-    To install Python 3.9, just replace `3.7` with `3.9` in the command.
+    To install other Python versions, just change `3.7` in the command.
 
 Run the following command to check the Python version.
 

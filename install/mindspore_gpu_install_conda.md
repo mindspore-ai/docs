@@ -3,15 +3,16 @@
 <!-- TOC -->
 
 - [Conda方式安装MindSpore GPU版本](#conda方式安装mindspore-gpu版本)
-    - [安装环境依赖](#安装环境依赖)
+    - [自动安装](#自动安装)
+    - [手动安装](#手动安装)
         - [安装CUDA](#安装cuda)
         - [安装cuDNN](#安装cudnn)
         - [安装Conda](#安装conda)
         - [安装GCC和gmp](#安装gcc和gmp)
         - [安装Open MPI（可选）](#安装open-mpi可选)
         - [安装TensorRT（可选）](#安装tensorrt可选)
-    - [创建并进入Conda虚拟环境](#创建并进入conda虚拟环境)
-    - [安装MindSpore](#安装mindspore)
+        - [创建并进入Conda虚拟环境](#创建并进入conda虚拟环境)
+        - [安装MindSpore](#安装mindspore)
     - [验证是否成功安装](#验证是否成功安装)
 
 <!-- /TOC -->
@@ -22,32 +23,62 @@
 
 本文档介绍如何在GPU环境的Linux系统上，使用Conda方式快速安装MindSpore。下面以Ubuntu 18.04为例说明MindSpore安装步骤。
 
-- 如果您想在一个全新的带有GPU的Ubuntu 18.04上通过Conda安装MindSpore，可以使用[自动安装脚本](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-conda.sh)进行一键式安装。自动安装脚本会安装MindSpore及其所需的依赖。
+- 如果您想在一个全新的带有GPU的Ubuntu 18.04上通过Conda安装MindSpore，可以使用[自动安装脚本](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-conda.sh)进行一键式安装，参见[自动安装](#自动安装)小节。自动安装脚本会安装MindSpore及其所需的依赖。
 
-    自动安装脚本需要更改软件源配置以及通过APT安装依赖，所以在执行中需要申请root权限。使用以下命令获取自动安装脚本并执行。
+- 如果您的系统已经安装了部分依赖，如CUDA，Conda，GCC等，则推荐参照[手动安装](#手动安装)小节的安装步骤手动安装。
 
-    ```bash
-    wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-conda.sh
-    # 默认安装Python 3.7，CUDA 11.1以及最新版本的MindSpore
-    bash -i ./ubuntu-gpu-conda.sh
-    # 如需指定Python，CUDA和MindSpore版本，以Python 3.9，CUDA 10.1和MindSpore 1.5.0为例，使用以下方式
-    # PYTHON_VERSION=3.9 CUDA_VERSION=10.1 MINDSPORE_VERSION=1.5.0 bash -i ./ubuntu-gpu-conda.sh
-    ```
+## 自动安装
 
-    该脚本会执行以下操作：
+在使用自动安装脚本之前，需要确保系统正确安装了NVIDIA GPU驱动。CUDA 10.1要求最低显卡驱动版本为418.39；CUDA 11.1要求最低显卡驱动版本为450.80.02。执行以下指令检查驱动版本。
 
-    - 更改软件源配置为华为云源。
-    - 安装MindSpore所需的依赖，如GCC，gmp。
-    - 下载CUDA和cuDNN并安装。
-    - 安装Conda并为MindSpore创建虚拟环境。
-    - 通过Conda安装MindSpore GPU版本。
-    - 如果OPENMPI设置为`on`，则安装Open MPI。
+```bash
+nvidia-smi
+```
 
-    更多的用法请参看脚本头部的说明。
+如果未安装GPU驱动，执行如下命令安装。
 
-- 如果您的系统已经安装了部分依赖，如CUDA，Conda，GCC等，则推荐参照下面的安装步骤手动安装。
+```bash
+sudo apt-get update
+sudo apt-get install ubuntu-drivers-common
+sudo ubuntu-drivers autoinstall
+```
 
-## 安装环境依赖
+安装完成后请重启系统。
+
+自动安装脚本需要更改软件源配置以及通过APT安装依赖，所以在执行中需要申请root权限。使用以下命令获取自动安装脚本并执行。自动安装脚本仅支持安装MindSpore>=1.6.0。
+
+```bash
+wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-conda.sh
+# 默认安装Python 3.7，CUDA 11.1以及最新版本的MindSpore
+bash -i ./ubuntu-gpu-conda.sh
+# 如需指定Python，CUDA和MindSpore版本，以Python 3.9，CUDA 10.1和MindSpore 1.6.0为例，使用以下方式
+# PYTHON_VERSION=3.9 CUDA_VERSION=10.1 MINDSPORE_VERSION=1.6.0 bash -i ./ubuntu-gpu-conda.sh
+```
+
+该脚本会执行以下操作：
+
+- 更改软件源配置为华为云源。
+- 安装MindSpore所需的依赖，如GCC，gmp。
+- 下载CUDA和cuDNN并安装。
+- 安装Conda并为MindSpore创建虚拟环境。
+- 通过Conda安装MindSpore GPU版本。
+- 如果OPENMPI设置为`on`，则安装Open MPI。
+
+自动安装脚本执行完成后，需要重新打开终端窗口以使环境变量生效。自动安装脚本会为MindSpore创建名为`mindspore_pyXX`的虚拟环境。其中`XX`为Python版本，如Python 3.7则虚拟环境名为`mindspore_py37`。执行以下命令查看所有虚拟环境。
+
+```bash
+conda env list
+```
+
+要激活虚拟环境，以Python 3.7为例，执行以下命令。
+
+```bash
+conda activate mindspore_py37
+```
+
+更多的用法请参看脚本头部的说明。
+
+## 手动安装
 
 下表列出了安装MindSpore所需的系统环境和第三方依赖。
 
@@ -139,7 +170,7 @@ sudo apt-get install gcc-7 libgmp-dev -y
 sudo apt-get install gcc-8 -y
 ```
 
-或者安装GCC 9。
+或者安装GCC 9（注意，GCC 9不兼容CUDA 10.1）。
 
 ```bash
 sudo apt-get install software-properties-common -y
@@ -178,7 +209,7 @@ source ~/.bashrc
 cd -
 ```
 
-## 创建并进入Conda虚拟环境
+### 创建并进入Conda虚拟环境
 
 根据您希望使用的Python版本创建对应的Conda虚拟环境并进入虚拟环境。
 
@@ -189,14 +220,9 @@ conda create -n mindspore_py37 python=3.7.5 -y
 conda activate mindspore_py37
 ```
 
-如果您希望使用Python3.9.0版本：
+如果希望使用其他版本Python，只需更改以上命令中的Python版本。当前支持Python 3.7，Python 3.8和Python 3.9。
 
-```bash
-conda create -n mindspore_py39 python=3.9.0 -y
-conda activate mindspore_py39
-```
-
-## 安装MindSpore
+### 安装MindSpore
 
 确认您处于Conda虚拟环境中，并执行如下命令安装最新版本的MindSpore。如需安装其他版本，可参考[版本列表](https://www.mindspore.cn/versions)在`mindspore-gpu=`后指定版本号。
 
