@@ -123,6 +123,7 @@ algorithm_config = {
         'type': DQNActor,                                                   # Actor类名
         'policies': ['init_policy', 'collect_policy', 'eval_policy'],       # 从Policy中提取名为init_policy/collect_policy/eval_policy成员对象，用于构建Actor
         'pass_environment': True                                            # 是否把环境作为成员变量传入到actor中
+        'share_env': True                                                   # 每个actor是否共享环境
     }
     ...
 }
@@ -134,8 +135,9 @@ algorithm_config = {
 |       type       |     Class      | 用户定义的继承actor并实现虚函数的类 |         和用户定义的继承actor并实现虚函数的类名相同          |
 |   params(可选)   |   Dictionary   |    任意key value形式的值或者None    |      自定义参数，用户可以通过key value的形式传入任何值       |
 |     policies     | List of String |     和用户定义的策略变量名相同      | 列表中的所有String都应该和用户定义的策略类中初始化的策略变量名一一对应 |
-|  networks(可选)  | List of String |       和定义的网络变量名相同        | 列表中的所有String都应该和用户定义的策略类中初始化的网络变量名一一对应 |
+|  networks(可选)  | List of String |       和用户定义的网络变量名相同     | 列表中的所有String都应该和用户定义的策略类中初始化的网络变量名一一对应 |
 | pass_environment |    Boolean     |            True 或 False            | 如果值为False，将不能从actor中获得collect_environment和eval_evironment的实例 |
+|  share_env(可选) |    Boolean     |            True 或 False            | 默认值为True, 即各个actor共享一个环境。如果为False, 则单独为每个actor创建一个collect环境实例 |
 
 ### ReplayBuffer配置参数
 
