@@ -122,3 +122,38 @@ export NCCL_SOCKET_IFNAME=eth
 ```
 
 以上指令设置了`NCCL`在Host侧选择网卡名中带有`eth`的网卡进行通信。
+
+<br/>
+
+<font size=3>**Q：多机多卡选择特定名称的RDMA网卡(通过NCCL_SOCKET_IFNAME设置)通信后，训练仍然报错：**</font>
+
+```text
+misc/ibvwrap.cc:284 NCCL WARN Call to ibv_modify_qp failed with error Invalid argument
+...
+include/socket.h:403 NCCL WARN Connect to XXX failed: Connection refused
+```
+
+A：一般此问题是多机之间RDMA网卡配置存在差异，需要具体情况具体分析。但常见原因是存在某些主机网卡存在IB协议和RoCE协议同时存在的情况，可能出现连接建立失败的情况。解决方案：
+
+需要使用以下指令指定使用的RDMA网卡名为ib开头：
+
+```text
+export NCCL_IB_HCA=ib
+```
+
+<br/>
+
+<font size=3>**Q：单机多卡训练能够成功，但是扩展脚本到多机多卡后，其他主机提示各类报错：**</font>
+
+报错内容有多种，下面是几种典型的报错，可能有：
+1.已经安装的whl包找不到。
+2.IB网卡通信失败。
+3.Cuda库加载失败。
+
+A：这些问题，都是由于在`mpirun`启动其他主机时，其他主机的环境变量(包括NCCL的网卡选择配置)没有与本机同步，导致了单机多卡正常执行而多机多卡失败的现象。解决方法是通过mpirun的-x选项，导出特定的环境变量：
+
+```text
+mpirun --hostfile /path/to/hostfile -n 64 -x PYTHONPATH -x GLOG_v -x LD_LIBRARY_PATH -x NCCL_SOCKET_IFNAME -x NCCL_IB_HCA -x NCCL_DEBUG=INFO python train.py
+```
+
+以上指令导出了在本机已经设置的一些环境变量到其他主机，保证了在执行训练脚本前所有主机环境变量保持一致，达到多机多卡训练目标。
