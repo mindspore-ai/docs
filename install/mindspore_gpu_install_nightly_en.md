@@ -16,18 +16,20 @@ MindSpore Nightly is a preview version which includes latest features and bugfix
 
 This document describes how to quickly install MindSpore Nightly by pip in a Linux system with a GPU environment.
 
+For details about how to install third-party dependency software when confirming the system environment information, see the third-party dependency software installation section in the [Experience source code compilation and install the MindSpore GPU version on Linux](https://www.mindspore.cn/news/newschildren?id=401) provided by the community. Thanks to the community member [Flying penguin](https://gitee.com/zhang_yi2020) for sharing.
+
 ## System Environment Information Confirmation
 
 - Ensure that the 64-bit operating system is installed and the [glibc](https://www.gnu.org/software/libc/)>=2.17, where Ubuntu 18.04 is verified.
 - Ensure that [GCC 7.3.0](https://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) is installed.
 - Ensure that [CUDA 11.1](https://developer.nvidia.com/cuda-11.1.0-download-archive) with [cuDNN 8.0.X](https://developer.nvidia.com/rdp/cudnn-archive) is installed.
-    - If CUDA is installed in a non-default path, after installing CUDA, environment variable `PATH`(e.g. `export PATH=/usr/local/cuda-${version}/bin:$PATH`) and `LD_LIBRARY_PATH`(e.g. `export LD_LIBRARY_PATH=/usr/local/cuda-${version}/lib64:$LD_LIBRARY_PATH`) need to be set. Please refer to [CUDA installation guide](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#post-installation-actions) for detailed post installation actions.
+    - If CUDA is installed in a non-default path, after installing CUDA, environment variable PATH (e.g. `export PATH=/usr/local/cuda-${version}/bin:$PATH`) and `LD_LIBRARY_PATH`(e.g. `export LD_LIBRARY_PATH=/usr/local/cuda-${version}/lib64:$LD_LIBRARY_PATH`) need to be set. Please refer to [CUDA installation guide](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#post-installation-actions) for detailed post installation actions.
 - Ensure that [OpenMPI 4.0.3](https://www.open-mpi.org/faq/?category=building#easy-build) is installed. (optional, required for single-node/multi-GPU and multi-node/multi-GPU training)
 - Ensure that [OpenSSL 1.1.1 or later](https://github.com/openssl/openssl.git) is installed.
     - Ensure that [OpenSSL](https://github.com/openssl/openssl) is installed and set system variable `export OPENSSL_ROOT_DIR="OpenSSL installation directory"`.
-- Ensure that [TensorRT-7.2.2](https://developer.nvidia.com/nvidia-tensorrt-download) is installed. (optional，required for Serving inference).
+- Ensure that [TensorRT-7.2.2](https://developer.nvidia.com/nvidia-tensorrt-download) is installed (optional，required for Serving inference).
 - Ensure that [gmp 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
-- Ensure that Python 3.7.5 or 3.9.0 is installed. If not installed, download and install Python from:
+- Ensure that Python 3.7.5 or 3.9.0 is installed. If not installed or been installed Python in other versions, download and install Python from:
     - Python 3.7.5 (64-bit): [Python official website](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) or [HUAWEI CLOUD](https://mirrors.huaweicloud.com/python/3.7.5/Python-3.7.5.tgz).
     - Python 3.9.0 (64-bit): [Python official website](https://www.python.org/ftp/python/3.9.0/Python-3.9.0.tgz) or [HUAWEI CLOUD](https://mirrors.huaweicloud.com/python/3.9.0/Python-3.9.0.tgz).
 
@@ -96,7 +98,7 @@ It means MindSpore has been installed successfully.
 
 ## Version Update
 
-Using the following command if you need to update the MindSpore version:
+Use the following command if you need to update the MindSpore version:
 
 ```bash
 pip install --upgrade mindspore-cuda11-dev=={version}
@@ -104,6 +106,6 @@ pip install --upgrade mindspore-cuda11-dev=={version}
 
 Of which,
 
-- When updating to a release candidate (rc) version, `{version}` should be specified, e.g. 1.6.0rc1.dev20211125; When updating to a standard release, `=={version}` could be removed.
+- When updating to a release candidate (rc) version, `{version}` should be specified manually, e.g. 1.6.0rc1.dev20211125; When you want to upgrade to the latest version automatically, `=={version}` could be removed.
 
-Note: MindSpore with CUDA11 is selected by default when upgrading version 1.3.0 and above. If you still want to use MindSpore with CUDA10, please select the corresponding wheel installation package.
+Note: Currently MindSpore GPU nightly is only available in the CUDA11 version. If you still want to use the CUDA10 version, please refer to the source code compilation guide to compile it yourself on the environment where CUDA10 is installed.
