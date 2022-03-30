@@ -732,3 +732,9 @@ pytest -s -v ./resnet50_distributed_training_gpu_recovery.py > scheduler.log 2>&
 Worker和Scheduler的组网会自动恢复。
 
 Worker进程出现异常退出处理方式类似(注:Worker进程出现异常退出，需要等30s后再拉起才能恢复训练，在这之前，Scheduler为了防止网络抖动和恶意注册，拒绝相同node id的Worker再次注册)。
+
+## 在K8s集群中使用ms-operator进行分布式训练
+
+MindSpore Operator 是MindSpore在Kubernetes上进行分布式训练的插件。CRD（Custom Resource Definition）中定义了Scheduler、PS、Worker三种角色，用户只需配置yaml文件，即可轻松实现分布式训练。
+
+当前ms-operator支持普通单Worker训练、PS模式的单Worker训练以及自动并行（例如数据并行、模型并行等）的Scheduler、Worker启动。详细流程请参考[ms-operator](https://gitee.com/mindspore/ms-operator)。
