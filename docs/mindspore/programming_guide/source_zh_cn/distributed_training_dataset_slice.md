@@ -9,6 +9,10 @@
 在进行分布式训练时，以图片数据为例，当单张图片的大小过大时，如遥感卫星等大幅面图片，即使一张图片也过大，需要对图片进行切分，每张卡读取一部分图片，
 进行分布式训练。处理数据集切分的场景，需要配合模型并行一起才能达到预期的降低显存的效果，因此，基于自动并行提供了该项功能。本教程使用的样例为ResNet50，不是大幅面的网络，仅作示例。真实应用到大幅面的网络时，往往需要详细设计并行策略。
 
+## 操作实践
+
+### 样例代码说明
+
 >你可以在这里下载完整的样例代码：
 >
 >https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training
@@ -26,7 +30,7 @@
     │      run_dataset_slice.sh
 ```
 
-## 创建数据集
+### 创建数据集
 
 > 数据集切分仅支持全/半自动模式，在数据并行模式下不涉及。
 
@@ -88,7 +92,7 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, slice_h_num=1, slice_
     return data_set
 ```
 
-## 配置数据集切分策略
+### 配置数据集切分策略
 
 > 数据集切分仅支持全/半自动模式，在数据并行模式下不涉及。
 
@@ -113,6 +117,6 @@ data_path = os.getenv('DATA_PATH')
 dataset = create_dataset(data_path, batch_size=batch_size, slice_h_num=slice_h_num, slice_w_num=slice_w_num)
 ```
 
-## 运行代码
+### 运行代码
 
 上述流程的数据，代码和执行过程，可以参考：<https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_ascend.html#单机多卡训练>。差异点在于，将执行脚本更改为run_dataset_slice.sh。

@@ -1,4 +1,4 @@
-# 通信算子融合
+# 分布式训练通信融合
 
 `Ascend` `GPU` `分布式并行`
 
@@ -20,7 +20,7 @@ MindSpore支持对分布式训练中三种常用通信算子（`AllReduce`, `All
 
 如下图所示，每个节点备份完整的神经网络模型，并利用本地的数据集分区训练一个mini-batch，进行前向和反向计算，反向计算得到的梯度跨节点进行同步，同步后继续下一个mini-batch的训练，如此循环迭代，直到accuracy/loss达到阈值，或者训练完一定数目的epoch。由此可见，在分布式训练过程中，计算和通信交替进行，目前已有工作研究如何将相互不依赖的计算和传输做流水化，以降低跨节点数据同步在整体训练时长中的占比[5-6]，这里不再赘述。
 
-<div align=center><img src="images/data_parallel.png"></div>
+![image](images/data_parallel.png)
 
 ### 通信融合的必要性
 
@@ -30,12 +30,15 @@ $$t = \alpha m+\beta$$
 
 ### 通信融合的实现
 
-Mindspore通过两种方法为`AllReduce`, `AllGather`和`ReduceScatter`三种常用通信算子分别实现融合：
+当前支持对`AllReduce`, `AllGather`和`ReduceScatter`三种通信算子分别进行融合，配置项为一个dict类型，如：
 
-- 指定index: 给神经网络不同layer的参数指定不同的index，MindSpore将相同index的参数融合在一起进行传输；
-- 融合buffer: 将不同layer的参数积累在一个预先分配好的buffer中，当buffer满时进行传输。
+comm_fusion={"allreduce": {"mode": "auto", "config": None}}。其中，"mode"有三种选项：
 
->在编译图的流程中，相同融合标记并且是相同的通信操作，会被融合成一个通信操作。从而减少通信操作的数量。对于融合标记为0的通信算子时，优化流程中不会对它们进行融合。
+"auto"：自动按照数据量阈值64MB进行算子融合，配置参数"config"为None。
+
+"size"：按照手动设置数据量阈值的方式进行通信算子融合，配置参数"config"类型为int，单位MB。
+
+"index"：仅"allreduce"支持配置index，表示按照通信算子序列号进行融合的方式，配置参数"config"类型为list。例如：[20, 35]，表示将前20个AllReduce融合成1个，第20～35个AllReduce融合成1个，剩下的AllReduce融合成1个。
 
 ### 通信融合的使用方法
 
