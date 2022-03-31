@@ -3,7 +3,8 @@
 <!-- TOC -->
 
 - [Installing MindSpore in GPU by pip](#installing-mindspore-in-gpu-by-pip)
-    - [Environment Preparation](#environment-preparation)
+    - [Automatic Installation](#automatic-installation)
+    - [Manual Installation](#manual-installation)
         - [Installing CUDA](#installing-cuda)
         - [Installing cuDNN](#installing-cudnn)
         - [Installing Python](#installing-python)
@@ -20,32 +21,52 @@
 
 This document describes how to quickly install MindSpore by pip in a Linux system with a GPU environment. The following takes Ubuntu 18.04 as an example to describe how to install MindSpore.
 
-- If you want to install MindSpore by pip on a fresh Ubuntu 18.04 with a GPU environment, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-pip.sh) for one-click installation. The automatic installation script will install MindSpore and its dependencies.
+- If you want to install MindSpore by pip on a fresh Ubuntu 18.04 with a GPU environment, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-pip.sh) for one-click installation, see [Automatic Installation](#automatic-installation) section. The automatic installation script will install MindSpore and its dependencies.
 
-    The root permission is required because the automatic installation script needs to change the software source configuration and install dependencies via APT. Run the following command to obtain and run the automatic installation script:
+- If some dependencies, such as CUDA, Python and GCC, have been installed in your system, it is recommended to install manually by referring to the installation steps in the [Manual Installation](#manual-installation) section.
 
-    ```bash
-    wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-pip.sh
-    # install Python 3.7, CUDA 11.1 and MindSpore 1.6.0 by default
-    bash -i ./ubuntu-gpu-pip.sh
-    # to specify Python and MindSpore version, taking Python 3.9 and MindSpore 1.5.0 as examples, use the following manners
-    # PYTHON_VERSION=3.9 CUDA_VERSION=10.1 MINDSPORE_VERSION=1.5.0 bash -i ./ubuntu-gpu-pip.sh
-    ```
+## Automatic Installation
 
-    This script performs the following operations:
+Before using the automatic installation script, you need to make sure that the NVIDIA GPU driver is correctly installed on the system. The minimum required GPU driver version of CUDA 10.1 is 418.39. The minimum required GPU driver version of CUDA 11.1 is 450.80.02. Execute the following command to check the driver version.
 
-    - Change the software source configuration to a HUAWEI CLOUD source.
-    - Install the dependencies required by MindSpore, such as GCC and gmp.
-    - Install Python3 and pip3 via APT and set them as default.
-    - Download and install CUDA and cuDNN.
-    - Install MindSpore GPU by pip.
-    - Install Open MPI if OPENMPI is set to `on`.
+```bash
+nvidia-smi
+```
 
-    For more usage, see the script header description.
+If the GPU driver is not installed, run the following command to install it.
 
-- If some dependencies, such as CUDA, Python and GCC, have been installed in your system, you are advised to perform the following steps to manually install MindSpore.
+```bash
+sudo apt-get update
+sudo apt-get install ubuntu-drivers-common
+sudo ubuntu-drivers autoinstall
+```
 
-## Environment Preparation
+After the installation is complete, please reboot your system.
+
+The root permission is required because the automatic installation script needs to change the software source configuration and install dependencies via APT. Run the following command to obtain and run the automatic installation script. The automatic installation script only supports the installation of MindSpore>=1.6.0.
+
+```bash
+wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-pip.sh
+# install MindSpore 1.7.0, Python 3.7 and CUDA 11.1
+MINDSPORE_VERSION=1.7.0 bash -i ./ubuntu-gpu-pip.sh
+# to specify Python and MindSpore version, taking Python 3.9 and MindSpore 1.6.0 as examples, use the following manners
+# PYTHON_VERSION=3.9 CUDA_VERSION=10.1 MINDSPORE_VERSION=1.6.0 bash -i ./ubuntu-gpu-pip.sh
+```
+
+This script performs the following operations:
+
+- Change the software source configuration to a HUAWEI CLOUD source.
+- Install the dependencies required by MindSpore, such as GCC and gmp.
+- Install Python3 and pip3 via APT and set them as default.
+- Download and install CUDA and cuDNN.
+- Install MindSpore GPU by pip.
+- Install Open MPI if OPENMPI is set to `on`.
+
+After the automatic installation script is executed, you need to reopen the terminal window to make the environment variables take effect.
+
+For more usage, see the script header description.
+
+## Manual Installation
 
 The following table lists the system environment and third-party dependencies required to install MindSpore.
 
@@ -54,7 +75,7 @@ The following table lists the system environment and third-party dependencies re
 |Ubuntu|18.04|OS for compiling and running MindSpore|
 |[CUDA](#installing-cuda)|10.1 or 11.1|parallel computing architecture for MindSpore GPU|
 |[cuDNN](#installing-cudnn)|7.6.x or 8.0.x|deep neural network acceleration library used by MindSpore GPU|
-|[Python](#installing-python)|3.7.5 or 3.9.0|Python environment that MindSpore depends on|
+|[Python](#installing-python)|3.7-3.9|Python environment that MindSpore depends on|
 |[GCC](#installing-gcc-and-gmp)|7.3.0~9.4.0|C++ compiler for compiling MindSpore|
 |[gmp](#installing-gcc-and-gmp)|6.1.2|multiple precision arithmetic library used by MindSpore|
 |[Open MPI](#installing-open-mpi-optional)|4.0.3|high performance message passing library used by MindSpore (optional, required for single-node/multi-GPU and multi-node/multi-GPU training)|
@@ -127,18 +148,11 @@ If a different version of CUDA have been installed or the CUDA installation path
 
     After the installation is complete, you can set up Tsinghua source acceleration download for Conda, and see [here](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/).
 
-    Create a Python 3.7.5 environment:
+    Create a virtual environment, taking Python 3.7.5 as an example:
 
     ```bash
     conda create -n mindspore_py37 python=3.7.5 -y
     conda activate mindspore_py37
-    ```
-
-    Or create a Python 3.9.0 environment:
-
-    ```bash
-    conda create -n mindspore_py39 python=3.9.0 -y
-    conda activate mindspore_py39
     ```
 
 - Or install Python via APT with the following command.
@@ -156,7 +170,7 @@ If a different version of CUDA have been installed or the CUDA installation path
     pip config set global.index-url https://repo.huaweicloud.com/repository/pypi/simple
     ```
 
-    To install Python 3.9, just replace `3.7` with `3.9` in the command.
+    To install other Python versions, just change `3.7` in the command.
 
 Run the following command to check the Python version.
 
@@ -178,7 +192,7 @@ To install a later version of GCC, run the following command to install GCC 8.
 sudo apt-get install gcc-8 -y
 ```
 
-Or install GCC 9.
+Or install GCC 9 (Note that GCC 9 is not compatible with CUDA 10.1).
 
 ```bash
 sudo apt-get install software-properties-common -y
@@ -219,10 +233,10 @@ cd -
 
 ## Installing MindSpore
 
-First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking the version 1.6.0 as an example, execute the following commands.
+First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 1.7.0 as an example, execute the following commands.
 
 ```bash
-export MS_VERSION=1.6.0
+export MS_VERSION=1.7.0
 ```
 
 Then install the latest version of MindSpore according to the CUDA version and Python version by following the following command.
@@ -230,10 +244,14 @@ Then install the latest version of MindSpore according to the CUDA version and P
 ```bash
 # CUDA10.1 + Python3.7
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/gpu/x86_64/cuda-10.1/mindspore_gpu-${MS_VERSION/-/}-cp37-cp37m-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+# CUDA10.1 + Python3.8
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/gpu/x86_64/cuda-10.1/mindspore_gpu-${MS_VERSION/-/}-cp38-cp38-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 # CUDA10.1 + Python3.9
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/gpu/x86_64/cuda-10.1/mindspore_gpu-${MS_VERSION/-/}-cp39-cp39-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 # CUDA11.1 + Python3.7
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/gpu/x86_64/cuda-11.1/mindspore_gpu-${MS_VERSION/-/}-cp37-cp37m-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+# CUDA11.1 + Python3.8
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/gpu/x86_64/cuda-11.1/mindspore_gpu-${MS_VERSION/-/}-cp38-cp38-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 # CUDA11.1 + Python3.9
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/gpu/x86_64/cuda-11.1/mindspore_gpu-${MS_VERSION/-/}-cp39-cp39-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
@@ -299,6 +317,6 @@ pip install --upgrade mindspore-gpu=={version}
 
 Of which,
 
-- When updating to a release candidate (rc) version, `{version}` should be specified manually, e.g. 1.5.0rc1; When updating to a standard release, `=={version}` could be removed.
+- When updating to a release candidate (rc) version, `{version}` should be specified manually, e.g. 1.6.0rc1; When updating to a standard release, `=={version}` could be removed.
 
 Note: MindSpore with CUDA11 is selected by default when upgrading version 1.3.0 and above. If you still want to use MindSpore with CUDA10, please select the corresponding wheel installation package.

@@ -3,14 +3,15 @@
 <!-- TOC -->
 
 - [pip方式安装MindSpore GPU版本](#pip方式安装mindspore-gpu版本)
-    - [环境准备](#环境准备)
+    - [自动安装](#自动安装)
+    - [手动安装](#手动安装)
         - [安装CUDA](#安装cuda)
         - [安装cuDNN](#安装cudnn)
         - [安装Python](#安装python)
         - [安装GCC和gmp](#安装gcc和gmp)
         - [安装Open MPI（可选）](#安装open-mpi可选)
         - [安装TensorRT（可选）](#安装tensorrt可选)
-    - [安装MindSpore](#安装mindspore)
+        - [安装MindSpore](#安装mindspore)
     - [验证是否成功安装](#验证是否成功安装)
     - [升级MindSpore版本](#升级mindspore版本)
 
@@ -20,32 +21,52 @@
 
 本文档介绍如何在GPU环境的Linux系统上，使用pip方式快速安装MindSpore。下面以Ubuntu 18.04为例说明MindSpore安装步骤。
 
-- 如果您想在一个全新的带有GPU的Ubuntu 18.04上通过pip安装MindSpore，可以使用[自动安装脚本](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-pip.sh)进行一键式安装。自动安装脚本会安装MindSpore及其所需的依赖。
+- 如果您想在一个全新的带有GPU的Ubuntu 18.04上通过pip安装MindSpore，可以使用[自动安装脚本](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-pip.sh)进行一键式安装，参见[自动安装](#自动安装)小节。自动安装脚本会安装MindSpore及其所需的依赖。
 
-    自动安装脚本需要更改软件源配置以及通过APT安装依赖，所以需要申请root权限。使用以下命令获取自动安装脚本并执行。
+- 如果您的系统已经安装了部分依赖，如CUDA，Python，GCC等，则推荐参照[手动安装](#手动安装)小节的安装步骤手动安装。
 
-    ```bash
-    wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-pip.sh
-    # 默认安装Python 3.7，CUDA 11.1以及MindSpore 1.6.0
-    sudo bash -i ./ubuntu-gpu-pip.sh
-    # 如需指定安装Python 3.9，CUDA 10.1以及MindSpore 1.5.0，使用以下方式
-    # sudo PYTHON_VERSION=3.9 CUDA_VERSION=10.1 MINDSPORE_VERSION=1.5.0 bash -i ./ubuntu-gpu-pip.sh
-    ```
+## 自动安装
 
-    该脚本会执行以下操作：
+在使用自动安装脚本之前，需要确保系统正确安装了NVIDIA GPU驱动。CUDA 10.1要求最低显卡驱动版本为418.39；CUDA 11.1要求最低显卡驱动版本为450.80.02。执行以下指令检查驱动版本。
 
-    - 更改软件源配置为华为云源。
-    - 安装MindSpore所需的依赖，如GCC，gmp。
-    - 通过APT安装Python3和pip3，并设为默认。
-    - 下载CUDA和cuDNN并安装。
-    - 通过pip安装MindSpore GPU版本。
-    - 如果OPENMPI设置为`on`，则安装Open MPI。
+```bash
+nvidia-smi
+```
 
-    更多的用法请参看脚本头部的说明。
+如果未安装GPU驱动，执行如下命令安装。
 
-- 如果您的系统已经安装了部分依赖，如CUDA，Python，GCC等，则推荐参照下面的安装步骤手动安装。
+```bash
+sudo apt-get update
+sudo apt-get install ubuntu-drivers-common
+sudo ubuntu-drivers autoinstall
+```
 
-## 环境准备
+安装完成后请重启系统。
+
+自动安装脚本需要更改软件源配置以及通过APT安装依赖，所以需要申请root权限。使用以下命令获取自动安装脚本并执行。自动安装脚本仅支持安装MindSpore>=1.6.0。
+
+```bash
+wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-pip.sh
+# 安装MindSpore 1.7.0，Python 3.7和CUDA 11.1。
+MINDSPORE_VERSION=1.7.0 bash -i ./ubuntu-gpu-pip.sh
+# 如需指定安装Python 3.9，CUDA 10.1以及MindSpore 1.6.0，使用以下方式
+# PYTHON_VERSION=3.9 CUDA_VERSION=10.1 MINDSPORE_VERSION=1.6.0 bash -i ./ubuntu-gpu-pip.sh
+```
+
+该脚本会执行以下操作：
+
+- 更改软件源配置为华为云源。
+- 安装MindSpore所需的依赖，如GCC，gmp。
+- 通过APT安装Python3和pip3，并设为默认。
+- 下载CUDA和cuDNN并安装。
+- 通过pip安装MindSpore GPU版本。
+- 如果OPENMPI设置为`on`，则安装Open MPI。
+
+自动安装脚本执行完成后，需要重新打开终端窗口以使环境变量生效。
+
+更多的用法请参看脚本头部的说明。
+
+## 手动安装
 
 下表列出了编译安装MindSpore GPU所需的系统环境和第三方依赖。
 
@@ -54,7 +75,7 @@
 |Ubuntu|18.04|编译和运行MindSpore的操作系统|
 |[CUDA](#安装cuda)|10.1或11.1|MindSpore GPU使用的并行计算架构|
 |[cuDNN](#安装cudnn)|7.6.x或8.0.x|MindSpore GPU使用的深度神经网络加速库|
-|[Python](#安装python)|3.7.5或3.9.0|MindSpore的使用依赖Python环境|
+|[Python](#安装python)|3.7-3.9|MindSpore的使用依赖Python环境|
 |[GCC](#安装gcc和gmp)|7.3.0到9.4.0之间|用于编译MindSpore的C++编译器|
 |[gmp](#安装gcc和gmp)|6.1.2|MindSpore使用的多精度算术库|
 |[Open MPI](#安装open-mpi可选)|4.0.3|MindSpore使用的高性能消息传递库（可选，单机多卡/多机多卡训练需要）|
@@ -127,18 +148,11 @@ sudo chmod a+r /usr/local/cuda-11.1/include/cudnn.h /usr/local/cuda-11.1/lib64/l
 
     安装完成后，可以为Conda设置清华源加速下载，参考[此处](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/)。
 
-    创建Python 3.7.5环境：
+    创建虚拟环境，以Python 3.7.5为例：
 
     ```bash
     conda create -n mindspore_py37 python=3.7.5 -y
     conda activate mindspore_py37
-    ```
-
-    或者创建Python 3.9.0环境：
-
-    ```bash
-    conda create -n mindspore_py39 python=3.9.0 -y
-    conda activate mindspore_py39
     ```
 
 - 通过APT安装Python，命令如下。
@@ -156,7 +170,7 @@ sudo chmod a+r /usr/local/cuda-11.1/include/cudnn.h /usr/local/cuda-11.1/lib64/l
     pip config set global.index-url https://repo.huaweicloud.com/repository/pypi/simple
     ```
 
-    若要安装Python 3.9版本，只需将命令中的`3.7`替换为`3.9`。
+    若要安装其他Python版本，只需更改命令中的`3.7`。
 
 可以通过以下命令查看Python版本。
 
@@ -178,7 +192,7 @@ sudo apt-get install gcc-7 libgmp-dev -y
 sudo apt-get install gcc-8 -y
 ```
 
-或者安装GCC 9。
+或者安装GCC 9（注意，GCC 9不兼容CUDA 10.1）。
 
 ```bash
 sudo apt-get install software-properties-common -y
@@ -217,12 +231,12 @@ source ~/.bashrc
 cd -
 ```
 
-## 安装MindSpore
+### 安装MindSpore
 
-首先参考[版本列表](https://www.mindspore.cn/versions)选择想要安装的MindSpore版本，并进行SHA-256完整性校验。以1.6.0版本为例，执行以下命令。
+首先参考[版本列表](https://www.mindspore.cn/versions)选择想要安装的MindSpore版本，并进行SHA-256完整性校验。以1.7.0版本为例，执行以下命令。
 
 ```bash
-export MS_VERSION=1.6.0
+export MS_VERSION=1.7.0
 ```
 
 然后根据CUDA版本及Python版本执行如下命令安装最新版本的MindSpore。
@@ -230,10 +244,14 @@ export MS_VERSION=1.6.0
 ```bash
 # CUDA10.1 + Python3.7
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/gpu/x86_64/cuda-10.1/mindspore_gpu-${MS_VERSION/-/}-cp37-cp37m-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+# CUDA10.1 + Python3.8
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/gpu/x86_64/cuda-10.1/mindspore_gpu-${MS_VERSION/-/}-cp38-cp38-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 # CUDA10.1 + Python3.9
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/gpu/x86_64/cuda-10.1/mindspore_gpu-${MS_VERSION/-/}-cp39-cp39-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 # CUDA11.1 + Python3.7
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/gpu/x86_64/cuda-11.1/mindspore_gpu-${MS_VERSION/-/}-cp37-cp37m-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+# CUDA11.1 + Python3.8
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/gpu/x86_64/cuda-11.1/mindspore_gpu-${MS_VERSION/-/}-cp38-cp38-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 # CUDA11.1 + Python3.9
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/gpu/x86_64/cuda-11.1/mindspore_gpu-${MS_VERSION/-/}-cp39-cp39-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
@@ -299,6 +317,6 @@ pip install --upgrade mindspore-gpu=={version}
 
 其中：
 
-- 升级到rc版本时，需要手动指定`{version}`为rc版本号，例如1.5.0rc1；如果升级到正式版本，`=={version}`字段可以缺省。
+- 升级到rc版本时，需要手动指定`{version}`为rc版本号，例如1.6.0rc1；如果升级到正式版本，`=={version}`字段可以缺省。
 
 注意：1.3.0及以上版本升级时，默认选择CUDA11版本，若仍希望使用CUDA10版本，请选择相应的完整wheel安装包。

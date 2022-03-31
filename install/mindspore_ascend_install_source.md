@@ -3,7 +3,8 @@
 <!-- TOC -->
 
 - [源码编译方式安装MindSpore Ascend 910版本](#源码编译方式安装mindspore-ascend-910版本)
-    - [环境准备](#环境准备)
+    - [环境准备（自动，推荐）](#环境准备自动推荐)
+    - [环境准备（手动）](#环境准备手动)
         - [安装昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)
         - [安装Python](#安装python)
         - [安装wheel和setuptools](#安装wheel和setuptools)
@@ -25,29 +26,49 @@
 
 本文档介绍如何在Ascend 910环境的Linux系统上，使用源码编译方式快速安装MindSpore。
 
-## 环境准备
+- 如果您想在一个已经配置好昇腾AI处理器配套软件包的EulerOS 2.8上配置一个可以编译MindSpore的环境，可以使用[自动安装脚本](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-source.sh)进行一键式配置，参见[环境准备（自动，推荐）](#环境准备自动推荐)小节。自动安装脚本会安装编译MindSpore所需的依赖。
 
-- 如果您想在一个已经配置好昇腾AI处理器配套软件包的EulerOS 2.8上配置一个可以编译MindSpore的环境，可以使用[自动安装脚本](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-source.sh)进行一键式配置。自动安装脚本会安装编译MindSpore所需的依赖。
+- 如果您的系统已经安装了部分依赖，如Python，GCC等，则推荐参照[环境准备（手动）](#环境准备手动)小节的安装步骤手动安装。
 
-    使用以下命令获取自动安装脚本并执行。
+## 环境准备（自动，推荐）
 
-    ```bash
-    wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-source.sh
-    # 默认安装Python 3.7
-    bash -i ./euleros-ascend-source.sh
-    # 如需指定安装Python 3.9，并且安装可选依赖Open MPI，使用以下方式
-    # PYTHON_VERSION=3.9 OPENMPI=on bash -i ./euleros-ascend-source.sh
-    ```
+在使用自动安装脚本之前，需要确保系统正确安装了昇腾AI处理器配套软件包。如果没有安装，请先参考[安装昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)小节进行安装。
 
-    该脚本会执行以下操作：
+使用以下命令获取自动安装脚本并执行。通过自动安装脚本配置的环境，仅支持编译MindSpore>=1.6.0。
 
-    - 安装MindSpore所需的编译依赖，如GCC，CMake等。
-    - 安装Python3和pip3，并设为默认。
-    - 如果OPENMPI设置为`on`，则安装Open MPI。
+```bash
+wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-source.sh
+# 默认安装Python 3.7
+bash -i ./euleros-ascend-source.sh
+# 如需指定安装Python 3.9，并且安装可选依赖Open MPI，使用以下方式
+# PYTHON_VERSION=3.9 OPENMPI=on bash -i ./euleros-ascend-source.sh
+```
 
-    更多的用法请参看脚本头部的说明。
+该脚本会执行以下操作：
 
-- 如果您的系统已经安装了部分依赖，如Python，GCC等，则推荐参照下面的安装步骤手动安装。
+- 安装MindSpore所需的编译依赖，如GCC，CMake等。
+- 安装Python3和pip3，并设为默认。
+- 如果OPENMPI设置为`on`，则安装Open MPI。
+
+自动安装脚本执行完成后，需要重新打开终端窗口以使环境变量生效。
+
+自动安装脚本会为MindSpore创建名为`mindspore_pyXX`的虚拟环境。其中`XX`为Python版本，如Python 3.7则虚拟环境名为`mindspore_py37`。执行以下命令查看所有虚拟环境。
+
+```bash
+conda env list
+```
+
+以Python 3.7为例，执行以下命令激活虚拟环境。
+
+```bash
+conda activate mindspore_py37
+```
+
+现在您可以跳转到[从代码仓下载源码](#从代码仓下载源码)小节开始下载编译MindSpore。
+
+更多的用法请参看脚本头部的说明。
+
+## 环境准备（手动）
 
 下表列出了编译安装MindSpore所需的系统环境和第三方依赖。
 
@@ -55,7 +76,7 @@
 |-|-|-|
 |Ubuntu 18.04/CentOS 7.6/EulerOS 2.8/OpenEuler 20.03/KylinV10 SP1|-|编译和运行MindSpore的操作系统|
 |[昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)|-|MindSpore使用的Ascend平台AI计算库|
-|[Python](#安装python)|3.7.5或3.9.0|MindSpore的使用依赖Python环境|
+|[Python](#安装python)|3.7-3.9|MindSpore的使用依赖Python环境|
 |[wheel](#安装wheel和setuptools)|0.32.0及以上|MindSpore使用的Python打包工具|
 |[setuptools](#安装wheel和setuptools)|44.0及以上|MindSpore使用的Python包管理工具|
 |[GCC](#安装gcc)|7.3.0|用于编译MindSpore的C++编译器|
@@ -108,18 +129,11 @@ conda init bash
 
 安装完成后，可以为Conda设置清华源加速下载，参考[此处](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/)。
 
-创建Python 3.7.5环境：
+创建虚拟环境，以Python 3.7.5为例：
 
 ```bash
 conda create -n mindspore_py37 python=3.7.5 -y
 conda activate mindspore_py37
-```
-
-或者创建Python 3.9.0环境：
-
-```bash
-conda create -n mindspore_py39 python=3.9.0 -y
-conda activate mindspore_py39
 ```
 
 可以通过以下命令查看Python版本。

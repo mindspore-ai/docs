@@ -3,7 +3,8 @@
 <!-- TOC -->
 
 - [Installing MindSpore in GPU by Source Code](#installing-mindspore-in-gpu-by-source-code)
-    - [Environment Preparation](#environment-preparation)
+    - [Environment Preparation (automatic, recommended)](#environment-preparation-automatic-recommended)
+    - [Environment Preparation (manual)](#environment-preparation-manual)
         - [Installing CUDA](#installing-cuda)
         - [Installing cuDNN](#installing-cudnn)
         - [Installing Python](#installing-python)
@@ -11,10 +12,9 @@
         - [Installing GCC, git and other dependencies](#installing-gcc-git-and-other-dependencies)
         - [Installing CMake](#installing-cmake)
         - [Installing Open MPI (optional)](#installing-open-mpi-optional)
-        - [Installing LLVM (Optional)](#installing-llvm-optional)
+        - [Installing LLVM (optional)](#installing-llvm-optional)
         - [Installing TensorRT (optional)](#installing-tensorrt-optional)
     - [Downloading the Source Code from the Code Repository](#downloading-the-source-code-from-the-code-repository)
-    - [Downloading Source Code from Code Repository](#downloading-source-code-from-code-repository)
     - [Compiling MindSpore](#compiling-mindspore)
     - [Installing MindSpore](#installing-mindspore)
     - [Installation Verification](#installation-verification)
@@ -26,32 +26,52 @@
 
 This document describes how to quickly install MindSpore by source code in a Linux system with a GPU environment. The following takes Ubuntu 18.04 as an example to describe how to install MindSpore.
 
-## Environment Preparation
+- If you want to configure an environment that can compile MindSpore on a fresh Ubuntu 18.04 with a GPU environment, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-source.sh) for one-click configuration, see [Environment Preparation (automatic, recommended)](#environment-preparation-automatic-recommended) section. The automatic installation script will install the dependencies required to compile MindSpore.
 
-- If you want to configure an environment that can compile MindSpore on a fresh Ubuntu 18.04 with a GPU environment, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-source.sh) for one-click configuration. The automatic installation script will install the dependencies required to compile MindSpore.
+- If some dependencies, such as CUDA, Python and GCC, have been installed in your system, it is recommended to install manually by referring to the installation steps in the [Environment Preparation (manual)](#environment-preparation-manual) section.
 
-    The root permission is required because the automatic installation script needs to change the software source configuration and install dependencies via APT. Run the following command to obtain and run the automatic installation script:
+## Environment Preparation (automatic, recommended)
 
-    ```bash
-    wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-source.sh
-    # install Python 3.7 and CUDA 11.1 by default
-    bash -i ./ubuntu-gpu-source.sh
-    # to specify Python 3.9 and CUDA 10.1, and the installation optionally relying on Open MPI, use the following manners
-    # PYTHON_VERSION=3.9 CUDA_VERSION=10.1 OPENMPI=on bash -i ./ubuntu-gpu-source.sh
-    ```
+Before using the automatic installation script, you need to make sure that the NVIDIA GPU driver is correctly installed on the system. The minimum required GPU driver version of CUDA 10.1 is 418.39. The minimum required GPU driver version of CUDA 11.1 is 450.80.02. Execute the following command to check the driver version.
 
-    This script performs the following operations:
+```bash
+nvidia-smi
+```
 
-    - Change the software source configuration to a HUAWEI CLOUD source
-    - Install the compilation dependencies required by MindSpore, such as GCC, CMake, etc.
-    - Install Python3 and pip3 via APT and set them as default.
-    - Download and install CUDA and cuDNN.
-    - Install Open MPI if OPENMPI is set to `on`.
-    - Install LLVM if LLVM is set to `on`.
+If the GPU driver is not installed, run the following command to install it.
 
-    For more usage, see the script header description.
+```bash
+sudo apt-get update
+sudo apt-get install ubuntu-drivers-common
+sudo ubuntu-drivers autoinstall
+```
 
-- If some dependencies, such as CUDA, Python and GCC, have been installed in your system, you are advised to perform the following steps to manually install MindSpore.
+After the installation is complete, please reboot your system.
+
+The root permission is required because the automatic installation script needs to change the software source configuration and install dependencies via APT. Run the following command to obtain and run the automatic installation script. The environment configured by the automatic installation script only supports compiling MindSpore>=1.6.0.
+
+```bash
+wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-source.sh
+# install Python 3.7 and CUDA 11.1 by default
+bash -i ./ubuntu-gpu-source.sh
+# to specify Python 3.9 and CUDA 10.1, and the installation optionally relying on Open MPI, use the following manners
+# PYTHON_VERSION=3.9 CUDA_VERSION=10.1 OPENMPI=on bash -i ./ubuntu-gpu-source.sh
+```
+
+This script performs the following operations:
+
+- Change the software source configuration to a HUAWEI CLOUD source
+- Install the compilation dependencies required by MindSpore, such as GCC, CMake, etc.
+- Install Python3 and pip3 via APT and set them as default.
+- Download and install CUDA and cuDNN.
+- Install Open MPI if OPENMPI is set to `on`.
+- Install LLVM if LLVM is set to `on`.
+
+After the automatic installation script is executed, you need to reopen the terminal window to make the environment variables take effect, and then you can jump to the [Downloading the Source Code from the Code Repository](#downloading-the-source-code-from-the-code-repository) section to downloading and compiling MindSpore.
+
+For more usage, see the script header description.
+
+## Environment Preparation (manual)
 
 The following table lists the system environment and third-party dependencies required to compile and install MindSpore GPU.
 
@@ -60,7 +80,7 @@ The following table lists the system environment and third-party dependencies re
 |Ubuntu|18.04|OS for compiling and running MindSpore|
 |[CUDA](#installing-cuda)|10.1 or 11.1|parallel computing architecture for MindSpore GPU|
 |[cuDNN](#installing-cudnn)|7.6.x or 8.0.x|deep neural network acceleration library used by MindSpore GPU|
-|[Python](#installing-python)|3.7.5 or 3.9.0|Python environment that MindSpore depends on|
+|[Python](#installing-python)|3.7-3.9|Python environment that MindSpore depends on|
 |[wheel](#installing-wheel-and-setuptools)|0.32.0 or later|Python packaging tool used by MindSpore|
 |[setuptools](#installing-wheel-and-setuptools)|44.0 or later|Python package management tool used by MindSpore|
 |[GCC](#installing-gcc-git-and-other-dependencies)|7.3.0~9.4.0|C++ compiler for compiling MindSpore|
@@ -145,18 +165,11 @@ If a different version of CUDA have been installed or the CUDA installation path
 
     After the installation is complete, you can set up Tsinghua source acceleration download for Conda, and see [here](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/).
 
-    Create a Python 3.7.5 environment:
+    Create a virtual environment, taking Python 3.7.5 as an example:
 
     ```bash
     conda create -n mindspore_py37 python=3.7.5 -y
     conda activate mindspore_py37
-    ```
-
-    Or create a Python 3.9.0 environment:
-
-    ```bash
-    conda create -n mindspore_py39 python=3.9.0 -y
-    conda activate mindspore_py39
     ```
 
 - Or install Python via APT with the following command.
@@ -174,7 +187,7 @@ If a different version of CUDA have been installed or the CUDA installation path
     pip config set global.index-url https://repo.huaweicloud.com/repository/pypi/simple
     ```
 
-    To install Python 3.9, just replace `3.7` with `3.9` in the command.
+    To install other Python versions, just change `3.7` in the command.
 
 Run the following command to check the Python version.
 
@@ -205,7 +218,7 @@ To install a later version of GCC, run the following command to install GCC 8.
 sudo apt-get install gcc-8 -y
 ```
 
-Or install GCC 9.
+Or install GCC 9 (Note that GCC 9 is not compatible with CUDA 10.1).
 
 ```bash
 sudo apt-get install software-properties-common -y

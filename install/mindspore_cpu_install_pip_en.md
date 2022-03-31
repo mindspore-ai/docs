@@ -3,10 +3,11 @@
 <!-- TOC -->
 
 - [Installing MindSpore in CPU by pip](#installing-mindspore-in-cpu-by-pip)
-    - [Environment Preparation](#environment-preparation)
+    - [Automatic Installation](#automatic-installation)
+    - [Manual Installation](#manual-installation)
         - [Installing Python](#installing-python)
         - [Installing GCC and gmp](#installing-gcc-and-gmp)
-    - [Downloading and Installing MindSpore](#downloading-and-installing-mindspore)
+        - [Installing MindSpore](#installing-mindspore)
     - [Installation Verification](#installation-verification)
     - [Version Update](#version-update)
 
@@ -16,37 +17,41 @@
 
 This document describes how to quickly install MindSpore by pip in a Linux system with a CPU environment. The following takes Ubuntu 18.04 as an example to describe how to install MindSpore.
 
-- If you want to install MindSpore by pip on a fresh Ubuntu 18.04, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-pip.sh) for one-click installation. The automatic installation script will install MindSpore and its required dependencies.
+- If you want to install MindSpore by pip on a fresh Ubuntu 18.04, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-pip.sh) for one-click installation, see [Automatic Installation](#automatic-installation) section. The automatic installation script will install MindSpore and its dependencies.
 
-    The root permission is required because the script will modify the software source configuration and install dependencies via APT. Run the following command to obtain and run the automatic installation script:
+- If some dependencies, such as Python and GCC, have been installed in your system, it is recommended to install manually by referring to the installation steps in the [Manual Installation](#manual-installation) section.
 
-    ```bash
-    wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-pip.sh
-    # install Python 3.7 and MindSpore 1.6.0 by default
-    bash ./ubuntu-cpu-pip.sh
-    # to specify Python and MindSpore version, taking Python 3.9 and MindSpore 1.5.0 as examples, use the following manners
-    # PYTHON_VERSION=3.9 MINDSPORE_VERSION=1.5.0 bash ./ubuntu-cpu-pip.sh
-    ```
+## Automatic Installation
 
-    This script performs the following operations:
+The root permission is required because the automatic installation script needs to change the software source configuration and install dependencies via APT. Run the following command to obtain and run the automatic installation script. The automatic installation script only supports the installation of MindSpore>=1.6.0.
 
-    - Change the software source configuration to a HUAWEI CLOUD source
-    - Install the dependencies required by MindSpore, such as GCC, gmp.
-    - Install Python3 and pip3 via APT and set them as default.
-    - Install MindSpore in CPU by pip.
+```bash
+wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-pip.sh
+# install MindSpore 1.7.0 and Python 3.7
+MINDSPORE_VERSION=1.7.0 bash ./ubuntu-cpu-pip.sh
+# to specify Python and MindSpore version, taking Python 3.9 and MindSpore 1.6.0 as examples, use the following manners
+# PYTHON_VERSION=3.9 MINDSPORE_VERSION=1.6.0 bash ./ubuntu-cpu-pip.sh
+```
 
-    For more usage, see the script header description.
+This script performs the following operations:
 
-- If some dependencies, such as Python and GCC, have been installed in your system, you are advised to perform the following steps to manually install MindSpore.
+- Change the software source configuration to a HUAWEI CLOUD source
+- Install the dependencies required by MindSpore, such as GCC and gmp.
+- Install Python3 and pip3 via APT and set them as default.
+- Install MindSpore in CPU by pip.
 
-## Environment Preparation
+After the automatic installation script is executed, you need to reopen the terminal window to make the environment variables take effect.
+
+For more usage, see the script header description.
+
+## Manual Installation
 
 The following table lists the system environment and third-party dependencies required to install MindSpore.
 
 |software|version|description|
 |-|-|-|
 |Ubuntu|18.04|OS for running MindSpore|
-|[Python](#installing-python)|3.7.5 or 3.9.0|Python environment on which MindSpore depends|
+|[Python](#installing-python)|3.7-3.9|Python environment that MindSpore depends|
 |[GCC](#installing-gcc-and-gmp)|7.3.0~9.4.0|C++ compiler for compiling MindSpore|
 |[gmp](#installing-gcc-and-gmp)|6.1.2|Multiple precision arithmetic library used by MindSpore|
 
@@ -71,18 +76,11 @@ The following describes how to install the third-party dependencies.
 
     After the installation is complete, you can set up Tsinghua source acceleration download for Conda, and see [here](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/).
 
-    Create a Python 3.7.5 environment:
+    Create a virtual environment, taking Python 3.7.5 as an example:
 
     ```bash
     conda create -n mindspore_py37 python=3.7.5 -y
     conda activate mindspore_py37
-    ```
-
-    Or create a Python 3.9.0 environment:
-
-    ```bash
-    conda create -n mindspore_py39 python=3.9.0 -y
-    conda activate mindspore_py39
     ```
 
 - Or install Python via APT with the following command.
@@ -100,7 +98,7 @@ The following describes how to install the third-party dependencies.
     pip config set global.index-url https://repo.huaweicloud.com/repository/pypi/simple
     ```
 
-    To install Python 3.9, just replace `3.7` with `3.9` in the command.
+    To install other Python versions, just change `3.7` in the command.
 
 Run the following command to check the Python version.
 
@@ -131,12 +129,12 @@ sudo apt-get update
 sudo apt-get install gcc-9 -y
 ```
 
-## Downloading and Installing MindSpore
+### Installing MindSpore
 
-First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 1.6.0 as an example, execute the following commands.
+First, refer to [Version List](https://www.mindspore.cn/versions) to select the version of MindSpore you want to install, and perform SHA-256 integrity check. Taking version 1.7.0 as an example, execute the following commands.
 
 ```bash
-export MS_VERSION=1.6.0
+export MS_VERSION=1.7.0
 ```
 
 Then run the following commands to install MindSpore according to the system architecture and Python version.
@@ -144,10 +142,14 @@ Then run the following commands to install MindSpore according to the system arc
 ```bash
 # x86_64 + Python3.7
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/cpu/x86_64/mindspore-${MS_VERSION/-/}-cp37-cp37m-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+# x86_64 + Python3.8
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/cpu/x86_64/mindspore-${MS_VERSION/-/}-cp38-cp38-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 # x86_64 + Python3.9
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/cpu/x86_64/mindspore-${MS_VERSION/-/}-cp39-cp39-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 # aarch64 + Python3.7
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/cpu/aarch64/mindspore-${MS_VERSION/-/}-cp37-cp37m-linux_aarch64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+# aarch64 + Python3.8
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/cpu/aarch64/mindspore-${MS_VERSION/-/}-cp38-cp38-linux_aarch64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 # aarch64 + Python3.9
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/${MS_VERSION}/MindSpore/cpu/aarch64/mindspore-${MS_VERSION/-/}-cp39-cp39-linux_aarch64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
@@ -179,4 +181,4 @@ pip install --upgrade mindspore=={version}
 
 Of which,
 
-- When updating to a release candidate (rc) version, `{version}` should be specified as the rc version number, e.g. 1.5.0rc1; When updating to a standard release, `=={version}` could be removed.
+- When updating to a release candidate (rc) version, `{version}` should be specified as the rc version number, e.g. 1.6.0rc1; When updating to a standard release, `=={version}` could be removed.

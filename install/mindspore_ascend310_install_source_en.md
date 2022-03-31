@@ -3,7 +3,8 @@
 <!-- TOC -->
 
 - [Installing MindSpore in Ascend 310 by Source Code Compilation](#installing-mindspore-in-ascend-310-by-source-code-compilation)
-    - [Environment Preparation](#environment-preparation)
+    - [Environment Preparation (automatic, recommended)](#environment-preparation-automatic-recommended)
+    - [Environment Preparation (manual)](#environment-preparation-manual)
         - [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package)
         - [Installing Python](#installing-python)
         - [Installing GCC](#installing-gcc)
@@ -21,28 +22,48 @@
 
 The following describes how to quickly install MindSpore by compiling the source code on Linux in the Ascend 310 environment, MindSpore in Ascend 310 only supports inference.
 
-## Environment Preparation
+- If you want to configure an environment that can compile MindSpore on a EulerOS 2.8 with Ascend AI processor software package installed, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-source.sh) for one-click configuration, see [Environment Preparation (automatic, recommended)](#environment-preparation-automatic-recommended) section. The automatic installation script will install the dependencies required to compile MindSpore.
 
-- If you want to configure an environment that can compile MindSpore on a EulerOS 2.8 with Ascend AI processor software package installed, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-source.sh) for one-click configuration. The automatic installation script will install the dependencies required to compile MindSpore.
+- If some dependencies, such as Python and GCC, have been installed in your system, it is recommended to install manually by referring to the installation steps in the [Environment Preparation (manual)](#environment-preparation-manual) section.
 
-    Run the following command to obtain and run the automatic installation script:
+## Environment Preparation (automatic, recommended)
 
-    ```bash
-    wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-source.sh
-    # install Python 3.7 by default
-    bash -i ./euleros-ascend-source.sh
-    # to specify Python 3.9 installation, use the following manner
-    # PYTHON_VERSION=3.9 bash -i ./euleros-ascend-source.sh
-    ```
+Before running the automatic installation script, you need to make sure that the Ascend AI processor software package is correctly installed on your system. If it is not installed, please refer to the section [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package) to install it.
 
-    This script performs the following operations:
+Run the following command to obtain and run the automatic installation script. The environment configured by the automatic installation script only supports compiling MindSpore>=1.6.0.
 
-    - Install the compilation dependencies required by MindSpore, such as GCC, CMake, etc.
-    - Install Python3 and pip3 and set them as default.
+```bash
+wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-source.sh
+# install Python 3.7 by default
+bash -i ./euleros-ascend-source.sh
+# to specify Python 3.9 installation, use the following manner
+# PYTHON_VERSION=3.9 bash -i ./euleros-ascend-source.sh
+```
 
-    For more usage, see the script header description.
+This script performs the following operations:
 
-- If some dependencies, such as Python and GCC, have been installed in your system, you are advised to perform the following steps to manually install MindSpore.
+- Install the compilation dependencies required by MindSpore, such as GCC, CMake, etc.
+- Install Python3 and pip3 and set them as default.
+
+After the automatic installation script is executed, you need to reopen the terminal window to make the environment variables take effect.
+
+The automatic installation script creates a virtual environment named `mindspore_pyXX` for MindSpore. Where `XX` is the Python version, such as Python 3.7, the virtual environment name is `mindspore_py37`. Run the following command to show all virtual environments.
+
+```bash
+conda env list
+```
+
+Take Python 3.7 as an example, run the following command to activate the virtual environment.
+
+```bash
+conda activate mindspore_py37
+```
+
+Now you can jump to the [Downloading the Source Code from the Code Repository](#downloading-the-source-code-from-the-code-repository) section to downloading and compiling MindSpore.
+
+For more usage, see the script header description.
+
+## Environment Preparation (manual)
 
 The following table lists the system environment and third-party dependencies required for compiling and installing MindSpore.
 
@@ -50,7 +71,7 @@ The following table lists the system environment and third-party dependencies re
 |-|-|-|
 |Ubuntu 18.04/CentOS 7.6/EulerOS 2.8|-|OS for compiling and running MindSpore|
 |[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|-|Ascend platform AI computing library used by MindSpore|
-|[Python](#installing-python)|3.7.5 or 3.9.0|Python environment on which MindSpore depends|
+|[Python](#installing-python)|3.7-3.9|Python environment that MindSpore depends|
 |[GCC](#installing-gcc)|7.3.0|C++ compiler for compiling MindSpore|
 |[git](#installing-git-gmp-tclsh-patch-and-flex)|-|Source code management tools used by MindSpore|
 |[CMake](#installing-cmake)|3.18.3 or later|Compilation tool that builds MindSpore|
@@ -98,18 +119,11 @@ conda init bash
 
 After the installation is complete, you can set up Tsinghua source acceleration download for Conda, and see [here](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/).
 
-Create a Python 3.7.5 environment:
+Create a virtual environment, taking Python 3.7.5 as an example:
 
 ```bash
 conda create -n mindspore_py37 python=3.7.5 -y
 conda activate mindspore_py37
-```
-
-Or create a Python 3.9.0 environment:
-
-```bash
-conda create -n mindspore_py39 python=3.9.0 -y
-conda activate mindspore_py39
 ```
 
 Run the following command to check the Python version.
