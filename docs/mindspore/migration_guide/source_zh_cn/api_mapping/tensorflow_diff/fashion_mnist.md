@@ -46,5 +46,5 @@ dataset = ds.FashionMnistDataset(dataset_dir=fashion_mnist_dataset_dir)
 # The following implements fashion_mnist with TensorFlow.
 import tensorflow as tf
 
-x_train, y_train, x_test, y_test = tf.keras.datasets.fashion_mnist.load_data()
+(x_train, y_train), (x_test, y_test) = tf.keras.datasets.fashion_mnist.load_data()
 ```
