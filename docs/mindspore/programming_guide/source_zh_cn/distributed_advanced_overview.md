@@ -40,7 +40,7 @@ MindSpore提供以下高级特性来支撑大模型分布式训练，用户可�
 
 ### 重计算
 
-MindSpore根据正向图计算流程来自动推导出反向图，正向图和反向图一起构成了完整的计算图。在计算某些反向算子时，可能需要用到某些正向算子的计算结果，导致这些正向算子的计算结果，需要驻留在内存中直到这些反向算子计算完，它们所占的内存才会被其他算子复用。而这些正向算子的计算结果，长时间驻留在内存中，会推高计算的内存占用峰值，在大规模网络模型中尤为显著。
+MindSpore根据正向图计算流程来自动推导出反向图，正向图和反向图一起构成了完整的计算图。在计算某些反向算子时，可能需要用到某些正向算子的计算结果，导致这些正向算子的计算结果，需要驻留在内存中直到这些反向算子计算完，它们所占的内存才会被其他算子复用。而这些正向算子的计算结果，长时间驻留在内存中，会推高计算的内存占用峰值，在大规模网络模型中尤为显著。为了降低内存峰值，重计算技术可以不保存正向激活层的计算结果，让该内存可以被复用，然后在计算反向部分时，重新计算出正向激活层的结果。
 
 ### 切分策略传播
 
@@ -50,15 +50,13 @@ MindSpore根据正向图计算流程来自动推导出反向图，正向图和�
 
 Parameter Server(参数服务器)是分布式训练中一种广泛使用的架构，相较于数据并行同步的AllReduce训练方法，Parameter Server具有更好的灵活性、可扩展性以及节点容灾的能力。参数服务器既支持同步SGD(Stochastic Gradient Descent，随机梯度下降)，也支持异步SGD的训练算法。在扩展性上，将模型的计算与模型的更新分别部署在Worker和Server两类进程中，使得Worker和Server的资源可以独立地横向扩缩(新增或者删除Worker和Server资源)。另外，在大规模数据中心的环境下，计算设备、网络以及存储经常会出现各种故障而导致部分节点异常，而在参数服务器的架构下，能够较为容易地处理此类故障而不会对训练中的任务产生影响。
 
-为了降低内存峰值，重计算技术可以不保存正向激活层的计算结果，让该内存可以被复用，然后在计算反向部分时，重新计算出正向激活层的结果。
-
 ### 通信算子融合
 
 在分布式训练场景下，跨设备甚至跨节点的数据传输是制约扩展性以及算力利用率的瓶颈。通信算子融合是一种提升网络资源利用率、加速数据传输效率的重要方法，其将相同源节点和目的节点的通信算子打包同时执行，以避免多个单算子执行带来的额外开销。
 
 ### 数据集切分
 
-在进行分布式训练时，需要将训练数据集导入到每个设备上。常见的导入方式有两种：1）以数据并行的方式导入，即将数据按batch维度进行切分，每个设备导入一部分。2）每个设备导入全量的数据。当数据的某些维度特别大时（如遥感图片的H/W维可能特别大），即使样本数很少，也需要对图片进行切分，每张设备读取一部分图片。此特性能支持将数据集按特定维度切分，以满足大幅面图片处理领域的训练诉求。
+在进行分布式训练时，需要将训练数据集导入到每个设备上。常见的导入方式有两种：1）以数据并行的方式导入，即将数据按batch维度进行切分，每个设备导入一部分。2）每个设备导入全量的数据。另外，当数据的某些维度特别大时（如遥感图片的H/W维可能特别大），即使样本数很少，也需要对图片进行切分，即将数据按H/W维度进行切分，每张设备读取一部分图片。此特性能支持将数据集按特定维度切分，以满足大幅面图片处理领域的训练诉求。
 
 ### 分布式推理
 
@@ -70,9 +68,9 @@ Parameter Server(参数服务器)是分布式训练中一种广泛使用的架�
 
 ## 特性相关接口说明
 
-| 特性类别 | 特性接口 | 说明 | 用法 |
+| 特性类别 | 特性接口 | 说明 | 作用 |
 | -------- | :------- | ---- | ---- |
-| 算子级并行 | shard(in_strategy=None, out_strategy=None)<br />在Primitive类中 | 设置算子的输入及输出张量的切分策略（其中，输出张量的切分策略仅支持部分算子，如Gather、MatMul） | 通过将网络模型中每个算子涉及到的张量进行切分，降低单个设备的内存容量，以跑下大模型。或利用集群资源，进行分布式计算，减少整体执行时间。 |
+| 算子级并行 | shard(in_strategy=None, out_strategy=None)<br />在Primitive类中 | 设置算子的输入及输出张量的切分策略（其中，输出张量的切分策略仅支持部分算子，如Gather、MatMul） | 通过将网络模型中每个算子涉及到的张量进行切分，降低单个设备的内存容量，以完成大模型训练/推理。或利用集群资源，进行分布式计算，减少整体执行时间。 |
 |          | add_prim_attr(name, value)<br />在Primitive类中 | Gather算子：<br />add_prim_attr(“manual_split”, config)：配置其第一个输入的非均匀切分策略，其中config类型为tuple，用于描述第一个参数第0维的切分方式。比如(10, 20, 30, 4)代表将算子第一个输入的第0维切分成4份，每份的shape大小分别为10，20，30，4。 | 在推荐领域，存在数据集的每一列对应一个子表的场景。在该场景下，使用此配置能降低通信量，提升整体性能。 |
 | |  | EmbeddingLookUp算子：<br />add_prim_attr(“primitive_target”, “CPU”)：配置其在CPU上执行，用于异构场景。 | 在推荐领域，存在Embedding Table特别大的场景，为了节约device内存，可以使用此配置将EmbeddingLookUp放到CPU上执行，以完成推荐大模型的训练。 |
 | | set_auto_parallel_context(enable_alltoall=bool_value) | 表示在通信时是否允许产生AllToAll通信算子，其值为bool类型，默认为False。 | AllToAll通信能减少通信数据量，提高通信效率，但需要环境支持。 |
@@ -85,10 +83,10 @@ Parameter Server(参数服务器)是分布式训练中一种广泛使用的架�
 |  | recompute(**kwargs)<br />在Cell类中 | 调用此接口后，将会对此Cell中的算子进行重计算。<br />其中输入参数有两个bool类型选项：<br />mp_comm_recompute：是否开启模型并行通信算子重计算，默认为True。<br />parallel_optimizer_comm_recompute：是否开启优化器并行通信算子重计算，默认为False | 开启Cell重计算，且能配置模型并行的通信算子、优化器并行的通信算子是否进行重计算。当通信算子重计算时，将消耗通信资源，但能降低动态内存的峰值。 |
 | 自动并行 | set_auto_parallel_context(search_mode=mode) | 用于指定策略搜索算法，其值为字符串类型，可选值为：<br />1，"sharding_propagation"：表示使用切分策略传播算法进行策略搜索；<br />2，"dynamic_programming"：表示使用动态规划算法进行策略搜索；<br />3，"recursive_programming"：表示使用双递归算法进行策略搜索； | 自动并行可以让用户不配置或者少量配置算子的切分策略，而由框架搜索出切分策略。 |
 |  | set_algo_parameters(fully_use_devices=bool_value) | 用于设置搜索策略时是否需要将算子切分到所有设备上。其值为bool类型，默认为True。 | 如果将算子切分到所有设备上，则能缩小搜索空间，提高搜索速度，但搜索出来的策略并非全局最优。 |
-| 通信算子融合 | set_auto_parallel_context(all_reduce_fusion_config=config) | 配置梯度AllReduce算子融合策略，其值为list类型。例如：[20, 35]，表示将前20个AllReduce融合成1个，第20～35个AllReduce融合成1个，剩下的AllReduce融合成1个。 | 减少AllReduce通信算子的操作次数，提高通信效率。 |
-|  | set_auto_parallel_context(comm_fusion=config) | 设置通信算子的融合配置，当前支持AllReduce、AllGather、ReduceScatter通信算子的配置。其值为dict类型，如comm_fusion={"allreduce": {"mode": "auto", "config": None}}。其中，”mode”有三种选项：<br />”auto”：自动按照数据量阈值64MB进行算子融合，配置参数config为None。<br />”size”：按照手动设置数据量阈值的方式进行通信算子融合，配置参数config类型为int，单位MB。<br />”index”：仅"allreduce"支持配置index，表示按照通信算子序列号进行融合的方式，与all_reduce_fusion_config功能相同，配置参数config类型为list(int)。 | 减少AllReduce/AllGather/ReduceScatter通信算子的操作次数，提高通信效率 |
-| 数据集切分 | set_auto_parallel_context(“dataset_strategy“=config) | 配置数据集的切分策略。其中，config为Union[str, tuple]。<br />当传入字符串时，有两种选项：<br />"full_batch"：表示数据集不切分；<br />"data_parallel"：表示数据集按数据并行的方式切分。<br />当传入tuple时，tuple中的内容代表数据集的切分策略，类似于primitive的shard()接口。<br />若不调用此接口，则默认采用"data_parallel"的方式。 | 当样本数比卡数少时，可以采用"full_batch"的方式进行导入；当样本数大、模型参数小时，可以采用"data_parallel"的方式导入；当数据集是高分辨率图像数据时，可以采用配置tuple切分策略的方式导入。 |
+|  | set_auto_parallel_context(all_reduce_fusion_config=config) | 配置梯度AllReduce算子融合策略，其值为list类型。例如：[20, 35]，表示将前20个AllReduce融合成1个，第20～35个AllReduce融合成1个，剩下的AllReduce融合成1个。 | 减少AllReduce通信算子的操作次数，提高通信效率。 |
+| 通信算子融合 | set_auto_parallel_context(comm_fusion=config) | 设置通信算子的融合配置，当前支持AllReduce、AllGather、ReduceScatter通信算子的配置。其值为dict类型，如comm_fusion={"allreduce": {"mode": "auto", "config": None}}。其中"mode"有三种选项：<br />"auto"：自动按照数据量阈值64MB进行算子融合，配置参数“config”为None。<br />"size"：按照手动设置数据量阈值的方式进行通信算子融合，配置参数"config"类型为int，单位MB。<br />"index"：仅"allreduce"支持配置index，表示按照通信算子序列号进行融合的方式，配置参数"config"类型为list。例如：[20, 35]，表示将前20个AllReduce融合成1个，第20～35个AllReduce融合成1个，剩下的AllReduce融合成1个。 | 减少AllReduce/AllGather/ReduceScatter通信算子的操作次数，提高通信效率 |
+| 数据集切分 | set_auto_parallel_context(dataset_strategy=config) | 配置数据集的切分策略。其中，config为Union[str, tuple]。<br />当传入字符串时，有两种选项：<br />"full_batch"：表示数据集不切分；<br />"data_parallel"：表示数据集按数据并行的方式切分。<br />当传入tuple时，tuple中的内容代表数据集的切分策略，类似于primitive的shard()接口。<br />若不调用此接口，则默认采用"data_parallel"的方式。 | 当样本数比卡数少时，可以采用"full_batch"的方式进行导入；当样本数大、模型参数小时，可以采用"data_parallel"的方式导入；当数据集是高分辨率图像数据时，可以采用配置tuple切分策略的方式导入。 |
 | 分布式推理 | infer_predict_layout(*predict_data) | 使用推理数据进行一次预编译，输出算子的切分信息。 | 获取推理时所有权重的切分信息。 |
-|  | load_distributed_checkpoint(network, checkpoint_filenames, predict_strategy=None, train_strategy_filename=None) | 加载分布式权重，需每台机器预先放置全量的ckpt。<br />其中network代表推理网络，checkpoint_filenames代表checkpoint文件，predict_strategy为infer_predict_layout()的输出，strategy_filename为训练时保存的算子切分策略信息。 | 加载分布式权重，以进行分布式推理。 |
+|  | load_distributed_checkpoint(network, checkpoint_filenames, predict_strategy=None, train_strategy_filename=None) | 加载分布式权重，需每台机器预先放置全量的ckpt。<br />其中network代表推理网络，checkpoint_filenames代表checkpoint文件，predict_strategy为infer_predict_layout()的输出，train_strategy_filename为训练时保存的算子切分策略信息。 | 加载分布式权重，以进行分布式推理。 |
 | 函数式算子切分 | shard(in_strategy, out_strategy, device="Ascend", level=0)<br />在cell类中 | 设置cell的输入及输出张量的切分策略，其余算子的并行策略由切分策略传播得到。 in_strategy/out_strategy指定输入/输出张量的切分策略，device指定执行设备，level指定切分策略传播算法的模式。 | 在PyNative模式下指定某个cell实例以图模式执行，并且依据指定的输入输出切分策略进行算子级别的模型并行， 其余的部分仍以PyNative模式执行数据并行。 |
 |  | ops.shard(fn, in_strategy, out_strategy, device="Ascend", level=0) | 传入的fn为cell实例或函数，其余输入和shard相同，返回值为函数，再调用此函数时，会以图模式执行算子级别的模型并行 | 此用法可以指定某个函数进行算子级别的模型并行，具体功能和cell的shard方法相同。|

@@ -30,7 +30,7 @@
 
 1. 准备模型代码。Wide&Deep的代码可参见：<https://gitee.com/mindspore/models/tree/master/official/recommend/wide_and_deep>，其中，`train_and_eval_auto_parallel.py`脚本定义了模型训练的主流程，`src/`目录中包含Wide&Deep模型的定义、数据处理和配置信息等，`script/`目录中包含不同配置下的训练脚本。
 
-2. 准备数据集。请参考[1]中的链接下载数据集，并利用脚本`src/preprocess_data.py`将数据集转换为MindRecord格式。
+2. 准备数据集。请参考[1]中的论文所提供的链接下载数据集，并利用脚本`src/preprocess_data.py`将数据集转换为MindRecord格式。
 
 3. 配置处理器信息。在裸机环境（即本地有Ascend 910 AI 处理器）进行分布式训练时，需要配置加速器信息文件。此样例只使用一个加速器，故只需配置包含0号卡的`rank_table_1p_0.json`文件。MindSpore提供了生成该配置文件的自动化生成脚本及相关说明，可参考[HCCL_TOOL](https://gitee.com/mindspore/models/tree/master/utils/hccl_tools)。
 
