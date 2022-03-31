@@ -23,7 +23,7 @@
 Timeline组件展示算子的执行时序，PyNative模式与Graph模式有以下不同，其他可参考[Ascend-Graph Timeline分析](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#timeline分析)。
 
 - PyNative模式Ascend并行执行算子通过线程区分，Graph模式通过stream区分。
-- PyNative模式Ascend算子不区分AICORE和AICPU算子。
+- PyNative模式只显示Ascend算子和HOSTCPU算子的时间统计，Ascend算子不区分AICORE和AICPU算子。
 - 训练的Step数（只支持数据下沉场景）。
 
 ![pynative_timeline.png](images/pynative_timeline.png)
