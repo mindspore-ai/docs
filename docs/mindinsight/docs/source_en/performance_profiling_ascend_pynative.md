@@ -20,10 +20,10 @@ The operator performance analysis component is used to display the execution tim
 
 ### Timeline Analysis
 
-The Timeline component displays the execution timing of operators, PyNative mode is different from Graph mode as follows. Others can refer to [Ascend-Graph Timeline analysis](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#timeline-analysis).
+The Timeline component displays the execution timing of operators, and PyNative mode is different from Graph mode as follows. Others can refer to [Ascend-Graph Timeline analysis](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#timeline-analysis).
 
 - Ascend parallel execution operators in PyNative mode are distinguished by threads, and Graph mode by streams.
-- The Ascend operator in PyNative mode does not distinguish between AICORE and AICPU operators.
+- PyNative mode only displays the time statistics of Ascend operators and HOSTCPU operators. Ascend operators do not distinguish between AICORE and AICPU operators.
 - The step number of training(only supports dataset_sink_mode is set to True).
 
 ![pynative_timeline.png](images/pynative_timeline.png)
