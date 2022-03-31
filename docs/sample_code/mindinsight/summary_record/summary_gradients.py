@@ -251,7 +251,7 @@ def train(ds_train):
 
     # Init a SummaryCollector callback instance, and use it in model.train or model.eval
     summary_collector = SummaryCollector(summary_dir="./summary_dir/summary_gradients",
-                                         collect_freq=1, keep_default_action=False, collect_tensor_freq=200)
+                                         collect_freq=200, keep_default_action=False, collect_tensor_freq=200)
 
     print("============== Starting Training ==============")
     model.train(epoch=1, train_dataset=ds_train, callbacks=[time_cb, LossMonitor(), summary_collector],

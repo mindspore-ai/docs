@@ -240,6 +240,7 @@ def train(ds_train):
     # set the net to train mode
     train_net.set_train()
 
+    summary_collect_frequency = 200
     # Note1: An instance of the network should be passed to SummaryRecord if you want to record
     # computational graph.
     with SummaryRecord('./summary_dir/summary_04', network=train_net) as summary_record:
@@ -252,8 +253,9 @@ def train(ds_train):
 
                 # Note2: The output should be a scalar, and use 'add_value' method to record loss.
                 # Note3: You must use the 'record(step)' method to record the data of this step.
-                summary_record.add_value('scalar', 'loss', output)
-                summary_record.record(current_step)
+                if current_step % summary_collect_frequency == 0:
+                    summary_record.add_value('scalar', 'loss', output)
+                    summary_record.record(current_step)
 
                 step += 1
 

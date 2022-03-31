@@ -248,7 +248,7 @@ def train(ds_train):
                                          collect_freq=1, keep_default_action=False, collect_tensor_freq=200)
 
     print("============== Starting Training ==============")
-    model.train(epoch=10, train_dataset=ds_train, callbacks=[time_cb, LossMonitor(), summary_collector],
+    model.train(epoch=1, train_dataset=ds_train, callbacks=[time_cb, LossMonitor(), summary_collector],
                 dataset_sink_mode=False)
 
 

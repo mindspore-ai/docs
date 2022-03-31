@@ -182,7 +182,7 @@ For more tutorials about `SummaryRecord`, [refer to the Python API documentation
 ```python
 def train(ds_train):
     ...
-
+    summary_collect_frequency = 200
     # Note1: An instance of the network should be passed to SummaryRecord if you want to record
     # computational graph.
     with SummaryRecord('./summary_dir/summary_04', network=train_net) as summary_record:
@@ -195,8 +195,9 @@ def train(ds_train):
 
                 # Note2: The output should be a scalar, and use 'add_value' method to record loss.
                 # Note3: You must use the 'record(step)' method to record the data of this step.
-                summary_record.add_value('scalar', 'loss', output)
-                summary_record.record(current_step)
+                if current_step % summary_collect_frequency == 0:
+                    summary_record.add_value('scalar', 'loss', output)
+                    summary_record.record(current_step)
 
                 step += 1
 
@@ -270,7 +271,7 @@ def train(ds_train):
 
     # Init a SummaryCollector callback instance, and use it in model.train or model.eval
     summary_collector = SummaryCollector(summary_dir="./summary_dir/summary_gradients",
-                                         collect_freq=1, keep_default_action=False, collect_tensor_freq=200)
+                                         collect_freq=200, keep_default_action=False, collect_tensor_freq=200)
 
     print("============== Starting Training ==============")
     model.train(epoch=1, train_dataset=ds_train, callbacks=[time_cb, LossMonitor(), summary_collector],
