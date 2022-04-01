@@ -46,5 +46,5 @@ dataset = ds.MnistDataset(dataset_dir=mnist_dataset_dir)
 # The following implements mnist with TensorFlow.
 import tensorflow as tf
 
-x_train, y_train, x_test, y_test = tf.keras.datasets.mnist.load_data()
+(x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()
 ```

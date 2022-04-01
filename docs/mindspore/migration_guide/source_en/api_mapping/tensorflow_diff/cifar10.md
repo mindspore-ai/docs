@@ -46,5 +46,5 @@ dataset = ds.Cifar10Dataset(dataset_dir=cifar10_dataset_dir)
 # The following implements cifar10 with TensorFlow.
 import tensorflow as tf
 
-x_train, y_train, x_test, y_test = tf.keras.datasets.cifar10.load_data()
+(x_train, y_train), (x_test, y_test) = tf.keras.datasets.cifar10.load_data()
 ```

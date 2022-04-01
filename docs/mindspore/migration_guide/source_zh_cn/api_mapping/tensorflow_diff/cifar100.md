@@ -46,5 +46,5 @@ dataset = ds.Cifar100Dataset(dataset_dir=cifar100_dataset_dir)
 # The following implements cifar100 with TensorFlow.
 import tensorflow as tf
 
-x_train, y_train, x_test, y_test = tf.keras.datasets.cifar100.load_data()
+(x_train, y_train), (x_test, y_test) = tf.keras.datasets.cifar100.load_data()
 ```
