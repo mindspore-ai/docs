@@ -4,7 +4,11 @@
 
 ## Overview
 
-The offload feature may speed up data processing by moving dataset operations from dataset pipeline to computation graph, allowing these operations to be run by the hardware accelerator. It will offload only the supported dataset operations at the end of the pipeline to the accelerator. This includes consecutive data augmentation operators which are used in the map data processing operator, granted they come at the end of the dataset pipeline. It can also split individual map data processing operator to allow for more of the individual dataset operations to be offloaded.
+MindSpore provides a computing load balancing technology which can distribute the MindSpore operators to different heterogeneous hardware. On one hand, it balances the computing overhead between different hardware, on the other, it uses the advantages of heterogeneous hardware to accelerate the operators.
+
+Currently this heterogeneous hardware acceleration technology (introduced as the offload feature in the following sections) only supports moving dataset operations from the dataset pipeline to the computation graph, which balances the computation overhead between the data processing and the model training. To be specific, the dataset operators are currently executed on CPU, by using the offload feature, some dataset operators can be moved to the network in order to fully use GPU or Ascend for a better computation performance.
+
+The offload feature will move only the supported dataset operations applied on the specific input column at the end of the pipeline to the accelerator. This includes consecutive data augmentation operators which are used in the map data processing operator, granted they come at the end of the dataset pipeline for a specific input column.
 
 The current supported data augmentation operators which can be offloaded are:
 
@@ -21,7 +25,7 @@ The current supported data augmentation operators which can be offloaded are:
 
 ## Offload Process
 
-The following figures show the typical computation process of offload hardware accelerator in the given dataset pipeline.
+The following figures show the typical computation process of how to use the offload feature in the given dataset pipeline.
 
 ![offload](images/offload_process.PNG)
 
@@ -31,7 +35,7 @@ Offload has two new API changes to let users enable this functionality:
 
 2. A new API “set_auto_offload” is introduced to the dataset config.
 
-To check if the data augmentation operators are offloaded to the accelerator, users can save and check the computation graph IR files which will have the related operator written before the model structure. The offload feature is currently available for both dataset sink mode (dataset_sink_mode=True) and dataset non-sink mode (dataset_sink_mode=False).
+To check if the data augmentation operators are offloaded to the accelerator, users can save and check the computation graph IR files which will have the related operators written before the model structure. The offload feature is currently available for both dataset sink mode (dataset_sink_mode=True) and dataset non-sink mode (dataset_sink_mode=False).
 
 ## Enabling Offload
 
@@ -52,20 +56,42 @@ Set the argument offload to True in the map data processing operator (by default
 
 ```python
 import mindspore.dataset as ds
-import mindspore.dataset.vision.c_transforms as C
+import mindspore.common.dtype as mstype
+import mindspore.dataset.vision.c_transforms as c_vision
+import mindspore.dataset.transforms.c_transforms as c_tranforms
 
 dataset = ds.ImageFolder(dir)
-image_ops = [C.RandomCropDecodeResize(train_image_size), C.RandomHorizontalFlip(prob=0.5), C.Normalize(mean=mean, std=std), C.HWC2CHW()]
-dataset = dataset.map(operations=type_cast_op, input_columns= "label")
+type_cast_op = c_tranforms.TypeCast(mstype.int32)
+image_ops = [c_vision.RandomCropDecodeResize(train_image_size), c_vision.RandomHorizontalFlip(prob=0.5), c_vision.Normalize(mean=mean, std=std), c_vision.HWC2CHW()]
+dataset = dataset.map(operations=type_cast_op, input_columns= "label", offload=True)
 dataset = dataset.map(operations=image_ops , input_columns="image", offload=True)
+```
+
+The offload feature supports being applied on multi-column dataset as the below example shows.
+
+```python
+dataset = dataset.map(operations=type_cast_op, input_columns= "label")
+dataset = dataset.map(operations=copy_column, input_columns=["image", "label"], output_columns=["image1", "image2", "label"], column_order=["image1", "image2", "label"])
+dataset = dataset.map(operations=image_ops, input_columns=["image1"], offload=True)
+dataset = dataset.map(operations=image_ops, input_columns=["image2"], offload=True)
 ```
 
 ## Constraints
 
-The offload hardware accelerator feature is still in development phase. The current usage is limited under the following constraints:
+The offload feature is still under development. The current usage is limited under the following constraints:
 
 1. Offload feature does not support concatenated or zipped datasets currently.  
 
-2. The map operation(s) you wish to offload must be the last map operations in the pipeline. This includes map operations done to other dataset columns, for instance, `dataset = dataset.map(operations=type_cast_op, input_columns= "label")` must come before `dataset = dataset.map(operations=image_ops , input_columns="image", offload=True)`.
+2. The map operation(s) you wish to offload must be the last map operation(s) in the pipeline for their specific input column(s). There is no limitation of the input columns' order. For example, a map operation applied to the “label” data column like
+
+```python
+dataset = dataset.map(operations=type_cast_op, input_columns="label", offload=True)
+```
+
+can be offloaded even if non-offload map operations applied on different data column(s) occur afterwards, such as
+
+```python
+dataset = dataset.map(operations=image_ops, input_columns="image", offload=False)
+```
 
 3. Offload feature does not support map operations with a user specified `output_columns`.
