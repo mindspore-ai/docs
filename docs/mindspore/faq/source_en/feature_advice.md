@@ -8,9 +8,9 @@ A: The format is not fixed. This step is to create an input for constructing the
 
 <br/>
 
-<font size=3>**Q: What framework models and formats can be directly read by MindSpore? Can the PTH Model Obtained Through Training in PyTorch Be Loaded to the MindSpore Framework for Use?**</font>
+<font size=3>**Q: What framework models and formats can be directly read by MindSpore? Can the PTH Model obtained through training in PyTorch be loaded to the MindSpore framework for use?**</font>
 
-A: MindSpore uses protocol buffers (Protobuf) to store training parameters and cannot directly read framework models. A model file stores parameters and their values. You can use APIs of other frameworks to read parameters, obtain the key-value pairs of parameters, and load the key-value pairs to MindSpore. If you want to use the .ckpt file trained by a framework, read the parameters and then call the `save_checkpoint` API of MindSpore to save the file as a .ckpt file that can be read by MindSpore.
+A: MindSpore uses Protobuf to store training parameters and cannot directly read framework models. A model file stores parameters and their values. You can use APIs of other frameworks to read parameters, obtain the key-value pairs of parameters, and load the key-value pairs to MindSpore. If you want to use the .ckpt file trained by other framework, read the parameters and then call the `save_checkpoint` API of MindSpore to save the file as a .ckpt file that can be read by MindSpore.
 
 <br/>
 
@@ -24,13 +24,13 @@ A: When a single Protobuf data is too large, because Protobuf itself limits the 
 
 A: Compare through the following four aspects:
 
-- In terms of network execution：operators used in the two modes are the same. Therefore, when the same network and operators are executed in the two modes, the accuracy is the same. As Graph mode uses graph optimization, calculation graph sinking and other technologies, it has higher performance and efficiency in executing the network.
+- In terms of network execution: operators used in the two modes are the same. Therefore, when the same network and operators are executed in the two modes, the accuracy is the same. As Graph mode uses graph optimization, calculation graph sinking and other technologies, it has higher performance and efficiency in executing the network.
 
-- In terms of application scenarios,:Graph mode requires the network structure to be built at the beginning, and then the framework performs entire graph optimization and execution. This mode is suitable to scenarios where the network is fixed and high performance is required.
+- In terms of application scenarios: Graph mode requires the network structure to be built at the beginning, and then the framework performs entire graph optimization and execution. This mode is suitable to scenarios where the network is fixed and high performance is required.
 
-- The two modes are supported on different hardware (such as `Ascend`, `GPU`, and `CPU`).
+- In term of different hardware (such as `Ascend`, `GPU`, and `CPU`) resources: the two modes are supported.
 
-- In terms of code debugging,:since operators are executed line by line in PyNative mode, you can directly debug the Python code and view the `/api` output or execution result of the corresponding operator at any breakpoint in the code. In Graph mode, the network is built but not executed in the constructor function. Therefore, you cannot obtain the output of the corresponding operator at breakpoints in the `construct` function. You can only specify operators and print their output results, and then view the results after the network execution is completed.
+- In terms of code debugging: since operators are executed line by line in PyNative mode, you can directly debug the Python code and view the `/api` output or execution result of the corresponding operator at any breakpoint in the code. In Graph mode, the network is built but not executed in the constructor function. Therefore, you cannot obtain the output of the corresponding operator at breakpoints in the `construct` function. You can only specify operators and print their output results, and then view the results after the network execution is completed.
 
 <br/>
 
@@ -46,21 +46,33 @@ A: You can use the two frameworks in a python file. Pay attention to the differe
 
 <br/>
 
-<font size=3>**Q: Can MindSpore read a TensorFlow checkpoint?**</font>
+<font size=3>**Q: Can MindSpore read a ckpt file of TensorFlow?**</font>
 
-A: The checkpoint format of MindSpore is different from that of TensorFlow. Although both use the Protocol Buffers, their definitions are different. Currently, MindSpore cannot read the TensorFlow or Pytorch checkpoints.
+A: The formats of  `ckpt` of MindSpore and `ckpt`of TensorFlow are not generic. Although both use the `Protocol` Buffers, the definition of `proto` are different. Currently, MindSpore cannot read the TensorFlow or Pytorch `ckpt` files.
 
 <br/>
 
 <font size=3>**Q: How do I use models trained by MindSpore on Ascend 310? Can they be converted to models used by HiLens Kit?**</font>
 
-A: Yes. HiLens Kit uses Ascend 310 as the inference core. Therefore, the two questions are essentially the same. Ascend 310 requires a dedicated OM model. Use MindSpore to export the ONNX or AIR model and convert it into an OM model supported by Ascend 310. For details, see [Multi-platform Inference](https://www.mindspore.cn/docs/programming_guide/en/master/multi_platform_inference_ascend_310.html).
+A: Yes. HiLens Kit uses Ascend 310 as the inference core. Therefore, the two questions are essentially the same, which both need to convert as OM model. Ascend 310 requires a dedicated OM model. Use MindSpore to export the ONNX or AIR model and convert it into an OM model supported by Ascend 310. For details, see [Multi-platform Inference](https://www.mindspore.cn/docs/programming_guide/en/master/multi_platform_inference_ascend_310.html).
+
+<br/>
+
+<font size=3>**Q: Does MindSpore only be run on Huawei own `Ascend`?**</font>
+
+A: MindSpore supports Huawei's own `Ascend`, `GPU` and `CPU` at the same time, and supports heterogeneous computing power.
 
 <br/>
 
 <font size=3>**Q: Can MindSpore be converted to an AIR model on Ascend 310?**</font>
 
-A: An AIR model cannot be exported from the Ascend 310. You need to load a trained checkpoint on the Ascend 910, export an AIR model, and then convert the AIR model into an OM model for inference on the Ascend 310. For details about the Ascend 910 installation, see the MindSpore Installation Guide at [here](https://www.mindspore.cn/install/en).
+A: An AIR cannot be exported from the Ascend 310. You need to load a trained checkpoint on the Ascend 910, export an AIR model, and then convert the AIR model into an OM model for inference on the Ascend 310. For details about the Ascend 910 installation, see the MindSpore Installation Guide at [here](https://www.mindspore.cn/install/en).
+
+<br/>
+
+<font size=3>**Q: Does MindSpore have any limitation on the input size of a single Tensor for exporting and loading models?**</font>
+
+A: Due to hardware limitations of Protobuf, when exporting to AIR and ONNX formats, the size of model parameters cannot exceed 2G; when exporting to MINDIR format, there is no limit to the size of model parameters. MindSpore only supports MINDIR and doesn't support AIR and ONNX formats. The import size limitation is the same as that of export.
 
 <br/>
 
@@ -70,21 +82,21 @@ A: MindSpore currently supports CPU, GPU, and Ascend. Currently, you can try out
 
 <br/>
 
-<font size=3>**Q: Does MindSpore have any limitation on the input size of a single Tensor for exporting and loading models?**</font>
+<font size=3>**Q: Does MindSpore have any plan on supporting heterogeneous computing hardwares?**</font>
 
-A: Due to hardware limitations of Protobuf, when exporting to AIR and ONNX formats, the size of model parameters cannot exceed 2G; when exporting to MINDIR format, there is no limit to the size of model parameters. MindSpore only supports MINDIR, and the size of a single Tensor cannot exceed 2G.
+A: MindSpore provides pluggable device management interface, so that developer could easily integrate other types of heterogeneous computing hardwares (like FPGA) to MindSpore. We welcome more backend support in MindSpore from the community.
 
 <br/>
 
-<font size=3>**Q: Does MindSpore have any plan on supporting other types of heterogeneous computing hardwares?**</font>
+<font size=3>**Q: What is the relationship between MindSpore and ModelArts? Can we use MindSpore in ModelArts?**</font>
 
-A: MindSpore provides pluggable device management interface so that developer could easily integrate other types of heterogeneous computing hardwares like FPGA to MindSpore. We welcome more backend support in MindSpore from the community.
+A: ModelArts is Huawei public cloud online training and inference platform, and MindSpore is Huawei deep learning framework, which can be found in [MindSpore official website tutorial](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/use_on_the_cloud.html). The tutorial shows how users can use ModelArts to train ModelsSpore models in detail.
 
 <br/>
 
 <font size=3>**Q: The recent announced programming language such as taichi got Python extensions that could be directly used as `import taichi as ti`. Does MindSpore have similar support?**</font>
 
-A: MindSpore supports Python native expression via `import mindspore`.
+A: MindSpore supports Python native expression and `import mindspore` related package can be used.
 
 <br/>
 
@@ -108,25 +120,25 @@ A: In addition to data parallelism, MindSpore distributed training also supports
 
 <font size=3>**Q: How does MindSpore implement semantic collaboration and processing? Is the popular Formal Concept Analysis (FCA) used?**</font>
 
-A: The MindSpore framework does not support FCA. For semantic models, you can call third-party tools to perform FCA in the data preprocessing phase. MindSpore supports Python therefore `import FCA` could do the trick.
+A: The MindSpore framework does not support FCA. For semantic models, you can call third-party tools to perform FCA in the data preprocessing phase. MindSpore supports Python therefore `import FCA` related package could do the trick.
 
 <br/>
 
-<font size=3>**Q: Does MindSpore have any plan or consideration on the edge and device when the training and inference functions on the cloud are relatively mature?**</font>
+<font size=3>**Q: Does MindSpore have any plan on the edge and device when the training and inference functions of MindSpore on the cloud are relatively mature?**</font>
 
-A: MindSpore is a unified cloud-edge-device training and inference framework. Edge has been considered in its design, so MindSpore can perform inference at the edge. The open-source version will support Ascend 310-based inference. The optimizations supported in the current inference stage include quantization, operator fusion, and memory overcommitment.
+A: MindSpore is a unified cloud-edge-device training and inference framework, which supports exporting cloud-side trained models to Ascend AI processors and terminal devices for inference. The optimizations supported in the current inference stage include quantization, operator fusion, and memory overcommitment.
 
 <br/>
 
 <font size=3>**Q: How does MindSpore support automatic parallelism?**</font>
 
-A: Automatic parallelism on CPUs and GPUs are being improved. You are advised to use the automatic parallelism feature on the Ascend 910 AI processor. Follow our open source community and apply for a MindSpore developer experience environment for trial use.
+A: Automatic parallelism on CPUs and GPUs are being improved. You are advised to use the automatic parallelism on the Ascend 910 AI processor. Follow our open source community and apply for a MindSpore developer experience environment for trial use.
 
 <br/>
 
-<font size=3>**Q: Does MindSpore have a module that can implement object detection algorithms as TensorFlow does?**</font>
+<font size=3>**Q: Does MindSpore have a similar module that can implement object detection algorithms based on TensorFlow?**</font>
 
-A: The TensorFlow's object detection pipeline API belongs to the TensorFlow's Model module. After MindSpore's detection models are complete, similar pipeline APIs will be provided.
+A: The TensorFlow's object detection Pipeline API belongs to the TensorFlow's Model module. After MindSpore's detection models are complete, similar Pipeline APIs will be provided.
 
 <br/>
 
@@ -138,9 +150,9 @@ A: PyNative mode is compatible with transfer learning. For more tutorial informa
 
 <font size=3>**Q: What is the difference between [MindSpore ModelZoo](https://gitee.com/mindspore/models/tree/master) and [Ascend ModelZoo](https://www.hiascend.com/software/modelzoo)?**</font>
 
-A: `MindSpore ModelZoo` contains models only implemented by MindSpore. But these models support different devices including Ascend, GPU, CPU and mobile. `Ascend ModelZoo` contains models only running on Ascend which are implemented by different ML platform including MindSpore, PyTorch, TensorFlow and Caffe. You can refer to the corresponding [gitee repository](https://gitee.com/ascend/modelzoo).
+A: `MindSpore ModelZoo` contains models mainly implemented by MindSpore. But these models support different devices including Ascend, GPU, CPU and Mobile. `Ascend ModelZoo` contains models only running on Ascend which are implemented by different ML platform including MindSpore, PyTorch, TensorFlow and Caffe. You can refer to the corresponding [gitee repository](https://gitee.com/ascend/modelzoo).
 
-As for the models implemented by MindSpore running on Ascend, these are maintained in `MindSpore ModelZoo`, and will be released to `Ascend ModelZoo` regularly.
+The combination of MindSpore and Ascend is overlapping, and this part of the model will be based on MindSpore's ModelZoo as the main version, and will be released to Ascend ModelZoo regularly.
 
 <br/>
 
