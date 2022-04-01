@@ -5,8 +5,8 @@
 - [Installing MindSpore in Ascend 310 by Source Code Compilation](#installing-mindspore-in-ascend-310-by-source-code-compilation)
     - [Environment Preparation (automatic, recommended)](#environment-preparation-automatic-recommended)
     - [Environment Preparation (manual)](#environment-preparation-manual)
-        - [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package)
         - [Installing Python](#installing-python)
+        - [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package)
         - [Installing GCC](#installing-gcc)
         - [Installing git, gmp, tclsh, patch and Flex](#installing-git-gmp-tclsh-patch-and-flex)
         - [Installing CMake](#installing-cmake)
@@ -35,9 +35,10 @@ Run the following command to obtain and run the automatic installation script. T
 ```bash
 wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-source.sh
 # install Python 3.7 by default
+# the default value of LOCAL_ASCEND is /usr/local/Ascend
 bash -i ./euleros-ascend-source.sh
-# to specify Python 3.9 installation, use the following manner
-# PYTHON_VERSION=3.9 bash -i ./euleros-ascend-source.sh
+# to specify Python 3.9 installation, and set LOCAL_ASCEND to /home/xxx/Ascend, use the following manners
+# LOCAL_ASCEND=/home/xxx/Ascend PYTHON_VERSION=3.9 bash -i ./euleros-ascend-source.sh
 ```
 
 This script performs the following operations:
@@ -70,8 +71,8 @@ The following table lists the system environment and third-party dependencies re
 |software|version|description|
 |-|-|-|
 |Ubuntu 18.04/CentOS 7.6/EulerOS 2.8|-|OS for compiling and running MindSpore|
-|[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|-|Ascend platform AI computing library used by MindSpore|
 |[Python](#installing-python)|3.7-3.9|Python environment that MindSpore depends|
+|[Ascend AI processor software package](#installing-ascend-ai-processor-software-package)|-|Ascend platform AI computing library used by MindSpore|
 |[GCC](#installing-gcc)|7.3.0|C++ compiler for compiling MindSpore|
 |[git](#installing-git-gmp-tclsh-patch-and-flex)|-|Source code management tools used by MindSpore|
 |[CMake](#installing-cmake)|3.18.3 or later|Compilation tool that builds MindSpore|
@@ -81,26 +82,6 @@ The following table lists the system environment and third-party dependencies re
 |[patch](#installing-git-gmp-tclsh-patch-and-flex)|2.5 or later|Source code patching tool used by MindSpore|
 
 The following describes how to install the third-party dependencies.
-
-### Installing Ascend AI processor software package
-
-For detailed installation guide, please refer to [Ascend Data Center Solution 21.0.4 Installation Guide](https://support.huawei.com/enterprise/zh/doc/EDOC1100235797?section=j003).
-
-The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path of Ascend AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
-
-Install the .whl packages provided in Ascend AI processor software package. The .whl packages are released with the software package. If the .whl packages have been installed before, you need to uninstall the packages by the following command.
-
-```bash
-pip uninstall te topi hccl -y
-```
-
-Run the following command to install the .whl packages if the Ascend AI package has been installed in default path. If the installation path is not the default path, you need to replace the path in the command with the installation path.
-
-```bash
-pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/topi-*-py3-none-any.whl
-pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/te-*-py3-none-any.whl
-pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/hccl-*-py3-none-any.whl
-```
 
 ### Installing Python
 
@@ -130,6 +111,26 @@ Run the following command to check the Python version.
 
 ```bash
 python --version
+```
+
+### Installing Ascend AI processor software package
+
+For detailed installation guide, please refer to [Ascend Data Center Solution 21.0.4 Installation Guide](https://support.huawei.com/enterprise/zh/doc/EDOC1100235797?section=j003).
+
+The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path of Ascend AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
+
+Install the .whl packages provided in Ascend AI processor software package. The .whl packages are released with the software package. If the .whl packages have been installed before, you need to uninstall the packages by the following command.
+
+```bash
+pip uninstall te topi hccl -y
+```
+
+Run the following command to install the .whl packages if the Ascend AI package has been installed in default path. If the installation path is not the default path, you need to replace the path in the command with the installation path.
+
+```bash
+pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/topi-*-py3-none-any.whl
+pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/te-*-py3-none-any.whl
+pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/hccl-*-py3-none-any.whl
 ```
 
 ### Installing GCC
