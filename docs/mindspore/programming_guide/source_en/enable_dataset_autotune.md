@@ -58,9 +58,9 @@ print("tuning interval:", ds.config.get_autotune_interval())
 
 ## Constraints
 
-- Both Dataset Profiling and Dataset Autotune cannot be enabled concurrently, otherwise it will lead to unwork of Dataset AutoTune or Profiling. A warning message will result if users enable Dataset AutoTune first and then Dataset Profiling, or vice versa. Please make sure Profiling is disabled when using Dataset Autotune.
-- When enable [Offload for Dataset](https://www.mindspore.cn/docs/programming_guide/en/master/enable_dataset_offload.html) and Dataset Autotune simultaneously, if any node or nodes have been offloaded for hardware acceleration then the optimized dataset pipeline configuration file will not be written and a warning will be logged.
-- If the Dataset pipeline consists of a node that does not support deserialization (e.g. user-defined Python functions, GeneratorDataset), then any attempt to deserialize the optimized dataset pipeline configuration file will report an error. In this case, it is recommended to open the pipeline configuration file and modify the script of dataset pipeline manually.
+- Both Dataset Profiling and Dataset AutoTune cannot be enabled concurrently, otherwise it will lead to unwork of Dataset AutoTune or Profiling. If both of them are enabled at the same time, a warning message will prompt the user to check whether it is a mistake. Please make sure Profiling is disabled when using Dataset AutoTune.
+- When enable [Offload for Dataset](https://www.mindspore.cn/docs/programming_guide/en/master/enable_dataset_offload.html) and Dataset AutoTune simultaneously, if any dataset node has been offloaded for hardware acceleration, then the optimized dataset pipeline configuration file will not be written and a warning will be logged, because the dataset pipeline that is actually running is not the predefined one.
+- If the Dataset pipeline consists of a node that does not support deserialization (e.g. user-defined Python functions, GeneratorDataset), then any attempt to deserialize the saved optimized dataset pipeline configuration file will report an error. In this case, it is recommended to open the pipeline configuration file and modify the script of dataset pipeline manually.
 
 ## Example
 
@@ -181,7 +181,7 @@ Some analysis to explain the meaning of the log information:
 Since Dataset AutoTune was enabled to generate an optimized dataset pipeline, a JSON serialization of the
 dataset pipeline can be saved (by passing in the `json_filepath` parameter) in a configuration file.
 
-Example of the JSON file:
+Example of the JSON configuration file:
 
 ```text
 {
@@ -196,12 +196,12 @@ Example of the JSON file:
 }
 ```
 
-The file starts with a summary of the configuration and then followed by the actual pipeline (`tree`). The file is
+The file starts with a summary of the configuration and then is followed by the actual pipeline (`tree`). The file is
 loadable using the deserialization API `mindspore.dataset.deserialize`.
 
 Notes on the JSON configuration file:
 
-- Non-parallel operations will show `NA` as `num_parallel_workers`.
+- Non-parallel dataset operations will show `NA` for `num_parallel_workers`.
 
 ### Before Next Training
 
