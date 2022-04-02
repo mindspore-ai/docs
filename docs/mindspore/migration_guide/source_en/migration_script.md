@@ -16,13 +16,13 @@ Migrate scripts by reading the TensorBoard graphs。
 
    > The PoseNet code mentioned here is based on Python2. You need to make some syntax changes to run on Python3. Details are not described here.
 
-2. Rewrite the code, use `tf.summary` interface to save the log required by TensorBoard, start TensorBoard.
+2. Rewrite the code, use `tf.summary` interface, save the log required by TensorBoard, start TensorBoard.
 
-3. The following figure shows the opened TensorBoard, it's for reference only. The figure displayed on TensorBoard may vary in the log generation mode.
+3. The following figure shows the opened TensorBoard, and it's for reference only. This may vary depending on how the log is generated. The figure displayed on TensorBoard may vary in the log generation mode.
 
    ![PoseNet TensorBoard](images/pic1.png)
 
-4. Find the placeholder of three inputs, view the figure and read the code, the second and third inputs are used only for loss calculation.
+4. Find the Placeholder of three inputs, view the figure and read the code, and the second and third inputs are used only for loss calculation.
 
    ![PoseNet Placeholder](images/pic3.png)
 
@@ -32,7 +32,7 @@ Migrate scripts by reading the TensorBoard graphs。
 
    So far, we can preliminarily follow three steps to construct a network model:
 
-   Step 1, the first three inputs of the network will compute six outputs in the backbone.
+   Step 1, the first input will compute six outputs in the backbone in the three inputs of the network.
 
    Step 2, the result of step 1, the second and third inputs are used to calculate the loss in the loss subnet.
 
@@ -78,13 +78,11 @@ Migrate scripts by reading the TensorBoard graphs。
    net_with_loss = PoseNetLossCell(backbone, loss)
    opt = Adam(net_with_loss.trainable_params(), learning_rate=0.001, beta1=0.9, beta2=0.999, eps=1e-08, use_locking=False)
    net_with_grad = TrainOneStepCell(net_with_loss, opt)
-
-
    ```
 
 5. Next, let's implement the computing logic in the backbone.
 
-   The first input passes through a subgraph named conv1, the computing logic can be obtained by looking at the following figure:
+   The first input passes through a subgraph named conv1, and the computing logic can be obtained by looking at the following figure:
 
    ![PoseNet conv1](images/pic5.png)
 
@@ -289,7 +287,7 @@ Migrate scripts by reading the TensorBoard graphs。
        model.train(epoch_size, dataset)
    ```
 
-   In this way, the model script is basically migrated from TensorFlow to Mindspore. Then, various Mindspore tools and computing policies are used to optimize the precision.
+   In this way, the model script is basically migrated from TensorFlow to MindSpore. Then, various MindSpore tools and computing policies are used to optimize the precision.
 
 ## Migrating the PyTorch Script to MindSpore
 
@@ -431,7 +429,7 @@ Read the PyTorch script to migrate directly.
            return out
    ```
 
-3. PyTorch backpropagation is usually implemented by `loss.backward()`, and parameter update is implemented by `optimizer.step()`, In MindSpore, these parameters do not need to be explicitly invoked by the user and can be transferred to the `TrainOneStepCell` class for backpropagation and gradient update. Finally, the training script should look like this:
+3. PyTorch backpropagation is usually implemented by `loss.backward()`, and parameter update is implemented by `optimizer.step()`. In MindSpore, these parameters do not need to be explicitly invoked by the user and can be transferred to the `TrainOneStepCell` class for backpropagation and gradient update. Finally, the training script should look like this:
 
    ```python
    # define dataset
@@ -455,7 +453,7 @@ Read the PyTorch script to migrate directly.
    model.train(epoch_size, dataset)
    ```
 
-PyTorch and mindspore have similar definitions of some basic APIs, such as [mindspore.nn.SequentialCell](https://www.mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.SequentialCell.html#mindspore.nn.SequentialCell) and [torch.nn.Sequential](https://pytorch.org/docs/stable/generated/torch.nn.Sequential.html#torch.nn.Sequential), In addition, some operator APIs may be not the same. This section lists some common API comparisons. For more information, see the [MindSpore and PyTorch API mapping](https://www.mindspore.cn/docs/note/en/master/index.html#operator_api) on Mindspore's official website.
+PyTorch and mindspore have similar definitions of some basic APIs, such as [mindspore.nn.SequentialCell](https://www.mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.SequentialCell.html#mindspore.nn.SequentialCell) and [torch.nn.Sequential](https://pytorch.org/docs/stable/generated/torch.nn.Sequential.html#torch.nn.Sequential). In addition, some operator APIs may be not the same. This section lists some common API comparisons. For more information, see the [MindSpore and PyTorch API mapping](https://www.mindspore.cn/docs/note/en/master/index.html#operator_api) on Mindspore's official website.
 
 |              PyTorch              |                     MindSpore                      |
 | :-------------------------------: | :------------------------------------------------: |
@@ -467,4 +465,4 @@ PyTorch and mindspore have similar definitions of some basic APIs, such as [mind
 |          torch.nn.Linear          |                 mindspore.nn.Dense                 |
 |       torch.nn.PixelShuffle       |       mindspore.ops.operations.DepthToSpace        |
 
-It should be noticed that although `torch.nn.MaxPool2d` and `mindspore.nn.MaxPool2d` are similar in interface definition, Mindspore actually invokes the `MaxPoolWithArgMax` operator during training on Ascend. The function of this operator is the same as that of TensorFlow, during the migration, the MindSpore output after the MaxPool layer is inconsistent with that of PyTorch, theoretically, it's not affect the final training result.
+It should be noticed that although `torch.nn.MaxPool2d` and `mindspore.nn.MaxPool2d` are similar in interface definition, and Mindspore actually invokes the `MaxPoolWithArgMax` operator during training on Ascend. The function of this operator is the same as that of TensorFlow, during the migration, and the MindSpore output after the MaxPool layer is inconsistent with that of PyTorch. Theoretically, it's not affect the final training result.
