@@ -35,7 +35,7 @@ A: MindSpore和PyTorch的自定义数据集逻辑是比较类似的，需要用�
 对应的MindSpore的自定义数据集加载如下:
 
 ```python
-#1 Data enhancement,shuffle,sampler.
+# 1 Data enhancement,shuffle,sampler.
 class Mydata:
     def __init__(self):
         np.random.seed(58)
@@ -47,9 +47,9 @@ class Mydata:
         return len(self.__data)
 dataset_generator = Mydata()
 dataset = ds.GeneratorDataset(dataset_generator, ["data", "label"], shuffle=False)
-#2 Custom data enhancement
+# 2 Customized data enhancement
 dataset = dataset.map(operations=pyFunc, {other_params})
-#3 batch
+# 3 batch
 dataset = dataset.batch(batch_size, drop_remainder=True)
 ```
 
