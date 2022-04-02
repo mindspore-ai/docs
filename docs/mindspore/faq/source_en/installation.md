@@ -2,7 +2,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_en/installation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
-## Installing Using pip
+## Installing by Using pip
 
 <font size=3>**Q: When installing GPU, CUDA 10.1, 0.5.0-beta version of MindSpore, it prompts `cannot open shared object file:No such file or directory`, what should I do?**</font>
 
@@ -14,15 +14,15 @@ A: The error message indicates that the cuBLAS library is not found. Generally, 
 
 A: pip checks compatibility of wheel package and current Python environment by verifying the file name. For example, when installing mindspore_ascend-1.2.0-cp37-cp37m-linux_aarch64.whl, pip checks whether:
 
-1. Python version falls in 3.7.x.
-2. Current operating system is a linux distro.
-3. System architecture is arm64.
+1. Python version falls in 3.7.x
+2. Current operating system is Linux
+3. System architecture is arm64
 
-Hence, if you run into such a problem, please make sure the current environment fulfills the requirements of the MindSpore package you are installing, or a correct version of MindSpore package which matches your environment is being installed.
+Hence, if you run into the problem `is not a supported wheel on this platform`, please make sure the current environment fulfills the requirements of the MindSpore package you are installing, or a correct version of MindSpore package which matches your environment is being installed.
 
 <br/>
 
-<font size=3>**Q: What should I do if an error message `ERROR: mindspore-{VERSION}.whl is not a supported wheel on this platform` is displayed when I compile MindSpore form source and install it using pip on the macOS system?**</font>
+<font size=3>**Q: What should I do if an error message `ERROR: mindspore-{VERSION}.whl is not a supported wheel on this platform` is displayed when I compile MindSpore form source and install it by using pip on the macOS system?**</font>
 
 A: First, check the name of the installation package under the output directory, which is similar to mindspore-1.6.0-cp37-cp37m-macosx_11_1_x84_64.whl. The "11_1" in the package name means that the SDK version used when compiling is 11.1. If the SDK version used is 11.x, it may be that the SDK version used during compilation is too high and cannot be installed.
 
@@ -54,22 +54,22 @@ A: MindSpore installs version 3.13.0 of Protobuf by default.  If it is not the v
 
 <br/>
 
-<font size=3>**Q: What should I do when error `ProxyError(Cannot connect to proxy)` prompts during pip install?**</font>
+<font size=3>**Q: What should I do when an error `ProxyError(Cannot connect to proxy)` prompts during installing by using  pip?**</font>
 
-A: It is generally a proxy configuration problem, you can using `export http_proxy={your_proxy}` on Ubuntu environment, and using `set http_proxy={your_proxy}` in cmd on Windows environment to config your proxy.
+A: It is generally a proxy configuration problem. You can use `export http_proxy={your_proxy}`  to set proxy on Ubuntu environment, and use `set http_proxy={your_proxy}` in cmd on Windows environment to configure your proxy.
 
 <br/>
 
-<font size=3>**Q: What should I do when error prompts during pip install?**</font>
+<font size=3>**Q: What should I do when an error prompts during installing by using  pip?**</font>
 
 A: Please execute `pip -V` to check if pip is linked to Python3.7+. If not, we recommend you
 use `python3.7 -m pip install` instead of `pip install` command.
 
 <br/>
 
-<font size=3>**Q: What should I do when error prompts `No matching distribution found for XXX` during pip install dependencies?**</font>
+<font size=3>**Q: What should I do when an error prompts `No matching distribution found for XXX` during pip installing dependencies?**</font>
 
-A: Please execute `pip config list` to check the package index `index-url`. Sometimes package index updates are out of sync. You can try other package index instead.
+A: Please execute `pip config list` to check the software library index `index-url`. Sometimes software library index updates are out of sync. You can try other software library indexes instead.
 
 <br/>
 
@@ -79,45 +79,67 @@ A: You can download whl package from the official [MindSpore Website download pa
 
 <br/>
 
+<font size=3>**Q: Whether MindSpore can support Nvidia GPU discrete graphics + Windows operating system pc?**</font>
+
+A: At present, the support of MindSpore is the combination configuration of GPU +Linux and CPU + Windows, and the support of Windows + GPU is still under development.
+
+If you want to run on a GPU+Windows environment, you can try to use WSL+docker, the operation idea:
+
+1. For installing Ubuntu18.04 in WSL mode, refer to <https://docs.microsoft.com/en-us/windows/wsl/install-win10>.
+
+2. For installing Nvidia drivers that support WSL and deploying in environments where containers run on WSL, refer to <https://docs.nvidia.com/cuda/wsl-user-guide/index.html>.
+
+>Since CUDA on WSL is still a preview feature, pay attention to the description of the Windows version requirements in the reference link, and the version is not enough to be upgraded.
+
+3. Referring to <https://gitee.com/mindspore/mindspore#docker%E9%95%9C%E5%83%8F>, take MindSpore-GPU images. For example, take the MindSpore1.0.0 version container, and execute `docker pull mindspore/mindspore-gpu:1.0.0` to execute the container in WSL Ubuntu18.04:
+
+```docker
+docker run -it --runtime=nvidia mindspore/mindspore-gpu:1.0.0 /bin/bash
+```
+
+The detailed steps can refer to the practice provided by the community [Zhang Xiaobai teaches you to install the GPU driver (CUDA and cuDNN)](https://bbs.huaweicloud.com/blogs/212446). Thanks to the community member [Zhang Hui](https://bbs.huaweicloud.com/community/usersnew/id_1552550689252345) for sharing.
+
+<br/>
+
 <font size=3>**Q: For Ascend users, what should I do when `RuntimeError: json.exception.parse_error.101 parse error at line 1, column 1: syntax error while parsing value - invalid literal; last read: 'T'` appears in personal Conda environment?**</font>
 
-A: When you encounter the error, you should update the `te/topi/hccl` python toolkits, unload them firstly and then using command `pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/{te/topi/hccl}-{version}-py3-none-any.whl` to reinstall.
+A: When you encounter the error, the high probability is that there is no update te or topi or hccl package in the personal Conda environment after the run package is updated, and the above several tool packages in the current Conda environment can be uninstalled. You should use command `pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/{te/topi/hccl}-{version}-py3-none-any.whl` to reinstall.
 
 <br/>
 
-<font size=3>**Q: What should I do when I install both CPU and GPU versions of MindSpore, an error occurs while importing mindspore, saying `cannot import name 'context' from 'mindspore'`?**</font>
+<font size=3>**Q: What should I do when I install both CPU and GPU versions of MindSpore, an error `cannot import name 'context' from 'mindspore'` is displayed while importing?**</font>
 
-A: All versions of MindSpore are installed in the directory named `mindspore`, installing them in one Python environment may overwrite each other and cause failures. If you wish to use alternate versions of MindSpore for different platforms (e.g. CPU and GPU versions), please uninstall the unused version and install the new version afterwards.
-
-<br/>
-
-<font size=3>**Q: What should I do if error message `Could not find a version that satisfies the requirement` is generated when I install MindSpore on a ARM architecture system using pip?**</font>
-
-A: The version of pip installed on your system is most likely lower than 19.3, which is too low to recognize `manylinux2014` label that identifies ARM64 architecture for pypi. Wrong versions of python packages such as `numpy` or `scipy` are downloaded, and dependencies are then found lacking while trying to build these packages. As such, please upgrade pip to a later version by typing `pip install --upgrade pip`, and then try installing MindSpore again.
+A: All versions of MindSpore are installed in the directory named `mindspore`, and installing them in one Python environment may overwrite each other and cause failures. If you wish to use alternate versions of MindSpore for different platforms (e.g. CPU and GPU versions), please uninstall the unused version and install the new version afterwards.
 
 <br/>
 
-<font size=3>**Q: What should I do if error message `Running setup.py install for pillow: finished with status 'error' ... The headers or library files could not be found for jpeg, ...` is generated when I install MindSpore using pip?**</font>
+<font size=3>**Q: What should I do if error message `Could not find a version that satisfies the requirement` is displayed when I install MindSpore on an ARM architecture systemby using pip?**</font>
 
-A: MindSpore relies on the third-party library `pillow` for some data processing operations, while `pillow` needs to rely on the `libjpeg` library already installed in the environment. Take the Ubuntu environment as an example, you can use `sudo apt-get install libjpeg8-dev` to install the `libjpeg` library, and then install MindSpore.
+A: The version of pip installed on your system is most likely lower than 19.3, which is too low to recognize `manylinux2014` label. Wrong versions of python packages such as `numpy` or `scipy` are downloaded in the pip install stage, and the issue of not being able to find build dependencies is raised. As such, please upgrade pip in the environment to a later version higher than 19.3 by typing `pip install --upgrade pip`, and then try installing MindSpore again.
+
+<br/>
+
+<font size=3>**Q: What should I do if error message `Running setup.py install for pillow: finished with status 'error' ... The headers or library files could not be found for jpeg, ...` is generated when I install MindSpore by using pip?**</font>
+
+A: MindSpore relies on the third-party library `pillow` for some data processing operations, while `pillow` needs to rely on the `libjpeg` library already installed in the environment. Taking the Ubuntu environment as an example, you can use `sudo apt-get install libjpeg8-dev` to install the `libjpeg` library, and then install MindSpore.
 
 <br/>
 
 ## Source Code Compilation Installation
 
-<font size=3>**Q: What is the difference between `bash -p` and `bash -e` when an error is reported during application build?**</font>
+<font size=3>**Q: What is the difference between `bash -p` and `bash -e` during compilation?**</font>
 
-A: MindSpore Serving build and running depend on MindSpore. Serving provides two build modes: 1. Use `bash -p {python site-packages}/mindspore/lib` to specify an installed MindSpore path to avoid building MindSpore when building Serving. 2. Build Serving and the corresponding MindSpore. Serving passes the `-e`, `-V`, and `-j` options to MindSpore.
+A: MindSpore Serving build and running depend on MindSpore. Serving provides two compilation modes: 1. Use `bash -p {python site-packages}/mindspore/lib` to specify an installed MindSpore path to avoid recompiling MindSpore when compiling Serving. 2. When Compiling Serving, compile the corresponding MindSpore. Serving transparents the `-e`, `-V`, and `-j` options to MindSpore.
 For example, use `bash -e ascend -V 910 -j32` in the Serving directory as follows:
 
-- Build MindSpore in the `third_party/mindspore` directory using `bash -e ascend -V 910 -j32`.
-- Use the MindSpore build result as the Serving build dependency.
+- Compile MindSpore in the `third_party/mindspore` directory by using `bash -e ascend -V 910 -j32`.
+- Use the MindSpore compilation result as the Serving compilation dependency.
 
 <br/>
 
 <font size=3>**Q: A cross compiler has been installed on Linux, but how do I write compilation commands?**</font>
 
-A: Set environment variables and specify the Android NDK path using `export ANDROID_NDK=/path/to/android-ndk`. To compile the Arm64 version, run `bash build.sh -I arm64`. To compile the Arm32 version, run `bash build.sh -I arm32`. After the compilation is successful, find the compiled package in the output directory.
+A: To compile the Arm64 version, run `bash build.sh -I arm64`. To compile the Arm32 version, run `bash build.sh -I arm32`. To set environment variables, specify the Android NDK path:  `export ANDROID_NDK=/path/to/android-ndk`. After the compilation is successful, find the compiled package in the output directory.
 
 <br/>
 
@@ -127,27 +149,39 @@ A: The `libdatatransfer.so` dynamic library is in the `fwkacllib/lib64` director
 
 <br/>
 
-<font size=3>**Q: What should I do if the compilation time of MindSpore source code takes too long or the process is constantly interrupted by errors?**</font>
+<font size=3>**Q: What should I do if the source code compilation process takes too long or is often interrupted?**</font>
 
-A: MindSpore imports third party dependencies through submodule mechanism, among which `Protobuf` v3.13.0 might not have the optimal or steady download speed, it is recommended that you perform package cache in advance.
+A: MindSpore imports the third party dependency package through the submodule mechanism, among which `Protobuf` v3.13.0 might not have the optimal or steady download speed. It is recommended that you perform package cache in advance.
 
 <br/>
 
 <font size=3>**Q: How to change installation directory of the third party libraries?**</font>
 
-A: The third party libraries will be installed in build/mindspore/.mslib, you can change the installation directory by setting the environment variable MSLIBS_CACHE_PATH, eg. `export MSLIBS_CACHE_PATH = ~/.mslib`.
+A: The third party library packages will be installed in build/mindspore/.mslib, and you can change the installation directory by setting the environment variable MSLIBS_CACHE_PATH, eg. `export MSLIBS_CACHE_PATH = ~/.mslib`.
 
 <br/>
 
 <font size=3>**Q: What should I do if the software version required by MindSpore is not the same with the Ubuntu default software version?**</font>
 
-A: At the moment some software might need manual upgrade. (**Note**: MindSpore requires Python3.7.5 and gcc7.3，the default version in Ubuntu 16.04 are Python3.5 and gcc5，whereas the one in Ubuntu 18.04 are Python3.7.3 and gcc7.4)
+A: Currently, MindSpore only provides version matching relationships, which requires you to manually install and upgrade the companion software. (**Note**: MindSpore requires Python3.7.5 and gcc7.3, and the default version in Ubuntu 16.04 are Python3.5 and gcc5, whereas the default one in Ubuntu 18.04 are Python3.7.3 and gcc7.4)
 
 <br/>
 
-<font size=3>**Q: what should I do when I have installed Python 3.7.5 and set environment variables accordingly, but still failed compiling MindSpore, with error message `Python3 not found`?**</font>
+<font size=3>**Q: What should I do when the error message`No module named 'mindpore.version` is displayed when the use case is executed?**</font>
 
-A: It's probably due to the lack of shared libraries in current Python environment. Compiling MindSpore requires linking Python shared libraries, hence you may need to compile and install Python 3.7.5 from source, using command `./configure --enable-shared`.
+A: When there is such an error, it is possible to execute a use case in the path that created the same name as the MindSpore installation package, causing Python to preferentially find the current directory when importing the package, and the current directory does not version.py the file. The solution is to rename the directory or exit the one- or multi-level directory upwards.
+
+<br/>
+
+<font size=3>**Q: What should I do when the error message`MD5 does not match` is displayed when the source code is compiled?**</font>
+
+A: This error may be due to network problems at the time of compilation caused by some third-party library download interruption. After recompiling, the file exists but is incomplete, failed to verify MD5. The solution is to delete the relevant third-party libraries in the .mslib cache path, and then recompile.
+
+<br/>
+
+<font size=3>**Q: What should I do when I have installed Python 3.7.5 and set environment variables accordingly, but still failed compiling MindSpore, with error message `Python3 not found`?**</font>
+
+A: It's probably due to the lack of shared libraries in current Python environment. Compiling MindSpore requires linking Python share libraries, hence you may need to compile and install Python 3.7.5 from source, using command `./configure --enable-shared`.
 
 <br/>
 
@@ -155,25 +189,13 @@ A: It's probably due to the lack of shared libraries in current Python environme
 
 A: While compiling MindSpore, if:
 
-1. Failed while downloading or compiling third-party software. e.g. Failed applying patch on icu4c, with error message `Cmake Error at cmake/utils.cmake:301 (message): Failed patch:`. In this case, go to `build/mindspore/.mslib` or directories specified by environment vairiable `MSLIBS_CACHE_PATH` where third-party software are installed, and delete affected software respectively.
+1. Failed while downloading or compiling third-party software. e.g. failed applying patch on icu4c, with error message `Cmake Error at cmake/utils.cmake:301 (message): Failed patch:`. In this case, go to `build/mindspore/.mslib` or the third-party software installation directory specified by the `MSLIBS_CACHE_PATH` environment variable and deletes the corresponding software from it.
 
-2. Failed in other stages of compilation, or if you wish to clean all previous build results, simply delete `build` directory.
-
-<br/>
-
-<font size=3>**Q: what should I do when an error message `No module named 'mindpore.version'` is displayed when I execute the case?**</font>
-
-A: Maybe you execute the case in the path with the same name as the MindSpore installation package. Rename the directory or exit one or more levels of directory to solve the problem.
+2. Failed in other stages of compilation, or if you wish to clean all previous build results, before recompilation, simply delete `build` directory.
 
 <br/>
 
-<font size=3>**Q: what should I do when an error message `MD5 does not match` is displayed when I execute the case?**</font>
-
-A: This kind of error may be caused by internet problem when some third party libraries are downloading. It fails to verify MD5 with a incomplete file when you recompile the project. Remove the related third-party file in .mslib cache path and recompile the project to solve the problem.
-
-<br/>
-
-<font size=3>**Q: What should I do if it prompts that `pthread not found` in CMakeError.txt after the compilation fails?**</font>
+<font size=3>**Q: What should I do if it prompts that pthread cannot be found in CMakeError.txt after the compilation fails?**</font>
 
 A: The real reason for the failure will be showed in the stdout log. CMakeError.txt has no reference value. Please look for the first error in the stdout log.
 
@@ -195,19 +217,19 @@ A: The possible reasons are:
 
 <font size=3>**Q: How to uninstall MindSpore?**</font>
 
-A: First of all, please confirm the full name of MindSpore, for example, for the gpu version, you can execute the command `pip uninstall mindspore-gpu` to uninstall.
+A: First of all, please confirm the full name of MindSpore, for example, for the gpu version, and you can execute the command `pip uninstall mindspore-gpu` to uninstall.
 
 <br/>
 
 ## Environment Variables
 
-<font size=3>**Q: Some frequently-used environment settings need to be reset in the newly started terminal window, which is easy to be forgotten, What should I do?**</font>
+<font size=3>**Q: Some frequently-used environment settings need to be reset in the newly started terminal window, which is easy to be forgotten. What should I do?**</font>
 
 A: You can write the frequently-used environment settings to `~/.bash_profile` or `~/.bashrc` so that the settings can take effect immediately when you start a new terminal window.
 
 <br/>
 
-<font size=3>**Q: How to set environment variable `DEVICE_ID` when using GPU version of MindSpore**</font>
+<font size=3>**Q: How to set environment variable `DEVICE_ID` when using GPU version of MindSpore?**</font>
 
 A: Normally, GPU version of MindSpore doesn't need to set `DEVICE_ID`. MindSpore automatically chooses visible GPU devices according to the cuda environment variable `CUDA_VISIBLE_DEVICES`. After setting `CUDA_VISIBLE_DEVICES`, `DEVICE_ID` refers to the ordinal of the GPU device:
 
@@ -281,12 +303,12 @@ A: After MindSpore is installed on a CPU hardware platform, run the `python -c'i
 
 <br/>
 
-<font size=3>**Q: What should I do do when the errors prompts, such as `sh:1:python:not found`, `No module named mindspore._extends.remote` that the Python was linked to Python2.7?**</font>
+<font size=3>**Q: What should I do do when the errors prompts, such as `sh:1:python:not found`, `No module named mindspore._extends.remote` that the Python was linked to Python2.7 when the use case is executed on `linux` platform?**</font>
 
-A: Use the following command to check whether the current Python environment meets the requirements of MindSpore.
+A: When you encounter such problem, it is most likely caused by Python environment. Use the following command to check whether the current Python environment meets the requirements of MindSpore.
 
 - Enter `python` in the terminal window and check the following version information entered into the Python interactive environment. If an error is reported directly, there is no Python soft connection; if you enter a non-Python 3.7 environment, the current Python environment is not the MindSpore runtime needs.
-- If not, execute the `sudo ln -sf /usr/bin/python3.7.x /usr/bin/python` command to create Python's soft connection.
+- Execute the `sudo ln -sf /usr/bin/python3.7.x /usr/bin/python` command to create Python's soft connection, and then check the execution.
 
 <br/>
 
@@ -302,8 +324,7 @@ A: Above question is relatively common, and there are two feasible solutions, yo
 <font size=3>**Q: What should I do if an error message `ImportError: libgmpxx.so: cannot open shared object file: No such file or directory` is displayed
 when running `import mindspore` in a script after the source code of mindspore and gmp are compiled and installed?**</font>
 
-A: The reason is that we didn't set `--enable-cxx` when installing gmp. The correct steps for installing gmp is (suppose that
-we have download gmp installation repository):
+A: The reason is that we didn't set `--enable-cxx` when installing gmp. The correct steps for installing gmp is (suppose that we have download gmp installation repository):
 
 ```bash
 $cd gmp-6.1.2
@@ -315,6 +336,6 @@ $sudo make install
 
 <br/>
 
-<font size=3>**What should I do if an warning message `UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.` is displayed when running Mindspore?**</font>
+<font size=3>**Q: What should I do if an warning message `UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.` is displayed when running Mindspore?**</font>
 
-A: We observed such warnings on ARM environment, with python 3.9 and numpy >=1.22.0 installed. These wharnings come from numpy instead of MindSpore, if you wish to suppress these warnings, please consider manually switching to a lower version of numpy (<=1.21.2).
+A: The above issue occurs in environments with a newer version of numpy (>=1.22.0) version of ARM python 3.9 installed. We observed such warnings on ARM environment, with python 3.9 and numpy >=1.22.0 installed. The wharnings come from numpy and not from MindSpore. If the wharnings affect the normal debugging of the code, you can consider manually installing an earlier version of numpy (<=1.21.2) to circumvent it.
