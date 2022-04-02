@@ -37,9 +37,11 @@
 ```bash
 wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-conda.sh
 # 默认安装Python 3.7以及最新版本的MindSpore
+# 默认LOCAL_ASCEND路径为/usr/local/Ascend
 bash -i ./euleros-ascend-conda.sh
-# 如需指定Python和MindSpore版本，以Python 3.9和MindSpore 1.6.0为例，使用以下方式
-# PYTHON_VERSION=3.9 MINDSPORE_VERSION=1.6.0 bash -i ./euleros-ascend-conda.sh
+# 如需指定Python和MindSpore版本，以Python 3.9和MindSpore 1.6.0为例
+# 且指定LOCAL_ASCEND路径为/home/xxx/Ascend，使用以下方式
+# LOCAL_ASCEND=/home/xxx/Ascend PYTHON_VERSION=3.9 MINDSPORE_VERSION=1.6.0 bash -i ./euleros-ascend-conda.sh
 ```
 
 该脚本会执行以下操作：
@@ -85,20 +87,6 @@ conda activate mindspore_py37
 详细安装方法请参考[Ascend Data Center Solution 21.0.4安装指引文档](https://support.huawei.com/enterprise/zh/doc/EDOC1100235797?section=j003)。
 
 安装包默认安装路径为`/usr/local/Ascend`。安装后确认当前用户有权限访问昇腾AI处理器配套软件包的安装路径，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
-
-安装昇腾AI处理器配套软件包提供的whl包，whl包随配套软件包发布。如果之前安装过昇腾AI处理器配套软件包，需要先使用如下命令卸载相应的包。
-
-```bash
-pip uninstall te topi hccl -y
-```
-
-默认安装路径使用以下指令安装。如果安装路径不是默认路径，需要将命令中的路径替换为安装路径。
-
-```bash
-pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/topi-*-py3-none-any.whl
-pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/te-*-py3-none-any.whl
-pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/hccl-*-py3-none-any.whl
-```
 
 ### 安装Conda
 

@@ -5,8 +5,8 @@
 - [源码编译方式安装MindSpore Ascend 910版本](#源码编译方式安装mindspore-ascend-910版本)
     - [环境准备（自动，推荐）](#环境准备自动推荐)
     - [环境准备（手动）](#环境准备手动)
-        - [安装昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)
         - [安装Python](#安装python)
+        - [安装昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)
         - [安装wheel和setuptools](#安装wheel和setuptools)
         - [安装GCC](#安装gcc)
         - [安装git，gmp，tclsh，patch，NUMA，Flex](#安装gitgmptclshpatchnumaflex)
@@ -39,9 +39,11 @@
 ```bash
 wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-source.sh
 # 默认安装Python 3.7
+# 默认LOCAL_ASCEND路径为/usr/local/Ascend
 bash -i ./euleros-ascend-source.sh
-# 如需指定安装Python 3.9，并且安装可选依赖Open MPI，使用以下方式
-# PYTHON_VERSION=3.9 OPENMPI=on bash -i ./euleros-ascend-source.sh
+# 如需指定安装Python 3.9，并且安装可选依赖Open MPI
+# 且指定LOCAL_ASCEND路径为/home/xxx/Ascend，使用以下方式
+# LOCAL_ASCEND=/home/xxx/Ascend PYTHON_VERSION=3.9 OPENMPI=on bash -i ./euleros-ascend-source.sh
 ```
 
 该脚本会执行以下操作：
@@ -75,8 +77,8 @@ conda activate mindspore_py37
 |软件名称|版本|作用|
 |-|-|-|
 |Ubuntu 18.04/CentOS 7.6/EulerOS 2.8/OpenEuler 20.03/KylinV10 SP1|-|编译和运行MindSpore的操作系统|
-|[昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)|-|MindSpore使用的Ascend平台AI计算库|
 |[Python](#安装python)|3.7-3.9|MindSpore的使用依赖Python环境|
+|[昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)|-|MindSpore使用的Ascend平台AI计算库|
 |[wheel](#安装wheel和setuptools)|0.32.0及以上|MindSpore使用的Python打包工具|
 |[setuptools](#安装wheel和setuptools)|44.0及以上|MindSpore使用的Python包管理工具|
 |[GCC](#安装gcc)|7.3.0|用于编译MindSpore的C++编译器|
@@ -91,26 +93,6 @@ conda activate mindspore_py37
 |[Open MPI](#安装open-mpi可选)|4.0.3|MindSpore使用的高性能消息传递库（可选，单机多卡/多机多卡训练需要）|
 
 下面给出第三方依赖的安装方法。
-
-### 安装昇腾AI处理器配套软件包
-
-详细安装方法请参考[Ascend Data Center Solution 21.0.4安装指引文档](https://support.huawei.com/enterprise/zh/doc/EDOC1100235797?section=j003)。
-
-安装包默认安装路径为`/usr/local/Ascend`。安装后确认当前用户有权限访问昇腾AI处理器配套软件包的安装路径，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
-
-安装昇腾AI处理器配套软件包提供的whl包，whl包随配套软件包发布。如果之前安装过昇腾AI处理器配套软件包，需要先使用如下命令卸载相应的包。
-
-```bash
-pip uninstall te topi hccl -y
-```
-
-默认安装路径使用以下指令安装。如果安装路径不是默认路径，需要将命令中的路径替换为安装路径。
-
-```bash
-pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/topi-*-py3-none-any.whl
-pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/te-*-py3-none-any.whl
-pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/hccl-*-py3-none-any.whl
-```
 
 ### 安装Python
 
@@ -140,6 +122,26 @@ conda activate mindspore_py37
 
 ```bash
 python --version
+```
+
+### 安装昇腾AI处理器配套软件包
+
+详细安装方法请参考[Ascend Data Center Solution 21.0.4安装指引文档](https://support.huawei.com/enterprise/zh/doc/EDOC1100235797?section=j003)。
+
+安装包默认安装路径为`/usr/local/Ascend`。安装后确认当前用户有权限访问昇腾AI处理器配套软件包的安装路径，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
+
+安装昇腾AI处理器配套软件包提供的whl包，whl包随配套软件包发布。如果之前安装过昇腾AI处理器配套软件包，需要先使用如下命令卸载相应的包。
+
+```bash
+pip uninstall te topi hccl -y
+```
+
+默认安装路径使用以下指令安装。如果安装路径不是默认路径，需要将命令中的路径替换为安装路径。
+
+```bash
+pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/topi-*-py3-none-any.whl
+pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/te-*-py3-none-any.whl
+pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/hccl-*-py3-none-any.whl
 ```
 
 ### 安装wheel和setuptools
