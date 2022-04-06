@@ -140,7 +140,7 @@ with open(gfile_abs_path, "r+", encoding="utf8") as f:
     exec(data, g.__dict__)
 
 
-sys.path.append(os.path.abspath('../../../../resource/search'))
+sys.path.append(os.path.abspath('../../../resource/search'))
 import search_code
 
 # Copy source files of chinese python api from mindspore repository.

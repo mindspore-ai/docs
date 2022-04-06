@@ -17,12 +17,12 @@ import re
 sys.path.append(os.path.abspath('../_ext'))
 from sphinx.ext import autodoc as sphinx_autodoc
 
-import mindspore_serving
+import mindvision
 
 # -- Project information -----------------------------------------------------
 
 project = 'MindSpore'
-copyright = '2021, MindSpore'
+copyright = '2022, MindSpore'
 author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags

@@ -159,7 +159,7 @@ except:
 import mindspore
 
 
-sys.path.append(os.path.abspath('../../../../resource/search'))
+sys.path.append(os.path.abspath('../../../resource/search'))
 import search_code
 
 # Copy images from mindspore repo.
