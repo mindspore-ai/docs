@@ -1,6 +1,6 @@
 # Saving and Loading the Model
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/beginner/save_load.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/beginner/save_load.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 The content of the previous chapter mainly introduced how to adjust hyperparameters and train network models. During the process of training the network model, we actually want to save the intermediate and final results for fine-tune and subsequent model deployment and inference, and now start learning how to set hyperparameters and optimize model parameters.
 

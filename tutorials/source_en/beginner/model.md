@@ -1,6 +1,6 @@
 # Building a Neural Network
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/beginner/model.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/beginner/model.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 A neural network model consists of multiple data operation layers. `mindspore.nn` provides various basic network modules. The following uses LeNet-5 as an example to first describe how to build a neural network model by using `mindspore.nn` , and then describes how to build a LeNet-5 network model by using `mindvision.classification.models`.
 
@@ -10,7 +10,7 @@ A neural network model consists of multiple data operation layers. `mindspore.nn
 
 [LeNet-5](https://ieeexplore.ieee.org/document/726791) is a typical convolutional neural network proposed by Professor Yann LeCun in 1998, which achieves 99.4% accuracy on the MNIST dataset and is the first classic in the field of CNN. The model structure is shown in the following figure:
 
-![LeNet-5](https://gitee.com/mindspore/docs/raw/master/tutorials/source_zh_cn/beginner/images/lenet.png)
+![LeNet-5](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/beginner/images/lenet.png)
 
 According to the network structure of LeNet, there are 7 layers of LeNet removal input layer, including 3 convolutional layers, 2 sub-sampling layers, and 3 fully-connected layers.
 
