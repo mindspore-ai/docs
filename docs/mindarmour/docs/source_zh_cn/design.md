@@ -20,9 +20,13 @@ MindArmour总体架构如下图所示，下面介绍主要的三个部分：模�
 
 主要关注AI模型对于自然扰动样本及对抗扰动样本的鲁棒性。
 
-#### 对抗样本
+**自然扰动样本**
+模拟现实生活种常见的扰动，例如聚焦模糊、抖动模糊、过曝光、旋转、平移、缩放、错切、透视变换、均匀噪声、自然噪声等。
 
-攻击者在原始样本处加入人类不易察觉的微小扰动，导致深度学习模型误判，称为对抗样本攻击。MindArmour模型安全提供对抗样本生成、对抗样本检测、模型防御、攻防效果评估等功能，为AI模型安全研究和AI应用安全提供重要支撑。
+**对抗样本**
+攻击者在原始样本处加入人类不易察觉的微小扰动，导致深度学习模型误判，称为对抗样本攻击。  
+
+MindArmour模型安全提供自然扰动样本生成、对抗样本生成、对抗样本检测、模型防御、攻防效果评估等功能，为AI模型安全研究和AI应用安全提供重要支撑。
 
 ![robustness](./images/robustness.png)
 
@@ -43,9 +47,12 @@ AI Fuzzer主要包括三个模块：
 
     随机选择变异方法对种子数据变异生成多个变种。支持多种样本的变异策略， 包括：
 
-    - 图像仿射变换方法如：平移、旋转、缩放、错切、透视等。
-    - 基于图像像素值变化的方法如：改变对比度、亮度、模糊、加噪、柏林噪声等。
-    - 基于对抗攻击的白盒、黑盒对抗样本生成方法，如FGSM、PGD、MDIIM等。
+    1. 自然扰动样本生成方法：
+      - 仿射变换类方法：Translate、Scale、Shear、Rotate、Perspective、Curve；
+      - 模糊类方法：GaussianBlur、MotionBlur、GradientBlur；
+      - 亮度调整类方法：Contrast、GradientLuminance;
+      - 加噪类方法：UniformNoise、GaussianNoise、SaltAndPepperNoise、NaturalNoise。
+    2. 基于对抗攻击的白盒、黑盒对抗样本生成方法：FGSM（FastGradientSignMethod）、PGD（ProjectedGradientDescent）、MDIIM（MomentumDiverseInputIterativeMethod）。
 
 2. Fuzzer moduler（变异指导模块）:
 
