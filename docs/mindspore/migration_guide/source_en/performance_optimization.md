@@ -1,10 +1,10 @@
-# Using Performance Profiling Tool
+# Performance Profiling
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/migration_guide/source_en/performance_optimization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
 
 Profiler provides performance tuning ability for MindSpore, and provides easy-to-use and rich debugging functions in operator performance, data processing performance, etc., helping users quickly locate and solve performance problems.
 
-This chapter introduces the common methods and cases of performance tuning in neural networks, as well as the resolution of some common problems.
+This chapter introduces the common methods and cases of performance tuning, as well as the solutions of some common problems.
 
 ## Quick Start
 
@@ -20,31 +20,32 @@ This section will introduce the common use of MindSpore Profiler through three t
 
 ### Case 1: Long Step Interval
 
-We run ResNet50 training script in MindSpore [ModelZoo](https://gitee.com/mindspore/models/tree/master ) with batch size set to 32, and we find that each step cost almost 90ms.
-As we observed on the MindInsight UI page, the step interval in the step trace is too long, which may indicate that performance can be optimized in the dataset processing process.
+We run ResNet50 training script in MindSpore [ModelZoo](https://gitee.com/mindspore/models/tree/master ) with batch size set to 32, and we find that each step cost almost 90ms, with a poor performance.
+As we observed on the MindInsight UI page, the step interval in the step trace is too long, which may indicate that data is the performance bottleneck.
 
 ![long_step_interval](images/profiler_case1_long_step_interval.png)
 
 *Figure 1: Long Step Interval in Step Trace*
 
-Looking at the ```Step Interval``` tab in ```Data Preparation details``` page, we can see that the ratio of full queues in ```Host Queue``` is low, which can be preliminarily determined that the performance related to dataset processing can be improved.
+Looking at the iteration gap tab in the data preparation details page, we observed that the data queue has more data in the early stage, and the number of later data becomes 0, because the loading and augmentment of the dataset has begun in the early stage of the graph compilation stage, and multiple pieces of data are cached in the queue.
+
+After the normal training begins in the later stage, the data in the queue is consumed faster than the speed of production, so the data queue gradually becomes empty, indicating that the data becomes a bottleneck at this time. The same is true for observing host queues.
+
+With comprehensive analysis, during normal training, data processing is a performance bottleneck. Therefore, you need to go to the data processing tab in the data preparation details page to see the specific issue.
 
 ![dataset_process_step_interval](images/profiler_case1_data_processing_step_interval.png)
 
 *Figure 2: Data Preparation Details -- Step Interval*
 
-Switch to the ```Data Processing``` tab to find which operator is slower.
+By observing the `queue relationship between operators` in the Data Processing tab, we find that the queue usage of the `Queue_3` and later is low, that is, the speed `MapOp_3` of production data as a producer is slower, so we can determine that there is still room for optimization of the performance of `MapOp_3`, and try to optimize the performance of the operator.
 
 ![data_processing](images/profiler_case1_dataset_processing.png)
 
 *Figure 3: Data Preparation Details -- Data Processing*
 
-By observing the ```Queue relationship between operators```, we find that the average usage of ```Queue_3``` is relatively inefficient.
-
-Therefore, it can be determined that we can adjust the corresponding dataset operators, ```MapOp_3```, to achieve better performance.
 We can refer to [Optimizing the Data Processing](https://www.mindspore.cn/docs/programming_guide/en/master/optimize_data_processing.html ) to adjust dataset operators to improve dataset performance.
 
-We observe that the ```num_parallel_workers``` parameter of map operator is 1(default value) in ResNet50 training script, code is shown below:
+We find that the num_parallel_workers parameter of map operator is 1(default value) by observing the code part of data processing in ResNet50, and code is shown below:
 
 ```python
 if do_train:
@@ -66,13 +67,13 @@ else:
 data_set = data_set.map(operations=trans, input_columns="image")
 ```
 
-Therefore we try to increase the 'num_parallel_workers' parameter to 12 and run training script again. Optimization code is shown below:
+Therefore we try to increase the num_parallel_workers parameter to 12 and run training script again. Optimization code is shown below:
 
 ```python
 data_set = data_set.map(operations=trans, input_columns="image", num_parallel_workers=12)
 ```
 
-We see on the MindInsight UI page that step interval is shorten from 72.8ms to 0.25ms.
+By observing the step trace on the MindInsight performance analysis page, you can see that the step interval is shortened from 72.8ms to 0.25ms, and each step time is shortened from 90ms to 18.07ms.
 
 ![short_step_interval](images/profiler_case1_short_step_interval.png)
 
@@ -80,22 +81,21 @@ We see on the MindInsight UI page that step interval is shorten from 72.8ms to 0
 
 ### Case 2: Long Forward Propagation Interval
 
-We run VGG16 eval script in MindSpore [ModelZoo](https://gitee.com/mindspore/models/tree/master ) , and each step cost almost 113.79ms.
+We run VGG16 inference script in MindSpore [ModelZoo](https://gitee.com/mindspore/models/tree/master ) , and each step cost almost 113.79ms, with a poor performance.
 
-As we observed on the MindInsight UI page, the forward propagation in the step trace is too long, which may indicate that operators performance can be optimized.
+As we observed on the MindInsight UI page, the forward propagation in the step trace is too long, which may indicate that operators performance can be optimized. In a single card training or inference process, the forward time consumption is usually considered whether there is a operator that can be optimized for the time consumption.
 
 ![long_fp_bp](images/profiler_case2_long_fp_bp.png)
 
 *Figure 5: Long FP interval in Step Trace*
 
-From the details page of ```Operator Time Consumption Ranking``` we find that ```MatMul``` operator is time-consuming.
+Open the details page of Operator Time Consumption Ranking, and we find that MatMul operator is time-consuming in the operator details page.
 
 ![operator_details](images/profiler_case2_operator_details.png)
 
 *Figure 6: Finding operators that can be optimized via the details page of Operator Time Consumption Ranking*
 
-Usually float16 type can be used to improve operator performance if there is no difference in accuracy between float16 and float32 type. We can refer to
-[Enabling Mixed Precision](https://www.mindspore.cn/docs/programming_guide/en/master/enable_mixed_precision.html ) to improve operators performance.
+For Operator Time Consumption optimization, usually float16 type with the less computating amount can be used to improve operator performance if there is no difference in accuracy between float16 and float32 type. We can refer to [Enabling Mixed Precision](https://www.mindspore.cn/docs/programming_guide/en/master/enable_mixed_precision.html ) to improve operators performance.
 
 Optimization code is shown below:
 
@@ -106,7 +106,7 @@ network = vgg16(config.num_classes, config, phase="test")
 network.add_flags_recursive(fp16=True)
 ```
 
-We run eval script again after set ```fp16``` flag, and the forward propagation interval is shorten from 82.45ms to 16.89ms.
+After the float16 format is set, the inference script is run. From the MindInsight performance analysis page to observe the step trace, we can see that the forward propagation interval is shorten from 82.45ms to 16.89ms and each step time consumption is shortened, which is shown as the following picture:
 
 ![short_fp](images/profiler_case2_short_fp.png)
 
@@ -114,21 +114,17 @@ We run eval script again after set ```fp16``` flag, and the forward propagation 
 
 ### Case 3: Optimize The Step Tail
 
-We run ResNet50 training script with 8 processes in MindSpore [ModelZoo](https://gitee.com/mindspore/models/tree/master ) , set batch size to 32, and each step cost about 23.6ms.
-We still want to improve the performance.
+We run ResNet50 training script with 8 processes in MindSpore [ModelZoo](https://gitee.com/mindspore/models/tree/master ) , set batch size to 32, and each step cost about 23.6ms. We still want to improve each step time consumption.
 
-As we observed on the MindInsight UI page, step interval and FP/BP interval can not be improved more, so we try to optimize step tail.
+As we observed the step trace on the MindInsight UI page, step interval and FP/BP interval can not be improved more, so we try to optimize step tail.
 
 ![long_step_tail](images/profiler_case3_long_step_tail.png)
 
 *Figure 8: Step Trace with Long Step Tail*
 
-Step Tail is the duration for performing parameter aggregation and update operations in parallel training.
-Normally, AllReduce gradient synchronization waits until all the inverse operators are finished, i.e., all the gradients of all weights are computed before synchronizing the gradients of all machines at once, but with AllReduce tangent,
-we can synchronize the gradients of some weights as soon as they are computed, so that the gradient synchronization and the gradient computation of the remaining operators can be performed in parallel,
-hiding this part of the AllReduce gradient synchronization time. The slicing strategy is usually a manual attempt to find an optimal solution (supporting slicing greater than two segments).
-As an example, ResNet50 network has 160 weights, and [85, 160] indicates that the gradient synchronization is performed immediately after the gradient is calculated for the 0th to 85th weights,
-and the gradient synchronization is performed after the gradient is calculated for the 86th to 160th weights.
+Step Tail duration contains AllReduce gradient synchronization, parameter update and other operations. Normally, AllReduce gradient synchronization waits until all the inverse operators are finished, i.e., all the gradients of all weights are computed before synchronizing the gradients of all machines at once. With AllReduce tangent, we can synchronize the gradients of some weights as soon as they are computed, so that the gradient synchronization and the gradient computation of the remaining operators can be performed in parallel, hiding this part of the AllReduce gradient synchronization time.
+
+The tangent strategy is usually a manual attempt to find an optimal solution (supporting slicing greater than two segments). As an example, ResNet50 network has 160 weights, and [85, 160] indicates that the gradient synchronization is performed immediately after the gradient is calculated for the 0th to 85th weights, and the gradient synchronization is performed after the gradient is calculated for the 86th to 160th weights. Here there are two segments, therefore the gradient synchronization is required to perform twice.
 
 Optimization code is shown below:
 
@@ -146,7 +142,7 @@ else:
 init()
 ```
 
-We run ResNet50 8P script again after set the ```all_reduce_fusion_config``` parameter and see that the step tail is shorten from 6.15ms to 4.20ms.
+We run ResNet50 8P script again after AllReduce is sliced. The step trace is observed in the MindInsight performance analysis page, and the step tail is shorten from 6.15ms to 4.20ms. The figure is shown in the following:
 
 ![short_step_tail](images/profiler_case3_short_step_tail.png)
 
