@@ -5,7 +5,7 @@ MindScience是基于昇思MindSpore融合架构打造的科学计算行业套件
 
 .. raw:: html
 
-   <img src="https://gitee.com/mindspore/docs/raw/master/docs/mindscience/docs/source_zh_cn/mindelec/images/mindscience_cn.png" width="700px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindscience/docs/source_zh_cn/mindelec/images/mindscience_cn.png" width="700px" alt="" >
 
 使用MindScience的典型场景
 ------------------------------

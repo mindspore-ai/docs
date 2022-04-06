@@ -2,7 +2,7 @@
 
 `Android` `Java` `全流程` `模型转换` `模型加载` `推理应用` `数据准备` `初级` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/quick_start/image_segmentation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/quick_start/image_segmentation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -64,9 +64,9 @@
 
     <table>
       <tr>
-        <td><center><img src="https://gitee.com/mindspore/docs/raw/master/docs/lite/docs/source_zh_cn/images/segmentation3.png"><br>图1  白色背景</br> </center></td>
-        <td><center><img src="https://gitee.com/mindspore/docs/raw/master/docs/lite/docs/source_zh_cn/images/segmentation4.png"><br>图2  蓝色背景</br> </center></td>
-        <td><center><img src="https://gitee.com/mindspore/docs/raw/master/docs/lite/docs/source_zh_cn/images/segmentation5.png"><br>图3  油画背景</br> </center></td>
+        <td><center><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/lite/docs/source_zh_cn/images/segmentation3.png"><br>图1  白色背景</br> </center></td>
+        <td><center><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/lite/docs/source_zh_cn/images/segmentation4.png"><br>图2  蓝色背景</br> </center></td>
+        <td><center><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/lite/docs/source_zh_cn/images/segmentation5.png"><br>图3  油画背景</br> </center></td>
       </tr>
     </table>
 
@@ -259,8 +259,8 @@ Android调用MindSpore Android AAR时，需要相关库文件支持。可通过M
 
         <table>
            <tr>
-            <td><center><img src="https://gitee.com/mindspore/docs/raw/master/docs/lite/docs/source_zh_cn/images/segmentation6.png"><br>图1  推理前</br></center></td>
-            <td><center><img src="https://gitee.com/mindspore/docs/raw/master/docs/lite/docs/source_zh_cn/images/segmentation7.png"><br>图2  推理后</br></center></td>
+            <td><center><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/lite/docs/source_zh_cn/images/segmentation6.png"><br>图1  推理前</br></center></td>
+            <td><center><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/lite/docs/source_zh_cn/images/segmentation7.png"><br>图2  推理后</br></center></td>
           </tr>
         </table>
 

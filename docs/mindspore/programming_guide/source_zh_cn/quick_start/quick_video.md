@@ -1,6 +1,6 @@
 # 手把手安装和体验
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/quick_start/quick_video.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/quick_start/quick_video.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 [comment]: <> (本文档中包含手把手系列视频，码云Gitee不支持展示，请于官方网站对应教程中查看)
 

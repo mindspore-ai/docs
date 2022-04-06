@@ -1,6 +1,6 @@
 # 获取MindSpore Federated
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/federated_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/federated_install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 MindSpore Federated框架代码分别集成在云侧MindSpore和端侧Lite框架中，因此需要分别获取MindSpore whl包和MindSpore Lite java安装包。其中，MindSpore Whl包负责云侧集群聚合训练以及和Lite的通信。MindSpore Lite java包中包括两部分，一部分是MindSpore Lite训练安装包，负责模型的底层训练，另一部分是Federated-Client安装包，负责模型的下发、加密以及和云侧MindSpore服务的交互。
 

@@ -1,6 +1,6 @@
 ﻿# 网络编译
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_zh_cn/network_compilation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_zh_cn/network_compilation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 <font size=3>**Q: 编译时报错“'self.xx' should be defined in the class '__init__' function.”怎么办？**</font>
 

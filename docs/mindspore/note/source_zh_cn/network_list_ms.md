@@ -1,6 +1,6 @@
 # MindSpore网络支持
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/note/source_zh_cn/network_list_ms.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/note/source_zh_cn/network_list_ms.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 请从ModelZoo获取[MindSpore网络支持列表](https://gitee.com/mindspore/models/blob/master/README_CN.md#%E7%9B%AE%E5%BD%95)。
 

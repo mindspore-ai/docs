@@ -5,7 +5,7 @@ MindQuantum是基于昇思MindSpore开源深度学习框架和HiQ量子计算云
 
 .. raw:: html
 
-   <img src="https://gitee.com/mindspore/docs/raw/master/docs/mindquantum/docs/source_zh_cn/images/mindquantum_cn.png" width="700px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindquantum/docs/source_zh_cn/images/mindquantum_cn.png" width="700px" alt="" >
 
 使用MindQuantum的典型场景
 ------------------------------

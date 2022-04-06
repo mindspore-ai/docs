@@ -5,7 +5,7 @@ MindScience is scientific computing kits for various industries based on the con
 
 .. raw:: html
 
-   <img src="https://gitee.com/mindspore/docs/raw/master/docs/mindscience/docs/source_en/mindelec/images/mindscience_en.png" width="700px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindscience/docs/source_en/mindelec/images/mindscience_en.png" width="700px" alt="" >
 
 Typical MindScience Application Scenarios
 ------------------------------------------

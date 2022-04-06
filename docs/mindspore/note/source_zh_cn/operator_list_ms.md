@@ -1,6 +1,6 @@
 # MindSpore算子支持
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/note/source_zh_cn/operator_list_ms.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/note/source_zh_cn/operator_list_ms.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 您可根据需要，选择适用于您硬件平台的算子，构建网络模型。
 

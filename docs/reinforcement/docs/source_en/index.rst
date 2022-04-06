@@ -5,7 +5,7 @@ MindSpore Reinforcement is an open-source reinforcement learning framework that 
 
 .. raw:: html
 
-   <img src="https://gitee.com/mindspore/docs/raw/master/docs/reinforcement/docs/source_en/reinforcement_en.png" width="700px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/reinforcement/docs/source_en/reinforcement_en.png" width="700px" alt="" >
 
 Unique Design Features
 -----------------------

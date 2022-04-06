@@ -1,6 +1,6 @@
 # 环境变量
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/note/source_zh_cn/env_var_list.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/note/source_zh_cn/env_var_list.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 本文介绍MindSpore的环境变量。
 

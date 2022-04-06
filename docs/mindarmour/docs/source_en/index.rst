@@ -5,7 +5,7 @@ AI is the catalyst for change but also faces challengs in security and privacy p
 
 .. raw:: html
 
-   <img src="https://gitee.com/mindspore/docs/raw/master/docs/mindarmour/docs/source_en/images/mindarmour.png" width="700px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindarmour/docs/source_en/images/mindarmour.png" width="700px" alt="" >
 
 Typical Application Scenarios
 -----------------------------------------

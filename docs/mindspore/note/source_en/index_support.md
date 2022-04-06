@@ -1,6 +1,6 @@
 # Tensor Index Support
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/note/source_en/index_support.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/note/source_en/index_support.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 Single-level and multi-level Tensor indexing is supported on both PyNative and Graph mode.
 

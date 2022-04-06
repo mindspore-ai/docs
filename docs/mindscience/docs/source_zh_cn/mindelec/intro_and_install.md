@@ -1,7 +1,7 @@
 # MindElec介绍和安装
 
 <a href=
-"https://gitee.com/mindspore/docs/blob/master/docs/mindscience/docs/source_zh_cn/mindelec/intro_and_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+"https://gitee.com/mindspore/docs/blob/master/docs/mindscience/docs/source_zh_cn/mindelec/intro_and_install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## MindElec介绍
 

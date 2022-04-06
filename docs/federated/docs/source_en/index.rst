@@ -12,7 +12,7 @@ The federated learning is an encrypted distributed machine learning technology t
 
 .. raw:: html
 
-   <img src="https://gitee.com/mindspore/docs/raw/master/docs/federated/docs/source_en/images/federated_en.png" width="700px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/federated/docs/source_en/images/federated_en.png" width="700px" alt="" >
 
 Advantages of the MindSpore Federated
 ---------------------------------------
