@@ -5,7 +5,7 @@ MindSpore XAI是一个基于昇思MindSpore的可解释AI工具箱。当前深�
 
 .. raw:: html
 
-   <img src="https://gitee.com/mindspore/docs/raw/master/docs/xai/docs/source_zh_cn/images/xai_cn.png" width="700px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/xai/docs/source_zh_cn/images/xai_cn.png" width="700px" alt="" >
 
 使用MindSpore XAI的典型场景
 ---------------------------

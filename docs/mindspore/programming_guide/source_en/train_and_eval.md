@@ -4,7 +4,7 @@
 
 Translator: [redundan3y](https://gitee.com/redundan3y)
 
-[![View source](https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/train_and_eval.md)
+[![View source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/train_and_eval.md)
 
 ## Overview
 

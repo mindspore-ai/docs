@@ -1,6 +1,6 @@
 ﻿# 如何求助（求助路径）
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/note/source_zh_cn/help_seeking_path.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/note/source_zh_cn/help_seeking_path.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 本文将简述用户在使用MindSpore遇到问题时，如何使用官方提供的问题求助路径解决问题。MindSpore问题求助整体流程如图中所示，从用户使用MindSpore发现问题开始，直至选择到合适的问题解决方法。下面我们基于问题求助流程图对各种求助方法做解释说明。
 

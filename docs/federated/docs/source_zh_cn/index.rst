@@ -12,7 +12,7 @@ MindSpore Federated是一款开源联邦学习框架，支持千万级无状态�
 
 .. raw:: html
 
-   <img src="https://gitee.com/mindspore/docs/raw/master/docs/federated/docs/source_zh_cn/images/federated_cn.png" width="700px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/federated/docs/source_zh_cn/images/federated_cn.png" width="700px" alt="" >
 
 使用MindSpore Federated框架的优势
 ----------------------------------

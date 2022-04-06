@@ -1,6 +1,6 @@
 # 路标
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/note/source_zh_cn/roadmap.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/note/source_zh_cn/roadmap.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 以下将展示MindSpore近一年的高阶计划，我们会根据用户的反馈诉求，持续调整计划的优先级。
 
