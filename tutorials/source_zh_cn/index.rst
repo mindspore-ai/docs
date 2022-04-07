@@ -20,3 +20,15 @@ MindSpore教程
    beginner/train
    beginner/save_load
    beginner/infer
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 进阶
+   :hidden:
+
+   advance/linear_fitting
+   advance/dataset
+   advance/network
+   advance/train
+   advance/pynative_graph
