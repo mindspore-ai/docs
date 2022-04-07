@@ -1465,6 +1465,38 @@ void SetQuantParams(std::vector<QuantParam> quant_params);
 
 设置`MSTensor`的量化参数，仅MindSpore Lite支持，目前在[Delegate](#delegate)机制使用。
 
+#### PadInfo
+
+```cpp
+const std::vector<std::vector<int64_t>> &PadInfo() const;
+```
+
+获取`MSTensor`的Pad信息，仅MindSpore Lite支持，目前在[Delegate](#delegate)机制使用。
+
+#### SetPadInfo
+
+```cpp
+void SetPadInfo(const std::vector<std::vector<int64_t>> &pad_info);
+```
+
+设置`MSTensor`的Pad信息，仅MindSpore Lite支持，目前在[Delegate](#delegate)机制使用。
+
+#### RawDataShape
+
+```cpp
+const std::vector<int64_t> &RawDataShape() const;
+```
+
+获取`MSTensor`的RawDataShape，仅MindSpore Lite支持，目前在[Delegate](#delegate)机制使用。
+
+#### SetRawDataShape
+
+```cpp
+void SetRawDataShape(const std::vector<int64_t> &raw_data_shape);
+```
+
+设置`MSTensor`的RawDataShape，仅MindSpore Lite支持，目前在[Delegate](#delegate)机制使用。
+
 #### impl
 
 ```cpp
