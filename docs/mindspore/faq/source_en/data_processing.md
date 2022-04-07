@@ -14,11 +14,23 @@ A: You can refer to the following steps to reduce the memory occupation, which m
 
   1. Before defining the dataset `**Dataset` object, set the prefetch size of `Dataset`  data processing, `ds.config.set_prefetch_size(2)`.
 
-  2. When defining the `**Dataset` object, set its parameter `num_parallel_workers` is 1.
+  2. When defining the `**Dataset` object, set its parameter `num_parallel_workers` as 1.
 
-  3. If you further use `.map(...)` operation on `**Dataset` object, you can set `.map(...)` operation's parameter `num_parallel_workers` is 1.
+  3. If you further use `.map(...)` operation on `**Dataset` object, you can set `.map(...)` operation's parameter `num_parallel_workers` as 1.
 
-  4. If you further use `.batch(...)` operation on `**Dataset` object, you can set `.batch(...)` operation's parameter `num_parallel_workers' is 1.
+  4. If you further use `.batch(...)` operation on `**Dataset` object, you can set `.batch(...)` operation's parameter `num_parallel_workers` as 1.
+
+  5. If you further use `.shuffle(...)` operation on `**Dataset` object, you can reduce the parameter `buffer_size`.
+
+<br/>
+
+<font size=3>**Q: In the process of using `Dataset` to process data, the CPU occupation is high which shows that sy occupation is high and us occupation is low. How to optimize it?**</font>
+
+A: You can refer to the following steps to reduce CPU consumption (mainly due to resource competition between third-party library multithreading and data processing multithreading) and further improve performance.
+
+  1. If there is a `cv2` operation of opencv in the data processing, use `cv2.setNumThreads(2)` to set the number of `cv2` global threads.
+
+  2. If there is a `numpy` operation in the data processing, use `export OPENBLAS_NUM_THREADS=1` to set the number of `OPENBLAS` threads.
 
 <br/>
 
@@ -346,3 +358,9 @@ A: The user-defined Dataset is passed into GeneratorDataset, and after reading t
         img_rgb = Image.Open(self.data[index]).convert("RGB")
         return (img_rgb, )
     ```
+
+<br/>
+
+<font size=3>**Q: In the process of using `Dataset` to process data, an error `RuntimeError: can't start new thread` is reported. How to solve it?**</font>
+
+A: The main reason is that the parameter `num_parallel_workers` is configured too large while using `**Dataset`, `.map(...)` and `.batch(...)` and the number of user processes reaches the maximum. You can increase the range of the maximum number of user processes through `ulimit -u MAX_PROCESSES`, or reduce `num_parallel_workers`.

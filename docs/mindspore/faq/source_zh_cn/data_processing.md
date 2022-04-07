@@ -20,6 +20,18 @@ A: 可以参考如下几个步骤来降低内存占用，同时也可能会降�
 
   4. 如果对`**Dataset`对象进一步使用了`.batch(...)`操作，可以设置`.batch(...)`的参数`num_parallel_workers`为1。
 
+  5. 如果对`**Dataset`对象进一步使用了`.shuffle(...)`操作，可以把参数`buffer_size`设置减少。
+
+<br/>
+
+<font size=3>**Q: 在使用`Dataset`处理数据过程中CPU占用高，表现为sy占用高而us占用低，怎么优化？**</font>
+
+A: 可以参考如下几个步骤来降低CPU占用，进一步提升性能，其主要原因是三方库多线程与数据处理多线程存在资源竞争。
+
+  1. 如果数据处理阶段有opencv的`cv2`操作，那么通过`cv2.setNumThreads(2)`设置`cv2`全局线程数。
+
+  2. 如果数据处理阶段有`numpy`操作，那么通过`export OPENBLAS_NUM_THREADS=1`设置`OPENBLAS`线程数。
+
 <br/>
 
 <font size=3>**Q: 在`GeneratorDataset`中，看到有参数`shuffle`，在跑任务时发现`shuffle=True`和`shuffle=False`，两者没有区别，这是为什么？**</font>
@@ -346,3 +358,9 @@ A：传入GeneratorDataset的自定义Dataset，在接口内部（如`__getitem_
         img_rgb = Image.Open(self.data[index]).convert("RGB")
         return (img_rgb, )
     ```
+
+<br/>
+
+<font size=3>**Q: 在使用`Dataset`处理数据过程中，报错`RuntimeError: can't start new thread`，怎么解决？**</font>
+
+A: 主要原因是在使用`**Dataset`、`.map(...)`和`.batch(...)`时，参数`num_parallel_workers`配置过大，用户进程数达到最大，可以通过`ulimit -u 最大进程数`来增加用户最大进程数范围，或者将`num_parallel_workers`配置减小。
