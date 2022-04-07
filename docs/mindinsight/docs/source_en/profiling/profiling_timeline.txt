@@ -1,0 +1,83 @@
+Timeline Analysis
+~~~~~~~~~~~~~~~~~
+
+The Timeline component can display:
+
+- The operators (AICORE/AICPU/HOSTCPU operators) are executed on which
+  device.
+- The MindSpore stream split strategy for this neural network.
+- The execution sequence and execution time of the operator on the
+  device.
+- The step number of training (Currently dynamic shape scene,
+  multi-graph scene and heterogeneous training scene are not supported,
+  steps data may be inaccurate in these scene.).
+- ``Scope Name`` of the operator, the number of each operator’s
+  ``Scope Name`` could be selected and download corresponding timeline
+  file. For example, the full name of one operator is
+  ``Default/network/lenet5/Conv2D-op11``, thus the first ``Scope Name``
+  of this operator is ``Default``, the second ``Scope Name`` is
+  ``network``. If two ``Scope Name`` for each operator is selected,
+  then the ``Default`` and ``network`` will be displayed.
+
+Users can get the most detailed information from the Timeline:
+
+- From the High level, users can analyse whether the stream split
+  strategy can be optimized and whether the step tail is too long.
+- From the Low level, users can analyse the execution time for all the
+  operators, etc.
+
+Users can click the download button on the overall performance page to
+view Timeline details. The Timeline data file (json format) will be
+stored on local machine, and can be displayed by tools. We suggest to
+use ``chrome://tracing`` or
+`Perfetto <https://ui.perfetto.dev/#!viewer>`__ to visualize the
+Timeline.
+
+- Chrome tracing: Click “load” on the upper left to load the file.
+- Perfetto: Click “Open trace file” on the left to load the file.
+
+.. figure:: ./images/timeline.png
+   :alt: timeline.png
+
+*Figure:Timeline Analysis*
+
+The Timeline consists of the following parts:
+
+- Device and Stream List: It will show the stream list on each device.
+  Each stream consists of a series of tasks. One rectangle stands for
+  one task, and the area stands for the execution time of the task.
+
+  Each color block represents the starting time and length of operator
+  execution. The detailed explanation of timeline is as follows:
+
+  - Process Device ID: contains the timeline of operators executed on
+    AI Core.
+
+    - Step: the number of training steps.
+    - Scope Name: the Scope Name of operators.
+    - Stream #ID: operators executed on the stream.
+
+  - Process AI CPU Op: the timeline of operators executed on the AI
+    CPU.
+  - Process Communication Op: the timeline for the execution of
+    communication operators.
+  - Process Host CPU Op: contains the timeline of operators executed
+    on the Host CPU.
+  - Process Op Overlap Analyse: the timeline of all computation
+    operators and communication operators merged, it can be used to
+    analyse the proportion of communication time.
+
+    - Merged Computation Op: it is the timeline after all computation
+      operators are merged.
+    - Merged Communication Op: it is the timeline after all
+      communication operators are merged.
+    - Pure Communication Op: pure communication time (the timeline of
+      the communication operator after removing the overlap with the
+      computation operator time).
+    - Free Time: there is no communication operator and calculation
+      operator in the execution timeline.
+
+- The Operator Information: When we click one task, the corresponding
+  operator of this task will be shown at the bottom.
+
+W/A/S/D can be applied to zoom in and out of the Timeline graph.
