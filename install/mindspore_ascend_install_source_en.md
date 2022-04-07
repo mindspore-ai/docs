@@ -214,10 +214,22 @@ pip install -U setuptools
 
 - On EulerOS and OpenEuler, run the following commands to install.
 
+    Select the appropriate version to download according to the system architecture.
+
     ```bash
-    curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.rpm.sh | sudo os=el dist=7 bash
-    sudo yum install git-lfs -y
-    git lfs install
+    # x64
+    curl -OL https://github.com/git-lfs/git-lfs/releases/download/v3.1.2/git-lfs-linux-amd64-v3.1.2.tar.gz
+    # arm64
+    curl -OL https://github.com/git-lfs/git-lfs/releases/download/v3.1.2/git-lfs-linux-arm64-v3.1.2.tar.gz
+    ```
+
+    Unzip and install.
+
+    ```bash
+    mkdir git-lfs
+    tar xf git-lfs-linux-*-v3.1.2.tar.gz -C git-lfs
+    cd git-lfs
+    sudo bash install.sh
     ```
 
 ### Installing CMake

@@ -48,7 +48,7 @@ This script performs the following operations:
 - Install MindSpore Ascend by pip.
 - Install Open MPI if OPENMPI is set to `on`.
 
-After the script is executed, you need to reopen the terminal window, and then set the relevant environment variables according to the instructions in [Configuring Environment Variables](#configuring-environment-variables).
+After the script is executed, you need to reopen the terminal window to make the environment variables take effect.
 
 The automatic installation script creates a virtual environment named `mindspore_pyXX` for MindSpore. Where `XX` is the Python version, such as Python 3.7, the virtual environment name is `mindspore_py37`. Run the following command to show all virtual environments.
 
@@ -61,6 +61,8 @@ To activate the virtual environment, take Python 3.7 as an example, execute the 
 ```bash
 conda activate mindspore_py37
 ```
+
+Now you can jump to the [Configuring Environment Variables](#configuring-environment-variables) section to set the relevant environment variables.
 
 For more usage, see the script header description.
 
