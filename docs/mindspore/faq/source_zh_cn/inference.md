@@ -44,6 +44,12 @@ A: 安装MindSpore所依赖的Ascend 310 AI处理器配套软件包时，`CANN`�
 
 <br/>
 
+<font size=3>**Q: 运行应用时报错`ERROR: Build] Load MindIR failed`并且上文有告警`WARNING: HeartbeatThreadFuncInner] Peer stopped`怎么办？**</font>
+
+A: 当环境Python版本为3.9且Python所依赖的OpenSSL版本为3.x时会发生，通常发生在以conda-forge为channel的Conda环境中，可以使用`conda install openssl=1.1.1`更换OpenSSL的版本来解决。
+
+<br/>
+
 <font size=3>**Q: 使用昇腾310进行推理的时候怎么设置高精度或者高性能模式？**</font>
 
 A: 在推理代码中通过Ascend310DeviceInfo中的SetPrecisionMode接口进行设置，可选：force_fp16、allow_fp32_to_fp16、must_keep_origin_dtype，allow_mix_precision。默认值为force_fp16，指的就是高性能模式。高精度模式可设置为allow_fp32_to_fp16或must_keep_origin_dtype。
