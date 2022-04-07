@@ -42,6 +42,14 @@ A: Find the directory where the missing dynamic library file is located, add the
 
 A: While Ascend 310 AI Processor software packages relied by MindSpore is installed, the `CANN` package should install the full-featured `toolkit` version instead of the `nnrt` version.
 
+<br/>
+
+<font size=3>**Q: What should I do when error `ERROR: Build] Load MindIR failed` and the above warning `WARNING: HeartbeatThreadFuncInner] Peer stopped` prompts during application running?**</font>
+
+A: Occurs when the Python version is 3.9 and the version of OpenSSL that Python depends on is 3.x, usually in the conda environment with the conda-forge channel, you can solve this problem by running `conda install openssl=1.1.1`.
+
+<br/>
+
 <font size=3>**Q: How to set high-precision or high-performance mode when performing inference on Ascend 310 AI Processor?**</font>
 
 A: Set in the inference code through the SetPrecisionMode interface of Ascend310DeviceInfo. Optional: force_fp16, allow_fp32_to_fp16, must_keep_origin_dtype, and allow_mix_precision. The default value is force_fp16, which refers to the high-performance mode. High precision mode can be set to allow_fp32_to_fp16 or must_keep_origin_dtype.
