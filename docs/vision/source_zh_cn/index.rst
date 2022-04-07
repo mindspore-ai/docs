@@ -6,4 +6,3 @@ MindSpore Vision 文档
    :caption: API参考
 
    classification
-   detection
