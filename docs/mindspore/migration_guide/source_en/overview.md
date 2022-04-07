@@ -4,7 +4,7 @@
 
 This migration guide describes the complete steps for migrating neural networks from other machine learning frameworks to MindSpore.
 
-To prepare for the migration process, configure the necessary environment and then analyze the operators contained in the network script. MindSpore script development starts from data processing code, uses MindConverter to build a network to obtain the migrated network script, and finally migrates the inference execution script. After the build is complete, the optimization process includes development and debugging of missing operators and optimization of network performance and accuracy. The migration guide provides solutions to common problems in the migration process and complete network migration examples. Examples are provided in each chapter for reference. The following figure shows the migration process.
+To prepare for the migration process, configure the necessary environment and then analyze the operators contained in the network script. MindSpore script development starts from data processing code, uses MindConverter for network building and obtains the migrated network script, and finally migrates the inference execution script. After the build is complete, the optimization process includes development and debugging of missing operators and optimization of network performance and accuracy. The migration guide provides solutions to common problems in the migration process and complete network migration examples. Examples are provided in each chapter for reference. The following figure shows the migration process.
 
 ![flowchart](./images/flowchart.PNG)
 
@@ -22,15 +22,15 @@ After the network script analysis is complete, you can use MindSpore to develop 
 
 ## Operator Development and Debugging
 
-Some operators are not supported when the network is migrated to the MindSpore framework. You can provide feedback to the MindSpore developer community or develop custom MindSpore operators. This chapter includes tutorials and examples for operator development, as well as common debugging skills.
+Some operators are not supported when the network is migrated to the MindSpore framework. In addotiom to the feedback to the MindSpore developer communit, you can develop customized MindSpore operators. This chapter includes tutorials and examples for operator development, as well as common debugging skills.
 
 ## Network Debugging
 
-After the network script is developed and the operator is supplemented, you need to debug the model to ensure that the output result is correct. This chapter describes the common network debugging ideas: single-step debugging and multi-round iterative debugging. Common debugging methods include comparing subnet output results in PyNative mode. MindSpore also supports custom debugging information. At last, the solutions to common problems are provided.
+After the network script is developed and the operator is supplemented, you need to debug the model to ensure that the output result is correct. This chapter describes the common network debugging ideas: single-step debugging and multi-round iterative debugging. Common debugging methods include comparing subnet output results with PyNative mode. MindSpore also supports customized debugging information. At last, the solutions to common problems are provided.
 
 ## Accuracy and Performance Tuning
 
-After the network script debugging is complete and the result can be successfully output, you need to tune the model to achieve the expected performance. MindSpore provides developers with the profiler tool which provides easy-to-use and abundant tuning functions in terms of operator performance, iteration performance, and data processing performance, helping users quickly locate and solve performance problems. The tutorials are classified into tuning on the Ascend platform and that on the GPU platform, and three examples of using the profiler tool are provided.
+After the network script debugging is complete and the result can be successfully output, you need to tune the model to achieve the expected performance. MindSpore provides developers with the Profiler tool which provides easy-to-use and abundant tuning functions in terms of operator performance, iteration performance, and data processing performance, to help users quickly locate and solve performance problems. The tutorials are classified into tuning on the Ascend platform and on the GPU platform, and three examples of using the Profiler tool are provided.
 
 ## Inference Execution
 
@@ -38,8 +38,8 @@ MindSpore can execute inference tasks on different hardware platforms based on t
 
 ## Network Migration Debugging Example
 
-This chapter provides a complete network migration example. Using ResNet-50 as an example, this chapter describes how to analyze and reproduce the benchmark network, how to develop scripts, and how to debug and optimize the accuracy. In addition, this chapter lists common problems and corresponding optimization methods during the migration, for example, multi-node synchronization problems and framework performance problems.
+This chapter provides a complete network migration example. Using ResNet-50 as an example, this chapter describes from how to analyze and reproduce the benchmark network, and how to develop scripts and how to debug and optimize the accuracy. In addition, this chapter lists common problems and corresponding optimization methods during the migration, for example, multi-node synchronization problems and framework performance problems.
 
 ## FAQs
 
-This chapter lists the frequently asked questions (FAQs) and solutions during network migration.
+This chapter lists the frequently asked questions and solutions during network migration.

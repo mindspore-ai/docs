@@ -37,23 +37,23 @@ This section introduces the problems and solutions during Network Debugging proc
 
 For script development and network process debugging, we recommend using the PyNative mode for debugging. The PyNative mode supports executing single operators, normal functions and networks, as well as separate operations for computing gradients. In PyNative mode, you can easily set breakpoints and get intermediate results of network execution, and you can also debug the network by means of pdb.
 
-By default, MindSpore is in PyNative mode, which can also be defined explicitly via `context.set_context(mode=context.PYNATIVE_MODE)`. Related examples can be found in [Debugging With PyNative Mode](https://www.mindspore.cn/docs/programming_guide/en/master/debug_in_pynative_mode.html#pynative).
+By default, MindSpore is in Graph mode, which can be set as PyNative mode via `context.set_context(mode=context.PYNATIVE_MODE)`. Related examples can be found in [Debugging With PyNative Mode](https://www.mindspore.cn/docs/programming_guide/en/master/debug_in_pynative_mode.html#pynative).
 
 #### Getting More Error Messages
 
-During the network process debugging, if you need to get more information about error reports, you can get it by the following ways:
+During the network process debugging, if you need to get more information about error messages, you can get it by the following ways:
 
 - Using pdb for debugging in PyNative mode, and using pdb to print relevant stack and contextual information to help locate problems.
 - Using Print operator to print more contextual information. Related examples can be found in [Print Operator Features](https://www.mindspore.cn/docs/programming_guide/en/master/custom_debugging_info.html#print).
-- Adjusting the log level to get more error information, MindSpore can easily adjust the log level through environment variables. Related examples can be found in [Logging-related Environment Variables And Configurations](https://www.mindspore.cn/docs/programming_guide/en/master/custom_debugging_info.html#id6).
+- Adjusting the log level to get more error information. MindSpore can easily adjust the log level through environment variables. Related examples can be found in [Logging-related Environment Variables And Configurations](https://www.mindspore.cn/docs/programming_guide/en/master/custom_debugging_info.html#id6).
 
 #### Common Errors
 
 During network process debugging, the common errors are as follows:
 
-- The operator execution reports an error.
+- The operator execution error.
 
-  During the network process debugging, errors are often reported in the execution of arithmetic such as shape mismatch and unsupported dtype. Then, according to the error message, you should check whether the arithmetic is used correctly and whether the shape of the input data is consistent with the expectation and make corresponding modifications.
+  During the network process debugging, operator execution errors are often reported such as shape mismatch and unsupported dtype. Then, according to the error message, you should check whether the operator is used correctly and whether the shape of the input data is consistent with the expectation and make corresponding modifications.
 
   Supports for related operators and API introductions can be found in [Operator Support List](https://www.mindspore.cn/docs/note/en/master/operator_list.html) and [Operators Python API](https://www.mindspore.cn/docs/api/en/master/index.html).
 
@@ -67,11 +67,11 @@ During network process debugging, the common errors are as follows:
 
 ### Loss Value Comparison
 
-Having a benchmark script, the loss values run by the benchmark script can be compared with those run by the MindSpore script which can be used to verify the correctness of the overall network structure and the accuracy of the operator.
+With a benchmark script, the loss values run by the benchmark script can be compared with those run by the MindSpore script, which can be used to verify the correctness of the overall network structure and the accuracy of the operator.
 
 #### Main Steps
 
-1. Guaranteed Identical Input
+1. Guaranteeting Identical Input
 
     It is necessary to ensure that the inputs are the same in both networks, so that they can have the same network output in the same network structure. The same inputs can be guaranteed using following ways:
 
@@ -81,21 +81,21 @@ Having a benchmark script, the loss values run by the benchmark script can be co
       input = Tensor(np.random.randint(0, 10, size=(3, 5, 10)).astype(np.float32))
       ```
 
-    - Using the same dataset for computation. MindSpore supports the use of the TFRecord dataset, which can be read using the `mindspore.dataset.TFRecordDataset` interface.
+    - Using the same dataset for computation. MindSpore supports the use of the TFRecord dataset, which can be read by using the `mindspore.dataset.TFRecordDataset` interface.
 
-2. Removing The Influence Of Randomness In The Network
+2. Removing the Influence of Randomness in the Network
 
-   The main methods to remove the effect of randomness in the network are to set the same randomness seed, turn off the data shuffle, modify the code to remove the effect of dropout, initializer and other operators with randomness in the network, etc.
+   The main methods to remove the effect of randomness in the network are to set the same randomness seed, turn off the data shuffle, modify the code to remove the effect of random operators in the network such as dropout and initializer, etc.
 
-3. Ensuring The Same Settings For The Relevant Hyperparameters
+3. Ensuring the Same Settings for the Relevant Hyperparameters
 
    It is necessary to ensure the same settings for the hyperparameters in the network in order to guarantee the same input and the same output of the operator.
 
-4. Running the network and comparing the output loss values. Generally, the error of the loss value is about 1%. Because the operator itself has a certain accuracy error. As the number of steps increases, the error will have a certain accumulation.
+4. Running the network and comparing the output loss values. Generally, the error of the loss value is about 1‰. Because the operator itself has a certain accuracy error. As the number of steps increases, the error will have a certain accumulation.
 
 #### Related Issues Locating
 
-If the loss errors are large, the problem locating can be done using following ways:
+If the loss errors are large, the problem locating can be done by using following ways:
 
 - Checking whether the input and hyperparameter settings are the same, and whether the randomness effect is completely removed.
 
@@ -127,7 +127,7 @@ If the loss errors are large, the problem locating can be done using following w
 
 - [Callback Function](https://www.mindspore.cn/docs/programming_guide/en/master/custom_debugging_info.html#callback)
 
-   MindSpore has provided ModelCheckpoint, LossMonitor, SummaryCollector and other Callback classes for saving model parameters, monitoring loss values, saving training process information, etc. Users can also customize Callback functions like starting and ending runs at each epoch and step, please refer to [Custom Callback](https://www.mindspore.cn/docs/programming_guide/en/master/custom_debugging_info.html#id3) for specific examples.
+   MindSpore has provided ModelCheckpoint, LossMonitor, SummaryCollector and other Callback classes for saving model parameters, monitoring loss values, saving training process information, etc. Users can also customize Callback functions to implement starting and ending runs at each epoch and step, and please refer to [Custom Callback](https://www.mindspore.cn/docs/programming_guide/en/master/custom_debugging_info.html#id3) for specific examples.
 
 - [MindSpore Metrics Function](https://www.mindspore.cn/docs/programming_guide/en/master/custom_debugging_info.html#mindspore-metrics)
 
@@ -139,7 +139,7 @@ If the loss errors are large, the problem locating can be done using following w
 
 - Customized Learning Rate
 
-   MindSpore provides some common implementations of dynamic learning rate and some common optimizers with adaptive learning rate adjustment functions, referring to [Dynamic Learning Rate](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.nn.html#dynamic-learning-rate) and [Optimizer Functions](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.nn.html#optimizer-functions) in the API documentation.
+   MindSpore provides some common implementations of dynamic learning rate and some common optimizers with adaptive learning rate adjustment functions, and [Dynamic Learning Rate](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.nn.html#dynamic-learning-rate) and [Optimizer Functions](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.nn.html#optimizer-functions) in the API documentation can be found.
 
    At the same time, the user can implement a customized dynamic learning rate, as exemplified by WarmUpLR:
 
@@ -166,7 +166,7 @@ If the loss errors are large, the problem locating can be done using following w
 
 #### Hyper-Parameter Optimization with MindOptimizer
 
-MindSpore provides MindOptimizer tools to help users perform hyper-parameter optimization conveniently, please refer to [Hyper-Parameter Optimization With MindOptimizer](https://www.mindspore.cn/mindinsight/docs/en/master/hyper_parameters_auto_tuning.html) for detailed examples and usage methods.
+MindSpore provides MindOptimizer tools to help users perform hyper-parameter optimization conveniently, and the detailed examples and usage methods can be found in [Hyper-Parameter Optimization With MindOptimizer](https://www.mindspore.cn/mindinsight/docs/en/master/hyper_parameters_auto_tuning.html).
 
 #### Loss Value Anomaly Locating
 
@@ -176,11 +176,11 @@ For cases where the loss value is INF, NAN, or the loss value does not converge,
 
    In the scenario of using loss_scale with mixed precision, the situation that the loss value is INF and NAN may be caused by the scale value being too large. If it is dynamic loss_scale, the scale value will be adjusted automatically; if it is static loss_scale, the scale value needs to be reduced.
 
-   If the `scale=1` case still has a loss value of INF, NAN, then there should be an overflow of operators in the network and further investigation for locating the problem is needed.
+   If the `scale=1` case still has a loss value of INF, NAN, there should be an overflow of operators in the network and further investigation for locating the problem is needed.
 
 2. The causes of abnormal loss values may be caused by abnormal input data, operator overflow, gradient disappearance, gradient explosion, etc.
 
-   To check the intermediate value of the network such as operator overflow, gradient of 0, abnormal weight, gradient disappearance and gradient explosion, it is recommended to use [MindInsight Debugger](https://www.mindspore.cn/mindinsight/docs/en/master/debugger.html) to set the corresponding detection points for detection and debugging, which can locate the problem in a more comprehensive way with stronger debuggability.
+   To check the intermediate value of the network such as operator overflow, gradient of 0, abnormal weight, gradient disappearance and gradient explosion, it is recommended to use [MindInsight Debugger](https://www.mindspore.cn/mindinsight/docs/en/master/debugger.html) to set the corresponding detection points for detection and debugging, which can locate the problem in a more comprehensive way with the strong debuggability.
 
    The following are a few simple initial troubleshooting methods:
 
@@ -215,7 +215,7 @@ For cases where the loss value is INF, NAN, or the loss value does not converge,
         print('same params num: ', same)
         ```
 
-    - Checking whether there is NAN, INF abnormal data in the weight value, you can also load the Checkpoint file for a brief judgment. In general, if there is NAN, INF in the weight value, then there is also NAN, INF in the gradient calculation, and there may be an overflow situation. The relevant code reference is as follows:
+    - Checking whether there is NAN, INF abnormal data in the weight value, you can also load the Checkpoint file for a brief judgment. In general, if there is NAN, INF in the weight value, there is also NAN, INF in the gradient calculation, and there may be an overflow situation. The relevant code reference is as follows:
 
         ```python
         import mindspore

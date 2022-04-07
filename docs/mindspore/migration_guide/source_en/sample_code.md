@@ -8,30 +8,30 @@ This chapter will introduce the basic steps of network migration, common tools, 
 
 Here we take the classical network ResNet50 as an example and introduce the network migration method in detail with codes.
 
-## Analysis and Reproduce of the Network
+## Analysis and Reproduce of the Benchmark Network
 
-### Determine the Migration Target
+### Determining the Migration Target
 
-The first step of network migration is to determine the migration goal. Usually the delivery goal of a deep neural network includes the following four parts.
+The first step of network migration is to determine the migration goal, that is, first find a proper and achievable standard. Usually the delivery goal of a deep neural network includes the following four parts.
 
 1. network implementation: this is the most basic part of the migration goal. Sometimes a single neural network may have different versions, a single version may be implemented differently, or a single neural network may adopt different configurations of hyperparameters, and these differences will have some impacts on the final convergence accuracy and performance. Usually, we take the neural network author's own implementation as the standard, but we can also refer to the official implementations of different frameworks (e.g., TensorFlow, PyTorch, etc.) or other mainstream open source toolkits (e.g., MMDetection).
-2. dataset: the same neural network and parameters often vary greatly in datasets, so we need to confirm the dataset used for the migration network. The data content of some datasets will be updated frequently, and it is necessary to pay attention to the version of the dataset, the ratio of training data to test data division, etc. when using the dataset.
-3. convergence accuracy: different frameworks, GPU models, and whether the training is distributed will have an impact on the accuracy, so we need to analyze the framework, hardware and other information of the counterpart when determining the migration target.
-4. training performance: the same as convergence accuracy, training performance is mainly affected by the network script, framework performance, GPU hardware itself and whether the training is distributed or not.
+2. dataset: the same neural network and parameters often vary greatly in datasets, so we need to confirm the dataset used for the migration network. The data content of some datasets will be updated frequently, and it is necessary to pay attention to the version of the dataset, the ratio of training data to test data division, etc. when determining the dataset.
+3. convergence accuracy: different frameworks, GPU models, and whether the distributed training will have an impact on the accuracy, so we need to analyze the framework, hardware and other information of the benchmark when determining the migration target.
+4. training performance: the same as convergence accuracy. Training performance is mainly affected by the network script, framework performance, GPU hardware itself and whether the distributed training is or not.
 
 #### ResNet50 Migration Example
 
 ResNet50 is a classic deep neural network in CV, which attracts more developers' attention and replication, and the syntax of PyTorch is more similar to MindSpore, so we choose PyTorch as the benchmark framework.
 
-The official PyTorch implementation script can be found at [torchvision model](https://github.com/pytorch/vision/blob/master/torchvision/models/resnet.py) or [Nvidia PyTorch implementation script](https://github.com/NVIDIA/DeepLearningExamples/tree/master/PyTorch/Classification/ConvNets/resnet50v1.5), which includes implementations of the mainstream ResNet family of networks (ResNet18, ResNet18, ResNet18, ResNet18, and ResNet18). (ResNet18, ResNet34, ResNet50, ResNet101, ResNet152). The dataset used for ResNet50 is ImageNet2012, and the convergence accuracy can be found in [PyTorch Hub](https://pytorch.org/hub/) pytorch_vision_resnet/#model-description).
+The official PyTorch implementation script can be found at [torchvision model](https://github.com/pytorch/vision/blob/master/torchvision/models/resnet.py) or [Nvidia PyTorch implementation script](https://github.com/NVIDIA/DeepLearningExamples/tree/master/PyTorch/Classification/ConvNets/resnet50v1.5), which includes implementations of the mainstream ResNet family of networks (ResNet18, ResNet18, ResNet18, ResNet18, and ResNet18). (ResNet18, ResNet34, ResNet50, ResNet101, ResNet152). The dataset used for ResNet50 is ImageNet2012, and the convergence accuracy can be found in [PyTorch Hub](https://pytorch.org/hub/pytorch_vision_resnet/#model-description).
 
-Developers can run PyTorch-based ResNet50 scripts directly on the benchmark hardware environment and then evaluate the performance of the model, or they can refer to the official data on the same hardware environment. For example, when we benchmark the Nvidia DGX-1 32GB (8x V100 32GB) hardware, we can refer to [Nvidia's official ResNet50 performance data](https://github.com/NVIDIA/DeepLearningExamples/tree/master/PyTorch/Classification/ConvNets/resnet50v15#training-performance-nvidia-dgx-1-32gb-8x-v100-32gb).
+Developers can run PyTorch-based ResNet50 scripts directly on the benchmark hardware environment and then computes the performance data, or they can refer to the official data on the same hardware environment. For example, when we benchmark the Nvidia DGX-1 32GB (8x V100 32GB) hardware, we can refer to [Nvidia's official ResNet50 performance data](https://github.com/NVIDIA/DeepLearningExamples/tree/master/PyTorch/Classification/ConvNets/resnet50v15#training-performance-nvidia-dgx-1-32gb-8x-v100-32gb).
 
 ### Reproduce the Migration Target
 
-Once the network migration target is determined, the next thing to do is to reproduce the metrics. When there is an accuracy/performance gap between the network we developed in MindSpore and the benchmark script, we often use the benchmark data as a base line to analyze the difference between the migration script and the benchmark script step by step. If the benchmark script cannot reproduce the metrics, then the MindSpore scripts we develop based on the benchmark will not be able to achieve the migration goals. When reproducing migration metrics, it is not only important to reproduce the training phase, but also the inference phase.
+Once the network migration target is determined, the next thing to do is to reproduce the metrics.  Reproducing benchmark data is essential to the subsequent accuracy and performance tuning. When there is an accuracy/performance gap between the network we developed in MindSpore and the benchmark script, we often use the benchmark data as a base line to analyze the difference between the migration script and the benchmark script step by step. If the benchmark script cannot reproduce the metrics, the MindSpore scripts we develop based on the benchmark will not be able to achieve the migration goals. When reproducing migration metrics, it is not only important to reproduce the training phase, but important to reproduce the inference phase.
 
-It is important to note that for some networks, using the same hardware environment and scripts, the final convergence accuracy and performance may be slightly different from the results presented by the original authors, which is a normal range of fluctuation and should be taken into account when migrating the network.
+It is important to note that for some networks, using the same hardware environment and scripts, the final convergence accuracy and performance may be slightly different from the results presented by the original authors, which is a normal range of fluctuation. The fluctuation should be taken into account when migrating the network.
 
 ### Reproduce the Single Step Results
 
@@ -43,11 +43,11 @@ The main purpose of reproducing the single Step results is for the next script d
 
 Before starting the actual script development, a benchmark script analysis is performed. The purpose of the script analysis is to identify missing operators or features in MindSpore compared to the benchmark framework. The methodology can be found in the [Script Evaluation Tutorial](https://www.mindspore.cn/docs/migration_guide/en/master/script_analysis.html).
 
-MindSpore already supports most of the common [functions](https://www.mindspore.cn/docs/programming_guide/en/master/index.html) and [operators](https://www.mindspore.cn/docs/note/en/master/operator_list.html). MindSpore supports both dynamic graph (PyNative) mode and static graph (Graph) mode, dynamic graph mode is flexible and easy to debug, so dynamic graph mode is mainly used for network debugging. Static graph mode has good performance and is mainly used for whole network training. When analyzing missing operators and functions, these two modes should be analyzed separately.
+MindSpore supports most of the common [functions](https://www.mindspore.cn/docs/programming_guide/en/master/index.html) and [operators](https://www.mindspore.cn/docs/note/en/master/operator_list.html). MindSpore supports both dynamic graph (PyNative) mode and static graph (Graph) mode. Dynamic graph mode is flexible and easy to debug, so dynamic graph mode is mainly used for network debugging. Static graph mode has good performance and is mainly used for whole network training. When analyzing missing operators and functions, these two modes should be analyzed separately.
 
-If missing operators and functions are found, we can first consider combining the missing operators and functions based on the current operators or functions, and for mainstream CV and NLP networks, new missing operators can generally be solved by combining existing operators.
+If missing operators and functions are found, we can first consider combining the missing operators and functions based on the current operators or functions, and for mainstream CV and NLP class networks, new missing operators can generally be solved by combining existing operators.
 
-The combined operator can be implemented by means of a cell, which is the case in MindSpore for [nn class operator](https://gitee.com/mindspore/mindspore/tree/master/mindspore/python/mindspore/nn). For example, the following `ReduceSumExp` operator is a combination of the existing `Exp`, `ReduceSum`, and `Log` suboperators.
+The combined operator can be implemented by means of a Cell. In MindSpore, [nn class operator](https://gitee.com/mindspore/mindspore/tree/master/mindspore/python/mindspore/nn) is implemented via this way. For example, the following `ReduceSumExp` operator is a combination of the existing `Exp`, `ReduceSum`, and `Log` suboperators.
 
 ```python
 class ReduceLogSumExp(Cell):
@@ -67,7 +67,7 @@ class ReduceLogSumExp(Cell):
         return logsumexp
 ```
 
-If the missing functions and operators cannot be circumvented, or if the performance of the combined operators is poor and seriously affects the training and inference of the network, you can contact [MindSpore Community](https://gitee.com/mindspore/mindspore/issues) for feedback and we will have a dedicated staff to solve it for you.
+If the missing functions and operators cannot be circumvented, or if the performance of the combined operators is poor, which seriously affects the training and inference of the network, you can contact [MindSpore Community](https://gitee.com/mindspore/mindspore/issues) for feedback and we will have a dedicated staff to solve it for you.
 
 #### ResNet50 Migration Example
 
@@ -77,9 +77,9 @@ The following is the structure of the ResNet family of networks.
 
 The PyTorch implementation of the ResNet50 script is referenced in the [torchvision model](https://github.com/pytorch/vision/blob/master/torchvision/models/resnet.py).
 
-We can analyze it based on both operator and functional aspects.
+We can analyze it based on both operator and function aspects.
 
-- Algorithm analysis
+- Operator analysis
 
 | PyTorch operator       | MindSpore operator | supported |
 | ---------------------- | ------------------ | ---------------------- |
@@ -93,7 +93,7 @@ We can analyze it based on both operator and functional aspects.
 
 Note: For PyTorch scripts, MindSpore provides the [PyTorch operator mapping tool](https://www.mindspore.cn/docs/programming_guide/en/master/index.html#operator_api ), which can directly query whether the operator is supported.
 
-- Feature Analysis
+- Function Analysis
 
 | Pytorch Features          | MindSpore Features                    |
 | ------------------------- | ------------------------------------- |
@@ -106,24 +106,24 @@ Note: For PyTorch scripts, MindSpore provides the [PyTorch operator mapping tool
 
 (Since the interface design of MindSpore and PyTorch are not exactly the same, only the key functions are listed here for comparison)
 
-After the operator and function analysis, we found that compared to PyTorch, MindSpore has no missing functions, but the missing operator `nn.AdaptiveAvgPool` is missing. In the ResNet50 network, the input image shape is fixed and uniform as `N,3,224,224`, where N is the batch size, 3 is the number of channels, 224 and 224 are the width and height of the image, respectively, and the operators that change the image size in the network are `Conv2d` and `Maxpool2d`, the effect of these two operators on the shape is fixed, so the input and output shapes of `nn.AdaptiveAvgPool2D` can be determined in advance, as long as we calculate the input and output shapes of `nn.AvgPool` or `nn.ReduceMean`, so the absence of this operator is replaceable and does not affect the training of the network.
+After the operator and function analysis, we found that compared to PyTorch, MindSpore has no missing functions, but  `nn.AdaptiveAvgPool` is missing in the operatpr. In this way, we need to further analyzed whether the missing operator has a replaceable plan. In the ResNet50 network, the input image shape is fixed and uniformed as `N,3,224,224`, where N is the batch size, 3 is the number of channels, 224 and 224 are the width and height of the image respectively, and the operators that change the image size in the network are `Conv2d` and `Maxpool2d`, and the effect of these two operators on the shape is fixed, so the input and output shapes of `nn.AdaptiveAvgPool2D` can be determined in advance. As long as we calculate the input and output shapes of `nn.AdaptiveAvgPool2D`, it is implemented via `nn.AvgPool` and `nn.ReduceMean`. The absence of this operator is replaceable and does not affect the training of the network.
 
 ### Data Preprocessing
 
-To understand the implementation of a neural network, it is necessary to know the input data of the network first, so data preprocessing is the first part of the script development.MindSpore has designed a module dedicated to data processing - MindData, and data preprocessing with MindData consists of the following steps.
+To understand the implementation of a neural network, it is necessary to know the input data of the network first, so data preprocessing is the first part of the script development. MindSpore has designed a module dedicated to data processing - MindData, and data preprocessing with MindData consists of the following steps:
 
-1. Importing the data path and reading the data file.
+1. importing the data path and reading the data file.
 2. parsing the data.
 3. data processing (e.g. common data slicing, shuffle, data augmentation, etc.).
 4. data distribution (distribution of data in batch_size units, distributed training involves multi-machine distribution).
 
 In the process of reading and parsing data, MindSpore provides a more friendly data format - [MindRecord](https://www.mindspore.cn/docs/programming_guide/en/master/convert_dataset.html). Users can convert the dataset in regular format to MindSpore data format, i.e. MindRecord, so that it can be easily loaded into MindSpore for training. At the same time, MindSpore is optimized for performance in some scenarios, and better performance can be obtained by using the MindRecord data format.
 
-Data processing is usually the most time-consuming phase of data preparation, and most of the operations on data are included in this step, such as Resize, Rescale, Crop, etc. in CV-like networks. MindSpore provides a set of common data processing integration interfaces, which can be called directly by users without implementing them. These integration interfaces not only improve the user-friendliness, but also improve the performance of data preprocessing and reduce the time consuming data preparation during training. For details, please refer to the [Data Preprocessing Tutorial](https://www.mindspore.cn/docs/programming_guide/en/master/optimize_data_processing.html).
+Data processing is usually the most time-consuming phase of data preparation, and most of the operations on data are included in this step, such as Resize, Rescale, Crop, etc. in CV-like networks. MindSpore provides a set of common data processing integration interfaces, which can be called directly by users without implementing them. These integration interfaces not only improve the user-friendliness, but also improve the performance of data preprocessing and reduce the time consumption of data preparation during training. For details, please refer to the [Data Preprocessing Tutorial](https://www.mindspore.cn/docs/programming_guide/en/master/optimize_data_processing.html).
 
-In the data distribution, MindData provides an extremely simple API, which can be used to combine and repeat data by directly calling batch and repeat operations.
+In the data distribution, MindData provides an extremely simple API, which can be used to batch combination and repeating of data by directly calling batch and repeat operations.
 
-When the above 4 steps are completed, we can theoretically get the exact same data after processing the dataset using MindSpore script and alignment script (if there are operations that introduce random cases need to be removed).
+When the above 4 steps are completed, we can theoretically get the exact same data after processing the dataset by using MindSpore script and benchmark script processing dataset (if there are operations that introduce random cases need to be removed).
 
 #### ResNet50 Migration Example
 
@@ -144,7 +144,7 @@ input_tensor = preprocess(input_image)
 input_batch = input_tensor.unsqueeze(0) # create a mini-batch as expected by the model
 ```
 
-By looking at the above code, we find that the data preprocessing of ResNet50 mainly does Resize, CenterCrop, and Normalize operations, and there are two ways to implement these operations in MindSpore, one is to use MindSpore's data processing module MindData to call the encapsulated MindSpore's data processing module MindData to call the encapsulated data preprocessing interface, or through [Custom Dataset](https://www.mindspore.cn/docs/programming_guide/en/master/dataset_loading.html#loading-user-defined-dataset). Here it is more recommended for developers to choose the first way, which not only can reduce the development of repetitive code and the introduction of errors, but also can get better data processing performance. For more information about MindData data processing, please refer to the Data Pipeline section in [Programming Guide](https://www.mindspore.cn/docs/programming_guide/en/master/index.html).
+By looking at the above code, we find that the data preprocessing of ResNet50 mainly does Resize, CenterCrop, and Normalize operations, and there are two ways to implement these operations in MindSpore, one is to use MindSpore's data processing module MindData to call the encapsulated data preprocessing interface, and the other is loading through [Custom Dataset](https://www.mindspore.cn/docs/programming_guide/en/master/dataset_loading.html#loading-user-defined-dataset). It is more recommended for developers to choose the first way, which not only can reduce the development of repetitive code and the introduction of errors, but also can get better data processing performance. For more information about MindData data processing, please refer to the Data Pipeline section in [Programming Guide](https://www.mindspore.cn/docs/programming_guide/en/master/index.html).
 
 The following data processing functions are developed based on MindData:
 
@@ -197,7 +197,7 @@ def create_dataset(dataset_path, batch_size=32, rank_size=1, rank_id=0, do_train
     return data_set
 ```
 
-In the above code we can find that for common classical datasets (e.g. ImageNet2012), MindData also provides us with `ImageFolderDataset` interface to read the raw data directly, which saves the workload of reading files by hand-written code. Note that MindData creates datasets with different parameters for single-machine training and multi-machine distributed training, and distributed training requires two additional parameters `num_shard` and `shard_id`.
+In the above code we can find that for common classical datasets (e.g. ImageNet2012), MindData also provides us with `ImageFolderDataset` interface to read the raw data directly, which saves the workload of reading files by hand-written code. It should be noted that MindData creates datasets with different parameters for single-machine training and multi-machine distributed training, and distributed training requires two additional parameters `num_shard` and `shard_id`.
 
 ### Subnet Development
 
@@ -211,12 +211,12 @@ Analyzing the ResNet50 network code, it can be divided into the following main s
 
 - conv1x1, conv3x3: convolution with different kernel_size is defined.
 - BasicBlock: the smallest subnet of ResNet18 and ResNet34 in the ResNet family of networks, consisting of Conv, BN, ReLU and residuals.
-- BottleNeck: The smallest sub-network of ResNet50, ResNet101 and ResNet152 in the ResNet family of networks, with an additional layer of Conv, BN and ReLU compared to BasicBlock, and the convolution position of downsampling has been changed.
+- BottleNeck: The smallest subnet of ResNet50, ResNet101 and ResNet152 in the ResNet family of networks, with an additional layer of Conv, BN and ReLU compared to BasicBlock, and the convolution position of downsampling has been changed.
 - ResNet: A network that encapsulates the structure of BasicBlock, BottleNeck and Layer, different ResNet series networks can be constructed by passing different parameters. In this structure, some PyTorch self-defined initialization functions are also used.
 
 Based on the above subnetwork division, we redevelop the above development in conjunction with MindSpore syntax.
 
-Weight initialization directly using [MindSpore's defined weight initialization methods](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.common.initializer.html).
+For weight initialization, directly see [MindSpore's defined weight initialization methods](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.common.initializer.html).
 
 Redeveloping conv3x3 and conv1x1
 
@@ -324,7 +324,7 @@ class ResidualBlock(nn.Cell):
         return out
 ```
 
-Redevelopment of the whole ResNet family of nets.
+Redevelopment of the whole ResNet family of whole nets.
 
 ```python
 class ResNet(nn.Cell):
@@ -460,7 +460,7 @@ def resnet50(class_num=10):
                   class_num)
 ```
 
-After the above steps, the MindSpore-based ResNet50 whole network structure and each sub-network structure have been developed, and the next step is to develop other modules.
+After the above steps, the MindSpore-based ResNet50 whole network structure and each subnet structure have been developed, and the next step is to develop other modules.
 
 ### Other Modules
 
@@ -475,39 +475,7 @@ For additional training configurations, see [Configuration Information for NVIDI
 - The cosine LR schedule is used.
 - Label Smoothing is used.
 
-Implemented cosine LR schedule.
-
-```python
-def _generate_cosine_lr(lr_init, lr_end, lr_max, total_steps, warmup_steps):
-    """
-    Applies cosine decay to generate learning rate array.
-
-    Args:
-       lr_init(float): init learning rate.
-       lr_end(float): end learning rate
-       lr_max(float): max learning rate.
-       total_steps(int): all steps in training.
-       warmup_steps(int): all steps in warmup epochs.
-
-    Returns:
-       np.array, learning rate array.
-    """
-    decay_steps = total_steps - warmup_steps
-    lr_each_step = []
-    for i in range(total_steps):
-        if i < warmup_steps:
-            lr_inc = (float(lr_max) - float(lr_init)) / float(warmup_steps)
-            lr = float(lr_init) + lr_inc * (i + 1)
-        else:
-            linear_decay = (total_steps - i) / decay_steps
-            cosine_decay = 0.5 * (1 + math.cos(math.pi * 2 * 0.47 * i / decay_steps))
-            decayed = linear_decay * cosine_decay + 0.00001
-            lr = lr_max * decayed
-        lr_each_step.append(lr)
-    return lr_each_step
-```
-
-Implemented SGD optimizer with Momentum, and applied WeightDecay to all weights except gamma and bias of BN.
+Implementing the SGD optimizer with Momentum, weights are applied to WeightDecay in addition to the gamma and bias of BN:
 
 ```python
 # define opt
@@ -525,7 +493,7 @@ group_params = [{'params': decayed_params, 'weight_decay': weight_decay},
 opt = Momentum(group_params, lr, momentum)
 ```
 
-Develop cosine LR schedule, reference on [MindSpore Cosine Decay LR](https://www.mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.cosine_decay_lr.html)
+For implementing cosine LR schedule, reference on [MindSpore Cosine Decay LR](https://www.mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.cosine_decay_lr.html)
 
 Define Loss Function and implement Label Smoothing.
 
@@ -697,9 +665,9 @@ if __name__ == '__main__':
     model.train(config.epoch_size, dataset, callbacks=cb, sink_size=step_size, dataset_sink_mode=False)
 ```
 
-Note: For codes in other files in the directory, refer to MindSpore model_zoo's [ResNet50 implementation](https://gitee.com/mindspore/models/tree/master/official/cv/resnet)(this script incorporates other ResNet family networks and ResNet-SE networks, and the specific implementation may differ from the benchmark script).
+Note: For codes in other files in the directory, refer to MindSpore ModelZoo's [ResNet50 implementation](https://gitee.com/mindspore/models/tree/master/official/cv/resnet)(this script incorporates other ResNet family networks and ResNet-SE networks, and the specific implementation may differ from the benchmark script).
 
-### Distributed training
+### Distributed Training
 
 Distributed training has no impact on the network structure compared to stand-alone training, and can be done by modifying the stand-alone script by calling the distributed training interface provided by MindSpore, as described in [Distributed Training Tutorial](https://www.mindspore.cn/docs/programming_guide/en/master/distributed_training.html).
 
@@ -745,9 +713,9 @@ dataset = create_dataset(args_opt.dataset_path, config.batch_size, rank_size, ra
 
 The inference process differs from training in the following ways.
 
-- No need to define losses and optimizers.
-- No need for repeat operations when constructing the dataset.
-- Need to load trained CheckPoint after network definition.
+- No need to define optimizers.
+- No need to initialize the weights.
+- Need to load trained CheckPoint after network is defined.
 - Define the metric for computing inference accuracy.
 
 #### ResNet50 Migration Example
@@ -815,7 +783,7 @@ You may encounter some interruptions in the training during the process, you can
 
 For full example, you can refer to the link: <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/migration_sample>
 
-## Precision tuning
+## Precision Tuning
 
 After hitting the flow, you can get the accuracy of network training by both training and inference steps. Usually, it is difficult to reproduce the accuracy of the alignment script at once, and we need to gradually improve the accuracy by accuracy tuning, which is less intuitive, less efficient, and more work than performance tuning.
 
@@ -860,12 +828,14 @@ Single-Step performance jitter and data queues that remain empty for a period of
 
 When the data processing speed is slow, the queue is gradually depleted from the initial full queue to an empty queue, and the training process will start waiting for the empty queue to be filled with data, and the network will continue the single-step training only once new data is filled. Since there is no queue as buffer for data processing, the performance jitter of data processing is directly reflected in the performance of single-Step, so it will also cause single-Step performance jitter.
 
+For MindData performance issues, refer to MindData in MindInsight Component's [Data Profiling](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#data-preparation-performance-analysis), which gives common problems and solutions to MindData performance.
+
 #### Multi-machine Synchronization Performance
 
-When distributed training is performed, after the forward propagation and gradient computation are completed during a Step, each machine starts to synchronize the AllReduce gradient, and the AllReduce synchronization time is mainly affected by the number of weights and machines.
+When distributed training is performed, after the forward propagation and gradient computation are completed during a Step, each machine starts to synchronize the AllReduce gradient, and the AllReduce synchronization time is mainly affected by the number of weights and machines. For more complex, larger machine-sized networks, the AllReduce gradient update time is longer, at which point we can perform AllReduce tangent to optimize this part of the time.
 
-Normally, AllReduce gradient synchronization waits until all the inverse operators are finished, i.e., all the gradients of all weights are computed before synchronizing the gradients of all machines at once, but with AllReduce tangent, we can synchronize the gradients of some weights as soon as they are computed, so that the gradient synchronization and the gradient computation of the remaining operators can be This way, the gradient synchronization and the gradient computation of the remaining operators can be performed in parallel, hiding this part of the AllReduce gradient synchronization time. The slicing strategy is usually a manual attempt to find an optimal solution (supporting slicing greater than two segments).
-As an example, [ResNet50 network](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/train.py) has 160 weights and [85, 160] means that the gradient synchronization is performed immediately after the gradient is calculated for the 0th to 85th weights, and the gradient synchronization is performed after the gradient is calculated for the 86th to 160th weights. The code implementation is as follows:
+Normally, AllReduce gradient synchronization waits until all the inverse operators are finished, i.e., all the gradients of all weights are computed before synchronizing the gradients of all machines at once, but with AllReduce tangent, we can synchronize the gradients of some weights as soon as they are computed, so that the gradient synchronization and the gradient computation of the remaining operators can be performed in parallel, hiding this part of the AllReduce gradient synchronization time. The tangent strategy is usually a manual attempt to find an optimal solution (supporting slicing greater than two segments).
+As an example, [ResNet50 network](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/train.py) has 160 weights and [85, 160] means that the gradient synchronization is performed immediately after the gradient is calculated for the 0th to 85th weights, and the gradient synchronization is performed after the gradient is calculated for the 86th to 160th weights. Here the two segments is sliced, so two gradient synchronizations are required. The code implementation is as follows:
 
 ```python
 device_id = int(os.getenv('DEVICE_ID', '0'))
@@ -888,7 +858,7 @@ The situation that a single operator takes a long time and the performance of th
 1. Use less computationally intensive data types. For example, there is no significant difference in precision between float16 and float32 for the same operator, so use the less computationally intensive float16 format.
 2. Use other operators with the same algorithm to circumvent it.
 
-If you find any arithmetic with poor performance, we suggest you contact [MindSpore Community](https://gitee.com/mindspore/mindspore/issues) for feedback, and we will optimize it as soon as we confirm the performance problem.
+If you find any arithmetic with poor performance, we suggest you contact [MindSpore Community](https://gitee.com/mindspore/mindspore/issues) for feedback, and we will optimize it as soon as we confirm it as the performance problem.
 
 #### Framework Performance
 

@@ -12,7 +12,7 @@ This document describes how to migrate network scripts from the TensorFlow or Py
 
 Migrate scripts by reading the TensorBoard graphs。
 
-1. The [PoseNet](https://arxiv.org/pdf/1505.07427v4.pdf) implemented by TensorFlow is used as an example to show how to use TensorBoard to read graphs, write mindspore code, and migrate [TensorFlow Models](https://github.com/kentsommer/tensorflow-posenet) to MindSpore.
+1. The [PoseNet](https://arxiv.org/pdf/1505.07427v4.pdf) implemented by TensorFlow is used as an example to show how to use TensorBoard to read graphs, write MindSpore code, and migrate [TensorFlow Models](https://github.com/kentsommer/tensorflow-posenet) to MindSpore.
 
    > The PoseNet code mentioned here is based on Python2. You need to make some syntax changes to run on Python3. Details are not described here.
 
@@ -36,7 +36,7 @@ Migrate scripts by reading the TensorBoard graphs。
 
    Step 2, the result of step 1, the second and third inputs are used to calculate the loss in the loss subnet.
 
-   Step 3, construct the reverse network by using `TrainOneStepCell` automatic differentiation. Use the Adam optimizer and attributes provided by TensorFlow to write the corresponding Mindspore optimizer to update parameters. The network backbone can write as follows:
+   Step 3, construct the reverse network by using `TrainOneStepCell` automatic differentiation. Use the Adam optimizer and attributes provided by TensorFlow to write the corresponding MindSpore optimizer to update parameters. The network backbone can write as follows:
 
    ```python
    import mindspore
@@ -152,7 +152,7 @@ Migrate scripts by reading the TensorBoard graphs。
                return output
    ```
 
-   The Mindspore subnet is defined as follows:
+   The MindSpore subnet is defined as follows:
 
    ```python
    from mindspore import nn
@@ -453,7 +453,7 @@ Read the PyTorch script to migrate directly.
    model.train(epoch_size, dataset)
    ```
 
-PyTorch and mindspore have similar definitions of some basic APIs, such as [mindspore.nn.SequentialCell](https://www.mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.SequentialCell.html#mindspore.nn.SequentialCell) and [torch.nn.Sequential](https://pytorch.org/docs/stable/generated/torch.nn.Sequential.html#torch.nn.Sequential). In addition, some operator APIs may be not the same. This section lists some common API comparisons. For more information, see the [MindSpore and PyTorch API mapping](https://www.mindspore.cn/docs/note/en/master/index.html#operator_api) on Mindspore's official website.
+PyTorch and MindSpore have similar definitions of some basic APIs, such as [mindspore.nn.SequentialCell](https://www.mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.SequentialCell.html#mindspore.nn.SequentialCell) and [torch.nn.Sequential](https://pytorch.org/docs/stable/generated/torch.nn.Sequential.html#torch.nn.Sequential). In addition, some operator APIs may be not the same. This section lists some common API comparisons. For more information, see the [MindSpore and PyTorch API mapping](https://www.mindspore.cn/docs/note/en/master/index.html#operator_api) on MindSpore's official website.
 
 |              PyTorch              |                     MindSpore                      |
 | :-------------------------------: | :------------------------------------------------: |
@@ -465,4 +465,4 @@ PyTorch and mindspore have similar definitions of some basic APIs, such as [mind
 |          torch.nn.Linear          |                 mindspore.nn.Dense                 |
 |       torch.nn.PixelShuffle       |       mindspore.ops.operations.DepthToSpace        |
 
-It should be noticed that although `torch.nn.MaxPool2d` and `mindspore.nn.MaxPool2d` are similar in interface definition, and Mindspore actually invokes the `MaxPoolWithArgMax` operator during training on Ascend. The function of this operator is the same as that of TensorFlow, during the migration, and the MindSpore output after the MaxPool layer is inconsistent with that of PyTorch. Theoretically, it's not affect the final training result.
+It should be noticed that although `torch.nn.MaxPool2d` and `mindspore.nn.MaxPool2d` are similar in interface definition, and MindSpore actually invokes the `MaxPoolWithArgMax` operator during training on Ascend. The function of this operator is the same as that of TensorFlow, during the migration, and the MindSpore output after the MaxPool layer is inconsistent with that of PyTorch. Theoretically, it's not affect the final training result.
