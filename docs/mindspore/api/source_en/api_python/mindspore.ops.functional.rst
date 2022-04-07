@@ -468,5 +468,5 @@ Other Operators
     mindspore.ops.sequence_mask
     mindspore.ops.tensor_dot
     mindspore.ops.uniform
+    mindspore.ops.unique
     mindspore.ops.vjp
-
