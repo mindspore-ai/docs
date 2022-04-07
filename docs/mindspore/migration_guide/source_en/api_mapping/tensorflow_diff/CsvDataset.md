@@ -62,6 +62,6 @@ filenames = ['/tmp/example0.csv',
              '/tmp/example1.csv']
 dataset = tf.data.experimental.CsvDataset(filenames,
                                           [tf.float32,
-                                           tf.constant([0, 0], dtype=tf.float32),
+                                           tf.constant([0.0], dtype=tf.float32),
                                            tf.int32])
 ```
