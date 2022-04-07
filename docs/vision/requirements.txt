@@ -8,4 +8,3 @@ nbsphinx
 IPython
 ipykernel
 jieba
-pycocotools
