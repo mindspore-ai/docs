@@ -71,7 +71,7 @@
 
 缺失值常常以NaN，+/-Inf等形式存在，不同的数据集中使用的缺失值符号也不尽相同。检查缺失值时，首先明确每个字段使用何种方式表示缺失值，然后使用计数器对每个字段中的缺失值个数进行计数，以此来掌握数据集中缺失值的情况。
 
-若数据中存在未处理的缺失值，则此项的检查结果为“存在问题”，需要采取合适的手段处理（处理手段请参考 [精度问题详细定位和调优指南](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_optimization.html)）
+若数据中存在未处理的缺失值，则此项的检查结果为“发现问题”，需要采取合适的手段处理（处理手段请参考 [精度问题详细定位和调优指南](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_optimization.html)）
 
 检查结论：
 
@@ -291,7 +291,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 备注：
 
-对于mindspore.nn名称空间下的BatchNorm系列算子，建议您保持参数`use_batch_statistics`为默认值None。当`use_batch_statistics`为默认值None时，BatchNorm算子会根据cell.set_train()所给定的模式决定每个迭代中是否更新moving mean和moving variance参数：在cell.set_train()所给定的模式为True时更新上述两个参数，在cell.set_train()所给定的模式为True时不对上述两个参数进行更新。若设置了`use_batch_statistics=True`，即使设置了cell.set_train(False)以表示当前处于非训练场景，BatchNorm算子仍然会更新moving mean和moving variance参数。
+对于mindspore.nn名称空间下的BatchNorm系列算子，建议您保持参数`use_batch_statistics`为默认值None。当`use_batch_statistics`为默认值None时，BatchNorm算子会根据cell.set_train()所给定的模式决定每个迭代中是否更新moving mean和moving variance参数：在cell.set_train()所给定的模式为True时更新上述两个参数，在cell.set_train()所给定的模式为False时不对上述两个参数进行更新。若设置了`use_batch_statistics=True`，即使设置了cell.set_train(False)以表示当前处于非训练场景，BatchNorm算子仍然会更新moving mean和moving variance参数。
 
 例子：
 
