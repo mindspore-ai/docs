@@ -876,3 +876,16 @@ Currently, we support keywords including:
 - In current version, some GPU platform only keywords:
     - Math keywords: `rsqrt`, `erf`, `isnan`, `sin`, `cos`, `isinf`, `isfinite`, `atan`, `atan2`, `expm1`, `floor`, `ceil`, `trunc`, `round`, `ceil_div`
     - Datatype keywords: `int8`, `int16`, `int64`
+
+#### Frequent Error Messages and Error Attributions
+
+To help users effectively develop and locate bugs, MindSpore Hybrid DSL provides the following error messages, including:
+
+- TypeError: there are Python keywords such as `while`, `break` and `continue` which are not supported by MindSpore Hybrid DSL.
+- ValueError:
+    - there are built-in function names which are not in the above support list;
+    - in the DSL, it trys to get an attribute of a tensor, but the attribute name is neither `shape` nor `dtype`.
+- Other frequent error message:
+    - “SyntaxError”: DSL does not conform to the Python syntax(not the syntax defined by MindSpore Hybrid DSL), and is reported by the Python interpreter itself;
+    - “ValueError: Compile error” and “The pointer\[kernel_mod\] is null”: the kernel compiler fails in compiling the DSL. Check error messages from AKG for further information;
+    - “Launch graph failed”: the compiled kernel fails in running. Check the error message from the hardware. For example, when the kernel fails in Ascend, there will be an “Ascend error occurred” message and corresponding hareware error messages.

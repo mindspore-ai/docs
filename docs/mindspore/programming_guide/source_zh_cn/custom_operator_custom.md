@@ -973,3 +973,16 @@ def kernel_func(a, b):
 - 在当前版本中，我们对GPU后端提供部分进阶关键词：
     - 数学函数：`rsqrt`, `erf`, `isnan`, `sin`, `cos`, `isinf`, `isfinite`, `atan`, `atan2`, `expm1`, `floor`, `ceil`, `trunc`, `round`, `ceil_div`
     - 数据类型转换：`int8`，`int16`，`int64`
+
+#### 常见报错信息及错误归因
+
+为了帮助用户高效地开发和定位bug，MindSpore Hybrid DSL 提供如下报错信息，包括
+
+- TypeError: 当使用了`while`, `break` 和 `continue` 等 MindSpore Hybrid DSL 不支持的 Python 关键词。
+- ValueError:
+    - 使用了不属于上面的内置函数名；
+    - 对张量取非 `shape` 或者 `dtype` 的属性。
+- 其他常见报错：
+    - “SyntaxError”: 写的 DSL 不符合基本 Python 语法（非上面的进阶用法中定义的MindSpore Hybrid DSL语法），由 Python 解释器本身报错；
+    - “ValueError: Compile error”及“The pointer\[kernel_mod\] is null”: Python DSL符合语法但是编译失败，由 AKG 报错，具体错误原因检查 AKG 相关报错信息；
+    - “Launch graph failed”: Python DSL符合语法，编译成功但是运行失败。具体原因参考硬件的报错信息。例如在昇腾芯片上遇到运行失败时，MindSpore 端会显示 “Ascend error occurred” 及对应硬件报错信息。
