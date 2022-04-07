@@ -136,6 +136,15 @@ def update_url_status_to_json(url):
     update_json(data, "url_status.json")
     lock.release()
 
+def is_white_url(re_url, url):
+    """
+    判断是否符合模糊匹配的链接
+    """
+    results = re.findall(re_url, url)
+    if results:
+        return results[0] == url
+    return False
+
 def run_check(all_files):
     """
     检测文件中的urls链接
@@ -143,6 +152,11 @@ def run_check(all_files):
     all_urls = get_all_urls(all_files)
     white_urls = get_check_info(info_type="white_list") + white_example
     urls = set(all_urls) - set(white_urls)
+    re_white_urls = [re_url.replace(".", r"\.").replace("*", ".*") for re_url in white_urls if "*" in re_url]
+    white_url_save = {}
+    for i in re_white_urls:
+        white_url_save.update({j: 200 for j in urls if is_white_url(i, j)})
+        urls -= white_url_save.keys()
     pool = []
     for url in urls:
         k = threading.Thread(target=update_url_status_to_json, args=(url,))
@@ -150,6 +164,7 @@ def run_check(all_files):
         pool.append(k)
     for j in pool:
         j.join()
+    update_json(white_url_save, "url_status.json")
 
 def location_error_line(file, url):
     """
