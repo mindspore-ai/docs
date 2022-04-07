@@ -79,8 +79,8 @@ html_theme = 'sphinx_rtd_theme'
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {
-    'python': ('https://docs.python.org/', '../../../../resource/python_objects.inv'),
-    'numpy': ('https://docs.scipy.org/doc/numpy/', '../../../../resource/numpy_objects.inv'),
+    'python': ('https://docs.python.org/', '../../../resource/python_objects.inv'),
+    'numpy': ('https://docs.scipy.org/doc/numpy/', '../../../resource/numpy_objects.inv'),
 }
 
 # Modify default signatures for autodoc.
@@ -114,14 +114,14 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
 
-sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
+sys.path.append(os.path.abspath('../../../resource/sphinx_ext'))
 import anchor_mod
 import nbsphinx_mod
 
-sys.path.append(os.path.abspath('../../../../resource/search'))
+sys.path.append(os.path.abspath('../../../resource/search'))
 import search_code
 
-sys.path.append(os.path.abspath('../../../../resource/custom_directives'))
+sys.path.append(os.path.abspath('../../../resource/custom_directives'))
 from custom_directives import IncludeCodeDirective
 
 def setup(app):
