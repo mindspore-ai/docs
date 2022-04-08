@@ -1,6 +1,6 @@
 ﻿# 精度调优
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_zh_cn/precision_tuning.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/faq/precision_tuning.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 <font size=3>**Q: 导致Loss值不收敛或者精度不达标的原因有哪些呢，应该怎样定位调优？**</font>
 

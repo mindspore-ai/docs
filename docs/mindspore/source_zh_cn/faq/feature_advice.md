@@ -1,6 +1,6 @@
 ﻿# 特性咨询
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_zh_cn/feature_advice.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/faq/feature_advice.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 <font size=3>**Q: 导出MindIR格式的时候，`input=np.random.uniform(...)`是不是固定格式？**</font>
 
