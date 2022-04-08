@@ -6,11 +6,41 @@
 MindSpore 文档
 =========================
 
-测试中。
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 设计
+
+   design/technical_white_paper
+   design/all_scenarios_architecture
+   design/gradient
+   design/dynamic_graph_and_static_graph
+   design/distributed_training_design
+   design/heterogeneous_training
+   design/mindir
+   design/data_engine
+   design/graph_kernel_fusion_engine
+   design/jit_fallback
+   可视化调试调优↗ <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/training_visual_design.html>
+   安全可信↗ <https://www.mindspore.cn/mindarmour/docs/zh-CN/master/design.html>
+   design/glossary
+   
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 参考
+
+   note/benchmark
+   note/network_list
+   note/operator_list
+   note/env_var_list
+   note/syntax_list
+   note/api_mapping
 
 .. toctree::
+   :glob:
    :maxdepth: 1
-   :caption: MindSpore Python API
+   :caption: API
 
    api_python/mindspore
    api_python/mindspore.common.initializer
@@ -35,9 +65,37 @@ MindSpore 文档
    api_python/mindspore.scipy
    api_python/mindspore.train
    api_python/mindspore.boost
+   C++ API↗ <https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html>
 
 .. toctree::
+   :glob:
    :maxdepth: 1
-   :caption: MindSpore C++ API
+   :caption: 迁移指南
 
-   MindSpore Lite↗ <https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html>
+   migration_guide/overview
+   migration_guide/preparation
+   migration_guide/script_analysis
+   migration_guide/script_development
+   migration_guide/neural_network_debug
+   migration_guide/accuracy_optimization
+   migration_guide/performance_optimization
+   migration_guide/inference
+   migration_guide/sample_code
+   migration_guide/faq
+   
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: FAQ
+
+   faq/installation
+   faq/data_processing
+   faq/implement_problem
+   faq/network_compilation
+   faq/operators_compile
+   faq/usage_migrate_3rd
+   faq/performance_tuning
+   faq/precision_tuning
+   faq/distributed_configure
+   faq/inference
+   faq/feature_advice
