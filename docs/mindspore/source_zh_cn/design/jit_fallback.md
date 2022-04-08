@@ -757,7 +757,7 @@ JIT Fallback借鉴了传统JIT编译的Fallback的思路。传统的JIT编译经
 
 下图是JIT Fallback的整体处理流程。
 
-![JIT Fallback](./design/images/fallback.png)
+![JIT Fallback](./images/fallback.png)
 
 首先，用户编写程序代码后，`Cell.construct()`或者`@ms_function`函数作为编译输入。然后，MindCompiler在编译阶段检测不支持的语法，并且根据不支持的语法表达式生成解释节点。最后，在编译时（Compiler Time）阶段或运行时（Runtime）阶段，推导和执行解释节点。对于常量场景，可以在类型推导阶段完成常量的推导，并通过Python解释器进行执行。注意：运行时(Runtime)阶段的JIT Fallback暂不支持。
 
