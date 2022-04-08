@@ -16,6 +16,7 @@ MindSpore Documentation
    design/gradient
    design/distributed_training_design
    design/mindir
+   design/dataset_offload
    Design of Visualization↗ <https://www.mindspore.cn/mindinsight/docs/en/master/training_visual_design.html>
    design/glossary
 
