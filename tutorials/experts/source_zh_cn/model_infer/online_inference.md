@@ -1,4 +1,4 @@
-# 加载Checkpoint在线推理
+# 在线推理
 
 `Ascend` `推理应用`
 

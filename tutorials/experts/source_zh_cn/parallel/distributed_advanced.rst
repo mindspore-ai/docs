@@ -5,14 +5,14 @@
   :maxdepth: 1
 
   distributed_advanced_overview
-  apply_operator_parallel
-  apply_pipeline_parallel
-  distributed_training_parallel_opt
-  apply_host_device_training
-  apply_recompute
+  operator_parallel
+  pipeline_parallel
+  optimizer_parallel
+  host_device_training
+  recompute
   sharding_propagation
-  apply_parameter_server_training
-  distributed_training_comm_fusion
-  distributed_training_dataset_slice
+  parameter_server_training
+  comm_fusion
+  dataset_slice
   distributed_inference
   pynative_shard_function_parallel
