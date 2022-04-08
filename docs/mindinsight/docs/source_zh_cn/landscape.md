@@ -128,7 +128,7 @@
        interval_2 = [x for x in range(7, 11)]
        ##Collector landscape information
        summary_collector = SummaryCollector(summary_dir, keep_default_action=True,
-                                            collect_specified_data={'collect_landscape': {'landscape_size': 40,
+                                            collect_specified_data={'collect_landscape': {'landscape_size': 10,
                                                                                           'unit': "epoch",
                                                                                           'create_landscape': {'train': True,
                                                                                                                'result': True},
@@ -149,7 +149,7 @@
 
    summary_dir设置了参数的保存路径。summary_collector为初始化的SummaryCollector实例。其中collector_specified_data中的collect_landscape以字典的形式包含了绘制地形图所需要的所有参数设置：
 
-   - `landscape_size`： 表示地形图的分辨率。40表示地形图的分辨率是40*40。分辨率越大，地形图纹理越细致，同时计算消耗时间也会越久。默认为40。
+   - `landscape_size`： 表示地形图的分辨率。10表示地形图的分辨率是10*10。分辨率越大，地形图纹理越细致，同时计算消耗时间也会越久。默认为40。
 
    - `unit`: 表示训练过程中保存参数的间隔单位，分为`epoch`/`step`。使用`step`时，须在`model.train`中设置`dataset_sink_model=False`。默认为`step`。
 
@@ -157,7 +157,7 @@
 
    - `num_samples`:  表示绘制地形图数据集的样本数量。512表示地形图所需样本是512。样本数越大，地形图越精确，同时计算消耗时间也会越久。默认为2048。
 
-   - `intervals`: 表示绘制地形图的区间。如`interval_1`表示绘制带训练轨迹1-5epoch地形图。
+   - `intervals`: 表示绘制地形图的区间。如`interval_1`表示绘制带训练轨迹1-5 epoch地形图。
 
 2. 地形图绘制：利用训练过程中保存的模型参数，模型与数据集与训练一致，启动新的脚本，正向计算生成地形图信息，不用再次进行训练。（适用于单卡或多卡并行计算绘制地形图）
 
@@ -267,7 +267,7 @@
        summary_landscape = SummaryLandscape('./summary/lenet_test2')
        # generate loss landscape
        summary_landscape.gen_landscapes_with_multi_process(callback_fn,
-                                                           collect_landscape={"landscape_size": 40,
+                                                           collect_landscape={"landscape_size": 10,
                                                                               "create_landscape": {"train": True,
                                                                                                    "result": True},
                                                                               "num_samples": 512,
