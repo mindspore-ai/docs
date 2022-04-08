@@ -8,17 +8,17 @@ MindSpore可以基于训练好的模型，在不同的硬件平台上执行推�
 
 ### 总览
 
-MindSpore支持保存为CheckPoint格式的[训练参数文件](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/multi_platform_inference.html#模型文件)和MindIR、AIR、ONNX格式的[网络模型文件](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/multi_platform_inference.html#模型文件)。
+MindSpore支持保存为CheckPoint格式的[训练参数文件](https://www.mindspore.cn/tutorials/experts/zh-CN/master/model_infer/inference.html#模型文件)和MindIR、AIR、ONNX格式的[网络模型文件](https://www.mindspore.cn/tutorials/experts/zh-CN/master/model_infer/inference.html#模型文件)。
 
-参考[执行推理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/multi_platform_inference.html#执行推理)，不仅可以直接通过`mindspore.model.predict`接口执行本机推理，还可以通过`mindspore.export`导出MindIR、AIR、ONNX格式的网络模型文件，以便于跨平台执行推理。
+参考[执行推理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/model_infer/inference.html#执行推理)，不仅可以直接通过`mindspore.model.predict`接口执行本机推理，还可以通过`mindspore.export`导出MindIR、AIR、ONNX格式的网络模型文件，以便于跨平台执行推理。
 
-使用[MindIR格式](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/multi_platform_inference.html#mindir介绍)的模型文件消除了不同后端模型的差异，可以用于执行跨硬件平台推理，支持部署到云端Serving和端侧Lite平台。
+使用[MindIR格式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/model_infer/inference.html#mindir介绍)的模型文件消除了不同后端模型的差异，可以用于执行跨硬件平台推理，支持部署到云端Serving和端侧Lite平台。
 
 ### 不同硬件平台执行推理
 
-- Ascend硬件平台参考[Ascend 910 AI处理器上推理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/multi_platform_inference_ascend_910.html)和[Ascend 310 AI处理器上推理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/multi_platform_inference_ascend_310.html)。
-- GPU硬件平台参考[GPU上推理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/multi_platform_inference_gpu.html)。
-- CPU硬件平台参考[CPU上推理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/multi_platform_inference_cpu.html)。
+- Ascend硬件平台参考[Ascend 910 AI处理器上推理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/model_infer/inference_ascend_910.html)和[Ascend 310 AI处理器上推理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/model_infer/inference_ascend_310.html)。
+- GPU硬件平台参考[GPU上推理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/model_infer/inference_gpu.html)。
+- CPU硬件平台参考[CPU上推理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/model_infer/inference_cpu.html)。
 - Lite端侧推理的相关应用参考[端侧推理](https://www.mindspore.cn/lite/docs/zh-CN/master/index.html)。
 
 > Ascend硬件平台推理的接口使用问题参考[C++接口使用类](https://www.mindspore.cn/docs/zh-CN/master/faq/inference.html#c)解决。

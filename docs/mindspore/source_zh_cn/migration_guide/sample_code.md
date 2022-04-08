@@ -117,7 +117,7 @@ PyTorch 实现的 ResNet50 脚本参考 [torchvision model](https://github.com/p
 
 在读取和解析数据过程中，MindSpore 提供了一种更友好的数据格式 - [MindRecord](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/convert_dataset.html)。用户可以将常规格式的数据集转换为 MindSpore数据格式，即 MindRecord，从而方便地加载到 MindSpore 中进行训练。同时，MindSpore 在部分场景做了性能优化，使用 MindRecord 数据格式可以获得更好的性能。
 
-数据处理通常是数据准备中最耗时的阶段，大部分对数据的操作都被包含在这一步骤里，例如 CV 类网络中的Resize、Rescale、Crop 等操作。MindSpore 提供了一套常用的数据处理集成接口，用户可以不用自己实现而直接调用这些接口，这些集成接口不仅可以提升用户的易用性，还可以提升数据预处理的性能，减少训练过程中数据准备的耗时。具体可以参考[数据预处理教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/optimize_data_processing.html)。
+数据处理通常是数据准备中最耗时的阶段，大部分对数据的操作都被包含在这一步骤里，例如 CV 类网络中的Resize、Rescale、Crop 等操作。MindSpore 提供了一套常用的数据处理集成接口，用户可以不用自己实现而直接调用这些接口，这些集成接口不仅可以提升用户的易用性，还可以提升数据预处理的性能，减少训练过程中数据准备的耗时。具体可以参考[数据预处理教程](https://www.mindspore.cn/tutorials/experts/zh-CN/master/data_engine/optimize_data_processing.html)。
 
 在数据分发环节，MindData 提供了极为简洁的 API，可以通过直接调用 batch、repeat 等操作完成数据的 batch 组合、重复等操作。
 
@@ -666,7 +666,7 @@ if __name__ == '__main__':
 
 ### 分布式训练
 
-分布式训练相比单机训练对网络结构没有影响，可以通过调用 MindSpore 提供的分布式训练接口改造单机脚本即可完成分布式训练，具体可参考 [分布式训练教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training.html)。
+分布式训练相比单机训练对网络结构没有影响，可以通过调用 MindSpore 提供的分布式训练接口改造单机脚本即可完成分布式训练，具体可参考 [分布式训练教程](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/distributed_training.html)。
 
 #### ResNet50 迁移示例
 
@@ -867,7 +867,7 @@ if rank_size > 1:
 
     混合精度训练方法是通过混合使用单精度和半精度数据格式来加速深度神经网络训练的过程，同时保持了单精度训练所能达到的网络精度。混合精度训练能够加速计算过程，同时减少内存使用和存取，并使得在特定的硬件上可以训练更大的模型或 batch size。
 
-    具体可参考 [混合精度教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/enable_mixed_precision.html)。
+    具体可参考 [混合精度教程](https://www.mindspore.cn/tutorials/experts/zh-CN/master/others/mixed_precision.html)。
 
 - 使能图算融合
 

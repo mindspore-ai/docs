@@ -74,7 +74,7 @@ context.get_auto_parallel_context("gradients_mean")
 
 其中`auto_parallel`和`data_parallel`在MindSpore教程中有完整样例：
 
-<https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training.html>。
+<https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/distributed_training.html>。
 
 代码样例如下：
 
@@ -138,7 +138,7 @@ context.set_auto_parallel_context(enable_alltoall=True)
 context.get_auto_parallel_context("enable_alltoall")
 ```
 
-需要注意的是，开启它对用户的网络环境配置有所要求，具体信息可查看[AllToAll](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_ops.html#alltoall)
+需要注意的是，开启它对用户的网络环境配置有所要求，具体信息可查看[AllToAll](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/distributed_training_ops.html#alltoall)
 
 #### enable_parallel_optimizer
 
@@ -347,7 +347,7 @@ context.set_context(device_target='GPU')
 init()
 ```
 
-> 在GPU处理器平台下，MindSpore还支持不依赖`OpenMPI`来启动分布式训练，也使用本接口进行分布式训练初始化，具体方法可参考[不依赖OpenMPI进行训练](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_gpu.html#openmpi)。在此场景下，即用户不使用'mpirun'启动进程，但是依然调用了`init()`方法的情况下，MindSpore要求用户按照[不依赖OpenMPI进行训练](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_gpu.html#openmpi)配置若干环境变量，若没有配置，MindSpore会给出合理的报错提示。因此建议只有在执行分布式训练时调用此方法，并在不使用`mpirun`的场景下，根据文档配置正确的环境变量以启动分布式训练。
+> 在GPU处理器平台下，MindSpore还支持不依赖`OpenMPI`来启动分布式训练，也使用本接口进行分布式训练初始化，具体方法可参考[不依赖OpenMPI进行训练](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/distributed_training_gpu.html#openmpi)。在此场景下，即用户不使用'mpirun'启动进程，但是依然调用了`init()`方法的情况下，MindSpore要求用户按照[不依赖OpenMPI进行训练](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/distributed_training_gpu.html#openmpi)配置若干环境变量，若没有配置，MindSpore会给出合理的报错提示。因此建议只有在执行分布式训练时调用此方法，并在不使用`mpirun`的场景下，根据文档配置正确的环境变量以启动分布式训练。
 
 ### get_group_size
 

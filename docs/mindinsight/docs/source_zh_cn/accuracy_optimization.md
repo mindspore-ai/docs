@@ -600,7 +600,7 @@ Xie, Z., Sato, I., & Sugiyama, M. (2020). A Diffusion Theory For Deep Learning D
 
 ### 数据问题处理
 
-对数据进行标准化、归一化、通道转换等操作，在图片数据处理上，增加随机视野图片，随机旋转度图片等，另外数据混洗、batch和数据倍增等操作，可参考[数据处理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/pipeline.html)、[数据增强](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/augmentation.html)和[自动数据增强](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/auto_augmentation.html)。
+对数据进行标准化、归一化、通道转换等操作，在图片数据处理上，增加随机视野图片，随机旋转度图片等，另外数据混洗、batch和数据倍增等操作，可参考[数据处理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/pipeline.html)、[数据增强](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/augmentation.html)和[自动数据增强](https://www.mindspore.cn/tutorials/experts/zh-CN/master/data_engine/auto_augmentation.html)。
 
 > 如何将数据增强增强操作应用到自定义数据集中，可以参考[mindspore.dataset.GeneratorDataset.map](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset.map)算子。
 

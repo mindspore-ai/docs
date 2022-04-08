@@ -260,15 +260,15 @@ Tensor(shape=[2, 2], dtype=Int32, value=
 
 ## 数据Dump功能介绍
 
-训练网络时，若训练结果和预期有偏差，可以通过数据Dump功能保存算子的输入输出进行调试。详细Dump功能介绍参考[Dump功能说明](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dump_in_graph_mode.html#dump)。
+训练网络时，若训练结果和预期有偏差，可以通过数据Dump功能保存算子的输入输出进行调试。详细Dump功能介绍参考[Dump功能说明](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump_in_graph_mode.html#dump)。
 
 ### 同步Dump功能使用方法
 
-同步Dump功能使用参考[同步Dump操作步骤](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dump_in_graph_mode.html#同步dump)。
+同步Dump功能使用参考[同步Dump操作步骤](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump_in_graph_mode.html#同步dump)。
 
 ### 异步Dump功能使用方法
 
-异步Dump功能使用参考[异步Dump操作步骤](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dump_in_graph_mode.html#异步dump)。
+异步Dump功能使用参考[异步Dump操作步骤](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump_in_graph_mode.html#异步dump)。
 
 ## Running Data Recorder
 

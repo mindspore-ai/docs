@@ -14,7 +14,7 @@ MindSpore also provides the parallel training functionality. It supports the fol
 
   - `dynamic_programming`: Dynamic programming search algorithm. The optimal strategy under the cost model description can be found, but it takes a long time to search for parallel strategy of huge network model. Its cost model refers to modeling the training time based on the memory-based computation and communication overheads of the Ascend 910 chip.
   - `recursive_programming`: Double recursive programming search algorithm. The optimal strategy can be generated instantly even for a large network. Its symbolic cost model can be flexibly adapted to different accelerator clusters.
-  - `sharding_propagation`: Sharding Propagation algorithms. This mode requires users to configure sharding strategies for some operators, and then propagates from these operators to other operators, with the goal of minimizing communication cost in tensor redistribution. For definitions of sharding strategy and tensor redistribution, please refer to this [design article](https://www.mindspore.cn/docs/programming_guide/en/master/design/distributed_training_design.html#id10)
+  - `sharding_propagation`: Sharding Propagation algorithms. This mode requires users to configure sharding strategies for some operators, and then propagates from these operators to other operators, with the goal of minimizing communication cost in tensor redistribution. For definitions of sharding strategy and tensor redistribution, please refer to this [design article](https://www.mindspore.cn/docs/en/master/design/distributed_training_design.html#id10)
 
 - `HYBRID_PARALLEL`: On MindSpore, users manually split parameters to implement intra-layer model parallelism.
 

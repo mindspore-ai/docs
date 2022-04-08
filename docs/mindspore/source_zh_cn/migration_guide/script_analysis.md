@@ -37,7 +37,7 @@ MindSpore API由各种Python/C++ API算子组成，可以大致分为：
 ### 缺失算子处理策略
 
 1. 考虑用其他算子替换：需要分析算子实现公式，审视是否可以用现有MindSpore算子叠加达到预期目标。
-2. 考虑使用自定义算子实现：参考[Custom算子的使用指南](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_operator_custom.html)。
+2. 考虑使用自定义算子实现：参考[Custom算子的使用指南](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/op_custom.html)。
 3. 考虑通过自定义算子方式使用其他已有第三方算子库实现：参考[基于自定义算子接口调用第三方算子库](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/use_third_party_op.html)。
 4. 考虑临时规避方案：比如某个loss不支持，可以替换为同类已支持的loss算子。
 5. [在MindSpore社区](https://gitee.com/mindspore/mindspore/issues)提交建议开发缺失算子。
