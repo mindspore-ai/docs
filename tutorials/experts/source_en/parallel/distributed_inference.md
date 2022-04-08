@@ -18,7 +18,7 @@ The process of distributed inference is as follows:
 
 1. Execute training, generate the checkpoint file and the model strategy file.
 
-    > - The distributed training tutorial and sample code can be referred to the link: <https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_ascend.html>.
+    > - The distributed training tutorial and sample code can be referred to the link: <https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/distributed_training_ascend.html>.
     > - In the distributed Inference scenario, during the training phase, the `integrated_save` of `CheckpointConfig` interface should be set to `False`, which means that each device only saves the slice of model instead of the full model.
     > - `parallel_mode` of `set_auto_parallel_context` interface should be set to `auto_parallel` or `semi_auto_parallel`.
     > - In addition, you need to specify `strategy_ckpt_save_file` to indicate the path of the strategy file.

@@ -199,7 +199,7 @@ A: 首先MindSpore训练使用的灰度图MNIST数据集。所以模型使用时
 
 <font size=3>**Q: 第一次看到有专门的数据处理框架，能介绍下么？**</font>
 
-A: MindData提供数据处理异构硬件加速功能，高并发数据处理`pipeline`同时支持`Ascend/GPU/CPU`，`CPU`占用降低30%，点击查询[优化数据处理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/optimize_data_processing.html)。
+A: MindData提供数据处理异构硬件加速功能，高并发数据处理`pipeline`同时支持`Ascend/GPU/CPU`，`CPU`占用降低30%，点击查询[优化数据处理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/data_engine/optimize_data_processing.html)。
 
 <br/>
 

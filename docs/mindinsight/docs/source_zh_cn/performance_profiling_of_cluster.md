@@ -25,9 +25,9 @@
 
 ## 分布式训练
 
-Ascend分布式训练请参考[分布式训练教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_ascend.html)。
+Ascend分布式训练请参考[分布式训练教程](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/distributed_training_ascend.html)。
 
-GPU分布式训练请参考[分布式训练教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_gpu.html)。
+GPU分布式训练请参考[分布式训练教程](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/distributed_training_gpu.html)。
 
 ## 收集集群性能数据
 

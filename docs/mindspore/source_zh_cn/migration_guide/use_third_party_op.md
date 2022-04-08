@@ -6,7 +6,7 @@
 
 当开发网络遇到内置算子不足以满足需求时，你可以利用MindSpore的Python API中的[Custom](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom)原语方便快捷地进行不同类型自定义算子的定义和使用。
 
-网络开发者可以根据需要选用不同的自定义算子开发方式。详情请参考Custom算子的[使用指南](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_operator_custom.html)。
+网络开发者可以根据需要选用不同的自定义算子开发方式。详情请参考Custom算子的[使用指南](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/op_custom.html)。
 
 其中，自定义算子有一种开发方式`aot`方式有其特殊的使用方式。`aot`方式可以通过加载预编译的`so`来调用相应的`cpp`/`cuda`函数。因此，当第三方库提供了`cpp`/`cuda`函数`API`时，可以尝试将其函数接口在`so`中调用，以下以PyTorch的`Aten`库为例进行介绍。
 

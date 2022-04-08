@@ -35,7 +35,7 @@ MindSpore支持保存两种类型的数据：训练参数和网络模型（模�
 
 1. 本机推理
 
-    通过加载网络训练产生的Checkpoint文件，调用`model.predict`接口进行推理验证，具体操作可查看[加载Checkpoint在线推理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/online_inference.html)。
+    通过加载网络训练产生的Checkpoint文件，调用`model.predict`接口进行推理验证，具体操作可查看[加载Checkpoint在线推理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/model_infer/online_inference.html)。
 
 2. 跨平台推理
 
@@ -56,4 +56,4 @@ MindSpore通过统一IR定义了网络的逻辑结构和算子的属性，将Min
 
 2. 使用场景
 
-    先使用网络定义和Checkpoint文件导出MindIR模型文件，再根据不同需求执行推理任务，如[在Ascend 310上执行推理任务](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/multi_platform_inference_ascend_310_mindir.html)、[基于MindSpore Serving部署推理服务](https://www.mindspore.cn/serving/docs/zh-CN/master/serving_example.html)、[端侧推理](https://www.mindspore.cn/lite/docs/zh-CN/master/index.html)。
+    先使用网络定义和Checkpoint文件导出MindIR模型文件，再根据不同需求执行推理任务，如[在Ascend 310上执行推理任务](https://www.mindspore.cn/tutorials/experts/zh-CN/master/model_infer/inference_ascend_310_mindir.html)、[基于MindSpore Serving部署推理服务](https://www.mindspore.cn/serving/docs/zh-CN/master/serving_example.html)、[端侧推理](https://www.mindspore.cn/lite/docs/zh-CN/master/index.html)。

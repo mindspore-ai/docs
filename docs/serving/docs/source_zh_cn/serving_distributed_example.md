@@ -68,7 +68,7 @@ class Net(Cell):
         return x
 ```
 
-使用[distributed_inference.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/export_model/distributed_inference.py)， 配置分布式模型。可以参考[分布式推理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_inference.html)。
+使用[distributed_inference.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/export_model/distributed_inference.py)， 配置分布式模型。可以参考[分布式推理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/distributed_inference.html)。
 
 ```python
 import numpy as np

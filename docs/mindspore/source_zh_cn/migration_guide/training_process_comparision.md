@@ -385,7 +385,7 @@ loss = F.depend(loss, self.optimizer(grads))
 ...
 ```
 
-除了 `TrainOneStepCell`，对于混合精度场景，MindSpore 还提供了带有 [Loss Scale](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/enable_mixed_precision.html) 的 `TrainOneStepWithLossScale`，原理其实是一样的，感兴趣的读者可以阅读混合精度的原理以及查看该方法的实现。
+除了 `TrainOneStepCell`，对于混合精度场景，MindSpore 还提供了带有 [Loss Scale](https://www.mindspore.cn/tutorials/experts/zh-CN/master/others/mixed_precision.html) 的 `TrainOneStepWithLossScale`，原理其实是一样的，感兴趣的读者可以阅读混合精度的原理以及查看该方法的实现。
 
 当我们使用  `TrainOneStepCell` 添加反向网络结构后，仍可以使用 `Model` 类进行封装，但此时不需要再给 `Model` 传入 loss、优化器这两个参数了，因为传入的网络已经包含了正向+反向结构。最后，通过调用  `model.train()` ，开始正常的训练流程。
 

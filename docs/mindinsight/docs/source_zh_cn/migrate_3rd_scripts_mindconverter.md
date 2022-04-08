@@ -364,7 +364,7 @@ model.train(EPOCH_SIZE, dataset)
 
 度量指标（`metric`），可查询[接口映射](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)或自定义实现。
 
-模型推理的代码比较灵活，代码组织风格与MindSpore图模式差异较大，建议自行实现，更多转换方案可参考[编程指南](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/multi_platform_inference_ascend_910.html)。
+模型推理的代码比较灵活，代码组织风格与MindSpore图模式差异较大，建议自行实现，更多转换方案可参考[编程指南](https://www.mindspore.cn/tutorials/experts/zh-CN/master/model_infer/inference_ascend_910.html)。
 
 PyTorch源码如下：
 

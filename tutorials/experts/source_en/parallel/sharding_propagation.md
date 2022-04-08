@@ -6,7 +6,7 @@
 
 ## Background
 
-Distributed operator, Tensor Layout, and Tensor Redistribution are fundamental concepts in op-level parallelism of MindSpore. In [here](https://www.mindspore.cn/docs/programming_guide/en/master/design/distributed_training_design.html#automatic-parallelism), these concepts are introduced by examples. Here, we formally define them.
+Distributed operator, Tensor Layout, and Tensor Redistribution are fundamental concepts in op-level parallelism of MindSpore. In [here](https://www.mindspore.cn/docs/en/master/design/distributed_training_design.html#automatic-parallelism), these concepts are introduced by examples. Here, we formally define them.
 
 In op-level parallelism, we conduct SPMD (Single Program Multiple Data) style parallelism, that is, a single program is produced for all partitions. MindSpore transforms a stand-alone program to a parallel one. The transformation is fine-grained in the sense that each operator in the stand-alone program is substituted by (a) distributed operator(s), guaranteeing that the substitution is mathematically equivalent.
 

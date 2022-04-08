@@ -382,7 +382,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 #### mp.01 训练中存在溢出问题
 
 检查方法：
-当使用[混合精度](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/enable_mixed_precision.html)训练，或者是使用Ascend AI处理器训练时，建议检查是否存在溢出问题。
+当使用[混合精度](https://www.mindspore.cn/tutorials/experts/zh-CN/master/others/mixed_precision.html)训练，或者是使用Ascend AI处理器训练时，建议检查是否存在溢出问题。
 
 使用GPU时，通过[调试器](https://mindspore.cn/mindinsight/docs/zh-CN/master/debugger_online.html#异常现象检查列表)中的“检查张量溢出”监测点可以进行溢出检查。
 
@@ -401,7 +401,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 检查方法：
 
-在使用[混合精度](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/enable_mixed_precision.html)时，一般应确认使能了[DynamicLossScaleManager](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/lossscale.html#dynamiclossscalemanager)或[FixedLossScaleManager](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/lossscale.html#fixedlossscalemanager)，推荐优先使用DynamicLossScaleManager。可以先使用DynamicLossScaleManager或FixedLossScaleManager的默认参数值进行训练，若产生溢出的迭代过多，影响最终精度时，应根据主要的溢出现象，针对性调整loss_scale的值。当主要溢出现象为梯度上溢时，应减小loss_scale的值（可以尝试将原loss_scale值除以2）；当主要溢出现象为梯度下溢时，应增大loss_scale的值（可以尝试将原loss_scale值乘以2）。对于Ascend AI处理器上的训练，其在大部分情况下为混合精度训练。由于Ascend AI处理器计算特性与GPU混合精度计算特性存在差异，LossScaleManager超参也可能需要根据训练情况调整为与GPU上不同的值以保证精度。
+在使用[混合精度](https://www.mindspore.cn/tutorials/experts/zh-CN/master/others/mixed_precision.html)时，一般应确认使能了[DynamicLossScaleManager](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/lossscale.html#dynamiclossscalemanager)或[FixedLossScaleManager](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/lossscale.html#fixedlossscalemanager)，推荐优先使用DynamicLossScaleManager。可以先使用DynamicLossScaleManager或FixedLossScaleManager的默认参数值进行训练，若产生溢出的迭代过多，影响最终精度时，应根据主要的溢出现象，针对性调整loss_scale的值。当主要溢出现象为梯度上溢时，应减小loss_scale的值（可以尝试将原loss_scale值除以2）；当主要溢出现象为梯度下溢时，应增大loss_scale的值（可以尝试将原loss_scale值乘以2）。对于Ascend AI处理器上的训练，其在大部分情况下为混合精度训练。由于Ascend AI处理器计算特性与GPU混合精度计算特性存在差异，LossScaleManager超参也可能需要根据训练情况调整为与GPU上不同的值以保证精度。
 
 检查结论：
 

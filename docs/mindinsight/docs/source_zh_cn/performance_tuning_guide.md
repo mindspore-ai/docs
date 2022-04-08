@@ -60,7 +60,7 @@ MindInsight在性能调优的单卡页面为用户提供了`迭代轨迹`标签�
 
 - 若用户脚本中不存在耗时的自定义逻辑，说明框架将数据从Host侧发送到Device侧耗时较长，请到[MindSpore社区](https://gitee.com/mindspore/mindspore/issues) 进行反馈。
 
-步骤2：跳转到`数据准备详情`页的`数据处理`标签页，观察算子间队列，确定数据处理具体哪个算子存在性能瓶颈。判断原则请见[性能调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#数据准备性能分析) 页面的`数据处理pipeline分析`部分。找到存在性能问题的算子后，可参考[优化数据处理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/optimize_data_processing.html) 页面尝试提高数据处理算子的性能。
+步骤2：跳转到`数据准备详情`页的`数据处理`标签页，观察算子间队列，确定数据处理具体哪个算子存在性能瓶颈。判断原则请见[性能调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#数据准备性能分析) 页面的`数据处理pipeline分析`部分。找到存在性能问题的算子后，可参考[优化数据处理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/data_engine/optimize_data_processing.html) 页面尝试提高数据处理算子的性能。
 
 #### 数据下沉模式
 
@@ -71,7 +71,7 @@ MindInsight在性能调优的单卡页面为用户提供了`迭代轨迹`标签�
 
 步骤2：查看主机队列Size曲线的变化情况。若该队列Size都不是0，说明训练数据从Host发往Device的流程为性能瓶颈点，请到[MindSpore社区](https://gitee.com/mindspore/mindspore/issues) 反馈；否则说明数据处理流程是性能瓶颈点，请参照步骤3继续定位数据处理哪个算子存在性能问题。
 
-步骤3：跳转到`数据准备详情页的数据处理标签页`观察算子间队列，确定数据处理具体哪个算子存在性能瓶颈。判断原则请见[性能调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#数据准备性能分析) 页面的`数据处理pipeline分析`部分。找到存在性能问题的算子后，可参考[优化数据处理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/optimize_data_processing.html) 页面尝试提高数据处理算子的性能。
+步骤3：跳转到`数据准备详情页的数据处理标签页`观察算子间队列，确定数据处理具体哪个算子存在性能瓶颈。判断原则请见[性能调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#数据准备性能分析) 页面的`数据处理pipeline分析`部分。找到存在性能问题的算子后，可参考[优化数据处理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/data_engine/optimize_data_processing.html) 页面尝试提高数据处理算子的性能。
 
 ### 前反向耗时长
 
@@ -127,7 +127,7 @@ MindInsight在性能调优的单卡页面为用户提供了`迭代轨迹`标签�
 步骤3：观察集群页面的迭代拖尾耗时
 
 - 观察是否有某张卡的迭代拖尾耗时明显比其它卡长，通常该情况是由于集群中存在慢节点导致，用户可参考步骤1和步骤2确定是否有慢节点并修复。
-- 若所有卡的迭代拖尾耗时基本相同，且该阶段耗时较长，通常是由于AllReduce集合通信算子耗时长导致。用户可尝试通过修改all_reduce_fusion_config参数，改变[AllReduce融合切分策略](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/auto_parallel.html?highlight=all_reduce_fusion_config) 降低该阶段的耗时。
+- 若所有卡的迭代拖尾耗时基本相同，且该阶段耗时较长，通常是由于AllReduce集合通信算子耗时长导致。用户可尝试通过修改all_reduce_fusion_config参数，改变[AllReduce融合切分策略](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/auto_parallel.html?highlight=all_reduce_fusion_config) 降低该阶段的耗时。
 
 ### 模型并行
 
@@ -145,7 +145,7 @@ MindInsight在性能调优的单卡页面为用户提供了`迭代轨迹`标签�
 步骤3：观察集群页面的纯通信时间
 
 在通过步骤1和步骤2确认没有慢节点的前提下，集群中各卡的纯通信时间应该基本相同。如果该阶段耗时较短，说明由于算子重排布导致的通信时间对性能的影响较小，用户无需考虑对算子切分策略进行优化。否则，用户需要重点分析算子的切分策略是否可以优化。
-在参考如下步骤继续分析前，用户需要对模型并行原理有一定的了解，请参考[分布式训练](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training.html) 了解其基本原理，如下步骤只是辅助用户进行合理性分析，算子切分策略是否有优化空间、如何优化需要用户了解模型并行原理后，结合各自的网络具体分析进行判断。
+在参考如下步骤继续分析前，用户需要对模型并行原理有一定的了解，请参考[分布式训练](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/distributed_training.html) 了解其基本原理，如下步骤只是辅助用户进行合理性分析，算子切分策略是否有优化空间、如何优化需要用户了解模型并行原理后，结合各自的网络具体分析进行判断。
 
 - 若该阶段耗时较长，用户可任意选其中的一张卡，观察其时间线。在时间线中，MindInsight对纯通信时间做了标记，参考下图中的`Pure Communication Op`:
 
