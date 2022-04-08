@@ -39,9 +39,9 @@ PyTorch 官方实现脚本可参考 [torchvision model](https://github.com/pytor
 
 ### 脚本开发前分析
 
-在开始真正的开发脚本前，需要进行对标脚本分析。脚本分析的目的是识别出 MindSpore 与对标框架相比缺失的算子或功能。具体方法可以参考[脚本评估教程](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/script_analysis.html)。
+在开始真正的开发脚本前，需要进行对标脚本分析。脚本分析的目的是识别出 MindSpore 与对标框架相比缺失的算子或功能。具体方法可以参考[脚本评估教程](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/script_analysis.html)。
 
-MindSpore 已支持绝大多数常用 [功能](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/index.html) 和 [算子](https://www.mindspore.cn/docs/note/zh-CN/master/operator_list.html)。MindSpore 既支持动态图（PyNative）模式，又支持静态图（Graph）模式，动态图模式灵活、易于调试，因此动态图模式主要用于网络调试，静态图模式性能好，主要用于整网训练，在分析缺失算子和功能时，要分别分析这两种模式。
+MindSpore 已支持绝大多数常用 [功能](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/index.html) 和 [算子](https://www.mindspore.cn/docs/zh-CN/master/note/operator_list.html)。MindSpore 既支持动态图（PyNative）模式，又支持静态图（Graph）模式，动态图模式灵活、易于调试，因此动态图模式主要用于网络调试，静态图模式性能好，主要用于整网训练，在分析缺失算子和功能时，要分别分析这两种模式。
 
 如果发现有缺失的算子和功能，首先可考虑基于当前算子或功能来组合出缺失的算子和功能，对于主流的 CV 和 NLP 类网络，新的缺失算子一般都可以通过组合已有算子的方式来解决。
 
@@ -89,7 +89,7 @@ PyTorch 实现的 ResNet50 脚本参考 [torchvision model](https://github.com/p
 | `nn.Linear`            | `nn.Dense`         | 是                     |
 | `torch.flatten`        | `nn.Flatten`       | 是                     |
 
-注：对于 PyTorch 脚本，MindSpore 提供了 [PyTorch 算子映射工具](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html)，可直接查询该算子是否支持。
+注：对于 PyTorch 脚本，MindSpore 提供了 [PyTorch 算子映射工具](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)，可直接查询该算子是否支持。
 
 - 功能分析
 
@@ -214,7 +214,7 @@ def create_dataset(dataset_path, batch_size=32, rank_size=1, rank_id=0, do_train
 
 基于以上子网划分，我们结合 MindSpore 语法，重新完成上述开发。
 
-权重初始化可参考 [MindSpore 已定义的权重初始化方法](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.common.initializer.html?highlight=common%20initializer#)：
+权重初始化可参考 [MindSpore 已定义的权重初始化方法](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.common.initializer.html?highlight=common%20initializer#)：
 
 重新开发 conv3x3 和 conv1x1
 
@@ -491,7 +491,7 @@ group_params = [{'params': decayed_params, 'weight_decay': weight_decay},
 opt = Momentum(group_params, lr, momentum)
 ```
 
-实现 cosine LR schedule，可以参考 [MindSpore Cosine Decay LR](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.cosine_decay_lr.html)
+实现 cosine LR schedule，可以参考 [MindSpore Cosine Decay LR](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.cosine_decay_lr.html)
 
 定义 Loss 函数和实现 Label Smoothing：
 
@@ -772,7 +772,7 @@ if __name__ == '__main__':
 
 ### 问题定位
 
-在流程打通中可能会遇到一些中断训练的问题，可以参考 [网络训练调试教程](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/neural_network_debug.html) 定位和解决。
+在流程打通中可能会遇到一些中断训练的问题，可以参考 [网络训练调试教程](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/neural_network_debug.html) 定位和解决。
 
 ### 完整示例
 
@@ -813,7 +813,7 @@ profiler.analyse()
 
 关于Profiling更详细的使用方法，可以参考 [Profiling 性能分析方法](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling.html)。
 
-获取到 Profiling 数据后，我们需要分析出性能瓶颈的阶段和算子，然后对其进行优化，分析的过程可以参考 [性能调优指导](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/performance_optimization.html)。
+获取到 Profiling 数据后，我们需要分析出性能瓶颈的阶段和算子，然后对其进行优化，分析的过程可以参考 [性能调优指导](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/performance_optimization.html)。
 
 ### 常见问题及相应优化方法
 

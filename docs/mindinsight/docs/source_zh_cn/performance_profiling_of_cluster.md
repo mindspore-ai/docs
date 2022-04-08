@@ -398,7 +398,7 @@ pip install /usr/local/Ascend/latest/tools/hccl_parser-{version}-py3-none-any.wh
 
   > 控制step数目可以通过控制训练数据集的大小来实现，如`mindspore.dataset.MindDataset`类中的`num_samples`参数可以控制数据集大小，详情参考：
   >
-  > <https://www.mindspore.cn/docs/api/zh-CN/master/api_python/dataset/mindspore.dataset.MindDataset.html>
+  > <https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.MindDataset.html>
 
 ## 注意事项
 

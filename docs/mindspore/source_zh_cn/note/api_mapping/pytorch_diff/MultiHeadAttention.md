@@ -19,7 +19,7 @@ class mindspore.nn.transformer.MultiHeadAttention(batch_size, src_seq_length, tg
 )
 ```
 
-更多内容详见[mindspore.nn.transformer.MultiHeadAttention](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.nn.transformer.html#mindspore.nn.transformer.MultiHeadAttention)。
+更多内容详见[mindspore.nn.transformer.MultiHeadAttention](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.transformer.html#mindspore.nn.transformer.MultiHeadAttention)。
 
 ## 使用方式
 

@@ -35,7 +35,7 @@ class mindspore.dataset.GeneratorDataset(
 )
 ```
 
-For more information, see [mindspore.dataset.GeneratorDataset](https://www.mindspore.cn/docs/api/en/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset).
+For more information, see [mindspore.dataset.GeneratorDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset).
 
 ## Differences
 

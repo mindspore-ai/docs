@@ -18,7 +18,7 @@ class mindspore.nn.transformer.TransformerEncoderLayer(batch_size, hidden_size, 
 )
 ```
 
-更多内容详见[mindspore.nn.transformer.TransformerEncoderLayer](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.nn.transformer.html#mindspore.nn.transformer.TransformerEncoderLayer)。
+更多内容详见[mindspore.nn.transformer.TransformerEncoderLayer](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.transformer.html#mindspore.nn.transformer.TransformerEncoderLayer)。
 
 ## 使用方式
 

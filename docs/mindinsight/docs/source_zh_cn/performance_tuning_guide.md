@@ -13,7 +13,7 @@ MindInsight从单机和集群的角度分别提供了多项指标，用于帮助
 
 [集群性能调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_of_cluster.html)
 
-用户可以结合实际的[调优案例](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/performance_optimization.html) 阅读本文，理解起来更加直观。
+用户可以结合实际的[调优案例](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/performance_optimization.html) 阅读本文，理解起来更加直观。
 
 ## 单卡性能调优
 
@@ -99,7 +99,7 @@ MindInsight在性能调优的单卡页面为用户提供了`迭代轨迹`标签�
 - 慢节点：由于集合通信算子是同步执行的，若集群中存在慢节点，则会由于木桶效应，拖累整个集群的性能。
 - 慢链路：若集群中某些链路存在问题，带宽较小，会影响集群通信的时长从而拖累整个集群的性能。
 - 切分不合理：主要针对模型并行和流水线并行。
-    - 对于模型并行，如果前后两个算子切分策略不一致会导致自动插入[重排布](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/design/distributed_training_design.html) ，此时会增加通信算子以完成数据转换，而过多的通信是影响集群性能的主要因素。理想情况下，通信耗时越短越好，当纯通信时长(只有通信算子执行的时间段，通信算子与计算算子并行执行的时间段由于通信时间隐藏在了计算算子执行的时间内可不用关注)占据总时长的比例较大时，用户需要考虑优化算子切分策略，避免引入重排布，从而使得通信耗时增加。
+    - 对于模型并行，如果前后两个算子切分策略不一致会导致自动插入[重排布](https://www.mindspore.cn/docs/zh-CN/master/design/distributed_training_design.html) ，此时会增加通信算子以完成数据转换，而过多的通信是影响集群性能的主要因素。理想情况下，通信耗时越短越好，当纯通信时长(只有通信算子执行的时间段，通信算子与计算算子并行执行的时间段由于通信时间隐藏在了计算算子执行的时间内可不用关注)占据总时长的比例较大时，用户需要考虑优化算子切分策略，避免引入重排布，从而使得通信耗时增加。
     - 对于流水线并行，由于会将不同的层切分到不同的stage里，如果stage切分不合理会使得各stage上的计算量不均衡，最终导致stage间由于不同步而产生额外的数据等待时间（表现为Receive通信算子的耗时长，该通信算子用于接收其他stage发送的数据），因此需要调整每个stage的计算量到尽量接近平均值。
 
 针对如上影响集群性能的主要因素，MindInsight为数据并行、模型并行、流水线并行分别提供了不同的指标，以帮助用户快速发现集群中的性能瓶颈点。影响集群性能的还可能包括卡的性能、节点网络结构、CPU资源、内存资源等硬件因素，请结合训练场景具体分析原因。

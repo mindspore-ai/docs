@@ -34,7 +34,7 @@
 
 > 数据集切分仅支持全/半自动模式，在数据并行模式下不涉及。
 
-使用数据集切分时，需要同时调用数据集的[SlicePatches](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.SlicePatches.html)接口去构造数据集，并且，为了保证各卡读入数据一致，需要对数据集固定随机数种子。
+使用数据集切分时，需要同时调用数据集的[SlicePatches](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.SlicePatches.html)接口去构造数据集，并且，为了保证各卡读入数据一致，需要对数据集固定随机数种子。
 
 数据集定义部分如下。
 

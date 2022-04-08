@@ -18,7 +18,7 @@ tf.clip_by_value(
 mindspore.Tensor.clip(xmin, xmax, dtype=None)
 ```
 
-更多内容详见[mindspore.Tensor.clip](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore/mindspore.Tensor.html#mindspore.Tensor.clip)。
+更多内容详见[mindspore.Tensor.clip](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Tensor.html#mindspore.Tensor.clip)。
 
 ## 使用方式
 

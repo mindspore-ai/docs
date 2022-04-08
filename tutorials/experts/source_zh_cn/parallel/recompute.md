@@ -41,7 +41,7 @@ MindSpore根据正向图计算流程来自动推导出反向图，正向图和�
 
 我们可以通过调用两种接口去配置重计算，以`src/resnet.py`为例：
 
-1. 调用`Primitive`的[recompute接口](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.recompute)，调用该接口之后，在计算反向部分时，该算子会被重新计算。
+1. 调用`Primitive`的[recompute接口](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.recompute)，调用该接口之后，在计算反向部分时，该算子会被重新计算。
 
    ```python
    class ResNet(nn.Cell):
@@ -62,7 +62,7 @@ MindSpore根据正向图计算流程来自动推导出反向图，正向图和�
            ...
    ```
 
-2. 调用`Cell`的[recompute接口](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.recompute)，调用该接口之后，在计算反向部分时，除了该Cell的输出算子，Cell里面其他的所有算子以及子Cell里面的所有算子都会被重新计算。
+2. 调用`Cell`的[recompute接口](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.recompute)，调用该接口之后，在计算反向部分时，除了该Cell的输出算子，Cell里面其他的所有算子以及子Cell里面的所有算子都会被重新计算。
 
    ```python
    class ResNet(nn.Cell):

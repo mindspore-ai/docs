@@ -53,11 +53,11 @@
 
   网络流程调试过程中，常出现shape不匹配、dtype不支持等算子执行报错，此时应根据报错信息检查是否正确使用算子，以及算子输入数据的shape是否与预期相符，并进行相应修改。
 
-  相关算子支持和API介绍可参考[算子支持列表](https://www.mindspore.cn/docs/note/zh-CN/master/operator_list.html)和[算子Python API](https://www.mindspore.cn/docs/api/zh-CN/master/index.html)。
+  相关算子支持和API介绍可参考[算子支持列表](https://www.mindspore.cn/docs/zh-CN/master/note/operator_list.html)和[算子Python API](https://www.mindspore.cn/docs/zh-CN/master/index.html)。
 
 - 相同脚本，在PyNative模式下能跑通，但Graph模式下报错
 
-  MindSpore的Graph模式下，`construct`函数中的代码由MindSpore框架进行解析，有一些Python语法还未支持，因此导致报错。此时应当根据报错信息按照[MindSpore的语法说明](https://www.mindspore.cn/docs/note/zh-CN/master/static_graph_syntax_support.html)修改相关代码。
+  MindSpore的Graph模式下，`construct`函数中的代码由MindSpore框架进行解析，有一些Python语法还未支持，因此导致报错。此时应当根据报错信息按照[MindSpore的语法说明](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html)修改相关代码。
 
 - 分布式并行训练脚本配置错误
 
@@ -139,7 +139,7 @@
 
 - 自定义学习率
 
-   MindSpore提供了一些常见的动态学习率实现以及一些常见的具有自适应学习率调整功能的优化器，可参考API文档中的[Dynamic Learning Rate](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.nn.html#dynamic-learning-rate)和[Optimizer Functions](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.nn.html#optimizer-functions)。
+   MindSpore提供了一些常见的动态学习率实现以及一些常见的具有自适应学习率调整功能的优化器，可参考API文档中的[Dynamic Learning Rate](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.html#dynamic-learning-rate)和[Optimizer Functions](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.html#optimizer-functions)。
 
    同时，用户可实现自定义的动态学习率，以WarmUpLR为例：
 

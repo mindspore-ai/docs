@@ -41,9 +41,9 @@ The main purpose of reproducing the single Step results is for the next script d
 
 ### Pre-script Development Analysis
 
-Before starting the actual script development, a benchmark script analysis is performed. The purpose of the script analysis is to identify missing operators or features in MindSpore compared to the benchmark framework. The methodology can be found in the [Script Evaluation Tutorial](https://www.mindspore.cn/docs/migration_guide/en/master/script_analysis.html).
+Before starting the actual script development, a benchmark script analysis is performed. The purpose of the script analysis is to identify missing operators or features in MindSpore compared to the benchmark framework. The methodology can be found in the [Script Evaluation Tutorial](https://www.mindspore.cn/docs/en/master/migration_guide/script_analysis.html).
 
-MindSpore supports most of the common [functions](https://www.mindspore.cn/docs/programming_guide/en/master/index.html) and [operators](https://www.mindspore.cn/docs/note/en/master/operator_list.html). MindSpore supports both dynamic graph (PyNative) mode and static graph (Graph) mode. Dynamic graph mode is flexible and easy to debug, so dynamic graph mode is mainly used for network debugging. Static graph mode has good performance and is mainly used for whole network training. When analyzing missing operators and functions, these two modes should be analyzed separately.
+MindSpore supports most of the common [functions](https://www.mindspore.cn/docs/programming_guide/en/master/index.html) and [operators](https://www.mindspore.cn/docs/en/master/note/operator_list.html). MindSpore supports both dynamic graph (PyNative) mode and static graph (Graph) mode. Dynamic graph mode is flexible and easy to debug, so dynamic graph mode is mainly used for network debugging. Static graph mode has good performance and is mainly used for whole network training. When analyzing missing operators and functions, these two modes should be analyzed separately.
 
 If missing operators and functions are found, we can first consider combining the missing operators and functions based on the current operators or functions, and for mainstream CV and NLP class networks, new missing operators can generally be solved by combining existing operators.
 
@@ -216,7 +216,7 @@ Analyzing the ResNet50 network code, it can be divided into the following main s
 
 Based on the above subnetwork division, we redevelop the above development in conjunction with MindSpore syntax.
 
-For weight initialization, directly see [MindSpore's defined weight initialization methods](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.common.initializer.html).
+For weight initialization, directly see [MindSpore's defined weight initialization methods](https://www.mindspore.cn/docs/en/master/api_python/mindspore.common.initializer.html).
 
 Redeveloping conv3x3 and conv1x1
 
@@ -493,7 +493,7 @@ group_params = [{'params': decayed_params, 'weight_decay': weight_decay},
 opt = Momentum(group_params, lr, momentum)
 ```
 
-For implementing cosine LR schedule, reference on [MindSpore Cosine Decay LR](https://www.mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.cosine_decay_lr.html)
+For implementing cosine LR schedule, reference on [MindSpore Cosine Decay LR](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.cosine_decay_lr.html)
 
 Define Loss Function and implement Label Smoothing.
 
@@ -777,7 +777,7 @@ if __name__ == '__main__':
 
 ### Problem Location
 
-You may encounter some interruptions in the training during the process, you can refer to the [Network Training Debug Tutorial](https://www.mindspore.cn/docs/migration_guide/en/master/neural_network_debug.html) to locate and solve them.
+You may encounter some interruptions in the training during the process, you can refer to the [Network Training Debug Tutorial](https://www.mindspore.cn/docs/en/master/migration_guide/neural_network_debug.html) to locate and solve them.
 
 ### Full Example
 
@@ -818,7 +818,7 @@ profiler.analyse()
 
 For more detailed usage of Profiling, you can refer to [Profiling Performance Analysis Methods](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling.html).
 
-After obtaining Profiling data, we can analyze the performance bottleneck stages and operators, and then perform performance optimization, which can be referred to [Performance Tuning Guide](https://www.mindspore.cn/docs/migration_guide/en/master/performance_optimization.html).
+After obtaining Profiling data, we can analyze the performance bottleneck stages and operators, and then perform performance optimization, which can be referred to [Performance Tuning Guide](https://www.mindspore.cn/docs/en/master/migration_guide/performance_optimization.html).
 
 ### Common Problems and Corresponding Optimization Methods
 

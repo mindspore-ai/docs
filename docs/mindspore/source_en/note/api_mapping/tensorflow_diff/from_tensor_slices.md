@@ -28,7 +28,7 @@ class mindspore.dataset.NumpySlicesDataset(
 )
 ```
 
-For more information, see [mindspore.dataset.NumpySlicesDataset](https://www.mindspore.cn/docs/api/en/master/api_python/dataset/mindspore.dataset.NumpySlicesDataset.html#mindspore.dataset.NumpySlicesDataset).
+For more information, see [mindspore.dataset.NumpySlicesDataset](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.NumpySlicesDataset.html#mindspore.dataset.NumpySlicesDataset).
 
 ## Differences
 

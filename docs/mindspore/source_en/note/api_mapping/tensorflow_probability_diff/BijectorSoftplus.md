@@ -24,7 +24,7 @@ class mindspore.nn.probability.bijector.Softplus(
 )
 ```
 
-For more information, see [mindspore.nn.probability.bijector.Softplus](https://www.mindspore.cn/docs/api/en/master/api_python/nn_probability/mindspore.nn.probability.bijector.Softplus.html).
+For more information, see [mindspore.nn.probability.bijector.Softplus](https://www.mindspore.cn/docs/en/master/api_python/nn_probability/mindspore.nn.probability.bijector.Softplus.html).
 
 ## Differences
 

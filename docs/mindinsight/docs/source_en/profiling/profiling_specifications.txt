@@ -10,7 +10,7 @@ Specifications
      training dataset. For example, the ``num_samples`` parameter in
      ``mindspore.dataset.MindDataset`` can control the size of the
      dataset. For details, please refer to:
-     https://www.mindspore.cn/docs/api/en/master/api_python/dataset/mindspore.dataset.MindDataset.html
+     https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.MindDataset.html
 
 - The parse of Timeline data is time consuming, and usually the data of
   a few steps is enough to analyze the results. In order to speed up

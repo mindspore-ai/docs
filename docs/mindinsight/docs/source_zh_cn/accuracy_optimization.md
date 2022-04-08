@@ -103,7 +103,7 @@
 
          2. 构图时未遵循MindSpore construct约束。
 
-             构图未遵循mindspore construct约束，是指图模式下的网络未遵循MindSpore静态图语法支持中声明的约束。例如，MindSpore目前不支持对带键值对参数的函数求反向。完整约束请见[静态图语法支持](https://www.mindspore.cn/docs/note/zh-CN/master/static_graph_syntax_support.html)。
+             构图未遵循mindspore construct约束，是指图模式下的网络未遵循MindSpore静态图语法支持中声明的约束。例如，MindSpore目前不支持对带键值对参数的函数求反向。完整约束请见[静态图语法支持](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html)。
 
     - 计算图结构问题
 
@@ -327,7 +327,7 @@ MindInsight可以辅助用户对输入数据、数据处理流水线进行检查
 
 *图9 通过MindInsight参数分布图可以查看训练过程中的权重变化情况*
 
-大多数情况下，`SummaryCollector`会自动记录模型参数变化情况（默认记录5个参数），可以通过MindInsight的参数分布图模块查看。如果想要记录更多参数的参数分布图，请参考[SummaryCollector](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.train.html#mindspore.train.callback.SummaryCollector)的`histogram_regular`参数，或参考[HistogramSummary](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/summary_record.html#summarysummarycollector)算子。
+大多数情况下，`SummaryCollector`会自动记录模型参数变化情况（默认记录5个参数），可以通过MindInsight的参数分布图模块查看。如果想要记录更多参数的参数分布图，请参考[SummaryCollector](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.train.html#mindspore.train.callback.SummaryCollector)的`histogram_regular`参数，或参考[HistogramSummary](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/summary_record.html#summarysummarycollector)算子。
 
 ![tensor](./images/tensor.png)
 
@@ -550,11 +550,11 @@ batch size是指一次训练，也即一次前向传播、反向传播、权重�
 
 #### 动量值的选择和优化
 
-当使用带有动量的优化器（例如[Momentum](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Momentum.html#mindspore.nn.Momentum)）时，动量和学习率一般应朝相反的方向调整，不同动量下的最佳学习率不同。当使用循环学习率时，同样推荐按照相反的方向循环变化动量值 ，也即，当学习率从大到小变化时，动量应从小到大变化。当学习率固定时，动量值也应保持固定。
+当使用带有动量的优化器（例如[Momentum](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Momentum.html#mindspore.nn.Momentum)）时，动量和学习率一般应朝相反的方向调整，不同动量下的最佳学习率不同。当使用循环学习率时，同样推荐按照相反的方向循环变化动量值 ，也即，当学习率从大到小变化时，动量应从小到大变化。当学习率固定时，动量值也应保持固定。
 
 #### 权重衰减参数的选择和优化
 
-权重衰减（weight decay）是指在在模型训练过程中对目标代价函数增加一个L2参数范数惩罚，权重衰减参数控制这一惩罚项的系数，请参考[SGD](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.SGD.html#mindspore.nn.SGD)优化器的weight_decay参数。实验证明，权重衰减参数最好在训练过程中保持恒定。0.001/0.0001/0.00001都是常见的取值。当数据集较小、模型深度较浅时，推荐使用大一些的参数值，当数据集较大、模型深度较深时，推荐使用小一些的参数值。这可能是因为，较大的数据集本身便提供了某种程度的正则化，从而降低了需要权重衰减提供的正则化。
+权重衰减（weight decay）是指在在模型训练过程中对目标代价函数增加一个L2参数范数惩罚，权重衰减参数控制这一惩罚项的系数，请参考[SGD](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.SGD.html#mindspore.nn.SGD)优化器的weight_decay参数。实验证明，权重衰减参数最好在训练过程中保持恒定。0.001/0.0001/0.00001都是常见的取值。当数据集较小、模型深度较浅时，推荐使用大一些的参数值，当数据集较大、模型深度较深时，推荐使用小一些的参数值。这可能是因为，较大的数据集本身便提供了某种程度的正则化，从而降低了需要权重衰减提供的正则化。
 
 ### 多卡训练调优建议
 
@@ -602,7 +602,7 @@ Xie, Z., Sato, I., & Sugiyama, M. (2020). A Diffusion Theory For Deep Learning D
 
 对数据进行标准化、归一化、通道转换等操作，在图片数据处理上，增加随机视野图片，随机旋转度图片等，另外数据混洗、batch和数据倍增等操作，可参考[数据处理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/pipeline.html)、[数据增强](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/augmentation.html)和[自动数据增强](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/auto_augmentation.html)。
 
-> 如何将数据增强增强操作应用到自定义数据集中，可以参考[mindspore.dataset.GeneratorDataset.map](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset.map)算子。
+> 如何将数据增强增强操作应用到自定义数据集中，可以参考[mindspore.dataset.GeneratorDataset.map](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset.map)算子。
 
 ### 超参问题处理
 
@@ -614,6 +614,6 @@ AI训练中的超参包含全局学习率，epoch和batch等，如果需要在�
 
 需要重构模型结构时，可参考资料：[Cell构建及其子类](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/cell.html)。
 
-选择合适的损失函数，可参考资料：[损失函数算子支持列表](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.nn.html#loss-functions)。
+选择合适的损失函数，可参考资料：[损失函数算子支持列表](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.html#loss-functions)。
 
-选择合适的优化器时，可参考资料：[优化器算子支持列表](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.nn.html#optimizer-functions)。
+选择合适的优化器时，可参考资料：[优化器算子支持列表](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.html#optimizer-functions)。

@@ -164,7 +164,7 @@ print(out)
 第8行告诉我们该网络解析出来的图的数量，该IR文件展示了三张图的信息。 分别为第42行的入口图`1_construct_wrapper.21`；第32行的图`3_func.23`，对应着网络中定义的函数`func(x, y)`；第12行的图`2_construct.22`，即对应`construct`函数。
 对于具体的图来说（此处我们以图`2_construct.22`为例），第10-28行展示了图结构的信息，图中含有若干个节点，即`CNode`。该图包含`Sub`、`Add`、`Mul`这些已经在`__init___`函数中定义过的算子。另外还有一处（第19行）以`call @3_func.23`的形式，调用了图`3_func.23`，对应脚本中调用函数`func`执行两数相除的行为。
 
-`CNode`（[ANF-IR的设计请查看](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/design/mindir.html#文法定义)）的信息遵循如下格式，从左到右分别为序号、节点名称-debug_name、算子名称-op_name、输入节点-arg、节点的属性-primitive_attrs、输入和输出的规格、源码解析调用栈等信息。
+`CNode`（[ANF-IR的设计请查看](https://www.mindspore.cn/docs/zh-CN/master/design/mindir.html#文法定义)）的信息遵循如下格式，从左到右分别为序号、节点名称-debug_name、算子名称-op_name、输入节点-arg、节点的属性-primitive_attrs、输入和输出的规格、源码解析调用栈等信息。
 由于ANF图为单向无环图，所以此处仅根据输入关系来体现节点与节点的连接关系。关联代码行则体现了`CNode`与脚本源码之间的关系，例如第15行表明该节点是由脚本中`a = self.sub(x, 1)`这一行解析而来。
 
 ```text
@@ -257,7 +257,7 @@ print(out)
 第34-39表示图中计算节点的执行序，与代码执行的先后顺序对应。格式为：`序号: 所属图名称:节点名称{[0]: 第一个输入的信息, [1]: 第二个输入的信息, ...}`。 对于`CNode`而言，第一个输入表示该节点承载的计算方式。
 第58行表示图的数量，此处为3。
 
-`CNode`（[ANF-IR的设计请查看](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/design/mindir.html#文法定义)）的信息遵循如下格式，从左到右分别为序号、输出规格、算子名称-op_name、节点的属性-attr、输入节点-arg、输入节点的规格、所在的命名空间、关联代码行等信息。
+`CNode`（[ANF-IR的设计请查看](https://www.mindspore.cn/docs/zh-CN/master/design/mindir.html#文法定义)）的信息遵循如下格式，从左到右分别为序号、输出规格、算子名称-op_name、节点的属性-attr、输入节点-arg、输入节点的规格、所在的命名空间、关联代码行等信息。
 
 ```text
 %[序号] : [输出规格] = [op_name]{[prim_type]}[attr0, attr1, ...](arg0, arg1, ...)    #(输入参数规格)#[命名空间]

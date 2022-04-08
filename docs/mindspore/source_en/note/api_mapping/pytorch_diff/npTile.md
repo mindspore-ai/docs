@@ -16,7 +16,7 @@ For more information, see [torch.Tensor.repeat](https://pytorch.org/docs/1.5.0/t
 mindspore.numpy.tile(a, reps)
 ```
 
-For more information, see [mindspore.numpy.tile](https://www.mindspore.cn/docs/api/en/master/api_python/numpy/mindspore.numpy.tile.html#mindspore.numpy.tile).
+For more information, see [mindspore.numpy.tile](https://www.mindspore.cn/docs/en/master/api_python/numpy/mindspore.numpy.tile.html#mindspore.numpy.tile).
 
 ## Differences
 

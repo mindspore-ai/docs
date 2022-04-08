@@ -16,7 +16,7 @@ torch.Tensor.flatten(input, start_dim=0, end_dim=-1)
 mindspore.Tensor.flatten(order="C")
 ```
 
-更多内容详见[mindspore.Tensor.flatten](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore/mindspore.Tensor.html#mindspore.Tensor.flatten)。
+更多内容详见[mindspore.Tensor.flatten](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Tensor.html#mindspore.Tensor.flatten)。
 
 ## 使用方式
 

@@ -343,7 +343,7 @@ class MomentumOpt(nn.Optimizer):
 
 ## API映射
 
-MindSpore和PyTorch的API对应关系和差异可以参考[API映射](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html)，其余暂时没有对应关系的接口目前情况如下：
+MindSpore和PyTorch的API对应关系和差异可以参考[API映射](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)，其余暂时没有对应关系的接口目前情况如下：
 
 ```python
 # PyTorch

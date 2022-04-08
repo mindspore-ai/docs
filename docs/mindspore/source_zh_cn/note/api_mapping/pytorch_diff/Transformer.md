@@ -19,7 +19,7 @@ class mindspore.nn.transformer.Transformer(hidden_size, batch_size, ffn_hidden_s
 )
 ```
 
-更多内容详见[mindspore.nn.transformer.Transformer](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.nn.transformer.html#mindspore.nn.transformer.Transformer)。
+更多内容详见[mindspore.nn.transformer.Transformer](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.transformer.html#mindspore.nn.transformer.Transformer)。
 
 ## 使用方式
 

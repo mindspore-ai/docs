@@ -40,7 +40,7 @@ mindspore.nn.ExponentialDecayLR(
 )
 ```
 
-更多内容详见[mindspore.nn.ExponentialDecayLR](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.ExponentialDecayLR.html#mindspore.nn.ExponentialDecayLR)。
+更多内容详见[mindspore.nn.ExponentialDecayLR](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.ExponentialDecayLR.html#mindspore.nn.ExponentialDecayLR)。
 
 ## 使用方式
 

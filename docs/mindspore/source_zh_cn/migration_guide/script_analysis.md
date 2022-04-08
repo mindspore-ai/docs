@@ -28,17 +28,17 @@ MindSpore API由各种Python/C++ API算子组成，可以大致分为：
 
 ### 查询算子映射表
 
-在代码库找到网络结构及实现训练功能的Python文件（名称一般为train.py model.py等等），在脚本文件中查找所有相关算子（含数据框架类、数据预处理、网络结构算子），并与[MindSpore算子API](https://www.mindspore.cn/docs/note/zh-CN/master/operator_list_ms.html)对比，查找`mindspore.nn`或者`mindspore.ops`下算子的平台支持情况。
+在代码库找到网络结构及实现训练功能的Python文件（名称一般为train.py model.py等等），在脚本文件中查找所有相关算子（含数据框架类、数据预处理、网络结构算子），并与[MindSpore算子API](https://www.mindspore.cn/docs/zh-CN/master/note/operator_list_ms.html)对比，查找`mindspore.nn`或者`mindspore.ops`下算子的平台支持情况。
 
-若该网页均未能找到对应的ME算子，则可继续在[MindSpore API列表](https://www.mindspore.cn/docs/api/zh-CN/master/index.html)中搜索算子名称。
+若该网页均未能找到对应的ME算子，则可继续在[MindSpore API列表](https://www.mindspore.cn/docs/zh-CN/master/index.html)中搜索算子名称。
 
-若源码为PyTorch脚本，则可以直接查询[MindSpore与PyTorch的算子映射](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html)找到对应的MindSpore算子。其他框架算子的映射可以参考算子命名与功能描述。注意，针对相同功能的算子，MindSpore的命名可能与其他框架不同，同名算子参数与功能也可能与其他框架有区别，均以官方描述为准。
+若源码为PyTorch脚本，则可以直接查询[MindSpore与PyTorch的算子映射](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)找到对应的MindSpore算子。其他框架算子的映射可以参考算子命名与功能描述。注意，针对相同功能的算子，MindSpore的命名可能与其他框架不同，同名算子参数与功能也可能与其他框架有区别，均以官方描述为准。
 
 ### 缺失算子处理策略
 
 1. 考虑用其他算子替换：需要分析算子实现公式，审视是否可以用现有MindSpore算子叠加达到预期目标。
 2. 考虑使用自定义算子实现：参考[Custom算子的使用指南](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_operator_custom.html)。
-3. 考虑通过自定义算子方式使用其他已有第三方算子库实现：参考[基于自定义算子接口调用第三方算子库](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/use_third_party_op.html)。
+3. 考虑通过自定义算子方式使用其他已有第三方算子库实现：参考[基于自定义算子接口调用第三方算子库](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/use_third_party_op.html)。
 4. 考虑临时规避方案：比如某个loss不支持，可以替换为同类已支持的loss算子。
 5. [在MindSpore社区](https://gitee.com/mindspore/mindspore/issues)提交建议开发缺失算子。
 
@@ -48,7 +48,7 @@ MindSpore提供`GRAPH_MODE`和`PYNATIVE_MODE`两种模式。
 
 PyNative模式下模型进行**推理**的行为与一般Python代码无异。
 
-而在使用GRAPH_MODE时，或使用PYNATIVE_MODE进行**训练**时，通常会出现语法限制。在这两种情况下，需要对Python代码进行图编译操作，而这一步操作中MindSpore目前还未能支持完整的Python语法全集，所以`construct`函数的编写会存在部分限制。具体限制内容可以参考[MindSpore静态图语法](https://www.mindspore.cn/docs/note/zh-CN/master/static_graph_syntax_support.html)。
+而在使用GRAPH_MODE时，或使用PYNATIVE_MODE进行**训练**时，通常会出现语法限制。在这两种情况下，需要对Python代码进行图编译操作，而这一步操作中MindSpore目前还未能支持完整的Python语法全集，所以`construct`函数的编写会存在部分限制。具体限制内容可以参考[MindSpore静态图语法](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html)。
 
 ### 常见限制原则
 

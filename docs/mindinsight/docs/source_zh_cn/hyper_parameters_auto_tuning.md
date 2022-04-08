@@ -148,7 +148,7 @@ optional arguments:
     (1) 用户需要实例化`HyperConfig`，并使用`HyperConfig`实例的参数变量作为训练脚本中对应参数的取值。  
     (2) 加上`SummaryCollector`来收集训练信息，包括超参和评估指标值等。
 
-    如[Model Zoo](https://www.mindspore.cn/docs/note/zh-CN/master/network_list_ms.html)中的训练脚本：
+    如[Model Zoo](https://www.mindspore.cn/docs/zh-CN/master/note/network_list_ms.html)中的训练脚本：
 
     ```python
     ds_train = create_dataset_cifar10(args.data_path, batch_size)

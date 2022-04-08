@@ -40,13 +40,13 @@ A: The `Conv2d` operator has the following constraint: When the value of `group`
 
 <font size=3>**Q: Does MindSpore support matrix transposition?**</font>
 
-A: Yes. For details, see [mindspore.ops.Transpose](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Transpose.html#mindspore.ops.Transpose).
+A: Yes. For details, see [mindspore.ops.Transpose](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Transpose.html#mindspore.ops.Transpose).
 
 <br/>
 
 <font size=3>**Q: Can MindSpore calculate the variance of any `tensor`?**</font>
 
-A: Currently, MindSpore does not have APIs or operators which can directly calculate the variance of a `tensor`. However, MindSpore has sufficient small operators to support such operations. For details, see [class Moments(Cell)](https://www.mindspore.cn/docs/api/en/master/_modules/mindspore/nn/layer/math.html#Moments).
+A: Currently, MindSpore does not have APIs or operators which can directly calculate the variance of a `tensor`. However, MindSpore has sufficient small operators to support such operations. For details, see [class Moments(Cell)](https://www.mindspore.cn/docs/en/master/_modules/mindspore/nn/layer/math.html#Moments).
 
 <br/>
 
@@ -59,7 +59,7 @@ In MindSpore, you can manually initialize the weight corresponding to the `paddi
 
 <font size=3>**Q: When the `Tile` operator in operations executes `__infer__`, the `value` is `None`. Why is the value lost?**</font>
 
-A: The `multiples input` of the `Tile` operator must be a constant (The value cannot directly or indirectly come from the input of the graph). Otherwise, the `None` data will be obtained during graph composition because the graph input is transferred only during graph execution and the input data cannot be obtained during graph composition. For the detailed imformation, refer to [Static Graph Syntax Support](https://www.mindspore.cn/docs/note/en/master/static_graph_syntax_support.html).
+A: The `multiples input` of the `Tile` operator must be a constant (The value cannot directly or indirectly come from the input of the graph). Otherwise, the `None` data will be obtained during graph composition because the graph input is transferred only during graph execution and the input data cannot be obtained during graph composition. For the detailed imformation, refer to [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html).
 
 <br/>
 

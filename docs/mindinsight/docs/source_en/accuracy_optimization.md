@@ -103,7 +103,7 @@ The causes of accuracy problems can be classified into hyperparameter problems, 
 
          2. The MindSpore constructor constraint is not complied with during graph construction.
 
-             The graph construction does not comply with the MindSpore construct constraints. That is, the network in graph mode does not comply with the constraints declared in the MindSpore static graph syntax support. For example, MindSpore does not support the backward computation of functions with key-value pair parameters. For details about complete constraints, see [Static Graph Syntax Support](https://www.mindspore.cn/docs/note/en/master/static_graph_syntax_support.html).
+             The graph construction does not comply with the MindSpore construct constraints. That is, the network in graph mode does not comply with the constraints declared in the MindSpore static graph syntax support. For example, MindSpore does not support the backward computation of functions with key-value pair parameters. For details about complete constraints, see [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html).
 
     - Computational Graph Structure Problems
 
@@ -325,7 +325,7 @@ In most cases, the `SummaryCollector` automatically records the loss curve of th
 
 *Figure 9 Viewing the weight changes during training through the MindInsight parameter distribution chart*
 
-In most cases, the `SummaryCollector` automatically records the model parameter changes (five parameters by default). You can view the changes in the parameter distribution histogram of MindInsight. If you want to record the parameter distribution histogram of more parameters, see the `histogram_regular` parameter in [SummaryCollector](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.train.html#mindspore.train.callback.SummaryCollector) or the [HistogramSummary](https://www.mindspore.cn/mindinsight/docs/en/master/summary_record.html#summarysummarycollector) operator.
+In most cases, the `SummaryCollector` automatically records the model parameter changes (five parameters by default). You can view the changes in the parameter distribution histogram of MindInsight. If you want to record the parameter distribution histogram of more parameters, see the `histogram_regular` parameter in [SummaryCollector](https://www.mindspore.cn/docs/en/master/api_python/mindspore.train.html#mindspore.train.callback.SummaryCollector) or the [HistogramSummary](https://www.mindspore.cn/mindinsight/docs/en/master/summary_record.html#summarysummarycollector) operator.
 
 ![tensor](./images/tensor.png)
 
@@ -548,11 +548,11 @@ Once the optimal learning rate is found for a batch size, the learning rate need
 
 #### Selection and Optimization of Momentum Values
 
-When an optimizer with momentum (such as [Momentum](https://www.mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Momentum.html#mindspore.nn.Momentum)) is used, the momentum and learning rate should be adjusted in opposite directions. The optimal learning rate varies with the momentum. When the cyclic learning rate is used, it is also recommended that the momentum value be cyclically changed in the opposite direction. That is, when the learning rate changes from large to small, the momentum should change from small to large. When the learning rate is fixed, the momentum value should also be fixed.
+When an optimizer with momentum (such as [Momentum](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Momentum.html#mindspore.nn.Momentum)) is used, the momentum and learning rate should be adjusted in opposite directions. The optimal learning rate varies with the momentum. When the cyclic learning rate is used, it is also recommended that the momentum value be cyclically changed in the opposite direction. That is, when the learning rate changes from large to small, the momentum should change from small to large. When the learning rate is fixed, the momentum value should also be fixed.
 
 #### Selection and Optimization of Weight Decay Parameters
 
-Weight decay indicates that an L2 parameter norm penalty is added to the target cost function during model training. The weight decay parameter controls the coefficient of this penalty item. For details, see the weight_decay parameter in the [SGD](https://www.mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.SGD.html#mindspore.nn.SGD) optimizer. Experiments show that the weight decay parameter is best kept constant in the training process. 0.001, 0.0001, and 0.00001 are common values. If the dataset is small and the model depth is shallow, you are advised to set this parameter to a larger value. If the dataset is large and the model depth is deep, you are advised to set this parameter to a smaller value. This may be because the larger dataset itself provides some degree of regularization, which reduces the need for weight decay to provide regularization.
+Weight decay indicates that an L2 parameter norm penalty is added to the target cost function during model training. The weight decay parameter controls the coefficient of this penalty item. For details, see the weight_decay parameter in the [SGD](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.SGD.html#mindspore.nn.SGD) optimizer. Experiments show that the weight decay parameter is best kept constant in the training process. 0.001, 0.0001, and 0.00001 are common values. If the dataset is small and the model depth is shallow, you are advised to set this parameter to a larger value. If the dataset is large and the model depth is deep, you are advised to set this parameter to a smaller value. This may be because the larger dataset itself provides some degree of regularization, which reduces the need for weight decay to provide regularization.
 
 ### Tuning Suggestions for Multi-Device Training
 
@@ -600,7 +600,7 @@ For details about visualized data analysis during training, see [Viewing Dashboa
 
 Perform operations such as standardization, normalization, and channel conversion on data. For image data processing, add images with random view and rotation. For details about data shuffle, batch, and multiplication, see [Processing Data](https://www.mindspore.cn/docs/programming_guide/en/master/pipeline.html), [Data Argumentation](https://www.mindspore.cn/docs/programming_guide/en/master/augmentation.html), and [Auto Augmentation](https://www.mindspore.cn/docs/programming_guide/en/master/auto_augmentation.html).
 
-> For details about how to apply the data augmentation operation to a custom dataset, see the [mindspore.dataset.GeneratorDataset.map](https://www.mindspore.cn/docs/api/en/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset.map) operator.
+> For details about how to apply the data augmentation operation to a custom dataset, see the [mindspore.dataset.GeneratorDataset.map](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset.map) operator.
 
 ### Hyperparameter Problem Handling
 
@@ -612,6 +612,6 @@ Generally, the following operations are required to solve model structure proble
 
 If the model structure needs to be reconstructed, refer to [Cell](https://www.mindspore.cn/docs/programming_guide/en/master/cell.html).
 
-Select a proper loss function. For details, see [Loss Functions](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.nn.html#loss-functions).
+Select a proper loss function. For details, see [Loss Functions](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#loss-functions).
 
-For details about how to select a proper optimizer, see [Optimizer Functions](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.nn.html#optimizer-functions).
+For details about how to select a proper optimizer, see [Optimizer Functions](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#optimizer-functions).

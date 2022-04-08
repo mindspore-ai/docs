@@ -22,11 +22,11 @@ The training information collection function in MindSpore consists of training i
 
 Training information collection APIs include:
 
-- Training information collection API based on the summary operator. This API contains four summary operators, that is, the ScalarSummary operator for recording scalar data, the ImageSummary operator for recording image data, the HistogramSummary operator for recording parameter distribution histogram data, and the TensorSummary operator for recording tensor data. For details about the operators, see [Operator List](https://www.mindspore.cn/docs/note/en/master/operator_list.html).
+- Training information collection API based on the summary operator. This API contains four summary operators, that is, the ScalarSummary operator for recording scalar data, the ImageSummary operator for recording image data, the HistogramSummary operator for recording parameter distribution histogram data, and the TensorSummary operator for recording tensor data. For details about the operators, see [Operator List](https://www.mindspore.cn/docs/en/master/note/operator_list.html).
 
-- Training information collection API based on the Python API. You can use the [SummaryRecord.add_value](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.train.html#mindspore.train.summary.SummaryRecord.add_value) method to collect training information in Python code.
+- Training information collection API based on the Python API. You can use the [SummaryRecord.add_value](https://www.mindspore.cn/docs/en/master/api_python/mindspore.train.html#mindspore.train.summary.SummaryRecord.add_value) method to collect training information in Python code.
 
-- Easy-to-use training information collection callback. The [SummaryCollector](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.train.html#mindspore.train.callback.SummaryCollector) callback function can be used to conveniently collect common training information to training logs.
+- Easy-to-use training information collection callback. The [SummaryCollector](https://www.mindspore.cn/docs/en/master/api_python/mindspore.train.html#mindspore.train.callback.SummaryCollector) callback function can be used to conveniently collect common training information to training logs.
 
 The training information persistence module mainly includes a summary_record module used to manage a cache and a write_pool module used to process data in parallel and write data into a file. After the training information is made persistent, it is stored in the training log file (summary file).
 

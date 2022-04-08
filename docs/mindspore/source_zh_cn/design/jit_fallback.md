@@ -4,7 +4,7 @@
 
 ## 概述
 
-MindSpore框架支持静态图模式和动态图模式两种方式。在静态图模式下，先将Python代码编译成静态计算图，然后执行静态计算图。由于语法解析的限制，用户编写程序时需要遵循MindSpore[静态图语法支持](https://www.mindspore.cn/docs/note/zh-CN/master/static_graph_syntax_support.html)，语法使用存在约束限制。在动态图模式下，Python代码会通过Python解释器执行，用户可以使用任意Python语法。可以看到，静态图和动态图的编译流程不一致，语法约束限制也不同。关于静态图和动态图的更多介绍，请参考[静态图和动态图](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/design/dynamic_graph_and_static_graph.html)。
+MindSpore框架支持静态图模式和动态图模式两种方式。在静态图模式下，先将Python代码编译成静态计算图，然后执行静态计算图。由于语法解析的限制，用户编写程序时需要遵循MindSpore[静态图语法支持](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html)，语法使用存在约束限制。在动态图模式下，Python代码会通过Python解释器执行，用户可以使用任意Python语法。可以看到，静态图和动态图的编译流程不一致，语法约束限制也不同。关于静态图和动态图的更多介绍，请参考[静态图和动态图](https://www.mindspore.cn/docs/zh-CN/master/design/dynamic_graph_and_static_graph.html)。
 
 JIT Fallback是从静态图的角度出发考虑静态图和动态图的统一。通过JIT Fallback特性，静态图可以支持尽量多的动态图语法，使得静态图提供接近动态图的语法使用体验，从而实现动静统一。为了便于用户选择是否使用JIT Fallback特性的能力，提供了开关`MS_DEV_ENABLE_FALLBACK`，当前默认已经打开。如果需要关闭，可以使用命令：`export MS_DEV_ENABLE_FALLBACK=0`。
 
@@ -60,7 +60,7 @@ TypeError: Not support for this object with type '<class 'builtin_function_or_me
 
 ### 支持在construct/ms_function中创建和使用Tensor
 
-JIT Fallback支持在construct/ms_function中创建和使用[Tensor](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.Tensor.html)，暂不支持Tensor.asnumpy()。
+JIT Fallback支持在construct/ms_function中创建和使用[Tensor](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Tensor.html)，暂不支持Tensor.asnumpy()。
 
 代码用例如下。因为静态图模式不支持在construct/ms_function中创建Tensor对象，用例中的`tensor_num = Tensor(np.array(9))`将会通过JIT Fallback使用Python解释器进行解释执行。
 
@@ -105,7 +105,7 @@ TypeError: Not support for this object with type '<class 'builtin_function_or_me
 
 ### 支持在construct/ms_function使用print打印
 
-在常量场景中，通过JIT Fallback特性使用Python原生的print来打印常量，与图模式中使用[print算子](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Print.html)来打印信息的时机有所不同。Python原生print是在编译过程中触发打印，而图模式调用算子打印是需要图中所有节点构图结束后下发到设备端运行才打印。
+在常量场景中，通过JIT Fallback特性使用Python原生的print来打印常量，与图模式中使用[print算子](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Print.html)来打印信息的时机有所不同。Python原生print是在编译过程中触发打印，而图模式调用算子打印是需要图中所有节点构图结束后下发到设备端运行才打印。
 
 为了便于理解，举例如下。tensor_sum是由两个Tensor变量相加得到结果，需要在运行阶段才可以得到结果，即需要使用图模式中的print算子打印信息；而np_sum是由两个NumPy常量对象相加得到结果，即在编译阶段使用Python原生print能力来打印信息。导致最终显示np_sum会在tensor_sum之前，这是编译时运行方式和运行时运行方式的区别。
 

@@ -4,5 +4,5 @@
 
 You can choose the operators that are suitable for your hardware platform for building the network model according to your needs.
 
-- Supported operator lists in module `mindspore.nn` could be checked on [API page of mindspore.nn](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.nn.html).
-- Supported operator lists in module `mindspore.ops` could be checked on [API page of mindspore.ops](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.ops.html).
+- Supported operator lists in module `mindspore.nn` could be checked on [API page of mindspore.nn](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html).
+- Supported operator lists in module `mindspore.ops` could be checked on [API page of mindspore.ops](https://www.mindspore.cn/docs/en/master/api_python/mindspore.ops.html).

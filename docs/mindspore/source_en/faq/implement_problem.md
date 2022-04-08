@@ -65,7 +65,7 @@ res = model.eval(dataset)
 
 <font size=3>**Q: How do I use `param_group` in SGD to reduce the learning rate?**</font>
 
-A: To change the value according to `epoch`, use [Dynamic LR](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.nn.html#dynamic-lr) and set `step_per_epoch` to `step_size`. To change the value according to `step`, set `step_per_epoch` to 1. You can also use [LearningRateSchedule](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.nn.html#dynamic-learning-rate).
+A: To change the value according to `epoch`, use [Dynamic LR](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#dynamic-lr) and set `step_per_epoch` to `step_size`. To change the value according to `step`, set `step_per_epoch` to 1. You can also use [LearningRateSchedule](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#dynamic-learning-rate).
 
 <br/>
 
@@ -117,7 +117,7 @@ class EarlyStop(Callback):
 
 <font size=3>**Q: How do I obtain  `feature map` with the expected size when `nn.Conv2d` is used?**</font>
 
-A: For details about how to derive the `Conv2d shape`, click [here](https://www.mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d) Change `pad_mode` of `Conv2d` to `same`. Alternatively, you can calculate the `pad` based on the `Conv2d shape` derivation formula to keep the `shape` unchanged. Generally, the pad is `(kernel_size-1)//2`.
+A: For details about how to derive the `Conv2d shape`, click [here](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d) Change `pad_mode` of `Conv2d` to `same`. Alternatively, you can calculate the `pad` based on the `Conv2d shape` derivation formula to keep the `shape` unchanged. Generally, the pad is `(kernel_size-1)//2`.
 
 <br/>
 
