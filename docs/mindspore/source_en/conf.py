@@ -15,6 +15,7 @@ import os
 import re
 import sys
 import sphinx
+import IPython
 sys.path.append(os.path.abspath('../_ext'))
 import sphinx.ext.autosummary.generate as g
 from sphinx.ext import autodoc as sphinx_autodoc
@@ -44,6 +45,11 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
+    'sphinx_markdown_tables',
+    'myst_parser',
+    'nbsphinx',
+    'sphinx.ext.mathjax',
+    'IPython.sphinxext.ipython_console_highlighting'
 ]
 
 source_suffix = {
