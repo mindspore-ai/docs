@@ -133,7 +133,7 @@ sys.path.append(os.path.abspath('../../../resource/sphinx_ext'))
 import anchor_mod
 import nbsphinx_mod
 
-sys.path.append(os.path.abspath('../../../../resource/custom_directives'))
+sys.path.append(os.path.abspath('../../../resource/custom_directives'))
 from custom_directives import IncludeCodeDirective
 
 # -- Options for Texinfo output -------------------------------------------
