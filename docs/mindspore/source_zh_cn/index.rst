@@ -19,6 +19,7 @@ MindSpore 文档
    design/heterogeneous_training
    design/mindir
    design/data_engine
+   design/dataset_offload
    design/graph_kernel_fusion_engine
    design/jit_fallback
    可视化调试调优↗ <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/training_visual_design.html>
