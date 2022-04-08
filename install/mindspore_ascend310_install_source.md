@@ -115,7 +115,7 @@ python --version
 
 ### 安装昇腾AI处理器配套软件包
 
-详细安装方法请参考[Ascend Data Center Solution 21.0.4安装指引文档](https://support.huawei.com/enterprise/zh/doc/EDOC1100235797?section=j003)。
+详细安装方法请参考[Ascend Data Center Solution 21.1.0安装指引文档]。
 
 安装包默认安装路径为`/usr/local/Ascend`。安装后确认当前用户有权限访问昇腾AI处理器配套软件包的安装路径，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
 
@@ -255,6 +255,8 @@ export LD_LIBRARY_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/fwkacllib/lib64:${L
 export TBE_IMPL_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp/op_impl/built-in/ai_core/tbe
 ## OPP path
 export ASCEND_OPP_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp
+## AICPU path
+export ASCEND_AICPU_PATH=${ASCEND_OPP_PATH}/..
 ## TBE operator compilation tool path
 export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/fwkacllib/ccec_compiler/bin/:${PATH}
 ## Python library that TBE implementation depends on

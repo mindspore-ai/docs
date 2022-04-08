@@ -33,7 +33,7 @@ MindSpore的Ascend 910镜像托管在[Ascend Hub](https://ascend.huawei.com/asce
 
 - 确认安装[Docker 18.03或更高版本](https://docs.docker.com/get-docker/)。
 
-- 确认安装Ascend AI处理器配套软件包（Ascend Data Center Solution 21.0.4），安装方式请参考[配套指南](https://support.huawei.com/enterprise/zh/doc/EDOC1100235797?section=j003)。
+- 确认安装Ascend AI处理器配套软件包（Ascend Data Center Solution 21.1.0），安装方式请参考[配套指南]。
 
     - 确认当前用户有权限访问Ascend AI处理器配套软件包的安装路径`/usr/local/Ascend`，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
     - 在完成安装基础驱动与配套软件包的基础上，确认安装CANN软件包中的toolbox实用工具包，即Ascend-cann-toolbox-{version}.run，该工具包提供了Ascend NPU容器化支持的Ascend Docker runtime工具。
