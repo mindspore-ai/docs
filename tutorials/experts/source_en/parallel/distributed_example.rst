@@ -1,5 +1,5 @@
-分布式并行使用样例
-====================
+Distributed Parallel Usage Example
+==================================
 
 .. toctree::
   :maxdepth: 1
@@ -7,6 +7,3 @@
   distributed_training_ascend
   distributed_training_gpu
   save_load_model_hybrid_parallel
-  transformer
-  fault_recover
-  pangu_alpha
