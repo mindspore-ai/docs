@@ -2,7 +2,7 @@
 
  `Ascend` `GPU` `CPU` `Model Running` `Intermediate` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/apply_recompute.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/apply_recompute.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -14,13 +14,13 @@ In order to solve this problem, Mindspore provides the recomputation function. I
 
 1. Prepare the model. The ResNet-50 code can be found at: <https://gitee.com/mindspore/models/tree/master/official/cv/resnet>, in which `train.py` is the main function for training, `src/` directory contains the model definition and configuration files of ResNet-50, `script/` directory contains the training and evaluation scripts.
 
-2. Prepare the dataset. This example uses the `CIFAR-10` dataset. For details about how to download and load the dataset, visit <https://www.mindspore.cn/docs/programming_guide/en/master/distributed_training_ascend.html>.
+2. Prepare the dataset. This example uses the `CIFAR-10` dataset. For details about how to download and load the dataset, visit <https://www.mindspore.cn/tutorials/experts/en/master/parallel/distributed_training_ascend.html>.
 
 ## Configuring for Recomputation
 
 We can call two kinds of interface to configure the recomputation. Take `src/resnet.py` for example:
 
-1. The [recompute api](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.recompute) of `Primitive`. It can set an operator to be recomputed. After setting, the operator will be recomputed in the backward pass.
+1. The [recompute api](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.recompute) of `Primitive`. It can set an operator to be recomputed. After setting, the operator will be recomputed in the backward pass.
 
     ```python
     class ResNet(nn.Cell):
@@ -41,7 +41,7 @@ We can call two kinds of interface to configure the recomputation. Take `src/res
             ...
     ```
 
-2. Call the [recompute api](https://www.mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.recompute) of `Cell`. It can set the whole `Cell` to be recomputed. After setting, except the output of the `Cell`, all the operators in this cell and its sub `Cell` will be recomputed in the backward pass.
+2. Call the [recompute api](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.recompute) of `Cell`. It can set the whole `Cell` to be recomputed. After setting, except the output of the `Cell`, all the operators in this cell and its sub `Cell` will be recomputed in the backward pass.
 
    ```python
    class ResNet(nn.Cell):

@@ -2,7 +2,7 @@
 
 `Ascend` `Inference Application`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/online_inference.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/model_infer/online_inference.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Use the `model.eval` interface for model validation
 
@@ -25,7 +25,7 @@ print("============== {} ==============".format(acc))
 ```
 
 In the preceding information:  
-`model.eval` is an API for model validation. For details about the API, see <https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.html#mindspore.Model.eval>.
+`model.eval` is an API for model validation. For details about the API, see <https://www.mindspore.cn/docs/en/master/api_python/mindspore.html#mindspore.Model.eval>.
 > Inference sample code: <https://gitee.com/mindspore/models/blob/master/official/cv/lenet/eval.py>.
 
 ### Remote Storage
@@ -56,4 +56,4 @@ In the preceding information:
    ```
 
    In the preceding information:  
-   `model.predict` is an API for inference. For details about the API, see <https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.html#mindspore.Model.predict>.
+   `model.predict` is an API for inference. For details about the API, see <https://www.mindspore.cn/docs/en/master/api_python/mindspore.html#mindspore.Model.predict>.

@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `Model Development`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/hypermap.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/operation/hypermap.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -10,7 +10,7 @@
 
 ## MultitypeFuncGraph
 
-`MultitypeFuncGraph` is used to generate overloaded functions to support different types of input. Users can use `MultitypeFuncGraph` to define a group of overloaded functions. The implementation varies according to the function type. First initialize a `MultitypeFuncGraph` object, and use `register` with input type as the decorator of the function to be registered, so that the object can be called with different types of inputs. For more instructions, see [MultitypeFuncGraph](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.MultitypeFuncGraph.html).
+`MultitypeFuncGraph` is used to generate overloaded functions to support different types of input. Users can use `MultitypeFuncGraph` to define a group of overloaded functions. The implementation varies according to the function type. First initialize a `MultitypeFuncGraph` object, and use `register` with input type as the decorator of the function to be registered, so that the object can be called with different types of inputs. For more instructions, see [MultitypeFuncGraph](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.MultitypeFuncGraph.html).
 
 A code example is as follows:
 
@@ -45,7 +45,7 @@ scalar 3
 
 ## HyperMap
 
-`HyperMap` can apply an specified operation to one or more input sequences, which can be used with `MultitypeFuncGraph`. For example, after defining a group of overloaded `add` functions, we can apply `add` operation to multiple input groups of different types. Unlike `Map`, `HyperMap` can be used in nested structures to perform specified operations on the input in a sequence or nested sequence. For more instructions, see [HyperMap](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.HyperMap.html).
+`HyperMap` can apply an specified operation to one or more input sequences, which can be used with `MultitypeFuncGraph`. For example, after defining a group of overloaded `add` functions, we can apply `add` operation to multiple input groups of different types. Unlike `Map`, `HyperMap` can be used in nested structures to perform specified operations on the input in a sequence or nested sequence. For more instructions, see [HyperMap](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.HyperMap.html).
 
 A code example is as follows:
 
