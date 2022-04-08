@@ -16,6 +16,7 @@ import re
 import os
 import sys
 import glob
+import IPython
 
 from sphinx import directives
 with open('../_ext/overwriteobjectiondirective.txt', 'r', encoding="utf8") as f:
@@ -89,6 +90,11 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
+    'sphinx_markdown_tables',
+    'myst_parser',
+    'nbsphinx',
+    'sphinx.ext.mathjax',
+    'IPython.sphinxext.ipython_console_highlighting'
 ]
 
 source_suffix = {
@@ -118,6 +124,17 @@ autosummary_generate = True
 # a list of builtin themes.
 #
 html_theme = 'sphinx_rtd_theme'
+
+html_search_language = 'zh'
+
+html_search_options = {'dict': '../../resource/jieba.txt'}
+
+sys.path.append(os.path.abspath('../../../resource/sphinx_ext'))
+import anchor_mod
+import nbsphinx_mod
+
+sys.path.append(os.path.abspath('../../../../resource/custom_directives'))
+from custom_directives import IncludeCodeDirective
 
 # -- Options for Texinfo output -------------------------------------------
 
@@ -174,6 +191,7 @@ def setup(app):
     app.add_directive('mscnplatformautosummary', MsCnPlatformAutoSummary)
     app.add_directive('mscnnoteautosummary', MsCnNoteAutoSummary)
     app.add_config_value('rst_files', set(), False)
+    app.add_directive('includecode', IncludeCodeDirective)
 
 
 # Convert encoding for api files.
