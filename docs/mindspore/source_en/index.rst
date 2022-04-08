@@ -17,6 +17,7 @@ MindSpore Documentation
    design/distributed_training_design
    design/mindir
    design/dataset_offload
+   design/graph_kernel_fusion
    Design of Visualization↗ <https://www.mindspore.cn/mindinsight/docs/en/master/training_visual_design.html>
    design/glossary
 
