@@ -88,7 +88,7 @@ LeNet5<
 
 ## Model Layers
 
-The following describes the key member functions of the `Cell` class used in LeNet, and then describes how to use the `Cell` class to access model parameters through the instantiation network. For more `cell` class contents, refer to [mindspore.nn interface](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.nn.html).
+The following describes the key member functions of the `Cell` class used in LeNet, and then describes how to use the `Cell` class to access model parameters through the instantiation network. For more `cell` class contents, refer to [mindspore.nn interface](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html).
 
 ### nn.Conv2d
 

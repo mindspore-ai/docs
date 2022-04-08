@@ -16,7 +16,7 @@ torch.Tensor.item()
 mindspore.Tensor.item(index=None)
 ```
 
-更多内容详见[mindspore.Tensor.item](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.Tensor.html#mindspore.Tensor.item)。
+更多内容详见[mindspore.Tensor.item](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Tensor.html#mindspore.Tensor.item)。
 
 ## 使用方式
 

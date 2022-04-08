@@ -25,7 +25,6 @@ MindSpore教程
    :glob:
    :maxdepth: 1
    :caption: 进阶
-   :hidden:
 
    advanced/linear_fitting
    advanced/dataset

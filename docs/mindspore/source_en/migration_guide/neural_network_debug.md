@@ -55,11 +55,11 @@ During network process debugging, the common errors are as follows:
 
   During the network process debugging, operator execution errors are often reported such as shape mismatch and unsupported dtype. Then, according to the error message, you should check whether the operator is used correctly and whether the shape of the input data is consistent with the expectation and make corresponding modifications.
 
-  Supports for related operators and API introductions can be found in [Operator Support List](https://www.mindspore.cn/docs/note/en/master/operator_list.html) and [Operators Python API](https://www.mindspore.cn/docs/api/en/master/index.html).
+  Supports for related operators and API introductions can be found in [Operator Support List](https://www.mindspore.cn/docs/en/master/note/operator_list.html) and [Operators Python API](https://www.mindspore.cn/docs/en/master/index.html).
 
 - The same script works in PyNative mode, but reports bugs in Graph mode.
 
-  In MindSpore's Graph mode, the code in the `construct` function is parsed by the MindSpore framework, and there is some Python syntax that is not yet supported which results in errors. In this case, you should follow [MindSpore's Syntax Description](https://www.mindspore.cn/docs/note/en/master/static_graph_syntax_support.html) according to the error message.
+  In MindSpore's Graph mode, the code in the `construct` function is parsed by the MindSpore framework, and there is some Python syntax that is not yet supported which results in errors. In this case, you should follow [MindSpore's Syntax Description](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html) according to the error message.
 
 - Distributed parallel training script is misconfigured.
 
@@ -139,7 +139,7 @@ If the loss errors are large, the problem locating can be done by using followin
 
 - Customized Learning Rate
 
-   MindSpore provides some common implementations of dynamic learning rate and some common optimizers with adaptive learning rate adjustment functions, and [Dynamic Learning Rate](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.nn.html#dynamic-learning-rate) and [Optimizer Functions](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.nn.html#optimizer-functions) in the API documentation can be found.
+   MindSpore provides some common implementations of dynamic learning rate and some common optimizers with adaptive learning rate adjustment functions, and [Dynamic Learning Rate](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#dynamic-learning-rate) and [Optimizer Functions](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#optimizer-functions) in the API documentation can be found.
 
    At the same time, the user can implement a customized dynamic learning rate, as exemplified by WarmUpLR:
 

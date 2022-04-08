@@ -16,7 +16,7 @@ torch.Tensor.repeat(*sizes)
 mindspore.numpy.tile(a, reps)
 ```
 
-更多内容详见[mindspore.numpy.tile](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/numpy/mindspore.numpy.tile.html#mindspore.numpy.tile)。
+更多内容详见[mindspore.numpy.tile](https://www.mindspore.cn/docs/zh-CN/master/api_python/numpy/mindspore.numpy.tile.html#mindspore.numpy.tile)。
 
 ## 使用方式
 

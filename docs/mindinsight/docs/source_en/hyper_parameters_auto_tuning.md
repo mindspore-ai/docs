@@ -147,7 +147,7 @@ If you want to optimize the `learning_rate`, `batch_size`, and `momentum`, and t
     (1) After instantiating `HyperConfig`, use the parameter variables of the `HyperConfig` instance as the values of the corresponding parameters in the training script.  
     (2) Please add `SummaryCollector` to collect lineage information, including hyperparameters and evaluation metrics.
 
-    For example, the training script in [Model Zoo](https://www.mindspore.cn/docs/note/en/master/network_list_ms.html) is as follows:
+    For example, the training script in [Model Zoo](https://www.mindspore.cn/docs/en/master/note/network_list_ms.html) is as follows:
 
     ```python
     ds_train = create_dataset_cifar10(args.data_path, batch_size)

@@ -4,7 +4,7 @@
 
 ## Overview
 
-When built-in operators cannot meet requirements during network development, you can call the Python API [Custom](https://www.mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom) primitive defined in MindSpore to quickly create different types of customized operators for use.
+When built-in operators cannot meet requirements during network development, you can call the Python API [Custom](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom) primitive defined in MindSpore to quickly create different types of customized operators for use.
 
 You can choose different customized operator developing methods base on needs.
 See: [custom_operator_custom](https://www.mindspore.cn/docs/programming_guide/en/master/custom_operator_custom.html).

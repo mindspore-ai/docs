@@ -8,7 +8,7 @@ Profiler相关接口。
 
   .. note::
      Profiler支持的参数可以参考：
-     https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.profiler.html
+     https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.profiler.html
 
 - 在训练结束后，调用\ ``Profiler.analyse()``\ 停止性能数据收集并生成性能分析结果。
 

@@ -100,7 +100,7 @@ Figure 8 shows the readability optimization feature, which optimizes the readabi
 Note:
 
 - To get the clearest visualization of computational graph, please avoid to use public methods which cross Cell.
-- Set `jit_level` to `o0` when collecting the computational graph, please refer to the API [mindspore.Model.build](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore/mindspore.Model.html#mindspore.Model.build).
+- Set `jit_level` to `o0` when collecting the computational graph, please refer to the API [mindspore.Model.build](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Model.html#mindspore.Model.build).
 - In the computation graph optimization process, some operators in different namespaces may be merged with each other due to the same function, which will cause a cycle between namespaces and affect the readability.
 - The complete control flow is not supported at present. If you need, please specify the control branch in the script.
 

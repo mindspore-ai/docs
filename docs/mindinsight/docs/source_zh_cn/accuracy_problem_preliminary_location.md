@@ -261,11 +261,11 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 此处我们列举一些比较重要的差异供大家检查：
 
-1. MindSpore的[Conv2d](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d)算子，默认没有bias（has_bias=False），而PyTorch的Conv2d算子，默认有bias。Conv2d算子的weight默认使用 Normal(0.0, 0.01)，这一初始化方式和PyTorch（Uniform）、TensorFlow（Uniform）均不同。与PyTorch的[差异对比](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_diff/nn_Conv2d.html)。
-2. MindSpore的[DropOut](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Dropout.html#mindspore.nn.Dropout)算子，参数含义为保留的概率（keep_prob），而PyTorch的DropOut算子，参数含义为丢弃的概率。
-3. MindSpore的[BatchNorm2d](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.BatchNorm2d.html#mindspore.nn.BatchNorm2d)中的动量默认值和PyTorch不同。PyTorch默认是0.1，MindSpore中默认值是0.9。与PyTorch的[差异对比](https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_diff/BatchNorm2d.html)。
+1. MindSpore的[Conv2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d)算子，默认没有bias（has_bias=False），而PyTorch的Conv2d算子，默认有bias。Conv2d算子的weight默认使用 Normal(0.0, 0.01)，这一初始化方式和PyTorch（Uniform）、TensorFlow（Uniform）均不同。与PyTorch的[差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/nn_Conv2d.html)。
+2. MindSpore的[DropOut](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Dropout.html#mindspore.nn.Dropout)算子，参数含义为保留的概率（keep_prob），而PyTorch的DropOut算子，参数含义为丢弃的概率。
+3. MindSpore的[BatchNorm2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.BatchNorm2d.html#mindspore.nn.BatchNorm2d)中的动量默认值和PyTorch不同。PyTorch默认是0.1，MindSpore中默认值是0.9。与PyTorch的[差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_diff/BatchNorm2d.html)。
 
-较完整的API差异列表请参考 <https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html>。
+较完整的API差异列表请参考 <https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html>。
 
 例子：
 
@@ -325,7 +325,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 对照代码检查权重的冻结情况是否同设计一致。有两种方法可以冻结权重，这两种方法在代码中都具有明显的特征。
 
-方法一：设置[Parameter](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter)的requires_grad参数为False。
+方法一：设置[Parameter](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter)的requires_grad参数为False。
 
 方法二：使用[stop_gradient](https://www.mindspore.cn/tutorials/zh-CN/master/beginner/autograd.html#停止计算梯度)阻止梯度继续向后传播，阻止所有会影响权重的梯度后，该权重的更新也就事实上被阻止了。
 
@@ -462,7 +462,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 5. 对比权重初始化是否一致。建议MindSpore脚本和标杆脚本加载具有相同值的checkpoint文件。网络结构一致的情况下，一般通过简单的权重名称替换即可将一个框架的checkpoint文件转换为另一个框架的checkpoint文件。
 6. 强烈建议在标杆脚本中使能混合精度。若标杆脚本使能混合精度后出现精度问题，则需要优化算法以使算法能够正常在混合精度下收敛。
 
-在对比的过程中，除了要对比脚本中写出来的参数，还要注意未写在脚本中的参数默认值。例如，MindSpore的Conv2d算子，默认has_bias为False，使用Normal(0.0, 0.01)进行权重初始化，而PyTorch的Conv2d算子，默认has_bias为True，初始化方式也不同。MindSpore与PyTorch的详细API差异请见 <https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping/pytorch_api_mapping.html>。
+在对比的过程中，除了要对比脚本中写出来的参数，还要注意未写在脚本中的参数默认值。例如，MindSpore的Conv2d算子，默认has_bias为False，使用Normal(0.0, 0.01)进行权重初始化，而PyTorch的Conv2d算子，默认has_bias为True，初始化方式也不同。MindSpore与PyTorch的详细API差异请见 <https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html>。
 
 执行完上述对比和固定流程后，一般会发现若干MindSpore脚本中的不一致，修复这些不一致后，往往精度问题就解决了。若不一致之处都修复了，问题仍然存在，可以使用相同的数据集和参数分别运行MindSpore脚本和标杆脚本，对比两者的loss：
 

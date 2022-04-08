@@ -209,7 +209,7 @@ JSON配置文件注意事项:
 在进行下一次训练之前，用户可以根据自动数据加速模块输出的推荐配置，对数据集脚本进行调整，
 以便在下一次训练的开始时就可以在较优性能水平下运行数据处理管道。
 
-另外，MindSpore也提供了相关的API用于全局调整数据处理管道算子的并行度与内部队列深度，请参考[mindspore.dataset.config](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.dataset.config.html):
+另外，MindSpore也提供了相关的API用于全局调整数据处理管道算子的并行度与内部队列深度，请参考[mindspore.dataset.config](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.config.html):
 
-- [mindspore.dataset.config.set_num_parallel_workers](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.dataset.config.html#mindspore.dataset.config.set_num_parallel_workers)
-- [mindspore.dataset.config.set_prefetch_size](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.dataset.config.html#mindspore.dataset.config.set_prefetch_size)
+- [mindspore.dataset.config.set_num_parallel_workers](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.config.html#mindspore.dataset.config.set_num_parallel_workers)
+- [mindspore.dataset.config.set_prefetch_size](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.config.html#mindspore.dataset.config.set_prefetch_size)

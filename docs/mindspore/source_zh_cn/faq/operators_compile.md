@@ -40,13 +40,13 @@ A: `Conv2D`算子是有这个约束条件的: 当`group`大于1 时，其值必
 
 <font size=3>**Q: MindSpore支持矩阵转置吗？**</font>
 
-A: 支持，请参考`mindspore.ops.Transpose`的[算子教程](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Transpose.html#mindspore.ops.Transpose)。
+A: 支持，请参考`mindspore.ops.Transpose`的[算子教程](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Transpose.html#mindspore.ops.Transpose)。
 
 <br/>
 
 <font size=3>**Q: 请问MindSpore能算给定任意一个`tensor`的方差吗？**</font>
 
-A: mindspore目前暂无可以直接求出`tensor`方差的算子或接口。不过MindSpore有足够多的小算子可以支持用户实现这样的操作，你可以参考[class Moments(Cell)](https://www.mindspore.cn/docs/api/zh-CN/master/_modules/mindspore/nn/layer/math.html#Moments)来实现。
+A: mindspore目前暂无可以直接求出`tensor`方差的算子或接口。不过MindSpore有足够多的小算子可以支持用户实现这样的操作，你可以参考[class Moments(Cell)](https://www.mindspore.cn/docs/zh-CN/master/_modules/mindspore/nn/layer/math.html#Moments)来实现。
 
 <br/>
 
@@ -59,7 +59,7 @@ A: 在PyTorch中`padding_idx`的作用是将embedding矩阵中`padding_idx`位�
 <font size=3>**Q: Operations中`Tile`算子执行到`__infer__`时`value`值为`None`，丢失了数值是怎么回事？**</font>
 
 A: `Tile`算子的`multiples input`必须是一个常量（该值不能直接或间接来自于图的输入）。否则构图的时候会拿到一个`None`的数据，因为图的输入是在图执行的时候才传下去的，构图的时候拿不到图的输入数据。
-相关的资料可以看[静态图语法支持](https://www.mindspore.cn/docs/note/zh-CN/master/static_graph_syntax_support.html)。
+相关的资料可以看[静态图语法支持](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html)。
 
 <br/>
 

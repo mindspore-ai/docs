@@ -40,7 +40,7 @@ mindspore.nn.ExponentialDecayLR(
 )
 ```
 
-For more information, see [mindspore.nn.ExponentialDecayLR](https://www.mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.ExponentialDecayLR.html#mindspore.nn.ExponentialDecayLR).
+For more information, see [mindspore.nn.ExponentialDecayLR](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.ExponentialDecayLR.html#mindspore.nn.ExponentialDecayLR).
 
 ## Differences
 

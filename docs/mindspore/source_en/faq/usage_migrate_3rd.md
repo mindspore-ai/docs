@@ -57,7 +57,7 @@ dataset = dataset.batch(batch_size, drop_remainder=True)
 
 <font size=3>**Q: How do I migrate scripts or models of other frameworks to MindSpore?**</font>
 
-A: For details about script or model migration, please visit the [Migration Script](https://www.mindspore.cn/docs/migration_guide/en/master/migration_script.html) in MindSpore official website.
+A: For details about script or model migration, please visit the [Migration Script](https://www.mindspore.cn/docs/en/master/migration_guide/migration_script.html) in MindSpore official website.
 
 <br/>
 

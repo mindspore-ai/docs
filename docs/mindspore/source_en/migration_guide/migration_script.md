@@ -453,7 +453,7 @@ Read the PyTorch script to migrate directly.
    model.train(epoch_size, dataset)
    ```
 
-PyTorch and MindSpore have similar definitions of some basic APIs, such as [mindspore.nn.SequentialCell](https://www.mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.SequentialCell.html#mindspore.nn.SequentialCell) and [torch.nn.Sequential](https://pytorch.org/docs/stable/generated/torch.nn.Sequential.html#torch.nn.Sequential). In addition, some operator APIs may be not the same. This section lists some common API comparisons. For more information, see the [MindSpore and PyTorch API mapping](https://www.mindspore.cn/docs/note/en/master/index.html#operator_api) on MindSpore's official website.
+PyTorch and MindSpore have similar definitions of some basic APIs, such as [mindspore.nn.SequentialCell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.SequentialCell.html#mindspore.nn.SequentialCell) and [torch.nn.Sequential](https://pytorch.org/docs/stable/generated/torch.nn.Sequential.html#torch.nn.Sequential). In addition, some operator APIs may be not the same. This section lists some common API comparisons. For more information, see the [MindSpore and PyTorch API mapping](https://www.mindspore.cn/docs/en/master/note/index.html#operator_api) on MindSpore's official website.
 
 |              PyTorch              |                     MindSpore                      |
 | :-------------------------------: | :------------------------------------------------: |

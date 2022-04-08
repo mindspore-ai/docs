@@ -92,7 +92,7 @@ MindSpore混合精度典型的计算流程如下图所示：
 
 3. 创建数据集：该步骤可参考[数据加载和处理]( https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dataset_sample.html)；
 
-4. 使用`Model`接口封装网络模型、优化器和损失函数，设置`amp_level`参数，详情参考[MindSpore API](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.html#mindspore.Model)。该步骤MindSpore会自动选择合适的算子自动进行FP32到FP16的类型转换。
+4. 使用`Model`接口封装网络模型、优化器和损失函数，设置`amp_level`参数，详情参考[MindSpore API](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.html#mindspore.Model)。该步骤MindSpore会自动选择合适的算子自动进行FP32到FP16的类型转换。
 
 下面是基础的代码样例，首先导入必须的库和声明，并定义LeNet5网络模型。
 

@@ -59,7 +59,7 @@
 
     > 对于流水线并行推理，每个`stage`只需要加载本`stage`的CheckPoint文件。
     >
-    > `load_distributed_checkpoint`接口支持predict_strategy为`None`，此时为单卡推理，其过程与分布式推理有所不同，详细用法请[参考链接](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.load_distributed_checkpoint.html?highlight=load_distributed_checkpoint#mindspore.load_distributed_checkpoint)。
+    > `load_distributed_checkpoint`接口支持predict_strategy为`None`，此时为单卡推理，其过程与分布式推理有所不同，详细用法请[参考链接](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.load_distributed_checkpoint.html?highlight=load_distributed_checkpoint#mindspore.load_distributed_checkpoint)。
 
 4. 进行推理，得到推理结果。
 

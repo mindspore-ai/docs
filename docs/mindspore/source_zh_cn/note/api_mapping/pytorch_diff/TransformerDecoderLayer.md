@@ -19,7 +19,7 @@ class mindspore.nn.transformer.TransformerDecoderLayer(hidden_size, ffn_hidden_s
 )
 ```
 
-更多内容详见[mindspore.nn.transformer.TransformerDecoderLayer](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.nn.transformer.html#mindspore.nn.transformer.TransformerDecoderLayer)。
+更多内容详见[mindspore.nn.transformer.TransformerDecoderLayer](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.transformer.html#mindspore.nn.transformer.TransformerDecoderLayer)。
 
 ## 使用方式
 
