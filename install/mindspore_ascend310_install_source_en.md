@@ -115,7 +115,7 @@ python --version
 
 ### Installing Ascend AI processor software package
 
-For detailed installation guide, please refer to [Ascend Data Center Solution 21.0.4 Installation Guide](https://support.huawei.com/enterprise/zh/doc/EDOC1100235797?section=j003).
+For detailed installation guide, please refer to [Ascend Data Center Solution 21.1.0 Installation Guide].
 
 The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path of Ascend AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
 
@@ -255,6 +255,8 @@ export LD_LIBRARY_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/fwkacllib/lib64:${L
 export TBE_IMPL_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp/op_impl/built-in/ai_core/tbe
 ## OPP path
 export ASCEND_OPP_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp
+## AICPU path
+export ASCEND_AICPU_PATH=${ASCEND_OPP_PATH}/..
 ## TBE operator compilation tool path
 export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/fwkacllib/ccec_compiler/bin/:${PATH}
 ## Python library that TBE implementation depends on
