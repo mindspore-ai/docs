@@ -1,6 +1,6 @@
 ﻿# Inference
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/faq/source_en/inference.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/faq/inference.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 <font size=3>**Q: When MindSpore 1.3 is installed on the Ascend 310 hardware platform, why an error message is displayed when I run the `add_model.py` sample in mindspore_serving?**</font>
 
