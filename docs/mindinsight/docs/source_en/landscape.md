@@ -128,7 +128,7 @@ The specific use steps are divided into two steps. Taking the classification tas
        interval_2 = [x for x in range(7, 11)]
        ##Collector landscape information
        summary_collector = SummaryCollector(summary_dir, keep_default_action=True,
-                                            collect_specified_data={'collect_landscape': {'landscape_size': 40,
+                                            collect_specified_data={'collect_landscape': {'landscape_size': 10,
                                                                                           'unit': "epoch",
                                                                                           'create_landscape': {'train': True,
                                                                                                                'result': True},
@@ -149,11 +149,11 @@ The specific use steps are divided into two steps. Taking the classification tas
 
    summary_dir sets the path to save the parameters. summary_collector is the initialized SummaryCollector instance, where collect_landscape in collector_specified_data contains all the parameter settings required for drawing landscape in the form of dictionary:
 
-   - `landscape_size`: It represents the resolution of the landscape. 40 indicates that the resolution of the landscape is 40 * 40. The higher the resolution, the finer the texture of the landscape, and the longer the calculation time will be. Default: 40.
+   - `landscape_size`: It represents the resolution of the landscape. 10 indicates that the resolution of the landscape is 10 * 10. The higher the resolution, the finer the texture of the landscape, and the longer the calculation time will be. Default: 40.
    - `unit`: It represents the interval unit of parameters saved during training, which is divided into `epoch`/`step`. When using `step`, you must set `dataset_sink_model=False` in  `model.train`. Default: `step`
    - `create_landscape`: It represents the way of drawing landscape. At present, it supports training process landscape (with training track) and training result landscape (without track). Default: `{’train‘: True, ’result‘: True}`.
    - `num_samples`: It represents the number of samples in the landscape dataset. 512 indicates that the required sample for the landscape is 512. The larger the number of samples, the more accurate the landscape is, and the longer the calculation time will be. Default: 2048.
-   - `intervals`: It represents the section where the landscape is drawn. Such as `interval_1` indicates drawing 1-5epoch landscape with training track.
+   - `intervals`: It represents the section where the landscape is drawn. Such as `interval_1` indicates drawing 1-5 epoch landscape with training track.
 
 2. Landscape drawing: using the model parameters saved in the training process, the model and dataset are consistent with the training, start a new script, and generate landscape information through forward calculation without re-training. (applicable to drawing landscape by single device or multi devices Parallel Computing)
 
@@ -263,7 +263,7 @@ The specific use steps are divided into two steps. Taking the classification tas
        summary_landscape = SummaryLandscape('./summary/lenet_test2')
        # generate loss landscape
        summary_landscape.gen_landscapes_with_multi_process(callback_fn,
-                                                           collect_landscape={"landscape_size": 40,
+                                                           collect_landscape={"landscape_size": 10,
                                                                               "create_landscape": {"train": True,
                                                                                                    "result": True},
                                                                               "num_samples": 512,
