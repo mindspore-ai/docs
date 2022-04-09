@@ -23,8 +23,8 @@
 
     |芯片|计算架构|macOS版本|支持Python版本|支持Conda版本|
     |-|-|-|-|-|
-    |M1|ARM|11.3|Python 3.9.1+（M1当前不支持3.7, 3.9支持最低版本为3.9.1）|Mambaforge 或 Miniforge|
-    |Intel|x86_64|10.15/11.3|Python 3.7.5/Python 3.9.0|Anaconda 或 MiniConda|
+    |M1|ARM|11.3|Python 3.8-3.9|Mambaforge 或 Miniforge|
+    |Intel|x86_64|10.15/11.3|Python 3.7-3.9|Anaconda 或 MiniConda|
 
 - 确认安装与当前系统及芯片型号兼容的Conda版本。
 
@@ -42,32 +42,29 @@
   conda activate mindspore_py37
   ```
 
-- 如果您希望使用Python3.9.0版本(适配64-bit macOS 10.15)：
+- 如果您希望使用Python3.8.0版本(适配64-bit macOS 10.15或11.3)：
+
+  ```bash
+  conda create -n mindspore_py38 -c conda-forge python=3.8.0
+  conda activate mindspore_py38
+  ```
+
+- 如果您希望使用Python3.9.0版本(适配64-bit macOS 10.15或11.3)：
 
   ```bash
   conda create -n mindspore_py39 -c conda-forge python=3.9.0
   conda activate mindspore_py39
   ```
 
-- 如果您希望使用Python3.9.1版本(适配64-bit macOS 11.3)：
-
-  ```bash
-  conda create -n mindspore_py39 -c conda-forge python=3.9.1
-  conda activate mindspore_py39
-  ```
-
 ## 安装MindSpore
 
-确认您处于Conda虚拟环境中，并执行如下命令安装MindSpore。
+确认您处于Conda虚拟环境中，并执行如下命令安装最新版本的MindSpore。如需安装其他版本，可参考[版本列表](https://www.mindspore.cn/versions)在`mindspore-cpu=`后指定版本号。
 
 ```bash
-conda install mindspore-cpu={version} -c mindspore -c conda-forge
+conda install mindspore-cpu -c mindspore -c conda-forge
 ```
 
-其中：
-
-- 在联网状态下，安装Conda安装包时会自动下载MindSpore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装。运行模型时，需要根据[ModelZoo](https://gitee.com/mindspore/models/tree/master/)中不同模型指定的requirements.txt安装额外依赖，常见依赖可以参考[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)。
-- `{version}`表示MindSpore版本号，例如安装1.5.0-rc1版本MindSpore时，`{version}`应写为1.5.0rc1。
+在联网状态下，安装Conda安装包时会自动下载MindSpore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装。运行模型时，需要根据[ModelZoo](https://gitee.com/mindspore/models/tree/master/)中不同模型指定的requirements.txt安装额外依赖，常见依赖可以参考[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)。
 
 ## 验证是否成功安装
 

@@ -3,7 +3,9 @@
 <!-- TOC -->
 
 - [Installing MindSpore CPU Nightly by pip](#installing-mindspore-cpu-nightly-by-pip)
-    - [System Environment Information Confirmation](#system-environment-information-confirmation)
+    - [Installing MindSpore and dependencies](#installing-mindspore-and-dependencies)
+        - [Installing Python](#installing-python)
+        - [Installing GCC and gmp](#installing-gcc-and-gmp)
     - [Downloading and Installing MindSpore](#downloading-and-installing-mindspore)
     - [Installation Verification](#installation-verification)
     - [Version Update](#version-update)
@@ -18,16 +20,90 @@ This document describes how to quickly install MindSpore Nightly by pip in a Lin
 
 In the process of confirming the system environment information, if you need to know how to install third-party dependent software, you can refer to the practice provided by the community - [Source code compilation and installation on Ubuntu (CPU) MindSpore](https://www.mindspore.cn/news/newschildren?id=365) in the third-party dependent software installation related section, hereby thank the community members [damon0626]( https://gitee.com/damon0626) sharing.
 
-## System Environment Information Confirmation
+## Installing MindSpore and dependencies
 
-- Ensure that the 64-bit operating system is installed and the [glibc](https://www.gnu.org/software/libc/)>=2.17, where Ubuntu 18.04 are verified.
-- Ensure that [GCC 7.3.0](https://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) is installed.
-- Ensure that [gmp 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
-- Ensure that Python 3.7.5 or 3.9.0 is installed. If not installed or been installed Python in other versions, download and install Python from:
-    - Python 3.7.5 (64-bit): [Python official website](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) or [HUAWEI CLOUD](https://mirrors.huaweicloud.com/python/3.7.5/Python-3.7.5.tgz).
-    - Python 3.9.0 (64-bit): [Python official website](https://www.python.org/ftp/python/3.9.0/Python-3.9.0.tgz) or [HUAWEI CLOUD](https://mirrors.huaweicloud.com/python/3.9.0/Python-3.9.0.tgz).
+The following table lists the system environment and third-party dependencies required to install MindSpore.
 
-- If you are using an ARM architecture system, please ensure that pip installed for current Python has a version >= 19.3.
+| software                       | version     | description                                             |
+| ------------------------------ | ----------- | ------------------------------------------------------- |
+| Ubuntu                         | 18.04       | OS for running MindSpore                                |
+| [Python](#installing-python)   | 3.7-3.9     | Python environment that MindSpore depends               |
+| [GCC](#installing-gcc-and-gmp) | 7.3.0~9.4.0 | C++ compiler for compiling MindSpore                    |
+| [gmp](#installing-gcc-and-gmp) | 6.1.2       | Multiple precision arithmetic library used by MindSpore |
+
+The following describes how to install the third-party dependencies.
+
+### Installing Python
+
+[Python](https://www.python.org/) can be installed in multiple ways.
+
+- Install Python with Conda.
+
+  Install Miniconda:
+
+  ```bash
+  cd /tmp
+  curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py37_4.10.3-Linux-x86_64.sh
+  bash Miniconda3-py37_4.10.3-Linux-x86_64.sh -b
+  cd -
+  . ~/miniconda3/etc/profile.d/conda.sh
+  conda init bash
+  ```
+
+  After the installation is complete, you can set up Tsinghua source acceleration download for Conda, and see [here](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/).
+
+  Create a virtual environment, taking Python 3.7.5 as an example:
+
+  ```bash
+  conda create -n mindspore_py37 python=3.7.5 -y
+  conda activate mindspore_py37
+  ```
+
+- Or install Python via APT with the following command.
+
+  ```bash
+  sudo apt-get update
+  sudo apt-get install software-properties-common -y
+  sudo add-apt-repository ppa:deadsnakes/ppa -y
+  sudo apt-get install python3.7 python3.7-dev python3.7-distutils python3-pip -y
+  # set new installed Python as default
+  sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.7 100
+  # install pip
+  python -m pip install pip -i https://repo.huaweicloud.com/repository/pypi/simple
+  sudo update-alternatives --install /usr/bin/pip pip ~/.local/bin/pip3.7 100
+  pip config set global.index-url https://repo.huaweicloud.com/repository/pypi/simple
+  ```
+
+  To install other Python versions, just change `3.7` in the command.
+
+Run the following command to check the Python version.
+
+```bash
+python --version
+```
+
+### Installing GCC and gmp
+
+Run the following commands to install GCC and gmp.
+
+```bash
+sudo apt-get install gcc-7 libgmp-dev -y
+```
+
+To install a later version of GCC, run the following command to install GCC 8.
+
+```bash
+sudo apt-get install gcc-8 -y
+```
+
+Or install GCC 9.
+
+```bash
+sudo apt-get install software-properties-common -y
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt-get update
+sudo apt-get install gcc-9 -y
+```
 
 ## Downloading and Installing MindSpore
 

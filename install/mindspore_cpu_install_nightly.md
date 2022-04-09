@@ -3,7 +3,9 @@
 <!-- TOC -->
 
 - [pip方式安装MindSpore CPU Nightly版本](#pip方式安装mindspore-cpu-nightly版本)
-    - [确认系统环境信息](#确认系统环境信息)
+    - [安装MindSpore与依赖软件](#安装mindspore与依赖软件)
+        - [安装Python](#安装python)
+        - [安装GCC和gmp](#安装gcc和gmp)
     - [下载安装MindSpore](#下载安装mindspore)
     - [验证是否成功安装](#验证是否成功安装)
     - [升级MindSpore版本](#升级mindspore版本)
@@ -18,17 +20,90 @@ MindSpore Nightly是包含当前最新功能与bugfix的预览版本，但是可
 
 在确认系统环境信息的过程中，如需了解如何安装第三方依赖软件，可以参考社区提供的实践——[在Ubuntu（CPU）上进行源码编译安装MindSpore](https://www.mindspore.cn/news/newschildren?id=365)中的第三方依赖软件安装相关部分，在此感谢社区成员[damon0626](https://gitee.com/damon0626)的分享。
 
-## 确认系统环境信息
+## 安装MindSpore与依赖软件
 
-- 确认安装64位操作系统，[glibc](https://www.gnu.org/software/libc/)>=2.17，其中Ubuntu 18.04是经过验证的。
-- 确认安装[GCC 7.3.0版本](https://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz)。
-- 确认安装[gmp 6.1.2版本](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz)。
-- 确认安装Python 3.7.5或3.9.0版本。如果未安装或者已安装其他版本的Python，可以选择下载并安装：
+下表列出了安装MindSpore所需的系统环境和第三方依赖。
 
-    - Python 3.7.5版本 64位，下载地址：[官网](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz)或[华为云](https://mirrors.huaweicloud.com/python/3.7.5/Python-3.7.5.tgz)。
-    - Python 3.9.0版本 64位，下载地址：[官网](https://www.python.org/ftp/python/3.9.0/Python-3.9.0.tgz)或[华为云](https://mirrors.huaweicloud.com/python/3.9.0/Python-3.9.0.tgz)。
+| 软件名称              | 版本             | 作用                          |
+| --------------------- | ---------------- | ----------------------------- |
+| Ubuntu                | 18.04            | 运行MindSpore的操作系统       |
+| [Python](#安装python) | 3.7-3.9          | MindSpore的使用依赖Python环境 |
+| [GCC](#安装gcc和gmp)  | 7.3.0到9.4.0之间 | 用于编译MindSpore的C++编译器  |
+| [gmp](#安装gcc和gmp)  | 6.1.2            | MindSpore使用的多精度算术库   |
 
-- 如果您的环境为ARM架构，请确认当前使用的Python配套的pip版本>=19.3。
+下面给出第三方依赖的安装方法。
+
+### 安装Python
+
+[Python](https://www.python.org/)可通过多种方式进行安装。
+
+- 通过Conda安装Python
+
+  安装Miniconda：
+
+  ```bash
+  cd /tmp
+  curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py37_4.10.3-Linux-x86_64.sh
+  bash Miniconda3-py37_4.10.3-Linux-x86_64.sh -b
+  cd -
+  . ~/miniconda3/etc/profile.d/conda.sh
+  conda init bash
+  ```
+
+  安装完成后，可以为Conda设置清华源加速下载，参考[此处](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/)。
+
+  创建虚拟环境，以Python 3.7.5为例：
+
+  ```bash
+  conda create -n mindspore_py37 python=3.7.5 -y
+  conda activate mindspore_py37
+  ```
+
+- 通过APT安装Python，命令如下。
+
+  ```bash
+  sudo apt-get update
+  sudo apt-get install software-properties-common -y
+  sudo add-apt-repository ppa:deadsnakes/ppa -y
+  sudo apt-get install python3.7 python3.7-dev python3.7-distutils python3-pip -y
+  # 将新安装的Python设为默认
+  sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.7 100
+  # 安装pip
+  python -m pip install pip -i https://repo.huaweicloud.com/repository/pypi/simple
+  sudo update-alternatives --install /usr/bin/pip pip ~/.local/bin/pip3.7 100
+  pip config set global.index-url https://repo.huaweicloud.com/repository/pypi/simple
+  ```
+
+  若要安装其他Python版本，只需更改命令中的`3.7`。
+
+可以通过以下命令查看Python版本。
+
+```bash
+python --version
+```
+
+### 安装GCC和gmp
+
+可以通过以下命令安装GCC和gmp。
+
+```bash
+sudo apt-get install gcc-7 libgmp-dev -y
+```
+
+如果要安装更高版本的GCC，使用以下命令安装GCC 8。
+
+```bash
+sudo apt-get install gcc-8 -y
+```
+
+或者安装GCC 9。
+
+```bash
+sudo apt-get install software-properties-common -y
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt-get update
+sudo apt-get install gcc-9 -y
+```
 
 ## 下载安装MindSpore
 

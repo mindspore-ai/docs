@@ -22,14 +22,14 @@
 
     |芯片|计算架构|macOS版本|支持Python版本|
     |-|-|-|-|
-    |M1|ARM|11.3|Python 3.9.1+（M1当前不支持3.7, 3.9支持最低版本为3.9.1）|
-    |Intel|x86_64|10.15/11.3|Python 3.7.5/Python 3.9.0|
+    |M1|ARM|11.3|Python 3.8-3.9|
+    |Intel|x86_64|10.15/11.3|Python 3.7-3.9|
 
 - 确认安装对应的Python版本。如果未安装或者已安装其他版本的Python，可以选择下载并安装：
 
     - Python 3.7.5 (64-bit)：[官网](https://www.python.org/ftp/python/3.7.5/python-3.7.5-macosx10.9.pkg) 或者 [华为云](https://repo.huaweicloud.com/python/3.7.5/python-3.7.5-macosx10.9.pkg)。
+    - Python 3.8.0 (64-bit)：[官网](https://www.python.org/ftp/python/3.8.0/python-3.8.0-macosx10.9.pkg) 或者 [华为云](https://repo.huaweicloud.com/python/3.8.0/python-3.8.0-macosx10.9.pkg)。
     - Python 3.9.0 (64-bit)：[官网](https://www.python.org/ftp/python/3.9.0/python-3.9.0-macosx10.9.pkg) 或者 [华为云](https://repo.huaweicloud.com/python/3.9.0/python-3.9.0-macosx10.9.pkg)。
-    - Python 3.9.1 (64-bit)：[官网](https://www.python.org/ftp/python/3.9.1/python-3.9.1-macos11.0.pkg) 或者 [华为云](https://www.python.org/ftp/python/3.9.1/python-3.9.1-macos11.0.pkg)。
 
 - 确认安装[Xcode](https://xcodereleases.com/) (>=12.4 and <= 13.0) ，12.4(X86)及13.0(M1) 已测试。
 
