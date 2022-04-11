@@ -23,8 +23,8 @@ This document describes how to quickly install MindSpore by Conda in a macOS sys
 
     |Chip|Architecture|macOS Version|Supported Python Version|Supported Conda Version|
     |-|-|-|-|-|
-    |M1|ARM|11.3|Python 3.9.1+(3.7.x is not supported with M1, 3.9.1 is the least supported version)|Mambaforge or Miniforge|
-    |Intel|x86_64|10.15/11.3|Python 3.7.5/Python 3.9.0|Anaconda or Miniconda|
+    |M1|ARM|11.3|Python 3.8-3.9|Mambaforge or Miniforge|
+    |Intel|x86_64|10.15/11.3|Python 3.7-3.9|Anaconda or Miniconda|
 
 - Ensure that the Conda version is compatible with the current system and chip.
 
@@ -42,32 +42,29 @@ Create a Conda virtual environment based on the Python version you want to use a
   conda activate mindspore_py37
   ```
 
-- If you want to use Python 3.9.0 (for 64-bit macOS 10.15):
+- If you want to use Python 3.8.0 (for 64-bit macOS 10.15 and 11.3):
+
+  ```bash
+  conda create -n mindspore_py38 -c conda-forge python=3.8.0
+  conda activate mindspore_py38
+  ```
+
+- If you want to use Python 3.9.0 (for 64-bit macOS 10.15 and 11.3):
 
   ```bash
   conda create -n mindspore_py39 -c conda-forge python=3.9.0
   conda activate mindspore_py39
   ```
 
-- If you want to use Python 3.9.1 (for 64-bit macOS 11.3):
-
-  ```bash
-  conda create -n mindspore_py39 -c conda-forge python=3.9.1
-  conda activate mindspore_py39
-  ```
-
 ## Installing MindSpore
 
-Ensure that you are in the Conda virtual environment and run the following command to install MindSpore:
+Ensure that you are in the Conda virtual environment and run the following command to install the latest MindSpore. To install other versions, please refer to the specified version number of [Version List](https://www.mindspore.cn/versions) after `mindspore-ascend=`.
 
 ```bash
-conda install mindspore-cpu={version} -c mindspore -c conda-forge
+conda install mindspore-cpu -c mindspore -c conda-forge
 ```
 
-In the preceding information:
-
-- When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
-- `{version}` denotes the version of MindSpore. For example, when you are installing MindSpore 1.5.0-rc1, `{version}` should be 1.5.0rc1.
+When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
 
 ## Installation Verification
 

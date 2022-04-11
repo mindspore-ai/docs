@@ -3,7 +3,13 @@
 <!-- TOC -->
 
 - [Installing MindSpore GPU Nightly by pip](#installing-mindspore-gpu-nightly-by-pip)
-    - [System Environment Information Confirmation](#system-environment-information-confirmation)
+    - [Installing MindSpore and dependencies](#installing-mindspore-and-dependencies)
+        - [Installing CUDA](#installing-cuda)
+        - [Installing cuDNN](#installing-cudnn)
+        - [Installing Python](#installing-python)
+        - [Installing GCC and gmp](#installing-gcc-and-gmp)
+        - [Installing Open MPI (optional)](#installing-open-mpi-optional)
+        - [Installing TensorRT (optional)](#installing-tensorrt-optional)
     - [Installing MindSpore](#installing-mindspore)
     - [Installation Verification](#installation-verification)
     - [Version Update](#version-update)
@@ -18,20 +24,170 @@ This document describes how to quickly install MindSpore Nightly by pip in a Lin
 
 For details about how to install third-party dependency software when confirming the system environment information, see the third-party dependency software installation section in the [Experience source code compilation and install the MindSpore GPU version on Linux](https://www.mindspore.cn/news/newschildren?id=401) provided by the community. Thanks to the community member [Flying penguin](https://gitee.com/zhang_yi2020) for sharing.
 
-## System Environment Information Confirmation
+## Installing MindSpore and dependencies
 
-- Ensure that the 64-bit operating system is installed and the [glibc](https://www.gnu.org/software/libc/)>=2.17, where Ubuntu 18.04 is verified.
-- Ensure that [GCC 7.3.0](https://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) is installed.
-- Ensure that [CUDA 11.1](https://developer.nvidia.com/cuda-11.1.0-download-archive) with [cuDNN 8.0.X](https://developer.nvidia.com/rdp/cudnn-archive) is installed.
-    - If CUDA is installed in a non-default path, after installing CUDA, environment variable PATH (e.g. `export PATH=/usr/local/cuda-${version}/bin:$PATH`) and `LD_LIBRARY_PATH`(e.g. `export LD_LIBRARY_PATH=/usr/local/cuda-${version}/lib64:$LD_LIBRARY_PATH`) need to be set. Please refer to [CUDA installation guide](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#post-installation-actions) for detailed post installation actions.
-- Ensure that [OpenMPI 4.0.3](https://www.open-mpi.org/faq/?category=building#easy-build) is installed. (optional, required for single-node/multi-GPU and multi-node/multi-GPU training)
-- Ensure that [OpenSSL 1.1.1 or later](https://github.com/openssl/openssl.git) is installed.
-    - Ensure that [OpenSSL](https://github.com/openssl/openssl) is installed and set system variable `export OPENSSL_ROOT_DIR="OpenSSL installation directory"`.
-- Ensure that [TensorRT-7.2.2](https://developer.nvidia.com/nvidia-tensorrt-download) is installed (optional，required for Serving inference).
-- Ensure that [gmp 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
-- Ensure that Python 3.7.5 or 3.9.0 is installed. If not installed or been installed Python in other versions, download and install Python from:
-    - Python 3.7.5 (64-bit): [Python official website](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) or [HUAWEI CLOUD](https://mirrors.huaweicloud.com/python/3.7.5/Python-3.7.5.tgz).
-    - Python 3.9.0 (64-bit): [Python official website](https://www.python.org/ftp/python/3.9.0/Python-3.9.0.tgz) or [HUAWEI CLOUD](https://mirrors.huaweicloud.com/python/3.9.0/Python-3.9.0.tgz).
+The following table lists the system environment and third-party dependencies required to install MindSpore.
+
+| software                                  | version        | description                                                  |
+| ----------------------------------------- | -------------- | ------------------------------------------------------------ |
+| Ubuntu                                    | 18.04          | OS for compiling and running MindSpore                       |
+| [CUDA](#installing-cuda)                  | 10.1 or 11.1   | parallel computing architecture for MindSpore GPU            |
+| [cuDNN](#installing-cudnn)                | 7.6.x or 8.0.x | deep neural network acceleration library used by MindSpore GPU |
+| [Python](#installing-python)              | 3.7-3.9        | Python environment that MindSpore depends on                 |
+| [GCC](#installing-gcc-and-gmp)            | 7.3.0~9.4.0    | C++ compiler for compiling MindSpore                         |
+| [gmp](#installing-gcc-and-gmp)            | 6.1.2          | multiple precision arithmetic library used by MindSpore      |
+| [Open MPI](#installing-open-mpi-optional) | 4.0.3          | high performance message passing library used by MindSpore (optional, required for single-node/multi-GPU and multi-node/multi-GPU training) |
+| [TensorRT](#installing-tensorrt-optional) | 7.2.2          | high performance deep learning inference SDK used by MindSpore (optional, required for serving inference) |
+
+The following describes how to install the third-party dependencies.
+
+### Installing CUDA
+
+MindSpore GPU supports CUDA 10.1 and CUDA 11.1. NVIDIA officially shows a variety of installation methods. For details, please refer to [CUDA download page](https://developer.nvidia.com/cuda-toolkit-archive) and [CUDA installation guide](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html).
+The following only shows instructions for installing by runfile on Linux systems.
+
+Before installing CUDA, you need to run the following commands to install related dependencies.
+
+```bash
+sudo apt-get install linux-headers-$(uname -r) gcc-7
+```
+
+The minimum required GPU driver version of CUDA 10.1 is 418.39. The minimum required GPU driver version of CUDA 11.1 is 450.80.02. You may run `nvidia-smi` command to confirm the GPU driver version. If the driver version does not meet the requirements, you should choose to install the driver during the CUDA installation. After installing the driver, you need to reboot your system.
+
+Run the following command to install CUDA 11.1 (recommended).
+
+```bash
+wget https://developer.download.nvidia.com/compute/cuda/11.1.1/local_installers/cuda_11.1.1_455.32.00_linux.run
+sudo sh cuda_11.1.1_455.32.00_linux.run
+echo -e "export PATH=/usr/local/cuda-11.1/bin:\$PATH" >> ~/.bashrc
+echo -e "export LD_LIBRARY_PATH=/usr/local/cuda-11.1/lib64:\$LD_LIBRARY_PATH" >> ~/.bashrc
+source ~/.bashrc
+```
+
+Or install CUDA 10.1 with the following command.
+
+```bash
+wget https://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.243_418.87.00_linux.run
+sudo sh cuda_10.1.243_418.87.00_linux.run
+echo -e "export PATH=/usr/local/cuda-10.1/bin:\$PATH" >> ~/.bashrc
+echo -e "export LD_LIBRARY_PATH=/usr/local/cuda-10.1/lib64:\$LD_LIBRARY_PATH" >> ~/.bashrc
+source ~/.bashrc
+```
+
+### Installing cuDNN
+
+After completing the installation of CUDA, Log in and download the corresponding cuDNN installation package from [cuDNN page](https://developer.nvidia.com/zh-cn/cudnn). If CUDA 10.1 was previously installed, download cuDNN v7.6.x for CUDA 10.1. If CUDA 11.1 was previously installed, download cuDNN v8.0.x for CUDA 11.1. Note that download the tgz compressed file. Assuming that the downloaded cuDNN package file is named `cudnn.tgz` and the installed CUDA version is 11.1, execute the following command to install cuDNN.
+
+```bash
+tar -zxvf cudnn.tgz
+sudo cp cuda/include/cudnn.h /usr/local/cuda-11.1/include
+sudo cp cuda/lib64/libcudnn* /usr/local/cuda-11.1/lib64
+sudo chmod a+r /usr/local/cuda-11.1/include/cudnn.h /usr/local/cuda-11.1/lib64/libcudnn*
+```
+
+If a different version of CUDA have been installed or the CUDA installation path is different, just replace `/usr/local/cuda-11.1` in the above command with the currently installed CUDA path.
+
+### Installing Python
+
+[Python](https://www.python.org/) can be installed in multiple ways.
+
+- Install Python with Conda.
+
+  Install Miniconda:
+
+  ```bash
+  cd /tmp
+  curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py37_4.10.3-Linux-x86_64.sh
+  bash Miniconda3-py37_4.10.3-Linux-x86_64.sh -b
+  cd -
+  . ~/miniconda3/etc/profile.d/conda.sh
+  conda init bash
+  ```
+
+  After the installation is complete, you can set up Tsinghua source acceleration download for Conda, and see [here](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/).
+
+  Create a virtual environment, taking Python 3.7.5 as an example:
+
+  ```bash
+  conda create -n mindspore_py37 python=3.7.5 -y
+  conda activate mindspore_py37
+  ```
+
+- Or install Python via APT with the following command.
+
+  ```bash
+  sudo apt-get update
+  sudo apt-get install software-properties-common -y
+  sudo add-apt-repository ppa:deadsnakes/ppa -y
+  sudo apt-get install python3.7 python3.7-dev python3.7-distutils python3-pip -y
+  # set new installed Python as default
+  sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.7 100
+  # install pip
+  python -m pip install pip -i https://repo.huaweicloud.com/repository/pypi/simple
+  sudo update-alternatives --install /usr/bin/pip pip ~/.local/bin/pip3.7 100
+  pip config set global.index-url https://repo.huaweicloud.com/repository/pypi/simple
+  ```
+
+  To install other Python versions, just change `3.7` in the command.
+
+Run the following command to check the Python version.
+
+```bash
+python --version
+```
+
+### Installing GCC and gmp
+
+Run the following commands to install GCC and gmp.
+
+```bash
+sudo apt-get install gcc-7 libgmp-dev -y
+```
+
+To install a later version of GCC, run the following command to install GCC 8.
+
+```bash
+sudo apt-get install gcc-8 -y
+```
+
+Or install GCC 9 (Note that GCC 9 is not compatible with CUDA 10.1).
+
+```bash
+sudo apt-get install software-properties-common -y
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt-get update
+sudo apt-get install gcc-9 -y
+```
+
+### Installing Open MPI (optional)
+
+You may compile and install Open MPI by the following command.
+
+```bash
+curl -O https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.3.tar.gz
+tar xzf openmpi-4.0.3.tar.gz
+cd openmpi-4.0.3
+./configure --prefix=/usr/local/openmpi-4.0.3
+make
+sudo make install
+echo -e "export PATH=/usr/local/openmpi-4.0.3/bin:\$PATH" >> ~/.bashrc
+echo -e "export LD_LIBRARY_PATH=/usr/local/openmpi-4.0.3/lib:\$LD_LIBRARY_PATH" >> ~/.bashrc
+source ~/.bashrc
+cd -
+```
+
+### Installing TensorRT (optional)
+
+After completing the installation of CUDA and cuDNN, download TensorRT 7.2.2 for CUDA 11.1 from [TensorRT download page](https://developer.nvidia.com/nvidia-tensorrt-7x-download), and note to download installation package in TAR format. Suppose the downloaded file is named `TensorRT-7.2.2.3.Ubuntu-18.04.x86_64-gnu.cuda-11.1.cudnn8.0.tar.gz`, install TensorRT with the following command.
+
+```bash
+tar xzf TensorRT-7.2.2.3.Ubuntu-18.04.x86_64-gnu.cuda-11.1.cudnn8.0.tar.gz
+cd TensorRT-7.2.2.3
+echo -e "export TENSORRT_HOME=$PWD" >> ~/.bashrc
+echo -e "export LD_LIBRARY_PATH=\$TENSORRT_HOME/lib:\$LD_LIBRARY_PATH" >> ~/.bashrc
+source ~/.bashrc
+cd -
+```
 
 ## Installing MindSpore
 

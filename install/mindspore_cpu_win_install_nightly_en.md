@@ -21,8 +21,9 @@ For details about how to install third-party dependency software when confirming
 ## System Environment Information Confirmation
 
 - Ensure that Windows 10 is installed with the x86 architecture 64-bit operating system.
-- Ensure that Python 3.7.5 or 3.9.0 is installed. If not installed or been installed Python in other versions, download and install Python from:
+- Ensure that you have Python versions between 3.7 to 3.9 installed. Consider the following examples:
     - Python 3.7.5 (64-bit): [Python official website](https://www.python.org/ftp/python/3.7.5/python-3.7.5-amd64.exe) or [HUAWEI CLOUD](https://mirrors.huaweicloud.com/python/3.7.5/python-3.7.5-amd64.exe).
+    - Python 3.8.0 (64-bit): [Python official website](https://www.python.org/ftp/python/3.8.0/python-3.8.0-amd64.exe) or [HUAWEI CLOUD](https://mirrors.huaweicloud.com/python/3.8.0/python-3.8.0-amd64.exe).
     - Python 3.9.0 (64-bit): [Python official website](https://www.python.org/ftp/python/3.9.0/python-3.9.0-amd64.exe) or [HUAWEI CLOUD](https://mirrors.huaweicloud.com/python/3.9.0/python-3.9.0-amd64.exe).
 - After installing Python, add Python and pip to the system environment variable.
     - Add Python: Control Panel -> System -> Advanced System Settings -> Environment Variables. Double click the Path in the system variable and add the path of `python.exe`.
@@ -67,4 +68,3 @@ pip install --upgrade mindspore-dev=={version}
 Of which,
 
 - When updating to a release candidate (rc) version, `{version}` should be specified manually, e.g. 1.6.0rc1.dev20211125; When automatically updating to the latest version, `=={version}` could be removed.
-

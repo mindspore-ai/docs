@@ -3,7 +3,13 @@
 <!-- TOC -->
 
 - [pip方式安装MindSpore GPU Nightly版本](#pip方式安装mindspore-gpu-nightly版本)
-    - [确认系统环境信息](#确认系统环境信息)
+    - [安装MindSpore与依赖软件](#安装mindspore与依赖软件)
+        - [安装CUDA](#安装cuda)
+        - [安装cuDNN](#安装cudnn)
+        - [安装Python](#安装python)
+        - [安装GCC和gmp](#安装gcc和gmp)
+        - [安装Open MPI（可选）](#安装open-mpi可选)
+        - [安装TensorRT（可选）](#安装tensorrt可选)
     - [下载安装MindSpore](#下载安装mindspore)
     - [验证是否成功安装](#验证是否成功安装)
     - [升级MindSpore版本](#升级mindspore版本)
@@ -18,21 +24,170 @@ MindSpore Nightly是包含当前最新功能与bugfix的预览版本，但是可
 
 在确认系统环境信息的过程中，如需了解如何安装第三方依赖软件，可以参考社区提供的实践——[在Linux上体验源码编译安装MindSpore GPU版本](https://www.mindspore.cn/news/newschildren?id=401)中的第三方依赖软件安装相关部分，在此感谢社区成员[飞翔的企鹅](https://gitee.com/zhang_yi2020)的分享。
 
-## 确认系统环境信息
+## 安装MindSpore与依赖软件
 
-- 确认安装64位操作系统，[glibc](https://www.gnu.org/software/libc/)>=2.17，其中Ubuntu 18.04是经过验证的。
-- 确认安装[GCC 7.3.0版本](https://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz)。
-- 确认安装[CUDA 11.1](https://developer.nvidia.com/cuda-11.1.0-download-archive)配套[cuDNN 8.0.X版本](https://developer.nvidia.com/rdp/cudnn-archive)。
-    - CUDA安装后，若CUDA没有安装在默认位置，需要设置环境变量PATH（如：`export PATH=/usr/local/cuda-${version}/bin:$PATH`）和`LD_LIBRARY_PATH`（如：`export LD_LIBRARY_PATH=/usr/local/cuda-${version}/lib64:$LD_LIBRARY_PATH`），详细安装后的设置可参考[CUDA安装手册](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#post-installation-actions)。
-- 确认安装[OpenMPI 4.0.3版本](https://www.open-mpi.org/faq/?category=building#easy-build)（可选，单机多卡/多机多卡训练需要）。
-- 确认安装[OpenSSL 1.1.1及以上版本](https://github.com/openssl/openssl.git)。
-    - 安装完成后设置环境变量`export OPENSSL_ROOT_DIR=“OpenSSL安装目录”`。
-- 确认安装[TensorRT-7.2.2](https://developer.nvidia.com/nvidia-tensorrt-download)（可选，Serving推理需要）。
-- 确认安装[gmp 6.1.2版本](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz)。
-- 确认安装Python 3.7.5或3.9.0版本。如果未安装或者已安装其他版本的Python，可以选择下载并安装：
+下表列出了编译安装MindSpore GPU所需的系统环境和第三方依赖。
 
-    - Python 3.7.5版本 64位，下载地址：[官网](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz)或[华为云](https://mirrors.huaweicloud.com/python/3.7.5/Python-3.7.5.tgz)。
-    - Python 3.9.0版本 64位，下载地址：[官网](https://www.python.org/ftp/python/3.9.0/Python-3.9.0.tgz)或[华为云](https://mirrors.huaweicloud.com/python/3.9.0/Python-3.9.0.tgz)。
+| 软件名称                      | 版本             | 作用                                                         |
+| ----------------------------- | ---------------- | ------------------------------------------------------------ |
+| Ubuntu                        | 18.04            | 编译和运行MindSpore的操作系统                                |
+| [CUDA](#安装cuda)             | 10.1或11.1       | MindSpore GPU使用的并行计算架构                              |
+| [cuDNN](#安装cudnn)           | 7.6.x或8.0.x     | MindSpore GPU使用的深度神经网络加速库                        |
+| [Python](#安装python)         | 3.7-3.9          | MindSpore的使用依赖Python环境                                |
+| [GCC](#安装gcc和gmp)          | 7.3.0到9.4.0之间 | 用于编译MindSpore的C++编译器                                 |
+| [gmp](#安装gcc和gmp)          | 6.1.2            | MindSpore使用的多精度算术库                                  |
+| [Open MPI](#安装open-mpi可选) | 4.0.3            | MindSpore使用的高性能消息传递库（可选，单机多卡/多机多卡训练需要） |
+| [TensorRT](#安装tensorrt可选) | 7.2.2            | MindSpore使用的高性能深度学习推理SDK（可选，Serving推理需要） |
+
+下面给出第三方依赖的安装方法。
+
+### 安装CUDA
+
+MindSpore GPU支持CUDA 10.1和CUDA 11.1。NVIDIA官方给出了多种安装方式和安装指导，详情可查看[CUDA下载页面](https://developer.nvidia.com/cuda-toolkit-archive)和[CUDA安装指南](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html)。
+下面仅给出Linux系统使用runfile方式安装的指导。
+
+在安装CUDA前需要先安装相关依赖，执行以下命令。
+
+```bash
+sudo apt-get install linux-headers-$(uname -r) gcc-7
+```
+
+CUDA 10.1要求最低显卡驱动版本为418.39；CUDA 11.1要求最低显卡驱动版本为450.80.02。可以执行`nvidia-smi`指令确认显卡驱动版本。如果驱动版本不满足要求，CUDA安装过程中可以选择同时安装驱动，安装驱动后需要重启系统。
+
+使用以下命令安装CUDA 11.1（推荐）。
+
+```bash
+wget https://developer.download.nvidia.com/compute/cuda/11.1.1/local_installers/cuda_11.1.1_455.32.00_linux.run
+sudo sh cuda_11.1.1_455.32.00_linux.run
+echo -e "export PATH=/usr/local/cuda-11.1/bin:\$PATH" >> ~/.bashrc
+echo -e "export LD_LIBRARY_PATH=/usr/local/cuda-11.1/lib64:\$LD_LIBRARY_PATH" >> ~/.bashrc
+source ~/.bashrc
+```
+
+或者使用以下命令安装CUDA 10.1。
+
+```bash
+wget https://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.243_418.87.00_linux.run
+sudo sh cuda_10.1.243_418.87.00_linux.run
+echo -e "export PATH=/usr/local/cuda-10.1/bin:\$PATH" >> ~/.bashrc
+echo -e "export LD_LIBRARY_PATH=/usr/local/cuda-10.1/lib64:\$LD_LIBRARY_PATH" >> ~/.bashrc
+source ~/.bashrc
+```
+
+### 安装cuDNN
+
+完成CUDA的安装后，在[cuDNN页面](https://developer.nvidia.com/zh-cn/cudnn)登录并下载对应的cuDNN安装包。如果之前安装了CUDA 10.1，下载配套CUDA 10.1的cuDNN v7.6.x；如果之前安装了CUDA 11.1，下载配套CUDA 11.1的cuDNN v8.0.x。注意下载后缀名为tgz的压缩包。假设下载的cuDNN包名为`cudnn.tgz`，安装的CUDA版本为11.1，执行以下命令安装cuDNN。
+
+```bash
+tar -zxvf cudnn.tgz
+sudo cp cuda/include/cudnn.h /usr/local/cuda-11.1/include
+sudo cp cuda/lib64/libcudnn* /usr/local/cuda-11.1/lib64
+sudo chmod a+r /usr/local/cuda-11.1/include/cudnn.h /usr/local/cuda-11.1/lib64/libcudnn*
+```
+
+如果之前安装了其他CUDA版本或者CUDA安装路径不同，只需替换上述命令中的`/usr/local/cuda-11.1`为当前安装的CUDA路径。
+
+### 安装Python
+
+[Python](https://www.python.org/)可通过多种方式进行安装。
+
+- 通过Conda安装Python。
+
+  安装Miniconda：
+
+  ```bash
+  cd /tmp
+  curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py37_4.10.3-Linux-x86_64.sh
+  bash Miniconda3-py37_4.10.3-Linux-x86_64.sh -b
+  cd -
+  . ~/miniconda3/etc/profile.d/conda.sh
+  conda init bash
+  ```
+
+  安装完成后，可以为Conda设置清华源加速下载，参考[此处](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/)。
+
+  创建虚拟环境，以Python 3.7.5为例：
+
+  ```bash
+  conda create -n mindspore_py37 python=3.7.5 -y
+  conda activate mindspore_py37
+  ```
+
+- 通过APT安装Python，命令如下。
+
+  ```bash
+  sudo apt-get update
+  sudo apt-get install software-properties-common -y
+  sudo add-apt-repository ppa:deadsnakes/ppa -y
+  sudo apt-get install python3.7 python3.7-dev python3.7-distutils python3-pip -y
+  # 将新安装的Python设为默认
+  sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.7 100
+  # 安装pip
+  python -m pip install pip -i https://repo.huaweicloud.com/repository/pypi/simple
+  sudo update-alternatives --install /usr/bin/pip pip ~/.local/bin/pip3.7 100
+  pip config set global.index-url https://repo.huaweicloud.com/repository/pypi/simple
+  ```
+
+  若要安装其他Python版本，只需更改命令中的`3.7`。
+
+可以通过以下命令查看Python版本。
+
+```bash
+python --version
+```
+
+### 安装GCC和gmp
+
+可以通过以下命令安装GCC和gmp。
+
+```bash
+sudo apt-get install gcc-7 libgmp-dev -y
+```
+
+如果要安装更高版本的GCC，使用以下命令安装GCC 8。
+
+```bash
+sudo apt-get install gcc-8 -y
+```
+
+或者安装GCC 9（注意，GCC 9不兼容CUDA 10.1）。
+
+```bash
+sudo apt-get install software-properties-common -y
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt-get update
+sudo apt-get install gcc-9 -y
+```
+
+### 安装Open MPI（可选）
+
+可以通过以下命令编译安装Open MPI。
+
+```bash
+curl -O https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.3.tar.gz
+tar xzf openmpi-4.0.3.tar.gz
+cd openmpi-4.0.3
+./configure --prefix=/usr/local/openmpi-4.0.3
+make
+sudo make install
+echo -e "export PATH=/usr/local/openmpi-4.0.3/bin:\$PATH" >> ~/.bashrc
+echo -e "export LD_LIBRARY_PATH=/usr/local/openmpi-4.0.3/lib:\$LD_LIBRARY_PATH" >> ~/.bashrc
+source ~/.bashrc
+cd -
+```
+
+### 安装TensorRT（可选）
+
+完成CUDA和cuDNN的安装后，在[TensorRT下载页面](https://developer.nvidia.com/nvidia-tensorrt-7x-download)下载配套CUDA 11.1的TensorRT 7.2.2，注意选择下载TAR格式的安装包。假设下载的文件名为`TensorRT-7.2.2.3.Ubuntu-18.04.x86_64-gnu.cuda-11.1.cudnn8.0.tar.gz`。使用以下命令安装TensorRT。
+
+```bash
+tar xzf TensorRT-7.2.2.3.Ubuntu-18.04.x86_64-gnu.cuda-11.1.cudnn8.0.tar.gz
+cd TensorRT-7.2.2.3
+echo -e "export TENSORRT_HOME=$PWD" >> ~/.bashrc
+echo -e "export LD_LIBRARY_PATH=\$TENSORRT_HOME/lib:\$LD_LIBRARY_PATH" >> ~/.bashrc
+source ~/.bashrc
+cd -
+```
 
 ## 下载安装MindSpore
 
