@@ -46,7 +46,7 @@ This script performs the following operations:
 - Install Python3 and pip3 and set them as default.
 - Install MindSpore Ascend 310 by pip.
 
-After the script is executed, you need to reopen the terminal window, and then set the relevant environment variables according to the instructions in [Configuring Environment Variables](#configuring-environment-variables).
+After the script is executed, you need to reopen the terminal window to make the environment variables take effect.
 
 The automatic installation script creates a virtual environment named `mindspore_pyXX` for MindSpore. Where `XX` is the Python version, such as Python 3.7, the virtual environment name is `mindspore_py37`. Run the following command to show all virtual environments.
 
@@ -59,6 +59,8 @@ Take Python 3.7 as an example, run the following command to activate the virtual
 ```bash
 conda activate mindspore_py37
 ```
+
+Now you can jump to the [Configuring Environment Variables](#configuring-environment-variables) section to set the relevant environment variables.
 
 For more usage, see the script header description.
 

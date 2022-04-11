@@ -48,7 +48,7 @@ MINDSPORE_VERSION=1.7.0 bash -i ./euleros-ascend-pip.sh
 - 通过pip安装MindSpore Ascend版本。
 - 如果OPENMPI设置为`on`，则安装Open MPI。
 
-在脚本执行完成后，需要重新打开终端窗口，然后参照[配置环境变量](#配置环境变量)中的说明设置相关环境变量。
+在脚本执行完成后，需要重新打开终端窗口以使环境变量生效。
 
 自动安装脚本会为MindSpore创建名为`mindspore_pyXX`的虚拟环境。其中`XX`为Python版本，如Python 3.7则虚拟环境名为`mindspore_py37`。执行以下命令查看所有虚拟环境。
 
@@ -61,6 +61,8 @@ conda env list
 ```bash
 conda activate mindspore_py37
 ```
+
+现在您可以跳转到[配置环境变量](#配置环境变量)小节设置相关环境变量。
 
 更多的用法请参看脚本头部的说明。
 
