@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `Distributed Parallel` `Whole Process`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/apply_parameter_server_training.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/apply_parameter_server_training.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -31,7 +31,7 @@ Learn how to train a LeNet using the [MNIST dataset](http://yann.lecun.com/exdb/
 1. First of all, use `mindspore.context.set_ps_context(enable_ps=True)` to enable Parameter Server training mode.
 
     - This method should be called before `mindspore.communication.init()`.
-    - If you don't call this method, the [Environment Variable Setting](https://www.mindspore.cn/docs/programming_guide/en/master/apply_parameter_server_training.html#environment-variable-setting) below will not take effect.
+    - If you don't call this method, the [Environment Variable Setting](https://www.mindspore.cn/tutorials/experts/en/master/parallel/apply_parameter_server_training.html#environment-variable-setting) below will not take effect.
     - Use `mindspore.context.reset_ps_context()` to disable Parameter Server training mode.
 
 2. In this training mode, you can use either of the following methods to control whether the training parameters are updated by the Parameter Server and whether the training parameters are initialized on Worker or Server:
@@ -49,7 +49,7 @@ Learn how to train a LeNet using the [MNIST dataset](http://yann.lecun.com/exdb/
     network.set_param_ps()
     ```
 
-4. [optional configuration] For a large shape `embedding_table`, because the device can not store a full amount of `embedding_table`. You can configure the `vocab_cache_size` of [EmbeddingLookup operator](https://www.mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.EmbeddingLookup.html) to enable the cache function of `EmbeddingLookup` in the Parameter Server training mode. The `vocab_cache_size` of `embedding_table` is trained on device, and a full amount of `embedding_table` is stored in the Server. The `embedding_table` of the next batch is swapped to the cache in advance, and the expired `embedding_table` is put back to the Server when the cache cannot be placed, to achieve the purpose of improving the training performance. Each Server could save a checkpoint containing the trained `embedding_table` after the training. Detailed network training script can be referred to <https://gitee.com/mindspore/models/tree/master/official/recommend/wide_and_deep>.
+4. [optional configuration] For a large shape `embedding_table`, because the device can not store a full amount of `embedding_table`. You can configure the `vocab_cache_size` of [EmbeddingLookup operator](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.EmbeddingLookup.html) to enable the cache function of `EmbeddingLookup` in the Parameter Server training mode. The `vocab_cache_size` of `embedding_table` is trained on device, and a full amount of `embedding_table` is stored in the Server. The `embedding_table` of the next batch is swapped to the cache in advance, and the expired `embedding_table` is put back to the Server when the cache cannot be placed, to achieve the purpose of improving the training performance. Each Server could save a checkpoint containing the trained `embedding_table` after the training. Detailed network training script can be referred to <https://gitee.com/mindspore/models/tree/master/official/recommend/wide_and_deep>.
 
     ```python
     context.set_auto_parallel_context(full_batch=True,

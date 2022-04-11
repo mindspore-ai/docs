@@ -4,7 +4,7 @@ Translator: [unseeme](https://gitee.com/unseenme)
 
 `Device` `Ascend` `Inference Application`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/apply_post_training_quantization.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/model_infer/apply_post_training_quantization.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Concept
 
@@ -27,4 +27,4 @@ Choose to use the corresponding post training quantization tool according to the
 | Post Training Quantization Tools | Quantization Method Supported | Inference Hardware Platform Supported | Quantization Model Deployment |
 | --- | --- | --- | --- |
 | [MindSpore Post Training Quantization Tools](https://www.mindspore.cn/lite/docs/en/master/use/post_training_quantization.html) | Weights Quantization <br> Full Quantization | CPU | [Inference on edge device](https://www.mindspore.cn/lite/docs/en/master/use/runtime.html) |
-| Ascend Model Compression Tool | Full Quantization | Ascend 310 AI Processor | [Inference on Ascend 310 AI Processor](https://www.mindspore.cn/docs/programming_guide/en/master/multi_platform_inference_ascend_310.html) |
+| Ascend Model Compression Tool | Full Quantization | Ascend 310 AI Processor | [Inference on Ascend 310 AI Processor](https://www.mindspore.cn/tutorials/experts/en/master/model_infer/multi_platform_inference_ascend_310.html) |

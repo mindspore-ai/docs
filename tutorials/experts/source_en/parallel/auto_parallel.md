@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `Distributed Parallel`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/auto_parallel.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/auto_parallel.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -222,7 +222,7 @@ context.get_auto_parallel_context("gradient_fp32_sync")
 `auto_parallel_search_mode` is replaced by `search_mode`. `auto_parallel_search_mode` will be deleted in the future MindSpore version. This attribute indicates the algorithm chosen for searching op-level parallelism: `dynamic_programming`, `recursive_programming`, and `sharding_propagation`.
 
 `dynamic_programming` can search for the optimal policy depicted by the cost model, but it takes a long time to search on a huge network model.
-`recursive_programming` can quickly search out parallel policies, but the found policies may not have the optimal running performance. `shardin_propagation` requires users to configure sharding strategies for some operators, and the algorithm will then propagate the strategies from configured ops to non-configured ops, with the goal of minimizing [tensor redistribution](https://www.mindspore.cn/docs/en/master/design/distributed_training_design.html#id10) communication. MindSpore allows users to select a search algorithm. The default value is `dynamic_programming`.
+`recursive_programming` can quickly search out parallel policies, but the found policies may not have the optimal running performance. `shardin_propagation` requires users to configure sharding strategies for some operators, and the algorithm will then propagate the strategies from configured ops to non-configured ops, with the goal of minimizing [tensor redistribution](https://www.mindspore.cn/tutorials/experts/en/master/design/distributed_training_design.html#id10) communication. MindSpore allows users to select a search algorithm. The default value is `dynamic_programming`.
 
 The following is a code example:
 
@@ -348,7 +348,7 @@ context.set_context(device_target='GPU')
 init()
 ```
 
-> On the GPU processor platform, MindSpore also supports starting distributed training without relying on 'OpenMPI', and also uses this interface for distributed training initialization. For specific usage, please refer to [not using OpenMPI training](https://www.mindspore.cn/docs/programming_guide/en/master/distributed_training_gpu.html#openmpi). In this case, when the user does not use 'mpirun' to start the process, but still calls the 'init()' method, MindSpore requires the user to follow [not using OpenMPI training](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/distributed_training_gpu.html#openmpi) to configure several environment variables. If not configured, MindSpore will give a reasonable error prompt. Therefore, it is recommended to call this method only when executing distributed training, and when trying to start distributed training without using 'mpirun', please configure the correct environment variables according to the document.
+> On the GPU processor platform, MindSpore also supports starting distributed training without relying on 'OpenMPI', and also uses this interface for distributed training initialization. For specific usage, please refer to [not using OpenMPI training](https://www.mindspore.cn/tutorials/experts/en/master/parallel/distributed_training_gpu.html#openmpi). In this case, when the user does not use 'mpirun' to start the process, but still calls the 'init()' method, MindSpore requires the user to follow [not using OpenMPI training](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/distributed_training_gpu.html#openmpi) to configure several environment variables. If not configured, MindSpore will give a reasonable error prompt. Therefore, it is recommended to call this method only when executing distributed training, and when trying to start distributed training without using 'mpirun', please configure the correct environment variables according to the document.
 
 ### get_group_size
 

@@ -2,11 +2,11 @@
 
 `Ascend` `GPU` `Parallel Training` `Automatic Parallelization`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/sharding_propagation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/sharding_propagation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Background
 
-Distributed operator, Tensor Layout, and Tensor Redistribution are fundamental concepts in op-level parallelism of MindSpore. In [here](https://www.mindspore.cn/docs/en/master/design/distributed_training_design.html#automatic-parallelism), these concepts are introduced by examples. Here, we formally define them.
+Distributed operator, Tensor Layout, and Tensor Redistribution are fundamental concepts in op-level parallelism of MindSpore. In [here](https://www.mindspore.cn/tutorials/experts/en/master/design/distributed_training_design.html#automatic-parallelism), these concepts are introduced by examples. Here, we formally define them.
 
 In op-level parallelism, we conduct SPMD (Single Program Multiple Data) style parallelism, that is, a single program is produced for all partitions. MindSpore transforms a stand-alone program to a parallel one. The transformation is fine-grained in the sense that each operator in the stand-alone program is substituted by (a) distributed operator(s), guaranteeing that the substitution is mathematically equivalent.
 
@@ -66,7 +66,7 @@ The following figure illustrates an example process of applying Sharding Propaga
 >
 > <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/sharding_propagation>.
 
-The directory structure is as follows, where `rank_table_8pcs.json` is the IP configuration for Ascend devices (see [here]( https://www.mindspore.cn/docs/programming_guide/en/master/distributed_training_ascend.html#configuring-distributed-environment-variables) for the explanation), `train.py` is the model definition, and `run.sh` is the execution script.
+The directory structure is as follows, where `rank_table_8pcs.json` is the IP configuration for Ascend devices (see [here]( https://www.mindspore.cn/tutorials/experts/en/master/parallel/distributed_training_ascend.html#configuring-distributed-environment-variables) for the explanation), `train.py` is the model definition, and `run.sh` is the execution script.
 
 ```text
 └─sample_code

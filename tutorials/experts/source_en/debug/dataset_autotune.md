@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `Data Preparation`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/enable_dataset_autotune.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/debug/enable_dataset_autotune.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -59,7 +59,7 @@ print("tuning interval:", ds.config.get_autotune_interval())
 ## Constraints
 
 - Both Dataset Profiling and Dataset AutoTune cannot be enabled concurrently, otherwise it will lead to unwork of Dataset AutoTune or Profiling. If both of them are enabled at the same time, a warning message will prompt the user to check whether it is a mistake. Please make sure Profiling is disabled when using Dataset AutoTune.
-- When enable [Offload for Dataset](https://www.mindspore.cn/docs/programming_guide/en/master/enable_dataset_offload.html) and Dataset AutoTune simultaneously, if any dataset node has been offloaded for hardware acceleration, then the optimized dataset pipeline configuration file will not be written and a warning will be logged, because the dataset pipeline that is actually running is not the predefined one.
+- When enable [Offload for Dataset](https://www.mindspore.cn/tutorials/experts/en/master/debug/enable_dataset_offload.html) and Dataset AutoTune simultaneously, if any dataset node has been offloaded for hardware acceleration, then the optimized dataset pipeline configuration file will not be written and a warning will be logged, because the dataset pipeline that is actually running is not the predefined one.
 - If the Dataset pipeline consists of a node that does not support deserialization (e.g. user-defined Python functions, GeneratorDataset), then any attempt to deserialize the saved optimized dataset pipeline configuration file will report an error. In this case, it is recommended to open the pipeline configuration file and modify the script of dataset pipeline manually.
 
 ## Example
@@ -218,8 +218,7 @@ This allows the dataset pipeline to be run at an improved speed from the beginni
 
 By the way, MindSpore also provides APIs to set the global value of num_parallel_workers and prefetch_size.
 
-Please refer to [mindspore.dataset.config](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.dataset.config.html):
+Please refer to [mindspore.dataset.config](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.config.html):
 
-- [mindspore.dataset.config.set_num_parallel_workers](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.dataset.config.html#mindspore.dataset.config.set_num_parallel_workers)
-- [mindspore.dataset.config.set_prefetch_size](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.dataset.config.html#mindspore.dataset.config.set_prefetch_size)
-
+- [mindspore.dataset.config.set_num_parallel_workers](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.config.html#mindspore.dataset.config.set_num_parallel_workers)
+- [mindspore.dataset.config.set_prefetch_size](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.config.html#mindspore.dataset.config.set_prefetch_size)

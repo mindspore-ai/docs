@@ -2,11 +2,11 @@
 
 `Ascend` `GPU` `CPU` `Data Preparation`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/enable_auto_augmentation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/data_engine/enable_auto_augmentation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
-Auto Augmentation [1] finds a suitable image augmentation scheme for a specific dataset by searching through a series of image augmentation sub-policies. The `c_transforms` module of MindSpore provides various C++ operators that are used in Auto Augmentation. Users can also customize functions or operators to implement Auto Augmentation. For more details about the MindSpore operators, see the [API document](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore.dataset.vision.html).
+Auto Augmentation [1] finds a suitable image augmentation scheme for a specific dataset by searching through a series of image augmentation sub-policies. The `c_transforms` module of MindSpore provides various C++ operators that are used in Auto Augmentation. Users can also customize functions or operators to implement Auto Augmentation. For more details about the MindSpore operators, see the [API document](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.vision.html).
 
 The mapping between MindSpore operators and Auto Augmentation operators is as follows:
 

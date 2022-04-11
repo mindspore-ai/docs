@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `Model Running`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/debug_in_pynative_mode.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/debug/debug_in_pynative_mode.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -17,7 +17,7 @@ In PyNative mode, single operators, common functions, network inference, and sep
 
 > In PyNative mode, operators are executed asynchronously on the device to improve performance. Therefore, when an error occurs during operator execution, the error information may be displayed after the program is executed. Therefore, in PyNative mode, a pynative_synchronize setting is added to control whether operators are executed asynchronously on the device.
 >
-> In the following example, the parameter initialization uses random values, and the output results in specific execution may be different from the results of local execution; if you need to stabilize the output of a fixed value, you can set a fixed random seed. For the setting method, please refer to [mindspore.set_seed()](https://www.mindspore.cn/docs/api/en/master/api_python/mindspore/mindspore.set_seed.html).
+> In the following example, the parameter initialization uses random values, and the output results in specific execution may be different from the results of local execution; if you need to stabilize the output of a fixed value, you can set a fixed random seed. For the setting method, please refer to [mindspore.set_seed()](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_seed.html).
 
 ## Executing a Single Operator
 
@@ -480,7 +480,7 @@ Output：
 (Tensor(shape=[], dtype=Float32, value= 4), Tensor(shape=[], dtype=Float32, value= 4))
 ```
 
-For more descriptions of HookBackward operator, please refer to [API document](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.HookBackward.html).
+For more descriptions of HookBackward operator, please refer to [API document](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.HookBackward.html).
 
 ### The register_forward_pre_hook function for Cell object
 
@@ -588,7 +588,7 @@ forward inputs: (Tensor(shape=[1], dtype=Float32, value= [ 2.00000000e+00]), Ten
 
 In order to avoid script failure when switching to graph mode, it is not recommended to call the `register_forward_pre_hook` function or the `remove()` function of the `handle` object in the `construct` function of the Cell object. In the PyNative mode, if the `register_forward_pre_hook` function is called in the `construct` function of the Cell object, a hook function will be added at each run time of Cell object.
 
-More about the `register_forward_pre_hook` interface, please refer to [API Document](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_forward_pre_hook).
+More about the `register_forward_pre_hook` interface, please refer to [API Document](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_forward_pre_hook).
 
 ### The register_forward_hook function for Cell object
 
@@ -655,7 +655,7 @@ If user returns the newly created data directly in the hook function instead of 
 
 In order to avoid script failure when switching to graph mode, it is not recommended to call the `register_forward_hook` function or the `remove()` function of the `handle` object in the `construct` function of the Cell object. In the PyNative mode, if the `register_forward_hook` function is called in the `construct` function of the Cell object, a hook function will be added at each run time of Cell object.
 
-More about the `register_forward_hook` interface, please refer to [API Document](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_forward_hook).
+More about the `register_forward_hook` interface, please refer to [API Document](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_forward_hook).
 
 ### The register_backward_hook function for Cell object
 
@@ -793,7 +793,7 @@ The `grad input` is the input gradient of `self.mul` . It is not the input gradi
 
 In order to avoid script failure when switching to graph mode, it is not recommended to call the `register_backward_hook` function or the `remove()` function of the `handle` object in the `construct` function of the Cell object. In the PyNative mode, if the `register_backward_hook` function is called in the `construct` function of the Cell object, a hook function will be added at each run time of Cell object.
 
-More about the `register_backward_hook` interface, please refer to [API Document](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_backward_hook).
+More about the `register_backward_hook` interface, please refer to [API Document](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.register_backward_hook).
 
 ## Custom bprop
 

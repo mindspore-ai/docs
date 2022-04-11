@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `Data Preparation`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/enable_cache.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/data_engine/enable_cache.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -63,7 +63,7 @@ This tutorial demonstrates how to use the single-node cache service, and shows s
 
 5. Inserting a Cache Instance
 
-   The following uses the CIFAR-10 dataset as an example. Before running the sample, download and store the CIFAR-10 dataset by referring to [Loading Dataset](https://www.mindspore.cn/docs/programming_guide/en/master/dataset_loading.html#cifar-10-100-dataset). The directory structure is as follows:
+   The following uses the CIFAR-10 dataset as an example. Before running the sample, download and store the CIFAR-10 dataset by referring to [Loading Dataset](https://www.mindspore.cn/tutorials/experts/en/master/data_engine/dataset_loading.html#cifar-10-100-dataset). The directory structure is as follows:
 
    ```text
    ├─my_training_script.py

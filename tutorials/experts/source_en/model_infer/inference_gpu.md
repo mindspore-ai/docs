@@ -2,7 +2,7 @@
 
 `GPU` `Inference Application`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/multi_platform_inference_gpu.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/model_infer/multi_platform_inference_gpu.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Use C++ Interface to Load a MindIR File for Inferencing
 
@@ -181,6 +181,6 @@ It is recommended that export the MindIR model with fp32 precision mode before d
 
 ## Inference Using an ONNX File
 
-1. Generate a model in ONNX format on the training platform. For details, see [Export ONNX Model](https://www.mindspore.cn/docs/programming_guide/en/master/save_model.html#export-onnx-model).
+1. Generate a model in ONNX format on the training platform. For details, see [Export ONNX Model](https://www.mindspore.cn/tutorials/experts/en/master/model_infer/save_model.html#export-onnx-model).
 
 2. Perform inference on a GPU by referring to the runtime or SDK document. For example, use TensorRT to perform inference on the NVIDIA GPU. For details, see [TensorRT backend for ONNX](https://github.com/onnx/onnx-tensorrt).
