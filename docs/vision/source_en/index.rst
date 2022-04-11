@@ -6,3 +6,5 @@ MindSpore Vision Documents
    :caption: API References
 
    classification
+   engine
+   utils
