@@ -175,7 +175,7 @@ class SemiAutoParallelNet(nn.Cell):
 > - 自动并行模式支持通过策略搜索算法自动获取高效的算子并行策略，同时也支持用户对算子手动配置特定的并行策略。
 > - 如果某个`parameter`被多个算子使用，则每个算子对这个`parameter`的切分策略需要保持一致，否则将报错。
 
-自动和半自动模式中还可以通过对`Cell`配置`pipeline_stage`属性进行流水线并行，对应的流水线并行教程可以参考[应用流水线并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/apply_pipeline_parallel.html)。
+自动和半自动模式中还可以通过对`Cell`配置`pipeline_stage`属性进行流水线并行，对应的流水线并行教程可以参考[应用流水线并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/pipeline_parallel.html)。
 
 ### 全自动并行
 

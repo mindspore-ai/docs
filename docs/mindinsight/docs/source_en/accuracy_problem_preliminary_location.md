@@ -286,7 +286,7 @@ Check whether the freezing status of the weight is consistent with the design ba
 
 Method 1: Set requires_grad in [Parameter](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter) to False.
 
-Method 2: Use [stop_gradient](<https://www.mindspore.cn/tutorials/en/master/autograd.html># %E5%81%9C %E6%AD %A2%E8%AE %A1%E7%AE %97%E6%A2%AF %E5%BA %A6) to prevent the gradient from continuing to propagate backward. After all gradients that affect the weight are blocked, the update of the weight is actually blocked.
+Method 2: Use [stop_gradient](<https://www.mindspore.cn/tutorials/en/master/beginner/autograd.html># %E5%81%9C %E6%AD %A2%E8%AE %A1%E7%AE %97%E6%A2%AF %E5%BA %A6) to prevent the gradient from continuing to propagate backward. After all gradients that affect the weight are blocked, the update of the weight is actually blocked.
 
 Conclusion:
 
@@ -349,7 +349,7 @@ After the overflow problem is found, find and analyze the first overflow node. (
 
 The common solutions to the overflow problem are as follows:
 
-1. Enable dynamic loss scale or set a proper static loss scale value. For details, see [LossScale](https://www.mindspore.cn/docs/programming_guide/en/master/lossscale.html). Note that when the static loss scale in the GPU scenario is directly used for Ascend training, unexpected frequent overflow may occur, affecting convergence. After the loss scale is enabled, you may need to perform multiple experiments to adjust the init_loss_scale (initial value), scale_factor, and scale_window of loss scale until there are few floating-point overflows during training. For details about these parameters, see [DynamicLossScaleManager](https://www.mindspore.cn/docs/programming_guide/en/master/lossscale.html#dynamiclossscalemanager).
+1. Enable dynamic loss scale or set a proper static loss scale value. For details, see [LossScale](https://www.mindspore.cn/tutorials/experts/en/master/others/mixed_precision.html). Note that when the static loss scale in the GPU scenario is directly used for Ascend training, unexpected frequent overflow may occur, affecting convergence. After the loss scale is enabled, you may need to perform multiple experiments to adjust the init_loss_scale (initial value), scale_factor, and scale_window of loss scale until there are few floating-point overflows during training. For details about these parameters, see [DynamicLossScaleManager](https://www.mindspore.cn/tutorials/experts/en/master/others/mixed_precision.html#dynamiclossscalemanager).
 2. If the overflow problem has a key impact on the accuracy and cannot be avoided, change the corresponding operator to the FP32 operator (the performance may be greatly affected after the adjustment).
 
 Conclusion:
@@ -360,7 +360,7 @@ Enter here.
 
 Check method:
 
-When [mixed precision](https://www.mindspore.cn/docs/programming_guide/en/master/enable_mixed_precision.html) is used, ensure that [DynamicLossScaleManager](https://www.mindspore.cn/docs/programming_guide/en/master/lossscale.html#dynamiclossscalemanager) (recommended) or [FixedLossScaleManager](https://www.mindspore.cn/docs/programming_guide/en/master/lossscale.html#fixedlossscalemanager) is enabled. You can use the default parameter values of DynamicLossScaleManager or FixedLossScaleManager for training. If there are too many overflow steps and the final accuracy is affected, adjust the value of loss_scale based on the overflow phenomenon. If gradient overflow occurs, decrease the value of loss_scale (by dividing the original value of loss_scale by 2). If gradient underflow occurs, increase the value of loss_scale (by multiplying the original value of loss_scale by 2). In most cases, training on the Ascend AI processor is performed with mixed precision. The computation feature of the Ascend AI processor is different from that of the GPU mixed precision. Therefore, you may need to adjust the value of the LossScaleManager hyperparameter to a value different from that on the GPU based on the training result to ensure the precision.
+When [mixed precision](https://www.mindspore.cn/docs/programming_guide/en/master/enable_mixed_precision.html) is used, ensure that [DynamicLossScaleManager](https://www.mindspore.cn/tutorials/experts/en/master/others/mixed_precision.html#dynamiclossscalemanager) (recommended) or [FixedLossScaleManager](https://www.mindspore.cn/tutorials/experts/en/master/others/mixed_precision.html#fixedlossscalemanager) is enabled. You can use the default parameter values of DynamicLossScaleManager or FixedLossScaleManager for training. If there are too many overflow steps and the final accuracy is affected, adjust the value of loss_scale based on the overflow phenomenon. If gradient overflow occurs, decrease the value of loss_scale (by dividing the original value of loss_scale by 2). If gradient underflow occurs, increase the value of loss_scale (by multiplying the original value of loss_scale by 2). In most cases, training on the Ascend AI processor is performed with mixed precision. The computation feature of the Ascend AI processor is different from that of the GPU mixed precision. Therefore, you may need to adjust the value of the LossScaleManager hyperparameter to a value different from that on the GPU based on the training result to ensure the precision.
 
 Conclusion:
 
@@ -370,7 +370,7 @@ Enter here.
 
 Check method:
 
-Gradient clip forcibly adjusts the gradient to a smaller value when the gradient is greater than a threshold. Gradient clip has a good effect on the gradient explosion problem in RNNs. If both [loss scale](https://www.mindspore.cn/docs/programming_guide/en/master/lossscale.html) and gradient clip are used, perform this check. Check the code to ensure that the application object of gradient clip is the original gradient value obtained by dividing the loss scale.
+Gradient clip forcibly adjusts the gradient to a smaller value when the gradient is greater than a threshold. Gradient clip has a good effect on the gradient explosion problem in RNNs. If both [loss scale](https://www.mindspore.cn/tutorials/experts/en/master/others/mixed_precision.html) and gradient clip are used, perform this check. Check the code to ensure that the application object of gradient clip is the original gradient value obtained by dividing the loss scale.
 
 Conclusion:
 
@@ -380,7 +380,7 @@ Enter here.
 
 Check method:
 
-Gradient penalty is a technique that adds a gradient to a cost function to constrain the gradient length. If both [loss scale](https://www.mindspore.cn/docs/programming_guide/en/master/lossscale.html) and gradient penalty are used, perform this check. Check whether the entered gradient is a gradient without loss scale when computing the gradient penalty item. For example, a gradient substituted for the loss scale may be first divided by the loss scale, and then is used to compute the gradient penalty item.
+Gradient penalty is a technique that adds a gradient to a cost function to constrain the gradient length. If both [loss scale](https://www.mindspore.cn/tutorials/experts/en/master/others/mixed_precision.html) and gradient penalty are used, perform this check. Check whether the entered gradient is a gradient without loss scale when computing the gradient penalty item. For example, a gradient substituted for the loss scale may be first divided by the loss scale, and then is used to compute the gradient penalty item.
 
 Conclusion:
 
@@ -395,8 +395,6 @@ If the benchmark script in another framework is available, you can compare the M
 The procedure is as follows:
 
 ### Fixing MindSpore Script Randomness
-
-For details, see [Fixing Randomness to Reproduce the Script Running Result](https://www.mindspore.cn/docs/programming_guide/en/master/fixing_randomness.html).
 
 ### Reproducing the Accuracy Problem
 

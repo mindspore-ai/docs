@@ -562,7 +562,7 @@ The global batch size indicates the global batch size during multi-device traini
 
 #### Ensuring that the Initial Weight of Data Parallelism Is the Same for Each Channel
 
-When the data of multiple channels (multiple devices) is parallel, the result correctness depends on the consistency of the initial weight value of each channel (each device). Load the same checkpoint or fix the random seed in advance to ensure that the initial weight values are the same. For details about how to use a fixed random seed, see [Fixing Randomness to Reproduce the Script Running Result](https://www.mindspore.cn/docs/programming_guide/en/master/fixing_randomness.html).
+When the data of multiple channels (multiple devices) is parallel, the result correctness depends on the consistency of the initial weight value of each channel (each device). Load the same checkpoint or fix the random seed in advance to ensure that the initial weight values are the same.
 
 ### Reference Documents Related to Accuracy Tuning
 

@@ -390,7 +390,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 出现溢出问题后常见的解决措施如下：
 
-1. 使能动态loss scale功能，或者是合理设置静态loss scale的值，请参考[LossScale](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/lossscale.html)。需要注意的是，直接将GPU场景中的静态loss scale用于Ascend上的训练时，可能会导致不期望的频繁溢出，影响收敛。loss scale使能后，可能需要多次实验以调整loss scale的初始值init_loss_scale、调整比例scale_factor、调整窗口scale_window等参数，直到训练中浮点溢出非常少，请参考[DynamicLossScaleManager](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/lossscale.html#dynamiclossscalemanager)以了解这些参数的含义。
+1. 使能动态loss scale功能，或者是合理设置静态loss scale的值，请参考[LossScale](https://www.mindspore.cn/tutorials/experts/zh-CN/master/others/mixed_precision.html)。需要注意的是，直接将GPU场景中的静态loss scale用于Ascend上的训练时，可能会导致不期望的频繁溢出，影响收敛。loss scale使能后，可能需要多次实验以调整loss scale的初始值init_loss_scale、调整比例scale_factor、调整窗口scale_window等参数，直到训练中浮点溢出非常少，请参考[DynamicLossScaleManager](https://www.mindspore.cn/tutorials/experts/zh-CN/master/others/mixed_precision.html#dynamiclossscalemanager)以了解这些参数的含义。
 2. 溢出问题对精度有关键影响且无法规避的，将相应的算子调整为FP32算子（调整后可能对性能有较大影响）。
 
 检查结论：
@@ -401,7 +401,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 检查方法：
 
-在使用[混合精度](https://www.mindspore.cn/tutorials/experts/zh-CN/master/others/mixed_precision.html)时，一般应确认使能了[DynamicLossScaleManager](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/lossscale.html#dynamiclossscalemanager)或[FixedLossScaleManager](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/lossscale.html#fixedlossscalemanager)，推荐优先使用DynamicLossScaleManager。可以先使用DynamicLossScaleManager或FixedLossScaleManager的默认参数值进行训练，若产生溢出的迭代过多，影响最终精度时，应根据主要的溢出现象，针对性调整loss_scale的值。当主要溢出现象为梯度上溢时，应减小loss_scale的值（可以尝试将原loss_scale值除以2）；当主要溢出现象为梯度下溢时，应增大loss_scale的值（可以尝试将原loss_scale值乘以2）。对于Ascend AI处理器上的训练，其在大部分情况下为混合精度训练。由于Ascend AI处理器计算特性与GPU混合精度计算特性存在差异，LossScaleManager超参也可能需要根据训练情况调整为与GPU上不同的值以保证精度。
+在使用[混合精度](https://www.mindspore.cn/tutorials/experts/zh-CN/master/others/mixed_precision.html)时，一般应确认使能了[DynamicLossScaleManager](https://www.mindspore.cn/tutorials/experts/zh-CN/master/others/mixed_precision.html#dynamiclossscalemanager)或[FixedLossScaleManager](https://www.mindspore.cn/tutorials/experts/zh-CN/master/others/mixed_precision.html#fixedlossscalemanager)，推荐优先使用DynamicLossScaleManager。可以先使用DynamicLossScaleManager或FixedLossScaleManager的默认参数值进行训练，若产生溢出的迭代过多，影响最终精度时，应根据主要的溢出现象，针对性调整loss_scale的值。当主要溢出现象为梯度上溢时，应减小loss_scale的值（可以尝试将原loss_scale值除以2）；当主要溢出现象为梯度下溢时，应增大loss_scale的值（可以尝试将原loss_scale值乘以2）。对于Ascend AI处理器上的训练，其在大部分情况下为混合精度训练。由于Ascend AI处理器计算特性与GPU混合精度计算特性存在差异，LossScaleManager超参也可能需要根据训练情况调整为与GPU上不同的值以保证精度。
 
 检查结论：
 
@@ -411,7 +411,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 检查方法：
 
-梯度裁剪（gradient clip）是指当梯度大于某个阈值时，强制调整梯度使其变小的技术。梯度裁剪对RNN网络中的梯度爆炸问题有较好的效果。如果同时使用了[loss scale](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/lossscale.html)和梯度裁剪，需要进行本检查。请对照代码检查确认梯度裁剪的应用对象是除以loss scale后得到的原始梯度值。
+梯度裁剪（gradient clip）是指当梯度大于某个阈值时，强制调整梯度使其变小的技术。梯度裁剪对RNN网络中的梯度爆炸问题有较好的效果。如果同时使用了[loss scale](https://www.mindspore.cn/tutorials/experts/zh-CN/master/others/mixed_precision.html)和梯度裁剪，需要进行本检查。请对照代码检查确认梯度裁剪的应用对象是除以loss scale后得到的原始梯度值。
 
 检查结论：
 
@@ -421,7 +421,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 检查方法：
 
-梯度惩罚是指将梯度添加到代价函数中，约束梯度长度的技术。如果同时使用了[loss scale](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/lossscale.html)和梯度惩罚（gradient penalty），需要进行本检查。检查确认计算梯度惩罚项时，输入的梯度为无loss scale的梯度。例如，可以先将代用loss scale的梯度除以loss scale，再用来计算梯度惩罚项。
+梯度惩罚是指将梯度添加到代价函数中，约束梯度长度的技术。如果同时使用了[loss scale](https://www.mindspore.cn/tutorials/experts/zh-CN/master/others/mixed_precision.html)和梯度惩罚（gradient penalty），需要进行本检查。检查确认计算梯度惩罚项时，输入的梯度为无loss scale的梯度。例如，可以先将代用loss scale的梯度除以loss scale，再用来计算梯度惩罚项。
 
 检查结论：
 

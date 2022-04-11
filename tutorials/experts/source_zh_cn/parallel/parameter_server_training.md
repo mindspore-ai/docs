@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `分布式并行` `全流程`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/apply_parameter_server_training.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/parameter_server_training.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -33,7 +33,7 @@ MindSpore的参数服务器采用了自研的通信框架作为基础架构，�
 1. 首先调用`mindspore.context.set_ps_context(enable_ps=True)`开启Parameter Server训练模式.
 
     - 此接口需在`mindspore.communication.init()`之前调用。
-    - 若没有调用此接口，下面的[环境变量设置](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/apply_parameter_server_training.html#环境变量设置)则不会生效。
+    - 若没有调用此接口，下面的[环境变量设置](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/parameter_server_training.html#环境变量设置)则不会生效。
     - 调用`mindspore.context.reset_ps_context()`可以关闭Parameter Server训练模式。
 
 2. 在本训练模式下，有以下两种调用接口方式以控制训练参数是否通过Parameter Server进行更新，并且可以控制参数初始化位置：
