@@ -50,6 +50,7 @@
    debug/auto_tune
    debug/dataset_autotune
    debug/ms_class
+   debug/fixing_randomness
 
 .. toctree::
    :glob:
@@ -67,5 +68,10 @@
 
    others/mixed_precision
    others/gradient_accumulation
+   others/second_order_optimizer
+   others/adaptive_summation
+   others/dimention_reduce_training
+   others/evaluate_the_model_during_training
+   others/on_device
    
    
