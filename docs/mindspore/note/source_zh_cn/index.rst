@@ -6,25 +6,5 @@
 MindSpore规格和说明
 =====================
 
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: 规格说明
-
-   benchmark
-   network_list
-   operator_list
-   syntax_list
-   env_var_list
-
-API映射已迁移至 https://www.mindspore.cn/docs/migration_guide/zh-CN/master/api_mapping.html。
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: 其他说明
-
-   roadmap
-   help_seeking_path
-   community
+文档已迁移至 `参考 <https://www.mindspore.cn/docs/zh-CN/master/note/benchmark.html>`_ 。
  

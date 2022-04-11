@@ -1,10 +1,4 @@
 API Mapping
 ============
 
-Mapping between PyTorch APIs and MindSpore APIs, TensorFlow APIs and MindSpore APIs provided by the community.
-
-.. toctree::
-   :maxdepth: 1
-
-   api_mapping/pytorch_api_mapping
-   api_mapping/tensorflow_api_mapping
+The API mapping has been migrated to `API Mapping <https://www.mindspore.cn/docs/en/master/note/api_mapping.html>`_ .

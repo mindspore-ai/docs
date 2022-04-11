@@ -6,15 +6,4 @@
 MindSpore Migration Guide
 =================================
 
-.. toctree::
-   :maxdepth: 1
-
-   overview
-   preparation
-   script_analysis
-   script_development
-   neural_network_debug
-   performance_optimization
-   inference
-   sample_code
-   api_mapping
+The documentation has been migrated to `Migration Guide <https://www.mindspore.cn/docs/en/master/migration_guide/overview.html>`_ .

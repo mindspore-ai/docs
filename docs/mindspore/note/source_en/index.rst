@@ -6,26 +6,6 @@
 MindSpore Specification and Notes
 =======================================
 
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: Specification Note
-
-   benchmark
-   network_list
-   operator_list
-   syntax_list
-   env_var_list
-
-The API mapping has been migrated to https://www.mindspore.cn/docs/migration_guide/en/master/api_mapping.html.
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: Others
-
-   roadmap
-   help_seeking_path
-   community
+The documentation has been migrated to `Notes <https://www.mindspore.cn/docs/en/master/note/benchmark.html>`_ .
 
  
