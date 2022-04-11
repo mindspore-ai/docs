@@ -6,17 +6,4 @@
 MindSpore迁移指南
 ===================
 
-.. toctree::
-   :maxdepth: 1
-
-   overview
-   preparation
-   script_analysis
-   script_development
-   neural_network_debug
-   accuracy_optimization
-   performance_optimization
-   inference
-   sample_code
-   api_mapping
-   faq
+文档已迁移至 `迁移指南 <https://www.mindspore.cn/docs/zh-CN/master/migration_guide/overview.html>`_ 。

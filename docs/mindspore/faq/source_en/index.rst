@@ -6,18 +6,4 @@
 MindSpore FAQ
 =================
 
-.. toctree::
-  :glob:
-  :maxdepth: 1
-
-  installation
-  data_processing
-  implement_problem
-  network_compilation
-  operators_compile
-  usage_migrate_3rd
-  performance_tuning
-  precision_tuning
-  distributed_configure
-  inference
-  feature_advice
+The documentation has been migrated to `FAQ <https://www.mindspore.cn/docs/en/master/faq/installation.html>`_ .
