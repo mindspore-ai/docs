@@ -49,7 +49,6 @@ For Experts
    debug/incremental_compilation
    debug/auto_tune
    debug/dataset_autotune
-   debug/ms_class
 
 .. toctree::
    :glob:
@@ -67,5 +66,8 @@ For Experts
 
    others/mixed_precision
    others/gradient_accumulation
+   others/second_order_optimizer
+   others/evaluate_the_model_during_training
+   others/on_device
    
    
