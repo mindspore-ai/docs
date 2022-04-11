@@ -412,9 +412,9 @@ pytest -s -v ./resnet50_distributed_training_gpu.py > train.log 2>&1 &
 
 OpenMPI在分布式训练的场景中，起到在Host侧同步数据以及进程间组网的功能；MindSpore通过**复用Parameter Server模式训练架构**，取代了OpenMPI能力。
 
-参考[Parameter Server模式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/apply_parameter_server_training.html)训练教程，将多个MindSpore训练进程作为`Worker`启动，并且额外启动一个`Scheduler`，对脚本做少量修改，即可执行**不依赖OpenMPI的分布式训练**。
+参考[Parameter Server模式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/parameter_server_training.html)训练教程，将多个MindSpore训练进程作为`Worker`启动，并且额外启动一个`Scheduler`，对脚本做少量修改，即可执行**不依赖OpenMPI的分布式训练**。
 
-执行Worker脚本前需要导出环境变量，如[环境变量设置](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/apply_parameter_server_training.html#环境变量设置):
+执行Worker脚本前需要导出环境变量，如[环境变量设置](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/parameter_server_training.html#环境变量设置):
 
 ```text
 export MS_SERVER_NUM=0                # Server number
@@ -434,7 +434,7 @@ export MS_ROLE=MS_WORKER              # The role of this process: MS_SCHED repre
 >
 > <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training>。
 
-相比OpenMPI方式启动，此模式需要调用[Parameter Server模式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/apply_parameter_server_training.html)中的`set_ps_context`接口，告诉MindSpore此次任务使用了PS模式训练架构:
+相比OpenMPI方式启动，此模式需要调用[Parameter Server模式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/parameter_server_training.html)中的`set_ps_context`接口，告诉MindSpore此次任务使用了PS模式训练架构:
 
 ```python
 from mindspore import context

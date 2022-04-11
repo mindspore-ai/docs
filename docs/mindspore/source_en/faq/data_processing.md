@@ -278,7 +278,7 @@ A: The preceding error is usually caused by incorrect script writing. In normal 
 
 <font size=3>**Q: What is the operator corresponding to dataloader in MindSpore?**</font>
 
-A: If the dataloader is considered as an API for receiving user-defined datasets, the GeneratorDataset in the MindSpore data processing API is similar to that in the dataloader and can receive user-defined datasets. For details about how to use the GeneratorDataset, see the [Loading Dataset Overview](https://www.mindspore.cn/docs/programming_guide/en/master/dataset_loading.html#loading-user-defined-dataset), and for details about the differences, see the [API Mapping](https://www.mindspore.cn/docs/en/master/note/index.html#operator_api).
+A: If the dataloader is considered as an API for receiving user-defined datasets, the GeneratorDataset in the MindSpore data processing API is similar to that in the dataloader and can receive user-defined datasets. For details about how to use the GeneratorDataset, see the [Loading Dataset Overview](https://www.mindspore.cn/docs/programming_guide/en/master/dataset_loading.html#loading-user-defined-dataset), and for details about the differences, see the [API Mapping](https://www.mindspore.cn/docs/en/master/note/api_mapping.html).
 
 <br/>
 
