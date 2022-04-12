@@ -73,7 +73,7 @@
 
 首先，需要准备CheckPoint文件和训练策略文件。
 
-CheckPoint文件在训练过程中产生。CheckPoint具体用法可参考: [CheckPoint用法](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/save_model.html#checkpoint)。
+CheckPoint文件在训练过程中产生。CheckPoint具体用法可参考: [CheckPoint用法](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/train/save.html#checkpoint)。
 
 训练策略文件，需要在训练时通过设置context生成，context配置项如下：
 `context.set_auto_parallel_context(strategy_ckpt_save_file='train_strategy.ckpt')`
@@ -88,7 +88,7 @@ CheckPoint文件在训练过程中产生。CheckPoint具体用法可参考: [Che
 代码如下：
 `load_distributed_checkpoint(model, ckpt_file_list, predict_strategy)`
 
-`load_distributed_checkpoint`的具体用法可参考：[分布式推理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/model_infer/inference_ascend_910.html#概述)。
+`load_distributed_checkpoint`的具体用法可参考：[分布式推理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/infer/ascend_910_mindir.html#概述)。
 
 最后，就可以导出在分布式推理场景下的MindIR文件。
 
@@ -110,7 +110,7 @@ load_distributed_checkpoint(model, ckpt_file_list, predict_strategy)
 export(net, Tensor(input), file_name='net', file_format='MINDIR')
 ```
 
-多卡训练、单卡推理的情况，导出MindIR的用法与单机相同，加载CheckPoint用法可参考：[分布式推理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/model_infer/inference_ascend_910.html#ascend-910-ai)。
+多卡训练、单卡推理的情况，导出MindIR的用法与单机相同，加载CheckPoint用法可参考：[分布式推理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/infer/ascend_910_mindir.html#ascend-910-ai)。
 
 > 分布式场景导出MindIR文件样例代码：
 >

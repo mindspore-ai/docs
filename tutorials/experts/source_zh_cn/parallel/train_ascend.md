@@ -2,7 +2,7 @@
 
 `Ascend` `分布式并行` `全流程`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/distributed_training_ascend.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/train_ascend.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -685,8 +685,8 @@ ckpt_config = CheckpointConfig(keep_checkpoint_max=1)
 ckpt_config = CheckpointConfig(keep_checkpoint_max=1, integrated_save=False)
 ```
 
-需要注意的是，如果用户选择了这种checkpoint保存方式，那么就需要用户自己对切分的checkpoint进行保存和加载，以便进行后续的推理或再训练。具体用法可参考[对保存的CheckPoint文件做合并处理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/save_load_model_hybrid_parallel.html#checkpoint)。
+需要注意的是，如果用户选择了这种checkpoint保存方式，那么就需要用户自己对切分的checkpoint进行保存和加载，以便进行后续的推理或再训练。具体用法可参考[对保存的CheckPoint文件做合并处理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/save_load.html#checkpoint)。
 
 ### 手动混合并行模式
 
-手动混合并行模式（Hybrid Parallel）的模型参数保存和加载请参考[保存和加载模型（HyBrid Parallel模式）](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/save_load_model_hybrid_parallel.html)。
+手动混合并行模式（Hybrid Parallel）的模型参数保存和加载请参考[保存和加载模型（HyBrid Parallel模式）](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/save_load.html)。

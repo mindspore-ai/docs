@@ -2,7 +2,7 @@
 
 `GPU` `分布式并行` `全流程`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/distributed_training_gpu.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/train_gpu.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -97,7 +97,7 @@ if __name__ == "__main__":
 - `init("nccl")`：使能NCCL通信，并完成分布式训练初始化操作。
 - `get_rank()`：获得当前进程的rank号。
 - `ops.AllGather`:
-  在GPU上，该算子会调用NCCL的AllGather通信操作，其含义以及更多的例子可在[分布式集合通信原语](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/distributed_training_ops.html)
+  在GPU上，该算子会调用NCCL的AllGather通信操作，其含义以及更多的例子可在[分布式集合通信原语](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/communicate_ops.html)
   中找到。
 
 在GPU硬件平台上，MindSpore采用OpenMPI的mpirun来启动进程，通常每一个进程对应一个计算设备。
