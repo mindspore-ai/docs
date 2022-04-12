@@ -34,7 +34,7 @@ To enable Dataset AutoTune plus save the optimized dataset pipeline in a configu
 
 ```python
 import mindspore.dataset as ds
-ds.config.set_enable_autotune(True, "/path/to/autotune_out.json")
+ds.config.set_enable_autotune(True, "/path/to/autotune_out")
 ```
 
 ## Tuning Interval for Dataset AutoTune
@@ -58,9 +58,9 @@ print("tuning interval:", ds.config.get_autotune_interval())
 
 ## Constraints
 
-- Both Dataset Profiling and Dataset AutoTune cannot be enabled concurrently, otherwise it will lead to unwork of Dataset AutoTune or Profiling. If both of them are enabled at the same time, a warning message will prompt the user to check whether it is a mistake. Please make sure Profiling is disabled when using Dataset AutoTune.
-- When enable [Offload for Dataset](https://www.mindspore.cn/tutorials/experts/en/master/debug/enable_dataset_offload.html) and Dataset AutoTune simultaneously, if any dataset node has been offloaded for hardware acceleration, then the optimized dataset pipeline configuration file will not be written and a warning will be logged, because the dataset pipeline that is actually running is not the predefined one.
-- If the Dataset pipeline consists of a node that does not support deserialization (e.g. user-defined Python functions, GeneratorDataset), then any attempt to deserialize the saved optimized dataset pipeline configuration file will report an error. In this case, it is recommended to open the pipeline configuration file and modify the script of dataset pipeline manually.
+- Both Dataset Profiling and Dataset AutoTune cannot be enabled concurrently, otherwise it will lead to unwork of Dataset AutoTune or Profiling. If both of them are enabled at the same time, a warning message will prompt the user to check whether there is a mistake. Please make sure Profiling is disabled when using Dataset AutoTune.
+- [Offload for Dataset](https://www.mindspore.cn/docs/en/master/design/dataset_offload.html) and Dataset AutoTune are enabled simultaneously, if any dataset node has been offloaded for hardware acceleration, the optimized dataset pipeline configuration file will not be stored and a warning will be logged, because the dataset pipeline that is actually running is not the predefined one.
+- If the Dataset pipeline consists of a node that does not support deserialization (e.g. user-defined Python functions, GeneratorDataset), any attempt to deserialize the saved optimized dataset pipeline configuration file will report an error. In this case, it is recommended to modify the script of dataset pipeline manually based on the contents of the tuning figuration files to achieve the purpose of acceleration.
 
 ## Example
 
@@ -79,7 +79,7 @@ def create_dataset(...)
     create dataset for train or test
     """
     # enable Dataset AutoTune
-    ds.config.set_enable_autotune(True, "/path/to/autotune_out.json")
+    ds.config.set_enable_autotune(True, "/path/to/autotune_out")
 
     # define dataset
     data_set = ds.Cifar10Dataset(data_path)
@@ -178,8 +178,14 @@ Some analysis to explain the meaning of the log information:
 
 ### The Saved AutoTune Recommended Configuration
 
-Since Dataset AutoTune was enabled to generate an optimized dataset pipeline, a JSON serialization of the
-dataset pipeline can be saved (by passing in the `json_filepath` parameter) in a configuration file.
+Since Dataset AutoTune was enabled to generate an optimized dataset pipeline, the optimized dataset pipeline can be serialized (by passing in the 'filepath_prefix' parameter) and saved to the JSON configuration file.
+
+After passing string to `filepath_prefix`, AutoTune will automatically generate JSON files corresponding to the device number according to the current training mode in a standalone or distributed.
+
+For example, let `filepath_prefix='autotune_out'`.
+
+- In distributed training on 4 devices, AutoTune will generate 4 tuning files: autotune_out_0.json, autotune_out_1.json, autotune_out_2.json, autotune_out_3.json, corresponding to the configuration of the data pipeline of the 4 devices.
+- In a standalone training on 1 device, AutoTune will generate autotune_out_0.json, which corresponds to the configuration of the data pipeline on this device.
 
 Example of the JSON configuration file:
 
@@ -196,23 +202,26 @@ Example of the JSON configuration file:
 }
 ```
 
-The file starts with a summary of the configuration and then is followed by the actual pipeline (`tree`). The file is
-loadable using the deserialization API `mindspore.dataset.deserialize`.
+The file starts with a summary of the configuration and then is followed by the actual pipeline (`tree`) information. The file is loadable using the deserialization API `mindspore.dataset.deserialize`.
 
 Notes on the JSON configuration file:
 
 - Non-parallel dataset operations will show `NA` for `num_parallel_workers`.
 
-### Before Next Training
-
-Before starting the next training process, users can apply the recommended configuration changes to the dataset Python scripts.
+### Load AutoTune Configuration
 
 If Dataset AutoTune generated an optimized pipeline configuration file, use deserialize support to load the dataset pipeline:
 
 ```python
 import mindspore.dataset as ds
-ds.deserialize(json_filepath="/path/to/autotune_out.json")
+new_dataset = ds.deserialize("/path/to/autotune_out_0.json")
 ```
+
+The `new_dataset` is the tuned dataset object containing operations from Cifar to Batch as shown in the JSON content above.
+
+### Before Next Training
+
+Before starting the next training process, user can adjust the code of the loading part in the dataset according to the recommended configuration in the output of the automatic data acceleration module.
 
 This allows the dataset pipeline to be run at an improved speed from the beginning of the training process.
 
