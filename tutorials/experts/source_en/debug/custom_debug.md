@@ -264,15 +264,15 @@ Tensor(shape=[2, 2], dtype=Int32, value=
 
 ## Data Dump Introduction
 
-When training the network, if the training result deviates from the expectation, the input and output of the operator can be saved for debugging through the data dump function. For detailed Dump function introduction, please refer to [Dump Mode](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump_in_graph_mode.html#dump-introduction).
+When training the network, if the training result deviates from the expectation, the input and output of the operator can be saved for debugging through the data dump function. For detailed Dump function introduction, please refer to [Dump Mode](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html#dump-introduction).
 
 ### Synchronous Dump
 
-Synchronous Dump function usage reference [Synchronous Dump Step](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump_in_graph_mode.html#synchronous-dump-step).
+Synchronous Dump function usage reference [Synchronous Dump Step](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html#synchronous-dump-step).
 
 ### Asynchronous Dump
 
-Asynchronous Dump function usage reference [Asynchronous Dump Step](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump_in_graph_mode.html#asynchronous-dump-step)。
+Asynchronous Dump function usage reference [Asynchronous Dump Step](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html#asynchronous-dump-step)。
 
 ## Running Data Recorder
 

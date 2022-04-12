@@ -11,7 +11,7 @@
 
 `ms_function`使用规则可参考文档：<https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.ms_function.html#mindspore.ms_function>
 
-`Cell`定义可参考文档：<https://www.mindspore.cn/docs/programming_guide/zh-CN/master/cell.html>
+`Cell`定义可参考文档：<https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html>
 
 由于语法解析的限制，当前在编译构图时，支持的数据类型、语法以及相关操作并没有完全与Python语法保持一致，部分使用受限。
 
@@ -386,7 +386,7 @@ x:[[1. 1. 1. 1.]
 
 当前不支持在网络调用`Cell`及其子类相关属性和接口，除非是在`Cell`自己的`construct`中通过`self`调用。
 
-`Cell`定义可参考文档：<https://www.mindspore.cn/docs/programming_guide/zh-CN/master/cell.html>
+`Cell`定义可参考文档：<https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html>
 
 当前已定义的`Cell`可参考文档：<https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.html>
 

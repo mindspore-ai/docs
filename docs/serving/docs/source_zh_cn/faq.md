@@ -38,7 +38,7 @@ A：首先，需要确认是否安装MindSpore Serving所依赖的MindSpore；�
 
 <font size=3>**Q：如何控制Serving日志输出？**</font>
 
-A：MindSpore Serving采用glog来输出日志，详细可参考[日志相关的环境变量和配置](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/custom_debugging_info.html#日志相关的环境变量和配置)，在此基础上，额外补充的内容：
+A：MindSpore Serving采用glog来输出日志，详细可参考[日志相关的环境变量和配置](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/custom_debug.html#日志相关的环境变量和配置)，在此基础上，额外补充的内容：
 
 - MS_SUBMODULE_LOG_v
 

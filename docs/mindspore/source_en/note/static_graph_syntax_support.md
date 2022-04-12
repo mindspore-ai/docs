@@ -11,7 +11,7 @@ For a function, build the function definition. For the network, build the `const
 
 For details about how to use `ms_function`, click <https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.ms_function.html#mindspore.ms_function>.
 
-For details about the definition of `Cell`, click <https://www.mindspore.cn/docs/programming_guide/en/master/cell.html>.
+For details about the definition of `Cell`, click <https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html>.
 
 Due to syntax parsing restrictions, the supported data types, syntax, and related operations during graph building are not completely consistent with the Python syntax. As a result, some usage is restricted.
 
@@ -387,7 +387,7 @@ However, during construction, the parameter can be specified only in position pa
 
 Currently, the attributes and APIs related to `Cell` and its subclasses cannot be called on the network unless they are called through `self` in `construct` of `Cell`.
 
-For details about the definition of `Cell`, click <https://www.mindspore.cn/docs/programming_guide/en/master/cell.html>.
+For details about the definition of `Cell`, click <https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html>.
 
 For details about the defined `Cell`, click <https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html>.
 
