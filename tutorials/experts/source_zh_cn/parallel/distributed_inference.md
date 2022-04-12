@@ -21,7 +21,7 @@
 
 1. 执行训练，生成CheckPoint文件和模型参数切分策略文件。
 
-    > - 分布式训练教程和样例代码可参考链接：<https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/distributed_training_ascend.html>。
+    > - 分布式训练教程和样例代码可参考链接：<https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html>。
     > - 在分布式推理场景中，训练阶段的`CheckpointConfig`接口的`integrated_save`参数需设定为`False`，表示每卡仅保存模型切片而不是全量模型。
     > - `set_auto_parallel_context`接口的`parallel_mode`参数需设定为`auto_parallel`或者`semi_auto_parallel`，并行模式为自动并行或者半自动并行。
     > - 此外还需指定`strategy_ckpt_save_file`参数，即生成的策略文件的地址。
