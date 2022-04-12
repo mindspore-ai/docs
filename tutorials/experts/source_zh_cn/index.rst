@@ -61,7 +61,7 @@
    parallel/introduction
    parallel/communicate_ops
    parallel/train_ascend
-   parallel/training_gpu
+   parallel/train_gpu
    parallel/save_load
    parallel/transformer
    parallel/pangu_alpha

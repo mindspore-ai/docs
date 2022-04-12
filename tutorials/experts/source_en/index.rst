@@ -11,10 +11,10 @@ For Experts
    :maxdepth: 1
    :caption: Data Processing
 
-   dataset/auto_augmentation
+   dataset/augment
    dataset/eager
    dataset/cache
-   dataset/optimize_data_processing
+   dataset/optimize
 
 .. toctree::
    :glob:
@@ -34,19 +34,20 @@ For Experts
    :caption: Model Inference
 
    infer/inference
-   infer/online_inference
-   infer/offline_inference
+   infer/cpu_gpu_mindir
+   infer/ascend_910_mindir
+   infer/ascend_310_mindir
+   infer/ascend_310_air
 
 .. toctree::
    :glob:
    :maxdepth: 1
    :caption: Debugging and Tuning
 
-   debug/read_ir_files
-   debug/debug_in_pynative_mode
-   debug/dump_in_graph_mode
-   debug/custom_debugging_info
-   debug/incremental_compilation
+   debug/mindir
+   debug/dump
+   debug/custom_debug
+   debug/op_compilation
    debug/auto_tune
    debug/dataset_autotune
 
@@ -55,9 +56,10 @@ For Experts
    :maxdepth: 1
    :caption: Distributed Parallel
 
-   parallel/distributed_training
-   parallel/distributed_advanced
-   parallel/distributed_example
+   parallel/introduction
+   parallel/train_ascend
+   parallel/train_gpu
+   parallel/save_load
 
 .. toctree::
    :glob:
@@ -67,7 +69,5 @@ For Experts
    others/mixed_precision
    others/gradient_accumulation
    others/second_order_optimizer
-   others/evaluate_the_model_during_training
-   others/on_device
    
    
