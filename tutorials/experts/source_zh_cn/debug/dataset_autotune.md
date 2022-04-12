@@ -36,7 +36,7 @@ ds.config.set_enable_autotune(True)
 
 ```python
 import mindspore.dataset as ds
-ds.config.set_enable_autotune(True, "/path/to/autotune_out.json")
+ds.config.set_enable_autotune(True, "/path/to/autotune_out")
 ```
 
 ## 如何自定义自动数据加速的调优间隔
@@ -60,7 +60,7 @@ print("tuning interval:", ds.config.get_autotune_interval())
 ## 约束
 
 - Profiling性能分析和自动数据加速无法同时开启，否则会导致Profiling或Dataset AutoTune不生效。如果这样同时开启此两个功能，则会有一条警告信息提示用户检查是否为误操作。因此在使用Dataset AutoTune时，用户需要确保关闭Profiling功能。
-- 如果同时启动了[数据异构加速](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/enable_dataset_offload.html)和自动数据加速，当有数据节点通过AutoTune进行异构硬件加速时，自动数据加速将不能保存数据管道配置并以警告日志提醒，因为此时实际运行的数据管道并不是预先定义的数据管道。
+- 如果同时启动了[数据异构加速](https://www.mindspore.cn/docs/zh-CN/master/design/dataset_offload.html)和自动数据加速，当有数据节点通过AutoTune进行异构硬件加速时，自动数据加速将不能保存数据管道配置并以警告日志提醒，因为此时实际运行的数据管道并不是预先定义的数据管道。
 - 如果数据处理管道包含不支持反序列化的节点（如用户自定义Python函数、GeneratorDataset），则使用保存的优化配置文件进行反序列化时将产生错误。此时推荐用户根据调优配置文件的内容手动修改数据管道的配置已达到加速的目的。
 
 ## 样例
@@ -80,7 +80,7 @@ def create_dataset(...)
     create dataset for train or test
     """
     # 启动自动数据加速
-    ds.config.set_enable_autotune(True, "/path/to/autotune_out.json")
+    ds.config.set_enable_autotune(True, "/path/to/autotune_out")
 
     # 其他数据集代码无需变更
     data_set = ds.Cifar10Dataset(data_path)
@@ -181,9 +181,16 @@ epoch time: 17116.234 ms, per step time: 9.129 ms
 
 ### 保存自动数据加速的推荐配置
 
-当开启AutoTune进行数据处理管道优化时，优化后的数据处理管道可被序列化（通过传入`json_filepath`参数）保存到JSON配置文件中。
+当开启AutoTune进行数据处理管道优化时，优化后的数据处理管道可被序列化（通过传入`filepath_prefix`参数）保存到JSON配置文件中。
 
-JSON配置文件示例:
+`filepath_prefix`参数会根据当前训练环境处于单卡或多卡，自动生成对应卡号的JSON文件。
+
+例如，配置 `filepath_prefix='autotune_out'` ：
+
+- 在4卡训练环境下，会得到4个调优文件：autotune_out_0.json、autotune_out_1.json、autotune_out_2.json、autotune_out_3.json，对应着4个卡上数据管道的调优配置情况；
+- 在单卡环境下，会得到autotune_out_0.json，对应着此卡上数据管道的调优配置情况。
+
+JSON配置文件的示例如下:
 
 ```text
 {
@@ -204,9 +211,20 @@ JSON配置文件注意事项:
 
 - 非并行数据处理操作的`num_parallel_workers`值将显示`NA`。
 
+### 加载自动数据加速的推荐配置
+
+当需要直接加载调优结果，得到已经调优的数据处理管道，可以采用如下方法：
+
+```python
+import mindspore.dataset as ds
+new_dataset = ds.deserialize("/path/to/autotune_out_0.json")
+```
+
+此处得到的 `new_dataset` 将包含上述JSON样例中从Cifar到Batch的数据集加载设置。
+
 ### 在进行下一次训练之前
 
-在进行下一次训练之前，用户可以根据自动数据加速模块输出的推荐配置，对数据集脚本进行调整，
+在进行下一次训练之前，用户可以根据自动数据加速模块输出的推荐配置，对数据集加载部分的代码进行调整，
 以便在下一次训练的开始时就可以在较优性能水平下运行数据处理管道。
 
 另外，MindSpore也提供了相关的API用于全局调整数据处理管道算子的并行度与内部队列深度，请参考[mindspore.dataset.config](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.config.html):
