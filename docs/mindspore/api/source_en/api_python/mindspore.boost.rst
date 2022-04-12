@@ -1,5 +1,5 @@
-mindspore.boost (experimental)
-==============================
+mindspore.boost
+===============
 
 .. automodule:: mindspore.boost
     :members:
