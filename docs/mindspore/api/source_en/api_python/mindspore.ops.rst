@@ -252,6 +252,7 @@ Element-by-Element Operation
     mindspore.ops.Cosh
     mindspore.ops.Div
     mindspore.ops.DivNoNan
+    mindspore.ops.Einsum
     mindspore.ops.Erf
     mindspore.ops.Erfc
     mindspore.ops.Erfinv
