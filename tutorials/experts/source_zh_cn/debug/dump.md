@@ -1,4 +1,4 @@
-﻿# 使用Dump功能在Graph模式调试
+# Dump功能调试
 
 `Ascend` `GPU` `CPU` `模型调优`
 
@@ -8,9 +8,9 @@
 
 为了对训练过程进行分析，用户需要感知训练过程中算子的输入和输出数据。
 
-- 对于动态图模式，MindSpore提供了Python原生执行能力，用户可以在网络脚本运行过程中查看记录相应的输入输出，详情见[使用PyNative模式调试](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/debug_in_pynative_mode.html) 。
-
 - 对于静态图模式，MindSpore提供了Dump功能，用来将模型训练中的图以及算子的输入输出数据保存到磁盘文件。
+
+- 对于动态图模式，MindSpore提供了Python原生执行能力，用户可以在网络脚本运行过程中查看记录相应的输入输出。
 
 本文针对静态图模式，介绍如何基于Dump功能对网络数据进行分析对比。
 
