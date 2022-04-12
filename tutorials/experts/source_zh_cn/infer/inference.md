@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `推理应用`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/model_infer/inference.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/infer/inference.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 MindSpore可以基于训练好的模型，在不同的硬件平台上执行推理任务。
 
@@ -41,11 +41,11 @@ MindSpore支持保存两种类型的数据：训练参数和网络模型（模�
 
 1. 本机推理
 
-    通过加载网络训练产生的Checkpoint文件，调用`model.predict`接口进行推理验证，具体操作可查看[加载Checkpoint在线推理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/model_infer/online_inference.html)。
+    通过加载网络训练产生的Checkpoint文件，调用`model.predict`接口进行推理验证，具体操作可查看[加载Checkpoint在线推理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/infer/online_inference.html)。
 
 2. 跨平台推理
 
-    使用网络定义和Checkpoint文件，调用`export`接口导出模型文件，在不同平台执行推理，目前支持导出MindIR、ONNX和AIR（仅支持Ascend AI处理器）模型，具体操作可查看[保存模型](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/save_model.html)。
+    使用网络定义和Checkpoint文件，调用`export`接口导出模型文件，在不同平台执行推理，目前支持导出MindIR、ONNX和AIR（仅支持Ascend AI处理器）模型，具体操作可查看[保存模型](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/save_load.html)。
 
 ## MindIR介绍
 

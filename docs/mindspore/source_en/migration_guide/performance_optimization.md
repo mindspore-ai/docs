@@ -43,7 +43,7 @@ By observing the `queue relationship between operators` in the Data Processing t
 
 *Figure 3: Data Preparation Details -- Data Processing*
 
-We can refer to [Optimizing the Data Processing](https://www.mindspore.cn/docs/programming_guide/en/master/optimize_data_processing.html ) to adjust dataset operators to improve dataset performance.
+We can refer to [Optimizing the Data Processing](https://www.mindspore.cn/tutorials/experts/en/master/dataset/optimize.html ) to adjust dataset operators to improve dataset performance.
 
 We find that the num_parallel_workers parameter of map operator is 1(default value) by observing the code part of data processing in ResNet50, and code is shown below:
 
@@ -95,7 +95,7 @@ Open the details page of Operator Time Consumption Ranking, and we find that Mat
 
 *Figure 6: Finding operators that can be optimized via the details page of Operator Time Consumption Ranking*
 
-For Operator Time Consumption optimization, usually float16 type with the less computating amount can be used to improve operator performance if there is no difference in accuracy between float16 and float32 type. We can refer to [Enabling Mixed Precision](https://www.mindspore.cn/docs/programming_guide/en/master/enable_mixed_precision.html ) to improve operators performance.
+For Operator Time Consumption optimization, usually float16 type with the less computating amount can be used to improve operator performance if there is no difference in accuracy between float16 and float32 type. We can refer to [Enabling Mixed Precision](https://www.mindspore.cn/tutorials/experts/en/master/others/mixed_precision.html ) to improve operators performance.
 
 Optimization code is shown below:
 

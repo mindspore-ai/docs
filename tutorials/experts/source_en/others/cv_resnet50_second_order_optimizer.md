@@ -71,11 +71,11 @@ The directory structure is as follows:
 
 #### Ascend 910
 
-For details about how to configure the distributed environment variables of Ascend 910 AI processors, see [Parallel Distributed Training (Ascend)](https://www.mindspore.cn/docs/programming_guide/en/master/distributed_training_ascend.html#configuring-distributed-environment-variables).
+For details about how to configure the distributed environment variables of Ascend 910 AI processors, see [Parallel Distributed Training (Ascend)](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#configuring-distributed-environment-variables).
 
 #### GPU
 
-For details about how to configure the distributed environment of GPUs, see [Parallel Distributed Training (GPU)](https://www.mindspore.cn/docs/programming_guide/en/master/distributed_training_gpu.html#configuring-distributed-environment-variables).
+For details about how to configure the distributed environment of GPUs, see [Parallel Distributed Training (GPU)](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html#configuring-distributed-environment-variables).
 
 ## Loading the Dataset
 

@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `Model Running`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/on_device.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/design/on_device.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -37,7 +37,7 @@ The total sunk data volume is controlled by the `epoch` and `sink_size` variable
 When using `LossMonitor`, `TimeMonitor` or other `Callback` interfaces, if the `dataset_sink_mode` is set to False, each `step` between the Host side and the Device side interacts once, so each `step` will return a result. If `dataset_sink_mode` is True, because the data is transmitted through the channel on the Device, there is one data interaction between the Host side and the Device side for each `epoch`, so each `epoch` only returns one result.
 
 > Currently dataset sink mode is not supported on CPU target.
-> If `fault kernel_name=GetNext` or `GetNext... task error` or `outputs = self.get_next()` error info occurs, it may be that some sample processing in the data processing process is too time-consuming, resulting in the failure of the network computing side to get the data for a long time and report an error. At this time, you can set `dataset_sink_mode` to False to verify again, or use `create_dict_iterator()` interface separate cyclic dataset and refer to [Optimizing the Data Processing](https://www.mindspore.cn/docs/programming_guide/en/master/optimize_data_processing.html) optimize data processing to ensure high performance of data processing.
+> If `fault kernel_name=GetNext` or `GetNext... task error` or `outputs = self.get_next()` error info occurs, it may be that some sample processing in the data processing process is too time-consuming, resulting in the failure of the network computing side to get the data for a long time and report an error. At this time, you can set `dataset_sink_mode` to False to verify again, or use `create_dict_iterator()` interface separate cyclic dataset and refer to [Optimizing the Data Processing](https://www.mindspore.cn/tutorials/experts/en/master/dataset/optimize.html) optimize data processing to ensure high performance of data processing.
 
 The following is a code example:
 

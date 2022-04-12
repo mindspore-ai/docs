@@ -61,7 +61,7 @@ Step 1：Please jump to the `step interval` tab on the `data preparation details
 
 - If there is no time-consuming customized logic in the script, it indicates that sending data from host to device is time-consuming, please feedback to the [MindSpore Community](https://gitee.com/mindspore/mindspore/issues) .
 
-Step 2：Please jump to the `data processing` tab on the `data preparation details` page, observe the inter-operator queue, and determine which operator has a performance bottleneck in the data processing. Principles of judgment can be found in the [Performance Profiling](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#data-preparation-performance-analysis) page. Users can reference [Optimizing the Data Processing](https://www.mindspore.cn/docs/programming_guide/en/master/optimize_data_processing.html) and try to optimize the data processing performance.
+Step 2：Please jump to the `data processing` tab on the `data preparation details` page, observe the inter-operator queue, and determine which operator has a performance bottleneck in the data processing. Principles of judgment can be found in the [Performance Profiling](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#data-preparation-performance-analysis) page. Users can reference [Optimizing the Data Processing](https://www.mindspore.cn/tutorials/experts/en/master/dataset/optimize.html) and try to optimize the data processing performance.
 
 #### Graph Mode
 
@@ -73,7 +73,7 @@ Step 1：Please jump to the `step interval` tab on the `data preparation details
 Step 2: See how the size curve changes in the host queue. If none of the size in the queue is 0, it indicates that the process by which training data is sent from host to device is a performance bottleneck, please feedback to the [MindSpore Community](https://gitee.com/mindspore/mindspore/issues) .
 Otherwise it indicates that the data processing process is the performance bottleneck, please refer to Step 3 to continue to locate which operator of data processing has performance problems.
 
-Step 3：Please jump to the `data processing` tab on the `data preparation details` page, observe the inter-operator queue, and determine which operator has a performance bottleneck in the data processing. Principles of judgment can be found in the [Performance Profiling](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#data-preparation-performance-analysis) page. Users can reference [Optimizing the Data Processing](https://www.mindspore.cn/docs/programming_guide/en/master/optimize_data_processing.html) and try to optimize the data processing performance.
+Step 3：Please jump to the `data processing` tab on the `data preparation details` page, observe the inter-operator queue, and determine which operator has a performance bottleneck in the data processing. Principles of judgment can be found in the [Performance Profiling](https://www.mindspore.cn/mindinsight/docs/en/master/performance_profiling_ascend.html#data-preparation-performance-analysis) page. Users can reference [Optimizing the Data Processing](https://www.mindspore.cn/tutorials/experts/en/master/dataset/optimize.html) and try to optimize the data processing performance.
 
 ### Long Forward And Backward Propagation
 

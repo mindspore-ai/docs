@@ -54,7 +54,7 @@ A: The formats of  `ckpt` of MindSpore and `ckpt`of TensorFlow are not generic. 
 
 <font size=3>**Q: How do I use models trained by MindSpore on Ascend 310? Can they be converted to models used by HiLens Kit?**</font>
 
-A: Yes. HiLens Kit uses Ascend 310 as the inference core. Therefore, the two questions are essentially the same, which both need to convert as OM model. Ascend 310 requires a dedicated OM model. Use MindSpore to export the ONNX or AIR model and convert it into an OM model supported by Ascend 310. For details, see [Multi-platform Inference](https://www.mindspore.cn/docs/programming_guide/en/master/multi_platform_inference_ascend_310.html).
+A: Yes. HiLens Kit uses Ascend 310 as the inference core. Therefore, the two questions are essentially the same, which both need to convert as OM model. Ascend 310 requires a dedicated OM model. Use MindSpore to export the ONNX or AIR model and convert it into an OM model supported by Ascend 310. For details, see [Multi-platform Inference](https://www.mindspore.cn/tutorials/experts/en/master/infer/inference.html).
 
 <br/>
 

@@ -375,7 +375,7 @@ However, during construction, the parameter can be specified only in position pa
 
 Currently, the attributes and APIs related to `Primitive` and its subclasses cannot be called on the network.
 
-For details about the definition of `Primitive`, click <https://www.mindspore.cn/docs/programming_guide/en/master/operators_classification.html>.
+For details about the definition of `Primitive`, click <https://www.mindspore.cn/tutorials/experts/en/master/operation/op_classification.html>.
 
 For details about the defined `Primitive`, click <https://www.mindspore.cn/docs/en/master/api_python/mindspore.ops.html>.
 

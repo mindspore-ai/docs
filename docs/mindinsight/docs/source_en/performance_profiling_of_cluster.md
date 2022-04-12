@@ -25,9 +25,9 @@ This article describes how to use MindSpore Profiler for cluster performance deb
 
 ## Distributed Training
 
-For Ascend distributed training, please refer to [Distributed Training](https://www.mindspore.cn/docs/programming_guide/en/master/distributed_training_ascend.html).
+For Ascend distributed training, please refer to [Distributed Training](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html).
 
-For GPU distributed training, please refer to [Distributed Training](https://www.mindspore.cn/docs/programming_guide/en/master/distributed_training_gpu.html).
+For GPU distributed training, please refer to [Distributed Training](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html).
 
 ## Collect Cluster Performance Data
 

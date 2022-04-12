@@ -14,7 +14,7 @@ In order to solve this problem, Mindspore provides the recomputation function. I
 
 1. Prepare the model. The ResNet-50 code can be found at: <https://gitee.com/mindspore/models/tree/master/official/cv/resnet>, in which `train.py` is the main function for training, `src/` directory contains the model definition and configuration files of ResNet-50, `script/` directory contains the training and evaluation scripts.
 
-2. Prepare the dataset. This example uses the `CIFAR-10` dataset. For details about how to download and load the dataset, visit <https://www.mindspore.cn/tutorials/experts/en/master/parallel/distributed_training_ascend.html>.
+2. Prepare the dataset. This example uses the `CIFAR-10` dataset. For details about how to download and load the dataset, visit <https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html>.
 
 ## Configuring for Recomputation
 

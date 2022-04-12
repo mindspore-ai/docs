@@ -39,21 +39,21 @@ The directory structure is as follows:
 ### Downloading the Dataset
 
 This example uses the `CIFAR-10` dataset. For details about how to download and load the dataset,
-visit <https://www.mindspore.cn/tutorials/experts/en/master/parallel/distributed_training_ascend.html>.
+visit <https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html>.
 
 ### Configuring the Distributed Environment
 
 > Pipeline parallelism supports Ascend and GPU.
 
 For details about how to configure the distributed environment and call the HCCL,
-visit <https://www.mindspore.cn/tutorials/experts/en/master/parallel/distributed_training_ascend.html>.
+visit <https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html>.
 
 ## Defining the Network
 
 The network definition is the same as that in the Parallel Distributed Training Example.
 
 For details about the definitions of the network, optimizer, and loss function,
-visit <https://www.mindspore.cn/tutorials/experts/en/master/parallel/distributed_training_ascend.html>.
+visit <https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html>.
 
 > To implement pipeline parallelism, you need to define the parallel strategy and call the `pipeline_stage` API to specify the stage on which each layer is to be executed. The granularity of the `pipeline_stage` API is `Cell`. `pipeline_stage` must be configured for all `Cells` that contain training parameters.
 

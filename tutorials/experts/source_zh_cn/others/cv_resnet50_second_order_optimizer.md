@@ -73,11 +73,11 @@ MindSpore开发团队在现有的自然梯度算法的基础上，对FIM矩阵�
 
 #### Ascend 910
 
-Ascend 910 AI处理器的分布式环境变量配置参考[分布式并行训练 (Ascend)](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_ascend.html#配置分布式环境变量)。
+Ascend 910 AI处理器的分布式环境变量配置参考[分布式并行训练 (Ascend)](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#配置分布式环境变量)。
 
 #### GPU
 
-GPU的分布式环境配置参考[分布式并行训练 (GPU)](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_gpu.html#配置分布式环境)。
+GPU的分布式环境配置参考[分布式并行训练 (GPU)](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html#配置分布式环境)。
 
 ## 加载处理数据集
 

@@ -341,7 +341,7 @@ When you run a script on the Ascend backend or use the mixed precision function,
 #### mp.01 Overflow occurs during training
 
 Check method:
-When the [mixed precision](https://www.mindspore.cn/docs/programming_guide/en/master/enable_mixed_precision.html) or the Ascend AI processor is used for training, you are advised to check whether overflow occurs.
+When the [mixed precision](https://www.mindspore.cn/tutorials/experts/en/master/others/mixed_precision.html) or the Ascend AI processor is used for training, you are advised to check whether overflow occurs.
 
 When using the GPU, you can perform the overflow check through the check tensor overflow watchpoint in the [debugger](https://mindspore.cn/mindinsight/docs/en/master/debugger_online.html#anomaly-check-list).
 
@@ -360,7 +360,7 @@ Enter here.
 
 Check method:
 
-When [mixed precision](https://www.mindspore.cn/docs/programming_guide/en/master/enable_mixed_precision.html) is used, ensure that [DynamicLossScaleManager](https://www.mindspore.cn/tutorials/experts/en/master/others/mixed_precision.html#dynamiclossscalemanager) (recommended) or [FixedLossScaleManager](https://www.mindspore.cn/tutorials/experts/en/master/others/mixed_precision.html#fixedlossscalemanager) is enabled. You can use the default parameter values of DynamicLossScaleManager or FixedLossScaleManager for training. If there are too many overflow steps and the final accuracy is affected, adjust the value of loss_scale based on the overflow phenomenon. If gradient overflow occurs, decrease the value of loss_scale (by dividing the original value of loss_scale by 2). If gradient underflow occurs, increase the value of loss_scale (by multiplying the original value of loss_scale by 2). In most cases, training on the Ascend AI processor is performed with mixed precision. The computation feature of the Ascend AI processor is different from that of the GPU mixed precision. Therefore, you may need to adjust the value of the LossScaleManager hyperparameter to a value different from that on the GPU based on the training result to ensure the precision.
+When [mixed precision](https://www.mindspore.cn/tutorials/experts/en/master/others/mixed_precision.html) is used, ensure that [DynamicLossScaleManager](https://www.mindspore.cn/tutorials/experts/en/master/others/mixed_precision.html#dynamiclossscalemanager) (recommended) or [FixedLossScaleManager](https://www.mindspore.cn/tutorials/experts/en/master/others/mixed_precision.html#fixedlossscalemanager) is enabled. You can use the default parameter values of DynamicLossScaleManager or FixedLossScaleManager for training. If there are too many overflow steps and the final accuracy is affected, adjust the value of loss_scale based on the overflow phenomenon. If gradient overflow occurs, decrease the value of loss_scale (by dividing the original value of loss_scale by 2). If gradient underflow occurs, increase the value of loss_scale (by multiplying the original value of loss_scale by 2). In most cases, training on the Ascend AI processor is performed with mixed precision. The computation feature of the Ascend AI processor is different from that of the GPU mixed precision. Therefore, you may need to adjust the value of the LossScaleManager hyperparameter to a value different from that on the GPU based on the training result to ensure the precision.
 
 Conclusion:
 

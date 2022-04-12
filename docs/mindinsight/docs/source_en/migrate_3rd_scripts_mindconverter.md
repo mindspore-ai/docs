@@ -194,7 +194,7 @@ mindconverter --model_file /path/to/model.onnx
 
 If you need to specify the model input shape, input node names and output node names. [Netron](https://github.com/lutzroeder/netron) is recommended to get the above information.
 
-Model scripts(`model.py`) and weights information(`ckpt`) can be used not only to validate the equivalence of migration, but also to generate the [MindIR](https://www.mindspore.cn/docs/programming_guide/en/master/save_model.html#mindir) file.
+Model scripts(`model.py`) and weights information(`ckpt`) can be used not only to validate the equivalence of migration, but also to generate the [MindIR](https://www.mindspore.cn/tutorials/experts/en/master/parallel/save_load.html#mindir) file.
 
 ```python
 import mindspore
@@ -366,7 +366,7 @@ model.train(EPOCH_SIZE, dataset)
 
 The metric(`metric`) can be migrated by querying [API mapping](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html) or user's implementation.
 
-As the evaluation codes could be flexible and significantly different from MindSpore, implementation by the users is recommended. For more model evaluation migration, please refer to [the programming guidance](https://www.mindspore.cn/docs/programming_guide/en/master/multi_platform_inference_ascend_910.html).
+As the evaluation codes could be flexible and significantly different from MindSpore, implementation by the users is recommended. For more model evaluation migration, please refer to [the programming guidance](https://www.mindspore.cn/tutorials/experts/zh-CN/master/infer/ascend_910_mindir.html).
 
 Source codes with PyTorch framework are as follows:
 

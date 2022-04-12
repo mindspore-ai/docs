@@ -41,7 +41,7 @@ Profiler的功能介绍及使用说明请参见教程：
 
 *图3：数据准备详情页面——数据处理*
 
-针对数据处理算子的性能优化，可以参考[优化数据处理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/data_engine/optimize_data_processing.html )页面。
+针对数据处理算子的性能优化，可以参考[优化数据处理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/dataset/optimize_data_processing.html )页面。
 查看ResNet50网络中数据处理的代码部分，发现map算子的num_parallel_workers参数没有设置，默认为1，代码如下：
 
 ```python

@@ -7,7 +7,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/data_engine/eager.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/dataset/eager.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 When resource conditions permit, in order to pursue higher performance, data transformations are generally executed in the data pipeline mode. That is, users have to define the `map` operator which helps to execute augmentations in data pipeline. As shown in the figure below, the `map` operator contains 3 transformations: `Resize`, `Crop`, and `HWC2CHW`. When the pipeline starts, the `map` operator will apply these transformations to data in sequence.
 
@@ -37,7 +37,7 @@ MindSpore currently supports executing various data augmentations in `Eager mode
     - Submodule c_transforms, a general-purpose data enhancement operator based on C++.
     - Submodule py_transforms, a general-purpose data augmentation operator based on Python.
 
-Note: In chapters [Image Processing and Enhancement](https://www.mindspore.cn/tutorials/experts/en/master/data_engine/augmentation.html), [Text Processing and Enhancement](https://www.mindspore.cn/tutorials/experts/en/master/data_engine/tokenizer.html), all data enhancement operators can be executed in Eager mode.
+Note: In chapters [Image Processing and Enhancement](https://www.mindspore.cn/tutorials/experts/en/master/dataset/augmentation.html), [Text Processing and Enhancement](https://www.mindspore.cn/tutorials/experts/en/master/dataset/tokenizer.html), all data enhancement operators can be executed in Eager mode.
 
 ## example
 

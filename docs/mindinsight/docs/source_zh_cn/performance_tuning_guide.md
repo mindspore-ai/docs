@@ -60,7 +60,7 @@ MindInsight在性能调优的单卡页面为用户提供了`迭代轨迹`标签�
 
 - 若用户脚本中不存在耗时的自定义逻辑，说明框架将数据从Host侧发送到Device侧耗时较长，请到[MindSpore社区](https://gitee.com/mindspore/mindspore/issues) 进行反馈。
 
-步骤2：跳转到`数据准备详情`页的`数据处理`标签页，观察算子间队列，确定数据处理具体哪个算子存在性能瓶颈。判断原则请见[性能调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#数据准备性能分析) 页面的`数据处理pipeline分析`部分。找到存在性能问题的算子后，可参考[优化数据处理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/data_engine/optimize_data_processing.html) 页面尝试提高数据处理算子的性能。
+步骤2：跳转到`数据准备详情`页的`数据处理`标签页，观察算子间队列，确定数据处理具体哪个算子存在性能瓶颈。判断原则请见[性能调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#数据准备性能分析) 页面的`数据处理pipeline分析`部分。找到存在性能问题的算子后，可参考[优化数据处理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/dataset/optimize_data_processing.html) 页面尝试提高数据处理算子的性能。
 
 #### 数据下沉模式
 
@@ -71,7 +71,7 @@ MindInsight在性能调优的单卡页面为用户提供了`迭代轨迹`标签�
 
 步骤2：查看主机队列Size曲线的变化情况。若该队列Size都不是0，说明训练数据从Host发往Device的流程为性能瓶颈点，请到[MindSpore社区](https://gitee.com/mindspore/mindspore/issues) 反馈；否则说明数据处理流程是性能瓶颈点，请参照步骤3继续定位数据处理哪个算子存在性能问题。
 
-步骤3：跳转到`数据准备详情页的数据处理标签页`观察算子间队列，确定数据处理具体哪个算子存在性能瓶颈。判断原则请见[性能调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#数据准备性能分析) 页面的`数据处理pipeline分析`部分。找到存在性能问题的算子后，可参考[优化数据处理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/data_engine/optimize_data_processing.html) 页面尝试提高数据处理算子的性能。
+步骤3：跳转到`数据准备详情页的数据处理标签页`观察算子间队列，确定数据处理具体哪个算子存在性能瓶颈。判断原则请见[性能调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#数据准备性能分析) 页面的`数据处理pipeline分析`部分。找到存在性能问题的算子后，可参考[优化数据处理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/dataset/optimize_data_processing.html) 页面尝试提高数据处理算子的性能。
 
 ### 前反向耗时长
 
