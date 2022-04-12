@@ -1,6 +1,4 @@
-# 如何查看IR文件
-
-`Ascend` `GPU` `CPU` `模型调试`
+# 查看中间文件
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/debug/read_ir_files.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 

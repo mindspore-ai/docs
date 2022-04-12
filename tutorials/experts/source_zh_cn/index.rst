@@ -11,10 +11,10 @@
    :maxdepth: 1
    :caption: 数据处理
 
-   data_engine/auto_augmentation
-   data_engine/eager
-   data_engine/cache
-   data_engine/optimize_data_processing
+   dataset/augment
+   dataset/eager
+   dataset/cache
+   dataset/optimize
 
 .. toctree::
    :glob:
@@ -33,23 +33,24 @@
    :maxdepth: 1
    :caption: 模型推理
 
-   model_infer/inference
-   model_infer/online_inference
-   model_infer/offline_inference
+   infer/inference
+   infer/cpu_gpu_mindir
+   infer/ascend_910_mindir
+   infer/ascend_310_mindir
+   infer/ascend_310_air
 
 .. toctree::
    :glob:
    :maxdepth: 1
    :caption: 调试调优
 
-   debug/read_ir_files
-   debug/debug_in_pynative_mode
-   debug/dump_in_graph_mode
-   debug/custom_debugging_info
-   debug/incremental_compilation
+   debug/mindir
+   debug/dump
+   debug/custom_debug
+   debug/ms_class
+   debug/op_compilation
    debug/auto_tune
    debug/dataset_autotune
-   debug/ms_class
    debug/fixing_randomness
 
 .. toctree::
@@ -57,21 +58,23 @@
    :maxdepth: 1
    :caption: 分布式并行
 
-   parallel/distributed_training
-   parallel/distributed_advanced
-   parallel/distributed_example
+   parallel/introduction
+   parallel/communicate_ops
+   parallel/train_ascend
+   parallel/training_gpu
+   parallel/save_load
+   parallel/transformer
+   parallel/pangu_alpha
+   parallel/fault_recover
 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 高级特性
+   :caption: 其他特性
 
    others/mixed_precision
    others/gradient_accumulation
-   others/second_order_optimizer
    others/adaptive_summation
    others/dimention_reduce_training
-   others/evaluate_the_model_during_training
-   others/on_device
-   
+   others/second_order_optimizer
    

@@ -11,10 +11,10 @@ For Experts
    :maxdepth: 1
    :caption: Data Processing
 
-   data_engine/auto_augmentation
-   data_engine/eager
-   data_engine/cache
-   data_engine/optimize_data_processing
+   dataset/auto_augmentation
+   dataset/eager
+   dataset/cache
+   dataset/optimize_data_processing
 
 .. toctree::
    :glob:
@@ -33,9 +33,9 @@ For Experts
    :maxdepth: 1
    :caption: Model Inference
 
-   model_infer/inference
-   model_infer/online_inference
-   model_infer/offline_inference
+   infer/inference
+   infer/online_inference
+   infer/offline_inference
 
 .. toctree::
    :glob:

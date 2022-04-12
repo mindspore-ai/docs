@@ -4,8 +4,6 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/model_infer/inference_ascend_310_mindir.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
-## 概述
-
 Ascend 310是面向边缘场景的高能效高集成度AI处理器，本教程介绍如何在Ascend 310上使用MindSpore基于MindIR模型文件执行推理，主要包括以下流程：
 
 1. 导出MindIR模型文件，这里以ResNet-50模型为例。
