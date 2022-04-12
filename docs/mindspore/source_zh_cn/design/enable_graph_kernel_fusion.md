@@ -3,7 +3,7 @@
 `Ascend` `GPU` `CPU` `模型调优`
 
 <a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbWFzdGVyL25vdGVib29rL2VuYWJsZV9ncmFwaF9rZXJuZWxfZnVzaW9uL21pbmRzcG9yZV9lbmFibGVfZ3JhcGhfa2VybmVsX2Z1c2lvbi5pcHluYg==&imageid=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_modelarts.png"></a>&nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_zh_cn/enable_graph_kernel_fusion.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/design/enable_graph_kernel_fusion.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 

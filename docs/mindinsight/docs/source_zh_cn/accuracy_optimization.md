@@ -600,19 +600,19 @@ Xie, Z., Sato, I., & Sugiyama, M. (2020). A Diffusion Theory For Deep Learning D
 
 ### 数据问题处理
 
-对数据进行标准化、归一化、通道转换等操作，在图片数据处理上，增加随机视野图片，随机旋转度图片等，另外数据混洗、batch和数据倍增等操作，可参考[数据处理](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset.html)、[数据增强](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/augmentation.html)和[自动数据增强](https://www.mindspore.cn/tutorials/experts/zh-CN/master/dataset/augment.html)。
+对数据进行标准化、归一化、通道转换等操作，在图片数据处理上，增加随机视野图片，随机旋转度图片等，另外数据混洗、batch和数据倍增等操作，可参考[数据处理](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset.html)、[数据增强](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset.html)和[自动数据增强](https://www.mindspore.cn/tutorials/experts/zh-CN/master/dataset/augment.html)。
 
 > 如何将数据增强增强操作应用到自定义数据集中，可以参考[mindspore.dataset.GeneratorDataset.map](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset.map)算子。
 
 ### 超参问题处理
 
-AI训练中的超参包含全局学习率，epoch和batch等，如果需要在不同的超参下，训练过程进行可视化时，可参考资料：[可视化的超参调优](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/hyper_parameters_auto_tuning.html)；如果需要设置动态学习率超参时，可参考资料：[学习率的优化算法](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/optim.html#id5)。
+AI训练中的超参包含全局学习率，epoch和batch等，如果需要在不同的超参下，训练过程进行可视化时，可参考资料：[可视化的超参调优](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/hyper_parameters_auto_tuning.html)；如果需要设置动态学习率超参时，可参考资料：[学习率的优化算法](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/optim.html#id5)。
 
 ### 模型结构问题处理
 
 一般的处理模型结构问题，需要用到的操作有：模型结构的重构，选择合适的优化器或者损失函数等。
 
-需要重构模型结构时，可参考资料：[Cell构建及其子类](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/cell.html)。
+需要重构模型结构时，可参考资料：[Cell构建及其子类](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html)。
 
 选择合适的损失函数，可参考资料：[损失函数算子支持列表](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.html#loss-functions)。
 

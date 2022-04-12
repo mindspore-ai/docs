@@ -71,7 +71,7 @@ A: TBE(Tensor Boost Engine)算子是华为自研的Ascend算子开发工具，�
 
 <font size=3>**Q: 请问MindSpore实现了反池化操作了吗？类似于`nn.MaxUnpool2d` 这个反池化操作？**</font>
 
-A: 目前 MindSpore 还没有反池化相关的接口。用户可以通过自定义算子的方式自行开发算子，详情请见[自定义算子](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/custom_operator.html)。
+A: 目前 MindSpore 还没有反池化相关的接口。用户可以通过自定义算子的方式自行开发算子，详情请见[自定义算子](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/op_custom.html)。
 
 <br/>
 
@@ -99,4 +99,4 @@ A: Ascend后端，算子有AI CORE算子和AI CPU算子之分，部分算子AI C
 1. 如果`AI CORE`候选算子信息为空，则可能是在算子`check support`阶段，所有的算子信息均校验未通过。可以在日志中搜索关键字`CheckSupport`找到未通过的原因，根据具体信息修改shape或data type, 或者找开发人员进一步定位；
 2. 如果`AI CPU`候选算子信息不为空，或者`AI CORE`和`AI CPU`候选算子信息都不为空，则可能是用户给到该算子的输入数据类型不在候选列表中，在选择阶段被过滤掉导致，可以根据候选列表尝试修改该算子的输入data type。
 
-用户可以参考[官网教程](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/debug_in_pynative_mode.html)选择合适、统一的模式和写法来完成训练。
+用户可以参考[官网教程](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/pynative_graph/pynative.html)选择合适、统一的模式和写法来完成训练。

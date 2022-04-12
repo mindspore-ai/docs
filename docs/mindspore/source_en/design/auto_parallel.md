@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `Distributed Parallel`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/auto_parallel.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/design/auto_parallel.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -72,7 +72,7 @@ context.get_auto_parallel_context("gradients_mean")
 - `semi_auto_parallel`: semi-automatic parallel mode. In this mode, you can use the `shard` method to configure a segmentation policy for an operator. If no policy is configured, the data parallel policy is used by default.
 - `auto_parallel`: automatic parallel mode. In this mode, the framework automatically creates a cost model and selects the optimal segmentation policy for users.
 
-The complete examples of `auto_parallel` and `data_parallel` are provided in [Distributed Training](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/distributed_training.html).
+The complete examples of `auto_parallel` and `data_parallel` are provided in [Distributed Training](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.train.html).
 
 The following is a code example:
 
@@ -222,7 +222,7 @@ context.get_auto_parallel_context("gradient_fp32_sync")
 `auto_parallel_search_mode` is replaced by `search_mode`. `auto_parallel_search_mode` will be deleted in the future MindSpore version. This attribute indicates the algorithm chosen for searching op-level parallelism: `dynamic_programming`, `recursive_programming`, and `sharding_propagation`.
 
 `dynamic_programming` can search for the optimal policy depicted by the cost model, but it takes a long time to search on a huge network model.
-`recursive_programming` can quickly search out parallel policies, but the found policies may not have the optimal running performance. `shardin_propagation` requires users to configure sharding strategies for some operators, and the algorithm will then propagate the strategies from configured ops to non-configured ops, with the goal of minimizing [tensor redistribution](https://www.mindspore.cn/tutorials/experts/en/master/design/distributed_training_design.html#id10) communication. MindSpore allows users to select a search algorithm. The default value is `dynamic_programming`.
+`recursive_programming` can quickly search out parallel policies, but the found policies may not have the optimal running performance. `shardin_propagation` requires users to configure sharding strategies for some operators, and the algorithm will then propagate the strategies from configured ops to non-configured ops, with the goal of minimizing [tensor redistribution](https://www.mindspore.cn/docs/en/master/design/distributed_training_design.html#id10) communication. MindSpore allows users to select a search algorithm. The default value is `dynamic_programming`.
 
 The following is a code example:
 

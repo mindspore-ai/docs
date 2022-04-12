@@ -171,7 +171,7 @@ def create_dataset2(dataset_path, do_train, repeat_num=1, batch_size=32, target=
     return data_set
 ```
 
-> MindSpore支持进行多种数据处理和增强的操作，各种操作往往组合使用，具体可以参考[数据处理](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset.html)和[数据增强](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/augmentation.html)章节。
+> MindSpore支持进行多种数据处理和增强的操作，各种操作往往组合使用，具体可以参考[数据处理](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset.html)和[数据增强](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset.html)章节。
 
 ## 定义网络
 

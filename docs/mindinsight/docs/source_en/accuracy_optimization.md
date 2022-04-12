@@ -598,19 +598,19 @@ For details about visualized data analysis during training, see [Viewing Dashboa
 
 ### Data Problem Handling
 
-Perform operations such as standardization, normalization, and channel conversion on data. For image data processing, add images with random view and rotation. For details about data shuffle, batch, and multiplication, see [Processing Data](https://www.mindspore.cn/tutorials/en/master/advanced/dataset.html), [Data Argumentation](https://www.mindspore.cn/docs/programming_guide/en/master/augmentation.html), and [Auto Augmentation](https://www.mindspore.cn/tutorials/experts/en/master/dataset/augment.html).
+Perform operations such as standardization, normalization, and channel conversion on data. For image data processing, add images with random view and rotation. For details about data shuffle, batch, and multiplication, see [Processing Data](https://www.mindspore.cn/tutorials/en/master/advanced/dataset.html), [Data Argumentation](https://www.mindspore.cn/tutorials/en/master/advanced/dataset.html), and [Auto Augmentation](https://www.mindspore.cn/tutorials/experts/en/master/dataset/augment.html).
 
 > For details about how to apply the data augmentation operation to a custom dataset, see the [mindspore.dataset.GeneratorDataset.map](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset.map) operator.
 
 ### Hyperparameter Problem Handling
 
-Hyperparameters in AI training include the global learning rate, epoch, and batch. To visualize the training process under different hyperparameters, see [Use Mindoptimizer to Tune Hyperparameters](https://www.mindspore.cn/mindinsight/docs/en/master/hyper_parameters_auto_tuning.html). For details about how to set the dynamic learning rate, see [Optimization Algorithm of Learning Rate](https://www.mindspore.cn/docs/programming_guide/en/master/optim.html).
+Hyperparameters in AI training include the global learning rate, epoch, and batch. To visualize the training process under different hyperparameters, see [Use Mindoptimizer to Tune Hyperparameters](https://www.mindspore.cn/mindinsight/docs/en/master/hyper_parameters_auto_tuning.html). For details about how to set the dynamic learning rate, see [Optimization Algorithm of Learning Rate](https://www.mindspore.cn/docs/en/master/migration_guide/optim.html).
 
 ### Model Structure Problem Handling
 
 Generally, the following operations are required to solve model structure problems: model structure reconstruction, and selection of a proper optimizer or loss function.
 
-If the model structure needs to be reconstructed, refer to [Cell](https://www.mindspore.cn/docs/programming_guide/en/master/cell.html).
+If the model structure needs to be reconstructed, refer to [Cell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html).
 
 Select a proper loss function. For details, see [Loss Functions](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#loss-functions).
 

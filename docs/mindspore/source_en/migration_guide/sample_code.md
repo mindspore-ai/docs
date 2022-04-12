@@ -144,7 +144,7 @@ input_tensor = preprocess(input_image)
 input_batch = input_tensor.unsqueeze(0) # create a mini-batch as expected by the model
 ```
 
-By looking at the above code, we find that the data preprocessing of ResNet50 mainly does Resize, CenterCrop, and Normalize operations, and there are two ways to implement these operations in MindSpore, one is to use MindSpore's data processing module MindData to call the encapsulated data preprocessing interface, and the other is loading through [Custom Dataset](https://www.mindspore.cn/docs/programming_guide/en/master/dataset_loading.html#loading-user-defined-dataset). It is more recommended for developers to choose the first way, which not only can reduce the development of repetitive code and the introduction of errors, but also can get better data processing performance. For more information about MindData data processing, please refer to the Data Pipeline section in [Programming Guide](https://www.mindspore.cn/tutorials/experts/en/master/index.html).
+By looking at the above code, we find that the data preprocessing of ResNet50 mainly does Resize, CenterCrop, and Normalize operations, and there are two ways to implement these operations in MindSpore, one is to use MindSpore's data processing module MindData to call the encapsulated data preprocessing interface, and the other is loading through [Custom Dataset](https://www.mindspore.cn/docs/en/master/faq/data_processing.html#loading-user-defined-dataset). It is more recommended for developers to choose the first way, which not only can reduce the development of repetitive code and the introduction of errors, but also can get better data processing performance. For more information about MindData data processing, please refer to the Data Pipeline section in [Programming Guide](https://www.mindspore.cn/tutorials/experts/en/master/index.html).
 
 The following data processing functions are developed based on MindData:
 
@@ -880,4 +880,4 @@ If MindSpore automatically generates too many conversion operators, it may be th
 
     The scenarios for graph fusion include: scenarios with high performance requirements for network execution time; scenarios where custom combinatorial operators are implemented by splicing basic operators, and where automatic fusion of these basic operators is desired to improve the performance of the custom combinatorial operators.
 
-    For details, please refer to the [tutorial on graph arithmetic fusion](https://www.mindspore.cn/docs/programming_guide/en/master/enable_graph_kernel_fusion.html).
+    For details, please refer to the [tutorial on graph arithmetic fusion](https://www.mindspore.cn/docs/en/master/design/enable_graph_kernel_fusion.html).
