@@ -131,6 +131,10 @@ try:
     decorator_list = [("mindspore/common/_decorator.py", "deprecated",
                        "    def decorate(func):",
                        "    def decorate(func):\n\n        import functools\n\n        @functools.wraps(func)"),
+                       ("mindspore/dataset/engine/graphdata.py","modify url",
+                       "https://mindspore.cn/docs/programming_guide/zh-CN/master/load_dataset_gnn.html","https://mindspore.cn/docs/programming_guide/zh-CN/r1.6/load_dataset_gnn.html"),
+                       ("mindspore/dataset/engine/datasets_user_defines.py","modify url",
+                       "https://www.mindspore.cn/docs/programming_guide/en/master/dataset_loading.html#loading-user-defined-dataset","https://www.mindspore.cn/docs/programming_guide/en/r1.6/dataset_loading.html#loading-user-defined-dataset"),
                       ("mindspore/ops/operations/nn_ops.py", "modify math error.", ": math:`(", ":math:`("),
                       ("mindspore/common/initializer.py", "modify math error.", "text{fan_in}", "text{fan\_in}")
                      ]
