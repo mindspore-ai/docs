@@ -2,7 +2,7 @@
 
 `Ascend` `Inference Application`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/model_infer/multi_platform_inference_ascend_910.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/infer/multi_platform_inference_ascend_910.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 

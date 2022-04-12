@@ -40,7 +40,7 @@ The result of multiplication calculation is correct, MindSpore has been installe
 
 ### MindSpore Programming Guide
 
-Users can read [MindSpore Tutorial](https://www.mindspore.cn/docs/programming_guide/en/master/index.html) to learn how to train, debug, optimize and infer by MindSpore, and read [MindSpore Programming Guide](https://www.mindspore.cn/docs/programming_guide/en/master/index.html) to know the fundamental parts and programming methods of MindSpore. Users can also see detailed MindSpore interfaces by referring to [MindSpore Python API](https://www.mindspore.cn/docs/en/master/index.html).
+Users can read [MindSpore Tutorial](https://www.mindspore.cn/tutorials/experts/en/master/index.html) to learn how to train, debug, optimize and infer by MindSpore, and read [MindSpore Programming Guide](https://www.mindspore.cn/tutorials/experts/en/master/index.html) to know the fundamental parts and programming methods of MindSpore. Users can also see detailed MindSpore interfaces by referring to [MindSpore Python API](https://www.mindspore.cn/docs/en/master/index.html).
 
 ### ModelZoo and Hub
 

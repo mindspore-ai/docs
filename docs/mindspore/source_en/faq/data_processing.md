@@ -199,7 +199,7 @@ A: The MNIST gray scale image dataset is used for MindSpore training. Therefore,
 
 <font size=3>**Q: Can you introduce the dedicated data processing framework?**</font>
 
-A: MindData provides the heterogeneous hardware acceleration function for data processing. The high-concurrency data processing `pipeline` supports `Ascend`, `GPU` and `CPU`. The `CPU` usage is reduced by 30%. For details, see [Optimizing Data Processing](https://www.mindspore.cn/docs/programming_guide/en/master/optimize_data_processing.html).
+A: MindData provides the heterogeneous hardware acceleration function for data processing. The high-concurrency data processing `pipeline` supports `Ascend`, `GPU` and `CPU`. The `CPU` usage is reduced by 30%. For details, see [Optimizing Data Processing](https://www.mindspore.cn/tutorials/experts/en/master/dataset/optimize.html).
 
 <br/>
 

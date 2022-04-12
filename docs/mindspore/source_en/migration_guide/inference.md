@@ -10,17 +10,17 @@ For trained models, MindSpore can execute inference tasks on different hardware 
 
 ### Overview
 
-MindSpore supports to save [training parameters files](https://www.mindspore.cn/docs/programming_guide/en/master/multi_platform_inference.html#model-files) as CheckPoint format. MindSpore also supports to save [network model files](https://www.mindspore.cn/docs/programming_guide/en/master/multi_platform_inference.html#model-files) as MindIR, AIR, and ONNX.
+MindSpore supports to save [training parameters files](https://www.mindspore.cn/tutorials/experts/en/master/infer/inference.html#model-files) as CheckPoint format. MindSpore also supports to save [network model files](https://www.mindspore.cn/tutorials/experts/en/master/infer/inference.html#model-files) as MindIR, AIR, and ONNX.
 
-Referring to the [executing inference](https://www.mindspore.cn/docs/programming_guide/en/master/multi_platform_inference.html#inference-execution) section, users not only can execute local inference through `mindspore.model.predict` interface, but also can export MindIR, AIR, and ONNX model files through `mindspore.export` for inference on different hardware platforms.
+Referring to the [executing inference](https://www.mindspore.cn/tutorials/experts/en/master/infer/inference.html#inference-execution) section, users not only can execute local inference through `mindspore.model.predict` interface, but also can export MindIR, AIR, and ONNX model files through `mindspore.export` for inference on different hardware platforms.
 
-For dominating the difference between backend models, model files in the [MindIR format](https://www.mindspore.cn/docs/programming_guide/en/master/multi_platform_inference.html#inference-execution) is recommended. MindIR model files can be executed on different hardware platforms, as well as be deployed to the Serving platform on cloud and the Lite platform on device.
+For dominating the difference between backend models, model files in the [MindIR format](https://www.mindspore.cn/tutorials/experts/en/master/infer/inference.html#inference-execution) is recommended. MindIR model files can be executed on different hardware platforms, as well as be deployed to the Serving platform on cloud and the Lite platform on device.
 
 ### Executing Inference on Different Platforms
 
-- For the Ascend hardware platform, please refer to [Inference on the Ascend 910 AI processor](https://www.mindspore.cn/docs/programming_guide/en/master/multi_platform_inference_ascend_910.html) and [Inference on Ascend 310](https://www.mindspore.cn/docs/programming_guide/en/master/multi_platform_inference_ascend_310.html).
-- For the GPU hardware platform, please refer to [Inference on a GPU](https://www.mindspore.cn/docs/programming_guide/en/master/multi_platform_inference_gpu.html).
-- For the CPU hardware platform, please refer to [Inference on a CPU](https://www.mindspore.cn/docs/programming_guide/en/master/multi_platform_inference_cpu.html).
+- For the Ascend hardware platform, please refer to [Inference on the Ascend 910 AI processor](https://www.mindspore.cn/tutorials/experts/zh-CN/master/infer/ascend_910_mindir.html) and [Inference on Ascend 310](https://www.mindspore.cn/tutorials/experts/en/master/model_infer/inference_ascend_310.html).
+- For the GPU hardware platform, please refer to [Inference on a GPU](https://www.mindspore.cn/tutorials/experts/en/master/infer/cpu_gpu_mindir.html).
+- For the CPU hardware platform, please refer to [Inference on a CPU](https://www.mindspore.cn/tutorials/experts/en/master/model_infer/inference_cpu.html).
 - For inference on the Lite platform on device, please refer to [on-device inference](https://www.mindspore.cn/lite/docs/en/master/index.html).
 
 > Please refer to [MindSpore C++ Library Use](https://www.mindspore.cn/docs/en/master/faq/inference.html#c) to solve the interface issues on the Ascend hardware platform.

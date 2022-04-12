@@ -37,7 +37,7 @@ If the source code is a PyTorch script, you can directly query [MindSpore and Py
 ### Missing Operator Processing Strategy
 
 1. Consider replacing it with other operators: It is necessary to analyze the implementation formula of the operator and examine whether the existing MindSpore operator can be superimposed to achieve the expected goal.
-3. Consider using Customized operators: see [Custom Operators (Custom based)](https://www.mindspore.cn/docs/programming_guide/en/master/custom_operator_custom.html).
+3. Consider using Customized operators: see [Custom Operators (Custom based)](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_custom.html).
 4. Consider using third-party operators by Customized operators: see [Use Third-Party Operators by Custom Operators](https://www.mindspore.cn/docs/en/master/migration_guide/use_third_party_op.html).
 4. Consider temporary circumvention solutions: For example, if a certain loss is not supported, it can be replaced with a loss operator of the same kind that has been supported.
 5. Submit suggestions in [MindSpore Community](https://gitee.com/mindspore/mindspore/issues) to develop missing operators.

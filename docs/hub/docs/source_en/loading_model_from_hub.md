@@ -34,7 +34,7 @@
 
    ```
 
-3. After loading the model, you can use MindSpore to do inference. You can refer to [Multi-Platform Inference Overview](https://www.mindspore.cn/docs/programming_guide/en/master/multi_platform_inference.html).
+3. After loading the model, you can use MindSpore to do inference. You can refer to [Multi-Platform Inference Overview](https://www.mindspore.cn/tutorials/experts/en/master/infer/inference.html).
 
 ## For Transfer Training
 

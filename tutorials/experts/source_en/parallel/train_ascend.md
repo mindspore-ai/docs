@@ -31,7 +31,7 @@ The directory structure is as follow:
 
 `rank_table_16pcs.json`, `rank_table_8pcs.json` and `rank_table_2pcs.json` are the networking information files. `resnet.py`,`resnet50_distributed_training.py` , `resnet50_distributed_training_gpu.py` and `resnet50_distributed_training_grad_accu.py` are the network structure files. `run.sh` , `run_gpu.sh`, `run_grad_accu.sh` and `run_cluster.sh` are the execute scripts.
 
-Besides, we describe the usages of hybrid parallel and semi-auto parallel modes in the sections [Defining the Network](https://www.mindspore.cn/tutorials/experts/en/master/parallel/distributed_training_ascend.html#defining-the-network) and [Distributed Training Model Parameters Saving and Loading](https://www.mindspore.cn/tutorials/experts/en/master/parallel/distributed_training_ascend.html#distributed-training-model-parameters-saving-and-loading).
+Besides, we describe the usages of hybrid parallel and semi-auto parallel modes in the sections [Defining the Network](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#defining-the-network) and [Distributed Training Model Parameters Saving and Loading](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#distributed-training-model-parameters-saving-and-loading).
 
 ## Preparations
 
@@ -554,7 +554,7 @@ bash run_cluster.sh /path/dataset /path/rank_table.json 16 8
 
 ### Non-sink Mode Training
 
-In graph mode, you can specify to train the model in a non-sink mode by setting the environment variable [GRAPH_OP_RUN](https://www.mindspore.cn/docs/note/en/master/env_var_list.html)=1. In this case, you need to set environment variable `HCCL_WHITELIST_DISABLE=1` and train model with OpenMPI `mpirun`. The startup script is consistent with the [GPU's distributed training](https://www.mindspore.cn/tutorials/experts/en/master/parallel/distributed_training_gpu.html#running-the-script) script.
+In graph mode, you can specify to train the model in a non-sink mode by setting the environment variable [GRAPH_OP_RUN](https://www.mindspore.cn/docs/en/master/note/env_var_list.html)=1. In this case, you need to set environment variable `HCCL_WHITELIST_DISABLE=1` and train model with OpenMPI `mpirun`. The startup script is consistent with the [GPU's distributed training](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html#running-the-script) script.
 
 ## Distributed Training Model Parameters Saving and Loading
 
@@ -641,7 +641,7 @@ context.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, grad
 
 ### Semi Auto Parallel Mode
 
-In semi auto parallel mode, checkpoint is used in the same way as in auto parallel mode and data parallel mode. The difference is in the definition of a network and the definition of network model, you can refer to defining the network [Semi Auto Parallel Mode](https://www.mindspore.cn/tutorials/experts/en/master/parallel/distributed_training_ascend.html#semi-auto-parallel-mode) in this tutorial.
+In semi auto parallel mode, checkpoint is used in the same way as in auto parallel mode and data parallel mode. The difference is in the definition of a network and the definition of network model, you can refer to defining the network [Semi Auto Parallel Mode](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#semi-auto-parallel-mode) in this tutorial.
 
 To save the model, you can use the following code:
 

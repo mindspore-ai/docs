@@ -41,7 +41,7 @@ PyTorch 官方实现脚本可参考 [torchvision model](https://github.com/pytor
 
 在开始真正的开发脚本前，需要进行对标脚本分析。脚本分析的目的是识别出 MindSpore 与对标框架相比缺失的算子或功能。具体方法可以参考[脚本评估教程](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/script_analysis.html)。
 
-MindSpore 已支持绝大多数常用 [功能](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/index.html) 和 [算子](https://www.mindspore.cn/docs/zh-CN/master/note/operator_list.html)。MindSpore 既支持动态图（PyNative）模式，又支持静态图（Graph）模式，动态图模式灵活、易于调试，因此动态图模式主要用于网络调试，静态图模式性能好，主要用于整网训练，在分析缺失算子和功能时，要分别分析这两种模式。
+MindSpore 已支持绝大多数常用 [功能](https://www.mindspore.cn/tutorials/experts/zh-CN/master/index.html) 和 [算子](https://www.mindspore.cn/docs/zh-CN/master/note/operator_list.html)。MindSpore 既支持动态图（PyNative）模式，又支持静态图（Graph）模式，动态图模式灵活、易于调试，因此动态图模式主要用于网络调试，静态图模式性能好，主要用于整网训练，在分析缺失算子和功能时，要分别分析这两种模式。
 
 如果发现有缺失的算子和功能，首先可考虑基于当前算子或功能来组合出缺失的算子和功能，对于主流的 CV 和 NLP 类网络，新的缺失算子一般都可以通过组合已有算子的方式来解决。
 
@@ -117,7 +117,7 @@ PyTorch 实现的 ResNet50 脚本参考 [torchvision model](https://github.com/p
 
 在读取和解析数据过程中，MindSpore 提供了一种更友好的数据格式 - [MindRecord](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/convert_dataset.html)。用户可以将常规格式的数据集转换为 MindSpore数据格式，即 MindRecord，从而方便地加载到 MindSpore 中进行训练。同时，MindSpore 在部分场景做了性能优化，使用 MindRecord 数据格式可以获得更好的性能。
 
-数据处理通常是数据准备中最耗时的阶段，大部分对数据的操作都被包含在这一步骤里，例如 CV 类网络中的Resize、Rescale、Crop 等操作。MindSpore 提供了一套常用的数据处理集成接口，用户可以不用自己实现而直接调用这些接口，这些集成接口不仅可以提升用户的易用性，还可以提升数据预处理的性能，减少训练过程中数据准备的耗时。具体可以参考[数据预处理教程](https://www.mindspore.cn/tutorials/experts/zh-CN/master/data_engine/optimize_data_processing.html)。
+数据处理通常是数据准备中最耗时的阶段，大部分对数据的操作都被包含在这一步骤里，例如 CV 类网络中的Resize、Rescale、Crop 等操作。MindSpore 提供了一套常用的数据处理集成接口，用户可以不用自己实现而直接调用这些接口，这些集成接口不仅可以提升用户的易用性，还可以提升数据预处理的性能，减少训练过程中数据准备的耗时。具体可以参考[数据预处理教程](https://www.mindspore.cn/tutorials/experts/zh-CN/master/dataset/optimize_data_processing.html)。
 
 在数据分发环节，MindData 提供了极为简洁的 API，可以通过直接调用 batch、repeat 等操作完成数据的 batch 组合、重复等操作。
 
@@ -142,7 +142,7 @@ input_tensor = preprocess(input_image)
 input_batch = input_tensor.unsqueeze(0) # create a mini-batch as expected by the model
 ```
 
-通过观察以上代码，我们发现 ResNet50 的数据预处理主要做了 Resize、CenterCrop、Normalize 操作，在 MindSpore 中实现这些操作有两种方式，一是使用 MindSpore 的数据处理模块 MindData 来调用已封装好的数据预处理接口，二是通过 [自定义数据集](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dataset_loading.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86%E5%8A%A0%E8%BD%BD) 进行加载。这里更建议开发者选择第一种方式，这样不仅可以减少重复代码的开发，减少错误的引入，还可以得到更好的数据处理性能。更多关于MindData数据处理的介绍，可参考 [编程指南](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/index.html)中的数据管道部分。
+通过观察以上代码，我们发现 ResNet50 的数据预处理主要做了 Resize、CenterCrop、Normalize 操作，在 MindSpore 中实现这些操作有两种方式，一是使用 MindSpore 的数据处理模块 MindData 来调用已封装好的数据预处理接口，二是通过 [自定义数据集](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dataset_loading.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86%E5%8A%A0%E8%BD%BD) 进行加载。这里更建议开发者选择第一种方式，这样不仅可以减少重复代码的开发，减少错误的引入，还可以得到更好的数据处理性能。更多关于MindData数据处理的介绍，可参考 [编程指南](https://www.mindspore.cn/tutorials/experts/zh-CN/master/index.html)中的数据管道部分。
 
 以下是基于 MindData 开发的数据处理函数：
 

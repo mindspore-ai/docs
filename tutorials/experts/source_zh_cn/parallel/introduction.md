@@ -35,7 +35,7 @@
 
 当前MindSpore提供分布式并行训练的功能。它支持了上述的多种模式，可以通过`context.set_auto_parallel_context()`接口设置对应的并行模式。
 
-在用户调用分布式训练流程时，需要调用如下代码进行通信的初始化，并且配置对应的rank_table_file，可以参考[分布式训练(Ascend)](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/distributed_training_ascend.html#多机多卡训练)的**多机多卡训练**章节。
+在用户调用分布式训练流程时，需要调用如下代码进行通信的初始化，并且配置对应的rank_table_file，可以参考[分布式训练(Ascend)](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#多机多卡训练)的**多机多卡训练**章节。
 
 ```python
 from mindspore.communication import init, get_rank, get_group_size

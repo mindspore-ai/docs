@@ -192,7 +192,7 @@ mindconverter --model_file /path/to/model.onnx
 
 如果需要从`.onnx`文件中获取模型输入节点`shape`、输入节点名称、输出节点名称，推荐使用[Netron](https://github.com/lutzroeder/netron)工具加载ONNX模型文件，获取上述信息。
 
-模型文件（`model.py`）与权重信息（`ckpt`）可用于验证模型迁移的等价性，也可用于导出[MindIR](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/save_model.html#mindir)格式文件。
+模型文件（`model.py`）与权重信息（`ckpt`）可用于验证模型迁移的等价性，也可用于导出[MindIR](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/save_load.html#mindir)格式文件。
 
 ```python
 import mindspore
@@ -364,7 +364,7 @@ model.train(EPOCH_SIZE, dataset)
 
 度量指标（`metric`），可查询[接口映射](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)或自定义实现。
 
-模型推理的代码比较灵活，代码组织风格与MindSpore图模式差异较大，建议自行实现，更多转换方案可参考[编程指南](https://www.mindspore.cn/tutorials/experts/zh-CN/master/model_infer/inference_ascend_910.html)。
+模型推理的代码比较灵活，代码组织风格与MindSpore图模式差异较大，建议自行实现，更多转换方案可参考[编程指南](https://www.mindspore.cn/tutorials/experts/zh-CN/master/infer/ascend_910_mindir.html)。
 
 PyTorch源码如下：
 

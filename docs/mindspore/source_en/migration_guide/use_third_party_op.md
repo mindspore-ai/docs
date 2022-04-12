@@ -7,7 +7,7 @@
 When built-in operators cannot meet requirements during network development, you can call the Python API [Custom](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom) primitive defined in MindSpore to quickly create different types of customized operators for use.
 
 You can choose different customized operator developing methods base on needs.
-See: [custom_operator_custom](https://www.mindspore.cn/docs/programming_guide/en/master/custom_operator_custom.html).
+See: [custom_operator_custom](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_custom.html).
 
 There is a defining method called `aot` which has a special use. The `aot` mode can call the corresponding `cpp`/`cuda` function by loading the precompiled `so`. Therefore, when a third-party library provides the `cpp`/`cuda` function `API`, you can try to call its function interface in `so`.
 

@@ -8,7 +8,7 @@ This article describes how to use Debugger in offline mode.
 
 ## Operation Process
 
-1. Prepare dump data. For details about how to use the dump function, see [Using Dump in the Graph Mode](https://www.mindspore.cn/docs/programming_guide/en/master/dump_in_graph_mode.html).
+1. Prepare dump data. For details about how to use the dump function, see [Using Dump in the Graph Mode](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump_in_graph_mode.html).
 2. Use the offline debugger for debugging and analysis.
 
    If an UI page is needed, you can start the debugger through MindInsight offline debugger entry. The operation process is:
@@ -27,7 +27,7 @@ Unless otherwise specified, the offline debugger in the following refers to the 
 
 ## Environment Preparation
 
-Use the dump function of MindSpore to prepare offline data. For details about how to use the dump function, see [Using Dump in the Graph Mode](https://www.mindspore.cn/docs/programming_guide/en/master/dump_in_graph_mode.html).
+Use the dump function of MindSpore to prepare offline data. For details about how to use the dump function, see [Using Dump in the Graph Mode](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump_in_graph_mode.html).
 
 It should be noted that only one dump path can be included in a summary-dir. For example, if the path in the Dump configuration file is "/home/workspace/data/dump_dir" in one training, after the dump data of this training is stored,  the other trainnings cannot set the path in the Dump configuration file as the children directory of "/home/workspace/data".
 

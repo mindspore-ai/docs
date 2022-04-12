@@ -2,7 +2,7 @@
 
 `Ascend` `Inference Application`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/model_infer/multi_platform_inference_ascend_310_air.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/infer/multi_platform_inference_ascend_310_air.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -102,7 +102,7 @@ Create a directory to store the inference code project, for example, `/home/HwHi
 
 ## Exporting the AIR Model
 
-Train the target network on the Ascend 910 AI Processor, save it as a checkpoint file, and export the model file in AIR format through the network and checkpoint file. For details about the export process, see [Export AIR Model](https://www.mindspore.cn/tutorials/experts/en/master/model_infer/save_model.html#export-air-model).
+Train the target network on the Ascend 910 AI Processor, save it as a checkpoint file, and export the model file in AIR format through the network and checkpoint file. For details about the export process, see [Export AIR Model](https://www.mindspore.cn/tutorials/experts/en/master/infer/save_model.html#export-air-model).
 
 > The [resnet50_export.air](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/sample_resources/acl_resnet50_sample/resnet50_export.air) is a sample AIR file exported using the ResNet-50 model.
 

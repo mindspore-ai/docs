@@ -35,7 +35,7 @@
 
 其中，`rank_table_16pcs.json`、`rank_table_8pcs.json`、`rank_table_2pcs.json`是配置当前多卡环境的组网信息文件。`resnet.py`、`resnet50_distributed_training.py`等文件是定义网络结构的脚本。`run.sh`、`run_cluster.sh`是执行脚本。
 
-此外在[定义网络](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/distributed_training_ascend.html#定义网络)和[分布式训练模型参数保存和加载](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/distributed_training_ascend.html#分布式训练模型参数保存和加载)小节中我们针对手动混合并行模式和半自动并行模式的使用做了特殊说明。
+此外在[定义网络](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#定义网络)和[分布式训练模型参数保存和加载](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#分布式训练模型参数保存和加载)小节中我们针对手动混合并行模式和半自动并行模式的使用做了特殊说明。
 
 ## 准备环节
 
@@ -558,7 +558,7 @@ bash run_cluster.sh /path/dataset /path/rank_table.json 16 8
 
 ### 非下沉场景训练方式
 
-图模式下，用户可以通过设置环境变量[GRAPH_OP_RUN](https://www.mindspore.cn/docs/zh-CN/master/note/env_var_list.html)=1来指定以非下沉方式训练模型。该方式需要采用OpenMPI的mpirun进行分布式训练，并且需要设置环境变量HCCL_WHITELIST_DISABLE=1。除此之外，训练启动脚本和[GPU分布式训练](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/distributed_training_gpu.html#定义网络)一致。
+图模式下，用户可以通过设置环境变量[GRAPH_OP_RUN](https://www.mindspore.cn/docs/zh-CN/master/note/env_var_list.html)=1来指定以非下沉方式训练模型。该方式需要采用OpenMPI的mpirun进行分布式训练，并且需要设置环境变量HCCL_WHITELIST_DISABLE=1。除此之外，训练启动脚本和[GPU分布式训练](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html#定义网络)一致。
 
 ## 分布式训练模型参数保存和加载
 
@@ -598,7 +598,7 @@ param_dict = load_checkpoint(pretrain_ckpt_path)
 load_param_into_net(net, param_dict)
 ```
 
-详细的checkpoint配置策略和保存加载方法可以参考[模型参数的保存和加载](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/save_model.html#checkpoint)。
+详细的checkpoint配置策略和保存加载方法可以参考[模型参数的保存和加载](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/save_load.html#checkpoint)。
 
 对于网络中切分的参数框架默认会自动聚合保存到模型文件，但考虑到在超大模型场景下，单个完整的模型文件过大会带来传输慢、难加载等问题，所以用户可以通过`CheckpointConfig`中`integrated_save`参数选择非合并保存，即每张卡保存各自卡上的参数切片。如果再训练或推理的切分策略或集群规模与训练不一致，需要采用特殊的加载方式。
 
@@ -626,7 +626,7 @@ load_distributed_checkpoint(model.train_network, ckpt_file_list, layout_dict)
 model.train(2, dataset)
 ```
 
-> 分布式推理场景可以参考教程：[分布式推理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/model_infer/inference_ascend_910.html#概述)。
+> 分布式推理场景可以参考教程：[分布式推理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/infer/ascend_910_mindir.html#概述)。
 
 ### 数据并行模式
 
@@ -646,7 +646,7 @@ context.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, grad
 
 ### 半自动并行模式
 
-半自动并行模式（Semi Auto Parallel）下checkpoint使用方法，与自动并行模式（Auto Parallel）和数据并行模式（Data Parallel）的用法相同，不同之处在于网络的定义，半自动并行模式（Semi Auto Parallel）下网络模型的定义请参考本教程中定义网络部分的[半自动并行模式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/distributed_training_ascend.html#半自动并行模式)。
+半自动并行模式（Semi Auto Parallel）下checkpoint使用方法，与自动并行模式（Auto Parallel）和数据并行模式（Data Parallel）的用法相同，不同之处在于网络的定义，半自动并行模式（Semi Auto Parallel）下网络模型的定义请参考本教程中定义网络部分的[半自动并行模式](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#半自动并行模式)。
 
 保存模型时，可以使用如下代码来实现：
 
