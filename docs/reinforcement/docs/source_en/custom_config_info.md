@@ -117,22 +117,20 @@ algorithm_config = {
         'number': 1,                                                        # the number of Actor
         'type': DQNActor,                                                   # the class name of Actor
         'policies': ['init_policy', 'collect_policy', 'eval_policy'],       # Take the policies that called init_policy, collect_policy and eval_policy in Policy class as input to create the instance of actor
-        'pass_environment': True                                            # Whether pass the environment instance to actor as a member variable
         'share_env': True                                                   # Whether the environment is shared by each actor
     }
     ...
 }
 ```
 
-|        key         |      Type      |                           Range                            |                         Description                          |
-| :----------------: | :------------: | :--------------------------------------------------------: | :----------------------------------------------------------: |
-|       number       |    Integer     |                          [1, +∞)                           |          Number of Actor, currently only support 1           |
-|        type        |     Class      | The subclass of actor that is user-defined and implemented | This type is the same name as the subclass of actor that is user-defined and implemented |
-|  params(optional)  |   Dictionary   |          Any value with key value format or None           | Customized parameter, user can input any value with key value format |
-|      policies      | List of String |      Same variable name as the user-defined policies       | Every string in list must correspond one-to-one with the name of the policies initialized in the user-defined policy class |
-| networks(optional) | List of String |      Same variable name as the user-defined networks       | Every string in list must correspond one-to-one with the name of the networks initialized in the user-defined policy class |
-|  pass_environment  |    Boolean     |                       True or False                        | If this value is False, user can not obtain `collect_environment` and `eval_environment` instance in actor |
-| share_env(optional)|    Boolean     |                       True or False                        | Default: True, means every actor will share one `collect_environment`. Else, we will create an instance of `collect_environment` for each actor. |
+|         key         |      Type      |                           Range                            |                         Description                          |
+| :-----------------: | :------------: | :--------------------------------------------------------: | :----------------------------------------------------------: |
+|       number        |    Integer     |                          [1, +∞)                           |          Number of Actor, currently only support 1           |
+|        type         |     Class      | The subclass of actor that is user-defined and implemented | This type is the same name as the subclass of actor that is user-defined and implemented |
+|  params(optional)   |   Dictionary   |          Any value with key value format or None           | Customized parameter, user can input any value with key value format |
+|      policies       | List of String |      Same variable name as the user-defined policies       | Every string in list must correspond one-to-one with the name of the policies initialized in the user-defined policy class |
+| networks(optional)  | List of String |      Same variable name as the user-defined networks       | Every string in list must correspond one-to-one with the name of the networks initialized in the user-defined policy class |
+| share_env(optional) |    Boolean     |                       True or False                        | Default: True, means every actor will share one `collect_environment`. Else, we will create an instance of `collect_environment` for each actor. |
 
 ### ReplayBuffer Configuration
 
