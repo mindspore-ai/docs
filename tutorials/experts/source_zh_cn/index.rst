@@ -62,6 +62,7 @@
    parallel/communicate_ops
    parallel/train_ascend
    parallel/train_gpu
+   parallel/distributed_inference
    parallel/save_load
    parallel/transformer
    parallel/pangu_alpha
