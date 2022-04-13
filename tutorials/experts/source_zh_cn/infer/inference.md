@@ -41,7 +41,7 @@ MindSpore支持保存两种类型的数据：训练参数和网络模型（模�
 
 1. 本机推理
 
-    通过加载网络训练产生的Checkpoint文件，调用`model.predict`接口进行推理验证，具体操作可查看[加载Checkpoint在线推理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/infer/online_inference.html)。
+    通过加载网络训练产生的Checkpoint文件，调用`model.predict`接口进行推理验证。
 
 2. 跨平台推理
 

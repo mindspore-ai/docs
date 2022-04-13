@@ -2,15 +2,13 @@
 
 `Ascend` `GPU` `CPU` `Data Preparation`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/dataset/auto_augmentation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/dataset/augment.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
 MindSpore not only allows you to customize data augmentation, but also provides an auto augmentation method to automatically perform data augmentation on images based on specific policies.
 
 Auto augmentation can be implemented based on probability or callback parameters.
-
-> For a complete example, see [Application of Auto Augmentation](https://www.mindspore.cn/tutorials/experts/en/master/dataset/enable_auto_augmentation.html).
 
 ## Probability Based Auto Augmentation
 

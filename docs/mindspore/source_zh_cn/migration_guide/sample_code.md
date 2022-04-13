@@ -142,7 +142,7 @@ input_tensor = preprocess(input_image)
 input_batch = input_tensor.unsqueeze(0) # create a mini-batch as expected by the model
 ```
 
-通过观察以上代码，我们发现 ResNet50 的数据预处理主要做了 Resize、CenterCrop、Normalize 操作，在 MindSpore 中实现这些操作有两种方式，一是使用 MindSpore 的数据处理模块 MindData 来调用已封装好的数据预处理接口，二是通过 [自定义数据集](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86%E5%8A%A0%E8%BD%BD) 进行加载。这里更建议开发者选择第一种方式，这样不仅可以减少重复代码的开发，减少错误的引入，还可以得到更好的数据处理性能。更多关于MindData数据处理的介绍，可参考 [编程指南](https://www.mindspore.cn/tutorials/experts/zh-CN/master/index.html)中的数据管道部分。
+通过观察以上代码，我们发现 ResNet50 的数据预处理主要做了 Resize、CenterCrop、Normalize 操作，在 MindSpore 中实现这些操作有两种方式，一是使用 MindSpore 的数据处理模块 MindData 来调用已封装好的数据预处理接口，二是通过 [自定义数据集](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86%E5%8A%A0%E8%BD%BD) 进行加载。这里更建议开发者选择第一种方式，这样不仅可以减少重复代码的开发，减少错误的引入，还可以得到更好的数据处理性能。更多关于MindData数据处理的介绍，可参考 [数据处理](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset.html)。
 
 以下是基于 MindData 开发的数据处理函数：
 
