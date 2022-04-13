@@ -16,6 +16,7 @@ MindSpore 文档
    design/gradient
    design/dynamic_graph_and_static_graph
    design/distributed_training_design
+   design/distributed_advanced
    design/heterogeneous_training
    design/mindir
    design/data_engine
