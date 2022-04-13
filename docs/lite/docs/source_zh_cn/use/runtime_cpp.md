@@ -817,7 +817,7 @@ REGISTER_CUSTOM_KERNEL_INTERFACE(CustomOpTutorial, Custom_Add, CustomAddInferCre
 
     - Prepare：此接口将在图编译期间调用，用户可对算子做运行前的准备或者必要的校验。
 
-    - Execute：此接口是算子的运行接口，用户可将**动态推断**逻辑[PreProcess](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/runtime_extend/src/custom_add_kernel.cc)放置于此接口内调用。
+    - Execute：此接口是算子的运行接口，用户可将**动态推断**逻辑[PreProcess](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_extend/src/custom_add_kernel.cc)放置于此接口内调用。
 
       ```cpp
       int CheckOutputs(const std::vector<mindspore::MSTensor> &outputs) {           // 算子运行时校验，以确定是否调用InferShape过程
@@ -833,7 +833,7 @@ REGISTER_CUSTOM_KERNEL_INTERFACE(CustomOpTutorial, Custom_Add, CustomAddInferCre
 
     - ReSize：此接口用于在图输入shape变化的情形下，当前算子所需的相应变动。
 
-    - 属性解析： 用户需自行提供对算子属性的解析，可参考[ParseAttrData](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/runtime_extend/src/custom_add_kernel.cc)。
+    - 属性解析： 用户需自行提供对算子属性的解析，可参考[ParseAttrData](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_extend/src/custom_add_kernel.cc)。
 
 2. 算子注册，API接口可参考[REGISTER_CUSTOM_KERNEL](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#register-custom-kernel)。
 

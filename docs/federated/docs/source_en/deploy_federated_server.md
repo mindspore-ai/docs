@@ -113,13 +113,13 @@ scheduler_manage_port = args.scheduler_manage_port
 config_file_path = args.config_file_path
 ```
 
-> Each Python script corresponds to a process. If multiple `Server` roles need to be deployed on different hosts, you can use shell commands and Python to quickly start multiple `Server` processes. You can refer to the [examples](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile).
+> Each Python script corresponds to a process. If multiple `Server` roles need to be deployed on different hosts, you can use shell commands and Python to quickly start multiple `Server` processes. You can refer to the [examples](https://gitee.com/mindspore/mindspore/tree/master/tests/st/fl/mobile).
 >
 > Each `Server` process needs a unique identifier `MS_NODE_ID` which should be set by environment variable. In this tutorial, this environment variable has been set in the script [run_mobile_server.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/run_mobile_server.py).
 
 ## Starting a Cluster
 
-Start the cluster by referring to the [examples](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile). An example directory structure is as follows:
+Start the cluster by referring to the [examples](https://gitee.com/mindspore/mindspore/tree/master/tests/st/fl/mobile). An example directory structure is as follows:
 
 ```text
 mobile/

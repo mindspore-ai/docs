@@ -16,7 +16,7 @@ Before running the sample network, ensure that MindSpore Serving has been proper
 
 ### Downloading the Example
 
-Please download the [example](https://gitee.com/mindspore/serving/blob/master/example/matmul_multi_subgraphs/) first.
+Please download the [example](https://gitee.com/mindspore/serving/tree/master/example/matmul_multi_subgraphs/) first.
 
 ### Exporting a Multi-Graph Model
 

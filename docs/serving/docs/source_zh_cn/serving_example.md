@@ -14,7 +14,7 @@ MindSpore Serving是一个轻量级、高性能的服务模块，旨在帮助Min
 
 ## 下载样例
 
-请先[下载样例](https://gitee.com/mindspore/serving/blob/master/example/tensor_add/)。
+请先[下载样例](https://gitee.com/mindspore/serving/tree/master/example/tensor_add/)。
 
 ## 导出模型
 

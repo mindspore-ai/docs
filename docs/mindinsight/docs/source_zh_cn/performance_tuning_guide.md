@@ -127,7 +127,7 @@ MindInsight在性能调优的单卡页面为用户提供了`迭代轨迹`标签�
 步骤3：观察集群页面的迭代拖尾耗时
 
 - 观察是否有某张卡的迭代拖尾耗时明显比其它卡长，通常该情况是由于集群中存在慢节点导致，用户可参考步骤1和步骤2确定是否有慢节点并修复。
-- 若所有卡的迭代拖尾耗时基本相同，且该阶段耗时较长，通常是由于AllReduce集合通信算子耗时长导致。用户可尝试通过修改all_reduce_fusion_config参数，改变[AllReduce融合切分策略](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/auto_parallel.html?highlight=all_reduce_fusion_config) 降低该阶段的耗时。
+- 若所有卡的迭代拖尾耗时基本相同，且该阶段耗时较长，通常是由于AllReduce集合通信算子耗时长导致。用户可尝试通过修改all_reduce_fusion_config参数，改变[AllReduce融合切分策略](https://mindspore.cn/tutorials/experts/zh-CN/master/parallel/introduction.html) 降低该阶段的耗时。
 
 ### 模型并行
 

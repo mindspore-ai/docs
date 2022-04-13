@@ -192,7 +192,7 @@ class NPUDelegate : public Delegate {
 
 ### Implementing the Init of NPUDelegate
 
-[Init](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/src/delegate/npu/npu_delegate.cc#L75) function is used to apply resource for NPU and determine whether the hardware supports NPU.
+[Init](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/delegate/npu/npu_delegate.cc#L75) function is used to apply resource for NPU and determine whether the hardware supports NPU.
 
 ```cpp
 Status NPUDelegate::Init() {
@@ -219,7 +219,7 @@ Status NPUDelegate::Init() {
 
 ### Implementing the Build of NPUDelegate
 
-The [Build](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/src/delegate/npu/npu_delegate.cc#L163) interface parses the DelegateModel and mainly implements the kernel support judgment, the sub-graph construction, and the online graph building.
+The [Build](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/delegate/npu/npu_delegate.cc#L163) interface parses the DelegateModel and mainly implements the kernel support judgment, the sub-graph construction, and the online graph building.
 
 ```cpp
 Status NPUDelegate::Build(DelegateModel *model) {
@@ -281,7 +281,7 @@ kernel::Kernel *NPUDelegate::CreateNPUGraph(const std::vector<NPUOp *> &ops) {
 
 ### Adding the NPUGraph Class
 
-[NPUGraph](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/src/delegate/npu/npu_graph.h#L29) inherits from [Kernel](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_kernel_Kernel.html#class-kernel). And we need to rewrite the Prepare, Execute, and ReSize interfaces.
+[NPUGraph](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/delegate/npu/npu_graph.h#L29) inherits from [Kernel](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_kernel_Kernel.html#class-kernel). And we need to rewrite the Prepare, Execute, and ReSize interfaces.
 
 [NPUGraph::Prepare](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/delegate/npu/npu_graph.cc#L306) mainly implements:
 

@@ -57,7 +57,7 @@ mobile/models/
 
 The ALBERT language model[1] is used in federated learning. The ALBERT model on the client includes the embedding layer, encoder layer, and classifier layer.
 
-For details about the network definition, see [source code](https://gitee.com/mindspore/mindspore/tree/master/tests/st/fl/mobile/src/model.py).
+For details about the network definition, see [source code](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py).
 
 ### Generating a Device Model File
 

@@ -228,7 +228,7 @@ Notes:
 
 ### Step 2：Migrate the data processing
 
-For a built-in dataset, please query [API mapping](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html) for migration. For a customized dataset and data augmentation, self implementation is recommended. For more data processing migration, please refer to [the programming guidance](https://www.mindspore.cn/docs/programming_guide/en/master/dataset_sample.html).
+For a built-in dataset, please query [API mapping](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html) for migration. For a customized dataset and data augmentation, self implementation is recommended. For more data processing migration, please refer to [the programming guidance](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset.html).
 
 Source codes with PyTorch framework are as follows:
 
@@ -284,7 +284,7 @@ dataset = GeneratorDataset(generator, column_names=['data', 'label']).batch(BATC
 
 ### Step 3：Migrate the model training
 
-The loss function(`loss_fn`) can be migrated by querying [API mapping](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html) or user's implementation. For more loss function migration, please refer to [the programming guidance](https://www.mindspore.cn/docs/programming_guide/en/master/loss.html).
+The loss function(`loss_fn`) can be migrated by querying [API mapping](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html) or user's implementation. For more loss function migration, please refer to [the programming guidance](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/network/loss.html).
 
 The optimizer(`optimizer`) can be migrated by querying [API mapping](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html) or user's implementation. For more optimizer migration, please refer to [the programming guidance](https://www.mindspore.cn/tutorials/en/master/advanced/network/optim.html).
 

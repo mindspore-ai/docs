@@ -226,7 +226,7 @@ mindspore.export(network, mindspore.Tensor(input_data)), file_name='your_network
 
 ### 第2步：转换数据处理
 
-内置数据集可直接查询[接口映射](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)，自定义数据集需要自行实现，更多转换方案可参考[编程指南](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/dataset_sample.html)。
+内置数据集可直接查询[接口映射](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)，自定义数据集需要自行实现，更多转换方案可参考[编程指南](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset.html)。
 
 PyTorch源码如下：
 
@@ -282,7 +282,7 @@ dataset = GeneratorDataset(generator, column_names=['data', 'label']).batch(BATC
 
 ### 第3步：转换模型训练
 
-损失函数（loss_fn）可查询[接口映射](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)或自定义实现，更多转换方案可参考[编程指南](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/loss.html)。
+损失函数（loss_fn）可查询[接口映射](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)或自定义实现，更多转换方案可参考[编程指南](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/network/loss.html)。
 
 优化器（optimizer）可查询[接口映射](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)或自定义实现，更多转换方案可参考[编程指南](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/network/optim.html)。
 

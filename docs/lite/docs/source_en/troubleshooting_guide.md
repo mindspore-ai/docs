@@ -4,7 +4,7 @@
 
 ## Overview
 
-If you encounter an issue when using MindSpore Lite, you can view logs first. In most scenarios, you can locate the issue based on the error information reported in logs. You can set the environment variable [GLOG_v](https://mindspore.cn/docs/programming_guide/en/master/custom_debugging_info.html#log-related-environment-variables-and-configurations) to adjust the log level to print more debug logs. The following describes how to locate and rectify common faults.
+If you encounter an issue when using MindSpore Lite, you can view logs first. In most scenarios, you can locate the issue based on the error information reported in logs. You can set the environment variable [GLOG_v](https://www.mindspore.cn/tutorials/experts/en/master/debug/custom_debug.html#log-related-environment-variables-and-configurations) to adjust the log level to print more debug logs. The following describes how to locate and rectify common faults.
 
 > 1. The log line number may vary in different versions. In the following example, the line number in the error log information is represented by "**".
 > 2. Only common information is listed in the example logs. Other information related to specific scenarios is displayed as "****".

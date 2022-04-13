@@ -11,7 +11,7 @@
 
 ## Kernel
 
-\#include <[kernel.h](https://gitee.com/mindspore/mindspore/tree/master/include/api/kernel.h)>
+\#include <[kernel.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/kernel.h)>
 
 Kernel是算子实现的基类，定义了几个必须实现的接口。
 

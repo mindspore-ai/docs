@@ -564,7 +564,7 @@ global batch size是指多卡训练时的全局batch size。以单机4卡数据�
 
 #### 确保数据并行的权重初始值在每各路间一致
 
-多路（多卡）数据并行时，结果的正确性依赖于各路（各卡）的权重初始值一致。请通过加载相同的checkpoint，或者提前固定随机种子等方法确保权重初始值一致。固定随机种子的操作方法请参考[固定随机性文档](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/fixing_randomness.html)。
+多路（多卡）数据并行时，结果的正确性依赖于各路（各卡）的权重初始值一致。请通过加载相同的checkpoint，或者提前固定随机种子等方法确保权重初始值一致。固定随机种子的操作方法请参考[固定随机性文档](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/fixing_randomness.html)。
 
 ### 精度调优相关参考文献
 
