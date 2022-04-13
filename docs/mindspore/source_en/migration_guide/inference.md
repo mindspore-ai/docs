@@ -20,7 +20,7 @@ For dominating the difference between backend models, model files in the [MindIR
 
 - For the Ascend hardware platform, please refer to [Inference on the Ascend 910 AI processor](https://www.mindspore.cn/tutorials/experts/zh-CN/master/infer/ascend_910_mindir.html) and [Inference on Ascend 310](https://www.mindspore.cn/tutorials/experts/en/master/infer/inference_ascend_310.html).
 - For the GPU hardware platform, please refer to [Inference on a GPU](https://www.mindspore.cn/tutorials/experts/en/master/infer/cpu_gpu_mindir.html).
-- For the CPU hardware platform, please refer to [Inference on a CPU](https://www.mindspore.cn/tutorials/experts/en/master/infer/inference_cpu.html).
+- For the CPU hardware platform, please refer to [Inference on a CPU](https://www.mindspore.cn/tutorials/experts/en/master/infer/cpu_gpu_mindir.html).
 - For inference on the Lite platform on device, please refer to [on-device inference](https://www.mindspore.cn/lite/docs/en/master/index.html).
 
 > Please refer to [MindSpore C++ Library Use](https://www.mindspore.cn/docs/en/master/faq/inference.html#c) to solve the interface issues on the Ascend hardware platform.

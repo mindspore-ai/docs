@@ -247,7 +247,7 @@ MindSpore和PyTorch都支持参数分组且使用方法相似，在使用时都�
 
 > MindSpore和PyTorch各自有部分优化器不支持参数分组，请参考具体优化器的实现。
 
-MindSpore参数分组用法请参考[编程指南](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/optim.html#id11)；PyTorch参数分组用法参考下述样例：
+MindSpore参数分组用法请参考[编程指南](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/network/optim.html#id11)；PyTorch参数分组用法参考下述样例：
 
 ```python
 from torch import optim
@@ -275,7 +275,7 @@ optimizer = torch.optim.SGD([
 
 #### 混合精度
 
-MindSpore中的混合精度场景下，如果使用`FixedLossScaleManager`进行溢出检测，且`drop_overflow_update`为False时，优化器需设置`loss_scale`的值，且`loss_scale`值与`FixedLossScaleManager`的相同，详细使用方法可以参考[优化器的混合精度配置](https://www.mindspore.cn/docs/zh-CN/master/migration_guide/optim.html#id12)。PyTorch的混合精度设置不作为优化器入参。
+MindSpore中的混合精度场景下，如果使用`FixedLossScaleManager`进行溢出检测，且`drop_overflow_update`为False时，优化器需设置`loss_scale`的值，且`loss_scale`值与`FixedLossScaleManager`的相同，详细使用方法可以参考[优化器的混合精度配置](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/network/optim.html#id12)。PyTorch的混合精度设置不作为优化器入参。
 
 ### 基类支持的方法
 

@@ -286,7 +286,7 @@ dataset = GeneratorDataset(generator, column_names=['data', 'label']).batch(BATC
 
 The loss function(`loss_fn`) can be migrated by querying [API mapping](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html) or user's implementation. For more loss function migration, please refer to [the programming guidance](https://www.mindspore.cn/docs/programming_guide/en/master/loss.html).
 
-The optimizer(`optimizer`) can be migrated by querying [API mapping](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html) or user's implementation. For more optimizer migration, please refer to [the programming guidance](https://www.mindspore.cn/docs/en/master/migration_guide/optim.html).
+The optimizer(`optimizer`) can be migrated by querying [API mapping](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html) or user's implementation. For more optimizer migration, please refer to [the programming guidance](https://www.mindspore.cn/tutorials/en/master/advanced/network/optim.html).
 
 As the training codes could be flexible and significantly different from MindSpore, implementation by the users is recommended.
 
