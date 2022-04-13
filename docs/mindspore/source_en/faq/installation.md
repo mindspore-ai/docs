@@ -299,7 +299,20 @@ y = Tensor(np.ones([1,3,3,4]).astype(np.float32))
 print(ops.add(x,y))
 ```
 
-A: After MindSpore is installed on a CPU hardware platform, run the `python -c'import mindspore'` command to check whether MindSpore is successfully installed. If no error message such as `No module named'mindspore'` is displayed, MindSpore is successfully installed. The verification code is used only to verify whether a Ascend platform is successfully installed.
+A: To verify whether MindSpore is installed successfully, please follow the `Installation Verification` part under installation guide:
+
+```bash
+python -c "import mindspore;mindspore.run_check()"
+```
+
+The outputs should be the same as:
+
+```text
+MindSpore version: __version__
+The result of multiplication calculation is correct, MindSpore has been installed successfully!
+```
+
+It means MindSpore has been installed successfully.
 
 <br/>
 

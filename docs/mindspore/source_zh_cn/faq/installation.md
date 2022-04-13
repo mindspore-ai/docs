@@ -296,7 +296,20 @@ y = Tensor(np.ones([1,3,3,4]).astype(np.float32))
 print(ops.add(x,y))
 ```
 
-A: CPU硬件平台安装MindSpore后测试是否安装成功,只需要执行命令: `python -c 'import mindspore'`，如果没有显示`No module named 'mindspore'`等错误即安装成功。问题中的验证代码仅用于验证Ascend平台安装是否成功。
+A: 验证安装是否成功，可以参照对应版本的安装指南页面中 `验证是否成功安装` 段落的描述：
+
+```bash
+python -c "import mindspore;mindspore.run_check()"
+```
+
+如果输出：
+
+```text
+MindSpore version: 版本号
+The result of multiplication calculation is correct, MindSpore has been installed successfully!
+```
+
+说明MindSpore安装成功了。
 
 <br/>
 
