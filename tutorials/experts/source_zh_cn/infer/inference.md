@@ -45,7 +45,7 @@ MindSpore支持保存两种类型的数据：训练参数和网络模型（模�
 
 2. 跨平台推理
 
-    使用网络定义和Checkpoint文件，调用`export`接口导出模型文件，在不同平台执行推理，目前支持导出MindIR、ONNX和AIR（仅支持Ascend AI处理器）模型，具体操作可查看[保存模型](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/save_load.html)。
+    使用网络定义和Checkpoint文件，调用`export`接口导出模型文件，在不同平台执行推理，目前支持导出MindIR、ONNX和AIR（仅支持Ascend AI处理器）模型，具体操作可查看[保存模型](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/train/save.html)。
 
 ## MindIR介绍
 
