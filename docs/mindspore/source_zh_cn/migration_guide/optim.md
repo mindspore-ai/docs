@@ -247,7 +247,7 @@ MindSpore和PyTorch都支持参数分组且使用方法相似，在使用时都�
 
 > MindSpore和PyTorch各自有部分优化器不支持参数分组，请参考具体优化器的实现。
 
-MindSpore参数分组用法请参考[编程指南](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/network/optim.html#id11)；PyTorch参数分组用法参考下述样例：
+MindSpore参数分组用法请参考[超参分组](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/network/optim.html#超参分组)；PyTorch参数分组用法参考下述样例：
 
 ```python
 from torch import optim

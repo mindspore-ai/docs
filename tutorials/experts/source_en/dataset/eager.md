@@ -37,8 +37,6 @@ MindSpore currently supports executing various data augmentations in `Eager mode
     - Submodule c_transforms, a general-purpose data enhancement operator based on C++.
     - Submodule py_transforms, a general-purpose data augmentation operator based on Python.
 
-Note: In chapters [Image Processing and Enhancement](https://www.mindspore.cn/tutorials/experts/en/master/dataset/augmentation.html), [Text Processing and Enhancement](https://www.mindspore.cn/tutorials/experts/en/master/dataset/tokenizer.html), all data enhancement operators can be executed in Eager mode.
-
 ## example
 
 The following example introduces how to execute data augmentations in `Eager mode`.

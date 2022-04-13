@@ -88,8 +88,6 @@ CheckPoint文件在训练过程中产生。CheckPoint具体用法可参考: [Che
 代码如下：
 `load_distributed_checkpoint(model, ckpt_file_list, predict_strategy)`
 
-`load_distributed_checkpoint`的具体用法可参考：[分布式推理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/infer/ascend_910_mindir.html#概述)。
-
 最后，就可以导出在分布式推理场景下的MindIR文件。
 
 核心代码如下：
@@ -110,7 +108,7 @@ load_distributed_checkpoint(model, ckpt_file_list, predict_strategy)
 export(net, Tensor(input), file_name='net', file_format='MINDIR')
 ```
 
-多卡训练、单卡推理的情况，导出MindIR的用法与单机相同，加载CheckPoint用法可参考：[分布式推理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/infer/ascend_910_mindir.html#ascend-910-ai)。
+多卡训练、单卡推理的情况，导出MindIR的用法与单机相同。
 
 > 分布式场景导出MindIR文件样例代码：
 >

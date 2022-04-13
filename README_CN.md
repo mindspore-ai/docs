@@ -20,7 +20,7 @@
 docs
 ├───activity // 活动体验记录
 |
-├───docs // 架构、网络和算子支持、编程指南等技术文档以及用于生成API的相关配置文件
+├───docs // 架构、网络和算子支持等技术文档以及用于生成API的相关配置文件
 |    |
 |    ├───federated // MindSpore Federated（API工程、相关文档和常见问题）
 |    |
@@ -34,7 +34,7 @@ docs
 |    |
 |    ├───mindquantum // MindQuantum（API工程和相关文档）
 |    |
-|    ├───mindspore // MindSpore（API工程、常见问题、迁移指南、说明和编程指南）
+|    ├───mindspore // MindSpore（API工程、常见问题、迁移指南、说明）
 |    |
 |    ├───notebook // 体验式文档
 |    |
