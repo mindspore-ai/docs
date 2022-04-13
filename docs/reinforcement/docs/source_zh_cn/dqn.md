@@ -17,70 +17,74 @@
 
 DQN算法需要两个深度神经网络，一个*策略网络*用于近似动作值函数(Q函数)，另一个*目标网络*用于稳定训练。策略网络指如何对环境采取行动的策略，DQN算法的目标是训练策略网络以获得最大的奖励。此外，DQN算法使用*经验回放*技术来维护先前的观察结果，进行off-policy学习。其中Actor使用不同的行为策略来对环境采取行动。
 
-MindSpore Reinforcement使用*算法配置*指定DQN算法所需的逻辑组件（Agent、Actor、Learner、Environment、Replayuffer）和关联的超参数。根据提供的配置，它使用不同的策略执行算法，以便用户可以专注于算法设计。
+MindSpore Reinforcement使用*算法配置*指定DQN算法所需的逻辑组件（Actor、Learner、Policy and Network、 Collect Environment、Eval Environment、Replayuffer）和关联的超参数。根据提供的配置，它使用不同的策略执行算法，以便用户可以专注于算法设计。
 
 算法配置是一个Python字典，指定如何构造DQN算法的不同组件。每个组件的超参数在单独的Python字典中配置。DQN算法配置定义如下：
 
 ```python
 algorithm_config = {
     'actor': {
-        'number': 1,
-        'type': DQNActor,
-        'policies': ['init_policy', 'collect_policy', 'evaluate_policy'],
-        'pass_environment': True,
+        'number': 1,                                                        # Actor实例的数量
+        'type': DQNActor,                                                   # 需要创建的Actor类
+        'policies': ['init_policy', 'collect_policy', 'evaluate_policy'],   # Actor需要用到的选择动作的策略
     },
     'learner': {
-        'number': 1,
-        'type': DQNLearner,
-        'params': learner_params,
-        'networks': ['policy_network', 'target_network']
+        'number': 1,                                                        # Learner实例的数量
+        'type': DQNLearner,                                                 # 需要创建的Learner类
+        'params': learner_params,                                           # Learner需要用到的参数
+        'networks': ['policy_network', 'target_network']                    # Learner中需要用到的网络
     },
     'policy_and_network': {
-        'type': DQNPolicy,
-        'params': policy_params
+        'type': DQNPolicy,                                                  # 需要创建的Policy类
+        'params': policy_params                                             # Policy中需要用到的参数
     },
     'collect_environment': {
-        'number': 1,
-        'type': GymEnvironment,
-        'params': collect_env_params
+        'number': 1,                                                        # Collect Environment实例的数量
+        'type': GymEnvironment,                                             # 需要创建的Collect Environment类
+        'params': collect_env_params                                        # Collect Environment中需要用到的参数
     },
     'eval_environment': {
-        'number': 1,
+        'number': 1,                                                        # 同Collect Environment
         'type': GymEnvironment,
         'params': eval_env_params
     },
-    'replay_buffer': {'number': 1,
-                      'type': ReplayBuffer,
-                      'capacity': 100000,
-                      'data_shape': [(4,), (1,), (1,), (4,)],
-                      'data_type': [ms.float32, ms.int32, ms.float32, ms.float32],
-                      'sample_size': 64},
+    'replay_buffer': {'number': 1,                                          # ReplayBuffer实例的数量
+                      'type': ReplayBuffer,                                 # 需要创建的ReplayBuffer类
+                      'capacity': 100000,                                   # ReplayBuffer大小
+                      'data_shape': [(4,), (1,), (1,), (4,)],               # ReplayBuffer中的数据Shape
+                      'data_type': [ms.float32, ms.int32, ms.float32, ms.float32],  # ReplayBuffer中的数据Type
+                      'sample_size': 64},                                   # ReplayBuffer单次采样的数据量
 }
 ```
 
-以上配置定义了四个顶层项，每个配置对应一个算法组件：*actor、learner、policy*、*replaybuffer*和两个*environment*。每个项对应一个类，该类必须由用户定义，以实现DQN算法的逻辑。
+以上配置定义了六个顶层项，每个配置对应一个算法组件：*actor、learner、policy*、*replaybuffer*和两个*environment*。每个项对应一个类，该类必须由用户定义或者使用MIndSpore Reinforcement提供的组件，以实现DQN算法的逻辑。
 
-顶层项具有描述组件的子项。*number*定义算法使用的组件的实例数。*class*表示必须定义的Python类的名称，用于实现组件。*parameters*为组件提供必要的超参数。*policy*定义组件使用的策略。*networks*列出了此组件使用的所有神经网络。*environment*说明组件是否与环境交互。在DQN示例中，只有Actor与环境交互。*reply_buffer*定义回放缓冲区的*容量、形状、样本大小和数据类型*。
+顶层项具有描述组件的子项。*number*定义算法使用的组件的实例数。*type*表示必须定义的Python类的名称，用于实现组件。*params*为组件提供必要的超参数。*actor*中的*policies*定义组件使用的策略。*learner*中的*networks*列出了此组件使用的所有神经网络。在DQN示例中，只有Actor与环境交互。*replay_buffer*定义回放缓冲区的*容量、形状、样本大小和数据类型*。
 
-对于DQN算法，我们配置了一个Actor `'number': 1`，三个行为策略`'policies': ['init_policy', 'collect_policy', 'evaluation_policy']`，传入环境实例`'pass_environment': True`.
+对于DQN算法，我们配置了一个Actor `'number': 1`，它的Python类`'type': DQNActor`，以及三个行为策略`'policies': ['init_policy', 'collect_policy', 'evaluate_policy']`。
 
-其他组件也以类似的方式定义。有关更多详细信息，请参阅[完整代码示例](https://gitee.com/mindspore/reinforcement/tree/master/example/dqn)和[API](https://www.mindspore.cn/reinforcement/docs/zh-CN/master/index.html)。
+其他组件也以类似的方式定义。有关更多详细信息，请参阅[完整代码示例](https://gitee.com/mindspore/reinforcement/tree/master/example/dqn)和[API](https://www.mindspore.cn/reinforcement/docs/zh-CN/master/reinforcement.html)。
 
 请注意，MindSpore Reinforcement使用单个*policy*类来定义算法使用的所有策略和神经网络。通过这种方式，它隐藏了策略和神经网络之间数据共享和通信的复杂性。
 
-MindSpore Reinforcement在*session*的上下文中执行算法。会话分配资源（在一台或多台群集计算机上）并执行编译后的计算图。用户传入算法配置以实例化Session类：
+在train.py文件中，需要通过调用MindSpore Reinforcement的*session*来执行算法。*Session*在一台或多台群集计算机上分配资源并执行编译后的计算图。用户传入算法配置以实例化Session类：
 
 ```python
+from mindspore_rl.core import Session
 dqn_session = Session(dqn_algorithm_config)
 ```
 
-调用Session对象上的run方法执行DQN算法：
+调用Session对象上的run方法，并传入对应的参数来执行DQN算法。其中*class_type*是我们定义的Trainer类在这里是DQNTrainer（后面会介绍如何实现Trainer类），episode为需要运行的循环次数，params为在config文件中定义的trainer所需要用到的参数具体可查看完整代码中*config.py*的内容，callbacks定义了需要用到的统计方法等具体请参考API中的Callback相关内容。
 
 ```python
+from src.dqn_trainer import DQNTrainer
+from mindspore_rl.utils.callback import CheckpointCallback, LossCallback, EvaluateCallback
+loss_cb = LossCallback()
+ckpt_cb = CheckpointCallback(50, config.trainer_params['ckpt_path'])
+eval_cb = EvaluateCallback(10)
+cbs = [loss_cb, ckpt_cb, eval_cb]
 dqn_session.run(class_type=DQNTrainer, episode=episode, params=config.trainer_params, callbacks=cbs)
 ```
-
-`run`方法将DQNTrainer类作为输入。下面描述了用于DQN算法的训练循环。
 
 为使用MindSpore的计算图功能，将执行模式设置为`GRAPH_MODE`。
 
@@ -89,19 +93,22 @@ from mindspore import context
 context.set_context(mode=context.GRAPH_MODE)
 ```
 
-`GRAPH_MODE`允许以`@ms_function`注释的函数和方法编译到[MindSopre计算图](https://www.mindspore.cn/docs/programming_guide/en/master/api_structure.html)用于自动并行和加速。在本教程中，我们使用此功能来实现一个高效的`DQNTrainer`类。
+`@ms_function`注释的函数和方法将会编译到MindSpore计算图用于自动并行和加速。在本教程中，我们使用此功能来实现一个高效的`DQNTrainer`类。
 
 ### 定义DQNTrainer类
 
-`DQNTrainer`类表示训练循环，该循环迭代地从回放缓冲区收集经验并训练目标模型。它必须继承自`Trainer`类，该类是MindSpore Reinforcement API的一部分。
+`DQNTrainer`类表示算法的流程编排，主要流程为循环迭代地与环境交互将经验内存入*ReplayBuffer*中，然后从*ReplayBuffer*获取经验并训练目标模型。它必须继承自`Trainer`类，该类是MindSpore Reinforcement API的一部分。
 
-`Trainer`基类包含`MSRL`(MindSpore Reinforcement Learning)对象，该对象允许算法实现与MindSpore Reinforcement交互，以实现训练逻辑。`MSRL`类根据先前定义的算法配置实例化RL算法组件。它提供了函数处理程序，这些处理程序透明地绑定到用户定义的Actor、Learner或回放缓冲区对象的方法。因此，`MSRL`类让用户能够专注于算法逻辑，同时它透明地处理一个或多个worker上不同算法组件之间的对象创建、数据共享和通信。用户通过使用算法配置创建上文提到的`Session`对象来实例化`MSRL`对象。
+`Trainer`基类包含`MSRL`(MindSpore Reinforcement)对象，该对象允许算法实现与MindSpore Reinforcement交互，以实现训练逻辑。`MSRL`类根据先前定义的算法配置实例化RL算法组件。它提供了函数处理程序，这些处理程序透明地绑定到用户定义的Actor、Learner或ReplayBuffer的方法。因此，`MSRL`类让用户能够专注于算法逻辑，同时它透明地处理一个或多个worker上不同算法组件之间的对象创建、数据共享和通信。用户通过使用算法配置创建上文提到的`Session`对象来实例化`MSRL`对象。
 
 `DQNTrainer`必须重载`train_one_episode`用于训练，`evaluate`用于评估以及`trainable_variable`用于保存断点。在本教程中，它的定义如下：
 
 ```python
 class DQNTrainer(Trainer):
-    ...
+    def __init__(self, msrl, params):
+        ...
+        super(DQNTrainer, self).__init__(msrl)
+
     def trainable_variables(self):
         """Trainable variables for saving."""
         trainable_variables = {"policy_net": self.msrl.learner.policy_network}
@@ -124,6 +131,24 @@ class DQNTrainer(Trainer):
                 done = self.false
             i += 1
         return done
+
+    @ms_function
+    def evaluate(self):
+        """Policy evaluate"""
+        total_reward = self.zero_value
+        eval_iter = self.zero_value
+        while self.less(eval_iter, self.num_evaluate_episode):
+            episode_reward = self.zero_value
+            state = self.msrl.eval_environment.reset()
+            done = self.false
+            while not done:
+                done, r, state = self.msrl.agent_act(trainer.EVAL, state)
+                r = self.squeeze(r)
+                episode_reward += r
+            total_reward += episode_reward
+            eval_iter += 1
+        avg_reward = total_reward / self.num_evaluate_episode
+        return avg_reward
 ```
 
 用户调用`train`方法会调用Trainer基类的`train`。然后，为它指定数量的episode（iteration）训练模型，每个episode调用用户定义的`train_one_episode`方法。最后，train方法通过调用`evaluate`方法来评估策略以获得奖励值。
@@ -161,9 +186,7 @@ def train_one_episode(self):
 
 `train_one_episode`方法首先调用环境的`reset`方法，`self.msrl.collect_environment.reset()`函数来重置环境。然后，它使用`self.msrl.agent_act`函数处理程序从环境中收集经验，并通过`self.msrl.replay_buffer_insert`把经验存入到回放缓存中。在收集完经验后，使用`msrl.agent_learn`函数训练目标模型。`self.msrl.agent_learn`的输入是`self.msrl.replay_buffer_sample`返回的采样结果。
 
-回放缓存`ReplayBuffer`由MindSpore Reinfocement提供。它定义了`insert`和`sample`方法，分别用于对经验数据进行存储和采样。
-
-`init_training`和`evaluation`方法的实现类似。详细信息，请参阅[完整的DQN代码示例](https://gitee.com/mindspore/reinforcement/tree/master/example/dqn)。
+回放缓存`ReplayBuffer`由MindSpore Reinfocement提供。它定义了`insert`和`sample`方法，分别用于对经验数据进行存储和采样。详细信息，请参阅[完整的DQN代码示例](https://gitee.com/mindspore/reinforcement/tree/master/example/dqn)。
 
 ### 定义DQNPolicy类
 
@@ -184,7 +207,7 @@ class DQNPolicy:
             params['compute_type'])
 ```
 
-构造函数将先前定义的Python字典类型的超参数`policy_parameters`作为输入。
+构造函数将先前在config.py中定义的Python字典类型的超参数`policy_params`作为输入。
 
 在定义策略网络和目标网络之前，用户必须使用MindSpore算子定义神经网络的结构。例如，它们可能是`FullyConnectedNetwork`类的对象，该类定义如下：
 
@@ -256,7 +279,7 @@ class DQNPolicy():
 
 ### 定义DQNActor类
 
-定义一个新的Actor组件用于实现`DQNActor`，该组件继承了MindSpore Reinforcement提供的`Actor`类。然后，必须重载trainer使用的方法：
+定义一个新的Actor组件用于实现`DQNActor`，该组件继承了MindSpore Reinforcement提供的`Actor`类。然后，必须重载Actor中的方法：
 
 ```python
 class DQNActor(Actor):

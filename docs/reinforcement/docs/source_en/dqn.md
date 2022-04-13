@@ -16,70 +16,74 @@ This tutorial shows the use of the MindSpore Reinforcement API to implement the 
 
 The DQN algorithm requires two deep neural networks, a *policy network* for approximating the action-value function (Q function) and a *target network* for stabilising the training. The policy network is the strategy on how to act on the environment, and the goal of the DQN algorithm is to train the policy network for maximum reward. In addition, the DQN algorithm uses an *experience replay* technique to maintain previous observations for off-policy learning, where an actor uses different behavioural policies to act on the environment.
 
-MindSpore Reinforcement uses an *algorithm configuration* to specify the logical components (agents, actors, learners, environments, replaybuffer) required by the DQN algorithm and the associated hyperparameters. It can execute the algorithm with different strategies based on the provided configuration, which allows the user to focus on the algorithm design.
+MindSpore Reinforcement uses an *algorithm configuration* to specify the logical components (Actor, Learner, Policy and Network, Collect Environment, Eval Environment, Replayuffer) required by the DQN algorithm and the associated hyperparameters. It can execute the algorithm with different strategies based on the provided configuration, which allows the user to focus on the algorithm design.
 
 The algorithm configuration is a Python dictionary that specifies how to construct different components of the DQN algorithm. The hyper-parameters of each component are configured in separate Python dictionaries. The DQN algorithm configuration can be defined as follows:
 
 ```python
 algorithm_config = {
     'actor': {
-        'number': 1,
-        'type': DQNActor,
-        'policies': ['init_policy', 'collect_policy', 'evaluate_policy'],
-        'pass_environment': True,
+        'number': 1,                                                        # Number of Actor
+        'type': DQNActor,                                                   # The Actor class
+        'policies': ['init_policy', 'collect_policy', 'evaluate_policy'],   # The policy used to choose action
     },
     'learner': {
-        'number': 1,
-        'type': DQNLearner,
-        'params': learner_params,
-        'networks': ['policy_network', 'target_network']
+        'number': 1,                                                        # Number of Leaarner
+        'type': DQNLearner,                                                 # The Learner class
+        'params': learner_params,                                           # The parameters of Learner
+        'networks': ['policy_network', 'target_network']                    # The networks which is used by Learner
     },
     'policy_and_network': {
-        'type': DQNPolicy,
-        'params': policy_params
+        'type': DQNPolicy,                                                  # The Policy class
+        'params': policy_params                                             # The parameters of Policy
     },
     'collect_environment': {
-        'number': 1,
-        'type': GymEnvironment,
-        'params': collect_env_params
+        'number': 1,                                                        # Number of Collect Environment
+        'type': GymEnvironment,                                             # The Collect Environment class
+        'params': collect_env_params                                        # The parameters of Collect Environment
     },
     'eval_environment': {
-        'number': 1,
+        'number': 1,                                                        # Same as Collect Environment
         'type': GymEnvironment,
         'params': eval_env_params
     },
-    'replay_buffer': {'number': 1,
-                      'type': ReplayBuffer,
-                      'capacity': 100000,
-                      'data_shape': [(4,), (1,), (1,), (4,)],
-                      'data_type': [ms.float32, ms.int32, ms.float32, ms.float32],
-                      'sample_size': 64},
+    'replay_buffer': {'number': 1,                                          # Number of ReplayBuffer
+                      'type': ReplayBuffer,                                 # The ReplayBuffer class
+                      'capacity': 100000,                                   # The capacity of ReplayBuffer
+                      'data_shape': [(4,), (1,), (1,), (4,)],               # Data shape of ReplayBuffer
+                      'data_type': [ms.float32, ms.int32, ms.float32, ms.float32],  # Data type off ReplayBuffer
+                      'sample_size': 64},                                   # Sample size of ReplayBuffer
 }
 ```
 
-The configuration defines four top-level entries, each corresponding to an algorithmic component: *actor, learner, policy*, *replaybuffer* and two *environment*. Each entry corresponds to a class, which must be defined by the user to implement the DQN algorithm’s logic.
+The configuration defines six top-level entries, each corresponding to an algorithmic component: *actor, learner, policy*, *replaybuffer* and two *environment*s. Each entry corresponds to a class, which must be defined by the user to implement the DQN algorithm’s logic.
 
-A top-level entry has sub-entries that describe the component. The *number* entry defines the number of instances of the component used by the algorithm. The *class* entry refers to the name of the Python class that must be defined to implement the component. The *parameters* entry provides the necessary hyper-parameters for the component. The *policies* entry defines the policies used by the component. The *networks* entry lists all neural networks used by this component. The *environment* states if the component interacts with the environment. In the DQN example, only actors interact with the environment. The *reply_buffer* defines the *capacity, shape, sample size and data type* of the replay buffer.
+A top-level entry has sub-entries that describe the component. The *number* entry defines the number of instances of the component used by the algorithm. The *type* entry refers to the name of the Python class that must be defined to implement the component. The *params* entry provides the necessary hyper-parameters for the component. The *policies* entry defines the policies used by the component. The *networks* in *earner* entry lists all neural networks used by this component. In the DQN example, only actors interact with the environment. The *reply_buffer* defines the *capacity, shape, sample size and data type* of the replay buffer.
 
-For the DQN algorithm, we configure one actor `'number': 1`, three behaviour policies `'policies': ['init_policy', 'collect_policy', 'evaluation_policy']`,  and an option whether pass the environment into actor `pass_environment: True`.
+For the DQN algorithm, we configure one actor `'number': 1`, its Python class `'type': DQNActor`, and three behaviour policies `'policies': ['init_policy', 'collect_policy', 'evaluate_policy']`.
 
-Other components are defined in a similar way -- please refer to the  [complete DQN code example](https://gitee.com/mindspore/reinforcement/tree/master/example/dqn) and the [MindSpore Reinforcement API documentation](https://www.mindspore.cn/reinforcement/docs/en/master/index.html) for more details.
+Other components are defined in a similar way -- please refer to the  [complete DQN code example](https://gitee.com/mindspore/reinforcement/tree/master/example/dqn) and the [MindSpore Reinforcement API documentation](https://www.mindspore.cn/reinforcement/docs/en/master/reinforcement.html) for more details.
 
 Note that MindSpore Reinforcement uses a single *policy* class to define all policies and neural networks used by the algorithm. In this way, it hides the complexity of data sharing and communication between policies and neural networks.
 
-MindSpore Reinforcement executes the algorithm in the context of a *session*. A session allocates resources (on one or more cluster machines) and executes the compiled computational graph. A user passes the algorithm configuration to instantiate a Session class:
+In train.py, MindSpore Reinforcement executes the algorithm in the context of a *session*. A session allocates resources (on one or more cluster machines) and executes the compiled computational graph. A user passes the algorithm configuration to instantiate a Session class:
 
 ```python
-dqn_session = Session(algorithm_config)
+from mindspore_rl.core import Session
+dqn_session = Session(dqn_algorithm_config)
 ```
 
-To execute the DQN algorithm, a user invokes the run method on the Session object:
+Invoke the `run` method and pass corresponding parameters  to execute the DQN algorithm. *class_type* is user-defined Trainer class, which will be described later, episode is the iteration times of the algorithm, params are the parameters that is used in the trainer class. It is written in configuration file. For more detail, please check config.py file in the code example. Callbacks define some metrics methods. It is described more detailly in Callbacks part of API documentation.
 
 ```python
+from src.dqn_trainer import DQNTrainer
+from mindspore_rl.utils.callback import CheckpointCallback, LossCallback, EvaluateCallback
+loss_cb = LossCallback()
+ckpt_cb = CheckpointCallback(50, config.trainer_params['ckpt_path'])
+eval_cb = EvaluateCallback(10)
+cbs = [loss_cb, ckpt_cb, eval_cb]
 dqn_session.run(class_type=DQNTrainer, episode=episode, params=config.trainer_params, callbacks=cbs)
 ```
-
-The `run`method takes a  DQNTrainer class as input, which will be described below. It describes the training loop used for the DQN algorithm.
 
 To leverage MindSpore's computational graph feature, users set the execution mode to `GRAPH_MODE`.
 
@@ -88,19 +92,22 @@ from mindspore import context
 context.set_context(mode=context.GRAPH_MODE)
 ```
 
-The `GRAPH_MODE` enables functions and methods that are annotated with `@ms_function` to be compiled into the [MindSpore computational graph](https://www.mindspore.cn/docs/programming_guide/en/master/api_structure.html) for auto-parallelisation and acceleration. In this tutorial, we use this feature to implement an efficient `DQNTrainer` class.
+Methods that are annotated with `@ms_function` will be compiled into the MindSpore computational graph for auto-parallelisation and acceleration. In this tutorial, we use this feature to implement an efficient `DQNTrainer` class.
 
 ### Defining the DQNTrainer class
 
-The `DQNTrainer` class expresses the training loop that iteratively collects experience from the replay buffer and trains the targeted models. It must inherit from the `Trainer` class, which is part of the MindSpore Reinforcement API.
+The `DQNTrainer` class expresses how the algorithm runs.  For example, iteratively collects experience through iteracting with environment and insert to replaybuffer, then obtain the data from the replay buffer to trains the targeted models. It must inherit from the `Trainer` class, which is part of the MindSpore Reinforcement API.
 
-The `Trainer` base class contains an `MSRL` (MindSpore Reinforcement Learning) object, which allows the algorithm implementation to interact with MindSpore Reinforcement to implement the training logic. The `MSRL` class instantiates the RL algorithm components based on the previously defined algorithm configuration. It provides the function handlers that transparently bind to methods of actors, learners, or the replay buffer object, as defined by users. As a result, the `MSRL` class enables users to focus on the algorithm logic, while it transparently handles object creation, data sharing and communication between different algorithmic components on one or more workers. Users instantiate the `MSRL` object by creating the previously mentioned `Session` object with the algorithm configuration.
+The `Trainer` base class contains an `MSRL` (MindSpore Reinforcement) object, which allows the algorithm implementation to interact with MindSpore Reinforcement to implement the training logic. The `MSRL` class instantiates the RL algorithm components based on the previously defined algorithm configuration. It provides the function handlers that transparently bind to methods of actors, learners, or the replay buffer object, as defined by users. As a result, the `MSRL` class enables users to focus on the algorithm logic, while it transparently handles object creation, data sharing and communication between different algorithmic components on one or more workers. Users instantiate the `MSRL` object by creating the previously mentioned `Session` object with the algorithm configuration.
 
 The `DQNTrainer` must overload the `train_one_episode` for training, `evaluate` for evaluation and `trainable_varaible` for saving checkpoint. In this tutorial, it is defined as follows:
 
 ```python
 class DQNTrainer(Trainer):
-    ...
+    def __init__(self, msrl, params):
+        ...
+        super(DQNTrainer, self).__init__(msrl)
+
     def trainable_variables(self):
         """Trainable variables for saving."""
         trainable_variables = {"policy_net": self.msrl.learner.policy_network}
@@ -123,6 +130,24 @@ class DQNTrainer(Trainer):
                 done = self.false
             i += 1
         return done
+
+    @ms_function
+    def evaluate(self):
+        """Policy evaluate"""
+        total_reward = self.zero_value
+        eval_iter = self.zero_value
+        while self.less(eval_iter, self.num_evaluate_episode):
+            episode_reward = self.zero_value
+            state = self.msrl.eval_environment.reset()
+            done = self.false
+            while not done:
+                done, r, state = self.msrl.agent_act(trainer.EVAL, state)
+                r = self.squeeze(r)
+                episode_reward += r
+            total_reward += episode_reward
+            eval_iter += 1
+        avg_reward = total_reward / self.num_evaluate_episode
+        return avg_reward
 ```
 
 User will call the `train` method in base class. It trains the models for the specified number of episodes (iterations), with each episode calling the user-defined `train_one_episode` method. Finally, the train method evaluates the policy to obtain a reward value by calling the `evaluate` method.
@@ -160,9 +185,7 @@ The `@ms_function` annotation states that this method will be compiled into a Mi
 
 The `train_one_episode` method first calls the `reset` method of environment, `self.msrl.collect_environment.reset()` function to reset the environment. It then collects the experience from the environment with the `msrl.agent_act` function handler and inserts the experience data in the replay buffer using the `self.msrl.replay_buffer_insert` function. Afterwards, it invokes the `self.msrl.agent_learn`  function to train the target model. The input of `self.msrl.agent_learn` is a set of sampled results returned by  `self.msrl.replay_buffer_sample`.
 
-The replay buffer class, `ReplayBuffer`, is provided by MindSpore Reinforcement. It defines `insert` and `sample` methods to store and sample the experience data in a replay buffer, respectively.
-
-The `init_training` and the `evaluation` methods are implemented analogously -- please refer to the [complete DQN code example](https://gitee.com/mindspore/reinforcement/tree/master/example/dqn) for details.
+The replay buffer class, `ReplayBuffer`, is provided by MindSpore Reinforcement. It defines `insert` and `sample` methods to store and sample the experience data in a replay buffer, respectively. Please refer to the [complete DQN code example](https://gitee.com/mindspore/reinforcement/tree/master/example/dqn) for details.
 
 ### Defining the DQNPolicy class
 
@@ -183,7 +206,7 @@ class DQNPolicy():
             params['compute_type'])
 ```
 
-The constructor takes as input the previously-defined hyper-parameters of the Python dictionary type, `policy_parameters`.
+The constructor takes as input the previously-defined hyper-parameters of the Python dictionary type in config.py, `policy_params`.
 
 Before defining the policy network and the target network, users must define the structure of the neural networks using MindSpore operators. For example, they may be objects of the `FullyConnectedNetwork` class, which is defined as follows:
 
@@ -255,7 +278,7 @@ Note that the names of the methods and the keys of the parameter dictionary must
 
 ### Defining the DQNActor class
 
-To implement the `DQNActor`, a user defines a new actor component that inherits from the `Actor` class provided by MindSpore Reinforcement. They must then overload the methods used by the trainer:
+To implement the `DQNActor`, a user defines a new actor component that inherits from the `Actor` class provided by MindSpore Reinforcement. They must then overload the methods in `Actor` class:
 
 ```python
 class DQNActor(Actor):
