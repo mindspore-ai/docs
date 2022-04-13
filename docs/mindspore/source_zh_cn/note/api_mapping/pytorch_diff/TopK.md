@@ -25,7 +25,7 @@ class mindspore.ops.TopK(
 )(input_x, k)
 ```
 
-更多内容详见[mindspore.ops.TopK](https://mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.TopK.html#mindspore.ops.TopK)。
+更多内容详见[mindspore.ops.TopK](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.TopK.html#mindspore.ops.TopK)。
 
 ## 使用方式
 

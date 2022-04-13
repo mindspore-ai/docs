@@ -24,7 +24,7 @@ class mindspore.ops.ArgMinWithValue(
 )(input_x)
 ```
 
-For more information, see [mindspore.ops.ArgMinWithValue](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.ArgMinWithValue.html#mindspore.ops.ArgMinWithValue).
+For more information, see [mindspore.ops.ArgMinWithValue](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ArgMinWithValue.html#mindspore.ops.ArgMinWithValue).
 
 ## Differences
 

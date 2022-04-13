@@ -21,7 +21,7 @@ class mindspore.dataset.vision.c_transforms.RandomVerticalFlip(
 )
 ```
 
-更多内容详见[mindspore.dataset.vision.c_transforms.RandomVerticalFlip](https://mindspore.cn/docs/api/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.RandomVerticalFlip.html#mindspore.dataset.vision.c_transforms.RandomVerticalFlip)。
+更多内容详见[mindspore.dataset.vision.c_transforms.RandomVerticalFlip](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.RandomVerticalFlip.html#mindspore.dataset.vision.c_transforms.RandomVerticalFlip)。
 
 ## 使用方式
 

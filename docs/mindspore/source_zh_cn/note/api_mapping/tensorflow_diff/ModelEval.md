@@ -30,7 +30,7 @@ tf.keras.Model.predict_generator(
 mindspore.Model.eval(valid_dataset, callbacks=None, dataset_sink_mode=True)
 ```
 
-更多内容详见[mindspore.Model.eval](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.Model.html#mindspore.Model.eval)。
+更多内容详见[mindspore.Model.eval](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Model.html#mindspore.Model.eval)。
 
 ## 使用方式
 

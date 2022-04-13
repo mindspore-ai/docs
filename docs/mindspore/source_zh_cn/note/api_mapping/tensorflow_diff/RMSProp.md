@@ -21,7 +21,7 @@ mindspore.nn.RMSProp(
     centered=False, loss_scale=1.0, weight_decay=0.0)
 ```
 
-更多内容详见[mindspore.nn.RMSProp](https://mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.RMSProp.html#mindspore.nn.RMSProp)。
+更多内容详见[mindspore.nn.RMSProp](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.RMSProp.html#mindspore.nn.RMSProp)。
 
 ## 使用方式
 

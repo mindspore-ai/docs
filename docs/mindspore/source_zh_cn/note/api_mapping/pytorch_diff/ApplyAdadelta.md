@@ -30,7 +30,7 @@ class mindspore.ops.ApplyAdadelta(*args, **kwargs)(
 )
 ```
 
-更多内容详见[mindspore.ops.ApplyAdadelta](https://mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.ApplyAdadelta.html#mindspore.ops.ApplyAdadelta)。
+更多内容详见[mindspore.ops.ApplyAdadelta](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ApplyAdadelta.html#mindspore.ops.ApplyAdadelta)。
 
 ## 使用方式
 

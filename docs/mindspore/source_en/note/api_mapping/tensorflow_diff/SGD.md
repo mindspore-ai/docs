@@ -30,7 +30,7 @@ class mindspore.nn.SGD(
 )(grads)
 ```
 
-For more information, see [mindspore.nn.SGD](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.SGD.html).
+For more information, see [mindspore.nn.SGD](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.SGD.html).
 
 ## Differences
 

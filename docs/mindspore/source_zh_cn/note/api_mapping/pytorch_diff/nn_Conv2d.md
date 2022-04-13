@@ -39,7 +39,7 @@ class mindspore.nn.Conv2d(
 )(input_x)
 ```
 
-更多内容详见[mindspore.nn.Conv2d](https://mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d)。
+更多内容详见[mindspore.nn.Conv2d](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d)。
 
 ## 使用方式
 

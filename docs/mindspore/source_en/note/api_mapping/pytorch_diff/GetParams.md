@@ -16,7 +16,7 @@ For more information, see [torch.nn.Module.parameters](https://pytorch.org/docs/
 mindspore.nn.Cell.get_parameters(expand=True)
 ```
 
-For more information, see [mindspore.nn.Cell.get_parameters](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.get_parameters).
+For more information, see [mindspore.nn.Cell.get_parameters](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.get_parameters).
 
 ## Differences
 

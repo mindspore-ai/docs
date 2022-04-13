@@ -16,7 +16,7 @@ tf.arg_max(input, dimension, output_type=tf.dtypes.int64, name=None)
 mindspore.Tensor.argmax(axis=None)
 ```
 
-更多内容详见[mindspore.Tensor.argmax](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.Tensor.html#mindspore.Tensor.argmax)。
+更多内容详见[mindspore.Tensor.argmax](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Tensor.html#mindspore.Tensor.argmax)。
 
 ## 使用方式
 

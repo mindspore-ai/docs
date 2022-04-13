@@ -25,7 +25,7 @@ class mindspore.ops.TopK(
 )(input_x, k)
 ```
 
-For more information, see [mindspore.ops.TopK](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.TopK.html#mindspore.ops.TopK).
+For more information, see [mindspore.ops.TopK](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.TopK.html#mindspore.ops.TopK).
 
 ## Differences
 

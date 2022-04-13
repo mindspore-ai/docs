@@ -27,7 +27,7 @@ class mindspore.dataset.vision.c_transforms.RandomCrop(
 )
 ```
 
-For more information, see [mindspore.dataset.vision.c_transforms.RandomCrop](https://mindspore.cn/docs/api/en/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.RandomCrop.html#mindspore.dataset.vision.c_transforms.RandomCrop).
+For more information, see [mindspore.dataset.vision.c_transforms.RandomCrop](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.RandomCrop.html#mindspore.dataset.vision.c_transforms.RandomCrop).
 
 ## Differences
 

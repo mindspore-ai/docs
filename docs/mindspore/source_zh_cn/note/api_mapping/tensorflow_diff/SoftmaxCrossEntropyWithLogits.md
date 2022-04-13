@@ -26,7 +26,7 @@ class mindspore.nn.SoftmaxCrossEntropyWithLogits(
 )(logits, labels)
 ```
 
-更多内容详见[mindspore.nn.SoftmaxCrossEntropyWithLogits](https://mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.SoftmaxCrossEntropyWithLogits.html)。
+更多内容详见[mindspore.nn.SoftmaxCrossEntropyWithLogits](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.SoftmaxCrossEntropyWithLogits.html)。
 
 ## 使用方式
 

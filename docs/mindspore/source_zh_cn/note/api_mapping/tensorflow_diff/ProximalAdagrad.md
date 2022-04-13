@@ -21,7 +21,7 @@ mindspore.nn.ProximalAdagrad(
     use_locking=False, loss_scale=1.0, weight_decay=0.0)
 ```
 
-更多内容详见[mindspore.nn.ProximalAdagrad](https://mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.ProximalAdagrad.html#mindspore.nn.ProximalAdagrad)。
+更多内容详见[mindspore.nn.ProximalAdagrad](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.ProximalAdagrad.html#mindspore.nn.ProximalAdagrad)。
 
 ## 使用方式
 

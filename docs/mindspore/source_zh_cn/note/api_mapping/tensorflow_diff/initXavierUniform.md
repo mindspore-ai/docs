@@ -19,7 +19,7 @@ tf.keras.initializers.VarianceScaling(
 mindspore.common.initializer.XavierUniform(gain=1)
 ```
 
-更多内容详见[mindspore.common.initializer.XavierUniform](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.common.initializer.html#mindspore.common.initializer.XavierUniform)。
+更多内容详见[mindspore.common.initializer.XavierUniform](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.common.initializer.html#mindspore.common.initializer.XavierUniform)。
 
 ## 使用方式
 

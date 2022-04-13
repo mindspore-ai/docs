@@ -18,7 +18,7 @@ class mindspore.dataset.vision.py_transforms.ToTensor(
     )
 ```
 
-For more information, see [mindspore.dataset.vision.py_transforms.ToTensor](https://mindspore.cn/docs/api/en/master/api_python/dataset_vision/mindspore.dataset.vision.py_transforms.ToTensor.html#mindspore.dataset.vision.py_transforms.ToTensor).
+For more information, see [mindspore.dataset.vision.py_transforms.ToTensor](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.py_transforms.ToTensor.html#mindspore.dataset.vision.py_transforms.ToTensor).
 
 ## Differences
 

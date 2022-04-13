@@ -42,7 +42,7 @@ class mindspore.ops.GradOperation(
 )
 ```
 
-For more information, see [mindspore.ops.GradOperation](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.GradOperation.html#mindspore.ops.GradOperation).
+For more information, see [mindspore.ops.GradOperation](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.GradOperation.html#mindspore.ops.GradOperation).
 
 ## Differences
 

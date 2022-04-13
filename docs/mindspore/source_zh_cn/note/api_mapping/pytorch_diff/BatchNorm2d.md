@@ -33,7 +33,7 @@ class mindspore.nn.BatchNorm2d(
 )
 ```
 
-更多内容详见[mindspore.nn.BatchNorm2d](https://mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.BatchNorm2d.html#mindspore.nn.BatchNorm2d)。
+更多内容详见[mindspore.nn.BatchNorm2d](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.BatchNorm2d.html#mindspore.nn.BatchNorm2d)。
 
 ## 使用方式
 

@@ -28,7 +28,7 @@ class mindspore.numpy.cross(
 )
 ```
 
-更多内容详见 [mindspore.numpy.cross](https://mindspore.cn/docs/api/zh-CN/master/api_python/numpy/mindspore.numpy.cross.html#mindspore.numpy.cross)。
+更多内容详见 [mindspore.numpy.cross](https://mindspore.cn/docs/zh-CN/master/api_python/numpy/mindspore.numpy.cross.html#mindspore.numpy.cross)。
 
 ## 使用方式
 

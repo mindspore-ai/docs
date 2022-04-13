@@ -31,7 +31,7 @@ class mindspore.dataset.vision.c_transforms.RandomRotation(
 )
 ```
 
-For more information, see [mindspore.dataset.vision.c_transforms.RandomRotation](https://mindspore.cn/docs/api/en/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.RandomRotation.html#mindspore.dataset.vision.c_transforms.RandomRotation).
+For more information, see [mindspore.dataset.vision.c_transforms.RandomRotation](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.RandomRotation.html#mindspore.dataset.vision.c_transforms.RandomRotation).
 
 ## Differences
 

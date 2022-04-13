@@ -24,7 +24,7 @@ class mindspore.nn.Pad(
 )(x)
 ```
 
-For more information, see [mindspore.nn.Pad](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Pad.html#mindspore.nn.Pad).
+For more information, see [mindspore.nn.Pad](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Pad.html#mindspore.nn.Pad).
 
 ## Differences
 

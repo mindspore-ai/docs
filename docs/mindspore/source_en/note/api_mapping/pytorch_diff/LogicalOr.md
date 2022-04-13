@@ -16,7 +16,7 @@ For more information, see  [torch.logical_or](https://pytorch.org/docs/1.5.0/tor
 class class mindspore.ops.LogicalOr()(x, y)
 ```
 
-For more information, see  [mindspore.ops.LogicalOr](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.LogicalOr.html#mindspore.ops.LogicalOr).
+For more information, see  [mindspore.ops.LogicalOr](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.LogicalOr.html#mindspore.ops.LogicalOr).
 
 ## Differences
 

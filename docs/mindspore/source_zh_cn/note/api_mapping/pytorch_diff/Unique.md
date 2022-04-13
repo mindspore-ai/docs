@@ -22,7 +22,7 @@ torch.unique(
 class mindspore.ops.Unique(*args, **kwargs)(x)
 ```
 
-更多内容详见[mindspore.ops.Unique](https://mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Unique.html#mindspore.ops.Unique)。
+更多内容详见[mindspore.ops.Unique](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Unique.html#mindspore.ops.Unique)。
 
 ## 使用方式
 

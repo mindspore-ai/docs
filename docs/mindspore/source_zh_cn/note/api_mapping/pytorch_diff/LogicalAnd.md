@@ -16,7 +16,7 @@ class torch.logical_and(input, other, out=None)
 class class mindspore.ops.LogicalAnd()(x, y)
 ```
 
-更多内容详见 [mindspore.ops.LogicalAnd](https://mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.LogicalAnd.html#mindspore.ops.LogicalAnd)。
+更多内容详见 [mindspore.ops.LogicalAnd](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.LogicalAnd.html#mindspore.ops.LogicalAnd)。
 
 ## 使用方式
 

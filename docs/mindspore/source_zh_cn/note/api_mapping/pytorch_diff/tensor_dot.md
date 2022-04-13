@@ -23,7 +23,7 @@ mindspore.ops.tensor_dot(
 )
 ```
 
-更多内容详见[mindspore.ops.tensor_dot](https://mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.tensor_dot.html#mindspore.ops.tensor_dot)。
+更多内容详见[mindspore.ops.tensor_dot](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.tensor_dot.html#mindspore.ops.tensor_dot)。
 
 ## 使用方式
 

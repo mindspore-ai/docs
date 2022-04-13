@@ -23,7 +23,7 @@ class mindspore.ops.FloorDiv(*args, **kwargs)(
 )
 ```
 
-For more information, see [mindspore.ops.FloorDiv](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.FloorDiv.html#mindspore.ops.FloorDiv).
+For more information, see [mindspore.ops.FloorDiv](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.FloorDiv.html#mindspore.ops.FloorDiv).
 
 ## Differences
 

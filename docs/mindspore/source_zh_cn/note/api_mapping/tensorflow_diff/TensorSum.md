@@ -19,7 +19,7 @@ tf.math.reduce_sum(
  mindspore.Tensor.sum(self, axis=None, dtype=None, keepdims=False, initial=None)
 ```
 
-更多内容详见[mindspore.Tensor.sum](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.Tensor.html#mindspore.Tensor.sum)。
+更多内容详见[mindspore.Tensor.sum](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Tensor.html#mindspore.Tensor.sum)。
 
 ## 使用方式
 

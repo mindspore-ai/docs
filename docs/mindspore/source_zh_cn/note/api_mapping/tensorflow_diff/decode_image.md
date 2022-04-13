@@ -24,7 +24,7 @@ class mindspore.dataset.vision.c_transforms.Decode(
 )
 ```
 
-更多内容详见[mindspore.dataset.vision.c_transforms.Decode](https://mindspore.cn/docs/api/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.Decode.html#mindspore.dataset.vision.c_transforms.Decode)。
+更多内容详见[mindspore.dataset.vision.c_transforms.Decode](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.Decode.html#mindspore.dataset.vision.c_transforms.Decode)。
 
 ## 使用方式
 

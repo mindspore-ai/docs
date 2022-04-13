@@ -37,7 +37,7 @@ mindspore.nn.piecewise_constant_lr(
 )
 ```
 
-更多内容详见[mindspore.nn.piecewise_constant_lr](https://mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.piecewise_constant_lr.html#mindspore.nn.piecewise_constant_lr)。
+更多内容详见[mindspore.nn.piecewise_constant_lr](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.piecewise_constant_lr.html#mindspore.nn.piecewise_constant_lr)。
 
 ## 使用方式
 

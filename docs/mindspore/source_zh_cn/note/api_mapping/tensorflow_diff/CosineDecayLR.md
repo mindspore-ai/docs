@@ -28,7 +28,7 @@ class mindspore.nn.CosineDecayLR(
 )(global_step)
 ```
 
-更多内容详见[mindspore.nn.CosineDecayLR](https://mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.CosineDecayLR.html)。
+更多内容详见[mindspore.nn.CosineDecayLR](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.CosineDecayLR.html)。
 
 ## 使用方式
 

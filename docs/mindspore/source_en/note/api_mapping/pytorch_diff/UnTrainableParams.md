@@ -16,7 +16,7 @@ For more information, see [torch.nn.Module.buffers](https://pytorch.org/docs/1.5
 mindspore.nn.Cell.untrainable_params(recurse=True)
 ```
 
-For more information, see [mindspore.nn.Cell.untrainable_params](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.untrainable_params).
+For more information, see [mindspore.nn.Cell.untrainable_params](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.untrainable_params).
 
 ## Differences
 

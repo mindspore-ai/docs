@@ -16,7 +16,7 @@ For more information, see  [torch.logical_and](https://pytorch.org/docs/1.5.0/to
 class class mindspore.ops.LogicalAnd()(x, y)
 ```
 
-For more information, see  [mindspore.ops.LogicalAnd](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.LogicalAnd.html#mindspore.ops.LogicalAnd).
+For more information, see  [mindspore.ops.LogicalAnd](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.LogicalAnd.html#mindspore.ops.LogicalAnd).
 
 ## Differences
 

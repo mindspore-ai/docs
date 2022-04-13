@@ -19,7 +19,7 @@ For more information, see [torch.nn.Flatten](https://pytorch.org/docs/1.5.0/nn.h
 class mindspore.nn.Flatten()(input)
 ```
 
-For more information, see [mindspore.nn.Flatten](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Flatten.html#mindspore.nn.Flatten).
+For more information, see [mindspore.nn.Flatten](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Flatten.html#mindspore.nn.Flatten).
 
 ## Differences
 

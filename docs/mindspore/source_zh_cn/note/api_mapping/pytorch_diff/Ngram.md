@@ -24,7 +24,7 @@ class mindspore.dataset.text.transforms.Ngram(
 )
 ```
 
-更多内容详见[mindspore.dataset.text.transforms.Ngram](https://mindspore.cn/docs/api/zh-CN/master/api_python/dataset_text/mindspore.dataset.text.transforms.Ngram.html#mindspore.dataset.text.transforms.Ngram)。
+更多内容详见[mindspore.dataset.text.transforms.Ngram](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_text/mindspore.dataset.text.transforms.Ngram.html#mindspore.dataset.text.transforms.Ngram)。
 
 ## 使用方式
 

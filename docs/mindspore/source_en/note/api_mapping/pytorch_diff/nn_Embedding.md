@@ -30,7 +30,7 @@ class mindspore.nn.Embedding(
     padding_idx=None)
 ```
 
-For more information, see [mindspore.nn.Embedding](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Embedding.html?#mindspore.nn.Embedding).
+For more information, see [mindspore.nn.Embedding](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Embedding.html?#mindspore.nn.Embedding).
 
 ## Differences
 

@@ -35,7 +35,7 @@ class mindspore.dataset.CocoDataset(
     )
 ```
 
-For more information, see [mindspore.dataset.CocoDataset](https://mindspore.cn/docs/api/en/master/api_python/dataset/mindspore.dataset.CocoDataset.html#mindspore.dataset.CocoDataset).
+For more information, see [mindspore.dataset.CocoDataset](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.CocoDataset.html#mindspore.dataset.CocoDataset).
 
 ## Differences
 

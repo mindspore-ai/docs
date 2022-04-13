@@ -32,7 +32,7 @@ class mindspore.dataset.TFRecordDataset(
 )
 ```
 
-For more information, see [mindspore.dataset.TFRecordDataset](https://mindspore.cn/docs/api/en/master/api_python/dataset/mindspore.dataset.TFRecordDataset.html#mindspore.dataset.TFRecordDataset).
+For more information, see [mindspore.dataset.TFRecordDataset](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.TFRecordDataset.html#mindspore.dataset.TFRecordDataset).
 
 ## Differences
 

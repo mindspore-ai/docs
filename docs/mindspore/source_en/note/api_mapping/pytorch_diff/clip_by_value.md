@@ -25,7 +25,7 @@ mindspore.ops.clip_by_value(
 )
 ```
 
-For more information, see [mindspore.ops.clip_by_value](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.clip_by_value.html#mindspore.ops.clip_by_value).
+For more information, see [mindspore.ops.clip_by_value](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.clip_by_value.html#mindspore.ops.clip_by_value).
 
 ## Differences
 

@@ -30,7 +30,7 @@ class mindspore.nn.Adagrad(
 )(grads)
 ```
 
-更多内容详见[mindspore.nn.Adagrad](https://mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Adagrad.html#mindspore.nn.Adagrad)。
+更多内容详见[mindspore.nn.Adagrad](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Adagrad.html#mindspore.nn.Adagrad)。
 
 ## 使用方式
 

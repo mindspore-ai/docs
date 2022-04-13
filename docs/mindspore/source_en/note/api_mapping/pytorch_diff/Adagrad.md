@@ -30,7 +30,7 @@ class mindspore.nn.Adagrad(
 )(grads)
 ```
 
-For more information, see [mindspore.nn.Adagrad](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Adagrad.html#mindspore.nn.Adagrad).
+For more information, see [mindspore.nn.Adagrad](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Adagrad.html#mindspore.nn.Adagrad).
 
 ## Differences
 

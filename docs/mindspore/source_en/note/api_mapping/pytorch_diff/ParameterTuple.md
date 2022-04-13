@@ -16,7 +16,7 @@ For more information, see [torch.nn.ParameterList](https://pytorch.org/docs/1.5.
 class mindspore.ParameterTuple()
 ```
 
-For more information, see [mindspore.ParameterTuple](https://mindspore.cn/docs/api/en/master/api_python/mindspore/mindspore.ParameterTuple.html#mindspore.ParameterTuple).
+For more information, see [mindspore.ParameterTuple](https://mindspore.cn/docs/en/master/api_python/mindspore/mindspore.ParameterTuple.html#mindspore.ParameterTuple).
 
 ## Differences
 

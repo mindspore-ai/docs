@@ -27,7 +27,7 @@ class mindspore.SparseTensor(
 )
 ```
 
-更多内容详见[mindspore.SparseTensor](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.SparseTensor.html#mindspore.SparseTensor)。
+更多内容详见[mindspore.SparseTensor](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.SparseTensor.html#mindspore.SparseTensor)。
 
 ## 使用方式
 

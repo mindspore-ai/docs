@@ -16,7 +16,7 @@ torch.nn.Module.children()
 mindspore.nn.Cell.cells()
 ```
 
-更多内容详见[mindspore.nn.Cell.cells](https://mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.cells)。
+更多内容详见[mindspore.nn.Cell.cells](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.cells)。
 
 ## 使用方式
 

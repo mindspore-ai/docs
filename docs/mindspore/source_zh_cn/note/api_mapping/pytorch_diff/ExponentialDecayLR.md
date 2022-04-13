@@ -27,7 +27,7 @@ mindspore.nn.exponential_decay_lr(
 )
 ```
 
-更多内容详见[mindspore.nn.exponential_decay_lr](https://mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.exponential_decay_lr.html#mindspore.nn.exponential_decay_lr)。
+更多内容详见[mindspore.nn.exponential_decay_lr](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.exponential_decay_lr.html#mindspore.nn.exponential_decay_lr)。
 
 ## mindspore.nn.ExponentialDecayLR
 

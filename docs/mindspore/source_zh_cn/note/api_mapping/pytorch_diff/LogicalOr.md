@@ -16,7 +16,7 @@ class torch.logical_or(input, other, out=None)
 class class mindspore.ops.LogicalOr()(x, y)
 ```
 
-更多内容详见 [mindspore.ops.LogicalOr](https://mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.LogicalOr.html#mindspore.ops.LogicalOr)。
+更多内容详见 [mindspore.ops.LogicalOr](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.LogicalOr.html#mindspore.ops.LogicalOr)。
 
 ## 使用方式
 

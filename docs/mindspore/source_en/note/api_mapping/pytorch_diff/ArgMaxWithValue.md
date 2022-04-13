@@ -24,7 +24,7 @@ class mindspore.ops.ArgMaxWithValue(
 )(input_x)
 ```
 
-For more information, see [mindspore.ops.ArgMaxWithValue](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.ArgMaxWithValue.html#mindspore.ops.ArgMaxWithValue).
+For more information, see [mindspore.ops.ArgMaxWithValue](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ArgMaxWithValue.html#mindspore.ops.ArgMaxWithValue).
 
 ## Differences
 

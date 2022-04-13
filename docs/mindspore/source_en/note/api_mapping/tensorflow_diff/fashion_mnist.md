@@ -26,7 +26,7 @@ class mindspore.dataset.FashionMnistDataset(
 )
 ```
 
-For more information, see [mindspore.dataset.FashionMnistDataset](https://mindspore.cn/docs/api/en/master/api_python/dataset/mindspore.dataset.FashionMnistDataset.html#mindspore.dataset.FashionMnistDataset).
+For more information, see [mindspore.dataset.FashionMnistDataset](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.FashionMnistDataset.html#mindspore.dataset.FashionMnistDataset).
 
 ## Differences
 

@@ -21,7 +21,7 @@ class mindspore.dataset.vision.c_transforms.RandomSolarize(
     )
 ```
 
-For more information, see  [mindspore.dataset.vision.c_transforms.RandomSolarize](https://mindspore.cn/docs/api/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.RandomSolarize.html#mindspore.dataset.vision.c_transforms.RandomSolarize).
+For more information, see  [mindspore.dataset.vision.c_transforms.RandomSolarize](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.RandomSolarize.html#mindspore.dataset.vision.c_transforms.RandomSolarize).
 
 ## Differences
 

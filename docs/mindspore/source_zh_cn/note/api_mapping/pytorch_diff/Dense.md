@@ -27,7 +27,7 @@ class mindspore.nn.Dense(
 )(input)
 ```
 
-更多内容详见[mindspore.nn.Dense](https://mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Dense.html#mindspore.nn.Dense)。
+更多内容详见[mindspore.nn.Dense](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Dense.html#mindspore.nn.Dense)。
 
 ## 使用方式
 

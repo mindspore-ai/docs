@@ -24,7 +24,7 @@ class mindspore.ops.NLLLoss(
 )(logits, labels, weight)
 ```
 
-更多内容详见[mindspore.ops.NLLLoss](https://mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.NLLLoss.html#mindspore.ops.NLLLoss)。
+更多内容详见[mindspore.ops.NLLLoss](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.NLLLoss.html#mindspore.ops.NLLLoss)。
 
 ## 使用方式
 

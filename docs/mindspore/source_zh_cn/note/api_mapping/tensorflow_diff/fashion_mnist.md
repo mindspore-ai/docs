@@ -26,7 +26,7 @@ class mindspore.dataset.FashionMnistDataset(
 )
 ```
 
-更多内容详见[mindspore.dataset.FashionMnistDataset](https://mindspore.cn/docs/api/zh-CN/master/api_python/dataset/mindspore.dataset.FashionMnistDataset.html#mindspore.dataset.FashionMnistDataset)。
+更多内容详见[mindspore.dataset.FashionMnistDataset](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.FashionMnistDataset.html#mindspore.dataset.FashionMnistDataset)。
 
 ## 使用方式
 

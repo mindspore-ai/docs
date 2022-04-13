@@ -16,7 +16,7 @@ For more information, see  [torch.logical_not](https://pytorch.org/docs/1.5.0/to
 class mindspore.numpy.logical_not(a, dtype=None)
 ```
 
-For more information, see  [mindspore.numpy.logical_not](https://mindspore.cn/docs/api/en/master/api_python/numpy/mindspore.numpy.logical_not.html#mindspore.numpy.logical_not).
+For more information, see  [mindspore.numpy.logical_not](https://mindspore.cn/docs/en/master/api_python/numpy/mindspore.numpy.logical_not.html#mindspore.numpy.logical_not).
 
 ## Differences
 

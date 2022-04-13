@@ -27,7 +27,7 @@ class mindspore.nn.Dense(
 )(input)
 ```
 
-For more information, see [mindspore.nn.Dense](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Dense.html#mindspore.nn.Dense).
+For more information, see [mindspore.nn.Dense](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Dense.html#mindspore.nn.Dense).
 
 ## Differences
 

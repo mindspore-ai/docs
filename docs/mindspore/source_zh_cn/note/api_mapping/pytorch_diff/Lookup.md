@@ -24,7 +24,7 @@ class mindspore.dataset.text.transforms.Lookup(
 )
 ```
 
-更多内容详见[mindspore.dataset.text.transforms.Lookup](https://mindspore.cn/docs/api/zh-CN/master/api_python/dataset_text/mindspore.dataset.text.transforms.Lookup.html#mindspore.dataset.text.transforms.Lookup)。
+更多内容详见[mindspore.dataset.text.transforms.Lookup](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_text/mindspore.dataset.text.transforms.Lookup.html#mindspore.dataset.text.transforms.Lookup)。
 
 ## 使用方式
 

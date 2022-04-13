@@ -16,7 +16,7 @@ tf.math.cumsum(x, axis=0, exclusive=False, reverse=False, name=None)
 mindspore.Tensor.cumsum(self, axis=None, dtype=None)
 ```
 
-更多内容详见[mindspore.Tensor.cumsum](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.Tensor.html#mindspore.Tensor.cumsum)。
+更多内容详见[mindspore.Tensor.cumsum](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Tensor.html#mindspore.Tensor.cumsum)。
 
 ## 使用方式
 

@@ -26,7 +26,7 @@ class mindspore.dataset.IMDBDataset(
 )
 ```
 
-For more information, see [mindspore.dataset.IMDBDataset](https://mindspore.cn/docs/api/en/master/api_python/dataset/mindspore.dataset.IMDBDataset.html#mindspore.dataset.IMDBDataset).
+For more information, see [mindspore.dataset.IMDBDataset](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.IMDBDataset.html#mindspore.dataset.IMDBDataset).
 
 ## Differences
 

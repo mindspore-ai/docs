@@ -37,7 +37,7 @@ class mindspore.ops.LpNorm(
 )(input)
 ```
 
-For more information, see [mindspore.ops.LpNorm](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.LpNorm.html#mindspore.ops.LpNorm).
+For more information, see [mindspore.ops.LpNorm](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.LpNorm.html#mindspore.ops.LpNorm).
 
 ## Differences
 

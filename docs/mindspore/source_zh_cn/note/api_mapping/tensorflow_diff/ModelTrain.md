@@ -35,7 +35,7 @@ tf.keras.Model.fit_generator(
 mindspore.Model.train(epoch, train_dataset, callbacks=None, dataset_sink_mode=True, sink_size=-1)
 ```
 
-更多内容详见[mindspore.Model.train](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.Model.html#mindspore.Model.train)。
+更多内容详见[mindspore.Model.train](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Model.html#mindspore.Model.train)。
 
 ## 使用方式
 

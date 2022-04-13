@@ -29,7 +29,7 @@ class mindspore.dataset.TextFileDataset(
 )
 ```
 
-For more information, see [mindspore.dataset.TextFileDataset](https://mindspore.cn/docs/api/en/master/api_python/dataset/mindspore.dataset.TextFileDataset.html#mindspore.dataset.TextFileDataset).
+For more information, see [mindspore.dataset.TextFileDataset](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.TextFileDataset.html#mindspore.dataset.TextFileDataset).
 
 ## Differences
 

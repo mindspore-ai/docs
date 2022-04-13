@@ -26,7 +26,7 @@ class mindspore.dataset.vision.c_transforms.Rotate(
 )
 ```
 
-更多内容详见[mindspore.dataset.vision.c_transforms.Rotate](https://mindspore.cn/docs/api/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.Rotate.html#mindspore.dataset.vision.c_transforms.Rotate)。
+更多内容详见[mindspore.dataset.vision.c_transforms.Rotate](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.Rotate.html#mindspore.dataset.vision.c_transforms.Rotate)。
 
 ## 使用方式
 

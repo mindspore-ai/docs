@@ -25,7 +25,7 @@ class mindspore.dataset.vision.c_transforms.Crop(
 )
 ```
 
-For more information, see [mindspore.dataset.vision.c_transforms.Crop](https://mindspore.cn/docs/api/en/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.Crop.html#mindspore.dataset.vision.c_transforms.Crop).
+For more information, see [mindspore.dataset.vision.c_transforms.Crop](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.Crop.html#mindspore.dataset.vision.c_transforms.Crop).
 
 ## Differences
 
