@@ -255,7 +255,7 @@ print(network.layers)
 
 <font size=3>**Q: 使用MindSpore进行模型训练时，`CTCLoss`的输入参数有四个: `inputs`, `labels_indices`, `labels_values`, `sequence_length`，如何使用`CTCLoss`进行训练？**</font>
 
-A: 定义的`model.train`接口里接收的`dataset`可以是多个数据组成，形如(`data1`, `data2`, `data3`, ...)，所以`dataset`是可以包含`inputs`,`labels_indices`,`labels_values`,`sequence_length`的信息的。只需要定义好相应形式的`dataset`，传入`model.train`里就可以。具体的可以了解下相应的[数据处理接口](https://www.mindspore.cn/docs/zh-CN/master/faq/data_processing.html)
+A: 定义的`model.train`接口里接收的`dataset`可以是多个数据组成，形如(`data1`, `data2`, `data3`, ...)，所以`dataset`是可以包含`inputs`,`labels_indices`,`labels_values`,`sequence_length`的信息的。只需要定义好相应形式的`dataset`，传入`model.train`里就可以。具体的可以了解下相应的[数据处理接口](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset.html)
 
 <br/>
 

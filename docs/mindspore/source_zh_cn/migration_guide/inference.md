@@ -33,4 +33,4 @@ MindSpore Serving是一个轻量级、高性能的服务模块，旨在帮助Min
 - [通过配置模型提供Servable](https://www.mindspore.cn/serving/docs/zh-CN/master/serving_model.html)。
 - [基于MindSpore Serving部署分布式推理服务](https://www.mindspore.cn/serving/docs/zh-CN/master/serving_distributed_example.html)。
 
-> MindSpore Serving部署在线推理服务的问题可以参考[MindSpore Serving类](https://www.mindspore.cn/docs/zh-CN/master/faq/inference.html#mindspore-serving)解决。
+> MindSpore Serving部署在线推理服务的问题可以参考[MindSpore Serving类](https://www.mindspore.cn/tutorials/experts/zh-CN/master/infer/cpu_gpu_mindir.html#mindspore-serving)解决。
