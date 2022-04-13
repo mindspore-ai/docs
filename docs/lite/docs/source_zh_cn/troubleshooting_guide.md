@@ -4,7 +4,7 @@
 
 ## 概述
 
-在MindSpore Lite使用中遇到问题时，可首先查看日志，多数场景下的问题可以通过日志报错信息直接定位（通过设置环境变量[GLOG_v](https://mindspore.cn/docs/programming_guide/zh-CN/master/custom_debugging_info.html#日志相关的环境变量和配置) 调整日志等级可以打印更多调试日志），这里简单介绍几种常见报错场景的问题定位与解决方法。
+在MindSpore Lite使用中遇到问题时，可首先查看日志，多数场景下的问题可以通过日志报错信息直接定位（通过设置环境变量[GLOG_v](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/custom_debug.html#日志相关的环境变量和配置) 调整日志等级可以打印更多调试日志），这里简单介绍几种常见报错场景的问题定位与解决方法。
 
 > 1. 因不同版本中日志行号可能存在差异，下述示例日志报错信息中的行号信息均用”**”表示；
 > 2. 示例日志中只列出了通用信息，其他涉及具体场景的信息均用“****”表示。

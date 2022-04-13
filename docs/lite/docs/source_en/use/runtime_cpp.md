@@ -818,7 +818,7 @@ REGISTER_CUSTOM_KERNEL_INTERFACE(CustomOpTutorial, Custom_Add, CustomAddInferCre
 
     - Prepare: The interface will be called during graph compilation. Users can make preparations or necessary verifications for the current node before running.
 
-    - Execute：The interface is running interface. Users can call **dynamic inference** [PreProcess](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/runtime_extend/src/custom_add_kernel.cc) in this interface.
+    - Execute：The interface is running interface. Users can call **dynamic inference** [PreProcess](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_extend/src/custom_add_kernel.cc) in this interface.
 
       ```cpp
       int CheckOutputs(const std::vector<mindspore::MSTensor> &outputs) {           // Check function when running, to judge whether the shape inference is needed
@@ -834,7 +834,7 @@ REGISTER_CUSTOM_KERNEL_INTERFACE(CustomOpTutorial, Custom_Add, CustomAddInferCre
 
     - ReSize: The interface is used to handle the changeable information of the current node due to the shape change of graph inputs.
 
-    - Attribute Parsing: The users need to provide their own parsing of custom operator, which can refer to [ParseAttrData](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/runtime_extend/src/custom_add_kernel.cc).
+    - Attribute Parsing: The users need to provide their own parsing of custom operator, which can refer to [ParseAttrData](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_extend/src/custom_add_kernel.cc).
 
 2. Operator registration. The users can refer to the interface [REGISTER_CUSTOM_KERNEL](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_registry.html#register-custom-kernel).
 

@@ -14,7 +14,7 @@ MindSpore支持一个模型导出生成多张子图，拥有多个子图的模�
 
 ### 下载样例
 
-请先[下载样例](https://gitee.com/mindspore/serving/blob/master/example/matmul_multi_subgraphs/)。
+请先[下载样例](https://gitee.com/mindspore/serving/tree/master/example/matmul_multi_subgraphs/)。
 
 ### 导出多图模型
 

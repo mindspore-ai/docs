@@ -116,13 +116,13 @@ scheduler_manage_port = args.scheduler_manage_port
 config_file_path = args.config_file_path
 ```
 
-> 每个Python脚本对应一个进程，若要在不同主机部署多个`Server`角色，则需要分别建立多个进程，可以通过shell指令配合Python的方式快速启动多`Server`。可参考**[示例](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile)**。
+> 每个Python脚本对应一个进程，若要在不同主机部署多个`Server`角色，则需要分别建立多个进程，可以通过shell指令配合Python的方式快速启动多`Server`。可参考**[示例](https://gitee.com/mindspore/mindspore/tree/master/tests/st/fl/mobile)**。
 >
 > 每个`Server`进程需要有一个集群内唯一标志`MS_NODE_ID`，需要通过环境变量设置此字段。本部署教程中，此变量已在[脚本run_mobile_server.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/run_mobile_server.py)中设置。
 
 ## 启动集群
 
-参考[示例](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile)，启动集群。参考示例关键目录结构如下：
+参考[示例](https://gitee.com/mindspore/mindspore/tree/master/tests/st/fl/mobile)，启动集群。参考示例关键目录结构如下：
 
 ```text
 mobile/

@@ -192,7 +192,7 @@ class NPUDelegate : public Delegate {
 
 ### 实现Init接口
 
-[Init](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/src/delegate/npu/npu_delegate.cc#L75)接口实现和NPU有关的资源申请。
+[Init](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/delegate/npu/npu_delegate.cc#L75)接口实现和NPU有关的资源申请。
 
 ```cpp
 Status NPUDelegate::Init() {
@@ -219,7 +219,7 @@ Status NPUDelegate::Init() {
 
 ### 实现Build接口
 
-Build接口解析DelegateModel实例，主要实现算子支持判断、子图构建、在线构图等功能。下面[示例代码](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/src/delegate/npu/npu_delegate.cc#L163)是NPUDelegate Build接口的实现。
+Build接口解析DelegateModel实例，主要实现算子支持判断、子图构建、在线构图等功能。下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/delegate/npu/npu_delegate.cc#L163)是NPUDelegate Build接口的实现。
 
 ```cpp
 Status NPUDelegate::Build(DelegateModel *model) {
@@ -281,7 +281,7 @@ kernel::Kernel *NPUDelegate::CreateNPUGraph(const std::vector<NPUOp *> &ops) {
 
 ### 实现NPUGraph
 
-[NPUGraph](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/src/delegate/npu/npu_graph.h#L29)继承自[Kernel](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html#kernel)，需要重写Prepare、Execute、ReSize接口。
+[NPUGraph](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/delegate/npu/npu_graph.h#L29)继承自[Kernel](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html#kernel)，需要重写Prepare、Execute、ReSize接口。
 
 ```cpp
 class NPUGraph : public kernel::Kernel {

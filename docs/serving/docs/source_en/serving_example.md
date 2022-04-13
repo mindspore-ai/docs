@@ -14,7 +14,7 @@ Before running the sample network, ensure that MindSpore Serving has been proper
 
 ## Downloading the Example
 
-Please download the [add example](https://gitee.com/mindspore/serving/blob/master/example/tensor_add/) first.
+Please download the [add example](https://gitee.com/mindspore/serving/tree/master/example/tensor_add/) first.
 
 ## Exporting the Model
 
