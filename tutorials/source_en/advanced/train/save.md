@@ -25,52 +25,52 @@ Saving model parameters during training. MindSpore provides two saving strategie
 
 1. Iteration policy
 
-`CheckpointConfig` can be configured according to the number of iterations, and the parameters of the iteration policy are as follows:
+    `CheckpointConfig` can be configured according to the number of iterations, and the parameters of the iteration policy are as follows:
 
-- `save_checkpoint_steps`: indicates how many CheckPoint files are saved every step, with a default value of 1.
-- `keep_checkpoint_max`: indicates how many CheckPoint files to save at most, with a default value of 5.
+    - `save_checkpoint_steps`: indicates how many CheckPoint files are saved every step, with a default value of 1.
+    - `keep_checkpoint_max`: indicates how many CheckPoint files to save at most, with a default value of 5.
 
-```python
-from mindspore.train.callback import CheckpointConfig
+    ```python
+    from mindspore.train.callback import CheckpointConfig
 
-# Save one CheckPoint file every 32 steps, and up to 10 CheckPoint files
-config_ck = CheckpointConfig(save_checkpoint_steps=32, keep_checkpoint_max=10)
-```
+    # Save one CheckPoint file every 32 steps, and up to 10 CheckPoint files
+    config_ck = CheckpointConfig(save_checkpoint_steps=32, keep_checkpoint_max=10)
+    ```
 
-In the case that the iteration policy script ends normally, the CheckPoint file of the last step is saved by default.
+    In the case that the iteration policy script ends normally, the CheckPoint file of the last step is saved by default.
 
 2. Time policy
 
-`CheckpointConfig` can be configured according to the training duration, and the parameters of the configuration time policy are as follows:
+    `CheckpointConfig` can be configured according to the training duration, and the parameters of the configuration time policy are as follows:
 
-- `save_checkpoint_seconds`: indicates how many seconds to save a CheckPoint file, with a default value of 0.
-- `keep_checkpoint_per_n_minutes`: indicates how many checkPoint files are kept every few minutes, with a default value of 0.
+    - `save_checkpoint_seconds`: indicates how many seconds to save a CheckPoint file, with a default value of 0.
+    - `keep_checkpoint_per_n_minutes`: indicates how many checkPoint files are kept every few minutes, with a default value of 0.
 
-```python
-from mindspore.train.callback import CheckpointConfig
+    ```python
+    from mindspore.train.callback import CheckpointConfig
 
-# Save a CheckPoint file every 30 seconds and a CheckPoint file every 3 minutes
-config_ck = CheckpointConfig(save_checkpoint_seconds=30, keep_checkpoint_per_n_minutes=3)
-```
+    # Save a CheckPoint file every 30 seconds and a CheckPoint file every 3 minutes
+    config_ck = CheckpointConfig(save_checkpoint_seconds=30, keep_checkpoint_per_n_minutes=3)
+    ```
 
-`save_checkpoint_seconds` parameters cannot be used with `save_checkpoint_steps` parameters. If both parameters are set, the `save_checkpoint_seconds` parameters are invalid.
+    `save_checkpoint_seconds` parameters cannot be used with `save_checkpoint_steps` parameters. If both parameters are set, the `save_checkpoint_seconds` parameters are invalid.
 
 3. Breakpoint renewal
 
-MindSpore provides a breakpoint renewal function, when the user turns on the function, if an exception occurs during training, MindSpore will automatically save the CheckPoint file (end-of-life CheckPoint) when the exception occurred. The function of breakpoint renewal is controlled by the `exception_save` parameter (bool type) in CheckpointConfig, which is turned on when set to True, and closed by False, which defaults to False. The end-of-life CheckPoint file saved by the breakpoint continuation function does not affect the CheckPoint saved in the normal process, and the naming mechanism and save path are consistent with the normal process settings, the only difference is that the '_breakpoint' will be added at the end of the end of the CheckPoint file name to distinguish. Its usage is as follows:
+    MindSpore provides a breakpoint renewal function, when the user turns on the function, if an exception occurs during training, MindSpore will automatically save the CheckPoint file (end-of-life CheckPoint) when the exception occurred. The function of breakpoint renewal is controlled by the `exception_save` parameter (bool type) in CheckpointConfig, which is turned on when set to True, and closed by False, which defaults to False. The end-of-life CheckPoint file saved by the breakpoint continuation function does not affect the CheckPoint saved in the normal process, and the naming mechanism and save path are consistent with the normal process settings, the only difference is that the '_breakpoint' will be added at the end of the end of the CheckPoint file name to distinguish. Its usage is as follows:
 
-```python
-from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
+    ```python
+    from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
 
-# Configure the breakpoint continuation function to turn on
-config_ck = CheckpointConfig(save_checkpoint_steps=32, keep_checkpoint_max=10, exception_save=True)
-```
+    # Configure the breakpoint continuation function to turn on
+    config_ck = CheckpointConfig(save_checkpoint_steps=32, keep_checkpoint_max=10, exception_save=True)
+    ```
 
-If an exception occurs during training, the end-of-life CheckPoint is automatically saved, and if an exception occurs in the 10th step of the 10th epoch in the training, the saved end-of-life CheckPoint file is as follows.
+    If an exception occurs during training, the end-of-life CheckPoint is automatically saved, and if an exception occurs in the 10th step of the 10th epoch in the training, the saved end-of-life CheckPoint file is as follows.
 
-```python
-resnet50-10_10_breakpoint.ckpt  # The end-of-life CheckPoint file name will be marked by '_breakpoint' to distinguish it from the normal process checkPoint.
-```
+    ```python
+    resnet50-10_10_breakpoint.ckpt  # The end-of-life CheckPoint file name will be marked by '_breakpoint' to distinguish it from the normal process checkPoint.
+    ```
 
 ### save_checkpoint saving models
 
@@ -84,41 +84,41 @@ You can use `save_checkpoint` function to save network weights to a CheckPoint f
 
 1. `save_obj` parameter
 
-The [Save and Load section](https://mindspore.cn/tutorials/zh-CN/master/beginner/save_load.html) of the beginner tutorials describes how to save model parameters directly using `save_checkpoint` when `save_obj` is a Cell object. Here's how to save model parameters when you pass in a list of data. When passing in a data list, each element of the list is of dictionary type, such as [{"name": param_name, "data": param_data} ,...], `param_name` type must be str, and the type of `param_data` must be Parameter or Tensor. An example is shown below:
+    The [Save and Load section](https://mindspore.cn/tutorials/zh-CN/master/beginner/save_load.html) of the beginner tutorials describes how to save model parameters directly using `save_checkpoint` when `save_obj` is a Cell object. Here's how to save model parameters when you pass in a list of data. When passing in a data list, each element of the list is of dictionary type, such as [{"name": param_name, "data": param_data} ,...], `param_name` type must be str, and the type of `param_data` must be Parameter or Tensor. An example is shown below:
 
-```python
-from mindspore import save_checkpoint, Tensor
-from mindspore import dtype as mstype
+    ```python
+    from mindspore import save_checkpoint, Tensor
+    from mindspore import dtype as mstype
 
-save_list = [{"name": "lr", "data": Tensor(0.01, mstype.float32)}, {"name": "train_epoch", "data": Tensor(20, mstype.int32)}]
-save_checkpoint(save_list, "hyper_param.ckpt")
-```
+    save_list = [{"name": "lr", "data": Tensor(0.01, mstype.float32)}, {"name": "train_epoch", "data": Tensor(20, mstype.int32)}]
+    save_checkpoint(save_list, "hyper_param.ckpt")
+    ```
 
 2. `integrated_save` parameter
 
-indicates whether the parameters are saved in a merge, and the default is True. In the model parallel scenario, Tensor is split into programs run by different cards. If integrated_save is set to True, these split Tensors are merged and saved in each checkpoint file, so that the checkpoint file saves the complete training parameters.
+    indicates whether the parameters are saved in a merge, and the default is True. In the model parallel scenario, Tensor is split into programs run by different cards. If integrated_save is set to True, these split Tensors are merged and saved in each checkpoint file, so that the checkpoint file saves the complete training parameters.
 
-```python
-save_checkpoint(net, "resnet50-2_32.ckpt", integrated_save=True)
-```
+    ```python
+    save_checkpoint(net, "resnet50-2_32.ckpt", integrated_save=True)
+    ```
 
 3. `async_save` parameter
 
-indicates whether the asynchronous save function is enabled, which defaults to False. If set to True, multithreading is turned on to write checkpoint files, allowing training and save tasks to be performed in parallel, saving the total time the script runs when training large-scale networks.
+    indicates whether the asynchronous save function is enabled, which defaults to False. If set to True, multithreading is turned on to write checkpoint files, allowing training and save tasks to be performed in parallel, saving the total time the script runs when training large-scale networks.
 
-```python
-save_checkpoint(net, "resnet50-2_32.ckpt", async_save=True)
-```
+    ```python
+    save_checkpoint(net, "resnet50-2_32.ckpt", async_save=True)
+    ```
 
 4. `append_dict` parameter
 
-additional information needs to be saved, the type is dict type, and currently only supports the preservation of basic types, including int, float, bool, etc
+    additional information needs to be saved, the type is dict type, and currently only supports the preservation of basic types, including int, float, bool, etc
 
-```python
-save_dict = {"epoch_num": 2, "lr": 0.01}
-# In addition to the parameters in net, the information save_dict is also saved in the ckpt file
-save_checkpoint(net, "resnet50-2_32.ckpt",append_dict=save_dict)
-```
+    ```python
+    save_dict = {"epoch_num": 2, "lr": 0.01}
+    # In addition to the parameters in net, the information save_dict is also saved in the ckpt file
+    save_checkpoint(net, "resnet50-2_32.ckpt",append_dict=save_dict)
+    ```
 
 ## Transfer Learning
 
