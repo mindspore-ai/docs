@@ -286,6 +286,15 @@ git clone https://gitee.com/mindspore/mindspore.git
 
 ## Compiling MindSpore
 
+Before compiling, please make sure that installation path of nvcc has been added to `PATH` and `LD_LIBRARY_PATH` environment variabels. If you have not done so, please follow the example below, based on CUDA11 installed in default location:
+
+```bash
+export PATH=/usr/local/cuda-11.1/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/cuda-11.1/lib64:$LD_LIBRARY_PATH
+```
+
+If a different version of CUDA have been installed or the CUDA installation path is different, replace `/usr/local/cuda-11.1` in the above command with the currently installed CUDA path.
+
 Go to the root directory of MindSpore, then run the build script.
 
 ```bash

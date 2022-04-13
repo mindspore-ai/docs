@@ -286,6 +286,15 @@ git clone https://gitee.com/mindspore/mindspore.git
 
 ## 编译MindSpore
 
+执行编译前，请确保nvcc的安装路径已经添加到`PATH`与`LD_LIBRARY_PATH`环境变量中，如果没有添加，以安装在默认路径的CUDA11为例，可以执行如下操作：
+
+```bash
+export PATH=/usr/local/cuda-11.1/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/cuda-11.1/lib64:$LD_LIBRARY_PATH
+```
+
+如果之前安装了其他CUDA版本或者CUDA安装路径不同，只需替换上述命令中的`/usr/local/cuda-11.1`为当前安装的CUDA路径。
+
 进入MindSpore根目录，然后执行编译脚本。
 
 ```bash
