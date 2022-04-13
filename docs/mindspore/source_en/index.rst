@@ -15,6 +15,7 @@ MindSpore Documentation
    design/technical_white_paper
    design/gradient
    design/distributed_training_design
+   design/distributed_advanced
    design/mindir
    design/dataset_offload
    design/graph_kernel_fusion
