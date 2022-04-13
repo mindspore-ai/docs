@@ -20,7 +20,7 @@ Ascend 310是面向边缘场景的高能效高集成度AI处理器，本教程�
 
 ## 导出MindIR模型文件
 
-在CPU/GPU/Ascend 910的机器上训练好目标网络，并保存为CheckPoint文件，通过网络和CheckPoint文件导出对应的MindIR格式模型文件，导出流程参见[导出MindIR格式文件](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/save_load.html#mindir)。
+在CPU/GPU/Ascend 910的机器上训练好目标网络，并保存为CheckPoint文件，通过网络和CheckPoint文件导出对应的MindIR格式模型文件，导出流程参见[导出MindIR格式文件](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/train/save.html#导出mindir格式文件)。
 
 > 这里提供使用BatchSize为1的ResNet-50模型导出的示例MindIR文件[resnet50_imagenet.mindir](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet.mindir)，以及带数据预处理的ResNet-50模型MindIR文件[resnet50_imagenet_preprocess.mindir](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet_preprocess.mindir)。
 
