@@ -270,11 +270,9 @@ Element-by-Element Operation
     mindspore.ops.LogicalAnd
     mindspore.ops.LogicalNot
     mindspore.ops.LogicalOr
-    mindspore.ops.LogMatrixDeterminant
     mindspore.ops.Mod
     mindspore.ops.Mul
     mindspore.ops.MulNoNan
-    mindspore.ops.MatrixDeterminant
     mindspore.ops.Neg
     mindspore.ops.Pow
     mindspore.ops.Real
