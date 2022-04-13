@@ -26,7 +26,7 @@ class mindspore.nn.Unfold(
 )(x)
 ```
 
-更多内容详见[mindspore.nn.Unfold](https://mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Unfold.html#mindspore.nn.Unfold)。
+更多内容详见[mindspore.nn.Unfold](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Unfold.html#mindspore.nn.Unfold)。
 
 ## 使用方式
 

@@ -16,7 +16,7 @@ class torch.nn.GELU()(input)
 class mindspore.nn.FastGelu()(input_data)
 ```
 
-更多内容详见[mindspore.nn.FastGelu](https://mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.FastGelu.html#mindspore.nn.FastGelu)。
+更多内容详见[mindspore.nn.FastGelu](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.FastGelu.html#mindspore.nn.FastGelu)。
 
 ## 使用方式
 

@@ -38,7 +38,7 @@ class mindspore.dataset.VOCDataset(
     )
 ```
 
-更多内容详见[mindspore.dataset.VOCDataset](https://mindspore.cn/docs/api/zh-CN/master/api_python/dataset/mindspore.dataset.VOCDataset.html#mindspore.dataset.VOCDataset)。
+更多内容详见[mindspore.dataset.VOCDataset](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.VOCDataset.html#mindspore.dataset.VOCDataset)。
 
 ## 使用方式
 

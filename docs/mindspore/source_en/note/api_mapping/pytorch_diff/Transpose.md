@@ -19,7 +19,7 @@ class mindspore.ops.Transpose(*args, **kwargs)(
 )
 ```
 
-For more information, see [mindspore.ops.Transpose](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Transpose.html#mindspore.ops.Transpose).
+For more information, see [mindspore.ops.Transpose](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Transpose.html#mindspore.ops.Transpose).
 
 ## Differences
 

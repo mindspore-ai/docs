@@ -16,7 +16,7 @@ class torch.nn.ParameterList(parameters=None)
 class mindspore.ParameterTuple()
 ```
 
-更多内容详见[mindspore.ParameterTuple](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.ParameterTuple.html#mindspore.ParameterTuple)。
+更多内容详见[mindspore.ParameterTuple](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.ParameterTuple.html#mindspore.ParameterTuple)。
 
 ## 使用方式
 

@@ -169,9 +169,9 @@
 
 检查训练脚本的数据处理代码中是否使能了混洗（shuffle）功能。通过混洗，可以打乱数据顺序，有助于避免过拟合。如果未进行混洗，或者混洗不充分，会导致总是以相同的数据顺序更新模型，严重限制了梯度优化方向的可选择性，导致收敛点的选择空间变少，容易过拟合。混洗功能的常见使能方式有如下几种，使用任意一种方式来使能混洗功能均可：
 
-1. 创建数据集时，指定shuffle参数为True。例如  [mindspore.dataset.Cifar10Dataset](https://mindspore.cn/docs/api/zh-CN/master/api_python/dataset/mindspore.dataset.Cifar10Dataset.html#mindspore.dataset.Cifar10Dataset)中的shuffle参数。
-2. 在数据处理的过程中，使用shuffle方法，例如[mindspore.dataset.Cifar10Dataset.shuffle](https://mindspore.cn/docs/api/zh-CN/master/api_python/dataset/mindspore.dataset.Cifar10Dataset.html#mindspore.dataset.Cifar10Dataset.shuffle)。
-3. 如果使用了Sampler，还可以使能Sampler提供的shuffle功能。例如[mindspore.dataset.PKSampler](https://mindspore.cn/docs/api/zh-CN/master/api_python/dataset/mindspore.dataset.PKSampler.html#mindspore.dataset.PKSampler)中的shuffle参数。
+1. 创建数据集时，指定shuffle参数为True。例如  [mindspore.dataset.Cifar10Dataset](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.Cifar10Dataset.html#mindspore.dataset.Cifar10Dataset)中的shuffle参数。
+2. 在数据处理的过程中，使用shuffle方法，例如[mindspore.dataset.Cifar10Dataset.shuffle](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.Cifar10Dataset.html#mindspore.dataset.Cifar10Dataset.shuffle)。
+3. 如果使用了Sampler，还可以使能Sampler提供的shuffle功能。例如[mindspore.dataset.PKSampler](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.PKSampler.html#mindspore.dataset.PKSampler)中的shuffle参数。
 
 例子：
 以ModelZoo中的resnet50为例（cifar10数据集），其在创建数据集时shuffle参数指定为True，因此检查结果为“无问题”。

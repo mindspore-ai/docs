@@ -34,7 +34,7 @@ class mindspore.nn.Adam(
 )(grads)
 ```
 
-For more information, see [mindspore.nn.Adam](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Adam.html).
+For more information, see [mindspore.nn.Adam](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Adam.html).
 
 ## Differences
 

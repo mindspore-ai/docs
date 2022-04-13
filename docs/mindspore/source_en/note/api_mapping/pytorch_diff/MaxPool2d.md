@@ -28,7 +28,7 @@ class mindspore.nn.MaxPool2d(
 )
 ```
 
-For more information, see [mindspore.nn.MaxPool2d](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.MaxPool2d.html#mindspore.nn.MaxPool2d).
+For more information, see [mindspore.nn.MaxPool2d](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.MaxPool2d.html#mindspore.nn.MaxPool2d).
 
 ## Differences
 

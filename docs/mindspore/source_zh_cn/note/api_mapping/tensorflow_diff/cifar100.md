@@ -26,7 +26,7 @@ class mindspore.dataset.Cifar100Dataset(
 )
 ```
 
-更多内容详见[mindspore.dataset.Cifar100Dataset](https://mindspore.cn/docs/api/zh-CN/master/api_python/dataset/mindspore.dataset.Cifar100Dataset.html#mindspore.dataset.Cifar100Dataset)。
+更多内容详见[mindspore.dataset.Cifar100Dataset](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.Cifar100Dataset.html#mindspore.dataset.Cifar100Dataset)。
 
 ## 使用方式
 

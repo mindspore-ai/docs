@@ -21,7 +21,7 @@ torch.nn.Upsample(
 class mindspore.nn.ResizeBilinear()(x, size=None, scale_factor=None, align_corners=False)
 ```
 
-更多内容详见[mindspore.nn.ResizeBilinear](https://mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.ResizeBilinear.html#mindspore.nn.ResizeBilinear)。
+更多内容详见[mindspore.nn.ResizeBilinear](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.ResizeBilinear.html#mindspore.nn.ResizeBilinear)。
 
 ## 使用方式
 

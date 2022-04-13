@@ -24,7 +24,7 @@ class mindspore.dataset.text.transforms.Ngram(
 )
 ```
 
-For more information, see [mindspore.dataset.text.transforms.Ngram](https://mindspore.cn/docs/api/en/master/api_python/dataset_text/mindspore.dataset.text.transforms.Ngram.html#mindspore.dataset.text.transforms.Ngram).
+For more information, see [mindspore.dataset.text.transforms.Ngram](https://mindspore.cn/docs/en/master/api_python/dataset_text/mindspore.dataset.text.transforms.Ngram.html#mindspore.dataset.text.transforms.Ngram).
 
 ## Differences
 

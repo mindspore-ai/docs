@@ -24,7 +24,7 @@ class mindspore.ops.ReduceMean(keep_dims=False)(
 )
 ```
 
-更多内容详见[mindspore.ops.ReduceMean](https://mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.ReduceMean.html#mindspore.ops.ReduceMean)。
+更多内容详见[mindspore.ops.ReduceMean](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ReduceMean.html#mindspore.ops.ReduceMean)。
 
 ## 使用方式
 

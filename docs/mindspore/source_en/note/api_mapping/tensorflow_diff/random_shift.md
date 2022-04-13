@@ -33,7 +33,7 @@ class mindspore.dataset.vision.c_transforms.RandomAffine(
 )
 ```
 
-For more information, see [mindspore.dataset.vision.c_transforms.RandomAffine](https://mindspore.cn/docs/api/en/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.RandomAffine.html#mindspore.dataset.vision.c_transforms.RandomAffine).
+For more information, see [mindspore.dataset.vision.c_transforms.RandomAffine](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.RandomAffine.html#mindspore.dataset.vision.c_transforms.RandomAffine).
 
 ## Differences
 

@@ -22,7 +22,7 @@ For more information, see [torch.unique](https://pytorch.org/docs/1.5.0/torch.ht
 class mindspore.ops.Unique(*args, **kwargs)(x)
 ```
 
-For more information, see [mindspore.ops.Unique](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Unique.html#mindspore.ops.Unique).
+For more information, see [mindspore.ops.Unique](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Unique.html#mindspore.ops.Unique).
 
 ## Differences
 

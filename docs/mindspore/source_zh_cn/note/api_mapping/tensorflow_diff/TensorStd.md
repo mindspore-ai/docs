@@ -16,7 +16,7 @@ tf.math.reduce_std(input_tensor, axis=None, keepdims=False, name=None)
  mindspore.Tensor.std(self, axis=None, ddof=0, keepdims=False)
 ```
 
-更多内容详见[mindspore.Tensor.std](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.Tensor.html#mindspore.Tensor.std)。
+更多内容详见[mindspore.Tensor.std](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Tensor.html#mindspore.Tensor.std)。
 
 ## 使用方式
 

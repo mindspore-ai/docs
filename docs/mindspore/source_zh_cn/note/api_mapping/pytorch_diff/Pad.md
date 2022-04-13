@@ -24,7 +24,7 @@ class mindspore.nn.Pad(
 )(x)
 ```
 
-更多内容详见[mindspore.nn.Pad](https://mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Pad.html#mindspore.nn.Pad)。
+更多内容详见[mindspore.nn.Pad](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Pad.html#mindspore.nn.Pad)。
 
 ## 使用方式
 

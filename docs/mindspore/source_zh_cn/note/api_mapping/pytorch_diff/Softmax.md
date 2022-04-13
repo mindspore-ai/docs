@@ -23,7 +23,7 @@ class mindspore.ops.Softmax(
 )(logits)
 ```
 
-更多内容详见[mindspore.ops.Softmax](https://mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Softmax.html#mindspore.ops.Softmax)。
+更多内容详见[mindspore.ops.Softmax](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Softmax.html#mindspore.ops.Softmax)。
 
 ## 使用方式
 

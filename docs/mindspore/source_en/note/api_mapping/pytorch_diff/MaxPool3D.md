@@ -30,7 +30,7 @@ class mindspore.ops.MaxPool3D(
 )(input)
 ```
 
-For more information, see [mindspore.ops.MaxPool3D](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.MaxPool3D.html#mindspore.ops.MaxPool3D).
+For more information, see [mindspore.ops.MaxPool3D](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.MaxPool3D.html#mindspore.ops.MaxPool3D).
 
 ## Differences
 

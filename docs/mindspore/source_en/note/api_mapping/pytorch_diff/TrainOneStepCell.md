@@ -20,7 +20,7 @@ class mindspore.nn.TrainOneStepCell(
 )((*inputs))
 ```
 
-For more information, see [mindspore.nn.TrainOneStepCell](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.TrainOneStepCell.html#mindspore.nn.TrainOneStepCell).
+For more information, see [mindspore.nn.TrainOneStepCell](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.TrainOneStepCell.html#mindspore.nn.TrainOneStepCell).
 
 ## Differences
 

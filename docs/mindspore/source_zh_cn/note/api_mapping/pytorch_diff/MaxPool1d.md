@@ -27,7 +27,7 @@ class mindspore.nn.MaxPool1d(
 )
 ```
 
-更多内容详见[mindspore.nn.MaxPool1d](https://mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.MaxPool1d.html#mindspore.nn.MaxPool1d)。
+更多内容详见[mindspore.nn.MaxPool1d](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.MaxPool1d.html#mindspore.nn.MaxPool1d)。
 
 ## 使用方式
 

@@ -21,7 +21,7 @@ class mindspore.dataset.vision.c_transforms.Normalize(
 )
 ```
 
-For more information, see [mindspore.dataset.vision.c_transforms.Normalize](https://mindspore.cn/docs/api/en/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.Normalize.html#mindspore.dataset.vision.c_transforms.Normalize).
+For more information, see [mindspore.dataset.vision.c_transforms.Normalize](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.Normalize.html#mindspore.dataset.vision.c_transforms.Normalize).
 
 ## Differences
 

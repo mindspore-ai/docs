@@ -19,7 +19,7 @@ class torch.nn.Flatten(
 class mindspore.nn.Flatten()(input)
 ```
 
-更多内容详见[mindspore.nn.Flatten](https://mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Flatten.html#mindspore.nn.Flatten)。
+更多内容详见[mindspore.nn.Flatten](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Flatten.html#mindspore.nn.Flatten)。
 
 ## 使用方式
 

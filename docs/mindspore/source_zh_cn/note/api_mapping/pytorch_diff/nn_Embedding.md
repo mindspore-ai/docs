@@ -30,7 +30,7 @@ class mindspore.nn.Embedding(
     padding_idx=None)
 ```
 
-更多内容详见[mindspore.nn.Embedding](https://mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Embedding.html#mindspore.nn.Embedding)。
+更多内容详见[mindspore.nn.Embedding](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Embedding.html#mindspore.nn.Embedding)。
 
 ## 使用方式
 

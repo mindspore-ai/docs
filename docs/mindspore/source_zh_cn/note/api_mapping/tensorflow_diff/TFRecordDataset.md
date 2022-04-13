@@ -32,7 +32,7 @@ class mindspore.dataset.TFRecordDataset(
 )
 ```
 
-更多内容详见[mindspore.dataset.TFRecordDataset](https://mindspore.cn/docs/api/zh-CN/master/api_python/dataset/mindspore.dataset.TFRecordDataset.html#mindspore.dataset.TFRecordDataset)。
+更多内容详见[mindspore.dataset.TFRecordDataset](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.TFRecordDataset.html#mindspore.dataset.TFRecordDataset)。
 
 ## 使用方式
 

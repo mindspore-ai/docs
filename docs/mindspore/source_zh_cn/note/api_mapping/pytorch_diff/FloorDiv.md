@@ -23,7 +23,7 @@ class mindspore.ops.FloorDiv(*args, **kwargs)(
 )
 ```
 
-更多内容详见[mindspore.ops.FloorDiv](https://mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.FloorDiv.html#mindspore.ops.FloorDiv)。
+更多内容详见[mindspore.ops.FloorDiv](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.FloorDiv.html#mindspore.ops.FloorDiv)。
 
 ## 使用方式
 

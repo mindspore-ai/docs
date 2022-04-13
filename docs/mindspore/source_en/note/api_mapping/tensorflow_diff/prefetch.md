@@ -20,7 +20,7 @@ mindspore.dataset.config.set_prefetch_size(
 )
 ```
 
-For more information, see [mindspore.dataset.config.set_prefetch_size](https://mindspore.cn/docs/api/en/master/api_python/mindspore.dataset.config.html#mindspore.dataset.config.set_prefetch_size).
+For more information, see [mindspore.dataset.config.set_prefetch_size](https://mindspore.cn/docs/en/master/api_python/mindspore.dataset.config.html#mindspore.dataset.config.set_prefetch_size).
 
 ## Differences
 

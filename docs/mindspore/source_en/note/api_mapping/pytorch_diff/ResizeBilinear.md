@@ -21,7 +21,7 @@ For more information, see [torch.nn.Upsample](https://pytorch.org/docs/1.5.0/nn.
 class mindspore.nn.ResizeBilinear()(x, size=None, scale_factor=None, align_corners=False)
 ```
 
-For more information, see [mindspore.nn.ResizeBilinear](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.ResizeBilinear.html#mindspore.nn.ResizeBilinear).
+For more information, see [mindspore.nn.ResizeBilinear](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.ResizeBilinear.html#mindspore.nn.ResizeBilinear).
 
 ## Differences
 

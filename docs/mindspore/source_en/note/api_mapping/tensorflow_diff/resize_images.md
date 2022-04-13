@@ -26,7 +26,7 @@ class mindspore.dataset.vision.c_transforms.Resize(
 )
 ```
 
-For more information, see [mindspore.dataset.vision.c_transforms.Resize](https://mindspore.cn/docs/api/en/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.Resize.html#mindspore.dataset.vision.c_transforms.Resize).
+For more information, see [mindspore.dataset.vision.c_transforms.Resize](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.Resize.html#mindspore.dataset.vision.c_transforms.Resize).
 
 ## Differences
 

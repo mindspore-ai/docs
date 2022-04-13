@@ -24,7 +24,7 @@ class mindspore.nn.Optimizer(
 )
 ```
 
-For more information, see [mindspore.nn.Optimizer](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Optimizer.html#mindspore.nn.Optimizer).
+For more information, see [mindspore.nn.Optimizer](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Optimizer.html#mindspore.nn.Optimizer).
 
 ## Differences
 

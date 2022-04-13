@@ -20,7 +20,7 @@ torch.flatten(
 class mindspore.ops.Flatten(*args, **kwargs)(input_x)
 ```
 
-更多内容详见[mindspore.ops.Flatten](https://mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Flatten.html#mindspore.ops.Flatten)。
+更多内容详见[mindspore.ops.Flatten](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Flatten.html#mindspore.ops.Flatten)。
 
 ## 使用方式
 

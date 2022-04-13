@@ -27,7 +27,7 @@ class mindspore.ops.Randperm(
 )(n)
 ```
 
-For more information, see  [mindspore.ops.Randperm](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Randperm.html#mindspore.ops.Randperm).
+For more information, see  [mindspore.ops.Randperm](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Randperm.html#mindspore.ops.Randperm).
 
 ## Differences
 

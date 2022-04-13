@@ -29,7 +29,7 @@ class mindspore.nn.Momentum(
 )(grads)
 ```
 
-For more information, see [mindspore.nn.Momentum](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Momentum.html).
+For more information, see [mindspore.nn.Momentum](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Momentum.html).
 
 ## Differences
 

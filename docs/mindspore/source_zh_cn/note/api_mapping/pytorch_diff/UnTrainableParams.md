@@ -16,7 +16,7 @@ torch.nn.Module.buffers(recurse=True)
 mindspore.nn.Cell.untrainable_params(recurse=True)
 ```
 
-更多内容详见[mindspore.nn.Cell.untrainable_params](https://mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.untrainable_params)。
+更多内容详见[mindspore.nn.Cell.untrainable_params](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.untrainable_params)。
 
 ## 使用方式
 

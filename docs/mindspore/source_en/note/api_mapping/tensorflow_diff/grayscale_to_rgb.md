@@ -21,7 +21,7 @@ class mindspore.dataset.vision.c_transforms.ConvertColor(
 )
 ```
 
-For more information, see [mindspore.dataset.vision.c_transforms.ConvertColor](https://mindspore.cn/docs/api/en/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.ConvertColor.html#mindspore.dataset.vision.c_transforms.ConvertColor).
+For more information, see [mindspore.dataset.vision.c_transforms.ConvertColor](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.ConvertColor.html#mindspore.dataset.vision.c_transforms.ConvertColor).
 
 ## Differences
 

@@ -20,7 +20,7 @@ For more information, see [torch.distributed.new_group](https://pytorch.org/docs
 mindspore.communication.create_group(group, rank_ids)
 ```
 
-For more information, see [mindspore.communication.create_group](https://mindspore.cn/docs/api/en/master/api_python/mindspore.communication.html#mindspore.communication.create_group).
+For more information, see [mindspore.communication.create_group](https://mindspore.cn/docs/en/master/api_python/mindspore.communication.html#mindspore.communication.create_group).
 
 ## Differences
 

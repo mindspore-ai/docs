@@ -20,7 +20,7 @@ torch.nn.init.uniform_(
 class mindspore.common.initializer.Uniform(scale=0.07)(arr)
 ```
 
-更多内容详见[mindspore.common.initializer.Uniform](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.common.initializer.html#mindspore.common.initializer.Uniform)。
+更多内容详见[mindspore.common.initializer.Uniform](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.common.initializer.html#mindspore.common.initializer.Uniform)。
 
 ## 使用方式
 

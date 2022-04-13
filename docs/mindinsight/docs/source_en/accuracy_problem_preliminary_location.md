@@ -128,9 +128,9 @@ Check method:
 
 Check whether the shuffle function is enabled in the data processing code of the training script. Shuffling the data sequence helps avoid overfitting. If shuffling is not performed, or shuffling is insufficient, a model is always updated in a same data sequence, which severely limits selectability of a gradient optimization direction. As a result, fewer convergence points can be selected and overfitting is easy to occur. The shuffle function can be enabled in any of the following ways:
 
-1. When creating a dataset, set shuffle to True. For example, the shuffle parameter in [mindspore.dataset.Cifar10Dataset](https://mindspore.cn/docs/api/en/master/api_python/dataset/mindspore.dataset.Cifar10Dataset.html#mindspore.dataset.Cifar10Dataset).
-2. The shuffle method, for example, [mindspore.dataset.Cifar10Dataset.shuffle](https://mindspore.cn/docs/api/en/master/api_python/dataset/mindspore.dataset.Cifar10Dataset.html#mindspore.dataset.Cifar10Dataset.shuffle), is used during data processing.
-3. If the Sampler is used, you can also enable the shuffle function provided by the Sampler. For example, the shuffle parameter in [mindspore.dataset.PKSampler](https://mindspore.cn/docs/api/en/master/api_python/dataset/mindspore.dataset.PKSampler.html#mindspore.dataset.PKSampler).
+1. When creating a dataset, set shuffle to True. For example, the shuffle parameter in [mindspore.dataset.Cifar10Dataset](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.Cifar10Dataset.html#mindspore.dataset.Cifar10Dataset).
+2. The shuffle method, for example, [mindspore.dataset.Cifar10Dataset.shuffle](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.Cifar10Dataset.html#mindspore.dataset.Cifar10Dataset.shuffle), is used during data processing.
+3. If the Sampler is used, you can also enable the shuffle function provided by the Sampler. For example, the shuffle parameter in [mindspore.dataset.PKSampler](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.PKSampler.html#mindspore.dataset.PKSampler).
 
 For example:
 Take ResNet50 (CIFAR10 dataset) in ModelZoo as an example. The shuffle parameter is set to True when the dataset is created. Therefore, the conclusion is "No problem."

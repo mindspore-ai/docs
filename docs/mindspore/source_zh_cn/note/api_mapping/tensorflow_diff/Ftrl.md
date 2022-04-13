@@ -22,7 +22,7 @@ mindspore.nn.FTRL(params, initial_accum=0.1, learning_rate=0.001,
     loss_scale=1.0, weight_decay=0.0)
 ```
 
-更多内容详见[mindspore.nn.FTRL](https://mindspore.cn/docs/api/zh-CN/master/api_python/nn/mindspore.nn.FTRL.html)。
+更多内容详见[mindspore.nn.FTRL](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.FTRL.html)。
 
 ## 使用方式
 

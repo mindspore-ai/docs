@@ -19,7 +19,7 @@ class mindspore.ops.Cast(*args, **kwargs)(
 )
 ```
 
-更多内容详见[mindspore.ops.Cast](https://mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.Cast.html#mindspore.ops.Cast)。
+更多内容详见[mindspore.ops.Cast](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Cast.html#mindspore.ops.Cast)。
 
 ## 使用方式
 

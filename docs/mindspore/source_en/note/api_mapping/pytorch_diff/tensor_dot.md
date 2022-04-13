@@ -23,7 +23,7 @@ mindspore.ops.tensor_dot(
 )
 ```
 
-For more information, see [mindspore.ops.tensor_dot](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.tensor_dot.html#mindspore.ops.tensor_dot).
+For more information, see [mindspore.ops.tensor_dot](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.tensor_dot.html#mindspore.ops.tensor_dot).
 
 ## Differences
 

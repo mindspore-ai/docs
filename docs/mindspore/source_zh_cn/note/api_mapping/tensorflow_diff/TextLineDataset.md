@@ -29,7 +29,7 @@ class mindspore.dataset.TextFileDataset(
 )
 ```
 
-更多内容详见[mindspore.dataset.TextFileDataset](https://mindspore.cn/docs/api/zh-CN/master/api_python/dataset/mindspore.dataset.TextFileDataset.html#mindspore.dataset.TextFileDataset)。
+更多内容详见[mindspore.dataset.TextFileDataset](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.TextFileDataset.html#mindspore.dataset.TextFileDataset)。
 
 ## 使用方式
 

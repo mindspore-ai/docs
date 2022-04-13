@@ -37,7 +37,7 @@ class mindspore.ops.LpNorm(
 )(input)
 ```
 
-更多内容详见[mindspore.nn.LpNorm](https://mindspore.cn/docs/api/zh-CN/master/api_python/ops/mindspore.ops.LpNorm.html#mindspore.ops.LpNorm)。
+更多内容详见[mindspore.nn.LpNorm](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.LpNorm.html#mindspore.ops.LpNorm)。
 
 ## 使用方式
 

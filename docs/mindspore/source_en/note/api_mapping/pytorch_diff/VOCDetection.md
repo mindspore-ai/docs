@@ -38,7 +38,7 @@ class mindspore.dataset.VOCDataset(
     )
 ```
 
-For more information, see [mindspore.dataset.VOCDataset](https://mindspore.cn/docs/api/en/master/api_python/dataset/mindspore.dataset.VOCDataset.html#mindspore.dataset.VOCDataset).
+For more information, see [mindspore.dataset.VOCDataset](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.VOCDataset.html#mindspore.dataset.VOCDataset).
 
 ## Differences
 

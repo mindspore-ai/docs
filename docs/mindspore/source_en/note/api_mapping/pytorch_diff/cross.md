@@ -28,7 +28,7 @@ class mindspore.numpy.cross(
 )
 ```
 
-For more information, see  [mindspore.numpy.cross](https://mindspore.cn/docs/api/en/master/api_python/numpy/mindspore.numpy.cross.html#mindspore.numpy.cross).
+For more information, see  [mindspore.numpy.cross](https://mindspore.cn/docs/en/master/api_python/numpy/mindspore.numpy.cross.html#mindspore.numpy.cross).
 
 ## Differences
 

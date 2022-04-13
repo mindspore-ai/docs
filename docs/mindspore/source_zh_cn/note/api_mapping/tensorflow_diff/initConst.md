@@ -16,7 +16,7 @@ tf.keras.initializers.Constant(value=0)
 mindspore.common.initializer.Constant(value)
 ```
 
-更多内容详见[mindspore.common.initializer.Constant](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.common.initializer.html#mindspore.common.initializer.Constant)。
+更多内容详见[mindspore.common.initializer.Constant](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.common.initializer.html#mindspore.common.initializer.Constant)。
 
 ## 使用方式
 

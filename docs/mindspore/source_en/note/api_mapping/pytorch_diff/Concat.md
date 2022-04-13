@@ -22,7 +22,7 @@ class mindspore.ops.Concat(
 )(input_x)
 ```
 
-For more information, see [mindspore.ops.Concat](https://mindspore.cn/docs/api/en/master/api_python/ops/mindspore.ops.Concat.html#mindspore.ops.Concat).
+For more information, see [mindspore.ops.Concat](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Concat.html#mindspore.ops.Concat).
 
 ## Differences
 

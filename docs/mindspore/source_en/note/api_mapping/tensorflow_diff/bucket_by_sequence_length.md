@@ -33,7 +33,7 @@ mindspore.dataset.GeneratorDataset.bucket_batch_by_length(
 )
 ```
 
-For more information, see [mindspore.dataset.GeneratorDataset.bucket_batch_by_length](https://mindspore.cn/docs/api/en/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset.bucket_batch_by_length).
+For more information, see [mindspore.dataset.GeneratorDataset.bucket_batch_by_length](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset.bucket_batch_by_length).
 
 ## Differences
 

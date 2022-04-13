@@ -20,7 +20,7 @@ mindspore.dataset.config.set_prefetch_size(
 )
 ```
 
-更多内容详见[mindspore.dataset.config.set_prefetch_size](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore.dataset.config.html#mindspore.dataset.config.set_prefetch_size)。
+更多内容详见[mindspore.dataset.config.set_prefetch_size](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.dataset.config.html#mindspore.dataset.config.set_prefetch_size)。
 
 ## 使用方式
 

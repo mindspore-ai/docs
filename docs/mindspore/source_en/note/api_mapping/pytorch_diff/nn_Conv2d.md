@@ -39,7 +39,7 @@ class mindspore.nn.Conv2d(
 )(input_x)
 ```
 
-For more information, see [mindspore.nn.Conv2d](https://mindspore.cn/docs/api/en/master/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d).
+For more information, see [mindspore.nn.Conv2d](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d).
 
 ## Differences
 
