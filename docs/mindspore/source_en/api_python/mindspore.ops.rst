@@ -252,6 +252,7 @@ Element-by-Element Operation
     mindspore.ops.Cosh
     mindspore.ops.Div
     mindspore.ops.DivNoNan
+    mindspore.ops.Einsum
     mindspore.ops.Erf
     mindspore.ops.Erfc
     mindspore.ops.Erfinv
@@ -269,11 +270,9 @@ Element-by-Element Operation
     mindspore.ops.LogicalAnd
     mindspore.ops.LogicalNot
     mindspore.ops.LogicalOr
-    mindspore.ops.LogMatrixDeterminant
     mindspore.ops.Mod
     mindspore.ops.Mul
     mindspore.ops.MulNoNan
-    mindspore.ops.MatrixDeterminant
     mindspore.ops.Neg
     mindspore.ops.Pow
     mindspore.ops.Real
@@ -552,6 +551,9 @@ Debugging Operator
     mindspore.ops.ScalarSummary
     mindspore.ops.TensorSummary
     mindspore.ops.Print
+    mindspore.ops.NPUAllocFloatStatus
+    mindspore.ops.NPUClearFloatStatus
+    mindspore.ops.NPUGetFloatStatus
 
 Sparse Operator
 ---------------
