@@ -299,7 +299,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
 - `gradients_mean`：反向计算时，框架内部会将数据并行参数分散在多台机器的梯度值进行收集，得到全局梯度值后再传入优化器中更新。默认值为`False`，设置为True对应`AllReduce.Mean`操作，False对应`AllReduce.Sum`操作。
 - `device_num`和`global_rank`建议采用默认值，框架内会调用HCCL接口获取。
 
-> 更多分布式并行配置项用户请参考[编程指南](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/auto_parallel.html)。
+> 更多分布式并行配置项用户请参考[分布式并行总览](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/introduction.html)。
 
 如脚本中存在多个网络用例，请在执行下个用例前调用`context.reset_auto_parallel_context`将所有参数还原到默认值。
 
@@ -626,7 +626,7 @@ load_distributed_checkpoint(model.train_network, ckpt_file_list, layout_dict)
 model.train(2, dataset)
 ```
 
-> 分布式推理场景可以参考教程：[分布式推理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/infer/ascend_910_mindir.html#概述)。
+> 分布式推理场景可以参考教程：[分布式推理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/distributed_inference.html)。
 
 ### 数据并行模式
 

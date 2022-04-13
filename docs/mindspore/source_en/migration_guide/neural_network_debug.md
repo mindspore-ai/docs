@@ -37,7 +37,7 @@ This section introduces the problems and solutions during Network Debugging proc
 
 For script development and network process debugging, we recommend using the PyNative mode for debugging. The PyNative mode supports executing single operators, normal functions and networks, as well as separate operations for computing gradients. In PyNative mode, you can easily set breakpoints and get intermediate results of network execution, and you can also debug the network by means of pdb.
 
-By default, MindSpore is in Graph mode, which can be set as PyNative mode via `context.set_context(mode=context.PYNATIVE_MODE)`. Related examples can be found in [Debugging With PyNative Mode](https://www.mindspore.cn/tutorials/experts/en/master/debug/debug_in_pynative_mode.html#pynative).
+By default, MindSpore is in Graph mode, which can be set as PyNative mode via `context.set_context(mode=context.PYNATIVE_MODE)`. Related examples can be found in [Debugging With PyNative Mode](hhttps://www.mindspore.cn/tutorials/zh-CN/master/advanced/pynative_graph/pynative.html).
 
 #### Getting More Error Messages
 
@@ -132,10 +132,6 @@ If the loss errors are large, the problem locating can be done by using followin
 - [MindSpore Metrics Function](https://www.mindspore.cn/tutorials/experts/en/master/debug/custom_debug.html#mindspore-metrics)
 
    When the training is finished, metrics can be used to evaluate the training results. MindSpore provides various metrics for evaluation, such as: `accuracy`, `loss`, `precision`, `recall`, `F1`, etc.
-
-- [Reasoning With Training](https://www.mindspore.cn/docs/programming_guide/en/master/evaluate_the_model_during_training.html)
-
-   Inference can be performed at training time by defining a CallBack function for inference.
 
 - Customized Learning Rate
 

@@ -2,7 +2,7 @@
 
 `Ascend` `Distributed Parallel` `Whole Process`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/distributed_training_ascend.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/train_ascend.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -293,8 +293,6 @@ The `Momentum` optimizer is used as the parameter update tool. The definition is
 - `parameter_broadcast`: the data parallel weights on the first device would be broadcast to other devices. The default value is `False`,
 - `gradients_mean`: During backward computation, the framework collects gradients of parameters in data parallel mode across multiple hosts, obtains the global gradient value, and transfers the global gradient value to the optimizer for update. The default value is `False`, which indicates that the `AllReduce.Sum` operation is applied. The value `True` indicates that the `AllReduce.Mean` operation is applied.
 - You are advised to set `device_num` and `global_rank` to their default values. The framework calls the HCCL API to obtain the values.
-
-> More about the distributed training configurations please refer to the [programming guide](https://www.mindspore.cn/tutorials/experts/en/master/parallel/auto_parallel.html).
 
 If multiple network cases exist in the script, call `context.reset_auto_parallel_context` to restore all parameters to default values before executing the next case.
 
@@ -593,7 +591,7 @@ param_dict = load_checkpoint(pretrain_ckpt_path)
 load_param_into_net(net, param_dict)
 ```
 
-For checkpoint configuration policy and saving method, please refer to [Saving and Loading Model Parameters](https://www.mindspore.cn/tutorials/experts/en/master/parallel/save_model.html#checkpoint-configuration-policies).
+For checkpoint configuration policy and saving method, please refer to [Saving and Loading Model Parameters](https://www.mindspore.cn/tutorials/experts/en/master/parallel/save_load.html).
 
 By default, sliced parameters would be merged before saving automatocally. However, considering large-scaled networks, a large size checkpoint file will be difficult to be transferred and loaded. So every device can save sliced parameters separately by setting `integrated_save` as `False` in `CheckpointConfig`. If the shard strategies of retraining or inference are different with that of training, the special loading way is needed.
 
@@ -621,7 +619,7 @@ load_distributed_checkpoint(model.train_network, ckpt_file_list, layout_dict)
 model.train(2, dataset)
 ```
 
-> Distributed inference could be referred to [Distributed inference](https://www.mindspore.cn/tutorials/experts/en/master/parallel/multi_platform_inference_ascend_910.html#id1).
+> Distributed inference could be referred to [Distributed inference](https://www.mindspore.cn/tutorials/experts/en/master/parallel/distributed_inference.html).
 
 ### Data Parallel Mode
 
@@ -680,8 +678,8 @@ to:
 ckpt_config = CheckpointConfig(keep_checkpoint_max=1, integrated_save=False)
 ```
 
-It should be noted that if users choose this checkpoint saving policy, users need to save and load the segmented checkpoint for subsequent reasoning or retraining. Specific usage can refer to [Integrating the Saved Checkpoint Files](https://www.mindspore.cn/tutorials/experts/en/master/parallel/save_load_model_hybrid_parallel.html#integrating-the-saved-checkpoint-files).
+It should be noted that if users choose this checkpoint saving policy, users need to save and load the segmented checkpoint for subsequent reasoning or retraining. Specific usage can refer to [Integrating the Saved Checkpoint Files](https://www.mindspore.cn/tutorials/experts/en/master/parallel/save_load.html#integrating-the-saved-checkpoint-files).
 
 ### Hybrid Parallel Mode
 
-For model parameter saving and loading in Hybrid Parallel Mode, please refer to [Saving and Loading Model Parameters in the Hybrid Parallel Scenario](https://www.mindspore.cn/tutorials/experts/en/master/parallel/save_load_model_hybrid_parallel.html).
+For model parameter saving and loading in Hybrid Parallel Mode, please refer to [Saving and Loading Model Parameters in the Hybrid Parallel Scenario](https://www.mindspore.cn/tutorials/experts/en/master/parallel/save_load.html).

@@ -131,10 +131,6 @@
 
    当训练结束后，可以使用metrics评估训练结果的好坏。MindSpore提供了多种metrics评估指标，如：`accuracy`、`loss`、`precision`、`recall`、`F1`等。
 
-- [边训练边推理](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/evaluate_the_model_during_training.html)
-
-   可通过定义推理的CallBack函数的方式在训练时进行推理。
-
 - [自定义训练](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/train/train_eval.html)
 
 - 自定义学习率

@@ -20,10 +20,6 @@
 
 ## 分布式并行训练模式
 
-`Ascend` `GPU` `分布式并行`
-
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/distributed_training_mode.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
-
 目前MindSpore支持下述的四种并行模式：
 
 - 数据并行：用户的网络参数规模在单卡上可以计算的情况下使用。这种模式会在每卡上复制相同的网络参数，训练时输入不同的训练数据，适合大部分用户使用。
@@ -56,7 +52,7 @@ context.set_auto_parallel_context(parallel_mode=context.ParallelMode.DATA_PARALL
 # context.set_auto_parallel_context(parallel_mode=context.ParallelMode.HYBRID_PARALLEL)
 ```
 
-下述涉及的自动并行接口，例如`context.set_auto_parallel_context`中的接口配置，可以在[分布式并行接口](https://mindspore.cn/docs/programming_guide/zh-CN/master/auto_parallel.html)进行查看。分布式并行训练在各场景的支持情况如下表。
+下述涉及的自动并行接口，例如`context.set_auto_parallel_context`中的接口配置。分布式并行训练在各场景的支持情况如下表。
 
 | 并行模式 | 配置 | 动态图 | 静态图 | 支持设备 |
 | ---------- | ------ | ------ | ---------- | ---------- |
@@ -193,7 +189,7 @@ class SemiAutoParallelNet(nn.Cell):
 > - 自动并行模式支持通过策略搜索算法自动获取高效的算子并行策略，同时也支持用户对算子手动配置特定的并行策略。
 > - 如果某个`parameter`被多个算子使用，则每个算子对这个`parameter`的切分策略需要保持一致，否则将报错。
 
-自动和半自动模式中还可以通过对`Cell`配置`pipeline_stage`属性进行流水线并行，对应的流水线并行教程可以参考[应用流水线并行](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/pipeline_parallel.html)。
+自动和半自动模式中还可以通过对`Cell`配置`pipeline_stage`属性进行流水线并行，对应的流水线并行教程可以参考[应用流水线并行](https://www.mindspore.cn/docs/zh-CN/master/design/pipeline_parallel.html)。
 
 ### 全自动并行
 
