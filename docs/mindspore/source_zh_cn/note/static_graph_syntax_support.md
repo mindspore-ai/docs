@@ -394,7 +394,7 @@ x:[[1. 1. 1. 1.]
 
 `Parameter`是变量张量，代表在训练网络时，需要被更新的参数。
 
-`Parameter`的定义和使用参考：<https://www.mindspore.cn/docs/programming_guide/zh-CN/master/parameter.html>
+`Parameter`的定义和使用参考：<https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter>
 
 ## 原型
 

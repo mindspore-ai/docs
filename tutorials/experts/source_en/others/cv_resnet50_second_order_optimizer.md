@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `Function Extension` `Whole Process`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/programming_guide/source_en/cv_resnet50_second_order_optimizer.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/others/cv_resnet50_second_order_optimizer.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>&nbsp;&nbsp;
 
 ## Overview
 
@@ -169,7 +169,7 @@ def create_dataset2(dataset_path, do_train, repeat_num=1, batch_size=32, target=
     return data_set
 ```
 
-> MindSpore supports multiple data processing and augmentation operations. These operations are usually used in combination. For details, see [Data Processing](https://www.mindspore.cn/docs/programming_guide/en/master/dataset_sample.html).
+> MindSpore supports multiple data processing and augmentation operations. These operations are usually used in combination. For details, see [Data Processing](https://www.mindspore.cn/tutorials/en/master/advanced/dataset.html).
 
 ## Defining the Network
 

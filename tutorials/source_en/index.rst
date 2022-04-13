@@ -26,4 +26,5 @@ MindSpore Tutorial
    :maxdepth: 1
    :caption: Advanced
 
+   advanced/dataset
    advanced/train

@@ -30,7 +30,7 @@ In addition, you can use the preset model to perform transfer learning to implem
 
 ## Converting a Model
 
-After you retrain a model provided by MindSpore, export the model in the [.mindir format](https://www.mindspore.cn/docs/programming_guide/en/master/save_model.html#export-mindir-model). Use the MindSpore Lite [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html) to convert the .mindir format to a .ms model.
+After you retrain a model provided by MindSpore, export the model in the [.mindir format](https://www.mindspore.cn/tutorials/en/master/advanced/train/save.html#export-mindir-model). Use the MindSpore Lite [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html) to convert the .mindir format to a .ms model.
 
 Take the mobilenetv2 model as an example. Execute the following script to convert a model into a MindSpore Lite model for on-device inference.
 

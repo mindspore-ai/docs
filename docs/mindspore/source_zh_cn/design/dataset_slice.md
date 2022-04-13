@@ -15,7 +15,7 @@
 
 >你可以在这里下载完整的样例代码：
 >
->https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training
+><https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training>
 
 目录结构如下：
 
@@ -119,4 +119,4 @@ dataset = create_dataset(data_path, batch_size=batch_size, slice_h_num=slice_h_n
 
 ### 运行代码
 
-上述流程的数据，代码和执行过程，可以参考：<https://www.mindspore.cn/docs/programming_guide/zh-CN/master/distributed_training_ascend.html#单机多卡训练>。差异点在于，将执行脚本更改为run_dataset_slice.sh。
+上述流程的数据，代码和执行过程，可以参考：<https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#单机多卡训练>。差异点在于，将执行脚本更改为run_dataset_slice.sh。

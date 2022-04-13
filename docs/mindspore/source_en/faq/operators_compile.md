@@ -71,7 +71,7 @@ A: TBE (Tensor Boost Engine) operator is Huawei's self-developed Ascend operator
 
 <font size=3>**Q: Has MindSpore implemented the anti-pooling operation similar to `nn.MaxUnpool2d`?**</font>
 
-A: Currently, MindSpore does not provide anti-pooling APIs but you can customize the operator to implement the operation. For details, refer to [Customize Operators](https://www.mindspore.cn/docs/programming_guide/en/master/custom_operator.html).
+A: Currently, MindSpore does not provide anti-pooling APIs but you can customize the operator to implement the operation. For details, refer to [Customize Operators](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_custom.html).
 
 <br/>
 
@@ -98,5 +98,4 @@ A: The `Ascend` backend operators can be divided into AI CORE operators and AI C
 1. If the `AI CORE` operator's candidates list is empty, it may be that all operator information failed to pass the verification in the `check support` stage. You can search the keyword `CheckSupport` in the log to find the reason for the failure. Modify the shape or data type according to the specific information, or ask the developer to further locate the problem.
 2. If the `AI CPU` candidate operator information is not empty, or the candidate operator information of `AI CORE` and `AI CPU` are both not empty, it may be that the given input data type was not in the candidate list and was filtered out in the selection stage. Try to modify the input data type of the operator according to the candidate list.
 
-You can select a proper mode and writing method to complete the training by referring to the [official website tutorial](https://www.mindspore.cn/tutorials/experts/en/master/debug/debug_in_pynative_mode.html).
-
+You can select a proper mode and writing method to complete the training by referring to the [official website tutorial](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/pynative_graph/pynative.html).

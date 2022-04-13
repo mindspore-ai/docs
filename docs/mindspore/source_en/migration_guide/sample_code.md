@@ -117,7 +117,7 @@ To understand the implementation of a neural network, it is necessary to know th
 3. data processing (e.g. common data slicing, shuffle, data augmentation, etc.).
 4. data distribution (distribution of data in batch_size units, distributed training involves multi-machine distribution).
 
-In the process of reading and parsing data, MindSpore provides a more friendly data format - [MindRecord](https://www.mindspore.cn/docs/programming_guide/en/master/convert_dataset.html). Users can convert the dataset in regular format to MindSpore data format, i.e. MindRecord, so that it can be easily loaded into MindSpore for training. At the same time, MindSpore is optimized for performance in some scenarios, and better performance can be obtained by using the MindRecord data format.
+In the process of reading and parsing data, MindSpore provides a more friendly data format - [MindRecord](https://www.mindspore.cn/tutorials/en/master/advanced/dataset/record.html). Users can convert the dataset in regular format to MindSpore data format, i.e. MindRecord, so that it can be easily loaded into MindSpore for training. At the same time, MindSpore is optimized for performance in some scenarios, and better performance can be obtained by using the MindRecord data format.
 
 Data processing is usually the most time-consuming phase of data preparation, and most of the operations on data are included in this step, such as Resize, Rescale, Crop, etc. in CV-like networks. MindSpore provides a set of common data processing integration interfaces, which can be called directly by users without implementing them. These integration interfaces not only improve the user-friendliness, but also improve the performance of data preprocessing and reduce the time consumption of data preparation during training. For details, please refer to the [Data Preprocessing Tutorial](https://www.mindspore.cn/tutorials/experts/en/master/dataset/optimize.html).
 
@@ -144,7 +144,7 @@ input_tensor = preprocess(input_image)
 input_batch = input_tensor.unsqueeze(0) # create a mini-batch as expected by the model
 ```
 
-By looking at the above code, we find that the data preprocessing of ResNet50 mainly does Resize, CenterCrop, and Normalize operations, and there are two ways to implement these operations in MindSpore, one is to use MindSpore's data processing module MindData to call the encapsulated data preprocessing interface, and the other is loading through [Custom Dataset](https://www.mindspore.cn/tutorials/en/master/advanced/dataset.html#loading-user-defined-dataset). It is more recommended for developers to choose the first way, which not only can reduce the development of repetitive code and the introduction of errors, but also can get better data processing performance. For more information about MindData data processing, please refer to the Data Pipeline section in [Programming Guide](https://www.mindspore.cn/tutorials/experts/en/master/index.html).
+By looking at the above code, we find that the data preprocessing of ResNet50 mainly does Resize, CenterCrop, and Normalize operations, and there are two ways to implement these operations in MindSpore, one is to use MindSpore's data processing module MindData to call the encapsulated data preprocessing interface, and the other is loading through [Custom Dataset](https://www.mindspore.cn/tutorials/en/master/advanced/dataset.html). It is more recommended for developers to choose the first way, which not only can reduce the development of repetitive code and the introduction of errors, but also can get better data processing performance. For more information about MindData data processing, please refer to the Data Pipeline section in [tutorials](https://www.mindspore.cn/tutorials/experts/en/master/index.html).
 
 The following data processing functions are developed based on MindData:
 
@@ -669,7 +669,7 @@ Note: For codes in other files in the directory, refer to MindSpore ModelZoo's [
 
 ### Distributed Training
 
-Distributed training has no impact on the network structure compared to stand-alone training, and can be done by modifying the stand-alone script by calling the distributed training interface provided by MindSpore, as described in [Distributed Training Tutorial](https://www.mindspore.cn/docs/programming_guide/en/master/distributed_training.html).
+Distributed training has no impact on the network structure compared to stand-alone training, and can be done by modifying the stand-alone script by calling the distributed training interface provided by MindSpore, as described in [Distributed Training Tutorial](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html).
 
 #### ResNet50 Migration Example
 

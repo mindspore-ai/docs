@@ -395,7 +395,7 @@ For details about the defined `Cell`, click <https://www.mindspore.cn/docs/en/ma
 
 `Parameter` is a variable tensor, indicating the parameters that need to be updated during network training.
 
-For details about the definition of `Parameter`：<https://www.mindspore.cn/docs/programming_guide/en/master/parameter.html>
+For details about the definition of `Parameter`：<https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter>
 
 ## Primaries
 

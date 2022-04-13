@@ -90,7 +90,7 @@ A: MindSpore provides pluggable device management interface, so that developer c
 
 <font size=3>**Q: What is the relationship between MindSpore and ModelArts? Can we use MindSpore in ModelArts?**</font>
 
-A: ModelArts is Huawei public cloud online training and inference platform, and MindSpore is Huawei deep learning framework, which can be found in [MindSpore official website tutorial](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/use_on_the_cloud.html). The tutorial shows how users can use ModelArts to train ModelsSpore models in detail.
+A: ModelArts is Huawei public cloud online training and inference platform, and MindSpore is Huawei deep learning framework. The tutorial shows how users can use ModelArts to train ModelsSpore models in detail.
 
 <br/>
 
@@ -144,7 +144,7 @@ A: The TensorFlow's object detection Pipeline API belongs to the TensorFlow's Mo
 
 <font size=3>**Q: How do I perform transfer learning in PyNative mode?**</font>
 
-A: PyNative mode is compatible with transfer learning. For more tutorial information, see [Code for Loading a Pre-Trained Model](https://www.mindspore.cn/docs/programming_guide/en/master/cv_mobilenetv2_fine_tune.html#code-for-loading-a-pre-trained-model).
+A: PyNative mode is compatible with transfer learning.
 
 <br/>
 

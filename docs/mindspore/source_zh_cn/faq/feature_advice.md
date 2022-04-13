@@ -90,7 +90,7 @@ A: MindSpore提供了可插拔式的设备管理接口，其他计算单元（�
 
 <font size=3>**Q: MindSpore与ModelArts是什么关系，在ModelArts中能使用MindSpore吗？**</font>
 
-A: ModelArts是华为公有云线上训练及推理平台，MindSpore是华为深度学习框架，可以查阅[MindSpore官网教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/use_on_the_cloud.html)，教程中详细展示了用户如何使用ModelArts来做MindSpore的模型训练。
+A: ModelArts是华为公有云线上训练及推理平台，MindSpore是华为深度学习框架。
 
 <br/>
 
@@ -144,7 +144,7 @@ A: TensorFlow的对象检测Pipeline接口属于TensorFlow Model模块。待Mind
 
 <font size=3>**Q: 使用PyNative模式能够进行迁移学习？**</font>
 
-A: PyNative模式是兼容迁移学习的，更多的教程信息，可以参考[预训练模型加载代码详解](https://www.mindspore.cn/docs/programming_guide/zh-CN/master/cv_mobilenetv2_fine_tune.html#预训练模型加载代码详解)。
+A: PyNative模式是兼容迁移学习的。
 
 <br/>
 

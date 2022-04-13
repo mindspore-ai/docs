@@ -17,7 +17,7 @@
 >
 > <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_inference>
 
-### 操作流程：
+### 操作流程
 
 1. 执行训练，生成CheckPoint文件和模型参数切分策略文件。
 
@@ -25,7 +25,7 @@
     > - 在分布式推理场景中，训练阶段的`CheckpointConfig`接口的`integrated_save`参数需设定为`False`，表示每卡仅保存模型切片而不是全量模型。
     > - `set_auto_parallel_context`接口的`parallel_mode`参数需设定为`auto_parallel`或者`semi_auto_parallel`，并行模式为自动并行或者半自动并行。
     > - 此外还需指定`strategy_ckpt_save_file`参数，即生成的策略文件的地址。
-    > - 若采用流水线分布式推理，则训练也必须采用流水线并行训练，并且流水线并行训练和推理所用的`device_num`以及`pipeline_stages`必须相同。流水线并行推理时，`micro_batch`为1，不需要调用`PipelineCell`。流水线并行训练的教程参考链接：<https://mindspore.cn/docs/programming_guide/zh-CN/master/apply_pipeline_parallel.html>。
+    > - 若采用流水线分布式推理，则训练也必须采用流水线并行训练，并且流水线并行训练和推理所用的`device_num`以及`pipeline_stages`必须相同。流水线并行推理时，`micro_batch`为1，不需要调用`PipelineCell`。流水线并行训练的教程参考链接：<https://www.mindspore.cn/docs/zh-CN/master/design/pipeline_parallel.html>。
 
 2. 设置context，根据推理数据推导出推理策略。
 
