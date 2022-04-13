@@ -20,3 +20,10 @@ MindSpore Tutorial
    beginner/train
    beginner/save_load
    beginner/infer
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: Advanced
+
+   advanced/train
