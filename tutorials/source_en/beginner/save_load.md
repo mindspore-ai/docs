@@ -83,7 +83,7 @@ Here, `network` is the training network, and `"./MyNet.ckpt"` is the saving path
 
 ### Saving the Model During Training
 
-In the process of model training, use the `callbacks` parameter in `model.train` to pass in the object [ModelCheckpoint](https://mindspore.cn/docs/en/r1.7/api_python/mindspore.train.html#mindsporetraincallbackmodelcheckpoint) that saves the model (Generally used with [CheckpointConfig](https://mindspore.cn/docs/en/r1.7/api_python/mindspore.train.html#mindsporetraincallbackcheckpointconfig)), which can save the model parameters and generate CheckPoint (abbreviated as ckpt) files.
+In the process of model training, use the `callbacks` parameter in `model.train` to pass in the object [ModelCheckpoint](https://mindspore.cn/docs/en/r1.7/api_python/mindspore.train.html#mindspore.train.callback.ModelCheckpoint) that saves the model (Generally used with [CheckpointConfig](https://mindspore.cn/docs/en/r1.7/api_python/mindspore.train.html#mindspore.train.callback.CheckpointConfig)), which can save the model parameters and generate CheckPoint (abbreviated as ckpt) files.
 
 You can configure the checkpoint policies as required. The following describes the usage:
 
