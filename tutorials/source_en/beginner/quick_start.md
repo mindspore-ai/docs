@@ -50,7 +50,7 @@ The directory structure of the downloaded dataset files is as follows:
 
 ## Building the Model
 
-According to the network structure of LeNet, there are 7 layers of LeNet removal input layer, including 3 convolutional layers, 2 sub-sampling layers, and 3 fully connected layers.
+According to the network structure of LeNet, there are 7 layers of LeNet removal input layer, including 2 convolutional layers, 2 sub-sampling layers, and 3 fully connected layers.
 
 ![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/tutorials/source_zh_cn/beginner/images/lenet.png)
 
