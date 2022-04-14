@@ -16,7 +16,7 @@ MindSpore docs repository provides [Document Writing Specifications](https://git
 
 If you want to update an existing document, click `View source on Gitee` (as shown in the following figure) on the top of the page to go to the source file. Modify the document and commit changes to a PR to make the contribution.
 
-![View Source on Gitee](https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png)
+![View Source on Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png)
 
 #### Adding a Document
 
@@ -152,7 +152,7 @@ For specific image requirements and specifications, please refer to [Image Speci
 
 ### Updating or Adding an Image
 
-If you want to update an existing image or adding a new image, click ![View Source on Gitee](https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png) on the top of the page to go to the source file. Usually the images will be stored in the directory ./images. You only need to put the new images into this directory, or replace the modified images with the original ones, and commit changes to a PR to make the contribution.
+If you want to update an existing image or adding a new image, click ![View Source on Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png) on the top of the page to go to the source file. Usually the images will be stored in the directory ./images. You only need to put the new images into this directory, or replace the modified images with the original ones, and commit changes to a PR to make the contribution.
 
 > Please submit the original image to Gitee at the same time, and put it in the same path as the image for subsequent modification.
 
