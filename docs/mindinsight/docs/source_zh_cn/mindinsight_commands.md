@@ -16,6 +16,9 @@ mindinsight --version
 
 ## 启动服务
 
+> MindInsight服务默认只支持本机访问，如需远程访问请修改配置文件`mindinsight\conf\constants.py`。
+>将文件中的`HOST`修改为服务端IP，并确定启动端口已开放或关闭防火墙。
+
 ```text
 mindinsight start [-h] [--workspace <WORKSPACE>] [--port <PORT>]
                   [--url-path-prefix <URL_PATH_PREFIX>]
