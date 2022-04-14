@@ -1,6 +1,6 @@
 ﻿# Function Differences with torch.utils.data.Dataset
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/GeneratorDataset.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_en/note/api_mapping/pytorch_diff/GeneratorDataset.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## torch.utils.data.Dataset
 
@@ -29,7 +29,7 @@ class mindspore.dataset.GeneratorDataset(
     )
 ```
 
-For more information, see  [mindspore.dataset.GeneratorDataset](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset).
+For more information, see  [mindspore.dataset.GeneratorDataset](https://mindspore.cn/docs/zh-CN/r1.7/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset).
 
 ## Differences
 

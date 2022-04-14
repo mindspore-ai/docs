@@ -1,6 +1,6 @@
 # 查看溯源和对比看板
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/lineage_and_scalars_comparison.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindinsight/docs/source_zh_cn/lineage_and_scalars_comparison.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -64,7 +64,7 @@ MindInsight中的模型溯源、数据溯源和对比看板同训练看板一样
 
 ## 对比看板
 
-对比看板可视用于多个训练之间的标量曲线对比以及损失函数图形对比，其中损失函数图形对比的详细信息可查阅[训练优化过程可视化](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/landscape.html)。
+对比看板可视用于多个训练之间的标量曲线对比以及损失函数图形对比，其中损失函数图形对比的详细信息可查阅[训练优化过程可视化](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/landscape.html)。
 
 ![multi_scalars.png](./images/multi_scalars.png)
 

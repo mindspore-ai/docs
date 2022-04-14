@@ -1,6 +1,6 @@
 # 比较与tf.keras.optimizers.RMSprop的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/RMSProp.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/RMSProp.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## tf.keras.optimizers.RMSprop
 
@@ -21,13 +21,13 @@ mindspore.nn.RMSProp(
     centered=False, loss_scale=1.0, weight_decay=0.0)
 ```
 
-更多内容详见[mindspore.nn.RMSProp](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.RMSProp.html#mindspore.nn.RMSProp)。
+更多内容详见[mindspore.nn.RMSProp](https://mindspore.cn/docs/zh-CN/r1.7/api_python/nn/mindspore.nn.RMSProp.html#mindspore.nn.RMSProp)。
 
 ## 使用方式
 
 一般使用场景：
 
-- MindSpore：一般情况下，在实例化一个优化器子类之后，将其作为`mindspore.model`高阶API的入参参与训练，用法请参考代码示例；或使用`mindspore.nn.TrainOneStepCell`，通过传入优化器和一个`mindspore.nn.WithLossCell`的实例，自定义训练网络，具体实现方式可以参考[官网教程](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/train/train_eval.html#id5)。
+- MindSpore：一般情况下，在实例化一个优化器子类之后，将其作为`mindspore.model`高阶API的入参参与训练，用法请参考代码示例；或使用`mindspore.nn.TrainOneStepCell`，通过传入优化器和一个`mindspore.nn.WithLossCell`的实例，自定义训练网络，具体实现方式可以参考[官网教程](https://www.mindspore.cn/tutorials/zh-CN/r1.7/advanced/train/train_eval.html#id5)。
 
 - TensorFlow：一般情况下，在实例化一个优化器子类之后，将其作为`tf.keras.models.Model`高阶API的入参参与训练；或调用`minimize()`（包含`compute_gradients()`和`apply_gradients()`）方法单步执行。
 

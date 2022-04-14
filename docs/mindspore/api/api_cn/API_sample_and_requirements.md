@@ -113,7 +113,7 @@
     如果链接文本是网址，语法如下：
 
     ```text
-    `tensor <https://www.gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/common/tensor.py>`_
+    `tensor <https://www.gitee.com/mindspore/mindspore/blob/r1.7/mindspore/python/mindspore/common/tensor.py>`_
     ```
 
     请注意，链接文本和 URL 的开头 < 之间必须有一个空格，且整体的前后需要有空格。

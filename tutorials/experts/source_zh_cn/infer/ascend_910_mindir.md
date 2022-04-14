@@ -2,7 +2,7 @@
 
 `Ascend` `推理应用`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/infer/ascend_910_mindir.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/experts/source_zh_cn/infer/ascend_910_mindir.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -10,7 +10,7 @@
 
 ## 推理目录结构介绍
 
-创建目录放置推理代码工程，例如`/home/HwHiAiUser/mindspore_sample/ascend910_resnet50_preprocess_sample`，可以从官网示例下载[样例代码](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/ascend910_resnet50_preprocess_sample)，`model`目录用于存放`MindIR`[模型文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet.mindir)，`test_data`目录用于存放待分类的图片，推理代码工程目录结构如下:
+创建目录放置推理代码工程，例如`/home/HwHiAiUser/mindspore_sample/ascend910_resnet50_preprocess_sample`，可以从官网示例下载[样例代码](https://gitee.com/mindspore/docs/tree/r1.7/docs/sample_code/ascend910_resnet50_preprocess_sample)，`model`目录用于存放`MindIR`[模型文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet.mindir)，`test_data`目录用于存放待分类的图片，推理代码工程目录结构如下:
 
 ```text
 └─ascend910_resnet50_preprocess_sample
@@ -27,7 +27,7 @@
 
 ## 推理代码介绍
 
-推理代码样例：<https://gitee.com/mindspore/docs/blob/master/docs/sample_code/ascend910_resnet50_preprocess_sample/main.cc> 。
+推理代码样例：<https://gitee.com/mindspore/docs/blob/r1.7/docs/sample_code/ascend910_resnet50_preprocess_sample/main.cc> 。
 
 引用`mindspore`和`mindspore::dataset`的名字空间。
 
@@ -116,7 +116,7 @@ std::cout << "Image: " << image_file << " infer result: " << GetMax(outputs[0]) 
 
 ## 构建脚本介绍
 
-构建脚本用于构建用户程序，样例来自于：<https://gitee.com/mindspore/docs/blob/master/docs/sample_code/ascend910_resnet50_preprocess_sample/CMakeLists.txt> 。
+构建脚本用于构建用户程序，样例来自于：<https://gitee.com/mindspore/docs/blob/r1.7/docs/sample_code/ascend910_resnet50_preprocess_sample/CMakeLists.txt> 。
 
 为编译器添加头文件搜索路径：
 

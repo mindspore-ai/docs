@@ -1,6 +1,6 @@
 # Function Differences with torch.logical_xor
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/logical_xor.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_en/note/api_mapping/pytorch_diff/logical_xor.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## torch.logical_xor
 
@@ -16,7 +16,7 @@ For more information, see  [torch.logical_xor](https://pytorch.org/docs/1.5.0/to
 class mindspore.numpy.logical_xor(x1, x2, dtype=None)
 ```
 
-For more information, see  [mindspore.numpy.logical_xor](https://mindspore.cn/docs/en/master/api_python/numpy/mindspore.numpy.logical_xor.html#mindspore.numpy.logical_xor).
+For more information, see  [mindspore.numpy.logical_xor](https://mindspore.cn/docs/en/r1.7/api_python/numpy/mindspore.numpy.logical_xor.html#mindspore.numpy.logical_xor).
 
 ## Differences
 

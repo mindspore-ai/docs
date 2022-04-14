@@ -9,7 +9,7 @@
 .. toctree::
    :maxdepth: 1
 
-   使用MindConverter迁移脚本↗ <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/migrate_3rd_scripts_mindconverter.html>
+   使用MindConverter迁移脚本↗ <https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/migrate_3rd_scripts_mindconverter.html>
    migration_script
    training_process_comparision
    typical_api_comparision

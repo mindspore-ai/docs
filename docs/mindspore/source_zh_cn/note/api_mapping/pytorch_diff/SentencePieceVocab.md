@@ -1,6 +1,6 @@
 ﻿# 比较与torchtext.data.functional.load_sp_model的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/SentencePieceVocab.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/SentencePieceVocab.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## torchtext.data.functional.load_sp_model
 
@@ -18,7 +18,7 @@ torchtext.data.functional.load_sp_model(
 classmindspore.dataset.text.utils.SentencePieceVocab
 ```
 
-更多内容详见[mindspore.dataset.text.utils.SentencePieceVocab](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset_text/mindspore.dataset.text.SentencePieceVocab.html#mindspore.dataset.text.utils.SentencePieceVocab)。
+更多内容详见[mindspore.dataset.text.utils.SentencePieceVocab](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/dataset_text/mindspore.dataset.text.SentencePieceVocab.html#mindspore.dataset.text.utils.SentencePieceVocab)。
 
 ## 使用方式
 

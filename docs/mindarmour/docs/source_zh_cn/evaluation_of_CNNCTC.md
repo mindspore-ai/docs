@@ -1,12 +1,12 @@
 # 对OCR模型CNN-CTC的鲁棒性评测
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_zh_cn/evaluation_of_CNNCTC.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindarmour/docs/source_zh_cn/evaluation_of_CNNCTC.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
 本教程主要演示利用自然扰动serving服务，对OCR模型CNN-CTC做一个简单的鲁棒性评测。先基于serving生成多种自然扰动样本数据集，然后根据CNN-CTC模型在自然扰动样本数据集上的表现来评估模型的鲁棒性。
 
-> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/mindarmour/tree/master/examples/natural_robustness/ocr_evaluate> 。
+> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/mindarmour/tree/r1.7/examples/natural_robustness/ocr_evaluate> 。
 
 ## 环境要求
 
@@ -38,7 +38,7 @@
 
 ### 脚本参数
 
-在`default_config.yaml`中可以同时配置训练参数、推理参数、鲁棒性评测参数。这里我们重点关注在评测过程中使用到的参数，以及需要用户配置的参数，其余参数说明参考[CNN-CTC教程](https://gitee.com/mindspore/models/tree/master/official/cv/cnnctc)。
+在`default_config.yaml`中可以同时配置训练参数、推理参数、鲁棒性评测参数。这里我们重点关注在评测过程中使用到的参数，以及需要用户配置的参数，其余参数说明参考[CNN-CTC教程](https://gitee.com/mindspore/models/tree/r1.7/official/cv/cnnctc)。
 
 - `--TEST_DATASET_PATH`：测试数据集路。
 - `--CHECKPOINT_PATH`：checkpoint路径。
@@ -51,7 +51,7 @@
 
 [论文](https://arxiv.org/abs/1904.01906)： J. Baek, G. Kim, J. Lee, S. Park, D. Han, S. Yun, S. J. Oh, and H. Lee, “What is wrong with scene text recognition model comparisons? dataset and model analysis,” ArXiv, vol. abs/1904.01906, 2019.
 
-数据处理与模型训练参考[CNN-CTC教程](https://gitee.com/mindspore/models/tree/master/official/cv/cnnctc)。评测任务需基于该教程获得预处理后的数据集和checkpoint模型文件。
+数据处理与模型训练参考[CNN-CTC教程](https://gitee.com/mindspore/models/tree/r1.7/official/cv/cnnctc)。评测任务需基于该教程获得预处理后的数据集和checkpoint模型文件。
 
 预处理后的数据集为.lmdb格式，以键值对方式存储：
 
@@ -63,7 +63,7 @@
 
 ### 基于自然扰动serving生成评测数据集
 
-1. 启动自然扰动serving服务。具体说明参考：[自然扰动样本生成serving服务](https://gitee.com/mindspore/mindarmour/blob/master/examples/natural_robustness/serving/README.md)
+1. 启动自然扰动serving服务。具体说明参考：[自然扰动样本生成serving服务](https://gitee.com/mindspore/mindarmour/blob/r1.7/examples/natural_robustness/serving/README.md)
 
    ```bash
    cd serving/server/
@@ -81,7 +81,7 @@
 
    2. 核心代码说明：
 
-      1. 配置扰动方法，目前可选的扰动方法及参数配置参考[image transform methods](https://gitee.com/mindspore/mindarmour/tree/master/mindarmour/natural_robustness/transform/image)。下面是一个配置例子。
+      1. 配置扰动方法，目前可选的扰动方法及参数配置参考[image transform methods](https://gitee.com/mindspore/mindarmour/tree/r1.7/mindarmour/natural_robustness/transform/image)。下面是一个配置例子。
 
          ```python
          PerturbConfig = [

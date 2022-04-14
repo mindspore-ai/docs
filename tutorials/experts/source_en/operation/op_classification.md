@@ -2,11 +2,11 @@
 
 `Ascend` `GPU` `CPU` `Beginner`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/operation/op_classification.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/experts/source_en/operation/op_classification.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
-Operators can be classified into some functional modules: tensor operations, network operations, array operations, image operations, encoding operations, debugging operations, and quantization operations. And they also involve some operator combinations related to graph transformation. For details about the supported operators on the Ascend AI processors, GPU, and CPU, see [Operator List](https://www.mindspore.cn/docs/en/master/note/operator_list.html).
+Operators can be classified into some functional modules: tensor operations, network operations, array operations, image operations, encoding operations, debugging operations, and quantization operations. And they also involve some operator combinations related to graph transformation. For details about the supported operators on the Ascend AI processors, GPU, and CPU, see [Operator List](https://www.mindspore.cn/docs/en/r1.7/note/operator_list.html).
 
 ## Tensor Operations
 

@@ -1,6 +1,6 @@
 # 比较与torch.std_mean的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/ReduceMean&std_mean.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/ReduceMean&std_mean.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## torch.std_mean
 
@@ -24,7 +24,7 @@ class mindspore.ops.ReduceMean(keep_dims=False)(
 )
 ```
 
-更多内容详见[mindspore.ops.ReduceMean](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ReduceMean.html#mindspore.ops.ReduceMean)。
+更多内容详见[mindspore.ops.ReduceMean](https://mindspore.cn/docs/zh-CN/r1.7/api_python/ops/mindspore.ops.ReduceMean.html#mindspore.ops.ReduceMean)。
 
 ## 使用方式
 

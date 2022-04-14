@@ -1,6 +1,6 @@
 ﻿# 特性咨询
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/faq/feature_advice.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/faq/feature_advice.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 <font size=3>**Q: 导出MindIR格式的时候，`input=np.random.uniform(...)`是不是固定格式？**</font>
 
@@ -54,7 +54,7 @@ A: MindSpore的`ckpt`和TensorFlow的`ckpt`格式是不通用的，虽然都是�
 
 <font size=3>**Q: 用MindSpore训练出的模型如何在Ascend 310上使用？可以转换成适用于HiLens Kit用的吗？**</font>
 
-A: Ascend 310需要运行专用的OM模型,先使用MindSpore导出ONNX或AIR模型，再转化为Ascend 310支持的OM模型。具体可参考[多平台推理](https://www.mindspore.cn/tutorials/experts/zh-CN/master/infer/ascend_310_mindir.html)。可以，HiLens Kit是以Ascend 310为推理核心，所以前后两个问题本质上是一样的，需要转换为OM模型.
+A: Ascend 310需要运行专用的OM模型,先使用MindSpore导出ONNX或AIR模型，再转化为Ascend 310支持的OM模型。具体可参考[多平台推理](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/infer/ascend_310_mindir.html)。可以，HiLens Kit是以Ascend 310为推理核心，所以前后两个问题本质上是一样的，需要转换为OM模型.
 
 <br/>
 
@@ -78,7 +78,7 @@ A: 由于Protobuf的硬件限制，导出AIR、ONNX格式时，模型参数大�
 
 <font size=3>**Q: 安装运行MindSpore时，是否要求平台有GPU计算单元？需要什么硬件支持？**</font>
 
-A: MindSpore当前支持CPU/GPU/Ascend。目前笔记本电脑或者有GPU的环境，都可以通过Docker镜像来使用。当前MindSpore Model Zoo中有部分模型已经支持GPU的训练和推理，其他模型也在不断地进行完善。在分布式并行训练方面，MindSpore当前支持GPU多卡训练。你可以通过项目[Release note](https://gitee.com/mindspore/mindspore/blob/master/RELEASE.md#)获取最新信息。
+A: MindSpore当前支持CPU/GPU/Ascend。目前笔记本电脑或者有GPU的环境，都可以通过Docker镜像来使用。当前MindSpore Model Zoo中有部分模型已经支持GPU的训练和推理，其他模型也在不断地进行完善。在分布式并行训练方面，MindSpore当前支持GPU多卡训练。你可以通过项目[Release note](https://gitee.com/mindspore/mindspore/blob/r1.7/RELEASE.md#)获取最新信息。
 
 <br/>
 
@@ -102,7 +102,7 @@ A: MindSpore支持Python原生表达，`import mindspore`相关包即可使用�
 
 <font size=3>**Q: 请问MindSpore支持梯度截断吗？**</font>
 
-A: 支持，可以参考[梯度截断的定义和使用](https://gitee.com/mindspore/models/blob/master/official/nlp/transformer/src/transformer_for_train.py#L35)。
+A: 支持，可以参考[梯度截断的定义和使用](https://gitee.com/mindspore/models/blob/r1.7/official/nlp/transformer/src/transformer_for_train.py#L35)。
 
 <br/>
 

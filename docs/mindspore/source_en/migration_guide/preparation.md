@@ -2,7 +2,7 @@
 
 Translator: [Misaka19998](https://gitee.com/Misaka19998/docs/tree/master)
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/migration_guide/preparation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_en/migration_guide/preparation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -40,13 +40,13 @@ The result of multiplication calculation is correct, MindSpore has been installe
 
 ### MindSpore Tutorials
 
-Users can read [MindSpore Tutorials](https://www.mindspore.cn/tutorials/experts/en/master/index.html) to learn how to train, debug, optimize and infer by MindSpore. Users can also see detailed MindSpore interfaces by referring to [MindSpore Python API](https://www.mindspore.cn/docs/en/master/index.html).
+Users can read [MindSpore Tutorials](https://www.mindspore.cn/tutorials/experts/en/r1.7/index.html) to learn how to train, debug, optimize and infer by MindSpore. Users can also see detailed MindSpore interfaces by referring to [MindSpore Python API](https://www.mindspore.cn/docs/en/r1.7/index.html).
 
 ### ModelZoo and Hub
 
 [ModelZoo](https://gitee.com/mindspore/models/tree/master) is a model market of MindSpore and community, which provides deeply-optimized models to developers. In order that the users of MindSpore will have individual development conveniently based on models in ModelZoo. Currently, there are major models in several fields, like computer vision, natural language processing, audio and recommender systems.
 
-[mindspore Hub](https://www.mindspore.cn/resources/hub/en) is a platform to save pretrained model of official MindSpore or third party developers. It provides some simple and useful APIs for developers to load and finetune models, so that users can infer or tune models based on pretrained models and deploy models to their applications. Users is able to follow some steps to [publish model](https://www.mindspore.cn/hub/docs/en/master/publish_model.html) to MindSpore Hub,for other developers to download and use.
+[mindspore Hub](https://www.mindspore.cn/resources/hub/en) is a platform to save pretrained model of official MindSpore or third party developers. It provides some simple and useful APIs for developers to load and finetune models, so that users can infer or tune models based on pretrained models and deploy models to their applications. Users is able to follow some steps to [publish model](https://www.mindspore.cn/hub/docs/en/r1.7/publish_model.html) to MindSpore Hub,for other developers to download and use.
 
 ### Training on the Cloud
 

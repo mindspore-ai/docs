@@ -1,6 +1,6 @@
 # Viewing Dashboard
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/dashboard.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindinsight/docs/source_en/dashboard.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -100,7 +100,7 @@ Figure 8 shows the readability optimization feature, which optimizes the readabi
 Note:
 
 - To get the clearest visualization of computational graph, please avoid to use public methods which cross Cell.
-- Set `jit_level` to `o0` when collecting the computational graph, please refer to the API [mindspore.Model.build](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Model.html#mindspore.Model.build).
+- Set `jit_level` to `o0` when collecting the computational graph, please refer to the API [mindspore.Model.build](https://www.mindspore.cn/docs/en/r1.7/api_python/mindspore/mindspore.Model.html#mindspore.Model.build).
 - In the computation graph optimization process, some operators in different namespaces may be merged with each other due to the same function, which will cause a cycle between namespaces and affect the readability.
 - The complete control flow is not supported at present. If you need, please specify the control branch in the script.
 
@@ -171,7 +171,7 @@ Figure 14 shows tensors recorded by a user in a form of a histogram. Click the u
 
 ## Training Optimization Process Visualization
 
-The training optimization process visualization can show the optimization space around the neural network training path. For more information, please refer to  [Training Optimization Process Visualization](https://www.mindspore.cn/mindinsight/docs/en/master/landscape.html).
+The training optimization process visualization can show the optimization space around the neural network training path. For more information, please refer to  [Training Optimization Process Visualization](https://www.mindspore.cn/mindinsight/docs/en/r1.7/landscape.html).
 
 ## Notices
 

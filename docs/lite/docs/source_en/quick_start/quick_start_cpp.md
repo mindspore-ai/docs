@@ -2,27 +2,27 @@
 
 `Linux` `Windows` `x86` `C++` `Whole Process` `Inference Application` `Data Preparation` `Beginner`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/quick_start/quick_start_cpp.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/lite/docs/source_en/quick_start/quick_start_cpp.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 > MindSpore has unified the inference API. If you want to continue to use the MindSpore Lite independent API for inference, you can refer to the [document](https://www.mindspore.cn/lite/docs/en/r1.3/quick_start/quick_start_cpp.html).
 
 ## Overview
 
-This tutorial provides a MindSpore Lite inference demo. It demonstrates the basic on-device inference process using C++ by inputting random data, executing inference, and printing the inference result. You can quickly understand how to use inference-related APIs on MindSpore Lite. In this tutorial, the randomly generated data is used as the input data to perform the inference on the MobileNetV2 model and print the output data. The code is stored in the [mindspore/lite/examples/quick_start_cpp](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_cpp) directory.
+This tutorial provides a MindSpore Lite inference demo. It demonstrates the basic on-device inference process using C++ by inputting random data, executing inference, and printing the inference result. You can quickly understand how to use inference-related APIs on MindSpore Lite. In this tutorial, the randomly generated data is used as the input data to perform the inference on the MobileNetV2 model and print the output data. The code is stored in the [mindspore/lite/examples/quick_start_cpp](https://gitee.com/mindspore/mindspore/tree/r1.7/mindspore/lite/examples/quick_start_cpp) directory.
 
 The MindSpore Lite inference steps are as follows:
 
-1. Read the model: Read the `.ms` model file converted by the [model conversion tool](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html) from the file system.
-2. Create and configure context: Create and configure [Context](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html#class-context) to save some basic configuration parameters required to build and execute the model.
-3. Create, load and build a model: Use [Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build) of [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model) to create and build the model, and configure the [Context](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html#class-context) obtained in the previous step. In the model loading phase, the file cache is parsed into a runtime model. In the model building phase, subgraph partition, operator selection and scheduling are performed, which will take a long time. Therefore, it is recommended that the model should be created once, built once, and performed for multiple times.
+1. Read the model: Read the `.ms` model file converted by the [model conversion tool](https://www.mindspore.cn/lite/docs/en/r1.7/use/converter_tool.html) from the file system.
+2. Create and configure context: Create and configure [Context](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Context.html#class-context) to save some basic configuration parameters required to build and execute the model.
+3. Create, load and build a model: Use [Build](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html#build) of [Model](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Model.html#class-model) to create and build the model, and configure the [Context](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Context.html#class-context) obtained in the previous step. In the model loading phase, the file cache is parsed into a runtime model. In the model building phase, subgraph partition, operator selection and scheduling are performed, which will take a long time. Therefore, it is recommended that the model should be created once, built once, and performed for multiple times.
 4. Input data: Before the model is executed, data needs to be filled in the `Input Tensor`.
-5. Perform inference: Use [Predict](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#predict) of [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model) to perform model inference.
+5. Perform inference: Use [Predict](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html#predict) of [Model](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Model.html#class-model) to perform model inference.
 6. Obtain the output: After the model execution is complete, you can obtain the inference result by `Output Tensor`.
-7. Release the memory: If the MindSpore Lite inference framework is not required, release the created [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model).
+7. Release the memory: If the MindSpore Lite inference framework is not required, release the created [Model](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Model.html#class-model).
 
 ![img](../images/lite_runtime.png)
 
-> To view the advanced usage of MindSpore Lite, see [Using Runtime to Perform Inference (C++)](https://www.mindspore.cn/lite/docs/en/master/use/runtime_cpp.html)].
+> To view the advanced usage of MindSpore Lite, see [Using Runtime to Perform Inference (C++)](https://www.mindspore.cn/lite/docs/en/r1.7/use/runtime_cpp.html)].
 
 ## Building and Running
 
@@ -37,13 +37,13 @@ The MindSpore Lite inference steps are as follows:
 
 - Build
 
-  Run the [build script](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_cpp/build.sh) in the `mindspore/lite/examples/quick_start_cpp` directory to automatically download the MindSpore Lite inference framework library and model files and build the demo.
+  Run the [build script](https://gitee.com/mindspore/mindspore/blob/r1.7/mindspore/lite/examples/quick_start_cpp/build.sh) in the `mindspore/lite/examples/quick_start_cpp` directory to automatically download the MindSpore Lite inference framework library and model files and build the demo.
 
   ```bash
   bash build.sh
   ```
 
-  > If the MindSpore Lite inference framework fails to be downloaded by using this build script, manually download the MindSpore Lite model inference framework [mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) whose hardware platform is CPU and operating system is Ubuntu-x64, and copy the `libmindspore-lite.so` file in the decompressed lib directory to the `mindspore/lite/examples/quick_start_cpp/lib` directory. Also copy the files from `runtime/include` to the `mindspore/lite/examples/quick_start_cpp/include` directory.
+  > If the MindSpore Lite inference framework fails to be downloaded by using this build script, manually download the MindSpore Lite model inference framework [mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/en/r1.7/use/downloads.html) whose hardware platform is CPU and operating system is Ubuntu-x64, and copy the `libmindspore-lite.so` file in the decompressed lib directory to the `mindspore/lite/examples/quick_start_cpp/lib` directory. Also copy the files from `runtime/include` to the `mindspore/lite/examples/quick_start_cpp/include` directory.
   >
   > If the MobileNetV2 model fails to be downloaded, manually download the model file [mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.ms) and copy it to the `mindspore/lite/examples/quick_start_cpp/model` directory.
   >
@@ -75,11 +75,11 @@ The MindSpore Lite inference steps are as follows:
 
 - Build
 
-    - Download the library: Manually download the MindSpore Lite model inference framework [mindspore-lite-{version}-win-x64.zip](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) whose hardware platform is CPU and operating system is Windows-x64. Copy all the files in the decompressed `runtime/lib` directory to the `mindspore/lite/examples/quick_start_cpp/lib` project directory, and change the include directory to the `mindspore/lite/examples/quick_start_cpp/include` project directory. (Note: The `lib` and `include` directories under the project need to be created manually)
+    - Download the library: Manually download the MindSpore Lite model inference framework [mindspore-lite-{version}-win-x64.zip](https://www.mindspore.cn/lite/docs/en/r1.7/use/downloads.html) whose hardware platform is CPU and operating system is Windows-x64. Copy all the files in the decompressed `runtime/lib` directory to the `mindspore/lite/examples/quick_start_cpp/lib` project directory, and change the include directory to the `mindspore/lite/examples/quick_start_cpp/include` project directory. (Note: The `lib` and `include` directories under the project need to be created manually)
 
     - Download the model: Manually download the model file [mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.ms) and copy it to the `mindspore/lite/examples/quick_start_cpp/model` directory.
 
-    - Build the demo: Run the [build script](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_cpp/build.bat) in the `mindspore/lite/examples/quick_start_cpp` directory to automatically download related files and build the Demo.
+    - Build the demo: Run the [build script](https://gitee.com/mindspore/mindspore/blob/r1.7/mindspore/lite/examples/quick_start_cpp/build.bat) in the `mindspore/lite/examples/quick_start_cpp` directory to automatically download related files and build the Demo.
 
   ```bash
   call build.bat
@@ -183,7 +183,7 @@ device_list.push_back(device_info);
 
 ## Model Creating Loading and Building
 
-Use [Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build) of [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model) to load the model directly from the memory buffer and build the model.  
+Use [Build](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html#build) of [Model](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Model.html#class-model) to load the model directly from the memory buffer and build the model.  
 
 ```c++
 // Create model
@@ -201,7 +201,7 @@ if (build_ret != mindspore::kSuccess) {
 }
 ```
 
-There is another method that uses [Load](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#load) of [Serialization](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Serialization.html#class-serialization) to load [Graph](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Graph.html#class-graph) and use [Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build) of [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model) to build the model.
+There is another method that uses [Load](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html#load) of [Serialization](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Serialization.html#class-serialization) to load [Graph](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Graph.html#class-graph) and use [Build](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html#build) of [Model](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Model.html#class-model) to build the model.
 
 ```c++
 // Load graph.

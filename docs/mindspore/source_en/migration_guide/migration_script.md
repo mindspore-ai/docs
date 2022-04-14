@@ -2,7 +2,7 @@
 
 Translator: [zhangxiaoxiao](https://gitee.com/zhangxiaoxiao16)
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/migration_guide/migration_script.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_en/migration_guide/migration_script.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -453,7 +453,7 @@ Read the PyTorch script to migrate directly.
    model.train(epoch_size, dataset)
    ```
 
-PyTorch and MindSpore have similar definitions of some basic APIs, such as [mindspore.nn.SequentialCell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.SequentialCell.html#mindspore.nn.SequentialCell) and [torch.nn.Sequential](https://pytorch.org/docs/stable/generated/torch.nn.Sequential.html#torch.nn.Sequential). In addition, some operator APIs may be not the same. This section lists some common API comparisons. For more information, see the [MindSpore and PyTorch API mapping](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html) on MindSpore's official website.
+PyTorch and MindSpore have similar definitions of some basic APIs, such as [mindspore.nn.SequentialCell](https://www.mindspore.cn/docs/en/r1.7/api_python/nn/mindspore.nn.SequentialCell.html#mindspore.nn.SequentialCell) and [torch.nn.Sequential](https://pytorch.org/docs/stable/generated/torch.nn.Sequential.html#torch.nn.Sequential). In addition, some operator APIs may be not the same. This section lists some common API comparisons. For more information, see the [MindSpore and PyTorch API mapping](https://www.mindspore.cn/docs/en/r1.7/note/api_mapping/pytorch_api_mapping.html) on MindSpore's official website.
 
 |              PyTorch              |                     MindSpore                      |
 | :-------------------------------: | :------------------------------------------------: |

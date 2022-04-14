@@ -1,6 +1,6 @@
 # MindArmour模块介绍
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_zh_cn/security_and_privacy.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindarmour/docs/source_zh_cn/security_and_privacy.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -20,7 +20,7 @@
 
 `Detector`基类定义了对抗样本检测的使用接口，其子类实现了各种具体的检测算法，增强模型的对抗鲁棒性。
 
-详细内容，请参考[对抗鲁棒性官网教程](https://www.mindspore.cn/mindarmour/docs/zh-CN/master/improve_model_security_nad.html)。
+详细内容，请参考[对抗鲁棒性官网教程](https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.7/improve_model_security_nad.html)。
 
 ## 模型安全测试
 
@@ -28,7 +28,7 @@
 
 `Fuzzer`类基于神经元覆盖率增益控制fuzzing流程，采用自然扰动和对抗样本生成方法作为变异策略，激活更多的神经元，从而探索不同类型的模型输出结果、错误行为，指导用户增强模型鲁棒性。
 
-详细内容，请参考[模型安全测试官网教程](https://www.mindspore.cn/mindarmour/docs/zh-CN/master/test_model_security_fuzzing.html)。
+详细内容，请参考[模型安全测试官网教程](https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.7/test_model_security_fuzzing.html)。
 
 ## 差分隐私训练
 
@@ -36,7 +36,7 @@
 
 `DPModel`继承了`mindspore.Model`，提供了差分隐私训练的入口函数。
 
-详细内容，请参考[差分隐私官网教程](https://www.mindspore.cn/mindarmour/docs/zh-CN/master/protect_user_privacy_with_differential_privacy.html)。
+详细内容，请参考[差分隐私官网教程](https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.7/protect_user_privacy_with_differential_privacy.html)。
 
 ## 抑制隐私训练
 
@@ -44,7 +44,7 @@
 
 `SuppressModel`继承了`mindspore.Model`，提供了抑制隐私训练的入口函数。
 
-详细内容，请参考[抑制隐私官网教程](https://www.mindspore.cn/mindarmour/docs/zh-CN/master/protect_user_privacy_with_suppress_privacy.html)。
+详细内容，请参考[抑制隐私官网教程](https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.7/protect_user_privacy_with_suppress_privacy.html)。
 
 ## 隐私泄露风险评估
 
@@ -52,4 +52,4 @@
 
 `MembershipInference`类提供了一种模型逆向分析方法，能够基于模型对样本的预测信息，推测某个样本是否在模型的训练集中，以此评估模型的隐私泄露风险。
 
-详细内容，请参考[隐私泄露风险评估官方教程](https://www.mindspore.cn/mindarmour/docs/zh-CN/master/test_model_security_membership_inference.html)。
+详细内容，请参考[隐私泄露风险评估官方教程](https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.7/test_model_security_membership_inference.html)。

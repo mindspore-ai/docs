@@ -1,6 +1,6 @@
 ﻿# 分布式配置
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/faq/distributed_configure.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/faq/distributed_configure.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 <font size=3>**Q: 进行HCCL分布式训练出错：`Init plugin so failed, ret = 1343225860`？**</font>
 
@@ -65,7 +65,7 @@ A：此场景下，异常进程由于各种问题退出，其余进程由于GPU�
 [CRITICAL] DISTRIBUTED [mindspore/ccsrc/distributed/cluster/cluster_context.cc:130] InitNodeRole] Role name is invalid...
 ```
 
-A：在用户不使用`mpirun`启动进程，但是依然调用了`init()`方法的情况下，MindSpore要求用户按照[不依赖OpenMPI进行训练](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html#openmpi)配置若干环境变量并进行校验，若没有配置，MindSpore会给出以上报错提示。因此建议只有在执行分布式训练时调用`mindspore.communication.init`，并在不使用`mpirun`的场景下，根据文档配置正确的环境变量以启动分布式训练。
+A：在用户不使用`mpirun`启动进程，但是依然调用了`init()`方法的情况下，MindSpore要求用户按照[不依赖OpenMPI进行训练](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/parallel/train_gpu.html#openmpi)配置若干环境变量并进行校验，若没有配置，MindSpore会给出以上报错提示。因此建议只有在执行分布式训练时调用`mindspore.communication.init`，并在不使用`mpirun`的场景下，根据文档配置正确的环境变量以启动分布式训练。
 
 <br/>
 

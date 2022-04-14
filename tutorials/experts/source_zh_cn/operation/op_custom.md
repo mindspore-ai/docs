@@ -2,11 +2,11 @@
 
 `Ascend` `GPU` `CPU` `模型开发`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/operation/op_custom.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/experts/source_zh_cn/operation/op_custom.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
-当开发网络遇到内置算子不足以满足需求时，你可以利用MindSpore的Python API中的[Custom](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom)原语方便快捷地进行不同类型自定义算子的定义和使用。
+当开发网络遇到内置算子不足以满足需求时，你可以利用MindSpore的Python API中的[Custom](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom)原语方便快捷地进行不同类型自定义算子的定义和使用。
 
 传统的添加一个自定义算子的方式，需要完成算子原语注册、算子实现、算子信息注册三部分工作。
 
@@ -24,7 +24,7 @@
 
 ## 基本用法
 
-基于[Custom](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom)原语的自定义算子支持的算子开发方式包括：hybrid、tbe、aicpu、aot、pyfunc、julia、akg。
+基于[Custom](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom)原语的自定义算子支持的算子开发方式包括：hybrid、tbe、aicpu、aot、pyfunc、julia、akg。
 
 不同的算子开发方式差异如下：
 
@@ -43,7 +43,7 @@
 
 不同的开发方式使用不同的开发语言实现算子计算逻辑，但是自定义算子的开发流程是一致的，包括算子实现、算子输出shape和数据类型推理和算子信息注册（可选）。网络开发者可以根据需要选用不同的自定义算子开发方式。下面分别介绍这几种自定义算子开发方式，每种开发方式均提供示例。
 
-> 更多示例可参考MindSpore源码中[tests/st/ops/graph_kernel/custom](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/graph_kernel/custom)下的用例。
+> 更多示例可参考MindSpore源码中[tests/st/ops/graph_kernel/custom](https://gitee.com/mindspore/mindspore/tree/r1.7/tests/st/ops/graph_kernel/custom)下的用例。
 
 ### Hybrid类型的自定义算子开发
 
@@ -82,7 +82,7 @@ if __name__ == "__main__":
 本例中，有如下几点需要说明：
 
 - Hybrid类型是Custom的默认类型。
-- Hybrid类型自定义算子的输入必须是一个带有[`@ms_hybrid`](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ms_hybrid.html)的函数。
+- Hybrid类型自定义算子的输入必须是一个带有[`@ms_hybrid`](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/ops/mindspore.ops.ms_hybrid.html)的函数。
 - Hybrid类型自定义算子定义时可以使用自带的自动shape/dtype推导函数，也可以手动输入shape/dtype推导函数。
 
 执行用例：
@@ -687,7 +687,7 @@ python test_custom_akg.py
 
 ### 算子信息注册
 
-算子信息主要描述了算子实现函数所支持的输入输出类型、输入输出数据格式、属性和target（平台信息），它是后端做算子选择和映射时的依据。它通过[CustomRegOp](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.CustomRegOp.html#mindspore-ops-customregop)接口定义，通过[custom_info_register](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.custom_info_register.html#mindspore-ops-custom-info-register)装饰器或者[Custom](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom)原语构造函数中的`reg_info`参数，实现算子信息与算子实现函数的绑定，并最终注册到MindSpore C++侧的算子信息库。`reg_info`参数优先级高于`custom_info_register`装饰器。
+算子信息主要描述了算子实现函数所支持的输入输出类型、输入输出数据格式、属性和target（平台信息），它是后端做算子选择和映射时的依据。它通过[CustomRegOp](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/ops/mindspore.ops.CustomRegOp.html#mindspore-ops-customregop)接口定义，通过[custom_info_register](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/ops/mindspore.ops.custom_info_register.html#mindspore-ops-custom-info-register)装饰器或者[Custom](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom)原语构造函数中的`reg_info`参数，实现算子信息与算子实现函数的绑定，并最终注册到MindSpore C++侧的算子信息库。`reg_info`参数优先级高于`custom_info_register`装饰器。
 
 算子信息中的target的值可以为"Ascend"或"GPU"或"CPU"，描述的是算子实现函数在当前target上所支持的输入输出类型、输入输出数据格式和属性等信息，对于同一个算子实现函数，其在不同target上支持的输入输出类型可能不一致，所以通过target进行区分。算子信息在同一target下只会被注册一次。
 
@@ -772,7 +772,7 @@ python test_grad.py
 [ 2.  8. 18.]
 ```
 
-> 更多示例可参考MindSpore源码中[tests/st/ops/graph_kernel/custom](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/graph_kernel/custom)下的用例。
+> 更多示例可参考MindSpore源码中[tests/st/ops/graph_kernel/custom](https://gitee.com/mindspore/mindspore/tree/r1.7/tests/st/ops/graph_kernel/custom)下的用例。
 
 ### MindSpore Hybrid语法规范
 

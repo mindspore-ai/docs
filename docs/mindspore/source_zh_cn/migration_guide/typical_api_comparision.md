@@ -1,6 +1,6 @@
 # 典型算子或接口区别介绍
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/typical_api_comparision.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/migration_guide/typical_api_comparision.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 接口类
 
@@ -46,7 +46,7 @@ Model.train(1, dataset)
 
 使用 PyTorch 构建网络结构时，我们会用到  `nn.Module` 类，通常将网络中的元素定义在  `__init__` 函数中并对其初始化，将网络的图结构表达定义在  `forward` 函数中，通过调用这些类的对象完成整个模型的构建和训练。`nn.Module` 不仅为我们提供了构建图接口，它还为我们提供了一些常用的 [API](https://pytorch.org/docs/stable/generated/torch.nn.Module.html) ，来帮助我们执行更复杂逻辑。
 
-MindSpore 中的 `nn.Cell` 类发挥着和 PyTorch 中 `nn.Module` 相同的作用，都是用来构建图结构的模块，MindSpore 也同样提供了丰富的 [API](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html) 供开发者使用，虽然名字不能一一对应，但 `nn.Module` 中常用的功能都可以在  `nn.Cell` 中找到映射。
+MindSpore 中的 `nn.Cell` 类发挥着和 PyTorch 中 `nn.Module` 相同的作用，都是用来构建图结构的模块，MindSpore 也同样提供了丰富的 [API](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/nn/mindspore.nn.Cell.html) 供开发者使用，虽然名字不能一一对应，但 `nn.Module` 中常用的功能都可以在  `nn.Cell` 中找到映射。
 
 以几个常用方法为例：
 
@@ -96,7 +96,7 @@ Dropout 常用于防止训练过拟合，有一个重要的 **概率值** 参数
 
 在 PyTorch 和 TensorFlow 中，概率值分别对应 Dropout 算子的属性 `p`和 `rate`，是指输入被置 0 的概率，与 MindSpore.nn.Dropout 中的 `keep_prob` 意义相反。
 
-更多信息请参考链接： [MindSpore Dropout](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Dropout.html#mindspore.nn.Dropout) 、 [PyTorch Dropout](https://pytorch.org/docs/stable/generated/torch.nn.Dropout.html) 、 [TensorFlow Dropout](https://www.tensorflow.org/api_docs/python/tf/nn/dropout)
+更多信息请参考链接： [MindSpore Dropout](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/nn/mindspore.nn.Dropout.html#mindspore.nn.Dropout) 、 [PyTorch Dropout](https://pytorch.org/docs/stable/generated/torch.nn.Dropout.html) 、 [TensorFlow Dropout](https://www.tensorflow.org/api_docs/python/tf/nn/dropout)
 
 #### nn.BatchNorm2d
 
@@ -129,7 +129,7 @@ BatchNorm 是 CV 领域比较特殊的正则化方法，它在训练和推理的
 
   $momentum_{pytorch} = 1 - momentum_{mindspore}$
 
-  参考链接：[mindspore.nn.BatchNorm2d](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.BatchNorm2d.html)，[torch.nn.BatchNorm2d](https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm2d.html)
+  参考链接：[mindspore.nn.BatchNorm2d](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/nn/mindspore.nn.BatchNorm2d.html)，[torch.nn.BatchNorm2d](https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm2d.html)
 
 ### 算子行为不同
 
@@ -162,7 +162,7 @@ ret = ops.Transpose()(Tensor(data), (3, 2, 1, 0))
 ret.shape # (4, 3, 2, 1)
 ```
 
-更多信息请参考链接：[MindSpore Transpose](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Transpose.html#mindspore.ops.Transpose) 、 [PyTorch Transpose](https://pytorch.org/docs/stable/generated/torch.transpose.html) 、[PyTorch Permute](https://pytorch.org/docs/stable/generated/torch.Tensor.permute.html) 、 [TensforFlow Transpose](https://www.tensorflow.org/api_docs/python/tf/transpose)
+更多信息请参考链接：[MindSpore Transpose](https://www.mindspore.cn/docs/en/r1.7/api_python/ops/mindspore.ops.Transpose.html#mindspore.ops.Transpose) 、 [PyTorch Transpose](https://pytorch.org/docs/stable/generated/torch.transpose.html) 、[PyTorch Permute](https://pytorch.org/docs/stable/generated/torch.Tensor.permute.html) 、 [TensforFlow Transpose](https://www.tensorflow.org/api_docs/python/tf/transpose)
 
 #### Conv 和 Pooling
 

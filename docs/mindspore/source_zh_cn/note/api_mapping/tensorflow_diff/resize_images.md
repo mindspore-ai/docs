@@ -1,6 +1,6 @@
 # 比较与tf.image.resize_images的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/resize_images.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/resize_images.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## tf.image.resize_images
 
@@ -26,7 +26,7 @@ class mindspore.dataset.vision.c_transforms.Resize(
 )
 ```
 
-更多内容详见[mindspore.dataset.vision.c_transforms.Resize](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.Resize.html#mindspore.dataset.vision.c_transforms.Resize)。
+更多内容详见[mindspore.dataset.vision.c_transforms.Resize](https://mindspore.cn/docs/zh-CN/r1.7/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.Resize.html#mindspore.dataset.vision.c_transforms.Resize)。
 
 ## 使用方式
 

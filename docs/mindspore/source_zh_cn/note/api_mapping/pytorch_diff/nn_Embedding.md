@@ -1,6 +1,6 @@
 # 比较与torch.nn.Embedding的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/nn_Embedding.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/nn_Embedding.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## torch.nn.Embedding
 
@@ -30,7 +30,7 @@ class mindspore.nn.Embedding(
     padding_idx=None)
 ```
 
-更多内容详见[mindspore.nn.Embedding](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Embedding.html#mindspore.nn.Embedding)。
+更多内容详见[mindspore.nn.Embedding](https://mindspore.cn/docs/zh-CN/r1.7/api_python/nn/mindspore.nn.Embedding.html#mindspore.nn.Embedding)。
 
 ## 使用方式
 

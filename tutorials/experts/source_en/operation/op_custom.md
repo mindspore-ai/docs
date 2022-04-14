@@ -2,11 +2,11 @@
 
 `Ascend` `GPU` `CPU` `Model Development`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/operation/op_custom.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/experts/source_en/operation/op_custom.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
-When built-in operators cannot meet requirements during network development, you can call the Python API [Custom](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom) primitive defined in MindSpore to quickly create different types of custom operators for use.
+When built-in operators cannot meet requirements during network development, you can call the Python API [Custom](https://www.mindspore.cn/docs/en/r1.7/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom) primitive defined in MindSpore to quickly create different types of custom operators for use.
 
 Traditional methods to add a custom operator need three steps: defining the operator primitive, implementing the operator, and registering the operator information.
 
@@ -24,7 +24,7 @@ Compared with traditional custom operator creating methods, creating custom oper
 
 ## Basic Usage
 
-The supported custom operator defining methods based on the [Custom](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom) primitive include: hybrid, tbe, aot, pyfunc, julia, and akg.
+The supported custom operator defining methods based on the [Custom](https://www.mindspore.cn/docs/en/r1.7/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom) primitive include: hybrid, tbe, aot, pyfunc, julia, and akg.
 
 The difference between these operator defining methods are as follows:
 
@@ -42,7 +42,7 @@ The difference between these operator defining methods are as follows:
 
 Different custom operator defining methods use different development languages to implement the operator, but the development process is the same, including operator implementation, operator output shape, data type inference, and operator information registration (optional). You can choose which one to use based on needs. The defining methods of these custom operators will be introduced here, and examples are provided for each method.
 
-> More examples can be found in the MindSpore source code [tests/st/ops/graph_kernel/custom](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/graph_kernel/custom).
+> More examples can be found in the MindSpore source code [tests/st/ops/graph_kernel/custom](https://gitee.com/mindspore/mindspore/tree/r1.7/tests/st/ops/graph_kernel/custom).
 
 ### Defining Custom Operator of hybrid Type
 
@@ -81,7 +81,7 @@ if __name__ == "__main__":
 In this case,
 
 - `hybrid` is the default `func_type` of `Custom`.
-- The input of custom operators with hybrid type must be a function with decorator [`@ms_hybrid`](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ms_hybrid.html).
+- The input of custom operators with hybrid type must be a function with decorator [`@ms_hybrid`](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/ops/mindspore.ops.ms_hybrid.html).
 - Users can use the automatic shape/dtype inference functionality of the custom operators with hybrid type, while they can still handwrite shape/dtype functions.
 
 Execute the example file:
@@ -592,7 +592,7 @@ Running results:
 
 ### Registering the Operator Information
 
-The operator information describes the supported inputs and outputs data type, the supported inputs and outputs format, attributes, and target(platform information) of the operator implementation. It is used to select and map operators later. The operator information can be defined by using the [CustomRegOp](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.CustomRegOp.html#mindspore-ops-customregop) API, then you can use the [custom_info_register](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.custom_info_register.html#mindspore-ops-custom-info-register) decorator or just pass it to the `reg_info` parameter of [Custom](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom) primitive to bind the information to the operator implementation. The operator information will be registered to the operator information library on the MindSpore C++ side at last. The `reg_info` parameter takes higher priority than the `custom_info_register` decorator.
+The operator information describes the supported inputs and outputs data type, the supported inputs and outputs format, attributes, and target(platform information) of the operator implementation. It is used to select and map operators later. The operator information can be defined by using the [CustomRegOp](https://www.mindspore.cn/docs/en/r1.7/api_python/ops/mindspore.ops.CustomRegOp.html#mindspore-ops-customregop) API, then you can use the [custom_info_register](https://www.mindspore.cn/docs/en/r1.7/api_python/ops/mindspore.ops.custom_info_register.html#mindspore-ops-custom-info-register) decorator or just pass it to the `reg_info` parameter of [Custom](https://www.mindspore.cn/docs/en/r1.7/api_python/ops/mindspore.ops.Custom.html#mindspore-ops-custom) primitive to bind the information to the operator implementation. The operator information will be registered to the operator information library on the MindSpore C++ side at last. The `reg_info` parameter takes higher priority than the `custom_info_register` decorator.
 
 The target value in operator information can be "Ascend", "GPU" or "CPU". Which describes the operator information on a specific target. For the same operator implementation, it may have different supported data types on different targets, so you can use the target value in operator information to differ this. The operator information on a specific target will be registered only once.
 
@@ -677,11 +677,11 @@ Running results:
 [ 2.  8. 18.]
 ```
 
-> More examples can be found in the MindSpore source code [tests/st/ops/graph_kernel/custom](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/graph_kernel/custom).
+> More examples can be found in the MindSpore source code [tests/st/ops/graph_kernel/custom](https://gitee.com/mindspore/mindspore/tree/r1.7/tests/st/ops/graph_kernel/custom).
 
 ### MindSpore Hybrid Developer Guide
 
-MindSpore Hybrid DSL writes Python-like codes, such as function definitions, indents, and comments. With the decorator [`@ms_hybrid`](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.ms_hybrid.html), functions written by MindSpore Hybrid DSL can be used as a `numpy` function, as well as used in the custom operators of the hybrid type.
+MindSpore Hybrid DSL writes Python-like codes, such as function definitions, indents, and comments. With the decorator [`@ms_hybrid`](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/ops/mindspore.ops.ms_hybrid.html), functions written by MindSpore Hybrid DSL can be used as a `numpy` function, as well as used in the custom operators of the hybrid type.
 
 ```python
 import numpy as np

@@ -1,6 +1,6 @@
 # Building a Neural Network
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/beginner/model.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/source_en/beginner/model.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 A neural network model consists of multiple data operation layers. `mindspore.nn` provides various basic network modules. The following uses LeNet-5 as an example to first describe how to build a neural network model by using `mindspore.nn` , and then describes how to build a LeNet-5 network model by using `mindvision.classification.models`.
 
@@ -88,7 +88,7 @@ LeNet5<
 
 ## Model Layers
 
-The following describes the key member functions of the `Cell` class used in LeNet, and then describes how to use the `Cell` class to access model parameters through the instantiation network. For more `cell` class contents, refer to [mindspore.nn interface](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html).
+The following describes the key member functions of the `Cell` class used in LeNet, and then describes how to use the `Cell` class to access model parameters through the instantiation network. For more `cell` class contents, refer to [mindspore.nn interface](https://www.mindspore.cn/docs/en/r1.7/api_python/mindspore.nn.html).
 
 ### nn.Conv2d
 

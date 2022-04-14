@@ -1,6 +1,6 @@
 ﻿# Operators Compile
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/faq/operators_compile.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_en/faq/operators_compile.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 <font size=3>**Q: When the `ops.concat` operator is used, the error message `Error:Input and (output + workspace) num should <=192!` is displayed, which indicating that the data volume is large. What can I do?**</font>
 
@@ -40,13 +40,13 @@ A: The `Conv2d` operator has the following constraint: When the value of `group`
 
 <font size=3>**Q: Does MindSpore support matrix transposition?**</font>
 
-A: Yes. For details, see [mindspore.ops.Transpose](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Transpose.html#mindspore.ops.Transpose).
+A: Yes. For details, see [mindspore.ops.Transpose](https://www.mindspore.cn/docs/en/r1.7/api_python/ops/mindspore.ops.Transpose.html#mindspore.ops.Transpose).
 
 <br/>
 
 <font size=3>**Q: Can MindSpore calculate the variance of any `tensor`?**</font>
 
-A: Currently, MindSpore does not have APIs or operators which can directly calculate the variance of a `tensor`. However, MindSpore has sufficient small operators to support such operations. For details, see [class Moments(Cell)](https://www.mindspore.cn/docs/en/master/_modules/mindspore/nn/layer/math.html#Moments).
+A: Currently, MindSpore does not have APIs or operators which can directly calculate the variance of a `tensor`. However, MindSpore has sufficient small operators to support such operations. For details, see [class Moments(Cell)](https://www.mindspore.cn/docs/en/r1.7/_modules/mindspore/nn/layer/math.html#Moments).
 
 <br/>
 
@@ -59,7 +59,7 @@ In MindSpore, you can manually initialize the weight corresponding to the `paddi
 
 <font size=3>**Q: When the `Tile` operator in operations executes `__infer__`, the `value` is `None`. Why is the value lost?**</font>
 
-A: The `multiples input` of the `Tile` operator must be a constant (The value cannot directly or indirectly come from the input of the graph). Otherwise, the `None` data will be obtained during graph composition because the graph input is transferred only during graph execution and the input data cannot be obtained during graph composition. For the detailed imformation, refer to [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html).
+A: The `multiples input` of the `Tile` operator must be a constant (The value cannot directly or indirectly come from the input of the graph). Otherwise, the `None` data will be obtained during graph composition because the graph input is transferred only during graph execution and the input data cannot be obtained during graph composition. For the detailed imformation, refer to [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/r1.7/note/static_graph_syntax_support.html).
 
 <br/>
 
@@ -71,7 +71,7 @@ A: TBE (Tensor Boost Engine) operator is Huawei's self-developed Ascend operator
 
 <font size=3>**Q: Has MindSpore implemented the anti-pooling operation similar to `nn.MaxUnpool2d`?**</font>
 
-A: Currently, MindSpore does not provide anti-pooling APIs but you can customize the operator to implement the operation. For details, refer to [Customize Operators](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_custom.html).
+A: Currently, MindSpore does not provide anti-pooling APIs but you can customize the operator to implement the operation. For details, refer to [Customize Operators](https://www.mindspore.cn/tutorials/experts/en/r1.7/operation/op_custom.html).
 
 <br/>
 
@@ -98,4 +98,4 @@ A: The `Ascend` backend operators can be divided into AI CORE operators and AI C
 1. If the `AI CORE` operator's candidates list is empty, it may be that all operator information failed to pass the verification in the `check support` stage. You can search the keyword `CheckSupport` in the log to find the reason for the failure. Modify the shape or data type according to the specific information, or ask the developer to further locate the problem.
 2. If the `AI CPU` candidate operator information is not empty, or the candidate operator information of `AI CORE` and `AI CPU` are both not empty, it may be that the given input data type was not in the candidate list and was filtered out in the selection stage. Try to modify the input data type of the operator according to the candidate list.
 
-You can select a proper mode and writing method to complete the training by referring to the [official website tutorial](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/pynative_graph/pynative.html).
+You can select a proper mode and writing method to complete the training by referring to the [official website tutorial](https://www.mindspore.cn/tutorials/zh-CN/r1.7/advanced/pynative_graph/pynative.html).

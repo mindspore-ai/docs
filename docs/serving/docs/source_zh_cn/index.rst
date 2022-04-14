@@ -18,15 +18,15 @@ MindSpore Serving包含以下功能：
 使用MindSpore Serving的典型场景
 --------------------------------
 
-1. `快速入门 <https://www.mindspore.cn/serving/docs/zh-CN/master/serving_example.html>`_
+1. `快速入门 <https://www.mindspore.cn/serving/docs/zh-CN/r1.7/serving_example.html>`_
 
    以一个简单的Add网络为例，演示如何使用MindSpore Serving部署推理服务。
 
-2. `使用gRPC接口访问服务 <https://www.mindspore.cn/serving/docs/zh-CN/master/serving_grpc.html>`_
+2. `使用gRPC接口访问服务 <https://www.mindspore.cn/serving/docs/zh-CN/r1.7/serving_grpc.html>`_
 
    高性能、简单方便地访问服务。
 
-3. `使用RESTful接口访问服务 <https://www.mindspore.cn/serving/docs/zh-CN/master/serving_restful.html>`_
+3. `使用RESTful接口访问服务 <https://www.mindspore.cn/serving/docs/zh-CN/r1.7/serving_restful.html>`_
 
    基于HTTP协议访问服务。
 

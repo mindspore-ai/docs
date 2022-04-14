@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `Data Preparation`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/dataset/augment.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/experts/source_en/dataset/augment.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -14,7 +14,7 @@ Auto augmentation can be implemented based on probability or callback parameters
 
 MindSpore provides a series of probability-based auto augmentation APIs. You can randomly select and combine various data augmentation operations to make data augmentation more flexible.
 
-For details about APIs, see [MindSpore API](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html).
+For details about APIs, see [MindSpore API](https://www.mindspore.cn/docs/en/r1.7/api_python/mindspore.dataset.transforms.html).
 
 ### RandomApply
 

@@ -1,6 +1,6 @@
 # Function Differences with tf.distribute.Strategy
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/DistributedTrain.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/DistributedTrain.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## tf.distribute.Strategy
 
@@ -23,7 +23,7 @@ init()
 # Run net, the same with stand alone training
 ```
 
-For more information, see [context.set_auto_parallel_context(ParallelMode=ParallelMode.DataParallel)](https://mindspore.cn/docs/en/master/api_python/mindspore.context.html#mindspore.context.set_auto_parallel_context).
+For more information, see [context.set_auto_parallel_context(ParallelMode=ParallelMode.DataParallel)](https://mindspore.cn/docs/en/r1.7/api_python/mindspore.context.html#mindspore.context.set_auto_parallel_context).
 
 ## Differences
 

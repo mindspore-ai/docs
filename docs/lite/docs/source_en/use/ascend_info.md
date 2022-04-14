@@ -2,7 +2,7 @@
 
 `Ascend` `Linux` `Environment Preparation` `Supported Operators` `Intermediate` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/ascend_info.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/lite/docs/source_en/use/ascend_info.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 This document describes how to use MindSpore Lite to perform inference and use the dynamic shape function on Linux in the Ascend environment. Currently, MindSpore Lite supports only the Ascend 310 AI processor.
 
@@ -60,7 +60,7 @@ export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}                                
 MindSpore Lite provides an offline model converter to convert various models (Caffe, ONNX, TensorFlow, and MindIR) into models that can be inferred on the Ascend hardware.
 First, use the converter to convert a model into an `ms` model. Then, use the runtime inference framework matching the converter to perform inference. The process is as follows:
 
-1. [Download](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) the converter dedicated for Ascend. Currently, only Linux is supported.
+1. [Download](https://www.mindspore.cn/lite/docs/en/r1.7/use/downloads.html) the converter dedicated for Ascend. Currently, only Linux is supported.
 
 2. Decompress the downloaded package.
 
@@ -100,7 +100,7 @@ First, use the converter to convert a model into an `ms` model. Then, use the ru
     CONVERTER RESULT SUCCESS:0
     ```
 
-    For details about parameters of the converter_lite converter, see ["Parameter Description" in Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html#parameter-description).
+    For details about parameters of the converter_lite converter, see ["Parameter Description" in Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/r1.7/use/converter_tool.html#parameter-description).
 
     Note: If the input shape of the original model is uncertain, specify inputShape when using the converter to convert a model. In addition, set configFile to the value of input_shape_vector parameter in acl_option_cfg_param. The command is as follows:
 
@@ -130,12 +130,12 @@ Table 1 [acl_option_cfg_param] parameter configuration
 
 ## Runtime
 
-After obtaining the converted model, use the matching runtime inference framework to perform inference. For details about how to use runtime to perform inference, see [Using C++ Interface to Perform Inference](https://www.mindspore.cn/lite/docs/en/master/use/runtime_cpp.html).
+After obtaining the converted model, use the matching runtime inference framework to perform inference. For details about how to use runtime to perform inference, see [Using C++ Interface to Perform Inference](https://www.mindspore.cn/lite/docs/en/r1.7/use/runtime_cpp.html).
 
 ## Executinge the Benchmark
 
 MindSpore Lite provides a benchmark test tool, which can be used to perform quantitative (performance) analysis on the execution time consumed by forward inference of the MindSpore Lite model. In addition, you can perform comparative error (accuracy) analysis based on the output of a specified model.
-For details about the inference tool, see [benchmark](https://www.mindspore.cn/lite/docs/en/master/use/benchmark_tool.html).
+For details about the inference tool, see [benchmark](https://www.mindspore.cn/lite/docs/en/r1.7/use/benchmark_tool.html).
 
 - Performance analysis
 
@@ -155,7 +155,7 @@ For details about the inference tool, see [benchmark](https://www.mindspore.cn/l
 
 ### Dynamic Shape
 
-The batch size is not fixed in certain scenarios. For example, in the face detection+facial recognition cascade scenario, the number of detected faces is subject to change, which means that the batch size of the facial recognition input is dynamic. It would be a great waste of compute resources to perform inferences using the maximum batch size or image size. Thanks to Lite's support for dynamic batch size and dynamic image size on the Ascend 310, you can configure the [acl_option_cfg_param] dynamic parameter through congFile to convert a model into an `ms` model, and then use the [resize](https://www.mindspore.cn/lite/docs/en/master/use/runtime_cpp.html#resize) function of the model to change the input shape during inference.
+The batch size is not fixed in certain scenarios. For example, in the face detection+facial recognition cascade scenario, the number of detected faces is subject to change, which means that the batch size of the facial recognition input is dynamic. It would be a great waste of compute resources to perform inferences using the maximum batch size or image size. Thanks to Lite's support for dynamic batch size and dynamic image size on the Ascend 310, you can configure the [acl_option_cfg_param] dynamic parameter through congFile to convert a model into an `ms` model, and then use the [resize](https://www.mindspore.cn/lite/docs/en/r1.7/use/runtime_cpp.html#resize) function of the model to change the input shape during inference.
 
 #### Dynamic Batch Size
 
@@ -188,7 +188,7 @@ The batch size is not fixed in certain scenarios. For example, in the face detec
 
 - Inference
 
-    After the dynamic batch size is enabled, during model inference, the input shape is corresponding to the size configured in converter. To change the input shape, use the model [resize](https://www.mindspore.cn/lite/docs/en/master/use/runtime_cpp.html#resize) function.
+    After the dynamic batch size is enabled, during model inference, the input shape is corresponding to the size configured in converter. To change the input shape, use the model [resize](https://www.mindspore.cn/lite/docs/en/r1.7/use/runtime_cpp.html#resize) function.
 
 - Precautions
 
@@ -228,7 +228,7 @@ The batch size is not fixed in certain scenarios. For example, in the face detec
 
 - Inference
 
-    After the dynamic image size is enabled, during model inference, the input shape is corresponding to the size configured in converter. To change the input shape, use the model [resize](https://www.mindspore.cn/lite/docs/en/master/use/runtime_cpp.html#resize) function.
+    After the dynamic image size is enabled, during model inference, the input shape is corresponding to the size configured in converter. To change the input shape, use the model [resize](https://www.mindspore.cn/lite/docs/en/r1.7/use/runtime_cpp.html#resize) function.
 
 - Precautions
 
@@ -238,4 +238,4 @@ The batch size is not fixed in certain scenarios. For example, in the face detec
 
 ## Supported Operators
 
-For details about the supported operators, see [Lite Operator List](https://www.mindspore.cn/lite/docs/en/master/operator_list_lite.html).
+For details about the supported operators, see [Lite Operator List](https://www.mindspore.cn/lite/docs/en/r1.7/operator_list_lite.html).

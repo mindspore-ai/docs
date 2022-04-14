@@ -24,7 +24,7 @@
 - `level`为错误级别，`WARNING`或者 `ERROR`；
 - `rst_file_path`为检测文档路径名；
 - `line_number`为错误所在行;
-- `error_info`为详细[错误信息](https://gitee.com/mindspore/docs/blob/master/tools/rst_lint/RULES.md)。
+- `error_info`为详细[错误信息](https://gitee.com/mindspore/docs/blob/r1.7/tools/rst_lint/RULES.md)。
 
 ## 示例
 

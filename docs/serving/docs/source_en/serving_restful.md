@@ -1,6 +1,6 @@
 # RESTful-based MindSpore Serving Access
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/serving/docs/source_en/serving_restful.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/serving/docs/source_en/serving_restful.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -8,7 +8,7 @@ MindSpore Serving supports both `gPRC` and `RESTful` request modes. The followin
 
 `RESTful` is an API designed and developed based on `HTTP`. It manages and accesses resources through `URI` and features high scalability and clear structure. The lightweight `RESTful` can directly transmit data through `HTTP`, and has become the most popular `Web` service access mode. Users can directly interact with services in `RESTful` mode.
 
-For details about how to deploy `Serving`, see [MindSpore Serving-based Inference Service Deployment](https://www.mindspore.cn/serving/docs/en/master/serving_example.html).
+For details about how to deploy `Serving`, see [MindSpore Serving-based Inference Service Deployment](https://www.mindspore.cn/serving/docs/en/r1.7/serving_example.html).
 
 We can use the `mindspore_serving.server.start_restful_server` API to start the `RESTful` service.
 
@@ -237,7 +237,7 @@ The response format is the same as the request format. The information in the `J
 
 MindSpore Serving supports `SSL/TLS` enabled `RESTful` service. Here's an example of starting and accessing `RESTful` service with one-way authentication.
 
-Setting `verify_client` to `False` indicates one-way authentication, in order to enable `SSL/TLS`, pass  `mindspore_serving.server.SSLConfig` object to`ssl_config`. You can refer to  [Accessing SSL/TLS enabled Serving service](https://www.mindspore.cn/serving/docs/en/master/serving_grpc.html#accessing-ssl-tls-enabled-serving-service) for other details.
+Setting `verify_client` to `False` indicates one-way authentication, in order to enable `SSL/TLS`, pass  `mindspore_serving.server.SSLConfig` object to`ssl_config`. You can refer to  [Accessing SSL/TLS enabled Serving service](https://www.mindspore.cn/serving/docs/en/r1.7/serving_grpc.html#accessing-ssl-tls-enabled-serving-service) for other details.
 
 ```python
 import os

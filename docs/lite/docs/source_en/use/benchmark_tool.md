@@ -2,7 +2,7 @@
 
 `Windows` `Linux` `Environment Preparation` `Benchmark Testing` `Intermediate` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/benchmark_tool.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/lite/docs/source_en/use/benchmark_tool.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -14,9 +14,9 @@ After model conversion and before inference, you can use the Benchmark tool to p
 
 To use the Benchmark tool, you need to prepare the environment as follows:
 
-- Compilation: Install build dependencies and perform build. The code of the Benchmark tool is stored in the `mindspore/lite/tools/benchmark` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/lite/docs/en/master/use/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/lite/docs/en/master/use/build.html#compilation-example) in the build document.
+- Compilation: Install build dependencies and perform build. The code of the Benchmark tool is stored in the `mindspore/lite/tools/benchmark` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/lite/docs/en/r1.7/use/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/lite/docs/en/r1.7/use/build.html#compilation-example) in the build document.
 
-- Run: Obtain the `Benchmark` tool and configure environment variables. For details, see [Output Description](https://www.mindspore.cn/lite/docs/en/master/use/build.html#output-description) in the build document.
+- Run: Obtain the `Benchmark` tool and configure environment variables. For details, see [Output Description](https://www.mindspore.cn/lite/docs/en/r1.7/use/build.html#output-description) in the build document.
 
 - Add the path of dynamic library required by the inference code to the environment variables LD_LIBRARY_PATH.
 
@@ -272,7 +272,7 @@ np.fromfile("/path/to/dump.bin", np.float32)
 
 To use the Benchmark tool, you need to prepare the environment as follows:
 
-- Compilation: Install build dependencies and perform build. The code of the Benchmark tool is stored in the `mindspore/lite/tools/benchmark` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/lite/docs/en/master/use/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/lite/docs/en/master/use/build.html#compilation-example) in the build document.
+- Compilation: Install build dependencies and perform build. The code of the Benchmark tool is stored in the `mindspore/lite/tools/benchmark` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/lite/docs/en/r1.7/use/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/lite/docs/en/r1.7/use/build.html#compilation-example) in the build document.
 - Add the path of dynamic library required by the benchmark to the environment variables PATH.
 
     ````bash
@@ -338,6 +338,6 @@ call benchmark.exe --modelFile=/path/to/model.ms --inDataFile=/path/to/input.bin
 
 ### Dump
 
-The usage of Dump function in the Windows environment is basically the same as that of in the [Linux environment](https://www.mindspore.cn/lite/docs/en/master/use/benchmark_tool.html#dump), and will not be repeated here.
+The usage of Dump function in the Windows environment is basically the same as that of in the [Linux environment](https://www.mindspore.cn/lite/docs/en/r1.7/use/benchmark_tool.html#dump), and will not be repeated here.
 
 Note that in the Windows environment, when setting the absolute path `Path` in the `data_dump.json` configuration file, it must be specified in the form of `\\`.

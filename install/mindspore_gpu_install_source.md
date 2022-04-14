@@ -22,11 +22,11 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_gpu_install_source.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/install/mindspore_gpu_install_source.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.7/resource/_static/logo_source.png"></a>
 
 本文档介绍如何在GPU环境的Linux系统上，使用源码编译方式快速安装MindSpore。下面以Ubuntu 18.04为例说明MindSpore编译安装步骤。
 
-- 如果您想在一个全新的带有GPU的Ubuntu 18.04上配置一个可以编译MindSpore的环境，可以使用[自动安装脚本](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-source.sh)进行一键式配置，参见[环境准备（自动，推荐）](#环境准备自动推荐)小节。自动安装脚本会安装编译MindSpore所需的依赖。
+- 如果您想在一个全新的带有GPU的Ubuntu 18.04上配置一个可以编译MindSpore的环境，可以使用[自动安装脚本](https://gitee.com/mindspore/mindspore/raw/r1.7/scripts/install/ubuntu-gpu-source.sh)进行一键式配置，参见[环境准备（自动，推荐）](#环境准备自动推荐)小节。自动安装脚本会安装编译MindSpore所需的依赖。
 
 - 如果您的系统已经安装了部分依赖，如CUDA，Python，GCC等，则推荐参照[环境准备（手动）](#环境准备手动)小节的安装步骤手动安装。
 
@@ -51,7 +51,7 @@ sudo ubuntu-drivers autoinstall
 自动安装脚本需要更改软件源配置以及通过APT安装依赖，所以需要申请root权限。使用以下命令获取自动安装脚本并执行。通过自动安装脚本配置的环境，仅支持编译MindSpore>=1.6.0。
 
 ```bash
-wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-source.sh
+wget https://gitee.com/mindspore/mindspore/raw/r1.7/scripts/install/ubuntu-gpu-source.sh
 # 默认安装Python 3.7，CUDA 11.1
 bash -i ./ubuntu-gpu-source.sh
 # 如需指定安装Python 3.9和CUDA 10.1，并且安装可选依赖Open MPI，使用以下方式
@@ -314,7 +314,7 @@ bash build.sh -e gpu -S on
 pip install output/mindspore_gpu-*.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-在联网状态下，安装MindSpore时会自动下载MindSpore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py)中的required_package），其余情况需自行安装。运行模型时，需要根据[ModelZoo](https://gitee.com/mindspore/models/tree/master/)中不同模型指定的requirements.txt安装额外依赖，常见依赖可以参考[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)。
+在联网状态下，安装MindSpore时会自动下载MindSpore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/r1.7/setup.py)中的required_package），其余情况需自行安装。运行模型时，需要根据[ModelZoo](https://gitee.com/mindspore/models/tree/r1.7/)中不同模型指定的requirements.txt安装额外依赖，常见依赖可以参考[requirements.txt](https://gitee.com/mindspore/mindspore/blob/r1.7/requirements.txt)。
 
 ## 验证是否成功安装
 

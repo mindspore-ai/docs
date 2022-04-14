@@ -6,6 +6,6 @@
 MindSpore Specification and Notes
 =======================================
 
-The documentation has been migrated to `Notes <https://www.mindspore.cn/docs/en/master/note/benchmark.html>`_ .
+The documentation has been migrated to `Notes <https://www.mindspore.cn/docs/en/r1.7/note/benchmark.html>`_ .
 
  

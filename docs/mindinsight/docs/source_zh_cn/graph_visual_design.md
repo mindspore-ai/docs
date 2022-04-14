@@ -1,6 +1,6 @@
 # 计算图可视设计
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/graph_visual_design.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindinsight/docs/source_zh_cn/graph_visual_design.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 特性背景
 
@@ -58,4 +58,4 @@ RESTful API接口是MindInsight前后端进行数据交互的接口。
 #### 文件接口设计
 
 MindSpore与MindInsight之间的数据交互，采用[protobuf](https://developers.google.cn/protocol-buffers/docs/pythontutorial?hl=zh-cn)定义数据格式。
-[summary.proto文件](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/datavisual/proto_files/mindinsight_summary.proto)为总入口，计算图的消息对象定义为 `GraphProto`。`GraphProto`的详细定义可以参考[anf_ir.proto文件](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/datavisual/proto_files/mindinsight_anf_ir.proto)。
+[summary.proto文件](https://gitee.com/mindspore/mindinsight/blob/r1.7/mindinsight/datavisual/proto_files/mindinsight_summary.proto)为总入口，计算图的消息对象定义为 `GraphProto`。`GraphProto`的详细定义可以参考[anf_ir.proto文件](https://gitee.com/mindspore/mindinsight/blob/r1.7/mindinsight/datavisual/proto_files/mindinsight_anf_ir.proto)。

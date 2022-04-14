@@ -1,6 +1,6 @@
 # 比较与tf.keras.initializers.RandomNormal的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/initNormal.md " target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/initNormal.md " target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## tf.keras.initializers.RandomNormal
 
@@ -18,7 +18,7 @@ tf.keras.initializers.RandomNormal(
 mindspore.common.initializer.Normal(sigma=0.01, mean=0.0)
 ```
 
-更多内容详见[mindspore.common.initializer.Normal](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.common.initializer.html#mindspore.common.initializer.Normal)。
+更多内容详见[mindspore.common.initializer.Normal](https://mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.common.initializer.html#mindspore.common.initializer.Normal)。
 
 ## 使用方式
 

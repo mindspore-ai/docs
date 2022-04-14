@@ -2,14 +2,14 @@
 
 `GPU` `分布式并行` `全流程`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/train_gpu.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/experts/source_zh_cn/parallel/train_gpu.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
 本篇教程我们主要讲解，如何在GPU处理器硬件平台上，利用MindSpore通过数据并行及自动并行模式，使用CIFAR-10数据集训练ResNet-50网络。
 > 你可以在这里下载完整的样例代码：
 >
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training>
+> <https://gitee.com/mindspore/docs/tree/r1.7/docs/sample_code/distributed_training>
 
 目录结构如下：
 
@@ -97,7 +97,7 @@ if __name__ == "__main__":
 - `init("nccl")`：使能NCCL通信，并完成分布式训练初始化操作。
 - `get_rank()`：获得当前进程的rank号。
 - `ops.AllGather`:
-  在GPU上，该算子会调用NCCL的AllGather通信操作，其含义以及更多的例子可在[分布式集合通信原语](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/communicate_ops.html)
+  在GPU上，该算子会调用NCCL的AllGather通信操作，其含义以及更多的例子可在[分布式集合通信原语](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/parallel/communicate_ops.html)
   中找到。
 
 在GPU硬件平台上，MindSpore采用OpenMPI的mpirun来启动进程，通常每一个进程对应一个计算设备。
@@ -192,7 +192,7 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=
 
 在GPU硬件平台上，网络的定义和Ascend 910 AI处理器一致。
 **数据并行**及**自动并行**
-模式下，网络定义方式与单机写法一致，可以参考 [ResNet网络样例脚本](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/resnet/resnet.py)。
+模式下，网络定义方式与单机写法一致，可以参考 [ResNet网络样例脚本](https://gitee.com/mindspore/docs/blob/r1.7/docs/sample_code/resnet/resnet.py)。
 。
 
 > - 半自动并行模式时，未配置策略的算子默认以数据并行方式执行。
@@ -201,7 +201,7 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=
 
 ## 定义损失函数及优化器
 
-与在Ascend的[分布式并行训练基础样例](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html)
+与在Ascend的[分布式并行训练基础样例](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/parallel/train_ascend.html)
 一致。
 
 ### 定义损失函数
@@ -309,7 +309,7 @@ def test_train_cifar(epoch_size=10):
 
 > 你可以在这里找到样例的运行脚本：
 >
-> <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/distributed_training/run_gpu.sh>。
+> <https://gitee.com/mindspore/docs/blob/r1.7/docs/sample_code/distributed_training/run_gpu.sh>。
 >
 > 如果通过root用户执行脚本，`mpirun`需要加上`--allow-run-as-root`参数。
 
@@ -400,7 +400,7 @@ pytest -s -v ./resnet50_distributed_training_gpu.py > train.log 2>&1 &
 
 ## 分布式训练模型参数保存与加载
 
-在GPU上进行分布式训练时，模型参数的保存和加载的方法与Ascend上一致，可参考[分布式训练模型参数保存和加载](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#分布式训练模型参数保存和加载)
+在GPU上进行分布式训练时，模型参数的保存和加载的方法与Ascend上一致，可参考[分布式训练模型参数保存和加载](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/parallel/train_ascend.html#分布式训练模型参数保存和加载)
 。
 
 ## 不依赖OpenMPI进行训练
@@ -409,9 +409,9 @@ pytest -s -v ./resnet50_distributed_training_gpu.py > train.log 2>&1 &
 
 OpenMPI在分布式训练的场景中，起到在Host侧同步数据以及进程间组网的功能；MindSpore通过**复用Parameter Server模式训练架构**，取代了OpenMPI能力。
 
-参考[Parameter Server模式](https://www.mindspore.cn/docs/zh-CN/master/design/parameter_server_training.html)训练教程，将多个MindSpore训练进程作为`Worker`启动，并且额外启动一个`Scheduler`，对脚本做少量修改，即可执行**不依赖OpenMPI的分布式训练**。
+参考[Parameter Server模式](https://www.mindspore.cn/docs/zh-CN/r1.7/design/parameter_server_training.html)训练教程，将多个MindSpore训练进程作为`Worker`启动，并且额外启动一个`Scheduler`，对脚本做少量修改，即可执行**不依赖OpenMPI的分布式训练**。
 
-执行Worker脚本前需要导出环境变量，如[环境变量设置](https://www.mindspore.cn/docs/zh-CN/master/design/parameter_server_training.html#环境变量设置):
+执行Worker脚本前需要导出环境变量，如[环境变量设置](https://www.mindspore.cn/docs/zh-CN/r1.7/design/parameter_server_training.html#环境变量设置):
 
 ```text
 export MS_SERVER_NUM=0                # Server number
@@ -429,9 +429,9 @@ export MS_ROLE=MS_WORKER              # The role of this process: MS_SCHED repre
 
 > 你可以在这里找到样例的运行目录：
 >
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training>。
+> <https://gitee.com/mindspore/docs/tree/r1.7/docs/sample_code/distributed_training>。
 
-相比OpenMPI方式启动，此模式需要调用[Parameter Server模式](https://www.mindspore.cn/docs/zh-CN/master/design/parameter_server_training.html)中的`set_ps_context`接口，告诉MindSpore此次任务使用了PS模式训练架构:
+相比OpenMPI方式启动，此模式需要调用[Parameter Server模式](https://www.mindspore.cn/docs/zh-CN/r1.7/design/parameter_server_training.html)中的`set_ps_context`接口，告诉MindSpore此次任务使用了PS模式训练架构:
 
 ```python
 from mindspore import context
@@ -452,7 +452,7 @@ if __name__ == "__main__":
 - 默认情况下，安全加密通道是关闭的，需要通过`set_ps_context`正确配置安全加密通道或者关闭安全加密通道后，才能调用init("nccl")，否则初始化组网会失败。
 
 若想使用安全加密通道，请设置`context.set_ps_context(config_file_path="/path/to/config_file.json", enable_ssl=True, client_password="123456", server_password="123456")`
-等配置，详细参数配置说明请参考Python API [mindspore.context.set_ps_context](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.context.html#mindspore.context.set_ps_context)，以及本文档[安全认证](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html#安全认证)章节。
+等配置，详细参数配置说明请参考Python API [mindspore.context.set_ps_context](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.context.html#mindspore.context.set_ps_context)，以及本文档[安全认证](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/parallel/train_gpu.html#安全认证)章节。
 
 脚本内容`run_gpu_cluster.sh`如下，在启动Worker和Scheduler之前，需要添加相关环境变量设置：
 
@@ -622,7 +622,7 @@ epoch: 1 step: 1, loss is 2.3025854
 - cipher_list: 密码套件（支持的SSL加密类型列表）。
 - cert_expire_warning_time_in_day: 证书过期的告警时间。
 
-p12文件中的秘钥为密文存储，在启动时需要传入密码，具体参数请参考Python API [mindspore.context.set_ps_context](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.context.html#mindspore.context.set_ps_context)中的`client_password`以及`server_password`字段。
+p12文件中的秘钥为密文存储，在启动时需要传入密码，具体参数请参考Python API [mindspore.context.set_ps_context](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.context.html#mindspore.context.set_ps_context)中的`client_password`以及`server_password`字段。
 
 ### 容灾恢复
 
@@ -653,7 +653,7 @@ ckpoint_cb = ModelCheckpoint(prefix='train', directory="./ckpt_of_rank_/"+str(ge
 
 > 样例的运行目录：
 >
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training>。
+> <https://gitee.com/mindspore/docs/tree/r1.7/docs/sample_code/distributed_training>。
 
 涉及到的脚本有`run_gpu_cluster_recovery.sh`, `resnet50_distributed_training_gpu_recovery.py`, `resnet.py`
 脚本内容`run_gpu_cluster_recovery.sh`如下

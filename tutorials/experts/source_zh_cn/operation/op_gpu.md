@@ -2,7 +2,7 @@
 
 `GPU` `模型开发`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/operation/op_gpu.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/experts/source_zh_cn/operation/op_gpu.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -190,7 +190,7 @@ MS_REG_GPU_KERNEL_ONE(TensorAddV2, KernelAttr()
 
 ## 编译MindSpore
 
-写好自定义GPU算子后，需要重新编译安装MindSpore，具体请参考[安装文档](https://gitee.com/mindspore/docs/blob/master/install/mindspore_gpu_install_source.md#)。
+写好自定义GPU算子后，需要重新编译安装MindSpore，具体请参考[安装文档](https://gitee.com/mindspore/docs/blob/r1.7/install/mindspore_gpu_install_source.md#)。
 
 ## 算子验证
 

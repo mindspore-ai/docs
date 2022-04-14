@@ -1,6 +1,6 @@
 ﻿# Inference
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/faq/inference.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_en/faq/inference.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 <font size=3>**Q: When MindSpore 1.3 is installed on the Ascend 310 hardware platform, why an error message is displayed when I run the `add_model.py` sample in mindspore_serving?**</font>
 
@@ -34,7 +34,7 @@ def export_net():
 
 <font size=3>**Q: What should I do when an error `/usr/bin/ld: warning: libxxx.so, needed by libmindspore.so, not found` prompts during application compiling?**</font>
 
-A: Find the directory where the missing dynamic library file is located, add the path to the environment variable `LD_LIBRARY_PATH`, and refer to [Inference Using the MindIR Model on Ascend 310 AI Processors#Building Inference Code](https://www.mindspore.cn/tutorials/experts/en/master/infer/ascend_310_mindir.html#building-inference-code) for environment variable settings.
+A: Find the directory where the missing dynamic library file is located, add the path to the environment variable `LD_LIBRARY_PATH`, and refer to [Inference Using the MindIR Model on Ascend 310 AI Processors#Building Inference Code](https://www.mindspore.cn/tutorials/experts/en/r1.7/infer/ascend_310_mindir.html#building-inference-code) for environment variable settings.
 
 <br/>
 

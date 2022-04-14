@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `Design`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/design/glossary.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_en/design/glossary.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 |  Acronym and Abbreviation  |  Description  |
 | -----    | -----    |
@@ -67,8 +67,8 @@
 |  TFRecord  |  Data format defined by TensorFlow.  |
 |  Tensor  |  A tensor is a generalization of vectors and matrices and is easily understood as a multidimensional array, scalar, and matrix.  |
 |  Broadcast  |   In matrix mathematical operations, the shape of the operands is extended to a dimension compatible with the operation. In distributed parallelism, the parameters on one card are synchronized to other cards.  |
-|  Computational Graphs on Devices  | The entire graph is executed on the device to reduce the interaction overheads between the host and device. For details see [On-Device Execution](https://www.mindspore.cn/docs/en/master/design/on_device.html)  |
-|  Cyclic Sinking  |  Cyclic sinking is optimized based on on-device execution to further reduce the number of interactions between the host and device. For details see [On-Device Execution](https://www.mindspore.cn/docs/en/master/design/on_device.html)  |
-|  Data Sinking |  Sinking means that data is directly transmitted to the device through a channel. For details see [On-Device Execution](https://www.mindspore.cn/docs/en/master/design/on_device.html)  |
+|  Computational Graphs on Devices  | The entire graph is executed on the device to reduce the interaction overheads between the host and device. For details see [On-Device Execution](https://www.mindspore.cn/docs/en/r1.7/design/on_device.html)  |
+|  Cyclic Sinking  |  Cyclic sinking is optimized based on on-device execution to further reduce the number of interactions between the host and device. For details see [On-Device Execution](https://www.mindspore.cn/docs/en/r1.7/design/on_device.html)  |
+|  Data Sinking |  Sinking means that data is directly transmitted to the device through a channel. For details see [On-Device Execution](https://www.mindspore.cn/docs/en/r1.7/design/on_device.html)  |
 |  Graph Mode |   Static graph mode or graph mode. In this mode, the neural network model is compiled into an entire graph, and then the graph is delivered for execution. This mode uses graph optimization to improve the running performance and facilitates large-scale deployment and cross-platform running.  |
 |  PyNative Mode  |  Dynamic graph mode. In this mode, operators in the neural network are delivered and executed one by one, facilitating the compilation and debugging of the neural network model.  |

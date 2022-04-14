@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `设计` `模型开发`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/design/mindir.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/design/mindir.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 简介
 
@@ -14,7 +14,7 @@ MindIR是一种基于图表示的函数式IR，其最核心的目的是服务于
 
 - ir后缀结尾的IR文件：一种比较直观易懂的以文本格式描述模型结构的文件，可以直接用文本编辑软件查看。
 - dat后缀结尾的IR文件：一种相对于ir后缀结尾的文件格式定义更为严谨的描述模型结构的文件，包含的内容更为丰富，可以直接用文本编辑软件查看。
-- dot后缀结尾的IR文件：描述了不同节点间的拓扑关系，可以用[graphviz](http://graphviz.org)将此文件作为输入生成图片，方便用户直观地查看模型结构。对于算子比较多的模型，推荐使用可视化组件[MindInsight](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/dashboard.html#计算图可视化)对计算图进行可视化。
+- dot后缀结尾的IR文件：描述了不同节点间的拓扑关系，可以用[graphviz](http://graphviz.org)将此文件作为输入生成图片，方便用户直观地查看模型结构。对于算子比较多的模型，推荐使用可视化组件[MindInsight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/dashboard.html#计算图可视化)对计算图进行可视化。
 
 ## 文法定义
 
@@ -78,7 +78,7 @@ lambda (x, y)
     c end
 ```
 
-对应的MindIR为[ir.dot](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/design/images/ir/ir.dot)：
+对应的MindIR为[ir.dot](https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/design/images/ir/ir.dot)：
 
 ![image](./images/ir/ir.png)
 
@@ -106,7 +106,7 @@ def hof(x):
     return res
 ```
 
-对应的MindIR为[hof.dot](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/design/images/ir/hof.dot)：
+对应的MindIR为[hof.dot](https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/design/images/ir/hof.dot)：
 
 ![image](./images/ir/hof.png)
 
@@ -129,7 +129,7 @@ def fibonacci(n):
         return fibonacci(n-1) + fibonacci(n-2)
 ```
 
-对应的MindIR为[cf.dot](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/design/images/ir/cf.dot)：
+对应的MindIR为[cf.dot](https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/design/images/ir/cf.dot)：
 
 ![image](./images/ir/cf.png)
 
@@ -156,7 +156,7 @@ def ms_closure():
     return out1, out2
 ```
 
-对应的MindIR为[closure.dot](https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/design/images/ir/closure.dot)：
+对应的MindIR为[closure.dot](https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/design/images/ir/closure.dot)：
 
 ![image](./images/ir/closure.png)
 

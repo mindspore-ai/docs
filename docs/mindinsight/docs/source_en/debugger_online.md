@@ -1,6 +1,6 @@
 # Using Online Debugger
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/debugger_online.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindinsight/docs/source_en/debugger_online.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -33,7 +33,7 @@ The Debugger related parameters:
 |`--enable-debugger {ENABLE_DEBUGGER}`|Optional|Should be set to `True` or `1`, this will launch the MindInsight debugger server; Default is `False`, not launch.|Boolean|False|True/False/1/0|
 |`--debugger-port {DEBUGGER_PORT}`|Optional|Specifies the port number of the debugger server.|Integer|50051|1~65535|
 
-For more launch parameters, please refer to [MindInsight Commands](https://www.mindspore.cn/mindinsight/docs/en/master/mindinsight_commands.html).
+For more launch parameters, please refer to [MindInsight Commands](https://www.mindspore.cn/mindinsight/docs/en/r1.7/mindinsight_commands.html).
 
 ### Run the Training Script in Debug Mode
 

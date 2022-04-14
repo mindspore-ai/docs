@@ -1,6 +1,6 @@
 # 比较与tf.keras.initializers.RandomUniform的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/initUniform.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/initUniform.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## tf.keras.initializers.RandomUniform
 
@@ -18,7 +18,7 @@ tf.keras.initializers.RandomUniform(
 class mindspore.common.initializer.Uniform(scale=0.07)
 ```
 
-更多内容详见[mindspore.common.initializer.Uniform](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.common.initializer.html?#mindspore.common.initializer.Uniform)。
+更多内容详见[mindspore.common.initializer.Uniform](https://mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.common.initializer.html?#mindspore.common.initializer.Uniform)。
 
 ## 使用方式
 

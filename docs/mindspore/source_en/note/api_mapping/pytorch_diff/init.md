@@ -1,6 +1,6 @@
 ﻿# Function Differences with torch.distributed.init_process_group
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/init.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_en/note/api_mapping/pytorch_diff/init.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## torch.distributed.init_process_group
 
@@ -24,7 +24,7 @@ For more information, see [torch.distributed.init_process_group](https://pytorch
 mindspore.communication.init(backend_name=None)
 ```
 
-For more information, see [mindspore.communication.init](https://mindspore.cn/docs/en/master/api_python/mindspore.communication.html#mindspore.communication.init).
+For more information, see [mindspore.communication.init](https://mindspore.cn/docs/en/r1.7/api_python/mindspore.communication.html#mindspore.communication.init).
 
 ## Differences
 

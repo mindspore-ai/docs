@@ -1,6 +1,6 @@
 # 比较与torch.nn.Module.parameters()的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/GetParams.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/GetParams.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## torch.nn.Module.parameters
 
@@ -16,7 +16,7 @@ torch.nn.Module.parameters(recurse=True)
 mindspore.nn.Cell.get_parameters(expand=True)
 ```
 
-更多内容详见[mindspore.nn.Cell.get_parameters](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.get_parameters)。
+更多内容详见[mindspore.nn.Cell.get_parameters](https://mindspore.cn/docs/zh-CN/r1.7/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.get_parameters)。
 
 ## 使用方式
 

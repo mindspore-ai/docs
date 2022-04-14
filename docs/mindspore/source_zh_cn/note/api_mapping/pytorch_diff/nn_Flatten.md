@@ -1,6 +1,6 @@
 ﻿# 比较与torch.nn.Flatten的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/nn_Flatten.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/nn_Flatten.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## torch.nn.Flatten
 
@@ -19,7 +19,7 @@ class torch.nn.Flatten(
 class mindspore.nn.Flatten()(input)
 ```
 
-更多内容详见[mindspore.nn.Flatten](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Flatten.html#mindspore.nn.Flatten)。
+更多内容详见[mindspore.nn.Flatten](https://mindspore.cn/docs/zh-CN/r1.7/api_python/nn/mindspore.nn.Flatten.html#mindspore.nn.Flatten)。
 
 ## 使用方式
 

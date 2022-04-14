@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `Model Export`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced/train/save.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/source_en/advanced/train/save.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.7/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -17,7 +17,7 @@ The following uses examples to describe how to save MindSpore CheckPoint files, 
 
 ## Saving the models
 
-The [Save and Load section](https://mindspore.cn/tutorials/zh-CN/master/beginner/save_load.html) of the beginner tutorials describes how to save model parameters directly using `save_checkpoint` and using the Callback mechanism to save model parameters during training. This section further describes how to save model parameters during training and use `save_checkpoint` save model parameters directly.
+The [Save and Load section](https://mindspore.cn/tutorials/zh-CN/r1.7/beginner/save_load.html) of the beginner tutorials describes how to save model parameters directly using `save_checkpoint` and using the Callback mechanism to save model parameters during training. This section further describes how to save model parameters during training and use `save_checkpoint` save model parameters directly.
 
 ### Savig the models during the training
 
@@ -84,7 +84,7 @@ You can use `save_checkpoint` function to save network weights to a CheckPoint f
 
 1. `save_obj` parameter
 
-    The [Save and Load section](https://mindspore.cn/tutorials/zh-CN/master/beginner/save_load.html) of the beginner tutorials describes how to save model parameters directly using `save_checkpoint` when `save_obj` is a Cell object. Here's how to save model parameters when you pass in a list of data. When passing in a data list, each element of the list is of dictionary type, such as [{"name": param_name, "data": param_data} ,...], `param_name` type must be str, and the type of `param_data` must be Parameter or Tensor. An example is shown below:
+    The [Save and Load section](https://mindspore.cn/tutorials/zh-CN/r1.7/beginner/save_load.html) of the beginner tutorials describes how to save model parameters directly using `save_checkpoint` when `save_obj` is a Cell object. Here's how to save model parameters when you pass in a list of data. When passing in a data list, each element of the list is of dictionary type, such as [{"name": param_name, "data": param_data} ,...], `param_name` type must be str, and the type of `param_data` must be Parameter or Tensor. An example is shown below:
 
     ```python
     from mindspore import save_checkpoint, Tensor

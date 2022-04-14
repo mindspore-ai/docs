@@ -1,6 +1,6 @@
 # Collecting Summary Record
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/summary_record.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindinsight/docs/source_en/summary_record.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -14,7 +14,7 @@ Scalars, images, computational graphs, training optimization process, and model 
 
 ## Preparing The Training Script
 
-Currently, MindSpore supports to save scalars, images, computational graph, training optimization process, and model hyperparameters to summary log file and display them on the web page. The computational graph can only be recorded in the graph mode. The detailed process of data collection and landscape drawing in the training optimization process can be referred to  [Training Optimization Process Visualization](https://www.mindspore.cn/mindinsight/docs/en/master/landscape.html).
+Currently, MindSpore supports to save scalars, images, computational graph, training optimization process, and model hyperparameters to summary log file and display them on the web page. The computational graph can only be recorded in the graph mode. The detailed process of data collection and landscape drawing in the training optimization process can be referred to  [Training Optimization Process Visualization](https://www.mindspore.cn/mindinsight/docs/en/r1.7/landscape.html).
 
 MindSpore currently supports multiple ways to record data into summary log files.
 
@@ -22,9 +22,9 @@ MindSpore currently supports multiple ways to record data into summary log files
 
 The `Callback` mechanism in MindSpore provides a quick and easy way to collect common information, including the calculational graph, loss value, learning rate, parameter weights, etc. It is named 'SummaryCollector'.
 
-When you write a training script, you just instantiate the `SummaryCollector` and apply it to either `model.train` or `model.eval`. You can automatically collect some common summary data. The detailed usage of `SummaryCollector` can refer to the `API` document [mindspore.train.callback.SummaryCollector](https://www.mindspore.cn/docs/en/master/api_python/mindspore.train.html#mindspore.train.callback.SummaryCollector) .
+When you write a training script, you just instantiate the `SummaryCollector` and apply it to either `model.train` or `model.eval`. You can automatically collect some common summary data. The detailed usage of `SummaryCollector` can refer to the `API` document [mindspore.train.callback.SummaryCollector](https://www.mindspore.cn/docs/en/r1.7/api_python/mindspore.train.html#mindspore.train.callback.SummaryCollector) .
 
-The sample code snippet is shown as follows. The [whole script](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/summary_record/summary_1.py) is put on gitee.
+The sample code snippet is shown as follows. The [whole script](https://gitee.com/mindspore/docs/blob/r1.7/docs/sample_code/mindinsight/summary_record/summary_1.py) is put on gitee.
 
 ```python
 
@@ -55,12 +55,12 @@ In addition to providing the `SummaryCollector` that automatically collects some
 
 The following summary operators are currently supported:
 
-- [ScalarSummary](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ScalarSummary.html): Record a scalar data.
-- [TensorSummary](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.TensorSummary.html): Record a tensor data.
-- [ImageSummary](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ImageSummary.html): Record a image data.
-- [HistogramSummary](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.HistogramSummary.html): Convert tensor data into histogram data records.
+- [ScalarSummary](https://www.mindspore.cn/docs/en/r1.7/api_python/ops/mindspore.ops.ScalarSummary.html): Record a scalar data.
+- [TensorSummary](https://www.mindspore.cn/docs/en/r1.7/api_python/ops/mindspore.ops.TensorSummary.html): Record a tensor data.
+- [ImageSummary](https://www.mindspore.cn/docs/en/r1.7/api_python/ops/mindspore.ops.ImageSummary.html): Record a image data.
+- [HistogramSummary](https://www.mindspore.cn/docs/en/r1.7/api_python/ops/mindspore.ops.HistogramSummary.html): Convert tensor data into histogram data records.
 
-The recording method is shown in the following steps. The [whole script](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/summary_record/summary_2.py) is put on gitee.
+The recording method is shown in the following steps. The [whole script](https://gitee.com/mindspore/docs/blob/r1.7/docs/sample_code/mindinsight/summary_record/summary_2.py) is put on gitee.
 
 Step 1: Call the summary operator in the `construct` function of the derived class that inherits `nn.Cell` to collect image or scalar data.
 
@@ -125,9 +125,9 @@ in custom callback, and display the data by the web page.
 
 The following pseudocode is shown in the CNN network, where developers can use the network output with the original tag and the prediction tag to generate the image of the confusion matrix.
 It is then recorded into the summary log file through the `SummaryRecord` module.
-The detailed usage of `SummaryRecord` can refer to the `API` document [mindspore.train.summary.SummaryRecord](https://www.mindspore.cn/docs/en/master/api_python/mindspore.train.html#mindspore.train.summary.SummaryRecord) .
+The detailed usage of `SummaryRecord` can refer to the `API` document [mindspore.train.summary.SummaryRecord](https://www.mindspore.cn/docs/en/r1.7/api_python/mindspore.train.html#mindspore.train.summary.SummaryRecord) .
 
-The sample code snippet is as follows. The [whole script](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/summary_record/summary_3.py) is put on gitee.
+The sample code snippet is as follows. The [whole script](https://gitee.com/mindspore/docs/blob/r1.7/docs/sample_code/mindinsight/summary_record/summary_3.py) is put on gitee.
 
 ```python
 class MyCallback(Callback):
@@ -175,9 +175,9 @@ In the saved files, `ms_output_after_hwopt.pb` is the computational graph after 
 
 If you are not using the `Model` interface provided by MindSpore, you can implement a method by imitating `train` method of `Model` interface to control the number of iterations. You can imitate the `SummaryCollector` and record the summary operator data in the following manner.
 
-The following code snippet demonstrates how to record data in a custom training cycle using the summary operator and the `add_value` interface of `SummaryRecord`. The [whole script](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/summary_record/summary_4.py) is put on gitee.
+The following code snippet demonstrates how to record data in a custom training cycle using the summary operator and the `add_value` interface of `SummaryRecord`. The [whole script](https://gitee.com/mindspore/docs/blob/r1.7/docs/sample_code/mindinsight/summary_record/summary_4.py) is put on gitee.
 
-For more tutorials about `SummaryRecord`, [refer to the Python API documentation](https://www.mindspore.cn/docs/en/master/api_python/mindspore.train.html#mindspore.train.summary.SummaryRecord). Please note that `SummaryRecord` will not record computational graph automatically. If you need to record the computational graph, please manually pass the instance of network that inherits from Cell. The recorded computational graph only includes the code and functions used in the construct method.
+For more tutorials about `SummaryRecord`, [refer to the Python API documentation](https://www.mindspore.cn/docs/en/r1.7/api_python/mindspore.train.html#mindspore.train.summary.SummaryRecord). Please note that `SummaryRecord` will not record computational graph automatically. If you need to record the computational graph, please manually pass the instance of network that inherits from Cell. The recorded computational graph only includes the code and functions used in the construct method.
 
 ```python
 def train(ds_train):
@@ -235,7 +235,7 @@ model.eval(ds_eval, callbacks=[summary_collector])
 
 There is a tip for recording gradients with summary in addition to the above methods. Please note that the tip should be used with one of the above methods.
 
-Recording gradients is possible by inheriting your original optimizer and inserting calls to summary operator. An example of code snippet is as follows. The [whole script](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/summary_record/summary_gradients.py) is put on gitee.
+Recording gradients is possible by inheriting your original optimizer and inserting calls to summary operator. An example of code snippet is as follows. The [whole script](https://gitee.com/mindspore/docs/blob/r1.7/docs/sample_code/mindinsight/summary_record/summary_gradients.py) is put on gitee.
 
 ```python
 import mindspore.nn as nn
@@ -325,7 +325,7 @@ Stop MindInsight command:
 mindinsight stop
 ```
 
-For more parameter Settings, see the [MindInsight related commands](https://www.mindspore.cn/mindinsight/docs/en/master/mindinsight_commands.html) page.
+For more parameter Settings, see the [MindInsight related commands](https://www.mindspore.cn/mindinsight/docs/en/r1.7/mindinsight_commands.html) page.
 
 ## Notices
 

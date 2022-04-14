@@ -1,6 +1,6 @@
 ﻿# Feature Advice
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/faq/feature_advice.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_en/faq/feature_advice.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 <font size=3>**Q: Is the `input=np.random.uniform(...)` format fixed when the MindIR format is exported?**</font>
 
@@ -54,7 +54,7 @@ A: The formats of  `ckpt` of MindSpore and `ckpt`of TensorFlow are not generic. 
 
 <font size=3>**Q: How do I use models trained by MindSpore on Ascend 310? Can they be converted to models used by HiLens Kit?**</font>
 
-A: Yes. HiLens Kit uses Ascend 310 as the inference core. Therefore, the two questions are essentially the same, which both need to convert as OM model. Ascend 310 requires a dedicated OM model. Use MindSpore to export the ONNX or AIR model and convert it into an OM model supported by Ascend 310. For details, see [Multi-platform Inference](https://www.mindspore.cn/tutorials/experts/en/master/infer/inference.html).
+A: Yes. HiLens Kit uses Ascend 310 as the inference core. Therefore, the two questions are essentially the same, which both need to convert as OM model. Ascend 310 requires a dedicated OM model. Use MindSpore to export the ONNX or AIR model and convert it into an OM model supported by Ascend 310. For details, see [Multi-platform Inference](https://www.mindspore.cn/tutorials/experts/en/r1.7/infer/inference.html).
 
 <br/>
 
@@ -78,7 +78,7 @@ A: Due to hardware limitations of Protobuf, when exporting to AIR and ONNX forma
 
 <font size=3>**Q: Does MindSpore need a GPU computing unit? What hardware support is needed?**</font>
 
-A: MindSpore currently supports CPU, GPU, and Ascend. Currently, you can try out MindSpore through Docker images on laptops or in environments with GPUs. Some models in MindSpore Model Zoo support GPU-based training and inference, and other models are being improved. For distributed parallel training, MindSpore supports multi-GPU training. You can obtain the latest information from [project release notes](https://gitee.com/mindspore/mindspore/blob/master/RELEASE.md#).
+A: MindSpore currently supports CPU, GPU, and Ascend. Currently, you can try out MindSpore through Docker images on laptops or in environments with GPUs. Some models in MindSpore Model Zoo support GPU-based training and inference, and other models are being improved. For distributed parallel training, MindSpore supports multi-GPU training. You can obtain the latest information from [project release notes](https://gitee.com/mindspore/mindspore/blob/r1.7/RELEASE.md#).
 
 <br/>
 
@@ -102,7 +102,7 @@ A: MindSpore supports Python native expression and `import mindspore` related pa
 
 <font size=3>**Q: Does MindSpore support truncated gradient?**</font>
 
-A: Yes. For details, see [Definition and Usage of Truncated Gradient](https://gitee.com/mindspore/models/blob/master/official/nlp/transformer/src/transformer_for_train.py#L35).
+A: Yes. For details, see [Definition and Usage of Truncated Gradient](https://gitee.com/mindspore/models/blob/r1.7/official/nlp/transformer/src/transformer_for_train.py#L35).
 
 <br/>
 

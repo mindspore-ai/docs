@@ -1,6 +1,6 @@
 ﻿# Function Differences with torch.nn.functional.normalize
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/L2Normalize.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_en/note/api_mapping/pytorch_diff/L2Normalize.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## torch.nn.functional.normalize
 
@@ -25,7 +25,7 @@ class mindspore.ops.L2Normalize(
 )(input_x)
 ```
 
-For more information, see [mindspore.ops.L2Normalize](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.L2Normalize.html#mindspore.ops.L2Normalize).
+For more information, see [mindspore.ops.L2Normalize](https://mindspore.cn/docs/en/r1.7/api_python/ops/mindspore.ops.L2Normalize.html#mindspore.ops.L2Normalize).
 
 ## Differences
 

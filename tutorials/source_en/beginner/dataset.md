@@ -1,10 +1,10 @@
 # Data Processing
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/beginner/dataset.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/source_en/beginner/dataset.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 Data is the foundation of deep learning, and inputting the high-quality data plays an active role in the entire deep neural network.
 
-[mindspore.dataset](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.html) provides a loading interface for some commonly used datasets and standard format datasets, enabling users to quickly perform data processing operations. For the image datasets, users can use `mindvision.dataset` to load and process datasets. This chapter first describes how to load and process a CIFAR-10 dataset by using the `mindvision.dataset.Cifar10` interface, and then describes how to use `mindspore.dataset.GeneratorDataset` to implement custom dataset loading.
+[mindspore.dataset](https://www.mindspore.cn/docs/en/r1.7/api_python/mindspore.dataset.html) provides a loading interface for some commonly used datasets and standard format datasets, enabling users to quickly perform data processing operations. For the image datasets, users can use `mindvision.dataset` to load and process datasets. This chapter first describes how to load and process a CIFAR-10 dataset by using the `mindvision.dataset.Cifar10` interface, and then describes how to use `mindspore.dataset.GeneratorDataset` to implement custom dataset loading.
 
 > `mindvision.dataset`is a dataset interface developed on the basis of `mindspore.dataset`. In addition to providing dataset loading capabilities, `mindvision.dataset` further provides dataset download capabilities, data processing, and data enhancement capabilities.
 

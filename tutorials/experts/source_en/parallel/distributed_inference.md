@@ -2,7 +2,7 @@
 
 `Ascend` `Inference Application`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/distributed_inference.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/experts/source_en/parallel/distributed_inference.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 Distributed inference means use multiple devices for prediction. If data parallel or integrated save is used in training, the method of distributed inference is same with the above description. It is noted that each device should load one same checkpoint file.
 
@@ -12,17 +12,17 @@ This tutorial would focus on the process that the model slices are saved on each
 
 > Distributed inference sample code:
 >
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_inference>
+> <https://gitee.com/mindspore/docs/tree/r1.7/docs/sample_code/distributed_inference>
 
 The process of distributed inference is as follows:
 
 1. Execute training, generate the checkpoint file and the model strategy file.
 
-    > - The distributed training tutorial and sample code can be referred to the link: <https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html>.
+    > - The distributed training tutorial and sample code can be referred to the link: <https://www.mindspore.cn/tutorials/experts/en/r1.7/parallel/train_ascend.html>.
     > - In the distributed Inference scenario, during the training phase, the `integrated_save` of `CheckpointConfig` interface should be set to `False`, which means that each device only saves the slice of model instead of the full model.
     > - `parallel_mode` of `set_auto_parallel_context` interface should be set to `auto_parallel` or `semi_auto_parallel`.
     > - In addition, you need to specify `strategy_ckpt_save_file` to indicate the path of the strategy file.
-    > - If pipeline distributed inference is used, then the pipeline parallel training also must be used. And the `device_num` and `pipeline_stages` used for pipeline training and inference must be the same.  While applying pipeline inference, `micro_size` is 1 and there is no need to use `PipelineCell`. The pipeline distributed training tutorial can be referred the link: <https://www.mindspore.cn/docs/en/master/design/pipeline_parallel.html>.
+    > - If pipeline distributed inference is used, then the pipeline parallel training also must be used. And the `device_num` and `pipeline_stages` used for pipeline training and inference must be the same.  While applying pipeline inference, `micro_size` is 1 and there is no need to use `PipelineCell`. The pipeline distributed training tutorial can be referred the link: <https://www.mindspore.cn/docs/en/r1.7/design/pipeline_parallel.html>.
 
 2. Set context and infer predication strategy according to the predication data.
 
@@ -57,7 +57,7 @@ The process of distributed inference is as follows:
     > For pipeline inference, each `stage` only needs to load the checkpoint file of self_stage.
     >
     > The `load_distributed_checkpoint` interface supports that predict_strategy is `None`, which is single device inference, and the process is different from distributed inference. The detailed usage can be referred to the link:
-    > <https://www.mindspore.cn/docs/en/master/api_python/mindspore.html#mindspore.load_distributed_checkpoint>.
+    > <https://www.mindspore.cn/docs/en/r1.7/api_python/mindspore.html#mindspore.load_distributed_checkpoint>.
 
 4. Execute inference.
 
@@ -111,4 +111,4 @@ In the case of multi-card training and single-card inference, the usage of expor
 
 > Distributed scene export MindIR file sample code:
 >
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_export>
+> <https://gitee.com/mindspore/docs/tree/r1.7/docs/sample_code/distributed_export>

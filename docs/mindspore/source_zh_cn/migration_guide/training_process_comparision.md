@@ -1,6 +1,6 @@
 # 基本执行流程横向对比
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/training_process_comparision.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/migration_guide/training_process_comparision.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 总体流程
 
@@ -46,7 +46,7 @@ MindSpore 的模型训练和推理的总体执行流程，基本与主流的 AI 
     model.train(epoch_size, ds_train, callbacks=[loss_cb, ckpoint_cb ])
     ```
 
-    代码来源： [ModelZoo/LeNet5](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/train.py)
+    代码来源： [ModelZoo/LeNet5](https://gitee.com/mindspore/models/blob/r1.7/official/cv/lenet/train.py)
 
 - PyTorch
 
@@ -245,7 +245,7 @@ MindSpore 和 PyTorch 都提供了自动微分功能，让我们在定义了正�
 
     最终，我们看似仅执行了正向图，其实图结构里既包含了正向算子，又包含了 MindSpore 为我们添加的反向算子，也就是说，MindSpore 在我们定义的正向图后面又新加了一个看不见的  `Cell`，这个  `Cell` 里都是根据正向图推导出来的反向算子。
 
-    而这个帮助我们构建反向图的接口就是 [GradOperation](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.GradOperation.html?highlight=gradopera#mindspore.ops.GradOperation) ：
+    而这个帮助我们构建反向图的接口就是 [GradOperation](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/ops/mindspore.ops.GradOperation.html?highlight=gradopera#mindspore.ops.GradOperation) ：
 
     ```python
     class GradNetWrtX(nn.Cell):
@@ -385,8 +385,8 @@ loss = F.depend(loss, self.optimizer(grads))
 ...
 ```
 
-除了 `TrainOneStepCell`，对于混合精度场景，MindSpore 还提供了带有 [Loss Scale](https://www.mindspore.cn/tutorials/experts/zh-CN/master/others/mixed_precision.html) 的 `TrainOneStepWithLossScale`，原理其实是一样的，感兴趣的读者可以阅读混合精度的原理以及查看该方法的实现。
+除了 `TrainOneStepCell`，对于混合精度场景，MindSpore 还提供了带有 [Loss Scale](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/others/mixed_precision.html) 的 `TrainOneStepWithLossScale`，原理其实是一样的，感兴趣的读者可以阅读混合精度的原理以及查看该方法的实现。
 
 当我们使用  `TrainOneStepCell` 添加反向网络结构后，仍可以使用 `Model` 类进行封装，但此时不需要再给 `Model` 传入 loss、优化器这两个参数了，因为传入的网络已经包含了正向+反向结构。最后，通过调用  `model.train()` ，开始正常的训练流程。
 
-参考链接： [TrainOneStepCell](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/nn/wrap/cell_wrapper.py) 、 [TrainOneStepWithLossScale](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/nn/wrap/loss_scale.py)
+参考链接： [TrainOneStepCell](https://gitee.com/mindspore/mindspore/blob/r1.7/mindspore/python/mindspore/nn/wrap/cell_wrapper.py) 、 [TrainOneStepWithLossScale](https://gitee.com/mindspore/mindspore/blob/r1.7/mindspore/python/mindspore/nn/wrap/loss_scale.py)

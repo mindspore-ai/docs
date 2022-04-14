@@ -1,6 +1,6 @@
 # 安装MindInsight
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/mindinsight_install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindinsight/docs/source_zh_cn/mindinsight_install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 确认系统环境信息
 
@@ -12,7 +12,7 @@
 - 若采用源码编译安装，还需确认安装以下依赖。
     - 确认安装[node.js](https://nodejs.org/en/download/) 10.19.0及以上版本。
     - 确认安装[wheel](https://pypi.org/project/wheel/) 0.32.0及以上版本。
-- 其他依赖参见[requirements.txt](https://gitee.com/mindspore/mindinsight/blob/master/requirements.txt)。
+- 其他依赖参见[requirements.txt](https://gitee.com/mindspore/mindinsight/blob/r1.7/requirements.txt)。
 
 ## 安装方式
 
@@ -32,7 +32,7 @@ pip install mindinsight
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindInsight/any/mindinsight-{version}-py3-none-any.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-> - 在联网状态下，安装whl包时会自动下载MindInsight安装包的依赖项（依赖项详情参见[requirements.txt](https://gitee.com/mindspore/mindinsight/blob/master/requirements.txt)），其余情况需自行安装。
+> - 在联网状态下，安装whl包时会自动下载MindInsight安装包的依赖项（依赖项详情参见[requirements.txt](https://gitee.com/mindspore/mindinsight/blob/r1.7/requirements.txt)），其余情况需自行安装。
 > - `{version}`表示MindInsight版本号，例如下载1.3.0版本MindInsight时，`{version}`应写为1.3.0。
 > - MindInsight支持使用x86 64位或ARM 64位架构的Linux发行版系统。
 

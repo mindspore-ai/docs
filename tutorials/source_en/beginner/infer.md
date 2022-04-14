@@ -1,6 +1,6 @@
 # Inference and Deployment
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/beginner/infer.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/source_en/beginner/infer.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 This chapter uses the `mobilenet_v2` network fine-tuning approach in MindSpore Vision to develop an AI application (classification of the dog and the croissants) and deploy the trained network model to the Android phone to perform inference and deployment functions.
 
@@ -318,11 +318,11 @@ To implement the inference function of the model file on the phone side, the ste
 
 ### Converting the file format
 
-Use the [conversion tool](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html) applied on the use side, and convert the mobilenet_v2_1.0_224.mindir file generated during the training process into a file format recognizable by the MindSpore Lite end-side inference framework mobilenet_v2_1.0_224.ms file.
+Use the [conversion tool](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/converter_tool.html) applied on the use side, and convert the mobilenet_v2_1.0_224.mindir file generated during the training process into a file format recognizable by the MindSpore Lite end-side inference framework mobilenet_v2_1.0_224.ms file.
 
 The specific model file format conversion method is as follows:
 
-1. Use MindSpore Lite Converter to convert file formats in the Linux, in the [Linux-x86_64 tool downloading link](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html).
+1. Use MindSpore Lite Converter to convert file formats in the Linux, in the [Linux-x86_64 tool downloading link](https://www.mindspore.cn/lite/docs/en/r1.7/use/downloads.html).
 
 ```shell
 # Set the path of the package after downloading and extracting, {converter_path}is the path to the extracted toolkit, PACKAGE_ROOT_PATH is set
@@ -335,7 +335,7 @@ export LD_LIBRARY_PATH=${PACKAGE_ROOT_PATH}/tools/converter/lib:${LD_LIBRARY_PAT
 ./converter_lite --fmk=MINDIR --modelFile=mobilenet_v2_1.0_224.mindir  --outputFile=mobilenet_v2_1.0_224
 ```
 
-2. Use MindSpore Lite Converter under Windows to convert file formats, in the [Windows-x64 tool downloading link](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html)
+2. Use MindSpore Lite Converter under Windows to convert file formats, in the [Windows-x64 tool downloading link](https://www.mindspore.cn/lite/docs/en/r1.7/use/downloads.html)
 
 ```shell
 # Set the path of the package after downloading and extracting, {converter_path}is the path to the extracted toolkit, PACKAGE_ROOT_PATH is the environment variable that is set
@@ -350,7 +350,7 @@ call converter_lite --fmk=MINDIR --modelFile=mobilenet_v2_1.0_224.mindir --outpu
 
 After the conversion is successful, `CONVERTL RESULT SUCCESS:0` is printed, and the `mobilenet_v2_1.0_224.ms` file is generated in the current directory.
 
-> For other environments to download MindSpore Lite Converter, see [Download MindSpore Lite](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html).
+> For other environments to download MindSpore Lite Converter, see [Download MindSpore Lite](https://www.mindspore.cn/lite/docs/en/r1.7/use/downloads.html).
 
 ### Application Deployment
 
@@ -398,7 +398,7 @@ After the label and model file are deployed to the mobile phone, you can click t
 
 ![result1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/beginner/images/app4.png)
 
-> This chapter only covers the simple deployment process on the phone side. For more information about inference, please refer to [MindSpore Lite](https://www.mindspore.cn/lite/docs/en/master/index.html).
+> This chapter only covers the simple deployment process on the phone side. For more information about inference, please refer to [MindSpore Lite](https://www.mindspore.cn/lite/docs/en/r1.7/index.html).
 
 
 

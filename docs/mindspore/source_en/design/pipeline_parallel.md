@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `Distributed Parallel` `Whole Process`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/design/pipeline_parallel.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_en/design/pipeline_parallel.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -16,7 +16,7 @@ pipeline parallel mode based on user configurations.
 
 > Download address of the complete sample code:
 >
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training>.
+> <https://gitee.com/mindspore/docs/tree/r1.7/docs/sample_code/distributed_training>.
 
 The directory structure is as follows:
 
@@ -39,21 +39,21 @@ The directory structure is as follows:
 ### Downloading the Dataset
 
 This example uses the `CIFAR-10` dataset. For details about how to download and load the dataset,
-visit <https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html>.
+visit <https://www.mindspore.cn/tutorials/experts/en/r1.7/parallel/train_ascend.html>.
 
 ### Configuring the Distributed Environment
 
 > Pipeline parallelism supports Ascend and GPU.
 
 For details about how to configure the distributed environment and call the HCCL,
-visit <https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html>.
+visit <https://www.mindspore.cn/tutorials/experts/en/r1.7/parallel/train_ascend.html>.
 
 ## Defining the Network
 
 The network definition is the same as that in the Parallel Distributed Training Example.
 
 For details about the definitions of the network, optimizer, and loss function,
-visit <https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html>.
+visit <https://www.mindspore.cn/tutorials/experts/en/r1.7/parallel/train_ascend.html>.
 
 > To implement pipeline parallelism, you need to define the parallel strategy and call the `pipeline_stage` API to specify the stage on which each layer is to be executed. The granularity of the `pipeline_stage` API is `Cell`. `pipeline_stage` must be configured for all `Cells` that contain training parameters.
 

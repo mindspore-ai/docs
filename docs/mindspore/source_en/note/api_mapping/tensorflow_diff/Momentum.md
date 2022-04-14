@@ -1,6 +1,6 @@
 # Function Differences with tf.train.MomentumOptimizer
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/Momentum.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/Momentum.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## tf.train.MomentumOptimizer
 
@@ -29,7 +29,7 @@ class mindspore.nn.Momentum(
 )(grads)
 ```
 
-For more information, see [mindspore.nn.Momentum](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Momentum.html).
+For more information, see [mindspore.nn.Momentum](https://mindspore.cn/docs/en/r1.7/api_python/nn/mindspore.nn.Momentum.html).
 
 ## Differences
 

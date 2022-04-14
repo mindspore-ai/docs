@@ -1,6 +1,6 @@
 # 比较与tf.data.Dataset.shuffle的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/shuffle.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/shuffle.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## tf.data.Dataset.shuffle
 
@@ -22,7 +22,7 @@ mindspore.dataset.GeneratorDataset.shuffle(
 )
 ```
 
-更多内容详见[mindspore.dataset.GeneratorDataset.shuffle](https://mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset.shuffle)。
+更多内容详见[mindspore.dataset.GeneratorDataset.shuffle](https://mindspore.cn/docs/zh-CN/r1.7/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset.shuffle)。
 
 ## 使用方式
 

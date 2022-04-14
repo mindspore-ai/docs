@@ -6,5 +6,5 @@
 MindSpore规格和说明
 =====================
 
-文档已迁移至 `参考 <https://www.mindspore.cn/docs/zh-CN/master/note/benchmark.html>`_ 。
+文档已迁移至 `参考 <https://www.mindspore.cn/docs/zh-CN/r1.7/note/benchmark.html>`_ 。
  

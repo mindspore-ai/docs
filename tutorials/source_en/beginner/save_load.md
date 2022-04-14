@@ -1,6 +1,6 @@
 # Saving and Loading the Model
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/beginner/save_load.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/source_en/beginner/save_load.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 The content of the previous chapter mainly introduced how to adjust hyperparameters and train network models. During the process of training the network model, we actually want to save the intermediate and final results for fine-tune and subsequent model deployment and inference, and now start learning how to set hyperparameters and optimize model parameters.
 
@@ -83,7 +83,7 @@ Here, `network` is the training network, and `"./MyNet.ckpt"` is the saving path
 
 ### Saving the Model During Training
 
-In the process of model training, use the `callbacks` parameter in `model.train` to pass in the object [ModelCheckpoint](https://mindspore.cn/docs/en/master/api_python/mindspore.train.html#mindsporetraincallbackmodelcheckpoint) that saves the model (Generally used with [CheckpointConfig](https://mindspore.cn/docs/en/master/api_python/mindspore.train.html#mindsporetraincallbackcheckpointconfig)), which can save the model parameters and generate CheckPoint (abbreviated as ckpt) files.
+In the process of model training, use the `callbacks` parameter in `model.train` to pass in the object [ModelCheckpoint](https://mindspore.cn/docs/en/r1.7/api_python/mindspore.train.html#mindsporetraincallbackmodelcheckpoint) that saves the model (Generally used with [CheckpointConfig](https://mindspore.cn/docs/en/r1.7/api_python/mindspore.train.html#mindsporetraincallbackcheckpointconfig)), which can save the model parameters and generate CheckPoint (abbreviated as ckpt) files.
 
 You can configure the checkpoint policies as required. The following describes the usage:
 

@@ -1,6 +1,6 @@
 # 比较与torch.logical_or的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/LogicalOr.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/LogicalOr.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## torch.logical_or
 
@@ -16,7 +16,7 @@ class torch.logical_or(input, other, out=None)
 class class mindspore.ops.LogicalOr()(x, y)
 ```
 
-更多内容详见 [mindspore.ops.LogicalOr](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.LogicalOr.html#mindspore.ops.LogicalOr)。
+更多内容详见 [mindspore.ops.LogicalOr](https://mindspore.cn/docs/zh-CN/r1.7/api_python/ops/mindspore.ops.LogicalOr.html#mindspore.ops.LogicalOr)。
 
 ## 使用方式
 
