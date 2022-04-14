@@ -2,7 +2,7 @@
 
 `Ascend` `扩展功能`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/experts/source_zh_cn/others/thor.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/experts/source_zh_cn/others/thor.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source.png"></a>
 
 深度学习训练过程可以看成损失函数损失值下降过程，合适的优化器可以让深度学习训练时间大大减少。优化器可以分为一阶优化器和二阶优化器，目前业界主流使用的仍然是一阶优化器，二阶优化器因为单步训练时间过久而没有被广泛应用，而近年来，将二阶优化应用到深度学习训练中有了理论突破，并取得了不错的结果。
 

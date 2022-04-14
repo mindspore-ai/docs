@@ -1,6 +1,6 @@
 # Training the Model
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/source_en/beginner/train.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/source_en/beginner/train.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png"></a>
 
 After learning how to create a model and build a dataset in the preceding tutorials, you can start to learn how to set hyperparameters and optimize model parameters.
 
@@ -16,7 +16,7 @@ where $n$ is the batch size, and $η$ is a learning rate. In addition, $w_{t}$ i
 - Batch size: The dataset is trained for batch reading, setting the size of each batch of data. The batch size is too small, takes a lot of time, and the gradient oscillation is serious, which is not conducive to convergence. The batch size is too large, and the gradient direction of different batches does not change at all, which is easy to fall into local minimum values. In this way, an appropriate batch size needs to be chosen, to effectively improve the accuracy of the model and global convergence.
 - Learning rate: If the learning rate is low, the convergence speed slows down. If the learning rate is high, unpredictable results such as no training convergence may occur. Gradient descent is a parameter optimization algorithm that is widely used to minimize model errors. Gradient descent estimates the parameters of the model by iterating and minimizing the loss function at each step. The learning rate is that during the iteration process, the learning progress of the model will be controlled.
 
-![learning-rate](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/beginner/images/learning_rate.png)
+![learning-rate](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/tutorials/source_zh_cn/beginner/images/learning_rate.png)
 
 ```python
 epochs = 10

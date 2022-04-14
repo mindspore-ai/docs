@@ -1,6 +1,6 @@
 # TensorFlow与MindSpore
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_api_mapping.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_api_mapping.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source.png"></a>
 
 由社区提供的TensorFlow APIs和MindSpore APIs之间的映射，可能在参数、输入、输出、逻辑功能和特定场景等方面存在差异，可详见各API描述或已提供的差异对比。
 

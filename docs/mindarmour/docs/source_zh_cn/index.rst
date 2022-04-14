@@ -5,7 +5,7 @@ AI作为一种通用技术，在带来巨大机遇和效益的同时也面临着
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindarmour/docs/source_zh_cn/images/mindarmour_cn.png" width="700px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/docs/mindarmour/docs/source_zh_cn/images/mindarmour_cn.png" width="700px" alt="" >
 
 使用MindArmour的典型场景
 ------------------------------

@@ -1,6 +1,6 @@
 ﻿# Differential Privacy Design
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindarmour/docs/source_en/differential_privacy_design.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindarmour/docs/source_en/differential_privacy_design.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png"></a>
 
 ## Overall Design
 
