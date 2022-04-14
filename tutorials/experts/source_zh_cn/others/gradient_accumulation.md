@@ -293,7 +293,7 @@ if __name__ == "__main__":
 
 **验证模型:**
 
-通过ModelZoo中`lenet`目录下的[eval.py](https://gitee.com/mindspore/models/blob/r1.7/official/cv/lenet/train.py)，使用保存的CheckPoint文件，加载验证数据集，进行验证。
+通过ModelZoo中`lenet`目录下的[eval.py](https://gitee.com/mindspore/models/blob/r1.7/official/cv/lenet/eval.py)，使用保存的CheckPoint文件，加载验证数据集，进行验证。
 
 ```bash
 python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt --device_target=GPU
