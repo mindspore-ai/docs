@@ -1,6 +1,6 @@
 # Accuracy Problem Locating and Optimization Guide
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindinsight/docs/source_en/accuracy_optimization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.7/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindinsight/docs/source_en/accuracy_optimization.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source.png"></a>
 
 The final result of model training is to obtain a model with qualified accuracy. However, during AI training, the model loss may not decrease, or the model metrics may not reach the expected value. As a result, the model with ideal accuracy cannot be obtained, in this case, you need to analyze the problems that occur during the training and use methods such as adjusting data, adjusting hyperparameters, and reconstructing the model structure to solve the problems that occur during the model accuracy tuning.
 
