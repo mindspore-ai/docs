@@ -59,8 +59,38 @@ print("tuning interval:", ds.config.get_autotune_interval())
 ## Constraints
 
 - Both Dataset Profiling and Dataset AutoTune cannot be enabled concurrently, otherwise it will lead to unwork of Dataset AutoTune or Profiling. If both of them are enabled at the same time, a warning message will prompt the user to check whether there is a mistake. Please make sure Profiling is disabled when using Dataset AutoTune.
-- [Offload for Dataset](https://www.mindspore.cn/docs/en/master/design/dataset_offload.html) and Dataset AutoTune are enabled simultaneously, if any dataset node has been offloaded for hardware acceleration, the optimized dataset pipeline configuration file will not be stored and a warning will be logged, because the dataset pipeline that is actually running is not the predefined one.
+- [Offload for Dataset](https://www.mindspore.cn/docs/en/master/design/dataset_offload.html) and Dataset AutoTune are enabled simultaneously. If any dataset node has been offloaded for hardware acceleration, the optimized dataset pipeline configuration file will not be stored and a warning will be logged, because the dataset pipeline that is actually running is not the predefined one.
 - If the Dataset pipeline consists of a node that does not support deserialization (e.g. user-defined Python functions, GeneratorDataset), any attempt to deserialize the saved optimized dataset pipeline configuration file will report an error. In this case, it is recommended to modify the script of dataset pipeline manually based on the contents of the tuning figuration files to achieve the purpose of acceleration.
+- In distributed training scenario, `set_enable_autotune()` must be called after cluster communication has been initialized (mindspore.communication.management.init()), otherwise AutoTune can only detect device with id 0 and and create only one tuned file (expected tuned files number equal to device number), see the following example:
+
+    Code in distributed training scenario must be:
+
+    ```python
+    import mindspore.dataset as ds
+    from mindspore.communication.management import init
+    init()
+    ...
+
+    def create_dataset():
+        ds.config.set_enable_autotune(True, "/path/to/autotune_out")
+        ds.Cifar10Dataset()
+    ...
+    ```
+
+    instead of
+
+    ```python
+    import mindspore.dataset as ds
+    from mindspore.communication.management import init
+
+    ds.config.set_enable_autotune(True, "/path/to/autotune_out")
+    init()
+    ...
+
+    def create_dataset():
+        ds.Cifar10Dataset()
+    ...
+    ```
 
 ## Example
 
