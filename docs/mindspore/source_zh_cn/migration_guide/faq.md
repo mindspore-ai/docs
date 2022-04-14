@@ -16,7 +16,7 @@
 
 - 网络脚本开发
 
-    [MindConverter工具常见问题处理](https://gitee.com/mindspore/mindinsight/blob/r1.7/ecosystem_tools/mindconverter/README_CN.md#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98)
+    [MindConverter工具常见问题处理](https://gitee.com/mindspore/mindinsight/blob/r1.7/ecosystem_tools/mindconverter/README_CN.md#常见问题)
 
 - 网络调试
 
