@@ -135,7 +135,7 @@ try:
                        "    def decorate(func):",
                        "    def decorate(func):\n\n        import functools\n\n        @functools.wraps(func)"),
                        ("mindspore/ops/primitive.py", "fix for `shard`",
-                       "    @_LogActionOnce(logger=logger)", "    # The decorator has been deleted."),
+                       "    @_LogActionOnce(logger=logger, key='Primitive')", "    # The decorator has been deleted."),
                        ("mindspore/dataset/engine/datasets.py","generate api",
                        "    @deprecated(\"1.5\")","    # The decorator has been deleted."),
                        ("mindspore/dataset/engine/datasets.py","generate api",
