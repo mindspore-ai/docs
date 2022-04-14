@@ -1,6 +1,6 @@
 # Deep Q Learning (DQN) with MindSpore Reinforcement
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/reinforcement/docs/source_en/dqn.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/reinforcement/docs/source_en/dqn.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png"></a>
 
 ## summary
 
@@ -10,7 +10,7 @@ To implement an reinforcement learning algorithm with MindSpore Reinforcement, a
 - implement the algorithm based on an actor-learner-environment abstraction;
 - create a session object that executes the implemented algorithm.
 
-This tutorial shows the use of the MindSpore Reinforcement API to implement the Deep Q Learning (DQN) algorithm. Note that, for clarity and readability, only API-related code sections are presented, and irrelevant code is omitted. The source code of the full DQN implementation for MindSpore Reinforcement can be found [here](https://gitee.com/mindspore/reinforcement/tree/master/example/dqn).
+This tutorial shows the use of the MindSpore Reinforcement API to implement the Deep Q Learning (DQN) algorithm. Note that, for clarity and readability, only API-related code sections are presented, and irrelevant code is omitted. The source code of the full DQN implementation for MindSpore Reinforcement can be found [here](https://gitee.com/mindspore/reinforcement/tree/r0.3/example/dqn).
 
 ## Specifying the Actor-Learner-Environment Abstraction for DQN
 
@@ -62,7 +62,7 @@ A top-level entry has sub-entries that describe the component. The *number* entr
 
 For the DQN algorithm, we configure one actor `'number': 1`, its Python class `'type': DQNActor`, and three behaviour policies `'policies': ['init_policy', 'collect_policy', 'evaluate_policy']`.
 
-Other components are defined in a similar way -- please refer to the  [complete DQN code example](https://gitee.com/mindspore/reinforcement/tree/master/example/dqn) and the [MindSpore Reinforcement API documentation](https://www.mindspore.cn/reinforcement/docs/en/master/reinforcement.html) for more details.
+Other components are defined in a similar way -- please refer to the  [complete DQN code example](https://gitee.com/mindspore/reinforcement/tree/r0.3/example/dqn) and the [MindSpore Reinforcement API documentation](https://www.mindspore.cn/reinforcement/docs/en/r0.3/reinforcement.html) for more details.
 
 Note that MindSpore Reinforcement uses a single *policy* class to define all policies and neural networks used by the algorithm. In this way, it hides the complexity of data sharing and communication between policies and neural networks.
 
@@ -185,7 +185,7 @@ The `@ms_function` annotation states that this method will be compiled into a Mi
 
 The `train_one_episode` method first calls the `reset` method of environment, `self.msrl.collect_environment.reset()` function to reset the environment. It then collects the experience from the environment with the `msrl.agent_act` function handler and inserts the experience data in the replay buffer using the `self.msrl.replay_buffer_insert` function. Afterwards, it invokes the `self.msrl.agent_learn`  function to train the target model. The input of `self.msrl.agent_learn` is a set of sampled results returned by  `self.msrl.replay_buffer_sample`.
 
-The replay buffer class, `ReplayBuffer`, is provided by MindSpore Reinforcement. It defines `insert` and `sample` methods to store and sample the experience data in a replay buffer, respectively. Please refer to the [complete DQN code example](https://gitee.com/mindspore/reinforcement/tree/master/example/dqn) for details.
+The replay buffer class, `ReplayBuffer`, is provided by MindSpore Reinforcement. It defines `insert` and `sample` methods to store and sample the experience data in a replay buffer, respectively. Please refer to the [complete DQN code example](https://gitee.com/mindspore/reinforcement/tree/r0.3/example/dqn) for details.
 
 ### Defining the DQNPolicy class
 

@@ -287,7 +287,7 @@ cd -
 ## Downloading the Source Code from the Code Repository
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
+git clone https://gitee.com/mindspore/mindspore.git -b r1.7
 ```
 
 ## Compiling MindSpore

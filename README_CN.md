@@ -68,7 +68,7 @@ MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/ma
 2. 下载MindSpore Docs仓代码。
 
    ```bash
-   git clone https://gitee.com/mindspore/docs.git
+   git clone https://gitee.com/mindspore/docs.git -b r1.7
    ```
 
 3. 进入api目录，安装该目录下`requirements.txt`文件中的依赖项。
@@ -89,7 +89,7 @@ MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/ma
 > - 构建MindSpore和Lite的API时，由于需要使用到一些`mindspore`仓的资源文件，先克隆`mindspore`仓，并加入环境变量`MS_PATH`，构建Lite的API时还需要安装Doxygen：
 >
 >   ```bash
->   git clone https://gitee.com/mindspore/mindspore.git {MS_REPO PATH}
+>   git clone https://gitee.com/mindspore/mindspore.git -b r1.7 {MS_REPO PATH}
 >   sudo apt install doxygen
 >   export MS_PATH={MS_REPO PATH}
 >   ```

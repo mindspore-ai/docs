@@ -1,6 +1,6 @@
 # The Application of Quantum Neural Network in NLP
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindquantum/docs/source_en/qnn_for_nlp.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindquantum/docs/source_en/qnn_for_nlp.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 

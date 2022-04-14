@@ -50,7 +50,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/Servin
 通过[源码](https://gitee.com/mindspore/serving)编译安装。
 
 ```shell
-git clone https://gitee.com/mindspore/serving.git -b master
+git clone https://gitee.com/mindspore/serving.git -b r1.7
 cd serving
 bash build.sh
 ```
