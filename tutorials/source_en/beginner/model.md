@@ -12,7 +12,7 @@ A neural network model consists of multiple data operation layers. `mindspore.nn
 
 ![LeNet-5](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/beginner/images/lenet.png)
 
-According to the network structure of LeNet, there are 7 layers of LeNet removal input layer, including 3 convolutional layers, 2 sub-sampling layers, and 3 fully-connected layers.
+According to the network structure of LeNet, there are 7 layers of LeNet removal input layer, including 2 convolutional layers, 2 sub-sampling layers, and 3 fully-connected layers.
 
 ## Defining a Model Class
 
