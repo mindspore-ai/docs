@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `Model Optimization`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/debug/mindir.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/experts/source_en/debug/mindir.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -10,7 +10,7 @@ When a model compiled using MindSpore runs in the graph mode `context.set_contex
 
 - .ir file: An IR file that describes the model structure in text format and can be directly viewed using any text editors.
 - .dat file: An IR file that describes the model structure more strictly than the .ir file. It contains more contents and can be directly viewed using any text editors.
-- .dot file: An IR file that describes the topology relationships between different nodes. You can use this file by [graphviz](http://graphviz.org/) as the input to generate images for users to view the model structure. For models with multiple operators, it is recommended using the visualization component [MindInsight](https://www.mindspore.cn/mindinsight/docs/en/master/dashboard.html#computational-graph-visualization) to visualize computing graphs.
+- .dot file: An IR file that describes the topology relationships between different nodes. You can use this file by [graphviz](http://graphviz.org/) as the input to generate images for users to view the model structure. For models with multiple operators, it is recommended using the visualization component [MindInsight](https://www.mindspore.cn/mindinsight/docs/en/r1.7/dashboard.html#computational-graph-visualization) to visualize computing graphs.
 
 ## Saving IR
 
@@ -172,7 +172,7 @@ Line 5 to 6 are the input list, which is in the format of `%para[No.]_[name] : <
 Line 8 tells us the number of subgraph parsed by the network. There are 3 graphs in this IR. Line 42 is the entry graph `1_construct_wrapper.21`. Line 32 is graph `3_func.23`, parsed from the `func(x, y)` in the source script. Line 12 is graph `2_construct.22`, parsed from the function `construct`.
 Taking graph `2_construct.22` as an example, Line 10 to 28 indicate the graph structure, which contains several nodes, namely, `CNode`. In this example, there are `Sub`, `Add`, `Mul`. They are defined in the function `__init__`. Line 19 calls a graph by `call @3_func.23`. It indicates calling the graph `func(x, y)` to execute a division operation.
 
-The [`CNode`](<https://www.mindspore.cn/tutorials/experts/en/master/debug/mindir.html#syntax>) information format is as follows: including the node name, attribute, input node, the specs of the inputs and outputs, and source code parsing call stack. The ANF graph is a unidirectional acyclic graph. So, the connection between nodes is displayed only based on the input relationship. The corresponding source code reflects the relationship between the `CNode` and the script source code. For example, line 15 is parsed from `a = self.sub(x, 1)`.
+The [`CNode`](<https://www.mindspore.cn/tutorials/experts/en/r1.7/debug/mindir.html#syntax>) information format is as follows: including the node name, attribute, input node, the specs of the inputs and outputs, and source code parsing call stack. The ANF graph is a unidirectional acyclic graph. So, the connection between nodes is displayed only based on the input relationship. The corresponding source code reflects the relationship between the `CNode` and the script source code. For example, line 15 is parsed from `a = self.sub(x, 1)`.
 
 ```text
   %[No.]([debug_name]) = [op_name]([arg], ...) primitive_attrs: {[key]: [value], ...}
@@ -262,7 +262,7 @@ Line 23 to 32 indicates the graph structure, which contains several nodes, namel
 Line 34 to 39 shows the execution order of the `CNode` from graph `2_construct.22`, corresponding to the order of code execution. The information format is: `No.: belonging graph:node name{[0]: the first input, [1]: the second input, ...}`. For `CNode`, the first input indicates how to compute for this `CNode`.
 Line 28 indicates the number of graphs. Here is 3.
 
-The [CNode](https://www.mindspore.cn/tutorials/experts/en/master/debug/mindir.html#syntax) information format is as follows: including the node name, attribute, input node, output information, format and the corresponding source code.
+The [CNode](https://www.mindspore.cn/tutorials/experts/en/r1.7/debug/mindir.html#syntax) information format is as follows: including the node name, attribute, input node, output information, format and the corresponding source code.
 
 ```text
 %[No,] : [outputs' Spec] = [op_name]{[prim_type]}[attr0, attr1, ...](arg0, arg1, ...)    #(inputs' Spec)#[scope]
@@ -281,7 +281,7 @@ The transformed image is shown below, and we can visually see the model structur
 
 ![04_abstract_specialize_0014.png](./images/dot_to_png.png)
 
-For models with multiple operators, the picture will be very large. It is recommended using the visualization component [MindInsight](https://www.mindspore.cn/mindinsight/docs/en/master/dashboard.html#computational-graph-visualization) to visualize computing graphs.
+For models with multiple operators, the picture will be very large. It is recommended using the visualization component [MindInsight](https://www.mindspore.cn/mindinsight/docs/en/r1.7/dashboard.html#computational-graph-visualization) to visualize computing graphs.
 
 ## Reading analyze_fail.dat
 

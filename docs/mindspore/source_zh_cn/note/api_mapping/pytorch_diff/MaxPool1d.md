@@ -1,6 +1,6 @@
 ﻿# 比较与torch.nn.MaxPool1d的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/MaxPool1d.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/MaxPool1d.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## torch.nn.MaxPool1d
 
@@ -27,7 +27,7 @@ class mindspore.nn.MaxPool1d(
 )
 ```
 
-更多内容详见[mindspore.nn.MaxPool1d](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.MaxPool1d.html#mindspore.nn.MaxPool1d)。
+更多内容详见[mindspore.nn.MaxPool1d](https://mindspore.cn/docs/zh-CN/r1.7/api_python/nn/mindspore.nn.MaxPool1d.html#mindspore.nn.MaxPool1d)。
 
 ## 使用方式
 

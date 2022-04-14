@@ -1,6 +1,6 @@
 # 比较与torch.take的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/TensorTake.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/TensorTake.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## torch.take
 
@@ -16,7 +16,7 @@ torch.take(input, index)
 mindspore.Tensor.take(indices, axis=None, mode="clip")
 ```
 
-更多内容详见[mindspore.Tensor.take](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Tensor.html#mindspore.Tensor.take)。
+更多内容详见[mindspore.Tensor.take](https://mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore/mindspore.Tensor.html#mindspore.Tensor.take)。
 
 ## 使用方式
 

@@ -1,6 +1,6 @@
 # Function Differences with torch.min
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/ArgMinWithValue.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_en/note/api_mapping/pytorch_diff/ArgMinWithValue.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## torch.min
 
@@ -24,7 +24,7 @@ class mindspore.ops.ArgMinWithValue(
 )(input_x)
 ```
 
-For more information, see [mindspore.ops.ArgMinWithValue](https://mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.ArgMinWithValue.html#mindspore.ops.ArgMinWithValue).
+For more information, see [mindspore.ops.ArgMinWithValue](https://mindspore.cn/docs/en/r1.7/api_python/ops/mindspore.ops.ArgMinWithValue.html#mindspore.ops.ArgMinWithValue).
 
 ## Differences
 

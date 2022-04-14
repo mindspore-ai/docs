@@ -1,6 +1,6 @@
 # Function Differences with tf.keras.datasets.imdb
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/imdb.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/imdb.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## tf.keras.datasets.imdb
 
@@ -26,7 +26,7 @@ class mindspore.dataset.IMDBDataset(
 )
 ```
 
-For more information, see [mindspore.dataset.IMDBDataset](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.IMDBDataset.html#mindspore.dataset.IMDBDataset).
+For more information, see [mindspore.dataset.IMDBDataset](https://mindspore.cn/docs/en/r1.7/api_python/dataset/mindspore.dataset.IMDBDataset.html#mindspore.dataset.IMDBDataset).
 
 ## Differences
 

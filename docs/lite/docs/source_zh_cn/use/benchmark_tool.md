@@ -2,7 +2,7 @@
 
 `Windows` `Linux` `环境准备` `基准测试` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/benchmark_tool.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/lite/docs/source_zh_cn/use/benchmark_tool.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -14,9 +14,9 @@
 
 使用Benchmark工具，需要进行如下环境准备工作。
 
-- 编译：Benchmark工具代码在MindSpore源码的`mindspore/lite/tools/benchmark`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html#环境要求)和[编译示例](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html#编译示例)执行编译。
+- 编译：Benchmark工具代码在MindSpore源码的`mindspore/lite/tools/benchmark`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/build.html#环境要求)和[编译示例](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/build.html#编译示例)执行编译。
 
-- 运行：参考构建文档中的[编译输出](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html#编译结构)，获得`benchmark`工具。
+- 运行：参考构建文档中的[编译输出](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/build.html#编译结构)，获得`benchmark`工具。
 
 - 将推理需要的动态链接库加入环境变量LD_LIBRARY_PATH。
 
@@ -272,7 +272,7 @@ np.fromfile("/path/to/dump.bin", np.float32)
 
 使用Benchmark工具，需要进行如下环境准备工作。
 
-- 编译：Benchmark工具代码在MindSpore源码的`mindspore/lite/tools/benchmark`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html#环境要求-1)和[编译示例](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html#编译示例-1)执行编译。
+- 编译：Benchmark工具代码在MindSpore源码的`mindspore/lite/tools/benchmark`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/build.html#环境要求-1)和[编译示例](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/build.html#编译示例-1)执行编译。
 - 将推理需要的动态链接库加入环境变量PATH。
 
     ```bash
@@ -338,6 +338,6 @@ call benchmark.exe --modelFile=/path/to/model.ms --inDataFile=/path/to/input.bin
 
 ### Dump功能
 
-Windows环境下Dump功能使用方法与[Linux环境](https://www.mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html#dump)基本一致，此处不再赘述。
+Windows环境下Dump功能使用方法与[Linux环境](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/benchmark_tool.html#dump)基本一致，此处不再赘述。
 
 需注意的一点是，在Windows环境下，`data_dump.json`配置文件中设置绝对路径`Path`时，需指定为`\\`的形式。

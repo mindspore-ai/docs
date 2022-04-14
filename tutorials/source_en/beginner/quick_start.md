@@ -1,6 +1,6 @@
 # Quickstart: Handwritten Digit Recognition
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/beginner/quick_start.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/source_en/beginner/quick_start.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 This section runs through the basic process of MindSpore deep learning, using the LeNet5 network model as an example to implement common tasks in deep learning.
 
@@ -163,7 +163,7 @@ load_param_into_net(network, param_dict)
 []
 ```
 
-> For more information about loading a model in mindspore, see [Loading the Model](https://www.mindspore.cn/tutorials/en/master/beginner/save_load.html#loading-the-model).
+> For more information about loading a model in mindspore, see [Loading the Model](https://www.mindspore.cn/tutorials/en/r1.7/beginner/save_load.html#loading-the-model).
 
 ## Validating the Model
 

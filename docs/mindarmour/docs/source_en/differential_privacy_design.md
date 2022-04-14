@@ -1,6 +1,6 @@
 ﻿# Differential Privacy Design
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_en/differential_privacy_design.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindarmour/docs/source_en/differential_privacy_design.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overall Design
 
@@ -40,10 +40,10 @@ Compared with traditional differential privacy, ZCDP and RDP provide stricter pr
 
 ## Code Implementation
 
-- [mechanisms.py](https://gitee.com/mindspore/mindarmour/blob/master/mindarmour/privacy/diff_privacy/mechanisms/mechanisms.py): implements the noise generation mechanism required by differential privacy training, including simple Gaussian noise, adaptive Gaussian noise, and adaptive clipping Gaussian noise.
-- [optimizer.py](https://gitee.com/mindspore/mindarmour/blob/master/mindarmour/privacy/diff_privacy/optimizer/optimizer.py): implements the fundamental logic of using the noise generation mechanism to add noise during backward propagation.
-- [monitor.py](https://gitee.com/mindspore/mindarmour/blob/master/mindarmour/privacy/diff_privacy/monitor/monitor.py): implements the callback function for computing the differential privacy budget. During model training, the current differential privacy budget is returned.
-- [model.py](https://gitee.com/mindspore/mindarmour/blob/master/mindarmour/privacy/diff_privacy/train/model.py): implements the logic of computing the loss and gradient as well as the gradient truncation logic of differential privacy training, which is the entry for users to use the differential privacy training capability.
+- [mechanisms.py](https://gitee.com/mindspore/mindarmour/blob/r1.7/mindarmour/privacy/diff_privacy/mechanisms/mechanisms.py): implements the noise generation mechanism required by differential privacy training, including simple Gaussian noise, adaptive Gaussian noise, and adaptive clipping Gaussian noise.
+- [optimizer.py](https://gitee.com/mindspore/mindarmour/blob/r1.7/mindarmour/privacy/diff_privacy/optimizer/optimizer.py): implements the fundamental logic of using the noise generation mechanism to add noise during backward propagation.
+- [monitor.py](https://gitee.com/mindspore/mindarmour/blob/r1.7/mindarmour/privacy/diff_privacy/monitor/monitor.py): implements the callback function for computing the differential privacy budget. During model training, the current differential privacy budget is returned.
+- [model.py](https://gitee.com/mindspore/mindarmour/blob/r1.7/mindarmour/privacy/diff_privacy/train/model.py): implements the logic of computing the loss and gradient as well as the gradient truncation logic of differential privacy training, which is the entry for users to use the differential privacy training capability.
 
 ## References
 

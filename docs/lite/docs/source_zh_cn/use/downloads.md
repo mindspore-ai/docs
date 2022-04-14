@@ -2,7 +2,7 @@
 
 `Windows` `Linux` `Android` `iOS` `环境准备` `初级` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/downloads.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/lite/docs/source_zh_cn/use/downloads.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 欢迎使用MindSpore Lite，我们提供了支持多种操作系统和硬件平台的模型转换、模型推理、图像处理等功能，你可以下载适用于本地环境的版本包直接使用。
 
@@ -112,5 +112,5 @@
 
 > - Ubuntu-x64版本包是在GCC版本大于等于7.3.0的环境编译得到的，所以该版本包的部署环境要求GLIBC版本大于等于2.27。
 > - Android-aarch32的版本包不支持GPU和NPU。
-> - MindSpore Lite还提供对Runtime的`libmindspore-lite.a`[静态库裁剪工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/cropper_tool.html#)，用于裁剪静态库文件，有效降低库文件大小。
+> - MindSpore Lite还提供对Runtime的`libmindspore-lite.a`[静态库裁剪工具](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/cropper_tool.html#)，用于裁剪静态库文件，有效降低库文件大小。
 > - MindSpore Lite下载完成后，需要进行SHA-256完整性校验。

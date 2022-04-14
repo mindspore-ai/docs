@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `分布式并行` `模型导出` `模型加载`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/parallel/save_load.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/experts/source_zh_cn/parallel/save_load.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -245,7 +245,7 @@ load_param_into_net(opt, param_dict)
 
 3. 执行阶段2训练：阶段2为2卡训练环境，每卡上MatMul算子weight的shape为[4, 8]，从合并后的CheckPoint文件加载初始化模型参数数据，之后执行训练。
 
-> 具体分布式环境配置和训练部分代码，此处不做详细说明，可以参考[分布式并行训练](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html)
+> 具体分布式环境配置和训练部分代码，此处不做详细说明，可以参考[分布式并行训练](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/parallel/train_ascend.html)
 章节。
 >
 > 本文档附上对CheckPoint文件做合并处理以及分布式训练前加载CheckPoint文件的示例代码，仅作为参考，实际请参考具体情况实现。

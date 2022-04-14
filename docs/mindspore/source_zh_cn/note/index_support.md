@@ -1,6 +1,6 @@
 # Tensor索引支持
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/index_support.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/note/index_support.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动态图(PyNative)以及静态图(Graph)模式。
 
@@ -224,7 +224,7 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
 
 索引赋值可以理解为对索引到的位置元素按照一定规则进行赋值，所有索引赋值都不会改变原`Tensor`的`shape`。
 
-> 当索引中有多个元素指向原张量的同一个位置时，该值的更新受底层算子限制，可能出现随机的情况。因此暂不支持索引中重复对张量中一个位置的值反复更新。详情请见:[TensorScatterUpdate 算子介绍](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.TensorScatterUpdate.html)
+> 当索引中有多个元素指向原张量的同一个位置时，该值的更新受底层算子限制，可能出现随机的情况。因此暂不支持索引中重复对张量中一个位置的值反复更新。详情请见:[TensorScatterUpdate 算子介绍](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/ops/mindspore.ops.TensorScatterUpdate.html)
 >
 > 当前只支持单层索引(`tensor_x[index] = value`)， 多层索引(`tensor_x[index1][index2]... = value`)暂不支持。
 
@@ -435,7 +435,7 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
 
 索引增强赋值可以理解为对索引到的位置元素按照一定规则进行取值，取值所得再与`value`进行操作符运算，最终将运算结果进行赋值，所有索引增强赋值都不会改变原`Tensor`的`shape`。
 
-> 当索引中有多个元素指向原张量的同一个位置时，该值的更新受底层算子限制，可能出现随机的情况。因此暂不支持索引中重复对张量中一个位置的值反复更新。详情请见:[TensorScatterUpdate 算子介绍](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.TensorScatterUpdate.html)
+> 当索引中有多个元素指向原张量的同一个位置时，该值的更新受底层算子限制，可能出现随机的情况。因此暂不支持索引中重复对张量中一个位置的值反复更新。详情请见:[TensorScatterUpdate 算子介绍](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/ops/mindspore.ops.TensorScatterUpdate.html)
 >
 > 目前索引中包含 `True`、`False` 和 `None`的情况暂不支持.
 

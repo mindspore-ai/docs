@@ -2,7 +2,7 @@
 
 `CPU` `模型开发`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/operation/op_cpu.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/experts/source_zh_cn/operation/op_cpu.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -102,7 +102,7 @@ void TransposeCPUFwdKernel::InitKernel(const CNodePtr &kernel_node) {
 - `AnfRuntimeAlgorithm`类中的函数实现了各种对算子节点的操作，`shape_`表示算子第1个输入的shape，`axis_`表示算子的属性perm。
 - `Transpose`算子原语中参数“perm”作为输入传入，但是在解析时元组类型的“perm”实际被认为是算子的属性。
 
-> `AnfRuntimeAlgorithm`类的详细内容可参考MindSpore源码中[mindspore/ccsrc/backend/common/session/anf_runtime_algorithm.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/backend/common/session/anf_runtime_algorithm.h)下的声明。
+> `AnfRuntimeAlgorithm`类的详细内容可参考MindSpore源码中[mindspore/ccsrc/backend/common/session/anf_runtime_algorithm.h](https://gitee.com/mindspore/mindspore/blob/r1.7/mindspore/ccsrc/backend/common/session/anf_runtime_algorithm.h)下的声明。
 
 源文件中`Launch`函数的定义如下：首先依次获取每个输入输出的地址，然后根据`axis_`变换维度，把值赋给输出地址指向的空间。
 
@@ -155,7 +155,7 @@ MS_REG_CPU_KERNEL(Transpose, KernelAttr().AddInputAttr(kNumberTypeFloat32).AddOu
 
 ## 编译MindSpore
 
-写好自定义CPU算子后，需要重新编译安装MindSpore，具体请参考[安装文档](https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_install_source.md#)。
+写好自定义CPU算子后，需要重新编译安装MindSpore，具体请参考[安装文档](https://gitee.com/mindspore/docs/blob/r1.7/install/mindspore_cpu_install_source.md#)。
 
 ## 使用自定义CPU算子
 

@@ -1,6 +1,6 @@
 # Accuracy Problem Locating and Optimization Guide
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/accuracy_optimization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindinsight/docs/source_en/accuracy_optimization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.7/resource/_static/logo_source.png"></a>
 
 The final result of model training is to obtain a model with qualified accuracy. However, during AI training, the model loss may not decrease, or the model metrics may not reach the expected value. As a result, the model with ideal accuracy cannot be obtained, in this case, you need to analyze the problems that occur during the training and use methods such as adjusting data, adjusting hyperparameters, and reconstructing the model structure to solve the problems that occur during the model accuracy tuning.
 
@@ -103,7 +103,7 @@ The causes of accuracy problems can be classified into hyperparameter problems, 
 
          2. The MindSpore constructor constraint is not complied with during graph construction.
 
-             The graph construction does not comply with the MindSpore construct constraints. That is, the network in graph mode does not comply with the constraints declared in the MindSpore static graph syntax support. For example, MindSpore does not support the backward computation of functions with key-value pair parameters. For details about complete constraints, see [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html).
+             The graph construction does not comply with the MindSpore construct constraints. That is, the network in graph mode does not comply with the constraints declared in the MindSpore static graph syntax support. For example, MindSpore does not support the backward computation of functions with key-value pair parameters. For details about complete constraints, see [Static Graph Syntax Support](https://www.mindspore.cn/docs/en/r1.7/note/static_graph_syntax_support.html).
 
     - Computational Graph Structure Problems
 
@@ -121,7 +121,7 @@ The causes of accuracy problems can be classified into hyperparameter problems, 
 
          4. The node mode is incorrect.
 
-             If the node mode is incorrect, the training or inference mode of the node is inconsistent with the actual situation. For details about how to set the node mode, see [api.02 The mode is not set based on the training or inference scenario when the API is used.](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_problem_preliminary_location.html#api-02-api).
+             If the node mode is incorrect, the training or inference mode of the node is inconsistent with the actual situation. For details about how to set the node mode, see [api.02 The mode is not set based on the training or inference scenario when the API is used.](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/accuracy_problem_preliminary_location.html#api-02-api).
 
          5. The weight is improperly frozen (weights that should not be frozen are frozen).
 
@@ -197,9 +197,9 @@ The following sections describe the process.
 
     Before accuracy tuning, you need to be familiar with the model. You can accurately understand the information provided by MindInsight, determine whether there are problems, and locate the problem source only after you are familiar with the model. Therefore, it is important to spend time understanding model elements such as the model algorithm and structure, functions of operators and parameters in the model, and features of the optimizer used by the model. Before analyzing the details of accuracy problems, you are advised to deepen the understanding of these model elements with questions.
 
-2. Be familiar with the [MindInsight](https://www.mindspore.cn/mindinsight/docs/en/master/index.html) tool.
+2. Be familiar with the [MindInsight](https://www.mindspore.cn/mindinsight/docs/en/r1.7/index.html) tool.
 
-    During accuracy problem locating, you are advised to use the MindInsight function by referring to [Collecting Summary Record](https://www.mindspore.cn/mindinsight/docs/en/master/summary_record.html) and add `SummaryCollector` to the script. As shown in the following training code segment, initialize `SummaryCollector` and add it to the `callbacks` parameter of `model.train`.
+    During accuracy problem locating, you are advised to use the MindInsight function by referring to [Collecting Summary Record](https://www.mindspore.cn/mindinsight/docs/en/r1.7/summary_record.html) and add `SummaryCollector` to the script. As shown in the following training code segment, initialize `SummaryCollector` and add it to the `callbacks` parameter of `model.train`.
 
     ```python
     # Init a SummaryCollector callback instance, and use it in model.train or model.eval
@@ -214,13 +214,13 @@ The following sections describe the process.
 
     > dataset_path indicates the local path of the training dataset.
 
-    View the training process data on the [dashboard](https://www.mindspore.cn/mindinsight/docs/en/master/dashboard.html).
+    View the training process data on the [dashboard](https://www.mindspore.cn/mindinsight/docs/en/r1.7/dashboard.html).
 
     ![mindinsight_dashboard](./images/mindinsight_dashboard.png)
 
     *Figure 3 Training dashboard*
 
-    To debug a model online, use the [debugger](https://www.mindspore.cn/mindinsight/docs/en/master/debugger.html).
+    To debug a model online, use the [debugger](https://www.mindspore.cn/mindinsight/docs/en/r1.7/debugger.html).
 
 #### Checking the Code and Hyperparameters
 
@@ -259,9 +259,9 @@ After the model script is executed, you are advised to use the MindInsight compu
 
 Considering that the model structure is complex, it is unrealistic to find all model structure problems in this step. As long as the visual model structure to deepen the understanding of the computational graph, find obvious structural problems. In the following steps, if a more specific accuracy problem is found, we will go back to this step to check and confirm the problem again.
 
-> MindInsight allows you to view the computational graph recorded by `SummaryCollector` and the PB file computational graph exported by the `save_graphs` parameter of MindSpore context. Please refer to [Viewing Dashboard](https://www.mindspore.cn/mindinsight/docs/en/master/dashboard.html) in our tutorial for more information.
+> MindInsight allows you to view the computational graph recorded by `SummaryCollector` and the PB file computational graph exported by the `save_graphs` parameter of MindSpore context. Please refer to [Viewing Dashboard](https://www.mindspore.cn/mindinsight/docs/en/r1.7/dashboard.html) in our tutorial for more information.
 >
-> The script migration tool can convert models compiled under the PyTorch and TensorFlow frameworks into MindSpore scripts. For more information, visit [Migrating From Third Party Frameworks With MindConverter](https://www.mindspore.cn/mindinsight/docs/en/master/migrate_3rd_scripts_mindconverter.html).
+> The script migration tool can convert models compiled under the PyTorch and TensorFlow frameworks into MindSpore scripts. For more information, visit [Migrating From Third Party Frameworks With MindConverter](https://www.mindspore.cn/mindinsight/docs/en/r1.7/migrate_3rd_scripts_mindconverter.html).
 
 #### Checking the Input Data
 
@@ -313,7 +313,7 @@ Some of the preceding problems or symptoms can be reflected by loss, and some ar
 
 - The parameter distribution histogram module of MindInsight can display the change trend of model weights during the training process.
 - The Tensor Visualization module of MindInsight can display the specific values of tensors and compare different tensors.
-- The [MindInsight debugger](https://www.mindspore.cn/mindinsight/docs/en/master/debugger.html) provides various built-in check capabilities to check weight problems (for example, the weight is not updated, the weight is too large, or the weight value is too large or too small) and gradient problems (for example, gradient disappearance and explosion), activation value problems (for example, the activation value is saturated or too weak), all tensors are 0, and NaN/INF problems.
+- The [MindInsight debugger](https://www.mindspore.cn/mindinsight/docs/en/r1.7/debugger.html) provides various built-in check capabilities to check weight problems (for example, the weight is not updated, the weight is too large, or the weight value is too large or too small) and gradient problems (for example, gradient disappearance and explosion), activation value problems (for example, the activation value is saturated or too weak), all tensors are 0, and NaN/INF problems.
 
 ![loss](./images/loss.png)
 
@@ -325,13 +325,13 @@ In most cases, the `SummaryCollector` automatically records the loss curve of th
 
 *Figure 9 Viewing the weight changes during training through the MindInsight parameter distribution chart*
 
-In most cases, the `SummaryCollector` automatically records the model parameter changes (five parameters by default). You can view the changes in the parameter distribution histogram of MindInsight. If you want to record the parameter distribution histogram of more parameters, see the `histogram_regular` parameter in [SummaryCollector](https://www.mindspore.cn/docs/en/master/api_python/mindspore.train.html#mindspore.train.callback.SummaryCollector) or the [HistogramSummary](https://www.mindspore.cn/mindinsight/docs/en/master/summary_record.html#summarysummarycollector) operator.
+In most cases, the `SummaryCollector` automatically records the model parameter changes (five parameters by default). You can view the changes in the parameter distribution histogram of MindInsight. If you want to record the parameter distribution histogram of more parameters, see the `histogram_regular` parameter in [SummaryCollector](https://www.mindspore.cn/docs/en/r1.7/api_python/mindspore.train.html#mindspore.train.callback.SummaryCollector) or the [HistogramSummary](https://www.mindspore.cn/mindinsight/docs/en/r1.7/summary_record.html#summarysummarycollector) operator.
 
 ![tensor](./images/tensor.png)
 
 *Figure 10 Viewing the value of a specific tensor through the tensor visualization module on the MindInsight training dashboard*
 
-Tensors are not automatically recorded. To view the tensor values through MindInsight, use the [TensorSummary](https://www.mindspore.cn/mindinsight/docs/en/master/summary_record.html#summarysummarycollector) operator.
+Tensors are not automatically recorded. To view the tensor values through MindInsight, use the [TensorSummary](https://www.mindspore.cn/mindinsight/docs/en/r1.7/summary_record.html#summarysummarycollector) operator.
 
 The following describes how to use MindInsight to locate accuracy problems based on the common symptoms of the loss curve.
 
@@ -411,8 +411,8 @@ MindInsight can record the accuracy result of each training for users. When the 
 
         *Figure 13 Viewing the relationship between parameters and optimization objectives in a scatter chart through MindInsight lineage analysis*
 
-    3. Try to use the [MindInsight parameter tuner](https://www.mindspore.cn/mindinsight/docs/en/master/hyper_parameters_auto_tuning.html) to optimize hyperparameters. It should be noted that the parameter debugger performs hyperparameter search by performing multiple times of complete training, and the time consumed is several times of the time consumed by one time of network training. If one time of network training takes a long time, the hyperparameter search takes a long time.
-    4. Try to use the [MindInsight model explanation](https://www.mindspore.cn/mindinsight/docs/en/master/model_explanation.html) function to optimize the model and dataset. The model explanation function can display the area that is most important to the classification result through saliency map visualization. In addition, the scoring system can be used to indicate the type of labels to be optimized.
+    3. Try to use the [MindInsight parameter tuner](https://www.mindspore.cn/mindinsight/docs/en/r1.7/hyper_parameters_auto_tuning.html) to optimize hyperparameters. It should be noted that the parameter debugger performs hyperparameter search by performing multiple times of complete training, and the time consumed is several times of the time consumed by one time of network training. If one time of network training takes a long time, the hyperparameter search takes a long time.
+    4. Try to use the [MindInsight model explanation](https://www.mindspore.cn/mindinsight/docs/en/r1.7/model_explanation.html) function to optimize the model and dataset. The model explanation function can display the area that is most important to the classification result through saliency map visualization. In addition, the scoring system can be used to indicate the type of labels to be optimized.
     5. Try the common tuning suggestions described in the following sections.
 
 - Check the accuracy of the validation set.
@@ -514,7 +514,7 @@ In a CNN that is not particularly deep, the effect of the activation function is
 
 The optimizer affects the model accuracy and convergence speed (number of parameter updates required for convergence). Generally, the Adam optimizer is a good choice. The optimizer with momentum helps improve the training speed when the batch size is large.
 
-When selecting optimizers, pay attention to the functional inclusion relationship between optimizers (Choi et al., 2019). For example, the [RMSProp](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.RMSProp.html#mindspore.nn.RMSProp) optimizer function includes the [Momentum](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Momentum.html#mindspore.nn.Momentum) optimizer function. This is because if the decay parameter in RMSProp is set to 1 and the epsilon parameter is set to 0, RMSProp is equivalent to a Momentum optimizer whose momentum is momentum/learning_rate. The [Adam](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Adam.html#mindspore.nn.Adam) optimizer also includes the functions of the Momentum optimizer. The Momentum optimizer and [SGD](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.SGD.html#mindspore.nn.SGD) optimizer of MindSpore have similar functions. On the other hand, note that an optimizer with more powerful functions usually has more parameters, and it takes a longer time to find proper hyperparameters.
+When selecting optimizers, pay attention to the functional inclusion relationship between optimizers (Choi et al., 2019). For example, the [RMSProp](https://mindspore.cn/docs/en/r1.7/api_python/nn/mindspore.nn.RMSProp.html#mindspore.nn.RMSProp) optimizer function includes the [Momentum](https://mindspore.cn/docs/en/r1.7/api_python/nn/mindspore.nn.Momentum.html#mindspore.nn.Momentum) optimizer function. This is because if the decay parameter in RMSProp is set to 1 and the epsilon parameter is set to 0, RMSProp is equivalent to a Momentum optimizer whose momentum is momentum/learning_rate. The [Adam](https://mindspore.cn/docs/en/r1.7/api_python/nn/mindspore.nn.Adam.html#mindspore.nn.Adam) optimizer also includes the functions of the Momentum optimizer. The Momentum optimizer and [SGD](https://mindspore.cn/docs/en/r1.7/api_python/nn/mindspore.nn.SGD.html#mindspore.nn.SGD) optimizer of MindSpore have similar functions. On the other hand, note that an optimizer with more powerful functions usually has more parameters, and it takes a longer time to find proper hyperparameters.
 
 #### Early Stop
 
@@ -548,11 +548,11 @@ Once the optimal learning rate is found for a batch size, the learning rate need
 
 #### Selection and Optimization of Momentum Values
 
-When an optimizer with momentum (such as [Momentum](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Momentum.html#mindspore.nn.Momentum)) is used, the momentum and learning rate should be adjusted in opposite directions. The optimal learning rate varies with the momentum. When the cyclic learning rate is used, it is also recommended that the momentum value be cyclically changed in the opposite direction. That is, when the learning rate changes from large to small, the momentum should change from small to large. When the learning rate is fixed, the momentum value should also be fixed.
+When an optimizer with momentum (such as [Momentum](https://www.mindspore.cn/docs/en/r1.7/api_python/nn/mindspore.nn.Momentum.html#mindspore.nn.Momentum)) is used, the momentum and learning rate should be adjusted in opposite directions. The optimal learning rate varies with the momentum. When the cyclic learning rate is used, it is also recommended that the momentum value be cyclically changed in the opposite direction. That is, when the learning rate changes from large to small, the momentum should change from small to large. When the learning rate is fixed, the momentum value should also be fixed.
 
 #### Selection and Optimization of Weight Decay Parameters
 
-Weight decay indicates that an L2 parameter norm penalty is added to the target cost function during model training. The weight decay parameter controls the coefficient of this penalty item. For details, see the weight_decay parameter in the [SGD](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.SGD.html#mindspore.nn.SGD) optimizer. Experiments show that the weight decay parameter is best kept constant in the training process. 0.001, 0.0001, and 0.00001 are common values. If the dataset is small and the model depth is shallow, you are advised to set this parameter to a larger value. If the dataset is large and the model depth is deep, you are advised to set this parameter to a smaller value. This may be because the larger dataset itself provides some degree of regularization, which reduces the need for weight decay to provide regularization.
+Weight decay indicates that an L2 parameter norm penalty is added to the target cost function during model training. The weight decay parameter controls the coefficient of this penalty item. For details, see the weight_decay parameter in the [SGD](https://www.mindspore.cn/docs/en/r1.7/api_python/nn/mindspore.nn.SGD.html#mindspore.nn.SGD) optimizer. Experiments show that the weight decay parameter is best kept constant in the training process. 0.001, 0.0001, and 0.00001 are common values. If the dataset is small and the model depth is shallow, you are advised to set this parameter to a larger value. If the dataset is large and the model depth is deep, you are advised to set this parameter to a smaller value. This may be because the larger dataset itself provides some degree of regularization, which reduces the need for weight decay to provide regularization.
 
 ### Tuning Suggestions for Multi-Device Training
 
@@ -592,26 +592,26 @@ Xie, Z., Sato, I., & Sugiyama, M. (2020). A Diffusion Theory For Deep Learning D
 
 ### Visualized Debugging and Tuning Tool
 
-For details about how to collect visualized data during training, see [Collecting Summary Record](https://www.mindspore.cn/mindinsight/docs/en/master/summary_record.html).
+For details about how to collect visualized data during training, see [Collecting Summary Record](https://www.mindspore.cn/mindinsight/docs/en/r1.7/summary_record.html).
 
-For details about visualized data analysis during training, see [Viewing Dashboard](https://www.mindspore.cn/mindinsight/docs/en/master/dashboard.html) and [Viewing Lineage and Scalars Comparison](https://www.mindspore.cn/mindinsight/docs/en/master/lineage_and_scalars_comparison.html).
+For details about visualized data analysis during training, see [Viewing Dashboard](https://www.mindspore.cn/mindinsight/docs/en/r1.7/dashboard.html) and [Viewing Lineage and Scalars Comparison](https://www.mindspore.cn/mindinsight/docs/en/r1.7/lineage_and_scalars_comparison.html).
 
 ### Data Problem Handling
 
-Perform operations such as standardization, normalization, and channel conversion on data. For image data processing, add images with random view and rotation. For details about data shuffle, batch, and multiplication, see [Processing Data](https://www.mindspore.cn/tutorials/en/master/advanced/dataset.html), [Data Argumentation](https://www.mindspore.cn/tutorials/en/master/advanced/dataset.html), and [Auto Augmentation](https://www.mindspore.cn/tutorials/experts/en/master/dataset/augment.html).
+Perform operations such as standardization, normalization, and channel conversion on data. For image data processing, add images with random view and rotation. For details about data shuffle, batch, and multiplication, see [Processing Data](https://www.mindspore.cn/tutorials/en/r1.7/advanced/dataset.html), [Data Argumentation](https://www.mindspore.cn/tutorials/en/r1.7/advanced/dataset.html), and [Auto Augmentation](https://www.mindspore.cn/tutorials/experts/en/r1.7/dataset/augment.html).
 
-> For details about how to apply the data augmentation operation to a custom dataset, see the [mindspore.dataset.GeneratorDataset.map](https://www.mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset.map) operator.
+> For details about how to apply the data augmentation operation to a custom dataset, see the [mindspore.dataset.GeneratorDataset.map](https://www.mindspore.cn/docs/en/r1.7/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset.map) operator.
 
 ### Hyperparameter Problem Handling
 
-Hyperparameters in AI training include the global learning rate, epoch, and batch. To visualize the training process under different hyperparameters, see [Use Mindoptimizer to Tune Hyperparameters](https://www.mindspore.cn/mindinsight/docs/en/master/hyper_parameters_auto_tuning.html). For details about how to set the dynamic learning rate, see [Optimization Algorithm of Learning Rate](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/network/optim.html).
+Hyperparameters in AI training include the global learning rate, epoch, and batch. To visualize the training process under different hyperparameters, see [Use Mindoptimizer to Tune Hyperparameters](https://www.mindspore.cn/mindinsight/docs/en/r1.7/hyper_parameters_auto_tuning.html). For details about how to set the dynamic learning rate, see [Optimization Algorithm of Learning Rate](https://www.mindspore.cn/tutorials/zh-CN/r1.7/advanced/network/optim.html).
 
 ### Model Structure Problem Handling
 
 Generally, the following operations are required to solve model structure problems: model structure reconstruction, and selection of a proper optimizer or loss function.
 
-If the model structure needs to be reconstructed, refer to [Cell](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html).
+If the model structure needs to be reconstructed, refer to [Cell](https://www.mindspore.cn/docs/en/r1.7/api_python/nn/mindspore.nn.Cell.html).
 
-Select a proper loss function. For details, see [Loss Functions](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#loss-functions).
+Select a proper loss function. For details, see [Loss Functions](https://www.mindspore.cn/docs/en/r1.7/api_python/mindspore.nn.html#loss-functions).
 
-For details about how to select a proper optimizer, see [Optimizer Functions](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#optimizer-functions).
+For details about how to select a proper optimizer, see [Optimizer Functions](https://www.mindspore.cn/docs/en/r1.7/api_python/mindspore.nn.html#optimizer-functions).

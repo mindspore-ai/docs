@@ -1,10 +1,10 @@
 ﻿# 执行问题
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/faq/implement_problem.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/faq/implement_problem.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 <font size=3>**Q: 请问使用MindSpore如何实现多尺度训练？**</font>
 
-A: 在多尺度训练过程中，使用不同`shape`调用`Cell`对象的时候，会自动根据不同`shape`编译并调用不同的图，从而实现多尺度的训练。要注意多尺度训练只支持非数据下沉模式，不能支持数据下沉的训练方式。可以参考[yolov3](https://gitee.com/mindspore/models/tree/master/official/cv/yolov3_darknet53)的多尺度训练实现。
+A: 在多尺度训练过程中，使用不同`shape`调用`Cell`对象的时候，会自动根据不同`shape`编译并调用不同的图，从而实现多尺度的训练。要注意多尺度训练只支持非数据下沉模式，不能支持数据下沉的训练方式。可以参考[yolov3](https://gitee.com/mindspore/models/tree/r1.7/official/cv/yolov3_darknet53)的多尺度训练实现。
 
 <br/>
 
@@ -65,7 +65,7 @@ res = model.eval(dataset)
 
 <font size=3>**Q: 如何使用SGD里的`param_group`来实现学习率的衰减？**</font>
 
-A: 如果需要按照`epoch`来变化，可以使用[Dynamic LR](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.html#dynamic-lr),把其中的`step_per_epoch`设置成`step_size`，如果需要按照`step`来变化，可以把其中的`step_per_epoch`设置成1，也可以用[LearningRateSchedule](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.html#dynamic-learning-rate)。
+A: 如果需要按照`epoch`来变化，可以使用[Dynamic LR](https://mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.nn.html#dynamic-lr),把其中的`step_per_epoch`设置成`step_size`，如果需要按照`step`来变化，可以把其中的`step_per_epoch`设置成1，也可以用[LearningRateSchedule](https://mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.nn.html#dynamic-learning-rate)。
 
 <br/>
 
@@ -94,7 +94,7 @@ def count_params(net):
     return total_params
 ```
 
-具体[脚本链接](https://gitee.com/mindspore/models/blob/master/research/cv/tinynet/src/utils.py)。
+具体[脚本链接](https://gitee.com/mindspore/models/blob/r1.7/research/cv/tinynet/src/utils.py)。
 
 <br/>
 
@@ -117,7 +117,7 @@ class EarlyStop(Callback):
 
 <font size=3>**Q: 使用`nn.Conv2d`时，怎样获取期望大小的`feature map`？**</font>
 
-A: `Conv2d shape`推导方法可以[参考这里](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d)，`Conv2d`的`pad_mode`改成`same`，或者可以根据`Conv2d shape`推导公式自行计算`pad`，想要使得`shape`不变，一般pad为`(kernel_size-1)//2`。
+A: `Conv2d shape`推导方法可以[参考这里](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d)，`Conv2d`的`pad_mode`改成`same`，或者可以根据`Conv2d shape`推导公式自行计算`pad`，想要使得`shape`不变，一般pad为`(kernel_size-1)//2`。
 
 <br/>
 
@@ -255,7 +255,7 @@ print(network.layers)
 
 <font size=3>**Q: 使用MindSpore进行模型训练时，`CTCLoss`的输入参数有四个: `inputs`, `labels_indices`, `labels_values`, `sequence_length`，如何使用`CTCLoss`进行训练？**</font>
 
-A: 定义的`model.train`接口里接收的`dataset`可以是多个数据组成，形如(`data1`, `data2`, `data3`, ...)，所以`dataset`是可以包含`inputs`,`labels_indices`,`labels_values`,`sequence_length`的信息的。只需要定义好相应形式的`dataset`，传入`model.train`里就可以。具体的可以了解下相应的[数据处理接口](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset.html)
+A: 定义的`model.train`接口里接收的`dataset`可以是多个数据组成，形如(`data1`, `data2`, `data3`, ...)，所以`dataset`是可以包含`inputs`,`labels_indices`,`labels_values`,`sequence_length`的信息的。只需要定义好相应形式的`dataset`，传入`model.train`里就可以。具体的可以了解下相应的[数据处理接口](https://www.mindspore.cn/tutorials/zh-CN/r1.7/advanced/dataset.html)
 
 <br/>
 
@@ -332,7 +332,7 @@ if __name__ == "__main__":
 
 <font size=3>**Q: 如何使用MindSpore拟合$f(x)=ax^2+bx+c$这类的二次函数？**</font>
 
-A: 以下代码引用自MindSpore的官方教程的[代码仓](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/linear_regression.py)
+A: 以下代码引用自MindSpore的官方教程的[代码仓](https://gitee.com/mindspore/docs/blob/r1.7/docs/sample_code/linear_regression.py)
 
 在以下几处修改即可很好的拟合$f(x)=ax^2+bx+c$:
 

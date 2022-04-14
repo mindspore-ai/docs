@@ -1,6 +1,6 @@
 # 静态图语法支持
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/static_graph_syntax_support.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/note/static_graph_syntax_support.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -9,9 +9,9 @@
 当前仅支持编译`@ms_function`装饰器修饰的函数、Cell及其子类的实例。
 对于函数，则编译函数定义；对于网络，则编译`construct`方法及其调用的其他方法或者函数。
 
-`ms_function`使用规则可参考文档：<https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.ms_function.html#mindspore.ms_function>
+`ms_function`使用规则可参考文档：<https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore/mindspore.ms_function.html#mindspore.ms_function>
 
-`Cell`定义可参考文档：<https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html>
+`Cell`定义可参考文档：<https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/nn/mindspore.nn.Cell.html>
 
 由于语法解析的限制，当前在编译构图时，支持的数据类型、语法以及相关操作并没有完全与Python语法保持一致，部分使用受限。
 
@@ -282,7 +282,7 @@
 
 可以通过`@constexpr`装饰器修饰函数，在函数里生成`Tensor`。
 
-关于`@constexpr`的用法可参考：<https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.constexpr.html>
+关于`@constexpr`的用法可参考：<https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/ops/mindspore.ops.constexpr.html>
 
 对于网络中需要用到的常量`Tensor`，可以作为网络的属性，在`init`的时候定义，即`self.x = Tensor(args...)`，然后在`construct`里使用。
 
@@ -374,9 +374,9 @@ x:[[1. 1. 1. 1.]
 
 当前不支持在网络调用`Primitive`及其子类相关属性和接口。
 
-`Primitive`定义可参考文档：<https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/op_classification.html>
+`Primitive`定义可参考文档：<https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/operation/op_classification.html>
 
-当前已定义的`Primitive`可参考文档：<https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.ops.html>
+当前已定义的`Primitive`可参考文档：<https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.ops.html>
 
 #### Cell
 
@@ -386,15 +386,15 @@ x:[[1. 1. 1. 1.]
 
 当前不支持在网络调用`Cell`及其子类相关属性和接口，除非是在`Cell`自己的`construct`中通过`self`调用。
 
-`Cell`定义可参考文档：<https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html>
+`Cell`定义可参考文档：<https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/nn/mindspore.nn.Cell.html>
 
-当前已定义的`Cell`可参考文档：<https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.html>
+当前已定义的`Cell`可参考文档：<https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.nn.html>
 
 #### Parameter
 
 `Parameter`是变量张量，代表在训练网络时，需要被更新的参数。
 
-`Parameter`的定义和使用参考：<https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter>
+`Parameter`的定义和使用参考：<https://www.mindspore.cn/docs/en/r1.7/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter>
 
 ## 原型
 
@@ -449,7 +449,7 @@ ret:1
 
 `Dictionary`的索引取值请参考本文的[Dictionary](#dictionary)章节。
 
-`Tensor`的索引取请参考:<https://www.mindspore.cn/docs/zh-CN/master/note/index_support.html>
+`Tensor`的索引取请参考:<https://www.mindspore.cn/docs/zh-CN/r1.7/note/index_support.html>
 
 ### 调用
 
@@ -489,7 +489,7 @@ ret:[[3. 3. 3. 3.]]
 
 之所以支持，是因为这些运算符会转换成同名算子进行运算，这些算子支持了隐式类型转换。
 
-规则可参考文档：<https://www.mindspore.cn/docs/zh-CN/master/note/operator_list_implicit.html>
+规则可参考文档：<https://www.mindspore.cn/docs/zh-CN/r1.7/note/operator_list_implicit.html>
 
 ### 单目算术运算符
 
@@ -1494,20 +1494,20 @@ ret:(Tensor(shape=[2, 3], dtype=Float32, value=
 
 ### 网络实例类型
 
-- 带[@ms_function](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.ms_function.html)装饰器的普通Python函数。
+- 带[@ms_function](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore/mindspore.ms_function.html)装饰器的普通Python函数。
 
-- 继承自[nn.Cell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html)的Cell子类。
+- 继承自[nn.Cell](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/nn/mindspore.nn.Cell.html)的Cell子类。
 
 ### 网络构造组件
 
 | 类别                 | 内容                                                                                                                                                                                                         |
 | :------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Cell`实例           | [mindspore/nn/*](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.html)、自定义[Cell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html)。 |
+| `Cell`实例           | [mindspore/nn/*](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.nn.html)、自定义[Cell](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/nn/mindspore.nn.Cell.html)。 |
 | `Cell`实例的成员函数 | Cell的construct中可以调用其他类成员函数。                                                                                                                                                                    |
 | `dataclass`实例      | 使用@dataclass装饰的类。                                                                                                                                                                                     |
-| `Primitive`算子      | [mindspore/ops/operations/*](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.ops.html)                                                                                              |
-| `Composite`算子      | [mindspore/ops/composite/*](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.ops.html)                                                                                               |
-| `constexpr`生成算子  | 使用[@constexpr](https://www.mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.constexpr.html)生成的值计算算子。                                                                          |
+| `Primitive`算子      | [mindspore/ops/operations/*](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.ops.html)                                                                                              |
+| `Composite`算子      | [mindspore/ops/composite/*](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.ops.html)                                                                                               |
+| `constexpr`生成算子  | 使用[@constexpr](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/ops/mindspore.ops.constexpr.html)生成的值计算算子。                                                                          |
 | 函数                 | 自定义Python函数、前文中列举的系统函数。                                                                                                                                                                     |
 
 ### 网络使用约束

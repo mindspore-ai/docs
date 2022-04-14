@@ -2,27 +2,27 @@
 
 `Linux` `Windows` `X86` `C++` `全流程` `推理应用` `数据准备` `初级`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/quick_start/quick_start_cpp.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/lite/docs/source_zh_cn/quick_start/quick_start_cpp.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 > MindSpore已经统一了端边云推理API，如您想继续使用MindSpore Lite独立API进行端侧推理，可以参考[此文档](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/quick_start/quick_start_cpp.html)。
 
 ## 概述
 
-本教程提供了MindSpore Lite执行推理的示例程序，通过随机输入、执行推理、打印推理结果的方式，演示了C++进行端侧推理的基本流程，用户能够快速了解MindSpore Lite执行推理相关API的使用。本教程通过随机生成的数据作为输入数据，执行MobileNetV2模型的推理，打印获得输出数据。相关代码放置在[mindspore/lite/examples/quick_start_cpp](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_cpp)目录。
+本教程提供了MindSpore Lite执行推理的示例程序，通过随机输入、执行推理、打印推理结果的方式，演示了C++进行端侧推理的基本流程，用户能够快速了解MindSpore Lite执行推理相关API的使用。本教程通过随机生成的数据作为输入数据，执行MobileNetV2模型的推理，打印获得输出数据。相关代码放置在[mindspore/lite/examples/quick_start_cpp](https://gitee.com/mindspore/mindspore/tree/r1.7/mindspore/lite/examples/quick_start_cpp)目录。
 
 使用MindSpore Lite执行推理主要包括以下步骤：
 
-1. 模型读取：从文件系统中读取由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)转换得到的`.ms`模型。
-2. 创建配置上下文：创建配置上下文[Context](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#context)，保存需要的一些基本配置参数，用于指导模型编译和模型执行。
-3. 模型创建、加载与编译：执行推理之前，需要调用[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)的[Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build)接口进行模型加载和模型编译，并将上一步得到的Context配置到Model中。模型加载阶段将文件缓存解析成运行时的模型。模型编译阶段主要进行算子选型调度、子图切分等过程，该阶段会耗费较多时间，所以建议Model创建一次，编译一次，多次推理。
+1. 模型读取：从文件系统中读取由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/converter_tool.html)转换得到的`.ms`模型。
+2. 创建配置上下文：创建配置上下文[Context](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html#context)，保存需要的一些基本配置参数，用于指导模型编译和模型执行。
+3. 模型创建、加载与编译：执行推理之前，需要调用[Model](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html#model)的[Build](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html#build)接口进行模型加载和模型编译，并将上一步得到的Context配置到Model中。模型加载阶段将文件缓存解析成运行时的模型。模型编译阶段主要进行算子选型调度、子图切分等过程，该阶段会耗费较多时间，所以建议Model创建一次，编译一次，多次推理。
 4. 输入数据：模型执行之前需要向`输入Tensor`中填充数据。
-5. 执行推理：使用[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)的[Predict](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#predict)接口进行模型推理。
+5. 执行推理：使用[Model](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html#model)的[Predict](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html#predict)接口进行模型推理。
 6. 获得输出：模型执行结束之后，可以通过`输出Tensor`得到推理结果。
-7. 释放内存：无需使用MindSpore Lite推理框架时，需要释放已创建的[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)。
+7. 释放内存：无需使用MindSpore Lite推理框架时，需要释放已创建的[Model](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html#model)。
 
 ![img](../images/lite_runtime.png)
 
-> 如需查看MindSpore Lite高级用法，请参考[使用Runtime执行推理（C++）](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html)。
+> 如需查看MindSpore Lite高级用法，请参考[使用Runtime执行推理（C++）](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/runtime_cpp.html)。
 
 ## 构建与运行
 
@@ -37,13 +37,13 @@
 
 - 编译构建
 
-  在`mindspore/lite/examples/quick_start_cpp`目录下执行[build脚本](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_cpp/build.sh)，将自动下载MindSpore Lite推理框架库以及文模型文件并编译Demo。
+  在`mindspore/lite/examples/quick_start_cpp`目录下执行[build脚本](https://gitee.com/mindspore/mindspore/blob/r1.7/mindspore/lite/examples/quick_start_cpp/build.sh)，将自动下载MindSpore Lite推理框架库以及文模型文件并编译Demo。
 
   ```bash
   bash build.sh
   ```
 
-  > 若使用该build脚本下载MindSpore Lite推理框架失败，请手动下载硬件平台为CPU、操作系统为Ubuntu-x64的MindSpore Lite 模型推理框架[mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，将解压后`runtime/lib`目录下的`libmindspore-lite.so`文件拷贝到`mindspore/lite/examples/quick_start_cpp/lib`目录、`runtime/include`目录里的文件拷贝到`mindspore/lite/examples/quick_start_cpp/include`目录下。
+  > 若使用该build脚本下载MindSpore Lite推理框架失败，请手动下载硬件平台为CPU、操作系统为Ubuntu-x64的MindSpore Lite 模型推理框架[mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/downloads.html)，将解压后`runtime/lib`目录下的`libmindspore-lite.so`文件拷贝到`mindspore/lite/examples/quick_start_cpp/lib`目录、`runtime/include`目录里的文件拷贝到`mindspore/lite/examples/quick_start_cpp/include`目录下。
   >
   > 若MobileNetV2模型下载失败，请手动下载相关模型文件[mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.ms)，并将其拷贝到`mindspore/lite/examples/quick_start_cpp/model`目录。
   >
@@ -75,11 +75,11 @@
 
 - 编译构建
 
-    - 库下载：请手动下载硬件平台为CPU、操作系统为Windows-x64的MindSpore Lite模型推理框架[mindspore-lite-{version}-win-x64.zip](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，将解压后`runtime\lib`目录下的所有文件拷贝到`mindspore\lite\examples\quick_start_cpp\lib`工程目录、`runtime\include`目录里的文件拷贝到`mindspore\lite\examples\quick_start_cpp\include`工程目录下。（注意：工程项目下的`lib`、`include`目录需手工创建）
+    - 库下载：请手动下载硬件平台为CPU、操作系统为Windows-x64的MindSpore Lite模型推理框架[mindspore-lite-{version}-win-x64.zip](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/downloads.html)，将解压后`runtime\lib`目录下的所有文件拷贝到`mindspore\lite\examples\quick_start_cpp\lib`工程目录、`runtime\include`目录里的文件拷贝到`mindspore\lite\examples\quick_start_cpp\include`工程目录下。（注意：工程项目下的`lib`、`include`目录需手工创建）
 
     - 模型下载：请手动下载相关模型文件[mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.ms)，并将其拷贝到`mindspore\lite\examples\quick_start_cpp\model`目录。
 
-    - 编译：在`mindspore\lite\examples\quick_start_cpp`目录下执行[build脚本](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_cpp/build.bat)，将能够自动下载相关文件并编译Demo。
+    - 编译：在`mindspore\lite\examples\quick_start_cpp`目录下执行[build脚本](https://gitee.com/mindspore/mindspore/blob/r1.7/mindspore/lite/examples/quick_start_cpp/build.bat)，将能够自动下载相关文件并编译Demo。
 
   ```bash
   call build.bat
@@ -183,7 +183,7 @@ device_list.push_back(device_info);
 
 ## 模型创建加载与编译
 
-模型加载与编译可以调用[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)的复合[Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build)接口，直接从文件缓存加载、编译得到运行时的模型。
+模型加载与编译可以调用[Model](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html#model)的复合[Build](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html#build)接口，直接从文件缓存加载、编译得到运行时的模型。
 
 ```c++
 // Create model
@@ -201,7 +201,7 @@ if (build_ret != mindspore::kSuccess) {
 }
 ```
 
-也可以分别调用[Serialization](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#serialization)的[Load](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#load)接口去加载模型得到[Graph](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#graph)，调用[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)的[Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build)去构建模型。
+也可以分别调用[Serialization](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html#serialization)的[Load](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html#load)接口去加载模型得到[Graph](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html#graph)，调用[Model](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html#model)的[Build](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html#build)去构建模型。
 
 ```c++
 // Load graph.

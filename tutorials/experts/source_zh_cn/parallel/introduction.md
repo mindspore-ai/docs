@@ -13,7 +13,7 @@
 
 - `dynamic_programming`：动态规划策略搜索算法。能够搜索出代价模型刻画的最优策略，但在搜索巨大网络模型的并行策略时耗时较长。其代价模型是围绕Ascend 910芯片基于内存的计算开销和通信开销对训练时间建模。
 - `recursive_programming`：双递归策略搜索算法。对于巨大网络以及大规模多卡切分能够保证瞬间生成最优策略。其基于符号运算的代价模型可以自由适配不同的加速器集群。
-- `sharding_propagation`：切分策略传播算法。由配置并行策略的算子向未配置的算子传播并行策略。在传播时，算法会尽量选取引发张量重排布通信最少的策略。关于算子的并行策略配置和张量重排布，可参考这篇 `设计文档 <https://www.mindspore.cn/docs/zh-CN/master/design/distributed_training_design.html#自动并行原理>`_。
+- `sharding_propagation`：切分策略传播算法。由配置并行策略的算子向未配置的算子传播并行策略。在传播时，算法会尽量选取引发张量重排布通信最少的策略。关于算子的并行策略配置和张量重排布，可参考这篇 `设计文档 <https://www.mindspore.cn/docs/zh-CN/r1.7/design/distributed_training_design.html#自动并行原理>`_。
 
 - `SEMI_AUTO_PARALLEL`：半自动并行模式，相较于自动并行，该模式需要用户对算子手动配置切分策略实现并行。
 - `HYBRID_PARALLEL`：在MindSpore中特指用户通过手动切分模型实现混合并行的场景。
@@ -31,7 +31,7 @@
 
 当前MindSpore提供分布式并行训练的功能。它支持了上述的多种模式，可以通过`context.set_auto_parallel_context()`接口设置对应的并行模式。
 
-在用户调用分布式训练流程时，需要调用如下代码进行通信的初始化，并且配置对应的rank_table_file，可以参考[分布式训练(Ascend)](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#多机多卡训练)的**多机多卡训练**章节。
+在用户调用分布式训练流程时，需要调用如下代码进行通信的初始化，并且配置对应的rank_table_file，可以参考[分布式训练(Ascend)](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/parallel/train_ascend.html#多机多卡训练)的**多机多卡训练**章节。
 
 ```python
 from mindspore.communication import init, get_rank, get_group_size
@@ -63,7 +63,7 @@ context.set_auto_parallel_context(parallel_mode=context.ParallelMode.DATA_PARALL
 
 ### 数据并行
 
-在数据并行中，用户定义网络的方式和单机脚本一样，但是在网络定义之前调用[init()](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.communication.html?highlight=init#mindspore.communication.init)去初始化设备通信状态。
+在数据并行中，用户定义网络的方式和单机脚本一样，但是在网络定义之前调用[init()](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.communication.html?highlight=init#mindspore.communication.init)去初始化设备通信状态。
 
 ```python
 import numpy as np
@@ -95,7 +95,7 @@ model.train(*args, **kwargs)
 
 ### 半自动并行
 
-相较于自动并行，半自动并行模式需要用户对算子手动配置切分**策略**实现并行。关于算子并行策略的定义可以参考这篇[设计文档](https://www.mindspore.cn/docs/zh-CN/master/design/distributed_training_design.html#自动并行原理)。
+相较于自动并行，半自动并行模式需要用户对算子手动配置切分**策略**实现并行。关于算子并行策略的定义可以参考这篇[设计文档](https://www.mindspore.cn/docs/zh-CN/r1.7/design/distributed_training_design.html#自动并行原理)。
 
 - 启动半自动和自动模式进行训练时，**必须**通过`model.train(*args, **kwargs)`接口进行训练，不支持自定义循环进行网络训练。
 
@@ -150,7 +150,7 @@ model.train(*args, **kwargs)
     model.train(*args, **kwargs)
     ```
 
-在前后算子的设备矩阵不一致时，会自动插入[重排布](https://www.mindspore.cn/docs/zh-CN/master/design/distributed_training_design.html?highlight=%E9%87%8D%E6%8E%92%E5%B8%83#id4), 确保`tensor`的切分状态符合下一个算子输入要求。例如在单机八卡的训练中，有下述的示例代码：
+在前后算子的设备矩阵不一致时，会自动插入[重排布](https://www.mindspore.cn/docs/zh-CN/r1.7/design/distributed_training_design.html?highlight=%E9%87%8D%E6%8E%92%E5%B8%83#id4), 确保`tensor`的切分状态符合下一个算子输入要求。例如在单机八卡的训练中，有下述的示例代码：
 
 ```python
 import numpy as np
@@ -183,13 +183,13 @@ class SemiAutoParallelNet(nn.Cell):
         return x
 ```
 
-因此，如果前后的算子对输入的切分要求不一样，插入的重排布算子可能会有`AllGather`、`Split`、`Concat`和`StridedSlice`等算子。因此会增加网络的计算和通信耗时。用户可以[保存ir图](https://www.mindspore.cn/docs/zh-CN/master/design/mindir.html)查看整张网络的算子状态。其中自动并行流程产生的`ir`图名为`step_parallel_begin_xxxx.ir`和`step_parallel_end_xxxx.ir`。前者表示在进入并行流程之前图状态，后者表示经过自动并行流程处理后的图状态，用户可以查看后者这个文件，查找自动并行插入的算子。
+因此，如果前后的算子对输入的切分要求不一样，插入的重排布算子可能会有`AllGather`、`Split`、`Concat`和`StridedSlice`等算子。因此会增加网络的计算和通信耗时。用户可以[保存ir图](https://www.mindspore.cn/docs/zh-CN/r1.7/design/mindir.html)查看整张网络的算子状态。其中自动并行流程产生的`ir`图名为`step_parallel_begin_xxxx.ir`和`step_parallel_end_xxxx.ir`。前者表示在进入并行流程之前图状态，后者表示经过自动并行流程处理后的图状态，用户可以查看后者这个文件，查找自动并行插入的算子。
 
 > - 半自动并行模式时，未配置策略的算子默认以数据并行方式执行，对应的数据并行度为所有卡。
 > - 自动并行模式支持通过策略搜索算法自动获取高效的算子并行策略，同时也支持用户对算子手动配置特定的并行策略。
 > - 如果某个`parameter`被多个算子使用，则每个算子对这个`parameter`的切分策略需要保持一致，否则将报错。
 
-自动和半自动模式中还可以通过对`Cell`配置`pipeline_stage`属性进行流水线并行，对应的流水线并行教程可以参考[应用流水线并行](https://www.mindspore.cn/docs/zh-CN/master/design/pipeline_parallel.html)。
+自动和半自动模式中还可以通过对`Cell`配置`pipeline_stage`属性进行流水线并行，对应的流水线并行教程可以参考[应用流水线并行](https://www.mindspore.cn/docs/zh-CN/r1.7/design/pipeline_parallel.html)。
 
 ### 全自动并行
 

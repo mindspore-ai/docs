@@ -23,8 +23,8 @@ MindSpore 文档
    design/dataset_offload
    design/graph_kernel_fusion
    design/jit_fallback
-   可视化调试调优↗ <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/training_visual_design.html>
-   安全可信↗ <https://www.mindspore.cn/mindarmour/docs/zh-CN/master/design.html>
+   可视化调试调优↗ <https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/training_visual_design.html>
+   安全可信↗ <https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.7/design.html>
    design/glossary
    
 .. toctree::
@@ -67,7 +67,7 @@ MindSpore 文档
    api_python/mindspore.scipy
    api_python/mindspore.train
    api_python/mindspore.boost
-   C++ API↗ <https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html>
+   C++ API↗ <https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html>
 
 .. toctree::
    :glob:

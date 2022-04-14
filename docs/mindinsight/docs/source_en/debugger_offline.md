@@ -1,6 +1,6 @@
 ﻿# Using the Offline Debugger
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/debugger_offline.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindinsight/docs/source_en/debugger_offline.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -8,7 +8,7 @@ This article describes how to use Debugger in offline mode.
 
 ## Operation Process
 
-1. Prepare dump data. For details about how to use the dump function, see [Using Dump in the Graph Mode](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html).
+1. Prepare dump data. For details about how to use the dump function, see [Using Dump in the Graph Mode](https://www.mindspore.cn/tutorials/experts/en/r1.7/debug/dump.html).
 2. Use the offline debugger for debugging and analysis.
 
    If an UI page is needed, you can start the debugger through MindInsight offline debugger entry. The operation process is:
@@ -17,7 +17,7 @@ This article describes how to use Debugger in offline mode.
 
     2) Find the offline debugger entry from the Summary list, and click Offline Debugger. The debugger UI is displayed, and debugging analysis starts.
 
-   If UI page is not needed, it can also be analyzed through the API interface of the offline debugger. See [mindinsight.debugger](https://www.mindspore.cn/mindinsight/api/en/master/mindinsight.debugger.html) for the API of offline debugger. The operation process is:
+   If UI page is not needed, it can also be analyzed through the API interface of the offline debugger. See [mindinsight.debugger](https://www.mindspore.cn/mindinsight/api/en/r1.7/mindinsight.debugger.html) for the API of offline debugger. The operation process is:
 
     1) Instantiate the offline debugger through 'mindinsight.debugger.Dumpanalyzer' to dump_dir is specified as the dump path of a training ({path} in dump configuration);
 
@@ -27,7 +27,7 @@ Unless otherwise specified, the offline debugger in the following refers to the 
 
 ## Environment Preparation
 
-Use the dump function of MindSpore to prepare offline data. For details about how to use the dump function, see [Using Dump in the Graph Mode](https://www.mindspore.cn/tutorials/experts/en/master/debug/dump.html).
+Use the dump function of MindSpore to prepare offline data. For details about how to use the dump function, see [Using Dump in the Graph Mode](https://www.mindspore.cn/tutorials/experts/en/r1.7/debug/dump.html).
 
 It should be noted that only one dump path can be included in a summary-dir. For example, if the path in the Dump configuration file is "/home/workspace/data/dump_dir" in one training, after the dump data of this training is stored,  the other trainnings cannot set the path in the Dump configuration file as the children directory of "/home/workspace/data".
 
@@ -48,7 +48,7 @@ Parameters are described as follows:
 |`--offline-debugger-mem-limit <OFFLINE_DEBUGGER_MEMORY_LIMIT>`|Optional|Specifies the maximum memory limit of a single offline debugger session. When the offline debugger cannot be executed due to insufficient memory, set it according to the device memory.|Integer|16*1024|6*1024~The upper limit of int32|
 |`--max-offline-debugger-session-num <MAX_OFFLINE_DEBUGGER_SESSION_NUMBER>`|Optional|Specifies the maximum session number of the offline debugger. The session number refers to the amount of training jobs that can be debugged at the same time.|Integer|2|1~2|
 
-For details about more startup parameters, see [MindInsight Commands](https://www.mindspore.cn/mindinsight/docs/en/master/mindinsight_commands.html).
+For details about more startup parameters, see [MindInsight Commands](https://www.mindspore.cn/mindinsight/docs/en/r1.7/mindinsight_commands.html).
 
 Open MindInsight and access the debugger UI from the offline debugger entry.
 
@@ -58,7 +58,7 @@ Open MindInsight and access the debugger UI from the offline debugger entry.
 
 ## UI Introduction
 
-The UI of the offline debugger is almost the same as that of the online debugger. For details about the online debugger UI, see [Debugger UI Introduction](https://www.mindspore.cn/mindinsight/docs/en/master/debugger_online.html#debugger-ui-introduction). The difference is that the offline debugger will display the graph execution history above the calculation graph, and can reset the training rounds.
+The UI of the offline debugger is almost the same as that of the online debugger. For details about the online debugger UI, see [Debugger UI Introduction](https://www.mindspore.cn/mindinsight/docs/en/r1.7/debugger_online.html#debugger-ui-introduction). The difference is that the offline debugger will display the graph execution history above the calculation graph, and can reset the training rounds.
 
 ### Graph Execution History
 
@@ -90,9 +90,9 @@ As shown in Figure 3, click the edit icon on the right of current round, an edit
 
     At this point, the debugger is in a state of loading offline data.
 
-2. Wait for a moment. A dialog box is displayed on the MindInsight UI, asking you whether to use the recommended watchpoints. The following procedures are the same as that for online debugging. [Debugger Usage Example](https://www.mindspore.cn/mindinsight/docs/en/master/debugger_online.html#debugger-usage-example).
+2. Wait for a moment. A dialog box is displayed on the MindInsight UI, asking you whether to use the recommended watchpoints. The following procedures are the same as that for online debugging. [Debugger Usage Example](https://www.mindspore.cn/mindinsight/docs/en/r1.7/debugger_online.html#debugger-usage-example).
 
-3. If you need to reset the training round, you can refer to [Training Rounds Resetting](https://www.mindspore.cn/mindinsight/docs/en/master/debugger_offline.html#training-rounds-resetting) to reset the training rounds. Refer to [Graph Execution History](https://www.mindspore.cn/mindinsight/docs/en/master/debugger_offline.html#graph-execution-history) for data saving of each round.
+3. If you need to reset the training round, you can refer to [Training Rounds Resetting](https://www.mindspore.cn/mindinsight/docs/en/r1.7/debugger_offline.html#training-rounds-resetting) to reset the training rounds. Refer to [Graph Execution History](https://www.mindspore.cn/mindinsight/docs/en/r1.7/debugger_offline.html#graph-execution-history) for data saving of each round.
 
 ## Offline Debugger API example
 
@@ -141,4 +141,4 @@ if __name__ == "__main__":
 - Only watchpoints that have tensor values are rechecked.
 - The graph displayed by the debugger is the finally optimized execution graph. The called operator may have been integrated with other operators, or the name of the called operator is changed after optimization.
 - If the dump data objects are bin files generated by Ascend asynchronous dump, npy files will be generated during parsing, which would occupy disk space.
-- If the asynchronous dump data in the Ascend scenario is used, you can use the `convert_all_data_to_host` API of MindInsight DumpParser to convert the asynchronous dump data into the `.npy` file to improve the data analysis efficiency. For details about how to use DumpParser, see [DumpParser Introduction](https://gitee.com/mindspore/mindinsight/tree/master/mindinsight/parser).
+- If the asynchronous dump data in the Ascend scenario is used, you can use the `convert_all_data_to_host` API of MindInsight DumpParser to convert the asynchronous dump data into the `.npy` file to improve the data analysis efficiency. For details about how to use DumpParser, see [DumpParser Introduction](https://gitee.com/mindspore/mindinsight/tree/r1.7/mindinsight/parser).

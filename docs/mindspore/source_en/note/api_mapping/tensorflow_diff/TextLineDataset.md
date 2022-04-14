@@ -1,6 +1,6 @@
 # Function Differences with tf.data.TextLineDataset
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/TextLineDataset.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_en/note/api_mapping/tensorflow_diff/TextLineDataset.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## tf.data.TextLineDataset
 
@@ -29,7 +29,7 @@ class mindspore.dataset.TextFileDataset(
 )
 ```
 
-For more information, see [mindspore.dataset.TextFileDataset](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.TextFileDataset.html#mindspore.dataset.TextFileDataset).
+For more information, see [mindspore.dataset.TextFileDataset](https://mindspore.cn/docs/en/r1.7/api_python/dataset/mindspore.dataset.TextFileDataset.html#mindspore.dataset.TextFileDataset).
 
 ## Differences
 

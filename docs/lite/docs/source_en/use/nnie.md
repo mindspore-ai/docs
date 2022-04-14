@@ -2,7 +2,7 @@
 
 `NNIE` `Linux` `Environment Preparation` `Intermediate` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/nnie.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/lite/docs/source_en/use/nnie.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Directory Structures
 
@@ -25,7 +25,7 @@ mindspore-lite-{version}-runtime-linux-x64
                         └── libprotoc.so
 ```
 
-The preceding shows the integration directory structure of the NNIE. For details about other directory structures of the converter, see [Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html).
+The preceding shows the integration directory structure of the NNIE. For details about other directory structures of the converter, see [Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/r1.7/use/converter_tool.html).
 
 ### The runtime Directory Structure of the Model Inference Tool
 
@@ -37,7 +37,7 @@ mindspore-lite-{version}-linux-aarch32
         └── libmslite_proposal.so  # Sample dynamic library of the integrated proposal
 ```
 
-The preceding shows the integration directory structure of the NNIE. For details about other directory structures of the inference tool runtime, see [Directory Structure](https://www.mindspore.cn/lite/docs/en/master/use/build.html#directory-structure).
+The preceding shows the integration directory structure of the NNIE. For details about other directory structures of the inference tool runtime, see [Directory Structure](https://www.mindspore.cn/lite/docs/en/r1.7/use/build.html#directory-structure).
 
 ## Using Tools
 
@@ -46,13 +46,13 @@ The preceding shows the integration directory structure of the NNIE. For details
 #### Overview
 
 MindSpore Lite provides a tool for offline model conversion. It can convert models of multiple types (only Caffe is supported currently) into board-dedicated models that support NNIE hardware acceleration inference and can run on the Hi3516 board.
-The converted NNIE `ms` model can be used only on the associated embedded board. The runtime inference framework matching the conversion tool can be used to perform inference. For more information about the conversion tool, see [Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html).
+The converted NNIE `ms` model can be used only on the associated embedded board. The runtime inference framework matching the conversion tool can be used to perform inference. For more information about the conversion tool, see [Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/r1.7/use/converter_tool.html).
 
 #### Environment Preparation
 
 To use the MindSpore Lite model conversion tool, you need to prepare the environment as follows:
 
-1. [Download](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) NNIE-dedicated converter. Currently, only Linux is supported.
+1. [Download](https://www.mindspore.cn/lite/docs/en/r1.7/use/downloads.html) NNIE-dedicated converter. Currently, only Linux is supported.
 
 2. Decompress the downloaded package.
 
@@ -142,20 +142,20 @@ The following is an example of the `nnie.cfg` file:
      CONVERTER RESULT SUCCESS:0
      ```
 
-     For details about the parameters of the converter_lite conversion tool, see ["Parameter Description" in Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html#example).
+     For details about the parameters of the converter_lite conversion tool, see ["Parameter Description" in Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/r1.7/use/converter_tool.html#example).
 
 ### Runtime
 
 #### Overview
 
 After the converted model is obtained, you can perform inference on the associated embedded board by using the Runtime inference framework matching the board. MindSpore Lite provides a benchmark test tool, which can be used to perform quantitative analysis (performance) on the execution time consumed by forward inference of the MindSpore Lite model. In addition, you can perform comparative error analysis (accuracy) based on the output of a specified model.
-For details about the inference tool, see [benchmark](https://www.mindspore.cn/lite/docs/en/master/use/benchmark_tool.html).
+For details about the inference tool, see [benchmark](https://www.mindspore.cn/lite/docs/en/r1.7/use/benchmark_tool.html).
 
 #### Environment Preparation
 
 You can perform equivalent operations based on the actual situation. See the following example:
 
-1. [Download](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) NNIE-dedicated model inference tool. Currently, only Hi3516D is supported.
+1. [Download](https://www.mindspore.cn/lite/docs/en/r1.7/use/downloads.html) NNIE-dedicated model inference tool. Currently, only Hi3516D is supported.
 
 2. Decompress the downloaded package.
 
@@ -275,13 +275,13 @@ cd /user/mindspore
 
 ${model_path} indicates the path of the MS model file after conversion.
 
-After this command is executed, random input of the model is generated and forward inference is performed. For details about how to use the benchmark, such as time consumption analysis and inference error analysis, see [benchmark](https://www.mindspore.cn/lite/docs/en/master/use/benchmark_tool.html).
+After this command is executed, random input of the model is generated and forward inference is performed. For details about how to use the benchmark, such as time consumption analysis and inference error analysis, see [benchmark](https://www.mindspore.cn/lite/docs/en/r1.7/use/benchmark_tool.html).
 
 For details about the input data format requirements of the model, see [(Optional) SVP Tool Chain-related Functions and Precautions](#(optional)-svp-tool-chain-related-functions-and-precautions).
 
 ## Integration
 
-For details about integration, see [Using C++ Interface to Perform Inference](https://www.mindspore.cn/lite/docs/en/master/use/runtime_cpp.html).
+For details about integration, see [Using C++ Interface to Perform Inference](https://www.mindspore.cn/lite/docs/en/r1.7/use/runtime_cpp.html).
 
 ## SVP Tool Chain-related Functions and Precautions (Advanced Options)
 
@@ -337,7 +337,7 @@ During model conversion, the `nnie.cfg` file declared by the NNIE_CONFIG_PATH en
 
   When converting the NNIE model, MindSpore Lite fuses most operators into the binary file for NNIE running. Users cannot view the output of the intermediate operators. In this case, you can add the _report suffix to the top domain, during image composition conversion, the output of the intermediate operator is added to the output of the fused layer. If the operator has output (not fused), the output remains unchanged.
 
-  During the inference running, you can obtain the output of the intermediate operator by referring to [Using C++ Interface to Perform Inference](https://www.mindspore.cn/lite/docs/en/master/use/runtime_cpp.html#id15).
+  During the inference running, you can obtain the output of the intermediate operator by referring to [Using C++ Interface to Perform Inference](https://www.mindspore.cn/lite/docs/en/r1.7/use/runtime_cpp.html#id15).
 
   MindSpore Lite parses the corresponding rules of _report and resolves the conflict with the [Inplace Mechanism](#inplace mechanism). For details, see the definition in the HiSVP Development Guide.
 
@@ -353,7 +353,7 @@ During model conversion, the `nnie.cfg` file declared by the NNIE_CONFIG_PATH en
 
 ### Multi-image Batch Running and Multi-step Running
 
-  If you need to infer multiple input data (multiple images) at the same time, you can resize the first dimension of the model input to the quantity of input data by referring to [Resizing the Input Dimension](https://www.mindspore.cn/lite/docs/en/master/use/runtime_cpp.html#resize). In the NNIE model, only the first dimension ('n' dimension) can be resized, and other dimensions ('hwc') cannot be resized.
+  If you need to infer multiple input data (multiple images) at the same time, you can resize the first dimension of the model input to the quantity of input data by referring to [Resizing the Input Dimension](https://www.mindspore.cn/lite/docs/en/r1.7/use/runtime_cpp.html#resize). In the NNIE model, only the first dimension ('n' dimension) can be resized, and other dimensions ('hwc') cannot be resized.
 
   For the loop or LSTM network, you need to configure the TIME_STEP environment variable based on the step value and resize the model input.
   Assume that the number of data records for forward inference at a time is `input_num`. The resize value of the input node of sequence data is `input_num x step`, and the resize value of the input node of non-sequence data is `input_num`.
@@ -369,7 +369,7 @@ During model conversion, the `nnie.cfg` file declared by the NNIE_CONFIG_PATH en
   MindSpore Lite provides the sample code of the proposal operator. In this sample, the proposal operator and its infer shape are registered in custom operator mode. You can change it to the implementation that matches your own model, and then perform [integration](#integration).
   > Download address of the complete sample code:
   >
-  > <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/nnie_proposal>
+  > <https://gitee.com/mindspore/docs/tree/r1.7/docs/sample_code/nnie_proposal>
 
 ### Segmentation Mechanism and Restrictions
 

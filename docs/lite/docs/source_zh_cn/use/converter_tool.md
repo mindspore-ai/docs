@@ -2,7 +2,7 @@
 
 `Windows` `Linux` `模型转换` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/converter_tool.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/lite/docs/source_zh_cn/use/converter_tool.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -18,7 +18,7 @@ MindSpore Lite提供离线转换模型功能的工具，支持多种类型的模
 
 使用MindSpore Lite模型转换工具，需要进行如下环境准备工作。
 
-- [编译](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)或[下载](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)模型转换工具。
+- [编译](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/build.html)或[下载](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/downloads.html)模型转换工具。
 - 将转换工具需要的动态链接库加入环境变量LD_LIBRARY_PATH。
 
     ```bash
@@ -73,8 +73,8 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 > - 参数名和参数值之间用等号连接，中间不能有空格。
 > - Caffe模型一般分为两个文件：`*.prototxt`模型结构，对应`--modelFile`参数；`*.caffemodel`模型权值，对应`--weightFile`参数。
 > - `--fp16`的优先级很低，比如如果开启了量化，那么对于已经量化的权重，`--fp16`不会再次生效。总而言之，该选项只会在序列化时对模型中的Float32的权重生效。
-> - `inputDataFormat`：一般在集成NCHW规格的三方硬件场景下(例如[集成NNIE使用说明](https://www.mindspore.cn/lite/docs/zh-CN/master/use/nnie.html#nnie))，设为NCHW比NHWC会有较明显的性能提升。在其他场景下，用户也可按需设置。
-> - `configFile`配置文件采用`key=value`的方式定义相关参数，量化相关的配置参数详见[训练后量化](https://www.mindspore.cn/lite/docs/zh-CN/master/use/post_training_quantization.html)，扩展功能相关的配置参数详见[扩展配置](https://www.mindspore.cn/lite/docs/zh-CN/master/use/nnie.html#扩展配置)。
+> - `inputDataFormat`：一般在集成NCHW规格的三方硬件场景下(例如[集成NNIE使用说明](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/nnie.html#nnie))，设为NCHW比NHWC会有较明显的性能提升。在其他场景下，用户也可按需设置。
+> - `configFile`配置文件采用`key=value`的方式定义相关参数，量化相关的配置参数详见[训练后量化](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/post_training_quantization.html)，扩展功能相关的配置参数详见[扩展配置](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/nnie.html#扩展配置)。
 > - 加解密功能仅在编译时设置为`MSLITE_ENABLE_MODEL_ENCRYPTION=on`时生效，并且仅支持Linux x86平台。其中密钥为十六进制表示的字符串，如密钥定义为`b'0123456789ABCDEF'`对应的十六进制表示为`30313233343536373839414243444546`，Linux平台用户可以使用`xxd`工具对字节表示的密钥进行十六进制表达转换。
 
 ### 使用示例
@@ -131,7 +131,7 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
    CONVERTER RESULT SUCCESS:0
    ```
 
-> 训练后量化示例请参考<https://www.mindspore.cn/lite/docs/zh-CN/master/use/post_training_quantization.html>。
+> 训练后量化示例请参考<https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/post_training_quantization.html>。
 
 ## Windows环境使用说明
 
@@ -139,7 +139,7 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 
 使用MindSpore Lite模型转换工具，需要进行如下环境准备工作。
 
-- [编译](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)或[下载](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)模型转换工具。
+- [编译](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/build.html)或[下载](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/downloads.html)模型转换工具。
 - 将转换工具需要的动态链接库加入环境变量PATH。
 
   ```bash
@@ -168,7 +168,7 @@ mindspore-lite-{version}-win-x64
 
 ### 参数说明
 
-参考Linux环境模型转换工具的[参数说明](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html#参数说明)。
+参考Linux环境模型转换工具的[参数说明](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/converter_tool.html#参数说明)。
 
 ### 使用示例
 

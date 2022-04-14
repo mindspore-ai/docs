@@ -1,6 +1,6 @@
 # 迁移脚本
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/migration_script.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/migration_guide/migration_script.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -453,7 +453,7 @@
    model.train(epoch_size, dataset)
    ```
 
-PyTorch和mindspore在一些基础API的定义上比较相似，比如[mindspore.nn.SequentialCell](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.SequentialCell.html#mindspore.nn.SequentialCell)和[torch.nn.Sequential](https://pytorch.org/docs/stable/generated/torch.nn.Sequential.html#torch.nn.Sequential)，另外，一些算子API可能不尽相同，此处列举一些常见的API对照，更多信息可以参考MindSpore官网的[MindSpore与PyTorch对照表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)。
+PyTorch和mindspore在一些基础API的定义上比较相似，比如[mindspore.nn.SequentialCell](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/nn/mindspore.nn.SequentialCell.html#mindspore.nn.SequentialCell)和[torch.nn.Sequential](https://pytorch.org/docs/stable/generated/torch.nn.Sequential.html#torch.nn.Sequential)，另外，一些算子API可能不尽相同，此处列举一些常见的API对照，更多信息可以参考MindSpore官网的[MindSpore与PyTorch对照表](https://www.mindspore.cn/docs/zh-CN/r1.7/note/api_mapping/pytorch_api_mapping.html)。
 
 |              PyTorch              |                     MindSpore                      |
 | :-------------------------------: | :------------------------------------------------: |

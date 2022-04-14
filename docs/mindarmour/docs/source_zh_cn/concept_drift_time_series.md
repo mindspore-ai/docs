@@ -1,6 +1,6 @@
 # 实现时序数据概念漂移检测应用
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_zh_cn/concept_drift_time_series.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindarmour/docs/source_zh_cn/concept_drift_time_series.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -16,7 +16,7 @@
 3. 调用概念漂移检测函数。
 4. 查看结果。
 
-> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/mindarmour/blob/master/examples/reliability/concept_drift_time_series.py> 。
+> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/mindarmour/blob/r1.7/examples/reliability/concept_drift_time_series.py> 。
 
 ## 准备环节
 

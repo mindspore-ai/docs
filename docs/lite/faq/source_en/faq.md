@@ -1,6 +1,6 @@
 # FAQ
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/faq/source_en/faq.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/lite/faq/source_en/faq.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 <br/>
 
@@ -17,7 +17,7 @@ A： Currently NPU only supports system ROM version EMUI>=11. Chip support inclu
 
 <font size=3>**Q： Why does the static library after cutting with the cropper tool fail to compile during integration?**</font>
 
-A： Currently the cropper tool only supports CPU and GPU libraries. For details, please refer to [Use clipping tool to reduce library file size](https://www.mindspore.cn/lite/docs/en/master/use/cropper_tool.html) document.
+A： Currently the cropper tool only supports CPU and GPU libraries. For details, please refer to [Use clipping tool to reduce library file size](https://www.mindspore.cn/lite/docs/en/r1.7/use/cropper_tool.html) document.
 
 <br/>
 

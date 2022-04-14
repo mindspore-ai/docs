@@ -6,4 +6,4 @@
 MindSpore Programming Guide
 =================================
 
-The documentation has been migrated to `For Beginners <https://www.mindspore.cn/tutorials/en/master/index.html>`_ and `For Experts <https://www.mindspore.cn/tutorials/experts/en/master/index.html>`_ .
+The documentation has been migrated to `For Beginners <https://www.mindspore.cn/tutorials/en/r1.7/index.html>`_ and `For Experts <https://www.mindspore.cn/tutorials/experts/en/r1.7/index.html>`_ .

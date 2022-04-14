@@ -2,7 +2,7 @@
 
 Translator: [翁炜华](https://gitee.com/weng-weihua)
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_en/protect_user_privacy_with_suppress_privacy.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindarmour/docs/source_en/protect_user_privacy_with_suppress_privacy.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -14,7 +14,7 @@ Suppress-Privacy, a Suppress-Privacy module in MindArmour, implements a suppress
 
 Here is an example showing that how to train a neural network model in MindSpore using the LeNet model, MNIST dataset, and the SuppressourPrivacy optimizer.
 
-> This example is for the Ascend 910 AI processor and you can download the full sample code at <https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/sup_privacy/sup_privacy.py>
+> This example is for the Ascend 910 AI processor and you can download the full sample code at <https://gitee.com/mindspore/mindarmour/blob/r1.7/examples/privacy/sup_privacy/sup_privacy.py>
 
 ## Implementation
 
@@ -54,7 +54,7 @@ TAG = 'Lenet5_Suppress_train'
 
 ### Parameter Configuration
 
-1. Set the runtime environment, model training parameters, checkpoint storage parameters, and the batch_size parameter is recommended not to exceed 64. For more configurations, please refer to <https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/sup_privacy/sup_privacy_config.py>.
+1. Set the runtime environment, model training parameters, checkpoint storage parameters, and the batch_size parameter is recommended not to exceed 64. For more configurations, please refer to <https://gitee.com/mindspore/mindarmour/blob/r1.7/examples/privacy/sup_privacy/sup_privacy_config.py>.
 
    ```python
    cfg = edict({
@@ -250,12 +250,12 @@ ds_train = generate_mnist_dataset('MNIST_unzip/train', cfg.batch_size)
 To evaluate the effect of privacy suppression training on the protection of the dataset, we test it using an image reversal attack.
 This inverse attack can restore the original image based on the output of the original image at one layer of the neural network, mainly because the network "remembers" the features of the training set during the training process.
 
-The principle of this attack method can be found in <https://arxiv.org/pdf/1412.0035.pdf> and the complete code implementation can be found in <https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/inversion_attack/mnist_inversion_attack.py>, The following describes detailed test steps:
+The principle of this attack method can be found in <https://arxiv.org/pdf/1412.0035.pdf> and the complete code implementation can be found in <https://gitee.com/mindspore/mindarmour/blob/r1.7/examples/privacy/inversion_attack/mnist_inversion_attack.py>, The following describes detailed test steps:
 
 1. Preparation
 
     In order to compare with the suppressed privacy training, we need to get the CheckPoint file of the model using the regular training first. The model training can be referred to
-    [mindarmour/examples/common/networks/lenet5](https://gitee.com/mindspore/mindarmour/blob/master/examples/common/networks/lenet5/mnist_train.py),
+    [mindarmour/examples/common/networks/lenet5](https://gitee.com/mindspore/mindarmour/blob/r1.7/examples/common/networks/lenet5/mnist_train.py),
     It has the following directory structure:
 
     ```text

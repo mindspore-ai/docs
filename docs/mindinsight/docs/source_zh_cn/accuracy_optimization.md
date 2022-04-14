@@ -1,6 +1,6 @@
 # 精度问题详细定位和调优指南
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/accuracy_optimization.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindinsight/docs/source_zh_cn/accuracy_optimization.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 模型训练的最终结果是为了得到一个精度达标的模型，而在AI训练过程中有时会遇到loss（模型损失值）无法下降，或者发散，metrics（模型度量指标）达不到预期等，造成无法得到一个理想精度的模型，这时候需要去进行分析训练过程中出现了什么样的问题，针对性地采用包括调整数据、调整超参、重构模型结构等方法，去解决模型精度调优过程中遇到的各种问题。
 
@@ -103,7 +103,7 @@
 
          2. 构图时未遵循MindSpore construct约束。
 
-             构图未遵循mindspore construct约束，是指图模式下的网络未遵循MindSpore静态图语法支持中声明的约束。例如，MindSpore目前不支持对带键值对参数的函数求反向。完整约束请见[静态图语法支持](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html)。
+             构图未遵循mindspore construct约束，是指图模式下的网络未遵循MindSpore静态图语法支持中声明的约束。例如，MindSpore目前不支持对带键值对参数的函数求反向。完整约束请见[静态图语法支持](https://www.mindspore.cn/docs/zh-CN/r1.7/note/static_graph_syntax_support.html)。
 
     - 计算图结构问题
 
@@ -121,7 +121,7 @@
 
          4. 节点模式不正确。
 
-             节点模式不正确，是指节点所处的训练/推理模式和实际情况不一致。请参考[使用API时根据训练/推理场景对应设置模式](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/accuracy_problem_preliminary_location.html#api-02-api)以合理设置节点模式。
+             节点模式不正确，是指节点所处的训练/推理模式和实际情况不一致。请参考[使用API时根据训练/推理场景对应设置模式](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/accuracy_problem_preliminary_location.html#api-02-api)以合理设置节点模式。
 
          5. 权重冻结错误（冻结了不应冻结的权重）。
 
@@ -199,9 +199,9 @@
 
     精度调优前，还要全面熟悉模型。只有熟悉了模型，才能准确理解MindInsight提供的信息，判断是否存在问题，查找问题源头。因此，花时间理解模型算法和结构、理解模型中算子的作用和参数的含义、理解模型所用优化器的特性等模型要素是很重要的。动手分析精度问题细节前，建议先带着问题加深对这些模型要素的了解。
 
-2. 熟悉[MindInsight](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/index.html)工具。
+2. 熟悉[MindInsight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/index.html)工具。
 
-    定位精度问题时，建议使用MindInsight的[Summary训练信息收集](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/summary_record.html)功能，在脚本中加入`SummaryCollector`。如下训练代码片段所示，初始化`SummaryCollector`并加入到`model.train`的`callbacks`参数中：
+    定位精度问题时，建议使用MindInsight的[Summary训练信息收集](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/summary_record.html)功能，在脚本中加入`SummaryCollector`。如下训练代码片段所示，初始化`SummaryCollector`并加入到`model.train`的`callbacks`参数中：
 
     ```python
     # Init a SummaryCollector callback instance, and use it in model.train or model.eval
@@ -216,13 +216,13 @@
 
     > dataset_path为用户本地的训练数据集路径。
 
-    使用训练看板[可视化功能](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/dashboard.html)查看训练过程数据：
+    使用训练看板[可视化功能](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/dashboard.html)查看训练过程数据：
 
     ![mindinsight_dashboard](./images/mindinsight_dashboard.png)
 
     *图3 训练看板*
 
-    需要在线调试模型时，参考[使用调试器](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger.html)功能。
+    需要在线调试模型时，参考[使用调试器](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/debugger.html)功能。
 
 #### 检查代码和超参
 
@@ -261,9 +261,9 @@ MindInsight可以辅助用户对超参做检查，大多数情况下，`SummaryC
 
 考虑到模型结构一般都很复杂，期望在这一步就能发现所有的模型结构问题是不现实的。只要通过可视化的模型结构加深对计算图的理解，发现明显的结构问题即可。后面的步骤中，发现了更明确的精度问题现象后，我们还会回到这一步重新检查确认。
 
-> MindInsight支持查看`SummaryCollector`记录的计算图和MindSpore context的`save_graphs`参数导出的pb文件计算图。请参考我们教程中的[计算图可视化](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/dashboard.html)部分了解更多信息。
+> MindInsight支持查看`SummaryCollector`记录的计算图和MindSpore context的`save_graphs`参数导出的pb文件计算图。请参考我们教程中的[计算图可视化](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/dashboard.html)部分了解更多信息。
 >
-> 脚本迁移工具可以将PyTorch、TensorFlow框架下编写的模型转换为MindSpore脚本，请访问教程[使用工具迁移模型定义脚本](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/migrate_3rd_scripts_mindconverter.html)以了解更多信息。
+> 脚本迁移工具可以将PyTorch、TensorFlow框架下编写的模型转换为MindSpore脚本，请访问教程[使用工具迁移模型定义脚本](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/migrate_3rd_scripts_mindconverter.html)以了解更多信息。
 
 #### 检查输入数据
 
@@ -315,7 +315,7 @@ MindInsight可以辅助用户对输入数据、数据处理流水线进行检查
 
 - MindInsight的参数分布图模块可以展示模型权重随训练过程的变化趋势；
 - MindInsight的张量可视模块可以展示张量的具体取值，对不同张量进行对比；
-- [MindInsight调试器](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger.html)内置了种类丰富，功能强大的检查能力，可以检查权重问题（例如权重不更新、权重更新过大、权重值过大/过小）、梯度问题（例如梯度消失、梯度爆炸）、激活值问题（例如激活值饱和或过弱）、张量全为0、NAN/INF等问题。
+- [MindInsight调试器](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/debugger.html)内置了种类丰富，功能强大的检查能力，可以检查权重问题（例如权重不更新、权重更新过大、权重值过大/过小）、梯度问题（例如梯度消失、梯度爆炸）、激活值问题（例如激活值饱和或过弱）、张量全为0、NAN/INF等问题。
 
 ![loss](./images/loss.png)
 
@@ -327,13 +327,13 @@ MindInsight可以辅助用户对输入数据、数据处理流水线进行检查
 
 *图9 通过MindInsight参数分布图可以查看训练过程中的权重变化情况*
 
-大多数情况下，`SummaryCollector`会自动记录模型参数变化情况（默认记录5个参数），可以通过MindInsight的参数分布图模块查看。如果想要记录更多参数的参数分布图，请参考[SummaryCollector](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.train.html#mindspore.train.callback.SummaryCollector)的`histogram_regular`参数，或参考[HistogramSummary](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/summary_record.html#summarysummarycollector)算子。
+大多数情况下，`SummaryCollector`会自动记录模型参数变化情况（默认记录5个参数），可以通过MindInsight的参数分布图模块查看。如果想要记录更多参数的参数分布图，请参考[SummaryCollector](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.train.html#mindspore.train.callback.SummaryCollector)的`histogram_regular`参数，或参考[HistogramSummary](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/summary_record.html#summarysummarycollector)算子。
 
 ![tensor](./images/tensor.png)
 
 *图10 通过MindInsight训练看板中的张量可视模块查看特定张量的具体取值*
 
-张量不会被自动记录，如果想要通过MindInsight查看张量的具体取值，请使用[TensorSummary](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/summary_record.html#summarysummarycollector)算子。
+张量不会被自动记录，如果想要通过MindInsight查看张量的具体取值，请使用[TensorSummary](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/summary_record.html#summarysummarycollector)算子。
 
 下面结合loss曲线的常见现象介绍使用MindInsight进行精度问题定位的思路。
 
@@ -413,8 +413,8 @@ MindInsight可以为用户记录每次训练的精度结果。在`model.train`�
 
         *图13 通过MindInsight溯源分析以散点图形式查看参数和优化目标的关系*
 
-    3. 尝试使用[MindInsight调参器](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/hyper_parameters_auto_tuning.html)优化超参。请注意，调参器通过执行多次完整训练的方式进行超参搜索，消耗的时间为网络一次训练用时的若干倍，如果网络一次训练耗时较长，则超参搜索将需要很长的时间。
-    4. 尝试使用[MindInsight模型解释](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/model_explanation.html)功能优化模型和数据集。模型解释功能可以通过显著图可视化展示对分类结果最重要的区域，还可以通过评分体系提示应该对哪类标签进行优化。
+    3. 尝试使用[MindInsight调参器](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/hyper_parameters_auto_tuning.html)优化超参。请注意，调参器通过执行多次完整训练的方式进行超参搜索，消耗的时间为网络一次训练用时的若干倍，如果网络一次训练耗时较长，则超参搜索将需要很长的时间。
+    4. 尝试使用[MindInsight模型解释](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/model_explanation.html)功能优化模型和数据集。模型解释功能可以通过显著图可视化展示对分类结果最重要的区域，还可以通过评分体系提示应该对哪类标签进行优化。
     5. 尝试下文介绍的常用调优建议。
 
 - 检查验证集上的精度。
@@ -516,7 +516,7 @@ MindInsight可以为用户记录每次训练的精度结果。在`model.train`�
 
 优化器对模型精度和收敛速度（收敛所需的参数更新次数）都会有影响。通常Adam优化器是一个不错的选择。带有动量的优化器有助于提升大batch size下的训练速度。
 
-在选择优化器时，一方面要注意优化器之间有功能上的包含关系(Choi et al., 2019)。例如[RMSProp](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.RMSProp.html#mindspore.nn.RMSProp)优化器功能包含了[Momentum](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Momentum.html#mindspore.nn.Momentum)优化器的功能。这是因为，令RMSProp中的decay参数取1，epsilon参数取0，则RMSProp即等效于动量为momentum/learning_rate的Momentum优化器。[Adam](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Adam.html#mindspore.nn.Adam)优化器同样也包含了Momentum优化器的功能。MindSpore的Momentum优化器和[SGD](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.SGD.html#mindspore.nn.SGD)优化器的功能是类似的。另一方面也要注意，功能更强大的优化器，一般有更多参数，要花费更长时间才能找到合适的超参。
+在选择优化器时，一方面要注意优化器之间有功能上的包含关系(Choi et al., 2019)。例如[RMSProp](https://mindspore.cn/docs/zh-CN/r1.7/api_python/nn/mindspore.nn.RMSProp.html#mindspore.nn.RMSProp)优化器功能包含了[Momentum](https://mindspore.cn/docs/zh-CN/r1.7/api_python/nn/mindspore.nn.Momentum.html#mindspore.nn.Momentum)优化器的功能。这是因为，令RMSProp中的decay参数取1，epsilon参数取0，则RMSProp即等效于动量为momentum/learning_rate的Momentum优化器。[Adam](https://mindspore.cn/docs/zh-CN/r1.7/api_python/nn/mindspore.nn.Adam.html#mindspore.nn.Adam)优化器同样也包含了Momentum优化器的功能。MindSpore的Momentum优化器和[SGD](https://mindspore.cn/docs/zh-CN/r1.7/api_python/nn/mindspore.nn.SGD.html#mindspore.nn.SGD)优化器的功能是类似的。另一方面也要注意，功能更强大的优化器，一般有更多参数，要花费更长时间才能找到合适的超参。
 
 #### 早停法
 
@@ -550,11 +550,11 @@ batch size是指一次训练，也即一次前向传播、反向传播、权重�
 
 #### 动量值的选择和优化
 
-当使用带有动量的优化器（例如[Momentum](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Momentum.html#mindspore.nn.Momentum)）时，动量和学习率一般应朝相反的方向调整，不同动量下的最佳学习率不同。当使用循环学习率时，同样推荐按照相反的方向循环变化动量值 ，也即，当学习率从大到小变化时，动量应从小到大变化。当学习率固定时，动量值也应保持固定。
+当使用带有动量的优化器（例如[Momentum](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/nn/mindspore.nn.Momentum.html#mindspore.nn.Momentum)）时，动量和学习率一般应朝相反的方向调整，不同动量下的最佳学习率不同。当使用循环学习率时，同样推荐按照相反的方向循环变化动量值 ，也即，当学习率从大到小变化时，动量应从小到大变化。当学习率固定时，动量值也应保持固定。
 
 #### 权重衰减参数的选择和优化
 
-权重衰减（weight decay）是指在在模型训练过程中对目标代价函数增加一个L2参数范数惩罚，权重衰减参数控制这一惩罚项的系数，请参考[SGD](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.SGD.html#mindspore.nn.SGD)优化器的weight_decay参数。实验证明，权重衰减参数最好在训练过程中保持恒定。0.001/0.0001/0.00001都是常见的取值。当数据集较小、模型深度较浅时，推荐使用大一些的参数值，当数据集较大、模型深度较深时，推荐使用小一些的参数值。这可能是因为，较大的数据集本身便提供了某种程度的正则化，从而降低了需要权重衰减提供的正则化。
+权重衰减（weight decay）是指在在模型训练过程中对目标代价函数增加一个L2参数范数惩罚，权重衰减参数控制这一惩罚项的系数，请参考[SGD](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/nn/mindspore.nn.SGD.html#mindspore.nn.SGD)优化器的weight_decay参数。实验证明，权重衰减参数最好在训练过程中保持恒定。0.001/0.0001/0.00001都是常见的取值。当数据集较小、模型深度较浅时，推荐使用大一些的参数值，当数据集较大、模型深度较深时，推荐使用小一些的参数值。这可能是因为，较大的数据集本身便提供了某种程度的正则化，从而降低了需要权重衰减提供的正则化。
 
 ### 多卡训练调优建议
 
@@ -564,7 +564,7 @@ global batch size是指多卡训练时的全局batch size。以单机4卡数据�
 
 #### 确保数据并行的权重初始值在每各路间一致
 
-多路（多卡）数据并行时，结果的正确性依赖于各路（各卡）的权重初始值一致。请通过加载相同的checkpoint，或者提前固定随机种子等方法确保权重初始值一致。固定随机种子的操作方法请参考[固定随机性文档](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/fixing_randomness.html)。
+多路（多卡）数据并行时，结果的正确性依赖于各路（各卡）的权重初始值一致。请通过加载相同的checkpoint，或者提前固定随机种子等方法确保权重初始值一致。固定随机种子的操作方法请参考[固定随机性文档](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/debug/fixing_randomness.html)。
 
 ### 精度调优相关参考文献
 
@@ -594,26 +594,26 @@ Xie, Z., Sato, I., & Sugiyama, M. (2020). A Diffusion Theory For Deep Learning D
 
 ### 可视化调试调优工具
 
-训练过程中进行可视化数据采集时，可参考资料[收集Summary数据](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/summary_record.html)。
+训练过程中进行可视化数据采集时，可参考资料[收集Summary数据](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/summary_record.html)。
 
-训练过程中进行可视化数据分析时，可参考资料[训练看板](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/dashboard.html)和[溯源和对比看板](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/lineage_and_scalars_comparison.html)。
+训练过程中进行可视化数据分析时，可参考资料[训练看板](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/dashboard.html)和[溯源和对比看板](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/lineage_and_scalars_comparison.html)。
 
 ### 数据问题处理
 
-对数据进行标准化、归一化、通道转换等操作，在图片数据处理上，增加随机视野图片，随机旋转度图片等，另外数据混洗、batch和数据倍增等操作，可参考[数据处理](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset.html)、[数据增强](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset.html)和[自动数据增强](https://www.mindspore.cn/tutorials/experts/zh-CN/master/dataset/augment.html)。
+对数据进行标准化、归一化、通道转换等操作，在图片数据处理上，增加随机视野图片，随机旋转度图片等，另外数据混洗、batch和数据倍增等操作，可参考[数据处理](https://www.mindspore.cn/tutorials/zh-CN/r1.7/advanced/dataset.html)、[数据增强](https://www.mindspore.cn/tutorials/zh-CN/r1.7/advanced/dataset.html)和[自动数据增强](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/dataset/augment.html)。
 
-> 如何将数据增强增强操作应用到自定义数据集中，可以参考[mindspore.dataset.GeneratorDataset.map](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset.map)算子。
+> 如何将数据增强增强操作应用到自定义数据集中，可以参考[mindspore.dataset.GeneratorDataset.map](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset.map)算子。
 
 ### 超参问题处理
 
-AI训练中的超参包含全局学习率，epoch和batch等，如果需要在不同的超参下，训练过程进行可视化时，可参考资料：[可视化的超参调优](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/hyper_parameters_auto_tuning.html)；如果需要设置动态学习率超参时，可参考资料：[学习率的优化算法](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/network/optim.html#id5)。
+AI训练中的超参包含全局学习率，epoch和batch等，如果需要在不同的超参下，训练过程进行可视化时，可参考资料：[可视化的超参调优](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/hyper_parameters_auto_tuning.html)；如果需要设置动态学习率超参时，可参考资料：[学习率的优化算法](https://www.mindspore.cn/tutorials/zh-CN/r1.7/advanced/network/optim.html#id5)。
 
 ### 模型结构问题处理
 
 一般的处理模型结构问题，需要用到的操作有：模型结构的重构，选择合适的优化器或者损失函数等。
 
-需要重构模型结构时，可参考资料：[Cell构建及其子类](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html)。
+需要重构模型结构时，可参考资料：[Cell构建及其子类](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/nn/mindspore.nn.Cell.html)。
 
-选择合适的损失函数，可参考资料：[损失函数算子支持列表](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.html#loss-functions)。
+选择合适的损失函数，可参考资料：[损失函数算子支持列表](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.nn.html#loss-functions)。
 
-选择合适的优化器时，可参考资料：[优化器算子支持列表](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.html#optimizer-functions)。
+选择合适的优化器时，可参考资料：[优化器算子支持列表](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.nn.html#optimizer-functions)。

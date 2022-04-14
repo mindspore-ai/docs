@@ -2,7 +2,7 @@
 
 `Ascend` `分布式并行`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/design/dataset_slice.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/design/dataset_slice.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -15,7 +15,7 @@
 
 >你可以在这里下载完整的样例代码：
 >
-><https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training>
+><https://gitee.com/mindspore/docs/tree/r1.7/docs/sample_code/distributed_training>
 
 目录结构如下：
 
@@ -34,7 +34,7 @@
 
 > 数据集切分仅支持全/半自动模式，在数据并行模式下不涉及。
 
-使用数据集切分时，需要同时调用数据集的[SlicePatches](https://www.mindspore.cn/docs/api/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.SlicePatches.html)接口去构造数据集，并且，为了保证各卡读入数据一致，需要对数据集固定随机数种子。
+使用数据集切分时，需要同时调用数据集的[SlicePatches](https://www.mindspore.cn/docs/api/zh-CN/r1.7/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.SlicePatches.html)接口去构造数据集，并且，为了保证各卡读入数据一致，需要对数据集固定随机数种子。
 
 数据集定义部分如下。
 
@@ -119,4 +119,4 @@ dataset = create_dataset(data_path, batch_size=batch_size, slice_h_num=slice_h_n
 
 ### 运行代码
 
-上述流程的数据，代码和执行过程，可以参考：<https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#单机多卡训练>。差异点在于，将执行脚本更改为run_dataset_slice.sh。
+上述流程的数据，代码和执行过程，可以参考：<https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/parallel/train_ascend.html#单机多卡训练>。差异点在于，将执行脚本更改为run_dataset_slice.sh。

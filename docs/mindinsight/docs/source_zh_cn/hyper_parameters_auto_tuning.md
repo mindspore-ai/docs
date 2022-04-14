@@ -1,6 +1,6 @@
 # 使用mindoptimizer进行超参调优
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/hyper_parameters_auto_tuning.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindinsight/docs/source_zh_cn/hyper_parameters_auto_tuning.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述
 
@@ -10,7 +10,7 @@ MindInsight提供的`mindoptimizer`调参命令可以根据用户配置，从训
 
 ## 安装
 
-此工具为MindInsight的子模块，安装MindInsight后，即可使用MindInsight调参命令，安装MindInsight请参考该[安装文档](https://gitee.com/mindspore/mindinsight/blob/master/README_CN.md#)。
+此工具为MindInsight的子模块，安装MindInsight后，即可使用MindInsight调参命令，安装MindInsight请参考该[安装文档](https://gitee.com/mindspore/mindinsight/blob/r1.7/README_CN.md#)。
 
 ## 用法
 
@@ -41,7 +41,7 @@ optional arguments:
 
 2. 配置训练日志根目录
 
-    `summary_base_dir`是训练日志根目录，它用于训练记录的提取，这样可以更好地推荐超参。同时，建议用户在训练脚本中加`SummaryColletor`来收集训练信息，可查看[Summmary收集教程](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/summary_record.html)。调参命令会根据配置的`summary_base_dir`来生成子目录路径，可配置在`SummaryColletor`记录该次训练记录。自动执行训练后，会在训练日志根目录的子目录记录当次训练信息，产生的训练信息可以作为训练记录来推荐下一次需要的超参。配置`summary_base_dir`如`summary_base_dir: /home/summaries`。
+    `summary_base_dir`是训练日志根目录，它用于训练记录的提取，这样可以更好地推荐超参。同时，建议用户在训练脚本中加`SummaryColletor`来收集训练信息，可查看[Summmary收集教程](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/summary_record.html)。调参命令会根据配置的`summary_base_dir`来生成子目录路径，可配置在`SummaryColletor`记录该次训练记录。自动执行训练后，会在训练日志根目录的子目录记录当次训练信息，产生的训练信息可以作为训练记录来推荐下一次需要的超参。配置`summary_base_dir`如`summary_base_dir: /home/summaries`。
 
 3. 配置调参方法
 
@@ -148,7 +148,7 @@ optional arguments:
     (1) 用户需要实例化`HyperConfig`，并使用`HyperConfig`实例的参数变量作为训练脚本中对应参数的取值。  
     (2) 加上`SummaryCollector`来收集训练信息，包括超参和评估指标值等。
 
-    如[Model Zoo](https://www.mindspore.cn/docs/zh-CN/master/note/network_list_ms.html)中的训练脚本：
+    如[Model Zoo](https://www.mindspore.cn/docs/zh-CN/r1.7/note/network_list_ms.html)中的训练脚本：
 
     ```python
     ds_train = create_dataset_cifar10(args.data_path, batch_size)
@@ -189,7 +189,7 @@ optional arguments:
 
 4. 可视化
 
-    基于config.yaml里面配置的summary_base_dir来启动MindInsight，启动方法可以查看[MindInsight启动命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_commands.html#启动服务)。
+    基于config.yaml里面配置的summary_base_dir来启动MindInsight，启动方法可以查看[MindInsight启动命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/mindinsight_commands.html#启动服务)。
 
 ## 注意事项
 

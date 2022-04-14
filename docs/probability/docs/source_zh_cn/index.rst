@@ -16,19 +16,19 @@ MindSpore Probability文档
 使用概率编程的典型场景
 -----------------------
 
-1. `构建贝叶斯神经网络 <https://www.mindspore.cn/probability/docs/zh-CN/master/using_bnn.html>`_
+1. `构建贝叶斯神经网络 <https://www.mindspore.cn/probability/docs/zh-CN/r1.7/using_bnn.html>`_
    
    利用贝叶斯神经网络实现图片分类应用。
    
-2. `构建变分自编码器 <https://www.mindspore.cn/probability/docs/zh-CN/master/using_the_vae.html>`_
+2. `构建变分自编码器 <https://www.mindspore.cn/probability/docs/zh-CN/r1.7/using_the_vae.html>`_
    
    利用变分自编码器压缩输入数据，生成新样本。
    
-3. `DNN一键转BNN <https://www.mindspore.cn/probability/docs/zh-CN/master/one_click_conversion_from_dnn_to_bnn.html>`_
+3. `DNN一键转BNN <https://www.mindspore.cn/probability/docs/zh-CN/r1.7/one_click_conversion_from_dnn_to_bnn.html>`_
    
    支持DNN模型一键转换成BNN模型。
    
-4. `使用不确定性估计工具箱 <https://www.mindspore.cn/probability/docs/zh-CN/master/using_the_uncertainty_toolbox.html>`_
+4. `使用不确定性估计工具箱 <https://www.mindspore.cn/probability/docs/zh-CN/r1.7/using_the_uncertainty_toolbox.html>`_
    
    利用不确定性估计工具箱，得到偶然不确定性和认知不确定性，更好地理解模型和数据集。
 

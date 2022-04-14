@@ -1,6 +1,6 @@
 # 比较与torch.nn.Upsample的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/ResizeBilinear.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/ResizeBilinear.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## torch.nn.Upsample
 
@@ -21,7 +21,7 @@ torch.nn.Upsample(
 class mindspore.nn.ResizeBilinear()(x, size=None, scale_factor=None, align_corners=False)
 ```
 
-更多内容详见[mindspore.nn.ResizeBilinear](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.ResizeBilinear.html#mindspore.nn.ResizeBilinear)。
+更多内容详见[mindspore.nn.ResizeBilinear](https://mindspore.cn/docs/zh-CN/r1.7/api_python/nn/mindspore.nn.ResizeBilinear.html#mindspore.nn.ResizeBilinear)。
 
 ## 使用方式
 

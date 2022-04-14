@@ -22,11 +22,11 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend_install_source_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/install/mindspore_ascend_install_source_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.7/resource/_static/logo_source_en.png"></a>
 
 This document describes how to quickly install MindSpore in a Linux system with an Ascend 910 environment by source code compilation.
 
-- If you want to configure an environment that can compile MindSpore on an EulerOS 2.8 with Ascend AI processor software package installed, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-source.sh) for one-click configuration, see [Environment Preparation (automatic, recommended)](#environment-preparation-automatic-recommended) section. The automatic installation script will install the dependencies required to compile MindSpore.
+- If you want to configure an environment that can compile MindSpore on an EulerOS 2.8 with Ascend AI processor software package installed, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/r1.7/scripts/install/euleros-ascend-source.sh) for one-click configuration, see [Environment Preparation (automatic, recommended)](#environment-preparation-automatic-recommended) section. The automatic installation script will install the dependencies required to compile MindSpore.
 
 - If some dependencies, such as Python and GCC, have been installed in your system, it is recommended to install manually by referring to the installation steps in the [Environment Preparation (manual)](#environment-preparation-manual) section.
 
@@ -37,7 +37,7 @@ Before running the automatic installation script, you need to make sure that the
 Run the following command to obtain and run the automatic installation script. The environment configured by the automatic installation script only supports compiling MindSpore>=1.6.0.
 
 ```bash
-wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-source.sh
+wget https://gitee.com/mindspore/mindspore/raw/r1.7/scripts/install/euleros-ascend-source.sh
 # install Python 3.7 by default
 # the default value of LOCAL_ASCEND is /usr/local/Ascend
 bash -i ./euleros-ascend-source.sh
@@ -311,7 +311,7 @@ Where:
 pip install output/mindspore_ascend-*.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
+When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/r1.7/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/r1.7/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/r1.7/requirements.txt).
 
 ## Configuring Environment Variables
 

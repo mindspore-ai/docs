@@ -18,11 +18,11 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_install_source_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/install/mindspore_cpu_install_source_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.7/resource/_static/logo_source_en.png"></a>
 
 This document describes how to quickly install MindSpore by source code compilation in a Linux system in the CPU environment. The following takes Ubuntu 18.04 as an example to describe how to compile and install MindSpore.
 
-- If you need to configure an environment for building MindSpore on the Ubuntu 18.04 that never installed MindSpore and its dependencies, you may use the [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-source.sh) for one-click configuration, see [Environment Preparation (automatic, recommended)](#environment-preparation-automatic-recommended) section. The script installs the dependencies required for building MindSpore.
+- If you need to configure an environment for building MindSpore on the Ubuntu 18.04 that never installed MindSpore and its dependencies, you may use the [automatic installation script](https://gitee.com/mindspore/mindspore/raw/r1.7/scripts/install/ubuntu-cpu-source.sh) for one-click configuration, see [Environment Preparation (automatic, recommended)](#environment-preparation-automatic-recommended) section. The script installs the dependencies required for building MindSpore.
 
 - If some dependencies, such as Python and GCC, have been installed in your system, it is recommended to install manually by referring to the installation steps in the [Environment Preparation (manual)](#environment-preparation-manual) section.
 
@@ -31,7 +31,7 @@ This document describes how to quickly install MindSpore by source code compilat
 The root permission is required because the automatic installation script needs to change the software source configuration and install dependencies via APT. Run the following command to obtain and run the automatic installation script. The environment configured by the automatic installation script only supports compiling MindSpore>=1.6.0.
 
 ```bash
-wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-source.sh
+wget https://gitee.com/mindspore/mindspore/raw/r1.7/scripts/install/ubuntu-cpu-source.sh
 # install Python 3.7 by default
 bash ./ubuntu-cpu-source.sh
 # to specify Python version, taking Python 3.9 as an example, use the following manner
@@ -196,7 +196,7 @@ Where:
 pip install output/mindspore-*.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. For details about dependencies, see required_package in the [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py). In other cases, install the dependencies by yourself. When running a model, you need to install additional dependencies based on the requirements.txt file specified by different models in the [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
+When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. For details about dependencies, see required_package in the [setup.py](https://gitee.com/mindspore/mindspore/blob/r1.7/setup.py). In other cases, install the dependencies by yourself. When running a model, you need to install additional dependencies based on the requirements.txt file specified by different models in the [ModelZoo](https://gitee.com/mindspore/models/tree/r1.7/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/r1.7/requirements.txt).
 
 ## Installation Verification
 

@@ -1,6 +1,6 @@
 ﻿# Function Differences with torch.nn.GEL
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/FastGelu.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_en/note/api_mapping/pytorch_diff/FastGelu.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## torch.nn.GELU
 
@@ -16,7 +16,7 @@ For more information, see [torch.nn.GELU](https://pytorch.org/docs/1.5.0/nn.html
 class mindspore.nn.FastGelu()(input_data)
 ```
 
-For more information, see [mindspore.nn.FastGelu](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.FastGelu.html#mindspore.nn.FastGelu).
+For more information, see [mindspore.nn.FastGelu](https://mindspore.cn/docs/en/r1.7/api_python/nn/mindspore.nn.FastGelu.html#mindspore.nn.FastGelu).
 
 ## Differences
 

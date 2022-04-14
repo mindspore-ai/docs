@@ -1,6 +1,6 @@
 # One-click Conversion from DNN to BNN
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/probability/docs/source_en/one_click_conversion_from_dnn_to_bnn.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/probability/docs/source_en/one_click_conversion_from_dnn_to_bnn.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## One-click Conversion from DNN to BNN
 
@@ -11,7 +11,7 @@ For DNN researchers unfamiliar with the Bayesian model, MDP provides an advanced
 3. Function 1: Convert the entire model.
 4. Function 2: Convert a layer of a specified type.
 
-> This example is for the GPU or Ascend 910 AI processor platform. You can download the complete sample code from <https://gitee.com/mindspore/mindspore/tree/master/tests/st/probability/transforms>.
+> This example is for the GPU or Ascend 910 AI processor platform. You can download the complete sample code from <https://gitee.com/mindspore/mindspore/tree/r1.7/tests/st/probability/transforms>.
 
 ### Defining the DNN Model
 

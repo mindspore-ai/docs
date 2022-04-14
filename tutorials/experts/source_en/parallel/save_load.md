@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `Distributed Parallel` `Model Export` `Model Loading`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/save_load.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/experts/source_en/parallel/save_load.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -243,7 +243,7 @@ User process:
 
 3. Execute stage 2 training: There are two devices in stage 2 training environment. The weight shape of the MatMul operator on each device is \[4, 8]. Load the initialized model parameter data from the integrated checkpoint file and then perform training.
 
-> For details about the distributed environment configuration and training code, see [Distributed Training](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html).
+> For details about the distributed environment configuration and training code, see [Distributed Training](https://www.mindspore.cn/tutorials/experts/en/r1.7/parallel/train_ascend.html).
 >
 > This document provides the example code for integrating checkpoint files and loading checkpoint files before distributed training. The code is for reference only.
 

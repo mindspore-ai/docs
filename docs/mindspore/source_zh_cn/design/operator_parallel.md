@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `分布式并行` `全流程`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/design/operator_parallel.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/design/operator_parallel.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -72,7 +72,7 @@ class DenseMatMulNet(nn.Cell):
 
 > 你可以在这里下载完整的样例代码：
 >
-> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/operator_parallel>。
+> <https://gitee.com/mindspore/docs/tree/r1.7/docs/sample_code/operator_parallel>。
 
 目录结构如下：
 
@@ -89,7 +89,7 @@ class DenseMatMulNet(nn.Cell):
 
 ### 配置分布式环境
 
-分布式环境的配置可参考：<https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html>。
+分布式环境的配置可参考：<https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/parallel/train_ascend.html>。
 
 ### 定义网络
 

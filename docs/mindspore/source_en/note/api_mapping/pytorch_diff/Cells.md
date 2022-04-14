@@ -1,6 +1,6 @@
 # Comparing the function difference with torch.nn.Module.children
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/Cells.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_en/note/api_mapping/pytorch_diff/Cells.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## torch.nn.Module.children
 
@@ -16,7 +16,7 @@ For more information, see [torch.nn.Module.children](https://pytorch.org/docs/1.
 mindspore.nn.Cell.cells()
 ```
 
-For more information, see [mindspore.nn.Cell.cells](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.cells).
+For more information, see [mindspore.nn.Cell.cells](https://mindspore.cn/docs/en/r1.7/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.cells).
 
 ## Differences
 

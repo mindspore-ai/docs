@@ -1,6 +1,6 @@
 # # Function Differences with torch.nn.functional.pad
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/Pad.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_en/note/api_mapping/pytorch_diff/Pad.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## torch.nn.functional.pad
 
@@ -24,7 +24,7 @@ class mindspore.nn.Pad(
 )(x)
 ```
 
-For more information, see [mindspore.nn.Pad](https://mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Pad.html#mindspore.nn.Pad).
+For more information, see [mindspore.nn.Pad](https://mindspore.cn/docs/en/r1.7/api_python/nn/mindspore.nn.Pad.html#mindspore.nn.Pad).
 
 ## Differences
 

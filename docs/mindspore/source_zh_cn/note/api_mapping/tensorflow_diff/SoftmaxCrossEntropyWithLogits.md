@@ -1,6 +1,6 @@
 # 比较与tf.nn.softmax_cross_entropy_with_logits的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/SoftmaxCrossEntropyWithLogits.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/note/api_mapping/tensorflow_diff/SoftmaxCrossEntropyWithLogits.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## tf.nn.softmax_cross_entropy_with_logits
 
@@ -26,7 +26,7 @@ class mindspore.nn.SoftmaxCrossEntropyWithLogits(
 )(logits, labels)
 ```
 
-更多内容详见[mindspore.nn.SoftmaxCrossEntropyWithLogits](https://mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.SoftmaxCrossEntropyWithLogits.html)。
+更多内容详见[mindspore.nn.SoftmaxCrossEntropyWithLogits](https://mindspore.cn/docs/zh-CN/r1.7/api_python/nn/mindspore.nn.SoftmaxCrossEntropyWithLogits.html)。
 
 ## 使用方式
 

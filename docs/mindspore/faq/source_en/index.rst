@@ -6,4 +6,4 @@
 MindSpore FAQ
 =================
 
-The documentation has been migrated to `FAQ <https://www.mindspore.cn/docs/en/master/faq/installation.html>`_ .
+The documentation has been migrated to `FAQ <https://www.mindspore.cn/docs/en/r1.7/faq/installation.html>`_ .

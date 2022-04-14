@@ -2,7 +2,7 @@
 
 `Windows` `Linux` `C++` `Data Preparation` `Beginner` `Intermediate` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/image_processing.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/lite/docs/source_en/use/image_processing.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -19,7 +19,7 @@ The process is as follows:
 
 ## Initialize the image
 
-Here, the [InitFromPixel](https://www.mindspore.cn/lite/api/en/master/generate/function_mindspore_dataset_InitFromPixel-1.html) function in the `image_process.h` file is used to initialize the image.
+Here, the [InitFromPixel](https://www.mindspore.cn/lite/api/en/r1.7/generate/function_mindspore_dataset_InitFromPixel-1.html) function in the `image_process.h` file is used to initialize the image.
 
 ```cpp
 bool InitFromPixel(const unsigned char *data, LPixelType pixel_type, LDataType data_type, int w, int h, LiteMat &m)
@@ -42,7 +42,7 @@ The image processing operators here can be used in any combination according to 
 
 ### Resize image
 
-Here we use the [ResizeBilinear](https://www.mindspore.cn/lite/api/en/master/generate/function_mindspore_dataset_ResizeBilinear-1.html) function in `image_process.h` to resize the image through a bilinear algorithm. Currently, the supported data type is unit8, the supported channels are 3 and 1.
+Here we use the [ResizeBilinear](https://www.mindspore.cn/lite/api/en/r1.7/generate/function_mindspore_dataset_ResizeBilinear-1.html) function in `image_process.h` to resize the image through a bilinear algorithm. Currently, the supported data type is unit8, the supported channels are 3 and 1.
 
 ```cpp
 bool ResizeBilinear(const LiteMat &src, LiteMat &dst, int dst_w, int dst_h)
@@ -64,7 +64,7 @@ ResizeBilinear(lite_mat_bgr, lite_mat_resize, 256, 256);
 
 ### Convert the image data type
 
-Here we use the [ConvertTo](https://www.mindspore.cn/lite/api/en/master/generate/function_mindspore_dataset_ConvertTo-1.html) function in `image_process.h` to convert the image data type. Currently, the conversion from uint8 to float is supported.
+Here we use the [ConvertTo](https://www.mindspore.cn/lite/api/en/r1.7/generate/function_mindspore_dataset_ConvertTo-1.html) function in `image_process.h` to convert the image data type. Currently, the conversion from uint8 to float is supported.
 
 ```cpp
 bool ConvertTo(const LiteMat &src, LiteMat &dst, double scale = 1.0)
@@ -86,7 +86,7 @@ ConvertTo(lite_mat_bgr, lite_mat_convert_float);
 
 ### Crop image data
 
-Here we use the [Crop](https://www.mindspore.cn/lite/api/en/master/generate/function_mindspore_dataset_Crop-1.html) function in `image_process.h` to crop the image. Currently, channels 3 and 1 are supported.
+Here we use the [Crop](https://www.mindspore.cn/lite/api/en/r1.7/generate/function_mindspore_dataset_Crop-1.html) function in `image_process.h` to crop the image. Currently, channels 3 and 1 are supported.
 
 ```cpp
 bool Crop(const LiteMat &src, LiteMat &dst, int x, int y, int w, int h)
@@ -108,7 +108,7 @@ Crop(lite_mat_bgr, lite_mat_cut, 16, 16, 224, 224);
 
 ### Normalize image data
 
-In order to eliminate the dimensional influence among the data indicators and solve the comparability problem among the data indicators through standardization processing is adopted, here is the use of the [SubStractMeanNormalize](https://www.mindspore.cn/lite/api/en/master/generate/function_mindspore_dataset_SubStractMeanNormalize-1.html) function in `image_process.h` to normalize the image data.
+In order to eliminate the dimensional influence among the data indicators and solve the comparability problem among the data indicators through standardization processing is adopted, here is the use of the [SubStractMeanNormalize](https://www.mindspore.cn/lite/api/en/r1.7/generate/function_mindspore_dataset_SubStractMeanNormalize-1.html) function in `image_process.h` to normalize the image data.
 
 ```cpp
 bool SubStractMeanNormalize(const LiteMat &src, LiteMat &dst, const std::vector<float> &mean, const std::vector<float> &std)

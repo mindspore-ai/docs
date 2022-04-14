@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `推理应用`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/infer/inference.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/experts/source_zh_cn/infer/inference.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 MindSpore可以基于训练好的模型，在不同的硬件平台上执行推理任务。
 
@@ -45,7 +45,7 @@ MindSpore支持保存两种类型的数据：训练参数和网络模型（模�
 
 2. 跨平台推理
 
-    使用网络定义和Checkpoint文件，调用`export`接口导出模型文件，在不同平台执行推理，目前支持导出MindIR、ONNX和AIR（仅支持Ascend AI处理器）模型，具体操作可查看[保存模型](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/train/save.html)。
+    使用网络定义和Checkpoint文件，调用`export`接口导出模型文件，在不同平台执行推理，目前支持导出MindIR、ONNX和AIR（仅支持Ascend AI处理器）模型，具体操作可查看[保存模型](https://www.mindspore.cn/tutorials/zh-CN/r1.7/advanced/train/save.html)。
 
 ## MindIR介绍
 
@@ -62,7 +62,7 @@ MindSpore通过统一IR定义了网络的逻辑结构和算子的属性，将Min
 
 2. 使用场景
 
-    先使用网络定义和Checkpoint文件导出MindIR模型文件，再根据不同需求执行推理任务，如[在Ascend 310上执行推理任务](https://www.mindspore.cn/tutorials/experts/zh-CN/master/infer/ascend_310_mindir.html)、[基于MindSpore Serving部署推理服务](https://www.mindspore.cn/serving/docs/zh-CN/master/serving_example.html)、[端侧推理](https://www.mindspore.cn/lite/docs/zh-CN/master/index.html)。
+    先使用网络定义和Checkpoint文件导出MindIR模型文件，再根据不同需求执行推理任务，如[在Ascend 310上执行推理任务](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/infer/ascend_310_mindir.html)、[基于MindSpore Serving部署推理服务](https://www.mindspore.cn/serving/docs/zh-CN/r1.7/serving_example.html)、[端侧推理](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/index.html)。
 
 ## model.eval模型验证
 
@@ -85,9 +85,9 @@ print("============== {} ==============".format(acc))
 ```
 
 其中，  
-`model.eval`为模型验证接口，对应接口说明：<https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.html#mindspore.Model.eval>。
+`model.eval`为模型验证接口，对应接口说明：<https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.html#mindspore.Model.eval>。
 
-> 推理样例代码：<https://gitee.com/mindspore/models/blob/master/official/cv/lenet/eval.py>。
+> 推理样例代码：<https://gitee.com/mindspore/models/blob/r1.7/official/cv/lenet/eval.py>。
 
 ### 使用MindSpore Hub从华为云加载模型
 
@@ -107,7 +107,7 @@ print("============== {} ==============".format(acc))
 ```
 
 其中，  
-`mindspore_hub.load`为加载模型参数接口，对应接口说明：<https://www.mindspore.cn/hub/docs/zh-CN/master/index.html#module-mindspore_hub>。
+`mindspore_hub.load`为加载模型参数接口，对应接口说明：<https://www.mindspore.cn/hub/docs/zh-CN/r1.7/index.html#module-mindspore_hub>。
 
 ## 使用`model.predict`接口进行推理操作
 
@@ -116,4 +116,4 @@ model.predict(input_data)
 ```
 
 其中，  
-`model.predict`为推理接口，对应接口说明：<https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.html#mindspore.Model.predict>。
+`model.predict`为推理接口，对应接口说明：<https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.html#mindspore.Model.predict>。

@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `Model Optimization`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/others/mixed_precision.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/experts/source_en/others/mixed_precision.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -89,7 +89,7 @@ To use the automatic mixed-precision, you need to call the `Model` API to transf
 
 3. Create a dataset.
 
-4. Use the `Model` API to encapsulate the network model, optimizer, and loss function, and set the `amp_level` parameter. For details, see [MindSpore API](https://www.mindspore.cn/docs/en/master/api_python/mindspore.html#mindspore.Model). In this step, MindSpore automatically selects an appropriate operator to convert FP32 to FP16.
+4. Use the `Model` API to encapsulate the network model, optimizer, and loss function, and set the `amp_level` parameter. For details, see [MindSpore API](https://www.mindspore.cn/docs/en/r1.7/api_python/mindspore.html#mindspore.Model). In this step, MindSpore automatically selects an appropriate operator to convert FP32 to FP16.
 
 The following is a basic code example. First, import the required libraries and declarations, and define the LeNet-5 network model.
 

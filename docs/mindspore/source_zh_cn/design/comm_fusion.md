@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `分布式并行`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/design/comm_fusion.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/design/comm_fusion.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -58,7 +58,7 @@ MindSpore提供两种接口来使能通信融合，下面分别进行介绍。
 
 >你可以在这里下载完整的样例代码：
 >
-><https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_comm_fusion>。
+><https://gitee.com/mindspore/docs/tree/r1.7/docs/sample_code/distributed_comm_fusion>。
 
 目录结构如下：
 
@@ -99,7 +99,7 @@ init()
 
 为了避免上述问题，可以将网络参数进行分组融合：在下一组参数进行的计算的同时，进行上组参数的通信，使得计算和通信能够互相隐藏，可以通过限定fusion buffer的大小，或者index分区的方法进行分组融合。
 
-更多使用方法，可以参考MindSpore的[测试用例](https://gitee.com/mindspore/mindspore/blob/master/tests/ut/python/parallel/test_comm_fusion.py)。
+更多使用方法，可以参考MindSpore的[测试用例](https://gitee.com/mindspore/mindspore/blob/r1.7/tests/ut/python/parallel/test_comm_fusion.py)。
 
 >用户可以自行尝试`comm_fusion`的size和index模式，本质上都是fusion buffer类的方法。
 
@@ -167,11 +167,11 @@ The parameter layer3.output_mapping.bias's fusion id is 2
 
 ### 运行代码
 
-上述代码需要在配置分布式变量后才可以运行。Ascend环境需要配置RANK_TABLE_FILE、RANK_ID和DEVICE_ID。配置的过程请参考[此处](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#配置分布式环境变量)，GPU环境需要配置[OpenMPI](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html#配置分布式环境)、NCCL和[HOST_FILE](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html#多机多卡训练)，配置的过程请参考[此处](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html#配置分布式环境)。
+上述代码需要在配置分布式变量后才可以运行。Ascend环境需要配置RANK_TABLE_FILE、RANK_ID和DEVICE_ID。配置的过程请参考[此处](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/parallel/train_ascend.html#配置分布式环境变量)，GPU环境需要配置[OpenMPI](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/parallel/train_gpu.html#配置分布式环境)、NCCL和[HOST_FILE](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/parallel/train_gpu.html#多机多卡训练)，配置的过程请参考[此处](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/parallel/train_gpu.html#配置分布式环境)。
 
 Ascend分布式相关的环境变量有:
 
-- RANK_TABLE_FILE：组网信息文件的路径。rank_table_file文件可以使用models代码仓中的hccl_tools.py生成，可以从[此处](https://gitee.com/mindspore/models/tree/master/utils/hccl_tools)获取。
+- RANK_TABLE_FILE：组网信息文件的路径。rank_table_file文件可以使用models代码仓中的hccl_tools.py生成，可以从[此处](https://gitee.com/mindspore/models/tree/r1.7/utils/hccl_tools)获取。
 - DEVICE_ID：当前卡在机器上的实际序号。
 - RANK_ID：当前卡的逻辑序号。
 
@@ -179,7 +179,7 @@ GPU分布式相关的环境变量：
 
 - HOST_FILE: 描述多卡训练时的设备IP和个数。文件每一行格式为[hostname] slots=[slotnum]，hostname可以是ip或者主机名。需要注意的是，不同机器上的用户名需要相同，但是hostname不可以相同。
 
-用户可以通过[此处](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_optimizer_parallel)获取上述的此文档中的脚本。执行下述的`bash`脚本即可运行程序，输出日志在device0/train.log0文件。
+用户可以通过[此处](https://gitee.com/mindspore/docs/tree/r1.7/docs/sample_code/distributed_optimizer_parallel)获取上述的此文档中的脚本。执行下述的`bash`脚本即可运行程序，输出日志在device0/train.log0文件。
 
 ```bash
 #!/bin/bash

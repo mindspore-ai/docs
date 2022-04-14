@@ -2,7 +2,7 @@
 
 `GPU` `推理应用`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/infer/cpu_gpu_mindir.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/experts/source_zh_cn/infer/cpu_gpu_mindir.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 使用C++接口推理MindIR格式文件
 
@@ -10,7 +10,7 @@
 
 ### 推理目录结构介绍
 
-首先创建目录放置推理代码工程，例如`/home/mindspore_sample/gpu_resnet50_inference_sample`，可以从官网示例下载[样例代码](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/gpu_resnet50_inference_sample)，`model`目录用于存放`MindIR`[模型文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet.mindir)，推理代码工程目录结构如下：
+首先创建目录放置推理代码工程，例如`/home/mindspore_sample/gpu_resnet50_inference_sample`，可以从官网示例下载[样例代码](https://gitee.com/mindspore/docs/tree/r1.7/docs/sample_code/gpu_resnet50_inference_sample)，`model`目录用于存放`MindIR`[模型文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet.mindir)，推理代码工程目录结构如下：
 
 ```text
 └─gpu_resnet50_inference_sample
@@ -25,7 +25,7 @@
 
 ### 推理代码介绍
 
-推理代码样例：<https://gitee.com/mindspore/docs/blob/master/docs/sample_code/gpu_resnet50_inference_sample/src/main.cc> 。
+推理代码样例：<https://gitee.com/mindspore/docs/blob/r1.7/docs/sample_code/gpu_resnet50_inference_sample/src/main.cc> 。
 
 引用`mindspore`名字空间：
 
@@ -114,7 +114,7 @@ target_link_libraries(main ${MS_LIB})
 ```
 
 >详细样例请参考：
-><https://gitee.com/mindspore/docs/blob/master/docs/sample_code/gpu_resnet50_inference_sample/CMakeLists.txt>
+><https://gitee.com/mindspore/docs/blob/r1.7/docs/sample_code/gpu_resnet50_inference_sample/CMakeLists.txt>
 
 ### 编译推理代码
 
@@ -167,7 +167,7 @@ infer finished.
 
 ### 备注
 
-- 一些网络在训练过程时，人为将部分算子精度设置为FP16。例如ModelZoo中的[Bert网络](https://gitee.com/mindspore/models/blob/master/official/nlp/bert/src/bert_model.py)，将Dense和LayerNorm设置为FP16进行训练。
+- 一些网络在训练过程时，人为将部分算子精度设置为FP16。例如ModelZoo中的[Bert网络](https://gitee.com/mindspore/models/blob/r1.7/official/nlp/bert/src/bert_model.py)，将Dense和LayerNorm设置为FP16进行训练。
 
 ```python
 class BertOutput(nn.Cell):
@@ -196,6 +196,6 @@ class BertOutput(nn.Cell):
 
 ## 使用ONNX格式文件推理
 
-1. 在训练平台上生成ONNX格式模型，具体步骤请参考[导出ONNX格式文件](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/train/save.html#导出onnx格式文件)。
+1. 在训练平台上生成ONNX格式模型，具体步骤请参考[导出ONNX格式文件](https://www.mindspore.cn/tutorials/zh-CN/r1.7/advanced/train/save.html#导出onnx格式文件)。
 
 2. 在GPU上进行推理，具体可以参考推理使用runtime/SDK的文档。如在Nvidia GPU上进行推理，使用常用的TensorRT，可参考[TensorRT backend for ONNX](https://github.com/onnx/onnx-tensorrt)。

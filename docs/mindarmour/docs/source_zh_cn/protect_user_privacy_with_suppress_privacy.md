@@ -1,6 +1,6 @@
 # 应用抑制隐私机制保护用户隐私
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_zh_cn/protect_user_privacy_with_suppress_privacy.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindarmour/docs/source_zh_cn/protect_user_privacy_with_suppress_privacy.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -12,7 +12,7 @@ MindArmour的抑制隐私模块Suppress-Privacy，实现了抑制隐私优化器
 
 这里以LeNet模型，MNIST 数据集为例，说明如何在MindSpore上使用抑制隐私优化器训练神经网络模型。
 
-> 本例面向Ascend 910 AI处理器，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/sup_privacy/sup_privacy.py>
+> 本例面向Ascend 910 AI处理器，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindarmour/blob/r1.7/examples/privacy/sup_privacy/sup_privacy.py>
 
 ## 实现阶段
 
@@ -52,7 +52,7 @@ TAG = 'Lenet5_Suppress_train'
 
 ### 参数配置
 
-1. 设置运行环境、模型训练参数、checkpoint存储参数，batch_size参数建议不要超过64。更多配置可以参考<https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/sup_privacy/sup_privacy_config.py>。
+1. 设置运行环境、模型训练参数、checkpoint存储参数，batch_size参数建议不要超过64。更多配置可以参考<https://gitee.com/mindspore/mindarmour/blob/r1.7/examples/privacy/sup_privacy/sup_privacy_config.py>。
 
    ```python
    cfg = edict({
@@ -247,13 +247,13 @@ ds_train = generate_mnist_dataset('MNIST_unzip/train', cfg.batch_size)
 
 为了评估抑制隐私训练对数据集的保护效果，我们使用图像逆向攻击进行测试，
 这种逆向攻击可以根据原始图片在神经网络某一层的输出来反向还原出原始图片，主要原因是网络在训练的过程中“记住”了训练集的特征，
-这种攻击方法的原理可以参考<https://arxiv.org/pdf/1412.0035.pdf>，完整的代码实现可以参考<https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/inversion_attack/mnist_inversion_attack.py>
+这种攻击方法的原理可以参考<https://arxiv.org/pdf/1412.0035.pdf>，完整的代码实现可以参考<https://gitee.com/mindspore/mindarmour/blob/r1.7/examples/privacy/inversion_attack/mnist_inversion_attack.py>
 ，下面介绍详细的测试步骤：
 
 1. 准备工作
 
     为了和抑制隐私训练进行对比，我们需要先使用常规训练得到模型的CheckPoint文件。模型训练可以参考
-    [mindarmour/examples/common/networks/lenet5](https://gitee.com/mindspore/mindarmour/blob/master/examples/common/networks/lenet5/mnist_train.py) ，
+    [mindarmour/examples/common/networks/lenet5](https://gitee.com/mindspore/mindarmour/blob/r1.7/examples/common/networks/lenet5/mnist_train.py) ，
     它的目录结构如下：
 
     ```text

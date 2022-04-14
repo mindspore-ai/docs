@@ -6,4 +6,4 @@
 MindSpore Migration Guide
 =================================
 
-The documentation has been migrated to `Migration Guide <https://www.mindspore.cn/docs/en/master/migration_guide/overview.html>`_ .
+The documentation has been migrated to `Migration Guide <https://www.mindspore.cn/docs/en/r1.7/migration_guide/overview.html>`_ .

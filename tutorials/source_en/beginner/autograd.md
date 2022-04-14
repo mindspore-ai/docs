@@ -1,6 +1,6 @@
 # Automatic Differentiation
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/beginner/autograd.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/source_en/beginner/autograd.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 Automatic differentiation is able to calculate the derivative value of a derivative function at a certain point, which is a generalization of backpropagation algorithms. The main problem solved by automatic differentiation is to decompose a complex mathematical operation into a series of simple basic operations, which shields the user from a large number of details and processes of differentiation, which greatly reduces the threshold for the use of the framework.
 

@@ -2,7 +2,7 @@
 
 `NNIE` `Linux` `环境准备` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/nnie.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/lite/docs/source_zh_cn/use/nnie.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 目录结构
 
@@ -25,7 +25,7 @@ mindspore-lite-{version}-runtime-linux-x64
                         └── libprotoc.so
 ```
 
-上述是NNIE的集成目录结构，转换工具converter的其余目录结构详情，见[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)。
+上述是NNIE的集成目录结构，转换工具converter的其余目录结构详情，见[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/converter_tool.html)。
 
 ### 模型推理工具runtime目录结构说明
 
@@ -37,7 +37,7 @@ mindspore-lite-{version}-linux-aarch32
         └── libmslite_proposal.so  # 集成proposal的样例动态库
 ```
 
-上述是NNIE的集成目录结构，推理工具runtime的其余目录结构详情，见[目录结构](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html#目录结构)。
+上述是NNIE的集成目录结构，推理工具runtime的其余目录结构详情，见[目录结构](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/build.html#目录结构)。
 
 ## 工具使用
 
@@ -46,13 +46,13 @@ mindspore-lite-{version}-linux-aarch32
 #### 概述
 
 MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型（当前只支持Caffe）转换为可使用NNIE硬件加速推理的板端专属模型，可运行在Hi3516板上。
-通过转换工具转换成的NNIE`ms`模型，仅支持在关联的嵌入式板上，使用转换工具配套的Runtime推理框架执行推理。关于转换工具的更一般说明，可参考[推理模型转换](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)。
+通过转换工具转换成的NNIE`ms`模型，仅支持在关联的嵌入式板上，使用转换工具配套的Runtime推理框架执行推理。关于转换工具的更一般说明，可参考[推理模型转换](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/converter_tool.html)。
 
 #### 环境准备
 
 使用MindSpore Lite模型转换工具，需要进行如下环境准备工作。
 
-1. [下载](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)NNIE专用converter工具，当前仅支持Linux
+1. [下载](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/downloads.html)NNIE专用converter工具，当前仅支持Linux
 
 2. 解压下载的包
 
@@ -142,20 +142,20 @@ nnie.cfg文件的示例参考如下：
      CONVERTER RESULT SUCCESS:0
      ```
 
-     用户若想了解converter_lite转换工具的相关参数，可参考[参数说明](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html#参数说明)。
+     用户若想了解converter_lite转换工具的相关参数，可参考[参数说明](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/converter_tool.html#参数说明)。
 
 ### 推理工具runtime
 
 #### 概述
 
 得到转换模型后，可在关联的嵌入式板上，使用板子配套的Runtime推理框架执行推理。MindSpore Lite提供benchmark基准测试工具，它可以对MindSpore Lite模型前向推理的执行耗时进行定量分析（性能），还可以通过指定模型输出进行可对比的误差分析（精度）。
-关于推理工具的一般说明，可参考[benchmark](https://www.mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html)。
+关于推理工具的一般说明，可参考[benchmark](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/benchmark_tool.html)。
 
 #### 环境准备
 
 以下为示例用法，用户可根据实际情况进行等价操作。
 
-1. [下载](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)NNIE专用模型推理工具，当前仅支持Hi3516D
+1. [下载](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/downloads.html)NNIE专用模型推理工具，当前仅支持Hi3516D
 
 2. 解压下载的包
 
@@ -275,13 +275,13 @@ cd /user/mindspore
 
 ${model_path}为转换后ms模型文件路径
 
-执行该命令，会生成模型的随机输入，并执行前向推理。有关benchmark的其他使用详情，如耗时分析与推理误差分析等，见[Benchmark使用](https://www.mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html)。
+执行该命令，会生成模型的随机输入，并执行前向推理。有关benchmark的其他使用详情，如耗时分析与推理误差分析等，见[Benchmark使用](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/benchmark_tool.html)。
 
 有关模型的输入数据格式要求，见[SVP工具链相关功能支持及注意事项（可选）](#SVP工具链相关功能支持及注意事项（可选）)。
 
 ## 集成使用
 
-有关集成使用详情，见[集成c++接口](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html)。
+有关集成使用详情，见[集成c++接口](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/runtime_cpp.html)。
 
 ## SVP工具链相关功能支持及注意事项（高级选项）
 
@@ -305,11 +305,11 @@ ${model_path}为转换后ms模型文件路径
 
 ### prototxt中节点名_cpu后缀支持
 
-  SVP工具链中，可通过在prototxt文件的节点名后使用_cpu后缀来，声明cpu自定义算子。MindSpore Lite中忽略_cpu后缀，不做支持。用户若想重定义MindSpore Lite已有的算子实现或新增新的算子，可通过[自定义算子注册](https://www.mindspore.cn/lite/docs/zh-CN/master/use/register_kernel.html)的方式进行注册。
+  SVP工具链中，可通过在prototxt文件的节点名后使用_cpu后缀来，声明cpu自定义算子。MindSpore Lite中忽略_cpu后缀，不做支持。用户若想重定义MindSpore Lite已有的算子实现或新增新的算子，可通过[自定义算子注册](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/register_kernel.html)的方式进行注册。
 
 ### prototxt中Custom算子支持
 
-  SVP工具链中，通过在prototxt中声明custom层，实现推理时分段，并由用户实现cpu代码。在MindSpore Lite中，用户需在Custom层中增加op_type属性，并通过[自定义算子注册](https://www.mindspore.cn/lite/docs/zh-CN/master/use/register_kernel.html)的方式进行在线推理代码的注册。
+  SVP工具链中，通过在prototxt中声明custom层，实现推理时分段，并由用户实现cpu代码。在MindSpore Lite中，用户需在Custom层中增加op_type属性，并通过[自定义算子注册](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/register_kernel.html)的方式进行在线推理代码的注册。
 
   Custom层的修改样例如下：
 
@@ -337,7 +337,7 @@ ${model_path}为转换后ms模型文件路径
 
   MindSpore Lite在转换NNIE模型时，会将大部分的算子融合为NNIE运行的二进制文件，用户无法观察到中间算子的输出，通过在top域上添加”_report“后缀，转换构图时会将中间算子的输出添加到融合后的层输出中，若原先该算子便有输出（未被融合），则维持不变。
 
-  在推理运行时，用户可通过[回调运行](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html#回调运行)得到中间算子输出。
+  在推理运行时，用户可通过[回调运行](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/runtime_cpp.html#回调运行)得到中间算子输出。
 
   MindSpore Lite解析_report的相应规则，及与[inplace机制](#inplace机制)的冲突解决，参照《HiSVP 开发指南》中的定义说明。
 
@@ -353,7 +353,7 @@ ${model_path}为转换后ms模型文件路径
 
 ### 多图片batch运行及多step运行
 
-  用户若需同时前向推理多个输入数据（多个图片），可通过[输入维度Resize](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html#resize)将模型输入的第一维resize为输入数据个数。NNIE模型只支持对第一个维度（'n'维）进行resize，其他维度（'hwc'）不可变。
+  用户若需同时前向推理多个输入数据（多个图片），可通过[输入维度Resize](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/runtime_cpp.html#resize)将模型输入的第一维resize为输入数据个数。NNIE模型只支持对第一个维度（'n'维）进行resize，其他维度（'hwc'）不可变。
 
   对于循环或lstm网络，用户需根据step值，配置TIME_STEP环境变量，同时resize模型输入。
   设一次同时前向推理的数据的个数为input_num，对于序列数据输入的节点resize为input_num * step，非序列数据输入的节点resize为input_num。
@@ -366,10 +366,10 @@ ${model_path}为转换后ms模型文件路径
 
 ### proposal算子使用说明
 
-  MindSpore Lite提供Proposal算子的样例代码，在该样例中，以[自定义算子注册](https://www.mindspore.cn/lite/docs/zh-CN/master/use/register_kernel.html)的方式实现proposal算子及该算子infer shape的注册。用户可将其修改为自身模型匹配的实现后，进行集成使用。
+  MindSpore Lite提供Proposal算子的样例代码，在该样例中，以[自定义算子注册](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/register_kernel.html)的方式实现proposal算子及该算子infer shape的注册。用户可将其修改为自身模型匹配的实现后，进行集成使用。
   > 你可以在这里下载完整的样例代码：
   >
-  > <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/nnie_proposal>
+  > <https://gitee.com/mindspore/docs/tree/r1.7/docs/sample_code/nnie_proposal>
 
 ### 分段机制说明及8段限制
 

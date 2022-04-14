@@ -6,4 +6,4 @@
 MindSpore迁移指南
 ===================
 
-文档已迁移至 `迁移指南 <https://www.mindspore.cn/docs/zh-CN/master/migration_guide/overview.html>`_ 。
+文档已迁移至 `迁移指南 <https://www.mindspore.cn/docs/zh-CN/r1.7/migration_guide/overview.html>`_ 。

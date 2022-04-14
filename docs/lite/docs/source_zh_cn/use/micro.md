@@ -2,7 +2,7 @@
 
  `Linux` `IoT` `C++` `模型代码生成` `推理应用` `初级` `中级`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/micro.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/lite/docs/source_zh_cn/use/micro.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -12,7 +12,7 @@ MindSpore Lite针对MCUs部署硬件后端，提供了一种超轻量Micro AI部
 用户使用MindSpore Lite转换工具非常容易生成可在x86/ARM64/ARM32A/ARM32M平台部署的推理代码，其中在x86/ARM64/ARM32A平台上推理会调用NNACL算子库，
 在ARM32M平台上调用CMSIS-NN算子库。
 
-通过MindSpore Lite转换工具[Converter](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)，
+通过MindSpore Lite转换工具[Converter](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/converter_tool.html)，
 输入Micro配置文件，就能把输入模型生成代码。
 
 ![img](../images/lite_codegen.png)
@@ -21,8 +21,8 @@ MindSpore Lite针对MCUs部署硬件后端，提供了一种超轻量Micro AI部
 
 可以通过两种方式获取：
 
-1. MindSpore官网下载[Release版本](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)。
-2. 从源码开始[编译构建](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html)。
+1. MindSpore官网下载[Release版本](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/downloads.html)。
+2. 从源码开始[编译构建](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/build.html)。
 
 以MNIST分类模型为例，如下命令将模型生成代码：
 
@@ -68,7 +68,7 @@ debug_mode=false
 
 > os不支持文件系统时，debugMode不可用。
 >
-> 生成的推理接口详细使用说明，请参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/master/index.html)。
+> 生成的推理接口详细使用说明，请参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/r1.7/index.html)。
 >
 > 以下三个接口暂不支持：
 >
@@ -146,7 +146,7 @@ mindspore-lite-{version}-linux-x64
     └── operator_library   # 模型推理算子相关文件(需要自建)
     ```
 
-> 模型推理对外API头文件可由MindSpore团队发布的[Release包](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)中获取。
+> 模型推理对外API头文件可由MindSpore团队发布的[Release包](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/downloads.html)中获取。
 >
 > 在编译此工程之前需要预先获取对应平台所需要的算子文件，由于Cortex-M平台工程编译一般涉及到较复杂的交叉编译，此处不提供直接预编译的算子库静态库，而是用户根据模型自行组织文件，自主编译Cortex-M7 、Coretex-M4、Cortex-M3等工程(对应工程目录结构已在示例代码中给出，用户可自主将对应ARM官方的CMSIS源码放置其中即可)。
 
@@ -193,7 +193,7 @@ mindspore-lite-{version}-linux-x64
 
     以上命令均成功返回值时，表明环境准备已完成，可以继续进入下一步，否则请务必先安装上述环境。
 
-2. 生成STM32F746单板初始化代码（[详情示例代码](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_micro/mnist_stm32f746）
+2. 生成STM32F746单板初始化代码（[详情示例代码](https://gitee.com/mindspore/mindspore/tree/r1.7/mindspore/lite/examples/quick_start_micro/mnist_stm32f746）
 
     - 启动 STM32CubeMX，新建project，选择单板STM32F746IG。
     - 成功以后，选择`Makefile` ，`generator code`。
@@ -226,7 +226,7 @@ mindspore-lite-{version}-linux-x64
     └── test_stm32f746.ioc
     ```
 
-3. 修改makefile文件，组织算子静态库以及模型推理代码，具体makefile文件内容参见[示例](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_micro/mnist_stm32f746)。
+3. 修改makefile文件，组织算子静态库以及模型推理代码，具体makefile文件内容参见[示例](https://gitee.com/mindspore/mindspore/tree/r1.7/mindspore/lite/examples/quick_start_micro/mnist_stm32f746)。
 
     ```text
     # C includes
@@ -347,7 +347,7 @@ c                        # 执行模型推理
    └── src  
    ```
 
-下载适用于OpenHarmony的[预编译推理runtime包](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，然后将其解压至任意鸿蒙源码路径下。编写BUILD.gn文件：
+下载适用于OpenHarmony的[预编译推理runtime包](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/downloads.html)，然后将其解压至任意鸿蒙源码路径下。编写BUILD.gn文件：
 
    ```text
    import("//build/lite/config/component/lite_component.gni")
@@ -466,9 +466,9 @@ c                        # 执行模型推理
 
 ## 自定义算子
 
-使用前请先参考[自定义南向算子](https://www.mindspore.cn/lite/docs/zh-CN/master/use/register_kernel.html)了解基本概念。Codegen目前仅支持custom类型的自定义算子注册和实现，暂不支持内建算子（比如conv2d、fc等）的注册和自定义实现。下面以海思Hi3516D开发板为例，说明如何在codegen中使用自定义算子。
+使用前请先参考[自定义南向算子](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/register_kernel.html)了解基本概念。Codegen目前仅支持custom类型的自定义算子注册和实现，暂不支持内建算子（比如conv2d、fc等）的注册和自定义实现。下面以海思Hi3516D开发板为例，说明如何在codegen中使用自定义算子。
 
-使用最新的转换工具生成带NNIE类型custom算子具体步骤请参考[集成NNIE使用说明](https://www.mindspore.cn/lite/docs/zh-CN/master/use/nnie.html)。
+使用最新的转换工具生成带NNIE类型custom算子具体步骤请参考[集成NNIE使用说明](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/nnie.html)。
 
 模型生成代码方式与非定义算子模型保持一致：
 
@@ -490,7 +490,7 @@ int CustomKernel(TensorC *inputs, int input_num, TensorC *outputs, int output_nu
 
 ```
 
-用户需要提供该函数的实现，并将相关源码或者库集成到生成代码的cmake工程中。例如，我们提供了支持海思NNIE的custom kernel示例动态库libmicro_nnie.so，该文件包含在[官网下载页](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)《NNIE 推理runtime及benchmark工具》组件中。用户需要修改生成代码的CMakeLists.txt，填加链接的库名称和路径。例如：
+用户需要提供该函数的实现，并将相关源码或者库集成到生成代码的cmake工程中。例如，我们提供了支持海思NNIE的custom kernel示例动态库libmicro_nnie.so，该文件包含在[官网下载页](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/downloads.html)《NNIE 推理runtime及benchmark工具》组件中。用户需要修改生成代码的CMakeLists.txt，填加链接的库名称和路径。例如：
 
 ``` shell
 
@@ -516,6 +516,6 @@ make
 
 ## 其它平台使用说明
 
-### [Linux_x86_64平台编译部署](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_micro/mnist_x86)
+### [Linux_x86_64平台编译部署](https://gitee.com/mindspore/mindspore/tree/r1.7/mindspore/lite/examples/quick_start_micro/mnist_x86)
 
-### [Android平台编译部署](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_micro/mobilenetv2_arm64)
+### [Android平台编译部署](https://gitee.com/mindspore/mindspore/tree/r1.7/mindspore/lite/examples/quick_start_micro/mobilenetv2_arm64)

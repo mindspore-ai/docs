@@ -6,4 +6,4 @@
 MindSpore FAQ
 =================
 
-文档已迁移至 `FAQ <https://www.mindspore.cn/docs/zh-CN/master/faq/installation.html>`_ 。
+文档已迁移至 `FAQ <https://www.mindspore.cn/docs/zh-CN/r1.7/faq/installation.html>`_ 。

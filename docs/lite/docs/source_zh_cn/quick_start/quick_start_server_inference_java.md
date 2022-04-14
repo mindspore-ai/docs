@@ -2,21 +2,21 @@
 
 `Linux` `X86` `Java` `全流程` `并发推理应用` `数据准备` `初级`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/quick_start/quick_start_server_inference_java.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/lite/docs/source_zh_cn/quick_start/quick_start_server_inference_java.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
-本教程提供了MindSpore Lite执行并发推理的示例程序，通过随机输入、执行推理、打印推理结果的方式，演示了利用[MindSpore Lite Java API](https://www.mindspore.cn/lite/api/zh-CN/master/index.html)进行端侧并发推理的基本流程，用户能够快速了解MindSpore Lite执行并发推理相关Java API的使用。本教程通过随机生成的数据作为输入数据，执行MobileNetV2模型的推理，打印获得输出数据。相关代码放置在[mindspore/lite/examples/quick_start_server_inference_java](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_server_inference_java)目录。
+本教程提供了MindSpore Lite执行并发推理的示例程序，通过随机输入、执行推理、打印推理结果的方式，演示了利用[MindSpore Lite Java API](https://www.mindspore.cn/lite/api/zh-CN/r1.7/index.html)进行端侧并发推理的基本流程，用户能够快速了解MindSpore Lite执行并发推理相关Java API的使用。本教程通过随机生成的数据作为输入数据，执行MobileNetV2模型的推理，打印获得输出数据。相关代码放置在[mindspore/lite/examples/quick_start_server_inference_java](https://gitee.com/mindspore/mindspore/tree/r1.7/mindspore/lite/examples/quick_start_server_inference_java)目录。
 
 使用MindSpore Lite 推理主要包括以下步骤：
 
-1. 模型加载：从文件系统中读取由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)转换得到的`.ms`模型。
-2. 创建配置选项：创建配置选项[RunnerConfig](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/runner_config.html#runnerconfig)，保存并发推理所需的一些基本配置参数，用于指导并发量以及图编译和图执行。主要包括[MSContext](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/mscontext.html#mscontext)：配置上下文、`WorkersNum`：并发模型数量。
-3. 初始化：在执行并发推理前，需要调用[ModelParallelRunner](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model_parallel_runner.html#modelparallelrunner)的[init](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model_parallel_runner.html#init)接口进行并发推理的初始化，主要进行模型读取，创建并发，以及子图切分、算子选型调度。这部分会耗费较多时间，所以建议[init](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model_parallel_runner.html#init)初始化一次，多次执行并发推理。
+1. 模型加载：从文件系统中读取由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/converter_tool.html)转换得到的`.ms`模型。
+2. 创建配置选项：创建配置选项[RunnerConfig](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_java/runner_config.html#runnerconfig)，保存并发推理所需的一些基本配置参数，用于指导并发量以及图编译和图执行。主要包括[MSContext](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/mscontext.html#mscontext)：配置上下文、`WorkersNum`：并发模型数量。
+3. 初始化：在执行并发推理前，需要调用[ModelParallelRunner](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_java/model_parallel_runner.html#modelparallelrunner)的[init](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_java/model_parallel_runner.html#init)接口进行并发推理的初始化，主要进行模型读取，创建并发，以及子图切分、算子选型调度。这部分会耗费较多时间，所以建议[init](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_java/model_parallel_runner.html#init)初始化一次，多次执行并发推理。
 4. 输入数据：图执行之前需要向输入Tensor中填充数据。
-5. 执行推理：使用[ModelParallelRunner](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model_parallel_runner.html#modelparallelrunner)的[predict](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model_parallel_runner.html#predict)进行并发推理。
+5. 执行推理：使用[ModelParallelRunner](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_java/model_parallel_runner.html#modelparallelrunner)的[predict](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_java/model_parallel_runner.html#predict)进行并发推理。
 6. 获得输出：图执行结束之后，可以通过输出Tensor得到推理结果。
-7. 释放内存：无需使用MindSpore Lite推理框架的时候，需要释放已创建的[ModelParallelRunner](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model_parallel_runner.html#modelparallelrunner)。
+7. 释放内存：无需使用MindSpore Lite推理框架的时候，需要释放已创建的[ModelParallelRunner](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_java/model_parallel_runner.html#modelparallelrunner)。
 
 ![img](../images/server_inference.png)
 
@@ -31,13 +31,13 @@
 
 - 编译构建
 
-  在`mindspore/lite/examples/quick_start_server_inference_java`目录下执行[build脚本](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_server_inference_java/build.sh)，将自动下载MindSpore Lite推理框架库以及文模型文件并编译Demo。
+  在`mindspore/lite/examples/quick_start_server_inference_java`目录下执行[build脚本](https://gitee.com/mindspore/mindspore/blob/r1.7/mindspore/lite/examples/quick_start_server_inference_java/build.sh)，将自动下载MindSpore Lite推理框架库以及文模型文件并编译Demo。
 
   ```bash
   bash build.sh
   ```
 
-  > 若MindSpore Lite推理框架下载失败，请手动下载硬件平台为CPU、操作系统为Ubuntu-x64的MindSpore Lite 框架[mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，解压后将`runtime/lib`以及`runtime/third_party`目录下的所有so和jar拷贝到`mindspore/lite/examples/quick_start_server_inference_java/lib`目录。
+  > 若MindSpore Lite推理框架下载失败，请手动下载硬件平台为CPU、操作系统为Ubuntu-x64的MindSpore Lite 框架[mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/downloads.html)，解压后将`runtime/lib`以及`runtime/third_party`目录下的所有so和jar拷贝到`mindspore/lite/examples/quick_start_server_inference_java/lib`目录。
   >
   > 若MobileNetV2模型下载失败，请手动下载相关模型文件[mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.ms)，并将其拷贝到`mindspore/lite/examples/quick_start_server_inference_java/model/`目录。
   >

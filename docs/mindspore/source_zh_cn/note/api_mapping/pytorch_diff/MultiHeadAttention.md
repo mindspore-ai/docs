@@ -1,6 +1,6 @@
 # 比较与torch.nn.MultiheadAttention的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/MultiHeadAttention.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/MultiHeadAttention.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## torch.nn.MultiheadAttention
 
@@ -19,7 +19,7 @@ class mindspore.nn.transformer.MultiHeadAttention(batch_size, src_seq_length, tg
 )
 ```
 
-更多内容详见[mindspore.nn.transformer.MultiHeadAttention](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.transformer.html#mindspore.nn.transformer.MultiHeadAttention)。
+更多内容详见[mindspore.nn.transformer.MultiHeadAttention](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.nn.transformer.html#mindspore.nn.transformer.MultiHeadAttention)。
 
 ## 使用方式
 

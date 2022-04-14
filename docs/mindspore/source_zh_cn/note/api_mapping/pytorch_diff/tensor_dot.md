@@ -1,6 +1,6 @@
 ﻿# 比较与torch.dot的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/tensor_dot.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/tensor_dot.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## torch.dot
 
@@ -23,7 +23,7 @@ mindspore.ops.tensor_dot(
 )
 ```
 
-更多内容详见[mindspore.ops.tensor_dot](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.tensor_dot.html#mindspore.ops.tensor_dot)。
+更多内容详见[mindspore.ops.tensor_dot](https://mindspore.cn/docs/zh-CN/r1.7/api_python/ops/mindspore.ops.tensor_dot.html#mindspore.ops.tensor_dot)。
 
 ## 使用方式
 

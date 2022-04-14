@@ -22,11 +22,11 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_gpu_install_source_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/install/mindspore_gpu_install_source_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.7/resource/_static/logo_source_en.png"></a>
 
 This document describes how to quickly install MindSpore by source code in a Linux system with a GPU environment. The following takes Ubuntu 18.04 as an example to describe how to install MindSpore.
 
-- If you want to configure an environment that can compile MindSpore on a fresh Ubuntu 18.04 with a GPU environment, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-source.sh) for one-click configuration, see [Environment Preparation (automatic, recommended)](#environment-preparation-automatic-recommended) section. The automatic installation script will install the dependencies required to compile MindSpore.
+- If you want to configure an environment that can compile MindSpore on a fresh Ubuntu 18.04 with a GPU environment, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/r1.7/scripts/install/ubuntu-gpu-source.sh) for one-click configuration, see [Environment Preparation (automatic, recommended)](#environment-preparation-automatic-recommended) section. The automatic installation script will install the dependencies required to compile MindSpore.
 
 - If some dependencies, such as CUDA, Python and GCC, have been installed in your system, it is recommended to install manually by referring to the installation steps in the [Environment Preparation (manual)](#environment-preparation-manual) section.
 
@@ -51,7 +51,7 @@ After the installation is complete, please reboot your system.
 The root permission is required because the automatic installation script needs to change the software source configuration and install dependencies via APT. Run the following command to obtain and run the automatic installation script. The environment configured by the automatic installation script only supports compiling MindSpore>=1.6.0.
 
 ```bash
-wget https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-source.sh
+wget https://gitee.com/mindspore/mindspore/raw/r1.7/scripts/install/ubuntu-gpu-source.sh
 # install Python 3.7 and CUDA 11.1 by default
 bash -i ./ubuntu-gpu-source.sh
 # to specify Python 3.9 and CUDA 10.1, and the installation optionally relying on Open MPI, use the following manners
@@ -314,7 +314,7 @@ Where:
 pip install output/mindspore_gpu-*.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/master/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/master/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt).
+When the network is connected, dependencies of MindSpore are automatically downloaded during the .whl package installation. (For details about the dependency, see required_package in [setup.py](https://gitee.com/mindspore/mindspore/blob/r1.7/setup.py) .) In other cases, you need to install it by yourself. When running models, you need to install additional dependencies based on requirements.txt specified for different models in [ModelZoo](https://gitee.com/mindspore/models/tree/r1.7/). For details about common dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/r1.7/requirements.txt).
 
 ## Installation Verification
 

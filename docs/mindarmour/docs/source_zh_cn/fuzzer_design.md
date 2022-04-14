@@ -1,6 +1,6 @@
 # AI模型安全测试设计
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_zh_cn/fuzzer_design.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindarmour/docs/source_zh_cn/fuzzer_design.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 背景
 
@@ -51,10 +51,10 @@ Fuzz Testing架构主要包括三个模块：
 
 ## 代码实现
 
-1. [fuzzing.py](https://gitee.com/mindspore/mindarmour/blob/master/mindarmour/fuzz_testing/fuzzing.py)：Fuzzer总体流程。
-2. [model_coverage_metrics.py](https://gitee.com/mindspore/mindarmour/blob/master/mindarmour/fuzz_testing/model_coverage_metrics.py)：神经元覆盖率指标，包括KMNC，NBC，SNAC。
-3. [image transform methods](https://gitee.com/mindspore/mindarmour/tree/master/mindarmour/natural_robustness/transform/image)：图像变异方法，包括多种加噪、模糊、亮度调整、仿射变化方法。
-4. [adversarial attacks](https://gitee.com/mindspore/mindarmour/tree/master/mindarmour/adv_robustness/attacks)：对抗样本攻击方法，包含多种黑盒、白盒攻击方法。
+1. [fuzzing.py](https://gitee.com/mindspore/mindarmour/blob/r1.7/mindarmour/fuzz_testing/fuzzing.py)：Fuzzer总体流程。
+2. [model_coverage_metrics.py](https://gitee.com/mindspore/mindarmour/blob/r1.7/mindarmour/fuzz_testing/model_coverage_metrics.py)：神经元覆盖率指标，包括KMNC，NBC，SNAC。
+3. [image transform methods](https://gitee.com/mindspore/mindarmour/tree/r1.7/mindarmour/natural_robustness/transform/image)：图像变异方法，包括多种加噪、模糊、亮度调整、仿射变化方法。
+4. [adversarial attacks](https://gitee.com/mindspore/mindarmour/tree/r1.7/mindarmour/adv_robustness/attacks)：对抗样本攻击方法，包含多种黑盒、白盒攻击方法。
 
 ## 参考文献
 

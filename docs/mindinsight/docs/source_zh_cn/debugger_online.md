@@ -1,6 +1,6 @@
 # 使用在线调试器
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/debugger_online.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindinsight/docs/source_zh_cn/debugger_online.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -33,7 +33,7 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 |`--enable-debugger {ENABLE_DEBUGGER}`|可选|取值为True或1, 开启MindInsight侧调试器；默认为False，不开启。|Boolean|False|True/False/1/0|
 |`--debugger-port {DEBUGGER_PORT}`|可选|指定调试服务端口。|Integer|50051|1~65535|
 
-更多启动参数请参考[MindInsight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_commands.html)。
+更多启动参数请参考[MindInsight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/mindinsight_commands.html)。
 
 ### 以调试模式运行训练脚本
 

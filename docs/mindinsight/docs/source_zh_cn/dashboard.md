@@ -1,6 +1,6 @@
 # 查看训练看板
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_zh_cn/dashboard.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindinsight/docs/source_zh_cn/dashboard.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -8,7 +8,7 @@
 
 用户从训练列表中选择指定的训练，进入训练看板。
 
-> 收集可视化数据及进入训练看板方法可参考《[收集Summary数据](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/summary_record.html)》。
+> 收集可视化数据及进入训练看板方法可参考《[收集Summary数据](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/summary_record.html)》。
 
 ## 标量可视化
 
@@ -99,7 +99,7 @@
 注意：
 
 - 为达到最清晰的计算图可视化效果，请勿使用跨Cell的公共函数。
-- 收集计算图时设置`jit_level`为`o0`，详细请参考[mindspore.Model.build接口定义](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Model.html#mindspore.Model.build) 。
+- 收集计算图时设置`jit_level`为`o0`，详细请参考[mindspore.Model.build接口定义](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore/mindspore.Model.html#mindspore.Model.build) 。
 - 在计算图优化时，不同命名空间中的多个算子可能会因为功能一致而融合，这种情况会导致命名空间之间的连线成环，影响可读性。
 - 暂不支持展示完整的控制流，如需展示请在脚本中指定控制分支。
 
@@ -170,7 +170,7 @@
 
 ## 优化过程可视化
 
-优化过程可视化可以将将神经网络训练路径周围的优化空间展示出来，更多信息请查阅[训练优化过程可视化](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/landscape.html)。
+优化过程可视化可以将将神经网络训练路径周围的优化空间展示出来，更多信息请查阅[训练优化过程可视化](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/landscape.html)。
 
 ## 注意事项
 

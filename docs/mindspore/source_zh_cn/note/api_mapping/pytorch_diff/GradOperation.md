@@ -1,6 +1,6 @@
 # 比较与torch.autograd.backward和torch.autograd.grad的功能差异
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/GradOperation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/GradOperation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## torch.autograd.backward
 
@@ -42,7 +42,7 @@ class mindspore.ops.GradOperation(
 )
 ```
 
-更多内容详见[mindspore.ops.GradOperation](https://mindspore.cn/docs/zh-CN/master/api_python/ops/mindspore.ops.GradOperation.html#mindspore.ops.GradOperation)。
+更多内容详见[mindspore.ops.GradOperation](https://mindspore.cn/docs/zh-CN/r1.7/api_python/ops/mindspore.ops.GradOperation.html#mindspore.ops.GradOperation)。
 
 ## 使用方式
 

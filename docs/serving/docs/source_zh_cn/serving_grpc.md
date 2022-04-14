@@ -1,16 +1,16 @@
 # 基于gRPC接口访问MindSpore Serving服务
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/serving/docs/source_zh_cn/serving_grpc.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/serving/docs/source_zh_cn/serving_grpc.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
-运行示例前，需确保已经正确安装了MindSpore Serving，并配置了环境变量。MindSpore Serving安装和配置可以参考[MindSpore Serving安装页面](https://www.mindspore.cn/serving/docs/zh-CN/master/serving_install.html)。
+运行示例前，需确保已经正确安装了MindSpore Serving，并配置了环境变量。MindSpore Serving安装和配置可以参考[MindSpore Serving安装页面](https://www.mindspore.cn/serving/docs/zh-CN/r1.7/serving_install.html)。
 
-MindSpore Serving提供gRPC接口访问Serving服务。在Python环境下，我们提供[mindspore_serving.client](https://gitee.com/mindspore/serving/blob/master/mindspore_serving/client/python/client.py) 模块用于填写请求、解析回复。Serving服务端运行依赖具体的推理硬件环境，gRPC客户端运行不依赖特定硬件环境。接下来我们通过`add`和`ResNet-50`样例来详细说明gRPC Python客户端接口的使用。
+MindSpore Serving提供gRPC接口访问Serving服务。在Python环境下，我们提供[mindspore_serving.client](https://gitee.com/mindspore/serving/blob/r1.7/mindspore_serving/client/python/client.py) 模块用于填写请求、解析回复。Serving服务端运行依赖具体的推理硬件环境，gRPC客户端运行不依赖特定硬件环境。接下来我们通过`add`和`ResNet-50`样例来详细说明gRPC Python客户端接口的使用。
 
 ## add样例
 
-样例来源于[add example](https://gitee.com/mindspore/serving/blob/master/example/tensor_add/serving_client.py) ，`add` Servable提供的`add_common`方法提供两个2x2 Tensor相加功能。其中gRPC Python客户端代码如下所示，一次gRPC请求包括了三对独立的2x2 Tensor：
+样例来源于[add example](https://gitee.com/mindspore/serving/blob/r1.7/example/tensor_add/serving_client.py) ，`add` Servable提供的`add_common`方法提供两个2x2 Tensor相加功能。其中gRPC Python客户端代码如下所示，一次gRPC请求包括了三对独立的2x2 Tensor：
 
 ```python
 from mindspore_serving.client import Client
@@ -45,7 +45,7 @@ if __name__ == '__main__':
     run_add_common()
 ```
 
-按照[入门流程](https://www.mindspore.cn/serving/docs/zh-CN/master/serving_example.html) 导出模型、启动Serving服务器，并执行上述客户端代码。当运行正常后，将打印以下结果，为了展示方便，格式作了调整：
+按照[入门流程](https://www.mindspore.cn/serving/docs/zh-CN/r1.7/serving_example.html) 导出模型、启动Serving服务器，并执行上述客户端代码。当运行正常后，将打印以下结果，为了展示方便，格式作了调整：
 
 ```text
 [{'y': array([[2., 2.], [2., 2.]], dtype=float32)},
@@ -115,7 +115,7 @@ if __name__ == '__main__':
 
 ## ResNet-50样例
 
-样例来源于[ResNet-50 example](https://gitee.com/mindspore/serving/blob/master/example/resnet/serving_client.py)，`ResNet-50` Servable提供的`classify_top1`方法提供对图像进行识别的服务。`classify_top1`方法输入为图像数据，输出为字符串，方法中预处理对图像进行解码、Resize等操作，接着进行推理，并通过后处理返回得分最大的分类标签。
+样例来源于[ResNet-50 example](https://gitee.com/mindspore/serving/blob/r1.7/example/resnet/serving_client.py)，`ResNet-50` Servable提供的`classify_top1`方法提供对图像进行识别的服务。`classify_top1`方法输入为图像数据，输出为字符串，方法中预处理对图像进行解码、Resize等操作，接着进行推理，并通过后处理返回得分最大的分类标签。
 
 ```python
 import os

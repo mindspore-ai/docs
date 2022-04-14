@@ -1,6 +1,6 @@
 # 优化器迁移指南
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/migration_guide/optim.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/migration_guide/optim.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -247,7 +247,7 @@ MindSpore和PyTorch都支持参数分组且使用方法相似，在使用时都�
 
 > MindSpore和PyTorch各自有部分优化器不支持参数分组，请参考具体优化器的实现。
 
-MindSpore参数分组用法请参考[超参分组](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/network/optim.html#超参分组)；PyTorch参数分组用法参考下述样例：
+MindSpore参数分组用法请参考[超参分组](https://www.mindspore.cn/tutorials/zh-CN/r1.7/advanced/network/optim.html#超参分组)；PyTorch参数分组用法参考下述样例：
 
 ```python
 from torch import optim
@@ -275,7 +275,7 @@ optimizer = torch.optim.SGD([
 
 #### 混合精度
 
-MindSpore中的混合精度场景下，如果使用`FixedLossScaleManager`进行溢出检测，且`drop_overflow_update`为False时，优化器需设置`loss_scale`的值，且`loss_scale`值与`FixedLossScaleManager`的相同，详细使用方法可以参考[优化器的混合精度配置](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/network/optim.html#id12)。PyTorch的混合精度设置不作为优化器入参。
+MindSpore中的混合精度场景下，如果使用`FixedLossScaleManager`进行溢出检测，且`drop_overflow_update`为False时，优化器需设置`loss_scale`的值，且`loss_scale`值与`FixedLossScaleManager`的相同，详细使用方法可以参考[优化器的混合精度配置](https://www.mindspore.cn/tutorials/zh-CN/r1.7/advanced/network/optim.html#id12)。PyTorch的混合精度设置不作为优化器入参。
 
 ### 基类支持的方法
 
@@ -343,7 +343,7 @@ class MomentumOpt(nn.Optimizer):
 
 ## API映射
 
-MindSpore和PyTorch的API对应关系和差异可以参考[API映射](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)，其余暂时没有对应关系的接口目前情况如下：
+MindSpore和PyTorch的API对应关系和差异可以参考[API映射](https://www.mindspore.cn/docs/zh-CN/r1.7/note/api_mapping/pytorch_api_mapping.html)，其余暂时没有对应关系的接口目前情况如下：
 
 ```python
 # PyTorch

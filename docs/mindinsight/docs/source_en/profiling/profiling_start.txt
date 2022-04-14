@@ -2,4 +2,4 @@ Launch MindInsight
 ------------------
 
 The MindInsight launch command can refer to `MindInsight
-Commands <https://www.mindspore.cn/mindinsight/docs/en/master/mindinsight_commands.html>`__.
+Commands <https://www.mindspore.cn/mindinsight/docs/en/r1.7/mindinsight_commands.html>`__.

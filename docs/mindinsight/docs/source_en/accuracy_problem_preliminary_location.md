@@ -1,8 +1,8 @@
 # Guide to Locating Accuracy Problems
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/accuracy_problem_preliminary_location.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindinsight/docs/source_en/accuracy_problem_preliminary_location.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.7/resource/_static/logo_source.png"></a>
 
-This guide aims to provide algorithm developers with a brief and concise guidance for locating accuracy problems. For details about how to locate and optimize accuracy problems, see [Accuracy Problem Locating and Optimization Guide](https://www.mindspore.cn/mindinsight/docs/en/master/accuracy_optimization.html).
+This guide aims to provide algorithm developers with a brief and concise guidance for locating accuracy problems. For details about how to locate and optimize accuracy problems, see [Accuracy Problem Locating and Optimization Guide](https://www.mindspore.cn/mindinsight/docs/en/r1.7/accuracy_optimization.html).
 
 This guide is applicable to the scenario where the training script can run until the training is complete and the loss value of each training step is output. If an error occurs during training, rectify the fault based on the error information.
 
@@ -12,7 +12,7 @@ Two common methods are provided for preliminarily locating accuracy problems: ch
 
 ## Checklist-based Locating Method
 
-When an accuracy problem occurs, you can refer to the following checklist to check the accuracy. If any suspicious problems are found in the checklist, you should try to rectify the problems by referring to [Accuracy Problem Locating and Optimization Guide](https://www.mindspore.cn/mindinsight/docs/en/master/accuracy_optimization.html). If no suspicious problem is found after the checklist is used, you can use other methods to locate and optimize accuracy problems or refer to [Accuracy Problem Locating and Optimization Guide](https://www.mindspore.cn/mindinsight/docs/en/master/accuracy_optimization.html). If you suspect that the accuracy problem is related to the MindSpore framework, ensure that the problems listed in the checklist do not exist before seeking help. For details about how to seek help, see the end of this document.
+When an accuracy problem occurs, you can refer to the following checklist to check the accuracy. If any suspicious problems are found in the checklist, you should try to rectify the problems by referring to [Accuracy Problem Locating and Optimization Guide](https://www.mindspore.cn/mindinsight/docs/en/r1.7/accuracy_optimization.html). If no suspicious problem is found after the checklist is used, you can use other methods to locate and optimize accuracy problems or refer to [Accuracy Problem Locating and Optimization Guide](https://www.mindspore.cn/mindinsight/docs/en/r1.7/accuracy_optimization.html). If you suspect that the accuracy problem is related to the MindSpore framework, ensure that the problems listed in the checklist do not exist before seeking help. For details about how to seek help, see the end of this document.
 
 ### Instructions for Using the Checklist
 
@@ -30,7 +30,7 @@ Check method:
 
 Missing values usually exist in the form of NaN and +/-Inf. Missing value symbols used in different datasets are different. When checking missing values, you need to determine the method of representing missing values in each field, and then use a counter to count the number of missing values in each field. In this way, you can understand the missing values in the dataset.
 
-If the data contains missing values that are not processed, enter "Problem found" in the "Conclusion" field. In this case, you need to take proper measures to handle the problem. For details about the handling methods, see [Accuracy Problem Locating and Optimization Guide](https://www.mindspore.cn/mindinsight/docs/en/master/accuracy_optimization.html).
+If the data contains missing values that are not processed, enter "Problem found" in the "Conclusion" field. In this case, you need to take proper measures to handle the problem. For details about the handling methods, see [Accuracy Problem Locating and Optimization Guide](https://www.mindspore.cn/mindinsight/docs/en/r1.7/accuracy_optimization.html).
 
 Conclusion:
 
@@ -128,9 +128,9 @@ Check method:
 
 Check whether the shuffle function is enabled in the data processing code of the training script. Shuffling the data sequence helps avoid overfitting. If shuffling is not performed, or shuffling is insufficient, a model is always updated in a same data sequence, which severely limits selectability of a gradient optimization direction. As a result, fewer convergence points can be selected and overfitting is easy to occur. The shuffle function can be enabled in any of the following ways:
 
-1. When creating a dataset, set shuffle to True. For example, the shuffle parameter in [mindspore.dataset.Cifar10Dataset](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.Cifar10Dataset.html#mindspore.dataset.Cifar10Dataset).
-2. The shuffle method, for example, [mindspore.dataset.Cifar10Dataset.shuffle](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.Cifar10Dataset.html#mindspore.dataset.Cifar10Dataset.shuffle), is used during data processing.
-3. If the Sampler is used, you can also enable the shuffle function provided by the Sampler. For example, the shuffle parameter in [mindspore.dataset.PKSampler](https://mindspore.cn/docs/en/master/api_python/dataset/mindspore.dataset.PKSampler.html#mindspore.dataset.PKSampler).
+1. When creating a dataset, set shuffle to True. For example, the shuffle parameter in [mindspore.dataset.Cifar10Dataset](https://mindspore.cn/docs/en/r1.7/api_python/dataset/mindspore.dataset.Cifar10Dataset.html#mindspore.dataset.Cifar10Dataset).
+2. The shuffle method, for example, [mindspore.dataset.Cifar10Dataset.shuffle](https://mindspore.cn/docs/en/r1.7/api_python/dataset/mindspore.dataset.Cifar10Dataset.html#mindspore.dataset.Cifar10Dataset.shuffle), is used during data processing.
+3. If the Sampler is used, you can also enable the shuffle function provided by the Sampler. For example, the shuffle parameter in [mindspore.dataset.PKSampler](https://mindspore.cn/docs/en/r1.7/api_python/dataset/mindspore.dataset.PKSampler.html#mindspore.dataset.PKSampler).
 
 For example:
 Take ResNet50 (CIFAR10 dataset) in ModelZoo as an example. The shuffle parameter is set to True when the dataset is created. Therefore, the conclusion is "No problem."
@@ -220,11 +220,11 @@ MindSpore APIs are different from APIs of other frameworks. If the benchmark scr
 
 Here we list some important differences for you to check:
 
-1. By default, the [Conv2d](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d) operator of MindSpore does not have bias (has_bias = False), but the Conv2d operator of PyTorch has bias. By default, the weight of the Conv2d operator is Normal (0.0, 0.01). This initialization mode is different from that of PyTorch (Uniform) and TensorFlow (Uniform). For the comparison with PyTorch, see [Function Differences with torch.nn.Conv2d](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/nn_Conv2d.html)
-2. For the [DropOut](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Dropout.html#mindspore.nn.Dropout) operator of MindSpore, this parameter indicates the retention probability (keep_prob). For the DropOut operator of PyTorch, this parameter indicates the drop probability.
-3. The default momentum value in [BatchNorm2d](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.BatchNorm2d.html#mindspore.nn.BatchNorm2d) of MindSpore is different from that of PyTorch. The default value is 0.1 in PyTorch and 0.9 in MindSpore. For the comparison with PyTorch, see [Function Differences with torch.nn.BatchNorm2d](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_diff/BatchNorm2d.html)
+1. By default, the [Conv2d](https://www.mindspore.cn/docs/en/r1.7/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d) operator of MindSpore does not have bias (has_bias = False), but the Conv2d operator of PyTorch has bias. By default, the weight of the Conv2d operator is Normal (0.0, 0.01). This initialization mode is different from that of PyTorch (Uniform) and TensorFlow (Uniform). For the comparison with PyTorch, see [Function Differences with torch.nn.Conv2d](https://www.mindspore.cn/docs/en/r1.7/note/api_mapping/pytorch_diff/nn_Conv2d.html)
+2. For the [DropOut](https://www.mindspore.cn/docs/en/r1.7/api_python/nn/mindspore.nn.Dropout.html#mindspore.nn.Dropout) operator of MindSpore, this parameter indicates the retention probability (keep_prob). For the DropOut operator of PyTorch, this parameter indicates the drop probability.
+3. The default momentum value in [BatchNorm2d](https://www.mindspore.cn/docs/en/r1.7/api_python/nn/mindspore.nn.BatchNorm2d.html#mindspore.nn.BatchNorm2d) of MindSpore is different from that of PyTorch. The default value is 0.1 in PyTorch and 0.9 in MindSpore. For the comparison with PyTorch, see [Function Differences with torch.nn.BatchNorm2d](https://www.mindspore.cn/docs/en/r1.7/note/api_mapping/pytorch_diff/BatchNorm2d.html)
 
-For details about API differences, see <https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html>.
+For details about API differences, see <https://www.mindspore.cn/docs/en/r1.7/note/api_mapping/pytorch_api_mapping.html>.
 
 For example:
 
@@ -262,7 +262,7 @@ Enter here.
 
 ### Common Computational Graph Structure Problems
 
-To check a computational graph structure, save the computational graph to a summary file by referring to [Collecting Summary Record](https://www.mindspore.cn/mindinsight/docs/en/master/summary_record.html), and then use [MindInsight](https://www.mindspore.cn/mindinsight/docs/en/master/dashboard.html#computational-graph-visualization) to visualize the computational graph.
+To check a computational graph structure, save the computational graph to a summary file by referring to [Collecting Summary Record](https://www.mindspore.cn/mindinsight/docs/en/r1.7/summary_record.html), and then use [MindInsight](https://www.mindspore.cn/mindinsight/docs/en/r1.7/dashboard.html#computational-graph-visualization) to visualize the computational graph.
 
 Conclusion:
 
@@ -284,9 +284,9 @@ Check method:
 
 Check whether the freezing status of the weight is consistent with the design based on the code. There are two ways to freeze weights, both of which have obvious features in the code.
 
-Method 1: Set requires_grad in [Parameter](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter) to False.
+Method 1: Set requires_grad in [Parameter](https://www.mindspore.cn/docs/en/r1.7/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter) to False.
 
-Method 2: Use [stop_gradient](<https://www.mindspore.cn/tutorials/en/master/beginner/autograd.html># %E5%81%9C %E6%AD %A2%E8%AE %A1%E7%AE %97%E6%A2%AF %E5%BA %A6) to prevent the gradient from continuing to propagate backward. After all gradients that affect the weight are blocked, the update of the weight is actually blocked.
+Method 2: Use [stop_gradient](<https://www.mindspore.cn/tutorials/en/r1.7/beginner/autograd.html># %E5%81%9C %E6%AD %A2%E8%AE %A1%E7%AE %97%E6%A2%AF %E5%BA %A6) to prevent the gradient from continuing to propagate backward. After all gradients that affect the weight are blocked, the update of the weight is actually blocked.
 
 Conclusion:
 
@@ -341,15 +341,15 @@ When you run a script on the Ascend backend or use the mixed precision function,
 #### mp.01 Overflow occurs during training
 
 Check method:
-When the [mixed precision](https://www.mindspore.cn/tutorials/experts/en/master/others/mixed_precision.html) or the Ascend AI processor is used for training, you are advised to check whether overflow occurs.
+When the [mixed precision](https://www.mindspore.cn/tutorials/experts/en/r1.7/others/mixed_precision.html) or the Ascend AI processor is used for training, you are advised to check whether overflow occurs.
 
-When using the GPU, you can perform the overflow check through the check tensor overflow watchpoint in the [debugger](https://mindspore.cn/mindinsight/docs/en/master/debugger_online.html#anomaly-check-list).
+When using the GPU, you can perform the overflow check through the check tensor overflow watchpoint in the [debugger](https://mindspore.cn/mindinsight/docs/en/r1.7/debugger_online.html#anomaly-check-list).
 
 After the overflow problem is found, find and analyze the first overflow node. (For Ascend overflow data, find the node with the smallest timestamp based on the timestamp in the file name. For GPU overflow data, find the first node in the execution sequence.) Determine the overflow cause based on the input and output data of the operator.
 
 The common solutions to the overflow problem are as follows:
 
-1. Enable dynamic loss scale or set a proper static loss scale value. For details, see [LossScale](https://www.mindspore.cn/tutorials/experts/en/master/others/mixed_precision.html). Note that when the static loss scale in the GPU scenario is directly used for Ascend training, unexpected frequent overflow may occur, affecting convergence. After the loss scale is enabled, you may need to perform multiple experiments to adjust the init_loss_scale (initial value), scale_factor, and scale_window of loss scale until there are few floating-point overflows during training. For details about these parameters, see [DynamicLossScaleManager](https://www.mindspore.cn/tutorials/experts/en/master/others/mixed_precision.html#dynamiclossscalemanager).
+1. Enable dynamic loss scale or set a proper static loss scale value. For details, see [LossScale](https://www.mindspore.cn/tutorials/experts/en/r1.7/others/mixed_precision.html). Note that when the static loss scale in the GPU scenario is directly used for Ascend training, unexpected frequent overflow may occur, affecting convergence. After the loss scale is enabled, you may need to perform multiple experiments to adjust the init_loss_scale (initial value), scale_factor, and scale_window of loss scale until there are few floating-point overflows during training. For details about these parameters, see [DynamicLossScaleManager](https://www.mindspore.cn/tutorials/experts/en/r1.7/others/mixed_precision.html#dynamiclossscalemanager).
 2. If the overflow problem has a key impact on the accuracy and cannot be avoided, change the corresponding operator to the FP32 operator (the performance may be greatly affected after the adjustment).
 
 Conclusion:
@@ -360,7 +360,7 @@ Enter here.
 
 Check method:
 
-When [mixed precision](https://www.mindspore.cn/tutorials/experts/en/master/others/mixed_precision.html) is used, ensure that [DynamicLossScaleManager](https://www.mindspore.cn/tutorials/experts/en/master/others/mixed_precision.html#dynamiclossscalemanager) (recommended) or [FixedLossScaleManager](https://www.mindspore.cn/tutorials/experts/en/master/others/mixed_precision.html#fixedlossscalemanager) is enabled. You can use the default parameter values of DynamicLossScaleManager or FixedLossScaleManager for training. If there are too many overflow steps and the final accuracy is affected, adjust the value of loss_scale based on the overflow phenomenon. If gradient overflow occurs, decrease the value of loss_scale (by dividing the original value of loss_scale by 2). If gradient underflow occurs, increase the value of loss_scale (by multiplying the original value of loss_scale by 2). In most cases, training on the Ascend AI processor is performed with mixed precision. The computation feature of the Ascend AI processor is different from that of the GPU mixed precision. Therefore, you may need to adjust the value of the LossScaleManager hyperparameter to a value different from that on the GPU based on the training result to ensure the precision.
+When [mixed precision](https://www.mindspore.cn/tutorials/experts/en/r1.7/others/mixed_precision.html) is used, ensure that [DynamicLossScaleManager](https://www.mindspore.cn/tutorials/experts/en/r1.7/others/mixed_precision.html#dynamiclossscalemanager) (recommended) or [FixedLossScaleManager](https://www.mindspore.cn/tutorials/experts/en/r1.7/others/mixed_precision.html#fixedlossscalemanager) is enabled. You can use the default parameter values of DynamicLossScaleManager or FixedLossScaleManager for training. If there are too many overflow steps and the final accuracy is affected, adjust the value of loss_scale based on the overflow phenomenon. If gradient overflow occurs, decrease the value of loss_scale (by dividing the original value of loss_scale by 2). If gradient underflow occurs, increase the value of loss_scale (by multiplying the original value of loss_scale by 2). In most cases, training on the Ascend AI processor is performed with mixed precision. The computation feature of the Ascend AI processor is different from that of the GPU mixed precision. Therefore, you may need to adjust the value of the LossScaleManager hyperparameter to a value different from that on the GPU based on the training result to ensure the precision.
 
 Conclusion:
 
@@ -370,7 +370,7 @@ Enter here.
 
 Check method:
 
-Gradient clip forcibly adjusts the gradient to a smaller value when the gradient is greater than a threshold. Gradient clip has a good effect on the gradient explosion problem in RNNs. If both [loss scale](https://www.mindspore.cn/tutorials/experts/en/master/others/mixed_precision.html) and gradient clip are used, perform this check. Check the code to ensure that the application object of gradient clip is the original gradient value obtained by dividing the loss scale.
+Gradient clip forcibly adjusts the gradient to a smaller value when the gradient is greater than a threshold. Gradient clip has a good effect on the gradient explosion problem in RNNs. If both [loss scale](https://www.mindspore.cn/tutorials/experts/en/r1.7/others/mixed_precision.html) and gradient clip are used, perform this check. Check the code to ensure that the application object of gradient clip is the original gradient value obtained by dividing the loss scale.
 
 Conclusion:
 
@@ -380,7 +380,7 @@ Enter here.
 
 Check method:
 
-Gradient penalty is a technique that adds a gradient to a cost function to constrain the gradient length. If both [loss scale](https://www.mindspore.cn/tutorials/experts/en/master/others/mixed_precision.html) and gradient penalty are used, perform this check. Check whether the entered gradient is a gradient without loss scale when computing the gradient penalty item. For example, a gradient substituted for the loss scale may be first divided by the loss scale, and then is used to compute the gradient penalty item.
+Gradient penalty is a technique that adds a gradient to a cost function to constrain the gradient length. If both [loss scale](https://www.mindspore.cn/tutorials/experts/en/r1.7/others/mixed_precision.html) and gradient penalty are used, perform this check. Check whether the entered gradient is a gradient without loss scale when computing the gradient penalty item. For example, a gradient substituted for the loss scale may be first divided by the loss scale, and then is used to compute the gradient penalty item.
 
 Conclusion:
 
@@ -419,7 +419,7 @@ You are advised to perform the check in simulation mode and compare the results 
 5. Check whether the weight initialization is consistent. You are advised to load the checkpoint file with the same value for the MindSpore script and benchmark script. If the network structures are the same, the checkpoint file of a framework can be converted into the checkpoint file of another framework by simply replacing the weight name.
 6. It is strongly recommended that the mixed precision be enabled in the benchmark script. If an accuracy problem occurs after the mixed precision function of the benchmark script is enabled, the algorithm needs to be optimized to ensure that the algorithm can converge at the mixed precision.
 
-During the comparison, you need to compare the parameters written in the script and pay attention to the default values of the parameters that are not written in the script. For example, for the Conv2d operator of MindSpore, has_bias is set to False by default and Normal (0.0, 0.01) is used to initialize the weight. For the Conv2d operator of PyTorch, has_bias is set to True by default and the initialization mode is different. For details about the API differences between MindSpore and PyTorch, see <https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html>.
+During the comparison, you need to compare the parameters written in the script and pay attention to the default values of the parameters that are not written in the script. For example, for the Conv2d operator of MindSpore, has_bias is set to False by default and Normal (0.0, 0.01) is used to initialize the weight. For the Conv2d operator of PyTorch, has_bias is set to True by default and the initialization mode is different. For details about the API differences between MindSpore and PyTorch, see <https://www.mindspore.cn/docs/en/r1.7/note/api_mapping/pytorch_api_mapping.html>.
 
 After the preceding comparison and fixing processes are executed, some MindSpore scripts are inconsistent. After the inconsistency is rectified, the accuracy problem is solved. If the inconsistency is rectified but the problem persists, run the MindSpore script and benchmark script with the same dataset and parameters to compare the loss.
 
@@ -432,7 +432,7 @@ Note that some operators on the Ascend AI processor do not support FP32 implemen
 
 ## Seeking Help
 
-Use either of the preceding methods to locate the problem. If no doubtful point is found, the script does not have obvious problems. In this case, perform optimization by referring to [Accuracy Optimization Suggestions](https://www.mindspore.cn/mindinsight/docs/en/master/accuracy_optimization.html). If you find any doubt based on symptom comparison, determine whether you need to locate the problem by yourself or contact MindSpore for help based on the information in the locating method. If any doubt or problem is found in the checklist, locate the problem by referring to the [Accuracy Problem Locating and Optimization Guide](https://www.mindspore.cn/mindinsight/docs/en/master/accuracy_optimization.html).
+Use either of the preceding methods to locate the problem. If no doubtful point is found, the script does not have obvious problems. In this case, perform optimization by referring to [Accuracy Optimization Suggestions](https://www.mindspore.cn/mindinsight/docs/en/r1.7/accuracy_optimization.html). If you find any doubt based on symptom comparison, determine whether you need to locate the problem by yourself or contact MindSpore for help based on the information in the locating method. If any doubt or problem is found in the checklist, locate the problem by referring to the [Accuracy Problem Locating and Optimization Guide](https://www.mindspore.cn/mindinsight/docs/en/r1.7/accuracy_optimization.html).
 
 If you encounter an accuracy problem and want to seek help from MindSpore, provide related materials to help us better determine and solve your problem. You are advised to provide the following materials:
 

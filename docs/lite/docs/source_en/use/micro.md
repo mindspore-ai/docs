@@ -2,7 +2,7 @@
 
  `Linux` `IoT` `C++` `codegen` `Beginner` `Intermediate`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/micro.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/lite/docs/source_en/use/micro.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
@@ -16,7 +16,7 @@ The generated source codes are very intuitive and with very small footprint and 
 It is easy to use MindSpore Lite converter tool to generates source codes for x86/ARM64/ARM32A/ARM32M platforms.
 For x86/ARM64/ARM32A, generated source codes call NNACL NN lib to do inference, and call CMSIS-NN lib on ARM32M instead.
 
-1. Use the [MindSpore Lite Converter](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html) to
+1. Use the [MindSpore Lite Converter](https://www.mindspore.cn/lite/docs/en/r1.7/use/converter_tool.html) to
    convert the pre-trained model into target device codes with specifying configuration.
 
 ![img](../images/lite_codegen.png)
@@ -25,8 +25,8 @@ For x86/ARM64/ARM32A, generated source codes call NNACL NN lib to do inference, 
 
 You can obtain codegen by any of the following ways:
 
-1. Download pre-compiled [Release Package](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) from MindSpore.
-2. [Build](https://www.mindspore.cn/lite/docs/en/master/use/build.html) from the source.
+1. Download pre-compiled [Release Package](https://www.mindspore.cn/lite/docs/en/r1.7/use/downloads.html) from MindSpore.
+2. [Build](https://www.mindspore.cn/lite/docs/en/r1.7/use/build.html) from the source.
 
 With below command, it converters MNIST model into codes of x86 target.
 
@@ -72,7 +72,7 @@ Here is the detailed description of parameters:
 
 > debugMode is not available when the filesystem is not supported by os.
 >
-> Please check the [API Document](https://www.mindspore.cn/lite/api/en/master/index.html) to get the detailed API description.
+> Please check the [API Document](https://www.mindspore.cn/lite/api/en/r1.7/index.html) to get the detailed API description.
 >
 > The following 3 interfaces are currently not supported：
 >
@@ -152,7 +152,7 @@ The generated program compilation and deployment need to install the following t
     └── operator_library   # operator source code (needs to be managed)
     ```
 
-> API header files could be found in the [Release Package](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) provided by the MindSpore team.
+> API header files could be found in the [Release Package](https://www.mindspore.cn/lite/docs/en/r1.7/use/downloads.html) provided by the MindSpore team.
 >
 > You need to obtain the source code corresponding to the target platform because the pre-compiled static library is not provided since the Cross compilation on Cortex-M platform is complicated. The corresponding project file structure is provided in the example and you could follow the instructions shown below to copy the source code and finish the compilation.
 
@@ -199,7 +199,7 @@ where target is specified to ARM32M in configure file.
 
     If all success, the environment preparation is done.
 
-2. Generate the initialization codes run on the STM32F746 board. ([detailed code example](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_micro/mnist_stm32f746))
+2. Generate the initialization codes run on the STM32F746 board. ([detailed code example](https://gitee.com/mindspore/mindspore/tree/r1.7/mindspore/lite/examples/quick_start_micro/mnist_stm32f746))
 
     - start STM32CubeMX, new project and choose STM32F746IG.
     - Choose `Makefile` and `generator code`.
@@ -232,7 +232,7 @@ where target is specified to ARM32M in configure file.
     └── test_stm32f746.ioc
     ```
 
-3. Modify makefile, organize operator library source code and generated inference code, check [example](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_micro/mnist_stm32f746) to get detailed information about makefile.
+3. Modify makefile, organize operator library source code and generated inference code, check [example](https://gitee.com/mindspore/mindspore/tree/r1.7/mindspore/lite/examples/quick_start_micro/mnist_stm32f746) to get detailed information about makefile.
 
     ```text
     # C includes
@@ -351,7 +351,7 @@ For the HarmonyOS application development, please refer to [demo](https://device
     └── src
    ```
 
-Download the precompile runtime component for openharmony in [Download page](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html). This is a BUILD.gn example:
+Download the precompile runtime component for openharmony in [Download page](https://www.mindspore.cn/lite/docs/en/r1.7/use/downloads.html). This is a BUILD.gn example:
 
    ```text
    import("//build/lite/config/component/lite_component.gni")
@@ -472,7 +472,7 @@ Copy mnist_benchmark, net.bin and test data(https://download.mindspore.cn/model_
 
 Currently, Users can only register their own kernels for custom operator. We will support registering the built-in operators' kernels in the future. We use Hi3516D board as an example to show you how to use kernel register in codegen.
 
-For how to register custom operators, please refer to [Usage Description of the Integrated NNIE](https://www.mindspore.cn/lite/docs/en/master/use/nnie.html).
+For how to register custom operators, please refer to [Usage Description of the Integrated NNIE](https://www.mindspore.cn/lite/docs/en/r1.7/use/nnie.html).
 
 ### Run codegen
 
@@ -492,7 +492,7 @@ A header file named registered_kernel.h in the generated files. The custom kerne
 int CustomKernel(TensorC *inputs, int input_num, TensorC *outputs, int output_num, CustomParameter *param);
 ```
 
-Users need to implement this function then add their source files to the cmake project. For example, we provide a sample library named libmicro_nnie.so in the nnie runtime package, [download](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html). The library contains the implementation of custom kernel for NNIE. Users can download it and modify the CMakeLists.txt：
+Users need to implement this function then add their source files to the cmake project. For example, we provide a sample library named libmicro_nnie.so in the nnie runtime package, [download](https://www.mindspore.cn/lite/docs/en/r1.7/use/downloads.html). The library contains the implementation of custom kernel for NNIE. Users can download it and modify the CMakeLists.txt：
 
 ``` shell
 link_directories(<YOUR_PATH>/mindspore-lite-1.5.0-linux-aarch32/providers/Hi3516D)
@@ -510,6 +510,6 @@ make
 
 ## More Details
 
-### [Linux_x86_64 platform compile and deploy](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_micro/mnist_x86)
+### [Linux_x86_64 platform compile and deploy](https://gitee.com/mindspore/mindspore/tree/r1.7/mindspore/lite/examples/quick_start_micro/mnist_x86)
 
-### [Android platform compile and deploy](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_micro/mobilenetv2_arm64)
+### [Android platform compile and deploy](https://gitee.com/mindspore/mindspore/tree/r1.7/mindspore/lite/examples/quick_start_micro/mobilenetv2_arm64)
