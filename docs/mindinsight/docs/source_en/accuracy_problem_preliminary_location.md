@@ -1,6 +1,6 @@
 # Guide to Locating Accuracy Problems
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/accuracy_problem_preliminary_location.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindinsight/docs/source_en/accuracy_problem_preliminary_location.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 This guide aims to provide algorithm developers with a brief and concise guidance for locating accuracy problems. For details about how to locate and optimize accuracy problems, see [Accuracy Problem Locating and Optimization Guide](https://www.mindspore.cn/mindinsight/docs/en/master/accuracy_optimization.html).
 

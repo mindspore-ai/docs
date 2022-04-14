@@ -16,7 +16,7 @@ MindSpore docs仓提供了[文档写作要求](https://gitee.com/mindspore/docs/
 
 如果您发现现有文档需要刷新，可点击页面上方的“View Source on Gitee”（如下图所示），跳转至源文件。修改该文件，并提交PR即可参与贡献。
 
-![View Source on Gitee](https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png)
+![View Source on Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png)
 
 #### 新增文档
 
@@ -152,7 +152,7 @@ PR合入后次日，即可在MindSpore官网[Python API页面](https://www.minds
 
 ### 更新/新增图片
 
-如果您发现现有文档中的图片需要更新/新增，可点击页面上方的![View Source on Gitee](https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png)，跳转至源文件。通常图片会存放在./images目录中，只需将需要新增的图片放进这个目录，或将修改后的图片替换原图，并提交PR即可参与贡献。
+如果您发现现有文档中的图片需要更新/新增，可点击页面上方的![View Source on Gitee](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png)，跳转至源文件。通常图片会存放在./images目录中，只需将需要新增的图片放进这个目录，或将修改后的图片替换原图，并提交PR即可参与贡献。
 
 > 请同时把原图一并提交到Gitee，放在与存放图片相同的路径下，方便后续修改。
 
