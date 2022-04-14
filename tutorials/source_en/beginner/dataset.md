@@ -1,6 +1,6 @@
 # Data Processing
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/source_en/beginner/dataset.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/source_en/beginner/dataset.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png"></a>
 
 Data is the foundation of deep learning, and inputting the high-quality data plays an active role in the entire deep neural network.
 
@@ -14,7 +14,7 @@ In the network training and inference process, the raw data is generally stored 
 
 The overall process is shown in the following figure:
 
-![dataset_pipeline](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/beginner/images/dataset_pipeline.png)
+![dataset_pipeline](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/tutorials/source_zh_cn/beginner/images/dataset_pipeline.png)
 
 ### Dataset
 
@@ -38,7 +38,7 @@ After the Dataset loads the data into the memory, the data is organized in a Ten
 
 In the following example, the CIFAR-10 dataset is loaded through the `mindvision.dataset.Cifar10` interface. The CIFAR-10 dataset has a total of 60,000 32*32 color images, which are divided into 10 categories, each with 6,000 maps, and a total of 50,000 training pictures and 10,000 test pictures in the dataset. `Cifar10` interface provides CIFAR-10 dataset download and load capabilities.
 
-![cifar10](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/beginner/images/cifar10.jpg)
+![cifar10](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/tutorials/source_zh_cn/beginner/images/cifar10.jpg)
 
 - `path`: The location of the dataset root directory.
 - `split`: Training, testing or inferencing of the dataset, optionally `train`，`test` or `infer`, `train` by default.

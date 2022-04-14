@@ -1,7 +1,7 @@
 Performance Profiling (Ascend-Graph)
 =====================================
 
-.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png
+.. image:: https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png
    :target: https://gitee.com/mindspore/docs/blob/r1.7/docs/mindinsight/docs/source_en/performance_profiling_ascend.rst
 
 Overview

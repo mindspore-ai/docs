@@ -1,6 +1,6 @@
 # TensorFlow and MindSpore
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_en/note/api_mapping/tensorflow_api_mapping.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_en/note/api_mapping/tensorflow_api_mapping.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png"></a>
 
 Mapping between TensorFlow APIs and MindSpore APIs, which is provided by the community. There may be differences in parameters, inputs, outputs, logic functions, and specific scenarios. For details, see the description of each API or the difference comparison provided.
 

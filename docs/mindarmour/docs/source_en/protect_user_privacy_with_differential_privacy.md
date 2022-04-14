@@ -1,6 +1,6 @@
 # Protecting User Privacy with Differential Privacy Mechanism
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindarmour/docs/source_en/protect_user_privacy_with_differential_privacy.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindarmour/docs/source_en/protect_user_privacy_with_differential_privacy.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 

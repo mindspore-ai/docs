@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `设计`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/design/all_scenarios_architecture.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/design/all_scenarios_architecture.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source.png"></a>
 
 MindSpore旨在提供端边云全场景的AI框架。MindSpore可部署于端、边、云不同的硬件环境，满足不同环境的差异化需求，如支持端侧的轻量化部署，支持云侧丰富的训练功能如自动微分、混合精度、模型易用编程等。
 
