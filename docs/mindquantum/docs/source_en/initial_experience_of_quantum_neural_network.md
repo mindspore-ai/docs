@@ -2,7 +2,7 @@
 
 Translator: [unseenme](https://gitee.com/unseenme)
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindquantum/docs/source_en/initial_experience_of_quantum_neural_network.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindquantum/docs/source_en/initial_experience_of_quantum_neural_network.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png"></a>
 
 ## Structure of Quantum Neural Network
 

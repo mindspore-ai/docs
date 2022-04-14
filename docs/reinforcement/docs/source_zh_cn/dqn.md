@@ -1,6 +1,6 @@
 # 使用MindSpore Reinforcement实现深度Q学习（DQN）
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/reinforcement/docs/source_zh_cn/dqn.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/reinforcement/docs/source_zh_cn/dqn.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source.png"></a>
 &nbsp;&nbsp;
 
 ## 摘要
@@ -11,7 +11,7 @@
 - 基于Actor-Learner-Environment抽象实现算法；
 - 创建一个执行已实现的算法的会话对象。
 
-本教程展示了使用MindSpore Reinforcement API实现深度Q学习（DQN）算法。注：为保证清晰性和可读性，仅显示与API相关的代码，不相关的代码已省略。点击[此处](https://gitee.com/mindspore/reinforcement/tree/master/example/dqn)获取MindSpore Reinforcement实现完整DQN的源代码。
+本教程展示了使用MindSpore Reinforcement API实现深度Q学习（DQN）算法。注：为保证清晰性和可读性，仅显示与API相关的代码，不相关的代码已省略。点击[此处](https://gitee.com/mindspore/reinforcement/tree/r0.3/example/dqn)获取MindSpore Reinforcement实现完整DQN的源代码。
 
 ## 指定DQN的Actor-Learner-Environment抽象
 
@@ -63,7 +63,7 @@ algorithm_config = {
 
 对于DQN算法，我们配置了一个Actor `'number': 1`，它的Python类`'type': DQNActor`，以及三个行为策略`'policies': ['init_policy', 'collect_policy', 'evaluate_policy']`。
 
-其他组件也以类似的方式定义。有关更多详细信息，请参阅[完整代码示例](https://gitee.com/mindspore/reinforcement/tree/master/example/dqn)和[API](https://www.mindspore.cn/reinforcement/docs/zh-CN/master/reinforcement.html)。
+其他组件也以类似的方式定义。有关更多详细信息，请参阅[完整代码示例](https://gitee.com/mindspore/reinforcement/tree/r0.3/example/dqn)和[API](https://www.mindspore.cn/reinforcement/docs/zh-CN/r0.3/reinforcement.html)。
 
 请注意，MindSpore Reinforcement使用单个*policy*类来定义算法使用的所有策略和神经网络。通过这种方式，它隐藏了策略和神经网络之间数据共享和通信的复杂性。
 
@@ -186,7 +186,7 @@ def train_one_episode(self):
 
 `train_one_episode`方法首先调用环境的`reset`方法，`self.msrl.collect_environment.reset()`函数来重置环境。然后，它使用`self.msrl.agent_act`函数处理程序从环境中收集经验，并通过`self.msrl.replay_buffer_insert`把经验存入到回放缓存中。在收集完经验后，使用`msrl.agent_learn`函数训练目标模型。`self.msrl.agent_learn`的输入是`self.msrl.replay_buffer_sample`返回的采样结果。
 
-回放缓存`ReplayBuffer`由MindSpore Reinfocement提供。它定义了`insert`和`sample`方法，分别用于对经验数据进行存储和采样。详细信息，请参阅[完整的DQN代码示例](https://gitee.com/mindspore/reinforcement/tree/master/example/dqn)。
+回放缓存`ReplayBuffer`由MindSpore Reinfocement提供。它定义了`insert`和`sample`方法，分别用于对经验数据进行存储和采样。详细信息，请参阅[完整的DQN代码示例](https://gitee.com/mindspore/reinforcement/tree/r0.3/example/dqn)。
 
 ### 定义DQNPolicy类
 

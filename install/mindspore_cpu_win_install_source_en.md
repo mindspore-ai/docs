@@ -39,7 +39,7 @@ For the detailed steps, see the third-party dependency software installation sec
 ## Downloading Source Code from Code Repository
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
+git clone https://gitee.com/mindspore/mindspore.git -b r1.7
 ```
 
 ## Compiling MindSpore

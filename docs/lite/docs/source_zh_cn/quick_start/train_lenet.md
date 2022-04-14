@@ -66,7 +66,7 @@ MNIST_Data/
 通过`git`克隆源码，进入源码目录，`Linux`指令如下：
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git -b {version}
+git clone https://gitee.com/mindspore/mindspore.git -b r1.7
 cd ./mindspore
 ```
 

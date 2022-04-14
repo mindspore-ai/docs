@@ -5,7 +5,7 @@ MindSpore Reinforcement is an open-source reinforcement learning framework that 
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/reinforcement/docs/source_en/reinforcement_en.png" width="700px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/docs/reinforcement/docs/source_en/reinforcement_en.png" width="700px" alt="" >
 
 Unique Design Features
 -----------------------
@@ -30,7 +30,7 @@ Future Roadmap
 Typical MindSpore Reinforcement Application Scenarios
 ------------------------------------------------------
 
-- `Train a deep Q network <https://www.mindspore.cn/reinforcement/docs/en/master/dqn.html>`_
+- `Train a deep Q network <https://www.mindspore.cn/reinforcement/docs/en/r0.3/dqn.html>`_
 
   The DQN algorithm uses an experience replay technique to maintain previous observations for off-policylearning.
 

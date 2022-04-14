@@ -5,20 +5,20 @@ MindQuantum是基于昇思MindSpore开源深度学习框架和HiQ量子计算云
 
 .. raw:: html
 
-   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindquantum/docs/source_zh_cn/images/mindquantum_cn.png" width="700px" alt="" >
+   <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/docs/mindquantum/docs/source_zh_cn/images/mindquantum_cn.png" width="700px" alt="" >
 
 使用MindQuantum的典型场景
 ------------------------------
 
-1. `量子机器学习 <https://www.mindspore.cn/mindquantum/docs/zh-CN/master/qnn_for_nlp.html>`_
+1. `量子机器学习 <https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.6/qnn_for_nlp.html>`_
 
    将量子神经网络加入训练过程，提高收敛精度。
 
-2. `量子化学模拟 <https://www.mindspore.cn/mindquantum/docs/zh-CN/master/vqe_for_quantum_chemistry.html>`_
+2. `量子化学模拟 <https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.6/vqe_for_quantum_chemistry.html>`_
 
    使用量子变分求解器，求解分子体系基态能量。
 
-3. `量子组合优化 <https://www.mindspore.cn/mindquantum/docs/zh-CN/master/quantum_approximate_optimization_algorithm.html>`_
+3. `量子组合优化 <https://www.mindspore.cn/mindquantum/docs/zh-CN/r0.6/quantum_approximate_optimization_algorithm.html>`_
 
    利用QAOA算法来解决最大割问题。
 

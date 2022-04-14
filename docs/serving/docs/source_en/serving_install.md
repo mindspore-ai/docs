@@ -53,7 +53,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/Servin
 Install Serving using the [source code](https://gitee.com/mindspore/serving).
 
 ```shell
-git clone https://gitee.com/mindspore/serving.git -b master
+git clone https://gitee.com/mindspore/serving.git -b r1.7
 cd serving
 bash build.sh
 ```

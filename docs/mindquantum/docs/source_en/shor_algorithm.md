@@ -2,7 +2,7 @@
 
 Translator: [redundan3y](https://gitee.com/redundan3y)
 
-[![View Source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/master/docs/mindquantum/docs/source_en/shor_algorithm.md)
+[![View Source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/r1.7/docs/mindquantum/docs/source_en/shor_algorithm.md)
 
 ## Introduction to Shor's Algorithm
 
@@ -52,7 +52,7 @@ Taking $N=15$ as an example, the steps of Shor's algorithm is introduced as foll
 
 The quantum circuit of Shor's algorithm is shown as follows,
 
-![shor's algorithm circuit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindquantum/docs/source_zh_cn/images/shor_algorithm_circuit.png)
+![shor's algorithm circuit](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/docs/mindquantum/docs/source_zh_cn/images/shor_algorithm_circuit.png)
 
 ## Implement Shor's algorithm using MindQuantum
 
