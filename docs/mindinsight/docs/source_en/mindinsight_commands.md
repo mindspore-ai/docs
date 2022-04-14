@@ -16,6 +16,9 @@ mindinsight --version
 
 ## Start the Service
 
+> MindInsight service only supports local access by default. For remote access, please modify the configuration file `mindinsight\conf\constants.py`.
+> Modify the `HOST` in the file to the server IP, and make sure that the startup port has been opened or the firewall has been closed.
+
 ```text
 mindinsight start [-h] [--workspace <WORKSPACE>] [--port <PORT>]
                   [--url-path-prefix <URL_PATH_PREFIX>]
