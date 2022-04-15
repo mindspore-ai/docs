@@ -65,7 +65,7 @@ res = model.eval(dataset)
 
 <font size=3>**Q: How do I use `param_group` in SGD to reduce the learning rate?**</font>
 
-A: To change the value according to `epoch`, use [Dynamic LR](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#dynamic-lr%E5%87%BD%E6%95%B0) and set `step_per_epoch` to `step_size`. To change the value according to `step`, set `step_per_epoch` to 1. You can also use [LearningRateSchedule](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#dynamic-learning-rate).
+A: To change the value according to `epoch`, use [Dynamic LR](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#dynamic-lr) and set `step_per_epoch` to `step_size`. To change the value according to `step`, set `step_per_epoch` to 1. You can also use [LearningRateSchedule](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#learningrateschedule-class).
 
 <br/>
 
@@ -283,7 +283,7 @@ A: First, enter the `PTH` file of PyTorch. Taking `ResNet-18` as an example, the
 
 <font size=3>**Q: What are the available recommendation or text generation networks or models provided by MindSpore?**</font>
 
-A: Currently, recommendation models such as Wide & Deep, DeepFM, and NCF are under development. In the natural language processing (NLP) field, Bert\_NEZHA is available and models such as MASS are under development. You can rebuild the network into a text generation network based on the scenario requirements. Please stay tuned for updates on the [MindSpore ModelZoo](https://gitee.com/mindspore/models/tree/master).
+A: Currently, recommendation models such as Wide & Deep, DeepFM, and NCF are under development. In the natural language processing (NLP) field, Bert\_NEZHA is available and models such as MASS are under development. You can rebuild the network into a text generation network based on the scenario requirements. Please stay tuned for updates on the [MindSpore ModelZoo](https://gitee.com/mindspore/models/blob/master/README.md).
 
 <br/>
 

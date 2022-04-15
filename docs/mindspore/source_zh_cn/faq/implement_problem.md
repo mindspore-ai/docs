@@ -65,7 +65,7 @@ res = model.eval(dataset)
 
 <font size=3>**Q: 如何使用SGD里的`param_group`来实现学习率的衰减？**</font>
 
-A: 如果需要按照`epoch`来变化，可以使用[Dynamic LR](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.html#dynamic-lr),把其中的`step_per_epoch`设置成`step_size`，如果需要按照`step`来变化，可以把其中的`step_per_epoch`设置成1，也可以用[LearningRateSchedule](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.html#dynamic-learning-rate)。
+A: 如果需要按照`epoch`来变化，可以使用[Dynamic LR](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.html#dynamic-lr函数),把其中的`step_per_epoch`设置成`step_size`，如果需要按照`step`来变化，可以把其中的`step_per_epoch`设置成1，也可以用[LearningRateSchedule](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.html#learningrateschedule)。
 
 <br/>
 
@@ -267,7 +267,7 @@ A: 首先输入PyTorch的`pth`文件，以`ResNet-18`为例，MindSpore的网络
 
 <font size=3>**Q: MindSpore有哪些现成的推荐类或生成类网络或模型可用？**</font>
 
-A: 目前正在开发Wide & Deep、DeepFM、NCF等推荐类模型，NLP领域已经支持Bert_NEZHA，正在开发MASS等模型，用户可根据场景需要改造为生成类网络，可以关注[MindSpore ModelZoo](https://gitee.com/mindspore/models/tree/master)。
+A: 目前正在开发Wide & Deep、DeepFM、NCF等推荐类模型，NLP领域已经支持Bert_NEZHA，正在开发MASS等模型，用户可根据场景需要改造为生成类网络，可以关注[MindSpore ModelZoo](https://gitee.com/mindspore/models/blob/master/README_CN.md)。
 
 <br/>
 

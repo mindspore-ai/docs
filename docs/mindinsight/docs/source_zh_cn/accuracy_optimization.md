@@ -261,7 +261,7 @@ MindInsight可以辅助用户对超参做检查，大多数情况下，`SummaryC
 
 考虑到模型结构一般都很复杂，期望在这一步就能发现所有的模型结构问题是不现实的。只要通过可视化的模型结构加深对计算图的理解，发现明显的结构问题即可。后面的步骤中，发现了更明确的精度问题现象后，我们还会回到这一步重新检查确认。
 
-> MindInsight支持查看`SummaryCollector`记录的计算图和MindSpore context的`save_graphs`参数导出的pb文件计算图。请参考我们教程中的[计算图可视化](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/dashboard.html)部分了解更多信息。
+> MindInsight支持查看`SummaryCollector`记录的计算图和MindSpore context的`save_graphs`参数导出的pb文件计算图。请参考我们教程中的[计算图可视化](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/dashboard.html#计算图可视化)部分了解更多信息。
 >
 > 脚本迁移工具可以将PyTorch、TensorFlow框架下编写的模型转换为MindSpore脚本，请访问教程[使用工具迁移模型定义脚本](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/migrate_3rd_scripts_mindconverter.html)以了解更多信息。
 
@@ -614,6 +614,6 @@ AI训练中的超参包含全局学习率，epoch和batch等，如果需要在�
 
 需要重构模型结构时，可参考资料：[Cell构建及其子类](https://www.mindspore.cn/docs/zh-CN/master/api_python/nn/mindspore.nn.Cell.html)。
 
-选择合适的损失函数，可参考资料：[损失函数算子支持列表](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.html#loss-functions)。
+选择合适的损失函数，可参考资料：[损失函数算子支持列表](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.html#损失函数)。
 
-选择合适的优化器时，可参考资料：[优化器算子支持列表](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.html#optimizer-functions)。
+选择合适的优化器时，可参考资料：[优化器算子支持列表](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.html#优化器)。
