@@ -27,7 +27,7 @@
 
 ### Downloading Data Package
 
-Please follow the [Downloading Data Package](https://www.mindspore.cn/xai/docs/en/master/using_explainers.html#id4) instructions to download the necessary files for the tutorial.
+Please follow the [Downloading Data Package](https://www.mindspore.cn/xai/docs/en/master/using_explainers.html#downloading-data-package) instructions to download the necessary files for the tutorial.
 
 ### Preparing the Script
 
