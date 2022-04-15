@@ -12,7 +12,7 @@
         - [Installing git, gmp, tclsh, patch, NUMA and Flex](#installing-git-gmp-tclsh-patch-numa-and-flex)
         - [Installing git-lfs](#installing-git-lfs)
         - [Installing CMake](#installing-cmake)
-        - [Installing Open MPI (Optional)](#installing-open-mpi-optional)
+        - [Installing Open MPI-optional](#installing-open-mpi-optional)
     - [Downloading the Source Code from the Code Repository](#downloading-the-source-code-from-the-code-repository)
     - [Compiling MindSpore](#compiling-mindspore)
     - [Installing MindSpore](#installing-mindspore)
@@ -267,7 +267,7 @@ pip install -U setuptools
     source ~/.bashrc
     ```
 
-### Installing Open MPI (optional)
+### Installing Open MPI-optional
 
 Run the following command to compile and install [Open MPI](https://www.open-mpi.org/).
 
