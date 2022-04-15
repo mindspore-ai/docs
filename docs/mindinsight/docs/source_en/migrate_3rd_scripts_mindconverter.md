@@ -12,7 +12,7 @@ Moreover, this tool is able to transform the model file of PyTorch to MindSpore 
 
 ## Quick Starts
 
-MindConverter installation is described in [Install Tools](#install-tools). After the installation, you will have the MindConverter CLI and MindConverter API with the basic usage as follows.
+MindConverter installation is described in [Install Tools](https://www.mindspore.cn/mindinsight/docs/en/master/migrate_3rd_scripts_mindconverter.html#install-tools). After the installation, you will have the MindConverter CLI and MindConverter API with the basic usage as follows.
 
 ### Start with MindConverter CLI
 
@@ -28,10 +28,10 @@ mindconverter --model_file /path/to/model_file --shape SHAPE --input_nodes INPUT
 
 Notes:
 
-1. The model file is in `onnx` format. If the model input shape is a static value, just specify `-- model_ file` to complete the conversion. Otherwise, you need to specify `--shape` and `--input_nodes` to complete the conversion. `--output_nodes` can be omitted. For model input shape judgment, please refer to [Determine the form of model input shape](#determine-the-form-of-model-input-shape).
+1. The model file is in `onnx` format. If the model input shape is a static value, just specify `-- model_ file` to complete the conversion. Otherwise, you need to specify `--shape` and `--input_nodes` to complete the conversion. `--output_nodes` can be omitted. For model input shape judgment, please refer to [Determine the form of model input shape](https://www.mindspore.cn/mindinsight/docs/en/master/migrate_3rd_scripts_mindconverter.html#determine-the-form-of-model-input-shape).
 2. The model file is in `pb` format without special scenarios.
 
-For more CLI arguments, please refer to [MindConverter CLI Usage](#mindconverter-cli-usage).
+For more CLI arguments, please refer to [MindConverter CLI Usage](https://www.mindspore.cn/mindinsight/docs/en/master/migrate_3rd_scripts_mindconverter.html#mindconverter-cli-usage).
 
 ### Start with MindConverter API
 
@@ -48,7 +48,7 @@ For the usage of API, please refer to [MindConverter API Description](https://ww
 
 ### Install Dependencies
 
-The following dependencies are required for MindConverter usage and suggested to be installed under the x86 environment. Refer to [installation](#install-dependencies-under-arm) under the ARM environment.
+The following dependencies are required for MindConverter usage and suggested to be installed under the x86 environment. Refer to [installation](https://www.mindspore.cn/mindinsight/docs/en/master/migrate_3rd_scripts_mindconverter.html#install-dependencies-under-arm) under the ARM environment.
 
 #### Start with MindConverter CLI
 
@@ -132,17 +132,17 @@ A typical model project contains 4 main components. Tips for migrating each comp
 - Model definition（`model.py`）
   1. Transform the model structure with MindConverter CLI.
   2. Manually enhance the readability of the generated model scripts(Optional).
-  3. Mix the generated model with the original project to validate equivalence of the migration. Refer to [FAQ](#mix-the-mindspore-model-into-the-original-training-scripts).
+  3. Mix the generated model with the original project to validate equivalence of the migration. Refer to [FAQ](https://www.mindspore.cn/mindinsight/docs/en/master/migrate_3rd_scripts_mindconverter.html#mix-the-mindspore-model-into-the-original-training-scripts).
 - Data processing（`dataset.py`）
   1. For a built-in dataset, please query [API mapping](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html) for migration.
-  2. For a customized dataset and data augmentation, please refer to [the migration template](#step-2-migrate-the-data-processing).
+  2. For a customized dataset and data augmentation, please refer to [the migration template](https://www.mindspore.cn/mindinsight/docs/en/master/migrate_3rd_scripts_mindconverter.html#step-2-migrate-the-data-processing).
 - Model training（`train.py`）
   1. The loss function(`loss_fn`) can be migrated by querying [API mapping](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html) or user's implementation.
   2. The optimizer(`optimizer`) can be migrated by querying [API mapping](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html) or user's implementation.
-  3. As the training codes could be flexible and significantly different from MindSpore, implementation by the users is recommended. Please refer to [FAQ](#step-3-migrate-the-model-training).
+  3. As the training codes could be flexible and significantly different from MindSpore, implementation by the users is recommended. Please refer to [FAQ](https://www.mindspore.cn/mindinsight/docs/en/master/migrate_3rd_scripts_mindconverter.html#step-3-migrate-the-model-training).
 - Model evaluation（`eval.py`）
   1. The metric(`metric`) can be migrated by querying [API mapping](https://www.mindspore.cn/docs/en/master/note/api_mapping/pytorch_api_mapping.html) or user's implementation.
-  2. As the evaluation codes could be flexible and significantly different from MindSpore, implementation by the users is recommended. Please refer to [FAQ](#step-4-migrate-the-model-evaluation).
+  2. As the evaluation codes could be flexible and significantly different from MindSpore, implementation by the users is recommended. Please refer to [FAQ](https://www.mindspore.cn/mindinsight/docs/en/master/migrate_3rd_scripts_mindconverter.html#step-4-migrate-the-model-evaluation).
 
 ## Practice Guidance
 
@@ -152,7 +152,7 @@ Exporting ONNX model file from PyTorch model(refer to [FAQ](#export-the-model-fi
 
 1. Download source codes, weights file and relevant dataset files of the model project.
 
-2. Dive into the model definition. Make sure that all parameters of the `forward` function are Tensor type. Please refer to [FAQ](#rectify-parameters-of-forward-function-definition).
+2. Dive into the model definition. Make sure that all parameters of the `forward` function are Tensor type. Please refer to [FAQ](https://www.mindspore.cn/mindinsight/docs/en/master/migrate_3rd_scripts_mindconverter.html#rectify-parameters-of-forward-function-definition).
 
 3. Locate the model object and the input shape information from the model evaluation. Export the model object into onnx format.
 
@@ -186,7 +186,7 @@ Exporting ONNX model file from PyTorch model(refer to [FAQ](#export-the-model-fi
 
 ### Step 1:Migrate the model definition
 
-Run the following MindConverter CLI to generate the model scripts(`model.py`), weights information(`ckpt`), [migration reports and weights mapping](#migration-reports-and-weights-mapping).
+Run the following MindConverter CLI to generate the model scripts(`model.py`), weights information(`ckpt`), [migration reports and weights mapping](https://www.mindspore.cn/mindinsight/docs/en/master/migrate_3rd_scripts_mindconverter.html#migration-reports-and-weights-mapping).
 
 ```shell
 mindconverter --model_file /path/to/model.onnx
