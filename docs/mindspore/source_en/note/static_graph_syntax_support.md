@@ -377,7 +377,7 @@ Currently, the attributes and APIs related to `Primitive` and its subclasses can
 
 For details about the definition of `Primitive`, click <https://www.mindspore.cn/tutorials/experts/en/master/operation/op_classification.html>.
 
-For details about the defined `Primitive`, click <https://www.mindspore.cn/docs/en/master/api_python/mindspore.ops.html>.
+For details about the defined `Primitive`, click <https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive>.
 
 #### Cell
 
@@ -389,7 +389,7 @@ Currently, the attributes and APIs related to `Cell` and its subclasses cannot b
 
 For details about the definition of `Cell`, click <https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html>.
 
-For details about the defined `Cell`, click <https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html>.
+For details about the defined `Cell`, click <https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell>.
 
 #### Parameter
 
@@ -451,7 +451,7 @@ Index value of `List` refers to chapter [List](#list) of this page.
 
 Index value of `Dictionary` refers to chapter [Dictionary](#dictionary) of this page.
 
-Index value of `Tensor` refers to  <https://www.mindspore.cn/docs/en/master/note/index_support.html>
+Index value of `Tensor` refers to  <https://www.mindspore.cn/docs/en/master/note/index_support.html#index-values>
 
 ### Calls
 
@@ -491,7 +491,7 @@ Arithmetic operators and assignment operators support the `Number` and `Tensor` 
 
 This is because these operators are converted to operators with the same name for computation, and they support implicit type conversion.
 
-For details about the rules, click <https://www.mindspore.cn/docs/en/master/note/operator_list_implicit.html>.
+For details about the rules, click <https://www.mindspore.cn/docs/en/master/note/operator_list_implicit.html#conversion-rules>.
 
 ### Unary Arithmetic Operators
 
@@ -543,7 +543,7 @@ Notes:
 
   Only instance of `Cell` and `Primitve` can be created in function construct, the statement like `xx = Tensor(...)` is forbidden.
 
-  Only `Parameter` attribute of self can be assigned, for more detail refer to [Attribute Reference](#attribute-references).
+  Only `Parameter` attribute of self can be assigned, for more detail refer to [Attribute Reference](https://www.mindspore.cn/docs/en/master/note/static_graph_syntax_support.html#attribute-references).
 
 - If all operands of  `AugAssign` are `Number` type, value of Number can't be `Bool`.
 

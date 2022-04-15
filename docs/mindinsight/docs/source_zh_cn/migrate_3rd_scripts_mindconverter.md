@@ -12,7 +12,7 @@ MindConverter是一款模型迁移工具，可将PyTorch(ONNX)或Tensorflow(PB)�
 
 ## 快速开始
 
-安装MindConverter请参考[工具安装](#id5)，安装完成后可获得命令行和API如下：
+安装MindConverter请参考[工具安装](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/migrate_3rd_scripts_mindconverter.html#工具安装)，安装完成后可获得命令行和API如下：
 
 ### 使用命令行
 
@@ -28,10 +28,10 @@ mindconverter --model_file /path/to/model_file --shape SHAPE --input_nodes INPUT
 
 注意事项：
 
-1. 模型文件为`onnx`格式，如果模型输入shape是静态数值，只需要指定`--model_file`即可完成转换；否则需要指定`--shape`和`--input_nodes`才可完成转换；`--output_nodes`可省略。模型输入shape判断请参考[常见问题](#shape)。
+1. 模型文件为`onnx`格式，如果模型输入shape是静态数值，只需要指定`--model_file`即可完成转换；否则需要指定`--shape`和`--input_nodes`才可完成转换；`--output_nodes`可省略。模型输入shape判断请参考[常见问题](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/migrate_3rd_scripts_mindconverter.html#常见问题)。
 2. 模型文件为`pb`格式，无特殊场景。
 
-更多CLI参数请参考[命令行参数说明](#id19)。
+更多CLI参数请参考[命令行参数说明](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/migrate_3rd_scripts_mindconverter.html#命令行参数说明)。
 
 ### 使用API
 
@@ -48,7 +48,7 @@ API使用方法请参考[MindConvrter API描述](https://www.mindspore.cn/mindin
 
 ### 环境依赖
 
-使用MindConverter前需要安装以下依赖包，建议在x86环境下安装。ARM环境请参考[常见问题](#arm)。
+使用MindConverter前需要安装以下依赖包，建议在x86环境下安装。ARM环境请参考[常见问题](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/migrate_3rd_scripts_mindconverter.html#arm环境安装依赖组件)。
 
 #### 使用命令行
 
@@ -131,27 +131,27 @@ git clone https://gitee.com/mindspore/mindinsight.git
 - 模型定义（`model.py`）
   1. 使用MindConverter工具转换模型结构。
   2. 手工调整可读性（可选）。
-  3. 转换后的模型内嵌到原框架工程，验证转换等价性，参考[常见问题](#mindspore)。
+  3. 转换后的模型内嵌到原框架工程，验证转换等价性，参考[常见问题](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/migrate_3rd_scripts_mindconverter.html#mindspore模型内嵌到原框架)。
 - 数据处理（`dataset.py`）
   1. 内置数据集可查询[接口映射](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)辅助转换。
-  2. 自定义数据集与相关数据处理，可参考[转换模板](#id16)。
+  2. 自定义数据集与相关数据处理，可参考[转换模板](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/migrate_3rd_scripts_mindconverter.html#第2步-转换数据处理)。
 - 模型训练（`train.py`）
   1. 损失函数（`loss_fn`），可查询[接口映射](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)或自定义实现。
   2. 优化器（`optimizer`），可查询[接口映射](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)或自定义实现。
-  3. 模型训练的代码比较灵活，代码组织风格与MindSpore图模式差异较大，建议自行实现，参考[转换模板](#id17)。
+  3. 模型训练的代码比较灵活，代码组织风格与MindSpore图模式差异较大，建议自行实现，参考[转换模板](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/migrate_3rd_scripts_mindconverter.html#第3步-转换模型训练)。
 - 模型推理（`eval.py`）
   1. 度量指标（`metric`），可查询[接口映射](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)或自定义实现。
-  2. 模型推理的代码比较灵活，代码组织风格与MindSpore图模式差异较大，建议自行实现，参考[转换模板](#id18)。
+  2. 模型推理的代码比较灵活，代码组织风格与MindSpore图模式差异较大，建议自行实现，参考[转换模板](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/migrate_3rd_scripts_mindconverter.html#第4步-转换模型推理)。
 
 ## 实践步骤
 
 ### 第0步：导出模型文件
 
-以PyTorch框架为例导出ONNX模型文件（Tensorflow框架请参考[常见问题](#tensorflow)），需要Pytorch算子支持相应的ONNX算子，详情参考[Pytorch](https://pytorch.org/docs/stable/onnx.html#supported-operators)与[ONNX](https://github.com/onnx/onnx/blob/master/docs/Operators.md#)的算子列表，操作步骤如下：
+以PyTorch框架为例导出ONNX模型文件（Tensorflow框架请参考[常见问题](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/migrate_3rd_scripts_mindconverter.html#tensorflow模型导出)），需要Pytorch算子支持相应的ONNX算子，详情参考[Pytorch](https://pytorch.org/docs/stable/onnx.html#supported-operators)与[ONNX](https://github.com/onnx/onnx/blob/master/docs/Operators.md#)的算子列表，操作步骤如下：
 
 1. 下载网络模型工程的源码、权重文件、数据集。
 
-2. 分析模型定义代码，整改`forward`函数的入参列表，确保入参均为Tensor类型，参考[常见问题](#forward)。
+2. 分析模型定义代码，整改`forward`函数的入参列表，确保入参均为Tensor类型，参考[常见问题](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/migrate_3rd_scripts_mindconverter.html#整改forward参数列表)。
 
 3. 从模型推理的代码中，识别模型对象（`model`）与输入的`shape`信息，导出ONNX文件。
 
@@ -184,7 +184,7 @@ git clone https://gitee.com/mindspore/mindinsight.git
 
 ### 第1步：转换模型定义
 
-执行MindConverter CLI命令，生成MindSpore模型文件（`model.py`）、权重信息（`ckpt`）、[转换报告与权重映射表](#id18)。
+执行MindConverter CLI命令，生成MindSpore模型文件（`model.py`）、权重信息（`ckpt`）、[转换报告与权重映射表](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/migrate_3rd_scripts_mindconverter.html#转换报告与权重映射表)。
 
 ```shell
 mindconverter --model_file /path/to/model.onnx
