@@ -31,9 +31,14 @@ def dupname(node, name):
 
 before = "            node['ids'].append(id)"
 after = """\
+        import re
         if node['names']:
             id = node['names'][0]
-            id = short_title(id)
+            zhPattern = re.findall(r'[\u4e00-\u9fa5]',id)
+            if not zhPattern and "." in id:
+                pass
+            else:
+                id = short_title(id)
             self.id_counter[id] += 1
             if self.id_counter[id] > 1:
                 id = '{}-{}'.format(id, self.id_counter[id]-1)
