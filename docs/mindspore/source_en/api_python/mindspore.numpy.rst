@@ -546,6 +546,8 @@ Since `mindspore.numpy` directly wraps MindSpore tensors and operators, it has a
 - `mindspore.context`: for `mindspore.numpy` execution management.
 - `mindspore.nn.Cell`: for using `mindspore.numpy` interfaces in MindSpore Deep Learning Models.
 
+The following are examples:
+
 - Use ms_function to run code in static graph mode
 
     Let's first see an example consisted of matrix multiplication and bias add, which is a typical process in Neural Networks:
