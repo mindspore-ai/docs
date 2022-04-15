@@ -304,6 +304,7 @@ Examples of `equal` and `less` operations are as follows:
 The result is as follows:
 
 .. code-block::
+
     output of equal: [ True False False False False]
     output of less: [False  True  True  True  True]
 
@@ -355,6 +356,7 @@ Math operations include basic and advanced math operations on tensors, and they 
     The result is as follows:
 
     .. code-block::
+
         [[4 6]
          [4 6]
          [4 6]]
@@ -391,6 +393,7 @@ Math operations include basic and advanced math operations on tensors, and they 
     The result is as follows:
 
     .. code-block::
+
         2.5
     
 
@@ -407,6 +410,7 @@ Math operations include basic and advanced math operations on tensors, and they 
     The result is as follows:
 
     .. code-block::
+
         [ 1.         2.7182817  7.389056  20.085537  54.59815  ]
    
 .. msplatformautosummary::
@@ -586,6 +590,7 @@ Since `mindspore.numpy` directly wraps MindSpore tensors and operators, it has a
     The result is as follows:
 
     .. code-block::
+
         [[ 768.  768.  768.  768.]
          [2816. 2816. 2816. 2816.]]
     
