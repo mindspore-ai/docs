@@ -9,7 +9,7 @@
         - [Installing wheel and setuptools](#installing-wheel-and-setuptools)
         - [Installing GCC, git, gmp, tclsh, patch and NUMA](#installing-gcc-git-gmp-tclsh-patch-and-numa)
         - [Installing CMake](#installing-cmake)
-        - [Installing LLVM (Optional)](#installing-llvm-optional)
+        - [Installing LLVM-optional](#installing-llvm-optional)
     - [Downloading the Source Code from the Code Repository](#downloading-the-source-code-from-the-code-repository)
     - [Compiling MindSpore](#compiling-mindspore)
     - [Installing MindSpore](#installing-mindspore)
@@ -158,7 +158,7 @@ sudo apt-add-repository "deb https://apt.kitware.com/ubuntu/ $(lsb_release -cs) 
 sudo apt-get install cmake -y
 ```
 
-### Installing LLVM (optional)
+### Installing LLVM-optional
 
 Run the following command to install [LLVM](https://llvm.org/).
 
