@@ -9,8 +9,8 @@
         - [Installing cuDNN](#installing-cudnn)
         - [Installing Python](#installing-python)
         - [Installing GCC and gmp](#installing-gcc-and-gmp)
-        - [Installing Open MPI (optional)](#installing-open-mpi-optional)
-        - [Installing TensorRT (optional)](#installing-tensorrt-optional)
+        - [Installing Open MPI-optional](#installing-open-mpi-optional)
+        - [Installing TensorRT-optional](#installing-tensorrt-optional)
     - [Installing MindSpore](#installing-mindspore)
     - [Installation Verification](#installation-verification)
     - [Version Update](#version-update)
@@ -201,7 +201,7 @@ sudo apt-get update
 sudo apt-get install gcc-9 -y
 ```
 
-### Installing Open MPI (optional)
+### Installing Open MPI-optional
 
 You may compile and install Open MPI by the following command.
 
@@ -218,7 +218,7 @@ source ~/.bashrc
 cd -
 ```
 
-### Installing TensorRT (optional)
+### Installing TensorRT-optional
 
 After completing the installation of CUDA and cuDNN, download TensorRT 7.2.2 for CUDA 11.1 from [TensorRT download page](https://developer.nvidia.com/nvidia-tensorrt-7x-download), and note to download installation package in TAR format. Suppose the downloaded file is named `TensorRT-7.2.2.3.Ubuntu-18.04.x86_64-gnu.cuda-11.1.cudnn8.0.tar.gz`, install TensorRT with the following command.
 

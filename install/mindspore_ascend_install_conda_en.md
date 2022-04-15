@@ -9,7 +9,7 @@
         - [Installing Conda](#installing-conda)
         - [Installing GCC](#installing-gcc)
         - [Installing gmp](#installing-gmp)
-        - [Installing Open MPI (Optional)](#installing-open-mpi-optional)
+        - [Installing Open MPI-optional](#installing-open-mpi-optional)
         - [Creating and Accessing the Conda Virtual Environment](#creating-and-accessing-the-conda-virtual-environment)
         - [Installing MindSpore](#installing-mindspore)
     - [Configuring Environment Variables](#configuring-environment-variables)
@@ -146,7 +146,7 @@ After the installation is complete, you can set up Tsinghua Source to accelerate
     sudo yum install gmp-devel -y
     ```
 
-### Installing Open MPI (optional)
+### Installing Open MPI-optional
 
 Run the following command to compile and install [Open MPI](https://www.open-mpi.org/).
 

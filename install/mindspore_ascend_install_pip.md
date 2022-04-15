@@ -9,7 +9,7 @@
         - [安装昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)
         - [安装GCC](#安装gcc)
         - [安装gmp](#安装gmp)
-        - [安装Open MPI（可选）](#安装open-mpi可选)
+        - [安装Open MPI-可选](#安装open-mpi-可选)
         - [安装MindSpore](#安装mindspore)
     - [配置环境变量](#配置环境变量)
     - [验证是否成功安装](#验证是否成功安装)
@@ -77,7 +77,7 @@ conda activate mindspore_py37
 |[昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)|-|MindSpore使用的Ascend平台AI计算库|
 |[GCC](#安装gcc)|7.3.0|用于编译MindSpore的C++编译器|
 |[gmp](#安装gmp)|6.1.2|MindSpore使用的多精度算术库|
-|[Open MPI](#安装open-mpi可选)|4.0.3|MindSpore使用的高性能消息传递库（可选，单机多卡/多机多卡训练需要）|
+|[Open MPI](#安装open-mpi-可选)|4.0.3|MindSpore使用的高性能消息传递库（可选，单机多卡/多机多卡训练需要）|
 
 下面给出第三方依赖的安装方法。
 
@@ -178,7 +178,7 @@ pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/hccl-*-py3-n
     sudo yum install gmp-devel -y
     ```
 
-### 安装Open MPI（可选）
+### 安装Open MPI-可选
 
 可以通过以下命令编译安装[Open MPI](https://www.open-mpi.org/)。
 

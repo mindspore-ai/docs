@@ -12,7 +12,7 @@
         - [安装git，gmp，tclsh，patch，NUMA，Flex](#安装gitgmptclshpatchnumaflex)
         - [安装git-lfs](#安装git-lfs)
         - [安装CMake](#安装cmake)
-        - [安装Open MPI（可选）](#安装open-mpi可选)
+        - [安装Open MPI-可选](#安装open-mpi-可选)
     - [从代码仓下载源码](#从代码仓下载源码)
     - [编译MindSpore](#编译mindspore)
     - [安装MindSpore](#安装mindspore)
@@ -90,7 +90,7 @@ conda activate mindspore_py37
 |[tclsh](#安装gitgmptclshpatchnumaflex)|-|MindSpore sqlite编译依赖|
 |[patch](#安装gitgmptclshpatchnumaflex)|2.5及以上|MindSpore使用的源代码补丁工具|
 |[NUMA](#安装gitgmptclshpatchnumaflex)|2.0.11及以上|MindSpore使用的非一致性内存访问库|
-|[Open MPI](#安装open-mpi可选)|4.0.3|MindSpore使用的高性能消息传递库（可选，单机多卡/多机多卡训练需要）|
+|[Open MPI](#安装open-mpi-可选)|4.0.3|MindSpore使用的高性能消息传递库（可选，单机多卡/多机多卡训练需要）|
 
 下面给出第三方依赖的安装方法。
 
@@ -267,7 +267,7 @@ pip install -U setuptools
     source ~/.bashrc
     ```
 
-### 安装Open MPI（可选）
+### 安装Open MPI-可选
 
 可以通过以下命令编译安装[Open MPI](https://www.open-mpi.org/)。
 

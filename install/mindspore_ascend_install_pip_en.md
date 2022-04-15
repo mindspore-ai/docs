@@ -9,7 +9,7 @@
         - [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package)
         - [Installing GCC](#installing-gcc)
         - [Installing gmp](#installing-gmp)
-        - [Installing Open MPI (Optional)](#installing-open-mpi-optional)
+        - [Installing Open MPI-optional](#installing-open-mpi-optional)
         - [Installing MindSpore](#installing-mindspore)
     - [Configuring Environment Variables](#configuring-environment-variables)
     - [Installation Verification](#installation-verification)
@@ -178,7 +178,7 @@ pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/hccl-*-py3-n
     sudo yum install gmp-devel -y
     ```
 
-### Installing Open MPI (optional)
+### Installing Open MPI-optional
 
 Run the following command to compile and install [Open MPI](https://www.open-mpi.org/).
 

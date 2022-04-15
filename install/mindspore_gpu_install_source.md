@@ -11,9 +11,9 @@
         - [安装wheel和setuptools](#安装wheel和setuptools)
         - [安装GCC、git等依赖](#安装gccgit等依赖)
         - [安装CMake](#安装cmake)
-        - [安装Open MPI（可选）](#安装open-mpi可选)
-        - [安装LLVM（可选）](#安装llvm可选)
-        - [安装TensorRT（可选）](#安装tensorrt可选)
+        - [安装Open MPI-可选](#安装open-mpi-可选)
+        - [安装LLVM-可选](#安装llvm-可选)
+        - [安装TensorRT-可选](#安装tensorrt-可选)
     - [从代码仓下载源码](#从代码仓下载源码)
     - [编译MindSpore](#编译mindspore)
     - [安装MindSpore](#安装mindspore)
@@ -94,9 +94,9 @@ bash -i ./ubuntu-gpu-source.sh
 |[tclsh](#安装gccgit等依赖)|-|MindSpore sqlite编译依赖|
 |[patch](#安装gccgit等依赖)|2.5及以上|MindSpore使用的源代码补丁工具|
 |[NUMA](#安装gccgit等依赖)|2.0.11及以上|MindSpore使用的非一致性内存访问库|
-|[Open MPI](#安装open-mpi可选)|4.0.3|MindSpore使用的高性能消息传递库（可选，单机多卡/多机多卡训练需要）|
-|[LLVM](#安装llvm可选)|12.0.1|MindSpore使用的编译器框架（可选，图算融合以及稀疏计算需要）|
-|[TensorRT](#安装tensorrt可选)|7.2.2|MindSpore使用的高性能深度学习推理SDK（可选，Serving推理需要）|
+|[Open MPI](#安装open-mpi-可选)|4.0.3|MindSpore使用的高性能消息传递库（可选，单机多卡/多机多卡训练需要）|
+|[LLVM](#安装llvm-可选)|12.0.1|MindSpore使用的编译器框架（可选，图算融合以及稀疏计算需要）|
+|[TensorRT](#安装tensorrt-可选)|7.2.2|MindSpore使用的高性能深度学习推理SDK（可选，Serving推理需要）|
 
 下面给出第三方依赖的安装方法。
 
@@ -237,7 +237,7 @@ sudo apt-add-repository "deb https://apt.kitware.com/ubuntu/ $(lsb_release -cs) 
 sudo apt-get install cmake -y
 ```
 
-### 安装Open MPI（可选）
+### 安装Open MPI-可选
 
 可以通过以下命令编译安装[Open MPI](https://www.open-mpi.org/)。
 
@@ -254,7 +254,7 @@ source ~/.bashrc
 cd -
 ```
 
-### 安装LLVM（可选）
+### 安装LLVM-可选
 
 可以通过以下命令安装[LLVM](https://llvm.org/)。
 
@@ -265,7 +265,7 @@ sudo apt-get update
 sudo apt-get install llvm-12-dev -y
 ```
 
-### 安装TensorRT（可选）
+### 安装TensorRT-可选
 
 完成CUDA和cuDNN的安装后，在[TensorRT下载页面](https://developer.nvidia.com/nvidia-tensorrt-7x-download)下载配套CUDA 11.1的TensorRT 7.2.2，注意选择下载TAR格式的安装包。假设下载的文件名为`TensorRT-7.2.2.3.Ubuntu-18.04.x86_64-gnu.cuda-11.1.cudnn8.0.tar.gz`。使用以下命令安装TensorRT。
 
