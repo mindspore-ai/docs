@@ -275,7 +275,7 @@ optimizer = torch.optim.SGD([
 
 #### 混合精度
 
-MindSpore中的混合精度场景下，如果使用`FixedLossScaleManager`进行溢出检测，且`drop_overflow_update`为False时，优化器需设置`loss_scale`的值，且`loss_scale`值与`FixedLossScaleManager`的相同，详细使用方法可以参考[优化器的混合精度配置](https://www.mindspore.cn/tutorials/zh-CN/r1.7/advanced/network/optim.html#id12)。PyTorch的混合精度设置不作为优化器入参。
+MindSpore中的混合精度场景下，如果使用`FixedLossScaleManager`进行溢出检测，且`drop_overflow_update`为False时，优化器需设置`loss_scale`的值，且`loss_scale`值与`FixedLossScaleManager`的相同，详细使用方法可以参考[优化器的混合精度配置](https://www.mindspore.cn/tutorials/zh-CN/r1.7/advanced/network/optim.html#配置优化器)。PyTorch的混合精度设置不作为优化器入参。
 
 ### 基类支持的方法
 

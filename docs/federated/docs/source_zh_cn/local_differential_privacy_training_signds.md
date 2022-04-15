@@ -4,7 +4,7 @@
 
 ## 隐私保护背景
 
-联邦学习通过让参与方只上传本地训练后的新模型或更新模型的update信息，实现了client用户不上传原始数据集就能参与全局模型训练的目的，打通了数据孤岛。这种普通场景的联邦学习对应MindSpore联邦学习框架中的默认方案（[云侧部署](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_server.html#id5)启动`server`时，`encrypt_type`开关默认为`not_encrypt`，联邦学习教程中的`安装部署`与`应用实践`都默认使用这种方式），是没有任何加密扰动等保护隐私处理的普通联邦求均方案，为方便描述，下文以`not_encrypt`来特指这种默认方案。
+联邦学习通过让参与方只上传本地训练后的新模型或更新模型的update信息，实现了client用户不上传原始数据集就能参与全局模型训练的目的，打通了数据孤岛。这种普通场景的联邦学习对应MindSpore联邦学习框架中的默认方案（[云侧部署](https://www.mindspore.cn/federated/docs/zh-CN/master/deploy_federated_server.html#云侧部署)启动`server`时，`encrypt_type`开关默认为`not_encrypt`，联邦学习教程中的`安装部署`与`应用实践`都默认使用这种方式），是没有任何加密扰动等保护隐私处理的普通联邦求均方案，为方便描述，下文以`not_encrypt`来特指这种默认方案。
 
 这种联邦学习方案并不是毫无隐私泄漏的，使用上述`not_encrypt`方案进行训练，服务端server收到用户client的训练后模型，仍可通过一些攻击方法[1]重构用户训练数据，从而泄露用户隐私，所以`not_encrypt`方案需要进一步进行用户隐私保护。
 
