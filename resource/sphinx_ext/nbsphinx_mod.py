@@ -4,7 +4,11 @@ import nbsphinx as nbs
 
 
 short_title_define = '''\
+import re
 def short_title(titlename):
+    zhPattern = re.findall(r'[\u4e00-\u9fa5]',titlename)
+    if not zhPattern and "." in titlename:
+        return titlename
     titlename = titlename.lower()
     cn_symbol = "。；，“”（）、？《》"
     en_symbol = ".,=+*()<>[]{}|/&"
