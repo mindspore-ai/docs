@@ -36,7 +36,11 @@ after = """\
             id = node['names'][0]
             zhPattern = re.findall(r'[\u4e00-\u9fa5]',id)
             if not zhPattern and "." in id:
-                pass
+                lower_id = id.lower()
+                if id==lower_id:
+                    id = short_title(id)
+                else:
+                    pass
             else:
                 id = short_title(id)
             self.id_counter[id] += 1

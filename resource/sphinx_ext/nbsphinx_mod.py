@@ -8,7 +8,10 @@ import re
 def short_title(titlename):
     zhPattern = re.findall(r'[\u4e00-\u9fa5]',titlename)
     if not zhPattern and "." in titlename:
-        return titlename
+        if titlename==titlename.lower():
+            pass
+        else:
+            return titlename
     titlename = titlename.lower()
     cn_symbol = "。；，“”（）、？《》"
     en_symbol = ".,=+*()<>[]{}|/&"
