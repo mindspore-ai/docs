@@ -72,7 +72,7 @@ python -c 'import mindquantum'
 
 ## Install with Docker
 
-Mac or Windows users can install MindQuantum through Docker. Please refer to [Docker installation guide](https://gitee.com/mindspore/mindquantum/blob/r0.6/install_with_docker_en.md).
+Mac or Windows users can install MindQuantum through Docker. Please refer to [Docker installation guide](https://gitee.com/mindspore/mindquantum/blob/r0.6/install_with_docker_en.md#).
 
 ## Note
 

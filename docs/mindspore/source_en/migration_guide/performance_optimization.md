@@ -81,7 +81,7 @@ By observing the step trace on the MindInsight performance analysis page, you ca
 
 ### Case 2: Long Forward Propagation Interval
 
-We run VGG16 inference script in MindSpore [ModelZoo](https://gitee.com/mindspore/models/blob/master/README.md) , and each step cost almost 113.79ms, with a poor performance.
+We run VGG16 inference script in MindSpore [ModelZoo](https://gitee.com/mindspore/models/blob/master/README.md#) , and each step cost almost 113.79ms, with a poor performance.
 
 As we observed on the MindInsight UI page, the forward propagation in the step trace is too long, which may indicate that operators performance can be optimized. In a single card training or inference process, the forward time consumption is usually considered whether there is a operator that can be optimized for the time consumption.
 
@@ -114,7 +114,7 @@ After the float16 format is set, the inference script is run. From the MindInsig
 
 ### Case 3: Optimize The Step Tail
 
-We run ResNet50 training script with 8 processes in MindSpore [ModelZoo](https://gitee.com/mindspore/models/blob/master/README.md) , set batch size to 32, and each step cost about 23.6ms. We still want to improve each step time consumption.
+We run ResNet50 training script with 8 processes in MindSpore [ModelZoo](https://gitee.com/mindspore/models/blob/master/README.md#) , set batch size to 32, and each step cost about 23.6ms. We still want to improve each step time consumption.
 
 As we observed the step trace on the MindInsight UI page, step interval and FP/BP interval can not be improved more, so we try to optimize step tail.
 
