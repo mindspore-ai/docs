@@ -31,8 +31,8 @@
   <td><a href="https://www.mindspore.cn/docs/en/r1.7/api_python/ops/mindspore.ops.ApplyAdagrad.html">mindspore.ops.ApplyAdagrad</a></td>
 </tr>
 <tr>
-  <td><a href="ttps://www.mindspore.cn/doc/api_python/en/r1.7/mindspore/ops/mindspore.ops.ApplyAdagradV2.html">mindspore.ops.ApplyAdagradV2</a></td>
-  <td><a href="ttps://www.mindspore.cn/doc/api_python/en/r1.7/mindspore/ops/mindspore.ops.ApplyAdaMax.html">mindspore.ops.ApplyAdaMax</a></td>
+  <td><a href="https://www.mindspore.cn/docs/en/r1.7/api_python/ops/mindspore.ops.ApplyAdagradV2.html">mindspore.ops.ApplyAdagradV2</a></td>
+  <td><a href="https://www.mindspore.cn/docs/en/r1.7/api_python/ops/mindspore.ops.ApplyAdaMax.html">mindspore.ops.ApplyAdaMax</a></td>
   <td><a href="https://www.mindspore.cn/docs/en/r1.7/api_python/ops/mindspore.ops.ApplyAddSign.html">mindspore.ops.ApplyAddSign</a></td>
 </tr>
 <tr>

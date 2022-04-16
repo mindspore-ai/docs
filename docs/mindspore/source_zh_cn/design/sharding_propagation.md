@@ -66,7 +66,7 @@
 >
 > <https://gitee.com/mindspore/docs/tree/r1.7/docs/sample_code/sharding_propagation>。
 
-目录结构如下，其中，`rank_table_8pcs.json`是配置当前Ascend多卡环境的组网信息文件（关于该配置文件的说明，参见[这里](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/parallel/train_ascend.html#配置环境变量)），`train.py`是模型定义脚本，`run.sh`是执行脚本。
+目录结构如下，其中，`rank_table_8pcs.json`是配置当前Ascend多卡环境的组网信息文件（关于该配置文件的说明，参见[这里](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/parallel/train_ascend.html#配置分布式环境变量)），`train.py`是模型定义脚本，`run.sh`是执行脚本。
 
 ```text
 └─sample_code

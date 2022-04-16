@@ -35,13 +35,13 @@ MindSpore根据正向图计算流程来自动推导出反向图，正向图和�
 ### 样例代码说明
 
 1. 准备模型代码。ResNet-50模型的代码可参见：<https://gitee.com/mindspore/models/tree/r1.7/official/cv/resnet>，其中，`train.py`为训练的主函数所在，`src/`目录中包含ResNet-50模型的定义和配置信息等，`script/`目录中包含一些训练和推理脚本。
-2. 准备数据集。本样例采用`CIFAR-10`数据集，数据集的下载和加载方式可参考：<https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/parallel/train_ascend.html>。
+2. 准备数据集。本样例采用`CIFAR-10`数据集，数据集的下载和加载方式可参考：<https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/parallel/train_ascend.html#下载数据集>。
 
 ### 配置重计算
 
 我们可以通过调用两种接口去配置重计算，以`src/resnet.py`为例：
 
-1. 调用`Primitive`的[recompute接口](https://www.mindspore.cn/docs/api/zh-CN/r1.7/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.recompute)，调用该接口之后，在计算反向部分时，该算子会被重新计算。
+1. 调用`Primitive`的[recompute接口](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive.recompute)，调用该接口之后，在计算反向部分时，该算子会被重新计算。
 
    ```python
    class ResNet(nn.Cell):
@@ -62,7 +62,7 @@ MindSpore根据正向图计算流程来自动推导出反向图，正向图和�
            ...
    ```
 
-2. 调用`Cell`的[recompute接口](https://www.mindspore.cn/docs/api/zh-CN/r1.7/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.recompute)，调用该接口之后，在计算反向部分时，除了该Cell的输出算子，Cell里面其他的所有算子以及子Cell里面的所有算子都会被重新计算。
+2. 调用`Cell`的[recompute接口](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell.recompute)，调用该接口之后，在计算反向部分时，除了该Cell的输出算子，Cell里面其他的所有算子以及子Cell里面的所有算子都会被重新计算。
 
    ```python
    class ResNet(nn.Cell):

@@ -374,9 +374,9 @@ x:[[1. 1. 1. 1.]
 
 当前不支持在网络调用`Primitive`及其子类相关属性和接口。
 
-`Primitive`定义可参考文档：<https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/operation/op_classification.html>
+`Primitive`定义可参考文档：<https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/operation/op_classification.html#primitive算子>
 
-当前已定义的`Primitive`可参考文档：<https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.ops.html>
+当前已定义的`Primitive`可参考文档：<https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/ops/mindspore.ops.Primitive.html#mindspore.ops.Primitive>
 
 #### Cell
 
@@ -388,7 +388,7 @@ x:[[1. 1. 1. 1.]
 
 `Cell`定义可参考文档：<https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/nn/mindspore.nn.Cell.html>
 
-当前已定义的`Cell`可参考文档：<https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.nn.html>
+当前已定义的`Cell`可参考文档：<https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/nn/mindspore.nn.Cell.html#mindspore.nn.Cell>
 
 #### Parameter
 
@@ -449,7 +449,7 @@ ret:1
 
 `Dictionary`的索引取值请参考本文的[Dictionary](#dictionary)章节。
 
-`Tensor`的索引取请参考:<https://www.mindspore.cn/docs/zh-CN/r1.7/note/index_support.html>
+`Tensor`的索引取请参考:<https://www.mindspore.cn/docs/zh-CN/r1.7/note/index_support.html#索引取值>
 
 ### 调用
 
@@ -489,7 +489,7 @@ ret:[[3. 3. 3. 3.]]
 
 之所以支持，是因为这些运算符会转换成同名算子进行运算，这些算子支持了隐式类型转换。
 
-规则可参考文档：<https://www.mindspore.cn/docs/zh-CN/r1.7/note/operator_list_implicit.html>
+规则可参考文档：<https://www.mindspore.cn/docs/zh-CN/r1.7/note/operator_list_implicit.html#转换规则>
 
 ### 单目算术运算符
 
@@ -541,7 +541,7 @@ ret:[[3. 3. 3. 3.]]
 
   在`construct`函数中仅支持创建`Cell`和`Primitive`类型对象，使用`xx = Tensor(...)`的方式创建`Tensor`会失败。
 
-  在`construct`函数中仅支持为self 的`Parameter`类型的属性赋值, 详情参考：[属性引用](#属性引用)。
+  在`construct`函数中仅支持为self 的`Parameter`类型的属性赋值, 详情参考：[属性引用](https://www.mindspore.cn/docs/zh-CN/r1.7/note/static_graph_syntax_support.html#属性引用)。
 
 - 当`AugAssign`的左右操作数都为`Number`类型时，`Number`的值不可为`Bool` 类型。
 

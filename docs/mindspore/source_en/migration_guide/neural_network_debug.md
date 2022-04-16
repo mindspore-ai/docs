@@ -44,7 +44,7 @@ By default, MindSpore is in Graph mode, which can be set as PyNative mode via `c
 During the network process debugging, if you need to get more information about error messages, you can get it by the following ways:
 
 - Using pdb for debugging in PyNative mode, and using pdb to print relevant stack and contextual information to help locate problems.
-- Using Print operator to print more contextual information. Related examples can be found in [Print Operator Features](https://www.mindspore.cn/tutorials/experts/en/r1.7/debug/custom_debug.html#print).
+- Using Print operator to print more contextual information. Related examples can be found in [Print Operator Features](https://www.mindspore.cn/tutorials/experts/en/r1.7/debug/custom_debug.html#mindspore-print-operator).
 - Adjusting the log level to get more error information. MindSpore can easily adjust the log level through environment variables. Related examples can be found in [Logging-related Environment Variables And Configurations](https://www.mindspore.cn/tutorials/experts/en/r1.7/debug/custom_debug.html#log-related-environment-variables-and-configurations).
 
 #### Common Errors
@@ -117,15 +117,15 @@ If the loss errors are large, the problem locating can be done by using followin
 
 - MindSpore provides various tools for acquiring intermediate network data, which can be used according to the actual situation.
 
-    - [Data Dump function](https://www.mindspore.cn/tutorials/experts/en/r1.7/debug/custom_debug.html#dump)
-    - [Use Print Operator To Print Related Information](https://www.mindspore.cn/tutorials/experts/en/r1.7/debug/custom_debug.html#print)
+    - [Data Dump function](https://www.mindspore.cn/tutorials/experts/en/r1.7/debug/custom_debug.html#data-dump-introduction)
+    - [Use Print Operator To Print Related Information](https://www.mindspore.cn/tutorials/experts/en/r1.7/debug/custom_debug.html#mindspore-print-operator)
     - [Using The Visualization Component MindInsight](https://www.mindspore.cn/mindinsight/docs/en/r1.7/index.html)
 
 ### Precision Debugging Tools
 
 #### Customized Debugging Information
 
-- [Callback Function](https://www.mindspore.cn/tutorials/experts/en/r1.7/debug/custom_debug.html#callback)
+- [Callback Function](https://www.mindspore.cn/tutorials/experts/en/r1.7/debug/custom_debug.html#callback-capabilities-of-mindspore)
 
    MindSpore has provided ModelCheckpoint, LossMonitor, SummaryCollector and other Callback classes for saving model parameters, monitoring loss values, saving training process information, etc. Users can also customize Callback functions to implement starting and ending runs at each epoch and step, and please refer to [Custom Callback](https://www.mindspore.cn/tutorials/experts/en/r1.7/debug/custom_debug.html#custom-callback) for specific examples.
 

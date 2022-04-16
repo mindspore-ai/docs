@@ -56,19 +56,19 @@ MindSpore的流水线并行实现中对执行序进行了调整，来达到更�
 ### 下载数据集
 
 本样例采用`CIFAR-10`
-数据集，数据集的下载和加载方式可参考：<https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/parallel/train_ascend.html>。
+数据集，数据集的下载和加载方式可参考：<https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/parallel/train_ascend.html#下载数据集>。
 
 ### 配置分布式环境
 
 > 流水线并行支持Ascend和GPU。
 
-分布式环境的配置以及集合通信库的调用可参考：<https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/parallel/train_ascend.html>。
+分布式环境的配置以及集合通信库的调用可参考：<https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/parallel/train_ascend.html#准备环节>。
 
 ### 定义网络
 
 网络的定义和Ascend的分布式并行训练基础样例中一致。
 
-网络、优化器、损失函数的定义可参考：<https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/parallel/train_ascend.html>。
+网络、优化器、损失函数的定义可参考：<https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/parallel/train_ascend.html#定义网络>。
 
 > 流水线并行需要用户去定义并行的策略，通过调用`pipeline_stage`接口来指定每个layer要在哪个stage上去执行。`pipeline_stage`接口的粒度为`Cell`。所有包含训练参数的`Cell`都需要配置`pipeline_stage`，并且`pipeline_stage`要按照网络执行的先后顺序，从小到大进行配置。
 

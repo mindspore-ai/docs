@@ -390,7 +390,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 出现溢出问题后常见的解决措施如下：
 
-1. 使能动态loss scale功能，或者是合理设置静态loss scale的值，请参考[LossScale](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/others/mixed_precision.html)。需要注意的是，直接将GPU场景中的静态loss scale用于Ascend上的训练时，可能会导致不期望的频繁溢出，影响收敛。loss scale使能后，可能需要多次实验以调整loss scale的初始值init_loss_scale、调整比例scale_factor、调整窗口scale_window等参数，直到训练中浮点溢出非常少，请参考[DynamicLossScaleManager](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/others/mixed_precision.html#dynamiclossscalemanager)以了解这些参数的含义。
+1. 使能动态loss scale功能，或者是合理设置静态loss scale的值，请参考[LossScale](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/others/mixed_precision.html#损失缩放原理)。需要注意的是，直接将GPU场景中的静态loss scale用于Ascend上的训练时，可能会导致不期望的频繁溢出，影响收敛。loss scale使能后，可能需要多次实验以调整loss scale的初始值init_loss_scale、调整比例scale_factor、调整窗口scale_window等参数，直到训练中浮点溢出非常少，请参考[DynamicLossScaleManager](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/others/mixed_precision.html#dynamiclossscalemanager)以了解这些参数的含义。
 2. 溢出问题对精度有关键影响且无法规避的，将相应的算子调整为FP32算子（调整后可能对性能有较大影响）。
 
 检查结论：
@@ -411,7 +411,7 @@ MindSpore API同其它框架的API存在一定差异。有标杆脚本的情况�
 
 检查方法：
 
-梯度裁剪（gradient clip）是指当梯度大于某个阈值时，强制调整梯度使其变小的技术。梯度裁剪对RNN网络中的梯度爆炸问题有较好的效果。如果同时使用了[loss scale](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/others/mixed_precision.html)和梯度裁剪，需要进行本检查。请对照代码检查确认梯度裁剪的应用对象是除以loss scale后得到的原始梯度值。
+梯度裁剪（gradient clip）是指当梯度大于某个阈值时，强制调整梯度使其变小的技术。梯度裁剪对RNN网络中的梯度爆炸问题有较好的效果。如果同时使用了[loss scale](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/others/mixed_precision.html#损失缩放原理)和梯度裁剪，需要进行本检查。请对照代码检查确认梯度裁剪的应用对象是除以loss scale后得到的原始梯度值。
 
 检查结论：
 
