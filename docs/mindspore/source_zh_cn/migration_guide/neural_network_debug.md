@@ -42,7 +42,7 @@
 在网络流程调试过程中，如果需要获取更多的报错信息，可通过以下方式获得：
 
 - 在PyNative模式下可使用pdb进行调试，利用pdb打印相关堆栈和上下文信息帮助问题定位。
-- 使用Print算子打印更多上下文信息，具体示例可参考[Print算子功能介绍](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/debug/custom_debug.html#print)。
+- 使用Print算子打印更多上下文信息，具体示例可参考[Print算子功能介绍](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/debug/custom_debug.html#print算子功能介绍)。
 - 调整日志级别获取更多报错信息，MindSpore可通过环境变量方便地调整日志级别，具体可参考[日志相关的环境变量和配置](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/debug/custom_debug.html#日志相关的环境变量和配置)。
 
 #### 常见错误
@@ -115,27 +115,27 @@
 
 - MindSpore提供了丰富的工具获取网络中间数据，可根据实际情况选用。
 
-    - [数据Dump功能](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/debug/custom_debug.html#dump)
-    - [使用Print算子打印相关信息](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/debug/custom_debug.html#print)
+    - [数据Dump功能](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/debug/custom_debug.html#数据dump功能介绍)
+    - [使用Print算子打印相关信息](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/debug/custom_debug.html#print算子功能介绍)
     - [使用可视化组件MindInsight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/index.html)
 
 ### 精度调试工具
 
 #### 自定义调试信息
 
-- [Callback功能](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/debug/custom_debug.html#callback)
+- [Callback功能](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/debug/custom_debug.html#mindspore的callback能力)
 
    MindSpore已提供ModelCheckpoint、LossMonitor、SummaryCollector等Callback类用于保存模型参数、监控loss值、保存训练过程信息等功能，用户也可自定义Callback函数用于实现在每个epoch和step的开始和结束运行相关功能，具体示例可参考[自定义Callback](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/debug/custom_debug.html#自定义callback)。
 
-- [MindSpore metrics功能](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/debug/custom_debug.html#mindspore-metrics)
+- [MindSpore metrics功能](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/debug/custom_debug.html#mindspore-metrics功能介绍)
 
    当训练结束后，可以使用metrics评估训练结果的好坏。MindSpore提供了多种metrics评估指标，如：`accuracy`、`loss`、`precision`、`recall`、`F1`等。
 
-- [自定义训练](https://www.mindspore.cn/tutorials/zh-CN/r1.7/advanced/train/train_eval.html)
+- [自定义训练](https://www.mindspore.cn/tutorials/zh-CN/r1.7/advanced/train/train_eval.html#自定义训练网络)
 
 - 自定义学习率
 
-   MindSpore提供了一些常见的动态学习率实现以及一些常见的具有自适应学习率调整功能的优化器，可参考API文档中的[Dynamic Learning Rate](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.nn.html#dynamic-learning-rate)和[Optimizer Functions](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.nn.html#optimizer-functions)。
+   MindSpore提供了一些常见的动态学习率实现以及一些常见的具有自适应学习率调整功能的优化器，可参考API文档中的[Dynamic Learning Rate](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.nn.html#动态学习率)和[Optimizer Functions](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.nn.html#optimizer-functions)。
 
    同时，用户可实现自定义的动态学习率，以WarmUpLR为例：
 

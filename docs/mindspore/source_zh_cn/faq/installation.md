@@ -87,7 +87,7 @@ A: 目前MindSpore支持的情况是GPU+Linux与CPU+Windows的组合配置，Win
 2. 安装支持WSL的Nvidia驱动以及在WSL运行容器的环境部署，参考<https://docs.nvidia.com/cuda/wsl-user-guide/index.html>。
 
    > 由于CUDA on WSL还是预览特性，注意参考链接里对Windows版本要求的说明，版本不够的需要做升级。
-3. 参考<https://gitee.com/mindspore/mindspore#docker%E9%95%9C%E5%83%8F>，取MindSpore-GPU镜像。如取MindSpore1.0.0版本容器，在WSL Ubuntu18.04中执行`docker pull mindspore/mindspore-gpu:1.0.0`运行容器:
+3. 参考<https://gitee.com/mindspore/mindspore#docker镜像>，取MindSpore-GPU镜像。如取MindSpore1.0.0版本容器，在WSL Ubuntu18.04中执行`docker pull mindspore/mindspore-gpu:1.0.0`运行容器:
 
     ```docker
     docker run -it --runtime=nvidia mindspore/mindspore-gpu:1.0.0 /bin/bash

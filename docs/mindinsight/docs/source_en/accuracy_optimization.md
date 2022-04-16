@@ -259,7 +259,7 @@ After the model script is executed, you are advised to use the MindInsight compu
 
 Considering that the model structure is complex, it is unrealistic to find all model structure problems in this step. As long as the visual model structure to deepen the understanding of the computational graph, find obvious structural problems. In the following steps, if a more specific accuracy problem is found, we will go back to this step to check and confirm the problem again.
 
-> MindInsight allows you to view the computational graph recorded by `SummaryCollector` and the PB file computational graph exported by the `save_graphs` parameter of MindSpore context. Please refer to [Viewing Dashboard](https://www.mindspore.cn/mindinsight/docs/en/r1.7/dashboard.html) in our tutorial for more information.
+> MindInsight allows you to view the computational graph recorded by `SummaryCollector` and the PB file computational graph exported by the `save_graphs` parameter of MindSpore context. Please refer to [Viewing Dashboard](https://www.mindspore.cn/mindinsight/docs/en/r1.7/dashboard.html#computational-graph-visualization) in our tutorial for more information.
 >
 > The script migration tool can convert models compiled under the PyTorch and TensorFlow frameworks into MindSpore scripts. For more information, visit [Migrating From Third Party Frameworks With MindConverter](https://www.mindspore.cn/mindinsight/docs/en/r1.7/migrate_3rd_scripts_mindconverter.html).
 
