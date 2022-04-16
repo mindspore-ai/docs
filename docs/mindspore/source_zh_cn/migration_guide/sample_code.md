@@ -214,7 +214,7 @@ def create_dataset(dataset_path, batch_size=32, rank_size=1, rank_id=0, do_train
 
 基于以上子网划分，我们结合 MindSpore 语法，重新完成上述开发。
 
-权重初始化可参考 [MindSpore 已定义的权重初始化方法](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.common.initializer.html?highlight=common%20initializer#)：
+权重初始化可参考 [MindSpore 已定义的权重初始化方法](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.common.initializer.html#)：
 
 重新开发 conv3x3 和 conv1x1
 
