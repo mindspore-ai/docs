@@ -3,7 +3,7 @@
 
         Return the power index.
 
-        **Output**
+        **Returns**
 
         Tensor, the power index.
 
@@ -11,11 +11,11 @@
 
         forward mapping, compute the value after mapping as :math:`Y = g(X)`.
 
-        **Inputs**
+        **Parameters**
 
         - **value** (Tensor) - the value to compute.
 
-        **Output**
+        **Returns**
 
         Tensor, the value to compute.
 
@@ -23,11 +23,11 @@
 
         compute the log value after mapping, namely :math:`\log(dg(x) / dx)`.
 
-        **Inputs**
+        **Parameters**
 
         - **value** (Tensor) - the value to compute.
 
-        **Output**
+        **Returns**
 
         Tensor, the log value of forward mapping.
 
@@ -35,11 +35,11 @@
 
         Inverse mapping, compute the value after inverse mapping as :math:`X = g(value)`.
 
-        **Inputs**
+        **Parameters**
 
         - **value** (Tensor) - the value of output after mapping.
 
-        **Output**
+        **Returns**
 
         Tensor, the value of output after mapping.
 
@@ -47,10 +47,10 @@
 
         Compute the log value of the inverse mapping, namely :math:`\log(dg^{-1}(x) / dx)`.
 
-        **Inputs**
+        **Parameters**
 
         - **value** (Tensor) - the value of output after mapping.
 
-        **Output**
+        **Returns**
 
         Tensor, the log value of the inverse mapping.

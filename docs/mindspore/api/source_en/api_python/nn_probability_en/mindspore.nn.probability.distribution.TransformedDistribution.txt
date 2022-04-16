@@ -3,7 +3,7 @@
 
         Return the bijector.
 
-        **Output**
+        **Returns**
 
         Bijector, the bijector.
 
@@ -12,7 +12,7 @@
 
         Return the distribution before transformation.
 
-        **Output**
+        **Returns**
 
         Distribution, the distribution before transformation.
 
@@ -21,7 +21,7 @@
 
         Return the data type of distribution.
 
-        **Output**
+        **Returns**
 
         mindspore.dtype, the data type of distribution.
 
@@ -30,7 +30,7 @@
 
         Return whether the bijector is linear.
 
-        **Output**
+        **Returns**
 
         Bool, return True if the bijector is linear, otherwise return False.
 
@@ -38,11 +38,11 @@
 
         Compute the cumulatuve distribution function(CDF) of the given value.
 
-        **Inputs**
+        **Parameters**
 
         - **value** (Tensor) - the value to compute.
 
-        **Output**
+        **Returns**
 
         Tensor, the value of the cumulatuve distribution function for the given input.
 
@@ -50,11 +50,11 @@
 
         Compute the log value of the cumulatuve distribution function.
 
-        **Inputs**
+        **Parameters**
 
         - **value** (Tensor) - the value to compute.
 
-        **Output**
+        **Returns**
 
         Tensor, the log value of the cumulatuve distribution function.
 
@@ -62,11 +62,11 @@
 
         the log value of the probability.
 
-        **Inputs**
+        **Parameters**
 
         - **value** (Tensor) - the value to compute.
 
-        **Output**
+        **Returns**
 
         Tensor, the log value of the probability.
 
@@ -74,11 +74,11 @@
 
         Compute the log value of the survival function.
 
-        **Inputs**
+        **Parameters**
 
         - **value** (Tensor) - the value to compute.
 
-        **Output**
+        **Returns**
 
         Tensor, the value of the K-L loss.
 
@@ -86,7 +86,7 @@
 
         Compute the mean value of the distribution.
 
-        **Output**
+        **Returns**
 
         Tensor, the mean of the distribution.
 
@@ -94,11 +94,11 @@
 
         The probability of the given value.
 
-        **Inputs**
+        **Parameters**
 
         - **value** (Tensor) - the value to compute.
 
-        **Output**
+        **Returns**
 
         Tensor, the value of the probability.
 
@@ -106,11 +106,11 @@
 
         Generate samples.
 
-        **Inputs**
+        **Parameters**
 
         - **shape** (tuple) - the shape of the tensor.
 
-        **Output**
+        **Returns**
 
         Tensor, the sample following the distribution.
 
@@ -118,10 +118,10 @@
 
         Compute the value of the survival function.
 
-        **Inputs**
+        **Parameters**
 
         - **value** (Tensor) - the value to compute.
 
-        **Output**
+        **Returns**
 
         Tensor, the value of the survival function.
