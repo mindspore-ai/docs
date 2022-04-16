@@ -3,7 +3,7 @@
 
         Return rate parameter.
 
-        **Output**
+        **Returns**
 
         Tensor, the value of the rate.
 
@@ -11,12 +11,12 @@
 
         Compute the cumulatuve distribution function(CDF) of the given value.
 
-        **Inputs**
+        **Parameters**
 
         - **value** (Tensor) - the value to compute.
         - **rate** (Tensor) - the value of the rate. Default value: None.
 
-        **Output**
+        **Returns**
 
         Tensor, the value of the cumulatuve distribution function for the given input.
 
@@ -24,12 +24,12 @@
 
         Compute the log value of the cumulatuve distribution function.
 
-        **Inputs**
+        **Parameters**
 
         - **value** (Tensor) - the value to compute.
         - **rate** (Tensor) - the value of the rate. Default value: None.
 
-        **Output**
+        **Returns**
 
         Tensor, the log value of the cumulatuve distribution function.
 
@@ -37,12 +37,12 @@
 
         the log value of the probability.
 
-        **Inputs**
+        **Parameters**
 
         - **value** (Tensor) - the value to compute.
         - **rate** (Tensor) - the value of the rate. Default value: None.
 
-        **Output**
+        **Returns**
 
         Tensor, the log value of the probability.
 
@@ -50,12 +50,12 @@
 
         Compute the log value of the survival function.
 
-        **Inputs**
+        **Parameters**
 
         - **value** (Tensor) - the value to compute.
         - **rate** (Tensor) - the value of the rate. Default value: None.
 
-        **Output**
+        **Returns**
 
         Tensor, the value of the K-L loss.
 
@@ -63,11 +63,11 @@
 
         Compute the mean value of the distribution.
 
-        **Inputs**
+        **Parameters**
 
         - **rate** (Tensor) - the value of the rate. Default value: None.
 
-        **Output**
+        **Returns**
 
         Tensor, the mean of the distribution.
 
@@ -75,11 +75,11 @@
 
         Compute the mode value of the distribution.
 
-        **Inputs**
+        **Parameters**
 
         - **rate** (Tensor) - the value of the rate. Default value: None.
 
-        **Output**
+        **Returns**
 
         Tensor, the mode of the distribution.
 
@@ -87,12 +87,12 @@
 
         The probability of the given value. For the discrete distribution, it is the probability mass function(pmf).
 
-        **Inputs**
+        **Parameters**
 
         - **value** (Tensor) - the value to compute.
         - **rate** (Tensor) - the value of the rate. Default value: None.
 
-        **Output**
+        **Returns**
 
         Tensor, the value of the probability.
 
@@ -100,12 +100,12 @@
 
         Generate samples.
 
-        **Inputs**
+        **Parameters**
 
         - **shape** (tuple) - the shape of the tensor.
         - **rate** (Tensor) - the value of the rate. Default value: None.
 
-        **Output**
+        **Returns**
 
         Tensor, the sample following the distribution.
 
@@ -113,10 +113,10 @@
 
         The standard deviation.
 
-        **Inputs**
+        **Parameters**
         - **rate** (Tensor) - the value of the rate. Default value: None.
 
-        **Output**
+        **Returns**
 
         Tensor, the standard deviation of the distribution.
 
@@ -124,12 +124,12 @@
 
         Compute the value of the survival function.
 
-        **Inputs**
+        **Parameters**
 
         - **value** (Tensor) - the value to compute.
         - **rate** (Tensor) - the value of the rate. Default value: None.
 
-        **Output**
+        **Returns**
 
         Tensor, the value of the survival function.
 
@@ -137,10 +137,10 @@
 
         Compute the variance of the distribution.
 
-        **Inputs**
+        **Parameters**
 
         - **rate** (Tensor) - the value of the rate. Default value: None.
 
-        **Output**
+        **Returns**
 
         Tensor, the variance of the distribution.

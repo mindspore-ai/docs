@@ -7,11 +7,11 @@
 
         Compute the inverse mapping of underlying Bijector, namely :math:`Y = h(X) = g^{-1}(X)` .
 
-        **Inputs**
+        **Parameters**
 
         - **x** (Tensor) - the value of output after mapping by the underlying bijector.
 
-        **Output**
+        **Returns**
 
         Tensor, the inverse mapping of underlying Bijector.
 
@@ -19,11 +19,11 @@
 
         Compute the log value of the inverse mapping of underlying Bijector :math:`\log dg^{-1}(x) / dx`.
 
-        **Inputs**
+        **Parameters**
 
         - **x** (Tensor) - the value of output after mapping by the underlying bijector.
 
-        **Output**
+        **Returns**
 
         Tensor, the log value of the inverse mapping of underlying Bijector.
 
@@ -31,11 +31,11 @@
 
         Compute the forward mapping of underlying Bijector, namely :math:`Y = g(X)`.
 
-        **Inputs**
+        **Parameters**
 
         - **y** (Tensor) - the value to compute by the underlying bijector.
 
-        **Output**
+        **Returns**
 
         Tensor,  the forward mapping of underlying Bijector.
 
@@ -43,11 +43,11 @@
 
         Compute the log value of the forward mapping of underlying Bijector, namely :math:`Y = \log dg(x) / dx`.
 
-        **Inputs**
+        **Parameters**
 
         - **y** (Tensor) - the value to compute by the underlying bijector.
 
-        **Output**
+        **Returns**
 
         Tensor, the log value of forward mapping of underlying Bijector.
 

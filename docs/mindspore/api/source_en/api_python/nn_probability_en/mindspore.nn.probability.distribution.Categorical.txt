@@ -3,7 +3,7 @@
 
         Return the event probability.
 
-        **Output**
+        **Returns**
 
         Tensor, the event probability.
 
@@ -11,12 +11,12 @@
 
         Compute the cumulatuve distribution function(CDF) of the given value.
 
-        **Inputs**
+        **Parameters**
 
         - **value** (Tensor) - the value to compute.
         - **probs** (Tensor) - the event probability. Default value: None.
 
-        **Output**
+        **Returns**
 
         Tensor, the value of the cumulatuve distribution function for the given input.
 
@@ -24,13 +24,13 @@
 
         Compute the cross entropy of two distribution 
 
-        **Inputs**
+        **Parameters**
 
         - **dist** (str) - the type of the other distribution.
         - **probs_b** (Tensor) - the event probability of the other distribution.
         - **probs** (Tensor) - the event probability. Default value: None.
 
-        **Output**
+        **Returns**
 
         Tensor, the value of the cross entropy.
 
@@ -38,11 +38,11 @@
 
         Compute the value of the entropy.
 
-        **Inputs**
+        **Parameters**
 
         - **probs** (Tensor) - the event probability. Default value: None.
 
-        **Output**
+        **Returns**
 
         Tensor, the value of the entropy.
 
@@ -50,13 +50,13 @@
 
         Compute the value of the K-L loss between two distribution, namely KL(a||b).
 
-        **Inputs**
+        **Parameters**
 
         - **dist** (str) - the type of the other distribution.
         - **probs_b** (Tensor) - the event probability of the other distribution.
         - **probs** (Tensor) - the event probability. Default value: None.
 
-        **Output**
+        **Returns**
 
         Tensor, the value of the K-L loss.
 
@@ -64,12 +64,12 @@
 
         Compute the log value of the cumulatuve distribution function.
 
-        **Inputs**
+        **Parameters**
 
         - **value** (Tensor) - the value to compute.
         - **probs** (Tensor) - the event probability. Default value: None.
 
-        **Output**
+        **Returns**
 
         Tensor, the log value of the cumulatuve distribution function.
 
@@ -77,12 +77,12 @@
 
         the log value of the probability.
 
-        **Inputs**
+        **Parameters**
 
         - **value** (Tensor) - the value to compute.
         - **probs** (Tensor) - the event probability. Default value: None.
 
-        **Output**
+        **Returns**
 
         Tensor, the log value of the probability.
 
@@ -90,12 +90,12 @@
 
         Compute the log value of the survival function.
 
-        **Inputs**
+        **Parameters**
 
         - **value** (Tensor) - the value to compute.
         - **probs** (Tensor) - the event probability. Default value: None.
 
-        **Output**
+        **Returns**
 
         Tensor, the value of the K-L loss.
 
@@ -103,11 +103,11 @@
 
         Compute the mean value of the distribution.
 
-        **Inputs**
+        **Parameters**
 
         - **probs** (Tensor) - the event probability. Default value: None.
 
-        **Output**
+        **Returns**
 
         Tensor, the mean of the distribution.
 
@@ -115,11 +115,11 @@
 
         Compute the mode value of the distribution.
 
-        **Inputs**
+        **Parameters**
 
         - **probs** (Tensor) - the event probability. Default value: None.
 
-        **Output**
+        **Returns**
 
         Tensor, the mode of the distribution.
 
@@ -127,12 +127,12 @@
 
         The probability of the given value. For the discrete distribution, it is the probability mass function(pmf).
 
-        **Inputs**
+        **Parameters**
 
         - **value** (Tensor) - the value to compute.
         - **probs** (Tensor) - the event probability. Default value: None.
 
-        **Output**
+        **Returns**
 
         Tensor, the value of the probability.
 
@@ -140,12 +140,12 @@
 
         Generate samples.
 
-        **Inputs**
+        **Parameters**
 
         - **shape** (tuple) - the shape of the sample.
         - **probs** (Tensor) - the event probability. Default value: None.
 
-        **Output**
+        **Returns**
 
         Tensor, the sample following the distribution.
 
@@ -153,10 +153,10 @@
 
         The standard deviation.
 
-        **Inputs**
+        **Parameters**
         - **probs** (Tensor) - the event probability. Default value: None.
 
-        **Output**
+        **Returns**
 
         Tensor, the standard deviation of the distribution.
 
@@ -164,12 +164,12 @@
 
         Compute the value of the survival function.
 
-        **Inputs**
+        **Parameters**
 
         - **value** (Tensor) - the value to compute.
         - **probs** (Tensor) - the event probability. Default value: None.
 
-        **Output**
+        **Returns**
 
         Tensor, the value of the survival function.
 
@@ -177,10 +177,10 @@
 
         Compute the variance of the distribution.
 
-        **Inputs**
+        **Parameters**
 
         - **probs** (Tensor) - the event probability. Default value: None.
 
-        **Output**
+        **Returns**
 
         Tensor, the variance of the distribution.
