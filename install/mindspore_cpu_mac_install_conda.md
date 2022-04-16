@@ -1,8 +1,8 @@
-# Conda方式安装MindSpore CPU版本 (macOS)
+# Conda方式安装MindSpore CPU版本-macOS
 
 <!-- TOC -->
 
-- [Conda方式安装MindSpore CPU版本 (macOS)](#conda方式安装mindspore-cpu版本-macos)
+- [Conda方式安装MindSpore CPU版本-macOS](#conda方式安装mindspore-cpu版本-macos)
     - [确认系统环境信息](#确认系统环境信息)
     - [创建并进入Conda虚拟环境](#创建并进入conda虚拟环境)
     - [安装MindSpore](#安装mindspore)

@@ -3,8 +3,8 @@
 <!-- TOC -->
 
 - [Installing MindSpore in GPU by Source Code](#installing-mindspore-in-gpu-by-source-code)
-    - [Environment Preparation (automatic, recommended)](#environment-preparation-automatic-recommended)
-    - [Environment Preparation (manual)](#environment-preparation-manual)
+    - [Environment Preparation-automatic, recommended](#environment-preparation-automatic-recommended)
+    - [Environment Preparation-manual](#environment-preparation-manual)
         - [Installing CUDA](#installing-cuda)
         - [Installing cuDNN](#installing-cudnn)
         - [Installing Python](#installing-python)
@@ -26,11 +26,11 @@
 
 This document describes how to quickly install MindSpore by source code in a Linux system with a GPU environment. The following takes Ubuntu 18.04 as an example to describe how to install MindSpore.
 
-- If you want to configure an environment that can compile MindSpore on a fresh Ubuntu 18.04 with a GPU environment, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-source.sh) for one-click configuration, see [Environment Preparation (automatic, recommended)](#environment-preparation-automatic-recommended) section. The automatic installation script will install the dependencies required to compile MindSpore.
+- If you want to configure an environment that can compile MindSpore on a fresh Ubuntu 18.04 with a GPU environment, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-gpu-source.sh) for one-click configuration, see [Environment Preparation -automatic, recommended](#environment-preparation-automatic-recommended) section. The automatic installation script will install the dependencies required to compile MindSpore.
 
-- If some dependencies, such as CUDA, Python and GCC, have been installed in your system, it is recommended to install manually by referring to the installation steps in the [Environment Preparation (manual)](#environment-preparation-manual) section.
+- If some dependencies, such as CUDA, Python and GCC, have been installed in your system, it is recommended to install manually by referring to the installation steps in the [Environment Preparation-manual](#environment-preparation-manual) section.
 
-## Environment Preparation (automatic, recommended)
+## Environment Preparation-automatic, recommended
 
 Before using the automatic installation script, you need to make sure that the NVIDIA GPU driver is correctly installed on the system. The minimum required GPU driver version of CUDA 10.1 is 418.39. The minimum required GPU driver version of CUDA 11.1 is 450.80.02. Execute the following command to check the driver version.
 
@@ -71,7 +71,7 @@ After the automatic installation script is executed, you need to reopen the term
 
 For more usage, see the script header description.
 
-## Environment Preparation (manual)
+## Environment Preparation-manual
 
 The following table lists the system environment and third-party dependencies required to compile and install MindSpore GPU.
 

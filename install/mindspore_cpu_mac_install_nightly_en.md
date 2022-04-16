@@ -1,8 +1,8 @@
-# Installing MindSpore CPU Nightly by pip (macOS)
+# Installing MindSpore CPU Nightly by pip-macOS
 
 <!-- TOC -->
 
-- [Installing MindSpore CPU Nightly by pip (macOS)](#installing-mindspore-cpu-nightly-by-pip-macos)
+- [Installing MindSpore CPU Nightly by pip-macOS](#installing-mindspore-cpu-nightly-by-pip-macos)
     - [System Environment Information Confirmation](#system-environment-information-confirmation)
     - [Downloading and Installing MindSpore](#downloading-and-installing-mindspore)
     - [Installation Verification](#installation-verification)
