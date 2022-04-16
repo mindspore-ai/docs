@@ -260,7 +260,7 @@ Tensor(shape=[2, 2], dtype=Int32, value=
 
 ## 数据Dump功能介绍
 
-训练网络时，若训练结果和预期有偏差，可以通过数据Dump功能保存算子的输入输出进行调试。详细Dump功能介绍参考[Dump功能说明](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html#dump)。
+训练网络时，若训练结果和预期有偏差，可以通过数据Dump功能保存算子的输入输出进行调试。详细Dump功能介绍参考[Dump功能说明](https://www.mindspore.cn/tutorials/experts/zh-CN/master/debug/dump.html#dump功能说明)。
 
 ### 同步Dump功能使用方法
 

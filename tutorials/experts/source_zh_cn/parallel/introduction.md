@@ -63,7 +63,7 @@ context.set_auto_parallel_context(parallel_mode=context.ParallelMode.DATA_PARALL
 
 ### 数据并行
 
-在数据并行中，用户定义网络的方式和单机脚本一样，但是在网络定义之前调用[init()](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.communication.html?highlight=init#mindspore.communication.init)去初始化设备通信状态。
+在数据并行中，用户定义网络的方式和单机脚本一样，但是在网络定义之前调用[init()](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.communication.html#mindspore.communication.init)去初始化设备通信状态。
 
 ```python
 import numpy as np
@@ -150,7 +150,7 @@ model.train(*args, **kwargs)
     model.train(*args, **kwargs)
     ```
 
-在前后算子的设备矩阵不一致时，会自动插入[重排布](https://www.mindspore.cn/docs/zh-CN/master/design/distributed_training_design.html?highlight=%E9%87%8D%E6%8E%92%E5%B8%83#自动并行), 确保`tensor`的切分状态符合下一个算子输入要求。例如在单机八卡的训练中，有下述的示例代码：
+在前后算子的设备矩阵不一致时，会自动插入[重排布](https://www.mindspore.cn/docs/zh-CN/master/design/distributed_training_design.html#自动并行), 确保`tensor`的切分状态符合下一个算子输入要求。例如在单机八卡的训练中，有下述的示例代码：
 
 ```python
 import numpy as np
