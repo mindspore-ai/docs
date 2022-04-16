@@ -1,11 +1,17 @@
 mindspore.numpy
 ===============
 
-.. automodule:: mindspore.numpy
+.. currentmodule:: mindspore.numpy
 
 MindSpore Numpy package contains a set of Numpy-like interfaces, which allows developers to build models on MindSpore with similar syntax of Numpy.
 
 MindSpore Numpy operators can be classified into four functional modules: `array generation`, `array operation`, `logic operation` and `math operation`.
+
+Common imported modules in corresponding API examples are as follows:
+
+.. code-block:: python
+
+    import mindspore.numpy as np
 
 Array Generation
 ----------------
