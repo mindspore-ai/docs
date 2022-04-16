@@ -2,11 +2,11 @@
 
         forward mapping, compute the value after mapping as :math:`Y = \exp(X)`.
 
-        **Inputs**
+        **Parameters**
 
         - **value** (Tensor) - the value to compute.
 
-        **Output**
+        **Returns**
 
         Tensor, the value of output after mapping.
 
@@ -14,11 +14,11 @@
 
         compute the log value after mapping, namely :math:`\log(d\exp(x) / dx)`.
 
-        **Inputs**
+        **Parameters**
 
         - **value** (Tensor) - the value to compute.
 
-        **Output**
+        **Returns**
 
         Tensor, the log value of forward mapping.
 
@@ -26,11 +26,11 @@
 
         Inverse mapping, compute the value after inverse mapping as :math:`X = \log(Y)`.
 
-        **Inputs**
+        **Parameters**
 
         - **value** (Tensor) - the value of output after mapping.
 
-        **Output**
+        **Returns**
 
         Tensor, the value to compute.
 
@@ -38,10 +38,10 @@
 
         Compute the log value of the inverse mapping, namely :math:`\log(d\log(x) / dx)`.
 
-        **Inputs**
+        **Parameters**
 
         - **value** (Tensor) - the value of output after mapping.
 
-        **Output**
+        **Returns**
 
         Tensor, the log value of the inverse mapping.
