@@ -29,6 +29,13 @@ MindSpore Vision是一个基于MindSpore的Python软件包。
 - 工具: 丰富的可视化接口和IO(输入/输出)接口。
 
 .. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 安装部署
+
+   mindvision_install
+
+.. toctree::
    :maxdepth: 1
    :caption: API参考
 
