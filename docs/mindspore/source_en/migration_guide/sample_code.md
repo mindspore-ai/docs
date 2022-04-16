@@ -91,7 +91,7 @@ We can analyze it based on both operator and function aspects.
 | `nn.Linear`            | `nn.Dense`         | yes                    |
 | `torch.flatten`        | `nn.Flatten`       | yes                    |
 
-Note: For PyTorch scripts, MindSpore provides the [PyTorch operator mapping tool](https://www.mindspore.cn/tutorials/experts/en/r1.7/index.html#operator_api ), which can directly query whether the operator is supported.
+Note: For PyTorch scripts, MindSpore provides the [PyTorch operator mapping](https://www.mindspore.cn/docs/en/r1.7/note/api_mapping/pytorch_api_mapping.html), which can directly query whether the operator is supported.
 
 - Function Analysis
 

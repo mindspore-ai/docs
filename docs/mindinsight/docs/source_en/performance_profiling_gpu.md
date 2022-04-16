@@ -132,7 +132,7 @@ The usage is almost the same as that in Ascend.
 
 The usage is described as follows:
 
-<https://www.mindspore.cn/mindinsight/docs/en/r1.7/performance_profiling_ascend.html#minddata-performance-analysis>
+<https://www.mindspore.cn/mindinsight/docs/en/r1.7/performance_profiling_ascend.html#data-preparation-performance-analysis>
 
 ## Resource Utilization
 

@@ -22,7 +22,7 @@ For dominating the difference between backend models, model files in the [MindIR
 - For the GPU/CPU hardware platform, please refer to [Inference on a GPU/CPU](https://www.mindspore.cn/tutorials/experts/en/r1.7/infer/cpu_gpu_mindir.html).
 - For inference on the Lite platform on device, please refer to [on-device inference](https://www.mindspore.cn/lite/docs/en/r1.7/index.html).
 
-> Please refer to [MindSpore C++ Library Use](https://www.mindspore.cn/docs/en/r1.7/faq/inference.html#c) to solve the interface issues on the Ascend hardware platform.
+> Please refer to [MindSpore C++ Library Use](https://www.mindspore.cn/docs/en/r1.7/faq/inference.html) to solve the interface issues on the Ascend hardware platform.
 
 ## On-line Inference Service Deployment Based on MindSpore Serving
 
@@ -34,4 +34,4 @@ MindSpore Serving is a lite and high-performance service module, aiming at assis
 - [Servable Provided Through Model Configuration](https://www.mindspore.cn/serving/docs/en/r1.7/serving_model.html).
 - [MindSpore Serving-based Distributed Inference Service Deployment](https://www.mindspore.cn/serving/docs/en/r1.7/serving_distributed_example.html).
 
-> For deployment issues regarding the on-line inference service, please refer to [MindSpore Serving Class](https://www.mindspore.cn/docs/en/r1.7/faq/inference.html#mindspore-serving).
+> For deployment issues regarding the on-line inference service, please refer to [MindSpore Serving Class](https://www.mindspore.cn/serving/docs/en/r1.7/faq.html).
