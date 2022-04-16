@@ -3,8 +3,8 @@
 <!-- TOC -->
 
 - [Installing MindSpore in Ascend 910 by Source Code](#installing-mindspore-in-ascend-910-by-source-code)
-    - [Environment Preparation (automatic, recommended)](#environment-preparation-automatic-recommended)
-    - [Environment Preparation (manual)](#environment-preparation-manual)
+    - [Environment Preparation -automatic, recommended](#environment-preparation--automatic-recommended)
+    - [Environment Preparation-manual](#environment-preparation-manual)
         - [Installing Python](#installing-python)
         - [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package)
         - [Installing wheel and setuptools](#installing-wheel-and-setuptools)
@@ -26,11 +26,11 @@
 
 This document describes how to quickly install MindSpore in a Linux system with an Ascend 910 environment by source code compilation.
 
-- If you want to configure an environment that can compile MindSpore on an EulerOS 2.8 with Ascend AI processor software package installed, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-source.sh) for one-click configuration, see [Environment Preparation (automatic, recommended)](#environment-preparation-automatic-recommended) section. The automatic installation script will install the dependencies required to compile MindSpore.
+- If you want to configure an environment that can compile MindSpore on an EulerOS 2.8 with Ascend AI processor software package installed, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/euleros-ascend-source.sh) for one-click configuration, see [Environment Preparation -automatic, recommended](#environment-preparation-automatic-recommended) section. The automatic installation script will install the dependencies required to compile MindSpore.
 
-- If some dependencies, such as Python and GCC, have been installed in your system, it is recommended to install manually by referring to the installation steps in the [Environment Preparation (manual)](#environment-preparation-manual) section.
+- If some dependencies, such as Python and GCC, have been installed in your system, it is recommended to install manually by referring to the installation steps in the [Environment Preparation-manual](#environment-preparation-manual) section.
 
-## Environment Preparation (automatic, recommended)
+## Environment Preparation-automatic, recommended
 
 Before running the automatic installation script, you need to make sure that the Ascend AI processor software package is correctly installed on your system. If it is not installed, please refer to the section [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package) to install it.
 
@@ -70,7 +70,7 @@ Now you can jump to the [Downloading the Source Code from the Code Repository](#
 
 For more usage, see the script header description.
 
-## Environment Preparation (manual)
+## Environment Preparation-manual
 
 The following table lists the system environment and third-party dependencies required for building and installing MindSpore.
 

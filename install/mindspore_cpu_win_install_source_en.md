@@ -1,8 +1,8 @@
-﻿﻿# Installing MindSpore in CPU by Source Code (Windows)
+﻿﻿# Installing MindSpore in CPU by Source Code-Windows
 
 <!-- TOC -->
 
-- [Installing MindSpore in CPU by Source Code (Windows)](#installing-mindspore-in-cpu-by-source-code-windows)
+- [Installing MindSpore in CPU by Source Code-Windows](#installing-mindspore-in-cpu-by-source-code-windows)
     - [System Environment Information Confirmation](#system-environment-information-confirmation)
     - [Downloading Source Code from Code Repository](#downloading-source-code-from-code-repository)
     - [Compiling MindSpore](#compiling-mindspore)

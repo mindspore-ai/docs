@@ -3,8 +3,8 @@
 <!-- TOC -->
 
 - [Installing MindSpore in CPU by Source Code](#installing-mindspore-in-cpu-by-source-code)
-    - [Environment Preparation (automatic, recommended)](#environment-preparation-automatic-recommended)
-    - [Environment Preparation (manual)](#environment-preparation-manual)
+    - [Environment Preparation-automatic, recommended](#environment-preparation-automatic-recommended)
+    - [Environment Preparation-manual](#environment-preparation-manual)
         - [Installing Python](#installing-python)
         - [Installing wheel and setuptools](#installing-wheel-and-setuptools)
         - [Installing GCC, git, gmp, tclsh, patch and NUMA](#installing-gcc-git-gmp-tclsh-patch-and-numa)
@@ -22,11 +22,11 @@
 
 This document describes how to quickly install MindSpore by source code compilation in a Linux system in the CPU environment. The following takes Ubuntu 18.04 as an example to describe how to compile and install MindSpore.
 
-- If you need to configure an environment for building MindSpore on the Ubuntu 18.04 that never installed MindSpore and its dependencies, you may use the [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-source.sh) for one-click configuration, see [Environment Preparation (automatic, recommended)](#environment-preparation-automatic-recommended) section. The script installs the dependencies required for building MindSpore.
+- If you need to configure an environment for building MindSpore on the Ubuntu 18.04 that never installed MindSpore and its dependencies, you may use the [automatic installation script](https://gitee.com/mindspore/mindspore/raw/master/scripts/install/ubuntu-cpu-source.sh) for one-click configuration, see [Environment Preparation -automatic, recommended](#environment-preparation-automatic-recommended) section. The script installs the dependencies required for building MindSpore.
 
-- If some dependencies, such as Python and GCC, have been installed in your system, it is recommended to install manually by referring to the installation steps in the [Environment Preparation (manual)](#environment-preparation-manual) section.
+- If some dependencies, such as Python and GCC, have been installed in your system, it is recommended to install manually by referring to the installation steps in the [Environment Preparation-manual](#environment-preparation-manual) section.
 
-## Environment Preparation (automatic, recommended)
+## Environment Preparation-automatic, recommended
 
 The root permission is required because the automatic installation script needs to change the software source configuration and install dependencies via APT. Run the following command to obtain and run the automatic installation script. The environment configured by the automatic installation script only supports compiling MindSpore>=1.6.0.
 
@@ -48,7 +48,7 @@ After the automatic installation script is executed, you need to reopen the term
 
 For more usage, see the script header description.
 
-## Environment Preparation (manual)
+## Environment Preparation-manual
 
 |software|version|description|
 |-|-|-|

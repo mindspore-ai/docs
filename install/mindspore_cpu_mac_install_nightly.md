@@ -1,8 +1,8 @@
-# pip方式安装MindSpore CPU Nightly版本（macOS）
+# pip方式安装MindSpore CPU Nightly版本-macOS
 
 <!-- TOC -->
 
-- [pip方式安装MindSpore CPU Nightly版本（macOS）](#pip方式安装mindspore-cpu-nightly版本macos)
+- [pip方式安装MindSpore CPU Nightly版本-macOS](#pip方式安装mindspore-cpu-nightly版本-macos)
     - [确认系统环境信息](#确认系统环境信息)
     - [下载安装MindSpore](#下载安装mindspore)
     - [验证是否成功安装](#验证是否成功安装)
