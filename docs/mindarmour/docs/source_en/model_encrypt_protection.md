@@ -78,7 +78,7 @@ from mindspore import load
 graph = load('lenet_enc.mindir', dec_key=b'0123456789ABCDEF', dec_mode='AES-GCM')
 ```
 
-For C++ scripts, MindSpore also provides the `Load` API to load MindIR models. For details about the API definition, see [MindSpore API](https://www.mindspore.cn/lite/api/en/r1.7/api_cpp/mindspore.html?highlight=load).
+For C++ scripts, MindSpore also provides the `Load` API to load MindIR models. For details about the API definition, see [MindSpore API](https://www.mindspore.cn/lite/api/en/r1.7/api_cpp/mindspore.html).
 
 When loading a ciphertext model, you can specify `dec_key` and `dec_mode` to decrypt the model.
 

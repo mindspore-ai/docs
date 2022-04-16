@@ -92,7 +92,7 @@ from mindspore import load
 graph = load('lenet_enc.mindir', dec_key=b'0123456789ABCDEF', dec_mode='AES-GCM')
 ```
 
-对于C++脚本，MindSpore也提供了`Load`接口以加载MindIR模型，接口定义可参考[api文档](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html?highlight=load)：
+对于C++脚本，MindSpore也提供了`Load`接口以加载MindIR模型，接口定义可参考[api文档](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html)：
 
 在加载密文模型时，通过指定`dec_key`和`dec_mode`对模型进行解密。
 
