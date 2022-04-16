@@ -20,7 +20,7 @@ MindSpore docs仓提供了[文档写作要求](https://gitee.com/mindspore/docs/
 
 #### 新增文档
 
-如果您需要新增文档，请在合适目录新建Markdown或reStructuredText文件，MindSpore docs仓目录结构说明可参考[README](https://gitee.com/mindspore/docs/blob/master/README_CN.md#目录结构说明)。
+如果您需要新增文档，请在合适目录新建Markdown或reStructuredText文件，MindSpore docs仓目录结构说明可参考[README](https://gitee.com/mindspore/docs/blob/r1.7/README_CN.md#目录结构说明)。
 
 1. 新建文件
 
@@ -67,7 +67,7 @@ MindSpore CI采用了Markdownlint、Pylint、Shellcheck、Cppcheck、Cpplint、T
 - MD009（行尾空格）规则将参数br_spaces设置为2，表示行尾可以有0个或2个空格。
 - MD029（有序列表的前缀序号）规则将参数style设置为ordered，表示有序列表的前缀序号需按顺序递增。
 
-更为详细规则信息请参考[RULES](https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md)。
+更为详细规则信息请参考[RULES](https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md#)。
 
 ### 确认内容
 
