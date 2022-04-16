@@ -40,83 +40,83 @@ Here we have more examples:
 
 - Generate a tensor filled with the same element
 
-    `np.full` can be used to generate a tensor with user-specified values:
+  `np.full` can be used to generate a tensor with user-specified values:
 
-    .. code-block:: python
+  .. code-block:: python
 
-        input_x = np.full((2, 3), 6, np.float32)
-        print(input_x)
+      input_x = np.full((2, 3), 6, np.float32)
+      print(input_x)
 
-    The result is as follows:
+  The result is as follows:
 
-    .. code-block::
+  .. code-block::
 
-        [[6. 6. 6.]
-         [6. 6. 6.]]
+      [[6. 6. 6.]
+       [6. 6. 6.]]
     
 
-    Here is another example to generate an array with the specified shape and filled with the value of 1:
+  Here is another example to generate an array with the specified shape and filled with the value of 1:
 
-    .. code-block:: python
+  .. code-block:: python
 
-        input_x = np.ones((2, 3), np.float32)
-        print(input_x)
+      input_x = np.ones((2, 3), np.float32)
+      print(input_x)
 
-    The result is as follows:
+  The result is as follows:
 
-    .. code-block::
+  .. code-block::
 
-        [[1. 1. 1.]
-         [1. 1. 1.]]
+      [[1. 1. 1.]
+       [1. 1. 1.]]
     
 
 - Generate tensors in a specified range
 
-    Generate an arithmetic array within the specified range：
+  Generate an arithmetic array within the specified range：
 
-    .. code-block:: python
+  .. code-block:: python
 
-        input_x = np.arange(0, 5, 1)
-        print(input_x)
+      input_x = np.arange(0, 5, 1)
+      print(input_x)
 
-    The result is as follows:
+  The result is as follows:
 
-    .. code-block::
+  .. code-block::
 
-        [0 1 2 3 4]
+      [0 1 2 3 4]
     
 
 - Generate tensors with specific requirement
 
-    Generate a matrix where the lower elements are 1 and the upper elements are 0 on the given diagonal:
+  Generate a matrix where the lower elements are 1 and the upper elements are 0 on the given diagonal:
 
-    .. code-block:: python
+  .. code-block:: python
 
-        input_x = np.tri(3, 3, 1)
-        print(input_x)
+      input_x = np.tri(3, 3, 1)
+      print(input_x)
 
-    The result is as follows:
+  The result is as follows:
 
-    .. code-block::
+  .. code-block::
 
-        [[1. 1. 0.]
-         [1. 1. 1.]
-         [1. 1. 1.]]
+      [[1. 1. 0.]
+       [1. 1. 1.]
+       [1. 1. 1.]]
     
 
-    Another example, generate a 2-D matrix with a diagonal of 1 and other elements of 0:
+  Another example, generate a 2-D matrix with a diagonal of 1 and other elements of 0:
 
-    .. code-block:: python
+  .. code-block:: python
 
-        input_x = np.eye(2, 2)
-        print(input_x)
+      input_x = np.eye(2, 2)
+      print(input_x)
 
-    The result is as follows:
+  The result is as follows:
 
-    .. code-block::
+  .. code-block::
 
-        [[1. 0.]
-         [0. 1.]]
+      [[1. 0.]
+       [0. 1.]]
    
 
 .. msplatformautosummary::
@@ -177,69 +177,69 @@ Array operations focus on tensor manipulation.
 
 - Manipulate the shape of the tensor
 
-    For example, transpose a matrix:
+  For example, transpose a matrix:
 
-    .. code-block:: python
+  .. code-block:: python
 
-        input_x = np.arange(10).reshape(5, 2)
-        output = np.transpose(input_x)
-        print(output)
+      input_x = np.arange(10).reshape(5, 2)
+      output = np.transpose(input_x)
+      print(output)
 
-    The result is as follows:
+  The result is as follows:
 
-    .. code-block::
+  .. code-block::
 
-        [[0 2 4 6 8]
-         [1 3 5 7 9]]
+      [[0 2 4 6 8]
+       [1 3 5 7 9]]
     
 
-    Another example, swap two axes:
+  Another example, swap two axes:
 
-    .. code-block:: python
+  .. code-block:: python
 
-        input_x = np.ones((1, 2, 3))
-        output = np.swapaxes(input_x, 0, 1)
-        print(output.shape)
+      input_x = np.ones((1, 2, 3))
+      output = np.swapaxes(input_x, 0, 1)
+      print(output.shape)
 
-    The result is as follows:
+  The result is as follows:
 
-    .. code-block::
+  .. code-block::
 
-        (2, 1, 3)
+      (2, 1, 3)
     
 
 - Tensor splitting
 
-    Divide the input tensor into multiple tensors equally, for example:
+  Divide the input tensor into multiple tensors equally, for example:
 
-    .. code-block:: python
+  .. code-block:: python
 
-        input_x = np.arange(9)
-        output = np.split(input_x, 3)
-        print(output)
+      input_x = np.arange(9)
+      output = np.split(input_x, 3)
+      print(output)
 
-    The result is as follows:
+  The result is as follows:
 
-    .. code-block::
+  .. code-block::
 
-        (Tensor(shape=[3], dtype=Int32, value= [0, 1, 2]), Tensor(shape=[3], dtype=Int32, value= [3, 4, 5]), Tensor(shape=[3], dtype=Int32, value= [6, 7, 8]))
+      (Tensor(shape=[3], dtype=Int32, value= [0, 1, 2]), Tensor(shape=[3], dtype=Int32, value= [3, 4, 5]), Tensor(shape=[3], dtype=Int32, value= [6, 7, 8]))
 
 - Tensor combination
 
-    Concatenate the two tensors according to the specified axis, for example:
+  Concatenate the two tensors according to the specified axis, for example:
 
-    .. code-block:: python
+  .. code-block:: python
 
-        input_x = np.arange(0, 5)
-        input_y = np.arange(10, 15)
-        output = np.concatenate((input_x, input_y), axis=0)
-        print(output)
+      input_x = np.arange(0, 5)
+      input_y = np.arange(10, 15)
+      output = np.concatenate((input_x, input_y), axis=0)
+      print(output)
 
-    The result is as follows:
+  The result is as follows:
 
-    .. code-block::
+  .. code-block::
 
-        [ 0  1  2  3  4 10 11 12 13 14]
+      [ 0  1  2  3  4 10 11 12 13 14]
    
 
 .. msplatformautosummary::
@@ -350,74 +350,74 @@ Math operations include basic and advanced math operations on tensors, and they 
 
 - Sum two tensors
 
-    The following code implements the operation of adding two tensors of `input_x` and `input_y`:
+  The following code implements the operation of adding two tensors of `input_x` and `input_y`:
 
-    .. code-block:: python
+  .. code-block:: python
 
-        input_x = np.full((3, 2), [1, 2])
-        input_y = np.full((3, 2), [3, 4])
-        output = np.add(input_x, input_y)
-        print(output)
+      input_x = np.full((3, 2), [1, 2])
+      input_y = np.full((3, 2), [3, 4])
+      output = np.add(input_x, input_y)
+      print(output)
 
-    The result is as follows:
+  The result is as follows:
 
-    .. code-block::
+  .. code-block::
 
-        [[4 6]
-         [4 6]
-         [4 6]]
+      [[4 6]
+       [4 6]
+       [4 6]]
 
 - Matrics multiplication
 
-    The following code implements the operation of multiplying two matrices `input_x` and `input_y`:
+  The following code implements the operation of multiplying two matrices `input_x` and `input_y`:
 
-    .. code-block:: python
+  .. code-block:: python
 
-        input_x = np.arange(2*3).reshape(2, 3).astype('float32')
-        input_y = np.arange(3*4).reshape(3, 4).astype('float32')
-        output = np.matmul(input_x, input_y)
-        print(output)
+      input_x = np.arange(2*3).reshape(2, 3).astype('float32')
+      input_y = np.arange(3*4).reshape(3, 4).astype('float32')
+      output = np.matmul(input_x, input_y)
+      print(output)
 
-    The result is as follows:
+  The result is as follows:
 
-    .. code-block::
+  .. code-block::
 
-        [[20. 23. 26. 29.]
-         [56. 68. 80. 92.]]
+      [[20. 23. 26. 29.]
+       [56. 68. 80. 92.]]
     
 
 - Take the average along a given axis
 
-    The following code implements the operation of averaging all the elements of `input_x`:
+  The following code implements the operation of averaging all the elements of `input_x`:
 
-    .. code-block:: python
+  .. code-block:: python
 
-        input_x = np.arange(6).astype('float32')
-        output = np.mean(input_x)
-        print(output)
+      input_x = np.arange(6).astype('float32')
+      output = np.mean(input_x)
+      print(output)
 
-    The result is as follows:
+  The result is as follows:
 
-    .. code-block::
+  .. code-block::
 
-        2.5
+      2.5
     
 
 - Exponential arithmetic
 
-    The following code implements the operation of the natural constant `e` to the power of `input_x`:
+  The following code implements the operation of the natural constant `e` to the power of `input_x`:
 
-    .. code-block:: python
+  .. code-block:: python
 
-        input_x = np.arange(5).astype('float32')
-        output = np.exp(input_x)
-        print(output)
+      input_x = np.arange(5).astype('float32')
+      output = np.exp(input_x)
+      print(output)
 
-    The result is as follows:
+  The result is as follows:
 
-    .. code-block::
+  .. code-block::
 
-        [ 1.         2.7182817  7.389056  20.085537  54.59815  ]
+      [ 1.         2.7182817  7.389056  20.085537  54.59815  ]
    
 .. msplatformautosummary::
     :toctree: numpy
@@ -556,170 +556,169 @@ The following are examples:
 
 - Use ms_function to run code in static graph mode
 
-    Let's first see an example consisted of matrix multiplication and bias add, which is a typical process in Neural Networks:
+  Let's first see an example consisted of matrix multiplication and bias add, which is a typical process in Neural Networks:
 
-    .. code-block:: python
+  .. code-block:: python
 
-        import mindspore.numpy as np
+      import mindspore.numpy as np
 
-        x = np.arange(8).reshape(2, 4).astype('float32')
-        w1 = np.ones((4, 8))
-        b1 = np.zeros((8,))
-        w2 = np.ones((8, 16))
-        b2 = np.zeros((16,))
-        w3 = np.ones((16, 4))
-        b3 = np.zeros((4,))
+      x = np.arange(8).reshape(2, 4).astype('float32')
+      w1 = np.ones((4, 8))
+      b1 = np.zeros((8,))
+      w2 = np.ones((8, 16))
+      b2 = np.zeros((16,))
+      w3 = np.ones((16, 4))
+      b3 = np.zeros((4,))
 
-        def forward(x, w1, b1, w2, b2, w3, b3):
-            x = np.dot(x, w1) + b1
-            x = np.dot(x, w2) + b2
-            x = np.dot(x, w3) + b3
-        return x
+      def forward(x, w1, b1, w2, b2, w3, b3):
+          x = np.dot(x, w1) + b1
+          x = np.dot(x, w2) + b2
+          x = np.dot(x, w3) + b3
+      return x
 
-        print(forward(x, w1, b1, w2, b2, w3, b3))
+      print(forward(x, w1, b1, w2, b2, w3, b3))
 
-    The result is as follows:
+  The result is as follows:
 
-    .. code-block::
+  .. code-block::
 
-        [[ 768.  768.  768.  768.]
-         [2816. 2816. 2816. 2816.]]
+      [[ 768.  768.  768.  768.]
+       [2816. 2816. 2816. 2816.]]
     
 
-    In this function, MindSpore dispatches each computing kernel to device separately. However, with the help of `ms_function`, we can compile all operations into a single static computing graph.
+  In this function, MindSpore dispatches each computing kernel to device separately. However, with the help of `ms_function`, we can compile all operations into a single static computing graph.
 
-    .. code-block:: python
+  .. code-block:: python
 
-        from mindspore import ms_function
+      from mindspore import ms_function
 
-        forward_compiled = ms_function(forward)
-        print(forward(x, w1, b1, w2, b2, w3, b3))
+      forward_compiled = ms_function(forward)
+      print(forward(x, w1, b1, w2, b2, w3, b3))
 
-    The result is as follows:
+  The result is as follows:
 
-    .. code-block::
+  .. code-block::
 
-        [[ 768.  768.  768.  768.]
-         [2816. 2816. 2816. 2816.]]
+      [[ 768.  768.  768.  768.]
+       [2816. 2816. 2816. 2816.]]
     
 
-    > Currently, static graph cannot run in Python interactive mode and not all python types can be passed into functions decorated with `ms_function`. For details about how to use `ms_function`, see [API: ms_function](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.ms_function.html).
+  > Currently, static graph cannot run in Python interactive mode and not all python types can be passed into functions decorated with `ms_function`. For details about how to use `ms_function`, see [API: ms_function](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.ms_function.html).
 
 - Use GradOperation to compute deratives
 
-    `GradOperation` can be used to take deratives from normal functions and functions decorated with `ms_function`. Take the previous example:
+  `GradOperation` can be used to take deratives from normal functions and functions decorated with `ms_function`. Take the previous example:
 
-    .. code-block:: python
+  .. code-block:: python
 
-        from mindspore import ops
+      from mindspore import ops
 
-        grad_all = ops.composite.GradOperation(get_all=True)
-        print(grad_all(forward)(x, w1, b1, w2, b2, w3, b3))
+      grad_all = ops.composite.GradOperation(get_all=True)
+      print(grad_all(forward)(x, w1, b1, w2, b2, w3, b3))
 
-    The result is as follows:
+  The result is as follows:
 
-    .. code-block::
+  .. code-block::
 
-        (Tensor(shape=[2, 4], dtype=Float32, value=
-         [[ 5.12000000e+02,  5.12000000e+02,  5.12000000e+02,  5.12000000e+02],
-          [ 5.12000000e+02,  5.12000000e+02,  5.12000000e+02,  5.12000000e+02]]),
-         Tensor(shape=[4, 8], dtype=Float32, value=
-         [[ 2.56000000e+02,  2.56000000e+02,  2.56000000e+02 ...  2.56000000e+02,  2.56000000e+02,  2.56000000e+02],
-          [ 3.84000000e+02,  3.84000000e+02,  3.84000000e+02 ...  3.84000000e+02,  3.84000000e+02,  3.84000000e+02],
-          [ 5.12000000e+02,  5.12000000e+02,  5.12000000e+02 ...  5.12000000e+02,  5.12000000e+02,  5.12000000e+02]
-          [ 6.40000000e+02,  6.40000000e+02,  6.40000000e+02 ...  6.40000000e+02,  6.40000000e+02,  6.40000000e+02]]),
-          ...
-         Tensor(shape=[4], dtype=Float32, value= [ 2.00000000e+00,  2.00000000e+00,  2.00000000e+00,  2.00000000e+00]))
+      (Tensor(shape=[2, 4], dtype=Float32, value=
+       [[ 5.12000000e+02,  5.12000000e+02,  5.12000000e+02,  5.12000000e+02],
+        [ 5.12000000e+02,  5.12000000e+02,  5.12000000e+02,  5.12000000e+02]]),
+       Tensor(shape=[4, 8], dtype=Float32, value=
+       [[ 2.56000000e+02,  2.56000000e+02,  2.56000000e+02 ...  2.56000000e+02,  2.56000000e+02,  2.56000000e+02],
+        [ 3.84000000e+02,  3.84000000e+02,  3.84000000e+02 ...  3.84000000e+02,  3.84000000e+02,  3.84000000e+02],
+        [ 5.12000000e+02,  5.12000000e+02,  5.12000000e+02 ...  5.12000000e+02,  5.12000000e+02,  5.12000000e+02]
+        [ 6.40000000e+02,  6.40000000e+02,  6.40000000e+02 ...  6.40000000e+02,  6.40000000e+02,  6.40000000e+02]]),
+        ...
+       Tensor(shape=[4], dtype=Float32, value= [ 2.00000000e+00,  2.00000000e+00,  2.00000000e+00,  2.00000000e+00]))
 
-    To take the gradient of `ms_function` compiled functions, first we need to set the execution mode to static graph mode.
+  To take the gradient of `ms_function` compiled functions, first we need to set the execution mode to static graph mode.
 
 
-    .. code-block:: python
+  .. code-block:: python
 
-        from mindspore import ms_function, context
+      from mindspore import ms_function, context
 
-        context.set_context(mode=context.GRAPH_MODE)
-        grad_all = ops.composite.GradOperation(get_all=True)
-        print(grad_all(ms_function(forward))(x, w1, b1, w2, b2, w3, b3))
+      context.set_context(mode=context.GRAPH_MODE)
+      grad_all = ops.composite.GradOperation(get_all=True)
+      print(grad_all(ms_function(forward))(x, w1, b1, w2, b2, w3, b3))
 
-    The result is as follows:
+  The result is as follows:
 
-    .. code-block::
+  .. code-block::
 
-        (Tensor(shape=[2, 4], dtype=Float32, value=
-         [[ 5.12000000e+02,  5.12000000e+02,  5.12000000e+02,  5.12000000e+02],
-          [ 5.12000000e+02,  5.12000000e+02,  5.12000000e+02,  5.12000000e+02]]),
-         Tensor(shape=[4, 8], dtype=Float32, value=
-         [[ 2.56000000e+02,  2.56000000e+02,  2.56000000e+02 ...  2.56000000e+02,  2.56000000e+02,  2.56000000e+02],
-          [ 3.84000000e+02,  3.84000000e+02,  3.84000000e+02 ...  3.84000000e+02,  3.84000000e+02,  3.84000000e+02],
-          [ 5.12000000e+02,  5.12000000e+02,  5.12000000e+02 ...  5.12000000e+02,  5.12000000e+02,  5.12000000e+02]
-          [ 6.40000000e+02,  6.40000000e+02,  6.40000000e+02 ...  6.40000000e+02,  6.40000000e+02,  6.40000000e+02]]),
-          ...
-         Tensor(shape=[4], dtype=Float32, value= [ 2.00000000e+00,  2.00000000e+00,  2.00000000e+00,  2.00000000e+00]))
+      (Tensor(shape=[2, 4], dtype=Float32, value=
+       [[ 5.12000000e+02,  5.12000000e+02,  5.12000000e+02,  5.12000000e+02],
+        [ 5.12000000e+02,  5.12000000e+02,  5.12000000e+02,  5.12000000e+02]]),
+       Tensor(shape=[4, 8], dtype=Float32, value=
+       [[ 2.56000000e+02,  2.56000000e+02,  2.56000000e+02 ...  2.56000000e+02,  2.56000000e+02,  2.56000000e+02],
+        [ 3.84000000e+02,  3.84000000e+02,  3.84000000e+02 ...  3.84000000e+02,  3.84000000e+02,  3.84000000e+02],
+        [ 5.12000000e+02,  5.12000000e+02,  5.12000000e+02 ...  5.12000000e+02,  5.12000000e+02,  5.12000000e+02]
+        [ 6.40000000e+02,  6.40000000e+02,  6.40000000e+02 ...  6.40000000e+02,  6.40000000e+02,  6.40000000e+02]]),
+        ...
+       Tensor(shape=[4], dtype=Float32, value= [ 2.00000000e+00,  2.00000000e+00,  2.00000000e+00,  2.00000000e+00]))
 
-    For more details, see [API: GradOperation](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.GradOperation.html).
+  For more details, see [API: GradOperation](https://www.mindspore.cn/docs/en/master/api_python/ops/mindspore.ops.GradOperation.html).
 
 - Use mindspore.context to control execution mode
 
-    Most functions in `mindspore.numpy` can run in Graph Mode and PyNative Mode, and can run on `CPU`，`GPU` and `Ascend`. Like MindSpore, users can manage the execution mode using `mindspore.context`：
+  Most functions in `mindspore.numpy` can run in Graph Mode and PyNative Mode, and can run on CPU, GPU and Ascend. Like MindSpore, users can manage the execution mode using `mindspore.context`：
 
-    .. code-block:: python
+  .. code-block:: python
 
-        from mindspore import context
+      from mindspore import context
 
-        # Execucation in static graph mode
-        context.set_context(mode=context.GRAPH_MODE)
+      # Execucation in static graph mode
+      context.set_context(mode=context.GRAPH_MODE)
 
-        # Execucation in PyNative mode
-        context.set_context(mode=context.PYNATIVE_MODE)
+      # Execucation in PyNative mode
+      context.set_context(mode=context.PYNATIVE_MODE)
 
-        # Execucation on CPU backend
-        context.set_context(device_target="CPU")
+      # Execucation on CPU backend
+      context.set_context(device_target="CPU")
 
-        # Execucation on GPU backend
-        context.set_context(device_target="GPU")
+      # Execucation on GPU backend
+      context.set_context(device_target="GPU")
 
-        # Execucation on Ascend backend
-        context.set_context(device_target="Ascend")
-        ...
+      # Execucation on Ascend backend
+      context.set_context(device_target="Ascend")
+      ...
 
-    For more details, see [API: mindspore.context](https://www.mindspore.cn/docs/en/master/api_python/mindspore.context.html).
+  For more details, see [API: mindspore.context](https://www.mindspore.cn/docs/en/master/api_python/mindspore.context.html).
 
 - Use mindspore.numpy in MindSpore Deep Learning Models
 
-    `mindspore.numpy` interfaces can be used inside `nn.cell` blocks as well. For example, the above code can be modified to:
+  `mindspore.numpy` interfaces can be used inside `nn.cell` blocks as well. For example, the above code can be modified to:
 
-    .. code-block:: python
+  .. code-block:: python
 
-        import mindspore.numpy as np
-        from mindspore import context
-        from mindspore.nn import Cell
+      import mindspore.numpy as np
+      from mindspore import context
+      from mindspore.nn import Cell
 
-        context.set_context(mode=context.GRAPH_MODE)
+      context.set_context(mode=context.GRAPH_MODE)
 
-        x = np.arange(8).reshape(2, 4).astype('float32')
-        w1 = np.ones((4, 8))
-        b1 = np.zeros((8,))
-        w2 = np.ones((8, 16))
-        b2 = np.zeros((16,))
-        w3 = np.ones((16, 4))
-        b3 = np.zeros((4,))
+      x = np.arange(8).reshape(2, 4).astype('float32')
+      w1 = np.ones((4, 8))
+      b1 = np.zeros((8,))
+      w2 = np.ones((8, 16))
+      b2 = np.zeros((16,))
+      w3 = np.ones((16, 4))
+      b3 = np.zeros((4,))
 
-        class NeuralNetwork(Cell):
-            def construct(self, x, w1, b1, w2, b2, w3, b3):
-                x = np.dot(x, w1) + b1
-                x = np.dot(x, w2) + b2
-                x = np.dot(x, w3) + b3
-                return x
+      class NeuralNetwork(Cell):
+          def construct(self, x, w1, b1, w2, b2, w3, b3):
+              x = np.dot(x, w1) + b1
+              x = np.dot(x, w2) + b2
+              x = np.dot(x, w3) + b3
+              return x
 
-        net = NeuralNetwork()
+      net = NeuralNetwork()
 
-        print(net(x, w1, b1, w2, b2, w3, b3))
+      print(net(x, w1, b1, w2, b2, w3, b3))
 
-    The result is as follows:
+  The result is as follows:
 
-    .. code-block::
+  .. code-block::
 
-        [[ 768.  768.  768.  768.]
-         [2816. 2816. 2816. 2816.]]
-    
+      [[ 768.  768.  768.  768.]
+       [2816. 2816. 2816. 2816.]]
