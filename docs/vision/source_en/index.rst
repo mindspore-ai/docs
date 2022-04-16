@@ -27,6 +27,13 @@ MindSpore Vision is a MindSpore-based Python package that provides high-level fe
 - Utils: Rich visualization and IO(Input/Output) interfaces.
 
 .. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: Installation
+
+   mindvision_install
+
+.. toctree::
    :maxdepth: 1
    :caption: API References
 
