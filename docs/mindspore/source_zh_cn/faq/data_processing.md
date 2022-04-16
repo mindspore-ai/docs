@@ -187,7 +187,7 @@ ds.GeneratorDataset(..., num_shards=8, shard_id=7, ...)
 A: 数据Schema可以按如下方式定义: `cv_schema_json = {"label": {"type": "int32", "shape": [-1]}, "data": {"type": "bytes"}}`
 
 说明: label是一个数组，numpy类型，这里面可以存 1， 1，0，1， 0， 1 这么多label值，这些label值对应同一个data，即: 同一个图像的二进制值。
-可以参考[将数据集转换为MindRecord](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset/record.html#将数据集转换为MindRecord)教程。
+可以参考[将数据集转换为MindRecord](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset/record.html#转换成record格式)教程。
 
 <br/>
 
@@ -233,7 +233,7 @@ A: 首先上述报错指的是通过训练数据下发通道（TDT，train data 
 
 <font size=3>**Q: py_transforms 和 c_transforms 算子能否混合使用，如果混合使用具体需要怎么使用？**</font>
 
-A: 出于高性能考虑，通常不建议将py_transforms 与 c_transforms算子混合使用，[文档](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset.html#使用注意事项)也对此进行了说明。但若不追求极致的性能，主要考虑打通流程，在无法全部使用c_transforms算子（缺少对应的c_transforms算子）的情况下，可使用py_transforms算子替代，此时即存在混合使用。
+A: 出于高性能考虑，通常不建议将py_transforms 与 c_transforms算子混合使用，[文档](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset/enhanced_image_data.html#注意事项)也对此进行了说明。但若不追求极致的性能，主要考虑打通流程，在无法全部使用c_transforms算子（缺少对应的c_transforms算子）的情况下，可使用py_transforms算子替代，此时即存在混合使用。
 对此我们需要注意c_transforms 算子的输出通常是numpy array，py_transforms算子的输出是PIL Image，具体可查看算子说明，为此通常的混合使用方法为：
 
 - c_transforms 算子 + ToPIL 算子 + py_transforms 算子 + ToTensor算子
@@ -278,7 +278,7 @@ A: 上述错误通常是脚本书写错误导致，具体发生在下面这种�
 
 <font size=3>**Q: MindSpore中和Dataloader对应的算子是什么？**</font>
 
-A：如果将Dataloader考虑为接收自定义Dataset的API接口，MindSpore数据处理API中和Dataloader较为相似的是GeneratorDataset，可接收用户自定义的Dataset，具体使用方式参考[GeneratorDataset 文档](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset.html#自定义数据集加载)，差异对比也可查看[API算子映射表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)。
+A：如果将Dataloader考虑为接收自定义Dataset的API接口，MindSpore数据处理API中和Dataloader较为相似的是GeneratorDataset，可接收用户自定义的Dataset，具体使用方式参考[GeneratorDataset 文档](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset/custom.html)，差异对比也可查看[API算子映射表](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)。
 
 <br/>
 

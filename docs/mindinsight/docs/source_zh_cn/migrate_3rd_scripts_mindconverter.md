@@ -192,7 +192,7 @@ mindconverter --model_file /path/to/model.onnx
 
 如果需要从`.onnx`文件中获取模型输入节点`shape`、输入节点名称、输出节点名称，推荐使用[Netron](https://github.com/lutzroeder/netron)工具加载ONNX模型文件，获取上述信息。
 
-模型文件（`model.py`）与权重信息（`ckpt`）可用于验证模型迁移的等价性，也可用于导出[MindIR](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/save_load.html#mindir)格式文件。
+模型文件（`model.py`）与权重信息（`ckpt`）可用于验证模型迁移的等价性，也可用于导出[MindIR](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/train/save.html#导出mindir格式文件)格式文件。
 
 ```python
 import mindspore

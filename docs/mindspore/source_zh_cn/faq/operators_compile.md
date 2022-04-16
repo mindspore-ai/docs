@@ -46,7 +46,7 @@ A: 支持，请参考`mindspore.ops.Transpose`的[算子教程](https://www.mind
 
 <font size=3>**Q: 请问MindSpore能算给定任意一个`tensor`的方差吗？**</font>
 
-A: mindspore目前暂无可以直接求出`tensor`方差的算子或接口。不过MindSpore有足够多的小算子可以支持用户实现这样的操作，你可以参考[class Moments(Cell)](https://www.mindspore.cn/docs/zh-CN/master/_modules/mindspore/nn/layer/math.html#Moments)来实现。
+A: mindspore目前暂无可以直接求出`tensor`方差的算子或接口。不过MindSpore有足够多的小算子可以支持用户实现这样的操作，你可以参考[class Moments(Cell)](https://www.mindspore.cn/docs/en/master/_modules/mindspore/nn/layer/math.html#Moments)来实现。
 
 <br/>
 

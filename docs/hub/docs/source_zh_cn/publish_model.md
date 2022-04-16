@@ -54,7 +54,7 @@
    ```
 
    其中，MindSpore Hub支持的模型文件格式有：
-   - [MindSpore CKPT](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/train/save.html#saving-the-models)
+   - [MindSpore CKPT](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/train/save.html#保存模型)
    - [MINDIR](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/train/save.html#导出mindir格式文件)
    - [AIR](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/train/save.html#导出air格式文件)
    - [ONNX](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/train/save.html#导出onnx格式文件)

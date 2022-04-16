@@ -20,7 +20,7 @@ Profiler的功能介绍及使用说明请参见教程：
 
 ### 案例一：迭代间隙过长
 
-在MindSpore [ModelZoo](https://gitee.com/mindspore/models/blob/master/README_CN.md)中运行ResNet50单卡训练脚本，batch size设置为32，发现单step时间约为90ms，性能较差。
+在MindSpore [ModelZoo](https://gitee.com/mindspore/models/blob/master/README_CN.md#)中运行ResNet50单卡训练脚本，batch size设置为32，发现单step时间约为90ms，性能较差。
 通过MindInsight性能分析页面观察到迭代轨迹中的迭代间隙过长，这通常说明数据是性能瓶颈点。
 
 ![long_step_interval](images/profiler_case1_long_step_interval.png)
@@ -78,7 +78,7 @@ data_set = data_set.map(operations=trans, input_columns="image", num_parallel_wo
 
 ### 案例二：前向运行时间长
 
-在MindSpore [ModelZoo](https://gitee.com/mindspore/models/blob/master/README_CN.md)中运行VGG16模型的推理脚本，发现单step时间约为113.79ms，性能较差。
+在MindSpore [ModelZoo](https://gitee.com/mindspore/models/blob/master/README_CN.md#)中运行VGG16模型的推理脚本，发现单step时间约为113.79ms，性能较差。
 通过MindInsight性能分析页面观察到迭代轨迹中的前向运行时间很长。在单卡训练或推理过程中，前向耗时长通常考虑是否有算子的耗时时长可以优化。
 
 ![long_fp_bp](images/profiler_case2_long_fpbp.png)
@@ -110,7 +110,7 @@ network.add_flags_recursive(fp16=True)
 
 ### 案例三： 优化迭代拖尾
 
-在MindSpore [ModelZoo](https://gitee.com/mindspore/models/blob/master/README_CN.md)中运行ResNet50 8卡训练脚本，batch size设置为32，单step时间为23.6ms，期望能继续提高单step时间。
+在MindSpore [ModelZoo](https://gitee.com/mindspore/models/blob/master/README_CN.md#)中运行ResNet50 8卡训练脚本，batch size设置为32，单step时间为23.6ms，期望能继续提高单step时间。
 通过MindInsight性能分析页面观察迭代轨迹，发现迭代间隙与前反向已经没有多少优化的空间，考虑迭代拖尾是否可以优化。
 
 ![long_tail](images/profiler_case3_long_tail.png)

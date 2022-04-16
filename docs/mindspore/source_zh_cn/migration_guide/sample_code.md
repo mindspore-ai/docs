@@ -89,7 +89,7 @@ PyTorch 实现的 ResNet50 脚本参考 [torchvision model](https://github.com/p
 | `nn.Linear`            | `nn.Dense`         | 是                     |
 | `torch.flatten`        | `nn.Flatten`       | 是                     |
 
-注：对于 PyTorch 脚本，MindSpore 提供了 [PyTorch 算子映射工具](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)，可直接查询该算子是否支持。
+注：对于 PyTorch 脚本，MindSpore 提供了 [PyTorch 算子映射](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/pytorch_api_mapping.html)，可直接查询该算子是否支持。
 
 - 功能分析
 
@@ -142,7 +142,7 @@ input_tensor = preprocess(input_image)
 input_batch = input_tensor.unsqueeze(0) # create a mini-batch as expected by the model
 ```
 
-通过观察以上代码，我们发现 ResNet50 的数据预处理主要做了 Resize、CenterCrop、Normalize 操作，在 MindSpore 中实现这些操作有两种方式，一是使用 MindSpore 的数据处理模块 MindData 来调用已封装好的数据预处理接口，二是通过 [自定义数据集](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset.html#自定义数据集加载) 进行加载。这里更建议开发者选择第一种方式，这样不仅可以减少重复代码的开发，减少错误的引入，还可以得到更好的数据处理性能。更多关于MindData数据处理的介绍，可参考 [数据处理](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset.html)。
+通过观察以上代码，我们发现 ResNet50 的数据预处理主要做了 Resize、CenterCrop、Normalize 操作，在 MindSpore 中实现这些操作有两种方式，一是使用 MindSpore 的数据处理模块 MindData 来调用已封装好的数据预处理接口，二是通过 [自定义数据集](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset/custom.html) 进行加载。这里更建议开发者选择第一种方式，这样不仅可以减少重复代码的开发，减少错误的引入，还可以得到更好的数据处理性能。更多关于MindData数据处理的介绍，可参考 [数据处理](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset.html)。
 
 以下是基于 MindData 开发的数据处理函数：
 

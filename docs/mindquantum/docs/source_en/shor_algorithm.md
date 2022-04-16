@@ -2,7 +2,7 @@
 
 Translator: [redundan3y](https://gitee.com/redundan3y)
 
-[![View Source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/master/docs/mindquantum/docs/source_en/shor_algorithm.md)
+[![View Source](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png)](https://gitee.com/mindspore/docs/blob/master/docs/mindquantum/docs/source_en/shor_algorithm.md#)
 
 ## Introduction to Shor's Algorithm
 

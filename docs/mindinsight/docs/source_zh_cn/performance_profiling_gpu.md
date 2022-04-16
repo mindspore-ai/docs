@@ -114,7 +114,7 @@ class StopAtStep(Callback):
 
 GPU场景下，Timeline分析的使用方法和Ascend场景相同，不同之处是，GPU Timeline展示的是算子信息(包括GPU算子和CPU算子)和CUDA activity的信息。
 
-使用方法可参考：<https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#timeline>
+使用方法可参考：<https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#timeline分析>
 
 ### 迭代轨迹分析
 
@@ -142,7 +142,7 @@ GPU场景下，数据准备性能分析的使用方法和Ascend场景相同。
 
 GPU场景下，CPU利用率分析的使用方法和Ascend场景相同。
 
-使用方法可参考：<https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#cpu>
+使用方法可参考：<https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#cpu利用率分析>
 
 ## 注意事项
 
