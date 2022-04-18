@@ -201,34 +201,34 @@ model.train(num_epochs,
 
 ```text
 --------------------
-Epoch: [  1 /  10], Train Loss: [0.388], Accuracy:  0.975
+Epoch: [  0 /  10], Train Loss: [0.388], Accuracy:  0.975
 epoch time: 7390.423 ms, per step time: 254.842 ms
 --------------------
-Epoch: [  2 /  10], Train Loss: [0.378], Accuracy:  0.975
+Epoch: [  1 /  10], Train Loss: [0.378], Accuracy:  0.975
 epoch time: 1876.590 ms, per step time: 64.710 ms
 --------------------
-Epoch: [  3 /  10], Train Loss: [0.372], Accuracy:  1.000
+Epoch: [  2 /  10], Train Loss: [0.372], Accuracy:  1.000
 epoch time: 2103.431 ms, per step time: 72.532 ms
 --------------------
-Epoch: [  4 /  10], Train Loss: [0.346], Accuracy:  1.000
+Epoch: [  3 /  10], Train Loss: [0.346], Accuracy:  1.000
 epoch time: 2246.303 ms, per step time: 77.459 ms
 --------------------
-Epoch: [  5 /  10], Train Loss: [0.376], Accuracy:  1.000
+Epoch: [  4 /  10], Train Loss: [0.376], Accuracy:  1.000
 epoch time: 2164.527 ms, per step time: 74.639 ms
 --------------------
-Epoch: [  6 /  10], Train Loss: [0.353], Accuracy:  1.000
+Epoch: [  5 /  10], Train Loss: [0.353], Accuracy:  1.000
 epoch time: 2191.490 ms, per step time: 75.569 ms
 --------------------
-Epoch: [  7 /  10], Train Loss: [0.414], Accuracy:  1.000
+Epoch: [  6 /  10], Train Loss: [0.414], Accuracy:  1.000
 epoch time: 2183.388 ms, per step time: 75.289 ms
 --------------------
-Epoch: [  8 /  10], Train Loss: [0.362], Accuracy:  1.000
+Epoch: [  7 /  10], Train Loss: [0.362], Accuracy:  1.000
 epoch time: 2219.950 ms, per step time: 76.550 ms
 --------------------
-Epoch: [  9 /  10], Train Loss: [0.354], Accuracy:  1.000
+Epoch: [  8 /  10], Train Loss: [0.354], Accuracy:  1.000
 epoch time: 2174.555 ms, per step time: 74.985 ms
 --------------------
-Epoch: [ 10 /  10], Train Loss: [0.364], Accuracy:  1.000
+Epoch: [ 9 /  10], Train Loss: [0.364], Accuracy:  1.000
 epoch time: 2190.957 ms, per step time: 75.550 ms
 ================================================================================
 End of validation the best Accuracy is:  1.000, save the best ckpt file in ./best.ckpt
