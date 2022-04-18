@@ -3,13 +3,13 @@
 <!-- TOC -->
 
 - [Installing MindSpore in GPU by Source Code](#installing-mindspore-in-gpu-by-source-code)
-    - [Environment Preparation-automatic, recommended](#environment-preparation-automatic-recommended)
+    - [Environment Preparation-automatic recommended](#environment-preparation-automatic-recommended)
     - [Environment Preparation-manual](#environment-preparation-manual)
         - [Installing CUDA](#installing-cuda)
         - [Installing cuDNN](#installing-cudnn)
         - [Installing Python](#installing-python)
         - [Installing wheel and setuptools](#installing-wheel-and-setuptools)
-        - [Installing GCC, git and other dependencies](#installing-gcc-git-and-other-dependencies)
+        - [Installing GCC git and other dependencies](#installing-gcc-git-and-other-dependencies)
         - [Installing CMake](#installing-cmake)
         - [Installing Open MPI-optional](#installing-open-mpi-optional)
         - [Installing LLVM-optional](#installing-llvm-optional)
@@ -30,7 +30,7 @@ This document describes how to quickly install MindSpore by source code in a Lin
 
 - If some dependencies, such as CUDA, Python and GCC, have been installed in your system, it is recommended to install manually by referring to the installation steps in the [Environment Preparation-manual](#environment-preparation-manual) section.
 
-## Environment Preparation-automatic, recommended
+## Environment Preparation-automatic recommended
 
 Before using the automatic installation script, you need to make sure that the NVIDIA GPU driver is correctly installed on the system. The minimum required GPU driver version of CUDA 10.1 is 418.39. The minimum required GPU driver version of CUDA 11.1 is 450.80.02. Execute the following command to check the driver version.
 
@@ -204,7 +204,7 @@ pip install wheel
 pip install -U setuptools
 ```
 
-### Installing GCC, git and other dependencies
+### Installing GCC git and other dependencies
 
 Run the following commands to install GCC, git, Autoconf, Libtool, Automake, gmp, Flex, tclsh, patch and NUMA.
 

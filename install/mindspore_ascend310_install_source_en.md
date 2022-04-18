@@ -3,12 +3,12 @@
 <!-- TOC -->
 
 - [Installing MindSpore in Ascend 310 by Source Code](#installing-mindspore-in-ascend-310-by-source-code)
-    - [Environment Preparation-automatic, recommended](#environment-preparation-automatic-recommended)
+    - [Environment Preparation-automatic recommended](#environment-preparation-automatic-recommended)
     - [Environment Preparation-manual](#environment-preparation-manual)
         - [Installing Python](#installing-python)
         - [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package)
         - [Installing GCC](#installing-gcc)
-        - [Installing git, gmp, tclsh, patch and Flex](#installing-git-gmp-tclsh-patch-and-flex)
+        - [Installing git gmp tclsh patch and Flex](#installing-git-gmp-tclsh-patch-and-flex)
         - [Installing CMake](#installing-cmake)
     - [Downloading the Source Code from the Code Repository](#downloading-the-source-code-from-the-code-repository)
     - [Compiling MindSpore](#compiling-mindspore)
@@ -26,7 +26,7 @@ The following describes how to quickly install MindSpore by compiling the source
 
 - If some dependencies, such as Python and GCC, have been installed in your system, it is recommended to install manually by referring to the installation steps in the [Environment Preparation-manual](#environment-preparation-manual) section.
 
-## Environment Preparation-automatic, recommended
+## Environment Preparation-automatic recommended
 
 Before running the automatic installation script, you need to make sure that the Ascend AI processor software package is correctly installed on your system. If it is not installed, please refer to the section [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package) to install it.
 
@@ -160,7 +160,7 @@ pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/hccl-*-py3-n
     sudo yum install gcc -y
     ```
 
-### Installing git, gmp, tclsh, patch and Flex
+### Installing git gmp tclsh patch and Flex
 
 - On Ubuntu 18.04, run the following commands to install.
 

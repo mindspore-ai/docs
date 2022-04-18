@@ -3,13 +3,13 @@
 <!-- TOC -->
 
 - [Installing MindSpore in Ascend 910 by Source Code](#installing-mindspore-in-ascend-910-by-source-code)
-    - [Environment Preparation -automatic, recommended](#environment-preparation--automatic-recommended)
+    - [Environment Preparation-automatic recommended](#environment-preparation-automatic-recommended)
     - [Environment Preparation-manual](#environment-preparation-manual)
         - [Installing Python](#installing-python)
         - [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package)
         - [Installing wheel and setuptools](#installing-wheel-and-setuptools)
         - [Installing GCC](#installing-gcc)
-        - [Installing git, gmp, tclsh, patch, NUMA and Flex](#installing-git-gmp-tclsh-patch-numa-and-flex)
+        - [Installing git gmp tclsh patch NUMA and Flex](#installing-git-gmp-tclsh-patch-numa-and-flex)
         - [Installing git-lfs](#installing-git-lfs)
         - [Installing CMake](#installing-cmake)
         - [Installing Open MPI-optional](#installing-open-mpi-optional)
@@ -30,7 +30,7 @@ This document describes how to quickly install MindSpore in a Linux system with 
 
 - If some dependencies, such as Python and GCC, have been installed in your system, it is recommended to install manually by referring to the installation steps in the [Environment Preparation-manual](#environment-preparation-manual) section.
 
-## Environment Preparation-automatic, recommended
+## Environment Preparation-automatic recommended
 
 Before running the automatic installation script, you need to make sure that the Ascend AI processor software package is correctly installed on your system. If it is not installed, please refer to the section [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package) to install it.
 
@@ -180,7 +180,7 @@ pip install -U setuptools
     sudo yum install gcc -y
     ```
 
-### Installing git, gmp, tclsh, patch, NUMA and Flex
+### Installing git gmp tclsh patch NUMA and Flex
 
 - On Ubuntu 18.04, run the following commands to install.
 
