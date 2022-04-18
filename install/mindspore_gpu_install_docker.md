@@ -180,4 +180,4 @@ print(ops.add(x, y))
 
     进入[MindSpore安装指南页面](https://www.mindspore.cn/install)，选择GPU硬件平台、Linux-x86_64操作系统和Source的安装方式，获得安装指南。运行容器后，下载MindSpore代码仓并参考安装指南，通过源码编译方式安装MindSpore GPU版本，并进行验证。
 
-如果您想了解更多关于MindSpore Docker镜像的构建过程，请查看[docker repo](https://gitee.com/mindspore/mindspore/blob/master/scripts/docker/README.md)了解详细信息。
+如果您想了解更多关于MindSpore Docker镜像的构建过程，请查看[docker repo](https://gitee.com/mindspore/mindspore/blob/master/scripts/docker/README.md#)了解详细信息。

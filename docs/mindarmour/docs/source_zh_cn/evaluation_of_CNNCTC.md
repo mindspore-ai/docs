@@ -63,7 +63,7 @@
 
 ### 基于自然扰动serving生成评测数据集
 
-1. 启动自然扰动serving服务。具体说明参考：[自然扰动样本生成serving服务](https://gitee.com/mindspore/mindarmour/blob/master/examples/natural_robustness/serving/README.md)
+1. 启动自然扰动serving服务。具体说明参考：[自然扰动样本生成serving服务](https://gitee.com/mindspore/mindarmour/blob/master/examples/natural_robustness/serving/README.md#)
 
    ```bash
    cd serving/server/

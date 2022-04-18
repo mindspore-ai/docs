@@ -67,7 +67,7 @@ MindSpore CI采用了Markdownlint、Pylint、Shellcheck、Cppcheck、Cpplint、T
 - MD009（行尾空格）规则将参数br_spaces设置为2，表示行尾可以有0个或2个空格。
 - MD029（有序列表的前缀序号）规则将参数style设置为ordered，表示有序列表的前缀序号需按顺序递增。
 
-更为详细规则信息请参考[RULES](https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md)。
+更为详细规则信息请参考[RULES](https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md#)。
 
 ### 确认内容
 

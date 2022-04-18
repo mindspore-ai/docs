@@ -338,6 +338,6 @@ call benchmark.exe --modelFile=/path/to/model.ms --inDataFile=/path/to/input.bin
 
 ### Dump功能
 
-Windows环境下Dump功能使用方法与[Linux环境](https://www.mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html#dump)基本一致，此处不再赘述。
+Windows环境下Dump功能使用方法与[Linux环境](https://www.mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html#dump功能)基本一致，此处不再赘述。
 
 需注意的一点是，在Windows环境下，`data_dump.json`配置文件中设置绝对路径`Path`时，需指定为`\\`的形式。

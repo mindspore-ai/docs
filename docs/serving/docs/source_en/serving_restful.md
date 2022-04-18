@@ -237,7 +237,7 @@ The response format is the same as the request format. The information in the `J
 
 MindSpore Serving supports `SSL/TLS` enabled `RESTful` service. Here's an example of starting and accessing `RESTful` service with one-way authentication.
 
-Setting `verify_client` to `False` indicates one-way authentication, in order to enable `SSL/TLS`, pass  `mindspore_serving.server.SSLConfig` object to`ssl_config`. You can refer to  [Accessing SSL/TLS enabled Serving service](https://www.mindspore.cn/serving/docs/en/master/serving_grpc.html#accessing-ssl-tls-enabled-serving-service) for other details.
+Setting `verify_client` to `False` indicates one-way authentication, in order to enable `SSL/TLS`, pass  `mindspore_serving.server.SSLConfig` object to`ssl_config`. You can refer to  [Accessing SSL/TLS enabled Serving service](https://www.mindspore.cn/serving/docs/en/master/serving_grpc.html#accessing-ssltls-enabled-serving-service) for other details.
 
 ```python
 import os
