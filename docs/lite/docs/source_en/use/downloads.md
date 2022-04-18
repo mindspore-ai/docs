@@ -112,5 +112,5 @@ The Linux-x86_64 and Linux-aarch64 target have been tested and verified on the L
 
 > - Ubuntu-x64 Package is compiled in an environment where the GCC version is greater than or equal to 7.3.0, so the deployment environment requires the GLIBC version to be greater than or equal to 2.27.
 > - Android-aarch32 does not support GPU and NPU.
-> - MindSpore Lite also provides `libmindspore-lite.a` static library [cropper tool](https://www.mindspore.cn/lite/docs/en/r1.7/use/cropper_tool.html#) for Runtime, which can crop the static library files, and effectively reduce the size of the library files.
+> - MindSpore Lite also provides `libmindspore-lite.a` static library [cropper tool](https://www.mindspore.cn/lite/docs/en/r1.7/use/cropper_tool.html#static-library-cropper-tool) for Runtime, which can crop the static library files, and effectively reduce the size of the library files.
 > - After the download of MindSpore Lite is completed, SHA-256 integrity verification is required.

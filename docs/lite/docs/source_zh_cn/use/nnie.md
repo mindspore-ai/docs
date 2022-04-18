@@ -353,7 +353,7 @@ ${model_path}为转换后ms模型文件路径
 
 ### 多图片batch运行及多step运行
 
-  用户若需同时前向推理多个输入数据（多个图片），可通过[输入维度Resize](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/runtime_cpp.html#resize)将模型输入的第一维resize为输入数据个数。NNIE模型只支持对第一个维度（'n'维）进行resize，其他维度（'hwc'）不可变。
+  用户若需同时前向推理多个输入数据（多个图片），可通过[输入维度Resize](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/runtime_cpp.html#输入维度resize)将模型输入的第一维resize为输入数据个数。NNIE模型只支持对第一个维度（'n'维）进行resize，其他维度（'hwc'）不可变。
 
   对于循环或lstm网络，用户需根据step值，配置TIME_STEP环境变量，同时resize模型输入。
   设一次同时前向推理的数据的个数为input_num，对于序列数据输入的节点resize为input_num * step，非序列数据输入的节点resize为input_num。
