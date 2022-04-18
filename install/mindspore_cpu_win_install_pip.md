@@ -1,8 +1,8 @@
-# pip方式安装MindSpore CPU版本（Windows）
+# pip方式安装MindSpore CPU版本-Windows
 
 <!-- TOC -->
 
-- [pip方式安装MindSpore CPU版本（Windows）](#pip方式安装mindspore-cpu版本windows)
+- [pip方式安装MindSpore CPU版本-Windows](#pip方式安装mindspore-cpu版本-windows)
     - [确认系统环境信息](#确认系统环境信息)
     - [安装MindSpore](#安装mindspore)
     - [验证是否成功安装](#验证是否成功安装)

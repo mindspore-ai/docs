@@ -1,8 +1,8 @@
-# 源码编译方式安装MindSpore CPU版本（macOS）
+# 源码编译方式安装MindSpore CPU版本-macOS
 
 <!-- TOC -->
 
-- [源码编译方式安装MindSpore CPU版本（macOS）](#源码编译方式安装mindspore-cpu版本macos)
+- [源码编译方式安装MindSpore CPU版本-macOS](#源码编译方式安装mindspore-cpu版本-macos)
     - [确认系统环境信息](#确认系统环境信息)
     - [从代码仓下载源码](#从代码仓下载源码)
     - [编译MindSpore](#编译mindspore)

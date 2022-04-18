@@ -1,8 +1,8 @@
-# Installing MindSpore CPU (Windows) by Conda
+# Installing MindSpore CPU by Conda-Windows
 
 <!-- TOC -->
 
-- [Installing MindSpore CPU (Windows) by Conda](#installing-mindspore-cpu-windows-by-conda)
+- [Installing MindSpore CPU by Conda-Windows](#installing-mindspore-cpu-by-conda-windows)
     - [System Environment Information Confirmation](#system-environment-information-confirmation)
     - [Creating and Accessing the Conda Virtual Environment](#creating-and-accessing-the-conda-virtual-environment)
     - [Installing MindSpore](#installing-mindspore)

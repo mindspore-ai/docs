@@ -3,8 +3,8 @@
 <!-- TOC -->
 
 - [源码编译方式安装MindSpore Ascend 910版本](#源码编译方式安装mindspore-ascend-910版本)
-    - [环境准备（自动，推荐）](#环境准备自动推荐)
-    - [环境准备（手动）](#环境准备手动)
+    - [环境准备-自动，推荐](#环境准备-自动推荐)
+    - [环境准备-手动](#环境准备-手动)
         - [安装Python](#安装python)
         - [安装昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)
         - [安装wheel和setuptools](#安装wheel和setuptools)
@@ -26,11 +26,11 @@
 
 本文档介绍如何在Ascend 910环境的Linux系统上，使用源码编译方式快速安装MindSpore。
 
-- 如果您想在一个已经配置好昇腾AI处理器配套软件包的EulerOS 2.8上配置一个可以编译MindSpore的环境，可以使用[自动安装脚本](https://gitee.com/mindspore/mindspore/raw/r1.7/scripts/install/euleros-ascend-source.sh)进行一键式配置，参见[环境准备（自动，推荐）](#环境准备自动推荐)小节。自动安装脚本会安装编译MindSpore所需的依赖。
+- 如果您想在一个已经配置好昇腾AI处理器配套软件包的EulerOS 2.8上配置一个可以编译MindSpore的环境，可以使用[自动安装脚本](https://gitee.com/mindspore/mindspore/raw/r1.7/scripts/install/euleros-ascend-source.sh)进行一键式配置，参见[环境准备-自动，推荐](#环境准备-自动推荐)小节。自动安装脚本会安装编译MindSpore所需的依赖。
 
-- 如果您的系统已经安装了部分依赖，如Python，GCC等，则推荐参照[环境准备（手动）](#环境准备手动)小节的安装步骤手动安装。
+- 如果您的系统已经安装了部分依赖，如Python，GCC等，则推荐参照[环境准备-手动](#环境准备-手动)小节的安装步骤手动安装。
 
-## 环境准备（自动，推荐）
+## 环境准备-自动，推荐
 
 在使用自动安装脚本之前，需要确保系统正确安装了昇腾AI处理器配套软件包。如果没有安装，请先参考[安装昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)小节进行安装。
 
@@ -70,7 +70,7 @@ conda activate mindspore_py37
 
 更多的用法请参看脚本头部的说明。
 
-## 环境准备（手动）
+## 环境准备-手动
 
 下表列出了编译安装MindSpore所需的系统环境和第三方依赖。
 
