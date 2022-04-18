@@ -3,13 +3,13 @@
 <!-- TOC -->
 
 - [源码编译方式安装MindSpore GPU版本](#源码编译方式安装mindspore-gpu版本)
-    - [环境准备-自动，推荐](#环境准备-自动推荐)
+    - [环境准备-自动 推荐](#环境准备-自动-推荐)
     - [环境准备-手动](#环境准备-手动)
         - [安装CUDA](#安装cuda)
         - [安装cuDNN](#安装cudnn)
         - [安装Python](#安装python)
         - [安装wheel和setuptools](#安装wheel和setuptools)
-        - [安装GCC、git等依赖](#安装gccgit等依赖)
+        - [安装GCC git等依赖](#安装gcc-git等依赖)
         - [安装CMake](#安装cmake)
         - [安装Open MPI-可选](#安装open-mpi-可选)
         - [安装LLVM-可选](#安装llvm-可选)
@@ -30,7 +30,7 @@
 
 - 如果您的系统已经安装了部分依赖，如CUDA，Python，GCC等，则推荐参照[环境准备-手动](#环境准备-手动)小节的安装步骤手动安装。
 
-## 环境准备-自动，推荐
+## 环境准备-自动 推荐
 
 在使用自动安装脚本之前，需要确保系统正确安装了NVIDIA GPU驱动。CUDA 10.1要求最低显卡驱动版本为418.39；CUDA 11.1要求最低显卡驱动版本为450.80.02。执行以下指令检查驱动版本。
 
@@ -83,17 +83,17 @@ bash -i ./ubuntu-gpu-source.sh
 |[Python](#安装python)|3.7-3.9|MindSpore的使用依赖Python环境|
 |[wheel](#安装wheel和setuptools)|0.32.0及以上|MindSpore使用的Python打包工具|
 |[setuptools](#安装wheel和setuptools)|44.0及以上|MindSpore使用的Python包管理工具|
-|[GCC](#安装gccgit等依赖)|7.3.0到9.4.0之间|用于编译MindSpore的C++编译器|
-|[git](#安装gccgit等依赖)|-|MindSpore使用的源代码管理工具|
+|[GCC](#安装gcc-git等依赖)|7.3.0到9.4.0之间|用于编译MindSpore的C++编译器|
+|[git](#安装gcc-git等依赖)|-|MindSpore使用的源代码管理工具|
 |[CMake](#安装cmake)|3.18.3及以上|编译构建MindSpore的工具|
-|[Autoconf](#安装gccgit等依赖)|2.69及以上版本|编译构建MindSpore的工具|
-|[Libtool](#安装gccgit等依赖)|2.4.6-29.fc30及以上版本|编译构建MindSpore的工具|
-|[Automake](#安装gccgit等依赖)|1.15.1及以上版本|编译构建MindSpore的工具|
-|[gmp](#安装gccgit等依赖)|6.1.2|MindSpore使用的多精度算术库|
-|[Flex](#安装gccgit等依赖)|2.5.35及以上版本|MindSpore使用的词法分析器|
-|[tclsh](#安装gccgit等依赖)|-|MindSpore sqlite编译依赖|
-|[patch](#安装gccgit等依赖)|2.5及以上|MindSpore使用的源代码补丁工具|
-|[NUMA](#安装gccgit等依赖)|2.0.11及以上|MindSpore使用的非一致性内存访问库|
+|[Autoconf](#安装gcc-git等依赖)|2.69及以上版本|编译构建MindSpore的工具|
+|[Libtool](#安装gcc-git等依赖)|2.4.6-29.fc30及以上版本|编译构建MindSpore的工具|
+|[Automake](#安装gcc-git等依赖)|1.15.1及以上版本|编译构建MindSpore的工具|
+|[gmp](#安装gcc-git等依赖)|6.1.2|MindSpore使用的多精度算术库|
+|[Flex](#安装gcc-git等依赖)|2.5.35及以上版本|MindSpore使用的词法分析器|
+|[tclsh](#安装gcc-git等依赖)|-|MindSpore sqlite编译依赖|
+|[patch](#安装gcc-git等依赖)|2.5及以上|MindSpore使用的源代码补丁工具|
+|[NUMA](#安装gcc-git等依赖)|2.0.11及以上|MindSpore使用的非一致性内存访问库|
 |[Open MPI](#安装open-mpi-可选)|4.0.3|MindSpore使用的高性能消息传递库（可选，单机多卡/多机多卡训练需要）|
 |[LLVM](#安装llvm-可选)|12.0.1|MindSpore使用的编译器框架（可选，图算融合以及稀疏计算需要）|
 |[TensorRT](#安装tensorrt-可选)|7.2.2|MindSpore使用的高性能深度学习推理SDK（可选，Serving推理需要）|
@@ -204,7 +204,7 @@ pip install wheel
 pip install -U setuptools
 ```
 
-### 安装GCC、git等依赖
+### 安装GCC git等依赖
 
 可以通过以下命令安装GCC，git，Autoconf，Libtool，Automake，gmp，Flex，tclsh，patch，NUMA。
 
