@@ -18,7 +18,7 @@ MindSpore Vision是一个基于MindSpore的Python软件包。
 
 .. raw:: html
 
-    <img src="https://gitee.com/mindspore/vision/raw/master/resource/BaseArchitecture.png" width="700px" alt="" >
+    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/vision/source_zh_cn/images/BaseArchitecture.png" width="700px" alt="" >
 
 提供的高级功能包括：
 
