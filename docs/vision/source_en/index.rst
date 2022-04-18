@@ -18,7 +18,7 @@ MindSpore Vision is a MindSpore-based Python package that provides high-level fe
 
 .. raw:: html
 
-    <img src="https://gitee.com/mindspore/vision/raw/master/resource/BaseArchitecture.png" width="700px" alt="" >
+    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/vision/source_en/images/BaseArchitecture.png" width="700px" alt="" >
 
 - Classification: Deep neural networks work flows built on an engine system.
 - Backbone: Base backbone of models like ResNet and MobileNet series.
