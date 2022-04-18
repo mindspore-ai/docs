@@ -24,7 +24,7 @@ MindSpore Lite转换工具的扩展能力，目前仅支持Linux系统。
 
 > 模型解析扩展，鉴于是模块化的扩展能力，本章不做详细介绍，但会提供一个简化的单元案例，以供用户参考。
 
-本章节以[add.tflite](https://download.mindspore.cn/model_zoo/official/lite/quick_start/add.tflite)模型为例。该模型仅包含一个简单的Add算子，通过自定义的节点解析、图优化，将Add算子转化为[Custom算子](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/register_kernel.html#custom)，最终输出Custom单算子模型。
+本章节以[add.tflite](https://download.mindspore.cn/model_zoo/official/lite/quick_start/add.tflite)模型为例。该模型仅包含一个简单的Add算子，通过自定义的节点解析、图优化，将Add算子转化为[Custom算子](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/register_kernel.html#custom算子)，最终输出Custom单算子模型。
 
 相关代码放置在[mindspore/lite/examples/converter_extend](https://gitee.com/mindspore/mindspore/tree/r1.7/mindspore/lite/examples/converter_extend)目录。
 

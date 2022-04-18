@@ -43,7 +43,7 @@ For more information about compilation, see [Linux Environment Compilation](http
         export LD_LIBRARY_PATH=mindspore-lite-{version}-android-{arch}/runtime/third_party/hiai_ddk/lib/:$LD_LIBRARY_PATH
         ```
 
-      For more information about compilation, please refer to [Compilation Output](https://www.mindspore.cn/lite/docs/en/r1.7/use/build.html#description-of-runtime-and-other-tools-directory-structure)
+      For more information about compilation, please refer to [Compilation Output](https://www.mindspore.cn/lite/docs/en/r1.7/use/build.html#directory-structure)
     with compilation option `-I arm64` or `-I arm32`.
 
 - Using Benchmark testing NPU inference

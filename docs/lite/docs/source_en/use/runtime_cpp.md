@@ -190,7 +190,7 @@ When the backend that needs to be executed is the heterogeneous inference based 
 
 ### Configuring the ASCEND Backend
 
-If the backend to be executed is Ascend(only support ASCEND310), you need to set [Ascend310DeviceInfo](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_AscendDeviceInfo.html#exhale-class-classmindspore-ascenddeviceinfo) as the first choice. It is suggested to set [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_CPUDeviceInfo.html#class-cpudeviceinfo) as the second choice, to ensure model inference. Use `SetDeviceID` to set ascend device id.
+If the backend to be executed is Ascend(only support ASCEND310), you need to set [Ascend310DeviceInfo](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_AscendDeviceInfo.html#class-documentation) as the first choice. It is suggested to set [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_CPUDeviceInfo.html#class-cpudeviceinfo) as the second choice, to ensure model inference. Use `SetDeviceID` to set ascend device id.
 
 The following sample code shows how to create the CPU and ASCEND heterogeneous inference backend and set ascend device id to 0.
 

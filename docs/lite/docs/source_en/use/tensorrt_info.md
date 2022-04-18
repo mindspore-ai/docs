@@ -22,7 +22,7 @@ In the Linux environment, use the build.sh script in the root directory of MindS
 bash build.sh -I x86_64
 ```
 
-For more information about compilation, see [Linux Environment Compilation](https://www.mindspore.cn/lite/docs/en/r1.7/use/build.html#linux).
+For more information about compilation, see [Linux Environment Compilation](https://www.mindspore.cn/lite/docs/en/r1.7/use/build.html#linux-environment-compilation).
 
 ### Integration
 
