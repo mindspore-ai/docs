@@ -20,7 +20,7 @@ The following figure shows the detailed training process:
 
 ## Model Creating Loading and Building
 
-[Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#model) is the main entrance of the MindSpore Lite framework. We can compile and execute graph models through `Model` class.
+[Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-documentation) is the main entrance of the MindSpore Lite framework. We can compile and execute graph models through `Model` class.
 
 ### Reading Models
 

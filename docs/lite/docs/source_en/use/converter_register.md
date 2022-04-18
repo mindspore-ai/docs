@@ -22,7 +22,7 @@ In this chapter, we will show the users a sample of extending Mindspore Lite con
 
 > Due to that model-parse extension is a modular extension ability, the chapter will not introduce in details. However, we still provide the users with a simplified unit case for inference.
 
-The chapter takes a [add.tflite](https://download.mindspore.cn/model_zoo/official/lite/quick_start/add.tflite), which only includes an opreator of adding, as an example. We will show the users how to convert the single operator of adding to that of [Custom](https://www.mindspore.cn/lite/docs/en/master/use/register_kernel.html#custom) and finally, obtain a model which only includs a single operator of custom.
+The chapter takes a [add.tflite](https://download.mindspore.cn/model_zoo/official/lite/quick_start/add.tflite), which only includes an opreator of adding, as an example. We will show the users how to convert the single operator of adding to that of [Custom](https://www.mindspore.cn/lite/docs/en/master/use/register_kernel.html#custom-operators) and finally, obtain a model which only includs a single operator of custom.
 
 The code related to the example can be obtained from the directory [mindspore/lite/examples/converter_extend](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/converter_extend).
 

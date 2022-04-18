@@ -39,7 +39,7 @@ The directory structure is as follows:
 ### Downloading the Dataset
 
 This example uses the `CIFAR-10` dataset. For details about how to download and load the dataset,
-visit <https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html##downloading-the-dataset>.
+visit <https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#downloading-the-dataset>.
 
 ### Configuring the Distributed Environment
 

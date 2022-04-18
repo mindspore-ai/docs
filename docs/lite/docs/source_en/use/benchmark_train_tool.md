@@ -16,7 +16,7 @@ To use the `benchmark_train` tool, you need to prepare the environment as follow
 
 - Compilation: Install build dependencies and build the MindSpore Lite training framework. The code of the `benchmark_train` tool is stored in the `mindspore/lite/tools/benchmark_train` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/lite/docs/en/master/use/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/lite/docs/en/master/use/build.html#compilation-example) in the build document.
 
-- Configure environment variables: For details, see [Output Description](https://www.mindspore.cn/lite/docs/en/master/use/build.html#training-output-description) in the build document. Suppose the absolute path of MindSpore Lite training package you build is `/path/mindspore-lite-{version}-{os}-{arch}.tar.gz`, the commands to extract the package and configure the LD_LIBRARY_PATH variable are as follows:
+- Configure environment variables: For details, see [Output Description](https://www.mindspore.cn/lite/docs/en/master/use/build.html#directory-structure-1) in the build document. Suppose the absolute path of MindSpore Lite training package you build is `/path/mindspore-lite-{version}-{os}-{arch}.tar.gz`, the commands to extract the package and configure the LD_LIBRARY_PATH variable are as follows:
 
     ```bash
     cd /path
