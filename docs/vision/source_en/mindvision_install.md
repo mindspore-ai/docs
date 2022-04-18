@@ -48,7 +48,7 @@ To verify whether MindVision and the required environment are installed correctl
 initialize a classificer and run inference on a demo image:
 
 The image to infer:
-![four](https://gitee.com/mindspore/vision/raw/master/tests/st/classification/dataset/mnist/mnist.jpg)
+![four](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/docs/vision/source_en/images/mnist.jpg)
 
 ```shell
 python ./examples/classification/lenet/lenet_mnist_infer.py \
