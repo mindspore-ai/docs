@@ -364,3 +364,54 @@ A: The user-defined Dataset is passed into GeneratorDataset, and after reading t
 <font size=3>**Q: In the process of using `Dataset` to process data, an error `RuntimeError: can't start new thread` is reported. How to solve it?**</font>
 
 A: The main reason is that the parameter `num_parallel_workers` is configured too large while using `**Dataset`, `.map(...)` and `.batch(...)` and the number of user processes reaches the maximum. You can increase the range of the maximum number of user processes through `ulimit -u MAX_PROCESSES`, or reduce `num_parallel_workers`.
+
+<br/>
+
+<font size=3>**Q: In the process of using `GeneratorDataset` to load data, an error `RuntimeError: Failed to copy data into tensor.` is reported. How to solve it?**</font>
+
+A: When the `GeneratorDataset` is used to load Numpy array returned by Pyfunc, MindSpore performs conversion from the Numpy array to the MindSpore Tensor. If the memory pointed to by the Numpy array has been freed, a memory copy error may occur. An example is as shown below:
+
+- Perform an in place conversion among Numpy array, MindSpore Tensor and Numpy array in `__getitem__` function. Tensor `tensor` and Numpy array `ndarray_1` share the same memory and Tensor `tesnor` will go out of scope when the function exits, and the memory which is pointed to by Numpy array will be freed.
+
+    ```python
+
+    class RandomAccessDataset:
+        def __init__(self):
+            pass
+
+        def __getitem__(self, item):
+            ndarray = np.zeros((544, 1056, 3))
+            tensor = Tensor.from_numpy(ndarray)
+            ndarray_1 = tensor.asnumpy()
+            return ndarray_1
+
+        def __len__(self):
+            return 8
+
+    data1 = ds.GeneratorDataset(RandomAccessDataset(), ["data"])
+
+    ```
+
+- Ignore the cyclic conversion in the example above. When `__getitem__` function exits, Tensor `tensor` is freed, and the behavior of Numpy array `ndarray_1` that shares the same memory with `tensor` will become unpredictable. To avoid the issue, we can use the `deepcopy` function to apply for independent memory for the returned Numpy array `ndarray_2`.
+
+    ```python
+
+    class RandomAccessDataset:
+        def __init__(self):
+            pass
+
+        def __getitem__(self, item):
+            ndarray = np.zeros((544, 1056, 3))
+            tensor = Tensor.from_numpy(ndarray)
+            ndarray_1 = tensor.asnumpy()
+            ndarray_2 = copy.deepcopy(ndarray_1)
+            return ndarray_2
+
+        def __len__(self):
+            return 8
+
+    data1 = ds.GeneratorDataset(RandomAccessDataset(), ["data"])
+
+    ```
+
+<br/>

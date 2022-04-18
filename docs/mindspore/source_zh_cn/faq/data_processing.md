@@ -364,3 +364,48 @@ A：传入GeneratorDataset的自定义Dataset，在接口内部（如`__getitem_
 <font size=3>**Q: 在使用`Dataset`处理数据过程中，报错`RuntimeError: can't start new thread`，怎么解决？**</font>
 
 A: 主要原因是在使用`**Dataset`、`.map(...)`和`.batch(...)`时，参数`num_parallel_workers`配置过大，用户进程数达到最大，可以通过`ulimit -u 最大进程数`来增加用户最大进程数范围，或者将`num_parallel_workers`配置减小。
+
+<font size=3>**Q: 在使用`GeneratorDataset`加载数据时，报错`RuntimeError: Failed to copy data into tensor.`，怎么解决？**</font>
+
+A: 在使用`GeneratorDataset`加载Pyfunc返回的Numpy array时，MindSpore框架将执行Numpy array到MindSpre Tensor的转换，假设Numpy array所指向的内存被释放，可能会发生内存拷贝的错误。举例如下：
+
+- 在`__getitem__`函数中执行Numpy array - MindSpore Tensor - Numpy array的就地转换。其中Tensor `tensor`和Numpy array `ndarray_1`共享同一块内存，Tensor `tensor`在`__getitem__`函数退出时超出作用域，其所指向的内存将被释放。
+
+    ```python
+    class RandomAccessDataset:
+        def __init__(self):
+            pass
+
+        def __getitem__(self, item):
+            ndarray = np.zeros((544, 1056, 3))
+            tensor = Tensor.from_numpy(ndarray)
+            ndarray_1 = tensor.asnumpy()
+            return ndarray_1
+
+        def __len__(self):
+            return 8
+
+    data1 = ds.GeneratorDataset(RandomAccessDataset(), ["data"])
+    ```
+
+- 忽略上面例子中的循环转换，在`__getitem__`函数退出时，Tensor对象`tensor`被释放，和其共享同一块内存的Numpy array对象`ndarray_1`变成未知状态，为了规避此问题可以直接使用`deepcopy`函数为将返回的Numpy array对象`ndarray_2`申请独立的内存。
+
+    ```python
+    class RandomAccessDataset:
+        def __init__(self):
+            pass
+
+        def __getitem__(self, item):
+            ndarray = np.zeros((544, 1056, 3))
+            tensor = Tensor.from_numpy(ndarray)
+            ndarray_1 = tensor.asnumpy()
+            ndarray_2 = copy.deepcopy(ndarray_1)
+            return ndarray_2
+
+        def __len__(self):
+            return 8
+
+    data1 = ds.GeneratorDataset(RandomAccessDataset(), ["data"])
+    ```
+
+<br/>
