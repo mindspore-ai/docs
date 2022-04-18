@@ -3,11 +3,11 @@
 <!-- TOC -->
 
 - [Installing MindSpore in CPU by Source Code](#installing-mindspore-in-cpu-by-source-code)
-    - [Environment Preparation-automatic, recommended](#environment-preparation-automatic-recommended)
+    - [Environment Preparation-automatic recommended](#environment-preparation-automatic-recommended)
     - [Environment Preparation-manual](#environment-preparation-manual)
         - [Installing Python](#installing-python)
         - [Installing wheel and setuptools](#installing-wheel-and-setuptools)
-        - [Installing GCC, git, gmp, tclsh, patch and NUMA](#installing-gcc-git-gmp-tclsh-patch-and-numa)
+        - [Installing GCC git gmp tclsh patch and NUMA](#installing-gcc-git-gmp-tclsh-patch-and-numa)
         - [Installing CMake](#installing-cmake)
         - [Installing LLVM-optional](#installing-llvm-optional)
     - [Downloading the Source Code from the Code Repository](#downloading-the-source-code-from-the-code-repository)
@@ -26,7 +26,7 @@ This document describes how to quickly install MindSpore by source code compilat
 
 - If some dependencies, such as Python and GCC, have been installed in your system, it is recommended to install manually by referring to the installation steps in the [Environment Preparation-manual](#environment-preparation-manual) section.
 
-## Environment Preparation-automatic, recommended
+## Environment Preparation-automatic recommended
 
 The root permission is required because the automatic installation script needs to change the software source configuration and install dependencies via APT. Run the following command to obtain and run the automatic installation script. The environment configured by the automatic installation script only supports compiling MindSpore>=1.6.0.
 
@@ -125,7 +125,7 @@ pip install wheel
 pip install -U setuptools
 ```
 
-### Installing GCC, git, gmp, tclsh, patch and NUMA
+### Installing GCC git gmp tclsh patch and NUMA
 
 Run the following commands to install GCC, git, gmp, tclsh, patch and NUMA.
 
