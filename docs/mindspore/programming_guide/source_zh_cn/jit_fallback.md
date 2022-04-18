@@ -8,7 +8,7 @@ MindSpore框架支持静态图模式和动态图模式两种方式。在静态�
 
 JIT Fallback是从静态图的角度出发考虑静态图和动态图的统一。通过JIT Fallback特性，静态图可以支持尽量多的动态图语法，使得静态图提供接近动态图的语法使用体验，从而实现动静统一。为了便于用户选择是否使用JIT Fallback特性的能力，提供了开关`MS_DEV_ENABLE_FALLBACK`，当前默认已经打开。如果需要关闭，可以使用命令：`export MS_DEV_ENABLE_FALLBACK=0`。
 
-本文档主要介绍JIT Fallback的使用方法和工作原理，以便您可以更有效地使用JIT Fallback功能。
+本文档主要介绍JIT Fallback的支持范围和使用须知，以便您可以更有效地使用JIT Fallback功能。
 
 ## 支持范围
 
@@ -134,16 +134,6 @@ tensor_sum, np_sum = test_print()
 np_sum: [2 4 6 8 10]
 tensor_sum: (2, 4, 6, 8, 10)
 ```
-
-## 实现原理
-
-JIT Fallback借鉴了传统JIT编译的Fallback的思路。传统的JIT编译经常会通过profiling信息，对函数进行多态选择、value推导、分支调度等优化，同时设置guard条件，一旦guard条件发现情况有变，可以去JIT优化，回到原来未优化的函数进行解释执行。在JIT Fallback中，编译静态图时，如果遇到不支持的语法，将会记录相关语句并生成解释节点，在后续处理中将相关语句Fallback到Python解释器进行解释执行。
-
-下图是JIT Fallback的整体处理流程。
-
-![JIT Fallback](./design/images/fallback.png)
-
-首先，用户编写程序代码后，`Cell.construct()`或者`@ms_function`函数作为编译输入。然后，MindCompiler在编译阶段检测不支持的语法，并且根据不支持的语法表达式生成解释节点。最后，在编译时（Compiler Time）阶段或运行时（Runtime）阶段，推导和执行解释节点。对于常量场景，可以在类型推导阶段完成常量的推导，并通过Python解释器进行执行。注意：运行时(Runtime)阶段的JIT Fallback暂不支持。
 
 ## 使用须知
 
