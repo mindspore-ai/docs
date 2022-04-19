@@ -12,7 +12,7 @@ Datasets are crucial for model training. A good dataset can effectively improve 
 
 > You can download the dataset from [MNIST dataset download page](http://yann.lecun.com/exdb/mnist/), decompress it, and save it according to the following directory structure.
 
-The MindSpore Vision suite provides the Mnist module for downloading and processing MNIST datasets. The following sample code downloads and decompresses the datasets to the specified location for data processing:
+The [MindSpore Vision](https://mindspore.cn/vision/docs/en/r1.7/index.html) suite provides the Mnist module for downloading and processing MNIST datasets. The following sample code downloads and decompresses the datasets to the specified location for data processing:
 
 ```python
 from mindvision.dataset import Mnist

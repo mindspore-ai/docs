@@ -124,7 +124,7 @@ You can use `save_checkpoint` function to save network weights to a CheckPoint f
 
 In the transfer learning scenario, when using a pre-trained model for training, the model parameters in the CheckPoint file cannot be used directly, and they need to be modified according to the actual situation to be suitable for the current network model. This section describes how to remove the fully connected layer parameter from a pre-trained model for Resnet50.
 
-First download the [pre-trained model of Resnet50](https://download.mindspore.cn/vision/classification/resnet50_224.ckpt), which is trained on the ImageNet dataset by the `resnet50` model in MindSpore Vision.
+First download the [pre-trained model of Resnet50](https://download.mindspore.cn/vision/classification/resnet50_224.ckpt), which is trained on the ImageNet dataset by the `resnet50` model in [MindSpore Vision](https://mindspore.cn/vision/docs/en/r1.7/index.html).
 
 The training model is loaded using the `load_checkpoint` interface, which returns a Ditt type, the dictionary's key is the name of each layer of the network, the type is the character Type Str; the value, dictionary value is the parameter value of the network layer, and the type is Parameter.
 
