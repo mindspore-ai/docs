@@ -57,7 +57,7 @@ MindSpore教程
             <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./advance/linear_fitting.html" class="article-link">
+                     <a href="./advanced/linear_fitting.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
                               <span class="doc-head-content">进阶案例：线性拟合</span>
@@ -75,7 +75,7 @@ MindSpore教程
             <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./advance/dataset.html" class="article-link">
+                     <a href="./advanced/dataset.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
                               <span class="doc-head-content">数据处理</span>
@@ -91,7 +91,7 @@ MindSpore教程
 				<div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./advance/network.html" class="article-link">
+                     <a href="./advanced/network.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
                               <span class="doc-head-content">网络构建</span>
@@ -109,7 +109,7 @@ MindSpore教程
             <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./advance/train.html" class="article-link">
+                     <a href="./advanced/train.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
                               <span class="doc-head-content">训练与评估</span>
@@ -125,7 +125,7 @@ MindSpore教程
             <div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./advance/pynative_graph.html" class="article-link">
+                     <a href="./advanced/pynative_graph.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
                               <span class="doc-head-content">动态图与静态图</span>
