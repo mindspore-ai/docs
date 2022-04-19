@@ -7,8 +7,7 @@ After learning how to create a model and build a dataset in the preceding tutori
 ## Hyperparameters
 
 Hyperparameters can be adjusted to control the model training and optimization process. Different hyperparameter values may affect the model training and convergence speed. Currently, deep learning models are optimized using the batch stochastic gradient descent algorithm. The principle of the stochastic gradient descent algorithm is as follows:
-
-$$w_{t+1}=w_{t}-\eta \frac{1}{n} \sum_{x \in \mathcal{B}} \nabla l\left(x, w_{t}\right)$$
+$w_{t+1}=w_{t}-\eta \frac{1}{n} \sum_{x \in \mathcal{B}} \nabla l\left(x, w_{t}\right)$
 
 In the formula, $n$ is the batch size, and $η$ is a learning rate. In addition, $w_{t}$ is the weight parameter in the training batch t, and $\nabla l$ is the derivative of the loss function. In addition to the gradient itself, the two factors directly determine the weight update of the model. From the perspective of the optimization itself, the two factors are the most important parameters that affect the convergence of the model performance. Generally, the following hyperparameters are defined for training:
 
@@ -29,9 +28,7 @@ learning_rate = 1e-2
 
 ## Loss Functions
 
-The **loss function** is used to evaluate the difference between **predicted value** and **target value** of a model. Here, the absolute error loss function `L1Loss` is used:
-
-$$\text { L1 Loss Function }=\sum_{i=1}^{n}\left|y_{true}-y_{predicted}\right|$$
+The **loss function** is used to evaluate the difference between **predicted value** and **target value** of a model. Here, the absolute error loss function `L1Loss` is used: $\text { L1 Loss Function }=\sum_{i=1}^{n}\left|y_{true}-y_{predicted}\right|$
 
 `mindspore.nn.loss` provides many common loss functions, such as `SoftmaxCrossEntropyWithLogits`, `MSELoss`, and `SmoothL1Loss`.
 

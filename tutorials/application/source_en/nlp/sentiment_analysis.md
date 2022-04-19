@@ -1,5 +1,7 @@
 # Using RNN for Sentiment Classification
 
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/application/source_en/nlp/sentiment_analysis.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+
 ## Overview
 
 Sentiment classification is a classic task in natural language processing. It is a typical classification problem. The following uses MindSpore to implement an RNN-based sentimental classification model to achieve the following effects:

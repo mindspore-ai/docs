@@ -1,5 +1,7 @@
 # Sequence Labeling Implementation Using LSTM+CRF
 
+<a href="https://gitee.com/huan-xiaoling/docs/blob/master/tutorials/application/source_en/nlp/sequence_labeling.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+
 ## Overview
 
 Sequence labeling refers to the process of labeling each token for a given input sequence. Sequence labeling is usually used to extract information from text, including word segmentation, position tagging, and named entity recognition (NER). The following uses NER as an example:
