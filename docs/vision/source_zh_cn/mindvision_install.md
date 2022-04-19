@@ -36,10 +36,16 @@
     cd vision
     ```
 
-- 安装
+- 源码安装
 
     ```shell
     python setup.py install
+    ```
+
+- 使用pip安装
+
+    ```shell
+    pip install mindvision
     ```
 
 ### 验证
