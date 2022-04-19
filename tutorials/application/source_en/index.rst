@@ -18,4 +18,6 @@ Application
    :maxdepth: 1
    :caption: NLP
 
-   nlp/test2
+   nlp/sentiment_analysis
+   nlp/sequence_labeling
+
