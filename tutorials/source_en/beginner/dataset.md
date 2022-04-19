@@ -2,47 +2,47 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/beginner/dataset.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-Data is the foundation of deep learning, and inputting the high-quality data plays an active role in the entire deep neural network.
+Data is the foundation of deep learning, and high-quality data input is beneficial to the entire deep neural network.
 
-[mindspore.dataset](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.html) provides a loading interface for some commonly used datasets and standard format datasets, enabling users to quickly perform data processing operations. For the image datasets, users can use `mindvision.dataset` to load and process datasets. This chapter first describes how to load and process a CIFAR-10 dataset by using the `mindvision.dataset.Cifar10` interface, and then describes how to use `mindspore.dataset.GeneratorDataset` to implement custom dataset loading.
+[mindspore.dataset](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.html) provides a loading interface for some commonly used datasets and datasets in standard formats, enabling users to quickly process data. For an image dataset, you can use `mindvision.dataset` to load and process the dataset. This chapter first describes how to load and process the CIFAR-10 dataset by using the `mindvision.dataset.Cifar10` interface, and then describes how to use `mindspore.dataset.GeneratorDataset` to implement custom dataset loading.
 
-> `mindvision.dataset`is a dataset interface developed on the basis of `mindspore.dataset`. In addition to providing dataset loading capabilities, `mindvision.dataset` further provides dataset download capabilities, data processing, and data enhancement capabilities.
+> `mindvision.dataset` is a dataset interface developed based on `mindspore.dataset`. In addition to providing dataset loading capabilities, `mindvision.dataset` provides dataset download, data processing, and data argumentation capabilities.
 
 ## Data Process
 
-In the network training and inference process, the raw data is generally stored in a disk or database. The raw data needs to be read into the memory space through the data loading step, converted into a framework-common tensor format, and then mapped to a more easy-to-learn space through the data processing and augmentation steps. While the number of samples and generalization is increased, the data finally enters the network for calculation.
+In the network training and inference process, raw data is generally stored in disks or databases. You need to read the data to the memory space through data loading, convert the data into the framework-common tensor format, and then map the data to an easy-to-learn feature space through data processing and argumentation. At the same time, increase the number of samples and generalization, and finally input the data to the network for calculation.
 
-The overall process is shown in the following figure:
+The following figure shows the overall process.
 
-![dataset_pipeline](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/beginner/images/dataset_pipeline.png)
+![dataset-pipeline](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/beginner/images/dataset_pipeline.png)
 
 ### Dataset
 
-A dataset is a collection of samples, and a row of a dataset is a sample that contains one or more features, and may further contain a label. The dataset needs to meet certain specification requirements to make it easier to evaluate the effectiveness of the model.
+A dataset is a collection of samples, and a row of a dataset is a sample that contains one or more features, and may further contain a label. Datasets must comply with certain specifications to facilitate model effect evaluation.
 
-Dataset supports multiple format datasets, including MindRecord, a MindSpore self-developed data format, commonly used public image datasets and text datasets, user-defined datasets, etc.
+The dataset supports multiple formats, such as MindRecord (a MindSpore-developed data format), commonly used public image datasets and text datasets, and custom datasets.
 
 ### Dataset Loading
 
-Dataset loading allows the model to be continuously acquired for training during training. Dataset provides corresponding classes for a variety of commonly used datasets to load datasets. For data files in different storage formats, Dataset also has corresponding classes for data loading.
+The dataset loading enables continuous data obtaining for model training. The dataset provides classes to load common datasets. The dataset also provides classes for data files in different storage formats to load data.
 
-Dataset provides multiple uses of the sampler (Sampler), and the sampler is responsible for generating the read index sequence. The Dataset is responsible for reading the corresponding data according to the index, helping users to sample the dataset in different forms to meet the training needs, and solving problems such as the data set is too large or the sample class distribution is uneven.
+The dataset provides a sampler for multiple purposes. The sampler generates the index sequence to be read, and the dataset reads data based on the index to help users sample datasets in different forms to meet training requirements, solve problems such as large datasets or uneven distribution of sample classes.
 
-> It should be noted that the sampler is responsible for performing filter and reorder operations on the sample, not performing the Batch operation.
+> It should be noted that the sampler is responsible for performing the filter and reorder operations on samples, not performing the batch operation.
 
-### Data processing
+### Data Processing
 
-After the Dataset loads the data into the memory, the data is organized in a Tensor form. Tensor is also a basic data structure in data augmentation operations.
+After the dataset loads data to the memory, the data is organized as tensors. Tensor is also a basic data structure in data augmentation.
 
-## Loading the Dataset
+## Loading a Dataset
 
-In the following example, the CIFAR-10 dataset is loaded through the `mindvision.dataset.Cifar10` interface. The CIFAR-10 dataset has a total of 60,000 32*32 color images, which are divided into 10 categories, each with 6,000 maps, and a total of 50,000 training pictures and 10,000 test pictures in the dataset. `Cifar10` interface provides CIFAR-10 dataset download and load capabilities.
+In the following example, the CIFAR-10 dataset is loaded through the `mindvision.dataset.Cifar10` interface. The CIFAR-10 dataset contains a total of 60,000 32 x 32 color images which are evenly divided into 10 classes and classified into 50,000 training images and 10,000 test images. The `Cifar10` interface allows users to download and load the CIFAR-10 dataset.
 
 ![cifar10](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/beginner/images/cifar10.jpg)
 
-- `path`: The location of the dataset root directory.
-- `split`: Training, testing or inferencing of the dataset, optionally `train`，`test` or `infer`, `train` by default.
-- `download`: Whether to download the dataset. When `ture` is set, if the dataset does not exist, you can download and extract the dataset, `False` by default.
++ `path`: indicates the root directory of the dataset.
++ `split`: indicates the training, test, or inference dataset. The value can be `train` (default value), `test`, or `infer`.
++ `download`: determines whether to download the dataset. If this parameter is set to `True` and the dataset does not exist, the dataset can be downloaded and decompressed. The default value is `False`.
 
 ```python
 from mindvision.dataset import Cifar10
@@ -50,32 +50,32 @@ from mindvision.dataset import Cifar10
 # Dataset root directory
 data_dir = "./datasets"
 
-# Download, extract and load the CIFAR-10 training dataset
+# Download, extract, and load the CIFAR-10 training dataset.
 dataset = Cifar10(path=data_dir, split='train', batch_size=6, resize=32, download=True)
 dataset = dataset.run()
 ```
 
-The directory structures of the CIFAR-10 dataset files are as follows:
+The directory structure of the CIFAR-10 dataset file is as follows:
 
 ```text
 datasets/
 ├── cifar-10-batches-py
-│   ├── batches.meta
-│   ├── data_batch_1
-│   ├── data_batch_2
-│   ├── data_batch_3
-│   ├── data_batch_4
-│   ├── data_batch_5
-│   ├── readme.html
-│   └── test_batch
+│   ├── batches.meta
+│   ├── data_batch_1
+│   ├── data_batch_2
+│   ├── data_batch_3
+│   ├── data_batch_4
+│   ├── data_batch_5
+│   ├── readme.html
+│   └── test_batch
 └── cifar-10-python.tar.gz
 ```
 
-## Iterating Dataset
+## Iterating a Dataset
 
-You can use `create_dict_iterator`  interface to create a data iterator to iteratively access data. The data type of the access is `Tensor` by default, and if `output_numpy=True` is set, the data type of the access is `Numpy`.
+You can use the `create_dict_iterator` interface to create a data iterator to iteratively access data. The default type of data to be accessed is `Tensor`. If `output_numpy=True` is set, the type of data to be accessed is `Numpy`.
 
-The following shows the corresponding access data type, and the image shapes and labels.
+The following shows the corresponding access data types, and the image shapes and labels.
 
 ```python
 data = next(dataset.create_dict_iterator())
@@ -96,11 +96,13 @@ Image shape: (6, 3, 32, 32), Label: [8 0 0 2 6 1]
 
 ### Data Processing
 
-`mindvision.dataset.Cifar10` interface provides data processing capbilities. The data can be processed by simply setting the corresponding attributes.
+The `mindvision.dataset.Cifar10` interface provides data processing capability. The data can be processed by simply setting the corresponding attributes.
 
-- `shuffle`: Whether to disrupt the order of the datasets, when `True` is  set, the order of the datasets is disturbed, `False` by default .
-- `batch_size`: The number of data contained in each group. The `batch_size=2` contains 2 data per group, and the default size of the `batch_size` value is 32.
-- `repeat_num`: For the number of duplicate datasets. `repeat_num=1` is a dataset, and the default value of the `repeat_num`  is 1.
++ `shuffle`: determines whether to shuffle datasets. If this parameter is set to `True`, the sequence of data sets is shuffled. The default value is `False`.
+
++ `batch_size`: indicates the number of data contained in each batch. `batch_size=2` indicates that each batch contains two data records. The default value of `batch_size` is 32.
+
++ `repeat_num`: indicates the number of duplicate datasets. `repeat_num=1` indicates one dataset. The default value of `repeat_num` is 1.
 
 ```python
 import numpy as np
@@ -132,10 +134,11 @@ Image shape: (6, 3, 32, 32), Label: [9 3 8 9 6 8]
 
 ### Data Augmentation
 
-Problems such as too small amount of data or single sample scene will affect the training effect of the model, and users can expand the diversity of samples through data augmentation operations to improve the generalization ability of the model. The `mindvision.dataset.Cifar10` interface uses the default data augmentation feature, which allows users to perform data augmentation operations by setting attribute `transform` and `target_transform`.
+If the data volume is too small or the sample scenario is simple, the model training effect is affected. You can perform the data augmentation operation to expand the sample diversity and improve the generalization capability of the model.
+The `mindvision.dataset.Cifar10` interface uses the default data augmentation feature, which allows users to perform data augmentation by setting attributes `transform` and `target_transform`.
 
-- `transform`: augment dataset image data.
-- `target_transform`: process the dataset label data.
++ `transform`: performs augmentation on dataset image data.
++ `target_transform`: processes the dataset label data.
 
 This section describes data augmentation of the CIFAR-10 dataset by using operators in the `mindspore.dataset.vision .c_transforms` module.
 
@@ -147,9 +150,9 @@ import mindspore.dataset.vision.c_transforms as transforms
 
 # Image augmentation
 trans = [
-    transforms.RandomCrop((32, 32), (4, 4, 4, 4)), # Automatic cropping of images
-    transforms.RandomHorizontalFlip(prob=0.5), # Flip the image randomly and horizontally
-    transforms.HWC2CHW(), # Convert (h, w, c) to (c, h, w)
+    transforms.RandomCrop((32, 32), (4, 4, 4, 4)), # Automatically crop the image.
+    transforms.RandomHorizontalFlip(prob=0.5), # Flip the image horizontally at random.
+    transforms.HWC2CHW(), # Convert (h, w, c) to (c, h, w).
 ]
 
 dataset = Cifar10(data_dir, batch_size=6, resize=32, transform=trans)
@@ -171,4 +174,3 @@ plt.show()
 ```text
 Image shape: (6, 3, 32, 32), Label: [7 6 7 4 5 3]
 ```
-
