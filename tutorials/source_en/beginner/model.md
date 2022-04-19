@@ -75,14 +75,14 @@ print(model)
 
 ```text
 LeNet5<
-(conv1): Conv2d<input_channels=1, output_channels=6, kernel_size=(5, 5), stride=(1, 1), pad_mode=valid, padding=0, dilation=(1, 1), group=1, has_bias=False, weight_init=normal, bias_init=zeros, format=NCHW>
-(conv2): Conv2d<input_channels=6, output_channels=16, kernel_size=(5, 5), stride=(1, 1), pad_mode=valid, padding=0, dilation=(1, 1), group=1, has_bias=False, weight_init=normal, bias_init=zeros, format=NCHW>
-(fc1): Dense<input_channels=400, output_channels=120, has_bias=True>
-(fc2): Dense<input_channels=120, output_channels=84, has_bias=True>
-(fc3): Dense<input_channels=84, output_channels=10, has_bias=True>
-(relu): ReLU<>
-(max_pool2d): MaxPool2d<kernel_size=2, stride=2, pad_mode=VALID>
-(flatten): Flatten<>
+  (conv1): Conv2d<input_channels=1, output_channels=6, kernel_size=(5, 5), stride=(1, 1), pad_mode=valid, padding=0, dilation=(1, 1), group=1, has_bias=False, weight_init=normal, bias_init=zeros, format=NCHW>
+  (conv2): Conv2d<input_channels=6, output_channels=16, kernel_size=(5, 5), stride=(1, 1), pad_mode=valid, padding=0, dilation=(1, 1), group=1, has_bias=False, weight_init=normal, bias_init=zeros, format=NCHW>
+  (fc1): Dense<input_channels=400, output_channels=120, has_bias=True>
+  (fc2): Dense<input_channels=120, output_channels=84, has_bias=True>
+  (fc3): Dense<input_channels=84, output_channels=10, has_bias=True>
+  (relu): ReLU<>
+  (max_pool2d): MaxPool2d<kernel_size=2, stride=2, pad_mode=VALID>
+  (flatten): Flatten<>
 >
 ```
 
