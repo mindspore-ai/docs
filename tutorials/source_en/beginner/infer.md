@@ -323,29 +323,29 @@ The following describes how to convert the model file format:
 
 1. Use MindSpore Lite Converter to convert the file format in Linux. [Linux-x86_64 tool download link](https://www.mindspore.cn/lite/docs/en/r1.7/use/downloads.html)
 
-```shell
-# Download and decompress the software package and set the path of the software package. {converter_path} indicates the path of the decompressed tool package, and PACKAGE_ROOT_PATH indicates the environment variable.
-export PACKAGE_ROOT_PATH={converter_path}
+    ```shell
+    # Download and decompress the software package and set the path of the software package. {converter_path} indicates the path of the decompressed tool package, and PACKAGE_ROOT_PATH indicates the environment variable.
+    export PACKAGE_ROOT_PATH={converter_path}
 
-# Add the dynamic link library required by the converter to the environment variable LD_LIBRARY_PATH.
-export LD_LIBRARY_PATH=${PACKAGE_ROOT_PATH}/tools/converter/lib:${LD_LIBRARY_PATH}
+    # Add the dynamic link library required by the converter to the environment variable LD_LIBRARY_PATH.
+    export LD_LIBRARY_PATH=${PACKAGE_ROOT_PATH}/tools/converter/lib:${LD_LIBRARY_PATH}
 
-# Run the conversion command on the mindspore-lite-linux-x64/tools/converter/converter.
-./converter_lite --fmk=MINDIR --modelFile=mobilenet_v2_1.0_224.mindir  --outputFile=mobilenet_v2_1.0_224
-```
+    # Run the conversion command on the mindspore-lite-linux-x64/tools/converter/converter.
+    ./converter_lite --fmk=MINDIR --modelFile=mobilenet_v2_1.0_224.mindir  --outputFile=mobilenet_v2_1.0_224
+    ```
 
 2. Use MindSpore Lite Converter to convert the file format in Windows. [Windows-x64 tool download link](https://www.mindspore.cn/lite/docs/en/r1.7/use/downloads.html)
 
-```shell
-# Download and decompress the software package and set the path of the software package. {converter_path} indicates the path of the decompressed tool package, and PACKAGE_ROOT_PATH indicates the environment variable.
-set PACKAGE_ROOT_PATH={converter_path}
+    ```shell
+    # Download and decompress the software package and set the path of the software package. {converter_path} indicates the path of the decompressed tool package, and PACKAGE_ROOT_PATH indicates the environment variable.
+    set PACKAGE_ROOT_PATH={converter_path}
 
-# Add the dynamic link library required by the converter to the environment variable PATH.
-set PATH=%PACKAGE_ROOT_PATH%\tools\converter\lib;%PATH%
+    # Add the dynamic link library required by the converter to the environment variable PATH.
+    set PATH=%PACKAGE_ROOT_PATH%\tools\converter\lib;%PATH%
 
-# Run the following command in the mindspore-lite-win-x64\tools\converter\converter directory:
-call converter_lite --fmk=MINDIR --modelFile=mobilenet_v2_1.0_224.mindir --outputFile=mobilenet_v2_1.0_224
-```
+    # Run the following command in the mindspore-lite-win-x64\tools\converter\converter directory:
+    call converter_lite --fmk=MINDIR --modelFile=mobilenet_v2_1.0_224.mindir --outputFile=mobilenet_v2_1.0_224
+    ```
 
 After the conversion is successful, `CONVERT RESULT SUCCESS:0` is displayed, and the `mobilenet_v2_1.0_224.ms` file is generated in the current directory.
 
