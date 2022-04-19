@@ -36,10 +36,16 @@
     cd vision
     ```
 
-- Install
+- Installing MindSpore Vision by Source Code
 
     ```shell
     python setup.py install
+    ```
+
+- Installing MindSpore Vision by pip
+
+    ```shell
+    pip install mindvision
     ```
 
 ### Verification
