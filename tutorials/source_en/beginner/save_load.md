@@ -2,11 +2,11 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/source_en/beginner/save_load.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png"></a>
 
-The content of the previous chapter mainly introduced how to adjust hyperparameters and train network models. During the process of training the network model, we actually want to save the intermediate and final results for fine-tune and subsequent model deployment and inference, and now start learning how to set hyperparameters and optimize model parameters.
+The previous section describes how to adjust hyperparameters and train network models. During network model training, we want to save the intermediate and final results for fine-tuning and subsequent model deployment and inference. This section describes how to save and load a model.
 
 ## Model Training
 
-The following are the basic steps and code for network model training, with sample code as follows:
+The following uses the MNIST dataset as an example to describe how to save and load a network model. First, obtain the MNIST dataset and train the model. The sample code is as follows:
 
 ```python
 import mindspore.nn as nn
@@ -16,22 +16,22 @@ from mindvision.classification.dataset import Mnist
 from mindvision.classification.models import lenet
 from mindvision.engine.callback import LossMonitor
 
-epochs = 10 # Training batch
+epochs = 10 # Training epochs
 
-# 1. Build a dataset
-download_train = Mnist(path="./mnist", split="train", batch_size=batch_size, repeat_num=1, shuffle=True, resize=32, download=True)
+# 1. Build a dataset.
+download_train = Mnist(path="./mnist", split="train", batch_size=32, repeat_num=1, shuffle=True, resize=32, download=True)
 dataset_train = download_train.run()
 
-# 2. Define a neural network
+# 2. Define a neural network.
 network = lenet(num_classes=10, pretrained=False)
-# 3.1 Define a loss function
+# 3.1 Define a loss function.
 net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
-# 3.2 Defines an optimizer function
+# 3.2 Define an optimizer function.
 net_opt = nn.Momentum(network.trainable_params(), learning_rate=0.01, momentum=0.9)
-# 3.3 Initialize model parameters
+# 3.3 Initialize model parameters.
 model = Model(network, loss_fn=net_loss, optimizer=net_opt, metrics={'accuracy'})
 
-# 4. Perform training on the neural network
+# 4. Train the neural network.
 model.train(epochs, dataset_train, callbacks=[LossMonitor(0.01, 1875)])
 ```
 
@@ -58,47 +58,46 @@ Epoch:[  9/ 10], step:[ 1875/ 1875], loss:[0.022/0.015], time:2.177 ms, lr:0.010
 Epoch time: 4623.760 ms, per step time: 2.466 ms, avg loss: 0.015
 ```
 
-As you can see from the printed results above, the loss values tend to converge as the number of training rounds increases.
+The preceding print result shows that the loss values tend to converge as the number of training epochs increases.
 
 ## Saving the Model
 
-After training the network, the following will describe how to save and load the model. There are two main ways to save the interface of the model:
+After the network training is complete, save the network model as a file. There are two types of APIs for saving models:
 
-1. One is to simply save the network model, which can be saved before and after training. The advantage is that the interface is simple and easy to use, but only the state of the network model when the command is executed is retained;
+1. One is to simply save the network model before and after training. The advantage is that the interface is easy to use, but only the network model status when the command is executed is retained.
+2. The other one is to save the interface during network model training. MindSpore automatically saves the number of epochs and number of steps set during training. That is, the intermediate weight parameters generated during the model training process are also saved to facilitate network fine-tuning and stop training.
 
-2. The other one is to save the interface during network model training. In the process of network model training, MindSpore automatically saves the parameters of the epoch number and step number set during training, that is, the intermediate weight parameters generated during the model training process are also saved to facilitate network fine-tuning and stop training.
+### Directly Saving the Model
 
-### Saving the Model Directly
-
-Use the save_checkpoint provided by MindSpore to save the model, and pass it to the network and save the path:
+Use the save_checkpoint provided by MindSpore to save the model, pass it to the network, and save the path.
 
 ```python
 import mindspore as ms
 
-# The defined network model is net, which is generally used before or after training
-ms.save_checkpoint(net, "./MyNet.ckpt")
+# The defined network model is net, which is used before or after training.
+ms.save_checkpoint(network, "./MyNet.ckpt")
 ```
 
-Here, `network` is the training network, and `"./MyNet.ckpt"` is the saving path of the network model.
+In the preceding command, `network` indicates the training network, and `"./MyNet.ckpt"` indicates the path for storing the network model.
 
 ### Saving the Model During Training
 
-In the process of model training, use the `callbacks` parameter in `model.train` to pass in the object [ModelCheckpoint](https://mindspore.cn/docs/en/r1.7/api_python/mindspore.train.html#mindspore.train.callback.ModelCheckpoint) that saves the model (Generally used with [CheckpointConfig](https://mindspore.cn/docs/en/r1.7/api_python/mindspore.train.html#mindspore.train.callback.CheckpointConfig)), which can save the model parameters and generate CheckPoint (abbreviated as ckpt) files.
+During model training, you can use the `callbacks` parameter in `model.train` to transfer the [ModelCheckpoint](https://mindspore.cn/docs/en/r1.7/api_python/mindspore.train.html#mindspore.train.callback.ModelCheckpoint) object (usually used together with [CheckpointConfig](https://mindspore.cn/docs/en/r1.7/api_python/mindspore.train.html#mindspore.train.callback.CheckpointConfig)) to save model parameters and generate a checkpoint (CKPT) file.
 
-You can configure the checkpoint policies as required. The following describes the usage:
+You can set `CheckpointConfig` to configure the Checkpoint policy as required. The following describes the usage:
 
 ```python
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
 
-# Set the number of epoch_num
+# Set the value of epoch_num.
 epoch_num = 5
 
-# Set the model saving parameters
+# Set the model saving parameters.
 config_ck = CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10)
 
-# Apply the model saving parameters
+# Apply the model saving parameters.
 ckpoint = ModelCheckpoint(prefix="lenet", directory="./lenet", config=config_ck)
-model.train(epoch_num, dataset_train, callbacks=ckpoint)
+model.train(epoch_num, dataset_train, callbacks=[ckpoint])
 ```
 
 In the preceding code, you need to initialize a `CheckpointConfig` class object to set the saving policy.
@@ -114,15 +113,15 @@ The generated checkpoint file is as follows:
 
 ```text
 lenet-graph.meta # Computational graph after compiled.
-lenet-1_1875.ckpt  # The extension of the checkpoint file is .ckpt.
-lenet-2_1875.ckpt  # The file name format contains the epoch and step correspond to the saved parameters. Here are the model parameters for the 1875th step of the 2nd epoch.
-lenet-3_1875.ckpt  # indicates the model parameters saved for the 1875th step of the 3rd epoch.
+lenet-1_1875.ckpt  # The extension of the checkpoint file is '.ckpt'.
+lenet-2_1875.ckpt  # The file name indicates the epoch where the parameter is stored and the number of steps. Here are the model parameters for the 1875th step of the second epoch.
+lenet-3_1875.ckpt  # The file name indicates that the model parameters generated during the 1875th step of the third epoch are saved.
 ...
 ```
 
-If you use the same prefix and run the training script for multiple times, checkpoint files with the same name may be generated. To help users distinguish files generated each time, MindSpore adds underscores "_" and digits to the end of the user-defined prefix. If you want to delete the `.ckpt` file, delete the `.meta` file at the same time.
+If you use the same prefix and run the training script for multiple times, checkpoint files with the same name may be generated. To help users distinguish files generated each time, MindSpore adds underscores (_) and digits to the end of the user-defined prefix. If you want to delete the `.ckpt` file, delete the `.meta` file at the same time.
 
-For example, `lenet_3-2_1875.ckpt` indicates the CheckPoint file of the 1875th step of the 2nd epoch generated by running the 3rd script.
+For example, `lenet_3-2_1875.ckpt` indicates the checkpoint file generated during the 1875th step of the second epoch after the script is executed for the third time.
 
 ## Loading the Model
 
@@ -136,14 +135,14 @@ from mindspore import load_checkpoint, load_param_into_net
 from mindvision.classification.dataset import Mnist
 from mindvision.classification.models import lenet
 
-# Store the model parameters in the parameter dictionary, where the model parameters saved during the training process above are loaded
-param_dict = load_checkpoint("./lenet/lenet-1_1875.ckpt")
+# Save the model parameters to the parameter dictionary. The model parameters saved during the training are loaded.
+param_dict = load_checkpoint("./lenet/lenet-5_1875.ckpt")
 
-# Redefine a LeNet neural network
+# Redefine a LeNet neural network.
 net = lenet(num_classes=10, pretrained=False)
 
-# Load parameters to the network
-load_param_into_net(network, param_dict)
+# Load parameters to the network.
+load_param_into_net(net, param_dict)
 model = Model(network, loss_fn=net_loss, optimizer=net_opt, metrics={"accuracy"})
 ```
 
@@ -152,7 +151,7 @@ model = Model(network, loss_fn=net_loss, optimizer=net_opt, metrics={"accuracy"}
 
 ### Validating the Model
 
-After the above module loads the parameters into the network, for the inference scenario, you can call the `eval` function for inference verification. The sample code is as follows:
+After the preceding modules load the parameters to the network, you can call the `eval` function to verify the inference in the inference scenario. The sample code is as follows:
 
 ```python
 # Call eval() for inference.
@@ -164,12 +163,12 @@ print("{}".format(acc))
 ```
 
 ```text
-{'accuracy': 0.9857772435897436}
+{'accuracy': 0.9866786858974359}
 ```
 
 ### For Transfer Learning
 
-For task interruption retraining and fine-tuning scenarios, you can call the `train` function for transfer learning. The sample code is as follows:
+For task interrupt retraining and fine-tuning scenarios, the `train` function can be called to perform transfer learning. The sample code is as follows:
 
 ```python
 # Define a training dataset.
@@ -192,5 +191,3 @@ Epoch time: 4235.036 ms, per step time: 2.259 ms, avg loss: 0.008
 Epoch:[  4/  5], step:[ 1875/ 1875], loss:[0.002/0.008], time:2.039 ms, lr:0.01000
 Epoch time: 4354.482 ms, per step time: 2.322 ms, avg loss: 0.008
 ```
-
-
