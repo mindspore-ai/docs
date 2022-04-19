@@ -1,4 +1,4 @@
-﻿﻿# 源码编译方式安装MindSpore CPU版本-Windows
+﻿# 源码编译方式安装MindSpore CPU版本-Windows
 
 <!-- TOC -->
 
