@@ -18,6 +18,7 @@ MindSpore 文档
    design/distributed_training_design
    design/distributed_advanced
    design/heterogeneous_training
+   design/on_device
    design/mindir
    design/data_engine
    design/dataset_offload

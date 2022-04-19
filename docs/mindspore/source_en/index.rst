@@ -16,6 +16,7 @@ MindSpore Documentation
    design/gradient
    design/distributed_training_design
    design/distributed_advanced
+   design/on_device
    design/mindir
    design/dataset_offload
    design/graph_kernel_fusion
