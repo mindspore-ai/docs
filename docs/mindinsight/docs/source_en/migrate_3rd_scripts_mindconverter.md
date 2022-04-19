@@ -148,7 +148,7 @@ A typical model project contains 4 main components. Tips for migrating each comp
 
 ### Step 0：Export the model file
 
-Exporting ONNX model file from PyTorch model(refer to [FAQ](#export-the-model-file-of-tensorflow) for Tensorflow guidance) requires operators mapping between [PyTorch](https://pytorch.org/docs/stable/onnx.html#supported-operators) and [ONNX](https://github.com/onnx/onnx/blob/r1.7/docs/Operators.md#). Guidance is as follows:
+Exporting ONNX model file from PyTorch model(refer to [FAQ](#export-the-model-file-of-tensorflow) for Tensorflow guidance) requires operators mapping between [PyTorch](https://pytorch.org/docs/stable/onnx.html#supported-operators) and [ONNX](https://github.com/onnx/onnx/blob/master/docs/Operators.md#). Guidance is as follows:
 
 1. Download source codes, weights file and relevant dataset files of the model project.
 
@@ -529,7 +529,7 @@ Using [Netron](https://github.com/lutzroeder/netron) load the onnx model file, c
 
 ### Export the model file of Tensorflow
 
-Exporting the PB model file from a Tensorflow model requires operators mapping between [Tensorflow](https://github.com/onnx/tensorflow-onnx/blob/r1.7/support_status.md#) and [ONNX](https://github.com/onnx/onnx/blob/r1.7/docs/Operators.md#). For models defined by Keras, guidance is as follows:
+Exporting the PB model file from a Tensorflow model requires operators mapping between [Tensorflow](https://github.com/onnx/tensorflow-onnx/blob/r1.7/support_status.md#) and [ONNX](https://github.com/onnx/onnx/blob/master/docs/Operators.md#). For models defined by Keras, guidance is as follows:
 
 TensorFlow 1.x
 
