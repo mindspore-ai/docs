@@ -355,7 +355,7 @@ After the conversion is successful, `CONVERT RESULT SUCCESS:0` is displayed, and
 
 Download [Android app APK](https://download.mindspore.cn/vision/android/mindvision-0.1.0.apk) of the MindSpore Vision Suite, or download it by scanning the QR code on phone.
 
-![qr](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/turotials/source_zh_cn/beginner/images/app_qr_code.png)
+![qr](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/source_zh_cn/beginner/images/app_qr_code.png)
 
 Install the APK on your phone, and its app name appears as `MindSpore Vision`.
 
