@@ -225,7 +225,7 @@ result: [[2. 2. 2. 2.]
   [2. 2. 2. 2.]]
 ```
 
-## Defining Operators' BProp Functions
+## Defining BProp Functions
 
 If an operator needs to support automatic differentiation, its back-propagation function (bprop) needs to be defined in its primitives. You need to describe the reverse computing logic that uses forward input, forward output, and output gradient to get the input gradient in bprop. Reverse computation logic can be composed of built-in operators or custom reverse operators.
 
