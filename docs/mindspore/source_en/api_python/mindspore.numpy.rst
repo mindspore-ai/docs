@@ -602,8 +602,8 @@ The following are examples:
       [[ 768.  768.  768.  768.]
        [2816. 2816. 2816. 2816.]]
     
-
-  > Currently, static graph cannot run in Python interactive mode and not all python types can be passed into functions decorated with `ms_function`. For details about how to use `ms_function`, see `API ms_function <https://www.mindspore.cn/docs/en/r1.7/api_python/mindspore/mindspore.ms_function.html>`_ .
+  .. note::
+      Currently, static graph cannot run in Python interactive mode and not all python types can be passed into functions decorated with `ms_function`. For details about how to use `ms_function`, see `API ms_function <https://www.mindspore.cn/docs/en/r1.7/api_python/mindspore/mindspore.ms_function.html>`_ .
 
 - Use GradOperation to compute deratives
 
