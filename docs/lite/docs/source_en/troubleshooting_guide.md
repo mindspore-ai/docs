@@ -41,7 +41,7 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
     ```
 
     - Analysis: The model contains operators not supported by the MindSpore Lite converter. As a result, the conversion fails.
-    - Solution: For unsupported operators, add parsers by inheriting the API [NodeParser](https://mindspore.cn/lite/api/en/master/api_cpp/mindspore_converter.html#nodeparser) and register the parsers by using [NodeParserRegistry](https://mindspore.cn/lite/api/en/master/api_cpp/mindspore_registry.html#nodeparserregistry). Alternatively, commit an [issue](https://gitee.com/mindspore/mindspore/issues) to MindSpore Lite developers in the community.
+    - Solution: For unsupported operators, add parsers by inheriting the API [NodeParser](https://mindspore.cn/lite/api/en/master/generate/classmindspore_converter_NodeParser.html) and register the parsers by using [NodeParserRegistry](https://mindspore.cn/lite/api/en/master/generate/classmindspore_registry_NodeParserRegistry.html). Alternatively, commit an [issue](https://gitee.com/mindspore/mindspore/issues) to MindSpore Lite developers in the community.
 
 3. Unsupported operators exist. The error log information is as follows:
 
@@ -50,7 +50,7 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
     ```
 
     - Analysis: The converter supports the operator conversion, but does not support a special attribute or parameter of the operator. As a result, the model conversion fails. (The following uses Caffe as an example. The log information of other frameworks is the same.)
-    - Solution: Add the custom operator parsers by inheriting the API [NodeParser](https://mindspore.cn/lite/api/en/master/api_cpp/mindspore_converter.html#nodeparser) and register the parsers by using [NodeParserRegistry](https://mindspore.cn/lite/api/en/master/api_cpp/mindspore_registry.html#nodeparserregistry). Alternatively, commit an [issue](https://gitee.com/mindspore/mindspore/issues) to MindSpore Lite developers in the community.
+    - Solution: Add the custom operator parsers by inheriting the API [NodeParser](https://mindspore.cn/lite/api/en/master/generate/classmindspore_converter_NodeParser.html) and register the parsers by using [NodeParserRegistry](https://mindspore.cn/lite/api/en/master/generate/classmindspore_registry_NodeParserRegistry.html). Alternatively, commit an [issue](https://gitee.com/mindspore/mindspore/issues) to MindSpore Lite developers in the community.
 
 ## Post-training Quantization Conversion Failed
 
