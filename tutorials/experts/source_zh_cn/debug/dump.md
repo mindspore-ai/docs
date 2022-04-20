@@ -235,50 +235,60 @@ ms_global_execution_order_graph_{graph_id}.csv
 
 ### 同步Dump数据分析样例
 
-对于Ascend场景，在通过Dump功能将脚本对应的图保存到磁盘上后，会产生最终执行图文件`ms_output_trace_code_graph_{graph_id}.ir`。该文件中保存了对应的图中每个算子的堆栈信息，记录了算子对应的生成脚本。
+为了更好地展示使用Dump来保存数据并分析数据的流程，我们提供了一套[完整样例脚本](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/dump) ，同步Dump只需要执行 `bash run_sync_dump.sh`。
 
-以[AlexNet脚本](https://gitee.com/mindspore/models/blob/master/official/cv/alexnet/src/alexnet.py)为例 ：
+在通过Dump功能将脚本对应的图保存到磁盘上后，会产生最终执行图文件`ms_output_trace_code_graph_{graph_id}.ir`。该文件中保存了对应的图中每个算子的堆栈信息，记录了算子对应的生成脚本。
+
+以[AlexNet脚本](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/dump/train_alexnet.py)为例 ：
 
 ```python
-import mindspore.nn as nn
-import mindspore.ops as ops
+...
+def conv(in_channels, out_channels, kernel_size, stride=1, padding=0, pad_mode="valid"):
+    weight = weight_variable()
+    return nn.Conv2d(in_channels, out_channels,
+                     kernel_size=kernel_size, stride=stride, padding=padding,
+                     weight_init=weight, has_bias=False, pad_mode=pad_mode)
 
 
-def conv(in_channels, out_channels, kernel_size, stride=1, padding=0, pad_mode="valid", has_bias=True):
-    return nn.Conv2d(in_channels, out_channels, kernel_size=kernel_size, stride=stride, padding=padding,
-                     has_bias=has_bias, pad_mode=pad_mode)
+def fc_with_initialize(input_channels, out_channels):
+    weight = weight_variable()
+    bias = weight_variable()
+    return nn.Dense(input_channels, out_channels, weight, bias)
 
 
-def fc_with_initialize(input_channels, out_channels, has_bias=True):
-    return nn.Dense(input_channels, out_channels, has_bias=has_bias)
+def weight_variable():
+    return TruncatedNormal(0.02)
 
 
 class AlexNet(nn.Cell):
     """
     Alexnet
     """
-    def __init__(self, num_classes=10, channel=3, phase='train', include_top=True):
+
+    def __init__(self, num_classes=10, channel=3):
         super(AlexNet, self).__init__()
-        self.conv1 = conv(channel, 64, 11, stride=4, pad_mode="same", has_bias=True)
-        self.conv2 = conv(64, 128, 5, pad_mode="same", has_bias=True)
-        self.conv3 = conv(128, 192, 3, pad_mode="same", has_bias=True)
-        self.conv4 = conv(192, 256, 3, pad_mode="same", has_bias=True)
-        self.conv5 = conv(256, 256, 3, pad_mode="same", has_bias=True)
-        self.relu = ops.ReLU()
-        self.max_pool2d = nn.MaxPool2d(kernel_size=3, stride=2, pad_mode="valid")
-        self.include_top = include_top
-        if self.include_top:
-            dropout_ratio = 0.65
-            if phase == 'test':
-                dropout_ratio = 1.0
-            self.flatten = nn.Flatten()
-            self.fc1 = fc_with_initialize(6 * 6 * 256, 4096)
-            self.fc2 = fc_with_initialize(4096, 4096)
-            self.fc3 = fc_with_initialize(4096, num_classes)
-            self.dropout = nn.Dropout(dropout_ratio)
+        self.conv1 = conv(channel, 96, 11, stride=4)
+        self.conv2 = conv(96, 256, 5, pad_mode="same")
+        self.conv3 = conv(256, 384, 3, pad_mode="same")
+        self.conv4 = conv(384, 384, 3, pad_mode="same")
+        self.conv5 = conv(384, 256, 3, pad_mode="same")
+        self.relu = nn.ReLU()
+        self.max_pool2d = ops.MaxPool(kernel_size=3, strides=2)
+        self.flatten = nn.Flatten()
+        self.fc1 = fc_with_initialize(6 * 6 * 256, 4096)
+        self.fc2 = fc_with_initialize(4096, 4096)
+        self.fc3 = fc_with_initialize(4096, num_classes)
 
     def construct(self, x):
-        """define network"""
+        """
+        The construct function.
+
+        Args:
+           x(int): Input of the network.
+
+        Returns:
+           Tensor, the output of the network.
+        """
         x = self.conv1(x)
         x = self.relu(x)
         x = self.max_pool2d(x)
@@ -292,44 +302,33 @@ class AlexNet(nn.Cell):
         x = self.conv5(x)
         x = self.relu(x)
         x = self.max_pool2d(x)
-        if not self.include_top:
-            return x
         x = self.flatten(x)
         x = self.fc1(x)
         x = self.relu(x)
-        x = self.dropout(x)
         x = self.fc2(x)
         x = self.relu(x)
-        x = self.dropout(x)
         x = self.fc3(x)
         return x
+...
 ```
 
-如果用户想查看脚本中第58行的代码：
+如果用户想查看脚本中第175行的代码：
 
 ```python
 x = self.conv3(x)
 ```
 
-执行完训练网络后，可以从最终执行图（`ms_output_trace_code_graph_{graph_id}.ir`文件）中查找到该行代码所对应的多个算子信息，文件内容如下所示：
+执行完训练网络后，可以从最终执行图（`ms_output_trace_code_graph_{graph_id}.ir`文件）中查找到该行代码所对应的多个算子信息，例如Conv2D-op12对应的文件内容如下所示：
 
 ```text
-  %24(equivoutput) = Conv2D(%23, %21) {instance name: conv2d} primitive_attrs: {compile_info: , pri_format: NC1HWC0, stride: (1, 1, 1, 1), pad: (0, 0, 0, 0), pad_mod: same, out_channel:
-192, mode: 1, dilation: (1, 1, 1, 1), output_names: [output], group: 1, format: NCHW, offset_a: 0, kernel_size: (3, 3), groups: 1, input_names: [x, w], pad_list: (1, 1, 1, 1),
-IsFeatureMapOutput: true, IsFeatureMapInputList: (0)}
-       : (<Tensor[Float32]x[const vector][32, 128, 13, 13]>, <Tensor[Float16]x[const vector][192, 128, 3, 3]>) -> (<Tensor[Float16]x[const vector][32, 192, 13, 13]>)
-       : (<Float16xNC1HWC0[const vector][32, 8, 13, 13, 16]>, <Float16xFracZ[const vector][72, 12, 16, 16]>) -> (<Float16xNC1HWC0[const vector][32, 12, 13, 13, 16]>)
-       : (Default/network-WithLossCell/_backbone-AlexNet/conv3-Conv2d/Conv2D-op107)
+  %20(equivoutput) = Conv2D(%17, %19) {instance name: conv2d} primitive_attrs: {IsFeatureMapInputList: (0), kernel_size: (3, 3), mode: 1, out_channel: 384, input_names: [
+x, w],    pri_format: NC1HWC0, pad: (0, 0, 0, 0), visited: true, pad_mod: same, format: NCHW,  pad_list: (1, 1, 1, 1), precision_flag: reduce, groups: 1, output_used_num:
+(1), stream_id:     0, stride: (1, 1, 1, 1), group: 1, dilation: (1, 1, 1, 1), output_names: [output], IsFeatureMapOutput: true, ms_function_graph: true}
+       : (<Tensor[Float32], (32, 256, 13, 13)>, <Tensor[Float32], (384, 256, 3, 3)>) -> (<Tensor[Float32], (32, 384, 13, 13)>)
+       : (<Float16xNC1HWC0[const vector][32, 16, 13, 13, 16]>, <Float16xFracZ[const vector][144, 24, 16, 16]>) -> (<Float32xNC1HWC0[const vector][32, 24, 13, 13, 16]>)
+       : full_name_with_scope: (Default/network-WithLossCell/_backbone-AlexNet/conv3-Conv2d/Conv2D-op12)
        ...
-       # In file {Absolute path of model_zoo}/official/cv/alexnet/src/alexnet.py(58)/        x = self.conv3(x)/
-       ...
-  %25(equivoutput) = BiasAdd(%24, %22) {instance name: bias_add} primitive_attrs: {output_used_num: (1), input_names: [x, b], format: NCHW, compile_info: , output_names: [output],
-IsFeatureMapOutput: true, IsFeatureMapInputList: (0), pri_format: NC1HWC0}
-       : (<Tensor[Float16]x[const vector][32, 192, 13, 13]>) -> (<Tensor[Float16]x[const vector][192]>) -> (<Tensor[Float16]x[const vector][32, 192, 13, 13]>)
-       : (<Float16xNC1HWC0[const vector][32, 12, 13, 13, 16]>) -> (<Float16xDefaultFormat[const vector][192]>) -> (<Float16xNC1HWC0[const vector][32, 12, 13, 13, 16]>)
-       : (Default/network-WithLossCell/_backbone-AlexNet/conv3-Conv2d/BiasAdd-op105)
-       ...
-       # In file {Absolute path of model_zoo}/official/cv/alexnet/src/alexnet.py(58)/        x = self.conv3(x)/
+       # In file ./tain_alexnet.py(175)/        x = self.conv3(x)/
        ...
 ```
 
@@ -338,38 +337,38 @@ IsFeatureMapOutput: true, IsFeatureMapInputList: (0), pri_format: NC1HWC0}
 - 算子在Host侧（第一行）和Device侧（第二行，有些算子可能不存在）的输入输出情况。从执行图可知，该算子有两个输入（箭头左侧），一个输出（箭头右侧）。
 
     ```text
-    : (<Tensor[Float32]x[const vector][32, 128, 13, 13]>, <Tensor[Float16]x[const vector][192, 128, 3, 3]>) -> (<Tensor[Float16]x[const vector][32, 192, 13, 13]>)
-    : (<Float16xNC1HWC0[const vector][32, 8, 13, 13, 16]>, <Float16xFracZ[const vector][72, 12, 16, 16]>) -> (<Float16xNC1HWC0[const vector][32, 12, 13, 13, 16]>)
+       : (<Tensor[Float32], (32, 256, 13, 13)>, <Tensor[Float32], (384, 256, 3, 3)>) -> (<Tensor[Float32], (32, 384, 13, 13)>)
+       : (<Float16xNC1HWC0[const vector][32, 16, 13, 13, 16]>, <Float16xFracZ[const vector][144, 24, 16, 16]>) -> (<Float32xNC1HWC0[const vector][32, 24, 13, 13, 16]>)
     ```
 
-- 算子名称。从执行图可知，该算子在最终执行图中的完整名称为`Default/network-WithLossCell/_backbone-AlexNet/conv3-Conv2d/Conv2D-op107`。
+- 算子名称。从执行图可知，该算子在最终执行图中的完整名称为`Default/network-WithLossCell/_backbone-AlexNet/conv3-Conv2d/Conv2D-op12`。
 
     ```text
-    : (Default/network-WithLossCell/_backbone-AlexNet/conv3-Conv2d/Conv2D-op107)
+    : (Default/network-WithLossCell/_backbone-AlexNet/conv3-Conv2d/Conv2D-op12)
     ```
 
 - 算子对应的训练脚本代码。通过搜索要查询的训练脚本代码，可以找到多个匹配的算子。
 
     ```text
-    # In file {Absolute path of model_zoo}/official/cv/alexnet/src/alexnet.py(58)/        x = self.conv3(x)/
+    # In file {Absolute path of model_zoo}/official/cv/alexnet/src/alexnet.py(175)/        x = self.conv3(x)/
     ```
 
-通过算子名称和输入输出信息，可以查找到唯一对应的Tensor数据文件。比如，若要查看Conv2D-op107算子的第1个输出数据对应的Dump文件，可获取以下信息：
+通过算子名称和输入输出信息，可以查找到唯一对应的Tensor数据文件。比如，若要查看Conv2D-op12算子的第1个输出数据对应的Dump文件，可获取以下信息：
 
-- `operator_name`：`Conv2D-op107`。
+- `operator_name`：`Conv2D-op12`。
 
 - `input_output_index`：`output.0`表示该文件是该算子的第1个输出Tensor的数据。
 
 - `slot`：0，该算子的输出只有一个slot。
 
 在Dump保存的数据对象文件目录下搜索到相应的文件名：
-`Conv2D.Conv2D-op107.2.2.1623124369613540.output.0.DefaultFormat.npy`。
+`Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.npy`。
 
 还原数据的时候，通过执行：
 
 ```python
 import numpy
-numpy.load("Conv2D.Conv2D-op107.2.2.1623124369613540.output.0.DefaultFormat.npy")
+numpy.load("Conv2D.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.npy")
 ```
 
 生成numpy.array数据。
@@ -498,10 +497,10 @@ numpy.load("Conv2D.Conv2D-op107.2.2.1623124369613540.output.0.DefaultFormat.npy"
 异步Dump生成的数据文件是`bin`文件时，文件命名格式为：
 
 ```text
-{op_type}.{op_name}.{task_id}.{timestamp}
+{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}
 ```
 
-以一个简单网络的Dump结果为例：`Add.Default_Add-op1.2.161243956333802`，其中`Add`是`{op_type}`，`Default_Add-op1`是`{op_name}`，`2`是`{task_id}`，`161243956333802`是`{timestamp}`。
+以AlexNet网络的Conv2D-op12为例：`Conv2D.Default_network-WithLossCell__backbone-AlexNet_conv3-Conv2d_Conv2D-op12.2.7.161243956333802`，其中`Conv2D`是`{op_type}`，`Default_network-WithLossCell__backbone-AlexNet_conv3-Conv2d_Conv2D-op12`是`{op_name}`，`2`是`{task_id}`，`7`是`{stream_id}`，`161243956333802`是`{timestamp}`。
 
 如果`op_type`和`op_name`中出现了“.”、“/”、“\”、空格时，会转换为下划线表示。
 
@@ -515,7 +514,9 @@ Dump生成的原始数据文件也可以使用MindInsight的数据解析工具Du
 
 ### 异步Dump数据分析样例
 
-通过异步Dump的功能，获取到算子异步Dump生成的数据文件。
+为了更好地展示使用Dump来保存数据并分析数据的流程，我们提供了一套[完整样例脚本](https://gitee.com/mindspore/docs/tree/master/docs/sample_code/dump) ，异步Dump执行 `bash run_async_dump.sh` 即可。用户可以自行下载体验。
+
+通过异步Dump的功能，获取到算子异步Dump生成的数据文件。如果异步Dump配置文件中设置的`file_format`为"npy"，可以跳过以下步骤中的1、2，如果没有设置`file_format`，或者设置为"bin"，需要先转换成`.npy`格式的文件。
 
 1. 使用run包中提供的`msaccucmp.py`解析Dump出来的文件。不同的环境上`msaccucmp.py`文件所在的路径可能不同，可以通过`find`命令进行查找：
 
@@ -531,48 +532,41 @@ Dump生成的原始数据文件也可以使用MindInsight的数据解析工具Du
     python ${The absolute path of msaccucmp.py} convert -d {file path of dump} -out {file path of output}
     ```
 
+    {file path of dump} 可以是单个`.bin`文件的路径，也可以是包含`.bin`文件的文件夹路径。
+
     若需要转换数据格式，可参考使用说明链接<https://support.huawei.com/enterprise/zh/doc/EDOC1100206690/130949fb> 。
 
     如Dump生成的数据文件为：
 
     ```text
-    BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491
-    ```
+    Conv2D.Default_network-WithLossCell__backbone-AlexNet_conv3-Conv2d_Conv2D-op12.2.7.161243956333802
+     ```
 
     则执行：
 
     ```bash
-    python3.7.5 msaccucmp.py convert -d BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491 -out ./output -f NCHW -t npy
+    python3.7.5 msaccucmp.py convert -d /path/to/Conv2D.Default_network-WithLossCell__backbone-AlexNet_conv3-Conv2d_Conv2D-op12.2.7.161243956333802 -out ./output -f NCHW -t npy
     ```
 
     则可以在`./output`下生成该算子的所有输入输出数据。每个数据以`.npy`后缀的文件保存，数据格式为`NCHW`。生成结果如下：
 
     ```text
-    BNTrainingUpdate.   Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell _1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.input.0.30x1024x17x17.npy
-    BNTrainingUpdate.   Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell _1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.input.1.1x1024x1x1.npy
-    BNTrainingUpdate.   Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell _1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.input.2.1x1024x1x1.npy
-    BNTrainingUpdate.   Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell _1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.input.3.1x1024x1x1.npy
-    BNTrainingUpdate.   Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell _1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.input.4.1x1024x1x1.npy
-    BNTrainingUpdate.   Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell _1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.input.5.1x1024x1x1.npy
-    BNTrainingUpdate.   Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell _1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.input.6.1x1024x1x1.npy
-    BNTrainingUpdate.   Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell _1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.output.0.30x1024x17x17.npy
-    BNTrainingUpdate.   Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell _1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.output.1.1x1024x1x1.npy
-    BNTrainingUpdate.   Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell _1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.output.2.1x1024x1x1.npy
-    BNTrainingUpdate.   Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell _1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.output.3.1x1024x1x1.npy
-    BNTrainingUpdate.   Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell _1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.output.4.1x1024x1x1.npy
+    Conv2D.Default_network-WithLossCell__backbone-AlexNet_conv3-Conv2d_Conv2D-op12.2.7.161243956333802.input.0.32x256x13x13.npy
+    Conv2D.Default_network-WithLossCell__backbone-AlexNet_conv3-Conv2d_Conv2D-op12.2.7.161243956333802.input.1.384x256x3x3.npy
+    Conv2D.Default_network-WithLossCell__backbone-AlexNet_conv3-Conv2d_Conv2D-op12.2.7.161243956333802.output.0.32x384x13x13.npy
     ```
 
     在文件名的末尾可以看到该文件是算子的第几个输入或输出，以及数据的维度信息。例如，通过第一个`.npy`文件名
 
     ```text
-    BNTrainingUpdate.   Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell _1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.input.0.30x1024x17x17.npy
+    Conv2D.Default_network-WithLossCell__backbone-AlexNet_conv3-Conv2d_Conv2D-op12.2.7.161243956333802.input.0.32x256x13x13.npy
     ```
 
-    可知该文件是算子的第0个输入，数据的维度信息是`30x1024x17x17`。
+    可知该文件是算子的第0个输入，数据的维度信息是`32x256x13x13`。
 
 3. 通过`numpy.load("file_name")`可以读取到对应数据。例：
 
     ```python
     import numpy
-    numpy.load("BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.input.0.30x1024x17x17.npy")
+    numpy.load("Conv2D.Default_network-WithLossCell__backbone-AlexNet_conv3-Conv2d_Conv2D-op12.2.7.161243956333802.input.0.32x256x13x13.npy")
     ```
