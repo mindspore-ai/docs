@@ -19,7 +19,7 @@ The following uses examples to describe how to save MindSpore CheckPoint files, 
 
 The [Save and Load section](https://mindspore.cn/tutorials/zh-CN/r1.7/beginner/save_load.html) of the beginner tutorials describes how to save model parameters directly using `save_checkpoint` and using the Callback mechanism to save model parameters during training. This section further describes how to save model parameters during training and use `save_checkpoint` save model parameters directly.
 
-### Savig the models during the training
+### Saving the models during the training
 
 Saving model parameters during training. MindSpore provides two saving strategies, an iteration policy and a time policy, which can be set by creating a `CheckpointConfig` object. The iteration policy and the time policy cannot be used at the same time, where the iterative policy takes precedence over the time policy, and when set at the same time, only iteration policy can take effect. When the parameter display is set to None, the policy is abandoned. In addition, when an exception occurs during training, MindSpore also provides a breakpoint retrain function, that is, the system will automatically save the CheckPoint file when the exception occurs.
 
