@@ -41,7 +41,7 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
     ```
 
     - Analysis: The model contains operators not supported by the MindSpore Lite converter. As a result, the conversion fails.
-    - Solution: For unsupported operators, add parsers by inheriting the API [NodeParser](https://mindspore.cn/lite/api/en/r1.7/api_cpp/mindspore_converter.html#nodeparser) and register the parsers by using [NodeParserRegistry](https://mindspore.cn/lite/api/en/r1.7/api_cpp/mindspore_registry.html#nodeparserregistry). Alternatively, commit an [issue](https://gitee.com/mindspore/mindspore/issues) to MindSpore Lite developers in the community.
+    - Solution: For unsupported operators, add parsers by inheriting the API [NodeParser](https://mindspore.cn/lite/api/en/r1.7/generate/classmindspore_converter_NodeParser.html) and register the parsers by using [NodeParserRegistry](https://mindspore.cn/lite/api/en/r1.7/generate/classmindspore_registry_NodeParserRegistry.html). Alternatively, commit an [issue](https://gitee.com/mindspore/mindspore/issues) to MindSpore Lite developers in the community.
 
 3. Unsupported operators exist. The error log information is as follows:
 
@@ -50,7 +50,7 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
     ```
 
     - Analysis: The converter supports the operator conversion, but does not support a special attribute or parameter of the operator. As a result, the model conversion fails. (The following uses Caffe as an example. The log information of other frameworks is the same.)
-    - Solution: Add the custom operator parsers by inheriting the API [NodeParser](https://mindspore.cn/lite/api/en/r1.7/api_cpp/mindspore_converter.html#nodeparser) and register the parsers by using [NodeParserRegistry](https://mindspore.cn/lite/api/en/r1.7/api_cpp/mindspore_registry.html#nodeparserregistry). Alternatively, commit an [issue](https://gitee.com/mindspore/mindspore/issues) to MindSpore Lite developers in the community.
+    - Solution: Add the custom operator parsers by inheriting the API [NodeParser](https://mindspore.cn/lite/api/en/r1.7/generate/classmindspore_converter_NodeParser.html) and register the parsers by using [NodeParserRegistry](https://mindspore.cn/lite/api/en/r1.7/generate/classmindspore_registry_NodeParserRegistry.html). Alternatively, commit an [issue](https://gitee.com/mindspore/mindspore/issues) to MindSpore Lite developers in the community.
 
 ## Post-training Quantization Conversion Failed
 
@@ -116,7 +116,7 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
     ```
 
     - Analysis: The input shape of the MS model contains -1, that is, the model input is a dynamic shape. During direct inference, the shape is invalid. As a result, the inference fails.
-    - Solution: MindSpore Lite requires that a proper shape be specified for a model that contains dynamic shape input during inference. When using the benchmark tool, set the [inputShapes](https://mindspore.cn/lite/docs/en/r1.7/use/benchmark_tool.html#parameter-description) parameter. When using MindSpore Lite for integration and development, call the [Resize](https://mindspore.cn/lite/api/en/r1.7/api_cpp/mindspore.html#resize) method to set the shape.
+    - Solution: MindSpore Lite requires that a proper shape be specified for a model that contains dynamic shape input during inference. When using the benchmark tool, set the [inputShapes](https://mindspore.cn/lite/docs/en/r1.7/use/benchmark_tool.html#parameter-description) parameter. When using MindSpore Lite for integration and development, call the [Resize](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_ops_Resize.html) method to set the shape.
 
 ### OpenCL GPU Inference Issues
 
@@ -185,7 +185,7 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
     ```
 
     - Analysis: TensorRT GPU graph construction does not support models with dynamic shapes. Specifically, the input shape of the model contains –1 or the model contains the shape operator.
-    - Solution: When using the converter to convert the model to MS, set `--inputShape=<INPUTSHAPE>` in the [conversion command](https://www.mindspore.cn/lite/docs/en/r1.7/use/converter_tool.html#parameter-description) to specify the shape information of the input tensor. If you need to change the input shape during inference, you can set the [inputShapes](https://mindspore.cn/lite/docs/en/r1.7/use/benchmark_tool.html#parameter-description) parameter when using the benchmark tool or call the [Resize](https://mindspore.cn/lite/api/en/r1.7/api_cpp/mindspore.html#resize) method when using MindSpore Lite for integration and development. Note: The shape dimension of the [Resize](https://mindspore.cn/lite/api/en/r1.7/api_cpp/mindspore.html#resize) input must be less than or equal to the dimension of the [Build](https://mindspore.cn/lite/api/en/r1.7/api_cpp/mindspore.html#build) model.
+    - Solution: When using the converter to convert the model to MS, set `--inputShape=<INPUTSHAPE>` in the [conversion command](https://www.mindspore.cn/lite/docs/en/r1.7/use/converter_tool.html#parameter-description) to specify the shape information of the input tensor. If you need to change the input shape during inference, you can set the [inputShapes](https://mindspore.cn/lite/docs/en/r1.7/use/benchmark_tool.html#parameter-description) parameter when using the benchmark tool or call the [Resize](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_ops_Resize.html) method when using MindSpore Lite for integration and development. Note: The shape dimension of the [Resize](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_ops_Resize.html) input must be less than or equal to the dimension of the [Build](https://mindspore.cn/lite/api/en/r1.7/api_cpp/mindspore.html#build) model.
 
 #### Failed to Execute a Graph
 

@@ -46,7 +46,7 @@ after = """\
                 if not zhcnPattern and origin_id==origin_id.lower():
                     flag = 1
         if flag==1:
-            node['ids'].append(origin_id.replace(".","-").replace("_","-"))
+            node['ids'].append(origin_id.replace(".","-").replace("_","-").replace("::","-").replace(" ","-"))
         else:
             node['ids'].append(id)"""
 

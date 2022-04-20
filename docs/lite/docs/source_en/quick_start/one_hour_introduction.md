@@ -663,7 +663,7 @@ In the previous section, the official inference test tool is used to perform the
     (2) Initialize the context configuration.
 
     The context stores configurations required for model inference, including the operator preference, number of threads, automatic concurrency, and other configurations related to the inference processor.
-    For details about the context, see "Context" in [API](https://www.mindspore.cn/lite/api/en/r1.7/api_cpp/mindspore.html#context).
+    For details about the context, see "Context" in [API](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Context.html).
     When MindSpore Lite loads a model, an object of the `Context` class must be provided. In this example, the `context` object of the `Context` class is applied for.
 
     ```cpp
@@ -691,7 +691,7 @@ In the previous section, the official inference test tool is used to perform the
     (3) Load the model.
 
     Create a `Model` class object `model`. The `Model` class defines the model in MindSpore for computational graph management.
-    For details about the `Model` class, see [API](https://www.mindspore.cn/lite/api/en/r1.7/api_cpp/mindspore.html#model).
+    For details about the `Model` class, see [API](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Model.html).
 
     ```cpp
     auto model = new (std::nothrow) mindspore::Model();
@@ -710,7 +710,7 @@ In the previous section, the official inference test tool is used to perform the
 
     Before performing model inference, you need to set the input data for inference.
     In this example, the `Model.GetInputs` API is used to obtain all input tensors of a model. The format of a single tensor is `MSTensor`.
-    For details about `MSTensor`, see `MSTensor` in [API](https://www.mindspore.cn/lite/api/en/r1.7/api_cpp/mindspore.html#mstensor).
+    For details about `MSTensor`, see `MSTensor` in [API](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_MSTensor.html).
 
     ```cpp
     auto inputs = model->GetInputs();
@@ -1371,7 +1371,7 @@ In the previous section, the official inference test tool is used to perform the
     (2) Initialize the context configuration.
 
     The context stores configurations required for model inference, including the operator preference, number of threads, automatic concurrency, and other configurations related to the inference processor.
-    For details about the context, see "Context" in [API](https://www.mindspore.cn/lite/api/en/r1.7/api_cpp/mindspore.html#context).
+    For details about the context, see "Context" in [API](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Context.html).
     When MindSpore Lite loads a model, an object of the `Context` class must be provided. In this example, the `context` object of the `Context` class is applied for.
 
     ```cpp
@@ -1399,7 +1399,7 @@ In the previous section, the official inference test tool is used to perform the
     (3) Load the model.
 
     Create a `Model` class object `model`. The `Model` class defines the model in MindSpore for computational graph management.
-    For details about the `Model` class, see [API](https://www.mindspore.cn/lite/api/en/r1.7/api_cpp/mindspore.html#model).
+    For details about the `Model` class, see [API](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Model.html).
 
     ```cpp
     auto model = new (std::nothrow) mindspore::Model();
@@ -1418,7 +1418,7 @@ In the previous section, the official inference test tool is used to perform the
 
     Before performing model inference, you need to set the input data for inference.
     In this example, the `Model.GetInputs` API is used to obtain all input tensors of a model. The format of a single tensor is `MSTensor`.
-    For details about `MSTensor`, see `MSTensor` in [API](https://www.mindspore.cn/lite/api/en/r1.7/api_cpp/mindspore.html#mstensor).
+    For details about `MSTensor`, see `MSTensor` in [API](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_MSTensor.html).
 
     ```cpp
     auto inputs = model->GetInputs();
