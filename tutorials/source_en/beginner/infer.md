@@ -353,7 +353,11 @@ After the conversion is successful, `CONVERT RESULT SUCCESS:0` is displayed, and
 
 ### Application Deployment
 
-Download [Android app APK](https://gitee.com/mindspore/vision/releases/) of the MindSpore Vision Suite and install the APK on your phone. The app name is `MindSpore Vision`.
+Download [Android app APK](https://download.mindspore.cn/vision/android/mindvision-0.1.0.apk) of the MindSpore Vision Suite, or download it by scanning the QR code on phone.
+
+![qr](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/turotials/source_zh_cn/beginner/images/app_qr_code.png)
+
+Install the APK on your phone, and its app name appears as `MindSpore Vision`.
 
 > The MindSpore Vision APK is used as an example of the visual development tool. It provides basic UI functions such as photographing and image selection, and provides AI application demos such as classification, detection, and face recognition.
 
