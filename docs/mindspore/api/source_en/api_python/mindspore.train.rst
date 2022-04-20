@@ -11,6 +11,7 @@ mindspore.train.callback
 ------------------------
 
 .. automodule:: mindspore.train.callback
+    :exclude-members: FederatedLearningManager
     :members:
 
 mindspore.train.train_thor
