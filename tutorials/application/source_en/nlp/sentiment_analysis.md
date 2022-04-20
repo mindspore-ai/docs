@@ -264,7 +264,7 @@ Word segmentation is performed on the IMDB dataset loaded by the loader, but the
 - Use the Vocab to convert all tokens to index IDs.
 - The length of the text sequence is unified. If the length is insufficient, `<pad>` is used to supplement the length. If the length exceeds the limit, the excess part is truncated.
 
-Here, the API provided in `mindspore.dataset` is used for preprocessing. The APIs used here are designed for MindSpore high-performance data engines. The operations corresponding to each API are considered as a part of the data pipeline. For details, see [MindSpore Data Engine](https://www.mindspore.cn/docs/en/master/design/data_engine.html).
+Here, the API provided in `mindspore.dataset` is used for preprocessing. The APIs used here are designed for MindSpore high-performance data engines. The operations corresponding to each API are considered as a part of the data pipeline. For details, see [MindSpore Data Engine](https://www.mindspore.cn/docs/zh-CN/master/design/data_engine.html).
 
 For the table query operation from a token to an index ID, use the `text.Lookup` API to load the built vocabulary and specify `unknown_token`. The `PadEnd` API is used to unify the length of the text sequence. This API defines the maximum length and padding value (`pad_value`). In this example, the maximum length is 500, and the padding value corresponds to the index ID of `<pad>` in the vocabulary.
 
