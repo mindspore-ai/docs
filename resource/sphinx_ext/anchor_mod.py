@@ -32,18 +32,23 @@ def dupname(node, name):
 before = "            node['ids'].append(id)"
 after = """\
         import re
+        flag = 0
         if node['names']:
             id = node['names'][0]
-            zhPattern = re.findall(r'[\u4e00-\u9fa5]',id)
-            if not zhPattern and "." in id:
-                pass
-            else:
-                id = short_title(id)
+            origin_id = id
+            id = short_title(id)
             self.id_counter[id] += 1
             if self.id_counter[id] > 1:
                 id = '{}-{}'.format(id, self.id_counter[id]-1)
                 self.id_counter[id] += 1
-        node['ids'].append(id)"""
+            else:
+                zhcnPattern = re.findall(r'[\u4e00-\u9fa5]',origin_id)
+                if not zhcnPattern and origin_id==origin_id.lower():
+                    flag = 1
+        if flag==1:
+            node['ids'].append(origin_id.replace(".","-").replace("_","-"))
+        else:
+            node['ids'].append(id)"""
 
 # Mod nodes for docutils.
 document_content = inspect.getsource(document)
