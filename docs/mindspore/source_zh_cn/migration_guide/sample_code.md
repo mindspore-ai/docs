@@ -793,7 +793,7 @@ if __name__ == '__main__':
 分析Profiling数据是性能调优阶段必不可少的步骤，MindSpore 的性能和精度调优工具 [MindInsight](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/index.html) 提供了丰富的性能和精度调优方法，对于性能调优，最重要的信息就是Profiling数据。Profiling可以收集整网训练过程中端到端的详细性能数据，包含数据准备和迭代轨迹。在迭代轨迹中，你可以看到每个算子的起始运行时间、结束运行时间、调用次数和调用顺序等非常详细的信息，这对我们性能调优非常有帮助。生成Profiling数据的方式如下：
 
 ```python
-from mindspore.profiler import Profiler
+from mindspore import Profiler
 from mindspore import Model, nn, context
 
 # init context

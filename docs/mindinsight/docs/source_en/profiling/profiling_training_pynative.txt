@@ -22,7 +22,7 @@ The code for a normal scenario is as follows:
    from mindspore import nn, context
    from mindspore import Model
    import mindspore.dataset as ds
-   from mindspore.profiler import Profiler
+   from mindspore import Profiler
 
 
    class Net(nn.Cell):
@@ -49,11 +49,14 @@ The code for a normal scenario is as follows:
 
    if __name__ == '__main__':
        context.set_context(mode=context.PYNATIVE_MODE, device_target="Ascend")
+
        # Init Profiler
-       # Note that the Profiler should be initialized after context.set_context and before model.train
+       # Note that the Profiler should be initialized before model.train
        profiler = Profiler(output_path = './profiler_data')
+
        # Train Model
        net = Net()
        train(net)
+
        # Profiler end
        profiler.analyse()
