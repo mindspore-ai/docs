@@ -2,7 +2,7 @@
 
 `Windows` `Linux` `Android` `C++` `Inference Application` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/lite/docs/source_en/use/register_kernel.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/lite/docs/source_en/use/register_kernel.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png"></a>
 
 ## Implementing Custom Operators
 
