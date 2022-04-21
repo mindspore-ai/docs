@@ -1,4 +1,4 @@
-﻿# 网络编译
+﻿﻿﻿# 网络编译
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/faq/network_compilation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
@@ -359,3 +359,69 @@ In file /usr/local/python3.7/lib/python3.7/site-packages/mindspore/ops/composite
 A: MindSpore静态图需要将这种切片的赋值操作翻译成相关算子，这种赋值操作是通过HyperMap实现的。HyperMap并没有注册这种类型，由于MindSpore静态图模式编译需要进行类型推导，
 前端编译对这种赋值操作展开成具体类型时，发现这种类型并没有注册就会报错这种错误。一般下面会提示现有的支持类型。
 用户可以考虑使用其他算子进行替换， 或者更改MindSpore源码的方式扩展当前这种MindSpore还不支持的Hypermap类型[运算重载](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/op_overload.html#运算重载)。
+
+<br/>
+
+<font size=3>**Q: 编译时报错“Side Effect Invalid: found unsupported syntax in graph mode, those side effect codes would be ignored:”怎么办？**</font>
+
+A: 如果在`Cell.construct`或者`ms_function`函数以及其调用的子函数里，使用了副作用算子，则要求所在函数不能直接返回常量值，包括最终返回值经过推导是常量的情况。由于函数返回常量时，编译器会优先把常量值以外的操作优化掉，导致其它操作看起来无效。对于非副作用的算子操作，忽略掉一般不会影响最终结果的正确性。但是如果包含了副作用算子的操作，忽略掉副作用算子往往跟用户期望相左。因此，对于出现函数返回值为常量，同时又包含副作用算子操作的情况，编译器会抛出异常，提示用户代码执行有可能无法符合预期，需要调整代码实现。
+
+例如代码：
+
+```python
+from mindspore.nn import Cell
+
+class Demo(Cell):
+    def __init__(self):
+        super().__init__()
+
+    def construct(self, x):
+        print('print here...')
+        y = x[1]
+        y[1] = 9
+        return y
+
+x = [[1, 2, 3, 4], [5, 6, 7, 8]]
+net = Demo()
+output = net(x)
+print(output)
+```
+
+上述代码`y`经过推导后是一个常量值，整个函数可以被优化为直接返回常量值。除此以外的操作全部被优化掉，包括`print('print here...')`也会在编译时被忽略掉。由于`print`算子是副作用算子，其行为被删除后不符合预期，因此编译器会抛出错误提示用户。
+
+执行结果如下：
+
+```text
+Traceback (most recent call last):
+  File "test_print_op.py", line 20, in <module>
+    output = net(x)
+  File "/usr/local/python3.7/lib/python3.7/site-packages/mindspore/nn/cell.py", line 586, in __call__
+    out = self.compile_and_run(*args)
+  File "/usr/local/python3.7/lib/python3.7/site-packages/mindspore/nn/cell.py", line 964, in compile_and_run
+    self.compile(*inputs)
+  File "/usr/local/python3.7/lib/python3.7/site-packages/mindspore/nn/cell.py", line 937, in compile
+    _cell_graph_executor.compile(self, *inputs, phase=self.phase, auto_parallel_mode=self._auto_parallel_mode)
+  File "/usr/local/python3.7/lib/python3.7/site-packages/mindspore/common/api.py", line 1086, in compile
+    result = self._graph_executor.compile(obj, args_list, phase, self._use_vm_mode())
+RuntimeError: mindspore/ccsrc/pipeline/jit/static_analysis/evaluator.cc:127 CheckSideEffectNodes] Side Effect Invalid: Found unsupported syntax in graph mode, those side effect codes would be ignored:
+-----
+# No. 1:
+In file test_print_op.py(11)
+         print('print here...')
+         ^
+
+-----
+
+If a function return a const value or inferred const value, the side effect node would be ignored.
+So the codes may not run as the user's expectation, please fix it.
+
+In this case, the const value '[[1, 2, 3, 4], [5, 6, 7, 8]]' returns:
+In file test_print_op.py(10)
+     def construct(self, a):
+     ^
+
+For more information about this issue, please refer to https://www.mindspore.cn/search?inputValue=Side%20Effect%20Invalid
+```
+
+若遇到这类问题请去除副作用算子的调用，或者修改函数返回值不返回常量。
+
