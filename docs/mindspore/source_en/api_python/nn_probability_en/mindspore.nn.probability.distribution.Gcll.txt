@@ -176,6 +176,7 @@
     The standard deviation.
 
     **Parameters**
+    
     - **loc** (Tensor) - the loc parameter of the distribution. Default value: None.
     - **scale** (Tensor) - the scale parameter of the distribution. Default value: None.
 
