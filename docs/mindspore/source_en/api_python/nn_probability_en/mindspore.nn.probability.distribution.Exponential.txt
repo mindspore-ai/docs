@@ -154,6 +154,7 @@
     The standard deviation.
 
     **Parameters**
+    
     - **rate** (Tensor) - the rate of the distribution. Default value: None.
 
     **Returns**

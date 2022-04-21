@@ -176,6 +176,7 @@
     The standard deviation.
 
     **Parameters**
+    
     - **concentration1** (Tensor) - the alpha parameter of the Beta distribution. Default value: None.
     - **concentration0** (Tensor) - the beta parameter of the Beta distribution. Default value: None.
 

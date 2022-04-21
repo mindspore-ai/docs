@@ -114,6 +114,7 @@
     The standard deviation.
 
     **Parameters**
+    
     - **rate** (Tensor) - the value of the rate. Default value: None.
 
     **Returns**

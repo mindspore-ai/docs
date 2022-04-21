@@ -46,7 +46,7 @@
 
     Tensor, the value of the entropy.
 
-.. py:method:: kl_loss(dist, probs)
+.. py:method:: kl_loss(dist, probs_b, probs)
 
     Compute the value of the K-L loss between two distribution, namely KL(a||b).
 
@@ -154,6 +154,7 @@
     The standard deviation.
 
     **Parameters**
+
     - **probs** (Tensor) - the probability of success. Default value: None.
 
     **Returns**
