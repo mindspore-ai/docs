@@ -39,7 +39,7 @@ Neural Network Layer Operators
 Activation Functions
 ^^^^^^^^^^^^^^^^^^^^
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -52,7 +52,7 @@ Mathematical Operators
 Element-by-Element Operations
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -155,7 +155,7 @@ Reduction Operators
 Comparison operators
 ^^^^^^^^^^^^^^^^^^^^
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -211,7 +211,7 @@ Tensor Operation Operators
 Tensor Building
 ^^^^^^^^^^^^^^^
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -237,7 +237,7 @@ Randomly Generating Operators
 Array Operation
 ^^^^^^^^^^^^^^^
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -288,7 +288,7 @@ Array Operation
 Type Conversion
 ^^^^^^^^^^^^^^^
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -301,7 +301,7 @@ Type Conversion
 Parameter Operation Oprators
 ----------------------------
 
-.. mscnplatformautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
