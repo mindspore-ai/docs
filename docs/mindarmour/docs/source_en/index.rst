@@ -65,6 +65,7 @@ Typical Application Scenarios
    :caption: AI Reliability
 
    concept_drift_time_series
+   concept_drift_images
    fault_injection
 
 .. toctree::

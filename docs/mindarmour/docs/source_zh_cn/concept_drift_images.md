@@ -1,21 +1,5 @@
 # 实现图像数据概念漂移检测应用
 
-<!-- /TOC -->
-
-- [实现图像数据概念漂移检测应用](#实现时序数据概念漂移检测应用)
-    - [概述](#概述)
-    - [准备环节](#准备环节)
-        - [准备数据集](#准备数据集)
-        - [导入Python库&模块](#导入python库模块)
-    - [加载数据](#加载数据)
-    - [加载神经网络模型](#加载神经网络模型)
-    - [初始化图像概念漂移检测模块](#初始化图像概念漂移检测模块)
-    - [获得最优概念漂移检测阈值](#获得最优概念漂移检测阈值)
-    - [执行概念漂移检测](#执行图像概念漂移检测)
-    - [查看结果](#查看结果)
-
-<!-- /TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindarmour/docs/source_zh_cn/concept_drift_images.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
