@@ -11,7 +11,10 @@
    :maxdepth: 1
    :caption: CV
 
-   cv/test1
+   cv/resnet50
+   cv/transfer_learning
+   cv/fgsm
+   cv/dcgan
    
 .. toctree::
    :glob:
