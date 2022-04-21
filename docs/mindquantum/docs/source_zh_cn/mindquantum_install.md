@@ -2,19 +2,6 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindquantum/docs/source_zh_cn/mindquantum_install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source.png"></a>
 
-<!-- TOC --->
-
-- [安装MindQuantum](#安装mindquantum)
-    - [确认系统环境信息](#确认系统环境信息)
-    - [安装方式](#安装方式)
-        - [源码安装](#源码安装)
-        - [pip安装](#pip安装)
-    - [验证是否成功安装](#验证是否成功安装)
-    - [Docker安装](#docker安装)
-    - [注意事项](#注意事项)
-
-<!-- /TOC -->
-
 ## 确认系统环境信息
 
 - 参考[MindSpore安装指南](https://www.mindspore.cn/install)，完成MindSpore的安装，要求至少1.4.0版本。
