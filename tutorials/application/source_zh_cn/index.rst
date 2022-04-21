@@ -9,7 +9,7 @@
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: CV
+   :caption: 计算机视觉
 
    cv/resnet50
    cv/transfer_learning
@@ -19,7 +19,7 @@
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: NLP
+   :caption: 自然语言处理
 
    nlp/sentiment_analysis
    nlp/sequence_labeling
