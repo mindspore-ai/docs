@@ -19,7 +19,7 @@
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: NLP
+   :caption: 自然语言处理
 
    nlp/sentiment_analysis
    nlp/sequence_labeling
