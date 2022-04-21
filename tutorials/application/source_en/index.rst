@@ -11,7 +11,6 @@ Application
    :maxdepth: 1
    :caption: CV
 
-   cv/test1
 
 .. toctree::
    :glob:
