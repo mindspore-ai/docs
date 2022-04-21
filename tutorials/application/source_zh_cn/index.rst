@@ -9,9 +9,12 @@
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: CV
+   :caption: 计算机视觉
 
-   cv/test1
+   cv/resnet50
+   cv/transfer_learning
+   cv/fgsm
+   cv/dcgan
    
 .. toctree::
    :glob:
