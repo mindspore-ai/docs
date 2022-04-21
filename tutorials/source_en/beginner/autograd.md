@@ -103,12 +103,10 @@ x = Tensor([100], dtype=mstype.float32)
 fx = GradNet(Net())(x)
 
 # Print the result.
-print(fx)
 print(f"wgrad: {fx[0]}\nbgrad: {fx[1]}")
 ```
 
 ```text
-(Tensor(shape=[1], dtype=Float64, value= [ 1.00000000e+02]), Tensor(shape=[1], dtype=Float64, value= [ 1.00000000e+00]))
 wgrad: [100.]
 bgrad: [1.]
 ```
