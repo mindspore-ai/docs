@@ -1,26 +1,5 @@
 # 使用 MindInsight 可视化
 
-<!-- TOC -->
-
-- [使用 MindInsight 可视化](#使用-mindinsight-可视化)
-    - [操作流程](#操作流程)
-        - [下载教程数据集及模型](#下载教程数据集及模型)
-        - [准备脚本](#准备脚本)
-        - [使用限制](#使用限制)
-        - [启动 MindInsight](#启动-mindinsight)
-    - [页面及功能介绍](#页面及功能介绍)
-        - [显著图可视化](#显著图可视化)
-        - [解释方法评估](#解释方法评估)
-            - [综合评估](#综合评估)
-            - [分类评估](#分类评估)
-    - [不确定性](#不确定性)
-    - [反事实](#反事实)
-        - [基于遮掩的反事实](#基于遮掩的反事实)
-            - [基于遮掩的反事实使用限制](#基于遮掩的反事实使用限制)
-            - [基于遮掩的反事实页面及功能介绍](#基于遮掩的反事实页面及功能介绍)
-
-<!--/ TOC -->
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_zh_cn/using_mindinsight.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 操作流程
