@@ -247,7 +247,7 @@ if (build_ret != mindspore::kSuccess) {
 
 ## Inputting Data
 
-Before executing a model, obtain the input [MSTensor](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mstensor) of the model and copy the input data to the input Tensor using `memcpy`. In addition, you can use the [DataSize](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#datasize) method to obtain the size of the data to be filled in to the tensor, use the [DataType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#datatype) method to obtain the data type of the tensor, and use the [MutableData](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mutabledata) method to obtain the writable data pointer.
+Before executing a model, obtain the input [MSTensor](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_MSTensor.html) of the model and copy the input data to the input Tensor using `memcpy`. In addition, you can use the [DataSize](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#datasize) method to obtain the size of the data to be filled in to the tensor, use the [DataType](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#datatype) method to obtain the data type of the tensor, and use the [MutableData](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#mutabledata) method to obtain the writable data pointer.
 
 MindSpore Lite provides two methods to obtain the input tensor of a model.
 
@@ -310,7 +310,7 @@ if (predict_ret != mindspore::kSuccess) {
 
 ## Obtaining Output
 
-After performing inference, MindSpore Lite can obtain the inference result of the model. MindSpore Lite provides three methods to obtain the output [MSTensor](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#mstensor) of a model.
+After performing inference, MindSpore Lite can obtain the inference result of the model. MindSpore Lite provides three methods to obtain the output [MSTensor](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_MSTensor.html) of a model.
 
 1. Use the [GetOutputsByNodeName](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getoutputsbynodename) method to obtain the vector of the tensor connected to the model output tensor based on the name of the model output node. The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L170) demonstrates how to call `GetOutputsByNodeName` to obtain the output tensor.
 
@@ -465,7 +465,7 @@ int RunModelParallel(const char *model_path) {
 ### Mixed Precision Inference
 
 MindSpore Lite supports mixed precision inference.
-Users can set mixed precision information by calling the [LoadConfig](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#loadconfig) API of [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model) after a model is created and before built.
+Users can set mixed precision information by calling the [LoadConfig](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) API of [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model) after a model is created and before built.
 The example of the config file is as follows:
 
 ```text
@@ -501,7 +501,7 @@ if (predict_ret != mindspore::kSuccess) {
 ### Multiple Heterogeneous Devices Inference
 
 MindSpore Lite supports multiple heterogeneous devices inference.
-Users can set multiple heterogeneous devices inference information by set multiple [DeviceInfoContext](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#deviceinfocontext) in [Context](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#context).
+Users can set multiple heterogeneous devices inference information by set multiple [DeviceInfoContext](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_DeviceInfoContext.html) in [Context](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Context.html).
 
 The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L546) demonstrates how to infer the model in multiple heterogeneous devices:
 
@@ -764,7 +764,7 @@ The chapter only provides instruction in the Linux System.
 
 #### Operator InferShape Extension
 
-The users need to inherit the basic class [KernelInterface](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore_kernel.html#kernelinterface), and override the interface function [Infer](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore_kernel.html#infer).
+The users need to inherit the basic class [KernelInterface](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_kernel_KernelInterface.html), and override the interface function Infer.
 
 ```cpp
 int CheckInputs(const std::vector<mindspore::MSTensor> &inputs) {         // check function when compiling, to judge the shape of input tensor is valid or not
