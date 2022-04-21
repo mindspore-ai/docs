@@ -1,4 +1,4 @@
-﻿# Network Compilation
+﻿﻿# Network Compilation
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/faq/network_compilation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
@@ -270,7 +270,7 @@ When there is an error related to JIT Fallback, please review the code syntax an
 
 A: Currently, Tensor [subsequent abbreviation Tensor (bool)] with bool data type has weak support by MindSpore, and only a small number of operators support Tensor(bool) type data participation operations.  If an operator supporting the Tensor(bool) type is used in a forward graph and the forward graph syntax is correct, since the reverse graph solves the full derivative introduces `AddN`, `AddN` does not support the Tensor (bool) type, and the reverse graph run will throw the exception.
 
-The example is as follow：
+The example is as follow:
 
 ```python
 from mindspore import context, ops, ms_function, Tensor, dtype
@@ -291,7 +291,7 @@ out = grad_net(x, y)
 
 The forward processing of the above code can be expressed as: the corresponding full derivative formula of `r = f(z, x), z = z(x, y)` is: `dr/dx = df/dz * dz/dx + df/dx`.  Function`f(z,x)` and `z(x,y)` are primitive `and`. Primitive `and` in the forward graph supports Tensor (bool) type, and the `AddN` introduced when reversing the full derivative of the graph does not support the Tensor(bool) type.  And the error cannot be mapped to a specific forward code line.
 
-The result is as follows：
+The result is as follows:
 
 ```text
 Traceback (most recent call last):
@@ -319,3 +319,69 @@ If you encounter problems like this one, please remove the use of tensor (bool).
 A: The MindSpore static graph mode needs to translate the assign operation as the MindSpore operation.
 This assign is implemented by the [HyperMap](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_overload.html#multitypefuncgraph) in MindSpore. The Type is not registered in the HyperMap. Since the type inference is an indispensable part of MindSpore, When the front-end compiler expands this assignment operation into a concrete type, it finds that the type is not registered and reports an error. In general, the existing support types will be prompted below.
 Users can consider replacing them with other operators, or changing the way the MindSpore source code extends the current Hypermap type [operation overload](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_overload.html#operation-overloading) that MindSpore does not yet support.
+
+<br/>
+
+<font size=3>**Q: What can I do if an error "Side Effect Invalid: found unsupported syntax in graph mode, those side effect codes would be ignored:" is reported?**</font>
+
+A: If you use a side-effect operator in `Cell.construct`,  `ms_function` or their callee function, you should ensure that the function not just return a constant value or inferred constant value. Since only the behavior of returning constant value will be preserved during compiling, the other operations seems invalid. Especially for side-effect operators, the result looks not correct if they're ignored, and may not correspond with user's expectation. So the compiler will throw an exception for this situation.
+
+The example is as follow:
+
+```python
+from mindspore.nn import Cell
+
+class Demo(Cell):
+    def __init__(self):
+        super().__init__()
+
+    def construct(self, x):
+        print('print here...')
+        y = x[1]
+        y[1] = 9
+        return y
+
+x = [[1, 2, 3, 4], [5, 6, 7, 8]]
+net = Demo()
+output = net(x)
+print(output)
+```
+
+The variable `y` of the above code can be inferred as a constant value, so the function would be optimized as just return a constant value, and not really to execute `print('print here...')`. The operator `print` is an IO side effect operator, it's incorrect if it's ignored. In this case, the compiler will throw an exception to user.
+
+The result is as follows:
+
+```text
+Traceback (most recent call last):
+  File "test_print_op.py", line 20, in <module>
+    output = net(x)
+  File "/usr/local/python3.7/lib/python3.7/site-packages/mindspore/nn/cell.py", line 586, in __call__
+    out = self.compile_and_run(*args)
+  File "/usr/local/python3.7/lib/python3.7/site-packages/mindspore/nn/cell.py", line 964, in compile_and_run
+    self.compile(*inputs)
+  File "/usr/local/python3.7/lib/python3.7/site-packages/mindspore/nn/cell.py", line 937, in compile
+    _cell_graph_executor.compile(self, *inputs, phase=self.phase, auto_parallel_mode=self._auto_parallel_mode)
+  File "/usr/local/python3.7/lib/python3.7/site-packages/mindspore/common/api.py", line 1086, in compile
+    result = self._graph_executor.compile(obj, args_list, phase, self._use_vm_mode())
+RuntimeError: mindspore/ccsrc/pipeline/jit/static_analysis/evaluator.cc:127 CheckSideEffectNodes] Side Effect Invalid: Found unsupported syntax in graph mode, those side effect codes would be ignored:
+-----
+# No. 1:
+In file test_print_op.py(11)
+         print('print here...')
+         ^
+
+-----
+
+If a function return a const value or inferred const value, the side effect node would be ignored.
+So the codes may not run as the user's expectation, please fix it.
+
+In this case, the const value '[[1, 2, 3, 4], [5, 6, 7, 8]]' returns:
+In file test_print_op.py(10)
+     def construct(self, a):
+     ^
+
+For more information about this issue, please refer to https://www.mindspore.cn/search?inputValue=Side%20Effect%20Invalid
+```
+
+If you meet this situation, please remove the side-effect operators, or not just return a constant value in the function.
+
