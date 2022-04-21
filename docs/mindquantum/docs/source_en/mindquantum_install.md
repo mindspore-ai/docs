@@ -2,19 +2,6 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindquantum/docs/source_en/mindquantum_install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-<!-- TOC --->
-
-- [MindQuantum Installation](#mindquantum-installation)
-    - [Confirming System Environment Information](#confirming-system-environment-information)
-    - [Installation Methods](#installation-methods)
-        - [Install by Source Code](#install-by-source-code)
-        - [Install by pip](#install-by-pip)
-    - [Verifying Successful Installation](#verifying-successful-installation)
-    - [Install with Docker](#install-with-docker)
-    - [Note](#Note)
-
-<!-- /TOC -->
-
 ## Confirming System Environment Information
 
 - Refer to [MindSpore Installation Guide](https://www.mindspore.cn/install/en), install MindSpore, version 1.4.0 or later is required.
