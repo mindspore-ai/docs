@@ -1,7 +1,5 @@
 # Lightweight Data Processing
 
-`Ascend` `GPU` `CPU` `Data Preparation`
-
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/dataset/eager.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 When resource conditions permit, in order to pursue higher performance, data transformations are generally executed in the data pipeline mode. That is, users have to define the `map` operator which helps to execute augmentations in data pipeline. As shown in the figure below, the `map` operator contains 3 transformations: `Resize`, `Crop`, and `HWC2CHW`. When the pipeline starts, the `map` operator will apply these transformations to data in sequence.

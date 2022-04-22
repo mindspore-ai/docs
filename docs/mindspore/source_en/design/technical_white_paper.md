@@ -1,7 +1,5 @@
 # Technical White Paper
 
-`Ascend` `GPU` `CPU` `Design`
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/design/technical_white_paper.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Introduction

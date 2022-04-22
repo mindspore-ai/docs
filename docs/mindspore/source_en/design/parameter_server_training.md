@@ -1,7 +1,5 @@
 # Parameter Server Mode
 
-`Ascend` `GPU` `Distributed Parallel` `Whole Process`
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/design/parameter_server_training.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

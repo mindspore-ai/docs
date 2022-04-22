@@ -1,7 +1,5 @@
 # 在ResNet-50网络上应用二阶优化实践
 
-`Ascend` `GPU` `扩展功能` `全流程`
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/design/cv_resnet50_second_order_optimizer.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述

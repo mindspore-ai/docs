@@ -1,7 +1,5 @@
 # 使能图算融合
 
-`Ascend` `GPU` `CPU` `模型调优`
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/design/enable_graph_kernel_fusion.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
