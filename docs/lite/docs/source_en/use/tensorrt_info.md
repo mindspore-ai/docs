@@ -1,7 +1,5 @@
 # TensorRT Integration Information
 
-`TensorRT` `NVIDIA` `Linux` `Environment Preparation` `Operators Supported` `Intermediate` `Expert`
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/tensorrt_info.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Steps
