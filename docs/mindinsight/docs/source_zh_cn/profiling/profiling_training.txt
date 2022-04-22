@@ -22,7 +22,7 @@ Profiler可以通过start_profile参数控制是否基于step（epoch）开启�
    from mindspore import nn, context
    from mindspore import Model
    import mindspore.dataset as ds
-   from mindspore.profiler import Profiler
+   from mindspore import Profiler
 
 
    class Net(nn.Cell):
@@ -53,9 +53,11 @@ Profiler可以通过start_profile参数控制是否基于step（epoch）开启�
        # Init Profiler
        # Note that the Profiler should be initialized before model.train
        profiler = Profiler(output_path = './profiler_data')
+
        # Train Model
        net = Net()
        train(net)
+       
        # Profiler end
        profiler.analyse()
 
