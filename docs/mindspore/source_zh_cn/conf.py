@@ -17,6 +17,7 @@ import os
 import sys
 import glob
 import IPython
+import shutil
 
 from sphinx import directives
 with open('../_ext/overwriteobjectiondirective.txt', 'r', encoding="utf8") as f:
@@ -170,7 +171,6 @@ sys.path.append(os.path.abspath('../../../resource/search'))
 import search_code
 
 # Copy source files of chinese python api from mindspore repository.
-import shutil
 from sphinx.util import logging
 logger = logging.getLogger(__name__)
 

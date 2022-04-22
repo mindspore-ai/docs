@@ -15,6 +15,7 @@ import os
 import re
 import sys
 import sphinx
+import shutil
 import IPython
 sys.path.append(os.path.abspath('../_ext'))
 import sphinx.ext.autosummary.generate as g
@@ -186,7 +187,6 @@ import search_code
 
 # Copy images from mindspore repo.
 import imghdr
-import shutil
 from sphinx.util import logging
 
 logger = logging.getLogger(__name__)
