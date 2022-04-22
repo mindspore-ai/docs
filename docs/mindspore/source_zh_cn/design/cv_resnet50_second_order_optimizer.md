@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `扩展功能` `全流程`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/experts/source_zh_cn/others/cv_resnet50_second_order_optimizer.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/design/cv_resnet50_second_order_optimizer.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述
 
