@@ -1,7 +1,5 @@
 # Using Delegate to Support Third-party AI Framework
 
-`Linux` `Delegate` `Third-party` `Custom Framework` `Advanced`
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/delegate.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

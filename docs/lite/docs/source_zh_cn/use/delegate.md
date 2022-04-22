@@ -1,7 +1,5 @@
 # 使用Delegate支持第三方AI框架接入
 
-`Linux` `代理` `第三方接入` `自定义框架` `高级`
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/delegate.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述

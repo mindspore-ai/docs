@@ -1,7 +1,5 @@
 # Android Application Development Based on Java Interface
 
-`Android` `Java` `Whole Process` `Model Conversion` `Model Loading` `Inference Application` `Data Preparation` `Beginner` `Intermediate` `Expert`
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/quick_start/image_segmentation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

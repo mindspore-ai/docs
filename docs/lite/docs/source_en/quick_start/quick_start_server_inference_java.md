@@ -1,7 +1,5 @@
 # Experience Java Minimalist Concurrent Reasoning Demo
 
-`Linux` `x86` `Java` `Whole Process` `Inference Application` `Data Preparation` `Beginner`
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/quick_start/quick_start_server_inference_java.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

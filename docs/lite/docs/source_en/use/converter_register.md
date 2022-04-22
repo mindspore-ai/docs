@@ -1,7 +1,5 @@
 # Construct custom kernel by registering conversion tool
 
-`Linux` `Model Converting` `Intermediate` `Expert`
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_en/use/converter_register.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
