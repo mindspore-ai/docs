@@ -1,4 +1,4 @@
-﻿# Function Differences with torchvision.transforms.RandomSolarize
+# Function Differences with torchvision.transforms.RandomSolarize
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/RandomSolarize.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 

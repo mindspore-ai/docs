@@ -1,4 +1,4 @@
-﻿# Function differences with torchvision.transforms.ToPILImage
+# Function differences with torchvision.transforms.ToPILImage
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/ToPIL.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 

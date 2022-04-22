@@ -1,4 +1,4 @@
-﻿# MindSpore Documents
+# MindSpore Documents
 
 ![MindSpore Logo](resource/MindSpore-logo.png)
 

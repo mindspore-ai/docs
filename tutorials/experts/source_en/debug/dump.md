@@ -1,4 +1,4 @@
-﻿# Using Dump in the Graph Mode
+# Using Dump in the Graph Mode
 
 `Ascend` `GPU` `CPU` `Model Optimization`
 

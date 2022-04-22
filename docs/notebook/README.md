@@ -1,4 +1,4 @@
-﻿# MindSpore的教程体验
+# MindSpore的教程体验
 
 ## 环境配置
 

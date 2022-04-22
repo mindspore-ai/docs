@@ -1,4 +1,4 @@
-﻿Model List
+Model List
 ===================
 
 .. toctree::

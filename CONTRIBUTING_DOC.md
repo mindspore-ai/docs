@@ -1,4 +1,4 @@
-﻿# Contributing Documents
+# Contributing Documents
 
 [查看中文](./CONTRIBUTING_DOC_CN.md)
 

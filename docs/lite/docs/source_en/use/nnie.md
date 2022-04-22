@@ -1,4 +1,4 @@
-﻿# Usage Description of the Integrated NNIE
+# Usage Description of the Integrated NNIE
 
 `NNIE` `Linux` `Environment Preparation` `Intermediate` `Expert`
 

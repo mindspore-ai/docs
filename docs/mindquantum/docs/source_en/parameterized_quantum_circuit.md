@@ -1,4 +1,4 @@
-﻿# Variational Quantum Circuit
+# Variational Quantum Circuit
 
 Translator: [Wei_zz](https://gitee.com/wei-zz)
 

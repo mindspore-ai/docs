@@ -1,4 +1,4 @@
-﻿# 贡献文档
+# 贡献文档
 
 [View English](./CONTRIBUTING_DOC.md)
 

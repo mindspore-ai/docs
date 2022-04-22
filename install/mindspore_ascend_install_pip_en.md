@@ -1,4 +1,4 @@
-﻿# Installing MindSpore in Ascend 910 by pip
+# Installing MindSpore in Ascend 910 by pip
 
 <!-- TOC -->
 
