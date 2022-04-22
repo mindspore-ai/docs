@@ -187,3 +187,8 @@ MindSpore的设计充分考虑了数据处理的高效性、灵活性以及在�
     MindSpore基于Pipeline调整架构，支持数据处理单算子独立使用（Eager 模式），支持各种场景推理，提供给AI开发人员更大的灵活性；同时，将Pipeline轻量化，实现基于Pull Base的轻量化流水线，减少资源占用并且处理速度快。
 
 通过上述两种方法，MindSpore保证了统一的数据处理架构支撑多种不同的应用场景。
+
+## 高级特性
+
+- 自动数据加速(https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/debug/dataset_autotune.html)
+- 数据异构加速(https://www.mindspore.cn/docs/zh-CN/r1.7/design/dataset_offload.html)
