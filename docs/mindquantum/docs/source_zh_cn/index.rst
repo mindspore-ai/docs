@@ -36,8 +36,11 @@ MindQuantum是基于昇思MindSpore开源深度学习框架和HiQ量子计算云
    :caption: 基础使用指南
 
    parameterized_quantum_circuit
+   quantum_simulator
    initial_experience_of_quantum_neural_network
    get_gradient_of_PQC_with_mindquantum
+   advanced_operations_of_quantum_circuit
+   quantum_measurement
 
 .. toctree::
    :glob:
