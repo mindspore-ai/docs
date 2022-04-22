@@ -15,11 +15,10 @@ MindSpore Documentation
    design/technical_white_paper
    design/gradient
    design/distributed_training_design
-   design/distributed_advanced
-   design/on_device
    design/mindir
-   design/dataset_offload
+   design/data_engine
    design/graph_kernel_fusion
+   design/second_order_optimizer
    Design of Visualization↗ <https://www.mindspore.cn/mindinsight/docs/en/master/training_visual_design.html>
    design/glossary
 
