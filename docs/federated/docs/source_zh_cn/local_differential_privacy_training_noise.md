@@ -2,9 +2,9 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/local_differential_privacy_training_noise.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
-联邦学习过程中，用户数据仅用于本地设备训练，不需要上传至中心服务器，可以避免用户个人数据的直接泄露。然而传统联邦学习框架中，模型以明文形式上云，仍然存在间接泄露用户隐私的风险。敌手获取到用户上传的明文模型后，可以通过重构、模型逆向等攻击恢复用户的个人训练数据，导致用户隐私泄露。
+联邦学习过程中，用户数据仅用于客户端设备的本地训练，不需要上传至中心服务器，可以避免泄露用户个人数据。然而，传统联邦学习框架中，模型以明文形式上云，仍然存在间接泄露用户隐私的风险。攻击者获取到客户端上传的明文模型后，可以通过重构、模型逆向等攻击方式，恢复参与学习的用户个人数据，导致用户隐私泄露。
 
-MindSpore Federated联邦学习框架，提供了基于本地差分隐私（LDP）算法，在本地模型上云前对其进行加噪。在保证模型可用性的前提下，解决横向联邦学习中的隐私泄露问题。
+MindSpore Federated联邦学习框架，提供了基于本地差分隐私（LDP）算法，在客户端上传本地模型前对其进行加噪。在保证模型可用性的前提下，解决横向联邦学习中的隐私泄露问题。
 
 ## 原理概述
 
@@ -14,11 +14,11 @@ $$
 Pr[\mathcal{K}(D)\in S] \le e^{\epsilon} Pr[\mathcal{K}(D’) \in S]+\delta​
 $$
 
-对于两个差别只有一条记录的数据集$D, D’$，通过随机算法$\mathcal{K}$，输出结果为集合$S$子集的概率满足上面公式。$\epsilon$为差分隐私预算，$\delta$扰动，$\epsilon$和$\delta$越小，说明$\mathcal{K}$在$D$和$D’$上输出的数据分布越接近。
+对于两个差别只有一条记录的数据集$D, D’$，通过随机算法$\mathcal{K}$，输出结果为集合$S$子集的概率满足上述公式。$\epsilon$为差分隐私预算，$\delta$扰动，$\epsilon$和$\delta$越小，说明$\mathcal{K}$在$D$和$D’$上输出的数据分布越接近。
 
-在横向联邦学习中，假设客户端本地训练之后的模型权重矩阵是$W$，由于模型在训练过程中会“记住”训练集的特征，所以敌手可以借助$W$还原出用户的训练数据集[1]。
+在横向联邦学习中，假设客户端本地训练之后的模型权重矩阵是$W$，由于模型在训练过程中会“记住”训练集的特征，所以攻击者可以借助$W$还原出用户的训练数据集[1]。
 
-MindSpore Federated提供基于本地差分隐私的安全聚合算法，防止本地模型上云时泄露隐私数据。
+MindSpore Federated提供基于本地差分隐私的安全聚合算法，防止客户端上传本地模型时泄露用户隐私数据。
 
 MindSpore Federated客户端会生成一个与本地模型$W$相同维度的差分噪声矩阵$G$，然后将二者相加，得到一个满足差分隐私定义的权重$W_p$:
 

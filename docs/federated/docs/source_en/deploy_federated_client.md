@@ -2,15 +2,15 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/deploy_federated_client.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-The following describes how to deploy the Federated-Client in the Android and x86 environments:
+The following describes how to deploy the Federated-Client in the Android aarch and Linux x86_64 environments:
 
-## Android
+## Android aarch
 
 ### Building a Package
 
 - Configure the build environment.
 
-    Currently, only the Linux build environment is supported. For details about how to configure the Linux build environment, click [here](https://www.mindspore.cn/lite/docs/en/master/use/build.html#linux).
+    Currently, only the Linux build environment is supported. For details about how to configure the Linux build environment, click [here](https://www.mindspore.cn/lite/docs/en/master/use/build.html#linux-environment-compilation).
 
 - Turn on Federated-Client compile option and build the AAR package that contains aarch64 and aarch32 in the mindspore home directory.
 
@@ -19,13 +19,13 @@ The following describes how to deploy the Federated-Client in the Android and x8
     bash build.sh -A on -j32
     ```
 
-- Store the generated AAR package in the following path:
+- The AAR package will be generated in the path `mindspore/output/`:
 
     ```sh
-    mindspore-lite-maven-{version}.zip
+    mindspore-lite-full-{version}.aar
     ```
 
-- Since the device-side framework and the model are decoupled, the Android AAR package provided by us does not contain model-related scripts, so the user needs to generate the jar corresponding to the model script. We provide two types of model scripts for your reference ([Supervised sentiment Classification Task](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert), [LeNet image classification task](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet)). At the same time, users can refer to these two types of model scripts, customize the model script and generate the corresponding jar package (assuming the name is `quick_start_flclient.jar`). The jar packages corresponding to the model scripts we provide can be obtained in the following ways:
+- Since the device-side framework and the model are decoupled, the Android AAR package provided by us does not contain model-related scripts, so the user needs to generate the jar corresponding to the model script. We provide two types of model scripts for your reference ([Supervised sentiment Classification Task](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert), [LeNet image classification task](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet)). Users can refer to these two types of model scripts, customize the model script and generate the corresponding jar package (assuming the name is `quick_start_flclient.jar`). The jar packages corresponding to the model scripts we provide can be obtained in the following ways:
 
     After downloading the latest code on [MindSpore Open Source Warehouse](https://gitee.com/mindspore/mindspore), perform the following operations:
 
@@ -43,26 +43,10 @@ The following describes how to deploy the Federated-Client in the Android and x8
 
 ### Building a Dependency Environment
 
-After the `mindspore-lite-maven-{version}.zip` file is decompressed, the following directory structure is obtained:
+Renaming `mindspore-lite-full-{version}.aar` to `mindspore-lite-full-{version}.zip`. After the `mindspore-lite-full-{version}.zip` file is decompressed, the following directory structure is obtained:
 
-```sh
-mindspore-lite-maven-{version}
-└── mindspore
-    └── mindspore-lite
-        └── {version}
-            └── mindspore-lite-{version}.aar  # MindSpore Lite training framework AAR package
-```
-
-Therefore, the AAR package path related to federated learning is as follows:
-
-```sh
-mindspore/output/mindspore/mindspore-lite/{version}/mindspore-lite-{version}.aar
-```
-
-The directory structure related to federated learning in the AAR package is as follows:
-
-```sh
-mindspore-lite-{version}
+```text
+mindspore-lite-full-{version}
 ├── jni
 │   ├── arm64-v8a
 │   │   ├── libjpeg.so   # Dynamic library file for image processing
@@ -108,13 +92,13 @@ android.jetifier.blacklist=bcprov
 
 After setting up the dependencies shown above in the Android project, you only need to rely on the AAR package and the jar package corresponding to the model script `quick_start_flclient.jar` to call APIs provided by federated learning. For details about how to call and run the APIs, see the API description of federated learning.
 
-## x86
+## Linux x86_64
 
 ### Building a Package
 
 - Configure the build environment.
 
-    Currently, only the Linux build environment is supported. For details about how to configure the Linux build environment, click [here](https://www.mindspore.cn/lite/docs/en/master/use/build.html#linux).
+    Currently, only the Linux build environment is supported. For details about how to configure the Linux build environment, click [here](https://www.mindspore.cn/lite/docs/en/master/use/build.html#linux-environment-compilation).
 
 - Build the x86-related architecture package in the mindspore home directory.
 
@@ -199,4 +183,4 @@ Set environment variables in the x86 system (an absolute path must be provided):
 export LD_LIBRARY_PATH=/resource/x86libs/:$LD_LIBRARY_PATH
 ```
 
-After the dependency environment is set, you can simulate the startup of multiple clients in the x86 environment for federated learning. For details, click [here](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/image_classification_application.md).
+After the dependency environment is set, you can simulate the startup of multiple clients in the x86 environment for federated learning. For details, click [here](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/image_classification_application.md#).
