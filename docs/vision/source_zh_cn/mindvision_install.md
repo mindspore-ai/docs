@@ -1,5 +1,7 @@
 # 安装MindSpore Vision
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/vision/source_zh_cn/mindvision_install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+
 ## 环境依赖
 
 - numpy 1.17+
