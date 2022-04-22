@@ -128,6 +128,7 @@ autosummary_generate = True
 html_theme = 'sphinx_rtd_theme'
 
 import sphinx_rtd_theme
+import shutil
 layout_target = os.path.join(os.path.dirname(sphinx_rtd_theme.__file__), 'layout.html')
 layout_src = '../../../resource/_static/layout.html'
 if os.path.exists(layout_target):
@@ -170,7 +171,6 @@ sys.path.append(os.path.abspath('../../../resource/search'))
 import search_code
 
 # Copy source files of chinese python api from mindspore repository.
-import shutil
 from sphinx.util import logging
 logger = logging.getLogger(__name__)
 
