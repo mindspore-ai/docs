@@ -104,7 +104,6 @@ If the user is sensitive to the package size of the framework, the following opt
 | MSLITE_ENABLE_WEIGHT_DECODE | Whether to support weight quantitative model | on,off | on |
 | MSLITE_ENABLE_CUSTOM_KERNEL | Whether to support southbound operator registration | on,off | on |
 | MSLITE_ENABLE_DELEGATE | Whether to  support Delegate mechanism | on,off | on |
-| MSLITE_ENABLE_V0 | Whether to compatible with models exported before 1.1.0 | on,off | on |
 | MSLITE_ENABLE_FP16 | Whether to support FP16 operator | on,off | off when `-I x86_64`, on when `-I arm64`, when `-I arm32`, if the Android_NDK version is greater than r21e, it is on, otherwise it is off |
 | MSLITE_ENABLE_INT8 | Whether to support INT8 operator | on,off | on |
 
