@@ -122,3 +122,11 @@ As a key feature of MindSpore, automatic parallelism is used to implement hybrid
 
 6. Backward propagation of communication operators
     - [grad_comm_ops.py](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/ops/_grad/grad_comm_ops.py): This file defines the backward propagation of communication operators, such as `AllReduce` and `AllGather`.
+
+## Advanced Features
+
+- [pipeline_parallel](https://www.mindspore.cn/docs/en/master/design/pipeline_parallel.html)
+- [host_device_training](https://www.mindspore.cn/docs/en/master/design/host_device_training.html)
+- [recompute](https://www.mindspore.cn/docs/en/master/design/recompute.html)
+- [sharding_propagation](https://www.mindspore.cn/docs/en/master/design/sharding_propagation.html)
+- [parameter_server_training](https://www.mindspore.cn/docs/en/master/design/parameter_server_training.html)

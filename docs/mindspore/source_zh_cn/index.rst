@@ -16,15 +16,12 @@ MindSpore 文档
    design/all_scenarios_architecture
    design/gradient
    design/dynamic_graph_and_static_graph
-   design/distributed_training_design
-   design/distributed_advanced
    design/heterogeneous_training
-   design/on_device
+   design/distributed_training_design
    design/mindir
    design/data_engine
-   design/dataset_offload
    design/graph_kernel_fusion
-   design/jit_fallback
+   design/second_order_optimizer
    可视化调试调优↗ <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/training_visual_design.html>
    安全可信↗ <https://www.mindspore.cn/mindarmour/docs/zh-CN/master/design.html>
    design/glossary

@@ -1,4 +1,4 @@
-# MindSpore IR（MindIR）
+# 中间表达MindIR
 
 `Ascend` `GPU` `设计` `模型开发`
 

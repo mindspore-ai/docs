@@ -77,5 +77,4 @@
    others/gradient_accumulation
    others/adaptive_summation
    others/dimention_reduce_training
-   others/second_order_optimizer
    
