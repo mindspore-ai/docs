@@ -1,7 +1,5 @@
 # Inference Using the MindIR Model on Ascend 310 AI Processors
 
-`Ascend` `Inference Application`
-
 <a href="https://gitee.com/mindspore/docs/blob/master//tutorials/experts/source_en/infer/ascend_310_mindir.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview

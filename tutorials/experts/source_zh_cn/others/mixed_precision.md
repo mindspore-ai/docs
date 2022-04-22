@@ -1,7 +1,5 @@
 # 混合精度
 
-`Ascend` `GPU` `模型调优`
-
 感谢：[ZOMI酱](https://www.zhihu.com/people/ZOMI)
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/others/mixed_precision.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>

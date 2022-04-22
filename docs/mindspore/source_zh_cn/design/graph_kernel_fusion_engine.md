@@ -1,7 +1,5 @@
 # 图算融合加速引擎介绍
 
-`Ascend` `GPU` `CPU` `扩展功能`
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/design/graph_kernel_fusion_engine.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 背景

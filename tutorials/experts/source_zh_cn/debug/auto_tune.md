@@ -1,7 +1,5 @@
 # 算子调优工具
 
-`Ascend` `模型调优`
-
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/debug/auto_tune.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述

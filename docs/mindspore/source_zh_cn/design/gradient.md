@@ -1,7 +1,5 @@
 # 函数式微分编程
 
-`Ascend` `GPU` `CPU` `设计` `模型开发`
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/design/gradient.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 自动微分简介
