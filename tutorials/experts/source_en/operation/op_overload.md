@@ -1,4 +1,4 @@
-﻿# Operation Overloading
+# Operation Overloading
 
 `Ascend` `GPU` `CPU` `Model Development`
 

@@ -1,4 +1,4 @@
-﻿# MindSpore Serving-based Distributed Inference Service Deployment
+# MindSpore Serving-based Distributed Inference Service Deployment
 
 Translator: [xiaoxiaozhang](https://gitee.com/xiaoxinniuniu)
 

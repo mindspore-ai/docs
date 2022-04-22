@@ -1,4 +1,4 @@
-﻿# Incremental Operator Build
+# Incremental Operator Build
 
 `Ascend` `Model Optimization`
 

@@ -1,4 +1,4 @@
-﻿# Protecting User Privacy with Suppress Privacy
+# Protecting User Privacy with Suppress Privacy
 
 Translator: [翁炜华](https://gitee.com/weng-weihua)
 

@@ -1,4 +1,4 @@
-﻿# Android Application Development Based on JNI Interface
+# Android Application Development Based on JNI Interface
 
 `Android` `C++` `Whole Process` `Model Converting` `Model Loading` `Inference` `Data Preparation` `Beginner` `Intermediate` `Expert`
 

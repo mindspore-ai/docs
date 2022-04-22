@@ -1,4 +1,4 @@
-﻿# Single-Node Tensor Cache
+# Single-Node Tensor Cache
 
 `Ascend` `GPU` `CPU` `Data Preparation`
 

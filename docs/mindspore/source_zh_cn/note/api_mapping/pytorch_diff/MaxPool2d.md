@@ -1,4 +1,4 @@
-﻿# 比较与torch.nn.MaxPool2d的功能差异
+# 比较与torch.nn.MaxPool2d的功能差异
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_zh_cn/note/api_mapping/pytorch_diff/MaxPool2d.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 

@@ -1,4 +1,4 @@
-﻿# Technical White Paper
+# Technical White Paper
 
 `Ascend` `GPU` `CPU` `Design`
 

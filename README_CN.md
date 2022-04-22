@@ -1,4 +1,4 @@
-﻿# MindSpore文档
+# MindSpore文档
 
 ![MindSpore Logo](resource/MindSpore-logo.png)
 

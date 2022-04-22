@@ -1,4 +1,4 @@
-﻿# Operators Classification
+# Operators Classification
 
 `Ascend` `GPU` `CPU` `Beginner`
 

@@ -1,4 +1,4 @@
-﻿# Perform Inference on Mini and Small Systems
+# Perform Inference on Mini and Small Systems
 
  `Linux` `IoT` `C++` `codegen` `Beginner` `Intermediate`
 
