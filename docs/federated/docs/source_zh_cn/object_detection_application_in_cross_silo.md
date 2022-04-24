@@ -2,13 +2,13 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/object_detection_application_in_cross_silo.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
-联邦学习根据参与客户的不同可分为云云联邦学习（cross-silo）和端云联邦学习（cross-device）。在云云联邦学习场景中，参与联邦学习的客户是不同的组织（例如，医疗或金融）或地理分布的数据中心，即在多个数据孤岛上训练模型。而在端云联邦学习场景中参与的客户为大量的移动或物联网设备。本框架将介绍如何在MindSpore云云联邦框架上使用网络Fast R-CNN实现一个目标检测应用。
+根据参与客户端的类型，联邦学习可分为云云联邦学习（cross-silo）和端云联邦学习（cross-device）。在云云联邦学习场景中，参与联邦学习的客户端是不同的组织（例如，医疗或金融）或地理分布的数据中心，即在多个数据孤岛上训练模型。在端云联邦学习场景中，参与的客户端为大量的移动或物联网设备。本框架将介绍如何在MindSpore云云联邦框架上使用网络Fast R-CNN实现一个目标检测应用。
 
 启动云云联邦的目标检测应用的完整脚本可参考[这里](https://gitee.com/mindspore/mindspore/tree/master/tests/st/fl/cross_silo_faster_rcnn)。
 
 ## 任务前准备
 
-本教程基于MindSpore model_zoo中提供的的faster_rcnn网络部署云云联邦目标检测任务，请先根据官方[faster_rcnn教程及代码](https://gitee.com/mindspore/models/tree/master/official/cv/faster_rcnn)先了解COCO数据集、faster_rcnn网络结构、训练过程以及评估过程。由于COCO数据集已开源，请根据其[官网](https://cocodataset.org/#home)自行下载好数据集，并作好数据集切分（例如模拟100个客户端，可将数据集切分成100份，每份代表一个用户）。
+本教程基于MindSpore model_zoo中提供的的faster_rcnn网络部署云云联邦目标检测任务，请先根据官方[faster_rcnn教程及代码](https://gitee.com/mindspore/models/tree/master/official/cv/faster_rcnn)先了解COCO数据集、faster_rcnn网络结构、训练过程以及评估过程。由于COCO数据集已开源，请参照其[官网](https://cocodataset.org/#home)指引自行下载好数据集，并进行数据集切分（例如模拟100个客户端，可将数据集切分成100份，每份代表一个客户端所持有的数据）。
 
 由于原始COCO数据集为json文件格式，云云联邦学习框架提供的目标检测脚本暂时只支持MindRecord格式输入数据，可根据以下步骤将json文件转换为MindRecord格式文件：
 
@@ -16,7 +16,7 @@
 
     - 参数`mindrecord_dir`
 
-        用于设置生成的MindRecord格式文件保存路径，文件名必须为mindrecord_{num}格式，数字num代表客户端标号0，1，2，3，......
+        用于设置生成的MindRecord格式文件保存路径，文件夹名称必须为mindrecord_{num}格式，数字num代表客户端标号0，1，2，3，......
 
         ```sh
         mindrecord_dir:"./datasets/coco_split/split_100/mindrecord_0"
@@ -100,28 +100,28 @@ cross_silo_faster_rcnn
 
 3. 启动Scheduler
 
-   `run_cross_silo_femnist_sched.py`是为用户启动`Scheduler`而提供的Python脚本，并支持通过`argparse`传参修改配置。执行指令如下，代表启动本次联邦学习任务的`Scheduler`，其TCP端口为`6667`，联邦学习HTTP服务端口为`6668`，`Server`数量为`4`个，集群`Scheduler`管理端口为`11202`，`--config_file_path`用于设置配置文件路径，`--dataset_path`用于设置数据集绝对路径：
+   `run_cross_silo_femnist_sched.py`是用于启动`Scheduler`的Python脚本，并支持通过`argparse`传参修改配置。执行指令如下，代表启动本次联邦学习任务的`Scheduler`，其TCP端口为`6667`，联邦学习HTTP服务端口为`6668`，`Server`数量为`4`个，集群`Scheduler`管理端口为`11202`，`--config_file_path`用于设置配置文件路径，`--dataset_path`用于设置数据集绝对路径：
 
    ```sh
-   python run_cross_silo_fasterrcnn_sched.py --scheduler_ip=10.113.216.124 --scheduler_port=6667 --fl_server_port=6668  --server_num=4 --worker_num=2 --scheduler_manage_port=11202 --config_file_path=$PWD/config.json --dataset_path='datasets/coco_split/split_100/'
+   python run_cross_silo_fasterrcnn_sched.py --scheduler_ip=10.113.216.124 --scheduler_port=6667 --fl_server_port=6668  --server_num=4 --worker_num=2 --scheduler_manage_port=11202 --config_file_path=$PWD/config.json --dataset_path=$PWD/datasets/coco_split/split_100/
    ```
 
    打印如下代表启动成功：
 
    ```sh
    [INFO] PS(631,2b316a813700,python):2021-08-31-19:49:42.784.715 [mindspore/ccsrc/ps/core/communicator/http_request_handler.cc:92] Run] Start http server!
-   [INFO] PS(631,2b3084633a80,python):2021-08-31-19:49:42.796.904 [mindspore/ccsrc/ps/core/scheduler_node.cc:97] Initialize] [Scheduler start]: 2. The node role is:SCHEDULER, the node     id is:e4b3c983-6d0c-470b-b487-1a247af97575 create a tcp server.
+   [INFO] PS(631,2b3084633a80,python):2021-08-31-19:49:42.796.904 [mindspore/ccsrc/ps/core/scheduler_node.cc:97] Initialize] [Scheduler start]: 2. The node role is:SCHEDULER, the node id is:e4b3c983-6d0c-470b-b487-1a247af97575 create a tcp server.
    [INFO] PS(631,2b316a411700,python):2021-08-31-19:49:42.796.929 [mindspore/ccsrc/ps/core/scheduler_node.cc:129] operator()] The scheduler node start a tcp server!
-   [INFO] PS(631,2b3084633a80,python):2021-08-31-19:49:42.796.935 [mindspore/ccsrc/ps/core/scheduler_node.cc:410] StartUpdateClusterStateTimer] [Scheduler start]: 3. The scheduler star    t a heartbeat timer!
+   [INFO] PS(631,2b3084633a80,python):2021-08-31-19:49:42.796.935 [mindspore/ccsrc/ps/core/scheduler_node.cc:410] StartUpdateClusterStateTimer] [Scheduler start]: 3. The scheduler start a heartbeat timer!
    [INFO] PS(631,2b316a411700,python):2021-08-31-19:49:42.796.979 [mindspore/ccsrc/ps/core/communicator/tcp_server.cc:192] Start] Start tcp server!
    ```
 
 4. 启动Server
 
-   `run_cross_silo_femnist_server.py`是为用户启动若干`Server`而提供的Python脚本，并支持通过`argparse`传参修改配置。执行指令如下，代表启动本次联邦学习任务的`Server`，其TCP端口为`6667`，联邦学习HTTP服务起始端口为`6668`，`Server`数量为`4`个，联邦学习任务正常进行需要的`worker`数量为`2`个：
+   `run_cross_silo_femnist_server.py`是用于启动若干`Server`的Python脚本，并支持通过`argparse`传参修改配置。执行指令如下，代表启动本次联邦学习任务的`Server`，其TCP端口为`6667`，联邦学习HTTP服务起始端口为`6668`，`Server`数量为`4`个，联邦学习任务正常进行需要的`worker`数量为`2`个：
 
    ```sh
-   python run_cross_silo_fasterrcnn_server.py --scheduler_ip=10.113.216.124 --scheduler_port=6667 --fl_server_port=6668  --server_num=4 --worker_num=2 --start_fl_job_threshold=2 --update_model_ratio=1 --fl_iteration_num=30 --start_fl_job_time_window=300000000000 --update_model_time_window=300000000000 --config_file_path=$PWD/config.json --dataset_path='datasets/coco_split/split_100/'
+   python run_cross_silo_fasterrcnn_server.py --scheduler_ip=10.113.216.124 --scheduler_port=6667 --fl_server_port=6668  --server_num=4 --worker_num=2 --start_fl_job_threshold=2 --update_model_ratio=1 --fl_iteration_num=30 --start_fl_job_time_window=300000000000 --update_model_time_window=300000000000 --config_file_path=$PWD/config.json --dataset_path=$PWD/datasets/coco_split/split_100/
    ```
 
    以上指令等价于启动了4个`Server`进程，每个`Server`的联邦学习服务端口分别为`6668`、`6669`、`6670`和`6671`，具体实现详见[脚本run_cross_silo_femnist_server.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/cross_silo_femnist/run_cross_silo_femnist_server.py)。
@@ -132,28 +132,28 @@ cross_silo_faster_rcnn
 
    ```sh
    # 在节点1启动3个Server进程
-   python run_cross_silo_fasterrcnn_server.py --scheduler_ip=10.113.216.124 --scheduler_port=6667 --fl_server_port=6668  --server_num=4 --worker_num=2 --start_fl_job_threshold=2 --update_model_ratio=1 --fl_iteration_num=30 --start_fl_job_time_window=300000000000 --update_model_time_window=300000000000 --config_file_path=$PWD/config.json --dataset_path='datasets/coco_split/split_100/' --local_server_num=3
+   python run_cross_silo_fasterrcnn_server.py --scheduler_ip={ip_address_node1} --scheduler_port=6667 --fl_server_port=6668  --server_num=4 --worker_num=2 --start_fl_job_threshold=2 --update_model_ratio=1 --fl_iteration_num=30 --start_fl_job_time_window=300000000000 --update_model_time_window=300000000000 --config_file_path=$PWD/config.json --dataset_path=$PWD/datasets/coco_split/split_100/ --local_server_num=3
    ```
 
    ```sh
    # 在节点2启动1个Server进程
-   python run_cross_silo_fasterrcnn_server.py --scheduler_ip=10.113.216.124 --scheduler_port=6667 --fl_server_port=6668  --server_num=4 --worker_num=2 --start_fl_job_threshold=2 --update_model_ratio=1 --fl_iteration_num=30 --start_fl_job_time_window=300000000000 --update_model_time_window=300000000000 --config_file_path=$PWD/config.json --dataset_path='datasets/coco_split/split_100/' --local_server_num=1
+   python run_cross_silo_fasterrcnn_server.py --scheduler_ip={ip_address_node2} --scheduler_port=6667 --fl_server_port=6668  --server_num=4 --worker_num=2 --start_fl_job_threshold=2 --update_model_ratio=1 --fl_iteration_num=30 --start_fl_job_time_window=300000000000 --update_model_time_window=300000000000 --config_file_path=$PWD/config.json --dataset_path=$PWD/datasets/coco_split/split_100/ --local_server_num=1
    ```
 
 5. 启动Worker
 
-   `run_cross_silo_femnist_worker.py`是为用户启动若干`worker`而提供的Python脚本，并支持通过`argparse`传参修改配置。执行指令如下，代表启动本次联邦学习任务的`worker`，联邦学习任务正常进行需要的`worker`数量为`2`个：
+   `run_cross_silo_femnist_worker.py`是用于启动若干`worker`的Python脚本，并支持通过`argparse`传参修改配置。执行指令如下，代表启动本次联邦学习任务的`worker`，联邦学习任务正常进行需要的`worker`数量为`2`个：
 
    ```sh
-   python run_cross_silo_fasterrcnn_worker.py --scheduler_ip=10.113.216.124 --scheduler_port=6667 --fl_server_port=6668  --server_num=4 --worker_num=2 --client_epoch_num=1 --fl_iteration_num=30 --config_file_path=$PWD/config.json --dataset_path='datasets/coco_split/split_100/'
+   python run_cross_silo_fasterrcnn_worker.py --scheduler_ip=10.113.216.124 --scheduler_port=6667 --fl_server_port=6668  --server_num=4 --worker_num=2 --client_epoch_num=1 --fl_iteration_num=30 --config_file_path=$PWD/config.json --dataset_path=$PWD/datasets/coco_split/split_100/
    ```
 
-   如上指令，`--worker_num=2`代表启动两个用户，且两个用户使用的数据集分别为`datasets/coco_split/split_100/mindrecord_0`和`datasets/coco_split/split_100/mindrecord_1`，请根据`任务前准备`教程准备好对应用户所需数据集。
+   如上指令，`--worker_num=2`代表启动两个客户端，且两个客户端使用的数据集分别为`datasets/coco_split/split_100/mindrecord_0`和`datasets/coco_split/split_100/mindrecord_1`，请根据`任务前准备`教程准备好对应客户端所需数据集。
 
-当执行以上三个指令之后，等待一段时间之后，进入当前目录下`worker_0`文件夹，通过指令`grep -rn "\]epoch:" *`查看`worker_0`日志，可看到如下类似打印：
+当执行以上三个指令之后，等待一段时间之后，进入当前目录下`worker_0`文件夹，通过指令`grep -rn "\]epoch:" *`查看`worker_0`日志，可看到类似如下内容的日志信息：
 
 ```sh
-epoch: 1 step: 1, loss is 0.6060338
+epoch: 1 step: 1 total_loss: 0.6060338
 ```
 
 则说明云云联邦启动成功，`worker_0`正在训练，其他worker可通过类似方式查看。
@@ -225,17 +225,17 @@ python finish_cross_silo_fasterrcnn.py --scheduler_port=6667
   进入当前目录下`worker_0`文件夹，通过指令`grep -rn "\]epoch:" *`查看`worker_0`日志，可看到每个step输出的loss值，如下所示：
 
   ```sh
-  worker.log:11378:[flTrain]epoch: 1 step: 1, loss is 5.249325
-  worker.log:11388:[flTrain]epoch: 1 step: 2, loss is 4.0856013
-  worker.log:11398:[flTrain]epoch: 1 step: 3, loss is 2.6916502
-  worker.log:11408:[flTrain]epoch: 1 step: 4, loss is 1.3917351
-  worker.log:11418:[flTrain]epoch: 1 step: 5, loss is 0.8109232
-  worker.log:11428:[flTrain]epoch: 1 step: 6, loss is 0.99101084
-  worker.log:11438:[flTrain]epoch: 1 step: 7, loss is 1.7741735
-  worker.log:11448:[flTrain]epoch: 1 step: 8, loss is 0.9517553
-  worker.log:11458:[flTrain]epoch: 1 step: 9, loss is 1.7988946
-  worker.log:11468:[flTrain]epoch: 1 step: 10, loss is 1.0213892
-  worker.log:11478:[flTrain]epoch: 1 step: 11, loss is 1.1700443
+  epoch: 1 step: 1 total_loss: 5.249325
+  epoch: 1 step: 2 total_loss: 4.0856013
+  epoch: 1 step: 3 total_loss: 2.6916502
+  epoch: 1 step: 4 total_loss: 1.3917351
+  epoch: 1 step: 5 total_loss: 0.8109232
+  epoch: 1 step: 6 total_loss: 0.99101084
+  epoch: 1 step: 7 total_loss: 1.7741735
+  epoch: 1 step: 8 total_loss: 0.9517553
+  epoch: 1 step: 9 total_loss: 1.7988946
+  epoch: 1 step: 10 total_loss: 1.0213892
+  epoch: 1 step: 11 total_loss: 1.1700443
                     .
                     .
                     .

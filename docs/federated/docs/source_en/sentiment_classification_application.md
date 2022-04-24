@@ -12,7 +12,7 @@ For details, see [Server Environment Configuration](https://www.mindspore.cn/fed
 
 ### Data
 
-The [training data](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/supervise/client.tar.gz) contains 100 user chat files. The directory structure is as follows:
+The [training data](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/supervise/client.tar.gz) contains 20 user chat files. The directory structure is as follows:
 
 ```text
 mobile/datasets/train/
@@ -21,36 +21,26 @@ mobile/datasets/train/
 │
 │          ......
 │
-└── 99.tsv  # Training data of user 99
+└── 19.tsv  # Training data of user 19
 ```
 
 The [validation data](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/supervise/eval.tar.gz) contains one chat file. The directory structure is as follows:
 
 ```text
-mobile/datasets/eval/
-├── 0.tsv  # Validation data
+datasets/supervise/eval/
+└── eval.txt  # Validation data
 ```
 
-The [emoji data corresponding to labels](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/memo.tar.gz) contains 107 images. The directory structure is as follows:
-
-```text
-mobile/datasets/memo/
-├── 0.gif  # Emoji corresponding to the 0th label
-├── 1.gif  # Emoji corresponding to the first label
-│
-│          ......
-│
-└── 106.gif  # Emoji corresponding to the 106th label
-```
+The labels in the training data and validation data correspond to four types of emojis: `good`, `leimu`, `xiaoku`, `xin`.
 
 ### Model-related Files
 
-The directory structures of the initial [checkpoint](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/albert_init.ckpt) and [dictionary](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/vocab.txt) required for generating a model are as follows:
+The directory structures of the [dictionary](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/vocab.txt) and the [mapping file of dictionary ID](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/vocab_map_ids.txt) related to the model file are as follows:
 
 ```text
 mobile/models/
-├── albert_init.ckpt  # Initial checkpoint
-└── vocab.txt  # Dictionary
+├── vocab.txt  # Dictionary
+└── vocab_map_ids.txt  # mapping file of Dictionary ID
 ```
 
 ## Defining the Network
@@ -86,7 +76,7 @@ export(client_network_train_cell, input_ids, attention_mask, token_type_ids, lab
 
 #### Converting the MindIR File into an MS File that Can Be Used by the Federated Learning Framework on the Device
 
-For details about how to generate a model file on the device, see [Implementing an Image Classification Application](./image_classification_application.md).
+For details about how to generate a model file on the device, see [Implementing an Image Classification Application](https://www.mindspore.cn/federated/docs/en/master/image_classification_application.html).
 
 ## Starting the Federated Learning Process
 
@@ -114,12 +104,12 @@ Create a project in Android Studio and install the corresponding SDK. (After the
 
 ### Building the MindSpore Lite AAR Package
 
-- For details, see [Federated Learning Deployment](./deploy_federated_client.md).
+- For details, see [Federated Learning Deployment](https://www.mindspore.cn/federated/docs/en/master/deploy_federated_client.html).
 
 - Name of the generated Android AAR package:
 
   ```sh
-  mindspore-lite-<version>.aar
+  mindspore-lite-full-{version}.aar
   ```
 
 - Place the AAR package in the app/libs/ directory of the Android project.
@@ -129,14 +119,14 @@ Create a project in Android Studio and install the corresponding SDK. (After the
 ```text
 app
 │   ├── libs # Binary archive file of the Android library project
-|   |   └── mindspore-lite-version.aar #  MindSpore Lite archive file of the Android version
+|   |   └── mindspore-lite-full-{version}.aar #  MindSpore Lite archive file of the Android version
 ├── src/main
 │   ├── assets # Resource directory
 |   |   └── model # Model directory
 |   |       └── albert_ad_train.mindir.ms # Pre-trained model file
 │   |       └── albert_ad_infer.mindir.ms # Inference model file
 │   |   └── data # Data directory
-|   |       └── 140.txt # Model data file
+|   |       └── 0.txt # training data file
 |   |       └── vocab.txt # Dictionary file
 |   |       └── vocab_map_ids.txt # Dictionary ID mapping file
 |   |       └── eval.txt # Training result evaluation file
@@ -277,7 +267,7 @@ app
             flParameter.setSslProtocol(sslProtocol);
             flParameter.setDeployEnv(deployEnv);
             flParameter.setDomainName(domainName);
-            flParameter.setUseElb(useElb);
+            flParameter.setUseElb(ifUseElb);
             flParameter.setServerNum(serverNum);
             flParameter.setThreadNum(threadNum);
             flParameter.setCpuBindMode(BindMode.valueOf(cpuBindMode));
@@ -291,7 +281,7 @@ app
             // create dataMap
             String inferTxtPath = "data/albert/supervise/eval/eval.txt";
             String vocabFile = "data/albert/supervise/vocab.txt";
-            String idsFile = "data/albert/supervise/vocab_map_ids.txt"
+            String idsFile = "data/albert/supervise/vocab_map_ids.txt";
             Map<RunType, List<String>> dataMap = new HashMap<>();
             List<String> inferPath = new ArrayList<>();
             inferPath.add(inferTxtPath);
@@ -310,7 +300,7 @@ app
             flParameter.setDataMap(dataMap);
             flParameter.setInferModelPath(inferModelPath);
             flParameter.setThreadNum(threadNum);
-            flParameter.setCpuBindMode(BindMode.valueOf(cpuBindMode));
+            flParameter.setCpuBindMode(cpuBindMode);
             flParameter.setBatchSize(batchSize);
 
             // inference

@@ -12,7 +12,7 @@ We provide [Federated Learning Image Classification Dataset FEMNIST](https://min
 
 ### Data Processing
 
-In this example, the federated learning dataset `FEMNIST` in the `leaf` dataset is used. For the specific acquisition method of the dataset, please refer to the document [Device-cloud federation learning image classification dataset processing](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/cross_device_lenet/client/image_classfication_dataset_process_en.md ).
+In this example, the federated learning dataset `FEMNIST` in the `leaf` dataset is used. For the specific acquisition method of the dataset, please refer to the document [Device-cloud federation learning image classification dataset processing](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/cross_device_lenet/client/image_classfication_dataset_process_en.md#).
 
 Users can also define the dataset by themselves. Note that the dataset must be a `.bin` format file, and the data dimension in the file must be consistent with the input dimension of the network.
 
@@ -22,11 +22,11 @@ Users can also define the dataset by themselves. Note that the dataset must be a
 
     For the definition of the specific network and training process, please refer to [Beginners Getting Started](https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html).
 
-    We provide the network definition file [model.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py) and the training process definition file [run_export_lenet](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/cross_device_lenet/cloud/run_export_lenet.py) for your reference.
+    We provide the network definition file [model.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py) and the training process definition file [run_export_lenet.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/cross_device_lenet/cloud/run_export_lenet.py) for your reference.
 
 2. **Export a model as a MindIR file.**
 
-    Run the script `run_export_lenet` to obtain the MindIR format model file, the code snippet is as follows:
+    Run the script `run_export_lenet.py` to obtain the MindIR format model file, the code snippet is as follows:
 
     ```python
     from mindspore import export
@@ -49,7 +49,7 @@ Users can also define the dataset by themselves. Note that the dataset must be a
     The specific operating instructions are as follows:
 
     ```sh
-    python export_lenet_mindir.py --mindir_path="ms/lenet/lenet_train.mindir"
+    python run_export_lenet.py --mindir_path="ms/lenet/lenet_train.mindir"
     ```
 
     The parameter `--mindir_path` is used to set the path of the generated file in MindIR format.
@@ -104,13 +104,13 @@ Users can also define the dataset by themselves. Note that the dataset must be a
     if __name__ == "__main__":
         raw_path = "lenet_train.ms"
         new_path = "ms/lenet"
-        num = 5
+        num = 8
         copy_file(raw_path, new_path, num)
     ```
 
     Set `raw_path` to the path of the original .ms file, `new_path` to the path of the .ms file to be copied, and `num` to the number of copies. Generally, you need to simulate the number of started clients.
 
-    For example, in the preceding script, the .ms file is generated in the `ms/lenet` directory for five clients. The directory structure is as follows:
+    For example, in the preceding script, the .ms file is generated in the `ms/lenet` directory for eight clients. The directory structure is as follows:
 
     ```sh
     ms/lenet
@@ -118,7 +118,10 @@ Users can also define the dataset by themselves. Note that the dataset must be a
     ├── lenet_train1.ms  # .ms file used by client 1.
     ├── lenet_train2.ms  # .ms file used by client 2.
     ├── lenet_train3.ms  # .ms file used by client 3.
-    └── lenet_train4.ms  # .ms file used by client 4.
+    │
+    │          ......
+    │
+    └── lenet_train7.ms  # .ms file used by client 7.
     ```
 
 2. **Start the cloud side service**
@@ -153,7 +156,7 @@ Users can also define the dataset by themselves. Note that the dataset must be a
 
         Specifies the path of the JAR package of the federated learning framework. For details about how to obtain the JAR package in the x86 environment, see [Building a Package](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/deploy_federated_client.md#) in the Federated-Client deployment tutorial.
 
-        Note, please make sure that only the JAR package is included in the path. For example, in the above reference script, `--jarPath` is set to `"jarX86/mindspore-lite-java-flclient.jar"`, you need to make sure that the `jarX86` folder contains only one JAR package `mindspore-lite- java-flclient.jar`.
+        Note, please make sure that only the JAR package is included in the path. For example, in the above reference script, `--jarPath` is set to `"libs/jarX86/mindspore-lite-java-flclient.jar"`, you need to make sure that the `jarX86` folder contains only one JAR package `mindspore-lite-java-flclient.jar`.
 
     - **`--case_jarPath`**
 
@@ -163,11 +166,11 @@ Users can also define the dataset by themselves. Note that the dataset must be a
 
     - **`--train_dataset`**
 
-        Specifies the root path of the training dataset.The sentiment classification task stores the training data (in .txt format) of each client. The LeNet image classification task stores the training files data.bin and label.bin of each client, for example, `leaf-master/data/femnist/3500_clients_bin/`.
+        Specifies the root path of the training dataset.The sentiment classification task stores the training data (in .txt format) of each client. The LeNet image classification task stores the training files data.bin and label.bin of each client, for example, `data/femnist/3500_clients_bin/`.
 
     - **`--flName`**
 
-        Specifies the package path of model script used by federated learning. We provide two types of model scripts for your reference ([Supervised sentiment classification task](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com /mindspore/flclient/demo/albert), [Lenet image classification task](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore /flclient/demo/lenet)). For supervised sentiment classification tasks, this parameter can be set to the package path of the provided script file [AlBertClient.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert/AlbertClient.java), like as `com.mindspore.flclient.demo.albert.AlbertClient`; for Lenet image classification tasks, this parameter can be set to the package path of the provided script file [LenetClient.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet/LenetClient.java), like as `com.mindspore.flclient.demo.lenet.LenetClient`. At the same time, users can refer to these two types of model scripts, define the model script by themselves, and then set the parameter to the package path of the customized model file ModelClient.java (which needs to inherit from the class [Client.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/fl_client/src/main/java/com/mindspore/flclient/model/Client.java)).
+        Specifies the package path of model script used by federated learning. We provide two types of model scripts for your reference ([Supervised sentiment classification task](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert), [Lenet image classification task](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet)). For supervised sentiment classification tasks, this parameter can be set to the package path of the provided script file [AlBertClient.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert/AlbertClient.java), like as `com.mindspore.flclient.demo.albert.AlbertClient`; for Lenet image classification tasks, this parameter can be set to the package path of the provided script file [LenetClient.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet/LenetClient.java), like as `com.mindspore.flclient.demo.lenet.LenetClient`. At the same time, users can refer to these two types of model scripts, define the model script by themselves, and then set the parameter to the package path of the customized model file ModelClient.java (which needs to inherit from the class [Client.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/fl_client/src/main/java/com/mindspore/flclient/model/Client.java)).
 
     - **`--train_model_path`**
 
@@ -179,7 +182,7 @@ Users can also define the dataset by themselves. Note that the dataset must be a
 
     - **`--domain_name`**
 
-        Used to set the url for device-cloud communication. Currently, https and http communication are supported, the corresponding formats are like as: https://......, http://......, and when `if_use_elb` is set to true, the format must be: https://127.0.0.0:6666 or http://127.0.0.0:6666 , where `127.0.0.0` corresponds to the ip of the machine providing cloud-side services (corresponding to the cloud-side parameter `--scheduler_ip`), and `6666` corresponds to the cloud-side parameter `--fl_server_port`.
+        Used to set the url for device-cloud communication. Currently, https and http communication are supported, the corresponding formats are like as: https://......, http://......, and when `if_use_elb` is set to true, the format must be: https://127.0.0.1:6666 or http://127.0.0.1:6666 , where `127.0.0.1` corresponds to the ip of the machine providing cloud-side services (corresponding to the cloud-side parameter `--scheduler_ip`), and `6666` corresponds to the cloud-side parameter `--fl_server_port`.
 
     - **`--task`**
 
@@ -198,20 +201,20 @@ Users can also define the dataset by themselves. Note that the dataset must be a
     The basic startup instructions of the federated learning interface are as follows:
 
     ```sh
-    python run.py --jarPath="libs/jarX86/mindspore-lite-java-flclient.jar" --case_jarPath="case_jar/quick_start_flclient.jar" --train_dataset="data/femnist/3500_clients_bin/"  --flName="com.mindspore.flclient.demo.lenet.LenetClient" --train_model_path="ms/lenet/ms/"  --train_ms_name="lenet_train.mindir"  --domain_name="http://127.0.0.0:6666"  --client_num=5  --batch_size=32 --task="train"
+    python run_client_x86.py --jarPath="libs/jarX86/mindspore-lite-java-flclient.jar" --case_jarPath="case_jar/quick_start_flclient.jar" --train_dataset="data/femnist/3500_clients_bin/" --test_dataset="null" --vocal_file="null" --ids_file="null" --flName="com.mindspore.flclient.demo.lenet.LenetClient" --train_model_path="ms/lenet/" --infer_model_path="ms/lenet/" --train_ms_name="lenet_train"  --infer_ms_name="lenet_train" --domain_name="http://127.0.0.1:6666" --cert_path="certs/https_signature_certificate/client/CARoot.pem" --use_elb="true" --server_num=4 --client_num=8 --thread_num=1 --server_mode="FEDERATED_LEARNING" --batch_size=32 --task="train"
     ```
 
     Note that the path-related parameters must give an absolute path.
 
-    The above commands indicate that five clients are started to participate in federated learning. If the startup is successful, log files corresponding to the five clients are generated in the current folder. You can view the log files to learn the running status of each client.
+    The above commands indicate that eight clients are started to participate in federated learning. If the startup is successful, log files corresponding to the eight clients are generated in the current folder. You can view the log files to learn the running status of each client.
 
     ```sh
     ./
     ├── client_0
     │   └── client.log  # Log file of client 0.
     │           ......
-    └── client_4
-        └── client.log  # Log file of client 4.
+    └── client_7
+        └── client.log  # Log file of client 7.
     ```
 
     For different interfaces and scenarios, you only need to modify specific parameter values according to the meaning of the parameters, such as:
