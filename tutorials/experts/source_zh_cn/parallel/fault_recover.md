@@ -1,7 +1,5 @@
 # 分布式故障恢复
 
-`Ascend` `分布式并行`
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/experts/source_zh_cn/parallel/fault_recover.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source.png"></a>
 
 ## 概述

@@ -2,8 +2,6 @@
 
 Translator: [JuLyAi](https://gitee.com/julyai)
 
-`CPU` `Model Development`
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/experts/source_en/operation/op_cpu.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png"></a>
 
 ## Overview

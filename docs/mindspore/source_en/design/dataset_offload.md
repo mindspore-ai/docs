@@ -1,7 +1,5 @@
 # Enabling Offload for Dataset
 
-`Ascend` `GPU` `CPU` `Data Preparation`
-
 ## Overview
 
 MindSpore provides a computing load balancing technology which can distribute the MindSpore operators to different heterogeneous hardware. On one hand, it balances the computing overhead between different hardware, on the other, it uses the advantages of heterogeneous hardware to accelerate the operators.
