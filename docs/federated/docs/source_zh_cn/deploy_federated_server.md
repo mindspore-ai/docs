@@ -1,7 +1,5 @@
 # 云侧部署
 
-`Linux` `模型训练` `中级` `高级`
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/deploy_federated_server.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 本文档以LeNet网络为例，讲解如何使用MindSpore来部署联邦学习集群。

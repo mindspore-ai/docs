@@ -1,7 +1,5 @@
 ﻿# Usage Description of the Integrated NNIE
 
-`NNIE` `Linux` `Environment Preparation` `Intermediate` `Expert`
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/lite/docs/source_en/use/nnie.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png"></a>
 
 ## Directory Structures

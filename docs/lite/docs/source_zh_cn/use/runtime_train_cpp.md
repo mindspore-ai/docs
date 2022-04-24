@@ -1,7 +1,5 @@
 # 使用C++接口执行训练
 
-`Linux` `Android` `C++` `模型训练` `模型加载` `数据准备` `中级` `高级`
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/lite/docs/source_zh_cn/use/runtime_train_cpp.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source.png"></a>
 
 ## 概述
