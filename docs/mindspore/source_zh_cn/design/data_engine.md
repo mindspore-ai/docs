@@ -190,5 +190,5 @@ MindSpore的设计充分考虑了数据处理的高效性、灵活性以及在�
 
 ## 高级特性
 
-- 自动数据加速(https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/debug/dataset_autotune.html)
-- 数据异构加速(https://www.mindspore.cn/docs/zh-CN/r1.7/design/dataset_offload.html)
+- [自动数据加速](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/debug/dataset_autotune.html)
+- [数据异构加速](https://www.mindspore.cn/docs/zh-CN/r1.7/design/dataset_offload.html)
