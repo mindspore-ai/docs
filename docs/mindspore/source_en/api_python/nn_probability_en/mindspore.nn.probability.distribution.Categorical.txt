@@ -154,6 +154,7 @@
     The standard deviation.
 
     **Parameters**
+    
     - **probs** (Tensor) - the event probability. Default value: None.
 
     **Returns**
