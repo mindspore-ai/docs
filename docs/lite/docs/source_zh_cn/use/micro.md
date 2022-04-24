@@ -1,7 +1,5 @@
 # 在轻量和小型系统上执行推理
 
- `Linux` `IoT` `C++` `模型代码生成` `推理应用` `初级` `中级`
-
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/lite/docs/source_zh_cn/use/micro.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
