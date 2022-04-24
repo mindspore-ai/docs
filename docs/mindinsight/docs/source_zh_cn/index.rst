@@ -129,3 +129,10 @@ MindInsight包括以下内容：
    tensor_visual_design
    profiler_design
    faq
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: RELEASE NOTES
+
+   RELEASE

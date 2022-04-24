@@ -99,6 +99,14 @@ MindSpore Documentation
    faq/inference
    faq/feature_advice
 
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: RELEASE NOTES
+   :hidden:
+
+   RELEASE
+
 .. raw:: html
 
    <div class="container">
