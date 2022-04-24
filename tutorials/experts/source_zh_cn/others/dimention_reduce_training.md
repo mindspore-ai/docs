@@ -1,7 +1,5 @@
 # 降维训练算法
 
- `Ascend` `模型调优` `分布式并行`
-
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_zh_cn/others/dimention_reduce_training.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 ## 概述
