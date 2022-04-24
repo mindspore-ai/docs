@@ -52,6 +52,7 @@
    debug/auto_tune
    debug/dataset_autotune
    debug/fixing_randomness
+   debug/pynative
 
 .. toctree::
    :glob:
