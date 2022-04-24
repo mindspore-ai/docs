@@ -359,7 +359,7 @@ Download [Android app APK](https://download.mindspore.cn/vision/android/mindvisi
 
 Install the APK on your phone, and its app name appears as `MindSpore Vision`.
 
-> The MindSpore Vision APK is used as an example of the visual development tool. It provides basic UI functions such as photographing and image selection, and provides AI application demos such as classification, detection, and face recognition.
+> The MindSpore Vision APK is used as an example of the visual development tool. It provides basic UI functions such as photographing and image selection, and provides AI application demos such as classification, and detection.
 
 Open the app, tap the `classification` module on the home screen, and then tap the middle button to take photos or tap the image album button on the top bar to select an image for classification.
 
