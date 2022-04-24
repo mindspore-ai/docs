@@ -135,6 +135,57 @@ np_sum: [2 4 6 8 10]
 tensor_sum: (2, 4, 6, 8, 10)
 ```
 
+通过以上用例，不难理解，在同一个print中不能够同时含有编译时期和运行时期执行的信息，例如将np_sum和tensor_sum都在同一个print中打印，则会报错：
+
+```python
+import numpy as np
+from mindspore import Tensor, ms_function
+
+@ms_function
+def test_print():
+   x = Tensor(np.array([1, 2, 3, 4, 5]))
+   y = Tensor(np.array([1, 2, 3, 4, 5]))
+   tensor_sum = x + y
+   x = np.array([1, 2, 3, 4, 5])
+   y = np.array([1, 2, 3, 4, 5])
+   np_sum = x + y
+   print("np_sum: ", np_sum, "tensor_sum: ", tensor_sum)
+   return tensor_sum, Tensor(np_sum)
+
+tensor_sum, np_sum = test_print()
+```
+
+输出结果如下:
+
+```text
+TypeError: For 'Print', the type of 'input' should be one of Tensor, Int, Float, Bool, String, but got kMetaTypeExternal. The supported data types depend on the hardware that executes the operator, please refer the official api document to get more information about the data type.
+```
+
+### 支持在construct/ms_function常量场景下使用raise语句
+
+在编译期间执行raise，则要求条件是在编译期间能够获取得到值，即常量场景。如果编译期间获取不到值，则属于变量场景。同时raise抛出的异常语句中也不能够含有变量，请在常量场景中使用raise语句，如果在变量场景下使用可能会存在不可预期的结果。例如下面例子，变量场景中入参的值在编译时期是不可知的，得到的结果是不符合预期的。
+
+```python
+import numpy as np
+from mindspore import Tensor, ms_function
+
+@ms_function
+def raise_func(x):
+   if x > 1:
+     name = "MindSpore 1."
+   else:
+     name = "MindSpore 2."
+   raise ValueError("I'm " + name)
+
+raise_func(Tensor(1))
+```
+
+输出结果如下:
+
+```text
+ValueError: mindspore/ccsrc/pipeline/jit/static_analysis/prim.cc:2107 EvalPrim] I'm MindSpore 1.
+```
+
 ### 支持Python的内置函数
 
 在常量场景中，通过JIT Fallback特性可以支持Python的一些内置函数功能。
