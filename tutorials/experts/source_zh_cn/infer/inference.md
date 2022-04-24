@@ -1,7 +1,5 @@
 # 模型推理总览
 
-`Ascend` `GPU` `CPU` `推理应用`
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/experts/source_zh_cn/infer/inference.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source.png"></a>
 
 MindSpore可以基于训练好的模型，在不同的硬件平台上执行推理任务。
