@@ -38,7 +38,27 @@
 
 支持在网络里构造`String`，即支持语法`y = "abcd"`。
 
-不支持在网络里强转`String`，即不支持语法 `y = str(x)`。
+可以通过str()的方式进行将常量转换成字符串，支持str.format() 对字符串进行格式化，但是不支持format内部参数为变量和kwargs输入场景。
+
+例如：
+
+```python
+from mindspore import ms_function
+
+@ms_function()
+def test_str_format():
+    x = "{} is zero".format(0)
+    return x
+
+x = test_str_format
+print(x)
+```
+
+结果如下：
+
+```text
+0 is zero
+```
 
 #### List
 

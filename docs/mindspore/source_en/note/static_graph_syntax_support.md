@@ -38,7 +38,27 @@ Forcible conversion to `Number` is not supported on the network. That is, the sy
 
 `String` can be constructed on the network. That is, the syntax `y = "abcd"` is supported.
 
-Forcible conversion to `String` is not supported on the network. That is, the syntax `y = str(x)` is not supported.
+Can use str() to change the constant value to string, str.format() can use to format the string, but not supported to input a kwarts type arguments and the argument of format function cannot be a variable.
+
+For example:
+
+```python
+from mindspore import ms_function
+
+@ms_function()
+def test_str_format():
+    x = "{} is zero".format(0)
+    return x
+
+x = test_str_format
+print(x)
+```
+
+The result is as follows:
+
+```text
+0 is zero
+```
 
 #### List
 
