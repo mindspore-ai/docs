@@ -95,6 +95,15 @@ MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/ma
 >   ```
 >
 >   其中`{MS_REPO PATH}`为克隆的`mindspore`仓路径。
+>
+> - 构建MindInsight的API时，由于需要使用到一些`mindinsight`仓的资源文件，先克隆`mindinsight`仓，并加入环境变量`MI_PATH`：
+>
+>   ```bash
+>   git clone https://gitee.com/mindspore/mindinsight.git {MI_REPO PATH}
+>   export MI_PATH={MI_REPO PATH}
+>   ```
+>
+>   其中`{MI_REPO PATH}`为克隆的`mindinsight`仓路径。
 
 ## 版权
 
