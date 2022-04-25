@@ -38,8 +38,6 @@ Android项目中使用MindSpore Lite，可以选择采用[C++ API](https://www.m
 </dependencies>
 ```
 
-> 运行时需要将`libmindspore-lite.so`以及`libminspore-lite-jni.so`的所在路径添加到`java.library.path`。
-
 ### Android项目引用AAR库
 
 采用`Gradle`作为构建工具时，首先将`mindspore-lite-{version}.aar`文件移动到目标module的`libs`目录，然后在目标module的`build.gradle`的`repositories`中添加本地引用目录，最后在`dependencies`中添加AAR的依赖，具体如下所示。

@@ -38,8 +38,6 @@ When using `Maven` as the build tool, you can copy `mindspore-lite-java.jar` to 
 </dependencies>
 ```
 
-> Add the paths of `libmindspore-lite.so` and `libminspore-lite-jni.so` to `java.library.path`.
-
 ### Android Projects Referencing the AAR Library
 
 When `Gradle` is used as the build tool, move the `mindspore-lite-{version}.aar` file to the `libs` directory of the target module, and then add the local reference directory to `repositories` of `build.gradle` of the target module, add the AAR dependency to `dependencies` as follows:

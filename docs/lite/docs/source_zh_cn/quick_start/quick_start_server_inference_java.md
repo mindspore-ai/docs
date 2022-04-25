@@ -35,7 +35,7 @@
   bash build.sh
   ```
 
-  > 若MindSpore Lite推理框架下载失败，请手动下载硬件平台为CPU、操作系统为Ubuntu-x64的MindSpore Lite 框架[mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，解压后将`runtime/lib`以及`runtime/third_party`目录下的所有so和jar拷贝到`mindspore/lite/examples/quick_start_server_inference_java/lib`目录。
+  > 若MindSpore Lite推理框架下载失败，请手动下载硬件平台为CPU、操作系统为Ubuntu-x64的MindSpore Lite 框架[mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html)，解压后将`runtime/lib/mindspore-lite-java.jar`文件拷贝到`mindspore/lite/examples/quick_start_server_inference_java/lib`目录。
   >
   > 若MobileNetV2模型下载失败，请手动下载相关模型文件[mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.ms)，并将其拷贝到`mindspore/lite/examples/quick_start_server_inference_java/model/`目录。
   >
@@ -46,8 +46,7 @@
   编译构建后，进入`mindspore/lite/examples/quick_start_server_inference_java/target`目录，并执行以下命令，体验MindSpore Lite推理MobileNetV2模型。
 
   ```bash
-  export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:../lib/
-  java -Djava.library.path=../lib/ -classpath .:./quick_start_server_inference_java.jar:../lib/mindspore-lite-java.jar  com.mindspore.lite.demo.Main ../model/mobilenetv2.ms
+  java -classpath .:./quick_start_server_inference_java.jar:../lib/mindspore-lite-java.jar  com.mindspore.lite.demo.Main ../model/mobilenetv2.ms
   ```
 
   执行完成后将能得到如下结果:
