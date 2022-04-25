@@ -183,4 +183,4 @@ Set environment variables in the x86 system (an absolute path must be provided):
 export LD_LIBRARY_PATH=/resource/x86libs/:$LD_LIBRARY_PATH
 ```
 
-After the dependency environment is set, you can simulate the startup of multiple clients in the x86 environment for federated learning. For details, click [here](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/image_classification_application.md#).
+After the dependency environment is set, you can simulate the startup of multiple clients in the x86 environment for federated learning. For details, click [here](https://www.mindspore.cn/federated/docs/en/master/image_classification_application.html).
