@@ -146,7 +146,7 @@ Users can also define the dataset by themselves. Note that the dataset must be a
 
         Used to get the latest model on the cloud side.
 
-    After the cloud-side service starts successfully, you can write a Python script to call the federated learning framework jar package `mindspore-lite-java-flclient.jar` and the jar package corresponding to the model script `quick_start_flclient.jar` (refer to [Building a Package](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/deploy_federated_client.md#) in the Federated-Client deployment tutorial) to simulate multi-client participation in federated learning tasks.
+    After the cloud-side service starts successfully, you can write a Python script to call the federated learning framework jar package `mindspore-lite-java-flclient.jar` and the jar package corresponding to the model script `quick_start_flclient.jar` (refer to [Building a Package](https://www.mindspore.cn/federated/docs/en/master/deploy_federated_client.html) in the Federated-Client deployment tutorial) to simulate multi-client participation in federated learning tasks.
 
     We provide a reference script [run_client_x86.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/cross_device_lenet/client/run_client_x86.py), users can set relevant parameters to start different federated learning interfaces.
 
@@ -154,7 +154,7 @@ Users can also define the dataset by themselves. Note that the dataset must be a
 
     - **`--jarPath`**
 
-        Specifies the path of the JAR package of the federated learning framework. For details about how to obtain the JAR package in the x86 environment, see [Building a Package](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/deploy_federated_client.md#) in the Federated-Client deployment tutorial.
+        Specifies the path of the JAR package of the federated learning framework. For details about how to obtain the JAR package in the x86 environment, see [Building a Package](https://www.mindspore.cn/federated/docs/en/master/deploy_federated_client.html) in the Federated-Client deployment tutorial.
 
         Note, please make sure that only the JAR package is included in the path. For example, in the above reference script, `--jarPath` is set to `"libs/jarX86/mindspore-lite-java-flclient.jar"`, you need to make sure that the `jarX86` folder contains only one JAR package `mindspore-lite-java-flclient.jar`.
 
