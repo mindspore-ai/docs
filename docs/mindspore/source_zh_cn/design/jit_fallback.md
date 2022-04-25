@@ -10,6 +10,36 @@ JIT Fallback是从静态图的角度出发考虑静态图和动态图的统一�
 
 本文档主要介绍JIT Fallback的支持范围和使用须知，以便您可以更有效地使用JIT Fallback功能。
 
+## 原理介绍
+
+MindSpore默认使用静态图模式，用户编写程序时需要遵循MindSpore[静态图语法支持](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html)，语法使用存在约束限制。虽然用户可以通过[set_context](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.context.html#mindspore.context.set_context)来实现动静态图的一键式切换，由于两种模式的语法约束不同，因此存在一些动态图无法转到静态图的场景。对此，MindSpore推出了JIT Fallback的特性，可以使得静态图支持尽量多的动态图语法，使得静态图提供接近动态图的语法使用体验，在MindSpore1.6版本先实现编译推导期的Fallback。
+
+传统的JIT编译经常会通过profiling信息，对函数进行多态选择、value推导、分支调度等优化，同时设置guard条件，一旦guard条件发现情况有变，可以去JIT优化，回到原来未优化的函数进行解释执行。MindSpore的JIT Fallback特性，借鉴了传统JIT编译的Fallback的思路，从静态图的角度出发考虑静态图和动态图的统一，其实现原理为：**在静态图编译的时候（一般JIT Fallback是基于ast based的静态图），如果发现是编译器不支持的Python语法，可以把相关语句保留下来，生成解释节点，然后在后面的处理中，Fallback到Python去执行相关的语句，从而实现相关语法的支持**。为了实现这一特性，MindSpore需要解决如下两个问题：
+
+1. 识别Python不支持的语法。
+2. 确定解释节点的推导和执行时机。解释节点的推导和执行有两个时机：程序的编译阶段和程序的运行阶段，解释节点优先在程序的编译阶段推导和执行。
+
+当前JIT Fallback支持静态图模式的部分常量场景，包括在construct/ms_function中调用第三方库、创建及使用Tensor、调用Python的print打印等。
+
+在下面的示例代码中，MindSpore静态图模式不支持在construct中调用NumPy第三方库和创建Tensor对象，因此用例中的`x = np.array([1, 2, 3])`和`y = Tensor(x)`将会通过JIT Fallback特性使用Python解释器进行解释执行，从而实现对这些语法的支持。
+
+```python
+import numpy as np
+import mindspore.nn as nn
+from mindspore import context, Tensor
+
+context.set_context(mode=context.GRAPH_MODE)
+
+class Net(nn.Cell):
+    def construct(self):
+        x = np.array([1, 2, 3])
+        y = Tensor(x)
+        return y
+
+net = Net()
+print(net())
+```
+
 ## 支持范围
 
 当前JIT Fallback支持静态图模式的部分常量场景，包括在construct/ms_function中调用第三方库、创建及使用Tensor、调用Python的print打印等。下面对各场景进行简单举例说明。
