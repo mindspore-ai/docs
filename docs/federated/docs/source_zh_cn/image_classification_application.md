@@ -12,7 +12,7 @@
 
 ### 数据处理
 
-本示例采用`leaf`数据集中的联邦学习数据集`FEMNIST`， 数据集的具体获取方式可参考文档[端云联邦学习图像分类数据集处理](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/cross_device_lenet/client/image_classfication_dataset_process.md)。
+本示例采用`leaf`数据集中的联邦学习数据集`FEMNIST`， 数据集的具体获取方式可参考文档[端云联邦学习图像分类数据集处理](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/cross_device_lenet/client/image_classfication_dataset_process.md#)。
 
 用户也可自行定义数据集，注意，数据集必须为`.bin`格式文件，且文件中数据维度必须与网络的输入维度保持一致。
 

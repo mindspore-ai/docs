@@ -41,8 +41,8 @@ For the `GPU` backend, please make sure that `nvidia-container-toolkit` has been
 ```bash
 # Acquire version of operating system version
 DISTRIBUTION=$(. /etc/os-release; echo $ID$VERSION_ID)
-curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | apt-key add -
-curl -s -L https://nvidia.github.io/nvidia-docker/$DISTRIBUTION/nvidia-docker.list | tee /etc/apt/sources.list.d/nvidia-docker.list
+curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
+curl -s -L https://nvidia.github.io/nvidia-docker/$DISTRIBUTION/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
 
 sudo apt-get update && sudo apt-get install -y nvidia-container-toolkit nvidia-docker2
 sudo systemctl restart docker
@@ -179,4 +179,4 @@ It means MindSpore GPU has been installed by Docker successfully.
 
     Go to [MindSpore Installation Guide Page](https://www.mindspore.cn/install/en), choose the GPU hardware platform, Linux-x86_64 operating system and pip installation method to get the installation guide. After running the container, download the MindSpore code repository and refer to the installation guide, install the MindSpore GPU version through source code compilation, and verify it.
 
-If you want to know more about the MindSpore Docker image building process, please check [docker repo](https://gitee.com/mindspore/mindspore/blob/r1.7/scripts/docker/README.md) for details.
+If you want to know more about the MindSpore Docker image building process, please check [docker repo](https://gitee.com/mindspore/mindspore/blob/r1.7/scripts/docker/README.md#) for details.

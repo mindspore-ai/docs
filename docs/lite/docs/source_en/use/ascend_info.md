@@ -1,8 +1,6 @@
 # Integrated Ascend
 
-`Ascend` `Linux` `Environment Preparation` `Supported Operators` `Intermediate` `Expert`
-
-<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/lite/docs/source_en/use/ascend_info.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/lite/docs/source_en/use/ascend_info.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png"></a>
 
 This document describes how to use MindSpore Lite to perform inference and use the dynamic shape function on Linux in the Ascend environment. Currently, MindSpore Lite supports only the Ascend 310 AI processor.
 
@@ -155,7 +153,7 @@ For details about the inference tool, see [benchmark](https://www.mindspore.cn/l
 
 ### Dynamic Shape
 
-The batch size is not fixed in certain scenarios. For example, in the face detection+facial recognition cascade scenario, the number of detected faces is subject to change, which means that the batch size of the facial recognition input is dynamic. It would be a great waste of compute resources to perform inferences using the maximum batch size or image size. Thanks to Lite's support for dynamic batch size and dynamic image size on the Ascend 310, you can configure the [acl_option_cfg_param] dynamic parameter through congFile to convert a model into an `ms` model, and then use the [resize](https://www.mindspore.cn/lite/docs/en/r1.7/use/runtime_cpp.html#resize) function of the model to change the input shape during inference.
+The batch size is not fixed in certain scenarios. For example, in the target detection+facial recognition cascade scenario, the number of detected targets is subject to change, which means that the batch size of the targeted recognition input is dynamic. It would be a great waste of compute resources to perform inferences using the maximum batch size or image size. Thanks to Lite's support for dynamic batch size and dynamic image size on the Ascend 310, you can configure the [acl_option_cfg_param] dynamic parameter through congFile to convert a model into an `ms` model, and then use the [resize](https://www.mindspore.cn/lite/docs/en/r1.7/use/runtime_cpp.html#resizing-the-input-dimension) function of the model to change the input shape during inference.
 
 #### Dynamic Batch Size
 
@@ -188,7 +186,7 @@ The batch size is not fixed in certain scenarios. For example, in the face detec
 
 - Inference
 
-    After the dynamic batch size is enabled, during model inference, the input shape is corresponding to the size configured in converter. To change the input shape, use the model [resize](https://www.mindspore.cn/lite/docs/en/r1.7/use/runtime_cpp.html#resize) function.
+    After the dynamic batch size is enabled, during model inference, the input shape is corresponding to the size configured in converter. To change the input shape, use the model [resize](https://www.mindspore.cn/lite/docs/en/r1.7/use/runtime_cpp.html#resizing-the-input-dimension) function.
 
 - Precautions
 
@@ -228,7 +226,7 @@ The batch size is not fixed in certain scenarios. For example, in the face detec
 
 - Inference
 
-    After the dynamic image size is enabled, during model inference, the input shape is corresponding to the size configured in converter. To change the input shape, use the model [resize](https://www.mindspore.cn/lite/docs/en/r1.7/use/runtime_cpp.html#resize) function.
+    After the dynamic image size is enabled, during model inference, the input shape is corresponding to the size configured in converter. To change the input shape, use the model [resize](https://www.mindspore.cn/lite/docs/en/r1.7/use/runtime_cpp.html#resizing-the-input-dimension) function.
 
 - Precautions
 

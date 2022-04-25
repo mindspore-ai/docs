@@ -1,7 +1,5 @@
 # Using C++ Interface to Perform Training
 
-`Linux` `Android` `C++` `Model Training` `Model Loading` `Data Preparation` `Intermediate` `Expert`
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/lite/docs/source_en/use/runtime_train_cpp.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png"></a>
 
 ## Overview
@@ -20,7 +18,7 @@ The following figure shows the detailed training process:
 
 ## Model Creating Loading and Building
 
-[Model](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Model.html#model) is the main entrance of the MindSpore Lite framework. We can compile and execute graph models through `Model` class.
+[Model](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Model.html#class-documentation) is the main entrance of the MindSpore Lite framework. We can compile and execute graph models through `Model` class.
 
 ### Reading Models
 

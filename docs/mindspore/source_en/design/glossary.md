@@ -1,7 +1,5 @@
 # Glossary
 
-`Ascend` `GPU` `CPU` `Design`
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_en/design/glossary.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png"></a>
 
 |  Acronym and Abbreviation  |  Description  |

@@ -1,7 +1,5 @@
 # 模型推理总览
 
-`Ascend` `GPU` `CPU` `推理应用`
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/experts/source_zh_cn/infer/inference.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source.png"></a>
 
 MindSpore可以基于训练好的模型，在不同的硬件平台上执行推理任务。
@@ -107,7 +105,7 @@ print("============== {} ==============".format(acc))
 ```
 
 其中，  
-`mindspore_hub.load`为加载模型参数接口，对应接口说明：<https://www.mindspore.cn/hub/docs/zh-CN/r1.7/index.html#module-mindspore_hub>。
+`mindspore_hub.load`为加载模型参数接口，对应接口说明：<https://www.mindspore.cn/hub/docs/zh-CN/r1.7/hub.html#mindspore-hubload>。
 
 ## 使用`model.predict`接口进行推理操作
 

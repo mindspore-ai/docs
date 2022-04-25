@@ -121,7 +121,7 @@
 
          4. 节点模式不正确。
 
-             节点模式不正确，是指节点所处的训练/推理模式和实际情况不一致。请参考[使用API时根据训练/推理场景对应设置模式](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/accuracy_problem_preliminary_location.html#api-02-api)以合理设置节点模式。
+             节点模式不正确，是指节点所处的训练/推理模式和实际情况不一致。请参考[使用API时根据训练/推理场景对应设置模式](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/accuracy_problem_preliminary_location.html#api02-使用api时未根据训练推理场景对应设置模式)以合理设置节点模式。
 
          5. 权重冻结错误（冻结了不应冻结的权重）。
 
@@ -327,13 +327,13 @@ MindInsight可以辅助用户对输入数据、数据处理流水线进行检查
 
 *图9 通过MindInsight参数分布图可以查看训练过程中的权重变化情况*
 
-大多数情况下，`SummaryCollector`会自动记录模型参数变化情况（默认记录5个参数），可以通过MindInsight的参数分布图模块查看。如果想要记录更多参数的参数分布图，请参考[SummaryCollector](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.train.html#mindspore.train.callback.SummaryCollector)的`histogram_regular`参数，或参考[HistogramSummary](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/summary_record.html#summarysummarycollector)算子。
+大多数情况下，`SummaryCollector`会自动记录模型参数变化情况（默认记录5个参数），可以通过MindInsight的参数分布图模块查看。如果想要记录更多参数的参数分布图，请参考[SummaryCollector](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.train.html#mindspore.train.callback.SummaryCollector)的`histogram_regular`参数，或参考[HistogramSummary](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/summary_record.html#方式二-结合summary算子和summarycollector自定义收集网络中的数据)算子。
 
 ![tensor](./images/tensor.png)
 
 *图10 通过MindInsight训练看板中的张量可视模块查看特定张量的具体取值*
 
-张量不会被自动记录，如果想要通过MindInsight查看张量的具体取值，请使用[TensorSummary](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/summary_record.html#summarysummarycollector)算子。
+张量不会被自动记录，如果想要通过MindInsight查看张量的具体取值，请使用[TensorSummary](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/summary_record.html#方式二-结合summary算子和summarycollector自定义收集网络中的数据)算子。
 
 下面结合loss曲线的常见现象介绍使用MindInsight进行精度问题定位的思路。
 

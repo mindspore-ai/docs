@@ -1,7 +1,5 @@
 # Distributed Training Design
 
-`Ascend` `GPU` `Design` `Distributed Parallel`
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_en/design/distributed_training_design.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png"></a>
 
 ## Background
@@ -122,3 +120,11 @@ As a key feature of MindSpore, automatic parallelism is used to implement hybrid
 
 6. Backward propagation of communication operators
     - [grad_comm_ops.py](https://gitee.com/mindspore/mindspore/blob/r1.7/mindspore/python/mindspore/ops/_grad/grad_comm_ops.py): This file defines the backward propagation of communication operators, such as `AllReduce` and `AllGather`.
+
+## Advanced Features
+
+- [pipeline_parallel](https://www.mindspore.cn/docs/en/r1.7/design/pipeline_parallel.html)
+- [host_device_training](https://www.mindspore.cn/docs/en/r1.7/design/host_device_training.html)
+- [recompute](https://www.mindspore.cn/docs/en/r1.7/design/recompute.html)
+- [sharding_propagation](https://www.mindspore.cn/docs/en/r1.7/design/sharding_propagation.html)
+- [parameter_server_training](https://www.mindspore.cn/docs/en/r1.7/design/parameter_server_training.html)

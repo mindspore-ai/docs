@@ -1,5 +1,7 @@
 # 安装MindSpore Vision
 
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/vision/source_zh_cn/mindvision_install.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source.png"></a>
+
 ## 环境依赖
 
 - numpy 1.17+
@@ -36,10 +38,16 @@
     cd vision
     ```
 
-- 安装
+- 源码安装
 
     ```shell
     python setup.py install
+    ```
+
+- 使用pip安装
+
+    ```shell
+    pip install mindvision
     ```
 
 ### 验证
@@ -47,7 +55,7 @@
 为了验证MindVision和所需的环境是否正确安装，我们可以运行示例代码来初始化一个分类器然后推理一张图片：
 
 推理所用的图片:
-![four](https://gitee.com/mindspore/vision/raw/master/tests/st/classification/dataset/mnist/mnist.jpg)
+![four](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/docs/vision/source_zh_cn/images/mnist.jpg)
 
 ```shell
 python ./examples/classification/lenet/lenet_mnist_infer.py \

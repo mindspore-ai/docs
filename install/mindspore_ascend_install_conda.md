@@ -9,7 +9,7 @@
         - [安装Conda](#安装conda)
         - [安装GCC](#安装gcc)
         - [安装gmp](#安装gmp)
-        - [安装Open MPI（可选）](#安装open-mpi可选)
+        - [安装Open MPI-可选](#安装open-mpi-可选)
         - [创建并进入Conda虚拟环境](#创建并进入conda虚拟环境)
         - [安装MindSpore](#安装mindspore)
     - [配置环境变量](#配置环境变量)
@@ -26,7 +26,7 @@
 
 - 如果想在一个已经配置好昇腾AI处理器配套软件包的EulerOS 2.8上通过Conda安装MindSpore，可以使用[自动安装脚本](https://gitee.com/mindspore/mindspore/raw/r1.7/scripts/install/euleros-ascend-conda.sh)进行一键式安装，参见[自动安装](#自动安装)小节。自动安装脚本会安装MindSpore及其所需的依赖。
 
-- 如果您的系统已经安装了部分依赖，如CUDA，Conda，GCC等，则推荐参照[手动安装](#手动安装)小节的安装步骤手动安装。
+- 如果您的系统是Ubuntu 18.04/CentOS 7.6/OpenEuler 20.03/KylinV10 SP1，或者已经安装了部分依赖，如CUDA，Conda，GCC等，则推荐参照[手动安装](#手动安装)小节的安装步骤手动安装。
 
 ## 自动安装
 
@@ -80,7 +80,7 @@ conda activate mindspore_py37
 |[Conda](#安装conda)|Anaconda3或Miniconda3|Python环境管理工具|
 |[GCC](#安装gcc)|7.3.0|用于编译MindSpore的C++编译器|
 |[gmp](#安装gitgmptclshpatchnumaflex)|6.1.2|MindSpore使用的多精度算术库|
-|[Open MPI](#安装open-mpi可选)|4.0.3|MindSpore使用的高性能消息传递库（可选，单机多卡/多机多卡训练需要）|
+|[Open MPI](#安装open-mpi-可选)|4.0.3|MindSpore使用的高性能消息传递库（可选，单机多卡/多机多卡训练需要）|
 
 下面给出第三方依赖的安装方法。
 
@@ -146,7 +146,7 @@ conda init bash
     sudo yum install gmp-devel -y
     ```
 
-### 安装Open MPI（可选）
+### 安装Open MPI-可选
 
 可以通过以下命令编译安装[Open MPI](https://www.open-mpi.org/)。
 

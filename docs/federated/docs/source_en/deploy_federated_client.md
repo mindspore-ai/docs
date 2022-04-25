@@ -10,7 +10,7 @@ The following describes how to deploy the Federated-Client in the Android and x8
 
 - Configure the build environment.
 
-    Currently, only the Linux build environment is supported. For details about how to configure the Linux build environment, click [here](https://www.mindspore.cn/lite/docs/en/master/use/build.html#linux).
+    Currently, only the Linux build environment is supported. For details about how to configure the Linux build environment, click [here](https://www.mindspore.cn/lite/docs/en/r1.7/use/build.html#linux-environment-compilation).
 
 - Turn on Federated-Client compile option and build the AAR package that contains aarch64 and aarch32 in the mindspore home directory.
 
@@ -114,7 +114,7 @@ After setting up the dependencies shown above in the Android project, you only n
 
 - Configure the build environment.
 
-    Currently, only the Linux build environment is supported. For details about how to configure the Linux build environment, click [here](https://www.mindspore.cn/lite/docs/en/master/use/build.html#linux).
+    Currently, only the Linux build environment is supported. For details about how to configure the Linux build environment, click [here](https://www.mindspore.cn/lite/docs/en/r1.7/use/build.html#linux-environment-compilation).
 
 - Build the x86-related architecture package in the mindspore home directory.
 
@@ -199,4 +199,4 @@ Set environment variables in the x86 system (an absolute path must be provided):
 export LD_LIBRARY_PATH=/resource/x86libs/:$LD_LIBRARY_PATH
 ```
 
-After the dependency environment is set, you can simulate the startup of multiple clients in the x86 environment for federated learning. For details, click [here](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/image_classification_application.md).
+After the dependency environment is set, you can simulate the startup of multiple clients in the x86 environment for federated learning. For details, click [here](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/image_classification_application.md#).

@@ -29,7 +29,7 @@ class Net(nn.Cell):
         return out
 ```
 
-For details, see [Collecting Summary Record](https://www.mindspore.cn/mindinsight/docs/en/r1.7/summary_record.html#summarysummarycollector).
+For details, see [Collecting Summary Record](https://www.mindspore.cn/mindinsight/docs/en/r1.7/summary_record.html#method-two-custom-collection-of-network-data-with-summary-operators-and-summarycollector).
 
 <br/>
 

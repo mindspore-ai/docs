@@ -1,7 +1,5 @@
 # Dataset AutoTune for Dataset Pipeline
 
-`Ascend` `GPU` `Data Preparation`
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/experts/source_en/debug/dataset_autotune.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png"></a>
 
 ## Overview
@@ -118,7 +116,7 @@ def create_dataset(...)
 
 ### Start Training
 
-Start the training process as described in [resnet/README.md](https://gitee.com/mindspore/models/blob/r1.7/official/cv/resnet/README.md). Dataset AutoTune will display its analysis result through LOG messages.
+Start the training process as described in [resnet/README.md](https://gitee.com/mindspore/models/blob/r1.7/official/cv/resnet/README.md#). Dataset AutoTune will display its analysis result through LOG messages.
 
 ```text
 [INFO] [auto_tune.cc:73 LaunchThread] Launching Dataset AutoTune thread

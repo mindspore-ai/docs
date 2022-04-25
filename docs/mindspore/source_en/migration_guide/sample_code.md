@@ -25,7 +25,7 @@ ResNet50 is a classic deep neural network in CV, which attracts more developers'
 
 The official PyTorch implementation script can be found at [torchvision model](https://github.com/pytorch/vision/blob/master/torchvision/models/resnet.py) or [Nvidia PyTorch implementation script](https://github.com/NVIDIA/DeepLearningExamples/tree/master/PyTorch/Classification/ConvNets/resnet50v1.5), which includes implementations of the mainstream ResNet family of networks (ResNet18, ResNet18, ResNet18, ResNet18, and ResNet18). (ResNet18, ResNet34, ResNet50, ResNet101, ResNet152). The dataset used for ResNet50 is ImageNet2012, and the convergence accuracy can be found in [PyTorch Hub](https://pytorch.org/hub/pytorch_vision_resnet/#model-description).
 
-Developers can run PyTorch-based ResNet50 scripts directly on the benchmark hardware environment and then computes the performance data, or they can refer to the official data on the same hardware environment. For example, when we benchmark the Nvidia DGX-1 32GB (8x V100 32GB) hardware, we can refer to [Nvidia's official ResNet50 performance data](https://github.com/NVIDIA/DeepLearningExamples/tree/master/PyTorch/Classification/ConvNets/resnet50v15#training-performance-nvidia-dgx-1-32gb-8x-v100-32gb).
+Developers can run PyTorch-based ResNet50 scripts directly on the benchmark hardware environment and then computes the performance data, or they can refer to the official data on the same hardware environment. For example, when we benchmark the Nvidia DGX-1 32GB (8x V100 32GB) hardware, we can refer to [Nvidia's official ResNet50 performance data](https://github.com/NVIDIA/DeepLearningExamples/tree/master/PyTorch/Classification/ConvNets/resnet50v1.5#training-performance-nvidia-dgx-1-32gb-8x-v100-32gb).
 
 ### Reproduce the Migration Target
 
@@ -91,7 +91,7 @@ We can analyze it based on both operator and function aspects.
 | `nn.Linear`            | `nn.Dense`         | yes                    |
 | `torch.flatten`        | `nn.Flatten`       | yes                    |
 
-Note: For PyTorch scripts, MindSpore provides the [PyTorch operator mapping tool](https://www.mindspore.cn/tutorials/experts/en/r1.7/index.html#operator_api ), which can directly query whether the operator is supported.
+Note: For PyTorch scripts, MindSpore provides the [PyTorch operator mapping](https://www.mindspore.cn/docs/en/r1.7/note/api_mapping/pytorch_api_mapping.html), which can directly query whether the operator is supported.
 
 - Function Analysis
 

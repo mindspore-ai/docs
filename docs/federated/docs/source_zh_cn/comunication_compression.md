@@ -1,6 +1,6 @@
 # 端云联邦学习通信压缩
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/sentiment_classification_application.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/comunication_compression.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
 在端云联邦学习训练过程中，通信量会影响端侧用户体验（用户流量、通信时延、FL-Client 参与数量），并受云侧性能约束（内存、带宽、CPU 占用率）限制。为了提高用户体验和减少性能瓶颈，MindSpore联邦学习框架在端云联邦场景中，提供上传和下载的通信量压缩功能。
 
@@ -28,11 +28,11 @@
 
 ![权重差解码](./images/weight_diff_decode.png)
 
-图4 权重差解码云侧流程图
+图4 权重差解码在FL-Server上的流程图
 
 ### 稀疏编解码
 
-端云都遵循预先定义的同样的随机算法生成和原本需要上传的权重形状相同稀疏掩码矩阵。掩码矩阵只包含0或1两个值。每个FL-Client只上传和掩码矩阵非零值位置相同的权重的数据到FL-Server上。
+端云都遵循同样的随机算法生成稀疏掩码矩阵，该掩码矩阵和原本需要上传的权重形状相同。掩码矩阵只包含0或1两个值。每个FL-Client只上传和掩码矩阵非零值位置相同的权重的数据到FL-Server上。
 
 以稀疏率sparse_rate=0.08的稀疏方法为例。FL-Client原本需要上传的参数：
 

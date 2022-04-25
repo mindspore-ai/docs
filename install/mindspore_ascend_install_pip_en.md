@@ -9,7 +9,7 @@
         - [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package)
         - [Installing GCC](#installing-gcc)
         - [Installing gmp](#installing-gmp)
-        - [Installing Open MPI (Optional)](#installing-open-mpi-optional)
+        - [Installing Open MPI-optional](#installing-open-mpi-optional)
         - [Installing MindSpore](#installing-mindspore)
     - [Configuring Environment Variables](#configuring-environment-variables)
     - [Installation Verification](#installation-verification)
@@ -23,7 +23,7 @@ This document describes how to quickly install MindSpore in a Linux system with 
 
 - If you want to install MindSpore by pip on an EulerOS 2.8 with the configured Ascend AI processor software package, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/r1.7/scripts/install/euleros-ascend-pip.sh) for one-click installation, see [Automatic Installation](#automatic-installation) section. The automatic installation script will install MindSpore and its required dependencies.
 
-- If some dependencies, such as Python and GCC, have been installed in your system, it is recommended to install manually by referring to the installation steps in the [Manual Installation](#manual-installation) section.
+- If your system is Ubuntu 18.04/CentOS 7.6/OpenEuler 20.03/KylinV10 SP1, or some dependencies, such as Python and GCC, have been installed in your system, it is recommended to install manually by referring to the installation steps in the [Manual Installation](#manual-installation) section.
 
 ## Automatic Installation
 
@@ -178,7 +178,7 @@ pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/hccl-*-py3-n
     sudo yum install gmp-devel -y
     ```
 
-### Installing Open MPI (optional)
+### Installing Open MPI-optional
 
 Run the following command to compile and install [Open MPI](https://www.open-mpi.org/).
 

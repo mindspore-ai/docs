@@ -67,7 +67,7 @@ Markdownlint is a tool for checking the markdown file format. You can use the to
 - MD009 (spaces at the line end): The **br_spaces** parameter is set to **2**, indicating that there can be 0 or 2 spaces at the end of a line.
 - MD029 (sequence numbers of an ordered list): The **style** parameter is set to **ordered**, indicating that the sequence numbers of the ordered list are in ascending order.
 
-For details, see [RULES](https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md).
+For details, see [RULES](https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md#).
 
 ### Confirming the Content
 

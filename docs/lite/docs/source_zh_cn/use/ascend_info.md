@@ -1,7 +1,5 @@
 # 集成Ascend使用说明
 
-`Ascend` `Linux` `环境准备` `算子支持` `中级` `高级`
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/lite/docs/source_zh_cn/use/ascend_info.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source.png"></a>
 
 本文档介绍如何在Ascend环境的Linux系统上，使用MindSpore Lite 进行推理，以及动态shape功能的使用。目前，MindSpore Lite仅支持Ascend310芯片。
@@ -155,7 +153,7 @@ MindSpore Lite提供benchmark基准测试工具，它可以对MindSpore Lite模�
 
 ### 动态shape特性
 
-在某些推理场景，如检测出人脸后再执行人脸识别网络，由于人脸个数不固定导致人脸识别网络输入BatchSize不固定。如果每次推理都按照最大的BatchSize或最大分辨率进行计算，会造成计算资源浪费。因此，推理需要支持动态BatchSize和动态分辨率的场景，Lite在Ascend310上推理支持动态BatchSize和动态分辨率场景，在convert阶段通过congFile配置[acl_option_cfg_param]动态参数，转成`ms`模型，推理时使用model的[resize](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/runtime_cpp.html#resize)功能，改变输入shape。
+在某些推理场景，如检测出目标后再执行目标识别网络，由于目标个数不固定导致目标识别网络输入BatchSize不固定。如果每次推理都按照最大的BatchSize或最大分辨率进行计算，会造成计算资源浪费。因此，推理需要支持动态BatchSize和动态分辨率的场景，Lite在Ascend310上推理支持动态BatchSize和动态分辨率场景，在convert阶段通过congFile配置[acl_option_cfg_param]动态参数，转成`ms`模型，推理时使用model的[resize](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/runtime_cpp.html#输入维度resize)功能，改变输入shape。
 
 #### 动态Batch size
 
@@ -188,7 +186,7 @@ MindSpore Lite提供benchmark基准测试工具，它可以对MindSpore Lite模�
 
 - 推理
 
-    使能动态BatchSize，进行模型推理时，输入shape只能选择converter时设置的档位值，想切换到其他档位对应的输入shape，使用model [resize](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/runtime_cpp.html#resize)功能。
+    使能动态BatchSize，进行模型推理时，输入shape只能选择converter时设置的档位值，想切换到其他档位对应的输入shape，使用model [resize](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/runtime_cpp.html#输入维度resize)功能。
 
 - 注意事项
 
@@ -228,7 +226,7 @@ MindSpore Lite提供benchmark基准测试工具，它可以对MindSpore Lite模�
 
 - 推理
 
-    使能动态分辨率， 进行模型推理时，输入shape只能选择converter时设置的档位值，想切换到其他档位对应的输入shape，使用model的[resize](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/runtime_cpp.html#resize)功能。
+    使能动态分辨率， 进行模型推理时，输入shape只能选择converter时设置的档位值，想切换到其他档位对应的输入shape，使用model的[resize](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/runtime_cpp.html#输入维度resize)功能。
 
 - 注意事项
 

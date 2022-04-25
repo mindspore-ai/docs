@@ -1,7 +1,5 @@
 # Implement Device Training Based On C++ Interface
 
-`Linux` `C++` `Android` `Whole Process` `Model Export` `Model Converting` `Model Training` `Beginner` `Intermediate` `Expert`
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/lite/docs/source_en/quick_start/train_lenet.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png"></a>
 
 > MindSpore has unified the end-to-side cloud inference API. If you want to continue to use the MindSpore Lite independent API for training, you can refer to [here](https://www.mindspore.cn/lite/docs/en/r1.3/quick_start/train_lenet.html).
@@ -274,7 +272,7 @@ print("finished exporting")
 
 ### Model Transferring
 
-To convert the model simply use the converter as explained in the [Convert Section](https://www.mindspore.cn/lite/docs/en/r1.7/use/converter_train.html#creating-mindspore-tod-models), the command is:
+To convert the model simply use the converter as explained in the [Convert Section](https://www.mindspore.cn/lite/docs/en/r1.7/use/converter_train.html#creating-mindspore-lite-models), the command is:
 
 ```bash
 ./converter_lite --fmk=MINDIR --trainModel=true --modelFile=lenet_tod.mindir --outputFile=lenet_tod

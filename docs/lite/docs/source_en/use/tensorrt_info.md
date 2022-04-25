@@ -1,7 +1,5 @@
 # TensorRT Integration Information
 
-`TensorRT` `NVIDIA` `Linux` `Environment Preparation` `Operators Supported` `Intermediate` `Expert`
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/lite/docs/source_en/use/tensorrt_info.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png"></a>
 
 ## Steps
@@ -22,7 +20,7 @@ In the Linux environment, use the build.sh script in the root directory of MindS
 bash build.sh -I x86_64
 ```
 
-For more information about compilation, see [Linux Environment Compilation](https://www.mindspore.cn/lite/docs/en/r1.7/use/build.html#linux).
+For more information about compilation, see [Linux Environment Compilation](https://www.mindspore.cn/lite/docs/en/r1.7/use/build.html#linux-environment-compilation).
 
 ### Integration
 

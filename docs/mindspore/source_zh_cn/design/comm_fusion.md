@@ -1,7 +1,5 @@
 # 分布式训练通信融合
 
-`Ascend` `GPU` `分布式并行`
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/design/comm_fusion.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source.png"></a>
 
 ## 概述
@@ -46,7 +44,7 @@ MindSpore提供两种接口来使能通信融合，下面分别进行介绍。
 
 #### 自动并行场景下的配置
 
-在自动并行或半自动并行场景下，用户在通过`context.set_auto_parallel_context`来配置并行策略时，可以利用该接口提供的`comm_fusion`参数来设置并行策略，用户可以指定用index方法还是fusion buffer的方法。具体参数说明请参照 [分布式并行接口说明](auto_parallel.md)。
+在自动并行或半自动并行场景下，用户在通过`context.set_auto_parallel_context`来配置并行策略时，可以利用该接口提供的`comm_fusion`参数来设置并行策略，用户可以指定用index方法还是fusion buffer的方法。
 
 #### 利用`Cell`提供的接口
 

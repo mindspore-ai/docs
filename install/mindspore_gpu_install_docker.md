@@ -42,8 +42,8 @@ MindSpore的Docker镜像托管在[Huawei SWR](https://support.huaweicloud.com/sw
 ```bash
 # Acquire version of operating system version
 DISTRIBUTION=$(. /etc/os-release; echo $ID$VERSION_ID)
-curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | apt-key add -
-curl -s -L https://nvidia.github.io/nvidia-docker/$DISTRIBUTION/nvidia-docker.list | tee /etc/apt/sources.list.d/nvidia-docker.list
+curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
+curl -s -L https://nvidia.github.io/nvidia-docker/$DISTRIBUTION/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
 
 sudo apt-get update && sudo apt-get install -y nvidia-container-toolkit nvidia-docker2
 sudo systemctl restart docker
@@ -180,4 +180,4 @@ print(ops.add(x, y))
 
     进入[MindSpore安装指南页面](https://www.mindspore.cn/install)，选择GPU硬件平台、Linux-x86_64操作系统和Source的安装方式，获得安装指南。运行容器后，下载MindSpore代码仓并参考安装指南，通过源码编译方式安装MindSpore GPU版本，并进行验证。
 
-如果您想了解更多关于MindSpore Docker镜像的构建过程，请查看[docker repo](https://gitee.com/mindspore/mindspore/blob/r1.7/scripts/docker/README.md)了解详细信息。
+如果您想了解更多关于MindSpore Docker镜像的构建过程，请查看[docker repo](https://gitee.com/mindspore/mindspore/blob/r1.7/scripts/docker/README.md#)了解详细信息。

@@ -132,7 +132,7 @@ A typical model project contains 4 main components. Tips for migrating each comp
 - Model definition（`model.py`）
   1. Transform the model structure with MindConverter CLI.
   2. Manually enhance the readability of the generated model scripts(Optional).
-  3. Mix the generated model with the original project to validate equivalence of the migration. Refer to [FAQ](https://www.mindspore.cn/mindinsight/docs/en/r1.7/migrate_3rd_scripts_mindconverter.html#mix-the-mindspore-model-into-the-original-training-scripts).
+  3. Mix the generated model with the original project to validate equivalence of the migration. Refer to [FAQ](https://www.mindspore.cn/mindinsight/docs/en/r1.7/migrate_3rd_scripts_mindconverter.html#mix-the-mindspore-model-with-the-original-training-scripts).
 - Data processing（`dataset.py`）
   1. For a built-in dataset, please query [API mapping](https://www.mindspore.cn/docs/en/r1.7/note/api_mapping/pytorch_api_mapping.html) for migration.
   2. For a customized dataset and data augmentation, please refer to [the migration template](https://www.mindspore.cn/mindinsight/docs/en/r1.7/migrate_3rd_scripts_mindconverter.html#step-2-migrate-the-data-processing).
@@ -148,7 +148,7 @@ A typical model project contains 4 main components. Tips for migrating each comp
 
 ### Step 0：Export the model file
 
-Exporting ONNX model file from PyTorch model(refer to [FAQ](#export-the-model-file-of-tensorflow) for Tensorflow guidance) requires operators mapping between [PyTorch](https://pytorch.org/docs/stable/onnx.html#supported-operators) and [ONNX](https://github.com/onnx/onnx/blob/r1.7/docs/Operators.md#). Guidance is as follows:
+Exporting ONNX model file from PyTorch model(refer to [FAQ](#export-the-model-file-of-tensorflow) for Tensorflow guidance) requires operators mapping between [PyTorch](https://pytorch.org/docs/stable/onnx.html#supported-operators) and [ONNX](https://github.com/onnx/onnx/blob/master/docs/Operators.md#). Guidance is as follows:
 
 1. Download source codes, weights file and relevant dataset files of the model project.
 
@@ -194,7 +194,7 @@ mindconverter --model_file /path/to/model.onnx
 
 If you need to specify the model input shape, input node names and output node names. [Netron](https://github.com/lutzroeder/netron) is recommended to get the above information.
 
-Model scripts(`model.py`) and weights information(`ckpt`) can be used not only to validate the equivalence of migration, but also to generate the [MindIR](https://www.mindspore.cn/tutorials/experts/en/r1.7/parallel/save_load.html#mindir) file.
+Model scripts(`model.py`) and weights information(`ckpt`) can be used not only to validate the equivalence of migration, but also to generate the [MindIR](https://www.mindspore.cn/tutorials/en/r1.7/advanced/train/save.html#export-mindir-model) file.
 
 ```python
 import mindspore
@@ -529,7 +529,7 @@ Using [Netron](https://github.com/lutzroeder/netron) load the onnx model file, c
 
 ### Export the model file of Tensorflow
 
-Exporting the PB model file from a Tensorflow model requires operators mapping between [Tensorflow](https://github.com/onnx/tensorflow-onnx/blob/r1.7/support_status.md#) and [ONNX](https://github.com/onnx/onnx/blob/r1.7/docs/Operators.md#). For models defined by Keras, guidance is as follows:
+Exporting the PB model file from a Tensorflow model requires operators mapping between [Tensorflow](https://github.com/onnx/tensorflow-onnx/blob/r1.7/support_status.md#) and [ONNX](https://github.com/onnx/onnx/blob/master/docs/Operators.md#). For models defined by Keras, guidance is as follows:
 
 TensorFlow 1.x
 

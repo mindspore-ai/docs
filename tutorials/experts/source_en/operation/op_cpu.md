@@ -2,8 +2,6 @@
 
 Translator: [JuLyAi](https://gitee.com/julyai)
 
-`CPU` `Model Development`
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/experts/source_en/operation/op_cpu.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png"></a>
 
 ## Overview
@@ -19,7 +17,7 @@ Among them:
 
 This paper will take the custom `Transpose` operator as an example to introduce the steps of customizing operators.
 
-## Registration Operator's Primitives
+## Registration Primitives
 
 Each operator's primitive is a subclass inherited from the class `PrimitiveWithCheck`, whose type name is the operator's name.
 
@@ -204,7 +202,7 @@ output: [[0, 3]
         [2, 5]]
 ```
 
-## Defining Operators' BProp Functions
+## Defining BProp Functions
 
 If an operator needs to support automatic differentiation, its back-propagation function (bprop) needs to be defined in its primitives. You need to describe the reverse computing logic that uses forward input, forward output, and output gradient to get the input gradient in bprop. Reverse computation logic can be composed of built-in operators or custom reverse operators.
 

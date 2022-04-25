@@ -267,7 +267,7 @@ A: 首先输入PyTorch的`pth`文件，以`ResNet-18`为例，MindSpore的网络
 
 <font size=3>**Q: MindSpore有哪些现成的推荐类或生成类网络或模型可用？**</font>
 
-A: 目前正在开发Wide & Deep、DeepFM、NCF等推荐类模型，NLP领域已经支持Bert_NEZHA，正在开发MASS等模型，用户可根据场景需要改造为生成类网络，可以关注[MindSpore ModelZoo](https://gitee.com/mindspore/models/blob/master/README_CN.md)。
+A: 目前正在开发Wide & Deep、DeepFM、NCF等推荐类模型，NLP领域已经支持Bert_NEZHA，正在开发MASS等模型，用户可根据场景需要改造为生成类网络，可以关注[MindSpore ModelZoo](https://gitee.com/mindspore/models/blob/master/README_CN.md#)。
 
 <br/>
 

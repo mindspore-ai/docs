@@ -1,7 +1,5 @@
 # Implement Device Training Based On Java Interface
 
-`Android` `Java` `Whole Process` `Model Loading` `Model Training` `Data Preparation` `Beginner` `Intermediate` `Expert`
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/lite/docs/source_en/quick_start/train_lenet_java.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png"></a>
 
 ## Overview

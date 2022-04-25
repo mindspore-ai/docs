@@ -1,7 +1,5 @@
 # 自动数据加速
 
-`Ascend` `GPU` `数据处理` `性能调优`
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/experts/source_zh_cn/debug/dataset_autotune.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source.png"></a>
 
 ## 概述
@@ -119,7 +117,7 @@ def create_dataset(...)
 
 ### 开始训练
 
-根据[resnet/README.md](https://gitee.com/mindspore/models/blob/r1.7/official/cv/resnet/README_CN.md)所描述的步骤
+根据[resnet/README.md](https://gitee.com/mindspore/models/blob/r1.7/official/cv/resnet/README_CN.md#)所描述的步骤
 启动CIFAR10数据集的训练，随后自动数据加速模块会通过LOG的形式展示其对于性能瓶颈的分析情况：
 
 ```text

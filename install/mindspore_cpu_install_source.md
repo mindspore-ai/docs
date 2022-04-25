@@ -3,13 +3,13 @@
 <!-- TOC -->
 
 - [源码编译方式安装MindSpore CPU版本](#源码编译方式安装mindspore-cpu版本)
-    - [环境准备（自动，推荐）](#环境准备自动推荐)
-    - [环境准备（手动）](#环境准备手动)
+    - [环境准备-自动 推荐](#环境准备-自动-推荐)
+    - [环境准备-手动](#环境准备-手动)
         - [安装Python](#安装python)
         - [安装wheel和setuptools](#安装wheel和setuptools)
-        - [安装GCC，git，gmp，tclsh，patch和NUMA](#安装gccgitgmptclshpatch和numa)
+        - [安装GCC git gmp tclsh patch和NUMA](#安装gcc-git-gmp-tclsh-patch和numa)
         - [安装CMake](#安装cmake)
-        - [安装LLVM（可选）](#安装llvm可选)
+        - [安装LLVM-可选](#安装llvm-可选)
     - [从代码仓下载源码](#从代码仓下载源码)
     - [编译MindSpore](#编译mindspore)
     - [安装MindSpore](#安装mindspore)
@@ -22,11 +22,11 @@
 
 本文档介绍如何在CPU环境的Linux系统上，使用源码编译方式快速安装MindSpore。下面以Ubuntu 18.04为例说明MindSpore编译安装步骤。
 
-- 如果您想在一个全新的Ubuntu 18.04上配置一个可以编译MindSpore的环境，可以使用[自动安装脚本](https://gitee.com/mindspore/mindspore/raw/r1.7/scripts/install/ubuntu-cpu-source.sh)进行一键式配置，参见[环境准备（自动，推荐）](#环境准备自动推荐)小节。自动安装脚本会安装编译MindSpore所需的依赖。
+- 如果您想在一个全新的Ubuntu 18.04上配置一个可以编译MindSpore的环境，可以使用[自动安装脚本](https://gitee.com/mindspore/mindspore/raw/r1.7/scripts/install/ubuntu-cpu-source.sh)进行一键式配置，参见[环境准备-自动，推荐](#环境准备-自动推荐)小节。自动安装脚本会安装编译MindSpore所需的依赖。
 
-- 如果您的系统已经安装了部分依赖，如Python，GCC等，则推荐参照[环境准备（手动）](#环境准备手动)小节的安装步骤手动安装。
+- 如果您的系统已经安装了部分依赖，如Python，GCC等，则推荐参照[环境准备-手动](#环境准备-手动)小节的安装步骤手动安装。
 
-## 环境准备（自动，推荐）
+## 环境准备-自动 推荐
 
 自动安装脚本需要更改软件源配置以及通过APT安装依赖，所以需要申请root权限。使用以下命令获取自动安装脚本并执行。通过自动安装脚本配置的环境，仅支持编译MindSpore>=1.6.0。
 
@@ -48,7 +48,7 @@ bash ./ubuntu-cpu-source.sh
 
 更多的用法请参看脚本头部的说明。
 
-## 环境准备（手动）
+## 环境准备-手动
 
 下表列出了编译安装MindSpore所需的系统环境和第三方依赖。
 
@@ -58,14 +58,14 @@ bash ./ubuntu-cpu-source.sh
 |[Python](#安装python)|3.7-3.9|MindSpore的使用依赖Python环境|
 |[wheel](#安装wheel和setuptools)|0.32.0及以上|MindSpore使用的Python打包工具|
 |[setuptools](#安装wheel和setuptools)|44.0及以上|MindSpore使用的Python包管理工具|
-|[GCC](#安装gccgitgmptclshpatch和numa)|7.3.0到9.4.0之间|用于编译MindSpore的C++编译器|
-|[git](#安装gccgitgmptclshpatch和numa)|-|MindSpore使用的源代码管理工具|
+|[GCC](#安装gcc-git-gmp-tclsh-patch和numa)|7.3.0到9.4.0之间|用于编译MindSpore的C++编译器|
+|[git](#安装gcc-git-gmp-tclsh-patch和numa)|-|MindSpore使用的源代码管理工具|
 |[CMake](#安装cmake)|3.18.3及以上|编译构建MindSpore的工具|
-|[gmp](#安装gccgitgmptclshpatch和numa)|6.1.2|MindSpore使用的多精度算术库|
-|[tclsh](#安装gccgitgmptclshpatch和numa)|-|MindSpore sqlite编译依赖|
-|[patch](#安装gccgitgmptclshpatch和numa)|2.5及以上|MindSpore使用的源代码补丁工具|
-|[NUMA](#安装gccgitgmptclshpatch和numa)|2.0.11及以上|MindSpore使用的非一致性内存访问库|
-|[LLVM](#安装llvm可选)|12.0.1|MindSpore使用的编译器框架（可选，图算融合以及稀疏计算需要）|
+|[gmp](#安装gcc-git-gmp-tclsh-patch和numa)|6.1.2|MindSpore使用的多精度算术库|
+|[tclsh](#安装gcc-git-gmp-tclsh-patch和numa)|-|MindSpore sqlite编译依赖|
+|[patch](#安装gcc-git-gmp-tclsh-patch和numa)|2.5及以上|MindSpore使用的源代码补丁工具|
+|[NUMA](#安装gcc-git-gmp-tclsh-patch和numa)|2.0.11及以上|MindSpore使用的非一致性内存访问库|
+|[LLVM](#安装llvm-可选)|12.0.1|MindSpore使用的编译器框架（可选，图算融合以及稀疏计算需要）|
 
 下面给出第三方依赖的安装方法。
 
@@ -127,7 +127,7 @@ pip install wheel
 pip install -U setuptools
 ```
 
-### 安装GCC，git，gmp，tclsh，patch和NUMA
+### 安装GCC git gmp tclsh patch和NUMA
 
 可以通过以下命令安装GCC，git，gmp，tclsh，patch和NUMA。
 
@@ -160,7 +160,7 @@ sudo apt-add-repository "deb https://apt.kitware.com/ubuntu/ $(lsb_release -cs) 
 sudo apt-get install cmake -y
 ```
 
-### 安装LLVM（可选）
+### 安装LLVM-可选
 
 可以通过以下命令安装[LLVM](https://llvm.org/)。
 

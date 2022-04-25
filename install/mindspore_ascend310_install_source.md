@@ -3,12 +3,12 @@
 <!-- TOC -->
 
 - [源码编译方式安装MindSpore Ascend 310版本](#源码编译方式安装mindspore-ascend-310版本)
-    - [环境准备（自动，推荐）](#环境准备自动推荐)
-    - [环境准备（手动）](#环境准备手动)
+    - [环境准备-自动 推荐](#环境准备-自动-推荐)
+    - [环境准备-手动](#环境准备-手动)
         - [安装Python](#安装python)
         - [安装昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)
         - [安装GCC](#安装gcc)
-        - [安装git，gmp，tclsh，patch，Flex](#安装gitgmptclshpatchflex)
+        - [安装git gmp tclsh patch Flex](#安装git-gmp-tclsh-patch-flex)
         - [安装CMake](#安装cmake)
     - [从代码仓下载源码](#从代码仓下载源码)
     - [编译MindSpore](#编译mindspore)
@@ -22,11 +22,11 @@
 
 本文档介绍如何在Ascend 310环境的Linux系统上，使用源码编译方式快速安装MindSpore，Ascend 310版本仅支持推理。
 
-- 如果您想在一个已经配置好昇腾AI处理器配套软件包的EulerOS 2.8上配置一个可以编译MindSpore的环境，可以使用[自动安装脚本](https://gitee.com/mindspore/mindspore/raw/r1.7/scripts/install/euleros-ascend-source.sh)进行一键式配置，参见[环境准备（自动，推荐）](#环境准备自动推荐)小节。自动安装脚本会安装编译MindSpore所需的依赖。
+- 如果您想在一个已经配置好昇腾AI处理器配套软件包的EulerOS 2.8上配置一个可以编译MindSpore的环境，可以使用[自动安装脚本](https://gitee.com/mindspore/mindspore/raw/r1.7/scripts/install/euleros-ascend-source.sh)进行一键式配置，参见[环境准备-自动，推荐](#环境准备-自动推荐)小节。自动安装脚本会安装编译MindSpore所需的依赖。
 
-- 如果您的系统已经安装了部分依赖，如Python，GCC等，则推荐参照[环境准备（手动）](#环境准备手动)小节的安装步骤手动安装。
+- 如果您的系统是Ubuntu 18.04/CentOS 7.6，或者已经安装了部分依赖，如Python，GCC等，则推荐参照[环境准备-手动](#环境准备-手动)小节的安装步骤手动安装。
 
-## 环境准备（自动，推荐）
+## 环境准备-自动 推荐
 
 在使用自动安装脚本之前，需要确保系统正确安装了昇腾AI处理器配套软件包。如果没有安装，请先参考[安装昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)小节进行安装。
 
@@ -64,7 +64,7 @@ conda activate mindspore_py37
 
 更多的用法请参看脚本头部的说明。
 
-## 环境准备（手动）
+## 环境准备-手动
 
 下表列出了编译安装MindSpore所需的系统环境和第三方依赖。
 
@@ -74,12 +74,12 @@ conda activate mindspore_py37
 |[Python](#安装python)|3.7-3.9|MindSpore的使用依赖Python环境|
 |[昇腾AI处理器配套软件包](#安装昇腾ai处理器配套软件包)|-|MindSpore使用的Ascend平台AI计算库|
 |[GCC](#安装gcc)|7.3.0|用于编译MindSpore的C++编译器|
-|[git](#安装gitgmptclshpatchflex)|-|MindSpore使用的源代码管理工具|
+|[git](#安装git-gmp-tclsh-patch-flex)|-|MindSpore使用的源代码管理工具|
 |[CMake](#安装cmake)|3.18.3及以上|编译构建MindSpore的工具|
-|[gmp](#安装gitgmptclshpatchflex)|6.1.2|MindSpore使用的多精度算术库|
-|[Flex](#安装gitgmptclshpatchflex)|2.5.35及以上版本|MindSpore使用的词法分析器|
-|[tclsh](#安装gitgmptclshpatchflex)|-|MindSpore sqlite编译依赖|
-|[patch](#安装gitgmptclshpatchflex)|2.5及以上|MindSpore使用的源代码补丁工具|
+|[gmp](#安装git-gmp-tclsh-patch-flex)|6.1.2|MindSpore使用的多精度算术库|
+|[Flex](#安装git-gmp-tclsh-patch-flex)|2.5.35及以上版本|MindSpore使用的词法分析器|
+|[tclsh](#安装git-gmp-tclsh-patch-flex)|-|MindSpore sqlite编译依赖|
+|[patch](#安装git-gmp-tclsh-patch-flex)|2.5及以上|MindSpore使用的源代码补丁工具|
 
 下面给出第三方依赖的安装方法。
 
@@ -160,7 +160,7 @@ pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/hccl-*-py3-n
     sudo yum install gcc -y
     ```
 
-### 安装git，gmp，tclsh，patch，Flex
+### 安装git gmp tclsh patch Flex
 
 - Ubuntu 18.04可以使用以下命令安装。
 

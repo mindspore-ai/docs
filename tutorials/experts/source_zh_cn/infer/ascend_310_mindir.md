@@ -1,7 +1,5 @@
 # Ascend 310 AI处理器上使用MindIR模型进行推理
 
-`Ascend` `推理应用`
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/experts/source_zh_cn/infer/ascend_310_mindir.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source.png"></a>
 
 Ascend 310是面向边缘场景的高能效高集成度AI处理器，本教程介绍如何在Ascend 310上使用MindSpore基于MindIR模型文件执行推理，主要包括以下流程：

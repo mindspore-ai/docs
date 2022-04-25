@@ -1,7 +1,5 @@
 # Converting Models for Inference
 
-`Windows` `Linux` `Model Converting` `Intermediate` `Expert`
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/lite/docs/source_en/use/converter_tool.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png"></a>
 
 ## Overview
@@ -75,7 +73,7 @@ The following describes the parameters in detail.
 > - The parameter name and parameter value are separated by an equal sign (=) and no space is allowed between them.
 > - The Caffe model is divided into two files: model structure `*.prototxt`, corresponding to the `--modelFile` parameter; model weight `*.caffemodel`, corresponding to the `--weightFile` parameter.
 > - The priority of `--fp16` option is very low. For example, if quantization is enabled, `--fp16` will no longer take effect on const tensors that have been quantized. All in all, this option only takes effect on const tensors of Float32 when serializing model.
-> - `inputDataFormat`: generally, in the scenario of integrating third-party hardware of NCHW specification([Usage Description of the Integrated NNIE](https://www.mindspore.cn/lite/docs/en/r1.7/use/nnie.html#nnie)), designated as NCHW will have a significant performance improvement over NHWC. In other scenarios, users can also set as needed.
+> - `inputDataFormat`: generally, in the scenario of integrating third-party hardware of NCHW specification([Usage Description of the Integrated NNIE](https://www.mindspore.cn/lite/docs/en/r1.7/use/nnie.html#usage-description-of-the-integrated-nnie)), designated as NCHW will have a significant performance improvement over NHWC. In other scenarios, users can also set as needed.
 > - The calibration dataset configuration file uses the `key=value` mode to define related parameters. For the configuration parameters related to quantization, please refer to [post training quantization](https://www.mindspore.cn/lite/docs/en/r1.7/use/post_training_quantization.html). For the configuration parameters related to extension, please refer to [Extension Configuration](https://www.mindspore.cn/lite/docs/en/r1.7/use/nnie.html#extension-configuration).
 > - The encryption and decryption function only takes effect when `MSLITE_ENABLE_MODEL_ENCRYPTION=on` is set at compile time, and the key is a string represented by hexadecimal. For example, if the key is defined as `b'0123456789ABCDEF'`, the corresponding hexadecimal representation is `30313233343536373839414243444546`. Users on the Linux platform can use the `xxd` tool to convert the key represented by the bytes to a hexadecimal representation.
 

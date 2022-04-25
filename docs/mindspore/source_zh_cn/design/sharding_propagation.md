@@ -1,12 +1,10 @@
 # 切分策略传播
 
-`Ascend` `GPU` `并行训练` `自动并行`
-
-<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/design/sharding_propagation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/design/sharding_propagation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source.png"></a>
 
 ## 背景
 
-分布式算子、张量排布和张量重排布是MindSpore中算子级并行中的基本概念。在[这里](https://www.mindspore.cn/docs/zh-CN/r1.7/design/distributed_training_design.html#automatic-parallelism)，以例子的形式介绍了这些概念。现在，我们形式化地定义这些概念。
+分布式算子、张量排布和张量重排布是MindSpore中算子级并行中的基本概念。在[这里](https://www.mindspore.cn/docs/zh-CN/r1.7/design/distributed_training_design.html#自动并行原理)，以例子的形式介绍了这些概念。现在，我们形式化地定义这些概念。
 
 算子级并行属于“单程序多数据”（Single Program Multiple Data，SPMD）的一种实现。同一段程序执行在不同数据分片上。MindSpore将单机版本的程序转换成并行版本的程序。该转换是细粒度的，会将单机版本程序中每个算子替换成分布式算子，同时保证替换是数学等价的。
 

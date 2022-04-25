@@ -1,8 +1,8 @@
-# pip方式安装MindSpore CPU Nightly版本（Windows）
+# pip方式安装MindSpore CPU Nightly版本-Windows
 
 <!-- TOC -->
 
-- [pip方式安装MindSpore CPU Nightly版本（Windows）](#pip方式安装mindspore-cpu-nightly版本windows)
+- [pip方式安装MindSpore CPU Nightly版本-Windows](#pip方式安装mindspore-cpu-nightly版本-windows)
     - [确认系统环境信息](#确认系统环境信息)
     - [下载安装MindSpore](#下载安装mindspore)
     - [验证是否成功安装](#验证是否成功安装)

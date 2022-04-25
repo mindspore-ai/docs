@@ -1,7 +1,5 @@
 # 自适应梯度求和算法
 
-`Ascend` `模型调优` `分布式训练`
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/experts/source_zh_cn/others/adaptive_summation.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source.png"></a>
 
 ## 概述
@@ -97,7 +95,7 @@ $$
 }
 ```
 
-rank_table可以使用models下面的[hccl_tools.py](https://gitee.com/mindspore/models/blob/r1.7/utils/hccl_tools/hccl_tools.py)生成，[merge_hccl.py](https://gitee.com/mindspore/models/blob/r1.7/utils/hccl_tools/merge_hccl.py)可将多个rank_table文件进行拼接。脚本使用方法可见[README.md](https://gitee.com/mindspore/models/blob/r1.7/utils/hccl_tools/README.md)。
+rank_table可以使用models下面的[hccl_tools.py](https://gitee.com/mindspore/models/blob/r1.7/utils/hccl_tools/hccl_tools.py)生成，[merge_hccl.py](https://gitee.com/mindspore/models/blob/r1.7/utils/hccl_tools/merge_hccl.py)可将多个rank_table文件进行拼接。脚本使用方法可见[README.md](https://gitee.com/mindspore/models/blob/r1.7/utils/hccl_tools/README.md#)。
 
 ### 数据集准备
 

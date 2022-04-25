@@ -69,6 +69,5 @@ For Experts
 
    others/mixed_precision
    others/gradient_accumulation
-   others/second_order_optimizer
    
    

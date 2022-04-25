@@ -148,7 +148,7 @@ A: PyNative mode is compatible with transfer learning.
 
 <br/>
 
-<font size=3>**Q: What is the difference between [MindSpore ModelZoo](https://gitee.com/mindspore/models/blob/r1.7/README.m) and [Ascend ModelZoo](https://www.hiascend.com/software/modelzoo)?**</font>
+<font size=3>**Q: What is the difference between [MindSpore ModelZoo](https://gitee.com/mindspore/models/blob/master/README.md#) and [Ascend ModelZoo](https://www.hiascend.com/software/modelzoo)?**</font>
 
 A: `MindSpore ModelZoo` contains models mainly implemented by MindSpore. But these models support different devices including Ascend, GPU, CPU and Mobile. `Ascend ModelZoo` contains models only running on Ascend which are implemented by different ML platform including MindSpore, PyTorch, TensorFlow and Caffe. You can refer to the corresponding [gitee repository](https://gitee.com/ascend/modelzoo).
 

@@ -275,11 +275,11 @@
       Run MarkAccuracy error: -1
       ```
 
-    - 若MindSpore Lite进行整网推理存在精度问题，可以通过benchmark工具的[Dump功能](https://mindspore.cn/lite/docs/zh-CN/r1.7/use/benchmark_tool.html#dump) 保存算子层输出，和原框架推理结果进行对比进一步定位出现精度异常的算子。
+    - 若MindSpore Lite进行整网推理存在精度问题，可以通过benchmark工具的[Dump功能](https://mindspore.cn/lite/docs/zh-CN/r1.7/use/benchmark_tool.html#dump功能) 保存算子层输出，和原框架推理结果进行对比进一步定位出现精度异常的算子。
     - 针对存在精度问题的算子，可以下载[MindSpore源码](https://gitee.com/mindspore/mindspore) 检查算子实现并构造相应单算子网络进行调试与问题定位；也可以在MindSpore社区[提ISSUE](https://gitee.com/mindspore/mindspore/issues) 给MindSpore Lite的开发人员处理。
 
 2. MindSpore Lite使用fp32推理结果正确，但是fp16推理结果出现NaN或者Inf值怎么办？
-    - 结果出现NaN或者Inf值一般为推理过程中出现数值溢出，可以查看模型结构，筛选可能出数值溢出的算子层，然后通过benchmark工具的[Dump功能](https://mindspore.cn/lite/docs/zh-CN/r1.7/use/benchmark_tool.html#dump) 保存算子层输出确认出现数值溢出的算子。
+    - 结果出现NaN或者Inf值一般为推理过程中出现数值溢出，可以查看模型结构，筛选可能出数值溢出的算子层，然后通过benchmark工具的[Dump功能](https://mindspore.cn/lite/docs/zh-CN/r1.7/use/benchmark_tool.html#dump功能) 保存算子层输出确认出现数值溢出的算子。
     - MindSpore Lite 1.5.0之后版本提供混合精度推理能力，在整网推理优先使用fp16时支持设置某一层算子进行fp32推理，具体使用方法可参考官网文档[混合精度运行](https://mindspore.cn/lite/docs/zh-CN/r1.7/use/runtime_cpp.html#混合精度运行) ，通过将溢出层设置为fp32避免在fp16推理时出现的整网推理精度问题。
 
 3. MindSpore Lite使用fp32和fp16推理结果同时出现NaN或者Inf值怎么办？
@@ -287,7 +287,7 @@
 
       ![image-20211214191139062](./images/troubleshooting_Fp32_NAN.png)
 
-    - 解决方法：如果是输入数据太大导致的，建议训练时把网络输入数据做归一化。如果输入数据归一化了还存在NaN值，这种需要通过benchmark工具的[Dump功能](https://mindspore.cn/lite/docs/zh-CN/r1.7/use/benchmark_tool.html#dump) 保存算子层输出确认出现数值溢出的算子，具体分析。
+    - 解决方法：如果是输入数据太大导致的，建议训练时把网络输入数据做归一化。如果输入数据归一化了还存在NaN值，这种需要通过benchmark工具的[Dump功能](https://mindspore.cn/lite/docs/zh-CN/r1.7/use/benchmark_tool.html#dump功能) 保存算子层输出确认出现数值溢出的算子，具体分析。
 
 ## 模型推理性能问题
 
@@ -325,7 +325,7 @@
     - 绝大多数情况下，NPU的推理性能要大幅优于CPU，但在少数情况下会比CPU更劣：
 
     （1）检查模型中是否存在大量Pad或StridedSlice等算子，由于NPU中的数组格式与CPU有所不同，这类算子在NPU中运算时涉及数组的重排，因此相较CPU不存在任何优势，甚至劣于CPU。若确实需要在NPU上运行，建议尝试去除或替换此类算子。
-    （2）通过工具（如adb logcat）抓取后台日志，搜索所有“**BuildIRModel build successfully**”关键字，发现相关日志出现了多次，说明模型在线构图时切分为了多张NPU子图，子图的切分一般都是由图中存在Transpose或/和当前不支持的NPU算子引起。目前我们支持最多20张子图的切分，子图数量越多，NPU的整体耗时增加越明显。建议比对MindSpore Lite当前支持的NPU[算子列表](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/operator_list_lite.html#lite)，在模型搭建时规避不支持的算子，或在MindSpore社区[提ISSUE](https://gitee.com/mindspore/mindspore/issues) 询问MindSpore Lite的开发人员。
+    （2）通过工具（如adb logcat）抓取后台日志，搜索所有“**BuildIRModel build successfully**”关键字，发现相关日志出现了多次，说明模型在线构图时切分为了多张NPU子图，子图的切分一般都是由图中存在Transpose或/和当前不支持的NPU算子引起。目前我们支持最多20张子图的切分，子图数量越多，NPU的整体耗时增加越明显。建议比对MindSpore Lite当前支持的NPU[算子列表](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/operator_list_lite.html)，在模型搭建时规避不支持的算子，或在MindSpore社区[提ISSUE](https://gitee.com/mindspore/mindspore/issues) 询问MindSpore Lite的开发人员。
 
 ## 使用Visual Studio相关问题
 

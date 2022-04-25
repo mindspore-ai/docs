@@ -1,6 +1,4 @@
-# MindSpore IR（MindIR）
-
-`Ascend` `GPU` `设计` `模型开发`
+# 中间表达MindIR
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindspore/source_zh_cn/design/mindir.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source.png"></a>
 

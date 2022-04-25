@@ -1,7 +1,5 @@
 # Using Delegate to Support Third-party AI Framework
 
-`Linux` `Delegate` `Third-party` `Custom Framework` `Advanced`
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/lite/docs/source_en/use/delegate.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png"></a>
 
 ## Overview
@@ -13,8 +11,8 @@ Delegate of MindSpore Lite is used to support third-party AI frameworks (such as
 Using Delegate to support a third-party AI framework mainly includes the following steps:
 
 1. Add a custom delegate class: Inherit the [Delegate](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Delegate.html) class to implement XXXDelegate.
-2. Implementing the Init Function: The [Init](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Delegate.html#_CPPv4N9mindspore8Delegate4InitEv) function needs to check whether the device supports the delegate framework and to apply for resources related to delegate.
-3. Implementing the Build Function: The [Build](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Delegate.html#_CPPv4N9mindspore8Delegate5BuildEP13DelegateModel) function will implement the kernel support judgment, the sub-graph construction, and the online graph building.
+2. Implementing the Init Function: The [Init](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Delegate.html) function needs to check whether the device supports the delegate framework and to apply for resources related to delegate.
+3. Implementing the Build Function: The [Build](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Delegate.html) function will implement the kernel support judgment, the sub-graph construction, and the online graph building.
 4. Implementing the sub-graph Kernel: Inherit the [Kernel](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_kernel_Kernel.html#class-kernel) to implement delegate sub-graph Kernel.
 
 ### Adding a Custom Delegate Class
@@ -36,7 +34,7 @@ class XXXDelegate : public Delegate {
 
 ### Implementing the Init
 
-[Init](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Delegate.html#_CPPv4N9mindspore8Delegate4InitEv) will be called during the [Build](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Model.html#_CPPv4N9mindspore5Model5BuildE9GraphCellRKNSt10shared_ptrI7ContextEERKNSt10shared_ptrI8TrainCfgEE) process of [Model](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Model.html#class-model). The specific location is in the [LiteSession::Init](https://gitee.com/mindspore/mindspore/blob/r1.7/mindspore/lite/src/lite_session.cc#L696) function of MindSpore Lite internal process.
+[Init](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Delegate.html) will be called during the [Build](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Model.html) process of [Model](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Model.html#class-model). The specific location is in the [LiteSession::Init](https://gitee.com/mindspore/mindspore/blob/r1.7/mindspore/lite/src/lite_session.cc#L696) function of MindSpore Lite internal process.
 
 ```cpp
 Status XXXDelegate::Init() {
@@ -47,16 +45,16 @@ Status XXXDelegate::Init() {
 
 ### Implementing the Build
 
-The input parameter of the [Build(DelegateModel *model)](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Delegate.html#_CPPv4N9mindspore8Delegate5BuildEP13DelegateModel) interface is [DelegateModel](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_DelegateModel.html#_CPPv4N9mindspore13DelegateModelE)。
+The input parameter of the [Build(DelegateModel *model)](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Delegate.html) interface is [DelegateModel](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_DelegateModel.html)。
 
 > `std::vector<kernel::Kernel *> *kernels_`: A list of kernels that have been selected by MindSpore Lite and topologically sorted.
 >
 > `const std::map<kernel::Kernel *, const schema::Primitive *> primitives_`: A map of kernel and its attribute `schema::Primitive`, which is used to analyze the original attribute information.
 
-[Build](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Delegate.html#_CPPv4N9mindspore8Delegate5BuildEP13DelegateModel) will be called during the [Build](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Model.html#_CPPv4N9mindspore5Model5BuildE9GraphCellRKNSt10shared_ptrI7ContextEERKNSt10shared_ptrI8TrainCfgEE) process of [Model](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Model.html#class-model). The specific location is in the [Schedule::Schedule](https://gitee.com/mindspore/mindspore/blob/r1.7/mindspore/lite/src/scheduler.cc#L132) function of MindSpore Lite internal process. At this time, the inner kernels have been selected by MindSpore Lite. The following steps should be implemented in Build function:
+[Build](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Delegate.html) will be called during the [Build](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Model.html) process of [Model](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Model.html#class-model). The specific location is in the [Schedule::Schedule](https://gitee.com/mindspore/mindspore/blob/r1.7/mindspore/lite/src/scheduler.cc#L132) function of MindSpore Lite internal process. At this time, the inner kernels have been selected by MindSpore Lite. The following steps should be implemented in Build function:
 
-1. Traverse the kernel list, use [GetPrimitive](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_DelegateModel.html#_CPPv4NK9mindspore13DelegateModel12GetPrimitiveEPN6kernel6KernelE) to get the attribute of kernel. Analyze the attribute to judge whether the delegate framework supports it.
-2. For a continuous supported kernel list, construct a delegate sub-graph kernel and [Replace](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_DelegateModel.html#_CPPv4N9mindspore13DelegateModel7ReplaceE10KernelIter10KernelIterPN6kernel6KernelE) the continuous supported kernels with it.
+1. Traverse the kernel list, use [GetPrimitive](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_DelegateModel.html) to get the attribute of kernel. Analyze the attribute to judge whether the delegate framework supports it.
+2. For a continuous supported kernel list, construct a delegate sub-graph kernel and [Replace](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_DelegateModel.html) the continuous supported kernels with it.
 
 ```cpp
 Status XXXDelegate::Build(DelegateModel *model) {
@@ -100,7 +98,7 @@ kernel::Kernel *XXXDelegate::CreateXXXGraph(KernelIter from, KernelIter end, Del
 The delegate sub-graph kernel `XXXGraph` should inherit from [Kernel](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_kernel_Kernel.html#class-kernel). The realization of `XXXGraph` should focus on:
 
 1. Find the correct in_tensors and out_tensors for `XXXGraph` according to the original kernels list.
-2. Rewrite the Prepare, Resize, and Execute interfaces. [Prepare](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore_kernel.html#prepare) will be called in [Build](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Model.html#_CPPv4N9mindspore5Model5BuildE9GraphCellRKNSt10shared_ptrI7ContextEERKNSt10shared_ptrI8TrainCfgEE) of [Model](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Model.html#class-model). [Execute](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore_kernel.html#execute) will be called in [Predict](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Model.html#_CPPv4N9mindspore5Model7PredictERKNSt6vectorI8MSTensorEEPNSt6vectorI8MSTensorEERK16MSKernelCallBackRK16MSKernelCallBack) of Model. [ReSize](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore_kernel.html#resize) will be called in [Resize](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Model.html#_CPPv4N9mindspore5Model6ResizeERKNSt6vectorI8MSTensorEERKNSt6vectorINSt6vectorI7int64_tEEEE) of Model.
+2. Rewrite the Prepare, Resize, and Execute interfaces. [Prepare](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore_kernel.html#prepare) will be called in [Build](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Model.html) of [Model](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Model.html#class-model). [Execute](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore_kernel.html#execute) will be called in [Predict](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Model.html) of Model. [ReSize](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore_kernel.html#resize) will be called in [Resize](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Model.html) of Model.
 
 ```cpp
 class XXXGraph : public kernel::Kernel {
@@ -129,7 +127,7 @@ class XXXGraph : public kernel::Kernel {
 
 ## Calling Delegate by Lite Framework
 
-MindSpore Lite schedules user-defined delegate by [Context](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Context.html#class-context). Use [SetDelegate](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html#setdelegate) to set a custom delegate for Context.  Delegate will be passed by [Build](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Model.html#_CPPv4N9mindspore5Model5BuildE9GraphCellRKNSt10shared_ptrI7ContextEERKNSt10shared_ptrI8TrainCfgEE) to MindSpore Lite. If the Delegate in the Context is a null pointer, the process will call the inner inference of MindSpore Lite.
+MindSpore Lite schedules user-defined delegate by [Context](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Context.html#class-context). Use [SetDelegate](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html#setdelegate) to set a custom delegate for Context.  Delegate will be passed by [Build](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Model.html) to MindSpore Lite. If the Delegate in the Context is a null pointer, the process will call the inner inference of MindSpore Lite.
 
 ```cpp
 auto context = std::make_shared<mindspore::Context>();
@@ -302,4 +300,4 @@ int NPUGraph::Execute() {
 }
 ```
 
-> [NPU](https://www.mindspore.cn/lite/docs/en/r1.7/use/npu_info.html) is a third-party AI framework that added by MindSpore Lite internal developers. The usage of NPU is slightly different. You can set the [Context](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Context.html#class-context) through [SetDelegate](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html#setdelegate), or you can add the description of the NPU device [KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_KirinNPUDeviceInfo.html#class-kirinnpudeviceinfo) to [MutableDeviceInfo](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Context.html#_CPPv4N9mindspore7Context17MutableDeviceInfoEv) of the Context.
+> [NPU](https://www.mindspore.cn/lite/docs/en/r1.7/use/npu_info.html) is a third-party AI framework that added by MindSpore Lite internal developers. The usage of NPU is slightly different. You can set the [Context](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Context.html#class-context) through [SetDelegate](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html#setdelegate), or you can add the description of the NPU device [KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_KirinNPUDeviceInfo.html#class-kirinnpudeviceinfo) to [MutableDeviceInfo](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_Context.html) of the Context.

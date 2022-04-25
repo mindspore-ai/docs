@@ -1,14 +1,12 @@
 # 训练模型转换
 
-`Linux` `环境准备` `模型导出` `模型转换` `中级` `高级`
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/lite/docs/source_zh_cn/use/converter_train.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source.png"></a>
 
 ## 概述
 
 创建MindSpore端侧模型的步骤：
 
-- 首先基于MindSpore架构使用Python创建网络模型，并导出为`.mindir`文件，参见云端的[保存模型](https://www.mindspore.cn/tutorials/zh-CN/r1.7/advanced/train/save.html#mindir)。
+- 首先基于MindSpore架构使用Python创建网络模型，并导出为`.mindir`文件，参见云端的[保存模型](https://www.mindspore.cn/tutorials/zh-CN/r1.7/advanced/train/save.html#导出mindir格式文件)。
 - 然后将`.mindir`模型文件转换成`.ms`文件，`.ms`文件可以导入端侧设备并基于MindSpore端侧框架训练。
 
 ## Linux环境

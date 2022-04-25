@@ -1,7 +1,5 @@
 # 集成NPU使用说明
 
-`NPU` `Android` `Linux` `环境准备` `算子支持` `中级` `高级`
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/lite/docs/source_zh_cn/use/npu_info.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source.png"></a>
 
 ## 使用步骤
@@ -23,16 +21,16 @@ export MSLITE_ENABLE_NPU=ON
 bash build.sh -I arm64 -j8
 ```
 
-有关编译详情见[Linux环境编译](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/build.html#linux)。
+有关编译详情见[Linux环境编译](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/build.html#linux环境编译)。
 
 ### 集成使用
 
 - 集成说明
 
     开发者需要集成使用NPU功能时，需要注意：
-    - 在代码中[配置NPU后端](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/runtime_cpp.html#npu)，
+    - 在代码中[配置NPU后端](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/runtime_cpp.html#配置使用npu后端)，
     有关使用Runtime执行推理详情见[使用Runtime执行推理（C++）](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/runtime_cpp.html)。
-    - 编译执行可执行程序。如采用动态加载方式，参考[编译输出](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/build.html#runtime)中编译选项为`-I arm64`或`-I arm32`时的内容，
+    - 编译执行可执行程序。如采用动态加载方式，参考[编译输出](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/build.html)中编译选项为`-I arm64`或`-I arm32`时的内容，
     配置好环境变量，将会动态加载libhiai.so, libhiai_ir.so, libhiai_ir_build.so, libhiai_hcl_model_runtime.so。例如：
 
     ```bash

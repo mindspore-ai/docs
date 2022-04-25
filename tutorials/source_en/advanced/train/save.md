@@ -1,7 +1,5 @@
 # Saving and Exporting Models
 
-`Ascend` `GPU` `CPU` `Model Export`
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/source_en/advanced/train/save.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png"></a>
 
 ## Overview
@@ -19,7 +17,7 @@ The following uses examples to describe how to save MindSpore CheckPoint files, 
 
 The [Save and Load section](https://mindspore.cn/tutorials/zh-CN/r1.7/beginner/save_load.html) of the beginner tutorials describes how to save model parameters directly using `save_checkpoint` and using the Callback mechanism to save model parameters during training. This section further describes how to save model parameters during training and use `save_checkpoint` save model parameters directly.
 
-### Savig the models during the training
+### Saving the models during the training
 
 Saving model parameters during training. MindSpore provides two saving strategies, an iteration policy and a time policy, which can be set by creating a `CheckpointConfig` object. The iteration policy and the time policy cannot be used at the same time, where the iterative policy takes precedence over the time policy, and when set at the same time, only iteration policy can take effect. When the parameter display is set to None, the policy is abandoned. In addition, when an exception occurs during training, MindSpore also provides a breakpoint retrain function, that is, the system will automatically save the CheckPoint file when the exception occurs.
 
@@ -124,7 +122,7 @@ You can use `save_checkpoint` function to save network weights to a CheckPoint f
 
 In the transfer learning scenario, when using a pre-trained model for training, the model parameters in the CheckPoint file cannot be used directly, and they need to be modified according to the actual situation to be suitable for the current network model. This section describes how to remove the fully connected layer parameter from a pre-trained model for Resnet50.
 
-First download the [pre-trained model of Resnet50](https://download.mindspore.cn/vision/classification/resnet50_224.ckpt), which is trained on the ImageNet dataset by the `resnet50` model in MindSpore Vision.
+First download the [pre-trained model of Resnet50](https://download.mindspore.cn/vision/classification/resnet50_224.ckpt), which is trained on the ImageNet dataset by the `resnet50` model in [MindSpore Vision](https://mindspore.cn/vision/docs/en/r1.7/index.html).
 
 The training model is loaded using the `load_checkpoint` interface, which returns a Ditt type, the dictionary's key is the name of each layer of the network, the type is the character Type Str; the value, dictionary value is the parameter value of the network layer, and the type is Parameter.
 

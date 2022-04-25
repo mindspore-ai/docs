@@ -1,7 +1,5 @@
 # 固定随机性以复现脚本运行结果
 
-`Linux` `Ascend` `模型运行` `中级` `高级`
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/experts/source_zh_cn/debug/fixing_randomness.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source.png"></a>
 
 固定随机性的目的是复现脚本运行结果，辅助定位问题。固定随机性后，相同条件下的两次训练所产生的loss曲线应基本一致，您可以多次执行调试，方便地查找loss曲线异常的原因而无需担心上次调试的问题现象在本次运行时不再出现。

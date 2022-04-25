@@ -1,6 +1,6 @@
 # Accuracy Problem Locating and Optimization Guide
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindinsight/docs/source_en/accuracy_optimization.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/mindinsight/docs/source_en/accuracy_optimization.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png"></a>
 
 The final result of model training is to obtain a model with qualified accuracy. However, during AI training, the model loss may not decrease, or the model metrics may not reach the expected value. As a result, the model with ideal accuracy cannot be obtained, in this case, you need to analyze the problems that occur during the training and use methods such as adjusting data, adjusting hyperparameters, and reconstructing the model structure to solve the problems that occur during the model accuracy tuning.
 
@@ -121,7 +121,7 @@ The causes of accuracy problems can be classified into hyperparameter problems, 
 
          4. The node mode is incorrect.
 
-             If the node mode is incorrect, the training or inference mode of the node is inconsistent with the actual situation. For details about how to set the node mode, see [api.02 The mode is not set based on the training or inference scenario when the API is used.](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/accuracy_problem_preliminary_location.html#api-02-api).
+             If the node mode is incorrect, the training or inference mode of the node is inconsistent with the actual situation. For details about how to set the node mode, see [api.02 The mode is not set based on the training or inference scenario when the API is used.](https://www.mindspore.cn/mindinsight/docs/en/r1.7/accuracy_problem_preliminary_location.html#api02-the-mode-is-not-set-based-on-the-training-or-inference-scenario-when-the-api-is-used).
 
          5. The weight is improperly frozen (weights that should not be frozen are frozen).
 
@@ -325,13 +325,13 @@ In most cases, the `SummaryCollector` automatically records the loss curve of th
 
 *Figure 9 Viewing the weight changes during training through the MindInsight parameter distribution chart*
 
-In most cases, the `SummaryCollector` automatically records the model parameter changes (five parameters by default). You can view the changes in the parameter distribution histogram of MindInsight. If you want to record the parameter distribution histogram of more parameters, see the `histogram_regular` parameter in [SummaryCollector](https://www.mindspore.cn/docs/en/r1.7/api_python/mindspore.train.html#mindspore.train.callback.SummaryCollector) or the [HistogramSummary](https://www.mindspore.cn/mindinsight/docs/en/r1.7/summary_record.html#summarysummarycollector) operator.
+In most cases, the `SummaryCollector` automatically records the model parameter changes (five parameters by default). You can view the changes in the parameter distribution histogram of MindInsight. If you want to record the parameter distribution histogram of more parameters, see the `histogram_regular` parameter in [SummaryCollector](https://www.mindspore.cn/docs/en/r1.7/api_python/mindspore.train.html#mindspore.train.callback.SummaryCollector) or the [HistogramSummary](https://www.mindspore.cn/mindinsight/docs/en/r1.7/summary_record.html#method-two-custom-collection-of-network-data-with-summary-operators-and-summarycollector) operator.
 
 ![tensor](./images/tensor.png)
 
 *Figure 10 Viewing the value of a specific tensor through the tensor visualization module on the MindInsight training dashboard*
 
-Tensors are not automatically recorded. To view the tensor values through MindInsight, use the [TensorSummary](https://www.mindspore.cn/mindinsight/docs/en/r1.7/summary_record.html#summarysummarycollector) operator.
+Tensors are not automatically recorded. To view the tensor values through MindInsight, use the [TensorSummary](https://www.mindspore.cn/mindinsight/docs/en/r1.7/summary_record.html#method-two-custom-collection-of-network-data-with-summary-operators-and-summarycollector) operator.
 
 The following describes how to use MindInsight to locate accuracy problems based on the common symptoms of the loss curve.
 

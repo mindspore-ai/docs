@@ -15,6 +15,7 @@ import os
 import re
 import sys
 import sphinx
+import shutil
 import IPython
 sys.path.append(os.path.abspath('../_ext'))
 import sphinx.ext.autosummary.generate as g
@@ -71,12 +72,20 @@ autodoc_inherit_docstrings = False
 
 autosummary_generate = True
 
+html_static_path = ['_static']
+
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
 html_theme = 'sphinx_rtd_theme'
+import sphinx_rtd_theme
+layout_target = os.path.join(os.path.dirname(sphinx_rtd_theme.__file__), 'layout.html')
+layout_src = '../../../resource/_static/layout.html'
+if os.path.exists(layout_target):
+    os.remove(layout_target)
+shutil.copy(layout_src, layout_target)
 
 # -- Options for Texinfo output -------------------------------------------
 
@@ -88,9 +97,16 @@ intersphinx_mapping = {
 
 from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary
 
+sys.path.append(os.path.abspath('../../../resource/custom_directives'))
+from custom_directives import IncludeCodeDirective
+
 def setup(app):
     app.add_directive('msplatformautosummary', MsPlatformAutoSummary)
     app.add_directive('msnoteautosummary', MsNoteAutoSummary)
+    app.add_directive('includecode', IncludeCodeDirective)
+    app.add_stylesheet('css/bootstrap.min.css')
+    app.add_stylesheet('css/training.css')
+    app.add_javascript('js/training.js')
 
 # Modify regex for sphinx.ext.autosummary.generate.find_autosummary_in_lines.
 gfile_abs_path = os.path.abspath(g.__file__)
@@ -170,7 +186,6 @@ import search_code
 
 # Copy images from mindspore repo.
 import imghdr
-import shutil
 from sphinx.util import logging
 
 logger = logging.getLogger(__name__)

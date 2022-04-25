@@ -11,11 +11,11 @@ Application
    :maxdepth: 1
    :caption: CV
 
-   cv/test1
-   
+
 .. toctree::
    :glob:
    :maxdepth: 1
    :caption: NLP
 
-   nlp/test2
+   nlp/sentiment_analysis
+   nlp/sequence_labeling

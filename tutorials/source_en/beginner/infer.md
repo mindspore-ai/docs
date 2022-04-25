@@ -2,19 +2,19 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/source_en/beginner/infer.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png"></a>
 
-This chapter uses the `mobilenet_v2` network fine-tuning approach in MindSpore Vision to develop an AI application (classification of the dog and the croissants) and deploy the trained network model to the Android phone to perform inference and deployment functions.
+This chapter uses the `mobilenet_v2` network fine-tuning approach in MindSpore Vision to develop an AI application to classify dogs and croissants, and deploy the trained network model on the Android phone to perform inference and deployment.
 
 ## Data Preparation and Loading
 
-### Downloading the dataset
+### Downloading a Dataset
 
-First, you need to download the [dog and croissants classification dataset](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/beginner/DogCroissants.zip) used in this case, which has two categories, dog and croissants, and each class has about 150 training images, 20 verification images, and 1 inference image.
+First, you need to download the [dog and croissants classification dataset](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/beginner/DogCroissants.zip) which contains two classes, dog and croissants. Each class contains about 150 training images, 20 verification images, and 1 inference image.
 
-The specific dataset is as follows:
+The dataset is as follows:
 
 ![datset-dog](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/tutorials/source_zh_cn/beginner/images/datset_dog.png)
 
-Use the `DownLoad` interface in MindSpore Vision to download and extract the dataset to the specified path, and the sample code is as follows:
+Use the `DownLoad` interface in [MindSpore Vision](https://mindspore.cn/vision/docs/en/r1.7/index.html) to download and decompress the dataset to the specified path. The sample code is as follows:
 
 ```python
 from mindvision.dataset import DownLoad
@@ -23,7 +23,7 @@ dataset_url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebo
 path = "./datasets"
 
 dl = DownLoad()
-# Download and extract the dataset
+# Download and decompress the dataset.
 dl.download_and_extract_archive(dataset_url, path)
 ```
 
@@ -45,7 +45,7 @@ datasets
 
 ### Loading the Dataset
 
-Define the `create_dataset` function to load the dog and croissants dataset, perform image enhancement operations on the dataset, and set the dataset batch_size size.
+Define the `create_dataset` function to load the dog and croissant dataset, perform image argumentation on the dataset, and set batch_size of the dataset.
 
 ```python
 import mindspore.dataset as ds
@@ -54,7 +54,7 @@ import mindspore.dataset.vision.c_transforms as transforms
 def create_dataset(path, batch_size=10, train=True, image_size=224):
     dataset = ds.ImageFolderDataset(path, num_parallel_workers=8, class_indexing={"croissants": 0, "dog": 1})
 
-    # Image augmentation operation
+    # Image augmentation
     mean = [0.485 * 255, 0.456 * 255, 0.406 * 255]
     std = [0.229 * 255, 0.224 * 255, 0.225 * 255]
     if train:
@@ -74,7 +74,7 @@ def create_dataset(path, batch_size=10, train=True, image_size=224):
         ]
 
     dataset = dataset.map(operations=trans, input_columns="image", num_parallel_workers=8)
-    # Sets the size of the batch_size and discards if the number of samples last fetched is less than batch_size
+    # Set the value of the batch_size. Discard the samples if the number of samples last fetched is less than the value of batch_size.
     dataset = dataset.batch(batch_size, drop_remainder=True)
     return dataset
 ```
@@ -82,36 +82,36 @@ def create_dataset(path, batch_size=10, train=True, image_size=224):
 Load the training dataset and validation dataset for subsequent model training and validation.
 
 ```python
-# Load the training dataset
+# Load the training dataset.
 train_path = "./datasets/DogCroissants/train"
 dataset_train = create_dataset(train_path, train=True)
 
-# Load the validation dataset
+# Load the validation dataset.
 val_path = "./datasets/DogCroissants/val"
 dataset_val = create_dataset(val_path, train=False)
 ```
 
 ## Model Training
 
-In this case, we use a pre-trained model to fine-tune the model on the classification dataset of the dog and croissants, and convert the trained CKPT model file to the MINDIR format for subsequent deployment on the phone side.
+In this case, we use a pre-trained model to fine-tune the model on the dog and croissant classification dataset, and convert the trained CKPT model file to the MINDIR format for subsequent deployment on the mobile phone.
 
-> Model training currently only supports running in the Linux environment.
+> Currently, model training supports only the Linux environment.
 
 ### Principles of the MobileNet V2 Model
 
-MobileNet network is a lightweight CNN network focused on mobile, embedding or IoT devices proposed by the Google team in 2017. Compared to the traditional convolutional neural network, MobileNet network uses depthwise separable convolution idea in the premise of a small reduction in accuracy, which greatly reduces the model parameters and amount of operation. And the introduction of width coefficient and resolution coefficient makes the model meet the needs of different application scenarios.
+MobileNet is a lightweight CNN proposed by the Google team in 2017 to focus on mobile, embedded, or IoT devices. Compared with traditional convolutional neural networks, MobileNet uses depthwise separable convolution to greatly reduce the model parameters and computation amount with a slight decrease in accuracy. In addition, the width coefficient $\alpha$ and resolution coefficient $\beta$ are introduced to meet the requirements of different application scenarios.
 
-Since there is a large amount of loss when the Relu activation function processes low-dimensional feature information in the MobileNet network, the MobileNet V2 network proposes to use the inverted residual block and Linear Bottlenecks to design the network, to improve the accuracy of the model and make the optimized model smaller.
+Because a large amount of data is lost when the ReLU activation function in the MobileNet processes low-dimensional feature information, the MobileNetV2 proposes to use an inverted residual block and Linear Bottlenecks to design the network, to improve accuracy of the model and make the optimized model smaller.
 
 ![mobilenet](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/tutorials/source_zh_cn/beginner/images/mobilenet.png)
 
-The Inverted residual block structure in the figure first uses 1x1 convolution for upswing, uses 3x3 DepthWise convolution, and finally uses 1x1 convolution for dimensionality reduction, which is in contrast to the Residual block structure. The Residual block first uses 1x1 convolution for dimensionality reduction, uses 3x3 convolution, and finally uses 1x1 convolution for upswing.
+In the inverted residual block structure, the 1 x 1 convolution is used for dimension increase, the 3 x 3 DepthWise convolution is used, and the 1 x 1 convolution is used for dimension reduction. This structure is opposite to the residual block structure. For the residual block, the 1 x 1 convolution is first used for dimension reduction, then the 3 x 3 convolution is used, and finally the 1 x 1 convolution is used for dimension increase.
 
-> For detailed contents, refer to [MobileNet V2 thesis](https://arxiv.org/pdf/1801.04381.pdf).
+> For details, see the [MobileNet V2 paper.](https://arxiv.org/pdf/1801.04381.pdf)
 
 ### Downloading the Pre-trained Model
 
-Download the [ckpt file of the MobileNetV2 pre-trained model](https://download.mindspore.cn/vision/classification/mobilenet_v2_1.0_224.ckpt) required for the case and the width coefficient of the pre-trained model, and the input image size is (224, 224). The downloaded pre-trained model is saved in the current directory. Use the `DownLoad` in MindSpore Vision to download the pre-trained model file to the current directory, and the sample code is as follows:
+Download the [ckpt file of the MobileNetV2 pre-trained model](https://download.mindspore.cn/vision/classification/mobilenet_v2_1.0_224.ckpt) required by the case. The width coefficient of the pre-training model is $\alpha=1.0$, and the input image size is (224, 224). Save the downloaded pre-trained model to the current directory. Use `DownLoad` in MindSpore Vision to download the pre-trained model file to the current directory. The sample code is as follows:
 
 ```python
 from mindvision.dataset import DownLoad
@@ -119,13 +119,13 @@ from mindvision.dataset import DownLoad
 models_url = "https://download.mindspore.cn/vision/classification/mobilenet_v2_1.0_224.ckpt"
 
 dl = DownLoad()
-# Download the pre-trained model file
+# Download the pre-trained model file.
 dl.download_url(models_url)
 ```
 
 ### MobileNet V2 Model Fine-tuning
 
-This chapter uses MobileNet V2 pretrained model for fine-tuning, and uses the classification dataset of the dog and croissants to retrain the model by deleting the last parameter of the 1x1 convolution layer for classification in the MobileNet V2 pretrained model, to update the model parameter.
+This chapter uses MobileNet V2 pre-trained model for fine-tuning, and uses the dog and croissant classification dataset to retrain the model to update the model parameter by deleting the last parameter of the 1 x 1 convolution layer for classification in the MobileNet V2 pre-trained model.
 
 ```python
 import mindspore.nn as nn
@@ -135,16 +135,16 @@ from mindspore import load_checkpoint, load_param_into_net
 from mindvision.classification.models import mobilenet_v2
 from mindvision.engine.loss import CrossEntropySmooth
 
-# Build a model with a target classification number of 2 and an image input size of (224,224)
+# Create a model, in which the number of target classifications is 2 and the input image size is (224,224).
 network = mobilenet_v2(num_classes=2, resize=224)
 
-# Save the model parameter in param_dict
+# Save model parameters to param_dict.
 param_dict = load_checkpoint("./mobilenet_v2_1.0_224.ckpt")
 
-# Obtain the parameter name of the last convolutional layer of the mobilenet_v2 network
+# Obtain the parameter name of the last convolutional layer of the mobilenet_v2 network.
 filter_list = [x.name for x in network.head.classifier.get_parameters()]
 
-# Delete the last convolutional layer of the pre-trained model
+# Delete the last convolutional layer of the pre-trained model.
 def filter_ckpt_parameter(origin_dict, param_filter):
     for key in list(origin_dict.keys()):
         for name in param_filter:
@@ -155,19 +155,19 @@ def filter_ckpt_parameter(origin_dict, param_filter):
 
 filter_ckpt_parameter(param_dict, filter_list)
 
-# Load the pre-trained model parameters as the network initialization weight
+# Load the pre-trained model parameters as the network initialization weight.
 load_param_into_net(network, param_dict)
 
-# Define the optimizer
+# Define the optimizer.
 network_opt = nn.Momentum(params=network.trainable_params(), learning_rate=0.01, momentum=0.9)
 
-# Define the loss function
+# Define the loss function.
 network_loss = CrossEntropySmooth(sparse=True, reduction="mean", smooth_factor=0.1, classes_num=2)
 
-# Define evaluation metrics
+# Define evaluation metrics.
 metrics = {"Accuracy": nn.Accuracy()}
 
-# Initialize the model
+# Initialize the model.
 model = Model(network, loss_fn=network_loss, optimizer=network_opt, metrics=metrics)
 ```
 
@@ -175,13 +175,14 @@ model = Model(network, loss_fn=network_loss, optimizer=network_opt, metrics=metr
 [WARNING] ME(375486:140361546602304,MainProcess): [mindspore/train/serialization.py:644] 2 parameters in the 'net' are not loaded, because they are not in the 'parameter_dict'.
 [WARNING] ME(375486:140361546602304,MainProcess): [mindspore/train/serialization.py:646] head.classifier.weight is not loaded.
 [WARNING] ME(375486:140361546602304,MainProcess): [mindspore/train/serialization.py:646] head.classifier.bias is not loaded.
+
 Delete parameter from checkpoint:  head.classifier.weight
 Delete parameter from checkpoint:  head.classifier.bias
 Delete parameter from checkpoint:  moments.head.classifier.weight
 Delete parameter from checkpoint:  moments.head.classifier.bias
 ```
 
-> Due to the model fine-tuning, the above WARNING needs to remove the parameters of the last convolutional layer of the pre-trained model, so loading the pre-trained model will show that the `head.classifier` parameter is not loaded. The `head.classifier` parameter will use the initialization value when the model was built.
+> The preceding warning is generated because the last convolutional layer parameter of the pre-trained model needs to be deleted for model fine-tuning. When the pre-trained model is loaded, the system displays a message indicating that the `head.classifier` parameter is not loaded. The `head.classifier` parameter uses the initial value during model creation.
 
 ### Model Training and Evaluation
 
@@ -193,7 +194,7 @@ from mindspore.train.callback import TimeMonitor
 
 num_epochs = 10
 
-# Model training and validation, after the training is completed, save the CKPT file with the highest evaluation accuracy, `best.ckpt`, in the current directory
+# Train and verify the model. After the training is completed, save the CKPT file with the highest evaluation accuracy, `best.ckpt`, in the current directory.
 model.train(num_epochs,
             dataset_train,
             callbacks=[ValAccMonitor(model, dataset_val, num_epochs), TimeMonitor()])
@@ -201,34 +202,34 @@ model.train(num_epochs,
 
 ```text
 --------------------
-Epoch: [  1 /  10], Train Loss: [0.388], Accuracy:  0.975
+Epoch: [  0 /  10], Train Loss: [0.388], Accuracy:  0.975
 epoch time: 7390.423 ms, per step time: 254.842 ms
 --------------------
-Epoch: [  2 /  10], Train Loss: [0.378], Accuracy:  0.975
+Epoch: [  1 /  10], Train Loss: [0.378], Accuracy:  0.975
 epoch time: 1876.590 ms, per step time: 64.710 ms
 --------------------
-Epoch: [  3 /  10], Train Loss: [0.372], Accuracy:  1.000
+Epoch: [  2 /  10], Train Loss: [0.372], Accuracy:  1.000
 epoch time: 2103.431 ms, per step time: 72.532 ms
 --------------------
-Epoch: [  4 /  10], Train Loss: [0.346], Accuracy:  1.000
+Epoch: [  3 /  10], Train Loss: [0.346], Accuracy:  1.000
 epoch time: 2246.303 ms, per step time: 77.459 ms
 --------------------
-Epoch: [  5 /  10], Train Loss: [0.376], Accuracy:  1.000
+Epoch: [  4 /  10], Train Loss: [0.376], Accuracy:  1.000
 epoch time: 2164.527 ms, per step time: 74.639 ms
 --------------------
-Epoch: [  6 /  10], Train Loss: [0.353], Accuracy:  1.000
+Epoch: [  5 /  10], Train Loss: [0.353], Accuracy:  1.000
 epoch time: 2191.490 ms, per step time: 75.569 ms
 --------------------
-Epoch: [  7 /  10], Train Loss: [0.414], Accuracy:  1.000
+Epoch: [  6 /  10], Train Loss: [0.414], Accuracy:  1.000
 epoch time: 2183.388 ms, per step time: 75.289 ms
 --------------------
-Epoch: [  8 /  10], Train Loss: [0.362], Accuracy:  1.000
+Epoch: [  7 /  10], Train Loss: [0.362], Accuracy:  1.000
 epoch time: 2219.950 ms, per step time: 76.550 ms
 --------------------
-Epoch: [  9 /  10], Train Loss: [0.354], Accuracy:  1.000
+Epoch: [  8 /  10], Train Loss: [0.354], Accuracy:  1.000
 epoch time: 2174.555 ms, per step time: 74.985 ms
 --------------------
-Epoch: [ 10 /  10], Train Loss: [0.364], Accuracy:  1.000
+Epoch: [ 9 /  10], Train Loss: [0.364], Accuracy:  1.000
 epoch time: 2190.957 ms, per step time: 75.550 ms
 ================================================================================
 End of validation the best Accuracy is:  1.000, save the best ckpt file in ./best.ckpt
@@ -236,7 +237,7 @@ End of validation the best Accuracy is:  1.000, save the best ckpt file in ./bes
 
 ### Visualizing Model Predictions
 
-Define the `visualize_model` function, use the model with the highest validation accuracy described above to make predictions about the input images and visualize the predictions.
+Define the `visualize_model` function, use the model with the highest validation accuracy described above to predict the input image, and visualize the prediction result.
 
 ```python
 import matplotlib.pyplot as plt
@@ -257,19 +258,19 @@ def visualize_model(path):
     image = (image - mean) / std
     image = image.astype(np.float32)
 
-    # Image channel switches (h, w, c) to (c, h, w)
+    # Convert the image channel from (h, w, c) to (c, h, w).
     image = np.transpose(image, (2, 0, 1))
 
-    # Extend the data dimension to (1，c, h, w)
+    # Extend the data dimension to (1, c, h, w)
     image = np.expand_dims(image, axis=0)
 
-    # Define and load the network
+    # Define and load the network.
     net = mobilenet_v2(num_classes=2, resize=224)
     param_dict = load_checkpoint("./best.ckpt")
     load_param_into_net(net, param_dict)
     model = Model(net)
 
-    # Model prediction
+    # Use the model for prediction.
     pre = model.predict(Tensor(image))
     result = np.argmax(pre)
 
@@ -291,118 +292,115 @@ plt.show()
 
 ### Model Export
 
-After the model is trained, the network model (i.e. CKPT file) after the training is completed is converted to MindIR format for subsequent inference on the phone side. The `export` interface generates `mobilenet_v2_1.0_224.mindir` files in the current directory.
+After model training is complete, the trained network model (CKPT file) is converted into the MindIR format for subsequent inference on the mobile phone. The `mobilenet_v2_1.0_224.mindir` file is generated in the current directory through the `export` interface.
 
 ```python
 from mindspore import export, Tensor
 
-# Define and load the network parameters
+# Define and load the network parameters.
 net = mobilenet_v2(num_classes=2, resize=224)
 param_dict = load_checkpoint("best.ckpt")
 load_param_into_net(net, param_dict)
 
-# Export the model from the ckpt format to the MINDIR format
+# Export the model from the CKPT format to the MINDIR format.
 input_np = np.random.uniform(0.0, 1.0, size=[1, 3, 224, 224]).astype(np.float32)
 export(net, Tensor(input_np), file_name="mobilenet_v2_1.0_224", file_format="MINDIR")
 ```
 
-## Inference and Deployment on the Phone Side
+## Inference and Deployment on the Mobile Phone
 
-To implement the inference function of the model file on the phone side, the steps are as follows:
+To implement the inference function of the model file on the mobile phone, perform the following steps:
 
-- Convert file format: Convert MindIR file format to the MindSpore Lite recognizable file on the Android phone;
+- Convert file format: Convert MindIR file format to the MindSpore Lite recognizable file on the Android phone.
+- Application deployment: Deploy the app APK on the mobile phone, that is, download a MindSpore Vision suite Android APK.
+- Application experience: After importing the MS model file to the mobile phone, experience the function of recognizing dogs and croissants.
 
-- Application deployment: Deploy the app APK on the phone side, that is, download a MindSpore Vision suite Android APK; and
+### Converting the File Format
 
-- Application experience: After finally importing the ms model file to the phone side, experience the recognition function of the dog and croissants.
+Use the [conversion tool](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/converter_tool.html) applied on the device side to convert the mobilenet_v2_1.0_224.mindir file generated during the training process into the mobilenet_v2_1.0_224.ms file which can be recognized by the MindSpore Lite on-device inference framework.
 
-### Converting the file format
+The following describes how to convert the model file format:
 
-Use the [conversion tool](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/converter_tool.html) applied on the use side, and convert the mobilenet_v2_1.0_224.mindir file generated during the training process into a file format recognizable by the MindSpore Lite end-side inference framework mobilenet_v2_1.0_224.ms file.
+1. Use MindSpore Lite Converter to convert the file format in Linux. [Linux-x86_64 tool download link](https://www.mindspore.cn/lite/docs/en/r1.7/use/downloads.html)
 
-The specific model file format conversion method is as follows:
+    ```shell
+    # Download and decompress the software package and set the path of the software package. {converter_path} indicates the path of the decompressed tool package, and PACKAGE_ROOT_PATH indicates the environment variable.
+    export PACKAGE_ROOT_PATH={converter_path}
 
-1. Use MindSpore Lite Converter to convert file formats in the Linux, in the [Linux-x86_64 tool downloading link](https://www.mindspore.cn/lite/docs/en/r1.7/use/downloads.html).
+    # Add the dynamic link library required by the converter to the environment variable LD_LIBRARY_PATH.
+    export LD_LIBRARY_PATH=${PACKAGE_ROOT_PATH}/tools/converter/lib:${LD_LIBRARY_PATH}
 
-```shell
-# Set the path of the package after downloading and extracting, {converter_path}is the path to the extracted toolkit, PACKAGE_ROOT_PATH is set
-export PACKAGE_ROOT_PATH={converter_path}
+    # Run the conversion command on the mindspore-lite-linux-x64/tools/converter/converter.
+    ./converter_lite --fmk=MINDIR --modelFile=mobilenet_v2_1.0_224.mindir  --outputFile=mobilenet_v2_1.0_224
+    ```
 
-# Include the dynamic-link libraries required by the conversion tool in the environment variables LD_LIBRARY_PATH
-export LD_LIBRARY_PATH=${PACKAGE_ROOT_PATH}/tools/converter/lib:${LD_LIBRARY_PATH}
+2. Use MindSpore Lite Converter to convert the file format in Windows. [Windows-x64 tool download link](https://www.mindspore.cn/lite/docs/en/r1.7/use/downloads.html)
 
-# Execute the conversion command in mindspore-lite-linux-x64/tools/converter/converter
-./converter_lite --fmk=MINDIR --modelFile=mobilenet_v2_1.0_224.mindir  --outputFile=mobilenet_v2_1.0_224
-```
+    ```shell
+    # Download and decompress the software package and set the path of the software package. {converter_path} indicates the path of the decompressed tool package, and PACKAGE_ROOT_PATH indicates the environment variable.
+    set PACKAGE_ROOT_PATH={converter_path}
 
-2. Use MindSpore Lite Converter under Windows to convert file formats, in the [Windows-x64 tool downloading link](https://www.mindspore.cn/lite/docs/en/r1.7/use/downloads.html)
+    # Add the dynamic link library required by the converter to the environment variable PATH.
+    set PATH=%PACKAGE_ROOT_PATH%\tools\converter\lib;%PATH%
 
-```shell
-# Set the path of the package after downloading and extracting, {converter_path}is the path to the extracted toolkit, PACKAGE_ROOT_PATH is the environment variable that is set
-set PACKAGE_ROOT_PATH={converter_path}
+    # Run the following command in the mindspore-lite-win-x64\tools\converter\converter directory:
+    call converter_lite --fmk=MINDIR --modelFile=mobilenet_v2_1.0_224.mindir --outputFile=mobilenet_v2_1.0_224
+    ```
 
-# Include the dynamic-link libraries required by the conversion tool in the environment variables PATH
-set PATH=%PACKAGE_ROOT_PATH%\tools\converter\lib;%PATH%
+After the conversion is successful, `CONVERT RESULT SUCCESS:0` is displayed, and the `mobilenet_v2_1.0_224.ms` file is generated in the current directory.
 
-# Execute the conversion command in mindspore-lite-win-x64\tools\converter\converter
-call converter_lite --fmk=MINDIR --modelFile=mobilenet_v2_1.0_224.mindir --outputFile=mobilenet_v2_1.0_224
-```
-
-After the conversion is successful, `CONVERTL RESULT SUCCESS:0` is printed, and the `mobilenet_v2_1.0_224.ms` file is generated in the current directory.
-
-> For other environments to download MindSpore Lite Converter, see [Download MindSpore Lite](https://www.mindspore.cn/lite/docs/en/r1.7/use/downloads.html).
+> For details about how to download MindSpore Lite Converter in other environments, see [Download MindSpore Lite](https://www.mindspore.cn/lite/docs/en/r1.7/use/downloads.html).
 
 ### Application Deployment
 
-Download [Android apps  APK](https://gitee.com/mindspore/vision/releases/) of the MindSpore Vision Suite and install the APK on your phone, whose app name appears as `MindSpore Vision`.
+Download [Android app APK](https://download.mindspore.cn/vision/android/mindvision-0.1.0.apk) of the MindSpore Vision Suite, or download it by scanning the QR code on phone.
 
-> MindSpore Vision APK is mainly used as an example of a visual development tool, providing basic UI functions such as taking pictures and selecting pictures, and providing AI application DEMO such as classification, detection, and face recognition.
+![qr](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/tutorials/source_zh_cn/beginner/images/app_qr_code.png)
 
-After opening the APP and clicking on the `classification` module on the home page, you can click the middle button to take a picture and get the picture, or click the image button in the upper sidebar to select the picture album for the image classification function.
+Install the APK on your phone, and its app name appears as `MindSpore Vision`.
+
+> The MindSpore Vision APK is used as an example of the visual development tool. It provides basic UI functions such as photographing and image selection, and provides AI application demos such as classification, and detection.
+
+Open the app, tap the `classification` module on the home screen, and then tap the middle button to take photos or tap the image album button on the top bar to select an image for classification.
 
 ![main](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/tutorials/source_zh_cn/beginner/images/app1.png)
 
-By default, the MindSpore Vision `classification` module has a built-in universal AI network model to identify and classify images.
+By default, the MindSpore Vision `classification` module has a built-in general AI network model for image identification and classification.
 
 ![result](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/tutorials/source_zh_cn/beginner/images/app2.png)
 
 ### Application Experience
 
-Finally, the custom network model `mobilenet_v2_1.0_224.ms` trained above is deployed to the Android phone side to experience the recognition function of dog and croissants.
+Finally, the custom network model `mobilenet_v2_1.0_224.ms` trained above is deployed to the Android mobile phone to experience the recognition function of dogs and croissants.
 
 #### Customizing the Model Label Files
 
-Customizing model deployment requires the following format to define the information for the network model, that is, customizing the label files, and creating a json format label file that must be named after `custom.json` on the local computer side.
+To deploy a custom model, you need to define the information required by the network model in the following format, that is, customize a label file, and create a label file in JSON format named `custom.json` on the local computer.
 
 ```text
-"title": 'dog and croissants',
-"file": 'mobilenet_v2_1.0_224.ms',
-"label": ['croissants', 'dag']
+{
+    "title": 'dog and croissants',
+    "file": 'mobilenet_v2_1.0_224.ms',
+    "label": ['croissants', 'dog']
+}
 ```
 
-The Json label file should contain three Key value fields of `title`, `file`, and `label`, the meaning of which is as follows:
+The JSON label file must contain the `title`, `file`, and `label` key fields, which are described as follows:
 
-- title: customize the module titles (dog and croissants);
-- file: the name of the model file converted above; and
-- label: `array` information for customizing the label.
+- title: custom module titles (dog and croissants).
+- file: the name of the model file converted above.
+- label: `array` information about the custom label.
 
-#### Labels and Model Files Deployed to the Phone
+#### Labels and Model Files Deployed to Mobile Phones
 
-By pressing the `classification` button on the home page of the `MindSpore Vision APK`, you can enter the customization classification mode and select the tags and model files that need to be deployed.
+On the home page of the `MindSpore Vision APK`, hold down the `classification` button to enter the custom classification mode and select the labels and model files to be deployed.
 
-In order to achieve the recognition function of the mobile phone between dog and croissants, the label file `custom.json` file and the model file `mobilenet_v2_1.0_224.ms` should be placed together in the specified directory on the mobile phone. Here to take the `Android/data/Download/` folder as an example, you need to put the tag file and the model file at the same time in the above mobile phone directory  first, as shown in the figure, then click the customize button, and the system file function will pop up. You can click the open file in the upper left corner, and then find the directory address where the Json tag file and the model file are stored, and select the corresponding Json file.
+To implement the identification function of the dogs and croissants on the mobile phone, you need to place the label file `custom.json` and model file `mobilenet_v2_1.0_224.ms` to the specified directory on the mobile phone. The `Android/data/Download/` folder is used as an example. Place the label file and model file in the preceding mobile phone address, as shown in the following figure. Click the custom button. The system file function is displayed. Click icon in the upper left corner and find the directory where the JSON label file and model file are stored, and select the corresponding JSON file.
 
 ![step](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/tutorials/source_zh_cn/beginner/images/app3.png)
 
-After the label and model file are deployed to the mobile phone, you can click the middle button to take a picture to get the picture, or click the image button in the upper sidebar to select the picture album for the image, and you can classify the dog and the croissants.
+After the label and model file are deployed on the mobile phone, you can click the middle button to take photos and obtain images, or click the image button on the upper side bar to select an image album for images. In this way, the dogs and croissants can be classified and identified.
 
 ![result1](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/tutorials/source_zh_cn/beginner/images/app4.png)
 
-> This chapter only covers the simple deployment process on the phone side. For more information about inference, please refer to [MindSpore Lite](https://www.mindspore.cn/lite/docs/en/r1.7/index.html).
-
-
-
-
-
-
-
+> This chapter only covers the simple deployment process on the mobile phone. For more information about inference, please refer to [MindSpore Lite](https://www.mindspore.cn/lite/docs/en/r1.7/index.html).

@@ -1,8 +1,8 @@
-# Installing MindSpore CPU by Conda (macOS)
+# Installing MindSpore CPU by Conda-macOS
 
 <!-- TOC -->
 
-- [Installing MindSpore CPU by Conda (macOS)](#installing-mindspore-cpu-by-conda-macos)
+- [Installing MindSpore CPU by Conda-macOS](#installing-mindspore-cpu-by-conda-macos)
     - [System Environment Information Confirmation](#system-environment-information-confirmation)
     - [Creating and Accessing the Conda Virtual Environment](#creating-and-accessing-the-conda-virtual-environment)
     - [Installing MindSpore](#installing-mindspore)

@@ -114,6 +114,8 @@ exclude_patterns = []
 
 pygments_style = 'sphinx'
 
+html_static_path = ['_static']
+
 autodoc_inherit_docstrings = False
 
 autosummary_generate = True
@@ -124,6 +126,14 @@ autosummary_generate = True
 # a list of builtin themes.
 #
 html_theme = 'sphinx_rtd_theme'
+
+import sphinx_rtd_theme
+import shutil
+layout_target = os.path.join(os.path.dirname(sphinx_rtd_theme.__file__), 'layout.html')
+layout_src = '../../../resource/_static/layout.html'
+if os.path.exists(layout_target):
+    os.remove(layout_target)
+shutil.copy(layout_src, layout_target)
 
 html_search_language = 'zh'
 
@@ -161,7 +171,6 @@ sys.path.append(os.path.abspath('../../../resource/search'))
 import search_code
 
 # Copy source files of chinese python api from mindspore repository.
-import shutil
 from sphinx.util import logging
 logger = logging.getLogger(__name__)
 
@@ -192,7 +201,9 @@ def setup(app):
     app.add_directive('mscnnoteautosummary', MsCnNoteAutoSummary)
     app.add_config_value('rst_files', set(), False)
     app.add_directive('includecode', IncludeCodeDirective)
-
+    app.add_stylesheet('css/bootstrap.min.css')
+    app.add_stylesheet('css/training.css')
+    app.add_javascript('js/training.js')
 
 # Convert encoding for api files.
 import chardet

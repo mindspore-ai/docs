@@ -3,16 +3,16 @@
 <!-- TOC -->
 
 - [Installing MindSpore in Ascend 910 by Source Code](#installing-mindspore-in-ascend-910-by-source-code)
-    - [Environment Preparation (automatic, recommended)](#environment-preparation-automatic-recommended)
-    - [Environment Preparation (manual)](#environment-preparation-manual)
+    - [Environment Preparation-automatic recommended](#environment-preparation-automatic-recommended)
+    - [Environment Preparation-manual](#environment-preparation-manual)
         - [Installing Python](#installing-python)
         - [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package)
         - [Installing wheel and setuptools](#installing-wheel-and-setuptools)
         - [Installing GCC](#installing-gcc)
-        - [Installing git, gmp, tclsh, patch, NUMA and Flex](#installing-git-gmp-tclsh-patch-numa-and-flex)
+        - [Installing git gmp tclsh patch NUMA and Flex](#installing-git-gmp-tclsh-patch-numa-and-flex)
         - [Installing git-lfs](#installing-git-lfs)
         - [Installing CMake](#installing-cmake)
-        - [Installing Open MPI (Optional)](#installing-open-mpi-optional)
+        - [Installing Open MPI-optional](#installing-open-mpi-optional)
     - [Downloading the Source Code from the Code Repository](#downloading-the-source-code-from-the-code-repository)
     - [Compiling MindSpore](#compiling-mindspore)
     - [Installing MindSpore](#installing-mindspore)
@@ -26,11 +26,11 @@
 
 This document describes how to quickly install MindSpore in a Linux system with an Ascend 910 environment by source code compilation.
 
-- If you want to configure an environment that can compile MindSpore on an EulerOS 2.8 with Ascend AI processor software package installed, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/r1.7/scripts/install/euleros-ascend-source.sh) for one-click configuration, see [Environment Preparation (automatic, recommended)](#environment-preparation-automatic-recommended) section. The automatic installation script will install the dependencies required to compile MindSpore.
+- If you want to configure an environment that can compile MindSpore on an EulerOS 2.8 with Ascend AI processor software package installed, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/r1.7/scripts/install/euleros-ascend-source.sh) for one-click configuration, see [Environment Preparation-automatic, recommended](#environment-preparation-automatic-recommended) section. The automatic installation script will install the dependencies required to compile MindSpore.
 
-- If some dependencies, such as Python and GCC, have been installed in your system, it is recommended to install manually by referring to the installation steps in the [Environment Preparation (manual)](#environment-preparation-manual) section.
+- If your system is Ubuntu 18.04/CentOS 7.6/OpenEuler 20.03/KylinV10 SP1, or some dependencies, such as Python and GCC, have been installed in your system, it is recommended to install manually by referring to the installation steps in the [Environment Preparation-manual](#environment-preparation-manual) section.
 
-## Environment Preparation (automatic, recommended)
+## Environment Preparation-automatic recommended
 
 Before running the automatic installation script, you need to make sure that the Ascend AI processor software package is correctly installed on your system. If it is not installed, please refer to the section [Installing Ascend AI processor software package](#installing-ascend-ai-processor-software-package) to install it.
 
@@ -70,7 +70,7 @@ Now you can jump to the [Downloading the Source Code from the Code Repository](#
 
 For more usage, see the script header description.
 
-## Environment Preparation (manual)
+## Environment Preparation-manual
 
 The following table lists the system environment and third-party dependencies required for building and installing MindSpore.
 
@@ -180,7 +180,7 @@ pip install -U setuptools
     sudo yum install gcc -y
     ```
 
-### Installing git, gmp, tclsh, patch, NUMA and Flex
+### Installing git gmp tclsh patch NUMA and Flex
 
 - On Ubuntu 18.04, run the following commands to install.
 
@@ -267,7 +267,7 @@ pip install -U setuptools
     source ~/.bashrc
     ```
 
-### Installing Open MPI (optional)
+### Installing Open MPI-optional
 
 Run the following command to compile and install [Open MPI](https://www.open-mpi.org/).
 

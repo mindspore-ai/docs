@@ -3,17 +3,17 @@
 <!-- TOC -->
 
 - [Installing MindSpore in GPU by Source Code](#installing-mindspore-in-gpu-by-source-code)
-    - [Environment Preparation (automatic, recommended)](#environment-preparation-automatic-recommended)
-    - [Environment Preparation (manual)](#environment-preparation-manual)
+    - [Environment Preparation-automatic recommended](#environment-preparation-automatic-recommended)
+    - [Environment Preparation-manual](#environment-preparation-manual)
         - [Installing CUDA](#installing-cuda)
         - [Installing cuDNN](#installing-cudnn)
         - [Installing Python](#installing-python)
         - [Installing wheel and setuptools](#installing-wheel-and-setuptools)
-        - [Installing GCC, git and other dependencies](#installing-gcc-git-and-other-dependencies)
+        - [Installing GCC git and other dependencies](#installing-gcc-git-and-other-dependencies)
         - [Installing CMake](#installing-cmake)
-        - [Installing Open MPI (optional)](#installing-open-mpi-optional)
-        - [Installing LLVM (optional)](#installing-llvm-optional)
-        - [Installing TensorRT (optional)](#installing-tensorrt-optional)
+        - [Installing Open MPI-optional](#installing-open-mpi-optional)
+        - [Installing LLVM-optional](#installing-llvm-optional)
+        - [Installing TensorRT-optional](#installing-tensorrt-optional)
     - [Downloading the Source Code from the Code Repository](#downloading-the-source-code-from-the-code-repository)
     - [Compiling MindSpore](#compiling-mindspore)
     - [Installing MindSpore](#installing-mindspore)
@@ -26,11 +26,11 @@
 
 This document describes how to quickly install MindSpore by source code in a Linux system with a GPU environment. The following takes Ubuntu 18.04 as an example to describe how to install MindSpore.
 
-- If you want to configure an environment that can compile MindSpore on a fresh Ubuntu 18.04 with a GPU environment, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/r1.7/scripts/install/ubuntu-gpu-source.sh) for one-click configuration, see [Environment Preparation (automatic, recommended)](#environment-preparation-automatic-recommended) section. The automatic installation script will install the dependencies required to compile MindSpore.
+- If you want to configure an environment that can compile MindSpore on a fresh Ubuntu 18.04 with a GPU environment, you may use [automatic installation script](https://gitee.com/mindspore/mindspore/raw/r1.7/scripts/install/ubuntu-gpu-source.sh) for one-click configuration, see [Environment Preparation-automatic, recommended](#environment-preparation-automatic-recommended) section. The automatic installation script will install the dependencies required to compile MindSpore.
 
-- If some dependencies, such as CUDA, Python and GCC, have been installed in your system, it is recommended to install manually by referring to the installation steps in the [Environment Preparation (manual)](#environment-preparation-manual) section.
+- If some dependencies, such as CUDA, Python and GCC, have been installed in your system, it is recommended to install manually by referring to the installation steps in the [Environment Preparation-manual](#environment-preparation-manual) section.
 
-## Environment Preparation (automatic, recommended)
+## Environment Preparation-automatic recommended
 
 Before using the automatic installation script, you need to make sure that the NVIDIA GPU driver is correctly installed on the system. The minimum required GPU driver version of CUDA 10.1 is 418.39. The minimum required GPU driver version of CUDA 11.1 is 450.80.02. Execute the following command to check the driver version.
 
@@ -71,7 +71,7 @@ After the automatic installation script is executed, you need to reopen the term
 
 For more usage, see the script header description.
 
-## Environment Preparation (manual)
+## Environment Preparation-manual
 
 The following table lists the system environment and third-party dependencies required to compile and install MindSpore GPU.
 
@@ -204,7 +204,7 @@ pip install wheel
 pip install -U setuptools
 ```
 
-### Installing GCC, git and other dependencies
+### Installing GCC git and other dependencies
 
 Run the following commands to install GCC, git, Autoconf, Libtool, Automake, gmp, Flex, tclsh, patch and NUMA.
 
@@ -237,7 +237,7 @@ sudo apt-add-repository "deb https://apt.kitware.com/ubuntu/ $(lsb_release -cs) 
 sudo apt-get install cmake -y
 ```
 
-### Installing Open MPI (optional)
+### Installing Open MPI-optional
 
 Run the following commands to install [Open MPI](https://www.open-mpi.org/).
 
@@ -254,7 +254,7 @@ source ~/.bashrc
 cd -
 ```
 
-### Installing LLVM (optional)
+### Installing LLVM-optional
 
 Run the following commands to install [LLVM](https://llvm.org/).
 
@@ -265,7 +265,7 @@ sudo apt-get update
 sudo apt-get install llvm-12-dev -y
 ```
 
-### Installing TensorRT (optional)
+### Installing TensorRT-optional
 
 After completing the installation of CUDA and cuDNN, download TensorRT 7.2.2 for CUDA 11.1 from [TensorRT download page](https://developer.nvidia.com/nvidia-tensorrt-7x-download), and note to download installation package in TAR format. Suppose the downloaded file is named `TensorRT-7.2.2.3.Ubuntu-18.04.x86_64-gnu.cuda-11.1.cudnn8.0.tar.gz`. Install TensorRT with the following command.
 

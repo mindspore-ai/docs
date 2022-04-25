@@ -187,7 +187,7 @@ ds.GeneratorDataset(..., num_shards=8, shard_id=7, ...)
 A: 数据Schema可以按如下方式定义: `cv_schema_json = {"label": {"type": "int32", "shape": [-1]}, "data": {"type": "bytes"}}`
 
 说明: label是一个数组，numpy类型，这里面可以存 1， 1，0，1， 0， 1 这么多label值，这些label值对应同一个data，即: 同一个图像的二进制值。
-可以参考[将数据集转换为MindRecord](https://www.mindspore.cn/tutorials/zh-CN/r1.7/advanced/dataset/record.html#将数据集转换为MindRecord)教程。
+可以参考[将数据集转换为MindRecord](https://www.mindspore.cn/tutorials/zh-CN/r1.7/advanced/dataset/record.html#转换成record格式)教程。
 
 <br/>
 
@@ -233,7 +233,7 @@ A: 首先上述报错指的是通过训练数据下发通道（TDT，train data 
 
 <font size=3>**Q: py_transforms 和 c_transforms 算子能否混合使用，如果混合使用具体需要怎么使用？**</font>
 
-A: 出于高性能考虑，通常不建议将py_transforms 与 c_transforms算子混合使用，[文档](https://www.mindspore.cn/tutorials/zh-CN/r1.7/advanced/dataset.html#使用注意事项)也对此进行了说明。但若不追求极致的性能，主要考虑打通流程，在无法全部使用c_transforms算子（缺少对应的c_transforms算子）的情况下，可使用py_transforms算子替代，此时即存在混合使用。
+A: 出于高性能考虑，通常不建议将py_transforms 与 c_transforms算子混合使用，[文档](https://www.mindspore.cn/tutorials/zh-CN/r1.7/advanced/dataset/enhanced_image_data.html#注意事项)也对此进行了说明。但若不追求极致的性能，主要考虑打通流程，在无法全部使用c_transforms算子（缺少对应的c_transforms算子）的情况下，可使用py_transforms算子替代，此时即存在混合使用。
 对此我们需要注意c_transforms 算子的输出通常是numpy array，py_transforms算子的输出是PIL Image，具体可查看算子说明，为此通常的混合使用方法为：
 
 - c_transforms 算子 + ToPIL 算子 + py_transforms 算子 + ToTensor算子
@@ -278,7 +278,7 @@ A: 上述错误通常是脚本书写错误导致，具体发生在下面这种�
 
 <font size=3>**Q: MindSpore中和Dataloader对应的算子是什么？**</font>
 
-A：如果将Dataloader考虑为接收自定义Dataset的API接口，MindSpore数据处理API中和Dataloader较为相似的是GeneratorDataset，可接收用户自定义的Dataset，具体使用方式参考[GeneratorDataset 文档](https://www.mindspore.cn/tutorials/zh-CN/r1.7/advanced/dataset.html#自定义数据集加载)，差异对比也可查看[API算子映射表](https://www.mindspore.cn/docs/zh-CN/r1.7/note/api_mapping/pytorch_api_mapping.html)。
+A：如果将Dataloader考虑为接收自定义Dataset的API接口，MindSpore数据处理API中和Dataloader较为相似的是GeneratorDataset，可接收用户自定义的Dataset，具体使用方式参考[GeneratorDataset 文档](https://www.mindspore.cn/tutorials/zh-CN/r1.7/advanced/dataset/custom.html)，差异对比也可查看[API算子映射表](https://www.mindspore.cn/docs/zh-CN/r1.7/note/api_mapping/pytorch_api_mapping.html)。
 
 <br/>
 
@@ -364,3 +364,48 @@ A：传入GeneratorDataset的自定义Dataset，在接口内部（如`__getitem_
 <font size=3>**Q: 在使用`Dataset`处理数据过程中，报错`RuntimeError: can't start new thread`，怎么解决？**</font>
 
 A: 主要原因是在使用`**Dataset`、`.map(...)`和`.batch(...)`时，参数`num_parallel_workers`配置过大，用户进程数达到最大，可以通过`ulimit -u 最大进程数`来增加用户最大进程数范围，或者将`num_parallel_workers`配置减小。
+
+<font size=3>**Q: 在使用`GeneratorDataset`加载数据时，报错`RuntimeError: Failed to copy data into tensor.`，怎么解决？**</font>
+
+A: 在使用`GeneratorDataset`加载Pyfunc返回的Numpy array时，MindSpore框架将执行Numpy array到MindSpre Tensor的转换，假设Numpy array所指向的内存被释放，可能会发生内存拷贝的错误。举例如下：
+
+- 在`__getitem__`函数中执行Numpy array - MindSpore Tensor - Numpy array的就地转换。其中Tensor `tensor`和Numpy array `ndarray_1`共享同一块内存，Tensor `tensor`在`__getitem__`函数退出时超出作用域，其所指向的内存将被释放。
+
+    ```python
+    class RandomAccessDataset:
+        def __init__(self):
+            pass
+
+        def __getitem__(self, item):
+            ndarray = np.zeros((544, 1056, 3))
+            tensor = Tensor.from_numpy(ndarray)
+            ndarray_1 = tensor.asnumpy()
+            return ndarray_1
+
+        def __len__(self):
+            return 8
+
+    data1 = ds.GeneratorDataset(RandomAccessDataset(), ["data"])
+    ```
+
+- 忽略上面例子中的循环转换，在`__getitem__`函数退出时，Tensor对象`tensor`被释放，和其共享同一块内存的Numpy array对象`ndarray_1`变成未知状态，为了规避此问题可以直接使用`deepcopy`函数为将返回的Numpy array对象`ndarray_2`申请独立的内存。
+
+    ```python
+    class RandomAccessDataset:
+        def __init__(self):
+            pass
+
+        def __getitem__(self, item):
+            ndarray = np.zeros((544, 1056, 3))
+            tensor = Tensor.from_numpy(ndarray)
+            ndarray_1 = tensor.asnumpy()
+            ndarray_2 = copy.deepcopy(ndarray_1)
+            return ndarray_2
+
+        def __len__(self):
+            return 8
+
+    data1 = ds.GeneratorDataset(RandomAccessDataset(), ["data"])
+    ```
+
+<br/>

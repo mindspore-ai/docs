@@ -27,14 +27,15 @@ button.doc-btn{
 }
 .doc-article-list{
     margin-top: 1.1rem;
+    box-shadow:  0 0 30px 2px rgba(199,196,196,0.50);
+    border-radius: 0.5rem
 }
 .doc-article-item{
-    padding:2.5rem 2.5rem;
+    padding:1.8rem 2.5rem;
     margin-bottom: 1.3rem;
     border:1px solid #e5e5e5;
-    border-radius:0.5rem;
-    width: 1140px;
-    box-shadow:  0 0 30px 2px rgba(199,196,196,0.50)
+    border-radius: 0.5rem;
+    height: 150px;
 }
 .doc-article-item a{
     display:block;

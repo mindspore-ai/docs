@@ -1,8 +1,6 @@
 # Building Custom Operators Online
 
-`Windows` `Linux` `Android` `C++` `Inference Application` `Expert`
-
-<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/lite/docs/source_en/use/register_kernel.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/lite/docs/source_en/use/register_kernel.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png"></a>
 
 ## Implementing Custom Operators
 
@@ -79,7 +77,7 @@ int TestCustomAdd::Execute() {
 
 #### Registering Common Operators
 
-Currently, the generated macro [REGISTER_KERNEL](https://www.mindspore.cn/lite/api/en/r1.7/api_cpp/mindspore_registry.html#register-kernel) is provided for operator registration. The implementation procedure is as follows:
+Currently, the generated macro [REGISTER_KERNEL](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_registry_RegisterKernel.html) is provided for operator registration. The implementation procedure is as follows:
 
 1. The TestCustomAddCreator function is used to create a kernel.
 2. Use the macro REGISTER_KERNEL to register the kernel. Assume that the vendor is BuiltInTest.
@@ -101,7 +99,7 @@ REGISTER_KERNEL(CPU, BuiltInTest, kFloat32, PrimitiveType_AddFusion, TestCustomA
 
 Reload the Infer function after inheriting KernelInterface to implement the InferShape capability. The implementation procedure is as follows:
 
-1. Inherit [KernelInterface](https://www.mindspore.cn/lite/api/en/r1.7/api_cpp/mindspore_kernel.html#kernelinterface).
+1. Inherit [KernelInterface](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_kernel_KernelInterface.html).
 2. Overload the Infer function to derive the shape, format, and data_type of the output tensor.
 
 The following uses the custom Add operator as an example:
@@ -125,7 +123,7 @@ class TestCustomAddInfer : public KernelInterface {
 
 #### Registering the Common Operator InferShape
 
-Currently, the generated macro [REGISTER_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/en/r1.7/api_cpp/mindspore_registry.html#register-kernel-interface) is provided for registering the operator InferShape. The procedure is as follows:
+Currently, the generated macro [REGISTER_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_registry_RegisterKernelInterface.html) is provided for registering the operator InferShape. The procedure is as follows:
 
 1. Use the CustomAddInferCreator function to create a KernelInterface instance.
 2. Call the REGISTER_KERNEL_INTERFACE macro to register the common operator InferShape. Assume that the vendor is BuiltInTest.
@@ -323,7 +321,7 @@ REGISTER_CUSTOM_KERNEL(CPU, BuiltInTest, kFloat32, Add, TestCustomAddCreator)
 
 The overall implementation is the same as that of the common operator InferShape. The procedure is as follows:
 
-1. Inherit [KernelInterface](https://www.mindspore.cn/lite/api/en/r1.7/api_cpp/mindspore_kernel.html#kernelinterface).
+1. Inherit [KernelInterface](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_kernel_KernelInterface.html).
 2. Overload the Infer function to derive the shape, format, and data_type of the output tensor.
 
 ```cpp
@@ -343,10 +341,10 @@ class TestCustomOpInfer : public KernelInterface {
 
 #### Registering the Custom Operator InferShape
 
-Currently, the generated macro [REGISTER_CUSTOM_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/en/r1.7/api_cpp/mindspore_registry.html#register-custom-kernel-interface) is provided for registering the custom operator InferShape. The procedure is as follows:
+Currently, the generated macro [REGISTER_CUSTOM_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/en/r1.7/generate/define_register_kernel_interface.h_REGISTER_CUSTOM_KERNEL_INTERFACE-1.html) is provided for registering the custom operator InferShape. The procedure is as follows:
 
 1. Use the CustomAddInferCreator function to create a custom KernelInterface.
-2. The macro [REGISTER_CUSTOM_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/en/r1.7/api_cpp/mindspore_registry.html#register-custom-kernel-interface) is provided for registering the InferShape capability. The operator type Add must be the same as that in REGISTER_CUSTOM_KERNEL.
+2. The macro [REGISTER_CUSTOM_KERNEL_INTERFACE](https://www.mindspore.cn/lite/api/en/r1.7/generate/define_register_kernel_interface.h_REGISTER_CUSTOM_KERNEL_INTERFACE-1.html) is provided for registering the InferShape capability. The operator type Add must be the same as that in REGISTER_CUSTOM_KERNEL.
 
 ```cpp
 std::shared_ptr<KernelInterface> CustomAddInferCreator() { return std::make_shared<TestCustomOpInfer>(); }

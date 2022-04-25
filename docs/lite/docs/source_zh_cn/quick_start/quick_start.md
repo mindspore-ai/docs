@@ -1,7 +1,5 @@
 # 基于JNI接口的Android应用开发
 
-`Android` `C++` `全流程` `模型转换` `模型加载` `推理应用` `数据准备` `初级` `中级` `高级`
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/lite/docs/source_zh_cn/quick_start/quick_start.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source.png"></a>
 
 ## 概述
@@ -30,7 +28,7 @@ MindSpore团队提供了一系列预置终端模型，你可以在应用程序�
 
 ## 转换模型
 
-如果预置模型已经满足你要求，请跳过本章节。 如果你需要对MindSpore提供的模型进行重训，重训完成后，需要将模型导出为[.mindir格式](https://www.mindspore.cn/tutorials/zh-CN/r1.7/advanced/train/save.html#mindir)。然后使用MindSpore Lite[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/converter_tool.html)将.mindir格式转换成.ms格式。
+如果预置模型已经满足你要求，请跳过本章节。 如果你需要对MindSpore提供的模型进行重训，重训完成后，需要将模型导出为[.mindir格式](https://www.mindspore.cn/tutorials/zh-CN/r1.7/advanced/train/save.html#导出mindir格式文件)。然后使用MindSpore Lite[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/converter_tool.html)将.mindir格式转换成.ms格式。
 
 以mobilenetv2模型为例，如下脚本将其转换为MindSpore Lite模型用于端侧推理。
 

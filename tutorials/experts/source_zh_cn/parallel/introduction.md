@@ -1,5 +1,7 @@
 # 分布式并行总览
 
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/tutorials/experts/source_zh_cn/parallel/introduction.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source.png"></a>
+
 在深度学习中，当数据集和参数量的规模越来越大，训练所需的时间和硬件资源会随之增加，最后会变成制约训练的瓶颈。分布式并行训练，可以降低对内存、计算性能等硬件的需求，是进行训练的重要优化手段。根据并行的原理及模式不同，业界主流的并行类型有以下几种：
 
 - 数据并行（Data Parallel）：对数据进行切分的并行模式，一般按照batch维度切分，将数据分配到各个计算单元（worker）中，进行模型计算。
@@ -63,7 +65,7 @@ context.set_auto_parallel_context(parallel_mode=context.ParallelMode.DATA_PARALL
 
 ### 数据并行
 
-在数据并行中，用户定义网络的方式和单机脚本一样，但是在网络定义之前调用[init()](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.communication.html?highlight=init#mindspore.communication.init)去初始化设备通信状态。
+在数据并行中，用户定义网络的方式和单机脚本一样，但是在网络定义之前调用[init()](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.communication.html#mindspore.communication.init)去初始化设备通信状态。
 
 ```python
 import numpy as np
@@ -150,7 +152,7 @@ model.train(*args, **kwargs)
     model.train(*args, **kwargs)
     ```
 
-在前后算子的设备矩阵不一致时，会自动插入[重排布](https://www.mindspore.cn/docs/zh-CN/r1.7/design/distributed_training_design.html?highlight=%E9%87%8D%E6%8E%92%E5%B8%83#id4), 确保`tensor`的切分状态符合下一个算子输入要求。例如在单机八卡的训练中，有下述的示例代码：
+在前后算子的设备矩阵不一致时，会自动插入[重排布](https://www.mindspore.cn/docs/zh-CN/r1.7/design/distributed_training_design.html#自动并行), 确保`tensor`的切分状态符合下一个算子输入要求。例如在单机八卡的训练中，有下述的示例代码：
 
 ```python
 import numpy as np

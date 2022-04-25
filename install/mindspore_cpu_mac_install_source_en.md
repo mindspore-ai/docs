@@ -1,8 +1,8 @@
-# Installing MindSpore in CPU by Source Code (macOS)
+# Installing MindSpore in CPU by Source Code-macOS
 
 <!-- TOC -->
 
-- [Installing MindSpore in CPU by Source Code (macOS)](#installing-mindspore-in-cpu-by-source-code-macos)
+- [Installing MindSpore in CPU by Source Code-macOS](#installing-mindspore-in-cpu-by-source-code-macos)
     - [System Environment Information Confirmation](#system-environment-information-confirmation)
     - [Downloading Source Code from Code Repository](#downloading-source-code-from-code-repository)
     - [Compiling MindSpore](#compiling-mindspore)

@@ -1,7 +1,5 @@
 ﻿# Usage Description of the Integrated NNIE
 
-`NNIE` `Linux` `Environment Preparation` `Intermediate` `Expert`
-
 <a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/lite/docs/source_en/use/nnie.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png"></a>
 
 ## Directory Structures
@@ -353,7 +351,7 @@ During model conversion, the `nnie.cfg` file declared by the NNIE_CONFIG_PATH en
 
 ### Multi-image Batch Running and Multi-step Running
 
-  If you need to infer multiple input data (multiple images) at the same time, you can resize the first dimension of the model input to the quantity of input data by referring to [Resizing the Input Dimension](https://www.mindspore.cn/lite/docs/en/r1.7/use/runtime_cpp.html#resize). In the NNIE model, only the first dimension ('n' dimension) can be resized, and other dimensions ('hwc') cannot be resized.
+  If you need to infer multiple input data (multiple images) at the same time, you can resize the first dimension of the model input to the quantity of input data by referring to [Resizing the Input Dimension](https://www.mindspore.cn/lite/docs/en/r1.7/use/runtime_cpp.html#resizing-the-input-dimension_). In the NNIE model, only the first dimension ('n' dimension) can be resized, and other dimensions ('hwc') cannot be resized.
 
   For the loop or LSTM network, you need to configure the TIME_STEP environment variable based on the step value and resize the model input.
   Assume that the number of data records for forward inference at a time is `input_num`. The resize value of the input node of sequence data is `input_num x step`, and the resize value of the input node of non-sequence data is `input_num`.
