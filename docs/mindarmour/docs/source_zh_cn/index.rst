@@ -95,3 +95,10 @@ AI作为一种通用技术，在带来巨大机遇和效益的同时也面临着
    fuzzer_design
    security_and_privacy
    faq
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: RELEASE NOTES
+
+   RELEASE

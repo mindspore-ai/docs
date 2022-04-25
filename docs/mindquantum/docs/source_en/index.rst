@@ -69,3 +69,10 @@ Typical Application Scenarios
    mindquantum.io
    mindquantum.engine
    mindquantum.utils
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: RELEASE NOTES
+
+   RELEASE

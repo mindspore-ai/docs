@@ -72,3 +72,10 @@ MindQuantum是基于昇思MindSpore开源深度学习框架和HiQ量子计算云
    mindquantum.io
    mindquantum.engine
    mindquantum.utils
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: RELEASE NOTES
+
+   RELEASE
