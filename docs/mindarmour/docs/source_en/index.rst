@@ -94,3 +94,10 @@ Typical Application Scenarios
    fuzzer_design
    security_and_privacy
    faq
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: RELEASE NOTES
+
+   RELEASE

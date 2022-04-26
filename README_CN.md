@@ -104,6 +104,51 @@ MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/ma
 >   ```
 >
 >   其中`{MI_REPO PATH}`为克隆的`mindinsight`仓路径。
+>
+> - 构建MindArmour的API时，由于需要使用到一些`mindarmour`仓的资源文件，先克隆`mindarmour`仓，并加入环境变量`MA_PATH`：
+>
+>   ```bash
+>   git clone https://gitee.com/mindspore/mindarmour.git {MA_REPO PATH}
+>   export MA_PATH={MA_REPO PATH}
+>   ```
+>
+>   其中`{MA_REPO PATH}`为克隆的`mindarmour`仓路径。
+>
+> - 构建MindQuantum的API时，由于需要使用到一些`mindquantum`仓的资源文件，先克隆`mindquantum`仓，并加入环境变量`MQ_PATH`：
+>
+>   ```bash
+>   git clone https://gitee.com/mindspore/mindquantum.git {MQ_REPO PATH}
+>   export MQ_PATH={MQ_REPO PATH}
+>   ```
+>
+>   其中`{MQ_REPO PATH}`为克隆的`mindquantum`仓路径。
+>
+> - 构建Reinforcement的API时，由于需要使用到一些`reinforcement`仓的资源文件，先克隆`reinforcement`仓，并加入环境变量`RM_PATH`：
+>
+>   ```bash
+>   git clone https://gitee.com/mindspore/reinforcement.git {RM_REPO PATH}
+>   export RM_PATH={RM_REPO PATH}
+>   ```
+>
+>   其中`{RM_REPO PATH}`为克隆的`reinforcement`仓路径。
+>
+> - 构建Serving的API时，由于需要使用到一些`serving`仓的资源文件，先克隆`serving`仓，并加入环境变量`SV_PATH`：
+>
+>   ```bash
+>   git clone https://gitee.com/mindspore/serving.git {SV_REPO PATH}
+>   export SV_PATH={SV_REPO PATH}
+>   ```
+>
+>   其中`{SV_REPO PATH}`为克隆的`serving`仓路径。
+>
+> - 构建Vision的API时，由于需要使用到一些`vision`仓的资源文件，先克隆`vision`仓，并加入环境变量`VS_PATH`：
+>
+>   ```bash
+>   git clone https://gitee.com/mindspore/vision.git {VS_REPO PATH}
+>   export VS_PATH={VS_REPO PATH}
+>   ```
+>
+>   其中`{VS_REPO PATH}`为克隆的`vision`仓路径。
 
 ## 版权
 

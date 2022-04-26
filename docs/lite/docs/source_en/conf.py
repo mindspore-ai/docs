@@ -13,7 +13,7 @@
 import os
 import shutil
 import sys
-
+import re
 
 # -- Project information -----------------------------------------------------
 
@@ -80,3 +80,13 @@ def setup(app):
 
 sys.path.append(os.path.abspath('../../../../resource/search'))
 import search_code
+
+src_release = os.path.join(os.getenv("MS_PATH"), 'RELEASE.md')
+des_release = "./RELEASE.md"
+with open(src_release, "r", encoding="utf-8") as f:
+    data = f.read()
+content = re.findall("(## [\s\S\n]*?)\n# ", data)
+result = content[0].replace('# MindSpore', '#', 1)
+with open(des_release, "w", encoding="utf-8") as p:
+    p.write("# Release Notes\n\n")
+    p.write(result)
