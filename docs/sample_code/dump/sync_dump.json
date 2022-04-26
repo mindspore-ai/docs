@@ -1,0 +1,16 @@
+{
+    "common_dump_settings": {
+        "dump_mode": 0,
+        "path": "/absolute_path",
+        "net_name": "Alexnet",
+        "iteration": "0",
+        "saved_data": "tensor",
+        "input_output": 2,
+        "kernels": [""],
+        "support_device": [0,1,2,3,4,5,6,7]
+    },
+    "e2e_dump_settings": {
+        "enable": true,
+        "trans_flag": true
+    }
+}

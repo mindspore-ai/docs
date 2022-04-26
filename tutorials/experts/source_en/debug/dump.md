@@ -233,50 +233,60 @@ Since sub-graphs share the same graph execution history with root graph, only ro
 
 ### Synchronous Dump Data Analysis Sample
 
-For the Ascend scene, after the graph corresponding to the script is saved to the disk through the Dump function, the final execution graph file `ms_output_trace_code_graph_{graph_id}.ir` will be generated. This file saves the stack information of each operator in the corresponding graph, and records the generation script corresponding to the operator.
+In order to better demonstrate the process of using dump to save and analyze data, we provide a set of [complete sample script] (https://gitee.com/mindspore/docs/tree/master/docs/sample_code/dump) , you only need to execute `bash dump_sync_dump.sh` for synchronous dump.
 
-Take [AlexNet script](https://gitee.com/mindspore/models/blob/master/official/cv/alexnet/src/alexnet.py) as an example:
+After the graph corresponding to the script is saved to the disk through the Dump function, the final execution graph file `ms_output_trace_code_graph_{graph_id}.ir` will be generated. This file saves the stack information of each operator in the corresponding graph, and records the generation script corresponding to the operator.
+
+Take [AlexNet script](https://gitee.com/mindspore/docs/blob/master/docs/sample_code) as an example:
 
 ```python
-import mindspore.nn as nn
-import mindspore.ops as ops
+...
+def conv(in_channels, out_channels, kernel_size, stride=1, padding=0, pad_mode="valid"):
+    weight = weight_variable()
+    return nn.Conv2d(in_channels, out_channels,
+                     kernel_size=kernel_size, stride=stride, padding=padding,
+                     weight_init=weight, has_bias=False, pad_mode=pad_mode)
 
 
-def conv(in_channels, out_channels, kernel_size, stride=1, padding=0, pad_mode="valid", has_bias=True):
-    return nn.Conv2d(in_channels, out_channels, kernel_size=kernel_size, stride=stride, padding=padding,
-                     has_bias=has_bias, pad_mode=pad_mode)
+def fc_with_initialize(input_channels, out_channels):
+    weight = weight_variable()
+    bias = weight_variable()
+    return nn.Dense(input_channels, out_channels, weight, bias)
 
 
-def fc_with_initialize(input_channels, out_channels, has_bias=True):
-    return nn.Dense(input_channels, out_channels, has_bias=has_bias)
+def weight_variable():
+    return TruncatedNormal(0.02)
 
 
 class AlexNet(nn.Cell):
     """
     Alexnet
     """
-    def __init__(self, num_classes=10, channel=3, phase='train', include_top=True):
+
+    def __init__(self, num_classes=10, channel=3):
         super(AlexNet, self).__init__()
-        self.conv1 = conv(channel, 64, 11, stride=4, pad_mode="same", has_bias=True)
-        self.conv2 = conv(64, 128, 5, pad_mode="same", has_bias=True)
-        self.conv3 = conv(128, 192, 3, pad_mode="same", has_bias=True)
-        self.conv4 = conv(192, 256, 3, pad_mode="same", has_bias=True)
-        self.conv5 = conv(256, 256, 3, pad_mode="same", has_bias=True)
-        self.relu = ops.ReLU()
-        self.max_pool2d = nn.MaxPool2d(kernel_size=3, stride=2, pad_mode="valid")
-        self.include_top = include_top
-        if self.include_top:
-            dropout_ratio = 0.65
-            if phase == 'test':
-                dropout_ratio = 1.0
-            self.flatten = nn.Flatten()
-            self.fc1 = fc_with_initialize(6 * 6 * 256, 4096)
-            self.fc2 = fc_with_initialize(4096, 4096)
-            self.fc3 = fc_with_initialize(4096, num_classes)
-            self.dropout = nn.Dropout(dropout_ratio)
+        self.conv1 = conv(channel, 96, 11, stride=4)
+        self.conv2 = conv(96, 256, 5, pad_mode="same")
+        self.conv3 = conv(256, 384, 3, pad_mode="same")
+        self.conv4 = conv(384, 384, 3, pad_mode="same")
+        self.conv5 = conv(384, 256, 3, pad_mode="same")
+        self.relu = nn.ReLU()
+        self.max_pool2d = ops.MaxPool(kernel_size=3, strides=2)
+        self.flatten = nn.Flatten()
+        self.fc1 = fc_with_initialize(6 * 6 * 256, 4096)
+        self.fc2 = fc_with_initialize(4096, 4096)
+        self.fc3 = fc_with_initialize(4096, num_classes)
 
     def construct(self, x):
-        """define network"""
+        """
+        The construct function.
+
+        Args:
+           x(int): Input of the network.
+
+        Returns:
+           Tensor, the output of the network.
+        """
         x = self.conv1(x)
         x = self.relu(x)
         x = self.max_pool2d(x)
@@ -290,44 +300,33 @@ class AlexNet(nn.Cell):
         x = self.conv5(x)
         x = self.relu(x)
         x = self.max_pool2d(x)
-        if not self.include_top:
-            return x
         x = self.flatten(x)
         x = self.fc1(x)
         x = self.relu(x)
-        x = self.dropout(x)
         x = self.fc2(x)
         x = self.relu(x)
-        x = self.dropout(x)
         x = self.fc3(x)
         return x
+...
 ```
 
-If the user wants to view the code at line 58 in the script:
+If the user wants to view the code at line 175 in the script:
 
 ```python
 x = self.conv3(x)
 ```
 
-After executing the network training, you can find multiple operator information corresponding to the line of code from the final execution graph (`ms_output_trace_code_graph_{graph_id}.ir` file). The content of the file is as follows:
+After executing the network training, you can find multiple operator information corresponding to the line of code from the final execution graph (`ms_output_trace_code_graph_{graph_id}.ir` file). The content of the file corresponding to Conv2D-op12 is as follows:
 
 ```text
-  %24(equivoutput) = Conv2D(%23, %21) {instance name: conv2d} primitive_attrs: {compile_info: , pri_format: NC1HWC0, stride: (1, 1, 1, 1), pad: (0, 0, 0, 0), pad_mod: same, out_channel:
-192, mode: 1, dilation: (1, 1, 1, 1), output_names: [output], group: 1, format: NCHW, offset_a: 0, kernel_size: (3, 3), groups: 1, input_names: [x, w], pad_list: (1, 1, 1, 1),
-IsFeatureMapOutput: true, IsFeatureMapInputList: (0)}
-       : (<Tensor[Float32]x[const vector][32, 128, 13, 13]>, <Tensor[Float16]x[const vector][192, 128, 3, 3]>) -> (<Tensor[Float16]x[const vector][32, 192, 13, 13]>)
-       : (<Float16xNC1HWC0[const vector][32, 8, 13, 13, 16]>, <Float16xFracZ[const vector][72, 12, 16, 16]>) -> (<Float16xNC1HWC0[const vector][32, 12, 13, 13, 16]>)
-       : (Default/network-WithLossCell/_backbone-AlexNet/conv3-Conv2d/Conv2D-op107)
+  %20(equivoutput) = Conv2D(%17, %19) {instance name: conv2d} primitive_attrs: {IsFeatureMapInputList: (0), kernel_size: (3, 3), mode: 1, out_channel: 384, input_names: [
+x, w],    pri_format: NC1HWC0, pad: (0, 0, 0, 0), visited: true, pad_mod: same, format: NCHW,  pad_list: (1, 1, 1, 1), precision_flag: reduce, groups: 1, output_used_num:
+(1), stream_id:     0, stride: (1, 1, 1, 1), group: 1, dilation: (1, 1, 1, 1), output_names: [output], IsFeatureMapOutput: true, ms_function_graph: true}
+       : (<Tensor[Float32], (32, 256, 13, 13)>, <Tensor[Float32], (384, 256, 3, 3)>) -> (<Tensor[Float32], (32, 384, 13, 13)>)
+       : (<Float16xNC1HWC0[const vector][32, 16, 13, 13, 16]>, <Float16xFracZ[const vector][144, 24, 16, 16]>) -> (<Float32xNC1HWC0[const vector][32, 24, 13, 13, 16]>)
+       : full_name_with_scope: (Default/network-WithLossCell/_backbone-AlexNet/conv3-Conv2d/Conv2D-op12)
        ...
-       # In file {Absolute path of model_zoo}/official/cv/alexnet/src/alexnet.py(58)/        x = self.conv3(x)/
-       ...
-  %25(equivoutput) = BiasAdd(%24, %22) {instance name: bias_add} primitive_attrs: {output_used_num: (1), input_names: [x, b], format: NCHW, compile_info: , output_names: [output],
-IsFeatureMapOutput: true, IsFeatureMapInputList: (0), pri_format: NC1HWC0}
-       : (<Tensor[Float16]x[const vector][32, 192, 13, 13]>) -> (<Tensor[Float16]x[const vector][192]>) -> (<Tensor[Float16]x[const vector][32, 192, 13, 13]>)
-       : (<Float16xNC1HWC0[const vector][32, 12, 13, 13, 16]>) -> (<Float16xDefaultFormat[const vector][192]>) -> (<Float16xNC1HWC0[const vector][32, 12, 13, 13, 16]>)
-       : (Default/network-WithLossCell/_backbone-AlexNet/conv3-Conv2d/BiasAdd-op105)
-       ...
-       # In file {Absolute path of model_zoo}/official/cv/alexnet/src/alexnet.py(58)/        x = self.conv3(x)/
+       # In file ./tain_alexnet.py(175)/        x = self.conv3(x)/
        ...
 ```
 
@@ -336,38 +335,38 @@ The meanings of the lines in the file content shown above are as follows:
 - The input and output of the operator on the Host side (the first line) and the Device side (the second line, some operators may not exist). It can be seen from the execution graph that the operator has two inputs (left side of the arrow) and one output (right side of the arrow).
 
     ```text
-    : (<Tensor[Float32]x[const vector][32, 128, 13, 13]>, <Tensor[Float16]x[const vector][192, 128, 3, 3]>) -> (<Tensor[Float16]x[const vector][32, 192, 13, 13]>)
-    : (<Float16xNC1HWC0[const vector][32, 8, 13, 13, 16]>, <Float16xFracZ[const vector][72, 12, 16, 16]>) -> (<Float16xNC1HWC0[const vector][32, 12, 13, 13, 16]>)
+       : (<Tensor[Float32], (32, 256, 13, 13)>, <Tensor[Float32], (384, 256, 3, 3)>) -> (<Tensor[Float32], (32, 384, 13, 13)>)
+       : (<Float16xNC1HWC0[const vector][32, 16, 13, 13, 16]>, <Float16xFracZ[const vector][144, 24, 16, 16]>) -> (<Float32xNC1HWC0[const vector][32, 24, 13, 13, 16]>)
     ```
 
-- Operator name. It can be seen from the execution graph that the full name of the operator in the final execution graph is `Default/network-WithLossCell/_backbone-AlexNet/conv3-Conv2d/Conv2D-op107`.
+- Operator name. It can be seen from the execution graph that the full name of the operator in the final execution graph is `Default/network-WithLossCell/_backbone-AlexNet/conv3-Conv2d/Conv2D-op12`.
 
     ```text
-    : (Default/network-WithLossCell/_backbone-AlexNet/conv3-Conv2d/Conv2D-op107)
+    : (Default/network-WithLossCell/_backbone-AlexNet/conv3-Conv2d/Conv2D-op12)
     ```
 
 - The training script code corresponding to the operator. By searching the training script code to be queried, multiple matching operators can be found.
 
     ```text
-    # In file {Absolute path of model_zoo}/official/cv/alexnet/src/alexnet.py(58)/        x = self.conv3(x)/
+    # In file {Absolute path of model_zoo}/official/cv/alexnet/src/alexnet.py(175)/        x = self.conv3(x)/
     ```
 
-Through the operator name and input and output information, you can find the only corresponding Tensor data file. For example, if you want to view the dump file corresponding to the first output data of the Conv2D-op107 operator, you can obtain the following information:
+Through the operator name and input and output information, you can find the only corresponding Tensor data file. For example, if you want to view the dump file corresponding to the first output data of the Conv2D-op12 operator, you can obtain the following information:
 
-- `operator_name`: `Conv2D-op107`.
+- `operator_name`: `Conv2D-op12`.
 
 - `input_output_index`: `output.0` indicates that the file is the data of the first output Tensor of the operator.
 
 - `slot`: 0, this tensor only has one slot.
 
 Search for the corresponding file name in the data object file directory saved by Dump:
-`Conv2d.Conv2D-op107.2.2.1623124369613540.output.0.DefaultFormat.npy`.
+`Conv2d.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.npy`.
 
 When restoring data, execute:
 
 ```python
 import numpy
-numpy.load("Conv2d.Conv2D-op107.2.2.1623124369613540.output.0.DefaultFormat.npy")
+numpy.load("Conv2d.Conv2D-op12.0.0.1623124369613540.output.0.DefaultFormat.npy")
 ```
 
 Restore the data as `numpy.array' format.
@@ -495,10 +494,10 @@ The data format on the Device side may be different from the definition in the c
 If the file is saved in `bin' format, the file naming format is:
 
 ```text
-{op_type}.{op_name}.{task_id}.{timestamp}
+{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}
 ```
 
-Take the Dump result of a simple network as an example: `Add.Default_Add-op1.2.161243956333802`, where `Add` is `{op_type}`, `Default_Add-op1` is `{op_name}`, and `2` is `{task_id' }`, `161243956333802` is `{timestamp}`.
+Take the Conv2D-op12 of AlexNet network as an example: `Conv2D.Default_network-WithLossCell__backbone-AlexNet_conv3-Conv2d_Conv2D-op12.2.7.161243956333802`, where `Conv2D` is `{op_type}`, `Default_network-WithLossCell__backbone-AlexNet_conv3-Conv2d_Conv2D-op12` is `{op_name}`, and `2` is `{task_id' }`, `7` is `{stream_id' }`, `161243956333802` is `{timestamp}`.
 
 If ".", "/", "\", and spaces appear in `op_type` and `op_name`, they will be converted to underscores.
 
@@ -513,7 +512,9 @@ The constant dump file, final execution graph file and execution order file nami
 
 ### Asynchronous Dump Data Analysis Sample
 
-Through the asynchronous Dump function, the data files generated by the operator asynchronous Dump can be obtained.
+In order to better demonstrate the process of using dump to save and analyze data, we provide a set of [complete sample script] (https://gitee.com/mindspore/docs/tree/master/docs/sample_code/dump) , you only need to execute `bash run_async_dump.sh` for asynchronous dump.
+
+Through the asynchronous Dump function, the data files generated by the operator asynchronous Dump can be obtained. If `file_format` in the Dump configure file is set to "npy", then the step 1, 2 in the follows steps can be skipped. If `file_format` is not set or set to "bin", the tensor files need to be converted to `.npy` format.
 
 1. Parse the dumped file using `msaccucmp.py` provied in the run package, the path where the `msaccucmp.py` file is located may be different on different environments You can find it through the find command:
 
@@ -529,18 +530,20 @@ Through the asynchronous Dump function, the data files generated by the operator
     python ${The  absolute path of msaccucmp.py} convert -d {file path of dump} -out {file path of output}
     ```
 
+    The {file path of dump} can be path to a single `.bin` file, or the folder that include the `.bin` files.
+
     Or you can use `msaccucmp.py` to convert the format of dump file. Please see <https://support.huawei.com/enterprise/en/doc/EDOC1100206689/130949fb/how-do-i-convert-the-format-of-a-dump-file>.
 
     For example, the data file generated by Dump is:
 
     ```text
-    BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491
+    Conv2D.Default_network-WithLossCell__backbone-AlexNet_conv3-Conv2d_Conv2D-op12.2.7.161243956333802
     ```
 
     Then execute:
 
     ```bash
-    python3.7.5 msaccucmp.py convert -d BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491 -out ./output -f NCHW -t npy
+    python3.7.5 msaccucmp.py convert -d /path/to/Conv2D.Default_network-WithLossCell__backbone-AlexNet_conv3-Conv2d_Conv2D-op12.2.7.161243956333802 -out ./output -f NCHW -t npy
     ```
 
     Then all input and output data of the operator can be generated under `./output`. Each data is saved as a file with the suffix of `.npy`, and the data format is `NCHW`.
@@ -548,31 +551,22 @@ Through the asynchronous Dump function, the data files generated by the operator
     The generated results are as follows:
 
     ```text
-    BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.input.0.30x1024x17x17.npy
-    BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.input.1.1x1024x1x1.npy
-    BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.input.2.1x1024x1x1.npy
-    BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.input.3.1x1024x1x1.npy
-    BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.input.4.1x1024x1x1.npy
-    BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.input.5.1x1024x1x1.npy
-    BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.input.6.1x1024x1x1.npy
-    BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.output.0.30x1024x17x17.npy
-    BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.output.1.1x1024x1x1.npy
-    BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.output.2.1x1024x1x1.npy
-    BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.output.3.1x1024x1x1.npy
-    BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.output.4.1x1024x1x1.npy
+    Conv2D.Default_network-WithLossCell__backbone-AlexNet_conv3-Conv2d_Conv2D-op12.2.7.161243956333802.input.0.32x256x13x13.npy
+    Conv2D.Default_network-WithLossCell__backbone-AlexNet_conv3-Conv2d_Conv2D-op12.2.7.161243956333802.input.1.384x256x3x3.npy
+    Conv2D.Default_network-WithLossCell__backbone-AlexNet_conv3-Conv2d_Conv2D-op12.2.7.161243956333802.output.0.32x384x13x13.npy
     ```
 
     At the end of the file name, you can see which input or output the file is the operator, and the dimensional information of the data. For example, by the first `.npy` file name
 
     ```text
-    BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.input.0.30x1024x17x17.npy
+    Conv2D.Default_network-WithLossCell__backbone-AlexNet_conv3-Conv2d_Conv2D-op12.2.7.161243956333802.input.0.32x256x13x13.npy
     ```
 
-    It can be seen that the file is the 0th input of the operator, and the dimension information of the data is `30x1024x17x17`.
+    It can be seen that the file is the 0th input of the operator, and the dimension information of the data is `32x256x13x13`.
 
 3. The corresponding data can be read through `numpy.load("file_name")`. For example:
 
     ```python
     import numpy
-    numpy.load("BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.input.0.30x1024x17x17.npy")
+    numpy.load("Conv2D.Default_network-WithLossCell__backbone-AlexNet_conv3-Conv2d_Conv2D-op12.2.7.161243956333802.input.0.32x256x13x13.npy")
     ```
