@@ -383,81 +383,76 @@ new_shapes.push_back(resize_shape);
 return model->Resize(inputs, new_shapes);
 ```
 
-### Model并行
+### Model并发推理
 
-MindSpore Lite支持多个[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)并行推理，每个Model的线程池和内存池都是独立的。但不支持多个线程同时调用单个Model的[Predict](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#predict)接口。
+MindSpore Lite提供多model并发推理接口[ModelParallelRunner](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#modelparallelrunner)实现多个model的并发推理，并发推理的多个model的内部线程池相互独立，常量权重相互共享，从而降低内存使用。多model并发推理现支持CPU、GPU后端。
 
-下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L470)演示如何并行执行推理多个Model的过程：
+> 快速了解MindSpore Lite执行并发推理的完整调用流程，请参考[体验C++极简并发推理Demo](https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/quick_start_server_inference_cpp.html)。
 
-```cpp
-int RunModelParallel(const char *model_path) {
-  size_t size = 0;
-  char *model_buf = ReadFile(model_path, &size);
-  if (model_buf == nullptr) {
-    std::cerr << "Read model file failed." << std::endl;
-    return -1;
-  }
+1. 创建配置项
 
-  // Create and Build MindSpore model.
-  auto model1 = CreateAndBuildModel(model_buf, size);
-  auto model2 = CreateAndBuildModel(model_buf, size);
-  delete[](model_buf);
-  if (model1 == nullptr || model2 == nullptr) {
-    std::cerr << "Create and build model failed." << std::endl;
-    return -1;
-  }
+    配置项[RunnerConfig](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#runnerconfig)会保存一些并发推理所需的基本配置参数，用于指导并发model数量以及模型编译和模型执行。
 
-  std::thread thread1([&]() {
-    auto generate_input_ret = GetInputsByTensorNameAndSetData(model1);
-    if (generate_input_ret != mindspore::kSuccess) {
-      std::cerr << "Model1 set input data error " << generate_input_ret << std::endl;
+    下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_server_inference_cpp/main.cc#L135)演示了如何创建RunnerConfig，并配置并发推理的worker数量。
+
+    ```cpp
+    // Init Context
+    auto context = std::make_shared<mindspore::Context>();
+    if (context == nullptr) {
+        std::cerr << "New context failed." << std::endl;
+    }
+    auto &device_list = context->MutableDeviceInfo();
+    auto cpu_device_info = std::make_shared<mindspore::CPUDeviceInfo>();
+    if (cpu_device_info == nullptr) {
+      std::cerr << "New CPUDeviceInfo failed." << std::endl;
+    }
+    // CPU use float16 operator as priority.
+    cpu_device_info->SetEnableFP16(true);
+    device_list.push_back(cpu_device_info);
+    // Init RunnerConfig
+    auto runner_config = std::make_shared<RunnerConfig>();
+    runner_config->context = context;
+    runner_config->workers_num = 2;
+    ```
+
+2. 初始化
+
+    使用MindSpore Lite执行并发推理时，ModelParallelRunner是并发推理的主入口，通过ModelParallelRunner可以初始化以及执行并发推理。采用上一步创建得到的RunnerConfig，调用ModelParallelRunner的Init接口来实现ModelParallelRunner的初始化。
+
+    下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_server_inference_cpp/main.cc#L162)演示了ModelParallelRunner的初始化过程：
+
+    ```cpp
+    auto build_ret = model_runner->Init(model_path, runner_config);
+    if (build_ret != mindspore::kSuccess) {
+      delete model_runner;
+      std::cerr << "Build model error " << build_ret << std::endl;
       return -1;
     }
+    ```
 
-    auto inputs = model1->GetInputs();
-    auto outputs = model1->GetOutputs();
-    auto predict_ret = model1->Predict(inputs, &outputs);
-    if (predict_ret != mindspore::kSuccess) {
-      std::cerr << "Model1 predict error " << predict_ret << std::endl;
-      return -1;
-    }
-    std::cout << "Model1 predict success" << std::endl;
-    return 0;
-  });
+3. 执行并发推理
 
-  std::thread thread2([&]() {
-    auto generate_input_ret = GetInputsByTensorNameAndSetData(model2);
-    if (generate_input_ret != mindspore::kSuccess) {
-      std::cerr << "Model2 set input data error " << generate_input_ret << std::endl;
-      return -1;
-    }
+    MindSpore Lite调用ModelParallelRunner的Predict接口进行模型并发推理。
 
-    auto inputs = model2->GetInputs();
-    auto outputs = model2->GetOutputs();
-    auto predict_ret = model2->Predict(inputs, &outputs);
-    if (predict_ret != mindspore::kSuccess) {
-      std::cerr << "Model2 predict error " << predict_ret << std::endl;
-      return -1;
-    }
-    std::cout << "Model2 predict success" << std::endl;
-    return 0;
-  });
+    下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_server_inference_cpp/main.cc#L187)演示调用`Predict`执行推理。
 
-  thread1.join();
-  thread2.join();
+    ```cpp
+      auto predict_ret = model_runner->Predict(inputs, &outputs);
+      if (predict_ret != mindspore::kSuccess) {
+        delete model_runner;
+        std::cerr << "Predict error " << predict_ret << std::endl;
+        return -1;
+      }
+    ```
 
-  // Get outputs data.
-  // You can also get output through other methods,
-  // and you can refer to GetOutputByTensorName() or GetOutputs().
-  GetOutputsByNodeName(model1);
-  GetOutputsByNodeName(model2);
+4. 释放内存
 
-  // Delete model.
-  delete model1;
-  delete model2;
-  return 0;
-}
-```
+    无需使用MindSpore Lite推理框架时，需要释放已经创建的ModelParallelRunner，下列[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_server_inference_cpp/main.cc#L207)演示如何在程序结束前进行内存释放。
+
+    ```cpp
+    // Delete ModelParallelRunner.
+    delete model_runner;
+    ```
 
 ### 混合精度运行
 

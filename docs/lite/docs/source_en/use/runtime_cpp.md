@@ -386,79 +386,74 @@ return model->Resize(inputs, new_shapes);
 
 ### Parallel Models
 
-MindSpore Lite supports parallel inference for multiple [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model). The thread pool and memory pool of each Mode are independent. However, multiple threads cannot call the [Predict](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#predict) API of a single Model at the same time.
+MindSpore Lite provides multi model concurrent reasoning interface Realize the concurrent reasoning of multiple models. The internal thread pools of multiple models of concurrent reasoning are independent of each other, and the constant weights are shared with each other, so as to reduce the memory use. Multi model concurrent reasoning now supports CPU and GPU backend.
 
-The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L470) demonstrates how to infer multiple Model in parallel:
+>For a quick understanding of the complete calling process of MindSpore Lite executing concurrent reasoning, please refer to [Experience C++ Minimalist Concurrent Reasoning Demo](https://www.mindspore.cn/lite/docs/en/master/quick_start/quick_start_server_inference_cpp.html).
 
-```cpp
-int RunModelParallel(const char *model_path) {
-  size_t size = 0;
-  char *model_buf = ReadFile(model_path, &size);
-  if (model_buf == nullptr) {
-    std::cerr << "Read model file failed." << std::endl;
-    return -1;
-  }
+1. Create configuration
 
-  // Create and Build MindSpore model.
-  auto model1 = CreateAndBuildModel(model_buf, size);
-  auto model2 = CreateAndBuildModel(model_buf, size);
-  delete[](model_buf);
-  if (model1 == nullptr || model2 == nullptr) {
-    std::cerr << "Create and build model failed." << std::endl;
-    return -1;
-  }
+    The configuration item will save some basic configuration parameters required for concurrent reasoning, which are used to guide the number of concurrent models, model compilation and model execution.
 
-  std::thread thread1([&]() {
-    auto generate_input_ret = GetInputsByTensorNameAndSetData(model1);
-    if (generate_input_ret != mindspore::kSuccess) {
-      std::cerr << "Model1 set input data error " << generate_input_ret << std::endl;
-      return -1;
+    The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_server_inference_cpp/main.cc#L135) demonstrates how to create a RunnerConfig and configure the number of workers for concurrent reasoning:
+
+    ```cpp
+    // Init Context
+    auto context = std::make_shared<mindspore::Context>();
+    if (context == nullptr) {
+        std::cerr << "New context failed." << std::endl;
     }
-
-    auto inputs = model1->GetInputs();
-    auto outputs = model1->GetOutputs();
-    auto predict_ret = model1->Predict(inputs, &outputs);
-    if (predict_ret != mindspore::kSuccess) {
-      std::cerr << "Model1 predict error " << predict_ret << std::endl;
-      return -1;
+    auto &device_list = context->MutableDeviceInfo();
+    auto cpu_device_info = std::make_shared<mindspore::CPUDeviceInfo>();
+    if (cpu_device_info == nullptr) {
+      std::cerr << "New CPUDeviceInfo failed." << std::endl;
     }
-    std::cout << "Model1 predict success" << std::endl;
-    return 0;
-  });
+    // CPU use float16 operator as priority.
+    cpu_device_info->SetEnableFP16(true);
+    device_list.push_back(cpu_device_info);
+    // Init RunnerConfig
+    auto runner_config = std::make_shared<RunnerConfig>();
+    runner_config->context = context;
+    runner_config->workers_num = 2;
+    ```
 
-  std::thread thread2([&]() {
-    auto generate_input_ret = GetInputsByTensorNameAndSetData(model2);
-    if (generate_input_ret != mindspore::kSuccess) {
-      std::cerr << "Model2 set input data error " << generate_input_ret << std::endl;
-      return -1;
-    }
+2. Initialization
 
-    auto inputs = model2->GetInputs();
-    auto outputs = model2->GetOutputs();
-    auto predict_ret = model2->Predict(inputs, &outputs);
-    if (predict_ret != mindspore::kSuccess) {
-      std::cerr << "Model2 predict error " << predict_ret << std::endl;
-      return -1;
-    }
-    std::cout << "Model2 predict success" << std::endl;
-    return 0;
-  });
+    When using MindSpore Lite to execute concurrent reasoning, ModelParallelRunner is the main entry of concurrent reasoning. Through ModelParallelRunner, you can initialize and execute concurrent reasoning. Use the RunnerConfig created in the previous step and call the init interface of ModelParallelRunner to initialize ModelParallelRunner.
 
-  thread1.join();
-  thread2.join();
+    The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_server_inference_cpp/main.cc#L135) demonstrates how to call Predict to execute reasoning:
 
-  // Get outputs data.
-  // You can also get output through other methods,
-  // and you can refer to GetOutputByTensorName() or GetOutputs().
-  GetOutputsByNodeName(model1);
-  GetOutputsByNodeName(model2);
+    ```cpp
+      auto predict_ret = model_runner->Predict(inputs, &outputs);
+      if (predict_ret != mindspore::kSuccess) {
+        delete model_runner;
+        std::cerr << "Predict error " << predict_ret << std::endl;
+        return -1;
+      }
+    ```
 
-  // Delete model.
-  delete model1;
-  delete model2;
-  return 0;
-}
-```
+3. Execute concurrent reasoning
+
+    MindSpore Lite calls the predict interface of ModelParallelRunner for model concurrent reasoning.
+
+    The following [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_server_inference_cpp/main.cc#L187) Demonstrates how calls Predict to execute reasoning.
+
+    ```cpp
+      auto predict_ret = model_runner->Predict(inputs, &outputs);
+      if (predict_ret != mindspore::kSuccess) {
+        delete model_runner;
+        std::cerr << "Predict error " << predict_ret << std::endl;
+        return -1;
+      }
+    ```
+
+4. Memory release
+
+    When you do not need to use the MindSpore Lite reasoning framework, you need to release the created ModelParallelRunner. The following [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_server_inference_cpp/main.cc#L207) Demonstrates how to free memory before the end of the program.
+
+    ```cpp
+    // Delete ModelParallelRunner.
+    delete model_runner;
+    ```
 
 ### Mixed Precision Inference
 

@@ -214,54 +214,72 @@ bool ret = model.resize(inputs, dims);
 
 ### Parallel Models
 
-MindSpore Lite supports parallel inference of multiple [Model](https://www.mindspore.cn/lite/api/en/master/api_java/model.html). The thread pool and memory pool of each [Model](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#model) are independent. However, multiple threads cannot call the [predict](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#rungraph) API of a single [Model](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#litesession) at the same time.
+MindSpore Lite provides multi model concurrent reasoning interface Realize the concurrent reasoning of multiple models. The internal thread pools of multiple models of concurrent reasoning are independent of each other, and the constant weights are shared with each other, so as to reduce the memory use. Multi model concurrent reasoning now supports CPU and GPU backend.
 
-The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L220) demonstrates how to infer multiple [Model](https://www.mindspore.cn/lite/api/en/master/api_java/model.html) in parallel:
+>For a quick understanding of the complete calling process of MindSpore Lite executing concurrent reasoning, please refer to [Experience Java Minimalist Concurrent Reasoning Demo](https://www.mindspore.cn/lite/docs/en/master/quick_start/quick_start_server_inference_java.html).
 
-```java
-model1 = createLiteModel(modelPath, false);
-if (model1 != null) {
-    model1Compile = true;
-} else {
-    Toast.makeText(getApplicationContext(), "model1 Compile Failed.",
-            Toast.LENGTH_SHORT).show();
-}
-model2 = createLiteModel(modelPath, true);
-if (model2 != null) {
-    model2Compile = true;
-} else {
-    Toast.makeText(getApplicationContext(), "model2 Compile Failed.",
-            Toast.LENGTH_SHORT).show();
-}
-...
+1. Create configuration
 
-if (model1Finish && model1Compile) {
-    new Thread(new Runnable() {
-        @Override
-        public void run() {
-            model1Finish = false;
-            runInference(model2);
-            model1Finish = true;
-        }
-    }).start();
-}
-if (model2Finish && model2Compile) {
-    new Thread(new Runnable() {
-        @Override
-        public void run() {
-            model2Finish = false;
-            runInference(model2);
-            model2Finish = true;
-        }
-    }).start();
-}
-```
+    The configuration item will save some basic configuration parameters required for concurrent reasoning, which are used to guide the number of concurrent models, model compilation and model execution.
 
-MindSpore Lite does not support multi-thread parallel execution of inference for a single [Model](https://www.mindspore.cn/lite/api/en/master/api_java/model.html). Otherwise, the following error information is displayed:
+    The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_server_inference_java/src/main/java/com/mindspore/lite/demo/Main.java#L83) demonstrates how to create a RunnerConfig and configure the number of workers for concurrent reasoning:
 
-```text
-ERROR [mindspore/lite/src/model.cc:297] RunGraph] 10 Not support multi-threading
-```
+    ```java
+    // use default param init context
+    MSContext context = new MSContext();
+    context.init(1,0);
+    boolean ret = context.addDeviceInfo(DeviceType.DT_CPU, false, 0);
+    if (!ret) {
+        System.err.println("init context failed");
+        context.free();
+        return ;
+    }
+    // init runner config
+    RunnerConfig config = new RunnerConfig();
+    config.init(context);
+    config.setWorkersNum(2);
+    ```
+
+2. Initialization
+
+    When using MindSpore Lite to execute concurrent reasoning, ModelParallelRunner is the main entry of concurrent reasoning. Through ModelParallelRunner, you can initialize and execute concurrent reasoning. Use the RunnerConfig created in the previous step and call the init interface of ModelParallelRunner to initialize ModelParallelRunner.
+
+    The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_server_inference_java/src/main/java/com/mindspore/lite/demo/Main.java#L125) demonstrates how to call Predict to execute reasoning:
+
+    ```java
+    ret = runner.predict(inputs,outputs);
+    if (!ret) {
+        System.err.println("MindSpore Lite predict failed.");
+        freeTensor();
+        runner.free();
+        return;
+    }
+    ```
+
+3. Execute concurrent reasoning
+
+    MindSpore Lite calls the predict interface of ModelParallelRunner for model concurrent reasoning.
+
+    The following [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_server_inference_java/src/main/java/com/mindspore/lite/demo/Main.java#L125) Demonstrates how calls Predict to execute reasoning.
+
+    ```java
+    ret = runner.predict(inputs,outputs);
+    if (!ret) {
+        System.err.println("MindSpore Lite predict failed.");
+        freeTensor();
+        runner.free();
+        return;
+    }
+    ```
+
+4. Memory release
+
+    When you do not need to use the MindSpore Lite reasoning framework, you need to release the created ModelParallelRunner. The following [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_server_inference_java/src/main/java/com/mindspore/lite/demo/Main.java#L133) Demonstrates how to free memory before the end of the program.
+
+    ```java
+    freeTensor();
+    runner.free();
+    ```
 
 ### Viewing Logs
 

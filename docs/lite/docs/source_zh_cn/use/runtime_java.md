@@ -214,56 +214,75 @@ int[][] dims = {{1, 300, 300, 3}};
 bool ret = model.resize(inputs, dims);
 ```
 
-### Model并行
+### Model并发推理
 
-MindSpore Lite支持多个[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html)并行推理，每个[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#model)的线程池和内存池都是独立的。但不支持多个线程同时调用单个[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#model)的[predict](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html#predict)接口。
+MindSpore Lite提供多model并发推理接口[ModelParallelRunner](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model_parallel_runner.html)实现多个model的并发推理，并发推理的多个model的内部线程池相互独立，常量权重相互共享，从而降低内存使用。多model并发推理现支持CPU、GPU后端。
 
-下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L220)演示如何并行执行推理多个[model](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html)的过程：
+> 快速了解MindSpore Lite执行并发推理的完整调用流程，请参考[体验Java极简并发推理Demo](https://www.mindspore.cn/lite/docs/zh-CN/master/quick_start/quick_start_server_inference_java.html)。
 
-```java
-model1 = createLiteModel(modelPath, false);
-if (model1 != null) {
-    model1Compile = true;
-} else {
-    Toast.makeText(getApplicationContext(), "model1 Compile Failed.",
-            Toast.LENGTH_SHORT).show();
-}
-model2 = createLiteModel(modelPath, true);
-if (model2 != null) {
-    model2Compile = true;
-} else {
-    Toast.makeText(getApplicationContext(), "model2 Compile Failed.",
-            Toast.LENGTH_SHORT).show();
-}
-...
+1. 创建配置项
 
-if (model1Finish && model1Compile) {
-    new Thread(new Runnable() {
-        @Override
-        public void run() {
-            model1Finish = false;
-            runInference(model2);
-            model1Finish = true;
-        }
-    }).start();
-}
-if (model2Finish && model2Compile) {
-    new Thread(new Runnable() {
-        @Override
-        public void run() {
-            model2Finish = false;
-            runInference(model2);
-            model2Finish = true;
-        }
-    }).start();
-}
-```
+    配置项[RunnerConfig](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/runner_config.html)会保存一些并发推理所需的基本配置参数，用于指导并发model数量以及模型编译和模型执行；
 
-MindSpore Lite不支持多线程并行执行单个[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model.html)的推理，否则会得到以下错误信息：
+    下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_server_inference_java/src/main/java/com/mindspore/lite/demo/Main.java#L83)演示了如何创建RunnerConfig，并配置并发推理的worker数量。
 
-```text
-ERROR [mindspore/lite/src/lite_session.cc:297] RunGraph] 10 Not support multi-threading
-```
+    ```java
+    // use default param init context
+    MSContext context = new MSContext();
+    context.init(1,0);
+    boolean ret = context.addDeviceInfo(DeviceType.DT_CPU, false, 0);
+    if (!ret) {
+        System.err.println("init context failed");
+        context.free();
+        return ;
+    }
+    // init runner config
+    RunnerConfig config = new RunnerConfig();
+    config.init(context);
+    config.setWorkersNum(2);
+    ```
+
+2. 初始化
+
+    使用MindSpore Lite执行并发推理时，ModelParallelRunner是并发推理的主入口，通过ModelParallelRunner可以初始化以及执行并发推理。采用上一步创建得到的RunnerConfig，调用ModelParallelRunner的Init接口来实现ModelParallelRunner的初始化。
+
+    下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_server_inference_java/src/main/java/com/mindspore/lite/demo/Main.java#L99)演示了ModelParallelRunner的初始化过程：
+
+    ```java
+    // init ModelParallelRunner
+    ModelParallelRunner runner = new ModelParallelRunner();
+    ret = runner.init(modelPath, config);
+    if (!ret) {
+        System.err.println("ModelParallelRunner init failed.");
+        runner.free();
+        return;
+    }
+    ```
+
+3. 执行并发推理
+
+    MindSpore Lite调用ModelParallelRunner的Predict接口进行模型并发推理。
+
+    下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_server_inference_java/src/main/java/com/mindspore/lite/demo/Main.java#L125)演示调用`Predict`执行推理。
+
+    ```java
+    ret = runner.predict(inputs,outputs);
+    if (!ret) {
+        System.err.println("MindSpore Lite predict failed.");
+        freeTensor();
+        runner.free();
+        return;
+    }
+    ```
+
+4. 释放内存
+
+    无需使用MindSpore Lite推理框架时，需要释放已经创建的ModelParallelRunner，下列[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_server_inference_java/src/main/java/com/mindspore/lite/demo/Main.java#L133)演示如何在程序结束前进行内存释放。
+
+    ```java
+    freeTensor();
+    runner.free();
+    ```
 
 ### 查看日志
 
