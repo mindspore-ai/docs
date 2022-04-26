@@ -35,7 +35,7 @@ The MindSpore Lite inference steps are as follows:
   bash build.sh
   ```
 
-  > If the MindSpore Lite inference framework fails to be downloaded, manually download the MindSpore Lite model inference framework [mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) whose hardware platform is CPU and operating system is Ubuntu-x64. Decompress the package and copy `runtime/lib/` and `runtime/third_party/` all `so` and `jar` files to the `mindspore/lite/examples/quick_start_server_inference_java/lib` directory.
+  > If the MindSpore Lite inference framework fails to be downloaded, manually download the MindSpore Lite model inference framework [mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/lite/docs/en/master/use/downloads.html) whose hardware platform is CPU and operating system is Ubuntu-x64. Decompress the package and copy `runtime/lib/mindspore-lite-java.jar` file to the `mindspore/lite/examples/quick_start_server_inference_java/lib` directory.
   >
   > If the MobileNetV2 model fails to be downloaded, manually download the model file [mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.ms) and copy it to the `mindspore/lite/examples/quick_start_server_inference_java/model/` directory.
   >
@@ -46,8 +46,7 @@ The MindSpore Lite inference steps are as follows:
   After the build, go to the `mindspore/lite/examples/quick_start_server_inference_java/target` directory and run the following command to experience MindSpore Lite inference on the MobileNetV2 model:
 
   ```bash
-  export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:../lib/
-  java -Djava.library.path=../lib/ -classpath .:./quick_start_server_inference_java.jar:../lib/mindspore-lite-java.jar  com.mindspore.lite.demo.Main ../model/mobilenetv2.ms
+  java -classpath .:./quick_start_server_inference_java.jar:../lib/mindspore-lite-java.jar  com.mindspore.lite.demo.Main ../model/mobilenetv2.ms
   ```
 
   After the execution, the following information is displayed:
