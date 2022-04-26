@@ -94,6 +94,12 @@ MindSpore Federated是一款开源联邦学习框架，支持面向千万级无�
 
 .. toctree::
    :maxdepth: 1
+   :caption: 通信压缩
+
+   comunication_compression
+
+.. toctree::
+   :maxdepth: 1
    :caption: API参考
 
    federated_server
