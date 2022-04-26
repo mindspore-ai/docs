@@ -101,15 +101,10 @@ MindInsight包括以下内容：
 
 .. toctree::
    :maxdepth: 1
-   :caption: 精度调优指南
+   :caption: 调优指南
 
    accuracy_problem_preliminary_location
    accuracy_optimization
-
-.. toctree::
-   :maxdepth: 1
-   :caption: 性能调优指南
-
    performance_tuning_guide
 
 .. toctree::

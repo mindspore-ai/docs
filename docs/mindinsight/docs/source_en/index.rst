@@ -101,16 +101,11 @@ Using MindConverter to Migrate Models
 
 .. toctree::
    :maxdepth: 1
-   :caption: Accuracy Tuning Guide
+   :caption: Tuning Guide
 
    accuracy_problem_preliminary_location
    accuracy_optimization
-
-.. toctree::
-   :maxdepth: 1
-   :caption: Performance Tuning Guide
-
-   performance_tuning_guide
+   performance_tuning_guide  
 
 .. toctree::
    :maxdepth: 1
