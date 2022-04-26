@@ -233,8 +233,10 @@ src_release = os.path.join(os.getenv("MS_PATH"), 'RELEASE.md')
 des_release = "./RELEASE.md"
 with open(src_release, "r", encoding="utf-8") as f:
     data = f.read()
-content = re.findall("(## [\s\S\n]*?)\n# ", data)
-result = content[0].replace('# MindSpore', '#', 1)
+content = re.findall("(## [\s\S\n]*?)\n# ", data)[0]
+content2 = re.findall("(## MindSpore Lite[\s\S\n]*?\n)## ", data)[0]
+con = content.replace(content2, "")
+result = con.replace('# MindSpore', '#', 1)
 with open(des_release, "w", encoding="utf-8") as p:
-    p.write("# Release Notes\n\n")
+    p.write("# Release Notes"+"\n\n")
     p.write(result)
