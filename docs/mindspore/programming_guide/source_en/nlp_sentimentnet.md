@@ -45,7 +45,7 @@ Download and unzip the Glove file, add a new line at the beginning of each unzip
 400000 300
 ```
 
-GloVe file download address: <http://nlp.stanford.edu/data/glove.6B.zip>
+GloVe file download address: <http://nlp.stanford.edu/data/glove.6B.zip>. If the download fails, right-click the file and choose "Save as" to download the file.
 
 ### Determining Evaluation Criteria
 

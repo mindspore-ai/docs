@@ -196,7 +196,7 @@ bbox shape: (2, 4)
 
 ### COCO Dataset
 
-There are multiple versions of the COCO dataset. Here, the validation dataset of COCO2017 is taken as an example. Download COCO2017 [validation dataset](http://images.cocodataset.org/zips/val2017.zip), [detection task annotation](http://images.cocodataset.org/annotations/annotations_trainval2017.zip) and [panoptic task annotation](http://images.cocodataset.org/annotations/panoptic_annotations_trainval2017.zip) and decompress them, take only a part of the validation dataset and store it as the following directory structure:
+There are multiple versions of the COCO dataset. Here, the validation dataset of COCO2017 is taken as an example. Download COCO2017 [validation dataset](http://images.cocodataset.org/zips/val2017.zip), [detection task annotation](http://images.cocodataset.org/annotations/annotations_trainval2017.zip) and [panoptic task annotation](http://images.cocodataset.org/annotations/panoptic_annotations_trainval2017.zip) and decompress them. If the download fails, right-click the file and choose "Save as" to download the file. Take only a part of the validation dataset and store it as the following directory structure:
 
 ```text
 └─ COCO
