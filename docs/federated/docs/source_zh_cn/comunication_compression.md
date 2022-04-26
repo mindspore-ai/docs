@@ -1,6 +1,6 @@
 # 端云联邦学习通信压缩
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/comunication_compression.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/federated/docs/source_zh_cn/comunication_compression.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source.png"></a>
 
 在端云联邦学习训练过程中，通信量会影响端侧用户体验（用户流量、通信时延、FL-Client 参与数量），并受云侧性能约束（内存、带宽、CPU 占用率）限制。为了提高用户体验和减少性能瓶颈，MindSpore联邦学习框架在端云联邦场景中，提供上传和下载的通信量压缩功能。
 
@@ -113,11 +113,11 @@ FL-Server在收到quant_data、min_val和max_val后，使用反量化公式(quan
 
 ## 代码实现准备工作
 
-若要使用上传和下载压缩方法，首先需要成功完成任一端云联邦场景的训练聚合过程，如[实现一个情感分类应用(Android)](https://www.mindspore.cn/federated/docs/zh-CN/master/sentiment_classification_application.html)。在该文档中详细介绍了包括数据集和网络模型等准备工作和模拟启动多客户端参与联邦学习的流程。
+若要使用上传和下载压缩方法，首先需要成功完成任一端云联邦场景的训练聚合过程，如[实现一个情感分类应用(Android)](https://www.mindspore.cn/federated/docs/zh-CN/r1.7/sentiment_classification_application.html)。在该文档中详细介绍了包括数据集和网络模型等准备工作和模拟启动多客户端参与联邦学习的流程。
 
 ## 算法开启脚本
 
-上传和下载压缩方法目前只支持端云联邦学习场景。开启方式需要在启动云侧服务时，在server启动脚本中使用`context.set_fl_context()`设置`upload_compress_type='DIFF_SPARSE_QUANT'`和`download_compress_type='QUANT'`。上述两个超参数即可分别控制上传和下载压缩方法的开启和关闭。云侧完整启动脚本可参考ALBERT中云侧部署的[run_hybrid_train_server.py脚本](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/albert/run_hybrid_train_server.py)，这里给出启动该算法的相关参数配置。确定参数配置后，用户需要在执行训练前调用`set_fl_context`接口，传入算法参数，调用方式如下：
+上传和下载压缩方法目前只支持端云联邦学习场景。开启方式需要在启动云侧服务时，在server启动脚本中使用`context.set_fl_context()`设置`upload_compress_type='DIFF_SPARSE_QUANT'`和`download_compress_type='QUANT'`。上述两个超参数即可分别控制上传和下载压缩方法的开启和关闭。云侧完整启动脚本可参考ALBERT中云侧部署的[run_hybrid_train_server.py脚本](https://gitee.com/mindspore/mindspore/blob/r1.7/tests/st/fl/albert/run_hybrid_train_server.py)，这里给出启动该算法的相关参数配置。确定参数配置后，用户需要在执行训练前调用`set_fl_context`接口，传入算法参数，调用方式如下：
 
 ```python
 # 打开上传压缩开关
