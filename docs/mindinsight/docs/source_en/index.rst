@@ -124,3 +124,10 @@ Using MindConverter to Migrate Models
    tensor_visual_design   
    profiler_design
    faq
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: RELEASE NOTES
+
+   RELEASE

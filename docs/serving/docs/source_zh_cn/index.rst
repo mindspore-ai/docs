@@ -37,8 +37,6 @@ MindSpore Serving包含以下功能：
 
    serving_install
 
-
-
 .. toctree::
    :glob:
    :maxdepth: 1
@@ -63,3 +61,10 @@ MindSpore Serving包含以下功能：
    :caption: 参考文档
 
    faq
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: RELEASE NOTES
+
+   RELEASE

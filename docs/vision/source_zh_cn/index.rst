@@ -40,3 +40,10 @@ MindSpore Vision是一个基于MindSpore的Python软件包。
    classification
    engine
    utils
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: RELEASE NOTES
+
+   RELEASE

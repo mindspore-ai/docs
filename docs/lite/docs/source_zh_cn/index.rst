@@ -85,6 +85,14 @@ MindSpore Lite文档
    model_lite
    troubleshooting_guide
 
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: RELEASE NOTES
+
+   RELEASE
+
+
 .. raw:: html
 
     <div class="container">

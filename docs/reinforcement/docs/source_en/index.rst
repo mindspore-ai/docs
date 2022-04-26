@@ -54,3 +54,10 @@ Typical MindSpore Reinforcement Application Scenarios
    :caption: API References
 
    reinforcement
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: RELEASE NOTES
+
+   RELEASE
