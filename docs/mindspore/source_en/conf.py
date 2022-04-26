@@ -158,7 +158,7 @@ try:
                        "    def decorate(func):",
                        "    def decorate(func):\n\n        import functools\n\n        @functools.wraps(func)"),
                        ("mindspore/ops/primitive.py", "fix for `shard`",
-                       "    @_LogActionOnce(logger=logger)", "    # The decorator has been deleted."),
+                       "    @_LogActionOnce(logger=logger, key='Primitive)", "    # The decorator has been deleted."),
                        ("mindspore/dataset/engine/datasets.py","generate api",
                        "    @deprecated(\"1.5\")","    # The decorator has been deleted."),
                        ("mindspore/dataset/engine/datasets.py","generate api",
@@ -184,6 +184,15 @@ import mindspore
 
 sys.path.append(os.path.abspath('../../../resource/search'))
 import search_code
+
+# Copy source files of en python api from mindspore repository.
+src_dir_en = os.path.join(os.getenv("MS_PATH"), 'docs/api/api_python_en')
+
+des_sir = "./api_python"
+
+if os.path.exists(des_sir):
+    shutil.rmtree(des_sir)
+shutil.copytree(src_dir_en, des_sir)
 
 # Copy images from mindspore repo.
 import imghdr
