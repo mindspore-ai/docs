@@ -54,3 +54,10 @@ MindSpore Reinforcement是一个开源的强化学习框架，支持使用强化
    :caption: API参考
 
    reinforcement
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: RELEASE NOTES
+
+   RELEASE

@@ -10,6 +10,7 @@ MindSpore 文档
    :glob:
    :maxdepth: 1
    :caption: 设计
+   :hidden:
 
    design/technical_white_paper
    design/all_scenarios_architecture
@@ -29,6 +30,7 @@ MindSpore 文档
    :glob:
    :maxdepth: 1
    :caption: 参考
+   :hidden:
 
    note/benchmark
    note/network_list
@@ -41,6 +43,7 @@ MindSpore 文档
    :glob:
    :maxdepth: 1
    :caption: API
+   :hidden:
 
    api_python/mindspore
    api_python/mindspore.common.initializer
@@ -71,6 +74,7 @@ MindSpore 文档
    :glob:
    :maxdepth: 1
    :caption: 迁移指南
+   :hidden:
 
    migration_guide/overview
    migration_guide/preparation
@@ -87,6 +91,7 @@ MindSpore 文档
    :glob:
    :maxdepth: 1
    :caption: FAQ
+   :hidden:
 
    faq/installation
    faq/data_processing
@@ -100,6 +105,13 @@ MindSpore 文档
    faq/inference
    faq/feature_advice
 
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: RELEASE NOTES
+   :hidden:
+
+   RELEASE
 
 .. raw:: html
 

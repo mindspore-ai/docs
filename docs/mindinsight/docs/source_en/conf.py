@@ -122,3 +122,13 @@ from custom_directives import IncludeCodeDirective
 
 def setup(app):
     app.add_directive('includecode', IncludeCodeDirective)
+
+src_release = os.path.join(os.getenv("MI_PATH"), 'RELEASE.md')
+des_release = "./RELEASE.md"
+with open(src_release, "r", encoding="utf-8") as f:
+    data = f.read()
+content = re.findall("(## [\s\S\n]*?)\n# ", data)
+result = content[0].replace('# MindInsight', '#', 1)
+with open(des_release, "w", encoding="utf-8") as p:
+    p.write("# Release Notes\n\n")
+    p.write(result)

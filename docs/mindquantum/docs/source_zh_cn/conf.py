@@ -146,3 +146,13 @@ def setup(app):
     app.add_directive('includecode', IncludeCodeDirective)
     app.add_directive('msplatformautosummary', MsPlatformAutoSummary)
     app.add_directive('msnoteautosummary', MsNoteAutoSummary)
+
+src_release = os.path.join(os.getenv("MQ_PATH"), 'RELEASE_CN.md')
+des_release = "./RELEASE.md"
+with open(src_release, "r", encoding="utf-8") as f:
+    data = f.read()
+content = re.findall("## [\s\S\n]*", data)
+result = content[0].replace('# MindQuantum', '#', 1)
+with open(des_release, "w", encoding="utf-8") as p:
+    p.write("# Release Notes"+"\n\n")
+    p.write(result)

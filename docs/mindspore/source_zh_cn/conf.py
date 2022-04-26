@@ -231,3 +231,15 @@ for root, dirs, files in os.walk(api_file_dir, topdown=True):
 from rename_include import rename_include
 
 rename_include('api_python')
+
+src_release = os.path.join(os.getenv("MS_PATH"), 'RELEASE_CN.md')
+des_release = "./RELEASE.md"
+with open(src_release, "r", encoding="utf-8") as f:
+    data = f.read()
+content = re.findall("## [\s\S\n]*", data)[0]
+content2 = re.findall("(## MindSpore Lite[\s\S\n]*?\n)## ", data)[0]
+con = content.replace(content2, "")
+result = con.replace('# MindSpore', '#', 1)
+with open(des_release, "w", encoding="utf-8") as p:
+    p.write("# Release Notes"+"\n\n")
+    p.write(result)
