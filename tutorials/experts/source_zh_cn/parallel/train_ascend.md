@@ -41,7 +41,7 @@
 
 本样例采用`CIFAR-10`数据集，由10类32*32的彩色图片组成，每类包含6000张图片。其中训练集共50000张图片，测试集共10000张图片。
 
-> `CIFAR-10`数据集下载链接：<http://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz>。
+> `CIFAR-10`数据集下载链接：<http://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz>，如果点击下载不成功，请尝试右键另存为方式下载。
 
 将数据集下载并解压到本地路径下，解压后的文件夹为`cifar-10-batches-bin`。
 
