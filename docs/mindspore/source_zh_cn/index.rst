@@ -12,16 +12,16 @@ MindSpore 文档
    :caption: 设计
    :hidden:
 
-   design/technical_white_paper
-   design/all_scenarios_architecture
+   design/white_paper
+   design/all_scenarios
    design/gradient
    design/dynamic_graph_and_static_graph
    design/heterogeneous_training
    design/distributed_training_design
    design/mindir
    design/data_engine
-   design/graph_kernel_fusion
-   design/second_order_optimizer
+   design/graph_fusion_engine
+   design/thor
    可视化调试调优↗ <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/training_visual_design.html>
    安全可信↗ <https://www.mindspore.cn/mindarmour/docs/zh-CN/master/design.html>
    design/glossary
