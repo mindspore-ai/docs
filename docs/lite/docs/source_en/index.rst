@@ -86,7 +86,7 @@ MindSpore Lite Documentation
    troubleshooting_guide
 
 .. toctree::
-	:glob:
+   :glob:
    :maxdepth: 1
    :caption: RELEASE NOTES
 
