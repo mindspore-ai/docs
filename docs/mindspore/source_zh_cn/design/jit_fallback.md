@@ -216,6 +216,10 @@ raise_func(Tensor(1))
 ValueError: mindspore/ccsrc/pipeline/jit/static_analysis/prim.cc:2107 EvalPrim] I'm MindSpore 1.
 ```
 
+### 支持在construct/ms_function常量场景下使用assert语句
+
+在编译期间执行assert，则要求assert语句中所有元素在编译期间能够获取得到值，即常量场景。如果编译期间获取不到值，则属于变量场景。
+
 ### 支持Python的内置函数
 
 在常量场景中，通过JIT Fallback特性可以支持Python的一些内置函数功能。
