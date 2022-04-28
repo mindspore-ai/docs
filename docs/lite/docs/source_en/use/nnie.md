@@ -335,7 +335,7 @@ During model conversion, the `nnie.cfg` file declared by the NNIE_CONFIG_PATH en
 
   When converting the NNIE model, MindSpore Lite fuses most operators into the binary file for NNIE running. Users cannot view the output of the intermediate operators. In this case, you can add the _report suffix to the top domain, during image composition conversion, the output of the intermediate operator is added to the output of the fused layer. If the operator has output (not fused), the output remains unchanged.
 
-  During the inference running, you can obtain the output of the intermediate operator by referring to [Using C++ Interface to Perform Inference](https://www.mindspore.cn/lite/docs/en/master/use/runtime_cpp.html#using-c-interface-to-perform-inference).
+  During the inference running, you can obtain the output of the intermediate operator by referring to [Using C++ Interface to Perform Inference](https://www.mindspore.cn/lite/docs/en/master/use/runtime_cpp.html#using-c++-interface-to-perform-inference).
 
   MindSpore Lite parses the corresponding rules of _report and resolves the conflict with the [Inplace Mechanism](#inplace mechanism). For details, see the definition in the HiSVP Development Guide.
 
