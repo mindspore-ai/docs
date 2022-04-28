@@ -44,15 +44,15 @@ MindSpore Federated是一款开源联邦学习框架，支持千万级无状态�
 使用MindSpore Federated的工作流程
 ----------------------------------
 
-1. `场景识别、积累数据 <https://www.mindspore.cn/federated/docs/zh-CN/master/image_classification_application.html#id1>`_
+1. `场景识别、积累数据 <https://www.mindspore.cn/federated/docs/zh-CN/master/image_classification_application.html#数据处理>`_
 
    识别出使用联邦学习的场景，在客户端为联邦任务积累本地数据。
 
-2. `模型选择、客户端部署 <https://www.mindspore.cn/federated/docs/zh-CN/master/image_classification_application.html#id4>`_
+2. `模型选择、客户端部署 <https://www.mindspore.cn/federated/docs/zh-CN/master/image_classification_application.html#生成端侧模型文件>`_
 
    进行模型原型的选择或开发，并使用工具生成方便部署的端侧模型。
 
-3. `应用部署 <https://www.mindspore.cn/federated/docs/zh-CN/master/image_classification_application.html#id5>`_
+3. `应用部署 <https://www.mindspore.cn/federated/docs/zh-CN/master/image_classification_application.html#模拟启动多客户端参与联邦学习>`_
 
    将Federated-Client部署到端侧应用中，并在云侧设置联邦配置任务和部署脚本。
 

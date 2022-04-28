@@ -47,11 +47,11 @@ Status XXXDelegate::Init() {
 
 构图接口[Build(DelegateModel *model)](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html#build)接口的入参是[DelegateModel](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html#delegatemodel)的实例。
 
-> `DelegateModel`中，[std::vector<kernel::Kernel *> *kernels_](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html#kernel)是已经完成MindSpore Lite内置算子注册、经过拓扑排序的算子列表。
+> `DelegateModel`中，[std::vector<kernel::Kernel *> *kernels_](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore_kernel.html#kernel)是已经完成MindSpore Lite内置算子注册、经过拓扑排序的算子列表。
 >
 > [const std::map<kernel::Kernel *, const schema::Primitive *> primitives_](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html#primitives)保存了每个算子对应的属性值`schema::Primitive`，用于解析每个算子的原始属性信息。
 
-Build会在[Model](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html#model)的[Build](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html#build)接口被调用。具体的位置在MindSpore Lite内部代码[Schedule::Schedule](https://gitee.com/mindspore/mindspore/blob/r1.7/mindspore/lite/src/scheduler.cc#L132)函数中，此时已完成内置算子选择，算子存放在DelegateModel的[Kernel列表](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html#kernel)中。Build需要实现以下功能：
+Build会在[Model](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html#model)的[Build](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html#build)接口被调用。具体的位置在MindSpore Lite内部代码[Schedule::Schedule](https://gitee.com/mindspore/mindspore/blob/r1.7/mindspore/lite/src/scheduler.cc#L132)函数中，此时已完成内置算子选择，算子存放在DelegateModel的[Kernel列表](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore_kernel.html#kernel)中。Build需要实现以下功能：
 
 1. 遍历Kernel列表，调用[GetPrimitive](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html#getprimitive)获取每个算子对应的属性值，解析该算子的属性值，判断Delegate框架是否支持。
 2. 对连续可支持的一段算子列表，构建一张Delegate子图，调用[Replace](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html#replace)用子图Kernel去替换这段连续的算子。

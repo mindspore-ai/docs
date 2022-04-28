@@ -79,7 +79,7 @@ try {
 
 Create the configuration context [MSContext](https://www.mindspore.cn/lite/api/en/r1.7/api_java/mscontext.html#mscontext) to save some basic configuration parameters required by the session to guide graph build and execution.`threadNum`, `CpuBindMode`, `Parallel` can be set by [init](https://www.mindspore.cn/lite/api/en/r1.7/api_java/mscontext.html#init).MindSpore Lite has a built-in thread pool shared by processes. During inference, `threadNum` is used to specify the maximum number of threads in the thread pool. The default value is 2.
 
-MindSpore Lite supports heterogeneous inference. The preferred backend for inference is specified by `deviceType` of [AddDeviceInfo](https://www.mindspore.cn/lite/api/en/r1.7/api_java/mscontext.html#addDeviceInfo). Currently, CPU, GPU and NPU are supported. During graph build, operator selection and scheduling are performed based on the preferred backend.If the backend supports Float16, you can use the Float16 operator first by setting `isEnableFloat16` to `true`. If it is an NPU backend, you can also set the NPU frequency value. The default frequency value is 3, and can be set to 1 (low power consumption), 2 (balanced), 3 (high performance), and 4 (extreme performance).
+MindSpore Lite supports heterogeneous inference. The preferred backend for inference is specified by `deviceType` of [AddDeviceInfo](https://www.mindspore.cn/lite/api/en/r1.7/api_java/mscontext.html#adddeviceinfo). Currently, CPU, GPU and NPU are supported. During graph build, operator selection and scheduling are performed based on the preferred backend.If the backend supports Float16, you can use the Float16 operator first by setting `isEnableFloat16` to `true`. If it is an NPU backend, you can also set the NPU frequency value. The default frequency value is 3, and can be set to 1 (low power consumption), 2 (balanced), 3 (high performance), and 4 (extreme performance).
 
 ### Configuring the CPU Backend
 
@@ -97,7 +97,7 @@ context.addDeviceInfo(DeviceType.DT_CPU, true);
 
 ### Configuring the GPU Backend
 
-If the backend to be performed is heterogeneous inference based on CPU and GPU, you need to add successively [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r1.7/api_cpp/mindspore.html#gpudeviceinfo) and [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r1.7/api_cpp/mindspore.html#cpudeviceinfo) when call [addDeviceInfo](https://www.mindspore.cn/lite/api/en/r1.7/api_java/mscontext.html#adddeviceinfo), GPU inference will be used first after configuration. In addition, if enable_float16 is set to true, both the GPU and CPU preferentially use the float16 operator.
+If the backend to be performed is heterogeneous inference based on CPU and GPU, you need to add successively [GPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_GPUDeviceInfo.html) and [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_CPUDeviceInfo.html) when call [addDeviceInfo](https://www.mindspore.cn/lite/api/en/r1.7/api_java/mscontext.html#adddeviceinfo), GPU inference will be used first after configuration. In addition, if enable_float16 is set to true, both the GPU and CPU preferentially use the float16 operator.
 
 The following sample code demonstrates how to create the CPU and GPU heterogeneous inference backend and how to enable float16 inference for the GPU.
 
@@ -112,7 +112,7 @@ context.addDeviceInfo(DeviceType.DT_CPU, true);
 
 ### Configuring the NPU Backend
 
-If the backend to be performed is heterogeneous inference based on CPU and GPU, you need to add successively [KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r1.7/api_cpp/mindspore.html#kirinnpudeviceinfo) and [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r1.7/api_cpp/mindspore.html#cpudeviceinfo) when call [addDeviceInfo](https://www.mindspore.cn/lite/api/en/r1.7/api_java/mscontext.html#adddeviceinfo), NPU inference will be used first after configuration. In addition, if enable_float16 is set to true, both the NPU and CPU preferentially use the float16 operator.
+If the backend to be performed is heterogeneous inference based on CPU and GPU, you need to add successively [KirinNPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_KirinNPUDeviceInfo.html) and [CPUDeviceInfo](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_CPUDeviceInfo.html) when call [addDeviceInfo](https://www.mindspore.cn/lite/api/en/r1.7/api_java/mscontext.html#adddeviceinfo), NPU inference will be used first after configuration. In addition, if enable_float16 is set to true, both the NPU and CPU preferentially use the float16 operator.
 
 The following sample code demonstrates how to create the CPU and NPU heterogeneous inference backend and how to enable float16 inference for the NPU.KirinNPUDeviceInfo frequency can be set by `NPUFrequency`.
 
