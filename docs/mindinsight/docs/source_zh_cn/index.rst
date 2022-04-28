@@ -42,22 +42,22 @@ MindInsight包括以下内容：
 
    启动MindInsight服务，并通过 ``--summary-base-dir`` 参数指定性能数据目录。
 
-3. `分析性能数据 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#id4>`_
+3. `分析性能数据 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/performance_profiling_ascend.html#数据准备性能分析>`_
 
    在浏览器中打开MindInsight访问地址，点击“性能分析”按钮查看并分析训练性能数据。
 
 使用MindInsight调试模型精度
 ----------------------------
 
-1. `以调试模式启动MindInsight <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_online.html#mindinsight>`_
+1. `以调试模式启动MindInsight <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_online.html#以调试模式启动mindinsight>`_
 
    通过配置 ``--enable-debugger True`` ``--debugger-port 50051`` 参数使MindInsight以调试模式启动。
 
-2. `以调试模式运行训练脚本 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_online.html#id5>`_
+2. `以调试模式运行训练脚本 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_online.html#以调试模式运行训练脚本>`_
 
    设置环境变量 ``export ENABLE_MS_DEBUGGER=True`` ，将训练指定为调试模式，并设置训练要连接的调试服务和端口： ``export MS_DEBUGGER_HOST=127.0.0.1；`` ``export MS_DEBUGGER_PORT=50051`` ，然后执行训练脚本。
 
-3. `在MindInsight界面设置监测点并分析 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_online.html#id11>`_
+3. `在MindInsight界面设置监测点并分析 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/debugger_online.html#设置监测点>`_
 
    在浏览器中打开MindInsight访问地址，点击“调试器”页签，等待训练连接后，设置监测点，分析计算图、张量、监测点命中等数据，识别精度问题根因。
 
@@ -68,7 +68,7 @@ MindInsight包括以下内容：
 
    在原始脚本中导出ONNX模型，参见TensorFlow或PyTorch提供的相关说明。
 
-2. `迁移模型 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/migrate_3rd_scripts_mindconverter.html#id4>`_
+2. `迁移模型 <https://www.mindspore.cn/mindinsight/docs/zh-CN/master/migrate_3rd_scripts_mindconverter.html#命令行参数说明>`_
 
    执行mindconverter命令以迁移模型，迁移后查看迁移报告并修复报告中指出的错误。
 

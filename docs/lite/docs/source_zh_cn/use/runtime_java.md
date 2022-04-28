@@ -77,7 +77,7 @@ try {
 
 创建配置上下文[MSContext](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/mscontext.html#mscontext)，保存会话所需的一些基本配置参数，用于指导图编译和图执行。通过[init](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/mscontext.html#init)接口配置线程数，线程亲和性和是否开启异构并行推理。MindSpore Lite内置一个进程共享的线程池，推理时通过`threadNum`指定线程池的最大线程数，默认为2线程。
 
-MindSpore Lite推理时的后端可调用[AddDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/mscontext.html#addDeviceInfo)接口中的`deviceType`指定，目前支持CPU、GPU和NPU。在进行图编译时，会根据主选后端进行算子选型调度。如果后端支持Float16，可通过设置`isEnableFloat16`为`true`后，优先使用Float16算子。如果是NPU后端，还可以设置NPU频率值。频率值默认为3，可设置为1（低功耗）、2（均衡）、3（高性能）、4（极致性能）。
+MindSpore Lite推理时的后端可调用[AddDeviceInfo](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/mscontext.html#adddeviceinfo)接口中的`deviceType`指定，目前支持CPU、GPU和NPU。在进行图编译时，会根据主选后端进行算子选型调度。如果后端支持Float16，可通过设置`isEnableFloat16`为`true`后，优先使用Float16算子。如果是NPU后端，还可以设置NPU频率值。频率值默认为3，可设置为1（低功耗）、2（均衡）、3（高性能）、4（极致性能）。
 
 ### 配置使用CPU后端
 

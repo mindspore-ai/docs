@@ -29,11 +29,11 @@ MindSpore Hub包含以下功能：
 使用MindSpore Hub的典型场景
 ----------------------------
 
-1. `推理验证 <https://www.mindspore.cn/hub/docs/zh-CN/master/loading_model_from_hub.html#id2>`_
+1. `推理验证 <https://www.mindspore.cn/hub/docs/zh-CN/master/loading_model_from_hub.html#用于推理验证>`_
 
    mindspore_hub.load用于加载预训练模型，可以实现一行代码完成模型的加载。
 
-2. `迁移学习 <https://www.mindspore.cn/hub/docs/zh-CN/master/loading_model_from_hub.html#id3>`_
+2. `迁移学习 <https://www.mindspore.cn/hub/docs/zh-CN/master/loading_model_from_hub.html#用于迁移学习>`_
 
    通过mindspore_hub.load完成模型加载后，可以增加一个额外的参数项只加载神经网络的特征提取部分，这样就能很容易地在之后增加一些新的层进行迁移学习。
 

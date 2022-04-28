@@ -116,7 +116,7 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
     ```
 
     - Analysis: The input shape of the MS model contains -1, that is, the model input is a dynamic shape. During direct inference, the shape is invalid. As a result, the inference fails.
-    - Solution: MindSpore Lite requires that a proper shape be specified for a model that contains dynamic shape input during inference. When using the benchmark tool, set the [inputShapes](https://mindspore.cn/lite/docs/en/master/use/benchmark_tool.html#parameter-description) parameter. When using MindSpore Lite for integration and development, call the [Resize](https://mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#resize) method to set the shape.
+    - Solution: MindSpore Lite requires that a proper shape be specified for a model that contains dynamic shape input during inference. When using the benchmark tool, set the [inputShapes](https://mindspore.cn/lite/docs/en/master/use/benchmark_tool.html#parameter-description) parameter. When using MindSpore Lite for integration and development, call the [Resize](https://mindspore.cn/lite/api/en/master/generate/classmindspore_ops_Resize.html) method to set the shape.
 
 ### OpenCL GPU Inference Issues
 
@@ -185,7 +185,7 @@ If you encounter an issue when using MindSpore Lite, you can view logs first. In
     ```
 
     - Analysis: TensorRT GPU graph construction does not support models with dynamic shapes. Specifically, the input shape of the model contains –1 or the model contains the shape operator.
-    - Solution: When using the converter to convert the model to MS, set `--inputShape=<INPUTSHAPE>` in the [conversion command](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html#parameter-description) to specify the shape information of the input tensor. If you need to change the input shape during inference, you can set the [inputShapes](https://mindspore.cn/lite/docs/en/master/use/benchmark_tool.html#parameter-description) parameter when using the benchmark tool or call the [Resize](https://mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#resize) method when using MindSpore Lite for integration and development. Note: The shape dimension of the [Resize](https://mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#resize) input must be less than or equal to the dimension of the [Build](https://mindspore.cn/lite/api/en/master/api_cpp/mindspore.html#build) model.
+    - Solution: When using the converter to convert the model to MS, set `--inputShape=<INPUTSHAPE>` in the [conversion command](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html#parameter-description) to specify the shape information of the input tensor. If you need to change the input shape during inference, you can set the [inputShapes](https://mindspore.cn/lite/docs/en/master/use/benchmark_tool.html#parameter-description) parameter when using the benchmark tool or call the [Resize](mindspore.cn/lite/api/en/master/generate/classmindspore_ops_Resize.html) method when using MindSpore Lite for integration and development. Note: The shape dimension of the [Resize](mindspore.cn/lite/api/en/master/generate/classmindspore_ops_Resize.html) input must be less than or equal to the dimension of the [Build](https://www.mindspore.cn/lite/api/en/master/api_java/model.html#build) model.
 
 #### Failed to Execute a Graph
 

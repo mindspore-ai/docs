@@ -44,7 +44,7 @@ Advantages of the MindSpore Federated
 MindSpore Federated Working Process
 ------------------------------------
 
-1. `Scenario Identification and Data Accumulation <https://www.mindspore.cn/federated/docs/en/master/image_classification_application.html#defining-the-network>`_
+1. `Scenario Identification and Data Accumulation <https://www.mindspore.cn/federated/docs/en/master/image_classification_application.html#data-processing>`_
 
    Identify scenarios where federated learning is used and accumulate local data for federated tasks on the client.
 
