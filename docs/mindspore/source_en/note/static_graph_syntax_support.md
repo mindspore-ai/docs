@@ -64,9 +64,43 @@ The result is as follows:
 
 `List` can be constructed on the network, that is, the syntax `y = [1, 2, 3]` is supported.
 
-Forcible conversion to `List` is not supported on the network. That is, the syntax `y = list(x)` is not supported.
-
 `List` to be output in the computation graph will be converted into `Tuple`.
+
+When using List index to get the element，the reference type between MindSpore and Python interpreter may be different. Due to MindSpore using ListGetItem to implement getting value of the list, and the operator ListGetItem will return a copy of the variable, that make the reference type may not same with Python interpreter.
+
+For example:
+
+Python：
+
+```python
+>>>a = [[1,2,3],4,5]
+>>>b = a[0]
+>>>b[0] = 123123
+>>>a
+[123123, 2, 3], 4, 5]
+```
+
+MindSpore:
+
+```python
+from mindspore import ms_function
+
+@ms_function
+def test_list():
+    x = [[1,2,3],4,5]
+    b = x[0]
+    b[0] = 123123
+    return x
+
+x = test_list()
+print('x:{}'.format(x))
+```
+
+The result is as follows:
+
+```text
+x: ((1, 2, 3), 4, 5)
+```
 
 - Supported APIs
 
@@ -99,7 +133,7 @@ Forcible conversion to `List` is not supported on the network. That is, the synt
 
   The index value supports only `int` and `slice`.
 
-  The element of `slice` data should be constant that can be deduced in the state of compiling graph.And not Supported to assign value to a result of list slice.
+  The element of `slice` data should be constant that can be deduced in the state of compiling graph.
 
   The assigned value can be `Number`, `String`, `Tuple`, `List`, or `Tensor`.
 
@@ -144,6 +178,8 @@ Forcible conversion to `List` is not supported on the network. That is, the synt
 `Tuple` can be constructed on the network, that is, the syntax `y = (1, 2, 3)` is supported.
 
 Forcible conversion to `Tuple` is not supported on the network. That is, the syntax `y = tuple(x)` is not supported.
+
+The reference type of tuple is same as List, please  refer to List.
 
 - Supported index values
 

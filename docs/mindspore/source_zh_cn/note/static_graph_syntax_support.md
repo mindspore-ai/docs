@@ -64,9 +64,43 @@ print(x)
 
 支持在网络里构造`List`，即支持语法`y = [1, 2, 3]`。
 
-不支持在网络里强转`List`，即不支持语法`y = list(x)`。
-
 计算图中最终需要输出的`List`会转换为`Tuple`输出。
+
+需要注意的是MindSpore的List取值由于将其转换成了ListGetItem 算子，该算子返回的始终为原List的一个拷贝，所以有时可能会和Python的List的引用表示有差异。
+
+比如：
+
+原生Python：
+
+```python
+>>>a = [[1,2,3],4,5]
+>>>b = a[0]
+>>>b[0] = 123123
+>>>a
+[123123, 2, 3], 4, 5]
+```
+
+MindSpore:
+
+```python
+from mindspore import ms_function
+
+@ms_function
+def test_list():
+    x = [[1,2,3],4,5]
+    b = x[0]
+    b[0] = 123123
+    return x
+
+x = test_list()
+print('x:{}'.format(x))
+```
+
+结果如下：
+
+```text
+x: ((1, 2, 3), 4, 5)
+```
 
 - 支持接口
 
@@ -98,7 +132,7 @@ print(x)
   支持单层和多层索引取值以及赋值。
 
   索引值仅支持`int`和`slice`。
-  `slice`内部数据必须为编译时能够确定的常量，即不能为计算后的`Tensor`。且不支持对`slice`进行赋值。
+  `slice`内部数据必须为编译时能够确定的常量，即不能为计算后的`Tensor`。
   赋值时，所赋的值支持`Number`、`String`、`Tuple`、`List`、`Tensor`。
 
   示例如下：
@@ -142,6 +176,8 @@ print(x)
 支持在网络里构造`Tuple`，即支持语法`y = (1, 2, 3)`。
 
 不支持在网络里强转`Tuple`，即不支持语法`y = tuple(x)`。
+
+关于Tuple取值的引用类型问题与List相同，请见List的相关介绍。
 
 - 支持索引取值
 

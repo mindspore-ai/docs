@@ -354,14 +354,6 @@ In file /usr/local/python3.7/lib/python3.7/site-packages/mindspore/ops/composite
 
 <br/>
 
-<font size=3>**Q: 出现 "The 'setitem' operation does not support the type [List[List[Int642],Int643], Slice[Int64 : Int64 : kMetaTypeNone], Tuple[Int64*3]]"怎么办**</font>？
-
-A: MindSpore静态图需要将这种切片的赋值操作翻译成相关算子，这种赋值操作是通过HyperMap实现的。HyperMap并没有注册这种类型，由于MindSpore静态图模式编译需要进行类型推导，
-前端编译对这种赋值操作展开成具体类型时，发现这种类型并没有注册就会报错这种错误。一般下面会提示现有的支持类型。
-用户可以考虑使用其他算子进行替换， 或者更改MindSpore源码的方式扩展当前这种MindSpore还不支持的Hypermap类型[运算重载](https://www.mindspore.cn/tutorials/experts/zh-CN/master/operation/op_overload.html#运算重载)。
-
-<br/>
-
 <font size=3>**Q: 编译时报错“Side Effect Invalid: found unsupported syntax in graph mode, those side effect codes would be ignored:”怎么办？**</font>
 
 A: 如果在`Cell.construct`或者`ms_function`函数以及其调用的子函数里，使用了副作用算子，则要求所在函数不能直接返回常量值，包括最终返回值经过推导是常量的情况。由于函数返回常量时，编译器会优先把常量值以外的操作优化掉，导致其它操作看起来无效。对于非副作用的算子操作，忽略掉一般不会影响最终结果的正确性。但是如果包含了副作用算子的操作，忽略掉副作用算子往往跟用户期望相左。因此，对于出现函数返回值为常量，同时又包含副作用算子操作的情况，编译器会抛出异常，提示用户代码执行有可能无法符合预期，需要调整代码实现。
