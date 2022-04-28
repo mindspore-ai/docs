@@ -314,14 +314,6 @@ If you encounter problems like this one, please remove the use of tensor (bool).
 
 <br/>
 
-<font size=3>**Q: What can I do if encountering an error "The 'setitem' operation does not support the type [List[List[Int642],Int643], Slice[Int64 : Int64 : kMetaTypeNone], Tuple[Int64*3]]"?**</font>
-
-A: The MindSpore static graph mode needs to translate the assign operation as the MindSpore operation.
-This assign is implemented by the [HyperMap](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_overload.html#multitypefuncgraph) in MindSpore. The Type is not registered in the HyperMap. Since the type inference is an indispensable part of MindSpore, When the front-end compiler expands this assignment operation into a concrete type, it finds that the type is not registered and reports an error. In general, the existing support types will be prompted below.
-Users can consider replacing them with other operators, or changing the way the MindSpore source code extends the current Hypermap type [operation overload](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_overload.html#operation-overloading) that MindSpore does not yet support.
-
-<br/>
-
 <font size=3>**Q: What can I do if an error "Side Effect Invalid: found unsupported syntax in graph mode, those side effect codes would be ignored:" is reported?**</font>
 
 A: If you use a side-effect operator in `Cell.construct`,  `ms_function` or their callee function, you should ensure that the function not just return a constant value or inferred constant value. Since only the behavior of returning constant value will be preserved during compiling, the other operations seems invalid. Especially for side-effect operators, the result looks not correct if they're ignored, and may not correspond with user's expectation. So the compiler will throw an exception for this situation.
