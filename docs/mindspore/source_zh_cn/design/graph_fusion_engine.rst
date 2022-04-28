@@ -4,5 +4,5 @@
 .. toctree::
   :maxdepth: 1
 
-  graph_kernel_fusion_engine
-  enable_graph_kernel_fusion
+  graph_fusion_engine/intro
+  graph_fusion_engine/enable
