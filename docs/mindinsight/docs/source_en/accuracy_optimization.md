@@ -121,7 +121,7 @@ The causes of accuracy problems can be classified into hyperparameter problems, 
 
          4. The node mode is incorrect.
 
-             If the node mode is incorrect, the training or inference mode of the node is inconsistent with the actual situation. For details about how to set the node mode, see [api.02 The mode is not set based on the training or inference scenario when the API is used.](https://www.mindspore.cn/mindinsight/docs/en/r1.7/accuracy_problem_preliminary_location.html#api02-the-mode-is-not-set-based-on-the-training-or-inference-scenario-when-the-api-is-used).
+             If the node mode is incorrect, the training or inference mode of the node is inconsistent with the actual situation. For details about how to set the node mode, see [api.02 The mode is not set based on the training or inference scenario when the API is used.](https://www.mindspore.cn/mindinsight/docs/en/r1.7/accuracy_problem_preliminary_location.html#api-02-the-mode-is-not-set-based-on-the-training-or-inference-scenario-when-the-api-is-used).
 
          5. The weight is improperly frozen (weights that should not be frozen are frozen).
 
@@ -612,6 +612,6 @@ Generally, the following operations are required to solve model structure proble
 
 If the model structure needs to be reconstructed, refer to [Cell](https://www.mindspore.cn/docs/en/r1.7/api_python/nn/mindspore.nn.Cell.html).
 
-Select a proper loss function. For details, see [Loss Functions](https://www.mindspore.cn/docs/en/r1.7/api_python/mindspore.nn.html#loss-functions).
+Select a proper loss function. For details, see [Loss Functions](https://www.mindspore.cn/docs/en/r1.7/api_python/mindspore.nn.html#loss-function).
 
-For details about how to select a proper optimizer, see [Optimizer Functions](https://www.mindspore.cn/docs/en/r1.7/api_python/mindspore.nn.html#optimizer-functions).
+For details about how to select a proper optimizer, see [Optimizer Functions](https://www.mindspore.cn/docs/en/r1.7/api_python/mindspore.nn.html#optimizer).

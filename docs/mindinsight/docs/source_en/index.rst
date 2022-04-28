@@ -68,7 +68,7 @@ Using MindConverter to Migrate Models
 
    Export the ONNX model from the original script. For details, see the description provided by TensorFlow or PyTorch.
 
-2. `Migrating the Model <https://www.mindspore.cn/mindinsight/docs/en/r1.7/migrate_3rd_scripts_mindconverter.html#usage>`_
+2. `Migrating the Model <https://www.mindspore.cn/mindinsight/docs/en/r1.7/migrate_3rd_scripts_mindconverter.html#mindconverter-cli-usage>`_
 
    Run the mindconverter command to migrate the model. After the migration, view the migration report and rectify the errors in the report.
 
