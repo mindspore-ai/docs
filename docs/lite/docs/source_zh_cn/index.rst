@@ -88,6 +88,7 @@ MindSpore Lite文档
 .. toctree::
    :maxdepth: 1
    :caption: RELEASE NOTES
+   :hidden:
 
    RELEASE
 
