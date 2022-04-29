@@ -33,21 +33,21 @@
 如果您希望使用Python3.7.5版本：
 
 ```bash
-conda create -n mindspore_py37 -c conda-forge python=3.7.5
+conda create -c conda-forge -n mindspore_py37 -c conda-forge python=3.7.5
 activate mindspore_py37
 ```
 
 如果您希望使用Python3.8.0版本：
 
 ```bash
-conda create -n mindspore_py38 -c conda-forge python=3.8.0
+conda create -c conda-forge -n mindspore_py38 -c conda-forge python=3.8.0
 activate mindspore_py38
 ```
 
 如果您希望使用Python3.9.0版本：
 
 ```bash
-conda create -n mindspore_py39 -c conda-forge python=3.9.0
+conda create -c conda-forge -n mindspore_py39 -c conda-forge python=3.9.0
 activate mindspore_py39
 ```
 
