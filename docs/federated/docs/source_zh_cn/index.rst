@@ -57,7 +57,7 @@ MindSpore Federated是一款开源联邦学习框架，支持面向千万级无�
    将Federated-Client部署到端侧应用中，并在云侧设置联邦配置任务和部署脚本。
 
 常见应用场景
-----------
+-----------------
 
 1. `图像分类 <https://www.mindspore.cn/federated/docs/zh-CN/master/image_classification_application.html>`_
 

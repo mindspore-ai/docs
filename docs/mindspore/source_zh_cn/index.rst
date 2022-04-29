@@ -14,7 +14,7 @@ MindSpore 文档
 
    design/white_paper
    design/all_scenarios
-   design/gradient
+   design/auto_gradient
    design/dynamic_graph_and_static_graph
    design/heterogeneous_training
    design/distributed_training_design
