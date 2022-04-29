@@ -28,7 +28,7 @@
 
 | 算子开发方式 | 开发语言              | 编译方式 | 支持平台 | 推荐场景                    |
 |:-------|:------------------|:------ |:------ |:------------------------|
-| hybrid | MindSpore HYBRID DSL | JIT | `Ascend` `GPU` | Ascend/GPU平台通用开发和快速验证 |
+| hybrid | MindSpore HYBRID DSL | JIT | `Ascend` `GPU` `CPU` | Ascend/GPU平台通用开发和快速验证 |
 | tbe    | TBE DSL           | JIT | `Ascend` | Ascend AICORE自定义算子场景    |
 | aicpu  | C/C++             | AOT | `Ascend` | Ascend AICPU自定义算子场景     |
 | aot    | C/C++/CUDA        | AOT | `GPU` `CPU` | 高性能手写、对接调用第三方算子库场景      |
@@ -968,8 +968,8 @@ def kernel_func(a, b):
 - 内存分配：`allocate`, `output_tensor`
 - 数据类型转化：`int32`, `float16`, `float32`, `float64`
 - 循环表达：`for`, `range`, `grid`
-- 在当前版本中，我们对GPU后端提供部分进阶关键词：
-    - 数学函数：`rsqrt`, `erf`, `isnan`, `sin`, `cos`, `isinf`, `isfinite`, `atan`, `atan2`, `expm1`, `floor`, `ceil`, `trunc`, `round`, `ceil_div`
+- 在当前版本中，我们对CPU/GPU后端提供部分进阶关键词：
+    - 数学函数：`rsqrt`, `erf`, `isnan`, `sin`, `cos`, `isinf`, `isfinite`, `atan`, `atan2`(仅GPU), `expm1`(仅GPU), `floor`, `ceil`, `trunc`, `round`, `ceil_div`
     - 数据类型转换：`int8`，`int16`，`int64`
 
 #### 常见报错信息及错误归因
