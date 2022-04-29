@@ -22,7 +22,7 @@ Model定义了MindSpore中编译和运行的模型。
 | [boolean resize(List<MSTensor\> inputs, int[][] dims)](#resize)                                         |
 | [List<MSTensor\> getInputs()](#getinputs)                                         |
 | [List<MSTensor\> getOutputs()](#getoutputs)                                         |
-| [MSTensor getInputByTensorName(String tensorName)](#getinputbytensorName)                                         |
+| [MSTensor getInputsByTensorName(String tensorName)](#getinputsbytensorName)                                         |
 | [MSTensor getOutputByTensorName(String tensorName)](#getoutputbytensorName)                                         |
 | [List<MSTensor\> getOutputsByNodeName(String nodeName)](#getoutputsbynodeName)                                         |
 | [List<String\> getOutputTensorNames()](#getoutputtensornames)                                         |
@@ -187,10 +187,10 @@ public List<MSTensor> getOutputs()
 
   所有输出MSTensor组成的List。
 
-## getInputByTensorName
+## getInputsByTensorName
 
 ```java
-public MSTensor getInputByTensorName(String tensorName)
+public MSTensor getInputsByTensorName(String tensorName)
 ```
 
 通过张量名获取MindSpore模型的输入张量。
