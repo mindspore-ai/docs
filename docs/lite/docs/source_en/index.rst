@@ -89,6 +89,7 @@ MindSpore Lite Documentation
    :glob:
    :maxdepth: 1
    :caption: RELEASE NOTES
+   :hidden:
 
    RELEASE
 
