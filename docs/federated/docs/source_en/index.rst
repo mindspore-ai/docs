@@ -57,7 +57,7 @@ MindSpore Federated Working Process
    Deploy the Federated-Client to the device application, and set the federated configuration task and deployment script on the cloud.
 
 Common Application Scenarios
------------------
+----------------------------
 
 1. `Image Classification <https://www.mindspore.cn/federated/docs/en/master/image_classification_application.html>`_
 

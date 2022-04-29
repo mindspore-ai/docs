@@ -4,13 +4,13 @@ MindSpore Vision 文档
 MindSpore Vision是一个开源的基于MindSpore框架的计算机视觉研究工具箱，工具所涉及的任务主要包括分类、检测(开发中)、视频(开发中)和3D(开发中)。MindSpore Vision旨在通过提供易用的接口来帮助您复现现有的经典模型并开发自己的新模型。同时也邀请您参与到我们的开发中。
 
 使用MindSpore Vision的典型场景
------------------------------
+----------------------------------
 
 - `分类 <https://gitee.com/mindspore/vision/blob/master/mindvision/classification/README_en.md>`_
    图像分类工具箱和基准。
 
 基本结构
--------
+-----------
 
 MindSpore Vision是一个基于MindSpore的Python软件包。
 

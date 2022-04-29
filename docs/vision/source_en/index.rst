@@ -4,7 +4,7 @@ MindSpore Vision Documents
 MindSpore Vision is an open source computer vision research toolboxbased on MindSpore framework, which includes classification, detection (to do), video (to do) and 3D (to do). MindSpore Vision is designed to serve the growing research community by providing a flexible toolkit to reimplement existing methods and develop their own new methods. We also hope to invite you to participate in our development of MindSpore Vision.
 
 Scenarios where MindSpore Vision is applied
-----------------------------
+-------------------------------------------
 
 - `Classification <https://gitee.com/mindspore/vision/blob/master/mindvision/classification/README_en.md>`_
     Image classification toolbox and benchmark.
