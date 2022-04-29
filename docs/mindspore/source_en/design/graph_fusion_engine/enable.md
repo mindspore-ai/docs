@@ -18,8 +18,8 @@ The graph kernel fusion is available for:
 The graph kernel is disabled by default. We can just specify the `enable_graph_kernel=True` parameter for `context` in the training script to enable it.
 
 ```python
-from mindspore import context
-context.set_context(enable_graph_kernel=True)
+from mindspore import set_context
+set_context(enable_graph_kernel=True)
 ```
 
 > - Only Graph Mode is supported by graph kernel.
@@ -31,16 +31,15 @@ To illustrate the fusion scenario, we construct a simple network `MyNet`, includ
 
 ```python
 import numpy as np
-import mindspore.context as context
-from mindspore import Tensor
+from mindspore import Tensor, set_context, GRAPH_MODE
 from mindspore.nn import Cell
 import mindspore.ops as ops
 
-context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
+set_context(mode=GRAPH_MODE, device_target="GPU")
 # save graph ir to view fusion detail.
-context.set_context(save_graphs=True)
+set_context(save_graphs=True)
 # enable graph kernel optimization.
-context.set_context(enable_graph_kernel=True)
+set_context(enable_graph_kernel=True)
 
 class MyNet(Cell):
     def __init__(self):
@@ -88,14 +87,13 @@ We construct a simple network `MyNet` and define the custom operator `MyOp`:
 
 ```python
 import numpy as np
-import mindspore.context as context
-from mindspore import Tensor
+from mindspore import Tensor, set_context, GRAPH_MODE
 from mindspore.nn import Cell
 import mindspore.ops as ops
 
-context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
+set_context(mode=GRAPH_MODE, device_target="GPU")
 # enable graph kernel optimization.
-context.set_context(enable_graph_kernel=True)
+set_context(enable_graph_kernel=True)
 
 class MyOp(Cell):
     """ my first custom OP composited by basic OPs """

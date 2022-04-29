@@ -197,11 +197,11 @@ MS_REG_GPU_KERNEL_ONE(TensorAddV2, KernelAttr()
 ```python
 # tests/st/ops/gpu/test_tensoraddv2_op.py
 
-import mindspore.context as context
+from mindspore import set_context
 from mindspore import Tensor
 import mindspore.ops as ops
 
-context.set_context(device_target='GPU')
+set_context(device_target='GPU')
 
 @pytest.mark.level0
 @pytest.mark.platform_x86_gpu_training

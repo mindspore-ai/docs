@@ -18,13 +18,11 @@ import numpy as np
 import mindspore.nn as nn
 from mindspore.common.initializer import initializer, TruncatedNormal
 import mindspore.ops as ops
-from mindspore import Tensor
+from mindspore import Tensor, ParallelMode, get_auto_parallel_context
 from mindspore import Parameter, ParameterTuple
 from mindspore import dtype as mstype
 from mindspore.nn import DistributedGradReducer
-from mindspore.context import ParallelMode
 from mindspore.communication import get_group_size
-from mindspore import context
 from .bert_model import BertModel
 
 GRADIENT_CLIP_TYPE = 1
@@ -274,12 +272,12 @@ class BertTrainOneStepCell(nn.Cell):
         self.grad = ops.GradOperation(get_by_list=True, sens_param=True)
         self.sens = sens
         self.reducer_flag = False
-        self.parallel_mode = context.get_auto_parallel_context("parallel_mode")
+        self.parallel_mode = get_auto_parallel_context("parallel_mode")
         if self.parallel_mode in [ParallelMode.DATA_PARALLEL, ParallelMode.HYBRID_PARALLEL]:
             self.reducer_flag = True
         self.grad_reducer = None
         if self.reducer_flag:
-            mean = context.get_auto_parallel_context("mirror_mean")
+            mean = get_auto_parallel_context("mirror_mean")
             degree = get_group_size()
             self.grad_reducer = DistributedGradReducer(optimizer.parameters, mean, degree)
 
@@ -355,7 +353,7 @@ class BertTrainOneStepWithLossScaleCell(nn.Cell):
             sens_param=True)
         self.reducer_flag = False
         self.allreduce = ops.AllReduce()
-        self.parallel_mode = context.get_auto_parallel_context("parallel_mode")
+        self.parallel_mode = get_auto_parallel_context("parallel_mode")
         if self.parallel_mode in [ParallelMode.DATA_PARALLEL, ParallelMode.HYBRID_PARALLEL]:
             self.reducer_flag = True
         self.grad_reducer = ops.identity

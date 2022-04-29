@@ -16,14 +16,14 @@ With the tutorial package, we have to get the sample image, trained classifier, 
 
 ```python
 # have to change the current directory to xai/examples/ first
-from mindspore import context, load_checkpoint, load_param_into_net
+from mindspore import load_checkpoint, load_param_into_net, set_context, PYNATIVE_MODE
 from mindspore_xai.explanation import GradCAM
 
 from common.resnet import resnet50
 from common.dataset import load_image_tensor
 
 # only PYNATIVE_MODE is supported
-context.set_context(mode=context.PYNATIVE_MODE)
+set_context(mode=PYNATIVE_MODE)
 
 # 20 classes
 num_classes = 20

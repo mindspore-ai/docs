@@ -588,13 +588,12 @@ Displays the gradient of intermediate variables. It is a common operator. Curren
 The following code implements the function of printing the gradient of the intermediate variable (x,y in this example):
 
 ```python
-from mindspore import Tensor
+from mindspore import Tensor, set_context, PYNATIVE_MODE
 import mindspore.ops as ops
 import numpy as np
 from mindspore import dtype as mstype
-from mindspore import context
 
-context.set_context(mode=context.PYNATIVE_MODE)
+set_context(mode=PYNATIVE_MODE)
 
 def hook_fn(grad_out):
     print(grad_out)

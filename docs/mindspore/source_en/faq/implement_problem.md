@@ -296,10 +296,10 @@ A: The following is based on the official MindSpore linear fitting case.
 import numpy as np
 from mindspore import dataset as ds
 from mindspore.common.initializer import Normal
-from mindspore import nn, Model, context
+from mindspore import nn, Model, set_context, GRAPH_MODE
 from mindspore.train.callback import LossMonitor
 
-context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
+set_context(mode=GRAPH_MODE, device_target="CPU")
 
 def get_data(num, w=2.0, b=3.0):
     # f(x)=w * sin(x) + b
@@ -360,7 +360,7 @@ The following explains detailed information about the modification:
 
 ```python
 # Since the selected optimizer does not support CPU, so the training computing platform is changed to GPU, which requires readers to install the corresponding GPU version of MindSpore.
-context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
+set_context(mode=GRAPH_MODE, device_target="GPU")
 
 # Assume that the function to be fitted this time is f(x)=2x^2+3x+4, the data generation function is modified as follows:
 def get_data(num, a=2.0, b=3.0 ,c = 4):
@@ -564,10 +564,9 @@ A: In GRAPH mode, since the graph compilation is used, the data type of the outp
 For example, the following code is executed in GRAPH mode, and the type of input data is int, so the output result is also int type according to graph compilation.
 
 ```python
-from mindspore import context
-from mindspore import nn
+from mindspore import nn, set_context, GRAPH_MODE
 
-context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
+set_context(mode=GRAPH_MODE, device_target="CPU")
 
 class MyTest(nn.Cell):
     def __init__(self):

@@ -12,11 +12,11 @@ MindSpore Hub包含以下功能：
 
    import mindspore
    import mindspore_hub as mshub
-   from mindspore import context
+   from mindspore import set_context, GRAPH_MODE
    
-   context.set_context(mode=context.GRAPH_MODE,
-                       device_target="Ascend",
-                       device_id=0)
+   set_context(mode=GRAPH_MODE,
+               device_target="Ascend",
+               device_id=0)
    
    model = "mindspore/ascend/0.7/googlenet_v1_cifar10"
    

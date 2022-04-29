@@ -46,7 +46,7 @@ import mindspore.dataset as ds
 import mindspore.dataset.transforms.c_transforms as CT
 import mindspore.dataset.vision.c_transforms as CV
 import mindspore.nn as nn
-from mindspore import context, Model
+from mindspore import Model, set_context, GRAPH_MODE
 from mindspore import dtype as mstype
 from mindspore.common.initializer import TruncatedNormal
 from mindspore.dataset.vision import Inter
@@ -155,7 +155,7 @@ class LeNet5(nn.Cell):
 
 
 if __name__ == "__main__":
-    context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
+    set_context(mode=GRAPH_MODE, device_target="GPU")
     ds_train_path = "./datasets/MNIST_Data/train/"
     ds_train = create_dataset(ds_train_path, 32)
 

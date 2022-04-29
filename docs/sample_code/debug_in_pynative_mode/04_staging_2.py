@@ -2,11 +2,11 @@
 This sample code is applicable to Ascend.
 """
 import numpy as np
-from mindspore import context, Tensor
+from mindspore import Tensor, set_context, PYNATIVE_MODE
 import mindspore.ops as ops
 from mindspore import ms_function
 
-context.set_context(mode=context.PYNATIVE_MODE, device_target="Ascend")
+set_context(mode=PYNATIVE_MODE, device_target="Ascend")
 
 tensor_add = ops.Add()
 

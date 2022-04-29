@@ -33,7 +33,7 @@ import mindspore.ops as ops
 from mindspore.train.callback import LossMonitor, TimeMonitor
 from mindspore.nn import Accuracy
 from mindspore.train.callback import SummaryCollector
-from mindspore import Tensor, context, Model
+from mindspore import Tensor, Model, set_context, GRAPH_MODE
 import numpy as np
 
 
@@ -232,7 +232,7 @@ def train(ds_train):
        None.
     """
     device_target = "GPU"
-    context.set_context(mode=context.GRAPH_MODE, device_target=device_target)
+    set_context(mode=GRAPH_MODE, device_target=device_target)
     network = AlexNet(num_classes=10)
     net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
     lr = Tensor(get_lr(0, 0.002, 10, ds_train.get_dataset_size()))

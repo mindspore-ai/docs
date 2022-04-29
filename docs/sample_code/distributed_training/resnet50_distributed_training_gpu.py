@@ -25,12 +25,11 @@ import mindspore.dataset.transforms.c_transforms as C
 from mindspore.communication import init, get_rank, get_group_size
 from mindspore import Tensor, Model
 from mindspore.nn import Momentum
-from mindspore.context import ParallelMode
-from mindspore import context
+from mindspore import ParallelMode, set_context, GRAPH_MODE, set_auto_parallel_context
 from mindspore.train.callback import LossMonitor
 from resnet import resnet50
 
-context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
+set_context(mode=GRAPH_MODE, device_target="GPU")
 init("nccl")
 
 def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=1):     # pylint: disable=missing-docstring
@@ -108,7 +107,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):       # pylint: disable=missing-docstr
 
 
 def test_train_cifar(epoch_size=10):        # pylint: disable=missing-docstring
-    context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
+    set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
     loss_cb = LossMonitor()
     data_path = os.getenv('DATA_PATH')
     dataset = create_dataset(data_path)

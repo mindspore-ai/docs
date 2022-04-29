@@ -18,8 +18,8 @@ This sample code is applicable to CPU, GPU and Ascend.
 """
 import os
 import json
-from mindspore import log as logger
-from mindspore import context, Model
+from mindspore import log as logger, set_context, GRAPH_MODE
+from mindspore import Model
 import mindspore.nn as nn
 from mindspore.nn import SoftmaxCrossEntropyWithLogits
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor
@@ -70,7 +70,7 @@ if __name__ == "__main__":
     set_dump_info()
     set_log_info()
 
-    context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
+    set_context(mode=GRAPH_MODE, device_target="CPU")
     lr = 0.01
     momentum = 0.9
     epoch_size = 3

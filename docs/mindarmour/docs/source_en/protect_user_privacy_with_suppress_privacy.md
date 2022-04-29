@@ -26,7 +26,7 @@ The following presents the public modules, MindSpore-related modules, and privac
 import os
 from easydict import EasyDict as edict
 import mindspore.nn as nn
-from mindspore import context
+from mindspore import set_context, PYNATIVE_MODE
 from mindspore.train.callback import ModelCheckpoint
 from mindspore.train.callback import CheckpointConfig
 from mindspore.train.callback import LossMonitor
@@ -70,7 +70,7 @@ TAG = 'Lenet5_Suppress_train'
 2. Configure the necessary information, including environment information and the execution mode. The PyNative mode on Ascend is currently supported.
 
    ```python
-   context.set_context(mode=context.PYNATIVE_MODE, device_target=cfg.device_target)
+   set_context(mode=PYNATIVE_MODE, device_target=cfg.device_target)
    ```
 
    For detailed interface configuration information, see the `context.set_context` interface description.
@@ -318,7 +318,7 @@ The principle of this attack method can be found in <https://arxiv.org/pdf/1412.
     import matplotlib.pyplot as plt
     from scipy.special import softmax
     from mindspore import load_checkpoint, load_param_into_net
-    from mindspore import Tensor, context
+    from mindspore import Tensor
     from mindspore import nn
     from mindarmour.privacy.evaluation import ImageInversionAttack
     from mindarmour.utils import LogUtil

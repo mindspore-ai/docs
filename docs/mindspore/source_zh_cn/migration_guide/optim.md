@@ -11,8 +11,8 @@
 MindSpore：使用优化器时，通常需要预先定义网络、损失函数和优化器：
 
 ```python
-from mindspore import context, Tensor, ParameterTuple
-from mindspore import nn, Model, ops
+from mindspore import Tensor, ParameterTuple
+from mindspore import nn, Model, ops, set_context, PYNATIVE_MODE
 import numpy as np
 from mindspore import dtype as mstype
 
@@ -57,7 +57,7 @@ optimizer = nn.SGD(params=net.trainable_params(), learning_rate=0.01)
 
     ```python
     # pynative模式下，单步实现GradOperation求梯度，并执行优化器
-    context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
+    set_context(mode=PYNATIVE_MODE, device_target="GPU")
 
     class GradWrap(nn.Cell):
       """ GradWrap definition """

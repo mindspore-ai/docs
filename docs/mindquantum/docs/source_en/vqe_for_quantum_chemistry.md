@@ -45,11 +45,10 @@ from mindquantum.core import X, RX
 from mindquantum.core import Circuit
 from mindquantum.algorithm.nisq.chem import generate_uccsd
 import mindspore as ms
-import mindspore.context as context
-from mindspore import Parameter
+from mindspore import Parameter, set_context, PYNATIVE_MODE
 from mindspore.common.initializer import initializer
 
-context.set_context(mode=context.PYNATIVE_MODE, device_target="CPU")
+set_context(mode=PYNATIVE_MODE, device_target="CPU")
 ```
 
 ## Quantum Chemistry Computing Method

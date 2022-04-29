@@ -167,11 +167,11 @@ Define the network in document `test_transpose.py`.
 ```python
 import numpy as np
 import mindspore.nn as nn
-import mindspore.context as context
+from mindspore import set_context, GRAPH_MODE
 from mindspore import Tensor
 import mindspore.ops as ops
 
-context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
+set_context(mode=GRAPH_MODE, device_target="CPU")
 
 class Net(nn.Cell):
     def __init__(self):

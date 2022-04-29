@@ -50,7 +50,7 @@ MindSpore联邦学习任务进程复用了训练脚本，用户只需要使用�
 在确定参数配置后，用户需要在执行训练前调用`set_fl_context`接口，调用方式的示例如下：
 
 ```python
-import mindspore.context as context
+from mindspore import set_fl_context
 ...
 
 enable_fl = True
@@ -76,7 +76,7 @@ fl_ctx = {
     "scheduler_manage_port": scheduler_manage_port,
     "config_file_path": config_file_path
 }
-context.set_fl_context(**fl_ctx)
+set_fl_context(**fl_ctx)
 ...
 
 model.train()

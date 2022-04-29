@@ -17,15 +17,15 @@ Distributed inference
 """
 import numpy as np
 from net import Net
-from mindspore import context, Model, Tensor, load_distributed_checkpoint
+from mindspore import Model, Tensor, load_distributed_checkpoint, set_context, GRAPH_MODE, set_auto_parallel_context
 from mindspore.communication import init
 
 
 def test_inference():
     """distributed inference after distributed training"""
-    context.set_context(mode=context.GRAPH_MODE)
+    set_context(mode=GRAPH_MODE)
     init(backend_name="hccl")
-    context.set_auto_parallel_context(full_batch=True, parallel_mode="semi_auto_parallel",
+    set_auto_parallel_context(full_batch=True, parallel_mode="semi_auto_parallel",
                                       strategy_ckpt_load_file="./train_strategy.ckpt", device_num=8)
 
     predict_data = create_predict_data()

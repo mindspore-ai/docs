@@ -16,7 +16,7 @@
 import argparse
 import os
 
-from mindspore import context
+from mindspore import set_context, GRAPH_MODE, set_auto_parallel_context
 from mindspore.nn import SGD
 from mindspore import Model
 from mindspore import ParallelMode
@@ -59,10 +59,10 @@ if __name__ == '__main__':
     parser.add_argument('--pca_mat_path', type=str, default="", help='path to load pca_mat')
     args = parser.parse_args()
 
-    context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
+    set_context(mode=GRAPH_MODE, device_target="Ascend")
     device_id = int(os.getenv('DEVICE_ID'))
-    context.set_context(device_id=device_id)
-    context.set_auto_parallel_context(device_num=8, parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
+    set_context(device_id=device_id)
+    set_auto_parallel_context(device_num=8, parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
     set_algo_parameters(elementwise_op_strategy_follow=True)
     init()
 

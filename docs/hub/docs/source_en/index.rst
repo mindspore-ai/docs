@@ -10,9 +10,9 @@ MindSpore Hub is a pre-trained model application tool of the MindSpore ecosystem
 
    import mindspore
    import mindspore_hub as mshub
-   from mindspore import context
+   from mindspore import set_context, GRAPH_MODE
    
-   context.set_context(mode=context.GRAPH_MODE,
+   set_context(mode=GRAPH_MODE,
                        device_target="Ascend",
                        device_id=0)
    

@@ -223,9 +223,9 @@ import numpy as np
 from mindspore import Tensor
 import mindspore.ops as ops
 import mindspore.nn as nn
-import mindspore.context as context
+from mindspore import set_context, GRAPH_MODE
 
-context.set_context(mode=context.GRAPH_MODE)
+set_context(mode=GRAPH_MODE)
 
 class PrintDemo(nn.Cell):
     def __init__(self):
@@ -299,7 +299,7 @@ Running Data Recorder(RDR)是MindSpore提供训练程序运行时记录数据的
 2. 通过 `context` 配置RDR。
 
     ```python
-    context.set_context(env_config_path="./mindspore_config.json")
+    set_context(env_config_path="./mindspore_config.json")
     ```
 
 #### 通过环境变量配置RDR
@@ -340,7 +340,7 @@ MindSpore内存复用功能默认开启，可以通过以下方式手动控制�
 2. 通过 `context` 配置内存复用功能。
 
     ```python
-    context.set_context(env_config_path="./mindspore_config.json")
+    set_context(env_config_path="./mindspore_config.json")
     ```
 
 ## 日志相关的环境变量和配置

@@ -95,12 +95,12 @@ The following is a basic code example. First, import the required libraries and 
 import numpy as np
 import mindspore.nn as nn
 from mindspore.nn import Accuracy
-from mindspore import context, Model
+from mindspore import Model, set_context, GRAPH_MODE
 from mindspore.common.initializer import Normal
 from mindspore import dataset as ds
 
-context.set_context(mode=context.GRAPH_MODE)
-context.set_context(device_target="CPU")
+set_context(mode=GRAPH_MODE)
+set_context(device_target="CPU")
 
 class LeNet5(nn.Cell):
     """
@@ -194,13 +194,13 @@ import numpy as np
 
 import mindspore.nn as nn
 from mindspore import dtype as mstype
-from mindspore import Tensor, context
+from mindspore import Tensor, set_context, GRAPH_MODE
 import mindspore.ops as ops
 from mindspore.nn import WithLossCell, TrainOneStepCell
 from mindspore.nn import Momentum
 
-context.set_context(mode=context.GRAPH_MODE)
-context.set_context(device_target="Ascend")
+set_context(mode=GRAPH_MODE)
+set_context(device_target="Ascend")
 ```
 
 The network is defined in the same way regardless of whether FP32 or FP16 is used. The difference is that after the network is defined, the dense layer is declared to use FP16 for computing when the network model is initialized, that is, `net.dense.to_float(mstype.float16)`.

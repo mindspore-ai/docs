@@ -17,7 +17,7 @@ grad accumulation cell wrapper
 """
 import numpy as np
 from mindspore import dtype as mstype
-from mindspore import ops, context, Tensor, Parameter
+from mindspore import ops, Tensor, Parameter, get_auto_parallel_context
 from mindspore.nn import Cell, TrainOneStepCell, TrainOneStepWithLossScaleCell
 from mindspore.nn.wrap.loss_scale import _grad_scale
 from mindspore.common.initializer import initializer
@@ -46,7 +46,7 @@ class TrainAccuStepsCell(TrainOneStepCell):
     def __init__(self, network, optimizer, sens=1.0):
         super(TrainAccuStepsCell, self).__init__(network, optimizer, sens)
         self.accumulation = False
-        self.accumulation_steps = context.get_auto_parallel_context("grad_accumulation_step")
+        self.accumulation_steps = get_auto_parallel_context("grad_accumulation_step")
         self.accu_grads = self.weights.clone(prefix="accu_grads", init='zeros')
         self.hyper_map = ops.HyperMap()
 
@@ -75,7 +75,7 @@ class TrainAccuStepsWithLossScaleCell(TrainOneStepWithLossScaleCell):
     def __init__(self, network, optimizer, scale_sense):
         super(TrainAccuStepsWithLossScaleCell, self).__init__(network, optimizer, scale_sense)
         self.accumulation = False
-        self.accumulation_steps = context.get_auto_parallel_context("grad_accumulation_step")
+        self.accumulation_steps = get_auto_parallel_context("grad_accumulation_step")
         self.one = Tensor(np.array([1]).astype(np.int32))
         self.zero = Tensor(np.array([0]).astype(np.int32))
         self.accu_grads = self.weights.clone(prefix="accu_grads", init='zeros')

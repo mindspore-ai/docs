@@ -111,16 +111,15 @@ To enable pipeline parallelism, you need to add the following configurations to 
   number of `stages`.
 
 ```python
-from mindspore import context, Model, nn
+from mindspore import Model, nn, set_auto_parallel_context, ParallelMode
 from mindspore.nn import Momentum
 from mindspore.train.callback import LossMonitor
-from mindspore.context import ParallelMode
 from resnet import resnet50
 
 
 def test_train_cifar(epoch_size=10):
-    context.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, gradients_mean=True)
-    context.set_auto_parallel_context(pipeline_stages=2, save_graphs=True)
+    set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, gradients_mean=True)
+    set_auto_parallel_context(pipeline_stages=2, save_graphs=True)
     loss_cb = LossMonitor()
     data_path = os.getenv('DATA_PATH')
     dataset = create_dataset(data_path)

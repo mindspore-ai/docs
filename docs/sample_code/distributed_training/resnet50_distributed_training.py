@@ -17,21 +17,20 @@ Resnet50_distributed_training
 """
 import os
 import mindspore.nn as nn
-from mindspore import dtype as mstype
+from mindspore import dtype as mstype, set_auto_parallel_context
 import mindspore.ops as ops
 import mindspore.dataset as ds
 import mindspore.dataset.vision.c_transforms as vision
 import mindspore.dataset.transforms.c_transforms as C
 from mindspore.communication import init, get_rank, get_group_size
-from mindspore import Tensor, Model, context
+from mindspore import Tensor, Model, ParallelMode, set_context, GRAPH_MODE
 from mindspore.nn import Momentum
-from mindspore.context import ParallelMode
 from mindspore.train.callback import LossMonitor
 from resnet import resnet50
 
 device_id = int(os.getenv('DEVICE_ID'))
-context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
-context.set_context(device_id=device_id) # set device_id
+set_context(mode=GRAPH_MODE, device_target="Ascend")
+set_context(device_id=device_id) # set device_id
 init()
 
 def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=1):     # pylint: disable=missing-docstring
@@ -109,7 +108,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):       # pylint: disable=missing-docstr
 
 
 def test_train_cifar(epoch_size=10):        # pylint: disable=missing-docstring
-    context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
+    set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
     loss_cb = LossMonitor()
     data_path = os.getenv('DATA_PATH')
     dataset = create_dataset(data_path)

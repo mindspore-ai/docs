@@ -24,7 +24,7 @@ from urllib.parse import urlparse
 import random
 import mindspore
 from mindspore import dtype as mstype
-from mindspore import Tensor, context
+from mindspore import Tensor, set_context, GRAPH_MODE
 import mindspore.dataset as ds
 import mindspore.dataset.transforms.c_transforms as C
 import mindspore.dataset.vision.c_transforms as CV
@@ -229,7 +229,7 @@ def train(ds_train):
        None.
     """
     device_target = "GPU"
-    context.set_context(mode=context.GRAPH_MODE, device_target=device_target)
+    set_context(mode=GRAPH_MODE, device_target=device_target)
     network = AlexNet(num_classes=10)
     net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
     net_with_loss = nn.WithLossCell(network, net_loss)

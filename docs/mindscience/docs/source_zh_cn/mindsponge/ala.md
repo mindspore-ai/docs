@@ -109,7 +109,7 @@ NVT 290k
 ```python
 import argparse
 import time
-from mindspore import context
+from mindspore import set_context, GRAPH_MODE
 
 parser = argparse.ArgumentParser(description='Sponge Controller')
 parser.add_argument('--i', type=str, default=None, help='Input .in file')
@@ -122,7 +122,7 @@ parser.add_argument('--box', type=str, default="mdbox", help='')
 parser.add_argument('--device_id', type=int, default=0, help='')
 args_opt = parser.parse_args()
 
-context.set_context(mode=context.GRAPH_MODE, device_target="GPU", device_id=args_opt.device_id, save_graphs=False)
+set_context(mode=GRAPH_MODE, device_target="GPU", device_id=args_opt.device_id, save_graphs=False)
 ```
 
 ### 构建模拟流程

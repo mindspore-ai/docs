@@ -48,8 +48,8 @@ MindSpore对接AutoTune工具接口，支持`在线调优`和`离线调优`两�
     举例在线调优的使用方法：
 
     ```python
-    import mindspore.context as context
-    context.set_context(mode=context.GRAPH_MODE, device_target="Ascend", auto_tune_mode="GA,RL")
+    from mindspore import set_context, GRAPH_MODE
+    set_context(mode=GRAPH_MODE, device_target="Ascend", auto_tune_mode="GA,RL")
     ....
     ```
 

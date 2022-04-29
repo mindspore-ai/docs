@@ -1,13 +1,12 @@
 """PyNative Shard Function Parallel Example"""
 import numpy as np
 import mindspore as ms
-from mindspore import Tensor, Model
+from mindspore import Tensor, Model, set_context, PYNATIVE_MODE, set_auto_parallel_context, ParallelMode
 from mindspore.communication import init
 from mindspore import nn
-from mindspore import context
 
-context.set_context(mode=context.PYNATIVE_MODE)
-context.set_auto_parallel_context(parallel_mode=context.ParallelMode.AUTO_PARALLEL,
+set_context(mode=PYNATIVE_MODE)
+set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL,
                                   search_mode="sharding_propagation", device_num=8)
 init()
 

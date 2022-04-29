@@ -149,11 +149,11 @@ def CusSquareImpl(input_x, output_y, kernel_name="CusSquareImpl"):
 ```python
 import numpy as np
 import mindspore.nn as nn
-import mindspore.context as context
+from mindspore import set_context, GRAPH_MODE
 from mindspore import Tensor
 # Import the definition of the CusSquare primitive.
 from cus_square import CusSquare
-context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
+set_context(mode=GRAPH_MODE, device_target="Ascend")
 
 class Net(nn.Cell):
     def __init__(self):
@@ -244,9 +244,9 @@ from mindspore import dtype as mstype
 from mindspore.ops import op_info_register, AiCPURegOp, DataType
 import mindspore.nn as nn
 import mindspore.ops as ops
-import mindspore.context as context
+from mindspore import set_context, GRAPH_MODE
 from mindspore import Tensor
-context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
+set_context(mode=GRAPH_MODE, device_target="Ascend")
 
 class Dropout2D(PrimitiveWithInfer):
     @prim_attr_register

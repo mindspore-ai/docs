@@ -250,9 +250,9 @@ The result of multiplication calculation is correct, MindSpore has been installe
 import numpy as np
 from mindspore import Tensor
 import mindspore.ops as ops
-import mindspore.context as context
+from mindspore import set_context
 
-context.set_context(device_target="Ascend")
+set_context(device_target="Ascend")
 x = Tensor(np.ones([1,3,3,4]).astype(np.float32))
 y = Tensor(np.ones([1,3,3,4]).astype(np.float32))
 print(ops.add(x, y))

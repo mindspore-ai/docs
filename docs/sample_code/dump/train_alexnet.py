@@ -23,7 +23,7 @@ import urllib.request
 from urllib.parse import urlparse
 import argparse
 from mindspore import dtype as mstype
-from mindspore import Tensor, context
+from mindspore import Tensor, set_context, GRAPH_MODE
 import mindspore.dataset as ds
 import mindspore.dataset.transforms.c_transforms as C
 import mindspore.dataset.vision.c_transforms as CV
@@ -229,7 +229,7 @@ def train(ds_train):
     max_step = 10
     device_target = args.device_target
     device_id = args.device_id
-    context.set_context(mode=context.GRAPH_MODE, device_target=device_target, device_id=device_id)
+    set_context(mode=GRAPH_MODE, device_target=device_target, device_id=device_id)
     network = AlexNet(num_classes=10)
     net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
     net_with_loss = nn.WithLossCell(network, net_loss)

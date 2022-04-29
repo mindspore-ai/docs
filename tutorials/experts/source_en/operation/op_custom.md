@@ -52,10 +52,10 @@ The following example test_custom_hybrid.py shows how to write a custom operator
 
 ```python
 import numpy as np
-from mindspore import context, Tensor, ops
+from mindspore import Tensor, ops, set_context
 from mindspore.ops import ms_hybrid
 
-context.set_context(device_target="GPU")
+set_context(device_target="GPU")
 
 # the function written by MindSpore Hybrid DSL
 @ms_hybrid
@@ -109,11 +109,11 @@ Here is the content of test_custom_tbe.py:
 
 ```python
 import numpy as np
-from mindspore import context, Tensor
+from mindspore import Tensor, set_context
 import mindspore.ops as ops
 from mindspore.ops import DataType, CustomRegOp, custom_info_register
 
-context.set_context(device_target="Ascend")
+set_context(device_target="Ascend")
 
 # Operator implementation, and operator information registration
 @custom_info_register(CustomRegOp() \
@@ -234,10 +234,10 @@ Write the test case test_custom_aot.py:
 
 ```python
 import numpy as np
-from mindspore import context, Tensor
+from mindspore import set_context, Tensor
 import mindspore.ops as ops
 
-context.set_context(device_target="GPU")
+set_context(device_target="GPU")
 
 if __name__ == "__main__":
     # Define a custom operator of aot type
@@ -308,10 +308,10 @@ Write the test case test_custom_aot.py:
 
 ```python
 import numpy as np
-from mindspore import context, Tensor
+from mindspore import set_context, Tensor
 import mindspore.ops as ops
 
-context.set_context(device_target="CPU")
+set_context(device_target="CPU")
 
 if __name__ == "__main__":
     # Define a custom operator of aot type
@@ -356,10 +356,10 @@ Here is the content of test_custom_pyfunc.py:
 
 ```python
 import numpy as np
-from mindspore import context, Tensor
+from mindspore import set_context, Tensor
 import mindspore.ops as ops
 
-context.set_context(device_target="CPU")
+set_context(device_target="CPU")
 
 def add(a, b):
     return a + b
@@ -418,10 +418,10 @@ Secondly, use the `Custom` operator with julia func type in the script to call J
 
 ```python
 import numpy as np
-from mindspore import context, Tensor
+from mindspore import set_context, Tensor
 import mindspore.ops as ops
 
-context.set_context(device_target="CPU")
+set_context(device_target="CPU")
 
 if __name__ == "__main__":
     op = ops.Custom("./add.jl:Add:add", out_shape=lambda x, _: x, out_dtype=lambda x, _: x, func_type="julia")
@@ -544,10 +544,10 @@ Here is the content of test_custom_akg.py:
 
 ```python
 import numpy as np
-from mindspore import context, Tensor
+from mindspore import set_context, Tensor
 import mindspore.ops as ops
 
-context.set_context(device_target="GPU")
+set_context(device_target="GPU")
 
 # Operator implementation, Hybrid DSL
 def add(a, b):
@@ -569,7 +569,7 @@ if __name__ == "__main__":
 
 The following points need to be explained in this example:
 
-- `context.set_context(device_target="GPU")` indicates that the operator runs on the GPU platform. To run on the Ascend platform, please compile an Ascend version of MindSpore and set the value of device_target to "Ascend".
+- `set_context(device_target="GPU")` indicates that the operator runs on the GPU platform. To run on the Ascend platform, please compile an Ascend version of MindSpore and set the value of device_target to "Ascend".
 - Use Python lambda functions to infer the output shape and data type, and pass them to the `out_shape` and `out_dtype` parameters of the `Custom` primitive. In this example, the lambda function indicates that the output shape and data type are the same as the information of the first input tensor.
 - The operator information is not registered, so the operator information of the custom operator will be inferred from the inputs.
 
@@ -611,11 +611,11 @@ Take test_grad.py as an example to show the usage of the backpropagation functio
 
 ```python
 import numpy as np
-from mindspore import context, Tensor
+from mindspore import set_context, Tensor, GRAPH_MODE
 from mindspore.nn import Cell
 import mindspore.ops as ops
 
-context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
+set_context(mode=GRAPH_MODE, device_target="GPU")
 
 # Forward computation of custom operator
 def square(x):

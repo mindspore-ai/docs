@@ -34,9 +34,9 @@ Tensor Redistribution用于处理不同Tensor Layout之间的转换，它能在�
 ```python
 import mindspore.nn as nn
 from mindspore.ops import operations as ops
-from mindspore import context
+from mindspore import set_auto_parallel_context
 
-context.set_auto_parallel_context(parallel_mode="semi_auto_parallel", device_num=4)
+set_auto_parallel_context(parallel_mode="semi_auto_parallel", device_num=4)
 
 class DenseMatMulNet(nn.Cell):
     def __init__(self):

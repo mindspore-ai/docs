@@ -75,15 +75,15 @@ Use [distributed_inference.py](https://gitee.com/mindspore/serving/blob/master/e
 ```python
 import numpy as np
 from net import Net
-from mindspore import context, Model, Tensor, export
+from mindspore import Model, Tensor, export, set_context, GRAPH_MODE, set_auto_parallel_context
 from mindspore.communication import init
 
 
 def test_inference():
     """distributed inference after distributed training"""
-    context.set_context(mode=context.GRAPH_MODE)
+    set_context(mode=GRAPH_MODE)
     init(backend_name="hccl")
-    context.set_auto_parallel_context(full_batch=True, parallel_mode="semi_auto_parallel",
+    set_auto_parallel_context(full_batch=True, parallel_mode="semi_auto_parallel",
                                       device_num=8, group_ckpt_save_file="./group_config.pb")
 
     predict_data = create_predict_data()

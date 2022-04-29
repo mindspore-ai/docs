@@ -219,7 +219,7 @@ Import and instantiate a LeNet5 model and set the model to train mode:
 
 ```python
 import numpy as np
-from mindspore import context, Tensor
+from mindspore import Tensor, set_context, GRAPH_MODE
 from mindspore import dtype as mstype
 from mindspore import export
 from lenet import LeNet5
@@ -227,7 +227,7 @@ from train_utils import TrainWrap
 
 n = LeNet5()
 n.set_train()
-context.set_context(mode=context.GRAPH_MODE, device_target="CPU", save_graphs=False)
+set_context(mode=GRAPH_MODE, device_target="CPU", save_graphs=False)
 ```
 
 Set MindSpore context and initialize the data and label tensors. In this case we use a MindSpore that was compiled for CPU. We define a batch size of 32 and initialize the tensors according to MNIST data -- single channel 32x32 images.

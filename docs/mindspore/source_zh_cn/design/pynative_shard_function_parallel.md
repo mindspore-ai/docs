@@ -60,9 +60,9 @@ def shard(fn, in_strategy, out_strategy, device="Ascend", level=0):
 如前所述，shard function会将动态图模式下某一部分以图模式执行算子级模型并行，因此使用shard function时需要设置模式为
 
 ```python
-from mindspore import context
-context.set_context(mode=context.PYNATIVE_MODE)
-context.set_auto_parallel_context(parallel_mode=context.ParallelMode.AUTO_PARALLEL,
+from mindspore import set_context, PYNATIVE_MODE, set_auto_parallel_context, ParallelMode
+set_context(mode=PYNATIVE_MODE)
+set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL,
                                   search_mode="sharding_propagation", device_num=8)
 ```
 

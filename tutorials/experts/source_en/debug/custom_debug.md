@@ -229,9 +229,9 @@ import numpy as np
 from mindspore import Tensor
 import mindspore.ops as ops
 import mindspore.nn as nn
-import mindspore.context as context
+from mindspore import set_context, GRAPH_MODE
 
-context.set_context(mode=context.GRAPH_MODE)
+set_context(mode=GRAPH_MODE)
 
 class PrintDemo(nn.Cell):
     def __init__(self):
@@ -305,7 +305,7 @@ Running Data Recorder(RDR) is the feature MindSpore provides to record data whil
 2. Configure RDR via `context`.
 
     ```python
-    context.set_context(env_config_path="./mindspore_config.json")
+    set_context(env_config_path="./mindspore_config.json")
     ```
 
 #### Set RDR By Environment Variables

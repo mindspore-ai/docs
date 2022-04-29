@@ -37,9 +37,9 @@ A: 在前端编译的推理阶段，会对节点的抽象类型(包含`type`、`
 import numpy as np
 import mindspore as ms
 import mindspore.ops as ops
-from mindspore import nn, Tensor, context
+from mindspore import nn, Tensor, set_context, GRAPH_MODE
 
-context.set_context(mode=context.GRAPH_MODE)
+set_context(mode=GRAPH_MODE)
 class Net(nn.Cell):
     def __init__(self):
         super().__init__()
@@ -82,9 +82,9 @@ The function call stack (See file 'analyze_fail.dat' for more details):
 import numpy as np
 import mindspore as ms
 import mindspore.ops as ops
-from mindspore import nn, Tensor, context
+from mindspore import nn, Tensor, set_context, GRAPH_MODE
 
-context.set_context(mode=context.GRAPH_MODE)
+set_context(mode=GRAPH_MODE)
 class Net(nn.Cell):
     def __init__(self):
         super().__init__()
@@ -184,9 +184,8 @@ class BpropUserDefinedNet(nn.Cell):
 例如代码
 
 ```python
-from mindspore import Tensor, ms_function
+from mindspore import Tensor, ms_function, set_context, GRAPH_MODE
 from mindspore import dtype as mstype
-import mindspore.context as context
 ZERO = Tensor([0], mstype.int32)
 ONE = Tensor([1], mstype.int32)
 @ms_function
@@ -204,7 +203,7 @@ def f(x):
     return z
 
 def test_endless():
-    context.set_context(mode=context.GRAPH_MODE)
+    set_context(mode=GRAPH_MODE)
     x = Tensor([5], mstype.int32)
     f(x)
 
@@ -280,9 +279,9 @@ A: JIT Fallback是从静态图的角度出发考虑静态图和动态图的统�
 ```python
 import numpy as np
 import mindspore.nn as nn
-from mindspore import context
+from mindspore import set_context, GRAPH_MODE
 
-context.set_context(mode=context.GRAPH_MODE)
+set_context(mode=GRAPH_MODE)
 
 class Net(nn.Cell):
     def construct(self, x, y):
@@ -313,9 +312,9 @@ A: MindSpore当前对数据类型为bool的Tensor[后续简称Tensor(bool)]支�
 例如代码：
 
 ```python
-from mindspore import context, ops, ms_function, Tensor, dtype
+from mindspore import set_context, ops, ms_function, Tensor, dtype
 
-context.set_context(save_graphs=True, save_graphs_path='graph_path')
+set_context(save_graphs=True, save_graphs_path='graph_path')
 
 @ms_function
 def test_logic(x, y):

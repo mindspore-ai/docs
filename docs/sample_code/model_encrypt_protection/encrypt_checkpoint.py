@@ -20,11 +20,11 @@ import mindspore.dataset.vision.c_transforms as CV
 import mindspore.dataset.transforms.c_transforms as C
 import mindspore.dataset as ds
 from mindspore.dataset.vision import Inter
-from mindspore import dtype as mstype
+from mindspore import dtype as mstype, set_context, GRAPH_MODE
 
 from mindspore.nn import SoftmaxCrossEntropyWithLogits
 from mindspore.nn import Accuracy
-from mindspore import context, Model
+from mindspore import Model
 from mindspore import save_checkpoint, load_checkpoint, load_param_into_net
 from mindspore.train.callback import CheckpointConfig, ModelCheckpoint, LossMonitor
 from mindspore.common.initializer import Normal
@@ -100,7 +100,7 @@ class LeNet5(nn.Cell):
 
 
 if __name__ == "__main__":
-    context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
+    set_context(mode=GRAPH_MODE, device_target="CPU")
     lr = 0.01
     momentum = 0.9
 

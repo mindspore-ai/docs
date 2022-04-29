@@ -48,8 +48,8 @@ The AutoTune tool supports two tuning modes, `Online tune` and `Offline Tune`.
   Example of online tuning:
 
   ```python
-  import mindspore.context as context
-  context.set_context(mode=context.GRAPH_MODE, device_target="Ascend", auto_tune_mode="GA,RL")
+  from mindspore import set_context, GRAPH_MODE
+  set_context(mode=GRAPH_MODE, device_target="Ascend", auto_tune_mode="GA,RL")
   ....
   ```
 

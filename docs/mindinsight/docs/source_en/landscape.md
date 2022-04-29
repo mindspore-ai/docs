@@ -25,7 +25,7 @@ The specific use steps are divided into two steps. Taking the classification tas
    import mindspore.nn as nn
 
    from mindspore.common.initializer import Normal
-   from mindspore import context
+   from mindspore import set_context, GRAPH_MODE
    from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor, SummaryCollector
    from mindspore import Model
    from mindspore.nn import Accuracy
@@ -112,7 +112,7 @@ The specific use steps are divided into two steps. Taking the classification tas
            return x
 
    def train_lenet():
-       context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
+       set_context(mode=GRAPH_MODE, device_target="GPU")
        data_path = YOUR_DATA_PATH
        ds_train = create_dataset(data_path)
 

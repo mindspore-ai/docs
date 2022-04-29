@@ -87,9 +87,9 @@ MindSpore提供两种接口来使能通信融合，下面分别进行介绍。
 ```python
 from mindspore.communication import init
 from mindspore import nn
-from mindspore import context, ParallelMode
-context.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL)
-context.set_auto_parallel_context(comm_fusion={"allreduce": {"mode": "auto", "config": None}})
+from mindspore import ParallelMode, set_auto_parallel_context
+set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL)
+set_auto_parallel_context(comm_fusion={"allreduce": {"mode": "auto", "config": None}})
 init()
 ```
 
@@ -110,9 +110,9 @@ init()
 import os
 from mindspore.communication import init
 from mindspore import nn
-from mindspore import context, ParallelMode
-context.set_context(mode=context.GRAPH_MODE, device_target="Ascend", device_id=int(os.environ["DEVICE_ID"]))
-context.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL)
+from mindspore import ParallelMode, set_context, GRAPH_MODE, set_auto_parallel_context
+set_context(mode=GRAPH_MODE, device_target="Ascend", device_id=int(os.environ["DEVICE_ID"]))
+set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL)
 init()
 
 class DenseLayer(nn.Cell):

@@ -17,7 +17,7 @@
 This sample code is applicable to GPU and Ascend.
 """
 import mindspore.nn as nn
-from mindspore import context, Model
+from mindspore import Model, set_context, GRAPH_MODE
 from mindspore.train.callback import LossMonitor
 from mindspore.nn import Accuracy
 from src.lenet import LeNet5
@@ -26,7 +26,7 @@ from src.datasets import create_dataset
 
 if __name__ == "__main__":
 
-    context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
+    set_context(mode=GRAPH_MODE, device_target="GPU")
 
     ds_train = create_dataset("./datasets/MNIST_Data/train", 32)
     ds_eval = create_dataset("./datasets/MNIST_Data/test", 32)

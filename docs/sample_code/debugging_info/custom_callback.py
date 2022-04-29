@@ -20,7 +20,7 @@ import time
 import json
 import mindspore.nn as nn
 from mindspore.nn import Momentum, SoftmaxCrossEntropyWithLogits
-from mindspore import Model, context, save_checkpoint
+from mindspore import Model, save_checkpoint, set_context, GRAPH_MODE
 from mindspore.train.callback import Callback, LossMonitor
 from mindspore import log as logger
 
@@ -107,7 +107,7 @@ def set_log_info():
 if __name__ == "__main__":
     set_dump_info()
     set_log_info()
-    context.set_context(mode=context.GRAPH_MODE)
+    set_context(mode=GRAPH_MODE)
     train_dataset = create_train_dataset()
     eval_dataset = create_eval_dataset()
     net = Net()

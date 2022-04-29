@@ -4,7 +4,7 @@
 
 ## 概述
 
-在图模式`context.set_context(mode=context.GRAPH_MODE)`下运行用MindSpore编写的模型时，若配置中设置了`context.set_context(save_graphs=True)`，运行时会输出一些图编译过程中生成的中间文件，我们称为IR文件。当前主要有三种格式的IR文件：
+在图模式`set_context(mode=GRAPH_MODE)`下运行用MindSpore编写的模型时，若配置中设置了`set_context(save_graphs=True)`，运行时会输出一些图编译过程中生成的中间文件，我们称为IR文件。当前主要有三种格式的IR文件：
 
 - ir后缀结尾的IR文件：一种比较直观易懂的以文本格式描述模型结构的文件，可以直接用文本编辑软件查看。
 - dat后缀结尾的IR文件：一种相对于ir后缀结尾的文件格式定义更为严谨的描述模型结构的文件，包含的内容更为丰富，可以直接用文本编辑软件查看。
@@ -12,7 +12,7 @@
 
 ## 如何保存IR
 
-通过`context.set_context(save_graphs=True)`来保存各个编译阶段的中间代码。被保存的中间代码有三种格式，一个是后缀名为`.ir`的文本格式，一个是后缀名为`.dat`的文本格式，一个是后缀名为`.dot`的图形化格式。当网络规模不大时，建议使用更直观的图形化格式来查看，当网络规模较大时建议使用更高效的文本格式来查看。
+通过`set_context(save_graphs=True)`来保存各个编译阶段的中间代码。被保存的中间代码有三种格式，一个是后缀名为`.ir`的文本格式，一个是后缀名为`.dat`的文本格式，一个是后缀名为`.dot`的图形化格式。当网络规模不大时，建议使用更直观的图形化格式来查看，当网络规模较大时建议使用更高效的文本格式来查看。
 
 `.dot`文件可以通过graphviz转换为图片格式来查看，例如将dot转换为png的命令是`dot -Tpng *.dot -o *.png`。
 
@@ -20,7 +20,7 @@
 
 ```python
 if __name__ == "__main__":
-    context.set_context(save_graphs=True, save_graphs_path="path/to/ir/files")
+    set_context(save_graphs=True, save_graphs_path="path/to/ir/files")
 ```
 
 执行训练命令后，在指定的路径下生成了若干个文件：
@@ -66,14 +66,14 @@ if __name__ == "__main__":
 下面以一个简单的例子来说明IR文件的内容（内容可能随着MindSpore的版本升级而出现一些变化），运行该脚本：
 
 ```python
-import mindspore.context as context
+from mindspore import set_context, GRAPH_MODE
 import mindspore.nn as nn
 from mindspore import Tensor
 from mindspore import ops
 from mindspore import dtype as mstype
 
-context.set_context(mode=context.GRAPH_MODE)
-context.set_context(save_graphs=True, save_graphs_path="./")
+set_context(mode=GRAPH_MODE)
+set_context(save_graphs=True, save_graphs_path="./")
 
 class Net(nn.Cell):
     def __init__(self):
@@ -283,15 +283,15 @@ MindSpore在编译图的过程中，经常会出现`abstract_specialize`阶段�
 例如执行下面一段代码：
 
 ```python
-  1 import mindspore.context as context
+  1 from mindspore import set_context, GRAPH_MODE
   2 import mindspore.nn as nn
   3 from mindspore import Tensor
   4 from mindspore.nn import Cell
   5 from mindspore import ops
   6 from mindspore import dtype as mstype
   7
-  8 context.set_context(mode=context.GRAPH_MODE)
-  9 context.set_context(save_graphs=True)
+  8 set_context(mode=GRAPH_MODE)
+  9 set_context(save_graphs=True)
  10
  11 class Net(nn.Cell):
  12     def __init__(self):

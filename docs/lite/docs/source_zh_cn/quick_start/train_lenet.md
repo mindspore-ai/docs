@@ -218,7 +218,7 @@ The predicted classes are:
 
 ```python
 import numpy as np
-from mindspore import context, Tensor
+from mindspore import Tensor, set_context, GRAPH_MODE
 from mindspore import dtype as mstype
 from mindspore import export
 from lenet import LeNet5
@@ -226,7 +226,7 @@ from train_utils import TrainWrap
 
 n = LeNet5()
 n.set_train()
-context.set_context(mode=context.GRAPH_MODE, device_target="CPU", save_graphs=False)
+set_context(mode=GRAPH_MODE, device_target="CPU", save_graphs=False)
 ```
 
 然后定义输入和标签张量大小：

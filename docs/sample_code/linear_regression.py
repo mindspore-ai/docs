@@ -4,10 +4,10 @@ This sample code is applicable to CPU, GPU and Ascend.
 import numpy as np
 from mindspore import dataset as ds
 from mindspore.common.initializer import Normal
-from mindspore import nn, Model, context
+from mindspore import nn, Model, set_context, GRAPH_MODE
 from mindspore.train.callback import LossMonitor
 
-context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
+set_context(mode=GRAPH_MODE, device_target="CPU")
 
 
 def get_data(num, w=2.0, b=3.0):

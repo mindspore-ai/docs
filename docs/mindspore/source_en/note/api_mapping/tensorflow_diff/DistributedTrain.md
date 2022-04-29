@@ -15,10 +15,9 @@ For more information, see [tf.distribute.Strategy](https://www.tensorflow.org/ve
 ## mindspore.context.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
 
 ```python
-from mindspore import context
-from mindspore.context import ParallelMode
+from mindspore import set_auto_parallel_context, ParallelMode
 from mindspore.communication import init
-context.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
+set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
 init()
 # Run net, the same with stand alone training
 ```
