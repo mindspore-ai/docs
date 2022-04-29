@@ -89,6 +89,7 @@ MindSpore Lite文档
    :glob:
    :maxdepth: 1
    :caption: RELEASE NOTES
+   :hidden:
 
    RELEASE
 
