@@ -170,7 +170,7 @@ cd -
 如果您希望使用Python3.7.5版本：
 
 ```bash
-conda create -n mindspore_py37 python=3.7.5 -y
+conda create -c conda-forge -n mindspore_py37 python=3.7.5 -y
 conda activate mindspore_py37
 ```
 
@@ -282,4 +282,18 @@ print(ops.add(x, y))
 
 ```bash
 conda update mindspore-ascend -c mindspore -c conda-forge
+```
+
+注意：升级MindSpore Ascend版本conda安装包后请重新安装昇腾AI处理器配套软件包提供的whl包。首先卸载旧版本：
+
+```bash
+pip uninstall te topi hccl -y
+```
+
+然后重新安装：
+
+```bash
+pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/topi-*-py3-none-any.whl
+pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/te-*-py3-none-any.whl
+pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/hccl-*-py3-none-any.whl
 ```

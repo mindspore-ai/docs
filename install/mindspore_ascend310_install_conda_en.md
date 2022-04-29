@@ -149,7 +149,7 @@ Create a Conda virtual environment based on the Python version you want to use a
 If you want to use Python 3.7.5:
 
 ```bash
-conda create -n mindspore_py37 python=3.7.5 -y
+conda create -c conda-forge -n mindspore_py37 python=3.7.5 -y
 conda activate mindspore_py37
 ```
 
@@ -258,4 +258,18 @@ Use the following command if you need to update the MindSpore version:
 
 ```bash
 conda update mindspore-ascend -c mindspore -c conda-forge
+```
+
+Please reinstall .whl packages provided with the Ascend AI Processor software package. First, uninstall old versions:
+
+```bash
+pip uninstall te topi hccl -y
+```
+
+Then, install again by running:
+
+```bash
+pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/topi-*-py3-none-any.whl
+pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/te-*-py3-none-any.whl
+pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/hccl-*-py3-none-any.whl
 ```
