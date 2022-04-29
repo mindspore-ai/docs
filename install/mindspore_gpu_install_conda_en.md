@@ -216,7 +216,7 @@ Create a Conda virtual environment based on the Python version you want to use a
 If you want to use Python 3.7.5:
 
 ```bash
-conda create -n mindspore_py37 python=3.7.5 -y
+conda create -c conda-forge -n mindspore_py37 python=3.7.5 -y
 conda activate mindspore_py37
 ```
 

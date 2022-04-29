@@ -216,7 +216,7 @@ cd -
 如果您希望使用Python3.7.5版本：
 
 ```bash
-conda create -n mindspore_py37 python=3.7.5 -y
+conda create -c conda-forge -n mindspore_py37 python=3.7.5 -y
 conda activate mindspore_py37
 ```
 
