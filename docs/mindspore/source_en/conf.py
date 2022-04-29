@@ -178,6 +178,29 @@ try:
 except:
     pass
 
+# Repair error content defined in mindspore.
+try:
+    decorator_list = [("mindspore/dataset/engine/datasets_user_defined.py","modify url",
+                       "#loading-user-defined-dataset>`",">`_"),
+                       ("mindspore/mindrecord/tools/imagenet_to_mr.py","del note",
+                       "    Note:\n        For details about Examples, please refer to `Converting the ImageNet Dataset <https://\n        www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset/record.html#converting-the-imagenet-dataset>`_.\n",""),
+                       ("mindspore/ops/operations/comm_ops.py","modify url",
+                       "zh-CN/master/api_python/mindspore.ops.html#communication-operators","en/master/api_python/mindspore.ops.html#communication-operator"),
+                       ("mindspore/ops/operations/comm_ops.py","modify url anchor",
+                       "#id2","#注意事项")]
+
+    base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
+    for i in decorator_list:
+        with open(os.path.join(base_path, os.path.normpath(i[0])), "r+", encoding="utf8") as f:
+            content = f.read()
+            if i[2] in content:
+                content = content.replace(i[2], i[3])
+                f.seek(0)
+                f.truncate()
+                f.write(content)
+except:
+    pass
+
 import mindspore
 
 
