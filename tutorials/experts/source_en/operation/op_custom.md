@@ -28,7 +28,7 @@ The difference between these operator defining methods are as follows:
 
 | Defining Methods | Development Language | Compilation Method | Supported Platforms | Recommended Scenarios                                                         |
 |:----------------:|:--------------------:| :------: | ------ |-------------------------------------------------------------------------------|
-| hybrid           | MindSpore HYBRID DSL | JIT | `Ascend` `GPU` | Ascend/GPU platform general scenarios and proof of concept|
+| hybrid           | MindSpore HYBRID DSL | JIT | `Ascend` `GPU` `CPU` | Ascend/GPU platform general scenarios and proof of concept|
 |       tbe        |       TBE DSL        | JIT | `Ascend` | Ascend AICORE platform scenarios                                              |
 |       aot        |      C/C++/CUDA      | AOT | `GPU` `CPU` | high-performance scenarios / use third-party operators scenarios              |
 |      pyfunc      |        Python        | JIT | `CPU` | Fast algorithm verification, need to interact with Python and other scenarios |
@@ -871,8 +871,8 @@ Currently, we support keywords including:
 - Allocate keywords: `allocate`, `output_tensor`
 - Datatype keywords: `int32`, `float16`, `float32`, `float64`
 - For keywords: `for`, `range`, `grid`
-- In current version, some GPU platform only keywords:
-    - Math keywords: `rsqrt`, `erf`, `isnan`, `sin`, `cos`, `isinf`, `isfinite`, `atan`, `atan2`, `expm1`, `floor`, `ceil`, `trunc`, `round`, `ceil_div`
+- In current version, some CPU/GPU platform only keywords:
+    - Math keywords: `rsqrt`, `erf`, `isnan`, `sin`, `cos`, `isinf`, `isfinite`, `atan`, `atan2`(only on GPU), `expm1`(only on GPU), `floor`, `ceil`, `trunc`, `round`, `ceil_div`
     - Datatype keywords: `int8`, `int16`, `int64`
 
 #### Frequent Error Messages and Error Attributions
