@@ -14,19 +14,19 @@ Secret noise addition is performed on local models before they are migrated to t
 Although the LDP technology can properly protect user data privacy, when there are a relatively small quantity of participating clients or a Gaussian noise amplitude is relatively large, the model accuracy is greatly affected.
 To meet both model protection and model convergence requirements, we provide the MPC-based secure aggregation solution.
 
-In this training mode, assuming that the participating client set is $U$, for any Federated-Client $u$ and $v$, they negotiate a pair of random perturbations $p_{uv}$ and $p_{vu}$, which meet the following condition:
+In this training mode, assuming that the participating client set is $U$, for any client $u$ and $v$, they negotiate a pair of random perturbations $p_{uv}$ and $p_{vu}$, which meet the following condition:
 
 $$
 p_{uv}=\begin{cases} -p_{vu}, &u{\neq}v\\\\ 0, &u=v \end{cases}
 $$
 
-Therefore, each Federated-Client $u$ adds the perturbation negotiated with other users to the original model weight $x_u$ before uploading the model to the server:
+Therefore, each client $u$ adds the perturbation negotiated with other users to the original model weight $x_u$ before uploading the model to the server:
 
 $$
 x_{encrypt}=x_u+\sum\limits_{v{\in}U}p_{uv}
 $$
 
-Therefore, the Federated-Server aggregation result $\overline{x}$ is as follows:
+Therefore, the server aggregation result $\overline{x}$ is as follows:
 
 $$
 \begin{align}
