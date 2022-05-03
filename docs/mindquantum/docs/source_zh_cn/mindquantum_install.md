@@ -16,19 +16,19 @@
 Linux-x86_64 Python3.7
 
 ```bash
-pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.1/MindQuantum/x86_64/mindquantum-0.5.0-cp37-cp37m-linux_x86_64.whl
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.7.0/MindQuantum/x86_64/mindquantum-0.6.0-cp37-cp37m-linux_x86_64.whl
 ```
 
 Windows-x64 Python3.7
 
 ```bash
-pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.1/MindQuantum/x86_64/mindquantum-0.5.0-cp37-cp37m-win_amd64.whl
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.7.0/MindQuantum/x86_64/mindquantum-0.6.0-cp37-cp37m-win_amd64.whl
 ```
 
 Windows-x64 Python3.9
 
 ```bash
-pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.6.1/MindQuantum/x86_64/mindquantum-0.5.0-cp39-cp39-win_amd64.whl
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.7.0/MindQuantum/x86_64/mindquantum-0.6.0-cp39-cp39-win_amd64.whl
 ```
 
 > - 前往[官网](https://www.mindspore.cn/versions)可查询更多版本安装包。
