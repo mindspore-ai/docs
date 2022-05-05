@@ -880,4 +880,4 @@ If MindSpore automatically generates too many conversion operators, it may be th
 
     The scenarios for graph fusion include: scenarios with high performance requirements for network execution time; scenarios where custom combinatorial operators are implemented by splicing basic operators, and where automatic fusion of these basic operators is desired to improve the performance of the custom combinatorial operators.
 
-    For details, please refer to the [tutorial on graph arithmetic fusion](https://www.mindspore.cn/docs/en/master/design/enable_graph_kernel_fusion.html).
+    For details, please refer to the [tutorial on graph arithmetic fusion](https://www.mindspore.cn/docs/en/master/design/graph_fusion_engine.html).
