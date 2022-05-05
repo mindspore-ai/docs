@@ -12,4 +12,4 @@
 
 ![image_posenet](images/posenet_detection.png)
 
-使用MindSpore Lite实现骨骼检测的[示例代码](https://gitee.com/mindspore/models/tree/r1.7/official/lite/posenet)。
+使用MindSpore Lite实现骨骼检测的[示例代码](https://gitee.com/mindspore/models/tree/master/official/lite/posenet)。

@@ -12,9 +12,9 @@ This tutorial demonstrates the on-device deployment process based on the image c
 2. Convert the model into a MindSpore Lite model.
 3. Use the MindSpore Lite inference model on the device. The following describes how to use the MindSpore Lite C++ APIs (Android JNIs) and MindSpore Lite image classification models to perform on-device inference, classify the content captured by a device camera, and display the most possible classification result on the application's image preview screen.
 
-> Click to find [Android image classification models](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/1.5) and [image classification sample code](https://gitee.com/mindspore/models/tree/r1.7/official/lite/image_classification).
+> Click to find [Android image classification models](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/1.5) and [image classification sample code](https://gitee.com/mindspore/models/tree/master/official/lite/image_classification).
 >
-> In this example, we explain how to use C++ API. Besides, MindSpore Lite also supports Java API. Please refer to [image segmentation demo](https://gitee.com/mindspore/models/tree/r1.7/official/lite/image_segmentation) to learn more about Java API.
+> In this example, we explain how to use C++ API. Besides, MindSpore Lite also supports Java API. Please refer to [image segmentation demo](https://gitee.com/mindspore/models/tree/master/official/lite/image_segmentation) to learn more about Java API.
 
 We provide the APK file corresponding to this example. You can scan the QR code below or download the [APK file](https://download.mindspore.cn/model_zoo/official/lite/apk/label/Classification.apk) directly, and deploy it to Android devices for use.
 
@@ -50,7 +50,7 @@ The following section describes how to build and execute an on-device image clas
 
 ### Building and Running
 
-1. Load the [sample source code](https://gitee.com/mindspore/models/tree/r1.7/official/lite/image_classification) to Android Studio and install the corresponding SDK. (After the SDK version is specified, Android Studio automatically installs the SDK.)
+1. Load the [sample source code](https://gitee.com/mindspore/models/tree/master/official/lite/image_classification) to Android Studio and install the corresponding SDK. (After the SDK version is specified, Android Studio automatically installs the SDK.)
 
     ![start_home](../images/lite_quick_start_home.png)
 
@@ -204,7 +204,7 @@ Note: if the automatic download fails, please manually download the relevant lib
 
 Call MindSpore Lite C++ APIs at the JNI layer to implement on-device inference.
 
-The inference process code is as follows. For details about the complete code, see [MindSporeNetnative.cpp](https://gitee.com/mindspore/models/blob/r1.7/official/lite/image_classification/app/src/main/cpp/MindSporeNetnative.cpp).
+The inference process code is as follows. For details about the complete code, see [MindSporeNetnative.cpp](https://gitee.com/mindspore/models/blob/master/official/lite/image_classification/app/src/main/cpp/MindSporeNetnative.cpp).
 
 1. Load the MindSpore Lite model file and build the context, model, and computational graph for inference.  
 

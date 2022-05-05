@@ -235,7 +235,7 @@ Since sub-graphs share the same graph execution history with root graph, only ro
 
 For the Ascend scene, after the graph corresponding to the script is saved to the disk through the Dump function, the final execution graph file `ms_output_trace_code_graph_{graph_id}.ir` will be generated. This file saves the stack information of each operator in the corresponding graph, and records the generation script corresponding to the operator.
 
-Take [AlexNet script](https://gitee.com/mindspore/models/blob/r1.7/official/cv/alexnet/src/alexnet.py) as an example:
+Take [AlexNet script](https://gitee.com/mindspore/models/blob/master/official/cv/alexnet/src/alexnet.py) as an example:
 
 ```python
 import mindspore.nn as nn

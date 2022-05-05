@@ -665,7 +665,7 @@ if __name__ == '__main__':
     model.train(config.epoch_size, dataset, callbacks=cb, sink_size=step_size, dataset_sink_mode=False)
 ```
 
-Note: For codes in other files in the directory, refer to MindSpore ModelZoo's [ResNet50 implementation](https://gitee.com/mindspore/models/tree/r1.7/official/cv/resnet)(this script incorporates other ResNet family networks and ResNet-SE networks, and the specific implementation may differ from the benchmark script).
+Note: For codes in other files in the directory, refer to MindSpore ModelZoo's [ResNet50 implementation](https://gitee.com/mindspore/models/tree/master/official/cv/resnet)(this script incorporates other ResNet family networks and ResNet-SE networks, and the specific implementation may differ from the benchmark script).
 
 ### Distributed Training
 
@@ -835,7 +835,7 @@ For MindData performance issues, refer to MindData in MindInsight Component's [D
 When distributed training is performed, after the forward propagation and gradient computation are completed during a Step, each machine starts to synchronize the AllReduce gradient, and the AllReduce synchronization time is mainly affected by the number of weights and machines. For more complex, larger machine-sized networks, the AllReduce gradient update time is longer, at which point we can perform AllReduce tangent to optimize this part of the time.
 
 Normally, AllReduce gradient synchronization waits until all the inverse operators are finished, i.e., all the gradients of all weights are computed before synchronizing the gradients of all machines at once, but with AllReduce tangent, we can synchronize the gradients of some weights as soon as they are computed, so that the gradient synchronization and the gradient computation of the remaining operators can be performed in parallel, hiding this part of the AllReduce gradient synchronization time. The tangent strategy is usually a manual attempt to find an optimal solution (supporting slicing greater than two segments).
-As an example, [ResNet50 network](https://gitee.com/mindspore/models/blob/r1.7/official/cv/resnet/train.py) has 160 weights and [85, 160] means that the gradient synchronization is performed immediately after the gradient is calculated for the 0th to 85th weights, and the gradient synchronization is performed after the gradient is calculated for the 86th to 160th weights. Here the two segments is sliced, so two gradient synchronizations are required. The code implementation is as follows:
+As an example, [ResNet50 network](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/train.py) has 160 weights and [85, 160] means that the gradient synchronization is performed immediately after the gradient is calculated for the 0th to 85th weights, and the gradient synchronization is performed after the gradient is calculated for the 86th to 160th weights. Here the two segments is sliced, so two gradient synchronizations are required. The code implementation is as follows:
 
 ```python
 device_id = int(os.getenv('DEVICE_ID', '0'))
