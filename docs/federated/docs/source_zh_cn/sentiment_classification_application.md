@@ -2,7 +2,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.6/docs/federated/docs/source_zh_cn/sentiment_classification_application.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.6/resource/_static/logo_source.png"></a>
 
-通过端云协同的联邦学习建模方式，可以充分发挥端侧数据的优势，避免用户敏感数据直接上报云侧。由于用户在使用输入法时对自己的文字隐私十分看重，并且输入法上的智慧功能也是用户非常需要的。因此，联邦学习天然适用在输入法场景中。
+通过端云协同的联邦学习建模方式，可以充分发挥端侧数据的优势，避免用户敏感数据直接上传云侧。由于用户在使用输入法时，十分重视所输入文字的隐私，且输入法的智慧功能对提升用户体验非常需要。因此，联邦学习天然适用于输入法应用场景。
 
 MindSpore Federated将联邦语言模型应用到了输入法的表情图片预测功能中。联邦语言模型会根据聊天文本数据推荐出适合当前语境的表情图片。在使用联邦学习建模时，每一张表情图片会被定义为一个情感标签类别，而每个聊天短语会对应一个表情图片。MindSpore Federated将表情图片预测任务定义为联邦情感分类任务。
 
@@ -30,49 +30,17 @@ datasets/supervise/client/
 
 ```text
 datasets/supervise/eval/
-    ├── eval.txt  # 验证数据
+    └── eval.txt  # 验证数据
 ```
 
-[标签对应的表情图片数据](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/memo.tar.gz)包含4类表情，每类表情包括若干张图片，其目录结构如下：
-
-```text
-datasets/memo/
-    ├── good  # good类表情
-    │   ├── 2018new_geili_org.png
-    │   ├── 2018new_good_org.png
-    │   ├── 2018new_xianhua_org.png
-    │   ├── 2018new_zan_org.png
-    │   └── 2018new_zhongguozan_org.png
-    ├── leimu  # leimu类表情
-    │   ├── 2018new_beishang_org.png
-    │   ├── 2018new_kelian_org.png
-    │   ├── 2018new_leimu_org.png
-    │   ├── 2018new_weiqu_org.png
-    │   ├── 2021_alongdog_org.png
-    │   ├── 2021_LZcry_org.png
-    │   └── 2021_LZpoor_org.png
-    ├── xiaoku  # xiaoku类表情
-    │   ├── 2018new_doge02_org.png
-    │   ├── 2018new_guzhang_org.png
-    │   ├── 2018new_huaixiao_org.png
-    │   ├── 2018new_xiaoerbuyu_org.png
-    │   ├── 2018new_xiaoku_thumb.png
-    │   └── 2018new_yinxian_org.png
-    └── xin  # xin类表情
-        ├── 2018new_aini_org.png
-        ├── 2018new_huaxin_org.png
-        ├── 2018new_tianping_org.png
-        ├── 2018new_xin_org.png
-        └── qixi2018_xiaoxinxin_org.png
-```
+用于训练和验证的数据中，标签包含4类表情：`good`、`leimu`、`xiaoku`、`xin`。
 
 ### 模型相关文件
 
-生成模型需要的起始[CheckPoint文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/albert_init.ckpt)、[词典](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/vocab.txt)和[词典ID映射文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/vocab_map_ids.txt)的目录结构如下：
+模型相关的[词典](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/vocab.txt)和[词典ID映射文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/vocab_map_ids.txt)的目录结构如下：
 
 ```text
 models/
-    ├── albert_init.ckpt  # 起始的checkpoint
     ├── vocab.txt  # 词典
     └── vocab_map_ids.txt  # 词典ID映射文件
 ```
@@ -81,7 +49,7 @@ models/
 
 联邦学习中的语言模型使用ALBERT模型[1]。客户端上的ALBERT模型包括：embedding层、encoder层和classifier层。
 
-具体网络定义请参考[源码](https://gitee.com/mindspore/mindspore/tree/r1.6/tests/st/fl/albert/src/model.py)。
+具体网络定义请参考[源码](https://gitee.com/mindspore/mindspore/blob/r1.6/tests/st/fl/albert/src/model.py)。
 
 ### 生成端侧模型文件
 
@@ -224,7 +192,7 @@ if __name__ == '__main__':
 2. 获取生成的Android AAR包。
 
    ```text
-   mindspore-lite-<version>.aar
+   mindspore-lite-full-{version}.aar
    ```
 
 3. 把AAR包放置安卓工程的app/libs/目录下。
@@ -234,14 +202,14 @@ if __name__ == '__main__':
 ```text
 app
 │   ├── libs # Android库项目的二进制归档文件
-|   |   └── mindspore-lite-version.aar #  MindSpore Lite针对Android版本的归档文件
+|   |   └── mindspore-lite-full-{version}.aar #  MindSpore Lite针对Android版本的归档文件
 ├── src/main
 │   ├── assets # 资源目录
 |   |   └── model # 模型目录
 |   |       └── albert_supervise.mindir.ms # 存放的预训练模型文件
 │   |       └── albert_inference.mindir.ms # 存放的推理模型文件
 │   |   └── data # 数据目录
-|   |       └── 0.txt # 模型数据文件
+|   |       └── 0.txt # 训练数据文件
 |   |       └── vocab.txt # 词典文件
 |   |       └── vocab_map_ids.txt # 词典ID映射文件
 |   |       └── eval.txt # 训练结果评估文件
@@ -380,7 +348,7 @@ app
            flParameter.setSslProtocol(sslProtocol);
            flParameter.setDeployEnv(deployEnv);
            flParameter.setDomainName(domainName);
-           flParameter.setUseElb(useElb);
+           flParameter.setUseElb(ifUseElb);
            flParameter.setServerNum(serverNum);
            flParameter.setThreadNum(threadNum);
            flParameter.setCpuBindMode(BindMode.valueOf(cpuBindMode));
@@ -394,7 +362,7 @@ app
            // 构造dataMap
            String inferTxtPath = "data/albert/supervise/eval/eval.txt";
            String vocabFile = "data/albert/supervise/vocab.txt";
-           String idsFile = "data/albert/supervise/vocab_map_ids.txt"
+           String idsFile = "data/albert/supervise/vocab_map_ids.txt";
            Map<RunType, List<String>> dataMap = new HashMap<>();
            List<String> inferPath = new ArrayList<>();
            inferPath.add(inferTxtPath);
@@ -413,7 +381,7 @@ app
            flParameter.setDataMap(dataMap);
            flParameter.setInferModelPath(inferModelPath);
            flParameter.setThreadNum(threadNum);
-           flParameter.setCpuBindMode(BindMode.valueOf(cpuBindMode));
+           flParameter.setCpuBindMode(cpuBindMode);
            flParameter.setBatchSize(batchSize);
 
            // inference

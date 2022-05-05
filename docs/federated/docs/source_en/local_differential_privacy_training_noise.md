@@ -19,7 +19,7 @@ $$
 
 For datasets $D and D'$ that have only one record difference, the random algorithm $\mathcal{K}$ is used to compute the probability of the $S$ subset, which meets the preceding formula. $\epsilon$ is the differential privacy budget, and $\delta$ is the perturbation. The smaller the values of $\epsilon$ and $\delta$, the closer the data distribution of $\mathcal{K}$ on $D$ and $D'$.
 
-In horizontal federated learning, if the model weight matrix after local training on the client is $W$, the adversary can use $W$ to restore the training dataset[1] of the user because the model "remembers" the features of the training set during the training process.
+In horizontal federated learning, if the model weight matrix after local training on the client is $W$, the attacker can use $W$ to restore the training dataset[1] of the user because the model "remembers" the features of the training set during the training process.
 
 MindSpore Federated provides a LDP-based secure aggregation algorithm to prevent privacy data leakage when local models are migrated to the cloud.
 
