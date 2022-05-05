@@ -170,8 +170,6 @@ Functions
 
 - :doc:`../generate/function_mindspore_abstract_GetPrimitiveToEvalImplMap-1`
 
-- :doc:`../generate/function_mindspore_abstract_GetTraceNode-1`
-
 - :doc:`../generate/function_mindspore_abstract_MakeAbstract-1`
 
 - :doc:`../generate/function_mindspore_abstract_MakeAbstractTensor-1`
