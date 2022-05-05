@@ -42,7 +42,7 @@ from mindconverter import pytorch2mindspore
 pytorch2mindspore(model, dummy_inputs)
 ```
 
-API使用方法请参考[MindConvrter API描述](https://www.mindspore.cn/mindinsight/api/zh-CN/r1.7/mindconverter.html)。
+API使用方法请参考[MindConvrter API描述](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.7/mindconverter.html)。
 
 ## 工具安装
 
