@@ -4,9 +4,9 @@
 
 The following uses LeNet as an example to describe how to use MindSpore to deploy a federated learning cluster.
 
-> You can download the complete demo from [here](https://gitee.com/mindspore/mindspore/tree/master/tests/st/fl/mobile).
+> You can download the complete demo from [here](https://gitee.com/mindspore/mindspore/tree/r1.7/tests/st/fl/mobile).
 
-The following figure shows the physical architecture of the MindSpore Federated Learning Server cluster:
+The following figure shows the physical architecture of the MindSpore Federated Learning (FL) Server cluster:
 
 ![mindspore-federated-networking](./images/mindspore_federated_networking.png)
 
@@ -35,17 +35,17 @@ As shown in the preceding figure, in the federated learning cloud cluster, there
 
 ### Installing MindSpore
 
-The MindSpore federated learning cloud cluster supports deployment on x86 CPU and GPU hardware platforms. Run commands provided by the [official website](https://www.mindspore.cn/install) to install the latest MindSpore.
+The MindSpore federated learning cloud cluster supports deployment on x86 CPU and GPU CUDA hardware platforms. Run commands provided by the [MindSpore Installation](https://www.mindspore.cn/install) to install the latest MindSpore.
 
 ## Defining a Model
 
 To facilitate deployment, the `Scheduler` and `Server` processes of MindSpore federated learning can reuse the training script. You can select different startup modes by referring to [Configuring Parameters](#configuring-parameters).
 
-This tutorial uses LeNet as an example. For details about the network structure, loss function, and optimizer definition, see [LeNet sample code](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/lenet/lenet.py).
+This tutorial uses LeNet as an example. For details about the network structure, loss function, and optimizer definition, see [LeNet sample code](https://gitee.com/mindspore/docs/blob/r1.7/docs/sample_code/lenet/lenet.py).
 
 ## Configuring Parameters
 
-The MindSpore federated learning task process reuses the training script. You only need to use the same script to transfer different parameters through the Python API `set_fl_context` and start different MindSpore process roles. For details about the parameter configuration, see [MindSpore API](https://www.mindspore.cn/federated/docs/en/master/federated_server.html#mindspore.context.set_fl_context).
+The MindSpore federated learning task process reuses the training script. You only need to use the same script to transfer different parameters through the Python API `set_fl_context` and start different MindSpore process roles. For details about the parameter configuration, see [MindSpore API](https://www.mindspore.cn/federated/docs/en/r1.7/federated_server.html#mindspore.context.set_fl_context).
 
 After parameter configuration and before training, call the `set_fl_context` API as follows:
 
@@ -82,7 +82,7 @@ context.set_fl_context(**fl_ctx)
 model.train()
 ```
 
-In this example, the training task mode is set to `federated learning`, and the training process role is `Server`. In this task, `4` `Servers` need to be started to complete the cluster networking. The IP address of the cluster `Scheduler` is `192.168.216.124`, the cluster `Scheduler` port number is `6667`, the `HTTP service port number` of federated learning is `6668` (connected by the device), the task name is `LeNet`, and the cluster `Scheduler` management port number is `11202`.
+In this example, the training task mode is set to `federated learning` (`FEDERATED_LEARNING`), and the training process role is `Server`. In this task, `4` `Servers` need to be started to complete the cluster networking. The IP address of the cluster `Scheduler` is `192.168.216.124`, the cluster `Scheduler` port number is `6667`, the `HTTP service port number` of federated learning is `6668` (connected by the device), the task name is `LeNet`, and the cluster `Scheduler` management port number is `11202`.
 
 > Some parameters are used by either `Scheduler` (for example, scheduler_manage_port) or `Server` (for example, fl_server_port). To facilitate deployment, transfer these parameters together to MindSpore. MindSpore reads different parameters based on process roles.
 > You are advised to import the parameter configuration through the Python `argparse` module:
@@ -113,13 +113,13 @@ scheduler_manage_port = args.scheduler_manage_port
 config_file_path = args.config_file_path
 ```
 
-> Each Python script corresponds to a process. If multiple `Server` roles need to be deployed on different hosts, you can use shell commands and Python to quickly start multiple `Server` processes. You can refer to the [examples](https://gitee.com/mindspore/mindspore/tree/master/tests/st/fl/mobile).
+> Each Python script corresponds to a process. If multiple `Server` roles need to be deployed on different hosts, you can use shell commands and Python to quickly start multiple `Server` processes. You can refer to the [examples](https://gitee.com/mindspore/mindspore/tree/r1.7/tests/st/fl/mobile).
 >
-> Each `Server` process needs a unique identifier `MS_NODE_ID` which should be set by environment variable. In this tutorial, this environment variable has been set in the script [run_mobile_server.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/run_mobile_server.py).
+> Each `Server` process needs a unique identifier `MS_NODE_ID` which should be set by environment variable. In this tutorial, this environment variable has been set in the script [run_mobile_server.py](https://gitee.com/mindspore/mindspore/blob/r1.7/tests/st/fl/mobile/run_mobile_server.py).
 
 ## Starting a Cluster
 
-Start the cluster by referring to the [examples](https://gitee.com/mindspore/mindspore/tree/master/tests/st/fl/mobile). An example directory structure is as follows:
+Start the cluster by referring to the [examples](https://gitee.com/mindspore/mindspore/tree/r1.7/tests/st/fl/mobile). An example directory structure is as follows:
 
 ```text
 mobile/
@@ -143,21 +143,21 @@ Descriptions of the documents:
 
 1. Start the `Scheduler`.
 
-    `run_mobile_sched.py` is a Python script provided for you to start `Scheduler` and supports configuration modification through passing the `argparse` parameter. Run the following command to start the `Scheduler` of the federated learning task. The TCP port number is `6667`, the HTTP service port number is `6668`, the number of `Server` is `4`, and the management port number of the cluster `Scheduler` is `11202`:
+    `run_mobile_sched.py` is a Python script provided for you to start `Scheduler` and supports configuration modification through passing the `argparse` parameter. Run the following command to start the `Scheduler` of the federated learning task. The TCP port number is `6667`, the HTTP service port number starts with `6668`, the number of `Server` is `4`, and the management port number of the cluster `Scheduler` is `11202`:
 
     ```sh
-    python run_mobile_sched.py --scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6668 --server_num=4 --scheduler_manage_port=11202
+    python run_mobile_sched.py --scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6668 --server_num=4 --scheduler_manage_port=11202 --config_file_path=$PWD/config.json
     ```
 
 2. Start the `Servers`.
 
-    `run_mobile_server.py` is a Python script provided for you to start multiple `Servers` and supports configuration modification through passing the `argparse` parameter. Run the following command to start the `Servers` of the federated learning task. The TCP port number is `6667`, the HTTP service port number is `6668`, the number of `Server` is `4`, and the number of devices required for the federated learning task is `8`.
+    `run_mobile_server.py` is a Python script provided for you to start multiple `Servers` and supports configuration modification through passing the `argparse` parameter. Run the following command to start the `Servers` of the federated learning task. The TCP port number is `6667`, the HTTP service port number starts with `6668`, the number of `Server` is `4`, and the number of devices required for the federated learning task is `8`.
 
     ```sh
-    python run_mobile_server.py --scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6668 --server_num=4 --start_fl_job_threshold=8
+    python run_mobile_server.py --scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6668 --server_num=4 --start_fl_job_threshold=8 --config_file_path=$PWD/config.json
     ```
 
-    The preceding command is equivalent to starting four `Server` processes, of which the federated learning service port numbers are `6668`, `6669`, `6670`, and `6671`. For details, see [run_mobile_server.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/run_mobile_server.py).
+    The preceding command is equivalent to starting four `Server` processes, of which the federated learning service port numbers are `6668`, `6669`, `6670`, and `6671`. For details, see [run_mobile_server.py](https://gitee.com/mindspore/mindspore/blob/r1.7/tests/st/fl/mobile/run_mobile_server.py).
 
     > If you only want to deploy `Scheduler` and `Server` in a standalone system, change the `scheduler_ip` to `127.0.0.1`.
 
@@ -165,12 +165,12 @@ Descriptions of the documents:
 
     ```sh
     #Start three `Server` processes on node 1.
-    python run_mobile_server.py --scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6668 --server_num=4 --start_fl_job_threshold=8 --local_server_num=3
+    python run_mobile_server.py --scheduler_ip={ip_address_node_1} --scheduler_port=6667 --fl_server_port=6668 --server_num=4 --start_fl_job_threshold=8 --local_server_num=3 --config_file_path=$PWD/config.json
     ```
 
     ```sh
     #Start one `Server` process on node 2.
-    python run_mobile_server.py --scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6668 --server_num=4 --start_fl_job_threshold=8 --local_server_num=1
+    python run_mobile_server.py --scheduler_ip={ip_address_node_2} --scheduler_port=6667 --fl_server_port=6668 --server_num=4 --start_fl_job_threshold=8 --local_server_num=1 --config_file_path=$PWD/config.json
     ```
 
     The log is displayed as follows:
@@ -208,7 +208,7 @@ Descriptions of the documents:
 
 ## Auto Scaling
 
-The MindSpore federated learning framework supports auto scaling of `Server` and provides the `RESTful` service through the `Scheduler` management port. In this way, you can dynamically schedule hardware resources without interrupting training tasks. Currently, MindSpore supports only horizontal scaling (scale-out or scale-in) and does not support vertical scaling (scale-up or scale-down). In the auto scaling scenario, the number of `Server` processes either increases or decreases.
+The MindSpore federated learning framework supports auto scaling of `Server` and provides the `RESTful` service through the `Scheduler` management port. In this way, you can dynamically schedule hardware resources without interrupting training tasks. Currently, MindSpore supports only horizontal scaling (scale-out or scale-in) and does not support vertical scaling (scale-up or scale-down). In the auto scaling scenario, the number of `Server` processes either increases or decreases according to user settings.
 
 The following describes how to control cluster scale-in and scale-out using the native RESTful APIs.
 
@@ -230,7 +230,7 @@ The following describes how to control cluster scale-in and scale-out using the 
     Start `2` new `Server` processes and add up the values of `server_num` to ensure that the global networking information is correct. After the scale-out, the value of `server_num` should be `6`.
 
     ```sh
-    python run_mobile_server.py --scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6672 --server_num=6 --start_fl_job_threshold=8 --local_server_num=2
+    python run_mobile_server.py --scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6672 --server_num=6 --start_fl_job_threshold=8 --local_server_num=2 --config_file_path=$PWD/config.json
     ```
 
     This command is used to start two `Server` nodes. The port numbers of the federated learning services are `6672` and `6673`, and the total number of `Servers` is `6`.
@@ -244,31 +244,42 @@ The following describes how to control cluster scale-in and scale-out using the 
     'http://192.168.216.124:11202/nodes'
     ```
 
-    The result in the `json` format is returned:
+    The `scheduler` will return the query results in the `json` format:
 
     ```json
     {
+        "code": 0,
         "message": "Get nodes info successful.",
-        "node_ids": [
+        "nodeIds": [
             {
-                "node_id": "40d56ffe-f8d1-4960-85fa-fdf88820402a",
-                "rank_id": "3",
+                "alive": "true",
+                "nodeId": "3",
+                "rankId": "3",
                 "role": "SERVER"
             },
             {
-                "node_id": "1ba06348-f2e2-4ad2-be83-0d41fcb53228",
-                "rank_id": "2",
+                "alive": "true",
+                "nodeId": "0",
+                "rankId": "0",
                 "role": "SERVER"
             },
             {
-                "node_id": "997967bb-c1ab-4916-8697-dcfaaf0354e5",
-                "rank_id": "1",
+                "alive": "true",
+                "nodeId": "2",
+                "rankId": "2",
                 "role": "SERVER"
             },
             {
-                "node_id": "4b8d5bdf-eafd-4f5c-8cae-79008f19298a",
-                "rank_id": "0",
+                "alive": "true",
+                "nodeId": "1",
+                "rankId": "1",
                 "role": "SERVER"
+            },
+            {
+                "alive": "true",
+                "nodeId": "20",
+                "rankId": "0",
+                "role": "SCHEDULER"
             }
         ]
     }
@@ -281,9 +292,9 @@ The following describes how to control cluster scale-in and scale-out using the 
     -H "Content-Type:application/json" \
     -d \
     '{
-    "node_ids": ["40d56ffe-f8d1-4960-85fa-fdf88820402a", "1ba06348-f2e2-4ad2-be83-0d41fcb53228"]
+    "node_ids": ["2", "3"]
     }' \
-    'http://10.113.216.124:11202/scalein'
+    'http://192.168.216.124:11202/scalein'
     ```
 
 > - After the cluster scale-out or scale-in is successful, the training task is automatically restored. No manual intervention is required.
@@ -314,7 +325,7 @@ To enable disaster recovery, the fields below should be added to the config.json
 The node restart command is similar to the scale-out command. After the node is manually brought offline, run the following command:
 
 ```sh
-python run_mobile_server.py --scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6673 --server_num=6 --start_fl_job_threshold=8 --local_server_num=1
+python run_mobile_server.py --scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6673 --server_num=6 --start_fl_job_threshold=8 --local_server_num=1 --config_file_path=$PWD/config.json
 ```
 
 This command indicates that the `Server` is restarted. The federated learning service port number is `6673`.

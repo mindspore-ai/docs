@@ -8,56 +8,46 @@ In privacy compliance scenarios, the federated learning modeling mode based on d
 
 ### Environment
 
-For details, see [Server Environment Configuration](https://www.mindspore.cn/federated/docs/en/master/deploy_federated_server.html) and [Client Environment Configuration](https://www.mindspore.cn/federated/docs/en/master/deploy_federated_client.html).
+For details, see [Server Environment Configuration](https://www.mindspore.cn/federated/docs/en/r1.7/deploy_federated_server.html) and [Client Environment Configuration](https://www.mindspore.cn/federated/docs/en/r1.7/deploy_federated_client.html).
 
 ### Data
 
-The [training data](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/supervise/client.tar.gz) contains 100 user chat files. The directory structure is as follows:
+The [training data](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/supervise/client.tar.gz) contains 20 user chat files. The directory structure is as follows:
 
 ```text
-mobile/datasets/train/
-├── 0.tsv  # Training data of user 0
-├── 1.tsv  # Training data of user 1
+datasets/supervise/train/
+├── 0.txt  # Training data of user 0
+├── 1.txt  # Training data of user 1
 │
 │          ......
 │
-└── 99.tsv  # Training data of user 99
+└── 19.txt  # Training data of user 19
 ```
 
 The [validation data](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/supervise/eval.tar.gz) contains one chat file. The directory structure is as follows:
 
 ```text
-mobile/datasets/eval/
-├── 0.tsv  # Validation data
+datasets/supervise/eval/
+└── eval.txt  # Validation data
 ```
 
-The [emoji data corresponding to labels](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/memo.tar.gz) contains 107 images. The directory structure is as follows:
-
-```text
-mobile/datasets/memo/
-├── 0.gif  # Emoji corresponding to the 0th label
-├── 1.gif  # Emoji corresponding to the first label
-│
-│          ......
-│
-└── 106.gif  # Emoji corresponding to the 106th label
-```
+The labels in the training data and validation data correspond to four types of emojis: `good`, `leimu`, `xiaoku`, `xin`.
 
 ### Model-related Files
 
-The directory structures of the initial [checkpoint](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/albert_init.ckpt) and [dictionary](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/vocab.txt) required for generating a model are as follows:
+The directory structures of the [dictionary](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/vocab.txt) and the [mapping file of dictionary ID](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/vocab_map_ids.txt) related to the model file are as follows:
 
 ```text
 mobile/models/
-├── albert_init.ckpt  # Initial checkpoint
-└── vocab.txt  # Dictionary
+├── vocab.txt  # Dictionary
+└── vocab_map_ids.txt  # mapping file of Dictionary ID
 ```
 
 ## Defining the Network
 
 The ALBERT language model[1] is used in federated learning. The ALBERT model on the client includes the embedding layer, encoder layer, and classifier layer.
 
-For details about the network definition, see [source code](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py).
+For details about the network definition, see [source code](https://gitee.com/mindspore/mindspore/blob/r1.7/tests/st/fl/mobile/src/model.py).
 
 ### Generating a Device Model File
 
@@ -86,11 +76,11 @@ export(client_network_train_cell, input_ids, attention_mask, token_type_ids, lab
 
 #### Converting the MindIR File into an MS File that Can Be Used by the Federated Learning Framework on the Device
 
-For details about how to generate a model file on the device, see [Implementing an Image Classification Application](./image_classification_application.md).
+For details about how to generate a model file on the device, see [Implementing an Image Classification Application](https://www.mindspore.cn/federated/docs/en/r1.7/image_classification_application.html).
 
 ## Starting the Federated Learning Process
 
-Start the script on the server. For details, see [Cloud-based Deployment](https://www.mindspore.cn/federated/docs/en/master/deploy_federated_server.html)
+Start the script on the server. For details, see [Cloud-based Deployment](https://www.mindspore.cn/federated/docs/en/r1.7/deploy_federated_server.html)
 
 Based on the training and inference tasks of the ALBERT model, the overall process is as follows:
 
@@ -114,12 +104,12 @@ Create a project in Android Studio and install the corresponding SDK. (After the
 
 ### Building the MindSpore Lite AAR Package
 
-- For details, see [Federated Learning Deployment](./deploy_federated_client.md).
+- For details, see [Federated Learning Deployment](https://www.mindspore.cn/federated/docs/en/r1.7/deploy_federated_client.html).
 
 - Name of the generated Android AAR package:
 
   ```sh
-  mindspore-lite-<version>.aar
+  mindspore-lite-full-{version}.aar
   ```
 
 - Place the AAR package in the app/libs/ directory of the Android project.
@@ -129,14 +119,14 @@ Create a project in Android Studio and install the corresponding SDK. (After the
 ```text
 app
 │   ├── libs # Binary archive file of the Android library project
-|   |   └── mindspore-lite-version.aar #  MindSpore Lite archive file of the Android version
+|   |   └── mindspore-lite-full-{version}.aar #  MindSpore Lite archive file of the Android version
 ├── src/main
 │   ├── assets # Resource directory
 |   |   └── model # Model directory
 |   |       └── albert_ad_train.mindir.ms # Pre-trained model file
 │   |       └── albert_ad_infer.mindir.ms # Inference model file
 │   |   └── data # Data directory
-|   |       └── 140.txt # Model data file
+|   |       └── 0.txt # training data file
 |   |       └── vocab.txt # Dictionary file
 |   |       └── vocab_map_ids.txt # Dictionary ID mapping file
 |   |       └── eval.txt # Training result evaluation file
@@ -216,7 +206,7 @@ app
     }
     ```
 
-2. FlJob.java: This code file is used to define training and inference tasks. For details about federated learning APIs, see [Federal Learning APIs](https://www.mindspore.cn/federated/docs/en/master/interface_description_federated_client.html).
+2. FlJob.java: This code file is used to define training and inference tasks. For details about federated learning APIs, see [Federal Learning APIs](https://www.mindspore.cn/federated/docs/en/r1.7/interface_description_federated_client.html).
 
     ```java
     import android.annotation.SuppressLint;
@@ -277,7 +267,7 @@ app
             flParameter.setSslProtocol(sslProtocol);
             flParameter.setDeployEnv(deployEnv);
             flParameter.setDomainName(domainName);
-            flParameter.setUseElb(useElb);
+            flParameter.setUseElb(ifUseElb);
             flParameter.setServerNum(serverNum);
             flParameter.setThreadNum(threadNum);
             flParameter.setCpuBindMode(BindMode.valueOf(cpuBindMode));
@@ -291,7 +281,7 @@ app
             // create dataMap
             String inferTxtPath = "data/albert/supervise/eval/eval.txt";
             String vocabFile = "data/albert/supervise/vocab.txt";
-            String idsFile = "data/albert/supervise/vocab_map_ids.txt"
+            String idsFile = "data/albert/supervise/vocab_map_ids.txt";
             Map<RunType, List<String>> dataMap = new HashMap<>();
             List<String> inferPath = new ArrayList<>();
             inferPath.add(inferTxtPath);
@@ -310,7 +300,7 @@ app
             flParameter.setDataMap(dataMap);
             flParameter.setInferModelPath(inferModelPath);
             flParameter.setThreadNum(threadNum);
-            flParameter.setCpuBindMode(BindMode.valueOf(cpuBindMode));
+            flParameter.setCpuBindMode(cpuBindMode);
             flParameter.setBatchSize(batchSize);
 
             // inference

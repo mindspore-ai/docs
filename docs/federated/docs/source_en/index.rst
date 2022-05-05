@@ -8,7 +8,7 @@ MindSpore Federated Documents
 
 MindSpore Federated is an open-source federated learning framework that supports the commercial deployment of tens of millions of stateless devices. It enables all-scenario intelligent applications when user data is stored locally.
 
-The federated learning is an encrypted distributed machine learning technology that allows users participating in federated learning to build AI models without sharing local data. MindSpore Federated preferentially focuses on the large-scale participants in the horizontal federated learning scenarios.
+The federated learning is an encrypted distributed machine learning technology that allows users participating in federated learning to build AI models without sharing local data. MindSpore Federated currently focuses on the large-scale participants in the horizontal federated learning scenarios.
 
 .. raw:: html
 
@@ -48,22 +48,22 @@ MindSpore Federated Working Process
 
    Identify scenarios where federated learning is used and accumulate local data for federated tasks on the client.
 
-2. `Model Selection and Client Deployment <https://www.mindspore.cn/federated/docs/en/master/image_classification_application.html#generating-a-device-model-file>`_
+2. `Model Selection and Client Deployment <https://www.mindspore.cn/federated/docs/en/r1.7/image_classification_application.html#generating-a-device-model-file>`_
 
    Select or develop a model prototype and use a tool to generate a device model that is easy to deploy.
 
-3. `Application Deployment <https://www.mindspore.cn/federated/docs/en/master/image_classification_application.html#simulating-multi-client-participation-in-federated-learning>`_
+3. `Application Deployment <https://www.mindspore.cn/federated/docs/en/r1.7/image_classification_application.html#simulating-multi-client-participation-in-federated-learning>`_
 
    Deploy the Federated-Client to the device application, and set the federated configuration task and deployment script on the cloud.
 
-Common Scenarios
------------------
+Common Application Scenarios
+----------------------------
 
-1. `Image Classification <https://www.mindspore.cn/federated/docs/en/master/image_classification_application.html>`_
+1. `Image Classification <https://www.mindspore.cn/federated/docs/en/r1.7/image_classification_application.html>`_
 
    Use the federated learning to implement image classification applications.
 
-2. `Text Classification <https://www.mindspore.cn/federated/docs/en/master/sentiment_classification_application.html>`_
+2. `Text Classification <https://www.mindspore.cn/federated/docs/en/r1.7/sentiment_classification_application.html>`_
 
    Use the federated learning to implement text classification applications.
 
