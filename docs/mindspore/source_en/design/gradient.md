@@ -13,7 +13,7 @@ The formula of chain rule is: $(f\circ g)^{'}(x)=f^{'}(g(x))g^{'}(x)$
 Based on how to connect the gradient of basic components, AD can be divided into forward mode AD and reverse mode AD.
 
 For example, if we define function $f$
-$$y=f(x_{1},x_{2})=ln(x_{1})+x_{1}x_{2}-sin(x_{2})$$and  we want to use forward mode AD to calculate $\frac{\partial y}{\partial x_{1}}$ when $x_{1}=2,x_{2}=5$.
+$y=f(x_{1},x_{2})=ln(x_{1})+x_{1}x_{2}-sin(x_{2})$ and  we want to use forward mode AD to calculate $\frac{\partial y}{\partial x_{1}}$ when $x_{1}=2,x_{2}=5$.
 
 ![image](./images/forward_ad.png)
 
@@ -26,7 +26,7 @@ The calculation direction of the origin function is opposite to the calculation 
 MindSpore first developed method GradOperation based on reverse mode AD and then used the GradOperation to develop forward mode AD method Jvp.
 
 In order to explain the differences between forward mode AD and reverse mode AD in further. We define an origin function $F$ with N inputs and M outputs:
-$$ (Y_{1},Y_{2},...,Y_{M})=F(X_{1},X_{2},...,X_{N})$$
+$ (Y_{1},Y_{2},...,Y_{M})=F(X_{1},X_{2},...,X_{N})$
 The gradient of function $F$ is a Jacobian matrix.
 $$
  \left[
@@ -217,5 +217,4 @@ The network in black is the origin function. After the first derivative based on
 
 ### References
 
-[1] Baydin, A.G. et al., 2018. Automatic differentiation in machine learning: A survey. arXiv.org. Available at: https://arxiv.org/abs/1502.05767 [Accessed September 1, 2021].
-
+[1] Baydin, A.G. et al., 2018. Automatic differentiation in machine learning: A survey. arXiv.org. Available at: <https://arxiv.org/abs/1502.05767> [Accessed September 1, 2021].
