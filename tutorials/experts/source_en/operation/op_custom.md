@@ -787,7 +787,7 @@ When writing assignment expressions, users must take care of the dtype of the ex
 Example of dtype casting:
 
 ```python
-@ms_script
+@ms_hybrid
 def kernel_func(a):
     c = output_tensor((2,), "float16")
 
@@ -804,7 +804,7 @@ Currently, only the `for` loop is supported. `while`, `break`, and `continue` ar
 Loops are the same as those in Python. `range` and `grid` are supported to express extents of loops. `range` is for one-dimensional loops and accept a number as the upper bound of the loop, such as:
 
 ```python
-@ms_script
+@ms_hybrid
 def kernel_func(a, b):
     c = output_tensor((3, 4, 5), "float16")
 
@@ -820,7 +820,7 @@ The iteration space of the above loops is `0 <= i < 3, 0 <= j < 4, 0 <= k < 5`.
 `grid` is for multi-dimensional loops and accepts `tuple` as its input. For example, the above code can be also written as follows in `grid`:
 
 ```python
-@ms_script
+@ms_hybrid
 def kernel_func(a, b):
     c = output_tensor((3, 4, 5), "float16")
 
@@ -832,7 +832,7 @@ def kernel_func(a, b):
 Right now `arg` is equivalent to a three dimensional index `(i,j,k)`, with upper bound 4, 5, 6 respectively. We also have access to each element in `arg`, such as:
 
 ```python
-@ms_script
+@ms_hybrid
 def kernel_func(a, b):
     c = output_tensor(a.shape, "float16")
 
@@ -852,7 +852,7 @@ The `shape` attribute of a Tensor variable is a `tuple`. We have access to its e
 Once `grid` accepts one tensor's `shape` attribute as its input, then the dimension of the loops is the same as the dimension of the tensor. For example:
 
 ```python
-@ms_script
+@ms_hybrid
 def kernel_func(a, b):
     c = output_tensor(a.shape, "float16")
 
