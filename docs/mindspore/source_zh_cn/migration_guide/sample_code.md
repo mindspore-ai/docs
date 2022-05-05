@@ -875,4 +875,4 @@ if rank_size > 1:
 
     图算融合的适用场景包括：对网络执行时间具有较高性能要求的场景；通过拼接基本算子实现自定义组合算子，并希望对这些基本算子进行自动融合，以提升自定义组合算子性能的场景。
 
-    具体可参考 [图算融合教程](https://www.mindspore.cn/docs/zh-CN/master/design/enable_graph_kernel_fusion.html)。
+    具体可参考 [图算融合教程](https://www.mindspore.cn/docs/zh-CN/master/design/graph_fusion_engine.html)。
