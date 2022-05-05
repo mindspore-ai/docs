@@ -7,6 +7,7 @@ MindSpore Vision是一个开源的基于MindSpore框架的计算机视觉研究�
 -----------------------------
 
 - `分类 <https://gitee.com/mindspore/vision/blob/master/mindvision/classification/README_en.md>`_
+
    图像分类工具箱和基准。
 
 基本结构
