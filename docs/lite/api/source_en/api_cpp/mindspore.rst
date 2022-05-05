@@ -155,8 +155,6 @@ Classes
 
 - :doc:`../generate/classmindspore_FuncGraph`
 
-- :doc:`../generate/classmindspore_FuncGraphJTotalComputer`
-
 - :doc:`../generate/classmindspore_FuncGraphManager`
 
 - :doc:`../generate/classmindspore_FuncGraphParentsTotalComputer`
@@ -447,8 +445,6 @@ Enums
 - :doc:`../generate/enum_mindspore_MsLogLevel-1`
 
 - :doc:`../generate/enum_mindspore_OptimizationLevel-1`
-
-- :doc:`../generate/enum_mindspore_PoolMode-1`
 
 - :doc:`../generate/enum_mindspore_PrimType-1`
 
@@ -1030,8 +1026,6 @@ Variables
 
 - :doc:`../generate/variable_mindspore_FUNC_GRAPH_FLAG_FORCE_INLINE-1`
 
-- :doc:`../generate/variable_mindspore_FUNC_GRAPH_FLAG_IGNORE_VALUES-1`
-
 - :doc:`../generate/variable_mindspore_FUNC_GRAPH_FLAG_SPECIALIZE_PARAMETER-1`
 
 - :doc:`../generate/variable_mindspore_FUNC_GRAPH_OUTPUT_NO_RECOMPUTE-1`
@@ -1040,19 +1034,11 @@ Variables
 
 - :doc:`../generate/variable_mindspore_GRAPH_FLAG_CACHE_ENABLE-1`
 
-- :doc:`../generate/variable_mindspore_GRAPH_FLAG_EFFECT_PATIAL_ORDER-1`
-
-- :doc:`../generate/variable_mindspore_GRAPH_FLAG_HAS_EFFECT-1`
-
 - :doc:`../generate/variable_mindspore_GRAPH_FLAG_IS_WHILE_HEADER-1`
 
 - :doc:`../generate/variable_mindspore_GRAPH_FLAG_MIX_PRECISION_FP16-1`
 
 - :doc:`../generate/variable_mindspore_GRAPH_FLAG_MIX_PRECISION_FP32-1`
-
-- :doc:`../generate/variable_mindspore_GRAPH_FLAG_RANDOM_EFFECT-1`
-
-- :doc:`../generate/variable_mindspore_GRAPH_FLAG_SIDE_EFFECT-1`
 
 - :doc:`../generate/variable_mindspore_GRAPH_FLAG_SIDE_EFFECT_BACKPROP-1`
 
