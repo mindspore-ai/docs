@@ -14,7 +14,7 @@ The dataset is as follows:
 
 ![datset-dog](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/tutorials/source_zh_cn/beginner/images/datset_dog.png)
 
-Use the `DownLoad` interface in [MindSpore Vision](https://mindspore.cn/vision/docs/en/r1.7/index.html) to download and decompress the dataset to the specified path. The sample code is as follows:
+Use the `DownLoad` interface in [MindSpore Vision](https://mindspore.cn/vision/docs/en/r0.1/index.html) to download and decompress the dataset to the specified path. The sample code is as follows:
 
 ```python
 from mindvision.dataset import DownLoad
