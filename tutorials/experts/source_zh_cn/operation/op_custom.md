@@ -821,7 +821,7 @@ MindSpore Hybrid DSL中的变量包括Tensor和Scalar两种形式。
 Tensor分配的示例代码如下：
 
 ```python
-@ms_script
+@ms_hybrid
 def kernel_func(a, b):
     # a和b作为输入tensor，可以直接使用
 
@@ -845,7 +845,7 @@ def kernel_func(a, b):
 Scalar变量使用的示例代码如下：
 
 ```python
-@ms_script
+@ms_hybrid
 def kernel_func(a):
     c = output_tensor(a.shape, a.dtype)
 
@@ -883,7 +883,7 @@ MindSpore Hybrid DSL支持基本的四则运算表达，包括 `+, -, *, /`，�
 类型转换代码示例如下：
 
 ```python
-@ms_script
+@ms_hybrid
 def kernel_func(a):
     c = output_tensor((2,), "float16")
 
@@ -901,7 +901,7 @@ def kernel_func(a):
 基本循环的写法和Python一样，循环维度的表达可以使用 `range`和 `grid`关键词。`range`表示一维的循环维度，接受一个参数表示循环的上限，例如：
 
 ```python
-@ms_script
+@ms_hybrid
 def kernel_func(a, b):
     c = output_tensor((3, 4, 5), "float16")
 
@@ -917,7 +917,7 @@ def kernel_func(a, b):
 `grid`表示多维网格，接受的输入为 `tuple` ，例如上面的代码用 `grid`表达后如下：
 
 ```python
-@ms_script
+@ms_hybrid
 def kernel_func(a, b):
     c = output_tensor((3, 4, 5), "float16")
 
@@ -929,7 +929,7 @@ def kernel_func(a, b):
 此时，参数 `arg`等价于一个三维index `(i,j,k)`，其上限分别为4，5，6。对参数 `arg`我们可以取其中的某个分量，例如
 
 ```python
-@ms_script
+@ms_hybrid
 def kernel_func(a, b):
     c = output_tensor((3, 4, 5), "float16")
 
@@ -949,7 +949,7 @@ def kernel_func(a, b):
 同时，在 `grid`关键词中我们接受某个Tensor对象的 `shape`属性，那么循环的维度由Tensor的维度决定。例如：
 
 ```python
-@ms_script
+@ms_hybrid
 def kernel_func(a, b):
     c = output_tensor(a.shape, "float16")
 
