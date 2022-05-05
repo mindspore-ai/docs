@@ -183,11 +183,13 @@ try:
     decorator_list = [("mindspore/dataset/engine/datasets_user_defined.py","modify url",
                        "#loading-user-defined-dataset>`",">`_"),
                        ("mindspore/mindrecord/tools/imagenet_to_mr.py","del note",
-                       "    Note:\n        For details about Examples, please refer to `Converting the ImageNet Dataset <https://\n        www.mindspore.cn/tutorials/zh-CN/master/advanced/dataset/record.html#converting-the-imagenet-dataset>`_.\n",""),
+                       "    Note:\n        For details about Examples, please refer to `Converting the ImageNet Dataset <https://\n        www.mindspore.cn/tutorials/zh-CN/r1.7/advanced/dataset/record.html#converting-the-imagenet-dataset>`_.\n",""),
                        ("mindspore/ops/operations/comm_ops.py","modify url",
-                       "zh-CN/master/api_python/mindspore.ops.html#communication-operators","en/master/api_python/mindspore.ops.html#communication-operator"),
+                       "en/r1.7/api_python/mindspore.ops.html#communication-operators","en/r1.7/api_python/mindspore.ops.html#communication-operator"),
                        ("mindspore/ops/operations/comm_ops.py","modify url anchor",
-                       "#id2","#注意事项")]
+                       "#id2","#注意事项"),
+                       ("mindspore/ops/operations/random_ops.py","modify params format",
+                       "- **sampled_candidates** (Tensor) - A Tensor with shape :math:`(num\_sampled,)` and\n        the same type as `true_classes`.","- **sampled_candidates** (Tensor) - A Tensor with shape :math:`(num\_sampled,)` and\n          the same type as `true_classes`.")]
 
     base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
     for i in decorator_list:
