@@ -32,7 +32,7 @@ MindSpore根据正向图计算流程来自动推导出反向图，正向图和�
 
 ### 样例代码说明
 
-1. 准备模型代码。ResNet-50模型的代码可参见：<https://gitee.com/mindspore/models/tree/r1.7/official/cv/resnet>，其中，`train.py`为训练的主函数所在，`src/`目录中包含ResNet-50模型的定义和配置信息等，`script/`目录中包含一些训练和推理脚本。
+1. 准备模型代码。ResNet-50模型的代码可参见：<https://gitee.com/mindspore/models/tree/master/official/cv/resnet>，其中，`train.py`为训练的主函数所在，`src/`目录中包含ResNet-50模型的定义和配置信息等，`script/`目录中包含一些训练和推理脚本。
 2. 准备数据集。本样例采用`CIFAR-10`数据集，数据集的下载和加载方式可参考：<https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/parallel/train_ascend.html#下载数据集>。
 
 ### 配置重计算

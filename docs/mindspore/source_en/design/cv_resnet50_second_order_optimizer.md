@@ -10,7 +10,7 @@ Based on the existing natural gradient algorithm, MindSpore development team use
 
 This tutorial describes how to use the second-order optimizer THOR provided by MindSpore to train the ResNet-50 v1.5 network and ImageNet dataset on Ascend 910 and GPU.
 > Download address of the complete code example:
-<https://gitee.com/mindspore/models/tree/r1.7/official/cv/resnet>
+<https://gitee.com/mindspore/models/tree/master/official/cv/resnet>
 
 Directory Structure of Code Examples
 
@@ -171,7 +171,7 @@ def create_dataset2(dataset_path, do_train, repeat_num=1, batch_size=32, target=
 
 ## Defining the Network
 
-Use the ResNet-50 v1.5 network model as an example. Define the [ResNet-50 network](https://gitee.com/mindspore/models/blob/r1.7/official/cv/resnet/src/resnet.py).
+Use the ResNet-50 v1.5 network model as an example. Define the [ResNet-50 network](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/src/resnet.py).
 
 After the network is built, call the defined ResNet-50 in the `__main__` function.
 
@@ -334,7 +334,7 @@ bash run_distribute_train.sh <RANK_TABLE_FILE> <DATASET_PATH> <CONFIG_PATH>
 
 Variables `RANK_TABLE_FILE`, `DATASET_PATH` and `CONFIG_PATH` need to be transferred to the script. The meanings of variables are as follows:
 
-- `RANK_TABLE_FILE`: path for storing the networking information file (about the rank table file, you can refer to [HCCL_TOOL](https://gitee.com/mindspore/models/tree/r1.7/utils/hccl_tools))
+- `RANK_TABLE_FILE`: path for storing the networking information file (about the rank table file, you can refer to [HCCL_TOOL](https://gitee.com/mindspore/models/tree/master/utils/hccl_tools))
 - `DATASET_PATH`: training dataset path
 - `CONFIG_PATH`: config file path
 

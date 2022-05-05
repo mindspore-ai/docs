@@ -38,7 +38,7 @@
 
 ### 脚本参数
 
-在`default_config.yaml`中可以同时配置训练参数、推理参数、鲁棒性评测参数。这里我们重点关注在评测过程中使用到的参数，以及需要用户配置的参数，其余参数说明参考[CNN-CTC教程](https://gitee.com/mindspore/models/tree/r1.7/official/cv/cnnctc)。
+在`default_config.yaml`中可以同时配置训练参数、推理参数、鲁棒性评测参数。这里我们重点关注在评测过程中使用到的参数，以及需要用户配置的参数，其余参数说明参考[CNN-CTC教程](https://gitee.com/mindspore/models/tree/master/official/cv/cnnctc)。
 
 - `--TEST_DATASET_PATH`：测试数据集路。
 - `--CHECKPOINT_PATH`：checkpoint路径。
@@ -51,7 +51,7 @@
 
 [论文](https://arxiv.org/abs/1904.01906)： J. Baek, G. Kim, J. Lee, S. Park, D. Han, S. Yun, S. J. Oh, and H. Lee, “What is wrong with scene text recognition model comparisons? dataset and model analysis,” ArXiv, vol. abs/1904.01906, 2019.
 
-数据处理与模型训练参考[CNN-CTC教程](https://gitee.com/mindspore/models/tree/r1.7/official/cv/cnnctc)。评测任务需基于该教程获得预处理后的数据集和checkpoint模型文件。
+数据处理与模型训练参考[CNN-CTC教程](https://gitee.com/mindspore/models/tree/master/official/cv/cnnctc)。评测任务需基于该教程获得预处理后的数据集和checkpoint模型文件。
 
 预处理后的数据集为.lmdb格式，以键值对方式存储：
 

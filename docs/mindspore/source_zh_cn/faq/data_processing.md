@@ -148,13 +148,13 @@ A: 当`dataset_sink_mode=True`时，数据处理会和网络计算构成Pipeline
 
 <font size=3>**Q: MindSpore能否支持按批次对不同尺寸的图片数据进行训练？**</font>
 
-A: 你可以参考yolov3对于此场景的使用，里面有对于图像的不同缩放,脚本见[yolo_dataset](https://gitee.com/mindspore/models/blob/r1.7/official/cv/yolov3_darknet53/src/yolo_dataset.py)。
+A: 你可以参考yolov3对于此场景的使用，里面有对于图像的不同缩放,脚本见[yolo_dataset](https://gitee.com/mindspore/models/blob/master/official/cv/yolov3_darknet53/src/yolo_dataset.py)。
 
 <br/>
 
 <font size=3>**Q: 使用MindSpore做分割训练，必须将数据转为MindRecord吗？**</font>
 
-A: [build_seg_data.py](https://gitee.com/mindspore/models/blob/r1.7/official/cv/deeplabv3/src/data/build_seg_data.py)是将数据集生成MindRecord的脚本，可以直接使用/适配下你的数据集。或者如果你想尝试自己实现数据集的读取，可以使用`GeneratorDataset`自定义数据集加载。
+A: [build_seg_data.py](https://gitee.com/mindspore/models/blob/master/official/cv/deeplabv3/src/data/build_seg_data.py)是将数据集生成MindRecord的脚本，可以直接使用/适配下你的数据集。或者如果你想尝试自己实现数据集的读取，可以使用`GeneratorDataset`自定义数据集加载。
 
 [GenratorDataset 示例](https://www.mindspore.cn/tutorials/zh-CN/r1.7/advanced/dataset/custom.html)
 

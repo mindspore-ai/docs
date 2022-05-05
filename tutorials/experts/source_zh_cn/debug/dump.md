@@ -235,7 +235,7 @@ ms_global_execution_order_graph_{graph_id}.csv
 
 对于Ascend场景，在通过Dump功能将脚本对应的图保存到磁盘上后，会产生最终执行图文件`ms_output_trace_code_graph_{graph_id}.ir`。该文件中保存了对应的图中每个算子的堆栈信息，记录了算子对应的生成脚本。
 
-以[AlexNet脚本](https://gitee.com/mindspore/models/blob/r1.7/official/cv/alexnet/src/alexnet.py)为例 ：
+以[AlexNet脚本](https://gitee.com/mindspore/models/blob/master/official/cv/alexnet/src/alexnet.py)为例 ：
 
 ```python
 import mindspore.nn as nn
