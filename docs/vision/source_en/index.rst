@@ -7,6 +7,7 @@ Scenarios where MindSpore Vision is applied
 ----------------------------
 
 - `Classification <https://gitee.com/mindspore/vision/blob/master/mindvision/classification/README_en.md>`_
+
     Image classification toolbox and benchmark.
 
 Base Structure
