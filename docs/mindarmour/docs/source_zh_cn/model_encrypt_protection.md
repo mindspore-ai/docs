@@ -94,6 +94,21 @@ namespace mindspore{
 } // namespace mindspore
 ```
 
+## 警告
+
+在Python环境中完成加密或者解密后，需要及时清空内存中的key，参考清空方式：
+调用加解密接口时，先声明一个变量key来记录密钥，比如key=b'0123456789ABCDEF'，然后传入到调用接口中去，比如save_checkpoint(network, 'lenet_enc.ckpt', enc_key=key, enc_mode='AES-GCM')。完成任务后，使用ctypes清除key：
+
+```python
+import sys
+import ctypes
+length = len(key)
+offset = sys.getsizeof(key) - length - 1
+ctypes.memset(id(key) + offset, 0, length)
+```
+
+对于运行config_ck=CheckpointConfig()传入的key，也可以用上面的方式清除，只需要把上述代码中的key换成config_ck._enc_key即可。
+
 ## 端侧模型保护
 
 ### 模型转换工具
