@@ -139,7 +139,7 @@
 |                         |                         |                             | Python3.9                 | [mindquantum-0.6.0-cp39-cp39-win_amd64.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.7.0/MindQuantum/x86_64/mindquantum-0.6.0-cp39-cp39-win_amd64.whl) | bce0780afbd0fd3c938f059cc32f30c68e60bc971090850dc32cc8d57a173b3d |
 | MindSpore Reinforcement |                         | any                         | Python3                     | [mindspore_rl-0.3.0-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.7.0/Reinforcement/any/mindspore_rl-0.3.0-py3-none-any.whl) | 3174420e5673c232cd6e109ca8490894bf3f86d56fa47b1f48bebf09d2847a16 |
 | Ide-Plugin              |                         | Linux-x86_64<br>Windows-x64 | any                         | [MindSpore_Dev_ToolKit-1.7.0.zip](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.7.0/IdePlugin/any/MindSpore_Dev_ToolKit-1.7.0.zip) | 8d7312a85fa1029f06e658216fd778b27c6085efb14211dd6a66cb7cfa22954f |
-| MindSpore Vision |                         | any | Python3 | [mindvision-0.1.0-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.7.0/Vision/any/mindvision-0.1.0-py3-none-any.whl) | 33c6cea8af9c6b8a4d405be209aac853292b01bdc67f63831aca8d1b10435b00 |
+| MindSpore Vision |                         | any | Python3 | [mindvision-0.1.0-py3-none-any.whl](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.7.0/Vision/any/mindvision-0.1.0-py3-none-any.whl) | d1dbdf44320f89ddb36f45db513e28ec6168708d0299952223ad06a30f6ab17c |
 
 ### 1.6.1
 
