@@ -28,7 +28,7 @@ MindSpore first developed method GradOperation based on reverse mode AD and then
 In order to explain the differences between forward mode AD and reverse mode AD in further. We define an origin function $F$ with N inputs and M outputs:
 $ (Y_{1},Y_{2},...,Y_{M})=F(X_{1},X_{2},...,X_{N})$
 The gradient of function $F$ is a Jacobian matrix.
-$$
+$
  \left[
  \begin{matrix}
    \frac{\partial Y_{1}}{\partial X_{1}}& ... & \frac{\partial Y_{1}}{\partial X_{N}} \\
@@ -36,7 +36,7 @@ $$
    \frac{\partial Y_{M}}{\partial X_{1}} & ... & \frac{\partial Y_{M}}{\partial X_{N}}
   \end{matrix}
   \right]
-$$
+$
 
 ### Forward Mode AD
 
