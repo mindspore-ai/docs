@@ -4,26 +4,19 @@ Compared with the previous version, the added, deleted and supported platforms c
 
 |API|Status|Description|Support Platform|Class
 |:----|:----|:----|:----|:----
-|[mindspore.nn.MicroBatchInterleaved](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/nn/mindspore.nn.MicroBatchInterleaved.html#mindspore.nn.MicroBatchInterleaved)|New|Wrap the network with Batch Size.|r1.6: Ascend/GPU|Wrapper Functions
-|[mindspore.nn.PipelineCell](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/nn/mindspore.nn.PipelineCell.html#mindspore.nn.PipelineCell)|Changed|Wrap the network with Micro Batch.|r1.5: To Be Developed => r1.6: Ascend/GPU|Wrapper Functions
-|[mindspore.nn.Unfold](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/nn/mindspore.nn.Unfold.html#mindspore.nn.Unfold)|Changed|Extracts patches from images.|r1.5: Ascend => r1.6: Ascend/GPU|Utilities
-|[mindspore.nn.GRU](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/nn/mindspore.nn.GRU.html#mindspore.nn.GRU)|Changed|Stacked GRU (Gated Recurrent Unit) layers.|r1.5: Ascend/GPU => r1.6: Ascend/GPU/CPU|Recurrent Layers
-|[mindspore.nn.RNNCell](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/nn/mindspore.nn.RNNCell.html#mindspore.nn.RNNCell)|Changed|An Elman RNN cell with tanh or ReLU non-linearity.|r1.5: Ascend/GPU => r1.6: Ascend/GPU/CPU|Recurrent Layers
-|[mindspore.nn.LSTMCell](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/nn/mindspore.nn.LSTMCell.html#mindspore.nn.LSTMCell)|Changed|A LSTM (Long Short-Term Memory) cell.|r1.5: GPU/CPU => r1.6: Ascend/GPU/CPU|Recurrent Layers
-|[mindspore.nn.RNN](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/nn/mindspore.nn.RNN.html#mindspore.nn.RNN)|Changed|Stacked Elman RNN layers.|r1.5: Ascend/GPU => r1.6: Ascend/GPU/CPU|Recurrent Layers
-|[mindspore.nn.GRUCell](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/nn/mindspore.nn.GRUCell.html#mindspore.nn.GRUCell)|Changed|A GRU(Gated Recurrent Unit) cell.|r1.5: Ascend/GPU => r1.6: Ascend/GPU/CPU|Recurrent Layers
-|[mindspore.nn.LSTM](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/nn/mindspore.nn.LSTM.html#mindspore.nn.LSTM)|Changed|Stacked LSTM (Long Short-Term Memory) layers.|r1.5: Ascend/GPU => r1.6: Ascend/GPU/CPU|Recurrent Layers
-|[mindspore.nn.Rprop](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/nn/mindspore.nn.Rprop.html#mindspore.nn.Rprop)|New|Implements Resilient backpropagation.|r1.6: Ascend/GPU/CPU|Optimizer Functions
-|[mindspore.nn.ASGD](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/nn/mindspore.nn.ASGD.html#mindspore.nn.ASGD)|New|Implements Average Stochastic Gradient Descent.|r1.6: Ascend/GPU/CPU|Optimizer Functions
-|[mindspore.nn.Lamb](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/nn/mindspore.nn.Lamb.html#mindspore.nn.Lamb)|Changed|An optimizer that implements the Lamb(Layer-wise Adaptive Moments optimizer for Batching training) algorithm.|r1.5: Ascend/GPU/CPU => r1.6: Ascend/GPU|Optimizer Functions
-|[mindspore.nn.LARS](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/nn/mindspore.nn.LARS.html#mindspore.nn.LARS)|Changed|Implements the LARS algorithm with LARSUpdate Operator.|r1.5: Ascend/CPU => r1.6: Ascend|Optimizer Functions
-|[mindspore.nn.FTRL](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/nn/mindspore.nn.FTRL.html#mindspore.nn.FTRL)|Changed|Implements the FTRL algorithm with ApplyFtrl Operator.|r1.5: Ascend/GPU/CPU => r1.6: Ascend/GPU|Optimizer Functions
-|[mindspore.nn.LazyAdam](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/nn/mindspore.nn.LazyAdam.html#mindspore.nn.LazyAdam)|Changed|r1.5: This optimizer will apply a lazy adam algorithm when gradient is sparse. => r1.6: Updates gradients by the Adaptive Moment Estimation (Adam) algorithm.|r1.5: Ascend/GPU => r1.6: Ascend/GPU/CPU|Optimizer Functions
-|[mindspore.nn.GlobalBatchNorm](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/nn/mindspore.nn.GlobalBatchNorm.html#mindspore.nn.GlobalBatchNorm)|Changed|The GlobalBatchNorm interface is deprecated, please use the  mindspore.nn.SyncBatchNorm  instead.|r1.5: Ascend => r1.6: deprecated|Normalization Layers
-|[mindspore.nn.CELU](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/nn/mindspore.nn.CELU.html#mindspore.nn.CELU)|New|Continuously differentiable exponential linear units activation function.|r1.6: Ascend|Non-linear Activations
-|[mindspore.nn.LogSigmoid](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/nn/mindspore.nn.LogSigmoid.html#mindspore.nn.LogSigmoid)|Changed|Logsigmoid activation function.|r1.5: Ascend/GPU/CPU => r1.6: Ascend/GPU|Non-linear Activations
-|[mindspore.nn.MatMul](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/nn/mindspore.nn.MatMul.html#mindspore.nn.MatMul)|Changed|The nn.MatMul interface is deprecated, please use the  mindspore.ops.matmul  instead.|r1.5: Ascend/GPU/CPU => r1.6: deprecated|Math Functions
-|mindspore.nn.MAELoss|Deleted|MAELoss creates a criterion to measure the average absolute error between  \(x\)  and  \(y\)  element-wise, where  \(x\)  is the input and  \(y\)  is the labels.|r1.5: Ascend/GPU/CPU|Loss Functions
-|[mindspore.nn.Jvp](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/nn/mindspore.nn.Jvp.html#mindspore.nn.Jvp)|Changed|Compute the jacobian-vector-product of the given fn.|r1.5: To Be Developed => r1.6: Ascend/GPU/CPU|Gradient
-|[mindspore.nn.Vjp](https://www.mindspore.cn/docs/api/zh-CN/r1.6/api_python/nn/mindspore.nn.Vjp.html#mindspore.nn.Vjp)|Changed|Computes the dot product between a vector  v  and the Jacobian of the given fn at the point given by the inputs.|r1.5: To Be Developed => r1.6: Ascend/GPU/CPU|Gradient
-|mindspore.nn.GraphKernel|Deleted|Base class for GraphKernel.|r1.5: Ascend/GPU/CPU|Cell
+|[mindspore.nn.AdaSumByDeltaWeightWrapCell](https://www.mindspore.cn/docs/en/r1.7/api_python/nn/mindspore.nn.AdaSumByDeltaWeightWrapCell.html)|New|Enable the adasum in “auto_parallel/semi_auto_parallel” mode.|r1.7: Ascend/GPU|Optimizer
+|[mindspore.nn.AdaSumByGradWrapCell](https://www.mindspore.cn/docs/en/r1.7/api_python/nn/mindspore.nn.AdaSumByGradWrapCell.html)|New|Enable the adasum in “auto_parallel/semi_auto_parallel” mode.|r1.7: Ascend/GPU|Optimizer
+|mindspore.nn.ActQuant|Deleted|Quantization aware training activation function.|Ascend/GPU|Quantized Functions
+|mindspore.nn.Conv2dBnAct|Deleted|A combination of convolution, Batchnorm, and activation layer.|Ascend/GPU/CPU|Quantized Functions
+|mindspore.nn.Conv2dBnFoldQuant|Deleted|2D convolution with Batch Normalization operation folded construct.|Ascend/GPU|Quantized Functions
+|mindspore.nn.Conv2dBnFoldQuantOneConv|Deleted|2D convolution which use the convolution layer statistics once to calculate Batch Normalization operation folded construct.|Ascend/GPU|Quantized Functions
+|mindspore.nn.Conv2dBnWithoutFoldQuant|Deleted|2D convolution and batchnorm without fold with fake quantized construct.|Ascend/GPU|Quantized Functions
+|mindspore.nn.Conv2dQuant|Deleted|2D convolution with fake quantized operation layer.|Ascend/GPU|Quantized Functions
+|mindspore.nn.DenseBnAct|Deleted|A combination of Dense, Batchnorm, and the activation layer.|Ascend/GPU/CPU|Quantized Functions
+|mindspore.nn.DenseQuant|Deleted|The fully connected layer with fake quantized operation.|Ascend/GPU|Quantized Functions
+|mindspore.nn.FakeQuantWithMinMaxObserver|Deleted|Quantization aware operation which provides the fake quantization observer function on data with min and max.|Ascend/GPU|Quantized Functions
+|mindspore.nn.MulQuant|Deleted|Adds fake quantized operation after  Mul  operation.|Ascend/GPU|Quantized Functions
+|mindspore.nn.TensorAddQuant|Deleted|Adds fake quantized operation after TensorAdd operation.|Ascend/GPU|Quantized Functions
+|[mindspore.nn.Conv3d](https://www.mindspore.cn/docs/en/r1.7/api_python/nn/mindspore.nn.Conv3d.html)| Changed |3D convolution layer.|r1.6: Ascend/GPU => r1.7: Ascend/GPU/CPU|Convolutional Neural Network Layer
+|[mindspore.nn.BCEWithLogitsLoss](https://www.mindspore.cn/docs/en/r1.7/api_python/nn/mindspore.nn.BCEWithLogitsLoss.html)| Changed  platform-diff |Adds sigmoid activation function to input logits, and uses the given logits to compute binary cross entropy between the logits and the labels.|r1.6: Ascend/GPU => r1.7: Ascend/GPU/CPU|Loss Function
+|[mindspore.nn.Adam](https://www.mindspore.cn/docs/en/r1.7/api_python/nn/mindspore.nn.Adam.html)| Changed  platform-diff |Implements the Adaptive Moment Estimation (Adam) algorithm.|r1.6: GPU/  /CPU => r1.7: Ascend/GPU/CPU|Optimizer
