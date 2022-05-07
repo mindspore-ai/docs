@@ -15,6 +15,7 @@
    cv/transfer_learning
    cv/fgsm
    cv/dcgan
+   cv/vit
    
 .. toctree::
    :glob:
