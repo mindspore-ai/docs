@@ -146,7 +146,7 @@ Image shape: (32, 32, 3) , Label: 1
 
 ### VOC Dataset
 
-There are multiple versions of the VOC dataset, here uses VOC2012 as an example. Download [VOC2012 dataset](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/VOCtrainval_11-May-2012.tar) and decompress it. The directory structure is as follows:
+There are multiple versions of the VOC dataset, here uses VOC2012 as an example. Download [VOC2012 dataset](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/VOCtrainval_11-May-2012.tar) and decompress it. If the download fails, right-click the file and choose "Save as" to download the file. The directory structure is as follows:
 
 ```text
 └─ VOCtrainval_11-May-2012
