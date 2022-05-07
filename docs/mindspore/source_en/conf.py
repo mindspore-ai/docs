@@ -152,6 +152,65 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
 
+# Get side effect class name and add it to notes.
+from sphinx.util import logging
+
+logger = logging.getLogger(__name__)
+api_en_dir_nn = os.path.join(os.getenv("MS_PATH"), 'mindspore/python/mindspore/nn')
+api_en_dir_ops = os.path.join(os.getenv("MS_PATH"), 'mindspore/python/mindspore/ops')
+target_api_en_dir = [api_en_dir_nn, api_en_dir_ops]
+py_file_list = []
+for j in target_api_en_dir:
+    for root,dirs,files in os.walk(j):
+        for i in files:
+            if re.findall("^.*\.py$",i):
+                py_file_path = os.path.join(root,i)
+                with open(py_file_path,'r+',encoding='utf8') as f:
+                    content = f.read()
+                    if re.findall("add_prim_attr\((\'|\")side_effect_(mem|io)", content):
+                        py_file_list.append(py_file_path)
+
+for i in py_file_list:
+    with open(i,'r+',encoding='utf8') as f:
+        side_effect_str_list = []
+        position_count = dict()
+        content = f.read()
+        side_effect_type = re.findall(r"add_prim_attr\((\'|\")side_effect_(mem|io)(.*?)\)", content)
+        for k in side_effect_type:
+            side_effect_str = "add_prim_attr(" + k[0] + "side_effect_" + k[1] + k[2] + ')'
+            if 'True' in k[2]:
+                if side_effect_str not in side_effect_str_list:
+                    side_effect_str_list.append(side_effect_str)
+                    position_count[side_effect_str] = 1
+                else:
+                    position_count[side_effect_str] += 1
+        index_side_effect = 0  
+        for key,values in position_count.items():
+            for z in range(values):
+                if z==0:
+                    index_side_effect = content.find(key)
+                else:
+                    index_side_effect = content.find(key, index_side_effect+1)
+                cls_name = re.findall(r"class (.*?):\n.*?\"\"\"", content[:index_side_effect])[-1]
+                if content.rfind('    Supported Platforms:', 0, index_side_effect)>content.find(cls_name):
+                    str_notes = content[content.find(cls_name):content.rfind('    Supported Platforms:', 0, index_side_effect)]
+                    try:
+                        side_effect_pypath = i[i.rfind('mindspore'):]
+                        replace_str = "    Side Effects Form:\n        ``Memory``\n\n"
+                        if 'io' in key:
+                            replace_str = replace_str.replace("Memory", "IO")
+                        base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
+                        with open(os.path.join(base_path, os.path.normpath(side_effect_pypath)), "r+", encoding="utf8") as q:
+                            content_repl = q.read()
+                            str_note_repl = str_notes + replace_str
+                            if str_note_repl not in content_repl:
+                                content_repl = content_repl.replace(str_notes, str_note_repl)
+                                q.seek(0)
+                                q.truncate()
+                                q.write(content_repl)
+                    except Exception as e:
+                        pass
+
 # Repair error decorators defined in mindspore.
 try:
     decorator_list = [("mindspore/common/_decorator.py", "deprecated",
