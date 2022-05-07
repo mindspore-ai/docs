@@ -79,6 +79,16 @@ def get_platforms(name: str):
     except:
         return []
 
+def get_side_effect(name: str):
+    try:
+        api_doc = inspect.getdoc(get_api(name))
+        side_effect_str = re.findall(r'Side Effects Form:\n\s+(.*?)\n\n', api_doc)
+        side_effect_str = side_effect_str[0].strip()
+        side_effect_list = side_effect_str.split('\n')
+        return ["", "**副作用类型：**", ""] + side_effect_list + [""]
+    except:
+        return []
+
 class ObjectDescription(SphinxDirective):
     """
     Directive to describe a class, function or similar object.  Not used
@@ -239,11 +249,13 @@ class ObjectDescription(SphinxDirective):
         try:
             example = get_example(self.names[0][0])
             platforms = get_platforms(self.names[0][0])
+            side_effect = get_side_effect(self.names[0][0])
         except IndexError:
             example = ''
             platforms = ''
+            side_effect = ''
             logger.warning(f'Error API names in {self.arguments[0]}.')
-        extra = platforms + example
+        extra = side_effect + platforms + example
         if extra:
             if self.objtype == "method":
                 self.content.data.extend(extra)
