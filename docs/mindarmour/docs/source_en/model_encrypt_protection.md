@@ -94,6 +94,21 @@ namespace mindspore{
 } // namespace mindspore
 ```
 
+## Warning
+
+After completing encryption or decryption in Python environment, you need to empty the key in memory in time. Refer to the emptying method:
+When calling the encryption or decryption interface, first declare a variable 'key' to record the key, such as key=b'0123456789ABCDEF', and then pass it to the calling interface, such as save_checkpoint(network, 'lenet_enc.ckpt', enc_key=key, enc_mode='AES-GCM'). After completing the task, use ctypes to empty the key:
+
+```python
+import sys
+import ctypes
+length = len(key)
+offset = sys.getsizeof(key) - length - 1
+ctypes.memset(id(key) + offset, 0, length)
+```
+
+For the key passed to CheckpointConfig() when config_ck=CheckpointConfig() is run, you can also empty it as the method above by replacing 'key' in the code with 'config_ck._enc_key'.
+
 ## On-Device Model Protection
 
 ### Model Converter
