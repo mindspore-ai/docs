@@ -19,7 +19,7 @@ import os
 import argparse
 import mindspore.dataset as ds
 import mindspore.nn as nn
-from mindspore import context, Model, load_checkpoint, load_param_into_net
+from mindspore import Model, load_checkpoint, load_param_into_net, set_context, GRAPH_MODE
 from mindspore.common.initializer import Normal
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor
 import mindspore.dataset.vision.c_transforms as CV
@@ -123,7 +123,7 @@ if __name__ == "__main__":
     parser.add_argument('--device_target', type=str, default="CPU", choices=['Ascend', 'GPU', 'CPU'],
                         help='device where the code will be implemented (default: CPU)')
     args = parser.parse_args()
-    context.set_context(mode=context.GRAPH_MODE, device_target=args.device_target)
+    set_context(mode=GRAPH_MODE, device_target=args.device_target)
     dataset_sink_mode = not args.device_target == "CPU"
     # download mnist dataset
     download_dataset()

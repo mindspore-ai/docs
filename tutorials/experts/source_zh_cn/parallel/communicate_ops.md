@@ -62,9 +62,9 @@ import numpy as np
 import mindspore.ops as ops
 import mindspore.nn as nn
 from mindspore.communication import init, get_rank
-from mindspore import Tensor, context
+from mindspore import Tensor, set_context, GRAPH_MODE
 
-context.set_context(mode=context.GRAPH_MODE)
+set_context(mode=GRAPH_MODE)
 init()
 class Net(nn.Cell):
     def __init__(self):
@@ -99,13 +99,13 @@ print(output)
 示例代码如下：我们根据rank号(每张卡所属通信编号)初始化每个进程中`ReduceScatter`算子输入的数值，例如卡0，我们申请了一个4x1大小，数值为0的输入。然后调用`ReduceScatter`算子，在通信域为`0-1-2-3`的卡(所有卡的通信范围即nccl_world_group)中进行通信，并且打印输出结果。
 
 ```python
-from mindspore import Tensor, context
+from mindspore import Tensor, set_context, GRAPH_MODE
 from mindspore.communication import init, get_rank
 import mindspore.nn as nn
 import mindspore.ops as ops
 import numpy as np
 
-context.set_context(mode=context.GRAPH_MODE)
+set_context(mode=GRAPH_MODE)
 init()
 class Net(nn.Cell):
     def __init__(self):
@@ -136,14 +136,13 @@ print(output)
 示例代码如下：我们将`Broadcast`算子的根节点设置为0号卡，表示将从0号卡广播数据到其他卡上。同时申请了一个1x1大小，数值为0的输入。然后调用`Broadcast`算子，在通信域为`0-1-2-3`的卡(所有卡的通信范围即nccl_world_group)中进行通信，最终每张卡的输出数值来自卡0。
 
 ```python
-from mindspore import Tensor
-from mindspore import context
+from mindspore import Tensor, set_context, GRAPH_MODE
 from mindspore.communication import init
 import mindspore.nn as nn
 import mindspore.ops as ops
 import numpy as np
 
-context.set_context(mode=context.GRAPH_MODE)
+set_context(mode=GRAPH_MODE)
 init()
 class Net(nn.Cell):
     def __init__(self):
@@ -176,8 +175,7 @@ print(output)
 ```python
 import os
 import mindspore as ms
-from mindspore import Tensor
-from mindspore import context
+from mindspore import Tensor, set_context, GRAPH_MODE
 from mindspore.communication import init
 import mindspore.nn as nn
 import mindspore.ops as ops
@@ -201,7 +199,7 @@ class Net1(nn.Cell):
         out = self.neighbor_exchange((x,))
         return out[0]
 
-context.set_context(mode=context.GRAPH_MODE, device_target='Ascend')
+set_context(mode=GRAPH_MODE, device_target='Ascend')
 init()
 rank_id = int(os.getenv("RANK_ID"))
 if (rank_id % 2 == 0):
@@ -260,8 +258,7 @@ rank1的结果为：
 ```python
 import os
 import mindspore as ms
-from mindspore import Tensor
-from mindspore import context
+from mindspore import Tensor, set_context, GRAPH_MODE
 from mindspore.communication import init
 import mindspore.nn as nn
 import mindspore.ops as ops
@@ -285,7 +282,7 @@ class Net1(nn.Cell):
         out = self.neighbor_exchangev2(x)
         return out
 
-context.set_context(mode=context.GRAPH_MODE, device_target='Ascend')
+set_context(mode=GRAPH_MODE, device_target='Ascend')
 init()
 rank_id = int(os.getenv("RANK_ID"))
 if (rank_id % 2 == 0):
@@ -345,8 +342,7 @@ rank 1结果为：
 ```python
 import os
 import mindspore as ms
-from mindspore import Tensor
-from mindspore import context
+from mindspore import Tensor, set_context, GRAPH_MODE
 from mindspore.communication import init
 import mindspore.nn as nn
 import mindspore.ops as ops
@@ -361,7 +357,7 @@ class Net(nn.Cell):
         out = self.all_to_all(x)
         return out
 
-context.set_context(mode=context.GRAPH_MODE, device_target='Ascend')
+set_context(mode=GRAPH_MODE, device_target='Ascend')
 init()
 net = Net()
 rank_id = int(os.getenv("RANK_ID"))

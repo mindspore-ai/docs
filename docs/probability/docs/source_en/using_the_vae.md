@@ -110,11 +110,11 @@ The main function of the hidden space is to store the characteristics of the mod
 ```python
 import os
 import mindspore.nn as nn
-from mindspore import context, Tensor
+from mindspore import set_context, GRAPH_MODE, Tensor
 import mindspore.ops as ops
 from mindspore.nn.probability.dpn import VAE
 
-context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
+set_context(mode=GRAPH_MODE, device_target="GPU")
 IMAGE_SHAPE=(-1, 1, 32, 32)
 image_path = os.path.join("./datasets/MNIST_Data", "train")
 

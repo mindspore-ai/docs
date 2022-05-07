@@ -19,7 +19,7 @@ import argparse
 import os
 
 import mindspore.nn as nn
-from mindspore import ParameterTuple, context, DatasetHelper, save_checkpoint
+from mindspore import ParameterTuple, DatasetHelper, save_checkpoint, set_context, GRAPH_MODE
 from mindspore.nn import Cell
 import mindspore.ops as ops
 from models.official.cv.lenet.src.dataset import create_dataset
@@ -147,7 +147,7 @@ if __name__ == "__main__":
                         help='path where the dataset is saved')
     args = parser.parse_args()
 
-    context.set_context(mode=context.GRAPH_MODE, device_target=args.device_target)
+    set_context(mode=GRAPH_MODE, device_target=args.device_target)
     ds_train = create_dataset(os.path.join(args.data_path, "train"), 32)
 
     net = LeNet5(10)

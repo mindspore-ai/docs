@@ -114,7 +114,7 @@ For example. given the word "love" in the above dictionary, its corresponding la
 
 ```python
 from mindquantum.simulator import Simulator
-from mindspore import context
+from mindspore import set_context, PYNATIVE_MODE
 from mindspore import Tensor
 
 n_qubits = 3 # number of qubits of this quantum circuit
@@ -130,7 +130,7 @@ print("Parameters of encoder is: \n", np.round(label_array, 5))
 print("Encoder circuit is: \n", encoder)
 print("Encoder parameter names are: \n", encoder_params_name)
 
-context.set_context(mode=context.PYNATIVE_MODE, device_target="CPU")
+set_context(mode=PYNATIVE_MODE, device_target="CPU")
 
 state = encoder.get_qs(pr=label_array)
 amp = np.round(np.abs(state)**2, 3)
@@ -356,9 +356,9 @@ Next, embed a long setence by using the quantum `CBOW`. Please execute this comm
 
 ```python
 import mindspore as ms
-from mindspore import context
+from mindspore import set_context, PYNATIVE_MODE
 from mindspore import Tensor
-context.set_context(mode=context.PYNATIVE_MODE, device_target="CPU")
+set_context(mode=PYNATIVE_MODE, device_target="CPU")
 corpus = """We are about to study the idea of a computational process.
 Computational processes are abstract beings that inhabit computers.
 As they evolve, processes manipulate other abstract things called data.

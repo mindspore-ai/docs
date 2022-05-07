@@ -25,12 +25,12 @@ import os
 from shutil import copyfile
 import numpy as np
 
-import mindspore.context as context
+from mindspore import set_context, GRAPH_MODE
 import mindspore.nn as nn
 import mindspore.ops as ops
 import mindspore as ms
 
-context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
+set_context(mode=GRAPH_MODE, device_target="Ascend")
 
 
 class Net(nn.Cell):

@@ -55,7 +55,7 @@ Before start, you need to import the Python library.
 
 ```python
 import numpy as np
-from mindspore import Model, context
+from mindspore import Model
 from mindspore import load_checkpoint, load_param_into_net
 
 from mindarmour.reliability import FaultInjector

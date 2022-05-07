@@ -4,11 +4,11 @@ This sample code is applicable to Ascend.
 import numpy as np
 import mindspore.nn as nn
 import mindspore.ops as ops
-from mindspore import context, Tensor, ParameterTuple
+from mindspore import Tensor, ParameterTuple, PYNATIVE_MODE, set_context
 from mindspore.common.initializer import TruncatedNormal
 from mindspore.nn import WithLossCell, Momentum
 
-context.set_context(mode=context.PYNATIVE_MODE, device_target="Ascend")
+set_context(mode=PYNATIVE_MODE, device_target="Ascend")
 
 def conv(in_channels, out_channels, kernel_size, stride=1, padding=0):
     """weight initial for conv layer"""

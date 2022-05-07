@@ -97,12 +97,12 @@ MindSpore混合精度典型的计算流程如下图所示：
 import numpy as np
 import mindspore.nn as nn
 from mindspore.nn import Accuracy
-from mindspore import context, Model
+from mindspore import Model, set_context, GRAPH_MODE
 from mindspore.common.initializer import Normal
 from mindspore import dataset as ds
 
-context.set_context(mode=context.GRAPH_MODE)
-context.set_context(device_target="CPU")
+set_context(mode=GRAPH_MODE)
+set_context(device_target="CPU")
 
 class LeNet5(nn.Cell):
     """
@@ -200,13 +200,13 @@ import numpy as np
 
 import mindspore.nn as nn
 from mindspore import dtype as mstype
-from mindspore import Tensor, context
+from mindspore import Tensor, set_context, GRAPH_MODE
 import mindspore.ops as ops
 from mindspore.nn import WithLossCell, TrainOneStepCell
 from mindspore.nn import Momentum
 
-context.set_context(mode=context.GRAPH_MODE)
-context.set_context(device_target="Ascend")
+set_context(mode=GRAPH_MODE)
+set_context(device_target="Ascend")
 
 ```
 
@@ -312,13 +312,13 @@ MindSpore中提供了两种Loss Scale的方式，分别是`FixedLossScaleManager
     import mindspore
     import mindspore.nn as nn
     from mindspore.nn import Accuracy
-    from mindspore import context, Model, FixedLossScaleManager, DynamicLossScaleManager, Tensor
+    from mindspore import set_context, GRAPH_MODE, Model, FixedLossScaleManager, DynamicLossScaleManager, Tensor
     from mindspore.train.callback import LossMonitor
     from mindspore.common.initializer import Normal
     from mindspore import dataset as ds
 
     mindspore.set_seed(0)
-    context.set_context(mode=context.GRAPH_MODE)
+    set_context(mode=GRAPH_MODE)
     ```
 
 2. 定义LeNet5网络模型，任何网络模型都可以使用Loss Scale机制。

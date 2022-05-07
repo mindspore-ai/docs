@@ -21,7 +21,7 @@ MindSpore XAI还提供`mindspore_xai.runner.ImageClassificationRunner`运行模�
 ```python
 # 必须先把当前目录切换到 xai/examples/
 import mindspore.nn as nn
-from mindspore import context
+from mindspore import set_context, PYNATIVE_MODE
 from mindspore import load_checkpoint, load_param_into_net
 
 from mindspore_xai.explanation import GradCAM, GuidedBackprop
@@ -32,7 +32,7 @@ from common.resnet import resnet50
 from common.dataset import classes, load_dataset
 
 
-context.set_context(mode=context.PYNATIVE_MODE)
+set_context(mode=PYNATIVE_MODE)
 num_classes = 20
 
 net = resnet50(num_classes)

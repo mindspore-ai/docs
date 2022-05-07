@@ -15,8 +15,7 @@
 """train resnet."""
 import os
 import argparse
-from mindspore import context
-from mindspore import set_seed
+from mindspore import set_seed, set_context, GRAPH_MODE
 from mindspore import Model
 from mindspore import load_checkpoint, load_param_into_net
 
@@ -37,7 +36,7 @@ set_seed(1)
 if __name__ == '__main__':
     device_id = int(os.getenv('DEVICE_ID', '0'))
     # init context
-    context.set_context(mode=context.GRAPH_MODE, device_target='Ascend', device_id=device_id)
+    set_context(mode=GRAPH_MODE, device_target='Ascend', device_id=device_id)
 
     # create dataset
     dataset = create_dataset(args_opt.dataset_path, config.batch_size, do_train=False)

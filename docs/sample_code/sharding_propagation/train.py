@@ -17,7 +17,7 @@ This sample code is applicable to Ascend.
 """
 import numpy as np
 import mindspore as ms
-from mindspore import context, Tensor, Parameter
+from mindspore import Tensor, Parameter, set_context, GRAPH_MODE, set_auto_parallel_context
 from mindspore.nn import Cell, Momentum
 import mindspore.ops as ops
 from mindspore import Model
@@ -66,10 +66,10 @@ class FFN(Cell):
         return x
 
 if __name__ == "__main__":
-    context.set_context(mode=context.GRAPH_MODE, device_target="Ascend", save_graphs=True)
+    set_context(mode=GRAPH_MODE, device_target="Ascend", save_graphs=True)
     D.init()
     rank = D.get_rank()
-    context.set_auto_parallel_context(parallel_mode="auto_parallel", search_mode="sharding_propagation",
+    set_auto_parallel_context(parallel_mode="auto_parallel", search_mode="sharding_propagation",
                                       device_num=8, full_batch=True)
 
     np.random.seed(1)

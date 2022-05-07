@@ -36,14 +36,14 @@ from mindspore.dataset.vision import Inter
 import mindspore.nn as nn
 from mindspore.nn import SoftmaxCrossEntropyWithLogits
 from mindspore.common.initializer import TruncatedNormal
-from mindspore import Model, Tensor, context
+from mindspore import Model, Tensor, set_context, GRAPH_MODE
 from mindspore.train.callback import LossMonitor
 
 from mindarmour.adv_robustness.attacks import FastGradientSignMethod
 from mindarmour.utils import LogUtil
 from mindarmour.adv_robustness.evaluations import AttackEvaluate
 
-context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
+set_context(mode=GRAPH_MODE, device_target="Ascend")
 
 LOGGER = LogUtil.get_instance()
 LOGGER.set_level("INFO")

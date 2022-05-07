@@ -105,9 +105,9 @@ The CORA data can be downloaded at <https://linqs-data.soe.ucsc.edu/public/lbc/c
 The settings of environment variables are the same as those for other MindSpore network training. Especially, if enable_graph_kernel is set to True, the graph kernel build optimization is enabled to accelerate the graph model training.
 
 ```python
-import mindspore.context as context
+from mindspore import set_context, GRAPH_MODE
 
-context.set_context(device_target="GPU", mode=context.GRAPH_MODE, enable_graph_kernel=True)
+set_context(device_target="GPU", mode=GRAPH_MODE, enable_graph_kernel=True)
 ```
 
 ### Defining a Training Network

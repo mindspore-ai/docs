@@ -294,11 +294,10 @@ The `Distribution` base class invokes the private API in the `Beta` to implement
 Use `Normal` as an example. Create a normal distribution whose average value is 0.0 and standard deviation is 1.0.
 
 ```python
-from mindspore import Tensor
+from mindspore import Tensor, set_context, PYNATIVE_MODE
 from mindspore import dtype as mstype
-import mindspore.context as context
 import mindspore.nn.probability.distribution as msd
-context.set_context(mode=context.PYNATIVE_MODE)
+set_context(mode=PYNATIVE_MODE)
 
 my_normal = msd.Normal(0.0, 1.0, dtype=mstype.float32)
 
@@ -344,11 +343,10 @@ In graph mode, `Distribution` subclasses can be used on the network.
 
 ```python
 import mindspore.nn as nn
-from mindspore import Tensor
+from mindspore import Tensor, set_context, GRAPH_MODE
 from mindspore import dtype as mstype
-import mindspore.context as context
 import mindspore.nn.probability.distribution as msd
-context.set_context(mode=context.GRAPH_MODE)
+set_context(mode=GRAPH_MODE)
 
 class Net(nn.Cell):
     def __init__(self):
@@ -406,10 +404,9 @@ import numpy as np
 import mindspore.nn as nn
 import mindspore.nn.probability.bijector as msb
 import mindspore.nn.probability.distribution as msd
-import mindspore.context as context
-from mindspore import Tensor, dtype
+from mindspore import Tensor, dtype, set_context, PYNATIVE_MODE
 
-context.set_context(mode=context.PYNATIVE_MODE)
+set_context(mode=PYNATIVE_MODE)
 
 normal = msd.Normal(0.0, 1.0, dtype=dtype.float32)
 exp = msb.Exp()
@@ -474,11 +471,10 @@ In graph mode, the `TransformedDistribution` class can be used on the network.
 ```python
 import numpy as np
 import mindspore.nn as nn
-from mindspore import Tensor, dtype
-import mindspore.context as context
+from mindspore import Tensor, dtype, set_context, GRAPH_MODE
 import mindspore.nn.probability.bijector as msb
 import mindspore.nn.probability.distribution as msd
-context.set_context(mode=context.GRAPH_MODE)
+set_context(mode=GRAPH_MODE)
 
 class Net(nn.Cell):
     def __init__(self, shape, dtype=dtype.float32, seed=0, name='transformed_distribution'):
@@ -625,10 +621,9 @@ The following uses `PowerTransform` as an example. Create a `PowerTransform` obj
 import numpy as np
 import mindspore.nn as nn
 import mindspore.nn.probability.bijector as msb
-import mindspore.context as context
-from mindspore import Tensor, dtype
+from mindspore import Tensor, dtype, set_context, PYNATIVE_MODE
 
-context.set_context(mode=context.PYNATIVE_MODE)
+set_context(mode=PYNATIVE_MODE)
 
 powertransform = msb.PowerTransform(power=2.)
 
@@ -663,11 +658,10 @@ In graph mode, the `Bijector` subclass can be used on the network.
 ```python
 import numpy as np
 import mindspore.nn as nn
-from mindspore import Tensor
+from mindspore import Tensor, set_context, GRAPH_MODE
 from mindspore import dtype as mstype
-import mindspore.context as context
 import mindspore.nn.probability.bijector as msb
-context.set_context(mode=context.GRAPH_MODE)
+set_context(mode=GRAPH_MODE)
 
 class Net(nn.Cell):
     def __init__(self):

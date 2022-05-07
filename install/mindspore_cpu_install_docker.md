@@ -88,11 +88,11 @@ The result of multiplication calculation is correct, MindSpore has been installe
 
 ```python
 import numpy as np
-import mindspore.context as context
+from mindspore import set_context, PYNATIVE_MODE
 import mindspore.ops as ops
 from mindspore import Tensor
 
-context.set_context(mode=context.PYNATIVE_MODE, device_target="CPU")
+set_context(mode=PYNATIVE_MODE, device_target="CPU")
 
 x = Tensor(np.ones([1,3,3,4]).astype(np.float32))
 y = Tensor(np.ones([1,3,3,4]).astype(np.float32))

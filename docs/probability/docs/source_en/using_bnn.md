@@ -26,9 +26,9 @@ BNN is a basic model composed of probabilistic model and neural network. Its wei
 Set the training mode to graph mode and the computing platform to GPU.
 
 ```python
-from mindspore import context
+from mindspore import set_context, GRAPH_MODE
 
-context.set_context(mode=context.GRAPH_MODE, save_graphs=False, device_target="GPU")
+set_context(mode=GRAPH_MODE, save_graphs=False, device_target="GPU")
 ```
 
 ## Data Preparation

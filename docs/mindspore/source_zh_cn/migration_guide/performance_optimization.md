@@ -96,7 +96,6 @@ data_set = data_set.map(operations=trans, input_columns="image", num_parallel_wo
 优化参考代码如下：
 
 ```python
-from mindspore import context
 ...
 network = vgg16(config.num_classes, config, phase="test")
 network.add_flags_recursive(fp16=True)
@@ -122,16 +121,16 @@ network.add_flags_recursive(fp16=True)
 切分策略通常是手动尝试，寻找一个最优的方案（支持切分大于两段）。以ResNet50网络为例，该网络共有160个权重，[85, 160]表示第0至85个权重计算完梯度后立刻进行梯度同步，第86至160个权重计算完后再进行梯度同步，这里共切分两段，因此需要进行两次梯度同步。优化参考代码如下：
 
 ```python
-from mindspore import context
+from mindspore import set_auto_parallel_context
 from resnet50_imagenet2012_config.yaml import config
 ...
 
 if config.net_name == "resnet50" or config.net_name == "se-resnet50":
     # AllReduce split
-    context.set_auto_parallel_context(all_reduce_fusion_config=[85, 160])
+    set_auto_parallel_context(all_reduce_fusion_config=[85, 160])
 else:
     # Another split stratety
-    context.set_auto_parallel_context(all_reduce_fusion_config=[180, 313])
+    set_auto_parallel_context(all_reduce_fusion_config=[180, 313])
 init()
 ```
 

@@ -139,11 +139,11 @@ The result of multiplication calculation is correct, MindSpore has been installe
 
 ```python
 import numpy as np
-import mindspore.context as context
+from mindspore import set_context
 import mindspore.ops as ops
 from mindspore import Tensor
 
-context.set_context(device_target="GPU")
+set_context(device_target="GPU")
 
 x = Tensor(np.ones([1,3,3,4]).astype(np.float32))
 y = Tensor(np.ones([1,3,3,4]).astype(np.float32))

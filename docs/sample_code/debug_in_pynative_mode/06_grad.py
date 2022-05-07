@@ -2,11 +2,10 @@
 This sample code is applicable to Ascend.
 """
 import mindspore.ops as ops
-import mindspore.context as context
-from mindspore import dtype as mstype
+from mindspore import dtype as mstype, set_context, PYNATIVE_MODE
 from mindspore import Tensor
 
-context.set_context(mode=context.PYNATIVE_MODE, device_target="Ascend")
+set_context(mode=PYNATIVE_MODE, device_target="Ascend")
 
 def mul(x, y):
     return x * y

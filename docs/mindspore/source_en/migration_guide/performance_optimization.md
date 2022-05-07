@@ -100,7 +100,6 @@ For Operator Time Consumption optimization, usually float16 type with the less c
 Optimization code is shown below:
 
 ```python
-from mindspore import context
 ...
 network = vgg16(config.num_classes, config, phase="test")
 network.add_flags_recursive(fp16=True)
@@ -129,16 +128,16 @@ The tangent strategy is usually a manual attempt to find an optimal solution (su
 Optimization code is shown below:
 
 ```python
-from mindspore import context
+from mindspore import set_auto_parallel_context
 from resnet50_imagenet2012_config.yaml import config
 ...
 
 if config.net_name == "resnet50" or config.net_name == "se-resnet50":
     # AllReduce split
-    context.set_auto_parallel_context(all_reduce_fusion_config=[85, 160])
+    set_auto_parallel_context(all_reduce_fusion_config=[85, 160])
 else:
     # Another split stratety
-    context.set_auto_parallel_context(all_reduce_fusion_config=[180, 313])
+    set_auto_parallel_context(all_reduce_fusion_config=[180, 313])
 init()
 ```
 

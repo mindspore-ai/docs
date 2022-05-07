@@ -17,14 +17,12 @@ Train file for training transformers
 """
 import argparse
 from mindspore.nn.transformer import TransformerOpParallelConfig
-from mindspore import Model
+from mindspore import Model, ParallelMode, reset_auto_parallel_context, set_auto_parallel_context
 import mindspore.communication as D
-from mindspore.context import ParallelMode
 from mindspore.nn import PipelineCell
 from mindspore.train.callback import TimeMonitor, LossMonitor, CheckpointConfig, ModelCheckpoint
 from mindspore.nn import AdamWeightDecay
 from mindspore import load_checkpoint, load_param_into_net
-from mindspore import context
 from dataset import ToyDataset, Tokenzier
 from model import Net
 
@@ -136,8 +134,8 @@ def main():
         dp = device_num // args_opt.mp // args_opt.pipeline_stage
         print("rank_id is {}, device_num is {}, dp is {}".format(rank_id, device_num, dp))
         gradient_accumulation_shard = dp > 1 and args_opt.pipeline_stage > 1
-        context.reset_auto_parallel_context()
-        context.set_auto_parallel_context(
+        reset_auto_parallel_context()
+        set_auto_parallel_context(
             parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, gradients_mean=False,
             full_batch=True, loss_repeated_mean=True,
             device_num=device_num, enable_parallel_optimizer=bool(args_opt.enable_parallel_optimizer),

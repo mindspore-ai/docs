@@ -65,7 +65,7 @@
 import numpy as np
 import mindspore.ops as ops
 import mindspore.nn as nn
-from mindspore import context, Tensor
+from mindspore import set_context, GRAPH_MODE, Tensor
 from mindspore.communication import init, get_rank
 
 
@@ -79,7 +79,7 @@ class Net(nn.Cell):
 
 
 if __name__ == "__main__":
-    context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
+    set_context(mode=GRAPH_MODE, device_target="GPU")
     init("nccl")
     value = get_rank()
     input_x = Tensor(np.array([[value]]).astype(np.float32))
@@ -90,7 +90,7 @@ if __name__ == "__main__":
 
 其中，
 
-- `mode=context.GRAPH_MODE`：使用分布式训练需要指定运行模式为图模式（PyNative模式不支持并行）。
+- `mode=GRAPH_MODE`：使用分布式训练需要指定运行模式为图模式（PyNative模式不支持并行）。
 - `device_target="GPU"`: 指定设备为GPU。
 - `init("nccl")`：使能NCCL通信，并完成分布式训练初始化操作。
 - `get_rank()`：获得当前进程的rank号。
@@ -254,7 +254,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
 
 ## 训练网络
 
-训练之前，我们需要先配置一些自动并行的参数。`context.set_auto_parallel_context`是配置并行训练模式的接口，必须在初始化网络之前调用。常用参数包括：
+训练之前，我们需要先配置一些自动并行的参数。`set_auto_parallel_context`是配置并行训练模式的接口，必须在初始化网络之前调用。常用参数包括：
 
 - `parallel_mode`：分布式并行模式，默认为单机模式`ParallelMode.STAND_ALONE`。在本例中，可选择数据并行`ParallelMode.DATA_PARALLEL`
   及自动并行`ParallelMode.AUTO_PARALLEL`。
@@ -263,24 +263,23 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
   操作，False对应`allreduce_sum`操作。
 - `device_num`和`global_rank`建议采用默认值，框架内会调用NCCL接口获取。
 
-如脚本中存在多个网络用例，请在执行下个用例前调用`context.reset_auto_parallel_context`将所有参数还原到默认值。
+如脚本中存在多个网络用例，请在执行下个用例前调用`reset_auto_parallel_context`将所有参数还原到默认值。
 
 在下面的样例中我们指定并行模式为自动并行，用户如需切换为数据并行模式只需将`parallel_mode`改为`DATA_PARALLEL`。
 
 ```python
-from mindspore import context, Model
+from mindspore import Model, ParallelMode, set_context, GRAPH_MODE, set_auto_parallel_context
 from mindspore.nn import Momentum
 from mindspore.train.callback import LossMonitor
-from mindspore.context import ParallelMode
 from mindspore.communication import init
 from resnet import resnet50
 
-context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
+set_context(mode=GRAPH_MODE, device_target="GPU")
 init("nccl")
 
 
 def test_train_cifar(epoch_size=10):
-    context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
+    set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
     loss_cb = LossMonitor()
     dataset = create_dataset(data_path)
     batch_size = 32
@@ -432,12 +431,12 @@ export MS_ROLE=MS_WORKER              # The role of this process: MS_SCHED repre
 相比OpenMPI方式启动，此模式需要调用[Parameter Server模式](https://www.mindspore.cn/docs/zh-CN/master/design/parameter_server_training.html)中的`set_ps_context`接口，告诉MindSpore此次任务使用了PS模式训练架构:
 
 ```python
-from mindspore import context
+from mindspore import set_context, GRAPH_MODE, set_ps_context, set_auto_parallel_context, ParallelMode
 from mindspore.communication import init
 
 if __name__ == "__main__":
-    context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
-    context.set_ps_context(config_file_path="/path/to/config_file.json", enable_ssl=True,
+    set_context(mode=GRAPH_MODE, device_target="GPU")
+    set_ps_context(config_file_path="/path/to/config_file.json", enable_ssl=True,
                            client_password="123456", server_password="123456")
     init("nccl")
     ...
@@ -445,12 +444,12 @@ if __name__ == "__main__":
 
 其中，
 
-- `mode=context.GRAPH_MODE`：使用分布式训练需要指定运行模式为图模式（PyNative模式不支持并行）。
+- `mode=GRAPH_MODE`：使用分布式训练需要指定运行模式为图模式（PyNative模式不支持并行）。
 - `init("nccl")`：使能NCCL通信，并完成分布式训练初始化操作。
 - 默认情况下，安全加密通道是关闭的，需要通过`set_ps_context`正确配置安全加密通道或者关闭安全加密通道后，才能调用init("nccl")，否则初始化组网会失败。
 
-若想使用安全加密通道，请设置`context.set_ps_context(config_file_path="/path/to/config_file.json", enable_ssl=True, client_password="123456", server_password="123456")`
-等配置，详细参数配置说明请参考Python API [mindspore.context.set_ps_context](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.context.html#mindspore.context.set_ps_context)，以及本文档[安全认证](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html#安全认证)章节。
+若想使用安全加密通道，请设置`set_ps_context(config_file_path="/path/to/config_file.json", enable_ssl=True, client_password="123456", server_password="123456")`
+等配置，详细参数配置说明请参考Python API [mindspore.set_ps_context](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.html#mindspore.set_ps_context)，以及本文档[安全认证](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html#安全认证)章节。
 
 脚本内容`run_gpu_cluster.sh`如下，在启动Worker和Scheduler之前，需要添加相关环境变量设置：
 
@@ -582,7 +581,7 @@ done
 若希望启动数据并行模式训练，需要将脚本`resnet50_distributed_training_gpu.py`中`set_auto_parallel_context`入参并行模式改为`DATA_PARALLEL`:
 
 ```python
-context.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
+set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
 ```
 
 脚本会在后台运行，日志文件会保存到当前目录下，共跑了10个epoch，每个epoch有234个step，关于Loss部分结果保存在worker_*.log中。将loss值grep出来后，示例如下：
@@ -600,7 +599,7 @@ epoch: 1 step: 1, loss is 2.3025854
 
 ### 安全认证
 
-要支持节点/进程间的SSL安全认证，要开启安全认证，通过Python API `mindspore.context.set_ps_context`配置`enable_ssl=True`(不传入时默认为False，表示不启用SSL安全认证)，config_file_path指定的config.json配置文件需要添加如下字段：
+要支持节点/进程间的SSL安全认证，要开启安全认证，通过Python API `mindspore.set_ps_context`配置`enable_ssl=True`(不传入时默认为False，表示不启用SSL安全认证)，config_file_path指定的config.json配置文件需要添加如下字段：
 
 ```json
 {
@@ -620,7 +619,7 @@ epoch: 1 step: 1, loss is 2.3025854
 - cipher_list: 密码套件（支持的SSL加密类型列表）。
 - cert_expire_warning_time_in_day: 证书过期的告警时间。
 
-p12文件中的秘钥为密文存储，在启动时需要传入密码，具体参数请参考Python API [mindspore.context.set_ps_context](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.context.html#mindspore.context.set_ps_context)中的`client_password`以及`server_password`字段。
+p12文件中的秘钥为密文存储，在启动时需要传入密码，具体参数请参考Python API [mindspore.set_ps_context](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.html#mindspore.set_ps_context)中的`client_password`以及`server_password`字段。
 
 ### 容灾恢复
 

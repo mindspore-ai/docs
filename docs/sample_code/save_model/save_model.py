@@ -19,13 +19,13 @@ This sample code is applicable to CPU, GPU and Ascend.
 import os
 import mindspore.nn as nn
 from mindspore.nn import SoftmaxCrossEntropyWithLogits, Accuracy
-from mindspore import context, Model, Tensor, load_checkpoint, export
+from mindspore import Model, Tensor, load_checkpoint, export, set_context, GRAPH_MODE
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor
 from src.lenet import LeNet5
 from src.datasets import create_dataset
 import numpy as np
 
-context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
+set_context(mode=GRAPH_MODE, device_target="CPU")
 
 
 def output_file_formats(ckpt_path, net_work, batch_size, output_file_name, output_format):

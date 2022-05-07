@@ -160,11 +160,11 @@ Taking CPU as an example, use the Custom operator to call the above PyTorch Aten
 
 ```python
 import numpy as np
-from mindspore import context, Tensor
+from mindspore import Tensor, set_context
 from mindspore.nn import Cell
 import mindspore.ops as ops
 
-context.set_context(device_target="CPU")
+set_context(device_target="CPU")
 
 def LeakyRelu():
     return ops.Custom("./leaky_relu_cpu.so:LeakyRelu", out_shape=lambda x : x, out_dtype=lambda x : x, func_type="aot")

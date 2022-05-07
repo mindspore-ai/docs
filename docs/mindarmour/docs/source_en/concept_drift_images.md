@@ -36,7 +36,7 @@ import numpy as np
 from mindspore import Tensor
 from mindspore import Model
 from mindarmour.utils import LogUtil
-from mindspore import Model, nn, context
+from mindspore import Model, nn
 from examples.common.networks.lenet5.lenet5_net_for_fuzzing import LeNet5
 from mindspore import load_checkpoint, load_param_into_net
 from mindarmour.reliability import OodDetectorFeatureCluster

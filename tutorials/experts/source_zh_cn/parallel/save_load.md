@@ -436,7 +436,7 @@ load_param_into_net(opt, param_dict)
     import numpy as np
     import os
     import mindspore.nn as nn
-    from mindspore import context
+    from mindspore import set_context, GRAPH_MODE
     from mindspore.communication import init
     from mindspore import Tensor, Parameter
     import mindspore.ops as ops
@@ -444,7 +444,7 @@ load_param_into_net(opt, param_dict)
 
     from mindspore.communication import init
     devid = int(os.getenv('DEVICE_ID'))
-    context.set_context(mode=context.GRAPH_MODE,device_target='Ascend',save_graphs=True, device_id=devid)
+    set_context(mode=GRAPH_MODE,device_target='Ascend',save_graphs=True, device_id=devid)
     init()
 
     class Net(nn.Cell):
@@ -489,7 +489,7 @@ load_param_into_net(opt, param_dict)
 
     其中，
 
-    - `mode=context.GRAPH_MODE`：使用分布式训练需要指定运行模式为图模式（PyNative模式不支持并行）。
+    - `mode=GRAPH_MODE`：使用分布式训练需要指定运行模式为图模式（PyNative模式不支持并行）。
     - `device_id`：卡物理序号，即卡所在机器中的实际序号。
     - `init`：完成分布式训练初始化操作。
 

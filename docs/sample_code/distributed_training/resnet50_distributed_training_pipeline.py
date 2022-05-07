@@ -23,17 +23,16 @@ import mindspore.dataset as ds
 import mindspore.dataset.vision.c_transforms as vision
 import mindspore.dataset.transforms.c_transforms as C
 from mindspore.communication import init, get_rank, get_group_size
-from mindspore import Tensor, Model, context
+from mindspore import Tensor, Model, ParallelMode, set_context, GRAPH_MODE, set_auto_parallel_context
 from mindspore.nn import Momentum
-from mindspore.context import ParallelMode
 from mindspore.train.callback import LossMonitor
 from resnet import resnet50
 
 device_target = os.getenv('DEVICE_TARGET')
-context.set_context(mode=context.GRAPH_MODE, device_target=device_target)
+set_context(mode=GRAPH_MODE, device_target=device_target)
 if device_target == "Ascend":
     device_id = int(os.getenv('DEVICE_ID'))
-    context.set_context(device_id=device_id)
+    set_context(device_id=device_id)
 init()
 
 
@@ -117,8 +116,8 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
 
 def test_train_cifar(epoch_size=10):
     """train net"""
-    context.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, gradients_mean=True)
-    context.set_auto_parallel_context(pipeline_stages=2, full_batch=True)
+    set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, gradients_mean=True)
+    set_auto_parallel_context(pipeline_stages=2, full_batch=True)
     loss_cb = LossMonitor()
     data_path = os.getenv('DATA_PATH')
     dataset = create_dataset(data_path)

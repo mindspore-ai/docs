@@ -24,7 +24,7 @@ MindArmour的抑制隐私模块Suppress-Privacy，实现了抑制隐私优化器
 import os
 from easydict import EasyDict as edict
 import mindspore.nn as nn
-from mindspore import context
+from mindspore import set_context, PYNATIVE_MODE
 from mindspore.train.callback import ModelCheckpoint
 from mindspore.train.callback import CheckpointConfig
 from mindspore.train.callback import LossMonitor
@@ -68,7 +68,7 @@ TAG = 'Lenet5_Suppress_train'
 2. 配置必要的信息，包括环境信息、执行的模式。目前支持Ascend上的PyNative模式。
 
    ```python
-   context.set_context(mode=context.PYNATIVE_MODE, device_target=cfg.device_target)
+   set_context(mode=PYNATIVE_MODE, device_target=cfg.device_target)
    ```
 
    详细的接口配置信息，请参见`context.set_context`接口说明。
@@ -316,7 +316,7 @@ ds_train = generate_mnist_dataset('MNIST_unzip/train', cfg.batch_size)
     import matplotlib.pyplot as plt
     from scipy.special import softmax
     from mindspore import load_checkpoint, load_param_into_net
-    from mindspore import Tensor, context
+    from mindspore import Tensor
     from mindspore import nn
     from mindarmour.privacy.evaluation import ImageInversionAttack
     from mindarmour.utils import LogUtil

@@ -89,8 +89,8 @@ dqn_session.run(class_type=DQNTrainer, episode=episode, params=config.trainer_pa
 为使用MindSpore的计算图功能，将执行模式设置为`GRAPH_MODE`。
 
 ```python
-from mindspore import context
-context.set_context(mode=context.GRAPH_MODE)
+from mindspore import set_context, GRAPH_MODE
+set_context(mode=GRAPH_MODE)
 ```
 
 `@ms_function`注释的函数和方法将会编译到MindSpore计算图用于自动并行和加速。在本教程中，我们使用此功能来实现一个高效的`DQNTrainer`类。

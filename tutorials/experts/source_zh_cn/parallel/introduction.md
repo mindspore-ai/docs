@@ -31,30 +31,30 @@
 
 在下面的文档中将会详细介绍这四种模式的用法和注意事项。
 
-当前MindSpore提供分布式并行训练的功能。它支持了上述的多种模式，可以通过`context.set_auto_parallel_context()`接口设置对应的并行模式。
+当前MindSpore提供分布式并行训练的功能。它支持了上述的多种模式，可以通过`set_auto_parallel_context()`接口设置对应的并行模式。
 
 在用户调用分布式训练流程时，需要调用如下代码进行通信的初始化，并且配置对应的rank_table_file，可以参考[分布式训练(Ascend)](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#多机多卡训练)的**多机多卡训练**章节。
 
 ```python
 from mindspore.communication import init, get_rank, get_group_size
-from mindspore import context
+from mindspore import reset_auto_parallel_context, set_auto_parallel_context, ParallelMode
 init()
 device_num = get_group_size()
 rank = get_rank()
 print("rank_id is {}, device_num is {}".format(rank, device_num))
-context.reset_auto_parallel_context()
+reset_auto_parallel_context()
 # 下述的并行配置用户只需要配置其中一种模式
 # 数据并行模式
-context.set_auto_parallel_context(parallel_mode=context.ParallelMode.DATA_PARALLEL)
+set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL)
 # 半自动并行模式
-# context.set_auto_parallel_context(parallel_mode=context.ParallelMode.SEMI_AUTO_PARALLEL)
+# set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL)
 # 自动并行模式
-# context.set_auto_parallel_context(parallel_mode=context.ParallelMode.AUTO_PARALLEL)
+# set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL)
 # 混合并行模式
-# context.set_auto_parallel_context(parallel_mode=context.ParallelMode.HYBRID_PARALLEL)
+# set_auto_parallel_context(parallel_mode=ParallelMode.HYBRID_PARALLEL)
 ```
 
-下述涉及的自动并行接口，例如`context.set_auto_parallel_context`中的接口配置。分布式并行训练在各场景的支持情况如下表。
+下述涉及的自动并行接口，例如`set_auto_parallel_context`中的接口配置。分布式并行训练在各场景的支持情况如下表。
 
 | 并行模式 | 配置 | 动态图 | 静态图 | 支持设备 |
 | ---------- | ------ | ------ | ---------- | ---------- |
@@ -69,7 +69,7 @@ context.set_auto_parallel_context(parallel_mode=context.ParallelMode.DATA_PARALL
 
 ```python
 import numpy as np
-from mindspore import Tensor, context, Model, Parameter
+from mindspore import Tensor, Model, Parameter, set_auto_parallel_context, ParallelMode
 from mindspore.communication import init
 from mindspore import ops, nn
 
@@ -89,7 +89,7 @@ class DataParallelNet(nn.Cell):
 
 init()
 # 设置并行模式为数据并行，其他方式一致
-context.set_auto_parallel_context(parallel_mode=context.ParallelMode.DATA_PARALLEL)
+set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL)
 net = DataParallelNet()
 model = Model(net)
 model.train(*args, **kwargs)
@@ -119,7 +119,7 @@ model.train(*args, **kwargs)
 
     ```python
     import numpy as np
-    from mindspore import Tensor, context, Model, Parameter
+    from mindspore import Tensor, Model, Parameter, set_auto_parallel_context, ParallelMode
     from mindspore.communication import init
     from mindspore import ops, nn
 
@@ -146,7 +146,7 @@ model.train(*args, **kwargs)
             return x
 
     init()
-    context.set_auto_parallel_context(parallel_mode=context.ParallelMode.SEMI_AUTO_PARALLEL)
+    set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL)
     net = SemiAutoParallelNet()
     model = Model(net)
     model.train(*args, **kwargs)
@@ -204,13 +204,13 @@ class SemiAutoParallelNet(nn.Cell):
 用户可以通过如下代码去设置上述的策略搜索算法：
 
 ```python
-from mindspore import context
+from mindspore import set_auto_parallel_context, ParallelMode
 # 设置动态规划算法进行策略搜索
-context.set_auto_parallel_context(parallel_mode=context.ParallelMode.AUTO_PARALLEL, search_mode="dynamic_programming")
+set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, search_mode="dynamic_programming")
 # 设置双递归方法进行策略搜索
-context.set_auto_parallel_context(parallel_mode=context.ParallelMode.AUTO_PARALLEL, search_mode="recursive_programming")
+set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, search_mode="recursive_programming")
 # 设置切分策略传播算法
-context.set_auto_parallel_context(parallel_mode=context.ParallelMode.AUTO_PARALLEL, search_mode="sharding_propagation")
+set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, search_mode="sharding_propagation")
 ```
 
 > - 在`sharding_propagation`模式下，算法根据用户设置的`shard`策略传播到整个模型，在`dynamic_programming`模式下，用户设置的`shard`策略也会生效，不会被搜索出来的策略覆盖掉。
@@ -222,7 +222,7 @@ context.set_auto_parallel_context(parallel_mode=context.ParallelMode.AUTO_PARALL
 
 ```python
 import numpy as np
-from mindspore import Tensor, context, Model
+from mindspore import Tensor, Model, set_auto_parallel_context, ParallelMode
 from mindspore.communication import init
 from mindspore import ops, nn, Parameter
 
@@ -254,7 +254,7 @@ class HybridParallelNet(nn.Cell):
         return x
 
 init()
-context.set_auto_parallel_context(parallel_mode=context.ParallelMode.HYBRID_PARALLEL)
+set_auto_parallel_context(parallel_mode=ParallelMode.HYBRID_PARALLEL)
 net = HybridParallelNet()
 model = Model(net)
 model.train(*args, **kwargs)
@@ -264,20 +264,20 @@ model.train(*args, **kwargs)
 
 在并行训练中，支持三种数据的导入方式：
 
-- 全量导入。仅在**半自动**和**全自动**并行模式下生效。用户可以通过`context.set_auto_parallel_context(full_batch=True)`开启。开启全量导入之后，在自动并行流程中认为读入的`batch`是一个网络输入的完整shape。例如，在8卡训练的情况下，假设每张卡`dataset`返回的shape是`[32, 8]`，那么当前一个迭代训练的训练的数据即为`[32, 8]`。因此，**用户需要保证每卡在每轮迭代输入的数据是一致的**。例如，确保每卡数据集的`shuffle`的顺序是一致的。
+- 全量导入。仅在**半自动**和**全自动**并行模式下生效。用户可以通过`set_auto_parallel_context(full_batch=True)`开启。开启全量导入之后，在自动并行流程中认为读入的`batch`是一个网络输入的完整shape。例如，在8卡训练的情况下，假设每张卡`dataset`返回的shape是`[32, 8]`，那么当前一个迭代训练的训练的数据即为`[32, 8]`。因此，**用户需要保证每卡在每轮迭代输入的数据是一致的**。例如，确保每卡数据集的`shuffle`的顺序是一致的。
 
 - 数据并行导入。用户不设置 `full_batch`的情况下，每卡读入的数据是当前训练迭代的一个分片，因此要求每卡读入的数据内容**不一样**。例如8卡训练的情况下，每卡读入数据的`shape`为`[32,8]`，那么当前一个迭代训练的数据总量为`[32*8, 8]`。
 
-- 模型并行导入。模型并行导入的方式主要针对图像领域中图像尺寸太大无法在单卡进行计算时，直接在输入流程上就对图像进行切分。MindSpore在`context.set_auto_parallel_context`中提供了`dataset_strategy`接口，用户可以通过这个接口配置更加灵活的输入策略。注意，当用户使用此接口时，需要确保`dataset`返回的`tensor`符合对应的切分策略。如下代码所示：
+- 模型并行导入。模型并行导入的方式主要针对图像领域中图像尺寸太大无法在单卡进行计算时，直接在输入流程上就对图像进行切分。MindSpore在`set_auto_parallel_context`中提供了`dataset_strategy`接口，用户可以通过这个接口配置更加灵活的输入策略。注意，当用户使用此接口时，需要确保`dataset`返回的`tensor`符合对应的切分策略。如下代码所示：
 
   ```python
-  from mindspore import context
+  from mindspore import set_auto_parallel_context
   # 设置输入在第1维度上进行切分， 此时要求用户确保dataset返回的输入在第1维度上进行切分
-  context.set_auto_parallel_context(dataset_strategy=((1, 8), (1, 8)))
+  set_auto_parallel_context(dataset_strategy=((1, 8), (1, 8)))
   # 相当于设置full_batch=False
-  context.set_auto_parallel_context(dataset_strategy="data_parallel")
+  set_auto_parallel_context(dataset_strategy="data_parallel")
   # 相当于设置full_batch=True
-  context.set_auto_parallel_context(dataset_strategy="full_batch")
+  set_auto_parallel_context(dataset_strategy="full_batch")
   ```
 
 因此，在用户设置上述的配置之后，需要**手动**设置dataset的获取顺序，确保每卡的数据是期望的。

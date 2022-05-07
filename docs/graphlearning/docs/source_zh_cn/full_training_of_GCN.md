@@ -105,9 +105,9 @@ ds = CoraV2(args.data_path)
 环境变量的设置同MindSpore其他网络训练，特别的是设置enable_graph_kernel=True可以启动图算编译优化，加速图模型的训练。
 
 ```python
-import mindspore.context as context
+from mindspore import set_context, GRAPH_MODE
 
-context.set_context(device_target="GPU", mode=context.GRAPH_MODE, enable_graph_kernel=True)
+set_context(device_target="GPU", mode=GRAPH_MODE, enable_graph_kernel=True)
 ```
 
 ### 定义训练网络

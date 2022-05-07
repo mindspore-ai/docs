@@ -52,7 +52,7 @@ MNIST手写数据集包含60,000个样本的训练集和10,000个样本的测试
 
 ```python
 import numpy as np
-from mindspore import Model, context
+from mindspore import Model
 from mindspore import load_checkpoint, load_param_into_net
 
 from mindarmour.reliability import FaultInjector

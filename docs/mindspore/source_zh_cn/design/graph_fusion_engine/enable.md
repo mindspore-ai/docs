@@ -18,8 +18,8 @@
 当前图算融合优化默认关闭状态，我们只需在训练脚本中为`context`指定参数`enable_graph_kernel=True`即可启用图算融合：
 
 ```python
-from mindspore import context
-context.set_context(enable_graph_kernel=True)
+from mindspore import set_context
+set_context(enable_graph_kernel=True)
 ```
 
 > - 图算融合优化只支持Graph模式。
@@ -31,16 +31,16 @@ context.set_context(enable_graph_kernel=True)
 
 ```python
 import numpy as np
-import mindspore.context as context
+from mindspore import set_context, GRAPH_MODE
 from mindspore import Tensor
 from mindspore.nn import Cell
 import mindspore.ops as ops
 
-context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
+set_context(mode=GRAPH_MODE, device_target="GPU")
 # save graph ir to view fusion detail.
-context.set_context(save_graphs=True)
+set_context(save_graphs=True)
 # enable graph kernel optimization.
-context.set_context(enable_graph_kernel=True)
+set_context(enable_graph_kernel=True)
 
 class MyNet(Cell):
     def __init__(self):
@@ -90,14 +90,14 @@ result: [[2. 2. 2. 2.]
 
 ```python
 import numpy as np
-import mindspore.context as context
+from mindspore import set_context, GRAPH_MODE
 from mindspore import Tensor
 from mindspore.nn import Cell
 import mindspore.ops as ops
 
-context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
+set_context(mode=GRAPH_MODE, device_target="GPU")
 # enable graph kernel optimization.
-context.set_context(enable_graph_kernel=True)
+set_context(enable_graph_kernel=True)
 
 class MyOp(Cell):
     """ my first custom OP composited by basic OPs """

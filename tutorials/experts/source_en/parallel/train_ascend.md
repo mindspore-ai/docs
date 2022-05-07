@@ -93,18 +93,18 @@ The sample code for calling the HCCL is as follows:
 
 ```python
 import os
-from mindspore import context
+from mindspore import set_context, GRAPH_MODE
 from mindspore.communication import init
 
 if __name__ == "__main__":
-    context.set_context(mode=context.GRAPH_MODE, device_target="Ascend", device_id=int(os.environ["DEVICE_ID"]))
+    set_context(mode=GRAPH_MODE, device_target="Ascend", device_id=int(os.environ["DEVICE_ID"]))
     init()
     ...
 ```
 
 In the preceding code:
 
-- `mode=context.GRAPH_MODE`: sets the running mode to graph mode for distributed training. (The PyNative mode only support data parallel running.)
+- `mode=GRAPH_MODE`: sets the running mode to graph mode for distributed training. (The PyNative mode only support data parallel running.)
 - `device_id`: physical sequence number of a device, that is, the actual sequence number of the device on the corresponding host.
 - `init`: enables HCCL communication and completes the distributed training initialization.
 
@@ -178,7 +178,7 @@ Hybrid parallel mode adds the setting `layerwise_parallel` for `parameter` based
 In the following example, specify the `self.weight` as the `layerwise_parallel`, that is, the `self.weight` and the output of `MatMul` are sliced on the second dimension. At this time, perform ReduceSum on the second dimension would only get one sliced result. `AllReduce.Sum` is required here to accumulate the results among all devices. More information about the parallel theory please refer to the [design document](https://www.mindspore.cn/docs/en/master/design/distributed_training_design.html).
 
 ```python
-from mindspore import Tensor
+from mindspore import Tensor, Parameter
 import mindspore.ops as ops
 from mindspore import dtype as mstype
 import mindspore.nn as nn
@@ -207,7 +207,7 @@ Compared with the auto parallel mode, semi auto parallel mode supports manual co
 In the above example `HybridParallelNet`, the script in semi auto parallel mode is as follows. The shard stratege of `MatMul` is `((1, 1), (1, 2))`, which means `self.weight` is sliced at the second dimension.
 
 ```python
-from mindspore import Tensor
+from mindspore import Tensor, Parameter
 import mindspore.ops as ops
 from mindspore import dtype as mstype
 import mindspore.nn as nn
@@ -285,30 +285,29 @@ The `Momentum` optimizer is used as the parameter update tool. The definition is
 
 ## Training the Network
 
-`context.set_auto_parallel_context` is an API for users to set parallel training parameters and must be called before the initialization of networks. The related parameters are as follows:
+`set_auto_parallel_context` is an API for users to set parallel training parameters and must be called before the initialization of networks. The related parameters are as follows:
 
 - `parallel_mode`: parallel distributed mode. The default value is `ParallelMode.STAND_ALONE`. The other options are `ParallelMode.DATA_PARALLEL` and `ParallelMode.AUTO_PARALLEL`.
 - `parameter_broadcast`: the data parallel weights on the first device would be broadcast to other devices. The default value is `False`,
 - `gradients_mean`: During backward computation, the framework collects gradients of parameters in data parallel mode across multiple hosts, obtains the global gradient value, and transfers the global gradient value to the optimizer for update. The default value is `False`, which indicates that the `AllReduce.Sum` operation is applied. The value `True` indicates that the `AllReduce.Mean` operation is applied.
 - You are advised to set `device_num` and `global_rank` to their default values. The framework calls the HCCL API to obtain the values.
 
-If multiple network cases exist in the script, call `context.reset_auto_parallel_context` to restore all parameters to default values before executing the next case.
+If multiple network cases exist in the script, call `reset_auto_parallel_context` to restore all parameters to default values before executing the next case.
 
 In the following sample code, the automatic parallel mode is specified. To switch to the data parallel mode, you only need to change `parallel_mode` to `DATA_PARALLEL` and do not need to specify the strategy search algorithm `auto_parallel_search_mode`. In the sample code, the recursive programming strategy search algorithm is specified for automatic parallel.
 
 ```python
-from mindspore import context, Model
+from mindspore import ParallelMode, Model, set_context, GRAPH_MODE, set_auto_parallel_context
 from mindspore.nn import Momentum
 from mindspore.train.callback import LossMonitor
-from mindspore.context import ParallelMode
 from resnet import resnet50
 
 device_id = int(os.getenv('DEVICE_ID'))
-context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
-context.set_context(device_id=device_id) # set device_id
+set_context(mode=GRAPH_MODE, device_target="Ascend")
+set_context(device_id=device_id) # set device_id
 
 def test_train_cifar(epoch_size=10):
-    context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
+    set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
     loss_cb = LossMonitor()
     dataset = create_dataset(data_path)
     batch_size = 32
@@ -562,9 +561,9 @@ It is convenient to save and load the model parameters in auto parallel mode. Ju
 
 ```python
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
-
+from mindspore import set_auto_parallel_context, ParallelMode
 def test_train_cifar(epoch_size=10):
-    context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
+    set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
     loss_cb = LossMonitor()
     dataset = create_dataset(data_path)
     batch_size = 32
@@ -596,12 +595,12 @@ By default, sliced parameters would be merged before saving automatocally. Howev
 In retraining with multiple devices scenarios, users can infer shard strategy of retraining with `model.infer_train_layout` (only dataset sink mode is supported). The shard strategy will be used as `predict_strategy` for `load_distributed_checkpoint` function, which restores sliced parameters from `strategy_ckpt_load_file` (training strategy) to `predict_strategy` (retraining strategy) and load them into `model.train_network`. If there is only one device in retraining, `predict_strategy` could be `None`. The code is as follows:
 
 ```python
-from mindspore import load_distributed_checkpoint, context
+from mindspore import load_distributed_checkpoint, set_context, GRAPH_MODE, set_auto_parallel_context
 from mindspore.communication import init
 
-context.set_context(mode=context.GRAPH_MODE)
+set_context(mode=GRAPH_MODE)
 init()
-context.set_auto_parallel_context(full_batch=True, parallel_mode='semi_auto_parallel', strategy_ckpt_load_file='./train_strategy.ckpt')
+set_auto_parallel_context(full_batch=True, parallel_mode='semi_auto_parallel', strategy_ckpt_load_file='./train_strategy.ckpt')
 # create model and dataset
 dataset = create_custom_dataset()
 resnet = ResNet50()
@@ -624,13 +623,13 @@ model.train(2, dataset)
 In data parallel mode, checkpoint is used in the same way as in auto parallel mode. You just need to change:
 
 ```python
-context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
+set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
 ```
 
 to:
 
 ```python
-context.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
+set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
 ```
 
 > Under data parallel mode, we recommend to load the same checkpoint for each device to avoid accuracy problems. `parameter_broadcast` could also be used for sharing the values of parameters among devices.

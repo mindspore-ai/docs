@@ -29,8 +29,8 @@ model.cuda()
 而在 MindSpore 中，我们通过  `context`  中 的  `device_target` 参数 指定模型绑定的设备，`device_id` 指定设备的序号。与 PyTorch 不同的是，一旦设备设置成功，输入数据和模型会默认拷贝到指定的设备中执行，不需要也无法再改变数据和模型所运行的设备类型。代码如下：
 
 ```py
-from mindspore import context
-context.set_context(device_target='Ascend', device_id=0)
+from mindspore import set_context
+set_context(device_target='Ascend', device_id=0)
 
 # define net
 Model = ..
@@ -156,7 +156,7 @@ MindSpore 和 TensorFlow 的  `transpose`算子功能相同， 虽然名字叫 `
 import mindspore as ms
 import numpy as np
 from mindspore import Tensor, ops
-ms.context.set_context(device_target="Ascend")
+ms.set_context(device_target="Ascend")
 data = np.empty((1, 2, 3, 4)).astype(np.float32)
 ret = ops.Transpose()(Tensor(data), (3, 2, 1, 0))
 ret.shape # (4, 3, 2, 1)
@@ -189,7 +189,7 @@ ret.shape # (4, 3, 2, 1)
 import numpy as np
 import mindspore as ms
 from mindspore import Tensor, ops
-ms.context.set_context(device_target="Ascend")
+ms.set_context(device_target="Ascend")
 data = np.arange(9).reshape(1,1,3,3).astype(np.float32)
 # data
 # [[[[0. 1. 2.]
@@ -209,7 +209,7 @@ op(Tensor(data))
 import numpy as np
 import mindspore as ms
 from mindspore import Tensor, ops
-ms.context.set_context(device_target="Ascend")
+ms.set_context(device_target="Ascend")
 data = np.arange(9).reshape(1, 1, 3, 3).astype(np.float32)
 # only padding on top left of feature map
 pad = ops.Pad(((0, 0), (0, 0), (1, 0), (1, 0)))

@@ -73,12 +73,12 @@ xai/examples/
 
 ```python
 # 必须先把当前目录切换到 xai/examples/
-from mindspore import context, load_checkpoint, load_param_into_net
+from mindspore import load_checkpoint, load_param_into_net, set_context, PYNATIVE_MODE
 from common.resnet import resnet50
 from common.dataset import load_image_tensor
 
 # 只支持 PYNATIVE_MODE
-context.set_context(mode=context.PYNATIVE_MODE)
+set_context(mode=PYNATIVE_MODE)
 
 # 有20个类
 num_classes = 20
@@ -140,14 +140,14 @@ for images, labels in test_ds:
 
 ```python
 # 必须先把当前目录切换到 xai/examples/
-from mindspore import context, save_checkpoint, load_checkpoint, load_param_into_net
+from mindspore import save_checkpoint, load_checkpoint, load_param_into_net, set_context, PYNATIVE_MODE
 from mindspore.nn import Softmax, SoftmaxCrossEntropyWithLogits
 from mindspore_xai.explanation import RISEPlus, OoDNet
 from common.dataset import load_dataset, load_image_tensor
 from common.resnet import resnet50
 
 # 只支持 PYNATIVE_MODE
-context.set_context(mode=context.PYNATIVE_MODE)
+set_context(mode=PYNATIVE_MODE)
 
 num_classes = 20
 

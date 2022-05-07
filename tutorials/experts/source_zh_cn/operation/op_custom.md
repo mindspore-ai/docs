@@ -53,10 +53,10 @@ Hybrid类型的自定义算子使用[MindSpore Hybrid DSL](#mindspore-hybrid语�
 
 ```python
 import numpy as np
-from mindspore import context, Tensor, ops
+from mindspore import Tensor, ops, set_context
 from mindspore.ops import ms_hybrid
 
-context.set_context(device_target="GPU")
+set_context(device_target="GPU")
 
 # 算子实现，Hybrid DSL
 @ms_hybrid
@@ -110,11 +110,11 @@ test_custom_tbe.py内容：
 
 ```python
 import numpy as np
-from mindspore import context, Tensor
+from mindspore import set_context, Tensor
 import mindspore.ops as ops
 from mindspore.ops import DataType, CustomRegOp, custom_info_register
 
-context.set_context(device_target="Ascend")
+set_context(device_target="Ascend")
 
 # 算子实现，注册算子信息
 @custom_info_register(CustomRegOp() \
@@ -181,14 +181,13 @@ test_dropout_aicpu.py内容：
 
 ```python
 import numpy as np
-from mindspore import Tensor
-import mindspore.context as context
+from mindspore import Tensor, set_context, GRAPH_MODE
 import mindspore.nn as nn
 import mindspore.ops as ops
 from mindspore import dtype as mstype
 from mindspore.ops import CustomRegOp, custom_info_register, DataType
 
-context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
+set_context(mode=GRAPH_MODE, device_target="Ascend")
 
 # 算子实现，注册算子信息
 dropout2d_op_info = CustomRegOp("Dropout2D") \
@@ -328,10 +327,10 @@ nvcc --shared -Xcompiler -fPIC -o add.so add.cu
 
 ```python
 import numpy as np
-from mindspore import context, Tensor
+from mindspore import Tensor
 import mindspore.ops as ops
 
-context.set_context(device_target="GPU")
+set_context(device_target="GPU")
 
 if __name__ == "__main__":
     # 定义aot类型的自定义算子
@@ -402,10 +401,10 @@ g++ --shared -fPIC -o add.so add.cc
 
 ```python
 import numpy as np
-from mindspore import context, Tensor
+from mindspore import Tensor, set_context
 import mindspore.ops as ops
 
-context.set_context(device_target="CPU")
+set_context(device_target="CPU")
 
 if __name__ == "__main__":
     # 定义aot类型的自定义算子
@@ -450,10 +449,10 @@ test_custom_pyfunc.py内容：
 
 ```python
 import numpy as np
-from mindspore import context, Tensor
+from mindspore import set_context, Tensor
 import mindspore.ops as ops
 
-context.set_context(device_target="CPU")
+set_context(device_target="CPU")
 
 def add(a, b):
     return a + b
@@ -512,10 +511,10 @@ end
 
 ```python
 import numpy as np
-from mindspore import context, Tensor
+from mindspore import set_context, Tensor
 import mindspore.ops as ops
 
-context.set_context(device_target="CPU")
+set_context(device_target="CPU")
 
 if __name__ == "__main__":
     # 定义julia类型的自定义算子
@@ -639,10 +638,10 @@ test_custom_akg.py内容：
 
 ```python
 import numpy as np
-from mindspore import context, Tensor
+from mindspore import set_context, Tensor
 import mindspore.ops as ops
 
-context.set_context(device_target="GPU")
+set_context(device_target="GPU")
 
 # 算子实现，Hybrid DSL
 def add(a, b):
@@ -664,7 +663,7 @@ if __name__ == "__main__":
 
 本例中，有如下几点需要说明：
 
-- `context.set_context(device_target="GPU")`表示算子运行在GPU平台，若要运行在Ascend平台，请编译Ascend版本的MindSpore，并将device_target的值设置为"Ascend"。
+- `set_context(device_target="GPU")`表示算子运行在GPU平台，若要运行在Ascend平台，请编译Ascend版本的MindSpore，并将device_target的值设置为"Ascend"。
 - 用Python lambda函数定义输出shape和数据类型推理函数，并分别传给`Custom`原语的`out_shape`和`out_dtype`参数。本例中lambda函数表明输出shape和数据类型和第一个输入张量的信息相同。
 - 未注册算子信息，所以自定义算子的算子信息将会从算子输入中推理。
 
@@ -706,11 +705,11 @@ python test_custom_akg.py
 
 ```python
 import numpy as np
-from mindspore import context, Tensor
+from mindspore import set_context, GRAPH_MODE, Tensor
 from mindspore.nn import Cell
 import mindspore.ops as ops
 
-context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
+set_context(mode=GRAPH_MODE, device_target="GPU")
 
 # 自定义算子正向实现
 def square(x):

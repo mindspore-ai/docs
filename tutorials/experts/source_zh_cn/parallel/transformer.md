@@ -52,9 +52,9 @@
 我们会在接下来讨论他们的区别。现在以单机八卡训练一个`Transformer`模型为例，我们根据目前的卡数8设置`Transformer`模型的并行配置。我们可以设置`data_parallel`=1，`model_parallel`=8作为并行的基本配置。注意并行配置的情况下，`data_parallel`\*`model_parallel`\*`pipeline_stages`<=总卡数。对应的代码中的**并行配置**如下。
 
 ```python
-from mindspore import context
+from mindspore import set_auto_parallel_context, ParallelMode
 from mindspore.nn.transformer import TransformerOpParallelConfig
-context.set_auto_parallel_context(parallel_mode=context.ParallelMode.SEMI_AUTO_PARALLEL)
+set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL)
 parallel_config = TransformerOpParallelConfig(data_parallel=1, model_parallel=8)
 ```
 
@@ -189,9 +189,8 @@ loss = CrossEntropyLoss(parallel_config=parallel_config.dp_mp_config)
 然后设置`parallel_optimizer_config= {"gradient_accumulation_shard":True}`将流水线并行训练时的累积变量进一步切分，以达到节省内存的目的，同时会在每个`micro_step`之间引入通信算子进行梯度的同步。注意`gradient_accumulation_shard`默认对应的值为True，如果用户为了提高性能，可以将此参数设置为False。
 
 ```python
-from mindspore import context
-from mindspore.context import ParallelMode
-context.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, gradients_mean=False, full_batch=True, loss_repeated_mean=True, device_num=device_num, enable_parallel_optimizer=True, parallel_optimizer_config = {"gradient_accumulation_shard": gradient_accumulation_shard})
+from mindspore import ParallelMode, set_auto_parallel_context
+set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, gradients_mean=False, full_batch=True, loss_repeated_mean=True, device_num=device_num, enable_parallel_optimizer=True, parallel_optimizer_config = {"gradient_accumulation_shard": gradient_accumulation_shard})
 ```
 
 关于`stage_num`的说明如下，MindSpore通过`stage_num`来判断是否进入流水线并行训练。
@@ -204,13 +203,11 @@ context.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL,
 ```python
 import argparse
 from mindspore.nn.transformer import TransformerOpParallelConfig
-from mindspore import Model
+from mindspore import Model, ParallelMode, reset_auto_parallel_context, set_auto_parallel_context
 import mindspore.communication as D
-from mindspore.context import ParallelMode
 from mindspore.nn import PipelineCell
 from mindspore.train.callback import TimeMonitor, LossMonitor, CheckpointConfig, ModelCheckpoint
 from mindspore.nn import AdamWeightDecay
-from mindspore import context
 from dataset import ToyDataset, Tokenzier
 from model import Net
 
@@ -261,8 +258,8 @@ def main():
         dp = device_num // args_opt.mp // args_opt.pipeline_stage
         print("rank_id is {}, device_num is {}, dp is {}".format(rank_id, device_num, dp))
         gradient_accumulation_shard = dp > 1 and args_opt.pipeline_stage > 1
-        context.reset_auto_parallel_context()
-        context.set_auto_parallel_context(
+        reset_auto_parallel_context()
+        set_auto_parallel_context(
             parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, gradients_mean=False,
             full_batch=True, loss_repeated_mean=True,
             device_num=device_num, enable_parallel_optimizer=True,
@@ -382,19 +379,19 @@ MindSpore分布式并行训练的通信使用了华为集合通信库`Huawei Col
 下面是调用集合通信库样例代码：
 
 ```python
-import os
-from mindspore import context
+import os\
 from mindspore.communication import init
+from mindspore import set_context, GRAPH_MODE
 
 if __name__ == "__main__":
-    context.set_context(mode=context.GRAPH_MODE, device_target="Ascend", device_id=int(os.environ["DEVICE_ID"]))
+    set_context(mode=GRAPH_MODE, device_target="Ascend", device_id=int(os.environ["DEVICE_ID"]))
     init()
     ...
 ```
 
 其中，
 
-- `mode=context.GRAPH_MODE`：使用分布式训练需要指定运行模式为图模式（PyNative模式不支持并行）。
+- `mode=GRAPH_MODE`：使用分布式训练需要指定运行模式为图模式（PyNative模式不支持并行）。
 - `device_id`：卡的物理序号，即卡所在机器中的实际序号。
 - `init`：使能HCCL通信，并完成分布式训练初始化操作。
 

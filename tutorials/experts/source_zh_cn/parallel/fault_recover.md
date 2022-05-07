@@ -45,8 +45,7 @@ export GROUP_INFO_FILE=./group_info.pb
 权重存储的代码部分如下，需要注意，训练时通过指定dataset_sink_mode为True以配置为下沉模式。
 
 ```python
-from mindspore import Model
-from mindspore.context import ParallelMode
+from mindspore import Model, ParallelMode
 from mindspore.nn import PipelineCell
 from mindspore.train.callback import TimeMonitor, LossMonitor, CheckpointConfig, ModelCheckpoint
 def train():
@@ -93,8 +92,7 @@ print(rank_list) // [0, 4]
 
 ```python
 import os
-from mindspore.context import ParallelMode
-from mindspore import context
+from mindspore import ParallelMode
 def recover_train():
     # model create
     # checkpoint load

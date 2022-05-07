@@ -23,7 +23,7 @@ import argparse
 from src.utils import BertPoetry, BertPoetryCell, BertLearningRate, BertPoetryModel
 from src.finetune_config import cfg, bert_net_cfg
 from src.poetry_dataset import create_poetry_dataset, create_tokenizer
-from mindspore import context, load_checkpoint, load_param_into_net
+from mindspore import load_checkpoint, load_param_into_net, GRAPH_MODE, set_context
 from mindspore.nn import DynamicLossScaleUpdateCell
 from mindspore.nn import AdamWeightDecay
 from mindspore import Model
@@ -70,7 +70,7 @@ def test_train():
             devid = int(os.getenv('DEVICE_ID'))
         except TypeError:
             devid = 0
-        context.set_context(mode=context.GRAPH_MODE, device_target="Ascend", device_id=devid)
+        set_context(mode=GRAPH_MODE, device_target="Ascend", device_id=devid)
 
     poetry, tokenizer, keep_words = create_tokenizer()
     print("total vocab_size after filtering is ", len(keep_words))
@@ -128,7 +128,7 @@ def test_eval(model_ckpt_path):
             devid = int(os.getenv('DEVICE_ID'))
         except TypeError:
             devid = 0
-        context.set_context(mode=context.GRAPH_MODE, device_target="Ascend", device_id=devid)
+        set_context(mode=GRAPH_MODE, device_target="Ascend", device_id=devid)
     bert_net_cfg.batch_size = 1
     poetrymodel = BertPoetryModel(bert_net_cfg, False, 3191, dropout_prob=0.0)
     poetrymodel.set_train(False)

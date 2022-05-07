@@ -3,11 +3,11 @@ This sample code is applicable to Ascend.
 """
 import numpy as np
 import mindspore.nn as nn
-from mindspore import context, Tensor
+from mindspore import Tensor, PYNATIVE_MODE, set_context
 import mindspore.ops as ops
 from mindspore import ms_function
 
-context.set_context(mode=context.PYNATIVE_MODE, device_target="Ascend")
+set_context(mode=PYNATIVE_MODE, device_target="Ascend")
 
 class TensorAddNet(nn.Cell):
     def __init__(self):

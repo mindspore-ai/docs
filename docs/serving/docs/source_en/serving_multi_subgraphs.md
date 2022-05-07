@@ -26,8 +26,7 @@ In the directory `export_model`, use [export_matmul.py](https://gitee.com/mindsp
 import os
 from shutil import copyfile
 import numpy as np
-import mindspore.context as context
-from mindspore import Tensor, Parameter, ops, export
+from mindspore import Tensor, Parameter, ops, export, set_context, GRAPH_MODE
 from mindspore.nn import Cell
 
 
@@ -51,7 +50,7 @@ class Net(Cell):
 
 def export_net():
     """Export matmul net , and copy output model `matmul_0.mindir` and `matmul_1.mindir` to directory ../matmul/1"""
-    context.set_context(mode=context.GRAPH_MODE)
+    set_context(mode=GRAPH_MODE)
     network = Net(matmul_size=(96, 16), init_val=0.5)
     # subgraph 0: 128,96 matmul 16,96 -> 128,16 reduce sum axis 0-> 16
     predict_data = np.random.randn(128, 96).astype(np.float32)

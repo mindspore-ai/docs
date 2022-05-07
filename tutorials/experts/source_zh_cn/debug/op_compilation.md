@@ -17,11 +17,11 @@
 ```python
 import numpy as np
 import mindspore.nn as nn
-import mindspore.context as context
+from mindspore import set_context, GRAPH_MODE
 import mindspore.ops as ops
 from mindspore import Tensor
 
-context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
+set_context(mode=GRAPH_MODE, device_target="Ascend")
 
 class Net(nn.Cell):
     def __init__(self):

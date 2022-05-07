@@ -40,11 +40,11 @@ On the GPU hardware platform, MindSpore parallel distributed training uses NCCL 
 The sample code for calling the HCCL is as follows:
 
 ```python
-from mindspore import context
+from mindspore import set_context, GRAPH_MODE
 from mindspore.communication import init
 
 if __name__ == "__main__":
-    context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
+    set_context(mode=GRAPH_MODE, device_target="GPU")
     init("nccl")
     ...
 ```

@@ -16,14 +16,14 @@
 
 ```python
 # 必须先把当前目录切换到 xai/examples/
-from mindspore import context, load_checkpoint, load_param_into_net
+from mindspore import load_checkpoint, load_param_into_net, set_context, PYNATIVE_MODE
 from mindspore_xai.explanation import GradCAM
 
 from common.resnet import resnet50
 from common.dataset import load_image_tensor
 
 # 只支持 PYNATIVE_MODE
-context.set_context(mode=context.PYNATIVE_MODE)
+set_context(mode=PYNATIVE_MODE)
 
 # 有20个类
 num_classes = 20

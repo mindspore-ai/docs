@@ -17,13 +17,12 @@
 This sample code is applicable to GPU and Ascend.
 """
 import numpy as np
-import mindspore.context as context
 import mindspore.nn as nn
 import mindspore.ops as ops
-from mindspore import Tensor
+from mindspore import Tensor, set_context, GRAPH_MODE
 from mindspore import ParameterTuple, Parameter
 from mindspore import dtype as mstype
-context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
+set_context(mode=GRAPH_MODE, device_target="GPU")
 
 class Net(nn.Cell):
     def __init__(self):

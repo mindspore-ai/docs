@@ -41,10 +41,10 @@ import mindspore.dataset as ds
 import mindspore.dataset.vision.c_transforms as vision
 import mindspore.dataset.transforms.c_transforms as C
 from mindspore.communication import init, get_rank, get_group_size
-from mindspore import context
+from mindspore import set_context, GRAPH_MODE
 from mindspore import dtype as mstype
 
-context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
+set_context(mode=GRAPH_MODE, device_target="Ascend")
 init()
 ds.config.set_seed(1000) # set dataset seed to make sure that all cards read the same data
 def create_dataset(data_path, repeat_num=1, batch_size=32, slice_h_num=1, slice_w_num=1):
@@ -104,13 +104,12 @@ dataset_strategy接口还有以下几点限制：
 
 ```python
 import os
-from mindspore.context import ParallelMode
-from mindspore import context
-context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
+from mindspore import ParallelMode, set_auto_parallel_context, set_auto_parallel_context
+set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
 slice_h_num = 1
 slice_w_num = 8
 batch_size = 256
-context.set_auto_parallel_context(dataset_strategy=(((1, 1, slice_h_num, slice_w_num), (1,))))
+set_auto_parallel_context(dataset_strategy=(((1, 1, slice_h_num, slice_w_num), (1,))))
 data_path = os.getenv('DATA_PATH')
 dataset = create_dataset(data_path, batch_size=batch_size, slice_h_num=slice_h_num, slice_w_num=slice_w_num)
 ```

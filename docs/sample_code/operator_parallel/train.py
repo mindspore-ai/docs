@@ -1,7 +1,7 @@
 """Operator Parallel Example"""
 import numpy as np
 
-from mindspore import context, Parameter
+from mindspore import Parameter, set_context, GRAPH_MODE, set_auto_parallel_context
 from mindspore.nn import Cell, Momentum
 from mindspore.ops import operations as ops
 from mindspore import Model
@@ -37,10 +37,10 @@ class Net(Cell):
 
 
 if __name__ == "__main__":
-    context.set_context(mode=context.GRAPH_MODE, device_target="Ascend", save_graphs=True)
+    set_context(mode=GRAPH_MODE, device_target="Ascend", save_graphs=True)
     D.init()
     rank = D.get_rank()
-    context.set_auto_parallel_context(parallel_mode="semi_auto_parallel", device_num=8, full_batch=True)
+    set_auto_parallel_context(parallel_mode="semi_auto_parallel", device_num=8, full_batch=True)
 
     np.random.seed(1)
     input_data = np.random.rand(16, 32).astype(np.float32)

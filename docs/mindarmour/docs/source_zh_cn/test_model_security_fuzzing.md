@@ -23,7 +23,7 @@ MindArmour的fuzz_testing模块以神经元覆盖率作为测试评价准则。�
 ```python
 import numpy as np
 from mindspore import Model
-from mindspore import context
+from mindspore import set_context, GRAPH_MODE
 from mindspore import load_checkpoint, load_param_into_net
 
 from mindarmour.fuzz_testing import Fuzzer
@@ -43,7 +43,7 @@ LOGGER.set_level('INFO')
 配置必要的信息，包括环境信息、执行的模式。
 
 ```python
-context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
+set_context(mode=GRAPH_MODE, device_target="Ascend")
 ```
 
 详细的接口配置信息，请参见`context.set_context`接口说明。

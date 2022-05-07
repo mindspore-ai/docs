@@ -37,9 +37,9 @@ When an error similar to "Type Join Failed: dtype1 = Float32, dtype2 = Float16" 
 import numpy as np
 import mindspore as ms
 import mindspore.ops as ops
-from mindspore import nn, Tensor, context
+from mindspore import nn, Tensor, set_context, GRAPH_MODE
 
-context.set_context(mode=context.GRAPH_MODE)
+set_context(mode=GRAPH_MODE)
 class Net(nn.Cell):
     def __init__(self):
         super().__init__()
@@ -141,9 +141,8 @@ it means that there may be infinite recursion or loop in the code, which causes 
 The example is as follow:
 
 ```python
-from mindspore import Tensor, ms_function
+from mindspore import Tensor, ms_function, set_context, GRAPH_MODE
 from mindspore import dtype as mstype
-import mindspore.context as context
 ZERO = Tensor([0], mstype.int32)
 ONE = Tensor([1], mstype.int32)
 @ms_function
@@ -161,7 +160,7 @@ def f(x):
     return z
 
 def test_endless():
-    context.set_context(mode=context.GRAPH_MODE)
+    set_context(mode=GRAPH_MODE)
     x = Tensor([5], mstype.int32)
     f(x)
 
@@ -239,9 +238,9 @@ For example, when calling the third-party library NumPy, JIT Fallback supports t
 ```python
 import numpy as np
 import mindspore.nn as nn
-from mindspore import context
+from mindspore import set_context, GRAPH_MODE
 
-context.set_context(mode=context.GRAPH_MODE)
+set_context(mode=GRAPH_MODE)
 
 class Net(nn.Cell):
     def construct(self, x, y):
@@ -273,9 +272,9 @@ A: Currently, Tensor [subsequent abbreviation Tensor (bool)] with bool data type
 The example is as follow:
 
 ```python
-from mindspore import context, ops, ms_function, Tensor, dtype
+from mindspore import set_context, ops, ms_function, Tensor, dtype
 
-context.set_context(save_graphs=True, save_graphs_path='graph_path')
+set_context(save_graphs=True, save_graphs_path='graph_path')
 
 @ms_function
 def test_logic(x, y):

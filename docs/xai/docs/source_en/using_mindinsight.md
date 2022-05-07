@@ -21,8 +21,7 @@ The following uses ResNet-50 and multi-label dataset with 20 classes as an examp
 ```python
 # have to change the current directory to xai/examples/ first
 import mindspore.nn as nn
-from mindspore import context
-from mindspore import load_checkpoint, load_param_into_net
+from mindspore import load_checkpoint, load_param_into_net, set_context, PYNATIVE_MODE
 
 from mindspore_xai.explanation import GradCAM, GuidedBackprop
 from mindspore_xai.benchmark import Faithfulness
@@ -32,7 +31,7 @@ from common.resnet import resnet50
 from common.dataset import classes, load_dataset
 
 
-context.set_context(mode=context.PYNATIVE_MODE)
+set_context(mode=PYNATIVE_MODE)
 num_classes = 20
 
 net = resnet50(num_classes)

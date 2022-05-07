@@ -280,10 +280,10 @@ A: 以下拟合案例是基于MindSpore线性拟合官方案例改编而成。
 import numpy as np
 from mindspore import dataset as ds
 from mindspore.common.initializer import Normal
-from mindspore import nn, Model, context
+from mindspore import nn, Model, set_context, GRAPH_MODE
 from mindspore.train.callback import LossMonitor
 
-context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
+set_context(mode=GRAPH_MODE, device_target="CPU")
 
  def get_data(num, w=2.0, b=3.0):
     # f(x)=w * sin(x) + b
@@ -549,10 +549,10 @@ A: 在静态图模式下，由于使用的是静态编译，对于算子输出�
 例如如下代码在静态图模式下执行，输入数据的类型都为int类型，根据静态图编译，其输出结果也是int类型。
 
 ```python
-from mindspore import context
+from mindspore import set_context, GRAPH_MODE
 from mindspore import nn
 
-context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
+set_context(mode=GRAPH_MODE, device_target="CPU")
 
 class MyTest(nn.Cell):
     def __init__(self):

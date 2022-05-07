@@ -2,10 +2,10 @@
 This sample code is applicable to Ascend.
 """
 import numpy as np
-from mindspore import context, Tensor
+from mindspore import Tensor, PYNATIVE_MODE, set_context
 import mindspore.ops as ops
 
-context.set_context(mode=context.PYNATIVE_MODE, device_target="Ascend")
+set_context(mode=PYNATIVE_MODE, device_target="Ascend")
 
 def tensor_add_func(x, y):
     z = ops.tensor_add(x, y)

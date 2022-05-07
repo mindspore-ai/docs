@@ -575,11 +575,10 @@ train.py is defined as follows:
 import os
 import argparse
 import ast
-from mindspore import context
-from mindspore import set_seed
+from mindspore import set_seed, set_context, set_auto_parallel_context, GRAPH_MODE
+from mindspore import ParallelMode
 from mindspore.nn import Momentum
 from mindspore import Model
-from mindspore.context import ParallelMode
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
 from mindspore.communication import init
 from mindspore.common import initializer
@@ -604,11 +603,11 @@ if __name__ == '__main__':
     rank_id = int(os.getenv('RANK_ID', '0'))
 
     # init context
-    context.set_context(mode=context.GRAPH_MODE, device_target='Ascend', device_id=device_id)
+    set_context(mode=GRAPH_MODE, device_target='Ascend', device_id=device_id)
     if rank_size > 1:
-       context.set_auto_parallel_context(device_num=rank_size, parallel_mode=ParallelMode.DATA_PARALLEL,
+       set_auto_parallel_context(device_num=rank_size, parallel_mode=ParallelMode.DATA_PARALLEL,
                                          gradients_mean=True)
-       context.set_auto_parallel_context(all_reduce_fusion_config=[85, 160])
+       set_auto_parallel_context(all_reduce_fusion_config=[85, 160])
        init()
 
     # create dataset
@@ -677,7 +676,7 @@ Add the following interface to the standalone training script.
 
 ```python
 import os
-from mindspore import context
+from mindspore import set_context, GRAPH_MODE, set_auto_parallel_context, ParallelMode
 from mindspore.communication import init
 
 device_id = int(os.getenv('DEVICE_ID', '0'))
@@ -685,11 +684,11 @@ rank_size = int(os.getenv('RANK_SIZE', '1'))
 rank_id = int(os.getenv('RANK_ID', '0'))
 
 # init context
-context.set_context(mode=context.GRAPH_MODE, device_target='Ascend', device_id=device_id)
+set_context(mode=GRAPH_MODE, device_target='Ascend', device_id=device_id)
 if rank_size > 1:
-   context.set_auto_parallel_context(device_num=rank_size, parallel_mode=ParallelMode.DATA_PARALLEL,
+   set_auto_parallel_context(device_num=rank_size, parallel_mode=ParallelMode.DATA_PARALLEL,
                                      gradients_mean=True)
-   context.set_auto_parallel_context(all_reduce_fusion_config=[85, 160])
+   set_auto_parallel_context(all_reduce_fusion_config=[85, 160])
    # init distribute training
    init()
 ```
@@ -726,7 +725,7 @@ Modified inference script:
 """train resnet."""
 import os
 import argparse
-from mindspore import context
+from mindspore import set_context, GRAPH_MODE
 from mindspore import set_seed
 from mindspore.nn import SoftmaxCrossEntropyWithLogits
 from mindspore import Model
@@ -749,7 +748,7 @@ set_seed(1)
 if __name__ == '__main__':
     device_id = int(os.getenv('DEVICE_ID', 0))
     # init context
-    context.set_context(mode=context.GRAPH_MODE, device_target='Ascend', device_id=device_id)
+    set_context(mode=GRAPH_MODE, device_target='Ascend', device_id=device_id)
 
     # create dataset
     dataset = create_dataset(args_opt.dataset_path, config.batch_size, do_train=False)
@@ -799,10 +798,10 @@ Analyzing Profiling data is an essential step in the performance tuning phase, a
 
 ```python
 from mindspore import Profiler
-from mindspore import Model, nn, context
+from mindspore import Model, nn, set_context, GRAPH_MODE, set_auto_parallel_context
 
 # init context
-context.set_context(mode=context.GRAPH_MODE, device_target='Ascend', device_id=int(os.environ["DEVICE_ID"]))
+set_context(mode=GRAPH_MODE, device_target='Ascend', device_id=int(os.environ["DEVICE_ID"]))
 
 # init profiler, profiling data will be stored under folder ./data by default
 profiler = Profiler()
@@ -843,11 +842,11 @@ rank_size = int(os.getenv('RANK_SIZE', '1'))
 rank_id = int(os.getenv('RANK_ID', '0'))
 
 # init context
-context.set_context(mode=context.GRAPH_MODE, device_target='Ascend', device_id=device_id)
+set_context(mode=GRAPH_MODE, device_target='Ascend', device_id=device_id)
 if rank_size > 1:
-   context.set_auto_parallel_context(device_num=rank_size, parallel_mode=ParallelMode.DATA_PARALLEL,
+   set_auto_parallel_context(device_num=rank_size, parallel_mode=ParallelMode.DATA_PARALLEL,
                                      gradients_mean=True)
-   context.set_auto_parallel_context(all_reduce_fusion_config=[85, 160])
+   set_auto_parallel_context(all_reduce_fusion_config=[85, 160])
    init()
 ```
 

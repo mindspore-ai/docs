@@ -502,8 +502,8 @@ The model building, training, and evaluation logic design are complete. The foll
 By default, MindSpore uses the static graph mode (Define and Run) for training. In the first step, computational graph is built, which is time-consuming but improve the overall training efficiency. To perform single-step debugging or use the dynamic graph mode, you can use the following code:
 
 ```python
-from mindspore import context
-context.set_context(mode=context.PYNATIVE_MODE)
+from mindspore import set_context, PYNATIVE_MODE
+set_context(mode=PYNATIVE_MODE)
 ```
 
 ```python

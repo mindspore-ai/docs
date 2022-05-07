@@ -23,7 +23,7 @@ Here, we use `KMultisectionNeuronCoverage` as fuzzing guide, you can also choose
 ```python
 import numpy as np
 from mindspore import Model
-from mindspore import context
+from mindspore import set_context, GRAPH_MODE
 from mindspore import load_checkpoint, load_param_into_net
 
 from mindarmour.fuzz_testing import Fuzzer
@@ -43,7 +43,7 @@ LOGGER.set_level('INFO')
 Configure necessary information, including the environment information and execution mode.
 
 ```python
-context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
+set_context(mode=GRAPH_MODE, device_target="Ascend")
 ```
 
 For details about the API configuration, see the `context.set_context`.

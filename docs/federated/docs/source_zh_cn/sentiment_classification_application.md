@@ -63,7 +63,7 @@ import os
 import random
 from time import time
 import numpy as np
-from mindspore import context, set_seed, load_checkpoint, Tensor, export
+from mindspore import set_seed, load_checkpoint, Tensor, export, set_context, GRAPH_MODE
 from mindspore.nn import AdamWeightDecay
 from src.config import train_cfg, client_net_cfg
 from src.utils import restore_params
@@ -97,7 +97,7 @@ def supervise_export(args_opt):
     start = time()
 
     # MindSpore配置
-    context.set_context(mode=context.GRAPH_MODE, device_target=args_opt.device_target)
+    set_context(mode=GRAPH_MODE, device_target=args_opt.device_target)
     print('Context setting is done! Time cost: {}'.format(time() - start))
     start = time()
 

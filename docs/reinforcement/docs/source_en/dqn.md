@@ -88,8 +88,8 @@ dqn_session.run(class_type=DQNTrainer, episode=episode, params=config.trainer_pa
 To leverage MindSpore's computational graph feature, users set the execution mode to `GRAPH_MODE`.
 
 ```python
-from mindspore import context
-context.set_context(mode=context.GRAPH_MODE)
+from mindspore import set_context, GRAPH_MODE
+set_context(mode=GRAPH_MODE)
 ```
 
 Methods that are annotated with `@ms_function` will be compiled into the MindSpore computational graph for auto-parallelisation and acceleration. In this tutorial, we use this feature to implement an efficient `DQNTrainer` class.

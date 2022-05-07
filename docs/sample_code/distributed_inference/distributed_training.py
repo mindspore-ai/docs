@@ -18,20 +18,20 @@ Distributed training
 import os
 from dataset import FakeData
 from net import Net
-from mindspore import context, Model
+from mindspore import Model, ParallelMode, set_context, GRAPH_MODE, set_auto_parallel_context, \
+    reset_auto_parallel_context
 from mindspore.train.callback import CheckpointConfig, ModelCheckpoint
-from mindspore.context import ParallelMode
 from mindspore.nn import Momentum, SoftmaxCrossEntropyWithLogits
 
 
 def test_train():
     """distributed training"""
-    context.set_context(mode=context.GRAPH_MODE)
+    set_context(mode=GRAPH_MODE)
     parallel_dataset = FakeData()
     strategy = ((2, 1), (1, 4))
-    context.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL,
-                                      device_num=8,
-                                      strategy_ckpt_save_file="./train_strategy.ckpt")
+    set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL,
+                              device_num=8,
+                              strategy_ckpt_save_file="./train_strategy.ckpt")
     network = Net(matmul_size=(96, 16), strategy=strategy)
     net_opt = Momentum(network.trainable_params(), 0.01, 0.9)
     net_loss = SoftmaxCrossEntropyWithLogits(reduction='mean')
@@ -41,4 +41,4 @@ def test_train():
     ckpt_path = './rank_{}_ckpt'.format(global_rank_id)
     ckpt_callback = ModelCheckpoint(prefix='parallel', directory=ckpt_path, config=ckpt_config)
     model.train(epoch=2, train_dataset=parallel_dataset, callbacks=[ckpt_callback], dataset_sink_mode=False)
-    context.reset_auto_parallel_context()
+    reset_auto_parallel_context()

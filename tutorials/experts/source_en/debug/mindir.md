@@ -4,7 +4,7 @@
 
 ## Overview
 
-When a model compiled using MindSpore runs in the graph mode `context.set_context(mode=context.GRAPH_MODE)` and `context.set_context(save_graphs=True)` is set in the configuration, some intermediate files will be generated during graph compliation. These intermediate files are called IR files. Currently, there are three IR files:
+When a model compiled using MindSpore runs in the graph mode `set_context(mode=GRAPH_MODE)` and `set_context(save_graphs=True)` is set in the configuration, some intermediate files will be generated during graph compliation. These intermediate files are called IR files. Currently, there are three IR files:
 
 - .ir file: An IR file that describes the model structure in text format and can be directly viewed using any text editors.
 - .dat file: An IR file that describes the model structure more strictly than the .ir file. It contains more contents and can be directly viewed using any text editors.
@@ -12,7 +12,7 @@ When a model compiled using MindSpore runs in the graph mode `context.set_contex
 
 ## Saving IR
 
-`context.set_context(save_graphs=True)` is used to save the intermediate code in each compilation phase. The intermediate code can be saved in two formats. One is the text format with the suffix `.ir`, and the other is the graphical format with the suffix `.dot`. When the network scale is small, you are advised to use the graphical format that is more intuitive. When the network scale is large, you are advised to use the text format that is more efficient.
+`set_context(save_graphs=True)` is used to save the intermediate code in each compilation phase. The intermediate code can be saved in two formats. One is the text format with the suffix `.ir`, and the other is the graphical format with the suffix `.dot`. When the network scale is small, you are advised to use the graphical format that is more intuitive. When the network scale is large, you are advised to use the text format that is more efficient.
 
 You can run the graphviz command to convert a .dot file to the picture format. For example, you can run the `dot -Tpng *.dot -o *.png` command to convert a `.dot` file to a .png file.
 
@@ -20,7 +20,7 @@ Add the following code to `train.py`. When running the script, MindSpore will au
 
 ```python
 if __name__ == "__main__":
-    context.set_context(save_graphs=True, save_graphs_path="path/to/ir/files")
+    set_context(save_graphs=True, save_graphs_path="path/to/ir/files")
 ```
 
 After the training command is executed, some files are generated in the path of `save_graphs_path`.
@@ -74,14 +74,14 @@ file `graph_build_[graph_id]_[IR_id].ir`. It is the MindIR after the frontend an
 The following is an example to describe the contents of the IR file. The content may have some changes with the version upgrade of MindSpore.
 
 ```python
-import mindspore.context as context
+from mindspore import set_context, GRAPH_MODE
 import mindspore.nn as nn
 from mindspore import Tensor
 from mindspore import ops
 from mindspore import dtype as mstype
 
-context.set_context(mode=context.GRAPH_MODE)
-context.set_context(save_graphs=True, save_graphs_path="./")
+set_context(mode=GRAPH_MODE)
+set_context(save_graphs=True, save_graphs_path="./")
 
 class Net(nn.Cell):
     def __init__(self):
@@ -289,15 +289,15 @@ the reason by analyzing the exception information and analyze_fail.dat.
 For example, we run the script below.
 
 ```python
-  1 import mindspore.context as context
+  1 from mindspore import set_context, GRAPH_MODE
   2 import mindspore.nn as nn
   3 from mindspore import Tensor
   4 from mindspore.nn import Cell
   5 from mindspore import ops
   6 from mindspore import dtype as mstype
   7
-  8 context.set_context(mode=context.GRAPH_MODE)
-  9 context.set_context(save_graphs=True)
+  8 set_context(mode=GRAPH_MODE)
+  9 set_context(save_graphs=True)
  10
  11 class Net(nn.Cell):
  12     def __init__(self):

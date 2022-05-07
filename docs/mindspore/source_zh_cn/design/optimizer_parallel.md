@@ -72,8 +72,8 @@ MindSpore实现的优化器参数切分还具有与算子级并行混合使用�
 在`mindspore.context.set_auto_parallel_context`中提供了`enable_parallel_optimizer`选项，将其配置为True后，即可使能优化器并行，默认对所有**占用内存小于64KB**的参数进行优化器切分。
 
 ```python
-from mindspore import context
-context.set_auto_parallel_context(enable_parallel_optimizer=True)
+from mindspore import set_auto_parallel_context
+set_auto_parallel_context(enable_parallel_optimizer=True)
 ```
 
 ### 配置参数优化器并行
@@ -95,19 +95,19 @@ param2.parallel_optimizer = False
 - `gradient_accumulation_shard(bool)`：如果为True，则累积梯度变量将在数据并行度上进行分片。在累积梯度时，每个累积迭代中将会引入额外的通信(ReduceScatter)以保证计算的一致性，但节省了大量的计算设备内存(例如GPU显存)，因此可以使模型以更大的批量进行训练。仅当模型在流水线并行训练或梯度累积中设置此配置，并且具有数据并行维度时，此配置才会有效。默认值为True。
 
     ```python
-    from mindspore import context
-    context.set_auto_parallel_context(parallel_optimizer_config={"gradient_accumulation_shard": True}, enable_parallel_optimizer=True)
+    from mindspore import set_auto_parallel_context
+    set_auto_parallel_context(parallel_optimizer_config={"gradient_accumulation_shard": True}, enable_parallel_optimizer=True)
     ```
 
 - `parallel_optimizer_threshold(int)`：该值表示切分参数时，要求目标参数所占内存的最小值。当目标参数小于该值时，将不会被切分。
 
     ```python
     import numpy as np
-    from mindspore import Parameter, Tensor, context, dtype
+    from mindspore import Parameter, Tensor, dtype, set_auto_parallel_context
     param = Parameter(Tensor(np.ones((10, 2)), dtype=dtype.float32), name='weight1')
     # float32类型占用内存4Bytes:
     # param_size = np.prod(list(param.shape)) * 4 = (10 * 2) * 4 = 80B < 24KB, 不会被切分
-    context.set_auto_parallel_context(parallel_optimizer_config={"parallel_optimizer_threshold": 24})
+    set_auto_parallel_context(parallel_optimizer_config={"parallel_optimizer_threshold": 24})
     ```
 
 ### 配置通信融合
@@ -120,9 +120,9 @@ param2.parallel_optimizer = False
 """Parallel Optimizer Fusion Example"""
 from mindspore.communication import init
 from mindspore import nn
-from mindspore import context, ParallelMode
+from mindspore import set_auto_parallel_context, ParallelMode
 init()
-context.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, enable_parallel_optimizer=True)
+set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, enable_parallel_optimizer=True)
 
 class DenseLayer(nn.Cell):
     """A base layer with two dense layer"""

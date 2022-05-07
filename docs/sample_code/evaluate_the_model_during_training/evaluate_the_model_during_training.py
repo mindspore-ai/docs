@@ -23,7 +23,7 @@ import mindspore.dataset.vision.c_transforms as CV
 import mindspore.dataset.transforms.c_transforms as C
 from mindspore.dataset.vision import Inter
 from mindspore import dtype as mstype
-from mindspore import nn, Model, context
+from mindspore import nn, Model, set_context, GRAPH_MODE
 from mindspore.common.initializer import Normal
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor, Callback
 from mindspore.nn import Accuracy
@@ -134,7 +134,7 @@ def download_dataset(dataset_url, path):
 
 if __name__ == "__main__":
     # set args, train it
-    context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
+    set_context(mode=GRAPH_MODE, device_target="CPU")
     train_data_path = "./datasets/MNIST_Data/train"
     eval_data_path = "./datasets/MNIST_Data/test"
     download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-labels-idx1-ubyte", train_data_path)

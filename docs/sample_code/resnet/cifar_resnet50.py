@@ -25,8 +25,7 @@ import mindspore.dataset.transforms.c_transforms as C2
 from mindspore.nn import SoftmaxCrossEntropyWithLogits
 from mindspore.communication import init
 from mindspore.nn import Momentum
-from mindspore import Model, context
-from mindspore.context import ParallelMode
+from mindspore import Model, ParallelMode, GRAPH_MODE, set_context, set_auto_parallel_context
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor
 from mindspore import load_checkpoint, load_param_into_net
 from resnet import resnet50
@@ -47,11 +46,11 @@ args_opt = parser.parse_args()
 
 data_home = args_opt.dataset_path
 
-context.set_context(mode=context.GRAPH_MODE, device_target=args_opt.device_target)
+set_context(mode=GRAPH_MODE, device_target=args_opt.device_target)
 
 if args_opt.device_target == "Ascend":
     device_id = int(os.getenv('DEVICE_ID', '0'))
-    context.set_context(device_id=device_id)
+    set_context(device_id=device_id)
 
 def create_dataset(repeat_num=1, training=True):
     """
@@ -103,7 +102,7 @@ def create_dataset(repeat_num=1, training=True):
 if __name__ == '__main__':
     # in this way by judging the mark of args, users will decide which function to use
     if not args_opt.do_eval and args_opt.run_distribute:
-        context.set_auto_parallel_context(device_num=args_opt.device_num, parallel_mode=ParallelMode.DATA_PARALLEL,
+        set_auto_parallel_context(device_num=args_opt.device_num, parallel_mode=ParallelMode.DATA_PARALLEL,
                                           all_reduce_fusion_config=[140])
         init()
 

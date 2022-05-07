@@ -23,15 +23,14 @@ import mindspore.dataset as ds
 import mindspore.dataset.vision.c_transforms as vision
 import mindspore.dataset.transforms.c_transforms as C
 from mindspore.communication import init, get_rank
-from mindspore import Tensor, Model, context
+from mindspore import Tensor, Model, ParallelMode, set_context, GRAPH_MODE, set_auto_parallel_context
 from mindspore.nn import Momentum
-from mindspore.context import ParallelMode
 from mindspore.train.callback import LossMonitor
 from resnet import resnet50
 
 device_id = int(os.getenv('DEVICE_ID'))
-context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
-context.set_context(device_id=device_id) # set device_id
+set_context(mode=GRAPH_MODE, device_target="Ascend")
+set_context(device_id=device_id) # set device_id
 init()
 ds.config.set_seed(1000) # set dataset seed to make sure than all cards read the same data
 
@@ -115,11 +114,11 @@ class SoftmaxCrossEntropyExpand(nn.Cell):       # pylint: disable=missing-docstr
 
 
 def test_train_cifar(epoch_size=10):        # pylint: disable=missing-docstring
-    context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
+    set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
     slice_h_num = 1
     slice_w_num = 8
     batch_size = 256
-    context.set_auto_parallel_context(dataset_strategy=(((1, 1, slice_h_num, slice_w_num), (1,))))
+    set_auto_parallel_context(dataset_strategy=(((1, 1, slice_h_num, slice_w_num), (1,))))
     loss_cb = LossMonitor()
     data_path = os.getenv('DATA_PATH')
     dataset = create_dataset(data_path, batch_size=batch_size, slice_h_num=slice_h_num, slice_w_num=slice_w_num)

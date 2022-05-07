@@ -431,15 +431,14 @@ User process:
    import numpy as np
    import os
    import mindspore.nn as nn
-   from mindspore import context
    from mindspore.communication import init
    from mindspore import Tensor, Parameter
    import mindspore.ops as ops
-   from mindspore import load_checkpoint, load_param_into_net
+   from mindspore import load_checkpoint, load_param_into_net, set_context, GRAPH_MODE
 
    from mindspore.communication import init
    devid = int(os.getenv('DEVICE_ID'))
-   context.set_context(mode=context.GRAPH_MODE,device_target='Ascend',save_graphs=True, device_id=devid)
+   set_context(mode=GRAPH_MODE,device_target='Ascend',save_graphs=True, device_id=devid)
    init()
 
    class Net(nn.Cell):
