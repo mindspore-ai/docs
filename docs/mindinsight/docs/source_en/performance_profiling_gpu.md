@@ -83,7 +83,9 @@ Users can click the detail link to see the details of each components.
 
 ### Operator Performance Analysis
 
-The operator performance analysis component is used to display the execution time of the operators when running MindSpore(include GPU operator,CUDA kernel,HOSTCPU operator).
+#### Visual Analysis of Operator Performance
+
+The operator performance analysis component is used to display the execution time of the operators (include GPU operator,CUDA kernel,HOSTCPU operator) when MindSpore is run.
 
 ![gpu_op_ui_profiler.png](./images/gpu_op_ui_profiler.png)
 
@@ -107,8 +109,37 @@ The bottom half of Figure 2 displays the statistics table for the operators' det
 Figure 3 displays the statistics for the Kernel, including:  
 
 - A pie graph to show the proportion time occupied by each kernel activity and the execution time of each kernel activity.
-- The statistical table's column includes activity name, operation name, execution frequency, total time and average time.
-- The search box on the right, which supports fuzzy search for the activity name/operator full name.
+- Kernel information list: information list includes information, such as activity name, operation name, execution frequency, total time, average time, and so on.
+- Search: performs fuzzy search through name (activity name)/`op_full_name` (name of the operator).
+
+#### Operator Interface Analysis
+
+Users can query the performance data of the specified GPU operator and HOSTCPU operator by using `profiler.op_analyze(op_name="XXX")` interface .The query performance data is the operator execution times, total operator execution time and average operator execution time under different tensor input. The data is in JSON format and can be quickly viewed by using the JSON parsing tool. The interface is used as follows:
+
+Example 1:
+
+```python
+from mindspore import Profiler
+# Profiler init.
+profiler = Profiler()
+# Train or eval model.
+train_net()
+profiler.analyse()
+operation_info = profiler.op_analyse('Conv2D')
+print(operation_info)  # json
+```
+
+Example 2:
+
+```python
+from mindspore import Profiler
+# Profiler init.
+profiler = Profiler(output_path="my_profiler_path")
+operation_info = profiler.op_analyse(['Conv2D', 'BiasAdd'])  # str or list
+print(operation_info)  # json
+```
+
+Description: `op_analyse()` can use device_id parameter to specify which card operator performance data to parse, which defaults to `device_id=0`.
 
 ### Timeline Analysis
 
