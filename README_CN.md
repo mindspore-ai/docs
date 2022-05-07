@@ -74,7 +74,7 @@ MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/ma
 3. 进入api目录，安装该目录下`requirements.txt`文件中的依赖项。
 
    ```bash
-   cd docs/mindspore/api
+   cd docs/mindspore
    pip install -r requirements.txt
    ```
 
@@ -84,7 +84,7 @@ MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/ma
    make html
    ```
 
-> - 构建[MindSpore教程](https://gitee.com/mindspore/docs/tree/master/tutorials)、[迁移指南文档](https://gitee.com/mindspore/docs/tree/master/docs/mindspore/migration_guide)、[深度概率编程文档](https://gitee.com/mindspore/docs/tree/master/docs/probability/docs)和[MindQuantum文档](https://gitee.com/mindspore/docs/tree/master/docs/mindquantum/docs)时还需安装[pandoc](https://pandoc.org/)，下载和安装pandoc请参考<https://pandoc.org/installing.html>。
+> - 构建[MindSpore教程](https://gitee.com/mindspore/docs/tree/master/tutorials)、[MindSpore文档](https://gitee.com/mindspore/docs/tree/master/docs/mindspore)、[深度概率编程文档](https://gitee.com/mindspore/docs/tree/master/docs/probability/docs)和[MindQuantum文档](https://gitee.com/mindspore/docs/tree/master/docs/mindquantum/docs)时还需安装[pandoc](https://pandoc.org/)，下载和安装pandoc请参考<https://pandoc.org/installing.html>。
 >
 > - 构建MindSpore和Lite的API时，由于需要使用到一些`mindspore`仓的资源文件，先克隆`mindspore`仓，并加入环境变量`MS_PATH`，构建Lite的API时还需要安装Doxygen：
 >
