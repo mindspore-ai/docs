@@ -37,7 +37,7 @@ In GPU scenarios, users can customize the callback mode to collect performance d
 The following is the example：
 
 ```python
-from mindspore.train.callback import Callback
+from mindspore import Callback
 class StopAtStep(Callback):
     def __init__(self, start_step, stop_step):
         super(StopAtStep, self).__init__()
