@@ -26,7 +26,7 @@ The specific use steps are divided into two steps. Taking the classification tas
 
    from mindspore.common.initializer import Normal
    from mindspore import set_context, GRAPH_MODE
-   from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor, SummaryCollector
+   from mindspore import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor, SummaryCollector
    from mindspore import Model
    from mindspore.nn import Accuracy
    from mindspore import set_seed
@@ -168,7 +168,7 @@ The specific use steps are divided into two steps. Taking the classification tas
    from mindspore import Model
    from mindspore.common.initializer import Normal
    from mindspore.nn import Loss
-   from mindspore.train.callback import SummaryLandscape
+   from mindspore import SummaryLandscape
 
    def create_dataset(data_path, batch_size=32, repeat_size=1,
                       num_parallel_workers=1):
@@ -272,7 +272,7 @@ The specific use steps are divided into two steps. Taking the classification tas
                                                            device_ids=[1, 2])
    ```
 
-   - `callback_fn`: User needs to define the function `callback_fn`, the function has no input, and returns `model(mindspore.train.Model)`, `network(mindspore.nn.Cell)`, `dataset(mindspore.dataset)`, `metrics(mindspore.nn.Metrics)`.
+   - `callback_fn`: User needs to define the function `callback_fn`, the function has no input, and returns `model(mindspore.Model)`, `network(mindspore.nn.Cell)`, `dataset(mindspore.dataset)`, `metrics(mindspore.nn.Metrics)`.
    - `collect_landscape`: The parameter definition is consistent with the `SummaryCollector`, where user can freely modify drawing parameters.
    - `device_ids`: Specify `device_ids` for landscape drawing, which supports single machine multi-device computing.
 

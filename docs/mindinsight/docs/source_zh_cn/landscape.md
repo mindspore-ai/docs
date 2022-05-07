@@ -26,7 +26,7 @@
 
    from mindspore.common.initializer import Normal
    from mindspore import set_context, GRAPH_MODE
-   from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor, SummaryCollector
+   from mindspore import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor, SummaryCollector
    from mindspore import Model
    from mindspore.nn import Accuracy
    from mindspore import set_seed
@@ -172,7 +172,7 @@
    from mindspore.common.initializer import Normal
    from mindspore import Model
    from mindspore.nn import Loss
-   from mindspore.train.callback import SummaryLandscape
+   from mindspore import SummaryLandscape
 
    def create_dataset(data_path, batch_size=32, repeat_size=1,
                       num_parallel_workers=1):
@@ -276,7 +276,7 @@
                                                            device_ids=[1, 2])
    ```
 
-   - `callback_fn`: 用户需要定义函数`callback_fn`，该函数没有输入，返回`model(mindspore.train.Model)`，`network(mindspore.nn.Cell)`，`dataset(mindspore.dataset)`，`metrics(mindspore.nn.Metrics)` 。
+   - `callback_fn`: 用户需要定义函数`callback_fn`，该函数没有输入，返回`model(mindspore.Model)`，`network(mindspore.nn.Cell)`，`dataset(mindspore.dataset)`，`metrics(mindspore.nn.Metrics)` 。
    - `collect_landscape`: 参数定义与`SummaryCollector`一致，这里用户可以自由修改绘图参数。
    - `device_ids`: 指定地形图绘制所需要`device_ids`，支持单机多卡计算。
 

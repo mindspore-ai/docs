@@ -37,7 +37,7 @@ GPU场景可自定义callback方式收集性能，但数据准备阶段、数据
 示例如下：
 
 ```python
-from mindspore.train.callback import Callback
+from mindspore import Callback
 class StopAtStep(Callback):
     def __init__(self, start_step, stop_step):
         super(StopAtStep, self).__init__()
