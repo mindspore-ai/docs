@@ -87,6 +87,8 @@ class StopAtStep(Callback):
 
 ### 算子性能分析
 
+#### 算子性能可视化分析
+
 使用算子性能分析组件可以对MindSpore运行过程中的各个算子的执行时间进行统计展示(包括GPU算子、CUDA内核、HOSTCPU算子)。
 
 ![gpu_op_ui_profiler.png](./images/gpu_op_ui_profiler.png)
@@ -113,6 +115,35 @@ class StopAtStep(Callback):
 - 统计图表：展示了各个kernel activity的占比以及算子的耗时信息。
 - 内核信息列表：信息列表展示activity的名称、所属算子名称、执行次数、总时间、平均时间等信息。
 - 搜索：可以通过name(activity名称)以及`op_full_name`（所属算子名称）进行部分匹配的搜索。
+
+#### 算子接口分析
+
+可通过`profiler.op_analyse(op_name="xxx")`接口查询指定的GPU算子、HOSTCPU算子的性能数据。查询的性能数据为算子在不同的张量输入下的算子执行次数，算子执行总耗时以及算子执行平均耗时。其数据格式为JSON数据，可借助JSON解析工具快速查看，接口使用示例如下：
+
+使用方式1：
+
+```python
+from mindspore import Profiler
+# Profiler init.
+profiler = Profiler()
+# Train or eval model.
+train_net()
+profiler.analyse()
+operation_info = profiler.op_analyse('Conv2D')
+print(operation_info)  # json
+```
+
+使用方式2：
+
+```python
+from mindspore import Profiler
+# Profiler init.
+profiler = Profiler(output_path="my_profiler_path")
+operation_info = profiler.op_analyse(['Conv2D', 'BiasAdd'])  # str or list
+print(operation_info)  # json
+```
+
+说明：`op_analyse()`可使用device_id参数指定解析哪张卡的算子性能数据，默认为`device_id=0`。
 
 ### Timeline分析
 
