@@ -28,7 +28,7 @@ Modules in MindSpore Lite:
     - [Git](https://git-scm.com/downloads) >= 2.28.0
     - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
         - Configure environment variables: `export ANDROID_NDK=NDK path`.
-- Additional compilation dependencies of Java:
+- Compilation dependency of the Java API module (optional). If the JAVA_HOME environment variable is not set, this module will not be compiled:
     - [Gradle](https://gradle.org/releases/) >= 6.6.1
         - Configure environment variables: `export GRADLE_HOME=GRADLE path` and `export GRADLE_USER_HOME=GRADLE path`.
         - Add the bin directory to the PATH: `export PATH=${GRADLE_HOME}/bin:$PATH`.
@@ -39,6 +39,9 @@ Modules in MindSpore Lite:
         - Create a new directory, configure environment variables`export ANDROID_SDK_ROOT=new directory`.
         - Download `SDK Tools`, create SDK through `sdkmanager`: `./sdkmanager --sdk_root=${ANDROID_SDK_ROOT} "cmdline-tools;latest"`.
         - Accept the license through `sdkmanager` under the `${ANDROID_SDK_ROOT}` directory: `yes | ./sdkmanager --licenses`.
+- Compilation dependency of the Python API module (optional). If Python3 or NumPy is not installed, this module will not be compiled:
+    - [Python](https://www.python.org/) >= 3.7.0
+    - [NumPy](https://numpy.org/) >= 1.17.0
 
 > Gradle is recommended to use the [gradle-6.6.1-complete](https://gradle.org/next-steps/?version=6.6.1&format=all) version. If you configure other versions, gradle will automatically download  `gradle-6.6.1-complete` by gradle wrapper mechanism.
 >

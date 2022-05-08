@@ -28,7 +28,7 @@ MindSpore Lite包含模块：
     - [Git](https://git-scm.com/downloads) >= 2.28.0
     - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
         - 配置环境变量：`export ANDROID_NDK=NDK路径`
-- Java编译需要的额外依赖
+- Java API模块的编译依赖（可选），未设置JAVA_HOME环境变量则不编译该模块。
     - [Gradle](https://gradle.org/releases/) >= 6.6.1
         - 配置环境变量：`export GRADLE_HOME=GRADLE路径`和`export GRADLE_USER_HOME=GRADLE路径`
         - 将bin目录添加到PATH中：`export PATH=${GRADLE_HOME}/bin:$PATH`
@@ -39,6 +39,9 @@ MindSpore Lite包含模块：
         - 创建一个新目录，配置环境变量`export ANDROID_SDK_ROOT=新建的目录`
         - 下载`SDK Tools`，通过`sdkmanager`创建SDK：`./sdkmanager --sdk_root=${ANDROID_SDK_ROOT} "cmdline-tools;latest"`
         - 通过`${ANDROID_SDK_ROOT}`目录下的`sdkmanager`接受许可证：`yes | ./sdkmanager --licenses`
+- Python API模块的编译依赖（可选），未安装Python3或者NumPy则不编译该模块。
+    - [Python](https://www.python.org/) >= 3.7.0
+    - [NumPy](https://numpy.org/) >= 1.17.0
 
 > Gradle建议采用[gradle-6.6.1-complete](https://gradle.org/next-steps/?version=6.6.1&format=all)版本，配置其他版本gradle将会采用gradle wrapper机制自动下载`gradle-6.6.1-complete`。
 >
