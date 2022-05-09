@@ -7,7 +7,7 @@ Deep learning models have a strong fitting capability, while Bayesian theory has
 This chapter will introduce in detail the application of Bayesian neural network in deep probabilistic programming on MindSpore. Before starting to practice, make sure that you have correctly installed MindSpore 0.7.0-beta and above.
 
 > This example is for the GPU or Ascend 910 AI processor platform. You can download the complete sample code from <https://gitee.com/mindspore/mindspore/tree/master/tests/st/probability/bnn_layers>.  
-> BNN only supports GRAPH mode now, please set `context.set_context(mode=context.GRAPH_MODE)` in your code.
+> BNN only supports GRAPH mode now, please set `set_context(mode=GRAPH_MODE)` in your code.
 
 ## Using BNN
 
@@ -19,7 +19,7 @@ BNN is a basic model composed of probabilistic model and neural network. Its wei
 4. Load and train the dataset.
 
 > This example is for the GPU or Ascend 910 AI processor platform. You can download the complete sample code from <https://gitee.com/mindspore/mindspore/tree/master/tests/st/probability/bnn_layers>.
-> BNN only supports GRAPH mode now, please set `context.set_context(mode=context.GRAPH_MODE)` in your code.
+> BNN only supports GRAPH mode now, please set `set_context(mode=GRAPH_MODE)` in your code.
 
 ## Environment Preparation
 

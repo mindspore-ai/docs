@@ -14,7 +14,7 @@ losses =  strategy.reduce(tf.distribute.ReduceOp.SUM, per_replica_losses,
 
 更多内容详见[tf.distribute.Strategy](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/distribute/Strategy)。
 
-## mindspore.context.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
+## mindspore.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
 
 ```python
 from mindspore import ParallelMode, set_auto_parallel_context
@@ -24,11 +24,11 @@ init()
 # Run net, the same with stand alone training
 ```
 
-更多内容详见[context.set_auto_parallel_context(ParallelMode=ParallelMode.DataParallel)](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.context.html#mindspore.context.set_auto_parallel_context)。
+更多内容详见[set_auto_parallel_context(ParallelMode=ParallelMode.DataParallel)](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.context.html#mindspore.context.set_auto_parallel_context)。
 
 ## 使用方式
 
 TensorFlow：通过tf.distribute.Strategy执行数据并行训练，不同策略指定不同的数据初始化、同步等策略。
 
-MindSpore：通过context.set_auto_parallel_context中的ParallelMode参数的指定数据并行模式，通过gradients_mean参数指定梯度同步策略，
+MindSpore：通过set_auto_parallel_context中的ParallelMode参数的指定数据并行模式，通过gradients_mean参数指定梯度同步策略，
 其余网络脚本部分与单卡网络脚本保持一致。

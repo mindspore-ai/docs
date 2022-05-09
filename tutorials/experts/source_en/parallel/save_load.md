@@ -483,7 +483,7 @@ User process:
 
    In the preceding information:
 
-   - `mode=context.GRAPH_MODE`: sets the running mode to graph mode for distributed training. (The PyNative mode does not support parallel running.)
+   - `mode=GRAPH_MODE`: sets the running mode to graph mode for distributed training. (The PyNative mode does not support parallel running.)
    - `device_id`: physical sequence number of a device, that is, the actual sequence number of the device on a computer where the device is located.
    - `init`: completes the distributed training initialization.
 

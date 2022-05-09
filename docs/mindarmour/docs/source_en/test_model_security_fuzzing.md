@@ -46,7 +46,7 @@ Configure necessary information, including the environment information and execu
 set_context(mode=GRAPH_MODE, device_target="Ascend")
 ```
 
-For details about the API configuration, see the `context.set_context`.
+For details about the API configuration, see the `set_context`.
 
 ### Fuzz Testing Application
 

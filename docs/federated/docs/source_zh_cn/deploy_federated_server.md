@@ -355,4 +355,4 @@ MindSpore联邦学习框架支持`Server`的SSL安全认证，要开启安全认
 - cipher_list：密码套件。
 - cert_expire_warning_time_in_day：证书过期的告警时间。
 
-p12文件中的密钥为密文存储，在启动时需要传入密码，具体参数请参考Python API `mindspore.context.set_fl_context`中的`client_password`以及`server_password`字段。
+p12文件中的密钥为密文存储，在启动时需要传入密码，具体参数请参考Python API `mindspore.set_fl_context`中的`client_password`以及`server_password`字段。

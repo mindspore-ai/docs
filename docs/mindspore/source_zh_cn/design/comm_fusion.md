@@ -44,7 +44,7 @@ MindSpore提供两种接口来使能通信融合，下面分别进行介绍。
 
 #### 自动并行场景下的配置
 
-在自动并行或半自动并行场景下，用户在通过`context.set_auto_parallel_context`来配置并行策略时，可以利用该接口提供的`comm_fusion`参数来设置并行策略，用户可以指定用index方法还是fusion buffer的方法。
+在自动并行或半自动并行场景下，用户在通过`set_auto_parallel_context`来配置并行策略时，可以利用该接口提供的`comm_fusion`参数来设置并行策略，用户可以指定用index方法还是fusion buffer的方法。
 
 #### 利用`Cell`提供的接口
 
@@ -82,7 +82,7 @@ MindSpore提供两种接口来使能通信融合，下面分别进行介绍。
 
 #### `comm_fusion`参数
 
-如下述代码所示，使用`context.set_auto_parallel_context`接口的`comm_fusion`参数，为`AllReduce`算子配置融合模式为`auto`，意味着默认设置fusion buffer的大小为64MB。
+如下述代码所示，使用`set_auto_parallel_context`接口的`comm_fusion`参数，为`AllReduce`算子配置融合模式为`auto`，意味着默认设置fusion buffer的大小为64MB。
 
 ```python
 from mindspore.communication import init

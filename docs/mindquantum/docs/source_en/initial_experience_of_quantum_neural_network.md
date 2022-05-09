@@ -257,7 +257,7 @@ from mindquantum.framework import MQLayer          # Import MQLayer
 import mindspore as ms                             # Import mindspore
 
 ms.set_seed(1)                                     # Set the seed for generating random numbers
-ms.context.set_context(mode=ms.context.PYNATIVE_MODE, device_target="CPU")
+ms.set_context(mode=ms.PYNATIVE_MODE, device_target="CPU")
 
 QuantumNet = MQLayer(grad_ops)
 QuantumNet

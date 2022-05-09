@@ -30,9 +30,9 @@ MindSpore Federated客户端将加噪后的模型$W_p$上传至云侧服务器�
 
 ## 使用方式
 
-本地差分隐私训练目前只支持端云联邦学习场景。开启差分隐私训练的方式很简单，只需要在启动云侧服务时，使用`context.set_fl_context()`设置`encrypt_type='DP_ENCRYPT'`即可。
+本地差分隐私训练目前只支持端云联邦学习场景。开启差分隐私训练的方式很简单，只需要在启动云侧服务时，使用`set_fl_context()`设置`encrypt_type='DP_ENCRYPT'`即可。
 
-此外，为了控制隐私保护的效果，我们还提供了3个参数：`dp_eps`，`dp_delta`以及`dp_norm_clip`，它们也是通过`context.set_fl_context()`设置。
+此外，为了控制隐私保护的效果，我们还提供了3个参数：`dp_eps`，`dp_delta`以及`dp_norm_clip`，它们也是通过`set_fl_context()`设置。
 
 `dp_eps`和`dp_norm_clip`的合法取值范围是大于0，`dp_delta`的合法取值范围是0<`dp_delta`<1。一般来说，`dp_eps`和`dp_delta`越小，隐私保护效果也越好，但是对模型收敛性的影响越大。建议`dp_delta`取成客户端数量的倒数，`dp_eps`大于50。
 

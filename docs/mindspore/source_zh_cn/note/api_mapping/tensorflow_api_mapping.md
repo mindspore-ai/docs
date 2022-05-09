@@ -65,7 +65,7 @@ MindSpore中的许多数据处理方法为各数据集类共有，下面以 `Gen
 
 | TensorFlow  1.15 APIs                                                                                      | MindSpore APIs                                                                                                                                                                                          | 说明                                                                                                                     |
 | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| [tf.distribute.Strategy](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/distribute/Strategy) | [context.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL)](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.context.html#mindspore.context.set_auto_parallel_context) | [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/tensorflow_diff/DistributedTrain.html) |
+| [tf.distribute.Strategy](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/distribute/Strategy) | [set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL)](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.context.html#mindspore.context.set_auto_parallel_context) | [差异对比](https://www.mindspore.cn/docs/zh-CN/master/note/api_mapping/tensorflow_diff/DistributedTrain.html) |
 
 ## tf.image
 

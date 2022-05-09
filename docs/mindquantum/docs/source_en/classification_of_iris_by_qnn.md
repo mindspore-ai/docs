@@ -336,7 +336,7 @@ import mindspore as ms                                                          
 from mindquantum.framework import MQLayer                                                      # Import MQLayer
 from mindquantum.simulator import Simulator
 
-ms.context.set_context(mode=ms.context.PYNATIVE_MODE, device_target="CPU")
+ms.set_context(mode=ms.PYNATIVE_MODE, device_target="CPU")
 ms.set_seed(1)                                                                                 # Set the seed for generating random numbers
 sim = Simulator('projectq', circuit.n_qubits)
 grad_ops = sim.get_expectation_with_grad(hams,

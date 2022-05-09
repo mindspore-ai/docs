@@ -105,7 +105,7 @@ self.dense1.matmul.shard(((2, 1), (1, 4)))
 Configure the search_mode as `sharding_propagation` in Auto_Parallel mode:
 
 ```python
-context.set_auto_parallel_context(parallel_mode="auto_parallel", search_mode="sharding_propagation")
+set_auto_parallel_context(parallel_mode="auto_parallel", search_mode="sharding_propagation")
 ```
 
 ### Training the model and checking the Sharding Strategies

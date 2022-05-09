@@ -28,7 +28,7 @@
 2. 设置context，根据推理数据推导出推理策略。
 
     ```python
-    context.set_auto_parallel_context(full_batch=True, parallel_mode='semi_auto_parallel', strategy_ckpt_load_file='./train_strategy.ckpt')
+    set_auto_parallel_context(full_batch=True, parallel_mode='semi_auto_parallel', strategy_ckpt_load_file='./train_strategy.ckpt')
     network = Net()
     model = Model(network)
     predict_data = create_predict_data()
@@ -74,7 +74,7 @@
 CheckPoint文件在训练过程中产生。CheckPoint具体用法可参考: [CheckPoint用法](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/train/save.html#保存模型)。
 
 训练策略文件，需要在训练时通过设置context生成，context配置项如下：
-`context.set_auto_parallel_context(strategy_ckpt_save_file='train_strategy.ckpt')`
+`set_auto_parallel_context(strategy_ckpt_save_file='train_strategy.ckpt')`
 
 这样在训练后，就会在设置的目录下产生名为`train_strategy.ckpt`的训练策略文件。
 
@@ -92,7 +92,7 @@ CheckPoint文件在训练过程中产生。CheckPoint具体用法可参考: [Che
 
 ```python
 # 在context中配置训练过程中产生的策略文件
-context.set_auto_parallel_context(strategy_ckpt_load_file='train_strategy.ckpt')
+set_auto_parallel_context(strategy_ckpt_load_file='train_strategy.ckpt')
 # 定义网络结构
 network = Net()
 model = Model(network)

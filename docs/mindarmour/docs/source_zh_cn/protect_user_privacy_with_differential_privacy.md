@@ -103,7 +103,7 @@ TAG = 'Lenet5_train'
    set_context(mode=GRAPH_MODE, device_target=cfg.device_target)
    ```
 
-   详细的接口配置信息，请参见`context.set_context`接口说明。
+   详细的接口配置信息，请参见`set_context`接口说明。
 
 ### 预处理数据集
 

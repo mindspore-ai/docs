@@ -202,14 +202,14 @@ Attention:
 When using a PyTorch Aten `GPU` operator，set `device_target`to `"GPU"`.
 
 ```python
-context.set_context(device_target="GPU")
+set_context(device_target="GPU")
 op = ops.Custom("./leaky_relu_gpu.so:LeakyRelu", out_shape=lambda x : x, out_dtype=lambda x : x, func_type="aot")
 ```
 
 When using a PyTorch Aten `CPU` operator and `device_target` is `"GPU"`, the settings that need to be added are as follows:
 
 ```python
-context.set_context(device_target="GPU")
+set_context(device_target="GPU")
 op = ops.Custom("./leaky_relu_cpu.so:LeakyRelu", out_shape=lambda x : x, out_dtype=lambda x : x, func_type="aot")
 op.add_prim_attr("primitive_target", "CPU")
 ```

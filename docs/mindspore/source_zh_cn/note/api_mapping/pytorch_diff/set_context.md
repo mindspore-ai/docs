@@ -10,13 +10,13 @@ torch.cuda.set_device(device)
 
 更多内容详见[torch.cuda.set_device](https://pytorch.org/docs/1.5.0/cuda.html#torch.cuda.set_device)。
 
-## mindspore.context.set_context
+## mindspore.set_context
 
 ```python
-mindspore.context.set_context(**kwargs)
+mindspore.set_context(**kwargs)
 ```
 
-更多内容详见[mindspore.context.set_context](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.context.html#mindspore.context.set_context)。
+更多内容详见[mindspore.set_context](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.context.html#mindspore.context.set_context)。
 
 ## 使用方式
 

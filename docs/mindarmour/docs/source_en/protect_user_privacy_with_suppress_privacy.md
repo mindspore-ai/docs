@@ -73,7 +73,7 @@ TAG = 'Lenet5_Suppress_train'
    set_context(mode=PYNATIVE_MODE, device_target=cfg.device_target)
    ```
 
-   For detailed interface configuration information, see the `context.set_context` interface description.
+   For detailed interface configuration information, see the `set_context` interface description.
 
 ### Preprocessed Datasets
 

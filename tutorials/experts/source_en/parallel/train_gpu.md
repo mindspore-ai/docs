@@ -51,7 +51,7 @@ if __name__ == "__main__":
 
 In the preceding information,
 
-- `mode=context.GRAPH_MODE`: sets the running mode to graph mode for distributed training. (The PyNative mode does not support parallel running.)
+- `mode=GRAPH_MODE`: sets the running mode to graph mode for distributed training. (The PyNative mode does not support parallel running.)
 - `init("nccl")`: enables NCCL communication and completes the distributed training initialization.
 
 ## Defining the Network

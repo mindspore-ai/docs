@@ -105,7 +105,7 @@ self.dense1.matmul.shard(((2, 1), (1, 4)))
 配置并行模式为自动并行的切分策略传播：
 
 ```python
-context.set_auto_parallel_context(parallel_mode="auto_parallel", search_mode="sharding_propagation")
+set_auto_parallel_context(parallel_mode="auto_parallel", search_mode="sharding_propagation")
 ```
 
 ### 训练模型并检查切分策略

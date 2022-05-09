@@ -133,7 +133,7 @@ This problem does not require a coding-layer quantum circuit, so we use `MQAnsat
 
 ```python
 import mindspore as ms
-ms.context.set_context(mode=ms.context.PYNATIVE_MODE, device_target="CPU")
+ms.set_context(mode=ms.PYNATIVE_MODE, device_target="CPU")
 
 total_circuit = init_state_circ + ansatz
 sim = Simulator('projectq', total_circuit.n_qubits)

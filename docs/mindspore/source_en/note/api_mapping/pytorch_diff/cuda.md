@@ -10,13 +10,13 @@ torch.Tensor.cuda()
 
 For more information, see [torch.Tensor.cuda](https://pytorch.org/docs/1.5.0/tensors.html#torch.Tensor.cuda).
 
-## mindspore.context.set_context
+## mindspore.set_context
 
 ```python
-mindspore.context.set_context(**kwargs)
+mindspore.set_context(**kwargs)
 ```
 
-For more information, see [mindspore.context.set_context](https://mindspore.cn/docs/en/master/api_python/mindspore.context.html#mindspore.context.set_context).
+For more information, see [mindspore.set_context](https://mindspore.cn/docs/en/master/api_python/mindspore.context.html#mindspore.context.set_context).
 
 ## Differences
 

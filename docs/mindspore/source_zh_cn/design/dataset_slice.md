@@ -94,11 +94,11 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, slice_h_num=1, slice_
 
 > 数据集切分仅支持全/半自动模式，在数据并行模式下不涉及。
 
-在`mindspore.context.auto_parallel_context`中提供了`dataset_strategy`选项，为数据集配置切分策略。
+在`mindspore.auto_parallel_context`中提供了`dataset_strategy`选项，为数据集配置切分策略。
 
 dataset_strategy接口还有以下几点限制：
 
-1. 每个输入至多允许在一维进行切分。如支持`context.set_auto_parallel_context(dataset_strategy=((1, 1, 1, 8), (8,))))`或者`dataset_strategy=((1, 1, 1, 8), (1,)))`，每个输入都仅仅切分了一维；但是不支持`dataset_strategy=((1, 1, 4, 2), (1,))`，其第一个输入切分了两维。
+1. 每个输入至多允许在一维进行切分。如支持`set_auto_parallel_context(dataset_strategy=((1, 1, 1, 8), (8,))))`或者`dataset_strategy=((1, 1, 1, 8), (1,)))`，每个输入都仅仅切分了一维；但是不支持`dataset_strategy=((1, 1, 4, 2), (1,))`，其第一个输入切分了两维。
 
 2. 维度最高的一个输入，切分的数目，一定要比其他维度的多。如支持`dataset_strategy=((1, 1, 1, 8), (8,)))`或者`dataset_strategy=((1, 1, 1, 1), (1,)))`，其维度最多的输入为第一个输入，切分份数为8，其余输入切分均不超过8；但是不支持`dataset_strategy=((1, 1, 1, 1), (8,))`，其维度最多的输入为第一维，切分份数为1，但是其第二个输入切分份数却为8，超过了第一个输入的切分份数。
 

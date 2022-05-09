@@ -167,7 +167,7 @@ def train(ds_train):
 ```
 
 The above three ways support the record computational graph, loss value and other data. In addition, MindSpore also supports the saving of computational graph for other phases of training, through
-the `save_graphs` option of `context.set_context` in the training script is set to `True` to record computational graphs of other phases, including the computational graph after operator fusion.
+the `save_graphs` option of `set_context` in the training script is set to `True` to record computational graphs of other phases, including the computational graph after operator fusion.
 
 In the saved files, `ms_output_after_hwopt.pb` is the computational graph after operator fusion, which can be viewed on the web page.
 
@@ -261,7 +261,7 @@ class MyOptimizer(nn.Momentum):
 
 def train(ds_train):
     device_target = "GPU"
-    context.set_context(mode=context.GRAPH_MODE, device_target=device_target)
+    set_context(mode=GRAPH_MODE, device_target=device_target)
     network = AlexNet(num_classes=10)
     net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
     lr = Tensor(get_lr(0, 0.002, 10, ds_train.get_dataset_size()))

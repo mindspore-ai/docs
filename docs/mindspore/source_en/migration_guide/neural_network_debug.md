@@ -37,7 +37,7 @@ This section introduces the problems and solutions during Network Debugging proc
 
 For script development and network process debugging, we recommend using the PyNative mode for debugging. The PyNative mode supports executing single operators, normal functions and networks, as well as separate operations for computing gradients. In PyNative mode, you can easily set breakpoints and get intermediate results of network execution, and you can also debug the network by means of pdb.
 
-By default, MindSpore is in Graph mode, which can be set as PyNative mode via `context.set_context(mode=context.PYNATIVE_MODE)`. Related examples can be found in [Debugging With PyNative Mode](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/pynative_graph/pynative.html).
+By default, MindSpore is in Graph mode, which can be set as PyNative mode via `set_context(mode=PYNATIVE_MODE)`. Related examples can be found in [Debugging With PyNative Mode](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/pynative_graph/pynative.html).
 
 #### Getting More Error Messages
 

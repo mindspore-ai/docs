@@ -344,7 +344,7 @@ A: 以下代码引用自MindSpore的官方教程的[代码仓](https://gitee.com
 
 ```python
 # Since the selected optimizer does not support CPU, so the training computing platform is changed to GPU, which requires readers to install the corresponding GPU version of MindSpore.
-context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
+set_context(mode=GRAPH_MODE, device_target="GPU")
 
 # Assuming that the function to be fitted this time is f(x)=2x^2+3x+4, the data generation function is modified as follows:
 def get_data(num, a=2.0, b=3.0 ,c = 4):
@@ -455,7 +455,7 @@ A: 安装MindSpore所依赖的Ascend 310 AI处理器配套软件包时，`CANN`�
 
 <br/>
 
-<font size=3>**Q: MindSpore代码里面的model_zoo/official/cv/resnet/train.py中context.set_ps_context(enable_ps=True)为什么一定要在init之前设置**</font>
+<font size=3>**Q: MindSpore代码里面的model_zoo/official/cv/resnet/train.py中set_ps_context(enable_ps=True)为什么一定要在init之前设置**</font>
 
 A: MindSpore Ascend模式下，如果先调用init，那么会为所有的进程都分配卡，但是parameter server训练模式下server是不需要分配卡的，那么worker和server就会去使用同一块卡，导致会报错: HCCL dependent tsd is not open。
 
