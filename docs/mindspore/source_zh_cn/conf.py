@@ -67,6 +67,22 @@ with open("../_ext/customdocumenter.txt", "r", encoding="utf8") as f:
     code_str = f.read()
     exec(code_str, sphinx_autodoc.__dict__)
 
+# Fix mathjax tags
+from sphinx.ext import mathjax as sphinx_mathjax
+
+with open(sphinx_mathjax.__file__, "r", encoding="utf-8") as f:
+    code_str = f.read()
+    old_str = r'''        if r'\\' in part:
+            self.body.append(r'\begin{split}' + part + r'\end{split}')'''
+    new_str = r'''        if r'\\' in part:
+            if r'\tag{' in part:
+                part1, part2 = part.split(r'\tag{')
+                self.body.append(r'\begin{split}' + part1 + r'\end{split}' + r'\tag{' +part2)
+            else:
+                self.body.append(r'\begin{split}' + part + r'\end{split}')'''
+    code_str = code_str.replace(old_str, new_str)
+    exec(code_str, sphinx_mathjax.__dict__)
+
 # -- Project information -----------------------------------------------------
 
 project = 'MindSpore'
