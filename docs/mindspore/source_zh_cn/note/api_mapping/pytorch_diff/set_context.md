@@ -16,7 +16,7 @@ torch.cuda.set_device(device)
 mindspore.set_context(**kwargs)
 ```
 
-更多内容详见[mindspore.set_context](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.context.html#mindspore.context.set_context)。
+更多内容详见[mindspore.set_context](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_context.html#mindspore.set_context)。
 
 ## 使用方式
 
