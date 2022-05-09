@@ -320,7 +320,7 @@ if __name__ == "__main__":
 
 ### 下载数据集
 
-- [WMT14 En-Fr数据集下载](http://statmt.org/wmt14/test-full.tgz)，如果点击下载不成功，请尝试右键另存为方式下载。
+- [WMT14 En-Fr数据集下载](http://statmt.org/wmt14/test-full.tgz)，如果点击下载不成功，请尝试复制链接地址后下载。
 
 使用`newstest2014-fren-ref.en.sgm`作为该任务的训练集合，合并且清洗该数据集。将数据集解压至`docs/sample_code/distributed_training_transformer`目录下。
 
