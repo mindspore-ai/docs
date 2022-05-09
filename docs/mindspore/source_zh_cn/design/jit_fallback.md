@@ -204,7 +204,7 @@ net()
 
 ### 调用Python内置函数
 
-MindSpore在静态图模式下已经支持了一些Python内置函数，包括len、isinstance、map、zip等，详情请参考[静态图语法支持](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html)。通过JIT Fallback，可以在常量场景中支持更多的Python内置函数的用法。
+MindSpore在静态图模式下已经支持了一些Python内置函数，包括但不限于len、isinstance、map、zip等，详情请参考[静态图语法支持](https://www.mindspore.cn/docs/zh-CN/master/note/static_graph_syntax_support.html)。通过JIT Fallback，可以在常量场景中支持更多的Python内置函数的用法。下面简单举例支持的部分Python内置函数。
 
 #### abs()
 
@@ -840,6 +840,28 @@ g: <class 'mindspore.common.tensor.Tensor'>
     ```text
     Should not use Python object in runtime, node: ValueNode<InterpretedObject> InterpretedObject: '[2 4 6 8 10]'
     ```
+
+   值得注意的是，在常量场景中，NumPy整型数据、浮点型数据的运算结果将转换为常量进行保存，因此其运算结果可以作为函数返回值。例如：
+
+    ```python
+    import numpy as np
+    from mindspore import ms_function
+
+    @ms_function
+    def test_np_add_constant():
+        x = 1.0
+        y = 2.0
+        return np.add(x, y)
+
+    res = test_np_add_constant()
+    print("res:", res)
+    ```
+
+   输出结果如下:
+
+   ```text
+   res: 3.0
+   ```
 
 5. 通过JIT Fallback支持的NumPy第三方库，与MindSpore提供的[mindspore.numpy](https://mindspore.cn/docs/zh-CN/master/api_python/mindspore.numpy.html)不同。
 
