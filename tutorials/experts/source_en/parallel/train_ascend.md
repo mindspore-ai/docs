@@ -12,19 +12,21 @@ The directory structure is as follow:
 ```text
 └─sample_code
     ├─distributed_training
-    │      rank_table_16pcs.json
-    │      rank_table_8pcs.json
-    │      rank_table_2pcs.json
-    │      cell_wrapper.py
-    │      model_accu.py
-    │      resnet.py
-    │      resnet50_distributed_training.py
-    │      resnet50_distributed_training_gpu.py
-    │      resnet50_distributed_training_grad_accu.py
-    │      run.sh
-    │      run_gpu.sh
-    │      run_grad_accu.sh
-    │      run_cluster.sh
+        ├── cell_wrapper.py
+        ├── rank_table_16pcs.json
+        ├── rank_table_2pcs.json
+        ├── rank_table_8pcs.json
+        ├── resnet50_distributed_training_dataset_slice.py
+        ├── resnet50_distributed_training_gpu.py
+        ├── resnet50_distributed_training_pipeline.py
+        ├── resnet50_distributed_training.py
+        ├── resnet.py
+        ├── run_cluster.sh
+        ├── run_dataset_slice.sh
+        ├── run_gpu.sh
+        ├── run_pipeline.sh
+        └── run.sh
+    ...
 ```
 
 `rank_table_16pcs.json`, `rank_table_8pcs.json` and `rank_table_2pcs.json` are the networking information files. `resnet.py`,`resnet50_distributed_training.py` , `resnet50_distributed_training_gpu.py` and `resnet50_distributed_training_grad_accu.py` are the network structure files. `run.sh` , `run_gpu.sh`, `run_grad_accu.sh` and `run_cluster.sh` are the execute scripts.
@@ -37,7 +39,7 @@ Besides, we describe the usages of hybrid parallel and semi-auto parallel modes 
 
 This sample uses the `CIFAR-10` dataset, which consists of color images of 32 x 32 pixels in 10 classes, with 6000 images per class. There are 50,000 images in the training set and 10,000 images in the test set.
 
-> `CIFAR-10` dataset download address: <https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz>
+> `CIFAR-10` dataset download address: <https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz>. If the download is unsuccessful, try copying the link address and download it.
 
 Download the dataset and decompress it to a local path. The folder generated after the decompression is `cifar-10-batches-bin`.
 

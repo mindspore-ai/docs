@@ -31,11 +31,11 @@ This tutorial describes how to use MindSpore to perform inference on the Atlas 2
 
 The following five types of scripts and software packages are required for configuring the development environment:
 
-1. Entry script for SD card preparation: [make_sd_card.py](https://gitee.com/ascend/tools/blob/master/makesd/for_1.0.9.alpha/make_sd_card.py)
+1. Entry script for SD card preparation: [make_sd_card.py](https://gitee.com/ascend/tools/blob/master/makesd/for_1.0.9.alpha/make_sd_card.py).
 
-2. Script for preparing a bootable SD card: [make_ubuntu_sd.sh](https://gitee.com/ascend/tools/blob/master/makesd/for_1.0.9.alpha/make_ubuntu_sd.sh)
+2. Script for preparing a bootable SD card: [make_ubuntu_sd.sh](https://gitee.com/ascend/tools/blob/master/makesd/for_1.0.9.alpha/make_ubuntu_sd.sh).
 
-3. Ubuntu OS image package: [ubuntu-18.04.xx-server-arm64.iso](http://cdimage.ubuntu.com/ubuntu/releases/18.04/release/ubuntu-18.04.6-server-arm64.iso). If the download fails, please copy the link and download it.
+3. Ubuntu OS image package: [ubuntu-18.04.xx-server-arm64.iso](http://cdimage.ubuntu.com/ubuntu/releases/18.04/release/ubuntu-18.04.6-server-arm64.iso). If the download is unsuccessful, try copying the link address and download it.
 
 4. Driver package and running package of Atlas 200 DK:
 

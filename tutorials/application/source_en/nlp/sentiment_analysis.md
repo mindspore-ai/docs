@@ -22,7 +22,7 @@ This section uses the classic [IMDB Movie Review Dataset](https://ai.stanford.ed
 
 | Review  | Label  |
 |:---|:---:|
-| "Quitting" may be as much about exiting a pre-ordained identity as about drug withdrawal. As a rural guy coming to Beijing, class and success must have struck this young artist face on as an appeal to separate from his roots and far surpass his peasant parents' acting success. Troubles arise, however, when the new man is too new, when it demands too big a departure from family, history, nature, and personal identity. The ensuing splits, and confusion between the imaginary and the real and the dissonance between the ordinary and the heroic are the stuff of a gut check on the one hand or a complete escape from self on the other.  |  Negative |  
+| "Quitting" may be as much about exiting a pre-ordained identity as about drug withdrawal. As a rural guy coming to Beijing, class and success must have struck this young artist face on as an appeal to separate from his roots and far surpass his peasant parents' acting success. Troubles arise, however, when the new man is too new, when it demands too big a departure from family, history, nature, and personal identity. The ensuing splits, and confusion between the imaginary and the real and the dissonance between the ordinary and the heroic are the stuff of a gut check on the one hand or a complete escape from self on the other.  |  Negative |
 | This movie is amazing because the fact that the real people portray themselves and their real life experience and do such a good job it's like they're almost living the past over again. Jia Hongsheng plays himself an actor who quit everything except music and drugs struggling with depression and searching for the meaning of life while being angry at everyone especially the people who care for him most.  | Positive  |
 
 In addition, the pre-trained word vectors are used to encode natural language words to obtain semantic features of text. In this section, the Global Vectors for Word Representation ([GloVe](https://nlp.stanford.edu/projects/glove/)) are selected as embeddings.
@@ -46,7 +46,7 @@ from pathlib import Path
 cache_dir = Path.home() / '.mindspore_examples'
 
 def http_get(url: str, temp_file: IO):
-    """Download data using the requests library and visualize the process using the tqdm library.""
+    """Download data by using the requests library and visualize the process by using the tqdm library.""
     req = requests.get(url, stream=True)
     content_length = req.headers.get('Content-Length')
     total = int(content_length) if content_length is not None else None
@@ -73,7 +73,7 @@ def download(file_name: str, url: str):
     return cache_path
 ```
 
-After the data download module is complete, download the IMDB dataset for testing. (The HUAWEI CLOUD image is used to improve the download speed.) The download process and storage path are as follows:
+After the data download module is complete, download the IMDB dataset for testing. The HUAWEI CLOUD image is used to improve the download speed. The download process and storage path are as follows:
 
 ```python
 imdb_path = download('aclImdb_v1.tar.gz', 'https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/aclImdb_v1.tar.gz')
@@ -111,7 +111,7 @@ import tarfile
 class IMDBData():
     """IMDB dataset loader.
 
-    Load the IMDB dataset and processes it as a Python iteration object.
+    Load the IMDB dataset and process it as a Python iteration object.
 
     """
     label_map = {
@@ -146,7 +146,7 @@ class IMDBData():
         return len(self.docs)
 ```
 
-After the IMDB data is loaded, load the training dataset for testing and output the number of datasets.
+After the IMDB dataset loader is completed, load the training dataset for testing and output the number of datasets.
 
 ```python
 imdb_train = IMDBData(imdb_path, 'train')
@@ -181,7 +181,7 @@ A pre-trained word vector is a numerical representation of an input word. The `n
 Therefore, before model build, word vectors and vocabulary required by the Embedding layer need to be built. Here, we use the classic pre-trained word vectors, GloVe.
 The data format is as follows:
 
-| Word |  Vector |  
+| Word |  Vector |
 |:---|:---:|
 | the | 0.418 0.24968 -0.41242 0.1217 0.34527 -0.044457 -0.49688 -0.17862 -0.00066023 ...|
 | , | 0.013441 0.23682 -0.16899 0.40951 0.63812 0.47709 -0.42852 -0.55641 -0.364 ... |
@@ -216,7 +216,7 @@ def load_glove(glove_path):
 
 The dataset may contain words that are not covered by the vocabulary. Therefore, the `<unk>` token needs to be added. In addition, because the input lengths are different, the `<pad>` tokens need to be added to short text when the text is packed into a batch. The length of the completed vocabulary is the length of the original vocabulary plus 2.
 
-Download and load GloVe to generate a vocabulary and a word vector weight matrix.
+Download the GloVe to generate and load a vocabulary and a word vector weight matrix.
 
 ```python
 glove_path = download('glove.6B.zip', 'https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/glove.6B.zip')
@@ -388,13 +388,13 @@ class RNN(nn.Cell):
 
 ### Loss Function and Optimizer
 
-After the model body is built, instantiate the network based on the specified parameters, select the loss function and optimizer, and encapsulate them using `nn.TrainOneStepCell`. For a feature of the sentimental classification problem in this section, that is, a binary classification problem for predicting positive or negative, `nn.BCELoss` (binary cross entropy loss function) is selected. Herein, `nn.BCEWithLogitsLoss` may also be selected, and includes a `sigmoid` operation, that is:
+After the model body is built, instantiate the network based on the specified parameters, select the loss function and optimizer, and encapsulate them by using `nn.TrainOneStepCell`. For a feature of the sentimental classification problem in this section, that is, a binary classification problem for predicting positive or negative, `nn.BCELoss` (binary cross entropy loss function) is selected. Herein, `nn.BCEWithLogitsLoss` may also be selected, and includes a `sigmoid` operation, that is:
 
 ```text
 BCEWithLogitsLoss = Sigmoid + BCELoss
 ```
 
-If `BECLoss` is used, the `reduction` parameter must be set to the average value. It is then associated with the instantiated network object using `nn.WithLossCell`.
+If `BECLoss` is used, the `reduction` parameter must be set to the average value. It is then associated with the instantiated network object by using `nn.WithLossCell`.
 
 After selecting a proper loss function and the `Adam` optimizer, pass them to `TrainOneStepCell`.
 
@@ -499,7 +499,7 @@ def evaluate(model, test_dataset, criterion, epoch=0):
 
 The model building, training, and evaluation logic design are complete. The following describes how to train a model. In this example, the number of training epochs is set to 5. In addition, maintain the `best_valid_loss` variable for saving the optimal model. Based on the loss value of each epoch of evaluation, select the epoch with the minimum loss value and save the model.
 
-By default, MindSpore uses the static graph mode (Define and Run) for training. In the first step, computational graph is built, which is time-consuming but improve the overall training efficiency. To perform single-step debugging or use the dynamic graph mode, you can use the following code:
+By default, MindSpore uses the static graph mode (Define and Run) for training. In the first step, computational graph is built, which is time-consuming but improves the overall training efficiency. To perform single-step debugging or use the dynamic graph mode, you can use the following code:
 
 ```python
 from mindspore import set_context, PYNATIVE_MODE
