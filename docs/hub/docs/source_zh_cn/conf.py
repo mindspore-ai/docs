@@ -15,6 +15,8 @@ import IPython
 import re
 import sys
 from sphinx.ext import autodoc as sphinx_autodoc
+from genericpath import exists
+import shutil
 
 import mindspore_hub
 
@@ -112,6 +114,20 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     code_str = autodoc_source_re.sub('"(" + get_param_func(get_obj(self.object)) + ")"', code_str, count=0)
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
+
+# Copy source files of chinese python api from hub repository.
+from sphinx.util import logging
+logger = logging.getLogger(__name__)
+
+src_dir = os.path.join(os.getenv("HB_PATH"), 'docs/api_python/hub.rst')
+des_sir = "./hub.rst"
+
+if not exists(src_dir):
+    logger.warning(f"不存在目录：{src_dir}！")
+if os.path.exists(des_sir):
+    os.remove(des_sir)
+shutil.copy(src_dir, des_sir)
+
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 import anchor_mod

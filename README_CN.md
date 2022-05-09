@@ -84,71 +84,35 @@ MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/ma
    make html
    ```
 
-> - 构建[MindSpore教程](https://gitee.com/mindspore/docs/tree/master/tutorials)、[MindSpore文档](https://gitee.com/mindspore/docs/tree/master/docs/mindspore)、[深度概率编程文档](https://gitee.com/mindspore/docs/tree/master/docs/probability/docs)和[MindQuantum文档](https://gitee.com/mindspore/docs/tree/master/docs/mindquantum/docs)时还需安装[pandoc](https://pandoc.org/)，下载和安装pandoc请参考<https://pandoc.org/installing.html>。
->
-> - 构建MindSpore和Lite的API时，由于需要使用到一些`mindspore`仓的资源文件，先克隆`mindspore`仓，并加入环境变量`MS_PATH`，构建Lite的API时还需要安装Doxygen：
->
->   ```bash
->   git clone https://gitee.com/mindspore/mindspore.git {MS_REPO PATH}
->   sudo apt install doxygen
->   export MS_PATH={MS_REPO PATH}
->   ```
->
->   其中`{MS_REPO PATH}`为克隆的`mindspore`仓路径。
->
-> - 构建MindInsight的API时，由于需要使用到一些`mindinsight`仓的资源文件，先克隆`mindinsight`仓，并加入环境变量`MI_PATH`：
->
->   ```bash
->   git clone https://gitee.com/mindspore/mindinsight.git {MI_REPO PATH}
->   export MI_PATH={MI_REPO PATH}
->   ```
->
->   其中`{MI_REPO PATH}`为克隆的`mindinsight`仓路径。
->
-> - 构建MindArmour的API时，由于需要使用到一些`mindarmour`仓的资源文件，先克隆`mindarmour`仓，并加入环境变量`MA_PATH`：
->
->   ```bash
->   git clone https://gitee.com/mindspore/mindarmour.git {MA_REPO PATH}
->   export MA_PATH={MA_REPO PATH}
->   ```
->
->   其中`{MA_REPO PATH}`为克隆的`mindarmour`仓路径。
->
-> - 构建MindQuantum的API时，由于需要使用到一些`mindquantum`仓的资源文件，先克隆`mindquantum`仓，并加入环境变量`MQ_PATH`：
->
->   ```bash
->   git clone https://gitee.com/mindspore/mindquantum.git {MQ_REPO PATH}
->   export MQ_PATH={MQ_REPO PATH}
->   ```
->
->   其中`{MQ_REPO PATH}`为克隆的`mindquantum`仓路径。
->
-> - 构建Reinforcement的API时，由于需要使用到一些`reinforcement`仓的资源文件，先克隆`reinforcement`仓，并加入环境变量`RM_PATH`：
->
->   ```bash
->   git clone https://gitee.com/mindspore/reinforcement.git {RM_REPO PATH}
->   export RM_PATH={RM_REPO PATH}
->   ```
->
->   其中`{RM_REPO PATH}`为克隆的`reinforcement`仓路径。
->
-> - 构建Serving的API时，由于需要使用到一些`serving`仓的资源文件，先克隆`serving`仓，并加入环境变量`SV_PATH`：
->
->   ```bash
->   git clone https://gitee.com/mindspore/serving.git {SV_REPO PATH}
->   export SV_PATH={SV_REPO PATH}
->   ```
->
->   其中`{SV_REPO PATH}`为克隆的`serving`仓路径。
->
-> - 构建Vision的API时，由于需要使用到一些`vision`仓的资源文件，先克隆`vision`仓，并加入环境变量`VS_PATH`：
->
->   ```bash
->   git clone https://gitee.com/mindspore/vision.git {VS_REPO PATH}
->   export VS_PATH={VS_REPO PATH}
->   ```
->
->   其中`{VS_REPO PATH}`为克隆的`vision`仓路径。
+5. 构建MindSpore、MindInsight、MindQuantum等不同仓的API时，由于会使用到对应不同仓的一些资源文件，需要先克隆对应仓，并配置环境变量，给出以下配置列表供使用：
+
+   | 对应API的生成 | 环境变量 | 仓库链接 | 仓库名 |
+   | ---- | ---- | ---- | ---- |
+   | MindSpore/ MindSpore Lite | MS_PATH | https://gitee.com/mindspore/mindspore.git | mindspore |
+   | MindInsight | MI_PATH | https://gitee.com/mindspore/mindinsight.git | mindinsight |
+   | MindArmour | MA_PATH | https://gitee.com/mindspore/mindarmour.git | mindarmour |
+   | MindQuantum | MQ_PATH | https://gitee.com/mindspore/mindquantum.git | mindquantum |
+   | Reinforcement | RM_PATH | https://gitee.com/mindspore/reinforcement.git | reinforcement |
+   | Serving | SV_PATH | https://gitee.com/mindspore/serving.git | serving |
+   | Vision | VS_PATH | https://gitee.com/mindspore/vision.git | vision |
+   | Hub | HB_PATH | https://gitee.com/mindspore/hub.git | hub |
+
+   克隆仓库以及设置环境变量的代码如下：
+
+   ```bash
+   git clone 仓库链接
+   export 环境变量 = 对应克隆仓在本地的路径
+   ```
+
+   注意：
+
+   - 构建Lite的API时，还需要安装Doxygen：
+
+      ```bash
+      sudo apt install doxygen
+      ```
+
+   - 构建[MindSpore教程](https://gitee.com/mindspore/docs/tree/master/tutorials)、[MindSpore文档](https://gitee.com/mindspore/docs/tree/master/docs/mindspore)、[深度概率编程文档](https://gitee.com/mindspore/docs/tree/master/docs/probability/docs)和[MindQuantum文档](https://gitee.com/mindspore/docs/tree/master/docs/mindquantum/docs)时还需安装[pandoc](https://pandoc.org/)，下载和安装pandoc请参考<https://pandoc.org/installing.html>。
 
 ## 版权
 
