@@ -146,7 +146,7 @@ Image shape: (32, 32, 3) , Label: 1
 
 ### VOC Dataset
 
-There are multiple versions of the VOC dataset, here uses VOC2012 as an example. Download [VOC2012 dataset](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/VOCtrainval_11-May-2012.tar) and decompress it. If the download fails, right-click the file and choose "Save as" to download the file. The directory structure is as follows:
+There are multiple versions of the VOC dataset, here uses VOC2012 as an example. Download [VOC2012 dataset](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/VOCtrainval_11-May-2012.tar) and decompress it. If the download fails, please copy the link and download it. The directory structure is as follows:
 
 ```text
 └─ VOCtrainval_11-May-2012
@@ -196,7 +196,7 @@ bbox shape: (2, 4)
 
 ### COCO Dataset
 
-There are multiple versions of the COCO dataset. Here, the validation dataset of COCO2017 is taken as an example. Download COCO2017 [validation dataset](http://images.cocodataset.org/zips/val2017.zip), [detection task annotation](http://images.cocodataset.org/annotations/annotations_trainval2017.zip) and [panoptic task annotation](http://images.cocodataset.org/annotations/panoptic_annotations_trainval2017.zip) and decompress them. If the download fails, right-click the file and choose "Save as" to download the file. Take only a part of the validation dataset and store it as the following directory structure:
+There are multiple versions of the COCO dataset. Here, the validation dataset of COCO2017 is taken as an example. Download COCO2017 [validation dataset](http://images.cocodataset.org/zips/val2017.zip), [detection task annotation](http://images.cocodataset.org/annotations/annotations_trainval2017.zip) and [panoptic task annotation](http://images.cocodataset.org/annotations/panoptic_annotations_trainval2017.zip) and decompress them. If the download fails, please copy the link and download it. Take only a part of the validation dataset and store it as the following directory structure:
 
 ```text
 └─ COCO

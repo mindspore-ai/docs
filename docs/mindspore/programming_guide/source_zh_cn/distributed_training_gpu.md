@@ -127,7 +127,7 @@ mpirun -n DEVICE_NUM python nccl_allgather.py
 
 本样例采用`CIFAR-10`数据集，由10类32*32的彩色图片组成，每类包含6000张图片，共60000张。其中训练集共50000张图片，测试集共10000张图片。
 
-> `CIFAR-10`数据集下载链接：<http://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz>，如果点击下载不成功，请尝试右键另存为方式下载。
+> `CIFAR-10`数据集下载链接：<http://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz>，如果点击下载不成功，请尝试复制链接地址后下载。
 
 Linux机器可采用以下命令下载到终端当前路径并解压数据集，解压后的数据所在文件夹为`cifar-10-batches-bin`。
 
