@@ -22,7 +22,7 @@ init()
 # Run net, the same with stand alone training
 ```
 
-For more information, see [set_auto_parallel_context(ParallelMode=ParallelMode.DataParallel)](https://mindspore.cn/docs/en/master/api_python/mindspore.context.html#mindspore.context.set_auto_parallel_context).
+For more information, see [set_auto_parallel_context(ParallelMode=ParallelMode.DataParallel)](https://mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_auto_parallel_context.html#mindspore.set_auto_parallel_context).
 
 ## Differences
 

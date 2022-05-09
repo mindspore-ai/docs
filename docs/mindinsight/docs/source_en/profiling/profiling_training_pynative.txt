@@ -9,7 +9,7 @@ Profiler APIs should be added into the script.
 
 .. note::
    The parameters of Profiler are as follows:
-   https://www.mindspore.cn/docs/en/master/api_python/mindspore.profiler.html
+   https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Profiler.html#mindspore.Profiler
 
 - At the end of the training, ``Profiler.analyse()`` should be called
   to finish profiling and generate the perforamnce analyse results.
