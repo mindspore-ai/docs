@@ -130,7 +130,7 @@ print(output)
 
 ### nn.MaxPool2d
 
-Initialize the `nn.MaxPool2d` layer and down-sample the 6 x 28 x 28 array to a 6 x 14 x 14 array.
+Initialize the `nn.MaxPool2d` layer and down-sample the 6 x 28 x 28 array to a 6 x 7 x 7 array.
 
 ```python
 max_pool2d = nn.MaxPool2d(kernel_size=4, stride=4)
