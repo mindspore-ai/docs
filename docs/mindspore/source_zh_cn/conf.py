@@ -64,7 +64,7 @@ for i in py_file_list:
                     str_notes = content[content.find(cls_name):content.rfind('    Supported Platforms:', 0, index_side_effect)]
                     try:
                         side_effect_pypath = i[i.rfind('mindspore'):]
-                        replace_str = "    Side Effects Form:\n        ``Memory``\n\n"
+                        replace_str = "    Side Effects:\n        ``Memory``\n\n"
                         if 'io' in key:
                             replace_str = replace_str.replace("Memory", "IO")
                         base_path = os.path.dirname(os.path.dirname(sphinx.__file__))

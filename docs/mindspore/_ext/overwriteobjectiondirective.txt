@@ -85,7 +85,7 @@ def get_side_effect(name: str):
         side_effect_str = re.findall(r'Side Effects Form:\n\s+(.*?)\n\n', api_doc)
         side_effect_str = side_effect_str[0].strip()
         side_effect_list = side_effect_str.split('\n')
-        return ["", "**副作用类型：**", ""] + side_effect_list + [""]
+        return ["", "**副作用：**", ""] + side_effect_list + [""]
     except:
         return []
 
