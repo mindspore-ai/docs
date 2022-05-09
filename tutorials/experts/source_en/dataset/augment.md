@@ -6,17 +6,15 @@
 
 MindSpore not only allows you to customize data augmentation, but also provides an auto augmentation method to automatically perform data augmentation on images based on specific policies.
 
-Auto augmentation can be implemented based on probability or callback parameters.
+Auto augmentation can be implemented based on **probability** or **callback parameters**.
 
-## Probability Based Auto Augmentation
+## Probability-Based Auto Augmentation
 
 MindSpore provides a series of probability-based auto augmentation APIs. You can randomly select and combine various data augmentation operations to make data augmentation more flexible.
 
-For details about APIs, see [MindSpore API](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html).
-
 ### RandomApply
 
-The API receives a data augmentation operation list `transforms` and executes the data augmentation operations in the list in sequence at a certain probability or executes none of them. The default probability is 0.5.
+The `RandomApply` receives a data augmentation operation list and executes the data augmentation operations in the list in sequence at a certain probability or executes none of them. The default probability is 0.5.
 
 In the following code example, the `RandomCrop` and `RandomColorAdjust` operations are executed in sequence with a probability of 0.5 or none of them are executed.
 
@@ -46,7 +44,11 @@ The API receives a preset policy list, including a series of sub-policy combinat
 
 First, a sub-policy is randomly selected for each image with equal probability, and then operations are performed according to the probability sequence in the sub-policy.
 
-In the following code example, two sub-policies are preset. Sub-policy 1 contains the `RandomRotation`, `RandomVerticalFlip`, and `RandomColorAdjust` operations, whose probabilities are 0.5, 1.0, and 0.8, respectively. Sub-policy 2 contains the `RandomRotation` and `RandomColorAdjust` operations, with the probabilities of 1.0 and 0.2, respectively.
+In the following code example, two sub-policies are preset.
+
+- Sub-policy 1 contains the `RandomRotation` and `RandomVerticalFlip`operations, whose probabilities are 0.5 and 1.0, respectively.
+
+- Sub-policy 2 contains the `RandomRotation` and `RandomColorAdjust` operations, with the probabilities of 1.0 and 0.2, respectively.
 
 ```python
 import mindspore.dataset.vision.c_transforms as c_vision

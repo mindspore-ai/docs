@@ -8,8 +8,8 @@ During model training, you can add CheckPoints to save model parameters for infe
 
 - **CheckPoint**: The Protocol Buffers mechanism is adopted, which stores all the parameter values in the network. It is generally used to resume training after a training task is interrupted, or in a Fine Tune task after training.
 - **MindIR**: MindSpore IR, is a kind of functional IR based on graph representation of MindSpore, which defines the extensible graph structure and the IR representation of the operator, and stores the network structure and weight parameter values. It eliminates model differences between different backends and is generally used to perform inference tasks across hardware platforms, such as performing inference on the Ascend 910 trained model on the Ascend 310, GPU, and MindSpore Lite side.
-- **AIR**: Ascend Intermediate Representation, is an open file format defined by Huawei for machine learning, and stores network structure and weight parameter values, which can better adapt to Ascend AI processors. It is generally used to perform inference tasks on Ascend 310.
 - **ONNX**: Open Neural Network Exchange, is an open file format designed for machine learning, storing both network structure and weight parameter values. Typically used for model migration between different frameworks or for use on the Inference Engine (TensorRT).
+- **AIR**: Ascend Intermediate Representation, is an open file format defined by Huawei for machine learning, and stores network structure and weight parameter values, which can better adapt to Ascend AI processors. It is generally used to perform inference tasks on Ascend 310.
 
 The following uses examples to describe how to save MindSpore CheckPoint files, and how to export MindIR, AIR and ONNX files.
 
@@ -67,12 +67,13 @@ Saving model parameters during training. MindSpore provides two saving strategie
     If an exception occurs during training, the end-of-life CheckPoint is automatically saved, and if an exception occurs in the 10th step of the 10th epoch in the training, the saved end-of-life CheckPoint file is as follows.
 
     ```python
-    resnet50-10_10_breakpoint.ckpt  # The end-of-life CheckPoint file name will be marked by '_breakpoint' to distinguish it from the normal process checkPoint.
+    # The end-of-life CheckPoint file name will be marked by '_breakpoint' to distinguish it from the normal process checkPoint.
+    resnet50-10_10_breakpoint.ckpt  
     ```
 
-### save_checkpoint saving models
+### saving models directly
 
-You can use `save_checkpoint` function to save network weights to a CheckPoint file, and the common parameters are as follows:
+You can use `save_checkpoint` function to save network weight parameters in the memory to a CheckPoint file directly, and the common parameters are as follows:
 
 - `save_obj`: Cell object or data list.
 - `ckpt_file_name`: Checkpoint file name. If the file already exists, the original file will be overwritten.
@@ -248,26 +249,6 @@ Taking the above code as an example, if the parameter size with the model exceed
     └── data_3
 ```
 
-### Export AIR Model
-
-If you want to perform inference on the Ascend AI processor, you can also generate the corresponding AIR format model file through the network definition and CheckPoint. The following is to use the `resnet50` model in MindSpore Vision and the model file trained by the model on the ImageNet dataset resnet50_224.ckpt, and export the AIR format file on the Ascend AI processor.
-
-```python
-import numpy as np
-from mindspore import Tensor, export, load_checkpoint
-from mindvision.classification.models import resnet50
-
-resnet = resnet50()
-# Load parameters into the network
-load_checkpoint("resnet50_224.ckpt", net=resnet)
-# Network input
-input_np = np.random.uniform(0.0, 1.0, size=[1, 3, 224, 224]).astype(np.float32)
-# Save the resnet50_224.air file to the current directory
-export(resnet, Tensor(input_np), file_name='resnet50_224', file_format='AIR')
-```
-
-If file_name does not contain the ".air" suffix, the system will automatically add the ".air" suffix to it.
-
 ### Export ONNX Model
 
 When you have a CheckPoint file, if you want to do inference on Ascend AI processor, GPU, or CPU, you need to generate ONNX models based on the network and CheckPoint. The following is to use the `resnet50` model in MindSpore Vision and the model file trained by the model on the ImageNet dataset resnet50_224.ckpt, and export the ONNX format file.
@@ -288,3 +269,23 @@ export(resnet, Tensor(input_np), file_name='resnet50_224', file_format='ONNX')
 
 > - If `file_name` does not contain the ".onnx" suffix, the system will automatically add the ".onnx" suffix to it.
 > - Currently, only the ONNX format export of ResNet series networks, YOLOV3, YOLOV4 and BERT are supported.
+
+### Export AIR Model
+
+If you want to perform inference on the Ascend AI processor, you can also generate the corresponding AIR format model file through the network definition and CheckPoint. The following is to use the `resnet50` model in MindSpore Vision and the model file trained by the model on the ImageNet dataset resnet50_224.ckpt, and export the AIR format file on the Ascend AI processor.
+
+```python
+import numpy as np
+from mindspore import Tensor, export, load_checkpoint
+from mindvision.classification.models import resnet50
+
+resnet = resnet50()
+# Load parameters into the network
+load_checkpoint("resnet50_224.ckpt", net=resnet)
+# Network input
+input_np = np.random.uniform(0.0, 1.0, size=[1, 3, 224, 224]).astype(np.float32)
+# Save the resnet50_224.air file to the current directory
+export(resnet, Tensor(input_np), file_name='resnet50_224', file_format='AIR')
+```
+
+If file_name does not contain the ".air" suffix, the system will automatically add the ".air" suffix to it.

@@ -2,7 +2,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/beginner/infer.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-This chapter uses the `mobilenet_v2` network fine-tuning approach in MindSpore Vision to develop an AI application to classify dogs and croissants, and deploy the trained network model on the Android phone to perform inference and deployment.
+This chapter uses the `mobilenet_v2` network fine-tuning approach in [MindSpore Vision](https://mindspore.cn/vision/docs/en/master/index.html) to develop an AI application to classify dogs and croissants, and deploy the trained network model on the Android phone to perform inference and deployment.
 
 ## Data Preparation and Loading
 

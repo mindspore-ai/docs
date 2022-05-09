@@ -1,4 +1,4 @@
-# Sequence Labeling Implementation Using LSTM+CRF
+# Sequence Labeling Implementation By Using LSTM+CRF
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/application/source_en/nlp/sequence_labeling.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
@@ -26,7 +26,7 @@ As shown in the preceding table, the four tokens contained in the correct entity
 
 > Considering the linear sequence feature of the sequence labeling problem, the CRF described in this section refers to the linear chain CRF.
 
-Assume that $x=\{x_0, ..., x_n\}$ indicates the input sequence, $y=\{y_0, ..., y_n\}, y \in Y$ indicates the output labeling sequence, $n$ indicates the maximum length of the sequence, and $Y$ indicates the set of all possible output sequences corresponding to $x$. The probability of the output sequence $y$ is as follows:
+Assume that $x=\{x_0, ..., x_n\}$ indicates the input sequence, $y=\{y_0, ..., y_n\}, y \in Y$ indicates the output labeling sequence, where $n$ indicates the maximum length of the sequence, and $Y$ indicates the set of all possible output sequences corresponding to $x$. The probability of the output sequence $y$ is as follows:
 
 $$\begin{align}P(y|x) = \frac{\exp{(\text{Score}(x, y)})}{\sum_{y' \in Y} \exp{(\text{Score}(x, y')})} \qquad (1)\end{align}$$
 
