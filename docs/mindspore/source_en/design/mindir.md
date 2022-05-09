@@ -9,7 +9,7 @@ An intermediate representation (IR) is a representation of a program between the
 
 MindSpore IR (MindIR) is a function-style IR based on graph representation. Its core purpose is to serve automatic differential transformation. Automatic differentiation uses the transformation method based on the function-style programming framework. Therefore, IR uses the semantics close to that of the ANF function. In addition, a manner of representation based on an explicit dependency graph is used by referring to excellent designs of Sea of Nodes[1] and Thorin[2]. For the specific introduction of ANF-IR, please refer to [MindSpore IR Syntax](https://www.mindspore.cn/docs/en/master/design/mindir.html#syntax).
 
-When a model compiled using MindSpore runs in the graph mode `context.set_context(mode=context.GRAPH_MODE)` and `context.set_context(save_graphs=True)` is set in the configuration, some intermediate files will be generated during graph compliation. These intermediate files are called IR files. Currently, there are three IR files:
+When a model compiled using MindSpore runs in the graph mode `set_context(mode=GRAPH_MODE)` and `set_context(save_graphs=True)` is set in the configuration, some intermediate files will be generated during graph compliation. These intermediate files are called IR files. Currently, there are three IR files:
 
 - .ir file: An IR file that describes the model structure in text format and can be directly viewed using any text editors.
 

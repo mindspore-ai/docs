@@ -74,13 +74,13 @@
 通过MindSpore提供的context接口指定运行模式、运行卡号、并行模式等，通过init初始化HCCL通信。
 
 ```python
-context.set_context(mode=context.GRAPH_MODE, device_target=args.device_target)
+set_context(mode=GRAPH_MODE, device_target=args.device_target)
 device_id = int(os.getenv('DEVICE_ID'))
-context.set_context(device_id=device_id)
-context.set_auto_parallel_context(device_num=8, parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
+set_context(device_id=device_id)
+set_auto_parallel_context(device_num=8, parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
 set_algo_parameters(elementwise_op_strategy_follow=True)
 all_reduce_fusion_config = [85, 160]
-context.set_auto_parallel_context(all_reduce_fusion_config=all_reduce_fusion_config)
+set_auto_parallel_context(all_reduce_fusion_config=all_reduce_fusion_config)
 init()
 ```
 

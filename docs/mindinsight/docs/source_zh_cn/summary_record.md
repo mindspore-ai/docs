@@ -169,7 +169,7 @@ def train(ds_train):
 ```
 
 上面的三种方式，支持记录计算图, 损失值等多种数据。除此以外，MindSpore还支持保存训练中其他阶段的计算图，通过
-将训练脚本中 `context.set_context` 的 `save_graphs` 选项设置为 `True`, 可以记录其他阶段的计算图，其中包括算子融合后的计算图。
+将训练脚本中 `set_context` 的 `save_graphs` 选项设置为 `True`, 可以记录其他阶段的计算图，其中包括算子融合后的计算图。
 
 在保存的文件中，`ms_output_after_hwopt.pb` 即为算子融合后的计算图，可以使用可视化页面对其进行查看。
 
@@ -261,7 +261,7 @@ class MyOptimizer(nn.Momentum):
 
 def train(ds_train):
     device_target = "GPU"
-    context.set_context(mode=context.GRAPH_MODE, device_target=device_target)
+    set_context(mode=GRAPH_MODE, device_target=device_target)
     network = AlexNet(num_classes=10)
     net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
     lr = Tensor(get_lr(0, 0.002, 10, ds_train.get_dataset_size()))

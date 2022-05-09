@@ -102,7 +102,7 @@ TAG = 'Lenet5_train'
     set_context(mode=GRAPH_MODE, device_target=cfg.device_target)
     ```
 
-    For details about the API configuration, see the `context.set_context`.
+    For details about the API configuration, see the `set_context`.
 
 ### Preprocessing the Dataset
 

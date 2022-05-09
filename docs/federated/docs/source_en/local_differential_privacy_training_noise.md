@@ -34,10 +34,10 @@ The MindSpore Federated client uploads the noise-added model $W_p$ to the cloud 
 ## Usage
 
 Local differential privacy training currently only supports cross device scenarios. Enabling differential privacy training is simple. You only need to perform the following operation during the cloud service startup.
-Use `context.set_fl_context()` to set `encrypt_type='DP_ENCRYPT'`.
+Use `set_fl_context()` to set `encrypt_type='DP_ENCRYPT'`.
 
 In addition, to control the effect of privacy protection, three parameters are provided: `dp_eps`, `dp_delta`, and `dp_norm_clip`.
-They are also set through `context.set_fl_context()`. The valid value range of `dp_eps` and `dp_norm_clip` is greater than 0.
+They are also set through `set_fl_context()`. The valid value range of `dp_eps` and `dp_norm_clip` is greater than 0.
 
 The value of `dp_delta` ranges between 0 and 1. Generally, the smaller the values of `dp_eps` and `dp_delta`, the better the privacy protection effect.
 However, the impact on model convergence is greater. It is recommended that `dp_delta` be set to the reciprocal of the number of clients and the value of `dp_eps` be greater than 50.

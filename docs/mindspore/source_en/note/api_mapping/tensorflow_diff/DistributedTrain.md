@@ -12,7 +12,7 @@ losses =  strategy.reduce(tf.distribute.ReduceOp.SUM, per_replica_losses, axis=N
 
 For more information, see [tf.distribute.Strategy](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/distribute/Strategy).
 
-## mindspore.context.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
+## mindspore.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
 
 ```python
 from mindspore import set_auto_parallel_context, ParallelMode
@@ -22,11 +22,11 @@ init()
 # Run net, the same with stand alone training
 ```
 
-For more information, see [context.set_auto_parallel_context(ParallelMode=ParallelMode.DataParallel)](https://mindspore.cn/docs/en/master/api_python/mindspore.context.html#mindspore.context.set_auto_parallel_context).
+For more information, see [set_auto_parallel_context(ParallelMode=ParallelMode.DataParallel)](https://mindspore.cn/docs/en/master/api_python/mindspore.context.html#mindspore.context.set_auto_parallel_context).
 
 ## Differences
 
 Tensorflow: Data parallel training is performed through tf.distribute.Strategy, and different strategies specify different data initialization, synchronization.
 
-MindSpore: Specify the data parallel mode through the ParallelMode parameter in 'context.set_auto_parallel_context', and specify the gradient synchronization strategy through the gradients_mean parameter.
+MindSpore: Specify the data parallel mode through the ParallelMode parameter in 'set_auto_parallel_context', and specify the gradient synchronization strategy through the gradients_mean parameter.
 The rest of the network script is consistent with the single-card network script.

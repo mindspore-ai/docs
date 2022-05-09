@@ -26,11 +26,11 @@ Learn how to train a LeNet using the [MNIST dataset](http://yann.lecun.com/exdb/
 
 ### Parameter Setting
 
-1. First of all, use `mindspore.context.set_ps_context(enable_ps=True)` to enable Parameter Server training mode.
+1. First of all, use `mindspore.set_ps_context(enable_ps=True)` to enable Parameter Server training mode.
 
     - This method should be called before `mindspore.communication.init()`.
     - If you don't call this method, the [Environment Variable Setting](https://www.mindspore.cn/docs/en/master/design/parameter_server_training.html#environment-variable-setting) below will not take effect.
-    - Use `mindspore.context.reset_ps_context()` to disable Parameter Server training mode.
+    - Use `mindspore.reset_ps_context()` to disable Parameter Server training mode.
 
 2. In this training mode, you can use either of the following methods to control whether the training parameters are updated by the Parameter Server and whether the training parameters are initialized on Worker or Server:
 
@@ -42,7 +42,7 @@ Learn how to train a LeNet using the [MNIST dataset](http://yann.lecun.com/exdb/
 3. On the basis of the [original training script](https://gitee.com/mindspore/models/blob/master/official/cv/lenet/train.py), set all LeNet model weights to be trained on the parameter server:
 
     ```python
-    context.set_ps_context(enable_ps=True)
+    set_ps_context(enable_ps=True)
     network = LeNet5(cfg.num_classes)
     network.set_param_ps()
     ```
@@ -50,9 +50,9 @@ Learn how to train a LeNet using the [MNIST dataset](http://yann.lecun.com/exdb/
 4. [optional configuration] For a large shape `embedding_table`, because the device can not store a full amount of `embedding_table`. You can configure the `vocab_cache_size` of [EmbeddingLookup operator](https://www.mindspore.cn/docs/en/master/api_python/nn/mindspore.nn.EmbeddingLookup.html) to enable the cache function of `EmbeddingLookup` in the Parameter Server training mode. The `vocab_cache_size` of `embedding_table` is trained on device, and a full amount of `embedding_table` is stored in the Server. The `embedding_table` of the next batch is swapped to the cache in advance, and the expired `embedding_table` is put back to the Server when the cache cannot be placed, to achieve the purpose of improving the training performance. Each Server could save a checkpoint containing the trained `embedding_table` after the training. Detailed network training script can be referred to <https://gitee.com/mindspore/models/tree/master/official/recommend/wide_and_deep>.
 
     ```python
-    context.set_auto_parallel_context(full_batch=True,
+    set_auto_parallel_context(full_batch=True,
     parallel_mode=ParallelMode.AUTO_PARALLEL)
-    context.set_context(enable_sparse=True)
+    set_context(enable_sparse=True)
     network = Net()
     model = Model(network)
     model.train(epoch, train_dataset, dataset_sink_mode=True)

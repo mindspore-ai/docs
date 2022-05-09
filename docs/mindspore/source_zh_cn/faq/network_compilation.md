@@ -216,7 +216,7 @@ def test_endless():
 <font size=3>**Q: 编译时报错"Exceed function call depth limit 1000"怎么办？**</font>
 
 当出现Exceed function call depth limit 1000 时，说明代码中出现了无穷递归死循环，或者是代码过于复杂，类型推导过程中导致栈深度超过设置的最大深度。
-此时可以通过设置context.set_context(max_call_depth = value)这样的方式更改栈的最大深度，并考虑简化代码逻辑或者检查代码中是否存在无穷递归或死循环。
+此时可以通过设置set_context(max_call_depth = value)这样的方式更改栈的最大深度，并考虑简化代码逻辑或者检查代码中是否存在无穷递归或死循环。
 此外设置max_call_depth = value 虽然可以改变MindSpore的递归深度，但是此时也可能会超过系统栈的最大深度而出现段错误。此时可能还需要设置将系统栈深度进行设置。
 
 <br/>

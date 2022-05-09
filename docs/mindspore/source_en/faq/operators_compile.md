@@ -78,7 +78,7 @@ A: Currently, MindSpore does not provide anti-pooling APIs but you can customize
 <font size=3>**Q: What can I do if the error message `Pynative run op ExpandDims failed` is displayed when the ExpandDims operator is used? The code is as follows:**</font>
 
 ```python
-context.set_context(mode=context.GRAPH_MODE,device_target='Ascend')
+set_context(mode=GRAPH_MODE,device_target='Ascend')
 input_tensor=Tensor(np.array([[2,2],[2,2]]),mindspore.float32)
 expand_dims=ops.ExpandDims()
 output=expand_dims(input_tensor,0)

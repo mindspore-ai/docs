@@ -99,7 +99,7 @@ PyTorch 实现的 ResNet50 脚本参考 [torchvision model](https://github.com/p
 | `nn.init.constant_`       | `initializer(init='Constant')`        |
 | `nn.Sequential`           | `nn.SequentialCell`                   |
 | `nn.Module`               | `nn.Cell`                             |
-| `nn.distibuted`           | `context.set_auto_parallel_context`   |
+| `nn.distibuted`           | `set_auto_parallel_context`   |
 | `torch.optim.SGD`         | `nn.optim.SGD` or `nn.optim.Momentum` |
 
 （由于MindSpore 和 PyTorch 在接口设计上不完全一致，这里仅列出关键功能的比对）

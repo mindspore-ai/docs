@@ -78,7 +78,7 @@ A: 目前 MindSpore 还没有反池化相关的接口。用户可以通过自定
 <font size=3>**Q: 使用ExpandDims算子报错: `Pynative run op ExpandDims failed`。具体代码:**</font>
 
 ```python
-context.set_context(mode=context.GRAPH_MODE,device_target='Ascend')
+set_context(mode=GRAPH_MODE,device_target='Ascend')
 input_tensor=Tensor(np.array([[2,2],[2,2]]),mindspore.float32)
 expand_dims=ops.ExpandDims()
 output=expand_dims(input_tensor,0)

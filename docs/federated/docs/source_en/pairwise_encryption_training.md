@@ -43,7 +43,7 @@ If you are interested in the specific steps of the algorithm, refer to the paper
 
 ### Cross device scenario
 
-Enabling pairwise encryption training is simple. You only need to set `encrypt_type='PW_ENCRYPT'` in `context.set_fl_context()`.
+Enabling pairwise encryption training is simple. You only need to set `encrypt_type='PW_ENCRYPT'` in `set_fl_context()`.
 
 In addition, most of the workers participating in the training are unstable edge computing nodes such as mobile phones, so the problems of dropping the line and secret key reconstruction should be considered. Related parameters are `share_secrets_ratio`, `reconstruct_secrets_threshold`, and `cipher_time_window`.
 
@@ -59,7 +59,7 @@ It should be noted that only `server_num=1` is supported for current PW_ENCRYPT 
 
 ### Cross silo scenario
 
-In cross silo scenario, you only need to set `encrypt_type='STABLE_PW_ENCRYPT'` in `context.set_fl_context()` for both server startup script and client startup script.
+In cross silo scenario, you only need to set `encrypt_type='STABLE_PW_ENCRYPT'` in `set_fl_context()` for both server startup script and client startup script.
 
 Different from cross silo scenario, all of the workers are stable computing nodes in cross silo scenario. You only need to set the parameter `cipher_time_window`.
 

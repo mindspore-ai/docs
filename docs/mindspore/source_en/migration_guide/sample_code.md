@@ -101,7 +101,7 @@ Note: For PyTorch scripts, MindSpore provides the [PyTorch operator mapping](htt
 | `nn.init.constant_`       | `initializer(init='Constant')`        |
 | `nn.Sequential`           | `nn.SequentialCell`                   |
 | `nn.Module`               | `nn.Cell`                             |
-| `nn.distibuted`           | `context.set_auto_parallel_context`   |
+| `nn.distibuted`           | `set_auto_parallel_context`   |
 | `torch.optim.SGD`         | `nn.optim.SGD` or `nn.optim.Momentum` |
 
 (Since the interface design of MindSpore and PyTorch are not exactly the same, only the key functions are listed here for comparison)

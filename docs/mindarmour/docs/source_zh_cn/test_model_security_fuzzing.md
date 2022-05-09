@@ -46,7 +46,7 @@ LOGGER.set_level('INFO')
 set_context(mode=GRAPH_MODE, device_target="Ascend")
 ```
 
-详细的接口配置信息，请参见`context.set_context`接口说明。
+详细的接口配置信息，请参见`set_context`接口说明。
 
 ### 运用Fuzz Testing
 

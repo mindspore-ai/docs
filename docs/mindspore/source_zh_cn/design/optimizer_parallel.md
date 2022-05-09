@@ -69,7 +69,7 @@ MindSpore实现的优化器参数切分还具有与算子级并行混合使用�
 
 ### 开启优化器并行
 
-在`mindspore.context.set_auto_parallel_context`中提供了`enable_parallel_optimizer`选项，将其配置为True后，即可使能优化器并行，默认对所有**占用内存小于64KB**的参数进行优化器切分。
+在`mindspore.set_auto_parallel_context`中提供了`enable_parallel_optimizer`选项，将其配置为True后，即可使能优化器并行，默认对所有**占用内存小于64KB**的参数进行优化器切分。
 
 ```python
 from mindspore import set_auto_parallel_context
