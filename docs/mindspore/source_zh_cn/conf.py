@@ -128,7 +128,7 @@ with open("../_ext/customdocumenter.txt", "r", encoding="utf8") as f:
     code_str = f.read()
     exec(code_str, sphinx_autodoc.__dict__)
 
-
+# Fix mathjax tags
 from sphinx.ext import mathjax as sphinx_mathjax
 
 with open(sphinx_mathjax.__file__, "r", encoding="utf-8") as f:
