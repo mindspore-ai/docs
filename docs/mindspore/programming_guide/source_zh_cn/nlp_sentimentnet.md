@@ -46,7 +46,7 @@ $垂直极性词 = 通用极性词 + 领域特有极性词$
 400000 300
 ```
 
-GloVe文件下载地址：<http://nlp.stanford.edu/data/glove.6B.zip>，如果点击下载不成功，请尝试右键另存为方式下载。
+GloVe文件下载地址：<http://nlp.stanford.edu/data/glove.6B.zip>，如果点击下载不成功，请尝试复制链接地址后下载。
 
 ### 确定评价标准
 
