@@ -24,9 +24,9 @@
 
 - 基于summary算子的训练信息收集API。这部分API主要包括4个summary算子，即用于记录标量数据的ScalarSummary算子，用于记录图片数据的ImageSummary算子，用于记录参数分布图（直方图）数据的HistogramSummary算子和用于记录张量数据的TensorSummary算子。请访问[算子支持列表](https://www.mindspore.cn/docs/zh-CN/master/note/operator_list.html)以获取关于这些算子的信息。
 
-- 基于Python API的训练信息收集API。通过[SummaryRecord.add_value](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.train.html#mindspore.train.summary.SummaryRecord.add_value)方法，可以在Python代码中完成训练信息的收集。
+- 基于Python API的训练信息收集API。通过[SummaryRecord.add_value](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.SummaryRecord.html#mindspore.SummaryRecord.add_value)方法，可以在Python代码中完成训练信息的收集。
 
-- 易用的训练信息收集callback。通过[SummaryCollector](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.train.html#mindspore.train.callback.SummaryCollector)这一callback可以方便地收集常用训练信息到训练日志中。
+- 易用的训练信息收集callback。通过[SummaryCollector](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.SummaryCollector.html#mindspore.SummaryCollector)这一callback可以方便地收集常用训练信息到训练日志中。
 
 训练信息持久化模块主要包括用于管理缓存的summary_record模块和用于并行处理数据、写入文件的write_pool模块。训练信息持久化后，存储在训练日志文件（summary文件中）。
 

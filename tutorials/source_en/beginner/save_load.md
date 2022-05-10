@@ -82,7 +82,7 @@ In the preceding command, `network` indicates the training network, and `"./MyNe
 
 ### Saving the Model During Training
 
-During model training, you can use the `callbacks` parameter in `model.train` to transfer the [ModelCheckpoint](https://mindspore.cn/docs/en/master/api_python/mindspore.train.html#mindspore.train.callback.ModelCheckpoint) object (usually used together with [CheckpointConfig](https://mindspore.cn/docs/en/master/api_python/mindspore.train.html#mindspore.train.callback.CheckpointConfig)) to save model parameters and generate a checkpoint (CKPT) file.
+During model training, you can use the `callbacks` parameter in `model.train` to transfer the [ModelCheckpoint](https://mindspore.cn/docs/en/master/api_python/mindspore/mindspore.ModelCheckpoint.html#mindspore.ModelCheckpoint) object (usually used together with [CheckpointConfig](https://mindspore.cn/docs/en/master/api_python/mindspore/mindspore.CheckpointConfig.html#mindspore.CheckpointConfig)) to save model parameters and generate a checkpoint (CKPT) file.
 
 You can set `CheckpointConfig` to configure the Checkpoint policy as required. The following describes the usage:
 

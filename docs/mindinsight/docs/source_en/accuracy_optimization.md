@@ -325,7 +325,7 @@ In most cases, the `SummaryCollector` automatically records the loss curve of th
 
 *Figure 9 Viewing the weight changes during training through the MindInsight parameter distribution chart*
 
-In most cases, the `SummaryCollector` automatically records the model parameter changes (five parameters by default). You can view the changes in the parameter distribution histogram of MindInsight. If you want to record the parameter distribution histogram of more parameters, see the `histogram_regular` parameter in [SummaryCollector](https://www.mindspore.cn/docs/en/master/api_python/mindspore.train.html#mindspore.train.callback.SummaryCollector) or the [HistogramSummary](https://www.mindspore.cn/mindinsight/docs/en/master/summary_record.html#method-two-custom-collection-of-network-data-with-summary-operators-and-summarycollector) operator.
+In most cases, the `SummaryCollector` automatically records the model parameter changes (five parameters by default). You can view the changes in the parameter distribution histogram of MindInsight. If you want to record the parameter distribution histogram of more parameters, see the `histogram_regular` parameter in [SummaryCollector](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.SummaryCollector.html#mindspore.SummaryCollector) or the [HistogramSummary](https://www.mindspore.cn/mindinsight/docs/en/master/summary_record.html#method-two-custom-collection-of-network-data-with-summary-operators-and-summarycollector) operator.
 
 ![tensor](./images/tensor.png)
 
