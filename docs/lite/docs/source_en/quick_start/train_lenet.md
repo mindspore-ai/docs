@@ -6,7 +6,7 @@
 
 ## Overview
 
-Here we will demonstrate the code that trains a LeNet model using MindSpore Training-on-Device infrastructure. The code segments that are given below are provided fully in [unified_api](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/unified_api/).
+Here we will demonstrate the code that trains a LeNet model using MindSpore Training-on-Device infrastructure. The code segments that are given below are provided fully in [train_lenet_cpp](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/train_lenet_cpp/).
 
 The completed training procedure is as follows:
 
@@ -69,7 +69,7 @@ git clone https://gitee.com/mindspore/mindspore.git -b {version}
 cd ./mindspore
 ```
 
-The `mindspore/lite/examples/unified_api` directory relative to the MindSpore Lite source code contains this demo's source code. The version is consistent with that of [MindSpore Lite Download Page](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html) below. If -b the master is specified, you need to obtain the corresponding installation package through [compile from source](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html).
+The `mindspore/lite/examples/train_lenet_cpp` directory relative to the MindSpore Lite source code contains this demo's source code. The version is consistent with that of [MindSpore Lite Download Page](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html) below. If -b the master is specified, you need to obtain the corresponding installation package through [compile from source](https://www.mindspore.cn/lite/docs/zh-CN/master/use/build.html).
 
 Go to the [MindSpore Lite Download Page](https://www.mindspore.cn/lite/docs/zh-CN/master/use/downloads.html) to download the mindspore-lite-{version}-linux-x64.tar.gz and mindspore-lite-{version}-android-aarch64.tar.gz. The mindspore-lite-{version}-linux-x64.tar.gz is the MindSpore Lite install package for x86 platform, it contains the converter tool `converter_lite`, this demo uses it to converte `MIDIR` model to `.ms` which is supported by MindSpore Lite; The mindspore-lite-{version}-android-aarch64.tar.gz is the MindSpore Lite install package for Android, it contains training runtime library `libmindspore-lite.so`, this demo uses it to train model. Then put the files to the `output` directory relative to MindSpore Lite source code（if there is no `output` directory，you should create it).
 
@@ -92,7 +92,7 @@ Turning on the 'USB debugging' mode of your Android device and connect it with y
 Enter the target directory and run the training bash script. The `Linux` command is as follows:
 
 ```bash
-cd /mindspore/lite/examples/unified_api
+cd /mindspore/lite/examples/train_lenet_cpp
 bash prepare_and_run.sh -D /PATH/MNIST_Data -t arm64
 ```
 
@@ -187,7 +187,7 @@ The predicted classes are:
 The demo project folder structure:
 
 ```text
-unified_api/
+train_lenet_cpp/
   ├── model
   │   ├── lenet_export.py
   │   ├── prepare_model.sh
@@ -278,11 +278,11 @@ To convert the model simply use the converter as explained in the [Convert Secti
 ./converter_lite --fmk=MINDIR --trainModel=true --modelFile=lenet_tod.mindir --outputFile=lenet_tod
 ```
 
-The exported file `lenet_tod.ms` is under the folder `./unified_api/model`.
+The exported file `lenet_tod.ms` is under the folder `./train_lenet_cpp/model`.
 
 ### Model Training
 
-The model training progress is in [net_runner.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/unified_api/src/net_runner.cc).
+The model training progress is in [net_runner.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet_cpp/src/net_runner.cc).
 
 The main code continues as follows:
 
