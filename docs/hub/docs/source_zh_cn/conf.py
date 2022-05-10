@@ -84,6 +84,10 @@ intersphinx_mapping = {
     'numpy': ('https://docs.scipy.org/doc/numpy/', '../../../../resource/numpy_objects.inv'),
 }
 
+from sphinx import directives
+with open('../_ext/overwriteobjectiondirective.txt', 'r', encoding="utf8") as f:
+    exec(f.read(), directives.__dict__)
+
 # Modify default signatures for autodoc.
 autodoc_source_path = os.path.abspath(sphinx_autodoc.__file__)
 autodoc_source_re = re.compile(r'stringify_signature\(.*?\)')
