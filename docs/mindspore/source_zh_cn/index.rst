@@ -48,7 +48,6 @@ MindSpore 文档
    api_python/mindspore
    api_python/mindspore.common.initializer
    api_python/mindspore.communication
-   api_python/mindspore.context
    api_python/mindspore.dataset
    api_python/mindspore.dataset.audio
    api_python/mindspore.dataset.config
@@ -64,7 +63,6 @@ MindSpore 文档
    api_python/mindspore.ops.functional
    api_python/mindspore.parallel
    api_python/mindspore.parallel.nn
-   api_python/mindspore.profiler
    api_python/mindspore.scipy
    api_python/mindspore.train
    api_python/mindspore.boost
