@@ -189,9 +189,7 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=
 ## 定义网络
 
 在GPU硬件平台上，网络的定义和Ascend 910 AI处理器一致。
-**数据并行**及**自动并行**
-模式下，网络定义方式与单机写法一致，可以参考 [ResNet网络样例脚本](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/resnet/resnet.py)。
-。
+**数据并行**及**自动并行**模式下，网络定义方式与单机写法一致，可以参考 [ResNet网络样例脚本](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/resnet/resnet.py)。
 
 > - 半自动并行模式时，未配置策略的算子默认以数据并行方式执行。
 > - 自动并行模式支持通过策略搜索算法自动获取高效的算子并行策略，同时也支持用户对算子手动配置特定的并行策略。
@@ -199,8 +197,7 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=
 
 ## 定义损失函数及优化器
 
-与在Ascend的[分布式并行训练基础样例](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html)
-一致。
+与在Ascend的[分布式并行训练基础样例](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html)一致。
 
 ### 定义损失函数
 
@@ -256,11 +253,9 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
 
 训练之前，我们需要先配置一些自动并行的参数。`set_auto_parallel_context`是配置并行训练模式的接口，必须在初始化网络之前调用。常用参数包括：
 
-- `parallel_mode`：分布式并行模式，默认为单机模式`ParallelMode.STAND_ALONE`。在本例中，可选择数据并行`ParallelMode.DATA_PARALLEL`
-  及自动并行`ParallelMode.AUTO_PARALLEL`。
+- `parallel_mode`：分布式并行模式，默认为单机模式`ParallelMode.STAND_ALONE`。在本例中，可选择数据并行`ParallelMode.DATA_PARALLEL`及自动并行`ParallelMode.AUTO_PARALLEL`。
 - `parameter_broadcast`：训练开始前自动广播0号卡上数据并行的参数权值到其他卡上，默认值为`False`。
-- `gradients_mean`：反向计算时，框架内部会将数据并行参数分散在多台机器的梯度值进行收集，得到全局梯度值后再传入优化器中更新。默认值为`False`，设置为True对应`allreduce_mean`
-  操作，False对应`allreduce_sum`操作。
+- `gradients_mean`：反向计算时，框架内部会将数据并行参数分散在多台机器的梯度值进行收集，得到全局梯度值后再传入优化器中更新。默认值为`False`，设置为True对应`allreduce_mean`操作，False对应`allreduce_sum`操作。
 - `device_num`和`global_rank`建议采用默认值，框架内会调用NCCL接口获取。
 
 如脚本中存在多个网络用例，请在执行下个用例前调用`reset_auto_parallel_context`将所有参数还原到默认值。
@@ -397,8 +392,7 @@ pytest -s -v ./resnet50_distributed_training_gpu.py > train.log 2>&1 &
 
 ## 分布式训练模型参数保存与加载
 
-在GPU上进行分布式训练时，模型参数的保存和加载的方法与Ascend上一致，可参考[分布式训练模型参数保存和加载](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#分布式训练模型参数保存和加载)
-。
+在GPU上进行分布式训练时，模型参数的保存和加载的方法与Ascend上一致，可参考[分布式训练模型参数保存和加载](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#分布式训练模型参数保存和加载)。
 
 ## 不依赖OpenMPI进行训练
 
@@ -448,8 +442,7 @@ if __name__ == "__main__":
 - `init("nccl")`：使能NCCL通信，并完成分布式训练初始化操作。
 - 默认情况下，安全加密通道是关闭的，需要通过`set_ps_context`正确配置安全加密通道或者关闭安全加密通道后，才能调用init("nccl")，否则初始化组网会失败。
 
-若想使用安全加密通道，请设置`set_ps_context(config_file_path="/path/to/config_file.json", enable_ssl=True, client_password="123456", server_password="123456")`
-等配置，详细参数配置说明请参考Python API [mindspore.set_ps_context](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.html#mindspore.set_ps_context)，以及本文档[安全认证](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html#安全认证)章节。
+若想使用安全加密通道，请设置`set_ps_context(config_file_path="/path/to/config_file.json", enable_ssl=True, client_password="123456", server_password="123456")`等配置，详细参数配置说明请参考Python API [mindspore.set_ps_context](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.html#mindspore.set_ps_context)，以及本文档[安全认证](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html#安全认证)章节。
 
 脚本内容`run_gpu_cluster.sh`如下，在启动Worker和Scheduler之前，需要添加相关环境变量设置：
 
