@@ -64,7 +64,6 @@ MindSpore 文档
    api_python/mindspore.parallel
    api_python/mindspore.parallel.nn
    api_python/mindspore.scipy
-   api_python/mindspore.train
    api_python/mindspore.boost
    C++ API↗ <https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html>
 
