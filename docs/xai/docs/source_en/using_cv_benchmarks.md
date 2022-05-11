@@ -1,23 +1,23 @@
-# Using Benchmarks
+# Using CV Benchmarks
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_en/using_benchmarks.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_en/using_cv_benchmarks.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-## What are Benchmarks
+## What are CV Benchmarks
 
 Benchmarks are algorithms evaluating the goodness of saliency maps from explainers. MindSpore XAI currently provides 4 benchmarks for image classification scenario: `Robustness`, `Faithfulness`, `ClassSensitivity` and `Localization`.
 
 ## Preparations
 
-The tutorial below is referencing [using_benchmarks.py](https://gitee.com/mindspore/xai/blob/master/examples/using_benchmarks.py).
+The complete code of the tutorial below is [using_cv_benchmarks.py](https://gitee.com/mindspore/xai/blob/master/examples/using_cv_benchmarks.py).
 
-Please follow the [Downloading Data Package](https://www.mindspore.cn/xai/docs/en/master/using_explainers.html#downloading-data-package) instructions to download the necessary files for the tutorial.
+Please follow the [Downloading Data Package](https://www.mindspore.cn/xai/docs/en/master/using_cv_explainers.html#downloading-data-package) instructions to download the necessary files for the tutorial.
 
 With the tutorial package, we have to get the sample image, trained classifier, explainer and optionally the saliency map ready:
 
 ```python
 # have to change the current directory to xai/examples/ first
 from mindspore import load_checkpoint, load_param_into_net, set_context, PYNATIVE_MODE
-from mindspore_xai.explanation import GradCAM
+from mindspore_xai.explainer import GradCAM
 
 from common.resnet import resnet50
 from common.dataset import load_image_tensor
@@ -39,8 +39,8 @@ boat_image = load_image_tensor('xai_examples_data/test/boat.jpg')
 # explainer
 grad_cam = GradCAM(net, layer='layer4')
 
-# 5 is the class id of 'boat'
-saliency = grad_cam(boat_image, targets=5)
+# 3 is the class id of 'boat'
+saliency = grad_cam(boat_image, targets=3)
 ```
 
 ## Using Robustness
@@ -49,12 +49,12 @@ saliency = grad_cam(boat_image, targets=5)
 
 ```python
 from mindspore.nn import Softmax
-from mindspore_xai.explanation import Robustness
+from mindspore_xai.benchmark import Robustness
 
 # the classifier use Softmax as activation function
 robustness = Robustness(num_classes, activation_fn=Softmax())
 # the 'saliency' argument is optional
-score = robustness.evaluate(grad_cam, boat_image, targets=5, saliency=saliency)
+score = robustness.evaluate(grad_cam, boat_image, targets=3, saliency=saliency)
 ```
 
 The returned `score` is a 1D tensor with only one float value for an 1xCx224x224 image tensor.
@@ -71,7 +71,7 @@ If the object region or bounding box is provided, `Localization` can be used. It
 import numpy as np
 import mindspore as ms
 from mindspore import Tensor
-from mindspore_xai.explanation import Localization
+from mindspore_xai.benchmark import Localization
 
 # top-left:80,66 bottom-right:223,196 is the bounding box of a boat
 mask = np.zeros([1, 1, 224, 224])
@@ -81,5 +81,5 @@ mask = Tensor(mask, dtype=ms.float32)
 
 localization = Localization(num_classes)
 
-score = localization.evaluate(grad_cam, boat_image, targets=5, mask=mask)
+score = localization.evaluate(grad_cam, boat_image, targets=3, mask=mask)
 ```
