@@ -21,6 +21,7 @@ import itertools
 import platform
 import textwrap
 import spec
+import shutil
 
 from bs4 import BeautifulSoup
 
@@ -2101,6 +2102,135 @@ class ExhaleRoot(object):
         self.generateAPIRootHeader()
         self.generateNodeDocuments()
         self.generateAPIRootBody()
+
+        dirA='./source_en/generate/'
+        if os.path.exists(dirA):
+            os.makedirs('./source_en/tmp_generate/')
+            dirB='./source_en/tmp_generate/'
+            dirC='./source_en/api_cpp/'
+            dirD='./source_en/api_java/'
+            for i in os.listdir(dirA):
+                if i.startswith('namespace_mindspore') and i != 'namespace_mindspore__dataset.rst':
+                    new_name = i.replace("__", "_").split("_", 1)[-1]
+                    before_file = os.path.join(dirA, i)
+                    after_file = os.path.join(dirB, new_name)
+                    shutil.copy(before_file, after_file)
+
+            for file in os.listdir(dirB):
+                if "deprecated" in file:
+                    os.remove(dirB+file)
+                if "mindspore_utils" in file:
+                    os.remove(dirB+file)
+
+            title = re.compile(r'[\s\n\S]*=====')
+            content = re.compile(r'(Classes|Functions|Enums|Typedefs)([\s\n\S]*)') 
+            for file in os.listdir(dirB):
+                with open(dirB+file, "r", encoding="utf-8") as f:
+                    data = f.read()
+                mystr = title.findall(data)
+                mycontent = content.findall(data)
+                for i in range(0, len(mycontent)):
+                    mystr = "".join(mystr) + "\n"
+                    result = "".join(mycontent[i]).replace("- :ref:`exhale_", "- :doc:`../generate/")
+                    result = result.replace("class_class", "class").replace("struct_struct", "struct").replace("union_union", "union")
+                    out_path = "/".join(dirC.split("/")[:-1])+"/{}".format(file)
+                    with open(out_path, "w", encoding="utf-8") as p:
+                        p.write(mystr +"\n"+result)
+
+            shutil.rmtree(dirB)
+
+            cppresult = []
+            javaresult = []
+            for parent,dirnames,filenames in os.walk(dirC):
+                for filename in filenames:
+                    if filename != "lite_cpp_example.rst":
+                        cppresult.append("   api_cpp/"+filename.split(".")[0]+"\n")
+            cppresult.sort()
+
+            for parent,dirnames,filenames in os.walk(dirD):
+                for filename in filenames:
+                    if filename.endswith(".md") and filename != "graph.md" and filename != "lite_java_example.rst":
+                        javaresult.append("   api_java/"+filename.split(".")[0]+"\n")
+            javaresult.sort()
+
+            with open('./source_en/index.rst', "w", encoding="utf-8") as p:
+                p.write(
+        """.. MindSpore documentation master file, created by
+   sphinx-quickstart on Thu Mar 24 10:00:00 2020.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+MindSpore Lite API
+=======================
+
+.. toctree::
+   :maxdepth: 1
+   :caption: C++ API
+        """)
+                p.write("\n"+"".join(cppresult))
+                p.write("   api_cpp/lite_cpp_example" + "\n")
+                p.write("""
+.. toctree::
+   :maxdepth: 1
+   :caption: JAVA API
+""")
+                p.write("\n"+"".join(javaresult))
+                p.write("""   api_java/graph
+   api_java/lite_java_example""")
+
+
+        dira='./source_zh_cn/generate/'
+        if os.path.exists(dira):
+            dirc='./source_zh_cn/api_cpp/'
+            dird='./source_zh_cn/api_java/'
+
+            source_cppapi='./source_en/api_cpp/'
+            target_cppapi='./source_zh_cn/api_cpp/'
+            for file_ in os.listdir(source_cppapi):
+                bfilename = file_.split(".")[0]
+                if os.path.isfile(source_cppapi+file_):
+                    if not os.path.exists(target_cppapi+bfilename+".md") and not os.path.exists(target_cppapi+file_) and not file_.startswith("mindspore_dataset"):
+                        shutil.copy(source_cppapi+file_, target_cppapi)
+
+            cppresult = []
+            javaresult = []
+            for parent,dirnames,filenames in os.walk(dirc):
+                for filename in filenames:
+                    if filename != "lite_cpp_example.rst":
+                        cppresult.append("   api_cpp/"+filename.split(".")[0]+"\n")
+            cppresult.sort()
+
+            for parent,dirnames,filenames in os.walk(dird):
+                for filename in filenames:
+                    if filename.endswith(".md") and filename != "graph.md" and filename != "lite_java_example.rst":
+                        javaresult.append("   api_java/"+filename.split(".")[0]+"\n")
+            javaresult.sort()
+
+            with open('./source_zh_cn/index.rst', "w", encoding="utf-8") as p:
+                p.write(
+        """.. MindSpore documentation master file, created by
+   sphinx-quickstart on Thu Mar 24 10:00:00 2020.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+MindSpore Lite API
+=======================
+
+.. toctree::
+   :maxdepth: 1
+   :caption: C++ API
+        """)
+                p.write("\n"+"".join(cppresult))
+                p.write("   api_cpp/lite_cpp_example" + "\n")
+                p.write("""
+.. toctree::
+   :maxdepth: 1
+   :caption: JAVA API
+""")
+                p.write("\n"+"".join(javaresult))
+                p.write("""   api_java/graph
+   api_java/lite_java_example""")
+
 
     def generateAPIRootHeader(self):
         '''

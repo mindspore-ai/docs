@@ -25,90 +25,10 @@ Vision
 
         :doc:`Function mindspore::dataset::Album (reference Sampler) <../generate/function_mindspore_dataset_Album-3>`
 
-    * - :doc:`Function mindspore::dataset::CelebA <../generate/function_mindspore_dataset_CelebA-1>`
-      - :doc:`Function mindspore::dataset::CelebA (raw ptr Sampler) <../generate/function_mindspore_dataset_CelebA-2>`
-
-        :doc:`Function mindspore::dataset::CelebA (reference Sampler) <../generate/function_mindspore_dataset_CelebA-3>`
-
-    * - :doc:`Function mindspore::dataset::Cifar100 <../generate/function_mindspore_dataset_Cifar100-1>`
-      - :doc:`Function mindspore::dataset::Cifar100 (raw ptr Sampler) <../generate/function_mindspore_dataset_Cifar100-2>`
-
-        :doc:`Function mindspore::dataset::Cifar100 (reference Sampler) <../generate/function_mindspore_dataset_Cifar100-3>`
-    
-    * - :doc:`Function mindspore::dataset::Cifar10 <../generate/function_mindspore_dataset_Cifar10-1>`
-      - :doc:`Function mindspore::dataset::Cifar10 (raw ptr Sampler) <../generate/function_mindspore_dataset_Cifar10-2>`
-
-        :doc:`Function mindspore::dataset::Cifar10 (reference Sampler) <../generate/function_mindspore_dataset_Cifar10-3>`
-
-    * - :doc:`Function mindspore::dataset::Coco <../generate/function_mindspore_dataset_Coco-1>`
-      - :doc:`Function mindspore::dataset::Coco (raw ptr Sampler) <../generate/function_mindspore_dataset_Coco-2>`
-
-        :doc:`Function mindspore::dataset::Coco (reference Sampler) <../generate/function_mindspore_dataset_Coco-3>`
-
-    * - :doc:`Function mindspore::dataset::ImageFolder <../generate/function_mindspore_dataset_ImageFolder-1>`
-      - :doc:`Function mindspore::dataset::ImageFolder (raw ptr Sampler) <../generate/function_mindspore_dataset_ImageFolder-2>`
-
-        :doc:`Function mindspore::dataset::ImageFolder (reference Sampler) <../generate/function_mindspore_dataset_ImageFolder-3>`
-
     * - :doc:`Function mindspore::dataset::Mnist <../generate/function_mindspore_dataset_Mnist-1>`
       - :doc:`Function mindspore::dataset::Mnist (raw ptr Sampler) <../generate/function_mindspore_dataset_Mnist-2>`
 
         :doc:`Function mindspore::dataset::Mnist (reference Sampler) <../generate/function_mindspore_dataset_Mnist-3>`
-
-    * - :doc:`Function mindspore::dataset::VOC <../generate/function_mindspore_dataset_VOC-1>`
-      - :doc:`Function mindspore::dataset::VOC (raw ptr Sampler) <../generate/function_mindspore_dataset_VOC-2>`
-
-        :doc:`Function mindspore::dataset::VOC (reference Sampler) <../generate/function_mindspore_dataset_VOC-3>`
-
-文本
-^^^^
-
-.. list-table::
-    :widths: 15 15
-    :header-rows: 1
-
-    * - API
-      - 重载的API
-
-    * - :doc:`Function mindspore::dataset::CLUE <../generate/function_mindspore_dataset_CLUE-1>`
-      - 无
-
-标准形式
-^^^^^^^^^^^^^^^
-
-.. list-table::
-    :widths: 15 15
-    :header-rows: 1
-
-    * - API
-      - 重载的API（重载的Sampler）
-
-    * - :doc:`Function mindspore::dataset::CSV <../generate/function_mindspore_dataset_CSV-1>`
-      - 无
-
-    * - :doc:`Function mindspore::dataset::Manifest <../generate/function_mindspore_dataset_Manifest-1>`
-      - :doc:`Function mindspore::dataset::Manifest (raw ptr Sampler) <../generate/function_mindspore_dataset_Manifest-2>`
-
-        :doc:`Function mindspore::dataset::Manifest (reference Sampler) <../generate/function_mindspore_dataset_Manifest-3>`
-
-    * - :doc:`Function mindspore::dataset::MindData <../generate/function_mindspore_dataset_MindData-1>`
-      - :doc:`Function mindspore::dataset::MindData (raw ptr Sampler) <../generate/function_mindspore_dataset_MindData-2>`
-
-        :doc:`Function mindspore::dataset::MindData (reference Sampler) <../generate/function_mindspore_dataset_MindData-3>`
-
-    * - :doc:`Function mindspore::dataset::MindData <../generate/function_mindspore_dataset_MindData-4>`
-      - :doc:`Function mindspore::dataset::MindData (raw ptr Sampler) <../generate/function_mindspore_dataset_MindData-5>`
-
-        :doc:`Function mindspore::dataset::MindData (reference Sampler) <../generate/function_mindspore_dataset_MindData-6>`
-        
-    * - :doc:`Function mindspore::dataset::RandomData <../generate/function_mindspore_dataset_RandomData-1>`
-      - 无
-
-    * - :doc:`Function mindspore::dataset::TextFile <../generate/function_mindspore_dataset_TextFile-1>`
-      - 无
-
-    * - :doc:`Function mindspore::dataset::TFRecord <../generate/function_mindspore_dataset_TFRecord-1>`
-      - 无
 
 Dataset类
 ---------------
@@ -191,8 +111,6 @@ Eager类
 
 - :doc:`../generate/function_mindspore_dataset_Schema-1`
 - :doc:`../generate/function_mindspore_dataset_SchemaCharIF-1`
-- :doc:`../generate/function_mindspore_dataset_CreateDatasetCache-1`
-- :doc:`../generate/function_mindspore_dataset_CreateDatasetCacheCharIF-1`
 
 定义类型
 ^^^^^^^^

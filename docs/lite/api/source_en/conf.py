@@ -180,83 +180,51 @@ with open("../_custom/sphinx_builder_html", "r", encoding="utf8") as f:
 
 exec(source_code, sphinx_builder_html.__dict__)
 
-# Copy sourcefiles from mindspore repository to "../include/".
-import json
+import tarfile
 import re
-from sphinx.util import logging
-logger = logging.getLogger(__name__)
 
-ms_path = os.getenv("MS_PATH")
-if os.path.exists("../include"):
-    shutil.rmtree("../include")
-os.mkdir("../include")
+lite_package_path=os.getenv("LITE_PACKAGE_PATH", "null")
+if lite_package_path == "null":
+    print("LITE_PACKAGE_PATH: This environment variable does not exist")
+    print("End of program")
+    quit()
+header_path = lite_package_path.split("/")[-1].split(".tar")[0]
+save_path = "../"
+os.makedirs(save_path, exist_ok=True)
+t = tarfile.open(lite_package_path)
+names = t.getnames()
+for name in names:
+    t.extract(name, save_path)
+t.close()
 
-#Copy header files mapping .cmake files.
-cmake_path = [("mindspore/lite/cmake/file_list.cmake", "${CORE_DIR}", "mindspore/core")]
-header_files = []
-for i in cmake_path:
-    with open(os.path.join(ms_path, i[0])) as f:
-        for j in f.readlines():
-            re_str = r'^\s+(' + i[1].replace("$", "\$").replace('{', '\{').replace('}', '\}') + r'.*?\.h)'
-            pattern_ = re.findall(re_str, j)
-            if not pattern_:
-                continue
-            header_files.append(os.path.join(ms_path, pattern_[0].replace(i[1], i[-1])))
+source_path = "../" + header_path + "/"
+source_runtime_include = os.path.join(source_path, "runtime/include")
+target_runtime_include = "../include/runtime/include"
+shutil.copytree(source_runtime_include, target_runtime_include)
 
-for file_ in header_files:
-        target_dir = os.path.join("../include", os.path.normpath(re.sub(rf"^{ms_path}/(mindspore/)?", "", os.path.dirname(file_))))
-        try:
-            if not os.path.exists(target_dir):
-                os.makedirs(target_dir, exist_ok=True)
-            shutil.copy(file_, target_dir)
-        except FileNotFoundError:
-            logger.warning("头文件{} 没有找到,!".format(file_))
+source_converter_include = os.path.join(source_path, "tools/converter/include")
+target_converter_include = "../include/converter/include"
+shutil.copytree(source_converter_include, target_converter_include)
 
-# Copy header files with specified path.
-with open("./SourceFileNames.json") as f:
-    hfile_dic = json.load(f)
-    exclude_hfiles = hfile_dic.get("with-exclude")
-    no_exclude_hfiles = hfile_dic.get("with-no-exclude")
+shutil.rmtree("../include/runtime/include/schema")
+shutil.rmtree("../include/runtime/include/third_party")
+shutil.rmtree("../include/converter/include/schema")
+shutil.rmtree("../include/converter/include/third_party")
+shutil.rmtree("../include/runtime/include/c_api")
+os.remove("../include/converter/include/api/types.h")
 
-    # Deal with with-no-exclude.
-    hfile_no_exclude = []
-    for i in no_exclude_hfiles.items():
-        dir_name, hfile_list_ = i
-        source_dir = os.path.join(ms_path, os.path.normpath(dir_name))
-        for j in hfile_list_:
-            if "*" in j:
-                hfile_no_exclude.extend(glob.glob(os.path.join(source_dir, j), recursive=True))
-            else:
-                hfile_no_exclude.append(os.path.join(source_dir, j))
+process = os.popen('pip show mindspore|grep Location')
+output = process.read()
+process.close()
+mindspout = output.split(": ")[-1].strip()
+source_dataset_dir = mindspout + "/mindspore/include/dataset/"
+for file_ in os.listdir(source_dataset_dir):
+    target_dataset_dir = "../include/runtime/include/dataset/"
+    shutil.copy(source_dataset_dir+file_, target_dataset_dir)
 
-    # Deal with with-exclude.
-    hfile_lists = []
-    exclude_lists = []
-    for i in exclude_hfiles.items():
-        dir_name, pattern_ = i
-        source_dir = os.path.join(ms_path, os.path.normpath(dir_name))
-        for j in pattern_.get("pattern"):
-            if "*" in j:
-                hfile_lists.extend(glob.glob(os.path.join(source_dir, j), recursive=True))
-            else:
-                hfile_lists.append(os.path.join(source_dir, j))
-        for exclude_ in pattern_.get("exclude"):
-            if "*" in exclude_:
-                exclude_lists.extend(glob.glob(os.path.join(source_dir, exclude_), recursive=True))
-            else:
-                exclude_lists.append(os.path.join(source_dir, exclude_))
-
-    # Copy header files.
-    hfile_with_exclude = list(set(hfile_lists).difference(set(exclude_lists)))
-    all_hfiles = hfile_no_exclude + hfile_with_exclude
-    for file_ in all_hfiles:
-        target_dir = os.path.join("../include", os.path.normpath(re.sub(rf"^{ms_path}/(mindspore/)?", "", os.path.dirname(file_))))
-        try:
-            if not os.path.exists(target_dir):
-                os.makedirs(target_dir, exist_ok=True)
-            shutil.copy(file_, target_dir)
-        except FileNotFoundError:
-            logger.warning("头文件{} 没有找到,!".format(file_))
+for file_ in os.listdir("./api_cpp"):
+    if file_.startswith("mindspore_") and file_ != 'mindspore_dataset.rst':
+        os.remove("./api_cpp/"+file_)
 
 # Remove "MS_API" in classes.
 files_copyed = glob.glob("../include/**/*.h", recursive=True)
