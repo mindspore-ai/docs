@@ -303,7 +303,7 @@ MindSpore provides a one-click conversion interface from Model class to ModelTho
 ...
 from mindspore import FixedLossScaleManager
 from mindspore import Model
-from mindspore.train.train_thor import ConvertModelUtils
+from mindspore import ConvertModelUtils
 ...
 
 if __name__ == "__main__":

@@ -307,7 +307,7 @@ MindSpore提供Model类向ModelThor类的一键转换接口。
 ...
 from mindspore import FixedLossScaleManager
 from mindspore import Model
-from mindspore.train.train_thor import ConvertModelUtils
+from mindspore import ConvertModelUtils
 ...
 
 if __name__ == "__main__":

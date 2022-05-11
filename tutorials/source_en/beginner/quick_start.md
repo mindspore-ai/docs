@@ -71,7 +71,7 @@ To train a neural network model, you need to define a loss function and an optim
 
 ```python
 import mindspore.nn as nn
-from mindspore.train import Model
+from mindspore import Model
 
 # Define the loss function.
 net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')

@@ -129,7 +129,7 @@ This chapter uses MobileNet V2 pre-trained model for fine-tuning, and uses the d
 
 ```python
 import mindspore.nn as nn
-from mindspore.train import Model
+from mindspore import Model
 from mindspore import load_checkpoint, load_param_into_net
 
 from mindvision.classification.models import mobilenet_v2
