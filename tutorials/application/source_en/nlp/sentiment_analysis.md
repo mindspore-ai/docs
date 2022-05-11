@@ -1,4 +1,4 @@
-# Using RNN for Sentiment Classification
+# Sentiment Classification Implemented by RNN
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/application/source_en/nlp/sentiment_analysis.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 

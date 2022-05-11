@@ -1,4 +1,4 @@
-# Sequence Labeling Implementation By Using LSTM+CRF
+# LSTM+CRF Sequence Labeling
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/application/source_en/nlp/sequence_labeling.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
