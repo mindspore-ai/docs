@@ -2,117 +2,50 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/operation/op_classification.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-## Overview
+Operators are mainly divided into Primitivie operators and nn operators. For all operator support on Ascend AI processors, GPUs, and CPUs, see [Operator Support List](https://www.mindspore.cn/docs/en/master/note/operator_list.html).
 
-Operators can be classified into some functional modules: tensor operations, network operations, array operations, image operations, encoding operations, debugging operations, and quantization operations. And they also involve some operator combinations related to graph transformation. For details about the supported operators on the Ascend AI processors, GPU, and CPU, see [Operator List](https://www.mindspore.cn/docs/en/master/note/operator_list.html).
+## Primitive Operations
 
-## Tensor Operations
+The primitive operators are the lowest-order operator interfaces open to users. A Primeive operator corresponds to a primitive, which encapsulates the specific implementation of the underlying Ascend, GPU, AICPU, CPU and other operators, providing users with basic operator capabilities.
 
-The tensor operations include the tensor structure operation and the tensor mathematical operation.
+The Primitive operator interface is the basis for building capabilities, such as higher-order interfaces, automatic differentiation, network models.
 
-Tensor structure operations include tensor creation, index sharding, dimension transformation, and integration and splitting.
+Primitive operators can be divided into [compute operators](#compute-operator) and [frame operators](#frame-operator). Compute operators are mainly responsible for specific calculations, while frame operators are mainly used for functions such as composition and automatic differentiation.
 
-Tensor mathematical operations include scalar operations, vector operations, and matrix operations.
+The composite interface provides some predefined combinatorial operators, such as clip_by_value operators, and functions involving graph transformations (GradOperation and Map). More composite interfaces can be found in the [composite interface](https://mindspore.cn/docs/en/master/api_python/mindspore.ops.html#composite).
 
-The following describes how to use the tensor mathematical operation and operation broadcast mechanism.
+The functional interface is provided to simplify the invocation process of the Primeive operator without attributes. The functional interface, composite interface, and Prime operator can all be imported from mindspore.ops.
 
-### Mathematical Operators
-
-Tensor mathematical operators can be classified into scalar operator, vector operator, and matrix operator.
-
-Scalar operators include addition, subtraction, multiplication, division, exponentiation, common functions such as trigonometric function, exponential function, and logarithmic function, and logical comparison operators.
-
-#### Scalar Operations
-
-Scalar operators are characterized by performing element-by-element operations on tensors.
-
-Some scalar operators overload commonly used mathematical operators. In addition, the broadcast feature similar to NumPy is supported.
-
- The following code implements the exponentiation, where the base is input_x and the exponent is input_y:
+For example, if you want to use the pow function and use the Primitive operator, you need to instantiate the Pow operator first, then you can directly use the tensor_pow of the functional interface to simplify the process, the code example is as follows:
 
 ```python
 import numpy as np
 import mindspore
 from mindspore import Tensor
+import mindspore.ops as ops
 
 input_x = mindspore.Tensor(np.array([1.0, 2.0, 4.0]), mindspore.float32)
 input_y = 3.0
-print(input_x**input_y)
-```
+# Instantiate Pow operator before using Primitive operator
+pow = ops.Pow()
+output = pow(input_x, input_y)
 
- The following information is displayed:
-
-```text
-[ 1.  8. 64.]
-```
-
-##### Addition
-
-The following code implements the addition of `input_x` and `input_y`:
-
-```python
-print(input_x + input_y)
-```
-
- The following information is displayed:
-
-```text
-[4. 5. 7.]
-```
-
-##### Element-wise Multiplication
-
-The following code implements the element-wise multiplication:
-
-```python
-import numpy as np
-import mindspore
-from mindspore import Tensor
-import mindspore.ops as ops
-
-input_x = Tensor(np.array([1.0, 2.0, 3.0]), mindspore.float32)
-input_y = Tensor(np.array([4.0, 5.0, 6.0]), mindspore.float32)
-mul = ops.Mul()
-res = mul(input_x, input_y)
-
-print(res)
-```
-
- The following information is displayed:
-
-```text
-[4. 10. 18.]
-```
-
-##### Trigonometric Function
-
-The following code implements Acos:
-
-```python
-import numpy as np
-import mindspore
-from mindspore import Tensor
-import mindspore.ops as ops
-
-acos = ops.ACos()
-input_x = Tensor(np.array([0.74, 0.04, 0.30, 0.56]), mindspore.float32)
-output = acos(input_x)
+# Directly use the functional interface
+output = ops.tensor_pow(input_x, input_y)
 print(output)
 ```
 
- The following information is displayed:
+For more functional interfaces, see [functional interfaces](https://mindspore.cn/docs/en/master/api_python/mindspore.ops.functional.html).
 
-```text
-[0.7377037 1.5307858 1.2661037 0.97641146]
-```
+### Operator Related to Compute
 
-#### Vector Operations
+According to the function, the compute operators are mainly divided into neural network operators, mathematical operators, array operators, communication operators and so on.
 
-Vector operators perform operations on only one particular axis, mapping a vector to a scalar or another vector.
+#### Neural Network Operators
 
-##### Squeeze
+Neural network operators are mainly used to build network models, such as convolutional operator Conv2D, and maximum pooling operator MaxPool, see [Neural network operators](https://www.mindspore.cn/docs/en/master/api_python/mindspore.ops.html#neural-network-layer-operators).
 
-The following code implements the compression of a channel whose dimension of the third channel is 1:
+The following code shows the use of maxPool, the maximum pooling operator:
 
 ```python
 import numpy as np
@@ -120,28 +53,17 @@ import mindspore
 from mindspore import Tensor
 import mindspore.ops as ops
 
-input_tensor = Tensor(np.ones(shape=[3, 2, 1]), mindspore.float32)
-squeeze = ops.Squeeze(2)
-output = squeeze(input_tensor)
-
+x = Tensor(np.arange(1 * 3 * 3 * 4).reshape((1, 3, 3, 4)), mindspore.float32)
+maxpool_op = ops.MaxPool(pad_mode="VALID", kernel_size=2, strides=1)
+output = maxpool_op(x)
 print(output)
 ```
 
- The following information is displayed:
+#### Mathematical Operators
 
-```text
-[[1. 1.]
- [1. 1.]
- [1. 1.]]
-```
+Mathematical operators are mainly operators developed for mathematical operations, such as additive operator Add, logarithmic operator Log, see [Mathematical Operators](https://www.mindspore.cn/docs/en/master/api_python/mindspore.ops.html#mathematical-operators).
 
-#### Matrix Operations
-
-Matrix operations include matrix multiplication, matrix norm, matrix determinant, matrix eigenvalue calculation, and matrix decomposition.
-
-##### Matrix Multiplication
-
- The following code implements the matrix multiplication of input_x and input_y:
+The following code shows the use of logarithmic operator Log:
 
 ```python
 import numpy as np
@@ -149,473 +71,168 @@ import mindspore
 from mindspore import Tensor
 import mindspore.ops as ops
 
-input_x = Tensor(np.ones(shape=[1, 3]), mindspore.float32)
-input_y = Tensor(np.ones(shape=[3, 4]), mindspore.float32)
-matmul = ops.MatMul()
-output = matmul(input_x, input_y)
-
+x = Tensor(np.array([1.0, 2.0, 4.0]), mindspore.float32)
+log_oo = ops.Log()
+output = log_oo(x)
 print(output)
 ```
 
-The following information is displayed:
+#### Array Operations
 
-```text
-[[3. 3. 3. 3.]]
-```
+Array operators are mainly operators for array operations, such as sort operators Sort and transpose operators Transpose, and you can see the detailed in [Array operators](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.ops.html#array-operators).
 
-### Broadcast Mechanism
-
-Broadcast indicates that when the number of channels of each input variable is inconsistent, change the number of channels to obtain the result.
-
-- The following code implements the broadcast mechanism:
+The following code shows the use of the transpose operators Transpose:
 
 ```python
+import numpy as np
+import mindspore
 from mindspore import Tensor
 import mindspore.ops as ops
-import numpy as np
 
-shape = (2, 3)
-input_x = Tensor(np.array([1, 2, 3]).astype(np.float32))
-broadcast_to = ops.BroadcastTo(shape)
-output = broadcast_to(input_x)
-
+input_x = Tensor(np.array([[[1, 2, 3], [4, 5, 6]], [[7, 8, 9], [10, 11, 12]]]), mindspore.float32)
+input_perm = (0, 2, 1)
+transpose_op = ops.Transpose()
+output = transpose_op(input_x, input_perm)
 print(output)
 ```
 
-The following information is displayed:
+#### Communication Operators
 
-```text
-[[1. 2. 3.]
- [1. 2. 3.]]
-```
+Communication operators are mainly operators that communicate with each card during [multi-host training](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#multi-host-training), such as collecting operators AllGather, broadcast operators Widecast, etc., see [communication operators](https://www.mindspore.cn/docs/en/master/api_python/mindspore.ops.html#communication-operator).
 
-## Network Operations
-
-Network operations include feature extraction, activation function, loss function, and optimization algorithm.
-
-### Feature Extraction
-
-Feature extraction is a common operation in machine learning. The core of feature extraction is to extract more representative tensors than the original input.
-
-Convolution Operation
-
-The following code implements the 2D convolution operation which is one of the common convolution operations:
+The following code shows the use of the collecting operator AllGather:
 
 ```python
-from mindspore import Tensor
-import mindspore.ops as ops
+# This example should be run with two devices. Refer to the tutorial > Distributed Training on mindspore.cn
 import numpy as np
-import mindspore
-
-input = Tensor(np.ones([10, 32, 32, 32]), mindspore.float32)
-weight = Tensor(np.ones([32, 32, 3, 3]), mindspore.float32)
-conv2d = ops.Conv2D(out_channel=32, kernel_size=3)
-res = conv2d(input, weight)
-
-print(res)
-```
-
-The following information is displayed:
-
-```text
-[[[[288. 288. 288. ... 288. 288. 288.]
-   [288. 288. 288. ... 288. 288. 288.]
-   [288. 288. 288. ... 288. 288. 288.]
-   ...
-   [288. 288. 288. ... 288. 288. 288.]
-   [288. 288. 288. ... 288. 288. 288.]
-   [288. 288. 288. ... 288. 288. 288.]]]
-
-  ...
-
-  [[288. 288. 288. ... 288. 288. 288.]
-   [288. 288. 288. ... 288. 288. 288.]
-   [288. 288. 288. ... 288. 288. 288.]
-   ...
-   [288. 288. 288. ... 288. 288. 288.]
-   [288. 288. 288. ... 288. 288. 288.]
-   [288. 288. 288. ... 288. 288. 288.]]
-
-
- ...
-
-
-  [[288. 288. 288. ... 288. 288. 288.]
-   [288. 288. 288. ... 288. 288. 288.]
-   [288. 288. 288. ... 288. 288. 288.]
-   ...
-   [288. 288. 288. ... 288. 288. 288.]
-   [288. 288. 288. ... 288. 288. 288.]
-   [288. 288. 288. ... 288. 288. 288.]]]]
-```
-
-Convolutional Backward Propagation Operator Operation
-
-The following code implements the propagation operation of backward gradient operators. The outputs are stored in dout and weight:
-
-```python
-from mindspore import Tensor
 import mindspore.ops as ops
-import numpy as np
-import mindspore
+import mindspore.nn as nn
+from mindspore.communication import init
+from mindspore import Tensor, set_context, GRAPH_MODE
 
-dout = Tensor(np.ones([10, 32, 30, 30]), mindspore.float32)
-weight = Tensor(np.ones([32, 32, 3, 3]), mindspore.float32)
-x = Tensor(np.ones([10, 32, 32, 32]))
-conv2d_backprop_input = ops.Conv2DBackpropInput(out_channel=32, kernel_size=3)
-res = conv2d_backprop_input(dout, weight, ops.shape(x))
+set_context(mode=GRAPH_MODE)
+init()
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.allgather = ops.AllGather()
+    def construct(self, x):
+        return self.allgather(x)
 
-print(res)
-```
-
-The following information is displayed:
-
-```text
-[[[[ 32.  64.  96. ...  96.  64.  32.]
-   [ 64. 128. 192. ... 192. 128.  64.]
-   [ 96. 192. 288. ... 288. 192.  96.]
-   ...
-   [ 96. 192. 288. ... 288. 192.  96.]
-   [ 64. 128. 192. ... 192. 128.  64.]
-   [ 32.  64.  96. ...  96.  64.  32.]]
-
-  ...
-
-  [[ 32.  64.  96. ...  96.  64.  32.]
-   [ 64. 128. 192. ... 192. 128.  64.]
-   [ 96. 192. 288. ... 288. 192.  96.]
-   ...
-   [ 96. 192. 288. ... 288. 192.  96.]
-   [ 64. 128. 192. ... 192. 128.  64.]
-   [ 32.  64.  96. ...  96.  64.  32.]]]]
-```
-
-### Activation Function
-
-The following code implements the computation of the Softmax activation function:
-
-```python
-from mindspore import Tensor
-import mindspore.ops as ops
-import numpy as np
-import mindspore
-
-input_x = Tensor(np.array([1, 2, 3, 4, 5]), mindspore.float32)
-softmax = ops.Softmax()
-res = softmax(input_x)
-
-print(res)
-```
-
-The following information is displayed:
-
-```text
-[0.01165623 0.03168492 0.08612853 0.23412164 0.63640857]
-```
-
-### Loss Function
-
- L1Loss
-
- The following code implements the L1 loss function:
-
-```python
-from mindspore import Tensor
-import mindspore.ops as ops
-import numpy as np
-import mindspore
-
-loss = ops.SmoothL1Loss()
-input_data = Tensor(np.array([1, 2, 3]), mindspore.float32)
-target_data = Tensor(np.array([1, 2, 2]), mindspore.float32)
-res = loss(input_data, target_data)
-print(res)
-```
-
- The following information is displayed:
-
-```text
-[0.  0.  0.5]
-```
-
-### Optimization Algorithm
-
- The following code implements the stochastic gradient descent (SGD) algorithm. The output is stored in result.
-
-```python
-from mindspore import Tensor
-import mindspore.ops as ops
-import numpy as np
-import mindspore
-
-sgd = ops.SGD()
-parameters = Tensor(np.array([2, -0.5, 1.7, 4]), mindspore.float32)
-gradient = Tensor(np.array([1, -1, 0.5, 2]), mindspore.float32)
-learning_rate = Tensor(0.01, mindspore.float32)
-accum = Tensor(np.array([0.1, 0.3, -0.2, -0.1]), mindspore.float32)
-momentum = Tensor(0.1, mindspore.float32)
-stat = Tensor(np.array([1.5, -0.3, 0.2, -0.7]), mindspore.float32)
-result = sgd(parameters, gradient, learning_rate, accum, momentum, stat)
-
-print(result)
-```
-
- The following information is displayed:
-
-```text
-(Tensor(shape=[4], dtype=Float32, value= [ 1.99000001e+00, -4.90300000e-01,  1.69500005e+00,  3.98009992e+00]),)
-```
-
-## Array Operations
-
-Array operations refer to operations on arrays.
-
-### DType
-
-Returns a Tensor variable that has the same data type as the input and adapts to MindSpore. It is usually used in a MindSpore project.
-
-The following is a code example:
-
-```python
-from mindspore import Tensor
-import mindspore.ops as ops
-import numpy as np
-import mindspore
-
-input_tensor = Tensor(np.array([[2, 2], [2, 2]]), mindspore.float32)
-typea = ops.DType()(input_tensor)
-
-print(typea)
-```
-
- The following information is displayed:
-
-```text
-Float32
-```
-
-### Cast
-
-Converts the input data type and outputs variables of the same type as the target data type.
-
-The following is a code example:
-
-```python
-from mindspore import Tensor
-import mindspore.ops as ops
-import numpy as np
-import mindspore
-
-input_np = np.random.randn(2, 3, 4, 5).astype(np.float32)
-input_x = Tensor(input_np)
-type_dst = mindspore.float16
-cast = ops.Cast()
-result = cast(input_x, type_dst)
-print(result.dtype)
-```
-
- The following information is displayed:
-
-```text
-Float16
-```
-
-### Shape
-
-Returns the shape of the input data.
-
- The following code implements the operation of returning the input data input_tensor:
-
-```python
-from mindspore import Tensor
-import mindspore.ops as ops
-import numpy as np
-import mindspore
-
-input_tensor = Tensor(np.ones(shape=[3, 2, 1]), mindspore.float32)
-shape = ops.Shape()
-output = shape(input_tensor)
+input_x = Tensor(np.ones([2, 8]).astype(np.float32))
+net = Net()
+output = net(input_x)
 print(output)
 ```
 
- The following information is displayed:
+The running results are as follows:
 
 ```text
-(3, 2, 1)
+[[1. 1. 1. 1. 1. 1. 1. 1.]
+ [1. 1. 1. 1. 1. 1. 1. 1.]
+ [1. 1. 1. 1. 1. 1. 1. 1.]
+ [1. 1. 1. 1. 1. 1. 1. 1.]]
 ```
 
-## Image Operations
+### Operators Related to Frame
 
-The image operations include image preprocessing operations, for example, image cropping (for obtaining a large quantity of training samples) and resizing (for constructing an image pyramid).
+`Mindspore.ops.composite` provides a number of combinatorial class operators involving graph transformations, such as `MultipeFuncGraph`, `HyperMap`, and `GradOperation`.
 
- The following code implements the cropping and resizing operations:
+`MultitypeFuncGraph` is used to define a set of overloaded functions. The user can use this operator and use different implements according to different types. For detailed information, see [MultitypepeFuncGraph](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_overload.html#multitypefuncgraph).
+
+`HyperMap` can do specified operations on one or more sets of inputs and can be used with . For detailed information, see [HyperMap](https://www.mindspore.cn/tutorials/experts/en/master/operation/op_overload.html#hypermap).
+
+`GradOperation` is used to generate gradients for input functions, which uses get_all, get_by_list, and sens_param parameters to control how to calculate the gradients. For detailed information, see [GradOperation](https://www.mindspore.cn/tutorials/en/master/beginner/autograd.html) see .
+
+## nn Operators
+
+The nn operators are encapsulation of low-order APIs, mainly including convolutional layer operators, pooled layer operators, loss functions, optimizers.
+
+The nn operators also provide part of the interfaces with the same name as the Primitive operator. The main role is to further encapsulate the Primitive operator, to provide users with a more friendly API. When the nn operator function meets the user's requirements, the user can directly use the nn operators, and when the nn operator function can not meet the user's specific requirements, you can use the low-level Primitive operator to achieve specific functions.
+
+### Convolutional Layer Operators
+
+Convolutional layer operators are mainly operators used in the convolutional layer of the model, such as convolutional operator Conv2d and transpose convolutional operator Conv2dTranspose. For the detailed information, see [Convolutional layer operators](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#convolutional-neural-network-layer).
+
+The following code shows the use of convolutional operator Conv2d:
 
 ```python
-from mindspore import Tensor
-import mindspore.ops as ops
-import numpy as np
-
-BATCH_SIZE = 1
-NUM_BOXES = 5
-IMAGE_HEIGHT = 256
-IMAGE_WIDTH = 256
-CHANNELS = 3
-image = np.random.normal(size=[BATCH_SIZE, IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS]).astype(np.float32)
-boxes = np.random.uniform(size=[NUM_BOXES, 4]).astype(np.float32)
-box_index = np.random.uniform(size=[NUM_BOXES], low=0, high=BATCH_SIZE).astype(np.int32)
-crop_size = (24, 24)
-crop_and_resize = ops.CropAndResize()
-output = crop_and_resize(Tensor(image), Tensor(boxes), Tensor(box_index), crop_size)
-print(output.asnumpy())
-```
-
-The following information is displayed:
-
-```text
-[[[[ 6.51672244e-01 -1.85958534e-01 5.19907832e-01]
-[ 1.53466597e-01 4.10562098e-01 6.26138210e-01]
-[ 6.62892580e-01 3.81776541e-01 4.69261825e-01]
-...
-[-5.83377600e-01 -3.53377648e-02 -6.01786733e-01]
-[ 1.36125124e+00 5.84172308e-02 -6.41442612e-02]
-[-9.11651254e-01 -1.19495761e+00 1.96810793e-02]]
-
-[[ 6.06956100e-03 -3.73778701e-01 1.88935513e-03]
-[-1.06859171e+00 2.00272346e+00 1.37180305e+00]
-[ 1.69524819e-01 2.90421434e-02 -4.12243098e-01]
-...
-
-[[-2.04489112e-01 2.36615837e-01 1.33802962e+00]
-[ 1.08329034e+00 -9.00492966e-01 -8.21497202e-01]
-[ 7.54147097e-02 -3.72897685e-01 -2.91040149e-02]
-...
-[ 1.12317121e+00 8.98950577e-01 4.22795087e-01]
-[ 5.13781667e-01 5.12095273e-01 -3.68211865e-01]
-[-7.04941899e-02 -1.09924078e+00 6.89047515e-01]]]]
-```
-
-> The preceding code runs on MindSpore of the Ascend version.
-
-## Encoding Operations
-
-The encoding operations include BoundingBox Encoding, BoundingBox Decoding, and IOU computing.
-
-### BoundingBoxEncode
-
-The box of the area where the object is located is encoded to obtain more concise information similar to PCA, facilitating subsequent tasks such as feature extraction, object detection, and image restoration.
-
-The following code implements BoundingBox Encoding for anchor_box and groundtruth_box:
-
-```python
-from mindspore import Tensor
-import mindspore.ops as ops
-import mindspore
-
-anchor_box = Tensor([[2,2,2,3],[2,2,2,3]],mindspore.float32)
-groundtruth_box = Tensor([[1,2,1,4],[1,2,1,4]],mindspore.float32)
-boundingbox_encode = ops.BoundingBoxEncode(means=(0.0, 0.0, 0.0, 0.0), stds=(1.0, 1.0, 1.0, 1.0))
-res = boundingbox_encode(anchor_box, groundtruth_box)
-print(res)
-```
-
- The following information is displayed:
-
-```text
-[[-1.          0.25        0.          0.40546513]
- [-1.          0.25        0.          0.40546513]]
-```
-
-### BoundingBoxDecode
-
-After decoding the area location information, the encoder uses this operator to decode the information.
-
- Code implementation:
-
-```python
-from mindspore import Tensor
-import mindspore.ops as ops
-import mindspore
-
-anchor_box = Tensor([[4,1,2,1],[2,2,2,3]],mindspore.float32)
-deltas = Tensor([[3,1,2,2],[1,2,1,4]],mindspore.float32)
-boundingbox_decode = ops.BoundingBoxDecode(means=(0.0, 0.0, 0.0, 0.0), stds=(1.0, 1.0, 1.0, 1.0), max_shape=(768, 1280), wh_ratio_clip=0.016)
-res = boundingbox_decode(anchor_box, deltas)
-print(res)
-```
-
- The following information is displayed:
-
-```text
-[[ 4.194528   0.         0.         5.194528 ]
- [ 2.1408591  0.         3.8591409 60.59815  ]]
-```
-
-### IOU Computing
-
-Computes the proportion of the intersection area and union area of the box where the predicted object is located and the box where the real object is located. It is often used as a loss function to optimize the model.
-
-The following code implements the IOU computing between `anchor_boxes` and `gt_boxes`. The output is stored in out:
-
-```python
-from mindspore import Tensor
-import mindspore.ops as ops
 import numpy as np
 import mindspore
+from mindspore import Tensor
+import mindspore.nn as nn
 
-iou = ops.IOU()
-anchor_boxes = Tensor(np.random.randint(1.0, 5.0, [3, 4]), mindspore.float16)
-gt_boxes = Tensor(np.random.randint(1.0, 5.0, [3, 4]), mindspore.float16)
-out = iou(anchor_boxes, gt_boxes)
-print(out)
+net = nn.Conv2d(120, 240, 4, has_bias=False, weight_init='normal')
+x = Tensor(np.ones([1, 120, 1024, 640]), mindspore.float32)
+output = net(x).shape
+print(output)
 ```
 
- The following information is displayed:
+### Pooling Layer Operators
 
-```text
-[[ 0. -0.  0.]
- [ 0. -0.  0.]
- [ 0.  0.  0.]]
-```
+Pooling layer operators are mainly operators used in the pooling layer of the model, such as average pooling operators AvgPool2d, maximum pooling operators MaxPool2d. For the detailed information, see [Pooling Layer Operators](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#pooling-layer).
 
-## Debugging Operations
-
-The debugging operations refer to some common operators and operations used to debug a network, for example, HookBackward. These operations are very convenient and important for entry-level deep learning, greatly improving learning experience.
-
-### HookBackward
-
-Displays the gradient of intermediate variables. It is a common operator. Currently, only the PyNative mode is supported.
-
-The following code implements the function of printing the gradient of the intermediate variable (x,y in this example):
+The following code shows the use of the maximum pooling operators MaxPool2d:
 
 ```python
-from mindspore import Tensor, set_context, PYNATIVE_MODE
-import mindspore.ops as ops
 import numpy as np
-from mindspore import dtype as mstype
+import mindspore
+from mindspore import Tensor
+import mindspore.nn as nn
 
-set_context(mode=PYNATIVE_MODE)
-
-def hook_fn(grad_out):
-    print(grad_out)
-
-grad_all = ops.GradOperation(get_all=True)
-hook = ops.HookBackward(hook_fn)
-
-def hook_test(x, y):
-    z = x * y
-    z = hook(z)
-    z = z * y
-    return z
-
-def backward(x, y):
-    return grad_all(hook_test)(Tensor(x, mstype.float32), Tensor(y, mstype.float32))
-
-print(backward(1, 2))
+pool = nn.MaxPool2d(kernel_size=3, stride=1)
+x = Tensor(np.random.randint(0, 10, [1, 2, 4, 4]), mindspore.float32)
+output = pool(x)
+print(output.shape)
 ```
 
-The following information is displayed:
+### Loss Functions
 
-```text
-(Tensor(shape=[], dtype=Float32, value= 2),)
-(Tensor(shape=[], dtype=Float32, value= 4), Tensor(shape=[], dtype=Float32, value= 4))
+The loss functions are mainly used to evaluate the degree of difference between the predicted value and the true value of the model, and the commonly used loss functions are BCEWithLogitsLoss and SoftmaxCrossEntropyWithLogits. For the detailed information, see [Loss Function](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#loss-function).
+
+The following code shows the use of the SoftmaxCrossEntropyWithLogits loss function:
+
+```python
+import numpy as np
+import mindspore
+from mindspore import Tensor
+import mindspore.nn as nn
+
+loss = nn.SoftmaxCrossEntropyWithLogits()
+logits = Tensor(np.array([[3, 5, 6, 9, 12, 33, 42, 12, 32, 72]]), mindspore.float32)
+labels_np = np.array([[0, 0, 0, 0, 0, 0, 1, 0, 0, 0]]).astype(np.float32)
+labels = Tensor(labels_np)
+output = loss(logits, labels)
+print(output)
+```
+
+### Optimizers
+
+Optimizers are mainly used to calculate and update gradients, and commonly used optimizers are Adam and Momentum. For the detailed information, see [Optimizer](https://www.mindspore.cn/docs/en/master/api_python/mindspore.nn.html#optimizer).
+
+The following code shows the use of the Momentum optimizer:
+
+```python
+import mindspore.nn as nn
+from mindspore import Model
+
+net = Net()
+#1) All parameters use the same learning rate and weight decay
+optim = nn.Momentum(params=net.trainable_params(), learning_rate=0.1, momentum=0.9)
+
+#2) Use parameter groups and set different values
+conv_params = list(filter(lambda x: 'conv' in x.name, net.trainable_params()))
+no_conv_params = list(filter(lambda x: 'conv' not in x.name, net.trainable_params()))
+group_params = [{'params': conv_params, 'weight_decay': 0.01, 'grad_centralization':True},
+                {'params': no_conv_params, 'lr': 0.01},
+                {'order_params': net.trainable_params()}]
+optim = nn.Momentum(group_params, learning_rate=0.1, momentum=0.9, weight_decay=0.0)
+# The conv_params's parameters will use a learning rate of default value 0.1 and a weight decay of 0.01 and
+# grad centralization of True.
+# The no_conv_params's parameters will use a learning rate of 0.01 and a weight decay of default value 0.0
+# and grad centralization of False..
+# The final parameters order in which the optimizer will be followed is the value of 'order_params'.
+
+loss = nn.SoftmaxCrossEntropyWithLogits()
+model = Model(net, loss_fn=loss, optimizer=optim, metrics=None)
 ```
