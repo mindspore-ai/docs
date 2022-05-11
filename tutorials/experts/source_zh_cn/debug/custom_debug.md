@@ -21,7 +21,7 @@ MindSpore提供`Callback`能力，支持用户在训练/推理的特定阶段，
 使用方法：在`model.train`方法中传入`Callback`对象，它可以是一个`Callback`列表，例：
 
 ```python
-from mindspore.train.callback import ModelCheckpoint, LossMonitor, SummaryCollector
+from mindspore import ModelCheckpoint, LossMonitor, SummaryCollector
 
 ckpt_cb = ModelCheckpoint()
 loss_cb = LossMonitor()
@@ -97,7 +97,7 @@ class Callback():
 - 在规定时间内终止训练。
 
     ```python
-    from mindspore.train.callback import Callback
+    from mindspore import Callback
 
     class StopAtTime(Callback):
         def __init__(self, run_time):
@@ -126,7 +126,7 @@ class Callback():
 - 保存训练过程中精度最高的checkpoint文件。
 
     ```python
-    from mindspore.train.callback import Callback
+    from mindspore import Callback
 
     class SaveCallback(Callback):
         def __init__(self, eval_model, ds_eval):

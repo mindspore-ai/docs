@@ -20,7 +20,7 @@ from mindspore import set_context, GRAPH_MODE, set_auto_parallel_context
 from mindspore.nn import SGD
 from mindspore import Model
 from mindspore import ParallelMode
-from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
+from mindspore import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
 from mindspore.communication import init
 from mindspore import set_seed
 from mindspore.parallel import set_algo_parameters

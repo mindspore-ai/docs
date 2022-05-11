@@ -85,7 +85,7 @@ net_opt = nn.Momentum(network.trainable_params(), learning_rate=0.01, momentum=0
 Before training, MindSpore needs to declare whether the intermediate process and result of the network model need to be saved during training. Therefore, the `ModelCheckpoint` API is used to save the network model and parameters for subsequent fine-tuning.
 
 ```python
-from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
+from mindspore import ModelCheckpoint, CheckpointConfig
 
 # Set the model saving parameters.
 config_ck = CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10)

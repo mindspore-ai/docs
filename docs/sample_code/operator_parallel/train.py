@@ -8,8 +8,8 @@ from mindspore import Model
 from mindspore.nn import SoftmaxCrossEntropyWithLogits
 import mindspore.dataset as ds
 import mindspore.communication as D
-from mindspore.train.callback import LossMonitor
-from mindspore.train.callback import ModelCheckpoint
+from mindspore import LossMonitor
+from mindspore import ModelCheckpoint
 from mindspore.common.initializer import initializer
 
 

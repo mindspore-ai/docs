@@ -18,7 +18,7 @@ import argparse
 import ast
 from mindspore import set_seed, Model, ParallelMode, set_context, GRAPH_MODE, set_auto_parallel_context
 from mindspore.nn import Momentum
-from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
+from mindspore import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
 from mindspore.communication import init
 from mindspore.common import initializer
 import mindspore.nn as nn
@@ -44,8 +44,7 @@ if __name__ == '__main__':
     # init context
     set_context(mode=GRAPH_MODE, device_target='Ascend', device_id=device_id)
     if rank_size > 1:
-        set_auto_parallel_context(device_num=rank_size, parallel_mode=ParallelMode.DATA_PARALLEL,
-                                          gradients_mean=True)
+        set_auto_parallel_context(device_num=rank_size, parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
         set_auto_parallel_context(all_reduce_fusion_config=[85, 160])
         init()
 

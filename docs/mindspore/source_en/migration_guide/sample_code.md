@@ -579,7 +579,7 @@ from mindspore import set_seed, set_context, set_auto_parallel_context, GRAPH_MO
 from mindspore import ParallelMode
 from mindspore.nn import Momentum
 from mindspore import Model
-from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
+from mindspore import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
 from mindspore.communication import init
 from mindspore.common import initializer
 import mindspore.nn as nn

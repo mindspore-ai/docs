@@ -301,7 +301,7 @@ In the following sample code, the automatic parallel mode is specified. To switc
 ```python
 from mindspore import ParallelMode, Model, set_context, GRAPH_MODE, set_auto_parallel_context
 from mindspore.nn import Momentum
-from mindspore.train.callback import LossMonitor
+from mindspore import LossMonitor
 from resnet import resnet50
 
 device_id = int(os.getenv('DEVICE_ID'))
@@ -562,7 +562,7 @@ The below content introduced how to save and load models under the four distribu
 It is convenient to save and load the model parameters in auto parallel mode. Just add configuration `CheckpointConfig` and `ModelCheckpoint` to `test_train_cifar` method in the training network steps of this tutorial, and the model parameters can be saved. It should be noted that in parallel mode, you need to specify a different checkpoint save path for the scripts running on each device to prevent conflicts when reading and writing files, The code is as follows:
 
 ```python
-from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
+from mindspore import ModelCheckpoint, CheckpointConfig
 from mindspore import set_auto_parallel_context, ParallelMode
 def test_train_cifar(epoch_size=10):
     set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)

@@ -52,7 +52,7 @@ from mindspore.common.initializer import TruncatedNormal
 from mindspore.dataset.vision import Inter
 from mindspore.nn import Accuracy
 import mindspore.ops as ops
-from mindspore.train.callback import LossMonitor
+from mindspore import LossMonitor
 
 
 def create_dataset(data_path, batch_size=32, repeat_size=1,

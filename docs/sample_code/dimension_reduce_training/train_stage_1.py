@@ -21,7 +21,7 @@ from mindspore import Tensor
 from mindspore.nn import Momentum
 from mindspore import Model
 from mindspore import ParallelMode
-from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
+from mindspore import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
 from mindspore import FixedLossScaleManager
 from mindspore.communication import init
 from mindspore import set_seed

@@ -22,7 +22,7 @@ from mindspore import log as logger, set_context, GRAPH_MODE
 from mindspore import Model
 import mindspore.nn as nn
 from mindspore.nn import SoftmaxCrossEntropyWithLogits
-from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor
+from mindspore import ModelCheckpoint, CheckpointConfig, LossMonitor
 from src.lenet import LeNet5
 from src.datasets import create_dataset
 from custom_callback import StopAtTime

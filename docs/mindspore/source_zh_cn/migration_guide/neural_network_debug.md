@@ -10,7 +10,7 @@
 
 1. 网络流程调试成功，网络执行整体不报错，正确输出loss值，且正常完成参数更新。
 
-   一般情况下，使用`model.train`接口完整执行一个step并且不报错，即正常执行并完成了参数更新；如果需要精确确认，可以通过`mindspore.train.callback.CheckpointConfig`中的参数`save_checkpoint_steps=1`保存连续两个step的Checkpoint文件，或者使用`save_checkpoint`接口直接保存Checkpoint文件，然后通过以下代码打印Checkpoint文件中的权重值，查看两个step的权重是否发生改变，并完成更新。
+   一般情况下，使用`model.train`接口完整执行一个step并且不报错，即正常执行并完成了参数更新；如果需要精确确认，可以通过`mindspore.CheckpointConfig`中的参数`save_checkpoint_steps=1`保存连续两个step的Checkpoint文件，或者使用`save_checkpoint`接口直接保存Checkpoint文件，然后通过以下代码打印Checkpoint文件中的权重值，查看两个step的权重是否发生改变，并完成更新。
 
    ```python
    import mindspore

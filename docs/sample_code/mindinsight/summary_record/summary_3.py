@@ -30,7 +30,7 @@ import mindspore.nn as nn
 from mindspore.common.initializer import TruncatedNormal
 import mindspore.ops as ops
 
-from mindspore.train.callback import LossMonitor, TimeMonitor, Callback
+from mindspore import LossMonitor, TimeMonitor, Callback
 from mindspore.train.summary import SummaryRecord
 from mindspore.nn import Accuracy
 import numpy as np

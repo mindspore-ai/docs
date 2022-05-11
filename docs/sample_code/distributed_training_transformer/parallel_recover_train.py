@@ -20,7 +20,7 @@ from mindspore.nn.transformer import TransformerOpParallelConfig
 from mindspore import Model, ParallelMode, reset_auto_parallel_context, set_auto_parallel_context
 import mindspore.communication as D
 from mindspore.nn import PipelineCell
-from mindspore.train.callback import TimeMonitor, LossMonitor, CheckpointConfig, ModelCheckpoint
+from mindspore import TimeMonitor, LossMonitor, CheckpointConfig, ModelCheckpoint
 from mindspore.nn import AdamWeightDecay
 from mindspore import load_checkpoint, load_param_into_net
 from dataset import ToyDataset, Tokenzier

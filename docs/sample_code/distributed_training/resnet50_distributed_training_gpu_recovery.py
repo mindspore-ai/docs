@@ -25,8 +25,8 @@ import mindspore.dataset.transforms.c_transforms as C
 from mindspore.communication import init, get_rank, get_group_size
 from mindspore import Tensor, Model, ParallelMode, set_context, GRAPH_MODE, set_auto_parallel_context
 from mindspore.nn import Momentum
-from mindspore.train.callback import LossMonitor
-from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
+from mindspore import LossMonitor
+from mindspore import ModelCheckpoint, CheckpointConfig
 from resnet import resnet50
 
 

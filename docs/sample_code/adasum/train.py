@@ -20,7 +20,7 @@ from mindspore import Tensor, set_context, GRAPH_MODE, set_auto_parallel_context
 from mindspore.nn import Momentum
 from mindspore import Model
 from mindspore import ParallelMode
-from mindspore.train.callback import LossMonitor, TimeMonitor
+from mindspore import LossMonitor, TimeMonitor
 from mindspore import FixedLossScaleManager
 from mindspore.communication import init
 from mindspore import set_seed

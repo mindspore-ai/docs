@@ -26,7 +26,7 @@ from mindspore.nn import SoftmaxCrossEntropyWithLogits
 from mindspore.communication import init
 from mindspore.nn import Momentum
 from mindspore import Model, ParallelMode, GRAPH_MODE, set_context, set_auto_parallel_context
-from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor
+from mindspore import ModelCheckpoint, CheckpointConfig, LossMonitor
 from mindspore import load_checkpoint, load_param_into_net
 from resnet import resnet50
 
@@ -103,7 +103,7 @@ if __name__ == '__main__':
     # in this way by judging the mark of args, users will decide which function to use
     if not args_opt.do_eval and args_opt.run_distribute:
         set_auto_parallel_context(device_num=args_opt.device_num, parallel_mode=ParallelMode.DATA_PARALLEL,
-                                          all_reduce_fusion_config=[140])
+                                  all_reduce_fusion_config=[140])
         init()
 
     epoch_size = args_opt.epoch_size

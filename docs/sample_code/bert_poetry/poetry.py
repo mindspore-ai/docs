@@ -27,8 +27,8 @@ from mindspore import load_checkpoint, load_param_into_net, GRAPH_MODE, set_cont
 from mindspore.nn import DynamicLossScaleUpdateCell
 from mindspore.nn import AdamWeightDecay
 from mindspore import Model
-from mindspore.train.callback import Callback, TimeMonitor
-from mindspore.train.callback import CheckpointConfig, ModelCheckpoint
+from mindspore import Callback, TimeMonitor
+from mindspore import CheckpointConfig, ModelCheckpoint
 from mindspore import Tensor, Parameter, export
 from mindspore import dtype as mstype
 from generator import generate_random_poetry, generate_hidden

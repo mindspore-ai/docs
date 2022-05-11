@@ -25,7 +25,7 @@ from mindspore.dataset.vision import Inter
 from mindspore import dtype as mstype
 from mindspore import nn, Model, set_context, GRAPH_MODE
 from mindspore.common.initializer import Normal
-from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor, Callback
+from mindspore import ModelCheckpoint, CheckpointConfig, LossMonitor, Callback
 from mindspore.nn import Accuracy
 from mindspore.nn import SoftmaxCrossEntropyWithLogits
 

@@ -18,7 +18,7 @@ This sample code is applicable to Ascend, CPU and GPU.
 import mindspore.nn as nn
 from mindspore.nn import Momentum, SoftmaxCrossEntropyWithLogits
 from mindspore import Model, set_context, GRAPH_MODE
-from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor
+from mindspore import ModelCheckpoint, CheckpointConfig, LossMonitor
 
 from src.dataset import create_train_dataset, create_eval_dataset
 from src.net import Net

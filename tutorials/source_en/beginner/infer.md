@@ -190,7 +190,7 @@ Train and evaluate the network, and use the `mindvision.engine.callback.ValAccMo
 
 ```python
 from mindvision.engine.callback import ValAccMonitor
-from mindspore.train.callback import TimeMonitor
+from mindspore import TimeMonitor
 
 num_epochs = 10
 

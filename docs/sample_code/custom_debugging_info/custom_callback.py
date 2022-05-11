@@ -16,7 +16,7 @@
 callback function
 """
 import time
-from mindspore.train.callback import Callback
+from mindspore import Callback
 from mindspore import save_checkpoint
 
 # stop training at runtime*60 second

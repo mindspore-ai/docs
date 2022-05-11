@@ -21,7 +21,7 @@ MindSpore provides the callback capabilities to allow users to insert customized
 Usage: Transfer the callback object in the `model.train` method. The callback object can be a list, for example:
 
 ```python
-from mindspore.train.callback import ModelCheckpoint, LossMonitor, SummaryCollector
+from mindspore import ModelCheckpoint, LossMonitor, SummaryCollector
 
 ckpt_cb = ModelCheckpoint()
 loss_cb = LossMonitor()
@@ -98,7 +98,7 @@ Here are two examples to further explain the usage of custom Callback.
 - Terminate training within the specified time.
 
     ```python
-    from mindspore.train.callback import Callback
+    from mindspore import Callback
 
     class StopAtTime(Callback):
         def __init__(self, run_time):
@@ -133,7 +133,7 @@ Here are two examples to further explain the usage of custom Callback.
 - Save the checkpoint file with the highest accuracy during training.
 
     ```python
-    from mindspore.train.callback import Callback
+    from mindspore import Callback
 
     class SaveCallback(Callback):
         def __init__(self, eval_model, ds_eval):
