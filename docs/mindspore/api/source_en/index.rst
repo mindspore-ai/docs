@@ -27,7 +27,6 @@ MindSpore API
    api_python/mindspore.numpy
    api_python/mindspore.ops
    api_python/mindspore.ops.functional
-   api_python/mindspore.parallel
    api_python/mindspore.parallel.nn
    api_python/mindspore.profiler
    api_python/mindspore.scipy
