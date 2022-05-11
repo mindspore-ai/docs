@@ -26,7 +26,7 @@ from mindspore import Tensor, set_context, GRAPH_MODE
 import mindspore.dataset as ds
 import mindspore.dataset.transforms.c_transforms as C
 import mindspore.dataset.vision.c_transforms as CV
-from mindspore.train.summary import SummaryRecord
+from mindspore import SummaryRecord
 import mindspore.nn as nn
 from mindspore.common.initializer import TruncatedNormal
 import mindspore.ops as ops

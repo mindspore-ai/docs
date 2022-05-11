@@ -10,7 +10,7 @@ The following uses the MNIST dataset as an example to describe how to save and l
 
 ```python
 import mindspore.nn as nn
-from mindspore.train import Model
+from mindspore import Model
 
 from mindvision.classification.dataset import Mnist
 from mindvision.classification.models import lenet
