@@ -26,7 +26,7 @@ from mindspore.communication import init, get_rank, get_group_size
 from mindspore import Tensor, Model
 from mindspore.nn import Momentum
 from mindspore import ParallelMode, set_context, GRAPH_MODE, set_auto_parallel_context
-from mindspore.train.callback import LossMonitor
+from mindspore import LossMonitor
 from resnet import resnet50
 
 set_context(mode=GRAPH_MODE, device_target="GPU")

@@ -29,7 +29,7 @@ Saving model parameters during training. MindSpore provides two saving strategie
     - `keep_checkpoint_max`: indicates how many CheckPoint files to save at most, with a default value of 5.
 
     ```python
-    from mindspore.train.callback import CheckpointConfig
+    from mindspore import CheckpointConfig
 
     # Save one CheckPoint file every 32 steps, and up to 10 CheckPoint files
     config_ck = CheckpointConfig(save_checkpoint_steps=32, keep_checkpoint_max=10)
@@ -45,7 +45,7 @@ Saving model parameters during training. MindSpore provides two saving strategie
     - `keep_checkpoint_per_n_minutes`: indicates how many checkPoint files are kept every few minutes, with a default value of 0.
 
     ```python
-    from mindspore.train.callback import CheckpointConfig
+    from mindspore import CheckpointConfig
 
     # Save a CheckPoint file every 30 seconds and a CheckPoint file every 3 minutes
     config_ck = CheckpointConfig(save_checkpoint_seconds=30, keep_checkpoint_per_n_minutes=3)
@@ -58,7 +58,7 @@ Saving model parameters during training. MindSpore provides two saving strategie
     MindSpore provides a breakpoint renewal function, when the user turns on the function, if an exception occurs during training, MindSpore will automatically save the CheckPoint file (end-of-life CheckPoint) when the exception occurred. The function of breakpoint renewal is controlled by the `exception_save` parameter (bool type) in CheckpointConfig, which is turned on when set to True, and closed by False, which defaults to False. The end-of-life CheckPoint file saved by the breakpoint continuation function does not affect the CheckPoint saved in the normal process, and the naming mechanism and save path are consistent with the normal process settings, the only difference is that the '_breakpoint' will be added at the end of the end of the CheckPoint file name to distinguish. Its usage is as follows:
 
     ```python
-    from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
+    from mindspore import ModelCheckpoint, CheckpointConfig
 
     # Configure the breakpoint continuation function to turn on
     config_ck = CheckpointConfig(save_checkpoint_steps=32, keep_checkpoint_max=10, exception_save=True)

@@ -20,7 +20,7 @@ import os
 import mindspore.nn as nn
 from mindspore.nn import SoftmaxCrossEntropyWithLogits, Accuracy
 from mindspore import Model, Tensor, load_checkpoint, export, set_context, GRAPH_MODE
-from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor
+from mindspore import ModelCheckpoint, CheckpointConfig, LossMonitor
 from src.lenet import LeNet5
 from src.datasets import create_dataset
 import numpy as np

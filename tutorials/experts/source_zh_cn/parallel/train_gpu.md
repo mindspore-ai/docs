@@ -270,7 +270,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
 ```python
 from mindspore import Model, ParallelMode, set_context, GRAPH_MODE, set_auto_parallel_context
 from mindspore.nn import Momentum
-from mindspore.train.callback import LossMonitor
+from mindspore import LossMonitor
 from mindspore.communication import init
 from resnet import resnet50
 

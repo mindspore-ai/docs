@@ -47,7 +47,7 @@ export GROUP_INFO_FILE=./group_info.pb
 ```python
 from mindspore import Model, ParallelMode
 from mindspore.nn import PipelineCell
-from mindspore.train.callback import TimeMonitor, LossMonitor, CheckpointConfig, ModelCheckpoint
+from mindspore import TimeMonitor, LossMonitor, CheckpointConfig, ModelCheckpoint
 def train():
     # model create
     # checkpoint save

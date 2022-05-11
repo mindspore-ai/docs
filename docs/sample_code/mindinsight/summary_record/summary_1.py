@@ -31,9 +31,9 @@ import mindspore.nn as nn
 from mindspore.common.initializer import TruncatedNormal
 import mindspore.ops as ops
 
-from mindspore.train.callback import LossMonitor, TimeMonitor
+from mindspore import LossMonitor, TimeMonitor
 from mindspore.nn import Accuracy
-from mindspore.train.callback import SummaryCollector
+from mindspore import SummaryCollector
 from mindspore import Tensor, Model, set_context, GRAPH_MODE
 import numpy as np
 

@@ -25,7 +25,7 @@ import mindspore.dataset.transforms.c_transforms as C
 from mindspore.communication import init, get_rank
 from mindspore import Tensor, Model, ParallelMode, set_context, GRAPH_MODE, set_auto_parallel_context
 from mindspore.nn import Momentum
-from mindspore.train.callback import LossMonitor
+from mindspore import LossMonitor
 from resnet import resnet50
 
 device_id = int(os.getenv('DEVICE_ID'))

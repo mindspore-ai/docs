@@ -371,7 +371,7 @@ from mindspore.nn import SoftmaxCrossEntropyWithLogits                         #
 from mindspore.nn import Adam, Accuracy                                        # Import the Adam module and the Accuracy module, which are used to define optimization parameters and evaluate the prediction accuracy respectively.
 from mindspore import Model                                                    # Import the Model module for building models
 from mindspore.dataset import NumpySlicesDataset                               # Import the NumpySlicesDataset module for creating datasets that the model can recognize
-from mindspore.train.callback import Callback, LossMonitor                     # Import Callback module and LossMonitor module to define callback function and monitor loss respectively
+from mindspore import Callback, LossMonitor                     # Import Callback module and LossMonitor module to define callback function and monitor loss respectively
 
 loss = SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')            # The loss function is defined by SoftmaxCrossEntropyWithLogits, sparse=True indicates that the specified label uses a sparse format, and reduction='mean' indicates that the dimensionality reduction method of the loss function is averaging
 opti = Adam(QuantumNet.trainable_params(), learning_rate=0.1)                  # The parameters in Ansatz are optimized by the Adam optimizer. What needs to be optimized are the trainable parameters in Quantumnet, and the learning rate is set to 0.1
@@ -436,7 +436,7 @@ Note:
 
 (6) Callback is an abstract base class for building callback classes, which are context managers that will input and output when passed to the model. You can use this mechanism to automatically initialize and release resources. The callback function will perform some operations in the current step or data loop;
 
-(7) LossMonitor is mainly used to monitor the loss in training. If the loss is NAN or INF, it will terminate the training. The general format is as follows: mindspore.train.callback.LossMonitor(per_print_times=1), per_print_times=1 means print the loss every second, default value: 1;
+(7) LossMonitor is mainly used to monitor the loss in training. If the loss is NAN or INF, it will terminate the training. The general format is as follows: mindspore.LossMonitor(per_print_times=1), per_print_times=1 means print the loss every second, default value: 1;
 
 (8) The train module is used to train the model, where the iteration is controlled by the Python front-end; when the PyNative mode or CPU is set, the training process will be executed without the data set being received. The general format is as follows: train(epoch, train_dataset, callbacks= None, dataset_sink_mode=True, sink_size=-1), where epoch indicates the total number of iterations on the data; train_dataset is the train_loader we defined; callbacks is the loss value and accuracy we need to call back; dataset_sink_mode indicates whether to pass data by the dataset channel, in the tutorial it is no.
 

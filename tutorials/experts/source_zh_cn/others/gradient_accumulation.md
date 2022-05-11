@@ -321,7 +321,7 @@ from mindspore import Model, set_context, GRAPH_MODE
 from mindspore.nn import WithLossCell, TrainOneStepCell, Accuracy
 from mindspore.boost import GradientAccumulation
 import mindspore.ops as ops
-from mindspore.train.callback import LossMonitor, TimeMonitor
+from mindspore import LossMonitor, TimeMonitor
 from mindspore import load_checkpoint, load_param_into_net
 
 from models.official.cv.lenet.src.dataset import create_dataset

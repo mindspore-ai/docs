@@ -5,7 +5,7 @@ import numpy as np
 from mindspore import dataset as ds
 from mindspore.common.initializer import Normal
 from mindspore import nn, Model, set_context, GRAPH_MODE
-from mindspore.train.callback import LossMonitor
+from mindspore import LossMonitor
 
 set_context(mode=GRAPH_MODE, device_target="CPU")
 

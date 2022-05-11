@@ -313,7 +313,7 @@ MindSpore中提供了两种Loss Scale的方式，分别是`FixedLossScaleManager
     import mindspore.nn as nn
     from mindspore.nn import Accuracy
     from mindspore import set_context, GRAPH_MODE, Model, FixedLossScaleManager, DynamicLossScaleManager, Tensor
-    from mindspore.train.callback import LossMonitor
+    from mindspore import LossMonitor
     from mindspore.common.initializer import Normal
     from mindspore import dataset as ds
 

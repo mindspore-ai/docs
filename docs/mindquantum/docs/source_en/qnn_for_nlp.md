@@ -24,7 +24,7 @@ from mindquantum.core import QubitOperator
 import mindspore.ops as ops
 import mindspore.dataset as ds
 from mindspore import nn
-from mindspore.train.callback import LossMonitor
+from mindspore import LossMonitor
 from mindspore import Model
 from mindquantum.framework import MQLayer
 from mindquantum.core import Hamiltonian, RX, RY, X, H

@@ -21,7 +21,7 @@ import json
 import mindspore.nn as nn
 from mindspore.nn import Momentum, SoftmaxCrossEntropyWithLogits
 from mindspore import Model, save_checkpoint, set_context, GRAPH_MODE
-from mindspore.train.callback import Callback, LossMonitor
+from mindspore import Callback, LossMonitor
 from mindspore import log as logger
 
 from src.dataset import create_train_dataset, create_eval_dataset

@@ -128,7 +128,7 @@ class ResNet(nn.Cell):
 ```python
 from mindspore import Model, nn, ParallelMode, set_auto_parallel_context
 from mindspore.nn import Momentum
-from mindspore.train.callback import LossMonitor
+from mindspore import LossMonitor
 from resnet import resnet50
 
 

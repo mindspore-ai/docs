@@ -25,7 +25,7 @@ import moxing as mox
 from mindspore import Tensor, Model, ParallelMode, set_context, GRAPH_MODE, set_auto_parallel_context
 from mindspore.nn import Momentum
 from mindspore.nn import SoftmaxCrossEntropyWithLogits
-from mindspore.train.callback import Callback, LossMonitor
+from mindspore import Callback, LossMonitor
 from mindspore import FixedLossScaleManager
 from mindspore.communication import init
 import mindspore.dataset as ds
@@ -120,9 +120,7 @@ def resnet50_train(args):
     set_context(mode=GRAPH_MODE, device_target="Ascend", save_graphs=False)
     set_context(device_id=device_id)
     if device_num > 1:
-        set_auto_parallel_context(device_num=device_num,
-                                          parallel_mode=ParallelMode.DATA_PARALLEL,
-                                          gradients_mean=True)
+        set_auto_parallel_context(device_num=device_num, parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
         init()
         local_data_path = os.path.join(local_data_path, str(device_id))
 

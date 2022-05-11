@@ -22,7 +22,7 @@ MindSpore 的模型训练和推理的总体执行流程，基本与主流的 AI 
     from src.dataset import create_dataset
     from src.lenet import LeNet
     from mindspore import set_context, GRAPH_MODE, Model
-    from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
+    from mindspore import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
     from mindspore.nn import Accuracy
 
     # set context, including device type, device number...

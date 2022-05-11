@@ -306,7 +306,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
 ```python
 from mindspore import ParallelMode, Model, set_context, GRAPH_MODE, set_auto_parallel_context
 from mindspore.nn import Momentum
-from mindspore.train.callback import LossMonitor
+from mindspore import LossMonitor
 from resnet import resnet50
 
 device_id = int(os.getenv('DEVICE_ID'))
@@ -566,7 +566,7 @@ bash run_cluster.sh /path/dataset /path/rank_table.json 16 8
 自动并行模式（Auto Parallel）下模型参数的保存和加载与单卡用法基本相同，只需在本教程训练网络步骤中的`test_train_cifar`方法中添加配置`CheckpointConfig`和`ModelCheckpoint`，即可实现模型参数的保存。需要注意的是，并行模式下需要对每张卡上运行的脚本指定不同的checkpoint保存路径，防止读写文件时发生冲突，具体代码如下：
 
 ```python
-from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
+from mindspore import ModelCheckpoint, CheckpointConfig
 from mindspore import set_auto_parallel_context, ParallelMode
 
 def test_train_cifar(epoch_size=10):

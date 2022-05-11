@@ -43,9 +43,9 @@ from easydict import EasyDict as edict
 
 import mindspore.nn as nn
 from mindspore import load_checkpoint, load_param_into_net, set_context, GRAPH_MODE
-from mindspore.train.callback import ModelCheckpoint
-from mindspore.train.callback import CheckpointConfig
-from mindspore.train.callback import LossMonitor
+from mindspore import ModelCheckpoint
+from mindspore import CheckpointConfig
+from mindspore import LossMonitor
 from mindspore.nn import Accuracy
 import mindspore.dataset as ds
 import mindspore.dataset.vision.c_transforms as CV

@@ -12,7 +12,7 @@ The process of Network Debugging is divided into the following steps：
 
 1. The network process is successfully debugged with no error during the whole process of network execution, proper output of loss value, and normal completion of parameter update.
 
-   In general, if you use the `model.train` interface to execute a step completely without receiving an error, it means that it is executed normally and completed the parameter update; if you need to confirm accurately, you can save the checkpoint file for two consecutive steps by using the parameter `save_checkpoint_ steps=1` in `mindspore.train.callback.CheckpointConfig`, or use the `save_checkpoint` interface to save the Checkpoint file directly, and then print the weight values in the Checkpoint file with the following code to see if the weights of the two steps have changed. Finally, the update is completed.
+   In general, if you use the `model.train` interface to execute a step completely without receiving an error, it means that it is executed normally and completed the parameter update; if you need to confirm accurately, you can save the checkpoint file for two consecutive steps by using the parameter `save_checkpoint_ steps=1` in `mindspore.CheckpointConfig`, or use the `save_checkpoint` interface to save the Checkpoint file directly, and then print the weight values in the Checkpoint file with the following code to see if the weights of the two steps have changed. Finally, the update is completed.
 
    ```python
    import mindspore

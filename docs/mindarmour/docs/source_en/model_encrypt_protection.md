@@ -16,7 +16,7 @@ The following uses an example to describe how to encrypt, export, decrypt, and l
 Currently, MindSpore supports the use of the callback mechanism to save model parameters during training. You can configure the encryption key and encryption mode in the `CheckpointConfig` object and transfer them to the `ModelCheckpoint` to enable encryption protection for the parameter file. The configuration procedure is as follows:
 
 ```python
-from mindspore.train.callback import CheckpointConfig, ModelCheckpoint
+from mindspore import CheckpointConfig, ModelCheckpoint
 
 config_ck = CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10, enc_key=b'0123456789ABCDEF', enc_mode='AES-GCM')
 ckpoint_cb = ModelCheckpoint(prefix='lenet_enc', directory=None, config=config_ck)

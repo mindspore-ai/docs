@@ -87,7 +87,7 @@ During model training, you can use the `callbacks` parameter in `model.train` to
 You can set `CheckpointConfig` to configure the Checkpoint policy as required. The following describes the usage:
 
 ```python
-from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
+from mindspore import ModelCheckpoint, CheckpointConfig
 
 # Set the value of epoch_num.
 epoch_num = 5

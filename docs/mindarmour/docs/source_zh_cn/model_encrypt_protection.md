@@ -16,7 +16,7 @@ MindSpore框架提供通过加密对模型文件进行保护的功能，使用�
 目前MindSpore支持用Callback机制在训练过程中保存模型参数，用户可以在`CheckpointConfig`对象中配置加密密钥和加密模式，并将其传入`ModelCheckpoint`来启用参数文件的加密保护。具体配置方法如下：
 
 ```python
-from mindspore.train.callback import CheckpointConfig, ModelCheckpoint
+from mindspore import CheckpointConfig, ModelCheckpoint
 
 config_ck = CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10, enc_key=b'0123456789ABCDEF', enc_mode='AES-GCM')
 ckpoint_cb = ModelCheckpoint(prefix='lenet_enc', directory=None, config=config_ck)

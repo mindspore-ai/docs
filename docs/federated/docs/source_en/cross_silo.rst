@@ -1,5 +1,5 @@
 Cross-Silo
 ===========
 
-.. autoclass:: mindspore.train.callback.FederatedLearningManager
+.. autoclass:: mindspore.FederatedLearningManager
     :members:

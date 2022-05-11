@@ -26,7 +26,7 @@ from mindspore.nn import SoftmaxCrossEntropyWithLogits
 from mindspore.nn import Accuracy
 from mindspore import Model
 from mindspore import save_checkpoint, load_checkpoint, load_param_into_net
-from mindspore.train.callback import CheckpointConfig, ModelCheckpoint, LossMonitor
+from mindspore import CheckpointConfig, ModelCheckpoint, LossMonitor
 from mindspore.common.initializer import Normal
 
 

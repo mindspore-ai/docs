@@ -24,8 +24,8 @@ from mindspore import Model
 from mindspore.nn import SoftmaxCrossEntropyWithLogits
 import mindspore.dataset as ds
 import mindspore.communication as D
-from mindspore.train.callback import LossMonitor
-from mindspore.train.callback import ModelCheckpoint
+from mindspore import LossMonitor
+from mindspore import ModelCheckpoint
 
 
 step_per_epoch = 4
@@ -70,7 +70,7 @@ if __name__ == "__main__":
     D.init()
     rank = D.get_rank()
     set_auto_parallel_context(parallel_mode="auto_parallel", search_mode="sharding_propagation",
-                                      device_num=8, full_batch=True)
+                              device_num=8, full_batch=True)
 
     np.random.seed(1)
     input_data = np.random.rand(64, 64).astype(np.float32)

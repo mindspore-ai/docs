@@ -113,7 +113,7 @@ To enable pipeline parallelism, you need to add the following configurations to 
 ```python
 from mindspore import Model, nn, set_auto_parallel_context, ParallelMode
 from mindspore.nn import Momentum
-from mindspore.train.callback import LossMonitor
+from mindspore import LossMonitor
 from resnet import resnet50
 
 

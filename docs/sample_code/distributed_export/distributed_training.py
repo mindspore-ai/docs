@@ -20,7 +20,7 @@ from dataset import FakeData
 from net import Net
 from mindspore import Model, ParallelMode, GRAPH_MODE, set_context, set_auto_parallel_context, \
     reset_auto_parallel_context
-from mindspore.train.callback import CheckpointConfig, ModelCheckpoint
+from mindspore import CheckpointConfig, ModelCheckpoint
 from mindspore.nn import Momentum, SoftmaxCrossEntropyWithLogits
 
 
