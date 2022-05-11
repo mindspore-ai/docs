@@ -14,11 +14,11 @@
 
 ### 调试过程
 
-使用Dump来帮助调试分为两个步骤：1、数据准备；2、数据分析。
+使用Dump来帮助调试分为两个步骤：1、数据准备；2、数据分析。d
 
 #### 数据准备
 
-数据准备阶段使用同步Dump或异步Dump来生成Dump数据。使用方法详见[同步Dump操作步骤](#id7)和[异步Dump操作步骤](#id12)。
+数据准备阶段使用同步Dump或异步Dump来生成Dump数据。使用方法详见[同步Dump操作步骤](#同步dump操作步骤)和[异步Dump操作步骤](#异步dump操作步骤)。
 
 在准备数据时，您可以参考以下最佳实践：
 
@@ -33,15 +33,15 @@
 
 1. 从脚本找到对应的算子
 
-    使用Dump功能将自动生成最终执行图的IR文件（IR文件中包含了算子全名，和算子在计算图中输入和输出的依赖，也包含从算子到相应脚本代码的Trace信息)，IR文件可以用`vi`命令查看，Dump功能的配置见[同步Dump操作步骤](#id7)和[异步Dump操作步骤](#id12)，Dump输出的目录结构见[同步Dump数据对象目录](#id8)和[异步Dump数据对象目录](#id13)。然后通过图文件找到脚本中代码对应的算子，参考[同步Dump数据分析样例](#id10)和[异步Dump数据数据分析样例](#id15)。
+    使用Dump功能将自动生成最终执行图的IR文件（IR文件中包含了算子全名，和算子在计算图中输入和输出的依赖，也包含从算子到相应脚本代码的Trace信息)，IR文件可以用`vi`命令查看，Dump功能的配置见[同步Dump操作步骤](#同步dump操作步骤)和[异步Dump操作步骤](#异步dump操作步骤)，Dump输出的目录结构见[同步Dump数据对象目录](#同步dump数据对象目录)和[异步Dump数据对象目录](#异步dump数据对象目录)。然后通过图文件找到脚本中代码对应的算子，参考[同步Dump数据分析样例](#同步dump数据分析样例)和[异步Dump数据数据分析样例](#异步dump数据数据分析样例)。
 
 2. 从算子到Dump数据
 
-    在了解脚本和算子的映射关系后，可以确定想要分析的算子名称，从而找到算子对应的dump文件，参考[同步Dump数据对象目录](#id8)和[异步Dump数据对象目录](#id13)。
+    在了解脚本和算子的映射关系后，可以确定想要分析的算子名称，从而找到算子对应的dump文件，参考[同步Dump数据对象目录](#同步dump数据对象目录)和[异步Dump数据对象目录](#异步dump数据对象目录)。
 
 3. 分析Dump数据
 
-    通过解析Dump数据，可以与其他第三方框架进行对比。同步Dump数据格式参考[同步Dump数据文件介绍](#id9)，异步Dump数据格式参考[异步Dump数据文件介绍](#id14)。
+    通过解析Dump数据，可以与其他第三方框架进行对比。同步Dump数据格式参考[同步Dump数据文件介绍](#同步dump数据文件介绍)，异步Dump数据格式参考[异步Dump数据文件介绍](#异步dump数据文件介绍)。
 
 ### 适用场景
 
@@ -143,7 +143,7 @@ MindSpore提供了同步Dump与异步Dump两种模式：
 
     可以在训练脚本中设置`context.set_context(reserve_class_name_in_scope=False)`，避免Dump文件名称过长导致Dump数据文件生成失败。
 
-4. 通过`numpy.load`读取和解析同步Dump数据，参考[同步Dump数据文件介绍](#id9)。
+4. 通过`numpy.load`读取和解析同步Dump数据，参考[同步Dump数据文件介绍](#同步dump数据文件介绍。
 
 ### 同步Dump数据对象目录
 
@@ -408,7 +408,7 @@ numpy.load("Conv2D.Conv2D-op107.2.2.1623124369613540.output.0.DefaultFormat.npy"
     - `kernels`：算子的名称列表。开启IR保存开关`context.set_context(save_graphs=True)`并执行用例，从生成的`trace_code_graph_{graph_id}`IR文件中获取算子名称。`kernels`仅支持TBE算子、AiCPU算子、通信算子，若设置成通信算子的名称，将会Dump出通信算子的输入算子的数据。详细说明可以参照教程：[如何保存IR](https://www.mindspore.cn/tutorials/experts/zh-CN/r1.7/debug/mindir.html#如何保存ir)。
     - `support_device`：支持的设备，默认设置成0到7即可；在分布式训练场景下，需要dump个别设备上的数据，可以只在`support_device`中指定需要Dump的设备Id。
     - `op_debug_mode`：预留字段，设置为0。
-    - `file_format`: dump数据的文件类型，只支持`npy`和`bin`两种取值。设置成`npy`，则dump出的算子张量数据将为host侧格式的npy文件；设置成`bin`，则dump出的数据将为device侧格式的protobuf文件，需要借助转换工具进行处理，详细步骤请参考[异步Dump数据分析样例](#id15)。默认取值为`bin`。
+    - `file_format`: dump数据的文件类型，只支持`npy`和`bin`两种取值。设置成`npy`，则dump出的算子张量数据将为host侧格式的npy文件；设置成`bin`，则dump出的数据将为device侧格式的protobuf文件，需要借助转换工具进行处理，详细步骤请参考[异步Dump数据分析样例](#异步dump数据分析样例)。默认取值为`bin`。
 
 2. 设置数据Dump的环境变量。
 
@@ -431,7 +431,7 @@ numpy.load("Conv2D.Conv2D-op107.2.2.1623124369613540.output.0.DefaultFormat.npy"
 
    可以在训练脚本中设置`context.set_context(reserve_class_name_in_scope=False)`，避免Dump文件名称过长导致Dump数据文件生成失败。
 
-4. 参考[异步Dump数据分析样例](#id15)解析Dump数据文件。
+4. 参考[异步Dump数据分析样例](#异步dump数据分析样例)解析Dump数据文件。
 
 注意：
 
@@ -505,11 +505,11 @@ numpy.load("Conv2D.Conv2D-op107.2.2.1623124369613540.output.0.DefaultFormat.npy"
 
 Dump生成的原始数据文件也可以使用MindInsight的数据解析工具DumpParser解析，DumpParser的使用方式详见[DumpParser介绍](https://gitee.com/mindspore/mindinsight/tree/r1.7/mindinsight/parser) 。MindInsight解析出来的数据格式与同步dump的数据格式完全相同。
 
-若配置`file_format`值为`npy`，则启用异步dump生成的数据文件命名规则与同步Dump相同，可以参考[同步Dump数据文件介绍](#id9)。
+若配置`file_format`值为`npy`，则启用异步dump生成的数据文件命名规则与同步Dump相同，可以参考[同步Dump数据文件介绍](#同步dump数据文件介绍)。
 
-选项`saved_data`只有在`file_format`为"npy"的时候生效。如`saved_data`是"statistic"或者"full"。张量统计数据会落盘到`statistic.csv`。如`saved_data`是"tensor"或者"full"完整张量数据会落盘到`{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy`。`statistic.csv`的格式与同步Dump相同，可以参考[同步Dump数据文件介绍](#id9)
+选项`saved_data`只有在`file_format`为"npy"的时候生效。如`saved_data`是"statistic"或者"full"。张量统计数据会落盘到`statistic.csv`。如`saved_data`是"tensor"或者"full"完整张量数据会落盘到`{op_type}.{op_name}.{task_id}.{stream_id}.{timestamp}.{input_output_index}.{slot}.{format}.npy`。`statistic.csv`的格式与同步Dump相同，可以参考[同步Dump数据文件介绍](#同步dump数据文件介绍)
 
-异步Dump生成的常量数据文件，最终执行图文件和执行序文件命名规则与同步Dump相同，可以参考[同步Dump数据文件介绍](#id9)。
+异步Dump生成的常量数据文件，最终执行图文件和执行序文件命名规则与同步Dump相同，可以参考[同步Dump数据文件介绍](#同步dump数据文件介绍)。
 
 ### 异步Dump数据分析样例
 
