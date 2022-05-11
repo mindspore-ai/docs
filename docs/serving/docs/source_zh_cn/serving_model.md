@@ -242,7 +242,7 @@ if __name__ == '__main__':
 
 一个方法中的`Stage`数量不限制，每个`Stage`可以是模型或者是Python函数，我们可多次使用`add_stage`定义多模型组合的服务。
 
-需要注意的是，由于Python GIL的存在，并非Python任务的`Stage`越多性能越好，在MindSpore Serving服务器中，所有的Python任务在一个Python线程中被调度执行。如果需要提升Python任务的吞吐量，可以参考下文[多进程并发](#id10)。
+需要注意的是，由于Python GIL的存在，并非Python任务的`Stage`越多性能越好，在MindSpore Serving服务器中，所有的Python任务在一个Python线程中被调度执行。如果需要提升Python任务的吞吐量，可以参考下文[多进程并发](#多进程并发)。
 
 首先需要在各个模型版本目录中同时存在这两个模型文件，只有一个版本1时，模型配置文件目录结果如下图所示：
 
