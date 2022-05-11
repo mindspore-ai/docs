@@ -173,24 +173,6 @@ with open("../_custom/sphinx_builder_html", "r", encoding="utf8") as f:
 
 exec(source_code, sphinx_builder_html.__dict__)
 
-# Copy sourcefiles from mindspore repository to "../include/".
-ms_path = os.getenv("MS_PATH")
-if os.path.exists("../include"):
-    shutil.rmtree("../include")
-os.mkdir("../include")
-with open("./SourceFileNames.txt") as f:
-    contents = f.readlines()
-    for i in contents:
-        if i == "\n":
-            continue
-        name = i.strip().strip("\n")
-        if "*" in name:
-            files = glob.glob(os.path.join(ms_path, name))
-            for file in files:
-                shutil.copy(file, "../include/")
-        else:
-            shutil.copy(os.path.join(ms_path, name), "../include/")
-
 #Remove "MS_API" in classes.
 files_copyed = glob.glob("../include/*.h")
 for file in files_copyed:
