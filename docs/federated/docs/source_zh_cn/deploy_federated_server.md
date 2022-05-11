@@ -39,7 +39,7 @@ MindSpore联邦学习云侧集群支持在x86 CPU和GPU CUDA硬件平台上部�
 
 ## 定义模型
 
-为便于部署，MindSpore联邦学习的`Scheduler`和`Server`进程可以复用训练脚本，仅通过[参数配置](#id5)选择以不同的角色启动。
+为便于部署，MindSpore联邦学习的`Scheduler`和`Server`进程可以复用训练脚本，仅通过[参数配置](#参数配置)选择以不同的角色启动。
 
 本教程选择LeNet网络作为示例，具体的网络结构、损失函数和优化器定义请参考[LeNet网络样例脚本](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/lenet/lenet.py)。
 

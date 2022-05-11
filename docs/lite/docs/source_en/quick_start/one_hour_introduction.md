@@ -946,7 +946,7 @@ Table 3: converter_lite.exe parameters
 
 #### Netron Visualization
 
-For details, see [Netron Visualization](#id3) in Linux.
+For details, see [Netron Visualization](#netron-visualization) in Linux.
 
 ### Model Inference
 
