@@ -163,8 +163,8 @@ After the IMDB dataset is loaded to the memory and built as an iteration object,
 import mindspore.dataset as dataset
 
 def load_imdb(imdb_path):
-    imdb_train = dataset.GeneratorDataset(IMDBData(imdb_path, "train"), column_names=["text", "label"])
-    imdb_test = dataset.GeneratorDataset(IMDBData(imdb_path, "test"), column_names=["text", "label"])
+    imdb_train = dataset.GeneratorDataset(IMDBData(imdb_path, "train"), column_names=["text", "label"], shuffle=True)
+    imdb_test = dataset.GeneratorDataset(IMDBData(imdb_path, "test"), column_names=["text", "label"], shuffle=False)
     return imdb_train, imdb_test
 ```
 
@@ -356,11 +356,13 @@ After the sentence feature is obtained through LSTM encoding, the sentence featu
 > The `sigmoid` operation is performed after the Dense layer to normalize the predicted value to the `[0,1]` range. The normalized value is used together with `BCELoss`(BinaryCrossEntropyLoss) to calculate the binary cross entropy loss.
 
 ```python
+import math
 import mindspore
 import mindspore.nn as nn
 import mindspore.numpy as mnp
 import mindspore.ops as ops
 from mindspore import Tensor
+from mindspore.common.initializer import Uniform, HeUniform
 
 class RNN(nn.Cell):
     def __init__(self, embeddings, hidden_dim, output_dim, n_layers,
@@ -374,7 +376,9 @@ class RNN(nn.Cell):
                            bidirectional=bidirectional,
                            dropout=dropout,
                            batch_first=True)
-        self.fc = nn.Dense(hidden_dim * 2, output_dim)
+        weight_init = HeUniform(math.sqrt(5))
+        bias_init = Uniform(1 / math.sqrt(hidden_dim * 2))
+        self.fc = nn.Dense(hidden_dim * 2, output_dim, weight_init=weight_init, bias_init=bias_init)
         self.dropout = nn.Dropout(1 - dropout)
         self.sigmoid = ops.Sigmoid()
 
