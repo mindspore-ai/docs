@@ -15,6 +15,8 @@
 >你可以在这里找到[Android图像分割模型](https://download.mindspore.cn/model_zoo/official/lite/mobile_segment_lite/segment_model.ms)。
 >
 > 本示例中讲述了Java API的应用方法。
+>
+> 本应用开发环境为Windows。
 
 我们提供了本示例对应的APK文件，你可扫描下方的二维码或直接下载[APK文件](https://download.mindspore.cn/model_zoo/official/lite/apk/segmentation/image_segmentation.apk)，并部署到Android设备后使用。
 

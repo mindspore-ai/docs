@@ -15,6 +15,8 @@ This tutorial demonstrates the on-device deployment process based on the image s
 > Click [here](https://download.mindspore.cn/model_zoo/official/lite/mobile_segment_lite/segment_model.ms) to download the Android image segmentation model.
 >
 > This example describes how to use Java APIs.
+>
+> The application development environment is Windows.
 
 Scan the QR code below or directly download the [APK file](https://download.mindspore.cn/model_zoo/official/lite/apk/segmentation/image_segmentation.apk) corresponding to this sample, and deploy it on an Android device.
 

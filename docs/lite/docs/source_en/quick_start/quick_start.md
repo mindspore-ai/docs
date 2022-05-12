@@ -15,6 +15,8 @@ This tutorial demonstrates the on-device deployment process based on the image c
 > Click to find [Android image classification models](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/1.5) and [image classification sample code](https://gitee.com/mindspore/vision/tree/master/android).
 >
 > In this example, we explain how to use C++ API. Besides, MindSpore Lite also supports Java API. Please refer to [image segmentation demo](https://gitee.com/mindspore/models/tree/master/official/lite/image_segmentation) to learn more about Java API.
+>
+> The application development environment is Windows.
 
 We provide the APK file corresponding to this example. You can scan the QR code below or download the [APK file](https://download.mindspore.cn/vision/android/mindvision-0.1.0.apk) directly, and deploy it to Android devices for use.
 
