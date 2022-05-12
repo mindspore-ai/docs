@@ -10,17 +10,13 @@ Currently, most deep learning models are black-box models with good performance 
 Typical Application Scenarios
 ------------------------------
 
-1. `Using Explainers <https://www.mindspore.cn/xai/docs/en/master/using_explainers.html>`_
+1. `Using Explainers <https://www.mindspore.cn/xai/docs/en/master/using_cv_explainers.html>`_
 
    Explain image classification models using saliency maps.
 
-2. `Benchmarks <https://www.mindspore.cn/xai/docs/en/master/using_benchmarks.html>`_
+2. `Benchmarks <https://www.mindspore.cn/xai/docs/en/master/using_cv_benchmarks.html>`_
 
-   Scores explainers.
-
-3. `MindInsight <https://www.mindspore.cn/xai/docs/en/master/using_mindinsight.html>`_
-
-   Visualize the results from Explainers and Benchmarks.
+   Scores CV explainers.
 
 .. toctree::
    :glob:
@@ -29,20 +25,21 @@ Typical Application Scenarios
 
    installation
 
-
 .. toctree::
    :glob:
    :maxdepth: 1
    :caption: Guide
 
-   using_explainers
-   using_benchmarks
-   using_mindinsight
+   using_cv_explainers
+   using_cv_benchmarks
+   using_tabular_explainers
+   using_tabsim
+   using_tbnet
 
 .. toctree::
    :maxdepth: 1
    :caption: API References
 
-   mindspore_xai.runner
-   mindspore_xai.explanation
+   mindspore_xai.explainer
    mindspore_xai.benchmark
+   mindspore_xai.tool

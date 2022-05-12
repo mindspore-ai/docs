@@ -6,8 +6,8 @@
 
 - 操作系統: EulerOS-aarch64、CentOS-aarch64、CentOS-x86、Ubuntu-aarch64 或 Ubuntu-x86
 - 硬件平台: Ascend 910 或 GPU CUDA 10.1、11.1
-- Python 3.7.5 或以上
-- MindSpore 1.4 或以上
+- Python 3.7.5 或 3.9.0
+- MindSpore 1.7 或以上
 
 ## pip安装
 
@@ -53,7 +53,3 @@ pip install mindspore_xai-{version}-py3-none-any.whl
 import mindspore_xai
 print(mindspore_xai.__version__)
 ```
-
-## 注意事项
-
-[MindInsight](https://www.mindspore.cn/mindinsight) 是一个可选的XAI可视化工具，请参阅[安裝教程](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/mindinsight_install.html) 。

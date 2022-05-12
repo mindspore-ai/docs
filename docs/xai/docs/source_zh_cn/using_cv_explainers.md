@@ -1,8 +1,8 @@
-# 使用解释器
+# 使用 CV 解释器
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_zh_cn/using_explainers.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_zh_cn/using_cv_explainers.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
-## 什么是解释器
+## 什么是 CV 解释器
 
 解释器是一些用来解释AI模型决策的算法，目前 MindSpore XAI 为图片分类场景提供7个解释器算法。解释器输出热力图作为解释，它们代表了每个原图象素的重要性，其中高亮区域为对模型决策起重要作用的部分。
 
@@ -48,10 +48,9 @@ xai/examples/
 ├── common/
 │    ├── dataset.py
 │    └── resnet.py
-├── using_explainers.py
+├── using_cv_explainers.py
 ├── using_rise_plus.py
-├── using_benchmarks.py
-└── using_mindinsight.py
+└── using_cv_benchmarks.py
 ```
 
 - `xai_examples_data/`：解压缩后的用例数据包。
@@ -60,14 +59,13 @@ xai/examples/
 - `xai_examples_data/train`： 训练数据。
 - `common/dataset.py`： 数据加载器。
 - `common/resnet.py`： ResNet 模型架构。
-- `using_explainers.py`： 解释器用例。
+- `using_cv_explainers.py`： 解释器用例。
 - `using_rise_plus.py`： RISEPlus 解释器用例，它的使用方法跟其他解释器不同。
-- `using_benchmarks.py`： 度量方法用例。
-- `using_mindinsight.py`： MindInsight 可视化用例。
+- `using_cv_benchmarks.py`： 度量方法用例。
 
 ### 准备 Python 环境
 
-以下教程参考了 [using_explainers.py](https://gitee.com/mindspore/xai/blob/master/examples/using_explainers.py) 。
+以下教程的完整代码：[using_cv_explainers.py](https://gitee.com/mindspore/xai/blob/master/examples/using_cv_explainers.py) 。
 
 下载用例数据包后，我们要加载一个训练好的分类器和一张要进行推理及解释的图片：
 
@@ -99,16 +97,18 @@ boat_image = load_image_tensor("xai_examples_data/test/boat.jpg")
 ```python
 import mindspore as ms
 from mindspore import Tensor
-from mindspore_xai.explanation import GradCAM
+from mindspore_xai.explainer import GradCAM
 
 # 通常指定最后一层的卷积层
 grad_cam = GradCAM(net, layer="layer4")
 
-# 5 是'boat'类的ID
-saliency = grad_cam(boat_image, targets=5)
+# 3 是'boat'类的ID
+saliency = grad_cam(boat_image, targets=3)
 ```
 
 如果输入的是一个 1xCx224x224 的图片Tensor，那返回的`saliency`就是一个 1x1x224x224 的热力图Tensor。
+
+![grad_cam_saliency](./images/grad_cam_saliency.png)
 
 ### 批次解释
 
@@ -120,7 +120,7 @@ from dataset import load_dataset
 test_ds = load_dataset('xai_examples_data/test').batch(4)
 
 for images, labels in test_ds:
-    saliencies = grad_cam(images, targets=Tensor([5, 5, 5, 5], dtype=ms.int32))
+    saliencies = grad_cam(images, targets=Tensor([3, 3, 3, 3], dtype=ms.int32))
     # 其他用户操作 ...
 ```
 
@@ -132,7 +132,7 @@ for images, labels in test_ds:
 
 ## 使用 RISEPlus
 
-以下教程参考了 [using_rise_plus.py](https://gitee.com/mindspore/xai/blob/master/examples/using_rise_plus.py) 。
+以下教程的完整代码：[using_rise_plus.py](https://gitee.com/mindspore/xai/blob/master/examples/using_rise_plus.py) 。
 
 `RISEPlus`是一个基于`RISE`的解释器，它引入了分布外侦测器，解决了`RISE`在遇到分布外(OoD)样本时产生的热力图劣化问题。
 
@@ -140,9 +140,10 @@ for images, labels in test_ds:
 
 ```python
 # 必须先把当前目录切换到 xai/examples/
-from mindspore import save_checkpoint, load_checkpoint, load_param_into_net, set_context, PYNATIVE_MODE
+from mindspore import set_context, save_checkpoint, load_checkpoint, load_param_into_net, PYNATIVE_MODE
 from mindspore.nn import Softmax, SoftmaxCrossEntropyWithLogits
-from mindspore_xai.explanation import RISEPlus, OoDNet
+from mindspore_xai.tool.cv import OoDNet
+from mindspore_xai.explainer import RISEPlus
 from common.dataset import load_dataset, load_image_tensor
 from common.resnet import resnet50
 
@@ -227,7 +228,9 @@ load_param_into_net(ood_net)
 
 rise_plus = RISEPlus(ood_net=ood_net, network=net, activation_fn=Softmax())
 boat_image = load_image_tensor("xai_examples_data/test/boat.jpg")
-saliency = rise_plus(boat_image, targets=5)
+saliency = rise_plus(boat_image, targets=3)
 ```
 
 如果输入的是一个 1xCx224x224 的图片Tensor，那返回的`saliency`就是一个 1x1x224x224 的热力图Tensor。
+
+![rise_plus_saliency](./images/rise_plus_saliency.png)

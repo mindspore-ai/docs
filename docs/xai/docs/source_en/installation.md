@@ -6,8 +6,8 @@
 
 - OS: EulerOS-aarch64, CentOS-aarch64, CentOS-x86, Ubuntu-aarch64 or Ubuntu-x86
 - Device: Ascend 910 or GPU CUDA 10.1, 11.1
-- Python 3.7.5 or above
-- MindSpore 1.4 or above
+- Python 3.7.5 or 3.9.0
+- MindSpore 1.7 or above
 
 ## Installing by pip
 
@@ -53,7 +53,3 @@ Upon successful installation, importing 'mindspore_xai' module in Python will ca
 import mindspore_xai
 print(mindspore_xai.__version__)
 ```
-
-## Note
-
-[MindInsight](https://www.mindspore.cn/mindinsight/en) is an optional tool for visualizing the model explanation from XAI. Please refer to [Installation](https://www.mindspore.cn/mindinsight/docs/en/master/mindinsight_install.html) for more details.

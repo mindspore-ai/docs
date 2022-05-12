@@ -1,8 +1,8 @@
-# Using Explainers
+# Using CV Explainers
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_en/using_explainers.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_en/using_cv_explainers.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
-## What are Explainers
+## What are CV Explainers
 
 Explainers are algorithms explaining the decisions made by AI models. MindSpore XAI currently provides 7 explainers for image classification scenario. Saliency maps (or heatmaps) are the outputs, their brightness represents the importance of the corresponding regions on the original image.
 
@@ -48,10 +48,9 @@ xai/examples/
 ├── common/
 │    ├── dataset.py
 │    └── resnet.py
-├── using_explainers.py
+├── using_cv_explainers.py
 ├── using_rise_plus.py
-├── using_benchmarks.py
-└── using_mindinsight.py
+└── using_cv_benchmarks.py
 ```
 
 - `xai_examples_data/`: The extracted data package.
@@ -60,14 +59,13 @@ xai/examples/
 - `xai_examples_data/train`: Training dataset.
 - `common/dataset.py`: Dataset loader.
 - `common/resnet.py`: ResNet model definitions.
-- `using_explainers.py`: Example of using explainers.
+- `using_cv_explainers.py`: Example of using explainers.
 - `using_rise_plus.py`: Example of using RISEPlus explainer.
-- `using_benchmarks.py`: Example of using benchmarks.
-- `using_mindinsight.py`: Example of using MindInsight for visualizations.
+- `using_cv_benchmarks.py`: Example of using benchmarks.
 
 ### Preparing Python Environment
 
-The tutorial below is referencing [using_explainers.py](https://gitee.com/mindspore/xai/blob/master/examples/using_explainers.py).
+The complete code of the tutorial below is [using_cv_explainers.py](https://gitee.com/mindspore/xai/blob/master/examples/using_cv_explainers.py).
 
 In order to explain an image classification predication, we have to have a trained CNN network (`nn.Cell`) and an image to be examined:
 
@@ -99,16 +97,18 @@ boat_image = load_image_tensor("xai_examples_data/test/boat.jpg")
 ```python
 import mindspore as ms
 from mindspore import Tensor
-from mindspore_xai.explanation import GradCAM
+from mindspore_xai.explainer import GradCAM
 
 # usually specify the last convolutional layer
 grad_cam = GradCAM(net, layer="layer4")
 
-# 5 is the class id of 'boat'
-saliency = grad_cam(boat_image, targets=5)
+# 3 is the class id of 'boat'
+saliency = grad_cam(boat_image, targets=3)
 ```
 
 The returned `saliency` is a 1x1x224x224 tensor for an 1xCx224x224 image tensor, which stores all pixel importances (range:[0.0, 1.0]) to the classification decision of 'boat'. Users may specify any class to be explained.
+
+![grad_cam_saliency](./images/grad_cam_saliency.png)
 
 ### Batch Explanation
 
@@ -120,7 +120,7 @@ from common.dataset import load_dataset
 test_ds = load_dataset('xai_examples_data/test').batch(4)
 
 for images, labels in test_ds:
-    saliencies = grad_cam(images, targets=Tensor([5, 5, 5, 5], dtype=ms.int32))
+    saliencies = grad_cam(images, targets=Tensor([3, 3, 3, 3], dtype=ms.int32))
     # other custom operations ...
 ```
 
@@ -132,7 +132,7 @@ The ways of using other explainers are very similar to `GradCAM`, except `RISEPl
 
 ## Using RISEPlus
 
-The tutorial below is referencing [using_rise_plus.py](https://gitee.com/mindspore/xai/blob/master/examples/using_rise_plus.py).
+The complete code of the tutorial below is [using_rise_plus.py](https://gitee.com/mindspore/xai/blob/master/examples/using_rise_plus.py).
 
 `RISEPlus` is based on `RISE` with an introduction of Out-of-Distribution(OoD) detector. It solves the degeneration problem of `RISE` on samples that the classifier had never seem the similar in training.
 
@@ -140,9 +140,10 @@ First, we need to train an OoD detector(`OoDNet`) with the classifier training d
 
 ```python
 # have to change the current directory to xai/examples/ first
-from mindspore import save_checkpoint, load_checkpoint, load_param_into_net, set_context, PYNATIVE_MODE
+from mindspore import set_context, save_checkpoint, load_checkpoint, load_param_into_net, PYNATIVE_MODE
 from mindspore.nn import Softmax, SoftmaxCrossEntropyWithLogits
-from mindspore_xai.explanation import OoDNet, RISEPlus, OoDNet
+from mindspore_xai.tool.cv import OoDNet
+from mindspore_xai.explainer import RISEPlus
 from common.dataset import load_dataset
 from common.resnet import resnet50
 
@@ -226,7 +227,9 @@ param_dict = load_checkpoint('ood_net.ckpt')
 load_param_into_net(ood_net, param_dict)
 
 rise_plus = RISEPlus(ood_net=ood_net, network=net, activation_fn=Softmax())
-saliency = rise_plus(boat_image, targets=5)
+saliency = rise_plus(boat_image, targets=3)
 ```
 
 The returned `saliency` is an 1x1x224x224 tensor for an 1xCx224x224 image tensor.
+
+![rise_plus_saliency](./images/rise_plus_saliency.png)

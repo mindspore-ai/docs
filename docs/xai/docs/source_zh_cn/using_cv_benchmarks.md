@@ -1,23 +1,23 @@
-# 使用度量方法
+# 使用 CV 度量方法
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_zh_cn/using_benchmarks.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_zh_cn/using_cv_benchmarks.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
-## 什么是度量方法
+## 什么是 CV 度量方法
 
 度量方法是用来为热力图好坏评分的一些算法，目前 MindSpore XAI 为图片分类场景提供四个度量方法：`Robustness`、`Faithfulness`、`ClassSensitivity`和`Localization`。
 
 ## 准备
 
-以下教程参考了 [using_benchmarks.py](https://gitee.com/mindspore/xai/blob/master/examples/using_benchmarks.py) 。
+以下教程的完整代码：[using_cv_benchmarks.py](https://gitee.com/mindspore/xai/blob/master/examples/using_cv_benchmarks.py) 。
 
-请参阅 [下载教程数据集及模型](https://www.mindspore.cn/xai/docs/zh-CN/master/using_explainers.html#下载教程数据集及模型) 以下载所有本教程所需的文件。
+请参阅 [下载教程数据集及模型](https://www.mindspore.cn/xai/docs/zh-CN/master/using_cv_explainers.html#下载教程数据集及模型) 以下载所有本教程所需的文件。
 
 下载教程数据集及模型后，我们要加载一张样本图片，一个训练好的分类器，一个解释器和一张热力图(可选)：
 
 ```python
 # 必须先把当前目录切换到 xai/examples/
 from mindspore import load_checkpoint, load_param_into_net, set_context, PYNATIVE_MODE
-from mindspore_xai.explanation import GradCAM
+from mindspore_xai.explainer import GradCAM
 
 from common.resnet import resnet50
 from common.dataset import load_image_tensor
@@ -39,8 +39,8 @@ boat_image = load_image_tensor('xai_examples_data/test/boat.jpg')
 # 解释器
 grad_cam = GradCAM(net, layer='layer4')
 
-# 5 是'boat'类的ID
-saliency = grad_cam(boat_image, targets=5)
+# 3 是 'boat' 类的ID
+saliency = grad_cam(boat_image, targets=3)
 ```
 
 ## 使用 Robustness
@@ -49,12 +49,12 @@ saliency = grad_cam(boat_image, targets=5)
 
 ```python
 from mindspore.nn import Softmax
-from mindspore_xai.explanation import Robustness
+from mindspore_xai.benchmark import Robustness
 
 # 分类器使用 Softmax 作为激活函数
 robustness = Robustness(num_classes, activation_fn=Softmax())
 # 可以省略 'saliency' 参数
-score = robustness.evaluate(grad_cam, boat_image, targets=5, saliency=saliency)
+score = robustness.evaluate(grad_cam, boat_image, targets=3, saliency=saliency)
 ```
 
 如果输入的是一个 1xCx224x224 的图片Tensor，那返回的`score`就是一个只有一个数值的一维Tensor 。
@@ -71,7 +71,7 @@ score = robustness.evaluate(grad_cam, boat_image, targets=5, saliency=saliency)
 import numpy as np
 import mindspore as ms
 from mindspore import Tensor
-from mindspore_xai.explanation import Localization
+from mindspore_xai.benchmark import Localization
 
 # 左上角：80,66 到 右下角：223,196 是一条船的界框
 mask = np.zeros([1, 1, 224, 224])
@@ -81,5 +81,5 @@ mask = Tensor(mask, dtype=ms.float32)
 
 localization = Localization(num_classes)
 
-score = localization.evaluate(grad_cam, boat_image, targets=5, mask=mask)
+score = localization.evaluate(grad_cam, boat_image, targets=3, mask=mask)
 ```
