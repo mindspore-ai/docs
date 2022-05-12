@@ -10,15 +10,15 @@
 
 1. 选择图像分类模型。
 2. 将模型转换成MindSpore Lite模型格式。
-3. 在端侧使用MindSpore Lite推理模型。详细说明如何在端侧利用MindSpore Lite C++ API（Android JNI）和MindSpore Lite图像分类模型完成端侧推理，实现对设备摄像头捕获的内容进行分类，并在APP图像预览界面中，显示出最可能的分类结果。
+3. 在端侧使用MindSpore Lite推理模型。详细说明如何在端侧利用MindSpore Lite C++ API（Android JNI）和MindSpore Lite图像分类模型完成端侧推理，实现对单张图片进行分类，显示出最可能的分类结果。
 
-> 你可以在这里找到[Android图像分类模型](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/1.5)和[图像分类示例代码](https://gitee.com/mindspore/models/tree/master/official/lite/image_classification)。
+> 你可以在这里找到[Android图像分类模型](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/1.5)和[图像分类示例代码](https://gitee.com/mindspore/vision/tree/r0.1/android)。
 >
-> 本示例中讲述了C++ API的应用方法，此外MindSpore Lite还支持Java API。关于Java API的使用请参考[图像分割demo](https://gitee.com/mindspore/models/tree/master/official/lite/image_segmentation)。
+> 本示例中讲述了C++ API的应用方法，此外MindSpore Lite还支持Java API。关于Java API的使用请参考[图像分割demo](https://gitee.com/mindspore/models/tree/r1.7/official/lite/image_segmentation)。
 
-我们提供了本示例对应的APK文件，你可扫描下方的二维码或直接下载[APK文件](https://download.mindspore.cn/model_zoo/official/lite/apk/label/Classification.apk)，并部署到Android设备后使用。
+我们提供了本示例对应的APK文件，你可扫描下方的二维码或直接下载[APK文件](https://download.mindspore.cn/vision/android/mindvision-0.1.0.apk)，并部署到Android设备后使用。
 
-![apk](../images/classification_apk.png)
+![apk](../images/vision_apk.png)
 
 ## 选择模型
 
@@ -72,19 +72,19 @@ call converter_lite --fmk=MINDIR --modelFile=mobilenetv2.mindir --outputFile=mob
 
     手机需开启“USB调试模式”，Android Studio才能识别到手机。 华为手机一般在`设置->系统和更新->开发人员选项->USB调试`中打开“USB调试模式”。
 
-3. 在Android设备上，点击“继续安装”，安装完即可查看到设备摄像头捕获的内容和推理结果。
+3. 打开APP后，在首页点击分类模块，即可点击中间按钮进行拍照获取图片，或者点击上侧栏的图像按钮选择进行图片相册用于图像分类功能。
 
-    ![install](../images/lite_quick_start_install.png)
+    ![install](../images/app1.png)
 
-    识别结果如下图所示。
+    在默认情况下，MindSpore Vision分类模块内置了一个通用的AI网络模型对图像进行识别分类。也可以[自定义模型](https://mindspore.cn/tutorials/zh-CN/master/beginner/infer.html)在APP上进行调试。
 
-    ![result](../images/lite_quick_start_app_result.png)
+    ![result](../images/app2.png)
 
 ## 示例程序详细说明  
 
-本端侧图像分类Android示例程序分为JAVA层和JNI层，其中，JAVA层主要通过Android Camera 2 API实现摄像头获取图像帧，以及相应的图像处理等功能；JNI层在[Runtime](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/runtime.html)中完成模型推理的过程。
+本端侧图像分类Android示例程序分为JAVA层和JNI层。其中，JAVA层主要完成Android页面的绘制功能以及通过拍照或打开手机相册获取一张图片对其后续的推理操作；JNI层在[Runtime](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/runtime.html)中完成模型推理的过程。
 
-> 此处详细说明示例程序的JNI层实现，JAVA层运用Android Camera 2 API实现开启设备摄像头以及图像帧处理等功能，需读者具备一定的Android开发基础知识。
+> 此处详细说明示例程序的JNI层实现，JAVA层页面绘制功能实现以及图像帧处理等功能，需读者具备一定的Android开发基础知识。
 
 ### 示例程序结构
 
@@ -92,27 +92,31 @@ call converter_lite --fmk=MINDIR --modelFile=mobilenetv2.mindir --outputFile=mob
 app
 ├── src/main
 │   ├── assets # 资源文件
-|   |   └── model # 模型文件
-|   |       └── mobilenetv2.ms # 存放的模型文件
+|   |   └── mobilenetv2.ms # 存放的模型文件
 │   |
 │   ├── cpp # 模型加载和预测主要逻辑封装类
-|   |   ├── ..
-|   |   ├── mindspore-lite-{version}-android-{arch} # MindSpore Lite版本
-|   |   ├── MindSporeNetnative.cpp # MindSpore调用相关的JNI方法
-│   |   └── MindSporeNetnative.h # 头文件
-|   |   └── MsNetWork.cpp # MindSpore接口封装
+|   |   └── classification
+|   |       ├── CommonMindSporeNetnative.cpp # 通用MindSpore调用相关的JNI方法
+│   |       ├── CommonMindSporeNetnative.h # 头文件
+|   |       ├── CustomMindSporeNetnative.cpp # 自定义MindSpore调用相关的JNI方法
+│   |       ├── CustomMindSporeNetnative.h # 头文件
+|   |
+|   |   └── mindspore-lite-{version}-android-{arch} # MindSpore Lite版本
+|   |
+|   |   └── CMakeList.txt # cmake编译入口文件
+|   |
+|   |   └── MSNetWork.cpp # MindSpore接口封装
 │   |
 │   ├── java # java层应用代码
-│   │   └── com.mindspore.classification
-│   │       ├── gallery.classify # 图像处理及MindSpore JNI调用相关实现
+│   │   └── com.mindspore.vision
+│   │       ├── train # 图像处理及MindSpore JNI调用相关实现
 │   │       │   └── ...
-│   │       └── widget # 开启摄像头及绘制相关实现
+│   │       └── ui # 页面绘制拍照或获取相册图片操作
 │   │           └── ...
 │   │
 │   ├── res # 存放Android相关的资源文件
 │   └── AndroidManifest.xml # Android配置文件
 │
-├── CMakeList.txt # cmake编译入口文件
 │
 ├── build.gradle # 其他Android配置文件
 ├── download.gradle # 工程依赖文件下载
@@ -151,41 +155,38 @@ android{
 
 ```text
 # ============== Set MindSpore Dependencies. =============
-include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION})
-include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/runtime)
-include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/runtime/include)
-include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/runtime/include/dataset)
-include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/runtime/include/dataset/lite_cv)
-include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/runtime/include/schema)
-include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/runtime/include/ir/dtype)
-include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/runtime/third_party)
+include_directories(${CMAKE_SOURCE_DIR})
+include_directories(${CMAKE_SOURCE_DIR}/${MINDSPORELITE_VERSION})
+include_directories(${CMAKE_SOURCE_DIR}/${MINDSPORELITE_VERSION}/runtime/third_party)
+include_directories(${CMAKE_SOURCE_DIR}/${MINDSPORELITE_VERSION}/runtime/include)
+include_directories(${CMAKE_SOURCE_DIR}/${MINDSPORELITE_VERSION}/runtime/include/dataset)
+include_directories(${CMAKE_SOURCE_DIR}/${MINDSPORELITE_VERSION}/runtime/include/dataset/lite_cv)
+include_directories(${CMAKE_SOURCE_DIR}/${MINDSPORELITE_VERSION}/runtime)
+include_directories(${CMAKE_SOURCE_DIR}/${MINDSPORELITE_VERSION}/runtime/include/ir/dtype)
+include_directories(${CMAKE_SOURCE_DIR}/${MINDSPORELITE_VERSION}/runtime/include/schema)
 
 add_library(mindspore-lite SHARED IMPORTED)
 add_library(minddata-lite SHARED IMPORTED)
-add_library(libmindspore-lite-train SHARED IMPORTED)
 add_library(libjpeg SHARED IMPORTED)
 add_library(libturbojpeg SHARED IMPORTED)
 
 set_target_properties(mindspore-lite PROPERTIES IMPORTED_LOCATION
-        ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/runtime/lib/libmindspore-lite.so)
+        ${CMAKE_SOURCE_DIR}/${MINDSPORELITE_VERSION}/runtime/lib/libmindspore-lite.so)
 set_target_properties(minddata-lite PROPERTIES IMPORTED_LOCATION
-        ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/runtime/lib/libminddata-lite.so)
-set_target_properties(libmindspore-lite-train PROPERTIES IMPORTED_LOCATION
-        ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/runtime/lib/libmindspore-lite-train.so)
+        ${CMAKE_SOURCE_DIR}/${MINDSPORELITE_VERSION}/runtime/lib/libminddata-lite.so)
 set_target_properties(libjpeg PROPERTIES IMPORTED_LOCATION
-        ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/runtime/third_party/libjpeg-turbo/lib/libjpeg.so)
+        ${CMAKE_SOURCE_DIR}/${MINDSPORELITE_VERSION}/runtime/third_party/libjpeg-turbo/lib/libjpeg.so)
 set_target_properties(libturbojpeg PROPERTIES IMPORTED_LOCATION
-        ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/runtime/third_party/libjpeg-turbo/lib/libturbojpeg.so)
+        ${CMAKE_SOURCE_DIR}/${MINDSPORELITE_VERSION}/runtime/third_party/libjpeg-turbo/lib/libturbojpeg.so)
+
 # --------------- MindSpore Lite set End. --------------------
 
 # Link target library.
 target_link_libraries( # Specifies the target library.
         mlkit-label-MS
 
-        # --- mindspore ---
-        minddata-lite
         mindspore-lite
-        libmindspore-lite-train
+        minddata-lite
         libjpeg
         libturbojpeg
 
@@ -200,7 +201,7 @@ target_link_libraries( # Specifies the target library.
 
 ### 下载及部署模型文件
 
-从MindSpore Model Hub中下载模型文件，本示例程序中使用的终端图像分类模型文件为`mobilenetv2.ms`，同样通过`app/download.gradle`脚本在APP构建时自动下载，并放置在`app/src/main/assets/model`工程目录下。
+从MindSpore Model Hub中下载模型文件，本示例程序中使用的终端图像分类模型文件为`mobilenetv2.ms`，同样通过`app/download.gradle`脚本在APP构建时自动下载，并放置在`app/src/main/assets`工程目录下。
 
 注：若下载失败请手工下载模型文件[mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/1.5/mobilenetv2.ms)。
 
@@ -208,7 +209,7 @@ target_link_libraries( # Specifies the target library.
 
 在JNI层调用MindSpore Lite C++ API实现端侧推理。
 
-推理代码流程如下，完整代码请参见[MindSporeNetnative.cpp](https://gitee.com/mindspore/models/blob/master/official/lite/image_classification/app/src/main/cpp/MindSporeNetnative.cpp)。
+推理代码流程如下，完整代码请参见[CommonMindSporeNetnative.cpp](https://gitee.com/mindspore/vision/blob/r0.1/android/app/src/main/cpp/classification/CommonMindSporeNetnative.cpp)。
 
 1. 加载MindSpore Lite模型文件，构建上下文、会话以及用于推理的计算图。  
 
