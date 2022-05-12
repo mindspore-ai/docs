@@ -53,15 +53,15 @@
 ### Verification
 
 To verify whether MindVision and the required environment are installed correctly, we can run sample Python code to
-initialize a classificer and run inference on a demo image:
+initialize a classificer and run inference on a demo image.
 
-The image to infer:
-![four](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/docs/vision/source_en/images/mnist.jpg)
+The [image](https://gitee.com/mindspore/vision/blob/r0.1/tests/st/classification/dataset/mnist/mnist.jpg) used for inference is from the MNIST dataset. Users can use the parameter `device_target` to customize the platform for inference.
 
 ```shell
 python ./examples/classification/lenet/lenet_mnist_infer.py \
         --data_url ./tests/st/classification/dataset/mnist/mnist.jpg \
-        --pretrained True
+        --pretrained True \
+        --device_target CPU
 ```
 
 ```text
