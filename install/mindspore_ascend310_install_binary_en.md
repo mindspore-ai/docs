@@ -72,7 +72,7 @@ python -m pip install -U pip
 
 ### Installing Ascend AI processor software package
 
-For detailed installation guide, please refer to [Ascend Data Center Solution 21.1.0 Installation Guide].
+For detailed installation guide, please refer to [Ascend Data Center Solution 22.0.RC1 Installation Guide](https://support.huawei.com/enterprise/zh/doc/EDOC1100246310).
 
 The default installation path of the installation package is `/usr/local/Ascend`. Ensure that the current user has the right to access the installation path of Ascend AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located.
 

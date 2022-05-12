@@ -82,7 +82,7 @@ conda activate mindspore_py37
 
 ### 安装昇腾AI处理器配套软件包
 
-详细安装方法请参考[Ascend Data Center Solution 21.1.0安装指引文档]。
+详细安装方法请参考[Ascend Data Center Solution 22.0.RC1安装指引文档](https://support.huawei.com/enterprise/zh/doc/EDOC1100246310)。
 
 安装包默认安装路径为`/usr/local/Ascend`。安装后确认当前用户有权限访问昇腾AI处理器配套软件包的安装路径，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
 
