@@ -22,9 +22,9 @@ export LD_LIBRARY_PATH=${LOCAL_ASCEND}/fwkacllib/lib64:$LD_LIBRARY_PATH
 export PATH=${LOCAL_ASCEND}/fwkacllib/ccec_compiler/bin:${LOCAL_ASCEND}/fwkacllib/bin:$PATH
 export PYTHONPATH=${LOCAL_ASCEND}/fwkacllib/python/site-packages:$PYTHONPATH
 export ASCEND_OPP_PATH=${LOCAL_ASCEND}/opp
+
 # 离线调优环境变量
 export ENABLE_TUNE_DUMP=True
-
 ```
 
 以上环境变量功能详细说明、其他可选环境变量以及相关功能介绍请参考[环境变量](https://support.huawei.com/enterprise/zh/doc/EDOC1100206690/58a01d46)。
