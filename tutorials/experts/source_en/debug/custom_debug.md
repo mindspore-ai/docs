@@ -8,17 +8,17 @@ This section describes how to use the customized capabilities provided by MindSp
 
 ## Introduction to Callback
 
-Here, callback is not a function but a class. You can use callback to observe the internal status and related information of the network during training or perform specific actions in a specific period.
+`Callback` is a callback function, and callback is not a function but a class. You can use callback function to observe the internal status and related information of the network during training or perform specific actions in a specific period.
 For example, you can monitor the loss, save model parameters, dynamically adjust parameters, and terminate training tasks in advance.
 
 ### Callback Capabilities of MindSpore
 
-MindSpore provides the callback capabilities to allow users to insert customized operations in a specific phase of training or inference, including:
+MindSpore provides the `Callback` capabilities to allow users to insert customized operations in a specific phase of training or inference, including:
 
-- Callback classes such as `ModelCheckpoint`, `LossMonitor`, and `SummaryCollector` provided by the MindSpore framework.
-- Custom callback classes.
+- `Callback` classes such as `ModelCheckpoint`, `LossMonitor`, and `SummaryCollector` provided by the MindSpore framework.
+- User-customized `Callback` supported by MindSpore .
 
-Usage: Transfer the callback object in the `model.train` method. The callback object can be a list, for example:
+Usage: Transfer the `Callback` object in the `model.train` method. It can be a `Callback` list, for example:
 
 ```python
 from mindspore import ModelCheckpoint, LossMonitor, SummaryCollector
@@ -30,15 +30,15 @@ model.train(epoch, dataset, callbacks=[ckpt_cb, loss_cb, summary_cb])
 ```
 
 `ModelCheckpoint` can save model parameters for retraining or inference.
-`LossMonitor` can output loss information in logs for users to view. In addition, `LossMonitor` monitors the loss value change during training. When the loss value is `Nan` or `Inf`, the training terminates.
-`SummaryCollector` can save the training information to files for later use.
-During the training process, the callback list will execute the callback function in the defined order. Therefore, in the definition process, the dependency between callbacks needs to be considered.
+`LossMonitor` can output loss in the log for easily viewing, and it also monitors the changes in the loss value during training, terminates the training when the loss value is `Nan` or `Inf`.  
+`SummaryCollector` can save the training information to files for subsequent visualizations.
+During the training process, the `Callback` list will execute the `Callback` function in the defined order. Therefore, in the definition process, the dependency between `Callback` needs to be considered.
 
 ### Custom Callback
 
-You can customize callback based on the `callback` base class as required.
+You can customize `Callback` based on the `callback` base class as required.
 
-The callback base class is defined as follows:
+The `Callback` base class is defined as follows:
 
 ```python
 class Callback():
@@ -68,28 +68,27 @@ class Callback():
         pass
 ```
 
-The callback can record important information during training and transfer the information to the callback object through a dictionary variable `RunContext.original_args()`,
-You can obtain related attributes from each custom callback and perform customized operations. You can also customize other variables and transfer them to the `RunContext.original_args()` object.
+The `Callback` can record important information during training and transfer the information to the `Callback` object through a dictionary variable `RunContext.original_args()`,
+You can obtain related attributes from each custom `Callback` and perform customized operations. You can also customize other variables and transfer them to the `RunContext.original_args()` object.
 
 The main attributes of `RunContext.original_args()` are as follows:
 
-- loss_fn: Loss function
-- optimizer: Optimizer
-- train_dataset: Training dataset
-- cur_epoch_num: Number of current epochs
-- cur_step_num: Number of current steps
-- batch_num: Number of batches in an epoch
-- epoch_num: Number of training epochs
-- batch_num: Number of training batch
-- train_network: Training network
-- parallel_mode: Parallel mode
-- list_callback: All callback functions
-- net_outputs: Network output results
+- `loss_fn`: Loss function
+- `optimizer`: Optimizer
+- `train_dataset`: Training dataset
+- `epoch_num`: Number of training epochs
+- `batch_num`: Number of batches in an epoch
+- `train_network`: Training network
+- `cur_epoch_num`: Number of current epochs
+- `cur_step_num`: Number of current steps
+- `parallel_mode`: Parallel mode
+- `list_callback`: All callback functions
+- `net_outputs`: Network output results
 - ...
 
-You can inherit the callback base class to customize a callback object.
+You can inherit the `Callback` base class to customize a `callback` object.
 
-Here are two examples to further explain the usage of custom Callback.
+Here are two examples to further explain the usage of custom `Callback`.
 
 > custom `Callback` sample code：
 >
@@ -120,15 +119,9 @@ Here are two examples to further explain the usage of custom Callback.
                 run_context.request_stop()
     ```
 
-    The output is as follows:
-
-    ```text
-    epoch: 20 step: 32 loss: 2.298344373703003
-    ```
-
     The implementation principle is: You can use the `run_context.original_args` method to obtain the `cb_params` dictionary, which contains the main attribute information described above.
-    In addition, you can modify and add values in the dictionary. In the preceding example, an `init_time` object is defined in `begin` and transferred to the `cb_params` dictionary.
-    A decision is made at each `step_end`. When the training time is longer than the configured time threshold, a training termination signal will be sent to the `run_context` to terminate the training in advance and the current values of epoch, step, and loss will be printed.
+In addition, you can modify and add values in the dictionary. In the preceding example, an `init_time` object is defined in `begin` and transferred to the `cb_params` dictionary.
+    A decision is made at each `step_end`. When the training time is longer than the configured time threshold, a training termination signal will be sent to the `run_context` to terminate the training in advance and the current values of `epoch`, `step`, and `loss` will be printed.
 
 - Save the checkpoint file with the highest accuracy during training.
 
@@ -152,13 +145,13 @@ Here are two examples to further explain the usage of custom Callback.
                 print("Save the maximum accuracy checkpoint,the accuracy is", self.acc)
     ```
 
-    The specific implementation principle is: define a callback object, and initialize the object to receive the model object and the ds_eval (verification dataset). Verify the accuracy of the model in the step_end phase. When the accuracy is the current highest, automatically trigger the save checkpoint method to save the current parameters.
+    The specific implementation principle is: define a `Callback` object, and initialize the object to receive the `model` object and the `ds_eval` (verification dataset). Verify the accuracy of the model in the `step_end` phase. When the accuracy is the current highest, automatically trigger the save checkpoint method to save the current parameters.
 
-## MindSpore Metrics
+## MindSpore Metrics Introduction
 
 After the training is complete, you can use metrics to evaluate the training result.
 
-MindSpore provides multiple metrics, such as `accuracy`, `loss`, `tolerance`, `recall`, and `F1`.
+MindSpore provides multiple metrics, such as `accuracy`, `loss`, `precision`, `recall`, and `F1`.
 
 You can define a metrics dictionary object that contains multiple metrics and transfer them to the `model` object and use the `model.eval` function to verify the training result.
 
@@ -183,16 +176,16 @@ result = model.eval(ds_eval)
 
 The `model.eval` method returns a dictionary that contains the metrics and results transferred to the metrics.
 
-The callback function can also be used in the eval process, and the user can call the related API or customize the callback method to achieve the desired function.
+The `Callback` function can also be used in the eval process, and the user can call the related API or customize the `Callback` method to achieve the desired function.
 
-You can also define your own metrics class by inheriting the `Metric` base class and rewriting the `clear`, `update`, and `eval` methods.
+You can also define your own `metrics` class by inheriting the `Metric` base class and rewriting the `clear`, `update`, and `eval` methods.
 
 The `Accuracy` operator is used as an example to describe the internal implementation principle.
 
 The `Accuracy` inherits the `EvaluationBase` base class and rewrites the preceding three methods.
 
 - The `clear` method initializes related calculation parameters in the class.
-- The `update` method accepts the predicted value and tag value and updates the internal variables of Accuracy.
+- The `update` method accepts the predicted value and tag value and updates the internal variables of `Accuracy`.
 - The `eval` method calculates related indicators and returns the calculation result.
 
 By invoking the `eval` method of `Accuracy`, you will obtain the calculation result.
@@ -219,10 +212,10 @@ The output is as follows:
 Accuracy is 0.6667
 ```
 
-## MindSpore Print Operator
+## MindSpore Print Operator Introduction
 
 MindSpore-developed `Print` operator is used to print the tensors or character strings input by users. Multiple strings, multiple tensors, and a combination of tensors and strings are supported, which are separated by comma (,). The `Print` operator is only supported in Ascend environment.
-The method of using the MindSpore `Print` operator is the same as using other operators. You need to assert MindSpore `Print` operator in `__init__` and invoke it using `construct`. The following is an example.
+The method of using the MindSpore `Print` operator is the same as that of other operators. You need to declare the operator in the `__init__` in the network and call it in`construct`, and the specific usage examples and output results are as follows:
 
 ```python
 import numpy as np
@@ -282,7 +275,7 @@ Running Data Recorder(RDR) is the feature MindSpore provides to record data whil
 
 ### Usage
 
-#### Set RDR By Configuration File
+#### Set RDR by Configuration File
 
 1. Create the configuration file `mindspore_config.json`.
 
@@ -298,7 +291,7 @@ Running Data Recorder(RDR) is the feature MindSpore provides to record data whil
 
     > enable: Controls whether the RDR is enabled.
     >
-    > mode: Controls RDR data exporting mode. When mode is set to 1, RDR exports data only in exceptional scenario. When mode is set to 2, RDR exports data in exceptional or normal scenario.
+    > mode: Controls RDR data exporting mode. When mode is set to 1, RDR exports data only in the exceptional scenario. When mode is set to 2, RDR exports data in exceptional or normal scenario.
     >
     > path: Set the path to which RDR stores data. Only absolute path is supported.
 
@@ -308,9 +301,9 @@ Running Data Recorder(RDR) is the feature MindSpore provides to record data whil
     set_context(env_config_path="./mindspore_config.json")
     ```
 
-#### Set RDR By Environment Variables
+#### Set RDR by Environment Variables
 
-Set `export MS_RDR_ENABLE=1` to enable RDR, and set `export MS_RDR_MODE=1` or `export MS_RDR_MODE=2` to control exporting mode for RDR data, and set the root directory by `export MS_RDR_PATH=/path/to/root/dir` for recording data. The final directory for recording data is `/path/to/root/dir/rank_{RANK_ID}/rdr/`. `{RANK_ID}` is the unique ID for multi-cards training, the single card scenario defaults to `RANK_ID=0`.
+Set `export MS_RDR_ENABLE=1` to enable RDR, and set `export MS_RDR_MODE=1` or `export MS_RDR_MODE=2` to control exporting mode for RDR data, and set the root directory by `export MS_RDR_PATH=/path/to/root/dir` for recording data. The final directory for recording data is `/path/to/root/dir/rank_{RANK_ID}/rdr/`. `RANK_ID` is the unique ID for multi-cards training, the single card scenario defaults to `RANK_ID=0`.
 
 > The configuration file set by the user takes precedence over the environment variables.
 
@@ -322,7 +315,33 @@ When we go to the directory for recording data, we can see several files appear 
 
 #### Diagnosis Handling
 
-When enable RDR and set `export MS_RDR_MODE=2`, it is diagnostic mode. After Compiling graph, we also can see several files in above `MS_RDR_PATH` directory. the files are same with exception handling's.
+When RDR is enabled and environment variable  `export MS_RDR_MODE=2` is set, it is diagnostic mode. After the graph compilation is complete, we can also see the saved file which is the same as those that are exception handled in the export directory of the RDR file.
+
+## Memory Reuse
+
+The memory reuse is to let different Tensors share the same part of the memory to reduce memory overhead and support a larger network. After shutting down, each Tensor has its own independent memory space, and tensors have no shared memory.
+
+The MindSpore memory multiplexing function is turned on by default, and the function can be manually controlled to turn off and on in the following ways.
+
+### Usage
+
+1. Construct configuration file `mindspore_config.json`.
+
+    ```json
+    {
+        "sys": {
+            "mem_reuse": true
+        }
+    }
+    ```
+
+> mem_reuse: controls whether the memory multiplexing function is turned on. When it is set to true, the control memory multiplexing function is turned on, and when false, the memory multiplexing function is turned off.
+
+2. Configure the memory multiplexing function through `context`.
+
+    ```python
+    set_context(env_config_path="./mindspore_config.json")
+    ```
 
 ## Log-related Environment Variables and Configurations
 
