@@ -10,12 +10,12 @@
 
 | 类别       | 概率   |
 | ---------- | ------ |
-| plant      | 0.9359 |
-| flower     | 0.8641 |
-| tree       | 0.8584 |
-| houseplant | 0.7867 |
+| 花         | 0.9620 |
+| 植物       | 0.9216 |
+| 花瓣       | 0.7893 |
+| 花盆       | 0.6171 |
 
-使用MindSpore Lite实现图像分类的[示例代码](https://gitee.com/mindspore/models/tree/master/official/lite/image_classification)。
+使用MindSpore Lite实现图像分类的[示例代码](https://gitee.com/mindspore/vision/tree/master/android)。
 
 ## 图像分类模型列表
 
