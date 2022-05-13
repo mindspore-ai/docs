@@ -52,7 +52,7 @@ call converter_lite --fmk=MINDIR --modelFile=mobilenetv2.mindir --outputFile=mob
 
 ### 构建与运行
 
-1. 在Android Studio中加载本[示例源码](https://gitee.com/mindspore/models/tree/master/official/lite/image_classification)，并安装相应的SDK（指定SDK版本后，由Android Studio自动安装）。
+1. 在Android Studio中加载本[示例源码](https://gitee.com/mindspore/vision/blob/r0.1/android)，并安装相应的SDK（指定SDK版本后，由Android Studio自动安装）。
 
     ![start_home](../images/lite_quick_start_home.png)
 
@@ -78,7 +78,7 @@ call converter_lite --fmk=MINDIR --modelFile=mobilenetv2.mindir --outputFile=mob
 
     ![install](../images/app1.png)
 
-    在默认情况下，MindSpore Vision分类模块内置了一个通用的AI网络模型对图像进行识别分类。也可以[自定义模型](https://mindspore.cn/tutorials/zh-CN/master/beginner/infer.html)在APP上进行调试。
+    在默认情况下，MindSpore Vision分类模块内置了一个通用的AI网络模型对图像进行识别分类。也可以[自定义模型](https://mindspore.cn/tutorials/zh-CN/r1.7/beginner/infer.html)在APP上进行调试。
 
     ![result](../images/app2.png)
 

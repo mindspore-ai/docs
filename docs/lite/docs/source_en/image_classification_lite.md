@@ -10,12 +10,12 @@ Image classification is to identity what an image represents, to predict the obj
 
 | Category   | Probability |
 | ---------- | ----------- |
-| plant      | 0.9359      |
-| flower     | 0.8641      |
-| tree       | 0.8584      |
-| houseplant | 0.7867      |
+| Flower      | 0.9620 |
+| Plant       | 0.9216 |
+| Petal       | 0.7893 |
+| Flowerpot   | 0.6171 |
 
-Using MindSpore Lite to realize image classification [example](https://gitee.com/mindspore/models/tree/master/official/lite/image_classification).
+Using MindSpore Lite to realize image classification [example](https://gitee.com/mindspore/vision/tree/r0.1/android).
 
 ## Image classification model list
 
