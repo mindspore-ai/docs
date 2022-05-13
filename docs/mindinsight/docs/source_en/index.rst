@@ -1,7 +1,7 @@
 MindInsight Documents
 =====================
 
-MindInsight is a visualized debugging and optimization tool of MindSpore. It visualizes the training process, model performance optimization, accuracy debugging, and inference result explanation. You can also use the command line provided by MindInsight to easily search for hyperparameters and migrate models. MindInsight helps you to easily obtain satisfactory model accuracy and performance.
+MindInsight is a visualized debugging and optimization tool of MindSpore. It visualizes the training process, model performance optimization, and accuracy debugging. You can also use the command line provided by MindInsight to easily search for hyperparameters and migrate models. MindInsight helps you to easily obtain satisfactory model accuracy and performance.
 
 MindInsight provides the following functions:
 
@@ -95,7 +95,6 @@ Using MindConverter to Migrate Models
    migrate_3rd_scripts_mindconverter
    performance_profiling
    debugger
-   model_explanation
    landscape
    mindinsight_commands
 

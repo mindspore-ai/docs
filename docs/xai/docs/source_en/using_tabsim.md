@@ -10,7 +10,7 @@ The complete code of the tutorial below is [using_tabsim.py](https://gitee.com/m
 
 ## Installation
 
-TabSim is part of the XAI package, no extra installation is required besides [MindSpore](https://mindspore.cn/install) and [XAI](https://www.mindspore.cn/xai/docs/en/master/installation.html).
+TabSim is part of the XAI package, no extra installation is required besides [MindSpore](https://mindspore.cn/install/en) and [XAI](https://www.mindspore.cn/xai/docs/en/master/installation.html).
 
 ## User Flow
 

@@ -1,7 +1,7 @@
 MindInsight文档
 ================
 
-MindInsight是昇思MindSpore的可视化调试调优工具。利用MindInsight，您可以可视化地查看训练过程、优化模型性能、调试精度问题、解释推理结果。您还可以通过MindInsight提供的命令行方便地搜索超参，迁移模型。在MindInsight的帮助下，您可以更轻松地获得满意的模型精度和性能。
+MindInsight是昇思MindSpore的可视化调试调优工具。利用MindInsight，您可以可视化地查看训练过程、优化模型性能、调试精度问题。您还可以通过MindInsight提供的命令行方便地搜索超参，迁移模型。在MindInsight的帮助下，您可以更轻松地获得满意的模型精度和性能。
 
 MindInsight包括以下内容：
 
@@ -95,7 +95,6 @@ MindInsight包括以下内容：
    migrate_3rd_scripts_mindconverter
    performance_profiling
    debugger
-   model_explanation
    landscape
    mindinsight_commands
 

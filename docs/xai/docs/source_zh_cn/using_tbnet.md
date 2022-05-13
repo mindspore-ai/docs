@@ -259,7 +259,7 @@ for suggest in suggestions:
 python infer.py --checkpoint_id 19
 ```
 
-[执行 train.py](#执行-train.py) 产生出的最后一个checkpoint文件 `./checkpoints/steam/tbnet_epoch19.ckpt` 会被用作推埋。会给出三个推荐商品，每个推荐商品都会伴随三条最重要的关系路径以作解释。
+[执行 train.py](#执行-trainpy) 产生出的最后一个checkpoint文件 `./checkpoints/steam/tbnet_epoch19.ckpt` 会被用作推埋。会给出三个推荐商品，每个推荐商品都会伴随三条最重要的关系路径以作解释。
 
 ## 导出已训练模型
 
