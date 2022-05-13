@@ -84,6 +84,7 @@ MindSpore Lite文档
    operator_list_codegen
    model_lite
    troubleshooting_guide
+   log
 
 .. toctree::
    :glob:
