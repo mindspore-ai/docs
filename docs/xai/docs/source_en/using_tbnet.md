@@ -71,7 +71,7 @@ xai/models/whitebox/tbnet/
 
 ### Preparing Python Environment
 
-TB-Net is part of the XAI package, no extra installation is required besides [MindSpore](https://mindspore.cn/install) and [XAI](https://www.mindspore.cn/xai/docs/en/master/installation.html). GPUs are supported.
+TB-Net is part of the XAI package, no extra installation is required besides [MindSpore](https://mindspore.cn/install/en) and [XAI](https://www.mindspore.cn/xai/docs/en/master/installation.html). GPUs are supported.
 
 ## Data Pre-processing
 
@@ -262,7 +262,7 @@ Have to change the current directory to `xai/models/whitebox/tbnet` first.
 python infer.py --checkpoint_id 19
 ```
 
-The last checkpoint `./checkpoints/steam/tbnet_epoch19.ckpt` from [Running train.py](#running-train.py) will be used to infer on `./data/steam/infer.csv`. 3 recommended items with 3 relation path explanations each will be given.
+The last checkpoint `./checkpoints/steam/tbnet_epoch19.ckpt` from [Running train.py](#running-train-py) will be used to infer on `./data/steam/infer.csv`. 3 recommended items with 3 relation path explanations each will be given.
 
 ## Exporting Trained Model
 

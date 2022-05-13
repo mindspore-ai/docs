@@ -1,8 +1,8 @@
-# 使用 CV 解释器
+# 使用CV类解释器
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_zh_cn/using_cv_explainers.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
-## 什么是 CV 解释器
+## 什么是CV类解释器
 
 解释器是一些用来解释AI模型决策的算法，目前 MindSpore XAI 为图片分类场景提供7个解释器算法。解释器输出热力图作为解释，它们代表了每个原图象素的重要性，其中高亮区域为对模型决策起重要作用的部分。
 

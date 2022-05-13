@@ -1,8 +1,8 @@
-# 使用 CV 度量方法
+# 使用CV类度量方法
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/xai/docs/source_zh_cn/using_cv_benchmarks.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source.png"></a>
 
-## 什么是 CV 度量方法
+## 什么是CV类度量方法
 
 度量方法是用来为热力图好坏评分的一些算法，目前 MindSpore XAI 为图片分类场景提供四个度量方法：`Robustness`、`Faithfulness`、`ClassSensitivity`和`Localization`。
 
