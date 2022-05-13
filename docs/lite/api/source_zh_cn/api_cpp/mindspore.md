@@ -2801,17 +2801,64 @@ static inline std::string CodeAsString(enum StatusCode c);
 
 \#include &lt;[model_parallel_runner.h](https://gitee.com/mindspore/mindspore/blob/r1.7/include/api/model_parallel_runner.h)&gt;
 
-一个结构体。RunnerConfig定义了ModelParallelRunner中使用的配置选项参数。
+RunnerConfig定义了ModelParallelRunner中使用的配置选项参数。
 
-### 公有属性
-
-#### context
+### 构造函数和析构函数
 
 ```cpp
-std::shared_ptr<Context> context = nullptr;
+RunnerConfig();
+~RunnerConfig();
 ```
 
-一个[**Context**](#context)类型的智能指针。
+### 公有成员函数
+
+#### SetWorkersNum
+
+```cpp
+void SetWorkersNum(int32_t workers_num);
+```
+
+设置RunnerConfig的worker的个数。
+
+- 参数
+
+    - `workers_num`: worker的数量。
+
+#### GetWorkersNum
+
+```cpp
+int32_t GetWorkersNum() const;
+```
+
+获取RunnerConfig配置的上下文参数。
+
+- 返回值
+
+  RunnerConfig类中配置的worker数量。
+
+#### SetContext
+
+```cpp
+void SetContext(const std::shared_ptr<Context> &context);
+```
+
+设置RunnerConfig的context参数。
+
+- 参数
+
+    - `context`: worker上下文配置。
+
+#### GetContext
+
+```cpp
+std::shared_ptr<Context> GetContext() const;
+```
+
+获取RunnerConfig配置的上下文参数。
+
+- 返回值
+
+  上下文配置类`Context`对象。
 
 ## ModelParallelRunner
 
@@ -2839,7 +2886,7 @@ Status Init(const std::string &model_path, const std::shared_ptr<RunnerConfig> &
 - 参数
 
     - `model_path`: 模型文件路径。
-    - `runner_config`: 一个[**RunnerConfig**](#runnerconfig) 结构体。定义了并发推理模型的配置参数。
+    - `runner_config`: 一个[**RunnerConfig**](#runnerconfig)类。定义了并发推理模型的配置参数。
 
 - 返回值
 
