@@ -19,7 +19,7 @@ If not, Dataset AutoTune will also try to reduce the memory usage of the dataset
 
 > Dataset AutoTune is disabled by default.
 
-## Enable Dataset AutoTune
+## Enabling Dataset AutoTune
 
 To enable Dataset AutoTune and not save the optimized dataset pipeline:
 
@@ -114,7 +114,7 @@ def create_dataset(...)
     ...
 ```
 
-### Start Training
+### Starting Training
 
 Start the training process as described in [resnet/README.md](https://gitee.com/mindspore/models/blob/master/official/cv/resnet/README.md#). Dataset AutoTune will display its analysis result through LOG messages.
 
@@ -204,7 +204,7 @@ Some analysis to explain the meaning of the log information:
   [INFO] [auto_tune.cc:57 Main] Suggest to choose maximum prefetch_size from tuned result and set by global setting API: mindspore.dataset.config.set_prefetch_size
   ```
 
-### The Saved AutoTune Recommended Configuration
+### Saving AutoTune Recommended Configuration
 
 Since Dataset AutoTune was enabled to generate an optimized dataset pipeline, the optimized dataset pipeline can be serialized (by passing in the 'filepath_prefix' parameter) and saved to the JSON configuration file.
 
@@ -236,7 +236,7 @@ Notes on the JSON configuration file:
 
 - Non-parallel dataset operations will show `NA` for `num_parallel_workers`.
 
-### Load AutoTune Configuration
+### Loading AutoTune Configuration
 
 If Dataset AutoTune generated an optimized pipeline configuration file, use deserialize support to load the dataset pipeline:
 
