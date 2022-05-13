@@ -61,6 +61,7 @@
 ## 初始化
 
 ```c++
+// Create and init context, add CPU device info
 auto context = std::make_shared<mindspore::Context>();
 if (context == nullptr) {
   std::cerr << "New context failed." << std::endl;
@@ -80,8 +81,12 @@ if (model_runner == nullptr) {
   return -1;
 }
 auto runner_config = std::make_shared<mindspore::RunnerConfig>();
-runner_config->context = context;
-runner_config->workers_num = 2;
+if (runner_config == nullptr) {
+  std::cerr << "runner config is nullptr." << std::endl;
+  return -1;
+}
+runner_config->SetContext(context);
+runner_config->SetWorkersNum(kNumWorkers);
 // Build model
 auto build_ret = model_runner->Init(model_path, runner_config);
 if (build_ret != mindspore::kSuccess) {
@@ -97,11 +102,31 @@ if (build_ret != mindspore::kSuccess) {
 
 ```c++
 // Get Input
-auto model_input = model_runner->GetInputs();
-// Generate random data as input data.
-auto inputs = GenerateInputDataWithRandom(model_input);
+auto inputs = model_runner->GetInputs();
+if (inputs.empty()) {
+  delete model_runner;
+  std::cerr << "model input is empty." << std::endl;
+  return -1;
+}
+// set random data to input data.
+auto ret = SetInputDataWithRandom(inputs);
+if (ret != 0) {
+  delete model_runner;
+  std::cerr << "set input data failed." << std::endl;
+  return -1;
+}
 // Get Output
-std::vector<mindspore::MSTensor> outputs;
+auto outputs = model_runner->GetOutputs();
+for (auto &output : outputs) {
+size_t size = output.DataSize();
+if (size == 0 || size > MAX_MALLOC_SIZE) {
+  std::cerr << "malloc size is wrong" << std::endl;
+  return -1;
+}
+auto out_data = malloc(size);
+output.SetData(out_data);
+}
+
 // Model Predict
 auto predict_ret = model_runner->Predict(inputs, &outputs);
 if (predict_ret != mindspore::kSuccess) {
@@ -113,8 +138,18 @@ if (predict_ret != mindspore::kSuccess) {
 
 ## 内存释放
 
-无需使用MindSpore Lite推理框架时，需要释放已经创建的`ModelParallelRunner`。
+无需使用MindSpore Lite推理框架时，需要释放已经创建的`ModelParallelRunner`，以及用户自己申请的内存。
 
 ```c++
+// user need free input data and output data
+for (auto &input : inputs) {
+  free(input.MutableData());
+  input.SetData(nullptr);
+}
+for (auto &output : outputs) {
+  free(output.MutableData());
+  output.SetData(nullptr);
+}
+// Delete model runner.
 delete model_runner;
 ```
