@@ -61,7 +61,6 @@ MindSpore 文档
    api_python/mindspore.numpy
    api_python/mindspore.ops
    api_python/mindspore.ops.functional
-   api_python/mindspore.parallel
    api_python/mindspore.parallel.nn
    api_python/mindspore.rewrite
    api_python/mindspore.scipy
