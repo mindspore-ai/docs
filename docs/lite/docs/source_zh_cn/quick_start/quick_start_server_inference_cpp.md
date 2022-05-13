@@ -80,8 +80,8 @@ if (model_runner == nullptr) {
   return -1;
 }
 auto runner_config = std::make_shared<mindspore::RunnerConfig>();
-runner_config->context = context;
-runner_config->workers_num = 2;
+runner_config->SetContext(context);
+runner_config->SetWorkersNum(kNumWorkers);
 // Build model
 auto build_ret = model_runner->Init(model_path, runner_config);
 if (build_ret != mindspore::kSuccess) {

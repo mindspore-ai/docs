@@ -11,8 +11,19 @@ RunnerConfig定义了MindSpore Lite并发推理的配置参数。
 | [boolean init()](#init)                                        |
 | [boolean setWorkerNum()](#setworkernum)                          |
 | [long getRunnerConfigPtr()](#getrunnerconfigptr)               |
+| [void free()](#free)               |
 
 ## init
+
+```java
+public boolean init()
+```
+
+并发推理的配置参数初始化。
+
+- 返回值
+
+  是否初始化成功。
 
 ```java
 public boolean init(MSContext msContext)
@@ -51,3 +62,11 @@ public long getRunnerConfigPtr()
 - 返回值
 
   底层并发推理配置参数指针。
+
+## free
+
+```java
+public void free()
+```
+
+释放runnerConfig。
