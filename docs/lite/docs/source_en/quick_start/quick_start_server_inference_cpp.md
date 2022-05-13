@@ -82,8 +82,12 @@ if (model_runner == nullptr) {
   return -1;
 }
 auto runner_config = std::make_shared<mindspore::RunnerConfig>();
-runner_config->context = context;
-runner_config->workers_num = 2;
+if (runner_config == nullptr) {
+  std::cerr << "runner config is nullptr." << std::endl;
+  return -1;
+}
+runner_config->SetContext(context);
+runner_config->SetWorkersNum(kNumWorkers);
 // Build model
 auto build_ret = model_runner->Init(model_path, runner_config);
 if (build_ret != mindspore::kSuccess) {
@@ -99,11 +103,30 @@ ModelParallelRunner predict includes input data injection, inference execution, 
 
 ```c++
 // Get Input
-auto model_input = model_runner->GetInputs();
-// Generate random data as input data.
-auto inputs = GenerateInputDataWithRandom(model_input);
+auto inputs = model_runner->GetInputs();
+if (inputs.empty()) {
+  delete model_runner;
+  std::cerr << "model input is empty." << std::endl;
+  return -1;
+}
+// set random data to input data.
+auto ret = SetInputDataWithRandom(inputs);
+if (ret != 0) {
+  delete model_runner;
+  std::cerr << "set input data failed." << std::endl;
+  return -1;
+}
 // Get Output
-std::vector<mindspore::MSTensor> outputs;
+auto outputs = model_runner->GetOutputs();
+for (auto &output : outputs) {
+size_t size = output.DataSize();
+if (size == 0 || size > MAX_MALLOC_SIZE) {
+  std::cerr << "malloc size is wrong" << std::endl;
+  return -1;
+}
+auto out_data = malloc(size);
+output.SetData(out_data);
+}
 
 // Model Predict
 auto predict_ret = model_runner->Predict(inputs, &outputs);
@@ -116,8 +139,18 @@ if (predict_ret != mindspore::kSuccess) {
 
 ## Memory Release
 
-If the inference process of MindSpore Lite is complete, release the created `ModelParallelRunner`.
+If the inference process of MindSpore Lite is complete, release the created `ModelParallelRunner` and input data.
 
 ```c++
+// user need free input data and output data
+for (auto &input : inputs) {
+  free(input.MutableData());
+  input.SetData(nullptr);
+}
+for (auto &output : outputs) {
+  free(output.MutableData());
+  output.SetData(nullptr);
+}
+// Delete model runner.
 delete model_runner;
 ```
