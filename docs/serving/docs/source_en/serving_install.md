@@ -4,7 +4,7 @@
 
 ## Installation
 
-MindSpore Serving wheel packages are common to various hardware platforms(Nvidia GPU, Ascend 910/710/310, CPU). The inference task depends on the MindSpore or MindSpore Lite inference framework. We need to select one of them as the Serving Inference backend. When these two inference backend both exist, Mindspore Lite inference framework will be used.
+MindSpore Serving wheel packages are common to various hardware platforms(Nvidia GPU, Ascend 910/310P/310, CPU). The inference task depends on the MindSpore or MindSpore Lite inference framework. We need to select one of them as the Serving Inference backend. When these two inference backend both exist, Mindspore Lite inference framework will be used.
 
 MindSpore and MindSpore Lite have different build packages for different hardware platforms. The following table lists the target devices and model formats supported by each build package.
 
@@ -12,22 +12,22 @@ MindSpore and MindSpore Lite have different build packages for different hardwar
 |---------| --- | --- | -------- |
 |MindSpore| Nvidia GPU | Nvidia GPU | `MindIR` |
 |  | Ascend | Ascend 910 | `MindIR` |
-|  |  | Ascend 710/310 | `MindIR`, `OM` |
+|  |  | Ascend 310P/310 | `MindIR`, `OM` |
 |MindSpore Lite| Nvidia GPU | Nvidia GPU, CPU | `MindIR_Lite` |
-|  | Ascend | Ascend 710/310, CPU | `MindIR`, `MindIR_Lite` |
+|  | Ascend | Ascend 310P/310, CPU | `MindIR`, `MindIR_Lite` |
 |  | CPU | CPU | `MindIR_Lite` |
 
-When [MindSpore](https://www.mindspore.cn/) is used as the inference backend, MindSpore Serving supports the Ascend 910/710/310 and Nvidia GPU environments. The Ascend 710/310 environment supports both `OM` and `MindIR` model formats, and the Ascend 910 and GPU environment only supports the `MindIR` model format.
+When [MindSpore](https://www.mindspore.cn/) is used as the inference backend, MindSpore Serving supports the Ascend 910/310P/310 and Nvidia GPU environments. The Ascend 310P/310 environment supports both `OM` and `MindIR` model formats, and the Ascend 910 and GPU environment only supports the `MindIR` model format.
 
 For details about how to install and configure MindSpore, see [Installing MindSpore](https://gitee.com/mindspore/mindspore/blob/r1.7/README.md#installation) and [Configuring MindSpore](https://gitee.com/mindspore/docs/blob/r1.7/install/mindspore_ascend_install_source_en.md#configuring-environment-variables).
 
-When [MindSpore Lite](https://www.mindspore.cn/lite) is used as the inference backend, MindSpore Serving supports Ascend 710/310, Nvidia GPU and CPU environments. The `MindIR` and `MindIR_Lite` model formats are supported. Models exported from MindSpore and other frameworks can be converted to `MindIR_Lite` format using MindSpore Lite conversion tool. The `MindIR_Lite` models converted from `Ascend310` and `Ascend710` environments are different, and the `MindIR_Lite` models must be running on the corresponding `Ascend310` or `Ascend710` environments. `MindIR_Lite` models converted from Nvidia GPU and CPU environments can be running only in the Nvidia GPU and CPU environments.
+When [MindSpore Lite](https://www.mindspore.cn/lite) is used as the inference backend, MindSpore Serving supports Ascend 310P/310, Nvidia GPU and CPU environments. The `MindIR` and `MindIR_Lite` model formats are supported. Models exported from MindSpore and other frameworks can be converted to `MindIR_Lite` format using MindSpore Lite conversion tool. The `MindIR_Lite` models converted from `Ascend 310` and `Ascend 310P` environments are different, and the `MindIR_Lite` models must be running on the corresponding `Ascend 310` or `Ascend 310P` environments. `MindIR_Lite` models converted from Nvidia GPU and CPU environments can be running only in the Nvidia GPU and CPU environments.
 
 | Inference backend  | Running environment of Lite conversion tool  | Target device of `MindIR_Lite` models |
 | -------------- | ---------------- | --------------- |
 | MindSpore Lite | Nvidia GPU, CPU  | Nvidia GPU, CPU |
 |                | Ascend 310       | Ascend 310      |
-|                | Ascend 710       | Ascend 710      |
+|                | Ascend 310P       | Ascend 310P      |
 
 For details about how to compile and install MindSpore Lite, see the [MindSpore Lite Documentation](https://www.mindspore.cn/lite/docs/en/r1.7/index.html).
 We should configure the environment variable `LD_LIBRARY_PATH` to indicates the installation path of `libmindspore-lite.so`.
