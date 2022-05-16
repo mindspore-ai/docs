@@ -370,9 +370,9 @@ std::shared_ptr<Allocator> GetAllocator() const;
 | `int GetRankID() const`                                       | - 返回值: 当前运行的RANK ID                                                                                                                                                                                                                               |
 | `void SetEnableFP16(bool is_fp16)`      | 用于指定是否以FP16精度进行推理<br><br> - `is_fp16`: 是否以FP16精度进行推理 |
 | `bool GetEnableFP16() const`            | - 返回值: 已配置的精度模式 |
-| `void SetGLContext(void *gl_context)`   | 用于指定OpenGL EGLContext<br><br> - `*gl_context`: 指向OpenGL EGLContext的指针 |
+| `void SetGLContext(void *gl_context)`   | 用于指定OpenGL EGLContext<br><br> - `*gl_context`: OpenGL的当前运行时的EGLContext值 |
 | `void *GetGLContext() const`            | - 返回值: 已配置的指向OpenGL EGLContext的指针 |
-| `void SetGLDisplay(void *gl_display)`   | 用于指定OpenGL EGLDisplay<br><br> - `*gl_display`: 指向OpenGL EGLDisplay的指针 |
+| `void SetGLDisplay(void *gl_display)`   | 用于指定OpenGL EGLDisplay<br><br> - `*gl_display`: OpenGL的当前运行时的EGLDisplay值 |
 | `void *GetGLDisplay() const`            | - 返回值: 已配置的指向OpenGL EGLDisplay的指针 |
 
 ## KirinNPUDeviceInfo
