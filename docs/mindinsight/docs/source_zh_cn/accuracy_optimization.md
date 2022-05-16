@@ -414,8 +414,7 @@ MindInsight可以为用户记录每次训练的精度结果。在`model.train`�
         *图13 通过MindInsight溯源分析以散点图形式查看参数和优化目标的关系*
 
     3. 尝试使用[MindInsight调参器](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/hyper_parameters_auto_tuning.html)优化超参。请注意，调参器通过执行多次完整训练的方式进行超参搜索，消耗的时间为网络一次训练用时的若干倍，如果网络一次训练耗时较长，则超参搜索将需要很长的时间。
-    4. 尝试使用[MindInsight模型解释](https://www.mindspore.cn/mindinsight/docs/zh-CN/master/model_explanation.html)功能优化模型和数据集。模型解释功能可以通过显著图可视化展示对分类结果最重要的区域，还可以通过评分体系提示应该对哪类标签进行优化。
-    5. 尝试下文介绍的常用调优建议。
+    4. 尝试下文介绍的常用调优建议。
 
 - 检查验证集上的精度。
 
