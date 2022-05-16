@@ -181,7 +181,7 @@ Users can use the `RandomSelectSubpolicy` interface of the `c_transforms` module
 
         transforms_list.append(c_vision.RandomAffine(degrees=0, shear=(0, 0, -v, -v)))
         transforms_list.append(c_vision.RandomAffine(degrees=0, shear=(0, 0, v, v)))
-        return c_transforms.RandomChoice()
+        return c_transforms.RandomChoice(transforms_list)
 
     def translate_x(level):
         transforms_list = []
@@ -189,7 +189,7 @@ Users can use the `RandomSelectSubpolicy` interface of the `c_transforms` module
 
         transforms_list.append(c_vision.RandomAffine(degrees=0, translate=(-v, -v)))
         transforms_list.append(c_vision.RandomAffine(degrees=0, translate=(v, v)))
-        return c_transforms.RandomChoice()
+        return c_transforms.RandomChoice(transforms_list)
 
     def translate_y(level):
         transforms_list = []
@@ -197,7 +197,7 @@ Users can use the `RandomSelectSubpolicy` interface of the `c_transforms` module
 
         transforms_list.append(c_vision.RandomAffine(degrees=0, translate=(0, 0, -v, -v)))
         transforms_list.append(c_vision.RandomAffine(degrees=0, translate=(0, 0, v, v)))
-        return c_transforms.RandomChoice()
+        return c_transforms.RandomChoice(transforms_list)
 
     def color_impl(level):
         v = float_parameter(level, 1.8) + 0.1
@@ -209,7 +209,7 @@ Users can use the `RandomSelectSubpolicy` interface of the `c_transforms` module
 
         transforms_list.append(c_vision.RandomRotation(degrees=(-v, -v)))
         transforms_list.append(c_vision.RandomRotation(degrees=(v, v)))
-        return c_transforms.RandomChoice()
+        return c_transforms.RandomChoice(transforms_list)
 
     def solarize_impl(level):
         level = int_parameter(level, 256)
