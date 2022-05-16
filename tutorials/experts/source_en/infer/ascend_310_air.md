@@ -139,7 +139,9 @@ export DDK_PATH=/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1
 export NPU_HOST_LIB=/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/lib64/stub/
 ```
 
-> The `include` directory of the `acllib` package in the `CMakeLists.txt` file must be correctly specified. Otherwise, an error indicating that `acl/acl.h` cannot be found is reported. The code location of the `include` directory is as follows. If the location is inconsistent with the actual installation directory, modify it.
+> The `include` directory of the `acllib` package in the `CMakeLists.txt` file must be correctly specified. Otherwise, an error indicating that `acl/acl.h` cannot be found is reported.
+>
+> The code location of the `include` directory is as follows. If the location is inconsistent with the actual installation directory, modify it.
 
 ```text
 ...

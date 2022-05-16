@@ -271,7 +271,7 @@ cd /user/mindspore
 ./benchmark --modelFile=${model_path}
 ```
 
-${model_path}为转换后ms模型文件路径
+`model_path`为转换后ms模型文件路径
 
 执行该命令，会生成模型的随机输入，并执行前向推理。有关benchmark的其他使用详情，如耗时分析与推理误差分析等，见[Benchmark使用](https://www.mindspore.cn/lite/docs/zh-CN/master/use/benchmark_tool.html)。
 
