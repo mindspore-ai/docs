@@ -4,7 +4,7 @@
 
 ## 安装
 
-MindSpore Serving包在各类硬件平台（Nvidia GPU, Ascend 910/310 Pro/310, CPU）上通用，推理任务依赖MindSpore或MindSpore Lite推理框架，我们需要选择一个作为Serving推理后端。当这两个推理后端同时存在的时候，优先使用MindSpore Lite推理框架。
+MindSpore Serving包在各类硬件平台（Nvidia GPU, Ascend 910/310P/310, CPU）上通用，推理任务依赖MindSpore或MindSpore Lite推理框架，我们需要选择一个作为Serving推理后端。当这两个推理后端同时存在的时候，优先使用MindSpore Lite推理框架。
 
 MindSpore和MindSpore Lite针对不同的硬件平台有不同的构建包，每个不同的构建包支持的运行目标设备和模型格式如下表所示：
 
@@ -12,22 +12,22 @@ MindSpore和MindSpore Lite针对不同的硬件平台有不同的构建包，每
 |---------| --- | --- | -------- |
 |MindSpore| Nvidia GPU | Nvidia GPU | `MindIR` |
 |  | Ascend | Ascend 910 | `MindIR` |
-|  |  | Ascend 310 Pro/310 | `MindIR`, `OM` |
+|  |  | Ascend 310P/310 | `MindIR`, `OM` |
 |MindSpore Lite| Nvidia GPU | Nvidia GPU, CPU | `MindIR_Lite` |
-|  | Ascend | Ascend 310 Pro/310, CPU | `MindIR`, `MindIR_Lite` |
+|  | Ascend | Ascend 310P/310, CPU | `MindIR`, `MindIR_Lite` |
 |  | CPU | CPU | `MindIR_Lite` |
 
-当以[MindSpore](https://www.mindspore.cn/)作为推理后端时，MindSpore Serving当前支持Ascend 910/310 Pro/310和Nvidia GPU环境。其中Ascend 310 Pro/310环境支持`OM`和`MindIR`两种模型格式，Ascend 910和GPU环境仅支持`MindIR`模型格式。
+当以[MindSpore](https://www.mindspore.cn/)作为推理后端时，MindSpore Serving当前支持Ascend 910/310P/310和Nvidia GPU环境。其中Ascend 310P/310环境支持`OM`和`MindIR`两种模型格式，Ascend 910和GPU环境仅支持`MindIR`模型格式。
 
 MindSpore的安装和配置可以参考[安装MindSpore](https://gitee.com/mindspore/mindspore#安装)，并根据需要完成[环境变量配置](https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend_install_pip.md#配置环境变量)。
 
-当以[MindSpore Lite](https://www.mindspore.cn/lite)作为推理后端时，MindSpore Serving当前支持Ascend 310 Pro/310、Nvidia GPU和CPU。当前支持`MindIR`和`MindIR_Lite`模型格式，MindSpore的`MindIR`或其他框架的模型文件需要通过Lite转换工具转换成`MindIR_Lite`模型格式。模型转换时，`Ascend310`设备和`Ascend310 Pro`转换出的模型不一致，需要在对应的`Ascend310`或者`Ascend310 Pro`设备上运行；Nvidia GPU和CPU环境转换成的`MindIR_Lite`模型仅能在Nvidia GPU和CPU使用。
+当以[MindSpore Lite](https://www.mindspore.cn/lite)作为推理后端时，MindSpore Serving当前支持Ascend 310P/310、Nvidia GPU和CPU。当前支持`MindIR`和`MindIR_Lite`模型格式，MindSpore的`MindIR`或其他框架的模型文件需要通过Lite转换工具转换成`MindIR_Lite`模型格式。模型转换时，`Ascend310`设备和`Ascend310P`转换出的模型不一致，需要在对应的`Ascend310`或者`Ascend310P`设备上运行；Nvidia GPU和CPU环境转换成的`MindIR_Lite`模型仅能在Nvidia GPU和CPU使用。
 
 | 推理后端       | 转换工具运行平台 | `MindIR_Lite`模型运行设备    |
 | -------------- | ---------------- | --------------- |
 | MindSpore Lite | Nvidia GPU, CPU  | Nvidia GPU, CPU |
 |                | Ascend 310       | Ascend 310      |
-|                | Ascend 310 Pro       | Ascend 310 Pro      |
+|                | Ascend 310P       | Ascend 310P      |
 
 MindSpore Lite安装和配置可以参考[MindSpore Lite文档](https://www.mindspore.cn/lite/docs/zh-CN/master/index.html)，通过环境变量`LD_LIBRARY_PATH`指示`libmindspore-lite.so`的安装路径。
 
