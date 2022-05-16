@@ -34,7 +34,7 @@ class XXXDelegate : public Delegate {
 
 ### 实现初始化接口
 
-[Init](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#init)接口会在[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)的[Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build)流程中被调用。具体的调用位置在MindSpore Lite内部代码[LiteSession::Init](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/lite_session.cc#L696)函数中。
+[Init](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#init)接口会在[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)的[Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build)流程中被调用。具体的调用位置在MindSpore Lite内部代码[LiteSession::Init](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/runtime/lite_session.cc#L696)函数中。
 
 ```cpp
 Status XXXDelegate::Init() {
@@ -51,7 +51,7 @@ Status XXXDelegate::Init() {
 >
 > [const std::map<kernel::Kernel *, const schema::Primitive *> primitives_](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#primitives-)保存了每个算子对应的属性值`schema::Primitive`，用于解析每个算子的原始属性信息。
 
-Build会在[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)的[Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build)接口被调用。具体的位置在MindSpore Lite内部代码[Schedule::Schedule](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/scheduler.cc#L132)函数中，此时已完成内置算子选择，算子存放在DelegateModel的[Kernel列表](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html#kernel)中。Build需要实现以下功能：
+Build会在[Model](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#model)的[Build](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#build)接口被调用。具体的位置在MindSpore Lite内部代码[Schedule::Schedule](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/runtime/scheduler.cc#L132)函数中，此时已完成内置算子选择，算子存放在DelegateModel的[Kernel列表](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html#kernel)中。Build需要实现以下功能：
 
 1. 遍历Kernel列表，调用[GetPrimitive](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#getprimitive)获取每个算子对应的属性值，解析该算子的属性值，判断Delegate框架是否支持。
 2. 对连续可支持的一段算子列表，构建一张Delegate子图，调用[Replace](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html#replace)用子图Kernel去替换这段连续的算子。
@@ -156,7 +156,7 @@ if (build_ret != mindspore::kSuccess) {
 
 ## NPUDelegate示例
 
-目前，MindSpore Lite对于NPU后端的集成采用了[NPUDelegate](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/src/delegate/npu/npu_delegate.h#L29)接口。本教程对NPUDelegate做简单说明，使用户能快速了解Delegate相关API的使用。
+目前，MindSpore Lite对于NPU后端的集成采用了[NPUDelegate](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/src/runtime/delegate/npu/npu_delegate.h#L29)接口。本教程对NPUDelegate做简单说明，使用户能快速了解Delegate相关API的使用。
 
 ### 新增NPUDelegate类
 
@@ -190,7 +190,7 @@ class NPUDelegate : public Delegate {
 
 ### 实现Init接口
 
-[Init](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/delegate/npu/npu_delegate.cc#L75)接口实现和NPU有关的资源申请。
+[Init](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/runtime/delegate/npu/npu_delegate.cc#L75)接口实现和NPU有关的资源申请。
 
 ```cpp
 Status NPUDelegate::Init() {
@@ -217,7 +217,7 @@ Status NPUDelegate::Init() {
 
 ### 实现Build接口
 
-Build接口解析DelegateModel实例，主要实现算子支持判断、子图构建、在线构图等功能。下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/delegate/npu/npu_delegate.cc#L163)是NPUDelegate Build接口的实现。
+Build接口解析DelegateModel实例，主要实现算子支持判断、子图构建、在线构图等功能。下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/runtime/delegate/npu/npu_delegate.cc#L163)是NPUDelegate Build接口的实现。
 
 ```cpp
 Status NPUDelegate::Build(DelegateModel *model) {
@@ -257,7 +257,7 @@ Status NPUDelegate::Build(DelegateModel *model) {
 
 ### 实现构图代码
 
-以下[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/delegate/npu/npu_delegate.cc#L273)是NPUDelegate的CreateNPUGraph接口，用于生成一张NPU子图。
+以下[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/runtime/delegate/npu/npu_delegate.cc#L273)是NPUDelegate的CreateNPUGraph接口，用于生成一张NPU子图。
 
 ```cpp
 kernel::Kernel *NPUDelegate::CreateNPUGraph(const std::vector<NPUOp *> &ops) {
@@ -279,7 +279,7 @@ kernel::Kernel *NPUDelegate::CreateNPUGraph(const std::vector<NPUOp *> &ops) {
 
 ### 实现NPUGraph
 
-[NPUGraph](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/delegate/npu/npu_graph.h#L29)继承自[Kernel](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html#kernel)，需要重写Prepare、Execute、ReSize接口。
+[NPUGraph](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/runtime/delegate/npu/npu_graph.h#L29)继承自[Kernel](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html#kernel)，需要重写Prepare、Execute、ReSize接口。
 
 ```cpp
 class NPUGraph : public kernel::Kernel {
@@ -306,7 +306,7 @@ class NPUGraph : public kernel::Kernel {
 };
 ```
 
-[NPUGraph::Prepare](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/delegate/npu/npu_graph.cc#L306)接口主要实现:
+[NPUGraph::Prepare](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/runtime/delegate/npu/npu_graph.cc#L306)接口主要实现:
 
 ```cpp
 int NPUGraph::Prepare() {
@@ -314,7 +314,7 @@ int NPUGraph::Prepare() {
 }
 ```
 
-[NPUGraph::Execute](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/delegate/npu/npu_graph.cc#L322)接口主要实现:
+[NPUGraph::Execute](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/runtime/delegate/npu/npu_graph.cc#L322)接口主要实现:
 
 ```cpp
 int NPUGraph::Execute() {
