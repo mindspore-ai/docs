@@ -10,7 +10,7 @@ The primitive operators are the lowest-order operator interfaces open to users. 
 
 The Primitive operator interface is the basis for building capabilities, such as higher-order interfaces, automatic differentiation, network models.
 
-Primitive operators can be divided into [compute operators](#compute-operator) and [frame operators](#frame-operator). Compute operators are mainly responsible for specific calculations, while frame operators are mainly used for functions such as composition and automatic differentiation.
+Primitive operators can be divided into [compute operators](#operator-related-to-compute) and [frame operators](#operators-related-to-frame). Compute operators are mainly responsible for specific calculations, while frame operators are mainly used for functions such as composition and automatic differentiation.
 
 The composite interface provides some predefined combinatorial operators, such as clip_by_value operators, and functions involving graph transformations (GradOperation and Map). More composite interfaces can be found in the [composite interface](https://mindspore.cn/docs/en/master/api_python/mindspore.ops.html#composite).
 

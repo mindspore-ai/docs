@@ -355,12 +355,12 @@ REGISTER_CUSTOM_KERNEL_INTERFACE(BuiltInTest, Add, CustomAddInferCreator)
 ## Custom GPU Operators
 
 A set of GPU-related functional APIs are provided to facilitate the development of the GPU-based custom operator and enable the GPU-based custom operator to share the same resources with the internal GPU-based operators to improve the scheduling efficiency. For details about the APIs, see [mindspore::registry::opencl](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore_registry_opencl.html).
-This document describes how to develop a custom GPU operator by parsing sample code. Before reading this document, you need to understand [How to Implement Custom Operators](#how-to-implement-custom-operators).
+This document describes how to develop a custom GPU operator by parsing sample code. Before reading this document, you need to understand [Implement Custom Operators](#implementing-custom-operators).
 The [code repository](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/test/ut/src/registry/registry_gpu_custom_op_test.cc) contains implementation and registration of custom GPU operators.
 
 ### Registering Operators
 
-In this example, the custom operator `Custom_Add` is registered. For details about how to create and implement this operator, see [Custom Operator Definition](#custom-operator-definition) and [Custom Operator Implementation](#custom-operator-implementation).
+In this example, the custom operator `Custom_Add` is registered. For details about how to create and implement this operator, see [Defining Custom Operators](#defining-custom-operators) and [Implementing Custom Operators](#implementing-custom-operators).
 
 #### Implementing a Function for Creating an Operator Instance
 
@@ -380,7 +380,7 @@ using CreateKernel = std::function<std::shared_ptr<kernel::Kernel>(
   const mindspore::Context *ctx)>;
 ```
 
-In this example, the operator instance creation function is implemented as follows. The function returns a `CustomAddKernel` class instance. This class is the user-defined operator class that inherits the `kernel::Kernel` class. For details about the implementation of this class, see [Operator Implementation](#operator-implementation).
+In this example, the operator instance creation function is implemented as follows. The function returns a `CustomAddKernel` class instance. This class is the user-defined operator class that inherits the `kernel::Kernel` class. For details about the implementation of this class, see [Implementing Operators](#implementing-operators).
 In the function, in addition to transferring the function parameters to the constructor function of the `CustomAddKernel` class, a Boolean variable is also transferred. The variable is used to control whether the data type processed by the created `CustomAddKernel` instance is FLOAT32 or FLOAT16.
 
 ```cpp

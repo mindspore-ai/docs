@@ -515,7 +515,7 @@ KernelReg(const std::string &arch, const std::string &provider, DataType data_ty
 
     - `op_type`: 算子类型，由用户自定义，确保唯一即可。
 
-    - `creator`: 创建算子的函数指针，具体见[CreateKernel](#CreateKernel)的说明。
+    - `creator`: 创建算子的函数指针，具体见[CreateKernel](#createKernel)的说明。
 
 ## KernelInterfaceCreator
 

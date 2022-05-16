@@ -13,7 +13,7 @@ Client定义了端侧联邦学习算法执行流程对象。
 | function                   |
 | -------------------------------- |
 | [abstract List<Callback\> initCallbacks(RunType runType, DataSet dataSet)](#initcallbacks) |
-| [abstract Map<RunType, Integer\> initDataSets(Map<RunType, List<String\>\> files)](#initdataSets)    |
+| [abstract Map<RunType, Integer\> initDataSets(Map<RunType, List<String\>\> files)](#initdatasets)    |
 | [abstract float getEvalAccuracy(List<Callback\> evalCallbacks)](#getevalaccuracy) |
 | [abstract List<Integer\> getInferResult(List<Callback\> inferCallbacks)](#getinferresult) |
 | [Status initSessionAndInputs(String modelPath, MSConfig config)](#initsessionandinputs) |
