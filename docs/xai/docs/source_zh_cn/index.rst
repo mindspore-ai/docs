@@ -7,17 +7,6 @@ MindSpore XAI是一个基于昇思MindSpore的可解释AI工具箱。当前深�
 
    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/xai/docs/source_zh_cn/images/xai_cn.png" width="700px" alt="" >
 
-使用MindSpore XAI的典型场景
----------------------------
-
-1. `使用解释器 <https://www.mindspore.cn/xai/docs/zh-CN/master/using_cv_explainers.html>`_
-
-   为图片分类模型输出热力图解释。
-
-2. `使用度量方法 <https://www.mindspore.cn/xai/docs/zh-CN/master/using_cv_benchmarks.html>`_
-
-   为解释器作出优劣评估。
-
 .. toctree::
    :glob:
    :maxdepth: 1
