@@ -2373,7 +2373,7 @@ virtual void *Free(void *ptr)
 
 - 参数
 
-    - `ptr`: 要释放的内存地址，该值由[Malloc](#Malloc)分配。
+    - `ptr`: 要释放的内存地址，该值由[Malloc](#malloc)分配。
 
 #### RefCount
 
@@ -2385,7 +2385,7 @@ virtual int RefCount(void *ptr)
 
 - 参数
 
-    - `ptr`: 要操作的内存地址，该值由[Malloc](#Malloc)分配。
+    - `ptr`: 要操作的内存地址，该值由[Malloc](#malloc)分配。
 
 #### SetRefCount
 
@@ -2397,7 +2397,7 @@ virtual int SetRefCount(void *ptr, int ref_count)
 
 - 参数
 
-    - `ptr`: 要操作的内存地址，该值由[Malloc](#Malloc)分配。
+    - `ptr`: 要操作的内存地址，该值由[Malloc](#malloc)分配。
 
     - `ref_count`: 引用计数值。
 
@@ -2411,7 +2411,7 @@ virtual int DecRefCount(void *ptr, int ref_count)
 
 - 参数
 
-    - `ptr`: 要操作的内存地址，该值由[Malloc](#Malloc)分配。
+    - `ptr`: 要操作的内存地址，该值由[Malloc](#malloc)分配。
 
     - `ref_count`: 引用计数值。
 
@@ -2425,7 +2425,7 @@ virtual int IncRefCount(void *ptr, int ref_count)
 
 - 参数
 
-    - `ptr`: 要操作的内存地址，该值由[Malloc](#Malloc)分配。
+    - `ptr`: 要操作的内存地址，该值由[Malloc](#malloc)分配。
 
     - `ref_count`: 引用计数值。
 
@@ -2447,7 +2447,7 @@ virtual void *Prepare(void *ptr)
 
 - 参数
 
-    - `ptr`: 要操作的内存地址，该值由[Malloc](#Malloc)分配。
+    - `ptr`: 要操作的内存地址，该值由[Malloc](#malloc)分配。
 
 ### 保护的数据成员
 

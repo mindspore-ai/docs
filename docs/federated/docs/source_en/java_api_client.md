@@ -25,7 +25,7 @@ Client defines the execution process object of the end-side federated learning a
 | [Status updateFeatures(String modelName, List<FeatureMap\> featureMaps)](#updatefeatures) |
 | [void free()](#free) |
 | [Status setLearningRate(float lr)](#setlearningrate) |
-| [void setBatchSize(int batchSize)](#setbatchSize) |
+| [void setBatchSize(int batchSize)](#setbatchsize) |
 
 ## initCallbacks
 

@@ -32,6 +32,8 @@ Load the MindSpore model from file.
 
   Whether the load is successful.
 
+## getGraphPtr
+
 ```java
 public long getGraphPtr()
 ```
