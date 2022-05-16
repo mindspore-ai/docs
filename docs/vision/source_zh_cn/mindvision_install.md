@@ -57,10 +57,7 @@
 推理所用的[图片](https://gitee.com/mindspore/vision/blob/r0.1/tests/st/classification/dataset/mnist/mnist.jpg) 来自MNIST数据集，用户可以通过参数`device_target`来自定义推理所用的平台。
 
 ```shell
-python ./examples/classification/lenet/lenet_mnist_infer.py \
-        --data_url ./tests/st/classification/dataset/mnist/mnist.jpg \
-        --pretrained True \
-        --device_target CPU
+python ./examples/classification/lenet/lenet_mnist_infer.py --data_url ./tests/st/classification/dataset/mnist/mnist.jpg --pretrained True --device_target CPU
 ```
 
 ```text

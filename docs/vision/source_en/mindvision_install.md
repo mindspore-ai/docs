@@ -58,10 +58,7 @@ initialize a classificer and run inference on a demo image.
 The [image](https://gitee.com/mindspore/vision/blob/r0.1/tests/st/classification/dataset/mnist/mnist.jpg) used for inference is from the MNIST dataset. Users can use the parameter `device_target` to customize the platform for inference.
 
 ```shell
-python ./examples/classification/lenet/lenet_mnist_infer.py \
-        --data_url ./tests/st/classification/dataset/mnist/mnist.jpg \
-        --pretrained True \
-        --device_target CPU
+python ./examples/classification/lenet/lenet_mnist_infer.py --data_url ./tests/st/classification/dataset/mnist/mnist.jpg --pretrained True --device_target CPU
 ```
 
 ```text
