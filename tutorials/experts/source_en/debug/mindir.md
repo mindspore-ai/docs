@@ -16,14 +16,14 @@ When a model compiled using MindSpore runs in the graph mode `set_context(mode=G
 
 You can run the graphviz command to convert a .dot file to the picture format. For example, you can run the `dot -Tpng *.dot -o *.png` command to convert a `.dot` file to a .png file.
 
-Add the following code to `train.py`. When running the script, MindSpore will automatically store the IR files generated during compilation under the specified path.
+In the training script `train.py`, we add the following code to the `set_context` function, when running the training script, MindSpore will automatically store the IR file generated during compilation to the specified path.
 
 ```python
 if __name__ == "__main__":
     set_context(save_graphs=True, save_graphs_path="path/to/ir/files")
 ```
 
-After the training command is executed, some files are generated in the path of `save_graphs_path`.
+After the training command is executed, several files were generated under the specified path.
 
 ```text
 .
@@ -45,33 +45,23 @@ After the training command is executed, some files are generated in the path of 
 ...
 ```
 
-The IR files starting with digits and underscores are generated during the ME graph compilation. The compute graph is
-saved in each phase of the `pipeline`. Let's see the important phases.
+The IR files starting with digits and underscores are generated during the ME graph compilation. The compute graph is saved in each phase of the `pipeline`. Let's see the important phases.
 
-- The `parse` phase parses the `construct` function of the entrance. If viewing the IR file, we can see that only the
-  graph information of the top cell is parsed in this phase.
-- The `symbol_resolve` phase recursively parses other functions and objects directly or indirectly referenced by the
-  entry function. When using the unsupported syntax, it will get an error in this phase.
-- The `abstract_specialize` phase infers every node's `data type` and `shape` by the cell's inputs. When you want to
-  know the shape or data type of a specific operator in IR, you can view this IR file.
-- The `optimize` phase, hardware-independent optimization is performed, the automatic differential and automatic
-  parallel functions are also performed. Some ir files with the prefix `opt_pass` are saved here. No need to pay too
-  much attention to those files if you are not the framework developer.
-- The `validate` phase will check the temporary operators which should be removed in the prior phase. If any temporary
-  operator exists, the process will report an error and exit.
+- The `parse` phase parses the entrance function and this phase generates MindIR initially. If viewing the IR file, we can see that only the graph information of the top Cell is parsed in this phase.
+- The `symbol_resolve` phase recursively parses entrance function, mainly recursive resolution entry functions directly or indirectly reference to other functions and objects. When using the unsupported syntax, it will get an error in this phase.
+- The `abstract_specialize` phase means that the data type and shape information for all nodes in the IR is deduced from the input information. When you want to know the shape or data type of a specific operator in IR, you can view this IR file.
+- The `optimize` phase refers hardware-independent optimization is performed. The automatic differential and automatic parallel functions are also performed. This stage can be subdivided into several substages. In the list of IR files, where the files prefixed with `opt_pass_ [ordinal]` are IR files saved after the end of these sub-stages, non-framework developers do not need to pay too much attention.
+- The `validate` phase will verify the compiled compute graph and check the temporary operators which should be removed in the prior phase. If any temporary operator exists, the process will report an error and exit.
 - The `task_emit` phase will transfer the compute graph to the backend for further processing.
-- The `execute` phase will execute the compute graph. This is the final graph in the phase of frontend.
+- The `execute` phase will execute the compute graph. The IR graph in this stage is the final graph in the phase of frontend.
 
-In addition, you don't need to pay too much attention to the IR files (such as files beginning with `hwopt`) if you are
-not the framework developer because the backend is close to the hardware. Only need pay attention to the
-file `graph_build_[graph_id]_[IR_id].ir`. It is the MindIR after the frontend and backend optimization.
+In addition, because the backend is closer to the bottom layer, non-framework developers do not need to pay much attention to other IR files saved during the backend optimization process (such as files that begin with `hwopt`). Non-framework developers only need to look at the file named `graph_build_[Graph Sequence Number]_[IR File Sequence Number].ir`, i.e. IR after all front and back end optimizations.
 
-> Multiple files may be saved because the backend only can handle the single graph.
-> It is different with the frontend when the front save all sub-graphs in the one file.
+> Multiple files may be saved because the backend is optimized on subgraphs, which is different from the mechanism by which multiple subgraphs on the front end are saved in the same file.
 
 ## IR File Contents Introduction
 
-The following is an example to describe the contents of the IR file. The content may have some changes with the version upgrade of MindSpore.
+The following is an example to describe the contents of the IR file (the content may have some changes with the version upgrade of MindSpore). Run the script:
 
 ```python
 from mindspore import set_context, GRAPH_MODE
@@ -109,7 +99,7 @@ print(out)
 
 ### ir Introduction
 
-Use a text editing software (for example, vi) to open the `04_abstract_specialize_0012.ir` file. The file contents are as follows:
+Use a text editing software (for example, `vi`) to open the `04_abstract_specialize_0012.ir` file output after execution. The file contents are as follows:
 
 ```text
   1 #IR entry      : @1_construct_wrapper.21
@@ -167,10 +157,10 @@ The above contents can be divided into two parts, the first part is the input li
 The first line tells us the name of the top MindSpore graph about the network, `1_construct_wrapper.21`, or the entry graph.
 Line 3 tells us how many inputs are in the network.
 Line 5 to 6 are the input list, which is in the format of `%para[No.]_[name] : <[data_type]x[shape]>`.
-Line 8 tells us the number of subgraph parsed by the network. There are 3 graphs in this IR. Line 42 is the entry graph `1_construct_wrapper.21`. Line 32 is graph `3_func.23`, parsed from the `func(x, y)` in the source script. Line 12 is graph `2_construct.22`, parsed from the function `construct`.
-Taking graph `2_construct.22` as an example, Line 10 to 28 indicate the graph structure, which contains several nodes, namely, `CNode`. In this example, there are `Sub`, `Add`, `Mul`. They are defined in the function `__init__`. Line 19 calls a graph by `call @3_func.23`. It indicates calling the graph `func(x, y)` to execute a division operation.
+Line 8 tells us the number of subgraph parsed by the network. There are 3 graphs in this IR. Line 42 is the entry graph `1_construct_wrapper.21`. Line 32 is graph `3_func.23`, parsed from the `func(x, y)` defined in the network. Line 12 is graph `2_construct.22`, parsed from the function `construct`.
+Taking graph `2_construct.22` as an example, Line 10 to 28 indicate the graph structure, which contains several nodes, namely, `CNode`. In this example, there are `Sub`, `Add`, `Mul` defined in the function `__init__`. In another place (line 19), figure `3_func.23` is called in the form of `call @3_func.23`, corresponding to the execution of the two-digit division of the function `func` in the script.
 
-The [CNode](https://www.mindspore.cn/docs/en/master/design/mindir.html#syntax) information format is as follows: including the node name, attribute, input node, the specs of the inputs and outputs, and source code parsing call stack. The ANF graph is a unidirectional acyclic graph. So, the connection between nodes is displayed only based on the input relationship. The corresponding source code reflects the relationship between the `CNode` and the script source code. For example, line 15 is parsed from `a = self.sub(x, 1)`.
+The `CNode` ([check the design of ANF-IR](https://www.mindspore.cn/docs/en/master/design/mindir.html#syntax)) information format is as follows: from left to right, the ordinal number, node name - debug_name, operator name - op_name, input node - arg, attributes of the node - primitive_attrs, input and output specifications, source code parsing call stack and other information. So, the connection between nodes is displayed only based on the input relationship. The corresponding source code reflects the relationship between the `CNode` and the script source code. For example, line 15 is parsed from `a = self.sub(x, 1)`.
 
 ```text
   %[No.]([debug_name]) = [op_name]([arg], ...) primitive_attrs: {[key]: [value], ...}
@@ -185,11 +175,11 @@ About the corresponding source code:
 - If the operator is a fusion operator, the associated code line will display the fusion related code, identified by "Corresponding code candidate:", where the separator "-" is used to distinguish different codes.
 
 > - After several optimizations by the compiler, the node may undergo several changes (such as operator splitting and operator merging). The source code parsing call stack information of the node may not be in a one-to-one correspondence with the script. This is only an auxiliary method.
-> - After the `kernel select` phase at the backend, two lines of input and output specification information (that is, the content after `:`) will appear. The first line represents the specifications on the HOST side, and the second line represents the specifications on the DEVICE side.
+> - After the `kernel select` phase at the backend, two lines of input and output specification information (that is, the content after `:`) will appear. The first line represents the specifications on the `HOST` side, and the second line represents the specifications on the `DEVICE` side.
 
 ### dat Introduction
 
-Use a text editing software (for example, vi) to open the `04_abstract_specialize_0013.dat` file. The file contents are as follows:
+Use a text editing software (for example, `vi`) to open the `04_abstract_specialize_0013.dat` file. The file contents are as follows:
 
 ```text
   1 # [No.1] 1_construct_wrapper.21
@@ -255,12 +245,12 @@ Use a text editing software (for example, vi) to open the `04_abstract_specializ
 Above, it lists all the graphs beginning with the entry graph.
 Line 1 indicates graph `1_construct_wrapper.21` whose id is `No.1`. And line 7 calls graph `2_construct.22`.
 line 17 to 39 shows the information of graph `2_construct.22`.
-Taking graph `2_construct.22` as an example. Line 18 tells us which function this graph is parsed from. Line 20 to 21 indicates the input information which is in the format of `%para[No.] : [data_type][shape]    # [name]`.
+Taking graph `2_construct.22` whose information is located at Line 17 to 39 as an example. Line 18 tells us which function this graph is parsed from. Line 20 to 21 indicates the input information which is in the format of `%para[No.] : [data_type][shape]    # [name]`.
 Line 23 to 32 indicates the graph structure, which contains several nodes, namely, `CNode`. In this example, there are `Sub`, `Add`, `Mul`. They are defined in the function `__init__`.
-Line 34 to 39 shows the execution order of the `CNode` from graph `2_construct.22`, corresponding to the order of code execution. The information format is: `No.: belonging graph:node name{[0]: the first input, [1]: the second input, ...}`. For `CNode`, the first input indicates how to compute for this `CNode`.
-Line 28 indicates the number of graphs. Here is 3.
+Line 34 to 39 shows the execution order of the compute nodes in the graph, corresponding to the order of code execution. The information format is: `No.: belonging graph:node name{[0]: the first input, [1]: the second input, ...}`. For `CNode`, the first input indicates how to compute for this `CNode`.
+Line 58 indicates the number of graphs. Here is 3.
 
-The [CNode](https://www.mindspore.cn/docs/en/master/design/mindir.html#syntax) information format is as follows: including the node name, attribute, input node, output information, format and the corresponding source code.
+The `CNode` ([check the design of ANF-IR](https://www.mindspore.cn/docs/en/master/design/mindir.html#syntax)) information format is as follows: including the node name, attribute, input node, output information, format and the corresponding source code.
 
 ```text
 %[No,] : [outputs' Spec] = [op_name]{[prim_type]}[attr0, attr1, ...](arg0, arg1, ...)    #(inputs' Spec)#[scope]
@@ -275,16 +265,15 @@ We can use this file by [graphviz](http://graphviz.org/) as the input to generat
 dot -Tpng -o 04_abstract_specialize_0014.png 04_abstract_specialize_0014.dot
 ```
 
-The transformed image is shown below, and we can visually see the model structure. The Different black boxes distinguish different subgraphs, and the blue arrows between graphs represent calling another graph. The blue area represents the parameter, the rectangle represents the parameter list of the graph, the hexagon and the black arrow represent the parameter as the input of the CNode to participate in the calculation process. The yellow rectangle represents the CNode. As can be seen from the picture, the CNode input starts from index 0, and the 0th input (that is, the purple or green area) represents what calculation the operator will perform, which is connected by a dotted arrow. The type is usually an operator primitive, or it can also be another graph. The rest inputs are the parameters required for the calculation.
+The transformed image is shown below, and we can visually see the model structure. The different black boxes distinguish different subgraphs, and the blue arrows between graphs represent calling another graph. The blue area represents the parameter, the rectangle represents the parameter list of the graph, the hexagon and the black arrow represent the parameter as the input of the CNode to participate in the calculation process. The yellow rectangle represents the CNode. As can be seen from the picture, the CNode input starts from index 0, and the 0th input (that is, the purple or green area) represents what calculation the operator will perform, which is connected by a dotted arrow. The type is usually an operator primitive, or it can also be another graph. The rest inputs are the parameters required for the calculation.
 
 ![04_abstract_specialize_0014.png](./images/dot_to_png.png)
 
-For models with multiple operators, the picture will be very large. It is recommended using the visualization component [MindInsight](https://www.mindspore.cn/mindinsight/docs/en/master/dashboard.html#computational-graph-visualization) to visualize computing graphs.
+For models with multiple operators, the picture will be very large. It is recommended by using the visualization component [MindInsight](https://www.mindspore.cn/mindinsight/docs/en/master/dashboard.html#computational-graph-visualization) to visualize compute graphs.
 
-## Reading analyze_fail.dat
+## How to derive the cause of the failure based on the analyze_fail.dat file analysis graph
 
-In the process of `MindSpore` compiling a graph, the exceptions about graph evaluating fail usually happen. But we can find
-the reason by analyzing the exception information and analyze_fail.dat.
+In the process of MindSpore compiling a graph, the exceptions about graph evaluating fail usually happen. But we can find the reason by analyzing the exception information and analyze_fail.dat.
 
 For example, we run the script below.
 
@@ -356,13 +345,12 @@ An error happens.
  28                         ^
 ```
 
-Above exception is 'TypeError: mindspore/ccsrc/pipeline/jit/static_analysis/stack_frame.cc:85 DoJump] The parameters number of the function is 2, but the number of provided arguments is 3...'.
+Above exception is "TypeError: mindspore/ccsrc/pipeline/jit/static_analysis/stack_frame.cc:85 DoJump] The parameters number of the function is 2, but the number of provided arguments is 3...".
 And it tells us `FunctionGraph ID : func.18` only needs two parameters, but actually gives 3.
 We can find the related code is `self.func(a, a, b)` from 'The function call stack ... In file test.py(25)'.
 Easily, by checking the code, we know that we gave too much parameter to the calling function.
 
-Sometimes the exception information is not enough easy to understand. Or we want to see the part of graph information that have evaluated.
-Then we can open `/home/workspace/mindspore/rank_0/om/analyze_fail.dat` that indicated in the exception text by using a text editing software (for example, vi).
+Sometimes the exception information is not enough easy to understand. Or we want to see the part of graph information that have evaluated. We use text editing software (e.g., vi) to open the file (in parentheses on line 22) that prompts in the error message: `/home/workspace/mindspore/rank_0/om/analyze_fail.dat` with the following content:
 
 ```text
   1 # [No.1] construct_wrapper.0
@@ -416,5 +404,6 @@ Then we can open `/home/workspace/mindspore/rank_0/om/analyze_fail.dat` that ind
 ```
 
 The file `analyze_fail.dat` has the same information format with the file `.dat`. The only difference is `analyze_fail.dat` will locate the node which inferring failed.
-Searching the point by the text of `------------------------>`, we reach the last position of the `------------------------> 1` at line 30.
-The node at line 31 to 32 have an error. Its IR expression is `%3 = FuncGraph::fg_18(%1, %1, %2) ...`. We can know the node have 3 parameters from `(%1, %1, %2)`. But actually the function only need 2. So the compiler will fail when evaluating the node. To solve th problem, we should decrease the parameter number.
+Searching the point by the text of `------------------------>`, we reach the last position of the `------------------------> 1` at line 30. This last arrow points to the node that derives the error, which is `%3 = FuncGraph::fg_18(%1, %1, %2)...`, which expresses the information of the node in IR. How to view the dat file has been described in the `Dat File Introduction` section earlier, and will not be repeated here.
+The node at line 31 to 32 have an error. Its IR expression is `%3 = FuncGraph::fg_18(%1, %1, %2) ...`. We can know the node have 3 parameters from `(%1, %1, %2)`. From the source parsing call stack, it can be known that the function is actually `self.func`, which is defined in the script as `def dunc(x, y):...`.
+In the function definition, only two parameters are needed, so there will be a deduction failure error here, and we need to modify the number of parameters passed in the script to solve the problem.
