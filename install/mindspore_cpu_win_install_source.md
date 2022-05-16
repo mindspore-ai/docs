@@ -53,7 +53,7 @@ call build.bat
 ## 安装MindSpore
 
 ```bash
-pip install --find-links=output\. mindspore -i https://pypi.tuna.tsinghua.edu.cn/simple
+for %x in (output\mindspore*.whl) do pip install %x -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 在联网状态下，安装whl包时会自动下载mindspore安装包的依赖项（依赖项详情参见[setup.py](https://gitee.com/mindspore/mindspore/blob/r1.7/setup.py)中的required_package），其余情况需自行安装。运行模型时，需要根据[ModelZoo](https://gitee.com/mindspore/models/tree/master/)中不同模型指定的requirements.txt安装额外依赖，常见依赖可以参考[requirements.txt](https://gitee.com/mindspore/mindspore/blob/r1.7/requirements.txt)。
@@ -61,9 +61,11 @@ pip install --find-links=output\. mindspore -i https://pypi.tuna.tsinghua.edu.cn
 ## 验证是否成功安装
 
 ```bash
+cd ..
 python -c "import mindspore;mindspore.run_check()"
 ```
 
+执行`import mindspore`应在MindSpore源码根目录之外，因为Windows上的Python将当前目录视为执行环境，可能产生目录查找问题。
 如果输出：
 
 ```text
