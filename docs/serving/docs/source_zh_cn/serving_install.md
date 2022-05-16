@@ -4,7 +4,7 @@
 
 ## 安装
 
-MindSpore Serving包在各类硬件平台（Nvidia GPU, Ascend 910/710/310, CPU）上通用，推理任务依赖MindSpore或MindSpore Lite推理框架，我们需要选择一个作为Serving推理后端。当这两个推理后端同时存在的时候，优先使用MindSpore Lite推理框架。
+MindSpore Serving包在各类硬件平台（Nvidia GPU, Ascend 910/310P/310, CPU）上通用，推理任务依赖MindSpore或MindSpore Lite推理框架，我们需要选择一个作为Serving推理后端。当这两个推理后端同时存在的时候，优先使用MindSpore Lite推理框架。
 
 MindSpore和MindSpore Lite针对不同的硬件平台有不同的构建包，每个不同的构建包支持的运行目标设备和模型格式如下表所示：
 
@@ -12,12 +12,12 @@ MindSpore和MindSpore Lite针对不同的硬件平台有不同的构建包，每
 |---------| --- | --- | -------- |
 |MindSpore| Nvidia GPU | Nvidia GPU | `MindIR` |
 |  | Ascend | Ascend 910 | `MindIR` |
-|  |  | Ascend 710/310 | `MindIR`, `OM` |
+|  |  | Ascend 310P/310 | `MindIR`, `OM` |
 |MindSpore Lite| Nvidia GPU | Nvidia GPU, CPU | `MindIR_Opt` |
 |  | Ascend | Ascend 310, CPU | `MindIR_Opt` |
 |  | CPU | CPU | `MindIR_Opt` |
 
-当以[MindSpore](https://www.mindspore.cn/)作为推理后端时，MindSpore Serving当前支持Ascend 910/710/310和Nvidia GPU环境。其中Ascend 710/310环境支持`OM`和`MindIR`两种模型格式，Ascend 910和GPU环境仅支持`MindIR`模型格式。
+当以[MindSpore](https://www.mindspore.cn/)作为推理后端时，MindSpore Serving当前支持Ascend 910/310P/310和Nvidia GPU环境。其中Ascend 310P/310环境支持`OM`和`MindIR`两种模型格式，Ascend 910和GPU环境仅支持`MindIR`模型格式。
 
 MindSpore的安装和配置可以参考[安装MindSpore](https://gitee.com/mindspore/mindspore#%E5%AE%89%E8%A3%85)，并根据需要完成[环境变量配置](https://gitee.com/mindspore/docs/blob/r1.6/install/mindspore_ascend_install_pip.md#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)。
 

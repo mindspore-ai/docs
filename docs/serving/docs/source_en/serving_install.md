@@ -4,7 +4,7 @@
 
 ## Installation
 
-MindSpore Serving wheel packages are common to various hardware platforms(Nvidia GPU, Ascend 910/710/310, CPU). The inference task depends on the MindSpore or MindSpore Lite inference framework. We need to select one of them as the Serving Inference backend. When these two inference backend both exist, Mindspore Lite inference framework will be used.
+MindSpore Serving wheel packages are common to various hardware platforms(Nvidia GPU, Ascend 910/310P/310, CPU). The inference task depends on the MindSpore or MindSpore Lite inference framework. We need to select one of them as the Serving Inference backend. When these two inference backend both exist, Mindspore Lite inference framework will be used.
 
 MindSpore and MindSpore Lite have different build packages for different hardware platforms. The following table lists the target devices and model formats supported by each build package.
 
@@ -12,12 +12,12 @@ MindSpore and MindSpore Lite have different build packages for different hardwar
 |---------| --- | --- | -------- |
 |MindSpore| Nvidia GPU | Nvidia GPU | `MindIR` |
 |  | Ascend | Ascend 910 | `MindIR` |
-|  |  | Ascend 710/310 | `MindIR`, `OM` |
+|  |  | Ascend 310P/310 | `MindIR`, `OM` |
 |MindSpore Lite| Nvidia GPU | Nvidia GPU, CPU | `MindIR_Opt` |
 |  | Ascend | Ascend 310, CPU | `MindIR_Opt` |
 |  | CPU | CPU | `MindIR_Opt` |
 
-When [MindSpore](https://www.mindspore.cn/) is used as the inference backend, MindSpore Serving supports the Ascend 910/710/310 and Nvidia GPU environments. The Ascend 710/310 environment supports both `OM` and `MindIR` model formats, and the Ascend 910 and GPU environment only supports the `MindIR` model format.
+When [MindSpore](https://www.mindspore.cn/) is used as the inference backend, MindSpore Serving supports the Ascend 910/310P/310 and Nvidia GPU environments. The Ascend 310P/310 environment supports both `OM` and `MindIR` model formats, and the Ascend 910 and GPU environment only supports the `MindIR` model format.
 
 For details about how to install and configure MindSpore, see [Installing MindSpore](https://gitee.com/mindspore/mindspore/blob/r1.6/README.md#installation) and [Configuring MindSpore](https://gitee.com/mindspore/docs/blob/r1.6/install/mindspore_ascend_install_source_en.md#configuring-environment-variables).
 
