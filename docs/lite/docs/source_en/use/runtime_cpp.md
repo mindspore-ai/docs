@@ -536,23 +536,11 @@ MindSpore Lite supports OpenGL texture input, performs end-to-end GPU isomorphic
     gpu_device_info->SetEnableGLTexture(true);
 
     // 2. Set GLContext
-    EGLContext *gl_context = new (std::nothrow) EGLContext();
-    if (gl_context == nullptr) {
-      MS_LOG(ERROR) << "new EGLContext failed";
-      return RET_ERROR;
-    } else {
-      *gl_context = eglGetCurrentContext();
-    }
+    auto gl_context = eglGetCurrentContext();
     gpu_device_info->SetGLContext(gl_context);
 
     // 3. Set GLDisplay
-    EGLDisplay *gl_display = new (std::nothrow) EGLDisplay();
-    if (gl_display == nullptr) {
-      MS_LOG(ERROR) << "new EGLDisplay failed";
-      return RET_ERROR;
-    } else {
-      *gl_display = eglGetCurrentDisplay();
-    }
+    auto gl_display = eglGetCurrentDisplay();
     gpu_device_info->SetGLDisplay(gl_display);
     ```
 
