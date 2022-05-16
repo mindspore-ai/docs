@@ -34,7 +34,7 @@ class XXXDelegate : public Delegate {
 
 ### Implementing the Init
 
-[Init](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Delegate.html) will be called during the [Build](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) process of [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model). The specific location is in the [LiteSession::Init](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/lite_session.cc#L696) function of MindSpore Lite internal process.
+[Init](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Delegate.html) will be called during the [Build](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) process of [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model). The specific location is in the [LiteSession::Init](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/runtime/lite_session.cc#L696) function of MindSpore Lite internal process.
 
 ```cpp
 Status XXXDelegate::Init() {
@@ -51,7 +51,7 @@ The input parameter of the [Build(DelegateModel *model)](https://www.mindspore.c
 >
 > `const std::map<kernel::Kernel *, const schema::Primitive *> primitives_`: A map of kernel and its attribute `schema::Primitive`, which is used to analyze the original attribute information.
 
-[Build](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Delegate.html) will be called during the [Build](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) process of [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model). The specific location is in the [Schedule::Schedule](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/scheduler.cc#L132) function of MindSpore Lite internal process. At this time, the inner kernels have been selected by MindSpore Lite. The following steps should be implemented in Build function:
+[Build](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Delegate.html) will be called during the [Build](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html) process of [Model](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_Model.html#class-model). The specific location is in the [Schedule::Schedule](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/runtime/scheduler.cc#L132) function of MindSpore Lite internal process. At this time, the inner kernels have been selected by MindSpore Lite. The following steps should be implemented in Build function:
 
 1. Traverse the kernel list, use [GetPrimitive](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_DelegateModel.html) to get the attribute of kernel. Analyze the attribute to judge whether the delegate framework supports it.
 2. For a continuous supported kernel list, construct a delegate sub-graph kernel and [Replace](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_DelegateModel.html) the continuous supported kernels with it.
@@ -156,7 +156,7 @@ if (build_ret != mindspore::kSuccess) {
 
 ## Example of NPUDelegate
 
-Currently, MindSpore Lite uses the [NPUDelegate](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/src/delegate/npu/npu_delegate.h#L29) for the NPU backend. This tutorial gives a brief description of NPUDelegate, so that users can quickly understand the usage of Delegate APIs.
+Currently, MindSpore Lite uses the [NPUDelegate](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/src/runtime/delegate/npu/npu_delegate.h#L29) for the NPU backend. This tutorial gives a brief description of NPUDelegate, so that users can quickly understand the usage of Delegate APIs.
 
 ### Adding the NPUDelegate Class
 
@@ -190,7 +190,7 @@ class NPUDelegate : public Delegate {
 
 ### Implementing the Init of NPUDelegate
 
-[Init](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/delegate/npu/npu_delegate.cc#L75) function is used to apply resource for NPU and determine whether the hardware supports NPU.
+[Init](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/runtime/delegate/npu/npu_delegate.cc#L75) function is used to apply resource for NPU and determine whether the hardware supports NPU.
 
 ```cpp
 Status NPUDelegate::Init() {
@@ -217,7 +217,7 @@ Status NPUDelegate::Init() {
 
 ### Implementing the Build of NPUDelegate
 
-The [Build](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/delegate/npu/npu_delegate.cc#L163) interface parses the DelegateModel and mainly implements the kernel support judgment, the sub-graph construction, and the online graph building.
+The [Build](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/runtime/delegate/npu/npu_delegate.cc#L163) interface parses the DelegateModel and mainly implements the kernel support judgment, the sub-graph construction, and the online graph building.
 
 ```cpp
 Status NPUDelegate::Build(DelegateModel *model) {
@@ -257,7 +257,7 @@ Status NPUDelegate::Build(DelegateModel *model) {
 
 ### Creating NPUGraph
 
-The following [Sample Code](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/delegate/npu/npu_delegate.cc#L273) is the CreateNPUGraph interface of NPUDelegate, used to generate an NPU sub-graph kernel.
+The following [Sample Code](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/runtime/delegate/npu/npu_delegate.cc#L273) is the CreateNPUGraph interface of NPUDelegate, used to generate an NPU sub-graph kernel.
 
 ```cpp
 kernel::Kernel *NPUDelegate::CreateNPUGraph(const std::vector<NPUOp *> &ops) {
@@ -279,9 +279,9 @@ kernel::Kernel *NPUDelegate::CreateNPUGraph(const std::vector<NPUOp *> &ops) {
 
 ### Adding the NPUGraph Class
 
-[NPUGraph](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/delegate/npu/npu_graph.h#L29) inherits from [Kernel](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_kernel_Kernel.html#class-kernel). And we need to rewrite the Prepare, Execute, and ReSize interfaces.
+[NPUGraph](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/runtime/delegate/npu/npu_graph.h#L29) inherits from [Kernel](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_kernel_Kernel.html#class-kernel). And we need to rewrite the Prepare, Execute, and ReSize interfaces.
 
-[NPUGraph::Prepare](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/delegate/npu/npu_graph.cc#L306) mainly implements:
+[NPUGraph::Prepare](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/runtime/delegate/npu/npu_graph.cc#L306) mainly implements:
 
 ```cpp
 int NPUGraph::Prepare() {
@@ -289,7 +289,7 @@ int NPUGraph::Prepare() {
 }
 ```
 
-[NPUGraph::Execute](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/delegate/npu/npu_graph.cc#L322) mainly implements:
+[NPUGraph::Execute](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/runtime/delegate/npu/npu_graph.cc#L322) mainly implements:
 
 ```cpp
 int NPUGraph::Execute() {
