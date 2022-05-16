@@ -16,7 +16,7 @@ For more information, see [torch.cuda.set_device](https://pytorch.org/docs/1.5.0
 mindspore.set_context(**kwargs)
 ```
 
-For more information, see [mindspore.set_context](https://https://mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_context.html#mindspore.set_context).
+For more information, see [mindspore.set_context](https://mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_context.html#mindspore.set_context).
 
 ## Differences
 

@@ -390,7 +390,7 @@ pytest -s -v ./resnet50_distributed_training_gpu.py > train.log 2>&1 &
 
 ## Saving and Loading the Distributed Training Model Parameter
 
-When performing distributed training on a GPU, the method of saving and loading the model parameters is the same as that on Ascend, which can be referred to [Saving and Loading the Distributed Training Model Parameter](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#Saving and Loading the Distributed Training Model Parameter).
+When performing distributed training on a GPU, the method of saving and loading the model parameters is the same as that on Ascend, which can be referred to [Distributed Training Model Parameters Saving and Loading](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#distributed-training-model-parameters-saving-and-loading).
 
 ## Training without Relying on OpenMPI
 
@@ -440,7 +440,7 @@ Where:
 - `init("nccl")`: enables NCCL communication and completes distributed training initialization.
 - By default, the secure encrypted channel is closed, and the secure encrypted channel needs to be configured correctly through the `set_ps_context` or the secure encrypted channel must be closed before init ("nccl" can be called, otherwise the initialization of the networking will fail.
 
-To use a secure encrypted tunnel, set the configuration of `set_ps_context(config_file_path="/path/to/config_file.json", enable_ssl=True, client_password="123456", server_password="123456")`. For detailed parameter configurations, refer to [mindspore.set_ps_context](https://www.mindspore.cn/docs/en/master/api_python/mindspore.html#mindspore.set_ps_context), and [Safety Certification](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html#Security-Authentication) section.
+To use a secure encrypted tunnel, set the configuration of `set_ps_context(config_file_path="/path/to/config_file.json", enable_ssl=True, client_password="123456", server_password="123456")`. For detailed parameter configurations, refer to [mindspore.set_ps_context](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_ps_context.html#mindspore.set_ps_context), and [Safety Certification](#security-authentication) section.
 
 The script content `run_gpu_cluster.sh` is as follows, before starting the Worker and Scheduler, you need to add the relevant environment variable settings:
 
