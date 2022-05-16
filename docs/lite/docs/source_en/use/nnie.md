@@ -301,11 +301,11 @@ During model conversion, the `nnie.cfg` file declared by the NNIE_CONFIG_PATH en
 
   You only need to provide image_list whose quantity is the same as that of model inputs. If the model contains the ROI pooling or PSROI pooling layer, you need to provide roi_coordinate_file, the quantity and sequence correspond to the number and sequence of the ROI pooling or PSROI pooling layer in the .prototxt file.
 
-### Suffix _cpu of the Node Name in the .prototxt File
+### Suffix _cpu of the Node Name in the prototxt File
 
   In the .prototxt file, you can add _cpu to the end of the node name to declare CPU custom operator. The_cpu suffix is ignored in MindSpore Lite and is not supported. If you want to redefine the implementation of an existing operator or add an operator, you can register the operator in custom operator mode.
 
-### Custom Operator in the .prototxt File
+### Custom Operator in the prototxt File
 
   In the SVP tool chain, the custom layer is declared in the .prototxt file to implement inference by segment and implement the CPU code by users. In MindSpore Lite, you need to add the op_type attribute to the custom layer and register the online inference code in custom operator mode.
 
@@ -331,7 +331,7 @@ During model conversion, the `nnie.cfg` file declared by the NNIE_CONFIG_PATH en
 
   In this example, a custom operator of the MY_CUSTOM type is defined. During inference, you need to register a custom operator of the MY_CUSTOM type.
 
-### Suffix _report of the Top Domain in the .prototxt File
+### Suffix _report of the Top Domain in the prototxt File
 
   When converting the NNIE model, MindSpore Lite fuses most operators into the binary file for NNIE running. Users cannot view the output of the intermediate operators. In this case, you can add the _report suffix to the top domain, during image composition conversion, the output of the intermediate operator is added to the output of the fused layer. If the operator has output (not fused), the output remains unchanged.
 

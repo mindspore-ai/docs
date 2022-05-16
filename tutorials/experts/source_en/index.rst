@@ -47,9 +47,11 @@ For Experts
    debug/mindir
    debug/dump
    debug/custom_debug
+   debug/ms_class
    debug/op_compilation
    debug/auto_tune
    debug/dataset_autotune
+   debug/pynative
 
 .. toctree::
    :glob:
