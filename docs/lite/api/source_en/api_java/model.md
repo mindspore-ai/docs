@@ -31,7 +31,7 @@ Model defines model in MindSpore for compiling and running.
 | [boolean updateFeatureMaps(List<MSTensor\> features](#updatefeaturemaps) |
 | [boolean setTrainMode(boolean isTrain)](#settrainmode)                                         |
 | [boolean getTrainMode()](#gettrainmode)                               |
-| [boolean setLearningRate(float learning_rate)](#setLearningRate) |
+| [boolean setLearningRate(float learning_rate)](#setlearningrate) |
 | [boolean setupVirtualBatch(int virtualBatchMultiplier, float learningRate, float momentum)](#setupvirtualbatch)   |
 | [void free()](#free)                                    |
 | [ModelType](#modeltype)                                    |

@@ -32,6 +32,8 @@ Graph定义了MindSpore的计算图。
 
   是否加载成功。
 
+## getGraphPtr
+
 ```java
 public long getGraphPtr()
 ```

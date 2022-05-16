@@ -22,9 +22,9 @@ Model定义了MindSpore中编译和运行的模型。
 | [boolean resize(List<MSTensor\> inputs, int[][] dims)](#resize)                                         |
 | [List<MSTensor\> getInputs()](#getinputs)                                         |
 | [List<MSTensor\> getOutputs()](#getoutputs)                                         |
-| [MSTensor getInputsByTensorName(String tensorName)](#getinputsbytensorName)                                         |
-| [MSTensor getOutputByTensorName(String tensorName)](#getoutputbytensorName)                                         |
-| [List<MSTensor\> getOutputsByNodeName(String nodeName)](#getoutputsbynodeName)                                         |
+| [MSTensor getInputsByTensorName(String tensorName)](#getinputsbytensorname)                                         |
+| [MSTensor getOutputByTensorName(String tensorName)](#getoutputbytensorname)                                         |
+| [List<MSTensor\> getOutputsByNodeName(String nodeName)](#getoutputsbynodename)                                         |
 | [List<String\> getOutputTensorNames()](#getoutputtensornames)                                         |
 | [boolean export(String fileName, int quantizationType, boolean isOnlyExportInfer,List<String\> outputTensorNames)](#export)                                         |
 | [List<MSTensor\> getFeatureMaps()](#getfeaturemaps)                                         |

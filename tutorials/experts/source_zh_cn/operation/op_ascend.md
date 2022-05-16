@@ -232,9 +232,9 @@ def _random_choice_with_mask_aicpu():
 
 下面以`Dropout2D`算子的AICPU调用实现为例进行介绍，我们会经历算子实现、算子原语注册、算子信息库、算子调用四个步骤：
 
-1. 算子实现：参考[实现AICPU算子](#实现AICPU算子)的相关内容，我们将算子编译成`libmindspore_aicpu_kernels.so`。
+1. 算子实现：参考[实现AICPU算子](#实现aicpu算子)的相关内容，我们将算子编译成`libmindspore_aicpu_kernels.so`。
 2. 算子原语注册：参考[注册算子原语](#注册算子原语)的相关内容，我们将定义一个Dropout2D的算子。
-3. 算子信息库：参考[注册AICPU自定义算子信息](#注册AICPU自定义算子信息)的相关内容，我们将实现Dropout2D的信息库，并且添加`"cust_aicpu"`的属性。
+3. 算子信息库：参考[注册AICPU自定义算子信息](#注册aicpu自定义算子信息)的相关内容，我们将实现Dropout2D的信息库，并且添加`"cust_aicpu"`的属性。
 4. 算子调用：我们可以正常按照单算子网络的形式调用Dropout2D算子，同时可以配置`"cust_aicpu"`的属性值为`mindspore_aicpu_kernels`。
 
 ```python
