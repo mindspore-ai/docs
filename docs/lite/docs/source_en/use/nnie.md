@@ -275,7 +275,7 @@ ${model_path} indicates the path of the MS model file after conversion.
 
 After this command is executed, random input of the model is generated and forward inference is performed. For details about how to use the benchmark, such as time consumption analysis and inference error analysis, see [benchmark](https://www.mindspore.cn/lite/docs/en/master/use/benchmark_tool.html).
 
-For details about the input data format requirements of the model, see [(Optional) SVP Tool Chain-related Functions and Precautions](#(optional)-svp-tool-chain-related-functions-and-precautions).
+For details about the input data format requirements of the model, see [(Optional) SVP Tool Chain-related Functions and Precautions](#svp-tool-chain-related-functions-and-precautions-advanced-options).
 
 ## Integration
 
@@ -337,7 +337,7 @@ During model conversion, the `nnie.cfg` file declared by the NNIE_CONFIG_PATH en
 
   During the inference running, you can obtain the output of the intermediate operator by referring to [Using C++ Interface to Perform Inference](https://www.mindspore.cn/lite/docs/en/master/use/runtime_cpp.html#using-c++-interface-to-perform-inference).
 
-  MindSpore Lite parses the corresponding rules of _report and resolves the conflict with the [Inplace Mechanism](#inplace mechanism). For details, see the definition in the HiSVP Development Guide.
+  MindSpore Lite parses the corresponding rules of _report and resolves the conflict with the [Inplace Mechanism](#inplace-mechanism). For details, see the definition in the HiSVP Development Guide.
 
 ### Inplace Mechanism
 
