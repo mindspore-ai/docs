@@ -412,8 +412,7 @@ MindInsight can record the accuracy result of each training for users. When the 
         *Figure 13 Viewing the relationship between parameters and optimization objectives in a scatter chart through MindInsight lineage analysis*
 
     3. Try to use the [MindInsight parameter tuner](https://www.mindspore.cn/mindinsight/docs/en/master/hyper_parameters_auto_tuning.html) to optimize hyperparameters. It should be noted that the parameter debugger performs hyperparameter search by performing multiple times of complete training, and the time consumed is several times of the time consumed by one time of network training. If one time of network training takes a long time, the hyperparameter search takes a long time.
-    4. Try to use the [MindInsight model explanation](https://www.mindspore.cn/mindinsight/docs/en/master/model_explanation.html) function to optimize the model and dataset. The model explanation function can display the area that is most important to the classification result through saliency map visualization. In addition, the scoring system can be used to indicate the type of labels to be optimized.
-    5. Try the common tuning suggestions described in the following sections.
+    4. Try the common tuning suggestions described in the following sections.
 
 - Check the accuracy of the validation set.
 
