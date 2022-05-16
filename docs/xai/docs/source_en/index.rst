@@ -7,17 +7,6 @@ Currently, most deep learning models are black-box models with good performance 
 
    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/xai/docs/source_en/images/xai_en.png" width="700px" alt="" >
 
-Typical Application Scenarios
-------------------------------
-
-1. `Using Explainers <https://www.mindspore.cn/xai/docs/en/master/using_cv_explainers.html>`_
-
-   Explain image classification models using saliency maps.
-
-2. `Benchmarks <https://www.mindspore.cn/xai/docs/en/master/using_cv_benchmarks.html>`_
-
-   Scores CV explainers.
-
 .. toctree::
    :glob:
    :maxdepth: 1

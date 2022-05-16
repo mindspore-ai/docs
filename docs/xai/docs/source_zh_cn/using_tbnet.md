@@ -25,49 +25,31 @@ mv data xai/models/whitebox/tbnet
 `xai/models/whitebox/tbnet/` 文件夹结构：
 
 ```bash
-xai/models/whitebox/tbnet/
-├── README.md
-├── README_CN.md
-├── data/
-│    └── steam/
-│         ├── LICENSE
-│         ├── config.json
-│         ├── src_infer.csv
-│         ├── src_test.csv
-│         └── src_train.csv
-├── src/
-|    ├─dataset.py
-|    ├─embedding.py
-|    ├─metrics.py
-|    ├─path_gen.py
-|    ├─recommend.py
-|    └─tbnet.py
-├── eval.py
-├── export.py
-├── infer.py
-├── preprocess.py
-├── train.py
-└── tbnet_config.py
+.
+└─tbnet
+  ├─README.md
+  ├─README_CN.md
+  ├─data
+  │ └─steam                         # Steam 用户历史行为数据集
+  │   ├─LICENSE
+  │   ├─config.json                 # 超参和训练配置
+  │   ├─src_infer.csv               # 推理用原始数据
+  │   ├─src_test.csv                # 测试用原始数据
+  │   └─src_train.csv               # 训练用原始数据
+  ├─src
+  │ ├─dataset.py                    # 数据集加载器
+  │ ├─embedding.py                  # 实体嵌入模组
+  │ ├─metrics.py                    # 模型度量
+  │ ├─path_gen.py                   # 数据预处理器
+  │ ├─recommend.py                  # 推理结果集成器
+  │ └─tbnet.py                      # TB-Net网络架构
+  ├─export.py                       # 导出MINDIR/AIR文件脚本
+  ├─preprocess.py                   # 数据预处理脚本
+  ├─eval.py                         # 评估网络脚本
+  ├─infer.py                        # 推理和解释脚本
+  ├─train.py                        # 训练网络脚本
+  └─tbnet_config.py                 # 配置阅读器
 ```
-
-- `steam/`：Steam 用户历史行为数据集。
-- `LICENSE`：数据集开原执照。
-- `config.json`：模型超参及训练设定。
-- `src_infer.csv`：推理用原始数据。
-- `src_test.csv`：评估用原始数据。
-- `src_train.csv`：训练用原始数据。
-- `dataset.py`：数据集加载器。
-- `embedding.py`：实体嵌入模组。
-- `metrics.py`：模型度量。
-- `path_gen.py`：数据预处理器。
-- `recommend.py`：推理结果集成器。
-- `tbnet.py`：TB-Net 网络架构。
-- `eval.py`：评估用例。
-- `export.py`：导出已训练模型用例。
-- `infer.py`：推理用例。
-- `preprocess.py`：数据预处理用例。
-- `train.py`：训练用例。
-- `tbnet_config`：用例的设定阅读器。
 
 ### 准备 Python 环境
 
@@ -204,7 +186,7 @@ python train.py
 
 会使用Steam数据集进行20个epoch的训练，并为每个epoch储存一个checkpoint文件到 `./checkpoints/steam`。
 
-## 推理
+## 推理及解释
 
 本步骤的完整用例代码：[infer.py](https://gitee.com/mindspore/xai/blob/master/models/whitebox/tbnet/infer.py) 。
 

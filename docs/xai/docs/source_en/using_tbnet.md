@@ -25,49 +25,31 @@ mv data xai/models/whitebox/tbnet
 `xai/models/whitebox/tbnet/` files:
 
 ```bash
-xai/models/whitebox/tbnet/
-├── README.md
-├── README_CN.md
-├── data/
-│    └── steam/
-│         ├── LICENSE
-│         ├── config.json
-│         ├── src_infer.csv
-│         ├── src_test.csv
-│         └── src_train.csv
-├── src/
-|    ├─dataset.py
-|    ├─embedding.py
-|    ├─metrics.py
-|    ├─path_gen.py
-|    ├─recommend.py
-|    └─tbnet.py
-├── eval.py
-├── export.py
-├── infer.py
-├── preprocess.py
-├── train.py
-└── tbnet_config.py
+.
+└─tbnet
+  ├─README.md
+  ├─README_CN.md
+  ├─data
+  │ └─steam                         # Steam user purchase history dataset
+  │   ├─LICENSE
+  │   ├─config.json                 # hyper-parameters and training configuration
+  │   ├─src_infer.csv               # source datafile for inference
+  │   ├─src_test.csv                # source datafile for evaluation
+  │   └─src_train.csv               # source datafile for training
+  ├─src
+  │ ├─dataset.py                    # dataset loader
+  │ ├─embedding.py                  # embedding module
+  │ ├─metrics.py                    # model metrics
+  │ ├─path_gen.py                   # data preprocessor
+  │ ├─recommend.py                  # result aggregator
+  │ └─tbnet.py                      # TB-Net architecture
+  ├─export.py                       # export MINDIR/AIR script
+  ├─preprocess.py                   # data pre-processing script
+  ├─eval.py                         # evaluation script
+  ├─infer.py                        # inference and explaining script
+  ├─train.py                        # training script
+  └─tbnet_config.py                 # configuration reader
 ```
-
-- `steam/`: Steam user purchase history dataset.
-- `LICENSE`: License text.
-- `config.json`: Hyper-parameters and training configuration.
-- `src_infer.csv`: Source datafile for inference.
-- `src_test.csv`: Source datafile for evaluation.
-- `src_train.csv`: Source datafile for training.
-- `dataset.py`: Dataset loader.
-- `embedding.py`: Embedding module.
-- `metrics.py`: Evaluation metrics.
-- `path_gen.py`: Data preprocessor.
-- `recommend.py`: Result aggregator.
-- `tbnet.py`: TB-Net architecture.
-- `eval.py`: Example of evaluation.
-- `export.py`: Example of exporting trained model.
-- `infer.py`: Example of inference.
-- `preprocess.py`: Example of data pre-processing.
-- `train.py`: Example of training.
-- `tbnet_config`: Configuration reader for the examples.
 
 ### Preparing Python Environment
 
@@ -207,7 +189,7 @@ python train.py
 
 20 epochs will be trained with the steam dataset and checkpoints will be saved to `./checkpoints/steam` for each epoch.
 
-## Inference
+## Inference with Explanations
 
 The complete example code of this step is [infer.py](https://gitee.com/mindspore/xai/blob/master/models/whitebox/tbnet/infer.py).
 
