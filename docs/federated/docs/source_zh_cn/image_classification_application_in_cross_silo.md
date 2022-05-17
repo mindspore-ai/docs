@@ -235,7 +235,7 @@ local epoch: 0, loss: 3.787421340711655, trian acc: 0.05342741935483871, test ac
 
 则说明云云联邦启动成功，`worker_0`正在训练，其他worker可通过类似方式查看。
 
-以上脚本中参数配置说明请参考[API文档](https://www.mindspore.cn/federated/docs/zh-CN/master/federated_server.html#mindspore.context.set_fl_context)。
+以上脚本中参数配置说明请参考[API文档](https://www.mindspore.cn/federated/docs/zh-CN/master/federated_server.html#mindspore.set_fl_context)。
 
 ### 日志查看
 

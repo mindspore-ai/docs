@@ -35,7 +35,7 @@
 
 在脚本开发和网络流程调试中，我们推荐使用PyNative模式进行调试。PyNative模式支持执行单算子、普通函数和网络，以及单独求梯度的操作。在PyNative模式下，可以方便地设置断点，获取网络执行的中间结果，也可以通过pdb的方式对网络进行调试。
 
-在默认情况下，MindSpore处于Graph模式，可以通过`set_context(mode=PYNATIVE_MODE)`设置为PyNative模式，相关示例可参考[使用PyNative模式调试](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/pynative_graph/pynative.html#动态图模式下的操作)。
+在默认情况下，MindSpore处于Graph模式，可以通过`set_context(mode=PYNATIVE_MODE)`设置为PyNative模式，相关示例可参考[使用PyNative模式调试](https://www.mindspore.cn/tutorials/zh-CN/master/advanced/pynative_graph/pynative.html#执行操作)。
 
 #### 获取更多报错信息
 
@@ -135,7 +135,7 @@
 
 - 自定义学习率
 
-   MindSpore提供了一些常见的动态学习率实现以及一些常见的具有自适应学习率调整功能的优化器，可参考API文档中的[Dynamic Learning Rate](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.html#动态学习率)和[Optimizer Functions](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.html#optimizer-functions)。
+   MindSpore提供了一些常见的动态学习率实现以及一些常见的具有自适应学习率调整功能的优化器，可参考API文档中的[Dynamic Learning Rate](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.html#动态学习率)和[Optimizer Functions](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.nn.html#优化器)。
 
    同时，用户可实现自定义的动态学习率，以WarmUpLR为例：
 

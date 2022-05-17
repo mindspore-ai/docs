@@ -45,7 +45,7 @@ MindSpore联邦学习云侧集群支持在x86 CPU和GPU CUDA硬件平台上部�
 
 ## 参数配置
 
-MindSpore联邦学习任务进程复用了训练脚本，用户只需要使用相同的脚本，并通过Python接口`set_fl_context`传递不同的参数，启动不同角色的MindSpore进程。参数配置说明请参考[API文档](https://www.mindspore.cn/federated/docs/zh-CN/master/federated_server.html#mindspore.context.set_fl_context)。
+MindSpore联邦学习任务进程复用了训练脚本，用户只需要使用相同的脚本，并通过Python接口`set_fl_context`传递不同的参数，启动不同角色的MindSpore进程。参数配置说明请参考[API文档](https://www.mindspore.cn/federated/docs/zh-CN/master/federated_server.html#mindspore.set_fl_context)。
 
 在确定参数配置后，用户需要在执行训练前调用`set_fl_context`接口，调用方式的示例如下：
 

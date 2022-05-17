@@ -300,7 +300,7 @@ In the example, the byte stream in the attribute is copied to the buffer.
 
 #### Registering Custom Operators
 
-Currently, the generated macro [REGISTER_CUSTOM_KERNEL](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore_registry.html#register-custom-kernel) is provided for operator registration. The procedure is as follows:
+Currently, the generated macro [REGISTER_CUSTOM_KERNEL](https://www.mindspore.cn/lite/api/en/master/generate/define_register_kernel.h_REGISTER_CUSTOM_KERNEL-1.html) is provided for operator registration. The procedure is as follows:
 
 1. The TestCustomAddCreator function is used to create a kernel.
 2. Use the macro REGISTER_CUSTOM_KERNEL to register an operator. Assume that the vendor is BuiltInTest and the operator type is Add.

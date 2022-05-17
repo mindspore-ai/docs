@@ -442,7 +442,7 @@ if __name__ == "__main__":
 - `init("nccl")`：使能NCCL通信，并完成分布式训练初始化操作。
 - 默认情况下，安全加密通道是关闭的，需要通过`set_ps_context`正确配置安全加密通道或者关闭安全加密通道后，才能调用init("nccl")，否则初始化组网会失败。
 
-若想使用安全加密通道，请设置`set_ps_context(config_file_path="/path/to/config_file.json", enable_ssl=True, client_password="123456", server_password="123456")`等配置，详细参数配置说明请参考Python API [mindspore.set_ps_context](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.html#mindspore.set_ps_context)，以及本文档[安全认证](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html#安全认证)章节。
+若想使用安全加密通道，请设置`set_ps_context(config_file_path="/path/to/config_file.json", enable_ssl=True, client_password="123456", server_password="123456")`等配置，详细参数配置说明请参考Python API [mindspore.set_ps_context](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_ps_context.html#mindspore.set_ps_context)，以及本文档[安全认证](#安全认证)章节。
 
 脚本内容`run_gpu_cluster.sh`如下，在启动Worker和Scheduler之前，需要添加相关环境变量设置：
 
@@ -612,7 +612,7 @@ epoch: 1 step: 1, loss is 2.3025854
 - cipher_list: 密码套件（支持的SSL加密类型列表）。
 - cert_expire_warning_time_in_day: 证书过期的告警时间。
 
-p12文件中的秘钥为密文存储，在启动时需要传入密码，具体参数请参考Python API [mindspore.set_ps_context](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.html#mindspore.set_ps_context)中的`client_password`以及`server_password`字段。
+p12文件中的秘钥为密文存储，在启动时需要传入密码，具体参数请参考Python API [mindspore.set_ps_context](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.set_ps_context.html#mindspore.set_ps_context)中的`client_password`以及`server_password`字段。
 
 ### 容灾恢复
 

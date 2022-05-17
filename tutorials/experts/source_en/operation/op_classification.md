@@ -79,7 +79,7 @@ print(output)
 
 #### Array Operations
 
-Array operators are mainly operators for array operations, such as sort operators Sort and transpose operators Transpose, and you can see the detailed in [Array operators](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore.ops.html#array-operators).
+Array operators are mainly operators for array operations, such as sort operators Sort and transpose operators Transpose, and you can see the detailed in [Array Operator](https://mindspore.cn/docs/en/master/api_python/mindspore.ops.html#array-operation).
 
 The following code shows the use of the transpose operators Transpose:
 

@@ -18,7 +18,7 @@ torchtext.data.functional.load_sp_model(
 classmindspore.dataset.text.utils.SentencePieceVocab
 ```
 
-更多内容详见[mindspore.dataset.text.utils.SentencePieceVocab](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset_text/mindspore.dataset.text.SentencePieceVocab.html#mindspore.dataset.text.utils.SentencePieceVocab)。
+更多内容详见[mindspore.dataset.text.utils.SentencePieceVocab](https://www.mindspore.cn/docs/zh-CN/master/api_python/dataset_text/mindspore.dataset.text.SentencePieceVocab.html#mindspore.dataset.text.SentencePieceVocab)。
 
 ## 使用方式
 
