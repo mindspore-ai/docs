@@ -58,7 +58,7 @@ namespace ms = mindspore;
 namespace ds = mindspore::dataset;
 ```
 
-Set global context, device target is `Ascend 310` and device id is `0`:
+Set global context, and device target is `Ascend 310` and device id is `0`:
 
 ```c++
 auto context = std::make_shared<ms::Context>();
@@ -92,7 +92,7 @@ ms::MSTensor ReadFile(const std::string &file);
 auto image = ReadFile(image_file);
 ```
 
-Image preprocess(CPU operators):
+Image preprocess (CPU operators):
 
 ```c++
 // Create the CPU operator provided by MindData to get the function object
@@ -138,7 +138,7 @@ std::cout << "Image: " << image_file << " infer result: " << GetMax(outputs[0]) 
 
 #### Data pre-processing by Ascend 310 operators
 
-Dvpp module is a hardware decoder embedded in Ascend 310 AI chip which has a better performance on image processing compare with CPU operators. Several transforms applied on JPEG format image are supported.
+Dvpp module is a hardware decoder embedded in Ascend 310 AI chip which has a better performance on image processing compared with CPU operators. Several transforms applied on JPEG format image are supported.
 
 Using namespace of `mindspore` and `mindspore::dataset`.
 
@@ -147,7 +147,7 @@ namespace ms = mindspore;
 namespace ds = mindspore::dataset;
 ```
 
-Set global context, device target is `Ascend 310` and device id is `0`:
+Set global context, and device target is `Ascend 310` and device id is `0`:
 
 ```c++
 auto context = std::make_shared<ms::Context>();
@@ -164,7 +164,7 @@ ms::MSTensor ReadFile(const std::string &file);
 auto image = ReadFile(image_file);
 ```
 
-Image preprocess(Ascend 310 operators):
+Image preprocess (Ascend 310 operators):
 
 ```c++
 // Create the CPU operator provided by MindData to get the function object
@@ -180,7 +180,7 @@ std::shared_ptr<ds::TensorTransform> normalize(new ds::vision::Normalize(
 std::shared_ptr<ds::TensorTransform> center_crop(new ds::vision::CenterCrop({224, 224}));
 ```
 
-Image preprocess (Ascend 310 operators, 130% performance increasing compare to CPU operators).
+Image preprocess (Ascend 310 operators, 130% performance increasing compared to CPU operators).
 
 Explicitly specify the computing hardware as Ascend 310.
 
@@ -210,7 +210,7 @@ Get input information of this model:
 std::vector<ms::MSTensor> model_inputs = resnet50.GetInputs();
 ```
 
-Execute the model:
+Execute inference:
 
 ```c++
 // Create outputs vector
@@ -243,7 +243,7 @@ namespace ms = mindspore;
 namespace ds = mindspore::dataset;
 ```
 
-Set global context, device target is `Ascend 310` and device id is `0`:
+Set global context, and device target is `Ascend 310` and device id is `0`:
 
 ```c++
 auto context = std::make_shared<ms::Context>();
@@ -252,7 +252,7 @@ ascend310_info->SetDeviceID(0);
 context->MutableDeviceInfo().push_back(ascend310_info);
 ```
 
-Load MindIR file:
+Load MindIR file: When there is a definition of data preprocessing in MindIR, it is loaded automatically.
 
 ```c++
 // Load MindIR model
@@ -273,7 +273,7 @@ if (!resnet50.HasPreprocess()) {
 }
 ```
 
-Read image and start data preprocessing and prediction:
+Read image and execute data preprocessing and model inference:
 
 ```c++
 std::vector<std::vector<ms::MSTensor>> inputs;
@@ -291,17 +291,18 @@ if (ret.IsError()) {
 Print the result:
 
 ```c++
-// Output the maximum probability to the screen
+// Obtain the maximum probability of the inference result
 std::cout << "Image: " << image_file << " infer result: " << GetMax(outputs[0]) << std::endl;
-// Destroy the tensor pointer
+
+// Note that the pointer resource t1 needs to be released at the end
 ms::MSTensor::DestroyTensorPtr(t1);
 ```
 
-## Introduce to Building Script
+## Introducing Building Script
 
-The building script is used to building applications: <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/ascend310_resnet50_preprocess_sample/CMakeLists.txt>.
+The building script is used to building applications and the sample is from: <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/ascend310_resnet50_preprocess_sample/CMakeLists.txt>.
 
-Add head files to gcc search path:
+Add head files to gcc search path to the compiler:
 
 ```cmake
 option(MINDSPORE_PATH "mindspore install path" "")
@@ -351,7 +352,7 @@ export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/fwkacllib/ccec_compiler/bin/:$
 export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}                                                       # Python library that TBE implementation depends on
 ```
 
-Run the `cmake` command, modify `pip3` according to the actual situation:
+Run the `cmake` command, and modify `pip3` according to the actual situation:
 
 ```bash
 cmake . -DMINDSPORE_PATH=`pip3 show mindspore-ascend | grep Location | awk '{print $2"/mindspore"}' | xargs realpath`
@@ -398,8 +399,7 @@ If you export the preprocess information simultaneously when you export a MindIR
 ./resnet50_hide_preprocess
 ```
 
-The model will load the image file inside the `test_data` directory (for example: ILSVRC2012_val_00002138.JPEG,
-configable in main_hide_preprocess.cc) and start prediction, then you get the inference result as follows:
+The model will load the image file inside the `test_data` directory (for example: ILSVRC2012_val_00002138.JPEG, configable in main_hide_preprocess.cc) and start prediction, then you get the inference result as follows:
 
 ```text
 Image: ./test_data/ILSVRC2012_val_00002138.JPEG infer result: 0
