@@ -41,7 +41,7 @@ Modules in MindSpore Lite:
         - Accept the license through `sdkmanager` under the `${ANDROID_SDK_ROOT}` directory: `yes | ./sdkmanager --licenses`.
 - Compilation dependency of the Python API module (optional). If Python3 or NumPy is not installed, this module will not be compiled:
     - [Python](https://www.python.org/) >= 3.7.0
-    - [NumPy](https://numpy.org/) >= 1.17.0
+    - [NumPy](https://numpy.org/) >= 1.17.0 (If the installation with pip fails, please upgrade the pip version first: `python -m pip install -U pip`)
 
 > Gradle is recommended to use the [gradle-6.6.1-complete](https://gradle.org/next-steps/?version=6.6.1&format=all) version. If you configure other versions, gradle will automatically download  `gradle-6.6.1-complete` by gradle wrapper mechanism.
 >
