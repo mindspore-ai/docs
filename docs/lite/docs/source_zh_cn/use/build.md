@@ -41,7 +41,7 @@ MindSpore Lite包含模块：
         - 通过`${ANDROID_SDK_ROOT}`目录下的`sdkmanager`接受许可证：`yes | ./sdkmanager --licenses`
 - Python API模块的编译依赖（可选），未安装Python3或者NumPy则不编译该模块。
     - [Python](https://www.python.org/) >= 3.7.0
-    - [NumPy](https://numpy.org/) >= 1.17.0
+    - [NumPy](https://numpy.org/) >= 1.17.0 (如果用pip安装失败，请先升级pip版本：`python -m pip install -U pip`)
 
 > Gradle建议采用[gradle-6.6.1-complete](https://gradle.org/next-steps/?version=6.6.1&format=all)版本，配置其他版本gradle将会采用gradle wrapper机制自动下载`gradle-6.6.1-complete`。
 >
