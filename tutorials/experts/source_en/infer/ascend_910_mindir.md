@@ -34,7 +34,7 @@ namespace ms = mindspore;
 namespace ds = mindspore::dataset;
 ```
 
-Set global context, device target is `Ascend910` and evice id is `0`:
+Set global context, and device target is Ascend910 and Device ID is 0:
 
 ```c++
 auto context = std::make_shared<ms::Context>();
@@ -43,7 +43,7 @@ ascend910_info->SetDeviceID(0);
 context->MutableDeviceInfo().push_back(ascend910_info);
 ```
 
-Load mindir file:
+Load model file:
 
 ```c++
 // Load MindIR model
@@ -54,7 +54,7 @@ ms::Model resnet50;
 ret = resnet50.Build(ms::GraphCell(graph), context);
 ```
 
-Get informance of this model:
+Get input information required for the model:
 
 ```c++
 std::vector<ms::MSTensor> model_inputs = resnet50.GetInputs();
@@ -92,7 +92,7 @@ ds::Execute preprocessor({decode, resize, normalize, center_crop, hwc2chw});
 ret = preprocessor(image, &image);
 ```
 
-Execute the model:
+Execute inference:
 
 ```c++
 // Create outputs vector
@@ -112,11 +112,11 @@ Print the result:
 std::cout << "Image: " << image_file << " infer result: " << GetMax(outputs[0]) << std::endl;
 ```
 
-## Introduce to Building Script
+## Introducing Building Script
 
 The building script is used to building applications: <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/ascend910_resnet50_preprocess_sample/CMakeLists.txt>.
 
-Add head files to gcc search path:
+Add the header file search path for the compiler:
 
 ```cmake
 option(MINDSPORE_PATH "mindspore install path" "")
@@ -124,7 +124,7 @@ include_directories(${MINDSPORE_PATH})
 include_directories(${MINDSPORE_PATH}/include)
 ```
 
-Find the shared libraries in MindSpore:
+Search for the required dynamic library in MindSpore:
 
 ```cmake
 find_library(MS_LIB libmindspore.so ${MINDSPORE_PATH}/lib)
@@ -162,7 +162,7 @@ export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/fwkacllib/ccec_compiler/bin/:$
 export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}                                                       # Python library that TBE implementation depends on
 ```
 
-Run the `cmake` command, modify `pip3` according to the actual situation:
+Run the `cmake` command, and modify `pip3` according to the actual situation:
 
 ```bash
 cmake . -DMINDSPORE_PATH=`pip3 show mindspore-ascend | grep Location | awk '{print $2"/mindspore"}' | xargs realpath`
