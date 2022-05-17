@@ -61,7 +61,7 @@ class Transpose(PrimitiveWithInfer):
 
 算子的头文件中包括算子的注册信息和类的声明。算子类继承于`CPUKernel`父类，重载`InitKernel`和`Launch`两个成员函数。
 
-算子的源文件是类的实现，主要是重载InitKernel和Launch两个函数，`Transpose`算子实现的头文件代码示例如下：
+算子的源文件是类的实现，主要是重载`InitKernel`和`Launch`两个函数，`Transpose`算子实现的头文件代码示例如下：
 
 ```cpp
 class TransposeCPUFwdKernel : public CPUKernel {
