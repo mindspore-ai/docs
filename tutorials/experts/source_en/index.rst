@@ -51,6 +51,7 @@ For Experts
    debug/op_compilation
    debug/auto_tune
    debug/dataset_autotune
+   debug/fixing_randomness
    debug/pynative
 
 .. toctree::

@@ -271,7 +271,7 @@ cd /user/mindspore
 ./benchmark --modelFile=${model_path}
 ```
 
-${model_path} indicates the path of the MS model file after conversion.
+`model_path` indicates the path of the MS model file after conversion.
 
 After this command is executed, random input of the model is generated and forward inference is performed. For details about how to use the benchmark, such as time consumption analysis and inference error analysis, see [benchmark](https://www.mindspore.cn/lite/docs/en/master/use/benchmark_tool.html).
 
