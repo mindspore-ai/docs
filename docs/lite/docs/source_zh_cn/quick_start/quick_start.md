@@ -52,7 +52,7 @@ call converter_lite --fmk=MINDIR --modelFile=mobilenetv2.mindir --outputFile=mob
 
 ### 构建与运行
 
-1. 在Android Studio中加载本[示例源码](https://gitee.com/mindspore/vision/blob/master/android)，并安装相应的SDK（指定SDK版本后，由Android Studio自动安装）。
+1. 在Android Studio中加载本[示例源码](https://gitee.com/mindspore/vision/tree/master/android)，并安装相应的SDK（指定SDK版本后，由Android Studio自动安装）。
 
     ![start_home](../images/lite_quick_start_home.png)
 
