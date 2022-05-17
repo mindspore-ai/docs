@@ -65,7 +65,7 @@ res = model.eval(dataset)
 
 <font size=3>**Q: 如何使用SGD里的`param_group`来实现学习率的衰减？**</font>
 
-A: 如果需要按照`epoch`来变化，可以使用[Dynamic LR](https://mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.nn.html#dynamic-lr函数),把其中的`step_per_epoch`设置成`step_size`，如果需要按照`step`来变化，可以把其中的`step_per_epoch`设置成1，也可以用[LearningRateSchedule](https://mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.nn.html#learningrateschedule)。
+A: 如果需要按照`epoch`来变化，可以使用[Dynamic LR](https://mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.nn.html#dynamic-lr函数),把其中的`step_per_epoch`设置成`step_size`，如果需要按照`step`来变化，可以把其中的`step_per_epoch`设置成1，也可以用[LearningRateSchedule](https://mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.nn.html#learningrateschedule类)。
 
 <br/>
 

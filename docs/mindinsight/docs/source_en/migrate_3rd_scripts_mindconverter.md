@@ -129,24 +129,24 @@ Compiling MindConverter by any of the following installation methods:
 
 A typical model project contains 4 main components. Tips for migrating each component are as follows:
 
-- Model definition（`model.py`）
+- Model definition(`model.py`)
   1. Transform the model structure with MindConverter CLI.
   2. Manually enhance the readability of the generated model scripts(Optional).
   3. Mix the generated model with the original project to validate equivalence of the migration. Refer to [FAQ](https://www.mindspore.cn/mindinsight/docs/en/r1.7/migrate_3rd_scripts_mindconverter.html#mix-the-mindspore-model-with-the-original-training-scripts).
-- Data processing（`dataset.py`）
+- Data processing(`dataset.py`)
   1. For a built-in dataset, please query [API mapping](https://www.mindspore.cn/docs/en/r1.7/note/api_mapping/pytorch_api_mapping.html) for migration.
-  2. For a customized dataset and data augmentation, please refer to [the migration template](https://www.mindspore.cn/mindinsight/docs/en/r1.7/migrate_3rd_scripts_mindconverter.html#step-2-migrate-the-data-processing).
-- Model training（`train.py`）
+  2. For a customized dataset and data augmentation, please refer to [the migration template](https://www.mindspore.cn/mindinsight/docs/en/r1.7/migrate_3rd_scripts_mindconverter.html#step-2:-migrate-the-data-processing).
+- Model training(`train.py`)
   1. The loss function(`loss_fn`) can be migrated by querying [API mapping](https://www.mindspore.cn/docs/en/r1.7/note/api_mapping/pytorch_api_mapping.html) or user's implementation.
   2. The optimizer(`optimizer`) can be migrated by querying [API mapping](https://www.mindspore.cn/docs/en/r1.7/note/api_mapping/pytorch_api_mapping.html) or user's implementation.
-  3. As the training codes could be flexible and significantly different from MindSpore, implementation by the users is recommended. Please refer to [FAQ](https://www.mindspore.cn/mindinsight/docs/en/r1.7/migrate_3rd_scripts_mindconverter.html#step-3-migrate-the-model-training).
-- Model evaluation（`eval.py`）
+  3. As the training codes could be flexible and significantly different from MindSpore, implementation by the users is recommended. Please refer to [FAQ](https://www.mindspore.cn/mindinsight/docs/en/r1.7/migrate_3rd_scripts_mindconverter.html#step-3:-migrate-the-model-training).
+- Model evaluation(`eval.py`)
   1. The metric(`metric`) can be migrated by querying [API mapping](https://www.mindspore.cn/docs/en/r1.7/note/api_mapping/pytorch_api_mapping.html) or user's implementation.
-  2. As the evaluation codes could be flexible and significantly different from MindSpore, implementation by the users is recommended. Please refer to [FAQ](https://www.mindspore.cn/mindinsight/docs/en/r1.7/migrate_3rd_scripts_mindconverter.html#step-4-migrate-the-model-evaluation).
+  2. As the evaluation codes could be flexible and significantly different from MindSpore, implementation by the users is recommended. Please refer to [FAQ](https://www.mindspore.cn/mindinsight/docs/en/r1.7/migrate_3rd_scripts_mindconverter.html#step-4:-migrate-the-model-evaluation).
 
 ## Practice Guidance
 
-### Step 0：Export the model file
+### Step 0: Export the model file
 
 Exporting ONNX model file from PyTorch model(refer to [FAQ](#export-the-model-file-of-tensorflow) for Tensorflow guidance) requires operators mapping between [PyTorch](https://pytorch.org/docs/stable/onnx.html#supported-operators) and [ONNX](https://github.com/onnx/onnx/blob/master/docs/Operators.md#). Guidance is as follows:
 
@@ -184,7 +184,7 @@ Exporting ONNX model file from PyTorch model(refer to [FAQ](#export-the-model-fi
    assert np.allclose(output, np.load('/path/to/output.npy'))
    ```
 
-### Step 1:Migrate the model definition
+### Step 1: Migrate the model definition
 
 Run the following MindConverter CLI to generate the model scripts(`model.py`), weights information(`ckpt`), [migration reports and weights mapping](https://www.mindspore.cn/mindinsight/docs/en/r1.7/migrate_3rd_scripts_mindconverter.html#migration-reports-and-weights-mapping).
 
@@ -226,7 +226,7 @@ Notes:
 4. MindSpore script and MindSpore checkpoint file are saved in the one file folder path, while report file and weight map file are saved in the other one.
 5. The security and consistency of the model file should be guaranteed by the user.
 
-### Step 2：Migrate the data processing
+### Step 2: Migrate the data processing
 
 For a built-in dataset, please query [API mapping](https://www.mindspore.cn/docs/en/r1.7/note/api_mapping/pytorch_api_mapping.html) for migration. For a customized dataset and data augmentation, self implementation is recommended. For more data processing migration, please refer to [the tutorials](https://www.mindspore.cn/tutorials/zh-CN/r1.7/advanced/dataset.html).
 
@@ -282,7 +282,7 @@ generator = CustomGenerator(*args, **kwargs)
 dataset = GeneratorDataset(generator, column_names=['data', 'label']).batch(BATCH_SIZE)
 ```
 
-### Step 3：Migrate the model training
+### Step 3: Migrate the model training
 
 The loss function(`loss_fn`) can be migrated by querying [API mapping](https://www.mindspore.cn/docs/en/r1.7/note/api_mapping/pytorch_api_mapping.html) or user's implementation. For more loss function migration, please refer to [the tutorials](https://www.mindspore.cn/tutorials/zh-CN/r1.7/advanced/network/loss.html).
 
@@ -362,7 +362,7 @@ model = Model(network, loss_fn=loss_fn, optimizer=optimizer)
 model.train(EPOCH_SIZE, dataset)
 ```
 
-### Step 4：Migrate the model evaluation
+### Step 4: Migrate the model evaluation
 
 The metric(`metric`) can be migrated by querying [API mapping](https://www.mindspore.cn/docs/en/r1.7/note/api_mapping/pytorch_api_mapping.html) or user's implementation.
 
@@ -435,7 +435,7 @@ usage: mindconverter [-h] [--version]
                      [--output OUTPUT] [--report REPORT]
 ```
 
-Arguments are as follows：
+Arguments are as follows:
 
 | Argument         | Mandatory | Description                                   |  Type  | Default |       Example        |
 | -------------- | :--: | ------------------------------------------- | :----: | :----: | :-------------------: |
@@ -709,7 +709,7 @@ The following cases are not supported:
 
 1. Specific classes and functions.
 
-    - `torch.Tensor` members, including `shape`，`ndim` and `dtype`
+    - `torch.Tensor` members, including `shape`, `ndim` and `dtype`
     - `torch.nn.AdaptiveXXXPoolXd` and `torch.nn.functional.adaptive_XXX_poolXd()`
     - `torch.nn.functional.Dropout`
     - `torch.unsqueeze()` and `torch.Tensor.unsqueeze()`

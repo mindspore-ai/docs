@@ -55,7 +55,7 @@ The process of distributed inference is as follows:
     > For pipeline inference, each `stage` only needs to load the checkpoint file of self_stage.
     >
     > The `load_distributed_checkpoint` interface supports that predict_strategy is `None`, which is single device inference, and the process is different from distributed inference. The detailed usage can be referred to the link:
-    > <https://www.mindspore.cn/docs/en/r1.7/api_python/mindspore.html#mindspore.load_distributed_checkpoint>.
+    > <https://www.mindspore.cn/docs/en/r1.7/api_python/mindspore/mindspore.load_distributed_checkpoint.html#mindspore.load_distributed_checkpoint>.
 
 4. Execute inference.
 

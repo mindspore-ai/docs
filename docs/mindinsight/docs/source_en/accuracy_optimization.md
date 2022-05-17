@@ -325,13 +325,13 @@ In most cases, the `SummaryCollector` automatically records the loss curve of th
 
 *Figure 9 Viewing the weight changes during training through the MindInsight parameter distribution chart*
 
-In most cases, the `SummaryCollector` automatically records the model parameter changes (five parameters by default). You can view the changes in the parameter distribution histogram of MindInsight. If you want to record the parameter distribution histogram of more parameters, see the `histogram_regular` parameter in [SummaryCollector](https://www.mindspore.cn/docs/en/r1.7/api_python/mindspore.train.html#mindspore.train.callback.SummaryCollector) or the [HistogramSummary](https://www.mindspore.cn/mindinsight/docs/en/r1.7/summary_record.html#method-two-custom-collection-of-network-data-with-summary-operators-and-summarycollector) operator.
+In most cases, the `SummaryCollector` automatically records the model parameter changes (five parameters by default). You can view the changes in the parameter distribution histogram of MindInsight. If you want to record the parameter distribution histogram of more parameters, see the `histogram_regular` parameter in [SummaryCollector](https://www.mindspore.cn/docs/en/r1.7/api_python/mindspore.train.html#mindspore.train.callback.SummaryCollector) or the [HistogramSummary](https://www.mindspore.cn/mindinsight/docs/en/r1.7/summary_record.html#method-two:-custom-collection-of-network-data-with-summary-operators-and-summarycollector) operator.
 
 ![tensor](./images/tensor.png)
 
 *Figure 10 Viewing the value of a specific tensor through the tensor visualization module on the MindInsight training dashboard*
 
-Tensors are not automatically recorded. To view the tensor values through MindInsight, use the [TensorSummary](https://www.mindspore.cn/mindinsight/docs/en/r1.7/summary_record.html#method-two-custom-collection-of-network-data-with-summary-operators-and-summarycollector) operator.
+Tensors are not automatically recorded. To view the tensor values through MindInsight, use the [TensorSummary](https://www.mindspore.cn/mindinsight/docs/en/r1.7/summary_record.html#method-two:-custom-collection-of-network-data-with-summary-operators-and-summarycollector) operator.
 
 The following describes how to use MindInsight to locate accuracy problems based on the common symptoms of the loss curve.
 

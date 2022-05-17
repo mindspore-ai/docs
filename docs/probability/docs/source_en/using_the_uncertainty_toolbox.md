@@ -152,7 +152,7 @@ Initialize the `UncertaintyEvaluation` function of the Uncertainty Toolbox and p
 3. Enhance the training dataset into data suitable for neural networks.
 4. Load the above network and dataset into UncertaintyEvaluation.
 
-MindSpore uses the Uncertainty Toolbox `UncertaintyEvaluation` interface to measure model accidental uncertainty and cognitive uncertainty. For more usage methods, please refer to [API](https://www.mindspore.cn/docs/en/r1.7/api_python/mindspore.nn.probability.html#module-mindspore.nn.probability.toolbox).
+MindSpore uses the Uncertainty Toolbox `UncertaintyEvaluation` interface to measure model accidental uncertainty and cognitive uncertainty. For more usage methods, please refer to [API](https://www.mindspore.cn/docs/en/r1.7/api_python/mindspore.nn.probability.html#mindspore-nn-probability).
 
 ### Preparing the Model Weight Parameter File
 
