@@ -45,7 +45,7 @@ Download the dataset and decompress it to a local path. The folder generated aft
 
 ### Configuring Distributed Environment Variables
 
-When distributed training is performed in the bare-metal environment (compared with the cloud environment where the Ascend 910 AI processor is deployed on the local host), you need to configure the networking information file for the current multi-device environment. If the HUAWEI CLOUD environment is used, skip this section because the cloud service has been configured.
+When distributed training is performed in bare-metal environment (compared with the cloud environment where the Ascend 910 AI processor is deployed on the local host), you need to configure the network information file for the current multi-device environment. If the HUAWEI CLOUD environment is used, skip this section because the cloud service has been configured. If you intend to launch script with OpenMPI, you can skip this section.
 
 The following uses the Ascend 910 AI processor as an example. The JSON configuration file for an environment with eight devices is as follows. In this example, the configuration file is named as `rank_table_8pcs.json`. For details about how to configure the 2-device environment, see the `rank_table_2pcs.json` file in the sample code.
 
@@ -549,9 +549,32 @@ bash run_cluster.sh /path/dataset /path/rank_table.json 16 0
 bash run_cluster.sh /path/dataset /path/rank_table.json 16 8
 ```
 
+## Running the Script
+
+Currently MindSpore also supports `mpirun`of OpenMPI for distributed training on Ascend hardware platform without environment variable `RANK_TABLE_FILE`.
+
+### Single-host Training
+
+Take the distributed training script for eight devices[run_with_mpi.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/distributed_training/run_with_mpi.sh) for an example, the script will run in the background. The log file is saved in the device directory, the log for different device will be saved in `log_output/1/` directory.
+
+> If the script is executed by the root user, the `--allow-run-as-root` parameter must be added to `mpirun`.
+>
+> if user want to forbid OpenMPI to abort all processes as one or more processes return a non-zero status，the MCA parameter can be set as `-mca orte_abort_on_non_zero_status 0`.
+>
+> OpenMPI will bind processes to specified core by default. you can set `-bind-to none` to unbind when performing mutli-threads application.
+>
+> OpenMPI will set several environment variable with prefix `OPMI_` as running. Please don't overwrite them in script.
+>
+> Refer to [GPU Distributed Parallel Training Example](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html)or OpenMPI document for detailed information.
+>
+>
+### Multi-host Training
+
+Before running multi-host training, you need to ensure that you have the same openMPI, Python, and MindSpore versions and install path on each node.
+
 ### Non-sink Mode Training
 
-In graph mode, you can specify to train the model in a non-sink mode by setting the environment variable [GRAPH_OP_RUN](https://www.mindspore.cn/docs/en/master/note/env_var_list.html)=1. In this case, you need to set environment variable `HCCL_WHITELIST_DISABLE=1` and train model with OpenMPI `mpirun`. The startup script is consistent with the [GPU's distributed training](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html#running-the-script) script.
+In graph mode, you can specify to train the model in a non-sink mode by setting the environment variable [GRAPH_OP_RUN](https://www.mindspore.cn/docs/en/master/note/env_var_list.html)=1. In this case, you need to set environment variable `HCCL_WHITELIST_DISABLE=1` and train model with OpenMPI `mpirun`.
 
 ## Distributed Training Model Parameters Saving and Loading
 

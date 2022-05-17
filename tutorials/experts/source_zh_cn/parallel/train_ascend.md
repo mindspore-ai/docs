@@ -31,7 +31,7 @@
     ...
 ```
 
-其中，`rank_table_16pcs.json`、`rank_table_8pcs.json`、`rank_table_2pcs.json`是配置当前多卡环境的组网信息文件。`resnet.py`、`resnet50_distributed_training.py`等文件是定义网络结构的脚本。`run.sh`、`run_cluster.sh`是执行脚本。
+其中，`rank_table_16pcs.json`、`rank_table_8pcs.json`、`rank_table_2pcs.json`是配置当前多卡环境的组网信息文件。`resnet.py`、`resnet50_distributed_training.py`等文件是定义网络结构的脚本。`run.sh`、`run_cluster.sh`、`run_with_mpi.sh`是执行脚本。
 
 此外在[定义网络](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#定义网络)和[分布式训练模型参数保存和加载](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_ascend.html#分布式训练模型参数保存和加载)小节中我们针对手动混合并行模式和半自动并行模式的使用做了特殊说明。
 
@@ -47,7 +47,7 @@
 
 ### 配置分布式环境变量
 
-在裸机环境（对比云上环境，即本地有Ascend 910 AI 处理器）进行分布式训练时，需要配置当前多卡环境的组网信息文件。如果使用华为云环境，因为云服务本身已经做好了配置，可以跳过本小节。
+在裸机环境（对比云上环境，即本地有Ascend 910 AI 处理器）进行分布式训练时，如果采用OpenMPI的方式拉起训练脚本，则可以跳过本小节，否则需要配置当前多卡环境的组网信息文件。如果使用华为云环境，因为云服务本身已经做好了配置，也可以跳过本小节。
 
 以Ascend 910 AI处理器为例，1个8卡环境的json配置文件示例如下，本样例将该配置文件命名为`rank_table_8pcs.json`。2卡环境配置可以参考样例代码中的`rank_table_2pcs.json`文件。
 
@@ -553,9 +553,35 @@ bash run_cluster.sh /path/dataset /path/rank_table.json 16 0
 bash run_cluster.sh /path/dataset /path/rank_table.json 16 8
 ```
 
-### 非下沉场景训练方式
+## 通过OpenMPI运行脚本
 
-图模式下，用户可以通过设置环境变量[GRAPH_OP_RUN](https://www.mindspore.cn/docs/zh-CN/master/note/env_var_list.html)=1来指定以非下沉方式训练模型。该方式需要采用OpenMPI的mpirun进行分布式训练，并且需要设置环境变量HCCL_WHITELIST_DISABLE=1。除此之外，训练启动脚本和[GPU分布式训练](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html#定义网络)一致。
+当前MindSpore在Ascend上已经支持了通过OpenMPI的`mpirun`命令运行脚本，用户不需要配置`RANK_TABLE_FILE`环境变量。
+
+### 单机单卡训练
+
+以使用8张卡的分布式训练脚本[run_with_mpi.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/distributed_training/run_with_mpi.sh)为例，当运行该脚本时，
+脚本会在后台运行，日志文件会保存到device目录下，不同卡上的日志会按`rank_id`分别保存在`log_output/1/`路径下对应的文件中。
+
+> 如果通过root用户执行脚本，`mpirun`需要加上`--allow-run-as-root`参数。
+>
+> 当一个子进程异常退出时，OpenMPI会默认abort所有的子进程，如果不想自动abort子进程，可以加上选项 `-mca orte_abort_on_non_zero_status 0`。
+>
+> OpenMPI会默认给拉起的子进程指定可用的CPU核数，如果不想限制进程使用的核数，可以加上选项`-bind-to none`。
+>
+> OpenMPI启动时会设置若干OPMI_*的环境变量，用户应避免在脚本中手动修改这些环境变量。
+>
+> 其他注意事项可参考[GPU分布式训练样例](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html#运行脚本)或者查阅OpenMPI官方文档。
+>
+
+### 多机多卡训练
+
+在运行多机多卡训练前，需要保证每个节点上都有相同的OpenMPI、Python以及MindSpore版本，并且安装路径一致。
+
+OpenMPI多机训练一般采用配置hostfile的方式，在`mpirun`命令行参数中加`--hostfile filepath`。hostfile文件每一行格式为`[hostname] slots=[slotnum]`，hostname可以是ip或者主机名，slotnum代表该机启动的子进程数目。
+
+### 非下沉场景训练
+
+图模式下，用户可以通过设置环境变量[GRAPH_OP_RUN](https://www.mindspore.cn/docs/zh-CN/master/note/env_var_list.html)=1来指定以非图下沉方式训练模型。该方式必须采用OpenMPI的mpirun进行分布式训练。
 
 ## 分布式训练模型参数保存和加载
 
