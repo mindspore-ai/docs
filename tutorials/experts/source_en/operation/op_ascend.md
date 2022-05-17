@@ -232,9 +232,9 @@ def _random_choice_with_mask_aicpu():
 
 The following is an example of the AICPU call implementation of the `Dropout2D` operator, and we will go through four steps: operator implementation, operator primitive registration, operator information database, and operator call:
 
-1. Operator implementation: Referring to [Implementing an AICPU Operator](#Implementing an AICPU Operator), we compile the operator to `libmindspore_aicpu_kernels.so`.
-2. Operator primitive registration: Referring to [Register the Operator Primitives](#Registering the Operator Primitive), we define a Dropout2D operator.
-3. Operator information database: Referring to [Registering the AICPU Custom Operator Information](#Registering the AICPU Custom Operator Information), we implement the Dropout2D database and add the attribute of `"cust_aicpu"`.
+1. Operator implementation: Referring to [Implementing an AICPU Operator](#implementing-an-aicpu-operator), we compile the operator to `libmindspore_aicpu_kernels.so`.
+2. Operator primitive registration: Referring to [Register the Operator Primitives](#registering-the-operator-primitive), we define a Dropout2D operator.
+3. Operator information database: Referring to [Registering the AICPU Custom Operator Information](#registering-the-aicpu-custom-operator-information), we implement the Dropout2D database and add the attribute of `"cust_aicpu"`.
 4. Operator call: We can call the Dropout2D operator normally in the form of a single operator network, and at the same time, we can configure the attribute value of `"cust_aicpu"` to be `mindspore_aicpu_kernels`.
 
 ```python

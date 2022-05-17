@@ -84,7 +84,7 @@ print("============== {} ==============".format(acc))
 
 Where
 
-`model.eval` is the model validation interface, and corresponding interface description is as follows: <https://www.mindspore.cn/docs/en/master/api_python/mindspore.html#mindspore.Model.eval>.
+`model.eval` is the model validation interface, and corresponding interface description is as follows: <https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Model.html#mindspore.Model>.
 
 > Inference sample code: <https://gitee.com/mindspore/models/blob/master/official/cv/lenet/eval.py>.
 
@@ -107,7 +107,7 @@ print("============== {} ==============".format(acc))
 
 Where
 
-`mindspore_hub.load` is the interface for loading model parameter, and corresponding interface description is as follows: <https://www.mindspore.cn/hub/docs/zh-CN/master/hub.html#mindspore-hubload>.
+`mindspore_hub.load` is the interface for loading model parameter, and corresponding interface description is as follows: <https://www.mindspore.cn/hub/docs/zh-CN/master/hub.html#mindspore_hub.load>.
 
 ## Using the `model.predict` Interface for Inference Operations
 
@@ -117,4 +117,4 @@ model.predict(input_data)
 
 Where
 
-`model.predict` is inference interface, and corresponding interface description is as follows: <https://www.mindspore.cn/docs/en/master/api_python/mindspore.html#mindspore.Model.predict>.
+`model.predict` is inference interface, and corresponding interface description is as follows: <https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.Model.html#mindspore.Model.predict>.
