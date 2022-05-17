@@ -17,16 +17,15 @@ Among them:
 
 This paper will take the custom `Transpose` operator as an example to introduce the steps of customizing operators.
 
-## Registration Primitives
+## Registering the Operator Primitives
 
-Each operator's primitive is a subclass inherited from the class `PrimitiveWithCheck`, whose type name is the operator's name.
+Operator primitive is a subclass inherited from the class `PrimitiveWithCheck`, whose type name is the operator name.
 
-The CPU operator primitives are defined under the path `mindspore/python/mindspore/ops/operations`, and the appropriate file is selected according to the operator type. Primitives need be added to export list as external interfaces in `/operations/__init__.py`. Definition of CPU operators' primitives' interface is as follows:
+The CPU operator primitives are defined under the path `mindspore/python/mindspore/ops/operations`, and the appropriate file is selected according to the operator type. Primitives need be added to the list of external interfaces. The list of interfaces is in the __init__.py file in the operations directory. Definition of primitive interface is as follows:
 
 - Attributes are defined by the input parameters of construction function `__init__`. Operators in this use case have no init attributes, thus `__init__` has no additional input parameters.
 - The input and output names are defined by the function `init_prim_io_names`.
-- Checking shape of the output tensor is defined in `check_shape` function. Checking dtype of the output tensor is defined in `check_dtype` function.
-- `_checkparam` file defines a series of operations for validity checking, such as value checking, type checking, etc.
+- Checking shape and dtype of the output tensor is defined in `infer` function.
 
 Taking `Transpose` operator's primitive as an example, the following example codes are given.
 
@@ -60,11 +59,11 @@ class Transpose(PrimitiveWithInfer):
 
 ### Implementing CPU Operators
 
-Usually, to implement a CPU operator needs to write a head file and a source file. The file path is `mindspore/ccsrc/backend/kernel_compiler/cpu`. If the logical realization of the operator is by calling the third-party library `MKL-DNN`, it will be placed in the subdirectory `mkldnn`. Please refer to [oneMkl](https://github.com/oneapi-src/oneMKL) and [oneDNN](https://github.com/oneapi-src/oneDNN) for details.
+Usually, implementing a CPU operator needs to write a head file and a source file. The file path is `mindspore/ccsrc/backend/kernel_compiler/cpu`. If the logical realization of the operator is by calling the third-party library `MKL-DNN`, it will be placed in the subdirectory `mkldnn`. Please refer to [oneMkl](https://github.com/oneapi-src/oneMKL) and [oneDNN](https://github.com/oneapi-src/oneDNN) for details.
 
 The head file of the operator contains the registration information of the operator and the declaration of the class. The operator class inherits from the parent class of `CPUKernel` and overloads `InitKernel` and `Launch`.
 
-The source file of the operator is the implementation of the class. It mainly overloads the InitKernel and Launch functions. The head file example codes of the `Transpose` operator are as follows:
+The source file of the operator is the implementation of the class. It mainly overloads the `InitKernel` and `Launch` functions. The head file example codes of the `Transpose` operator are as follows:
 
 ```cpp
 class TransposeCPUFwdKernel : public CPUKernel {
@@ -154,13 +153,13 @@ MS_REG_CPU_KERNEL(Transpose, KernelAttr().AddInputAttr(kNumberTypeFloat32).AddOu
 
 > The number and order of the input and output information defined in operator information, the number and order of input and output information in operator implementation, and the number and order of input and output name list in operator primitives should be consistent.
 
-## Editing MindSpore
+## Compiling MindSpore
 
 After writing the custom CPU operators, you need to recompile and reinstall MindSpore. For details, please refer to [Installation Document](https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_install_source.md#).
 
 ## Using Custom CPU Operators
 
-After compiling and installing, the custom CPU operators can be used directly through the import primitives. Take the single operator network test of `Transpose` as an example.
+After compiling and installing, the custom CPU operators can be used directly through the import primitives. The following is an example of the single operator network test of `Transpose`.
 
 Define the network in document `test_transpose.py`.
 
@@ -188,13 +187,13 @@ def test_net():
     print("output: ", output)
 ```
 
-Running case:
+Executing case:
 
 ```bash
 pytest -s test_transpose.py::test_net
 ```
 
-Running results:
+The execution  result is as follows:
 
 ```text
 output: [[0, 3]
@@ -254,13 +253,13 @@ def test_grad_net():
     print("dx: ", dx.asnumpy())
 ```
 
-Running case:
+Executing case:
 
 ```bash
 pytest -s test_transpose.py::test_grad_net
 ```
 
-Running results:
+The execution result is as follows:
 
 ```text
 dx:  [[0. 2. 4.]

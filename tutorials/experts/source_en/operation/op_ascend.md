@@ -64,7 +64,7 @@ The entry function of an operator describes the internal process of compiling th
 
 1. Prepare placeholders to be input. A placeholder will return a tensor object that represents a group of input data.
 2. Call the computable function. The computable function uses the API provided by the TBE to describe the computation logic of the operator.
-3. Call the scheduling module. The model tiles the operator data based on the scheduling description and specifies the data transfer process to ensure optimal hardware execution. By default, the automatic scheduling module (`auto_schedule`) can be used.
+3. Call the Schedule scheduling module. The model tiles the operator data based on the scheduling description and specifies the data transfer process to ensure optimal hardware execution. By default, the automatic scheduling module (`auto_schedule`) can be used.
 4. Call `cce_build_code` to compile and generate an operator binary file.
 
 > The input parameters of the entry function require the input information of each operator, output information of each operator, operator attributes (optional), and `kernel_name` (name of the generated operator binary file). The input and output information is encapsulated in dictionaries, including the input and output shape and dtype when the operator is called on the network.
@@ -73,15 +73,15 @@ For details about TBE operator development, visit the [TBE website](https://supp
 
 ### Registering the Operator Information
 
-The operator information is key for the backend to select the operator implementation and guides the backend to insert appropriate type and format conversion operators. It uses the `TBERegOp` API for definition and uses the `op_info_register` decorator to bind the operator information to the entry function of the operator implementation. When the .py operator implementation file is imported, the `op_info_register` decorator registers the operator information to the operator information library at the backend. For details about how to use the operator information, see comments for the member method of `TBERegOp`.
+The operator information is key for the backend to select the operator implementation and guides the backend to insert appropriate type and format conversion operators. It uses the `TBERegOp` API for definition and uses the `op_info_register` decorator to bind the operator information to the entry function of the operator implementation. When the .py operator implementation file is imported, the `op_info_register` decorator registers the operator information to the operator information library at the backend. For details about how to use the operator information, see comments for the member method of `TBERegOp`. For the specific field meaning of the operator information, visit the [TBE website](https://support.huaweicloud.com/odevg-A800_3000_3010/atlaste_10_0096.html).
 
-> The numbers and sequences of the input and output information defined in the operator information must be the same as those in the parameters of the entry function of the operator implementation and those listed in the operator primitive.
+> - The numbers and sequences of the input and output information defined in the operator information must be the same as those in the parameters of the entry function of the operator implementation and those listed in the operator primitive.
 >
-> If an operator has attributes, use `attr` to describe the attribute information in the operator information. The attribute names must be the same as those in the operator primitive definition.
+> - If an operator has attributes, use `attr` to describe the attribute information in the operator information. The attribute names must be the same as those in the operator primitive definition.
 
 ### Example
 
-The following takes the TBE implementation `square_impl.py` of the `Square` operator as an example. `square_compute` is a computable function of the operator implementation. It describes the computation logic of `x * x` by calling the API provided by `te.lang.cce`. `cus_square_op_info` is the operator information, which is defined by `TBERegOp`. For the specific field meaning of the operator information, visit the [TBE website](https://support.huaweicloud.com/odevg-A800_3000_3010/atlaste_10_0096.html).
+The following takes the TBE implementation `square_impl.py` of the `Square` operator as an example. `square_compute` is a computable function of the operator implementation. It describes the computation logic of `x * x` by calling the API provided by `te.lang.cce`. `cus_square_op_info` is the operator information, which is defined by `TBERegOp`.
 
 Note the following parameters when setting `TBERegOp`:
 
@@ -142,8 +142,6 @@ def CusSquareImpl(input_x, output_y, kernel_name="CusSquareImpl"):
     te.lang.cce.cce_build_code(sch, config)
 ```
 
-## Using Custom Operators
-
 The usage of custom operators is the same as that of built-in operators in the network. The operators can be directly used by importing primitives. The following takes the single-operator network test of `CusSquare` as an example.
 
 Define the network in the `test_square.py` file.
@@ -184,6 +182,135 @@ The execution result is as follows:
 ```text
 x: [1. 4. 9.]
 output: [1. 16. 81.]
+```
+
+## Implementing an AICPU Operator and Registering the Operator Information
+
+### Implementing an AICPU Operator
+
+The AICPU operator based on CANN includes operator prototype definition, operator code implementation, operator repository definition and other steps, for specific development steps, please refer to [CANN AICPU Custom Operator Development](https://support.huaweicloud.com/usermanual-mindstudio303/atlasms_02_0194.html).
+
+After the development is completed, a file with a specified name will be compiled, such as `libmindspore_aicpu_kernels.so`, `libcust_reshape.so` files. These dynamic libraries can contain one or more AICPU operator implementations, put the file into the lib directory under the MindSpore installation or compilation directory. MindSpore can load the file through subsequent custom operator registration information.
+
+> The dynamic library file implemented by the operator needs to be placed in the lib directory of MindSpore. For example, MindSpore is installed in the virtual environment `/home/conda/envs/aicpu/lib/python3.7/site-packages/mindspore`, so file of the aicpu needs to be placed in the `/home/conda/envs/aicpu/lib/python3.7/site-packages/mindspore/lib/` directory, This allows the file to be loaded normally.
+
+For more information on debugging and performance optimization of AICPU operators, see [MindStudio Documentation](https://support.huaweicloud.com/usermanual-mindstudioc73/atlasmindstudio_02_0043.html).
+
+### Registering the AICPU Custom Operator Information
+
+After completing the previous step, consistent with the TBE operator, we need to supplement the operator information. The AICPU operator is defined through the `AiCPURegOp` interface, and the operator information is bound to the operator implementation entry function through the `op_info_register` decorator. When the operator implements importing the py file, the `op_info_register` decorator registers the operator information in the operator database on the back end. For more information about the use of operator information, please refer to the annotation of the member method of `AiCPURegOp`, and the field meaning of operator information can be found in [AICPU Documentation](https://support.huaweicloud.com/usermanual-mindstudio303/atlasms_02_0194.html).
+
+> - The number and order of input and output information defined in the operator information, the number and order of the input and output information in the parameters of the operator implementation entry function, and the number and order of the input and output name list in the operator primitive should be completely consistent.
+> - If the operator has attributes, the property information needs to be described with `attr` in the operator information, and the attribute name is consistent with the attribute name in the operator primitive definition.
+
+It should be noted that in addition to the basic registration information, we need to add an additional `attr("cust_aicpu", "str")` attribute, which is the so name used to get the operator implementation. Taking the `RandomChoiceWithMask` operator as an example, assuming that we have defined the operator primitive and the operator implementation has been compiled to `librandom_choice_with_mask.so`, then we only need to add `attr("cust_aicpu", "str")` to the operator database, and then set the attribute value to  `"random_choice_with_ mask"` to complete registering the operator in the custom AICPU operator list when the operator is defined.
+
+> The value of "cust_aicpu" is a string, and the name of the operator so is denoted by the `lib` prefix and the `.so` suffix, such as `libmindspore_aicpu_kernels.so` is set to `"mindspore_aicpu_kernels"`.
+
+```python
+from mindspore.ops import op_info_register, AiCPURegOp, DataType
+
+random_choice_with_mask_op_info = AiCPURegOp("RandomChoiceWithMask") \
+    .fusion_type("OPAQUE") \
+    .input(0, "x", "required") \
+    .output(0, "y", "required") \
+    .output(1, "mask", "required") \
+    .attr("count", "int") \
+    .attr("seed", "int") \
+    .attr("seed2", "int") \
+    .attr("cust_aicpu", "str") \
+    .dtype_format(DataType.BOOL_Default, DataType.I32_Default, DataType.BOOL_Default) \
+    .get_op_info()
+
+@op_info_register(random_choice_with_mask_op_info)
+def _random_choice_with_mask_aicpu():
+    """RandomChoiceWithMask AiCPU register"""
+    return
+```
+
+### Example
+
+The following is an example of the AICPU call implementation of the `Dropout2D` operator, and we will go through four steps: operator implementation, operator primitive registration, operator information database, and operator call:
+
+1. Operator implementation: Referring to [Implementing an AICPU Operator](#Implementing an AICPU Operator), we compile the operator to `libmindspore_aicpu_kernels.so`.
+2. Operator primitive registration: Referring to [Register the Operator Primitives](#Registering the Operator Primitive), we define a Dropout2D operator.
+3. Operator information database: Referring to [Registering the AICPU Custom Operator Information](#Registering the AICPU Custom Operator Information), we implement the Dropout2D database and add the attribute of `"cust_aicpu"`.
+4. Operator call: We can call the Dropout2D operator normally in the form of a single operator network, and at the same time, we can configure the attribute value of `"cust_aicpu"` to be `mindspore_aicpu_kernels`.
+
+```python
+import numpy as np
+from mindspore.ops import prim_attr_register, PrimitiveWithInfer
+from mindspore import dtype as mstype
+from mindspore.ops import op_info_register, AiCPURegOp, DataType
+import mindspore.nn as nn
+import mindspore.ops as ops
+from mindspore import set_context, GRAPH_MODE
+from mindspore import Tensor
+set_context(mode=GRAPH_MODE, device_target="Ascend")
+
+class Dropout2D(PrimitiveWithInfer):
+    @prim_attr_register
+    def __init__(self, keep_prob=0.5):
+        """Initialize Dropout2D."""
+        pass
+
+    def infer_shape(self, x_shape):
+        return x_shape, x_shape
+
+    def infer_dtype(self, x_dtype):
+        mask_dtype = mstype.tensor_type(mstype.bool_)
+        return x_dtype, mask_dtype
+
+dropout2d_op_info = AiCPURegOp("Dropout2D") \
+    .fusion_type("OPAQUE") \
+    .input(0, "x", "required") \
+    .output(0, "y", "required") \
+    .output(1, "mask", "required") \
+    .attr("keep_prob", "float") \
+    .attr("cust_aicpu", "str") \
+    .dtype_format(DataType.BOOL_Default, DataType.BOOL_Default, DataType.BOOL_Default) \
+    .dtype_format(DataType.I8_Default, DataType.I8_Default, DataType.BOOL_Default) \
+    .dtype_format(DataType.I16_Default, DataType.I16_Default, DataType.BOOL_Default) \
+    .dtype_format(DataType.I32_Default, DataType.I32_Default, DataType.BOOL_Default) \
+    .dtype_format(DataType.I64_Default, DataType.I64_Default, DataType.BOOL_Default) \
+    .dtype_format(DataType.U8_Default, DataType.U8_Default, DataType.BOOL_Default) \
+    .dtype_format(DataType.U16_Default, DataType.U16_Default, DataType.BOOL_Default) \
+    .dtype_format(DataType.U32_Default, DataType.U32_Default, DataType.BOOL_Default) \
+    .dtype_format(DataType.U64_Default, DataType.U64_Default, DataType.BOOL_Default) \
+    .dtype_format(DataType.F16_Default, DataType.F16_Default, DataType.BOOL_Default) \
+    .dtype_format(DataType.F32_Default, DataType.F32_Default, DataType.BOOL_Default) \
+    .dtype_format(DataType.F64_Default, DataType.F64_Default, DataType.BOOL_Default) \
+    .get_op_info()
+
+@op_info_register(dropout2d_op_info)
+def _dropout2d_aicpu():
+    """Dropout2D AiCPU register"""
+    return
+
+class NetDropout2D(nn.Cell):
+    def __init__(self, keep_prob=0.5):
+        super(NetDropout2D, self).__init__()
+        self.op = Dropout2D(keep_prob)
+        self.op.add_prim_attr("cust_aicpu", "mindspore_aicpu_kernels")
+
+    def construct(self, inputs):
+        return self.op(inputs)
+
+if __name__ == "__main__":
+    input_tensor = Tensor(np.ones([1, 1, 2, 3]), mstype.float32)
+    dropout2d_nn = NetDropout2D(0.5)
+    output, mask = dropout2d_nn(input_tensor)
+    print("output: ", output)
+    print("mask: ", mask)
+```
+
+The execution result is as follows:
+
+```text
+output: [[[[0.0.0.]
+  [0.0.0.]]]]
+mask: [[[[False False False]
+  [False False False]]]]
 ```
 
 ## Defining the bprop Function for an Operator
