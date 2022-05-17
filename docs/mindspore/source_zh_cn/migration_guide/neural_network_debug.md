@@ -135,7 +135,7 @@
 
 - 自定义学习率
 
-   MindSpore提供了一些常见的动态学习率实现以及一些常见的具有自适应学习率调整功能的优化器，可参考API文档中的[Dynamic Learning Rate](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.nn.html#动态学习率)和[Optimizer Functions](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.nn.html#optimizer-functions)。
+   MindSpore提供了一些常见的动态学习率实现以及一些常见的具有自适应学习率调整功能的优化器，可参考API文档中的[Dynamic Learning Rate](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.nn.html#动态学习率)和[Optimizer Functions](https://www.mindspore.cn/docs/zh-CN/r1.7/api_python/mindspore.nn.html#优化器)。
 
    同时，用户可实现自定义的动态学习率，以WarmUpLR为例：
 

@@ -10,9 +10,9 @@ If MindSpore Lite is used in an Android project, you can use [C++ API](https://w
 
 1. Load the model(optional): Read the `.ms` model converted by the model conversion tool introduced in [Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/r1.7/use/converter_tool.html) from the file system.
 2. Create a configuration context: Create a configuration context [MSContext](https://www.mindspore.cn/lite/api/en/r1.7/api_java/mscontext.html#mscontext) to save some basic configuration parameters required by a model to guide graph build and execution, including `deviceType` (device type), `threadNum` (number of threads), `cpuBindMode` (CPU core binding mode), and `enable_float16` (whether to preferentially use the float16 operator).
-3. Build a graph: Before building a graph, the [build](https://www.mindspore.cn/lite/api/en/r1.7/api_java/model.html#compilegraph) API of [Model](https://www.mindspore.cn/lite/api/en/r1.7/api_java/model.html#model) needs to be called to build the graph, including graph partition and operator selection and scheduling. This takes a long time. Therefore, it is recommended that with [Model](https://www.mindspore.cn/lite/api/en/r1.7/api_java/model.html#model) created each time, one graph be built. In this case, the inference will be performed for multiple times.
+3. Build a graph: Before building a graph, the [build](https://www.mindspore.cn/lite/api/en/r1.7/api_java/model.html#build) API of [Model](https://www.mindspore.cn/lite/api/en/r1.7/api_java/model.html#model) needs to be called to build the graph, including graph partition and operator selection and scheduling. This takes a long time. Therefore, it is recommended that with [Model](https://www.mindspore.cn/lite/api/en/r1.7/api_java/model.html#model) created each time, one graph be built. In this case, the inference will be performed for multiple times.
 4. Input data: Before the graph is performed, data needs to be filled in to the `Input Tensor`.
-5. Perform inference: Use the [Model](https://www.mindspore.cn/lite/api/en/r1.7/api_java/model.html#rungraph) of the [predict](https://www.mindspore.cn/lite/api/en/r1.7/api_java/model.html#predict) to perform model inference.
+5. Perform inference: Use the [Model](https://www.mindspore.cn/lite/api/en/r1.7/api_java/model.html#model) of the [predict](https://www.mindspore.cn/lite/api/en/r1.7/api_java/model.html#predict) to perform model inference.
 6. Obtain the output: After the graph execution is complete, you can obtain the inference result by `outputting the tensor`.
 7. Release the memory: If the MindSpore Lite inference framework is not required, release the created [Model](https://www.mindspore.cn/lite/api/en/r1.7/api_java/model.html#model).
 
@@ -138,7 +138,7 @@ boolean ret = model.build(filePath, ModelType.MT_MINDIR, msContext);
 
 MindSpore Lite Java APIs provide the `getInputsByTensorName` and `getInputs` methods to obtain the input tensor. Both the `byte[]` and `ByteBuffer` data types are supported. You can set the data of the input tensor by calling [setData](https://www.mindspore.cn/lite/api/en/r1.7/api_java/mstensor.html#setdata).
 
-1. Use the [getInputByTensorName](https://www.mindspore.cn/lite/api/en/r1.7/api_java/model.html#getinputbytensorname) method to obtain the tensor connected to the input node from the model input tensor based on the name of the model input tensor. The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/r1.7/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L151) demonstrates how to call the `getInputByTensorName` function to obtain the input tensor and fill in data.
+1. Use the [getInputsByTensorName](https://www.mindspore.cn/lite/api/en/r1.7/api_java/model.html#getinputsbytensorname) method to obtain the tensor connected to the input node from the model input tensor based on the name of the model input tensor. The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/r1.7/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L151) demonstrates how to call the `getInputByTensorName` function to obtain the input tensor and fill in data.
 
     ```java
     MSTensor inputTensor = model.getInputByTensorName("2031_2030_1_construct_wrapper:x");
@@ -216,7 +216,7 @@ bool ret = model.resize(inputs, dims);
 
 ### Parallel Models
 
-MindSpore Lite supports parallel inference of multiple [Model](https://www.mindspore.cn/lite/api/en/r1.7/api_java/model.html). The thread pool and memory pool of each [Model](https://www.mindspore.cn/lite/api/en/r1.7/api_java/model.html#model) are independent. However, multiple threads cannot call the [predict](https://www.mindspore.cn/lite/api/en/r1.7/api_java/model.html#rungraph) API of a single [Model](https://www.mindspore.cn/lite/api/en/r1.7/api_java/model.html#litesession) at the same time.
+MindSpore Lite supports parallel inference of multiple [Model](https://www.mindspore.cn/lite/api/en/r1.7/api_java/model.html). The thread pool and memory pool of each [Model](https://www.mindspore.cn/lite/api/en/r1.7/api_java/model.html#model) are independent. However, multiple threads cannot call the [predict](https://www.mindspore.cn/lite/api/en/r1.7/api_java/model.html#predict) API of a single [Model](https://www.mindspore.cn/lite/api/en/r1.7/api_java/model.html#model) at the same time.
 
 The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/r1.7/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L220) demonstrates how to infer multiple [Model](https://www.mindspore.cn/lite/api/en/r1.7/api_java/model.html) in parallel:
 

@@ -135,7 +135,7 @@ If the loss errors are large, the problem locating can be done by using followin
 
 - Customized Learning Rate
 
-   MindSpore provides some common implementations of dynamic learning rate and some common optimizers with adaptive learning rate adjustment functions, and [Dynamic Learning Rate](https://www.mindspore.cn/docs/en/r1.7/api_python/mindspore.nn.html#dynamic-learning-rate) and [Optimizer Functions](https://www.mindspore.cn/docs/en/r1.7/api_python/mindspore.nn.html#optimizer-functions) in the API documentation can be found.
+   MindSpore provides some common implementations of dynamic learning rate and some common optimizers with adaptive learning rate adjustment functions, and [Dynamic Learning Rate](https://www.mindspore.cn/docs/en/r1.7/api_python/mindspore.nn.html#dynamic-learning-rate) and [Optimizer Functions](https://www.mindspore.cn/docs/en/r1.7/api_python/mindspore.nn.html#optimizer) in the API documentation can be found.
 
    At the same time, the user can implement a customized dynamic learning rate, as exemplified by WarmUpLR:
 
