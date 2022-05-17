@@ -119,18 +119,35 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
 
+with open("../_ext/customdocumenter.txt", "r", encoding="utf8") as f:
+    code_str = f.read()
+    exec(code_str, sphinx_autodoc.__dict__)
+
 # Copy source files of chinese python api from mindspore repository.
 from sphinx.util import logging
 import shutil
 logger = logging.getLogger(__name__)
 
-src_dir = os.path.join(os.getenv("SV_PATH"), 'docs/api/api_python')
+src_dir_api = os.path.join(os.getenv("SV_PATH"), 'docs/api/api_python')
+des_sir = "./api_python"
+
+if not exists(src_dir_api):
+    logger.warning(f"不存在目录：{src_dir_api}！")
+if os.path.exists(des_sir):
+    shutil.rmtree(des_sir)
+shutil.copytree(src_dir_api, des_sir)
+
+    # Rename .rst file to .txt file for include directive.
+from rename_include import rename_include
+
+rename_include('api_python')
+
+src_dir = os.path.join(os.path.dirname(__file__),'api_python')
 try:
     for root,dirs,files in os.walk(src_dir):
         for dir in dirs:
             if os.path.exists('./' + dir):
                 shutil.rmtree('./' + dir)
-            # logger.warning(f'{root},{dir}')
             if root == src_dir:
                 shutil.copytree(os.path.join(root,dir), './' + dir)
         for file in files:
@@ -140,6 +157,8 @@ try:
                 shutil.copy(os.path.join(root,file), './' + file.split('.',1)[-1])
 except Exception as e:
     logger.warning(f'{e}')
+
+shutil.rmtree(des_sir)
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 import anchor_mod
