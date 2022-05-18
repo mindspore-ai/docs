@@ -762,7 +762,7 @@ The chapter only provides instruction in the Linux System.
 
 #### Operator InferShape Extension
 
-The users need to inherit the basic class [KernelInterface](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_kernel_KernelInterface.html), and override the interface function [Infer](https://www.mindspore.cn/lite/api/en/r1.7/api_cpp/mindspore_kernel.html#infer).
+The users need to inherit the basic class [KernelInterface](https://www.mindspore.cn/lite/api/en/r1.7/generate/classmindspore_kernel_KernelInterface.html), and override the interface function Infer.
 
 ```cpp
 int CheckInputs(const std::vector<mindspore::MSTensor> &inputs) {         // check function when compiling, to judge the shape of input tensor is valid or not

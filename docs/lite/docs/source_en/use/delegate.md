@@ -156,7 +156,7 @@ if (build_ret != mindspore::kSuccess) {
 
 ## Example of NPUDelegate
 
-Currently, MindSpore Lite uses the [NPUDelegate](https://gitee.com/mindspore/mindspore/tree/r1.7/mindspore/lite/src/delegate/npu/npu_delegate.h#L29) for the NPU backend. This tutorial gives a brief description of NPUDelegate, so that users can quickly understand the usage of Delegate APIs.
+Currently, MindSpore Lite uses the [NPUDelegate](https://gitee.com/mindspore/mindspore/blob/r1.7/mindspore/lite/src/delegate/npu/npu_delegate.h#L29) for the NPU backend. This tutorial gives a brief description of NPUDelegate, so that users can quickly understand the usage of Delegate APIs.
 
 ### Adding the NPUDelegate Class
 

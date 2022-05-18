@@ -52,7 +52,7 @@ The following section describes how to build and execute an on-device image clas
 
 ### Building and Running
 
-1. Load the [sample source code](https://gitee.com/mindspore/vision/blob/r0.1/android) to Android Studio and install the corresponding SDK. (After the SDK version is specified, Android Studio automatically installs the SDK.)
+1. Load the [sample source code](https://gitee.com/mindspore/vision/tree/r0.1/android) to Android Studio and install the corresponding SDK. (After the SDK version is specified, Android Studio automatically installs the SDK.)
 
     ![start_home](../images/lite_quick_start_home.png)
 
