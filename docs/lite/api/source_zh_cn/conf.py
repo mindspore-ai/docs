@@ -119,6 +119,9 @@ exhale_args = {
     "exhaleDoxygenStdin": textwrap.dedent("""
         INPUT = ../include
         EXTRACT_ALL = NO
+        HIDE_UNDOC_CLASSES = YES
+        HIDE_UNDOC_MEMBERS = YES
+        EXCLUDE_SYMBOLS = operator* GVAR*
     """),
     'contentsDirectives': False,
 
