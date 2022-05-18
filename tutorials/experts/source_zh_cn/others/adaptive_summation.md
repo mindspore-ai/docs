@@ -171,7 +171,7 @@ model = Model(net, loss_fn=loss, optimizer=opt, loss_scale_manager=loss_scale, a
 dist_eval_network = ClassifyCorrectCell(net)
 ```
 
-值得注意的是，”O2"模式包含了其他的加速算法，如果我们只想开启adasum，我们可以通过配置boost_config_dict来实现。
+值得注意的是，"O2"模式包含了其他的加速算法，如果我们只想开启adasum，我们可以通过配置boost_config_dict来实现。
 
 ```python
 # define boost config dictionary
@@ -207,7 +207,7 @@ model.train(90, ds_train, callbacks=cb, sink_size=step_size, dataset_sink_mode=T
 
 2机16卡训练模型，在机器1上运行脚本run_node1.sh，在机器2上运行脚本run_node2.sh。
 
-```basH
+```bash
 bash run_node{i}.sh ./imagenet
 ```
 
@@ -232,3 +232,5 @@ epoch: 10 step: 312 loss is  3.3762435
 ...
 ...
 ...
+
+```
