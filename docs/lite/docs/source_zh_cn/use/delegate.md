@@ -49,7 +49,7 @@ Status XXXDelegate::Init() {
 
 > `DelegateModel`中，[std::vector<kernel::Kernel *> *kernels_](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore_kernel.html#kernel)是已经完成MindSpore Lite内置算子注册、经过拓扑排序的算子列表。
 >
-> [const std::map<kernel::Kernel *, const schema::Primitive *> primitives_](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html#primitives)保存了每个算子对应的属性值`schema::Primitive`，用于解析每个算子的原始属性信息。
+> [const std::map<kernel::Kernel *, const schema::Primitive *> primitives_](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html#primitives-)保存了每个算子对应的属性值`schema::Primitive`，用于解析每个算子的原始属性信息。
 
 Build会在[Model](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html#model)的[Build](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore.html#build)接口被调用。具体的位置在MindSpore Lite内部代码[Schedule::Schedule](https://gitee.com/mindspore/mindspore/blob/r1.7/mindspore/lite/src/scheduler.cc#L132)函数中，此时已完成内置算子选择，算子存放在DelegateModel的[Kernel列表](https://www.mindspore.cn/lite/api/zh-CN/r1.7/api_cpp/mindspore_kernel.html#kernel)中。Build需要实现以下功能：
 
@@ -156,7 +156,7 @@ if (build_ret != mindspore::kSuccess) {
 
 ## NPUDelegate示例
 
-目前，MindSpore Lite对于NPU后端的集成采用了[NPUDelegate](https://gitee.com/mindspore/mindspore/tree/r1.7/mindspore/lite/src/delegate/npu/npu_delegate.h#L29)接口。本教程对NPUDelegate做简单说明，使用户能快速了解Delegate相关API的使用。
+目前，MindSpore Lite对于NPU后端的集成采用了[NPUDelegate](https://gitee.com/mindspore/mindspore/blob/r1.7/mindspore/lite/src/delegate/npu/npu_delegate.h#L29)接口。本教程对NPUDelegate做简单说明，使用户能快速了解Delegate相关API的使用。
 
 ### 新增NPUDelegate类
 
