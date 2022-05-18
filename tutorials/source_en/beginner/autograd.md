@@ -74,7 +74,7 @@ print(output)
 [6.]
 ```
 
-MindSpore calculates the first-order derivative using `ops.GradOperation (get_all=False, get_by_lsit=False, sens_param=False)`. If `get_all` is set to `False`, the derivative of only the first input is calculated. If `get_all` is set to `True`, the derivative of all inputs is calculated.
+MindSpore calculates the first-order derivative using `ops.GradOperation (get_all=False, get_by_list=False, sens_param=False)`. If `get_all` is set to `False`, the derivative of only the first input is calculated. If `get_all` is set to `True`, the derivative of all inputs is calculated.
 
 ## First-order Derivative of the Weight
 
