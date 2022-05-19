@@ -7,8 +7,8 @@ For building predefined building blocks or computational units in neural network
 
 Compared with the previous version, the added, deleted and supported platforms change information of `mindspore.nn` operators in MindSpore, please refer to the link `<https://gitee.com/mindspore/docs/blob/r1.7/resource/api_updates/nn_api_updates.md>`_.
 
-Basic Building Block
---------------------
+Basic Block
+-----------
 
 .. msplatformautosummary::
     :toctree: nn
@@ -31,8 +31,8 @@ Container
     mindspore.nn.CellList
     mindspore.nn.SequentialCell
 
-Encapsulation Layer
--------------------
+Wrapper Layer
+-------------
 
 .. msplatformautosummary::
     :toctree: nn
@@ -173,7 +173,7 @@ Pooling Layer
     mindspore.nn.MaxPool1d
     mindspore.nn.MaxPool2d
 
-Filling Layer
+Padding Layer
 -------------
 
 .. msplatformautosummary::
