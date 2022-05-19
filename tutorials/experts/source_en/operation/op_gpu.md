@@ -12,7 +12,7 @@ Operator is the basic element of constructing neural network. When built-in oper
 - GPU Kernel implementation: GPU kernel is used to call GPU to accelerate computing.
 - GPU Kernel registration: operator registration is used to register the GPU kernel and necessary information to the framework, and the framework completes the call to the GPU kernel.
 
-In this tutorial, we will develop a TensorAddV2 operator using C++ and CUDA in the mindspore framework. TensorAddV2 is used to add two tensors of the same dimension element by element.
+In this tutorial, we will develop a TensorAddV2 operator using C++ and CUDA in the MindSpore framework. TensorAddV2 is used to add two tensors of the same dimension element by element.
 
 ## Registering the Operator Primitive
 
@@ -28,7 +28,7 @@ Operator primitives usually include:
 The following code defines an operator called TensorAddV2:
 
 - `TensorAddV2` is a subclass inherited from `PrimitiveWithInfer`.
-- The constructor `__init__` is used to initialize the operator, since TensorAddV2 doesn't have any attributes, there is none additional input for `__init__`.
+- The constructor `__init__` is used to initialize the operator. Since TensorAddV2 doesn't have any attributes, there is none additional input for `__init__`.
 - The function `infer_shape` constraints two input dimensions must be the same and the output dimension will be same as the dimension of x1.
 - The function `infer_dtype` constrains that two input data must be of type float32 and the output data type is the same as the input data type.
 
@@ -54,7 +54,7 @@ class TensorAddV2(PrimitiveWithInfer):
         return x1_dtype
 ```
 
-Next we'll export TensorAddV2 type in '__init__.py', which convenient for users to import and use in the network.
+Next we'll export TensorAddV2 type in `__init__.py`, which is convenient for users to import and use in the network.
 
 ```python
 # mindspore/ops/operations/__init__.py
@@ -73,11 +73,11 @@ __all__ = [
 
 Custom GPU operators inherit from `GPUKernel`:
 
-- `Init()`: it is used to initialize the GPU kernel, usually includes recording the input / output dimension of the operator, and completing the preparation before launch.
+- `Init()`: it is used to initialize the GPU Kernel, usually includes recording the input / output dimension of the operator, and completing the preparation before launch.
 - `GetInputSizeList()`: feedback to the frame the number of bytes of video memory to input tensor.
 - `GetOutputSizeList()`: feedback to the frame the number of bytes of video memory to output tensor.
 - `GetWorkspaceSizeList()`: feedback to the frame the number of bytes for `Workspace`, where `Workspace` is the space used to store temporary data during calculation.
-- `Launch()`: generally, CUDA kernel (CUDA kernel is a kernel function developed by Nvidia GPU's parallel computing architecture) or cudnn interface are called to complete the operator acceleration on GPU.
+- `Launch()`: generally, CUDA kernel (CUDA kernel is a kernel function developed by Nvidia GPU's parallel computing architecture) or cuDNN interface are called to complete the operator acceleration on GPU.
 
 The following code shows the implementation of TensorAddV2:
 In order to support generalization of data types, we use class template to define `TensorAddV2GpuKernel`:
@@ -135,7 +135,7 @@ class TensorAddV2GpuKernel : public GpuKernel {
 };
 ```
 
-`TensorAddV2` calls CUDA kernel`TensorAddV2Kernel` to implement the parallel addition of `element_num` elements:
+`TensorAddV2` calls CUDA kernel `TensorAddV2Kernel` to implement the parallel addition of `element_num` elements:
 
 ```c++
 // mindspore/ccsrc/backend/kernel_compiler/gpu/math/tensor_add_v2_gpu_kernel.h
@@ -190,9 +190,9 @@ MS_REG_GPU_KERNEL_ONE(TensorAddV2, KernelAttr()
 
 ## Compiling Mindspore
 
-After writing the custom GPU operator, you need to recompile and install MindSpore, see [Installation Documentation](https://gitee.com/mindspore/docs/blob/master/install/mindspore_gpu_install_source_en.md#).
+After writing the custom GPU operator, you need to recompile and install MindSpore. For detailed information, see [Installation Documentation](https://gitee.com/mindspore/docs/blob/master/install/mindspore_gpu_install_source_en.md#).
 
-## Operator verification
+## Operator Verification
 
 At the end of the tutorial, we construct a single operator network to validate the TensorAddV2 operator we just developed：
 
@@ -269,13 +269,13 @@ def test_grad_net():
     print("dx[0]: ", dx[0].asnumpy())
 ```
 
-Running case:
+Execute case:
 
 ```bash
 pytest -s tests/st/ops/gpu/test_tensoraddv2_op.py::test_grad_net
 ```
 
-Running results:
+The execution result is as follows:
 
 ```text
 dx[0]: [[0. 1. 2. 3.]
