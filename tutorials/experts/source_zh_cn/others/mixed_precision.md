@@ -334,8 +334,9 @@ MindSpore中提供了两种Loss Scale的方式，分别是`FixedLossScaleManager
 
         Returns:
             Tensor, output tensor
+    ```
 
-
+    ```python
         """
         def __init__(self, num_class=10, num_channel=1):
             super(LeNet5, self).__init__()
@@ -409,7 +410,7 @@ MindSpore中提供了两种Loss Scale的方式，分别是`FixedLossScaleManager
 
     运行结果如下：
 
-    ```
+    ```text
     epoch: 1 step: 32, loss is 2.3018966
     epoch: 2 step: 32, loss is 2.2965345
     epoch: 3 step: 32, loss is 2.3021417

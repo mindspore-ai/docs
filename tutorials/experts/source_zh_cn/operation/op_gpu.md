@@ -16,7 +16,7 @@
 
 算子原语通常包括：
 
-- 算子名：算子名用于唯一标识个算子
+- 算子名：算子名用于唯一标识个算子。
 - 注释：描述算子的算法、使用约束。注释将被导出成为MindSpore API接口文档，供开发者查阅。
 - 输入：算子输入Tensor。
 - 属性：一般描述算法参数，例如Conv2d中`data_format`描述了输入数据为`NCHW`或者`NHWC`格式。
@@ -75,7 +75,7 @@ GPU自定义算子继承于`GPUKernel`:
 - `GetInputSizeList()`: 向框架反馈输入Tensor需要占用的显存字节数。
 - `GetOutputSizeList()`: 向框架反馈输出Tensor需要占用的显存字节数。
 - `GetWorkspaceSizeList()`: 向框架反馈`Workspace`字节数，`Workspace`是用于计算过程中存放临时数据的空间。
-- `Launch()`: 通常调用CUDA kernel(CUDA kernel是基于Nvidia GPU的并行计算架构开发的核函数)，或者cuDNN接口等方式，完成算子在GPU上加速。
+- `Launch()`: 通常调用CUDA kernel (CUDA kernel是基于Nvidia GPU的并行计算架构开发的核函数)，或者cuDNN接口等方式，完成算子在GPU上加速。
 
 下面的代码给出了TensorAddV2的实现：
 为了支持数据类型的泛化，我们使用类模板定义`TensorAddV2GpuKernel`:
@@ -133,7 +133,7 @@ class TensorAddV2GpuKernel : public GpuKernel {
 };
 ```
 
-`TensorAddV2`中调用了CUDA kernel`TensorAddV2Kernel`来实现`element_num`个元素的并行相加:
+`TensorAddV2`中调用了CUDA kernel `TensorAddV2Kernel`来实现`element_num`个元素的并行相加:
 
 ```c++
 // mindspore/ccsrc/backend/kernel_compiler/gpu/math/tensor_add_v2_gpu_kernel.h
