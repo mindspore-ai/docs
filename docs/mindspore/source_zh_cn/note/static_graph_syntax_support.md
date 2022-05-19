@@ -134,6 +134,7 @@ x: ((1, 2, 3), 4, 5)
   索引值仅支持`int`和`slice`。
   `slice`内部数据必须为编译时能够确定的常量，即不能为计算后的`Tensor`。
   赋值时，所赋的值支持`Number`、`String`、`Tuple`、`List`、`Tensor`。
+  当前切片赋值右值为Tensor时，需要将Tenor转换为List，在MindSpore静态图模式下这种转化目前是通过[JIT Fallback](https://www.mindspore.cn/docs/zh-CN/master/design/jit_fallback.html?highlight=Fallback)实现，所以暂时不能支持变量场景。
 
   示例如下：
 
