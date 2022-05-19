@@ -7,9 +7,7 @@
 MindSpore提供了一种自动数据调优的工具——Dataset AutoTune，用于在训练过程中根据环境资源的情况自动调整数据处理管道的并行度，
 最大化利用系统资源加速数据处理管道的处理速度。
 
-在整个训练的过程中，Dataset AutoTune模块会持续检测当前训练性能瓶颈处于数据侧还是网络侧。如果检测到瓶颈在数据侧，则将
-进一步对数据处理管道中的各个算子（如GeneratorDataset、map、batch此类数据算子）进行参数调整，
-目前可调整的参数包括算子的工作线程数（num_parallel_workers），算子的内部队列深度（prefetch_size）。
+在整个训练的过程中，Dataset AutoTune模块会持续检测当前训练性能瓶颈处于数据侧还是网络侧。如果检测到瓶颈在数据侧，则将进一步对数据处理管道中的各个算子（如GeneratorDataset、map、batch此类数据算子）进行参数调整，目前可调整的参数包括算子的工作线程数（num_parallel_workers），算子的内部队列深度（prefetch_size）。
 
 ![autotune](./images/autotune.png)
 
