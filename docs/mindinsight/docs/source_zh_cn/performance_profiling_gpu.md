@@ -151,3 +151,5 @@ GPU场景下，CPU利用率分析的使用方法和Ascend场景相同。
 - GPU暂不支持收集内存性能数据。
 - 在GPU场景下使用性能调试，必须使用root权限。
 - GPU性能调试暂不支持动态shape场景、多子图场景和控制流场景。
+- GPU场景下使用性能调试依赖CUDA环境变量，在使用Profiler前请执行`export LD_LIBRARY_PATH=${CUDA_HOME}/extras/CUPTI/lib64:$LD_LIBRARY_PATH`，其中CUDA_HOME需要替换为本地CUDA路径。
+

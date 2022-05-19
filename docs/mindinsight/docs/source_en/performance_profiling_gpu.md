@@ -159,3 +159,4 @@ The usage is described as follows:
 - GPU does not support memory performance data collection.
 - To use performance debugging in GPU scenarios, you must use the root permission.
 - GPU performance debugging does not support dynamic Shape scenarios, multi-subgraph scenarios, and control flow scenarios.
+- Performance debugging in GPU scenarios depends on CUDA environment variables. Please `export LD_LIBRARY_PATH=${CUDA_HOME}/extras/CUPTI/lib64:$LD_LIBRARY_PATH` before using Profiler. The CUDA_HOME needs to be replaced with the local CUDA path.
