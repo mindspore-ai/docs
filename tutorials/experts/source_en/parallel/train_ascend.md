@@ -1,11 +1,13 @@
-# Parallel Distributed Training Example (Ascend)
+# Distributed Parallel Training Example (Ascend)
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/experts/source_en/parallel/train_ascend.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
 This tutorial describes how to train the ResNet-50 network in data parallel and automatic parallel modes on MindSpore based on the Ascend 910 AI processor.
-> Download address of the complete sample code: <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training>
+> Download address of the complete sample code:
+>
+> <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training>
 
 The directory structure is as follow:
 
@@ -29,7 +31,7 @@ The directory structure is as follow:
     ...
 ```
 
-`rank_table_16pcs.json`, `rank_table_8pcs.json` and `rank_table_2pcs.json` are the networking information files. `resnet.py`,`resnet50_distributed_training.py` , `resnet50_distributed_training_gpu.py` and `resnet50_distributed_training_grad_accu.py` are the network structure files. `run.sh` , `run_gpu.sh`, `run_grad_accu.sh` and `run_cluster.sh` are the execute scripts.
+`rank_table_16pcs.json`, `rank_table_8pcs.json` and `rank_table_2pcs.json` are the networking information files. `resnet.py`,`resnet50_distributed_training.py` , `resnet50_distributed_training_gpu.py` and `resnet50_distributed_training_grad_accu.py` are the network structure files. `run.sh` , `run_gpu.sh`, `run_grad_accu.sh` and `run_cluster.sh` are the execution scripts.
 
 Besides, we describe the usages of hybrid parallel and semi-auto parallel modes in the sections [Defining the Network](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#defining-the-network) and [Distributed Training Model Parameters Saving and Loading](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#distributed-training-model-parameters-saving-and-loading).
 
@@ -169,7 +171,7 @@ Different from the single-node system, the multi-node system needs to transfer t
 
 ## Defining the Network
 
-In data parallel and automatic parallel modes, the network definition method is the same as that in a single-node system. The reference code of ResNet is as follows: <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/resnet/resnet.py>
+In data parallel and automatic parallel modes, the network definition method is the same as that in a single-node system. The reference code of ResNet is as follows: [ResNet network sample script](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/resnet/resnet.py)
 
 In this section we focus on how to define a network in hybrid parallel or semi-auto parallel mode.
 
@@ -294,9 +296,11 @@ The `Momentum` optimizer is used as the parameter update tool. The definition is
 - `gradients_mean`: During backward computation, the framework collects gradients of parameters in data parallel mode across multiple hosts, obtains the global gradient value, and transfers the global gradient value to the optimizer for update. The default value is `False`, which indicates that the `AllReduce.Sum` operation is applied. The value `True` indicates that the `AllReduce.Mean` operation is applied.
 - You are advised to set `device_num` and `global_rank` to their default values. The framework calls the HCCL API to obtain the values.
 
+> For more information about distributed parallelism configuration items, see [Distributed Parallel Overview](https://www.mindspore.cn/tutorials/experts/en/master/parallel/introduction.html).
+
 If multiple network cases exist in the script, call `reset_auto_parallel_context` to restore all parameters to default values before executing the next case.
 
-In the following sample code, the automatic parallel mode is specified. To switch to the data parallel mode, you only need to change `parallel_mode` to `DATA_PARALLEL` and do not need to specify the strategy search algorithm `auto_parallel_search_mode`. In the sample code, the recursive programming strategy search algorithm is specified for automatic parallel.
+In the following sample code, the automatic parallel mode is specified. To switch to the data parallel mode, you only need to change `parallel_mode` to `DATA_PARALLEL`.
 
 ```python
 from mindspore import ParallelMode, Model, set_context, GRAPH_MODE, set_auto_parallel_context
@@ -402,7 +406,7 @@ The distributed related environment variables are as follows:
 - `DEVICE_ID`: actual sequence number of the current device on the corresponding host.
 - `RANK_ID`: logical sequence number of the current device.
 
-For details about other environment variables, see configuration items in the installation guide.
+For details about other environment variables, see configuration items in the [installation guide](https://www.mindspore.cn/install).
 
 The running time is about 5 minutes, which is mainly occupied by operator compilation. The actual training time is within 20 seconds. You can use `ps -ef | grep pytest` to monitor task processes.
 
@@ -426,8 +430,7 @@ epoch: 10 step: 156, loss is 1.1533381
 The previous chapters introduced the distributed training of MindSpore, which is based on the Ascend environment of a single host with multiple devices. Using multiple hosts for distributed training can greatly improve the training speed.
 In the Ascend environment, the communication between NPU units across hosts is the same as the communication between each NPU unit in a single host. It is still communicated through HCCL. The difference is that the NPU units in a single host are naturally interoperable, while cross-host communication needs to be guaranteed that the networks of the two hosts are interoperable.
 
-Execute the following command on server 1 to configure the target connect IP as the `device ip` on the server 2. For example, configure the target IP of device 0 of server 1 as the IP of device 0 of server 2. Configuration command requires the `hccn_tool` tool.
-[HCCL tool](https://support.huawei.com/enterprise/en/ascend-computing/a300t-9000-pid-250702906?category=developer-documents) comes with the CANN package.
+Execute the following command on server 1 to configure the target connect IP as the `device ip` on the server 2. For example, configure the target IP of device 0 of server 1 as the IP of device 0 of server 2. Configuration command requires the `hccn_tool` tool. [HCCL tool](https://support.huawei.com/enterprise/en/ascend-computing/a300t-9000-pid-250702906?category=developer-documents) comes with the CANN package.
 
 ```bash
 hccn_tool -i 0 -netdetect -s address 192.98.92.131
@@ -549,13 +552,13 @@ bash run_cluster.sh /path/dataset /path/rank_table.json 16 0
 bash run_cluster.sh /path/dataset /path/rank_table.json 16 8
 ```
 
-## Running the Script
+## Running the Script through OpenMPI
 
 Currently MindSpore also supports `mpirun`of OpenMPI for distributed training on Ascend hardware platform without environment variable `RANK_TABLE_FILE`.
 
 ### Single-host Training
 
-Take the distributed training script for eight devices[run_with_mpi.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/distributed_training/run_with_mpi.sh) for an example, the script will run in the background. The log file is saved in the device directory, the log for different device will be saved in `log_output/1/` directory.
+Take the distributed training script for eight devices [run_with_mpi.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/distributed_training/run_with_mpi.sh) for an example, the script will run in the background. The log file is saved in the device directory, the log for different device will be saved in `log_output/1/` directory.
 
 > If the script is executed by the root user, the `--allow-run-as-root` parameter must be added to `mpirun`.
 >
@@ -567,18 +570,19 @@ Take the distributed training script for eight devices[run_with_mpi.sh](https://
 >
 > Refer to [GPU Distributed Parallel Training Example](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html)or OpenMPI document for detailed information.
 >
->
 ### Multi-host Training
 
 Before running multi-host training, you need to ensure that you have the same openMPI, Python, and MindSpore versions and install path on each node.
+
+OpenMPI multi-host training generally adopts the way of configuring hostfile, adding `--hostfile filepath` to the `mpirun` command line argument. The format of each line of the hostfile file is `[hostname] slots=[slotnum]`. The hostname can be ip or hostname, and slotnum represents the number of child processes started by the machine.
 
 ### Non-sink Mode Training
 
 In graph mode, you can specify to train the model in a non-sink mode by setting the environment variable [GRAPH_OP_RUN](https://www.mindspore.cn/docs/en/master/note/env_var_list.html)=1. In this case, you need to set environment variable `HCCL_WHITELIST_DISABLE=1` and train model with OpenMPI `mpirun`.
 
-## Distributed Training Model Parameters Saving and Loading
+## Saving and Loading Distributed Training Model Parameters
 
-The below content introduced how to save and load models under the four distributed parallel training modes respectively. Before saving model parameters for distributed training, it is necessary to configure distributed environment variables and collective communication library in accordance with this tutorial.
+In MindSpore, four distributed parallel training modes are supported, namely Auto Parallel, Data Parallel, Semi Auto Parallel, and Hybrid Parallel. The below content introduced how to save and load models under the four distributed parallel training modes respectively. Before saving model parameters for distributed training, it is necessary to configure distributed environment variables and collective communication library in accordance with this tutorial.
 
 ### Auto Parallel Mode
 
