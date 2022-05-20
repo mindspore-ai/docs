@@ -43,8 +43,8 @@ The preceding shows the integration directory structure of the NNIE. For details
 
 #### Overview
 
-MindSpore Lite provides a tool for offline model conversion. It can convert models of multiple types (only Caffe is supported currently) into board-dedicated models that support NNIE hardware acceleration inference and can run on the Hi3516 board.
-The converted NNIE `ms` model can be used only on the associated embedded board. The runtime inference framework matching the conversion tool can be used to perform inference. For more information about the conversion tool, see [Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html).
+MindSpore Lite provides a tool for offline model conversion. It can convert models of multiple types into board-dedicated models that support NNIE hardware acceleration inference and can run on the Hi3516 board.
+The converted NNIE `ms` model can be used only on the associated embedded board. The runtime inference framework matching the associated embedded board can be used to perform inference. For more information about the conversion tool, see [Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/master/use/converter_tool.html).
 
 #### Environment Preparation
 
@@ -194,30 +194,9 @@ You can perform equivalent operations based on the actual situation. See the fol
    export LD_LIBRARY_PATH=/user/mindspore/lib:/usr/lib:${LD_LIBRARY_PATH}
    ```
 
-6. (Optional) Set configuration items.
+6. (Optional) Build image input.
 
-   If the user model contains the proposal operator, configure the MAX_ROI_NUM environment variable based on the implementation of the proposal operator.
-
-   ```bash
-   export MAX_ROI_NUM=300    # Maximum number of ROIs supported by a single image. The value is a positive integer. The default value is 300.
-   ```
-
-   If the user model is a loop or LSTM network, you need to configure the TIME_STEP environment variable based on the actual network running status. For details about other requirements, see [Multi-image Batch Running and Multi-step Running](#multi-image-batch-running-and-multi-step-running).
-
-   ```bash
-   export TIME_STEP=1        # Number of steps for loop or LSTM network running. The value is a positive integer. The default value is 1.
-   ```
-
-   If there are multiple NNIE hardware devices on the board, you can specify the NNIE device on which the model runs by using the CORE_IDS environment variable.
-   If the model is segmented (you can open the model using the Netron to observe the segmentation status), you can configure the device on which each segment runs in sequence. The segments that are not configured run on the last configured NNIE device.
-
-   ```bash
-   export CORE_IDS=0         # Kernel ID for NNIE running. Model segments can be configured independently and are separated by commas (,), for example, export CORE_IDS=1,1. The default value is 0.
-   ```
-
-7. (Optional) Build image input.
-
-   If the calibration set sent by the Converter to the mapper is an image when the model is exported, the input data transferred to the benchmark must be of the int8 type. That is, the image must be converted into the int8 type before being transferred to the benchmark.
+   If the calibration set sent to the mapper is an image when the model is exported by the Converter, the input data transferred to the benchmark must be of the int8 type. That is, the image must be converted into the int8 type before being transferred to the benchmark.
    Python is used to provide a conversion example.
 
    ``` python
@@ -279,7 +258,66 @@ For details about the input data format requirements of the model, see [(Optiona
 
 ## Integration
 
-For details about integration, see [Using C++ Interface to Perform Inference](https://www.mindspore.cn/lite/docs/en/master/use/runtime_cpp.html).
+After the transformation model is obtained, the MindSpore Lite inference framework supporting the board can be used for integrated inference on the associated embedded board.
+Before reading this section, users need to have a certain understanding of the c++ interface integration development of MindSpore Lite.
+Users can understand the basic usage of the integration of MindSpore Lite through chapter [Using C++ Interface to Perform Inference](https://www.mindspore.cn/lite/docs/en/master/use/runtime_cpp.html).
+For the integrated use of NNIE, there are the following precautions:
+
+1. Link `libmslite_nnie.so` at compile time
+
+    The integration of MindSpore Lite with NNIE is developed by registering MindSpore Lite Custom Operators. The developed Custom Operators `NNIE Custom Operators` is compiled into libmslite_nnie.so.
+    Therefore, if users want to use NNIE inference through MindSpore Lite integration, they must link the so at compile time to complete the registration of `NNIE Custom Operators`.
+
+2. (Optional) Use configuration items on demand
+
+    MindSpore Lite provides `mindspore::Model::LoadConfig` and `mindspore::Model::UpdateConfig` interfaces to receive configuration parameters or configuration files, so that users can pass configuration items to all operators (including custom operators) through them.
+    `NNIE Custom Operators` opens four configuration items, as shown below:
+
+    - KeepOriginalOutput ：Keep the original NNIE hardware inference output results.
+
+        The output of NNIE hardware chip inference is quantized int32 data (actual value multiplied by 4096). When the model output is given, the chip inference result will be inversely quantized to the real float value output. When this option is configured as `on`, the output of the model will remain quantized int32 output. By default, this option is `off`.
+
+    - MaxROINum ：Maximum number of ROIs supported by a single image. The value is a positive integer. The default value is 300.
+
+        If the user model contains the proposal operator, configure the MAX_ROI_NUM environment variable based on the implementation of the proposal operator.
+        If the user model doesn't contain the proposal operator, you don't need to configure the environment.
+
+    - TimeStep ：Number of steps for loop or LSTM network running. The value is a positive integer. The default value is 1.
+
+        If the user model is a loop or LSTM network, you need to configure the TIME_STEP environment variable based on the actual network running status.
+        If the user model is not a loop or LSTM network, you don't need to configure the TIME_STEP environment varialbe.
+        For details about other requirements, see [Multi-image Batch Running and Multi-step Running](#multi-image-batch-running-and-multi-step-running).
+
+    - CoreIds：Core ID for NNIE running. Model segments can be configured independently and are separated by commas (,), for example, export CORE_IDS=1,1. The default value is 0.
+
+        If there are multiple NNIE hardware devices on the board, you can specify the NNIE device on which the model runs by using the CORE_IDS environment variable.
+        If the model is segmented (you can open the model by using the Netron to observe the segmentation status), you can configure the device on which each segment runs in sequence. The segments that are not configured run on the last configured NNIE device.
+
+    The configuration process of NNIE is as follows:
+
+    - Use the `mindspore::Model::LoadConfig` interface for configuration
+
+        After loading the model, before the user calls the `mindspore::Model::Build` interface to compile the model, the path of the configuration file is passed into the implementation configuration by calling the `mindspore::Model::LoadConfig` interface. An example of the content of a NNIE configuration file is as follows:
+
+        ```txt
+        [nnie]
+        TimeStep=1
+        MaxROINum=0
+        CoreIds=0
+        KeepOriginalOutput=off
+        ```
+
+    - Use the `mindspore::Model::UpdateConfig` interface for configuration
+
+        After loading the model, the user can also configure the above configuration items by calling the `mindspore::Model::UpdateConfig` interface before calling the `mindspore::Model::Build` interface for model compilation, as shown in the following example :
+
+        ```txt
+        // ms_model is an instance of the `mindspore::Model` class
+        ms_model.UpdateConfig("nnie", std::make_pair("TimeStep", "1"));
+        ms_model.UpdateConfig("nnie", std::make_pair("MaxROINum", "0"));
+        ms_model.UpdateConfig("nnie", std::make_pair("CoreIds", "0"));
+        ms_model.UpdateConfig("nnie", std::make_pair("KeepOriginalOutput", "off"));
+        ```
 
 ## SVP Tool Chain-related Functions and Precautions (Advanced Options)
 

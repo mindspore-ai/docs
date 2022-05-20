@@ -43,8 +43,8 @@ mindspore-lite-{version}-linux-aarch32
 
 #### 概述
 
-MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型（当前只支持Caffe）转换为可使用NNIE硬件加速推理的板端专属模型，可运行在Hi3516板上。
-通过转换工具转换成的NNIE`ms`模型，仅支持在关联的嵌入式板上，使用转换工具配套的Runtime推理框架执行推理。关于转换工具的更一般说明，可参考[推理模型转换](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)。
+MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型转换为可使用NNIE硬件加速推理的板端专属模型，可运行在Hi3516板上。
+通过转换工具转换成的NNIE`ms`模型，仅支持在关联的嵌入式板上，使用与该嵌入式板配套的Runtime推理框架执行推理。关于转换工具的更一般说明，可参考[推理模型转换](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)。
 
 #### 环境准备
 
@@ -194,28 +194,7 @@ nnie.cfg文件的示例参考如下：
    export LD_LIBRARY_PATH=/user/mindspore/lib:/usr/lib:${LD_LIBRARY_PATH}
    ```
 
-6. 设置配置项（可选）
-
-   若用户模型含有proposal算子，需根据proposal算子实现情况，配置MAX_ROI_NUM环境变量：
-
-   ```bash
-   export MAX_ROI_NUM=300    # 单张图片支持roi区域的最大数量，范围：正整数，默认值：300。
-   ```
-
-   若用户模型为循环或lstm网络，需根据实际网络运行情况，配置TIME_STEP环境变量，其他要求[见多图片batch运行及多step运行](#多图片batch运行及多step运行)：
-
-   ```bash
-   export TIME_STEP=1        # 循环或lstm网络运行的step数，范围：正整数，默认值：1。
-   ```
-
-   若板端含有多个NNIE硬件，用户可通过CORE_IDS环境变量指定模型运行在哪个NNIE设备上，
-   若模型被分段（用户可用netron打开模型，观察模型被分段情况），可依序分别配置每个分段运行在哪个设备上，未被配置分段运行在最后被配置的NNIE设备上：
-
-   ```bash
-   export CORE_IDS=0         # NNIE运行内核id，支持模型分段独立配置，使用逗号分隔(如export CORE_IDS=1,1)，默认值：0
-   ```
-
-7. 构建图片输入（可选）
+6. 构建图片输入（可选）
 
    若converter导出模型时喂给mapper的校正集用的是图片，则传递给benchmark的输入需是int8的输入数据，即需要把图片转成int8传递给benchmark。
    这里采用python给出转换示范样例：
@@ -279,7 +258,64 @@ cd /user/mindspore
 
 ## 集成使用
 
-有关集成使用详情，见[集成c++接口](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html)。
+得到转换模型后，可在关联的嵌入式板上，使用板子配套的MindSpore Lite推理框架进行集成推理。
+在阅读本节前，用户需对MindSpore Lite的C++接口集成开发有一定了解，用户可通过[使用C++接口执行推理](https://www.mindspore.cn/lite/docs/zh-CN/master/use/runtime_cpp.html)来了解MindSpore Lite的集成使用基本用法。
+针对NNIE的集成使用，有如下几条注意事项：
+
+1. 编译时链接libmslite_nnie.so动态库
+
+    MindSpore Lite对NNIE的集成，是通过注册MindSpore Lite自定义算子的方式进行开发，开发完成的自定义算子(`NNIE自定义算子`)被编译为libmslite_nnie.so。
+    故用户想要通过MindSpore Lite集成使用NNIE推理，必须在编译时链接该so，以完成`NNIE自定义算子`的注册。
+
+2. 按需使用配置项（可选）
+
+    MindSpore Lite提供`mindspore::Model::LoadConfig`和`mindspore::Model::UpdateConfig`接口，接收配置参数或者配置文件，从而让用户通过他们向所有算子（包括自定义算子）传递配置项。
+    NNIE(`NNIE自定义算子`)开放了四个配置项，如下所示：
+
+    - KeepOriginalOutput：保持原始NNIE硬件推理输出结果。
+
+        NNIE硬件芯片推理的输出为量化的Int32数据（实际数值乘以4096），在给出模型输出时会将芯片推理结果反量化为真实浮点值输出，当该选项被配置为`on`时，模型的输出会保持为量化的Int32输出。在默认情况下，该选项为`off`。
+
+    - MaxROINum：单张图片ROI区域的最大数量，正整数。
+
+        若用户模型含有proposal算子，需根据proposal算子实现情况，配置MaxROINum，若未配置，则采用默认值300。
+        若用户模型未含有proposal算子，无需配置该项。
+
+    - TimeStep：循环或lstm网络运行的step数，正整数。
+
+        若用户模型为循环或lstm网络，需根据实际网络运行情况，配置TimeStep，若未配置，采用默认值1。
+        若用户模型不是循环或lstm网络，则无需配置该项，对于多图片batch运行及多step运行的情况，参考[多图片batch运行及多step运行](#多图片batch运行及多step运行)。
+
+    - CoreIds：NNIE运行内核id，支持模型分段独立配置，使用逗号分隔。
+
+        若板端含有多个NNIE硬件，用户可通过CoreIds指定模型运行在哪个NNIE设备上。
+        若模型被分段（用户可用netron打开模型，观察模型被分段情况，其中算子类型为Custom，属性type值为NNIE的算子，就是运行在NNIE上的分段），可依序分别配置每个Custom分段运行在哪个NNIE设备上，未被配置分段运行在默认NNIE设备0上。
+
+    接口配置流程如下所示：
+
+    - 使用`mindspore::Model::LoadConfig`接口进行配置
+
+        在加载模型之后，在用户调用`mindspore::Model::Build`接口进行模型编译前，通过调用`mindspore::Model::LoadConfig`接口，将配置文件路径传入实现配置，一个nnie配置文件内容示例如下：
+
+        ```txt
+        [nnie]
+        TimeStep=1
+        MaxROINum=0
+        CoreIds=0
+        KeepOriginalOutput=off
+        ```
+
+    - 使用`mindspore::Model::UpdateConfig`接口进行配置
+
+        在加载模型之后，在用户调用`mindspore::Model::Build`接口进行模型编译前，通过调用`mindspore::Model::UpdateConfig`接口，也可以配置以上配置项，如下示例所示：
+
+        ```txt
+        // ms_model是`mindspore::Model`类的一个实例
+        ms_model.UpdateConfig("nnie", std::make_pair("TimeStep", "1"));
+        ms_model.UpdateConfig("nnie", std::make_pair("MaxROINum", "0"));
+        ms_model.UpdateConfig("nnie", std::make_pair("CoreIds", "0"));
+        ms_model.UpdateConfig("nnie", std::make_pair("KeepOriginalOutput", "off"));
+        ```
 
 ## SVP工具链相关功能支持及注意事项（高级选项）
 
