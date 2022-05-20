@@ -52,7 +52,6 @@ Learn how to train a LeNet using the [MNIST dataset](http://yann.lecun.com/exdb/
     ```python
     set_auto_parallel_context(full_batch=True,
     parallel_mode=ParallelMode.AUTO_PARALLEL)
-    set_context(enable_sparse=True)
     network = Net()
     model = Model(network)
     model.train(epoch, train_dataset, dataset_sink_mode=True)
@@ -63,7 +62,6 @@ Learn how to train a LeNet using the [MNIST dataset](http://yann.lecun.com/exdb/
     - `dataset_sink_mode`: whether to enable the sink mode of dataset or not. When `True`, it indicates enabled, and pass the data through the dataset channel. It must be set to `True` in this scenario (The inference during training also needs to enable the sink mode of dataset).
     - `full_batch`: whether to load the dataset in full or not. When `True`, it indicates fully load, and data of each device is the same. It must be set to `True` in the multi-workers scenario.
     - `parallel_mode`:parallel mode, auto parallel mode must be enabled in the multi-workers scenario, please set `parallel_mode`=`ParallelMode.AUTO_PARALLEL`.
-    - `enable_sparse`: whether to enable sparse training, default: `False`. `enable_sparse`=`True` indicates enabling sparse training. The parameter `sparse` of all `EmbeddingLookup` kernels which enable cache must be equal to the value of `enable_sparse` in the parameter server mode.
 
 > In `Parameter Server` mode, control flow is not supported. So we need to change `model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O2")` to `model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})` in `train.py`. This will unset `amp_level` and eliminate the impact of control flow.
 

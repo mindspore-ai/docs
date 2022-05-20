@@ -53,7 +53,6 @@ MindSpore的参数服务器采用了自研的通信框架作为基础架构，�
 
     ```python
     set_auto_parallel_context(full_batch=True, parallel_mode=ParallelMode.AUTO_PARALLEL)
-    set_context(enable_sparse=True)
     network = Net()
     model = Model(network)
     model.train(epoch, train_dataset, dataset_sink_mode=True)
@@ -64,7 +63,6 @@ MindSpore的参数服务器采用了自研的通信框架作为基础架构，�
     - `dataset_sink_mode`：是否开启数据下沉模式 ，为`True`时表示开启，通过数据集通道传递数据，该场景中必须设置为`True`（训练中推理也需要开启数据下沉模式）。
     - `full_batch`：是否全量导入数据集，为`True`时表示全量导入，每卡的数据相同，在多Worker场景中必须设置为`True`。
     - `parallel_mode`：并行模式，多Worker场景需要开启自动并行模式，设置`parallel_mode`=`ParallelMode.AUTO_PARALLEL`。
-    - `enable_sparse`：是否开启sparse训练，默认值为`False`；为`True`时表示开启sparse训练；在Parameter Server模式下，所有开启cache的`EmbeddingLookup`算子的`sparse`参数应和`enable_sparse`值保持一致。
 
 > `Parameter Server`模式暂时不支持控制流，因此在`train.py`中，需要将`model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O2")`修改为`model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})`，将混合精度`amp_level`选项关闭，消除控制流的影响。
 
