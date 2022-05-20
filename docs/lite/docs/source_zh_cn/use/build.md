@@ -37,7 +37,7 @@ MindSpore Lite包含模块：
         - 将bin目录添加到PATH中：`export PATH=${JAVA_HOME}/bin:$PATH`
     - [Android SDK](https://developer.android.com/studio?hl=zh-cn#cmdline-tools)
         - 创建一个新目录，配置环境变量`export ANDROID_SDK_ROOT=新建的目录`
-        - 下载`SDK Tools`，通过`sdkmanager`创建SDK：`./sdkmanager --sdk_root=${ANDROID_SDK_ROOT} "cmdline-tools;latest"`
+        - 下载`SDK Tools`，解压缩后进入`cmdline-tools/bin`目录，通过`sdkmanager`创建SDK：`./sdkmanager --sdk_root=${ANDROID_SDK_ROOT} "cmdline-tools;latest"`
         - 通过`${ANDROID_SDK_ROOT}`目录下的`sdkmanager`接受许可证：`yes | ./sdkmanager --licenses`
 - Python API模块的编译依赖（可选），未安装Python3或者NumPy则不编译该模块。
     - [Python](https://www.python.org/) >= 3.7.0
