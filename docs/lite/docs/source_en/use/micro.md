@@ -34,7 +34,7 @@ With below command, it converters MNIST model into codes of x86 target.
 
 The explicit form of configuration file please see below:
 
-```txt
+```text
 [micro_param]
 
 # enable code-generation for MCU HW
