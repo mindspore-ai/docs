@@ -30,7 +30,7 @@ MindSpore Lite针对MCUs部署硬件后端，提供了一种超轻量Micro AI部
 
 其中 config 文件配置字段如下
 
-```txt
+```text
 [micro_param]
 
 # enable code-generation for MCU HW
