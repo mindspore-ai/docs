@@ -37,7 +37,7 @@ Modules in MindSpore Lite:
         - Add the bin directory to the PATH: `export PATH=${JAVA_HOME}/bin:$PATH`.
     - [Android SDK](https://developer.android.com/studio?hl=zh-cn#cmdline-tools)
         - Create a new directory, configure environment variables`export ANDROID_SDK_ROOT=new directory`.
-        - Download `SDK Tools`, create SDK through `sdkmanager`: `./sdkmanager --sdk_root=${ANDROID_SDK_ROOT} "cmdline-tools;latest"`.
+        - Download `SDK Tools`, uncompress and go to directory `cmdline-tools/bin`, create SDK through `sdkmanager`: `./sdkmanager --sdk_root=${ANDROID_SDK_ROOT} "cmdline-tools;latest"`.
         - Accept the license through `sdkmanager` under the `${ANDROID_SDK_ROOT}` directory: `yes | ./sdkmanager --licenses`.
 - Compilation dependency of the Python API module (optional). If Python3 or NumPy is not installed, this module will not be compiled:
     - [Python](https://www.python.org/) >= 3.7.0
