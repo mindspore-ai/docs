@@ -14,7 +14,7 @@
 # ============================================================================
 
 """Fix randomness example.
-This sample code is applicable Ascend.
+This sample code is applicable to Ascend.
 """
 
 import os
