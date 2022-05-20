@@ -282,25 +282,20 @@ Users can use the `RandomSelectSubpolicy` interface of the `c_transforms` module
 
 
     def create_dataset(dataset_path, train, repeat_num=1,
-                       batch_size=32, shuffle=True, num_samples=5):
+                       batch_size=32, shuffle=False, num_samples=5):
         # create a train or eval imagenet2012 dataset for ResNet-50
         dataset = ds.ImageFolderDataset(dataset_path, num_parallel_workers=8,
-                                        shuffle=shuffle, num_samples=num_samples)
+                                        shuffle=shuffle, num_samples=num_samples, decode=True)
 
         image_size = 224
-        mean = [0.485 * 255, 0.456 * 255, 0.406 * 255]
-        std = [0.229 * 255, 0.224 * 255, 0.225 * 255]
 
         # define map operations
         if train:
-            trans = imagenet_policy
+            trans = RandomSelectSubpolicy(imagenet_policy)
         else:
-            trans = [c_vision.Decode(),
-                     c_vision.Resize(256),
-                     c_vision.CenterCrop(image_size),
-                     c_vision.Normalize(mean=mean, std=std),
-                     c_vision.HWC2CHW()]
-            type_cast_op = c_transforms.TypeCast(mstype.int32)
+            trans = [c_vision.Resize(256),
+                     c_vision.CenterCrop(image_size)]
+        type_cast_op = c_transforms.TypeCast(mstype.int32)
 
         # map images and labes
         dataset = dataset.map(operations=trans, input_columns="image")
