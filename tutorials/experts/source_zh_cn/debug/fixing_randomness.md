@@ -72,7 +72,7 @@
 
    若不能同时满足以上两个条件，应检查上述固定随机性的步骤是否都做到位了。如果固定随机性的操作均做到了，但是两次运行脚本，前两个迭代的loss值还是不一致，请[新建issue向MindSpore求助](https://gitee.com/mindspore/mindspore/issues/new)。
 
-我们提供了一个成功固定随机性的[样例代码](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/fix_randomness/fix_randomness.py) ，该样例代码执行了2个迭代的训练，两次运行此代码可以看到，两次训练的第一个迭代的loss值满足numpy.allclose()函数，且两次训练的第二个迭代的loss值满足numpy.allclose()函数，说明网络的随机性得到了固定。
+我们提供了一个成功固定随机性的[样例代码](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/mindinsight/fix_randomness/fix_randomness.py)，该样例代码执行了2个迭代的训练，两次运行此代码可以看到，两次训练的第一个迭代的loss值满足numpy.allclose()函数，且两次训练的第二个迭代的loss值满足numpy.allclose()函数，说明网络的随机性得到了固定。
 
 ## 备注
 

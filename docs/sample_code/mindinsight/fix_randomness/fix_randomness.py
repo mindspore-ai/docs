@@ -14,7 +14,7 @@
 # ============================================================================
 
 """Fix randomness example.
-This sample code is applicable to CPU, GPU and Ascend.
+This sample code is applicable Ascend.
 """
 
 import os
@@ -228,7 +228,7 @@ def train(ds_train):
     Returns:
        None.
     """
-    device_target = "GPU"
+    device_target = "Ascend"
     set_context(mode=GRAPH_MODE, device_target=device_target)
     network = AlexNet(num_classes=10)
     net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
