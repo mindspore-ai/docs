@@ -41,6 +41,7 @@ MindQuantum是基于昇思MindSpore开源深度学习框架和HiQ量子计算云
    get_gradient_of_PQC_with_mindquantum
    advanced_operations_of_quantum_circuit
    quantum_measurement
+   noise
 
 .. toctree::
    :glob:
