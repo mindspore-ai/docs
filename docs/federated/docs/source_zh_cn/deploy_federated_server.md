@@ -212,7 +212,7 @@ MindSpore联邦学习框架支持`Server`的弹性伸缩，对外通过`Schedule
 
 1. 扩容
 
-    在集群启动后，向`Scheduler`发起扩容请求，可使用`curl`指令构造`RESTful`扩容请求，代表集群需要扩容2个`Server`节点：
+    在集群启动后，进入部署scheduler节点的机器，向`Scheduler`发起扩容请求，可使用`curl`指令构造`RESTful`扩容请求，代表集群需要扩容2个`Server`节点：
 
     ```sh
     curl -i -X POST \
@@ -222,24 +222,24 @@ MindSpore联邦学习框架支持`Server`的弹性伸缩，对外通过`Schedule
     "worker_num":0,
     "server_num":2
     }' \
-    'http://192.168.216.124:11202/scaleout'
+    'http://127.0.0.1:11202/scaleout'
     ```
 
-    需要拉起`2`个新的`Server`进程，并将`server_num`参数累加扩容的个数，从而保证全局组网信息的正确性，即扩容后，`server_num`的数量应为`6`，执行指令的示例如下：
+    需要拉起`2`个新的`Server`进程，扩容`Server`的`node_id`不能与已有`Server`的`node_id`相同，并将`server_num`参数累加扩容的个数，从而保证全局组网信息的正确性，即扩容后，`server_num`的数量应为`6`，执行指令的示例如下：
 
     ```sh
-    python run_mobile_server.py --scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6672 --server_num=6 --start_fl_job_threshold=8 --local_server_num=2 --config_file_path=$PWD/config.json
+    python run_mobile_server.py --node_id=scale_node --scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6672 --server_num=6 --start_fl_job_threshold=8 --local_server_num=2 --config_file_path=$PWD/config.json
     ```
 
     该指令代表启动两个`Server`节点，其联邦学习服务端口分别为`6672`和`6673`，总`Server`数量为`6`。
 
 2. 缩容
 
-    在集群启动后，向`Scheduler`发起缩容请求。由于缩容需要对具体节点进行操作，因此需要先查询节点信息：
+    在集群启动后，进入部署scheduler节点的机器，向`Scheduler`发起缩容请求。由于缩容需要对具体节点进行操作，因此需要先查询节点信息：
 
     ```sh
     curl -i -X GET \
-    'http://192.168.216.124:11202/nodes'
+    'http://127.0.0.1:11202/nodes'
     ```
 
     `Scheduler`将返回`json`格式的查询结果：
@@ -292,7 +292,7 @@ MindSpore联邦学习框架支持`Server`的弹性伸缩，对外通过`Schedule
     '{
     "node_ids": ["2", "3"]
     }' \
-    'http://192.168.216.124:11202/scalein'
+    'http://127.0.0.1:11202/scalein'
     ```
 
 > - 在集群扩容/缩容成功后，训练任务会自动恢复，不需要用户进行额外干预。
