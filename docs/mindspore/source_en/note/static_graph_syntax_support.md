@@ -1585,7 +1585,7 @@ In the `Net` defined above,  string `flag` is transferred during initialization 
    class Net(nn.Cell):
        def __init__(self):
            super(Net, self).__init__()
-           self.num = 2
+           self.x = 2
            self.par = Parameter(Tensor(np.ones((2, 3, 4))), name="par")
 
        def construct(self, x, y):
@@ -1602,7 +1602,7 @@ In the `Net` defined above,  string `flag` is transferred during initialization 
    The result would be:
 
    ```Text
-   TypeError: mindspore/ccsrc/pipeline/jit/parse/parse.cc:1740 HandleAssignClassMember] 'self.x' should be initialized as a 'Parameter' in the '__init__' function before assigning.
+   TypeError: 'self.x' should be initialized as a 'Parameter' type in the '__init__' function
    ```
 
 2. When an undefined class member is used in the `construct` function, `AttributeError` is not thrown like the Python interpreter. Instead, it is processed as `None`.
