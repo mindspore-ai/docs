@@ -1,6 +1,6 @@
 # ClientManager
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_en/java_api_clientmanager.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.7/docs/federated/docs/source_en/java_api_clientmanager.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/r1.7/resource/_static/logo_source_en.png"></a>
 
 ```java
 import com.mindspore.flclient.model.ClientManager
