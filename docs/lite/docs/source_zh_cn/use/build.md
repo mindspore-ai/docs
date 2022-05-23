@@ -32,6 +32,9 @@ MindSpore Lite包含模块：
     - [Gradle](https://gradle.org/releases/) >= 6.6.1
         - 配置环境变量：`export GRADLE_HOME=GRADLE路径`和`export GRADLE_USER_HOME=GRADLE路径`
         - 将bin目录添加到PATH中：`export PATH=${GRADLE_HOME}/bin:$PATH`
+    - [Maven](https://archive.apache.org/dist/maven/maven-3/) >= 3.3.1
+        - 配置环境变量：`export MAVEN_HOME=MAVEN路径`
+        - 将bin目录添加到PATH中：`export PATH=${MAVEN_HOME}/bin:$PATH`
     - [OpenJDK](https://openjdk.java.net/install/) >= 1.8
         - 配置环境变量：`export JAVA_HOME=JDK路径`
         - 将bin目录添加到PATH中：`export PATH=${JAVA_HOME}/bin:$PATH`

@@ -8,33 +8,45 @@ The following describes how to deploy the Federated-Client in the Android aarch 
 
 ### Building a Package
 
-- Configure the build environment.
+1. Configure the build environment.
 
     Currently, only the Linux build environment is supported. For details about how to configure the Linux build environment, click [here](https://www.mindspore.cn/lite/docs/en/master/use/build.html#linux-environment-compilation).
 
-- Turn on Federated-Client compile option and build the AAR package that contains aarch64 and aarch32 in the mindspore home directory.
+2. Build the x86-related architecture package in the mindspore home directory.
+
+    ```sh
+    bash build.sh -I x86_64 -j32
+    ```
+
+   And the x86 architecture package will be generated in the path `mindspore/output/`after compiling ( please backup it to avoid auto-deletion while next compile):
+
+    ```sh
+    mindspore-lite-{version}-linux-x64.tar.gz
+    ```
+
+3. Turn on Federated-Client compile option and build the AAR package that contains aarch64 and aarch32 in the mindspore home directory.
 
     ```sh
     export MSLITE_ENABLE_FL=on
     bash build.sh -A on -j32
     ```
 
-- The AAR package will be generated in the path `mindspore/output/`:
+   The Android AAR package will be generated in the path `mindspore/output/` after compiling ( please backup it to avoid auto-deletion while next compile):
 
     ```sh
     mindspore-lite-full-{version}.aar
     ```
 
-- Since the device-side framework and the model are decoupled, the Android AAR package provided by us does not contain model-related scripts, so the user needs to generate the jar corresponding to the model script. We provide two types of model scripts for your reference ([Supervised sentiment Classification Task](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert), [LeNet image classification task](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet)). Users can refer to these two types of model scripts, customize the model script and generate the corresponding jar package (assuming the name is `quick_start_flclient.jar`). The jar packages corresponding to the model scripts we provide can be obtained in the following ways:
+4. Since the device-side framework and the model are decoupled, we provide Android AAR package  `mindspore-lite-full-{version}.aar` that does not contain model-related scripts, so users need to generate the model script corresponding to the jar package. We provide two types of model scripts for your reference ([Supervised sentiment Classification Task](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert), [LeNet image classification task](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet)). Users can refer to these two types of model scripts, and generate the corresponding jar package (assuming the name is `quick_start_flclient.jar`) after customizing the model script. The jar packages corresponding to the model scripts we provide can be obtained in the following ways:
 
     After downloading the latest code on [MindSpore Open Source Warehouse](https://gitee.com/mindspore/mindspore), perform the following operations:
 
     ```sh
     cd mindspore/mindspore/lite/examples/quick_start_flclient
-    sh build.sh -r "mindspore-lite-{version}-linux-x64.tar.gz"   // -r need be followed by the absolute path of the latest x86 architecture package
+    sh build.sh -r "mindspore-lite-{version}-linux-x64.tar.gz"   # After -r, give the absolute path of the latest x86 architecture package that generate at step 2
     ```
 
-    After running the above command, the path of the jar package generated is: `mindspore/mindspore/lite/examples/quick_start_flclient/target/quick_start_flclient.jar`
+    After running the above command, the path of the jar package generated is: `mindspore/mindspore/lite/examples/quick_start_flclient/target/quick_start_flclient.jar`.
 
 ### Running Dependencies
 
@@ -96,37 +108,37 @@ After setting up the dependencies shown above in the Android project, you only n
 
 ### Building a Package
 
-- Configure the build environment.
+1. Configure the build environment.
 
     Currently, only the Linux build environment is supported. For details about how to configure the Linux build environment, click [here](https://www.mindspore.cn/lite/docs/en/master/use/build.html#linux-environment-compilation).
 
-- Build the x86-related architecture package in the mindspore home directory.
+2. Build the x86-related architecture package in the mindspore home directory
 
     ```sh
     bash build.sh -I x86_64 -j32
     ```
 
-- Store the generated x86 architecture package in the following path:
+   And the x86 architecture package will be generated in the path `mindspore/output/` after compiling ( please backup it to avoid auto-deletion while next compile):
 
     ```sh
-    mindspore/output/mindspore-lite-{version}-linux-x64.tar.gz
+    mindspore-lite-{version}-linux-x64.tar.gz
     ```
 
-- Since the device-side framework and the model are decoupled, the x86 architecture package `mindspore-lite-{version}-linux-x64.tar.gz` provided by us does not contain model-related scripts, so the user needs to generate the jar corresponding to the model script. We provide two types of model scripts for your reference ([Supervised sentiment Classification Task](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert), [LeNet image classification task](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet)). At the same time, users can refer to these two types of model scripts, customize the model script and generate the corresponding jar package (assuming the name is `quick_start_flclient.jar`). The jar packages corresponding to the model scripts we provide can be obtained in the following ways:
+3. Since the device-side framework and the model are decoupled, we provide x86 architecture package `mindspore-lite-{version}-linux-x64.tar.gz` that does not contain model-related scripts, so users need to generate the model script corresponding to the jar package. We provide two types of model scripts for your reference ([Supervised sentiment Classification Task](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert), [LeNet image classification task](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet)). Users can refer to these two types of model scripts, and generate the corresponding jar package (assuming the name is `quick_start_flclient.jar`) after customizing the model script. The jar packages corresponding to the model scripts we provide can be obtained in the following ways:
 
     After downloading the latest code on [MindSpore Open Source Warehouse](https://gitee.com/mindspore/mindspore), perform the following operations:
 
     ```sh
     cd mindspore/mindspore/lite/examples/quick_start_flclient
-    sh build.sh -r "mindspore-lite-{version}-linux-x64.tar.gz"   // -r need be followed by the absolute path of the latest x86 architecture package
+    sh build.sh -r "mindspore-lite-{version}-linux-x64.tar.gz" # After -r, give the absolute path of the latest x86 architecture package that generate at step 2
     ```
 
-    After running the above command, the path of the jar package generated is: `mindspore/mindspore/lite/examples/quick_start_flclient/target/quick_start_flclient.jar`
+    After running the above command, the path of the jar package generated is: `mindspore/mindspore/lite/examples/quick_start_flclient/target/quick_start_flclient.jar`.
 
 ### Running Dependencies
 
-- [Python](https://www.python.org/downloads/) >= 3.7.5
-- [OpenJDK](https://openjdk.java.net/install/) >= 1.9
+- [Python](https://www.python.org/downloads/) >= 3.7.0
+- [OpenJDK](https://openjdk.java.net/install/) >= 1.8
 
 ### Building a Dependency Environment
 
