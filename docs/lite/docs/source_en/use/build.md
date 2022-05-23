@@ -32,6 +32,9 @@ Modules in MindSpore Lite:
     - [Gradle](https://gradle.org/releases/) >= 6.6.1
         - Configure environment variables: `export GRADLE_HOME=GRADLE path` and `export GRADLE_USER_HOME=GRADLE path`.
         - Add the bin directory to the PATH: `export PATH=${GRADLE_HOME}/bin:$PATH`.
+    - [Maven](https://archive.apache.org/dist/maven/maven-3/) >= 3.3.1
+        - Configure environment variables: `export MAVEN_HOME=MAVEN path`.
+        - Add the bin directory to the PATH: `export PATH=${MAVEN_HOME}/bin:$PATH`.
     - [OpenJDK](https://openjdk.java.net/install/) >= 1.8
         - Configure environment variables: `export JAVA_HOME=JDK path`.
         - Add the bin directory to the PATH: `export PATH=${JAVA_HOME}/bin:$PATH`.
