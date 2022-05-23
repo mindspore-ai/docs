@@ -189,7 +189,9 @@ try:
                        ("mindspore/ops/operations/comm_ops.py","modify url anchor",
                        "#id2","#注意事项"),
                        ("mindspore/ops/operations/random_ops.py","modify params format",
-                       "- **sampled_candidates** (Tensor) - A Tensor with shape :math:`(num\_sampled,)` and\n        the same type as `true_classes`.","- **sampled_candidates** (Tensor) - A Tensor with shape :math:`(num\_sampled,)` and\n          the same type as `true_classes`.")]
+                       "- **sampled_candidates** (Tensor) - A Tensor with shape :math:`(num\_sampled,)` and\n        the same type as `true_classes`.","- **sampled_candidates** (Tensor) - A Tensor with shape :math:`(num\_sampled,)` and\n          the same type as `true_classes`."),
+                       ("mindspore/common/dump.py","modify error url",
+                       "https://www.mindspore.cn/docs/tutorials/experts/","https://www.mindspore.cn/tutorials/experts/")]
 
     base_path = os.path.dirname(os.path.dirname(sphinx.__file__))
     for i in decorator_list:
