@@ -1523,7 +1523,7 @@ ret:(Tensor(shape=[2, 3], dtype=Float32, value=
    class Net(nn.Cell):
        def __init__(self):
            super(Net, self).__init__()
-           self.num = 2
+           self.x = 2
            self.par = Parameter(Tensor(np.ones((2, 3, 4))), name="par")
 
        def construct(self, x, y):
@@ -1540,7 +1540,7 @@ ret:(Tensor(shape=[2, 3], dtype=Float32, value=
    结果报错如下：
 
    ```Text
-   TypeError: mindspore/ccsrc/pipeline/jit/parse/parse.cc:1740 HandleAssignClassMember] 'self.x' should be initialized as a 'Parameter' in the '__init__' function before assigning.
+   TypeError: 'self.x' should be initialized as a 'Parameter' type in the '__init__' function
    ```
 
 2. 当`construct`函数里，使用未定义的类成员时，不会像Python解释器那样抛出`AttributeError`，而是作为`None`处理。
