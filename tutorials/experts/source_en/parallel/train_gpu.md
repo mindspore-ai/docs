@@ -183,6 +183,8 @@ Unlike stand-alone machines, the `num_shards` and `shard_id` parameters need to 
 - `get_rank`: obtains the ID of the current device in the cluster.
 - `get_group_size`: obtains the number of the clusters.
 
+> When loading datasets in a data-parallel scenario, it is recommended that you specify the same dataset file for each card. If the datasets loaded by each card are different, the calculation accuracy may be affected.
+
 ## Defining the Network
 
 On the GPU hardware platform, the network definition is the same as that for the Ascend 910 AI processor.
@@ -438,7 +440,7 @@ Where:
 
 - `mode=GRAPH_MODE`: uses the distributed training, which requires specifying the run mode as graph mode (PyNative mode does not support parallelism).
 - `init("nccl")`: enables NCCL communication and completes distributed training initialization.
-- By default, the secure encrypted channel is closed, and the secure encrypted channel needs to be configured correctly through the `set_ps_context` or the secure encrypted channel must be closed before init ("nccl" can be called, otherwise the initialization of the networking will fail.
+- By default, the secure encrypted channel is closed, and the secure encrypted channel needs to be configured correctly through the `set_ps_context` or the secure encrypted channel must be closed before init ("nccl") can be called, otherwise the initialization of the networking will fail.
 
 To use a secure encrypted tunnel, set the configuration of `set_ps_context(config_file_path="/path/to/config_file.json", enable_ssl=True, client_password="123456", server_password="123456")`. For detailed parameter configurations, refer to [mindspore.set_ps_context](https://www.mindspore.cn/docs/en/master/api_python/mindspore/mindspore.set_ps_context.html#mindspore.set_ps_context), and [Safety Certification](#security-authentication) section.
 
@@ -486,7 +488,7 @@ Execute the following commands:
 ./run_gpu_cluster.sh DATA_PATH
 ```
 
-If you want to perform cross-machine training, you need to split the script, such as performing 2-host 8-card training, and each machine performs the start of 4Worker:
+that is, perform 8 card distributed training inside the single machine. If you want to perform cross-machine training, you need to split the script, such as performing 2-host 8-card training, and each machine performs the start of 4Worker:
 
 The script `run_gpu_cluster_1.sh` starts 1 `Scheduler` and `Worker1` to `Worker4` on machine 1:
 
@@ -628,7 +630,7 @@ In the above scenario, if there are nodes hanging up during the training process
 Enable disaster tolerance with environment variables:
 
 ```bash
-export MS_ENABLE_RECOVERY=1             # enable disaster tolerance
+export MS_ENABLE_RECOVERY=1             # Enable disaster tolerance
 export MS_RECOVERY_PATH=“/xxx/xxx”      # Configure the persistence path folder, and the Worker and Scheduler processes perform the necessary persistence during execution, such as recovering the node information for networking and training the intermediate state of the service
 ```
 
