@@ -123,7 +123,7 @@ with open("../_ext/customdocumenter.txt", "r", encoding="utf8") as f:
     code_str = f.read()
     exec(code_str, sphinx_autodoc.__dict__)
 
-# Copy source files of chinese python api from mindspore repository.
+# Copy source files of chinese python api from serving repository.
 from sphinx.util import logging
 import shutil
 logger = logging.getLogger(__name__)
@@ -155,10 +155,9 @@ try:
                 if os.path.exists('./' + file.split('.',1)[-1]):
                     os.remove('./' + file.split('.',1)[-1])
                 shutil.copy(os.path.join(root,file), './' + file.split('.',1)[-1])
+    shutil.rmtree(des_sir)
 except Exception as e:
     logger.warning(f'{e}')
-
-shutil.rmtree(des_sir)
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 import anchor_mod

@@ -10,6 +10,7 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
+from genericpath import exists
 import os
 import sys
 import IPython
@@ -17,7 +18,6 @@ import re
 sys.path.append(os.path.abspath('../_ext'))
 from sphinx.ext import autodoc as sphinx_autodoc
 
-import mindspore_rl
 
 # -- Project information -----------------------------------------------------
 
@@ -108,6 +108,53 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     code_str = autodoc_source_re.sub('"(" + get_param_func(get_obj(self.object)) + ")"', code_str, count=0)
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
+
+with open("../_ext/customdocumenter.txt", "r", encoding="utf8") as f:
+    code_str = f.read()
+    exec(code_str, sphinx_autodoc.__dict__)
+
+# Copy source files of chinese python api from reinforcement repository.
+from sphinx.util import logging
+import shutil
+logger = logging.getLogger(__name__)
+
+src_dir_api = os.path.join(os.getenv("RM_PATH"), 'docs/api/api_python')
+des_sir = "./api_python"
+
+if not exists(src_dir_api):
+    logger.warning(f"不存在目录：{src_dir_api}！")
+if os.path.exists(des_sir):
+    shutil.rmtree(des_sir)
+shutil.copytree(src_dir_api, des_sir)
+
+    # Rename .rst file to .txt file for include directive.
+from rename_include import rename_include
+
+rename_include('api_python')
+
+src_dir = os.path.join(os.path.dirname(__file__),'api_python')
+try:
+    for root,dirs,files in os.walk(src_dir):
+        for dir in dirs:
+            if os.path.exists('./' + dir):
+                shutil.rmtree('./' + dir)
+            if root == src_dir:
+                shutil.copytree(os.path.join(root,dir), './' + dir)
+        for file in files:
+            if root == src_dir:
+                if os.path.exists('./' + file.split('.',1)[-1]):
+                    os.remove('./' + file.split('.',1)[-1])
+                elif os.path.exists('./reinforcement.rst'):
+                    os.remove('./reinforcement.rst')
+                if file == "mindspore_rl.rst":
+                    shutil.copy(os.path.join(root,file), './reinforcement.rst')
+                else:
+                    shutil.copy(os.path.join(root,file), './' + file.split('.',1)[-1])
+    shutil.rmtree(des_sir)
+except Exception as e:
+    logger.warning(f'{e}')
+
+import mindspore_rl
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 import anchor_mod
