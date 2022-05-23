@@ -91,7 +91,7 @@ Huawei Atlas AI computing solution is based on Ascend series AI processors and u
 
 The functions of each module are described as follows:
 
-- **Atlas series**: provides AI training, inference cards, and training servers ([learn more](https://e.huawei.com/en/products/cloud-computing-dc/atlas/)).
+- **Atlas series**: provides AI training, inference cards, and training servers ([learn more](https://www.hiascend.com/en/ecosystem/industry)).
 - **CANN at heterogeneous computing architecture**: a driver layer that enables chips ([learn more](https://www.hiascend.com/en/software/cann)).
 - **MindSpore**: all-scenario AI framework ([learn more](https://www.mindspore.cn/en)).
 - **MindX SDK (Ascend SDK)**: provides the application solution ([learn more](https://www.hiascend.com/en/software/mindx-sdk)).
