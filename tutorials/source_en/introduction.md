@@ -12,7 +12,7 @@ Ascend computing is a full-stack AI computing infrastructure and application bas
 
 Huawei Atlas AI computing solution is based on Ascend series AI processors and uses various product forms such as modules, cards, edge stations, servers, and clusters to build an all-scenario AI infrastructure solution oriented to device, edge, and cloud. It covers data center and intelligent edge solutions, as well as the entire inference and training processes in the deep learning field.
 
-- **Atlas series**: provides AI training, inference cards, and training servers ([learn more](https://e.huawei.com/en/products/cloud-computing-dc/atlas/)).
+- **Atlas series**: provides AI training, inference cards, and training servers ([learn more](https://www.hiascend.com/en/ecosystem/industry)).
 - **CANN at heterogeneous computing architecture**: a driver layer that enables chips ([learn more](https://www.hiascend.com/en/software/cann)).
 - **MindSpore**: all-scenario AI framework ([learn more](https://www.mindspore.cn/en)).
 - **MindX SDK**: Ascend SDK that provides application solutions ([learn more](https://www.hiascend.com/en/software/mindx-sdk)).

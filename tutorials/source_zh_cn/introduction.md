@@ -18,7 +18,7 @@
 
 下面简单介绍每个模块的作用：
 
-- **Atlas系列产品**：提供AI训练、推理卡及训练服务器（[了解更多](https://e.huawei.com/cn/products/cloud-computing-dc/atlas/)）。
+- **Atlas系列产品**：提供AI训练、推理卡及训练服务器（[了解更多](https://www.hiascend.com/ecosystem/industry)）。
 - **CANN（异构计算架构）**：芯片使能、驱动层（[了解更多](https://ascend.huawei.com/zh/#/software/cann)）。
 - **MindSpore（AI框架）**：全场景AI框架（[了解更多](https://www.mindspore.cn/)）。
 - **MindX SDK（昇腾SDK）**：行业SDK和应用解决方案（[了解更多](https://ascend.huawei.com/zh/#/software/mindx-sdk)）。
