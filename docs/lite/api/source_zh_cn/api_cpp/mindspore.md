@@ -119,6 +119,30 @@ int32_t GetThreadNum() const;
 
   当前线程数设置。
 
+#### SetInterOpParallelNum
+
+```cpp
+void SetInterOpParallelNum(int32_t parallel_num);
+```
+
+设置运行时的算子并行推理数目，该选项仅MindSpore Lite有效。
+
+- 参数
+
+    - `parallel_num`: 运行时的算子并行数。
+
+#### GetInterOpParallelNum
+
+```cpp
+int32_t GetInterOpParallelNum() const;
+```
+
+获取当前算子并行数设置。
+
+- 返回值
+
+  当前算子并行数设置。
+
 #### SetThreadAffinity
 
 ```cpp
@@ -788,6 +812,23 @@ Status Predict(const std::vector<MSTensor> &inputs, std::vector<MSTensor> *outpu
 
     - `inputs`: 模型输入按顺序排列的`vector`。
     - `outputs`: 输出参数，按顺序排列的`vector`的指针，模型输出会按顺序填入该容器。
+    - `before`: 一个[**MSKernelCallBack**](#mskernelcallback) 结构体。定义了运行每个节点之前调用的回调函数。
+    - `after`: 一个[**MSKernelCallBack**](#mskernelcallback) 结构体。定义了运行每个节点之后调用的回调函数。
+
+- 返回值
+
+  状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
+#### Predict
+
+```cpp
+Status Predict(const MSKernelCallBack &before = nullptr, const MSKernelCallBack &after = nullptr)
+```
+
+推理模型。
+
+- 参数
+
     - `before`: 一个[**MSKernelCallBack**](#mskernelcallback) 结构体。定义了运行每个节点之前调用的回调函数。
     - `after`: 一个[**MSKernelCallBack**](#mskernelcallback) 结构体。定义了运行每个节点之后调用的回调函数。
 
