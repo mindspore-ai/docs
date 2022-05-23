@@ -94,9 +94,7 @@ if __name__ == "__main__":
 - `device_target="GPU"`: 指定设备为GPU。
 - `init("nccl")`：使能NCCL通信，并完成分布式训练初始化操作。
 - `get_rank()`：获得当前进程的rank号。
-- `ops.AllGather`:
-  在GPU上，该算子会调用NCCL的AllGather通信操作，其含义以及更多的例子可在[分布式集合通信原语](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/communicate_ops.html)
-  中找到。
+- `ops.AllGather`: 在GPU上，该算子会调用NCCL的AllGather通信操作，其含义以及更多的例子可在[分布式集合通信原语](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/communicate_ops.html)中找到。
 
 在GPU硬件平台上，MindSpore采用OpenMPI的mpirun来启动进程，通常每一个进程对应一个计算设备。
 
@@ -363,7 +361,7 @@ DEVICE1 slots=8
 192.168.0.1 slots=8
 ```
 
-两机十六卡的执行脚本如下，需要传入变量`DATA_PATH`和`HOSTFILE`，表示数据集的路径和hostfile文件的路径。我们需要设置mpi中mca的btl参数来指定进行mpi通信的网卡，否则可能会在调用mpi接口时初始化失败。btl参数指定了节点间采用tcp协议，节点内采用环路进行通信。btl_tcp_if_include指定节点间通信所经过的网卡的ip地址需要在给定的子网中。 更多mpirun的选项设置可见OpenMPI的官网。
+两机十六卡的执行脚本如下，需要传入变量`DATA_PATH`和`HOSTFILE`，表示数据集的路径和hostfile文件的路径。我们需要设置mpi中mca的btl参数来指定进行mpi通信的网卡，否则可能会在调用mpi接口时初始化失败。btl参数指定了节点间采用tcp协议，节点内采用环路进行通信。btl_tcp_if_include指定节点间通信所经过的网卡的ip地址需要在给定的子网中。更多mpirun的选项设置可见OpenMPI的官网。
 
 ```bash
 #!/bin/bash
@@ -645,8 +643,7 @@ ckpoint_cb = ModelCheckpoint(prefix='train', directory="./ckpt_of_rank_/"+str(ge
 >
 > <https://gitee.com/mindspore/docs/tree/master/docs/sample_code/distributed_training>。
 
-涉及到的脚本有`run_gpu_cluster_recovery.sh`, `resnet50_distributed_training_gpu_recovery.py`, `resnet.py`
-脚本内容`run_gpu_cluster_recovery.sh`如下
+涉及到的脚本有`run_gpu_cluster_recovery.sh`, `resnet50_distributed_training_gpu_recovery.py`, `resnet.py`。脚本内容`run_gpu_cluster_recovery.sh`如下：
 
 ```bash
 #!/bin/bash
