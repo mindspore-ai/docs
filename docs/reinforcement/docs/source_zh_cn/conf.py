@@ -142,14 +142,9 @@ try:
                 shutil.copytree(os.path.join(root,dir), './' + dir)
         for file in files:
             if root == src_dir:
-                if os.path.exists('./' + file.split('.',1)[-1]):
-                    os.remove('./' + file.split('.',1)[-1])
-                elif os.path.exists('./reinforcement.rst'):
-                    os.remove('./reinforcement.rst')
-                if file == "mindspore_rl.rst":
-                    shutil.copy(os.path.join(root,file), './reinforcement.rst')
-                else:
-                    shutil.copy(os.path.join(root,file), './' + file.split('.',1)[-1])
+                if os.path.exists('./' + file):
+                    os.remove('./' + file)
+                shutil.copy(os.path.join(root,file), './' + file)
     shutil.rmtree(des_sir)
 except Exception as e:
     logger.warning(f'{e}')

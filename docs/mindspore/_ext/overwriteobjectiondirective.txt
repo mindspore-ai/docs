@@ -82,7 +82,7 @@ def get_platforms(name: str):
 def get_side_effect(name: str):
     try:
         api_doc = inspect.getdoc(get_api(name))
-        side_effect_str = re.findall(r'Side Effects Form:\n\s+(.*?)\n\n', api_doc)
+        side_effect_str = re.findall(r'Side Effects:\n\s+(.*?)\n\n', api_doc)
         side_effect_str = side_effect_str[0].strip()
         side_effect_list = side_effect_str.split('\n')
         return ["", "**副作用：**", ""] + side_effect_list + [""]
