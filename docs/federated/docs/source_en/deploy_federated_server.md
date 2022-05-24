@@ -214,7 +214,7 @@ The following describes how to control cluster scale-in and scale-out using the 
 
 1. Scale-out
 
-    After the cluster is started, send a scale-out request to `Scheduler`. Use the `curl` instruction to construct a `RESTful` scale-out request, indicating that two `Server` nodes need to be added to the cluster.
+    After the cluster is started, enter the machine where the scheduler node is deployed and send a scale-out request to `Scheduler`. Use the `curl` instruction to construct a `RESTful` scale-out request, indicating that two `Server` nodes need to be added to the cluster.
 
     ```sh
     curl -i -X POST \
@@ -224,24 +224,24 @@ The following describes how to control cluster scale-in and scale-out using the 
     "worker_num":0,
     "server_num":2
     }' \
-    'http://192.168.216.124:11202/scaleout'
+    'http://127.0.0.1:11202/scaleout'
     ```
 
-    Start `2` new `Server` processes and add up the values of `server_num` to ensure that the global networking information is correct. After the scale-out, the value of `server_num` should be `6`.
+    Start `2` new `Server` processes and the `node_id` of the expanded `Server` cannot be the same as the `node_id` of the existing `Server`, add up the values of `server_num` to ensure that the global networking information is correct. After the scale-out, the value of `server_num` should be `6`.
 
     ```sh
-    python run_mobile_server.py --scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6672 --server_num=6 --start_fl_job_threshold=8 --local_server_num=2 --config_file_path=$PWD/config.json
+    python run_mobile_server.py --node_id=scale_node --scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6672 --server_num=6 --start_fl_job_threshold=8 --local_server_num=2 --config_file_path=$PWD/config.json
     ```
 
     This command is used to start two `Server` nodes. The port numbers of the federated learning services are `6672` and `6673`, and the total number of `Servers` is `6`.
 
 2. Scale-in
 
-    After the cluster is started, send a scale-in request to `Scheduler`. Obtain the node information to perform the scale-in operation on specific nodes.
+    After the cluster is started, enter the machine where the scheduler node is deployed and send a scale-in request to `Scheduler`. Obtain the node information to perform the scale-in operation on specific nodes.
 
     ```sh
     curl -i -X GET \
-    'http://192.168.216.124:11202/nodes'
+    'http://127.0.0.1:11202/nodes'
     ```
 
     The `scheduler` will return the query results in the `json` format:
@@ -294,7 +294,7 @@ The following describes how to control cluster scale-in and scale-out using the 
     '{
     "node_ids": ["2", "3"]
     }' \
-    'http://192.168.216.124:11202/scalein'
+    'http://127.0.0.1:11202/scalein'
     ```
 
 > - After the cluster scale-out or scale-in is successful, the training task is automatically restored. No manual intervention is required.
