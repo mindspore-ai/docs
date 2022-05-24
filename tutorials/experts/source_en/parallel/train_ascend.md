@@ -572,7 +572,7 @@ Take the distributed training script for eight devices [run_with_mpi.sh](https:/
 >
 ### Multi-host Training
 
-Before running multi-host training, you need to ensure that you have the same openMPI, Python, and MindSpore versions and install path on each node.
+Before running multi-host training, you need to ensure that you have the same openMPI, Python, and MindSpore versions and install path on each node. you also need to configure password-free login between nodes. Please refers to [GPU Configuring Distributed Environment](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_gpu.html).
 
 OpenMPI multi-host training generally adopts the way of configuring hostfile, adding `--hostfile filepath` to the `mpirun` command line argument. The format of each line of the hostfile file is `[hostname] slots=[slotnum]`. The hostname can be ip or hostname, and slotnum represents the number of child processes started by the machine.
 
