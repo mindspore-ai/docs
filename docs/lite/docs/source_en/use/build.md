@@ -96,7 +96,7 @@ The construction of modules is controlled by environment variables. Users can co
 > - For TensorRT and NPU compilation environment configuration, refer to [Application Specific Integrated Circuit Integration Instructions](https://www.mindspore.cn/lite/docs/en/master/use/asic.html).
 > - When the AVX instruction set is enabled, the CPU of the running environment needs to support both AVX and FMA features.
 > - The compilation time of the model conversion tool is long. If it is not necessary, it is recommended to use `MSLITE_ENABLE_CONVERTER` to turn off the compilation of the conversion tool to speed up the compilation.
-> - The version supported by the OpenSSL encryption library is 1.1.1k, which needs to be downloaded and compiled by the user. For the compilation, please refer to: <https://github.com/openssl/openssl#build-and-install>
+> - The version supported by the OpenSSL encryption library is 1.1.1k, which needs to be downloaded and compiled by the user. For the compilation, please refer to: <https://github.com/openssl/openssl#build-and-install>. In addition, the path of libcrypto.so.1.1 should be added to LD_LIBRARY_PATH.
 
 - Runtime feature compilation options
 
