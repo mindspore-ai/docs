@@ -8,16 +8,31 @@ In deep learning, one usually has to deal with the huge model problem, in which 
 the number of required accelerators is too overwhelming for people to access, resulting in this solution inapplicable.  One alternative is Host+Device hybrid training. This solution simultaneously leveraging the huge memory in hosts and fast computation in accelerators, is a promisingly
 efficient method for addressing huge model problem.
 
-In MindSpore, users can easily implement hybrid training by configuring trainable parameters and necessary operators to run on hosts, and other operators to run on accelerators.
-This tutorial introduces how to train [Wide&Deep](https://gitee.com/mindspore/models/tree/master/official/recommend/wide_and_deep) in the Host+Ascend 910 AI Accelerator mode.
+In MindSpore, users can easily implement hybrid training by configuring trainable parameters and necessary operators to run on hosts, and other operators to run on accelerators. This tutorial introduces how to train [Wide&Deep](https://gitee.com/mindspore/models/tree/master/official/recommend/wide_and_deep) in the Host+Ascend 910 AI Accelerator mode.
 
-## Preliminaries
+## Basic Principle
 
-1. Prepare the model. The Wide&Deep code can be found at: <https://gitee.com/mindspore/models/tree/master/official/recommend/wide_and_deep>, in which `train_and_eval_auto_parallel.py` is the main function for training, `src/` directory contains the model definition, data processing and configuration files, `script/` directory contains the launch scripts in different modes.
+Pipeline parallel and operator-level parallel are suitable for the model to have a large number of operators, and the parameters are more evenly distributed among the operators. What if the number of operators in the model is small, and the parameters are concentrated in only a few operators? Wide & Deep is an example of this, as shown in the image below. The Embedding table in Wide & Deep can be trained as a parameter of hundreds of GIGabytes or even a few terabytes. If it is executed on an accelerator ( device ) , the number of accelerators required is huge, and the training cost is expensive. On the other hand, if you use accelerator computing, the training acceleration obtained is limited, and it will also trigger cross-server traffic, and the end-to-end training efficiency will not be very high.
+
+![image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/design/images/host_device_image_0_zh.png)
+
+*Figure: Part of the structure of the Wide & Deep model*
+
+A careful analysis of the special structure of the Wide & Deep model can be obtained: although the Embedding table has a huge amount of parameters, it participates in very little computation, and the Embedding table and its corresponding operator, the EmbeddingLookup operator, can be placed on the Host side, by using the CPU for calculation, and the rest of the operators are placed on the accelerator side. This can take advantage of the large amount of memory on the Host side and the fast computing of the accelerator side, while taking advantage of the high bandwidth of the Host to accelerator of the same server. The following diagram shows how Wide & Deep heterogeneous slicing works:
+
+![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/design/images/host_device_image_1_zh.png)
+
+*Figure: Wide & Deep Heterogeneous Approach*
+
+## Practices
+
+### Sample Code Description
+
+1. Prepare the model code. The Wide&Deep code can be found at: <https://gitee.com/mindspore/models/tree/master/official/recommend/wide_and_deep>, in which `train_and_eval_auto_parallel.py` defines the main function for model training, `src/` directory contains the model definition, data processing and configuration files, and `script/` directory contains the training scripts in different modes.
 
 2. Prepare the dataset. Please refer the link in [1] to download the dataset, and use the script `src/preprocess_data.py` to transform dataset into MindRecord format.
 
-3. Configure the device information. When performing training in the bare-metal environment, the network information file needs to be configured. This example only employs one accelerator, thus `rank_table_1p_0.json` containing #0 accelerator is configured (about the rank table file, you can refer to [HCCL_TOOL](https://gitee.com/mindspore/models/tree/master/utils/hccl_tools)).
+3. Configure the device information. When performing distributed training in the bare-metal environment (That is, there is an Ascend 910 AI processor locally), the network information file needs to be configured. This example only employs one accelerator, thus `rank_table_1p_0.json` containing #0 accelerator is configured. MindSpore provides an automated build script for generating this configuration file and related instructions. For the detailed, see [HCCL_TOOL](https://gitee.com/mindspore/models/tree/master/utils/hccl_tools).
 
 ## Configuring for Hybrid Training
 
@@ -45,9 +60,7 @@ This tutorial introduces how to train [Wide&Deep](https://gitee.com/mindspore/mo
 
 In order to save enough log information, use the command `export GLOG_v=1` to set the log level to INFO before executing the script, and add the `-p on` option when compiling MindSpore. For the details about compiling MindSpore, refer to [Compiling MindSpore](https://www.mindspore.cn/install/detail/en?path=install/master/mindspore_ascend_install_source_en.md&highlight=%E7%BC%96%E8%AF%91mindspore).
 
-Use the script `script/run_auto_parallel_train.sh`. Run the command `bash run_auto_parallel_train.sh 1 1 <DATASET_PATH> <RANK_TABLE_FILE>`,
-where the first `1` is the number of accelerators, the second `1` is the number of epochs, `DATASET_PATH` is the path of dataset,
-and `RANK_TABLE_FILE` is the path of the above `rank_table_1p_0.json` file.
+Use the script `script/run_auto_parallel_train.sh`. Run the command `bash run_auto_parallel_train.sh 1 1 <DATASET_PATH> <RANK_TABLE_FILE>`, where the first `1` is the number of cards used in the case, the second `1` is the number of epochs, `DATASET_PATH` is the path of dataset, and `RANK_TABLE_FILE` is the path of the above `rank_table_1p_0.json` file.
 
 The running log is in the directory of `device_0`, where `loss.log` contains every loss value of every step in the epoch. Here is an example:
 
@@ -62,7 +75,6 @@ epoch: 1 step: 7, wide_loss is 0.5798845, deep_loss is 0.7245408
 epoch: 1 step: 8, wide_loss is 0.57553077, deep_loss is 0.7123517
 epoch: 1 step: 9, wide_loss is 0.5733629, deep_loss is 0.70278376
 epoch: 1 step: 10, wide_loss is 0.566089, deep_loss is 0.6884129
-...
 ```
 
 `test_deep0.log` contains the runtime log.

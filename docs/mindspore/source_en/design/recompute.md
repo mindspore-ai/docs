@@ -8,9 +8,31 @@ The automatic differential of MindSpore is in reverse-mode, which derives the ba
 
 In order to solve this problem, Mindspore provides the recomputation function. It will recompute the forward operators before computing the backward operators rather than storing the results of forward operators, which can help the memory be reused. This tutorial takes the model ResNet-50 for example to explain how to configure recomputation to train your model in MindSpore.
 
+## Basic Principle
+
+MindSpore automatically derives the reverse graph according to the forward graph compute process, and the forward graph and the inverse graph together form a complete compute graph. When calculating some reverse operators, it may be necessary to use the compute results of some forward operators, resulting in the compute results of these forward operators, which need to reside in memory until these reverse operators are computed, and the memory they occupy will not be reused by other operators. The computational results of these forward operators, which reside in memory for a long time, push up the peak memory footprint of the computation, especially in large-scale network models.
+
+In order to reduce memory peaks, the recompute technique can not save the compute results of the forward activation layer, so that the memory can be reused, and then when calculating the reverse part, recompute the results of the forward activation layer. MindSpore provides the ability to recompute.
+
+The recompute function is implemented as a forward operator that is recomputed according to the user's specified needs, copies the same operator, outputs it to the reverse operator, and deletes the continuous edge relationship between the original forward operator and the reverse operator. In addition, we need to ensure that the copied operator only begins to be evaluated when the corresponding inverse part is computed, so we need to insert control dependencies to ensure the order in which the operators are executed. As shown in the following figure:
+
+![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/design/images/recompute_image_0_zh.png)
+
+*Figure: Forward and reverse diagram before and after the recompute function is enabled*
+
+For user convenience, MindSpore currently provides not only a recompute interface for individual operators, but also a recompute interface for Cell. When the user calls The Cell's recompute interface, all forward operators in the Cell are set to recompute.
+
+Taking the GPT-3 model as an example, the policy is set to recalculate the cell corresponding to the layerer for each layer, and then the output operator of the layerer is set to non-recompute. The effect of recompute on the 72-layer GPT-3 network is shown in the following figure:
+
+![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/design/images/recompute_image_1_zh.png)
+
+*Figure: Comparison of GPT-3 memory usage before and after recalculation function is enabled*
+
 ## Preliminaries
 
-1. Prepare the model. The ResNet-50 code can be found at: <https://gitee.com/mindspore/models/tree/master/official/cv/resnet>, in which `train.py` is the main function for training, `src/` directory contains the model definition and configuration files of ResNet-50, `script/` directory contains the training and evaluation scripts.
+### Sample code description
+
+1. Prepare the model. The ResNet-50 code can be found at: <https://gitee.com/mindspore/models/tree/master/official/cv/resnet>, in which `train.py` is the main function for training, `src/` directory contains the model definition and configuration files of ResNet-50, and `script/` directory contains the training and evaluation scripts.
 
 2. Prepare the dataset. This example uses the `CIFAR-10` dataset. For details about how to download and load the dataset, visit <https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html#downloading-the-dataset>.
 
@@ -96,8 +118,7 @@ We can call two kinds of interface to configure the recomputation. Take `src/res
 
 ## Training the Model
 
-We take the GPU environment for example, use the script `script/run_standalone_train_gpu.sh`. Run the command `bash scripts/run_standalone_train_gpu.sh $date_set_path config/resnet50_cifar10_config.yaml`.
-We can set the context: `save_graph=True` in `src/train.py` to print the construction of the computation graph to do comparison.
+We take the GPU environment for example, use the script `script/run_standalone_train_gpu.sh`. Run the command `bash scripts/run_standalone_train_gpu.sh $date_set_path config/resnet50_cifar10_config.yaml`. We can set the context: `save_graph=True` in `src/train.py` to print the construction of the computation graph to do comparison.
 
 The graph before setting recomputation is as follow:
 
