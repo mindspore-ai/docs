@@ -557,7 +557,7 @@ bash run_cluster.sh /path/dataset /path/rank_table.json 16 8
 
 当前MindSpore在Ascend上已经支持了通过OpenMPI的`mpirun`命令运行脚本，用户不需要配置`RANK_TABLE_FILE`环境变量。
 
-### 单机单卡训练
+### 单机多卡训练
 
 以使用8张卡的分布式训练脚本[run_with_mpi.sh](https://gitee.com/mindspore/docs/blob/master/docs/sample_code/distributed_training/run_with_mpi.sh)为例，当运行该脚本时，
 脚本会在后台运行，日志文件会保存到device目录下，不同卡上的日志会按`rank_id`分别保存在`log_output/1/`路径下对应的文件中。
@@ -575,7 +575,7 @@ bash run_cluster.sh /path/dataset /path/rank_table.json 16 8
 
 ### 多机多卡训练
 
-在运行多机多卡训练前，需要保证每个节点上都有相同的OpenMPI、Python以及MindSpore版本，并且安装路径一致。
+在运行多机多卡训练前，需要保证每个节点上都有相同的OpenMPI、Python以及MindSpore版本和安装路径。并且节点之间设置好ssh无密码登录，ssh无密码登录设置方式可以参考[GPU配置分布式环境](https://www.mindspore.cn/tutorials/experts/zh-CN/master/parallel/train_gpu.html#配置分布式环境)。
 
 OpenMPI多机训练一般采用配置hostfile的方式，在`mpirun`命令行参数中加`--hostfile filepath`。hostfile文件每一行格式为`[hostname] slots=[slotnum]`，hostname可以是ip或者主机名，slotnum代表该机启动的子进程数目。
 
