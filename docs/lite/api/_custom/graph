@@ -2314,7 +2314,7 @@ MindSpore Lite API
         # generate the remaining parent-like documents
         self.generateNamespaceNodeDocuments()
         self.generateFileNodeDocuments()
-        self.generateDirectoryNodeDocuments()
+        # self.generateDirectoryNodeDocuments()
 
     def initializeNodeFilenameAndLink(self, node):
         '''
