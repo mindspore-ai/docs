@@ -78,7 +78,6 @@ set_context(mode=GRAPH_MODE, device_target=args.device_target)
 device_id = int(os.getenv('DEVICE_ID'))
 set_context(device_id=device_id)
 set_auto_parallel_context(device_num=8, parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
-set_algo_parameters(elementwise_op_strategy_follow=True)
 all_reduce_fusion_config = [85, 160]
 set_auto_parallel_context(all_reduce_fusion_config=all_reduce_fusion_config)
 init()

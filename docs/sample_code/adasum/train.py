@@ -24,7 +24,6 @@ from mindspore import LossMonitor, TimeMonitor
 from mindspore import FixedLossScaleManager
 from mindspore.communication import init
 from mindspore import set_seed
-from mindspore.parallel import set_algo_parameters
 from mindspore import nn
 from mindspore.common import initializer as weight_init
 
@@ -77,7 +76,6 @@ if __name__ == '__main__':
     device_id = int(os.getenv('DEVICE_ID'))
     set_context(device_id=device_id)
     set_auto_parallel_context(device_num=16, parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
-    set_algo_parameters(elementwise_op_strategy_follow=True)
     init()
 
     # define train dataset
