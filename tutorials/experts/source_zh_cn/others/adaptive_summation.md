@@ -122,7 +122,6 @@ set_context(mode=GRAPH_MODE, device_target="Ascend")
 device_id = int(os.getenv('DEVICE_ID'))
 set_context(device_id=device_id)
 set_auto_parallel_context(device_num=16, parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
-set_algo_parameters(elementwise_op_strategy_follow=True)
 init()
 ```
 

@@ -23,7 +23,6 @@ from mindspore import ParallelMode
 from mindspore import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
 from mindspore.communication import init
 from mindspore import set_seed
-from mindspore.parallel import set_algo_parameters
 from mindspore import load_checkpoint, load_param_into_net
 
 from models.official.cv.resnet.src.CrossEntropySmooth import CrossEntropySmooth
@@ -63,7 +62,6 @@ if __name__ == '__main__':
     device_id = int(os.getenv('DEVICE_ID'))
     set_context(device_id=device_id)
     set_auto_parallel_context(device_num=8, parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
-    set_algo_parameters(elementwise_op_strategy_follow=True)
     init()
 
     # define train dataset
