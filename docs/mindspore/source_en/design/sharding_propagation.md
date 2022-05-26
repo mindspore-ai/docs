@@ -12,7 +12,7 @@ In op-level parallelism, we conduct SPMD (Single Program Multiple Data) style pa
 
 Distributed Operator: together, the distributed operators running on multiple devices preserve the same semantics of the stand-alone counterpart. That is, given the same input, the distributed operators’ output is the same as the stand-alone counterpart.
 
-Say a matrix multiplication (MatMul) operator with two matrix X and W as input: Y = MatMul(X, W) is to be parallelized on 4 devices. If X is replicated on 4 devices and W is partitioned along the column dimension, then after the transformation, MatMul is the distributed operator on each device. If X is partitioned along the column dimension and W is partitioned along the row dimension, then MatMul followed by AllReduce are distributed operators on each device.
+Say a matrix multiplication (MatMul) operator with two matrix X and W as input: Y = MatMul(X, W) is to be parallelized on 4 devices. If matrix X has copies on 4 devices, and W is split into 4 copies by column, one for each device, then the distributed operator corresponding to the stand-alone version of the MatMul operator is also MatMul, that is, MatMul operator is executed on each device. If X is split into 4 parts according to the column, W is cut into 4 parts by row, and each device gets a shard of X and W, then the distributed operator corresponding to the stand-alone version of the MatMul operator is MatMul->AllReduce, that is, the two operators of MatMul and AllReduce will be executed sequentially on each device to ensure mathematical equivalence.
 
 Besides the SP (Single Program) part, MD (Multiple Data) part also needs to be specified. Before that, we first define the Sharding Strategy.
 
@@ -20,17 +20,17 @@ Besides the SP (Single Program) part, MD (Multiple Data) part also needs to be s
 
 Sharding Strategy: a Sharding Strategy for an operator is a two-dimensional array, specifying how many partitions to split each dimension of each input tensor for the operator.
 
-Derived from the Sharding Strategy, Tensor Layout is defined to specify how a tensor is distributed across devices.
+From the sharding strategy, you can derive the **Tensor Layout** to describe how tensors are distributed across devices.
 
 ### Tensor Layout
 
-Tensor Layout: given a Sharding Strategy for an operator, the Tensor Layout is inferred to describe the distributions of the input tensors of the operator, which includes the **Logical Device Matrix** and the **Tensor Map**. The Logical Device Matrix is an one-dimensional array, describing how devices are arranged for the operator. The Tensor Map the dimensions of input tensors to dimensions of the device matrix, indicating that input tensors are partitioned across the Logical Device Matrix.
+Tensor Layout: given a Sharding Strategy for an operator, the **Tensor Layout** is inferred to describe the distributions of the input tensors of the operator, which includes the **Logical Device Matrix** and the **Tensor Map**. The Logical Device Matrix is an one-dimensional array, describing how devices are arranged for the operator. The Tensor Map the dimensions of input tensors to dimensions of the device matrix, indicating that input tensors are partitioned across the Logical Device Matrix.
 
 Use again the MatMul operator Y = MatMul(X, W). We configure the operator with Sharding Strategy [[2, 1], [1, 4]] and the corresponding Tensor Layout information is demonstrated in the following figure. X is partitioned into 2 parts along the row dimension, and W is partitioned into 4 parts along the column dimension (figure (b)). From the Sharding Strategy, the Logical Device Matrix and the Tensor Map are inferred, as shown in figure (c). The coordinates are also determined to describe the locations of devices in the Logical Device Matrix, based on which the distributions of tensors are determined. From the ‘2’ column in the coordinate table, Device 0—3 are assigned X<sub>0</sub>, while Device 4—7 are assigned X<sub>1</sub>. From the ‘4’ column in the coordinate table, Device 0 and Device 4 are assigned W<sub>0</sub>, Device 1 and Device 5 are assigned W<sub>1</sub>, Device 2 and Device 6 are assigned W<sub>2</sub>, and Device 3 and Device 7 are assigned W<sub>3</sub>. As a result, the local computation is determined, as shown in figure (d).
 
 ![tensor_layout](./images/tensor_layout.png "From Sharding Strategy, Tensor Layout and local computation are inferred.")
 
-For two consecutive operators that are dependent, the Tensor Layouts defined by two operators may be inconsistent, due to either Logical Device Matrix or Tensor Map. We propose an algorithm, called Tensor Redistribution, that transforms the inconsistent Tensor Layout. We omit the algorithm here, and only give a definition.
+For two consecutive operators that are dependent, the Tensor Layouts defined by two operators may be inconsistent, due to either Logical Device Matrix or Tensor Map. We propose an algorithm, called **Tensor Redistribution**, that transforms the inconsistent Tensor Layout. We omit the algorithm here, and only give a definition.
 
 ### Tensor Redistribution
 
@@ -38,13 +38,13 @@ Tensor Redistribution: given two inconsistent Tensor Layouts of a tensor, Tensor
 
 Here, the communication cost is measured by the bytes that each device transmits.
 
-Say a two-operator example: Z = MatMul(X, W), O = MatMul(Z, Y). To make Tensor Redistribution effective, two operators are configured Sharding Strategies so that the Tensor Layouts of Z are inconsistent, as shown in the following figure. In figure (a), the output of the first MatMul is row partitioned, while the second MatMul requires that Z are full-sized. Therefore, an AllGather is inferred by Tensor Redistribution to perform the transformation[1]. In figure (b), an AllToAll in inferred to perform the transformation.
+Say a two-operator example: Z = MatMul(X, W), O = MatMul(Z, Y). To make Tensor Redistribution effective, two operators are configured Sharding Strategies so that the Tensor Layouts of Z are inconsistent, as shown in the following figure. In figure (a), the output of the first MatMul is row partitioned, while the second MatMul requires that Z are full-sized. Therefore, an AllGather is inferred by Tensor Redistribution to perform the transformation[1]. In figure (b), the output tensor Z of the first matrix multiplication operator is row-sliced, while the second matrix multiplicator requires that the tensor Z be split by columns, so the tensor redistribution derivation needs to be inserted here to complete the conversion.
 
 ![tensor_redistribution](./images/tensor_redistribution.png "The full-sized programs with Sharding Strategy, and their corresponding local computation for each device.")
 
 ## Sharding Propagation
 
-Given a computation graph, Sharding Propagation is a functionality that propagates the Sharding Strategies from configured operator to the whole graph, with the goal of minimizing the communication cost in Tensor Redistribution.
+Given a computation graph, **Sharding Propagation** is a functionality that propagates the Sharding Strategies from configured operator to the whole graph, with the goal of minimizing the communication cost in Tensor Redistribution.
 
 The input of Sharding Propagation is a computation graph, in which nodes represent operators, and edges encode the data-dependency relationship of operators. From a model definition with some operators configured Sharding Strategies, Sharding Propagation executes as follows:
 
@@ -58,7 +58,7 @@ The following figure illustrates an example process of applying Sharding Propaga
 
 ## How to use Sharding Propagation in MindSpore
 
-### Preliminaries
+### Sample Code Description
 
 > Download the complete sample code:
 >
