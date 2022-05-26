@@ -270,7 +270,7 @@ file_name = os.path.realpath(args.file_name)
 export(network, *inputs, file_name=file_name, file_format=args.file_format)
 ```
 
-The above code snap of [export.py](https://gitee.com/mindspore/xai/blob/master/models/whitebox/tbnet/export.py) shows it is straightforward with [mindspore.export](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.export.html?highlight=export#mindspore.export).
+The above code snap of [export.py](https://gitee.com/mindspore/xai/blob/master/models/whitebox/tbnet/export.py) shows it is straightforward with [mindspore.export](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.export.html#mindspore.export).
 
 ### Running export.py
 
