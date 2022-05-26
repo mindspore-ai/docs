@@ -6,11 +6,11 @@
 
 The backends supported by MindSpore include Ascend, GPU, and CPU. The device in the "On-Device" refers to the Ascend AI processor.
 
-The Ascend AI processor integrates the AI core, AI CPU, and CPU. The AI core is responsible for large Tensor Vector computing, the AI CPU is responsible for scalar computing, and the CPU is responsible for logic control and task distribution.
+The Ascend AI processor integrates the AICORE, AICPU, and CPU. The AICORE is responsible for large Tensor Vector computing, the AI CPU is responsible for scalar computing, and the CPU is responsible for logic control and task distribution.
 
 The CPU on the host side delivers graphs or operators to the Ascend AI processor. The Ascend AI processor has the functions of computing, logic control, and task distribution. Therefore, it does not need to frequently interact with the CPU on the host side. It only needs to return the final calculation result to the host. In this way, the entire graph is sunk to the device for execution, avoiding frequent interaction between the host and device and reducing overheads.
 
-### Computational Graphs on Devices
+### Computational Graphs Sinking
 
 The entire graph is executed on the device to reduce the interaction overheads between the host and device. Multiple steps can be moved downwards together with cyclic sinking to further reduce the number of interactions between the host and device.
 
@@ -41,7 +41,7 @@ The following is a code example:
 
 ```python
 import os
-
+import requests
 import mindspore.dataset as ds
 import mindspore.dataset.transforms.c_transforms as CT
 import mindspore.dataset.vision.c_transforms as CV
@@ -50,10 +50,10 @@ from mindspore import Model, set_context, GRAPH_MODE
 from mindspore import dtype as mstype
 from mindspore.common.initializer import TruncatedNormal
 from mindspore.dataset.vision import Inter
-from mindspore.nn import Accuracy
 import mindspore.ops as ops
 from mindspore import LossMonitor
 
+requests.packages.urllib3.disable_warnings()
 
 def create_dataset(data_path, batch_size=32, repeat_size=1,
                    num_parallel_workers=1):
@@ -153,10 +153,26 @@ class LeNet5(nn.Cell):
         x = self.fc3(x)
         return x
 
+def download_dataset(dataset_url, path):
+    filename = dataset_url.split("/")[-1]
+    save_path = os.path.join(path, filename)
+    if os.path.exists(save_path):
+        return
+    if not os.path.exists(path):
+        os.makedirs(path)
+    res = requests.get(dataset_url, stream=True, verify=False)
+    with open(save_path, "wb") as f:
+        for chunk in res.iter_content(chunk_size=512):
+            if chunk:
+                f.write(chunk)
+    print("The {} file is downloaded and saved in the path {} after processing".format(os.path.basename(dataset_url), path))
+
 
 if __name__ == "__main__":
     set_context(mode=GRAPH_MODE, device_target="GPU")
     ds_train_path = "./datasets/MNIST_Data/train/"
+    download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-labels-idx1-ubyte", ds_train_path)
+    download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-images-idx3-ubyte", ds_train_path)
     ds_train = create_dataset(ds_train_path, 32)
 
     network = LeNet5(10)

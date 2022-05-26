@@ -1,16 +1,34 @@
-# Pipeline Parallelism
+# Pipeline Parallel
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/design/pipeline_parallel.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## Overview
 
-In recent years, the scale of neural networks has increased exponentially. Limited by the memory on a single device, the
-number of devices used for training large models is also increasing. Due to the low communication bandwidth between
-servers, the performance of the conventional hybrid parallelism (data parallel + model parallel) is poor. Therefore,
-pipeline parallelism needs to be introduced. Pipeline parallelism can divide a model in space based on `stage`.
-Each `stage` needs to execute only a part of the network, which greatly reduces memory overheads, shrinks the
-communication domain, and shortens the communication time. MindSpore can automatically convert a standalone model to the
-pipeline parallel mode based on user configurations.
+In recent years, the scale of neural networks has increased exponentially. Limited by the memory on a single device, the number of devices used for training large models is also increasing. Due to the low communication bandwidth between servers, the performance of the conventional hybrid parallelism (data parallel + model parallel) is poor. Therefore, pipeline parallelism needs to be introduced. Pipeline parallel can divide a model in space based on `stage`. Each `stage` needs to execute only a part of the network, which greatly reduces memory overheads, shrinks the communication domain, and shortens the communication time. MindSpore can automatically convert a standalone model to the pipeline parallel mode based on user configurations.
+
+## Basic Principle
+
+Pipeline parallel is the splitting of operators in a neural network into multiple stages, and then mapping the stages to different devices, so that different devices can compute different parts of the neural network. Pipeline parallel is suitable for graph structures where the model is linear. As shown in Figure 1, the network of 4 layers of MatMul is split into 4 stages and distributed to 4 devices. In forward calculations, each machine sends the result to the next machine through the communication operator after calculating the MatMul on the machine, and at the same time, the next machine receives (Receive) the MatMul result of the previous machine through the communication operator, and starts to calculate the MatMul on the machine; In reverse calculation, after the gradient of the last machine is calculated, the result is sent to the previous machine, and at the same time, the previous machine receives the gradient result of the last machine and begins to calculate the reverse of the current machine.
+
+![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/design/images/pipeline_parallel_image_0_zh.png)
+
+*Figure 1: Schematic diagram of graph splitting in pipeline parallel*
+
+Simply splitting the model onto multiple devices does not bring about a performance gain, because the linear structure of the model has only one device at work at a time, while other devices are waiting, resulting in a waste of resources. In order to improve efficiency, the pipeline parallel further divides the small batch (MiniBatch) into more fine-grained micro batches (MicroBatch), and adopts a pipeline execution sequence in the micro batch, so as to achieve the purpose of improving efficiency, as shown in Figure 2. The small batches are cut into 4 micro-batches, and the 4 micro-batches are executed on 4 groups to form a pipeline. The gradient aggregation of the micro-batch is used to update the parameters, where each device only stores and updates the parameters of the corresponding group. where the white ordinal number represents the index of the micro-batch.
+
+![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/design/images/pipeline_parallel_image_1_zh.png)
+
+*Figure 2: Schematic diagram of a pipeline parallel execution timeline with MicroBatch*
+
+In MindSpore's pipeline parallel implementation, the execution order has been adjusted for better memory management. As shown in Figure 3, the reverse of the MicroBatch numbered 0 is performed immediately after its forward execution, so that the memory of the intermediate result of the numbered 0 MicroBatch is freed earlier (compared to Figure 2), thus ensuring that the peak memory usage is lower than in the way of Figure 2.
+
+![](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/docs/mindspore/source_zh_cn/design/images/pipeline_parallel_image_2_zh.png)
+
+*Figure 3: MindSpore Pipeline Parallel Execution Timeline Diagram*
+
+## Operation Practices
+
+### Sample Code Description
 
 > Download address of the complete sample code:
 >
@@ -31,8 +49,6 @@ The directory structure is as follows:
 ```
 
 `rank_table_16pcs.json`, `rank_table_8pcs.json` and `rank_table_2pcs.json` are the networking information files. `resnet.py` and `resnet50_distributed_training_pipeline.py` are the network structure files. `run_pipeline.sh` are the execute scripts.
-
-## Preparations
 
 ### Downloading the Dataset
 
@@ -105,10 +121,7 @@ To enable pipeline parallelism, you need to add the following configurations to 
 - Set `pipeline_stages` in `set_auto_parallel_context` to specify the total number of `stages`.
 - Set the `SEMI_AUTO_PARALLEL` mode. Currently, the pipeline parallelism supports only this mode.
 - Define the LossCell. In this example, the `nn.WithLossCell` API is called.
-- Finally, wrap the LossCell with `PipelineCell`, and specify the Micro_batch size. To improve machine utilization,
-  MindSpore divides Mini_batch into finer-grained Micro_batch to streamline the entire cluster. The final loss value is
-  the sum of the loss values computed by all Micro_batch. The size of Micro_batch must be greater than or equal to the
-  number of `stages`.
+- Finally, wrap the LossCell with `PipelineCell`, and specify the Micro_batch size. To improve machine utilization, MindSpore divides Mini_batch into finer-grained Micro_batch to streamline the entire cluster. The final loss value is the sum of the loss values computed by all Micro_batch. The size of Micro_batch must be greater than or equal to the number of `stages`.
 
 ```python
 from mindspore import Model, nn, set_auto_parallel_context, ParallelMode
@@ -136,7 +149,7 @@ def test_train_cifar(epoch_size=10):
 
 ## Running the Single-host with 8 devices Script
 
-Using the sample code, you can run a 2-stage pipeline on 8 Ascend devices using below scripts:
+Using the sample code, you can run a 2-stage pipeline on 8 Ascend devices by using below scripts:
 
 ```bash
 bash run_pipeline.sh [DATA_PATH] Ascend
