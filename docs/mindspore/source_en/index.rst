@@ -12,7 +12,7 @@ MindSpore Documentation
    :caption: Design
    :hidden:
 
-   design/technical_white_paper
+   design/white_paper
    design/auto_gradient
    design/distributed_training_design
    design/mindir
@@ -111,7 +111,7 @@ MindSpore Documentation
 				<div class="col-md-6">
                <div class="doc-article-list">
                   <div class="doc-article-item">
-                     <a href="./design/technical_white_paper.html" class="article-link">
+                     <a href="./design/white_paper.html" class="article-link">
                         <div>
                            <div class="doc-article-head">
                               <span class="doc-head-content">Design</span>
