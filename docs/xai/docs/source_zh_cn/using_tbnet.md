@@ -267,7 +267,7 @@ file_name = os.path.realpath(args.file_name)
 export(network, *inputs, file_name=file_name, file_format=args.file_format)
 ```
 
-从以上的 [export.py](https://gitee.com/mindspore/xai/blob/master/models/whitebox/tbnet/export.py) 可见，使用 [mindspore.export](https://mindspore.cn/docs/api/zh-CN/master/api_python/mindspore/mindspore.export.html?highlight=export#mindspore.export) 导出已训练模型是十分简单直接的。
+从以上的 [export.py](https://gitee.com/mindspore/xai/blob/master/models/whitebox/tbnet/export.py) 可见，使用 [mindspore.export](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.export.html#mindspore.export) 导出已训练模型是十分简单直接的。
 
 ### 执行 export.py
 
