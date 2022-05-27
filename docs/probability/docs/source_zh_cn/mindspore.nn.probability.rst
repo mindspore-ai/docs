@@ -1,12 +1,14 @@
 mindspore.nn.probability
 ================================
 
-.. automodule:: mindspore.nn.probability
+概率。
+
+用于构建概率网络的高级组件。
 
 Bayesian Layers
 ---------------
 
-.. msplatformautosummary::
+.. mscnplatformautosummary::
     :toctree: nn_probability
     :nosignatures:
     :template: classtemplate_probability.rst
@@ -18,7 +20,7 @@ Bayesian Layers
 Prior and Posterior Distributions
 ----------------------------------
 
-.. msplatformautosummary::
+.. mscnplatformautosummary::
     :toctree: nn_probability
     :nosignatures:
     :template: classtemplate_probability.rst
@@ -29,7 +31,7 @@ Prior and Posterior Distributions
 Bayesian Wrapper Functions
 ---------------------------
 
-.. msplatformautosummary::
+.. mscnplatformautosummary::
     :toctree: nn_probability
     :nosignatures:
     :template: classtemplate_probability.rst
@@ -39,7 +41,7 @@ Bayesian Wrapper Functions
 Deep Probability Networks
 --------------------------
 
-.. msplatformautosummary::
+.. mscnplatformautosummary::
     :toctree: nn_probability
     :nosignatures:
     :template: classtemplate_probability.rst
@@ -50,7 +52,7 @@ Deep Probability Networks
 Infer
 ------
 
-.. msplatformautosummary::
+.. mscnplatformautosummary::
     :toctree: nn_probability
     :nosignatures:
     :template: classtemplate_probability.rst
@@ -61,7 +63,7 @@ Infer
 ToolBox
 ---------
 
-.. msplatformautosummary::
+.. mscnplatformautosummary::
     :toctree: nn_probability
     :nosignatures:
     :template: classtemplate_probability.rst
@@ -72,7 +74,7 @@ ToolBox
 Model Transformer
 ------------------
 
-.. msplatformautosummary::
+.. mscnplatformautosummary::
     :toctree: nn_probability
     :nosignatures:
     :template: classtemplate_probability.rst

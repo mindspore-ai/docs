@@ -10,15 +10,21 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
+from genericpath import exists
+import glob
 import os
+import shutil
 import sys
 import IPython
 import re
+import mindspore
 sys.path.append(os.path.abspath('../_ext'))
 import sphinx.ext.autosummary.generate as g
 from sphinx.ext import autodoc as sphinx_autodoc
 
-import mindspore
+from sphinx import directives
+with open('../_ext/overwriteobjectiondirective.txt', 'r', encoding="utf8") as f:
+    exec(f.read(), directives.__dict__)
 
 # -- Project information -----------------------------------------------------
 
@@ -139,11 +145,32 @@ import nbsphinx_mod
 sys.path.append(os.path.abspath('../../../../resource/search'))
 import search_code
 
+# Copy source files of chinese python api from mindspore repository.
+from sphinx.util import logging
+logger = logging.getLogger(__name__)
+
+src_dir = os.path.join(os.getenv("MS_PATH"), 'docs/api/api_python/probability')
+des_sir = "./nn_probability"
+
+if not exists(src_dir):
+    logger.warning(f"不存在目录：{src_dir}！")
+if os.path.exists(des_sir):
+    shutil.rmtree(des_sir)
+shutil.copytree(src_dir, des_sir)
+
+import mindspore
+
 sys.path.append(os.path.abspath('../../../../resource/custom_directives'))
 from custom_directives import IncludeCodeDirective
-from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary
+from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary, MsCnAutoSummary, MsCnPlatformAutoSummary, MsCnNoteAutoSummary
+
+rst_files = set([i.replace('.rst', '') for i in glob.glob('nn_probability/*.rst', recursive=True)])
 
 def setup(app):
     app.add_directive('msplatformautosummary', MsPlatformAutoSummary)
     app.add_directive('msnoteautosummary', MsNoteAutoSummary)
     app.add_directive('includecode', IncludeCodeDirective)
+    app.add_directive('mscnautosummary', MsCnAutoSummary)
+    app.add_directive('mscnplatformautosummary', MsCnPlatformAutoSummary)
+    app.add_directive('mscnnoteautosummary', MsCnNoteAutoSummary)
+    app.add_config_value('rst_files', set(), False)
