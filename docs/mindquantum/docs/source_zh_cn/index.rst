@@ -42,6 +42,7 @@ MindQuantum是基于昇思MindSpore开源深度学习框架和HiQ量子计算云
    advanced_operations_of_quantum_circuit
    quantum_measurement
    noise
+   bloch_sphere
 
 .. toctree::
    :glob:
