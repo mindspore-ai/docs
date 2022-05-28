@@ -202,7 +202,7 @@ from mindspore import dataset as ds
 import mindspore.ops as ops
 from mindspore import dtype as mstype
 
-set_context(mode=GRAPH_MODE, device_target="Ascend")
+set_context(mode=GRAPH_MODE, device_target="GPU")
 ```
 
 The network is defined in the same way regardless of whether FP32 or FP16 is used. The difference is that after the network is defined, the dense layer is declared to use FP16 for computing when the network model is initialized, that is, `net.dense.to_float(mstype.float16)`.
@@ -271,7 +271,7 @@ network = LeNet5(10)
 net_loss = nn.SoftmaxCrossEntropyWithLogits(reduction="mean")
 net_opt = nn.Momentum(network.trainable_params(),learning_rate=0.01, momentum=0.9)
 network.conv1.to_float(mstype.float16)
-model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O3")
+model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O2")
 
 model.train(epoch=2, train_dataset=ds_train)
 ```
