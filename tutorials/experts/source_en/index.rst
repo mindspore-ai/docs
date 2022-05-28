@@ -53,6 +53,7 @@ For Experts
    debug/dataset_autotune
    debug/fixing_randomness
    debug/pynative
+   debug/graph_fusion_engine
 
 .. toctree::
    :glob:
