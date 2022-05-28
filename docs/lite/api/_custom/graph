@@ -2900,9 +2900,6 @@ MindSpore Lite API
         nsp_nested_class_like = []
         nsp_enums             = []
         nsp_functions         = []
-        nsp_typedefs          = []
-        nsp_unions            = []
-        nsp_variables         = []
         for child in nspace.children:
             # Skip children whose names were requested to be explicitly ignored.
             should_exclude = False
@@ -2914,20 +2911,13 @@ MindSpore Lite API
 
             if child.kind == "namespace":
                 nsp_namespaces.append(child)
-            elif child.kind == "struct" or child.kind == "class":
+            elif child.kind == "class":
                 child.findNestedClassLike(nsp_nested_class_like)
                 child.findNestedEnums(nsp_enums)
-                child.findNestedUnions(nsp_unions)
             elif child.kind == "enum":
                 nsp_enums.append(child)
             elif child.kind == "function":
                 nsp_functions.append(child)
-            elif child.kind == "typedef":
-                nsp_typedefs.append(child)
-            elif child.kind == "union":
-                nsp_unions.append(child)
-            elif child.kind == "variable":
-                nsp_variables.append(child)
 
         # generate their headings if they exist (no Defines...that's not a C++ thing...)
         children_stream = StringIO()
@@ -2935,9 +2925,6 @@ MindSpore Lite API
         self.generateSortedChildListString(children_stream, "Classes", nsp_nested_class_like)
         self.generateSortedChildListString(children_stream, "Enums", nsp_enums)
         self.generateSortedChildListString(children_stream, "Functions", nsp_functions)
-        self.generateSortedChildListString(children_stream, "Typedefs", nsp_typedefs)
-        self.generateSortedChildListString(children_stream, "Unions", nsp_unions)
-        self.generateSortedChildListString(children_stream, "Variables", nsp_variables)
         # read out the buffer contents, close it and return the desired string
         children_string = children_stream.getvalue()
         children_stream.close()
