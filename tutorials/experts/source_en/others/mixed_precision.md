@@ -169,7 +169,7 @@ network = LeNet5(10)
 # Define Loss and Optimizer
 net_loss = nn.SoftmaxCrossEntropyWithLogits(reduction="mean")
 net_opt = nn.Momentum(network.trainable_params(),learning_rate=0.01, momentum=0.9)
-model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O2", loss_scale_manager=None)
+model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O3", loss_scale_manager=None)
 
 # Run training
 model.train(epoch=10, train_dataset=ds_train)
@@ -193,50 +193,86 @@ The following is a basic code example. First, import the required libraries and 
 import numpy as np
 
 import mindspore.nn as nn
-from mindspore import dtype as mstype
-from mindspore import Tensor, context
+from mindspore.nn import Accuracy
+from mindspore import Model, context
+from mindspore.common.initializer import Normal
+from mindspore import dataset as ds
 import mindspore.ops as ops
-from mindspore.nn import WithLossCell, TrainOneStepCell
-from mindspore.nn import Momentum
+from mindspore import dtype as mstype
 
 context.set_context(mode=context.GRAPH_MODE)
-context.set_context(device_target="Ascend")
+context.set_context(device_target="GPU")
 ```
 
 The network is defined in the same way regardless of whether FP32 or FP16 is used. The difference is that after the network is defined, the dense layer is declared to use FP16 for computing when the network model is initialized, that is, `net.dense.to_float(mstype.float16)`.
 
 ```python
-# Define network
-class Net(nn.Cell):
-    def __init__(self, input_channel, out_channel):
-        super(Net, self).__init__()
-        self.dense = nn.Dense(input_channel, out_channel)
-        self.relu = ops.ReLU()
+class LeNet5(nn.Cell):
+    """
+    Lenet network
+
+    Args:
+        num_class (int): Number of classes. Default: 10.
+        num_channel (int): Number of channels. Default: 1.
+
+    Returns:
+        Tensor, output tensor
+    """
+
+    def __init__(self, num_class=10, num_channel=1):
+        super(LeNet5, self).__init__()
+        self.conv1 = nn.Conv2d(num_channel, 6, 5, pad_mode='valid')
+        self.conv2 = nn.Conv2d(6, 16, 5, pad_mode='valid')
+        self.fc1 = nn.Dense(16 * 5 * 5, 120, weight_init=Normal(0.02))
+        self.fc2 = nn.Dense(120, 84, weight_init=Normal(0.02))
+        self.fc3 = nn.Dense(84, num_class, weight_init=Normal(0.02))
+        self.relu = nn.ReLU()
+        self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
+        self.flatten = nn.Flatten()
+        self.cast = ops.Cast()
+        #x = self.max_pool2d(self.relu(self.conv1(x)))
 
     def construct(self, x):
-        x = self.dense(x)
+        x = self.conv1(x)
+        x = self.cast(x, mstype.float32)
         x = self.relu(x)
+        x = self.max_pool2d(x)
+        x = self.max_pool2d(self.relu(self.conv2(x)))
+        x = self.flatten(x)
+        x = self.relu(self.fc1(x))
+        x = self.relu(self.fc2(x))
+        x = self.fc3(x)
         return x
 
-# Initialize network
-net = Net(512, 128)
-# Set mixing precision
-net.to_float(mstype.float16)
-net.dense.to_float(mstype.float32)
 
-# Define training data, label
-predict = Tensor(np.ones([64, 512]).astype(np.float32) * 0.01)
-label = Tensor(np.zeros([64, 128]).astype(np.float32))
 
-# Define Loss and Optimizer
-loss = nn.SoftmaxCrossEntropyWithLogits()
-optimizer = Momentum(params=net.trainable_params(), learning_rate=0.1, momentum=0.9)
-net_with_loss = WithLossCell(net, loss)
-train_network = TrainOneStepCell(net_with_loss, optimizer)
-train_network.set_train()
+# create dataset
+def get_data(num, img_size=(1, 32, 32), num_classes=10, is_onehot=True):
+    for _ in range(num):
+        img = np.random.randn(*img_size)
+        target = np.random.randint(0, num_classes)
+        target_ret = np.array([target]).astype(np.float32)
+        if is_onehot:
+            target_onehot = np.zeros(shape=(num_classes,))
+            target_onehot[target] = 1
+            target_ret = target_onehot.astype(np.float32)
+        yield img.astype(np.float32), target_ret
 
-# Run training
-output = train_network(predict, label)
+def create_dataset(num_data=1024, batch_size=32, repeat_size=1):
+    input_data = ds.GeneratorDataset(list(get_data(num_data)), column_names=['data','label'])
+    input_data = input_data.batch(batch_size, drop_remainder=True)
+    input_data = input_data.repeat(repeat_size)
+    return input_data
+
+
+ds_train = create_dataset()
+network = LeNet5(10)
+net_loss = nn.SoftmaxCrossEntropyWithLogits(reduction="mean")
+net_opt = nn.Momentum(network.trainable_params(),learning_rate=0.01, momentum=0.9)
+network.conv1.to_float(mstype.float16)
+model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O2")
+
+model.train(epoch=2, train_dataset=ds_train)
 ```
 
 > Constraint: When mixed-precision is used, the backward network can be generated only by the automatic differential function. Otherwise, MindSpore may generate exception information indicating that the data format does not match.
