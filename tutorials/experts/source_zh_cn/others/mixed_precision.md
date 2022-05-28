@@ -206,7 +206,7 @@ from mindspore import dataset as ds
 import mindspore.ops as ops
 from mindspore import dtype as mstype
 
-set_context(mode=GRAPH_MODE, device_target="Ascend")
+set_context(mode=GRAPH_MODE, device_target="GPU")
 ```
 
 网络定义无论是使用FP32还是FP16都是使用相同的方式，区别在于定义网络后，在初始化网络模型的时候声明dense层使用FP16进行计算，即`net.dense.to_float(mstype.float16)`。
@@ -275,7 +275,7 @@ network = LeNet5(10)
 net_loss = nn.SoftmaxCrossEntropyWithLogits(reduction="mean")
 net_opt = nn.Momentum(network.trainable_params(),learning_rate=0.01, momentum=0.9)
 network.conv1.to_float(mstype.float16)
-model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O3")
+model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}, amp_level="O2")
 
 model.train(epoch=2, train_dataset=ds_train)
 ```
