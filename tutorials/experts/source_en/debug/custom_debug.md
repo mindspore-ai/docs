@@ -379,32 +379,39 @@ MindSpore uses glog to output logs. The following environment variables are comm
 
 Sub modules of MindSpore grouped by source directory:
 
-| Source Files | Sub Module Name |
-| ------------ | --------------- |
-| mindspore/ccsrc/backend/kernel_compiler | KERNEL |
-| mindspore/ccsrc/backend/optimizer | PRE_ACT |
-| mindspore/ccsrc/backend/session | SESSION |
-| mindspore/ccsrc/common | COMMON |
-| mindspore/ccsrc/debug | DEBUG |
-| mindspore/ccsrc/frontend/operator | ANALYZER |
-| mindspore/ccsrc/frontend/optimizer | OPTIMIZER |
-| mindspore/ccsrc/frontend/parallel | PARALLEL |
-| mindspore/ccsrc/minddata/dataset | MD |
-| mindspore/ccsrc/minddata/mindrecord | MD |
-| mindspore/ccsrc/pipeline/jit/*.cc | PIPELINE |
-| mindspore/ccsrc/pipeline/jit/parse | PARSER |
-| mindspore/ccsrc/pipeline/jit/static_analysis | ANALYZER |
-| mindspore/ccsrc/pipeline/pynative | PYNATIVE |
-| mindspore/ccsrc/profiler | PROFILER |
-| mindspore/ccsrc/pybind_api | COMMON |
-| mindspore/ccsrc/runtime/device | DEVICE |
-| mindspore/ccsrc/transform/graph_ir | GE_ADPT |
-| mindspore/ccsrc/transform/express_ir | EXPRESS |
-| mindspore/ccsrc/utils | UTILS |
-| mindspore/ccsrc/vm | VM |
-| mindspore/ccsrc | ME |
-| mindspore/core/gvar | COMMON |
-| mindspore/core/ | CORE |
+| Source Files                                 | Sub Module Name |
+| -------------------------------------------- | --------------- |
+| mindspore/ccsrc/kernel                       | KERNEL          |
+| mindspore/ccsrc/plugin/device/*/kernel       | KERNEL          |
+| mindspore/ccsrc/backend/common/optimizer     | PRE_ACT         |
+| mindspore/ccsrc/backend/common/pass          | PRE_ACT         |
+| mindspore/ccsrc/plugin/device/*/optimizer    | PRE_ACT         |
+| mindspore/ccsrc/backend/common/session       | SESSION         |
+| mindspore/ccsrc/common                       | COMMON          |
+| mindspore/ccsrc/debug                        | DEBUG           |
+| mindspore/ccsrc/frontend/operator            | ANALYZER        |
+| mindspore/ccsrc/frontend/optimizer           | OPTIMIZER       |
+| mindspore/ccsrc/frontend/parallel            | PARALLEL        |
+| mindspore/ccsrc/minddata/dataset             | MD              |
+| mindspore/ccsrc/minddata/mindrecord          | MD              |
+| mindspore/ccsrc/pipeline/jit/*.cc            | PIPELINE        |
+| mindspore/ccsrc/pipeline/jit/parse           | PARSER          |
+| mindspore/ccsrc/pipeline/jit/static_analysis | ANALYZER        |
+| mindspore/ccsrc/pipeline/pynative            | PYNATIVE        |
+| mindspore/ccsrc/profiler                     | PROFILER        |
+| mindspore/ccsrc/pybind_api                   | COMMON          |
+| mindspore/ccsrc/runtime/device               | DEVICE          |
+| mindspore/ccsrc/runtime/hardware             | DEVICE          |
+| mindspore/ccsrc/runtime/collective           | DEVICE          |
+| mindspore/ccsrc/runtime/pynative             | DEVICE          |
+| mindspore/ccsrc/runtime/addons               | RUNTIME_FRAMEWORK |
+| mindspore/ccsrc/runtime/graph_scheduler      | RUNTIME_FRAMEWORK |
+| mindspore/ccsrc/transform/graph_ir           | GE_ADPT         |
+| mindspore/ccsrc/transform/express_ir         | EXPRESS         |
+| mindspore/ccsrc/utils                        | UTILS           |
+| mindspore/ccsrc/backend/graph_compiler       | VM              |
+| mindspore/ccsrc                              | ME              |
+| mindspore/core/                              | CORE            |
 
 - `GLOG_log_max`
 
