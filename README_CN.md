@@ -84,7 +84,9 @@ MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/ma
    make html
    ```
 
-5. 构建MindSpore、MindInsight、MindQuantum等不同仓的API时，由于会使用到对应不同仓的一些资源文件，需要先克隆对应仓，并配置环境变量，给出以下配置列表供使用：
+### 注意事项
+
+1. 构建MindSpore、MindInsight、MindQuantum等不同仓的API时，由于会使用到对应不同仓的一些资源文件，需要先克隆对应仓，并配置环境变量，给出以下配置列表供使用：
 
    | 对应API的生成 | 环境变量 | 仓库链接 | 仓库名 |
    | ---- | ---- | ---- | ---- |
@@ -104,15 +106,13 @@ MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/ma
    export 环境变量 = 对应克隆仓在本地的路径
    ```
 
-   注意：
-
-   - 构建Lite的API时，还需要安装Doxygen：
+2. 构建Lite的API时，还需要安装Doxygen：
 
       ```bash
       sudo apt install doxygen
       ```
 
-   - 构建[MindSpore教程](https://gitee.com/mindspore/docs/tree/master/tutorials)、[MindSpore文档](https://gitee.com/mindspore/docs/tree/master/docs/mindspore)、[深度概率编程文档](https://gitee.com/mindspore/docs/tree/master/docs/probability/docs)和[MindQuantum文档](https://gitee.com/mindspore/docs/tree/master/docs/mindquantum/docs)时还需安装[pandoc](https://pandoc.org/)，下载和安装pandoc请参考<https://pandoc.org/installing.html>。
+3. 构建[MindSpore教程](https://gitee.com/mindspore/docs/tree/master/tutorials)、[MindSpore文档](https://gitee.com/mindspore/docs/tree/master/docs/mindspore)、[深度概率编程文档](https://gitee.com/mindspore/docs/tree/master/docs/probability/docs)和[MindQuantum文档](https://gitee.com/mindspore/docs/tree/master/docs/mindquantum/docs)时还需安装[pandoc](https://pandoc.org/)，下载和安装pandoc请参考<https://pandoc.org/installing.html>。
 
 ## 版权
 
