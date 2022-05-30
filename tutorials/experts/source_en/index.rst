@@ -23,8 +23,6 @@ For Experts
 
    operation/op_classification
    operation/op_overload
-   operation/op_cpu
-   operation/op_gpu
    operation/op_ascend
    operation/op_custom
 
