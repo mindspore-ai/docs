@@ -381,9 +381,12 @@ MindSpore子模块按照目录划分如下：
 
 | Source Files                                 | Sub Module Name |
 | -------------------------------------------- | --------------- |
-| mindspore/ccsrc/backend/kernel_compiler      | KERNEL          |
-| mindspore/ccsrc/backend/optimizer            | PRE_ACT         |
-| mindspore/ccsrc/backend/session              | SESSION         |
+| mindspore/ccsrc/kernel                       | KERNEL          |
+| mindspore/ccsrc/plugin/device/*/kernel       | KERNEL          |
+| mindspore/ccsrc/backend/common/optimizer     | PRE_ACT         |
+| mindspore/ccsrc/backend/common/pass          | PRE_ACT         |
+| mindspore/ccsrc/plugin/device/*/optimizer    | PRE_ACT         |
+| mindspore/ccsrc/backend/common/session       | SESSION         |
 | mindspore/ccsrc/common                       | COMMON          |
 | mindspore/ccsrc/debug                        | DEBUG           |
 | mindspore/ccsrc/frontend/operator            | ANALYZER        |
@@ -398,12 +401,15 @@ MindSpore子模块按照目录划分如下：
 | mindspore/ccsrc/profiler                     | PROFILER        |
 | mindspore/ccsrc/pybind_api                   | COMMON          |
 | mindspore/ccsrc/runtime/device               | DEVICE          |
+| mindspore/ccsrc/runtime/hardware             | DEVICE          |
+| mindspore/ccsrc/runtime/collective           | DEVICE          |
+| mindspore/ccsrc/runtime/pynative             | DEVICE          |
+| mindspore/ccsrc/runtime/graph_scheduler      | RUNTIME_FRAMEWORK |
 | mindspore/ccsrc/transform/graph_ir           | GE_ADPT         |
 | mindspore/ccsrc/transform/express_ir         | EXPRESS         |
 | mindspore/ccsrc/utils                        | UTILS           |
-| mindspore/ccsrc/vm                           | VM              |
+| mindspore/ccsrc/backend/graph_compiler       | VM              |
 | mindspore/ccsrc                              | ME              |
-| mindspore/core/gvar                          | COMMON          |
 | mindspore/core/                              | CORE            |
 
 - `GLOG_log_max`
