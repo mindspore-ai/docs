@@ -83,6 +83,10 @@ from sphinx import directives
 with open('../_ext/overwriteobjectiondirective.txt', 'r', encoding="utf8") as f:
     exec(f.read(), directives.__dict__)
 
+from sphinx.ext import viewcode
+with open('../_ext/overwriteviewcode.txt', 'r', encoding="utf8") as f:
+    exec(f.read(), viewcode.__dict__)
+
 from docutils import statemachine
 
 with open(statemachine.__file__, 'r') as g:
