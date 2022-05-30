@@ -9,7 +9,7 @@
 使用MindSpore Lite 推理主要包括以下步骤：
 
 1. 模型加载：从文件系统中读取由[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/master/use/converter_tool.html)转换得到的`.ms`模型。
-2. 创建配置选项：创建配置选项[RunnerConfig](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/runner_config.html#runnerconfig)，保存并发推理所需的一些基本配置参数，用于指导并发量以及图编译和图执行。主要包括[MSContext](https://www.mindspore.cn/lite/api/zh-CN/r1.6/api_java/mscontext.html#mscontext)：配置上下文、`WorkersNum`：并发模型数量。
+2. 创建配置选项：创建配置选项[RunnerConfig](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/runner_config.html#runnerconfig)，保存并发推理所需的一些基本配置参数，用于指导并发量以及图编译和图执行。主要包括[MSContext](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/mscontext.html#mscontext)：配置上下文、`WorkersNum`：并发模型数量。
 3. 初始化：在执行并发推理前，需要调用[ModelParallelRunner](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model_parallel_runner.html#modelparallelrunner)的[init](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model_parallel_runner.html#init)接口进行并发推理的初始化，主要进行模型读取，创建并发，以及子图切分、算子选型调度。这部分会耗费较多时间，所以建议[init](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model_parallel_runner.html#init)初始化一次，多次执行并发推理。
 4. 输入数据：图执行之前需要向输入Tensor中填充数据。
 5. 执行推理：使用[ModelParallelRunner](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model_parallel_runner.html#modelparallelrunner)的[predict](https://www.mindspore.cn/lite/api/zh-CN/master/api_java/model_parallel_runner.html#predict)进行并发推理。
