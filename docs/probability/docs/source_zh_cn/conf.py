@@ -22,9 +22,6 @@ sys.path.append(os.path.abspath('../_ext'))
 import sphinx.ext.autosummary.generate as g
 from sphinx.ext import autodoc as sphinx_autodoc
 
-from sphinx import directives
-with open('../_ext/overwriteobjectiondirective.txt', 'r', encoding="utf8") as f:
-    exec(f.read(), directives.__dict__)
 
 # -- Project information -----------------------------------------------------
 
@@ -96,6 +93,14 @@ intersphinx_mapping = {
     'python': ('https://docs.python.org/', '../../../../resource/python_objects.inv'),
     'numpy': ('https://docs.scipy.org/doc/numpy/', '../../../../resource/numpy_objects.inv'),
 }
+
+from sphinx import directives
+with open('../_ext/overwriteobjectiondirective.txt', 'r', encoding="utf8") as f:
+    exec(f.read(), directives.__dict__)
+
+from sphinx.ext import viewcode
+with open('../_ext/overwriteviewcode.txt', 'r', encoding="utf8") as f:
+    exec(f.read(), viewcode.__dict__)
 
 # Modify regex for sphinx.ext.autosummary.generate.find_autosummary_in_lines.
 gfile_abs_path = os.path.abspath(g.__file__)
