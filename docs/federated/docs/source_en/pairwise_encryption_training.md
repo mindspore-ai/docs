@@ -47,15 +47,14 @@ Enabling pairwise encryption training is simple. You only need to set `encrypt_t
 
 In addition, most of the workers participating in the training are unstable edge computing nodes such as mobile phones, so the problems of dropping the line and secret key reconstruction should be considered. Related parameters are `share_secrets_ratio`, `reconstruct_secrets_threshold`, and `cipher_time_window`.
 
-`share_client_ratio` indicates the ratio of the number of clients participating in key fragment sharing to the number of clients participating in federated learning. The value must be less than or equal to 1.
+`share_client_ratio` indicates the client threshold decrease ratio of public key broadcast round, secret sharing round and secret reconstruction round. The value must be less than or equal to 1.
 
-`reconstruct_secrets_threshold` indicates the number of clients that participate in key fragment reconstruction. The value must be less than the number of clients that participate in key fragment sharing.
+`reconstruct_secrets_threshold` indicates the number of secret shares required to reconstruct a secret. The value must be less than the number of clients that participate in updateModel, which is start_fl_job_threshold*update_model_ratio (those two parameters can refer to 'set_fl_context' in [this file](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/context.py)).
 
-To ensure system security, the `reconstruct_secrets_threshold` must be greater than half of the number of federated learning clients when the server and client are not colluded.
+To ensure system security, the value of `reconstruct_secrets_threshold` must be greater than half of the number of federated learning clients when the server and client are not colluded.
 When the server and client are colluded, the value of `reconstruct_secrets_threshold` must be greater than two thirds of the number of federated learning clients.
 
 `cipher_time_window` indicates the duration limit of each communication round for secure aggregation. It is used to ensure that the server can start a new round of iteration when some clients are offline.
-It should be noted that only `server_num=1` is supported for current PW_ENCRYPT mode.
 
 ### Cross silo scenario
 

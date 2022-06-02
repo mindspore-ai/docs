@@ -45,14 +45,13 @@ $$
 
 此外，由于端云联邦场景下，参与训练的Worker大多是手机等不稳定的边缘计算节点，所以要考虑计算节点的掉线和密钥恢复问题。与之相关的参数有`share_secrets_ratio`、`reconstruct_secrets_threshold`和`cipher_time_window`。
 
-`share_client_ratio`指代参与密钥碎片分享的客户端数量与参与联邦学习的客户端数量的比值，取值需要小于等于1。
+`share_client_ratio`指代公钥分发轮次、秘密分享轮次、秘钥恢复轮次的客户端阈值衰减比例，取值需要小于等于1。
 
-`reconstruct_secrets_threshold`指代参与密钥碎片恢复的客户端数量，取值需要小于参与密钥碎片分享的客户端数量。
+`reconstruct_secrets_threshold`指代恢复秘密需要的碎片数量，取值需要小于参与updateModel的客户端数量(start_fl_job_threshold*update_model_ratio，这两个参数的解释详见[该文件](https://gitee.com/mindspore/mindspore/blob/master/mindspore/python/mindspore/context.py)中的set_fl_context函数)。
 
 通常为了保证系统安全，当不考虑Server和Client合谋的情况下，`reconstruct_secrets_threshold`需要大于联邦学习客户端数量的一半；当考虑Server和Client合谋，`reconstruct_secrets_threshold`需要大于联邦学习客户端数量的2/3。
 
 `cipher_time_window`指代安全聚合各通讯轮次的时长限制，主要用来保证某些客户端掉线的情况下，Server可以开始新一轮迭代。
-需要注意的是，当前版本的安全聚合训练只支持`server_num=1`。
 
 ### 云云联邦场景
 
