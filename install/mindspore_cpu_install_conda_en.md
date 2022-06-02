@@ -76,8 +76,8 @@ Run the following command to install Miniconda.
 
 ```bash
 cd /tmp
-curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py37_4.10.3-Linux-x86_64.sh
-bash Miniconda3-py37_4.10.3-Linux-x86_64.sh -b
+curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py37_4.10.3-Linux-$(arch).sh
+bash Miniconda3-py37_4.10.3-Linux-$(arch).sh -b
 cd -
 . ~/miniconda3/etc/profile.d/conda.sh
 conda init bash
