@@ -138,7 +138,8 @@ def compute_normalizer(emissions, mask, trans, start_trans, end_trans):
 
         # Perform the log_sum_exp operation on score_i to calculate the score of the next token.
         # shape: (batch_size, num_tags)
-        next_score = mnp.log(mnp.sum(mnp.exp(next_score), axis=1))
+        next_score_max = next_score_max.max()
+        next_score = mnp.log(mnp.sum(mnp.exp(next_score - next_score_max), axis=1)) + next_score_max
 
         # The score changes only when mask == 1.
         # shape: (batch_size, num_tags)
