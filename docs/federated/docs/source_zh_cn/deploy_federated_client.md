@@ -12,14 +12,26 @@
 
     目前只支持Linux环境编译，Linux编译环境配置可参考[这里](https://www.mindspore.cn/lite/docs/zh-CN/r1.7/use/build.html#linux环境编译)。
 
-2. 开启联邦编译选项，在mindspore根目录进行编译，编译包含aarch64和aarch32的AAR包。
+2. 在mindspore根目录进行编译，编译x86架构相关包。
+
+    ```sh
+    bash build.sh -I x86_64 -j32
+    ```
+
+   编译完成后在`mindspore/output`路径下将生成x86架构包，请备份备用(`mindspore/output`每次编译均会进行清理)
+
+    ```text
+    mindspore-lite-{version}-linux-x64.tar.gz
+    ```
+
+3. 开启联邦编译选项，在mindspore根目录进行编译，编译包含aarch64和aarch32的AAR包。
 
     ```sh
     export MSLITE_ENABLE_FL=on
     bash build.sh -A on -j32
     ```
 
-3. 在`mindspore/output`路径下将生成Android AAR包。
+   编译完成后在`mindspore/output`路径下将生成Android AAR包，请备份备用(`mindspore/output`每次编译均会进行清理)
 
     ```text
     mindspore-lite-full-{version}.zip
@@ -31,7 +43,7 @@
 
     ```sh
     cd mindspore/mindspore/lite/examples/quick_start_flclient
-    sh build.sh -r "mindspore-lite-{version}-linux-x64.tar.gz"   // -r 后需给出最新x86版本架构包绝对路径（可参考本文档Linux x86_64环境编译出包章节）
+    sh build.sh -r "mindspore-lite-{version}-linux-x64.tar.gz"   # -r 后需给出最新x86版本架构包绝对路径（步骤2生成）
     ```
 
     运行以上指令后生成jar包路径为：`mindspore/mindspore/lite/examples/quick_start_flclient/target/quick_start_flclient.jar`。
@@ -106,27 +118,27 @@ android.jetifier.blacklist=bcprov
     bash build.sh -I x86_64 -j32
     ```
 
-3. 获取生成的x86架构相关包。
+   编译完成后在`mindspore/output`路径下将生成x86架构包，请备份备用(`mindspore/output`每次编译均会进行清理)。
 
     ```text
-    mindspore/output/mindspore-lite-{version}-linux-x64.tar.gz
+    mindspore-lite-{version}-linux-x64.tar.gz
     ```
 
-4. 由于端侧框架和模型是解耦的，我们提供的x86架构包`mindspore-lite-{version}-linux-x64.tar.gz`不包含模型相关脚本，因此需要用户自行生成模型脚本对应的jar包，我们提供了两个类型的模型脚本供大家参考（[有监督情感分类任务](https://gitee.com/mindspore/mindspore/tree/r1.7/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert)、[LeNet图片分类任务](https://gitee.com/mindspore/mindspore/tree/r1.7/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet)）。同时，用户可参考这两个类型的模型脚本，自定义模型脚本后生成对应的jar包（假设命名为`quick_start_flclient.jar`）。我们提供的模型脚本对应jar包可采用如下方式获取：
+3. 由于端侧框架和模型是解耦的，我们提供的x86架构包`mindspore-lite-{version}-linux-x64.tar.gz`不包含模型相关脚本，因此需要用户自行生成模型脚本对应的jar包，我们提供了两个类型的模型脚本供大家参考（[有监督情感分类任务](https://gitee.com/mindspore/mindspore/tree/r1.7/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/albert)、[LeNet图片分类任务](https://gitee.com/mindspore/mindspore/tree/r1.7/mindspore/lite/examples/quick_start_flclient/src/main/java/com/mindspore/flclient/demo/lenet)）。同时，用户可参考这两个类型的模型脚本，自定义模型脚本后生成对应的jar包（假设命名为`quick_start_flclient.jar`）。我们提供的模型脚本对应jar包可采用如下方式获取：
 
     下载[MindSpore开源仓](https://gitee.com/mindspore/mindspore)最新代码后，进行以下操作：
 
     ```sh
     cd mindspore/mindspore/lite/examples/quick_start_flclient
-    sh build.sh -r "mindspore-lite-{version}-linux-x64.tar.gz"   // -r 后需给出最新x86架构包绝对路径
+    sh build.sh -r "mindspore-lite-{version}-linux-x64.tar.gz"   # -r 后需给出最新x86架构包绝对路径(步骤2生成)
     ```
 
     运行以上指令后生成jar包路径为：`mindspore/mindspore/lite/examples/quick_start_flclient/target/quick_start_flclient.jar`。
 
 ### 运行依赖
 
-- [Python](https://www.python.org/downloads/)>=3.7.5
-- [OpenJDK](https://openjdk.java.net/install/) >= 1.9
+- [Python](https://www.python.org/downloads/)>=3.7.0
+- [OpenJDK](https://openjdk.java.net/install/) >= 1.8
 
 ### 构建依赖环境
 
