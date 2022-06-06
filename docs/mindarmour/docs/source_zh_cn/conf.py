@@ -11,12 +11,12 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import os
+import shutil
 import sys
 import IPython
 import re
 from sphinx.ext import autodoc as sphinx_autodoc
 
-import mindarmour
 
 # -- Project information -----------------------------------------------------
 
@@ -82,6 +82,14 @@ intersphinx_mapping = {
     'numpy': ('https://docs.scipy.org/doc/numpy/', '../../../../resource/numpy_objects.inv'),
 }
 
+from sphinx import directives
+with open('../_ext/overwriteobjectiondirective.txt', 'r', encoding="utf8") as f:
+    exec(f.read(), directives.__dict__)
+
+from sphinx.ext import viewcode
+with open('../_ext/overwriteviewcode.txt', 'r', encoding="utf8") as f:
+    exec(f.read(), viewcode.__dict__)
+
 # Modify default signatures for autodoc.
 autodoc_source_path = os.path.abspath(sphinx_autodoc.__file__)
 autodoc_source_re = re.compile(r'stringify_signature\(.*?\)')
@@ -112,6 +120,19 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     code_str = autodoc_source_re.sub('"(" + get_param_func(get_obj(self.object)) + ")"', code_str, count=0)
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
+
+# Copy source files of chinese python api from mindarmour repository.
+from sphinx.util import logging
+logger = logging.getLogger(__name__)
+
+src_dir = os.path.join(os.getenv("MA_PATH"), 'docs/api/api_python')
+
+for i in os.listdir(src_dir):
+    if os.path.exists('./'+i):
+        os.remove('./'+i)
+    shutil.copy(os.path.join(src_dir,i),'./'+i)
+
+import mindarmour
 
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 import anchor_mod
