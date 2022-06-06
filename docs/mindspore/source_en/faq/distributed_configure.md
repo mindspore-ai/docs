@@ -126,3 +126,14 @@ export NCCL_SOCKET_IFNAME=eth
 ```
 
 The above command sets the `NCCL` to select the network card name with `eth` in the Host side to communicate.
+
+<br/>
+
+<font size=3>**Q: Performing the distributed training via OpenMPI on Ascend, got `HcclCommInitRootInfo` error message:**</font>
+
+```text
+Ascend collective Error: "HcclCommInitRootInfo failed. | Error Number 2
+```
+
+A: Currently, when training via OpenMPI, hccl needs to allocate about 300M device memory for each card within a communicator. The more communicators one card involved in, the more extra device memory needed. This probably cause memory issue.
+You can set `variable_memory_max_size` in `context`to reduce variable memory for Ascend processes, so that hccl will have enough memory to create communicators.
