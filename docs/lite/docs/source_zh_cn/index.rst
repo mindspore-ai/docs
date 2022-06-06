@@ -56,6 +56,14 @@ MindSpore Lite文档
 .. toctree::
    :glob:
    :maxdepth: 1
+   :caption: 服务端推理
+   :hidden:
+
+   use/runtime_server_inference
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
    :caption: 第三方接入
    :hidden:
 
