@@ -157,3 +157,14 @@ mpirun --hostfile /path/to/hostfile -n 64 -x PYTHONPATH -x GLOG_v -x LD_LIBRARY_
 ```
 
 以上指令导出了在本机已经设置的一些环境变量到其他主机，保证了在执行训练脚本前所有主机环境变量保持一致，达到多机多卡训练目标。
+
+<br/>
+
+<font size=3>**Q: 在Ascend上通过OpenMPI执行分布式训练时，`HcclCommInitRootInfo`报错:**</font>
+
+```text
+Ascend collective Error: "HcclCommInitRootInfo failed. | Error Number 2
+```
+
+A: OpenMPI启动时，当前版本的hccl下，创建通信域时，相应的卡需要分配大约300M的device内存，因此每张卡所在的通信域的数量越多，则额外需要的内存越多，因此会有内存不足的问题。
+可以设置`context`中的`variable_memory_max_size`来减少Ascend进程可用的内存，从而为hccl预留足够的内存创建通信域。
