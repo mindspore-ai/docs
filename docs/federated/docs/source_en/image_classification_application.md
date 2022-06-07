@@ -29,7 +29,7 @@ Users can also define the dataset by themselves. Note that the dataset must be a
     Run the script `run_export_lenet.py` to obtain the MindIR format model file, the code snippet is as follows:
 
     ```python
-    from mindspore import export
+    import mindspore as ms
     ...
 
     parser = argparse.ArgumentParser(description="export mindir for lenet")
@@ -42,7 +42,7 @@ Users can also define the dataset by themselves. Note that the dataset must be a
             label = Tensor(np.random.randint(0, 61, (32)).astype(np.int32))
             loss = train_network(data, label).asnumpy()
             losses.append(loss)
-            export(train_network, data, label, file_name= mindir_path, file_format='MINDIR')  # Add the export statement to obtain the model file in MindIR format.
+            ms.export(train_network, data, label, file_name= mindir_path, file_format='MINDIR')  # Add the export statement to obtain the model file in MindIR format.
         print(losses)
     ```
 

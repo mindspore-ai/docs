@@ -218,31 +218,29 @@ The predicted classes are:
 
 ```python
 import numpy as np
-from mindspore import Tensor, set_context, GRAPH_MODE
-from mindspore import dtype as mstype
-from mindspore import export
+import mindspore as ms
 from lenet import LeNet5
 from train_utils import TrainWrap
 
 n = LeNet5()
 n.set_train()
-set_context(mode=GRAPH_MODE, device_target="CPU", save_graphs=False)
+ms.set_context(mode=ms.GRAPH_MODE, device_target="CPU", save_graphs=False)
 ```
 
 然后定义输入和标签张量大小：
 
 ```python
 BATCH_SIZE = 32
-x = Tensor(np.ones((BATCH_SIZE, 1, 32, 32)), mstype.float32)
-label = Tensor(np.zeros([BATCH_SIZE]).astype(np.int32))
+x = ms.Tensor(np.ones((BATCH_SIZE, 1, 32, 32)), ms.float32)
+label = ms.Tensor(np.zeros([BATCH_SIZE]).astype(np.int32))
 net = TrainWrap(n)
 ```
 
 定义损失函数、网络可训练参数、优化器，并启用单步训练，由`TrainWrap`函数实现。
 
 ```python
-import mindspore.nn as nn
-from mindspore import ParameterTuple
+from mindspore import nn
+import mindspore as ms
 
 def train_wrap(net, loss_fn=None, optimizer=None, weights=None):
     """
@@ -253,7 +251,7 @@ def train_wrap(net, loss_fn=None, optimizer=None, weights=None):
     loss_net = nn.WithLossCell(net, loss_fn)
     loss_net.set_train()
     if weights is None:
-        weights = ParameterTuple(net.trainable_params())
+        weights = ms.ParameterTuple(net.trainable_params())
     if optimizer is None:
         optimizer = nn.Adam(weights, learning_rate=0.003, beta1=0.9, beta2=0.999, eps=1e-5, use_locking=False, use_nesterov=False, weight_decay=4e-5, loss_scale=1.0)
     train_net = nn.TrainOneStepCell(loss_net, optimizer)
@@ -263,7 +261,7 @@ def train_wrap(net, loss_fn=None, optimizer=None, weights=None):
 最后调用`export`接口将模型导出为`MindIR`文件保存（目前端侧训练仅支持`MindIR`格式）。
 
 ```python
-export(net, x, label, file_name="lenet_tod", file_format='MINDIR')
+ms.export(net, x, label, file_name="lenet_tod", file_format='MINDIR')
 print("finished exporting")
 ```
 
