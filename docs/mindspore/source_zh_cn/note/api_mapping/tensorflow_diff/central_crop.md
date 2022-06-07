@@ -13,15 +13,15 @@ tf.image.central_crop(
 
 更多内容详见[tf.image.central_crop](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/image/central_crop)。
 
-## mindspore.dataset.vision.c_transforms.CenterCrop
+## mindspore.dataset.vision.CenterCrop
 
 ```python
-class mindspore.dataset.vision.c_transforms.CenterCrop(
+class mindspore.dataset.vision.CenterCrop(
     size
 )
 ```
 
-更多内容详见[mindspore.dataset.vision.c_transforms.CenterCrop](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.CenterCrop.html#mindspore.dataset.vision.c_transforms.CenterCrop)。
+更多内容详见[mindspore.dataset.vision.CenterCrop](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.CenterCrop.html#mindspore.dataset.vision.CenterCrop)。
 
 ## 使用方式
 
@@ -37,7 +37,7 @@ import numpy as np
 import mindspore.dataset as ds
 
 image = np.random.random((28, 28, 3))
-result = ds.vision.c_transforms.CenterCrop((14, 14))(image)
+result = ds.vision.CenterCrop((14, 14))(image)
 print(result.shape)
 # (14, 14, 3)
 

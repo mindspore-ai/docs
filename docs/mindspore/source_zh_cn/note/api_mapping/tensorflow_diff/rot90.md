@@ -14,10 +14,10 @@ tf.image.rot90(
 
 更多内容详见[tf.image.rot90](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/image/rot90)。
 
-## mindspore.dataset.vision.c_transforms.Rotate
+## mindspore.dataset.vision.Rotate
 
 ```python
-class mindspore.dataset.vision.c_transforms.Rotate(
+class mindspore.dataset.vision.Rotate(
     degrees,
     resample=Inter.NEAREST,
     expand=False,
@@ -26,7 +26,7 @@ class mindspore.dataset.vision.c_transforms.Rotate(
 )
 ```
 
-更多内容详见[mindspore.dataset.vision.c_transforms.Rotate](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.Rotate.html#mindspore.dataset.vision.c_transforms.Rotate)。
+更多内容详见[mindspore.dataset.vision.Rotate](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.Rotate.html#mindspore.dataset.vision.Rotate)。
 
 ## 使用方式
 
@@ -42,7 +42,7 @@ import numpy as np
 import mindspore.dataset as ds
 
 image = np.array([[[0.1], [0.2]], [[0.3], [0.4]], [[0.5], [0.6]]])
-result = ds.vision.c_transforms.Rotate(90)(image)
+result = ds.vision.Rotate(90)(image)
 print(result)
 # [[[0. ], [0. ]],
 #  [[0.4], [0.6]],

@@ -12,15 +12,15 @@ class torchvision.transforms.ConvertImageDtype(
 
 更多内容详见[torchvision.transforms.ConvertImageDtype](https://pytorch.org/vision/0.10/transforms.html#torchvision.transforms.ConvertImageDtype)。
 
-## mindspore.dataset.vision.py_transforms.ToType(output_type)
+## mindspore.dataset.vision.ToType(output_type)
 
 ```python
-class mindspore.dataset.vision.py_transforms.ToType(
+class mindspore.dataset.vision.ToType(
     output_type
     )
 ```
 
-更多内容详见[mindspore.dataset.vision.py_transforms.ToType](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.py_transforms.ToType.html#mindspore.dataset.vision.py_transforms.ToType)。
+更多内容详见[mindspore.dataset.vision.ToType](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.ToType.html#mindspore.dataset.vision.ToType)。
 
 ## 使用方式
 
@@ -37,7 +37,7 @@ from mindspore import Tensor
 import torchvision.transforms as T
 import torchvision.datasets as datasets
 from torch.utils.data import DataLoader
-import mindspore.dataset.vision.py_transforms as py_vision
+import mindspore.dataset.vision as vision
 
 # In MindSpore, ToType act through map operation.
 
@@ -48,10 +48,10 @@ dataset = ds.CocoDataset(
     dataset_dir=coco_dataset_dir,
     annotation_file=coco_annotation_file,
     task='Detection')
-transforms_list =py_vision.Compose(
-    [py_vision.Decode(),
-    py_vision.ToTensor(),
-    py_vision.ToType(np.float32)])
+transforms_list =vision.Compose(
+    [vision.Decode(to_pil=True),
+    vision.ToTensor(),
+    vision.ToType(np.float32)])
 dataset  = dataset.map(operations=transforms_list, input_columns="image")
 
 for item in dataset:

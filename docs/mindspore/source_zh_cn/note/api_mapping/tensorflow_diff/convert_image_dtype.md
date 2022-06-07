@@ -15,15 +15,15 @@ tf.image.convert_image_dtype(
 
 更多内容详见[tf.image.convert_image_dtype](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/image/convert_image_dtype)。
 
-## mindspore.dataset.vision.py_transforms.ToType
+## mindspore.dataset.vision.ToType
 
 ```python
-class mindspore.dataset.vision.py_transforms.ToType(
+class mindspore.dataset.vision.ToType(
     output_type
 )
 ```
 
-更多内容详见[mindspore.dataset.vision.py_transforms.ToType](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.py_transforms.ToType.html#mindspore.dataset.vision.py_transforms.ToType)。
+更多内容详见[mindspore.dataset.vision.ToType](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.ToType.html#mindspore.dataset.vision.ToType)。
 
 ## 使用方式
 
@@ -39,7 +39,7 @@ import numpy as np
 import mindspore.dataset as ds
 
 image = np.random.random((28, 28, 3))
-result = ds.vision.py_transforms.ToType(np.uint8)(image)
+result = ds.vision.ToType(np.uint8)(image)
 print(result.dtype)
 # uint8
 

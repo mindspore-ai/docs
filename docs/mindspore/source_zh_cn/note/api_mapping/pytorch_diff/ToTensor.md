@@ -10,15 +10,15 @@ class torchvision.transforms.ToTensor
 
 更多内容详见[torchvision.transforms.ToTensor](https://pytorch.org/vision/0.10/transforms.html#torchvision.transforms.ToTensor)。
 
-## mindspore.dataset.vision.py_transforms.ToTensor
+## mindspore.dataset.vision.ToTensor
 
 ```python
-class mindspore.dataset.vision.py_transforms.ToTensor(
+class mindspore.dataset.vision.ToTensor(
     output_type=np.float32
     )
 ```
 
-更多内容详见[mindspore.dataset.vision.py_transforms.ToTensor](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.py_transforms.ToTensor.html#mindspore.dataset.vision.py_transforms.ToTensor)。
+更多内容详见[mindspore.dataset.vision.ToTensor](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.ToTensor.html#mindspore.dataset.vision.ToTensor)。
 
 ## 使用方式
 
@@ -33,13 +33,13 @@ import numpy as np
 from PIL import Image
 from torchvision import transforms
 from mindspore.dataset import py_transforms
-import mindspore.dataset.vision.py_transforms as py_vision
+import mindspore.dataset.vision as vision
 
 # In MindSpore, ToTensor convert PIL Image into numpy array.
 img_path =  "/path/to/test/1.jpg"
 
 img = Image.open(img_path)
-to_tensor = py_vision.ToTensor()
+to_tensor = vision.ToTensor()
 img_data = to_tensor(img)
 print("img_data type:", type(img_data))
 print("img_data dtype:", img_data.dtype)

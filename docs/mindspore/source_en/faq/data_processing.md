@@ -251,7 +251,7 @@ transforms = [
     py_vision.CenterCrop(375),
     py_vision.ToTensor()
 ]
-transform = mindspore.dataset.transforms.py_transforms.Compose(transforms)
+transform = mindspore.dataset.transforms.Compose(transforms)
 data1 = data1.map(operations=decode_op, input_columns=["image"])
 data1 = data1.map(operations=transform, input_columns=["image"])
 ```
@@ -297,7 +297,7 @@ for item in Dataset:
 <font size=3>**Q: Can the data processing operator and network computing operator be used together?**</font>
 
 A: Generally, if the data processing operator and network computing operator are used together, the performance deteriorates. If the corresponding data processing operator is unavailable and the user-defined py_transforms operator is inappropriate, you can try to use the data processing operator and network computing operator together. Note that because the input required by the operators is different,  the input of the data processing operator is Numpy array or PIL Image, but the input of the network computing operator must be MindSpore.Tensor.
-To use the two operators together, ensure that the output format of the previous operator is the same as the input format of the next operator. Data processing operators refer to operators starting with mindspore.dataset in the API document on the official website, for example, mindspore.dataset.vision.c_transforms.CenterCrop. Network computing operators include operators in the mindspore.nn and mindspore.ops directories.
+To use the two operators together, ensure that the output format of the previous operator is the same as the input format of the next operator. Data processing operators refer to operators starting with mindspore.dataset in the API document on the official website, for example, mindspore.dataset.vision.CenterCrop. Network computing operators include operators in the mindspore.nn and mindspore.ops directories.
 
 <br/>
 

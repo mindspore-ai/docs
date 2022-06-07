@@ -12,16 +12,17 @@ tf.image.per_image_standardization(
 
 For more information, see [tf.image.per_image_standardization](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/image/per_image_standardization).
 
-## mindspore.dataset.vision.c_transforms.Normalize
+## mindspore.dataset.vision.Normalize
 
 ```python
-class mindspore.dataset.vision.c_transforms.Normalize(
+class mindspore.dataset.vision.Normalize(
     mean,
-    std
+    std,
+    is_hwc
 )
 ```
 
-For more information, see [mindspore.dataset.vision.c_transforms.Normalize](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.Normalize.html#mindspore.dataset.vision.c_transforms.Normalize).
+For more information, see [mindspore.dataset.vision.Normalize](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.Normalize.html#mindspore.dataset.vision.Normalize).
 
 ## Differences
 
@@ -40,7 +41,7 @@ image = np.random.random((28, 28, 3))
 mean = list(np.mean(image, axis=(-1, -2, -3), keepdims=True))
 std = np.std(image, axis=(-1, -2, -3), keepdims=True)
 adjusted_stddev = list(np.maximum(std, 1.0 / np.sqrt(image.size)))
-result = ds.vision.c_transforms.Normalize(mean, adjusted_stddev)(image)
+result = ds.vision.Normalize(mean, adjusted_stddev)(image)
 print(result.mean())
 # 0.0
 print(result.std())

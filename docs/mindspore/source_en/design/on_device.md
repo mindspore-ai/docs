@@ -43,8 +43,8 @@ The following is a code example:
 import os
 import requests
 import mindspore.dataset as ds
-import mindspore.dataset.transforms.c_transforms as CT
-import mindspore.dataset.vision.c_transforms as CV
+import mindspore.dataset.transforms as CT
+import mindspore.dataset.vision as CV
 import mindspore.nn as nn
 from mindspore import Model, set_context, GRAPH_MODE
 from mindspore import dtype as mstype

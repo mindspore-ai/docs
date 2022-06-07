@@ -83,8 +83,8 @@ During distributed training, load the dataset in parallel mode and process it th
 import os
 from mindspore import dtype as mstype
 import mindspore.dataset as ds
-import mindspore.dataset.vision.c_transforms as C
-import mindspore.dataset.transforms.c_transforms as C2
+import mindspore.dataset.vision as C
+import mindspore.dataset.transforms as C2
 from mindspore.communication import init, get_rank, get_group_size
 
 

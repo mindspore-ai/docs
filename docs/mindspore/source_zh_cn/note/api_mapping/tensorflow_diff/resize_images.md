@@ -17,16 +17,16 @@ tf.image.resize_images(
 
 更多内容详见[tf.image.resize_images](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/image/resize_images)。
 
-## mindspore.dataset.vision.c_transforms.Resize
+## mindspore.dataset.vision.Resize
 
 ```python
-class mindspore.dataset.vision.c_transforms.Resize(
+class mindspore.dataset.vision.Resize(
     size,
     interpolation=Inter.LINEAR
 )
 ```
 
-更多内容详见[mindspore.dataset.vision.c_transforms.Resize](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.Resize.html#mindspore.dataset.vision.c_transforms.Resize)。
+更多内容详见[mindspore.dataset.vision.Resize](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.Resize.html#mindspore.dataset.vision.Resize)。
 
 ## 使用方式
 
@@ -43,7 +43,7 @@ import mindspore.dataset as ds
 from mindspore.dataset.vision import Inter
 
 image = np.random.random((28, 28, 3))
-result = ds.vision.c_transforms.Resize((14, 14), Inter.BICUBIC)(image)
+result = ds.vision.Resize((14, 14), Inter.BICUBIC)(image)
 print(result.shape)
 # (14, 14, 3)
 

@@ -16,17 +16,17 @@ tf.image.pad_to_bounding_box(
 
 更多内容详见[tf.image.pad_to_bounding_box](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/image/pad_to_bounding_box)。
 
-## mindspore.dataset.vision.c_transforms.Pad
+## mindspore.dataset.vision.Pad
 
 ```python
-class mindspore.dataset.vision.c_transforms.Pad(
+class mindspore.dataset.vision.Pad(
     padding,
     fill_value=0,
     padding_mode=Border.CONSTANT
 )
 ```
 
-更多内容详见[mindspore.dataset.vision.c_transforms.Pad](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.Pad.html#mindspore.dataset.vision.c_transforms.Pad)。
+更多内容详见[mindspore.dataset.vision.Pad](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.Pad.html#mindspore.dataset.vision.Pad)。
 
 ## 使用方式
 
@@ -43,7 +43,7 @@ import mindspore.dataset as ds
 from mindspore.dataset.vision import Border
 
 image = np.random.random((28, 28, 3))
-result = ds.vision.c_transforms.Pad((2, 2, 5, 5), 0, Border.CONSTANT)(image)
+result = ds.vision.Pad((2, 2, 5, 5), 0, Border.CONSTANT)(image)
 print(result.shape)
 # (35, 35, 3)
 

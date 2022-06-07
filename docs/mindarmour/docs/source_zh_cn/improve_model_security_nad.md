@@ -30,8 +30,8 @@ from scipy.special import softmax
 
 import mindspore as ms
 from mindspore import dataset as ds
-import mindspore.dataset.vision.c_transforms as CV
-import mindspore.dataset.transforms.c_transforms as C
+import mindspore.dataset.vision as CV
+import mindspore.dataset.transforms as C
 from mindspore.dataset.vision import Inter
 import mindspore.nn as nn
 from mindspore.nn import SoftmaxCrossEntropyWithLogits
