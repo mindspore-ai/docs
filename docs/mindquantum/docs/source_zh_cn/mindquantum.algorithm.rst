@@ -1,7 +1,7 @@
 mindquantum.algorithm
 =====================
 
-.. automodule:: mindquantum.algorithm
+量子算法。
 
 .. toctree::
    :maxdepth: 1

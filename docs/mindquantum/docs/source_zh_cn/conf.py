@@ -10,6 +10,7 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
+from genericpath import exists
 import os
 import sys
 import IPython
@@ -18,7 +19,6 @@ sys.path.append(os.path.abspath('../_ext'))
 import sphinx.ext.autosummary.generate as g
 from sphinx.ext import autodoc as sphinx_autodoc
 
-import mindquantum
 
 # -- Project information -----------------------------------------------------
 
@@ -91,6 +91,14 @@ intersphinx_mapping = {
     'numpy': ('https://docs.scipy.org/doc/numpy/', '../../../../resource/numpy_objects.inv'),
 }
 
+from sphinx import directives
+with open('../_ext/overwriteobjectiondirective.txt', 'r', encoding="utf8") as f:
+    exec(f.read(), directives.__dict__)
+
+from sphinx.ext import viewcode
+with open('../_ext/overwriteviewcode.txt', 'r', encoding="utf8") as f:
+    exec(f.read(), viewcode.__dict__)
+
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 import anchor_mod
 import nbsphinx_mod
@@ -135,17 +143,51 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
 
+with open("../_ext/customdocumenter.txt", "r", encoding="utf8") as f:
+    code_str = f.read()
+    exec(code_str, sphinx_autodoc.__dict__)
+
+# Copy source files of chinese python api from mindquantum repository.
+from sphinx.util import logging
+import shutil
+logger = logging.getLogger(__name__)
+
+src_dir = os.path.join(os.getenv("MQ_PATH"), 'docs/api_python')
+
+for i in os.listdir(src_dir):
+    if '.' in i:
+        if os.path.exists('./'+i):
+            os.remove('./'+i)
+        shutil.copy(os.path.join(src_dir,i),'./'+i)
+    else:
+        if os.path.exists('./'+i):
+            shutil.rmtree('./'+i)
+        shutil.copytree(os.path.join(src_dir,i),'./'+i)
+
+moment_dir=os.path.dirname(os.path.realpath(__file__))
+
+# Rename .rst file to .txt file for include directive.
+from rename_include import rename_include
+
+rename_include(moment_dir)
+
+import mindquantum
+
 sys.path.append(os.path.abspath('../../../../resource/search'))
 import search_code
 
 sys.path.append(os.path.abspath('../../../../resource/custom_directives'))
 from custom_directives import IncludeCodeDirective
-from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary
+from myautosummary import MsPlatformAutoSummary, MsNoteAutoSummary, MsCnAutoSummary, MsCnPlatformAutoSummary, MsCnNoteAutoSummary
 
 def setup(app):
     app.add_directive('includecode', IncludeCodeDirective)
     app.add_directive('msplatformautosummary', MsPlatformAutoSummary)
     app.add_directive('msnoteautosummary', MsNoteAutoSummary)
+    app.add_directive('mscnautosummary', MsCnAutoSummary)
+    app.add_directive('mscnplatformautosummary', MsCnPlatformAutoSummary)
+    app.add_directive('mscnnoteautosummary', MsCnNoteAutoSummary)
+    app.add_config_value('rst_files', set(), False)
 
 src_release = os.path.join(os.getenv("MQ_PATH"), 'RELEASE_CN.md')
 des_release = "./RELEASE.md"
