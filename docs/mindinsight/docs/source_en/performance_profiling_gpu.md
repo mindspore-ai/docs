@@ -37,8 +37,9 @@ In GPU scenarios, users can customize the callback mode to collect performance d
 The following is the example：
 
 ```python
-from mindspore import Callback
-class StopAtStep(Callback):
+import mindspore as ms
+
+class StopAtStep(ms.Callback):
     def __init__(self, start_step, stop_step):
         super(StopAtStep, self).__init__()
         self.start_step = start_step
@@ -119,9 +120,10 @@ Users can query the performance data of the specified GPU operator and HOSTCPU o
 Example 1:
 
 ```python
-from mindspore import Profiler
+import mindspore as ms
+
 # Profiler init.
-profiler = Profiler()
+profiler = ms.Profiler()
 # Train or eval model.
 train_net()
 profiler.analyse()
@@ -132,9 +134,9 @@ print(operation_info)  # json
 Example 2:
 
 ```python
-from mindspore import Profiler
+import mindspore as ms
 # Profiler init.
-profiler = Profiler(output_path="my_profiler_path")
+profiler = ms.Profiler(output_path="my_profiler_path")
 operation_info = profiler.op_analyse(['Conv2D', 'BiasAdd'])  # str or list
 print(operation_info)  # json
 ```
