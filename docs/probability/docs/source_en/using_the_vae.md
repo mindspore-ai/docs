@@ -63,7 +63,7 @@ The dataset is enhanced to meet the requirements of VAE network training. In thi
 ```python
 from mindspore import dtype as mstype
 import mindspore.dataset as ds
-import mindspore.dataset.vision.c_transforms as CV
+import mindspore.dataset.vision as vision
 
 
 def create_dataset(data_path, batch_size=32, repeat_size=1,
@@ -79,9 +79,9 @@ def create_dataset(data_path, batch_size=32, repeat_size=1,
     shift = 0.0
 
     # define map operations
-    resize_op = CV.Resize((resize_height, resize_width))  # Bilinear mode
-    rescale_op = CV.Rescale(rescale, shift)
-    hwc2chw_op = CV.HWC2CHW()
+    resize_op = vision.Resize((resize_height, resize_width))  # Bilinear mode
+    rescale_op = vision.Rescale(rescale, shift)
+    hwc2chw_op = vision.HWC2CHW()
 
     # apply map operations on images
     mnist_ds = mnist_ds.map(operations=resize_op, input_columns="image", num_parallel_workers=num_parallel_workers)

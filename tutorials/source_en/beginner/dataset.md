@@ -108,9 +108,9 @@ The `mindvision.dataset.Cifar10` interface provides data processing capability. 
 import numpy as np
 import matplotlib.pyplot as plt
 
-import mindspore.dataset.vision.c_transforms as transforms
+import mindspore.dataset.vision as vision
 
-trans = [transforms.HWC2CHW()] # convert shape of the input image from <H,W,C> to <C,H,W>
+trans = [vision.HWC2CHW()] # convert shape of the input image from <H,W,C> to <C,H,W>
 dataset = Cifar10(data_dir, batch_size=6, resize=32, repeat_num=1, shuffle=True, transform=trans)
 data = dataset.run()
 data = next(data.create_dict_iterator())
@@ -146,13 +146,13 @@ This section describes data augmentation of the CIFAR-10 dataset by using operat
 import numpy as np
 import matplotlib.pyplot as plt
 
-import mindspore.dataset.vision.c_transforms as transforms
+import mindspore.dataset.vision as vision
 
 # Image augmentation
 trans = [
-    transforms.RandomCrop((32, 32), (4, 4, 4, 4)), # Automatically crop the image.
-    transforms.RandomHorizontalFlip(prob=0.5), # Flip the image horizontally at random.
-    transforms.HWC2CHW(), # Convert (h, w, c) to (c, h, w).
+    vision.RandomCrop((32, 32), (4, 4, 4, 4)), # Automatically crop the image.
+    vision.RandomHorizontalFlip(prob=0.5), # Flip the image horizontally at random.
+    vision.HWC2CHW(), # Convert (h, w, c) to (c, h, w).
 ]
 
 dataset = Cifar10(data_dir, batch_size=6, resize=32, transform=trans)

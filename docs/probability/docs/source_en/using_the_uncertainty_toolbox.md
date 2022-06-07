@@ -68,8 +68,8 @@ Define the dataset enhancement function, and enhance the original data into data
 
 ```python
 import mindspore.dataset as ds
-import mindspore.dataset.transforms.c_transforms as C
-import mindspore.dataset.vision.c_transforms as CV
+import mindspore.dataset.transforms as transforms
+import mindspore.dataset.vision as vision
 from mindspore.dataset.vision import Inter
 
 def create_dataset(data_path, batch_size=32, repeat_size=1,
@@ -89,12 +89,12 @@ def create_dataset(data_path, batch_size=32, repeat_size=1,
 
     # according to the parameters, generate the corresponding data enhancement method
     c_trans = [
-        CV.Resize((resize_height, resize_width), interpolation=Inter.LINEAR),
-        CV.Rescale(rescale_nml, shift_nml),
-        CV.Rescale(rescale, shift),
-        CV.HWC2CHW()
+        vision.Resize((resize_height, resize_width), interpolation=Inter.LINEAR),
+        vision.Rescale(rescale_nml, shift_nml),
+        vision.Rescale(rescale, shift),
+        vision.HWC2CHW()
     ]
-    type_cast_op = C.TypeCast(mstype.int32)
+    type_cast_op = transforms.TypeCast(mstype.int32)
 
     # using map to apply operations to a dataset
     mnist_ds = mnist_ds.map(operations=type_cast_op, input_columns="label", num_parallel_workers=num_parallel_workers)

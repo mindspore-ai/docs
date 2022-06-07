@@ -119,8 +119,8 @@ During distributed training, data is imported in data parallel mode. The followi
 ```python
 from mindspore import dtype as mstype
 import mindspore.dataset as ds
-import mindspore.dataset.transforms.c_transforms as C
-import mindspore.dataset.vision.c_transforms as vision
+import mindspore.dataset.transforms as transforms
+import mindspore.dataset.vision as vision
 from mindspore.communication import get_rank, get_group_size
 
 def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=1):
@@ -141,7 +141,7 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=
     rescale_op = vision.Rescale(rescale, shift)
     normalize_op = vision.Normalize((0.4465, 0.4822, 0.4914), (0.2010, 0.1994, 0.2023))
     changeswap_op = vision.HWC2CHW()
-    type_cast_op = C.TypeCast(mstype.int32)
+    type_cast_op = transforms.TypeCast(mstype.int32)
 
     c_trans = [random_crop_op, random_horizontal_op]
     c_trans += [resize_op, rescale_op, normalize_op, changeswap_op]

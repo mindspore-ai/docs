@@ -38,7 +38,7 @@ This document applies to Graph mode on Ascend.
 
 4. Fix data processing methods and data order.
 
-    (1) Remove or replace all random data processing operators (for example removing [RandomHorizontalFlip](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.RandomHorizontalFlip.html#mindspore.dataset.vision.c_transforms.RandomHorizontalFlip) and replace [RandomCrop](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.RandomCrop.html#mindspore.dataset.vision.c_transforms.RandomCrop) with [Crop](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.Crop.html#mindspore.dataset.vision.c_transforms.Crop)). Random operators refer to data processing operators with Random in all names.
+    (1) Remove or replace all random data processing operators (for example removing [RandomHorizontalFlip](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.RandomHorizontalFlip.html#mindspore.dataset.vision.RandomHorizontalFlip) and replace [RandomCrop](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.RandomCrop.html#mindspore.dataset.vision.RandomCrop) with [Crop](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.Crop.html#mindspore.dataset.vision.Crop)). Random operators refer to data processing operators with Random in all names.
 
     (2) Set `shuffle=False` to turn off shuffle. Do not use the sampler of the dataset.
 

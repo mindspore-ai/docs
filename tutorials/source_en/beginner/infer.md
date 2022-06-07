@@ -49,7 +49,7 @@ Define the `create_dataset` function to load the dog and croissant dataset, perf
 
 ```python
 import mindspore.dataset as ds
-import mindspore.dataset.vision.c_transforms as transforms
+import mindspore.dataset.vision as vision
 
 def create_dataset(path, batch_size=10, train=True, image_size=224):
     dataset = ds.ImageFolderDataset(path, num_parallel_workers=8, class_indexing={"croissants": 0, "dog": 1})
@@ -59,18 +59,18 @@ def create_dataset(path, batch_size=10, train=True, image_size=224):
     std = [0.229 * 255, 0.224 * 255, 0.225 * 255]
     if train:
         trans = [
-            transforms.RandomCropDecodeResize(image_size, scale=(0.08, 1.0), ratio=(0.75, 1.333)),
-            transforms.RandomHorizontalFlip(prob=0.5),
-            transforms.Normalize(mean=mean, std=std),
-            transforms.HWC2CHW()
+            vision.RandomCropDecodeResize(image_size, scale=(0.08, 1.0), ratio=(0.75, 1.333)),
+            vision.RandomHorizontalFlip(prob=0.5),
+            vision.Normalize(mean=mean, std=std),
+            vision.HWC2CHW()
         ]
     else:
         trans = [
-            transforms.Decode(),
-            transforms.Resize(256),
-            transforms.CenterCrop(image_size),
-            transforms.Normalize(mean=mean, std=std),
-            transforms.HWC2CHW()
+            vision.Decode(),
+            vision.Resize(256),
+            vision.CenterCrop(image_size),
+            vision.Normalize(mean=mean, std=std),
+            vision.HWC2CHW()
         ]
 
     dataset = dataset.map(operations=trans, input_columns="image", num_parallel_workers=8)

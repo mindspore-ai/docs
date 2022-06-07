@@ -178,7 +178,7 @@ cache_admin --list_sessions
 Cache data after data enhancement processing `transforms`.
 
 ```python
-import mindspore.dataset.vision.c_transforms as c_vision
+import mindspore.dataset.vision as vision
 
 dataset_dir = "cifar-10-batches-bin/"
 
@@ -186,7 +186,7 @@ dataset_dir = "cifar-10-batches-bin/"
 data = ds.Cifar10Dataset(dataset_dir=dataset_dir, num_samples=5, shuffle=False, num_parallel_workers=1)
 
 # apply cache to map
-rescale_op = c_vision.Rescale(1.0 / 255.0, -1.0)
+rescale_op = vision.Rescale(1.0 / 255.0, -1.0)
 data = data.map(input_columns=["image"], operations=rescale_op, cache=test_cache)
 
 num_iter = 0

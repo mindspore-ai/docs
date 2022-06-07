@@ -19,8 +19,8 @@ This sample code is applicable to CPU, GPU and Ascend.
 import os
 import requests
 import mindspore.dataset as ds
-import mindspore.dataset.vision.c_transforms as CV
-import mindspore.dataset.transforms.c_transforms as C
+import mindspore.dataset.vision as vision
+import mindspore.dataset.transforms as transforms
 from mindspore.dataset.vision import Inter
 from mindspore import dtype as mstype
 from mindspore import nn, Model, set_context, GRAPH_MODE
@@ -50,12 +50,12 @@ def create_dataset(data_path, batch_size=32, repeat_size=1, num_parallel_workers
     shift_nml = -1 * 0.1307 / 0.3081
 
     # define map operations
-    type_cast_op = C.TypeCast(mstype.int32)
+    type_cast_op = transforms.TypeCast(mstype.int32)
     c_trans = [
-        CV.Resize((resize_height, resize_width), interpolation=Inter.LINEAR),
-        CV.Rescale(rescale_nml, shift_nml),
-        CV.Rescale(rescale, shift),
-        CV.HWC2CHW()
+        vision.Resize((resize_height, resize_width), interpolation=Inter.LINEAR),
+        vision.Rescale(rescale_nml, shift_nml),
+        vision.Rescale(rescale, shift),
+        vision.HWC2CHW()
     ]
 
     # apply map operations on images

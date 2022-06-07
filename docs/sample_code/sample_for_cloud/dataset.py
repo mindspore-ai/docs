@@ -16,8 +16,8 @@
 import os
 from mindspore import dtype as mstype
 import mindspore.dataset as ds
-import mindspore.dataset.vision.c_transforms as C
-import mindspore.dataset.transforms.c_transforms as C2
+import mindspore.dataset.vision as vision
+import mindspore.dataset.transforms as transforms
 
 
 device_id = int(os.getenv('DEVICE_ID', '0'))
@@ -56,14 +56,14 @@ def create_dataset(dataset_path, do_train, repeat_num=1, batch_size=32):
     shift = 0.0
 
     # define map operations
-    random_crop_op = C.RandomCrop((32, 32), (4, 4, 4, 4))
-    random_horizontal_flip_op = C.RandomHorizontalFlip(device_id / (device_id + 1))
+    random_crop_op = vision.RandomCrop((32, 32), (4, 4, 4, 4))
+    random_horizontal_flip_op = vision.RandomHorizontalFlip(device_id / (device_id + 1))
 
-    resize_op = C.Resize((resize_height, resize_width))
-    rescale_op = C.Rescale(rescale, shift)
-    normalize_op = C.Normalize([0.4914, 0.4822, 0.4465], [0.2023, 0.1994, 0.2010])
+    resize_op = vision.Resize((resize_height, resize_width))
+    rescale_op = vision.Rescale(rescale, shift)
+    normalize_op = vision.Normalize([0.4914, 0.4822, 0.4465], [0.2023, 0.1994, 0.2010])
 
-    change_swap_op = C.HWC2CHW()
+    change_swap_op = vision.HWC2CHW()
 
     trans = []
     if do_train:
@@ -71,7 +71,7 @@ def create_dataset(dataset_path, do_train, repeat_num=1, batch_size=32):
 
     trans += [resize_op, rescale_op, normalize_op, change_swap_op]
 
-    type_cast_op = C2.TypeCast(mstype.int32)
+    type_cast_op = transforms.TypeCast(mstype.int32)
 
     dataset = dataset.map(operations=type_cast_op, input_columns="label", num_parallel_workers=8)
     dataset = dataset.map(operations=trans, input_columns="image", num_parallel_workers=8)
