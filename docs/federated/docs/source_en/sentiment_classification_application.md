@@ -57,7 +57,7 @@ The sample code is as follows:
 
 ```python
 import numpy as np
-from mindspore import export, Tensor
+import mindspore as ms
 from src.config import train_cfg, client_net_cfg
 from src.cell_wrapper import NetworkTrainCell
 
@@ -65,13 +65,13 @@ from src.cell_wrapper import NetworkTrainCell
 client_network_train_cell = NetworkTrainCell(client_net_cfg)
 
 # Build input data.
-input_ids = Tensor(np.zeros((train_cfg.batch_size, client_net_cfg.seq_length), dtype=np.int32))
-attention_mask = Tensor(np.zeros((train_cfg.batch_size, client_net_cfg.seq_length), dtype=np.int32))
-token_type_ids = Tensor(np.zeros((train_cfg.batch_size, client_net_cfg.seq_length), dtype=np.int32))
-label_ids = Tensor(np.zeros((train_cfg.batch_size, client_net_cfg.num_labels), dtype=np.int32))
+input_ids = ms.Tensor(np.zeros((train_cfg.batch_size, client_net_cfg.seq_length), dtype=np.int32))
+attention_mask = ms.Tensor(np.zeros((train_cfg.batch_size, client_net_cfg.seq_length), dtype=np.int32))
+token_type_ids = ms.Tensor(np.zeros((train_cfg.batch_size, client_net_cfg.seq_length), dtype=np.int32))
+label_ids = ms.Tensor(np.zeros((train_cfg.batch_size, client_net_cfg.num_labels), dtype=np.int32))
 
 # Export the model.
-export(client_network_train_cell, input_ids, attention_mask, token_type_ids, label_ids, file_name='albert_train.mindir', file_format='MINDIR')
+ms.export(client_network_train_cell, input_ids, attention_mask, token_type_ids, label_ids, file_name='albert_train.mindir', file_format='MINDIR')
 ```
 
 #### Converting the MindIR File into an MS File that Can Be Used by the Federated Learning Framework on the Device

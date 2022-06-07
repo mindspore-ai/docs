@@ -63,7 +63,7 @@ import os
 import random
 from time import time
 import numpy as np
-from mindspore import set_seed, load_checkpoint, Tensor, export, set_context, GRAPH_MODE
+import mindspore as ms
 from mindspore.nn import AdamWeightDecay
 from src.config import train_cfg, client_net_cfg
 from src.utils import restore_params
@@ -85,7 +85,7 @@ def parse_args():
 
 
 def supervise_export(args_opt):
-    set_seed(args_opt.seed), random.seed(args_opt.seed)
+    ms.set_seed(args_opt.seed), random.seed(args_opt.seed)
     start = time()
     # 参数配置
     os.environ['CUDA_VISIBLE_DEVICES'] = args_opt.device_id
@@ -97,7 +97,7 @@ def supervise_export(args_opt):
     start = time()
 
     # MindSpore配置
-    set_context(mode=GRAPH_MODE, device_target=args_opt.device_target)
+    ms.set_context(mode=ms.GRAPH_MODE, device_target=args_opt.device_target)
     print('Context setting is done! Time cost: {}'.format(time() - start))
     start = time()
 
@@ -129,22 +129,22 @@ def supervise_export(args_opt):
     start = time()
 
     # 构造数据
-    input_ids = Tensor(np.zeros((train_cfg.batch_size, client_net_cfg.seq_length), np.int32))
-    attention_mask = Tensor(np.zeros((train_cfg.batch_size, client_net_cfg.seq_length), np.int32))
-    token_type_ids = Tensor(np.zeros((train_cfg.batch_size, client_net_cfg.seq_length), np.int32))
-    label_ids = Tensor(np.zeros((train_cfg.batch_size,), np.int32))
+    input_ids = ms.Tensor(np.zeros((train_cfg.batch_size, client_net_cfg.seq_length), np.int32))
+    attention_mask = ms.Tensor(np.zeros((train_cfg.batch_size, client_net_cfg.seq_length), np.int32))
+    token_type_ids = ms.Tensor(np.zeros((train_cfg.batch_size, client_net_cfg.seq_length), np.int32))
+    label_ids = ms.Tensor(np.zeros((train_cfg.batch_size,), np.int32))
     print('Client data loading is done! Time cost: {}'.format(time() - start))
     start = time()
 
     # 读取checkpoint
     if init_model_path != 'none':
-        init_param_dict = load_checkpoint(init_model_path)
+        init_param_dict = ms.load_checkpoint(init_model_path)
         restore_params(client_network_train_cell, init_param_dict)
     print('Checkpoint loading is done! Time cost: {}'.format(time() - start))
     start = time()
 
     # 导出
-    export(client_network_train_cell, input_ids, attention_mask, token_type_ids, label_ids,
+    ms.export(client_network_train_cell, input_ids, attention_mask, token_type_ids, label_ids,
            file_name=os.path.join(output_dir, 'albert_supervise'), file_format='MINDIR')
     print('Supervise model export process is done! Time cost: {}'.format(time() - start))
 
