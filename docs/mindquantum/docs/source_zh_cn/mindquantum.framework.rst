@@ -1,10 +1,12 @@
 mindquantum.framework
 =====================
 
+量子神经网络算子和cell。
+
 Operators
 ---------
 
-.. msplatformautosummary::
+.. mscnplatformautosummary::
     :toctree: operations
     :nosignatures:
     :template: classtemplate.rst
@@ -19,7 +21,7 @@ Operators
 Layer
 -----
 
-.. msplatformautosummary::
+.. mscnplatformautosummary::
     :toctree: layer
     :nosignatures:
     :template: classtemplate.rst
