@@ -12,7 +12,7 @@ Szegedy first proposed the concept of adversarial examples in 2013.
 
 Small perturbations that cannot be perceived by humans are added to original examples, which deteriorates the performance of deep models. Such examples are adversarial examples. For example, after a noise is added to the image that should be predicted as panda, the model predicts the image as gibbon. The example is an adversarial example.
 
-![fgsm-panda-image](https://gitee.com/mindspore/docs/raw/tutorials-develop/tutorials/application/source_zh_cn/cv/images/panda.png)
+![fgsm-panda-image](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/tutorials/application/source_zh_cn/cv/images/panda.png)
 
 > The image comes from [Explaining and Harnessing Adversarial Examples](https://arxiv.org/abs/1412.6572).
 
