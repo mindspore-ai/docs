@@ -16,10 +16,10 @@ The following uses an example to describe how to encrypt, export, decrypt, and l
 Currently, MindSpore supports the use of the callback mechanism to save model parameters during training. You can configure the encryption key and encryption mode in the `CheckpointConfig` object and transfer them to the `ModelCheckpoint` to enable encryption protection for the parameter file. The configuration procedure is as follows:
 
 ```python
-from mindspore import CheckpointConfig, ModelCheckpoint
+import mindspore as ms
 
-config_ck = CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10, enc_key=b'0123456789ABCDEF', enc_mode='AES-GCM')
-ckpoint_cb = ModelCheckpoint(prefix='lenet_enc', directory=None, config=config_ck)
+config_ck = ms.CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10, enc_key=b'0123456789ABCDEF', enc_mode='AES-GCM')
+ckpoint_cb = ms.ModelCheckpoint(prefix='lenet_enc', directory=None, config=config_ck)
 model.train(10, dataset, callbacks=ckpoint_cb)
 ```
 
@@ -32,9 +32,9 @@ In the preceding code, the encryption key and encryption mode are initialized in
 In addition to the preceding method for saving model parameters, you can also call the `save_checkpoint` API to save model parameters. The method is as follows:
 
 ```python
-from mindspore import save_checkpoint
+import mindspore as ms
 
-save_checkpoint(network, 'lenet_enc.ckpt', enc_key=b'0123456789ABCDEF', enc_mode='AES-GCM')
+ms.save_checkpoint(network, 'lenet_enc.ckpt', enc_key=b'0123456789ABCDEF', enc_mode='AES-GCM')
 ```
 
 The definitions of `enc_key` and `enc_mode` are the same as those described above.
@@ -44,9 +44,9 @@ The definitions of `enc_key` and `enc_mode` are the same as those described abov
 MindSpore provides `load_checkpoint` and `load_distributed_checkpoint` for loading checkpoint parameter files in single-file and distributed scenarios, respectively. For example, in the single-file scenario, you can use the following method to load the ciphertext checkpoint file:
 
 ```python
-from mindspore import load_checkpoint
+import mindspore as ms
 
-param_dict = load_checkpoint('lenet_enc.ckpt', dec_key=b'0123456789ABCDEF', dec_mode='AES-GCM')
+param_dict = ms.load_checkpoint('lenet_enc.ckpt', dec_key=b'0123456789ABCDEF', dec_mode='AES-GCM')
 ```
 
 In the preceding code, `dec_key` and `dec_mode` are specified to enable the function of reading the ciphertext file.
@@ -62,9 +62,9 @@ The methods in distributed scenarios are similar. You only need to specify `dec_
 The `export` API provided by MindSpore can be used to export models in MindIR, AIR, or ONNX format. When exporting a MindIR model, you can use the following method to enable encryption protection:
 
 ```python
-from mindspore import export
-input_arr = Tensor(np.zeros([32, 3, 32, 32], np.float32))
-export(network, input_arr, file_name='lenet_enc', file_format='MINDIR', enc_key=b'0123456789ABCDEF', enc_mode='AES-GCM')
+import mindspore as ms
+input_arr = ms.Tensor(np.zeros([32, 3, 32, 32], np.float32))
+ms.export(network, input_arr, file_name='lenet_enc', file_format='MINDIR', enc_key=b'0123456789ABCDEF', enc_mode='AES-GCM')
 ```
 
 > Currently, the AIR and ONNX formats do not support encryption protection.
@@ -74,8 +74,8 @@ export(network, input_arr, file_name='lenet_enc', file_format='MINDIR', enc_key=
 If you write scripts using Python on the cloud, you can use the `load` API to load the MindIR model. When loading the ciphertext MindIR, you can specify `dec_key` and `dec_mode` to decrypt the model.
 
 ```python
-from mindspore import load
-graph = load('lenet_enc.mindir', dec_key=b'0123456789ABCDEF', dec_mode='AES-GCM')
+import mindspore as ms
+graph = ms.load('lenet_enc.mindir', dec_key=b'0123456789ABCDEF', dec_mode='AES-GCM')
 ```
 
 For C++ scripts, MindSpore also provides the `Load` API to load MindIR models. For details about the API definition, see [MindSpore API](https://www.mindspore.cn/lite/api/en/master/api_cpp/mindspore.html).
@@ -107,7 +107,7 @@ offset = sys.getsizeof(key) - length - 1
 ctypes.memset(id(key) + offset, 0, length)
 ```
 
-For the key passed to CheckpointConfig() when config_ck=CheckpointConfig() is run, you can also empty it as the method above by replacing 'key' in the code with 'config_ck._enc_key'.
+For the key passed to ms.CheckpointConfig() when config_ck=ms.CheckpointConfig() is run, you can also empty it as the method above by replacing 'key' in the code with 'config_ck._enc_key'.
 
 ## On-Device Model Protection
 

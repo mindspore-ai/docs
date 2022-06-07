@@ -55,8 +55,7 @@ Before start, you need to import the Python library.
 
 ```python
 import numpy as np
-from mindspore import Model
-from mindspore import load_checkpoint, load_param_into_net
+import mindspore as ms
 
 from mindarmour.reliability import FaultInjector
 from examples.common.networks.lenet5.lenet5_net import LeNet5
@@ -88,9 +87,9 @@ Construct LeNet5:
 ```python
 ckpt_path = 'PATH_TO_CHECKPOINT/'
 net = LeNet5()
-param_dict = load_checkpoint(ckpt_path)
-load_param_into_net(net, param_dict)
-model = Model(net)
+param_dict = ms.load_checkpoint(ckpt_path)
+ms.load_param_into_net(net, param_dict)
+model = ms.Model(net)
 ```
 
 ## Setup Parameters and Initialize Fault Injection Module

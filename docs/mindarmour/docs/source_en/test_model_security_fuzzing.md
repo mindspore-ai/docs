@@ -22,9 +22,7 @@ Here, we use `KMultisectionNeuronCoverage` as fuzzing guide, you can also choose
 
 ```python
 import numpy as np
-from mindspore import Model
-from mindspore import set_context, GRAPH_MODE
-from mindspore import load_checkpoint, load_param_into_net
+import mindspore as ms
 
 from mindarmour.fuzz_testing import Fuzzer
 from mindarmour.fuzz_testing import KMultisectionNeuronCoverage
@@ -43,7 +41,7 @@ LOGGER.set_level('INFO')
 Configure necessary information, including the environment information and execution mode.
 
 ```python
-set_context(mode=GRAPH_MODE, device_target="Ascend")
+ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
 ```
 
 For details about the API configuration, see the `set_context`.
@@ -55,7 +53,7 @@ For details about the API configuration, see the `set_context`.
    ```python
    ...
    # Lenet model
-   model = Model(net)
+   model = ms.Model(net)
    # get training data
    mnist_path = "../common/dataset/MNIST/"
    batch_size = 32

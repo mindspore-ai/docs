@@ -29,7 +29,7 @@
     运行脚本`run_export_lenet.py`获取MindIR格式模型文件，其中代码片段如下：
 
     ```python
-    from mindspore import export
+    import mindspore as ms
     ...
 
     parser = argparse.ArgumentParser(description="export mindir for lenet")
@@ -42,7 +42,7 @@
             label = Tensor(np.random.randint(0, 61, (32)).astype(np.int32))
             loss = train_network(data, label).asnumpy()
             losses.append(loss)
-            export(train_network, data, label, file_name= mindir_path, file_format='MINDIR')  # 在训练过程中添加export语句获取MindIR格式模型文件
+            ms.export(train_network, data, label, file_name= mindir_path, file_format='MINDIR')  # 在训练过程中添加export语句获取MindIR格式模型文件
         print(losses)
     ```
 

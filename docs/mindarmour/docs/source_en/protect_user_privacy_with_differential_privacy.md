@@ -42,16 +42,12 @@ import os
 from easydict import EasyDict as edict
 
 import mindspore.nn as nn
-from mindspore import load_checkpoint, load_param_into_net, set_context, GRAPH_MODE
-from mindspore import ModelCheckpoint
-from mindspore import CheckpointConfig
-from mindspore import LossMonitor
+import mindspore as ms
 from mindspore.nn import Accuracy
 import mindspore.dataset as ds
 import mindspore.dataset.vision.c_transforms as CV
 import mindspore.dataset.transforms.c_transforms as C
 from mindspore.dataset.vision import Inter
-from mindspore import dtype as mstype
 
 from mindarmour.privacy.diff_privacy import DPModel
 from mindarmour.privacy.diff_privacy import PrivacyMonitorFactory
@@ -99,7 +95,7 @@ TAG = 'Lenet5_train'
 2. Configure the necessary information, including the environment information and the execution mode.
 
     ```python
-    set_context(mode=GRAPH_MODE, device_target=cfg.device_target)
+    ms.set_context(mode=ms.GRAPH_MODE, device_target=cfg.device_target)
     ```
 
     For details about the API configuration, see the `set_context`.
@@ -127,14 +123,14 @@ def generate_mnist_dataset(data_path, batch_size=32, repeat_size=1,
                           interpolation=Inter.LINEAR)
     rescale_op = CV.Rescale(rescale, shift)
     hwc2chw_op = CV.HWC2CHW()
-    type_cast_op = C.TypeCast(mstype.int32)
+    type_cast_op = C.TypeCast(ms.int32)
 
     # apply map operations on images
     if not sparse:
         one_hot_enco = C.OneHot(10)
         ds1 = ds1.map(operations=one_hot_enco, input_columns="label",
                       num_parallel_workers=num_parallel_workers)
-        type_cast_op = C.TypeCast(mstype.float32)
+        type_cast_op = C.TypeCast(ms.float32)
     ds1 = ds1.map(operations=type_cast_op, input_columns="label",
                   num_parallel_workers=num_parallel_workers)
     ds1 = ds1.map(operations=resize_op, input_columns="image",
@@ -215,9 +211,9 @@ Load the LeNet network, define the loss function, configure the checkpoint param
 ```python
 network = LeNet5()
 net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
-config_ck = CheckpointConfig(save_checkpoint_steps=cfg.save_checkpoint_steps,
+config_ck = ms.CheckpointConfig(save_checkpoint_steps=cfg.save_checkpoint_steps,
                              keep_checkpoint_max=cfg.keep_checkpoint_max)
-ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet",
+ckpoint_cb = ms.ModelCheckpoint(prefix="checkpoint_lenet",
                              directory='./trained_ckpt_file/',
                              config=config_ck)
 
@@ -293,13 +289,13 @@ ds_train = generate_mnist_dataset(os.path.join(cfg.data_path, "train"),
     ```python
     LOGGER.info(TAG, "============== Starting Training ==============")
     model.train(cfg['epoch_size'], ds_train,
-                callbacks=[ckpoint_cb, LossMonitor(), rdp_monitor],
+                callbacks=[ckpoint_cb, ms.LossMonitor(), rdp_monitor],
                 dataset_sink_mode=cfg.dataset_sink_mode)
 
     LOGGER.info(TAG, "============== Starting Testing ==============")
     ckpt_file_name = 'trained_ckpt_file/checkpoint_lenet-10_234.ckpt'
-    param_dict = load_checkpoint(ckpt_file_name)
-    load_param_into_net(network, param_dict)
+    param_dict = ms.load_checkpoint(ckpt_file_name)
+    ms.load_param_into_net(network, param_dict)
     ds_eval = generate_mnist_dataset(os.path.join(cfg.data_path, 'test'),
                                         batch_size=cfg.batch_size)
     acc = model.eval(ds_eval, dataset_sink_mode=False)

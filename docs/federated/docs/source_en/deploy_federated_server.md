@@ -50,7 +50,7 @@ The MindSpore federated learning task process reuses the training script. You on
 After parameter configuration and before training, call the `set_fl_context` API as follows:
 
 ```python
-from mindspore import set_fl_context
+import mindspore as ms
 ...
 
 enable_fl = True
@@ -76,7 +76,7 @@ fl_ctx = {
     "scheduler_manage_port": scheduler_manage_port,
     "config_file_path": config_file_path
 }
-set_fl_context(**fl_ctx)
+ms.set_fl_context(**fl_ctx)
 ...
 
 model.train()

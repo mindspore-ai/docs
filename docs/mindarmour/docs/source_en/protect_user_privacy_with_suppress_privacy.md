@@ -25,18 +25,13 @@ The following presents the public modules, MindSpore-related modules, and privac
 ```python
 import os
 from easydict import EasyDict as edict
+import mindspore as ms
 import mindspore.nn as nn
-from mindspore import set_context, PYNATIVE_MODE
-from mindspore import ModelCheckpoint
-from mindspore import CheckpointConfig
-from mindspore import LossMonitor
 from mindspore.nn import Accuracy
-from mindspore import load_checkpoint, load_param_into_net
 import mindspore.dataset as ds
 import mindspore.dataset.vision.c_transforms as CV
 import mindspore.dataset.transforms.c_transforms as C
 from mindspore.dataset.vision import Inter
-from mindspore import dtype as mstype
 
 from examples.common.networks.lenet5.lenet5_net import LeNet5
 
@@ -70,7 +65,7 @@ TAG = 'Lenet5_Suppress_train'
 2. Configure the necessary information, including environment information and the execution mode. The PyNative mode on Ascend is currently supported.
 
    ```python
-   set_context(mode=PYNATIVE_MODE, device_target=cfg.device_target)
+   ms.set_context(mode=ms.PYNATIVE_MODE, device_target=cfg.device_target)
    ```
 
    For detailed interface configuration information, see the `set_context` interface description.
@@ -98,14 +93,14 @@ def generate_mnist_dataset(data_path, batch_size=32, repeat_size=1,
                           interpolation=Inter.LINEAR)
     rescale_op = CV.Rescale(rescale, shift)
     hwc2chw_op = CV.HWC2CHW()
-    type_cast_op = C.TypeCast(mstype.int32)
+    type_cast_op = C.TypeCast(ms.int32)
 
     # apply map operations on images
     if not sparse:
         one_hot_enco = C.OneHot(10)
         ds1 = ds1.map(operations=one_hot_enco, input_columns="label",
                       num_parallel_workers=num_parallel_workers)
-        type_cast_op = C.TypeCast(mstype.float32)
+        type_cast_op = C.TypeCast(ms.float32)
     ds1 = ds1.map(operations=type_cast_op, input_columns="label",
                   num_parallel_workers=num_parallel_workers)
     ds1 = ds1.map(operations=resize_op, input_columns="image",
@@ -132,9 +127,9 @@ Load the LeNet network, configure the checkpoint, set the optimizer type, and lo
 
 ```python
 networks_l5 = LeNet5()
-config_ck = CheckpointConfig(save_checkpoint_steps=10,
+config_ck = ms.CheckpointConfig(save_checkpoint_steps=10,
                              keep_checkpoint_max=cfg.keep_checkpoint_max)
-ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet",
+ckpoint_cb = ms.ModelCheckpoint(prefix="checkpoint_lenet",
                              directory='./trained_ckpt_file/',
                              config=config_ck)
 
@@ -214,7 +209,7 @@ ds_train = generate_mnist_dataset('MNIST_unzip/train', cfg.batch_size)
 
     ```python
    LOGGER.info(TAG, "============== Starting SUPP Training ==============")
-   model_instance.train(10, ds_train, callbacks=[ckpoint_cb, LossMonitor(), suppress_masker],
+   model_instance.train(10, ds_train, callbacks=[ckpoint_cb, ms.LossMonitor(), suppress_masker],
                          dataset_sink_mode=False)
 
    LOGGER.info(TAG, "============== Starting SUPP Testing ==============")
@@ -273,7 +268,7 @@ The principle of this attack method can be found in <https://arxiv.org/pdf/1412.
    In addition, since the newly trained model is needed for the evaluation of attack effectiveness in step 7 below, we change the generation command of the variable `ckpoint_cb` in the `mnist_train.py` file after generating the `trained_ckpt_file` directory to.
 
    ```python
-   ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet",
+   ckpoint_cb = ms.ModelCheckpoint(prefix="checkpoint_lenet",
                              directory="./new_trained_ckpt_file/",
                              config=config_ck)
    ```
@@ -317,8 +312,7 @@ The principle of this attack method can be found in <https://arxiv.org/pdf/1412.
     import numpy as np
     import matplotlib.pyplot as plt
     from scipy.special import softmax
-    from mindspore import load_checkpoint, load_param_into_net
-    from mindspore import Tensor
+    import mindspore as ms
     from mindspore import nn
     from mindarmour.privacy.evaluation import ImageInversionAttack
     from mindarmour.utils import LogUtil
@@ -366,9 +360,9 @@ The principle of this attack method can be found in <https://arxiv.org/pdf/1412.
 
     ```python
     Checkpoint_path = '../../common/networks/lenet5/trained_ckpt_file/checkpoint_lenet-10_1875.ckpt'
-    load_dict = load_checkpoint(Checkpoint_path)
+    load_dict = ms.load_checkpoint(Checkpoint_path)
     net = LeNet5_part()
-    load_param_into_net(net, load_dict)
+    ms.load_param_into_net(net, load_dict)
     ```
 
 5. Get test samples
@@ -387,7 +381,7 @@ The principle of this attack method can be found in <https://arxiv.org/pdf/1412.
         i += 1
         images = data[0].astype(np.float32)
         true_labels = data[1][: sample_num]
-        target_features = net(Tensor(images)).asnumpy()[:sample_num]
+        target_features = net(ms.Tensor(images)).asnumpy()[:sample_num]
         original_images = images[: sample_num]
         if i >= batch_num:
             break
@@ -423,9 +417,9 @@ The principle of this attack method can be found in <https://arxiv.org/pdf/1412.
 
     net2 = LeNet5()
     new_ckpt_path = '../../common/networks/lenet5/new_trained_ckpt_file/checkpoint_lenet-10_1875.ckpt'
-    new_load_dict = load_checkpoint(new_ckpt_path)
-    load_param_into_net(net2, new_load_dict)
-    pred_labels = np.argmax(net2(Tensor(inversion_images).astype(np.float32)).asnumpy(), axis=1)
+    new_load_dict = ms.load_checkpoint(new_ckpt_path)
+    ms.load_param_into_net(net2, new_load_dict)
+    pred_labels = np.argmax(net2(ms.Tensor(inversion_images).astype(np.float32)).asnumpy(), axis=1)
 
     avg_l2_dis, avg_ssim, avg_confi = inversion_attack.evaluate(original_images, inversion_images, true_labels, net2)
     LOGGER.info(TAG, 'The average L2 distance between original images and inverted images is: {}'.format(avg_l2_dis))
