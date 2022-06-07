@@ -56,6 +56,14 @@ MindSpore Lite Documentation
 .. toctree::
    :glob:
    :maxdepth: 1
+   :caption: Server Inference
+   :hidden:
+
+   use/runtime_server_inference
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
    :caption: Third-party hardware docking
    :hidden:
 
