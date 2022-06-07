@@ -19,8 +19,8 @@ The specific use steps are divided into two steps. Taking the classification tas
    ```python
    import mindspore as ms
    import mindspore.dataset as ds
-   import mindspore.dataset.vision as CV
-   import mindspore.dataset.transforms as C
+   import mindspore.dataset.vision as vision
+   import mindspore.dataset.transforms as transforms
    from mindspore.dataset.vision import Inter
    import mindspore.nn as nn
 
@@ -44,11 +44,11 @@ The specific use steps are divided into two steps. Taking the classification tas
        shift_nml = -1 * 0.1307 / 0.3081
 
        # define map operations
-       resize_op = CV.Resize((resize_height, resize_width), interpolation=Inter.LINEAR)  # Bilinear mode
-       rescale_nml_op = CV.Rescale(rescale_nml, shift_nml)
-       rescale_op = CV.Rescale(rescale, shift)
-       hwc2chw_op = CV.HWC2CHW()
-       type_cast_op = C.TypeCast(ms.int32)
+       resize_op = vision.Resize((resize_height, resize_width), interpolation=Inter.LINEAR)  # Bilinear mode
+       rescale_nml_op = vision.Rescale(rescale_nml, shift_nml)
+       rescale_op = vision.Rescale(rescale, shift)
+       hwc2chw_op = vision.HWC2CHW()
+       type_cast_op = transforms.TypeCast(ms.int32)
 
        # apply map operations on images
        mnist_ds = mnist_ds.map(operations=type_cast_op, input_columns="label", num_parallel_workers=num_parallel_workers)
@@ -155,8 +155,8 @@ The specific use steps are divided into two steps. Taking the classification tas
 
    ```python
    import mindspore.dataset as ds
-   import mindspore.dataset.vision as CV
-   import mindspore.dataset.transforms as C
+   import mindspore.dataset.vision as vision
+   import mindspore.dataset.transforms as transforms
    from mindspore.dataset.vision import Inter
    import mindspore.nn as nn
 
@@ -179,11 +179,11 @@ The specific use steps are divided into two steps. Taking the classification tas
        shift_nml = -1 * 0.1307 / 0.3081
 
        # define map operations
-       resize_op = CV.Resize((resize_height, resize_width), interpolation=Inter.LINEAR)  # Bilinear mode
-       rescale_nml_op = CV.Rescale(rescale_nml, shift_nml)
-       rescale_op = CV.Rescale(rescale, shift)
-       hwc2chw_op = CV.HWC2CHW()
-       type_cast_op = C.TypeCast(ms.int32)
+       resize_op = vision.Resize((resize_height, resize_width), interpolation=Inter.LINEAR)  # Bilinear mode
+       rescale_nml_op = vision.Rescale(rescale_nml, shift_nml)
+       rescale_op = vision.Rescale(rescale, shift)
+       hwc2chw_op = vision.HWC2CHW()
+       type_cast_op = transforms.TypeCast(ms.int32)
 
        # apply map operations on images
        mnist_ds = mnist_ds.map(operations=type_cast_op, input_columns="label", num_parallel_workers=num_parallel_workers)

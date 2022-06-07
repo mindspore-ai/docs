@@ -152,8 +152,8 @@ The following data processing functions are developed based on MindData:
 import os
 import mindspore as ms
 import mindspore.dataset as ds
-import mindspore.dataset.vision as C
-import mindspore.dataset.transforms as C2
+import mindspore.dataset.vision as vision
+import mindspore.dataset.transforms as transforms
 
 
 def create_dataset(dataset_path, batch_size=32, rank_size=1, rank_id=0, do_train=True):
@@ -179,14 +179,14 @@ def create_dataset(dataset_path, batch_size=32, rank_size=1, rank_id=0, do_train
 
     # define map operations
     trans = [
-        C.Decode(),
-        C.Resize(256),
-        C.CenterCrop(224),
-        C.Normalize(mean=mean, std=std),
-        C.HWC2CHW()
+        vision.Decode(),
+        vision.Resize(256),
+        vision.CenterCrop(224),
+        vision.Normalize(mean=mean, std=std),
+        vision.HWC2CHW()
     ]
 
-    type_cast_op = C2.TypeCast(ms.int32)
+    type_cast_op = transforms.TypeCast(ms.int32)
 
     data_set = data_set.map(operations=trans, input_columns="image", num_parallel_workers=8)
     data_set = data_set.map(operations=type_cast_op, input_columns="label", num_parallel_workers=8)

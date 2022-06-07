@@ -55,8 +55,8 @@ We use [MobileNetV2](https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo/o
    from mindspore import save_checkpoint, load_checkpoint,load_param_into_net
    from mindspore import ops
    import mindspore.dataset as ds
-   import mindspore.dataset.transforms as C2
-   import mindspore.dataset.vision as C
+   import mindspore.dataset.transforms as transforms
+   import mindspore.dataset.vision as vision
    from mindspore import dtype as mstype
    from mindspore import Model
    set_context(mode=GRAPH_MODE, device_target="Ascend", device_id=0)
@@ -108,19 +108,19 @@ We use [MobileNetV2](https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo/o
        data_set = ds.Cifar10Dataset(dataset_dir=dataset_path, usage=usage, shuffle=True)
 
        # define map operations
-       trans = [C.Resize((256, 256))]
+       trans = [vision.Resize((256, 256))]
        if do_train:
            trans += [
-               C.RandomHorizontalFlip(prob=0.5),
+               vision.RandomHorizontalFlip(prob=0.5),
            ]
 
        trans += [
-           C.Rescale(1.0 / 255.0, 0.0),
-           C.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5]),
-           C.HWC2CHW()
+           vision.Rescale(1.0 / 255.0, 0.0),
+           vision.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5]),
+           vision.HWC2CHW()
        ]
 
-       type_cast_op = C2.TypeCast(mstype.int32)
+       type_cast_op = transforms.TypeCast(mstype.int32)
 
        data_set = data_set.map(operations=type_cast_op, input_columns="label", num_parallel_workers=8)
        data_set = data_set.map(operations=trans, input_columns="image", num_parallel_workers=8)
