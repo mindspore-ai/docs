@@ -22,9 +22,7 @@ MindArmour的fuzz_testing模块以神经元覆盖率作为测试评价准则。�
 
 ```python
 import numpy as np
-from mindspore import Model
-from mindspore import set_context, GRAPH_MODE
-from mindspore import load_checkpoint, load_param_into_net
+import mindspore as ms
 
 from mindarmour.fuzz_testing import Fuzzer
 from mindarmour.fuzz_testing import KMultisectionNeuronCoverage
@@ -43,7 +41,7 @@ LOGGER.set_level('INFO')
 配置必要的信息，包括环境信息、执行的模式。
 
 ```python
-set_context(mode=GRAPH_MODE, device_target="Ascend")
+ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
 ```
 
 详细的接口配置信息，请参见`set_context`接口说明。
@@ -55,7 +53,7 @@ set_context(mode=GRAPH_MODE, device_target="Ascend")
    ```python
    ...
    # Lenet model
-   model = Model(net)
+   model = ms.Model(net)
    # get training data
    mnist_path = "../common/dataset/MNIST/"
    batch_size = 32

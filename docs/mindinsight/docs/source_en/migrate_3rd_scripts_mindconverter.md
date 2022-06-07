@@ -197,25 +197,25 @@ If you need to specify the model input shape, input node names and output node n
 Model scripts(`model.py`) and weights information(`ckpt`) can be used not only to validate the equivalence of migration, but also to generate the [MindIR](https://www.mindspore.cn/tutorials/en/master/advanced/train/save.html#export-mindir-model) file.
 
 ```python
-import mindspore
+import mindspore as ms
 import numpy as np
 
 # Replace the following classpath according to the actual situation.
 from customized.path.to.mindspore.model import MindSporeNetwork
 
 network = MindSporeNetwork()
-param_dict = mindspore.load_checkpoint('network.ckpt')
-mindspore.load_param_into_net(network, param_dict)
+param_dict = ms.load_checkpoint('network.ckpt')
+ms.load_param_into_net(network, param_dict)
 
 input_data = np.load('/path/to/input.npy')
 output_benchmark = np.load('/path/to/output.npy')
 
 # Validate the equivalence of migration.
-output_data = network(mindspore.Tensor(input_data))
+output_data = network(ms.Tensor(input_data))
 assert np.allclose(output_data.asnumpy(), output_benchmark)
 
 # Generate the MindIR file.
-mindspore.export(network, mindspore.Tensor(input_data)), file_name='your_network_name', file_format='MINDIR')
+ms.export(network, ms.Tensor(input_data)), file_name='your_network_name', file_format='MINDIR')
 ```
 
 Notes:
@@ -344,8 +344,8 @@ for i in range(EPOCH_SIZE):
 Corresponding generated codes(High-Level API) with MindSpore framework are as follows:
 
 ```python
+import mindspore as ms
 from mindspore import nn
-from mindspore import Model
 
 # Replace the following classpath according to the actual situation.
 from customized.path.to.mindspore.model import MindSporeNetwork
@@ -358,7 +358,7 @@ scheduler = nn.ExponentialDecayLR(LEARNING_RATE, decay_rate=DECAY_RATE, decay_st
 optimizer = nn.SGD(params=network.trainable_params(), learning_rate=scheduler)
 
 # Launch the model training.
-model = Model(network, loss_fn=loss_fn, optimizer=optimizer)
+model = ms.Model(network, loss_fn=loss_fn, optimizer=optimizer)
 model.train(EPOCH_SIZE, dataset)
 ```
 
@@ -411,17 +411,16 @@ for data, label in data_iterator:
 Corresponding generated codes(High-Level API) with MindSpore framework are as follows:
 
 ```python
-import mindspore
-from mindspore import Model
+import mindspore as ms
 
 # Replace the following classpath according to the actual situation.
 from customized.path.to.mindspore.model import MindSporeNetwork
 
 network = MindSporeNetwork()
-param_dict = mindspore.load_checkpoint('/path/to/weights.ckpt')
+param_dict = ms.load_checkpoint('/path/to/weights.ckpt')
 mindspore.load_param_into_net(network, param_dict)
 
-model = Model(network, loss_fn=loss_fn, metrics={'accuracy'})
+model = ms.Model(network, loss_fn=loss_fn, metrics={'accuracy'})
 accuracy = model.eval(dataset)
 ```
 
@@ -600,7 +599,7 @@ class Model(nn.Cell):
 Validate the equivalence of migration by mixing the MindSpore model and weights with the PyTorch training scripts.
 
 ```python
-import mindspore
+import mindspore as ms
 import torch
 from torch.utils.data import DataLoader
 
@@ -608,12 +607,12 @@ from torch.utils.data import DataLoader
 from customized.path.to.mindspore.model import MindSporeNetwork
 
 network = MindSporeNetwork()
-param_dict = mindspore.load_checkpoint('network.ckpt')
-mindspore.load_param_into_net(network, param_dict)
+param_dict = ms.load_checkpoint('network.ckpt')
+ms.load_param_into_net(network, param_dict)
 
 data_loader = DataLoader(dataset, batch_size=BATCH_SIZE)
 for data, label in data_loader:
-    ms_data = mindspore.Tensor(data.numpy())
+    ms_data = ms.Tensor(data.numpy())
     ms_output = network(ms_data)
     output = torch.Tensor(ms_output.asnumpy())
     loss = loss_fn(output, label)

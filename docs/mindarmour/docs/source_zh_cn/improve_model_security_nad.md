@@ -28,22 +28,20 @@ import os
 import numpy as np
 from scipy.special import softmax
 
+import mindspore as ms
 from mindspore import dataset as ds
-from mindspore import dtype as mstype
 import mindspore.dataset.vision.c_transforms as CV
 import mindspore.dataset.transforms.c_transforms as C
 from mindspore.dataset.vision import Inter
 import mindspore.nn as nn
 from mindspore.nn import SoftmaxCrossEntropyWithLogits
 from mindspore.common.initializer import TruncatedNormal
-from mindspore import Model, Tensor, set_context, GRAPH_MODE
-from mindspore import LossMonitor
 
 from mindarmour.adv_robustness.attacks import FastGradientSignMethod
 from mindarmour.utils import LogUtil
 from mindarmour.adv_robustness.evaluations import AttackEvaluate
 
-set_context(mode=GRAPH_MODE, device_target="Ascend")
+ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
 
 LOGGER = LogUtil.get_instance()
 LOGGER.set_level("INFO")
@@ -74,14 +72,14 @@ def generate_mnist_dataset(data_path, batch_size=32, repeat_size=1,
                           interpolation=Inter.LINEAR)
     rescale_op = CV.Rescale(rescale, shift)
     hwc2chw_op = CV.HWC2CHW()
-    type_cast_op = C.TypeCast(mstype.int32)
+    type_cast_op = C.TypeCast(ms.int32)
 
     # apply map operations on images
     if not sparse:
         one_hot_enco = C.OneHot(10)
         ds1 = ds1.map(operations=one_hot_enco, input_columns="label",
                       num_parallel_workers=num_parallel_workers)
-        type_cast_op = C.TypeCast(mstype.float32)
+        type_cast_op = C.TypeCast(ms.float32)
     ds1 = ds1.map(operations=type_cast_op, input_columns="label",
                   num_parallel_workers=num_parallel_workers)
     ds1 = ds1.map(operations=resize_op, input_columns="image",
@@ -167,8 +165,8 @@ def generate_mnist_dataset(data_path, batch_size=32, repeat_size=1,
     net = LeNet5()
     loss = SoftmaxCrossEntropyWithLogits(sparse=False)
     opt = nn.Momentum(net.trainable_params(), 0.01, 0.09)
-    model = Model(net, loss, opt, metrics=None)
-    model.train(10, ds_train, callbacks=[LossMonitor()],
+    model = ms.Model(net, loss, opt, metrics=None)
+    model.train(10, ds_train, callbacks=[ms.LossMonitor()],
                 dataset_sink_mode=False)
 
     # 2. get test data
@@ -189,7 +187,7 @@ def generate_mnist_dataset(data_path, batch_size=32, repeat_size=1,
     ```python
     # prediction accuracy before attack
     net.set_train(False)
-    test_logits = net(Tensor(test_inputs)).asnumpy()
+    test_logits = net(ms.Tensor(test_inputs)).asnumpy()
 
     tmp = np.argmax(test_logits, axis=1) == np.argmax(test_labels, axis=1)
     accuracy = np.mean(tmp)
@@ -213,7 +211,7 @@ attack = FastGradientSignMethod(net, eps=0.3, loss_fn=loss)
 adv_data = attack.batch_generate(test_inputs, test_labels)
 
 # get accuracy of adv data on original model
-adv_logits = net(Tensor(adv_data)).asnumpy()
+adv_logits = net(ms.Tensor(adv_data)).asnumpy()
 adv_proba = softmax(adv_logits, axis=1)
 tmp = np.argmax(adv_proba, axis=1) == np.argmax(test_labels, axis=1)
 accuracy_adv = np.mean(tmp)
@@ -274,14 +272,14 @@ nad.batch_defense(test_inputs, test_labels, batch_size=32, epochs=10)
 
 # get accuracy of test data on defensed model
 net.set_train(False)
-test_logits = net(Tensor(test_inputs)).asnumpy()
+test_logits = net(ms.Tensor(test_inputs)).asnumpy()
 
 tmp = np.argmax(test_logits, axis=1) == np.argmax(test_labels, axis=1)
 accuracy = np.mean(tmp)
 LOGGER.info(TAG, 'accuracy of TEST data on defensed model is : %s', accuracy)
 
 # get accuracy of adv data on defensed model
-adv_logits = net(Tensor(adv_data)).asnumpy()
+adv_logits = net(ms.Tensor(adv_data)).asnumpy()
 adv_proba = softmax(adv_logits, axis=1)
 tmp = np.argmax(adv_proba, axis=1) == np.argmax(test_labels, axis=1)
 accuracy_adv = np.mean(tmp)

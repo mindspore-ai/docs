@@ -16,10 +16,10 @@ MindSpore框架提供通过加密对模型文件进行保护的功能，使用�
 目前MindSpore支持用Callback机制在训练过程中保存模型参数，用户可以在`CheckpointConfig`对象中配置加密密钥和加密模式，并将其传入`ModelCheckpoint`来启用参数文件的加密保护。具体配置方法如下：
 
 ```python
-from mindspore import CheckpointConfig, ModelCheckpoint
+import mindspore as ms
 
-config_ck = CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10, enc_key=b'0123456789ABCDEF', enc_mode='AES-GCM')
-ckpoint_cb = ModelCheckpoint(prefix='lenet_enc', directory=None, config=config_ck)
+config_ck = ms.CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10, enc_key=b'0123456789ABCDEF', enc_mode='AES-GCM')
+ckpoint_cb = ms.ModelCheckpoint(prefix='lenet_enc', directory=None, config=config_ck)
 model.train(10, dataset, callbacks=ckpoint_cb)
 ```
 
@@ -32,9 +32,9 @@ model.train(10, dataset, callbacks=ckpoint_cb)
 除了上面这种保存模型参数的方法，还可以调用`save_checkpoint`接口来保存模型参数，使用方法如下：
 
 ```python
-from mindspore import save_checkpoint
+import mindspore as ms
 
-save_checkpoint(network, 'lenet_enc.ckpt', enc_key=b'0123456789ABCDEF', enc_mode='AES-GCM')
+ms.save_checkpoint(network, 'lenet_enc.ckpt', enc_key=b'0123456789ABCDEF', enc_mode='AES-GCM')
 ```
 
 其中`enc_key`和`enc_mode`的定义同上。
@@ -44,9 +44,9 @@ save_checkpoint(network, 'lenet_enc.ckpt', enc_key=b'0123456789ABCDEF', enc_mode
 MindSpore提供`load_checkpoint`和`load_distributed_checkpoint`分别用于单文件和分布式场景下加载CheckPoint参数文件。以单文件场景为例，可以用如下方式加载密文CheckPoint文件：
 
 ```python
-from mindspore import load_checkpoint
+import mindspore as ms
 
-param_dict = load_checkpoint('lenet_enc.ckpt', dec_key=b'0123456789ABCDEF', dec_mode='AES-GCM')
+param_dict = ms.load_checkpoint('lenet_enc.ckpt', dec_key=b'0123456789ABCDEF', dec_mode='AES-GCM')
 ```
 
 上述代码中，通过指定`dec_key`和`dec_mode`来启用对密文文件的读取。
@@ -62,9 +62,9 @@ param_dict = load_checkpoint('lenet_enc.ckpt', dec_key=b'0123456789ABCDEF', dec_
 MindSpore提供的`export`接口可导出MindIR、AIR、ONNX等格式的模型，在导出MindIR模型时可用如下方式启用加密保护：
 
 ```python
-from mindspore import export
-input_arr = Tensor(np.zeros([32, 3, 32, 32], np.float32))
-export(network, input_arr, file_name='lenet_enc', file_format='MINDIR', enc_key=b'0123456789ABCDEF', enc_mode='AES-GCM')
+import mindspore as ms
+input_arr = ms.Tensor(np.zeros([32, 3, 32, 32], np.float32))
+ms.export(network, input_arr, file_name='lenet_enc', file_format='MINDIR', enc_key=b'0123456789ABCDEF', enc_mode='AES-GCM')
 ```
 
 > AIR和ONNX格式暂不支持加密保护。
@@ -74,8 +74,8 @@ export(network, input_arr, file_name='lenet_enc', file_format='MINDIR', enc_key=
 云侧使用Python编写脚本，可以用`load`接口加载MindIR模型，在加载密文MindIR时，通过指定`dec_key`和`dec_mode`对模型进行解密。
 
 ```python
-from mindspore import load
-graph = load('lenet_enc.mindir', dec_key=b'0123456789ABCDEF', dec_mode='AES-GCM')
+import mindspore as ms
+graph = ms.load('lenet_enc.mindir', dec_key=b'0123456789ABCDEF', dec_mode='AES-GCM')
 ```
 
 对于C++脚本，MindSpore也提供了`Load`接口以加载MindIR模型，接口定义可参考[api文档](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore.html)：

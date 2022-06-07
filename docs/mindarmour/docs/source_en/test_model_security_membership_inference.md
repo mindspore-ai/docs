@@ -30,12 +30,11 @@ import os
 
 import numpy as np
 
+import mindspore as ms
 import mindspore.nn as nn
-from mindspore import Model, load_param_into_net, load_checkpoint
-from mindspore import dtype as mstype
 from mindspore.common import initializer as init
 from mindspore.common.initializer import initializer
-import mindspore.dataset as de
+import mindspore.dataset as ds
 import mindspore.dataset.transforms.c_transforms as C
 import mindspore.dataset.vision.c_transforms as vision
 from mindarmour import MembershipInference
@@ -55,16 +54,16 @@ The CIFAR-100 dataset is used as an example. You can use your own dataset. Ensur
 def vgg_create_dataset100(data_home, image_size, batch_size, rank_id=0, rank_size=1, repeat_num=1,
                           training=True, num_samples=None, shuffle=True):
     """Data operations."""
-    de.config.set_seed(1)
+    ds.config.set_seed(1)
     data_dir = os.path.join(data_home, "train")
     if not training:
         data_dir = os.path.join(data_home, "test")
 
     if num_samples is not None:
-        data_set = de.Cifar100Dataset(data_dir, num_shards=rank_size, shard_id=rank_id,
+        data_set = ds.Cifar100Dataset(data_dir, num_shards=rank_size, shard_id=rank_id,
                                       num_samples=num_samples, shuffle=shuffle)
     else:
-        data_set = de.Cifar100Dataset(data_dir, num_shards=rank_size, shard_id=rank_id)
+        data_set = ds.Cifar100Dataset(data_dir, num_shards=rank_size, shard_id=rank_id)
 
     input_columns = ["fine_label"]
     output_columns = ["label"]
@@ -81,7 +80,7 @@ def vgg_create_dataset100(data_home, image_size, batch_size, rank_id=0, rank_siz
     rescale_op = vision.Rescale(rescale, shift)
     normalize_op = vision.Normalize((0.4465, 0.4822, 0.4914), (0.2010, 0.1994, 0.2023))
     changeswap_op = vision.HWC2CHW()
-    type_cast_op = C.TypeCast(mstype.int32)
+    type_cast_op = C.TypeCast(ms.int32)
 
     c_trans = []
     if training:
@@ -193,8 +192,8 @@ def vgg16(num_classes=1000, args=None, phase="train"):
     loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True)
     opt = nn.Momentum(params=net.trainable_params(), learning_rate=0.1, momentum=0.9,
                       weight_decay=args.weight_decay, loss_scale=args.loss_scale)
-    load_param_into_net(net, load_checkpoint(args.pre_trained))
-    model = Model(network=net, loss_fn=loss, optimizer=opt)
+    ms.load_param_into_net(net, ms.load_checkpoint(args.pre_trained))
+    model = ms.Model(network=net, loss_fn=loss, optimizer=opt)
     ```
 
 2. Load the CIFAR-100 dataset and split it into a training set and a test set of the membership inference model at the ratio of 8:2.
