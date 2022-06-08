@@ -12,16 +12,16 @@ MindSpore提供了一种运算负载均衡的技术，可以将MindSpore的算�
 
 当前支持异构加速功能的数据增强算子有：
 
-| 算子名               | 算子位置                                     | 算子功能                                |
-| -------------------- | -------------------------------------------- | --------------------------------------- |
-| HWC2CHW              | mindspore.dataset.vision.c_transforms.py     | 将图像的维度从(H,W,C) 转换为 (C,H,W)    |
-| Normalize            | mindspore.dataset.vision.c_transforms.py     | 对图像进行标准化                        |
-| RandomColorAdjust    | mindspore.dataset.vision.c_transforms.py     | 对图像进行随机颜色调整                  |
-| RandomHorizontalFlip | mindspore.dataset.vision.c_transforms.py     | 对图像进行随机水平翻转                  |
-| RandomSharpness      | mindspore.dataset.vision.c_transforms.py     | 对图像进行随机锐化                      |
-| RandomVerticalFlip   | mindspore.dataset.vision.c_transforms.py     | 对图像进行随机垂直翻转                  |
-| Rescale              | mindspore.dataset.vision.c_transforms.py     | 对图像的像素值进行缩放                  |
-| TypeCast             | mindspore.dataset.transforms.c_transforms.py | 将张量强制转换为给定的MindSpore数据类型 |
+| 算子名               | 算子位置                                    | 算子功能                                |
+| -------------------- | ------------------------------------------ | --------------------------------------- |
+| HWC2CHW              | mindspore.dataset.vision.transforms.py     | 将图像的维度从(H,W,C) 转换为 (C,H,W)    |
+| Normalize            | mindspore.dataset.vision.transforms.py     | 对图像进行标准化                        |
+| RandomColorAdjust    | mindspore.dataset.vision.transforms.py     | 对图像进行随机颜色调整                  |
+| RandomHorizontalFlip | mindspore.dataset.vision.transforms.py     | 对图像进行随机水平翻转                  |
+| RandomSharpness      | mindspore.dataset.vision.transforms.py     | 对图像进行随机锐化                      |
+| RandomVerticalFlip   | mindspore.dataset.vision.transforms.py     | 对图像进行随机垂直翻转                  |
+| Rescale              | mindspore.dataset.vision.transforms.py     | 对图像的像素值进行缩放                  |
+| TypeCast             | mindspore.dataset.transforms.transforms.py | 将张量强制转换为给定的MindSpore数据类型 |
 
 ## 流程
 
@@ -57,15 +57,15 @@ ds.config.set_auto_offload(True)
 ```python
 import mindspore.dataset as ds
 import mindspore.common.dtype as mstype
-import mindspore.dataset.vision.c_transforms as c_vision
-import mindspore.dataset.transforms.c_transforms as c_tranforms
+import mindspore.dataset.vision as vision
+import mindspore.dataset.transforms as transforms
 
 dataset = ds.ImageFolder(dir)
-type_cast_op = c_tranforms.TypeCast(mstype.int32)
-image_ops = [c_vision.RandomCropDecodeResize(train_image_size),
-             c_vision.RandomHorizontalFlip(prob=0.5),
-             c_vision.Normalize(mean=mean, std=std),
-             c_vision.HWC2CHW()]
+type_cast_op = transforms.TypeCast(mstype.int32)
+image_ops = [vision.RandomCropDecodeResize(train_image_size),
+             vision.RandomHorizontalFlip(prob=0.5),
+             vision.Normalize(mean=mean, std=std),
+             vision.HWC2CHW()]
 dataset = dataset.map(operations=type_cast_op, input_columns="label", offload=True)
 dataset = dataset.map(operations=image_ops , input_columns="image", offload=True)
 ```

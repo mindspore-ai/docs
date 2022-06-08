@@ -13,15 +13,15 @@ class torchvision.transforms.RandomSolarize(
 
 For more information, see  [torchvision.transforms.RandomSolarize](https://pytorch.org/vision/0.10/transforms.html#torchvision.transforms.RandomSolarize).
 
-## mindspore.dataset.vision.c_transforms.RandomSolarize
+## mindspore.dataset.vision.RandomSolarize
 
 ```python
-class mindspore.dataset.vision.c_transforms.RandomSolarize(
+class mindspore.dataset.vision.RandomSolarize(
     threshold=(0, 255)
     )
 ```
 
-For more information, see  [mindspore.dataset.vision.c_transforms.RandomSolarize](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.RandomSolarize.html#mindspore.dataset.vision.c_transforms.RandomSolarize).
+For more information, see  [mindspore.dataset.vision.RandomSolarize](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.RandomSolarize.html#mindspore.dataset.vision.RandomSolarize).
 
 ## Differences
 
@@ -37,7 +37,7 @@ from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
 import torchvision.transforms as T
-import mindspore.dataset.vision.c_transforms as c_vision
+import mindspore.dataset.vision as c_vision
 
 orig_img = Image.open(Path('.') / 'test.jpg')
 

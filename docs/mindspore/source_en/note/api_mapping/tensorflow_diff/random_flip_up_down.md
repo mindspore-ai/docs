@@ -13,15 +13,15 @@ tf.image.random_flip_up_down(
 
 For more information, see [tf.image.random_flip_up_down](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/image/random_flip_up_down).
 
-## mindspore.dataset.vision.c_transforms.RandomVerticalFlip
+## mindspore.dataset.vision.RandomVerticalFlip
 
 ```python
-class mindspore.dataset.vision.c_transforms.RandomVerticalFlip(
+class mindspore.dataset.vision.RandomVerticalFlip(
     prob=0.5
 )
 ```
 
-For more information, see [mindspore.dataset.vision.c_transforms.RandomVerticalFlip](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.RandomVerticalFlip.html#mindspore.dataset.vision.c_transforms.RandomVerticalFlip).
+For more information, see [mindspore.dataset.vision.RandomVerticalFlip](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.RandomVerticalFlip.html#mindspore.dataset.vision.RandomVerticalFlip).
 
 ## Differences
 
@@ -38,7 +38,7 @@ import mindspore.dataset as ds
 
 ds.config.set_seed(57)
 image = np.random.random((28, 28, 3))
-result = ds.vision.c_transforms.RandomVerticalFlip(prob=0.5)(image)
+result = ds.vision.RandomVerticalFlip(prob=0.5)(image)
 print(result.shape)
 # (28, 28, 3)
 

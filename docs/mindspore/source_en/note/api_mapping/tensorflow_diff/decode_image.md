@@ -16,21 +16,21 @@ tf.io.decode_image(
 
 For more information, see [tf.io.decode_image](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/io/decode_image).
 
-## mindspore.dataset.vision.c_transforms.Decode
+## mindspore.dataset.vision.Decode
 
 ```python
-class mindspore.dataset.vision.c_transforms.Decode(
-    rgb=True
+class mindspore.dataset.vision.Decode(
+    to_pil=False
 )
 ```
 
-For more information, see [mindspore.dataset.vision.c_transforms.Decode](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.Decode.html#mindspore.dataset.vision.c_transforms.Decode).
+For more information, see [mindspore.dataset.vision.Decode](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.Decode.html#mindspore.dataset.vision.Decode).
 
 ## Differences
 
 TensorFlow: Decode the raw image bytes into an image with the specified number of channels and data type. It supports decoding GIF images.
 
-MindSpore: Decode the raw image bytes into a RGB image.
+MindSpore: Decode the raw image bytes into a RGB image, `to_pil` decides that whether output in PIL format or NumPy Format.
 
 ## Code Example
 
@@ -40,7 +40,7 @@ import numpy as np
 import mindspore.dataset as ds
 
 image = np.fromfile("/tmp/file.jpg", dtype=np.uint8)
-result = ds.vision.c_transforms.Decode()(image)
+result = ds.vision.Decode()(image)
 
 # The following implements decode_image with TensorFlow.
 import tensorflow as tf

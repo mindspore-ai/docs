@@ -15,10 +15,10 @@ tf.image.random_crop(
 
 更多内容详见[tf.image.random_crop](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/image/random_crop)。
 
-## mindspore.dataset.vision.c_transforms.RandomCrop
+## mindspore.dataset.vision.RandomCrop
 
 ```python
-class mindspore.dataset.vision.c_transforms.RandomCrop(
+class mindspore.dataset.vision.RandomCrop(
     size,
     padding=None,
     pad_if_needed=False,
@@ -27,7 +27,7 @@ class mindspore.dataset.vision.c_transforms.RandomCrop(
 )
 ```
 
-更多内容详见[mindspore.dataset.vision.c_transforms.RandomCrop](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.RandomCrop.html#mindspore.dataset.vision.c_transforms.RandomCrop)。
+更多内容详见[mindspore.dataset.vision.RandomCrop](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.RandomCrop.html#mindspore.dataset.vision.RandomCrop)。
 
 ## 使用方式
 
@@ -44,7 +44,7 @@ import mindspore.dataset as ds
 
 ds.config.set_seed(57)
 image = np.random.random((28, 28, 3))
-result = ds.vision.c_transforms.RandomCrop((5, 5))(image)
+result = ds.vision.RandomCrop((5, 5))(image)
 print(result.shape)
 # (5, 5, 3)
 

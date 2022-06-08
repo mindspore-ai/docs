@@ -12,16 +12,16 @@ The offload feature will move only the supported dataset operations applied on t
 
 The current supported data augmentation operators which can perform heterogeneous acceleration are:
 
-| Operator Name        | Operator Path                                | Operator Introduction                                        |
-| -------------------- | -------------------------------------------- | ------------------------------------------------------------ |
-| HWC2CHW              | mindspore.dataset.vision.c_transforms.py     | Transpose a Numpy image array from shape (H, W, C) to shape (C, H, W) |
-| Normalize            | mindspore.dataset.vision.c_transforms.py     | Normalize the image                                          |
-| RandomColorAdjust    | mindspore.dataset.vision.c_transforms.py     | Perform a random brightness, contrast, saturation, and hue adjustment on the input PIL image |
-| RandomHorizontalFlip | mindspore.dataset.vision.c_transforms.py     | Randomly flip the input image                                |
-| RandomSharpness      | mindspore.dataset.vision.c_transforms.py     | Adjust the sharpness of the input PIL Image by a random degree |
-| RandomVerticalFlip   | mindspore.dataset.vision.c_transforms.py     | Randomly flip the input image vertically with a given probability |
-| Rescale              | mindspore.dataset.vision.c_transforms.py     | Rescale the input image with the given rescale and shift     |
-| TypeCast             | mindspore.dataset.transforms.c_transforms.py | Cast tensor to a given MindSpore data type                   |
+| Operator Name        | Operator Path                              | Operator Introduction                                        |
+| -------------------- | -------------------------------------------| ------------------------------------------------------------ |
+| HWC2CHW              | mindspore.dataset.vision.transforms.py     | Transpose a Numpy image array from shape (H, W, C) to shape (C, H, W) |
+| Normalize            | mindspore.dataset.vision.transforms.py     | Normalize the image                                          |
+| RandomColorAdjust    | mindspore.dataset.vision.transforms.py     | Perform a random brightness, contrast, saturation, and hue adjustment on the input PIL image |
+| RandomHorizontalFlip | mindspore.dataset.vision.transforms.py     | Randomly flip the input image                                |
+| RandomSharpness      | mindspore.dataset.vision.transforms.py     | Adjust the sharpness of the input PIL Image by a random degree |
+| RandomVerticalFlip   | mindspore.dataset.vision.transforms.py     | Randomly flip the input image vertically with a given probability |
+| Rescale              | mindspore.dataset.vision.transforms.py     | Rescale the input image with the given rescale and shift     |
+| TypeCast             | mindspore.dataset.transforms.transforms.py | Cast tensor to a given MindSpore data type                   |
 
 ## Offload Process
 
@@ -57,15 +57,15 @@ Set the argument offload to True in the map data processing operator (by default
 ```python
 import mindspore.dataset as ds
 import mindspore.common.dtype as mstype
-import mindspore.dataset.vision.c_transforms as c_vision
-import mindspore.dataset.transforms.c_transforms as c_tranforms
+import mindspore.dataset.vision as vision
+import mindspore.dataset.transforms as transforms
 
 dataset = ds.ImageFolder(dir)
-type_cast_op = c_tranforms.TypeCast(mstype.int32)
-image_ops = [c_vision.RandomCropDecodeResize(train_image_size),
-             c_vision.RandomHorizontalFlip(prob=0.5),
-             c_vision.Normalize(mean=mean, std=std),
-             c_vision.HWC2CHW()]
+type_cast_op = transforms.TypeCast(mstype.int32)
+image_ops = [vision.RandomCropDecodeResize(train_image_size),
+             vision.RandomHorizontalFlip(prob=0.5),
+             vision.Normalize(mean=mean, std=std),
+             vision.HWC2CHW()]
 dataset = dataset.map(operations=type_cast_op, input_columns="label", offload=True)
 dataset = dataset.map(operations=image_ops , input_columns="image", offload=True)
 ```

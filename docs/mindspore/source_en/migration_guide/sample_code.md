@@ -152,8 +152,8 @@ The following data processing functions are developed based on MindData:
 import os
 from mindspore import dtype as mstype
 import mindspore.dataset as ds
-import mindspore.dataset.vision.c_transforms as C
-import mindspore.dataset.transforms.c_transforms as C2
+import mindspore.dataset.vision as C
+import mindspore.dataset.transforms as C2
 
 
 def create_dataset(dataset_path, batch_size=32, rank_size=1, rank_id=0, do_train=True):

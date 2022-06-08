@@ -13,15 +13,15 @@ tf.image.rgb_to_grayscale(
 
 For more information, see [tf.image.rgb_to_grayscale](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/image/rgb_to_grayscale).
 
-## mindspore.dataset.vision.c_transforms.ConvertColor
+## mindspore.dataset.vision.ConvertColor
 
 ```python
-class mindspore.dataset.vision.c_transforms.ConvertColor(
+class mindspore.dataset.vision.ConvertColor(
     convert_mode
 )
 ```
 
-For more information, see [mindspore.dataset.vision.c_transforms.ConvertColor](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.ConvertColor.html#mindspore.dataset.vision.c_transforms.ConvertColor).
+For more information, see [mindspore.dataset.vision.ConvertColor](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.ConvertColor.html#mindspore.dataset.vision.ConvertColor).
 
 ## Differences
 
@@ -38,7 +38,7 @@ import mindspore.dataset as ds
 from mindspore.dataset.vision import ConvertMode
 
 image = np.random.random((28, 28, 3)).astype(np.float32)
-result = ds.vision.c_transforms.ConvertColor(ConvertMode.COLOR_RGB2GRAY)(image)
+result = ds.vision.ConvertColor(ConvertMode.COLOR_RGB2GRAY)(image)
 print(result.shape)
 # (28, 28)
 

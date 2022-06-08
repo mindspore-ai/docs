@@ -16,15 +16,15 @@ tf.io.decode_image(
 
 更多内容详见[tf.io.decode_image](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/io/decode_image)。
 
-## mindspore.dataset.vision.c_transforms.Decode
+## mindspore.dataset.vision.Decode
 
 ```python
-class mindspore.dataset.vision.c_transforms.Decode(
+class mindspore.dataset.vision.Decode(
     rgb=True
 )
 ```
 
-更多内容详见[mindspore.dataset.vision.c_transforms.Decode](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.Decode.html#mindspore.dataset.vision.c_transforms.Decode)。
+更多内容详见[mindspore.dataset.vision.Decode](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.Decode.html#mindspore.dataset.vision.Decode)。
 
 ## 使用方式
 
@@ -40,7 +40,7 @@ import numpy as np
 import mindspore.dataset as ds
 
 image = np.fromfile("/tmp/file.jpg", dtype=np.uint8)
-result = ds.vision.c_transforms.Decode()(image)
+result = ds.vision.Decode()(image)
 
 # The following implements decode_image with TensorFlow.
 import tensorflow as tf

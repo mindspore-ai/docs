@@ -16,16 +16,16 @@ tf.image.crop_to_bounding_box(
 
 For more information, see [tf.image.crop_to_bounding_box](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/image/crop_to_bounding_box).
 
-## mindspore.dataset.vision.c_transforms.Crop
+## mindspore.dataset.vision.Crop
 
 ```python
-class mindspore.dataset.vision.c_transforms.Crop(
+class mindspore.dataset.vision.Crop(
     coordinates,
     size
 )
 ```
 
-For more information, see [mindspore.dataset.vision.c_transforms.Crop](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.Crop.html#mindspore.dataset.vision.c_transforms.Crop).
+For more information, see [mindspore.dataset.vision.Crop](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.Crop.html#mindspore.dataset.vision.Crop).
 
 ## Differences
 
@@ -41,7 +41,7 @@ import numpy as np
 import mindspore.dataset as ds
 
 image = np.random.random((28, 28, 3))
-result = ds.vision.c_transforms.Crop((0, 0), (14, 14))(image)
+result = ds.vision.Crop((0, 0), (14, 14))(image)
 print(result.shape)
 # (14, 14, 3)
 

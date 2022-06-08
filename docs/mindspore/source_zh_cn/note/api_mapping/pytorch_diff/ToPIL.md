@@ -12,13 +12,13 @@ class torchvision.transforms.ToPILImage(
 
 更多内容详见[torchvision.transforms.ToPILImage](https://pytorch.org/vision/0.10/transforms.html#torchvision.transforms.ToPILImage)。
 
-## mindspore.dataset.vision.py_transforms.ToPIL
+## mindspore.dataset.vision.ToPIL
 
 ```python
-class mindspore.dataset.vision.py_transforms.ToPIL
+class mindspore.dataset.vision.ToPIL
 ```
 
-更多内容详见[mindspore.dataset.vision.py_transforms.ToPIL](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.py_transforms.ToPIL.html#mindspore.dataset.vision.py_transforms.ToPIL)。
+更多内容详见[mindspore.dataset.vision.ToPIL](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.ToPIL.html#mindspore.dataset.vision.ToPIL)。
 
 ## 使用方式
 
@@ -32,12 +32,12 @@ MindSpore：输入为解码后的numpy数组，将其转换为PIL类型的图像
 import numpy as np
 import torch as T
 from torchvision.transforms import ToPILImage
-import mindspore.dataset.vision.py_transforms as py_vision
+import mindspore.dataset.vision as vision
 
 # In MindSpore, ToPIL transform the numpy.ndarray to PIL Image.
 
 image = np.random.random((64,64))
-img = py_vision.ToPIL()(image)
+img = vision.ToPIL()(image)
 img.show()
 # Out:
 # window of PIL image

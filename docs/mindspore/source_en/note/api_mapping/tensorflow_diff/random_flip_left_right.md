@@ -13,15 +13,15 @@ tf.image.random_flip_left_right(
 
 For more information, see [tf.image.random_flip_left_right](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/image/random_flip_left_right).
 
-## mindspore.dataset.vision.c_transforms.RandomHorizontalFlip
+## mindspore.dataset.vision.RandomHorizontalFlip
 
 ```python
-class mindspore.dataset.vision.c_transforms.RandomHorizontalFlip(
+class mindspore.dataset.vision.RandomHorizontalFlip(
     prob=0.5
 )
 ```
 
-For more information, see [mindspore.dataset.vision.c_transforms.RandomHorizontalFlip](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.RandomHorizontalFlip.html#mindspore.dataset.vision.c_transforms.RandomHorizontalFlip).
+For more information, see [mindspore.dataset.vision.RandomHorizontalFlip](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.RandomHorizontalFlip.html#mindspore.dataset.vision.RandomHorizontalFlip).
 
 ## Differences
 
@@ -38,7 +38,7 @@ import mindspore.dataset as ds
 
 ds.config.set_seed(57)
 image = np.random.random((28, 28, 3))
-result = ds.vision.c_transforms.RandomHorizontalFlip(prob=0.5)(image)
+result = ds.vision.RandomHorizontalFlip(prob=0.5)(image)
 print(result.shape)
 # (28, 28, 3)
 

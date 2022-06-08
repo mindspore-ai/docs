@@ -251,7 +251,7 @@ transforms = [
     py_vision.CenterCrop(375),
     py_vision.ToTensor()
 ]
-transform = mindspore.dataset.transforms.py_transforms.Compose(transforms)
+transform = mindspore.dataset.transforms.Compose(transforms)
 data1 = data1.map(operations=decode_op, input_columns=["image"])
 data1 = data1.map(operations=transform, input_columns=["image"])
 ```
@@ -297,7 +297,7 @@ for item in Dataset:
 <font size=3>**Q: 数据处理算子与网络计算算子能否混合使用？**</font>
 
 A：通常数据处理算子与网络计算算子混合使用会导致性能有所降低，在缺少对应的数据处理算子且自定义py_transforms算子不合适时可进行尝试。需要注意的是，因为二者需要的输入不一致，数据处理算子通常输入为numpy array 或 PIL Image，但网络计算算子输入需要是MindSpore.Tensor;
-将二者混合使用需要使上一个算子的输出格式和下一个算子所需的输入格式一致。数据处理算子指的是官网API文档中mindspore.dataset开头的算子，如 mindspore.dataset.vision.c_transforms.CenterCrop，网络计算算子包含 mindspore.nn、 mindspore.ops等目录下的算子。
+将二者混合使用需要使上一个算子的输出格式和下一个算子所需的输入格式一致。数据处理算子指的是官网API文档中mindspore.dataset开头的算子，如 mindspore.dataset.vision.CenterCrop，网络计算算子包含 mindspore.nn、 mindspore.ops等目录下的算子。
 
 <br/>
 

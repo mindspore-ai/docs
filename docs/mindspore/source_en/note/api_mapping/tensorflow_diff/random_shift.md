@@ -20,10 +20,10 @@ tf.keras.preprocessing.image.random_shift(
 
 For more information, see [tf.keras.preprocessing.image.random_shift](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/preprocessing/image/random_shift).
 
-## mindspore.dataset.vision.c_transforms.RandomAffine
+## mindspore.dataset.vision.RandomAffine
 
 ```python
-class mindspore.dataset.vision.c_transforms.RandomAffine(
+class mindspore.dataset.vision.RandomAffine(
     degrees,
     translate=None,
     scale=None,
@@ -33,7 +33,7 @@ class mindspore.dataset.vision.c_transforms.RandomAffine(
 )
 ```
 
-For more information, see [mindspore.dataset.vision.c_transforms.RandomAffine](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.RandomAffine.html#mindspore.dataset.vision.c_transforms.RandomAffine).
+For more information, see [mindspore.dataset.vision.RandomAffine](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.RandomAffine.html#mindspore.dataset.vision.RandomAffine).
 
 ## Differences
 
@@ -50,7 +50,7 @@ import mindspore.dataset as ds
 from mindspore.dataset.vision import Inter
 
 image = np.random.random((28, 28, 3))
-result = ds.vision.c_transforms.RandomAffine(0, translate=(0.2, 0.3), resample=Inter.NEAREST)(image)
+result = ds.vision.RandomAffine(0, translate=(0.2, 0.3), resample=Inter.NEAREST)(image)
 print(result.shape)
 # (28, 28, 3)
 

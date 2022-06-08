@@ -19,10 +19,10 @@ tf.keras.preprocessing.image.random_rotation(
 
 For more information, see [tf.keras.preprocessing.image.random_rotation](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/keras/preprocessing/image/random_rotation).
 
-## mindspore.dataset.vision.c_transforms.RandomRotation
+## mindspore.dataset.vision.RandomRotation
 
 ```python
-class mindspore.dataset.vision.c_transforms.RandomRotation(
+class mindspore.dataset.vision.RandomRotation(
     degrees,
     resample=Inter.NEAREST,
     expand=False,
@@ -31,7 +31,7 @@ class mindspore.dataset.vision.c_transforms.RandomRotation(
 )
 ```
 
-For more information, see [mindspore.dataset.vision.c_transforms.RandomRotation](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.RandomRotation.html#mindspore.dataset.vision.c_transforms.RandomRotation).
+For more information, see [mindspore.dataset.vision.RandomRotation](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.RandomRotation.html#mindspore.dataset.vision.RandomRotation).
 
 ## Differences
 
@@ -48,7 +48,7 @@ import mindspore.dataset as ds
 from mindspore.dataset.vision import Inter
 
 image = np.random.random((28, 28, 3))
-result = ds.vision.c_transforms.RandomRotation(90, resample=Inter.NEAREST)(image)
+result = ds.vision.RandomRotation(90, resample=Inter.NEAREST)(image)
 print(result.shape)
 # (28, 28, 3)
 

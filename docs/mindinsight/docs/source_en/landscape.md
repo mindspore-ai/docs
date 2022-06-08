@@ -19,8 +19,8 @@ The specific use steps are divided into two steps. Taking the classification tas
    ```python
    import mindspore as ms
    import mindspore.dataset as ds
-   import mindspore.dataset.vision.c_transforms as CV
-   import mindspore.dataset.transforms.c_transforms as C
+   import mindspore.dataset.vision as CV
+   import mindspore.dataset.transforms as C
    from mindspore.dataset.vision import Inter
    import mindspore.nn as nn
 
@@ -155,8 +155,8 @@ The specific use steps are divided into two steps. Taking the classification tas
 
    ```python
    import mindspore.dataset as ds
-   import mindspore.dataset.vision.c_transforms as CV
-   import mindspore.dataset.transforms.c_transforms as C
+   import mindspore.dataset.vision as CV
+   import mindspore.dataset.transforms as C
    from mindspore.dataset.vision import Inter
    import mindspore.nn as nn
 

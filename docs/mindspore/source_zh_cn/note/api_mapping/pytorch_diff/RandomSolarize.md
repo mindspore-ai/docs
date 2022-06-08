@@ -13,15 +13,15 @@ class torchvision.transforms.RandomSolarize(
 
 更多内容详见[torchvision.transforms.RandomSolarize](https://pytorch.org/vision/0.10/transforms.html#torchvision.transforms.RandomSolarize)。
 
-## mindspore.dataset.vision.c_transforms.RandomSolarize
+## mindspore.dataset.vision.RandomSolarize
 
 ```python
-class mindspore.dataset.vision.c_transforms.RandomSolarize(
+class mindspore.dataset.vision.RandomSolarize(
     threshold=(0, 255)
     )
 ```
 
-更多内容详见[mindspore.dataset.vision.c_transforms.RandomSolarize](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.RandomSolarize.html#mindspore.dataset.vision.c_transforms.RandomSolarize)。
+更多内容详见[mindspore.dataset.vision.RandomSolarize](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.RandomSolarize.html#mindspore.dataset.vision.RandomSolarize)。
 
 ## 使用方式
 
@@ -37,7 +37,7 @@ from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
 import torchvision.transforms as T
-import mindspore.dataset.vision.c_transforms as c_vision
+import mindspore.dataset.vision as vision
 
 orig_img = Image.open(Path('.') / 'test.jpg')
 
@@ -58,7 +58,7 @@ def show_diff_image(image_original, image_transformed):
 
 # In MindSpore, randomly selects a subrange within the specified threshold range and sets the pixel value within the subrange to (255 - pixel).
 
-solarizer  = c_vision.RandomSolarize(threshold=(10,100))
+solarizer  = vision.RandomSolarize(threshold=(10,100))
 rand_sola_img = solarizer(orig_img)
 show_diff_image(orig_img, rand_sola_img)
 

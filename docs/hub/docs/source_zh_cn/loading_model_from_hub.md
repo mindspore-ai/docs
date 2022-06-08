@@ -23,7 +23,7 @@
     import mindspore
     from mindspore import Tensor, nn, Model, set_context, GRAPH_MODE
     from mindspore import dtype as mstype
-    import mindspore.dataset.vision.py_transforms as py_transforms
+    import mindspore.dataset.vision as vision
 
     set_context(mode=GRAPH_MODE,
                             device_target="Ascend",
@@ -60,8 +60,8 @@
    from mindspore import save_checkpoint, load_checkpoint,load_param_into_net
    from mindspore import ops
    import mindspore.dataset as ds
-   import mindspore.dataset.transforms.c_transforms as C2
-   import mindspore.dataset.vision.c_transforms as C
+   import mindspore.dataset.transforms as C2
+   import mindspore.dataset.vision as C
    from mindspore import dtype as mstype
    from mindspore import Model
    set_context(mode=GRAPH_MODE, device_target="Ascend", device_id=0)

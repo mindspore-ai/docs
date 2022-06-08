@@ -13,15 +13,15 @@ tf.image.grayscale_to_rgb(
 
 更多内容详见[tf.image.grayscale_to_rgb](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/image/grayscale_to_rgb)。
 
-## mindspore.dataset.vision.c_transforms.ConvertColor
+## mindspore.dataset.vision.ConvertColor
 
 ```python
-class mindspore.dataset.vision.c_transforms.ConvertColor(
+class mindspore.dataset.vision.ConvertColor(
     convert_mode
 )
 ```
 
-更多内容详见[mindspore.dataset.vision.c_transforms.ConvertColor](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.c_transforms.ConvertColor.html#mindspore.dataset.vision.c_transforms.ConvertColor)。
+更多内容详见[mindspore.dataset.vision.ConvertColor](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.ConvertColor.html#mindspore.dataset.vision.ConvertColor)。
 
 ## 使用方式
 
@@ -38,7 +38,7 @@ import mindspore.dataset as ds
 from mindspore.dataset.vision import ConvertMode
 
 image = np.random.random((28, 28, 1))
-result = ds.vision.c_transforms.ConvertColor(ConvertMode.COLOR_GRAY2RGB)(image)
+result = ds.vision.ConvertColor(ConvertMode.COLOR_GRAY2RGB)(image)
 print(result.shape)
 # (28, 28, 3)
 
