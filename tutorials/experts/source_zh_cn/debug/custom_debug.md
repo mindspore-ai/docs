@@ -38,35 +38,7 @@ model.train(epoch, dataset, callbacks=[ckpt_cb, loss_cb, summary_cb])
 
 用户可以基于`Callback`基类，根据自身的需求，实现自定义`Callback`。
 
-`Callback`基类定义如下所示：
-
-```python
-class Callback():
-    """Callback base class"""
-    def begin(self, run_context):
-        """Called once before the network executing."""
-        pass
-
-    def epoch_begin(self, run_context):
-        """Called before each epoch beginning."""
-        pass
-
-    def epoch_end(self, run_context):
-        """Called after each epoch finished."""
-        pass
-
-    def step_begin(self, run_context):
-        """Called before each step beginning."""
-        pass
-
-    def step_end(self, run_context):
-        """Called after each step finished."""
-        pass
-
-    def end(self, run_context):
-        """Called once after network training."""
-        pass
-```
+`Callback`基类定义请参考[API详情](https://www.mindspore.cn/docs/zh-CN/master/api_python/mindspore/mindspore.Callback.html)，其中以“on_train”为前缀的方法对应训练过程的不同阶段，以“on_eval”为前缀的方法对应推理过程的不同阶段，没有“on_train”或“on_eval”前缀的方法同时兼容推理和训练过程。自定义callback重写类方法时，建议使用以“on_train”或“on_eval”前缀的方法。
 
 `Callback`可以把训练过程中的重要信息记录下来，通过把一个字典类型变量`RunContext.original_args()`传递给`Callback`对象，
 用户可以在各个自定义的`Callback`中获取到相关属性，执行自定义操作。也可以自定义其他变量传递给`RunContext.original_args()`对象。
@@ -104,11 +76,11 @@ class Callback():
             super(StopAtTime, self).__init__()
             self.run_time = run_time*60
 
-        def begin(self, run_context):
+        def on_train_begin(self, run_context):
             cb_params = run_context.original_args()
             cb_params.init_time = time.time()
 
-        def step_end(self, run_context):
+        def on_train_step_end(self, run_context):
             cb_params = run_context.original_args()
             epoch_num = cb_params.cur_epoch_num
             step_num = cb_params.cur_step_num
@@ -135,7 +107,7 @@ class Callback():
             self.ds_eval = ds_eval
             self.acc = 0
 
-        def step_end(self, run_context):
+        def on_train_step_end(self, run_context):
             cb_params = run_context.original_args()
             result = self.model.eval(self.ds_eval)
             if result['accuracy'] > self.acc:
