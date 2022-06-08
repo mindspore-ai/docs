@@ -21,8 +21,9 @@ JIT Fallback支持在静态图模式下创建和使用[Tensor](https://www.minds
 代码用例如下，用例中的`Tensor(1, dtype=mstype.int32)`是通过JIT Fallback支持的。
 
 ```python
+import mindspore as ms
 import mindspore.nn as nn
-from mindspore import set_context, GRAPH_MODE, Tensor
+from mindspore import set_context, GRAPH_MODE
 from mindspore import dtype as mstype
 
 
@@ -31,7 +32,7 @@ class Net(nn.Cell):
       super(Net, self).__init__()
 
    def construct(self):
-      return Tensor(1, dtype=mstype.int32)
+      return ms.Tensor(1, dtype=mstype.int32)
 
 set_context(mode=GRAPH_MODE)
 net = Net()
@@ -54,8 +55,9 @@ JIT Fallback支持在静态图模式下调用第三方库的对象和方法。
 
 ```python
 import numpy as np
+import mindspore as ms
 import mindspore.nn as nn
-from mindspore import set_context, GRAPH_MODE, Tensor
+from mindspore import set_context, GRAPH_MODE
 
 class Net(nn.Cell):
    def __init__(self):
@@ -65,7 +67,7 @@ class Net(nn.Cell):
       a = np.array([1, 2, 3])
       b = np.array([4, 5, 6])
       c = a + b
-      return Tensor(c)
+      return ms.Tensor(c)
 
 set_context(mode=GRAPH_MODE)
 net = Net()
@@ -86,23 +88,24 @@ JIT Fallback支持在静态图模式下使用Python原生的print来打印常量
 
 ```python
 import numpy as np
+import mindspore as ms
 import mindspore.nn as nn
-from mindspore import set_context, GRAPH_MODE, Tensor
+from mindspore import set_context, GRAPH_MODE
 
 class Net(nn.Cell):
    def __init__(self):
       super(Net, self).__init__()
 
    def construct(self):
-      x = Tensor(np.array([1, 2, 3, 4, 5]))
-      y = Tensor(np.array([1, 2, 3, 4, 5]))
+      x = ms.Tensor(np.array([1, 2, 3, 4, 5]))
+      y = ms.Tensor(np.array([1, 2, 3, 4, 5]))
       tensor_sum = x + y
       print("tensor_sum: ", tensor_sum)
       x = np.array([1, 2, 3, 4, 5])
       y = np.array([1, 2, 3, 4, 5])
       np_sum = x + y
       print("np_sum: ", np_sum)
-      return tensor_sum, Tensor(np_sum)
+      return tensor_sum, ms.Tensor(np_sum)
 
 set_context(mode=GRAPH_MODE)
 net = Net()
@@ -120,22 +123,23 @@ tensor_sum: (2, 4, 6, 8, 10)
 
 ```python
 import numpy as np
+import mindspore as ms
 import mindspore.nn as nn
-from mindspore import set_context, GRAPH_MODE, Tensor
+from mindspore import set_context, GRAPH_MODE
 
 class Net(nn.Cell):
    def __init__(self):
       super(Net, self).__init__()
 
    def construct(self):
-      x = Tensor(np.array([1, 2, 3, 4, 5]))
-      y = Tensor(np.array([1, 2, 3, 4, 5]))
+      x = ms.Tensor(np.array([1, 2, 3, 4, 5]))
+      y = ms.Tensor(np.array([1, 2, 3, 4, 5]))
       tensor_sum = x + y
       x = np.array([1, 2, 3, 4, 5])
       y = np.array([1, 2, 3, 4, 5])
       np_sum = x + y
       print("np_sum: ", np_sum, "tensor_sum: ", tensor_sum)
-      return tensor_sum, Tensor(np_sum)
+      return tensor_sum, ms.Tensor(np_sum)
 
 set_context(mode=GRAPH_MODE)
 net = Net()
@@ -513,14 +517,15 @@ e: 8
 代码用例如下：
 
 ```python
-from mindspore import Tensor, ms_function
+import mindspore as ms
+from mindspore import ms_function
 
 @ms_function
 def func():
    a = list((1, 2, 3))
    b = list([1, 2, 3])
    c = list({'a':1, 'b':2, 'c':3})
-   d = list(Tensor([1, 2, 3]))
+   d = list(ms.Tensor([1, 2, 3]))
    return a, b, c, d
 a, b, c, d = func()
 print("a: ", a)
@@ -548,7 +553,8 @@ d: [Tensor(shape=[], dtype=Int64, value= 1), Tensor(shape=[], dtype=Int64, value
 
 ```python
 import numpy as np
-from mindspore import Tensor, ms_function
+import mindspore as ms
+from mindspore import ms_function
 
 @ms_function
 def func():
@@ -558,8 +564,8 @@ def func():
    d = max(np.array([1, 2, 3, 4]))
    e = max(('a', 'b', 'c'))
    f = max((1, 2, 3), (1, 4))
-   g = max(Tensor([1, 2, 3]))
-   return a, b, c, Tensor(d), e, f, g
+   g = max(ms.Tensor([1, 2, 3]))
+   return a, b, c, ms.Tensor(d), e, f, g
 
 a, b, c, d, e, f, g = func()
 print("a: ", a)
@@ -593,7 +599,8 @@ g: 3
 
 ```python
 import numpy as np
-from mindspore import Tensor, ms_function
+import mindspore as ms
+from mindspore import ms_function
 
 @ms_function
 def func():
@@ -603,8 +610,8 @@ def func():
    d = min(np.array([1, 2, 3, 4]))
    e = min(('a', 'b', 'c'))
    f = min((1, 2, 3), (1, 4))
-   g = min(Tensor([1, 2, 3]))
-   return a, b, c, Tensor(d), e, f, g
+   g = min(ms.Tensor([1, 2, 3]))
+   return a, b, c, ms.Tensor(d), e, f, g
 
 a, b, c, d, e, f, g = func()
 print("a: ", a)
@@ -688,7 +695,8 @@ h: 10.10
 
 ```python
 import numpy as np
-from mindspore import Tensor, ms_function
+import mindspore as ms
+from mindspore import ms_function
 
 @ms_function
 def func():
@@ -699,8 +707,8 @@ def func():
    e = sum([0, 1, 2], 10)
    f = sum((0, 1, 2), 10)
    g = sum({1: 10, 2: 20, 3: 30}, 10)
-   h = sum(Tensor([1, 2, 3]), 10)
-   return a, b, c, Tensor(d), e, f, g, h
+   h = sum(ms.Tensor([1, 2, 3]), 10)
+   return a, b, c, ms.Tensor(d), e, f, g, h
 
 a, b, c, d, e, f, g, h = func()
 print("a: ", a)
@@ -735,14 +743,15 @@ h: 16
 代码用例如下：
 
 ```python
-from mindspore import Tensor,ms_function
+import mindspore as ms
+from mindspore import ms_function
 
 @ms_function
 def func():
    a = tuple((1, 2, 3))
    b = tuple([1, 2, 3])
    c = tuple({'a': 1, 'b': 2, 'c': 3})
-   d = tuple(Tensor([1, 2, 3]))
+   d = tuple(ms.Tensor([1, 2, 3]))
    return a, b, c ,d
 
 a, b, c ,d = func()
@@ -771,7 +780,8 @@ d: (Tensor(shape=[], dtype=Int64, value= 1), Tensor(shape=[], dtype=Int64, value
 
 ```python
 import numpy as np
-from mindspore import Tensor, ms_function
+import mindspore as ms
+from mindspore import ms_function
 
 @ms_function
 def func():
@@ -781,7 +791,7 @@ def func():
    d = type((1, 2, 3))
    e = type({'a': 1, 'b': 2})
    f = type(np.array([1, 2, 3]))
-   g = type(Tensor([1, 2, 3]))
+   g = type(ms.Tensor([1, 2, 3]))
    return a, b, c, d, e, f, g
 
 a, b, c, d ,e, f, g = func()
@@ -808,6 +818,33 @@ g: <class 'mindspore.common.tensor.Tensor'>
 
 > 注： type作为Python的原生函数还有另外一种使用方法，即type(name, bases, dict)返回name类型的类对象，由于该用法应用场景较少，因此暂不支持。
 
+### 支持常量场景下控制流
+
+为了提高Python标准语法支持度，在常量场景下实现动静统一，通过JIT Fallback实现常量场景下控制流语句的使用。控制流语句是指if、for、while等流程控制语句。JIT Fallback特性已经支持在静态图模式下创建和使用Tensor，支持调用Numpy等第三方库创建使用常量以及支持部分Python内置函数。理论上，通过JIT Fallback支持的常量语法，在常量控制流场景中也支持。
+例如：
+
+```python
+import numpy as np
+import mindspore as ms
+from mindspore import ms_function
+
+@ms_function
+def func():
+   x = np.array(1)
+   if x <= 1:
+     x += 1
+   return ms.Tensor(x)
+
+res = func()
+print("res: ", res)
+```
+
+输出结果如下:
+
+```text
+res: 2
+```
+
 ## 使用须知
 
 在使用JIT Fallback时，请注意以下几点：
@@ -816,7 +853,41 @@ g: <class 'mindspore.common.tensor.Tensor'>
 
 2. JIT Fallback对标动态图的支持能力，须在动态图语法范围内，包括但不限于数据类型等。
 
-3. 当前有限支持控制流场景，将逐步在后续版本中支持。
+3. 当前常量控制流场景中暂不支持对Numpy Array数据的取下标赋值，不支持通过for来对Numpy Array数据的遍历。例如：
+
+   ```python
+   import numpy as np
+   import mindspore as ms
+   from mindspore import ms_function
+
+   @ms_function
+   def func():
+       x = np.array([1, 2, 3])
+       x[0] += 1
+       return ms.Tensor(x)
+
+   res = func()
+   print("res: ", res)
+   ```
+
+   暂不支持通过for来对Numpy Array数据的遍历。例如：
+
+   ```python
+   import numpy as np
+   import mindspore as ms
+   from mindspore import ms_function
+
+   @ms_function
+   def func():
+       x = np.array([1, 2, 3])
+       out = 0
+       for i in x:
+         out += i
+       return ms.Tensor(out)
+
+    res = func()
+    print("res: ", res)
+    ```
 
 4. 不支持运行时(Runtime)阶段的JIT Fallback。
 
@@ -868,14 +939,15 @@ g: <class 'mindspore.common.tensor.Tensor'>
    mindspore.numpy是通过MindSpore框架的算子能力实现的，涉及运行时阶段的算子计算，无法在编译期阶段推导其结果(变量的推导结果为None)。示例代码如下，对`mnp.average(x)`的结果使用Tensor()方法，不符合常量场景的条件，将会引发报错。
 
     ```python
+    import mindspore as ms
     import mindspore.numpy as mnp
-    from mindspore import Tensor, ms_function
+    from mindspore import ms_function
 
     @ms_function
     def test_mnp_average():
         x = mnp.array(([[1., 2.], [3., 4.]]))
         x_average = mnp.average(x)
-        return Tensor(x_average)
+        return ms.Tensor(x_average)
 
     out = test_mnp_average()
     print(out)
