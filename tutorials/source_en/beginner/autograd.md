@@ -6,7 +6,7 @@ Automatic differentiation can calculate a derivative value of a derivative funct
 
 MindSpore uses `ops.GradOperation` to calculate the first-order derivative. The `ops.GradOperation` attributes are as follows:
 
-+ `get_all`: determines whether to derive the input parameters. The default value is False.
++ `get_all`: calculate the gradient. If it is equal to False, get the gradient of the first input. If it is equal to True, get the gradient of all inputs. The default value is False.
 + `get_by_list`: determines whether to derive the weight parameters. The default value is False.
 + `sens_param`: determines whether to scale the output value of the network to change the final gradient. The default value is False.
 

@@ -110,7 +110,7 @@ import matplotlib.pyplot as plt
 
 import mindspore.dataset.vision.c_transforms as transforms
 
-trans = [transforms.HWC2CHW()]
+trans = [transforms.HWC2CHW()] # convert shape of the input image from <H,W,C> to <C,H,W>
 dataset = Cifar10(data_dir, batch_size=6, resize=32, repeat_num=1, shuffle=True, transform=trans)
 data = dataset.run()
 data = next(data.create_dict_iterator())
