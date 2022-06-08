@@ -16,10 +16,10 @@
 """
 Processing datasets
 """
-import mindspore.dataset.vision.c_transforms as CV
+import mindspore.dataset.vision as vision
 from mindspore.dataset.vision import Inter
 import mindspore.dataset as ds
-import mindspore.dataset.transforms.c_transforms as CT
+import mindspore.dataset.transforms as transforms
 from mindspore import dtype as mstype
 
 def create_dataset(data_path, batch_size=32, repeat_size=1,
@@ -37,11 +37,11 @@ def create_dataset(data_path, batch_size=32, repeat_size=1,
     shift_nml = -1 * 0.1307 / 0.3081
 
     # define map operations
-    resize_op = CV.Resize((resize_height, resize_width), interpolation=Inter.LINEAR)  # Bilinear mode
-    rescale_nml_op = CV.Rescale(rescale_nml, shift_nml)
-    rescale_op = CV.Rescale(rescale, shift)
-    hwc2chw_op = CV.HWC2CHW()
-    type_cast_op = CT.TypeCast(mstype.int32)
+    resize_op = vision.Resize((resize_height, resize_width), interpolation=Inter.LINEAR)  # Bilinear mode
+    rescale_nml_op = vision.Rescale(rescale_nml, shift_nml)
+    rescale_op = vision.Rescale(rescale, shift)
+    hwc2chw_op = vision.HWC2CHW()
+    type_cast_op = transforms.TypeCast(mstype.int32)
 
     # apply map operations on images
     mnist_ds = mnist_ds.map(input_columns="label", operations=type_cast_op, num_parallel_workers=num_parallel_workers)

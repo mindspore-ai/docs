@@ -24,8 +24,8 @@ from urllib.parse import urlparse
 from mindspore import dtype as mstype
 from mindspore import Tensor, set_context, GRAPH_MODE
 import mindspore.dataset as ds
-import mindspore.dataset.transforms.c_transforms as C
-import mindspore.dataset.vision.c_transforms as CV
+import mindspore.dataset.transforms as transforms
+import mindspore.dataset.vision as vision
 from mindspore import SummaryRecord
 import mindspore.nn as nn
 from mindspore.common.initializer import TruncatedNormal
@@ -90,14 +90,14 @@ def create_dataset_cifar10(data_path, batch_size=32, repeat_size=1, status="trai
     rescale = 1.0 / 255.0
     shift = 0.0
 
-    resize_op = CV.Resize(size=(227, 227))
-    rescale_op = CV.Rescale(rescale, shift)
-    normalize_op = CV.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))
+    resize_op = vision.Resize(size=(227, 227))
+    rescale_op = vision.Rescale(rescale, shift)
+    normalize_op = vision.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))
     if status == "train":
-        random_crop_op = CV.RandomCrop([32, 32], [4, 4, 4, 4])
-        random_horizontal_op = CV.RandomHorizontalFlip()
-    channel_swap_op = CV.HWC2CHW()
-    typecast_op = C.TypeCast(mstype.int32)
+        random_crop_op = vision.RandomCrop([32, 32], [4, 4, 4, 4])
+        random_horizontal_op = vision.RandomHorizontalFlip()
+    channel_swap_op = vision.HWC2CHW()
+    typecast_op = transforms.TypeCast(mstype.int32)
     cifar_ds = cifar_ds.map(operations=typecast_op, input_columns="label")
     if status == "train":
         cifar_ds = cifar_ds.map(operations=random_crop_op, input_columns="image")

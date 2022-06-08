@@ -21,14 +21,13 @@ In the Eager mode, the execution of data augmentations will not rely on the `map
 MindSpore currently supports executing various data augmentation operators in the Eager mode, as shown below. For more details, please refer to the API documentation.
 
 - [vision module](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.vision.html)
-- Submodule c_transforms, an image augmentation operator implemented based on OpenCV.
-- Submodule py_transforms, an image augmentation operator implemented based on Pillow.
+- Submodule transforms, an image augmentation operator implemented based on OpenCV/Pillow.
 
 - [text module](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.text.html#mindspore-dataset-text-transforms)
-- Submodule transforms, text processing operators.
+- Submodule transforms, text processing operators implemented based on Jieba, ICU4C etc.
+
 - [transforms module](https://www.mindspore.cn/docs/en/master/api_python/mindspore.dataset.transforms.html)
-- Submodule c_transforms, a general-purpose data augmentation operator implemented based on C++.
-- Submodule py_transforms, a general-purpose data augmentation operator implemented based on Python.
+- Submodule transforms, a general-purpose data augmentation operator implemented based on C++/Python/NumPy.
 
 ## Eager Mode
 
@@ -63,7 +62,7 @@ download_dataset("https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-w
 
 ### vision
 
-This example will mix the `c_tranforms` and `py_transforms` operators from the `vision` module to transform a given image.
+This example will use operators from the `mindspore.dataset.vision` module to transform a given image.
 
 You only need to focus on what data augmentations have to use, not any code for the data pipeline.
 
@@ -73,27 +72,24 @@ The Eager mode of the vision operator supports `numpy.array` or `PIL.Image` type
 import numpy as np
 from PIL import Image
 import matplotlib.pyplot as plt
-import mindspore.dataset.vision.c_transforms as C
-import mindspore.dataset.vision.py_transforms as P
+import mindspore.dataset.vision as vision
 
 img_ori = Image.open("banana.jpg").convert("RGB")
 print("Image.type: {}, Image.shape: {}".format(type(img_ori), img_ori.size))
 
-# Define a Resize op from c_transform and execute it immediately
-op1 = C.Resize(size=(320))
+# Define a Resize op and execute it immediately
+op1 = vision.Resize(size=(320))
 img = op1(img_ori)
-print("Image.type: {}, Image.shape: {}".format(type(img), img.shape))
+print("Image.type: {}, Image.shape: {}".format(type(img), img.size))
 
-# Define a CenterCrop op from c_transform and execute it immediately
-op2 = C.CenterCrop((280, 280))
+# Define a CenterCrop op and execute it immediately
+op2 = vision.CenterCrop((280, 280))
 img = op2(img)
-print("Image.type: {}, Image.shape: {}".format(type(img), img.shape))
+print("Image.type: {}, Image.shape: {}".format(type(img), img.size))
 
-# Define a Pad op from py_transform and execute it immediately
-# Before calling Pad, you need to call ToPIL()
-op3 = P.ToPIL()
-op4 = P.Pad(40)
-img = op4(op3(img))
+# Define a Pad op and execute it immediately
+op3 = vision.Pad(40)
+img = op3(img)
 print("Image.type: {}, Image.shape: {}".format(type(img), img.size))
 
 # Show the result
@@ -110,8 +106,8 @@ The output is as follows:
 
 ```text
 Image.type: <class 'PIL.Image.Image'>, Image.shape: (356, 200)
-Image.type: <class 'numpy.ndarray'>, Image.shape: (320, 570, 3)
-Image.type: <class 'numpy.ndarray'>, Image.shape: (280, 280, 3)
+Image.type: <class 'PIL.Image.Image'>, Image.shape: (569, 320)
+Image.type: <class 'PIL.Image.Image'>, Image.shape: (280, 280)
 Image.type: <class 'PIL.Image.Image'>, Image.shape: (360, 360)
 ```
 
@@ -154,7 +150,7 @@ Eager mode of transforms operator supports `numpy.array` type data as input para
 
 ```python
 import numpy as np
-import mindspore.dataset.transforms.c_transforms as trans
+import mindspore.dataset.transforms as trans
 
 # Define a Fill op and execute it immediately
 data = np.array([1, 2, 3, 4, 5])

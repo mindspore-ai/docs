@@ -274,8 +274,8 @@ For the table query operation from a token to an index ID, use the `text.Lookup`
 import mindspore
 
 lookup_op = dataset.text.Lookup(vocab, unknown_token='<unk>')
-pad_op = dataset.transforms.c_transforms.PadEnd([500], pad_value=vocab.tokens_to_ids('<pad>'))
-type_cast_op = dataset.transforms.c_transforms.TypeCast(mindspore.float32)
+pad_op = dataset.transforms.PadEnd([500], pad_value=vocab.tokens_to_ids('<pad>'))
+type_cast_op = dataset.transforms.TypeCast(mindspore.float32)
 ```
 
 After the preprocessing is complete, you need to add data to the dataset processing pipeline and use the `map` API to add operations to the specified column.

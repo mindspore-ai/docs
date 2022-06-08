@@ -80,8 +80,8 @@ download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datas
 The original training dataset of the MNIST dataset is 60,000 single-channel digital images with $28\times28$ pixels. The LeNet5 network containing the Bayesian layer used in this training received the training data tensor as `(32,1 ,32,32)`, through the custom create_dataset function to enhance the original dataset to meet the training requirements of the data, the specific enhancement operation explanation can refer to [Quick Start for Beginners](https://www.mindspore.cn/tutorials/en/master/beginner/quick_start.html).
 
 ```python
-import mindspore.dataset.vision.c_transforms as CV
-import mindspore.dataset.transforms.c_transforms as C
+import mindspore.dataset.vision as vision
+import mindspore.dataset.transforms as transforms
 from mindspore.dataset.vision import Inter
 from mindspore import dataset as ds
 
@@ -99,12 +99,12 @@ def create_dataset(data_path, batch_size=32, repeat_size=1,
 
     # according to the parameters, generate the corresponding data enhancement method
     c_trans = [
-        CV.Resize((resize_height, resize_width), interpolation=Inter.LINEAR),
-        CV.Rescale(rescale_nml, shift_nml),
-        CV.Rescale(rescale, shift),
-        CV.HWC2CHW()
+        vision.Resize((resize_height, resize_width), interpolation=Inter.LINEAR),
+        vision.Rescale(rescale_nml, shift_nml),
+        vision.Rescale(rescale, shift),
+        vision.HWC2CHW()
     ]
-    type_cast_op = C.TypeCast(mstype.int32)
+    type_cast_op = transforms.TypeCast(mstype.int32)
 
     # using map to apply operations to a dataset
     mnist_ds = mnist_ds.map(operations=type_cast_op, input_columns="label", num_parallel_workers=num_parallel_workers)

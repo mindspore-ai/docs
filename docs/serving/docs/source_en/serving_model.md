@@ -63,7 +63,7 @@ The following is an example to define preprocessing and post-processing:
 
 ```python
 import numpy as np
-import mindspore.dataset.vision.c_transforms as VC
+import mindspore.dataset.vision as vision
 
 # cifar 10
 idx_2_label = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
@@ -80,10 +80,10 @@ def preprocess_eager(image):
     mean = [0.4914 * 255, 0.4822 * 255, 0.4465 * 255]
     std = [0.2023 * 255, 0.1994 * 255, 0.2010 * 255]
 
-    decode = VC.Decode()
-    resize = VC.Resize([image_size, image_size])
-    normalize = VC.Normalize(mean=mean, std=std)
-    hwc2chw = VC.HWC2CHW()
+    decode = vision.Decode()
+    resize = vision.Resize([image_size, image_size])
+    normalize = vision.Normalize(mean=mean, std=std)
+    hwc2chw = vision.HWC2CHW()
 
     image = decode(image)
     image = resize(image)

@@ -20,8 +20,8 @@ import random
 import argparse
 from mindspore import dtype as mstype
 import mindspore.dataset as ds
-import mindspore.dataset.vision.c_transforms as C
-import mindspore.dataset.transforms.c_transforms as C2
+import mindspore.dataset.vision as vision
+import mindspore.dataset.transforms as transforms
 from mindspore.nn import SoftmaxCrossEntropyWithLogits
 from mindspore.communication import init
 from mindspore.nn import Momentum
@@ -70,13 +70,13 @@ def create_dataset(repeat_num=1, training=True):
     shift = 0.0
 
     # define map operations
-    random_crop_op = C.RandomCrop((32, 32), (4, 4, 4, 4)) # padding_mode default CONSTANT
-    random_horizontal_op = C.RandomHorizontalFlip()
-    resize_op = C.Resize((resize_height, resize_width)) # interpolation default BILINEAR
-    rescale_op = C.Rescale(rescale, shift)
-    normalize_op = C.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))
-    changeswap_op = C.HWC2CHW()
-    type_cast_op = C2.TypeCast(mstype.int32)
+    random_crop_op = vision.RandomCrop((32, 32), (4, 4, 4, 4)) # padding_mode default CONSTANT
+    random_horizontal_op = vision.RandomHorizontalFlip()
+    resize_op = vision.Resize((resize_height, resize_width)) # interpolation default BILINEAR
+    rescale_op = vision.Rescale(rescale, shift)
+    normalize_op = vision.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))
+    changeswap_op = vision.HWC2CHW()
+    type_cast_op = transforms.TypeCast(mstype.int32)
 
     c_trans = []
     if training:

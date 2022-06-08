@@ -199,7 +199,7 @@ If you wish to save the data preprocess operations into MindIR and use them to p
 
 ```python
 import mindspore.dataset as ds
-import mindspore.dataset.vision.c_transforms as C
+import mindspore.dataset.vision as vision
 from mindspore import export, load_checkpoint
 from mindvision.classification.models import resnet50
 from mindvision.dataset import DownLoad
@@ -209,8 +209,8 @@ def create_dataset_for_renset(path):
     data_set = ds.ImageFolderDataset(path)
     mean = [0.485 * 255, 0.456 * 255, 0.406 * 255]
     std = [0.229 * 255, 0.224 * 255, 0.225 * 255]
-    data_set = data_set.map(operations=[C.Decode(), C.Resize(256), C.CenterCrop(224),
-                                        C.Normalize(mean=mean, std=std), C.HWC2CHW()], input_columns="image")
+    data_set = data_set.map(operations=[vision.Decode(), vision.Resize(256), vision.CenterCrop(224),
+                                        vision.Normalize(mean=mean, std=std), vision.HWC2CHW()], input_columns="image")
     data_set = data_set.batch(1)
     return data_set
 

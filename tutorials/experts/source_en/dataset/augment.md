@@ -19,10 +19,10 @@ The `RandomApply` receives a data augmentation operation list and executes the d
 In the following code example, the `RandomCrop` and `RandomColorAdjust` operations are executed in sequence with a probability of 0.5 or none of them are executed.
 
 ```python
-import mindspore.dataset.vision.c_transforms as c_vision
-from mindspore.dataset.transforms.c_transforms import RandomApply
+import mindspore.dataset.vision as vision
+from mindspore.dataset.transforms import RandomApply
 
-rand_apply_list = RandomApply([c_vision.RandomCrop(512), c_vision.RandomColorAdjust()])
+rand_apply_list = RandomApply([vision.RandomCrop(512), vision.RandomColorAdjust()])
 ```
 
 ### RandomChoice
@@ -32,10 +32,10 @@ The API receives a data augmentation operation list `transforms` and randomly se
 In the following code example, an operation is selected from `CenterCrop` and `RandomCrop` for execution with equal probability.
 
 ```python
-import mindspore.dataset.vision.c_transforms as c_vision
-from mindspore.dataset.transforms.c_transforms import RandomChoice
+import mindspore.dataset.vision as vision
+from mindspore.dataset.transforms import RandomChoice
 
-rand_choice = RandomChoice([c_vision.CenterCrop(512), c_vision.RandomCrop(512)])
+rand_choice = RandomChoice([vision.CenterCrop(512), vision.RandomCrop(512)])
 ```
 
 ### RandomSelectSubpolicy
@@ -51,12 +51,12 @@ In the following code example, two sub-policies are preset.
 - Sub-policy 2 contains the `RandomRotation` and `RandomColorAdjust` operations, with the probabilities of 1.0 and 0.2, respectively.
 
 ```python
-import mindspore.dataset.vision.c_transforms as c_vision
-from mindspore.dataset.vision.c_transforms import RandomSelectSubpolicy
+import mindspore.dataset.vision as vision
+from mindspore.dataset.vision import RandomSelectSubpolicy
 
 policy_list = [
-      [(c_vision.RandomRotation((45, 45)), 0.5), (c_vision.RandomVerticalFlip(), 1.0), (c_vision.RandomColorAdjust(), 0.8)],
-      [(c_vision.RandomRotation((90, 90)), 1.0), (c_vision.RandomColorAdjust(), 0.2)]
+      [(vision.RandomRotation((45, 45)), 0.5), (vision.RandomVerticalFlip(), 1.0), (vision.RandomColorAdjust(), 0.8)],
+      [(vision.RandomRotation((90, 90)), 1.0), (vision.RandomColorAdjust(), 0.2)]
       ]
 policy = RandomSelectSubpolicy(policy_list)
 ```
@@ -155,8 +155,8 @@ Users can use the `RandomSelectSubpolicy` interface of the `c_transforms` module
 1. Define the mapping of the MindSpore operator to the AutoAugment operator:
 
     ```python
-    import mindspore.dataset.vision.c_transforms as c_vision
-    import mindspore.dataset.transforms.c_transforms as c_transforms
+    import mindspore.dataset.vision as vision
+    import mindspore.dataset.transforms as c_transforms
 
     # define Auto Augmentation operators
     PARAMETER_MAX = 10
@@ -171,70 +171,70 @@ Users can use the `RandomSelectSubpolicy` interface of the `c_transforms` module
         transforms_list = []
         v = float_parameter(level, 0.3)
 
-        transforms_list.append(c_vision.RandomAffine(degrees=0, shear=(-v, -v)))
-        transforms_list.append(c_vision.RandomAffine(degrees=0, shear=(v, v)))
+        transforms_list.append(vision.RandomAffine(degrees=0, shear=(-v, -v)))
+        transforms_list.append(vision.RandomAffine(degrees=0, shear=(v, v)))
         return c_transforms.RandomChoice(transforms_list)
 
     def shear_y(level):
         transforms_list = []
         v = float_parameter(level, 0.3)
 
-        transforms_list.append(c_vision.RandomAffine(degrees=0, shear=(0, 0, -v, -v)))
-        transforms_list.append(c_vision.RandomAffine(degrees=0, shear=(0, 0, v, v)))
+        transforms_list.append(vision.RandomAffine(degrees=0, shear=(0, 0, -v, -v)))
+        transforms_list.append(vision.RandomAffine(degrees=0, shear=(0, 0, v, v)))
         return c_transforms.RandomChoice(transforms_list)
 
     def translate_x(level):
         transforms_list = []
         v = float_parameter(level, 150 / 331)
 
-        transforms_list.append(c_vision.RandomAffine(degrees=0, translate=(-v, -v)))
-        transforms_list.append(c_vision.RandomAffine(degrees=0, translate=(v, v)))
+        transforms_list.append(vision.RandomAffine(degrees=0, translate=(-v, -v)))
+        transforms_list.append(vision.RandomAffine(degrees=0, translate=(v, v)))
         return c_transforms.RandomChoice(transforms_list)
 
     def translate_y(level):
         transforms_list = []
         v = float_parameter(level, 150 / 331)
 
-        transforms_list.append(c_vision.RandomAffine(degrees=0, translate=(0, 0, -v, -v)))
-        transforms_list.append(c_vision.RandomAffine(degrees=0, translate=(0, 0, v, v)))
+        transforms_list.append(vision.RandomAffine(degrees=0, translate=(0, 0, -v, -v)))
+        transforms_list.append(vision.RandomAffine(degrees=0, translate=(0, 0, v, v)))
         return c_transforms.RandomChoice(transforms_list)
 
     def color_impl(level):
         v = float_parameter(level, 1.8) + 0.1
-        return c_vision.RandomColor(degrees=(v, v))
+        return vision.RandomColor(degrees=(v, v))
 
     def rotate_impl(level):
         transforms_list = []
         v = int_parameter(level, 30)
 
-        transforms_list.append(c_vision.RandomRotation(degrees=(-v, -v)))
-        transforms_list.append(c_vision.RandomRotation(degrees=(v, v)))
+        transforms_list.append(vision.RandomRotation(degrees=(-v, -v)))
+        transforms_list.append(vision.RandomRotation(degrees=(v, v)))
         return c_transforms.RandomChoice(transforms_list)
 
     def solarize_impl(level):
         level = int_parameter(level, 256)
         v = 256 - level
-        return c_vision.RandomSolarize(threshold=(0, v))
+        return vision.RandomSolarize(threshold=(0, v))
 
     def posterize_impl(level):
         level = int_parameter(level, 4)
         v = 4 - level
-        return c_vision.RandomPosterize(bits=(v, v))
+        return vision.RandomPosterize(bits=(v, v))
 
     def contrast_impl(level):
         v = float_parameter(level, 1.8) + 0.1
-        return c_vision.RandomColorAdjust(contrast=(v, v))
+        return vision.RandomColorAdjust(contrast=(v, v))
 
     def autocontrast_impl(level):
-        return c_vision.AutoContrast()
+        return vision.AutoContrast()
 
     def sharpness_impl(level):
         v = float_parameter(level, 1.8) + 0.1
-        return c_vision.RandomSharpness(degrees=(v, v))
+        return vision.RandomSharpness(degrees=(v, v))
 
     def brightness_impl(level):
         v = float_parameter(level, 1.8) + 0.1
-        return c_vision.RandomColorAdjust(brightness=(v, v))
+        return vision.RandomColorAdjust(brightness=(v, v))
     ```
 
 2. Define the AutoAugment policy for the ImageNet dataset:
@@ -244,33 +244,33 @@ Users can use the `RandomSelectSubpolicy` interface of the `c_transforms` module
     imagenet_policy = [
         [(posterize_impl(8), 0.4), (rotate_impl(9), 0.6)],
         [(solarize_impl(5), 0.6), (autocontrast_impl(5), 0.6)],
-        [(c_vision.Equalize(), 0.8), (c_vision.Equalize(), 0.6)],
+        [(vision.Equalize(), 0.8), (vision.Equalize(), 0.6)],
         [(posterize_impl(7), 0.6), (posterize_impl(6), 0.6)],
 
-        [(c_vision.Equalize(), 0.4), (solarize_impl(4), 0.2)],
-        [(c_vision.Equalize(), 0.4), (rotate_impl(8), 0.8)],
-        [(solarize_impl(3), 0.6), (c_vision.Equalize(), 0.6)],
-        [(posterize_impl(5), 0.8), (c_vision.Equalize(), 1.0)],
+        [(vision.Equalize(), 0.4), (solarize_impl(4), 0.2)],
+        [(vision.Equalize(), 0.4), (rotate_impl(8), 0.8)],
+        [(solarize_impl(3), 0.6), (vision.Equalize(), 0.6)],
+        [(posterize_impl(5), 0.8), (vision.Equalize(), 1.0)],
         [(rotate_impl(3), 0.2), (solarize_impl(8), 0.6)],
-        [(c_vision.Equalize(), 0.6), (posterize_impl(6), 0.4)],
+        [(vision.Equalize(), 0.6), (posterize_impl(6), 0.4)],
 
         [(rotate_impl(8), 0.8), (color_impl(0), 0.4)],
-        [(rotate_impl(9), 0.4), (c_vision.Equalize(), 0.6)],
-        [(c_vision.Equalize(), 0.0), (c_vision.Equalize(), 0.8)],
-        [(c_vision.Invert(), 0.6), (c_vision.Equalize(), 1.0)],
+        [(rotate_impl(9), 0.4), (vision.Equalize(), 0.6)],
+        [(vision.Equalize(), 0.0), (vision.Equalize(), 0.8)],
+        [(vision.Invert(), 0.6), (vision.Equalize(), 1.0)],
         [(color_impl(4), 0.6), (contrast_impl(8), 1.0)],
 
         [(rotate_impl(8), 0.8), (color_impl(2), 1.0)],
         [(color_impl(8), 0.8), (solarize_impl(7), 0.8)],
-        [(sharpness_impl(7), 0.4), (c_vision.Invert(), 0.6)],
-        [(shear_x(5), 0.6), (c_vision.Equalize(), 1.0)],
-        [(color_impl(0), 0.4), (c_vision.Equalize(), 0.6)],
+        [(sharpness_impl(7), 0.4), (vision.Invert(), 0.6)],
+        [(shear_x(5), 0.6), (vision.Equalize(), 1.0)],
+        [(color_impl(0), 0.4), (vision.Equalize(), 0.6)],
 
-        [(c_vision.Equalize(), 0.4), (solarize_impl(4), 0.2)],
+        [(vision.Equalize(), 0.4), (solarize_impl(4), 0.2)],
         [(solarize_impl(5), 0.6), (autocontrast_impl(5), 0.6)],
-        [(c_vision.Invert(), 0.6), (c_vision.Equalize(), 1.0)],
+        [(vision.Invert(), 0.6), (vision.Equalize(), 1.0)],
         [(color_impl(4), 0.6), (contrast_impl(8), 1.0)],
-        [(c_vision.Equalize(), 0.8), (c_vision.Equalize(), 0.6)],
+        [(vision.Equalize(), 0.8), (vision.Equalize(), 0.6)],
     ]
     ```
 
@@ -293,8 +293,8 @@ Users can use the `RandomSelectSubpolicy` interface of the `c_transforms` module
         if train:
             trans = RandomSelectSubpolicy(imagenet_policy)
         else:
-            trans = [c_vision.Resize(256),
-                     c_vision.CenterCrop(image_size)]
+            trans = [vision.Resize(256),
+                     vision.CenterCrop(image_size)]
         type_cast_op = c_transforms.TypeCast(mstype.int32)
 
         # map images and labes

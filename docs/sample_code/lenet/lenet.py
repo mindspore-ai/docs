@@ -22,8 +22,8 @@ import mindspore.nn as nn
 from mindspore import Model, load_checkpoint, load_param_into_net, set_context, GRAPH_MODE
 from mindspore.common.initializer import Normal
 from mindspore import ModelCheckpoint, CheckpointConfig, LossMonitor
-import mindspore.dataset.vision.c_transforms as CV
-import mindspore.dataset.transforms.c_transforms as C
+import mindspore.dataset.vision as vision
+import mindspore.dataset.transforms as transforms
 from mindspore.dataset.vision import Inter
 from mindspore.nn import Accuracy
 from mindspore import dtype as mstype
@@ -50,11 +50,11 @@ def create_dataset(data_path, batch_size=32, repeat_size=1,
     shift_nml = -1 * 0.1307 / 0.3081
 
     # define map operations
-    resize_op = CV.Resize((resize_height, resize_width), interpolation=Inter.LINEAR)  # Resize images to (32, 32)
-    rescale_nml_op = CV.Rescale(rescale_nml, shift_nml) # normalize images
-    rescale_op = CV.Rescale(rescale, shift) # rescale images
-    hwc2chw_op = CV.HWC2CHW() # change shape from (height, width, channel) to (channel, height, width) to fit network.
-    type_cast_op = C.TypeCast(mstype.int32) # change data type of label to int32 to fit network
+    resize_op = vision.Resize((resize_height, resize_width), interpolation=Inter.LINEAR)  # Resize images to (32, 32)
+    rescale_nml_op = vision.Rescale(rescale_nml, shift_nml) # normalize images
+    rescale_op = vision.Rescale(rescale, shift) # rescale images
+    hwc2chw_op = vision.HWC2CHW() # change shape from (height, width, channel) to (channel, height, width) to fit network.
+    type_cast_op = transforms.TypeCast(mstype.int32) # change data type of label to int32 to fit network
 
     # apply map operations on images
     mnist_ds = mnist_ds.map(operations=type_cast_op, input_columns="label", num_parallel_workers=num_parallel_workers)

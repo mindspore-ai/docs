@@ -18,7 +18,7 @@ Dataset for training transformers
 from collections import Counter
 import numpy as np
 import mindspore.dataset as ds
-import mindspore.dataset.transforms.c_transforms as C
+import mindspore.dataset.transforms as transforms
 from mindspore import dtype as mstype
 class Tokenzier:
     """Space tokenizer"""
@@ -76,8 +76,8 @@ class ToyDataset():
         print('Source vocab size:{}'.format(len(self.tokenizer.field_vocab['src'])))
         print('Target vocab size:{}'.format(len(self.tokenizer.field_vocab['tgt'])))
 
-        type_cast_op = C.TypeCast(mstype.int32)
-        type_cast_op_float = C.TypeCast(mstype.float16)
+        type_cast_op = transforms.TypeCast(mstype.int32)
+        type_cast_op_float = transforms.TypeCast(mstype.float16)
 
         def generator_seq2seq():
             src_seq = self.seq_length[0]

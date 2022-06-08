@@ -107,7 +107,7 @@ Define the `create_dataset_imagenet` function to process and augment data.
 ```python
 import numpy as np
 import mindspore.dataset as ds
-import mindspore.dataset.vision.c_transforms as trans
+import mindspore.dataset.vision as vision
 
 from mindspore import nn, ops, Tensor
 from mindspore import dtype as mstype
@@ -119,9 +119,9 @@ def create_dataset_imagenet(dataset_path):
 
     # Data augmentation
     transform_img = [
-        trans.Resize(image_size),
-        trans.CenterCrop(image_size),
-        trans.HWC2CHW(),
+        vision.Resize(image_size),
+        vision.CenterCrop(image_size),
+        vision.HWC2CHW(),
         lambda x: ((x / 255).astype("float32"), np.random.normal(size=(nz, 1, 1)).astype("float32"))
     ]
 
