@@ -37,8 +37,8 @@ GPU场景可自定义callback方式收集性能，但数据准备阶段、数据
 示例如下：
 
 ```python
-from mindspore import Callback
-class StopAtStep(Callback):
+import mindspore as ms
+class StopAtStep(ms.Callback):
     def __init__(self, start_step, stop_step):
         super(StopAtStep, self).__init__()
         self.start_step = start_step
@@ -119,9 +119,9 @@ class StopAtStep(Callback):
 使用方式1：
 
 ```python
-from mindspore import Profiler
+import mindspore as ms
 # Profiler init.
-profiler = Profiler()
+profiler = ms.Profiler()
 # Train or eval model.
 train_net()
 profiler.analyse()
@@ -132,9 +132,9 @@ print(operation_info)  # json
 使用方式2：
 
 ```python
-from mindspore import Profiler
+import mindspore as ms
 # Profiler init.
-profiler = Profiler(output_path="my_profiler_path")
+profiler = ms.Profiler(output_path="my_profiler_path")
 operation_info = profiler.op_analyse(['Conv2D', 'BiasAdd'])  # str or list
 print(operation_info)  # json
 ```

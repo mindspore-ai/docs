@@ -81,7 +81,7 @@ During distributed training, load the dataset in parallel mode and process it th
 
 ```python
 import os
-from mindspore import dtype as mstype
+import mindspore as ms
 import mindspore.dataset as ds
 import mindspore.dataset.vision.c_transforms as C
 import mindspore.dataset.transforms.c_transforms as C2
@@ -143,7 +143,7 @@ def create_dataset2(dataset_path, do_train, repeat_num=1, batch_size=32, target=
             C.HWC2CHW()
         ]
 
-    type_cast_op = C2.TypeCast(mstype.int32)
+    type_cast_op = C2.TypeCast(ms.int32)
 
     data_set = data_set.map(operations=trans, input_columns="image", num_parallel_workers=8)
     # only enable cache for eval
@@ -201,8 +201,8 @@ class CrossEntropySmooth(LossBase):
         super(CrossEntropySmooth, self).__init__()
         self.onehot = ops.OneHot()
         self.sparse = sparse
-        self.on_value = Tensor(1.0 - smooth_factor, mstype.float32)
-        self.off_value = Tensor(1.0 * smooth_factor / (num_classes - 1), mstype.float32)
+        self.on_value = Tensor(1.0 - smooth_factor, ms.float32)
+        self.off_value = Tensor(1.0 * smooth_factor / (num_classes - 1), ms.float32)
         self.ce = nn.SoftmaxCrossEntropyWithLogits(reduction=reduction)
 
     def construct(self, logit, label):
@@ -278,18 +278,18 @@ MindSpore provides the callback mechanism to execute customized logic during tra
 
 ```python
 ...
-from mindspore import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
+import mindspore as ms
 ...
 if __name__ == "__main__":
     ...
     # define callbacks
-    time_cb = TimeMonitor(data_size=step_size)
-    loss_cb = LossMonitor()
+    time_cb = ms.TimeMonitor(data_size=step_size)
+    loss_cb = ms.LossMonitor()
     cb = [time_cb, loss_cb]
     if config.save_checkpoint:
-        config_ck = CheckpointConfig(save_checkpoint_steps=config.save_checkpoint_epochs * step_size,
+        config_ck = ms.CheckpointConfig(save_checkpoint_steps=config.save_checkpoint_epochs * step_size,
                                      keep_checkpoint_max=config.keep_checkpoint_max)
-        ckpt_cb = ModelCheckpoint(prefix="resnet", directory=ckpt_save_dir, config=config_ck)
+        ckpt_cb = ms.ModelCheckpoint(prefix="resnet", directory=ckpt_save_dir, config=config_ck)
         cb += [ckpt_cb]
     ...
 ```
@@ -301,18 +301,16 @@ MindSpore provides a one-click conversion interface from Model class to ModelTho
 
 ```python
 ...
-from mindspore import FixedLossScaleManager
-from mindspore import Model
-from mindspore import ConvertModelUtils
+import mindspore as ms
 ...
 
 if __name__ == "__main__":
     ...
-    loss_scale = FixedLossScaleManager(config.loss_scale, drop_overflow_update=False)
-    model = Model(net, loss_fn=loss, optimizer=opt, loss_scale_manager=loss_scale, metrics=metrics,
+    loss_scale = ms.FixedLossScaleManager(config.loss_scale, drop_overflow_update=False)
+    model = ms.Model(net, loss_fn=loss, optimizer=opt, loss_scale_manager=loss_scale, metrics=metrics,
                   amp_level="O2", keep_batchnorm_fp32=False, eval_network=dist_eval_network)
     if cfg.optimizer == "Thor":
-        model = ConvertModelUtils().convert_to_thor_model(model=model, network=net, loss_fn=loss, optimizer=opt,
+        model = ms.ConvertModelUtils().convert_to_thor_model(model=model, network=net, loss_fn=loss, optimizer=opt,
                                                           loss_scale_manager=loss_scale, metrics={'acc'},
                                                           amp_level="O2", keep_batchnorm_fp32=False)  
     ...
@@ -432,7 +430,7 @@ Use the checkpoint files saved during training to perform inference and validate
 
 ```python
 ...
-from mindspore import load_checkpoint, load_param_into_net
+import mindspore as ms
 ...
 
 if __name__ == "__main__":
@@ -441,8 +439,8 @@ if __name__ == "__main__":
     net = resnet(class_num=config.class_num)
 
     # load checkpoint
-    param_dict = load_checkpoint(args_opt.checkpoint_path)
-    load_param_into_net(net, param_dict)
+    param_dict = ms.load_checkpoint(args_opt.checkpoint_path)
+    ms.load_param_into_net(net, param_dict)
     net.set_train(False)
 
     # define loss
@@ -455,7 +453,7 @@ if __name__ == "__main__":
         loss = SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
 
     # define model
-    model = Model(net, loss_fn=loss, metrics={'top_1_accuracy', 'top_5_accuracy'})
+    model = ms.Model(net, loss_fn=loss, metrics={'top_1_accuracy', 'top_5_accuracy'})
 
     # eval model
     res = model.eval(dataset)

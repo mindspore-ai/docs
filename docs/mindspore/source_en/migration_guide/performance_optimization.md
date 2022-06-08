@@ -128,16 +128,16 @@ The tangent strategy is usually a manual attempt to find an optimal solution (su
 Optimization code is shown below:
 
 ```python
-from mindspore import set_auto_parallel_context
+import mindspore as ms
 from resnet50_imagenet2012_config.yaml import config
 ...
 
 if config.net_name == "resnet50" or config.net_name == "se-resnet50":
     # AllReduce split
-    set_auto_parallel_context(all_reduce_fusion_config=[85, 160])
+    ms.set_auto_parallel_context(all_reduce_fusion_config=[85, 160])
 else:
     # Another split stratety
-    set_auto_parallel_context(all_reduce_fusion_config=[180, 313])
+    ms.set_auto_parallel_context(all_reduce_fusion_config=[180, 313])
 init()
 ```
 

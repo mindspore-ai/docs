@@ -21,11 +21,10 @@ Import relevant dependencies of the tutorial.
 import numpy as np
 import time
 from mindquantum.core import QubitOperator
+import mindspore as ms
 import mindspore.ops as ops
 import mindspore.dataset as ds
 from mindspore import nn
-from mindspore import LossMonitor
-from mindspore import Model
 from mindquantum.framework import MQLayer
 from mindquantum.core import Hamiltonian, RX, RY, X, H
 from mindquantum.core import Circuit, UN
@@ -113,9 +112,8 @@ For the quantum state of a $n$ bits, it can be in a $2^n$ Hilbert space. For the
 For example. given the word "love" in the above dictionary, its corresponding label is 2, represented by `010` in the binary format. We only need to set `e_0`, `e_1`, and `e_2` to $0$, $\pi$, and $0$ respectively. In the following, we use the `Evolution` operator for verification.
 
 ```python
+import mindspore as ms
 from mindquantum.simulator import Simulator
-from mindspore import set_context, PYNATIVE_MODE
-from mindspore import Tensor
 
 n_qubits = 3 # number of qubits of this quantum circuit
 label = 2 # label need to encode
@@ -130,7 +128,7 @@ print("Parameters of encoder is: \n", np.round(label_array, 5))
 print("Encoder circuit is: \n", encoder)
 print("Encoder parameter names are: \n", encoder_params_name)
 
-set_context(mode=PYNATIVE_MODE, device_target="CPU")
+ms.set_context(mode=ms.PYNATIVE_MODE, device_target="CPU")
 
 state = encoder.get_qs(pr=label_array)
 amp = np.round(np.abs(state)**2, 3)
@@ -309,7 +307,7 @@ class CBOW(nn.Cell):
 In the following, we use a longer sentence for training. Firstly, we define `LossMonitorWithCollection` to supervise the convergence process and record the loss.
 
 ```python
-class LossMonitorWithCollection(LossMonitor):
+class LossMonitorWithCollection(ms.LossMonitor):
     def __init__(self, per_print_times=1):
         super(LossMonitorWithCollection, self).__init__(per_print_times)
         self.loss = []
@@ -335,10 +333,10 @@ class LossMonitorWithCollection(LossMonitor):
         loss = cb_params.net_outputs
 
         if isinstance(loss, (tuple, list)):
-            if isinstance(loss[0], Tensor) and isinstance(loss[0].asnumpy(), np.ndarray):
+            if isinstance(loss[0], ms.Tensor) and isinstance(loss[0].asnumpy(), np.ndarray):
                 loss = loss[0]
 
-        if isinstance(loss, Tensor) and isinstance(loss.asnumpy(), np.ndarray):
+        if isinstance(loss, ms.Tensor) and isinstance(loss.asnumpy(), np.ndarray):
             loss = np.mean(loss.asnumpy())
 
         cur_step_in_epoch = (cb_params.cur_step_num - 1) % cb_params.batch_num + 1
@@ -356,9 +354,8 @@ Next, embed a long setence by using the quantum `CBOW`. Please execute this comm
 
 ```python
 import mindspore as ms
-from mindspore import set_context, PYNATIVE_MODE
-from mindspore import Tensor
-set_context(mode=PYNATIVE_MODE, device_target="CPU")
+
+ms.set_context(mode=ms.PYNATIVE_MODE, device_target="CPU")
 corpus = """We are about to study the idea of a computational process.
 Computational processes are abstract beings that inhabit computers.
 As they evolve, processes manipulate other abstract things called data.
@@ -381,7 +378,7 @@ net = CBOW(len(word_dict), embedding_dim, window_size, 3, 4, hidden_dim)
 net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
 net_opt = nn.Momentum(net.trainable_params(), 0.01, 0.9)
 loss_monitor = LossMonitorWithCollection(500)
-model = Model(net, net_loss, net_opt)
+model = ms.Model(net, net_loss, net_opt)
 model.train(350, train_loader, callbacks=[loss_monitor], dataset_sink_mode=False)
 ```
 
@@ -505,7 +502,7 @@ net = CBOWClassical(len(word_dict), embedding_dim, window_size, hidden_dim)
 net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
 net_opt = nn.Momentum(net.trainable_params(), 0.01, 0.9)
 loss_monitor = LossMonitorWithCollection(500)
-model = Model(net, net_loss, net_opt)
+model = ms.Model(net, net_loss, net_opt)
 model.train(350, train_loader, callbacks=[loss_monitor], dataset_sink_mode=False)
 ```
 

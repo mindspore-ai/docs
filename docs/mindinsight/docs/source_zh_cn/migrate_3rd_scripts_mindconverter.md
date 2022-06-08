@@ -343,7 +343,7 @@ for i in range(EPOCH_SIZE):
 
 ```python
 from mindspore import nn
-from mindspore import Model
+import mindspore as ms
 
 # 根据实际情况替换以下类路径
 from customized.path.to.mindspore.model import MindSporeNetwork
@@ -356,7 +356,7 @@ scheduler = nn.ExponentialDecayLR(LEARNING_RATE, decay_rate=DECAY_RATE, decay_st
 optimizer = nn.SGD(params=network.trainable_params(), learning_rate=scheduler)
 
 # 执行模型训练
-model = Model(network, loss_fn=loss_fn, optimizer=optimizer)
+model = ms.Model(network, loss_fn=loss_fn, optimizer=optimizer)
 model.train(EPOCH_SIZE, dataset)
 ```
 
@@ -408,17 +408,16 @@ for data, label in data_iterator:
 对应MindSpore代码（High-Level API）如下：
 
 ```python
-import mindspore
-from mindspore import Model
+import mindspore as ms
 
 # 根据实际情况替换以下类路径
 from customized.path.to.mindspore.model import MindSporeNetwork
 
 network = MindSporeNetwork()
-param_dict = mindspore.load_checkpoint('/path/to/weights.ckpt')
-mindspore.load_param_into_net(network, param_dict)
+param_dict = ms.load_checkpoint('/path/to/weights.ckpt')
+ms.load_param_into_net(network, param_dict)
 
-model = Model(network, loss_fn=loss_fn, metrics={'accuracy'})
+model = ms.Model(network, loss_fn=loss_fn, metrics={'accuracy'})
 accuracy = model.eval(dataset)
 ```
 

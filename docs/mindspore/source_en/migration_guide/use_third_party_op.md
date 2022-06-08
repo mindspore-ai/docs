@@ -160,11 +160,10 @@ Taking CPU as an example, use the Custom operator to call the above PyTorch Aten
 
 ```python
 import numpy as np
-from mindspore import Tensor, set_context
 from mindspore.nn import Cell
 import mindspore.ops as ops
 
-set_context(device_target="CPU")
+ms.set_context(device_target="CPU")
 
 def LeakyRelu():
     return ops.Custom("./leaky_relu_cpu.so:LeakyRelu", out_shape=lambda x : x, out_dtype=lambda x : x, func_type="aot")
@@ -180,7 +179,7 @@ class Net(Cell):
 if __name__ == "__main__":
     x0 = np.array([[0.0, -0.1], [-0.2, 1.0]]).astype(np.float32)
     net = Net()
-    output = net(Tensor(x0))
+    output = net(ms.Tensor(x0))
     print(output)
 ```
 
@@ -202,14 +201,14 @@ Attention:
 When using a PyTorch Aten `GPU` operator，set `device_target`to `"GPU"`.
 
 ```python
-set_context(device_target="GPU")
+ms.set_context(device_target="GPU")
 op = ops.Custom("./leaky_relu_gpu.so:LeakyRelu", out_shape=lambda x : x, out_dtype=lambda x : x, func_type="aot")
 ```
 
 When using a PyTorch Aten `CPU` operator and `device_target` is `"GPU"`, the settings that need to be added are as follows:
 
 ```python
-set_context(device_target="GPU")
+ms.set_context(device_target="GPU")
 op = ops.Custom("./leaky_relu_cpu.so:LeakyRelu", out_shape=lambda x : x, out_dtype=lambda x : x, func_type="aot")
 op.add_prim_attr("primitive_target", "CPU")
 ```

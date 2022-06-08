@@ -35,8 +35,8 @@ A: No. You need to convert the parameters trained by other frameworks into the M
 <font size=3>**Q: Why an error message is displayed when MindSpore is used to set `model.train`?**</font>
 
 ```python
-model.train(1, dataset, callbacks=LossMonitor(1), dataset_sink_mode=True)
-model.train(1, dataset, callbacks=LossMonitor(1), dataset_sink_mode=False)
+model.train(1, dataset, callbacks=ms.LossMonitor(1), dataset_sink_mode=True)
+model.train(1, dataset, callbacks=ms.LossMonitor(1), dataset_sink_mode=False)
 ```
 
 A: If the offloading mode has been set, it cannot be set to non-offloading mode, which is a restriction on the running mechanism.
@@ -56,7 +56,7 @@ The optimizer is not required in the `eval` phase. However, if the `model.eval` 
 
 ```python
 # Define a model.
-model = Model(net, loss_fn=loss, metrics={'top_1_accuracy', 'top_5_accuracy'})
+model = ms.Model(net, loss_fn=loss, metrics={'top_1_accuracy', 'top_5_accuracy'})
 # Evaluate the model.
 res = model.eval(dataset)
 ```
@@ -130,7 +130,7 @@ net = Net()
 loss_fn = MyLoss()
 loss_with_net = MyWithLossCell(net, loss_fn)
 train_net = MyTrainOneStepCell(loss_with_net, optim)
-model = Model(net=train_net, loss_fn=None, optimizer=None)
+model = ms.Model(net=train_net, loss_fn=None, optimizer=None)
 ```
 
 <br/>
@@ -294,12 +294,12 @@ A: The following is based on the official MindSpore linear fitting case.
 ```python
 # The fitting function is: f(x)=2*sin(x)+3.
 import numpy as np
+import mindspore as ms
 from mindspore import dataset as ds
 from mindspore.common.initializer import Normal
-from mindspore import nn, Model, set_context, GRAPH_MODE
-from mindspore import LossMonitor
+from mindspore import nn
 
-set_context(mode=GRAPH_MODE, device_target="CPU")
+ms.set_context(mode=ms.GRAPH_MODE, device_target="CPU")
 
 def get_data(num, w=2.0, b=3.0):
     # f(x)=w * sin(x) + b
@@ -336,10 +336,10 @@ if __name__ == "__main__":
     net = LinearNet()
     net_loss = nn.loss.MSELoss()
     opt = nn.Momentum(net.trainable_params(), lr, momentum)
-    model = Model(net, net_loss, opt)
+    model = ms.Model(net, net_loss, opt)
 
     ds_train = create_dataset(num_data, batch_size=batch_size, repeat_size=repeat_size)
-    model.train(1, ds_train, callbacks=LossMonitor(), dataset_sink_mode=False)
+    model.train(1, ds_train, callbacks=ms.LossMonitor(), dataset_sink_mode=False)
 
     print(net.trainable_params()[0], "\n%s" % net.trainable_params()[1])
 ```
@@ -360,7 +360,7 @@ The following explains detailed information about the modification:
 
 ```python
 # Since the selected optimizer does not support CPU, so the training computing platform is changed to GPU, which requires readers to install the corresponding GPU version of MindSpore.
-set_context(mode=GRAPH_MODE, device_target="GPU")
+ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU")
 
 # Assume that the function to be fitted this time is f(x)=2x^2+3x+4, the data generation function is modified as follows:
 def get_data(num, a=2.0, b=3.0 ,c = 4):
@@ -399,10 +399,10 @@ if __name__ == "__main__":
     net_loss = nn.loss.MSELoss()
     #  RMSProp optimalizer with better effect is selected for quadratic function fitting, Currently, Ascend and GPU computing platforms are supported.
     opt = nn.RMSProp(net.trainable_params(), learning_rate=0.1)
-    model = Model(net, net_loss, opt)
+    model = ms.Model(net, net_loss, opt)
 
     ds_train = create_dataset(num_data, batch_size=batch_size, repeat_size=repeat_size)
-    model.train(1, ds_train, callbacks=LossMonitor(), dataset_sink_mode=False)
+    model.train(1, ds_train, callbacks=ms.LossMonitor(), dataset_sink_mode=False)
 
     print(net.trainable_params()[0], "\n%s" % net.trainable_params()[1])
 ```
@@ -564,9 +564,10 @@ A: In GRAPH mode, since the graph compilation is used, the data type of the outp
 For example, the following code is executed in GRAPH mode, and the type of input data is int, so the output result is also int type according to graph compilation.
 
 ```python
-from mindspore import nn, set_context, GRAPH_MODE
+import mindspore as ms
+from mindspore import nn
 
-set_context(mode=GRAPH_MODE, device_target="CPU")
+ms.set_context(mode=ms.GRAPH_MODE, device_target="CPU")
 
 class MyTest(nn.Cell):
     def __init__(self):

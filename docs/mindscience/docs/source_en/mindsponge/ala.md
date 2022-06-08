@@ -119,7 +119,7 @@ Read the parameters needed by the simulation system from three input files, and 
 
 ```python
 import argparse
-from mindspore import set_context, GRAPH_MODE
+import mindspore as ms
 
 parser = argparse.ArgumentParser(description='Sponge Controller')
 parser.add_argument('--i', type=str, default=None, help='input file')
@@ -132,7 +132,7 @@ parser.add_argument('--box', type=str, default="mdbox", help='')
 parser.add_argument('--device_id', type=int, default=0, help='')
 args_opt = parser.parse_args()
 
-set_context(mode=GRAPH_MODE, device_target="GPU", device_id=args_opt.device_id, save_graphs=False)
+ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU", device_id=args_opt.device_id, save_graphs=False)
 ```
 
 ### Constructing Simulation Process
@@ -141,7 +141,7 @@ By using computational force module and computational energy module defined in M
 
 ```python
 from mindsponge.md.simulation import Simulation
-from mindspore import Tensor
+import mindspore as ms
 
 if __name__ == "__main__":
     simulation = Simulation(args_opt)
@@ -151,7 +151,7 @@ if __name__ == "__main__":
         if steps == simulation.md_info.step_limit - 1:
             print_step = 0
         temperature, total_potential_energy, sigma_of_bond_ene, sigma_of_angle_ene, sigma_of_dihedral_ene, \
-        nb14_lj_energy_sum, nb14_cf_energy_sum, LJ_energy_sum, ee_ene, _ = simulation(Tensor(steps), Tensor(print_step))
+        nb14_lj_energy_sum, nb14_cf_energy_sum, LJ_energy_sum, ee_ene, _ = simulation(ms.Tensor(steps), ms.Tensor(print_step))
         # compute energy and temperature
 
 ```

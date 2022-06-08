@@ -37,9 +37,9 @@ When an error similar to "Type Join Failed: dtype1 = Float32, dtype2 = Float16" 
 import numpy as np
 import mindspore as ms
 import mindspore.ops as ops
-from mindspore import nn, Tensor, set_context, GRAPH_MODE
+from mindspore import nn
 
-set_context(mode=GRAPH_MODE)
+ms.set_context(mode=ms.GRAPH_MODE)
 class Net(nn.Cell):
     def __init__(self):
         super().__init__()
@@ -52,9 +52,9 @@ class Net(nn.Cell):
         else:
             return self.cast(self.relu(x), ms.float16)    # shape:(), dype: Float32
 
-input_x = Tensor(np.random.rand(2, 3, 4, 5).astype(np.float32))
-input_a = Tensor(2, ms.float32)
-input_b = Tensor(6, ms.float32)
+input_x = ms.Tensor(np.random.rand(2, 3, 4, 5).astype(np.float32))
+input_a = ms.Tensor(2, ms.float32)
+input_b = ms.Tensor(6, ms.float32)
 net = Net()
 out_me = net(input_x, input_a, input_b)
 ```
@@ -80,17 +80,18 @@ When an error similar to "Shape Join Failed: shape1 = (2, 3, 4, 5), shape2 = ()"
 
 ```python
 import mindspore.ops as ops
-from mindspore import Tensor, ms_function
+import mindspore as ms
+from mindspore import ms_function
 
-x = Tensor([1.0])
-y = Tensor([2.0])
+x = ms.Tensor([1.0])
+y = ms.Tensor([2.0])
 grad = ops.GradOperation(get_by_list=False, sens_param=True)
 sens = 1.0
 
 def test_net(a, b):
     return a, b
 
-@ms_function()
+@ms_function
 def join_fail():
     sens_i = ops.Fill()(ops.DType()(x), ops.Shape()(x), sens)    # sens_i is a scalar shape: (1), dtype:Float64, value:1.0
     # sens_i = (sens_i, sens_i)
@@ -141,10 +142,11 @@ it means that there may be infinite recursion or loop in the code, which causes 
 The example is as follow:
 
 ```python
-from mindspore import Tensor, ms_function, set_context, GRAPH_MODE
-from mindspore import dtype as mstype
-ZERO = Tensor([0], mstype.int32)
-ONE = Tensor([1], mstype.int32)
+import mindspore as ms
+from mindspore import ms_function
+
+ZERO = ms.Tensor([0], ms.int32)
+ONE = ms.Tensor([1], ms.int32)
 @ms_function
 def f(x):
     y = ZERO
@@ -160,8 +162,8 @@ def f(x):
     return z
 
 def test_endless():
-    set_context(mode=GRAPH_MODE)
-    x = Tensor([5], mstype.int32)
+    ms.set_context(mode=ms.GRAPH_MODE)
+    x = ms.Tensor([5], ms.int32)
     f(x)
 
 ```
@@ -238,9 +240,9 @@ For example, when calling the third-party library NumPy, JIT Fallback supports t
 ```python
 import numpy as np
 import mindspore.nn as nn
-from mindspore import set_context, GRAPH_MODE
+import mindspore as ms
 
-set_context(mode=GRAPH_MODE)
+ms.set_context(mode=ms.GRAPH_MODE)
 
 class Net(nn.Cell):
     def construct(self, x, y):
@@ -272,17 +274,19 @@ A: Currently, Tensor [subsequent abbreviation Tensor (bool)] with bool data type
 The example is as follow:
 
 ```python
-from mindspore import set_context, ops, ms_function, Tensor, dtype
+import mindspore as ms
+from mindspore import ops
+from mindspore import ms_function
 
-set_context(save_graphs=True, save_graphs_path='graph_path')
+ms.set_context(save_graphs=True, save_graphs_path='graph_path')
 
 @ms_function
 def test_logic(x, y):
     z = x and y
     return z and x
 
-x = Tensor(True, dtype.bool_)
-y = Tensor(True, dtype.bool_)
+x = ms.Tensor(True, ms.bool_)
+y = ms.Tensor(True, ms.bool_)
 grad = ops.GradOperation(get_all=True)
 grad_net = grad(test_logic)
 out = grad_net(x, y)
