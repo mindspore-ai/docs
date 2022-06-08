@@ -95,8 +95,6 @@ dataset_val = create_dataset(val_path, train=False)
 
 In this case, we use a pre-trained model to fine-tune the model on the dog and croissant classification dataset, and convert the trained CKPT model file to the MINDIR format for subsequent deployment on the mobile phone.
 
-> Currently, model training supports only the Linux environment.
-
 ### Principles of the MobileNet V2 Model
 
 MobileNet is a lightweight CNN proposed by the Google team in 2017 to focus on mobile, embedded, or IoT devices. Compared with traditional convolutional neural networks, MobileNet uses depthwise separable convolution to greatly reduce the model parameters and computation amount with a slight decrease in accuracy. In addition, the width coefficient $\alpha$ and resolution coefficient $\beta$ are introduced to meet the requirements of different application scenarios.
