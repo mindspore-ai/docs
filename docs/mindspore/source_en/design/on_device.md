@@ -44,8 +44,8 @@ import os
 import requests
 import mindspore as ms
 import mindspore.dataset as ds
-import mindspore.dataset.transforms as CT
-import mindspore.dataset.vision as CV
+import mindspore.dataset.transforms as transforms
+import mindspore.dataset.vision as vision
 import mindspore.nn as nn
 from mindspore.common.initializer import TruncatedNormal
 from mindspore.dataset.vision import Inter
@@ -68,11 +68,11 @@ def create_dataset(data_path, batch_size=32, repeat_size=1,
     shift_nml = -1 * 0.1307 / 0.3081
 
     # define map operations
-    resize_op = CV.Resize((resize_height, resize_width), interpolation=Inter.LINEAR)  # Bilinear mode
-    rescale_nml_op = CV.Rescale(rescale_nml, shift_nml)
-    rescale_op = CV.Rescale(rescale, shift)
-    hwc2chw_op = CV.HWC2CHW()
-    type_cast_op = CT.TypeCast(ms.int32)
+    resize_op = vision.Resize((resize_height, resize_width), interpolation=Inter.LINEAR)  # Bilinear mode
+    rescale_nml_op = vision.Rescale(rescale_nml, shift_nml)
+    rescale_op = vision.Rescale(rescale, shift)
+    hwc2chw_op = vision.HWC2CHW()
+    type_cast_op = transforms.TypeCast(ms.int32)
 
     # apply map operations on images
     mnist_ds = mnist_ds.map(input_columns="label", operations=type_cast_op, num_parallel_workers=num_parallel_workers)

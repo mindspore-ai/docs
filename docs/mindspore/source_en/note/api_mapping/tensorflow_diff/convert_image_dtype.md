@@ -15,15 +15,15 @@ tf.image.convert_image_dtype(
 
 For more information, see [tf.image.convert_image_dtype](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/image/convert_image_dtype).
 
-## mindspore.dataset.vision.ToType
+## mindspore.dataset.vision.TypeCast
 
 ```python
-class mindspore.dataset.vision.ToType(
+class mindspore.dataset.vision.TypeCast(
     output_type
 )
 ```
 
-For more information, see [mindspore.dataset.vision.ToType](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.ToType.html#mindspore.dataset.vision.ToType).
+For more information, see [mindspore.dataset.vision.TypeCast](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.TypeCast.html#mindspore.dataset.vision.TypeCast).
 
 ## Differences
 
@@ -34,12 +34,12 @@ MindSpore: Convert the data type of the numpy.ndarray image.
 ## Code Example
 
 ```python
-# The following implements ToType with MindSpore.
+# The following implements TypeCast with MindSpore.
 import numpy as np
 import mindspore.dataset as ds
 
 image = np.random.random((28, 28, 3))
-result = ds.vision.ToType(np.uint8)(image)
+result = ds.vision.TypeCast(np.uint8)(image)
 print(result.dtype)
 # uint8
 

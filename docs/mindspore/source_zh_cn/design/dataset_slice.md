@@ -39,7 +39,7 @@
 ```python
 import mindspore.dataset as ds
 import mindspore.dataset.vision as vision
-import mindspore.dataset.transforms as C
+import mindspore.dataset.transforms as transforms
 from mindspore.communication import init, get_rank, get_group_size
 from mindspore import set_context, GRAPH_MODE
 from mindspore import dtype as mstype
@@ -65,7 +65,7 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, slice_h_num=1, slice_
     rescale_op = vision.Rescale(rescale, shift)
     normalize_op = vision.Normalize((0.4465, 0.4822, 0.4914), (0.2010, 0.1994, 0.2023))
     changeswap_op = vision.HWC2CHW()
-    type_cast_op = C.TypeCast(mstype.int32)
+    type_cast_op = transforms.TypeCast(mstype.int32)
 
     c_trans = [random_crop_op, random_horizontal_op]
     c_trans += [resize_op, rescale_op, normalize_op]

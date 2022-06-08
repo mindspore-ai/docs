@@ -30,8 +30,8 @@ from scipy.special import softmax
 
 import mindspore as ms
 from mindspore import dataset as ds
-import mindspore.dataset.vision as CV
-import mindspore.dataset.transforms as C
+import mindspore.dataset.vision as vision
+import mindspore.dataset.transforms as transforms
 from mindspore.dataset.vision import Inter
 import mindspore.nn as nn
 from mindspore.nn import SoftmaxCrossEntropyWithLogits
@@ -68,18 +68,18 @@ def generate_mnist_dataset(data_path, batch_size=32, repeat_size=1,
     shift = 0.0
 
     # define map operations
-    resize_op = CV.Resize((resize_height, resize_width),
+    resize_op = vision.Resize((resize_height, resize_width),
                           interpolation=Inter.LINEAR)
-    rescale_op = CV.Rescale(rescale, shift)
-    hwc2chw_op = CV.HWC2CHW()
-    type_cast_op = C.TypeCast(ms.int32)
+    rescale_op = vision.Rescale(rescale, shift)
+    hwc2chw_op = vision.HWC2CHW()
+    type_cast_op = transforms.TypeCast(ms.int32)
 
     # apply map operations on images
     if not sparse:
-        one_hot_enco = C.OneHot(10)
+        one_hot_enco = transforms.OneHot(10)
         ds1 = ds1.map(operations=one_hot_enco, input_columns="label",
                       num_parallel_workers=num_parallel_workers)
-        type_cast_op = C.TypeCast(ms.float32)
+        type_cast_op = transforms.TypeCast(ms.float32)
     ds1 = ds1.map(operations=type_cast_op, input_columns="label",
                   num_parallel_workers=num_parallel_workers)
     ds1 = ds1.map(operations=resize_op, input_columns="image",

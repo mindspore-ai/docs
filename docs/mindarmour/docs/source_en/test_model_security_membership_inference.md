@@ -35,7 +35,7 @@ import mindspore.nn as nn
 from mindspore.common import initializer as init
 from mindspore.common.initializer import initializer
 import mindspore.dataset as ds
-import mindspore.dataset.transforms as C
+import mindspore.dataset.transforms as transforms
 import mindspore.dataset.vision as vision
 from mindarmour import MembershipInference
 from mindarmour.utils import LogUtil
@@ -80,7 +80,7 @@ def vgg_create_dataset100(data_home, image_size, batch_size, rank_id=0, rank_siz
     rescale_op = vision.Rescale(rescale, shift)
     normalize_op = vision.Normalize((0.4465, 0.4822, 0.4914), (0.2010, 0.1994, 0.2023))
     changeswap_op = vision.HWC2CHW()
-    type_cast_op = C.TypeCast(ms.int32)
+    type_cast_op = transforms.TypeCast(ms.int32)
 
     c_trans = []
     if training:

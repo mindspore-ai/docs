@@ -1,6 +1,6 @@
 # Function differences with torchvision.transforms.ConvertImageDtype
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/ToType.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/mindspore/source_en/note/api_mapping/pytorch_diff/TypeCast.md" target="_blank"><img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/website-images/master/resource/_static/logo_source_en.png"></a>
 
 ## torchvision.transforms.ConvertImageDtype
 
@@ -12,15 +12,15 @@ class torchvision.transforms.ConvertImageDtype(
 
 For more information, see [torchvision.transforms.ConvertImageDtype](https://pytorch.org/vision/0.10/transforms.html#torchvision.transforms.ConvertImageDtype).
 
-## mindspore.dataset.vision.ToType(output_type)
+## mindspore.dataset.vision.TypeCast(output_type)
 
 ```python
-class mindspore.dataset.vision.ToType(
+class mindspore.dataset.vision.TypeCast(
     output_type
     )
 ```
 
-For more information, see [mindspore.dataset.vision.ToType](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.ToType.html#mindspore.dataset.vision.ToType).
+For more information, see [mindspore.dataset.vision.TypeCast](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.TypeCast.html#mindspore.dataset.vision.TypeCast).
 
 ## Differences
 
@@ -39,7 +39,7 @@ import torchvision.datasets as datasets
 from torch.utils.data import DataLoader
 import mindspore.dataset.vision as vision
 
-# In MindSpore, ToType act through map operation.
+# In MindSpore, TypeCast act through map operation.
 
 coco_dataset_dir = "/path/to/coco/testCOCO/train"
 coco_annotation_file = "/path/to/coco/testCOCO/annotations/train.json"
@@ -51,7 +51,7 @@ dataset = ds.CocoDataset(
 transforms_list = vision.Compose(
     [vision.Decode(to_pil=True),
     vision.ToTensor(),
-    vision.ToType(np.float32)])
+    vision.TypeCast(np.float32)])
 dataset  = dataset.map(operations=transforms_list, input_columns="image")
 
 for item in dataset:
