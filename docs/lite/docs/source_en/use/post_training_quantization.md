@@ -76,7 +76,8 @@ The full quantization parameters mainly include `activation_quant_method`, `bias
 | ----------------------- | --------- | --------------------------------------------------- | -------------- | ------------- | ------------------------------------------------------------ |
 | activation_quant_method | Optional  | Activation quantization algorithm                   | String         | MAX_MIN       | KL, MAX_MIN, or RemovalOutlier.<br/>KL: quantizes and calibrates the data range based on [KL divergence](http://on-demand.gputechconf.com/gtc/2017/presentation/s7310-8-bit-inference-with-tensorrt.pdf).<br/>MAX_MIN: data quantization parameter computed based on the maximum and minimum values.<br/>RemovalOutlier: removes the maximum and minimum values of data based on a certain proportion and then calculates the quantization parameters.<br/>If the calibration dataset is consistent with the input data during actual inference, MAX_MIN is recommended. If the noise of the calibration dataset is large, KL or RemovalOutlier is recommended. |
 | bias_correction         | Optional  | Indicate whether to correct the quantization error. | Boolean        | True          | True or False. After this parameter is enabled, the accuracy of the converted model can be improved. You are advised to set this parameter to true. |
-| target_device         | Optional  | Full quantization supports multiple hardware backends. After setting the specific hardware, the converted quantization model  can execute the proprietry hardware quantization operator library. If not setting, universal quantization lib will be called. | String        | -          | NVGPU:  The quantized model can perform quantitative reasoning on the NVIDIA GPU. |
+| per_channel         | Optional  | Set to false to enable perlayer quantization. | Boolean        | True          | True or False. After this parameter is enabled, the accuracy of the converted model can be improved. You are advised to set this parameter to true. |
+| target_device         | Optional  | Full quantization supports multiple hardware backends. After setting the specific hardware, the converted quantization model  can execute the proprietry hardware quantization operator library. If not setting, universal quantization lib will be called. | String        | -          | NVGPU:  The quantized model can perform quantitative inference on the NVIDIA GPU, DSP:  The quantized model can perform quantitative inference on the DSP devices. |
 
 The full quantization parameter configuration is as follows:
 
@@ -86,6 +87,8 @@ The full quantization parameter configuration is as follows:
 activation_quant_method=MAX_MIN
 # Whether to correct the quantization error. Recommended to set to true.
 bias_correction=true
+# Whether to support PerChannel quantization strategy. Recommended to set to true.
+per_channel=true
 ```
 
 NVIDIA GPU full quantization parameter configuration is as follows:
@@ -94,8 +97,26 @@ NVIDIA GPU full quantization parameter configuration is as follows:
 [full_quant_param]
 # Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
 activation_quant_method=MAX_MIN
+# Whether to correct the quantization error. Recommended to set to true.
+bias_correction=true
+# Whether to support PerChannel quantization strategy. Recommended to set to true.
+per_channel=true
 # Supports specific hardware backends
 target_device=NVGPU
+```
+
+DSP full quantization parameter configuration is as follows:
+
+```ini
+[full_quant_param]
+# Activation quantized method supports MAX_MIN or KL or REMOVAL_OUTLIER
+activation_quant_method=MAX_MIN
+# Whether to correct the quantization error. Recommended to set to true.
+bias_correction=true
+# Whether to support PerChannel quantization strategy. Recommended to set to true.
+per_channel=true
+# Supports specific hardware backends
+target_device=DSP
 ```
 
 ### Data Preprocessing
