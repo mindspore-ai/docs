@@ -6,7 +6,7 @@ Mapping between TensorFlow APIs and MindSpore APIs, which is provided by the com
 
 More MindSpore developers are also welcome to participate in improving the mapping content.
 
-## troch
+## torch
 
 | PyTorch 1.5.0 APIs                                                                           | MindSpore APIs                                                                                                                                                       | Description                                                                                                       |
 | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
@@ -157,7 +157,7 @@ More MindSpore developers are also welcome to participate in improving the mappi
 | [torch.zeros](https://pytorch.org/docs/1.5.0/torch.html#torch.zeros)                         | [mindspore.ops.Zeros](https://mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.Zeros.html#mindspore.ops.Zeros)                                           |                                                                                                                   |
 | [torch.zeros_like](https://pytorch.org/docs/1.5.0/torch.html#torch.zeros_like)               | [mindspore.ops.ZerosLike](https://mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.ZerosLike.html#mindspore.ops.ZerosLike)                               |                                                                                                                   |
 
-## troch.autograd
+## torch.autograd
 
 | PyTorch 1.5.0 APIs                                                                                    | MindSpore APIs                                                                                                                                     | Description                                                                                                 |
 | ----------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
@@ -167,14 +167,14 @@ More MindSpore developers are also welcome to participate in improving the mappi
 | [torch.autograd.no_grad](https://pytorch.org/docs/1.5.0/autograd.html#torch.autograd.no_grad)         | [mindspore.ops.stop_gradient](https://www.mindspore.cn/tutorials/en/r1.6/autograd.html#stop-gradient)                                            | [diff](https://www.mindspore.cn/docs/migration_guide/en/r1.6/api_mapping/pytorch_diff/stop_gradient.html) |
 | [torch.autograd.variable](https://pytorch.org/docs/1.5.0/autograd.html#torch.autograd.variable-deprecated)| [mindspore.Parameter](https://mindspore.cn/docs/api/en/r1.6/api_python/mindspore/mindspore.Parameter.html#mindspore.Parameter)               |                                                                                                             |
 
-## troch.cuda
+## torch.cuda
 
 | PyTorch 1.5.0 APIs                                                                          | MindSpore APIs                                                                                                                                                   | Description                                                                                               |
 | ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
 | [torch.cuda.device_count](https://pytorch.org/docs/1.5.0/cuda.html#torch.cuda.device_count) | [mindspore.communication.get_group_size](https://mindspore.cn/docs/api/en/r1.6/api_python/mindspore.communication.html#mindspore.communication.get_group_size) |                                                                                                           |
 | [torch.cuda.set_device](https://pytorch.org/docs/1.5.0/cuda.html#torch.cuda.set_device)     | [mindspore.context.set_context](https://mindspore.cn/docs/api/en/r1.6/api_python/mindspore.context.html#mindspore.context.set_context)                         | [diff](https://www.mindspore.cn/docs/migration_guide/en/r1.6/api_mapping/pytorch_diff/set_context.html) |
 
-## troch.distributed
+## torch.distributed
 
 | PyTorch 1.5.0 APIs                                                                                                           | MindSpore APIs                                                                                                                                               | Description                                                                                                |
 | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------- |
@@ -184,13 +184,13 @@ More MindSpore developers are also welcome to participate in improving the mappi
 | [torch.distributed.init_process_group](https://pytorch.org/docs/1.5.0/distributed.html#torch.distributed.init_process_group) | [mindspore.communication.init](https://mindspore.cn/docs/api/en/r1.6/api_python/mindspore.communication.html#mindspore.communication.init)                 | [diff](https://www.mindspore.cn/docs/migration_guide/en/r1.6/api_mapping/pytorch_diff/init.html)         |
 | [torch.distributed.new_group](https://pytorch.org/docs/1.5.0/distributed.html#torch.distributed.new_group)                   | [mindspore.communication.create_group](https://mindspore.cn/docs/api/en/r1.6/api_python/mindspore.communication.html#mindspore.communication.create_group) | [diff](https://www.mindspore.cn/docs/migration_guide/en/r1.6/api_mapping/pytorch_diff/create_group.html) |
 
-## troch.distributions
+## torch.distributions
 
 | PyTorch 1.5.0 APIs                                                                                                   | MindSpore APIs                                                                                                             | Description |
 | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ----------- |
 | [torch.distributions.gamma.Gamma](https://pytorch.org/docs/1.5.0/distributions.html#torch.distributions.gamma.Gamma) | [mindspore.ops.Gamma](https://mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.Gamma.html#mindspore.ops.Gamma) |             |
 
-## troch.nn
+## torch.nn
 
 | PyTorch 1.5.0 APIs                                                                                                                       | MindSpore APIs                                                                                                                                                                                 | Description                                                                                                     |
 | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
@@ -254,7 +254,7 @@ More MindSpore developers are also welcome to participate in improving the mappi
 | [torch.nn.Unfold](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.Unfold)                                                                | [mindspore.nn.Unfold](https://mindspore.cn/docs/api/en/r1.6/api_python/nn/mindspore.nn.Unfold.html#mindspore.nn.Unfold)                                                                      | [diff](https://www.mindspore.cn/docs/migration_guide/en/r1.6/api_mapping/pytorch_diff/Unfold.html)            |
 | [torch.nn.Upsample](https://pytorch.org/docs/1.5.0/nn.html#torch.nn.Upsample)                                                            | [mindspore.nn.ResizeBilinear](https://mindspore.cn/docs/api/en/r1.6/api_python/nn/mindspore.nn.ResizeBilinear.html#mindspore.nn.ResizeBilinear)                                              | [diff](https://www.mindspore.cn/docs/migration_guide/en/r1.6/api_mapping/pytorch_diff/ResizeBilinear.html)    |
 
-## troch.nn.functional
+## torch.nn.functional
 
 | PyTorch 1.5.0 APIs                                                                                                                       | MindSpore APIs                                                                                                                                                                                 | Description                                                                                                     |
 | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
@@ -289,7 +289,7 @@ More MindSpore developers are also welcome to participate in improving the mappi
 | [torch.nn.functional.softplus](https://pytorch.org/docs/1.5.0/nn.functional.html#torch.nn.functional.softplus)                           | [mindspore.ops.Softplus](https://mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.Softplus.html#mindspore.ops.Softplus)                                                            |                                                                                                                 |
 | [torch.nn.functional.softsign](https://pytorch.org/docs/1.5.0/nn.functional.html#torch.nn.functional.softsign)                           | [mindspore.ops.Softsign](https://mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.Softsign.html#mindspore.ops.Softsign)                                                            |                                                                                                                 |
 
-## troch.nn.init
+## torch.nn.init
 
 | PyTorch 1.5.0 APIs                                                                                                                       | MindSpore APIs                                                                                                                                                                                 | Description                                                                                                     |
 | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
@@ -302,7 +302,7 @@ More MindSpore developers are also welcome to participate in improving the mappi
 | [torch.nn.init.zeros_](https://pytorch.org/docs/1.5.0/nn.init.html#torch.nn.init.zeros_)                                                 | [mindspore.common.initializer.Zero](https://mindspore.cn/docs/api/en/r1.6/api_python/mindspore.common.initializer.html#mindspore.common.initializer.Zero)                                    |                                                                                                                 |
 | [torch.nn.init.uniform_](https://pytorch.org/docs/1.5.0/nn.init.html#torch.nn.init.uniform_)                                             | [mindspore.common.initializer.Uniform](https://mindspore.cn/docs/api/en/r1.6/api_python/mindspore.common.initializer.html#mindspore.common.initializer.Uniform)                              | [diff](https://www.mindspore.cn/docs/migration_guide/en/r1.6/api_mapping/pytorch_diff/Uniform.html)           |
 
-## troch.optim
+## torch.optim
 
 | PyTorch 1.5.0 APIs                                                                                                                                     | MindSpore APIs                                                                                                                                                         | Description                                                                                                       |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
@@ -320,7 +320,7 @@ More MindSpore developers are also welcome to participate in improving the mappi
 | [torch.optim.RMSprop](https://pytorch.org/docs/1.5.0/optim.html#torch.optim.RMSprop)                                                                   | [mindspore.nn.RMSProp](https://mindspore.cn/docs/api/en/r1.6/api_python/nn/mindspore.nn.RMSProp.html#mindspore.nn.RMSProp)                                           |                                                                                                                   |
 | [torch.optim.SGD](https://pytorch.org/docs/1.5.0/optim.html#torch.optim.SGD)                                                                           | [mindspore.nn.SGD](https://mindspore.cn/docs/api/en/r1.6/api_python/nn/mindspore.nn.SGD.html#mindspore.nn.SGD)                                                       |                                                                                                                   |
 
-## troch.Tensor
+## torch.Tensor
 
 | PyTorch 1.5.0 APIs                                                                                     | MindSpore APIs                                                                                                                                               | Description                                                                                                |
 | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------- |
@@ -379,7 +379,7 @@ More MindSpore developers are also welcome to participate in improving the mappi
 | [torch.Tensor.view_as](https://pytorch.org/docs/1.5.0/tensors.html#torch.Tensor.view_as)               | [mindspore.Tensor.view](https://www.mindspore.cn/docs/api/en/r1.6/api_python/mindspore/mindspore.Tensor.html#mindspore.Tensor.view)                     |                                                                                                            |
 | [torch.Tensor.zero_](https://pytorch.org/docs/1.5.0/tensors.html#torch.Tensor.zero_)                   | [mindspore.ops.ZerosLike](https://mindspore.cn/docs/api/en/r1.6/api_python/ops/mindspore.ops.ZerosLike.html#mindspore.ops.ZerosLike)                       |                                                                                                            |
 
-## troch.utils
+## torch.utils
 
 | PyTorch 1.5.0 APIs                                                                                                                          | MindSpore APIs                                                                                                                                                                             | Description                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------- |
@@ -391,7 +391,7 @@ More MindSpore developers are also welcome to participate in improving the mappi
 | [torch.utils.data.SubsetRandomSampler](https://pytorch.org/docs/1.5.0/data.html#torch.utils.data.SubsetRandomSampler)                       | [mindspore.dataset.SubsetRandomSampler](https://mindspore.cn/docs/api/en/r1.6/api_python/dataset/mindspore.dataset.SubsetRandomSampler.html#mindspore.dataset.SubsetRandomSampler)       |                                                                                                                |
 | [torch.utils.data.WeightedRandomSampler](https://pytorch.org/docs/1.5.0/data.html#torch.utils.data.WeightedRandomSampler)                   | [mindspore.dataset.WeightedRandomSampler](https://mindspore.cn/docs/api/en/r1.6/api_python/dataset/mindspore.dataset.WeightedRandomSampler.html#mindspore.dataset.WeightedRandomSampler) |                                                                                                                |
 
-## trochtext
+## torchtext
 
 | TorchText 0.10.0 APIs                                                                                                                                 | MindSpore APIs                                                                                                                                                                                                                                     | Description                                                                                                                     |
 | ----------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
@@ -403,7 +403,7 @@ More MindSpore developers are also welcome to participate in improving the mappi
 | [torchtext.data.functional.simple_space_split](https://pytorch.org/text/0.10.0/data_functional.html#simple-space-split)                               | [mindspore.dataset.text.transforms.WhitespaceTokenizer](https://mindspore.cn/docs/api/en/r1.6/api_python/dataset_text/mindspore.dataset.text.transforms.WhitespaceTokenizer.html#mindspore.dataset.text.transforms.WhitespaceTokenizer)          |                                                                                                                                 |
 | [torchtext.data.utils.ngrams_iterator](https://pytorch.org/text/0.10.0/data_utils.html#ngrams-iterator)                                               | [mindspore.dataset.text.transforms.Ngram](https://mindspore.cn/docs/api/en/r1.6/api_python/dataset_text/mindspore.dataset.text.transforms.Ngram.html#mindspore.dataset.text.transforms.Ngram)                                                    | [diff](https://www.mindspore.cn/docs/migration_guide/en/r1.6/api_mapping/pytorch_diff/Ngram.html)                             |
 
-## trochvision
+## torchvision
 
 | TorchVision 0.10.0 APIs                                                                                                                    | MindSpore APIs                                                                                                                                                                                                                                                | Description                                                                                                   |
 | ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
