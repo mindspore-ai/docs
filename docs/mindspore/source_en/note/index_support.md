@@ -21,9 +21,9 @@ The index value can be `int`, `bool`, `None`, `ellipsis`, `slice`, `Tensor`, `Li
     For example:
 
     ```python
-    from mindspore import Tensor
+    import mindspore as ms
     import mindspore.numpy as np
-    tensor_x = Tensor(np.arange(2 * 3 * 2).reshape((2, 3, 2)))
+    tensor_x = ms.Tensor(np.arange(2 * 3 * 2).reshape((2, 3, 2)))
     data_single = tensor_x[0]
     data_multi = tensor_x[0][1]
     ```
@@ -48,7 +48,7 @@ The index value can be `int`, `bool`, `None`, `ellipsis`, `slice`, `Tensor`, `Li
     For example:
 
     ```python
-    tensor_x = Tensor(np.arange(2 * 3 ).reshape((2, 3)))
+    tensor_x = ms.Tensor(np.arange(2 * 3 ).reshape((2, 3)))
     data_single = tensor_x[True]
     data_multi = tensor_x[True][True]
     ```
@@ -75,7 +75,7 @@ The index value can be `int`, `bool`, `None`, `ellipsis`, `slice`, `Tensor`, `Li
     For example:
 
     ```python
-    tensor_x = Tensor(np.arange(2 * 3 ).reshape((2, 3)))
+    tensor_x = ms.Tensor(np.arange(2 * 3 ).reshape((2, 3)))
     data_single = tensor_x[...]
     data_multi = tensor_x[...][...]
     ```
@@ -104,7 +104,7 @@ The index value can be `int`, `bool`, `None`, `ellipsis`, `slice`, `Tensor`, `Li
     For example:
 
     ```python
-    tensor_x = Tensor(np.arange(4 * 2 * 2).reshape((4, 2, 2)))
+    tensor_x = ms.Tensor(np.arange(4 * 2 * 2).reshape((4, 2, 2)))
     data_single = tensor_x[1:4:2]
     data_multi = tensor_x[1:4:2][1:]
     ```
@@ -133,9 +133,9 @@ The index value can be `int`, `bool`, `None`, `ellipsis`, `slice`, `Tensor`, `Li
     For example:
 
     ```python
-    tensor_x = Tensor(np.arange(4 * 2 * 3).reshape((4, 2, 3)))
-    tensor_index0 = Tensor(np.array([[1, 2], [0, 3]]), mstype.int32)
-    tensor_index1 = Tensor(np.array([[0, 0]]), mstype.int32)
+    tensor_x = ms.Tensor(np.arange(4 * 2 * 3).reshape((4, 2, 3)))
+    tensor_index0 = ms.Tensor(np.array([[1, 2], [0, 3]]), mstype.int32)
+    tensor_index1 = ms.Tensor(np.array([[0, 0]]), mstype.int32)
     data_single = tensor_x[tensor_index0]
     data_multi = tensor_x[tensor_index0][tensor_index1]
     ```
@@ -164,9 +164,9 @@ The index value can be `int`, `bool`, `None`, `ellipsis`, `slice`, `Tensor`, `Li
     For example:
 
     ```python
-    tensor_x = Tensor(np.arange(4 * 2 * 3).reshape((4, 2, 3)))
-    tensor_index0 = Tensor(np.array([[1, 2], [0, 3]]), mstype.int32)
-    tensor_index1 = Tensor(np.array([[0, 0]]), mstype.int32)
+    tensor_x = ms.Tensor(np.arange(4 * 2 * 3).reshape((4, 2, 3)))
+    tensor_index0 = ms.Tensor(np.array([[1, 2], [0, 3]]), mstype.int32)
+    tensor_index1 = ms.Tensor(np.array([[0, 0]]), mstype.int32)
     data_single = tensor_x[tensor_index0]
     data_multi = tensor_x[tensor_index0][tensor_index1]
     ```
@@ -197,8 +197,8 @@ The index value can be `int`, `bool`, `None`, `ellipsis`, `slice`, `Tensor`, `Li
     For example:
 
     ```python
-    tensor_x = Tensor(np.arange(2 * 3 * 4).reshape((2, 3, 4)))
-    tensor_index = Tensor(np.array([[1, 2, 1], [0, 3, 2]]), mstype.int32)
+    tensor_x = ms.Tensor(np.arange(2 * 3 * 4).reshape((2, 3, 4)))
+    tensor_index = ms.Tensor(np.array([[1, 2, 1], [0, 3, 2]]), mstype.int32)
     data = tensor_x[1, 0:1, tensor_index]
     ```
 
@@ -448,8 +448,8 @@ Index value augmented-assignment can be regarded as taking the value of the posi
     For example:
 
     ```python
-    tensor_x = Tensor(np.arange(3 * 4).reshape(3, 4).astype(np.float32))
-    tensor_y = Tensor(np.arange(3 * 4).reshape(3, 4).astype(np.float32))
+    tensor_x = ms.Tensor(np.arange(3 * 4).reshape(3, 4).astype(np.float32))
+    tensor_y = ms.Tensor(np.arange(3 * 4).reshape(3, 4).astype(np.float32))
     tensor_x[[0, 1], 1:3] += 2
     tensor_y[[1], ...] -= [4, 3, 2, 1]
     ```

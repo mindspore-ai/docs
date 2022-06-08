@@ -42,16 +42,14 @@ The following is a code example:
 ```python
 import os
 import requests
+import mindspore as ms
 import mindspore.dataset as ds
 import mindspore.dataset.transforms as CT
 import mindspore.dataset.vision as CV
 import mindspore.nn as nn
-from mindspore import Model, set_context, GRAPH_MODE
-from mindspore import dtype as mstype
 from mindspore.common.initializer import TruncatedNormal
 from mindspore.dataset.vision import Inter
 import mindspore.ops as ops
-from mindspore import LossMonitor
 
 requests.packages.urllib3.disable_warnings()
 
@@ -74,7 +72,7 @@ def create_dataset(data_path, batch_size=32, repeat_size=1,
     rescale_nml_op = CV.Rescale(rescale_nml, shift_nml)
     rescale_op = CV.Rescale(rescale, shift)
     hwc2chw_op = CV.HWC2CHW()
-    type_cast_op = CT.TypeCast(mstype.int32)
+    type_cast_op = CT.TypeCast(ms.int32)
 
     # apply map operations on images
     mnist_ds = mnist_ds.map(input_columns="label", operations=type_cast_op, num_parallel_workers=num_parallel_workers)
@@ -169,7 +167,7 @@ def download_dataset(dataset_url, path):
 
 
 if __name__ == "__main__":
-    set_context(mode=GRAPH_MODE, device_target="GPU")
+    ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU")
     ds_train_path = "./datasets/MNIST_Data/train/"
     download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-labels-idx1-ubyte", ds_train_path)
     download_dataset("https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-images-idx3-ubyte", ds_train_path)
@@ -178,10 +176,10 @@ if __name__ == "__main__":
     network = LeNet5(10)
     net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
     net_opt = nn.Momentum(network.trainable_params(), 0.01, 0.9)
-    model = Model(network, net_loss, net_opt)
+    model = ms.Model(network, net_loss, net_opt)
 
     print("============== Starting Training ==============")
-    model.train(epoch=10, train_dataset=ds_train, callbacks=[LossMonitor()], dataset_sink_mode=True, sink_size=1000)
+    model.train(epoch=10, train_dataset=ds_train, callbacks=[ms.LossMonitor()], dataset_sink_mode=True, sink_size=1000)
 ```
 
 The output is as follows:

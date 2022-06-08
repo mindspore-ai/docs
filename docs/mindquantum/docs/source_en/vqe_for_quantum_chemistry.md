@@ -45,10 +45,9 @@ from mindquantum.core import X, RX
 from mindquantum.core import Circuit
 from mindquantum.algorithm.nisq.chem import generate_uccsd
 import mindspore as ms
-from mindspore import Parameter, set_context, PYNATIVE_MODE
 from mindspore.common.initializer import initializer
 
-set_context(mode=PYNATIVE_MODE, device_target="CPU")
+ms.set_context(mode=ms.PYNATIVE_MODE, device_target="CPU")
 ```
 
 ## Quantum Chemistry Computing Method
@@ -478,7 +477,7 @@ molecule_pqcnet = MQAnsatzOnlyLayer(grad_ops)
 `init_amplitudes_ccsd` (coupled-cluster coefficient computed by CCSD) is used as an initial variational parameter:
 
 ```python
-molecule_pqcnet.weight = Parameter(ms.Tensor(init_amplitudes_ccsd, molecule_pqcnet.weight.dtype))
+molecule_pqcnet.weight = ms.Parameter(ms.Tensor(init_amplitudes_ccsd, molecule_pqcnet.weight.dtype))
 initial_energy = molecule_pqcnet()
 print("Initial energy: %20.16f" % (initial_energy.asnumpy()))
 ```

@@ -124,16 +124,16 @@ To enable pipeline parallelism, you need to add the following configurations to 
 - Finally, wrap the LossCell with `PipelineCell`, and specify the Micro_batch size. To improve machine utilization, MindSpore divides Mini_batch into finer-grained Micro_batch to streamline the entire cluster. The final loss value is the sum of the loss values computed by all Micro_batch. The size of Micro_batch must be greater than or equal to the number of `stages`.
 
 ```python
-from mindspore import Model, nn, set_auto_parallel_context, ParallelMode
+import mindspore as ms
+from mindspore import nn
 from mindspore.nn import Momentum
-from mindspore import LossMonitor
 from resnet import resnet50
 
 
 def test_train_cifar(epoch_size=10):
-    set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, gradients_mean=True)
-    set_auto_parallel_context(pipeline_stages=2, save_graphs=True)
-    loss_cb = LossMonitor()
+    ms.set_auto_parallel_context(parallel_mode=ms.ParallelMode.SEMI_AUTO_PARALLEL, gradients_mean=True)
+    ms.set_auto_parallel_context(pipeline_stages=2, save_graphs=True)
+    loss_cb = ms.LossMonitor()
     data_path = os.getenv('DATA_PATH')
     dataset = create_dataset(data_path)
     batch_size = 32
@@ -143,7 +143,7 @@ def test_train_cifar(epoch_size=10):
     net_with_loss = nn.WithLossCell(net, loss)
     net_pipeline = nn.PipelineCell(net_with_loss, 2)
     opt = Momentum(net.trainable_params(), 0.01, 0.9)
-    model = Model(net_pipeline, optimizer=opt)
+    model = ms.Model(net_pipeline, optimizer=opt)
     model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=True)
 ```
 

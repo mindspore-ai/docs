@@ -369,19 +369,18 @@ Next, we need to define the loss function, set the parameters to be optimized, a
 ```python
 from mindspore.nn import SoftmaxCrossEntropyWithLogits                         # Import the SoftmaxCrossEntropyWithLogits module to define the loss function
 from mindspore.nn import Adam, Accuracy                                        # Import the Adam module and the Accuracy module, which are used to define optimization parameters and evaluate the prediction accuracy respectively.
-from mindspore import Model                                                    # Import the Model module for building models
+import mindspore as ms
 from mindspore.dataset import NumpySlicesDataset                               # Import the NumpySlicesDataset module for creating datasets that the model can recognize
-from mindspore import Callback, LossMonitor                     # Import Callback module and LossMonitor module to define callback function and monitor loss respectively
 
 loss = SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')            # The loss function is defined by SoftmaxCrossEntropyWithLogits, sparse=True indicates that the specified label uses a sparse format, and reduction='mean' indicates that the dimensionality reduction method of the loss function is averaging
 opti = Adam(QuantumNet.trainable_params(), learning_rate=0.1)                  # The parameters in Ansatz are optimized by the Adam optimizer. What needs to be optimized are the trainable parameters in Quantumnet, and the learning rate is set to 0.1
 
-model = Model(QuantumNet, loss, opti, metrics={'Acc': Accuracy()})             # Build a model: Combine the quantum machine learning layer built by MindQuantum and the operators of MindSpore to form a larger machine learning network
+model = ms.Model(QuantumNet, loss, opti, metrics={'Acc': Accuracy()})             # Build a model: Combine the quantum machine learning layer built by MindQuantum and the operators of MindSpore to form a larger machine learning network
 
 train_loader = NumpySlicesDataset({'features': X_train, 'labels': y_train}, shuffle=False).batch(5) # Create a dataset of training samples by NumpySlicesDataset, shuffle=False means not to shuffle the data, batch(5) means that the training set has 5 sample points per batch
 test_loader = NumpySlicesDataset({'features': X_test, 'labels': y_test}).batch(5)                   # Create a data set of test samples by NumpySlicesDataset, batch(5) means that there are 5 sample points in each batch of the test set
 
-class StepAcc(Callback):                                                        # Define a callback function about the accuracy of each step
+class StepAcc(ms.Callback):                                                        # Define a callback function about the accuracy of each step
     def __init__(self, model, test_loader):
         self.model = model
         self.test_loader = test_loader
@@ -390,7 +389,7 @@ class StepAcc(Callback):                                                        
     def step_end(self, run_context):
         self.acc.append(self.model.eval(self.test_loader, dataset_sink_mode=False)['Acc'])
 
-monitor = LossMonitor(16)                                                       # Monitor the loss during training and print the loss value every 16 steps
+monitor = ms.LossMonitor(16)                                                       # Monitor the loss during training and print the loss value every 16 steps
 
 acc = StepAcc(model, test_loader)                                               # Calculate the accuracy of predictions using the established model and test samples
 
@@ -464,9 +463,9 @@ As can be seen from the above printed image, after about 50 steps, the predictio
 Finally, we test the trained model and apply it on the test set.
 
 ```python
-from mindspore import ops, Tensor                                            # Import the ops module and the Tensor module
+from mindspore import ops                                            # Import the ops module
 
-predict = np.argmax(ops.Softmax()(model.predict(Tensor(X_test))), axis=1)    # Using the established model and test samples, get the classification predicted by the test samples
+predict = np.argmax(ops.Softmax()(model.predict(ms.Tensor(X_test))), axis=1)    # Using the established model and test samples, get the classification predicted by the test samples
 correct = model.eval(test_loader, dataset_sink_mode=False)                   # Calculate the prediction accuracy of the trained model applied to the test sample
 
 print("Predicted classification result: ", predict)                           # For test samples, print the predicted classification result
