@@ -71,7 +71,6 @@ To train a neural network model, you need to define a loss function and an optim
 
 ```python
 import mindspore.nn as nn
-from mindspore import Model
 
 # Define the loss function.
 net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
@@ -87,7 +86,7 @@ Before training, MindSpore needs to declare whether the intermediate process and
 ```python
 from mindspore import ModelCheckpoint, CheckpointConfig
 
-# Set the model saving parameters.
+# Set the model saving parameters. The checkpoint steps are 1875.
 config_ck = CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10)
 
 # Apply the model saving parameters.
@@ -98,11 +97,12 @@ The `model.train` API provided by MindSpore can be used to easily train the netw
 
 ```python
 from mindvision.engine.callback import LossMonitor
+from mindspore import Model
 
 # Initialize the model parameters.
 model = Model(network, loss_fn=net_loss, optimizer=net_opt, metrics={'accuracy'})
 
-# Train the network model.
+# Train the network model. The model name is lenet-1_1875.ckpt.
 model.train(10, dataset_train, callbacks=[ckpoint, LossMonitor(0.01, 1875)])
 ```
 
@@ -169,7 +169,8 @@ load_param_into_net(network, param_dict)
 
 Use the generated model to predict the classification of a single image. The procedure is as follows:
 
-> The predicted image is randomly generated, and the execution result may be different each time.
+> - The predicted image is randomly generated, and the execution result may be different each time.
+> - The example uses the mindspore Tensor module, please see [Tensor](https://www.mindspore.cn/tutorials/en/master/beginner/tensor.html).
 
 ```python
 import numpy as np
