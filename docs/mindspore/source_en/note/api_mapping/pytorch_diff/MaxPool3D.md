@@ -43,15 +43,14 @@ Migration advice: If you need MindSpore MaxPool3D to calculate on 4-dimensional 
 ## Code Example
 
 ```python
-import mindspore
-from mindspore import Tensor
+import mindspore as ms
 import mindspore.ops as ops
 import torch
 import numpy as np
 
 # In MindSpore
 net = ops.MaxPool3D((3, 2, 2), strides=2)
-x = Tensor(np.ones([20, 16, 50, 44, 31]), mindspore.float32)
+x = ms.Tensor(np.ones([20, 16, 50, 44, 31]), ms.float32)
 output = net(x).shape
 print(output)
 # Out:

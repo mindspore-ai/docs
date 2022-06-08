@@ -40,14 +40,13 @@ MindSpore: Sparse matrices for labels are supported and mean or sum for loss can
 # The following implements SoftmaxCrossEntropyWithLogits with MindSpore.
 import numpy as np
 import tensorflow as tf
-import mindspore
+import mindspore as ms
 import mindspore.nn as nn
-from mindspore import Tensor
 
 loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='sum')
-logits = Tensor(np.array([[3, 5, 6, 9], [42, 12, 32, 72]]), mindspore.float32)
+logits = ms.Tensor(np.array([[3, 5, 6, 9], [42, 12, 32, 72]]), ms.float32)
 labels_np = np.array([1, 0]).astype(np.int32)
-labels = Tensor(labels_np)
+labels = ms.Tensor(labels_np)
 output = loss(logits, labels)
 print(output)
 # Out:

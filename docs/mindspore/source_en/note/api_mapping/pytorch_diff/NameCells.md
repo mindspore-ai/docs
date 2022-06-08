@@ -27,9 +27,9 @@ MindSpore：The function returns OrderedDict over immediate cells, containing bo
 ## Code Example
 
 ```python
-import mindspore
+import mindspore as ms
 import numpy as np
-from mindspore import Tensor, nn
+from mindspore import nn
 
 class ConvBN(nn.Cell):
   def __init__(self):

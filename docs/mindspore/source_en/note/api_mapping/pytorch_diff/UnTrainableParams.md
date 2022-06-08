@@ -33,9 +33,8 @@ In MindSpore, there is only the concept of `parameter` currently. The `requires_
 ## Code Example
 
 ```python
-import mindspore
 import numpy as np
-from mindspore import Tensor, nn
+from mindspore import nn
 
 class ConvBN(nn.Cell):
   def __init__(self):

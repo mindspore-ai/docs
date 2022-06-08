@@ -52,8 +52,8 @@ MindSpore: The function of calculating learning rate for each step is lr*decay_r
 
 ```python
 # In MindSpore：
-from mindspore import nn, Tensor
-from mindspore import dtype as mstype
+import mindspore as ms
+from mindspore import nn
 
 # In MindSpore：exponential_decay_lr
 learning_rate = 0.1
@@ -70,7 +70,7 @@ print(output)
 learning_rate = 0.1
 decay_rate = 0.9
 decay_steps = 4
-global_step = Tensor(2, mstype.int32)
+global_step = ms.Tensor(2, ms.int32)
 exponential_decay_lr = nn.ExponentialDecayLR(learning_rate, decay_rate, decay_steps)
 result = exponential_decay_lr(global_step)
 print(result)

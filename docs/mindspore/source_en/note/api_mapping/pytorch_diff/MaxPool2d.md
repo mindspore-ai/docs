@@ -69,15 +69,14 @@ MindSpore：There is no padding parameter, the pad mode is controlled by the pad
 ## Code Example
 
 ```python
-import mindspore
-from mindspore import Tensor
+import mindspore as ms
 import mindspore.nn as nn
 import torch
 import numpy as np
 
 # In MindSpore, pad_mode="valid"
 pool = nn.MaxPool2d(kernel_size=3, stride=2, pad_mode="valid")
-input_x = Tensor(np.random.randn(20, 16, 50, 32).astype(np.float32))
+input_x = ms.Tensor(np.random.randn(20, 16, 50, 32).astype(np.float32))
 output = pool(input_x)
 print(output.shape)
 # Out：
@@ -85,7 +84,7 @@ print(output.shape)
 
 # In MindSpore, pad_mode="same"
 pool = nn.MaxPool2d(kernel_size=3, stride=2, pad_mode="same")
-input_x = Tensor(np.random.randn(20, 16, 50, 32).astype(np.float32))
+input_x = ms.Tensor(np.random.randn(20, 16, 50, 32).astype(np.float32))
 output = pool(input_x)
 print(output.shape)
 # Out：

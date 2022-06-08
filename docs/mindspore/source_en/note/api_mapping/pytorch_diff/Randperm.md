@@ -39,14 +39,13 @@ MindSpore: Generates n random samples from 0 to n-1 without repeating. If the ma
 
 ```python
 import torch
-import mindspore.ops as ops
-from mindspore import Tensor
-from mindspore import dtype as mstype
+from mindspore import ops
+import mindspore as ms
 
 # MindSpore
 # The result of every execution is different because this operator will generate n random samples.
 randperm = ops.Randperm(max_length=30, pad=-1)
-n = Tensor([20], dtype=mstype.int32)
+n = ms.Tensor([20], dtype=ms.int32)
 output = randperm(n)
 print(output)
 # Out:

@@ -34,15 +34,14 @@ MindSpore: The output will be rounded exactly toward floor.
 ## Code Example
 
 ```python
-import mindspore
-from mindspore import Tensor
+import mindspore as ms
 import mindspore.ops as ops
 import torch
 import numpy as np
 
 # In MindSpore, the output will be rounded toward the floor, so, after division, the output -0.33 will be rounded to -1.
-input_x = Tensor(np.array([2, 4, -1]), mindspore.int32)
-input_y = Tensor(np.array([3, 3, 3]), mindspore.int32)
+input_x = ms.Tensor(np.array([2, 4, -1]), ms.int32)
+input_y = ms.Tensor(np.array([3, 3, 3]), ms.int32)
 floor_div = ops.FloorDiv()
 output = floor_div(input_x, input_y)
 print(output)

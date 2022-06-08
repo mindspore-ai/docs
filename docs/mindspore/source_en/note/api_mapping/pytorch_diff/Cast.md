@@ -30,16 +30,15 @@ MindSpore：Converts the input type to the specified data type.
 ## Code Example
 
 ```python
-import mindspore
-from mindspore import Tensor
+import mindspore as ms
 import mindspore.ops as ops
 import torch
 import numpy as np
 
 # In MindSpore, you can specify the data type to be transformed into.
-input_x = Tensor(np.random.randn(2, 3, 4, 5).astype(np.float32))
+input_x = ms.Tensor(np.random.randn(2, 3, 4, 5).astype(np.float32))
 cast = ops.Cast()
-output = cast(input_x, mindspore.int32)
+output = cast(input_x, ms.int32)
 print(output.dtype)
 print(output.shape)
 # Out：

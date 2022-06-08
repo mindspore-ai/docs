@@ -34,20 +34,19 @@ MindSpore：Supports to initialize the Softmax with the `axis` attribute, scalin
 ## Code Example
 
 ```python
-import mindspore
-from mindspore import Tensor
+import mindspore as ms
 import mindspore.ops as ops
 import torch
 import numpy as np
 
 # In MindSpore, we can define an instance of this class first, and the default value of the parameter axis is -1.
-logits = Tensor(np.array([1, 2, 3, 4, 5]), mindspore.float32)
+logits = ms.Tensor(np.array([1, 2, 3, 4, 5]), ms.float32)
 softmax = ops.Softmax()
 output1 = softmax(logits)
 print(output1)
 # Out:
 # [0.01165623 0.03168492 0.08612854 0.23412167 0.6364086 ]
-logits = Tensor(np.array([[1, 2, 3, 4, 5], [5, 4, 3, 2, 1]]), mindspore.float32)
+logits = ms.Tensor(np.array([[1, 2, 3, 4, 5], [5, 4, 3, 2, 1]]), ms.float32)
 softmax = ops.Softmax(axis=0)
 output2 = softmax(logits)
 print(output2)
