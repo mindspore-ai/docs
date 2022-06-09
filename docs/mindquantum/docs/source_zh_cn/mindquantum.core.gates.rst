@@ -6,6 +6,8 @@ mindquantum.core.gates
 Quantum Gates
 -------------
 
+.. include:: mindquantum.core.gates.AmplitudeDampingChannel.rst
+
 .. include:: mindquantum.core.gates.BasicGate.rst
 
 .. include:: mindquantum.core.gates.BitFlipChannel.rst
@@ -31,6 +33,8 @@ Quantum Gates
 .. include:: mindquantum.core.gates.ParameterGate.rst
 
 .. include:: mindquantum.core.gates.PauliChannel.rst
+
+.. include:: mindquantum.core.gates.PhaseDampingChannel.rst
 
 .. include:: mindquantum.core.gates.PhaseFlipChannel.rst
 
@@ -72,7 +76,7 @@ Quantum Gates
 functional
 ----------
 
-The functional gates are the pre-instantiated quantum gates, which can be used directly as an instance of quantum gate.
+如下量子门是预实例化的量子门，可直接作为对应量子门的实例来使用。
 
 .. list-table::
    :widths: 50 50
