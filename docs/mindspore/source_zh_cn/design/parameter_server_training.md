@@ -88,47 +88,53 @@ export MS_ROLE=MS_SCHED               # The role of this process: MS_SCHED repre
 
     ```bash
     #!/bin/bash
-    export MS_SERVER_NUM=1
-    export MS_WORKER_NUM=1
+    export MS_SERVER_NUM=8
+    export MS_WORKER_NUM=8
     export MS_SCHED_HOST=XXX.XXX.XXX.XXX
     export MS_SCHED_PORT=XXXX
     export MS_ROLE=MS_SCHED
-    python train.py --device_target=Ascend --data_path=path/to/dataset
+    python train.py --device_target=Ascend --data_path=path/to/dataset > scheduler.log 2>&1 &
     ```
 
     `Server.sh`:
 
     ```bash
     #!/bin/bash
-    export MS_SERVER_NUM=1
-    export MS_WORKER_NUM=1
+    export MS_SERVER_NUM=8
+    export MS_WORKER_NUM=8
     export MS_SCHED_HOST=XXX.XXX.XXX.XXX
     export MS_SCHED_PORT=XXXX
     export MS_ROLE=MS_PSERVER
-    python train.py --device_target=Ascend --data_path=path/to/dataset
+    for((server_id=0;server_id<${MS_SERVER_NUM};server_id++))
+    do
+        python train.py --device_target=Ascend --data_path=path/to/dataset > server_${server_id}.log 2>&1 &
+    done
     ```
 
     `Worker.sh`:
 
     ```bash
     #!/bin/bash
-    export MS_SERVER_NUM=1
-    export MS_WORKER_NUM=1
+    export MS_SERVER_NUM=8
+    export MS_WORKER_NUM=8
     export MS_SCHED_HOST=XXX.XXX.XXX.XXX
     export MS_SCHED_PORT=XXXX
     export MS_ROLE=MS_WORKER
-    python train.py --device_target=Ascend --data_path=path/to/dataset
+    for((worker_id=0;worker_id<${MS_WORKER_NUM};worker_id++))
+    do
+        python train.py --device_target=Ascend --data_path=path/to/dataset > worker_${worker_id}.log 2>&1 &
+    done
     ```
 
     最后分别执行：
 
     ```bash
-    sh Scheduler.sh > scheduler.log 2>&1 &
-    sh Server.sh > server.log 2>&1 &
-    sh Worker.sh > worker.log 2>&1 &
+    sh Scheduler.sh
+    sh Server.sh
+    sh Worker.sh
     ```
 
-    启动训练
+    启动训练。MindSpore使用以上方式启动多Worker和多Server训练，对第三方组件无依赖。
 
 2. 查看结果
 

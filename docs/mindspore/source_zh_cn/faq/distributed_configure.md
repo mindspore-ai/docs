@@ -138,7 +138,7 @@ A：一般此问题是多机之间RDMA网卡配置存在差异，需要具体情
 需要使用以下指令指定使用的RDMA网卡名为ib开头：
 
 ```text
-export NCCL_IB_HCA=ib
+export NCCL_IB_HCA=mlx
 ```
 
 <br/>
