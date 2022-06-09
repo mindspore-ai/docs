@@ -30,20 +30,17 @@ MindSpore Lite当前提供了一套南向的算子注册机制，如果用户想
 
 ```cpp
 using mindspore::kernel::Kernel;
-using mindspore::lite::RET_ERROR;
-using mindspore::lite::RET_OK;
-using mindspore::lite::RET_PARAM_INVALID;
 
 class TestCustomAdd : public Kernel {
  public:
   TestCustomAdd(const std::vector<tensor::MSTensor *> &inputs, const std::vector<tensor::MSTensor *> &outputs,
                 const schema::Primitive *primitive, const lite::Context *ctx)
       : Kernel(inputs, outputs, primitive, ctx) {}
-  int Prepare() override { return 0; }
+  int Prepare() override { return kSuccess; }
 
   int Execute() override;
 
-  int ReSize() { return 0; }
+  int ReSize() { return kSuccess; }
 
  private:
   int PreProcess() {
@@ -52,16 +49,16 @@ class TestCustomAdd : public Kernel {
       auto data = output->MutableData();
       if (data == nullptr) {
         MS_LOG(ERROR) << "Get data failed";
-        return RET_ERROR;
+        return kLiteError;
       }
     }
-    return RET_OK;
+    return kSuccess;
   }
 };
 
 int TestCustomAdd::Execute() {
   if (inputs_.size() != 2) {
-    return RET_PARAM_INVALID;
+    return kLiteParamInvalid;
   }
   PreProcess();
   auto *in0 = static_cast<const float *>(inputs_[0].Data().get());
@@ -71,7 +68,7 @@ int TestCustomAdd::Execute() {
   for (int i = 0; i < num; ++i) {
     out[i] = in0[i] + in1[i];
   }
-  return RET_OK;
+  return kSuccess;
 }
 ```
 
@@ -236,19 +233,17 @@ Custom算子的实现整体流程与通用算子的实现是一致的，因为�
 
 ```cpp
 using mindspore::kernel::Kernel;
-using mindspore::lite::RET_ERROR;
-using mindspore::lite::RET_OK;
 
 class TestCustomOp : public Kernel {
  public:
   TestCustomOp(const std::vector<tensor::MSTensor *> &inputs, const std::vector<tensor::MSTensor *> &outputs,
                const schema::Primitive *primitive, const lite::Context *ctx)
       : Kernel(inputs, outputs, primitive, ctx) {}
-  int Prepare() override { return 0; }
+  int Prepare() override { return kSuccess; }
 
   int Execute() override;
 
-  int ReSize() override { return 0; }
+  int ReSize() override { return kSuccess; }
 
  private:
   int PreProcess() {
@@ -257,15 +252,15 @@ class TestCustomOp : public Kernel {
       auto data = output->MutableData();
       if (data == nullptr) {
         MS_LOG(ERROR) << "Get data failed";
-        return RET_ERROR;
+        return kLiteError;
       }
     }
-    return RET_OK;
+    return kSuccess;
   }
 
 int TestCustomOp::Execute() {
   if (inputs_.size() != 2) {
-    return RET_PARAM_INVALID;
+    return kLiteParamInvalid;
   }
   PreProcess();
   GetAttrData();
@@ -276,7 +271,7 @@ int TestCustomOp::Execute() {
   for (int i = 0; i < num; ++i) {
     out[i] = in0[i] + in1[i];
   }
-  return RET_OK;
+  return kSuccess;
 }
 ```
 
@@ -475,7 +470,7 @@ class CustomAddKernel : public kernel::Kernel {
   ```cpp
   int Prepare() override {
     auto ret = CheckSpecs();
-    if (ret != lite::RET_OK) {
+    if (ret != kSuccess) {
       std::cerr << "Prepare failed for check kernel specs!";
       return ret;
     }
@@ -486,19 +481,19 @@ class CustomAddKernel : public kernel::Kernel {
     for (auto &tensor : inputs_) {
       if (tensor.DataType() != DataType::kNumberTypeFloat32 && tensor.DataType() != DataType::kNumberTypeFloat16) {
         std::cerr << "ArithmeticOpenCLKernel only support fp32/fp16 input";
-        return lite::RET_ERROR;
+        return kLiteError;
       }
     }
     for (auto &tensor : outputs_) {
       if (tensor.DataType() != DataType::kNumberTypeFloat32 && tensor.DataType() != DataType::kNumberTypeFloat16) {
         std::cerr << "ArithmeticOpenCLKernel only support fp32/fp16 output";
-        return lite::RET_ERROR;
+        return kLiteError;
       }
     }
 
     if (inputs_.size() != 2 || outputs_.size() != 1) {
       std::cerr << "in size: " << inputs_.size() << ", out size: " << outputs_.size();
-      return lite::RET_ERROR;
+      return kLiteError;
     }
 
     for (int i = 0; i < inputs_.size(); ++i) {
@@ -506,15 +501,15 @@ class CustomAddKernel : public kernel::Kernel {
       if (!in_tensor.IsConst()) {
         if (fp16_enable_ && in_tensor.DataType() == mindspore::DataType::kNumberTypeFloat32) {
           std::cerr << "Inputs data type error, expectation kNumberTypeFloat16 but kNumberTypeFloat32.";
-          return lite::RET_ERROR;
+          return kLiteError;
         } else if (!fp16_enable_ && in_tensor.DataType() == mindspore::DataType::kNumberTypeFloat16) {
           std::cerr << "Inputs data type error, expectation kNumberTypeFloat32 but kNumberTypeFloat16.";
-          return lite::RET_ERROR;
+          return kLiteError;
         }
       }
     }
 
-    return lite::RET_OK;
+    return kSuccess;
   }
   ```
 
@@ -530,7 +525,7 @@ class CustomAddKernel : public kernel::Kernel {
     std::string source = arithmetic_source;
     if (opencl_runtime_.LoadSource(program_name, source) != kSuccess) {
       std::cerr << "Load source failed.";
-      return lite::RET_ERROR;
+      return kLiteError;
     }
     ...
   }
@@ -578,7 +573,7 @@ class CustomAddKernel : public kernel::Kernel {
 
     if (opencl_runtime_.BuildKernel(&kernel_, program_name, kernel_name_, build_options_ext) != kSuccess) {
       std::cerr << "Build kernel failed.";
-      return lite::RET_ERROR;
+      return kLiteError;
     }
     ...
   }
@@ -766,19 +761,19 @@ class CustomAddKernel : public kernel::Kernel {
   if (allocator == nullptr) {
     std::cerr << "GetAllocator fail.";
     FreeWeight();
-    return lite::RET_ERROR;
+    return kLiteError;
   }
   auto weight_ptr = allocator->Malloc(in_shape.width, in_shape.height, dtype);
   if (weight_ptr == nullptr) {
     std::cerr << "Malloc fail.";
     FreeWeight();
-    return lite::RET_ERROR;
+    return kLiteError;
   }
   weight_ptrs_.push_back(weight_ptr);
   if (opencl_runtime_.WriteImage(weight_ptr, weight.data()) != kSuccess) {
     std::cerr << "WriteImage fail.";
     FreeWeight();
-    return lite::RET_ERROR;
+    return kLiteError;
   }
   ```
 
@@ -812,7 +807,7 @@ class CustomAddKernel : public kernel::Kernel {
   if (opencl_runtime_.SetKernelArg(kernel_, arg_idx, output_shape) != kSuccess) {
     std::cerr << "Set kernel arg" << arg_idx << "failed.";
     FreeWeight();
-    return lite::RET_ERROR;
+    return kLiteError;
   }
   ```
 
@@ -830,27 +825,27 @@ class CustomAddKernel : public kernel::Kernel {
 
   ```cpp
   int ReSize() override {
-    if (CheckOutputs(outputs_) == lite::RET_OK) {
-      return lite::RET_OK;
+    if (CheckOutputs(outputs_) == kSuccess) {
+      return kSuccess;
     }
     auto status =
       registry::RegisterKernelInterface::GetKernelInterface("", primitive_)->Infer(&inputs_, &outputs_, primitive_);
     if (status != kSuccess) {
       std::cerr << "infer failed." << std::endl;
-      return lite::RET_ERROR;
+      return kLiteError;
     }
     ret = Prepare();
-    if (ret != lite::RET_OK) {
+    if (ret != kSuccess) {
       std::cerr << "ReSize failed for kernel prepare!";
       return ret;
     }
-    return lite::RET_OK;
+    return kSuccess;
   }
 
   int PreProcess() {
      int ret;
      ret = ReSize();
-     if (ret != lite::RET_OK) {
+     if (ret != kSuccess) {
        return ret;
      }
      ...
@@ -858,7 +853,7 @@ class CustomAddKernel : public kernel::Kernel {
 
   int Execute() override {
     if (inputs_.size() != 2) {
-      return lite::RET_PARAM_INVALID;
+      return kLiteParamInvalid;
     }
     PreProcess();
     ...
@@ -882,16 +877,16 @@ class CustomAddKernel : public kernel::Kernel {
       auto allocator = output->allocator();
       if (allocator == nullptr) {
         std::cerr << "The output tensor of OpenCL kernel must have an allocator.";
-        return lite::RET_ERROR;
+        return kLiteError;
       }
       auto data_ptr = allocator->Malloc(img_info.width, img_info.height, output->DataType());
       if (data_ptr == nullptr) {
         std::cerr << "Malloc data failed";
-        return lite::RET_ERROR;
+        return kLiteError;
       }
       output->SetData(data_ptr);
     }
-    return lite::RET_OK;
+    return kSuccess;
   }
   ```
 
@@ -908,21 +903,21 @@ class CustomAddKernel : public kernel::Kernel {
     int arg_idx = 0;
     if (opencl_runtime_->SetKernelArg(kernel_, arg_idx++, input_0_ptr) != kSuccess) {
       std::cerr << "Set kernel arg" << arg_idx - 1 << "failed.";
-      return lite::RET_ERROR;
+      return kLiteError;
     }
     if (opencl_runtime_->SetKernelArg(kernel_, arg_idx++, input_1_ptr) != kSuccess) {
       std::cerr << "Set kernel arg" << arg_idx - 1 << "failed.";
-      return lite::RET_ERROR;
+      return kLiteError;
     }
     if (opencl_runtime_->SetKernelArg(kernel_, arg_idx++, outputs_[0].MutableData()) != kSuccess) {
       std::cerr << "Set kernel arg" << arg_idx - 1 << "failed.";
-      return lite::RET_ERROR;
+      return kLiteError;
     }
     if (opencl_runtime_->RunKernel(kernel_, global_range_, local_range_, nullptr, &event_) != kSuccess) {
       std::cerr << "Run kernel failed.";
-      return lite::RET_ERROR;
+      return kLiteError;
     }
 
-    return lite::RET_OK;
+    return kSuccess;
   }
   ```

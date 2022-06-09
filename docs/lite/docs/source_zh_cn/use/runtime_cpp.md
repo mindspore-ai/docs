@@ -486,9 +486,9 @@ MindSpore Lite 支持 OpenGL纹理输入，进行端到端的GPU同构推理，�
     auto status = ms_model_.BindGLTexture2DMemory(input_gl_texture, &output_gl_texture);
     if (status != kSuccess) {
       MS_LOG(ERROR) << "BindGLTexture2DMemory failed";
-      return RET_ERROR;
+      return kLiteError;
     }
-    return RET_OK;
+    return kSuccess;
     ```
 
     std::map<std::string, GLuint>  input_gl_texture 变量中key为模型输入tensor name，value为对应的GLuint 纹理；std::map<std::string, GLuint>  output_gl_texture 变量中key为模型输出tensor name，value为对应的GLuint 纹理。模型输入输出tensor name可以通过tensor.Name()接口获取，示例代码如下：
@@ -517,7 +517,7 @@ MindSpore Lite 支持 OpenGL纹理输入，进行端到端的GPU同构推理，�
     if (ret != kSuccess) {
       MS_LOG(ERROR) << "Inference error ";
       std::cerr << "Inference error " << std::endl;
-      return RET_ERROR;
+      return kLiteError;
     }
     ```
 
@@ -676,14 +676,14 @@ std::string version = mindspore::Version();
 用户需继承[KernelInterface](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html#kernelinterface)类，重载[Infer](https://www.mindspore.cn/lite/api/zh-CN/master/api_cpp/mindspore_kernel.html#infer)接口函数。
 
 ```cpp
-int CheckInputs(const std::vector<mindspore::MSTensor> &inputs) {         // 输入校验函数，校验输入张量的shape是否合规
+Status CheckInputs(const std::vector<mindspore::MSTensor> &inputs) {         // 输入校验函数，校验输入张量的shape是否合规
   for (auto &input : inputs) {
     auto input_shape = input.Shape();
     if (std::find(input_shape.begin(), input_shape.end(), -1) != input_shape.end()) {
-      return lite::RET_INFER_INVALID;
+      return kLiteInferInvalid;
     }
   }
-  return lite::RET_OK;
+  return kSuccess;
 }
 
 class CustomAddInfer : public kernel::KernelInterface {
@@ -696,10 +696,10 @@ class CustomAddInfer : public kernel::KernelInterface {
     (*outputs)[0].SetFormat((*inputs)[0].format());
     (*outputs)[0].SetDataType((*inputs)[0].DataType());
     auto ret = CheckInputs(inputs);
-    if (ret == lite::RET_INFER_INVALID) {
+    if (ret == kLiteInferInvalid) {
       (*outputs)[0].SetShape({-1});        // 输出张量的shape设为{-1}，表示在运行时需要再次推断
       return kLiteInferInvalid;
-    } else if (ret != lite::RET_OK) {
+    } else if (ret != kSuccess) {
       return kLiteError;
     }
     (*outputs)[0].SetShape((*inputs)[0].Shape());
@@ -714,7 +714,7 @@ REGISTER_CUSTOM_KERNEL_INTERFACE(CustomOpTutorial, Custom_Add, CustomAddInferCre
 >
 > 静态推断：
 >
-> 1. `CheckInputs`失败或者当前节点需要动态推断的情形下，需将输出张量的shape设为{-1}，以便在图运行时的识别标识,且返回码需设置为`RET_INFER_INVALID`。
+> 1. `CheckInputs`失败或者当前节点需要动态推断的情形下，需将输出张量的shape设为{-1}，以便在图运行时的识别标识,且返回码需设置为`kLiteInferInvalid`。
 > 2. 其他情形下，返回其他错误码，程序将会停止，请进行必要的检查。
 >
 > 动态推断：
@@ -730,14 +730,14 @@ REGISTER_CUSTOM_KERNEL_INTERFACE(CustomOpTutorial, Custom_Add, CustomAddInferCre
     - Execute：此接口是算子的运行接口，用户可将**动态推断**逻辑[PreProcess](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_extend/src/custom_add_kernel.cc)放置于此接口内调用。
 
       ```cpp
-      int CheckOutputs(const std::vector<mindspore::MSTensor> &outputs) {           // 算子运行时校验，以确定是否调用InferShape过程
+      Status CheckOutputs(const std::vector<mindspore::MSTensor> &outputs) {           // 算子运行时校验，以确定是否调用InferShape过程
         for (auto &output : outputs) {
           auto output_shape = output.Shape();
           if (std::find(output_shape.begin(), output_shape.end(), -1) != output_shape.end()) {
-            return lite::RET_INFER_INVALID;
+            return kLiteInferInvalid;
           }
         }
-        return lite::RET_OK;
+        return kSuccess;
       }
       ```
 

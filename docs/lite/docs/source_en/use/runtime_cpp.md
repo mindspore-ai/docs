@@ -487,9 +487,9 @@ MindSpore Lite supports OpenGL texture input, performs end-to-end GPU isomorphic
     auto status = ms_model_.BindGLTexture2DMemory(input_gl_texture, &output_gl_texture);
     if (status != kSuccess) {
       MS_LOG(ERROR) << "BindGLTexture2DMemory failed";
-      return RET_ERROR;
+      return kLiteError;
     }
-    return RET_OK;
+    return kSuccess;
     ```
 
     In std::map<std::string, GLuint> input_gl_texture, the key is the model input tensor name, and the value is the corresponding GLuint texture; std::map<std::string, GLuint> the key in the output_gl_texture variable is the model output tensor name, Value is the corresponding GLuint texture. The model input and output tensor name can be obtained through the tensor.Name() interface. The sample code is as follows:
@@ -518,7 +518,7 @@ MindSpore Lite supports OpenGL texture input, performs end-to-end GPU isomorphic
     if (ret != kSuccess) {
       MS_LOG(ERROR) << "Inference error ";
       std::cerr << "Inference error " << std::endl;
-      return RET_ERROR;
+      return kLiteError;
     }
     ```
 
@@ -677,14 +677,14 @@ The chapter only provides instruction in the Linux System.
 The users need to inherit the basic class [KernelInterface](https://www.mindspore.cn/lite/api/en/master/generate/classmindspore_kernel_KernelInterface.html), and override the interface function Infer.
 
 ```cpp
-int CheckInputs(const std::vector<mindspore::MSTensor> &inputs) {         // check function when compiling, to judge the shape of input tensor is valid or not
+Status CheckInputs(const std::vector<mindspore::MSTensor> &inputs) {         // check function when compiling, to judge the shape of input tensor is valid or not
   for (auto &input : inputs) {
     auto input_shape = input.Shape();
     if (std::find(input_shape.begin(), input_shape.end(), -1) != input_shape.end()) {
-      return lite::RET_INFER_INVALID;
+      return kLiteInferInvalid;
     }
   }
-  return lite::RET_OK;
+  return kSuccess;
 }
 
 class CustomAddInfer : public kernel::KernelInterface {
@@ -697,10 +697,10 @@ class CustomAddInfer : public kernel::KernelInterface {
     (*outputs)[0].SetFormat((*inputs)[0].format());
     (*outputs)[0].SetDataType((*inputs)[0].DataType());
     auto ret = CheckInputs(inputs);
-    if (ret == lite::RET_INFER_INVALID) {
+    if (ret == kLiteInferInvalid) {
       (*outputs)[0].SetShape({-1});        // set the shape as {-1}，which represents the inferring process will be called again when running
       return kLiteInferInvalid;
-    } else if (ret != lite::RET_OK) {
+    } else if (ret != kSuccess) {
       return kLiteError;
     }
     (*outputs)[0].SetShape((*inputs)[0].Shape());
@@ -715,7 +715,7 @@ REGISTER_CUSTOM_KERNEL_INTERFACE(CustomOpTutorial, Custom_Add, CustomAddInferCre
 >
 > Static inference:
 >
-> 1. If the called function `CheckInputs` returns false or the current node needs to be inferred in the period of running, the shape of output tensor should be set as {-1}, which will be viewed as an identification to infer again when running. In such situation, the return code needs to be set to `RET_INFER_INVALID`.
+> 1. If the called function `CheckInputs` returns false or the current node needs to be inferred in the period of running, the shape of output tensor should be set as {-1}, which will be viewed as an identification to infer again when running. In such situation, the return code needs to be set to `kLiteInferInvalid`.
 > 2. In other situation, please return other code. If the code is not `kSuccess`, the program will be aborted and please check the program accordingly.
 >
 > Dynamic inference
@@ -731,14 +731,14 @@ REGISTER_CUSTOM_KERNEL_INTERFACE(CustomOpTutorial, Custom_Add, CustomAddInferCre
     - Execute：The interface is running interface. Users can call **dynamic inference** [PreProcess](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_extend/src/custom_add_kernel.cc) in this interface.
 
       ```cpp
-      int CheckOutputs(const std::vector<mindspore::MSTensor> &outputs) {           // Check function when running, to judge whether the shape inference is needed
+      Status CheckOutputs(const std::vector<mindspore::MSTensor> &outputs) {           // Check function when running, to judge whether the shape inference is needed
         for (auto &output : outputs) {
           auto output_shape = output.Shape();
           if (std::find(output_shape.begin(), output_shape.end(), -1) != output_shape.end()) {
-            return lite::RET_INFER_INVALID;
+            return kLiteInferInvalid;
           }
         }
-        return lite::RET_OK;
+        return kSuccess;
       }
       ```
 
