@@ -1535,7 +1535,7 @@ ret:(Tensor(shape=[2, 3], dtype=Float32, value=
    net(1, 2)
    ```
 
-   上面所定义的网络里，`self.num`不是一个`Parameter`，不允许被修改，而`self.par`是一个`Parameter`，可以被修改。
+   上面所定义的网络里，`self.x`不是一个`Parameter`，不允许被修改，而`self.par`是一个`Parameter`，可以被修改。
 
    结果报错如下：
 
