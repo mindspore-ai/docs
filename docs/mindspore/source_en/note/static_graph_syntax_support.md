@@ -1539,7 +1539,7 @@ In the `Net` defined above,  string `flag` is transferred during initialization 
    net(1, 2)
    ```
 
-   In the preceding defined network, `self.num` is not a `Parameter` and cannot be modified. `self.par` is a `Parameter` and can be modified.
+   In the preceding defined network, `self.x` is not a `Parameter` and cannot be modified. `self.par` is a `Parameter` and can be modified.
 
    The result would be:
 
