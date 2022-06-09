@@ -95,6 +95,75 @@ dict_target = """ var terms = this._index.terms;
     var titleterms = this._index.titleterms;"""
 dict_source = """ """
 
+search_score_target = """if (!Scorer) {
+  /**
+   * Simple result scoring code.
+   */
+  var Scorer = {
+    // Implement the following function to further tweak the score for each result
+    // The function takes a result array [filename, title, anchor, descr, score]
+    // and returns the new score.
+    /*
+    score: function(result) {
+      return result[4];
+    },
+    */
+
+    // query matches the full name of an object
+    objNameMatch: 11,
+    // or matches in the last dotted part of the object name
+    objPartialMatch: 6,
+    // Additive scores depending on the priority of the object
+    objPrio: {0:  15,   // used to be importantResults
+              1:  5,   // used to be objectResults
+              2: -5},  // used to be unimportantResults
+    //  Used when the priority is not in the mapping.
+    objPrioDefault: 0,
+
+    // query found in title
+    title: 15,
+    partialTitle: 7,
+    // query found in terms
+    term: 5,
+    partialTerm: 2
+  };
+}"""
+
+search_score_source = """if (!Scorer) {
+  /**
+   * Simple result scoring code.
+   */
+  var Scorer = {
+    // Implement the following function to further tweak the score for each result
+    // The function takes a result array [filename, title, anchor, descr, score]
+    // and returns the new score.
+    /*
+    score: function(result) {
+      return result[4];
+    },
+    */
+
+    // query matches the full name of an object
+    objNameMatch: 11,
+    // or matches in the last dotted part of the object name
+    objPartialMatch: 6,
+    // Additive scores depending on the priority of the object
+    objPrio: {0:  15,   // used to be importantResults
+              1:  5,   // used to be objectResults
+              2: -5},  // used to be unimportantResults
+    //  Used when the priority is not in the mapping.
+    objPrioDefault: 0,
+
+    // query found in title
+    title: 50,
+    partialTitle: 7,
+    // query found in terms
+    term: 5,
+    partialTerm: 2
+  };
+}"""
+
+
 # Get the index of entries containing Chinese
 search_prepare_source = """
     var terms = this._index.terms
@@ -240,6 +309,12 @@ with open(sphinx_search_prepare, "r+", encoding="utf8") as f:
 
     if search_prepare_target in code_str:
         code_str = code_str.replace(search_prepare_target, search_prepare_source)
+        f.seek(0)
+        f.truncate()
+        f.write(code_str)
+
+    if search_score_target in code_str:
+        code_str = code_str.replace(search_score_target, search_score_source)
         f.seek(0)
         f.truncate()
         f.write(code_str)
