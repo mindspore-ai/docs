@@ -12,15 +12,15 @@ class torchvision.transforms.ConvertImageDtype(
 
 更多内容详见[torchvision.transforms.ConvertImageDtype](https://pytorch.org/vision/0.10/transforms.html#torchvision.transforms.ConvertImageDtype)。
 
-## mindspore.dataset.vision.TypeCast(output_type)
+## mindspore.dataset.transforms.TypeCast(output_type)
 
 ```python
-class mindspore.dataset.vision.TypeCast(
+class mindspore.dataset.transforms.TypeCast(
     output_type
     )
 ```
 
-更多内容详见[mindspore.dataset.vision.TypeCast](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_vision/mindspore.dataset.vision.TypeCast.html#mindspore.dataset.vision.TypeCast)。
+更多内容详见[mindspore.dataset.transforms.TypeCast](https://mindspore.cn/docs/zh-CN/master/api_python/dataset_transforms/mindspore.dataset.transforms.TypeCast.html#mindspore.dataset.transforms.TypeCast)。
 
 ## 使用方式
 
@@ -51,7 +51,7 @@ dataset = ds.CocoDataset(
 transforms_list =vision.Compose(
     [vision.Decode(to_pil=True),
     vision.ToTensor(),
-    vision.TypeCast(np.float32)])
+    transforms.TypeCast(np.float32)])
 dataset  = dataset.map(operations=transforms_list, input_columns="image")
 
 for item in dataset:

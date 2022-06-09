@@ -15,15 +15,15 @@ tf.image.convert_image_dtype(
 
 For more information, see [tf.image.convert_image_dtype](https://www.tensorflow.org/versions/r1.15/api_docs/python/tf/image/convert_image_dtype).
 
-## mindspore.dataset.vision.TypeCast
+## mindspore.dataset.transforms.TypeCast
 
 ```python
-class mindspore.dataset.vision.TypeCast(
+class mindspore.dataset.transforms.TypeCast(
     output_type
 )
 ```
 
-For more information, see [mindspore.dataset.vision.TypeCast](https://mindspore.cn/docs/en/master/api_python/dataset_vision/mindspore.dataset.vision.TypeCast.html#mindspore.dataset.vision.TypeCast).
+For more information, see [mindspore.dataset.transforms.TypeCast](https://mindspore.cn/docs/en/master/api_python/dataset_transforms/mindspore.dataset.transforms.TypeCast.html#mindspore.dataset.transforms.TypeCast).
 
 ## Differences
 
@@ -39,7 +39,7 @@ import numpy as np
 import mindspore.dataset as ds
 
 image = np.random.random((28, 28, 3))
-result = ds.vision.TypeCast(np.uint8)(image)
+result = ds.transforms.TypeCast(np.uint8)(image)
 print(result.dtype)
 # uint8
 
