@@ -38,15 +38,15 @@ MindSpore: Applies a linear transformation to the incoming data, and applies the
 ## Code Example
 
 ```python
-import mindspore
-from mindspore import Tensor, nn
+import mindspore as ms
+from mindspore import nn
 import torch
 import numpy as np
 
 # In MindSpore, default weight will be initialized through standard normal distribution.
 # Default bias will be initialized by zero.
 # Default none activation used.
-input_net = Tensor(np.array([[180, 234, 154], [244, 48, 247]]), mindspore.float32)
+input_net = ms.Tensor(np.array([[180, 234, 154], [244, 48, 247]]), ms.float32)
 net = nn.Dense(3, 4)
 output = net(input_net)
 print(output.shape)

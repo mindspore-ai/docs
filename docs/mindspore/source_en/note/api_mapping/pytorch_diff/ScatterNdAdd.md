@@ -35,16 +35,15 @@ MindSpore: Given an input tensor, updates the tensor and index tensor; adds the 
 ## Code Example
 
 ```python
-import mindspore
-from mindspore import Tensor
+import mindspore as ms
 import mindspore.ops as ops
 import torch
 import numpy as np
 
 # In MindSpore, no parameter for specifying dimension.
-input_x = mindspore.Parameter(Tensor(np.array([1, 2, 3, 4, 5, 6, 7, 8]), mindspore.float32), name="x")
-indices = Tensor(np.array([[2], [4], [1], [7]]), mindspore.int32)
-updates = Tensor(np.array([6, 7, 8, 9]), mindspore.float32)
+input_x = ms.Parameter(ms.Tensor(np.array([1, 2, 3, 4, 5, 6, 7, 8]), ms.float32), name="x")
+indices = ms.Tensor(np.array([[2], [4], [1], [7]]), ms.int32)
+updates = ms.Tensor(np.array([6, 7, 8, 9]), ms.float32)
 scatter_nd_add = ops.ScatterNdAdd()
 output = scatter_nd_add(input_x, indices, updates)
 print(output)

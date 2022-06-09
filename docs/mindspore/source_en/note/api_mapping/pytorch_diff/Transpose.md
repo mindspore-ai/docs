@@ -30,14 +30,13 @@ MindSpore: No limit for dimension of the input, and how to transpose should be s
 ## Code Example
 
 ```python
-import mindspore
-from mindspore import Tensor
+import mindspore as ms
 import mindspore.ops as ops
 import torch
 import numpy as np
 
 # In MindSpore, the input tensor will be transposed based on the dimension you set.
-input_tensor = Tensor(np.array([[[1, 2, 3], [4, 5, 6]], [[7, 8, 9], [10, 11, 12]]]), mindspore.float32)
+input_tensor = ms.Tensor(np.array([[[1, 2, 3], [4, 5, 6]], [[7, 8, 9], [10, 11, 12]]]), ms.float32)
 perm = (0, 2, 1)
 transpose = ops.Transpose()
 output = transpose(input_tensor, perm)

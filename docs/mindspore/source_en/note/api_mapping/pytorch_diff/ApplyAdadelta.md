@@ -45,26 +45,25 @@ MindSpore: Parameters to be updated: `var`, `accum`, `accum_update`, `grad` shou
 import numpy as np
 import torch
 import mindspore.nn as nn
-from mindspore import Tensor, Parameter
+import mindspore as ms
 import mindspore.ops as ops
-from mindspore import dtype as mstype
 
 class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
         self.apply_adadelta = ops.ApplyAdadelta()
-        self.var = Parameter(Tensor(np.random.rand(1, 1).astype(np.float32)), name="var")
-        self.accum = Parameter(Tensor(np.random.rand(1, 1).astype(np.float32)), name="accum")
-        self.accum_update = Parameter(Tensor(np.random.rand(1, 1).astype(np.float32)), name="accum_update")
+        self.var = ms.Parameter(ms.Tensor(np.random.rand(1, 1).astype(np.float32)), name="var")
+        self.accum = ms.Parameter(ms.Tensor(np.random.rand(1, 1).astype(np.float32)), name="accum")
+        self.accum_update = ms.Parameter(ms.Tensor(np.random.rand(1, 1).astype(np.float32)), name="accum_update")
     def construct(self, lr, rho, epsilon, grad):
         return self.apply_adadelta(self.var, self.accum, self.accum_update, lr, rho, epsilon, grad)
 
 np.random.seed(0)
 net = Net()
-lr = Tensor(0.001, mstype.float32)
-rho = Tensor(0.0, mstype.float32)
-epsilon = Tensor(1e-6, mstype.float32)
-grad = Tensor(np.random.rand(1, 1).astype(np.float32))
+lr = ms.Tensor(0.001, ms.float32)
+rho = ms.Tensor(0.0, ms.float32)
+epsilon = ms.Tensor(1e-6, ms.float32)
+grad = ms.Tensor(np.random.rand(1, 1).astype(np.float32))
 var, accum, accum_update = net(lr, rho, epsilon, grad)
 print(var)
 print(accum)

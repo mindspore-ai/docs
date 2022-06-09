@@ -27,16 +27,16 @@ MindSpore：Returns the value corresponding to the specified index in the tensor
 ## Code Example
 
 ```python
-from mindspore import Tensor
+import mindspore as ms
 import numpy as np
 import torch
 
-x = Tensor(np.array([[1,2,3],[4,5,6]], dtype=np.float32))
+x = ms.Tensor(np.array([[1,2,3],[4,5,6]], dtype=np.float32))
 print(x.item((0,1)))
 # Out：
 # 2.0
 
-y = Tensor([1.0])
+y = ms.Tensor([1.0])
 print(y.item())
 # Out:
 # [1.]

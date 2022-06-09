@@ -27,13 +27,13 @@ MindSpore：Compared with PyTorch, MindSpore adopts a different calculation form
 ## Code Example
 
 ```python
-import mindspore
-from mindspore import Tensor, nn
+import mindspore as ms
+from mindspore import nn
 import torch
 import numpy as np
 
 def test_me():
-    input_x = Tensor(np.array([[-1.0, 4.0, -8.0], [2.0, -5.0, 9.0]]), mindspore.float32)
+    input_x = ms.Tensor(np.array([[-1.0, 4.0, -8.0], [2.0, -5.0, 9.0]]), ms.float32)
     fast_gelu = nn.FastGelu()
     output = fast_gelu(input_x)
     print(output)

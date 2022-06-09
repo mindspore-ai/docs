@@ -50,15 +50,14 @@ MindSpore: Padding is applied to the input so the output's dimensions match with
 ## Code Example
 
 ```python
-import mindspore
-from mindspore import Tensor
+import mindspore as ms
 import mindspore.nn as nn
 import torch
 import numpy as np
 
 # In MindSpore
 net = nn.Conv2d(120, 240, 4, stride=2, has_bias=True, weight_init='normal')
-x = Tensor(np.ones([1, 120, 1024, 640]), mindspore.float32)
+x = ms.Tensor(np.ones([1, 120, 1024, 640]), ms.float32)
 output = net(x).shape
 print(output)
 # Out:
@@ -66,7 +65,7 @@ print(output)
 
 # In MindSpore
 net = nn.Conv2d(120, 240, 4, stride=2, pad_mode='valid', has_bias=True, weight_init='normal')
-x = Tensor(np.ones([1, 120, 1024, 640]), mindspore.float32)
+x = ms.Tensor(np.ones([1, 120, 1024, 640]), ms.float32)
 output = net(x).shape
 print(output)
 # Out:

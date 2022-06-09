@@ -112,9 +112,8 @@ dynamic learning rate:
 - mindspore：
 
 ```python
+import mindspore as ms
 from mindspore import nn
-from mindspore import Tensor
-from mindspore import dtype as mstype
 
 # dynamic_lr
 milestone = [2, 5, 10]
@@ -128,7 +127,7 @@ lr_schedule = nn.learning_rate_schedule.PolynomialDecayLR(learning_rate=0.1,
                                    decay_steps=4,
                                    power=0.5 )
 
-global_step = Tensor(2, mstype.int32)
+global_step = ms.Tensor(2, ms.int32)
 result = lr_schedule(global_step)
 print(result)
 

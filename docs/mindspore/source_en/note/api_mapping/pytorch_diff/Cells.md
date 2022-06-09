@@ -28,9 +28,9 @@ MindSpore: The function returns odict_values over immediate cells.
 
 ```python
 # The following implements mindspore.nn.Cell.cells() with MindSpore.
-import mindspore
+import mindspore as ms
 import numpy as np
-from mindspore import Tensor, nn
+from mindspore import nn
 
 class ConvBN(nn.Cell):
   def __init__(self):

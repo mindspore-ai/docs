@@ -38,10 +38,10 @@ MindSpore：The paddings parameter is a tuple whose shape is (n, 2), n is the di
 # In MindSpore.
 import numpy as np
 import torch
+import mindspore as ms
 import mindspore.nn as nn
-from mindspore import Tensor
 
-x = Tensor(np.ones([1, 2, 2, 3]).astype(np.float32))
+x = ms.Tensor(np.ones([1, 2, 2, 3]).astype(np.float32))
 pad_op = nn.Pad(paddings=((0, 0), (0, 0), (2, 2), (1, 1)))
 output = pad_op(x)
 print(output.shape)

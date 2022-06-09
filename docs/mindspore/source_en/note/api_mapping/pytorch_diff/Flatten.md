@@ -31,14 +31,13 @@ MindSpore：Only the 0th dimension element is reserved and the elements of the r
 ## Code Example
 
 ```python
-import mindspore
-from mindspore import Tensor
+import mindspore as ms
 import mindspore.ops as ops
 import torch
 import numpy as np
 
 # In MindSpore, only the 0th dimension will be reserved and the rest will be flattened.
-input_tensor = Tensor(np.ones(shape=[1, 2, 3, 4]), mindspore.float32)
+input_tensor = ms.Tensor(np.ones(shape=[1, 2, 3, 4]), ms.float32)
 flatten = ops.Flatten()
 output = flatten(input_tensor)
 print(output.shape)

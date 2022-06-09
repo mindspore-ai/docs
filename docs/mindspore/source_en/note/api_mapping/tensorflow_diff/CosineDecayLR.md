@@ -50,14 +50,13 @@ decayed_learning_rate = min_lr + 0.5 \* (max_lr - min_lr) \*
 # The following implements CosineDecayLR with MindSpore.
 import numpy as np
 import tensorflow as tf
-import mindspore
+import mindspore as ms
 import mindspore.nn as nn
-from mindspore import Tensor
 
 min_lr = 0.01
 max_lr = 0.1
 decay_steps = 4
-global_steps = Tensor(2, mindspore.int32)
+global_steps = ms.Tensor(2, ms.int32)
 cosine_decay_lr = nn.CosineDecayLR(min_lr, max_lr, decay_steps)
 result = cosine_decay_lr(global_steps)
 print(result)
