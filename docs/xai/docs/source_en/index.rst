@@ -32,3 +32,9 @@ Currently, most deep learning models are black-box models with good performance 
    mindspore_xai.explainer
    mindspore_xai.benchmark
    mindspore_xai.tool
+
+.. toctree::
+   :maxdepth: 1
+   :caption: FAQ
+
+   troubleshoot
