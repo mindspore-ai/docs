@@ -1615,7 +1615,7 @@ The input parameter `x` and `z` are `Tensor`, `y` is `int`. While `grad_net` cal
    net(1, 2)
    ```
 
-   In the preceding defined network, `self.num` is not a `Parameter` and cannot be modified. `self.par` is a `Parameter` and can be modified.
+   In the preceding defined network, `self.x` is not a `Parameter` and cannot be modified. `self.par` is a `Parameter` and can be modified.
 
    The result would be:
 
