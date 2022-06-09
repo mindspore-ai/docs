@@ -127,11 +127,26 @@ with open(autodoc_source_path, "r+", encoding="utf8") as f:
     exec(get_param_func_str, sphinx_autodoc.__dict__)
     exec(code_str, sphinx_autodoc.__dict__)
 
+# Copy source files of en python api from mindquantum repository.
+from sphinx.util import logging
+import shutil
+logger = logging.getLogger(__name__)
+
+src_dir = os.path.join(os.getenv("MQ_PATH"), 'docs/api_python_en')
+
+for i in os.listdir(src_dir):
+    if '.' in i:
+        if os.path.exists('./'+i):
+            os.remove('./'+i)
+        shutil.copy(os.path.join(src_dir,i),'./'+i)
+    else:
+        if os.path.exists('./'+i):
+            shutil.rmtree('./'+i)
+        shutil.copytree(os.path.join(src_dir,i),'./'+i)
+
 sys.path.append(os.path.abspath('../../../../resource/sphinx_ext'))
 import anchor_mod
 import nbsphinx_mod
-
-
 
 sys.path.append(os.path.abspath('../../../../resource/search'))
 import search_code

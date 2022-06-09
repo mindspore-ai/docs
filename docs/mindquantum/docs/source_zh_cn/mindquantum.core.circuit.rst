@@ -37,7 +37,7 @@ Quantum Circuit
 functional
 ----------
 
-The functional operators are shortcut of some pre-instantiated quantum circuit operators.
+如下的操作符是对应量子线路操作符的简写。
 
 .. list-table::
    :widths: 50 50

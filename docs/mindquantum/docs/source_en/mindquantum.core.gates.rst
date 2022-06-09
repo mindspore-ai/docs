@@ -10,7 +10,7 @@ Quantum Gates
 functional
 ----------
 
-The functional gates are the pre-instantiated quantum gates, which can be used directly as an instance of quantum gate.
+The gates blow are the pre-instantiated quantum gates, which can be used directly as an instance of quantum gate.
 
 .. list-table::
    :widths: 50 50

@@ -11,7 +11,7 @@ Quantum Circuit
 functional
 ----------
 
-The functional operators are shortcut of some pre-instantiated quantum circuit operators.
+The operators blow are shortcut of correspand quantum circuit operators.
 
 .. list-table::
    :widths: 50 50
