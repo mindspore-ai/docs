@@ -64,6 +64,17 @@ def py_rule_generator():
         '\n', '\n', '\n', '[TOKENS]\n', '\n', 'indent-after-paren=4\n', '\n', '\n', '[MINDSPORE LINES]\n',
         '\n', 'copyright=Copyright \\d{4} The MindSpore Authors\\. +All [Rr]ights [Rr]eserved\\.'
     ]
+
+    rule_except = [
+        'profile', 'cache-size', 'files-output', 'comment', 'zope',
+        'required-attributes', 'bad-functions', 'disable-report', 'no-space-check',
+        'ignore-iface-methods', 'short-func-length',
+        'deprecated-members', 'ignore-exceptions', 'copyright']
+
+    import pylint
+    pylint_version = pylint.__version__
+    if pylint_version >= "2.14.0":
+        rule_lines = [i for i in rule_lines if i.split("=")[0] not in rule_except]
     with open("./pylintrc", "w", encoding="utf-8") as f:
         f.writelines(rule_lines)
 
@@ -94,15 +105,23 @@ def get_notebook_cells(path):
 
 def check_notebook(path):
     """检测空白单元格"""
-    cells = get_notebook_cells(path)
-    for cell_num, cell in enumerate(cells, 1):
-        if not cell["source"]:
-            print("{}:cell_{}:empty cell need to delete".format(path, cell_num))
-        else:
-            for line_num, line_content in enumerate(cell["source"], 1):
-                if not line_content.endswith("\n") and line_content != cell["source"][-1]:
-                    print("{}:cell_{}:{}:The end of the line in the source\
-                     code should end with \\n".format(path, cell_num, line_num))
+    error_status = "Error_0"
+    try:
+        cells = get_notebook_cells(path)
+        for cell_num, cell in enumerate(cells, 1):
+            if not cell["source"]:
+                print("{}:cell_{}:empty cell need to delete".format(path, cell_num))
+            else:
+                for line_num, line_content in enumerate(cell["source"], 1):
+                    if not line_content.endswith("\n") and line_content != cell["source"][-1]:
+                        print("{}:cell_{}:{}:The end of the line in the source\
+                        code should end with \\n".format(path, cell_num, line_num))
+        error_status = "Error_1"
+    except json.decoder.JSONDecodeError as e:
+        print(f"{path}JSONDecodeError:{e.args[0]}")
+        error_status = "Error_2"
+    return error_status
+
 
 def check_mathematical_formula(path):
     """检测notebook中的数学公式空行问题"""
@@ -126,6 +145,8 @@ def check_mathematical_formula(path):
 
 def find_file(path, files=None):
     """递归遍历path中的所有文件"""
+    if files is None:
+        files = []
     file_name = os.listdir(path)
     is_file = [path + "/" + i for i in file_name if os.path.isfile(path + "/" + i)]
     is_dir = [j for j in file_name if os.path.isdir(path + "/" + j)]
@@ -133,7 +154,7 @@ def find_file(path, files=None):
         files.extend(is_file)
     if is_dir:
         for k in is_dir:
-            find_file(path+"/"+k, files)
+            files = find_file(path+"/"+k, files)
     return files
 
 def location(path):
@@ -248,6 +269,7 @@ def print_info(check_info, location_info):
     for file, error_line, error_info in check_info:
         cells = get_notebook_cells(file)
         try:
+            cell_count = 1
             for k, v in location_info.items():
                 if (int(error_line) - int(v.split("_")[0])) * (int(error_line) - int(v.split("_")[1])) <= 0:
                     cell_num = k
@@ -287,7 +309,9 @@ def white_code():
 
 def run(path):
     """运行检测"""
-    check_notebook(path)
+    check_error = check_notebook(path)
+    if check_error == "Error_2":
+        return
     checkinfo_1 = check_lint(path, lint_name="md")
     loc_1 = location(path)
     print_information_1 = print_info(checkinfo_1, loc_1)
