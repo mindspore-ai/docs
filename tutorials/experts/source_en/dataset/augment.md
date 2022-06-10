@@ -278,7 +278,7 @@ Users can use the `RandomSelectSubpolicy` interface of the `c_transforms` module
 
     ```python
     import mindspore.dataset as ds
-    from mindspore import dtype as mstype
+    import mindspore as ms
 
 
     def create_dataset(dataset_path, train, repeat_num=1,
@@ -295,7 +295,7 @@ Users can use the `RandomSelectSubpolicy` interface of the `c_transforms` module
         else:
             trans = [vision.Resize(256),
                      vision.CenterCrop(image_size)]
-        type_cast_op = c_transforms.TypeCast(mstype.int32)
+        type_cast_op = c_transforms.TypeCast(ms.int32)
 
         # map images and labes
         dataset = dataset.map(operations=trans, input_columns="image")

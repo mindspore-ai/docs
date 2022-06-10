@@ -64,14 +64,11 @@ In addition, because the backend is closer to the bottom layer, non-framework de
 The following is an example to describe the contents of the IR file (the content may have some changes with the version upgrade of MindSpore). Run the script:
 
 ```python
-from mindspore import set_context, GRAPH_MODE
-import mindspore.nn as nn
-from mindspore import Tensor
-from mindspore import ops
-from mindspore import dtype as mstype
+import mindspore as ms
+from mindspore import nn, ops
 
-set_context(mode=GRAPH_MODE)
-set_context(save_graphs=True, save_graphs_path="./")
+ms.set_context(mode=ms.GRAPH_MODE)
+ms.set_context(save_graphs=True, save_graphs_path="./")
 
 class Net(nn.Cell):
     def __init__(self):
@@ -90,8 +87,8 @@ class Net(nn.Cell):
         c = self.mul(b, self.func(a, b))
         return c
 
-input1 = Tensor(3, mstype.float32)
-input2 = Tensor(2, mstype.float32)
+input1 = ms.Tensor(3, ms.float32)
+input2 = ms.Tensor(2, ms.float32)
 net = Net()
 out = net(input1, input2)
 print(out)
@@ -278,38 +275,36 @@ In the process of MindSpore compiling a graph, the exceptions about graph evalua
 For example, we run the script below.
 
 ```python
-  1 from mindspore import set_context, GRAPH_MODE
+  1 import mindspore as ms
   2 import mindspore.nn as nn
-  3 from mindspore import Tensor
-  4 from mindspore.nn import Cell
-  5 from mindspore import ops
-  6 from mindspore import dtype as mstype
-  7
-  8 set_context(mode=GRAPH_MODE)
-  9 set_context(save_graphs=True)
- 10
- 11 class Net(nn.Cell):
- 12     def __init__(self):
- 13         super().__init__()
- 14         self.add = ops.Add()
- 15         self.sub = ops.Sub()
- 16         self.mul = ops.Mul()
- 17         self.div = ops.Div()
- 18
- 19     def func(x, y):
- 20         return self.div(x, y)
- 21
- 22     def construct(self, x, y):
- 23         a = self.sub(x, 1)
- 24         b = self.add(a, y)
- 25         c = self.mul(b, self.func(a, a, b))
- 26         return c
- 27
- 28 input1 = Tensor(3, mstype.float32)
- 29 input2 = Tensor(2, mstype.float32)
- 30 net = Net()
- 31 out = net(input1, input2)
- 32 print(out)
+  3 from mindspore.nn import Cell
+  4 from mindspore import ops
+  5
+  6 ms.set_context(mode=ms.GRAPH_MODE)
+  7 ms.set_context(save_graphs=True)
+  8
+  9 class Net(nn.Cell):
+ 10    def __init__(self):
+ 11        super().__init__()
+ 12        self.add = ops.Add()
+ 13        self.sub = ops.Sub()
+ 14        self.mul = ops.Mul()
+ 15        self.div = ops.Div()
+ 16
+ 17    def func(x, y):
+ 18        return self.div(x, y)
+ 19
+ 20    def construct(self, x, y):
+ 21        a = self.sub(x, 1)
+ 22        b = self.add(a, y)
+ 23        c = self.mul(b, self.func(a, a, b))
+ 24        return c
+ 25
+ 26 input1 = ms.Tensor(3, ms.float32)
+ 27 input2 = ms.Tensor(2, ms.float32)
+ 28 net = Net()
+ 29 out = net(input1, input2)
+ 30 print(out)
 ```
 
 An error happens.
@@ -317,11 +312,11 @@ An error happens.
 ```text
   1 [EXCEPTION] ANALYZER(31946,7f6f03941740,python):2021-09-18-15:10:49.094.863 [mindspore/ccsrc/pipeline/jit/static_analysis/stack_frame.cc:85] DoJump] The parameters number of the function is 2, but the number of provided arguments is 3.
   2 FunctionGraph ID : func.18
-  3 NodeInfo: In file test.py(19)
+  3 NodeInfo: In file test.py(17)
   4     def func(x, y):
   5
   6 Traceback (most recent call last):
-  7   File "test.py", line 31, in <module>
+  7   File "test.py", line 29, in <module>
   8     out = net(input1, input2)
   9   File "/home/workspace/mindspore/mindspore/nn/cell.py", line 404, in __call__
  10     out = self.compile_and_run(*inputs)
@@ -333,24 +328,24 @@ An error happens.
  16     result = self._graph_executor.compile(obj, args_list, phase, use_vm, self.queue_name)
  17 TypeError: mindspore/ccsrc/pipeline/jit/static_analysis/stack_frame.cc:85 DoJump] The parameters number of the function is 2, but the number of provided arguments is 3.
  18 FunctionGraph ID : func.18
- 19 NodeInfo: In file test.py(19)
+ 19 NodeInfo: In file test.py(17)
  20     def func(x, y):
  21
  22 The function call stack (See file '/home/workspace/mindspore/rank_0/om/analyze_fail.dat' for more details):
- 23 # 0 In file test.py(26)
+ 23 # 0 In file test.py(24)
  24         return c
  25         ^
- 26 # 1 In file test.py(25)
+ 26 # 1 In file test.py(23)
  27         c = self.mul(b, self.func(a, a, b))
  28                         ^
 ```
 
 Above exception is "TypeError: mindspore/ccsrc/pipeline/jit/static_analysis/stack_frame.cc:85 DoJump] The parameters number of the function is 2, but the number of provided arguments is 3...".
 And it tells us `FunctionGraph ID : func.18` only needs two parameters, but actually gives 3.
-We can find the related code is `self.func(a, a, b)` from 'The function call stack ... In file test.py(25)'.
+We can find the related code is `self.func(a, a, b)` from 'The function call stack ... In file test.py(23)'.
 Easily, by checking the code, we know that we gave too much parameter to the calling function.
 
-Sometimes the exception information is not enough easy to understand. Or we want to see the part of graph information that have evaluated. We use text editing software (e.g., vi) to open the file (in parentheses on line 22) that prompts in the error message: `/home/workspace/mindspore/rank_0/om/analyze_fail.dat` with the following content:
+Sometimes the exception information is not enough easy to understand. Or we want to see the part of graph information that have evaluated. We use text editing software (e.g., vi) to open the file (in parentheses on line 20) that prompts in the error message: `/home/workspace/mindspore/rank_0/om/analyze_fail.dat` with the following content:
 
 ```text
   1 # [No.1] construct_wrapper.0

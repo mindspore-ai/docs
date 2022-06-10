@@ -21,11 +21,11 @@ MindSpore provides the `Callback` capabilities to allow users to insert customiz
 Usage: Transfer the `Callback` object in the `model.train` method. It can be a `Callback` list, for example:
 
 ```python
-from mindspore import ModelCheckpoint, LossMonitor, SummaryCollector
+import mindspore as ms
 
-ckpt_cb = ModelCheckpoint()
-loss_cb = LossMonitor()
-summary_cb = SummaryCollector(summary_dir='./summary_dir')
+ckpt_cb = ms.ModelCheckpoint()
+loss_cb = ms.LossMonitor()
+summary_cb = ms.SummaryCollector(summary_dir='./summary_dir')
 model.train(epoch, dataset, callbacks=[ckpt_cb, loss_cb, summary_cb])
 ```
 
@@ -97,9 +97,9 @@ Here are two examples to further explain the usage of custom `Callback`.
 - Terminate training within the specified time.
 
     ```python
-    from mindspore import Callback
+    import mindspore as ms
 
-    class StopAtTime(Callback):
+    class StopAtTime(ms.Callback):
         def __init__(self, run_time):
             super(StopAtTime, self).__init__()
             self.run_time = run_time*60
@@ -126,9 +126,9 @@ In addition, you can modify and add values in the dictionary. In the preceding e
 - Save the checkpoint file with the highest accuracy during training.
 
     ```python
-    from mindspore import Callback
+    import mindspore as ms
 
-    class SaveCallback(Callback):
+    class SaveCallback(ms.Callback):
         def __init__(self, eval_model, ds_eval):
             super(SaveCallback, self).__init__()
             self.model = eval_model
@@ -160,7 +160,7 @@ You can define a metrics dictionary object that contains multiple metrics and tr
 > <https://gitee.com/mindspore/docs/blob/master/docs/sample_code/debugging_info/custom_metrics.py>
 
 ```python
-from mindspore import Model
+import mindspore as ms
 import mindspore.nn as nn
 
 metrics = {
@@ -170,7 +170,7 @@ metrics = {
     'recall': nn.Recall(),
     'f1_score': nn.F1()
 }
-model = Model(network=net, loss_fn=net_loss, optimizer=net_opt, metrics=metrics)
+model = ms.Model(network=net, loss_fn=net_loss, optimizer=net_opt, metrics=metrics)
 result = model.eval(ds_eval)
 ```
 
@@ -193,12 +193,12 @@ By invoking the `eval` method of `Accuracy`, you will obtain the calculation res
 You can understand how `Accuracy` runs by using the following code:
 
 ```python
-from mindspore import Tensor
+import mindspore as ms
 from mindspore.nn import Accuracy
 import numpy as np
 
-x = Tensor(np.array([[0.2, 0.5], [0.3, 0.1], [0.9, 0.6]]))
-y = Tensor(np.array([1, 0, 1]))
+x = ms.Tensor(np.array([[0.2, 0.5], [0.3, 0.1], [0.9, 0.6]]))
+y = ms.Tensor(np.array([1, 0, 1]))
 metric = Accuracy()
 metric.clear()
 metric.update(x, y)
@@ -219,12 +219,11 @@ The method of using the MindSpore `Print` operator is the same as that of other 
 
 ```python
 import numpy as np
-from mindspore import Tensor
+import mindspore as ms
 import mindspore.ops as ops
 import mindspore.nn as nn
-from mindspore import set_context, GRAPH_MODE
 
-set_context(mode=GRAPH_MODE)
+ms.set_context(mode=ms.GRAPH_MODE)
 
 class PrintDemo(nn.Cell):
     def __init__(self):
@@ -235,8 +234,8 @@ class PrintDemo(nn.Cell):
         self.print('print Tensor x and Tensor y:', x, y)
         return x
 
-x = Tensor(np.ones([2, 1]).astype(np.int32))
-y = Tensor(np.ones([2, 2]).astype(np.int32))
+x = ms.Tensor(np.ones([2, 1]).astype(np.int32))
+y = ms.Tensor(np.ones([2, 2]).astype(np.int32))
 net = PrintDemo()
 output = net(x, y)
 ```

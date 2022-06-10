@@ -18,8 +18,8 @@ The graph kernel fusion is available for:
 The graph kernel is disabled by default. We can just specify the `enable_graph_kernel=True` parameter for `context` in the training script to enable it.
 
 ```python
-from mindspore import set_context
-set_context(enable_graph_kernel=True)
+import mindspore as ms
+ms.set_context(enable_graph_kernel=True)
 ```
 
 > - Only Graph Mode is supported by graph kernel.
@@ -31,15 +31,15 @@ To illustrate the fusion scenario, we construct a simple network `MyNet`, includ
 
 ```python
 import numpy as np
-from mindspore import Tensor, set_context, GRAPH_MODE
+import mindspore as ms
 from mindspore.nn import Cell
 import mindspore.ops as ops
 
-set_context(mode=GRAPH_MODE, device_target="GPU")
+ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU")
 # save graph ir to view fusion detail.
-set_context(save_graphs=True)
+ms.set_context(save_graphs=True)
 # enable graph kernel optimization.
-set_context(enable_graph_kernel=True)
+ms.set_context(enable_graph_kernel=True)
 
 class MyNet(Cell):
     def __init__(self):
@@ -54,7 +54,7 @@ class MyNet(Cell):
 
 x = np.ones((4, 4)).astype(np.float32) * 0.5
 net = MyNet()
-result = net(Tensor(x))
+result = net(ms.Tensor(x))
 print("result: {}".format(result))
 ```
 
@@ -87,13 +87,13 @@ We construct a simple network `MyNet` and define the custom operator `MyOp`:
 
 ```python
 import numpy as np
-from mindspore import Tensor, set_context, GRAPH_MODE
+import mindspore as ms
 from mindspore.nn import Cell
 import mindspore.ops as ops
 
-set_context(mode=GRAPH_MODE, device_target="GPU")
+ms.set_context(mode=ms.GRAPH_MODE, device_target="GPU")
 # enable graph kernel optimization.
-set_context(enable_graph_kernel=True)
+ms.set_context(enable_graph_kernel=True)
 
 class MyOp(Cell):
     """ my first custom OP composited by basic OPs """
@@ -122,7 +122,7 @@ class MyNet(Cell):
 x = np.ones((4, 4)).astype(np.float32) * 0.2
 y = np.ones((4, 4)).astype(np.float32) * 0.3
 net = MyNet()
-result = net(Tensor(x), Tensor(y))
+result = net(ms.Tensor(x), ms.Tensor(y))
 print("result: {}".format(result))
 ```
 

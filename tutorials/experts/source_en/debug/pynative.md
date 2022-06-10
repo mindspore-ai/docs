@@ -12,9 +12,9 @@ First, we import the dependencies and set the run mode to PyNative mode:
 import numpy as np
 import mindspore.ops as ops
 import mindspore.nn as nn
-from mindspore import Tensor, set_context, PYNATIVE_MODE, dtype as mstype
+import mindspore as ms
 
-set_context(mode=PYNATIVE_MODE)
+ms.set_context(mode=ms.PYNATIVE_MODE)
 ```
 
 ### Executing Single Operators
@@ -23,8 +23,8 @@ The following is example code of executing Add operator [mindspore.ops.Add](http
 
 ```python
 add = ops.Add()
-x = Tensor(np.array([1, 2]).astype(np.float32))
-y = Tensor(np.array([3, 5]).astype(np.float32))
+x = ms.Tensor(np.array([1, 2]).astype(np.float32))
+y = ms.Tensor(np.array([3, 5]).astype(np.float32))
 z = add(x, y)
 print("x:", x.asnumpy(), "\ny:", y.asnumpy(), "\nz:", z.asnumpy())
 ```
@@ -41,8 +41,8 @@ def add_func(x, y):
     z = add(z, x)
     return z
 
-x = Tensor(np.array([1, 2]).astype(np.float32))
-y = Tensor(np.array([3, 5]).astype(np.float32))
+x = ms.Tensor(np.array([1, 2]).astype(np.float32))
+y = ms.Tensor(np.array([3, 5]).astype(np.float32))
 z = add_func(x, y)
 print("x:", x.asnumpy(), "\ny:", y.asnumpy(), "\nz:", z.asnumpy())
 ```
@@ -61,8 +61,8 @@ class Net(nn.Cell):
         return self.mul(x, y)
 
 net = Net()
-x = Tensor(np.array([1.0, 2.0, 3.0]).astype(np.float32))
-y = Tensor(np.array([4.0, 5.0, 6.0]).astype(np.float32))
+x = ms.Tensor(np.array([1.0, 2.0, 3.0]).astype(np.float32))
+y = ms.Tensor(np.array([4.0, 5.0, 6.0]).astype(np.float32))
 z = net(x, y)
 
 print("x:", x.asnumpy(), "\ny:", y.asnumpy(), "\nz:", z.asnumpy())
@@ -77,7 +77,7 @@ Custom bprop functions are used by: adding a user-defined bprop function to the 
 The sample code is as follows:
 
 ```python
-set_context(mode=PYNATIVE_MODE)
+ms.set_context(mode=ms.PYNATIVE_MODE)
 
 class Net(nn.Cell):
     def construct(self, x, y):
@@ -91,7 +91,7 @@ class Net(nn.Cell):
         return x_dout, y_dout
 
 grad_all = ops.GradOperation(get_all=True)
-output = grad_all(Net())(Tensor(1, mstype.float32), Tensor(2, mstype.float32))
+output = grad_all(Net())(ms.Tensor(1, ms.float32), ms.Tensor(2, ms.float32))
 print(output)
 ```
 
@@ -102,25 +102,25 @@ In PyNative mode, in order to improve performance, the operator uses asynchronou
 In PyNative mode, the operator defaults to asynchronous execution, and you can control whether the execution is asynchronous by setting the content. When operator execution fails, it is convenient to see the location of the code where the error occurred through the calling stack. The sample code is as follows:
 
 ```python
-from mindspore import dtype as mstype
+import mindspore as ms
 
 # Synchronize operator execution by setting the pynative_synchronize
-set_context(mode=PYNATIVE_MODE, pynative_synchronize=True)
+ms.set_context(mode=ms.PYNATIVE_MODE, pynative_synchronize=True)
 
 class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
-        self.get_next = ops.GetNext([mstype.float32], [(1, 1)], 1, "test")
+        self.get_next = ops.GetNext([ms.float32], [(1, 1)], 1, "test")
 
     def construct(self, x1,):
         x = self.get_next()
         x = x + x1
         return x
 
-set_context()
+ms.set_context()
 x1 = np.random.randn(1, 1).astype(np.float32)
 net = Net()
-output = net(Tensor(x1))
+output = net(ms.Tensor(x1))
 print(output.asnumpy())
 ```
 

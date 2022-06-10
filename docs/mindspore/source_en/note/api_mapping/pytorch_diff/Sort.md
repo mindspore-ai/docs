@@ -36,7 +36,8 @@ MindSpore: Sorts the elements of the input tensor along a given dimension in asc
 ```python
 import numpy as np
 import torch
-import mindspore.ops as ops
+from mindspore import ops
+import mindspore as ms
 
 # MindSpore
 x = ms.Tensor(np.array([[8, 2, 1], [5, 9, 3], [4, 6, 7]]), ms.float16)

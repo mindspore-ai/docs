@@ -149,11 +149,10 @@ Define the network in the `test_square.py` file.
 ```python
 import numpy as np
 import mindspore.nn as nn
-from mindspore import set_context, GRAPH_MODE
-from mindspore import Tensor
+import mindspore as ms
 # Import the definition of the CusSquare primitive.
 from cus_square import CusSquare
-set_context(mode=GRAPH_MODE, device_target="Ascend")
+ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
 
 class Net(nn.Cell):
     def __init__(self):
@@ -166,7 +165,7 @@ class Net(nn.Cell):
 def test_net():
     x = np.array([1.0, 4.0, 9.0]).astype(np.float32)
     square = Net()
-    output = square(Tensor(x))
+    output = square(ms.Tensor(x))
     print("x: ", x)
     print("output: ", output)
 ```
@@ -240,13 +239,11 @@ The following is an example of the AICPU call implementation of the `Dropout2D` 
 ```python
 import numpy as np
 from mindspore.ops import prim_attr_register, PrimitiveWithInfer
-from mindspore import dtype as mstype
+import mindspore as ms
 from mindspore.ops import op_info_register, AiCPURegOp, DataType
 import mindspore.nn as nn
 import mindspore.ops as ops
-from mindspore import set_context, GRAPH_MODE
-from mindspore import Tensor
-set_context(mode=GRAPH_MODE, device_target="Ascend")
+ms.set_context(mode=ms.GRAPH_MODE, device_target="Ascend")
 
 class Dropout2D(PrimitiveWithInfer):
     @prim_attr_register
@@ -258,7 +255,7 @@ class Dropout2D(PrimitiveWithInfer):
         return x_shape, x_shape
 
     def infer_dtype(self, x_dtype):
-        mask_dtype = mstype.tensor_type(mstype.bool_)
+        mask_dtype = ms.tensor_type(ms.bool_)
         return x_dtype, mask_dtype
 
 dropout2d_op_info = AiCPURegOp("Dropout2D") \
@@ -297,7 +294,7 @@ class NetDropout2D(nn.Cell):
         return self.op(inputs)
 
 if __name__ == "__main__":
-    input_tensor = Tensor(np.ones([1, 1, 2, 3]), mstype.float32)
+    input_tensor = ms.Tensor(np.ones([1, 1, 2, 3]), ms.float32)
     dropout2d_nn = NetDropout2D(0.5)
     output, mask = dropout2d_nn(input_tensor)
     print("output: ", output)
@@ -356,7 +353,7 @@ def test_grad_net():
     sens = np.array([1.0, 1.0, 1.0]).astype(np.float32)
     square = Net()
     grad = ops.GradOperation(sens_param=True)
-    dx = grad(square)(Tensor(x), Tensor(sens))
+    dx = grad(square)(ms.Tensor(x), ms.Tensor(sens))
     print("x: ", x)
     print("dx: ", dx)
 ```
